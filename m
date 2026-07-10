@@ -4,44 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D68E3C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 14:09:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FB79C44501
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 14:09:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38B3310E1DC;
-	Fri, 10 Jul 2026 14:09:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D06D810E12C;
+	Fri, 10 Jul 2026 14:09:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H3COwlnE";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kgmiif0J";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E56DE10E1DC
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 14:09:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85DE389316;
+ Fri, 10 Jul 2026 14:09:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AB36F43B55;
- Fri, 10 Jul 2026 14:09:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C6F01F000E9;
- Fri, 10 Jul 2026 14:09:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783692550;
- bh=hBMrgBlPHIu/FnikY/JkWC060uPmmKPAa/V9ePxoPtc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=H3COwlnEJBI2vJwgZOnhB2XkLo8UJktomT3tFExmw3+zoxSWq5fVazbVi78yNiiCk
- f3hVGHCeFwGks1S/p/cgzcTPGjLjL9n/vzep6L4y5WyofQihoAOVBrfDToS+1AqMyG
- Bq163GuTGqhWpQ2zQulx5278bMs/zQ7/6aLcQ9hdHTcMMm0DmqVP6jBRBJr7HQpXOM
- cRY1xJTHCJRPNL17olMv3iEPb+nhrcc0wYYjdTQtZuLqzuV1wmjPgLeDvlRLs/zlRA
- LJ5EcfCAMN2pbc9Q5XmpIDoZm/B6Q8qB20QUnxlMWSIvOO8fgaRJ0UTkyEQx+rRCUn
- qJDgVj74TnlJA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] drm/bridge: nwl-dsi: Limit LCDIF specific sync
- override
-To: "Esben Haabendal" <esben@geanix.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260710-nwl-dsi-fixes-v1-1-927d918a86ad@geanix.com>
-References: <20260710-nwl-dsi-fixes-v1-0-927d918a86ad@geanix.com>
- <20260710-nwl-dsi-fixes-v1-1-927d918a86ad@geanix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 14:09:10 +0000
-Message-Id: <20260710140910.6C6F01F000E9@smtp.kernel.org>
+ by tor.source.kernel.org (Postfix) with ESMTP id D4C2460051;
+ Fri, 10 Jul 2026 14:09:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E7411F000E9;
+ Fri, 10 Jul 2026 14:09:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1783692593;
+ bh=h1xi3IKQjbdJ53JCv2L+jzRlcSu7ApiSTvfpodjcvtk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=kgmiif0JKq2HSeSzJ7OofwRSlUD94iS3uEV1tKQ943E0Dw5HJBa/NodJ+UjhAlKNH
+ FGbXFGZ+JEAXY3Dr+tF4ssnWwH8WP2JApHQJxCeAynEVTGBtdWPwSFCDmJ7/fOYkFW
+ Kncg2+p1T/D/wvPa/3glV7KVkw5wq6sn17XSngyM=
+Date: Fri, 10 Jul 2026 16:09:16 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>,
+ Mark Brown <broonie@opensource.wolfsonmicro.com>,
+ Thierry Reding <thierry.reding@avionic-design.de>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Peter Chen <peter.chen@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, mfd@lists.linux.dev,
+ stable@vger.kernel.org, Manuel Ebner <manuelebner@mailbox.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Subject: Re: [PATCH v3 00/20] driver core: count references of the platform
+ device's fwnode, not OF node
+Message-ID: <2026071001-limelight-stoppable-d7cb@gregkh>
+References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,72 +98,43 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Mon, Jul 06, 2026 at 02:44:12PM +0200, Bartosz Golaszewski wrote:
+> Platform device core provides helper interfaces for dealing with
+> dynamically created platform devices. Most users should use
+> platform_device_register_full() which encapsulates most of the
+> operations but some modules will want to use the split approach of
+> calling platform_device_alloc() + platform_device_add() separately for
+> various reasons.
+> 
+> With many platform devices now using dynamic software nodes as their
+> primary firmware nodes and with the platform device interface being
+> extended to also better cover the use-cases of secondary software nodes,
+> I believe it makes sense to switch to counting the references of all
+> kinds of firmware nodes.
+> 
+> To that end, I identified all users of platform_device_alloc() that also
+> assign dev.of_node or dev.fwnode manually. I noticed five cases where
+> the references are not increased as they should (patches 1-5 fix these
+> users) and provided three new functions in platform_device.h that now
+> become the preferred interfaces for assigning firmware nodes to dynamic
+> platform devices (in line with platform_device_add_data(),
+> platform_device_add_resources(), etc.). The bulk of the patches in this
+> series are small driver conversions to port all users to going through
+> the new functions that now encapsulate the refcount logic. With that
+> done, the final patch seamlessly switches to counting the references of
+> all firmware node types.
+> 
+> This effort is prerequisite of removing platform_device_release_full()
+> and unifying the release path for dynamic platform devices using
+> unmanaged software nodes.
+> 
+> Merging strategy: The entire series should go through the driver core
+> tree, possibly with an immutable branch provided to solve any potential
+> conflicts though these are rather unlikely.
 
-Pre-existing issues:
-- [High] Dangling pointer `dsi->xfer` leads to stack Use-After-Free if a ti=
-meout or clock error occurs during transfer.
---
+I've added this to the driver-core-testing branch now, thanks!
 
---- Patch [1]: [PATCH 1/3] drm/bridge: nwl-dsi: Limit LCDIF specific sync o=
-verride ---
-commit 36a9bfa60fd8b6568d59af4e95e04fc059970758
-Author: Esben Haabendal <esben@geanix.com>
-
-drm/bridge: nwl-dsi: Limit LCDIF specific sync override
-
-When using DCSS with NWL, overriding the mode flags to enforce active high
-sync is preventing the use of active low with downstream bridges, such as
-ti-sn65dsi83, which will not see such mode flags set by the panel.
-
-> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nw=
-l-dsi.c
-> index 3c9ae93c4f671..915e1bdc73c80 100644
-> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
-> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-> @@ -110,6 +110,8 @@ struct nwl_dsi {
->  	int error;
-> =20
->  	struct nwl_dsi_transfer *xfer;
-
-[Severity: High]
-This is a pre-existing issue, but could this pointer lead to a stack
-use-after-free if a timeout or clock error occurs during a transfer?
-
-In nwl_dsi_host_transfer(), dsi->xfer is assigned the address of a local st=
-ack
-variable:
-
-	struct nwl_dsi_transfer xfer;
-	...
-	dsi->xfer =3D &xfer;
-
-If clk_prepare_enable(dsi->rx_esc_clk) fails, or if the DSI transfer times =
-out
-(wait_for_completion_timeout() returns 0), the function returns without
-clearing dsi->xfer.
-
-If a delayed or spurious hardware interrupt later triggers
-nwl_dsi_irq_handler(), it will call nwl_dsi_finish_transmission() which
-dereferences the dangling dsi->xfer pointer:
-
-	xfer->status =3D xfer->tx_len;
-	complete(&xfer->completed);
-
-Because xfer was originally on the stack of the returned function, could th=
-is
-overwrite arbitrary stack memory of whatever thread happens to be running at
-the time of the interrupt?
-
-> +
-> +	unsigned int endpoint;
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-nwl-dsi-fi=
-xes-v1-0-927d918a86ad@geanix.com?part=3D1
+greg k-h
