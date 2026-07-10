@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35D58C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:18:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9218C44506
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:19:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C09910F988;
-	Fri, 10 Jul 2026 22:18:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5800C10E272;
+	Fri, 10 Jul 2026 22:19:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NESl6tmi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YjTf0Bhr";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3C110F988
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 22:18:48 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D234810E272
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 22:19:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 17AA942E60;
- Fri, 10 Jul 2026 22:18:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C342E1F000E9;
- Fri, 10 Jul 2026 22:18:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3DB2660052;
+ Fri, 10 Jul 2026 22:19:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDECD1F000E9;
+ Fri, 10 Jul 2026 22:19:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783721928;
- bh=AQGW7U2OSOGVthlzh/txLbwRZCF5AMX8rH4nYsLJsTk=;
+ s=k20260515; t=1783721996;
+ bh=qmL2NVGLwbAsV+Q8BViUmysbDuZUAGPxfk42srT1TLk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NESl6tmiTlrtvinKdJKr9b0pTx/0hoZ4FR6TSdTaowzKejfmnoEsmtSJiu/E/isQd
- f/I9MUki4BdXi+c96cptMKbodnv6EysjT4nirhv3s5HrWj0yIceGabdIkyf/28qeNr
- oc2Ubf8ZOubR2VIGAIdzpa5uF1bOOmblu3b2333UZGdRyJebW27PFH9T39PKhqRLEl
- 3/Y5vaU8yDfiT8+zkgCo7p/A1keTvHKeWGB+efJVLf3oH6ECpsednA2XYDHV7M8r7i
- Xuq13gFJg+XvHz06qiYvCYZflKCcc2OIDsoY4s13adeaujBy9ObuvN7lOAhC+ZKmPZ
- rRT+NZlDBJEyQ==
+ b=YjTf0BhrYrki8cFhxwcgEMm3GvJbQ6yScLY/oREIDpRKnDklxnp2gTj54oASDDVfT
+ utoJFaVPnTh9yCGr/KiSjrwsJChSkhIpPrV7osmyEknS18Bf6pdKKc18HvyEx2q7BR
+ 6JIs+4eXPrKAa5uFMA/V5G4Cg05uh291w3lsxl2XRYGnNlA/HjOp3g+YcqhycP0zUx
+ 1umbSORLI8RaBGTSbvYurGCwBiVsGJoC6hbk4C8ctOpqZJUilh/xLeFzvoL2t9eQa6
+ QQ7j4WPpoXzNtZ2GKy16WaRpt0XiZEmalp+ZAHkvthSu/b7aISy6ON6qoEtOYjrRdM
+ CVMCMvVKjtEUg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 15/33] drm/xe: Track BOs backed at a sub-optimal page
- order
+Subject: Re: [PATCH v2 07/33] drm/ttm: Harvest beneficial-order pages on
+ defragmentation moves
 To: "Matthew Brost" <matthew.brost@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260710215442.2444235-16-matthew.brost@intel.com>
+In-Reply-To: <20260710215442.2444235-8-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
- <20260710215442.2444235-16-matthew.brost@intel.com>
+ <20260710215442.2444235-8-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 22:18:47 +0000
-Message-Id: <20260710221847.C342E1F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 22:19:56 +0000
+Message-Id: <20260710221956.BDECD1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,87 +58,152 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] BOs moved to SYSTEM memory during a failed shrinker purge are in=
-correctly left on the defrag list.
-- [Medium] Framebuffer pinning bypasses defrag list tracking updates, viola=
-ting the invariant that pinned BOs are removed from the list.
+- [Critical] Defragmentation of DMA-allocated or external TTs causes massiv=
+e out-of-bounds memory writes due to misinterpreting page private data as a=
+n allocation order.
+- [Critical] Misaligned chunks between the old and new TT lead to partial c=
+hunk harvesting, resulting in a severe use-after-free.
+- [High] If the driver's move callback returns `-EMULTIHOP`, the defragment=
+ation rollback is bypassed, causing a permanent memory leak of the original=
+ buffer object TT.
 --
 
---- Patch [15]: [PATCH v2 15/33] drm/xe: Track BOs backed at a sub-optimal =
-page order ---
-commit d8c62c56c566775d903f43756778e071af0acb80
+--- Patch [7]: [PATCH v2 07/33] drm/ttm: Harvest beneficial-order pages on =
+defragmentation moves ---
+commit 74e91ed102adee47c82989ab7b4f83fd70da47c2
 Author: Matthew Brost <matthew.brost@intel.com>
+drm/ttm: Harvest beneficial-order pages on defragmentation moves
 
-    drm/xe: Track BOs backed at a sub-optimal page order
+A defragmentation move relocates a populated tt into a freshly allocated
+one so that sub-beneficial-order chunks can be upgraded to the device's
+beneficial order. Previously, if allocation could not complete entirely
+at beneficial order, the move failed and all progress was discarded.
+Instead, once allocation has successfully upgraded part of the object,
+the remainder of the old tt is harvested to complete the new tt. Thread
+the BO's old, still-populated tt into the page allocator via a new
+ttm_operation_ctx::defrag_old_tt.
 
-    Add per-device tracking of BOs whose backing TT pages were allocated
-    below the pool's beneficial order, as reported by the
-    TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED tt page flag. These BOs are future
-    candidates for a defragmentation pass that reallocates their pages at t=
-he
-    beneficial order.
-
-> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index cca617cf34d13..d7b0536564ab2 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.c
-> +++ b/drivers/gpu/drm/xe/xe_bo.c
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
 [ ... ]
-> @@ -1261,6 +1358,15 @@ static long xe_bo_shrink_purge(struct ttm_operatio=
-n_ctx *ctx,
->  	if (lret > 0) {
->  		xe_ttm_tt_account_subtract(xe, bo->ttm);
->  		update_global_total_pages(bo->bdev, -(long)tt->num_pages);
-> +
-> +		/*
-> +		 * The pages are gone, so a tracked BO no longer needs defrag.
-> +		 * This shrinker purge path frees pages without going through
-> +		 * xe_bo_move(), so drop any stale defrag list entry here. Ghost
-> +		 * bos are never tracked, so guard for real xe bos.
-> +		 */
-> +		if (xe_bo_is_xe_bo(bo))
-> +			xe_bo_defrag_remove(ttm_to_xe_bo(bo));
+> @@ -218,10 +225,18 @@ static int ttm_bo_handle_move_mem(struct ttm_buffer=
+_object *bo,
+>  	if (defrag)
+>  		ttm_bo_unmap_virtual(bo);
+> =20
+>  	ret =3D bdev->funcs->move(bo, evict, ctx, mem, hop);
+>  	if (ret) {
+>  		if (ret =3D=3D -EMULTIHOP)
+>  			return ret;
+>  		goto out_err;
 >  	}
 > =20
->  	return lret;
+>  	if (bo->defrag_old_tt) {
 
-[Severity: Medium]
-When xe_bo_shrink_purge() attempts to purge a BO, it uses ttm_bo_move_null(=
-) to
-move it to XE_PL_SYSTEM, which bypasses xe_bo_defrag_update().=20
+[Severity: High]
+If bdev->funcs->move() returns -EMULTIHOP, does returning immediately bypass
+the out_err rollback path?
 
-If the subsequent ttm_bo_shrink() call fails (lret <=3D 0), this explicit
-xe_bo_defrag_remove() is skipped.
+It looks like the original TT remains stashed in bo->defrag_old_tt instead =
+of
+being restored.
 
-Could this leave a tracked BO in SYSTEM memory while incorrectly remaining =
-on
-the defrag list, violating the tracking invariant and wasting worker cycles?
+When the move is retried, it appears bo->defrag_old_tt would be overwritten
+or cleared, causing the original buffer object TT and its unborrowed pages
+to be permanently leaked.
 
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
+l.c
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
 [ ... ]
-> @@ -3072,6 +3183,8 @@ int xe_bo_pin(struct xe_bo *bo, struct drm_exec *ex=
-ec)
->  	if (bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
->  		xe_ttm_tt_account_subtract(xe, bo->ttm.ttm);
-> =20
-> +	xe_bo_defrag_remove(bo);
+> +static int ttm_pool_iter_reuse_old(struct ttm_pool_alloc_iter *it)
+> +{
+> +	unsigned int harvest_order;
+> +	pgoff_t off;
+> +	int r;
 > +
->  	/*
->  	 * FIXME: If we always use the reserve / unreserve functions for locking
->  	 * we do not need this.
+> +	if (!it->defrag_old_tt || !it->beneficial_order)
+> +		return TTM_POOL_ITER_FILL;
+> +
+> +	off =3D it->tt->num_pages - it->alloc->remaining_pages;
+> +	harvest_order =3D ttm_pool_defrag_old_order(it->pool, it->defrag_old_tt,
+> +						  off, &it->old_cursor);
+> +
+> +	if (harvest_order < it->beneficial_order &&
+> +	    it->order >=3D it->beneficial_order)
+> +		return TTM_POOL_ITER_FILL;
+> +
+> +	it->order =3D harvest_order;
+> +	r =3D ttm_pool_harvest_page(it->defrag_old_tt, it->order, off, it->allo=
+c);
 
-[Severity: Medium]
-Will this miss defrag list tracking updates for framebuffer BOs?
+[Severity: Critical]
+What happens if the new TT allocation size is unaligned, causing the offset
+into the old TT to land in the middle of a large chunk?
 
-xe_fb_pin() and __xe_unpin_fb_vma() in drivers/gpu/drm/xe/display/xe_fb_pin=
-.c
-call ttm_bo_pin() and ttm_bo_unpin() directly rather than using this
-xe_bo_pin() wrapper.
+Could ttm_pool_iter_reuse_old() or ttm_pool_harvest_remaining() harvest a
+partial chunk, such as just the tail page?
 
-If a framebuffer BO resides in XE_PL_TT with sub-optimal page allocations,
-could it remain on the defrag list even when pinned, causing the defrag
-worker to incorrectly process pinned BOs?
+If it harvests a tail page, the page order would be read as 0 since the
+private data is only populated on the head page.
+
+> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
+> --- a/drivers/gpu/drm/ttm/ttm_tt.c
+> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
+[ ... ]
+> +void ttm_tt_defrag_disown_borrowed(struct ttm_tt *tt, const struct ttm_t=
+t *src)
+> +{
+> +	pgoff_t i =3D 0, run_start =3D 0;
+> +	bool in_run =3D false;
+[ ... ]
+> +	while (i < tt->num_pages) {
+> +		struct page *sp =3D src->pages[i];
+> +		unsigned int order =3D sp ? ttm_pool_page_order_nodma(sp) : 0;
+> +		pgoff_t nr =3D 1UL << order;
+
+[Severity: Critical]
+Can defragmentation be initiated on a buffer object that uses a DMA-allocat=
+ed
+or external TT?
+
+Looking at ttm_bo_handle_move_mem(), it does not appear to restrict
+defragmentation to non-DMA pools.
+
+If a DMA-allocated TT is defragmented, wouldn't ttm_pool_page_order_nodma()
+incorrectly read the DMA pointer stored in the page private data as an
+integer order?
+
+This would result in a huge bitshift when calculating nr, which is then
+used in the loop increment or the memset() calls, potentially causing severe
+out-of-bounds memory writes.
+
+> +		if (sp && tt->pages[i] =3D=3D sp) {
+> +			if (!in_run) {
+> +				run_start =3D i;
+> +				in_run =3D true;
+> +			}
+> +		} else if (in_run) {
+> +			memset(&tt->pages[run_start], 0,
+> +			       (i - run_start) * sizeof(*tt->pages));
+
+[Severity: Critical]
+Following up on the potential for harvesting an unaligned tail page (noted =
+in
+ttm_pool.c), if ttm_pool_iter_reuse_old() harvested a tail page, wouldn't
+this logic clear the pointer in the old TT for that tail page, but leave the
+head page pointer intact?
+
+When the old TT is eventually destroyed, wouldn't ttm_pool_free_range() free
+the entire chunk back to the system (since the head page still indicates a
+large order) while the tail page is still actively mapped and used by the n=
+ew
+TT, leading to a severe use-after-free regression?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710215442.2444=
-235-1-matthew.brost@intel.com?part=3D15
+235-1-matthew.brost@intel.com?part=3D7
