@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7D1AC4450A
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3A54C44508
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44A9010F991;
-	Fri, 10 Jul 2026 21:54:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6071710F987;
+	Fri, 10 Jul 2026 21:54:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iFWSKpLT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CoP68tZq";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 895C810F963;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30B1610E4B2;
  Fri, 10 Jul 2026 21:54:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1783720491; x=1815256491;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=u3Jx6VC8xZg2yCE3q2v8z9AzOPMGzRVVf08fs1sAico=;
- b=iFWSKpLTf9k40gzl0whj8L8qcd7nh5g0O1kHPW9kK0rvwOtJjgmuMkz3
- 2rLTqbhrz91uKZkKBBcUbPaKRtQyyIwvjgOQK6WQASlJ5V8e7p6jmoxge
- /OIfUhyEfgHVpiE84t0F/ktv54/5gKcz/H++tj3LI/tCCAQT/yuEiWPEH
- zgGv3QrK090OsH6aSlpOTw2Ly25WE0B562FO7JHF5k1U8Yib8jgQdHUjY
- HtOYdsogZt6kTlB1Zd12Aox+b1lWiczCC7/e8G7DzmskQX1OwMt+YX8Ee
- ec/9jJNYb+79oiGOF02PQAGk61/Mhqpys+qBxg8ahrdIudoeAWQzoHqT3 w==;
-X-CSE-ConnectionGUID: 1GjOnbhdTCGh1KdINAspsA==
-X-CSE-MsgGUID: tG2rIPqFSEGyRFPBGJ4s6Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543129"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543129"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Da6VyRQ660SNvDX2zt5AkYpTegXVeoQ+XA6FIQ1ygJo=;
+ b=CoP68tZqk3odl51vqpxr+Qe2j0xblyZVt6QOBKC2W8MNmwRqRy1UI5w3
+ ifwH+uG25vQLv2pB7sEaiVdOvd9udI1D+/bwzXAsNgNdgXD4v1fwwcyhl
+ LVANB9KFpccXJuajhFFC7FjSyiTIc6pDVqRo9Xjwb32U2bLnedhEvzP1Y
+ I6bvdqlPxk0gRVKpJRsx3Dfl2/1TBj2Rt31Gw/INgatGEqyM/3qgCIebm
+ 4cXHVsTS96IeCv6AJRctJRkF6e92N+2k5indSSYbPS6Sh6hI2fRk9Ufuf
+ MuwxTQvHaK2z7BUDiCPDvkjJFqzq4dse8vhrpWi7UPD8DCz0o8s8rw2ZT g==;
+X-CSE-ConnectionGUID: WqccR5tBR4eWGVq9705+FQ==
+X-CSE-MsgGUID: FEtWDa0cT168fkzZEZ9s0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543119"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543119"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Jul 2026 14:54:51 -0700
-X-CSE-ConnectionGUID: FtWfxIrsR9mm0PTFskZRHg==
-X-CSE-MsgGUID: scwcx8AnTQCWGQ8xyEUAUw==
+X-CSE-ConnectionGUID: FMX2oLEsQ4mhQWWNx/bIPw==
+X-CSE-MsgGUID: 0TX0mgMGQ7WDqy1XsAbcLA==
 X-ExtLoop1: 1
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
@@ -43,14 +43,23 @@ Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 14/33] drm/xe: Destroy page tables after unlinking all VMAs
- on VM close
-Date: Fri, 10 Jul 2026 14:54:23 -0700
-Message-Id: <20260710215442.2444235-15-matthew.brost@intel.com>
+Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v2 10/33] drm/ttm: Add full out-of-lock preallocation for
+ ttm_pool_alloc()
+Date: Fri, 10 Jul 2026 14:54:19 -0700
+Message-Id: <20260710215442.2444235-11-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260710215442.2444235-1-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,91 +76,432 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-xe_vm_close_and_put() freed the VM's page-table roots via
-xe_vm_pt_destroy() before destroying the "contested" VMAs - those backed
-by external (shared) BOs, which are deferred to xe_vma_destroy_unlocked()
-because unlinking them requires taking the external BO's dma-resv lock
-(via drm_exec), not vm->lock.
+ttm_pool_prealloc_fill() lets a driver preallocate beneficial-order pages
+outside the dma-resv lock for a defragmentation move, so the high-order
+allocations that may stall in reclaim/compaction happen off the critical
+section.  That bag is deliberately partial: it holds only interchangeable
+beneficial-order chunks and the allocator consumes it opportunistically,
+falling back to in-line allocation for everything else.
 
-Until such a VMA is unlinked it remains reachable from its BO through
-drm_gem_for_each_gpuvm_bo(). A concurrent BO move that only holds the
-BO's dma-resv lock - TTM eviction, the shrinker, or the defrag worker -
-calls xe_bo_move_notify() -> xe_bo_trigger_rebind() ->
-xe_vm_invalidate_vma() -> xe_pt_zap_ptes(), which dereferences
-vm->pt_root[tile->id]. With the page tables already freed this is a
-use-after-free / NULL dereference, e.g.:
+An ordinary populate of a system-memory buffer object has the same
+problem - the whole backing is allocated under the dma-resv lock - but no
+way to move it out of the critical section, because the existing bag does
+not cover sub-beneficial orders and does not describe a full tt.
 
-  Oops: general protection fault [...] kernel NULL pointer dereference
-  RIP: xe_pt_zap_ptes+0x7c [xe]
-  Call Trace:
-   xe_vm_invalidate_vma_submit+0x64/0x130 [xe]
-   xe_vm_invalidate_vma+0x27/0x60 [xe]
-   xe_bo_move_notify+0x1e7/0x3d0 [xe]
-   xe_bo_move+0x62d/0x1620 [xe]
-   ttm_bo_handle_move_mem+0x243/0x330 [ttm]
-   ttm_bo_validate+0xb4/0x1a0 [ttm]
+Add a "full" flavour of the same preallocation mechanism:
 
-The race is not closable with a flag or a NULL pt_root check in the
-invalidate path: the freeing side holds only vm->lock while the walker
-holds only the BO's resv, so there is no common lock to serialise on.
+  - struct ttm_pool_prealloc gains a @full flag.  In full mode the bag is
+    an ordered tiling of an entire tt at mixed orders (pool pages
+    included), rather than a set of interchangeable beneficial-order
+    chunks.  The per-chunk order is recorded on the page itself and read
+    back at consume time, so no parallel order array is needed.
 
-Fix the ordering instead: destroy the page tables only after every VMA -
-including the contested external-BO VMAs - has been unlinked. Once the
-contested loop completes no BO can reach a VMA of this VM, so freeing the
-page tables (under vm->lock, to satisfy xe_vm_assert_held()) is safe.
-xe_vm_free_scratch() still runs before the free as it reads
-pt_root[]->level.
+  - ttm_pool_prealloc_fill_full() allocates the whole backing for a tt of
+    @num_pages pages up front, mirroring the in-line allocator's order
+    walk (highest order first, capped by the remaining page count).  It
+    reuses the existing unlocked helpers (ttm_pool_prealloc_gfp(),
+    ttm_pool_set_caching()) via a new ttm_pool_take_page() helper that
+    tries a same-order pool page before a fresh system allocation.
 
-Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+  - ttm_pool_prealloc_fini() frees any unconsumed tail at each chunk's own
+    order when @full.
+
+  - ttm_pool_prealloc_fill_full() takes a @beneficial_reclaim_backoff
+    argument, plumbed to ttm_pool_alloc_page(), that lets the caller
+    allocate higher-order chunks without aggressive reclaim/compaction.
+    This suits a driver that upgrades suboptimal pages to beneficial order
+    in place later (e.g. via a background defragmenter) and so has no need
+    to stall the user context reclaiming for contiguity up front.
+
+  - __ttm_pool_alloc() consumes a full bag with a single early branch in
+    ttm_pool_iter_acquire_page(): install the next chunk as-is (order
+    taken from the page) and return; once the best-effort bag is drained
+    the loop falls through to normal in-line allocation.  The defrag
+    harvest and reuse-old phases are inert here as there is no
+    defrag_old_tt.
+
+Like the defrag bag, this is best-effort: a short fill is fine (the pool
+allocates the shortfall in-line) and DMA-alloc pools are unsupported
+(caching is applied on the kernel mapping).  No functional change for
+existing users; the new fill routine has no in-tree caller yet.
+
+Cc: Carlos Santa <carlos.santa@intel.com>
+Cc: Ryan Neph <ryanneph@google.com>
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Assisted-by: GitHub_Copilot:claude-opus-4.8
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/xe/xe_vm.c | 24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/ttm/ttm_pool.c | 232 ++++++++++++++++++++++++++++++++-
+ include/drm/ttm/ttm_bo.h       |  19 +--
+ include/drm/ttm/ttm_pool.h     |  27 +++-
+ 3 files changed, 258 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 4557a8a4d270..9f55d22cb985 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -1934,15 +1934,7 @@ void xe_vm_close_and_put(struct xe_vm *vm)
- 		vma->gpuva.flags |= XE_VMA_DESTROYED;
- 	}
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 76e5fc54ea9a..762ff1c73390 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -1031,6 +1031,7 @@ int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
+ 	pp->caching = tt_caching;
+ 	pp->count = 0;
+ 	pp->used = 0;
++	pp->full = false;
  
--	/*
--	 * All vm operations will add shared fences to resv.
--	 * The only exception is eviction for a shared object,
--	 * but even so, the unbind when evicted would still
--	 * install a fence to resv. Hence it's safe to
--	 * destroy the pagetables immediately.
--	 */
- 	xe_vm_free_scratch(vm);
--	xe_vm_pt_destroy(vm);
- 	xe_vm_unlock(vm);
+ 	/* Nothing to gain without a beneficial order or for DMA-alloc pools. */
+ 	if (!order || !count || ttm_pool_uses_dma_alloc(pool))
+@@ -1087,6 +1088,187 @@ int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
+ }
+ EXPORT_SYMBOL(ttm_pool_prealloc_fill);
  
- 	/*
-@@ -1956,6 +1948,22 @@ void xe_vm_close_and_put(struct xe_vm *vm)
- 		xe_vma_destroy_unlocked(vma);
- 	}
++/*
++ * Acquire a single *@order chunk, trying a same-order pool page first (already
++ * carries @caching) then a fresh system allocation (write-back). Runs unlocked.
++ * When @beneficial_reclaim_backoff is set, higher-order system allocations skip
++ * aggressive reclaim/compaction (see ttm_pool_alloc_page()).
++ *
++ * A fresh system page is write-back and needs the tt's caching applied later in
++ * bulk; *@need_caching is set true for it and false for a (pre-cached) pool
++ * page.
++ *
++ * On a genuine failure *@order is left untouched (the caller lowers it by one
++ * and retries). Fault injection instead pretends allocation at (or above) the
++ * beneficial order failed and lowers *@order to the beneficial order, so the
++ * caller's next attempt lands below it - mirroring the in-line acquire path's
++ * fail_beneficial jump and exercising the beneficial_order_failed tracking
++ * without driving the system into real fragmentation.
++ *
++ * Returns NULL if no page of *@order could be obtained.
++ */
++static struct page *ttm_pool_take_page(struct ttm_pool *pool,
++				       enum ttm_caching caching,
++				       unsigned int *order, gfp_t gfp,
++				       bool *need_caching,
++				       bool beneficial_reclaim_backoff)
++{
++	unsigned int beneficial = ttm_pool_beneficial_order(pool);
++	struct ttm_pool_type *pt;
++	struct page *p;
++
++	*need_caching = false;
++
++	if (IS_ENABLED(CONFIG_FAULT_INJECTION) && beneficial &&
++	    *order >= beneficial &&
++	    should_fail(&beneficial_order_fault_inject, 1)) {
++		*order = beneficial;
++		return NULL;
++	}
++
++	pt = ttm_pool_select_type(pool, caching, *order);
++	if (pt) {
++		p = ttm_pool_type_take(pt, ttm_pool_nid(pool));
++		if (p)
++			return p;	/* pool page already carries @caching */
++	}
++
++	p = ttm_pool_alloc_page(pool, gfp, *order, beneficial_reclaim_backoff);
++	if (!p)
++		return NULL;
++
++	/* Fresh system page is write-back; caller applies @caching in bulk. */
++	*need_caching = true;
++	return p;
++}
++
++/**
++ * ttm_pool_prealloc_fill_full() - Preallocate a whole tt's backing outside any
++ * lock
++ * @pool: The pool to allocate from.
++ * @tt_caching: The requested cpu-caching for the pages allocated.
++ * @pp: Prealloc bag to fill; marked @full and tiled with mixed-order chunks.
++ * @num_pages: Number of 4K pages the tt needs backed.
++ *
++ * Unlike ttm_pool_prealloc_fill() (which parks a bag of interchangeable
++ * beneficial-order defrag chunks), this allocates the ENTIRE backing for a tt
++ * of @num_pages pages up front, at whatever mix of orders is available (pool
++ * pages included), so that the subsequent __ttm_pool_alloc() under the dma-resv
++ * lock merely installs the pages without stalling in reclaim/compaction. The
++ * chunk orders mirror the in-line allocator's order walk; each chunk's order is
++ * recorded on the page itself and read back at consume time.
++ *
++ * May sleep/reclaim freely as it runs unlocked. When
++ * @beneficial_reclaim_backoff is set, higher-order chunks are taken without
++ * aggressive reclaim/compaction: the caller relies on a background
++ * defragmenter to upgrade to beneficial-order pages in place later, so there
++ * is no need to stall the user context reclaiming for contiguity here. A short
++ * fill is fine: the pool falls back to in-line allocation for the shortfall.
++ * DMA-alloc pools are not supported (the bag stays empty). Returns 0 (release
++ * with ttm_pool_prealloc_fini()).
++ */
++int ttm_pool_prealloc_fill_full(struct ttm_pool *pool,
++				enum ttm_caching tt_caching,
++				struct ttm_pool_prealloc *pp,
++				unsigned int num_pages,
++				bool beneficial_reclaim_backoff)
++{
++	gfp_t gfp = ttm_pool_prealloc_gfp(pool) | __GFP_ZERO |
++		__GFP_RETRY_MAYFAIL | __GFP_NOWARN;
++	unsigned int highest = MAX_PAGE_ORDER;
++	unsigned int remaining = num_pages;
++	struct page **cpages = NULL;
++	unsigned int ncpages = 0;
++	int r;
++
++	pp->pages = NULL;
++	pp->order = 0;
++	pp->caching = tt_caching;
++	pp->count = 0;
++	pp->used = 0;
++	pp->full = true;
++
++	/* Caching is applied on the kernel mapping, so DMA-alloc is unsupported. */
++	if (!num_pages || ttm_pool_uses_dma_alloc(pool))
++		return 0;
++
++	/* Worst case is one order-0 chunk per page. */
++	pp->pages = kvzalloc_objs(*pp->pages, num_pages);
++	if (!pp->pages)
++		return 0;
++
++	/*
++	 * Fresh write-back chunks get their caching changed in a single
++	 * set_pages_array_*() after the fill; collect their constituent pages
++	 * into an unpacked scratch array (one entry per 4K page) since the
++	 * packed bag holds mixed-order chunks. Cached tts and pool pages need
++	 * no change (and non-x86 handles caching at map time).
++	 */
++	if (IS_ENABLED(CONFIG_X86) && tt_caching != ttm_cached) {
++		cpages = kvzalloc_objs(*cpages, num_pages);
++		if (!cpages) {
++			kvfree(pp->pages);
++			pp->pages = NULL;
++			return 0;
++		}
++	}
++
++	while (remaining) {
++		unsigned int order = min_t(unsigned int, highest,
++					   __fls(remaining));
++		bool need_caching;
++		struct page *p;
++
++		for (;;) {
++			p = ttm_pool_take_page(pool, tt_caching, &order, gfp,
++					       &need_caching,
++					       beneficial_reclaim_backoff);
++			if (p)
++				break;
++			if (!order)
++				goto apply_caching;	/* short fill */
++			/*
++			 * Genuine failure: retry one order down. A fault
++			 * injection lowered @order to the beneficial order
++			 * above, so this drops it below - landing on a
++			 * sub-optimal (defrag-worthy) chunk.
++			 */
++			order--;
++		}
++
++		pp->pages[pp->count++] = p;
++		if (cpages && need_caching)
++			ttm_pool_prealloc_stage_caching(cpages, &ncpages, p,
++							order);
++		remaining -= 1u << order;
++		highest = order;
++	}
++
++apply_caching:
++	/*
++	 * Apply the requested caching to every collected page in one shot. On
++	 * failure the pages' caching is indeterminate, so drop the whole bag
++	 * (freeing restores write-back) and let the consumer allocate in-line.
++	 */
++	r = ttm_pool_prealloc_apply_caching(tt_caching, cpages, ncpages);
++	kvfree(cpages);
++	if (r) {
++		unsigned int i;
++
++		for (i = 0; i < pp->count; i++) {
++			struct page *p = pp->pages[i];
++
++			ttm_pool_free_page(pool, tt_caching,
++					   ttm_pool_page_order_nodma(p), p,
++					   false);
++		}
++		pp->count = 0;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(ttm_pool_prealloc_fill_full);
++
+ /**
+  * ttm_pool_prealloc_fini() - Release unconsumed preallocated pages
+  * @pool: The pool the pages came from.
+@@ -1096,9 +1278,13 @@ void ttm_pool_prealloc_fini(struct ttm_pool *pool, struct ttm_pool_prealloc *pp)
+ {
+ 	unsigned int i;
+ 
+-	for (i = pp->used; i < pp->count; ++i)
+-		ttm_pool_free_page(pool, pp->caching, pp->order, pp->pages[i],
+-				   false);
++	for (i = pp->used; i < pp->count; ++i) {
++		struct page *p = pp->pages[i];
++		unsigned int order = pp->full ?
++			ttm_pool_page_order_nodma(p) : pp->order;
++
++		ttm_pool_free_page(pool, pp->caching, order, p, false);
++	}
+ 	kvfree(pp->pages);
+ 	pp->pages = NULL;
+ 	pp->count = pp->used = 0;
+@@ -1235,9 +1421,10 @@ static int ttm_pool_iter_reuse_old(struct ttm_pool_alloc_iter *it)
+ 
+ /*
+  * Acquire a single page for the current order, leaving it in @it->p (NULL on
+- * failure). Tries, in order: a beneficial-order page preallocated outside the
+- * dma-resv lock (defrag), a same-order pool page, then a fresh system
+- * allocation. Fault injection can force the beneficial-order paths to "fail".
++ * failure). Tries, in order: a chunk from a full out-of-lock prealloc (populate
++ * of the whole tt), a beneficial-order page preallocated outside the dma-resv
++ * lock (defrag), a same-order pool page, then a fresh system allocation. Fault
++ * injection can force the beneficial-order paths to "fail".
+  */
+ static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
+ {
+@@ -1246,6 +1433,39 @@ static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
+ 
+ 	it->p = NULL;
  
 +	/*
-+	 * Destroy the page tables only after every VMA has been unlinked. The
-+	 * contested (external-BO) VMAs above are unlinked from their BO under
-+	 * the BO's dma-resv lock, not vm->lock, so they can still be reached
-+	 * via drm_gem_for_each_gpuvm_bo() by a concurrent BO move (eviction,
-+	 * shrinker or the defrag worker) that only holds the BO's resv. Such a
-+	 * move calls xe_vm_invalidate_vma() -> xe_pt_zap_ptes(), which
-+	 * dereferences vm->pt_root[]; freeing the page tables while those VMAs
-+	 * are still linked is a use-after-free. All vm operations add shared
-+	 * fences to the resv (eviction of a shared object still installs an
-+	 * unbind fence), so no GPU work outlives this point.
++	 * Full prealloc: the entire backing was allocated (pool + system, at
++	 * mixed orders) outside the dma-resv lock. Install the next chunk as-is,
++	 * taking its order from the page. Falls through to in-line allocation
++	 * once the best-effort bag is drained.
 +	 */
-+	xe_vm_lock(vm, false);
-+	xe_vm_pt_destroy(vm);
-+	xe_vm_unlock(vm);
++	if (pp && pp->full && pp->used < pp->count) {
++		it->fail_beneficial = false;
++		it->p = pp->pages[pp->used++];
++		it->order = ttm_pool_page_order_nodma(it->p);
++		it->page_caching = it->tt->caching;
 +
- 	xe_svm_fini(vm);
++		/*
++		 * The full prealloc tiles at whatever orders were available
++		 * without stalling in reclaim. A sub-beneficial chunk only
++		 * means a sub-optimal backing (defrag-worthy) when it sits in a
++		 * beneficial-order aligned region that fully fits in the tt -
++		 * that region could have been a beneficial-order page. A low
++		 * order in the unaligned trailing tail is expected and must not
++		 * flag the tt (mirrors ttm_pool_harvest_remaining()).
++		 */
++		if (it->beneficial_order && it->order < it->beneficial_order) {
++			pgoff_t bnr = 1UL << it->beneficial_order;
++			pgoff_t off = it->tt->num_pages -
++				      it->alloc->remaining_pages;
++
++			if (round_down(off, bnr) + bnr <= it->tt->num_pages)
++				it->tt->page_flags |=
++					TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
++		}
++		return;
++	}
++
+ 	/*
+ 	 * Fault injection: pretend allocation at (or above) the device's
+ 	 * beneficial order failed, forcing a sub-optimal backing. Exercises the
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index a80304f179ba..52ec7e5c0d2d 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -238,14 +238,17 @@ struct ttm_operation_ctx {
+ 	 */
+ 	s64 defrag_bytes_remaining;
+ 	/**
+-	 * @prealloc: Pages preallocated outside the dma-resv lock for a defrag
+-	 * move. The pool allocator consumes these instead of allocating fresh
+-	 * beneficial-order pages under the lock, moving the (potentially
+-	 * reclaim/compaction stalling) high-order allocations out of the
+-	 * critical section. NULL means allocate in-line as usual. The pool
+-	 * silently falls back to in-line allocation for any shortfall. The
+-	 * allocator consumes it for beneficial-order chunks of any populate;
+-	 * drivers only set it for a defrag move.
++	 * @prealloc: Pages preallocated outside the dma-resv lock. The pool
++	 * allocator consumes these instead of allocating under the lock, moving
++	 * the (potentially reclaim/compaction stalling) allocations out of the
++	 * critical section. NULL means allocate in-line as usual. Two flavours,
++	 * distinguished by ttm_pool_prealloc::full:
++	 *   - defrag bag (full=false): a bag of interchangeable beneficial-order
++	 *     chunks consumed only for beneficial-order chunks of a defrag move.
++	 *   - full tiling (full=true): the entire backing of the tt, at mixed
++	 *     orders, consumed for every chunk of an ordinary populate.
++	 * The allocator silently falls back to in-line allocation for any
++	 * shortfall.
+ 	 */
+ 	struct ttm_pool_prealloc *prealloc;
+ 	/**
+diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
+index 71670350eb15..777d5aa08f6a 100644
+--- a/include/drm/ttm/ttm_pool.h
++++ b/include/drm/ttm/ttm_pool.h
+@@ -83,18 +83,27 @@ void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
  
- 	up_write(&vm->lock);
+ /**
+  * struct ttm_pool_prealloc - Pages preallocated outside the dma-resv lock
+- * @pages: Array of @count beneficial-order pages (or fewer if a fill fell
+- *         short); each entry is the head page of a 1 << @order chunk.
+- * @order: Page order of every preallocated chunk.
++ * @pages: Array of @count preallocated chunks; each entry is the head page of a
++ *         chunk. In defrag mode every chunk is @order pages; in @full mode the
++ *         chunks tile a whole tt at mixed orders and the per-chunk order is read
++ *         back from the page itself.
++ * @order: Page order of every preallocated chunk (defrag mode only; 0 in @full
++ *         mode where each chunk carries its own order).
+  * @caching: CPU caching applied to the pages, so leftovers can be restored
+  *           to write-back before being freed.
+  * @count: Number of valid entries in @pages.
+  * @used: Number of entries already consumed by the pool allocator.
++ * @full: When set the bag holds a full, mixed-order tiling of an entire tt
++ *        (produced by ttm_pool_prealloc_fill_full()) rather than a bag of
++ *        interchangeable beneficial-order defrag chunks. The pool allocator
++ *        then drains the bag in order for every populate, taking each chunk's
++ *        order from the page, and falls back to in-line allocation only for any
++ *        shortfall.
+  *
+  * Defrag pages are interchangeable, so only a count of beneficial-order chunks
+- * is needed. ttm_pool_prealloc_fill() populates this outside the lock and
+- * __ttm_pool_alloc() drains it; any unused tail is released by
+- * ttm_pool_prealloc_fini().
++ * is needed. ttm_pool_prealloc_fill() / ttm_pool_prealloc_fill_full() populate
++ * this outside the lock and __ttm_pool_alloc() drains it; any unused tail is
++ * released by ttm_pool_prealloc_fini().
+  */
+ struct ttm_pool_prealloc {
+ 	struct page **pages;
+@@ -102,10 +111,16 @@ struct ttm_pool_prealloc {
+ 	enum ttm_caching caching;
+ 	unsigned int count;
+ 	unsigned int used;
++	bool full;
+ };
+ 
+ int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
+ 			   struct ttm_pool_prealloc *pp, unsigned int count);
++int ttm_pool_prealloc_fill_full(struct ttm_pool *pool,
++				enum ttm_caching tt_caching,
++				struct ttm_pool_prealloc *pp,
++				unsigned int num_pages,
++				bool beneficial_reclaim_backoff);
+ void ttm_pool_prealloc_fini(struct ttm_pool *pool,
+ 			    struct ttm_pool_prealloc *pp);
+ unsigned int ttm_pool_prealloc_order(struct ttm_pool *pool);
 -- 
 2.34.1
 
