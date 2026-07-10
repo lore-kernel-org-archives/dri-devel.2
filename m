@@ -4,61 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F25BDC44507
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 14:44:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F580C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 14:51:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EED3610E69C;
-	Fri, 10 Jul 2026 14:43:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A063910E1DB;
+	Fri, 10 Jul 2026 14:51:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cEq0r7Jx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GV0G1PCd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B219410E271;
- Fri, 10 Jul 2026 14:43:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783694638; x=1815230638;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=P/xTpRQYMnd8u/4+Tw0FzTUYhWK0cV5/lwQ3OzgYZ1g=;
- b=cEq0r7JxSCbd0ZbubfrWG30YEqCu8R/qx14qHORITDHrNEBKh0qEcT6z
- QKbt4nCUXvOyh48DyrC5WRE6oXas7ugcSTOdd+b2C7WOzjGqNeYlPAahA
- nR4yWcqsMy0kbMrdCgYdAYZzIEgAvmGizOYDCVHgnIG/QK7optaYHY/DL
- h4EbnUzYY2RwLl0Cp3EQM+iNAC1a5UL24OtLFYxZNb9SsUrXismlu6gxp
- AQaSoJNLm/oBg0T/oHWCNKZp/OwIxMmjX9CfjI0IzU+Ly8c1T0Jw7Yfvn
- 6chBULH7eyfZHIW2BOteGCHh034XfHnA02cycHqfgsPVBY57hqMZzB0JI g==;
-X-CSE-ConnectionGUID: DOKH8/TaQcWF3I2E+rA1wg==
-X-CSE-MsgGUID: nWv8fLBtSneUMoE9R+tKdQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="95040123"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="95040123"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 07:43:58 -0700
-X-CSE-ConnectionGUID: UI+Pb0gwS0We7SIQUxPtew==
-X-CSE-MsgGUID: qQi3cn8RR02z1tltzmgnIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="250915261"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.208])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 07:43:56 -0700
-Date: Fri, 10 Jul 2026 17:43:53 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maarten Lankhorst <dev@lankhorst.se>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 00/10] drm/intel/display: Changes required to make vblank
- evasion PREEMPT_RT safe.
-Message-ID: <alEFKfqD-69wOVxJ@intel.com>
-References: <20260702072154.171324-1-dev@lankhorst.se>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67B7D10E1C9;
+ Fri, 10 Jul 2026 14:51:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 67B6960051;
+ Fri, 10 Jul 2026 14:51:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A13DE1F00A3A;
+ Fri, 10 Jul 2026 14:50:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783695069;
+ bh=/adl28F1RG11+xFCTzjhiMT3/quSA/55SrYHe5Xl+as=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=GV0G1PCdVWL/17cPDVZfz86GmBO0VpAcpElRSgqzkFaZnFKsDK6rIw+lxzMvM7oyM
+ gOb7BmlLZV+r7XfvVToV0An5vS3DWoiRNZEtakP1kgKdd/pwAzK/AhJrUnpZlFH/ma
+ IDgVC6vlNuOfwFAEke1UlfCP3mMcmRNqv1rAQF1Ta5n8CDc7P/kP23VMlYUdFRkbMx
+ btXD63gJA5fhI4bndbOxrinkAQhHaNvBor7RN1UECzz5h5BotHDkxdGHR0ZdFn1Wle
+ sxRRlN3kLf8W7g8Lmmkim9s7ySe4W1NlivrC5VU8viOWzvoYYPKNt7/4lb6lTsMCz8
+ i1PWPp9WBYC/w==
+Date: Fri, 10 Jul 2026 15:50:44 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Kees Cook <kees@kernel.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, 
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, 
+ Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 13/30] mm/vma: refactor vmg_adjust_set_range() for clarity
+Message-ID: <alEGqHY5GPhT30Ty@lucifer>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <ada7972f49ea7f1ff1df6d11e4651f270444f8fd.1782735110.git.ljs@kernel.org>
+ <ak-70CHGujkI5jJI@gourry-fedora-PF4VCD3F>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260702072154.171324-1-dev@lankhorst.se>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+In-Reply-To: <ak-70CHGujkI5jJI@gourry-fedora-PF4VCD3F>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,67 +104,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 02, 2026 at 09:21:43AM +0200, Maarten Lankhorst wrote:
-> CONFIG_PREEMPT_RT requires code to be as deterministic as possible,
-> and codes with interrupts disabled cannot use spinlocks.
-> 
-> In order to handle this correctly, we ensure any locking requirements
-> are handled before disabling interrupts, and only start locking again
-> after interrupts are re-enabled and timing sensitive path completed.
-> 
-> This also has the benefit of making the vblank evasion code more
-> deterministic; without locking there's much less jitter.
-> 
-> Previously, we scheduled vblank work on completion.
-> This is now handled by scheduling the vblank in advance, only arming
-> it upon completion without locks.
+On Thu, Jul 09, 2026 at 11:18:40AM -0400, Gregory Price wrote:
+> On Mon, Jun 29, 2026 at 01:23:24PM +0100, Lorenzo Stoakes wrote:
+> > Add comments with ASCII diagrams to describe what we're doing, avoid
+> > dubious use of PHYS_PFN(), and use vma_start_pgoff().
+> >
+> > The most complicated scenario represented here is vmg->__adjust_next_start
+> > - when this is set, vmg->[start, end] actually indicate the range to be
+> > retained, so take special care to describe this accurately.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+>
+> Reviewed-by: Gregory Price <gourry@gourry.net>
+>
+> > +		/*
+> > +		 * vmg->start    vmg->end
+> > +		 * |             |
+> > +		 * v    merge    v
+> > +		 * <------------->
+> > +		 *         delta
+> > +		 *        <------>
+> > +		 * |------|----------------|
+> > +		 * | prev |    middle      |
+> > +		 * |------|----------------|
+> > +		 *        ^
+> > +		 *        |
+> > +		 *        middle->vm_start
+> > +		 */
+>
+> Even with these diagrams, it's a bit difficult to understand what the
+> actual intent/result of this chunk is (but that may be a limitation of
+> me not spending enough time reading the surrounding code, not a comment
+> of your work here).
 
-Sashiko found a bunch of stuff that I was also thinking would be
-a problem. Don't think I'll need to repeat it here.
+Yeah I know, I do hope to refactor all this at some point to make it simpler,
+but for the time being tried to make the confusing thing at least _slightly_
+less confusing :)
 
-I'm still thinking the easy way out would be to just convert
-everything to raw spinlocks. The uncore lock I think should become
-easier to deal with once I manage to move all of it into the
-display code. I admit that the vblank locking is kinda annoying
-and potentially inefficient. I've been pondering about making the
-vblank locks to per-crtc to at least avoid some unnecessary contention,
-but the fact that a lot of the drivers poke at the vblank internals
-directly makes it a lot more work than it should be :/
+>
+> ~Gregory
 
-> 
-> Maarten Lankhorst (9):
->   drm/vblank_work: Add methods to schedule vblank_work in 2 stages
->   drm/vblank: Add a 2-stage version of drm_crtc_arm_vblank_event
->   drm/intel/display: Make intel_crtc_arm_vblank_event static
->   drm/intel/display: Convert vblank event handling to 2-stage arming
->   drm/i915/display: Move vblank put until after critical section
->   drm/i915/display: Remove locking from intel_vblank_evade critical
->     section
->   drm/i915/display: Handle vlv dsi workaround in scanline_in_safe_range
->     too
->   drm/i915/display: Make get_vblank_counter use intel_de_read_fw()
->   drm/i915/display: Do not take uncore lock in i915_get_vblank_counter
-> 
-> Mike Galbraith (1):
->   drm/i915: Use preempt_disable/enable_rt() where recommended
-> 
->  drivers/gpu/drm/drm_vblank.c                  |  64 +++++++++-
->  drivers/gpu/drm/drm_vblank_work.c             | 110 +++++++++++++----
->  drivers/gpu/drm/i915/display/intel_crtc.c     |  86 ++++++-------
->  drivers/gpu/drm/i915/display/intel_crtc.h     |   1 -
->  drivers/gpu/drm/i915/display/intel_cursor.c   |   8 +-
->  drivers/gpu/drm/i915/display/intel_de.h       |   8 ++
->  drivers/gpu/drm/i915/display/intel_vblank.c   | 115 ++++++++++--------
->  drivers/gpu/drm/i915/display/intel_vblank.h   |   1 +
->  drivers/gpu/drm/i915/intel_uncore.h           |  26 ++--
->  .../drm/xe/compat-i915-headers/intel_uncore.h |   7 ++
->  include/drm/drm_vblank.h                      |  14 ++-
->  include/drm/drm_vblank_work.h                 |  12 ++
->  12 files changed, 324 insertions(+), 128 deletions(-)
-> 
-> -- 
-> 2.53.0
+Cheers, Lorenzo
 
--- 
-Ville Syrjälä
-Intel
+>
+> > +		/*
+> > +		 *                Originally:
+> > +		 *
+> > +		 *            vmg->start   vmg->end
+> > +		 *            |            |
+> > +		 *            v    merge   v
+> > +		 *            <------------>
+> > +		 *            .            .
+> > +		 * merge_existing_range() updates to:
+> > +		 *            .            .
+> > +		 * vmg->start vmg->end     .
+> > +		 * |          |            .
+> > +		 * v  retain  v            .
+> > +		 * <---------->            .
+> > +		 *             delta       .
+> > +		 *            <----->      .
+> > +		 * |----------------|------|
+> > +		 * |    middle      | next |
+> > +		 * |----------------|------|
+> > +		 *                  ^
+> > +		 *                  |
+> > +		 *                  next->vm_start
+> > +		 */
