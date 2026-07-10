@@ -4,68 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1B51C44501
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 10:27:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65651C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 10:57:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D62BC10E189;
-	Fri, 10 Jul 2026 10:27:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0AB210F836;
+	Fri, 10 Jul 2026 10:57:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="OQeZeNX7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CH5fcnPR";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4240210E189
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 10:27:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783679258;
- bh=yHLjnBOoquQdk7CsdztGeS/V0NeOl8IEGM3tNRxcDqk=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=OQeZeNX7EO1dO7EHtdrUvhPks02OtJmkZUbn1ZIIOC3CpUO2Hm7UcxZGMzJm1Z+WW
- tzYKcd4wd2JRsk7lFkCKgO3reyqnfooKtxUHsfc/MSlNV0GUMNIPnioyGPULstMTpP
- j5sJd6u7AUWzK2LGazh26A9jc8Uw8l9TVCoyfAuQbZdqUQzPJnZ/VN14h53sxmGLOd
- 9KekxC60m5IHzceN6jsvD0bHDQB6ompGLW4DpsmrjuYnJXYRhkrD0FyYnOVQBqHJol
- HZYGsMhVZwbS3wgXyiwVr2LQjE2n/8u79nJTBEZaF+9zSnwTn/GqxaMv3W4xtoBuj/
- jPiUGAW4hgOqQ==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E1CE117E019E;
- Fri, 10 Jul 2026 12:27:37 +0200 (CEST)
-Message-ID: <80374deb-3246-413f-a043-66bcdb438ab1@collabora.com>
-Date: Fri, 10 Jul 2026 13:27:37 +0300
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5CCB10E18B
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 10:57:49 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2cae1a3a744so5135315ad.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 03:57:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783681069; x=1784285869; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=PsFAzR3CSZqnZYplCGUu2npXvnWQSXy7x7Ru3MpsHV4=;
+ b=CH5fcnPR1DIX8KGRkJlUaneQxxPexHtQMXFdl0uSKltlULl8kltcZQlv/Qba/mebqn
+ 1j3/5YDG5ZpFQXr8y2sYRsf+w0M4l9ncN/Wui2lRGh/Hf8+zyl//E4A68Oadp5wSNVel
+ kJmKcqFoqrwVjXZMc5KKokc7fCxv39njsjVwjJscNkZHLDvJxdaIJTEy5xCXA6zP9cau
+ iA3r6mcfjYoSUTaimtZaIwm/8/EyUO7anU3n5L8M88EgmNqzvC2S5jxLlazI8eW1d/zq
+ FNHCABHlTxm1AQyftyAH8NEPgwuy0tguOxDbJ/rNnbWpDb1LRs+E5ARZp9qxCO8kjGth
+ WUbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783681069; x=1784285869;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=PsFAzR3CSZqnZYplCGUu2npXvnWQSXy7x7Ru3MpsHV4=;
+ b=sBFyKRzhSrPA2Djy+jL/UDZVCsVPzp3cvQY/3fZ1ofJe3hucahX6LZfT6DbYj2eXJV
+ mz5biUrACEnvICmAdhbZdFYUQGl+nfK5s1krNnVxDkucVo0QBecFklGVVBn5AJ1H4SKW
+ 1o8neaOCnMLvpuFrdI+7ckgzPtE0SGqzW04DjcVRML6x5Iv2lzD2Hz7XOIMsZwenMQVk
+ qpLvs43tWracY8ARpFSvY5IqvecYYw3mNibSHpoPtaJwx8coCmjI2EKt6CVESrXDex04
+ 6tftp4qeXIilu28G4uxPuKBsjZipBSfTfJrfs8i3iVTX8tDtCRfe2G090W3iCnitoSLZ
+ w+gA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqUGDiDAVo+FS3xZ9bQkyvjxyEh0QftAEel4HMSA7tusOYaLk8c2oMCyEZ5w1lHloT0fMobswOOwIs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzB84IlJwr4Pppwi6JP4rLX6OI4dnuGiCXCRHfCKln/NNDArGIO
+ 0gFmscKCoaFnUD2vm5XaQKyLiCSx51IsbjedvqpUjBGbISaCn99+diI+C7kJ+ZBe
+X-Gm-Gg: AfdE7cnW8OrFpPPn8eaps+y2mREydzcsAdfPj4G4arr79mGKK8PbhR/k7qOO5DtDiNT
+ xAfgFRBAd4iu0Hh86NA+21rMThatFv2pQPS8wwTocO5xPlSrvh3cOs3VjZ98AY/nT2xjFcgTUzH
+ Y0EZTuXrRU3tdGmqE9T/SEnZwh4KQl/MKjV4RVLtX8WHQRNuEFZTIiZ1vMEcy+xpCUc9wkpIh85
+ 8qy71L6qkKHa/BDfBR3GTrGBavKUdPPQuI3mruZ2eKsCFGzv+Qyv4s0pkN70UzWbw02aUaF5Mbf
+ GGLu89Ey40IOJV87GRhOjH5ZuhyT4R5OHkd+QlogtB//MDzlQqhR7JlhLunC7sl3OIxDKRspcxQ
+ lzuEIvUk1/bvSGCVqBzWQDXPneIngsn7mJlY3X2W4gbIYat3apXAWUg6LsINzDjVMY0ucWQMyV6
+ HZ7Evj9wAk8AsrclAy
+X-Received: by 2002:a17:903:2346:b0:2ca:f8ef:33dc with SMTP id
+ d9443c01a7336-2ccea477e93mr109979655ad.40.1783681069120; 
+ Fri, 10 Jul 2026 03:57:49 -0700 (PDT)
+Received: from baineng-pc.. ([117.133.183.252])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2ccc9d5bdf5sm57922095ad.73.2026.07.10.03.57.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Jul 2026 03:57:48 -0700 (PDT)
+From: Baineng Shou <shoubaineng@gmail.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T . J . Mercier" <tjmercier@google.com>,
+ Sandeep Patil <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>
+Cc: stable@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, Baineng Shou <shoubaineng@gmail.com>
+Subject: [PATCH v2] dma-buf: dma-heap: don't publish fd before copy_to_user()
+ succeeds
+Date: Fri, 10 Jul 2026 18:57:40 +0800
+Message-Id: <20260710105740.3080070-1-shoubaineng@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260703080922.1838362-1-shoubaineng@gmail.com>
+References: <20260703080922.1838362-1-shoubaineng@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 02/39] drm/connector: Add caps-based HDMI connector
- init helper
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
- <20260702-dw-hdmi-qp-scramb-v8-2-d79890d00b6a@collabora.com>
- <i4tjtsf5rsckfcayo5nuhlger5wqxn3ujeaubm4g2fgrwvhzb2@hf4uhgq3ja5p>
- <ad75cf26-9437-47d0-864d-d71263401615@collabora.com>
- <20260707-illegal-tuna-of-force-1c06e3@houat>
- <737678ab-f082-4a0e-b453-f403ba141437@collabora.com>
-Content-Language: en-US
-In-Reply-To: <737678ab-f082-4a0e-b453-f403ba141437@collabora.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,88 +98,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/8/26 1:11 PM, Cristian Ciocaltea wrote:
-> Hi Maxime,
-> 
-> On 7/7/26 7:10 PM, Maxime Ripard wrote:
->> On Fri, Jul 03, 2026 at 10:31:55PM +0300, Cristian Ciocaltea wrote:
->>> Hi Dmitry,
->>>
->>> Thanks for your quick review!
->>>
->>> On 7/3/26 5:05 PM, Dmitry Baryshkov wrote:
->>>> On Thu, Jul 02, 2026 at 05:46:15PM +0300, Cristian Ciocaltea wrote:
->>>>> In preparation for adding HDMI 2.x source capabilities, introduce struct
->>>>> drm_connector_hdmi_caps and a new drmm_connector_hdmi_init_with_caps()
->>>>> helper.
->>>>>
->>>>> The existing drmm_connector_hdmi_init() helper currently takes
->>>>> individual capability arguments such as supported_formats and max_bpc.
->>>>> Adding more HDMI-specific arguments to that function would not scale
->>>>> well, so move those values into a dedicated capabilities structure and
->>>>> implement the existing helper as a wrapper around the new caps-based
->>>>> interface.
->>>>
->>>> I think, it was an intention of Maxime: make sure that every driver is
->>>> forced to provide some values here. With the struct-based init it is
->>>> easy to overlook or to ommit a value.
->>>
->>> Agreed that the struct-based init loses the compile-time guarantee that every
->>> argument is explicitly provided - that's a real downside.  
->>>
->>> I'd argue it's recoverable, though: the init helper validates the mandatory
->>> fields, so a driver that omits a required value gets rejected at init time
->>> rather than silently misconfigured.  The "you must provide sane values" property
->>> is expected to be preserved, just enforced at runtime instead of by the
->>> compiler. 
->>
->> Yeah, I don't think we can win with C here. Rust might, but we're
->> probably a long way from that.
->>
->>> The main motivation for the struct is scalability/maintainability as we add HDMI
->>> 2.x capabilities: new fields go into the struct rather than growing the helper's
->>> argument list, so existing callers don't need churny signature updates on every
->>> extension.
->>>
->>> FWIW, in the previous revision we discussed addressing the concern with a
->>> callback instead.  Sadly, I had to discard that approach, as it proved not
->>> flexible enough, e.g. drm_bridge_connector_init() computes caps dynamically, and
->>> would have required either stateful callbacks, or storing redundant/temporary
->>> cap data in driver-private structures just to satisfy the callback.
->>
->> I just realized something reviewing your patch: we don't necessarily
->> need an extra argument or a callback, we can just put these fields into
->> drm_hdmi_connector_funcs directly, and then validate them in init.
-> 
-> If I understand correctly, we should drop the drm_connector_hdmi_caps struct
-> introduced by this patch and move all its fields into drm_hdmi_connector_funcs.
-> 
-> In that case, how should we proceed with drmm_connector_hdmi_init()? 
+DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
+caller's fd table via dma_buf_fd() -> fd_install() before
+dma_heap_ioctl() copies the result back to userspace.  If the trailing
+copy_to_user() fails, userspace never learns the fd number, but the
+fd (and the underlying dma-buf reference) are already visible to
+other threads in the same process and are leaked for the lifetime of
+the process.
 
-Actually, this brings us to the callback issue: we cannot compute caps
-dynamically, as it only works with static data, since funcs is supposed to be
-immutable.
+The obvious "close it on the failure path" fix is unsafe: once
+fd_install() has run, another thread can already dup() the fd, send
+it via SCM_RIGHTS, or close() it and let its number be reused, so a
+subsequent close_fd() from the ioctl path can operate on an unrelated
+file.  This was pointed out by Christian König on v1 [1].
 
-Moreover, we would end up with some redundancy, as most of these input fields,
-after validation, would be stored (altered or not) directly in
-drm_connector/drm_connector_hdmi structs.
+Restructure the allocation path so that fd_install() is the last,
+unfailable step of a successful ioctl:
 
-Hence, I think we are still better off sticking with
-drmm_connector_hdmi_init_with_caps() for now.
+  1. heap->ops->allocate()      creates the dma_buf.
+  2. get_unused_fd_flags()      reserves an fd number in the caller's
+                                fd table without publishing it, so
+                                no other thread can observe it.
+  3. copy_to_user()             delivers the fd number to userspace;
+                                on failure the fd is returned with
+                                put_unused_fd() and the dma_buf
+                                reference is dropped with
+                                dma_buf_put(), leaving no user-
+                                visible state behind.
+  4. fd_install()               publishes the fd -- from here on the
+                                ioctl cannot fail.
 
-> I see the
-> following options:
-> 
-> 1. Continue with drmm_connector_hdmi_init_with_caps() after removing the caps
->    parameter, and then drop drmm_connector_hdmi_init() after the migration.
-> 
-> 2. Keep the existing (unaltered) drmm_connector_hdmi_init(), which would be
->    slightly inconsistent: supported_formats and max_bpc would still be passed 
->    as arguments, while the rest would go through drm_hdmi_connector_funcs.
-> 
-> 3. A variation of option 1: additionally rename
->    drmm_connector_hdmi_init_with_caps() to drmm_connector_hdmi_init() after the
->    migration.
-> 
-> Thanks,
-> Cristian
+To make this possible, dma_heap_ioctl_allocate() is refactored to
+return the struct dma_buf * directly (returning ERR_PTR on failure)
+so the caller holds the dmabuf reference across steps 3 and 4.
+The fd is written into the kdata buffer before copy_to_user() so
+the reserved fd number reaches userspace atomically with the install.
+
+The failure at step 3 is easily reachable from userspace: pass a
+struct dma_heap_allocation_data that lives in a page whose protection
+is flipped to PROT_READ between copy_from_user() and copy_to_user()
+(e.g. via mprotect()).  Before this change each such ioctl leaks one
+dmabuf fd; after it, the fd table is unchanged on failure and only
+/dev/dma_heap/<name> remains open.
+
+No UAPI or heap-driver interface change.
+
+[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
+
+Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
+Cc: stable@vger.kernel.org
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+---
+ drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
+ 1 file changed, 40 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+index a76bf3f8b071..0a9bf62eb06c 100644
+--- a/drivers/dma-buf/dma-heap.c
++++ b/drivers/dma-buf/dma-heap.c
+@@ -55,33 +55,6 @@ MODULE_PARM_DESC(mem_accounting,
+ 		 "Enable cgroup-based memory accounting for dma-buf heap allocations (default=false).");
+ EXPORT_SYMBOL_NS_GPL(mem_accounting, "DMA_BUF_HEAP");
+ 
+-static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
+-				 u32 fd_flags,
+-				 u64 heap_flags)
+-{
+-	struct dma_buf *dmabuf;
+-	int fd;
+-
+-	/*
+-	 * Allocations from all heaps have to begin
+-	 * and end on page boundaries.
+-	 */
+-	len = PAGE_ALIGN(len);
+-	if (!len)
+-		return -EINVAL;
+-
+-	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
+-	if (IS_ERR(dmabuf))
+-		return PTR_ERR(dmabuf);
+-
+-	fd = dma_buf_fd(dmabuf, fd_flags);
+-	if (fd < 0) {
+-		dma_buf_put(dmabuf);
+-		/* just return, as put will call release and that will free */
+-	}
+-	return fd;
+-}
+-
+ static int dma_heap_open(struct inode *inode, struct file *file)
+ {
+ 	struct dma_heap *heap;
+@@ -99,30 +72,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
+ 	return 0;
+ }
+ 
+-static long dma_heap_ioctl_allocate(struct file *file, void *data)
++static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
+ {
+ 	struct dma_heap_allocation_data *heap_allocation = data;
+ 	struct dma_heap *heap = file->private_data;
++	struct dma_buf *dmabuf;
+ 	int fd;
++	size_t len;
+ 
+ 	if (heap_allocation->fd)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
++
++	len = PAGE_ALIGN(heap_allocation->len);
++	if (!len)
++		return ERR_PTR(-EINVAL);
++
++	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
++				     heap_allocation->heap_flags);
+ 
+-	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
+-				   heap_allocation->fd_flags,
+-				   heap_allocation->heap_flags);
+-	if (fd < 0)
+-		return fd;
++	if (IS_ERR(dmabuf))
++		return dmabuf;
++
++	fd = get_unused_fd_flags(heap_allocation->fd_flags);
++	if (fd < 0) {
++		dma_buf_put(dmabuf);
++		return ERR_PTR(fd);
++	}
+ 
+ 	heap_allocation->fd = fd;
+ 
+-	return 0;
++	return dmabuf;
+ }
+ 
+ static unsigned int dma_heap_ioctl_cmds[] = {
+@@ -138,6 +123,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 	unsigned int in_size, out_size, drv_size, ksize;
+ 	int nr = _IOC_NR(ucmd);
+ 	int ret = 0;
++	int fd;
++	struct dma_buf *dmabuf;
+ 
+ 	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
+ 		return -EINVAL;
+@@ -174,15 +161,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+ 
+ 	switch (kcmd) {
+ 	case DMA_HEAP_IOCTL_ALLOC:
+-		ret = dma_heap_ioctl_allocate(file, kdata);
++		dmabuf = dma_heap_ioctl_allocate(file, kdata);
++
++		if (IS_ERR(dmabuf)) {
++			ret = PTR_ERR(dmabuf);
++			break;
++		}
++
++		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
++		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
++			put_unused_fd(fd);
++			dma_buf_put(dmabuf);
++			ret = -EFAULT;
++		} else {
++			fd_install(fd, dmabuf->file);
++		}
++
+ 		break;
+ 	default:
+ 		ret = -ENOTTY;
+ 		goto err;
+ 	}
+ 
+-	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
+-		ret = -EFAULT;
+ err:
+ 	if (kdata != stack_kdata)
+ 		kfree(kdata);
+-- 
+2.34.1
+
