@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EC1CC44507
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB3ABC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9A3510E80D;
-	Mon, 13 Jul 2026 07:11:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5946F10E808;
+	Mon, 13 Jul 2026 07:11:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PNLB4wzm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nbOVHA9/";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D113910E232;
- Fri, 10 Jul 2026 20:19:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9487610E22D;
+ Fri, 10 Jul 2026 20:28:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 23B3F60052;
- Fri, 10 Jul 2026 20:19:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 322B91F000E9;
- Fri, 10 Jul 2026 20:18:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 16ABC60051;
+ Fri, 10 Jul 2026 20:28:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B21181F000E9;
+ Fri, 10 Jul 2026 20:27:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783714744;
- bh=5hYSYZL26i46R1YNC969ZGJ/HD8KnaWEcgglVNhE+Dg=;
+ s=k20260515; t=1783715300;
+ bh=LdCumzx1xelSik0fyWFl/+tFd+Vg+MajMGDgbY3wuuY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=PNLB4wzmcFTj3lyqpCjpFNseunRPOUiWwMslZHwgnXN/dz1H6bINuUrT04kt5iEp1
- +NIb6HuWlNuqv89DVOB740oeyMjE3pCofc2ChzUc2YR4KtFhvnDcCHt+4GCE+gyXWn
- 5N+MnWj5rOmm6UXVmu60Jc6I2MfPK0J7bSg9uQcFU6wtGwwH23rkV+6hwUKmgWbLk+
- Tctr26pEiWgizGIADOVEl3UfVfSGQDtV+0/95Ja8Pr6D6O/cbPUvsrZRSsYIjPhVRH
- yBJazCl6C5Rhic0/GCGXO+3WaXAvZ1vidl5uvgn9Xm7ag6HsGdXlfnoynuPxHBZ7uA
- zki2RHAqu/Mww==
+ b=nbOVHA9/IqtgT9yYIxrcLftZNz5+z7/zCP+yCH+QUdbK0dnpIUFHQtvr6ma+nj8P6
+ ysVgzYiymU0jAt1iQ2W00psBUmJek987sS5VflSd0j/3ZCVQ6W3fDGzRjBDcoegU9m
+ Yc//0A8XW0dKzd4Ep7xQmDINJJtYg/4KxvbspQnH/3XnBxrKYPJEO75EB8xqd4xStI
+ zitF7luU1QunXTFvRCu1WXI6Wi+WMpsOlEgS8ncYsxP8WPLsMELJsBKhb8kG8Wx/H+
+ n118w20skvYfrzD8uuAYvlsRmSAqaDrR7fXYTwGnovS7jaGsP+r78VuXjaDhZ146qG
+ bYYeE+ael9tjg==
 From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Fri, 10 Jul 2026 21:16:45 +0100
-Subject: [PATCH v2 04/33] mm: introduce and use vma_end_pgoff()
+Date: Fri, 10 Jul 2026 21:17:09 +0100
+Subject: [PATCH v2 28/33] mm/vma: slightly rework the anonymous check in
+ __mmap_new_vma()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-b4-pre-scalable-cow-v2-4-2a5aa403d977@kernel.org>
+Message-Id: <20260710-b4-pre-scalable-cow-v2-28-2a5aa403d977@kernel.org>
 References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
 In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -117,12 +118,12 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
  freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
  kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2641; i=ljs@kernel.org;
- h=from:subject:message-id; bh=CFZAjloP4OpDX/vjHQ9xfGU3kS1+MIW18Lzf2dxH2BQ=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg61qc+aHMPw9/vjPW+ln592Xp0tkZNzkUJwaKjbTT
- FZJejNnRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACZy/Q3D/4hbiseXv3Ar8Z5d
- VZLvoZHiXn7OKMDymNMzVtav98Kv2TAy7BE9e6z/xf/4eWp7lK7lvvXZtTcj8M3OVfczJc+uddx
- 9iQ8A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1719; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=dboRvXWKwjAOOnw4xnLssxAAAPh9/O2DaTnoVWEou2M=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg22NmVgnP3fVulG58u0872fre+WmGyROehN8o/9Ts
+ T6jYolMRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACayUJOR4YuYxPGH229qFD4V
+ j7uXvmN75fkHHwzWrvrlHzjba53T6bUM/70izzw9c8CzdMUxr9Li9gQOreMH7ZjOPqyPkttb0te
+ hxgkA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
@@ -141,81 +142,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We already have vma_last_pgoff() which retrieves the last page offset
-within a VMA.
+Determine if the VMA is anonymous early on, so we separate the logic which
+invokes callbacks from the rest of the logic.
 
-However, code often wishes to span a page offset range, which requires the
-exclusive end of this range.
-
-So provide this in vma_end_pgoff() and update vma_last_pgoff() to use this
-function.
-
-Also update the VMA userland tests to reflect the change.
+This is in order that a subsequent commit which asserts correct virtual
+page offset for anonymous mappings correctly asserts this for new anonymous
+mappings.
 
 No functional change intended.
 
-Reviewed-by: Gregory Price <gourry@gourry.net>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- include/linux/mm.h              | 19 ++++++++++++++++++-
- tools/testing/vma/include/dup.h |  5 +++++
- 2 files changed, 23 insertions(+), 1 deletion(-)
+ mm/vma.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index abac72785277..c56ca22d406c 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4331,6 +4331,23 @@ static inline pgoff_t vma_start_pgoff(const struct vm_area_struct *vma)
- 	return vma->vm_pgoff;
- }
- 
-+/**
-+ * vma_end_pgoff() - Get the page offset of the exclusive end of @vma
-+ * @vma: The VMA whose end page offset is required.
-+ *
-+ * This returns the exclusive end page offset of @vma, which is useful for
-+ * expressing page offset ranges.
-+ *
-+ * See the description of vma_start_pgoff() for a description of VMA page
-+ * offsets.
-+ *
-+ * Returns: The exclusive end page offset of @vma.
-+ */
-+static inline pgoff_t vma_end_pgoff(const struct vm_area_struct *vma)
-+{
-+	return vma_start_pgoff(vma) + vma_pages(vma);
-+}
-+
- /**
-  * vma_last_pgoff() - Get the page offset of the last page in @vma
-  * @vma: The VMA whose last page offset is required.
-@@ -4344,7 +4361,7 @@ static inline pgoff_t vma_start_pgoff(const struct vm_area_struct *vma)
-  */
- static inline pgoff_t vma_last_pgoff(const struct vm_area_struct *vma)
+diff --git a/mm/vma.c b/mm/vma.c
+index 0699fa07c40f..ec64e179d2f9 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2587,6 +2587,8 @@ static int __mmap_new_file_vma(struct mmap_state *map,
+ static int __mmap_new_vma(struct mmap_state *map, struct vm_area_struct **vmap,
+ 	struct mmap_action *action)
  {
--	return vma_start_pgoff(vma) + vma_pages(vma) - 1;
-+	return vma_end_pgoff(vma) - 1;
- }
++	const bool is_anon = !map->file &&
++		!vma_flags_test(&map->vma_flags, VMA_SHARED_BIT);
+ 	struct vma_iterator *vmi = map->vmi;
+ 	int error = 0;
+ 	struct vm_area_struct *vma;
+@@ -2601,6 +2603,10 @@ static int __mmap_new_vma(struct mmap_state *map, struct vm_area_struct **vmap,
+ 		return -ENOMEM;
  
- static inline unsigned long vma_desc_size(const struct vm_area_desc *desc)
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 668650067c7c..535747d7fee4 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -1306,6 +1306,11 @@ static inline pgoff_t vma_start_pgoff(const struct vm_area_struct *vma)
- 	return vma->vm_pgoff;
- }
- 
-+static inline pgoff_t vma_end_pgoff(const struct vm_area_struct *vma)
-+{
-+	return vma_start_pgoff(vma) + vma_pages(vma);
-+}
+ 	vma_iter_config(vmi, map->addr, map->end);
 +
- static inline int vfs_mmap_prepare(struct file *file, struct vm_area_desc *desc)
- {
- 	return file->f_op->mmap_prepare(desc);
++	if (is_anon)
++		vma_set_anonymous(vma);
++
+ 	vma_set_range(vma, map->addr, map->end, map->pgoff);
+ 	vma->flags = map->vma_flags;
+ 	vma->vm_page_prot = map->page_prot;
+@@ -2610,12 +2616,11 @@ static int __mmap_new_vma(struct mmap_state *map, struct vm_area_struct **vmap,
+ 		goto free_vma;
+ 	}
+ 
++	/* Invoke callbacks. */
+ 	if (map->file)
+ 		error = __mmap_new_file_vma(map, vma);
+-	else if (vma_flags_test(&map->vma_flags, VMA_SHARED_BIT))
++	else if (!is_anon)
+ 		error = shmem_zero_setup(vma);
+-	else
+-		vma_set_anonymous(vma);
+ 
+ 	if (error)
+ 		goto free_iter_vma;
 
 -- 
 2.55.0
