@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 487BAC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 19:08:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 512D3C4450D
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 19:08:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54A0310F945;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9894710F949;
 	Fri, 10 Jul 2026 19:08:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YSrMpfEk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G7Wwir5K";
 	dkim-atps=neutral
 Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
  [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDC9410F946
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 19:08:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C24E710F934
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 19:07:59 +0000 (UTC)
 Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-493f140ca8eso7939415e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:08:01 -0700 (PDT)
+ 5b1f17b1804b1-493ba701891so11288895e9.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:07:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783710480; x=1784315280; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783710478; x=1784315278; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=Nud4LNt/xG3jbsNqzwGg/sdwe8KwtNGJ8l07srTvdek=;
- b=YSrMpfEkJSPhM+gvQDFRCgk4owQOTS0FAwQCd1uoqP5PY6D0vKf+mc15Dy+q8UOhk5
- HyKJhAXosU8huu8coAhgghcQsQv8RO0zaLC/TPb9wvNOUbd1QEjFu66ScmA+YWm5q7SC
- Yn2u2FeIiKlpTgOKRbTQc1rfE/3SKexYpt55WCEG1iQAKBFti+bE7fRmnIyLD/QMwNXx
- k908LXBFAW/8qpZwvJjlHl5+B1dkGZ0Uy5F2quKq05Y9vk9Gnt3djFthvHmex59U9wJU
- q/LuwEK243koZwnhTGxp0dWJhjeBFw0ZUo7z5fVsJstMT+Qho7mFQh+FtZ/NpHysZs9h
- sbnQ==
+ bh=uHZls/c3u18t+teDeH8BRqkPKNSdAEF6EYbxY9YBzrs=;
+ b=G7Wwir5K0N+MwHr2Mt4qLhOMGZKDZCupRdpjvqFaMca2H1+IbYgVC2PGLUEjxs3I2m
+ Vh9Unvl8NveBXuQR+ubmquu+AP1gRPAElHFCYtk3wKG6loPf2Cc0+x07UVcL4cx/bXpJ
+ n01HLBxWkuOsxQjIRT8sudb/mqf1uPrg6hsccY7Dyellvqrgo9Bsmbkj5ZLrdkN9vk3J
+ QQuoVYFz21bgp4Ej9Qqv+EL07adThKtjHooGbCA8kf8ZcMkcWz/YmUv5xGjcZkrWjoxG
+ 2y8bzHu23dVU3BqGhbRdS7HB0FolbUBjTwkQf1k3go3Roruxo/LqhVl6m3YjNNJ0whfI
+ eohw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783710480; x=1784315280;
+ d=1e100.net; s=20251104; t=1783710478; x=1784315278;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Nud4LNt/xG3jbsNqzwGg/sdwe8KwtNGJ8l07srTvdek=;
- b=LDICrRnCqZzMCk+x/6ko2fXdc6qqkL+/grR3Jf/17ddtkgrpxPfZyAt8cS81/goaWy
- rIBRH8sJ/T9t91DOxvXM8i0nL2DItrV+YbcH6OTigNXblcWXuUFGJ8kstXBCKI1jbTbv
- Xzv+rmkqndyg/XqjUWHpQOF//T+kV12N+QtcsaZQW2D43V8dHVJULyz76meYkwLZz01K
- DfoIE/RBNnc0fAZ4w7gI1PIm5u2nGNxto2ptbyoAfNYFpPfT2EsQh/9Yl/Lcg6w+h4RP
- hQRAMjCuDcn2GuQRepZNuBrjfEECyKiqsIfKDunvMgAMl8mwKhHBG14oKzFWFBHtWHZG
- 4F9g==
+ bh=uHZls/c3u18t+teDeH8BRqkPKNSdAEF6EYbxY9YBzrs=;
+ b=B6U7JxMX310K6P6biQcyq0H8p99siWo1VUOzUwomyqyQDw23cNMLB6sVlsaxOTWWAA
+ 1DxQJPDaxeckH2STghkaJLKKytHlF1oz+Z9zlwAAqMADVYO1uVPxXabAgMukZK2JYT/v
+ vZxe8+5O2NaviCxoIKhmV4nyQyBnQytPFIfc0ajN9v5vIpsSrNUSMA1g3AoFHyrwDJBV
+ K6/mmRFTrZLZLfoECwDdZFWi8/qjWqAFPhdkCkMEaxuI84tfppnxaBq0ZvwBLhu/j35t
+ cx5S+47zpQv8Gsq+Zkkgo10mwQEHV2EVnpob5BUcvi6M7Q7JYMT0johc5UhahrSbG0g9
+ XvLQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RplTbv7g19xv5jUX0gfSVrTsk1MBbe8ZvDMNU/sVxylhWRKlPcdLzIV7vRd9MR/JLgXv2gdiW/injw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyzKbKHyTE8SZMn2X3zYfkw/BS1rJFcFNlQE4VuglOV2x+unAU/
- tGWx7BVX+uuPVKQgw+COgbQhMcqr2Hv5Ig2erENxe787LeQZhdv259Lw
-X-Gm-Gg: AfdE7cnTb1IFdCb+f+ss75L+IJlx+KL1p6FLsB3vcwF3jhCny+UgquiXNADmWDkJ9Y2
- 3/vinSAJYRS5phgYExQJg9LPtTxwjhS55iNZUutbq+h80WcwmQgW4Y2aB0N1MeLxJ5FaxMYn1Ga
- kYrrpifwq4VWxr49gAGNocz75kYyYISQQkmnro68u2Cn+Wan/yQkRB6eTSktz7jLzLGKMI3EUUC
- 66Sk4rNAY0M408xUzZ3bHsgvO4Hv/cCqQD8ZqVk3bRiWKJE+xXkFgJOpHg2s95LxjfFoS60/KQA
- +sYbR2cQxLGKwmOI145iUj3wDQDXEyuLtA7+5HynVeYPWS0F0pQnHqPXSo8WlXKc/7A0rfbVV5T
- 4ycZvl2ijn5PhbkR6jPlI9MpRAi0S5hm5PaILhmjFf7nPwYkAb2OG1LH3LvrsMDfohONcvmyluL
- mVKLdeT6gKNdK7ShN1CVVmpJlvtw==
-X-Received: by 2002:a05:600c:1394:b0:493:b89b:9a27 with SMTP id
- 5b1f17b1804b1-493f87e6c34mr1200255e9.9.1783710479887; 
- Fri, 10 Jul 2026 12:07:59 -0700 (PDT)
+ AHgh+RomyC4wSIQPvO5onvMCLgLGrbRxSslpyZNVIGkexDcCRH90rxDm0LFv86kmiTxB8Y96mQc9ziI3LvQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy/Iwv66bKbwYAohPnBDLG+3RqfsUmkDESvt/vYsKWPsIBf5YvG
+ ZEf7CynftrUm1prlgLdBuFSd1/V+e3WGsJR8av7Wn6Qh/79BGUajw9eh
+X-Gm-Gg: AfdE7cmroQB5kCCLqP0WnqJNJ3yTG5lwf6238FORHM8Qfvo1o8vz9DIJtdgadyEwNqs
+ /WSNqwidQhFMAvwpSlxrJvoe2RI39dkvvR65f5KYVTGXdw6g/KIV9UhqoGinJ0v4Boq4xq3eHJ7
+ JS3u0sJLSAohH0vikkec+jMKQco48msmqg1XzRhdgE+GzC+BepFMVYoKiDSIj94oDxj2SWUKjrQ
+ YUKpofly7N1CwXQJ3PrQegb9uwdt1JNWpnXG1vW108nQo4yfRR9sL6Vx49w50knZPoTHT9Y/P9E
+ g102YHU8NtVUeqf3zhyrUbFpmRa3jRk33rAMY5GshSYpX5mGwcDagn0sAs+sSqhoD2S0fNo09UO
+ IVUYXwlC1SBAO3X6DMUxKf/lfN6mpBZL6/cHJ9+cnJhz6tfOZceCutcaNIv3Zzhc1Q5fyxrHPQS
+ wu60F0QGzefg8ciQuUQPKwDmjPrQ==
+X-Received: by 2002:a05:600c:4f8a:b0:493:f7c8:eae2 with SMTP id
+ 5b1f17b1804b1-493f87e6e9cmr1274015e9.15.1783710478048; 
+ Fri, 10 Jul 2026 12:07:58 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:154f:ec00:aa08:de24:db33:4496])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493f567eadfsm55000755e9.6.2026.07.10.12.07.59
+ 5b1f17b1804b1-493f567eadfsm55000755e9.6.2026.07.10.12.07.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 12:07:59 -0700 (PDT)
+ Fri, 10 Jul 2026 12:07:57 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -71,10 +71,9 @@ To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
  airlied@gmail.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 05/12] drm/ttm: switch to ttm_bo_lru_for_each_reserved_guarded
- for swapout
-Date: Fri, 10 Jul 2026 20:52:45 +0200
-Message-ID: <20260710190752.2355-6-christian.koenig@amd.com>
+Subject: [PATCH 03/12] drm/gem: Add helper for drm_gem_object resv assignment
+Date: Fri, 10 Jul 2026 20:52:43 +0200
+Message-ID: <20260710190752.2355-4-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260710190752.2355-1-christian.koenig@amd.com>
 References: <20260710190752.2355-1-christian.koenig@amd.com>
@@ -97,160 +96,256 @@ Reply-To: christian.koenig@amd.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Instead of the walker wrapper use the underlying foreach. Saves us quite
-a bunch of complexity and loc.
+Introduce drm_gem_object_set_resv() to safely assign reservation objects
+to GEM objects with proper reference counting. This helper replaces all
+direct assignments to drm_gem_object.resv throughout the DRM subsystem.
+
+The function:
+- Acquires a reference to the new resv via dma_resv_get()
+- Assigns it to obj->resv
+- Releases the old resv reference via dma_resv_put()
+
+This ensures proper reference counting when sharing reservation objects
+between GEM objects or when importing dma-bufs, preventing reference
+leaks and use-after-free bugs.
+
+Update all drivers to use the new helper:
+- drm_prime: dma-buf import path
+- drm_gem_shmem_helper: shmem prime import
+- i915: dmabuf import
+- msm: MSM_BO_NO_SHARE case
+- panthor: exclusive_vm case
+- virtio: dma-buf import
+- xe: dummy object creation
+- ttm: external resv assignment
+- ttm/tests: test cases
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
+Assisted-by: Claude:Sonnet 4
 ---
- drivers/gpu/drm/ttm/ttm_bo.c     | 64 ++++++--------------------------
- drivers/gpu/drm/ttm/ttm_device.c | 19 ++++++++--
- include/drm/ttm/ttm_bo.h         |  5 +--
- 3 files changed, 28 insertions(+), 60 deletions(-)
+ drivers/gpu/drm/drm_gem.c                     | 31 ++++++++++++++++++-
+ drivers/gpu/drm/drm_gem_shmem_helper.c        |  2 +-
+ drivers/gpu/drm/drm_prime.c                   |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |  2 +-
+ drivers/gpu/drm/msm/msm_gem.c                 |  2 +-
+ drivers/gpu/drm/panthor/panthor_gem.c         |  2 +-
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
+ drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c |  2 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                  |  7 ++---
+ drivers/gpu/drm/virtio/virtgpu_prime.c        |  2 +-
+ drivers/gpu/drm/xe/xe_dma_buf.c               |  2 +-
+ include/drm/drm_gem.h                         |  2 ++
+ 12 files changed, 43 insertions(+), 15 deletions(-)
 
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index 48176a11d5520..bbcbd25f014f0 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -230,7 +230,7 @@ void drm_gem_private_object_init(struct drm_device *dev,
+ 	mutex_init(&obj->gpuva.lock);
+ 	dma_resv_init(&obj->_resv);
+ 	if (!obj->resv)
+-		obj->resv = &obj->_resv;
++		obj->resv = dma_resv_get(&obj->_resv);
+ 
+ 	drm_gem_gpuva_init(obj);
+ 
+@@ -249,11 +249,40 @@ void drm_gem_private_object_fini(struct drm_gem_object *obj)
+ {
+ 	WARN_ON(obj->dma_buf);
+ 
++	dma_resv_put(obj->resv);
+ 	dma_resv_put(&obj->_resv);
+ 	mutex_destroy(&obj->gpuva.lock);
+ }
+ EXPORT_SYMBOL(drm_gem_private_object_fini);
+ 
++/**
++ * drm_gem_object_set_resv - Set the reservation object for a GEM object
++ * @obj: GEM object
++ * @resv: reservation object to assign
++ *
++ * This function safely assigns a new reservation object to a GEM object.
++ * It releases the old reservation object reference (if any) and acquires
++ * a reference to the new one.
++ *
++ * This should be used when changing the reservation object of an already
++ * initialized GEM object, for example when importing a dma-buf or sharing
++ * a reservation object with another object.
++ *
++ * Returns:
++ * The new reservation object pointer for convenience.
++ */
++struct dma_resv *drm_gem_object_set_resv(struct drm_gem_object *obj,
++					  struct dma_resv *resv)
++{
++	struct dma_resv *old_resv = obj->resv;
++
++	obj->resv = dma_resv_get(resv);
++	dma_resv_put(old_resv);
++
++	return obj->resv;
++}
++EXPORT_SYMBOL(drm_gem_object_set_resv);
++
+ static void drm_gem_object_handle_get(struct drm_gem_object *obj)
+ {
+ 	struct drm_device *dev = obj->dev;
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 22ec52e2ffb87..76a8d7f252e00 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -977,7 +977,7 @@ struct drm_gem_object *drm_gem_shmem_prime_import_no_map(struct drm_device *dev,
+ 	drm_dbg_prime(dev, "size = %zu\n", size);
+ 
+ 	shmem->base.import_attach = attach;
+-	shmem->base.resv = dma_buf->resv;
++	drm_gem_object_set_resv(&shmem->base, dma_buf->resv);
+ 
+ 	return &shmem->base;
+ 
+diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+index 9b44c78cd77fc..6cfeca347faff 100644
+--- a/drivers/gpu/drm/drm_prime.c
++++ b/drivers/gpu/drm/drm_prime.c
+@@ -1006,7 +1006,7 @@ struct drm_gem_object *drm_gem_prime_import_dev(struct drm_device *dev,
+ 	}
+ 
+ 	obj->import_attach = attach;
+-	obj->resv = dma_buf->resv;
++	drm_gem_object_set_resv(obj, dma_buf->resv);
+ 
+ 	return obj;
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+index b43d34c7d6419..c824606497d2e 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+@@ -320,7 +320,7 @@ struct drm_gem_object *i915_gem_prime_import(struct drm_device *dev,
+ 	i915_gem_object_init(obj, &i915_gem_object_dmabuf_ops, &lock_class,
+ 			     I915_BO_ALLOC_USER);
+ 	obj->base.import_attach = attach;
+-	obj->base.resv = dma_buf->resv;
++	drm_gem_object_set_resv(&obj->base, dma_buf->resv);
+ 
+ 	/* We use GTT as shorthand for a coherent domain, one that is
+ 	 * neither in the GPU cache nor in the CPU cache, where all
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index efd3d3c9a4490..81ebb1e1094c3 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -1151,7 +1151,7 @@ int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
+ 
+ 		drm_gem_object_get(r_obj);
+ 
+-		obj->resv = r_obj->resv;
++		drm_gem_object_set_resv(obj, r_obj->resv);
+ 	}
+ 
+ 	ret = drm_gem_handle_create(file, obj, handle);
+diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+index 9855df7381947..2de24f1b60184 100644
+--- a/drivers/gpu/drm/panthor/panthor_gem.c
++++ b/drivers/gpu/drm/panthor/panthor_gem.c
+@@ -1024,7 +1024,7 @@ panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
+ 	if (exclusive_vm) {
+ 		bo->exclusive_vm_root_gem = panthor_vm_root_gem(exclusive_vm);
+ 		drm_gem_object_get(bo->exclusive_vm_root_gem);
+-		bo->base.resv = bo->exclusive_vm_root_gem->resv;
++		drm_gem_object_set_resv(&bo->base, bo->exclusive_vm_root_gem->resv);
+ 	}
+ 
+ 	panthor_gem_debugfs_set_usage_flags(bo, usage_flags);
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+index 49b0b48c6c2ac..3aff1c427cd1f 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+@@ -461,7 +461,7 @@ static void ttm_bo_fini_shared_resv(struct kunit *test)
+ 
+ 	bo = ttm_bo_kunit_init(test, test->priv, BO_SIZE, NULL);
+ 	bo->type = ttm_bo_type_device;
+-	bo->base.resv = external_resv;
++	drm_gem_object_set_resv(&bo->base, external_resv);
+ 
+ 	ttm_bo_fini(bo);
+ }
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c b/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
+index 5cfe8f3f80d75..1146cc9ae5224 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
+@@ -181,7 +181,7 @@ struct ttm_buffer_object *ttm_bo_kunit_init(struct kunit *test,
+ 	bo->base = gem_obj;
+ 
+ 	if (obj)
+-		bo->base.resv = obj;
++		drm_gem_object_set_resv(&bo->base, obj);
+ 
+ 	err = drm_gem_object_init(devs->drm, &bo->base, size);
+ 	KUNIT_ASSERT_EQ(test, err, 0);
 diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 8cf266da2bc61..db72fb2fde9ff 100644
+index 3980f376e3ba4..8cf266da2bc61 100644
 --- a/drivers/gpu/drm/ttm/ttm_bo.c
 +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -1088,25 +1088,18 @@ int ttm_bo_wait_ctx(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx)
- EXPORT_SYMBOL(ttm_bo_wait_ctx);
- 
- /**
-- * struct ttm_bo_swapout_walk - Parameters for the swapout walk
-+ * ttm_bo_swapout() - Swap out buffer objects on the LRU list to shmem.
-+ * @bo: The buffer to swap out.
-+ * @ctx: The ttm_operation_ctx governing the swapout operation.
-+ * @gfp_flags: The gfp flags used for shmem page allocations.
-+ *
-+ * Return: The number of bytes actually swapped out, or negative error code
-+ * on error.
-  */
--struct ttm_bo_swapout_walk {
--	/** @walk: The walk base parameters. */
--	struct ttm_lru_walk walk;
--	/** @gfp_flags: The gfp flags to use for ttm_tt_swapout() */
--	gfp_t gfp_flags;
--	/** @hit_low: Whether we should attempt to swap BO's with low watermark threshold */
--	/** @evict_low: If we cannot swap a bo when @try_low is false (first pass) */
--	bool hit_low, evict_low;
--};
--
--static s64
--ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
-+s64 ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
-+		   gfp_t gfp_flags)
- {
--	struct ttm_place place = { .mem_type = bo->resource->mem_type };
--	struct ttm_bo_swapout_walk *swapout_walk =
--		container_of(walk, typeof(*swapout_walk), walk);
--	struct ttm_operation_ctx *ctx = walk->arg.ctx;
-+	struct ttm_place place = {.mem_type = bo->resource->mem_type};
- 	struct ttm_device *bdev = bo->bdev;
- 	struct ttm_tt *tt = bo->ttm;
- 	s64 ret;
-@@ -1174,7 +1167,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
- 		bdev->funcs->swap_notify(bo);
- 
- 	if (ttm_tt_is_populated(tt)) {
--		ret = ttm_tt_swapout(bdev, tt, swapout_walk->gfp_flags);
-+		ret = ttm_tt_swapout(bdev, tt, gfp_flags);
- 		if (!ret) {
- 			spin_lock(&bdev->lru_lock);
- 			ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
-@@ -1191,41 +1184,6 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
- 	return ret;
- }
- 
--const struct ttm_lru_walk_ops ttm_swap_ops = {
--	.process_bo = ttm_bo_swapout_cb,
--};
--
--/**
-- * ttm_bo_swapout() - Swap out buffer objects on the LRU list to shmem.
-- * @bdev: The ttm device.
-- * @ctx: The ttm_operation_ctx governing the swapout operation.
-- * @man: The resource manager whose resources / buffer objects are
-- * goint to be swapped out.
-- * @gfp_flags: The gfp flags used for shmem page allocations.
-- * @target: The desired number of pages to swap out.
-- *
-- * Return: The number of pages actually swapped out, or negative error code
-- * on error.
-- */
--s64 ttm_bo_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
--		   struct ttm_resource_manager *man, gfp_t gfp_flags,
--		   s64 target)
--{
--	struct ttm_bo_swapout_walk swapout_walk = {
--		.walk = {
--			.ops = &ttm_swap_ops,
--			.arg = {
--				.ctx = ctx,
--				.trylock_only = true,
--			},
--		},
--		.gfp_flags = gfp_flags,
--	};
--
--	return ttm_lru_walk_for_evict(&swapout_walk.walk, bdev, man, target);
--}
--EXPORT_SYMBOL_FOR_TESTS_ONLY(ttm_bo_swapout);
--
- void ttm_bo_tt_destroy(struct ttm_buffer_object *bo)
- {
- 	if (bo->ttm == NULL)
-diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
-index d3bfb9a696a74..e4188e2ee7ab1 100644
---- a/drivers/gpu/drm/ttm/ttm_device.c
-+++ b/drivers/gpu/drm/ttm/ttm_device.c
-@@ -171,6 +171,12 @@ int ttm_device_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
- 		       gfp_t gfp_flags)
- {
- 	struct ttm_resource_manager *man;
-+	struct ttm_bo_lru_cursor cursor;
-+	struct ttm_buffer_object *bo;
-+	struct ttm_lru_walk_arg arg = {
-+		.ctx = ctx,
-+		.trylock_only = true
-+	};
- 	unsigned i;
- 	s64 lret;
- 
-@@ -179,10 +185,15 @@ int ttm_device_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
- 		if (!man || !man->use_tt)
- 			continue;
- 
--		lret = ttm_bo_swapout(bdev, ctx, man, gfp_flags, 1);
--		/* Can be both positive (num_pages) and negative (error) */
--		if (lret)
--			return lret;
-+		ttm_bo_lru_for_each_reserved_guarded(&cursor, man, &arg, bo) {
-+			lret = ttm_bo_swapout(bo, ctx, gfp_flags);
-+				continue;
-+			/* Can be both positive (num_pages) and negative (error) */
-+			if (lret && lret != -EBUSY && lret != -EALREADY)
-+				return lret;
-+		}
-+		if (IS_ERR(bo))
-+			return PTR_ERR(bo);
+@@ -209,7 +209,7 @@ static int ttm_bo_individualize_resv(struct ttm_buffer_object *bo)
+ 		 * the resv object while holding the lru_lock.
+ 		 */
+ 		spin_lock(&bo->bdev->lru_lock);
+-		bo->base.resv = &bo->base._resv;
++		drm_gem_object_set_resv(&bo->base, &bo->base._resv);
+ 		spin_unlock(&bo->bdev->lru_lock);
  	}
- 	return 0;
- }
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index 30e835414e721..33dfa61ba882a 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -423,9 +423,8 @@ void *ttm_bo_kmap_try_from_panic(struct ttm_buffer_object *bo, unsigned long pag
- int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map);
- void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct iosys_map *map);
- int ttm_bo_mmap_obj(struct vm_area_struct *vma, struct ttm_buffer_object *bo);
--s64 ttm_bo_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
--		   struct ttm_resource_manager *man, gfp_t gfp_flags,
--		   s64 target);
-+s64 ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
-+		   gfp_t gfp_flags);
- void ttm_bo_pin(struct ttm_buffer_object *bo);
- void ttm_bo_unpin(struct ttm_buffer_object *bo);
- int ttm_bo_evict_first(struct ttm_device *bdev,
+ 
+@@ -942,10 +942,7 @@ int ttm_bo_init_reserved(struct ttm_device *bdev, struct ttm_buffer_object *bo,
+ 	bo->pin_count = 0;
+ 	bo->sg = sg;
+ 	bo->bulk_move = NULL;
+-	if (resv)
+-		bo->base.resv = resv;
+-	else
+-		bo->base.resv = &bo->base._resv;
++	drm_gem_object_set_resv(&bo->base, resv ?: &bo->base._resv);
+ 	atomic_inc(&ttm_glob.bo_count);
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/virtio/virtgpu_prime.c
+index 216c77cd0d21b..79964b4362439 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_prime.c
++++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
+@@ -361,7 +361,7 @@ struct drm_gem_object *virtgpu_gem_prime_import(struct drm_device *dev,
+ 	INIT_LIST_HEAD(&bo->restore_node);
+ 
+ 	obj = &bo->base.base;
+-	obj->resv = buf->resv;
++	drm_gem_object_set_resv(obj, buf->resv);
+ 	obj->funcs = &virtgpu_gem_dma_buf_funcs;
+ 	drm_gem_private_object_init(dev, obj, buf->size);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
+index 8a920e58245cd..33bebf85ac622 100644
+--- a/drivers/gpu/drm/xe/xe_dma_buf.c
++++ b/drivers/gpu/drm/xe/xe_dma_buf.c
+@@ -293,7 +293,7 @@ xe_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
+ 	if (!dummy_obj)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	dummy_obj->resv = resv;
++	drm_gem_object_set_resv(dummy_obj, resv);
+ 	xe_validation_guard(&ctx, &xe->val, &exec, (struct xe_val_flags) {}, ret) {
+ 		ret = drm_exec_lock_obj(&exec, dummy_obj);
+ 		drm_exec_retry_on_contention(&exec);
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 885244e375d32..09f5ec28218a0 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -529,6 +529,8 @@ int drm_gem_object_init(struct drm_device *dev,
+ void drm_gem_private_object_init(struct drm_device *dev,
+ 				 struct drm_gem_object *obj, size_t size);
+ void drm_gem_private_object_fini(struct drm_gem_object *obj);
++struct dma_resv *drm_gem_object_set_resv(struct drm_gem_object *obj,
++					  struct dma_resv *resv);
+ void drm_gem_vm_open(struct vm_area_struct *vma);
+ void drm_gem_vm_close(struct vm_area_struct *vma);
+ int drm_gem_mmap_obj(struct drm_gem_object *obj, unsigned long obj_size,
 -- 
 2.43.0
 
