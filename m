@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E720C44501
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:18:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35D58C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:18:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 984DF10F983;
-	Fri, 10 Jul 2026 22:18:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C09910F988;
+	Fri, 10 Jul 2026 22:18:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RiTtTtNZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NESl6tmi";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0394D10F983
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 22:18:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3C110F988
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 22:18:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7DCA160052;
- Fri, 10 Jul 2026 22:18:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5141F000E9;
- Fri, 10 Jul 2026 22:18:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 17AA942E60;
+ Fri, 10 Jul 2026 22:18:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C342E1F000E9;
+ Fri, 10 Jul 2026 22:18:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783721922;
- bh=CCZy3g/slKlvOspITqK0AWjdNm9vVN6r3JNlqdqHuF8=;
+ s=k20260515; t=1783721928;
+ bh=AQGW7U2OSOGVthlzh/txLbwRZCF5AMX8rH4nYsLJsTk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RiTtTtNZbTEUFouXz5s4b8/lqCIH7lxGpLbqbFaxK2dMxHNtYMR68zXsikM55diua
- TI+VDfcFgUNapD7/yOOnbJL6OZIkZOm21uvG3krB21oKADk4DJAGtIUsHBrN7MKFRe
- E5l9e2a49QY32IrH9OfTLxk8P+2wenBhPciS0sRLlXdppwSotP8+0OB/LNH9L9F8Md
- FB/frIBrY+1wBzbQeZhRsEGZ/weqwafGtFMSNsRWvogChvo869PkZRx5EGmr/RrwXV
- g0IPDn/f99jYWoDXIBePD9IvcG69IS8Qq6x2f0rMa3EXxEHlnyYVokEJ6IQoj5/+mf
- DCLJAKmaBHHpg==
+ b=NESl6tmiTlrtvinKdJKr9b0pTx/0hoZ4FR6TSdTaowzKejfmnoEsmtSJiu/E/isQd
+ f/I9MUki4BdXi+c96cptMKbodnv6EysjT4nirhv3s5HrWj0yIceGabdIkyf/28qeNr
+ oc2Ubf8ZOubR2VIGAIdzpa5uF1bOOmblu3b2333UZGdRyJebW27PFH9T39PKhqRLEl
+ 3/Y5vaU8yDfiT8+zkgCo7p/A1keTvHKeWGB+efJVLf3oH6ECpsednA2XYDHV7M8r7i
+ Xuq13gFJg+XvHz06qiYvCYZflKCcc2OIDsoY4s13adeaujBy9ObuvN7lOAhC+ZKmPZ
+ rRT+NZlDBJEyQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 19/33] drm/xe: Skip self-copies for borrowed pages on
- defrag moves
+Subject: Re: [PATCH v2 15/33] drm/xe: Track BOs backed at a sub-optimal page
+ order
 To: "Matthew Brost" <matthew.brost@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260710215442.2444235-20-matthew.brost@intel.com>
+In-Reply-To: <20260710215442.2444235-16-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
- <20260710215442.2444235-20-matthew.brost@intel.com>
+ <20260710215442.2444235-16-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 22:18:41 +0000
-Message-Id: <20260710221842.0A5141F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 22:18:47 +0000
+Message-Id: <20260710221847.C342E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,99 +60,85 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Out-of-bounds array access due to incorrect page shift in start_pa=
-ge calculation
-- [High] Hardware assertion failure and command stream corruption due to us=
-ing PAGE_SIZE as pitch
+- [Medium] BOs moved to SYSTEM memory during a failed shrinker purge are in=
+correctly left on the defrag list.
+- [Medium] Framebuffer pinning bypasses defrag list tracking updates, viola=
+ting the invariant that pinned BOs are removed from the list.
 --
 
---- Patch [19]: [PATCH v2 19/33] drm/xe: Skip self-copies for borrowed page=
-s on defrag moves ---
-commit 0cb7423f91b7764bc47ff13572694c591c1f58e2
+--- Patch [15]: [PATCH v2 15/33] drm/xe: Track BOs backed at a sub-optimal =
+page order ---
+commit d8c62c56c566775d903f43756778e071af0acb80
 Author: Matthew Brost <matthew.brost@intel.com>
 
-drm/xe: Skip self-copies for borrowed pages on defrag moves
+    drm/xe: Track BOs backed at a sub-optimal page order
 
-A defrag move may harvest already beneficial-order chunks from the old
-tt, so the freshly reallocated backing borrows (references) some of the
-same physical pages.
+    Add per-device tracking of BOs whose backing TT pages were allocated
+    below the pool's beneficial order, as reported by the
+    TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED tt page flag. These BOs are future
+    candidates for a defragmentation pass that reallocates their pages at t=
+he
+    beneficial order.
 
-> diff --git a/drivers/gpu/drm/xe/xe_migrate.c b/drivers/gpu/drm/xe/xe_migr=
-ate.c
-> index 956fd75454fa0..450ca8bf4f3b6 100644
-> --- a/drivers/gpu/drm/xe/xe_migrate.c
-> +++ b/drivers/gpu/drm/xe/xe_migrate.c
-
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> index cca617cf34d13..d7b0536564ab2 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
 [ ... ]
-
-> @@ -835,6 +835,63 @@ static void emit_copy(struct xe_gt *gt, struct xe_bb=
- *bb,
->  		emit_xy_fast_copy(gt, bb, src_ofs, dst_ofs, size, pitch);
->  }
-> =20
-> +/*
-> + * emit_copy_chunks() - Emit the data blits for one defrag L0 chunk, ski=
-pping
-
-[ ... ]
-
-> +		/* Coalesce a run of pages that actually need copying. */
-> +		while (i + run < npages &&
-> +		       src_tt->pages[start_page + i + run] !=3D
-> +		       dst_tt->pages[start_page + i + run])
-> +			run++;
+> @@ -1261,6 +1358,15 @@ static long xe_bo_shrink_purge(struct ttm_operatio=
+n_ctx *ctx,
+>  	if (lret > 0) {
+>  		xe_ttm_tt_account_subtract(xe, bo->ttm);
+>  		update_global_total_pages(bo->bdev, -(long)tt->num_pages);
 > +
-> +		if (bb)
-> +			emit_copy(gt, bb, src_L0_ofs + (u64)i * PAGE_SIZE,
-> +				  dst_L0_ofs + (u64)i * PAGE_SIZE,
-> +				  run * PAGE_SIZE, PAGE_SIZE);
+> +		/*
+> +		 * The pages are gone, so a tracked BO no longer needs defrag.
+> +		 * This shrinker purge path frees pages without going through
+> +		 * xe_bo_move(), so drop any stale defrag list entry here. Ghost
+> +		 * bos are never tracked, so guard for real xe bos.
+> +		 */
+> +		if (xe_bo_is_xe_bo(bo))
+> +			xe_bo_defrag_remove(ttm_to_xe_bo(bo));
+>  	}
+> =20
+>  	return lret;
 
-[Severity: High]
-Can the use of PAGE_SIZE here cause a hardware assertion failure and command
-stream corruption on systems with 64KB pages?
+[Severity: Medium]
+When xe_bo_shrink_purge() attempts to purge a BO, it uses ttm_bo_move_null(=
+) to
+move it to XE_PL_SYSTEM, which bypasses xe_bo_defrag_update().=20
 
-The PAGE_SIZE is passed as the pitch parameter to emit_copy(), which flows =
-into
-emit_xy_fast_copy() where there is a hardware limit check:
+If the subsequent ttm_bo_shrink() call fails (lret <=3D 0), this explicit
+xe_bo_defrag_remove() is skipped.
 
-xe_gt_assert(gt, pitch <=3D U16_MAX);
-
-On 64KB page systems, PAGE_SIZE is 65536, which exceeds U16_MAX (65535). Th=
-is
-will unconditionally trigger the driver assertion. Furthermore, because the
-pitch is bitwise OR'ed into the BLT command instruction, won't this oversiz=
-ed
-pitch overflow its bit field and corrupt adjacent fields in the GPU command?
-
-Should this use XE_PAGE_SIZE (4096) instead, similar to the fallback path
-in normal emit_copy() usage?
+Could this leave a tracked BO in SYSTEM memory while incorrectly remaining =
+on
+the defrag list, violating the tracking invariant and wasting worker cycles?
 
 [ ... ]
-
-> @@ -985,6 +1052,8 @@ static struct dma_fence *__xe_migrate_copy(struct xe=
-_migrate *m,
->  		u64 ccs_ofs, ccs_size;
->  		u32 ccs_pt;
->  		u32 pte_flags;
-> +		pgoff_t start_page =3D (xe_bo_size(src_bo) - size) >> XE_PTE_SHIFT;
-> +		u32 ndata_blits =3D 1;
+> @@ -3072,6 +3183,8 @@ int xe_bo_pin(struct xe_bo *bo, struct drm_exec *ex=
+ec)
+>  	if (bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
+>  		xe_ttm_tt_account_subtract(xe, bo->ttm.ttm);
 > =20
->  		bool usm =3D xe->info.has_usm;
+> +	xe_bo_defrag_remove(bo);
+> +
+>  	/*
+>  	 * FIXME: If we always use the reserve / unreserve functions for locking
+>  	 * we do not need this.
 
-[Severity: High]
-Is there a risk of an out-of-bounds array access here on systems with a
-page size larger than 4KB (like 64KB on ARM64 or PPC64)?
+[Severity: Medium]
+Will this miss defrag list tracking updates for framebuffer BOs?
 
-By shifting with XE_PTE_SHIFT (12), the index is computed in terms of 4KB
-GPU pages. However, this index is later passed to emit_copy_chunks() to
-index the src_tt->pages and dst_tt->pages arrays:
+xe_fb_pin() and __xe_unpin_fb_vma() in drivers/gpu/drm/xe/display/xe_fb_pin=
+.c
+call ttm_bo_pin() and ttm_bo_unpin() directly rather than using this
+xe_bo_pin() wrapper.
 
-if (src_tt->pages[start_page + i] =3D=3D dst_tt->pages[start_page + i]) {
-
-Since the ttm_tt page arrays are sized based on the system's PAGE_SHIFT,
-wouldn't an index calculated with XE_PTE_SHIFT grow much faster than the
-array bounds on a 64KB page system, leading to a memory out-of-bounds read?
+If a framebuffer BO resides in XE_PL_TT with sub-optimal page allocations,
+could it remain on the defrag list even when pinned, causing the defrag
+worker to incorrectly process pinned BOs?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710215442.2444=
-235-1-matthew.brost@intel.com?part=3D19
+235-1-matthew.brost@intel.com?part=3D15
