@@ -4,94 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 583A7C44501
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 13:23:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81FCCC44501
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 13:27:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 997A410F8D4;
-	Fri, 10 Jul 2026 13:23:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0B5410E1D8;
+	Fri, 10 Jul 2026 13:27:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QZOGXUMS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QiOegJAu";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FAD110F8D4
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 13:23:40 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-384422b05b5so162450a91.2
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 06:23:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783689820; cv=none;
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C292B10F8EB
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 13:27:36 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-38096590070so209638a91.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 06:27:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783690056; cv=none;
  d=google.com; s=arc-20260327;
- b=qyExDIxe2NFVL8FvyzLuKUM8VmUEalloFmTt2WDj0gGKPmHW+TP6UoXqcRmV0SWGTW
- meo95dWBQUGlYRU9WIZL3AQhlG3k4+JgR1IJVn4vhFdBdNqlMvYnePjEJ9uAUbhQOfe3
- GVJjMo8qMmViLeHN6XBeUYlcdg3+E6fg1dJ104lD7VpIc3C2ze2HilPlA4K5HWsTWrGv
- GewBWAyQylv8g6CqAmta/fiZPB9TZkSrzePEZOJcnKw2sH1WmjxgFODAhZ4KYpldVzsr
- shBAWel+jUP68DVxJFns3k3CLHE67WEhxD/OUX3E/TZFXA/8d+voJzLx68bPZsbQ31IA
- AOig==
+ b=F4OrrANRcuh9X7zuTzKz+yqSSrbpjn+JJo2kzYsZrjHgvnBLuN0HFIZsAXcZTnR4Sm
+ p4eDW2ZUoA203XF56w5W9sBkwNOCp08bFeCDDUFrfUxakFkEGTA1nR3dZgScEpN2n27f
+ wXNWWOQPH/DNGcFPMSA/FdqnsOsQj2dJlKKDqPnTX6SK2rbLmqnPwT7DF763JYuBgddu
+ VH6wmno5ryVM3Tf05YMfa3IoOeRVslXHgNQ7pOlUir0P+CndpxB9aWsoCZT6/azs7ph0
+ 8dLAJdocxy+ICN2dhewWpa5b2Fy+jkti+bPSDrwnS5HRI0+RHENd8cs/Keb3JQY5hzBy
+ dZJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=A+55NFv/oNTAVwlYXY4Qavuiv1ZmlNGS6X9JQC9FXiU=;
- fh=9SUtHDOyXuHZCY2eAbb6JrbyB8UhaP2x1ieZX5HS+gc=;
- b=Ve+RwUkQmgEykeR5R0jygmkYo6lzReNKfNo4mlDYAY57n295H8UbzL/KgCASEb1zh0
- 91jhRmCkgdFsA91JM8vBQi/EqsV1kIGof8gMT8HeICRsriTawr3gaK+V7/ABv9KmbeeV
- JL8dCDNMZDRBJcfAUVvuS5VTi31fIrXBqp5w6Zl0jv9Br++6sg2okm54sHlkVX2i7tBz
- 7az1G60VJiSEiL/A1eeaR7nX/XnmONoxqiUkyz1vYodnfQapcj/ZpMY2Zlml12vwPY79
- N+pbg9lBXrJXhZFQzKCg8WD9HJmB1pJZ5kPqqywJeVk9dW4WL+tLt1jwUL0IBmLz97FG
- 285Q==; darn=lists.freedesktop.org
+ bh=8Xz8mAiIS9bhxJSnBlNVStU7ycoiUswNHhwr3rObZng=;
+ fh=ynoepbZjkm3j9pimh2LUBjGuaK4ZrRkyebdaalUFvso=;
+ b=MRzN3gaHmTmlRp8b7Yi1O98CXfMJBAOXSiqAs0Hk9uv1/swIPsVV2F6LaHhZV7whe8
+ 51ofVojdmIsHrzBbXIAUGLadnzO1Gpq4S9NfwtN1xLQWZM/AFDLi/j9Jhdo9/Jyx8RJ7
+ z+j0Sb+l/eXmqpHmyEEhDmzm+1gjCcmN6RW3U4Q6e8KDoUaoZ2A5PWtdwA8GfYQaOKWp
+ u7CPlFaiCXAFbrrpXiF4kHZMcW2auiJ0Utakgk1dKe1T1iJCF4eXTY/sGiV1/gPlARC0
+ Mfa5hGmvbey/lOJH2sCSB9yDt6Eo5ExjzRlyg3mX5yWsZZROHwR61Uiw/WloPZez7mqB
+ BOaw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783689820; x=1784294620; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783690056; x=1784294856; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=A+55NFv/oNTAVwlYXY4Qavuiv1ZmlNGS6X9JQC9FXiU=;
- b=QZOGXUMS6l3ZiuwCTTHtRlN+nPZHOaki4W2X6Dv6NNCH/bMewK8TyEykLz+dMRt3TS
- cBXEX3elB3yA5kj20NG3/8sLLl46PAWsep0RTuRwH16ccXQt4drQcrHuht5Q3ur9GLzS
- Xu/OJorBacMTtek+UhoW3wa2lJHD/qTMkAbzG/Z/3r5v35WKpTq9g+TZeQ8v+kRL1ZA5
- 2vebasPARYoF9ZXWNMVfpG0smPwaTgBHnjhUf/A03jpgOhzttzjVGDiZQzvy5Kpvykpf
- xKrw2Cqhx+chLFZD8F/TvmS9QjDArInJDyIoo0iNCsQlXCnKyt/OeKZlPGVm/1/5rNqQ
- rmew==
+ bh=8Xz8mAiIS9bhxJSnBlNVStU7ycoiUswNHhwr3rObZng=;
+ b=QiOegJAu0Dati0+Qo2es+1AYTiX16oEq7iaiLSu1D7zDZwRkJnhG9TBcMNRnFS0D39
+ 2cBTI8XcKO0CEJWAtP5tgUt0fmDninA3ge3AlcqyC4awgo4yDXqQo601XnlqkTBv9uHX
+ rjeCj3GxuchqHtJoxzWthwKPxnJ23RWBbX75dByjy9Y5ahFor9BGhVtM8NF4RjUk6nvh
+ 2g3zWrYcY734NAGfqKEZuNG6l23qnEUu7BbDssgKsP62miB4hSiCW/R0hbAhjcIT/dZw
+ cRMN+vqL7HmEDPtv0OhQtek/nMAWh9RswNemljl4HnHhEVdtX2LseQlTzsqWzRukEUFq
+ N42Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783689820; x=1784294620;
+ d=1e100.net; s=20251104; t=1783690056; x=1784294856;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=A+55NFv/oNTAVwlYXY4Qavuiv1ZmlNGS6X9JQC9FXiU=;
- b=nwVes5R4GDAkGFl3CLAjMfxBwrlK+MyXdgbEVmkfkNqEO32bEN1o2xWwYzdsj8ZUh3
- iXCqFFEnaqn8D5VIYsIk18Ijg3kyp8v3zrOf9JgyjK4krGMXH7WnwFVaEGd0+ezli0yK
- Z/sVfQse6Zxd+pqxMAs4X5YLdnrsNBafiTDJrsRDVg/gJnsPIq7fVc/2Wwmr4alRUs4J
- gLCv8TC/h6C7PHpzJCTu7O0PXHhlYZYM52y+EhxH00HP0eDd+HlDe9wfeXRR0kQWr5Xy
- i/fcfc8tj+tKGQutBKEoqxTz88gsvaU8EnkSF/s2v6fSMbjScpMJcW8zpoQKYufpHh/Q
- rp2w==
+ bh=8Xz8mAiIS9bhxJSnBlNVStU7ycoiUswNHhwr3rObZng=;
+ b=Mp7gtSQ2B3VbtwgjBFPLofren/ZM2Vlru4FetcOpmZKXi4zqiKeMr6ofzPwy11bGwj
+ cHcbTXeBK6PmINuI/HS/g2unVdqjj8lpQIV8EdICtSf25eV95BA09+0ohDn4faVOSmvR
+ Kr39yhCBeBuTWWGVAZ6j0zGNdeD7WojqHnEQLtzKnQ41ss4K/7PrctajaVmUgNYRoixm
+ h1cPVWE9GdtMEIBY8kAXUuFSnDYYo7Z32AxZtGa3lHxdpSH20q4LaXg1hsbkJ/KPU4YC
+ EaNCOA64cL1b/1MsWTMVVReUgjSQxyA9KDaLcKB1ouMsljRydl4nmV2YzmGPaBi2k14r
+ Pmhg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rob+UfKMpLkymLlh84kSygFSOFpgyB3tR0ScKYc80MMaaEPgQhq3LBqubpxe8/L70RQWYsGS854sFg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzUpLF3JuPPGnD++YmxEs5dluX0vKBbW+8iZLg5I5CWxEn1Hsqz
- SftaU8R02Z427mJ85+jPyTRCTnjHjIniXpUULR3TnwXFVk4+JxBoHonvSMwC2itK4bk3NZOLf3S
- W8GROnYOMmzRyY+LMiQBJSyDhEk52vZ0=
-X-Gm-Gg: AfdE7clxlPq0/Bbqr7mk42iv26PGyO+rtUew5jmk1/GkSYmLEgTiD9VFsMQuBkDwfb2
- SAfRmxRc7nV+qa2o8XjKZbRfomEq4+6nVU92ZCgA3yCiSwEGACrGFn0kjp6ur6z5QGqtA0t9ddt
- hq95XS3kd6jkevTDVsweaw8coP0z+jqgAl+jpc/tGgx76aDa+lQ7LAbTGR6IsdCUYzaV7FDZhF7
- 1FpDUAlbSFSKP49PaoqLVMncg+5lCm1nmh1X76W2z2mG0pPywmwg5Ob2Mtiw/iJPOYWds+ESVMA
- dyrC7QVwK5BAl5D7d5Albnlxn3jyE2GDDD/G5DZ1yLtfsBGaV4tGQ3RHIjU=
-X-Received: by 2002:a17:90b:37ce:b0:37e:2053:3489 with SMTP id
- 98e67ed59e1d1-389419cded7mr9478697a91.3.1783689819489; Fri, 10 Jul 2026
- 06:23:39 -0700 (PDT)
+ AHgh+RpekOYct+RetgSR1cYwHoeomie0DOA86yDu0ek7RyWGQ34PRD6FY6Y8m2p++jwJMoeNP0z22Nyjnjc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxtxpZ01QKDilSnrUByEqtC32N8QtMGiDmxpskM1XInJPVagrIm
+ FlwEAUCNlit6jt64B8Op/UqMsORIb8B2EVC4PaiTfGquLDH5o1QdwvpS62SjfmaXJG5Bggr0XY4
+ cztVVyhlHU/SaY6kRxpZlsDIHebU/kSK16g==
+X-Gm-Gg: AfdE7ckn6tBQ3xXiB5qDjyHFxiexX+rI9wL5Bsah0BUhHqKLQF3vogdH5XS2jz7tcO+
+ RHHgSB85CiAR82vAOqfQWreeSeA+amm6SpI+aFNfh2ne5PZZZYTLx2DtZQ65Ie+PlX7l44+ntxG
+ Gi8V/RI2Kqs8feCGn1lbmaup3Le/LVY8nTJbAa7n3dsnGkUzF+GTEybUa+h/78rdf01KSene4/x
+ 8rPXzWK3BHQXeZlIFcsDBIS4b8XYcahYAa1SyyhUedzI86KEhBzBmUZC2iDD/0CcLKCW0mDuItd
+ pzd0Lgw/rCc9tSCQUjlSLIeI70FXjfhQPkVLN2VKI+boc3kzsL38gb4iwMHjxWU53ztwVA==
+X-Received: by 2002:a17:90b:390e:b0:381:77cd:38ca with SMTP id
+ 98e67ed59e1d1-38a20c48ce0mr6963500a91.4.1783690056153; Fri, 10 Jul 2026
+ 06:27:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <b12cbd03-9e11-44ff-9ce1-8afb82379b53@amd.com>
- <20260708125636.8103-1-ulissespaixao@usp.br>
-In-Reply-To: <20260708125636.8103-1-ulissespaixao@usp.br>
+References: <20260708222035.7324-1-nico.antinori.7@gmail.com>
+ <fd5ecc7b-b9b5-4653-b7ad-72bdcd0b8518@suse.de>
+In-Reply-To: <fd5ecc7b-b9b5-4653-b7ad-72bdcd0b8518@suse.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 10 Jul 2026 09:23:27 -0400
-X-Gm-Features: AVVi8Cc0t-wJtq5yy-2Tj_W8I3d59dgHnZyoqjlSrmN3XT5Z4bZFbexSiJ5wtro
-Message-ID: <CADnq5_OkpYczJu0LK9pEmBWFx=3Cq4GXNhSghRLGO-jXQvomJA@mail.gmail.com>
-Subject: Re: [PATCH v5] drm/amd/amdgpu: remove duplicated code in gfx_v11 and
- gfx_v12
-To: Ulisses Paixao <ulissespaixao@usp.br>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, Felipe Sousa <felipesousa@usp.br>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Date: Fri, 10 Jul 2026 09:27:24 -0400
+X-Gm-Features: AVVi8CfC8WMQvuOOX9IbEu4pHDNwlbHNhnBztQ4WqIxX3gf9mAdHkuUx5nllMac
+Message-ID: <CADnq5_OBYXSz2HG7SCA2eK5_z1J0SmJCwCW2RkGJ5d1-tAVC6g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Inline drm_simple_encoder_init()
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: =?UTF-8?Q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Brigham Campbell <me@brighamcampbell.com>, 
+ David Airlie <airlied@gmail.com>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, 
+ linux-kernel-mentees@lists.linux.dev, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -109,221 +113,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 8, 2026 at 9:19=E2=80=AFAM Ulisses Paixao <ulissespaixao@usp.br=
-> wrote:
->
-> The functions gfx_v11_0_handle_priv_fault and
-> gfx_v12_0_handle_priv_fault share the same logic for searching and
-> triggering a scheduler fault on a ring. This patch moves the shared
-> ring-searching logic to a common function, amdgpu_gfx_handle_priv_fault,
-> in amdgpu_gfx.c. The hardware-specific decoding of ring IDs remains in
-> the version-specific files to maintain proper architectural separation.
->
-> Signed-off-by: Ulisses Paixao <ulissespaixao@usp.br>
-> Co-developed-by: Felipe Sousa <felipesousa@usp.br>
-> Signed-off-by: Felipe Sousa <felipesousa@usp.br>
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Applied.  Thanks!
 
-This code recently changed.  Can you respin against the latest
-linux-next or amd-staging-drm-next?
-
-Alex
-
-> ---
-> v5:
-> Return early on adv->gfx.disable_kq check.
+On Thu, Jul 9, 2026 at 3:17=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse.=
+de> wrote:
 >
-> v4:
-> Restore the adev->gfx.disable_kq check to prevent falsely triggering
-> scheduler faults on idle kernel rings when MES is managing user queues.
 >
-> v3:
-> Return early if the ring is found in the gfx rings loop.
 >
-> v2:
-> Keep the HW-specific decoding in gfx_v11_0.c and gfx_v12_0.c.
-> Remove the redundant check for adev->gfx.disable_kq.
-> Simplify the search loop in amdgpu_gfx_handle_priv_fault to iterate over
-> all gfx and compute rings without a switch statement.
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 42 +++++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 ++
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 27 +---------------
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 27 +---------------
->  4 files changed, 46 insertions(+), 52 deletions(-)
+> Am 09.07.26 um 00:20 schrieb Nicol=C3=A1s Antinori:
+> > Simple KMS helpers are deprecated because they introduce an unnecessary
+> > intermediate layer between atomic modesetting and the DRM driver.
+> >
+> > Inline the functionality of drm_simple_encoder_init() to remove
+> > dependencies on these deprecated helpers.
+> >
+> > Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index b8ca87669..50e265abe 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -830,6 +830,48 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev=
-, int xcc_id)
->         return r;
->  }
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 >
-> +/**
-> + * amdgpu_gfx_handle_priv_fault - Handle privileged instruction fault
-> + *
-> + * @adev: amdgpu_device pointer
-> + * @me_id: micro-engine ID of the faulty ring
-> + * @pipe_id: pipe ID of the faulty ring
-> + * @queue_id: queue ID of the faulty ring
-> + *
-> + * This function handles privileged instruction faults by identifying
-> + * the faulty ring (gfx or compute) and triggering a scheduler fault
-> + */
-> +void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
-> +                                       u8 me_id, u8 pipe_id, u8 queue_id=
-)
-> +{
-> +       struct amdgpu_ring *ring;
-> +       int i;
-> +
-> +       /*
-> +        * The scheduler only handles kernel queues so this is a no-op
-> +        * without them.
-> +        */
-> +       if (adev->gfx.disable_kq)
-> +               return;
-> +
-> +
-> +       for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
-> +               ring =3D &adev->gfx.gfx_ring[i];
-> +               if (ring->me =3D=3D me_id && ring->pipe =3D=3D pipe_id &&
-> +                   ring->queue =3D=3D queue_id) {
-> +                       drm_sched_fault(&ring->sched);
-> +                       return;
-> +               }
-> +       }
-> +
-> +       for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
-> +               ring =3D &adev->gfx.compute_ring[i];
-> +               if (ring->me =3D=3D me_id && ring->pipe =3D=3D pipe_id &&
-> +                   ring->queue =3D=3D queue_id)
-> +                       drm_sched_fault(&ring->sched);
-> +       }
-> +}
-> +
->  static void amdgpu_gfx_do_off_ctrl(struct amdgpu_device *adev, bool enab=
-le,
->                                    bool no_delay)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.h
-> index a0cf0a3b4..0b2f6ce85 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -611,6 +611,8 @@ bool amdgpu_gfx_is_high_priority_graphics_queue(struc=
-t amdgpu_device *adev,
->                                                 struct amdgpu_ring *ring)=
-;
->  bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_device *adev, int me,
->                                     int pipe, int queue);
-> +void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
-> +                                       u8 me_id, u8 pipe_id, u8 queue_id=
-);
->  void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
->  void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enab=
-le);
->  int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *valu=
-e);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index 2c6f1e25c..888c9f3c4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -6688,37 +6688,12 @@ static void gfx_v11_0_handle_priv_fault(struct am=
-dgpu_device *adev,
->                                         struct amdgpu_iv_entry *entry)
->  {
->         u8 me_id, pipe_id, queue_id;
-> -       struct amdgpu_ring *ring;
-> -       int i;
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 10 ++++++++--
+> >   1 file changed, 8 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_vkms.c
+> > index 170adaf7e76a..d5b0692fe860 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> > @@ -2,7 +2,7 @@
+> >
+> >   #include <drm/drm_atomic_helper.h>
+> >   #include <drm/drm_edid.h>
+> > -#include <drm/drm_simple_kms_helper.h>
+> > +#include <drm/drm_encoder.h>
+> >   #include <drm/drm_gem_framebuffer_helper.h>
+> >   #include <drm/drm_vblank.h>
+> >   #include <drm/drm_vblank_helper.h>
+> > @@ -316,6 +316,10 @@ static struct drm_plane *amdgpu_vkms_plane_init(st=
+ruct drm_device *dev,
+> >       return plane;
+> >   }
+> >
+> > +static const struct drm_encoder_funcs drm_encoder_funcs_cleanup =3D {
+> > +     .destroy =3D drm_encoder_cleanup,
+> > +};
+> > +
+> >   static int amdgpu_vkms_output_init(struct drm_device *dev, struct
+> >                                  amdgpu_vkms_output *output, int index)
+> >   {
+> > @@ -342,7 +346,9 @@ static int amdgpu_vkms_output_init(struct drm_devic=
+e *dev, struct
+> >
+> >       drm_connector_helper_add(connector, &amdgpu_vkms_conn_helper_func=
+s);
+> >
+> > -     ret =3D drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VI=
+RTUAL);
+> > +     ret =3D drm_encoder_init(dev, encoder,
+> > +                            &drm_encoder_funcs_cleanup,
+> > +                            DRM_MODE_ENCODER_VIRTUAL, NULL);
+> >       if (ret) {
+> >               DRM_ERROR("Failed to init encoder\n");
+> >               goto err_encoder;
+> > --
+> > 2.47.3
+> >
 >
->         me_id =3D (entry->ring_id & 0x0c) >> 2;
->         pipe_id =3D (entry->ring_id & 0x03) >> 0;
->         queue_id =3D (entry->ring_id & 0x70) >> 4;
->
-> -       if (!adev->gfx.disable_kq) {
-> -               switch (me_id) {
-> -               case 0:
-> -                       for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
-> -                               ring =3D &adev->gfx.gfx_ring[i];
-> -                               if (ring->me =3D=3D me_id && ring->pipe =
-=3D=3D pipe_id &&
-> -                                   ring->queue =3D=3D queue_id)
-> -                                       drm_sched_fault(&ring->sched);
-> -                       }
-> -                       break;
-> -               case 1:
-> -               case 2:
-> -                       for (i =3D 0; i < adev->gfx.num_compute_rings; i+=
-+) {
-> -                               ring =3D &adev->gfx.compute_ring[i];
-> -                               if (ring->me =3D=3D me_id && ring->pipe =
-=3D=3D pipe_id &&
-> -                                   ring->queue =3D=3D queue_id)
-> -                                       drm_sched_fault(&ring->sched);
-> -                       }
-> -                       break;
-> -               default:
-> -                       BUG();
-> -                       break;
-> -               }
-> -       }
-> +       amdgpu_gfx_handle_priv_fault(adev, me_id, pipe_id, queue_id);
->  }
->
->  static int gfx_v11_0_priv_reg_irq(struct amdgpu_device *adev,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v12_0.c
-> index 6baac533a..3f0d29372 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -5019,37 +5019,12 @@ static void gfx_v12_0_handle_priv_fault(struct am=
-dgpu_device *adev,
->                                         struct amdgpu_iv_entry *entry)
->  {
->         u8 me_id, pipe_id, queue_id;
-> -       struct amdgpu_ring *ring;
-> -       int i;
->
->         me_id =3D (entry->ring_id & 0x0c) >> 2;
->         pipe_id =3D (entry->ring_id & 0x03) >> 0;
->         queue_id =3D (entry->ring_id & 0x70) >> 4;
->
-> -       if (!adev->gfx.disable_kq) {
-> -               switch (me_id) {
-> -               case 0:
-> -                       for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
-> -                               ring =3D &adev->gfx.gfx_ring[i];
-> -                               if (ring->me =3D=3D me_id && ring->pipe =
-=3D=3D pipe_id &&
-> -                                   ring->queue =3D=3D queue_id)
-> -                                       drm_sched_fault(&ring->sched);
-> -                       }
-> -                       break;
-> -               case 1:
-> -               case 2:
-> -                       for (i =3D 0; i < adev->gfx.num_compute_rings; i+=
-+) {
-> -                               ring =3D &adev->gfx.compute_ring[i];
-> -                               if (ring->me =3D=3D me_id && ring->pipe =
-=3D=3D pipe_id &&
-> -                                   ring->queue =3D=3D queue_id)
-> -                                       drm_sched_fault(&ring->sched);
-> -                       }
-> -                       break;
-> -               default:
-> -                       BUG();
-> -                       break;
-> -               }
-> -       }
-> +       amdgpu_gfx_handle_priv_fault(adev, me_id, pipe_id, queue_id);
->  }
->
->  static int gfx_v12_0_priv_reg_irq(struct amdgpu_device *adev,
 > --
-> 2.34.1
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
+> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG N=C3=BCrnberg)
+>
 >
