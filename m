@@ -4,95 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8F35C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 18:03:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8BDCC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 18:26:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 247EE10E207;
-	Fri, 10 Jul 2026 18:03:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBDCB10E210;
+	Fri, 10 Jul 2026 18:26:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="HaxJvCJf";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="IH50Ibln";
 	dkim-atps=neutral
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
- [209.85.160.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E47E10E219
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 18:03:15 +0000 (UTC)
-Received: by mail-qt1-f175.google.com with SMTP id
- d75a77b69052e-51bfbe05683so7212481cf.2
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 11:03:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1783706594; x=1784311394; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=pchhQjIZYIsHA+IyTP+kMOXOCiYK49mahPv3eolm7bw=;
- b=HaxJvCJfdQjx6HXwsmRuDWFXUXK3N5YVfskFy1aXMr02tVrW3Q+abEdEr0Ro8rG9Ua
- eGu3wUoho5qi9Y1FhZ07RXmSiirCgtrqkoDjh0utvrD72mkhLFqLd1cQNgV/NBtowtJq
- 7YgnXLFVJCwrsGQugpBU0Yphr8YJIkisAxmt+nm2n/v83DromwhCKwAQZGZXy4Wg0qQ5
- UeRDuN/LDcRMhItQoxFcXaUI6crFDZAQZLXVTivK39wwc4qxL+ixt4RizBn1HyvzUQxj
- de7GYYiRKREUEBGk/JRplC2dYTmp9dH0brZhwKTj344TkV20PVMP1g6iqfzBO83s4PTy
- XuaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783706594; x=1784311394;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=pchhQjIZYIsHA+IyTP+kMOXOCiYK49mahPv3eolm7bw=;
- b=ZViq2EL1IVA7k4z1V/ddelQMTxutYEgmDIfqiZsJQKSfKX4fyF4SLB3oaOFSZQ81YX
- CmzzmrI5pLboqt+OLL8uCPVaJq2HBGg82vcTu+duoHUPNEJCKlz+9YbfekqUiox5xq0G
- ZxfZ/SWhtnTR+IzzVVoksJTjzzlIgbZcPjMcRUbBuOL7azFgrEFNgt8A4wbU526wheCG
- qGbZxfcJe6xFjQnCYvNoNFUlIve5PttHrWPJ3whlkRq7dmFoHhUi2munwf2BGN432+1V
- D/naVanmuMnmxL+tnd6zxAXakI5F0G64lLBGtr1py2cCLVDcziYdaemvkKByY/c2N/mx
- 1DqQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrNwvqkt0P/455kJ+iXXVT58tLPh2MbdTbZFDkNcw1qhk/Dvw51HzD4AaaRg3lvR6VOv6QqnsHO6NQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxxBK+Eo2qtYnTkdvMEe5Ql1fhfdoC8n5RGpu3AYwyKs0+Yt4an
- eB8cUmKijGsrSrbbYc/dc9B4wN/STRM+JW3mjjEQxGuTPSytztN99FvmR1QfFdRVGbI=
-X-Gm-Gg: AfdE7clj+pjrpPQgtq0rDyro8u+b2JkPmA4ZgnKIfOxYun7aNX+JYZLJqDaMhhO8o7i
- Da/Ed/OH9xXWNk7aHeHb0kgTk4JjsgvwCrnE483Q3qQ/6/Ceu8CFlo+o9kUlz4HKlr+on+hWQy4
- WM7VI8EoTPA/53FrqqhnGKQloBwWAcU4bjNlNRkXhxinK2SFsWydxCbJMOAQ1Az2vFdFRIpHeiF
- uhx21TqRg7S8PsFzfjgX8IBXUDcycfmvTiir6OY/vduuBJqc1Tz52L9eh8Kc6SSMRaqTfny8C28
- 17iPsvU1dSltZ6A5pZSePZ9ltawrQ8zKs1aifLwZ3pINJGWfpSk/Gnn2u5Vk0dxxLcKTLuxMlAU
- lVgFnHB/iUtEHIbsnCD2pj0b658UjLs+vBlhh624jVyFJd5axA8rVCZQ75WcQ
-X-Received: by 2002:ac8:7e8c:0:b0:51c:7b13:62fa with SMTP id
- d75a77b69052e-51c8b438c0dmr129494461cf.80.1783706594020; 
- Fri, 10 Jul 2026 11:03:14 -0700 (PDT)
-Received: from ziepe.ca ([159.2.72.92]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ffd7c1fd2bsm47060696d6.27.2026.07.10.11.03.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 11:03:13 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wiFZA-00000007fhc-13JV;
- Fri, 10 Jul 2026 15:03:12 -0300
-Date: Fri, 10 Jul 2026 15:03:12 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Stanislav Kinsburskii <skinsburskii@gmail.com>
-Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
- corbet@lwn.net, dakr@kernel.org, david@kernel.org,
- decui@microsoft.com, haiyangz@microsoft.com, kees@kernel.org,
- kys@microsoft.com, leon@kernel.org, liam@infradead.org,
- lizhi.hou@amd.com, ljs@kernel.org, longli@microsoft.com,
- lyude@redhat.com, maarten.lankhorst@linux.intel.com,
- mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
- nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
- rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
- skhan@linuxfoundation.org, surenb@google.com, tzimmermann@suse.de,
- vbabka@kernel.org, wei.liu@kernel.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-rdma@vger.kernel.org
-Subject: Re: [PATCH v7 2/8] mm/hmm: add hmm_range_fault_unlocked_timeout()
- for mmap lock-drop support
-Message-ID: <20260710180312.GD1803712@ziepe.ca>
-References: <178345345668.660027.2952911919681614557.stgit@skinsburskii>
- <178345362182.660027.12809852179204464964.stgit@skinsburskii>
- <20260710162749.GP118978@ziepe.ca>
- <20260710164743.GX118978@ziepe.ca> <alElv0EKjLQXMNK8@skinsburskii>
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7DEF10E210
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 18:26:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783707979; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=EwD8DDadIi1TDQG5EvLi6RO0Fl3SM8MUc3FuX06FXZe1BqWcdVaE2DyBmmrofvXcROUdBGTnNyozdF5+v6yU+g56nmiMNUVUg/ZdNI2DvfDSk5AqDj11qmXe3X0wxQ7pi0G4EHAgaT2YY0nJTJq90tcMDGpDxm8ZI2RaLU5C2pI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783707979;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=h9AOda6Ww2DmVQg/pYx7o4zGVJWWpKbAW9ltVZeQmM0=; 
+ b=knca/cwa/hXKeI5CzrY7kA0f7+NOku+O7eU4C2amr5zOjiDa3xY1k255qnG7XCmuN3cYq1fT5RgjSjc+wFWSfrDyYo3+bA+hnajVg/ETT/RsBshB/oBb1BQ3cHlYNh6Pbd8e9UIBEwnOZlTfxMpgOqRROoqmjKRicgAIX9Cx2To=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783707979; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=h9AOda6Ww2DmVQg/pYx7o4zGVJWWpKbAW9ltVZeQmM0=;
+ b=IH50IblnhRZ6cwgH/iQMWz5oVyGDySmpcR+H3A2VxFc2PcOcK515/wjULHHMcxp7
+ ws8qfvUemvb/ZzzdTSLVZIraxE8paMxMMTMifLtiOY4hiqKlYQFdyW6ibBB+/IErrrG
+ QieWuoV5H81jvQo7mzRdFFzAJcTeej43S+u6luFk=
+Received: by mx.zohomail.com with SMTPS id 178370797901560.55875535023233;
+ Fri, 10 Jul 2026 11:26:19 -0700 (PDT)
+Date: Fri, 10 Jul 2026 19:26:09 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Ben Dooks <ben.dooks@codethink.co.uk>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/panfrost: include panfrost_drv.h for
+ panfrost_transparent_hugepage
+Message-ID: <alE5Mne8sys8b48D@sobremesa>
+References: <20260623104617.768289-1-ben.dooks@codethink.co.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <alElv0EKjLQXMNK8@skinsburskii>
+In-Reply-To: <20260623104617.768289-1-ben.dooks@codethink.co.uk>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,39 +70,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2026 at 10:02:55AM -0700, Stanislav Kinsburskii wrote:
-> The main customer for this new feature I have in mind is the MSHV driver
-> which backs VMs memory with HMM, requires userfaultfd support for
-> post-copy live migration and fast restore and it doesn't timeout.
+Queued to drm-misc-next.
+
+On 23.06.2026 11:46, Ben Dooks wrote:
+> The panfrost_transparent_hugepage variable is declared in panfrost_drv.h
+> but the panfrost_drv.c does not incldue this header. Fix the following
+> sparse warning by including panfrost_drv.h :
 > 
-> I agree, that this current timeout value used by the other callers might
-> not be enough to repopulate the mappings with userfaultfd, but there
-> drivers would get -EFAULT for uderfaultfd-backed mappings without this
-> change anyway, so getting -EBUSY with the change instead doesn't look
-> like a significant change to the behaviour from my POV.
+> drivers/gpu/drm/panfrost/panfrost_drv.c:958:6: warning: symbol 'panfrost_transparent_hugepage' was not declared. Should it be static?
+> 
+> Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_drv.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> index 784e36d72c2b..36cc2e67a308 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -21,6 +21,7 @@
+>  #include <drm/drm_utils.h>
+>  
+>  #include "panfrost_device.h"
+> +#include "panfrost_drv.h"
+>  #include "panfrost_gem.h"
+>  #include "panfrost_mmu.h"
+>  #include "panfrost_job.h"
+> -- 
+> 2.37.2.352.g3c44437643
 
-It sounds like it won't be reliable either then.
-
-> > So, maybe the deadline should be resetting after every handled fault?
-> > ie the timeout really is only about the mmu notifier and we don't
-> > count the time spent handling faults or walking?
->
-> The timeout was inherited from existing HMM users rather than introduced
-> as a new HMM policy. Some GPU drivers use HMM_RANGE_DEFAULT_TIMEOUT as a
-> budget for the whole range population operation, including HMM retries
-> and subsequent driver mapping work.
-
-Yes, because we always had a timeout around the notifier because that
-scheme can sort of live lock. The timeout was to protect that only, ie
-limit the number of notifier retries.
-
-Expanding the timeout to be outside what is bounded by the notifier
-retry is not right, and heavy stuff like mapping should be done after
-the hmm side succeeds and the notifiers concluded so they can rely on
-normal locking instead.
-
-This is why I'm suggesting to reset the deadline as hmm makes forward
-progress, we really only want to bound the notifier retry loop not
-anything else.
-
-Jason
+Adrian Larumbe
