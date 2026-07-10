@@ -4,57 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D594EC44511
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06A57C4450D
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1933110F9A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66ECE10F989;
 	Fri, 10 Jul 2026 21:54:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WnXfKUL1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m8lw/4nr";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1A9410E4B2;
- Fri, 10 Jul 2026 21:54:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E1A910E5A8;
+ Fri, 10 Jul 2026 21:54:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783720493; x=1815256493;
+ t=1783720491; x=1815256491;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=LuLgyJwVUCOeGIyz1qU+oUZwl879l+AhC7oBeibpAAE=;
- b=WnXfKUL1BDMxn8hv1WByl2b3HuttDaPrHVGHD/xGwdxMfPJgQhkZryGL
- F88hCXrgkPiuenmEutiHCUjGltGv/CJoKtlIEvU1WRXZ2o3ijlivgBSpv
- ccAD7hgZNACzsHOxejjqSxK01N1OeRM4rebKUrLe1JnUeSe1VcJlOQfGF
- /ESDpv8ghAgpoy1NXCZw8CTLpDDAtAi1JKnj3EnrizLvAYGYe5VXEOMor
- ysuDm9MreRxOgRxO5kvAucqnNX/tkwVy6UWYYrfJS+BwaN1anzYBDaLEd
- 4SBDScvKVh2IqIm3qc28nzeLs4JNxXoJye5u8NtmuoAulhtVRItU86Pht A==;
-X-CSE-ConnectionGUID: Oba+LA8xQSmYHWOoe9eGLQ==
-X-CSE-MsgGUID: CAmnSHPHRx+9ao1JC8w+eA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543155"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543155"
+ bh=IPg964J+vFH9Nf7fM4mRxZxjLcoocFaWcN+vc/RO39s=;
+ b=m8lw/4nrdhyfpENg/O0sGXvTBZ7FnoLLH8Id0OdSM9GYF6kKb8X6/ss3
+ EKCAoewCW9wLGmVqIspDYLnRsjlklHLBB2tYzAK02ceAclQzzFDiJmZn7
+ ZNaT6gPcWmJD8KLw9TUV6VXBT7wZYuH6nfSR8P5lOCcWkOjHkbR7Zo3By
+ 5Qb8vn9W3nDx6ncEcTeArzfPDePF4U6UyRho9rmeO5WhnPWY0UIMl46VL
+ mbqyLe/sLR9km5ozmrJCIJzAmW8tli4cCXiGci+oXFAXAVD0b0RFItpwc
+ JqBJLdG37LyYvQA8KLCmNKUBxs/XeUKEYySkdWiwwPKyzlQ8IURn2zgNo Q==;
+X-CSE-ConnectionGUID: 5rdaf8DsTQSR5XLbIi4Txw==
+X-CSE-MsgGUID: ta3dV6W8RISagIMeMVdJ6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543126"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543126"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:52 -0700
-X-CSE-ConnectionGUID: TwOKr4DST5qrAuEFt1RGBA==
-X-CSE-MsgGUID: ms9WvFFTQkCKKJwyNUBbGA==
+ 10 Jul 2026 14:54:51 -0700
+X-CSE-ConnectionGUID: 2Xej6xuxS1SHE/plYEfvsg==
+X-CSE-MsgGUID: Nn33H4AnSzOuCZVpYYYU+w==
 X-ExtLoop1: 1
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:52 -0700
+ 10 Jul 2026 14:54:51 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v2 17/33] drm/xe: Add xe_migrate_copy_defrag() for on-GPU
- defrag copies
-Date: Fri, 10 Jul 2026 14:54:26 -0700
-Message-Id: <20260710215442.2444235-18-matthew.brost@intel.com>
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v2 12/33] drm/xe: Add debugfs stats for DMA-mapped pages per
+ order
+Date: Fri, 10 Jul 2026 14:54:21 -0700
+Message-Id: <20260710215442.2444235-13-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260710215442.2444235-1-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
@@ -76,310 +69,412 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add xe_migrate_copy_defrag(), a copy helper for the upcoming page
-defragmentation path where a single BO has its backing reallocated at a
-more beneficial page order and its contents must be relocated from the
-old pages to the new ones entirely on the GPU.
+From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-The contents are relocated in up to two passes:
+Expose per-page-order DMA mapping counts for the system memory that the
+xe driver maps for GPU access, split into two categories: TTM buffer
+objects, and the GPU SVM / userptr ranges (which share a single
+drm_gpusvm instance per VM).
 
- - Data pass (always): copy the data pages verbatim. The pages are
-   mapped without the compression PAT, so the (possibly compressed)
-   bytes are copied as-is rather than being decompressed and
-   recompressed, and no CCS aux copy is appended.
+The stats are visible at:
 
- - CCS pass (need_ccs): copy the CCS aux (compression) state. Both the
-   old and new data pages are mapped with the compression PAT so the
-   copy engine accesses the aux state indirectly, issuing one
-   indirect -> indirect XY_CTRL_SURF_COPY_BLT; the data blit is skipped.
+  <debugfs>/dri/<N>/dma_mapped_pages
 
-The two passes are issued separately because they require opposite
-compression PAT settings on the data page mappings (cleared for the
-verbatim data copy, set for the indirect CCS access), which a single
-mapping cannot satisfy. Both passes run in order on the same migrate
-queue and are captured by the returned fence.
+and are broken out into two rows (bo, svm/userptr), one column per page
+order, mirroring the layout of the TTM pool page_pool stat.
 
-The source pages are passed explicitly via an sg_table argument (the
-old, still populated backing) since they no longer match the BO's
-current backing. The boolean arguments to __xe_migrate_copy() are folded
-into struct xe_migrate_copy_flags to keep the growing set of copy
-variants readable.
+For TTM BOs the per-order counts are derived from the DMA scatter-gather
+table: each mapped segment is physically contiguous, so its page count is
+split into the largest power-of-two runs (a segment of N pages contributes
+a 2^k chunk for the largest k with 2^k <= N, repeated for the remainder).
+Driving the accounting off the sg table rather than the pages[] array keeps
+it correct even when pages[] entries are cleared while still DMA-mapped,
+as happens on the defrag page-borrowing path.
 
-Cc: Carlos Santa <carlos.santa@intel.com>
-Cc: Ryan Neph <ryanneph@google.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+For the SVM and userptr ranges the accounting is driven by the
+drm_gpusvm @dma_map_account callback, which fires once per dma_addr[]
+entry at the exact point the entry is DMA-mapped and unmapped. This
+makes the accounting symmetric by construction and avoids driver-side
+walks that could drift across migration, partial unmaps and the iova vs
+non-iova paths. Only DRM_INTERCONNECT_SYSTEM entries are real DMA maps
+and counted; device interconnect (VRAM, P2P) entries are skipped, so the
+counter reflects only system pages actually mapped through the DMA layer.
+
+The callback is shared between the full SVM instance (fault mode) and the
+core drm_gpusvm_pages-only instance used for userptr, so userptr
+mappings are accounted in both the CONFIG_DRM_XE_GPUSVM=y and =n (but
+CONFIG_DRM_GPUSVM=y) configurations, into the same svm/userptr counter.
+
+Since the counts are only ever consumed through debugfs, gate the counter
+storage and all accounting on CONFIG_DEBUG_FS so that builds without
+debugfs carry no extra atomic traffic or device state; the drm_gpusvm
+callback is simply left unregistered in that case.
+
+On device teardown assert that every counter has returned to zero, to
+catch any unbalanced accounting (a leaked DMA mapping) during testing.
+
 Assisted-by: GitHub_Copilot:claude-opus-4.8
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/xe/xe_migrate.c | 136 ++++++++++++++++++++++++++++----
- drivers/gpu/drm/xe/xe_migrate.h |   8 ++
- 2 files changed, 128 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/xe/xe_bo.c           | 46 +++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_debugfs.c      | 26 +++++++++++++
+ drivers/gpu/drm/xe/xe_device.c       | 24 ++++++++++++
+ drivers/gpu/drm/xe/xe_device_types.h | 17 +++++++++
+ drivers/gpu/drm/xe/xe_svm.c          | 36 +++++++++++++++++-
+ drivers/gpu/drm/xe/xe_svm.h          |  3 +-
+ drivers/gpu/drm/xe/xe_userptr.c      | 55 ++++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_userptr.h      |  1 +
+ 8 files changed, 205 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_migrate.c b/drivers/gpu/drm/xe/xe_migrate.c
-index 92d5e81ceac2..305c6e1942fb 100644
---- a/drivers/gpu/drm/xe/xe_migrate.c
-+++ b/drivers/gpu/drm/xe/xe_migrate.c
-@@ -858,13 +858,39 @@ static u32 xe_migrate_ccs_copy(struct xe_migrate *m,
- 	return flush_flags;
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index 85e6d9a0f575..60e0e568aa31 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -367,6 +367,50 @@ struct xe_ttm_tt {
+ 	bool purgeable;
+ };
+ 
++/*
++ * xe_tt_account_dma_pages - account DMA-mapped tt pages per order
++ * @xe: the xe device
++ * @xe_tt: the xe_ttm_tt whose sg table to walk
++ * @sign: +1 to add, -1 to subtract
++ *
++ * Walk the tt's DMA scatter-gather table and split each (physically
++ * contiguous) segment into the largest power-of-two page runs: a segment of N
++ * pages contributes a 2^k chunk for the largest k with 2^k <= N, repeated for
++ * the remainder. Accumulate the count of 2^k pages into
++ * xe->mem.dma_mapped_pages[k]. Driving this off the sg table rather than
++ * tt->pages keeps the accounting correct even when pages[] entries are cleared
++ * while still DMA-mapped (e.g. the defrag page-borrowing path).
++ */
++#if IS_ENABLED(CONFIG_DEBUG_FS)
++static void xe_tt_account_dma_pages(struct xe_device *xe,
++				    struct xe_ttm_tt *xe_tt, int sign)
++{
++	struct scatterlist *sg;
++	unsigned int i;
++
++	for_each_sgtable_sg(xe_tt->sg, sg, i) {
++		unsigned long nr_pages = sg->length >> PAGE_SHIFT;
++
++		while (nr_pages) {
++			unsigned int order = min_t(unsigned int,
++						   __fls(nr_pages),
++						   MAX_PAGE_ORDER);
++			unsigned long chunk = 1UL << order;
++
++			atomic_long_add((long)chunk * sign,
++					&xe->mem.dma_mapped_pages[order]);
++
++			nr_pages -= chunk;
++		}
++	}
++}
++#else
++static void xe_tt_account_dma_pages(struct xe_device *xe,
++				    struct xe_ttm_tt *xe_tt, int sign)
++{
++}
++#endif
++
+ static int xe_tt_map_sg(struct xe_device *xe, struct ttm_tt *tt)
+ {
+ 	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+@@ -396,6 +440,7 @@ static int xe_tt_map_sg(struct xe_device *xe, struct ttm_tt *tt)
+ 		return ret;
+ 	}
+ 
++	xe_tt_account_dma_pages(xe, xe_tt, 1);
+ 	return 0;
  }
  
-+/**
-+ * struct xe_migrate_copy_flags - Flags for __xe_migrate_copy()
-+ * @copy_only_ccs: Only copy the CCS aux state, aliasing the destination data
-+ * mapping to the source (used when the data pages are shared between src/dst).
-+ * @is_vram_resolve: Decompression (VRAM -> system) resolve; always uses the
-+ * compression PAT index for the data copy.
-+ * @defrag_ccs: Defrag move pass that migrates only the CCS aux state between
-+ * two distinct page sets (old @src_sg pages -> new pages). The data blit is
-+ * skipped (the data was copied by the @defrag_copy pass) and both the source
-+ * and destination data pages are mapped with the compression PAT so the aux
-+ * state is copied indirect -> indirect.
-+ * @defrag_copy: Defrag move pass that copies the data pages between two
-+ * distinct page sets (old @src_sg pages -> new pages) without touching the CCS
-+ * aux state. The data pages are mapped without the compression PAT so the
-+ * (possibly compressed) bytes are copied verbatim rather than being
-+ * decompressed and recompressed, and no CCS aux copy is appended; the aux
-+ * state is migrated separately by the @defrag_ccs pass. The two passes need
-+ * opposite compression PAT settings, which is why they cannot be combined.
-+ */
-+struct xe_migrate_copy_flags {
-+	u32 copy_only_ccs : 1;
-+	u32 is_vram_resolve : 1;
-+	u32 defrag_ccs : 1;
-+	u32 defrag_copy : 1;
-+};
+@@ -404,6 +449,7 @@ static void xe_tt_unmap_sg(struct xe_device *xe, struct ttm_tt *tt)
+ 	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+ 
+ 	if (xe_tt->sg) {
++		xe_tt_account_dma_pages(xe, xe_tt, -1);
+ 		dma_unmap_sgtable(xe->drm.dev, xe_tt->sg,
+ 				  DMA_BIDIRECTIONAL, 0);
+ 		sg_free_table(xe_tt->sg);
+diff --git a/drivers/gpu/drm/xe/xe_debugfs.c b/drivers/gpu/drm/xe/xe_debugfs.c
+index 8c391c7b017a..97b47c5c4213 100644
+--- a/drivers/gpu/drm/xe/xe_debugfs.c
++++ b/drivers/gpu/drm/xe/xe_debugfs.c
+@@ -6,6 +6,7 @@
+ #include "xe_debugfs.h"
+ 
+ #include <linux/debugfs.h>
++#include <linux/mmzone.h>
+ #include <linux/fault-inject.h>
+ #include <linux/string_helpers.h>
+ 
+@@ -231,6 +232,28 @@ static int dgfx_pcie_link_residencies_show(struct seq_file *m, void *data)
+ 	return 0;
+ }
+ 
++static int dma_mapped_pages_show(struct seq_file *m, void *data)
++{
++	struct xe_device *xe = m->private;
++	unsigned int i;
 +
- static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 					   struct xe_bo *src_bo,
- 					   struct xe_bo *dst_bo,
- 					   struct ttm_resource *src,
- 					   struct ttm_resource *dst,
--					   bool copy_only_ccs,
--					   bool is_vram_resolve)
-+					   struct sg_table *src_sg,
-+					   struct xe_migrate_copy_flags flags)
- {
- 	struct xe_gt *gt = m->tile->primary_gt;
- 	struct xe_device *xe = gt_to_xe(gt);
-@@ -881,20 +907,29 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 	bool src_is_vram = mem_type_is_vram(src->mem_type);
- 	bool dst_is_vram = mem_type_is_vram(dst->mem_type);
- 	bool type_device = src_bo->ttm.type == ttm_bo_type_device;
--	bool needs_ccs_emit = type_device && xe_migrate_needs_ccs_emit(xe);
-+	bool needs_ccs_emit = type_device && xe_migrate_needs_ccs_emit(xe) &&
-+		!flags.defrag_copy;
- 	bool copy_ccs = xe_device_has_flat_ccs(xe) &&
--		xe_bo_needs_ccs_pages(src_bo) && xe_bo_needs_ccs_pages(dst_bo);
--	bool copy_system_ccs = copy_ccs && (!src_is_vram || !dst_is_vram);
-+		xe_bo_needs_ccs_pages(src_bo) && xe_bo_needs_ccs_pages(dst_bo) &&
-+		!flags.defrag_copy;
-+	bool copy_system_ccs = copy_ccs && (!src_is_vram || !dst_is_vram) &&
-+		!flags.defrag_ccs && !flags.defrag_copy;
++	seq_printf(m, "%-11s ", "");
++	for (i = 0; i < NR_PAGE_ORDERS; i++)
++		seq_printf(m, " ---%2u---", i);
++	seq_printf(m, "\n%-11s:", "bo");
++	for (i = 0; i < NR_PAGE_ORDERS; i++)
++		seq_printf(m, " %8lu",
++			   atomic_long_read(&xe->mem.dma_mapped_pages[i]));
++	seq_printf(m, "\n%-11s:", "svm/userptr");
++	for (i = 0; i < NR_PAGE_ORDERS; i++)
++		seq_printf(m, " %8lu",
++			   atomic_long_read(&xe->mem.dma_mapped_pages_svm[i]));
++	seq_puts(m, "\n");
++
++	return 0;
++}
++DEFINE_SHOW_ATTRIBUTE(dma_mapped_pages);
++
+ static const struct drm_info_list debugfs_list[] = {
+ 	{"info", info, 0},
+ 	{ .name = "sriov_info", .show = sriov_info, },
+@@ -632,6 +655,9 @@ void xe_debugfs_register(struct xe_device *xe)
+ 	if (man)
+ 		ttm_resource_manager_create_debugfs(man, root, "stolen_mm");
  
- 	/*
- 	 * For decompression operation, always use the compression PAT index.
- 	 * Otherwise, only use the compression PAT index for device memory
- 	 * when copying from VRAM to system memory.
- 	 */
--	bool use_comp_pat = is_vram_resolve || (type_device &&
-+	bool use_comp_pat = flags.is_vram_resolve || (type_device &&
- 			    xe_device_has_flat_ccs(xe) &&
- 			    GRAPHICS_VER(xe) >= 20 && src_is_vram && !dst_is_vram);
++	debugfs_create_file("dma_mapped_pages", 0444, root, xe,
++			    &dma_mapped_pages_fops);
++
+ 	for_each_tile(tile, xe, tile_id)
+ 		xe_tile_debugfs_register(tile);
  
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index ad7f3e61d457..0c4ee874a56d 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -455,10 +455,34 @@ bool xe_device_is_admin_only(const struct xe_device *xe)
+ }
+ #endif
+ 
++#if IS_ENABLED(CONFIG_DEBUG_FS)
++static void xe_device_assert_dma_pages_zero(struct xe_device *xe)
++{
++	unsigned int i;
++
 +	/*
-+	 * The defrag CCS pass migrates the aux state from the old pages
-+	 * (@src_sg) to the new pages with both sides accessed indirectly, so
-+	 * keep both src_is_pltt and dst_is_pltt set (no direct staging side).
++	 * All BOs, userptr VMAs and SVM ranges must have been torn down by the
++	 * time the device is destroyed, so every DMA-mapped-pages counter must
++	 * have returned to zero. A non-zero value indicates unbalanced
++	 * accounting, i.e. a missing unmap-side decrement.
 +	 */
++	for (i = 0; i < NR_PAGE_ORDERS; i++) {
++		xe_assert(xe, !atomic_long_read(&xe->mem.dma_mapped_pages[i]));
++		xe_assert(xe, !atomic_long_read(&xe->mem.dma_mapped_pages_svm[i]));
++	}
++}
++#else
++static void xe_device_assert_dma_pages_zero(struct xe_device *xe)
++{
++}
++#endif
 +
- 	/* Copying CCS between two different BOs is not supported yet. */
- 	if (XE_WARN_ON(copy_ccs && src_bo != dst_bo))
- 		return ERR_PTR(-EINVAL);
-@@ -903,7 +938,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 		return ERR_PTR(-EINVAL);
- 
- 	if (!src_is_vram)
--		xe_res_first_sg(xe_bo_sg(src_bo), 0, size, &src_it);
-+		xe_res_first_sg(src_sg ? src_sg : xe_bo_sg(src_bo), 0, size, &src_it);
- 	else
- 		xe_res_first(src, 0, size, &src_it);
- 	if (!dst_is_vram)
-@@ -912,7 +947,8 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 		xe_res_first(dst, 0, size, &dst_it);
- 
- 	if (copy_system_ccs)
--		xe_res_first_sg(xe_bo_sg(src_bo), xe_bo_ccs_pages_start(src_bo),
-+		xe_res_first_sg(src_sg ? src_sg : xe_bo_sg(src_bo),
-+				xe_bo_ccs_pages_start(src_bo),
- 				PAGE_ALIGN(xe_device_ccs_bytes(xe, size)),
- 				&ccs_it);
- 
-@@ -942,7 +978,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 		batch_size += pte_update_size(m, pte_flags, src, &src_it, &src_L0,
- 					      &src_L0_ofs, &src_L0_pt, 0, 0,
- 					      avail_pts);
--		if (copy_only_ccs) {
-+		if (flags.copy_only_ccs) {
- 			dst_L0_ofs = src_L0_ofs;
- 		} else {
- 			pte_flags = dst_is_vram ? PTE_UPDATE_FLAG_IS_VRAM : 0;
-@@ -963,7 +999,8 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 		}
- 
- 		/* Add copy commands size here */
--		batch_size += ((copy_only_ccs) ? 0 : emit_copy_cmd_len(xe)) +
-+		batch_size += ((flags.copy_only_ccs || flags.defrag_ccs) ? 0 :
-+			       emit_copy_cmd_len(xe)) +
- 			((needs_ccs_emit ? EMIT_COPY_CCS_DW : 0));
- 
- 		bb = xe_bb_new(gt, batch_size, usm);
-@@ -975,13 +1012,15 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 		if (src_is_vram && xe_migrate_allow_identity(src_L0, &src_it))
- 			xe_res_next(&src_it, src_L0);
- 		else
--			emit_pte(m, bb, src_L0_pt, src_is_vram, copy_system_ccs || use_comp_pat,
-+			emit_pte(m, bb, src_L0_pt, src_is_vram,
-+				 copy_system_ccs || use_comp_pat || flags.defrag_ccs,
- 				 &src_it, src_L0, src);
- 
- 		if (dst_is_vram && xe_migrate_allow_identity(src_L0, &dst_it))
- 			xe_res_next(&dst_it, src_L0);
--		else if (!copy_only_ccs)
--			emit_pte(m, bb, dst_L0_pt, dst_is_vram, copy_system_ccs,
-+		else if (!flags.copy_only_ccs)
-+			emit_pte(m, bb, dst_L0_pt, dst_is_vram,
-+				 copy_system_ccs || flags.defrag_ccs,
- 				 &dst_it, src_L0, dst);
- 
- 		if (copy_system_ccs)
-@@ -990,7 +1029,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 		bb->cs[bb->len++] = MI_BATCH_BUFFER_END;
- 		update_idx = bb->len;
- 
--		if (!copy_only_ccs)
-+		if (!flags.copy_only_ccs && !flags.defrag_ccs)
- 			emit_copy(gt, bb, src_L0_ofs, dst_L0_ofs, src_L0, XE_PAGE_SIZE);
- 
- 		if (needs_ccs_emit)
-@@ -1078,7 +1117,69 @@ struct dma_fence *xe_migrate_copy(struct xe_migrate *m,
- 				  struct ttm_resource *dst,
- 				  bool copy_only_ccs)
+ static void xe_device_destroy(struct drm_device *dev, void *dummy)
  {
--	return __xe_migrate_copy(m, src_bo, dst_bo, src, dst, copy_only_ccs, false);
-+	return __xe_migrate_copy(m, src_bo, dst_bo, src, dst, NULL,
-+				 (struct xe_migrate_copy_flags) {
-+					 .copy_only_ccs = copy_only_ccs,
-+				 });
+ 	struct xe_device *xe = to_xe_device(dev);
+ 
++	xe_device_assert_dma_pages_zero(xe);
++
+ 	xe_bo_dev_fini(&xe->bo_device);
+ 
+ 	if (xe->preempt_fence_wq)
+diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
+index 022e08205897..95e7cea91cbf 100644
+--- a/drivers/gpu/drm/xe/xe_device_types.h
++++ b/drivers/gpu/drm/xe/xe_device_types.h
+@@ -6,6 +6,7 @@
+ #ifndef _XE_DEVICE_TYPES_H_
+ #define _XE_DEVICE_TYPES_H_
+ 
++#include <linux/mmzone.h>
+ #include <linux/pci.h>
+ 
+ #include <drm/drm_device.h>
+@@ -279,6 +280,22 @@ struct xe_device {
+ 		struct xe_shrinker *shrinker;
+ 		/** @mem.stolen_mgr: stolen memory manager. */
+ 		struct xe_ttm_stolen_mgr *stolen_mgr;
++#if IS_ENABLED(CONFIG_DEBUG_FS)
++		/**
++		 * @mem.dma_mapped_pages: number of DMA-mapped pages per page
++		 * order currently live for this device, for TTM BOs. Only
++		 * accounted when CONFIG_DEBUG_FS is enabled, since it is solely
++		 * exposed through debugfs.
++		 */
++		atomic_long_t dma_mapped_pages[NR_PAGE_ORDERS];
++		/**
++		 * @mem.dma_mapped_pages_svm: number of DMA-mapped pages per
++		 * page order currently live for this device, for SVM ranges
++		 * and userptr VMAs (both share a single drm_gpusvm instance).
++		 * Only accounted when CONFIG_DEBUG_FS is enabled.
++		 */
++		atomic_long_t dma_mapped_pages_svm[NR_PAGE_ORDERS];
++#endif
+ 	} mem;
+ 
+ 	/** @sriov: device level virtualization data */
+diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
+index b228a737cfd6..2f639fc0cac4 100644
+--- a/drivers/gpu/drm/xe/xe_svm.c
++++ b/drivers/gpu/drm/xe/xe_svm.c
+@@ -827,10 +827,42 @@ static int xe_svm_get_pagemaps(struct xe_vm *vm)
+ }
+ #endif
+ 
++#if IS_ENABLED(CONFIG_DEBUG_FS)
++/*
++ * xe_svm_dma_map_account - drm_gpusvm DMA-mapping accounting callback
++ * @gpusvm: The GPU SVM the mapping belongs to
++ * @addr: The address descriptor of the chunk being (un)mapped
++ * @sign: +1 when @addr was DMA-mapped, -1 when it is being unmapped
++ *
++ * Maintain per-order counts of the system-memory pages that the full SVM
++ * instance (SVM ranges, and userptr VMAs in fault mode) has DMA-mapped for GPU
++ * access. Only DRM_INTERCONNECT_SYSTEM entries are real DMA maps and counted;
++ * device interconnect (VRAM, P2P) entries are skipped. The counts are solely
++ * exposed through debugfs, so the callback is only registered when
++ * CONFIG_DEBUG_FS is enabled.
++ */
++static void xe_svm_dma_map_account(struct drm_gpusvm *gpusvm,
++				   const struct drm_pagemap_addr *addr,
++				   int sign)
++{
++	struct xe_device *xe = gpusvm_to_vm(gpusvm)->xe;
++	unsigned int order = addr->order;
++
++	if (addr->proto != DRM_INTERCONNECT_SYSTEM)
++		return;
++
++	atomic_long_add((long)(1UL << order) * sign,
++			&xe->mem.dma_mapped_pages_svm[order]);
++}
++#endif
++
+ static const struct drm_gpusvm_ops gpusvm_ops = {
+ 	.range_alloc = xe_svm_range_alloc,
+ 	.range_free = xe_svm_range_free,
+ 	.invalidate = xe_svm_invalidate,
++#if IS_ENABLED(CONFIG_DEBUG_FS)
++	.dma_map_account = xe_svm_dma_map_account,
++#endif
+ };
+ 
+ static const unsigned long fault_chunk_sizes[] = {
+@@ -925,8 +957,8 @@ int xe_svm_init(struct xe_vm *vm)
+ 		}
+ 	} else {
+ 		err = drm_gpusvm_init(&vm->svm.gpusvm, "Xe SVM (simple)",
+-				      NULL, 0, 0, 0, NULL,
+-				      NULL, 0);
++				      NULL, 0, 0, 0,
++				      xe_userptr_gpusvm_ops_get(), NULL, 0);
+ 	}
+ 
+ 	return err;
+diff --git a/drivers/gpu/drm/xe/xe_svm.h b/drivers/gpu/drm/xe/xe_svm.h
+index a921556d3466..edd668c41551 100644
+--- a/drivers/gpu/drm/xe/xe_svm.h
++++ b/drivers/gpu/drm/xe/xe_svm.h
+@@ -236,7 +236,8 @@ int xe_svm_init(struct xe_vm *vm)
+ {
+ #if IS_ENABLED(CONFIG_DRM_GPUSVM)
+ 	return drm_gpusvm_init(&vm->svm.gpusvm, "Xe SVM (simple)",
+-			       NULL, 0, 0, 0, NULL, NULL, 0);
++			       NULL, 0, 0, 0, NULL, NULL,
++			       xe_userptr_gpusvm_ops_get(), 0);
+ #else
+ 	return 0;
+ #endif
+diff --git a/drivers/gpu/drm/xe/xe_userptr.c b/drivers/gpu/drm/xe/xe_userptr.c
+index 8b2d461ea0b2..79c2a81001f2 100644
+--- a/drivers/gpu/drm/xe/xe_userptr.c
++++ b/drivers/gpu/drm/xe/xe_userptr.c
+@@ -8,9 +8,64 @@
+ 
+ #include <linux/mm.h>
+ 
++#include <drm/drm_pagemap.h>
++
+ #include "xe_tlb_inval.h"
+ #include "xe_trace_bo.h"
+ 
++#if IS_ENABLED(CONFIG_DEBUG_FS)
++/*
++ * xe_userptr_dma_map_account - drm_gpusvm DMA-mapping accounting callback
++ * @gpusvm: The GPU SVM the mapping belongs to
++ * @addr: The address descriptor of the chunk being (un)mapped
++ * @sign: +1 when @addr was DMA-mapped, -1 when it is being unmapped
++ *
++ * Account, per page order, the system-memory pages DMA-mapped for GPU access
++ * through the drm_gpusvm_pages instance shared by userptr (and, in fault mode,
++ * SVM). Only DRM_INTERCONNECT_SYSTEM entries are real DMA maps and counted;
++ * device interconnect (VRAM, P2P) entries are skipped. The counts are solely
++ * exposed through debugfs, so the callback is only registered when
++ * CONFIG_DEBUG_FS is enabled.
++ */
++static void xe_userptr_dma_map_account(struct drm_gpusvm *gpusvm,
++				       const struct drm_pagemap_addr *addr,
++				       int sign)
++{
++	struct xe_vm *vm = container_of(gpusvm, struct xe_vm, svm.gpusvm);
++	unsigned int order = addr->order;
++
++	if (addr->proto != DRM_INTERCONNECT_SYSTEM)
++		return;
++
++	atomic_long_add((long)(1UL << order) * sign,
++			&vm->xe->mem.dma_mapped_pages_svm[order]);
 +}
 +
++static const struct drm_gpusvm_ops xe_userptr_gpusvm_ops = {
++	.dma_map_account = xe_userptr_dma_map_account,
++};
++#endif
++
 +/**
-+ * xe_migrate_copy_defrag() - Migrate a BO's backing to a reallocated page set.
-+ * @m: The migration context.
-+ * @bo: The buffer object being defragmented. Both @src and @dst belong to @bo.
-+ * @src: The source TTM resource (the old backing).
-+ * @dst: The dst TTM resource (the freshly reallocated backing).
-+ * @src_sg: Scatter-gather table of the source (old) backing pages.
-+ * @need_ccs: Whether the BO has CCS aux state that must be migrated too.
++ * xe_userptr_gpusvm_ops_get() - Accounting ops for the simple gpusvm instance
 + *
-+ * Used by the defrag path where a single BO has its backing reallocated at a
-+ * more beneficial page order. The contents are relocated from the old pages
-+ * (@src_sg) to the new pages (the BO's current backing) entirely on the GPU,
-+ * in up to two passes:
++ * The core drm_gpusvm_pages-only instance used for userptr (and, in fault
++ * mode, shared with SVM) is initialised with these ops so that DMA-mapped
++ * system pages are accounted and exposed through debugfs. Returns NULL when
++ * CONFIG_DEBUG_FS is disabled, in which case no accounting is kept and the
++ * instance is initialised without ops.
 + *
-+ *  - Data pass (always): copy the data pages verbatim. The pages are mapped
-+ *    without the compression PAT, so the (possibly compressed) bytes are copied
-+ *    as-is rather than being decompressed and recompressed, and no CCS aux copy
-+ *    is appended.
-+ *
-+ *  - CCS pass (@need_ccs): copy the CCS aux (compression) state. Both the old
-+ *    and new data pages are mapped with the compression PAT so the copy engine
-+ *    accesses the aux state indirectly, issuing one indirect -> indirect
-+ *    XY_CTRL_SURF_COPY_BLT; the data blit is skipped.
-+ *
-+ * The two passes are issued separately because they require opposite
-+ * compression PAT settings on the data page mappings (cleared for the verbatim
-+ * data copy, set for the indirect CCS access), which a single mapping cannot
-+ * satisfy. Both passes run in order on the same migrate queue.
-+ *
-+ * Return: Pointer to a dma_fence representing the last copy batch, or an error
-+ * pointer on failure.
++ * Return: Pointer to the restricted &drm_gpusvm_ops, or NULL.
 + */
-+struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
-+					 struct xe_bo *bo,
-+					 struct ttm_resource *src,
-+					 struct ttm_resource *dst,
-+					 struct sg_table *src_sg,
-+					 bool need_ccs)
++const struct drm_gpusvm_ops *xe_userptr_gpusvm_ops_get(void)
 +{
-+	struct dma_fence *fence2, *fence =
-+		__xe_migrate_copy(m, bo, bo, src, dst, src_sg,
-+				  (struct xe_migrate_copy_flags) {
-+					 .defrag_copy = true,
-+					 });
++#if IS_ENABLED(CONFIG_DEBUG_FS)
++	return &xe_userptr_gpusvm_ops;
++#else
++	return NULL;
++#endif
++}
 +
-+	if (IS_ERR(fence) || !need_ccs)
-+		return fence;
-+
-+	fence2 = __xe_migrate_copy(m, bo, bo, src, dst, src_sg,
-+				   (struct xe_migrate_copy_flags) {
-+				   .defrag_ccs = true,
-+				   });
-+	if (IS_ERR(fence2))
-+		dma_fence_wait(fence, false);
-+	dma_fence_put(fence);
-+
-+	return fence2;
- }
- 
- /**
-@@ -1096,7 +1197,10 @@ struct dma_fence *xe_migrate_resolve(struct xe_migrate *m,
- 				     struct xe_bo *bo,
- 				     struct ttm_resource *res)
+ static void xe_userptr_assert_in_notifier(struct xe_vm *vm)
  {
--	return __xe_migrate_copy(m, bo, bo, res, res, false, true);
-+	return __xe_migrate_copy(m, bo, bo, res, res, NULL,
-+				 (struct xe_migrate_copy_flags) {
-+					 .is_vram_resolve = true,
-+				 });
- }
+ 	lockdep_assert(lockdep_is_held_type(&vm->svm.gpusvm.notifier_lock, 0) ||
+diff --git a/drivers/gpu/drm/xe/xe_userptr.h b/drivers/gpu/drm/xe/xe_userptr.h
+index 2a3cd1b5efbb..1e9601be5713 100644
+--- a/drivers/gpu/drm/xe/xe_userptr.h
++++ b/drivers/gpu/drm/xe/xe_userptr.h
+@@ -108,6 +108,7 @@ int __xe_vm_userptr_needs_repin(struct xe_vm *vm);
+ int xe_vm_userptr_check_repin(struct xe_vm *vm);
+ int xe_vma_userptr_pin_pages(struct xe_userptr_vma *uvma);
+ int xe_vma_userptr_check_repin(struct xe_userptr_vma *uvma);
++const struct drm_gpusvm_ops *xe_userptr_gpusvm_ops_get(void);
+ #else
+ static inline void xe_userptr_remove(struct xe_userptr_vma *uvma) {}
  
- /**
-diff --git a/drivers/gpu/drm/xe/xe_migrate.h b/drivers/gpu/drm/xe/xe_migrate.h
-index 965c45889c72..e4f996942a6d 100644
---- a/drivers/gpu/drm/xe/xe_migrate.h
-+++ b/drivers/gpu/drm/xe/xe_migrate.h
-@@ -11,6 +11,7 @@
- struct dma_fence;
- struct drm_pagemap_addr;
- struct iosys_map;
-+struct sg_table;
- struct ttm_resource;
- 
- struct xe_bo;
-@@ -132,6 +133,13 @@ struct dma_fence *xe_migrate_copy(struct xe_migrate *m,
- 				  struct ttm_resource *dst,
- 				  bool copy_only_ccs);
- 
-+struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
-+					 struct xe_bo *bo,
-+					 struct ttm_resource *src,
-+					 struct ttm_resource *dst,
-+					 struct sg_table *src_sg,
-+					 bool need_ccs);
-+
- struct dma_fence *xe_migrate_resolve(struct xe_migrate *m,
- 				     struct xe_bo *bo,
- 				     struct ttm_resource *res);
 -- 
 2.34.1
 
