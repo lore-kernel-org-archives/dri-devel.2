@@ -4,136 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F660C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 09:26:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC97EC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 09:27:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2DBB10E172;
-	Fri, 10 Jul 2026 09:26:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 440CF10E173;
+	Fri, 10 Jul 2026 09:27:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="rO+SG5pG";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="88QofeIE";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jkNDBcYi";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DqUwkCaf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L44O7l22";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0224B10E172
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 09:26:22 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4595A76696;
- Fri, 10 Jul 2026 09:26:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783675581; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Mg2fjm3bd6+d/j1Randjtzs6phzw9YgU4HiJG9UWiNc=;
- b=rO+SG5pGRPOUgyTh7JpZa0Q6JWW2r6KgNo+oIHK/7rdKle2sVr9cGMeJ4pi8ce4dULb3l4
- Qm1jb6rVOgs7KCB0na7GZxpxQakxe7iQuOv2dpXvRe9tFmcpqFkcPMBefmJEj8l6P9R7jk
- nTgEBeUxEOWDqF/I1SN6yH1YSp11FjU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783675581;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Mg2fjm3bd6+d/j1Randjtzs6phzw9YgU4HiJG9UWiNc=;
- b=88QofeIE4O96b/odQnfneIDurGl08NewxEw/cZKDWw5xlqs6MWS5mHNzijm4dAqspSqtNH
- KVcI8V64/JIFulAw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jkNDBcYi;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=DqUwkCaf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783675580; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Mg2fjm3bd6+d/j1Randjtzs6phzw9YgU4HiJG9UWiNc=;
- b=jkNDBcYiM5G42Tx/B17poudPNpe31O4rU7fSrZBVPNwk0gVNGV8SGmNvhVSpT/5mEsiOPk
- atCqWqd1SooF0KS7wNk9vsTCIgBxflu6tK8WO8F1yAt5Wif/UW1LwmCwSpSWFzfv32v2cL
- M6exLx+9ao5uH84LmaaHUW3hsaycnaE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783675580;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Mg2fjm3bd6+d/j1Randjtzs6phzw9YgU4HiJG9UWiNc=;
- b=DqUwkCafhizSHkYdKGlTatNz9x55D33XfZ7lB7AkIFZ6U4Dxg8ckEeLSlUovQuUk2yfzEi
- 2REHR1BNP7lBI2Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1E417779BD;
- Fri, 10 Jul 2026 09:26:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id LFbSBby6UGpiGgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 10 Jul 2026 09:26:20 +0000
-Message-ID: <0397c50c-e9bd-40e5-a3df-2374f65b35c4@suse.de>
-Date: Fri, 10 Jul 2026 11:26:19 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/9] drm/gm12u320: replace struct drm_simple_display_pipe
- with regular atomic helpers
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: sashiko-reviews@lists.linux.dev, Ze Huang <ze.huang@oss.qualcomm.com>
-Cc: Frank.Li@kernel.org, imx@lists.linux.dev, dri-devel@lists.freedesktop.org
-References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
- <20260705-drm-simple-kms-removal-v1-6-b4e1ca053623@oss.qualcomm.com>
- <20260704184538.E20261F000E9@smtp.kernel.org>
- <2e5e0fb4-da13-4250-8395-d59ad5700cf5@suse.de>
-Content-Language: en-US
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <2e5e0fb4-da13-4250-8395-d59ad5700cf5@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 4595A76696
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_FIVE(0.00)[5];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,qualcomm.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:dkim];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AC1010E173
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 09:27:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2EA78601D9;
+ Fri, 10 Jul 2026 09:27:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17D21F000E9;
+ Fri, 10 Jul 2026 09:27:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783675662;
+ bh=8fXskwVGXuHDUpQxB7DaxmLsyZqr4m9Nw+mLRcDQVGU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=L44O7l22qU/hoUzFsULV14pB2a+qcz06U4nffI/CK3/oUnn9Z9w05wcxFLxqsjNl0
+ 1FlajL1y7kKiJV2OLdHT6GNS64RLCxyM7OOl3p35bRYFjro5Nnic+1ashFroTmQSEj
+ mE6cjxm4x2Su4s0a+5HIGYuI0v+FYxzg2yYPmQDxKQldcX+Fa2YojkD9zos60tsEtx
+ K+gdnkWu5iNb9ZrkIO3FCz2O/pvFUg+6ZThmLP0FqDTkBuBzjFWCqJuD5HVnrs+pi0
+ JwWfFU9P88QzS85E5SEwiTlTP0uxNHATAVCh+ryYXEu4CHCb5Tb+WQxsEqr/RSx4xa
+ o2T5Y7YlUYXPA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] drm/etnaviv: Add GPU reset counters
+To: "Christian Gmeiner" <christian.gmeiner@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260710-etnaviv-reset-notification-v2-2-90cfebcf22a2@igalia.com>
+References: <20260710-etnaviv-reset-notification-v2-0-90cfebcf22a2@igalia.com>
+ <20260710-etnaviv-reset-notification-v2-2-90cfebcf22a2@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Jul 2026 09:27:42 +0000
+Message-Id: <20260710092742.B17D21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,165 +53,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-Am 10.07.26 um 11:20 schrieb Thomas Zimmermann:
-> Hi
->
-> Am 04.07.26 um 20:45 schrieb sashiko-bot@kernel.org:
->> Thank you for your contribution! Sashiko AI review found 2 potential 
->> issue(s) to consider:
->>
->> New issues:
->> - [High] Race condition and potential NULL pointer dereference due to 
->> direct access to `plane->state` and missing visibility checks in 
->> atomic callbacks.
->>
->> Pre-existing issues:
->> - [High] Sleeping in atomic context within CRTC and plane atomic 
->> callbacks.
->> -- 
->>
->> commit a10b3d5781e3b7143f432c86643ef47e8ddc3a9a
->> Author: Ze Huang <ze.huang@oss.qualcomm.com>
->>
->> drm/gm12u320: replace struct drm_simple_display_pipe with regular 
->> atomic helpers
->>
->> Convert gm12u320 to direct primary plane, CRTC and encoder setup.
->> Keep shadow-plane helper state, framebuffer access helpers and
->> no-scaling plane-state check from simple-KMS path.
->>
->>> diff --git a/drivers/gpu/drm/tiny/gm12u320.c 
->>> b/drivers/gpu/drm/tiny/gm12u320.c
->>> index 4ad074337af07..b476793d0401e 100644
->>> --- a/drivers/gpu/drm/tiny/gm12u320.c
->>> +++ b/drivers/gpu/drm/tiny/gm12u320.c
->> [ ... ]
->>
->>> +static void gm12u320_crtc_helper_atomic_enable(struct drm_crtc *crtc,
->>> +                           struct drm_atomic_commit *commit)
->>>   {
->>>       struct drm_rect rect = { 0, 0, GM12U320_USER_WIDTH, 
->>> GM12U320_HEIGHT };
->>> -    struct gm12u320_device *gm12u320 = to_gm12u320(pipe->crtc.dev);
->>> +    struct gm12u320_device *gm12u320 = to_gm12u320(crtc->dev);
->>> +    struct drm_plane_state *plane_state = crtc->primary->state;
->> [Severity: High]
->> Will this cause a NULL pointer dereference if a subsequent commit 
->> disables
->> the plane?
->
-> Primary is for (old) non-atomic DRM drivers.
->
->>
->> Because non-blocking commits execute asynchronously, 
->> crtc->primary->state
->> reflects the state of the most recently queued commit, rather than the
->> commit currently executing. If a fast subsequent commit disables the 
->> plane,
->> plane_state->fb could be NULL.
->>
->> Should this use drm_atomic_get_new_plane_state(commit, crtc->primary) to
->> get the state tied to this specific commit?
->
-> No. Changes that require plane state should go into the plane's 
-> atomic_enable or atomic_update.
-
-A shortcut is to use the plane instance from struct gm12u320_device 
-instead of primary. This is what simple-kms helpers do.
-
->
->>
->>>       struct drm_shadow_plane_state *shadow_plane_state = 
->>> to_drm_shadow_plane_state(plane_state);
->>>         gm12u320->fb_update.draw_status_timeout = FIRST_FRAME_TIMEOUT;
->>>       gm12u320_fb_mark_dirty(plane_state->fb, 
->>> &shadow_plane_state->data[0], &rect);
->>>   }
->>>   -static void gm12u320_pipe_disable(struct drm_simple_display_pipe 
->>> *pipe)
->>> +static void gm12u320_crtc_helper_atomic_disable(struct drm_crtc *crtc,
->>> +                        struct drm_atomic_commit *commit)
->>>   {
->>> -    struct gm12u320_device *gm12u320 = to_gm12u320(pipe->crtc.dev);
->>> +    struct gm12u320_device *gm12u320 = to_gm12u320(crtc->dev);
->>>         gm12u320_stop_fb_update(gm12u320);
->> [Severity: High]
->> This isn't a bug introduced by this patch, but does 
->> gm12u320_stop_fb_update()
->> sleep in atomic context?
->
-> This is a false positive.
->
-> Best regards
-> Thomas
->
->>
->> gm12u320_stop_fb_update() calls cancel_delayed_work_sync() and 
->> mutex_lock().
->> Since CRTC atomic disable callbacks can run in atomic context during
->> non-blocking commits, sleeping here is forbidden and could cause kernel
->> warnings or deadlocks.
->>
->>>   }
->>>   -static void gm12u320_pipe_update(struct drm_simple_display_pipe 
->>> *pipe,
->>> -                 struct drm_plane_state *old_state)
->>> +static void gm12u320_plane_helper_atomic_update(struct drm_plane 
->>> *plane,
->>> +                        struct drm_atomic_commit *commit)
->>>   {
->>> -    struct drm_plane_state *state = pipe->plane.state;
->>> +    struct drm_plane_state *old_state = 
->>> drm_atomic_get_old_plane_state(commit, plane);
->>> +    struct drm_plane_state *state = plane->state;
->> [Severity: High]
->> Could accessing plane->state directly here lead to a crash?
->>
->> Similar to the CRTC enable function, reading plane->state directly 
->> instead of
->> using drm_atomic_get_new_plane_state(commit, plane) accesses the future
->> state.
->>
->> If a subsequent commit disables the plane, state->fb will be NULL. In 
->> this
->> scenario, drm_atomic_helper_damage_merged() returns true for plane
->> disablements, leading to gm12u320_fb_mark_dirty() being called with a 
->> NULL
->> fb, which will oops when trying to dereference fb->dev.
->>
->> This wasn't possible before because the drm_simple_kms_helper explicitly
->> checked if (!plane->state->visible) before calling the update hook, but
->> that protection is dropped in this conversion.
->>
->>> +    struct drm_shadow_plane_state *shadow_plane_state = 
->>> to_drm_shadow_plane_state(state);
->>>       struct drm_rect rect;
->>>   -    if (drm_atomic_helper_damage_merged(old_state, state, &rect))
->>> +    if (drm_atomic_helper_damage_merged(old_state, state, &rect))
->>>           gm12u320_fb_mark_dirty(state->fb, 
->>> &shadow_plane_state->data[0], &rect);
->> [Severity: High]
->> This is a pre-existing issue, but does gm12u320_fb_mark_dirty() sleep in
->> atomic context?
->>
->> It calls mutex_lock(&gm12u320->fb_update.lock), which is unsafe to call
->> from a plane update callback during non-blocking commits, as these run
->> in atomic context.
->>
->>>   }
->
-
--- 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Concurrent modification and unannotated lockless reads of `gpu->=
+reset_counter` and `ctx->reset_counter` lead to data races and lost increme=
+nts.
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
+--- Patch [2]: [PATCH v2 2/2] drm/etnaviv: Add GPU reset counters ---
+commit 0f536ab6e10b2d00764a49473b750d556dcda8ee
+Author: Christian Gmeiner <cgmeiner@igalia.com>
 
+drm/etnaviv: Add GPU reset counters
+
+This commit adds per-GPU and per-context reset counters to etnaviv to allow
+userspace to detect GPU resets and determine if their context was guilty.
+
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+[ ... ]
+> +static int etnaviv_ioctl_reset_query(struct drm_device *dev, void *data,
+> +		struct drm_file *file)
+> +{
+> +	struct etnaviv_drm_private *priv =3D dev->dev_private;
+> +	struct etnaviv_file_private *ctx =3D file->driver_priv;
+> +	struct drm_etnaviv_reset_query *args =3D data;
+> +	struct etnaviv_gpu *gpu;
+> +
+> +	if (args->flags)
+> +		return -EINVAL;
+> +
+> +	if (args->pipe >=3D ETNA_MAX_PIPES)
+> +		return -EINVAL;
+> +
+> +	gpu =3D priv->gpu[args->pipe];
+> +	if (!gpu)
+> +		return -ENXIO;
+> +
+> +	args->global_reset_counter =3D gpu->reset_counter;
+> +	args->context_reset_counter =3D ctx->reset_counter;
+
+[Severity: Medium]
+Is it possible for these counters to be updated concurrently while being
+read here?=20
+
+Since etnaviv_sched_timedout_job() can increment the counters on another CP=
+U,
+it seems this lockless read might need READ_ONCE() to prevent load tearing =
+and
+ensure the compiler doesn't optimize the read incorrectly.
+
+> +
+> +	return 0;
+> +}
+[ ... ]
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+[ ... ]
+> @@ -79,6 +79,9 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_j=
+ob(struct drm_sched_job
+>  	if(sched_job)
+>  		drm_sched_increase_karma(sched_job);
+> =20
+> +	gpu->reset_counter++;
+> +	submit->ctx->reset_counter++;
+
+[Severity: Medium]
+Can a single userspace context submit jobs to multiple GPU pipes that
+might hang at the same time?=20
+
+If so, could multiple per-GPU scheduler timeout workers execute
+etnaviv_sched_timedout_job() simultaneously? If they do, both workers would
+evaluate submit->ctx->reset_counter++ concurrently, which could lead to a
+multi-writer data race and lost increments.=20
+
+Would it make sense to use atomic_t for the context reset counter, or at
+least WRITE_ONCE() if exact counts are less critical than preventing data
+races?
+
+>  	/* get the GPU back into the init state */
+>  	etnaviv_core_dump(submit);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-etnaviv-re=
+set-notification-v2-0-90cfebcf22a2@igalia.com?part=3D2
