@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50C6AC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:54:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 350FEC44501
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:54:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 173FA10E245;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3562010E252;
 	Fri, 10 Jul 2026 21:54:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CLH0vtjs";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GY1NOWyu";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2249010E1FB;
- Fri, 10 Jul 2026 21:54:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C32E410E1FB;
+ Fri, 10 Jul 2026 21:54:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1783720489; x=1815256489;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=R87ztW4hRcwi/qx6zKcQyXSRxBMwbHa7YP+KfdMZRa0=;
- b=CLH0vtjscsgUXv6RnbreAWFEOt6p2x8o7WR9djQmLfh9MTwPqyLOkXAn
- nEKuxnYkzoP6FYe8taXMAu4F0hNTVxs3xigDKUCtRTQr3whHxA8/pwn0y
- ITa/2MxyeKc8gxSX0SWLWnPKD+M/46R6njYAS7I4xJL4Y8S5SdjlPGoB1
- 1dgGnapE+Kmi/0HRYnDdpVUMoC5nWen6WYjRisxKhzL7T2a7UtcxswH8d
- jL8LMZ2rje5hDBYAiDdDexPEUvXvagYgPta0f8FAD1RkCd7/K14bsyaGV
- 3LGCzWb0Zfd/Ra3bzaJgBmooxRv2JX0CY9xQ2+TBCN1d97tIV9KE59KXv Q==;
-X-CSE-ConnectionGUID: 1xSZppGDR8Ksxv6odKUgrA==
-X-CSE-MsgGUID: CdLNwQh/QHGptRTnGDxTgw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543070"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543070"
+ bh=uANo8AU2qjxG7dyQS1UjyUtkgRaIVCXKH5biwxrC45c=;
+ b=GY1NOWyukQCRAYqybDf2QFStgo4dVUj67hIqKLC4YjtCS8DBxo2LmKQv
+ SFfWOoLWs0oDDZfWyBrWGvtCpXk9kDFtO13wydlCqrfllTdP8zSMLwbeb
+ wD0Letg1IPPapu+XIk9Vc2lAx6V4lV2+XL/YJRFt0mu3pQbieKjz/V1HH
+ ZgxCNdSsFz0CMLNSmVm9El1qrKSe0Lz0lFZQYTnigYHw3olyqtTWrKEkA
+ 4kjUYiQnLT2f0H27pjllds7817a9fxeRGzRz0Uwc6invo2NfZvG8C5RWk
+ YqIgBzOZCsYOZR9OUXnMvBEZoWzPlJAeQCRuJxxoxzBbSKdnfyjQ+BUsj w==;
+X-CSE-ConnectionGUID: 7MKXxPOrRIm4/O0vs2YzmQ==
+X-CSE-MsgGUID: YqR1YG1DSAuTbSHmPTmmNA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543045"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543045"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:49 -0700
-X-CSE-ConnectionGUID: qWXALh5xR7Cgit2bFrMWgQ==
-X-CSE-MsgGUID: Cu6A3+UbRIOxaJX7TgPC1Q==
+ 10 Jul 2026 14:54:48 -0700
+X-CSE-ConnectionGUID: URlHXn9+Qb+a3/Mw346sNw==
+X-CSE-MsgGUID: ZLa++p9jShmDFJVbr8ZY8Q==
 X-ExtLoop1: 1
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:48 -0700
+ 10 Jul 2026 14:54:47 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -51,10 +51,10 @@ Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v2 04/33] drm/ttm: Introduce ttm_pool_alloc_iter for
- __ttm_pool_alloc()
-Date: Fri, 10 Jul 2026 14:54:13 -0700
-Message-Id: <20260710215442.2444235-5-matthew.brost@intel.com>
+Subject: [PATCH v2 01/33] drm/ttm/pool: Allow backing off reclaim at the
+ beneficial order
+Date: Fri, 10 Jul 2026 14:54:10 -0700
+Message-Id: <20260710215442.2444235-2-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260710215442.2444235-1-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
@@ -76,18 +76,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-__ttm_pool_alloc() walks the page orders in a single loop whose body is
-about to grow several defragmentation phases (reusing old pages, a move
-budget, out-of-lock preallocation and fault injection). Left inline these
-interleave into one deeply nested block of gotos and combinatorial
-conditionals that is hard to follow and extend.
+Allocating at the pool's beneficial order normally uses
+__GFP_RETRY_MAYFAIL to push hard for a contiguous high-order page. When
+beneficial-order allocations have recently been failing, this retry just
+burns CPU cycles in reclaim/compaction before falling back to a smaller
+order anyway.
 
-Factor the loop's working state into a struct ttm_pool_alloc_iter and
-pull the per-order page acquisition and order-fallback into small phase
-helpers, so the main loop reads as a short sequence of named steps. This
-is a pure refactor with no functional change; subsequent patches extend
-the iterator with their defrag phases rather than nesting more logic into
-the loop.
+Add a beneficial_reclaim_backoff flag to struct ttm_operation_ctx and
+plumb it through to ttm_pool_alloc_page(). When set, the beneficial
+order is treated like the orders we already consider not worth stalling
+for: __GFP_RECLAIM is cleared so the allocation skips reclaim/compaction
+entirely, and the __GFP_NORETRY clearing / __GFP_RETRY_MAYFAIL promotion
+is skipped. Together this makes the allocator back off quickly to a
+smaller order instead of stalling.
+
+This is a no-op until a caller opts in.
 
 Cc: Carlos Santa <carlos.santa@intel.com>
 Cc: Ryan Neph <ryanneph@google.com>
@@ -105,206 +108,67 @@ Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Assisted-by: GitHub_Copilot:claude-opus-4.8
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 159 ++++++++++++++++++++++-----------
- 1 file changed, 106 insertions(+), 53 deletions(-)
+ drivers/gpu/drm/ttm/ttm_pool.c | 12 ++++++++----
+ include/drm/ttm/ttm_bo.h       |  7 +++++++
+ 2 files changed, 15 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 370d991c9882..6826c8ae6fc5 100644
+index 3d5f2ae0a456..dbe977412a81 100644
 --- a/drivers/gpu/drm/ttm/ttm_pool.c
 +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -791,18 +791,102 @@ static unsigned int ttm_pool_alloc_find_order(unsigned int highest,
- 	return min_t(unsigned int, highest, __fls(alloc->remaining_pages));
- }
+@@ -145,7 +145,8 @@ static int ttm_pool_nid(struct ttm_pool *pool)
  
-+/**
-+ * struct ttm_pool_alloc_iter - Working state for the __ttm_pool_alloc() loop
-+ *
-+ * Bundles the immutable inputs and the mutable per-order state that the
-+ * allocation phase helpers share, so the main loop reads as a short sequence
-+ * of named phases rather than one deeply nested block.
-+ */
-+struct ttm_pool_alloc_iter {
-+	/* Immutable for the duration of the allocation. */
-+	struct ttm_pool *pool;
-+	struct ttm_tt *tt;
-+	const struct ttm_operation_ctx *ctx;
-+	struct ttm_pool_alloc_state *alloc;
-+	struct ttm_pool_tt_restore *restore;
-+	unsigned int beneficial_order;
-+	gfp_t gfp_flags;
-+
-+	/* Mutated as the loop walks the orders. */
-+	unsigned int order;
-+	enum ttm_caching page_caching;
-+	bool allow_pools;
-+	struct page *p;
-+};
-+
-+/*
-+ * Acquire a single page for the current order, leaving it in @it->p (NULL on
-+ * failure). Tries a same-order pool page, then a fresh system allocation.
-+ */
-+static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
-+{
-+	struct ttm_pool_type *pt;
-+
-+	/* First, try to allocate a page from a pool if one exists. */
-+	it->p = NULL;
-+	pt = ttm_pool_select_type(it->pool, it->page_caching, it->order);
-+	if (!it->p && pt && it->allow_pools)
-+		it->p = ttm_pool_type_take(pt, ttm_pool_nid(it->pool));
-+
-+	/*
-+	 * If that fails or previously failed, allocate from system. Note that
-+	 * this also disallows additional pool allocations using write-back
-+	 * cached pools of the same order.
-+	 */
-+	if (!it->p) {
-+		it->page_caching = ttm_cached;
-+		it->allow_pools = false;
-+		it->p = ttm_pool_alloc_page(it->pool, it->gfp_flags, it->order,
-+					    it->ctx->beneficial_reclaim_backoff);
-+	}
-+}
-+
-+/*
-+ * The current order could not be satisfied. Lower it and retry, recording a
-+ * sub-optimal backing (so the driver can later re-defrag) when we drop below
-+ * the beneficial order.
-+ *
-+ * Returns 0 to retry the (lowered) order, or a negative errno.
-+ */
-+static int ttm_pool_iter_lower_order(struct ttm_pool_alloc_iter *it)
-+{
-+	if (!it->order)
-+		return -ENOMEM;
-+
-+	/*
-+	 * Failing to allocate at the device's beneficial order means we are
-+	 * about to back this object with a sub-optimal (smaller order) set of
-+	 * pages. Record it so the driver can later try to defragment the object
-+	 * back to beneficial order.
-+	 */
-+	if (it->beneficial_order && it->order == it->beneficial_order)
-+		it->tt->page_flags |= TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
-+
-+	it->order--;
-+	it->page_caching = it->tt->caching;
-+	it->allow_pools = true;
-+
-+	return 0;
-+}
-+
- static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 			    const struct ttm_operation_ctx *ctx,
- 			    struct ttm_pool_alloc_state *alloc,
- 			    struct ttm_pool_tt_restore *restore)
+ /* Allocate pages of size 1 << order with the given gfp_flags */
+ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+-					unsigned int order)
++					unsigned int order,
++					bool beneficial_reclaim_backoff)
  {
--	const unsigned int beneficial_order = ttm_pool_beneficial_order(pool);
--	enum ttm_caching page_caching;
-+	struct ttm_pool_alloc_iter it = {
-+		.pool = pool,
-+		.tt = tt,
-+		.ctx = ctx,
-+		.alloc = alloc,
-+		.restore = restore,
-+		.beneficial_order = ttm_pool_beneficial_order(pool),
-+		.page_caching = tt->caching,
-+		.allow_pools = true,
-+	};
- 	gfp_t gfp_flags = GFP_USER;
- 	pgoff_t caching_divide;
--	unsigned int order;
--	bool allow_pools;
--	struct page *p;
- 	int r;
+ 	const unsigned int beneficial_order = ttm_pool_beneficial_order(pool);
+ 	unsigned long attr = DMA_ATTR_FORCE_CONTIGUOUS;
+@@ -165,10 +166,12 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+ 	 * Do not add latency to the allocation path for allocations orders
+ 	 * device tolds us do not bring them additional performance gains.
+ 	 */
+-	if (order && beneficial_order && order != beneficial_order)
++	if (order && (beneficial_reclaim_backoff ||
++		      (beneficial_order && order != beneficial_order)))
+ 		gfp_flags &= ~__GFP_RECLAIM;
  
- 	WARN_ON(!alloc->remaining_pages || ttm_tt_is_populated(tt));
-@@ -819,59 +903,28 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 	else
- 		gfp_flags |= GFP_HIGHUSER;
- 
--	page_caching = tt->caching;
--	allow_pools = true;
--	for (order = ttm_pool_alloc_find_order(MAX_PAGE_ORDER, alloc);
-+	it.gfp_flags = gfp_flags;
-+
-+	for (it.order = ttm_pool_alloc_find_order(MAX_PAGE_ORDER, alloc);
- 	     alloc->remaining_pages;
--	     order = ttm_pool_alloc_find_order(order, alloc)) {
--		struct ttm_pool_type *pt;
--
--		/* First, try to allocate a page from a pool if one exists. */
--		p = NULL;
--		pt = ttm_pool_select_type(pool, page_caching, order);
--		if (pt && allow_pools)
--			p = ttm_pool_type_take(pt, ttm_pool_nid(pool));
--
--		/*
--		 * If that fails or previously failed, allocate from system.
--		 * Note that this also disallows additional pool allocations using
--		 * write-back cached pools of the same order. Consider removing
--		 * that behaviour.
--		 */
--		if (!p) {
--			page_caching = ttm_cached;
--			allow_pools = false;
--			p = ttm_pool_alloc_page(pool, gfp_flags, order,
--						ctx->beneficial_reclaim_backoff);
--		}
--		/* If that fails, lower the order if possible and retry. */
--		if (!p) {
--			if (order) {
--				/*
--				 * Failing to allocate at the device's beneficial
--				 * order means we are about to back this object
--				 * with a sub-optimal (smaller order) set of
--				 * pages. Record it so the driver can later try to
--				 * defragment the object back to beneficial order.
--				 */
--				if (beneficial_order && order == beneficial_order)
--					tt->page_flags |=
--						TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
--				--order;
--				page_caching = tt->caching;
--				allow_pools = true;
--				continue;
--			}
--			r = -ENOMEM;
--			goto error_free_all;
-+	     it.order = ttm_pool_alloc_find_order(it.order, alloc)) {
-+		/* Acquire a page (pool / system) for this order. */
-+		ttm_pool_iter_acquire_page(&it);
-+		if (!it.p) {
-+			r = ttm_pool_iter_lower_order(&it);
-+			if (r)
-+				goto error_free_all;
-+			continue;
+-	if (beneficial_order && order == beneficial_order) {
++	if (!beneficial_reclaim_backoff &&
++	    beneficial_order && order == beneficial_order) {
+ 		gfp_flags &= ~__GFP_NORETRY;
+ 		gfp_flags |= __GFP_RETRY_MAYFAIL;
+ 	}
+@@ -814,7 +817,8 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+ 		if (!p) {
+ 			page_caching = ttm_cached;
+ 			allow_pools = false;
+-			p = ttm_pool_alloc_page(pool, gfp_flags, order);
++			p = ttm_pool_alloc_page(pool, gfp_flags, order,
++						ctx->beneficial_reclaim_backoff);
  		}
--		r = ttm_pool_page_allocated(pool, order, p, page_caching, alloc,
--					    restore);
-+
-+		r = ttm_pool_page_allocated(pool, it.order, it.p,
-+					    it.page_caching, alloc, restore);
- 		if (r)
- 			goto error_free_page;
- 
- 		if (ttm_pool_restore_valid(restore)) {
--			r = ttm_pool_restore_commit(restore, tt->backup, ctx, alloc);
-+			r = ttm_pool_restore_commit(restore, tt->backup, ctx,
-+						    alloc);
- 			if (r)
- 				goto error_free_all;
- 		}
-@@ -887,7 +940,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 	return 0;
- 
- error_free_page:
--	ttm_pool_free_page(pool, page_caching, order, p, false);
-+	ttm_pool_free_page(pool, it.page_caching, it.order, it.p, false);
- 
- error_free_all:
- 	if (tt->restore)
+ 		/* If that fails, lower the order if possible and retry. */
+ 		if (!p) {
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index 8310bc3d55f9..fd814b5cf535 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -187,6 +187,13 @@ struct ttm_operation_ctx {
+ 	 * when multiple BOs share the same reservation object @resv.
+ 	 */
+ 	bool allow_res_evict;
++	/**
++	 * @beneficial_reclaim_backoff: Back off from direct reclaim at the
++	 * pool's beneficial order. Useful when beneficial-order allocation has
++	 * recently been failing, to avoid burning CPU cycles in
++	 * reclaim/compaction before falling back to a smaller order anyway.
++	 */
++	bool beneficial_reclaim_backoff;
+ 	/**
+ 	 * @resv: Reservation object to be used together with
+ 	 * @allow_res_evict.
 -- 
 2.34.1
 
