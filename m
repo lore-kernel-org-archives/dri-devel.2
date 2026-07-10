@@ -4,211 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42ACAC44506
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 13:08:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B79AC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 13:11:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CB7710E109;
-	Fri, 10 Jul 2026 13:08:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF64C10F8B7;
+	Fri, 10 Jul 2026 13:11:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PQbhMoe3";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cL0Sr/mu";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Y6/GfzwW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3LsQR5LS";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fH4WDjjj";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="s0NnleWO";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 515ED10E109
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 13:08:49 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66AD69KG790610
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 13:08:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- N5Cka933m4keuHC9q+ty9VLjOYV17gugYbjBnwJv6Bo=; b=PQbhMoe3PoBcb3Hs
- /DihV9aYD7N2odD9vazHqRjsDv89h5rZHGphaH+tpWhsa7+af5rBKTPuJdW8LPZn
- Mk39Wieqo6Mw60r42dLUd2Gxgi7p8bxjZpLshjrj7AzbL34A0DXvPUZmVUH4NX0g
- MgtJWs+BKx0AJ2Ezx5aSRboaeoiSWTe52rVeK8zpfzJ0RAwKpEqAfSYiOKp5qRRf
- EsdJxs0bExnyDS3qhxtop/v2dbSfVm0i9jaV/APL5yQgCnzY8s/Y1+SDeOsMMPGn
- F/+wgSzwHMID5UrcvHdiCAnKRs1pvv9gBeLt9XKdfGXLhg0wmyfSh8mZwn6Udt4N
- ZKZX0A==
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
- [74.125.224.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fajwtb561-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 13:08:48 +0000 (GMT)
-Received: by mail-yx1-f72.google.com with SMTP id
- 956f58d0204a3-662f741fe3bso1177552d50.2
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 06:08:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783688927; cv=none;
- d=google.com; s=arc-20260327;
- b=Tw/u44RKlil4KZVaufOycGws2NyjcBy9JGLNrfvydOo3C7GmLiqqVmRKWC6SrvC5zg
- tiJK++j7eFoVkmM5fKXDSRQvevt40BdASFaCcP3oSKAr8juIrvhb2P8bBVYPY7Jmsg2D
- fmCqeX1U/+yRUgFoYKlBZFfkb+IjN8/Y6aVEOQ70dDck90ieIWFqRIBomEu183typkum
- kMwF8M3SQGdsDt5T4+zaDCH17UdYF9QK+sFq9WZ5ZlibMUpAPOHUntPUs0F9tumtvwdQ
- DjlimuR7GDdD4103Hy/RfY4L36ipjfxiTYfw4yS3YKHt94VGdNEuZwVsEdCRnNot3dj9
- H6SQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=N5Cka933m4keuHC9q+ty9VLjOYV17gugYbjBnwJv6Bo=;
- fh=e0p0PSagFhIrw4R2Fs1xywY/DzYk/U03zL5mlSt3jmo=;
- b=nN4qZdsZECmUgEyuKBdpPKGKpJRF+Ovn0wVa5f9pr+3Al0ffGzN4afX74n2KtZTa+j
- 2LC5SqA/8ubRJDln2CI//ynSOQtybX0BhHaOJgT8Hp3qUDS58oUTbWmtdtzFrcdQFjuN
- /Vah2QMcc/5Xjf6qFmtJKYf28gKSijaM1su0ILY9Y8YLOicQSRhl5CxBG40E6qnAaksy
- HySFq/DBWP14HUpv2IVtepBPDHG4Tmi9euEXzAempdBlc/wac88Ib1p62XoRbSxsi12v
- Oh64B42GDl2qTwLtTsv3nI3FzVMczRDb4Z6k9FwKGTyw/wH15t7L71B80Rixb3VPPASU
- Q4NA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783688927; x=1784293727;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=N5Cka933m4keuHC9q+ty9VLjOYV17gugYbjBnwJv6Bo=;
- b=cL0Sr/mucxAXE2WETzyrMFh4gb6ksPKgWHHksWpOG/RLSH0DEu8/LfavjmsNUY5df4
- Gku3lIKYyeOBPXLx0aW1DvJJxS+heXzcJER/KpDWQA3/sNVOD9eUH6pPsA+QxasT/cy9
- 8AcjsJLT6q13guM0S40Zaba+cUI70bcWdceEvbU7hTMsvqBee50Y87TUv+4TTOcg7NgF
- 2patlUREuT8FnLHVvuxzZSPaR2yK71w0poeoC95JYIgomO8XIxm5HoPO2swP8gbUk/MH
- 3TEKASuZSU+upHvXSBRd/U9Ij/XqAEXUg5fTUzRYunuy04jEqop5LdBaFmT9XEZoqr5V
- o/UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783688927; x=1784293727;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=N5Cka933m4keuHC9q+ty9VLjOYV17gugYbjBnwJv6Bo=;
- b=iUXEhNYKsXhS2W5keD8eBeTm/Ada3AJ3bIkx5LRvmF7hVg/7rAWYpWdjNI8VLSFKt8
- V3a/8t3fxPtBVBGGZol22jFOrg9FdzFAcZSwcZbo4KyAnoExBTTqivKTz+aheiF6oR5P
- yquUSdo/JWLjDsy2Y+R62RIErwhFEGShSqMRGyJx7ZsOhbSxElwRc5aCtWUQYTwWK1Jr
- ziQW/ktmTT3V6NHq7lR2UvOXqrw38YBhev3jUqf3uzGxRfuNmU1ep7gxXSafE6IZQt9W
- EwCHjNMgYcb+o1HXbk3YDdSMyUQ9fzuyiJ239lRDeo4T1Jo21GXJTP1f5SrBMmbawxny
- NN8g==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rqb0K//GdomgcszVDM5JT/LUKoFG0rsCa+Rg4GDazknzIa8wgY4ecpxSwx7BhyDbkQHPIuiLJ+HEAo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxkn+dLYiOb4JDL+PjlYEMYYcRvIozE/Yc94CWqvD47bVGi6qNu
- dvCCjqtcKeuTsf7EI87DfFOR7hywvyBHbgESmWSULi/PTVY1Ml6V9ppCGwFFffAycf8G/P30oec
- BlMjp/c3BX6XFm2y4tF3U9GSxPSS2IQ9DuPhRpTKeHUIUvXxtXCHXjGc7dIeqCVN2OW8ofgB/n6
- f9Ep8gD30KALtHhmOPfSvU63a/BFZEGxVZMHu667fkbj0tiA==
-X-Gm-Gg: AfdE7cnFDuEgG6MmaZJy4P47ZKeS/tltb6MoJAVBW0tjViVKBXdUvs2iXY0btyj3AjT
- nPH2cCcoDiirUKzLW25S3da53MWhxQE5bi4EWV5pCZlKKROTvhTv7iY97TN44vHhJU29TgsyCV+
- s6H6lJwfYTOuWO/Cgk01s2sZYUHex6t36nhCv9OPyjg2Bcs40bFq6Z7V8Dz+PbCQt1bC6v
-X-Received: by 2002:a53:bd08:0:b0:667:8b91:242d with SMTP id
- 956f58d0204a3-6679f245672mr5946046d50.92.1783688927308; 
- Fri, 10 Jul 2026 06:08:47 -0700 (PDT)
-X-Received: by 2002:a53:bd08:0:b0:667:8b91:242d with SMTP id
- 956f58d0204a3-6679f245672mr5945969d50.92.1783688926691; Fri, 10 Jul 2026
- 06:08:46 -0700 (PDT)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2503A10F897
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 13:11:24 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6355876470;
+ Fri, 10 Jul 2026 13:11:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783689082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=mocC1RLiQ5k5FcH+1mibmIQtg6g+ccUJPi4jIEkgVT4=;
+ b=Y6/GfzwWVuhFwG6I497hxqHovoxT6p0C9qLaSRJmBJr4KdqTotJGEfNNGCJXc4pivx94Jp
+ Fk0duvDpLuNpmup/ng634JxIt/51dSJnlju4J8HMcc0q60VnMxw5epsLPDY8hJM3rdLmUd
+ Jo7eAZHVznfpBhyx56Lew3Bd8BIysss=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783689082;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=mocC1RLiQ5k5FcH+1mibmIQtg6g+ccUJPi4jIEkgVT4=;
+ b=3LsQR5LSmfqvvPTk7lAmf3QzT2wl3Vt3URRes6tmtQInbKRpuBFOokmalWTmzkqzIy1NjB
+ 4MH0Yztb6qLeztAw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=fH4WDjjj;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=s0NnleWO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783689081; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=mocC1RLiQ5k5FcH+1mibmIQtg6g+ccUJPi4jIEkgVT4=;
+ b=fH4WDjjjct4n/EfYWSsFSRhjfbemfrNoLQPKQokR32uSoi8UBjo47dWCZZyliZPcxaEDP0
+ RB4LkBWkm4ACebR7D1NeicmfBP25Z7DmnP0p00o+cweSBwlbW6urHkjk2FQmfmcyUbYNJ8
+ vugc6bYFjekzmvAj218Adhg+pQidZ+M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783689081;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=mocC1RLiQ5k5FcH+1mibmIQtg6g+ccUJPi4jIEkgVT4=;
+ b=s0NnleWOmoTgVq7TkBpMaI9EIE8RF/qKVDvQT72yZR5yutn738p5cAFn0JRoeX/Ptezp2E
+ PXFKO/YTqwHToaBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 15D5B779BD;
+ Fri, 10 Jul 2026 13:11:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id bAb+A3nvUGpQeQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 10 Jul 2026 13:11:21 +0000
+Message-ID: <ae2fdd17-7484-4581-a852-3ef439049332@suse.de>
+Date: Fri, 10 Jul 2026 15:11:20 +0200
 MIME-Version: 1.0
-References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
- <20260703193855.110619-24-mukesh.ojha@oss.qualcomm.com>
-In-Reply-To: <20260703193855.110619-24-mukesh.ojha@oss.qualcomm.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Fri, 10 Jul 2026 15:08:34 +0200
-X-Gm-Features: AVVi8CefhojPUiWasaXCCjZmJBb6K9Qzlv92c3u5BPoEMYadIduP2fyzpl9La3Q
-Message-ID: <CAPx+jO-hkYQoEOj1Jrp7sn5HXYTDbfAG4U5rpNBW2Wue2TZxhQ@mail.gmail.com>
-Subject: Re: [PATCH 23/42] mmc: sdhci-of-bst: Use
- devm_of_reserved_mem_device_init_by_idx()
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/qxl: remove dependency on DRM simple helpers
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Diogo Silva <diogompaissilva@gmail.com>, Dave Airlie
+ <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Paul Cercueil <paul@crapouillou.net>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Paul Kocialkowski <paulk@sys-base.io>,
- Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Michal Simek <michal.simek@amd.com>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Eddie James <eajames@linux.ibm.com>,
- Tiffany Lin <tiffany.lin@mediatek.com>,
- Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
- Yunfei Dong <yunfei.dong@mediatek.com>,
- Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
- Houlong Wei <houlong.wei@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Ge Gordon <gordon.ge@bst.ai>, Adrian Hunter <adrian.hunter@intel.com>,
- Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Peter Chen <peter.chen@cixtech.com>, Fugang Duan <fugang.duan@cixtech.com>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
- kernel@collabora.com, linux-tegra@vger.kernel.org,
- linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- imx@lists.linux.dev, sound-open-firmware@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=XOYAjwhE c=1 sm=1 tr=0 ts=6a50eee0 cx=c_pps
- a=VEzVgl358Dq0xwHDEbsOzA==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
- a=z_eSG8vRrt57AjWXvbkA:9 a=QEXdDO2ut3YA:10 a=uujmmnXaIg8lM0-o0HFK:22
-X-Proofpoint-GUID: dyloF-ZRQwaZh2b1Wei8xSkyQ-EmnPsB
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDEzMCBTYWx0ZWRfXw5vM6IKs1+OB
- VjkxFBK5f//bIqanxxPoNAZZ7+JEHA4njmUw7FcFD7eTutjYQ8kc5wVxE5ebmt2OrcyqwLjdfEp
- T5PmhKq3cri9XaIIyYE/MheC5CZDHas=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDEzMCBTYWx0ZWRfX1IIB4G97/ZLA
- E415dRRQ+6jWmFJNk5WV+Be/20T7o5K0du6a5TLyzrpx6SpgPbZdfAh3z+RqpkFQmj3eFoROq8Z
- Ro2y/3/f0buxbIdtGMXXnGDoHhGD9V8i63RADnziKHs8q/VTwzgF6brbqYJM0AW0JCzFbeEhpDt
- ZTBZKbRWqVJ9EAydVWeSlHve25C1sg6Y5I37tYz28oVy4UHrfdCKnU9+1QnVG8jPw2yGsFJpvCS
- 7Aqn/fu4E/WNOE/9vPDRjOZJu/x66WMFZZp1plM0nFjGk0X568GVWImDkWJYImty59ztYnFsN8c
- FavieuTv5QylS7cD+jRYkaoTUedusSLRR8e5qIBbnEwi1xO5T2B1hQJ5M3OigpeIKIf6lDRi5cA
- kxARkZVPGUPYpq/Z6bH5BenczvxY75PPTid2jYRZo04ylf0I7HBUS26oH7wgX7TpAXDEVCAs+JH
- CDfMEb4wTZIfFo4/byA==
-X-Proofpoint-ORIG-GUID: dyloF-ZRQwaZh2b1Wei8xSkyQ-EmnPsB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-10_03,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 adultscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 clxscore=1015 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100130
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260707-qxl-simple-v2-1-08d21bc74a41@gmail.com>
+ <18186cbc-a60c-4a1a-95f5-46e392faa997@suse.de>
+Content-Language: en-US
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <18186cbc-a60c-4a1a-95f5-46e392faa997@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[gmail.com,redhat.com,linux.intel.com,kernel.org,ffwll.ch];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; DKIM_TRACE(0.00)[suse.de:+];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[11]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, suse.de:email, suse.de:dkim, suse.de:mid,
+ suse.com:url]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 6355876470
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -224,69 +156,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 3, 2026 at 9:48=E2=80=AFPM Mukesh Ojha <mukesh.ojha@oss.qualcom=
-m.com> wrote:
->
-> Use the devres-managed devm_of_reserved_mem_device_init_by_idx() instead
-> of the manual of_reserved_mem_device_init_by_idx()/
-> of_reserved_mem_device_release() pair, letting the device resource
-> manager handle cleanup automatically.
->
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Merged into drm-misc-next
 
-Acked-by: Ulf Hansson <ulfh@kernel.org>
+Am 08.07.26 um 14:33 schrieb Thomas Zimmermann:
+>
+>
+> Am 07.07.26 um 18:14 schrieb Diogo Silva:
+>> Simple KMS helper are deprecated since they only add an intermediate
+>> layer between drivers and the atomic modesetting.
+>> This patch removes the drm_simple_encoder_init() helper usage in the
+>> qxl display driver by open coding it and using the encoder atomic
+>> helpers directly. This is a step to eventually get rid of this simple
+>> KMS helper, once all drivers that use it have been converted.
+>>
+>> Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
+>
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+>
+>> ---
+>> Changes in v2:
+>> - fix type error
+>> - Link to v1: 
+>> https://lore.kernel.org/r/20260707-qxl-simple-v1-1-524f6316b5d5@gmail.com
+>> ---
+>>   drivers/gpu/drm/qxl/qxl_display.c | 12 ++++++++----
+>>   1 file changed, 8 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/qxl/qxl_display.c 
+>> b/drivers/gpu/drm/qxl/qxl_display.c
+>> index a026bd35ef485..7f4178800afd7 100644
+>> --- a/drivers/gpu/drm/qxl/qxl_display.c
+>> +++ b/drivers/gpu/drm/qxl/qxl_display.c
+>> @@ -31,12 +31,12 @@
+>>   #include <drm/drm_atomic.h>
+>>   #include <drm/drm_atomic_helper.h>
+>>   #include <drm/drm_edid.h>
+>> +#include <drm/drm_encoder.h>
+>>   #include <drm/drm_framebuffer.h>
+>>   #include <drm/drm_gem_framebuffer_helper.h>
+>>   #include <drm/drm_plane_helper.h>
+>>   #include <drm/drm_print.h>
+>>   #include <drm/drm_probe_helper.h>
+>> -#include <drm/drm_simple_kms_helper.h>
+>>   #include <drm/drm_gem_atomic_helper.h>
+>>   #include <drm/drm_vblank.h>
+>>   #include <drm/drm_vblank_helper.h>
+>> @@ -1095,6 +1095,10 @@ static const struct drm_connector_helper_funcs 
+>> qxl_connector_helper_funcs = {
+>>       .best_encoder = qxl_best_encoder,
+>>   };
+>>   +static const struct drm_encoder_funcs qxl_encoder_funcs = {
+>> +    .destroy = drm_encoder_cleanup,
+>> +};
+>> +
+>>   static enum drm_connector_status qxl_conn_detect(
+>>               struct drm_connector *connector,
+>>               bool force)
+>> @@ -1169,10 +1173,10 @@ static int qdev_output_init(struct drm_device 
+>> *dev, int num_output)
+>>       drm_connector_init(dev, &qxl_output->base,
+>>                  &qxl_connector_funcs, DRM_MODE_CONNECTOR_VIRTUAL);
+>>   -    ret = drm_simple_encoder_init(dev, &qxl_output->enc,
+>> -                      DRM_MODE_ENCODER_VIRTUAL);
+>> +    ret = drm_encoder_init(dev, &qxl_output->enc, &qxl_encoder_funcs,
+>> +                   DRM_MODE_ENCODER_VIRTUAL, NULL);
+>>       if (ret) {
+>> -        drm_err(dev, "drm_simple_encoder_init() failed, error %d\n",
+>> +        drm_err(dev, "drm_encoder_init() failed, error %d\n",
+>>               ret);
+>>           goto err_drm_connector_cleanup;
+>>       }
+>>
+>> ---
+>> base-commit: ee2867b79f9bac3a6fc3221139b09598ce79099c
+>> change-id: 20260707-qxl-simple-c01aa1a5c4eb
+>>
+>> Best regards,
+>
 
-Kind regards
-Uffe
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
-> ---
->  drivers/mmc/host/sdhci-of-bst.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/mmc/host/sdhci-of-bst.c b/drivers/mmc/host/sdhci-of-=
-bst.c
-> index f8d3df715e1a..304554ced690 100644
-> --- a/drivers/mmc/host/sdhci-of-bst.c
-> +++ b/drivers/mmc/host/sdhci-of-bst.c
-> @@ -405,7 +405,6 @@ static void sdhci_bst_free_bounce_buffer(struct sdhci=
-_host *host)
->                                   host->bounce_buffer, host->bounce_addr)=
-;
->                 host->bounce_buffer =3D NULL;
->         }
-> -       of_reserved_mem_device_release(mmc_dev(host->mmc));
->  }
->
->  static int sdhci_bst_alloc_bounce_buffer(struct sdhci_host *host)
-> @@ -417,7 +416,7 @@ static int sdhci_bst_alloc_bounce_buffer(struct sdhci=
-_host *host)
->         /* Fixed SRAM bounce size to 32KB: verified config under 32-bit D=
-MA addressing limit */
->         bounce_size =3D SZ_32K;
->
-> -       ret =3D of_reserved_mem_device_init_by_idx(mmc_dev(mmc), mmc_dev(=
-mmc)->of_node, 0);
-> +       ret =3D devm_of_reserved_mem_device_init_by_idx(mmc_dev(mmc), mmc=
-_dev(mmc)->of_node, 0);
->         if (ret) {
->                 dev_err(mmc_dev(mmc), "Failed to initialize reserved memo=
-ry\n");
->                 return ret;
-> @@ -425,10 +424,8 @@ static int sdhci_bst_alloc_bounce_buffer(struct sdhc=
-i_host *host)
->
->         host->bounce_buffer =3D dma_alloc_coherent(mmc_dev(mmc), bounce_s=
-ize,
->                                                  &host->bounce_addr, GFP_=
-KERNEL);
-> -       if (!host->bounce_buffer) {
-> -               of_reserved_mem_device_release(mmc_dev(mmc));
-> +       if (!host->bounce_buffer)
->                 return -ENOMEM;
-> -       }
->
->         host->bounce_buffer_size =3D bounce_size;
->
-> --
-> 2.53.0
->
+
