@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42DFBC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:12:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D54CAC44508
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:12:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CCB310F953;
-	Fri, 10 Jul 2026 22:12:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C63D10E6C8;
+	Fri, 10 Jul 2026 22:12:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="VJe81GYb";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Tf7EXdr4";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15CF610F953;
- Fri, 10 Jul 2026 22:12:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6B9510F99A;
+ Fri, 10 Jul 2026 22:12:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 454966111A;
- Fri, 10 Jul 2026 22:12:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D32471F000E9;
- Fri, 10 Jul 2026 22:12:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3AAB8600C3;
+ Fri, 10 Jul 2026 22:12:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA4BB1F00A3D;
+ Fri, 10 Jul 2026 22:12:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=korg; t=1783721544;
- bh=2wQB/oFYBFS3GQeSmu/3oRAdk1WgygnNAOd7kwV5jaQ=;
+ d=linux-foundation.org; s=korg; t=1783721549;
+ bh=xkCCHtME3GEINo3S7szVFYlvRYIJypWuhYUEdvTFvPA=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=VJe81GYbWd6zLU/0Oy3lq6fNYK/xvVwqq20qidN2/oL2icncQaYqK1Fe+uvqBiFrT
- IBcwSe/+HNIab8r7fGPOpavS+7+qhyYVJipwSJrqT9iWJDM6ku4YDxNdGO4WQA2ORB
- 9VskKFPVtZ6W0Ang1vDmufbj4+l2UBAJGLgWU3LE=
-Date: Fri, 10 Jul 2026 15:12:22 -0700
+ b=Tf7EXdr4fTwcS6bniyj3Vljw2mjizC+AuVuuOhj6bjBU+VQ5B8ncb1aZAHQiXGsR3
+ UJExhUGBEyVaED8iH8HJqi0W+vr6Tz/+3qjlVDYwoFzxOnKf5zVzjI99nkFnZ3/AnG
+ Xc4aywWAj0b21m2YpR5KgM/KdqEwzhHM2gkdlFUg=
+Date: Fri, 10 Jul 2026 15:12:28 -0700
 From: Andrew Morton <akpm@linux-foundation.org>
 To: Stanislav Kinsburskii <skinsburskii@gmail.com>
 Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, corbet@lwn.net,
@@ -43,12 +43,12 @@ Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, corbet@lwn.net,
  linux-mm@kvack.org, linux-doc@vger.kernel.org,
  linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-rdma@vger.kernel.org
-Subject: Re: [PATCH v8 5/8] drm/nouveau: Use
- hmm_range_fault_unlocked_timeout() for SVM faults
-Message-Id: <20260710151222.ddb35eab9c81a8720491464a@linux-foundation.org>
-In-Reply-To: <178371881847.900500.8789369230260725500.stgit@skinsburskii>
+Subject: Re: [PATCH v8 7/8] accel/amdxdna: Use
+ hmm_range_fault_unlocked_timeout() for range population
+Message-Id: <20260710151228.ca22e127b93ec5c6d591fb5f@linux-foundation.org>
+In-Reply-To: <178371883276.900500.12789147320642521200.stgit@skinsburskii>
 References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
- <178371881847.900500.8789369230260725500.stgit@skinsburskii>
+ <178371883276.900500.12789147320642521200.stgit@skinsburskii>
 X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -68,21 +68,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 10 Jul 2026 14:26:58 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
+On Fri, 10 Jul 2026 14:27:12 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
 
-> @@ -683,15 +683,11 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
->  			goto out;
->  		}
+> --- a/drivers/accel/amdxdna/aie2_ctx.c
+> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+> @@ -1061,22 +1061,11 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
+>  		return -EFAULT;
+>  	}
 >  
-> -		range.notifier_seq = mmu_interval_read_begin(range.notifier);
-> -		mmap_read_lock(mm);
-> -		ret = hmm_range_fault(&range);
-> -		mmap_read_unlock(mm);
-> -		if (ret) {
-> -			if (ret == -EBUSY)
-> -				continue;
-> +		ret = hmm_range_fault_unlocked_timeout(&range,
-> +						       max(timeout - jiffies,
-> +							   1L));
+> -	mapp->range.notifier_seq = mmu_interval_read_begin(&mapp->notifier);
+> -	mmap_read_lock(mm);
+> -	ret = hmm_range_fault(&mapp->range);
+> -	mmap_read_unlock(mm);
+> +	ret = hmm_range_fault_unlocked_timeout(&mapp->range,
+> +			max_t(long, timeout - jiffies, 1));
 
-"1UL" here?  I'd have expected min() to warn, as it likes to do.
+max(timeout - jiffies, 1UL)?
