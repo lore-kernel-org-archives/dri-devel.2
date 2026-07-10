@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33B30C44506
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C63EC44512
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 088F210F9A4;
-	Fri, 10 Jul 2026 21:54:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E940510F9AC;
+	Fri, 10 Jul 2026 21:54:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b1mwNmiA";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JGEE4Iuh";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6E4810F974;
- Fri, 10 Jul 2026 21:54:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C13910F992;
+ Fri, 10 Jul 2026 21:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783720495; x=1815256495;
+ t=1783720496; x=1815256496;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=fQ9bf+3yhPseJ9wK2nWSw6m5lBFQGHvWX/aYpOlj9Kg=;
- b=b1mwNmiAMZ8sM6uFfTGbOtC3s/xU5ZAGIgxK7aRCKzlvIBRtQdEIw6Or
- gBFjYGkyN+FkK7ptP6oFVSdsYiR7YYtilUtOEPFQ6Fy3F9te0GqgMjShv
- dyuuu+ahiz/w8VRs3hyT+YdokeCo1ldykEBFNDLWGsqOW6agWMneyNrSI
- g70vDAvhMLKiihDQz52mkVmHmk6xlF+Sd08AhzMB62dqJqjoymoP8KzYf
- ZAvgP4zL+RVKXUup3hwhwpeFqLI9htOK/B8CSyOxfDPveh2YhbOpVSKhh
- cdWqVevkvr5FcKUi14y0TbAQrTuXDhEp9OcBYQqKYFeC1QOJe1ELDUNKe g==;
-X-CSE-ConnectionGUID: PkUpzE2WRM+qYGTRCb3Omw==
-X-CSE-MsgGUID: mzCXfo/WSeKmpt1exEoDRg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543197"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543197"
+ bh=BG1PFICdpAljvWYeK8+LJvs9zXvpb2Spx/Q4HUyJTRs=;
+ b=JGEE4IuhW3XdgYMZS/xUGXNrxDfuidmwtctNH1ADgJGsa0hW1c2mM3vJ
+ sczTBCm2XYOTcm07swYtH8vxkF8B6XtRTRWPIrXc4jBkXI1eLJCKY9DsH
+ bz36xJ5uhVd+7AcHPhvj9PgLHDRZDZYoXVaFpbbq1j8wiGIcscLI7806A
+ 7dJKhzNe4FrRnpu+2pY1vcAwJzXt33Ut0uZCFWYSBPkXQ6LvzSi2BoGHC
+ zUj8BHZT2sCkIVMi5kwf0OXLtEGibvcywSA+TGLKC83UAZ5cUYyGJsvPd
+ pyepL9gFHLcYE/xoe24QD5Vw+OhRdCkgutfOnNhE9i7KWoWCuIG70Fd/e g==;
+X-CSE-ConnectionGUID: LriX8A0PS5Kbn3XpuD+cmg==
+X-CSE-MsgGUID: uOy3HXESS6aKpz34DTgfug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543241"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543241"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:54 -0700
-X-CSE-ConnectionGUID: PCJC83fiRiiju+qdllIRQQ==
-X-CSE-MsgGUID: S+dgmViHT82uGoNEUO2//g==
+ 10 Jul 2026 14:54:56 -0700
+X-CSE-ConnectionGUID: YRnX5efARB2FCxiRdNvuWg==
+X-CSE-MsgGUID: 01+A5H6tSZ6TZrxfUiagyg==
 X-ExtLoop1: 1
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:54 -0700
+ 10 Jul 2026 14:54:56 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -51,10 +51,9 @@ Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v2 22/33] drm/xe: Add Kconfig.profile options for BO defrag
- configuration
-Date: Fri, 10 Jul 2026 14:54:31 -0700
-Message-Id: <20260710215442.2444235-23-matthew.brost@intel.com>
+Subject: [PATCH v2 27/33] drm/xe: Add IOVA-based xe_res_cursor variant
+Date: Fri, 10 Jul 2026 14:54:36 -0700
+Message-Id: <20260710215442.2444235-28-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260710215442.2444235-1-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
@@ -76,24 +75,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add Kconfig.profile options to make XE_BO_DEFRAG_* defines configurable:
-- DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD: Threshold for TTM reclaim
-  backoff
-- DRM_XE_BO_DEFRAG_SIZE_LIMIT: Maximum number of bytes to defrag per
-  work run
-- DRM_XE_BO_DEFRAG_INTERVAL_MS: Default delay before defrag worker runs
-- DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS: Upper bound for defrag worker
-  interval
+Introduce xe_res_first_iova() to walk a buffer that was DMA mapped using
+the IOVA-based DMA API (dma_iova_try_alloc() and friends). Such a mapping
+is described by a struct dma_iova_state and is a single contiguous IOVA
+range, so the cursor walks it as one segment.
 
-Update xe_bo.c to use these Kconfig options as defaults via #ifdef
-guards, maintaining backward compatibility with hardcoded values when
-not configured.
+Add an is_iova flag to struct xe_res_cursor to distinguish this case.
+When set, xe_res_dma() returns the IOVA backing the current position
+(state->addr + cursor offset), xe_res_next() advances within the single
+contiguous segment, and xe_res_is_vram() returns false since IOVA
+mappings never point to same-device VRAM.
 
-Additionally, disable defrag completely when XE_BO_DEFRAG_SIZE_LIMIT is
-set less than 2M by returning early from xe_bo_defrag_update() (and
-xe_bo_defrag_remove()) so BOs are never added to the defrag list or the
-worker kicked; xe_bo_defrag_add() and xe_bo_defrag_schedule() assert the
-limit is at least 2M.
+The flag is explicitly cleared in the existing xe_res_first(),
+xe_res_first_sg() and xe_res_first_dma() initializers so stale stack
+values cannot leak into the new path.
 
 Cc: Carlos Santa <carlos.santa@intel.com>
 Cc: Ryan Neph <ryanneph@google.com>
@@ -108,145 +103,128 @@ Cc: Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Assisted-by: GitHub_Copilot:claude-haiku-4.5
+Assisted-by: GitHub_Copilot:claude-opus-4.8
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/xe/Kconfig.profile | 40 ++++++++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_bo.c         | 26 +++++++++++++++++++
- 2 files changed, 66 insertions(+)
+ drivers/gpu/drm/xe/xe_res_cursor.h | 56 +++++++++++++++++++++++++++++-
+ 1 file changed, 55 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/Kconfig.profile b/drivers/gpu/drm/xe/Kconfig.profile
-index e07517d120e0..e0aade41f53e 100644
---- a/drivers/gpu/drm/xe/Kconfig.profile
-+++ b/drivers/gpu/drm/xe/Kconfig.profile
-@@ -74,3 +74,43 @@ config DRM_XE_ENABLE_SCHEDTIMEOUT_LIMIT
- 	  to apply to applicable user. For elevated user, all above MIN
- 	  and MAX values will apply when this configuration is enable to
- 	  apply limitation. By default limitation is applied.
-+
-+config DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD
-+	int "BO defrag reclaim backoff threshold"
-+	default 2
-+	range 1 1000
-+	help
-+	  Once this many BOs are tracked on the device defrag list (i.e. were
-+	  backed with a sub-optimal page order), request that the TTM pool backs
-+	  off from aggressive reclaim at the beneficial order during populate,
-+	  so that allocations make forward progress instead of stalling.
-+
-+config DRM_XE_BO_DEFRAG_SIZE_LIMIT
-+	int "Maximum bytes to defrag per work run"
-+	default 33554432
-+	range 0 1073741824
-+	help
-+	  Maximum number of bytes the defrag worker will process in a single run
-+	  before yielding and rescheduling itself. Set to less than large page
-+	  size (2M) to disable defrag. A defrag move synchronously reallocates
-+	  and re-copies a BO's backing store, which is not free. If a large
-+	  number of BOs become eligible at once, processing them all in one
-+	  worker run would hold things up for a long, unbounded stretch.
-+	  Instead, cap the work done per run and requeue, spreading the defrag
-+	  effort out over time.
-+
-+config DRM_XE_BO_DEFRAG_INTERVAL_MS
-+	int "Default delay before defrag worker run (ms)"
-+	default 25
-+	range 1 1000
-+	help
-+	  Default delay before (re)running the defrag worker, in milliseconds.
-+
-+config DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS
-+	int "Upper bound for defrag worker interval (ms)"
-+	default 15000
-+	range 100 1000000
-+	help
-+	  Upper bound for the (exponentially backed off) defrag worker interval,
-+	  in milliseconds, so repeated failures don't push the retry arbitrarily
-+	  far out. 15000 ms = 15 seconds.
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index c1bbcf0d21ed..405316d0d116 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -49,7 +49,11 @@
-  * aggressive reclaim at the beneficial order during populate, so that
-  * allocations make forward progress instead of stalling.
-  */
-+#ifdef CONFIG_DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD
-+#define XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD	CONFIG_DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD
-+#else
- #define XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD	2
-+#endif
+diff --git a/drivers/gpu/drm/xe/xe_res_cursor.h b/drivers/gpu/drm/xe/xe_res_cursor.h
+index 0522caafd89d..f0f1d699e16e 100644
+--- a/drivers/gpu/drm/xe/xe_res_cursor.h
++++ b/drivers/gpu/drm/xe/xe_res_cursor.h
+@@ -24,6 +24,7 @@
+ #ifndef _XE_RES_CURSOR_H_
+ #define _XE_RES_CURSOR_H_
  
- /*
-  * Maximum number of bytes of newly (re)allocated backing the defrag worker will
-@@ -65,17 +69,31 @@
-  * Only pages a move truly reallocates are charged; pages harvested from the old
-  * backing are free, so an object larger than the budget is upgraded in
-  * budget-sized slices across runs.
-+ *
-+ * Set to 0 to disable defrag completely.
-  */
-+#ifdef CONFIG_DRM_XE_BO_DEFRAG_SIZE_LIMIT
-+#define XE_BO_DEFRAG_SIZE_LIMIT			CONFIG_DRM_XE_BO_DEFRAG_SIZE_LIMIT
-+#else
- #define XE_BO_DEFRAG_SIZE_LIMIT			SZ_32M
-+#endif
++#include <linux/dma-mapping.h>
+ #include <linux/scatterlist.h>
  
- /* Default delay before (re)running the defrag worker, in milliseconds. */
-+#ifdef CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MS
-+#define XE_BO_DEFRAG_INTERVAL_MS		CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MS
-+#else
- #define XE_BO_DEFRAG_INTERVAL_MS		25
-+#endif
+ #include <drm/drm_pagemap.h>
+@@ -67,6 +68,12 @@ struct xe_res_cursor {
+ 	u64 dma_start;
+ 	/** @dma_seg_size: Size of the current DMA segment. */
+ 	u64 dma_seg_size;
++	/**
++	 * @is_iova: Whether the cursor walks a single contiguous IOVA
++	 * mapping described by a struct dma_iova_state. When true, the
++	 * DMA address is @dma_start + @start and never points to VRAM.
++	 */
++	bool is_iova;
+ };
  
- /*
-  * Upper bound for the (exponentially backed off) defrag worker interval, in
-  * milliseconds, so repeated failures don't push the retry arbitrarily far out.
-  */
-+#ifdef CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS
-+#define XE_BO_DEFRAG_INTERVAL_MAX_MS		CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS
-+#else
- #define XE_BO_DEFRAG_INTERVAL_MAX_MS		15000	/* 15 seconds */
-+#endif
- 
- static void xe_bo_defrag_worker(struct work_struct *w);
- static void xe_place_from_ttm_type(u32 mem_type, struct ttm_place *place);
-@@ -1120,6 +1138,7 @@ int xe_bo_defrag_init(struct xe_device *xe)
- 
- static void xe_bo_defrag_schedule(struct xe_device *xe)
+ static struct gpu_buddy *xe_res_get_buddy(struct ttm_resource *res)
+@@ -93,6 +100,7 @@ static inline void xe_res_first(struct ttm_resource *res,
  {
-+	xe_assert(xe, XE_BO_DEFRAG_SIZE_LIMIT >= SZ_2M);
- 	schedule_delayed_work(&xe->mem.defrag.worker,
- 			      msecs_to_jiffies(xe->mem.defrag.interval_ms));
+ 	cur->sgl = NULL;
+ 	cur->dma_addr = NULL;
++	cur->is_iova = false;
+ 	if (!res)
+ 		goto fallback;
+ 
+@@ -224,6 +232,7 @@ static inline void xe_res_first_sg(const struct sg_table *sg,
+ 	cur->dma_addr = NULL;
+ 	cur->sgl = sg->sgl;
+ 	cur->mem_type = XE_PL_TT;
++	cur->is_iova = false;
+ 	__xe_res_sg_next(cur);
  }
-@@ -1146,6 +1165,7 @@ static void xe_bo_defrag_add(struct xe_bo *bo)
  
- 	xe_bo_assert_held(bo);
- 	xe_assert(xe, xe_bo_needs_defrag(bo));
-+	xe_assert(xe, XE_BO_DEFRAG_SIZE_LIMIT >= SZ_2M);
- 
- 	scoped_guard(spinlock, &xe->mem.defrag.lock) {
- 		if (list_empty(&bo->defrag_link)) {
-@@ -1179,6 +1199,9 @@ static void xe_bo_defrag_remove(struct xe_bo *bo)
- {
- 	xe_bo_assert_held(bo);
- 
-+	if (XE_BO_DEFRAG_SIZE_LIMIT < SZ_2M)
-+		return;
+@@ -255,6 +264,41 @@ static inline void xe_res_first_dma(const struct drm_pagemap_addr *dma_addr,
+ 	__xe_res_dma_next(cur);
+ 	cur->sgl = NULL;
+ 	cur->mem_type = XE_PL_TT;
++	cur->is_iova = false;
++}
 +
- 	if (list_empty(&bo->defrag_link))
++/**
++ * xe_res_first_iova() - initialize a xe_res_cursor with a dma_iova_state
++ *
++ * @state: struct dma_iova_state describing a single contiguous IOVA mapping
++ * @start: Start of the range
++ * @size: Size of the range
++ * @cur: cursor object to initialize
++ *
++ * Start walking over the range of an allocation that was DMA mapped using the
++ * IOVA-based DMA API (see dma_iova_try_alloc()). Such a mapping is a single
++ * contiguous IOVA range, so the cursor walks it as one segment. Subsequent
++ * calls to xe_res_next() advance within that range and xe_res_dma() returns
++ * the IOVA backing the current position. xe_res_is_vram() always returns false
++ * for such a cursor.
++ */
++static inline void xe_res_first_iova(struct dma_iova_state *state,
++				     u64 start, u64 size,
++				     struct xe_res_cursor *cur)
++{
++	XE_WARN_ON(!state);
++	XE_WARN_ON(start + size > dma_iova_size(state));
++
++	cur->node = NULL;
++	cur->start = start;
++	cur->remaining = size;
++	cur->size = size;
++	cur->dma_addr = NULL;
++	cur->sgl = NULL;
++	cur->dma_start = state->addr;
++	cur->dma_seg_size = dma_iova_size(state);
++	cur->mem_type = XE_PL_TT;
++	cur->is_iova = true;
+ }
+ 
+ /**
+@@ -283,6 +327,13 @@ static inline void xe_res_next(struct xe_res_cursor *cur, u64 size)
  		return;
+ 	}
  
-@@ -1198,6 +1221,9 @@ static void xe_bo_defrag_update(struct xe_bo *bo)
- {
- 	xe_bo_assert_held(bo);
- 
-+	if (XE_BO_DEFRAG_SIZE_LIMIT < SZ_2M)
++	if (cur->is_iova) {
++		/* Single contiguous IOVA segment. */
++		cur->start += size;
++		cur->size = cur->remaining;
 +		return;
++	}
 +
- 	if (xe_bo_needs_defrag(bo))
- 		xe_bo_defrag_add(bo);
- 	else
+ 	if (cur->dma_addr) {
+ 		cur->start += size;
+ 		__xe_res_dma_next(cur);
+@@ -334,7 +385,7 @@ static inline void xe_res_next(struct xe_res_cursor *cur, u64 size)
+  */
+ static inline u64 xe_res_dma(const struct xe_res_cursor *cur)
+ {
+-	if (cur->dma_addr)
++	if (cur->is_iova || cur->dma_addr)
+ 		return cur->dma_start + cur->start;
+ 	else if (cur->sgl)
+ 		return sg_dma_address(cur->sgl) + cur->start;
+@@ -351,6 +402,9 @@ static inline u64 xe_res_dma(const struct xe_res_cursor *cur)
+  */
+ static inline bool xe_res_is_vram(const struct xe_res_cursor *cur)
+ {
++	if (cur->is_iova)
++		return false;
++
+ 	if (cur->dma_addr)
+ 		return cur->dma_addr->proto == XE_INTERCONNECT_VRAM;
+ 
 -- 
 2.34.1
 
