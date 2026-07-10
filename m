@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EADDC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 07:27:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 726B3C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 07:27:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9B9110E13A;
-	Fri, 10 Jul 2026 07:27:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE5A810F7D6;
+	Fri, 10 Jul 2026 07:27:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M4+agpuK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fuYvY4rr";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79CCC10F7D6
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F87510E13A
  for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 07:27:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0F47C43926;
- Fri, 10 Jul 2026 07:27:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC57B1F000E9;
+ by tor.source.kernel.org (Postfix) with ESMTP id 770146001A;
+ Fri, 10 Jul 2026 07:27:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F50B1F000E9;
  Fri, 10 Jul 2026 07:27:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1783668432;
- bh=BrW9k7dfqdBFuh3Iiqvbuav2ASLBmuES+QRpj2ZXIBI=;
+ bh=50dGMBJi41QmVHDUjU3SjIbFAIpM+hFrWc/CzuNwHVQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=M4+agpuK7HRlIvIi7qHm5HFXuUu+Me4ikddgG3SR/PsxlQuo86HuMWVcMFfHGG4M7
- GJLjEXQ2AisyJUvNP7i6nrNIskB+60d5ZcbRlNipk5uNqvaSqVIBn0RgfOH3JSCm0A
- j6U7suyBtaq0qRR+pU7+4znRB6i6h2rnMqhJaop0+ZPt53FVVAz9FSSDs0l6MLWF55
- dZTHOXCCCNB4R2yPMyhiANSkOSlTMjlsbpF8yxt0m+TSPtAqj5h+rMlpV31av/yRJ0
- xBEdKGHpreduc3zvYWZ8vjw4jvCKcZRul6uA/RvsdGt80WkZAEpMl98bZok2lWHG7j
- ebgg6YyN+jmbQ==
+ b=fuYvY4rrduDK8ugsWG2BR6kFnwOBopwKlRh1kTi+Mm9O+iZWCyz4tNYbff/mXlakM
+ SL8mV0yZSVSb/GOLLqYsSliEjzeMk4IPuG0DQIolf+xt8U/j5d4XFzTho/Hp3meOAZ
+ OQp3u1jy6ktl0NLcy2bYPPX2LVvMeTMgrgtxpOZZ5oCq3bNUE7n7wUVnCb5amkXBii
+ i/lcaih6cbCW7bzmhaxyeevAU4L1iCCLDHZkKHHBH04R0wnyZy+hzhhi8+1IQg1e0j
+ LT0U6mRpKEqv7hfjqhiCwQnqcq1fPv9hR8muqaNvItYuqshBrFZYzFgOpQLGY4823z
+ M0OQNrHTQYhAw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 1/3] net: devmem: allow rx-buf-size >
- PAGE_SIZE per dmabuf binding
+Subject: Re: [PATCH net-next v5 3/3] selftests/net: devmem.py: add
+ check_rx_large_niov
 To: "Bobby Eshleman" <bobbyeshleman@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260708-tcpdm-large-niovs-v5-1-34bf6fac941b@meta.com>
+In-Reply-To: <20260708-tcpdm-large-niovs-v5-3-34bf6fac941b@meta.com>
 References: <20260708-tcpdm-large-niovs-v5-0-34bf6fac941b@meta.com>
- <20260708-tcpdm-large-niovs-v5-1-34bf6fac941b@meta.com>
+ <20260708-tcpdm-large-niovs-v5-3-34bf6fac941b@meta.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 07:27:12 +0000
-Message-Id: <20260710072712.BC57B1F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 07:27:11 +0000
+Message-Id: <20260710072712.0F50B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,83 +60,59 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] On 32-bit architectures with 64-bit DMA addresses (e.g., CONFIG_AR=
-CH_DMA_ADDR_T_64BIT), passing `dma_addr_t` to `gen_pool` functions truncate=
-s the DMA address to 32 bits, leading to broken bit allocations, leaked chu=
-nks, and possible data corruption.
+- [Medium] Unhandled Python exception in selftests when hugepages are disab=
+led or sysctl is read-only.
 --
 
---- Patch [1]: [PATCH net-next v5 1/3] net: devmem: allow rx-buf-size > PAG=
-E_SIZE per dmabuf binding ---
-commit 700c87449a5348e02d33589504f632f46bed92e7
+--- Patch [3]: [PATCH net-next v5 3/3] selftests/net: devmem.py: add check_=
+rx_large_niov ---
+commit c6680f91b9c04fa78f7d8b9d5f92ce1bee9816c1
 Author: Bobby Eshleman <bobbyeshleman@meta.com>
 
-net: devmem: allow rx-buf-size > PAGE_SIZE per dmabuf binding
+selftests/net: devmem.py: add check_rx_large_niov
 
-This commit introduces the NETDEV_A_DMABUF_RX_BUF_SIZE netlink attribute.
-It allows userspace to request an RX buffer size larger than PAGE_SIZE
-for devmem dmabuf bindings, avoiding CPU churn for large flows.
+This commit adds a new devmem test case for binding a dmabuf with a 16K
+rx-buf-size. It also sweeps various RX payload sizes across the niov bounda=
+ry
+to exercise the sub-niov, exact-niov, and multi-niov RX paths.
 
-> diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index 957d6b96216b3..3ce3cc14bec07 100644
-> --- a/net/core/devmem.c
-> +++ b/net/core/devmem.c
+> diff --git a/tools/testing/selftests/drivers/net/hw/devmem_lib.py b/tools=
+/testing/selftests/drivers/net/hw/devmem_lib.py
+> --- a/tools/testing/selftests/drivers/net/hw/devmem_lib.py
+> +++ b/tools/testing/selftests/drivers/net/hw/devmem_lib.py
+
 [ ... ]
-> @@ -113,12 +114,13 @@ void net_devmem_free_dmabuf(struct net_iov *niov)
->  {
->  	struct net_devmem_dmabuf_binding *binding =3D net_devmem_iov_binding(ni=
-ov);
->  	unsigned long dma_addr =3D net_devmem_get_dma_addr(niov);
-> +	size_t niov_size =3D 1UL << binding->niov_shift;
-> =20
->  	if (WARN_ON(!gen_pool_has_addr(binding->chunk_pool, dma_addr,
-> -				       PAGE_SIZE)))
 
-[Severity: High]
-This is a pre-existing issue, but can this truncate the DMA address?=20
-Looking at net_devmem_free_dmabuf() in net/core/devmem.c, dma_addr is
-derived as a dma_addr_t (which can be 64-bit), but is passed to
-gen_pool_has_addr() and gen_pool_free() which expect an unsigned long.=20
+> +def run_rx_large_niov(cfg):
+> +    """Run the devmem RX test with a large niov (rx-buf-size > PAGE_SIZE=
+).
+> +
+> +    Sweep payload sizes that straddle the niov boundary: below, equal to,
+> +    and above rx_buf_size, to exercise sub-niov, exact-niov, and multi-n=
+iov
+> +    RX paths.
+> +    """
+> +    hp_file =3D "/proc/sys/vm/nr_hugepages"
+> +    with open(hp_file, 'r+', encoding=3D'utf-8') as f:
 
-On 32-bit architectures with 64-bit DMA addresses (like
-CONFIG_ARCH_DMA_ADDR_T_64BIT), this will silently truncate the upper 32
-bits. If a chunk crosses a 4GB boundary in its lower 32 bits, the end
-address could wrap around, causing gen_pool_has_addr() to fail the bounds
-check and permanently leak memory via this WARN_ON path.
+[Severity: Medium]
+Will this crash with an unhandled exception on systems without hugepages
+enabled or when run without write permissions to /proc/sys?
 
-> +				       niov_size)))
->  		return;
-> =20
-> -	gen_pool_free(binding->chunk_pool, dma_addr, PAGE_SIZE);
-> +	gen_pool_free(binding->chunk_pool, dma_addr, niov_size);
->  }
-[ ... ]
-> @@ -288,7 +295,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *=
-vdev,
-> =20
->  		owner->area.base_virtual =3D virtual;
->  		owner->base_dma_addr =3D dma_addr;
-> -		owner->area.num_niovs =3D len / PAGE_SIZE;
-> +		owner->area.num_niovs =3D len >> niov_shift;
->  		owner->binding =3D binding;
-> =20
->  		err =3D gen_pool_add_owner(binding->chunk_pool, dma_addr,
+If the system was compiled without CONFIG_HUGETLB_PAGE=3Dy, opening this fi=
+le
+will throw a FileNotFoundError, causing the kselftest framework to report a
+test failure rather than gracefully skipping.=20
 
-[Severity: High]
-This is a pre-existing issue, but does this suffer from the same 64-bit to
-32-bit truncation?=20
+Could this be wrapped in a try/except block to catch these exceptions and
+raise KsftSkipEx instead?
 
-In net_devmem_bind_dmabuf() in net/core/devmem.c, gen_pool_add_owner()
-takes an unsigned long for its virtual address parameter. Passing the
-64-bit dma_addr here will truncate the upper 32 bits on 32-bit systems.=20
-
-If two dmabuf chunks happen to share the same lower 32 bits, this
-truncation could cause overlapping chunk registrations. This might
-eventually lead to double allocations of the same network buffers and
-silent data corruption.
+> +        nr_hugepages =3D int(f.read().strip())
+> +        if nr_hugepages < 64:
+> +            f.seek(0)
+> +            f.write("64")
+> +            defer(_restore_nr_hugepages, hp_file, nr_hugepages)
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-tcpdm-larg=
-e-niovs-v5-0-34bf6fac941b@meta.com?part=3D1
+e-niovs-v5-0-34bf6fac941b@meta.com?part=3D3
