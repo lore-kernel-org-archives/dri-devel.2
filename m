@@ -4,140 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96810C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 13:52:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 256FBC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 13:54:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3A7310E1AD;
-	Fri, 10 Jul 2026 13:52:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8140A10F8F1;
+	Fri, 10 Jul 2026 13:54:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="X3ABIvnx";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="kxgZRlCs";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012054.outbound.protection.outlook.com [52.101.53.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF92810E1AD
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 13:52:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q9WlxfiroOJetqf0fmgYPWlTj7H4MyvpOKWWm+t4/FHWxQ339YwNU+UWFihVHze4GnYMA7Xl1cqttwcpAl8q5sfmvnwATo/EcCdSLx2fAAZAvr+N77Vw+K3RKPxDRnWmPALsT+RmDN/sDnNhna6560oDAttwpbibU1tkY0nNNi+92FnRy3C9UPFnV3hIay8CEEC7m/zOET5eK5LIXaX2Q/HIynKQj+dKS/oZD2deNv9fCDxkG/OS179JH1oYI4Hy8DjDOYR8ab/v3xuvu9HBhHHUZAykPF9cI9Mdq9zUK8laKQP7umOtqEzZxp017Z/EPYDXLRhwyUN4yocQEekEjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wmdwYTwXMmaqHEKJMZg9YzkFqD3t3gpkXz/nlWnUN58=;
- b=VOPOh1B3QGn5JQYrY9LCLPdNp/JepB6TDu8aeL7V1ErWoN7YtDcgfzzfDlbGL+LpQ8cFsP15aII0PvM1xBBA8O8ROU1aQkdz0gQalPKIvVAKRdTnQ6LFOSUidEjTGb+M69InXJp6V3B93bKkvU913ng0TgK6wIQPSRDK9TDUnNp8g8Td5lptXWi6AcUHnOnViUIFizm0bcu9cm7x26c7dTbI1/VxpLpuwcHu/TYEx531TMaGC9PsJpNJgMU4YZsh3HgdiLwdgDQj2MGcqkCyJnY/1vnI1eVbd42gEX5JE5TLfQF10hv+KN0uu1MVOlxZkstHWKtdcgCMP1hmpp66LA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wmdwYTwXMmaqHEKJMZg9YzkFqD3t3gpkXz/nlWnUN58=;
- b=X3ABIvnxPm/2qPPAEk+vnG4h+vfTVASKRNHhqHhwt5t5yXJVFEIhGG6L7bkkjc6Mdsxy1bNGnUhUCC8R1lCM0RrMNJ/gft+b6YRvwjz+ADlKOqvYO6wCCGP+g+pqYQT0f+KMpi+z8qmLAlfS/ehNrxFwBlkYHzXPBBfMIgaE4cHg/iW85veccjCwe3sx4qqlHiWPGmRsgIwFr1umiIcIk9u/ok1qE5JP7UuzcH/4n5aSoRXXKQFtW5ZEArwC6sW0nmutXLmPKbh+7TKsAN/2ll0pQNNz/TpSUuy4XYuDIFxTTmj9ShcQFcNn3eew5LRqFTLKCRgbkEUTd47GHxb3pg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by MW4PR12MB6804.namprd12.prod.outlook.com (2603:10b6:303:20d::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Fri, 10 Jul
- 2026 13:52:49 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0181.016; Fri, 10 Jul 2026
- 13:52:49 +0000
-From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Fri, 10 Jul 2026 22:42:02 +0900
-Subject: [PATCH] gpu: nova-core: add ChannelIdPool
+Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
+ [109.224.244.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10A8010F8F1
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 13:54:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+ s=protonmail3; t=1783691644; x=1783950844;
+ bh=fsAnr3kjqpYuXcuApLrk9JFunB978fsCh8abhH5K8xY=;
+ h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=kxgZRlCslD1szHBHaYnNOX0ZmW4vt+1pqBQpvBvwUXCH9JxPKuu1uaRX9WiafWpoe
+ oh3k+bodBUgFe1eavuMAqsCSgMl6Ku/bYUjWgwb0zrguKl/OHPUR8RIT10bAilBQQF
+ 61JUHo9AJzS0KrSZw5AVxg2KYDvYkk0EILrJrYh35LY+fR5LOARgIAHIKTlbvERXfF
+ iFG2Y7AcrItq2J7EBMxFtyAAMY0y0EoljWL/TKyvFD+muVMbwu85TtsDLlKW+Fh1qA
+ HttWGXtOb4HnVTANdow07LN+vENxz0DR+wjJWWitLa9Q3fckJZKgQAxKlwRGJiruuw
+ V9Cx+qN2RskMg==
+X-Pm-Submission-Id: 4gxYGM33Qmz1DDrP
+From: Esben Haabendal <esben@geanix.com>
+Date: Fri, 10 Jul 2026 15:53:53 +0200
+Subject: [PATCH 3/3] drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync
+ timing
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-chid-maple-v1-1-4ee869055268@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSw5AMBRA0a00b6xJ/SpsRQyqfXji07SIROxdM
- TyDey/w6Ag9VOwChwd5WpeAOGKgB7X0yMkEQyISKQpRcj2Q4bOyE/LUyFLmeYZCpRAC67Cj85v
- VzW+/tyPq7T3AfT/Ju/avbgAAAA==
-X-Change-ID: 20260709-chid-maple-3d696554e0a3
-To: Danilo Krummrich <dakr@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: Greg KH <gregkh@linuxfoundation.org>, Burak Emir <bqe@google.com>, 
- Yury Norov <yury.norov@gmail.com>, John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Zhi Wang <zhiw@nvidia.com>, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
+Message-Id: <20260710-nwl-dsi-fixes-v1-3-927d918a86ad@geanix.com>
+References: <20260710-nwl-dsi-fixes-v1-0-927d918a86ad@geanix.com>
+In-Reply-To: <20260710-nwl-dsi-fixes-v1-0-927d918a86ad@geanix.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Esben Haabendal <esben@geanix.com>, Robert Chiras <robert.chiras@nxp.com>, 
+ "Oliver F. Brown" <oliver.brown@oss.nxp.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4PR01CA0099.jpnprd01.prod.outlook.com
- (2603:1096:405:37d::7) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|MW4PR12MB6804:EE_
-X-MS-Office365-Filtering-Correlation-Id: 533a0bb2-2f37-47d3-ba4b-08dede8a874d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|7416014|1800799024|10070799003|23010399003|11063799006|56012099006|921020|18002099003;
-X-Microsoft-Antispam-Message-Info: ixe6uafKq76QjoOBouJ34towtCelYRjC12vjtzeGYDoOAhVHaHZsFrKjzeJPKr+Ai4+azR3or2E/SM6vHgh7GM66Uyv93v8Wuh/QxSyDKrZ3YpdJg7bxIvcSt8MDWpPv/EkBiCtc7HiKTZ5mJMQoVHjMKWCOD3ospdKMy/vZ/LT78jI5axHcsTd4uLkExphwRrLlVJnzXumNMhd4MUXxXSuth3GPXfFza5NVxpUlyzwxuLxlFu0jp/KLJfxGRPZFy5oI+iv2SEceD/MUNGqIlp05kH+Y+FD1uIbcNgfypJUUMxSGS0aOwGB7mM7B++DLzvH19KPXRAXOrQjZ5qaROAmfDntVYADazP921O114+//8uOhMlrW7N92E8e4zR77jnHcPKheeungBiDz8U22Qwu8QwpACFluTv252mlMp+ScWUzCCZk04Y2kgncqd5IxhkI+GJrPdkSbQzzkXqy9obCvbJaMfPMHv3ipG3cAiIF0Lx9AnZpwb0tnAIScg7HN1qgWzWVqg4pgdPgLsKQXRwGMd3a8PZcq69OCXV+j8HHYk53jlEhq5nr4pAmrTgQTUmNzXp6b220b7zsCD8bDbUHI2qnoQx4bG8jzNKHg0VuqHI/P+Lm5GPp3To7dOUXX9E3vqJPbOOMyEBUgrF53CXLspn/KzMzqKwl5MKRSDyTF9R1VDFoVe/D2OduGoKvOVstX9GsnofgXsXwMTtI01w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(7416014)(1800799024)(10070799003)(23010399003)(11063799006)(56012099006)(921020)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZmgrbHYxMTBZN3kxZ0J4QUcvZlFZclRxdXpjN0NWbXpheEtTUUJ5K0dTYXk2?=
- =?utf-8?B?U2tmWjdnampKVmJ6Q1laSFRrZzUySXNTL05ycWROSUpsY21Rdnl3QndpTzlB?=
- =?utf-8?B?Q3JERDlFV3ZRTWRzeDFxRUZmRG9tNnB5NGY4SHlvS01qNytwTXBBT3hucDRk?=
- =?utf-8?B?WXE5L0ZGVi9EVUUyUmdwRndjL2YyS3VhZlNTQzgwZ0dpdUpMcDBvMjhRRnk0?=
- =?utf-8?B?QnNOMHhFTFgxVUtieEcxTWZweGdzTGtrcERhK0laQjhIY01DYWhkYml5R2hx?=
- =?utf-8?B?ZisraFVYL1Y4LzY3QU5BQXhoeUI0NTVJamtkRmczYld1RlJIckZ0eEtUQlJU?=
- =?utf-8?B?TFkrVE9jdmlJTXVlTGJTaitLOWw4QU5ybVF1Wk85ekhaWUtmZ1ZRWUdHN1hx?=
- =?utf-8?B?dXhKUmhpUFRtcEEwd1F1WFZmNkJONERDZnFWQzhDUWp6a1RsTTZBbHkwRnFv?=
- =?utf-8?B?b3hOZmMvYXV6QXhlbVMrY250QVZHTWp5M1dOdlNmMzdYOU9Dc2NhblZvWHBq?=
- =?utf-8?B?NUZoUjhtR0d3bFhuVXZnSVlpSkxvcHpwUHhRaEx5dWthb2Nma2tkYS9pTVdQ?=
- =?utf-8?B?U3NaTFFtV2FQYXZWb0xWSVlTcEh6RTNsUU8vZThEdE1CdkZLcEMwekFDN203?=
- =?utf-8?B?YVgxdG5nMVlXMzFGOW4zbU00ZDFYQVFRR1BSWUtjblBpT1U0TVYzakhlTnkz?=
- =?utf-8?B?aWgvREFocWQ5SDBxVDcwRWhCUHJGRlFjZzJMbTVDTkRXV3ZQMUVHbEw3QkRB?=
- =?utf-8?B?NVFDTXczK1JmVHJDNmIwZ1pJUU8zQjRxdXNSVGFRdk8vSmltL3kzU1RlM3d5?=
- =?utf-8?B?bmlSbzQ3blI2c3JzelRxQ1l4QXNraUNwM1dMTEFON2dzVWNlUjlZMWpUaWpr?=
- =?utf-8?B?OHhsNzhxNm9LckZuL2QydUlJU0lianBvSnhqcUdvamVIZzRvSzZTNUJRUXdQ?=
- =?utf-8?B?a3BUSVZCK1kwZFRuUHdpMG9EcWVCYUNCdHBkRjlQTHBpN1RIYm5VMDg3N280?=
- =?utf-8?B?S0VaUjZsUEFBdGRNd3d0aHRFbEJ3UEMzbXhzcWdPSmt3R2NBbFZ0Z1crd3dU?=
- =?utf-8?B?VXM2dU9SRzErZHkybDZZdkt0WUhkWS9UeWI0Y1hCM0RoaUFwQ05FT2p6OWFY?=
- =?utf-8?B?K2hJV1V6WXVoTGhnRW5sVWwwQmYvZ25oMzIyZUhMUnoyZ3VUV2ZPUVVVeXd2?=
- =?utf-8?B?VHFlL0ljekRzckVZZkFIaUk3MGJpaW1OY1NKWVpXOVNrdWcxY0dpVjJyVjBV?=
- =?utf-8?B?TktTZEJNVFM3MzgrZG9yWmZRMXdXdklpQUUwUVQvemxlWnRydFN2S2Z4OEhy?=
- =?utf-8?B?cElZZXc4N1Zjd2dZSnQ0QTVrOVZWd0RiczFUc08xOWljVHdYeEM4bUZwZHNz?=
- =?utf-8?B?NGs0cEZCNXJxUTRyVytJTnE3QmFiUnRaT1ZWbTM4TlQraWJtcHNYbFhWMlNI?=
- =?utf-8?B?VTRTR2p1L01ReEx2NXlZR0FIK29rUUlNbDhxOFZuRXJWRndXaFBzck1DSTh3?=
- =?utf-8?B?QVlHNmJZUS83OVJna3psUmJrTVh2ZHpzVkhBMFBlMGZUSVdvczhlbDl3M3ph?=
- =?utf-8?B?enhEWG9YRnFSYTAwb0N1VDBuOHd1M2V6ZUNuNnlxNi9qb0hBT2kwTXpYY0pD?=
- =?utf-8?B?bWF3L2x4QjZncW5zamRZM3AzQkZGczErMktYbVVoN3JacVAzckhpOWRBYktl?=
- =?utf-8?B?TXBYYm40aUs0UGM5NEZ1SkRPditXcWdLUENheS9UVjg3TURvQnJFeWJjYWc0?=
- =?utf-8?B?aGFKdnN4UUFvYUZEa0dJRjVIT1cxZjc3cWxsUjBVdGh3ZnFMeGJuU2ZRT0lE?=
- =?utf-8?B?NlBuWThnazQxcXNFcS9DaFhzdDZQTGowMlVxUEJyZ3NoNld6ZzNEUnJzWVNo?=
- =?utf-8?B?NG5ZNDNZbzBHeWg0cVdISUNWaGR5Vkt2b0hobWxMTkdsRkRUWEhsWWNJbVd3?=
- =?utf-8?B?NmMyMUFtaCtqWHpCTXFMMzJ3ZkVBT3JoRUVqdlZzV09nNHd4K2o4ZHlIeWdw?=
- =?utf-8?B?MkxWem1iZWx4NHhqc29BV3Z1eCtLaExoUjFMa1p4VnJFSHdWaWxGZC85ZjU2?=
- =?utf-8?B?VVk5OGNjcG5ydDNpUXlCWlNIbmZNUEZjTWh1bkN0eWFkQi9sK2toYk5GNU1C?=
- =?utf-8?B?eFE0YXpMS1VtRTgzZEdTVGxkYU1xTEpzZ0FpdTlPVnU0TGlIRE82RlArYmlO?=
- =?utf-8?B?bmlYTjJzQzEybzF6ODUzTzI2dUxHRWM1VW9GUFM4VWZiSWxxUjlKT1h2R2ht?=
- =?utf-8?B?YkFKZm5tbkd1dWpGVEw2cHVEbVF2TXBWTlRYZFpyWkRIMmlmUndkL3ZTdEJM?=
- =?utf-8?B?cW5QRUd1N3Rtc1hzZTJiZ3JVeTZVWkp2Wm5DMjNZL3BONmlOTmRoL0FLUzBN?=
- =?utf-8?Q?rRxuagVdAH4JpcC5mn2tazMo/5kryb90TdhvQBXsfjcNT?=
-X-MS-Exchange-AntiSpam-MessageData-1: bTTJeib6LxkxQA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 533a0bb2-2f37-47d3-ba4b-08dede8a874d
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 13:52:49.3438 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hzrPARpv7onB+vn6ZLQP0WiFLa8AuN/C8BtiBeimx3xG4+PQxD2KbZhYARL+bVT9Whw64qAZsZ467T/nGZmVuQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6804
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783691637; l=4033;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=tNRZSSK2OL6E3vIEk3tpiBMkXERKkLYCZ/9foXsqa5M=;
+ b=GarpfREI/KRkgHmyNQV8uyb78xhXHC43qKxvBCQDbmsfUfQELECetO0ptbzTpbLSYkUXFc4zc
+ uHWr3lBMJirCrhWLucbDCsyx9jrvLJHyh7omwGv/8VN+957xXQ4S0+S
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,232 +72,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add `ChannelIdPool` which does allocation of channel IDs on top of a
-maple tree. This is necessary for allotting ranges of channel IDs to be
-used in e.g. vGPU and also later for allocating single channel IDs for
-the host.
+The NWL MIPI Host controller registers specifies the horizontal front
+porch, sync pulse, and back porch in DSI packet payload size in bytes (ie.
+not in pixel clocks).
 
-Pre-blackwell needs to allocate channel IDs with a particular alignment.
-For this case, loop on `MapleTreeAlloc::alloc_range` while aligning up.
-For unaligned cases, this always terminates on the first iteration.
-Use a Mutex to ensure that the multi step insert-check-erase can't race.
+The calculation for this is (mostly) described in section 13.6.3.5.1.2 of
+the i.MX 8M Dual/8M QuadLite/8M Quad Applications Processors Reference
+Manual (rev. 3.1). The formula shown there does not take packet header size
+into account though.
 
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+The formula implemented here converts the hfp, hsa, and hbp to DSI packet
+bytes and then subtracts the number of packet header bytes.
+
+It is worth noting that these values only needs to match approximately,
+according to the reference manual.
+
+Based on commit in NXP vendor tree
+commit f2a61699749d ("LF-7981-4: drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing")
+
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+Cc: Robert Chiras <robert.chiras@nxp.com>
+Cc: Oliver F. Brown <oliver.brown@oss.nxp.com>
 ---
-Add tracking of channel ID allocations, needed for allotting ranges of
-channel IDs for vGPU guests and also (later) for regular host channel ID
-reservation. Allocating channel IDs is not on a hot path (absolute peak
-~100 per second, on average < 1 per second).
+ drivers/gpu/drm/bridge/nwl-dsi.c | 56 +++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 53 insertions(+), 3 deletions(-)
 
-For pre-blackwell we need to be able to allocate a range of channel IDs
-with a particular alignment. The approach I took here is to wrap
-MapleTreeAlloc in a Mutex and loop on regular `alloc_range` lookups. An
-alternative would be adding rust bindings for maple tree
-`mas_empty_area` and doing a try+restart kind of thing.
----
- drivers/gpu/nova-core/gpu.rs         |   2 +
- drivers/gpu/nova-core/gpu/channel.rs | 174 +++++++++++++++++++++++++++++++++++
- 2 files changed, 176 insertions(+)
-
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 43c3f4f8df71..0c3b5de7d849 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -31,6 +31,8 @@
-     regs,
- };
+diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+index c9af6a3d47e1..ed61580a3545 100644
+--- a/drivers/gpu/drm/bridge/nwl-dsi.c
++++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+@@ -22,6 +22,7 @@
+ #include <linux/reset.h>
+ #include <linux/sys_soc.h>
+ #include <linux/time64.h>
++#include <linux/math64.h>
  
-+#[cfg_attr(not(CONFIG_KUNIT = "y"), expect(dead_code))]
-+mod channel;
- mod hal;
+ #include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_bridge.h>
+@@ -264,6 +265,10 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
+ 	bool burst_mode;
+ 	int hfront_porch, hback_porch, vfront_porch, vback_porch;
+ 	int hsync_len, vsync_len;
++	int hfp, hbp, hsa;
++	unsigned long long pclk_period;
++	unsigned long long hs_period;
++	int h_blank, pkt_hdr_len, pkt_len;
  
- macro_rules! define_chipset {
-diff --git a/drivers/gpu/nova-core/gpu/channel.rs b/drivers/gpu/nova-core/gpu/channel.rs
-new file mode 100644
-index 000000000000..1f6299aa9f58
---- /dev/null
-+++ b/drivers/gpu/nova-core/gpu/channel.rs
-@@ -0,0 +1,174 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ 	hfront_porch = dsi->mode.hsync_start - dsi->mode.hdisplay;
+ 	hsync_len = dsi->mode.hsync_end - dsi->mode.hsync_start;
+@@ -317,9 +322,54 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
+ 			      dsi->mode.hdisplay);
+ 	}
+ 
+-	nwl_dsi_write(dsi, NWL_DSI_HFP, hfront_porch);
+-	nwl_dsi_write(dsi, NWL_DSI_HBP, hback_porch);
+-	nwl_dsi_write(dsi, NWL_DSI_HSA, hsync_len);
++	pclk_period = DIV_ROUND_UP_ULL(PSEC_PER_SEC, dsi->mode.clock * 1000);
++	DRM_DEV_DEBUG_DRIVER(dsi->dev, "pclk_period: %llu\n", pclk_period);
 +
-+//! Channel related code.
++	hs_period = DIV_ROUND_UP_ULL(PSEC_PER_SEC, dsi->phy_cfg.mipi_dphy.hs_clk_rate);
++	DRM_DEV_DEBUG_DRIVER(dsi->dev, "hs_period: %llu\n", hs_period);
 +
-+use core::{
-+    num::NonZero,
-+    ops::{
-+        Deref,
-+        Range, //
-+    }, //
-+};
++	/*
++	 * Calculate the bytes needed, according to the RM formula:
++	 * Time of DPI event = time to transmit x number of bytes on the DSI
++	 * interface
++	 * dpi_event_size * dpi_pclk_period = dsi_bytes * 8 * hs_bit_period /
++	 * num_lanes
++	 * ===>
++	 * dsi_bytes = dpi_event_size * dpi_pclk_period * num_lanes /
++	 * (8 * hs_bit_period)
++	 */
++	hfp = hfront_porch * pclk_period * dsi->lanes / (8 * hs_period);
++	hbp = hback_porch * pclk_period * dsi->lanes / (8 * hs_period);
++	hsa = hsync_len * pclk_period * dsi->lanes / (8 * hs_period);
 +
-+use kernel::{
-+    maple_tree::MapleTreeAlloc,
-+    prelude::*,
-+    ptr::{
-+        Alignable,
-+        Alignment, //
-+    },
-+    sync::{
-+        new_mutex,
-+        Mutex, //
-+    }, //
-+};
++	/* Make sure horizontal blankins are even numbers */
++	hfp = roundup(hfp, 2);
++	hbp = roundup(hbp, 2);
++	hsa = roundup(hsa, 2);
 +
-+/// Pool for tracking reservations of channel IDs.
-+#[pin_data]
-+pub(crate) struct ChannelIdPool {
-+    #[pin]
-+    inner: Mutex<MapleTreeAlloc<()>>,
-+    num_chids: usize,
-+}
++	/*
++	 * We need to subtract the packet header length: 32
++	 * In order to make sure we don't get negative values,
++	 * subtract a proportional value to the total length of the
++	 * horizontal blanking duration.
++	 */
++	h_blank = hfp + hbp + hsa;
 +
-+impl ChannelIdPool {
-+    /// Creates a pool managing `num_chids` channel IDs.
-+    pub(crate) fn new(num_chids: usize) -> impl PinInit<Self> {
-+        pin_init!(Self {
-+            inner <- new_mutex!(MapleTreeAlloc::new()),
-+            num_chids,
-+        })
-+    }
++	pkt_len = roundup(((hfp * 100 / h_blank) * 32) / 100, 2);
++	pkt_hdr_len = pkt_len;
++	hfp -= pkt_len;
 +
-+    /// Reserves a contiguous area of `count` channel IDs starting at a multiple of `align`.
-+    /// Returns a guard that releases the area on drop.
-+    pub(crate) fn alloc_area(
-+        &self,
-+        count: NonZero<usize>,
-+        align: Alignment,
-+    ) -> Result<ChannelIdArea<'_>> {
-+        // Hold the lock over the whole loop so the release and retry below cannot race with another
-+        // allocation.
-+        let tree = self.inner.lock();
-+        let mut base = 0;
-+        while base < self.num_chids {
-+            let start = tree.alloc_range(count.get(), (), base..self.num_chids, GFP_KERNEL)?;
-+            let aligned = start.align_up(align);
++	pkt_len = roundup(((hbp * 100 / h_blank) * 32) / 100, 2);
++	pkt_hdr_len += pkt_len;
++	hbp -= pkt_len;
 +
-+            if aligned == Some(start) {
-+                return Ok(ChannelIdArea {
-+                    pool: self,
-+                    range: start..start + count.get(),
-+                });
-+            }
++	hsa -= (32 - pkt_hdr_len);
 +
-+            // Release the unaligned area and retry from the next aligned channel ID.
-+            tree.erase(start);
-+            base = aligned.ok_or(EBUSY)?;
-+        }
-+        Err(EBUSY)
-+    }
-+}
++	DRM_DEV_DEBUG_DRIVER(dsi->dev, "Register values: hfp=%d hbp=%d hsa=%d\n", hfp, hbp, hsa);
 +
-+/// A reserved contiguous area of channel IDs.
-+///
-+/// Releases the whole area back to its [`ChannelIdPool`] when dropped. Releasing locks a sleeping
-+/// [`Mutex`] and may allocate memory with `GFP_KERNEL`, so the area must be dropped in a context
-+/// that is allowed to do so.
-+#[must_use = "the channel ID area is released immediately when unused"]
-+pub(crate) struct ChannelIdArea<'a> {
-+    pool: &'a ChannelIdPool,
-+    range: Range<usize>,
-+}
-+
-+impl Drop for ChannelIdArea<'_> {
-+    fn drop(&mut self) {
-+        self.pool.inner.lock().erase(self.range.start);
-+    }
-+}
-+
-+impl Deref for ChannelIdArea<'_> {
-+    type Target = Range<usize>;
-+
-+    fn deref(&self) -> &Self::Target {
-+        &self.range
-+    }
-+}
-+
-+#[kunit_tests(nova_core_channel)]
-+mod tests {
-+    use super::*;
-+
-+    const fn nz(count: usize) -> NonZero<usize> {
-+        NonZero::new(count).unwrap()
-+    }
-+
-+    #[test]
-+    fn chid_area() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(2048), GFP_KERNEL)?;
-+        let unaligned = Alignment::new::<1>();
-+
-+        let first = pool.alloc_area(nz(48), unaligned)?;
-+        let second = pool.alloc_area(nz(48), unaligned)?;
-+        assert_eq!(0, first.start);
-+        assert_eq!(48, second.start);
-+
-+        drop(first);
-+        let third = pool.alloc_area(nz(48), unaligned)?;
-+        assert_eq!(0, third.start);
-+        assert_eq!(96, pool.alloc_area(nz(48), unaligned)?.start);
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn chid_bounded_by_num_chids() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(4), GFP_KERNEL)?;
-+        let unaligned = Alignment::new::<1>();
-+
-+        assert_eq!(0, pool.alloc_area(nz(4), unaligned)?.start);
-+
-+        // An area larger than the pool is rejected by the maple tree itself.
-+        assert_eq!(Some(EINVAL), pool.alloc_area(nz(5), unaligned).err());
-+
-+        let a = pool.alloc_area(nz(3), unaligned)?;
-+        assert_eq!(0, a.start);
-+        assert_eq!(Some(EBUSY), pool.alloc_area(nz(2), unaligned).err());
-+
-+        let b = pool.alloc_area(nz(1), unaligned)?;
-+        assert_eq!(3, b.start);
-+        assert_eq!(Some(EBUSY), pool.alloc_area(nz(1), unaligned).err());
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn chid_area_aligned() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(16), GFP_KERNEL)?;
-+        let unaligned = Alignment::new::<1>();
-+        let align4 = Alignment::new::<4>();
-+
-+        // Alloc 0 so the first fit for the next area is unaligned.
-+        let pad = pool.alloc_area(nz(1), unaligned)?;
-+        assert_eq!(0, pad.start);
-+
-+        let a = pool.alloc_area(nz(4), align4)?;
-+        assert_eq!(4, a.start);
-+
-+        // The area skipped over by the aligned allocation should still be available.
-+        let b = pool.alloc_area(nz(1), unaligned)?;
-+        assert_eq!(1, b.start);
-+
-+        let c = pool.alloc_area(nz(8), Alignment::new::<8>())?;
-+        assert_eq!(8, c.start);
-+
-+        // Only 2 IDs left.
-+        assert_eq!(Some(EBUSY), pool.alloc_area(nz(4), align4).err());
-+        assert_eq!(
-+            Some(EBUSY),
-+            pool.alloc_area(nz(1), Alignment::new::<32>()).err()
-+        );
-+
-+        assert_eq!(2, pool.alloc_area(nz(2), unaligned)?.start);
-+        Ok(())
-+    }
-+}
++	nwl_dsi_write(dsi, NWL_DSI_HFP, hfp);
++	nwl_dsi_write(dsi, NWL_DSI_HBP, hbp);
++	nwl_dsi_write(dsi, NWL_DSI_HSA, hsa);
+ 
+ 	nwl_dsi_write(dsi, NWL_DSI_ENABLE_MULT_PKTS, 0x0);
+ 	nwl_dsi_write(dsi, NWL_DSI_BLLP_MODE, 0x1);
 
----
-base-commit: 78900738d981c97aad929e33620340d0d9bcfc82
-change-id: 20260709-chid-maple-3d696554e0a3
-
-Best regards,
---  
-Eliot Courtney <ecourtney@nvidia.com>
+-- 
+2.55.0
 
