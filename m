@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7B5CC44506
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 13:57:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0D5CC44501
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 13:57:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B404D10F906;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B753210F907;
 	Fri, 10 Jul 2026 13:56:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="tYE2D6rz";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="zJR9QopJ";
 	dkim-atps=neutral
 Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D0BB10F906
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 504FB10F905
  for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 13:56:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail3; t=1783691641; x=1783950841;
- bh=8q2edUY/F+R6eEwokl1w5l9rk95zvIg7QcBwF/3Dezw=;
+ s=protonmail3; t=1783691644; x=1783950844;
+ bh=QPBm4NG7A+HSGHSOUZg6VDUd6exXx8y8wk5CPF99Uq0=;
  h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
  Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=tYE2D6rzKX5q7CRyfhpclXWdG56N5aXV29+TwXwhUhcAzWenDZtVSM8lae/PXeMqr
- DPLkbQilAAJJcklqiYgKPv0zNCNvk23PCnZJF1qvqDCgHWk0zixp4006Cs0CLk5tD3
- EAsn/al2tS76OJs4nmAS/WBuTUDFJhJbXICIr8exaZVC3DiOms/7PALQ0yirAYRS/d
- gMWuDeyCweq4Y/GlzegY5vKL/th/oDmeP6Jex0HiodKyBZ5SFmpfZV7BW8wO8NEzvx
- gGfw3MNyl0sSe00/7esduiYI4znbd62Nk+UPibpi0m0t9kj15PIIN5eKBo/RFBqnoE
- dwG7Tcg1kXFjQ==
-X-Pm-Submission-Id: 4gxYGJ41m6z2Sccp
+ b=zJR9QopJuppwUbax7CpUW+5h93k0j8tPvkGBPUu/Rynu3RYWXsJ6txfN8EAxico0/
+ 5hTXlGz2XxGslmEFWow4yxmqx08GixIyiVb9D3Jx6MsYh4je+bCV4BPekVPD25u/6S
+ 7pFsT6PnzR4AOci6PS+rAFNBhZAgLhUfyG2hOwY14fzGDG+Fs4rOf6bHz5HNM61LEj
+ x5yWrRJNicmMf52Xcrbj0gwmcQqwGYmicHOHbNpbaBIKLDXPh/h1jnmhK/5HqA+E7s
+ SPVXUrWkNmt+ZXsp/C5ugITh9FcrAuhjsUlsm0xucd2n7fbKsFeXVX6Sfljg3zBPcA
+ CHQli/BuWyw6Q==
+X-Pm-Submission-Id: 4gxYGL0zlQz1DFTR
 From: Esben Haabendal <esben@geanix.com>
-Date: Fri, 10 Jul 2026 15:53:51 +0200
-Subject: [PATCH 1/3] drm/bridge: nwl-dsi: Limit LCDIF specific sync
- override
+Date: Fri, 10 Jul 2026 15:53:52 +0200
+Subject: [PATCH 2/3] drm/bridge: nwl-dsi: Correct auto-insert EOTP behavior
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-nwl-dsi-fixes-v1-1-927d918a86ad@geanix.com>
+Message-Id: <20260710-nwl-dsi-fixes-v1-2-927d918a86ad@geanix.com>
 References: <20260710-nwl-dsi-fixes-v1-0-927d918a86ad@geanix.com>
 In-Reply-To: <20260710-nwl-dsi-fixes-v1-0-927d918a86ad@geanix.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -46,13 +45,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Esben Haabendal <esben@geanix.com>
+ Esben Haabendal <esben@geanix.com>, Robert Chiras <robert.chiras@nxp.com>, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783691637; l=2620;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783691637; l=1428;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=bElw+EC3BtkVujNhRAmFC3bBhwHEY6yVLOiO9cFKvzY=;
- b=LFie9W1+UU7rQRom0U3zf9RaNsA9Pmnn/C9Mv+fh4yhX6ojMumP0FupkvvrHonqOSdpNVL4Ju
- V8L0s874xO6BmxoHiXEiRp06Rp2XLDHvOioEhDKZbVP7iqS+t7wb1rQ
+ bh=MlnAnk3D6X3Xr53pwTpcKxu0eo4On3ljZI9uhBncg4s=;
+ b=IT0mbu8pnP+y/tsfpkauoEaPAC/3UFDy0lGcNDQ6YOE0ZBDqNfaQBScT6ZoqiR0nVMTJhw3Tw
+ 2Y08Sp7dXP5BIEjJBr8jurY2ei9p5vjeQYJY8VmkF08Yq0N4LJUTejO
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,74 +70,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When using DCSS with NWL, overriding the mode flags to enforce active high
-sync is preventing the use of active low with downstream bridges, such as
-ti-sn65dsi83, which will not see such mode flags set by the panel.
+From: Robert Chiras <robert.chiras@nxp.com>
+
+In order to respect the DSI protocol, make sure that auto-insert EOTP is
+enabled according to the NO_EOT_PACKET flag instead of the
+CLOCK_NON_CONTINUOUS flag.
 
 Signed-off-by: Esben Haabendal <esben@geanix.com>
+Cc: Robert Chiras <robert.chiras@nxp.com>
+Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 ---
- drivers/gpu/drm/bridge/nwl-dsi.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/bridge/nwl-dsi.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index 3c9ae93c4f67..915e1bdc73c8 100644
+index 915e1bdc73c8..c9af6a3d47e1 100644
 --- a/drivers/gpu/drm/bridge/nwl-dsi.c
 +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -110,6 +110,8 @@ struct nwl_dsi {
- 	int error;
+@@ -222,13 +222,15 @@ static int nwl_dsi_config_host(struct nwl_dsi *dsi)
+ 	DRM_DEV_DEBUG_DRIVER(dsi->dev, "DSI Lanes %d\n", dsi->lanes);
+ 	nwl_dsi_write(dsi, NWL_DSI_CFG_NUM_LANES, dsi->lanes - 1);
  
- 	struct nwl_dsi_transfer *xfer;
+-	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS) {
++	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)
+ 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x01);
+-		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
+-	} else {
++	else
+ 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x00);
 +
-+	unsigned int endpoint;
- };
++	if (dsi->dsi_mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
+ 		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x00);
+-	}
++	else
++		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
  
- static const struct regmap_config nwl_dsi_regmap_config = {
-@@ -821,10 +823,13 @@ static int nwl_dsi_bridge_atomic_check(struct drm_bridge *bridge,
- 				       struct drm_connector_state *conn_state)
- {
- 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
-+	struct nwl_dsi *dsi = bridge_to_dsi(bridge);
- 
- 	/* At least LCDIF + NWL needs active high sync */
--	adjusted_mode->flags |= (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC);
--	adjusted_mode->flags &= ~(DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC);
-+	if (dsi->endpoint == NWL_DSI_ENDPOINT_LCDIF) {
-+		adjusted_mode->flags |= (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC);
-+		adjusted_mode->flags &= ~(DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC);
-+	}
- 
- 	/*
- 	 * Do a full modeset if crtc_state->active is changed to be true.
-@@ -1088,13 +1093,12 @@ static int nwl_dsi_parse_dt(struct nwl_dsi *dsi)
- static int nwl_dsi_select_input(struct nwl_dsi *dsi)
- {
- 	struct device_node *remote;
--	u32 use_dcss = 1;
- 	int ret;
- 
- 	remote = of_graph_get_remote_node(dsi->dev->of_node, 0,
- 					  NWL_DSI_ENDPOINT_LCDIF);
- 	if (remote) {
--		use_dcss = 0;
-+		dsi->endpoint = NWL_DSI_ENDPOINT_LCDIF;
- 	} else {
- 		remote = of_graph_get_remote_node(dsi->dev->of_node, 0,
- 						  NWL_DSI_ENDPOINT_DCSS);
-@@ -1103,11 +1107,12 @@ static int nwl_dsi_select_input(struct nwl_dsi *dsi)
- 				      "No valid input endpoint found\n");
- 			return -EINVAL;
- 		}
-+		dsi->endpoint = NWL_DSI_ENDPOINT_DCSS;
- 	}
- 
- 	DRM_DEV_INFO(dsi->dev, "Using %s as input source\n",
--		     (use_dcss) ? "DCSS" : "LCDIF");
--	ret = mux_control_try_select(dsi->mux, use_dcss);
-+		     (dsi->endpoint == NWL_DSI_ENDPOINT_DCSS) ? "DCSS" : "LCDIF");
-+	ret = mux_control_try_select(dsi->mux, dsi->endpoint == NWL_DSI_ENDPOINT_DCSS);
- 	if (ret < 0)
- 		DRM_DEV_ERROR(dsi->dev, "Failed to select input: %d\n", ret);
- 
+ 	/* values in byte clock cycles */
+ 	cycles = ui2bc(cfg->clk_pre);
 
 -- 
 2.55.0
