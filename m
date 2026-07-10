@@ -4,121 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D9C3C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD1D5C44506
 	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBC6510E81E;
-	Mon, 13 Jul 2026 07:11:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8369410E837;
+	Mon, 13 Jul 2026 07:11:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="Goi84xSa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MKYaLKd6";
 	dkim-atps=neutral
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
- [209.85.160.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99E6910E1C6
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 21:08:37 +0000 (UTC)
-Received: by mail-qt1-f182.google.com with SMTP id
- d75a77b69052e-51a868b6962so12209121cf.2
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 14:08:37 -0700 (PDT)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0638810E24C
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 21:26:30 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-3847e8b0f3aso1256489a91.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 14:26:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1783717716; x=1784322516; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=TOF1lWlhGf+OJbHw+J+MIMmbUwopKgG0YAX8LO7BKt0=;
- b=Goi84xSakmmaMWRvdfWkk+0k0gQqoQi3WHd+l0GsMg1EJPzMn72xwiITsXJqUOpzST
- kVMWXnbCHHIR6A0I9Faa9YSN5/AEQbq/xs49uIWtNayCvz6bStkdlrF6uccJ/j5iY8g1
- dZbrTiE4MlmrAGv1Q0neEIIRsEl3e/zL7j3Sb26n0ZVdg+I7cMiDyrXKxvHKbOtt9+mt
- CzEhxWnf03WNn/Lv3Ae4AknwRNbJPDeznVyaOT0iaHz/ywhTwrx9qwOfPSwez/UaCNL/
- Wojn/i6kxKjHEYSWrQZKPWCl3bXYsq4DsCMcVCWh6+6obw98dZNIHXBJ8c9Xr+aWxbQh
- LxUw==
+ d=gmail.com; s=20251104; t=1783718790; x=1784323590; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:user-agent
+ :references:in-reply-to:message-id:date:cc:to:from:subject:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=8+MHxD8uf0HO8SRBYZIasl4vPo7jNKxT6S73gN/spU8=;
+ b=MKYaLKd6rkkZ1w7LJAomZ+CosThMDpIOfzkVH9O5avn6Oa8s72uFYSM4UIUObcVvsh
+ MZvo3fLQt4kZEe5T/Gc4PdFDzW18UgOw2p7fEp4D55T0DgOO2TFbYL9gkuM+hfPRdkds
+ bPIIzHhw/Fiukdf30ImWn1X8n82nDZYRvRzgq7f8sZEsbaISPHhN1yXlUMs4OkAQVz/o
+ t+5THtbyce4RScEkmqmSIcvAQYVIcidcHBoulcaz0OJfkz4ZTktsCzrYyh4GUgETMA7C
+ GGyPilfITTl6JTIdBbbQ3jKSf620qSE+xwFZbaSSCPZPoqxPjFay6hD+JmtBblH9jmq0
+ 0S/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783717716; x=1784322516;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20251104; t=1783718790; x=1784323590;
+ h=content-transfer-encoding:content-type:mime-version:user-agent
+ :references:in-reply-to:message-id:date:cc:to:from:subject:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=TOF1lWlhGf+OJbHw+J+MIMmbUwopKgG0YAX8LO7BKt0=;
- b=WbXRKL5w9RmttuiV+5YwYv/C2cDiCTjlcdJewuxA0A3sjye/dVQxOtF+flUygjargn
- 7b4QYfzqzuQZIrEcRythpASd/qTSmVFLE4Uat0Uo44JK85Bs0uKuPN8F43OxZ6t/7U5M
- 5VpVhxOcxBpkmzuoLMCov1SDy7gS+jmF5BXwUj8FAZJWtV96gQ2tOgewEcW+DIMdy5CH
- QsPVege+P45Kwel9hmuOl+yWFAjRLvBVtT9VU3r7uDNneFbN/MQQsaTc87CtCC1PfPC1
- xShULe22YtIfjjkAwgkIyNC9xEpc923nzJBsvcfrNYmv2Q6YccAEY3eKNqEfGB5uo/Ce
- lO5g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoR16O+0213BICdMKO8OXItZjn2HXW/NUa7UmrOC9DIkgwHhLCz8ocwIwTxVm0oIO3ZBTx4NIqsD6k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxvAfUpy2SdBuUZmKUKP9d7w1/WSzyWEG7VJTW2yKrQ0L1pfKjj
- dXppAYU/7I0z39Wa62rAaBI6J6NqQgzGU3/JnwDfehnsZG55wqjysY+JDsh0LLuqzbU=
-X-Gm-Gg: AfdE7cmJLTahCzQYBEfbsmO5ZQCmSW0zTwqSAxzlk3aK7fQ1gXD1kE4FKE0oCPAxmFk
- kgr1/7pkFCHYHch2U8nO64Xsx8rAb1YHli/87ItnyAKRxXOGRd4r4n7vJDCLSh3QVa/0L7ImrPm
- J8hm77Tt2lxvTORuntZO5XqrYB778gQJpo5aHOBeZ9f4N3vRRqDCaX9D5wdKyIiaXEgySI4M8En
- yp0IX5HS72oYyWXltWjcF7ZCmAhfXWr/XLt8PAoyC4bLUTAP1HAsfbJwL4TFwZ5AkUcYOKI/UOr
- T53zEGzUc0mc+q16R/RM5FLNumTiJJas53NHCXvEwaJtp/NZkb5HGcd5u5C9pPie4TtGXbLsJqe
- vievKDXsJk8eu6SA0XkbAc+ZiRfZFau662u2Wq4udOUoMNtLMsHY/Quuc9DsEpapzcjL8LfTraG
- x6ZgYG2KEbZtBCuFfO4UvURGP8PP4zAS8mDyPRX2GYqGvYCA+aJjLNizZiNTBZed6dadxg
-X-Received: by 2002:a05:622a:2c2:b0:51b:feae:3576 with SMTP id
- d75a77b69052e-51cbf14a68fmr7022661cf.26.1783717716605; 
- Fri, 10 Jul 2026 14:08:36 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F
- (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-51caacad30asm23910591cf.9.2026.07.10.14.08.34
+ bh=8+MHxD8uf0HO8SRBYZIasl4vPo7jNKxT6S73gN/spU8=;
+ b=ivWYd/xqNRISm9mMpGXRNHDPZO/Fp5mUFi2G+CCDklzAwS6H44TGNXV2lPEzbrYtHT
+ 2j4kUXKfGuyrRRig7AgnbZLfF5Wjjr1VCVQc2Y2CuYMlMYygAqfAwqvsSfLNMjasKBX/
+ 6Ax+LRZxgteT+hYyInmt2zijwRPpyD4d1YPyIrYdIl2gXcHv+kjWtm2LBwrSMGbC9KRR
+ CTZ+obkdfg+jLPE3OwGIhYzCIahsFQMR/8Ov0favI8pPCmR8bCyLKURdnK3uVVx6Ii5n
+ 5XVcVAYehRQxNhvjaoLE+ORfjot5yjp3q6qRi/WcgyCfzbnGIVVSiUBu3hzJnS92fVRs
+ UQ9g==
+X-Gm-Message-State: AOJu0YwUc1tZk3yC/M2n4WkqP4Heoa40kT8NUyMOpdi7+Gsdptv+7Rhx
+ 3S9V/Y4Y2htCEboyreVEwd5H6HKyajaWroCE6MA+XCA+EXF4vOWaCjMK
+X-Gm-Gg: AfdE7ckNrR1IhqwZ846pcfajhmQMZm8mXakrk5NrgrGc+6OvOxEGsPR1FCZZCNljrsj
+ SpFmomKx148oi+h/18pTnHTp5cTXqX5v3INa7C8KnIkiCKCis+vh3EqxAdknfZ8aflGuqDYylPn
+ TnrjyTebVf4/qziqtTWBGIWUjTmhargmx9oCd6tyxr6af+E2ZM0uQvsbTMWT7CxSb+RAeG7H3LB
+ hJyoo74aX9iQzGN0+POjj0iiTIlJPgNxI0srAx9oCeee88TNjDAxdfqs+KjN+Xv3VD6unbnpM69
+ EO/2r5CrJQZO+/JrxXJs3MTwwkmNwu7513tDua1oM/3dkbgQ24KvhuE3wWIDQaWL+XYKgqqgUi0
+ LRnzcFpXxjiRLFzviJqo3zgycpoT8uDWhgnPS8j6luAhW97vGS6Ik9Jw5k6LsqdehOw5gMZ5pVj
+ yXJjrgG3C4RL/ouOVUkolucGyRsOpXXK3JuM/xiHjtlIeHgCgvzBZbUR8cotE=
+X-Received: by 2002:a17:90a:e705:b0:38c:e9e9:e7ce with SMTP id
+ 98e67ed59e1d1-38dc74c5007mr567748a91.3.1783718790283; 
+ Fri, 10 Jul 2026 14:26:30 -0700 (PDT)
+Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net.
+ [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-38a55557f39sm3404785a91.6.2026.07.10.14.26.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 14:08:35 -0700 (PDT)
-Date: Fri, 10 Jul 2026 17:08:30 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>,
- Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>,
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>,
- Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>,
- Shameer Kolothum <skolothumtho@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, kasan-dev@googlegroups.com,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
-Subject: Re: [PATCH v2 32/33] tools/testing/vma: default VMA, mm flag bits to
- 64-bit
-Message-ID: <alFewd7j_uiNP1Vw@gourry-fedora-PF4VCD3F>
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
- <20260710-b4-pre-scalable-cow-v2-32-2a5aa403d977@kernel.org>
+ Fri, 10 Jul 2026 14:26:29 -0700 (PDT)
+Subject: [PATCH v8 1/8] mm/hmm: move page fault handling out of walk callbacks
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+To: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
+ corbet@lwn.net, dakr@kernel.org, david@kernel.org, decui@microsoft.com,
+ haiyangz@microsoft.com, jgg@ziepe.ca, kees@kernel.org, kys@microsoft.com,
+ leon@kernel.org, liam@infradead.org, lizhi.hou@amd.com, ljs@kernel.org,
+ longli@microsoft.com, lyude@redhat.com, maarten.lankhorst@linux.intel.com,
+ mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
+ nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
+ rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
+ skhan@linuxfoundation.org, skinsburskii@gmail.com, surenb@google.com,
+ tzimmermann@suse.de, vbabka@kernel.org, wei.liu@kernel.org,
+ skinsburskii@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rdma@vger.kernel.org
+Date: Fri, 10 Jul 2026 14:26:27 -0700
+Message-ID: <178371878774.900500.3975008123082170472.stgit@skinsburskii>
+In-Reply-To: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
+References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
+User-Agent: StGit/0.19
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260710-b4-pre-scalable-cow-v2-32-2a5aa403d977@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -135,38 +102,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2026 at 09:17:13PM +0100, Lorenzo Stoakes wrote:
-> With all of the sanitisers turned on, setting the VMA and mm flag bits
-> depth to 128 by default results in overly long build times.
-> 
-> Reduce this to 64 - we can always manipulate these later for testing of
-> larger bitmaps as needed.
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+hmm_range_fault() currently triggers page faults from inside the page-table
+walk callbacks: hmm_vma_walk_pmd(), hmm_vma_walk_pud(),
+hmm_vma_walk_hugetlb_entry() and the pte-level helper all call
+hmm_vma_fault(), which in turn calls handle_mm_fault() while the walker
+still holds nested locks.  The pte spinlock is dropped explicitly by each
+caller, and the hugetlb path manually drops and retakes
+hugetlb_vma_lock_read around the fault to dodge a deadlock against the walk
+framework's unconditional unlock.
 
-I've never had a "too main recipients" error with my email client
-before.  Bravo.
+This layering does not extend cleanly to fault handlers that may release
+mmap_lock (VM_FAULT_RETRY, VM_FAULT_COMPLETED). If the lock is dropped
+while walk_page_range() is mid-traversal, the VMA can be freed before the
+walk framework's matching hugetlb_vma_unlock_read(), turning that unlock
+into a use-after-free.
 
-Reviewed-by: Gregory Price <gourry@gourry.net>
+Split the responsibilities the way get_user_pages() does. Walk callbacks
+become inspect-only: when they detect a range that needs to be faulted in,
+they record it in struct hmm_vma_walk and return a private sentinel
+(HMM_FAULT_PENDING). The outer loop in hmm_range_fault() then drops out of
+walk_page_range(), invokes a new helper hmm_do_fault() that calls
+handle_mm_fault() with only mmap_lock held, and restarts the walk so the
+now-present entries are collected into hmm_pfns.
 
-> ---
->  tools/testing/vma/Makefile | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/testing/vma/Makefile b/tools/testing/vma/Makefile
-> index e72b45dedda5..ef6cc558afe1 100644
-> --- a/tools/testing/vma/Makefile
-> +++ b/tools/testing/vma/Makefile
-> @@ -10,7 +10,7 @@ OFILES = $(SHARED_OFILES) main.o shared.o maple-shim.o
->  TARGETS = vma
->  
->  # These can be varied to test different sizes.
-> -CFLAGS += -DNUM_VMA_FLAG_BITS=128 -DNUM_MM_FLAG_BITS=128
-> +CFLAGS += -DNUM_VMA_FLAG_BITS=64 -DNUM_MM_FLAG_BITS=64
->  
->  main.o: main.c shared.c shared.h vma_internal.h tests/merge.c tests/mmap.c tests/vma.c ../../../mm/vma.c ../../../mm/vma_init.c ../../../mm/vma_exec.c ../../../mm/vma.h include/custom.h include/dup.h include/stubs.h
->  
-> 
-> -- 
-> 2.55.0
-> 
+No functional change for existing callers. As a side effect the hugetlb
+callback no longer needs the hugetlb_vma_{un}lock_read dance, and every
+fault-path exit from the callbacks now releases the pte spinlock on a
+single, common path. This refactor is also a precursor for adding an
+unlockable variant of hmm_range_fault() in a follow-up patch.
+
+Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+---
+ mm/hmm.c |  118 +++++++++++++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 75 insertions(+), 43 deletions(-)
+
+diff --git a/mm/hmm.c b/mm/hmm.c
+index e5c1f4deed24..bc9361a715fa 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -33,8 +33,17 @@
+ struct hmm_vma_walk {
+ 	struct hmm_range	*range;
+ 	unsigned long		last;
++	unsigned long		end;
++	unsigned int		required_fault;
+ };
+ 
++/*
++ * Internal sentinel returned by walk callbacks when they need a page fault.
++ * The callback stores end/required_fault in hmm_vma_walk; the outer loop
++ * consumes the sentinel and never propagates it to the caller.
++ */
++#define HMM_FAULT_PENDING	-EAGAIN
++
+ enum {
+ 	HMM_NEED_FAULT = 1 << 0,
+ 	HMM_NEED_WRITE_FAULT = 1 << 1,
+@@ -60,37 +69,25 @@ static int hmm_pfns_fill(unsigned long addr, unsigned long end,
+ }
+ 
+ /*
+- * hmm_vma_fault() - fault in a range lacking valid pmd or pte(s)
+- * @addr: range virtual start address (inclusive)
+- * @end: range virtual end address (exclusive)
+- * @required_fault: HMM_NEED_* flags
+- * @walk: mm_walk structure
+- * Return: -EBUSY after page fault, or page fault error
++ * hmm_record_fault() - record a range that needs to be faulted in
+  *
+- * This function will be called whenever pmd_none() or pte_none() returns true,
+- * or whenever there is no page directory covering the virtual address range.
++ * Called by the walk callbacks when they discover that part of the range
++ * needs a page fault.  The callback records what to fault and returns
++ * HMM_FAULT_PENDING; the outer loop in hmm_range_fault() drops back out of
++ * walk_page_range() and invokes handle_mm_fault() from a context where no
++ * page-table or hugetlb_vma_lock is held.
+  */
+-static int hmm_vma_fault(unsigned long addr, unsigned long end,
+-			 unsigned int required_fault, struct mm_walk *walk)
++static int hmm_record_fault(unsigned long addr, unsigned long end,
++			    unsigned int required_fault,
++			    struct mm_walk *walk)
+ {
+ 	struct hmm_vma_walk *hmm_vma_walk = walk->private;
+-	struct vm_area_struct *vma = walk->vma;
+-	unsigned int fault_flags = FAULT_FLAG_REMOTE;
+ 
+ 	WARN_ON_ONCE(!required_fault);
+ 	hmm_vma_walk->last = addr;
+-
+-	if (required_fault & HMM_NEED_WRITE_FAULT) {
+-		if (!(vma->vm_flags & VM_WRITE))
+-			return -EPERM;
+-		fault_flags |= FAULT_FLAG_WRITE;
+-	}
+-
+-	for (; addr < end; addr += PAGE_SIZE)
+-		if (handle_mm_fault(vma, addr, fault_flags, NULL) &
+-		    VM_FAULT_ERROR)
+-			return -EFAULT;
+-	return -EBUSY;
++	hmm_vma_walk->end = end;
++	hmm_vma_walk->required_fault = required_fault;
++	return HMM_FAULT_PENDING;
+ }
+ 
+ static unsigned int hmm_pte_need_fault(const struct hmm_vma_walk *hmm_vma_walk,
+@@ -174,7 +171,7 @@ static int hmm_vma_walk_hole(unsigned long addr, unsigned long end,
+ 		return hmm_pfns_fill(addr, end, range, HMM_PFN_ERROR);
+ 	}
+ 	if (required_fault)
+-		return hmm_vma_fault(addr, end, required_fault, walk);
++		return hmm_record_fault(addr, end, required_fault, walk);
+ 	return hmm_pfns_fill(addr, end, range, 0);
+ }
+ 
+@@ -209,7 +206,7 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
+ 	required_fault =
+ 		hmm_range_need_fault(hmm_vma_walk, hmm_pfns, npages, cpu_flags);
+ 	if (required_fault)
+-		return hmm_vma_fault(addr, end, required_fault, walk);
++		return hmm_record_fault(addr, end, required_fault, walk);
+ 
+ 	pfn = pmd_pfn(pmd) + ((addr & ~PMD_MASK) >> PAGE_SHIFT);
+ 	for (i = 0; addr < end; addr += PAGE_SIZE, i++, pfn++) {
+@@ -328,7 +325,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ fault:
+ 	pte_unmap(ptep);
+ 	/* Fault any virtual address we were asked to fault */
+-	return hmm_vma_fault(addr, end, required_fault, walk);
++	return hmm_record_fault(addr, end, required_fault, walk);
+ }
+ 
+ #ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+@@ -371,7 +368,7 @@ static int hmm_vma_handle_absent_pmd(struct mm_walk *walk, unsigned long start,
+ 					      npages, 0);
+ 	if (required_fault) {
+ 		if (softleaf_is_device_private(entry))
+-			return hmm_vma_fault(addr, end, required_fault, walk);
++			return hmm_record_fault(addr, end, required_fault, walk);
+ 		else
+ 			return -EFAULT;
+ 	}
+@@ -517,7 +514,7 @@ static int hmm_vma_walk_pud(pud_t *pudp, unsigned long start, unsigned long end,
+ 						      npages, cpu_flags);
+ 		if (required_fault) {
+ 			spin_unlock(ptl);
+-			return hmm_vma_fault(addr, end, required_fault, walk);
++			return hmm_record_fault(addr, end, required_fault, walk);
+ 		}
+ 
+ 		pfn = pud_pfn(pud) + ((addr & ~PUD_MASK) >> PAGE_SHIFT);
+@@ -564,21 +561,8 @@ static int hmm_vma_walk_hugetlb_entry(pte_t *pte, unsigned long hmask,
+ 	required_fault =
+ 		hmm_pte_need_fault(hmm_vma_walk, pfn_req_flags, cpu_flags);
+ 	if (required_fault) {
+-		int ret;
+-
+ 		spin_unlock(ptl);
+-		hugetlb_vma_unlock_read(vma);
+-		/*
+-		 * Avoid deadlock: drop the vma lock before calling
+-		 * hmm_vma_fault(), which will itself potentially take and
+-		 * drop the vma lock. This is also correct from a
+-		 * protection point of view, because there is no further
+-		 * use here of either pte or ptl after dropping the vma
+-		 * lock.
+-		 */
+-		ret = hmm_vma_fault(addr, end, required_fault, walk);
+-		hugetlb_vma_lock_read(vma);
+-		return ret;
++		return hmm_record_fault(addr, end, required_fault, walk);
+ 	}
+ 
+ 	pfn = pte_pfn(entry) + ((start & ~hmask) >> PAGE_SHIFT);
+@@ -637,6 +621,44 @@ static const struct mm_walk_ops hmm_walk_ops = {
+ 	.walk_lock	= PGWALK_RDLOCK,
+ };
+ 
++/*
++ * hmm_do_fault - fault in a range recorded by a walk callback
++ *
++ * Called from the outer loop in hmm_range_fault() after a callback
++ * returned HMM_FAULT_PENDING.  At this point we hold only mmap_lock;
++ * the page-table spinlock and any hugetlb_vma_lock acquired by the walk
++ * framework have already been released by the unwind.
++ *
++ * Returns -EBUSY on success (all pages faulted, caller should re-walk).
++ * Returns a negative errno on failure.
++ */
++static int hmm_do_fault(struct mm_struct *mm,
++			struct hmm_vma_walk *hmm_vma_walk)
++{
++	unsigned long addr = hmm_vma_walk->last;
++	unsigned long end = hmm_vma_walk->end;
++	unsigned int required_fault = hmm_vma_walk->required_fault;
++	unsigned int fault_flags = FAULT_FLAG_REMOTE;
++	struct vm_area_struct *vma;
++
++	vma = vma_lookup(mm, addr);
++	if (!vma)
++		return -EFAULT;
++
++	if (required_fault & HMM_NEED_WRITE_FAULT) {
++		if (!(vma->vm_flags & VM_WRITE))
++			return -EPERM;
++		fault_flags |= FAULT_FLAG_WRITE;
++	}
++
++	for (; addr < end; addr += PAGE_SIZE)
++		if (handle_mm_fault(vma, addr, fault_flags, NULL) &
++		    VM_FAULT_ERROR)
++			return -EFAULT;
++
++	return -EBUSY;
++}
++
+ /**
+  * hmm_range_fault - try to fault some address in a virtual address range
+  * @range:	argument structure
+@@ -674,6 +696,16 @@ int hmm_range_fault(struct hmm_range *range)
+ 			return -EBUSY;
+ 		ret = walk_page_range(mm, hmm_vma_walk.last, range->end,
+ 				      &hmm_walk_ops, &hmm_vma_walk);
++		/*
++		 * When HMM_FAULT_PENDING is returned a walk callback
++		 * recorded a range that needs handle_mm_fault();
++		 * hmm_do_fault() runs the fault outside walk_page_range()
++		 * (so no page-table or hugetlb_vma_lock is held) and
++		 * returns -EBUSY so the loop re-walks and picks up the
++		 * now-present entries.
++		 */
++		if (ret == HMM_FAULT_PENDING)
++			ret = hmm_do_fault(mm, &hmm_vma_walk);
+ 		/*
+ 		 * When -EBUSY is returned the loop restarts with
+ 		 * hmm_vma_walk.last set to an address that has not been stored
+
+
