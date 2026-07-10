@@ -4,82 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33B59C4450E
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 19:08:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BADDCC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 19:36:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E9F910F970;
-	Fri, 10 Jul 2026 19:08:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4B7910E1F2;
+	Fri, 10 Jul 2026 19:36:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Le8KTyLI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GMSJQzHY";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06CD310F965
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 19:08:08 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-493c52cde9eso10887635e9.3
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:08:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783710486; x=1784315286; darn=lists.freedesktop.org;
- h=content-transfer-encoding:reply-to:content-type:mime-version
- :references:in-reply-to:message-id:date:subject:to:from:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=IOmjbtLYRqKMFq3vRWGT3hOtZz67iXQHbJfJ46cKOMg=;
- b=Le8KTyLIGLaA6v8sZadV65LV/7w46D5ggqmcWAgLzSW2OUnj8mjDM6Fc2t1goVxJ/E
- 7IBCR0VO+upogSVpwBCkF4J5qvGP/uommSjsMKz55Qxsg2luoS/dlo5F5fMGVmebv1g4
- LFiymyno3MZpYcGiOD6FAOLYwWIFiDqTsJSiy3L4HzGDCVxhE/wagJoZAJrL4J7fJcsc
- JcTWPmNU/pdwvOeUbObxvhNj5Cg7Suv9EUadr53olIU3ASOI5TAWbk3jK+PnwptTzD5J
- cMj6aoQ1eKKW2aUqQ/sJqDksdCXvyENC2uGLomZdLnnOB7n3TcOh9Fvm145wijPtaDLo
- 1qhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783710486; x=1784315286;
- h=content-transfer-encoding:reply-to:content-type:mime-version
- :references:in-reply-to:message-id:date:subject:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=IOmjbtLYRqKMFq3vRWGT3hOtZz67iXQHbJfJ46cKOMg=;
- b=OPJ0o3sVOBUADfHp/TVlEvRc2SrvbP3Qt2mxNyA+9Qml+KNwZ6YradczDdt41a44im
- Re2CZ7xtI+X7o2wG2l2NXs2uCXgT0I5ShY8sfWJuHcZDKvdiUszQpvod9i1SQxmn1Lzo
- 4Ij7AP50yBRekhOJ5HGhXVwLx/N+m+qXZIuVJgvkRYh2Y6MuPtqXS8iSoC7xWJukptGq
- Z/92wkW2x4bu6nI6S3Eii+eiDpAImNh4+BOkKQbjx8QGKBiOEkkd1c0cIBh76isrQIGS
- eLSu8P6OMl3rSIiflGGP6M4wIKp2NsrjMd8wGLZM8u0wYE2vdezivLZPXWrSJwo+1m00
- cbUQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpKCmPLgwOm9tZDpJ40y91X65sxxa+GH668aUIc7DtPJOnm/YnN6EoZu9YU+oCjS98kG/Mr7HQoHSg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzWJ4xl7+ArLIXiqrE2aTSaRW4vYbuIFM+nM4B+xIRAaZY4R9BS
- Cwr7MUCpWun3ou3WuHTiUbb5V/FgqUITnZ5Kv8aQDYi5uujYUa4TDu55
-X-Gm-Gg: AfdE7cn7My+/lc7bPSfghM5bKsLpjNBK8NvsHsXTNOQTm97PCnk+g3m1aoc5qktpv6N
- pmDTmSI6TNgyaEHbkLBhh/LffjlHjVP+9nPL9t23ymQzccw8goEwv63KBLDNKIlbOBr00DiHAKB
- vmr12HpIe6ryVKdMGtF4VpFwSbI4GF/CDiC0/PDn1O0AIkszsCbGWm3tJqjBaVEpKpqWBjMYyKq
- yRApjQc5eYWP9yEzi/Obcs9NY8tyTu17qXlqgBeZupBlv/bBrwbPQyk2T2Q142Wb0aXx6gLcrHS
- gcGVv1nHflv2jsULeTboF18cZw3V4dwXsOBCPqcU6M//C0sxXSWIUnlExRzrDbztbas3z0+n6+s
- Nimn+i1BReBnYFL+CQpZXtvVZoElPydxVklyUktRsSwmcSRCiTnIxQmzgJl4X6Sa4uZMnIZUOYK
- x4wGlenzZSm+LuTJfYOV0nWAMXgg==
-X-Received: by 2002:a05:600c:5849:b0:493:b55f:bca2 with SMTP id
- 5b1f17b1804b1-493f88389cemr678085e9.34.1783710486348; 
- Fri, 10 Jul 2026 12:08:06 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:154f:ec00:aa08:de24:db33:4496])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493f567eadfsm55000755e9.6.2026.07.10.12.08.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 12:08:05 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
- simona@ffwll.ch, matthew.brost@intel.com, nat@pixelcluster.dev,
- airlied@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 12/12] drm/amdgpu: use drm_exec during BO validation
-Date: Fri, 10 Jul 2026 20:52:52 +0200
-Message-ID: <20260710190752.2355-13-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260710190752.2355-1-christian.koenig@amd.com>
-References: <20260710190752.2355-1-christian.koenig@amd.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 995E710E1AA;
+ Fri, 10 Jul 2026 19:36:08 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 21B84413DA;
+ Fri, 10 Jul 2026 19:36:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8EA21F000E9;
+ Fri, 10 Jul 2026 19:35:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783712168;
+ bh=FfLPpKhOWsC/sVsNuiGUTkxCqQvuOvc9PrMkV9J6Kkg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=GMSJQzHYzzqQWm9PYMzUnrJgvzs2G9TH47wDGMDemvUAcIBLvWbRt6SIta8fNBwpk
+ 4I1KzrcwinweqkCs0PIx0LTM6cTuB1EbRcqAQa1jYKzjr9JQ5Wtcz35zBJE5VHsTO2
+ cG9UL0/p5mQIf6dJdIDATgnZoBwiS18qqWXfRPN1X9YuCai4Sxlbmwyp1iHn5oqaVT
+ dYn1B2V/Mcdasv1lXZW09wtL6Km0Wa4YkT0iudkguHEDJPY6VHY2zx2FH0me1qiUli
+ FT7YTboRx/zld4NxRHycYg9RobUPctsDzxrL3Ch4bqyHkHMgOJIWg31b9WaLtB1aK1
+ q5GlLYmUSufqg==
+Date: Fri, 10 Jul 2026 20:35:43 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Kees Cook <kees@kernel.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, 
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, 
+ Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 27/30] mm/vma: correct incorrect vma.h inclusion
+Message-ID: <alFJUfaGHVnKd-Nb@lucifer>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <22d0f4e3fe11f6fd1312734e242d008267ad142c.1782735110.git.ljs@kernel.org>
+ <alFHR3fg8K1-SITK@gourry-fedora-PF4VCD3F>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alFHR3fg8K1-SITK@gourry-fedora-PF4VCD3F>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,150 +101,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This allows to detect deadlocks happening because of resource
-constraints.
+On Fri, Jul 10, 2026 at 03:25:59PM -0400, Gregory Price wrote:
+> On Mon, Jun 29, 2026 at 01:23:38PM +0100, Lorenzo Stoakes wrote:
+> > The only files which should be including vma.h are the implementation files
+> > for the core VMA logic - vma.c, vma_init.c, and vma_exec.c.
+> >
+> > This is in order to allow for userland testing of core VMA logic. In this
+> > cases, vma_internal.h and vma.h are included, providing both the
+> > dependencies upon which the core VMA logic requires and its declarations.
+> >
+> > Userland testable VMA logic is achieved by having separate vma_internal.h
+> > implementations for userland and kernel.
+> >
+> > Callers other than the core VMA implementation should include internal.h
+> > instead. This header does not need to include vma_internal.h as it only
+> > contains the vma.h declarations, for which the includes already present
+> > suffice.
+> >
+> > Update code to reflect this, update comments to reflect the fact there are
+> > 3 VMA implementation files and document things more clearly.
+> >
+> > While we're here, slightly improve the language of the comment describing
+> > vma_exec.c.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+>
+> Reviewed-by: Gregory Price <gourry@gourry.net>
+>
+> > +/*
+> > + * To allow for userland testing we place internal dependencies in
+> > + * vma_internal.h and external VMA API declarations in vma.h.
+> > + */
+> ...
+> > +/*
+> > + * To allow for userland testing we place internal dependencies in
+> > + * vma_internal.h and external VMA API declarations in vma.h.
+> > + */
+> ...
+> > +/*
+> > + * To allow for userland testing we place internal dependencies in
+> > + * vma_internal.h and external VMA API declarations in vma.h.
+> > + */
+>
+> Do you actually need 3 copies of this comment or just one copy in
+> vma_internal.h?
 
-Especially submissions which want to use all of GDS doesn't result in
-sporadic -ENOMEM any more.
+I'd rather have it at a glance, it's a bit silly but C headers are silly :P
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 82 ++++++++++++++------------
- 1 file changed, 44 insertions(+), 38 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index c2e6495a28bc5..17223e295ff25 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -793,7 +793,7 @@ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
- 	struct ttm_operation_ctx ctx = {
- 		.interruptible = true,
- 		.no_wait_gpu = false,
--		.resv = bo->tbo.base.resv
-+		.exec = &p->exec,
- 	};
- 	uint32_t domain;
- 	int r;
-@@ -845,7 +845,10 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 				union drm_amdgpu_cs *cs)
- {
- 	struct amdgpu_fpriv *fpriv = p->filp->driver_priv;
--	struct ttm_operation_ctx ctx = { true, false };
-+	struct ttm_operation_ctx ctx = {
-+		.interruptible =true,
-+		.exec = &p->exec
-+	};
- 	struct amdgpu_vm *vm = &fpriv->vm;
- 	struct amdgpu_bo_list_entry *e;
- 	struct drm_gem_object *obj;
-@@ -899,6 +902,11 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 		e->user_invalidated = userpage_invalidated;
- 	}
- 
-+	amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
-+					  &p->bytes_moved_vis_threshold);
-+	p->bytes_moved = 0;
-+	p->bytes_moved_vis = 0;
-+
- 	drm_exec_until_all_locked(&p->exec) {
- 		r = amdgpu_vm_lock_pd(&fpriv->vm, &p->exec, 1 + p->gang_size);
- 		drm_exec_retry_on_contention(&p->exec);
-@@ -922,47 +930,48 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 			if (unlikely(r))
- 				goto out_free_user_pages;
- 		}
--	}
- 
--	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
--		struct mm_struct *usermm;
-+		amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
-+			struct mm_struct *usermm;
- 
--		usermm = amdgpu_ttm_tt_get_usermm(e->bo->tbo.ttm);
--		if (usermm && usermm != current->mm) {
--			r = -EPERM;
--			goto out_free_user_pages;
--		}
--
--		if (amdgpu_ttm_tt_is_userptr(e->bo->tbo.ttm) &&
--		    e->user_invalidated) {
--			amdgpu_bo_placement_from_domain(e->bo,
--							AMDGPU_GEM_DOMAIN_CPU);
--			r = ttm_bo_validate(&e->bo->tbo, &e->bo->placement,
--					    &ctx);
--			if (r)
-+			usermm = amdgpu_ttm_tt_get_usermm(e->bo->tbo.ttm);
-+			if (usermm && usermm != current->mm) {
-+				r = -EPERM;
- 				goto out_free_user_pages;
-+			}
- 
--			amdgpu_ttm_tt_set_user_pages(e->bo->tbo.ttm,
--						     e->range);
-+			if (amdgpu_ttm_tt_is_userptr(e->bo->tbo.ttm) &&
-+			    e->user_invalidated) {
-+				amdgpu_bo_placement_from_domain(e->bo,
-+								AMDGPU_GEM_DOMAIN_CPU);
-+				r = ttm_bo_validate(&e->bo->tbo, &e->bo->placement,
-+						    &ctx);
-+				drm_exec_retry_on_contention(&p->exec);
-+				if (r)
-+					goto out_free_user_pages;
-+
-+				amdgpu_ttm_tt_set_user_pages(e->bo->tbo.ttm,
-+							     e->range);
-+			}
- 		}
--	}
- 
--	amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
--					  &p->bytes_moved_vis_threshold);
--	p->bytes_moved = 0;
--	p->bytes_moved_vis = 0;
-+		r = amdgpu_vm_validate(p->adev, &fpriv->vm, NULL,
-+				       amdgpu_cs_bo_validate, p);
-+		drm_exec_retry_on_contention(&p->exec);
-+		if (r) {
-+			drm_err(adev_to_drm(p->adev), "amdgpu_vm_validate() failed.\n");
-+			goto out_free_user_pages;
-+		}
- 
--	r = amdgpu_vm_validate(p->adev, &fpriv->vm, NULL,
--			       amdgpu_cs_bo_validate, p);
--	if (r) {
--		drm_err(adev_to_drm(p->adev), "amdgpu_vm_validate() failed.\n");
--		goto out_free_user_pages;
--	}
-+		drm_exec_for_each_locked_object(&p->exec, obj) {
-+			r = amdgpu_cs_bo_validate(p, gem_to_amdgpu_bo(obj));
-+			drm_exec_retry_on_contention(&p->exec);
-+			if (unlikely(r))
-+				goto out_free_user_pages;
- 
--	drm_exec_for_each_locked_object(&p->exec, obj) {
--		r = amdgpu_cs_bo_validate(p, gem_to_amdgpu_bo(obj));
--		if (unlikely(r))
--			goto out_free_user_pages;
-+			amdgpu_cs_report_moved_bytes(p->adev, p->bytes_moved,
-+						     p->bytes_moved_vis);
-+		}
- 	}
- 
- 	if (p->uf_bo) {
-@@ -973,9 +982,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 		p->gang_leader->uf_addr += amdgpu_bo_gpu_offset(p->uf_bo);
- 	}
- 
--	amdgpu_cs_report_moved_bytes(p->adev, p->bytes_moved,
--				     p->bytes_moved_vis);
--
- 	for (i = 0; i < p->gang_size; ++i)
- 		amdgpu_job_set_resources(p->jobs[i], p->bo_list->gds_obj,
- 					 p->bo_list->gws_obj,
--- 
-2.43.0
-
+BTW you're kinda racing against time here as I'm on the verge of sending v2
+:P
