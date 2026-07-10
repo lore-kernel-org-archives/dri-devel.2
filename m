@@ -4,128 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22F13C44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 254AFC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0BB210E822;
-	Mon, 13 Jul 2026 07:11:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D94EB10E830;
+	Mon, 13 Jul 2026 07:11:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EGt3vnHS";
+	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="fD4KRU8n";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5271310E22D;
- Fri, 10 Jul 2026 20:27:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8AD7060051;
- Fri, 10 Jul 2026 20:27:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9973B1F00A3A;
- Fri, 10 Jul 2026 20:27:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783715277;
- bh=T5LRkx2oSsXHgqG+QA5RqRp0DDiyW95JFEnIgiYl+Iw=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=EGt3vnHS2l489cc2SwVMiTWcS7m0rdltlhOLjOvy3rgfXckeCDhdA5ceUssdznsRc
- nkxPkRycoucmHp9zHNlY/hOHocAN5KVW/9ngUkSiYI0yFBzSuOoPJUTD/OqjLVkxUv
- VYPH32pC3qkMkVN1wCmJChPEY3pTRPJBeMMvsUNAFVF9pqAnfyag/WVxSKIBv5REV3
- eq8D4+m0P1N1K7inlnc45k1cHMBe8ipJUAH3qdar+GAecqDRO/s2lUwQYhPY7AFMJP
- QD+aAVoLxwZ2LtSjZZWPD47ZHq4s1HQjihgJFOaxB69qwAnxvd+GdDtUydhpOgvpnr
- O9dUkjiE5k81g==
-From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Fri, 10 Jul 2026 21:17:08 +0100
-Subject: [PATCH v2 27/33] mm/vma: update vmg_adjust_set_range() to offset
- pgoff instead
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com
+ [209.85.160.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 943AA10F93B
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 19:08:38 +0000 (UTC)
+Received: by mail-qt1-f169.google.com with SMTP id
+ d75a77b69052e-51c2a449c57so7492141cf.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:08:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gourry.net; s=google; t=1783710517; x=1784315317; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=iFtVuusRSG4YUFzvnh+nyLwKm1T7E76ZywXpwPdPfD8=;
+ b=fD4KRU8n1uPG1nZgw3cqES1SP0xkWDXBK5I1zajMK/xl4blIMuVrYuDfhAqTQ/rTsf
+ xtgC/4ybO7PYoOOzvEvdf5qAX5hS7oAGaibJI5N1HXG89vBXuM/mripBUou6qBNOHdnv
+ vNrdA8uz2QGw/lFyTSuCdsEKuo1Ieu0aF/bDFN5e9Y3lpI08Gpg3q/g2HmNldASGXiom
+ 5C72LNq4cUGdR+eQkfM4b2hjq+S+sQpHgBtuCjg+v82+85zFTu+SU795T3/5iQTa3eHk
+ fIpsmgFR3W50upaoIoVGqkR3hegDHs/Kx+ypeQvgv3kGTHKIF23EEH/NmnunvNaH93BK
+ vITA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783710517; x=1784315317;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=iFtVuusRSG4YUFzvnh+nyLwKm1T7E76ZywXpwPdPfD8=;
+ b=kquOXevzg9XrqIOBs3kJq9/tdEbAIofd/NOmz8OxKvq9fDjeAleB/bQGqyFoeNkBXC
+ s2oNTEdAGNFlOGKzog6sctR/Z3jiR87/YrjCPRvcPddvT4kuwsZQRmARFBtaQh7CQh8a
+ IgRbc2uHMbADQhfmbhLXDAEi404uotqeUoZZh7sYMCNJ5FfhtMlsrRaFTpTk99id1ySM
+ 5lB72NGfEwHLnwOb4sahc2DX/Qwzzuz8Qz0Ao5pQN13IeOayg1MLne6zkrEpKGtAHNTZ
+ C8kRA6b9NO/Djrw52XzH52Ehp3RKebBZ5pz8YJfUljg9kQ16x9uioZCmyJg45tkB4Gc/
+ R88Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpyhQv6vthUrLWmHjVPRjcPi1zoK/xgVlVUmjWmxWd4tQsCqNgr1G0KEQFBpm7QM5vr46L85esZJW8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwBok0J1Gbo024JBY4bWFkcUywrlz33XXJG3/4fGdsfOy3ERBI7
+ /oVXrbMb2vjr2yY8048V1bGfYV/Ez//63gEE9U80TfzhFZq8Y455aGs4T3xZ3WHm3D8=
+X-Gm-Gg: AfdE7cl4pGGJsvsxyPFfArmPZgzhabWth3W/kMVfS5UNme/C5FRohfhIBD0NOzp+PXr
+ FlG//DFaIDJ9wqgKft1tNwx9UWQMo+wrypcrYlUzAtdlcJvBglSbODrYgPsDRcXOv45f44X2oRO
+ xK9nwkVB6OL2RSwu+bMZD6Mv69WQdYKw/rKEXSvVEoq5elfTKzluuvAWEvs0aHs7BZD4q/sUP8h
+ j3KPXaOIbcBB0vhVjFJSX5INZh7slFIQBNVzxLaW9RqPSeHvvF0ZxSPL9GB13DABew7vodV2Hya
+ jdVkm4sSQ8EvzbXoP3VqatB269VcThwm5MKtRrK79oAZxMFejOyr4ZrZapBGXIRauMUXE0pDKa/
+ tXiKhJ0CDwVU3HbJpebLWOdVEW5EM//cD/dWu4Xwdz9DvC3IKF0G222ZEYdYA2R+/9tOnmYxIrB
+ IEojuA1YKdDK2D7a6Fam2rhmL+9SkLZUpTqvcQHsXQEMRtI4L41/nj4oPYDIiOj3DDf8b1
+X-Received: by 2002:a05:622a:1818:b0:51c:b900:513d with SMTP id
+ d75a77b69052e-51cbf280a8amr2226311cf.53.1783710517321; 
+ Fri, 10 Jul 2026 12:08:37 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F
+ (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8ffd7c1da1bsm47847566d6.30.2026.07.10.12.08.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Jul 2026 12:08:36 -0700 (PDT)
+Date: Fri, 10 Jul 2026 15:08:31 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Alex Williamson <alex@shazbot.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Matthew Wilcox <willy@infradead.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>,
+ Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
+ Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
+ linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 22/30] mm/vma: move __install_special_mapping() to vma.c
+Message-ID: <alFDLz9_oSSvHTuJ@gourry-fedora-PF4VCD3F>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <b3254231831037ca3e9757e3e05c90072e04a6aa.1782735110.git.ljs@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-b4-pre-scalable-cow-v2-27-2a5aa403d977@kernel.org>
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
-In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
- Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>, 
- Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Andrey Konovalov <andreyknvl@gmail.com>, 
- Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>, 
- Lucas Stach <l.stach@pengutronix.de>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Yishai Hadas <yishaih@nvidia.com>, 
- Shameer Kolothum <skolothumtho@nvidia.com>, 
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Paolo Bonzini <pbonzini@redhat.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Usama Arif <usama.arif@linux.dev>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev, 
- iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
- kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2193; i=ljs@kernel.org;
- h=from:subject:message-id; bh=ot5zow28e72938cIXA7tWk6DLYEYYQs28nPPrOSDw0c=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg2235r5P1it+4X64xHSKz7r/+t33IllWPnraGvLOS
- +F/zbT5HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZgI71mGf3b7Nn5z2M0ss+yh
- woLVdi4s6VfP2xjdzNbznP1/+lbfO+cZ/mkVRX9h2vKdIdje21780vk5PB8VfTpzT73ztZs7o0i
- SlQEA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b3254231831037ca3e9757e3e05c90072e04a6aa.1782735110.git.ljs@kernel.org>
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,69 +143,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We are calculating the pgoff as an offset, since we have vma_add_pgoff()
-and vma_sub_pgoff() available, just offset this value directly and use
-__vma_set_range() for vma->vm_[start, end] values.
+On Mon, Jun 29, 2026 at 01:23:33PM +0100, Lorenzo Stoakes wrote:
+> This function is operating on VMAs and rightly belongs in vma.c, where it
+> can be subject to VMA userland testing and allows us to isolate it from the
+> rest of mm.
+> 
+> The _install_special_mapping() function will remain in mmap.c as a wrapper,
+> since this is used by architecture-specific code.
+> 
+> Doing so allows us to isolate more functions in vma.c for the same reasons.
+> 
+> This forms part of work to allow for tracking MAP_PRIVATE file-backed
+> mappings by their anonymous virtual page offset, as doing so allows us to
+> isolate and keep code that interacts with this together.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-We take care to update the range before offsetting the page offset, so the
-adjusted VMA's vm_start and vm_pgoff are mutually consistent at the point
-the page offset helpers operate - this matters once vma_set_pgoff() comes
-to assert invariants which relate the two.
-
-Doing so lays the foundation for future work which allows for use of
-virtual page offsets for MAP_PRIVATE-file backed mappings.
-
-No functional change intended.
-
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 Reviewed-by: Gregory Price <gourry@gourry.net>
-Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
----
- mm/vma.c | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
-
-diff --git a/mm/vma.c b/mm/vma.c
-index a474920a25b3..0699fa07c40f 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -714,9 +714,6 @@ void validate_mm(struct mm_struct *mm)
-  */
- static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
- {
--	struct vm_area_struct *adjust;
--	pgoff_t pgoff;
--
- 	if (vmg->__adjust_middle_start) {
- 		/*
- 		 * vmg->start    vmg->end
-@@ -735,8 +732,8 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
- 		struct vm_area_struct *middle = vmg->middle;
- 		const unsigned long delta = vmg->end - middle->vm_start;
- 
--		pgoff = vma_start_pgoff(middle) + (delta >> PAGE_SHIFT);
--		adjust = middle;
-+		__vma_set_range(middle, vmg->end, middle->vm_end);
-+		vma_add_pgoff(middle, delta >> PAGE_SHIFT);
- 	} else if (vmg->__adjust_next_start) {
- 		/*
- 		 *                Originally:
-@@ -764,13 +761,9 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
- 		struct vm_area_struct *next = vmg->next;
- 		const unsigned long delta = next->vm_start - vmg->end;
- 
--		pgoff = vma_start_pgoff(next) - (delta >> PAGE_SHIFT);
--		adjust = next;
--	} else {
--		return;
-+		__vma_set_range(next, vmg->end, next->vm_end);
-+		vma_sub_pgoff(next, delta >> PAGE_SHIFT);
- 	}
--
--	vma_set_range(adjust, vmg->end, adjust->vm_end, pgoff);
- }
- 
- /*
-
--- 
-2.55.0
-
