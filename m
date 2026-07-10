@@ -4,131 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70FCAC44506
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E04EC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7719110E81F;
-	Mon, 13 Jul 2026 07:11:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD1AE10E82A;
+	Mon, 13 Jul 2026 07:11:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="dnz7eg3v";
+	dkim=pass (2048-bit key; unprotected) header.d=mt.com header.i=@mt.com header.b="FW6COT+0";
 	dkim-atps=neutral
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
- [209.85.219.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B24610E25C
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 21:04:10 +0000 (UTC)
-Received: by mail-qv1-f45.google.com with SMTP id
- 6a1803df08f44-8f0d6853360so11230716d6.0
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 14:04:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1783717449; x=1784322249; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=OhI7UcJVN9EaMSo9cM31eWAmb7Tf3pcvHFHtAkV4RLE=;
- b=dnz7eg3vUy/mdskOVRHjes1B9ixPObFs0IoXW8omuezRBvKiMDfeUNP6OeK0GKQBut
- gK4hs0bJep9AnOU/gItVpA9aQRqHIHDMQ7tIV671p2ndMRgUyitReQtMxm0ULc7rs3M5
- n4s/EgDfR56T5k+yx4vHsYu1GLj28MLKf8XzTn6a4wcg6tlqioNP1Mp4YFNIGp0gQJyw
- ZxT26DJm4D4pHrr/JyXLUwcqnLZeucvm6dUoM5rQCddNW0BeVk6aDoz+zYBYc/sGEQpW
- JnF419ds39YDg64B7QGf2wv9namlzEr5YWoscq906tFsZPK7hBPxCAaUfkmBx2C+BLHg
- x7xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783717449; x=1784322249;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=OhI7UcJVN9EaMSo9cM31eWAmb7Tf3pcvHFHtAkV4RLE=;
- b=PnLXxy13w/LS07d0sv3VtkvD3zyKE6vYmTASqCbQKXDvg5Wf72R32f7jbS63d4v0sM
- iemGucMNQGlv6VkHSMN3McgIRQh368YB/7Gp79Awy1KVpNoWhL9Jkj2oqv4yEWZ2A8O6
- SVeXko7dGBN/qUqtX0Ie0/Gj6gN5Wfe0RYNwavOx+Tl/dkMkaFkDYGFZ5Tr16zCxc7aa
- 8HM/0/V5qJ0xtB1fVi6+i3rR/Unmem5PVKMNg9HVAjw8gNRUkXjL5aGjm0iVbplkvl7N
- wLGeF/x7jDyyRamGEE0g6YTlJLKjiMt86ZUfqW4sPRZAIJe5NIJi5tDjxrABwCirrXz5
- scrg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqlDoO55GKqHZXp9X0L4mWXDur0WAPTWbzrrFg5CeVn9Bl3ivymKGsh1gZacm1C+DAqg1pEKWs28P8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwTiRD3odSsV32uZbGJBApM0f9CgTkwg0VbCX/jPuhpBbQ7XQwZ
- jSOhGm5xw0e5E0pzP0jY7hf8TuhNKuBaIKqu+0itU31vUphP+hb6GDoDYEjqqOrkfIU=
-X-Gm-Gg: AfdE7clo3K+xAbNQQWDduA/1kaXK7/fTSBHzTmcslJvyKZRaVnuS8sV/+F5ESvTMIN6
- OsPncklThoXiWbVF/HK1OKpRrGKaljmiep6wO1KTRkdrImb0s1Lqg2dBxcFDyCL6AW96afuK6oo
- lXx4kgdkxWUXUNweKauPrP7edaPzBZ7IlfWJlSlQ0FncSGDHQxAMsSy8XflK7WFQ/ur2uwyMvj6
- ++Ey8NQWfYvtsL0nh0LYaquomp/KJB8SS/Y0h9ePR8eYMyHG8XJjpKx11bvA2DFHMPTrw8Z7zY6
- hpr33gJwUqQkT0t0mY2D1bXjq65B8eZzewonLWbCmy3JH3J4XZnDqLogXT/rWX/uFsP96cjbui/
- ZLgJ3TDHPVSF3Ophptv5TpOPmIXkH3Q1HdKv4AXJr1TmgnJTrHQD52ZCCc3osBHeSDV1tLRu8cD
- gxC3GL6Bc0CScS/p+cYQb7zIBE/FfD+mO4XDI2+sUMTmsVWC1h6CSoOC03I5d+G3zkbfPV
-X-Received: by 2002:a05:6214:3bc7:b0:8ea:10f8:ae87 with SMTP id
- 6a1803df08f44-903fe450f77mr10485176d6.11.1783717444207; 
- Fri, 10 Jul 2026 14:04:04 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F
- (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ffd50df5e2sm50655596d6.4.2026.07.10.14.04.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 14:04:03 -0700 (PDT)
-Date: Fri, 10 Jul 2026 17:03:58 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013058.outbound.protection.outlook.com
+ [52.101.83.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CBAE10E14F
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 08:26:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iBPvrTs0xRRUW1T2lfQYlMnUA+7yxE+gpcDq55dXBsMpQCZOOx5U54KVus+0/JUW+RhcLnagsCusztATTLmGaDe5uOQNHfvu50VXRTw3kx66khsd95mKJAoHeYbhGCQnh7nb9JZZTcxI/kbpGXtsufMlKS6wQc4GIMZCe/QKGJkIAj+QpEhUVBH38v4U+AnZU+AUV/gvRnA0VyvVHDujyGuCi/oCJCLvkmk9QBRV5iW3Pnf7R4A3B2O7GtA8ol0gK1eIgpW+Vc4MBtLGqa/N3UIXj5xR/1zzNNT7FYRD6PQjzKCMQrNEbEbRjfo61i5ijBxp359m7r29IvF74whdjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ps2pIAtsOlZ15mUfBLrNW3OT8Vmhj5ogRt2NgPNrbys=;
+ b=Aa2Y6SLIFia8MlAgc/r7oTQs+Bx5ZZ1eRMusQ7rpNsqME0BDNCQldDhi8hglG3sbzdkAz7CK6cKolHw4FetbLN+RRkHAg+w0soBKAHHFoZ+NiQYlzR/Ff+3jPQIUsfTuPSr8Ot/980jXAW7iaIHX9iFHZDgSjGB7kQ3DvjuqQ3b+2V8kFGOo0jlIvuQ1ax3pvwWketCsrNKfgYb3o0mTyZfSl2Jp5IBhx3ROolBfDaXVT3n1Yvsj52+iVX2HMYTbwESxOo+d7iHIi2ocz4XpJ0o81k23Dhmag9/jQdIHPohRZ9fYCOFL1a9RI7cDKbakwQIGx9ddBRHcQjF3H7So6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
+ header.d=mt.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ps2pIAtsOlZ15mUfBLrNW3OT8Vmhj5ogRt2NgPNrbys=;
+ b=FW6COT+0OZEIaCfDDnUndiOZkOjvgZg0KeuD/UCYc44lUr+kfsykhAzGdQPtnNqL1C3Bvv1Mn/lZ3ykE/gW/OQGOTGQePWimhS10KXkNWMap19HM2mZSXFvv2ES+WIFVU3Fd6P+tq4yNiWJEzjAMnKuypJOIY3sq7q2ebZGy/TagR2jbkBDX6lX+aMDSNKwTrNNxWrFSHJqNmvSfrjBDHfSHw3FSJLNU1o/6FLEaEqwIeD5MQm6eboOjukNM8DyRm77f+HScft05wjKtO3p9sno9ma5FuBajSlw0qNIDa4yDZXan8P558yeCcSWD8pf6gllHG5MlzER8Rm43l5h3ew==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mt.com;
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
+ by DU0PR03MB9731.eurprd03.prod.outlook.com (2603:10a6:10:44d::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Fri, 10 Jul
+ 2026 08:26:44 +0000
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0181.016; Fri, 10 Jul 2026
+ 08:26:44 +0000
+From: Wojciech Dubowik <wojciech.dubowik@mt.com>
+To: linux-kernel@vger.kernel.org
+Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
- Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
- linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 27/30] mm/vma: correct incorrect vma.h inclusion
-Message-ID: <alFePgFUR52GgBS7@gourry-fedora-PF4VCD3F>
-References: <cover.1782735110.git.ljs@kernel.org>
- <22d0f4e3fe11f6fd1312734e242d008267ad142c.1782735110.git.ljs@kernel.org>
- <alFHR3fg8K1-SITK@gourry-fedora-PF4VCD3F>
- <alFJUfaGHVnKd-Nb@lucifer>
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Marek Vasut <marex@denx.de>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v3 1/2] drm/bridge: ti-sn65dsi83: Add reversed lvds lanes
+ support
+Date: Fri, 10 Jul 2026 10:26:28 +0200
+Message-ID: <20260710082630.394040-3-wojciech.dubowik@mt.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260710082630.394040-1-wojciech.dubowik@mt.com>
+References: <20260710082630.394040-1-wojciech.dubowik@mt.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ZR0P278CA0028.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:1c::15) To DB9PR03MB7180.eurprd03.prod.outlook.com
+ (2603:10a6:10:22d::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alFJUfaGHVnKd-Nb@lucifer>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|DU0PR03MB9731:EE_
+X-MS-Office365-Filtering-Correlation-Id: 10efb1de-672b-4228-b4c6-08dede5cf9dc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|7416014|19092799006|1800799024|56012099006|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: EmB8l5ndddyRgL9jau3xOoGKcLYbhnHci3kIPmX87xIRDpSl6CjXy6XJCU5YcRN6gxZ/liwCkvxtfMUy9adPLIRiKYwZdulrMqlic+QkwQUncI+3gBu96Kf+oY4GDjlEkC8u3G7en2Ak/+5AaTIrGPJoK4SotIPdNQjVSWeIUudM0z5UiS7GzJiNH8LdRqA1IUhAOl/A1W2cn1kzIc59Mp6F0VNmmNuME9RmmViBdrl2x8fjr97A4A7st8RAoEFjpHSMTSg7RM9/fFN7+nwoqMt7M2qZNHmvIEwKVIBUUjSFlImnmIMYt+J1iZUCQZFdGocD9SAlKj0+2tYQ5rWSg/OgmJSyQC7CYNMpjXpQKFhhLKxyhT3qV9psIxY5wOmaK3h8wrlFkJwZ0uj3CVkdoQEPNwm+MDn4JvSdVfgVwRm/THPM0b8ZCXwV8Cb5n3lpOte4UFDbo8AMVyend90L7JgIzq65YTRxQ6HDa13UBcuo+8+/aIDrr3iwWiGe033sF5imFcaakhclqb8M9iYKsLtrJDpBVybCSjG+9grBQ9XR0PbFJCPVu+ArG1zdV2oUxwH3v8BuxQFqOpgz3eS6FFuFgF5mhsa2Qho5t5PjCVaPEHVy1bCQl2b8jaQVdsX4P7QwQUNABwcnY7fEMo+XwxadWbE6TtdnG5GaqOEmPds=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB9PR03MB7180.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(7416014)(19092799006)(1800799024)(56012099006)(3023799007)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?eKmxi943B8wiDHbAUIgCn+Z8TVU/CCBvXAThen71nx9W7JJ6K+QS/LiMgXgP?=
+ =?us-ascii?Q?uLN3bgY03JukM+NHmtTyF0bd2lzK4ytny3E7IBxl/9G5jOTRctZGVPIfX2BP?=
+ =?us-ascii?Q?DtV6ihqC2dDX/ABo9eyN0Dcvhm1fNoETS6Z9yZnsafKxXTzwRXZaQBNNh79z?=
+ =?us-ascii?Q?z8JCPr52JhIR9WxHd9ta38vkGnWAJAipkigH/3Xy8OboXF7p0OC/bBmhUPL3?=
+ =?us-ascii?Q?Pb4QBb51ew/AP5xPGHIQV9y5yvIvQTsxkYiGPn47DbYetIjaJ4i/WlEd/nvL?=
+ =?us-ascii?Q?pmQH8EVoF3T3C6pD4XVP0pC9quV7MILhg1HARtcObZLXVaLyeKTBjvvJkWPf?=
+ =?us-ascii?Q?oPaFYWcqV5JFa214ptsMPCu/pLUEbIN8kK3tpmU6R1Vh7xVPTxd440NwshHP?=
+ =?us-ascii?Q?FfYiL01xuuAOiX+fp+LQUhVEo7/QpvLzXcAUNqM4KJpwe6afHYbOXqiZNiZu?=
+ =?us-ascii?Q?qlZxNUmpj/O9NxnOGRVSnDvHdMyxmJ4WH1Grgi0gsTAcBBhrWEqV5dAMzDMn?=
+ =?us-ascii?Q?VYYSwQ/qmAW7miyD1AMfxEPvvqKD+Ypz+CiOCkM7Pr6ogLIo65kGImBS55Y6?=
+ =?us-ascii?Q?pBMPBEzilmuT++d4lQhc+WUgXp4qmJjqTJbmB1COqHXAZ0xSGPnRMXM6v+eV?=
+ =?us-ascii?Q?u6VtlMMbvEO8dwIfTiGNi3DTwCyKhxbFqqCvQfr9skRIB9i0ng+LS9QKJuEw?=
+ =?us-ascii?Q?AVTJ1nqXM647LAUSuDHN8XXjjSSuRF/XC5Q7uWQDc42epl7SQcs+c3tQuY14?=
+ =?us-ascii?Q?1IYYvhiiTIrxFcYkwsxiI5oMPwXDXZzpTx7D+O5v0KWIrOkhxQDDjWmXqX4e?=
+ =?us-ascii?Q?k+7mqaJgef23McieQAadfxq2OH7p05knvo8PdLhF1vuT2NXT89PBAXDt3V7C?=
+ =?us-ascii?Q?NirS86kp66y5zT+QTydDsv5VLh3REW294ev4JvqSV8qm2SBok+QvEDKXfMzW?=
+ =?us-ascii?Q?crDWFF39kyjXndQr137SLNI5lR8lJ7hLS8556OQ8cA+AwCwboP/AzD0MWBEt?=
+ =?us-ascii?Q?xcg/ZoDLsiJ4QxnSNefXiFhD88BPFO2f9QM9rw7Ax+EyFs3PbB4aTKF6loZP?=
+ =?us-ascii?Q?30NIHevo9iVTc7ltots/gdXnKyDOERRy87r3SWb/uoNYdlTBUXST9BVuS76+?=
+ =?us-ascii?Q?gEqfSU4CbLEgZ2HKXpEPugnwkH9OErI11Sp0aUs+iKQRI0/VymiYhdnNP24n?=
+ =?us-ascii?Q?qpWI4nCmpRbY/hv7Ilo7oL3BMT3GORl/GH/03PDsgEUSeq79CLGtbr94hp9k?=
+ =?us-ascii?Q?8SGpYjxRvAc8YDObSR397hsEx6jKOPvMLKWjNbIRStsNgj52LwFWAqA16MiH?=
+ =?us-ascii?Q?7ADXQA+dk5LVr1F0Okr9K/vpKt/N7mzjJOPNYeUexfhZ6DO+TSlZpefc+02Q?=
+ =?us-ascii?Q?oi3mHWJ1vE107/b9QZxqB2JVdARWP75RFH7NtGfHPwRnxuZU7duHys7eK0DI?=
+ =?us-ascii?Q?rwQW5FrLEjekFPrraCavgRhNgwkOeb2uTxLDOAOBTYzVWh4L4IlKCDvDUVgz?=
+ =?us-ascii?Q?2HBvi5LIxnLeyXoDvt8/R8uQKLQuoYYzx6I8pEd5Ip2O6jQxR/E9RkwwyXgl?=
+ =?us-ascii?Q?NckIQmu2U5tdN6ylrWKf0dCoeIPilfIS5iBLKZNbhNG8xVUQwCLXrpFgTO8X?=
+ =?us-ascii?Q?c3ImSBVJK4bndJpw7iliIgJ3CvHktMZaex3MpD4DuPROFDXPfEaS2d9I/+8a?=
+ =?us-ascii?Q?CaS11pH9p+Uok0EyZIiJA259kl7mgmvWboQnP0WamZXcU1N1qOKSp5dMeqSp?=
+ =?us-ascii?Q?NM/OuTNP7Q=3D=3D?=
+X-OriginatorOrg: mt.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 10efb1de-672b-4228-b4c6-08dede5cf9dc
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 08:26:44.4292 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HlMv4ACzYUTf+Yr6JH0P5pOsjGQvYMHBSKa9tECuM0Yt18c+uN5+iB0kVRh5KB1hgXdtTJWxd0DTJkxIfb86yg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB9731
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,14 +143,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2026 at 08:35:43PM +0100, Lorenzo Stoakes wrote:
-> >
-> > Do you actually need 3 copies of this comment or just one copy in
-> > vma_internal.h?
-> 
-> I'd rather have it at a glance, it's a bit silly but C headers are silly :P
-> 
-> BTW you're kinda racing against time here as I'm on the verge of sending v2
-> :P
+From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
 
-:[ i don't refresh my inbox when i get hyperfocused and now i am sad
+The chip supports output lvds lanes in two orders, default <1 2 3 4>
+and <4 3 2 1>. Add parsing of an optional output lvds data-lanes
+property so we can inform chip that the lanes have been reversed.
+
+Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+---
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c | 50 +++++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
+
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+index 42b451432bbb..4945d4c960c4 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+@@ -148,6 +148,18 @@ enum sn65dsi83_lvds_term {
+ 	OHM_200
+ };
+ 
++enum {
++	NORMAL_LANE_MAPPING,
++	REVERSE_LANE_MAPPING,
++};
++
++#define DATA_LANES_COUNT	4
++
++static const int supported_data_lane_mapping[][DATA_LANES_COUNT] = {
++	[NORMAL_LANE_MAPPING] = { 1, 2, 3, 4 },
++	[REVERSE_LANE_MAPPING] = { 4, 3, 2, 1},
++};
++
+ enum sn65dsi83_model {
+ 	MODEL_SN65DSI83,
+ 	MODEL_SN65DSI84,
+@@ -163,6 +175,7 @@ struct sn65dsi83 {
+ 	struct regulator		*vcc;
+ 	bool				lvds_dual_link;
+ 	bool				lvds_dual_link_even_odd_swap;
++	bool				lvds_reverse_lanes_conf[2];
+ 	int				lvds_vod_swing_conf[2];
+ 	int				lvds_term_conf[2];
+ 	int				irq;
+@@ -644,6 +657,10 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
+ 	regmap_write(ctx->regmap, REG_LVDS_LANE,
+ 		     (ctx->lvds_dual_link_even_odd_swap ?
+ 		      REG_LVDS_LANE_EVEN_ODD_SWAP : 0) |
++		     (ctx->lvds_reverse_lanes_conf[CHANNEL_A] ?
++		      REG_LVDS_LANE_CHA_REVERSE_LVDS : 0) |
++		     (ctx->lvds_reverse_lanes_conf[CHANNEL_B] ?
++		      REG_LVDS_LANE_CHB_REVERSE_LVDS : 0) |
+ 		     (ctx->lvds_term_conf[CHANNEL_A] ?
+ 			  REG_LVDS_LANE_CHA_LVDS_TERM : 0) |
+ 		     (ctx->lvds_term_conf[CHANNEL_B] ?
+@@ -832,10 +849,12 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
+ 	u32 lvds_vod_swing_clk[2] = { 0, 1000000 };
+ 	/* Set default near end terminataion to 200 Ohm */
+ 	u32 lvds_term = 200;
++	u32 data_lanes[DATA_LANES_COUNT];
+ 	int lvds_vod_swing_conf;
+ 	int ret = 0;
+ 	int ret_data;
+ 	int ret_clock;
++	int i, j;
+ 
+ 	if (channel == CHANNEL_A)
+ 		endpoint_reg = 2;
+@@ -854,6 +873,37 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
+ 		goto exit;
+ 	}
+ 
++	ret_data = of_property_read_u32_array(endpoint, "data-lanes", data_lanes,
++			ARRAY_SIZE(data_lanes));
++	if (ret_data != 0 && ret_data != -EINVAL) {
++		ret = ret_data;
++		goto exit;
++	}
++
++	if (!ret_data) {
++		for (i = 0; i < ARRAY_SIZE(supported_data_lane_mapping); i++) {
++			for (j = 0; j < DATA_LANES_COUNT; j++) {
++				if (data_lanes[j] != supported_data_lane_mapping[i][j])
++					break;
++			}
++
++			if (j == DATA_LANES_COUNT)
++				break;
++		}
++
++		switch (i) {
++		case NORMAL_LANE_MAPPING:
++			break;
++		case REVERSE_LANE_MAPPING:
++			ctx->lvds_reverse_lanes_conf[channel] = true;
++			break;
++		default:
++			dev_err(dev, "invalid data lanes mapping\n");
++			ret = -EINVAL;
++			goto exit;
++		}
++	}
++
+ 	ret_data = of_property_read_u32_array(endpoint, "ti,lvds-vod-swing-data-microvolt",
+ 					lvds_vod_swing_data, ARRAY_SIZE(lvds_vod_swing_data));
+ 	if (ret_data != 0 && ret_data != -EINVAL) {
+-- 
+2.47.3
+
