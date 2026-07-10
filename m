@@ -4,89 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC5EDC4450A
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B4B8C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 833E610E7D7;
-	Mon, 13 Jul 2026 07:10:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03A8110E7DF;
+	Mon, 13 Jul 2026 07:10:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="r1aJSa+U";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Uq5XeaJL";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20B0A10E23F
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 21:26:46 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2cace91f112so11675515ad.0
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 14:26:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783718805; x=1784323605; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:user-agent
- :references:in-reply-to:message-id:date:cc:to:from:subject:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=RipBZIycyhdDriy0xY08qbrpkk/gJ3+/YM3pixpsFXk=;
- b=r1aJSa+U1GgZ45WW9WGTEuvhK82zCmGC+5jZSlfbI/AUMbzoZRHdHBLGbfXGPcnzH3
- sIM9RgjxaF+0L86nBRuBu0bsdEnNchoBE3vg7NWpvZvB8Bryeymw4YkKGFnIyakxIt1x
- bFMUDMfE1Sdzp7CL1Sm0QNsGFQxc3M9U4cNGDkJB5zvmEgOmOhlVyPPLBogm0tlHoe0O
- /1lapzgK41r1xkUp2cV7whT/y5GKe+Z45vhrVcweEdqERPqCNOIFDIxKxaRs9ToO3DmU
- 2RtQuZNUn+paZY44x0YkSn09ZH3xcSue8cvoY8xyit3l2vtGXN22EKgwXAkfs/9iATOn
- POhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783718805; x=1784323605;
- h=content-transfer-encoding:content-type:mime-version:user-agent
- :references:in-reply-to:message-id:date:cc:to:from:subject:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=RipBZIycyhdDriy0xY08qbrpkk/gJ3+/YM3pixpsFXk=;
- b=K+xyM0BTEJfJqSVf9/yL3I+QEDN0H5/LNxzAvM1U+CZjrXgRpEgNGqukizmxfkN3pS
- dfiG6Gs10MMqOET8nn7zAiUPlybNH6aV3l4qoXeYIA2Y4tQXrdu4xh35hATQ0WriPoDE
- Rq/gvTRAnrFt1N6Rn79nyMYZ1lrjF/354Yo/T4EByf0xtG2aVL4yam3Ik/QZahEYSzTd
- ggwr1Lz5jsRj+sbqlL2y0+zChUe1E3loY7yeBopC2zvpgD8I7wvE+rf38mI5K/cUsN0J
- Ae1ZGu9O2ZM4lzDqC5A7t5RMtd1EzSxIAzo7LVOUijM283+o1UbOrMYIbXz/CQ6D0yWd
- IQ8Q==
-X-Gm-Message-State: AOJu0Yzkw+1URfVa+x1S97r2OZ7uYfRPLlcixpXjogkP3drEsyS6u5n1
- EQoSEGf6iY7DbSm0GScMC626f/sOq/cHwd0lhauNAOhwpxaLjBATfJ4f
-X-Gm-Gg: AfdE7clgZiHKl3kYYmNn2Q+G7ByXsOXBZfsZcuExWiWYSEUcruB4BOCAoZOwhWpeKmj
- 2RAY4QcQzEenoRg+N53WxtZj0tyyg4uVvP4MVt/HreLzWH1JvM0hNqy+KhTRinoAamHD5EX2hJd
- YJkNYHJBDAVM3cLKr1g90CU2xRzXWTvVBSLgUDeN6HcVD2IerLWoaDOHwH4iP339ysd7RRJ4HtE
- h3RPhl7jVyZ6gsol4AA0BMqsVnNWCG33OHJWr/vP1n4V3AEhxIY8U+m08jSD0cksX3KO/oTZoPB
- OSrFHH91s3jj+/RpqWRdEZO8gFwM6H/IsXu/vE1EMPaX9VjsGZaA3hhDX+56YR1Lvw3MzqNSNYP
- wtqzjmgLlQpfeFVFDp/mCK+BYU0azUZnFDzDFsRs15QJom2z5WVSaXt7THnXRGviEVdklDlwMDG
- 1ssvcxcACsRW/yMprxZkNDcbiQ0f9LWw/7vFvPy/lEVvKvbq/xEEWxPExzs38=
-X-Received: by 2002:a17:902:d483:b0:2c9:e261:95c4 with SMTP id
- d9443c01a7336-2ce9f01d298mr7642895ad.30.1783718805605; 
- Fri, 10 Jul 2026 14:26:45 -0700 (PDT)
-Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net.
- [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ccc9bdb75fsm65281555ad.8.2026.07.10.14.26.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 14:26:45 -0700 (PDT)
-Subject: [PATCH v8 3/8] selftests/mm: add HMM test for mmap lock-dropping
- faults
-From: Stanislav Kinsburskii <skinsburskii@gmail.com>
-To: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
- corbet@lwn.net, dakr@kernel.org, david@kernel.org, decui@microsoft.com,
- haiyangz@microsoft.com, jgg@ziepe.ca, kees@kernel.org, kys@microsoft.com,
- leon@kernel.org, liam@infradead.org, lizhi.hou@amd.com, ljs@kernel.org,
- longli@microsoft.com, lyude@redhat.com, maarten.lankhorst@linux.intel.com,
- mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
- nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
- rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
- skhan@linuxfoundation.org, skinsburskii@gmail.com, surenb@google.com,
- tzimmermann@suse.de, vbabka@kernel.org, wei.liu@kernel.org,
- skinsburskii@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-rdma@vger.kernel.org
-Date: Fri, 10 Jul 2026 14:26:42 -0700
-Message-ID: <178371880218.900500.12093463712908415421.stgit@skinsburskii>
-In-Reply-To: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
-References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
-User-Agent: StGit/0.19
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD35B89361;
+ Fri, 10 Jul 2026 20:25:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 397F360051;
+ Fri, 10 Jul 2026 20:25:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36A631F000E9;
+ Fri, 10 Jul 2026 20:24:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783715114;
+ bh=u31X8RgcNJCyJqpmVcGG42bB96q2xKa4t0yZEgilb4Q=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=Uq5XeaJLHBwnumgunwSh7i/Hd9s2U4FpSqq+xiCRQj/osFxm3pnId7Z+XBEDS3gd5
+ 3ypjSBQFS9TyAD7v3Npi5UX7YFEZ458imtDcFa4Jt+/44KEYaoKfRZj/LIELwe4B3N
+ BOrvvcUQomx6n+P2PXoPHUdmjZD819pWQZfoLvVZ13eY4EhKbys8SuV58kuIBHCZud
+ WHdNwrMicwK+JmxVbSAg20mFS0W2LrXaI8T5/dVwSsGHKaVzO6nHs/m6KaLL4Dh2ZF
+ 5aRdp9q0gLj2o0/nafDk7JsU+Tjvmb6YGzpPig2SNbqXtBxRENUBxdxe9JxkHGhwYk
+ GDuhKXBcZZhJQ==
+From: Lorenzo Stoakes <ljs@kernel.org>
+Date: Fri, 10 Jul 2026 21:17:01 +0100
+Subject: [PATCH v2 20/33] mm/vma: remove duplicative vma_pgoff_offset() helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260710-b4-pre-scalable-cow-v2-20-2a5aa403d977@kernel.org>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
+ Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>, 
+ Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Yishai Hadas <yishaih@nvidia.com>, 
+ Shameer Kolothum <skolothumtho@nvidia.com>, 
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Usama Arif <usama.arif@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev, 
+ iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2240; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=IR92Sj2wx3lyPljFS7ckov7loj2/kkvP36FNDNTtRqM=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg22Kr16aZZ41tS1Gwr7/Wmclt6HgYvFlnTotLDvqr
+ 73SCjTuKGVhEONikBVTZHn+RXx/kEjYvM4L/m4wc1iZQIYwcHEKwEQighkZVs965fbQTWFX+DNP
+ 1f2brm+ySlkTMP3ewjxpTluDV9P+rGJkuFX/VPbDSc7A/gaOpucV8Yw2y5tFqpOnT3nkeYtrxn9
+ GJgA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,336 +141,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add test_hmm coverage for the HMM lock-dropping fault path. The test module
-gets a new HMM_DMIRROR_READ_UNLOCKED ioctl that calls
-hmm_range_fault_unlocked_timeout() with a timeout of 0, exercising the
-unbounded retry mode while allowing the mmap lock to be dropped during
-fault handling.
+This is doing what linear_page_index() does, so eliminate it and replace it
+with linear_page_index().
 
-Add a userfaultfd_read selftest that registers an anonymous mapping with
-UFFDIO_REGISTER_MODE_MISSING, services the faults from a handler thread
-with UFFDIO_COPY, and verifies that HMM can read back the data supplied by
-the handler. This exercises the path where handle_mm_fault() drops
-mmap_lock and hmm_range_fault_unlocked_timeout() restarts the walk
-internally.
+Update the VMA userland tests to reflect this change.
 
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
+No functional change intended.
+
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Gregory Price <gourry@gourry.net>
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- lib/test_hmm.c                         |  107 +++++++++++++++++++++++
- lib/test_hmm_uapi.h                    |    1 
- tools/testing/selftests/mm/hmm-tests.c |  150 ++++++++++++++++++++++++++++++++
- 3 files changed, 257 insertions(+), 1 deletion(-)
+ mm/vma.h                        |  9 +--------
+ tools/testing/vma/include/dup.h | 16 ++++++++++++++++
+ 2 files changed, 17 insertions(+), 8 deletions(-)
 
-diff --git a/lib/test_hmm.c b/lib/test_hmm.c
-index 45c0cb992218..6205fb313bd0 100644
---- a/lib/test_hmm.c
-+++ b/lib/test_hmm.c
-@@ -389,6 +389,67 @@ static int dmirror_range_fault(struct dmirror *dmirror,
- 	return ret;
+diff --git a/mm/vma.h b/mm/vma.h
+index 527716c8739d..2342516ce00e 100644
+--- a/mm/vma.h
++++ b/mm/vma.h
+@@ -247,13 +247,6 @@ static inline pgoff_t vmg_end_pgoff(const struct vma_merge_struct *vmg)
+ 	return vmg_start_pgoff(vmg) + vmg_pages(vmg);
  }
  
-+static int dmirror_range_fault_unlocked(struct dmirror *dmirror,
-+					struct hmm_range *range,
-+					unsigned long timeout)
-+{
-+	int ret;
-+
-+	while (true) {
-+		ret = hmm_range_fault_unlocked_timeout(range, timeout);
-+		if (ret)
-+			goto out;
-+
-+		mutex_lock(&dmirror->mutex);
-+		if (mmu_interval_read_retry(range->notifier,
-+					    range->notifier_seq)) {
-+			mutex_unlock(&dmirror->mutex);
-+			continue;
-+		}
-+		break;
-+	}
-+
-+	ret = dmirror_do_fault(dmirror, range);
-+
-+	mutex_unlock(&dmirror->mutex);
-+out:
-+	return ret;
-+}
-+
-+static int dmirror_fault_unlocked(struct dmirror *dmirror,
-+				  unsigned long start,
-+				  unsigned long end, bool write,
-+				  unsigned long timeout)
-+{
-+	struct mm_struct *mm = dmirror->notifier.mm;
-+	unsigned long addr;
-+	unsigned long pfns[32];
-+	struct hmm_range range = {
-+		.notifier = &dmirror->notifier,
-+		.hmm_pfns = pfns,
-+		.pfn_flags_mask = 0,
-+		.default_flags =
-+			HMM_PFN_REQ_FAULT | (write ? HMM_PFN_REQ_WRITE : 0),
-+		.dev_private_owner = dmirror->mdevice,
-+	};
-+	int ret = 0;
-+
-+	if (!mmget_not_zero(mm))
-+		return -EFAULT;
-+
-+	for (addr = start; addr < end; addr = range.end) {
-+		range.start = addr;
-+		range.end = min(addr + (ARRAY_SIZE(pfns) << PAGE_SHIFT), end);
-+
-+		ret = dmirror_range_fault_unlocked(dmirror, &range, timeout);
-+		if (ret)
-+			break;
-+	}
-+
-+	mmput(mm);
-+	return ret;
-+}
-+
- static int dmirror_fault(struct dmirror *dmirror, unsigned long start,
- 			 unsigned long end, bool write)
- {
-@@ -488,6 +549,48 @@ static int dmirror_read(struct dmirror *dmirror, struct hmm_dmirror_cmd *cmd)
- 	return ret;
- }
- 
-+static int dmirror_read_unlocked(struct dmirror *dmirror,
-+				 struct hmm_dmirror_cmd *cmd,
-+				 unsigned long timeout)
-+{
-+	struct dmirror_bounce bounce;
-+	unsigned long start, end;
-+	unsigned long size = cmd->npages << PAGE_SHIFT;
-+	int ret;
-+
-+	start = cmd->addr;
-+	end = start + size;
-+	if (end < start)
-+		return -EINVAL;
-+
-+	ret = dmirror_bounce_init(&bounce, start, size);
-+	if (ret)
-+		return ret;
-+
-+	while (1) {
-+		mutex_lock(&dmirror->mutex);
-+		ret = dmirror_do_read(dmirror, start, end, &bounce);
-+		mutex_unlock(&dmirror->mutex);
-+		if (ret != -ENOENT)
-+			break;
-+
-+		start = cmd->addr + (bounce.cpages << PAGE_SHIFT);
-+		ret = dmirror_fault_unlocked(dmirror, start, end, false, timeout);
-+		if (ret)
-+			break;
-+		cmd->faults++;
-+	}
-+
-+	if (ret == 0) {
-+		if (copy_to_user(u64_to_user_ptr(cmd->ptr), bounce.ptr,
-+				 bounce.size))
-+			ret = -EFAULT;
-+	}
-+	cmd->cpages = bounce.cpages;
-+	dmirror_bounce_fini(&bounce);
-+	return ret;
-+}
-+
- static int dmirror_do_write(struct dmirror *dmirror, unsigned long start,
- 			    unsigned long end, struct dmirror_bounce *bounce)
- {
-@@ -1572,7 +1675,9 @@ static long dmirror_fops_unlocked_ioctl(struct file *filp,
- 		dmirror->flags = cmd.npages;
- 		ret = 0;
- 		break;
+-/* Assumes addr >= vma->vm_start. */
+-static inline pgoff_t vma_pgoff_offset(struct vm_area_struct *vma,
+-				       unsigned long addr)
+-{
+-	return vma->vm_pgoff + PHYS_PFN(addr - vma->vm_start);
+-}
 -
-+	case HMM_DMIRROR_READ_UNLOCKED:
-+		ret = dmirror_read_unlocked(dmirror, &cmd, 0);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/lib/test_hmm_uapi.h b/lib/test_hmm_uapi.h
-index f94c6d457338..ea9b0ec404fb 100644
---- a/lib/test_hmm_uapi.h
-+++ b/lib/test_hmm_uapi.h
-@@ -38,6 +38,7 @@ struct hmm_dmirror_cmd {
- #define HMM_DMIRROR_CHECK_EXCLUSIVE	_IOWR('H', 0x06, struct hmm_dmirror_cmd)
- #define HMM_DMIRROR_RELEASE		_IOWR('H', 0x07, struct hmm_dmirror_cmd)
- #define HMM_DMIRROR_FLAGS		_IOWR('H', 0x08, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_READ_UNLOCKED	_IOWR('H', 0x09, struct hmm_dmirror_cmd)
+ #define VMG_STATE(name, mm_, vmi_, start_, end_, vma_flags_, pgoff_)	\
+ 	struct vma_merge_struct name = {				\
+ 		.mm = mm_,						\
+@@ -275,7 +268,7 @@ static inline pgoff_t vma_pgoff_offset(struct vm_area_struct *vma,
+ 		.start = start_,				\
+ 		.end = end_,					\
+ 		.vm_flags = vma_->vm_flags,			\
+-		.pgoff = vma_pgoff_offset(vma_, start_),	\
++		.pgoff = linear_page_index(vma_, start_),	\
+ 		.file = vma_->vm_file,				\
+ 		.anon_vma = vma_->anon_vma,			\
+ 		.policy = vma_policy(vma_),			\
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 535747d7fee4..7ed165c8d9bc 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1548,3 +1548,19 @@ static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
  
- #define HMM_DMIRROR_FLAG_FAIL_ALLOC	(1ULL << 0)
- 
-diff --git a/tools/testing/selftests/mm/hmm-tests.c b/tools/testing/selftests/mm/hmm-tests.c
-index 6fccbdab02ee..5acb728666f8 100644
---- a/tools/testing/selftests/mm/hmm-tests.c
-+++ b/tools/testing/selftests/mm/hmm-tests.c
-@@ -29,6 +29,10 @@
- #include <sys/mman.h>
- #include <sys/ioctl.h>
- #include <sys/time.h>
-+#include <sys/syscall.h>
-+#include <sys/eventfd.h>
-+#include <linux/userfaultfd.h>
-+#include <poll.h>
- 
- /*
-  * This is a private UAPI to the kernel test module so it isn't exported
-@@ -2952,4 +2956,150 @@ TEST_F_TIMEOUT(hmm, benchmark_thp_migration, 120)
- 					&thp_results, &regular_results);
- 	}
+ 	return vm_get_page_prot(vm_flags);
  }
-+/*
-+ * Test that HMM can fault in pages backed by userfaultfd using the
-+ * hmm_range_fault_unlocked_timeout() path with no timeout. This exercises
-+ * the lock-drop retry logic in the HMM framework.
-+ */
-+struct uffd_thread_args {
-+	int uffd;
-+	int stop_fd;
-+	void *page_buffer;
-+	unsigned long page_size;
-+};
 +
-+static void *uffd_handler_thread(void *arg)
++static inline pgoff_t linear_page_delta(const struct vm_area_struct *vma,
++					const unsigned long address)
 +{
-+	struct uffd_thread_args *args = arg;
-+	struct uffd_msg msg;
-+	struct uffdio_copy copy;
-+	struct pollfd pollfd[2];
-+	int ret;
-+
-+	pollfd[0].fd = args->uffd;
-+	pollfd[0].events = POLLIN;
-+	pollfd[1].fd = args->stop_fd;
-+	pollfd[1].events = POLLIN;
-+
-+	while (1) {
-+		ret = poll(pollfd, 2, -1);
-+		if (ret <= 0)
-+			break;
-+		if (pollfd[1].revents)
-+			break;
-+		if (!(pollfd[0].revents & POLLIN))
-+			break;
-+
-+		ret = read(args->uffd, &msg, sizeof(msg));
-+		if (ret != sizeof(msg))
-+			break;
-+
-+		if (msg.event != UFFD_EVENT_PAGEFAULT)
-+			break;
-+
-+		/* Fill the page with a known pattern */
-+		memset(args->page_buffer, 0xAB, args->page_size);
-+
-+		copy.dst = msg.arg.pagefault.address & ~(args->page_size - 1);
-+		copy.src = (unsigned long)args->page_buffer;
-+		copy.len = args->page_size;
-+		copy.mode = 0;
-+		copy.copy = 0;
-+
-+		ret = ioctl(args->uffd, UFFDIO_COPY, &copy);
-+		if (ret < 0)
-+			break;
-+	}
-+
-+	return NULL;
++	return (address - vma->vm_start) >> PAGE_SHIFT;
 +}
 +
-+TEST_F(hmm, userfaultfd_read)
++static inline pgoff_t linear_page_index(const struct vm_area_struct *vma,
++					const unsigned long address)
 +{
-+	struct hmm_buffer *buffer;
-+	struct uffd_thread_args uffd_args;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	unsigned char *ptr;
-+	pthread_t thread;
-+	int uffd;
-+	int stop_fd;
-+	int ret;
-+	struct uffdio_api api;
-+	struct uffdio_register reg;
-+	uint64_t stop = 1;
-+	ssize_t nwrite;
++	pgoff_t pgoff;
 +
-+	npages = 4;
-+	size = npages << self->page_shift;
-+
-+	/* Create userfaultfd */
-+	uffd = syscall(__NR_userfaultfd, O_CLOEXEC | O_NONBLOCK);
-+	if (uffd < 0)
-+		SKIP(return, "userfaultfd not available");
-+
-+	api.api = UFFD_API;
-+	api.features = 0;
-+	ret = ioctl(uffd, UFFDIO_API, &api);
-+	ASSERT_EQ(ret, 0);
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	/* Create anonymous mapping */
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   -1, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Register the region with userfaultfd */
-+	reg.range.start = (unsigned long)buffer->ptr;
-+	reg.range.len = size;
-+	reg.mode = UFFDIO_REGISTER_MODE_MISSING;
-+	ret = ioctl(uffd, UFFDIO_REGISTER, &reg);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Set up the handler thread */
-+	uffd_args.uffd = uffd;
-+	stop_fd = eventfd(0, EFD_CLOEXEC);
-+	ASSERT_GE(stop_fd, 0);
-+	uffd_args.stop_fd = stop_fd;
-+	uffd_args.page_buffer = malloc(self->page_size);
-+	ASSERT_NE(uffd_args.page_buffer, NULL);
-+	uffd_args.page_size = self->page_size;
-+
-+	ret = pthread_create(&thread, NULL, uffd_handler_thread, &uffd_args);
-+	ASSERT_EQ(ret, 0);
-+
-+	/*
-+	 * Use the unlocked read path which allows the mmap lock to be
-+	 * dropped during the fault, enabling userfaultfd resolution.
-+	 */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_READ_UNLOCKED,
-+			      buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+
-+	/* Verify the device read the data filled by the uffd handler */
-+	ptr = buffer->mirror;
-+	for (i = 0; i < size; ++i)
-+		ASSERT_EQ(ptr[i], (unsigned char)0xAB);
-+
-+	nwrite = write(stop_fd, &stop, sizeof(stop));
-+	ASSERT_EQ(nwrite, sizeof(stop));
-+	pthread_join(thread, NULL);
-+	close(stop_fd);
-+	free(uffd_args.page_buffer);
-+	close(uffd);
-+	hmm_buffer_free(buffer);
++	pgoff = linear_page_delta(vma, address);
++	pgoff += vma_start_pgoff(vma);
++	return pgoff;
 +}
-+
-+
- TEST_HARNESS_MAIN
 
+-- 
+2.55.0
 
