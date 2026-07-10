@@ -4,94 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39578C44508
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DF6DC44509
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDC6310E7C4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F71210E7C2;
 	Mon, 13 Jul 2026 07:10:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I2qDyMK0";
+	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="BS3sQXSq";
 	dkim-atps=neutral
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B1AA10E200
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 17:03:00 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-8478fe07f0fso1239140b3a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 10:03:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783702980; x=1784307780; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=eJt4dduVMLAOIcmpuYMBgvu3eT4RLvOgifRZbg/Z4kQ=;
- b=I2qDyMK07/a63AHzdyr5V5NWsIck/Va9/GjWFWTPvQoA32YN8m2jMv8jCED70SFemL
- CL6vPCTGJpzd7gn8wOnb7o/ICv92O8MI89LorrdI27T7Io4MZDYy6B0MzFjb6lcg/LgY
- 8uSA6zECxTd/SWcnpjFTiucpQ3cZDkkk/mPSNWRzIFQQBSfqqi8Nq32UtpAiFSo1ERDO
- KbWIdnRyfMBO0FxvEMoCMgqJdcoeT7216nXV5rLat3JgEW/kmIF45M09cXvItsF32Hgu
- ah/YATBWC/tESgXS20sub0e3xEw5OLTG+7uk4AZRLbl6dt27j6gChT4vGcVNnO0NQHEX
- 1BFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783702980; x=1784307780;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=eJt4dduVMLAOIcmpuYMBgvu3eT4RLvOgifRZbg/Z4kQ=;
- b=YpuziKTi0sPEgTyKBc40+jrFoznIj5JPnUckKG0AJsCfL8b7U0TBTX7N1YnwfseIrR
- rfXS3Dr0d2sz2YrAfvR7oGSRieNRRooMROJlQKRJsFWbf+5UKG3Ax8/qIaL5CqQe0ks+
- g4Gqj7ZtH+sALAnfeuZ1FESj9o5k7/BZohdrdAP8D2SQ56jPZgr0qaiYmlQkYxGdT5VI
- 7WeVuqkggSMBMfF+7nOAnlnnmMi38NiXnp55EjQ4jyssRq3EUCLG0GPJvT+PBhHMoEAa
- 2wxkpzkDUkNDReJo0cqzzHr65Q50jXouIb28G0Z8h7HD9Fr4fzM3RNBoVZm/NCTn0ieN
- JM4Q==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpJza3Z4AApUPZu5RV3Z94cO4ifEmbdpWTFNI60HyZ2SPM+SYZR9oWYjDOnsxOTAUUUoNGGNX83KFA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwkMjFKdfsHARQzoII77bPitnb+H9491E7cTsAIckYSSQEXCI1m
- +2TZuxuUmCEZhthdbv09yQpOYcJusLE0NR24e+XdMom7QRTEqiXuM+Er
-X-Gm-Gg: AfdE7ck4TpoYsLaikS5/peQRNIyA851wGJ8tiIvIc8JCVtcEukG9NwnSJPpGOQDBSHo
- 8/f91Oxz8yUFumageaAExR2Wh3ZvtgqOuIp4IqyfJCLupAdHgiwY27MuXZWFsBMxhP+12/Fh+HA
- Mbm9H4WXP4plIT5Gl57s6AdSrbPhAvnWPQxzMhvIUlZJMetDBxPd72CufmPPToVttBfyYvl0TAP
- iuKXFixoU7KepKCvGfpWmcRx3Gp+t2rdOHGDyZzpijmHDtW8ZZTF8ocryKGa80wPb0Xm/O9ioye
- lMuv0W8mkKgtwgmO13VqXj3q1f1u6/Xqr5MJXe7iicjdHZhImxiQKgrkUL+R9CISdx/LhUy6DDv
- /S3ZZsnIdgwKJc0OFd8s4kb+sQRlXsjs0OfZEtBkcOuS4EegIzqyHnIUiNLgVY1/OOQRgjNqWrd
- mNASu/D+TZ3cabTHI3iMMjCZY2YjAMxU84SNXwx+7RoQAyBdQOrLqv+d8=
-X-Received: by 2002:a05:6a00:1f13:b0:848:6ba2:4139 with SMTP id
- d2e1a72fcca58-8486ba24522mr4844235b3a.36.1783702979579; 
- Fri, 10 Jul 2026 10:02:59 -0700 (PDT)
-Received: from skinsburskii (c-98-225-44-182.hsd1.wa.comcast.net.
- [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8484519580csm4394040b3a.32.2026.07.10.10.02.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 10:02:58 -0700 (PDT)
-Date: Fri, 10 Jul 2026 10:02:55 -0700
-From: Stanislav Kinsburskii <skinsburskii@gmail.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
- corbet@lwn.net, dakr@kernel.org, david@kernel.org,
- decui@microsoft.com, haiyangz@microsoft.com, kees@kernel.org,
- kys@microsoft.com, leon@kernel.org, liam@infradead.org,
- lizhi.hou@amd.com, ljs@kernel.org, longli@microsoft.com,
- lyude@redhat.com, maarten.lankhorst@linux.intel.com,
- mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
- nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
- rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
- skhan@linuxfoundation.org, surenb@google.com, tzimmermann@suse.de,
- vbabka@kernel.org, wei.liu@kernel.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-rdma@vger.kernel.org
-Subject: Re: [PATCH v7 2/8] mm/hmm: add hmm_range_fault_unlocked_timeout()
- for mmap lock-drop support
-Message-ID: <alElv0EKjLQXMNK8@skinsburskii>
-References: <178345345668.660027.2952911919681614557.stgit@skinsburskii>
- <178345362182.660027.12809852179204464964.stgit@skinsburskii>
- <20260710162749.GP118978@ziepe.ca>
- <20260710164743.GX118978@ziepe.ca>
+Received: from SEYPR02CU001.outbound.protection.outlook.com
+ (mail-koreacentralazon11013038.outbound.protection.outlook.com
+ [40.107.44.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E2EA10E186
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 10:59:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K+2aXXnP8yKAo0qhoXKT+aDcDvdViyRTJcsY7kit/DTJnh+qHgiimV+mCI5fH7Z3BrMhm4C67KpEsPTbZsXV14a3dhHVVVTAb1vxcgYCmC52eMJgVOKhuVM7fOD7HI0faJlFp4gZuhuIi+APzOG94Pn5rCUeRQr2S4SWCpn1wfpsKzvakqAPJnNbWk9L4lseP8o4Df6VUQRXrSPilTnk4sJwplrKt/GdRrTMUTdo0SDujvnhBj1Qwh/T4MJ5u9ZRxOo42VlmTSmVYmP7CgenUXe9AO/x5DZMxu1oatNr6WQA65qqcynErGkOTp2vPh8k8bIbtBxtecEe+WNjP7oV6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AjvKIEs+wxGsft1fGiF11jff+ceqewDLz8P5yL+gcRA=;
+ b=O9xv4BaPWjqV6HI4I78jlnYIm1TPLG1mUUTQ4C3bArgZYFmIMI81fi2gLdXicCWTyf4rBUDYCiYMfWks6QD1lG1vTf1qVEnzuLLKyk/dYo/GaTlCJi2KBWJZGlht/uRGAGjKwv0S/k3uixG7wvoJFu7CMRayagY+gDgxvkXtKCXaSAz2Lbrx7h1zbrh4K1irkqVMgclVMUUjr+PZYYrwDRKmDzvTY0gMWJftdZhROm+v9ELShan8THp42n8u0l9tWjBIjrgC/2y2OVx9zeaUxpGy6cSpuKymrf2+wQHotcDbsihl8JuZ4w91LXMWRZ+DX7CVD6QtQdl888AK4zp/Qw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AjvKIEs+wxGsft1fGiF11jff+ceqewDLz8P5yL+gcRA=;
+ b=BS3sQXSq3FD0BIO2v06MJgfgKB0CsN6sr30UG5A//QeY7u88cnjpQME7xmNvjfJx4xOVBaZKLRXc24YxmxKI6qyYFX/eJ+emkzckCcIVh/WDZtq7mm9UuNo8zTLllVNaTTMtWPRx++APoNH7I0n0Ggd1zh8sZamEk2p2637m1LQ1gRiwjU6+WxMgOLSFOQsZmFFbt2WeDCyN1I6YiZ/2cbd7j4Su5zd4IflAMSNvVrGkWMU/haGdC2MA84vLFHGKktliVJh01cN4rizGycaiigfmwZB6AmgkyTyYpuhrs77b4AQJlVg6OS6udjAcSrUWJ5Ux/0UmzMcrX5EzhaYDSw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SEZPR06MB5832.apcprd06.prod.outlook.com (2603:1096:101:c8::12)
+ by KU4PR06MB8388.apcprd06.prod.outlook.com (2603:1096:d10:7b::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Fri, 10 Jul
+ 2026 10:59:51 +0000
+Received: from SEZPR06MB5832.apcprd06.prod.outlook.com
+ ([fe80::f98:5e32:4ccb:d07b]) by SEZPR06MB5832.apcprd06.prod.outlook.com
+ ([fe80::f98:5e32:4ccb:d07b%6]) with mapi id 15.21.0181.016; Fri, 10 Jul 2026
+ 10:59:51 +0000
+From: Pan Chuang <panchuang@vivo.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ dri-devel@lists.freedesktop.org (open list:ARM ETHOS-U NPU DRIVER),
+ linux-kernel@vger.kernel.org (open list)
+Cc: Pan Chuang <panchuang@vivo.com>
+Subject: [PATCH 1/2] accel: ethosu: Remove redundant dev_err()
+Date: Fri, 10 Jul 2026 18:59:35 +0800
+Message-Id: <20260710105937.409992-2-panchuang@vivo.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260710105937.409992-1-panchuang@vivo.com>
+References: <20260710105937.409992-1-panchuang@vivo.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TPYP295CA0030.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:a::16) To SEZPR06MB5832.apcprd06.prod.outlook.com
+ (2603:1096:101:c8::12)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260710164743.GX118978@ziepe.ca>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5832:EE_|KU4PR06MB8388:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd44fbca-132c-42a9-c019-08dede725d94
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|52116014|1800799024|366016|38350700014|11063799006|56012099006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: vJqCU5hak65WEL7aQhFc7Pg4QiOD+rjYhemutUdtd67cUOat4kTbit3k/g69tTzz8pQAqCEMkm8Ef8ZDcOhG/C/MV3549mbrtn+q+pBOcYa/WX8NdyqmJ+XwaM/Ag9X4T8Mp3W37oJye9Y2o4DSD2eYvqh1+7Dyo0hRIPuor6S5L+1Xb6vHL10sI6LNtwH0dt3wYxadaQ0WZ4qmgBJao47c7ukzI9D7Is+dSePxk03pJtePZUcwL6rd9h9IhmmZR21Ljs1n9kBK/qas12Km/0Du7Qjg24Ot4BPSbodD5ZoBPUj+ZlCVX1ktDdREbPgaujj+RsAZc6qD6Oio9+o811E2ral8F0P4FZeoPqAsPh7WY2eX4y0XDFIMO5StY7ZRwmKeRoPWa/y+aPRbpNro7xqOse2Ri9xYO9qcK8uWf1Q/Ob4L+yml24OJTPU2ikd8kzndUufm1RjEGDL8UGL1Z3l01Y726LGo0jZyUaO1XBf7dQPfuuCiDosU0QVO1vEd5CBBg5ziMzRjesg7vqMXSTNYlFEuTBU6zd4xCIQIk+NB4X/MBGDR7OAp9+Dii4EL0uzO5itmq0ggXqW0y/EdEeT/kCO+rw4UiWE/9NHv6iykXA9iJ2p410d/hMX+ulpuR7H11Hr1sTq9w75hCV5cM00gwiFP8v2pJPHaYIXDSoJxpHUrH+Nij1QSHrthV/F2oBr09jEY6tamzh9lO+nszI9oPpqxX5iE7uIlg92VJC6M=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SEZPR06MB5832.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(52116014)(1800799024)(366016)(38350700014)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?JitlJuY7MYBVa/CUC7qtoZLJWzJj3MZHa74om4Yevi8idXpu5yHRNiQoT4Gb?=
+ =?us-ascii?Q?3Agsp1M58GlyZOsz2WyTookfuOfq454znR/H28zYLJfHL7VGUWNHfXO1VsE5?=
+ =?us-ascii?Q?eLYgVaEHOG46qX2cZ9KN3GZ8JgJEbwNGadQiYATNRnR5gTPixqIAxdVHki0F?=
+ =?us-ascii?Q?tavvgFIG8YY4dXk+plqocZv+QA5rOPkwZvDSruDmXG1GVmGyz29MaD0QxZOP?=
+ =?us-ascii?Q?FD9ME+V+/Zf0IsDPWTnICAtO8OUNypB3Z96LJ9IEkW3GKfk6e1PxFSit/NcB?=
+ =?us-ascii?Q?G338yp89+eH6AO1qLVdn30Zv2U1hmXQHaXe5yDCZcNNjTDxHXjERLg786sQF?=
+ =?us-ascii?Q?MNuIy8LmWTCFuOUIpDDRwiEw2C37gJPXVQ2WJ726yntQd360oqsCeKrKp9ix?=
+ =?us-ascii?Q?tzqR/pWjW/Kodpy04tH3a9Cu6OOKiRJhPUwpJmb062gHAu6oqqa0fZVi/F5X?=
+ =?us-ascii?Q?7EoYzVH97d6bc99AESK6Mys5XvZxNsVMJ9gVouFzBwIq9rls+L506aHjdaJd?=
+ =?us-ascii?Q?MYGrBfm8svNKO7OONIv8Ux/NqOTUWTdAqdj3zptdXzHkF98ooSkwZU0QcRoI?=
+ =?us-ascii?Q?WW9d6LLB9j7zsoHT/w6gQcqCuCcCE+YyZEPkzNvVP1eo37YLHmhyU9f2NJpm?=
+ =?us-ascii?Q?R7PzLXQ6lXElttsssSSO1rLM2sThfjfzfAyFXy35pUeX1cJLCwzz2F/Ld27H?=
+ =?us-ascii?Q?6pT9JDbHlS4O48xQl2okHWBFLbQQUtS9fU/3hdAVZjK5xEcO+efBHAfnMSCG?=
+ =?us-ascii?Q?nACP+N7IHufyLY8JkmISSqlJIU/a1z6SrHSkRgK+BY3K5fnpbt2kuKqhzUMz?=
+ =?us-ascii?Q?NwfPwrm59iW8GCXw6p0B8oeawqBmRKQpNxqKwiNVn5/geMeoNLgzCaQXUiD5?=
+ =?us-ascii?Q?NXX+EIhfeO2RjG6qxcgLfonXwYM+rE9TAvrhrqPKSucjukkug3Px0oQBfEen?=
+ =?us-ascii?Q?JfNcGXP4cgWABGE13wOrnSImwE+fiOavlfDWZqOJsYUZLGNkuz6gXPLFtW+Y?=
+ =?us-ascii?Q?IUwhMc3UyaeN0Xg9v0aoDU2HMdxRauoaBooEC3oNytlMXOeoJ6GXfmEBW0ps?=
+ =?us-ascii?Q?D5Lzq045Axn2X+XKbtz+3CnahDeYQTdS4+HyXHESLa7SR+qbj+AE1Dx+BhSn?=
+ =?us-ascii?Q?1S1IGRo+UQF5HXhUsGMFs24/BLDz/kguTsq8COpNKeJO/JuyHzy0OcwuhMNP?=
+ =?us-ascii?Q?tEmn+UmOq79MowomA11aB7B5EkMgzcTslZu93pWrrzkcSuFwBPEFGnyzE2bE?=
+ =?us-ascii?Q?omptJVaXRtVBO1GDtusZXpIPDGLw5FV8CbmbUYNsD1pWzp+N2u5IA8tpCOqb?=
+ =?us-ascii?Q?DgoXW5PNaN6S9l05k4tq9lJ+1MFyTjzWkorlyzupCCSicg9iGbgYal9Vf7NF?=
+ =?us-ascii?Q?d34Qqw5Vv40DRqltyekhsdImPfBKhclD6BDRJwAI5at9a5Wo5OvDKOtkiuzj?=
+ =?us-ascii?Q?ZI8EZeW3soBLjrGxMbYIgaD8ZvbsWvh1TkAp7cXge1PM+9R1Q64xWJPCIczA?=
+ =?us-ascii?Q?nlk1Qsih3LDyCq4biAcp/GfW3idUBzir2LNXsw2tGDIcrC5R+RLv5Zrf41Dx?=
+ =?us-ascii?Q?kcvboKi8gvppfUOpY4nX5/XjSVGn7f2ct95XBXjsO88o906N2j5aBRm8xKmu?=
+ =?us-ascii?Q?W1U2ZSOLP3BlMJof63QbHO1d2AqM6ldTyNH+NRiTQfDM/0kyXFn0vwu8k7ys?=
+ =?us-ascii?Q?xtxQRCmkclYxtdW/5J2DMunOnlGSpNu1vPnXiDkbAvPwP7HNApq3yrscv8xx?=
+ =?us-ascii?Q?RnRpy2qbBw=3D=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd44fbca-132c-42a9-c019-08dede725d94
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5832.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 10:59:51.3523 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IrgwMxd9yryraQNmTjTbv2U37LzYKuv8hLEPRcHqd1bDvTu0/QvDwfgNNTcgdYf73iaGhUB8uZaa4uXSf3XvkA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KU4PR06MB8388
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,71 +129,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2026 at 01:47:43PM -0300, Jason Gunthorpe wrote:
-> On Fri, Jul 10, 2026 at 01:27:49PM -0300, Jason Gunthorpe wrote:
-> > On Tue, Jul 07, 2026 at 12:47:01PM -0700, Stanislav Kinsburskii wrote:
-> > 
-> > > +int hmm_range_fault_unlocked_timeout(struct hmm_range *range,
-> > > +				     unsigned long timeout)
-> > > +{
-> > > +	struct mm_struct *mm = range->notifier->mm;
-> > > +	unsigned long deadline = 0;
-> > > +	int locked, ret;
-> > > +
-> > > +	if (timeout)
-> > > +		deadline = jiffies + timeout;
-> > > +
-> > > +	do {
-> > > +		if (fatal_signal_pending(current))
-> > > +			return -EINTR;
-> > > +
-> > > +		if (timeout && time_after(jiffies, deadline))
-> > > +			return -EBUSY;
-> > 
-> > I really dislike there is a timeout here, HMM is supposed to be more
-> > deterministic. GUP doesn't have a timeout, what is this about?
-> 
-> It looks like you've moved the timeout processing related to the mmnu
-> notifier sequence from the callers into this helper. I'm fine with
-> that, but maybe add some comments that this timeout is helping
-> implement the mmu notifiers, and we do expect that the HMM part will
-> not timeout.
-> 
-> Though it is a little hard to see how your stated purpose of enabling
-> userfaultfd is going to work, aren't you pretty much guarenteed to hit
-> a timeout if the userfaultfd process is adversly scheduled? That's
-> going to end up broken.
-> 
+Since commit 55b48e23f5c4 ("genirq/devres: Add error handling in
+devm_request_*_irq()"), devm_request_threaded_irq() automatically logs
+detailed error messages on failure. Remove the now-redundant
+driver-specific dev_err() calls.
 
-The main customer for this new feature I have in mind is the MSHV driver
-which backs VMs memory with HMM, requires userfaultfd support for
-post-copy live migration and fast restore and it doesn't timeout.
+Signed-off-by: Pan Chuang <panchuang@vivo.com>
+---
+ drivers/accel/ethosu/ethosu_job.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-I agree, that this current timeout value used by the other callers might
-not be enough to repopulate the mappings with userfaultfd, but there
-drivers would get -EFAULT for uderfaultfd-backed mappings without this
-change anyway, so getting -EBUSY with the change instead doesn't look
-like a significant change to the behaviour from my POV.
+diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
+index 74f3493fb11a..cdc0d61ee53d 100644
+--- a/drivers/accel/ethosu/ethosu_job.c
++++ b/drivers/accel/ethosu/ethosu_job.c
+@@ -338,10 +338,8 @@ int ethosu_job_init(struct ethosu_device *edev)
+ 					ethosu_job_irq_handler_thread,
+ 					IRQF_SHARED, KBUILD_MODNAME,
+ 					edev);
+-	if (ret) {
+-		dev_err(dev, "failed to request irq\n");
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	edev->fence_context = dma_fence_context_alloc(1);
+ 
+-- 
+2.34.1
 
-> So, maybe the deadline should be resetting after every handled fault?
-> ie the timeout really is only about the mmu notifier and we don't
-> count the time spent handling faults or walking?
-> 
-
-The timeout was inherited from existing HMM users rather than introduced
-as a new HMM policy. Some GPU drivers use HMM_RANGE_DEFAULT_TIMEOUT as a
-budget for the whole range population operation, including HMM retries
-and subsequent driver mapping work.
-
-Moving retry handling into the unlocked helper would otherwise hide
-repeated -EBUSY returns from those callers and silently turn their
-bounded operation into an unbounded one. So the timeout argument is
-there to preserve existing caller semantics during conversion.
-
-I'd say it's up to the caller to provide big enough timeout for
-userfaultfd to succeed.
-
-Thanks,
-Stanislav
-
-> Jason
