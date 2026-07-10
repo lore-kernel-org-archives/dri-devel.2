@@ -4,50 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06A57C4450D
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15376C44507
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66ECE10F989;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B157E10F99D;
 	Fri, 10 Jul 2026 21:54:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m8lw/4nr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="L+o4gAqs";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E1A910E5A8;
- Fri, 10 Jul 2026 21:54:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D24CF10F982;
+ Fri, 10 Jul 2026 21:54:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783720491; x=1815256491;
+ t=1783720495; x=1815256495;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IPg964J+vFH9Nf7fM4mRxZxjLcoocFaWcN+vc/RO39s=;
- b=m8lw/4nrdhyfpENg/O0sGXvTBZ7FnoLLH8Id0OdSM9GYF6kKb8X6/ss3
- EKCAoewCW9wLGmVqIspDYLnRsjlklHLBB2tYzAK02ceAclQzzFDiJmZn7
- ZNaT6gPcWmJD8KLw9TUV6VXBT7wZYuH6nfSR8P5lOCcWkOjHkbR7Zo3By
- 5Qb8vn9W3nDx6ncEcTeArzfPDePF4U6UyRho9rmeO5WhnPWY0UIMl46VL
- mbqyLe/sLR9km5ozmrJCIJzAmW8tli4cCXiGci+oXFAXAVD0b0RFItpwc
- JqBJLdG37LyYvQA8KLCmNKUBxs/XeUKEYySkdWiwwPKyzlQ8IURn2zgNo Q==;
-X-CSE-ConnectionGUID: 5rdaf8DsTQSR5XLbIi4Txw==
-X-CSE-MsgGUID: ta3dV6W8RISagIMeMVdJ6A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543126"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543126"
+ bh=XA67jmHSr1zMGs/Te5BEIXnx1qHw71OLQYIu/Bi2YSk=;
+ b=L+o4gAqsWpXBnxlDkmjwuF3Dv8wk3stdTStEQcVb1tMWs8nhUCKY3JFk
+ gGnuuXGtlwlTwe9fvzX48AtGs0SAubS6VuLm95yxoGmPbcDSZsAZK2OZG
+ 24hhQi5PXGtFSPxOsxSRGsqkKXiHlcdJIBEtzUWZ7hGj1lxrG/nbLzqzH
+ Y5vei4WARKfoV6dfRiWp55KHRiHyllg4s2MptR4SwqhEo/2luNITrD1pb
+ ENS7OgLe6LCrqbwtsQLRtM+wNfpxYEj975Dc2pzRJpNt0cgOxCIodWi5b
+ 1uid1SSFg6o84KNk7U31WPCduYqL03242xtrmazKJEf/MKbx3oAaesWTi w==;
+X-CSE-ConnectionGUID: HBDPSSrKRmGfzRT2LpDs3g==
+X-CSE-MsgGUID: pVyNUV94Qe+GVOP4A6FVcA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543205"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543205"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:51 -0700
-X-CSE-ConnectionGUID: 2Xej6xuxS1SHE/plYEfvsg==
-X-CSE-MsgGUID: Nn33H4AnSzOuCZVpYYYU+w==
+ 10 Jul 2026 14:54:54 -0700
+X-CSE-ConnectionGUID: K8EslECvSiePPO/7vmxW3w==
+X-CSE-MsgGUID: 9U2jldv4QjK1Pfu+RJCJXg==
 X-ExtLoop1: 1
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:51 -0700
+ 10 Jul 2026 14:54:54 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v2 12/33] drm/xe: Add debugfs stats for DMA-mapped pages per
- order
-Date: Fri, 10 Jul 2026 14:54:21 -0700
-Message-Id: <20260710215442.2444235-13-matthew.brost@intel.com>
+Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v2 23/33] drm/xe: Defrag using out-of-lock page preallocation
+Date: Fri, 10 Jul 2026 14:54:32 -0700
+Message-Id: <20260710215442.2444235-24-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260710215442.2444235-1-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
@@ -69,411 +75,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Convert xe_bo_defrag_one() to a three-phase scheme that moves the
+expensive beneficial-order allocations out of the BO dma-resv lock:
 
-Expose per-page-order DMA mapping counts for the system memory that the
-xe driver maps for GPU access, split into two categories: TTM buffer
-objects, and the GPU SVM / userptr ranges (which share a single
-drm_gpusvm instance per VM).
+ 1. Under the lock, re-check eligibility, capture the tt cpu-caching and
+    read the exact sub-optimal page count (ttm_tt_suboptimal_pages()),
+    bounded by the run budget.
+ 2. Drop the lock and preallocate that many beneficial-order chunks via
+    ttm_pool_prealloc_fill(); reclaim/compaction stalls and the cpu
+    cache mode change both happen here, outside the lock.
+ 3. Re-take the lock, re-check, and validate consuming the prealloc bag.
+    Any shortfall harvests the old backing instead of reclaiming, so the
+    move never stalls under the lock; the BO re-queues for a later pass.
 
-The stats are visible at:
+With both allocation and caching hoisted out, the BO-lock held time
+drops to copy-bound (median ~0.27ms, p95 ~2ms); the remaining tail is
+lock-wait behind active rendering, as intended.
 
-  <debugfs>/dri/<N>/dma_mapped_pages
-
-and are broken out into two rows (bo, svm/userptr), one column per page
-order, mirroring the layout of the TTM pool page_pool stat.
-
-For TTM BOs the per-order counts are derived from the DMA scatter-gather
-table: each mapped segment is physically contiguous, so its page count is
-split into the largest power-of-two runs (a segment of N pages contributes
-a 2^k chunk for the largest k with 2^k <= N, repeated for the remainder).
-Driving the accounting off the sg table rather than the pages[] array keeps
-it correct even when pages[] entries are cleared while still DMA-mapped,
-as happens on the defrag page-borrowing path.
-
-For the SVM and userptr ranges the accounting is driven by the
-drm_gpusvm @dma_map_account callback, which fires once per dma_addr[]
-entry at the exact point the entry is DMA-mapped and unmapped. This
-makes the accounting symmetric by construction and avoids driver-side
-walks that could drift across migration, partial unmaps and the iova vs
-non-iova paths. Only DRM_INTERCONNECT_SYSTEM entries are real DMA maps
-and counted; device interconnect (VRAM, P2P) entries are skipped, so the
-counter reflects only system pages actually mapped through the DMA layer.
-
-The callback is shared between the full SVM instance (fault mode) and the
-core drm_gpusvm_pages-only instance used for userptr, so userptr
-mappings are accounted in both the CONFIG_DRM_XE_GPUSVM=y and =n (but
-CONFIG_DRM_GPUSVM=y) configurations, into the same svm/userptr counter.
-
-Since the counts are only ever consumed through debugfs, gate the counter
-storage and all accounting on CONFIG_DEBUG_FS so that builds without
-debugfs carry no extra atomic traffic or device state; the drm_gpusvm
-callback is simply left unregistered in that case.
-
-On device teardown assert that every counter has returned to zero, to
-catch any unbalanced accounting (a leaked DMA mapping) during testing.
-
+Cc: Carlos Santa <carlos.santa@intel.com>
+Cc: Ryan Neph <ryanneph@google.com>
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Assisted-by: GitHub_Copilot:claude-opus-4.8
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/xe/xe_bo.c           | 46 +++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_debugfs.c      | 26 +++++++++++++
- drivers/gpu/drm/xe/xe_device.c       | 24 ++++++++++++
- drivers/gpu/drm/xe/xe_device_types.h | 17 +++++++++
- drivers/gpu/drm/xe/xe_svm.c          | 36 +++++++++++++++++-
- drivers/gpu/drm/xe/xe_svm.h          |  3 +-
- drivers/gpu/drm/xe/xe_userptr.c      | 55 ++++++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_userptr.h      |  1 +
- 8 files changed, 205 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/xe/xe_bo.c | 46 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 45 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 85e6d9a0f575..60e0e568aa31 100644
+index 405316d0d116..2f014fc9f988 100644
 --- a/drivers/gpu/drm/xe/xe_bo.c
 +++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -367,6 +367,50 @@ struct xe_ttm_tt {
- 	bool purgeable;
- };
+@@ -1249,15 +1249,55 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
+ 		.defrag_bytes_remaining = budget,
+ 	};
+ 	struct ttm_buffer_object *ttm_bo = &bo->ttm;
++	struct ttm_pool *pool = &ttm_bo->bdev->pool;
++	struct ttm_pool_prealloc pp = {};
+ 	struct ttm_placement placement;
+ 	struct ttm_place place;
++	enum ttm_caching tt_caching;
++	unsigned int order, want = 0;
+ 	int ret = 0;
  
-+/*
-+ * xe_tt_account_dma_pages - account DMA-mapped tt pages per order
-+ * @xe: the xe device
-+ * @xe_tt: the xe_ttm_tt whose sg table to walk
-+ * @sign: +1 to add, -1 to subtract
-+ *
-+ * Walk the tt's DMA scatter-gather table and split each (physically
-+ * contiguous) segment into the largest power-of-two page runs: a segment of N
-+ * pages contributes a 2^k chunk for the largest k with 2^k <= N, repeated for
-+ * the remainder. Accumulate the count of 2^k pages into
-+ * xe->mem.dma_mapped_pages[k]. Driving this off the sg table rather than
-+ * tt->pages keeps the accounting correct even when pages[] entries are cleared
-+ * while still DMA-mapped (e.g. the defrag page-borrowing path).
-+ */
-+#if IS_ENABLED(CONFIG_DEBUG_FS)
-+static void xe_tt_account_dma_pages(struct xe_device *xe,
-+				    struct xe_ttm_tt *xe_tt, int sign)
-+{
-+	struct scatterlist *sg;
-+	unsigned int i;
+ 	*consumed = 0;
+ 
++	/*
++	 * Phase 1: under the BO lock, re-check eligibility and estimate how
++	 * many beneficial-order chunks the move will (re)allocate, bounded by
++	 * the run's byte budget. Then drop the lock so the high-order, possibly
++	 * reclaim/compaction stalling allocations happen unlocked.
++	 */
++	xe_bo_lock(bo, false);
++	if (!xe_bo_needs_defrag(bo)) {
++		xe_bo_defrag_remove(bo);
++		xe_bo_unlock(bo);
++		goto out;
++	}
++	tt_caching = bo->ttm.ttm->caching;
++	order = ttm_pool_prealloc_order(pool);
++	if (order && ttm_bo->ttm) {
++		u32 suboptimal = ttm_tt_suboptimal_pages(ttm_bo->ttm);
++		u64 cap = min_t(u64, budget, xe_bo_size(bo)) >> PAGE_SHIFT;
 +
-+	for_each_sgtable_sg(xe_tt->sg, sg, i) {
-+		unsigned long nr_pages = sg->length >> PAGE_SHIFT;
++		/* Prealloc only the beneficial-order chunks the move replaces. */
++		want = DIV_ROUND_UP(min_t(u64, suboptimal, cap), 1UL << order);
++	}
++	xe_bo_unlock(bo);
 +
-+		while (nr_pages) {
-+			unsigned int order = min_t(unsigned int,
-+						   __fls(nr_pages),
-+						   MAX_PAGE_ORDER);
-+			unsigned long chunk = 1UL << order;
-+
-+			atomic_long_add((long)chunk * sign,
-+					&xe->mem.dma_mapped_pages[order]);
-+
-+			nr_pages -= chunk;
++	/* Phase 2: preallocate outside the lock; */
++	if (want) {
++		ret = ttm_pool_prealloc_fill(pool, tt_caching, &pp, want);
++		if (ret || !pp.count) {
++			ret = ret ?: -ENOMEM;
++			xe_gt_stats_incr(xe_root_mmio_gt(xe),
++					 XE_GT_STATS_ID_DEFRAG_FAILED_COUNT, 1);
++			goto out_err;
 +		}
 +	}
-+}
-+#else
-+static void xe_tt_account_dma_pages(struct xe_device *xe,
-+				    struct xe_ttm_tt *xe_tt, int sign)
-+{
-+}
-+#endif
-+
- static int xe_tt_map_sg(struct xe_device *xe, struct ttm_tt *tt)
- {
- 	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
-@@ -396,6 +440,7 @@ static int xe_tt_map_sg(struct xe_device *xe, struct ttm_tt *tt)
- 		return ret;
- 	}
- 
-+	xe_tt_account_dma_pages(xe, xe_tt, 1);
- 	return 0;
- }
- 
-@@ -404,6 +449,7 @@ static void xe_tt_unmap_sg(struct xe_device *xe, struct ttm_tt *tt)
- 	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
- 
- 	if (xe_tt->sg) {
-+		xe_tt_account_dma_pages(xe, xe_tt, -1);
- 		dma_unmap_sgtable(xe->drm.dev, xe_tt->sg,
- 				  DMA_BIDIRECTIONAL, 0);
- 		sg_free_table(xe_tt->sg);
-diff --git a/drivers/gpu/drm/xe/xe_debugfs.c b/drivers/gpu/drm/xe/xe_debugfs.c
-index 8c391c7b017a..97b47c5c4213 100644
---- a/drivers/gpu/drm/xe/xe_debugfs.c
-+++ b/drivers/gpu/drm/xe/xe_debugfs.c
-@@ -6,6 +6,7 @@
- #include "xe_debugfs.h"
- 
- #include <linux/debugfs.h>
-+#include <linux/mmzone.h>
- #include <linux/fault-inject.h>
- #include <linux/string_helpers.h>
- 
-@@ -231,6 +232,28 @@ static int dgfx_pcie_link_residencies_show(struct seq_file *m, void *data)
- 	return 0;
- }
- 
-+static int dma_mapped_pages_show(struct seq_file *m, void *data)
-+{
-+	struct xe_device *xe = m->private;
-+	unsigned int i;
-+
-+	seq_printf(m, "%-11s ", "");
-+	for (i = 0; i < NR_PAGE_ORDERS; i++)
-+		seq_printf(m, " ---%2u---", i);
-+	seq_printf(m, "\n%-11s:", "bo");
-+	for (i = 0; i < NR_PAGE_ORDERS; i++)
-+		seq_printf(m, " %8lu",
-+			   atomic_long_read(&xe->mem.dma_mapped_pages[i]));
-+	seq_printf(m, "\n%-11s:", "svm/userptr");
-+	for (i = 0; i < NR_PAGE_ORDERS; i++)
-+		seq_printf(m, " %8lu",
-+			   atomic_long_read(&xe->mem.dma_mapped_pages_svm[i]));
-+	seq_puts(m, "\n");
-+
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(dma_mapped_pages);
-+
- static const struct drm_info_list debugfs_list[] = {
- 	{"info", info, 0},
- 	{ .name = "sriov_info", .show = sriov_info, },
-@@ -632,6 +655,9 @@ void xe_debugfs_register(struct xe_device *xe)
- 	if (man)
- 		ttm_resource_manager_create_debugfs(man, root, "stolen_mm");
- 
-+	debugfs_create_file("dma_mapped_pages", 0444, root, xe,
-+			    &dma_mapped_pages_fops);
-+
- 	for_each_tile(tile, xe, tile_id)
- 		xe_tile_debugfs_register(tile);
- 
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index ad7f3e61d457..0c4ee874a56d 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -455,10 +455,34 @@ bool xe_device_is_admin_only(const struct xe_device *xe)
- }
- #endif
- 
-+#if IS_ENABLED(CONFIG_DEBUG_FS)
-+static void xe_device_assert_dma_pages_zero(struct xe_device *xe)
-+{
-+	unsigned int i;
 +
 +	/*
-+	 * All BOs, userptr VMAs and SVM ranges must have been torn down by the
-+	 * time the device is destroyed, so every DMA-mapped-pages counter must
-+	 * have returned to zero. A non-zero value indicates unbalanced
-+	 * accounting, i.e. a missing unmap-side decrement.
++	 * Phase 3: re-take the lock, re-check, and validate using the prealloc.
 +	 */
-+	for (i = 0; i < NR_PAGE_ORDERS; i++) {
-+		xe_assert(xe, !atomic_long_read(&xe->mem.dma_mapped_pages[i]));
-+		xe_assert(xe, !atomic_long_read(&xe->mem.dma_mapped_pages_svm[i]));
-+	}
-+}
-+#else
-+static void xe_device_assert_dma_pages_zero(struct xe_device *xe)
-+{
-+}
-+#endif
-+
- static void xe_device_destroy(struct drm_device *dev, void *dummy)
- {
- 	struct xe_device *xe = to_xe_device(dev);
+ 	xe_bo_lock(bo, false);
  
-+	xe_device_assert_dma_pages_zero(xe);
-+
- 	xe_bo_dev_fini(&xe->bo_device);
+-	/* Re-check eligibility under the BO lock. */
+ 	if (!xe_bo_needs_defrag(bo)) {
+ 		xe_bo_defrag_remove(bo);
+ 		goto unlock;
+@@ -1267,6 +1307,7 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
+ 	place.flags |= TTM_PL_FLAG_TEMPORARY;
+ 	placement.num_placement = 1;
+ 	placement.placement = &place;
++	ctx.prealloc = &pp;
  
- 	if (xe->preempt_fence_wq)
-diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
-index 022e08205897..95e7cea91cbf 100644
---- a/drivers/gpu/drm/xe/xe_device_types.h
-+++ b/drivers/gpu/drm/xe/xe_device_types.h
-@@ -6,6 +6,7 @@
- #ifndef _XE_DEVICE_TYPES_H_
- #define _XE_DEVICE_TYPES_H_
+ 	/*
+ 	 * On success the move reallocates the backing at beneficial order and
+@@ -1309,6 +1350,9 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
  
-+#include <linux/mmzone.h>
- #include <linux/pci.h>
- 
- #include <drm/drm_device.h>
-@@ -279,6 +280,22 @@ struct xe_device {
- 		struct xe_shrinker *shrinker;
- 		/** @mem.stolen_mgr: stolen memory manager. */
- 		struct xe_ttm_stolen_mgr *stolen_mgr;
-+#if IS_ENABLED(CONFIG_DEBUG_FS)
-+		/**
-+		 * @mem.dma_mapped_pages: number of DMA-mapped pages per page
-+		 * order currently live for this device, for TTM BOs. Only
-+		 * accounted when CONFIG_DEBUG_FS is enabled, since it is solely
-+		 * exposed through debugfs.
-+		 */
-+		atomic_long_t dma_mapped_pages[NR_PAGE_ORDERS];
-+		/**
-+		 * @mem.dma_mapped_pages_svm: number of DMA-mapped pages per
-+		 * page order currently live for this device, for SVM ranges
-+		 * and userptr VMAs (both share a single drm_gpusvm instance).
-+		 * Only accounted when CONFIG_DEBUG_FS is enabled.
-+		 */
-+		atomic_long_t dma_mapped_pages_svm[NR_PAGE_ORDERS];
-+#endif
- 	} mem;
- 
- 	/** @sriov: device level virtualization data */
-diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-index b228a737cfd6..2f639fc0cac4 100644
---- a/drivers/gpu/drm/xe/xe_svm.c
-+++ b/drivers/gpu/drm/xe/xe_svm.c
-@@ -827,10 +827,42 @@ static int xe_svm_get_pagemaps(struct xe_vm *vm)
+ unlock:
+ 	xe_bo_unlock(bo);
++out_err:
++	ttm_pool_prealloc_fini(pool, &pp);
++out:
+ 	return ret;
  }
- #endif
- 
-+#if IS_ENABLED(CONFIG_DEBUG_FS)
-+/*
-+ * xe_svm_dma_map_account - drm_gpusvm DMA-mapping accounting callback
-+ * @gpusvm: The GPU SVM the mapping belongs to
-+ * @addr: The address descriptor of the chunk being (un)mapped
-+ * @sign: +1 when @addr was DMA-mapped, -1 when it is being unmapped
-+ *
-+ * Maintain per-order counts of the system-memory pages that the full SVM
-+ * instance (SVM ranges, and userptr VMAs in fault mode) has DMA-mapped for GPU
-+ * access. Only DRM_INTERCONNECT_SYSTEM entries are real DMA maps and counted;
-+ * device interconnect (VRAM, P2P) entries are skipped. The counts are solely
-+ * exposed through debugfs, so the callback is only registered when
-+ * CONFIG_DEBUG_FS is enabled.
-+ */
-+static void xe_svm_dma_map_account(struct drm_gpusvm *gpusvm,
-+				   const struct drm_pagemap_addr *addr,
-+				   int sign)
-+{
-+	struct xe_device *xe = gpusvm_to_vm(gpusvm)->xe;
-+	unsigned int order = addr->order;
-+
-+	if (addr->proto != DRM_INTERCONNECT_SYSTEM)
-+		return;
-+
-+	atomic_long_add((long)(1UL << order) * sign,
-+			&xe->mem.dma_mapped_pages_svm[order]);
-+}
-+#endif
-+
- static const struct drm_gpusvm_ops gpusvm_ops = {
- 	.range_alloc = xe_svm_range_alloc,
- 	.range_free = xe_svm_range_free,
- 	.invalidate = xe_svm_invalidate,
-+#if IS_ENABLED(CONFIG_DEBUG_FS)
-+	.dma_map_account = xe_svm_dma_map_account,
-+#endif
- };
- 
- static const unsigned long fault_chunk_sizes[] = {
-@@ -925,8 +957,8 @@ int xe_svm_init(struct xe_vm *vm)
- 		}
- 	} else {
- 		err = drm_gpusvm_init(&vm->svm.gpusvm, "Xe SVM (simple)",
--				      NULL, 0, 0, 0, NULL,
--				      NULL, 0);
-+				      NULL, 0, 0, 0,
-+				      xe_userptr_gpusvm_ops_get(), NULL, 0);
- 	}
- 
- 	return err;
-diff --git a/drivers/gpu/drm/xe/xe_svm.h b/drivers/gpu/drm/xe/xe_svm.h
-index a921556d3466..edd668c41551 100644
---- a/drivers/gpu/drm/xe/xe_svm.h
-+++ b/drivers/gpu/drm/xe/xe_svm.h
-@@ -236,7 +236,8 @@ int xe_svm_init(struct xe_vm *vm)
- {
- #if IS_ENABLED(CONFIG_DRM_GPUSVM)
- 	return drm_gpusvm_init(&vm->svm.gpusvm, "Xe SVM (simple)",
--			       NULL, 0, 0, 0, NULL, NULL, 0);
-+			       NULL, 0, 0, 0, NULL, NULL,
-+			       xe_userptr_gpusvm_ops_get(), 0);
- #else
- 	return 0;
- #endif
-diff --git a/drivers/gpu/drm/xe/xe_userptr.c b/drivers/gpu/drm/xe/xe_userptr.c
-index 8b2d461ea0b2..79c2a81001f2 100644
---- a/drivers/gpu/drm/xe/xe_userptr.c
-+++ b/drivers/gpu/drm/xe/xe_userptr.c
-@@ -8,9 +8,64 @@
- 
- #include <linux/mm.h>
- 
-+#include <drm/drm_pagemap.h>
-+
- #include "xe_tlb_inval.h"
- #include "xe_trace_bo.h"
- 
-+#if IS_ENABLED(CONFIG_DEBUG_FS)
-+/*
-+ * xe_userptr_dma_map_account - drm_gpusvm DMA-mapping accounting callback
-+ * @gpusvm: The GPU SVM the mapping belongs to
-+ * @addr: The address descriptor of the chunk being (un)mapped
-+ * @sign: +1 when @addr was DMA-mapped, -1 when it is being unmapped
-+ *
-+ * Account, per page order, the system-memory pages DMA-mapped for GPU access
-+ * through the drm_gpusvm_pages instance shared by userptr (and, in fault mode,
-+ * SVM). Only DRM_INTERCONNECT_SYSTEM entries are real DMA maps and counted;
-+ * device interconnect (VRAM, P2P) entries are skipped. The counts are solely
-+ * exposed through debugfs, so the callback is only registered when
-+ * CONFIG_DEBUG_FS is enabled.
-+ */
-+static void xe_userptr_dma_map_account(struct drm_gpusvm *gpusvm,
-+				       const struct drm_pagemap_addr *addr,
-+				       int sign)
-+{
-+	struct xe_vm *vm = container_of(gpusvm, struct xe_vm, svm.gpusvm);
-+	unsigned int order = addr->order;
-+
-+	if (addr->proto != DRM_INTERCONNECT_SYSTEM)
-+		return;
-+
-+	atomic_long_add((long)(1UL << order) * sign,
-+			&vm->xe->mem.dma_mapped_pages_svm[order]);
-+}
-+
-+static const struct drm_gpusvm_ops xe_userptr_gpusvm_ops = {
-+	.dma_map_account = xe_userptr_dma_map_account,
-+};
-+#endif
-+
-+/**
-+ * xe_userptr_gpusvm_ops_get() - Accounting ops for the simple gpusvm instance
-+ *
-+ * The core drm_gpusvm_pages-only instance used for userptr (and, in fault
-+ * mode, shared with SVM) is initialised with these ops so that DMA-mapped
-+ * system pages are accounted and exposed through debugfs. Returns NULL when
-+ * CONFIG_DEBUG_FS is disabled, in which case no accounting is kept and the
-+ * instance is initialised without ops.
-+ *
-+ * Return: Pointer to the restricted &drm_gpusvm_ops, or NULL.
-+ */
-+const struct drm_gpusvm_ops *xe_userptr_gpusvm_ops_get(void)
-+{
-+#if IS_ENABLED(CONFIG_DEBUG_FS)
-+	return &xe_userptr_gpusvm_ops;
-+#else
-+	return NULL;
-+#endif
-+}
-+
- static void xe_userptr_assert_in_notifier(struct xe_vm *vm)
- {
- 	lockdep_assert(lockdep_is_held_type(&vm->svm.gpusvm.notifier_lock, 0) ||
-diff --git a/drivers/gpu/drm/xe/xe_userptr.h b/drivers/gpu/drm/xe/xe_userptr.h
-index 2a3cd1b5efbb..1e9601be5713 100644
---- a/drivers/gpu/drm/xe/xe_userptr.h
-+++ b/drivers/gpu/drm/xe/xe_userptr.h
-@@ -108,6 +108,7 @@ int __xe_vm_userptr_needs_repin(struct xe_vm *vm);
- int xe_vm_userptr_check_repin(struct xe_vm *vm);
- int xe_vma_userptr_pin_pages(struct xe_userptr_vma *uvma);
- int xe_vma_userptr_check_repin(struct xe_userptr_vma *uvma);
-+const struct drm_gpusvm_ops *xe_userptr_gpusvm_ops_get(void);
- #else
- static inline void xe_userptr_remove(struct xe_userptr_vma *uvma) {}
  
 -- 
 2.34.1
