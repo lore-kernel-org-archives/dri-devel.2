@@ -4,65 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56B05C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 12:12:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68A11C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 12:12:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3E0410F89B;
-	Fri, 10 Jul 2026 12:12:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC2FA10F89D;
+	Fri, 10 Jul 2026 12:12:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YsHYXBoU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WidCZMvT";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D68310F897;
- Fri, 10 Jul 2026 12:12:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A4E410F89D
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:12:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4DF9460051;
- Fri, 10 Jul 2026 12:12:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F2EC1F000E9;
- Fri, 10 Jul 2026 12:12:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1A16B4089B;
+ Fri, 10 Jul 2026 12:12:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF9FE1F00A3A;
+ Fri, 10 Jul 2026 12:12:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783685538;
- bh=2mX5s+LgF61GsTT2jOOQtbwBRT5YocgNpg7DpK7Idac=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=YsHYXBoUwEO/JD7uEwImzg3mv7r4evHYn6bmm/BpwFz7s+/PEwFuAjQwpC9NLZTD1
- uJiaFsewk7OWDBXeUTrZRYi3CisEgF1I2aAOEqad225cY6f/P7our9/zVZA9xwWjUf
- gWh99RMEJrfxKFrTpFsWA2bi+SyaLc9Cd6P8qCO0megJ5ZRuh7ZlTI3YW53k+vUyvV
- 8QEaTaE63VVnw+8W2DmuU+gHjLUFXUvjCp4nuKuqEckoC1l5cvi2RdnxTeafSuYftb
- uui7ecoebrEKYvZpeR5W9/axJDkt1zUqKM0o3phcWbkxcx2zEVQaPpW16AabvYVH6k
- mcLVwF5Hg+7vA==
-Date: Fri, 10 Jul 2026 17:42:00 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
- mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
- mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
- jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
- vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jenswi@kernel.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v9 00/14] firmware: qcom: Add OP-TEE PAS service
- support
-Message-ID: <alDhkHVnzReCgU6H@sumit-xelite>
-References: <20260702115835.167602-1-sumit.garg@kernel.org>
- <178362521364.2422497.1305957434056184382.b4-ty@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178362521364.2422497.1305957434056184382.b4-ty@kernel.org>
+ s=k20260515; t=1783685553;
+ bh=PIGwd2rIueduVNVNdw7hsZ87XxwXjgkVQ55fphDb08E=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=WidCZMvTDEZRS96gXEv5MFxKNwAODVqJh+xKcQO6YsaBMWwZOKOFRBAlkwOy9oZWz
+ a9LjkIv9pi/Mjj7HR/9QfmudQEkk38RSIfv1TEgExeATR0HrHwLNSoKqZug/WiE9SO
+ EV+VFKw+ENpeQGRqK0/s98TVdsk/jGQ1Zbi3JhlVt9R6+VTjbArxZXsmNaygUiF20M
+ En4+U5Zvj8RZ2m8lVe1EFSCM9kt2RXXwYfYGYizucoemytQGrDumVxKUQCq02+cadD
+ 5kpoQQj+C9ebxgspvJOat2NTELJcwrJBnAjo5oPg7UJt4wfse6CScxeBvgeNcITXxi
+ IGKenfqJMAtMg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] drm/etnaviv: Add GPU reset counters
+To: "Christian Gmeiner" <christian.gmeiner@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260710-etnaviv-reset-notification-v3-2-7a145c8a1d01@igalia.com>
+References: <20260710-etnaviv-reset-notification-v3-0-7a145c8a1d01@igalia.com>
+ <20260710-etnaviv-reset-notification-v3-2-7a145c8a1d01@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Jul 2026 12:12:31 +0000
+Message-Id: <20260710121231.EF9FE1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,50 +53,130 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Bjorn,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Data race on `ctx->reset_counter` when a context submits to mult=
+iple GPUs.
+--
 
-On Thu, Jul 09, 2026 at 02:32:39PM -0500, Bjorn Andersson wrote:
-> 
-> On Thu, 02 Jul 2026 17:28:16 +0530, Sumit Garg wrote:
-> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > 
-> > Qcom platforms has the legacy of using non-standard SCM calls
-> > splintered over the various kernel drivers. These SCM calls aren't
-> > compliant with the standard SMC calling conventions which is a
-> > prerequisite to enable migration to the FF-A specifications from Arm.
-> > 
-> > [...]
-> 
-> Applied, thanks!
-> 
-> [01/14] firmware: qcom: Add a generic PAS service
->         commit: 08314e7c2c38b9ae6a5e01c58ed10a950859404d
-> [02/14] firmware: qcom_scm: Migrate to generic PAS service
->         commit: 5c1a2975d23c51c01aca51945d0f10a4ee4c9020
-> [03/14] firmware: qcom: Add a PAS TEE service
->         commit: b6f7978da0c4d26fe465aa6634f5a0b48f900de0
-> [14/14] MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
->         commit: 6701259025d49139131a0eb2257659a066dcca22
-> 
-> This is available as an immutable branch, for other subsystems to pull at:
->   https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260702115835.167602-2-sumit.garg@kernel.org
-> 
-> 
-> [04/14] remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
->         commit: 254030af0d81b12b7624d9ce85c6bdd3171629c6
-> [05/14] remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
->         commit: f3b1357673ddb37ae8b9a8fe44df73cbd2a519c5
-> [06/14] remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
->         commit: ea3b5245f5deba916320b32a8e6510a74c034c17
-> [07/14] remoteproc: qcom: Select QCOM_PAS generic service
->         commit: c4383254ac7a529736577e304176a10371c2ee0b
-> 
+--- Patch [2]: [PATCH v3 2/2] drm/etnaviv: Add GPU reset counters ---
+commit abb119dbbf6be05ed3e37091e5708fd834c6fb78
+Author: Christian Gmeiner <cgmeiner@igalia.com>
 
-Thanks for picking the partial set although I expected for you to pick
-the entire set given acks from all the other subsystem maintainers. Let
-me know how we should proceed further.
+drm/etnaviv: Add GPU reset counters
 
--Sumit
+This commit introduces two counters for tracking GPU resets: a per-GPU coun=
+ter
+and a per-context counter, queryable via a new RESET_QUERY ioctl. Userspace
+can use these counters to determine if its context was guilty of a reset or
+just an innocent victim.
+
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etna=
+viv/etnaviv_drv.c
+> index a27ed014fb4e7..5c50e5a244082 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+
+[ ... ]
+
+> @@ -296,6 +296,32 @@ static int etnaviv_ioctl_get_param(struct drm_device=
+ *dev, void *data,
+>  	return etnaviv_gpu_get_param(gpu, args->param, &args->value);
+>  }
+> =20
+> +static int etnaviv_ioctl_reset_query(struct drm_device *dev, void *data,
+> +		struct drm_file *file)
+> +{
+> +	struct etnaviv_drm_private *priv =3D dev->dev_private;
+> +	struct etnaviv_file_private *ctx =3D file->driver_priv;
+> +	struct drm_etnaviv_reset_query *args =3D data;
+> +	struct etnaviv_gpu *gpu;
+> +
+> +	if (args->flags)
+> +		return -EINVAL;
+> +
+> +	if (args->pipe >=3D ETNA_MAX_PIPES)
+> +		return -EINVAL;
+> +
+> +	gpu =3D priv->gpu[args->pipe];
+> +	if (!gpu)
+> +		return -ENXIO;
+> +
+> +	mutex_lock(&gpu->lock);
+> +	args->global_reset_counter =3D gpu->reset_counter;
+> +	args->context_reset_counter =3D ctx->reset_counter;
+
+[Severity: Medium]
+Will this read of ctx->reset_counter race with updates on other GPUs?
+
+Since ctx (struct etnaviv_file_private) can be shared across multiple GPU
+cores, reading it under a single gpu->lock leaves it exposed to concurrent
+updates from timeout handlers running on different GPUs.
+
+> +	mutex_unlock(&gpu->lock);
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.h b/drivers/gpu/drm/etna=
+viv/etnaviv_drv.h
+> index cba4323ae589c..9c348aa7f8d35 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.h
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
+> @@ -34,6 +34,7 @@ struct etnaviv_file_private {
+>  	int id;
+>  	struct etnaviv_iommu_context	*mmu;
+>  	struct drm_sched_entity		sched_entity[ETNA_MAX_PIPES];
+> +	u32 reset_counter;
+
+[Severity: Medium]
+Since this context counter is shared across multiple GPU cores and can be
+updated concurrently if jobs on different GPUs hang simultaneously, does th=
+is
+need to be an atomic_t?
+
+Using a plain u32 for concurrent accesses can lead to data races and lost
+updates.
+
+>  };
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/et=
+naviv/etnaviv_sched.c
+> index 139e6e38784b3..6e9b677122e3d 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+> @@ -79,6 +79,11 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_=
+job(struct drm_sched_job
+>  	if(sched_job)
+>  		drm_sched_increase_karma(sched_job);
+> =20
+> +	mutex_lock(&gpu->lock);
+> +	gpu->reset_counter++;
+> +	submit->ctx->reset_counter++;
+
+[Severity: Medium]
+Could this increment of submit->ctx->reset_counter race with other timeout
+handlers?
+
+The gpu->lock only protects the specific GPU, but the ctx is shared across
+all pipes. If two GPUs hang simultaneously, two timeout handlers could run
+concurrently on different workqueues and race while incrementing this
+plain integer, causing lost updates.
+
+> +	mutex_unlock(&gpu->lock);
+> +
+>  	/* get the GPU back into the init state */
+>  	etnaviv_core_dump(submit);
+>  	etnaviv_gpu_recover_hang(submit);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-etnaviv-re=
+set-notification-v3-0-7a145c8a1d01@igalia.com?part=3D2
