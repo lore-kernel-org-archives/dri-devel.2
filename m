@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B3FDC4450E
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33B30C44506
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6423910F999;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 088F210F9A4;
 	Fri, 10 Jul 2026 21:54:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CVFOs+Ap";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b1mwNmiA";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3350210E4B2;
- Fri, 10 Jul 2026 21:54:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6E4810F974;
+ Fri, 10 Jul 2026 21:54:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783720493; x=1815256493;
+ t=1783720495; x=1815256495;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=RU2m66qHxawEY+yc3BVQ7M+UAP7WYB/UvwO4LeO/dqA=;
- b=CVFOs+Ap3A2ABgXFAzOFQs4VsM6kM9wgbIlcsUNhm+O9JLRHVfFZfEQb
- 3v7eJhVUuaxcXghwLQeoNCxmCD3GxT9XY8W7g3q/86A4K8vKRkdfbM3Jt
- dwdGXUuKqVX3k+SHVnTEGMg3Ev4cNda53KrA0cW6IvCIihNk0eiVR5ruV
- R4wrYJhfheh0YAzWKwP+viJ3fDb4kgoVyTknPib21TDus8nmKADNFiga5
- F2LKXz5c7twwdKMg7LZ2eB5yGQPWjnASA1xcpsLu0jt0H4/Kngl2N/0jt
- vLAXKjicRQ3/H6+yfDZW230VGuNd5xv6DhJk9eN1qqewgp6qfsnPdPrDR g==;
-X-CSE-ConnectionGUID: s6v88XtGRFC9CPfqD1Hglw==
-X-CSE-MsgGUID: sakOvNbwSDyKGzKWDXkXPw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543165"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543165"
+ bh=fQ9bf+3yhPseJ9wK2nWSw6m5lBFQGHvWX/aYpOlj9Kg=;
+ b=b1mwNmiAMZ8sM6uFfTGbOtC3s/xU5ZAGIgxK7aRCKzlvIBRtQdEIw6Or
+ gBFjYGkyN+FkK7ptP6oFVSdsYiR7YYtilUtOEPFQ6Fy3F9te0GqgMjShv
+ dyuuu+ahiz/w8VRs3hyT+YdokeCo1ldykEBFNDLWGsqOW6agWMneyNrSI
+ g70vDAvhMLKiihDQz52mkVmHmk6xlF+Sd08AhzMB62dqJqjoymoP8KzYf
+ ZAvgP4zL+RVKXUup3hwhwpeFqLI9htOK/B8CSyOxfDPveh2YhbOpVSKhh
+ cdWqVevkvr5FcKUi14y0TbAQrTuXDhEp9OcBYQqKYFeC1QOJe1ELDUNKe g==;
+X-CSE-ConnectionGUID: PkUpzE2WRM+qYGTRCb3Omw==
+X-CSE-MsgGUID: mzCXfo/WSeKmpt1exEoDRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543197"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543197"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:53 -0700
-X-CSE-ConnectionGUID: r/GHF95USf6QFmhhhWJArA==
-X-CSE-MsgGUID: 7BHpNNixSIKbcEhbXK93EA==
+ 10 Jul 2026 14:54:54 -0700
+X-CSE-ConnectionGUID: PCJC83fiRiiju+qdllIRQQ==
+X-CSE-MsgGUID: S+dgmViHT82uGoNEUO2//g==
 X-ExtLoop1: 1
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:53 -0700
+ 10 Jul 2026 14:54:54 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -51,9 +51,10 @@ Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v2 18/33] drm/xe: Handle defrag moves in xe_bo_move()
-Date: Fri, 10 Jul 2026 14:54:27 -0700
-Message-Id: <20260710215442.2444235-19-matthew.brost@intel.com>
+Subject: [PATCH v2 22/33] drm/xe: Add Kconfig.profile options for BO defrag
+ configuration
+Date: Fri, 10 Jul 2026 14:54:31 -0700
+Message-Id: <20260710215442.2444235-23-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260710215442.2444235-1-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
@@ -75,23 +76,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Teach xe_bo_move() to service a defrag move, where TTM reallocates a
-BO's backing at the device's beneficial order and hands the old, still
-populated tt to the move via the BO's defrag_old_tt.
+Add Kconfig.profile options to make XE_BO_DEFRAG_* defines configurable:
+- DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD: Threshold for TTM reclaim
+  backoff
+- DRM_XE_BO_DEFRAG_SIZE_LIMIT: Maximum number of bytes to defrag per
+  work run
+- DRM_XE_BO_DEFRAG_INTERVAL_MS: Default delay before defrag worker runs
+- DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS: Upper bound for defrag worker
+  interval
 
-A defrag move always has existing contents to copy, so force
-move_lacks_source false and fall through the XE_PL_TT -> XE_PL_TT no-op
-shortcut so the copy path runs. The relocation is performed entirely on
-the GPU via xe_migrate_copy_defrag(), reading the old pages from the
-stashed tt's sg table and writing the freshly reallocated backing.
+Update xe_bo.c to use these Kconfig options as defaults via #ifdef
+guards, maintaining backward compatibility with hardcoded values when
+not configured.
 
-Both copy passes run in order on the same migrate queue and are captured
-by the returned fence, so the teardown is pipelined via
-ttm_bo_move_accel_cleanup(): the old tt is handed to a ghost object and
-only unpopulated and freed once the fence signals, so the move need not
-block. The VF CCS attach/detach handling is extended to treat a defrag
-move (ctx->defrag) like the XE_PL_SYSTEM <-> XE_PL_TT transitions it
-mirrors.
+Additionally, disable defrag completely when XE_BO_DEFRAG_SIZE_LIMIT is
+set less than 2M by returning early from xe_bo_defrag_update() (and
+xe_bo_defrag_remove()) so BOs are never added to the defrag list or the
+worker kicked; xe_bo_defrag_add() and xe_bo_defrag_schedule() assert the
+limit is at least 2M.
 
 Cc: Carlos Santa <carlos.santa@intel.com>
 Cc: Ryan Neph <ryanneph@google.com>
@@ -106,74 +108,145 @@ Cc: Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Assisted-by: GitHub_Copilot:claude-opus-4.8
+Assisted-by: GitHub_Copilot:claude-haiku-4.5
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/xe/xe_bo.c | 24 ++++++++++++++++++++----
- 1 file changed, 20 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/xe/Kconfig.profile | 40 ++++++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_bo.c         | 26 +++++++++++++++++++
+ 2 files changed, 66 insertions(+)
 
+diff --git a/drivers/gpu/drm/xe/Kconfig.profile b/drivers/gpu/drm/xe/Kconfig.profile
+index e07517d120e0..e0aade41f53e 100644
+--- a/drivers/gpu/drm/xe/Kconfig.profile
++++ b/drivers/gpu/drm/xe/Kconfig.profile
+@@ -74,3 +74,43 @@ config DRM_XE_ENABLE_SCHEDTIMEOUT_LIMIT
+ 	  to apply to applicable user. For elevated user, all above MIN
+ 	  and MAX values will apply when this configuration is enable to
+ 	  apply limitation. By default limitation is applied.
++
++config DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD
++	int "BO defrag reclaim backoff threshold"
++	default 2
++	range 1 1000
++	help
++	  Once this many BOs are tracked on the device defrag list (i.e. were
++	  backed with a sub-optimal page order), request that the TTM pool backs
++	  off from aggressive reclaim at the beneficial order during populate,
++	  so that allocations make forward progress instead of stalling.
++
++config DRM_XE_BO_DEFRAG_SIZE_LIMIT
++	int "Maximum bytes to defrag per work run"
++	default 33554432
++	range 0 1073741824
++	help
++	  Maximum number of bytes the defrag worker will process in a single run
++	  before yielding and rescheduling itself. Set to less than large page
++	  size (2M) to disable defrag. A defrag move synchronously reallocates
++	  and re-copies a BO's backing store, which is not free. If a large
++	  number of BOs become eligible at once, processing them all in one
++	  worker run would hold things up for a long, unbounded stretch.
++	  Instead, cap the work done per run and requeue, spreading the defrag
++	  effort out over time.
++
++config DRM_XE_BO_DEFRAG_INTERVAL_MS
++	int "Default delay before defrag worker run (ms)"
++	default 25
++	range 1 1000
++	help
++	  Default delay before (re)running the defrag worker, in milliseconds.
++
++config DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS
++	int "Upper bound for defrag worker interval (ms)"
++	default 15000
++	range 100 1000000
++	help
++	  Upper bound for the (exponentially backed off) defrag worker interval,
++	  in milliseconds, so repeated failures don't push the retry arbitrarily
++	  far out. 15000 ms = 15 seconds.
 diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 21d087170ef3..8e9fc8b3dffa 100644
+index c1bbcf0d21ed..405316d0d116 100644
 --- a/drivers/gpu/drm/xe/xe_bo.c
 +++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -1164,6 +1164,13 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
- 	move_lacks_source = !old_mem || (handle_system_ccs ? (!bo->ccs_cleared) :
- 					 (!mem_type_is_vram(old_mem_type) && !tt_has_data));
+@@ -49,7 +49,11 @@
+  * aggressive reclaim at the beneficial order during populate, so that
+  * allocations make forward progress instead of stalling.
+  */
++#ifdef CONFIG_DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD
++#define XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD	CONFIG_DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD
++#else
+ #define XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD	2
++#endif
  
-+	/*
-+	 * A defrag move always copies the existing contents from the stashed
-+	 * old tt into the freshly (re)allocated backing.
-+	 */
-+	if (ttm_bo->defrag_old_tt)
-+		move_lacks_source = false;
+ /*
+  * Maximum number of bytes of newly (re)allocated backing the defrag worker will
+@@ -65,17 +69,31 @@
+  * Only pages a move truly reallocates are charged; pages harvested from the old
+  * backing are free, so an object larger than the budget is upgraded in
+  * budget-sized slices across runs.
++ *
++ * Set to 0 to disable defrag completely.
+  */
++#ifdef CONFIG_DRM_XE_BO_DEFRAG_SIZE_LIMIT
++#define XE_BO_DEFRAG_SIZE_LIMIT			CONFIG_DRM_XE_BO_DEFRAG_SIZE_LIMIT
++#else
+ #define XE_BO_DEFRAG_SIZE_LIMIT			SZ_32M
++#endif
+ 
+ /* Default delay before (re)running the defrag worker, in milliseconds. */
++#ifdef CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MS
++#define XE_BO_DEFRAG_INTERVAL_MS		CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MS
++#else
+ #define XE_BO_DEFRAG_INTERVAL_MS		25
++#endif
+ 
+ /*
+  * Upper bound for the (exponentially backed off) defrag worker interval, in
+  * milliseconds, so repeated failures don't push the retry arbitrarily far out.
+  */
++#ifdef CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS
++#define XE_BO_DEFRAG_INTERVAL_MAX_MS		CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS
++#else
+ #define XE_BO_DEFRAG_INTERVAL_MAX_MS		15000	/* 15 seconds */
++#endif
+ 
+ static void xe_bo_defrag_worker(struct work_struct *w);
+ static void xe_place_from_ttm_type(u32 mem_type, struct ttm_place *place);
+@@ -1120,6 +1138,7 @@ int xe_bo_defrag_init(struct xe_device *xe)
+ 
+ static void xe_bo_defrag_schedule(struct xe_device *xe)
+ {
++	xe_assert(xe, XE_BO_DEFRAG_SIZE_LIMIT >= SZ_2M);
+ 	schedule_delayed_work(&xe->mem.defrag.worker,
+ 			      msecs_to_jiffies(xe->mem.defrag.interval_ms));
+ }
+@@ -1146,6 +1165,7 @@ static void xe_bo_defrag_add(struct xe_bo *bo)
+ 
+ 	xe_bo_assert_held(bo);
+ 	xe_assert(xe, xe_bo_needs_defrag(bo));
++	xe_assert(xe, XE_BO_DEFRAG_SIZE_LIMIT >= SZ_2M);
+ 
+ 	scoped_guard(spinlock, &xe->mem.defrag.lock) {
+ 		if (list_empty(&bo->defrag_link)) {
+@@ -1179,6 +1199,9 @@ static void xe_bo_defrag_remove(struct xe_bo *bo)
+ {
+ 	xe_bo_assert_held(bo);
+ 
++	if (XE_BO_DEFRAG_SIZE_LIMIT < SZ_2M)
++		return;
 +
- 	needs_clear = (ttm && ttm->page_flags & TTM_TT_FLAG_ZERO_ALLOC) ||
- 		(!ttm && ttm_bo->type == ttm_bo_type_device);
+ 	if (list_empty(&bo->defrag_link))
+ 		return;
  
-@@ -1200,9 +1207,12 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
- 	/*
- 	 * Failed multi-hop where the old_mem is still marked as
- 	 * TTM_PL_FLAG_TEMPORARY, should just be a dummy move.
-+	 *
-+	 * For a defrag move the old and new tt differ, so fallthrough to the
-+	 * copy path instead of treating it as a no-op.
- 	 */
- 	if (old_mem_type == XE_PL_TT &&
--	    new_mem->mem_type == XE_PL_TT) {
-+	    new_mem->mem_type == XE_PL_TT && !ttm_bo->defrag_old_tt) {
- 		ttm_bo_move_null(ttm_bo, new_mem);
- 		goto out;
- 	}
-@@ -1273,6 +1283,12 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
- 			flags |= XE_MIGRATE_CLEAR_FLAG_CCS_DATA;
+@@ -1198,6 +1221,9 @@ static void xe_bo_defrag_update(struct xe_bo *bo)
+ {
+ 	xe_bo_assert_held(bo);
  
- 		fence = xe_migrate_clear(migrate, bo, new_mem, flags);
-+	} else if (ttm_bo->defrag_old_tt) {
-+		struct xe_ttm_tt *old_xe_tt =
-+			container_of(ttm_bo->defrag_old_tt, struct xe_ttm_tt, ttm);
++	if (XE_BO_DEFRAG_SIZE_LIMIT < SZ_2M)
++		return;
 +
-+		fence = xe_migrate_copy_defrag(migrate, bo, old_mem, new_mem,
-+					       old_xe_tt->sg, handle_system_ccs);
- 	} else {
- 		fence = xe_migrate_copy(migrate, bo, bo, old_mem, new_mem,
- 					handle_system_ccs);
-@@ -1309,13 +1325,13 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
- 	 * BBs from BO as it is no longer needed.
- 	 */
- 	if (IS_VF_CCS_READY(xe) && old_mem_type == XE_PL_TT &&
--	    new_mem->mem_type == XE_PL_SYSTEM)
-+	    (new_mem->mem_type == XE_PL_SYSTEM || ctx->defrag))
- 		xe_sriov_vf_ccs_detach_bo(bo);
- 
- 	if (IS_VF_CCS_READY(xe) &&
- 	    ((move_lacks_source && new_mem->mem_type == XE_PL_TT) ||
--	     (old_mem_type == XE_PL_SYSTEM && new_mem->mem_type == XE_PL_TT)) &&
--	    handle_system_ccs)
-+	     ((old_mem_type == XE_PL_SYSTEM || ctx->defrag) &&
-+	      new_mem->mem_type == XE_PL_TT)) && handle_system_ccs)
- 		ret = xe_sriov_vf_ccs_attach_bo(bo);
- 
- out:
+ 	if (xe_bo_needs_defrag(bo))
+ 		xe_bo_defrag_add(bo);
+ 	else
 -- 
 2.34.1
 
