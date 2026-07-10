@@ -4,119 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0116C44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7B0EC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF07510E819;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9552610E815;
 	Mon, 13 Jul 2026 07:11:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cml+CY1M";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HN/nTgeK";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D62BE89A1F;
- Sat, 11 Jul 2026 18:46:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 242D410E22D;
+ Fri, 10 Jul 2026 20:29:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 89392411CA;
- Sat, 11 Jul 2026 18:46:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B0801F00A3A;
- Sat, 11 Jul 2026 18:46:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 83357600C3;
+ Fri, 10 Jul 2026 20:29:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 563BD1F00A3D;
+ Fri, 10 Jul 2026 20:28:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783795605;
- bh=+oyZ6VXOyf4ckjeNtdyGIBWr/UznafJo3nCv5RCwhdU=;
+ s=k20260515; t=1783715347;
+ bh=1ql8pfD2dLkZ3j2ZLRgwxtlbsXGEbzU77QdgKu6+RW0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Cml+CY1MKh9iVCaXSwyy6lG3+svNJMWg+WudrFkeSHkVlr1sQGGiZzdcqL8HJbI+A
- rXuXtkh5gKQ1rSQYZPuWrdWlAUMPoPlZVEDx0atFOjr2KtSAJjf3rDgIu3xThiSiQM
- HX1/tqt8hWTLPU/KAccJSQ5EH/bfLUB7EEfE0AKJp85chpipCgPl9xVnNZagJbwTfR
- I/eUKWUU5C/SeilvNVERd66MVxAvV2vsfeTyz76Ualz74to9fWZfJVf52ooiF2vi+v
- 7G6CnYstSi7Q/Nn0dfxn9rxYwzz4gdrTPUd0waE92egL1j6qcgR2A2M2kyUPm8UN72
- XTgF2KlMJvQSA==
+ b=HN/nTgeKq3AnMjIs0u7JOFWgL8V6dcLlJmk9ikJ8fDUbMBlZLUk6KpsqhTpY6f4Rk
+ cqc+QtS61rJvVT+Ieot26FX4QBYJX2NWdolyKNWZN+OpJv8b6VLbVV1oQSiHVnosL+
+ el9kwv9KVuOaHbau8QAS8wvLAfNTYvAb4ZJWcc07ARv1rGWx3AiJuSs2p6HMNHxhrr
+ yNxDfm62mwI2vkLsGoWHpLP8BEUXJ7q8pRDCBdgChs4OndWDlfPdmsS0BndIlw9ftX
+ kdZHMOwRHnn1aHsvYqf0OdH7AS7sYRrsyWJy4u0ytikVJxADHfDwEbDXZMERb/f5Qq
+ 9Tw8VKMmYGVQg==
 From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Sat, 11 Jul 2026 19:45:00 +0100
-Subject: [PATCH v2 03/13] mm: convert __get_unmapped_area() to use vma_flags_t
+Date: Fri, 10 Jul 2026 21:17:11 +0100
+Subject: [PATCH v2 30/33] mm/vma: correct incorrect vma.h inclusion
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260711-b4-vma-flags-mm-v2-3-0fa2357d5431@kernel.org>
-References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
-In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+Message-Id: <20260710-b4-pre-scalable-cow-v2-30-2a5aa403d977@kernel.org>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  David Hildenbrand <david@kernel.org>, 
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
+ Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>, 
  Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, Zi Yan <ziy@nvidia.com>, 
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>, 
+ Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Lucas Stach <l.stach@pengutronix.de>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
  Rob Clark <robin.clark@oss.qualcomm.com>, 
  Dmitry Baryshkov <lumag@kernel.org>, 
  Abhinav Kumar <abhinav.kumar@linux.dev>, 
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
  Thierry Reding <thierry.reding@kernel.org>, 
  Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
- Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Yishai Hadas <yishaih@nvidia.com>, 
+ Shameer Kolothum <skolothumtho@nvidia.com>, 
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Usama Arif <usama.arif@linux.dev>
 Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev, 
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
- linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev, 
+ iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9398; i=ljs@kernel.org;
- h=from:subject:message-id; bh=P0Efpepv9aum3/hXSHnF6jwUomGPaWFDJdFnLdhoXJo=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+i1XfIv0CD/o0frojeduF9dp+Rfm/9jrr3ds68Nz3
- 57n/OKU6yhlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEnDoZGd5HcnpZ869dcttu
- 2bF2Swk/5rTaDe8c/3RGds0Md33/o5Dhf5b45Mv7GttXXJ6oxSr/d85Sl/UV2UdDRPJXMmd5+xk
- 8YwAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4536; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=shpFTR/kYRzffTsm0zlgjzVGjq2PyyHz+kDqenhzfis=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg201dv0WDPnXKfD02fVrd2xmnJGosao9+KtYLrPMT
+ ee3uOTFjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAExk6htGhutMvdsKbROmGXpe
+ 9bRozf2k9WX9ovWH62umFivq6Py9+pCRoftC5fGIB3Fbpepc7q+dFC6dVurt13dkg9IG04qXXkn
+ b+AA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Mon, 13 Jul 2026 07:11:31 +0000
+X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,239 +141,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Update __get_unmapped_area() to be parameterised by vma_flags_t rather than
-vm_flags_t as part of the effort to move VMA flags from a system word to a
-bitmap.
+The only files which should be including vma.h are the implementation files
+for the core VMA logic - vma.c, vma_init.c, and vma_exec.c.
 
-We cascade the changes up to arch_get_unmapped_area_topdown() and
-arch_get_unmapped_area(), where, for now, we use vma_flags_to_legacy() in
-order to propagate the VMA flags.
+This is in order to allow for userland testing of core VMA logic. In this
+cases, vma_internal.h and vma.h are included, providing both the
+dependencies upon which the core VMA logic requires and its declarations.
+
+Userland testable VMA logic is achieved by having separate vma_internal.h
+implementations for userland and kernel.
+
+Callers other than the core VMA implementation should include internal.h
+instead. This header does not need to include vma_internal.h as it only
+contains the vma.h declarations, for which the includes already present
+suffice.
+
+Update code to reflect this, update comments to reflect the fact there are
+3 VMA implementation files and document things more clearly.
+
+While we're here, slightly improve the language of the comment describing
+vma_exec.c.
 
 No functional change intended.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Gregory Price <gourry@gourry.net>
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- fs/hugetlbfs/inode.c     |  3 ++-
- include/linux/huge_mm.h  | 10 +++++-----
- include/linux/mm.h       |  6 ++++--
- include/linux/sched/mm.h |  9 +++------
- mm/huge_memory.c         | 21 ++++++++++++---------
- mm/mmap.c                | 27 ++++++++++++++-------------
- 6 files changed, 40 insertions(+), 36 deletions(-)
+ mm/mmu_notifier.c | 2 +-
+ mm/nommu.c        | 1 -
+ mm/vma.c          | 4 ++++
+ mm/vma.h          | 9 ++++++++-
+ mm/vma_exec.c     | 8 ++++++--
+ mm/vma_init.c     | 4 ++++
+ mm/vma_internal.h | 4 ++--
+ 7 files changed, 25 insertions(+), 7 deletions(-)
 
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 9fddd1e0b813..43066f9ddf52 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -184,7 +184,8 @@ hugetlb_get_unmapped_area(struct file *file, unsigned long addr,
- 	if (addr)
- 		addr0 = ALIGN(addr, huge_page_size(h));
+diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
+index 245b74f39f91..df69ba6e797f 100644
+--- a/mm/mmu_notifier.c
++++ b/mm/mmu_notifier.c
+@@ -19,7 +19,7 @@
+ #include <linux/sched/mm.h>
+ #include <linux/slab.h>
  
--	return mm_get_unmapped_area_vmflags(file, addr0, len, pgoff, flags, 0);
-+	return mm_get_unmapped_area_vmaflags(file, addr0, len, pgoff, flags,
-+					     EMPTY_VMA_FLAGS);
- }
+-#include "vma.h"
++#include "internal.h"
+ 
+ /* global SRCU for all MMs */
+ DEFINE_STATIC_SRCU(srcu);
+diff --git a/mm/nommu.c b/mm/nommu.c
+index 21cbe8b093fc..adc0b0ca906b 100644
+--- a/mm/nommu.c
++++ b/mm/nommu.c
+@@ -41,7 +41,6 @@
+ #include <asm/tlbflush.h>
+ #include <asm/mmu_context.h>
+ #include "internal.h"
+-#include "vma.h"
+ 
+ unsigned long highest_memmap_pfn;
+ int heap_stack_gap = 0;
+diff --git a/mm/vma.c b/mm/vma.c
+index 7c75dd78edef..737f0d692e6b 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -4,6 +4,10 @@
+  * VMA-specific functions.
+  */
+ 
++/*
++ * To allow for userland testing we place internal dependencies in
++ * vma_internal.h and external VMA API declarations in vma.h.
++ */
+ #include "vma_internal.h"
+ #include "vma.h"
+ 
+diff --git a/mm/vma.h b/mm/vma.h
+index 58f48609ce22..adb7a0ba1192 100644
+--- a/mm/vma.h
++++ b/mm/vma.h
+@@ -2,7 +2,14 @@
+ /*
+  * vma.h
+  *
+- * Core VMA manipulation API implemented in vma.c.
++ * Core VMA manipulation API implemented in vma.c, vma_init.c and vma_exec.c.
++ *
++ * Note that, in order for VMA logic to be userland testable, this header
++ * intentionally includes no dependencies.
++ *
++ * This is specifically scoped to mm-only. Users of this functionality (other
++ * than the core VMA implementation itself) should not include this header
++ * directly, but rather include internal.h.
+  */
+ #ifndef __MM_VMA_H
+ #define __MM_VMA_H
+diff --git a/mm/vma_exec.c b/mm/vma_exec.c
+index 13a05e041195..ef1fa2b161f3 100644
+--- a/mm/vma_exec.c
++++ b/mm/vma_exec.c
+@@ -1,10 +1,14 @@
+ // SPDX-License-Identifier: GPL-2.0-only
  
  /*
-diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
-index cae97c307280..9e43e138c0b7 100644
---- a/include/linux/huge_mm.h
-+++ b/include/linux/huge_mm.h
-@@ -391,9 +391,9 @@ static inline bool thp_disabled_by_hw(void)
+- * Functions explicitly implemented for exec functionality which however are
+- * explicitly VMA-only logic.
++ * Functions provided for exec functionality which however are
++ * specifically VMA-only logic.
+  */
  
- unsigned long thp_get_unmapped_area(struct file *filp, unsigned long addr,
- 		unsigned long len, unsigned long pgoff, unsigned long flags);
--unsigned long thp_get_unmapped_area_vmflags(struct file *filp, unsigned long addr,
-+unsigned long thp_get_unmapped_area_vmaflags(struct file *filp, unsigned long addr,
- 		unsigned long len, unsigned long pgoff, unsigned long flags,
--		vm_flags_t vm_flags);
-+		vma_flags_t vma_flags);
++/*
++ * To allow for userland testing we place internal dependencies in
++ * vma_internal.h and external VMA API declarations in vma.h.
++ */
+ #include "vma_internal.h"
+ #include "vma.h"
  
- enum split_type {
- 	SPLIT_TYPE_UNIFORM,
-@@ -617,9 +617,9 @@ static inline unsigned long thp_vma_allowable_orders(struct vm_area_struct *vma,
- #define thp_get_unmapped_area	NULL
+diff --git a/mm/vma_init.c b/mm/vma_init.c
+index a459669a1654..715feee283f0 100644
+--- a/mm/vma_init.c
++++ b/mm/vma_init.c
+@@ -5,6 +5,10 @@
+  * between CONFIG_MMU and non-CONFIG_MMU kernel configurations.
+  */
  
- static inline unsigned long
--thp_get_unmapped_area_vmflags(struct file *filp, unsigned long addr,
--			      unsigned long len, unsigned long pgoff,
--			      unsigned long flags, vm_flags_t vm_flags)
-+thp_get_unmapped_area_vmaflags(struct file *filp, unsigned long addr,
-+			       unsigned long len, unsigned long pgoff,
-+			       unsigned long flags, vma_flags_t vma_flags)
- {
- 	return 0;
- }
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index d20aa2f80472..5b3825fddf58 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4191,13 +4191,15 @@ unsigned long randomize_page(unsigned long start, unsigned long range);
++/*
++ * To allow for userland testing we place internal dependencies in
++ * vma_internal.h and external VMA API declarations in vma.h.
++ */
+ #include "vma_internal.h"
+ #include "vma.h"
  
- unsigned long
- __get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
--		    unsigned long pgoff, unsigned long flags, vm_flags_t vm_flags);
-+		    unsigned long pgoff, unsigned long flags,
-+		    vma_flags_t vma_flags);
+diff --git a/mm/vma_internal.h b/mm/vma_internal.h
+index 2da6d224c1a8..4d300e7bbaf4 100644
+--- a/mm/vma_internal.h
++++ b/mm/vma_internal.h
+@@ -2,8 +2,8 @@
+ /*
+  * vma_internal.h
+  *
+- * Headers required by vma.c, which can be substituted accordingly when testing
+- * VMA functionality.
++ * Headers required by vma.c, vma_init.c and vma_exec.c, which can be
++ * substituted accordingly when testing VMA functionality.
+  */
  
- static inline unsigned long
- get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
- 		  unsigned long pgoff, unsigned long flags)
- {
--	return __get_unmapped_area(file, addr, len, pgoff, flags, 0);
-+	return __get_unmapped_area(file, addr, len, pgoff, flags,
-+				   EMPTY_VMA_FLAGS);
- }
- 
- unsigned long do_mmap(struct file *file, unsigned long addr,
-diff --git a/include/linux/sched/mm.h b/include/linux/sched/mm.h
-index 95d0040df584..10d723bee95c 100644
---- a/include/linux/sched/mm.h
-+++ b/include/linux/sched/mm.h
-@@ -193,12 +193,9 @@ unsigned long mm_get_unmapped_area(struct file *filp, unsigned long addr,
- 				   unsigned long len, unsigned long pgoff,
- 				   unsigned long flags);
- 
--unsigned long mm_get_unmapped_area_vmflags(struct file *filp,
--					   unsigned long addr,
--					   unsigned long len,
--					   unsigned long pgoff,
--					   unsigned long flags,
--					   vm_flags_t vm_flags);
-+unsigned long mm_get_unmapped_area_vmaflags(struct file *filp,
-+		unsigned long addr, unsigned long len, unsigned long pgoff,
-+		unsigned long flags, vma_flags_t vma_flags);
- 
- unsigned long
- generic_get_unmapped_area(struct file *filp, unsigned long addr,
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 0dc6d630570f..40d6b4078e3d 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1196,7 +1196,7 @@ static inline bool is_transparent_hugepage(const struct folio *folio)
- static unsigned long __thp_get_unmapped_area(struct file *filp,
- 		unsigned long addr, unsigned long len,
- 		loff_t off, unsigned long flags, unsigned long size,
--		vm_flags_t vm_flags)
-+		vma_flags_t vma_flags)
- {
- 	loff_t off_end = off + len;
- 	loff_t off_align = round_up(off, size);
-@@ -1212,8 +1212,9 @@ static unsigned long __thp_get_unmapped_area(struct file *filp,
- 	if (len_pad < len || (off + len_pad) < off)
- 		return 0;
- 
--	ret = mm_get_unmapped_area_vmflags(filp, addr, len_pad,
--					   off >> PAGE_SHIFT, flags, vm_flags);
-+	ret = mm_get_unmapped_area_vmaflags(filp, addr, len_pad,
-+					    off >> PAGE_SHIFT, flags,
-+					    vma_flags);
- 
- 	/*
- 	 * The failure might be due to length padding. The caller will retry
-@@ -1238,25 +1239,27 @@ static unsigned long __thp_get_unmapped_area(struct file *filp,
- 	return ret;
- }
- 
--unsigned long thp_get_unmapped_area_vmflags(struct file *filp, unsigned long addr,
-+unsigned long thp_get_unmapped_area_vmaflags(struct file *filp, unsigned long addr,
- 		unsigned long len, unsigned long pgoff, unsigned long flags,
--		vm_flags_t vm_flags)
-+		vma_flags_t vma_flags)
- {
- 	unsigned long ret;
- 	loff_t off = (loff_t)pgoff << PAGE_SHIFT;
- 
--	ret = __thp_get_unmapped_area(filp, addr, len, off, flags, PMD_SIZE, vm_flags);
-+	ret = __thp_get_unmapped_area(filp, addr, len, off, flags, PMD_SIZE,
-+				      vma_flags);
- 	if (ret)
- 		return ret;
- 
--	return mm_get_unmapped_area_vmflags(filp, addr, len, pgoff, flags,
--					    vm_flags);
-+	return mm_get_unmapped_area_vmaflags(filp, addr, len, pgoff, flags,
-+					     vma_flags);
- }
- 
- unsigned long thp_get_unmapped_area(struct file *filp, unsigned long addr,
- 		unsigned long len, unsigned long pgoff, unsigned long flags)
- {
--	return thp_get_unmapped_area_vmflags(filp, addr, len, pgoff, flags, 0);
-+	return thp_get_unmapped_area_vmaflags(filp, addr, len, pgoff, flags,
-+					      EMPTY_VMA_FLAGS);
- }
- EXPORT_SYMBOL_GPL(thp_get_unmapped_area);
- 
-diff --git a/mm/mmap.c b/mm/mmap.c
-index bcc3793e532d..4a88b2a233f7 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -411,8 +411,7 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
- 	/* Obtain the address to map to. we verify (or select) it and ensure
- 	 * that it represents a valid section of the address space.
- 	 */
--	addr = __get_unmapped_area(file, addr, len, pgoff, flags,
--				   vma_flags_to_legacy(vma_flags));
-+	addr = __get_unmapped_area(file, addr, len, pgoff, flags, vma_flags);
- 	if (IS_ERR_VALUE(addr))
- 		return addr;
- 
-@@ -812,19 +811,20 @@ arch_get_unmapped_area_topdown(struct file *filp, unsigned long addr,
- }
- #endif
- 
--unsigned long mm_get_unmapped_area_vmflags(struct file *filp, unsigned long addr,
--					   unsigned long len, unsigned long pgoff,
--					   unsigned long flags, vm_flags_t vm_flags)
-+unsigned long mm_get_unmapped_area_vmaflags(struct file *filp, unsigned long addr,
-+		unsigned long len, unsigned long pgoff, unsigned long flags,
-+		vma_flags_t vma_flags)
- {
- 	if (mm_flags_test(MMF_TOPDOWN, current->mm))
- 		return arch_get_unmapped_area_topdown(filp, addr, len, pgoff,
--						      flags, vm_flags);
--	return arch_get_unmapped_area(filp, addr, len, pgoff, flags, vm_flags);
-+				flags, vma_flags_to_legacy(vma_flags));
-+	return arch_get_unmapped_area(filp, addr, len, pgoff, flags,
-+			vma_flags_to_legacy(vma_flags));
- }
- 
- unsigned long
- __get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
--		unsigned long pgoff, unsigned long flags, vm_flags_t vm_flags)
-+		unsigned long pgoff, unsigned long flags, vma_flags_t vma_flags)
- {
- 	unsigned long (*get_area)(struct file *, unsigned long,
- 				  unsigned long, unsigned long, unsigned long)
-@@ -859,11 +859,11 @@ __get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
- 		   && !addr /* no hint */
- 		   && IS_ALIGNED(len, PMD_SIZE)) {
- 		/* Ensures that larger anonymous mappings are THP aligned. */
--		addr = thp_get_unmapped_area_vmflags(file, addr, len,
--						     pgoff, flags, vm_flags);
-+		addr = thp_get_unmapped_area_vmaflags(file, addr, len,
-+						      pgoff, flags, vma_flags);
- 	} else {
--		addr = mm_get_unmapped_area_vmflags(file, addr, len,
--						    pgoff, flags, vm_flags);
-+		addr = mm_get_unmapped_area_vmaflags(file, addr, len,
-+						     pgoff, flags, vma_flags);
- 	}
- 	if (IS_ERR_VALUE(addr))
- 		return addr;
-@@ -881,7 +881,8 @@ unsigned long
- mm_get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
- 		     unsigned long pgoff, unsigned long flags)
- {
--	return mm_get_unmapped_area_vmflags(file, addr, len, pgoff, flags, 0);
-+	return mm_get_unmapped_area_vmaflags(file, addr, len, pgoff, flags,
-+					     EMPTY_VMA_FLAGS);
- }
- EXPORT_SYMBOL(mm_get_unmapped_area);
- 
+ #ifndef __MM_VMA_INTERNAL_H
 
 -- 
 2.55.0
