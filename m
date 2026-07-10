@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A56DBC44506
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D69EC44508
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6ADF410E809;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E19910E80C;
 	Mon, 13 Jul 2026 07:11:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HwOfOxNY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HJU/LxQF";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D061710E22D;
- Fri, 10 Jul 2026 20:26:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6194E10E22D;
+ Fri, 10 Jul 2026 20:30:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A710F40742;
- Fri, 10 Jul 2026 20:26:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD1A91F000E9;
- Fri, 10 Jul 2026 20:25:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D58FE60051;
+ Fri, 10 Jul 2026 20:30:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE5081F000E9;
+ Fri, 10 Jul 2026 20:29:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783715161;
- bh=bUGGYLPM184fXg7TuW5WlZpqNKDyTrGesm4GIDrm7/g=;
+ s=k20260515; t=1783715416;
+ bh=B5I9XJhmOOi1LkWbRSVKnYIkRF+jGCGnmzoiak9EY5o=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=HwOfOxNYJr0ufnnwjsShvm8UoTFDoVDyZyLe5qM8luP+IyMfUureE/4/LdfG8uNvp
- l2fyy2sklIZ1g8zXU1h/Dujp91lJ3y/YMUEyIA0yaCkBv64dn7+eK6bnjONBXyGjkh
- 2MdWVKmdvm7AgFGWE4NqEcl7KMYdmzXxx45wTsfG/uOos67hsa+uJWogpK3oSsHZLs
- PEoCxmuQR0OPyTuKW9A7PRu792Qxjs8eLhacq5hB9InGQR663cidPLcGe/v49JjENl
- kWNryTiYfujVP70WKEmXvqMUsNxPgx4q7+0bAV5xV/Oa57dgKbVLEJW9cwR83wMw30
- Xxu+4E6LLwm+Q==
+ b=HJU/LxQFVzsJlRTCMRzOJHdKDqTBAxtBcBwpt63liPwwYag6kcqfVKglYfllNuHwG
+ zruaDbLFSHOKgoo0BqDuxifQenxMZ32LDVjzeICMBYJ3UJv5j+AnJcMgzxnGHtBdeN
+ j8C36crjgwo2R/uzmYN1HthGyrQ3fCMsmbG+73WdXAXoxUFqceMyzp9ZW1PdmaRa9O
+ G5/VT52++Jk599/Cwob6URDW22K7/Nduaq0RP+KDtJ0pkxdcPa3d89vPvW4V4rHBk/
+ CW0bBjmWxC4r28Ips94X2CU8upp1gMEWiWKnHmBXHuAIxpE3/rXj+RtTqbCeQkATao
+ rwCQBxnl2483Q==
 From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Fri, 10 Jul 2026 21:17:03 +0100
-Subject: [PATCH v2 22/33] mm/vma: introduce vma_assert_can_modify()
+Date: Fri, 10 Jul 2026 21:17:14 +0100
+Subject: [PATCH v2 33/33] tools/testing/vma: output compared expression on
+ ASSERT_[EQ, NE]()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-b4-pre-scalable-cow-v2-22-2a5aa403d977@kernel.org>
+Message-Id: <20260710-b4-pre-scalable-cow-v2-33-2a5aa403d977@kernel.org>
 References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
 In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -117,12 +118,12 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
  freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
  kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3596; i=ljs@kernel.org;
- h=from:subject:message-id; bh=viV3MpLqfUAe1sqc9evXVxPvdZ0z1c7yNCArBlJLKts=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg22Kz9fNu6eSNvvBXWZ7lRONX6ct3GUurDZVbbXAC
- pPsR6V/OkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRhN8M/wz3Ji1evXiHVaSo
- 7KH3RZOj9q/2tta+sizgwKoUXSbHeTEM/xOvbZzUJBNU59dnr7C7/JXw/aXmwrs9029wLZytnZn
- xnhEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2588; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=G0Z54AjtjNI6CjvRN0QWBiGJMevNN1T++vP+QCfqk78=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg+027xOdH8B2QFVjitv8mSdNCqatzzDPuLx5q/P3m
+ bsqvNas6ihlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBESt8y/M8V4Tz0xp5xXe19
+ wcer453cVuotTvQq2Z9Z+MFqXm4M42uG/5UJ81+tnzZdSGb1KWONWwnKD/+4b41bGtXx//vvOW9
+ DqtkB
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
@@ -141,98 +142,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vma_assert_write_locked() and vma_assert_attached() are useful for their
-own purposes, however VMA code absolutely does allow the modification of
-non-write locked VMAs if they are at that point detached (i.e. unreachable
-from anywhere).
+Update the macros to output the compared values at hex for easier debugging
+when test asserts fail.
 
-It's therefore useful to be able to assert that a VMA is either
-detached (modification doesn't matter) or write locked (you're explicitly
-locked for modification).
+We have to be careful not to re-evaluate expressions as they may have
+side-effects. So update the code to take local copies and use these for
+both the test and the debug output.
 
-Therefore introduce vma_assert_can_modify() for this purpose.
-
-While we're here, make vma_is_attached() available generally - if
-!CONFIG_PER_VMA_LOCK, then there's no sense in which a VMA is
-detached (vma_mark_detached() is a noop), so have this default to true in
-this case.
-
-Also update VMA userland tests to reflect this change, correcting the
-previously open-coded vma_assert_[attached,detached]() there.
+Also remove unused IS_SET() macro.
 
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- include/linux/mmap_lock.h       |  8 ++++++++
- tools/testing/vma/include/dup.h | 15 +++++++++++++--
- 2 files changed, 21 insertions(+), 2 deletions(-)
+ tools/testing/vma/shared.h | 38 ++++++++++++++++++++++++++------------
+ 1 file changed, 26 insertions(+), 12 deletions(-)
 
-diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-index 04b8f61ece5d..d513286d8160 100644
---- a/include/linux/mmap_lock.h
-+++ b/include/linux/mmap_lock.h
-@@ -506,6 +506,8 @@ static inline __must_check
- int vma_start_write_killable(struct vm_area_struct *vma) { return 0; }
- static inline void vma_assert_write_locked(struct vm_area_struct *vma)
- 		{ mmap_assert_write_locked(vma->vm_mm); }
-+static inline bool vma_is_attached(struct vm_area_struct *vma)
-+		{ return true; }
- static inline void vma_assert_attached(struct vm_area_struct *vma) {}
- static inline void vma_assert_detached(struct vm_area_struct *vma) {}
- static inline void vma_mark_attached(struct vm_area_struct *vma) {}
-@@ -530,6 +532,12 @@ static inline void vma_assert_stabilised(struct vm_area_struct *vma)
+diff --git a/tools/testing/vma/shared.h b/tools/testing/vma/shared.h
+index ca4f1238f1c7..97cd7a679dc1 100644
+--- a/tools/testing/vma/shared.h
++++ b/tools/testing/vma/shared.h
+@@ -21,19 +21,35 @@
+ 		}							\
+ 	} while (0)
  
- #endif /* CONFIG_PER_VMA_LOCK */
+-#define ASSERT_TRUE(_expr)						\
+-	do {								\
+-		if (!(_expr)) {						\
+-			fprintf(stderr,					\
+-				"Assert FAILED at %s:%d:%s(): %s is FALSE.\n", \
+-				__FILE__, __LINE__, __FUNCTION__, #_expr); \
+-			return false;					\
+-		}							\
++#define __ASSERT_TRUE(_expr, _fmt, ...)					   \
++	do {								   \
++		if (!(_expr)) {						   \
++			fprintf(stderr,					   \
++				"Assert FAILED at %s:%d:%s(): %s is FALSE" \
++				_fmt ".\n",				   \
++				__FILE__, __LINE__, __FUNCTION__, #_expr   \
++				__VA_OPT__(,) __VA_ARGS__);		   \
++			return false;					   \
++		}							   \
+ 	} while (0)
  
-+static inline void vma_assert_can_modify(struct vm_area_struct *vma)
-+{
-+	if (vma_is_attached(vma))
-+		vma_assert_write_locked(vma);
-+}
++#define __TO_SCALAR(x)	((unsigned long long)(uintptr_t)(x))
 +
- static inline void mmap_write_lock(struct mm_struct *mm)
- {
- 	__mmap_lock_trace_start_locking(mm, true);
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 7ed165c8d9bc..e9ddc818f2c3 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -1163,6 +1163,11 @@ static inline struct vm_area_struct *vma_next(struct vma_iterator *vmi)
- 	return mas_find(&vmi->mas, ULONG_MAX);
- }
- 
-+static inline bool vma_is_attached(struct vm_area_struct *vma)
-+{
-+	return refcount_read(&vma->vm_refcnt);
-+}
++#define ASSERT_TRUE(_expr) __ASSERT_TRUE(_expr, "")
+ #define ASSERT_FALSE(_expr) ASSERT_TRUE(!(_expr))
+-#define ASSERT_EQ(_val1, _val2) ASSERT_TRUE((_val1) == (_val2))
+-#define ASSERT_NE(_val1, _val2) ASSERT_TRUE((_val1) != (_val2))
++#define ASSERT_EQ(_val1, _val2) do {				 \
++	__typeof__(_val1) __val1 = (_val1);			 \
++	__typeof__(_val2) __val2 = (_val2);			 \
++	__ASSERT_TRUE(__val1 == __val2, " (0x%llx != 0x%llx)",	 \
++		      __TO_SCALAR(__val1), __TO_SCALAR(__val2)); \
++	} while (0)
 +
- /*
-  * WARNING: to avoid racing with vma_mark_attached()/vma_mark_detached(), these
-  * assertions should be made either under mmap_write_lock or when the object
-@@ -1170,12 +1175,12 @@ static inline struct vm_area_struct *vma_next(struct vma_iterator *vmi)
-  */
- static inline void vma_assert_attached(struct vm_area_struct *vma)
- {
--	WARN_ON_ONCE(!refcount_read(&vma->vm_refcnt));
-+	WARN_ON_ONCE(!vma_is_attached(vma));
- }
++#define ASSERT_NE(_val1, _val2) do {				 \
++	__typeof__(_val1) __val1 = (_val1);			 \
++	__typeof__(_val2) __val2 = (_val2);			 \
++	__ASSERT_TRUE(__val1 != __val2, " (0x%llx == 0x%llx)",	 \
++		      __TO_SCALAR(__val1), __TO_SCALAR(__val2)); \
++	} while (0)
  
- static inline void vma_assert_detached(struct vm_area_struct *vma)
- {
--	WARN_ON_ONCE(refcount_read(&vma->vm_refcnt));
-+	WARN_ON_ONCE(vma_is_attached(vma));
- }
+ #define ASSERT_FLAGS_SAME_MASK(_flags, _flags_other) \
+ 	ASSERT_TRUE(vma_flags_same_mask((_flags), (_flags_other)))
+@@ -53,8 +69,6 @@
+ #define ASSERT_FLAGS_NONEMPTY(_flags) \
+ 	ASSERT_FALSE(vma_flags_empty(_flags))
  
- static inline void vma_assert_write_locked(struct vm_area_struct *);
-@@ -1564,3 +1569,9 @@ static inline pgoff_t linear_page_index(const struct vm_area_struct *vma,
- 	pgoff += vma_start_pgoff(vma);
- 	return pgoff;
- }
-+
-+static inline void vma_assert_can_modify(struct vm_area_struct *vma)
-+{
-+	if (vma_is_attached(vma))
-+		vma_assert_write_locked(vma);
-+}
+-#define IS_SET(_val, _flags) ((_val & _flags) == _flags)
+-
+ extern bool fail_prealloc;
+ 
+ /* Override vma_iter_prealloc() so we can choose to fail it. */
 
 -- 
 2.55.0
