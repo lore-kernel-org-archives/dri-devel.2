@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 483EAC44501
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 15:02:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 812D2C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 15:14:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2CF610E1E7;
-	Fri, 10 Jul 2026 15:01:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A281310E1F1;
+	Fri, 10 Jul 2026 15:14:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Aezvcf2o";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jWp/YfV2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 264E810E1E0;
- Fri, 10 Jul 2026 15:01:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C767310E1E9;
+ Fri, 10 Jul 2026 15:14:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 37DE644A58;
- Fri, 10 Jul 2026 15:01:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E8A1F000E9;
- Fri, 10 Jul 2026 15:01:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9C6E4600C3;
+ Fri, 10 Jul 2026 15:14:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26E901F000E9;
+ Fri, 10 Jul 2026 15:14:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783695717;
- bh=Nv6v5Gy5ZQKCjEDZ1CZd677nx3NlM5I4XdPHxBdo5us=;
+ s=k20260515; t=1783696463;
+ bh=X27acRwAdtTXFKPxbIFmrw/jC4hzH+Hp8I2QhCUZeG4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Aezvcf2oBz8R5O/JgeqQKn1Iv07D3k4kEuvwCc1b7Uv9q44jdZfUS20v8wyrCa/9F
- sFEfI7dW7gs9z+SsSfhJ8kA/ge/LrGSSz9zC3Je135DOXWvwgHKHjr0HNZUKiB8R0Z
- 6ZFI5o7wwOhve66iKnNqXpiMhf7SJFuqNWUQojN72CN7vt9E+8N+ylqWmq1V8VELbe
- 6ISmJ6bIDd6gomwGV7FsmpP5iGhPAK7B4N+ljOCC/csygDMZAkTZJGZNY4oR569umI
- ng8odBspjBH26Pq4TIGI6qDk3zs12pR3kiMN2IWrXV9IPeu4GxV8o5adjm1flT9Viv
- C2o6tJaaVjqqw==
-Date: Fri, 10 Jul 2026 16:01:32 +0100
+ b=jWp/YfV269fwuE/A0DGNv+QkUPkoVUKqSC58r/6dTFMtbAarFJcpkg7eJhEKhOYap
+ t81kzQLW6NrlPB0JMDr7H0UXeyHExQPBmSYxigZJrnSRSbLkruaye9f9wkhzjtq2xU
+ G4lKaQN//gFPfHyUlzpqN6PdzS6B5IpaPmAha+7G6eBCcjyEbo6mnkOdPR5gmcV1zp
+ SeT40ZJE+ZN7mwKT361/xbZwxgR0fnlC/lIRtIa+Nt3raxrbwrfQCAlTLH4fQ6A25x
+ ZE0HtZx8YJmgD3kt1TllDvu1WflSd0c7RpQgtW35wc26F3JTWTwOwmft6JhkOtvQZG
+ Bg78M+rxmr0Tg==
+Date: Fri, 10 Jul 2026 16:14:00 +0100
 From: Lorenzo Stoakes <ljs@kernel.org>
-To: Gregory Price <gourry@gourry.net>
+To: Pedro Falcato <pfalcato@suse.de>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
  Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
  Simon Schuster <schuster.simon@siemens-energy.com>, 
@@ -78,18 +78,18 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
  linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
  damon@lists.linux.dev, 
- Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 19/30] mm: use linear_page_[index, delta]() consistently
-Message-ID: <alEJP-qEgSIUOp38@lucifer>
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 28/30] mm/vma: use guard clauses in
+ can_vma_merge_[before, after]()
+Message-ID: <alEMKRdOLNiNYIGm@lucifer>
 References: <cover.1782735110.git.ljs@kernel.org>
- <bf56e2e98b512962a2fb88900d535a0e9e6769d8.1782735110.git.ljs@kernel.org>
- <ak_EivwcDDdn1Xvp@gourry-fedora-PF4VCD3F>
- <ak_E1Y-D2Twykusr@gourry-fedora-PF4VCD3F>
+ <213918ef85ed427d29d0635db6b07b15280d3bb0.1782735110.git.ljs@kernel.org>
+ <akZOPG6fxr98Ycl_@pedro-suse.lan>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ak_E1Y-D2Twykusr@gourry-fedora-PF4VCD3F>
+In-Reply-To: <akZOPG6fxr98Ycl_@pedro-suse.lan>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,22 +105,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 09, 2026 at 11:57:09AM -0400, Gregory Price wrote:
-> On Thu, Jul 09, 2026 at 11:55:54AM -0400, Gregory Price wrote:
-> > > @@ -2462,7 +2463,7 @@ static int comedi_vm_access(struct vm_area_struct *vma, unsigned long addr,
-> > >  {
-> > >  	struct comedi_buf_map *bm = vma->vm_private_data;
-> > >  	unsigned long offset =
-> > > -	    addr - vma->vm_start + (vma->vm_pgoff << PAGE_SHIFT);
-> > > +	    addr - vma->vm_start + (vma_start_pgoff(vma) << PAGE_SHIFT);
-> > >
-> >
-> > Obviously correct, but was this intended for a different patch?
-> >
-> > ~Gregory
->
-> bleh already caught, sorry for the noise :]
+On Thu, Jul 02, 2026 at 12:41:51PM +0100, Pedro Falcato wrote:
+> Looks nicer, thanks.
 
-Haha no thanks for picking it up, many eyes bugs etc. etc. ;)
+Thanks!
+
+>
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+
+Also thanks! :)
+
+>
+> --
+> Pedro
 
 Cheers, Lorenzo
