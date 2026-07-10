@@ -4,77 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF912C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 12:03:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84417C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 12:03:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08A4B10F882;
-	Fri, 10 Jul 2026 12:03:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F4C410F896;
+	Fri, 10 Jul 2026 12:03:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NplBuogt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DWp3PnqA";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37E8C10F86B
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:03:47 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-47ddf7b09e5so844010f8f.1
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 05:03:47 -0700 (PDT)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8E4210F88B
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:03:48 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-47ddf7b09aaso564927f8f.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 05:03:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783685025; x=1784289825; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=hksPX1U2TBlTextUaSByNI1aeIBAxfzf3b6cw/OY5vY=;
- b=NplBuogt8bSAPEuAb77jfOVj/DEH5IYq2dd2YkQRPkGlU9f1lusHfYeSTukzOUU6bB
- VHFAG5EUWXBcooW5NkqNlVs9LIQheLmtjNM2mwhIPKhPxpF2t2HxHYxhtRsGmTtIDoL4
- j7wBz+fpU0BD6GHdEI/cf6kFJ7Ecev9kQUD41ReSRLc59hwn+w+U1pN3qGD+bpzYdts2
- W/2gOMT2VFpqrtdp3VnGe4AV9ByCwRM4qksi8TMhDMUQ+m/jW2uGb8t/4g55Bjj6GlBj
- 9n7kxdAlndwzrxvB35oD4ozaWCbzStYHOwfURkrPflaG/NkjizWf9i1wD0qDI2DC7a17
- 4WRw==
+ d=gmail.com; s=20251104; t=1783685027; x=1784289827; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=yd1dFdW3DE1YeT+fprMXo0jAXkdXd9jG5OHl8Qzt964=;
+ b=DWp3PnqAglmSEZ6Y4MDGTy+1T5l5gYykGvPRP2rRKi1fhI3vOlIjSW/eGF4zU85mJ5
+ 47ccScB8Cj3bpraBwASUw+cwsTTEUjhkA92/AvQMm7WwEg5UXAdCe/NFAvnSOQFTryd5
+ zJnywFQqwrDcfcZvLdsYEiWHcS3cfcP7KdJLEUEj5i5w+wKEZto9cVS9n/morTX1Kjwp
+ IbVSljoz4RIFlLXac7TxqMO5MStkb5YZJdemFe29yLzwCiWN1ioLORFk00dFBmh/BW6E
+ EOz5xq2mQE2BqVoRaPAgZHiNZIhaS0RDCe/fyUgjYj22LviNebAolvgPc8FSHOIZh0PC
+ /l2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783685025; x=1784289825;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=hksPX1U2TBlTextUaSByNI1aeIBAxfzf3b6cw/OY5vY=;
- b=MX1T5Ay45fk1I/MZiLaCxJ2TYFecM7c9gKzGb8WjbcoAoTZlSGrkQB8CIjCHpgXekQ
- 06CXw3Hk6LEsjA3v9hA/ccTeZwmDDheDKMtl2KBQ7bd9EKhQRONKAsUorCWcmcmZTwBj
- DQXuLKiHrFkL3YEb8aVxeNk3tBCnPfBUAYmpL5+nF2WvTlcgq+beCMqxHy50JGI6n2ZO
- 9gbI9kvtS/smrji6H9p23+qsP/5/FJCS04ONdhgBYfZg8vxhOvTHvY8LaeSfN2FRlBdU
- s8jWwymCb89utf59w8rqti/1rdIeowuFQO2L+5tVUHOICmtDDQVhrAnrVJQF5HM01WS5
- Z0tQ==
+ d=1e100.net; s=20251104; t=1783685027; x=1784289827;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=yd1dFdW3DE1YeT+fprMXo0jAXkdXd9jG5OHl8Qzt964=;
+ b=MzQfWOMBs/juhK0Jps/CAI2s3obBdWm8c+zMoutcNCxvcHOr16xg+otqGBQ/zhZDdG
+ /L5Pxa5fUURKS2nitMNCaGce7uZ5plqaBAXT/7j3WMSXixqkWxeRkdCjjjrmseZoZlHu
+ eRFc4UcDPsZ0ihdPjYDBEdz9xI3VZvHvQrTW0L5J4qltvffkXGE0OG//KgOVhb4eRKj1
+ 61syG/mn8zvAmit19OMGnVNe7vnAXLFktgCvWtNuSKlLxT10KpXFFYMrLnNVrShz9DvI
+ 1HQd6Eik4sxd/DWNfIHPaA2r5wApzvG0LDViaIF+aio7qlfPtXcgBrXqXsg2snoR+Sls
+ bgOg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqGDhu6ejaSqZTwGOD59DtLR9kQ0UHyWAJw/LYfu7d/jW/ERYOLStVQ2HsUL5rs+dFBjHXEO2J93J8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxUKKjUO/s8wj8pJ2qywyCaffSICd8QJoRYGcfjUnpZ1hmnshwO
- KPDJv9T+aqfguPdnxFffGwDP+aMGJRSJzfOieYgIYdM8lGj/r8SXuBuU
-X-Gm-Gg: AfdE7clIVAlAgKQ6sph52C0Q4Dn4na9yvd8hiMwc4lyLP80lWDfTMg4fRFHNMduZDQT
- oEuY/KoBFF9lPcAiYJjCtK1F3B2ESNrFDaTp+tyJ+lYwW9KMjcWcZNPaahJzD61hPFBlgiZ5PLt
- U2yLdQMpQDZBqKynPGTdP8EuJ0mezhlhld7/TVm8lQZGrVAdK55zbLEOBLnNUmg+ZwtM3byFACX
- JrGpLelt+ylNw9z3WiX9F2DEuv0HiC0n/cQa1+AEMGlZLhX6UBRyePIWUZglpNDHHggbgfe8QqX
- dTCZySLF58Eh1XejyujxEbxkxELuOzoAxFZC7IzWzRKVlDHHJdUORvpb+CaThc/2KDN1Kmejb2R
- qyPq6W04E9O7mengAfBdUaPU1WgIuh+1WoEiVlNFzb7gQS4z8w91zOs7fBxVd83wb9/HbJ+spb1
- eFwadatK4L+o5kI+JJroQajItzZ901qjzi26BrTqlazVs8gCBLcajGQj5NtBBneDwoDHgH7E1mE
- cfx1AwMLVSX+bTia4X6YalZ+qOQvU0/+w==
-X-Received: by 2002:a05:6000:2007:b0:460:1301:dec6 with SMTP id
- ffacd0b85a97d-47df0715673mr12782183f8f.10.1783685025316; 
- Fri, 10 Jul 2026 05:03:45 -0700 (PDT)
+ AHgh+RpZQW64K4EZEGsROXw9MgxC7cgEk38uqGwAfhXCtSBjbA7rqFzqLVKpvbNai1437P4EcZapi1gjgac=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyVP6QQ2EYvr0atPk8GXSeEzgPGyVphpaZVc60nYYMwQWzo4DZH
+ BVt6Wzt23pHr5tOGETS87q8LSmr2Tw24z/Cs186uEvTxGyIe1/IcnNQL
+X-Gm-Gg: AfdE7cnmYqHk3YpnO0+BgZeadRaEuvsxC+8oxeo4qtYsHsbK891r5dzPEjTkZOx4msp
+ zIJ5KAuBYomKp/lvevd7NUuDGrTmtaYmEX1CKcV8j/Mb0bhwR5rVMx/5OWzOPrK9nL9WrLbTIkw
+ yJ0WMaDZ3iLH1N/nhj5E4JZEnumTSp0xRzAOVBjIu8m+RnWOTHAc8YHICq8HHrTjkpsdApPh2f+
+ ysFLuklKdKqx7kYr3G4Uq4Ci3JiVM66kf23+qIa5Isd+7XVUOLpQGSbcf92zMXyEF6bogswNV9W
+ EKxR31m9uSxA6IHGvYc05g55Tvu9Mf0H8GTS61tL3hVH/6lDka25ZIZ4iUdNYN41kJ1z4E107Uh
+ gDOw5x/KZwzKuhhmH67+QfuQeAr1C+66tZyM2KIZ5aafAQ0U6v75dwE3qMrXsfH6+XvItVzhJ0d
+ 9EE8J4c1A0np3TPas5BpfnFq0daomfJhI2wrKkUfZBpMCXdGUOkz1NbItxYR/E+WcRqha7hRHYY
+ GftImIx7EPoTgHI7X2xbpbIVFnQQPIYEg==
+X-Received: by 2002:a05:6000:41ee:b0:46e:6210:ad4a with SMTP id
+ ffacd0b85a97d-47df071e518mr11370482f8f.5.1783685026628; 
+ Fri, 10 Jul 2026 05:03:46 -0700 (PDT)
 Received: from localhost.localdomain (62-178-82-42.cable.dynamic.surfer.at.
  [62.178.82.42]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47a9e4d83bdsm59637487f8f.13.2026.07.10.05.03.44
+ ffacd0b85a97d-47a9e4d83bdsm59637487f8f.13.2026.07.10.05.03.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 05:03:44 -0700 (PDT)
+ Fri, 10 Jul 2026 05:03:46 -0700 (PDT)
 From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Subject: [PATCH v3 0/2] drm/etnaviv: Add GPU reset counters for robustness
-Date: Fri, 10 Jul 2026 14:03:41 +0200
-Message-Id: <20260710-etnaviv-reset-notification-v3-0-7a145c8a1d01@igalia.com>
+Date: Fri, 10 Jul 2026 14:03:42 +0200
+Subject: [PATCH v3 1/2] drm/etnaviv: Reference count struct
+ etnaviv_file_private
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQqDMBCF4atI1k1JokbtqvcoXYzpRAdaU5IQW
- sS7NwqFduPyfzDfzCygJwzsVMzMY6JAbspRHgpmRpgG5HTLzZRQWjSi5RgnSJS4x4CRTy6SJQM
- xn/FelI2sS5AAPcvA06Ol14ZfrrlHCtH59/YryXX9st0emyQXXFdGy6bqdFe3ZxrgTnA07sFWN
- 6kfS4pdS2WrE8Zib6xSoP6sZVk+pcmaIxEBAAA=
-X-Change-ID: 20260708-etnaviv-reset-notification-b037153a1aab
+Message-Id: <20260710-etnaviv-reset-notification-v3-1-7a145c8a1d01@igalia.com>
+References: <20260710-etnaviv-reset-notification-v3-0-7a145c8a1d01@igalia.com>
+In-Reply-To: <20260710-etnaviv-reset-notification-v3-0-7a145c8a1d01@igalia.com>
 To: Lucas Stach <l.stach@pengutronix.de>, 
  Russell King <linux+etnaviv@armlinux.org.uk>, 
  Christian Gmeiner <christian.gmeiner@gmail.com>, 
@@ -100,72 +99,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The OpenGL robustness extensions (GL_KHR_robustness) and Vulkan
-(VK_ERROR_DEVICE_LOST) let an application detect a GPU reset and check
-whether its own context caused it, so it can throw away the broken
-context and build a new one. etnaviv already resets the GPU after a
-hang, but userspace has no way to learn about it.
+From: Christian Gmeiner <cgmeiner@igalia.com>
 
-This series adds two counters and a RESET_QUERY ioctl that returns both
-in one call:
+The next commit updates per-context data from the GPU reset path, which
+runs in the scheduler timeout worker. This can race with closing the DRM
+file: drm_sched_entity_flush() only waits until the entity queue is
+empty, it does not wait for jobs still running on the hardware. So the
+context can already be freed while the reset path still needs it.
 
-- a global counter that counts every reset of a GPU core.
-- a context counter that only counts the resets the calling context was
-  guilty of.
-
-Userspace samples both values and compares them later: if the context
-counter moved the context was guilty, if only the global counter moved
-the context was an innocent victim. That is all that is needed to
-implement glGetGraphicsResetStatus() and Vulkan device loss.
-
-The global counter is kept per GPU core and not per device, so a hang
-on one pipe does not look like an innocent reset to contexts that only
-use another pipe.
-
-The first patch is preparation: the counters are updated from the
-scheduler timeout worker, which can race with the DRM file being
-closed, so struct etnaviv_file_private becomes reference counted and
-every submit holds a reference.
-
-Link to the Mesa MR implementing the userspace side:
-https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/42826
+Reference count the context and let every submit hold a reference, the
+same way a submit already keeps its mmu context and pid alive. No
+functional change.
 
 Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
 ---
-Changes in v3:
-- Update the reset counters and read them back under the GPU lock, so
-  the RESET_QUERY ioctl cannot run between the two updates and report
-  an innocent reset to the guilty context (Lucas).
-- Link to v2: https://lore.kernel.org/r/20260710-etnaviv-reset-notification-v2-0-90cfebcf22a2@igalia.com
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c        | 17 ++++++++++++++++-
+ drivers/gpu/drm/etnaviv/etnaviv_drv.h        | 11 +++++++++++
+ drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c |  5 ++++-
+ 3 files changed, 31 insertions(+), 2 deletions(-)
 
-Changes in v2:
-- Replace the two GET_PARAM values with a dedicated RESET_QUERY ioctl
-  that returns both counters in one call. The ioctl has a flags field
-  that must be zero for now, so the query can later be extended to name
-  a specific context once a DRM file can hold more than one context
-  (Lucas).
-- Make the reset counters plain u32 instead of atomics (Lucas).
-- Use __u32 for the ioctl counter fields to match the internal
-  counters, following i915 GET_RESET_STATS.
-- Link to v1: https://lore.kernel.org/r/20260709-etnaviv-reset-notification-v1-0-64c617496958@igalia.com
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+index 08aca9035fc1..a27ed014fb4e 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+@@ -60,6 +60,19 @@ static void load_gpu(struct drm_device *dev)
+ 	}
+ }
+ 
++static void etnaviv_file_private_release(struct kref *kref)
++{
++	struct etnaviv_file_private *ctx =
++		container_of(kref, struct etnaviv_file_private, refcount);
++
++	kfree(ctx);
++}
++
++void etnaviv_file_private_put(struct etnaviv_file_private *ctx)
++{
++	kref_put(&ctx->refcount, etnaviv_file_private_release);
++}
++
+ static int etnaviv_open(struct drm_device *dev, struct drm_file *file)
+ {
+ 	struct etnaviv_drm_private *priv = dev->dev_private;
+@@ -70,6 +83,8 @@ static int etnaviv_open(struct drm_device *dev, struct drm_file *file)
+ 	if (!ctx)
+ 		return -ENOMEM;
+ 
++	kref_init(&ctx->refcount);
++
+ 	ret = xa_alloc_cyclic(&priv->active_contexts, &ctx->id, ctx,
+ 			      xa_limit_32b, &priv->next_context_id, GFP_KERNEL);
+ 	if (ret < 0)
+@@ -120,7 +135,7 @@ static void etnaviv_postclose(struct drm_device *dev, struct drm_file *file)
+ 
+ 	xa_erase(&priv->active_contexts, ctx->id);
+ 
+-	kfree(ctx);
++	etnaviv_file_private_put(ctx);
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.h b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
+index 55a9e745604d..cba4323ae589 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_drv.h
++++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
+@@ -7,6 +7,7 @@
+ #define __ETNAVIV_DRV_H__
+ 
+ #include <linux/io.h>
++#include <linux/kref.h>
+ #include <linux/list.h>
+ #include <linux/mm_types.h>
+ #include <linux/sizes.h>
+@@ -29,6 +30,7 @@ struct etnaviv_iommu_global;
+ #define ETNAVIV_SOFTPIN_START_ADDRESS	SZ_4M /* must be >= SUBALLOC_SIZE */
+ 
+ struct etnaviv_file_private {
++	struct kref refcount;
+ 	int id;
+ 	struct etnaviv_iommu_context	*mmu;
+ 	struct drm_sched_entity		sched_entity[ETNA_MAX_PIPES];
+@@ -53,6 +55,15 @@ struct etnaviv_drm_private {
+ 	struct etnaviv_cmdbuf *flop_reset_data_ppu;
+ };
+ 
++void etnaviv_file_private_put(struct etnaviv_file_private *ctx);
++
++static inline struct etnaviv_file_private *
++etnaviv_file_private_get(struct etnaviv_file_private *ctx)
++{
++	kref_get(&ctx->refcount);
++	return ctx;
++}
++
+ int etnaviv_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 		struct drm_file *file);
+ 
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
+index 1a77a09b3377..98f1f59a8b05 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
+@@ -398,6 +398,9 @@ static void submit_cleanup(struct kref *kref)
+ 
+ 	put_pid(submit->pid);
+ 
++	if (submit->ctx)
++		etnaviv_file_private_put(submit->ctx);
++
+ 	kfree(submit->pmrs);
+ 	kfree(submit);
+ }
+@@ -526,7 +529,7 @@ int etnaviv_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 	if (ret)
+ 		goto err_submit_put;
+ 
+-	submit->ctx = file->driver_priv;
++	submit->ctx = etnaviv_file_private_get(file->driver_priv);
+ 	submit->mmu_context = etnaviv_iommu_context_get(submit->ctx->mmu);
+ 	submit->exec_state = args->exec_state;
+ 	submit->flags = args->flags;
 
----
-Christian Gmeiner (2):
-      drm/etnaviv: Reference count struct etnaviv_file_private
-      drm/etnaviv: Add GPU reset counters
-
- drivers/gpu/drm/etnaviv/etnaviv_drv.c        | 46 ++++++++++++++++++++++++++--
- drivers/gpu/drm/etnaviv/etnaviv_drv.h        | 12 ++++++++
- drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c |  5 ++-
- drivers/gpu/drm/etnaviv/etnaviv_gpu.h        |  2 ++
- drivers/gpu/drm/etnaviv/etnaviv_sched.c      |  5 +++
- include/uapi/drm/etnaviv_drm.h               | 19 +++++++++++-
- 6 files changed, 85 insertions(+), 4 deletions(-)
----
-base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
-change-id: 20260708-etnaviv-reset-notification-b037153a1aab
-
-Best regards,
 -- 
-Christian Gmeiner <cgmeiner@igalia.com>
+2.54.0
 
