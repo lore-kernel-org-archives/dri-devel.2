@@ -4,129 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 965C1C44509
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1DA0C44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81AAC10E7CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18DBB10E7C5;
 	Mon, 13 Jul 2026 07:10:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="q3INDviQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W7uhOJok";
 	dkim-atps=neutral
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
- [209.85.219.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B55910E1AA
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 19:05:34 +0000 (UTC)
-Received: by mail-qv1-f54.google.com with SMTP id
- 6a1803df08f44-8ff88549786so12448276d6.3
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:05:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1783710333; x=1784315133; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=5Cb4T8zzpAMOVzwqCT+1eDu/jZ6x8Q2fk7Pyrqw1u7c=;
- b=q3INDviQS9qNED3dgdAJX8YhF7EPKsi9ZuFQX7UzKGL645AelVAj1iS+HSnLucIowV
- Gsr37dMIuo6RrTK7UFsqp1Pkm1X3eyt9OSgVKJN8n7e2cQBwFvBeXYu7j6FbBB0yo5K1
- RfCg46hjeHiQuwl/H6zXSAo6oA5nGU34ryIxbrrU381R8QaxL++aZ1L9f6Zp/9fU1Zja
- JpPYE8SVTi8qtbSzT2vkKEqRoMVwU9eQrb18GTYhzFNqOIUIHKXimK9jA9dyzur3uTRm
- yRwiQkwmt5+Jkyba6eUYnio2AjLm73R1UdnvxQYZpNgJgcG1F+uQ50QdAUjJRKJk9fAx
- cHcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783710333; x=1784315133;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=5Cb4T8zzpAMOVzwqCT+1eDu/jZ6x8Q2fk7Pyrqw1u7c=;
- b=SrQ4+swVvFsotGrORVjEjMZ8i1+u4UxbJAKFql6kfRvon2n1PkT8bD2cJ8Tuwcw5V2
- 5elVTrB6TqgSTKApBF6riVbbWI2ICAw0ejSV7AZ83FMpLGm2lIBQ1rqy4YHk5p5A+Y20
- J1KKVBDNIP8s2yE9naC7UJKLE/OrklJfCtW/eP4thO0mZCILai4mxFnUPs9fsySMp5Xv
- AE51SGB5jBhOn+PnkDvPOJK09VheycOJZ4FEA0mDMi6JYriyDw5z17Lm6kxybRIFem12
- S/7vMETJ3RT+i20gjXYiG+fBPMMP7sqse2qwNnLroIzS/onl2lsqSSEsI9Jrirr+5faL
- yRiw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RovT324vvOG+4MZ73qdc5jXN6fQH99K3QZjbaoTyUiePUeYk1N6JVpGkmf2S068hmSZchK2MUuTmWI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx39+hVIWLxTMbaRj8+salFYmm/YzNEdyGYRdHP6+u24PPlfnPY
- iypCiIqR23YX6K3ApOnKLyWmAAs6QKLpN9hWr4kZbrueLTn7X1kZ5jwZerUW/E+yLjo=
-X-Gm-Gg: AfdE7cn+L6IaCHuRBG+BDsmdpXbHeOE9/e1wkwdC6d+zgwuhwSGIAhc+1aIeSSthkAI
- rG8jSUHb1pnRIaOfIEdo4p1KG70YPJm52e1gmpXmHhhgzz/6LrZM8ydsVjcmIu18Qr9gRQex6+D
- dGmRWTSEfIrYnrQJzP1aaynJHJebty1Akh+z2SSuBd9lqnout0tvtYUk2Lys7usrwvO2OiVlIkE
- G+EByTgYgmdRdvRILVTYWUaN1/KSTnrA6ZdlZ273EWemv9SBwVudfZhl5I0XjjeD8NmXWzG1Ntj
- Winh4/OGgr2qNkddSDWseiENJy+t13lYrBjZVhK1vT5QEkxUuRYs+17Ew1dqmoSdMn5D+qBaADM
- dYRaS6eihafZqLi1nQUYrqzEn4L1/pTf2C7HT9xKanB3r62gRufKTOoUZjVVfITA/GLDUFSxA5a
- 8Ky4GXrt7bWqSc+K8OjEoDihoR+an2JY/iGO18ICBbX6q8NnBsZq3BUFlxjS0GBTZQIPNr
-X-Received: by 2002:a05:6214:33c5:b0:8f0:65c7:315d with SMTP id
- 6a1803df08f44-903ff971194mr4994756d6.24.1783710333250; 
- Fri, 10 Jul 2026 12:05:33 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F
- (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ffd80fe009sm47940576d6.38.2026.07.10.12.05.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 12:05:32 -0700 (PDT)
-Date: Fri, 10 Jul 2026 15:05:27 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
- Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
- linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 20/30] mm/vma: introduce vma_assert_can_modify()
-Message-ID: <alFCd1RtttwxKBLc@gourry-fedora-PF4VCD3F>
-References: <cover.1782735110.git.ljs@kernel.org>
- <23c7602c58cacc23ef22618a27af9a2d54addf58.1782735110.git.ljs@kernel.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2236289361;
+ Fri, 10 Jul 2026 20:24:52 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D9E5F41B1A;
+ Fri, 10 Jul 2026 20:24:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E3C11F00A3A;
+ Fri, 10 Jul 2026 20:24:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783715091;
+ bh=C9U7hTVIV5hnW3Iy6tzDPxArKTc/td9u7V5EE/DSgA8=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=W7uhOJokhKc2gJUfGeoUmCzknt4Uxys2U+9X59vh+pxKi5io2g2zMfJcd7yhqe+Rz
+ PJuzoJIGnd3IH7hewvWSxE5ZTmcXH6LdeBTOkn/+XgwR9cqd6axeVqm1wxysu08ieN
+ MLVpRkBnA0838K8Rrt8GC8FcdYZk8MTw62dLxILsRnOz2/SC4Dv9NtLxpF37T0uAdj
+ VJEdaWU+Rv29jCHBWZafM0pjlpkfNbnmHg4dVJxwp5wGPBCtM2aP7vZJ7HTPwMkCkm
+ XljXzGGXS0Cpa8u/2enRoxyu8aqSQAUNeUJ1sSuPOzOysHNf2I58eZf7+Fp8a5rNPh
+ 318DpOBchn2jQ==
+From: Lorenzo Stoakes <ljs@kernel.org>
+Date: Fri, 10 Jul 2026 21:17:00 +0100
+Subject: [PATCH v2 19/33] mm: prefer vma_[start,end]_pgoff() to
+ vma->vm_pgoff in kernel/
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <23c7602c58cacc23ef22618a27af9a2d54addf58.1782735110.git.ljs@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260710-b4-pre-scalable-cow-v2-19-2a5aa403d977@kernel.org>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
+ Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>, 
+ Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Yishai Hadas <yishaih@nvidia.com>, 
+ Shameer Kolothum <skolothumtho@nvidia.com>, 
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Usama Arif <usama.arif@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev, 
+ iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11256; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=0R0W7VTOgU1IPpg8ezqD30zdmiulVdYqX8Tjb5nSXd4=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg230KqLcZxxjPdSmk3RkvUZI5Yr7Siffuqxo/H0xZ
+ G121+RZHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIdRfDHy537lDf6d4PPjFf
+ OW++NrVRreKvwy6H2xnT9ZK8tjoWRTL8M5XKqlxwI3v6u/lWb176Vz6e9TjqwvY3u9v4rzx8zvi
+ XnxsA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,28 +142,280 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:31PM +0100, Lorenzo Stoakes wrote:
-> vma_assert_write_locked() and vma_assert_attached() are useful for their
-> own purposes, however VMA code absolutely does allow the modification of
-> non-write locked VMAs if they are at that point detached (i.e. unreachable
-> from anywhere).
-> 
+Be consistent in using vma_start_pgoff() and vma_end_pgoff(), which clearly
+indicates which part of the VMA the page offset refers to and aids
+greppability.
 
-curiosity: I presume this happens mostly during init and/or teardown of
-a vma?
+This is part of a broader series laying the ground to provide a virtual
+page offset for MAP_PRIVATE-file backed anon folios.
 
-> It's therefore useful to be able to assert that a VMA is either
-> detached (modification doesn't matter) or write locked (you're explicitly
-> locked for modification).
-> 
-> Therefore introduce vma_assert_can_modify() for this purpose.
-> 
-> While we're here, make vma_is_attached() available generally - if
-> !CONFIG_PER_VMA_LOCKS, then there's no sense in which a VMA is
-> detached (vma_mark_detached() is a noop), so have this default to true in
-> this case.
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+No functional change intended.
 
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com> # for kernel/dma
 Reviewed-by: Gregory Price <gourry@gourry.net>
+Acked-by: Pedro Falcato <pfalcato@suse.de>
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+---
+ kernel/dma/coherent.c      |  7 ++++---
+ kernel/dma/direct.c        |  6 ++++--
+ kernel/dma/mapping.c       |  8 +++++---
+ kernel/dma/ops_helpers.c   |  4 ++--
+ kernel/events/core.c       | 20 +++++++++++---------
+ kernel/events/uprobes.c    | 11 +++++++----
+ kernel/kcov.c              |  2 +-
+ kernel/trace/ring_buffer.c |  3 ++-
+ 8 files changed, 36 insertions(+), 25 deletions(-)
+
+diff --git a/kernel/dma/coherent.c b/kernel/dma/coherent.c
+index bcdc0f76d2e8..2d3195eb7e83 100644
+--- a/kernel/dma/coherent.c
++++ b/kernel/dma/coherent.c
+@@ -236,14 +236,15 @@ static int __dma_mmap_from_coherent(struct dma_coherent_mem *mem,
+ {
+ 	if (mem && vaddr >= mem->virt_base && vaddr + size <=
+ 		   (mem->virt_base + ((dma_addr_t)mem->size << PAGE_SHIFT))) {
+-		unsigned long off = vma->vm_pgoff;
++		const pgoff_t pgoff_start = vma_start_pgoff(vma);
++		const pgoff_t pgoff_end = vma_end_pgoff(vma);
+ 		int start = (vaddr - mem->virt_base) >> PAGE_SHIFT;
+ 		unsigned long user_count = vma_pages(vma);
+ 		int count = PAGE_ALIGN(size) >> PAGE_SHIFT;
+ 
+ 		*ret = -ENXIO;
+-		if (off < count && user_count <= count - off) {
+-			unsigned long pfn = mem->pfn_base + start + off;
++		if (pgoff_start < count && pgoff_end <= count) {
++			unsigned long pfn = mem->pfn_base + start + pgoff_start;
+ 			*ret = remap_pfn_range(vma, vma->vm_start, pfn,
+ 					       user_count << PAGE_SHIFT,
+ 					       vma->vm_page_prot);
+diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+index 4391b797d4db..436310d6e4a2 100644
+--- a/kernel/dma/direct.c
++++ b/kernel/dma/direct.c
+@@ -534,6 +534,8 @@ int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
+ 	unsigned long user_count = vma_pages(vma);
+ 	unsigned long count = PAGE_ALIGN(size) >> PAGE_SHIFT;
+ 	unsigned long pfn = PHYS_PFN(dma_to_phys(dev, dma_addr));
++	const pgoff_t pgoff_start = vma_start_pgoff(vma);
++	const pgoff_t pgoff_end = vma_end_pgoff(vma);
+ 	int ret = -ENXIO;
+ 
+ 	vma->vm_page_prot = dma_pgprot(dev, vma->vm_page_prot, attrs);
+@@ -545,9 +547,9 @@ int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
+ 	if (dma_mmap_from_global_coherent(vma, cpu_addr, size, &ret))
+ 		return ret;
+ 
+-	if (vma->vm_pgoff >= count || user_count > count - vma->vm_pgoff)
++	if (pgoff_start >= count || pgoff_end > count)
+ 		return -ENXIO;
+-	return remap_pfn_range(vma, vma->vm_start, pfn + vma->vm_pgoff,
++	return remap_pfn_range(vma, vma->vm_start, pfn + pgoff_start,
+ 			user_count << PAGE_SHIFT, vma->vm_page_prot);
+ }
+ 
+diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
+index 4fe04669e5e6..c986639044e9 100644
+--- a/kernel/dma/mapping.c
++++ b/kernel/dma/mapping.c
+@@ -761,12 +761,14 @@ EXPORT_SYMBOL_GPL(dma_free_pages);
+ int dma_mmap_pages(struct device *dev, struct vm_area_struct *vma,
+ 		size_t size, struct page *page)
+ {
+-	unsigned long count = PAGE_ALIGN(size) >> PAGE_SHIFT;
++	const pgoff_t pgoff_start = vma_start_pgoff(vma);
++	const pgoff_t pgoff_end = vma_end_pgoff(vma);
++	const unsigned long count = PAGE_ALIGN(size) >> PAGE_SHIFT;
+ 
+-	if (vma->vm_pgoff >= count || vma_pages(vma) > count - vma->vm_pgoff)
++	if (pgoff_start >= count || pgoff_end > count)
+ 		return -ENXIO;
+ 	return remap_pfn_range(vma, vma->vm_start,
+-			       page_to_pfn(page) + vma->vm_pgoff,
++			       page_to_pfn(page) + pgoff_start,
+ 			       vma_pages(vma) << PAGE_SHIFT, vma->vm_page_prot);
+ }
+ EXPORT_SYMBOL_GPL(dma_mmap_pages);
+diff --git a/kernel/dma/ops_helpers.c b/kernel/dma/ops_helpers.c
+index 20caf9cabf69..6b5f9208d31c 100644
+--- a/kernel/dma/ops_helpers.c
++++ b/kernel/dma/ops_helpers.c
+@@ -39,7 +39,7 @@ int dma_common_mmap(struct device *dev, struct vm_area_struct *vma,
+ #ifdef CONFIG_MMU
+ 	unsigned long user_count = vma_pages(vma);
+ 	unsigned long count = PAGE_ALIGN(size) >> PAGE_SHIFT;
+-	unsigned long off = vma->vm_pgoff;
++	unsigned long off = vma_start_pgoff(vma);
+ 	struct page *page = dma_common_vaddr_to_page(cpu_addr);
+ 	int ret = -ENXIO;
+ 
+@@ -52,7 +52,7 @@ int dma_common_mmap(struct device *dev, struct vm_area_struct *vma,
+ 		return -ENXIO;
+ 
+ 	return remap_pfn_range(vma, vma->vm_start,
+-			page_to_pfn(page) + vma->vm_pgoff,
++			page_to_pfn(page) + vma_start_pgoff(vma),
+ 			user_count << PAGE_SHIFT, vma->vm_page_prot);
+ #else
+ 	return -ENXIO;
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index d7f3e2c2ecb1..44a092db5d58 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -6998,7 +6998,7 @@ static void perf_mmap_open(struct vm_area_struct *vma)
+ 	refcount_inc(&event->mmap_count);
+ 	refcount_inc(&event->rb->mmap_count);
+ 
+-	if (vma->vm_pgoff)
++	if (vma_start_pgoff(vma))
+ 		refcount_inc(&event->rb->aux_mmap_count);
+ 
+ 	if (mapped)
+@@ -7032,7 +7032,7 @@ static void perf_mmap_close(struct vm_area_struct *vma)
+ 	 * The AUX buffer is strictly a sub-buffer, serialize using aux_mutex
+ 	 * to avoid complications.
+ 	 */
+-	if (rb_has_aux(rb) && vma->vm_pgoff == rb->aux_pgoff &&
++	if (rb_has_aux(rb) && vma_start_pgoff(vma) == rb->aux_pgoff &&
+ 	    refcount_dec_and_mutex_lock(&rb->aux_mmap_count, &rb->aux_mutex)) {
+ 		/*
+ 		 * Stop all AUX events that are writing to this buffer,
+@@ -7190,7 +7190,8 @@ static int map_range(struct perf_buffer *rb, struct vm_area_struct *vma)
+ 	 */
+ 	for (pagenum = 0; pagenum < nr_pages; pagenum++) {
+ 		unsigned long va = vma->vm_start + PAGE_SIZE * pagenum;
+-		struct page *page = perf_mmap_to_page(rb, vma->vm_pgoff + pagenum);
++		struct page *page = perf_mmap_to_page(rb,
++				vma_start_pgoff(vma) + pagenum);
+ 
+ 		if (page == NULL) {
+ 			err = -EINVAL;
+@@ -7344,6 +7345,7 @@ static int perf_mmap_rb(struct vm_area_struct *vma, struct perf_event *event,
+ static int perf_mmap_aux(struct vm_area_struct *vma, struct perf_event *event,
+ 			 unsigned long nr_pages)
+ {
++	const pgoff_t pgoff_start = vma_start_pgoff(vma);
+ 	long extra = 0, user_extra = nr_pages;
+ 	u64 aux_offset, aux_size;
+ 	struct perf_buffer *rb;
+@@ -7366,11 +7368,11 @@ static int perf_mmap_aux(struct vm_area_struct *vma, struct perf_event *event,
+ 	if (aux_offset < perf_data_size(rb) + PAGE_SIZE)
+ 		return -EINVAL;
+ 
+-	if (aux_offset != vma->vm_pgoff << PAGE_SHIFT)
++	if (aux_offset != pgoff_start << PAGE_SHIFT)
+ 		return -EINVAL;
+ 
+ 	/* already mapped with a different offset */
+-	if (rb_has_aux(rb) && rb->aux_pgoff != vma->vm_pgoff)
++	if (rb_has_aux(rb) && rb->aux_pgoff != pgoff_start)
+ 		return -EINVAL;
+ 
+ 	if (aux_size != nr_pages * PAGE_SIZE)
+@@ -7400,7 +7402,7 @@ static int perf_mmap_aux(struct vm_area_struct *vma, struct perf_event *event,
+ 		if (vma->vm_flags & VM_WRITE)
+ 			rb_flags |= RING_BUFFER_WRITABLE;
+ 
+-		ret = rb_alloc_aux(rb, event, vma->vm_pgoff, nr_pages,
++		ret = rb_alloc_aux(rb, event, pgoff_start, nr_pages,
+ 				   event->attr.aux_watermark, rb_flags);
+ 		if (ret) {
+ 			refcount_dec(&rb->mmap_count);
+@@ -7457,7 +7459,7 @@ static int perf_mmap(struct file *file, struct vm_area_struct *vma)
+ 		if (event->state <= PERF_EVENT_STATE_REVOKED)
+ 			return -ENODEV;
+ 
+-		if (vma->vm_pgoff == 0)
++		if (!vma_start_pgoff(vma))
+ 			ret = perf_mmap_rb(vma, event, nr_pages);
+ 		else
+ 			ret = perf_mmap_aux(vma, event, nr_pages);
+@@ -9884,7 +9886,7 @@ static bool perf_addr_filter_vma_adjust(struct perf_addr_filter *filter,
+ 					struct perf_addr_filter_range *fr)
+ {
+ 	unsigned long vma_size = vma->vm_end - vma->vm_start;
+-	unsigned long off = vma->vm_pgoff << PAGE_SHIFT;
++	unsigned long off = vma_start_pgoff(vma) << PAGE_SHIFT;
+ 	struct file *file = vma->vm_file;
+ 
+ 	if (!perf_addr_filter_match(filter, file, off, vma_size))
+@@ -9974,7 +9976,7 @@ void perf_event_mmap(struct vm_area_struct *vma)
+ 			/* .tid */
+ 			.start  = vma->vm_start,
+ 			.len    = vma->vm_end - vma->vm_start,
+-			.pgoff  = (u64)vma->vm_pgoff << PAGE_SHIFT,
++			.pgoff  = (u64)vma_start_pgoff(vma) << PAGE_SHIFT,
+ 		},
+ 		/* .maj (attr_mmap2 only) */
+ 		/* .min (attr_mmap2 only) */
+diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
+index ac340a703d06..ae2f3b9f8d50 100644
+--- a/kernel/events/uprobes.c
++++ b/kernel/events/uprobes.c
+@@ -144,12 +144,14 @@ static bool valid_vma(struct vm_area_struct *vma, bool is_register)
+ 
+ static unsigned long offset_to_vaddr(struct vm_area_struct *vma, loff_t offset)
+ {
+-	return vma->vm_start + offset - ((loff_t)vma->vm_pgoff << PAGE_SHIFT);
++	return vma->vm_start + offset -
++		((loff_t)vma_start_pgoff(vma) << PAGE_SHIFT);
+ }
+ 
+ static loff_t vaddr_to_offset(struct vm_area_struct *vma, unsigned long vaddr)
+ {
+-	return ((loff_t)vma->vm_pgoff << PAGE_SHIFT) + (vaddr - vma->vm_start);
++	return ((loff_t)vma_start_pgoff(vma) << PAGE_SHIFT) +
++		(vaddr - vma->vm_start);
+ }
+ 
+ /**
+@@ -1482,7 +1484,7 @@ static int unapply_uprobe(struct uprobe *uprobe, struct mm_struct *mm)
+ 		    file_inode(vma->vm_file) != uprobe->inode)
+ 			continue;
+ 
+-		offset = (loff_t)vma->vm_pgoff << PAGE_SHIFT;
++		offset = (loff_t)vma_start_pgoff(vma) << PAGE_SHIFT;
+ 		if (uprobe->offset <  offset ||
+ 		    uprobe->offset >= offset + vma->vm_end - vma->vm_start)
+ 			continue;
+@@ -2453,7 +2455,8 @@ static struct uprobe *find_active_uprobe_speculative(unsigned long bp_vaddr)
+ 	if (!vm_file)
+ 		return NULL;
+ 
+-	offset = (loff_t)(vma->vm_pgoff << PAGE_SHIFT) + (bp_vaddr - vma->vm_start);
++	offset = (loff_t)(vma_start_pgoff(vma) << PAGE_SHIFT) +
++		(bp_vaddr - vma->vm_start);
+ 	uprobe = find_uprobe_rcu(vm_file->f_inode, offset);
+ 	if (!uprobe)
+ 		return NULL;
+diff --git a/kernel/kcov.c b/kernel/kcov.c
+index 1df373fb562b..b19b473c366a 100644
+--- a/kernel/kcov.c
++++ b/kernel/kcov.c
+@@ -512,7 +512,7 @@ static int kcov_mmap(struct file *filep, struct vm_area_struct *vma)
+ 
+ 	spin_lock_irqsave(&kcov->lock, flags);
+ 	size = kcov->size * sizeof(unsigned long);
+-	if (kcov->area == NULL || vma->vm_pgoff != 0 ||
++	if (kcov->area == NULL || vma_start_pgoff(vma) ||
+ 	    vma->vm_end - vma->vm_start != size) {
+ 		res = -EINVAL;
+ 		goto exit;
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 56a328e94395..dfa493d54ef9 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -7613,7 +7613,8 @@ static int __rb_inc_dec_mapped(struct ring_buffer_per_cpu *cpu_buffer,
+ static int __rb_map_vma(struct ring_buffer_per_cpu *cpu_buffer,
+ 			struct vm_area_struct *vma)
+ {
+-	unsigned long nr_subbufs, nr_pages, nr_vma_pages, pgoff = vma->vm_pgoff;
++	unsigned long nr_subbufs, nr_pages, nr_vma_pages;
++	pgoff_t pgoff = vma_start_pgoff(vma);
+ 	unsigned int subbuf_pages, subbuf_order;
+ 	struct page **pages __free(kfree) = NULL;
+ 	int p = 0, s = 0;
+
+-- 
+2.55.0
 
