@@ -4,56 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A863C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 09:43:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3B34C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 10:04:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83E1B10E193;
-	Fri, 10 Jul 2026 09:43:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 494E510E574;
+	Fri, 10 Jul 2026 10:04:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LCM5EWps";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BywlWTUj";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C427210E193;
- Fri, 10 Jul 2026 09:43:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7468C600C3;
- Fri, 10 Jul 2026 09:43:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080321F000E9;
- Fri, 10 Jul 2026 09:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783676633;
- bh=ScooFFYQ6XqRhiFCaNLKyuErrz6NYpqfC1wRjvlV+ns=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=LCM5EWpsBhoI+aOA/uhP9x2JilktKNSYRvDe7zJirGZ8QUpdGnp9yw1oGHn1xz2mn
- qpfFXbMIamacbuZMctW+J2ooUzIB0czQZyda6LJwzkKcSvbn/yY410kbrnrmIak02T
- rje9zmCCa3ODGUf+PbQmq4Nql4Pmr6QJP/yWQGyC3MnZdhAx3ar6/hetrQblnCc3eE
- X5fpZfIvVWWHMq+Fu5zZuI7/qJs0tP5kgBPIdI9fEnlGcbTaeeJjnqPdZ4T21eanLh
- GgZCCU8e+XLjroidStjpnqTnC9cWM/f1D95PQvkiv6wNgWtTJ8Tsnb2k3/bnVjlYGo
- MeBRmpoMjOGag==
-Message-ID: <7d6c228b-9b2e-4b4a-93a8-339cd35bbd11@kernel.org>
-Date: Fri, 10 Jul 2026 11:43:44 +0200
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
+ [209.85.210.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D33C10E574
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 10:04:28 +0000 (UTC)
+Received: by mail-ot1-f52.google.com with SMTP id
+ 46e09a7af769-7eb3865ea6fso580149a34.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 03:04:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783677867; x=1784282667; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=wyZXpBPBL61m8TrV16Lohtok6L4J2DeS9zQ53Rr2MRY=;
+ b=BywlWTUjfaPBD0rTFJEsaCXTEMZ+RJg0XHs/O+G1YtHObbE01E5PBCZ/W9Fe3tLQ7x
+ 1N9EgN0FM0t6BUuj62GW/Se8wosphIIt5du1sGhO7OMue818AXc4yZ+4np8sIZ0zz2jA
+ WrvOgrIMFsjRFptlaNiXJGSkA7LcoRY6SvP6az4fMMP26VJOQgGkgXuIV/9Eu8T3y4i0
+ MF2rheKJ/ox4Lv51Tql9iZTrpz2O89qbZ0rGiYRiGUHm8xCD08BFa74MV4pL2isgLrCm
+ B5LUqRttsfXa/ieD1uDNOc4/b0uMMGZxnGMmtgXs351xECO6OCzucCt8uuriM+JLOKci
+ Ujow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783677867; x=1784282667;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=wyZXpBPBL61m8TrV16Lohtok6L4J2DeS9zQ53Rr2MRY=;
+ b=K2Eb8ADBz20HPUEO2S7xe7QRNM27RCpnQbjnqDOzokt6ZCod6gofEgHUb5sriH2Dde
+ aKQkAXwf4j662PilXnp1hs7yAJQYtKJ4x7WDRNIoJlrpa7ycT+uiyOuQmLyfrhYURVYd
+ WZ/Z9u2asDts/4XG1GvKj+JYJ4EWjaBt+rdHfD8BSIQL4THWgxeMNHVgbtYx3+VSGBof
+ a2fmcR+68RRpsdpG40i+H04L1EuDJnM9wb68moDfvqB9ghsKbuZ6eSpDJJK8FHvN/9rO
+ crwD7vb5wcf7ak3BZ9tk96qXsLWj9IOT6BQ6eGk5z09lNeFQkqbgHbxsAkYewJtoo+Wz
+ ETJQ==
+X-Gm-Message-State: AOJu0Yy7TrS4sffkSbpXh6Sb0+rKbP+6JffKul6s2UYIK+bEEDb3TOKJ
+ Xnh1/CX8MCNYfDUkSPGqas5ZF2ycYZzN1HmENNAE23gAt/1qP/8Ud7cV
+X-Gm-Gg: AfdE7ck5MXQwKP01KoL6hWLl82ZNJDj7YS1EuOHnhA9phlHOyyFoHPXYXwqXKde97SM
+ eRNEVTthp2UxL1cygkewMllqwimjzWEbz441bmPH0gFFcZa3wuXBjLIa46PabJDMtFZr8cYTVW2
+ JXtFYE95c9t1Pp9cHk816T1RVE253pzZXiQn14mZu7n3RT7EjDFrlkCaaMjOEaveTpEfJEpa4X/
+ +Ya0i5Q5/sW0eeUVZY9LAupk2yZ8InMixMxTrrxpJ8s+6iDUAIJ3FcY2WMKmqCthxsdgLimmKzj
+ kQH6dAvMjvE/eE9tUwkPznB6ekB8GbhZz5YlZ8YFsLVHVER79sSgyVMa4dZR9wmrq/xNre7wh0M
+ cbNNF06y8kCrVjgvmusyWnhvgUFhn1jOJG5Gzhz0VNjESfrEOIzFTswhfL0fpmfKFijXaGVjcPE
+ 8TW4cEFpG6vy+lMNQ=
+X-Received: by 2002:a05:6820:c90:b0:6a1:50e9:d589 with SMTP id
+ 006d021491bc7-6a36da636f5mr7405199eaf.70.1783677867421; 
+ Fri, 10 Jul 2026 03:04:27 -0700 (PDT)
+Received: from localhost ([74.80.182.70]) by smtp.gmail.com with ESMTPSA id
+ 006d021491bc7-6a38aab2761sm1591968eaf.1.2026.07.10.03.04.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Jul 2026 03:04:25 -0700 (PDT)
+Date: Fri, 10 Jul 2026 13:04:18 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org
+Subject: [bug report] drm/rockchip: dw_hdmi: Propagate bus format to display
+ driver
+Message-ID: <alDDok08ZB6hBQ4n@stanley.mountain>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] drm/amd/display: amdgpu_dm_plane_test.ko fails to
- build due to modpost "too long symbol"
-To: Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
- Randy Dunlap <rdunlap@infradead.org>, amd-gfx@lists.freedesktop.org,
- bhawanpreet.lakha@amd.com
-Cc: dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
- george.zhang@amd.com, LKML <linux-kernel@vger.kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, christian.koenig@amd.com,
- harry.wentland@amd.com, sunpeng.li@amd.com, broonie@kernel.org,
- Linux Next Mailing List <linux-next@vger.kernel.org>, alex.hung@amd.com
-References: <fde3656e-9e22-4e4c-937f-7e8cb918da6b@linux.ibm.com>
- <54f6efe8-cab8-4fc8-bf00-f012b3224e54@infradead.org>
- <85931e07-60eb-4df2-bc52-773c63f27f6c@linux.ibm.com>
- <14e618d3-34ea-4bc9-b9a8-3783e2b61e0a@linux.ibm.com>
- <4ccaca42-03c0-40aa-9a4e-9b0514735b45@linux.ibm.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <4ccaca42-03c0-40aa-9a4e-9b0514735b45@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,309 +83,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hello Jonas Karlman,
 
+Commit dc70272cc184 ("drm/rockchip: dw_hdmi: Propagate bus format to
+display driver") from May 18, 2026 (linux-next), leads to the
+following Smatch static checker warning:
 
-Le 10/07/2026 à 10:52, Venkat Rao Bagalkote a écrit :
-> 
-> On 10/07/26 1:31 pm, Venkat Rao Bagalkote wrote:
->>
->> On 10/07/26 10:45 am, Venkat Rao Bagalkote wrote:
->>>
->>> On 09/07/26 11:53 pm, Randy Dunlap wrote:
->>>>
->>>> On 7/7/26 10:05 PM, Venkat Rao Bagalkote wrote:
->>>>> Greetings!!!
->>>>>
->>>>> linux-next is failing to build for me with:
->>>>>
->>>>> ERROR: modpost: too long symbol
+	drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c:289 dw_hdmi_rockchip_get_bus_format()
+	warn: 'bridge_state' is an error pointer or valid
 
-Comes from here I guess:
+drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+    278 static u32 dw_hdmi_rockchip_get_bus_format(struct drm_encoder *encoder,
+    279                                            struct drm_connector_state *conn_state)
+    280 {
+    281         struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
+    282         struct drm_bridge_state *bridge_state;
+    283 
+    284         bridge = drm_bridge_chain_get_first_bridge(encoder);
+    285         if (!bridge)
+    286                 return 0;
+    287 
+    288         bridge_state = drm_atomic_get_bridge_state(conn_state->state, bridge);
+--> 289         if (!bridge_state)
 
-/**
-  * Record CRCs for unresolved symbols
-  **/
-static void add_versions(struct buffer *b, struct module *mod)
-{
-	struct symbol *s;
+drm_atomic_get_bridge_state() never returns NULL, only error pointers.
 
-	if (!basic_modversions)
-		return;
+    290                 return 0;
+    291 
+    292         if (bridge_state->input_bus_cfg.format != MEDIA_BUS_FMT_FIXED)
+    293                 return bridge_state->input_bus_cfg.format;
+    294 
+    295         return bridge_state->output_bus_cfg.format;
+    296 }
 
-	buf_printf(b, "\n");
-	buf_printf(b, "static const struct modversion_info ____versions[]\n");
-	buf_printf(b, "__used __section(\"__versions\") = {\n");
+This email is a free service from the Smatch-CI project [smatch.sf.net].
 
-	list_for_each_entry(s, &mod->unresolved_symbols, list) {
-		if (!s->module)
-			continue;
-		if (!s->crc_valid) {
-			warn("\"%s\" [%s.ko] has no CRC!\n",
-				s->name, mod->name);
-			continue;
-		}
-		if (strlen(s->name) >= MODULE_NAME_LEN) {
-			if (extended_modversions) {
-				/* this symbol will only be in the extended info */
-				continue;
-			} else {
-				error("too long symbol \"%s\" [%s.ko]\n",
-				      s->name, mod->name);
-				break;
-			}
-		}
-		buf_printf(b, "\t{ 0x%08x, \"%s\" },\n",
-			   s->crc, s->name);
-	}
-
-	buf_printf(b, "};\n");
-}
-
-Where:
-
-include/linux/module.h:#define MODULE_NAME_LEN __MODULE_NAME_LEN
-include/linux/moduleparam.h:#define __MODULE_NAME_LEN (64 - 
-sizeof(unsigned long))
-
-> 
-> I bisected this build failure and found that it is caused by the exported
-> KUnit symbols:
-> 
->    amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers()
->    amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers()
-> 
-> modpost rejects the resulting exported symbol name with:
-> 
->    ERROR: modpost: too long symbol
->    "amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers"
-> 
-> I tested the following approach locally, which simply shortens the helper
-> names to:
-> 
->    amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers()
->    amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers()
-> 
-> and updated all corresponding users and KUnit references. This resolves the
-> build issue for me and does not appear to introduce any functional changes.
-> 
-> Does this look like an acceptable fix?
-
-Yes most likely. The alternat fix would be to increase MODULE_NAME_LEN 
-but that would mean increasing the size of several tables for just 2 
-symbols which are too long ?
-
-Christophe
-
-> 
-> If so, I'll prepare and send a formal patch with proper changelog.
-> 
-> 
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/ 
-> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index 1b564cfe2120..b58225338bc4 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -328,7 +328,7 @@ STATIC_IFN_KUNIT int 
-> amdgpu_dm_plane_validate_dcc(struct amdgpu_device *adev,
->   }
->   EXPORT_IF_KUNIT(amdgpu_dm_plane_validate_dcc);
-> 
-> -STATIC_IFN_KUNIT int 
-> amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(struct 
-> amdgpu_device *adev,
-> +STATIC_IFN_KUNIT int 
-> amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(struct amdgpu_device *adev,
->               const struct amdgpu_framebuffer *afb,
->               const enum surface_pixel_format format,
->               const enum dc_rotation_angle rotation,
-> @@ -378,9 +378,9 @@ STATIC_IFN_KUNIT int 
-> amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(s
-> 
->          return ret;
->   }
-> - 
-> EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers);
-> +EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers);
-> 
-> -STATIC_IFN_KUNIT int 
-> amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(struct 
-> amdgpu_device *adev,
-> +STATIC_IFN_KUNIT int 
-> amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(struct amdgpu_device *adev,
->                const struct amdgpu_framebuffer *afb,
->                const enum surface_pixel_format format,
->                const enum dc_rotation_angle rotation,
-> @@ -419,7 +419,7 @@ STATIC_IFN_KUNIT int 
-> amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(
-> 
->          return ret;
->   }
-> - 
-> EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers);
-> +EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers);
-> 
->   static void amdgpu_dm_plane_add_gfx10_1_modifiers(const struct 
-> amdgpu_device *adev,
->                                                    uint64_t **mods,
-> @@ -927,14 +927,14 @@ int 
-> amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
->          }
-> 
->          if (adev->family == AMDGPU_FAMILY_GC_12_0_0) {
-> -               ret = 
-> amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(adev, afb, 
-> format,
-> +               ret = 
-> amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(adev, afb, format,
->                 rotation, plane_size,
->                 tiling_info, dcc,
->                 address);
->                  if (ret)
->                          return ret;
->          } else if (adev->family >= AMDGPU_FAMILY_AI) {
-> -               ret = 
-> amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(adev, afb, 
-> format,
-> +               ret = 
-> amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(adev, afb, format,
->                rotation, plane_size,
->                tiling_info, dcc,
->                address);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/ 
-> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-> index 911fb2d73e22..55c33e051aee 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-> @@ -92,7 +92,7 @@ int amdgpu_dm_plane_get_plane_modifiers(struct 
-> amdgpu_device *adev,
->   int amdgpu_dm_plane_get_plane_formats(const struct drm_plane *plane,
->                                        const struct dc_plane_cap 
-> *plane_cap,
->                                        uint32_t *formats, int max_formats);
-> -int amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(struct 
-> amdgpu_device *adev,
-> +int amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(struct amdgpu_device 
-> *adev,
-> const struct amdgpu_framebuffer *afb,
-> const enum surface_pixel_format format,
-> const enum dc_rotation_angle rotation,
-> @@ -100,7 +100,7 @@ int 
-> amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(struct 
-> amdgpu_devi
-> struct dc_tiling_info *tiling_info,
-> struct dc_plane_dcc_param *dcc,
-> struct dc_plane_address *address);
-> -int amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(struct 
-> amdgpu_device *adev,
-> +int amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(struct 
-> amdgpu_device *adev,
->   const struct amdgpu_framebuffer *afb,
->   const enum surface_pixel_format format,
->   const enum dc_rotation_angle rotation,
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
-> amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
-> amdgpu_dm_plane_test.c
-> index 46c9af432e37..fc84f5a08596 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-> @@ -579,7 +579,7 @@ static void 
-> dm_test_fill_gfx12_plane_attributes_from_modifiers(struct kunit *tes
->          plane_size.surface_size.height = 1080;
-> 
->          KUNIT_EXPECT_EQ(test,
-> -  amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(
-> +  amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(
->                          adev, afb, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
->                          ROTATION_ANGLE_0, &plane_size, &tiling_info, 
-> &dcc, &address),
->                          0);
-> @@ -623,7 +623,7 @@ static void 
-> dm_test_fill_gfx9_plane_attributes_from_modifiers(struct kunit *test
->          afb->base.modifier = DRM_FORMAT_MOD_LINEAR;
-> 
->          KUNIT_EXPECT_EQ(test,
-> -  amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(
-> +  amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(
->                          adev, afb, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
->                          ROTATION_ANGLE_0, &plane_size, &tiling_info, 
-> &dcc, &address),
->                          0);
-> @@ -1187,9 +1187,9 @@ static struct kunit_case 
-> amdgpu_dm_plane_test_cases[] = {
->          KUNIT_CASE(dm_test_get_cursor_position),
->          /* amdgpu_dm_plane_format_mod_supported() */
->          KUNIT_CASE(dm_test_format_mod_supported),
-> -       /* amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers() */
-> +       /* amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers() */
-> KUNIT_CASE(dm_test_fill_gfx12_plane_attributes_from_modifiers),
-> -       /* amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers() */
-> +       /* amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers() */
-> KUNIT_CASE(dm_test_fill_gfx9_plane_attributes_from_modifiers),
->          /* amdgpu_dm_plane_helper_check_state() */
->          KUNIT_CASE(dm_test_helper_check_state_viewport_reject),
-> (END)
-> 
-> 
-> Regards,
-> 
-> Venkat.
-> 
->>
->> # git bisect log
->> git bisect start
->> # status: waiting for both good and bad commits
->> # bad: [5c73cd9f0819c1c44e373e3dabb68318b1de1a12] Add linux-next 
->> specific files for 20260707
->> git bisect bad 5c73cd9f0819c1c44e373e3dabb68318b1de1a12
->> # good: [8cdeaa50eae8dad34885515f62559ee83e7e8dda] Linux 7.2-rc2
->> git bisect good 8cdeaa50eae8dad34885515f62559ee83e7e8dda
->> # good: [aac7863446a8e0cf380f4a5087bc3cdc9b8c14c0] Merge branch 
->> 'master' of https://eur01.safelinks.protection.outlook.com/? 
->> url=https%3A%2F%2Fgit.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Fherbert%2Fcryptodev-2.6.git&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7Cc5e7652b93e744143d1c08dede60b05d%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639192704027107259%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=4ydIlQe8Bb3klMVrBmwYKnhK77MZUni2JbITolWJGzM%3D&reserved=0
->> git bisect good aac7863446a8e0cf380f4a5087bc3cdc9b8c14c0
->> # bad: [fe28d02cde5372d7f71cc6132ccdef37a98ac750] Merge branch 'for- 
->> linux-next' of https://eur01.safelinks.protection.outlook.com/? 
->> url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Fi915%2Fkernel.git&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7Cc5e7652b93e744143d1c08dede60b05d%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639192704027140053%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=BMbR68vSHUPlm7pZCpn7niZgDfYLQWogR6OX7yiaGEw%3D&reserved=0
->> git bisect bad fe28d02cde5372d7f71cc6132ccdef37a98ac750
->> # good: [0639cb26862afe4e35a689a8b5df8b9117c19f52] Merge tag 'drm-xe- 
->> next-2026-07-03' of https://eur01.safelinks.protection.outlook.com/? 
->> url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Fxe%2Fkernel&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7Cc5e7652b93e744143d1c08dede60b05d%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639192704027161672%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=LumG%2BM7C9w7R38jDyGYGHjbhjb6LZ3y%2F2J%2F82%2FZciZo%3D&reserved=0 into drm-next
->> git bisect good 0639cb26862afe4e35a689a8b5df8b9117c19f52
->> # good: [4e9c8a9c322427055c4892183d266ba391af1bc8] drm/amdkfd: drop 
->> struct kfd_signal_page wrapper
->> git bisect good 4e9c8a9c322427055c4892183d266ba391af1bc8
->> # bad: [ea33aa1545535fdb4c1a208b7bfd63314c3a4aa2] drm/amdgpu: Drop 
->> legacy ACA log RAS error data code
->> git bisect bad ea33aa1545535fdb4c1a208b7bfd63314c3a4aa2
->> # good: [a17e79d01f22182a9fcbe79fcbe2ad1477d43e0f] drm/amd/pm: 
->> Validate pp_table header before reading size
->> git bisect good a17e79d01f22182a9fcbe79fcbe2ad1477d43e0f
->> # bad: [7a561c2b1b63abcffb55f625c0d0adb68ab2961a] drm/amd/display: 
->> Simplify boolean checks
->> git bisect bad 7a561c2b1b63abcffb55f625c0d0adb68ab2961a
->> # good: [53ef33c084c5778cc2dcd1efff25e31b6e231141] drm/amd/pm: 
->> Validate Tonga PPTable subtable bounds
->> git bisect good 53ef33c084c5778cc2dcd1efff25e31b6e231141
->> # good: [fe5966d4fdcbed91e6b3478ea6c89d9915d6ed4a] drm/amdkfd: move 
->> TBA/TMA from system to device memory
->> git bisect good fe5966d4fdcbed91e6b3478ea6c89d9915d6ed4a
->> # good: [7a39b1c3b2e6b27f4230a20ccf9ac5a2737fa8b0] drm/amd/display: 
->> Replace repeated no-native-i2c checks with force_i2c_over_aux field
->> git bisect good 7a39b1c3b2e6b27f4230a20ccf9ac5a2737fa8b0
->> # good: [88ae862060f05cd8279e764832f04eafafa505d8] drm/amd/display: 
->> Add more KUnit tests for amdgpu_dm_colorop
->> git bisect good 88ae862060f05cd8279e764832f04eafafa505d8
->> # bad: [2b147895be109e0860269a7a72c697cdf049a885] drm/amd/display: Add 
->> kunit tests for amdgpu_dm_plane
->> git bisect bad 2b147895be109e0860269a7a72c697cdf049a885
->> # first bad commit: [2b147895be109e0860269a7a72c697cdf049a885] drm/ 
->> amd/display: Add kunit tests for amdgpu_dm_plane
->>
->>>
->>>
->>> Regards,
->>>
->>> Venkat.
->>
-
+regards,
+dan carpenter
