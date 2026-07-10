@@ -4,99 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCCD0C44506
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 09:21:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F660C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 09:26:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E7A910E16B;
-	Fri, 10 Jul 2026 09:21:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2DBB10E172;
+	Fri, 10 Jul 2026 09:26:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="dILxM/gr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="87sBJDQk";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dILxM/gr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="87sBJDQk";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="rO+SG5pG";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="88QofeIE";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jkNDBcYi";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DqUwkCaf";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4052E10E16B
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 09:21:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0224B10E172
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 09:26:22 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D50E6766B2;
- Fri, 10 Jul 2026 09:21:07 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4595A76696;
+ Fri, 10 Jul 2026 09:26:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783675267; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1783675581; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8qm83c1l0o6q3XoAGYoMaLAsZhnmYdvopXg5ZHUKvsU=;
- b=dILxM/grMnkzT//PGjQgvRPzbTCyIqvBUwpem+/INy1OyOSXlBIsz9gqcx8MxRJrJ6EpZX
- Cpig7crCihNg5sGQ7MQqhcSHYm1taht0DXodMMnHJ4Mb+/tkfV7+s15uwBCTIpFPuCs4Km
- /5539L0LnwIhNbmOea8tBUeTeEyZvHk=
+ bh=Mg2fjm3bd6+d/j1Randjtzs6phzw9YgU4HiJG9UWiNc=;
+ b=rO+SG5pGRPOUgyTh7JpZa0Q6JWW2r6KgNo+oIHK/7rdKle2sVr9cGMeJ4pi8ce4dULb3l4
+ Qm1jb6rVOgs7KCB0na7GZxpxQakxe7iQuOv2dpXvRe9tFmcpqFkcPMBefmJEj8l6P9R7jk
+ nTgEBeUxEOWDqF/I1SN6yH1YSp11FjU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783675267;
+ s=susede2_ed25519; t=1783675581;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8qm83c1l0o6q3XoAGYoMaLAsZhnmYdvopXg5ZHUKvsU=;
- b=87sBJDQkU9r1dB9EiaLLEplnR13DEPh/Y9k4Hfy/3NsxtVESK1Yh4eBVWlPV4NslXUHVcs
- iY9Tim/GeeXLNdBA==
+ bh=Mg2fjm3bd6+d/j1Randjtzs6phzw9YgU4HiJG9UWiNc=;
+ b=88QofeIE4O96b/odQnfneIDurGl08NewxEw/cZKDWw5xlqs6MWS5mHNzijm4dAqspSqtNH
+ KVcI8V64/JIFulAw==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="dILxM/gr";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=87sBJDQk
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jkNDBcYi;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=DqUwkCaf
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783675267; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1783675580; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8qm83c1l0o6q3XoAGYoMaLAsZhnmYdvopXg5ZHUKvsU=;
- b=dILxM/grMnkzT//PGjQgvRPzbTCyIqvBUwpem+/INy1OyOSXlBIsz9gqcx8MxRJrJ6EpZX
- Cpig7crCihNg5sGQ7MQqhcSHYm1taht0DXodMMnHJ4Mb+/tkfV7+s15uwBCTIpFPuCs4Km
- /5539L0LnwIhNbmOea8tBUeTeEyZvHk=
+ bh=Mg2fjm3bd6+d/j1Randjtzs6phzw9YgU4HiJG9UWiNc=;
+ b=jkNDBcYiM5G42Tx/B17poudPNpe31O4rU7fSrZBVPNwk0gVNGV8SGmNvhVSpT/5mEsiOPk
+ atCqWqd1SooF0KS7wNk9vsTCIgBxflu6tK8WO8F1yAt5Wif/UW1LwmCwSpSWFzfv32v2cL
+ M6exLx+9ao5uH84LmaaHUW3hsaycnaE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783675267;
+ s=susede2_ed25519; t=1783675580;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8qm83c1l0o6q3XoAGYoMaLAsZhnmYdvopXg5ZHUKvsU=;
- b=87sBJDQkU9r1dB9EiaLLEplnR13DEPh/Y9k4Hfy/3NsxtVESK1Yh4eBVWlPV4NslXUHVcs
- iY9Tim/GeeXLNdBA==
+ bh=Mg2fjm3bd6+d/j1Randjtzs6phzw9YgU4HiJG9UWiNc=;
+ b=DqUwkCafhizSHkYdKGlTatNz9x55D33XfZ7lB7AkIFZ6U4Dxg8ckEeLSlUovQuUk2yfzEi
+ 2REHR1BNP7lBI2Dg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4649C779BD;
- Fri, 10 Jul 2026 09:21:07 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1E417779BD;
+ Fri, 10 Jul 2026 09:26:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id SMP0D4O5UGpRFQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 10 Jul 2026 09:21:07 +0000
-Message-ID: <54ca357b-6069-4c04-b0c2-f1aca96dbd79@suse.de>
-Date: Fri, 10 Jul 2026 11:21:06 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id LFbSBby6UGpiGgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 10 Jul 2026 09:26:20 +0000
+Message-ID: <0397c50c-e9bd-40e5-a3df-2374f65b35c4@suse.de>
+Date: Fri, 10 Jul 2026 11:26:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 6/9] drm/gm12u320: replace struct drm_simple_display_pipe
  with regular atomic helpers
 From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Ze Huang <ze.huang@oss.qualcomm.com>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Linus Walleij <linusw@kernel.org>,
- Hans de Goede <hansg@kernel.org>, Alex Lanzano <lanzano.alex@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- imx@lists.linux.dev, xen-devel@lists.xenproject.org
+To: sashiko-reviews@lists.linux.dev, Ze Huang <ze.huang@oss.qualcomm.com>
+Cc: Frank.Li@kernel.org, imx@lists.linux.dev, dri-devel@lists.freedesktop.org
 References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
  <20260705-drm-simple-kms-removal-v1-6-b4e1ca053623@oss.qualcomm.com>
- <e69b3cf5-9a9f-46ca-abc8-68c1375ef6ca@suse.de>
+ <20260704184538.E20261F000E9@smtp.kernel.org>
+ <2e5e0fb4-da13-4250-8395-d59ad5700cf5@suse.de>
 Content-Language: en-US
 Autocrypt: addr=tzimmermann@suse.de; keydata=
  xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
@@ -122,28 +111,28 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <e69b3cf5-9a9f-46ca-abc8-68c1375ef6ca@suse.de>
+In-Reply-To: <2e5e0fb4-da13-4250-8395-d59ad5700cf5@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: D50E6766B2
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Rspamd-Queue-Id: 4595A76696
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[oss.qualcomm.com,synopsys.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,epam.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[22];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ MX_GOOD(-0.01)[];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[]; TO_DN_SOME(0.00)[]
+ TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_FIVE(0.00)[5];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,qualcomm.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:dkim];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -162,239 +151,152 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-Am 10.07.26 um 11:09 schrieb Thomas Zimmermann:
+Am 10.07.26 um 11:20 schrieb Thomas Zimmermann:
 > Hi
 >
-> Am 04.07.26 um 20:31 schrieb Ze Huang:
->> Convert gm12u320 to direct primary plane, CRTC and encoder setup.
+> Am 04.07.26 um 20:45 schrieb sashiko-bot@kernel.org:
+>> Thank you for your contribution! Sashiko AI review found 2 potential 
+>> issue(s) to consider:
 >>
+>> New issues:
+>> - [High] Race condition and potential NULL pointer dereference due to 
+>> direct access to `plane->state` and missing visibility checks in 
+>> atomic callbacks.
+>>
+>> Pre-existing issues:
+>> - [High] Sleeping in atomic context within CRTC and plane atomic 
+>> callbacks.
+>> -- 
+>>
+>> commit a10b3d5781e3b7143f432c86643ef47e8ddc3a9a
+>> Author: Ze Huang <ze.huang@oss.qualcomm.com>
+>>
+>> drm/gm12u320: replace struct drm_simple_display_pipe with regular 
+>> atomic helpers
+>>
+>> Convert gm12u320 to direct primary plane, CRTC and encoder setup.
 >> Keep shadow-plane helper state, framebuffer access helpers and
 >> no-scaling plane-state check from simple-KMS path.
 >>
->> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
->
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
->
-> And I also have this device. Works nicely with the patch
->
-> Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Well, see my reply to the Sashiko bot for possible problems.
-
->
->> ---
->>   drivers/gpu/drm/tiny/gm12u320.c | 128 
->> ++++++++++++++++++++++++++++++++--------
->>   1 file changed, 104 insertions(+), 24 deletions(-)
+>>> diff --git a/drivers/gpu/drm/tiny/gm12u320.c 
+>>> b/drivers/gpu/drm/tiny/gm12u320.c
+>>> index 4ad074337af07..b476793d0401e 100644
+>>> --- a/drivers/gpu/drm/tiny/gm12u320.c
+>>> +++ b/drivers/gpu/drm/tiny/gm12u320.c
+>> [ ... ]
 >>
->> diff --git a/drivers/gpu/drm/tiny/gm12u320.c 
->> b/drivers/gpu/drm/tiny/gm12u320.c
->> index d73dfebb4353..992160ea794d 100644
->> --- a/drivers/gpu/drm/tiny/gm12u320.c
->> +++ b/drivers/gpu/drm/tiny/gm12u320.c
->> @@ -8,6 +8,7 @@
->>   #include <linux/usb.h>
->>     #include <drm/clients/drm_client_setup.h>
->> +#include <drm/drm_atomic.h>
->>   #include <drm/drm_atomic_helper.h>
->>   #include <drm/drm_atomic_state_helper.h>
->>   #include <drm/drm_connector.h>
->> @@ -27,7 +28,6 @@
->>   #include <drm/drm_modeset_helper_vtables.h>
->>   #include <drm/drm_print.h>
->>   #include <drm/drm_probe_helper.h>
->> -#include <drm/drm_simple_kms_helper.h>
->>     static bool eco_mode;
->>   module_param(eco_mode, bool, 0644);
->> @@ -87,7 +87,9 @@ MODULE_PARM_DESC(eco_mode, "Turn on Eco mode (less 
->> bright, more silent)");
->>     struct gm12u320_device {
->>       struct drm_device             dev;
->> -    struct drm_simple_display_pipe   pipe;
->> +    struct drm_plane             plane;
->> +    struct drm_crtc                 crtc;
->> +    struct drm_encoder             encoder;
->>       struct drm_connector             conn;
->>       unsigned char                   *cmd_buf;
->>       unsigned char *data_buf[GM12U320_BLOCK_COUNT];
->> @@ -554,31 +556,33 @@ static int gm12u320_conn_init(struct 
->> gm12u320_device *gm12u320)
->>   }
->>     /* 
->> ------------------------------------------------------------------ */
->> -/* gm12u320 (simple) display pipe                      */
->> +/* gm12u320 display pipe                              */
->>   -static void gm12u320_pipe_enable(struct drm_simple_display_pipe 
->> *pipe,
->> -                 struct drm_crtc_state *crtc_state,
->> -                 struct drm_plane_state *plane_state)
->> +static void gm12u320_crtc_helper_atomic_enable(struct drm_crtc *crtc,
->> +                           struct drm_atomic_commit *commit)
->>   {
->>       struct drm_rect rect = { 0, 0, GM12U320_USER_WIDTH, 
->> GM12U320_HEIGHT };
->> -    struct gm12u320_device *gm12u320 = to_gm12u320(pipe->crtc.dev);
->> +    struct gm12u320_device *gm12u320 = to_gm12u320(crtc->dev);
->> +    struct drm_plane_state *plane_state = crtc->primary->state;
->>       struct drm_shadow_plane_state *shadow_plane_state = 
->> to_drm_shadow_plane_state(plane_state);
->>         gm12u320->fb_update.draw_status_timeout = FIRST_FRAME_TIMEOUT;
->>       gm12u320_fb_mark_dirty(plane_state->fb, 
->> &shadow_plane_state->data[0], &rect);
->>   }
->>   -static void gm12u320_pipe_disable(struct drm_simple_display_pipe 
->> *pipe)
->> +static void gm12u320_crtc_helper_atomic_disable(struct drm_crtc *crtc,
->> +                        struct drm_atomic_commit *commit)
->>   {
->> -    struct gm12u320_device *gm12u320 = to_gm12u320(pipe->crtc.dev);
->> +    struct gm12u320_device *gm12u320 = to_gm12u320(crtc->dev);
->>         gm12u320_stop_fb_update(gm12u320);
->>   }
->>   -static void gm12u320_pipe_update(struct drm_simple_display_pipe 
->> *pipe,
->> -                 struct drm_plane_state *old_state)
->> +static void gm12u320_plane_helper_atomic_update(struct drm_plane 
->> *plane,
->> +                        struct drm_atomic_commit *commit)
->>   {
->> -    struct drm_plane_state *state = pipe->plane.state;
->> +    struct drm_plane_state *old_state = 
->> drm_atomic_get_old_plane_state(commit, plane);
->> +    struct drm_plane_state *state = plane->state;
->>       struct drm_shadow_plane_state *shadow_plane_state = 
->> to_drm_shadow_plane_state(state);
->>       struct drm_rect rect;
->>   @@ -586,11 +590,71 @@ static void gm12u320_pipe_update(struct 
->> drm_simple_display_pipe *pipe,
->>           gm12u320_fb_mark_dirty(state->fb, 
->> &shadow_plane_state->data[0], &rect);
->>   }
->>   -static const struct drm_simple_display_pipe_funcs 
->> gm12u320_pipe_funcs = {
->> -    .enable        = gm12u320_pipe_enable,
->> -    .disable    = gm12u320_pipe_disable,
->> -    .update        = gm12u320_pipe_update,
->> -    DRM_GEM_SIMPLE_DISPLAY_PIPE_SHADOW_PLANE_FUNCS,
->> +static const struct drm_plane_funcs gm12u320_plane_funcs = {
->> +    .update_plane    = drm_atomic_helper_update_plane,
->> +    .disable_plane    = drm_atomic_helper_disable_plane,
->> +    .destroy    = drm_plane_cleanup,
->> +    DRM_GEM_SHADOW_PLANE_FUNCS,
->> +};
->> +
->> +static int gm12u320_plane_helper_atomic_check(struct drm_plane *plane,
->> +                          struct drm_atomic_commit *state)
->> +{
->> +    struct drm_plane_state *plane_state = 
->> drm_atomic_get_new_plane_state(state, plane);
->> +    struct drm_crtc *crtc = plane_state->crtc;
->> +    struct drm_crtc_state *crtc_state = NULL;
->> +    int ret;
->> +
->> +    if (crtc)
->> +        crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
->> +
->> +    ret = drm_atomic_helper_check_plane_state(plane_state, crtc_state,
->> +                          DRM_PLANE_NO_SCALING,
->> +                          DRM_PLANE_NO_SCALING,
->> +                          false, false);
->> +    return ret;
+>>> +static void gm12u320_crtc_helper_atomic_enable(struct drm_crtc *crtc,
+>>> +                           struct drm_atomic_commit *commit)
+>>>   {
+>>>       struct drm_rect rect = { 0, 0, GM12U320_USER_WIDTH, 
+>>> GM12U320_HEIGHT };
+>>> -    struct gm12u320_device *gm12u320 = to_gm12u320(pipe->crtc.dev);
+>>> +    struct gm12u320_device *gm12u320 = to_gm12u320(crtc->dev);
+>>> +    struct drm_plane_state *plane_state = crtc->primary->state;
+>> [Severity: High]
+>> Will this cause a NULL pointer dereference if a subsequent commit 
+>> disables
+>> the plane?
 >
-> Interestingly, this patch handled _check_plane_state() correctly.
+> Primary is for (old) non-atomic DRM drivers.
+>
+>>
+>> Because non-blocking commits execute asynchronously, 
+>> crtc->primary->state
+>> reflects the state of the most recently queued commit, rather than the
+>> commit currently executing. If a fast subsequent commit disables the 
+>> plane,
+>> plane_state->fb could be NULL.
+>>
+>> Should this use drm_atomic_get_new_plane_state(commit, crtc->primary) to
+>> get the state tied to this specific commit?
+>
+> No. Changes that require plane state should go into the plane's 
+> atomic_enable or atomic_update.
+
+A shortcut is to use the plane instance from struct gm12u320_device 
+instead of primary. This is what simple-kms helpers do.
+
+>
+>>
+>>>       struct drm_shadow_plane_state *shadow_plane_state = 
+>>> to_drm_shadow_plane_state(plane_state);
+>>>         gm12u320->fb_update.draw_status_timeout = FIRST_FRAME_TIMEOUT;
+>>>       gm12u320_fb_mark_dirty(plane_state->fb, 
+>>> &shadow_plane_state->data[0], &rect);
+>>>   }
+>>>   -static void gm12u320_pipe_disable(struct drm_simple_display_pipe 
+>>> *pipe)
+>>> +static void gm12u320_crtc_helper_atomic_disable(struct drm_crtc *crtc,
+>>> +                        struct drm_atomic_commit *commit)
+>>>   {
+>>> -    struct gm12u320_device *gm12u320 = to_gm12u320(pipe->crtc.dev);
+>>> +    struct gm12u320_device *gm12u320 = to_gm12u320(crtc->dev);
+>>>         gm12u320_stop_fb_update(gm12u320);
+>> [Severity: High]
+>> This isn't a bug introduced by this patch, but does 
+>> gm12u320_stop_fb_update()
+>> sleep in atomic context?
+>
+> This is a false positive.
 >
 > Best regards
 > Thomas
 >
->> +}
->> +
->> +static const struct drm_plane_helper_funcs 
->> gm12u320_plane_helper_funcs = {
->> +    DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
->> +    .atomic_check    = gm12u320_plane_helper_atomic_check,
->> +    .atomic_update    = gm12u320_plane_helper_atomic_update,
->> +};
->> +
->> +static int gm12u320_crtc_helper_atomic_check(struct drm_crtc *crtc,
->> +                         struct drm_atomic_commit *state)
->> +{
->> +    struct drm_crtc_state *crtc_state = 
->> drm_atomic_get_new_crtc_state(state, crtc);
->> +    int ret;
->> +
->> +    if (!crtc_state->enable)
->> +        goto out;
->> +
->> +    ret = drm_atomic_helper_check_crtc_primary_plane(crtc_state);
->> +    if (ret)
->> +        return ret;
->> +
->> +out:
->> +    return drm_atomic_add_affected_planes(state, crtc);
->> +}
->> +
->> +static const struct drm_crtc_helper_funcs gm12u320_crtc_helper_funcs 
->> = {
->> +    .atomic_check    = gm12u320_crtc_helper_atomic_check,
->> +    .atomic_enable    = gm12u320_crtc_helper_atomic_enable,
->> +    .atomic_disable    = gm12u320_crtc_helper_atomic_disable,
->> +};
->> +
->> +static const struct drm_crtc_funcs gm12u320_crtc_funcs = {
->> +    .set_config        = drm_atomic_helper_set_config,
->> +    .page_flip        = drm_atomic_helper_page_flip,
->> +    .reset            = drm_atomic_helper_crtc_reset,
->> +    .destroy        = drm_crtc_cleanup,
->> +    .atomic_duplicate_state    = 
->> drm_atomic_helper_crtc_duplicate_state,
->> +    .atomic_destroy_state    = drm_atomic_helper_crtc_destroy_state,
->> +};
->> +
->> +static const struct drm_encoder_funcs gm12u320_encoder_funcs = {
->> +    .destroy = drm_encoder_cleanup,
->>   };
->>     static const uint32_t gm12u320_pipe_formats[] = {
->> @@ -677,13 +741,29 @@ static int gm12u320_usb_probe(struct 
->> usb_interface *interface,
->>       if (ret)
->>           return ret;
->>   -    ret = drm_simple_display_pipe_init(&gm12u320->dev,
->> -                       &gm12u320->pipe,
->> -                       &gm12u320_pipe_funcs,
->> -                       gm12u320_pipe_formats,
->> -                       ARRAY_SIZE(gm12u320_pipe_formats),
->> -                       gm12u320_pipe_modifiers,
->> -                       &gm12u320->conn);
->> +    ret = drm_universal_plane_init(dev, &gm12u320->plane, 0,
->> +                       &gm12u320_plane_funcs,
->> +                       gm12u320_pipe_formats,
->> +                       ARRAY_SIZE(gm12u320_pipe_formats),
->> +                       gm12u320_pipe_modifiers,
->> +                       DRM_PLANE_TYPE_PRIMARY, NULL);
->> +    if (ret)
->> +        return ret;
->> +    drm_plane_helper_add(&gm12u320->plane, 
->> &gm12u320_plane_helper_funcs);
->> +
->> +    ret = drm_crtc_init_with_planes(dev, &gm12u320->crtc, 
->> &gm12u320->plane, NULL,
->> +                    &gm12u320_crtc_funcs, NULL);
->> +    if (ret)
->> +        return ret;
->> +    drm_crtc_helper_add(&gm12u320->crtc, &gm12u320_crtc_helper_funcs);
->> +
->> +    ret = drm_encoder_init(dev, &gm12u320->encoder, 
->> &gm12u320_encoder_funcs,
->> +                   DRM_MODE_ENCODER_NONE, NULL);
->> +    if (ret)
->> +        return ret;
->> +    gm12u320->encoder.possible_crtcs = drm_crtc_mask(&gm12u320->crtc);
->> +
->> +    ret = drm_connector_attach_encoder(&gm12u320->conn, 
->> &gm12u320->encoder);
->>       if (ret)
->>           return ret;
 >>
+>> gm12u320_stop_fb_update() calls cancel_delayed_work_sync() and 
+>> mutex_lock().
+>> Since CRTC atomic disable callbacks can run in atomic context during
+>> non-blocking commits, sleeping here is forbidden and could cause kernel
+>> warnings or deadlocks.
+>>
+>>>   }
+>>>   -static void gm12u320_pipe_update(struct drm_simple_display_pipe 
+>>> *pipe,
+>>> -                 struct drm_plane_state *old_state)
+>>> +static void gm12u320_plane_helper_atomic_update(struct drm_plane 
+>>> *plane,
+>>> +                        struct drm_atomic_commit *commit)
+>>>   {
+>>> -    struct drm_plane_state *state = pipe->plane.state;
+>>> +    struct drm_plane_state *old_state = 
+>>> drm_atomic_get_old_plane_state(commit, plane);
+>>> +    struct drm_plane_state *state = plane->state;
+>> [Severity: High]
+>> Could accessing plane->state directly here lead to a crash?
+>>
+>> Similar to the CRTC enable function, reading plane->state directly 
+>> instead of
+>> using drm_atomic_get_new_plane_state(commit, plane) accesses the future
+>> state.
+>>
+>> If a subsequent commit disables the plane, state->fb will be NULL. In 
+>> this
+>> scenario, drm_atomic_helper_damage_merged() returns true for plane
+>> disablements, leading to gm12u320_fb_mark_dirty() being called with a 
+>> NULL
+>> fb, which will oops when trying to dereference fb->dev.
+>>
+>> This wasn't possible before because the drm_simple_kms_helper explicitly
+>> checked if (!plane->state->visible) before calling the update hook, but
+>> that protection is dropped in this conversion.
+>>
+>>> +    struct drm_shadow_plane_state *shadow_plane_state = 
+>>> to_drm_shadow_plane_state(state);
+>>>       struct drm_rect rect;
+>>>   -    if (drm_atomic_helper_damage_merged(old_state, state, &rect))
+>>> +    if (drm_atomic_helper_damage_merged(old_state, state, &rect))
+>>>           gm12u320_fb_mark_dirty(state->fb, 
+>>> &shadow_plane_state->data[0], &rect);
+>> [Severity: High]
+>> This is a pre-existing issue, but does gm12u320_fb_mark_dirty() sleep in
+>> atomic context?
+>>
+>> It calls mutex_lock(&gm12u320->fb_update.lock), which is unsafe to call
+>> from a plane update callback during non-blocking commits, as these run
+>> in atomic context.
+>>
+>>>   }
 >
 
 -- 
