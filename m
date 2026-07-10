@@ -4,91 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF529C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 13:39:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10112C44501
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 13:45:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C6F310F8F0;
-	Fri, 10 Jul 2026 13:39:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC0910E1D7;
+	Fri, 10 Jul 2026 13:45:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fydQPaDx";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="o09a0LCe";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E045B10F8F0;
- Fri, 10 Jul 2026 13:39:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8B73443C2D;
- Fri, 10 Jul 2026 13:39:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F051F000E9;
- Fri, 10 Jul 2026 13:39:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783690762;
- bh=hWe5y0XfVr4QQQGo0kaEF8UGbBWB4HZz8UbrXKM7Z28=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=fydQPaDxS/hHGLVdvf977qUXBNSF6t19lqQW/RqVTS+Xk5pgKo0deA+cWIFhyYRvv
- IeSezmg4COMZrohE1QJ6gnvclo/bOnA8j2IrdEmxinGMPa0Cv9pB6NQzVtyWt96x//
- 6dNWU5GX7waS+2jwE8BVZ3WNZw/wsfy0C0SSKxIKb3QlnIRCNzHVm3c5Ps0q8mrTgW
- zsWArKYrCmnfDcrebwcipzmYNQ0mhqZJQQZSGHykLDKtejNlCDmPcno/dc/3rjzGeu
- kuxVdLjqHCE3kyZgIMxt9Re36Qo0mzOOVMmO0ZdfPfAx62l26oANlEaaJo1XHJjjzR
- MdqLjT6QyxJDg==
-Date: Fri, 10 Jul 2026 14:38:58 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Suren Baghdasaryan <surenb@google.com>, "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Steven Rostedt <rostedt@goodmis.org>, 
- SeongJae Park <sj@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
- Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
- Kees Cook <kees@kernel.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
- iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, 
- Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 02/30] mm: add kdoc comments for vma_start/last_pgoff()
-Message-ID: <alD1h7kHZdX_0I-0@lucifer>
-References: <cover.1782735110.git.ljs@kernel.org>
- <8c618dfd7de419e3b797b8bd1cd921d4c5b8878b.1782735110.git.ljs@kernel.org>
- <03762de9-c695-4cdd-8c25-4fc31335ea15@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <03762de9-c695-4cdd-8c25-4fc31335ea15@kernel.org>
+Received: from mail-ej1-f74.google.com (mail-ej1-f74.google.com
+ [209.85.218.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F39C10E1D7
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 13:45:27 +0000 (UTC)
+Received: by mail-ej1-f74.google.com with SMTP id
+ a640c23a62f3a-c15dfd34e4cso81567166b.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 06:45:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1783691126; x=1784295926;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=wG6HuNoWW7IygZyBT7H+i3l/PRkL2cEL2O38DxA5QNs=;
+ b=o09a0LCeG3A1uRTA3HTxthxf9m77C2DHYtcyp+2JqONxPIqwtOnbuSvTnn41owZyR1
+ ct+9g1Eb/JraiFSsWiMHjFWvrlUUByVwMesFSmCKR4n0LSztNveE75tzi7W/KbiCdqw+
+ w3wn1za4IRxTKGoNO2zvbaIE2LupMEPwXB1ORKFyFXsZ20p2fZQxw8NqMzaM4d6Ccfz+
+ Qibfw5uRzSNhjTQUMjuvG74VPE1VTRSC9fdXrgtTrX92bjf4Q/Bo2I3N5wc6/uTbRm8f
+ ugFd+cZmshatzDQC8YvmZYDLpjV242eEtzoRVcnYfq5HCz2bNEaoNXq4QeN1PJMkgyBG
+ 7YBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783691126; x=1784295926;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=wG6HuNoWW7IygZyBT7H+i3l/PRkL2cEL2O38DxA5QNs=;
+ b=qxkf5n4w7GtU3yRrUHuMvC9OM1W3bXs6kZ5h80kHKsYH5VFIiIVJWZDeqJnc8MVHUk
+ EbUve9EQfchI56I1q2OHGMuhDh2w9cS400uA1lHaKxTYgFA5Y/tldqHIz1iYZ8Q8LZJx
+ +EK9VuS3yEueQ/FckUZ0l3SaNWDXlutwxUBlupYZfamrFDnRFxPIqbQWYYAKVKBCJs0c
+ JRvO8I6O+7yRNq9EN52wG7ResuGIi+zbS5LLTf9MNO9lTk+DsNXwLV0T9FWosTNA9YoX
+ UfPQKsaRENUL1Vb+/lZuKwfE4DqMxrCAnb0NG1p8umVjbFH7HFRcKarQXiDWNIH00ZPT
+ 6w9Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq/LYvmNVZhW3gM2OnEEXSe6zceLSRp+aSszDHlXE7dx8cbFAgXBGRTWy6ICQGttBH3bn53ScOUZ9E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywi9g/RqjpttPpW06mjSoz0ydgBcYPOxm22s9EA0LVRuWGh2V4z
+ pJ6XH6IRRVHEsQSNWiuMSGgRiMLUt+4nLk6o5vXnkGE3pnmdySBpc9p96oFEu2QYd9aUh2cGgot
+ 1+axQ1V8gyaBm7CFNTQ==
+X-Received: from ejbri40.prod.google.com ([2002:a17:906:d7e8:b0:c15:f2a5:1700])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:1c2a:b0:c15:da6a:c27c with SMTP id
+ a640c23a62f3a-c15da6ac90emr390710966b.25.1783691125330; 
+ Fri, 10 Jul 2026 06:45:25 -0700 (PDT)
+Date: Fri, 10 Jul 2026 13:45:24 +0000
+In-Reply-To: <20260709-fw-boot-b4-v6-3-ca391e1a4108@collabora.com>
+Mime-Version: 1.0
+References: <20260709-fw-boot-b4-v6-0-ca391e1a4108@collabora.com>
+ <20260709-fw-boot-b4-v6-3-ca391e1a4108@collabora.com>
+Message-ID: <alD3dMEuYHduWlzp@google.com>
+Subject: Re: [PATCH v6 3/7] drm/tyr: add Memory Management Unit (MMU) support
+From: Alice Ryhl <aliceryhl@google.com>
+To: Deborah Brouwer <deborah.brouwer@collabora.com>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+ Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Benno Lossin <lossin@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ boris.brezillon@collabora.com, samitolvanen@google.com, acourbot@nvidia.com, 
+ alvin.sun@linux.dev, laura.nao@collabora.com, work@onurozkan.dev, 
+ beata.michalska@arm.com, steven.price@arm.com, lyude@redhat.com
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,55 +87,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 07, 2026 at 04:46:13PM +0200, David Hildenbrand (Arm) wrote:
-> On 6/29/26 14:23, Lorenzo Stoakes wrote:
-> > Describe what vma_start_pgoff() and vma_last_pgoff() actually provide in
-> > detail.
-> >
-> > This is in order that we can differentiate this between functions that will
-> > be added in a subsequent patch which provide a different page offset.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> > ---
-> >  include/linux/mm.h | 26 ++++++++++++++++++++++++++
-> >  1 file changed, 26 insertions(+)
-> >
-> > diff --git a/include/linux/mm.h b/include/linux/mm.h
-> > index 059144435729..2f00c75e66bd 100644
-> > --- a/include/linux/mm.h
-> > +++ b/include/linux/mm.h
-> > @@ -4278,11 +4278,37 @@ static inline unsigned long vma_pages(const struct vm_area_struct *vma)
-> >  	return (vma->vm_end - vma->vm_start) >> PAGE_SHIFT;
-> >  }
-> >
-> > +/**
-> > + * vma_start_pgoff() - Get the page offset of the start of @vma
-> > + * @vma: The VMA whose page offset is required.
-> > + *
-> > + * If the VMA is file-backed, this is the page offset into the file.
-> > + *
-> > + * If the VMA is anonymous, this is the virtual page offset of the start of the
-> > + * VMA - if unfaulted, then vma->vm_start >> PAGE_SHIFT, if faulted then the
-> > + * virtual page offset at the time of first fault.
-> > + *
-> > + * Note that if @vma is a MAP_PRIVATE file-backed mapping, then this returns the
-> > + * file offset.
->
-> There is the ugly case of @vma being a MAP_PRIVATE PFNMAP mapping, where it
-> returns something different.
+On Thu, Jul 09, 2026 at 02:36:43PM -0700, Deborah Brouwer wrote:
+> From: Boris Brezillon <boris.brezillon@collabora.com>
+> 
+> Add Memory Management Unit (MMU) support in Tyr. The MMU module wraps a
+> SlotManager instance to allocate MMU address-space slots for use by
+> virtual memory (VM) address spaces. The MMU's SlotManager uses an
+> AddressSpaceManager to handle the hardware-specific callbacks. For
+> example, the AddressSpaceManager activates and evicts VMs from slots by
+> writing commands to the MMU registers.
+> 
+> Add an implementation block for the MMU's MEMATTR register to provide
+> a method for translating the Memory Attribute Indirection Register (MAIR)
+> format from the pagetable configuration to a format understood by the MMU.
+> 
+> Create an mmu instance during probe, it will be used by subsequent patches
+> in this series.
+> 
+> Wrap the iomem stored in TyrDrmRegistrationData in an Arc. The iomem
+> is stored in the mmu through its AddressSpaceManager. In anticipation
+> of the iomem also being stored in the firmware object, set up shared
+> ownership of the iomem now.
+> 
+> Update Kconfig to add the new MMU and IOMMU dependencies required
+> by this MMU module.
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 
-Yup, the pfn  I will update doc to mention this abomination too.
+> +//! Memory Management Unit (MMU) module.
+> +//!
+> +//! The GPU MMU provides a limited number of memory address spaces for use by command streams.
+> +//! The MMU translates virtual addresses to physical addresses and manages memory configuration
+> +//! and access permissions.
+> +//!
+> +//! This MMU module is essentially a locked wrapper around a [`SlotManager`] instance.
+> +//! The [`SlotManager`] manages the assignment of virtual address spaces to hardware address-space
+> +//! (AS) slots. MMU commands such as updates and flushes are carried out by the
+> +//! [`AddressSpaceManager`] which actually writes to the MMU registers.
+> +#![allow(dead_code)]
 
-The virt pgoff stuff in the RFC fixes this also.
+This occurs in a few different commits, but I'd make sure to use
+expect(dead_code) here so we are sure to remove it when everything is
+used.
 
->
-> (remap_pfn_range_prepare_vma() -> vma->vm_pgoff set to PFN)
->
-> --
-> Cheers,
->
-> David
+> +/// Virtual memory (VM) address space data for use in MMU operations.
+> +#[pin_data]
+> +pub(crate) struct VmAsData<'bound> {
+> +    /// The address space seat tracks this VM's binding to a hardware address space slot.
+> +    /// Uses [`LockedBy`] to ensure safe concurrent access to the slot assignment state,
+> +    /// protected by the [`AsSlotManager`] lock.
+> +    as_seat: LockedBy<Seat, AsSlotManager<'bound>>,
 
-Cheers, Lorenzo
+Why not use the LockedSeat type alias here?
+
+> +        let lockaddr_val = LOCKADDR::zeroed()
+> +            .try_with_size(lockaddr_size)?
+> +            .try_with_base(lockaddr_base)?
+> +            .into_raw();
+
+Should this be:
+
+	let lockaddr_val = LOCKADDR::zeroed()
+	    .try_with_size(lockaddr_size)?
+	    .try_with_base(lockaddr_base >> 12)?
+	    .into_raw();
+
+or even just
+
+	let lockaddr_val = lockaddr_size | lockaddr_base;
+
+?
+
+Alice
