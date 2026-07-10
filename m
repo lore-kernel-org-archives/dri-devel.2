@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AF5DC44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29449C44507
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C26BB10E7DB;
-	Mon, 13 Jul 2026 07:10:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7B0910E7E6;
+	Mon, 13 Jul 2026 07:10:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S1DwmzxW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cmnlAT5w";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86F1110E242;
- Fri, 10 Jul 2026 20:23:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32BEE10E21D;
+ Fri, 10 Jul 2026 20:22:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 491194148B;
- Fri, 10 Jul 2026 20:23:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 751431F00A3A;
- Fri, 10 Jul 2026 20:22:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0CD014073C;
+ Fri, 10 Jul 2026 20:22:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41A311F00A3A;
+ Fri, 10 Jul 2026 20:22:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783714999;
- bh=8inNSEODGbyh/+vAWll7hEmDowJfY2XIaIfPLAyfMv8=;
+ s=k20260515; t=1783714952;
+ bh=pXMh/gI7Ejl6sQaq6pNCmizKlHMxVh3sNzK86kWl2h4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=S1DwmzxWKK/EvOlvmXiaNgzfe9uDLXmTCD+WOfUbIAIznmeNow2bwHsqtQNnJDz6P
- rqHs9qpnmDqZ7AXsBeyQzhFBN9oQXnRABs+LJNq40HsMI5lnNl+DSPJGinGwGnULCx
- 78OgKDP4iyqp5wUZhtC+twh9ggQujW01mEbzw5nIUKY4aWS4GEh9yM5cAf3VYB8bQx
- mMyUoAKHPGwt0QsRpaNGnK2kAqbELgSA+bpm+oAZ4D8FAeyJdaN8Ea3X9Nm3YToX6X
- LgnaMPze03tseVbPBRg/fzdp8E+k83ZRinjxnRZ9sKzJ6gvhECaFRdAXhf2O5a1uOD
- zoICWtvDCZyZQ==
+ b=cmnlAT5wzlYt3brmt40tysj0J5B1gKaWPdvxMOyfuvulZ+5sH8m2RssNtYd7kJ9hM
+ 3JEic/R7P0blm57mcQ0VabhZOtCOAB4dhCKn5vcEPWkjCnXEjOckc/MFsTHkCovBo4
+ dEg/4zgFADMecv/GyNsJqD96QSHp1WhhbtMbrSCjAIUGp0fIoob9V7aAjMbXb5Yjae
+ iBWFOm0BbeaaXFduRQLeC1gA41fycIKRojdC7cmdk7PU3JZWYDX4zaGQz3M2yYKf1w
+ SU3WfX6qJrW400SI9+5KSdVXY3Bp5Pl2jDAeKWzdIH9ZClW5J9NYnrxx0HvA7R6dwl
+ m3LRjk41KWVYQ==
 From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Fri, 10 Jul 2026 21:16:56 +0100
-Subject: [PATCH v2 15/33] mm/vma: refactor vmg_adjust_set_range() for clarity
+Date: Fri, 10 Jul 2026 21:16:54 +0100
+Subject: [PATCH v2 13/33] mm/vma: introduce and use vmg_pages(),
+ vmg_[start, end]_pgoff()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-b4-pre-scalable-cow-v2-15-2a5aa403d977@kernel.org>
+Message-Id: <20260710-b4-pre-scalable-cow-v2-13-2a5aa403d977@kernel.org>
 References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
 In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -117,12 +118,12 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
  freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
  kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2561; i=ljs@kernel.org;
- h=from:subject:message-id; bh=/OET8/zUpzsJ/XNmWkLK0gsvh8paST29XGIok8Z8NBo=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg21eWBnkBU3wWsq2iz/TO8ZQcE3VnwrbFNZv12IU1
- viv6S/tKGVhEONikBVTZHn+RXx/kEjYvM4L/m4wc1iZQIYwcHEKwEQeuDEyfLi5azmfhOuak/Y7
- /x39eSMlunV7+X2dpoxbEw5qHn3m0MXI8NngWsiVLEV5+0l6Sf1f61cyr3mWXucy4WDe1De3LqV
- uZQMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3014; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=9w7HTwMbIR3XlC1PY7gTQx5p4l7ISN45M8ruExx6jwU=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg61/Za29l6e37xfjD8NZsUc+LmZ86SXA+JLr6YcvJ
+ poWjBckOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjARbUmG/9VbDidYv8s915f2
+ n5N9N+szsfC93vKXTXQ3b1lYeO7JPxtGhmm3bFJOBQZ+EvJqXVpxqdBDXn1u0dxHp0v5fk/fOXu
+ jNCcA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
@@ -141,12 +142,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add comments with ASCII diagrams to describe what we're doing, avoid
-dubious use of PHYS_PFN(), and use vma_start_pgoff().
+In the VMA logic we often need to determine the number of pages in the
+specified merge range, as well as the start and end page offsets of that
+range.
 
-The most complicated scenario represented here is vmg->__adjust_next_start
-- when this is set, vmg->[start, end] actually indicate the range to be
-retained, so take special care to describe this accurately.
+Introduce and use helpers for these purposes.
 
 No functional change intended.
 
@@ -154,72 +154,83 @@ Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 Reviewed-by: Gregory Price <gourry@gourry.net>
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- mm/vma.c | 51 +++++++++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 47 insertions(+), 4 deletions(-)
+ mm/vma.c | 11 ++++-------
+ mm/vma.h | 17 +++++++++++++++++
+ 2 files changed, 21 insertions(+), 7 deletions(-)
 
 diff --git a/mm/vma.c b/mm/vma.c
-index 084afdf37385..7265a054cfa3 100644
+index 35ba3475128f..995de8198fbb 100644
 --- a/mm/vma.c
 +++ b/mm/vma.c
-@@ -704,11 +704,54 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
- 	pgoff_t pgoff;
- 
- 	if (vmg->__adjust_middle_start) {
--		adjust = vmg->middle;
--		pgoff = adjust->vm_pgoff + PHYS_PFN(vmg->end - adjust->vm_start);
-+		/*
-+		 * vmg->start    vmg->end
-+		 * |             |
-+		 * v    merge    v
-+		 * <------------->
-+		 *         delta
-+		 *        <------>
-+		 * |------|----------------|
-+		 * | prev |    middle      |
-+		 * |------|----------------|
-+		 *        ^
-+		 *        |
-+		 *        middle->vm_start
-+		 */
-+		struct vm_area_struct *middle = vmg->middle;
-+		const unsigned long delta = vmg->end - middle->vm_start;
-+
-+		pgoff = vma_start_pgoff(middle) + (delta >> PAGE_SHIFT);
-+		adjust = middle;
- 	} else if (vmg->__adjust_next_start) {
--		adjust = vmg->next;
--		pgoff = adjust->vm_pgoff - PHYS_PFN(adjust->vm_start - vmg->end);
-+		/*
-+		 *                Originally:
-+		 *
-+		 *            vmg->start   vmg->end
-+		 *            |            |
-+		 *            v    merge   v
-+		 *            <------------>
-+		 *            .            .
-+		 * merge_existing_range() updates to:
-+		 *            .            .
-+		 * vmg->start vmg->end     .
-+		 * |          |            .
-+		 * v  retain  v            .
-+		 * <---------->            .
-+		 *             delta       .
-+		 *            <----->      .
-+		 * |----------------|------|
-+		 * |    middle      | next |
-+		 * |----------------|------|
-+		 *                  ^
-+		 *                  |
-+		 *                  next->vm_start
-+		 */
-+		struct vm_area_struct *next = vmg->next;
-+		const unsigned long delta = next->vm_start - vmg->end;
-+
-+		pgoff = vma_start_pgoff(next) - (delta >> PAGE_SHIFT);
-+		adjust = next;
- 	} else {
- 		return;
+@@ -197,11 +197,9 @@ static void init_multi_vma_prep(struct vma_prepare *vp,
+  */
+ static bool can_vma_merge_before(struct vma_merge_struct *vmg)
+ {
+-	pgoff_t pglen = PHYS_PFN(vmg->end - vmg->start);
+-
+ 	if (is_mergeable_vma(vmg, /* merge_next = */ true) &&
+ 	    is_mergeable_anon_vma(vmg, /* merge_next = */ true)) {
+-		if (vmg->next->vm_pgoff == vmg->pgoff + pglen)
++		if (vmg_end_pgoff(vmg) == vma_start_pgoff(vmg->next))
+ 			return true;
  	}
+ 
+@@ -221,7 +219,7 @@ static bool can_vma_merge_after(struct vma_merge_struct *vmg)
+ {
+ 	if (is_mergeable_vma(vmg, /* merge_next = */ false) &&
+ 	    is_mergeable_anon_vma(vmg, /* merge_next = */ false)) {
+-		if (vmg->prev->vm_pgoff + vma_pages(vmg->prev) == vmg->pgoff)
++		if (vma_end_pgoff(vmg->prev) == vmg_start_pgoff(vmg))
+ 			return true;
+ 	}
+ 	return false;
+@@ -759,7 +757,7 @@ static int commit_merge(struct vma_merge_struct *vmg)
+ 	 */
+ 	vma_adjust_trans_huge(vma, vmg->start, vmg->end,
+ 			      vmg->__adjust_middle_start ? vmg->middle : NULL);
+-	vma_set_range(vma, vmg->start, vmg->end, vmg->pgoff);
++	vma_set_range(vma, vmg->start, vmg->end, vmg_start_pgoff(vmg));
+ 	vmg_adjust_set_range(vmg);
+ 	vma_iter_store_overwrite(vmg->vmi, vmg->target);
+ 
+@@ -962,8 +960,7 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ 		 *    middle     next
+ 		 * shrink/delete extend
+ 		 */
+-
+-		pgoff_t pglen = PHYS_PFN(vmg->end - vmg->start);
++		const pgoff_t pglen = vmg_pages(vmg);
+ 
+ 		VM_WARN_ON_VMG(!merge_right, vmg);
+ 		/* If we are offset into a VMA, then prev must be middle. */
+diff --git a/mm/vma.h b/mm/vma.h
+index 8e4b61a7304c..527716c8739d 100644
+--- a/mm/vma.h
++++ b/mm/vma.h
+@@ -230,6 +230,23 @@ static inline bool vmg_nomem(struct vma_merge_struct *vmg)
+ 	return vmg->state == VMA_MERGE_ERROR_NOMEM;
+ }
+ 
++static inline pgoff_t vmg_start_pgoff(const struct vma_merge_struct *vmg)
++{
++	return vmg->pgoff;
++}
++
++static inline pgoff_t vmg_pages(const struct vma_merge_struct *vmg)
++{
++	const unsigned long size = vmg->end - vmg->start;
++
++	return size >> PAGE_SHIFT;
++}
++
++static inline pgoff_t vmg_end_pgoff(const struct vma_merge_struct *vmg)
++{
++	return vmg_start_pgoff(vmg) + vmg_pages(vmg);
++}
++
+ /* Assumes addr >= vma->vm_start. */
+ static inline pgoff_t vma_pgoff_offset(struct vm_area_struct *vma,
+ 				       unsigned long addr)
 
 -- 
 2.55.0
