@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AB39C44501
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:54:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8103C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:54:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AD0810E1FB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 113AB10E229;
 	Fri, 10 Jul 2026 21:54:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="R5JPK+dj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fpeLPu+i";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A84F10E229;
- Fri, 10 Jul 2026 21:54:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0286D10E1BD;
+ Fri, 10 Jul 2026 21:54:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1783720489; x=1815256489;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=D5ratfSKQyG0DWPv8Mc6SI6ySPvUU7Hy5HH+2ucW/cU=;
- b=R5JPK+djFTjGxFXC/NTFnh5gYpy5Ke939wiyiPtOqSuWqXxshr1rG7CV
- 0wIzuKOu4VOzTY/a0YdyKZVGg3HDIM5fhB2ukEjSganqnuB8QR/yS8ZXe
- /vHmBjI3oHHY1LroncDe6KVz+v1hCLcP6DvmIlkZNKrk9rsjYst56b1IK
- AchNyoUEh1OdBo2Yu6Y63MRL6M6jYUN8Ufi9p4iQ1Un/GjiNR0eGkQK/9
- VVhjeO6AvY3JPCCKy5tKIKPeI7GtUm3sV14nJrRx7/KZxniUpvEtjHose
- WsFxVYbeUM7ZPv64WF59IPW0yWUC6HDBKxDZtgJMJefla7vC4AQAgQhsb g==;
-X-CSE-ConnectionGUID: QRsKwaAPRyyitl3xgUF92w==
-X-CSE-MsgGUID: nI239kM+RhuvbnfCNRXxyQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543062"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543062"
+ bh=6PkaSldf+zBmG2z9LSxwcaK7Yyyk4K5VMohRBRvzXow=;
+ b=fpeLPu+i3VwPbxjPs3drxvuzVB3QSt5Eipp01IC35lTvZdS1RXtHbbgq
+ geUSuvts1vxP5NcfJ7VKUDq/1IiAqmr5vxl+kFfBWyTPhqhpjEokTJiLv
+ Oo5BhwpG0anT356OFeE6jF8gsMviFeEVcyYinqBVlKRhqGMxo4p4YlhxL
+ 10YckrDUQD1n+Q7EP6HKoUVliZKuf8yKpjsZq9aeVtg1TERaI4JtAGpdI
+ /IyNUdSSR5ugFrF9ilpHU9TbFmID952e3b2J7U7lkBlVnEe1pQSjdzhpV
+ t/GtuU3VVxQLA2K2tFsK1JwhwJAZ92O4EkPtmVu3DcVY3rUyWIHMckHa2 g==;
+X-CSE-ConnectionGUID: eV2SGbFzRluY6HV5LAPZ1g==
+X-CSE-MsgGUID: injwoltkRvGbl24BPjFCGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543054"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543054"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Jul 2026 14:54:48 -0700
-X-CSE-ConnectionGUID: YNfWI//TTDmFoVpuafDa0Q==
-X-CSE-MsgGUID: LhcWHhIWTKW/n/x5HX1Nqw==
+X-CSE-ConnectionGUID: Jlt7NKo/QfGWTizoXf/IkA==
+X-CSE-MsgGUID: 1+uYg54iQqCV1XCHnWShUA==
 X-ExtLoop1: 1
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
@@ -51,10 +51,9 @@ Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v2 03/33] drm/ttm: Record sub-optimal page order allocations
- in ttm_tt
-Date: Fri, 10 Jul 2026 14:54:12 -0700
-Message-Id: <20260710215442.2444235-4-matthew.brost@intel.com>
+Subject: [PATCH v2 02/33] drm/ttm/pool: Add ttm_pool_page_order_nodma() helper
+Date: Fri, 10 Jul 2026 14:54:11 -0700
+Message-Id: <20260710215442.2444235-3-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260710215442.2444235-1-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
@@ -76,20 +75,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When __ttm_pool_alloc() fails to allocate a chunk at the device's
-beneficial order and falls back to a smaller order, the object ends up
-backed by a sub-optimal set of pages. Nothing currently records this, so
-a driver has no way to know an object would benefit from being re-backed
-with beneficial-order pages later.
+TTM records the allocation order of a multi-order page in page->private at
+allocation time. For pools that do not use dma_alloc the order is stored
+directly, while dma_alloc pools store a struct ttm_pool_dma pointer there
+instead. Drivers that do their own DMA mapping (e.g. Xe) need the per-page
+order to walk a populated ttm_tt one chunk at a time, but cannot rely on
+folio_order(): TTM allocates high-order pages with alloc_pages_node()
+without __GFP_COMP, so they are not compound and folio_order() always
+returns 0.
 
-Add TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED to struct ttm_tt page_flags,
-cleared at the start of every fresh allocation (in both ttm_pool_alloc()
-and ttm_pool_restore_and_alloc()). Set it in __ttm_pool_alloc() when an
-allocation at exactly the beneficial order fails before dropping to a
-lower order.
-
-Drivers can use this hint to queue the buffer object for later
-defragmentation.
+Expose ttm_pool_page_order_nodma(), a thin wrapper that returns the order
+recorded in page->private. It is only valid for pages from a pool that does
+not use dma_alloc; whether a TTM device uses dma_alloc is fixed at ttm
+device init time, so callers know from their device configuration that this
+helper applies. Use it from the existing internal ttm_pool_page_order() to
+keep a single source of truth.
 
 Cc: Carlos Santa <carlos.santa@intel.com>
 Cc: Ryan Neph <ryanneph@google.com>
@@ -107,105 +107,66 @@ Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Assisted-by: GitHub_Copilot:claude-opus-4.8
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 13 +++++++++++++
- include/drm/ttm/ttm_tt.h       | 24 +++++++++++++++++++++++-
- 2 files changed, 36 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/ttm/ttm_pool.c | 25 ++++++++++++++++++++++++-
+ include/drm/ttm/ttm_pool.h     |  2 ++
+ 2 files changed, 26 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index d34592d4dbc7..370d991c9882 100644
+index dbe977412a81..d34592d4dbc7 100644
 --- a/drivers/gpu/drm/ttm/ttm_pool.c
 +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -796,6 +796,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 			    struct ttm_pool_alloc_state *alloc,
- 			    struct ttm_pool_tt_restore *restore)
- {
-+	const unsigned int beneficial_order = ttm_pool_beneficial_order(pool);
- 	enum ttm_caching page_caching;
- 	gfp_t gfp_flags = GFP_USER;
- 	pgoff_t caching_divide;
-@@ -846,6 +847,16 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 		/* If that fails, lower the order if possible and retry. */
- 		if (!p) {
- 			if (order) {
-+				/*
-+				 * Failing to allocate at the device's beneficial
-+				 * order means we are about to back this object
-+				 * with a sub-optimal (smaller order) set of
-+				 * pages. Record it so the driver can later try to
-+				 * defragment the object back to beneficial order.
-+				 */
-+				if (beneficial_order && order == beneficial_order)
-+					tt->page_flags |=
-+						TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
- 				--order;
- 				page_caching = tt->caching;
- 				allow_pools = true;
-@@ -910,6 +921,7 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 	if (WARN_ON(ttm_tt_is_backed_up(tt)))
- 		return -EINVAL;
- 
-+	tt->page_flags &= ~TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
- 	ttm_pool_alloc_state_init(tt, &alloc);
- 
- 	return __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL);
-@@ -942,6 +954,7 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 	if (!restore) {
- 		gfp_t gfp = GFP_KERNEL | __GFP_NOWARN;
- 
-+		tt->page_flags &= ~TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
- 		ttm_pool_alloc_state_init(tt, &alloc);
- 		if (ctx->gfp_retry_mayfail)
- 			gfp |= __GFP_RETRY_MAYFAIL;
-diff --git a/include/drm/ttm/ttm_tt.h b/include/drm/ttm/ttm_tt.h
-index 406437ad674b..ce7533677d77 100644
---- a/include/drm/ttm/ttm_tt.h
-+++ b/include/drm/ttm/ttm_tt.h
-@@ -90,6 +90,14 @@ struct ttm_tt {
- 	 * TTM_TT_FLAG_BACKED_UP: TTM internal only. This is set if the
- 	 * struct ttm_tt has been (possibly partially) backed up.
- 	 *
-+	 * TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED: Set by the TTM pool allocator
-+	 * when at least one chunk that could have been allocated at the pool's
-+	 * beneficial order had to fall back to a smaller order. This indicates
-+	 * that a sub-optimal set of pages was chosen for this object, and can
-+	 * be used by drivers to queue the buffer object for later
-+	 * defragmentation. Drivers should access this via the
-+	 * ttm_tt_is_beneficial_order_failed() helper.
-+	 *
- 	 * TTM_TT_FLAG_PRIV_POPULATED: TTM internal only. DO NOT USE. This is
- 	 * set by TTM after ttm_tt_populate() has successfully returned, and is
- 	 * then unset when TTM calls ttm_tt_unpopulate().
-@@ -101,8 +109,9 @@ struct ttm_tt {
- #define TTM_TT_FLAG_EXTERNAL_MAPPABLE	BIT(3)
- #define TTM_TT_FLAG_DECRYPTED		BIT(4)
- #define TTM_TT_FLAG_BACKED_UP	        BIT(5)
-+#define TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED	BIT(6)
- 
--#define TTM_TT_FLAG_PRIV_POPULATED	BIT(6)
-+#define TTM_TT_FLAG_PRIV_POPULATED	BIT(7)
- 	uint32_t page_flags;
- 	/** @num_pages: Number of pages in the page array. */
- 	uint32_t num_pages;
-@@ -179,6 +188,19 @@ static inline void ttm_tt_clear_backed_up(struct ttm_tt *tt)
- 	tt->page_flags &= ~TTM_TT_FLAG_BACKED_UP;
+@@ -461,6 +461,29 @@ static unsigned int ttm_pool_shrink(int nid, unsigned long num_to_free)
+ 	return num_pages;
  }
  
 +/**
-+ * ttm_tt_is_beneficial_order_failed() - Whether the tt is backed at a
-+ * sub-optimal page order
-+ * @tt: The struct ttm_tt.
++ * ttm_pool_page_order_nodma() - Allocation order of a non-dma_alloc TTM page
++ * @p: The page to query.
 + *
-+ * Return: true if the pool allocator had to fall back below the pool's
-+ * beneficial order when backing this tt, false otherwise.
++ * Return the allocation order that the TTM pool allocator recorded in
++ * @p->private at allocation time. This only works for pages that were
++ * allocated from a pool which does *not* use dma_alloc (i.e. pages backed by
++ * alloc_pages_node()), where TTM stores the order directly in page->private.
++ *
++ * For dma_alloc pools, page->private instead holds a struct ttm_pool_dma
++ * pointer and this helper must not be used. Whether a TTM device uses
++ * dma_alloc is fixed at ttm device init time, so callers are expected to know
++ * from their TTM device configuration that their pages are not dma_alloc
++ * backed before using this helper.
++ *
++ * Return: The allocation order of the page.
 + */
-+static inline bool ttm_tt_is_beneficial_order_failed(const struct ttm_tt *tt)
++unsigned int ttm_pool_page_order_nodma(struct page *p)
 +{
-+	return tt->page_flags & TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
++	return p->private;
 +}
++EXPORT_SYMBOL(ttm_pool_page_order_nodma);
 +
- /**
-  * ttm_tt_create
-  *
+ /* Return the allocation order based for a page */
+ static unsigned int ttm_pool_page_order(struct ttm_pool *pool, struct page *p)
+ {
+@@ -470,7 +493,7 @@ static unsigned int ttm_pool_page_order(struct ttm_pool *pool, struct page *p)
+ 		return dma->vaddr & ~PAGE_MASK;
+ 	}
+ 
+-	return p->private;
++	return ttm_pool_page_order_nodma(p);
+ }
+ 
+ /*
+diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
+index 26ee592e1994..753203980e2c 100644
+--- a/include/drm/ttm/ttm_pool.h
++++ b/include/drm/ttm/ttm_pool.h
+@@ -94,6 +94,8 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *ttm,
+ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+ 			       const struct ttm_operation_ctx *ctx);
+ 
++unsigned int ttm_pool_page_order_nodma(struct page *p);
++
+ int ttm_pool_mgr_init(unsigned long num_pages);
+ void ttm_pool_mgr_fini(void);
+ 
 -- 
 2.34.1
 
