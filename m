@@ -4,38 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 698BDC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 14:56:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 483EAC44501
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 15:02:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D8E510E1CE;
-	Fri, 10 Jul 2026 14:56:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2CF610E1E7;
+	Fri, 10 Jul 2026 15:01:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I/Asc/zn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Aezvcf2o";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05BBE10E1CE;
- Fri, 10 Jul 2026 14:56:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 264E810E1E0;
+ Fri, 10 Jul 2026 15:01:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BEBCD40703;
- Fri, 10 Jul 2026 14:56:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D88B01F000E9;
- Fri, 10 Jul 2026 14:56:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 37DE644A58;
+ Fri, 10 Jul 2026 15:01:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E8A1F000E9;
+ Fri, 10 Jul 2026 15:01:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783695417;
- bh=LzEYD7QM/y9ve2znyck6ty1wQQ+sVrAjeiBdSV3oSsY=;
+ s=k20260515; t=1783695717;
+ bh=Nv6v5Gy5ZQKCjEDZ1CZd677nx3NlM5I4XdPHxBdo5us=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=I/Asc/znkA4zkIG/CtKbirdLbixdlI7zHONQqtAnqomgCl94CK7klg8Aopt3EfGU+
- dMEeXtqj0XTqIWyq318sb/fU7GEP1IWZMgBdlOECFGroHSrMpdIDe5bE1xpdJWXtnQ
- IAH7HMIzD67eDd/PrzAukc1+PgjQyOnCGrKGn0ugKUhlMpDSJDrjb/szPVAOqQ752j
- 371AZKbsCU/eRQjnnemCH0AkcDXRb7rMEYNNODfJKBNQsio3stx+mPxn5lC/NFt07t
- E5qncsXTbt2O5NPYJzsolU12GWt/V388X8DsBSsxeuJTsRtDoEASS8ysPDuiAjQ4h1
- ugJldN6Kxi5Mw==
-Date: Fri, 10 Jul 2026 15:56:33 +0100
+ b=Aezvcf2oBz8R5O/JgeqQKn1Iv07D3k4kEuvwCc1b7Uv9q44jdZfUS20v8wyrCa/9F
+ sFEfI7dW7gs9z+SsSfhJ8kA/ge/LrGSSz9zC3Je135DOXWvwgHKHjr0HNZUKiB8R0Z
+ 6ZFI5o7wwOhve66iKnNqXpiMhf7SJFuqNWUQojN72CN7vt9E+8N+ylqWmq1V8VELbe
+ 6ISmJ6bIDd6gomwGV7FsmpP5iGhPAK7B4N+ljOCC/csygDMZAkTZJGZNY4oR569umI
+ ng8odBspjBH26Pq4TIGI6qDk3zs12pR3kiMN2IWrXV9IPeu4GxV8o5adjm1flT9Viv
+ C2o6tJaaVjqqw==
+Date: Fri, 10 Jul 2026 16:01:32 +0100
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Gregory Price <gourry@gourry.net>
-Cc: Pedro Falcato <pfalcato@suse.de>, 
- Andrew Morton <akpm@linux-foundation.org>, Russell King <linux@armlinux.org.uk>,
- Dinh Nguyen <dinguyen@kernel.org>,
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
  Simon Schuster <schuster.simon@siemens-energy.com>, 
  "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
  Helge Deller <deller@gmx.de>, 
@@ -79,19 +78,18 @@ Cc: Pedro Falcato <pfalcato@suse.de>,
  iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
  linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
  damon@lists.linux.dev, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 17/30] mm: prefer vma_[start,end]_pgoff() to
- vma->vm_pgoff in kernel/
-Message-ID: <alEHy1raICek7imv@lucifer>
+ Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 19/30] mm: use linear_page_[index, delta]() consistently
+Message-ID: <alEJP-qEgSIUOp38@lucifer>
 References: <cover.1782735110.git.ljs@kernel.org>
- <ea87349d63205bf4c26ea79854f179a9bf8cfb0b.1782735110.git.ljs@kernel.org>
- <akZCg73F-oGzDp1a@pedro-suse.lan> <akZGqclqQ6gS12Vv@lucifer>
- <ak_C_o2ehS17Q5HV@gourry-fedora-PF4VCD3F>
+ <bf56e2e98b512962a2fb88900d535a0e9e6769d8.1782735110.git.ljs@kernel.org>
+ <ak_EivwcDDdn1Xvp@gourry-fedora-PF4VCD3F>
+ <ak_E1Y-D2Twykusr@gourry-fedora-PF4VCD3F>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ak_C_o2ehS17Q5HV@gourry-fedora-PF4VCD3F>
+In-Reply-To: <ak_E1Y-D2Twykusr@gourry-fedora-PF4VCD3F>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,53 +105,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 09, 2026 at 11:49:18AM -0400, Gregory Price wrote:
-> On Thu, Jul 02, 2026 at 12:30:59PM +0100, Lorenzo Stoakes wrote:
+On Thu, Jul 09, 2026 at 11:57:09AM -0400, Gregory Price wrote:
+> On Thu, Jul 09, 2026 at 11:55:54AM -0400, Gregory Price wrote:
+> > > @@ -2462,7 +2463,7 @@ static int comedi_vm_access(struct vm_area_struct *vma, unsigned long addr,
+> > >  {
+> > >  	struct comedi_buf_map *bm = vma->vm_private_data;
+> > >  	unsigned long offset =
+> > > -	    addr - vma->vm_start + (vma->vm_pgoff << PAGE_SHIFT);
+> > > +	    addr - vma->vm_start + (vma_start_pgoff(vma) << PAGE_SHIFT);
+> > >
 > >
-> ...
-> > static inline unsigned long vma_offset(const struct vm_area_struct *vma,
-> > 				       const unsigned long address)
-> > {
-> > 	/* Retains page offset and tags. */
-> > 	return address - vma->vm_start;
-> > }
+> > Obviously correct, but was this intended for a different patch?
 > >
-> ...
-> > And I'm not sure it's really all that useful. Perhaps retaining vma_offset()
-> > would be though.
-> >
+> > ~Gregory
 >
-> Silly question:
+> bleh already caught, sorry for the noise :]
 
-There's no such thing :)
-
->
->    What's the purpose of retaining tags in a non-address value?
-
-Well if you want to reconstitute an address from it later then that'd be the
-intent, but I'm being hand wavey here for sure.
-
-Main thing is to retain stuff under the page mask
-
->
-> That sounds like there's fragility just waiting to be broken.
->
-> (I presume you are talking about things like ARM MTE and such, right?)
->
-> > This is one that I think makes more sense.
-> >
-> > But in general, I'd rather hold off from yet more churn here.
-> >
-> > I'm making these changes to establish a basis for virtual page offsets
-> > introduced in [0], rather than just cleaning up in general.
-> >
->
-> I agree with this.  If the refactors here suddenly have to think about
-> corner cases on things like tags, that's better resolved separately.
-
-Yeah this series is huge enough as it is :P
-
->
-> ~Gregory
+Haha no thanks for picking it up, many eyes bugs etc. etc. ;)
 
 Cheers, Lorenzo
