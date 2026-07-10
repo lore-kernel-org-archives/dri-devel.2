@@ -4,136 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14EF1C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 09:28:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A863C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 09:43:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CB4D10E17D;
-	Fri, 10 Jul 2026 09:28:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83E1B10E193;
+	Fri, 10 Jul 2026 09:43:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bEQZwyc8";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LIodvoVn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LCM5EWps";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B427B10E17D
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 09:28:01 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66A7dcZA040916
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 09:28:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Ea0QguoYL7HAG5QOZUHhNnUFaa6FuT9iaUs3b0VOK4E=; b=bEQZwyc8XDMXAW5T
- oEMWxvv0TPUNE+xjii/lGQs/yn9jua4T4pq8gYMXFaVqqv3cUCllqk9RRr0FtlZs
- FW6ncGBWWy53MmpI7kIlvuWR6NXQUazvB06l2jzszG69JXWFEvdVuY3fgJ6eTA4G
- kdh9ZpYO0R2TKghzi+ltSI7N1ljdtrWw+J8S9jvXkmApG9tpzHh/L7TMc7hPjw1X
- TIAWCIOdl2RbUMUEMI4jHB5vGnw7hkUeKicM/4bxTvqg0FZHIg59pjpn+27e0m0v
- sg+BieWuHrm/sC0Y8Rz+0LwssX/yp8NpboriYdS06O3QH1fTG5W26EU1MIvGL5Zz
- Pz25Zg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4faeg5kshw-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 09:28:00 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-51ca37ce4c3so2081341cf.3
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 02:28:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783675680; x=1784280480;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Ea0QguoYL7HAG5QOZUHhNnUFaa6FuT9iaUs3b0VOK4E=;
- b=LIodvoVn81rTWFnXeWDCy5mKUiY3EIML1qcwB50SuC2j1BOwmk4phDZXrHagwNja96
- lFtRTJwvqLtupebcc+BCVDyaoC1TLkxHxVmIkewC/ZKgwIVh5oLOu22ZIBECl1yvxnTZ
- UcWhiODqCYl5y38dyfxWfteJJPfK9zi9QT6L9mz+//O8wxyL/JuUvq9o/5uD8hTfGd1c
- mADUeG4s4h00QZl+F7vbhgQh604eiTZc0jpWAiocvGqmu9WB5AWIDph33yocrdpcaQ3V
- 9249m/XngvfTmzUtp+bK3SGFsLmcBWuOsRfd7iPY83AjYaoLj13bYe02SpoIfRAMMMYA
- 0mEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783675680; x=1784280480;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Ea0QguoYL7HAG5QOZUHhNnUFaa6FuT9iaUs3b0VOK4E=;
- b=UacjRCQotcP/G6CW1OsM/txf7wXvJK1fIBb/KBMw43iifra5Zy+92mmE+nreqWeddE
- t1gtrNcTuNaJKvw8OAA7EXjAfnGGE1tMmr+ZiD4+qDHVZykp/Dm589ScavPSnnCn7wu6
- Y8Vfx4dKkuv1YEsA+OXtjwSurrk1gT/kfyA5Rb5mvbsXMWHM++u6W9vCmTvFCCZ3L0j7
- WkMlI9nIkKQHWoHd/PnWVpvT/tX5NXEw0VQy/LWbRsYczpzD6lXkgaxSrhftU9oJ2pwG
- kNFtPHUC2VzqJ6keRmPL9gNI9KobTXKmU3pHCt2t8dt3zQ3XMX/DLAqMJ3FE1oNNefWj
- UV6w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RozmxGfd8WMvxtsScnoljNrRrS0fLfqOhqxZ7kf/bUKLzJxI+EYLdrwQ6cz3i1liAdyk1tJl0QnOf0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxqM7K25a5Y6xgkfZBMwHgxjRgjbd8PyTj24I1DP9GZJYuv1E/W
- sp4kshHiOS8eiCR+0EM0mXfX1o6YYfGCi8ItPIJ62Zqpr5dPqpxQQj1qyw8TBoNhPS0qAOEhGPN
- APoeg6EwcJhGpQmtfoj/7ccWcX85CyovPXAiTN8GWlBDpJbTfquRIsarIJueUugpTExF6eqQ=
-X-Gm-Gg: AfdE7cnVdvrlO4X/X4aydzovrUDHzzK3YMz97H64u/egMcF7uhJmZoIoKTPrm08bsXo
- X2vqwY5uqyAX5EpE1zFWsW1tZ4aVS/niISQAhKThgZt3pMiTuTYWjxikMFzWoktSW4Tqpjr0Udr
- o2WWouAhfgRElKDBG2Q45p8/ddj10qI9+tJI0z9CRPjpITMVlXUmUgoW1cGlbxOnEmv3zTOpA/R
- ESYoCSBN8JuEeQHtqCJTEarB/nVCqGyw7BCVbT0Pf/4q83ss4U4Yk+ny7xL8gXIfLiFFj+m0QZk
- gBfqdPkyCiaZO8kfLp/6PaJODGdPS4wScnPdnEZ5MajlENhOHGnud70OJ9LJgPAMCEWCTXQchbN
- /I9nVb+MXiDBmv/YnGR1whMS6Via8cC96Rgs=
-X-Received: by 2002:ac8:5acd:0:b0:51a:8c9c:7de1 with SMTP id
- d75a77b69052e-51c9684058emr68768721cf.11.1783675679872; 
- Fri, 10 Jul 2026 02:27:59 -0700 (PDT)
-X-Received: by 2002:ac8:5acd:0:b0:51a:8c9c:7de1 with SMTP id
- d75a77b69052e-51c9684058emr68768501cf.11.1783675679321; 
- Fri, 10 Jul 2026 02:27:59 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c15cfac0f76sm402966166b.33.2026.07.10.02.27.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Jul 2026 02:27:58 -0700 (PDT)
-Message-ID: <82326bd4-59f0-45b6-8f06-38896cf9f9bb@oss.qualcomm.com>
-Date: Fri, 10 Jul 2026 11:27:56 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C427210E193;
+ Fri, 10 Jul 2026 09:43:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7468C600C3;
+ Fri, 10 Jul 2026 09:43:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080321F000E9;
+ Fri, 10 Jul 2026 09:43:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783676633;
+ bh=ScooFFYQ6XqRhiFCaNLKyuErrz6NYpqfC1wRjvlV+ns=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=LCM5EWpsBhoI+aOA/uhP9x2JilktKNSYRvDe7zJirGZ8QUpdGnp9yw1oGHn1xz2mn
+ qpfFXbMIamacbuZMctW+J2ooUzIB0czQZyda6LJwzkKcSvbn/yY410kbrnrmIak02T
+ rje9zmCCa3ODGUf+PbQmq4Nql4Pmr6QJP/yWQGyC3MnZdhAx3ar6/hetrQblnCc3eE
+ X5fpZfIvVWWHMq+Fu5zZuI7/qJs0tP5kgBPIdI9fEnlGcbTaeeJjnqPdZ4T21eanLh
+ GgZCCU8e+XLjroidStjpnqTnC9cWM/f1D95PQvkiv6wNgWtTJ8Tsnb2k3/bnVjlYGo
+ MeBRmpoMjOGag==
+Message-ID: <7d6c228b-9b2e-4b4a-93a8-339cd35bbd11@kernel.org>
+Date: Fri, 10 Jul 2026 11:43:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] i2c: qcom-geni: Add dynamic transfer timeout based on
- transfer length and frequency
-To: Aniket RANDIVE <aniket.randive@oss.qualcomm.com>,
- mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
- andi.shyti@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com
-Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- naresh.maramaina@oss.qualcomm.com
-References: <20260705135739.4038826-1-aniket.randive@oss.qualcomm.com>
- <4f865aaf-a400-4dc6-acaa-80dc22a36af7@oss.qualcomm.com>
- <6b53fa97-0fae-4ba2-a774-ae8df2c2ad4e@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <6b53fa97-0fae-4ba2-a774-ae8df2c2ad4e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=FN8rAeos c=1 sm=1 tr=0 ts=6a50bb20 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=7-yhJlWS37sO_0-qT9EA:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDA5MSBTYWx0ZWRfX+O+RSOJBMXk4
- RIDOLPktDrboTK062U3Iz8Tt2nqEeAFUxP+VkG+UPGPdqwhwQhEE9dFFNQBcJAK0A/Z4owMmrL8
- NKC+7HXzP+ydq1yAxUGeCCYCYSvGJsI=
-X-Proofpoint-ORIG-GUID: 39spUkmBNg3VWQLL45w0ZA39dQaxakvV
-X-Proofpoint-GUID: 39spUkmBNg3VWQLL45w0ZA39dQaxakvV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDA5MSBTYWx0ZWRfX9Jto3qdcUZgL
- 4snuzyVVgT3QsJx0qYNekkig6e/ap/0IoBMx7xSWoNbR/q3m8H/gEn3N8I/lEp00/pC+78PixVO
- F2tbDiAnz4gH/IFkgoFmFVKcUT76YwrZEEmrUQ0UhM3x/NM7eixa3QjFl6vxQD6vJlvbFEa8jKz
- gn+1DkV5c4dDaFenLfguprNQ9GOiJ2plFdbIWKiAU+lGDQW3CRUloAQ3GGhqB28RD5ZaOnArBDE
- nV86yGq8SXXfy3GHL1miPDT/qkx95n5mph76pCSwOseKfugTnvzDroBe1FUJqktndAY5deXPJ6f
- tC/epmIH+k3Hzpc6fR95+nWebqcwUVJyTqs+0fmgF6by9YTm/F9Uu4wM0mqsNphpd7aNmc5hIJA
- 96qF9JVMWKQgr/ZnNPwqe+/xOcszHtkjn3usT0VSk8vTgqwxA3biILVxrPqx+BnAduKk7mKYgwP
- 5cH34RfYNhVqIb4thmg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-10_02,2026-07-09_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 phishscore=0 clxscore=1015 impostorscore=0
- spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100091
+Subject: Re: [REGRESSION] drm/amd/display: amdgpu_dm_plane_test.ko fails to
+ build due to modpost "too long symbol"
+To: Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+ Randy Dunlap <rdunlap@infradead.org>, amd-gfx@lists.freedesktop.org,
+ bhawanpreet.lakha@amd.com
+Cc: dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ george.zhang@amd.com, LKML <linux-kernel@vger.kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, christian.koenig@amd.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, broonie@kernel.org,
+ Linux Next Mailing List <linux-next@vger.kernel.org>, alex.hung@amd.com
+References: <fde3656e-9e22-4e4c-937f-7e8cb918da6b@linux.ibm.com>
+ <54f6efe8-cab8-4fc8-bf00-f012b3224e54@infradead.org>
+ <85931e07-60eb-4df2-bc52-773c63f27f6c@linux.ibm.com>
+ <14e618d3-34ea-4bc9-b9a8-3783e2b61e0a@linux.ibm.com>
+ <4ccaca42-03c0-40aa-9a4e-9b0514735b45@linux.ibm.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <4ccaca42-03c0-40aa-9a4e-9b0514735b45@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,46 +69,309 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/9/26 8:28 AM, Aniket RANDIVE wrote:
-> Thanks Konrad for the review.
+
+
+Le 10/07/2026 à 10:52, Venkat Rao Bagalkote a écrit :
 > 
-> Sorry, I missed your comments on the v2 patch and ended up posting v3. I'm happy to post a v4 incorporating your feedback once the discussion concludes.
-> 
-> On 7/6/2026 5:11 PM, Konrad Dybcio wrote:
->> On 7/5/26 3:57 PM, Aniket Randive wrote:
->>> The driver uses a static XFER_TIMEOUT of HZ (1 second) for all transfers
->>> regardless of message length or bus frequency, causing unnecessary
->>> delays on error paths.
+> On 10/07/26 1:31 pm, Venkat Rao Bagalkote wrote:
+>>
+>> On 10/07/26 10:45 am, Venkat Rao Bagalkote wrote:
 >>>
->>> Compute the timeout dynamically from message length and bus frequency
->>> with a 10x safety margin over the theoretical wire time and a 300ms
->>> floor. For GPI multi-descriptor transfers, use the maximum message
->>> length across all queued messages as the per-completion timeout.
+>>> On 09/07/26 11:53 pm, Randy Dunlap wrote:
+>>>>
+>>>> On 7/7/26 10:05 PM, Venkat Rao Bagalkote wrote:
+>>>>> Greetings!!!
+>>>>>
+>>>>> linux-next is failing to build for me with:
+>>>>>
+>>>>> ERROR: modpost: too long symbol
+
+Comes from here I guess:
+
+/**
+  * Record CRCs for unresolved symbols
+  **/
+static void add_versions(struct buffer *b, struct module *mod)
+{
+	struct symbol *s;
+
+	if (!basic_modversions)
+		return;
+
+	buf_printf(b, "\n");
+	buf_printf(b, "static const struct modversion_info ____versions[]\n");
+	buf_printf(b, "__used __section(\"__versions\") = {\n");
+
+	list_for_each_entry(s, &mod->unresolved_symbols, list) {
+		if (!s->module)
+			continue;
+		if (!s->crc_valid) {
+			warn("\"%s\" [%s.ko] has no CRC!\n",
+				s->name, mod->name);
+			continue;
+		}
+		if (strlen(s->name) >= MODULE_NAME_LEN) {
+			if (extended_modversions) {
+				/* this symbol will only be in the extended info */
+				continue;
+			} else {
+				error("too long symbol \"%s\" [%s.ko]\n",
+				      s->name, mod->name);
+				break;
+			}
+		}
+		buf_printf(b, "\t{ 0x%08x, \"%s\" },\n",
+			   s->crc, s->name);
+	}
+
+	buf_printf(b, "};\n");
+}
+
+Where:
+
+include/linux/module.h:#define MODULE_NAME_LEN __MODULE_NAME_LEN
+include/linux/moduleparam.h:#define __MODULE_NAME_LEN (64 - 
+sizeof(unsigned long))
+
+> 
+> I bisected this build failure and found that it is caused by the exported
+> KUnit symbols:
+> 
+>    amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers()
+>    amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers()
+> 
+> modpost rejects the resulting exported symbol name with:
+> 
+>    ERROR: modpost: too long symbol
+>    "amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers"
+> 
+> I tested the following approach locally, which simply shortens the helper
+> names to:
+> 
+>    amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers()
+>    amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers()
+> 
+> and updated all corresponding users and KUnit references. This resolves the
+> build issue for me and does not appear to introduce any functional changes.
+> 
+> Does this look like an acceptable fix?
+
+Yes most likely. The alternat fix would be to increase MODULE_NAME_LEN 
+but that would mean increasing the size of several tables for just 2 
+symbols which are too long ?
+
+Christophe
+
+> 
+> If so, I'll prepare and send a formal patch with proper changelog.
+> 
+> 
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/ 
+> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index 1b564cfe2120..b58225338bc4 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -328,7 +328,7 @@ STATIC_IFN_KUNIT int 
+> amdgpu_dm_plane_validate_dcc(struct amdgpu_device *adev,
+>   }
+>   EXPORT_IF_KUNIT(amdgpu_dm_plane_validate_dcc);
+> 
+> -STATIC_IFN_KUNIT int 
+> amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(struct 
+> amdgpu_device *adev,
+> +STATIC_IFN_KUNIT int 
+> amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(struct amdgpu_device *adev,
+>               const struct amdgpu_framebuffer *afb,
+>               const enum surface_pixel_format format,
+>               const enum dc_rotation_angle rotation,
+> @@ -378,9 +378,9 @@ STATIC_IFN_KUNIT int 
+> amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(s
+> 
+>          return ret;
+>   }
+> - 
+> EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers);
+> +EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers);
+> 
+> -STATIC_IFN_KUNIT int 
+> amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(struct 
+> amdgpu_device *adev,
+> +STATIC_IFN_KUNIT int 
+> amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(struct amdgpu_device *adev,
+>                const struct amdgpu_framebuffer *afb,
+>                const enum surface_pixel_format format,
+>                const enum dc_rotation_angle rotation,
+> @@ -419,7 +419,7 @@ STATIC_IFN_KUNIT int 
+> amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(
+> 
+>          return ret;
+>   }
+> - 
+> EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers);
+> +EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers);
+> 
+>   static void amdgpu_dm_plane_add_gfx10_1_modifiers(const struct 
+> amdgpu_device *adev,
+>                                                    uint64_t **mods,
+> @@ -927,14 +927,14 @@ int 
+> amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
+>          }
+> 
+>          if (adev->family == AMDGPU_FAMILY_GC_12_0_0) {
+> -               ret = 
+> amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(adev, afb, 
+> format,
+> +               ret = 
+> amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(adev, afb, format,
+>                 rotation, plane_size,
+>                 tiling_info, dcc,
+>                 address);
+>                  if (ret)
+>                          return ret;
+>          } else if (adev->family >= AMDGPU_FAMILY_AI) {
+> -               ret = 
+> amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(adev, afb, 
+> format,
+> +               ret = 
+> amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(adev, afb, format,
+>                rotation, plane_size,
+>                tiling_info, dcc,
+>                address);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/ 
+> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> index 911fb2d73e22..55c33e051aee 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> @@ -92,7 +92,7 @@ int amdgpu_dm_plane_get_plane_modifiers(struct 
+> amdgpu_device *adev,
+>   int amdgpu_dm_plane_get_plane_formats(const struct drm_plane *plane,
+>                                        const struct dc_plane_cap 
+> *plane_cap,
+>                                        uint32_t *formats, int max_formats);
+> -int amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(struct 
+> amdgpu_device *adev,
+> +int amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(struct amdgpu_device 
+> *adev,
+> const struct amdgpu_framebuffer *afb,
+> const enum surface_pixel_format format,
+> const enum dc_rotation_angle rotation,
+> @@ -100,7 +100,7 @@ int 
+> amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(struct 
+> amdgpu_devi
+> struct dc_tiling_info *tiling_info,
+> struct dc_plane_dcc_param *dcc,
+> struct dc_plane_address *address);
+> -int amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(struct 
+> amdgpu_device *adev,
+> +int amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(struct 
+> amdgpu_device *adev,
+>   const struct amdgpu_framebuffer *afb,
+>   const enum surface_pixel_format format,
+>   const enum dc_rotation_angle rotation,
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
+> amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
+> amdgpu_dm_plane_test.c
+> index 46c9af432e37..fc84f5a08596 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
+> @@ -579,7 +579,7 @@ static void 
+> dm_test_fill_gfx12_plane_attributes_from_modifiers(struct kunit *tes
+>          plane_size.surface_size.height = 1080;
+> 
+>          KUNIT_EXPECT_EQ(test,
+> -  amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(
+> +  amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(
+>                          adev, afb, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
+>                          ROTATION_ANGLE_0, &plane_size, &tiling_info, 
+> &dcc, &address),
+>                          0);
+> @@ -623,7 +623,7 @@ static void 
+> dm_test_fill_gfx9_plane_attributes_from_modifiers(struct kunit *test
+>          afb->base.modifier = DRM_FORMAT_MOD_LINEAR;
+> 
+>          KUNIT_EXPECT_EQ(test,
+> -  amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(
+> +  amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(
+>                          adev, afb, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
+>                          ROTATION_ANGLE_0, &plane_size, &tiling_info, 
+> &dcc, &address),
+>                          0);
+> @@ -1187,9 +1187,9 @@ static struct kunit_case 
+> amdgpu_dm_plane_test_cases[] = {
+>          KUNIT_CASE(dm_test_get_cursor_position),
+>          /* amdgpu_dm_plane_format_mod_supported() */
+>          KUNIT_CASE(dm_test_format_mod_supported),
+> -       /* amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers() */
+> +       /* amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers() */
+> KUNIT_CASE(dm_test_fill_gfx12_plane_attributes_from_modifiers),
+> -       /* amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers() */
+> +       /* amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers() */
+> KUNIT_CASE(dm_test_fill_gfx9_plane_attributes_from_modifiers),
+>          /* amdgpu_dm_plane_helper_check_state() */
+>          KUNIT_CASE(dm_test_helper_check_state_viewport_reject),
+> (END)
+> 
+> 
+> Regards,
+> 
+> Venkat.
+> 
 >>
->> What's the reason for a 0.3 s floor?
-> 
-> The floor accounts for I2C clock stretching. The spec allows slaves to hold SCL low indefinitely during internal processing. A dynamically computed xfer time alone gives no time for that.
-> 300ms value covers worst-case stretching while still detecting real hangs 3x faster than the old 1s static timeout.
-
-Please put that in the commit message and possibly in the code as a comment
-
-> 
-> Thanks,
-> Aniket
-> 
+>> # git bisect log
+>> git bisect start
+>> # status: waiting for both good and bad commits
+>> # bad: [5c73cd9f0819c1c44e373e3dabb68318b1de1a12] Add linux-next 
+>> specific files for 20260707
+>> git bisect bad 5c73cd9f0819c1c44e373e3dabb68318b1de1a12
+>> # good: [8cdeaa50eae8dad34885515f62559ee83e7e8dda] Linux 7.2-rc2
+>> git bisect good 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+>> # good: [aac7863446a8e0cf380f4a5087bc3cdc9b8c14c0] Merge branch 
+>> 'master' of https://eur01.safelinks.protection.outlook.com/? 
+>> url=https%3A%2F%2Fgit.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Fherbert%2Fcryptodev-2.6.git&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7Cc5e7652b93e744143d1c08dede60b05d%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639192704027107259%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=4ydIlQe8Bb3klMVrBmwYKnhK77MZUni2JbITolWJGzM%3D&reserved=0
+>> git bisect good aac7863446a8e0cf380f4a5087bc3cdc9b8c14c0
+>> # bad: [fe28d02cde5372d7f71cc6132ccdef37a98ac750] Merge branch 'for- 
+>> linux-next' of https://eur01.safelinks.protection.outlook.com/? 
+>> url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Fi915%2Fkernel.git&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7Cc5e7652b93e744143d1c08dede60b05d%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639192704027140053%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=BMbR68vSHUPlm7pZCpn7niZgDfYLQWogR6OX7yiaGEw%3D&reserved=0
+>> git bisect bad fe28d02cde5372d7f71cc6132ccdef37a98ac750
+>> # good: [0639cb26862afe4e35a689a8b5df8b9117c19f52] Merge tag 'drm-xe- 
+>> next-2026-07-03' of https://eur01.safelinks.protection.outlook.com/? 
+>> url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Fxe%2Fkernel&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7Cc5e7652b93e744143d1c08dede60b05d%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639192704027161672%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=LumG%2BM7C9w7R38jDyGYGHjbhjb6LZ3y%2F2J%2F82%2FZciZo%3D&reserved=0 into drm-next
+>> git bisect good 0639cb26862afe4e35a689a8b5df8b9117c19f52
+>> # good: [4e9c8a9c322427055c4892183d266ba391af1bc8] drm/amdkfd: drop 
+>> struct kfd_signal_page wrapper
+>> git bisect good 4e9c8a9c322427055c4892183d266ba391af1bc8
+>> # bad: [ea33aa1545535fdb4c1a208b7bfd63314c3a4aa2] drm/amdgpu: Drop 
+>> legacy ACA log RAS error data code
+>> git bisect bad ea33aa1545535fdb4c1a208b7bfd63314c3a4aa2
+>> # good: [a17e79d01f22182a9fcbe79fcbe2ad1477d43e0f] drm/amd/pm: 
+>> Validate pp_table header before reading size
+>> git bisect good a17e79d01f22182a9fcbe79fcbe2ad1477d43e0f
+>> # bad: [7a561c2b1b63abcffb55f625c0d0adb68ab2961a] drm/amd/display: 
+>> Simplify boolean checks
+>> git bisect bad 7a561c2b1b63abcffb55f625c0d0adb68ab2961a
+>> # good: [53ef33c084c5778cc2dcd1efff25e31b6e231141] drm/amd/pm: 
+>> Validate Tonga PPTable subtable bounds
+>> git bisect good 53ef33c084c5778cc2dcd1efff25e31b6e231141
+>> # good: [fe5966d4fdcbed91e6b3478ea6c89d9915d6ed4a] drm/amdkfd: move 
+>> TBA/TMA from system to device memory
+>> git bisect good fe5966d4fdcbed91e6b3478ea6c89d9915d6ed4a
+>> # good: [7a39b1c3b2e6b27f4230a20ccf9ac5a2737fa8b0] drm/amd/display: 
+>> Replace repeated no-native-i2c checks with force_i2c_over_aux field
+>> git bisect good 7a39b1c3b2e6b27f4230a20ccf9ac5a2737fa8b0
+>> # good: [88ae862060f05cd8279e764832f04eafafa505d8] drm/amd/display: 
+>> Add more KUnit tests for amdgpu_dm_colorop
+>> git bisect good 88ae862060f05cd8279e764832f04eafafa505d8
+>> # bad: [2b147895be109e0860269a7a72c697cdf049a885] drm/amd/display: Add 
+>> kunit tests for amdgpu_dm_plane
+>> git bisect bad 2b147895be109e0860269a7a72c697cdf049a885
+>> # first bad commit: [2b147895be109e0860269a7a72c697cdf049a885] drm/ 
+>> amd/display: Add kunit tests for amdgpu_dm_plane
 >>
->> Why a 10x safety margin specifically?
+>>>
+>>>
+>>> Regards,
+>>>
+>>> Venkat.
 >>
->> [...]
-> 
-> The multiplier covers the gap between theoretical xfer time and actual completion time (DMA descriptor setup, interrupt latency, and scheduling jitter on a loaded system)
-> Without it, short transfers would have almost no extra time before a spurious timeout.
 
-Likewise
-
-(Should there be a constant safety margin added to account for all
-that? Keep in mind this driver will run on a turbofast Glymur and on
-a notsofast Agatti so any numbers that depend on the processor's
-speed must be reasonable for both)
-
-Konrad
