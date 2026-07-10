@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C63EC44512
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F72BC44513
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E940510F9AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1AC110F9B1;
 	Fri, 10 Jul 2026 21:54:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JGEE4Iuh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="U9Y09aU3";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C13910F992;
- Fri, 10 Jul 2026 21:54:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30AD410F986;
+ Fri, 10 Jul 2026 21:54:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783720496; x=1815256496;
+ t=1783720495; x=1815256495;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=BG1PFICdpAljvWYeK8+LJvs9zXvpb2Spx/Q4HUyJTRs=;
- b=JGEE4IuhW3XdgYMZS/xUGXNrxDfuidmwtctNH1ADgJGsa0hW1c2mM3vJ
- sczTBCm2XYOTcm07swYtH8vxkF8B6XtRTRWPIrXc4jBkXI1eLJCKY9DsH
- bz36xJ5uhVd+7AcHPhvj9PgLHDRZDZYoXVaFpbbq1j8wiGIcscLI7806A
- 7dJKhzNe4FrRnpu+2pY1vcAwJzXt33Ut0uZCFWYSBPkXQ6LvzSi2BoGHC
- zUj8BHZT2sCkIVMi5kwf0OXLtEGibvcywSA+TGLKC83UAZ5cUYyGJsvPd
- pyepL9gFHLcYE/xoe24QD5Vw+OhRdCkgutfOnNhE9i7KWoWCuIG70Fd/e g==;
-X-CSE-ConnectionGUID: LriX8A0PS5Kbn3XpuD+cmg==
-X-CSE-MsgGUID: uOy3HXESS6aKpz34DTgfug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543241"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543241"
+ bh=KMs46OPL0Vngl0tZUFulMtAp5PmjK7zLdDVOXrYesaM=;
+ b=U9Y09aU32AktJNDMJVjVTrOAII1k/ZH1LpD3j4iK3M7MYlDSRWkcuWQZ
+ NYHVFKv3GkbAkT5WSROmCzAFb5a5gNCsYhpMGdQE2OaN7POVqFLXPim0B
+ GGCK28SXFdSQOmr7Qgjc0L0wWUXjlaZGT0d7MCwjZ9PSL5fjcbUe5FSU+
+ qzU7Mt3VUNpkxP6m+Z99M2QaI+VCEQiLB1NT7xzfsqeRse2Ib7YngZGgn
+ t9hD+JTbfO0UNm0CCWD5Q4GUFwZrYz0WA/8C9+3d8uACC/JugUkQMRA46
+ TJ3ZT8jUJLxKgbPxnENY0KSyfyJCEH7InaFb1WOmJ95fQ5ZfKCxoIwwTp w==;
+X-CSE-ConnectionGUID: NGvimCTrR+WwJwlFH/1O5Q==
+X-CSE-MsgGUID: lQw1u5S/QrmjKoNaXAag0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543214"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543214"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:56 -0700
-X-CSE-ConnectionGUID: YRnX5efARB2FCxiRdNvuWg==
-X-CSE-MsgGUID: 01+A5H6tSZ6TZrxfUiagyg==
+ 10 Jul 2026 14:54:55 -0700
+X-CSE-ConnectionGUID: XyjAOcA7SYSFJU7j86NXBA==
+X-CSE-MsgGUID: AfHXwFlDTk6q7ZBbBu82KQ==
 X-ExtLoop1: 1
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:56 -0700
+ 10 Jul 2026 14:54:55 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -51,9 +51,9 @@ Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v2 27/33] drm/xe: Add IOVA-based xe_res_cursor variant
-Date: Fri, 10 Jul 2026 14:54:36 -0700
-Message-Id: <20260710215442.2444235-28-matthew.brost@intel.com>
+Subject: [PATCH v2 24/33] drm/xe: Add defrag profiling tracepoints
+Date: Fri, 10 Jul 2026 14:54:33 -0700
+Message-Id: <20260710215442.2444235-25-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260710215442.2444235-1-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
@@ -75,20 +75,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Introduce xe_res_first_iova() to walk a buffer that was DMA mapped using
-the IOVA-based DMA API (dma_iova_try_alloc() and friends). Such a mapping
-is described by a struct dma_iova_state and is a single contiguous IOVA
-range, so the cursor walks it as one segment.
+Add two tracepoints to profile the page defragmentation worker:
 
-Add an is_iova flag to struct xe_res_cursor to distinguish this case.
-When set, xe_res_dma() returns the IOVA backing the current position
-(state->addr + cursor offset), xe_res_next() advances within the single
-contiguous segment, and xe_res_is_vram() returns false since IOVA
-mappings never point to same-device VRAM.
+ - xe_bo_defrag_worker: emitted on worker entry and exit with the
+   current defrag list count and the bytes processed in the run.
+ - xe_bo_defrag_one: emitted per BO with the run budget, the prealloc
+   fill ratio (got/want) and the lock-held, lock-wait and prealloc
+   durations, plus the bytes consumed and the result.
 
-The flag is explicitly cleared in the existing xe_res_first(),
-xe_res_first_sg() and xe_res_first_dma() initializers so stale stack
-values cannot leak into the new path.
+These break down the cost of a defrag attempt into its locked vs
+unlocked phases, making it possible to confirm that the expensive
+beneficial-order allocation and cpu cache mode change happen outside
+the BO dma-resv lock and that the residual lock-held time is copy-bound
+(with the tail dominated by lock-wait behind active rendering).
 
 Cc: Carlos Santa <carlos.santa@intel.com>
 Cc: Ryan Neph <ryanneph@google.com>
@@ -106,125 +105,153 @@ Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Assisted-by: GitHub_Copilot:claude-opus-4.8
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/xe/xe_res_cursor.h | 56 +++++++++++++++++++++++++++++-
- 1 file changed, 55 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/xe/xe_bo.c       | 18 +++++++++-
+ drivers/gpu/drm/xe/xe_trace_bo.h | 59 ++++++++++++++++++++++++++++++++
+ 2 files changed, 76 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_res_cursor.h b/drivers/gpu/drm/xe/xe_res_cursor.h
-index 0522caafd89d..f0f1d699e16e 100644
---- a/drivers/gpu/drm/xe/xe_res_cursor.h
-+++ b/drivers/gpu/drm/xe/xe_res_cursor.h
-@@ -24,6 +24,7 @@
- #ifndef _XE_RES_CURSOR_H_
- #define _XE_RES_CURSOR_H_
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index 2f014fc9f988..a01004265349 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -1254,7 +1254,9 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
+ 	struct ttm_placement placement;
+ 	struct ttm_place place;
+ 	enum ttm_caching tt_caching;
+-	unsigned int order, want = 0;
++	unsigned int order, want = 0, got = 0;
++	u64 lock_ns = 0, prealloc_ns = 0, lockwait_ns = 0;
++	ktime_t t0;
+ 	int ret = 0;
  
-+#include <linux/dma-mapping.h>
- #include <linux/scatterlist.h>
+ 	*consumed = 0;
+@@ -1284,6 +1286,7 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
  
- #include <drm/drm_pagemap.h>
-@@ -67,6 +68,12 @@ struct xe_res_cursor {
- 	u64 dma_start;
- 	/** @dma_seg_size: Size of the current DMA segment. */
- 	u64 dma_seg_size;
-+	/**
-+	 * @is_iova: Whether the cursor walks a single contiguous IOVA
-+	 * mapping described by a struct dma_iova_state. When true, the
-+	 * DMA address is @dma_start + @start and never points to VRAM.
-+	 */
-+	bool is_iova;
- };
+ 	/* Phase 2: preallocate outside the lock; */
+ 	if (want) {
++		t0 = ktime_get();
+ 		ret = ttm_pool_prealloc_fill(pool, tt_caching, &pp, want);
+ 		if (ret || !pp.count) {
+ 			ret = ret ?: -ENOMEM;
+@@ -1291,12 +1294,16 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
+ 					 XE_GT_STATS_ID_DEFRAG_FAILED_COUNT, 1);
+ 			goto out_err;
+ 		}
++		prealloc_ns = ktime_to_ns(ktime_sub(ktime_get(), t0));
+ 	}
  
- static struct gpu_buddy *xe_res_get_buddy(struct ttm_resource *res)
-@@ -93,6 +100,7 @@ static inline void xe_res_first(struct ttm_resource *res,
- {
- 	cur->sgl = NULL;
- 	cur->dma_addr = NULL;
-+	cur->is_iova = false;
- 	if (!res)
- 		goto fallback;
+ 	/*
+ 	 * Phase 3: re-take the lock, re-check, and validate using the prealloc.
+ 	 */
++	t0 = ktime_get();
+ 	xe_bo_lock(bo, false);
++	lockwait_ns = ktime_to_ns(ktime_sub(ktime_get(), t0));
++	t0 = ktime_get();
  
-@@ -224,6 +232,7 @@ static inline void xe_res_first_sg(const struct sg_table *sg,
- 	cur->dma_addr = NULL;
- 	cur->sgl = sg->sgl;
- 	cur->mem_type = XE_PL_TT;
-+	cur->is_iova = false;
- 	__xe_res_sg_next(cur);
+ 	if (!xe_bo_needs_defrag(bo)) {
+ 		xe_bo_defrag_remove(bo);
+@@ -1350,9 +1357,13 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
+ 
+ unlock:
+ 	xe_bo_unlock(bo);
++	lock_ns = ktime_to_ns(ktime_sub(ktime_get(), t0));
++	got = pp.used;
+ out_err:
+ 	ttm_pool_prealloc_fini(pool, &pp);
+ out:
++	trace_xe_bo_defrag_one(bo, budget, want, got, lock_ns, prealloc_ns,
++			       lockwait_ns, *consumed, ret);
+ 	return ret;
  }
  
-@@ -255,6 +264,41 @@ static inline void xe_res_first_dma(const struct drm_pagemap_addr *dma_addr,
- 	__xe_res_dma_next(cur);
- 	cur->sgl = NULL;
- 	cur->mem_type = XE_PL_TT;
-+	cur->is_iova = false;
-+}
-+
-+/**
-+ * xe_res_first_iova() - initialize a xe_res_cursor with a dma_iova_state
-+ *
-+ * @state: struct dma_iova_state describing a single contiguous IOVA mapping
-+ * @start: Start of the range
-+ * @size: Size of the range
-+ * @cur: cursor object to initialize
-+ *
-+ * Start walking over the range of an allocation that was DMA mapped using the
-+ * IOVA-based DMA API (see dma_iova_try_alloc()). Such a mapping is a single
-+ * contiguous IOVA range, so the cursor walks it as one segment. Subsequent
-+ * calls to xe_res_next() advance within that range and xe_res_dma() returns
-+ * the IOVA backing the current position. xe_res_is_vram() always returns false
-+ * for such a cursor.
-+ */
-+static inline void xe_res_first_iova(struct dma_iova_state *state,
-+				     u64 start, u64 size,
-+				     struct xe_res_cursor *cur)
-+{
-+	XE_WARN_ON(!state);
-+	XE_WARN_ON(start + size > dma_iova_size(state));
-+
-+	cur->node = NULL;
-+	cur->start = start;
-+	cur->remaining = size;
-+	cur->size = size;
-+	cur->dma_addr = NULL;
-+	cur->sgl = NULL;
-+	cur->dma_start = state->addr;
-+	cur->dma_seg_size = dma_iova_size(state);
-+	cur->mem_type = XE_PL_TT;
-+	cur->is_iova = true;
- }
- 
- /**
-@@ -283,6 +327,13 @@ static inline void xe_res_next(struct xe_res_cursor *cur, u64 size)
+@@ -1373,6 +1384,9 @@ static void xe_bo_defrag_worker(struct work_struct *w)
  		return;
  	}
  
-+	if (cur->is_iova) {
-+		/* Single contiguous IOVA segment. */
-+		cur->start += size;
-+		cur->size = cur->remaining;
-+		return;
-+	}
++	trace_xe_bo_defrag_worker(xe, 0, atomic_read(&xe->mem.defrag.count),
++				  true);
 +
- 	if (cur->dma_addr) {
- 		cur->start += size;
- 		__xe_res_dma_next(cur);
-@@ -334,7 +385,7 @@ static inline void xe_res_next(struct xe_res_cursor *cur, u64 size)
-  */
- static inline u64 xe_res_dma(const struct xe_res_cursor *cur)
- {
--	if (cur->dma_addr)
-+	if (cur->is_iova || cur->dma_addr)
- 		return cur->dma_start + cur->start;
- 	else if (cur->sgl)
- 		return sg_dma_address(cur->sgl) + cur->start;
-@@ -351,6 +402,9 @@ static inline u64 xe_res_dma(const struct xe_res_cursor *cur)
-  */
- static inline bool xe_res_is_vram(const struct xe_res_cursor *cur)
- {
-+	if (cur->is_iova)
-+		return false;
-+
- 	if (cur->dma_addr)
- 		return cur->dma_addr->proto == XE_INTERCONNECT_VRAM;
+ 	/*
+ 	 * Process at most XE_BO_DEFRAG_SIZE_LIMIT bytes of newly (re)allocated
+ 	 * backing per run rather than draining the whole list in one go. Only
+@@ -1479,6 +1493,8 @@ static void xe_bo_defrag_worker(struct work_struct *w)
  
+ 	xe_pm_runtime_put(xe);
+ 	drm_dev_exit(idx);
++	trace_xe_bo_defrag_worker(xe, defrag_bytes,
++				  atomic_read(&xe->mem.defrag.count), false);
+ }
+ 
+ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+diff --git a/drivers/gpu/drm/xe/xe_trace_bo.h b/drivers/gpu/drm/xe/xe_trace_bo.h
+index 86323cf3be2c..a169a322464b 100644
+--- a/drivers/gpu/drm/xe/xe_trace_bo.h
++++ b/drivers/gpu/drm/xe/xe_trace_bo.h
+@@ -85,6 +85,65 @@ TRACE_EVENT(xe_bo_move,
+ 		      __get_str(new_placement_name), __get_str(device_id))
+ );
+ 
++TRACE_EVENT(xe_bo_defrag_worker,
++	    TP_PROTO(struct xe_device *xe, u64 defrag_bytes, int count,
++		     bool enter),
++	    TP_ARGS(xe, defrag_bytes, count, enter),
++	    TP_STRUCT__entry(
++		     __string(dev, dev_name(xe->drm.dev))
++		     __field(u64, defrag_bytes)
++		     __field(int, count)
++		     __field(bool, enter)
++		     ),
++	    TP_fast_assign(
++		   __assign_str(dev);
++		   __entry->defrag_bytes = defrag_bytes;
++		   __entry->count = count;
++		   __entry->enter = enter;
++		   ),
++	    TP_printk("dev=%s %s defrag_bytes=%llu count=%d",
++		      __get_str(dev), __entry->enter ? "enter" : "exit",
++		      __entry->defrag_bytes, __entry->count)
++);
++
++TRACE_EVENT(xe_bo_defrag_one,
++	    TP_PROTO(struct xe_bo *bo, u64 budget, unsigned int prealloc_want,
++		     unsigned int prealloc_got, u64 lock_ns, u64 prealloc_ns,
++		     u64 lockwait_ns, u64 consumed, int ret),
++	    TP_ARGS(bo, budget, prealloc_want, prealloc_got, lock_ns,
++		    prealloc_ns, lockwait_ns, consumed, ret),
++	    TP_STRUCT__entry(
++		     __string(dev, __dev_name_bo(bo))
++		     __field(size_t, size)
++		     __field(u64, budget)
++		     __field(unsigned int, prealloc_want)
++		     __field(unsigned int, prealloc_got)
++		     __field(u64, lock_ns)
++		     __field(u64, prealloc_ns)
++		     __field(u64, lockwait_ns)
++		     __field(u64, consumed)
++		     __field(int, ret)
++		     ),
++	    TP_fast_assign(
++		   __assign_str(dev);
++		   __entry->size = xe_bo_size(bo);
++		   __entry->budget = budget;
++		   __entry->prealloc_want = prealloc_want;
++		   __entry->prealloc_got = prealloc_got;
++		   __entry->lock_ns = lock_ns;
++		   __entry->prealloc_ns = prealloc_ns;
++		   __entry->lockwait_ns = lockwait_ns;
++		   __entry->consumed = consumed;
++		   __entry->ret = ret;
++		   ),
++	    TP_printk("dev=%s size=%zu budget=%llu prealloc=%u/%u lock_us=%llu lockwait_us=%llu prealloc_us=%llu consumed=%llu ret=%d",
++		      __get_str(dev), __entry->size, __entry->budget,
++		      __entry->prealloc_got, __entry->prealloc_want,
++		      __entry->lock_ns / 1000, __entry->lockwait_ns / 1000,
++		      __entry->prealloc_ns / 1000, __entry->consumed,
++		      __entry->ret)
++);
++
+ DECLARE_EVENT_CLASS(xe_vma,
+ 		    TP_PROTO(struct xe_vma *vma),
+ 		    TP_ARGS(vma),
 -- 
 2.34.1
 
