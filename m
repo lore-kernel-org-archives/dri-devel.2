@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22578C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:10:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F373FC44507
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:10:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0E9810E7A9;
-	Mon, 13 Jul 2026 07:10:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44BD710E7AD;
+	Mon, 13 Jul 2026 07:10:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="cn70gW5+";
+	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="c/D3qNXs";
 	dkim-atps=neutral
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com
- [209.85.217.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0199E10E21D
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 19:02:04 +0000 (UTC)
-Received: by mail-vs1-f42.google.com with SMTP id
- ada2fe7eead31-738cdd667ceso370742137.3
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:02:04 -0700 (PDT)
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
+ [209.85.219.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E149E10E1F2
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 19:13:03 +0000 (UTC)
+Received: by mail-qv1-f47.google.com with SMTP id
+ 6a1803df08f44-8efb708b1a0so11491496d6.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:13:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1783710124; x=1784314924; darn=lists.freedesktop.org;
+ d=gourry.net; s=google; t=1783710783; x=1784315583; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=pC/3U7Ftz6dY/QSNTLtw6DNyhuKVUlnEMcNANT8zsUU=;
- b=cn70gW5+XpzWUE4ia4uKPcV/TfjoBcNHJagisXuEyfO6MHdS5SwdNvNoVW2KCRgKcE
- Cp0CUMYiFnwNkQKWskZ+a17JSC2zSek5rq6tJNCaGoEUWNB7PLll+GFJkJO9SHtCuPKP
- aOz1dCqKHYzbeU0OzpCnvfEPYm7urpEcE+pgHC7Zp2RMTZ7wrjd7r/uMhGBi7ZVxPlbT
- mJE2/loj0+nLcPUOMpViW5sH0mQdRR33UwfId5qUrX4Fn3hy4DL2BMoa7n9cUA+v0Dbp
- ZkkqRGzdZQPctMuboJ27yUd6pK3SYCPMAlxSi470XKsVErh5yv7rZDJR8uDohTqJsbp/
- 6stA==
+ bh=Zl1BBUQ1SVF8WlDcAjuqmqY9e/JVxV3t5chHRhyKtnA=;
+ b=c/D3qNXsXEHkx9nfREo8hNExLr2iZwMTgTeQZFfPrznVMbC7sY4TKtwaoi+5l1TSvn
+ ycEqlijZL2AjwzSNZr23cv9qtsIVV9Q4Ji3ImT9XafMpTWDOTev2IWTJMI7B1klVBQxz
+ 23Cd0WbLmDf/BU/2wS/qLNTZkDOTVAVAfUrr/qtIpEy+//f6ohAcQO2hvhlxFpzDlHx8
+ klDuXGakl5M+uCw6dfcEcHI70KoGHIqdvamMVqmMqDo/PNkIn6Lgf/vdg/Phi/t1Vdf/
+ tPdsGmuvCozQRZ4r5C2bXGOx4vIG3yzgRIJLOYoWTzWIA346j6lddRMPCQ01zVvynQGF
+ U4bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783710124; x=1784314924;
+ d=1e100.net; s=20251104; t=1783710783; x=1784315583;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=pC/3U7Ftz6dY/QSNTLtw6DNyhuKVUlnEMcNANT8zsUU=;
- b=IP5CFpibpLEMsgq6giLEE8Mua1SJFT7+3n1LrNXURvBeSM9SwViTRC/2x86TyNfAxE
- WaxDVizx+C/yRB1tYxkxnsLnvnI73k5WFWGk7qSEIpQ/Ts+5pFw2cJVeXRyW7yS3VkZy
- i998Wvna8BEb+4HDnGC4JgbROFwDDUiqGYZchgcZyHafLYzg8G2uao/g4rrVrk3l0KE0
- WheFN2ZAvmPbib5k1hFdYPLuXhtStrdnmLWaFgSGHxZkU+tQVyUGv9aqCFDtL0/SFe2q
- RX1ON2/l5HIbKZhmGFe1HZ9BiiGjWPTINwQgh4FTSblctWKV65QlUsXBdu/m1Z7h6/Db
- kBvw==
+ bh=Zl1BBUQ1SVF8WlDcAjuqmqY9e/JVxV3t5chHRhyKtnA=;
+ b=c8xMlEumJ6bRfZEg3o9ZJoXBKXfUZpo8RNdg2u6mMzYosDk0ImhIiHodR/FACKCgrY
+ XrTV8hkAvRJoUKesHNpf+fZ5qcDXoF+iU1aFqxBsDGNTunNLT3dgjm2NPY0+2RkBsTOZ
+ 5vjSUWLfZqPID57BzQHXn5JWcT3A1nHH6Sgl9aaHl8JVmA2H4/8FsfYnY65yxPYrUf0l
+ f310TSqfSDdWZfVPq+GDxIQmwe242wwOzs3renihLTfItGfPkWW7qp5fTMV6foGdYfSt
+ 6Se9auJ6xON8BfZk1nfuoJotyeDe/r85N+24J+23mxHWTzmG3/g/Wf42YC0IXdKw2J0b
+ YLmg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpqgTx1eab4YwbwmKNc5WFp/2LO6voEQj1LiRkMPiO61mhiPl9+r3Jwbg0scjbb+01ry7OmRpDVFLw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxZTgWmx39nvFFiEcq+3l6uYMo5haeFjD8sqNiHknB6ypRA3j4q
- QWOKOwfLYaF5oV8u3fSoLtKqT4zwVgUV7r74OW4Na5lLWz8HBWsnTH5LcqdCdvzCLrQ=
-X-Gm-Gg: AfdE7ckJXYwODZRrSIlsBmjTfLgehYHd475NrqshYeldtETtMPIxAnyFAELFXX1eTJo
- DOvs3DLem6RI9UQCpUKVuJaQ8cKD8vyL5SoDmYkZkj0VIljJmXDeUUKbO7URkpRyEARoD6ecKKl
- 1Nso13uYJeEYEYLGwcGztWTUY7dSdTqnmvRj7/mLxSrArkjnLyt9WFilNkgo8MSiSCsNSlxf0e0
- 9rhZ+rDExHuuxu65LT84rO+MHszkuOELjeESeVczilmuIMkSxJq9BWPPa/3+rLY3YSf+TsaPJlY
- 5WKEts7FvVOkQhm4WyT8X63NeLGK1+AYonOAQO8sUATcXKr0hGdEZxH6cNj6Qb64+wqkyTEGqMp
- 921JvZOsQcO3sso02JbP+Ma8bf095xEvQgt0yEoQSPpVuvSwp6QdxacdOdI0U59MPAq1xRTeedR
- osivS4s7FpcLRXZAovhbnhdNwXiYEmLIdJS6THxSqMyf7WQoZARQhwVt7PD7Hoj280K7da
-X-Received: by 2002:a05:6102:689c:b0:739:5f55:3c3c with SMTP id
- ada2fe7eead31-74533d66217mr325833137.13.1783710114831; 
- Fri, 10 Jul 2026 12:01:54 -0700 (PDT)
+ AHgh+RrBljxQkoQWQZNUMz/77UdmDtdnDVBodkcLBFUNALeV9LnjVFgHnnXcU/3qisNNuf4wfoytfRhhjXc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzlJdn1k7IcMrmEsKp/IkwXolnAMZQuhyv0fCnnFbRmgr523Trn
+ Tu1oCNuk8liJPiZkRIcP9curk/a2qMRV2tLbEH5oUTSuprl4gxpz7FBq2vp3KaBmzA0=
+X-Gm-Gg: AfdE7cmB2q06pY3l2upSkSSr0olh91svc5vTFhw1T1oAEC3xd7l1Z0zsJPMVpx1oNLK
+ wcg6xOMftB3UE092q/Y76vKywW8nEJYXR1L8tTd+9WjOvIcBo4edPpRYGkhqti47b8P4cTcvCzD
+ UryunthkvMRAfhYLYEfgYz/R1tMdkkOwfcAow62xiMlmtztQR2FnpvDbYEZ5Jo1bIOPklI/YaxP
+ ArYaxDkmkq/Va6x/r7BmVj26JkWcohnKaJbQLb+VxN3Pkj7R5hewSzwBQhOzRQo/NylNAvbhfMb
+ qgiMDJ2FWDqwP26u/vtQpGCDZ35lN9eeBMAlEw29JP3wx3JNBt3QqUZBYRz1J7H17Uuwg/e7ReS
+ DBeHyKavZhBX4qvXuyhazZ6zB+1WfW//+m0Y/lBHhD9iFW1fDKqFklSqSl2gCe/B13uiOXbNqZY
+ NbnrPdskYFrEGS8ibiC6zylrRtQnHbxUZMPbhSLBt5rQFOIT2CWj9cGZxHW5DfJxZ9d20W
+X-Received: by 2002:a05:6214:450c:b0:8f0:9d9c:52c2 with SMTP id
+ 6a1803df08f44-903fe450e5fmr5228126d6.5.1783710782628; 
+ Fri, 10 Jul 2026 12:13:02 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F
  (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ffd56c4b91sm48074036d6.19.2026.07.10.12.01.53
+ 6a1803df08f44-8ffd87c9128sm47321526d6.45.2026.07.10.12.13.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 12:01:54 -0700 (PDT)
-Date: Fri, 10 Jul 2026 15:01:49 -0400
+ Fri, 10 Jul 2026 12:13:02 -0700 (PDT)
+Date: Fri, 10 Jul 2026 15:12:57 -0400
 From: Gregory Price <gourry@gourry.net>
 To: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
@@ -119,14 +119,15 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 21/30] mm/vma: add and use vma_[add/sub]_pgoff()
-Message-ID: <alFBnZ8RcRN1hlk5@gourry-fedora-PF4VCD3F>
+Subject: Re: [PATCH 25/30] mm/vma: update vmg_adjust_set_range() to offset
+ pgoff instead
+Message-ID: <alFEOTiJw2g--9F1@gourry-fedora-PF4VCD3F>
 References: <cover.1782735110.git.ljs@kernel.org>
- <794044881e454fd8ac13e59d5ff5fc86fca08b03.1782735110.git.ljs@kernel.org>
+ <910f7b5be78232304dc7ca01cd57c6f5ca8f3d13.1782735110.git.ljs@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <794044881e454fd8ac13e59d5ff5fc86fca08b03.1782735110.git.ljs@kernel.org>
+In-Reply-To: <910f7b5be78232304dc7ca01cd57c6f5ca8f3d13.1782735110.git.ljs@kernel.org>
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,19 +144,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:32PM +0100, Lorenzo Stoakes wrote:
-> Add helpers for adding or subtracting to a VMA's page offset, exposed
-> internally for VMA users within mm in mm/vma.h.
+On Mon, Jun 29, 2026 at 01:23:36PM +0100, Lorenzo Stoakes wrote:
+> We are calculating the pgoff as an offset, since we have vma_add_pgoff()
+> and vma_sub_pgoff() available, just offset this value directly and use
+> __vma_set_range() for vma->vm_[start, end] values.
 > 
-> This is to lay the foundations for tracking anonymous page offset for
-> MAP_PRIVATE file-backed mappings, where adding and subtracting from this
-> value must be reflected in both the file and anonymous offsets.
+> We take care to update the range before offsetting the page offset, so the
+> adjusted VMA's vm_start and vm_pgoff are mutually consistent at the point
+> the page offset helpers operate - this matters once vma_set_pgoff() comes
+> to assert invariants which relate the two.
 > 
-> These are used on VMA split and downward stack expansion.
+
+Given the prior code just did it in 3 lines of code with no special
+dance, there's a presumption here that this is done in a critical
+section and no external actor can see the inconsistent state?
+
+(i.e. range is updated but offset is not)
+
+Just think about this from a bisection/debugging standpoint.
+
+> Doing so lays the foundation for future work which allows for use of
+> virtual page offsets for MAP_PRIVATE-file backed mappings.
 > 
 > No functional change intended.
 > 
 > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
 Reviewed-by: Gregory Price <gourry@gourry.net>
-
