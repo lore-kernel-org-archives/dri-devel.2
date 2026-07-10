@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CA30C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:12:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 691D7C44508
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:12:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B32010E268;
-	Fri, 10 Jul 2026 22:12:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC1FA10F968;
+	Fri, 10 Jul 2026 22:12:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="yaM672l8";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="vrKNqD/R";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAA1410E268;
- Fri, 10 Jul 2026 22:12:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD5EA10F968;
+ Fri, 10 Jul 2026 22:12:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 34E0D60051;
- Fri, 10 Jul 2026 22:12:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE30C1F000E9;
- Fri, 10 Jul 2026 22:12:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 15A9C41A63;
+ Fri, 10 Jul 2026 22:12:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C384A1F00A3E;
+ Fri, 10 Jul 2026 22:12:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=korg; t=1783721530;
- bh=fo7hh4EtlekICL5k1AderHImVib8Wo/fra/wRbqEq/U=;
+ d=linux-foundation.org; s=korg; t=1783721538;
+ bh=vZPCZ7vPd1NuY/NOvoRK1wg4DzJ9OfLHTV03rmwvPpc=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=yaM672l8pa/XMuK2uZBBEO6oCy6GZgo5f+KmfIVM/ga9krsyMfE5SWqDP7o7QFIGc
- lGJhMoIXqjfeE0FMaH7nJ6ePG7Wzz1LC+2cK0WS2NcmXDgVqfHH34jNk0JoY7+u4V9
- BsiLi8zdUMFgF7SqWqnUIoo6uK8JKalKt/P+V2qs=
-Date: Fri, 10 Jul 2026 15:12:09 -0700
+ b=vrKNqD/RSYZafjQOwVndW01m5aLwswfnuVAfqI5wWJJiUGxMunb7KBRBbR+vIavWm
+ Jwjm7GTEqUP54kAGt2vK1og8+S0X4K5USi4sGzpjMkFtbq+y8rgsLvuLfwWeKzYqds
+ EILDdi2jW5IYL94/XhZxUobGPOo9gvao6LZmzPYg=
+Date: Fri, 10 Jul 2026 15:12:16 -0700
 From: Andrew Morton <akpm@linux-foundation.org>
 To: Stanislav Kinsburskii <skinsburskii@gmail.com>
 Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, corbet@lwn.net,
@@ -43,12 +43,12 @@ Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, corbet@lwn.net,
  linux-mm@kvack.org, linux-doc@vger.kernel.org,
  linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-rdma@vger.kernel.org
-Subject: Re: [PATCH v8 2/8] mm/hmm: add hmm_range_fault_unlocked_timeout()
- for mmap lock-drop support
-Message-Id: <20260710151209.157d7c80b03dc56d73b5884a@linux-foundation.org>
-In-Reply-To: <178371879503.900500.7148019929226548795.stgit@skinsburskii>
+Subject: Re: [PATCH v8 4/8] mshv: Use hmm_range_fault_unlocked_timeout() for
+ region faults
+Message-Id: <20260710151216.0397a6f9ac5c7b4ccd274cc1@linux-foundation.org>
+In-Reply-To: <178371881034.900500.5214601525971121683.stgit@skinsburskii>
 References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
- <178371879503.900500.7148019929226548795.stgit@skinsburskii>
+ <178371881034.900500.5214601525971121683.stgit@skinsburskii>
 X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -68,100 +68,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 10 Jul 2026 14:26:35 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
+On Fri, 10 Jul 2026 14:26:50 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
 
-> hmm_range_fault() requires the caller to hold the mmap read lock for the
-> duration of the call. This is incompatible with mappings whose fault
-> handler may release the mmap lock, notably userfaultfd-managed regions,
-> where handle_mm_fault() can return VM_FAULT_RETRY or VM_FAULT_COMPLETED
-> after dropping the lock. Drivers that need to populate device page tables
-> for such mappings have no way to do so today.
+> MSHV currently faults movable memory regions by taking mmap_read_lock()
+> around hmm_range_fault(). That prevents the fault path from handling VMAs
+> whose fault handlers need to drop mmap_lock, such as userfaultfd-backed
+> mappings.
 > 
-> Add hmm_range_fault_unlocked_timeout() for callers that do not need to hold
-> mmap_lock across any work outside the HMM fault itself. The helper takes
-> mmap_read_lock_killable() internally, calls the common HMM fault
-> implementation, and releases the lock before returning if it is still held.
-> The timeout is specified in jiffies; passing 0 retries indefinitely, while
-> a non-zero timeout makes the helper return -EBUSY when the retry budget
-> expires.
+> Use hmm_range_fault_unlocked_timeout() instead. Passing a timeout of 0
+> preserves MSHV's existing unbounded retry behavior while letting the HMM
+> helper own mmap_lock acquisition and refresh range->notifier_seq internally
+> before walking the range. After the fault succeeds, MSHV still takes
+> mreg_mutex and checks mmu_interval_read_retry() before installing the pages
+> into the region, so the existing invalidation synchronization is preserved.
 > 
-> When handle_mm_fault() drops mmap_lock, or when the range is invalidated,
-> hmm_range_fault_unlocked_timeout() refreshes range->notifier_seq and
-> retries the walk internally. If the lock was dropped, the retry deadline is
-> also restarted because a lock-dropping fault handler made progress.
-> Ordinary -EBUSY retries keep the existing deadline, preserving the caller's
-> timeout policy for repeated mmu-notifier invalidations.
-> 
-> The caller only needs to perform the usual post-success
-> mmu_interval_read_retry() check while holding its update lock before
-> consuming the pfns. If mmap_lock acquisition is interrupted or a fatal
-> signal is pending during retry handling, -EINTR is returned instead.
-> 
-> The common implementation conditionally sets FAULT_FLAG_ALLOW_RETRY and
-> FAULT_FLAG_KILLABLE only for hmm_range_fault_unlocked_timeout(). The
-> existing hmm_range_fault() path still passes no locked state, does not
-> allow handle_mm_fault() to drop mmap_lock, and remains a thin wrapper
-> preserving the existing API contract for current callers.
-> 
-> The previous refactor that moved page fault handling out of the page-table
-> walk callbacks is what makes this change small. Faults now run after
-> walk_page_range() has unwound, with only mmap_lock held, so dropping it
-> does not interact with the walker's pte spinlock or hugetlb_vma_lock.
-> Hugetlb regions therefore participate in the unlocked path uniformly with
-> PTE- and PMD-level mappings; no special case is required.
-> 
-> Documentation/mm/hmm.rst is updated with a description of the new API and
-> the recommended caller pattern.
+> Fold the small fault-and-lock helper into mshv_region_range_fault(), since
+> the remaining retry path is just the standard "fault, take the driver lock,
+> check the interval notifier sequence" pattern.
 > 
 > ...
 >
-
-A trivial thing:
-
-> +int hmm_range_fault_unlocked_timeout(struct hmm_range *range,
-> +				     unsigned long timeout)
-> +{
-> +	struct mm_struct *mm = range->notifier->mm;
-> +	unsigned long deadline = 0;
-> +	bool locked = false;
-
-This could be local to the do loop and it needn't be initialized.
-
-> +	int ret;
+> @@ -452,13 +412,19 @@ static int mshv_region_range_fault(struct mshv_mem_region *region,
+>  	range.start = region->start_uaddr + page_offset * HV_HYP_PAGE_SIZE;
+>  	range.end = range.start + page_count * HV_HYP_PAGE_SIZE;
+>  
+> -	do {
+> -		ret = mshv_region_hmm_fault_and_lock(region, &range);
+> -	} while (ret == -EBUSY);
+> -
+> +again:
+> +	ret = hmm_range_fault_unlocked_timeout(&range, 0);
+>  	if (ret)
+>  		goto out;
+>  
+> +	mutex_lock(&region->mreg_mutex);
 > +
-> +	do {
-> +		if (fatal_signal_pending(current))
-> +			return -EINTR;
-> +
-> +		if (timeout) {
-> +			/*
-> +			 * If the previous fault dropped mmap_lock, then the fault
-> +			 * handler made progress. Restart the retry timeout in that
-> +			 * case, but keep the existing deadline for ordinary -EBUSY
-> +			 * retries.
-> +			 */
-> +			if (!locked)
-> +				deadline = jiffies + timeout;
-> +
-> +			if (time_after(jiffies, deadline))
-> +				return -EBUSY;
-> +		}
-> +
-> +		range->notifier_seq =
-> +			mmu_interval_read_begin(range->notifier);
-> +
-> +		ret = mmap_read_lock_killable(mm);
-> +		if (ret)
-> +			return ret;
-> +
-> +		locked = true;
-> +		ret = hmm_range_fault_locked(range, &locked);
-> +		if (locked)
-> +			mmap_read_unlock(mm);
-> +	} while (ret == -EBUSY);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL(hmm_range_fault_unlocked_timeout);
+> +	if (mmu_interval_read_retry(range.notifier, range.notifier_seq)) {
+> +		mutex_unlock(&region->mreg_mutex);
+> +		cond_resched();
+> +		goto again;
+> +	}
 > +
 
+If the calling process has realtime scheduling policy and either a)
+we're uniprocessor or b) this process and the holder of
+interval_sub->invalidate_seq are both pinned to the same CPU then
+cond_resched() won't do anything, and this might be an infinite loop?
