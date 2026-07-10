@@ -4,85 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4245CC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A47EC44507
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF09D10E7C3;
-	Mon, 13 Jul 2026 07:10:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E4B310E7CA;
+	Mon, 13 Jul 2026 07:10:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cPCGy2s1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KklfwoQD";
 	dkim-atps=neutral
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
- [209.85.215.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00BA010E318
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 08:45:04 +0000 (UTC)
-Received: by mail-pg1-f178.google.com with SMTP id
- 41be03b00d2f7-c96bfabc8d4so1111945a12.3
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 01:45:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783759504; cv=none;
- d=google.com; s=arc-20260327;
- b=AiDS8qq/A4rWkmdUg9jtok39LlGZAgY8NdYuYYB8kr1kTdzgvcR2P+PJqtSvolcdbU
- 9qkpuoiKkhREV29BDnBTJTkbJgiWHF5DUXmfPl+wqvB1W2HAr/YuXyIWVoIhE4mGPdN2
- JE3JWkuCnDccb1TMoLCpMrPzL/9dSfa+/UPolPGHJYV5z2Sc1c/mMbVb98mtkzWZYNkk
- zGG7TxCtj+x1KA1ghWriT7c/d4GWS4WILhiq9BmzWdO+NRojcFqLrO9gJqtUTQZGDRCE
- hC6/7j4NxXYPGiwUfCPOFCYbRT3jDjqqx29haQEf5BGIXNmYPEiU4p+JSqbhA2RxNSSm
- AMug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=dOtkU4x9PdYj+8HW6RC7BqjcU55iCa0C1SdNdtAVTLU=;
- fh=S060n98uRc3qitglJ91GafjaEKA4wE9FvJPYRWVCvv4=;
- b=b38HbPa4xKs8iBJYUs0B4Ak7i8akOQV20IV308fFPTRwEnTVSn2BUWGm77rnnCuIjE
- xzw1nl0eSGDDZW37aU5ODC2Gdc7BC3nKbuatZP+3Ej/ykDIX+ZtRdwmuubpCHhsNcS57
- Z6nmZoZsGFNOkshlDHa7AKk8fsjCl1dfzwF7YmL17E4eer90nk6AeVehMOjyod0/calk
- DHQ+W6ph96jxjuK3uGxHZ+VUJMFId18NsZFk2V98MgAn4tjAwA93U/rQiXFJAQVanj0K
- 9KLAZ/w2VJ1cIVS00YPb8QtK/rlvUutgdPzDFxQftugw/d7+HJrIccVswYz9IUeHgdRt
- 74tg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783759504; x=1784364304; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=dOtkU4x9PdYj+8HW6RC7BqjcU55iCa0C1SdNdtAVTLU=;
- b=cPCGy2s1lCFs7rFHsGyV6GYaCvHy941i3VryL3C1pq7So334UTyBLHcFc6ChfDIU8M
- kwc45O+OVPH+o/KorJ1UNi67MkYboz9TkO8f9rJtGu74oZYo+na9lqZqVzMZVimpAYZe
- FyMs9LV8dNarH7zhRjPeOOfjn1BJGT/xZOYgCcd0eRlAuNPNkdir/QbbPMGjr7b3E5SA
- 9jgAciugPRvc/D1nnPqJTYytjAVj35uFNU256eldctfL6T+Gs7a5J50f8kkn2FErDdXT
- 9Ck3j6dkv7Dr6U+WKWCXBJIHpuEvYagZZw3gJwxIjb8BFbl5JD9jIXTjFk7QA3urmIl5
- ukEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783759504; x=1784364304;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=dOtkU4x9PdYj+8HW6RC7BqjcU55iCa0C1SdNdtAVTLU=;
- b=Ls0biCdX7xWDsp5xfVeLAK5mZNc39U8+5hpUqU5eQYDdLXG+9Jz1m36Japp8ifGERK
- P/gLkhysNICVfCnnLP5YDKnaG4zQx8dX6qfNYXtii8Kkiek6FGDXSsxr/brisSSGR5gF
- XhnYqtzzxRX5IrzWbnTaGIeTsWpKbj4mIuP607z9xPE+nIIjikTL8g6a4/3FkAQYM+jc
- wPWxGrox6BGnrs9r3LQEqIQYwirI0eahoUbY/7iYZvkoPokjgQahJeJmgSF6ZHH/UdVo
- zFiabKt8CN0LcMxpzUUE0EANajE8iMqbIxRXnNXAX5+qd1st+BksG1twSZE5ksM/n8V/
- Co0Q==
-X-Gm-Message-State: AOJu0YyWgDy29nXgZJ2Vwpo30c0XzKOY+QaRqeRd0mdW3HHIr63B51S4
- vszegJWs0DAkCXG07p8GL9JGezjD+v/fQbEn7JGWaMG0/UeDZZx3NmoYro2DBVA/zEQLr7GRS+J
- WsTAvtxbXTrHeurBjKuLxvze+SUx5EE9UBfIC
-X-Gm-Gg: AfdE7cn34C9YHfE0vZKJIP5HZkeBTeIi18szbR+H7IaKBzNT/8rI8A0C/fYym6qMXUE
- 04LHL04xtPT4y/MfeecSNr1tow68bQN482AbHDgb39tnV56QXUkdrEeDCNpxE+vWEZoxTYwnEOu
- rPWdwzyqSCa6Gp6VmwKPQ71rpA+NKXasFR3fcJ+fwnEiF9kBKAwaJjKA2KbcKmwXbEFM24Th0q+
- fZ+iCXKmrcj0tZg+60TAG+uI1W6L5UwTI/tvKVXvSjLZeShXOjFoNea+Qg79eTIbOmCrIEV3PV0
- E9Vh4Cyef2lfmt/BI8+f/oqUYASB
-X-Received: by 2002:a05:6a00:3d4b:b0:845:e3af:dde9 with SMTP id
- d2e1a72fcca58-848897d301emr2123925b3a.38.1783759504399; Sat, 11 Jul 2026
- 01:45:04 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1603A10E232;
+ Fri, 10 Jul 2026 20:20:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7339E6111A;
+ Fri, 10 Jul 2026 20:20:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C9341F00AC4;
+ Fri, 10 Jul 2026 20:19:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783714814;
+ bh=b6m+Kx9pTca8aDLZIa9EAYyuWtzQz4rBN6lpqZdjtOI=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=KklfwoQDYnFJiSgF8x/fmMsC82irr6fiC3vgvxdByDvRhoedHf7pQDn1c9NZI5DfX
+ MOp1LTiHjHpzA9VLvkhYbildB4cu1vHCk5/KVbHKUSlprjpTaQUNMDmjsiOI1Te042
+ uo77hJ8LafjCsZg+xC7CeE0CvOqdnXPhDR3G8yHgib8IhAkNPTshHLMdz11XWgX0vK
+ SiUbzRTgSYO80iNLU2glBBPv+CXZpdrT32nDMj1+31ugD/CwsX4SHX531HtcRV/aAa
+ LS7f/v828c4J4dL0OksyoCQ6qMBgXKJbADW9m+mA8/97HyNxBJyN4JJFdTQqAIWyVR
+ mgWAx34mGiLzg==
+From: Lorenzo Stoakes <ljs@kernel.org>
+Date: Fri, 10 Jul 2026 21:16:48 +0100
+Subject: [PATCH v2 07/33] mm/rmap: elide unnecessary static inline's in
+ interval_tree.c
 MIME-Version: 1.0
-From: Francesco <postadelmaga@gmail.com>
-Date: Sat, 11 Jul 2026 10:44:52 +0200
-X-Gm-Features: AUfX_mxh-8mbQqBqE9heeoRHEh4TRnjFx2WiI2YPMUUIOodX-uUwuItU51FO51A
-Message-ID: <CAHwn+vnP4eGFW3Z0g_YHT6PW7beOvrOD833Gyy6LwL05mj6Whg@mail.gmail.com>
-Subject: [PATCH 1/2] drm/nouveau/clk: fix list cursor use after loop in
- nvkm_clk_ustate_update
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org
-Cc: lyude@redhat.com, dakr@kernel.org, kherbst@redhat.com
-Content-Type: multipart/alternative; boundary="0000000000009fe9d8065651df81"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260710-b4-pre-scalable-cow-v2-7-2a5aa403d977@kernel.org>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
+ Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>, 
+ Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Yishai Hadas <yishaih@nvidia.com>, 
+ Shameer Kolothum <skolothumtho@nvidia.com>, 
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Usama Arif <usama.arif@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev, 
+ iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1497; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=+vEjD5vk3USGS9eYkwFhK69Zz1FxHMWNBbZKQBCnxeY=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg62zJyhL7JCZOvGsm/Q/rj3+70IOrpitfMx/uvyjz
+ oi4HzwnOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRdCeG/y41XWeYDhe96a2Z
+ 3BWx1eDu9tse2jMKv71UKpp856v5jjuMDJ8f1fW/3H7zvFYYW6fsng/1loVifcVXfG1nbto7c1k
+ vFwcA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,81 +142,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000009fe9d8065651df81
-Content-Type: text/plain; charset="UTF-8"
+It's not necessary to declare these functions static inline as they are
+contained within a single compilation unit.
 
-If the requested pstate id is not present in the state list (or the
-list is empty, e.g. broken/missing perf tables), the list_for_each_entry
-cursor runs off the end of the list and the subsequent
-pstate->pstate != req check dereferences the list head cast to a
-struct nvkm_pstate, which is an out-of-bounds read.
+This makes the anonymous interval tree code consistent with the newly
+updated file-backed interval tree code.
 
-Track whether the entry was actually found instead of inspecting the
-cursor after the loop.
+No functional change intended.
 
-Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
-Signed-off-by: Francesco Magazzu <postadelmaga@gmail.com>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Gregory Price <gourry@gourry.net>
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
-drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c | 8 ++++++--
-1 file changed, 6 insertions(+), 2 deletions(-)
+ mm/interval_tree.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-index 572e63846..42f3709e0 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-@@ -479,13 +479,17 @@ nvkm_clk_ustate_update(struct nvkm_clk *clk, int req)
-return -ENOSYS;
+diff --git a/mm/interval_tree.c b/mm/interval_tree.c
+index ff36fd14ef37..b387d39e0547 100644
+--- a/mm/interval_tree.c
++++ b/mm/interval_tree.c
+@@ -81,19 +81,19 @@ vma_interval_tree_iter_next(struct vm_area_struct *vma,
+ 
+ /* Anonymous interval tree (anon_vma->rb_root) */
+ 
+-static inline unsigned long avc_start_pgoff(struct anon_vma_chain *avc)
++static unsigned long avc_start_pgoff(struct anon_vma_chain *avc)
+ {
+ 	return vma_start_pgoff(avc->vma);
+ }
+ 
+-static inline unsigned long avc_last_pgoff(struct anon_vma_chain *avc)
++static unsigned long avc_last_pgoff(struct anon_vma_chain *avc)
+ {
+ 	return vma_last_pgoff(avc->vma);
+ }
+ 
+ INTERVAL_TREE_DEFINE(struct anon_vma_chain, rb, unsigned long, rb_subtree_last,
+ 		     avc_start_pgoff, avc_last_pgoff,
+-		     static inline, __anon_vma_interval_tree)
++		     static, __anon_vma_interval_tree)
+ 
+ void anon_vma_interval_tree_insert(struct anon_vma_chain *node,
+ 				   struct rb_root_cached *root)
 
-if (req != -1 && req != -2) {
-+ bool found = false;
-+
-list_for_each_entry(pstate, &clk->states, head) {
-- if (pstate->pstate == req)
-+ if (pstate->pstate == req) {
-+ found = true;
-break;
-+ }
-i++;
-}
-
-- if (pstate->pstate != req)
-+ if (!found)
-return -EINVAL;
-req = i;
-}
-
-base-commit: a284476db2653ae893f46cbea408eb412db54eb0
 -- 
 2.55.0
 
---0000000000009fe9d8065651df81
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div dir=3D"auto">If the requested pstate id is not p=
-resent in the state list (or the<br>list is empty, e.g. broken/missing perf=
- tables), the list_for_each_entry<br>cursor runs off the end of the list an=
-d the subsequent<br>pstate-&gt;pstate !=3D req check dereferences the list =
-head cast to a<br>struct nvkm_pstate, which is an out-of-bounds read.<br><b=
-r>Track whether the entry was actually found instead of inspecting the<br>c=
-ursor after the loop.<br><br>Co-Authored-By: Claude Fable 5 &lt;<a href=3D"=
-mailto:noreply@anthropic.com" target=3D"_blank">noreply@anthropic.com</a>&g=
-t;<br>Signed-off-by: Francesco Magazzu &lt;<a href=3D"mailto:postadelmaga@g=
-mail.com" target=3D"_blank">postadelmaga@gmail.com</a>&gt;<br>---<br> drive=
-rs/gpu/drm/nouveau/nvkm/subdev/clk/base.c | 8 ++++++--<br> 1 file changed, =
-6 insertions(+), 2 deletions(-)<br><br>diff --git a/drivers/gpu/drm/nouveau=
-/nvkm/subdev/clk/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c<br=
->index 572e63846..42f3709e0 100644<br>--- a/drivers/gpu/drm/nouveau/nvkm/su=
-bdev/clk/base.c<br>+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c<br>=
-@@ -479,13 +479,17 @@ nvkm_clk_ustate_update(struct nvkm_clk *clk, int req)=
-<br> 		return -ENOSYS;<br> <br> 	if (req !=3D -1 &amp;&amp; req !=3D -2) {<=
-br>+		bool found =3D false;<br>+<br> 		list_for_each_entry(pstate, &amp;clk=
--&gt;states, head) {<br>-			if (pstate-&gt;pstate =3D=3D req)<br>+			if (ps=
-tate-&gt;pstate =3D=3D req) {<br>+				found =3D true;<br> 				break;<br>+		=
-	}<br> 			i++;<br> 		}<br> <br>-		if (pstate-&gt;pstate !=3D req)<br>+		if =
-(!found)<br> 			return -EINVAL;<br> 		req =3D i;<br> 	}<br><br>base-commit:=
- a284476db2653ae893f46cbea408eb412db54eb0<br>-- <br>2.55.0<br></div></div><=
-/div>
-
---0000000000009fe9d8065651df81--
