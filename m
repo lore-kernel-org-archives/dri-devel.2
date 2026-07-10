@@ -4,120 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37F9DC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 722F7C44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D35A10E835;
-	Mon, 13 Jul 2026 07:11:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A9A810E83C;
+	Mon, 13 Jul 2026 07:11:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T2G/K9FQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="ZO8Xl9K2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53D4310E08B;
- Sat, 11 Jul 2026 18:48:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1AF7E418D3;
- Sat, 11 Jul 2026 18:48:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9008E1F00A3A;
- Sat, 11 Jul 2026 18:48:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783795731;
- bh=xUC24CQFaY5LbYrAu8Wt8s4S5Jfizo903DYj6Alr2hU=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=T2G/K9FQZYBazUrgB2p6/rvfCKhk9yVPWpSxduMlumEpHCAb8GIbHDFOcJ29GZ34U
- FXoVtM0TahqpG2/h+I35MFGUy4UrraSO9nANAAN+M49Y3tgJA4m0CYLj+ru8taIP0e
- 7EwnqOpFEKL4iXCg5QZZwK5koK5H5QEVreRGd5cREPAjXQl/m6ADMh2C7JiS0ReU18
- sLcJRzfxdd1qFQvsCzgzdlU8pnCRI6OHlZ/0t0TJhZtZlO6HOaThVpZM8GMKxdOOxO
- D08lfnlYbZAwAhOcCcewMb1kpDKqfnnPKEY1kl5rBn0b7BUgoqExRSpaXAvWTzltve
- YRk/0mVL7ztfw==
-From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Sat, 11 Jul 2026 19:45:06 +0100
-Subject: [PATCH v2 09/13] mm/vma: update create_init_stack_vma() to use
- vma_flags_t
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
+ [209.85.222.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85BF010E1FB
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 21:12:14 +0000 (UTC)
+Received: by mail-qk1-f174.google.com with SMTP id
+ af79cd13be357-92e99ef0902so73766485a.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 14:12:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gourry.net; s=google; t=1783717933; x=1784322733; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=pf2tO4nh1364RXnPDWacirAQrZ5x9Oo1qInEIWqsetg=;
+ b=ZO8Xl9K28t4WkfQWPfLOK1FSN5NOOVxX4gJMXGZNy431OpKB9jOCDf56REoU1f+ppy
+ PtGt9g146EUuInWPyHJ3Cibh/daT7fksxZCCX8mdQXMshQfuThpguVBDj73D/KTW3GDx
+ RSndWle+lirrSVoVRnIBd6NV8spEmdnrPHspvPQx3HYo5rvQgNq+HzJwIpVO/FZBHwZK
+ wDHbZeLi8Qe3PpAAFOQ4Nw0ygDSJE5yKSArcrxYsYIQSXuXhOhJPIa6oehUalkYn/n3B
+ yIObp4KD3snDv1x3h2lTW6GULOHoVqxQmo3ezPZoVUC3Z6xp0BWBmBL0Nn9iHSHReVj0
+ FYZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783717933; x=1784322733;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=pf2tO4nh1364RXnPDWacirAQrZ5x9Oo1qInEIWqsetg=;
+ b=XZiAo0wPrcNXy7P55BFlWncXmcEch6tgyMLIg1/x+8Ar+5S3T2pfFezIMV8OBpO/Ee
+ uXtRLv7ZJoA6VeTQzXaGC2CBjbn5/bAvHSWBmaySglZtk0mqknRPWw/q8r3z7xfp3wHN
+ 1Qdn4uWsiTGr2R2OOtlQXB5YZFzYoExoiAGQYpEPvZmDHZSnw5oyCsOqW0eoDMytczkD
+ DIU9MOjn4qe7bM/P2QYDjicsuCJeJkhT8e9velW7js7Mt9vR1th7Zk0tO2KW9U6A/rf2
+ VcO00/YX6D+90lrn9z+1hOWQOFaXDo31EgsXdKO/rEDTHqqUO57m7sZCLMX4QNLCmhke
+ 61Xg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq6pHYMLAEAltKslQlDtbQeTnnMJ++Z8nB6jEVFsa/7C9094HE93ChKymNd54U3z6/0wZPE6tYny0M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwOX37M3c7AWMn+VkOvmiAUxBIsc7AuenX2BBpKdir5PNlRQi+U
+ QEJSLeDtaJO5LMslrTjSYf6Et1Y1llH/1IiH9fwBOfLfEH4QKBrnrkXqUl30Dt9irkM=
+X-Gm-Gg: AfdE7ckuLNEEDp2ikKpgqrFYtdtDvmcEYsTIFmvMgbTAWE1/cgeC9sysUupCEi+M8PG
+ 5aWsL5V4zdPANxbkKjx8J1ShbZ9iiP/ceNYLZCrvqDzeTzA4iSEnh1g6bp9oyNNzyOsXhK6iTdG
+ AHdIflevx4aq5DWi+HaDN67Qvm9Qupd4rSyj/YODn953bq2bG6RSh/kk6HqbYqFCWJUN0HG4U1G
+ L2wvRZ3LPm4k1Cy9OpntidAb1wXuk2+GlU8MeWy4BqHKI2m+6/hw1psBe+kViP04YHozJ5wdS1/
+ oijWO8zm+3L1ETdu9pXS6OE/mpF67Olqfg78la48MaJ0YUWrDM63Xq2wJLgHMbT+2EhLD5202Y7
+ T6+VvsTHvbVqYuC2Y8nYUtZJlkoGR6oy+WTqfDTRwLTwmuGw+9oGweA+fcyYfEm/WOa75dmAPTE
+ PAZ036fu3a0L49j93CXd2+o30Dl7VgdtjT+z6Ue48vexC0g5CAR69iL6pJTF16ECgwJExp
+X-Received: by 2002:a05:620a:1a24:b0:92e:7c7e:9c9a with SMTP id
+ af79cd13be357-92ef2b32433mr108915185a.31.1783717933240; 
+ Fri, 10 Jul 2026 14:12:13 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F
+ (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-92ee5cfcb0dsm290194785a.25.2026.07.10.14.12.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Jul 2026 14:12:12 -0700 (PDT)
+Date: Fri, 10 Jul 2026 17:12:07 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>,
+ Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>,
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Byungchul Park <byungchul@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Hugh Dickins <hughd@google.com>, Peter Xu <peterx@redhat.com>,
+ Kees Cook <kees@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Andrey Konovalov <andreyknvl@gmail.com>,
+ Alexander Potapenko <glider@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>,
+ Shameer Kolothum <skolothumtho@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Alex Williamson <alex@shazbot.org>, Paolo Bonzini <pbonzini@redhat.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev,
+ linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev,
+ iommu@lists.linux.dev, kasan-dev@googlegroups.com,
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
+Subject: Re: [PATCH v2 09/33] mm/rmap: parameterise
+ anon_vma_interval_tree_*() by anon_vma
+Message-ID: <alFgFakGEcg6hO6E@gourry-fedora-PF4VCD3F>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-9-2a5aa403d977@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260711-b4-vma-flags-mm-v2-9-0fa2357d5431@kernel.org>
-References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
-In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, Zi Yan <ziy@nvidia.com>, 
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Lucas Stach <l.stach@pengutronix.de>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
- Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev, 
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
- linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4313; i=ljs@kernel.org;
- h=from:subject:message-id; bh=9FQuWO1YsUxULowpltE39pKMqBbYRFh58BoyoKhWb3A=;
- b=kA0DAAoWz53NioHifxQByyZiAGpSjzqg8y14Kh5MvFuw4iTsl7kJvl53Dij+JdajKdpzjYsNp
- oh1BAAWCgAdFiEE5/QXv1IUVp6J0E9Gz53NioHifxQFAmpSjzoACgkQz53NioHifxQcIwD/VYCq
- 8XVlwzBqdiLqx84JrVaGvSVASgylLrKcnFTCHu8BANPzzRn5WflkqRuMXJ46TwzQqPTztlhZtDp
- EX8lo8YsM
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Mon, 13 Jul 2026 07:11:31 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-9-2a5aa403d977@kernel.org>
+X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,123 +145,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace use of the legacy vm_flags_t flags with vma_flags_t values in
-create_init_stack_vma().
+On Fri, Jul 10, 2026 at 09:16:50PM +0100, Lorenzo Stoakes wrote:
+> Similar to what we did with mapping_rmap_tree*(), let's declare
+> anon_vma_interval_tree*() in terms of anon_vma rather than rb_root_cached.
+> 
+> In each case the rb tree referenced is &anon_vma->rb_root, so just pass
+> anon_vma and the functions can figure this out themselves.
+> 
+> Also update the VMA userland tests to reflect the change.
+> 
+> No functional change intended.
+> 
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-As part of this change we add VMA_STACK_EARLY and VMA_STACK_INCOMPLETE
-vma_flags_t defines, and slightly rework create_init_stack_vma() for
-clarity.
-
-No functional change intended.
-
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
----
- include/linux/mm.h              |  4 ++++
- mm/vma_exec.c                   | 18 +++++++++++-------
- tools/testing/vma/include/dup.h |  4 ++++
- 3 files changed, 19 insertions(+), 7 deletions(-)
-
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 1209db1a4b92..550fb92957d1 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -442,8 +442,10 @@ enum {
- #define VM_STACK	INIT_VM_FLAG(STACK)
- #ifdef CONFIG_STACK_GROWSUP
- #define VM_STACK_EARLY	INIT_VM_FLAG(STACK_EARLY)
-+#define VMA_STACK_EARLY mk_vma_flags(VMA_STACK_EARLY_BIT)
- #else
- #define VM_STACK_EARLY	VM_NONE
-+#define VMA_STACK_EARLY EMPTY_VMA_FLAGS
- #endif
- #ifdef CONFIG_ARCH_HAS_PKEYS
- #define VM_PKEY_SHIFT ((__force int)VMA_HIGH_ARCH_0_BIT)
-@@ -544,6 +546,8 @@ enum {
- 
- /* Bits set in the VMA until the stack is in its final location */
- #define VM_STACK_INCOMPLETE_SETUP (VM_RAND_READ | VM_SEQ_READ | VM_STACK_EARLY)
-+#define VMA_STACK_INCOMPLETE_SETUP append_vma_flags(		\
-+	VMA_STACK_EARLY, VMA_RAND_READ_BIT, VMA_SEQ_READ_BIT)
- 
- #define TASK_EXEC_BIT ((current->personality & READ_IMPLIES_EXEC) ? \
- 		       VMA_EXEC_BIT : VMA_READ_BIT)
-diff --git a/mm/vma_exec.c b/mm/vma_exec.c
-index a3c6b05c65fe..7af1260689b9 100644
---- a/mm/vma_exec.c
-+++ b/mm/vma_exec.c
-@@ -112,15 +112,17 @@ int relocate_vma_down(struct vm_area_struct *vma, unsigned long shift)
- int create_init_stack_vma(struct mm_struct *mm, struct vm_area_struct **vmap,
- 			  unsigned long *top_mem_p)
- {
--	unsigned long flags = VM_STACK_FLAGS | VM_STACK_INCOMPLETE_SETUP;
-+	vma_flags_t flags = VMA_STACK_INCOMPLETE_SETUP;
-+	struct vm_area_struct *vma;
- 	int err;
--	struct vm_area_struct *vma = vm_area_alloc(mm);
- 
-+	/* VMA_STACK_FLAGS and VMA_STACK_INCOMPLETE_SETUP must not overlap. */
-+	VM_WARN_ON_ONCE(vma_flags_test_any_mask(&flags, VMA_STACK_FLAGS));
-+
-+	vma = vm_area_alloc(mm);
- 	if (!vma)
- 		return -ENOMEM;
- 
--	vma_set_anonymous(vma);
--
- 	if (mmap_write_lock_killable(mm)) {
- 		err = -EINTR;
- 		goto err_free;
-@@ -134,18 +136,20 @@ int create_init_stack_vma(struct mm_struct *mm, struct vm_area_struct **vmap,
- 	if (err)
- 		goto err_ksm;
- 
-+	vma_flags_set_mask(&flags, VMA_STACK_FLAGS);
-+	vma_set_anonymous(vma);
-+
- 	/*
- 	 * Place the stack at the largest stack address the architecture
- 	 * supports. Later, we'll move this to an appropriate place. We don't
- 	 * use STACK_TOP because that can depend on attributes which aren't
- 	 * configured yet.
- 	 */
--	VM_WARN_ON_ONCE(VM_STACK_FLAGS & VM_STACK_INCOMPLETE_SETUP);
- 	vma->vm_end = STACK_TOP_MAX;
- 	vma->vm_start = vma->vm_end - PAGE_SIZE;
- 	if (pgtable_supports_soft_dirty())
--		flags |= VM_SOFTDIRTY;
--	vm_flags_init(vma, flags);
-+		vma_flags_set(&flags, VMA_SOFTDIRTY_BIT);
-+	vma->flags = flags;
- 	vma->vm_page_prot = vma_get_page_prot(vma);
- 
- 	err = insert_vm_struct(mm, vma);
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 57c80924813d..64f38a83613e 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -245,8 +245,10 @@ enum {
- #define VM_STACK	INIT_VM_FLAG(STACK)
- #ifdef CONFIG_STACK_GROWSUP
- #define VM_STACK_EARLY	INIT_VM_FLAG(STACK_EARLY)
-+#define VMA_STACK_EARLY mk_vma_flags(VMA_STACK_EARLY_BIT)
- #else
- #define VM_STACK_EARLY	VM_NONE
-+#define VMA_STACK_EARLY EMPTY_VMA_FLAGS
- #endif
- #ifdef CONFIG_ARCH_HAS_PKEYS
- #define VM_PKEY_SHIFT ((__force int)VMA_HIGH_ARCH_0_BIT)
-@@ -315,6 +317,8 @@ enum {
- 
- /* Bits set in the VMA until the stack is in its final location */
- #define VM_STACK_INCOMPLETE_SETUP (VM_RAND_READ | VM_SEQ_READ | VM_STACK_EARLY)
-+#define VMA_STACK_INCOMPLETE_SETUP append_vma_flags(		\
-+	VMA_STACK_EARLY, VMA_RAND_READ_BIT, VMA_SEQ_READ_BIT)
- 
- #define TASK_EXEC_BIT ((current->personality & READ_IMPLIES_EXEC) ? \
- 		       VM_EXEC_BIT : VM_READ_BIT)
-
--- 
-2.55.0
+Reviewed-by: Gregory Price <gourry@gourry.net>
 
