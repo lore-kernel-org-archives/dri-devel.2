@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7554BC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 11:06:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F86AC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 11:09:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC1B210F855;
-	Fri, 10 Jul 2026 11:06:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE5910F85B;
+	Fri, 10 Jul 2026 11:09:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mcTQIozB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BTqsezLc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2DE310F855
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 11:06:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 469D010F85B
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 11:09:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 400D2601D9;
- Fri, 10 Jul 2026 11:06:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C304E1F000E9;
- Fri, 10 Jul 2026 11:06:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D679A412D4;
+ Fri, 10 Jul 2026 11:09:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74D591F000E9;
+ Fri, 10 Jul 2026 11:09:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783681611;
- bh=cQO47jRpPd+vUqhjURj7utOfDc+c6W0JjdmIWPTReHk=;
+ s=k20260515; t=1783681744;
+ bh=MjRsU3sr75q3hUHKBEEe46byx3XjvXC0+Q/tTNQDiUU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mcTQIozBrxos64nUsq3IQG7nQVKumCM54j4Snt07rqbXjATUlh29w7a1foUXoUi3K
- yM5tIUjJ3kaa0WAPIuRmEsEHN5hYZ/nL2mLecz4SfdHizGARUhuQUxfU3mbXjLWkhO
- M04uIFQoq5M3gDSnYpgk+xnT8lUgUbdx4sBjW61Epyl98vQ/cjcruixLTgsFuXvNDu
- sEDpt1+pRF961jbcEpl+xkWXmf44AmSWvvhHZUeA9Nn5JCvBiYTpb9XwHlLgXswRE1
- xasD36JJVAa6tfDw2iRECJGmR0eKz0q6WQi+dlcT766xY+lnUVJJJTQZPvi/IxkcyS
- MmgNgrKen8Dig==
+ b=BTqsezLcAtRRAUt+tbM5YqLL0W6rfK/9S/uXUB7ugT0CUfCZAJNkZoZWe40t7PSqw
+ oDivQtN4wnoyYhWwsRToY/yi0VJXKr8csZJZWU3x1yFs/Ji1WuDkMHjbAMgRKrQLF/
+ lVoADgffcTU3NoAyTbyFJOxrVWw/07M1ksqOApr/NDaDNWAJ9bHDCgEI5cgEvtYbKi
+ IIBvvakGoqPii+xP4qSBOsUjH0/B5auuUWUuRI37fJAI5bzig9svcGNvRF1ZvaPztI
+ BtyZ+LIlyDxvKcUPDGXOXEpMBE7ps+a3yUGOL6atIPpMNa201afs+YPFmQduNtoC1v
+ rQ076yaY0QfiA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] accel: ethosu: Remove redundant dev_err()
+Subject: Re: [PATCH 2/2] accel: rocket: Remove redundant dev_err()
 To: "Pan Chuang" <panchuang@vivo.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260710105937.409992-2-panchuang@vivo.com>
+In-Reply-To: <20260710105937.409992-3-panchuang@vivo.com>
 References: <20260710105937.409992-1-panchuang@vivo.com>
- <20260710105937.409992-2-panchuang@vivo.com>
+ <20260710105937.409992-3-panchuang@vivo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 11:06:50 +0000
-Message-Id: <20260710110650.C304E1F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 11:09:03 +0000
+Message-Id: <20260710110904.74D591F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,67 +57,76 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Calling `drm_sched_fini()` after `drm_sched_init()` fails causes a=
- kernel panic due to uninitialized structures.
+- [High] Unsafe register access in shared IRQ handler when device is runtim=
+e-suspended or unpowered.
+- [High] Calling `drm_sched_fini()` on a partially initialized scheduler du=
+ring error handling leads to a crash.
 --
 
---- Patch [1]: [PATCH 1/2] accel: ethosu: Remove redundant dev_err() ---
-commit ab2aa317daa0785d0207a88d5d5b51fcef216f77
+--- Patch [2]: [PATCH 2/2] accel: rocket: Remove redundant dev_err() ---
+commit 8d11ad4c2f7d7988ccd404acec217989feeb7613
 Author: Pan Chuang <panchuang@vivo.com>
 
-accel: ethosu: Remove redundant dev_err()
+accel: rocket: Remove redundant dev_err()
 
-This commit removes redundant driver-specific error logging after
-devm_request_threaded_irq(), relying on the core IRQ code to automatically
-log failures.
+This commit removes a redundant dev_err() call after=20
+devm_request_threaded_irq(), as the core already logs detailed error=20
+messages automatically on failure.
 
-> diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/eth=
-osu_job.c
-> --- a/drivers/accel/ethosu/ethosu_job.c
-> +++ b/drivers/accel/ethosu/ethosu_job.c
-> @@ -338,10 +338,8 @@ int ethosu_job_init(struct ethosu_device *edev)
-[ ... ]
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -468,10 +468,8 @@ int rocket_job_init(struct rocket_core *core)
+>  	ret =3D devm_request_threaded_irq(core->dev, core->irq,
+>  					rocket_job_irq_handler,
+>  					rocket_job_irq_handler_thread,
+>  					IRQF_SHARED, dev_name(core->dev),
+>  					core);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it safe to register this
+IRQ as shared before the device is powered on, or to keep it active during
+runtime suspend?
+
+If another device sharing the line triggers an interrupt,
+rocket_job_irq_handler() will unconditionally read hardware registers:
+
+    u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+
+Could this cause a bus fault if the device is unclocked or unpowered at the
+time the shared interrupt fires?
+
 > -	if (ret) {
-> -		dev_err(dev, "failed to request irq\n");
+> -		dev_err(core->dev, "failed to request job irq");
 > +	if (ret)
 >  		return ret;
 > -	}
 > =20
->  	edev->fence_context =3D dma_fence_context_alloc(1);
+>  	core->reset.wq =3D alloc_ordered_workqueue("rocket-reset-%d", 0, core->=
+index);
 
 [Severity: High]
-This is a pre-existing issue, but does the error handling path later in
-ethosu_job_init() cause a kernel panic if drm_sched_init() fails?
+This is a pre-existing issue, but can calling drm_sched_fini() in the error
+handling path of this function cause a panic if drm_sched_init() fails?
 
-If drm_sched_init() returns an error (for example, due to an out-of-memory
-condition), the code jumps to the error label:
+Looking further down in rocket_job_init(), if drm_sched_init() fails (e.g.,
+due to memory allocation failure), the code jumps to err_sched:
 
-drivers/accel/ethosu/ethosu_job.c:ethosu_job_init() {
-    ...
-    ret =3D drm_sched_init(&edev->sched, &args);
-    if (ret) {
-        dev_err(dev, "Failed to create scheduler: %d\n", ret);
-        goto err_sched;
-    }
-    ...
-err_sched:
-    drm_sched_fini(&edev->sched);
-    return ret;
-}
+    err_sched:
+        drm_sched_fini(&core->sched);
 
-At this point, the job_scheduled waitqueue inside drm_gpu_scheduler remains
-completely zero-initialized. When drm_sched_fini() attempts to wake up tasks
-by calling wake_up_all(&sched->job_scheduled), the zero-initialized list_he=
-ad
-means its next pointer is NULL. The list_empty() check incorrectly returns
-false, and the subsequent list iteration dereferences the NULL pointer.
-
-Could this lead to an immediate panic during device probe failures?
+If drm_sched_init() fails early, core->sched.job_scheduled.head.next might
+still be NULL. When drm_sched_fini() calls wake_up_all(&sched->job_schedule=
+d),
+will it evaluate waitqueue_active() on a zeroed wait queue and trigger a NU=
+LL
+pointer dereference?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710105937.4099=
-92-1-panchuang@vivo.com?part=3D1
+92-1-panchuang@vivo.com?part=3D2
