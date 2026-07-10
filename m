@@ -4,130 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75392C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39578C44508
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43CD910E7BE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDC6310E7C4;
 	Mon, 13 Jul 2026 07:10:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="Xv4CwKEx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I2qDyMK0";
 	dkim-atps=neutral
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
- [209.85.160.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8D4110E21C
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 18:55:51 +0000 (UTC)
-Received: by mail-qt1-f174.google.com with SMTP id
- d75a77b69052e-51bfb91795eso8305541cf.1
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 11:55:51 -0700 (PDT)
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B1AA10E200
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 17:03:00 +0000 (UTC)
+Received: by mail-pf1-f181.google.com with SMTP id
+ d2e1a72fcca58-8478fe07f0fso1239140b3a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 10:03:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1783709751; x=1784314551; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783702980; x=1784307780; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=35hzoYcsWEd72Qin3ApbTs4xBItRwQ29eotWM9K9y9M=;
- b=Xv4CwKExRfJhyOJkHXi2SK1xsFZIstqw4ERUmd4U1KPaWv11QoL9sP5ssUhTwissDq
- GN2MFJ+2vNd4gjBvxc+1lDbfprvZachydZTy5CDVrM5aGoKA3yqJeg/ozV4DgZliwS8T
- JhhWJpaTAF4wt7wemt+rwSQ3W5HJngnds1o9sZnRT4abbUnAa8FKmmGWU3gpWGmvTs0v
- XAxNHnHOCT5ZR/FO0fmqqhRkMtnprputcwGLoK/kEfZ/QI28xFRTMGDvjLOxW9o/teCc
- ecT7breDU/lwuzrdPsKX/o8YRRtUMZWdljMeRBDfqdAMA6ywcnFRG1884SmQ83LIS8qp
- QaJQ==
+ bh=eJt4dduVMLAOIcmpuYMBgvu3eT4RLvOgifRZbg/Z4kQ=;
+ b=I2qDyMK07/a63AHzdyr5V5NWsIck/Va9/GjWFWTPvQoA32YN8m2jMv8jCED70SFemL
+ CL6vPCTGJpzd7gn8wOnb7o/ICv92O8MI89LorrdI27T7Io4MZDYy6B0MzFjb6lcg/LgY
+ 8uSA6zECxTd/SWcnpjFTiucpQ3cZDkkk/mPSNWRzIFQQBSfqqi8Nq32UtpAiFSo1ERDO
+ KbWIdnRyfMBO0FxvEMoCMgqJdcoeT7216nXV5rLat3JgEW/kmIF45M09cXvItsF32Hgu
+ ah/YATBWC/tESgXS20sub0e3xEw5OLTG+7uk4AZRLbl6dt27j6gChT4vGcVNnO0NQHEX
+ 1BFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783709751; x=1784314551;
+ d=1e100.net; s=20251104; t=1783702980; x=1784307780;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=35hzoYcsWEd72Qin3ApbTs4xBItRwQ29eotWM9K9y9M=;
- b=MdzqqcAAmHca+4zzyOECOl2dJpNCJQ2jR1AZOQXheQ0khHid/0NDD5ShMStJZ8kBOn
- F7JG+rEjKg2I8hToDzVM0mp7uP0wQtf8qwQzQBFLK5hLs0OBU6Dx+l/ONGVSRKKf1tud
- VP5BsKArm+sR24dAeBRCtUv3YDCOHnetJ2uKf+Sc2/zWtUMWn/uYTSKR/Ajmqb6h0Imq
- /gw8oedBh0/D5UXn3E8oiom9apZ8DZOnxYhAFbGiHe1OUg5EAAMCoc7huOcwh2dgXNWQ
- +wLgfMP8KL26XXRbEqUSvGWAv2O/gZjZ+fE0Q7tSl2/iVUzn2Z0DuIPTOYqN7yL48H3T
- 1gpQ==
+ bh=eJt4dduVMLAOIcmpuYMBgvu3eT4RLvOgifRZbg/Z4kQ=;
+ b=YpuziKTi0sPEgTyKBc40+jrFoznIj5JPnUckKG0AJsCfL8b7U0TBTX7N1YnwfseIrR
+ rfXS3Dr0d2sz2YrAfvR7oGSRieNRRooMROJlQKRJsFWbf+5UKG3Ax8/qIaL5CqQe0ks+
+ g4Gqj7ZtH+sALAnfeuZ1FESj9o5k7/BZohdrdAP8D2SQ56jPZgr0qaiYmlQkYxGdT5VI
+ 7WeVuqkggSMBMfF+7nOAnlnnmMi38NiXnp55EjQ4jyssRq3EUCLG0GPJvT+PBhHMoEAa
+ 2wxkpzkDUkNDReJo0cqzzHr65Q50jXouIb28G0Z8h7HD9Fr4fzM3RNBoVZm/NCTn0ieN
+ JM4Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro7qoBR2lJJ7Cd30uRauJMcHN68y+FZHTaKcmDPKYChjeXL77qs7Wqnbj/lR04p8QiJlQ/CXlOJOZ4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw1jbWDa57O9jyyyIrFM/gtbXNsyRmg/hbzo3fPPPOr6nQ8d8Wp
- uPaAXrMsc0zWRZO1u68a/oI/REi17V/I/pgX1j5Wm+TxuOrUukqKeLOlQzaApa36kE4=
-X-Gm-Gg: AfdE7cnBKdgbfN8qWZMBSet9V84BCTV1QTXK6+ZY5g58gUtVQPDThggDzKK0wfsClvR
- 2sJjta3/JXI1d4jTsRS3wfE225cL64uUWKSymUi19oiSrCIOK0uXLU09Dl6ZbmdXTA2vXQfLfFw
- CrS+fNNKa8VueFMMA7pHv+4xongYoNDwuYFk6bn0VSg2c9b7TpbDZxTjfsg5frsMZ/Lshd4+1vs
- 7JGOtqnxT7t4Jb1BMSzI90tWGB3hgPMlr0Gau9DXz/FsKauayMNTCXX3XL59QspihaYYocW+1v6
- 9jK3iO1Kr580Q8gpN7azZytKImccChMnFED5083ogvYE55pPEP8ZbxmGsXvwVnuCX2WoRUiXQtD
- PARKAWuIfwN49trvQgYnVdUZbNJfWhkqOqIjmxL9gYZqHDK/5ll2d8YYSI1wbFg7lhbC6tXPj/c
- 1Zq3qmcsq0SnKw4DbkLkZPdLNGeAy1igJ99X71cmLMDR9GiLNgMNGAkrwDeKeZAUhMbV/K
-X-Received: by 2002:ac8:6112:0:b0:51a:f94e:ce51 with SMTP id
- d75a77b69052e-51cbf1fb386mr1548881cf.50.1783709750657; 
- Fri, 10 Jul 2026 11:55:50 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F
- (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-51caace31a4sm22925021cf.12.2026.07.10.11.55.48
+ AHgh+RpJza3Z4AApUPZu5RV3Z94cO4ifEmbdpWTFNI60HyZ2SPM+SYZR9oWYjDOnsxOTAUUUoNGGNX83KFA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwkMjFKdfsHARQzoII77bPitnb+H9491E7cTsAIckYSSQEXCI1m
+ +2TZuxuUmCEZhthdbv09yQpOYcJusLE0NR24e+XdMom7QRTEqiXuM+Er
+X-Gm-Gg: AfdE7ck4TpoYsLaikS5/peQRNIyA851wGJ8tiIvIc8JCVtcEukG9NwnSJPpGOQDBSHo
+ 8/f91Oxz8yUFumageaAExR2Wh3ZvtgqOuIp4IqyfJCLupAdHgiwY27MuXZWFsBMxhP+12/Fh+HA
+ Mbm9H4WXP4plIT5Gl57s6AdSrbPhAvnWPQxzMhvIUlZJMetDBxPd72CufmPPToVttBfyYvl0TAP
+ iuKXFixoU7KepKCvGfpWmcRx3Gp+t2rdOHGDyZzpijmHDtW8ZZTF8ocryKGa80wPb0Xm/O9ioye
+ lMuv0W8mkKgtwgmO13VqXj3q1f1u6/Xqr5MJXe7iicjdHZhImxiQKgrkUL+R9CISdx/LhUy6DDv
+ /S3ZZsnIdgwKJc0OFd8s4kb+sQRlXsjs0OfZEtBkcOuS4EegIzqyHnIUiNLgVY1/OOQRgjNqWrd
+ mNASu/D+TZ3cabTHI3iMMjCZY2YjAMxU84SNXwx+7RoQAyBdQOrLqv+d8=
+X-Received: by 2002:a05:6a00:1f13:b0:848:6ba2:4139 with SMTP id
+ d2e1a72fcca58-8486ba24522mr4844235b3a.36.1783702979579; 
+ Fri, 10 Jul 2026 10:02:59 -0700 (PDT)
+Received: from skinsburskii (c-98-225-44-182.hsd1.wa.comcast.net.
+ [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8484519580csm4394040b3a.32.2026.07.10.10.02.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 11:55:50 -0700 (PDT)
-Date: Fri, 10 Jul 2026 14:55:45 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
- Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
- linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 06/30] mm/rmap: parameterise vma_interval_tree_*() by
- address_space
-Message-ID: <alFAMZNiJvxNpzGF@gourry-fedora-PF4VCD3F>
-References: <cover.1782735110.git.ljs@kernel.org>
- <43050b10b53cdfc3627440e6b14ae2a9730b2a5c.1782735110.git.ljs@kernel.org>
+ Fri, 10 Jul 2026 10:02:58 -0700 (PDT)
+Date: Fri, 10 Jul 2026 10:02:55 -0700
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
+ corbet@lwn.net, dakr@kernel.org, david@kernel.org,
+ decui@microsoft.com, haiyangz@microsoft.com, kees@kernel.org,
+ kys@microsoft.com, leon@kernel.org, liam@infradead.org,
+ lizhi.hou@amd.com, ljs@kernel.org, longli@microsoft.com,
+ lyude@redhat.com, maarten.lankhorst@linux.intel.com,
+ mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
+ nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
+ rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
+ skhan@linuxfoundation.org, surenb@google.com, tzimmermann@suse.de,
+ vbabka@kernel.org, wei.liu@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rdma@vger.kernel.org
+Subject: Re: [PATCH v7 2/8] mm/hmm: add hmm_range_fault_unlocked_timeout()
+ for mmap lock-drop support
+Message-ID: <alElv0EKjLQXMNK8@skinsburskii>
+References: <178345345668.660027.2952911919681614557.stgit@skinsburskii>
+ <178345362182.660027.12809852179204464964.stgit@skinsburskii>
+ <20260710162749.GP118978@ziepe.ca>
+ <20260710164743.GX118978@ziepe.ca>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <43050b10b53cdfc3627440e6b14ae2a9730b2a5c.1782735110.git.ljs@kernel.org>
+In-Reply-To: <20260710164743.GX118978@ziepe.ca>
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,32 +108,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:17PM +0100, Lorenzo Stoakes wrote:
-> The file-backed mapping interval tree functions vma_interval_tree_*()
-> accept a raw rb_root_cached pointer to determine the tree in which they are
-> operating.
+On Fri, Jul 10, 2026 at 01:47:43PM -0300, Jason Gunthorpe wrote:
+> On Fri, Jul 10, 2026 at 01:27:49PM -0300, Jason Gunthorpe wrote:
+> > On Tue, Jul 07, 2026 at 12:47:01PM -0700, Stanislav Kinsburskii wrote:
+> > 
+> > > +int hmm_range_fault_unlocked_timeout(struct hmm_range *range,
+> > > +				     unsigned long timeout)
+> > > +{
+> > > +	struct mm_struct *mm = range->notifier->mm;
+> > > +	unsigned long deadline = 0;
+> > > +	int locked, ret;
+> > > +
+> > > +	if (timeout)
+> > > +		deadline = jiffies + timeout;
+> > > +
+> > > +	do {
+> > > +		if (fatal_signal_pending(current))
+> > > +			return -EINTR;
+> > > +
+> > > +		if (timeout && time_after(jiffies, deadline))
+> > > +			return -EBUSY;
+> > 
+> > I really dislike there is a timeout here, HMM is supposed to be more
+> > deterministic. GUP doesn't have a timeout, what is this about?
 > 
-> However, in each case, this is always associated with an address_space data
-> type.
+> It looks like you've moved the timeout processing related to the mmnu
+> notifier sequence from the callers into this helper. I'm fine with
+> that, but maybe add some comments that this timeout is helping
+> implement the mmu notifiers, and we do expect that the HMM part will
+> not timeout.
 > 
-> So simply pass a pointer to that instead to simplify the code, and more
-> clearly differentiate between these operations and those concerning
-> anonymous mappings.
+> Though it is a little hard to see how your stated purpose of enabling
+> userfaultfd is going to work, aren't you pretty much guarenteed to hit
+> a timeout if the userfaultfd process is adversly scheduled? That's
+> going to end up broken.
 > 
-> While we're here, make the generated interval tree functions static as they
-> do not need to be used externally (any previously existing external users
-> have now been removed).
-> 
-> We also rename VMA parameters from 'node' to 'vma' as calling this a node
-> is simply confusing, update the input index types to pgoff_t since they
-> reference page offsets and rename the parameters to pgoff_start and
-> pgoff_last.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-nice
+The main customer for this new feature I have in mind is the MSHV driver
+which backs VMs memory with HMM, requires userfaultfd support for
+post-copy live migration and fast restore and it doesn't timeout.
 
-Reviewed-by: Gregory Price <gourry@gourry.net>
+I agree, that this current timeout value used by the other callers might
+not be enough to repopulate the mappings with userfaultfd, but there
+drivers would get -EFAULT for uderfaultfd-backed mappings without this
+change anyway, so getting -EBUSY with the change instead doesn't look
+like a significant change to the behaviour from my POV.
 
+> So, maybe the deadline should be resetting after every handled fault?
+> ie the timeout really is only about the mmu notifier and we don't
+> count the time spent handling faults or walking?
+> 
+
+The timeout was inherited from existing HMM users rather than introduced
+as a new HMM policy. Some GPU drivers use HMM_RANGE_DEFAULT_TIMEOUT as a
+budget for the whole range population operation, including HMM retries
+and subsequent driver mapping work.
+
+Moving retry handling into the unlocked helper would otherwise hide
+repeated -EBUSY returns from those callers and silently turn their
+bounded operation into an unbounded one. So the timeout argument is
+there to preserve existing caller semantics during conversion.
+
+I'd say it's up to the caller to provide big enough timeout for
+userfaultfd to succeed.
+
+Thanks,
+Stanislav
+
+> Jason
