@@ -4,133 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D946C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:10:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12079C44506
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:10:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9349D10E783;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A95E410E7A5;
 	Mon, 13 Jul 2026 07:10:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="A4eInKcj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Fjj8Z7j7";
 	dkim-atps=neutral
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02AB310E605
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 15:09:09 +0000 (UTC)
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-92e99ef0902so51647385a.2
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 08:09:09 -0700 (PDT)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD1E110EF83
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 16:48:47 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-8486672f03cso1044420b3a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 09:48:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1783696148; x=1784300948; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783702127; x=1784306927; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=kfeOD7p/qxHHEIV6dN3ojdA17bZ6I64Gd2Z+QpoWxkg=;
- b=A4eInKcjRnxSTipkdrL/JiK4jLm2hKeYSSmffhcve02wbT4NWF/e8QZ4KWGO9powvg
- B9kQKQSNogsZt1N4mMrdo5llnRiTaez1H7stOIr0ecD0tR2cScEiChyJLssswpsyXaVK
- Ebzk45jG+MrzqGE6dScvAYV/G82rUdiZMUXMvcFES8WlrkdhLjOWq2dPLW0VfE51EFBx
- fCISVfOs4p6qCar3itvJ0gl5xoYd8p74q+a9O0lYWlr+LflVhhV0IIZid5xtHJJpajbE
- t8Znj9CseP1X4gk+P5rFjqye43TbDaEjpgu0dd98u/ym9hQf671E5R1aw3Z/AFyCj5Qu
- 8IlA==
+ bh=h/T7cJaVh+vpdnCnVWowF/GJXIiYthZ82xWXxPXNVVI=;
+ b=Fjj8Z7j7RTjr/BMUJIKXxTu7gJa4aRmlP6+mdUFqNSP7Dx45qNsFSIxG2Sh0DlFRV4
+ c0+pvdvpXAH9d9/qcs0LYkoKt8YMRzKSBHLKA2VB7L99rbO7QKvenUsK60nl566batfi
+ 9Pa1S3DK9IYa5RYk54JCf8FVzuumjmHSpq70C4LkMNduT/auZBxadRht9tncXQ76eNdB
+ 4alWyTCaSBjARvKpP/gs6G+mZUX8fm9xvblRXimeMmj1fKTY0kkzy4vk9XMLaXUA/OvJ
+ 2SXwHcnxNd84tAR4o8jxiVHIbdncgJiQnUBlA+pMRY4bWEU6WwS6I7l39q62sXVGCSPk
+ iJuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783696148; x=1784300948;
+ d=1e100.net; s=20251104; t=1783702127; x=1784306927;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=kfeOD7p/qxHHEIV6dN3ojdA17bZ6I64Gd2Z+QpoWxkg=;
- b=pODdOu/a8Pen1Tha0UXjEYY3X8mU28kGSOpkQ2QlDgfpbB1OfUxvs5rTAQwoO3sj5d
- EVazd2TuIUDFK4d9c5H1PrhoAUCf8crPrHsi/GsK/DnVcwWMvwjDqdHnt39DK+fkPQuN
- w98KgtvbRrI/cko6Q1cxwiAQ2Xireb4mBt6yma2b///Bq805BAmbEfhNZzn3NcfRYtgk
- kQUC3lbFYzw9Jrm0FPbmYHp7ex/FJfN7qVokJ1tnMaSABsw/MxzRydP3VqyU4v3TJEhZ
- f3Ez+fiqL8KJrgC2CEcCDXXppE1UHKFEr4mZNBp+p2xNh0VAb6agnXiKkxm1fYw+rcg6
- 0FxQ==
+ bh=h/T7cJaVh+vpdnCnVWowF/GJXIiYthZ82xWXxPXNVVI=;
+ b=kvOA9PIxKeN1tNytrTfkdmtCZh6zHKQcxgX2UEQlRE4Qo6qJDXzBLZp5lgE9bUjoNw
+ l2+Fue+FSdbgjkkCimx110YjZDgLx7BZdmPB9+5NqlQhzMUl6EFTAX5nbAKLj+LjJF8Y
+ 8PkPwK6okwNZEH99CgVnQLQDhIpYbyyoOog/eaoTMCIAp38RaAN5aWefTx5lOJs5EaA8
+ 5ODgCfSepwDGF2uoBkdrhX85rR5tYesDqVZeqstm9M9Mh27TaM6RAjxLqmUlRatvNOCM
+ uEar6Lj7sNicRmEXAhC6TU67WRpQWtWfXBMVdzZ5u5veccYYiarbah2ZEDkvFIoUXEUn
+ d4bg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rr4SWYlZmx6v2FdtRX/KAWccBItHbkK9uYMHrR7EKtS83kcyG9TUobcePQIUcKyJDGZpnGOMlzQbKM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFH4KzbnuLGY08Ej9+5f8eX5XkEI0Z7CPCBdBcAmhjue0CDYzh
- szcjzaGJbgo5Qd8bAwZtxNd+O2JSriQulOWllUEIS4PhSRThbXFmVFKPsMF2+YcB0r8=
-X-Gm-Gg: AfdE7clySr5+rP6/hKdBCxUvgltiZsXsaY4en+JsQZQVbAd3UtkH1T2LDp9sd10KBjO
- /NzaVqxMRFVuwPUJPFwAiU/9S5XJ2U13tRd5WQbumZ+99tJ4n6Ctz0CpjCI3QN34LQiWoabCmXF
- YHjKPoxQ6v0UMe/UZHl5aCjGv6C8mQnZ6iJB5tI365GHkPsgltUrJRAMEupXCa2DpagT+Otaw3j
- EXYHden4NWGIRxmtUWxZGyPyWoIIpLF3MGnpxzLLYucAITdSXrernBbhUEQm3IECnhnTnpW3w6T
- gGzw9EZMJ5fgaSGFjQQxlzR1YC1ExP/JTcatmRTqe9mX4mCBmR6y2IOuF5lxWJDdyv+DM5ZRguX
- fIFYXiMmsYjxq9phHMac1Ojy1tgv25Y0xkkrkEBshDRpjZkFRlPI0UszLP6iL31c9JHD+LW+tW5
- mv4LDdyy7WWs0CTifs9ubPMchDnm0hPX4aFfa3qLsPo5XMJpaJpY7rPIryFFWaRlUBbDtZ
-X-Received: by 2002:a05:620a:4414:b0:92e:7d53:8e8d with SMTP id
- af79cd13be357-92ecf55964cmr1359477885a.27.1783696148308; 
- Fri, 10 Jul 2026 08:09:08 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F
- (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-92ee5d34f76sm213283985a.35.2026.07.10.08.09.06
+ AHgh+RoANy6rYv6s8lRmfbd8wFZNznZbf66WFpeyMCKnKVHHvPFc8SjjTohhvmCDwmO1VnlFeQ+W7M7eUD8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxhr9aC+OTqs7oVO1n/Kk7OT23P20DMJz2kAZ5frJJM6VnYKNdr
+ KycJUVDX4N2/rQWxqFEtIRc+4ZaVts1GOXPOX2TZ6UKCZ27SOHB3b3Lk
+X-Gm-Gg: AfdE7cna+2HTXF7ULCgR6xnlLRAVXr4YBJlV3aF5XyogU+5VAJebbKat5hjxZbmkhDE
+ q0ujLdV06C4MxTFRy1OBDyP5U4S1YFRMuc+T9PrKfebRtuwVVB9uELGPDdcCmpquzhhaBkKssom
+ Jauc/6N2bxAOBbNsYGybi/ohKI/Gh3SNPjBHyqzx4iBvelq0IJeWlSO28cNsuiUhsNf+4YdQt4V
+ /z1f0tAV7C77ExjIO3FfZHsagodWTLsgbrRoeY0qckqRyw+Gqb9kSOIQ0TxsieSKxYzo3jzriNX
+ Ut3/5WAq/bNdbTQ+loxaPYuwmAyppH71e11kTk1/G8Z5eHjQBoDVO5L3lV5ix2sfg5yGwyOogwn
+ 0kRm83Yio6mkJgklBm6pXT830IVBwbdM5oWeWBR7zUwknEfdYUsIu0H7NzYqPIubt+We64b3ZkJ
+ 2wJU+iZszYzUjf46rvcnafitFf+oaDOjh1SeOVIQiwtYK+Abrzg+To4Q4=
+X-Received: by 2002:a05:6a00:6c9a:b0:848:2f7a:2e57 with SMTP id
+ d2e1a72fcca58-848438a63damr12313317b3a.70.1783702127271; 
+ Fri, 10 Jul 2026 09:48:47 -0700 (PDT)
+Received: from skinsburskii (c-98-225-44-182.hsd1.wa.comcast.net.
+ [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-847f6b609acsm10408336b3a.1.2026.07.10.09.48.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 08:09:07 -0700 (PDT)
-Date: Fri, 10 Jul 2026 11:09:02 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Pedro Falcato <pfalcato@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
- Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
- linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 17/30] mm: prefer vma_[start,end]_pgoff() to
- vma->vm_pgoff in kernel/
-Message-ID: <alELDgm258nhjk3b@gourry-fedora-PF4VCD3F>
-References: <cover.1782735110.git.ljs@kernel.org>
- <ea87349d63205bf4c26ea79854f179a9bf8cfb0b.1782735110.git.ljs@kernel.org>
- <akZCg73F-oGzDp1a@pedro-suse.lan> <akZGqclqQ6gS12Vv@lucifer>
- <ak_C_o2ehS17Q5HV@gourry-fedora-PF4VCD3F>
- <alEHy1raICek7imv@lucifer>
+ Fri, 10 Jul 2026 09:48:46 -0700 (PDT)
+Date: Fri, 10 Jul 2026 09:48:44 -0700
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
+ corbet@lwn.net, dakr@kernel.org, david@kernel.org,
+ decui@microsoft.com, haiyangz@microsoft.com, kees@kernel.org,
+ kys@microsoft.com, leon@kernel.org, liam@infradead.org,
+ lizhi.hou@amd.com, ljs@kernel.org, longli@microsoft.com,
+ lyude@redhat.com, maarten.lankhorst@linux.intel.com,
+ mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
+ nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
+ rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
+ skhan@linuxfoundation.org, surenb@google.com, tzimmermann@suse.de,
+ vbabka@kernel.org, wei.liu@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rdma@vger.kernel.org
+Subject: Re: [PATCH v7 2/8] mm/hmm: add hmm_range_fault_unlocked_timeout()
+ for mmap lock-drop support
+Message-ID: <alEibBRYmWQvf1z1@skinsburskii>
+References: <178345345668.660027.2952911919681614557.stgit@skinsburskii>
+ <178345362182.660027.12809852179204464964.stgit@skinsburskii>
+ <20260710162749.GP118978@ziepe.ca>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alEHy1raICek7imv@lucifer>
+In-Reply-To: <20260710162749.GP118978@ziepe.ca>
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -147,30 +107,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2026 at 03:56:33PM +0100, Lorenzo Stoakes wrote:
-> On Thu, Jul 09, 2026 at 11:49:18AM -0400, Gregory Price wrote:
-> >
-> > Silly question:
+On Fri, Jul 10, 2026 at 01:27:49PM -0300, Jason Gunthorpe wrote:
+> On Tue, Jul 07, 2026 at 12:47:01PM -0700, Stanislav Kinsburskii wrote:
 > 
-> There's no such thing :)
->
-
-All my questions are silly.  That's my secret :]
-
-> >
-> >    What's the purpose of retaining tags in a non-address value?
+> > +int hmm_range_fault_unlocked_timeout(struct hmm_range *range,
+> > +				     unsigned long timeout)
+> > +{
+> > +	struct mm_struct *mm = range->notifier->mm;
+> > +	unsigned long deadline = 0;
+> > +	int locked, ret;
+> > +
+> > +	if (timeout)
+> > +		deadline = jiffies + timeout;
+> > +
+> > +	do {
+> > +		if (fatal_signal_pending(current))
+> > +			return -EINTR;
+> > +
+> > +		if (timeout && time_after(jiffies, deadline))
+> > +			return -EBUSY;
 > 
-> Well if you want to reconstitute an address from it later then that'd be the
-> intent, but I'm being hand wavey here for sure.
-> 
-> Main thing is to retain stuff under the page mask
+> I really dislike there is a timeout here, HMM is supposed to be more
+> deterministic. GUP doesn't have a timeout, what is this about?
 > 
 
-Right, which ... 
+The timeout was added because this version makes the unlocked helper own
+the internal retry loop, including -EBUSY retries.
 
-vvvvvv
-> > That sounds like there's fragility just waiting to be broken.
+Several existing HMM users already bound those retries with
+HMM_RANGE_DEFAULT_TIMEOUT, so the timeout argument was meant to avoid
+silently turning those call sites into unbounded waits.
 
-If that's an actual issue, then our relationship with tags is painful :[
+That said, I agree this mixes driver retry policy into HMM. A cleaner
+split may be to make the new helper timeout-free and have it retry
+internally only when mmap_lock was dropped by the fault path, since that
+is the part HMM must hide for userfaultfd-style faults.
 
-~Gregory
+If the walk fails with the normal HMM invalidation -EBUSY, the helper
+would return -EBUSY to the caller, preserving the existing driver
+timeout loops and keeping HMM deterministic, closer to GUP.
+
+Is it better from your POV?
+
+THanks,
+Stanislav
+
+> Jason
