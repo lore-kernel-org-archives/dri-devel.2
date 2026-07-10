@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1FB4C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 11:47:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06C58C44501
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 11:47:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FFDC10F879;
-	Fri, 10 Jul 2026 11:47:27 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94A0410F879
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 11:47:25 +0000 (UTC)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
- helo=[IPv6:::1])
- by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <l.stach@pengutronix.de>)
- id 1wi9hL-0003b8-Pa; Fri, 10 Jul 2026 13:47:15 +0200
-Message-ID: <fded212b216f1f4d3afa7465ae64aa9b96b80288.camel@pengutronix.de>
-Subject: Re: [PATCH v2 2/2] drm/etnaviv: Add GPU reset counters
-From: Lucas Stach <l.stach@pengutronix.de>
-To: Christian Gmeiner <christian.gmeiner@gmail.com>, Russell King	
- <linux+etnaviv@armlinux.org.uk>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard	 <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com, Christian Gmeiner
- <cgmeiner@igalia.com>
-Date: Fri, 10 Jul 2026 13:47:13 +0200
-In-Reply-To: <20260710-etnaviv-reset-notification-v2-2-90cfebcf22a2@igalia.com>
-References: <20260710-etnaviv-reset-notification-v2-0-90cfebcf22a2@igalia.com>
- <20260710-etnaviv-reset-notification-v2-2-90cfebcf22a2@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 541A510F84B;
+	Fri, 10 Jul 2026 11:47:50 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CKGPh46a";
+	dkim-atps=neutral
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F112E10F84B
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 11:47:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=bp0ueuUI1znZnwxYbQuSV8jc9AXJFuzatZdYJGDCSGQ=; b=CKGPh46aWPabeFhTngj04OwHPt
+ gzjqqdDRocZbOhpT5xSXhOOZaonQNJUoCGGa6+mT55G3SIk9uUdQECMGSsosvPgbtglNTp31rDg2B
+ K495k+eY11TAq4dTH+mAg3OBysEjFiFoQu5zBQKTwLl860/K9jqfl1OkI5CYxcHS5vQNlDrl+Lp0e
+ n378ZeU0urTOWg/lyJf388wK+3mTmB/MTONrt9P+8W8udUn/9nHxoZtktPPhwLLkhP9Nbcnbx8TCI
+ po332wyJEsl+/O4xHSo0bUVYWtVEhqmKPb0aa17r0qritpsGlHn7k4mDYNhgtvN2lDTNGsM7nH6HP
+ C5UvE8GA==;
+Received: from [189.7.87.67] (helo=prince) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wi9hk-00CfHU-RF; Fri, 10 Jul 2026 13:47:41 +0200
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Subject: [PATCH v4] drm/v3d: Associate BOs with every job that accesses them
+Date: Fri, 10 Jul 2026 08:43:27 -0300
+Message-ID: <20260710114734.2731000-1-mcanal@igalia.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: l.stach@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,199 +58,247 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Am Freitag, dem 10.07.2026 um 11:00 +0200 schrieb Christian Gmeiner:
-> From: Christian Gmeiner <cgmeiner@igalia.com>
->=20
-> The OpenGL and Vulkan robustness extensions let an application detect a
-> GPU reset and check if its own context caused it, so the application can
-> drop the broken context and build a new one. The kernel knows both
-> facts, but etnaviv has no way to report them to userspace.
->=20
-> Add two counters and a RESET_QUERY ioctl that returns both in one call:
-> a per-GPU counter that counts every reset of that GPU, and a per-context
-> counter that only counts the resets this context was guilty of.
-> Userspace compares the counters with saved values: if the context
-> counter moved the context was guilty, if only the GPU counter moved the
-> context was an innocent victim.
->=20
-> The GPU counter is per GPU core and not per device, so a hang on one
-> pipe does not look like an innocent reset to contexts that only use
-> another pipe.
->=20
-> Bump the driver minor version so userspace can detect the feature.
->=20
-> Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
-> ---
->  drivers/gpu/drm/etnaviv/etnaviv_drv.c   | 27 ++++++++++++++++++++++++++-
->  drivers/gpu/drm/etnaviv/etnaviv_drv.h   |  1 +
->  drivers/gpu/drm/etnaviv/etnaviv_gpu.h   |  2 ++
->  drivers/gpu/drm/etnaviv/etnaviv_sched.c |  3 +++
->  include/uapi/drm/etnaviv_drm.h          | 19 ++++++++++++++++++-
->  5 files changed, 50 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etna=
-viv/etnaviv_drv.c
-> index a27ed014fb4e..a48698463fc1 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-> @@ -296,6 +296,30 @@ static int etnaviv_ioctl_get_param(struct drm_device=
- *dev, void *data,
->  	return etnaviv_gpu_get_param(gpu, args->param, &args->value);
->  }
-> =20
-> +static int etnaviv_ioctl_reset_query(struct drm_device *dev, void *data,
-> +		struct drm_file *file)
-> +{
-> +	struct etnaviv_drm_private *priv =3D dev->dev_private;
-> +	struct etnaviv_file_private *ctx =3D file->driver_priv;
-> +	struct drm_etnaviv_reset_query *args =3D data;
-> +	struct etnaviv_gpu *gpu;
-> +
-> +	if (args->flags)
-> +		return -EINVAL;
-> +
-> +	if (args->pipe >=3D ETNA_MAX_PIPES)
-> +		return -EINVAL;
-> +
-> +	gpu =3D priv->gpu[args->pipe];
-> +	if (!gpu)
-> +		return -ENXIO;
-> +
-> +	args->global_reset_counter =3D gpu->reset_counter;
-> +	args->context_reset_counter =3D ctx->reset_counter;
+A submission can expand into a chain of jobs (e.g. bin + render + cache
+clean). Implicit synchronization in v3d_submit_lock_reservations() is gated
+on each job's bo[], but the BO list was only ever attached to the last job
+of the chain. When that last job is a trailing CACHE_CLEAN job, the job
+that actually consumes the BOs (that is, a RENDER or CSD job) was left with
+bo_count == 0 and picked up no implicit dependencies. It could therefore
+be dispatched to the hardware and read a BO while another context was still
+writing it, leading to data corruption.
 
-Reading those values still has the chance to race with the timeout
-handler updating the values. Failure mode would be timeout handler
-running up until update of the global reset counter, then the readout
-passing back both values to userspace, timeout handler updating the
-context reset counter. Userspace would see a innocent context reset due
-to only the global counter moving, while in reality it was guilty
-context reset.
+Attach the BOs to the job that consumes them, so (1) it acquires the
+correct implicit dependencies during reservation locking and (2) they are
+kept mapped until the end of the submission. Give it references to all
+consuming job's BOs through v3d_job_reference_bos() instead of looking the
+handles up a second time; that avoids a redundant lookup and guarantees
+both jobs reference the exact same objects.
 
-I guess the easiest way to ensure atomic updates of both values would
-be to take the gpu mutex here and across the update of both values.
+As the CACHE_CLEAN job now carries a BO array as well, add a per-job
+`has_implicit_dep` flag so that only the consuming jobs take implicit
+dependencies. The CACHE_CLEAN job (a global flush) and the BIN job (binning
+waiting on another context is not a realistic scenario) are excluded.
 
-Regards,
-Lucas
+Fixes: dffa9b7a78c4 ("drm/v3d: Add missing implicit synchronization.")
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
+---
+ drivers/gpu/drm/v3d/v3d_drv.h    |  5 ++
+ drivers/gpu/drm/v3d/v3d_submit.c | 92 +++++++++++++++++++++++---------
+ 2 files changed, 72 insertions(+), 25 deletions(-)
 
-> +
-> +	return 0;
-> +}
-> +
->  static int etnaviv_ioctl_gem_new(struct drm_device *dev, void *data,
->  		struct drm_file *file)
->  {
-> @@ -502,6 +526,7 @@ static const struct drm_ioctl_desc etnaviv_ioctls[] =
-=3D {
->  	ETNA_IOCTL(GEM_WAIT,     gem_wait,     DRM_RENDER_ALLOW),
->  	ETNA_IOCTL(PM_QUERY_DOM, pm_query_dom, DRM_RENDER_ALLOW),
->  	ETNA_IOCTL(PM_QUERY_SIG, pm_query_sig, DRM_RENDER_ALLOW),
-> +	ETNA_IOCTL(RESET_QUERY,  reset_query,  DRM_RENDER_ALLOW),
->  };
-> =20
->  static void etnaviv_show_fdinfo(struct drm_printer *p, struct drm_file *=
-file)
-> @@ -530,7 +555,7 @@ static const struct drm_driver etnaviv_drm_driver =3D=
+Changelog
+=========
+
+v1 -> v2: https://lore.kernel.org/r/20260610-v3d-cpu-job-fixes-v1-0-0d9c88989edc@igalia.com
+
+- Don't attach implicit dependencies to BIN jobs (Iago Toral)
+
+v2 -> v3: https://lore.kernel.org/r/20260618-v3d-cpu-job-fixes-v2-0-fec132484fc4@igalia.com
+
+- Add a comment clarifing why we don't attach BOs to BIN jobs (Iago Toral)
+- Add Iago's R-b (Iago Toral)
+
+v3 -> v4: https://lore.kernel.org/r/20260703-v3d-cpu-job-fixes-v3-0-bc51b1f3eeb5@igalia.com
+
+- Remove Iago's R-b
+- Add a flag to indicate which jobs have implicit dependencies and only
+	add implicit dependencies to jobs that actually need.
+- Make sure that the last job also has a reference to the BOs.
+	Otherwise, V3D_CACHE_CLEAN jobs execute after their associated buffer
+	objects (BOs) are freed.
+
+diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+index 1b88b3dff757..8c46ed09f5c4 100644
+--- a/drivers/gpu/drm/v3d/v3d_drv.h
++++ b/drivers/gpu/drm/v3d/v3d_drv.h
+@@ -375,6 +375,11 @@ struct v3d_job {
+ 	void (*free)(struct kref *ref);
+ 
+ 	bool has_pm_ref;
++
++	/* Whether the job needs implicit dependencies, i.e. must wait for
++	 * other contexts still writing its BOs.
++	 */
++	bool has_implicit_dep;
+ };
+ 
+ struct v3d_bin_job {
+diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+index 5c05f1ea24bc..623df9d5bbee 100644
+--- a/drivers/gpu/drm/v3d/v3d_submit.c
++++ b/drivers/gpu/drm/v3d/v3d_submit.c
+@@ -46,6 +46,9 @@ v3d_submit_lock_reservations(struct v3d_submit *submit)
+ 	for (i = 0; i < submit->job_count; i++) {
+ 		struct v3d_job *job = submit->jobs[i];
+ 
++		if (!job->has_implicit_dep)
++			continue;
++
+ 		for (j = 0; j < job->bo_count; j++) {
+ 			ret = drm_sched_job_add_implicit_dependencies(&job->base,
+ 								      job->bo[j],
+@@ -71,7 +74,6 @@ v3d_submit_unlock_reservations(struct v3d_submit *submit)
+ /**
+  * v3d_lookup_bos() - Sets up job->bo[] with the GEM objects
+  * referenced by the job.
+- * @dev: DRM device
+  * @file_priv: DRM file for this fd
+  * @job: V3D job being set up
+  * @bo_handles: GEM handles
+@@ -85,23 +87,44 @@ v3d_submit_unlock_reservations(struct v3d_submit *submit)
+  * failure, because that will happen at `v3d_job_free()`.
+  */
+ static int
+-v3d_lookup_bos(struct v3d_submit *submit, u64 bo_handles, u32 bo_count)
++v3d_lookup_bos(struct drm_file *file_priv, struct v3d_job *job,
++	       u64 bo_handles, u32 bo_count)
  {
->  	.name               =3D "etnaviv",
->  	.desc               =3D "etnaviv DRM",
->  	.major              =3D 1,
-> -	.minor              =3D 4,
-> +	.minor              =3D 5,
->  };
-> =20
->  /*
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.h b/drivers/gpu/drm/etna=
-viv/etnaviv_drv.h
-> index cba4323ae589..9c348aa7f8d3 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-> @@ -34,6 +34,7 @@ struct etnaviv_file_private {
->  	int id;
->  	struct etnaviv_iommu_context	*mmu;
->  	struct drm_sched_entity		sched_entity[ETNA_MAX_PIPES];
-> +	u32 reset_counter;
->  };
-> =20
->  struct etnaviv_drm_private {
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.h b/drivers/gpu/drm/etna=
-viv/etnaviv_gpu.h
-> index 5cb46c84e03a..a97780131426 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
-> @@ -148,6 +148,8 @@ struct etnaviv_gpu {
->  	u32 hangcheck_primid;
->  	u32 hangcheck_fence;
-> =20
-> +	u32 reset_counter;
-> +
->  	void __iomem *mmio;
->  	int irq;
-> =20
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/et=
-naviv/etnaviv_sched.c
-> index 139e6e38784b..bd1335a17f46 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-> @@ -79,6 +79,9 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_j=
-ob(struct drm_sched_job
->  	if(sched_job)
->  		drm_sched_increase_karma(sched_job);
-> =20
-> +	gpu->reset_counter++;
-> +	submit->ctx->reset_counter++;
-> +
->  	/* get the GPU back into the init state */
->  	etnaviv_core_dump(submit);
->  	etnaviv_gpu_recover_hang(submit);
-> diff --git a/include/uapi/drm/etnaviv_drm.h b/include/uapi/drm/etnaviv_dr=
-m.h
-> index af024d90453d..b50a3a0799e6 100644
-> --- a/include/uapi/drm/etnaviv_drm.h
-> +++ b/include/uapi/drm/etnaviv_drm.h
-> @@ -265,6 +265,21 @@ struct drm_etnaviv_pm_signal {
->  	char  name[64];   /* out, name of domain */
->  };
-> =20
-> +/*
-> + * Reset status query:
-> + *
-> + * Both counters start at zero and only ever increase. Userspace saves
-> + * both values and compares them on a later query: if the context
-> + * counter moved this context caused a reset, if only the global
-> + * counter moved the GPU was reset on behalf of another context.
-> + */
-> +struct drm_etnaviv_reset_query {
-> +	__u32 pipe;			/* in */
-> +	__u32 flags;			/* in, must be 0 */
-> +	__u32 global_reset_counter;	/* out, all resets of this GPU core */
-> +	__u32 context_reset_counter;	/* out, resets caused by this context */
-> +};
-> +
->  #define DRM_ETNAVIV_GET_PARAM          0x00
->  /* placeholder:
->  #define DRM_ETNAVIV_SET_PARAM          0x01
-> @@ -279,7 +294,8 @@ struct drm_etnaviv_pm_signal {
->  #define DRM_ETNAVIV_GEM_WAIT           0x09
->  #define DRM_ETNAVIV_PM_QUERY_DOM       0x0a
->  #define DRM_ETNAVIV_PM_QUERY_SIG       0x0b
-> -#define DRM_ETNAVIV_NUM_IOCTLS         0x0c
-> +#define DRM_ETNAVIV_RESET_QUERY        0x0c
-> +#define DRM_ETNAVIV_NUM_IOCTLS         0x0d
-> =20
->  #define DRM_IOCTL_ETNAVIV_GET_PARAM    DRM_IOWR(DRM_COMMAND_BASE + DRM_E=
-TNAVIV_GET_PARAM, struct drm_etnaviv_param)
->  #define DRM_IOCTL_ETNAVIV_GEM_NEW      DRM_IOWR(DRM_COMMAND_BASE + DRM_E=
-TNAVIV_GEM_NEW, struct drm_etnaviv_gem_new)
-> @@ -292,6 +308,7 @@ struct drm_etnaviv_pm_signal {
->  #define DRM_IOCTL_ETNAVIV_GEM_WAIT     DRM_IOW(DRM_COMMAND_BASE + DRM_ET=
-NAVIV_GEM_WAIT, struct drm_etnaviv_gem_wait)
->  #define DRM_IOCTL_ETNAVIV_PM_QUERY_DOM DRM_IOWR(DRM_COMMAND_BASE + DRM_E=
-TNAVIV_PM_QUERY_DOM, struct drm_etnaviv_pm_domain)
->  #define DRM_IOCTL_ETNAVIV_PM_QUERY_SIG DRM_IOWR(DRM_COMMAND_BASE + DRM_E=
-TNAVIV_PM_QUERY_SIG, struct drm_etnaviv_pm_signal)
-> +#define DRM_IOCTL_ETNAVIV_RESET_QUERY  DRM_IOWR(DRM_COMMAND_BASE + DRM_E=
-TNAVIV_RESET_QUERY, struct drm_etnaviv_reset_query)
-> =20
->  #if defined(__cplusplus)
->  }
+-	struct v3d_job *last_job = submit->jobs[submit->job_count - 1];
+-
+-	last_job->bo_count = bo_count;
+-
+-	if (!last_job->bo_count) {
+-		/* See comment on bo_index for why we have to check
+-		 * this.
+-		 */
+-		drm_warn(&submit->v3d->drm, "Rendering requires BOs\n");
++	if (!bo_count) {
++		drm_warn(&job->v3d->drm, "Rendering requires BOs\n");
+ 		return -EINVAL;
+ 	}
+ 
+-	return drm_gem_objects_lookup(submit->file_priv,
++	job->bo_count = bo_count;
++
++	return drm_gem_objects_lookup(file_priv,
+ 				      (void __user *)(uintptr_t)bo_handles,
+-				      last_job->bo_count, &last_job->bo);
++				      job->bo_count, &job->bo);
++}
++
++/**
++ * v3d_job_reference_bos() - Share another job's BOs with @dst
++ * @dst: job that acquires references to the BOs
++ * @src: job whose already-resolved BO list is shared
++ *
++ * For submissions with multiple jobs that use the same BOs, a trailing job
++ * shouldn't look the handles up again, as it could cause inconsistencies.
++ * Instead, it should reference the previous job's BOs.
++ */
++static int
++v3d_job_reference_bos(struct v3d_job *dst, struct v3d_job *src)
++{
++	dst->bo = kvmalloc_objs(*dst->bo, src->bo_count);
++	if (!dst->bo)
++		return -ENOMEM;
++
++	dst->bo_count = src->bo_count;
++	for (int i = 0; i < dst->bo_count; i++) {
++		dst->bo[i] = src->bo[i];
++		drm_gem_object_get(dst->bo[i]);
++	}
++
++	return 0;
+ }
+ 
+ static void
+@@ -223,13 +246,14 @@ v3d_job_add_syncobjs(struct v3d_job *job, struct drm_file *file_priv,
+ static const struct {
+ 	size_t size;
+ 	void (*free)(struct kref *ref);
++	bool has_implicit_dep;
+ } v3d_job_types[] = {
+-	[V3D_BIN]		= { sizeof(struct v3d_bin_job), v3d_job_free },
+-	[V3D_RENDER]		= { sizeof(struct v3d_render_job), v3d_render_job_free },
+-	[V3D_TFU]		= { sizeof(struct v3d_tfu_job), v3d_job_free },
+-	[V3D_CSD]		= { sizeof(struct v3d_csd_job), v3d_job_free },
+-	[V3D_CACHE_CLEAN]	= { sizeof(struct v3d_job), v3d_job_free },
+-	[V3D_CPU]		= { sizeof(struct v3d_cpu_job), v3d_cpu_job_free },
++	[V3D_BIN]		= { sizeof(struct v3d_bin_job), v3d_job_free, false },
++	[V3D_RENDER]		= { sizeof(struct v3d_render_job), v3d_render_job_free, true },
++	[V3D_TFU]		= { sizeof(struct v3d_tfu_job), v3d_job_free, true },
++	[V3D_CSD]		= { sizeof(struct v3d_csd_job), v3d_job_free, true },
++	[V3D_CACHE_CLEAN]	= { sizeof(struct v3d_job), v3d_job_free, false },
++	[V3D_CPU]		= { sizeof(struct v3d_cpu_job), v3d_cpu_job_free, true },
+ };
+ 
+ static struct v3d_job *
+@@ -251,6 +275,7 @@ v3d_submit_add_job(struct v3d_submit *submit, enum v3d_queue queue)
+ 	job->queue = queue;
+ 	job->file_priv = v3d_priv;
+ 	job->free = v3d_job_types[queue].free;
++	job->has_implicit_dep = v3d_job_types[queue].has_implicit_dep;
+ 
+ 	ret = drm_sched_job_init(&job->base, &v3d_priv->sched_entity[queue],
+ 				 1, v3d_priv, submit->file_priv->client_id);
+@@ -518,13 +543,18 @@ v3d_setup_csd_jobs_and_bos(struct v3d_submit *submit,
+ 	if (ret)
+ 		return ret;
+ 
++	ret = v3d_lookup_bos(submit->file_priv, &job->base, args->bo_handles,
++			     args->bo_handle_count);
++	if (ret)
++		return ret;
++
+ 	job->args = *args;
+ 
+ 	clean_job = v3d_submit_add_job(submit, V3D_CACHE_CLEAN);
+ 	if (IS_ERR(clean_job))
+ 		return PTR_ERR(clean_job);
+ 
+-	return v3d_lookup_bos(submit, args->bo_handles, args->bo_handle_count);
++	return v3d_job_reference_bos(clean_job, &job->base);
+ }
+ 
+ static void
+@@ -1163,22 +1193,33 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 	if (ret)
+ 		goto fail;
+ 
++	/*
++	 * We don't associate the BOs with the BIN job. Fences are only
++	 * attached to the last job in the submission chain, and BIN jobs
++	 * don't need implicit dependencies since depending on results from
++	 * another context is not a realistic scenario for binning.
++	 */
++	ret = v3d_lookup_bos(submit.file_priv, &render->base,
++			     args->bo_handles, args->bo_handle_count);
++	if (ret)
++		goto fail;
++
+ 	if (args->flags & DRM_V3D_SUBMIT_CL_FLUSH_CACHE) {
+ 		clean_job = v3d_submit_add_job(&submit, V3D_CACHE_CLEAN);
+ 		if (IS_ERR(clean_job)) {
+ 			ret = PTR_ERR(clean_job);
+ 			goto fail;
+ 		}
++
++		ret = v3d_job_reference_bos(clean_job, &render->base);
++		if (ret)
++			goto fail;
+ 	}
+ 
+ 	ret = v3d_attach_perfmon_to_jobs(&submit, args->perfmon_id);
+ 	if (ret)
+ 		goto fail;
+ 
+-	ret = v3d_lookup_bos(&submit, args->bo_handles, args->bo_handle_count);
+-	if (ret)
+-		goto fail;
+-
+ 	ret = v3d_submit_lock_reservations(&submit);
+ 	if (ret)
+ 		goto fail;
+@@ -1557,7 +1598,8 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+ 	 * the CSD and clean jobs in the case of indirect CSD job.
+ 	 */
+ 	if (args->bo_handle_count) {
+-		ret = v3d_lookup_bos(&submit, args->bo_handles, args->bo_handle_count);
++		ret = v3d_lookup_bos(submit.file_priv, &cpu_job->base,
++				     args->bo_handles, args->bo_handle_count);
+ 		if (ret)
+ 			goto fail;
+ 
+-- 
+2.54.0
+
