@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05F11C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 06:41:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA44EC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 06:42:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53CE210F77D;
-	Fri, 10 Jul 2026 06:41:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54D3310F796;
+	Fri, 10 Jul 2026 06:42:59 +0000 (UTC)
 Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3E31F10F77D
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 06:41:49 +0000 (UTC)
-X-AuditID: a67dfc5b-c2dff70000001609-85-6a50942c145c
-Date: Fri, 10 Jul 2026 15:41:43 +0900
+ by gabe.freedesktop.org (Postfix) with ESMTP id 37A9510F7B3
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 06:42:58 +0000 (UTC)
+X-AuditID: a67dfc5b-c2dff70000001609-e4-6a509471be8b
+Date: Fri, 10 Jul 2026 15:42:52 +0900
 From: Byungchul Park <byungchul@sk.com>
 To: sashiko-reviews@lists.linux.dev
-Cc: ojeda@kernel.org, linux-ide@vger.kernel.org,
- linux-kernel@vger.kernel.org, Anna Schumaker <anna@kernel.org>,
- Chuck Lever <cel@kernel.org>, dlemoal@kernel.org,
- linux-rt-devel@lists.linux.dev, Jeff Layton <jlayton@kernel.org>,
- tytso@mit.edu, cassel@kernel.org, linux-modules@vger.kernel.org,
- dri-devel@lists.freedesktop.org, kernel_team@skhynix.com
-Subject: Re: [PATCH v19 19/40] dept: apply timeout consideration to
+Cc: Chuck Lever <cel@kernel.org>, tytso@mit.edu,
+ Anna Schumaker <anna@kernel.org>, linux-kernel@vger.kernel.org,
+ dlemoal@kernel.org, dri-devel@lists.freedesktop.org,
+ Jeff Layton <jlayton@kernel.org>, linux-rt-devel@lists.linux.dev,
+ ojeda@kernel.org, linux-modules@vger.kernel.org, cassel@kernel.org,
+ linux-ide@vger.kernel.org, kernel_team@skhynix.com
+Subject: Re: [PATCH v19 13/40] dept: apply sdt_might_sleep_{start, end}() to
  hashed-waitqueue wait
-Message-ID: <20260710064143.GH37630@system.software.com>
+Message-ID: <20260710064252.GI37630@system.software.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
- <20260706061928.66713-20-byungchul@sk.com>
- <20260707073337.097CA1F000E9@smtp.kernel.org>
+ <20260706061928.66713-14-byungchul@sk.com>
+ <20260707073317.37C831F000E9@smtp.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260707073337.097CA1F000E9@smtp.kernel.org>
+In-Reply-To: <20260707073317.37C831F000E9@smtp.kernel.org>
 User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFuplkeLIzCtJLcpLzFFi42LhesuzSFdnSkCWwdpHshatO/+zWBybsILZ
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFuphkeLIzCtJLcpLzFFi42LhesuzULdwSkCWwdFjMhatO/+zWBybsILZ
  Yt2LI2wWD/bbW1z5+p7N4ueyVewWx3Y8YrK4vGsOm0XD7O+sFpdWX2CxWDl/OaNFw9LbrBat
- PT/ZHXg9Nq3qZPO4332cyePF5pmMHk1njjJ7fN4kF8AaxWWTkpqTWZZapG+XwJVxrLWRqeCj
- eMX/js1MDYy7+bsYOTkkBEwkDh5sYIax3965xAZiswioSlyc/oUVxGYTUJe4ceMnWI2IgLLE
- 7B1nmboYuTiYBV4wSSzv6mEBSQgLREscWHwcrIFXwELi/NYudpAiIYFJjBIf+hcwQSQEJU7O
- fALWwCygI7Fz6x2gbRxAtrTE8n8cEGF5ieats8GWcQpYSSzt7QWbKQq0+MC242CLJQSes0k8
- XHCWBeJqSYmDK26wTGAUnIVkxSwkK2YhrJiFZMUCRpZVjEKZeWW5iZk5JnoZlXmZFXrJ+bmb
- GIGRtKz2T/QOxk8Xgg8xCnAwKvHwGtT7ZwmxJpYVV+YeYpTgYFYS4X0gAxTiTUmsrEotyo8v
- Ks1JLT7EKM3BoiTOa/StPEVIID2xJDU7NbUgtQgmy8TBKdXAqP5ir/W1BJEHahxSd4pDNoS3
- 3Ljcb6F1uJv9qtHvMwZ9PBE7l4uFt15u2PYrZUqUqar1pbwvMY3pMhXhTwzX7p9l/iTvz8/l
- Wi+9q61mq77jiBM67lZRJHr/julCh4TNsu3rQo2DF944dT1ibdm2RKsb59u4WT/O2mjL6/aB
- ladS+CDHx/j7SizFGYmGWsxFxYkAECj9TaACAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrCLMWRmVeSWpSXmKPExsXC5WfdrKszJSDL4O0TdovWnf9ZLI5NWMFs
- se7FETaLB/vtLa58fc9m8XPZKnaLw3NPsloc2/GIyeLyrjlsFg2zv7NaXFp9gcVi5fzljBYN
- S2+zWrT2/GR34PPYtKqTzeN+93EmjxebZzJ6NJ05yuyx+MUHJo/Pm+QC2KK4bFJSczLLUov0
- 7RK4Mo61NjIVfBSv+N+xmamBcTd/FyMnh4SAicTbO5fYQGwWAVWJi9O/sILYbALqEjdu/GQG
- sUUElCVm7zjL1MXIxcEs8IJJYnlXDwtIQlggWuLA4uNgDbwCFhLnt3axgxQJCUxilPjQv4AJ
- IiEocXLmE7AGZgEdiZ1b7wBt4wCypSWW/+OACMtLNG+dDbaMU8BKYmlvL9hMUaDFB7YdZ5rA
- yDcLyaRZSCbNQpg0C8mkBYwsqxhFMvPKchMzc0z1irMzKvMyK/SS83M3MQLjYlntn4k7GL9c
- dj/EKMDBqMTDa1DvnyXEmlhWXJl7iFGCg1lJhPeBDFCINyWxsiq1KD++qDQntfgQozQHi5I4
- r1d4aoKQQHpiSWp2ampBahFMlomDU6qBUT3LynfC0bNdDqdf6Czv2OPXesf9icIS3dsLpJ32
- Ojn9eDkvbIZT8+cdLeuOND/cfvPwli4ehksmen1PVMTn/TrtLvbRW4Bxml2e6qFbl+Ir005d
- 9DoTtqlZi+Fa/E2mxpTvMemH/20W2WcUvcIgYNPXTBGjObvX5RrWd/Gu9Fu2oekJR5vmRiWW
- 4oxEQy3mouJEACZ4n+WHAgAA
+ PT/ZHXg9Nq3qZPO4332cyePF5pmMHk1njjJ7fN4kF8AaxWWTkpqTWZZapG+XwJWx9uoVxoIl
+ UhUrvk5mb2BcLdjFyMEhIWAiMfe/SRcjJ5i5Y3kfI4jNIqAqMXHNGxYQm01AXeLGjZ/MILaI
+ gLLE7B1nmboYuTiYBV4wSTS0N7KDJIQFUiT2fDgNVsQrYCHx8NciFpAiIYFJjBL3/rUzQSQE
+ JU7OfAI2lVlAR2Ln1jtsIEcwC0hLLP/HARGWl2jeOhtsDqeAlcS1e+fZQGxRoMUHth0HWywh
+ 8JpN4tGWw6wQV0tKHFxxg2UCo+AsJCtmIVkxC2HFLCQrFjCyrGIUyswry03MzDHRy6jMy6zQ
+ S87P3cQIjKNltX+idzB+uhB8iFGAg1GJh9eg3j9LiDWxrLgy9xCjBAezkgjvAxmgEG9KYmVV
+ alF+fFFpTmrxIUZpDhYlcV6jb+UpQgLpiSWp2ampBalFMFkmDk6pBsaOmsd5SxoU4gxYL530
+ nx3qys6mZarxzeNCwt/lT/eYfXN3EN27NuPLcx6NySfXZ7E+WCl7pUFy1gnDpVXWHzm2lc30
+ +9D+6fnZJhl9prDFch3fJnw9b1i+rbHhk8qEyLDFJvN1lRg+b3+6ZS6b8Ym8uo6w3XOYz879
+ vWtTdnV4aNxVuZePrlUpsRRnJBpqMRcVJwIAkqUGd58CAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrCLMWRmVeSWpSXmKPExsXC5WfdrFs4JSDL4Ec/l0Xrzv8sFscmrGC2
+ WPfiCJvFg/32Fle+vmez+LlsFbvF4bknWS2O7XjEZHF51xw2i4bZ31ktLq2+wGKxcv5yRouG
+ pbdZLVp7frI78HlsWtXJ5nG/+ziTx4vNMxk9ms4cZfZY/OIDk8fnTXIBbFFcNimpOZllqUX6
+ dglcGWuvXmEsWCJVseLrZPYGxtWCXYycHBICJhI7lvcxgtgsAqoSE9e8YQGx2QTUJW7c+MkM
+ YosIKEvM3nGWqYuRi4NZ4AWTREN7IztIQlggRWLPh9NgRbwCFhIPfy1iASkSEpjEKHHvXzsT
+ REJQ4uTMJ2BTmQV0JHZuvcPWxcgBZEtLLP/HARGWl2jeOhtsDqeAlcS1e+fZQGxRoMUHth1n
+ msDINwvJpFlIJs1CmDQLyaQFjCyrGEUy88pyEzNzTPWKszMq8zIr9JLzczcxAuNiWe2fiTsY
+ v1x2P8QowMGoxMNrUO+fJcSaWFZcmXuIUYKDWUmE94EMUIg3JbGyKrUoP76oNCe1+BCjNAeL
+ kjivV3hqgpBAemJJanZqakFqEUyWiYNTqoHRoOT//Pl/Tp+e6fm88aqayeedP7gZI/asK+Z+
+ 6HneadMDsZRKK5037rtrY5VlLLIZnxrEKuaxtWWnBkU2c+5IdTH4t87txkPLw1sk1mnMEfQz
+ 0F8V7Fcro/Xy6PrpFltOXyv7YBB7RnKO4x//fX8Ufs63nHolvTVpVfT7r7v2/RbP/RHz7HGA
+ EktxRqKhFnNRcSIAPLNln4cCAAA=
 X-CFilter-Loop: Reflected
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,68 +74,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 07, 2026 at 07:33:36AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Missing `sdt_might_sleep_end()` cleanup in the error path of wait macros (e.g., `___wait_var_event`, `___wait_event`, `___swait_event`) bypasses `dept_clean_stage()`, leaking the staged wait event state and corrupting DEPT tracking.
+On Tue, Jul 07, 2026 at 07:33:16AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] The `sdt_might_sleep_end()` macro is bypassed when `___wait_var_event` is interrupted, leaving the DEPT tracker in an inconsistent state.
+> - [Medium] The `sdt_might_sleep_end()` macro is bypassed when `___wait_event` is interrupted, leaving the DEPT tracker in an inconsistent state.
 > --
 > 
-> commit cf04720896ab037609320947c88e8faa57dbddd7
+> commit 0bd2d42866fa6b852ee5317edcaf6890a90c3c65
 > Author: Byungchul Park <byungchul@sk.com>
 > 
-> dept: apply timeout consideration to hashed-waitqueue wait
+> dept: apply sdt_might_sleep_{start,end}() to hashed-waitqueue wait
 > 
-> Now that CONFIG_DEPT_AGGRESSIVE_TIMEOUT_WAIT was introduced, apply the
-> consideration to hashed-waitqueue wait, assuming an input 'ret' in
-> ___wait_var_event() macro is used as a timeout value.
+> Make dept able to track dependencies by hashed-waitqueue waits.
 > 
 > > diff --git a/include/linux/wait_bit.h b/include/linux/wait_bit.h
-> > index 179a616ad245a..9885ac4e1ded5 100644
+> > index 9e29d79fc790a..179a616ad245a 100644
 > > --- a/include/linux/wait_bit.h
 > > +++ b/include/linux/wait_bit.h
-> > @@ -258,7 +258,7 @@ extern wait_queue_head_t *__var_waitqueue(void *p);
+> [ ... ]
+> > @@ -257,6 +258,7 @@ extern wait_queue_head_t *__var_waitqueue(void *p);
 > >       struct wait_bit_queue_entry __wbq_entry;                        \
 > >       long __ret = ret; /* explicit shadow */                         \
 > >                                                                       \
-> > -     sdt_might_sleep_start(NULL);                                    \
-> > +     sdt_might_sleep_start_timeout(NULL, __ret);                     \
-> 
-> [Severity: High]
-> Does this error path properly clean up the dept wait state?
-> 
-> Lower in the ___wait_var_event() macro, if a signal is received it jumps to
-> __out:
-> 
->                 if (___wait_is_interruptible(state) && __int) {         \
->                         __ret = __int;                                  \
->                         goto __out;                                     \
->                 }                                                       \
-> 
->                 ...
-> 
->         sdt_might_sleep_end();                                          \
-> __out:  __ret;                                                          \
-> 
-> Because the goto __out branch skips sdt_might_sleep_end(), does it leave a
-> dangling stage context in the dept subsystem's tracking graph?
-> 
-> If the stage context remains populated, could a subsequent wait on the same
-> task be incorrectly seen as a nested stage, potentially corrupting dept
-> tracking or leading to false deadlock reports?
-
-I will fix it.
-
-> (Note: A similar goto __out pattern skipping sdt_might_sleep_end() also
-> exists in ___wait_event() in include/linux/wait.h and ___swait_event() in
-> include/linux/swait.h).
-
-I will fix it.
-
-	Byungchul
-
-> 
+> > +     sdt_might_sleep_start(NULL);                                    \
 > >       init_wait_var_entry(&__wbq_entry, var,                          \
 > >                           exclusive ? WQ_FLAG_EXCLUSIVE : 0);         \
 > >       for (;;) {                                                      \
+> > @@ -274,6 +276,7 @@ extern wait_queue_head_t *__var_waitqueue(void *p);
+> >               cmd;                                                    \
+> >       }                                                               \
+> >       finish_wait(__wq_head, &__wbq_entry.wq_entry);                  \
+> > +     sdt_might_sleep_end();                                          \
+> >  __out:       __ret;                                                          \
+> >  })
 > 
+> [Severity: Medium]
+> If this wait is interrupted by a signal, the loop executes a goto __out
+> which bypasses sdt_might_sleep_end(). Does this leave the dept tracker
+> in an inconsistent state where the task's stage remains permanently armed?
+> 
+> This could cause false positive dependency tracking splats on subsequent
+> waits, or fail to record new dependencies because the tracker is blinded by
+> the stale stage.
+> 
+> I noticed the exact same issue is present in ___wait_event():
+> 
+> include/linux/wait.h:___wait_event() {
+>     ...
+>                 if (___wait_is_interruptible(state) && __int) {
+>                         __ret = __int;
+>                         goto __out;
+>                 }
+>     ...
+>         sdt_might_sleep_end();
+> __out:  __ret;
+> })
+
+I will fix it.
+
+> [Severity: Medium]
+> Does ___wait_event() also skip sdt_might_sleep_end() when interrupted?
+> By missing the paired cleanup call, the task's stage could remain
+> permanently armed here as well.
+> 
+> Would it make sense to move the __out label above sdt_might_sleep_end(),
+> or otherwise ensure the state is cleaned up on the interrupted paths for
+> both of these macros?
+
+Right.  I will fix it.
+
+	Byungchul
+
 > --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260706061928.66713-1-byungchul@sk.com?part=19
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260706061928.66713-1-byungchul@sk.com?part=13
