@@ -4,47 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1913DC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EC1CC44507
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FAE810E7F4;
-	Mon, 13 Jul 2026 07:10:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9A3510E80D;
+	Mon, 13 Jul 2026 07:11:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="DQ0k1SsW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PNLB4wzm";
 	dkim-atps=neutral
-Received: from mail-244103.protonmail.ch (mail-244103.protonmail.ch
- [109.224.244.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47C6110E605
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 16:40:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=protonmail; t=1783701603; x=1783960803;
- bh=W/GsfKPOaZSLDS+A7YXLVD02wrpyt4Mu3bl9AWPnlJI=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=DQ0k1SsWEv8zgcrJFrmXkesNbUCPOw13dfWiyV+Ym9suMYV27HFthkUifJFUEt6Oc
- C1FVruyabty+KEMZzJIjkVWaAUroqZipso7kKO8An/mGlT8DsBwurr8eutf+4841bn
- 3q36QDuCkXz+ThcUPSrKvLQnCiwof0fPu9ezkbvTKz4YmHoHAjNedTH0LrSmIRGnON
- 8hy+lI/K+tgtR/AzcQYo+I0OGoyksjBBnO9xl21XTmtMRQLJXhD1Awcp6t5WXedaO6
- Rmwbgh8azdYgljgu5HPcr75nB0hjbmjrQQXBetwnxx6GyQkQ7hwUGhl2A1vqlnLGBO
- bioifTYuqT0Jw==
-Date: Fri, 10 Jul 2026 16:39:57 +0000
-To: Maxime Ripard <mripard@kernel.org>
-From: Aditya Garg <gargaditya08@proton.me>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- admin@kodeit.net
-Subject: Re: [PATCH 10/60] drm/appletbdrm: Convert to atomic_create_state
-Message-ID: <z0B1fK_tCddwbXPhrtdbaFsc0NW7GFsKair7OQgyayEFkVtPegjPJJTzTHGuPqVjFOFDK_TtAr5Jployn7WW2u9wSBO-EnYoBglVQwOYem4=@proton.me>
-In-Reply-To: <20260709-drm-no-more-plane-reset-v1-10-302d986fe5f0@kernel.org>
-References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
- <20260709-drm-no-more-plane-reset-v1-10-302d986fe5f0@kernel.org>
-Feedback-ID: 145777226:user:proton
-X-Pm-Message-ID: 17797ba9b4727fef5549ba068fe17633bf12f0de
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D113910E232;
+ Fri, 10 Jul 2026 20:19:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 23B3F60052;
+ Fri, 10 Jul 2026 20:19:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 322B91F000E9;
+ Fri, 10 Jul 2026 20:18:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783714744;
+ bh=5hYSYZL26i46R1YNC969ZGJ/HD8KnaWEcgglVNhE+Dg=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=PNLB4wzmcFTj3lyqpCjpFNseunRPOUiWwMslZHwgnXN/dz1H6bINuUrT04kt5iEp1
+ +NIb6HuWlNuqv89DVOB740oeyMjE3pCofc2ChzUc2YR4KtFhvnDcCHt+4GCE+gyXWn
+ 5N+MnWj5rOmm6UXVmu60Jc6I2MfPK0J7bSg9uQcFU6wtGwwH23rkV+6hwUKmgWbLk+
+ Tctr26pEiWgizGIADOVEl3UfVfSGQDtV+0/95Ja8Pr6D6O/cbPUvsrZRSsYIjPhVRH
+ yBJazCl6C5Rhic0/GCGXO+3WaXAvZ1vidl5uvgn9Xm7ag6HsGdXlfnoynuPxHBZ7uA
+ zki2RHAqu/Mww==
+From: Lorenzo Stoakes <ljs@kernel.org>
+Date: Fri, 10 Jul 2026 21:16:45 +0100
+Subject: [PATCH v2 04/33] mm: introduce and use vma_end_pgoff()
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260710-b4-pre-scalable-cow-v2-4-2a5aa403d977@kernel.org>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
+ Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>, 
+ Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Yishai Hadas <yishaih@nvidia.com>, 
+ Shameer Kolothum <skolothumtho@nvidia.com>, 
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Usama Arif <usama.arif@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev, 
+ iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2641; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=CFZAjloP4OpDX/vjHQ9xfGU3kS1+MIW18Lzf2dxH2BQ=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg61qc+aHMPw9/vjPW+ln592Xp0tkZNzkUJwaKjbTT
+ FZJejNnRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACZy/Q3D/4hbiseXv3Ar8Z5d
+ VZLvoZHiXn7OKMDymNMzVtav98Kv2TAy7BE9e6z/xf/4eWp7lK7lvvXZtTcj8M3OVfczJc+uddx
+ 9iQ8A
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,334 +141,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Acked-by: Aditya Garg <gargaditya08@proton.me>
+We already have vma_last_pgoff() which retrieves the last page offset
+within a VMA.
 
-On Thursday, 9 July 2026 at 5:21 PM, Maxime Ripard <mripard@kernel.org> wro=
-te:
+However, code often wishes to span a page offset range, which requires the
+exclusive end of this range.
 
-> The plane reset implementation creates a custom state subclass, but
-> only initializes a pristine state without resetting any hardware. This
-> is equivalent to what atomic_create_state expects. Convert to it.
->
-> The conversion was done using the following Coccinelle semantic patch:
->
-> @@
-> identifier funcs;
-> symbol drm_atomic_helper_plane_reset;
-> symbol drm_atomic_helper_plane_create_state;
-> @@
->
-> struct drm_plane_funcs funcs =3D {
->   ...,
-> - .reset =3D drm_atomic_helper_plane_reset,
-> + .atomic_create_state =3D drm_atomic_helper_plane_create_state,
->   ...,
-> };
->
-> @match_struct_reset@
-> identifier funcs, reset_func;
-> @@
-> struct drm_plane_funcs funcs =3D {
->     ...,
->     .reset =3D reset_func,
->     ...,
-> };
->
-> @reset_uses_helpers depends on match_struct_reset@
-> identifier match_struct_reset.reset_func;
-> @@
->
->  void reset_func(...)
->  {
->  =09<+...
-> (
->  =09__drm_atomic_helper_plane_reset(...);
-> |
-> =09__drm_gem_reset_shadow_plane(...);
-> )
->  =09...+>
->  }
->
-> @match_struct_destroy@
-> identifier funcs, destroy_func;
-> @@
-> struct drm_plane_funcs funcs =3D {
->     ...,
->     .atomic_destroy_state =3D destroy_func,
->     ...,
-> };
->
-> @script:python renamed_func@
-> old_name << match_struct_reset.reset_func;
-> new_name;
-> @@
-> if old_name.endswith("_reset"):
->     coccinelle.new_name =3D old_name.replace("_reset", "_create_state")
-> else:
->     coccinelle.new_name =3D old_name
->
-> @update_struct depends on match_struct_reset && reset_uses_helpers@
-> identifier match_struct_reset.funcs, match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> @@
-> struct drm_plane_funcs funcs =3D {
->     ...,
-> -   .reset =3D reset_func,
-> +   .atomic_create_state =3D new_name,
->     ...,
-> };
->
-> @drop_destroy depends on update_struct && match_struct_destroy@
-> identifier match_struct_reset.reset_func;
-> identifier match_struct_destroy.destroy_func;
-> identifier container_func;
-> identifier P;
-> symbol drm_atomic_helper_plane_destroy_state;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> @@
->
->  void reset_func(struct drm_plane *P)
->  {
->  =09...
-> (
-> -=09if (P->state) {
-> - =09=09<+...
-> (
-> -=09=09drm_atomic_helper_plane_destroy_state(P, P->state);
-> |
-> -=09=09__drm_atomic_helper_plane_destroy_state(P->state);
-> |
-> -=09=09P->funcs->atomic_destroy_state(P, P->state);
-> |
-> -=09=09destroy_func(P, P->state);
-> )
-> - =09=09...+>
-> - =09}
-> |
-> -=09drm_WARN_ON_ONCE(P->dev, P->state);
-> |
-> -=09WARN_ON(P->state);
-> )
->  =09...
-> (
-> -=09kfree(P->state);
-> |
-> -=09kfree(container_func(P->state));
-> |
->  =09// kfree is optional
-> )
-> (
-> -=09P->state =3D NULL;
-> |
->  =09// plane->state clearing is optional
-> )
->  =09...
->  }
->
-> @drop_destroy_mtk depends on update_struct@
-> identifier P;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> symbol to_mtk_plane_state;
-> @@
->
->  void mtk_plane_reset(struct drm_plane *P)
->  {
->  =09...
-> -=09if (P->state) {
-> -=09=09__drm_atomic_helper_plane_destroy_state(P->state);
-> -=09=09...
-> -=09} else {
->  =09=09...
-> -=09}
->  =09...
->  }
->
-> @transform_nv50_wndw depends on update_struct@
-> identifier S;
-> @@
->
->  void nv50_wndw_reset(...)
->  {
->  =09...
-> -=09if (WARN_ON(!(S =3D kzalloc_obj(*S))))
-> +=09S =3D kzalloc_obj(*S);
-> +=09if (WARN_ON(!S))
->  =09=09return;
->  =09...
->  }
->
-> @transform_kzalloc depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier P, S;
-> statement ST;
-> statement list STL;
-> @@
->
->  void reset_func(struct drm_plane *P)
->  {
->  =09<...
->  =09S =3D kzalloc_obj(*S);
-> (
-> -=09if (S)
-> -=09{
-> -=09=09STL
-> -=09}
-> +=09if (!S) return;
-> +
-> +=09STL
-> |
-> -=09if (S) ST
-> +=09if (!S) return;
-> +
-> +=09ST
-> )
-> =09...>
->  }
->
-> @transform_body depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier S, P;
-> expression PS;
-> @@
-> - void reset_func(struct drm_plane *P)
-> + struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> =09...
->  =09S =3D kzalloc_obj(*S);
-> =09...
-> (
->  =09if (!S) {
-> =09=09...
-> -=09=09return;
-> +=09=09return ERR_PTR(-ENOMEM);
->  =09}
-> |
->  =09if (WARN_ON(!S)) {
-> =09=09...
-> -=09=09return;
-> +=09=09return ERR_PTR(-ENOMEM);
->  =09}
-> |
->  =09if (S =3D=3D NULL) {
->  =09=09...
-> -=09=09return;
-> +=09=09return ERR_PTR(-ENOMEM);
->  =09}
-> )
-> =09...
-> (
-> -=09__drm_atomic_helper_plane_reset(P, PS);
-> +=09__drm_atomic_helper_plane_state_init(PS, P);
-> |
-> -=09__drm_gem_reset_shadow_plane(P, PS);
-> +=09__drm_gem_shadow_plane_state_init(P, PS);
-> )
-> =09...
-> }
->
-> @update_early_return depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> =09<+...
-> -=09return;
-> +=09return ERR_PTR(-EINVAL);
-> =09...+>
-> }
->
-> @update_return_plane depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> =09...
->  =09__drm_atomic_helper_plane_state_init(PS, P);
-> =09...
-> +
-> +=09return PS;
-> }
->
-> @update_return_shadow depends on update_struct@
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> =09...
->  =09__drm_gem_shadow_plane_state_init(P, PS);
-> =09...
-> +
-> +=09return &PS->base;
-> }
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
-> Cc: admin@kodeit.net
-> Cc: gargaditya08@proton.me
-> ---
->  drivers/gpu/drm/tiny/appletbdrm.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/app=
-letbdrm.c
-> index cdd35af49892..742478198111 100644
-> --- a/drivers/gpu/drm/tiny/appletbdrm.c
-> +++ b/drivers/gpu/drm/tiny/appletbdrm.c
-> @@ -497,21 +497,21 @@ static void appletbdrm_primary_plane_helper_atomic_=
-disable(struct drm_plane *pla
->  =09appletbdrm_clear_display(adev);
->
->  =09drm_dev_exit(idx);
->  }
->
-> -static void appletbdrm_primary_plane_reset(struct drm_plane *plane)
-> +static struct drm_plane_state *appletbdrm_primary_plane_create_state(str=
-uct drm_plane *plane)
->  {
->  =09struct appletbdrm_plane_state *appletbdrm_state;
->
-> -=09WARN_ON(plane->state);
-> -
->  =09appletbdrm_state =3D kzalloc_obj(*appletbdrm_state);
->  =09if (!appletbdrm_state)
-> -=09=09return;
-> +=09=09return ERR_PTR(-ENOMEM);
->
-> -=09__drm_gem_reset_shadow_plane(plane, &appletbdrm_state->base);
-> +=09__drm_gem_shadow_plane_state_init(plane, &appletbdrm_state->base);
-> +
-> +=09return &(&appletbdrm_state->base)->base;
->  }
->
->  static struct drm_plane_state *appletbdrm_primary_plane_duplicate_state(=
-struct drm_plane *plane)
->  {
->  =09struct drm_shadow_plane_state *new_shadow_plane_state;
-> @@ -559,11 +559,11 @@ static const struct drm_plane_helper_funcs appletbd=
-rm_primary_plane_helper_funcs
->  };
->
->  static const struct drm_plane_funcs appletbdrm_primary_plane_funcs =3D {
->  =09.update_plane =3D drm_atomic_helper_update_plane,
->  =09.disable_plane =3D drm_atomic_helper_disable_plane,
-> -=09.reset =3D appletbdrm_primary_plane_reset,
-> +=09.atomic_create_state =3D appletbdrm_primary_plane_create_state,
->  =09.atomic_duplicate_state =3D appletbdrm_primary_plane_duplicate_state,
->  =09.atomic_destroy_state =3D appletbdrm_primary_plane_destroy_state,
->  =09.destroy =3D drm_plane_cleanup,
->  };
->
->
-> --
-> 2.54.0
->
->
+So provide this in vma_end_pgoff() and update vma_last_pgoff() to use this
+function.
+
+Also update the VMA userland tests to reflect the change.
+
+No functional change intended.
+
+Reviewed-by: Gregory Price <gourry@gourry.net>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+---
+ include/linux/mm.h              | 19 ++++++++++++++++++-
+ tools/testing/vma/include/dup.h |  5 +++++
+ 2 files changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index abac72785277..c56ca22d406c 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4331,6 +4331,23 @@ static inline pgoff_t vma_start_pgoff(const struct vm_area_struct *vma)
+ 	return vma->vm_pgoff;
+ }
+ 
++/**
++ * vma_end_pgoff() - Get the page offset of the exclusive end of @vma
++ * @vma: The VMA whose end page offset is required.
++ *
++ * This returns the exclusive end page offset of @vma, which is useful for
++ * expressing page offset ranges.
++ *
++ * See the description of vma_start_pgoff() for a description of VMA page
++ * offsets.
++ *
++ * Returns: The exclusive end page offset of @vma.
++ */
++static inline pgoff_t vma_end_pgoff(const struct vm_area_struct *vma)
++{
++	return vma_start_pgoff(vma) + vma_pages(vma);
++}
++
+ /**
+  * vma_last_pgoff() - Get the page offset of the last page in @vma
+  * @vma: The VMA whose last page offset is required.
+@@ -4344,7 +4361,7 @@ static inline pgoff_t vma_start_pgoff(const struct vm_area_struct *vma)
+  */
+ static inline pgoff_t vma_last_pgoff(const struct vm_area_struct *vma)
+ {
+-	return vma_start_pgoff(vma) + vma_pages(vma) - 1;
++	return vma_end_pgoff(vma) - 1;
+ }
+ 
+ static inline unsigned long vma_desc_size(const struct vm_area_desc *desc)
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 668650067c7c..535747d7fee4 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1306,6 +1306,11 @@ static inline pgoff_t vma_start_pgoff(const struct vm_area_struct *vma)
+ 	return vma->vm_pgoff;
+ }
+ 
++static inline pgoff_t vma_end_pgoff(const struct vm_area_struct *vma)
++{
++	return vma_start_pgoff(vma) + vma_pages(vma);
++}
++
+ static inline int vfs_mmap_prepare(struct file *file, struct vm_area_desc *desc)
+ {
+ 	return file->f_op->mmap_prepare(desc);
+
+-- 
+2.55.0
+
