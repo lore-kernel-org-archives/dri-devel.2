@@ -4,59 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C36DC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 17:01:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1C33C44501
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 17:05:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E105C10E1F4;
-	Fri, 10 Jul 2026 17:01:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5216910E1FF;
+	Fri, 10 Jul 2026 17:05:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Q754yrp4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NM1IecHh";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6590B10E1F4
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 17:01:36 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gxdQk1wVwzKvvm;
- Fri, 10 Jul 2026 19:01:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1783702894;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=SKzHnlIZLuU1Xzuk8UDxJlC4nU1oQy2BzPSlzIVSSK0=;
- b=Q754yrp4hHbS7WTz4vrIm0drqEWhrSKv+2okAvi4W7B07sDTUWmh+g78x/WBI6PHnlJzY8
- CFDLZBnGsMIKQA6wsbmdZ/+twzoA/+zYZMi/HqLfvLMzP1VUZuUEkVXbBrbzFmoLL8mXEZ
- KJab2YheSWuYrHnJsaMQ9v4eqSBUIEciQCIHrD/DD57minzO62xpx3pvH2PmY7XxNadl4t
- q9z21u3fDMy7hH03qMjkBrVbz/PnyKoZ0Jg+7RTBs6FoqIl/jFC0msj+Bh/9L6ddZn8bnS
- DUqngSlSxrbDhxOIWy3P7wNzZGsXNyGHR7GeTpyCeQt8wRMgkT+8xEwcAibCLA==
-Message-ID: <fd3b9da8-6ccc-4730-b8ff-08cfcfa286a9@mailbox.org>
-Date: Fri, 10 Jul 2026 19:01:29 +0200
-MIME-Version: 1.0
-Subject: Re: [PATCH RFC 0/8] drm: Add DRM_MODE_ATOMIC_RESET flag
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Daniel Stone <daniels@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>, =?UTF-8?Q?Jonas_=C3=85dahl?=
- <jadahl@redhat.com>, Pekka Paalanen <pekka.paalanen@collabora.com>,
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
- Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl
- <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: f430b2d2da537883163
-X-MBO-RS-META: 5m4tntjbid6zrwgj6ur5y1fq18rhoma1
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C73F510E1FF
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 17:05:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7C3CC40452;
+ Fri, 10 Jul 2026 17:05:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 604251F000E9;
+ Fri, 10 Jul 2026 17:05:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783703120;
+ bh=YMBGzUxybwhqi32KPOh9yuc8Y63Bagid1WAti3xsC2w=;
+ h=Subject:From:In-Reply-To:References:Date:To:Cc;
+ b=NM1IecHh8kQ75zxqcII8zqEpAyWNl02pr27RdkM3+OZmdM9ow33OUs5g75UcJXjJH
+ 54+Gy+0GNM/EM+LWXGczrhxtNmtRu/s3CAaT883b1uq9+ZFkA68hStxOEAiRF2DH6R
+ 3ibWb7z25LBrgMGzNw6Uje4DvxK9m7MDQx/enimETsna6YHxUiUNPv9JRlgLdGmRVt
+ DWlsRWvHyq1ki45sWdLDL9ouHpKb1QbXN2qHlVoFiXCNCYDHnz0Ffie6XIBe+z/xbC
+ 8lNLG22SYIjZ9tV7VgUEEXQJ/9+rswLxI0Toifxr3VrnY16HQxFmB2lpuXs0XCHYpO
+ 9Fse3823Zl3lA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 56AE23924FB2; Fri, 10 Jul 2026 17:04:59 +0000 (UTC)
+Subject: Re: [git pull] drm fixes for 7.2-rc3
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <CAPM=9twH=ycBLJyS7eEkqYexViq_Bju6R=Hj-ev1yWGkeStntA@mail.gmail.com>
+References: <CAPM=9twH=ycBLJyS7eEkqYexViq_Bju6R=Hj-ev1yWGkeStntA@mail.gmail.com>
+X-PR-Tracked-List-Id: Direct Rendering Infrastructure - Development
+ <dri-devel.lists.freedesktop.org>
+X-PR-Tracked-Message-Id: <CAPM=9twH=ycBLJyS7eEkqYexViq_Bju6R=Hj-ev1yWGkeStntA@mail.gmail.com>
+X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
+ tags/drm-fixes-2026-07-10
+X-PR-Tracked-Commit-Id: 6763a0aea6d658d69b9215ab9151d7bd4c1c314b
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: ba0b7c62cea942cd0afa35a3768a9f4874874b2f
+Message-Id: <178370309791.779204.7836819456550114382.pr-tracker-bot@kernel.org>
+Date: Fri, 10 Jul 2026 17:04:57 +0000
+To: Dave Airlie <airlied@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,41 +67,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/8/26 18:08, Maxime Ripard wrote:
-> 
-> Userspace currently has no atomic way to bring a display pipeline back
-> to a pristine state. A compositor that wants to start from a known
-> baseline must explicitly set every property on every KMS object to its
-> default value, which requires tracking which properties exist and what
-> their defaults are. This is fragile and must be updated every time a
-> new property is added to the kernel.
-> 
-> This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
-> atomic ioctl. When set, the kernel fills the commit with default
-> states for all KMS objects before applying the properties supplied in
-> the request. Properties not explicitly included remain at their
-> defaults (CRTCs inactive, planes disabled, connectors unbound, and so
-> on). This allows userspace to describe the desired end state
-> declaratively, without having to care about the current state or the
-> full set of properties.
+The pull request you sent on Fri, 10 Jul 2026 15:00:53 +1000:
 
-Nice!
+> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-07-10
 
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/ba0b7c62cea942cd0afa35a3768a9f4874874b2f
 
-> Patch 8 wires it all up by adding DRM_MODE_ATOMIC_RESET to the atomic
-> ioctl.
-
-The new flag should be accompanied by a new DRM_CAP_* cap, so user space knows when the new flag is valid.
-
-
-> This series is untested and relies on all drivers implementing the
-> atomic_create_state hook, which is not yet the case. The conversion
-> is actively in progress but not complete, so this will not work as-is
-> today.
-
-As discussed on IRC, the new cap could be made conditional on the atomic_create_state hook being available. That would allow this series to land before all in-tree drivers are converted. (As a bonus, it would also avoid issues with out-of-tree drivers which might not support the atomic_create_state hook)
-
+Thank you!
 
 -- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
