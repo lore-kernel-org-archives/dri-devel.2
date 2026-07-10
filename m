@@ -4,74 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86F17C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 14:15:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70B3CC44506
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 14:19:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3A2C10E3C9;
-	Fri, 10 Jul 2026 14:15:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E436410E1A3;
+	Fri, 10 Jul 2026 14:19:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="DgpZKPIV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h0IPrYyR";
 	dkim-atps=neutral
-Received: from mail-wr1-f73.google.com (mail-wr1-f73.google.com
- [209.85.221.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C274710E3C9
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 14:15:11 +0000 (UTC)
-Received: by mail-wr1-f73.google.com with SMTP id
- ffacd0b85a97d-4767036f8faso605631f8f.3
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 07:15:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1783692910; x=1784297710;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=cZ/Rax3JtQ73njUkK4P8UwJJ63zTUvy1XJcf1ykx4E4=;
- b=DgpZKPIV2c+xCvVLi1mKMJKDQhq8Y/UBF9lVRKFRokY7ZBLibd4jKtYkWjDqY5Xsh2
- 4Ftbb15qs435BrPWOr65s5BoU9TqZvPT0n4DYnRVy+FLXlivElGOI2VDO/WZpfX9HtIA
- n/YVVHMYTUPWM7uuXLdzjH2/+uqA+kEEajFnyV3UWhgLWVOFk8lmjzr0W+8sX2bU20Fi
- H/dD1kYRd/5qgF2lpJTLL0dwjuwNNB/FG4JuV/fWeEx0aqvMy7Xv5B9OD/wBN69TpPds
- PI7Bk598TOl7ID9uT1bOdTUN2zaKJdVjWQCaF8Q0JHyjb9dYV51Qg4FiaYXI1QTXoEBc
- f70w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783692910; x=1784297710;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=cZ/Rax3JtQ73njUkK4P8UwJJ63zTUvy1XJcf1ykx4E4=;
- b=Dlc4XSd2MGhZgiLirA+oWb2JOP3k+dQWG8k7OgqkdR6aajFPcHWwJhP/0rA06Xatoc
- 16+OeZnai4vz9BWqQGtj8xSQsbPYBuvG/1uMLTlt+isXe0nqaUaA/IBrG2fsVe/HqQQA
- 2qyHei9e9CjQB8NCQ7XS3K0QA3p2bmb1SkuhWsspcT8wevOLbkpUAbKcSCORy1ONQJrI
- HYs1pYjmiFgEkvOpFF0Q6ViLWZNoLgvr4S71FZineMRrwFitkd2/UvMBCNThvnegkoho
- 829RU1Wjtkq9t3pxO6alhbGQT4zFRMm4lgBp5UGUHk9S0FZcifIXndxufudcAowT4B4F
- Lkjw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqfvAO/Q77eXo099BUa/Uvp24GWLyTbq1j5A1EMQtYlz+vYxIgivHlW3Ha62OI+ifiw8EtAu6Uf3JY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw6hbDOWqM6R4wHm4oWw0ED+qbArYRuMHWAI3TAXIHgFIhvTHuG
- Y8Q2HCnhPpLT1/IhPqIMUCNymRmqwXzCoaY55skVDf9O2oYx6FfNRdM+Cw+CuyHwiVFTfomYCqQ
- RZ837iFi4yGpVVWj/eQ==
-X-Received: from wrqt12.prod.google.com ([2002:a5d:460c:0:b0:463:dd19:ae30])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:24c2:b0:475:f100:360c with SMTP id
- ffacd0b85a97d-47df0822e2dmr12652945f8f.59.1783692909823; 
- Fri, 10 Jul 2026 07:15:09 -0700 (PDT)
-Date: Fri, 10 Jul 2026 14:15:09 +0000
-In-Reply-To: <20260709-fw-boot-b4-v6-4-ca391e1a4108@collabora.com>
-Mime-Version: 1.0
-References: <20260709-fw-boot-b4-v6-0-ca391e1a4108@collabora.com>
- <20260709-fw-boot-b4-v6-4-ca391e1a4108@collabora.com>
-Message-ID: <alD-bUuMS2913WJO@google.com>
-Subject: Re: [PATCH v6 4/7] drm/tyr: add GPU virtual memory (VM) support
-From: Alice Ryhl <aliceryhl@google.com>
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Benno Lossin <lossin@kernel.org>, 
- Gary Guo <gary@garyguo.net>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- boris.brezillon@collabora.com, samitolvanen@google.com, acourbot@nvidia.com, 
- alvin.sun@linux.dev, laura.nao@collabora.com, work@onurozkan.dev, 
- beata.michalska@arm.com, steven.price@arm.com, lyude@redhat.com
-Content-Type: text/plain; charset="utf-8"
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D45810E1A3;
+ Fri, 10 Jul 2026 14:19:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783693156; x=1815229156;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=5xqZRoVs04553QBmifkFy6kQq1W0V6AgofrU2LzY4b4=;
+ b=h0IPrYyRj6ZtNK0z8XXJgn5IcRVuC4zv6wJw6uqLdyySSqtPY2BXnuE2
+ RCIBVaAKEW48qQ5qotMHMKAJHADCttIv6eNY2wW2aEpniEygjQhKSG3YD
+ /n19SFiE3xKxGE0iWqi0/qIiqoqMgVPpdH2xgtFo5zFySWyibMjI8r0D3
+ jMXcJWQ2o07AuhFHxZnZ/TLZ/iyKFhvgyHuBgQ+agE15EewpfJquzueWE
+ wf8khPHeaklkLK5Vp3ifG6DqeKgQxzxqZRnOja2jtHwi3qt5bNdQdHndP
+ PQe8scmjO6U6NCpJr7FkB79S1KOaImtMAr/Fwq3vwVDg+A54KihLIXNv6 g==;
+X-CSE-ConnectionGUID: rpDZlTWsTviJ1vezBcALKQ==
+X-CSE-MsgGUID: 8VooMGfkR4WobwifIGADug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88221517"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="88221517"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2026 07:19:16 -0700
+X-CSE-ConnectionGUID: 39XakDziQVK2bUUHMr0pDQ==
+X-CSE-MsgGUID: rYgknKpmSgCro8CFVSEccw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="250909834"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.208])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2026 07:19:14 -0700
+Date: Fri, 10 Jul 2026 17:19:12 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Maarten Lankhorst <dev@lankhorst.se>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 10/10] drm/i915/display: Do not take uncore lock in
+ i915_get_vblank_counter
+Message-ID: <alD_YJbOxdRUJTQZ@intel.com>
+References: <20260702072154.171324-1-dev@lankhorst.se>
+ <20260702072154.171324-11-dev@lankhorst.se>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260702072154.171324-11-dev@lankhorst.se>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,169 +75,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 09, 2026 at 02:36:44PM -0700, Deborah Brouwer wrote:
-> From: Boris Brezillon <boris.brezillon@collabora.com>
+On Thu, Jul 02, 2026 at 09:21:53AM +0200, Maarten Lankhorst wrote:
+> This fixes a lockdep splat that occurs in the code that should be run
+> with interrupts disabled. The uncore and DMC locks should not be taken
+> and released repeatedly in a timing sensitive path.
 > 
-> Add GPU virtual address space management using the DRM GPUVM framework.
-> Each virtual memory (VM) space is backed by ARM64 LPAE Stage 1 page tables
-> and can be mapped into hardware address space (AS) slots for GPU execution.
+> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+> ---
+>  drivers/gpu/drm/i915/display/intel_de.h       |  8 ++++++
+>  drivers/gpu/drm/i915/display/intel_vblank.c   |  4 +--
+>  drivers/gpu/drm/i915/intel_uncore.h           | 26 +++++++++++++------
+>  .../drm/xe/compat-i915-headers/intel_uncore.h |  7 +++++
+>  4 files changed, 35 insertions(+), 10 deletions(-)
 > 
-> The implementation provides memory isolation and virtual address
-> allocation. VMs support mapping GEM buffer objects with configurable
-> protection flags (readonly, noexec, uncached) and handle both 4KB and 2MB
-> page sizes. A new_dummy_object() helper is provided to create a dummy GEM
-> object for use as a GPUVM root.
-> 
-> The vm module integrates with the MMU for address space activation and
-> provides map/unmap/remap operations with page table synchronization.
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-
-> +impl core::fmt::Display for VmMapFlags {
-
-Use kernel::fmt instead of core::fmt.
-
-> +impl TryFrom<u32> for VmMapFlags {
-> +    type Error = Error;
+> diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
+> index 1029790194296..497a308322847 100644
+> --- a/drivers/gpu/drm/i915/display/intel_de.h
+> +++ b/drivers/gpu/drm/i915/display/intel_de.h
+> @@ -65,6 +65,14 @@ intel_de_read64_2x32(struct intel_display *display, intel_reg_t reg)
+>  	return (u64)upper << 32 | lower;
+>  }
+>  
+> +static inline u64
+> +intel_de_read64_2x32_fw(struct intel_display *display,
+> +			i915_reg_t lower_reg, i915_reg_t upper_reg)
+> +{
+> +	return intel_uncore_read64_2x32_fw(__to_uncore(display),
+> +					   lower_reg, upper_reg);
+> +}
 > +
-> +    fn try_from(value: u32) -> core::result::Result<Self, Self::Error> {
+>  static inline void
+>  intel_de_posting_read(struct intel_display *display, intel_reg_t reg)
+>  {
+> diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
+> index c0cc0a4c25dbe..5ca22899055d7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vblank.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+> @@ -109,8 +109,8 @@ u32 i915_get_vblank_counter(struct drm_crtc *crtc)
+>  	 * we get a low value that's stable across two reads of the high
+>  	 * register.
+>  	 */
+> -	frame = intel_de_read64_2x32_volatile(display, PIPEFRAMEPIXEL(display, pipe),
+> -					      PIPEFRAME(display, pipe));
+> +	frame = intel_de_read64_2x32_fw(display, PIPEFRAMEPIXEL(display, pipe),
+> +				        PIPEFRAME(display, pipe));
 
-Simplifies to Result<Self, Self::Error> without full path.
+This is the only user of intel_de_read64_2x32_volatile() and it
+doesn't need any locking/wakelocks/etc so we should just convert
+intel_de_read64_2x32_volatile() into intel_de_read64_2x32_volatile_fw().
+And we should just skip the uncore dependency (so that we'll have one 
+less thing to worry about later) so I'd just implement it directly in
+intel_de.[ch] in terms of intel_de_read_fw().
 
-> +        let valid = (kernel::uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_READONLY
-> +            | kernel::uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC
-> +            | kernel::uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED)
-> +            as u32;
-
-Simplifies to
-
-	let valid = Self::Readonly as u32 | Self::Noexec as u32 | Self::Uncached as u32;
-
-> +impl Drop for PtUpdateContext<'_, '_> {
-> +    fn drop(&mut self) {
-> +        if let Err(e) = self.mmu.end_vm_update(self.as_data) {
-> +            pr_err!("Failed to end VM update {:?}\n", e);
-> +        }
+>  
+>  	pixel = frame & PIPE_PIXEL_MASK;
+>  	frame = (frame >> PIPE_FRAME_LOW_SHIFT) & 0xffffff;
+> diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
+> index fafc2ca9a2376..507398a562649 100644
+> --- a/drivers/gpu/drm/i915/intel_uncore.h
+> +++ b/drivers/gpu/drm/i915/intel_uncore.h
+> @@ -449,13 +449,28 @@ static inline void intel_uncore_rmw_fw(struct intel_uncore *uncore,
+>  		intel_uncore_write_fw(uncore, reg, val);
+>  }
+>  
+> +static inline u64
+> +intel_uncore_read64_2x32_fw(struct intel_uncore *uncore,
+> +			    i915_reg_t lower_reg, i915_reg_t upper_reg)
+> +{
+> +	u32 upper, lower, old_upper, loop = 0;
+> +	upper = intel_uncore_read_fw(uncore, upper_reg);
+> +	do {
+> +		old_upper = upper;
+> +		lower = intel_uncore_read_fw(uncore, lower_reg);
+> +		upper = intel_uncore_read_fw(uncore, upper_reg);
+> +	} while (upper != old_upper && loop++ < 2);
 > +
-> +        if let Err(e) = self.mmu.flush_vm(self.as_data) {
-> +            pr_err!("Failed to flush VM {:?}\n", e);
-> +        }
-
-I assume it's not possible for this to run during a VM eviction, right?
-
-> +        let gpuvm_unique = kernel::drm::gpuvm::GpuVm::new::<Error, _>(
-> +            c_str!("Tyr::GpuVm"),
-
-This can just be c"Tyr::GpuVm". The macro is only needed in macro
-contexts where this rewrite is not possible e.g. because the macro's
-caller provides a non-c str literal.
-
-> +        let mut gpuvm_unique = self.gpuvm_unique.lock();
+> +	return (u64)upper << 32 | lower;
+> +}
 > +
-> +        self.exec_op(gpuvm_unique.as_mut().get_mut(), req, &mut resources)?;
+>  static inline u64
+>  intel_uncore_read64_2x32(struct intel_uncore *uncore,
+>  			 i915_reg_t lower_reg, i915_reg_t upper_reg)
+>  {
+> -	u32 upper, lower, old_upper, loop = 0;
+>  	enum forcewake_domains fw_domains;
+>  	unsigned long flags;
+> +	u64 ret;
+>  
+>  	fw_domains = intel_uncore_forcewake_for_reg(uncore, lower_reg,
+>  						    FW_REG_READ);
+> @@ -466,17 +481,12 @@ intel_uncore_read64_2x32(struct intel_uncore *uncore,
+>  	spin_lock_irqsave(&uncore->lock, flags);
+>  	intel_uncore_forcewake_get__locked(uncore, fw_domains);
+>  
+> -	upper = intel_uncore_read_fw(uncore, upper_reg);
+> -	do {
+> -		old_upper = upper;
+> -		lower = intel_uncore_read_fw(uncore, lower_reg);
+> -		upper = intel_uncore_read_fw(uncore, upper_reg);
+> -	} while (upper != old_upper && loop++ < 2);
+> +	ret = intel_uncore_read64_2x32_fw(uncore, lower_reg, upper_reg);
+>  
+>  	intel_uncore_forcewake_put__locked(uncore, fw_domains);
+>  	spin_unlock_irqrestore(&uncore->lock, flags);
+>  
+> -	return (u64)upper << 32 | lower;
+> +	return ret;
+>  }
+>  
+>  static inline int intel_uncore_write_and_verify(struct intel_uncore *uncore,
+> diff --git a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
+> index 08d7ab9336725..764bc94044537 100644
+> --- a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
+> +++ b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
+> @@ -74,6 +74,13 @@ intel_uncore_read64_2x32(struct intel_uncore *uncore,
+>  	return (u64)upper << 32 | lower;
+>  }
+>  
+> +static inline u64
+> +intel_uncore_read64_2x32_fw(struct intel_uncore *uncore,
+> +			    i915_reg_t i915_lower_reg, i915_reg_t i915_upper_reg)
+> +{
+> +	return intel_uncore_read64_2x32(uncore, i915_lower_reg, i915_upper_reg);
+> +}
 > +
-> +        // We flush the defer cleanup list now. Things will be different in
-> +        // the asynchronous VM_BIND path, where we want the cleanup to
-> +        // happen outside the DMA signalling path.
-> +        self.gpuvm.deferred_cleanup();
+>  static inline void intel_uncore_posting_read(struct intel_uncore *uncore,
+>  					     i915_reg_t i915_reg)
+>  {
+> -- 
+> 2.53.0
 
-You should probably release the gpuvm_unique mutex before invoking
-deferred_cleanup().
-
-(Multiple occurances in this patch.)
-
-> +            if gem_offset > 0 {
-> +                // Skip the entire SGT entry if the gem_offset exceeds its length
-> +                let skip = sgt_entry_length.min(gem_offset);
-
-Nit: this may just be my idiosyncrasy, but I think this is more readable as:
-
-	usize::min(sgt_entry_length, gem_offset)
-
-(Multiple occurances in this file.)
-
-> +            let segment_mapped = match pt_map(context.pt, iova, paddr, len, prot) {
-> +                Ok(segment_mapped) => segment_mapped,
-> +                Err(e) => {
-> +                    // clean up any successful mappings from previous SGT entries.
-> +                    let total_mapped = iova - start_iova;
-> +                    if total_mapped > 0 {
-> +                        pt_unmap(context.pt, start_iova..(start_iova + total_mapped)).ok();
-
-Nit: the idiomatic way to ignore errors is to write:
-
-	let _ = pt_unmap(context.pt, start_iova..(start_iova + total_mapped));
-
-instead of converting the Result into an Option with .ok() and abusing
-the fact that Option is not #[must_use].
-
-> +/// This function selects the largest supported block size (currently 4KB or 2MB)
-> +/// that can be used for a mapping at the given address and size, respecting alignment constraints.
-> +///
-> +/// We can map multiple pages at once but we can't exceed the size of the
-> +// table entry itself. So, if mapping 4KB pages, figure out how many pages
-> +// can be mapped before we hit the 2MB boundary. Or, if mapping 2MB pages,
-> +// figure out how many pages can be mapped before hitting the 1GB boundary
-> +// Returns the page size (4KB or 2MB) and the number of pages that can be mapped at that size.
-> +fn get_pgsize(addr: u64, size: u64) -> (u64, u64) {
-
-Some of these comments are missing a / character.
-
-> +        // SAFETY: Exclusive access to the page table is ensured because
-> +        // the pt reference comes from PtUpdateContext, which is created
-> +        // during a VM update operation, ensuring the driver does not concurrently
-> +        // modify the page table.
-> +        let (mapped, result) = unsafe {
-> +            pt.map_pages(
-> +                curr_iova as usize,
-> +                (curr_paddr as usize).try_into().unwrap(),
-> +                pgsize as usize,
-> +                pgcount as usize,
-> +                prot,
-> +                GFP_KERNEL,
-> +            )
-> +        };
-
-It would be ideal if this SAFETY comment explains why this safety
-requirement is satisfied:
-
-	This page table must not contain any mapping that overlaps with
-	the mapping created by this call.
-
-(It's because GPUVM tells you to unmap pages before it tells you to map
-them.)
-
-> +/// Unmaps a virtual address range from the page table.
-> +///
-> +/// This function removes all page table entries in the specified range,
-> +/// automatically handling different page sizes that may be present.
-> +fn pt_unmap(pt: &IoPageTable<'_, ARM64LPAES1>, range: Range<u64>) -> Result {
-> +    let mut iova = range.start;
-> +    let mut bytes_left_to_unmap = range.end - range.start;
-> +
-> +    while bytes_left_to_unmap > 0 {
-> +        let (pgsize, pgcount) = get_pgsize(iova, bytes_left_to_unmap);
-> +
-> +        // SAFETY: Exclusive access to the page table is ensured because
-> +        // the pt reference comes from PtUpdateContext, which was
-> +        // created while holding &mut Vm, preventing any other access to the
-> +        // page table for the duration of this operation.
-> +        let unmapped = unsafe { pt.unmap_pages(iova as usize, pgsize as usize, pgcount as usize) };
-
-It would be ideal if this SAFETY comment explains why this safety
-requirement is satisfied:
-
-	This page table must contain one or more consecutive mappings
-	starting at `iova` whose total size is `pgcount * pgsize`.
-
-I.e. why can we be sure that this call isn't trying to unmap a 4KB
-sub-page in something that exists as a 2MB mapping in the page table?
-
-(It's because GPUVM tells you to unmap exactly the range you were
-previously told to map.)
-
-Alice
+-- 
+Ville Syrjälä
+Intel
