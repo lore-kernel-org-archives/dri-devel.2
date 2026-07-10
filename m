@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC399C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:09:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C952FC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:10:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4648910E257;
-	Fri, 10 Jul 2026 22:09:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2466C10E25F;
+	Fri, 10 Jul 2026 22:10:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UspnoMUv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z/Z0f5d+";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C09D10E257
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 22:09:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 753E410E25F
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 22:10:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4A01D60051;
- Fri, 10 Jul 2026 22:09:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA20F1F00A3F;
- Fri, 10 Jul 2026 22:09:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E67CC60051;
+ Fri, 10 Jul 2026 22:10:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D1341F000E9;
+ Fri, 10 Jul 2026 22:10:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783721397;
- bh=PbEJbmE+3OpwrcSIRHi/iCSzwFLDR7nTrwOM9ZOs86E=;
+ s=k20260515; t=1783721438;
+ bh=o5jzU6v6Gpc2S1GCyr1+7gYiKIp+GopzRcaHmLzMUM4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UspnoMUvXEmpLDyFK7L46VszC4Zgey3h0IPIqaAEcC1DviqjsUXe3+xP2S7jftaZe
- zwKFEnR3MYz5bhjHqrSVNnZU+zxq34H0wK9uZnH3B5YlMI3FW2+KCTSskj/GcasNOy
- L0MfWzER9lBDVedIGUANHw372RCIJqAEvxExdq3Zyv5mCJDPfrnSwxOsHmgcfrVhWj
- qobvHXLaWnc5Rvbxmp/zGK03u9AzKxenmQJYJ53PfmNzXnpJ0luPWrBT5bVp97Ufb1
- KI3Eu3K4mXIX3gYdmX4C/agE+vbGKJ2ezCdfQCK1bZXP4J+YCn3myTzkq5FK8o+ogI
- 9Yr75efcJalbw==
+ b=Z/Z0f5d+67SQw8njERPltHUs/E9ebuG2q2xpmAoJnNjZJGpxFuArfAfKz156HG8n7
+ GJ7aa1gRuZp/LM61dy9pO2Qc6nyAlDbskEkXGuoJxZhYgN7bh2YuZp/xDsa9yYRdpN
+ tOSzbg1FJa7eUg2GKBkQ4XwyigYujOVEmDLdg3MH5qZRNzEKxei+2fFIfUUza0ymIC
+ zNBbY0ZZrUawdD9vXxTPeKXwuuzhrR3/7LmvSbDKvu4nTq815euPcmWb+jN1piigr0
+ h8O9OTv3eEfAmRdmyuErF4k55RddJVZ6wicU4Um6Vt/ESaCEgAxdeeRGBV8E75G2pk
+ RzB6WAicQns3g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 05/33] drm/ttm: Support defragmentation moves
+Subject: Re: [PATCH v2 11/33] drm/gpusvm: Add a DMA-mapping accounting callback
 To: "Matthew Brost" <matthew.brost@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260710215442.2444235-6-matthew.brost@intel.com>
+In-Reply-To: <20260710215442.2444235-12-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
- <20260710215442.2444235-6-matthew.brost@intel.com>
+ <20260710215442.2444235-12-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 22:09:56 +0000
-Message-Id: <20260710220956.CA20F1F00A3F@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 22:10:38 +0000
+Message-Id: <20260710221038.7D1341F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,69 +57,131 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Critical] A defragmentation move that requires an intermediate bounce bu=
-ffer (returns -EMULTIHOP) permanently leaks the original ttm_tt, loses user=
- data, and exposes uninitialized memory.
+
+Pre-existing issues:
+- [High] Device memory mappings are leaked on the error path because `dpage=
+map` is not yet stored in `svm_pages`.
+- [High] Reading uninitialized memory (`svm_pages->dma_addr[0].dir`) when u=
+nwinding an IOVA allocation failure.
+- [High] System pages are incorrectly routed to `device_unmap` during unmap=
+ping of mixed ranges when IOVA is used.
 --
 
---- Patch [5]: [PATCH v2 05/33] drm/ttm: Support defragmentation moves ---
-commit 4cef86e1c4adcce1b49f5be21dce811803bbfbeb
-Author: Matthew Brost <matthew.brost@intel.com>
+--- Patch [11]: [PATCH v2 11/33] drm/gpusvm: Add a DMA-mapping accounting c=
+allback ---
+commit 98db73f178129cc5ccc6277eaada197044dfbd3b
+Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-drm/ttm: Support defragmentation moves
+drm/gpusvm: Add a DMA-mapping accounting callback
 
-Add infrastructure to let a driver re-back an already-resident BO with
-fresh pages (e.g. at a more beneficial order) by reusing the normal move
-machinery.
+This commit adds an optional @dma_map_account callback to struct
+drm_gpusvm_ops to track mapped pages. It is invoked during mapping and
+unmapping to keep symmetric accounting. It also relaxes drm_gpusvm_init() to
+allow restricted ops without full-SVM mode.
 
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index 3980f376e3ba4..d05da4eb1d8a4 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-
-[ ... ]
-
-> @@ -125,36 +125,93 @@ static int ttm_bo_handle_move_mem(struct ttm_buffer=
-_object *bo,
+> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+> index fcfe635bc1956..512f52471419e 100644
+> --- a/drivers/gpu/drm/drm_gpusvm.c
+> +++ b/drivers/gpu/drm/drm_gpusvm.c
 
 [ ... ]
 
-> +	if (defrag)
-> +		ttm_bo_unmap_virtual(bo);
-> +
->  	ret =3D bdev->funcs->move(bo, evict, ctx, mem, hop);
->  	if (ret) {
->  		if (ret =3D=3D -EMULTIHOP)
->  			return ret;
+> @@ -1246,6 +1253,8 @@ static void __drm_gpusvm_unmap_pages(struct drm_gpu=
+svm *gpusvm,
+>  			else if (dpagemap && dpagemap->ops->device_unmap)
+>  				dpagemap->ops->device_unmap(dpagemap,
+>  							    dev, addr);
 
-[Severity: Critical]
-Does returning here directly skip restoring the original backing?
+[Severity: High]
+This isn't a bug introduced by this patch, but can this leak device memory
+mappings on the error path?
 
-If bdev->funcs->move() returns -EMULTIHOP during a defragmentation move, we
-return immediately instead of going to out_err. This leaves bo->ttm pointing
-to the new unpopulated TT, and bo->defrag_old_tt holding the original
-populated TT.
+In drm_gpusvm_get_pages(), if an error occurs after successfully mapping
+one or more device pages, the code jumps to err_unmap and calls
+__drm_gpusvm_unmap_pages().
 
-When ttm_bo_validate() subsequently handles the multi-hop by calling
-ttm_bo_bounce_temp_buffer(), it passes the same ctx where ctx->defrag is
-still true.
+However, svm_pages->dpagemap is purposefully only updated after the mapping
+loop completes successfully. During the early error unwind, it remains NULL.
 
-Will the nested ttm_bo_handle_move_mem() misclassify this bounce as another
-defrag move and stash the empty bo->ttm into bo->defrag_old_tt? This appears
-to overwrite the original TT, permanently leaking it and resulting in the
-loss of user data while exposing uninitialized memory.
+Because of this, in __drm_gpusvm_unmap_pages():
 
->  		goto out_err;
->  	}
+    struct drm_pagemap *dpagemap =3D svm_pages->dpagemap;
+
+The dpagemap evaluated here will be NULL, causing this else if condition to
+fail and completely bypassing the unmap callback for all successfully mapped
+device pages in that chunk.
+
+[Severity: High]
+This is also a pre-existing issue, but could this incorrectly unmap system
+pages as device pages in a mixed chunk?
+
+In drm_gpusvm_get_pages(), if a chunk has a mix of device and system pages
+(ctx->allow_mixed is true) and IOVA is used:
+
+When iterating over the pages in __drm_gpusvm_unmap_pages(), system pages w=
+ill
+have addr->proto =3D=3D DRM_INTERCONNECT_SYSTEM. However, if use_iova is tr=
+ue, the
+previous condition:
+
+    if (!use_iova && addr->proto =3D=3D DRM_INTERCONNECT_SYSTEM)
+        dma_unmap_page(...)
+
+will evaluate to false.
+
+Execution then falls through to this else if branch. If a previous device p=
+age
+set dpagemap, it will inappropriately call dpagemap->ops->device_unmap() on=
+ the
+system page.
+
+> +			if (gpusvm->ops && gpusvm->ops->dma_map_account)
+> +				gpusvm->ops->dma_map_account(gpusvm, addr, -1);
+>  			i +=3D 1 << addr->order;
+>  		}
 > =20
-> +	if (bo->defrag_old_tt) {
-> +		ttm_tt_unpopulate(bo->bdev, bo->defrag_old_tt);
-> +		ttm_tt_destroy(bo->bdev, bo->defrag_old_tt);
-> +		bo->defrag_old_tt =3D NULL;
-> +	}
+
+[ ... ]
+
+> @@ -1654,6 +1663,10 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+>  				(addr, DRM_INTERCONNECT_SYSTEM, order,
+>  				 dma_dir);
+>  		}
+> +		if (gpusvm->ops && gpusvm->ops->dma_map_account)
+> +			gpusvm->ops->dma_map_account(gpusvm,
+> +						     &svm_pages->dma_addr[j],
+> +						     1);
+
+[Severity: High]
+This is a pre-existing issue, but is it possible to read uninitialized memo=
+ry
+here if the first page mapping fails?
+
+In drm_gpusvm_get_pages(), svm_pages->dma_addr is allocated via
+kvmalloc_objs() without zero-initialization.
+
+If an error occurs on the very first page (i =3D 0), such as an IOVA alloca=
+tion
+failure, the code jumps to err_unmap with num_dma_mapped =3D 0, and
+__drm_gpusvm_unmap_pages() is called with npages =3D 0.
+
+Inside __drm_gpusvm_unmap_pages(), if dma_use_iova(&svm_pages->state) is tr=
+ue,
+it will unconditionally call:
+
+    dma_iova_destroy(dev, &svm_pages->state,
+             svm_pages->state_offset,
+             svm_pages->dma_addr[0].dir, 0);
+
+Since npages =3D 0, svm_pages->dma_addr[0] was never initialized, leading to
+svm_pages->dma_addr[0].dir being read from uninitialized heap memory.
+
+>  		i +=3D 1 << order;
+>  		num_dma_mapped =3D i;
+>  		flags.has_dma_mapping =3D true;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710215442.2444=
-235-1-matthew.brost@intel.com?part=3D5
+235-1-matthew.brost@intel.com?part=3D11
