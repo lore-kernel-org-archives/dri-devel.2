@@ -4,130 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E315C44501
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1913DC43458
 	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D9A910E801;
-	Mon, 13 Jul 2026 07:10:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FAE810E7F4;
+	Mon, 13 Jul 2026 07:10:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="XLmlvWXI";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="DQ0k1SsW";
 	dkim-atps=neutral
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com
- [209.85.160.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 000A110E229
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 20:49:05 +0000 (UTC)
-Received: by mail-qt1-f180.google.com with SMTP id
- d75a77b69052e-51c2a76536bso12443081cf.1
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 13:49:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1783716545; x=1784321345; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=fM3Bw1AZy4lAkPPHaL59OrI7vB0RIP/keCGdI0vS7tk=;
- b=XLmlvWXIaMsCCd1uhLr+2QtTxzhJlXPTK/U9Cfk7YOh6xWRQhSQDA4oo6trq164wC3
- ZgdKQiBgkP2Y+nGw9BUa+uBcM2ok6apnIIJHdxVCqt4JdIgrFKuAk9qmP19+IVqyLsEM
- dQvBRW5poyD+rupTV83/sYp3TkFaqrhGq0ZH2xd7F9AqM1+B3Qa7W7d2jnb6qN/QUQdI
- hLD/EZuMfY6GJ0UuPWY6arduQqqM7HGtdOdaJbBbYT8qGEl+hlc5Eziug0SzPWSXtvCU
- TiM8msF5sufgQlcYf1sxnciQnZiQItxJFWW2PvGWG1dn6AyQLbUTp7T7+c+d4SzQKy0M
- XGPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783716545; x=1784321345;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=fM3Bw1AZy4lAkPPHaL59OrI7vB0RIP/keCGdI0vS7tk=;
- b=sIkw5To03bhyREsj28scgd/sEFgyTt27jd6ubiQPwI42ZAXOPqRKJTqMfgkY2cc95n
- Qt/a1tDOCY5UYjD+90Wk1t6gXKH8RFi/Cbn0Ti2mYYoTwBFqtCDSMX5lzP4cecsBm0YS
- Usux1UQ3uJWNEO/dDzpkkGiPbUb8qo4qAu2NxNFU2QqYo43V1eXqeF4o0kyfOwoVCsX7
- Hn0f6mHSXDPr5jIHU3edHUjGrXF99clzNLoR9jKDZ97hxADS8OrLKcn8V5yv35YFqkhX
- IiiURQb9Cp/85HRbZntCgPbC4kBSUCSnRtjD66onPXzsJv5yC6w7hjABaXDsPFBkg9jj
- fUMA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RreN0kROpQ8JyPlZZHOcjoWI4y9vdVwXcrhWCR5irfRGYHHifuqgQIp6Wm8t9hI/P3bCTGU5uL91iY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxSnmH0q1ypUeASCvfzI9AvNVAwMblb2muqYVHm8X0lQpr6iGgY
- 0f7bcP8ALUHnTPPPyZKp2n12GnzqCXkrKTcCe+NvE2DfLD+XdUwFyIIG0LPWRUztwM8=
-X-Gm-Gg: AfdE7cnHbqNFul6SJ/KamLJuNACMkQr6dHTwbIqNmx4bHWLfUJ/nh7cHUYrBy9QDY/X
- 1Ew4sHHbA243fyNgu418E7HKH3uakbsJfXhBONeIhayF/0EHL+GdWNSCwOFPoD1vgFxWy3drTqV
- eqGVXH4MANJRZZilfP2rkNM+ISyOh4weq1WiFos6ZJGYRAAfpF1TvL6m2iroSwky2glMZbb3eJB
- GqhxSMWKbGmOrIbd81ofLJm0Cmf5tGmiTx/bVR0QUwlOiqQy7/0wAiqabhRvWpi5VfggkZIAuQe
- ecDNUpx0c2DGeKxmJFp6qFfTKGBN2SJ+0R9FG6YSW7eJIeyQlWbAvyYLfimD/qHkLhogJLqxShW
- 3ltTijKTZrzoUth01grIuoRJA5UvoLnc09AFPHDNAlPpQMPzOxIAN85megbiYtJvnbJJG/tZarH
- tIFrsmWRKwKoy1qA95iSU5Pxk15ovaXZ4LFA7cxL1Kfo5NUffgeply1UdvoS7Jp9gg7FiI
-X-Received: by 2002:a05:622a:15c4:b0:51c:7b11:41a3 with SMTP id
- d75a77b69052e-51cbf361a3bmr5658901cf.80.1783716544856; 
- Fri, 10 Jul 2026 13:49:04 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F
- (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-51caaf5f61csm24147321cf.22.2026.07.10.13.49.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 13:49:04 -0700 (PDT)
-Date: Fri, 10 Jul 2026 16:48:58 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
- Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
- linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 30/30] tools/testing/vma: output compared expression on
- ASSERT_[EQ, NE]()
-Message-ID: <alFausURKttxHUAI@gourry-fedora-PF4VCD3F>
-References: <cover.1782735110.git.ljs@kernel.org>
- <432444fa4c12ae1c4047550e2b205d3e9bab458f.1782735110.git.ljs@kernel.org>
+Received: from mail-244103.protonmail.ch (mail-244103.protonmail.ch
+ [109.224.244.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47C6110E605
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 16:40:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail; t=1783701603; x=1783960803;
+ bh=W/GsfKPOaZSLDS+A7YXLVD02wrpyt4Mu3bl9AWPnlJI=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=DQ0k1SsWEv8zgcrJFrmXkesNbUCPOw13dfWiyV+Ym9suMYV27HFthkUifJFUEt6Oc
+ C1FVruyabty+KEMZzJIjkVWaAUroqZipso7kKO8An/mGlT8DsBwurr8eutf+4841bn
+ 3q36QDuCkXz+ThcUPSrKvLQnCiwof0fPu9ezkbvTKz4YmHoHAjNedTH0LrSmIRGnON
+ 8hy+lI/K+tgtR/AzcQYo+I0OGoyksjBBnO9xl21XTmtMRQLJXhD1Awcp6t5WXedaO6
+ Rmwbgh8azdYgljgu5HPcr75nB0hjbmjrQQXBetwnxx6GyQkQ7hwUGhl2A1vqlnLGBO
+ bioifTYuqT0Jw==
+Date: Fri, 10 Jul 2026 16:39:57 +0000
+To: Maxime Ripard <mripard@kernel.org>
+From: Aditya Garg <gargaditya08@proton.me>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ admin@kodeit.net
+Subject: Re: [PATCH 10/60] drm/appletbdrm: Convert to atomic_create_state
+Message-ID: <z0B1fK_tCddwbXPhrtdbaFsc0NW7GFsKair7OQgyayEFkVtPegjPJJTzTHGuPqVjFOFDK_TtAr5Jployn7WW2u9wSBO-EnYoBglVQwOYem4=@proton.me>
+In-Reply-To: <20260709-drm-no-more-plane-reset-v1-10-302d986fe5f0@kernel.org>
+References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
+ <20260709-drm-no-more-plane-reset-v1-10-302d986fe5f0@kernel.org>
+Feedback-ID: 145777226:user:proton
+X-Pm-Message-ID: 17797ba9b4727fef5549ba068fe17633bf12f0de
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <432444fa4c12ae1c4047550e2b205d3e9bab458f.1782735110.git.ljs@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,82 +61,334 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:41PM +0100, Lorenzo Stoakes wrote:
-> -#define ASSERT_TRUE(_expr)						\
-> -	do {								\
-> -		if (!(_expr)) {						\
-> -			fprintf(stderr,					\
-> -				"Assert FAILED at %s:%d:%s(): %s is FALSE.\n", \
-> -				__FILE__, __LINE__, __FUNCTION__, #_expr); \
-> -			return false;					\
-> -		}							\
-> +#define __ASSERT_TRUE(_expr, _fmt, ...)					   \
-> +	do {								   \
-> +		if (!(_expr)) {						   \
-> +			fprintf(stderr,					   \
-> +				"Assert FAILED at %s:%d:%s(): %s is FALSE" \
-> +				_fmt ".\n",				   \
-> +				__FILE__, __LINE__, __FUNCTION__, #_expr   \
-> +				__VA_OPT__(,) __VA_ARGS__);		   \
-> +			return false;					   \
-> +		}							   \
->  	} while (0)
-> 
-> +#define __TO_SCALAR(x)	((unsigned long long)(uintptr_t)(x))
+Acked-by: Aditya Garg <gargaditya08@proton.me>
+
+On Thursday, 9 July 2026 at 5:21 PM, Maxime Ripard <mripard@kernel.org> wro=
+te:
+
+> The plane reset implementation creates a custom state subclass, but
+> only initializes a pristine state without resetting any hardware. This
+> is equivalent to what atomic_create_state expects. Convert to it.
+>
+> The conversion was done using the following Coccinelle semantic patch:
+>
+> @@
+> identifier funcs;
+> symbol drm_atomic_helper_plane_reset;
+> symbol drm_atomic_helper_plane_create_state;
+> @@
+>
+> struct drm_plane_funcs funcs =3D {
+>   ...,
+> - .reset =3D drm_atomic_helper_plane_reset,
+> + .atomic_create_state =3D drm_atomic_helper_plane_create_state,
+>   ...,
+> };
+>
+> @match_struct_reset@
+> identifier funcs, reset_func;
+> @@
+> struct drm_plane_funcs funcs =3D {
+>     ...,
+>     .reset =3D reset_func,
+>     ...,
+> };
+>
+> @reset_uses_helpers depends on match_struct_reset@
+> identifier match_struct_reset.reset_func;
+> @@
+>
+>  void reset_func(...)
+>  {
+>  =09<+...
+> (
+>  =09__drm_atomic_helper_plane_reset(...);
+> |
+> =09__drm_gem_reset_shadow_plane(...);
+> )
+>  =09...+>
+>  }
+>
+> @match_struct_destroy@
+> identifier funcs, destroy_func;
+> @@
+> struct drm_plane_funcs funcs =3D {
+>     ...,
+>     .atomic_destroy_state =3D destroy_func,
+>     ...,
+> };
+>
+> @script:python renamed_func@
+> old_name << match_struct_reset.reset_func;
+> new_name;
+> @@
+> if old_name.endswith("_reset"):
+>     coccinelle.new_name =3D old_name.replace("_reset", "_create_state")
+> else:
+>     coccinelle.new_name =3D old_name
+>
+> @update_struct depends on match_struct_reset && reset_uses_helpers@
+> identifier match_struct_reset.funcs, match_struct_reset.reset_func;
+> identifier renamed_func.new_name;
+> @@
+> struct drm_plane_funcs funcs =3D {
+>     ...,
+> -   .reset =3D reset_func,
+> +   .atomic_create_state =3D new_name,
+>     ...,
+> };
+>
+> @drop_destroy depends on update_struct && match_struct_destroy@
+> identifier match_struct_reset.reset_func;
+> identifier match_struct_destroy.destroy_func;
+> identifier container_func;
+> identifier P;
+> symbol drm_atomic_helper_plane_destroy_state;
+> symbol __drm_atomic_helper_plane_destroy_state;
+> @@
+>
+>  void reset_func(struct drm_plane *P)
+>  {
+>  =09...
+> (
+> -=09if (P->state) {
+> - =09=09<+...
+> (
+> -=09=09drm_atomic_helper_plane_destroy_state(P, P->state);
+> |
+> -=09=09__drm_atomic_helper_plane_destroy_state(P->state);
+> |
+> -=09=09P->funcs->atomic_destroy_state(P, P->state);
+> |
+> -=09=09destroy_func(P, P->state);
+> )
+> - =09=09...+>
+> - =09}
+> |
+> -=09drm_WARN_ON_ONCE(P->dev, P->state);
+> |
+> -=09WARN_ON(P->state);
+> )
+>  =09...
+> (
+> -=09kfree(P->state);
+> |
+> -=09kfree(container_func(P->state));
+> |
+>  =09// kfree is optional
+> )
+> (
+> -=09P->state =3D NULL;
+> |
+>  =09// plane->state clearing is optional
+> )
+>  =09...
+>  }
+>
+> @drop_destroy_mtk depends on update_struct@
+> identifier P;
+> symbol __drm_atomic_helper_plane_destroy_state;
+> symbol to_mtk_plane_state;
+> @@
+>
+>  void mtk_plane_reset(struct drm_plane *P)
+>  {
+>  =09...
+> -=09if (P->state) {
+> -=09=09__drm_atomic_helper_plane_destroy_state(P->state);
+> -=09=09...
+> -=09} else {
+>  =09=09...
+> -=09}
+>  =09...
+>  }
+>
+> @transform_nv50_wndw depends on update_struct@
+> identifier S;
+> @@
+>
+>  void nv50_wndw_reset(...)
+>  {
+>  =09...
+> -=09if (WARN_ON(!(S =3D kzalloc_obj(*S))))
+> +=09S =3D kzalloc_obj(*S);
+> +=09if (WARN_ON(!S))
+>  =09=09return;
+>  =09...
+>  }
+>
+> @transform_kzalloc depends on update_struct@
+> identifier match_struct_reset.reset_func;
+> identifier P, S;
+> statement ST;
+> statement list STL;
+> @@
+>
+>  void reset_func(struct drm_plane *P)
+>  {
+>  =09<...
+>  =09S =3D kzalloc_obj(*S);
+> (
+> -=09if (S)
+> -=09{
+> -=09=09STL
+> -=09}
+> +=09if (!S) return;
 > +
-> +#define ASSERT_TRUE(_expr) __ASSERT_TRUE(_expr, "")
-
-Mmmmm... macro madness.... I don't think this is what you want.
-
-I think you end up double-running the expression in the failure branch.
-
-  ASSERT_EQ(cleanup_mm(&mm, &vmi), 2)
-
-run through the preprocessor expands to:
-
-  do {
-      if (!( (cleanup_mm(&mm, &vmi)) == (2) )) {
-              **** first run ****
-
-          fprintf(stderr,
-              "Assert FAILED at %s:%d:%s(): %s is FALSE" " (0x%llx != 0x%llx)" ".\n",
-              "merge.c", 645, __FUNCTION__,
-              "(cleanup_mm(&mm, &vmi)) == (2)",
-              ((unsigned long long)(uintptr_t)(cleanup_mm(&mm, &vmi))),
-                                               **** second run ****
-
-              ((unsigned long long)(uintptr_t)(2)));
-          return false;
-      }
-  } while (0);
-
-
-A bunch of existing ASSERT callers mutate state, so there's no guarantee
-the printed value matches teh actual test value.
-
-I think you want something like:
-
-#define ASSERT_EQ(_val1, _val2) do {	\
-	__auto_type _v1 = (_val1);	\
-	__auto_type _v2 = (_val2);	\
-	__ASSERT_TRUE(_v1 == _v2, " (0x%llx != 0x%llx)",	\
-		__TO_SCALAR(_v1), __TO_SCALAR(_v2));	\
-} while (0)
-
-which expands to:
-
-  do {
-      __auto_type _v1 = (cleanup_mm(&mm, &vmi));
-      __auto_type _v2 = (2);
-      do {
-          if (!(_v1 == _v2)) {
-              fprintf(stderr, "...FALSE (0x%llx != 0x%llx).\n",
-                      "merge.c", 645, __FUNCTION__, "_v1 == _v2",
-                      ((unsigned long long)(uintptr_t)(_v1)),
-                      ((unsigned long long)(uintptr_t)(_v2)));
-              return false;
-          }
-      } while (0);
-  } while (0);
-
-~Gregory
+> +=09STL
+> |
+> -=09if (S) ST
+> +=09if (!S) return;
+> +
+> +=09ST
+> )
+> =09...>
+>  }
+>
+> @transform_body depends on update_struct@
+> identifier match_struct_reset.reset_func;
+> identifier renamed_func.new_name;
+> identifier S, P;
+> expression PS;
+> @@
+> - void reset_func(struct drm_plane *P)
+> + struct drm_plane_state *new_name(struct drm_plane *P)
+> {
+> =09...
+>  =09S =3D kzalloc_obj(*S);
+> =09...
+> (
+>  =09if (!S) {
+> =09=09...
+> -=09=09return;
+> +=09=09return ERR_PTR(-ENOMEM);
+>  =09}
+> |
+>  =09if (WARN_ON(!S)) {
+> =09=09...
+> -=09=09return;
+> +=09=09return ERR_PTR(-ENOMEM);
+>  =09}
+> |
+>  =09if (S =3D=3D NULL) {
+>  =09=09...
+> -=09=09return;
+> +=09=09return ERR_PTR(-ENOMEM);
+>  =09}
+> )
+> =09...
+> (
+> -=09__drm_atomic_helper_plane_reset(P, PS);
+> +=09__drm_atomic_helper_plane_state_init(PS, P);
+> |
+> -=09__drm_gem_reset_shadow_plane(P, PS);
+> +=09__drm_gem_shadow_plane_state_init(P, PS);
+> )
+> =09...
+> }
+>
+> @update_early_return depends on update_struct@
+> identifier match_struct_reset.reset_func;
+> identifier renamed_func.new_name;
+> identifier P;
+> expression PS;
+> @@
+>  struct drm_plane_state *new_name(struct drm_plane *P)
+> {
+> =09<+...
+> -=09return;
+> +=09return ERR_PTR(-EINVAL);
+> =09...+>
+> }
+>
+> @update_return_plane depends on update_struct@
+> identifier match_struct_reset.reset_func;
+> identifier renamed_func.new_name;
+> identifier P;
+> expression PS;
+> @@
+>  struct drm_plane_state *new_name(struct drm_plane *P)
+> {
+> =09...
+>  =09__drm_atomic_helper_plane_state_init(PS, P);
+> =09...
+> +
+> +=09return PS;
+> }
+>
+> @update_return_shadow depends on update_struct@
+> identifier renamed_func.new_name;
+> identifier P;
+> expression PS;
+> @@
+>  struct drm_plane_state *new_name(struct drm_plane *P)
+> {
+> =09...
+>  =09__drm_gem_shadow_plane_state_init(P, PS);
+> =09...
+> +
+> +=09return &PS->base;
+> }
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+> Cc: admin@kodeit.net
+> Cc: gargaditya08@proton.me
+> ---
+>  drivers/gpu/drm/tiny/appletbdrm.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/app=
+letbdrm.c
+> index cdd35af49892..742478198111 100644
+> --- a/drivers/gpu/drm/tiny/appletbdrm.c
+> +++ b/drivers/gpu/drm/tiny/appletbdrm.c
+> @@ -497,21 +497,21 @@ static void appletbdrm_primary_plane_helper_atomic_=
+disable(struct drm_plane *pla
+>  =09appletbdrm_clear_display(adev);
+>
+>  =09drm_dev_exit(idx);
+>  }
+>
+> -static void appletbdrm_primary_plane_reset(struct drm_plane *plane)
+> +static struct drm_plane_state *appletbdrm_primary_plane_create_state(str=
+uct drm_plane *plane)
+>  {
+>  =09struct appletbdrm_plane_state *appletbdrm_state;
+>
+> -=09WARN_ON(plane->state);
+> -
+>  =09appletbdrm_state =3D kzalloc_obj(*appletbdrm_state);
+>  =09if (!appletbdrm_state)
+> -=09=09return;
+> +=09=09return ERR_PTR(-ENOMEM);
+>
+> -=09__drm_gem_reset_shadow_plane(plane, &appletbdrm_state->base);
+> +=09__drm_gem_shadow_plane_state_init(plane, &appletbdrm_state->base);
+> +
+> +=09return &(&appletbdrm_state->base)->base;
+>  }
+>
+>  static struct drm_plane_state *appletbdrm_primary_plane_duplicate_state(=
+struct drm_plane *plane)
+>  {
+>  =09struct drm_shadow_plane_state *new_shadow_plane_state;
+> @@ -559,11 +559,11 @@ static const struct drm_plane_helper_funcs appletbd=
+rm_primary_plane_helper_funcs
+>  };
+>
+>  static const struct drm_plane_funcs appletbdrm_primary_plane_funcs =3D {
+>  =09.update_plane =3D drm_atomic_helper_update_plane,
+>  =09.disable_plane =3D drm_atomic_helper_disable_plane,
+> -=09.reset =3D appletbdrm_primary_plane_reset,
+> +=09.atomic_create_state =3D appletbdrm_primary_plane_create_state,
+>  =09.atomic_duplicate_state =3D appletbdrm_primary_plane_duplicate_state,
+>  =09.atomic_destroy_state =3D appletbdrm_primary_plane_destroy_state,
+>  =09.destroy =3D drm_plane_cleanup,
+>  };
+>
+>
+> --
+> 2.54.0
+>
+>
