@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E371DC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:18:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26491C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:18:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5200510F966;
-	Fri, 10 Jul 2026 22:18:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8584B10F96C;
+	Fri, 10 Jul 2026 22:18:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="InuFxunC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nEgjhWgI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D82FA10F966
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 22:18:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D23D110F96C
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 22:18:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5CC3460052;
- Fri, 10 Jul 2026 22:18:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF3D51F000E9;
- Fri, 10 Jul 2026 22:18:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 888414149E;
+ Fri, 10 Jul 2026 22:18:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 397601F000E9;
+ Fri, 10 Jul 2026 22:18:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783721885;
- bh=WyuC7eTRcH9wYpufhQagScxCEyGYQefSa3R4NZZHnDQ=;
+ s=k20260515; t=1783721896;
+ bh=WPbUrLVNUz6t9GtukwZKok6HF5juKRk0PHTrKqsxOEY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=InuFxunCCeBhsT8PmfYOgmNUvsnb0LdxuRuUaDRDueLwV0eYj/C2nGFzvB0BqevuJ
- rLLzz2gHZ0OA5w55ztzhpsUII6A4saAFejw5NP0MSAuFwUV+D7Dg89wHpRcCwmueXN
- cySGLh5JKPnpzWHXV9PVekhCTipWJb8msLa7If1VDxTOqPfoefItqla1Pg5hEvsfFa
- 0ZtHSVWG2IRnOMAEkVyaUdnp/EsVGqS8xCfpBTVbZ+HKjz5wSg/UUtIpneBlrZjoJv
- LGi6qxwKyobEi+k7/4kQXPfkHhPYwpg0j5XLiGe9TTeMgS7klt7tQ8ZcvGcwKiYm+6
- uLhs+yioXXZmg==
+ b=nEgjhWgIDPWRfZv4SugEocq3lodAc8xnlWhoVLufSMzSlZZu2u8DULcQeMgk2CaI/
+ dpIIz6iR0wxRO7R7Sq364IGFoUORRRAdK4KEccZMclUmoLHW3DT1SpoUuXl1HLJPKZ
+ WZsGCuiV0ee6uVT0ERJOe6kkxzJSa91KwZ5s0QSRLCwDO3tFMh397rbSdSpw9bGHYI
+ 1utR8QVIRJA3uQg7QsRzs1P7Zs3iWSi95ZzJM55ouKdxx4bDq9sG006lhzQcgqNGmr
+ qdnrHoBZKRCvs8g6RZnDqIbo9iqvF4wZEGB3Lx0mKZBwCEh1Ig0y2TKlZsxIaB9YAq
+ b4x7y79GmmdPg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 24/33] drm/xe: Add defrag profiling tracepoints
+Subject: Re: [PATCH v2 13/33] drm/xe: Flush L2 asynchronously in
+ xe_bo_trigger_rebind()
 To: "Matthew Brost" <matthew.brost@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260710215442.2444235-25-matthew.brost@intel.com>
+In-Reply-To: <20260710215442.2444235-14-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
- <20260710215442.2444235-25-matthew.brost@intel.com>
+ <20260710215442.2444235-14-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 22:18:04 +0000
-Message-Id: <20260710221804.CF3D51F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 22:18:15 +0000
+Message-Id: <20260710221816.397601F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,53 +60,78 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] 64-bit integer division in TP_printk causes a link error (__udivdi3=
- undefined) on 32-bit architectures.
+- [High] GFP_KERNEL allocation in shrinker and dma-resv critical section ca=
+uses deadlocks and lockdep splats
 --
 
---- Patch [24]: [PATCH v2 24/33] drm/xe: Add defrag profiling tracepoints -=
---
-commit 414478b1f94933fc988a5668d191a4c7976fd319
+--- Patch [13]: [PATCH v2 13/33] drm/xe: Flush L2 asynchronously in xe_bo_t=
+rigger_rebind() ---
+commit 985db7b22213ce9503872b19a27fddeba9fe24ff
 Author: Matthew Brost <matthew.brost@intel.com>
 
-drm/xe: Add defrag profiling tracepoints
+drm/xe: Flush L2 asynchronously in xe_bo_trigger_rebind()
 
-This commit adds two tracepoints, xe_bo_defrag_worker and xe_bo_defrag_one,
-to profile the page defragmentation worker and break down the cost of a
-defrag attempt.
+This commit replaces synchronous TLB invalidations during buffer object
+eviction with asynchronous flushes on L2-flush-optimized hardware. It
+queues a TLB invalidation job per VMA, which waits on the buffer's
+in-flight GPU work before flushing.
 
-> diff --git a/drivers/gpu/drm/xe/xe_trace_bo.h b/drivers/gpu/drm/xe/xe_tra=
-ce_bo.h
-> index 86323cf3be2c0..a169a322464b2 100644
-> --- a/drivers/gpu/drm/xe/xe_trace_bo.h
-> +++ b/drivers/gpu/drm/xe/xe_trace_bo.h
-
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
 [ ... ]
+> @@ -732,6 +732,13 @@ static int xe_bo_trigger_rebind(struct xe_device *xe=
+, struct xe_bo *bo,
+>  			 */
+>  			if (!xe_device_is_l2_flush_optimized(xe))
+>  				continue;
+> +
+> +			/*
+> +			 * Attempt to flush L2 async, fallback to sync flush on
+> +			 * failure
+> +			 */
+> +			if (!xe_vm_flush_vm_bo_tlb_async(vm, bo, vm_bo))
+> +				continue;
 
-> +TRACE_EVENT(xe_bo_defrag_one,
+[Severity: High]
+Does this create a deadlock regression when reached from the shrinker path?
 
+The memory shrinker can call into this path through xe_shrinker_scan() ->
+xe_bo_shrink() -> xe_bo_move_notify() -> xe_bo_trigger_rebind().
+
+In this path, the shrinker operates under the fs_reclaim pseudo-lock and
+holds the buffer object's dma-resv lock.
+
+> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+> --- a/drivers/gpu/drm/xe/xe_vm.c
+> +++ b/drivers/gpu/drm/xe/xe_vm.c
 [ ... ]
+> +static int xe_vma_tlb_flush_client(struct xe_vm *vm, struct xe_vma *vma,
+> +				   struct xe_tile *tile, struct xe_gt *gt,
+> +				   struct dma_resv *resv, struct dma_fence *dep,
+> +				   int type)
+> +{
+> +	struct xe_exec_queue *q =3D xe_migrate_exec_queue(tile->migrate);
+> +	struct xe_tlb_inval_job *job;
+> +	struct dma_fence *fence;
+> +	int err;
+> +
+> +	job =3D xe_tlb_inval_job_create(q, &gt->tlb_inval,
+> +				      q->tlb_inval[type].dep_scheduler, vm,
+> +				      xe_vma_start(vma), xe_vma_end(vma), type);
 
-> +	    TP_printk("dev=3D%s size=3D%zu budget=3D%llu prealloc=3D%u/%u lock_=
-us=3D%llu lockwait_us=3D%llu prealloc_us=3D%llu consumed=3D%llu ret=3D%d",
-> +		      __get_str(dev), __entry->size, __entry->budget,
-> +		      __entry->prealloc_got, __entry->prealloc_want,
-> +		      __entry->lock_ns / 1000, __entry->lockwait_ns / 1000,
-> +		      __entry->prealloc_ns / 1000, __entry->consumed,
-> +		      __entry->ret)
-> +);
+[Severity: High]
+Could this allocation recurse into memory reclaim and attempt to acquire the
+same dma-resv lock, or trigger a lockdep splat for context violations?
 
-[Severity: Low]
-Will doing 64-bit integer divisions (__entry->lock_ns / 1000, etc.) in
-TP_printk cause build failures on 32-bit architectures?
+The xe_tlb_inval_job_create() function allocates the job using a default
+GFP_KERNEL allocation. Furthermore, the subsequent call to
+xe_tlb_inval_job_alloc_dep() explicitly calls might_alloc(GFP_KERNEL).
 
-The C code generated by TP_printk for TRACE_EVENT(xe_bo_defrag_one) performs
-direct u64 division. On 32-bit platforms, this translates to a dependency on
-the __udivdi3 libgcc function. Since the kernel does not export this functi=
-on,
-this will result in a linking error during 32-bit builds (such as when
-COMPILE_TEST is enabled).
+Since this can be reached while holding the dma-resv lock or while in the
+shrinker reclaim path, these GFP_KERNEL allocations appear to violate the
+context constraints.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710215442.2444=
-235-1-matthew.brost@intel.com?part=3D24
+235-1-matthew.brost@intel.com?part=3D13
