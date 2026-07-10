@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F39A7C44501
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 19:08:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0F57C44509
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 19:08:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7249E10F964;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D27710F965;
 	Fri, 10 Jul 2026 19:08:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hw40dCLe";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i+oSygXn";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C54E10F94A
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 19:08:02 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-493c52cde9eso10886905e9.3
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:08:02 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49CE810F960
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 19:08:07 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-493bc8fda98so8037955e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:08:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783710481; x=1784315281; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783710486; x=1784315286; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=yfqzx7NPmSYUt62vyH3N9Lvh263fPR148WybLR6D9i4=;
- b=hw40dCLeRp+8GmrUp+cFJHGxkWrluIlCp8g9BFkr8FnBvpAQ4+DXpqV8YCUBd08BqG
- CPjztruNGoVgOplUlZsdwRZi9p0WKVtdBQtc5lXDVFMRGRJqRRtlrAjhgZ+FtKDd9HNj
- lFTi2dhPF/A/0Wgdr6F2NdOonDeWQcpZyK32OtR1FS7h2I8fSTmtgJpgihVBFBjsMv4m
- Np5qyhIvWsI75t/g23W5zA7W2gfoH3npVe9IFVtHWyTtzoL4SEGbd7tXzNE3wGaBDyY+
- M73eCFzGVBY8DApI2Lh5u/rheKOZ/bU99ZJ+H2yCyt5XvOdkfAIto5NETdPzB7299unu
- g/dw==
+ bh=zbrYcqmMOcj7F4MQKjHREDeErg/FeYwN50JFqd0IkSY=;
+ b=i+oSygXnGIF7RDeABxAQkP++3FoHIFTch2k4T5tASWfc/nrwxSF4WtVOm63zAxRiOR
+ M6CfAPmJXFtOVnBmzwKw6ErQ8Y42mfTffwN3yptvyW3a7+dU9WU1/OWiSwekZk9BUy2N
+ PCSXsG0HvSaHs04qwaUifTNgdfHXxLl8NKcDbc9RSc/ZwC2uSoQSguSfuQAYDhTZYgbQ
+ IOd1KDr9x+d1PzmxmiFjcIEp1XrigVWTNFdNvAMxsh2i+dG6WpgONn84iJtd2jSG/Oea
+ E0taIPUosuuvVpTP6dctRaxlZJZxREyJX8t+jw8U83KJWOOJ853Vq20kSpPVAps+1V2o
+ Y4hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783710481; x=1784315281;
+ d=1e100.net; s=20251104; t=1783710486; x=1784315286;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=yfqzx7NPmSYUt62vyH3N9Lvh263fPR148WybLR6D9i4=;
- b=ByOGjqbed2/mkp85KxAeF5UCHBuOOt67a1Ohffz3obNaOLprLJixn5V+wLZBPXf7o8
- 5DAGdOSpYsANBQ6Fc6bVAxImRcj9yBf2Gm/w7PycQZM5RvZYNYPhE26yzbpJSEfVw1m3
- zd26OjJvas2w9uLN/4wIB8NXBFABHuU7m2qJN3hNqzdcXTnSN+TcQK4NXRjxPI2VqkLQ
- lkSDZMSalf7CEaHP70kcJJp1dHj+ktTl9nBemRmOrxviijJwf+Uy2hd1g1NUFRnT596+
- 7hWMz9q3dz9u5DePGR9y4gYsgQ2En6x1J4yWz5DpAgAWTXFE2Ww/n1DJmkOwAiUkSo7v
- Qj4w==
+ bh=zbrYcqmMOcj7F4MQKjHREDeErg/FeYwN50JFqd0IkSY=;
+ b=FgrLCis3Og4jOlGKLvVGD3o+zYLT03H43rMYmEAjxPBYjCHEWEulb4BOrXfoFKRDGx
+ s1AsSreY8ebyvTvoT8vemtlJ8rswjvd2W/uqXOKWS+JShiOuaq+ouEaUvr2Vr8iPzjXI
+ jNw0p8UFTZRJok+pNi9KBH2c9UWE7TEKOKyVA7fOICoEBqAxL6IHM1es76yEVgXfVODr
+ WhdrEZnK7aPEFYN0qIzZ4HD9ZF//pHXzGnuEc9Bba3m8ycDo7Ugn0h7VYFDewaRdyBNn
+ AuXas1YySb+iCXBpJou1qHX2f/AaBVz/Reh2uwnblYa4Trb21fPH6bOoWHDp2Wy9Qwo3
+ 6PZg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoantZAOpN8D808i7RDFgjwh4KKIL+JcnbhmbhOeWz6oa0QAkO2CpoySMj5t9FIhBsyNqYkHMvGbxI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyB0Qz6i+9W6MHVk3tTzW/5gnes0p/Iv96u+E/qgrG1UK1mpwji
- uyhU8xayDzOhcm5yjDNJSkFxuFPyAi20Z/xGd976U8VLOzr9yFsQsxAa
-X-Gm-Gg: AfdE7cl4eVaUk5zO+Z+7IiXPqwV2RT6sdCS8UYAdydLd9Gy77pxBMlbUnSXZkGEHzwj
- oJzmoYMHeNxkKKti5mXmt6wxFsujbT/cbsmrZdeSi7vwf+kNJmC3veu+ICLe3kNs1+cc4IzUWYb
- 2Xg6H6Oao2UTAqf+LlJz2V0ovm+wJhjcsfu6KIRz3dA94lTX5nOXiFJVT0p3Nm3C5GV8K1azvNI
- wjaxXmEfNVFr4UnlMbcbj7KDVqfAnS3FtH/H5kqG2J8EOrdgePkw6+4/+eHkzideHMarvo1ogNp
- GA/psseUx4h++Vc0QZqvtyOK7WJOWy9O74tIVIg2SShU/jdpbKoAluiOAWmvgJYE2tMPUrSrCKH
- 191GbQ+MNvpvELP15TZmi0Cq4bJQSJGXKjGWtX+/r0daxH7t36kGgHIF2ZHbzf2rhwlqbaa26cj
- EMJNAgix5XSoB1/6xAY9e9fbmLhg==
-X-Received: by 2002:a05:600c:3b07:b0:493:f807:1a79 with SMTP id
- 5b1f17b1804b1-493f882b042mr996745e9.27.1783710480841; 
- Fri, 10 Jul 2026 12:08:00 -0700 (PDT)
+ AHgh+RrDRXi6TUARjmUqYZjMKdr7MbqP6rLT4Rz/2Wk6kHbhjjH7P2NX8vTsSH3tdA2au7uwXQRrdvkcMOk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/grMJYMsX6BBhL5nCPAuRIAmgAdAQwZDmVm9dnxiTQSwAc1I1
+ 02DiPsUpjh7jIzBATgaW7v9lDQ2+GTScovCJrBIa/7OYMnuHjdkSGsOG
+X-Gm-Gg: AfdE7cmjSvtRCcb4S1nKuBd4yVA5rEWk8xBd0LU2CX2JEMEBX1gUitITnhhe6qvOtFg
+ 4P57KPBDcj+nxALIJbKu57VEZ+157Y/7Ci6ut39IdbJ7w4pdPA+BlHQ4tTWqQMdMmZRJp/Trhd+
+ MPz5JmtYyJrhj1p4s131xFFdBKIQPtE5WLi9UFc/na17bc8Zp943UmMsP3yD/Oc36CeyMi81pz2
+ O+zgSpBBgZwanwEzXEPkj4EB0eRt69B6YeQdaZc56/iMaiP7K/4tggtaUvmOOFMaM/gIWgSesiS
+ O90pMJDyBU8ydsm264nqZFT1CWNAnID4mHg8R+lMqbkHnR3/UpaZ6G1Xy4p+Pjp8f0mTYxk7wga
+ cgUb384wk+qtNm+kSRH5vtCazB2oQPlBrTGICBLSzLMAzzbR2F9KtnaQDppDsMF3GUoKXXxaOLR
+ a/J2IUQjeIRYFJddWUuHau6gb3lv9I3fnB5zfN
+X-Received: by 2002:a05:600c:4ece:b0:493:a613:56b2 with SMTP id
+ 5b1f17b1804b1-493f87d8573mr1160215e9.8.1783710485433; 
+ Fri, 10 Jul 2026 12:08:05 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:154f:ec00:aa08:de24:db33:4496])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493f567eadfsm55000755e9.6.2026.07.10.12.08.00
+ 5b1f17b1804b1-493f567eadfsm55000755e9.6.2026.07.10.12.08.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 12:08:00 -0700 (PDT)
+ Fri, 10 Jul 2026 12:08:05 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -71,9 +71,9 @@ To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
  airlied@gmail.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 06/12] drm/ttm: move delete handling into ttm_bo_evict
-Date: Fri, 10 Jul 2026 20:52:46 +0200
-Message-ID: <20260710190752.2355-7-christian.koenig@amd.com>
+Subject: [PATCH 11/12] drm/ttm: support using drm_exec during eviction v4
+Date: Fri, 10 Jul 2026 20:52:51 +0200
+Message-ID: <20260710190752.2355-12-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260710190752.2355-1-christian.koenig@amd.com>
 References: <20260710190752.2355-1-christian.koenig@amd.com>
@@ -96,62 +96,82 @@ Reply-To: christian.koenig@amd.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Both callers do the same thing, so we can trivially unify that.
+Allow specifying a drm_exec object in TTMs operation context which is
+used to lock objects during eviction.
+
+This allows to handle deadlocks much more gracefully and with that
+avoid returning -ENOMEM on heavily contended domains.
+
+v2: rebased on top of Thomas work
+v3: rebased again
+v4: adjust to dma_resv changes
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/ttm/ttm_bo.c | 24 +++++++++---------------
- 1 file changed, 9 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo_util.c | 12 ++++++++----
+ include/drm/ttm/ttm_bo.h          |  5 +++++
+ 2 files changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index db72fb2fde9ff..e28e11c06ef48 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -363,6 +363,13 @@ static int ttm_bo_evict(struct ttm_buffer_object *bo,
- 	struct ttm_place hop;
- 	int ret = 0;
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+index 1bdd69643c313..570640ae79d84 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -38,6 +38,7 @@
+ #include <drm/ttm/ttm_tt.h>
  
-+	if (bo->deleted) {
-+		ret = ttm_bo_wait_ctx(bo, ctx);
-+		if (!ret)
-+			ttm_bo_cleanup_memtype_use(bo);
-+		return ret;
-+	}
+ #include <drm/drm_cache.h>
++#include <drm/drm_exec.h>
+ 
+ struct ttm_transfer_obj {
+ 	struct ttm_buffer_object base;
+@@ -839,7 +840,9 @@ static int ttm_lru_walk_ticketlock(struct ttm_bo_lru_cursor *curs,
+ 	struct ttm_lru_walk_arg *arg = curs->arg;
+ 	int ret;
+ 
+-	if (arg->ctx->interruptible)
++	if (arg->ctx->exec)
++		ret = drm_exec_lock_resv(arg->ctx->exec, resv);
++	else if (arg->ctx->interruptible)
+ 		ret = dma_resv_lock_interruptible(resv, arg->ticket);
+ 	else
+ 		ret = dma_resv_lock(resv, arg->ticket);
+@@ -853,7 +856,8 @@ static int ttm_lru_walk_ticketlock(struct ttm_bo_lru_cursor *curs,
+ 		 * trylocking for this walk.
+ 		 */
+ 		arg->ticket = NULL;
+-	} else if (ret == -EDEADLK) {
 +
- 	memset(&hop, 0, sizeof(hop));
++	} else if (!arg->ctx->exec && ret == -EDEADLK) {
+ 		/* Caller needs to exit the ww transaction. */
+ 		ret = -ENOSPC;
+ 	}
+@@ -993,8 +997,8 @@ __ttm_bo_lru_cursor_iter(struct ttm_bo_lru_cursor *curs, bool first)
+ 		if (!ttm_lru_walk_trylock(curs, res->bo->base.resv)) {
+ 			struct dma_resv *resv;
  
- 	dma_resv_assert_held(bo->base.resv);
-@@ -470,13 +477,7 @@ int ttm_bo_evict_first(struct ttm_device *bdev, struct ttm_resource_manager *man
- 	if (!bo->resource || bo->resource->mem_type != mem_type)
- 		goto out_bo_moved;
+-			if (!arg->ticket || arg->ctx->no_wait_gpu ||
+-			    arg->trylock_only) {
++			if ((!arg->ticket || arg->ctx->no_wait_gpu ||
++			     arg->trylock_only) && !arg->ctx->exec) {
+ 				spin_unlock(lru_lock);
+ 				continue;
+ 			}
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index e1221e3be7bda..0ffa84a5caa65 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -186,6 +186,11 @@ struct ttm_operation_ctx {
+ 	 * @bytes_moved: Statistics on how many bytes have been moved.
+ 	 */
+ 	uint64_t bytes_moved;
++	/*
++	 * @exec: optional drm_exec object to use for locking and contention
++	 * handling
++	 */
++	struct drm_exec *exec;
+ };
  
--	if (bo->deleted) {
--		ret = ttm_bo_wait_ctx(bo, ctx);
--		if (!ret)
--			ttm_bo_cleanup_memtype_use(bo);
--	} else {
--		ret = ttm_bo_evict(bo, ctx);
--	}
-+	ret = ttm_bo_evict(bo, ctx);
- out_bo_moved:
- 	dma_resv_unlock(bo->base.resv);
- out_no_lock:
-@@ -524,14 +525,7 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
- 	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk->place))
- 		return 0;
- 
--	if (bo->deleted) {
--		lret = ttm_bo_wait_ctx(bo, walk->arg.ctx);
--		if (!lret)
--			ttm_bo_cleanup_memtype_use(bo);
--	} else {
--		lret = ttm_bo_evict(bo, walk->arg.ctx);
--	}
--
-+	lret = ttm_bo_evict(bo, walk->arg.ctx);
- 	if (lret)
- 		goto out;
- 
+ struct ttm_lru_walk;
 -- 
 2.43.0
 
