@@ -4,87 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B397CC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 07:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF765C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 07:54:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 147CB10F7FB;
-	Fri, 10 Jul 2026 07:52:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15AB810F7F7;
+	Fri, 10 Jul 2026 07:54:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="p4xCA710";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="VgZ7KB03";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MfkDZdn5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BJGzMIJK";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="KtlWl7rL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vjtfFddQ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KtlWl7rL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vjtfFddQ";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2C4B10F7F2
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 07:52:51 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B3F210F7F7
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 07:54:42 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9E42D76391;
- Fri, 10 Jul 2026 07:52:49 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AABC376393;
+ Fri, 10 Jul 2026 07:54:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783669970; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1783670080; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gamjBdhe5MDO9dPZ0pdYqI3DoxNaIDftqQBdrfxt96k=;
- b=p4xCA710kVEdLqGm7Vjuf70ybFgpr8vr1ExyNIh/Jg6WFpoEz2FvapPMc4qGA8g3+BhWXA
- gU7aUEbn/rGCDAlLck+kU6iho8RYDm3Ne7fwRyZop4qgW318PYkaTV4OAa2Wku8x1diHqB
- LiMi9wLW3kUDXKRddYEWBxw/UH4oiOg=
+ bh=oI0Y9hAe+5jsGqW7Yk89+mj2OpGPQbpyCSgqd/RJI44=;
+ b=KtlWl7rLB+B1OyCn/BTm1AYH6/MZQAOy+9INH/0GxOoWxIxjvufgNLPRU7bzcecjV52+YI
+ IOb2okqgaFUmaUnNDjxhEKDSAVZ31w7mhTbKWLaU/f/e6VUPo6SOAIQSfT2q0u82pvy6F+
+ Yc2f5SKWkAWji/z1+QIH5xCx1eqKrtg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783669970;
+ s=susede2_ed25519; t=1783670080;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gamjBdhe5MDO9dPZ0pdYqI3DoxNaIDftqQBdrfxt96k=;
- b=VgZ7KB03LcHwqqjQZAOdjgTItjVPBuDIHuQYZ/Ye7Hkp2JZ9aFK67Pa30X1tamcMXWhQ/l
- BU2DhHbV/lpuQnCw==
+ bh=oI0Y9hAe+5jsGqW7Yk89+mj2OpGPQbpyCSgqd/RJI44=;
+ b=vjtfFddQFp6N+wT9c5hBfLHQTVwdp+CYXYRaJvfZ5bRODUaTg7DZBLnxxylvBckC3ZlQY8
+ z3TnVlrS2u3r4RBw==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=MfkDZdn5;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=BJGzMIJK
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783669969; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1783670080; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gamjBdhe5MDO9dPZ0pdYqI3DoxNaIDftqQBdrfxt96k=;
- b=MfkDZdn53vrtaSJsqayKjDwz84ZBk2bG2B1R7nSMhwGLog+cx7ASuFsoKdqnMecTvAT3xt
- Ge6Zkr28gYDD3PWd9+TjEtwefqSj1+2HI/7ts8+NKIuvjhvZDFD7cqiBGmAl5ZRzPJ5i5s
- D5w/r7LfP1lk56l8hOLvCoG4MMO0IQM=
+ bh=oI0Y9hAe+5jsGqW7Yk89+mj2OpGPQbpyCSgqd/RJI44=;
+ b=KtlWl7rLB+B1OyCn/BTm1AYH6/MZQAOy+9INH/0GxOoWxIxjvufgNLPRU7bzcecjV52+YI
+ IOb2okqgaFUmaUnNDjxhEKDSAVZ31w7mhTbKWLaU/f/e6VUPo6SOAIQSfT2q0u82pvy6F+
+ Yc2f5SKWkAWji/z1+QIH5xCx1eqKrtg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783669969;
+ s=susede2_ed25519; t=1783670080;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gamjBdhe5MDO9dPZ0pdYqI3DoxNaIDftqQBdrfxt96k=;
- b=BJGzMIJK9bm0zGoOefZTDqo7sEj2Vl4H75Zd9Ya2hHcI/6UrCZDBpZD4rT0CtXsyuLWD95
- M/fS5wmVWc7qiBAw==
+ bh=oI0Y9hAe+5jsGqW7Yk89+mj2OpGPQbpyCSgqd/RJI44=;
+ b=vjtfFddQFp6N+wT9c5hBfLHQTVwdp+CYXYRaJvfZ5bRODUaTg7DZBLnxxylvBckC3ZlQY8
+ z3TnVlrS2u3r4RBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7890B779BD;
- Fri, 10 Jul 2026 07:52:49 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 779CE779BD;
+ Fri, 10 Jul 2026 07:54:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id MLECHNGkUGpfPgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 10 Jul 2026 07:52:49 +0000
-Message-ID: <dd7b8d52-f22c-42ba-b256-80fb3b68c368@suse.de>
-Date: Fri, 10 Jul 2026 09:52:49 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 5FDLG0ClUGrMPwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 10 Jul 2026 07:54:40 +0000
+Message-ID: <252d769b-322f-4547-a758-5f4ba72ce269@suse.de>
+Date: Fri, 10 Jul 2026 09:54:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/60] drm/gem-atomic-helper: Remove
- drm_gem_reset_shadow_plane()
+Subject: Re: [PATCH 06/60] drm/sysfb: Convert to atomic_create_state
 To: Maxime Ripard <mripard@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, javierm@redhat.com
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
- <20260709-drm-no-more-plane-reset-v1-5-302d986fe5f0@kernel.org>
+ <20260709-drm-no-more-plane-reset-v1-6-302d986fe5f0@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -111,29 +108,23 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260709-drm-no-more-plane-reset-v1-5-302d986fe5f0@kernel.org>
+In-Reply-To: <20260709-drm-no-more-plane-reset-v1-6-302d986fe5f0@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
  FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
- MIME_TRACE(0.00)[0:+];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; MID_RHS_MATCH_FROM(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_FIVE(0.00)[5];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url,suse.de:email,suse.de:dkim,suse.de:mid];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 9E42D76391
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_FIVE(0.00)[6]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:email, suse.de:mid,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,75 +143,102 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 Am 09.07.26 um 13:50 schrieb Maxime Ripard:
-> drm_gem_reset_shadow_plane() is no longer used: all callers now go
-> through drm_gem_create_shadow_plane_state() via the
-> atomic_create_state hook. Remove it.
+> drm_sysfb_plane_reset() handles both state creation and teardown of
+> the previous state through the reset hook, which conflates initial
+> state allocation with hardware and software reset at resume.
+>
+> Convert it to drm_sysfb_plane_atomic_create_state(), which only
+> allocates and initializes a pristine state using
+> __drm_gem_shadow_plane_state_init(). Update DRM_SYSFB_PLANE_FUNCS to
+> use .atomic_create_state instead of .reset.
 >
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-I think it would make sense to merge this change into patch 4. Your choice.
-
 > ---
->   drivers/gpu/drm/drm_gem_atomic_helper.c | 23 -----------------------
->   include/drm/drm_gem_atomic_helper.h     |  1 -
->   2 files changed, 24 deletions(-)
+> Cc: javierm@redhat.com
+> ---
+>   drivers/gpu/drm/sysfb/drm_sysfb_helper.h  |  4 ++--
+>   drivers/gpu/drm/sysfb/drm_sysfb_modeset.c | 30 +++++++++++++++++++++---------
+>   2 files changed, 23 insertions(+), 11 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c b/drivers/gpu/drm/drm_gem_atomic_helper.c
-> index ae854555fd12..3bb6bfd560d3 100644
-> --- a/drivers/gpu/drm/drm_gem_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
-> @@ -337,33 +337,10 @@ void __drm_gem_reset_shadow_plane(struct drm_plane *plane,
->   		__drm_atomic_helper_plane_reset(plane, NULL);
->   	}
+> diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_helper.h b/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
+> index 547f2327af5e..1c31267daa00 100644
+> --- a/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
+> +++ b/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
+> @@ -132,19 +132,19 @@ int drm_sysfb_plane_helper_get_scanout_buffer(struct drm_plane *plane,
+>   	.atomic_check = drm_sysfb_plane_helper_atomic_check, \
+>   	.atomic_update = drm_sysfb_plane_helper_atomic_update, \
+>   	.atomic_disable = drm_sysfb_plane_helper_atomic_disable, \
+>   	.get_scanout_buffer = drm_sysfb_plane_helper_get_scanout_buffer
+>   
+> -void drm_sysfb_plane_reset(struct drm_plane *plane);
+> +struct drm_plane_state *drm_sysfb_plane_atomic_create_state(struct drm_plane *plane);
+>   struct drm_plane_state *drm_sysfb_plane_atomic_duplicate_state(struct drm_plane *plane);
+>   void drm_sysfb_plane_atomic_destroy_state(struct drm_plane *plane,
+>   					  struct drm_plane_state *plane_state);
+>   
+>   #define DRM_SYSFB_PLANE_FUNCS \
+> -	.reset = drm_sysfb_plane_reset, \
+>   	.update_plane = drm_atomic_helper_update_plane, \
+>   	.disable_plane = drm_atomic_helper_disable_plane, \
+> +	.atomic_create_state = drm_sysfb_plane_atomic_create_state, \
+>   	.atomic_duplicate_state = drm_sysfb_plane_atomic_duplicate_state, \
+>   	.atomic_destroy_state = drm_sysfb_plane_atomic_destroy_state
+>   
+>   /*
+>    * CRTC
+> diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+> index d2de29caf89e..9a4c210d6f96 100644
+> --- a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+> +++ b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+> @@ -418,24 +418,36 @@ int drm_sysfb_plane_helper_get_scanout_buffer(struct drm_plane *plane,
+>   
+>   	return 0;
 >   }
->   EXPORT_SYMBOL(__drm_gem_reset_shadow_plane);
+>   EXPORT_SYMBOL(drm_sysfb_plane_helper_get_scanout_buffer);
 >   
-> -/**
-> - * drm_gem_reset_shadow_plane - resets a shadow-buffered plane
-> - * @plane: the plane
-> - *
-> - * This function implements struct &drm_plane_funcs.reset_plane for
-> - * shadow-buffered planes. It assumes the current plane state to be
-> - * of type struct drm_shadow_plane and it allocates the new state of
-> - * this type.
-> - */
-> -void drm_gem_reset_shadow_plane(struct drm_plane *plane)
-> -{
-> -	struct drm_shadow_plane_state *shadow_plane_state;
-> -
-> -	if (plane->state) {
-> -		drm_gem_destroy_shadow_plane_state(plane, plane->state);
-> -		plane->state = NULL; /* must be set to NULL here */
-> -	}
-> -
-> -	shadow_plane_state = kzalloc_obj(*shadow_plane_state);
-> -	__drm_gem_reset_shadow_plane(plane, shadow_plane_state);
-> -}
-> -EXPORT_SYMBOL(drm_gem_reset_shadow_plane);
-> -
->   /**
->    * drm_gem_begin_shadow_fb_access - prepares shadow framebuffers for CPU access
->    * @plane: the plane
->    * @plane_state: the plane state of type struct drm_shadow_plane_state
->    *
-> diff --git a/include/drm/drm_gem_atomic_helper.h b/include/drm/drm_gem_atomic_helper.h
-> index da8a4fb442b4..2deb0cd9ebbe 100644
-> --- a/include/drm/drm_gem_atomic_helper.h
-> +++ b/include/drm/drm_gem_atomic_helper.h
-> @@ -92,11 +92,10 @@ void __drm_gem_duplicate_shadow_plane_state(struct drm_plane *plane,
->   					    struct drm_shadow_plane_state *new_shadow_plane_state);
->   void __drm_gem_destroy_shadow_plane_state(struct drm_shadow_plane_state *shadow_plane_state);
->   void __drm_gem_reset_shadow_plane(struct drm_plane *plane,
->   				  struct drm_shadow_plane_state *shadow_plane_state);
+> -void drm_sysfb_plane_reset(struct drm_plane *plane)
+> +/**
+> + * drm_sysfb_plane_atomic_create_state - creates sysfb plane state
+> + * @plane: the plane
+> + *
+> + * This function implements struct &drm_plane_funcs.atomic_create_state for
+> + * sysfb planes. It allocates the plane state of type
+> + * struct drm_sysfb_plane_state.
+> + *
+> + * Returns:
+> + * A pointer to a new plane state on success, or an ERR_PTR()-encoded
+> + * error code otherwise.
+> + */
+> +struct drm_plane_state *
+> +drm_sysfb_plane_atomic_create_state(struct drm_plane *plane)
+>   {
+>   	struct drm_sysfb_plane_state *sysfb_plane_state;
 >   
-> -void drm_gem_reset_shadow_plane(struct drm_plane *plane);
->   void __drm_gem_shadow_plane_state_init(struct drm_plane *plane,
->   				       struct drm_shadow_plane_state *shadow_plane_state);
->   struct drm_plane_state *drm_gem_create_shadow_plane_state(struct drm_plane *plane);
->   struct drm_plane_state *drm_gem_duplicate_shadow_plane_state(struct drm_plane *plane);
->   void drm_gem_destroy_shadow_plane_state(struct drm_plane *plane,
+> -	if (plane->state)
+> -		drm_sysfb_plane_state_destroy(to_drm_sysfb_plane_state(plane->state));
+> -
+>   	sysfb_plane_state = kzalloc_obj(*sysfb_plane_state);
+> -	if (sysfb_plane_state)
+> -		__drm_gem_reset_shadow_plane(plane, &sysfb_plane_state->base);
+> -	else
+> -		__drm_gem_reset_shadow_plane(plane, NULL);
+> +	if (!sysfb_plane_state)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	__drm_gem_shadow_plane_state_init(plane, &sysfb_plane_state->base);
+> +
+> +	return &sysfb_plane_state->base.base;
+>   }
+> -EXPORT_SYMBOL(drm_sysfb_plane_reset);
+> +EXPORT_SYMBOL(drm_sysfb_plane_atomic_create_state);
+>   
+>   struct drm_plane_state *drm_sysfb_plane_atomic_duplicate_state(struct drm_plane *plane)
+>   {
+>   	struct drm_device *dev = plane->dev;
+>   	struct drm_plane_state *plane_state = plane->state;
 >
 
 -- 
