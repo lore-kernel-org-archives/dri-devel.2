@@ -4,78 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A109C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70FCAC44506
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E89410E832;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7719110E81F;
 	Mon, 13 Jul 2026 07:11:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lNWkNWM1";
+	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="dnz7eg3v";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E97D10E461
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 12:37:37 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-493f25d47dcso17329175e9.1
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 05:37:37 -0700 (PDT)
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
+ [209.85.219.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B24610E25C
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 21:04:10 +0000 (UTC)
+Received: by mail-qv1-f45.google.com with SMTP id
+ 6a1803df08f44-8f0d6853360so11230716d6.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 14:04:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783859856; x=1784464656; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=yZa2enwSIIgLldRkiC8kJq5D8PtsumlenYqYmwQU3wk=;
- b=lNWkNWM11UkiHsmRhKcwZnFFxfTZg2w1QAFe0E6nVyXKEp/j/NbWBoiYz+lhG2UvZP
- /zWV4H1qD5jnePosKdEAW2s1IHGbgZgAKfSjTbQB1df9J/R1zIrq3GTpZKXMrIYGvaBC
- zk5LxUwn+5iGA4ILPtHBeJWuUUa17Yu4YSur9Lc26k04Sk8BEuvY5zIfDQ22WACsh0V3
- /YsHio2WX4K1VjV/GVBCfkzyVK4U81VAzpXXdYow+7RMyPTQNqrMQ3BfrmbrLapt54YS
- QFkztzaDTgHB4iNa0AFN0QcLlyO0VazcK/d0h2MyNY+6GS4knMXOXHvk5ebuqdJ2P2Lq
- 1aLA==
+ d=gourry.net; s=google; t=1783717449; x=1784322249; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=OhI7UcJVN9EaMSo9cM31eWAmb7Tf3pcvHFHtAkV4RLE=;
+ b=dnz7eg3vUy/mdskOVRHjes1B9ixPObFs0IoXW8omuezRBvKiMDfeUNP6OeK0GKQBut
+ gK4hs0bJep9AnOU/gItVpA9aQRqHIHDMQ7tIV671p2ndMRgUyitReQtMxm0ULc7rs3M5
+ n4s/EgDfR56T5k+yx4vHsYu1GLj28MLKf8XzTn6a4wcg6tlqioNP1Mp4YFNIGp0gQJyw
+ ZxT26DJm4D4pHrr/JyXLUwcqnLZeucvm6dUoM5rQCddNW0BeVk6aDoz+zYBYc/sGEQpW
+ JnF419ds39YDg64B7QGf2wv9namlzEr5YWoscq906tFsZPK7hBPxCAaUfkmBx2C+BLHg
+ x7xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783859856; x=1784464656;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=yZa2enwSIIgLldRkiC8kJq5D8PtsumlenYqYmwQU3wk=;
- b=Ej2Je1yRzCYrmXMMQPGcgRuOMqLmgVLkAm11dztLYfrqqKYJBc3nX9hf8HrkUwFZN2
- mjygcfzRTh+e9NUuob2Kls5Xhulftj3AjrSdGK/JtDR+KrRNTr5cz+iobvxayUNTjwjr
- L8/IKMdvuVu/wCQZ8MENymU4Or+AB/4CMSy1PAG5NAT+3U87nbz88U+gesQTYs8Sil6r
- tYCFRJSuBH4U6f6Rq4DVJmk4Hfs/IFdduM1UKid++r+ZuJkmWE04zOZ20i2P8M9qN5v5
- OEMPGtKa8Ca/NzMi40xO3M6OcdozmNrQlBKhgDUDY7AW0a5uKBJ4E4tWXaXm1M4hVq8I
- HLIQ==
-X-Gm-Message-State: AOJu0YyO5rz7vWKRKEd0EWRmLhA4iXzwqShGpss+yk9f/TdBhd2Qvgch
- OqN2P5VQM8zElZPKtVVLgJpssxkeFhTVirlannzAF4eiKF+vl+5YB1i3
-X-Gm-Gg: AfdE7cncT5efx1eJ+yoB4pylO859K+1xhtvPN9DgPuHzkmTa8LL3Fo/kmgCuhp1Wxb5
- q2WQdpcJImZk1mdxcFqpSVg4aFhYxTL9GQMtDQeSi8p3Wp4oPXxGOo8rh5R1M0IJz6RjR+Y60mL
- WDBouC6cs1cvODpTe6BUUaN0wmWU/sFOyMz6ICUVx6ZSrB+HEDLn0fsW7PD9d1QLk3zGiLFN0sR
- vESarhUUHMK/EX17LhZX5QP7lnN6lIkkAt6jBDQI6517S7JO0WzdzKABs2ErU6zXmP2dyzrIyU4
- t6wdMLikhmu8TgGUZpT7077C/HKpUYP2j3/UtXNuY/gmv6pGODt8VEdtuVYP+750DJocvr5I0jx
- 7Op2a0D6OVyEZCZV+e9esOADRnUhqbDjPtCAyNTsOxvj+UYVoKHb0rvLTPcb2dk5eRCrsUp/H5l
- 6gX7zBBX7wXJQyQnQ=
-X-Received: by 2002:a05:600c:80c5:b0:493:a570:df7d with SMTP id
- 5b1f17b1804b1-493f881d20fmr37660025e9.20.1783859855726; 
- Sun, 12 Jul 2026 05:37:35 -0700 (PDT)
-Received: from fra-x8664 ([2a01:e11:8000:43b0:96d6:566b:35c:7b8c])
+ d=1e100.net; s=20251104; t=1783717449; x=1784322249;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=OhI7UcJVN9EaMSo9cM31eWAmb7Tf3pcvHFHtAkV4RLE=;
+ b=PnLXxy13w/LS07d0sv3VtkvD3zyKE6vYmTASqCbQKXDvg5Wf72R32f7jbS63d4v0sM
+ iemGucMNQGlv6VkHSMN3McgIRQh368YB/7Gp79Awy1KVpNoWhL9Jkj2oqv4yEWZ2A8O6
+ SVeXko7dGBN/qUqtX0Ie0/Gj6gN5Wfe0RYNwavOx+Tl/dkMkaFkDYGFZ5Tr16zCxc7aa
+ 8HM/0/V5qJ0xtB1fVi6+i3rR/Unmem5PVKMNg9HVAjw8gNRUkXjL5aGjm0iVbplkvl7N
+ wLGeF/x7jDyyRamGEE0g6YTlJLKjiMt86ZUfqW4sPRZAIJe5NIJi5tDjxrABwCirrXz5
+ scrg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqlDoO55GKqHZXp9X0L4mWXDur0WAPTWbzrrFg5CeVn9Bl3ivymKGsh1gZacm1C+DAqg1pEKWs28P8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwTiRD3odSsV32uZbGJBApM0f9CgTkwg0VbCX/jPuhpBbQ7XQwZ
+ jSOhGm5xw0e5E0pzP0jY7hf8TuhNKuBaIKqu+0itU31vUphP+hb6GDoDYEjqqOrkfIU=
+X-Gm-Gg: AfdE7clo3K+xAbNQQWDduA/1kaXK7/fTSBHzTmcslJvyKZRaVnuS8sV/+F5ESvTMIN6
+ OsPncklThoXiWbVF/HK1OKpRrGKaljmiep6wO1KTRkdrImb0s1Lqg2dBxcFDyCL6AW96afuK6oo
+ lXx4kgdkxWUXUNweKauPrP7edaPzBZ7IlfWJlSlQ0FncSGDHQxAMsSy8XflK7WFQ/ur2uwyMvj6
+ ++Ey8NQWfYvtsL0nh0LYaquomp/KJB8SS/Y0h9ePR8eYMyHG8XJjpKx11bvA2DFHMPTrw8Z7zY6
+ hpr33gJwUqQkT0t0mY2D1bXjq65B8eZzewonLWbCmy3JH3J4XZnDqLogXT/rWX/uFsP96cjbui/
+ ZLgJ3TDHPVSF3Ophptv5TpOPmIXkH3Q1HdKv4AXJr1TmgnJTrHQD52ZCCc3osBHeSDV1tLRu8cD
+ gxC3GL6Bc0CScS/p+cYQb7zIBE/FfD+mO4XDI2+sUMTmsVWC1h6CSoOC03I5d+G3zkbfPV
+X-Received: by 2002:a05:6214:3bc7:b0:8ea:10f8:ae87 with SMTP id
+ 6a1803df08f44-903fe450f77mr10485176d6.11.1783717444207; 
+ Fri, 10 Jul 2026 14:04:04 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F
+ (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493eb6f3c42sm280280485e9.1.2026.07.12.05.37.34
+ 6a1803df08f44-8ffd50df5e2sm50655596d6.4.2026.07.10.14.04.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 Jul 2026 05:37:35 -0700 (PDT)
-From: Francesco Magazzu <postadelmaga@gmail.com>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Dan Carpenter <dan.carpenter@linaro.org>,
- Karol Herbst <kherbst@redhat.com>
-Subject: [PATCH v2 2/4] drm/nouveau/clk: don't use the pstate cursor after the
- loop
-Date: Sun, 12 Jul 2026 14:36:14 +0200
-Message-ID: <20260712123616.1180830-3-postadelmaga@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260712123616.1180830-1-postadelmaga@gmail.com>
-References: <20260712123616.1180830-1-postadelmaga@gmail.com>
+ Fri, 10 Jul 2026 14:04:03 -0700 (PDT)
+Date: Fri, 10 Jul 2026 17:03:58 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Alex Williamson <alex@shazbot.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Matthew Wilcox <willy@infradead.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>,
+ Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
+ Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
+ linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 27/30] mm/vma: correct incorrect vma.h inclusion
+Message-ID: <alFePgFUR52GgBS7@gourry-fedora-PF4VCD3F>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <22d0f4e3fe11f6fd1312734e242d008267ad142c.1782735110.git.ljs@kernel.org>
+ <alFHR3fg8K1-SITK@gourry-fedora-PF4VCD3F>
+ <alFJUfaGHVnKd-Nb@lucifer>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 13 Jul 2026 07:11:31 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alFJUfaGHVnKd-Nb@lucifer>
+X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,51 +145,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-nvkm_pstate_prog() walks clk->states looking for the entry at index
-'pstatei' and then keeps using the list_for_each_entry cursor after the
-loop.  This is not triggerable today: every caller clamps the index
-against clk->state_nr before calling, so the loop always breaks on a real
-entry.  It is safe by virtue of what the callers happen to do, not by
-anything the function itself checks.
+On Fri, Jul 10, 2026 at 08:35:43PM +0100, Lorenzo Stoakes wrote:
+> >
+> > Do you actually need 3 copies of this comment or just one copy in
+> > vma_internal.h?
+> 
+> I'd rather have it at a glance, it's a bit silly but C headers are silly :P
+> 
+> BTW you're kinda racing against time here as I'm on the verge of sending v2
+> :P
 
-Should a caller ever pass an index that is not on the list, the cursor
-would point at the list head rather than at a pstate, and the
-pstate->base.domain[] and pstate->fanspeed accesses that follow would read
-past it.  Rather than leave that trap in place for the next caller, track
-whether the entry was found and return -EINVAL if it was not.
-
-No functional change.
-
-Signed-off-by: Francesco Magazzu <postadelmaga@gmail.com>
----
- drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-index 42f3709e0..4d546b07f 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-@@ -270,13 +270,19 @@ nvkm_pstate_prog(struct nvkm_clk *clk, int pstatei)
- 	struct nvkm_fb *fb = subdev->device->fb;
- 	struct nvkm_pci *pci = subdev->device->pci;
- 	struct nvkm_pstate *pstate;
-+	bool found = false;
- 	int ret, idx = 0;
- 
- 	list_for_each_entry(pstate, &clk->states, head) {
--		if (idx++ == pstatei)
-+		if (idx++ == pstatei) {
-+			found = true;
- 			break;
-+		}
- 	}
- 
-+	if (!found)
-+		return -EINVAL;
-+
- 	nvkm_debug(subdev, "setting performance state %d\n", pstatei);
- 	clk->pstate = pstatei;
- 
--- 
-2.55.0
-
+:[ i don't refresh my inbox when i get hyperfocused and now i am sad
