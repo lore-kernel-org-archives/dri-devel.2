@@ -4,58 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D4BCC44506
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 18:40:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAF3AC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 19:08:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F90D10E219;
-	Fri, 10 Jul 2026 18:40:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5911410E4C7;
+	Fri, 10 Jul 2026 19:07:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=debian.org header.i=@debian.org header.b="Ml8GxcDK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Wl5mKIJW";
 	dkim-atps=neutral
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 677C410E219
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 18:40:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org; 
- s=smtpauto.stravinsky;
- h=X-Debian-User:Content-Transfer-Encoding:Content-Type
- :Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version:
- Reply-To:Content-ID:Content-Description;
- bh=z8EQ4ZDMnQ9xLrkkss53nxElp/xHON8cN0M+3gaTDxk=; b=Ml8GxcDK3FFvXku5lB03ai+HO5
- lmIoFxs8s5+/1xAR6d5yhg3/ze7ELYSdUIOf4o89Qj9+KXwxxFamb2oqreFWDw+bv7LHLeOLU7orV
- 6kXS/tMVWUVgZ5gezdBek27Rc/N0dK/MrjcZCAjiafZDHhymOUbY7k/bRToHawa15Cd37ACuTp//B
- TsHq4/D/nLjYnHlU6Lyw4Es2pNnSkh2T4TwWVD+d5oJkWSLPD75rRVTLnjYkdMBPUHzVKM6KdnVfm
- E5M5x06bt5irbz1PFsD3qWjnIWGIkTQ0wNTbtz0ttc/aKc3Vgj8nne4bKiflDRSTlIjC3AHXDmYfE
- pbOvW9Lg==;
-Received: from authenticated-user by stravinsky.debian.org with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128)
- (Exim 4.96) (envelope-from <domibel@debian.org>) id 1wiG9a-004gHJ-2P
- for dri-devel@lists.freedesktop.org; Fri, 10 Jul 2026 18:40:50 +0000
-Received: by mail-pf1-f180.google.com with SMTP id
- d2e1a72fcca58-842338c18e0so1014754b3a.1
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 11:40:50 -0700 (PDT)
-X-Gm-Message-State: AOJu0YyIVkT9LA4tgWOnoHE0VSRMnYMwCnNu0DKTdetw+XRZ2WgYiucL
- 3asQLX7Ox2ZFund4R58JKH+RT+ke8sbG632YZZ39HVpNBra2cjAqpDe1fixT2AZn0h4rWSkDfho
- XsKP0dqgMPf4XsdD8nw5pmIGCLnUVmiA=
-X-Received: by 2002:a05:6a00:4fc4:b0:847:7f6a:c56d with SMTP id
- d2e1a72fcca58-8488967b436mr219164b3a.30.1783708848365; Fri, 10 Jul 2026
- 11:40:48 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 298BF10E221
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 19:07:57 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-493b77b150aso11104775e9.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:07:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783710475; x=1784315275; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=v2c8ve1eOpm9ZGAfxSFM+Y9p3YLh5Tuis6XJ274g65g=;
+ b=Wl5mKIJW+gypC41Qjfq43vp55ugRxhTI/puXySzvb/UBy6Wf0sZECZSiC7IpFaBlon
+ dajsrN0KwFoTRqJPqaURB+TTNIK4bN7W1eOGU8+cN/An0tuG0wSf0tNXeR0x3JiEFi2o
+ slHVuOs9ii291pEWAYcO5D9+TwntJYRI15kngmOoWgaQGgMyOMx5/GwihIu+i9cEBtx3
+ 8HXXDDWmB3uqcUNmlCrlLCP0RF6jSCLaXyK9SR3lovO7yRTxifZ79TkL2ZEuujv2C/aG
+ /TR+AMSfqiR3yWoA64BoVfdY3OGr+jjE9u4Pqar6WzLysjaFNDdL5JB5viGWzyWAzc8t
+ /8QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783710475; x=1784315275;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=v2c8ve1eOpm9ZGAfxSFM+Y9p3YLh5Tuis6XJ274g65g=;
+ b=kz2ROvdj4aPXM5noo12+UL2DZqzzAG4p27obVkFPAo7OURmbRqJfTDQl4trLc+yJQj
+ +FMVaflOxMx5wEgzQ2mUAaUv6u8o1bfqSzJ8DzP3lmFNVDcEFD7efYgYS9f3cuzlJIRA
+ +mKSN+xG5ozGGKhli3oUiHF2et6RLSXhAiSGGLWWMbvUbyegqKWbW7DOUnr8cc6VJwwa
+ kcqheXEfPHZYq87CNM5moY3TqhDVBSlrHXvuKrc0u1OE0hGCM0Q0n6/fdDt5tQuzToFs
+ NuNjbeHicaw1JUtQrM1ucG/FgeXL4i22Q7GzrZXqKT+3H5PRx6b8+kShmERsb3qUu7Pf
+ B6lg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpCtLbAS+J78alCoSBu0kraAdQeqN52b7eGwYr6jByhShY3WWbOZ/348PA+6YlxM81cj7obHaPLNVQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy/WYDMme/kBKizjN3c3rjt+8T9s8sVFqaYLPbVKkCD6QIP/+OG
+ 9zgu28CxircaZCHmDluM3opDJe86CDOC1B+9nkr4d6BUHIEjZyhx7XLm
+X-Gm-Gg: AfdE7cmRQ5aoNBB6tZP9io9qsRg838iQ61EMmcf4dixIpzqhKQG2Ww81AOKAgnOnNi0
+ 3W8qr/p/zqeEMAx/gw1uha9SvR6WlTcX7GJu/VibJeIVhm1EwT3REh//Mcbo8eTT6x7pk4Vcqj0
+ sInwlHpfgDcqXhKS7IY/b+4fQE5YZshn/A9SndA5VT0xXOsuPcc/+iyBBYmhnLjDaH18DaP/FGX
+ la2f2vDrEq4aoZFjJEs+Yxc1etS76ouvMwqJTNobzWMDdutfgZqh8CEaTova8iHR3GmKQpaiYoY
+ +alAP+98ytmr55/wj+dF8tEnJ1osvZCjuviziSEDtBTOAvxFAXPJvkDRjL7WwWTEiO5LTIR20z6
+ 7tVL0oPiwPUeVsrb0Pjbh8/sFXQYxVYCQ0bRf04evATasisdBF5n5lb7fuZwiGNpcffSmB5X8eo
+ bThpHIi5P//BOb1nYjzMdClalL7g==
+X-Received: by 2002:a05:600c:5489:b0:493:e97c:216e with SMTP id
+ 5b1f17b1804b1-493f8851d4emr810365e9.39.1783710475270; 
+ Fri, 10 Jul 2026 12:07:55 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:154f:ec00:aa08:de24:db33:4496])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493f567eadfsm55000755e9.6.2026.07.10.12.07.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Jul 2026 12:07:54 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
+ simona@ffwll.ch, matthew.brost@intel.com, nat@pixelcluster.dev,
+ airlied@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: Refcounting dma_resv and using that for drm_exec support in TTM
+Date: Fri, 10 Jul 2026 20:52:40 +0200
+Message-ID: <20260710190752.2355-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260528184145.384114-1-domibel@debian.org>
-In-Reply-To: <20260528184145.384114-1-domibel@debian.org>
-From: Dominique Belhachemi <domibel@debian.org>
-Date: Fri, 10 Jul 2026 14:40:37 -0400
-X-Gmail-Original-Message-ID: <CAAvaLCxMMmwv=JCXjaAaazk7cYOh7__5NBRrn1GjGxxeU5gj4g@mail.gmail.com>
-X-Gm-Features: AUfX_mx1JyYHcxHlnA3aCVJCZn_2Yjy7nfHLofy2VZuR6aupZwiaJl_75nwYpF8
-Message-ID: <CAAvaLCxMMmwv=JCXjaAaazk7cYOh7__5NBRrn1GjGxxeU5gj4g@mail.gmail.com>
-Subject: Re: [PATCH v1] drm/bridge: inno-hdmi: reset DDC segment pointer per
- I2C transfer
-To: Andy Yan <andy.yan@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Debian-User: domibel
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,42 +90,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 28, 2026 at 2:41=E2=80=AFPM Dominique Belhachemi <domibel@debia=
-n.org> wrote:
->
-> The segment_addr and ddc_addr fields need to be reset per I2C transfer
-> to avoid stale values. The reset wasn't required on simple displays with
-> only one segment, but modern displays with two or more segments end up
-> with corrupt EDIDs.
->
-> This was found on a StarFive VisionFive 2 SBC.
->
-> Signed-off-by: Dominique Belhachemi <domibel@debian.org>
-> ---
->  drivers/gpu/drm/bridge/inno-hdmi.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/=
-inno-hdmi.c
-> index 5fa533a4eb342..297be02bbd58d 100644
-> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-> @@ -989,6 +989,10 @@ static int inno_hdmi_i2c_xfer(struct i2c_adapter *ad=
-ap,
->
->         mutex_lock(&i2c->lock);
->
-> +       /* Reset segment_addr and ddc_addr at the start of every I2C tran=
-sfer */
-> +       i2c->ddc_addr =3D 0;
-> +       i2c->segment_addr =3D 0;
-> +
->         /* Clear the EDID interrupt flag and unmute the interrupt */
->         hdmi_writeb(hdmi, HDMI_INTERRUPT_MASK1, m_INT_EDID_READY);
->         hdmi_writeb(hdmi, HDMI_INTERRUPT_STATUS1, m_INT_EDID_READY);
-> --
+Hi everybody,
 
-Hi, Is there anything else I can provide to get this merged?
+The idea of ref-counting dma_resv or ww_mutex came up multiple times from
+different people, but so far at least I have abandoned that as to
+complicated to implement considering how widely used that object is.
 
-Thanks
--Dominique
+Thanks to AI I gave the task to refcount dma_resv to Claude Sonet 4 just
+to check how horrible it would look like.
+
+Well turns out that this is actually a cleanup we should most likely aim
+for and I'm really wondering why we haven't done it like this in the
+first place.
+
+Not only resolves it a bunch of issues with dma_resv instances shared by
+multiple GEM objects (we just recently had a bunch of patches for that on
+the mailing list), but also allows TTM to implement it's delayed delete
+handling without any zombie resurrection or similar hacks.
+
+The patch set is totally work in progress and only survives a smoke test
+with amdgpu, but I still wanted to check if the idea is valuable and
+should be looked in further.
+
+Please comment and/or tear apart :)
+
+Cheers,
+Christian.
+
