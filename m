@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2639BC44506
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 19:08:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74DEBC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 19:08:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 584D910F946;
-	Fri, 10 Jul 2026 19:08:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F39410F95B;
+	Fri, 10 Jul 2026 19:08:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YlzW18S5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Iw65ymGZ";
 	dkim-atps=neutral
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4668A10E227
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 19:07:59 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-4759b4f0897so753075f8f.1
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:07:59 -0700 (PDT)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D1A710F94F
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 19:08:03 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-493f60208a5so7599635e9.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:08:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783710477; x=1784315277; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783710482; x=1784315282; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=/fM2g6hrSRmJlUHgqQyOMFyX9IRPiNo3S9XYkHpe50w=;
- b=YlzW18S5//ZZ2aOznE5k4eERw0ydZMLwncIxPbPUJxS8azu7h+oYjXI38AFycvVfM5
- uAFTfmdJms5cG6FNli/ggg4PTpAAkN1wR/+6vt/JYQIq7dHpY3gbuLuKi6cKMk+g8VZ1
- rO3SLKLmQtsxz8fNeQ+Oo+2W2SjmhU152CwAPXqV+n58djQJAEuQO0he9GWLYJ/VTv5Q
- VPW0mZUmzG5UxpKWSsyL3hijxB48fmvo8InF2JG4oGxg3/aFNWsil1avE8TV64K4/C9m
- bLwUl9yaySc7GcNPjQvmJW2ZYDnpikA7yqvAW/UY2CQCy+Dqs3zK3Dzqx8ANJNtC2xFn
- tKTA==
+ bh=HPmD3vMJoHO8CFqL7S7C4nD2ho35ackVcxiEqNgTWIk=;
+ b=Iw65ymGZ0nr4pjqYS+zQ0QSKjdX9OvxcyT6J9Pk4s1d1AYVv+2+/vrthASVGHbisP8
+ wzJksvPWoweX91B2ssMA96sFTDY0O0TjrRuU5wWMncboMm1eu8T/DIwkpMSHrpwV+tNV
+ 1X6yFQMHPhCg6juuO5gfyPKSzqI6u5LOubxIOnQ4lTglajsbkZSAMYdhj7AvrowM4T54
+ 6fncH3Omkb0oa6BBhHYkFV0PgLQyx8i9OD5Vj9BmuV2NteKKxnio9RqMreD1wOyV8YN5
+ uarnclsjgpMzCJCU+IlMtzwlkpG+u6lz3D2nU9JuvFDeYONHAblipEmZbdIvS6Wfl08k
+ p3FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783710477; x=1784315277;
+ d=1e100.net; s=20251104; t=1783710482; x=1784315282;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=/fM2g6hrSRmJlUHgqQyOMFyX9IRPiNo3S9XYkHpe50w=;
- b=IRYIC2gDdwpvmKvQtZ4TF+uewzoHC4exMRUzyJcAY97s4Zq3+iR+Srg4c08rDl5uv5
- Sb0bSKHM1vQaAFf3fBJY8FE+iMV41EvAZPVWMAsRUZJ8rRe4Pj9F8EqssbiL32yGQBjy
- Hp1LQBRUFgRQlTfX9ZV+6Lw/cqP9O5jDnZ/Eug6KrzF8xov/21eM0KAT5vL6mXSM+eO+
- 7T6NNAuMjsN8aIVL/+Cq4ERradq7UvhHJgT+pefmXr17b5e5Ukn8PHRhX7seSH+M7nAi
- RC/koYm9NrC8mivo14/ubaZvv8r9SFLJ2bmvjuVCCYoH0RUQz8KlJL1keIfwu5v8knLK
- L49g==
+ bh=HPmD3vMJoHO8CFqL7S7C4nD2ho35ackVcxiEqNgTWIk=;
+ b=ABRa9QJthcSDGfZOQywHJ+9d0rkO++UzR/iutQkQ6h2lOe0bKyuP0jRH6eBzqMIIgC
+ 3Xg3O69sc12BJWmB0IRBv656UZLwAGK8Nd1rmOLjHBmc30ydeM6jtD3vUWRQnVAcUc7d
+ QDYO4ODTrOQlCSG2W+lM0oBBKGg+ra+pxK2Sj4QKPkLuUREE2KCySaCtk6qm2h1B391U
+ W89kWGKyl/cvZqWhQ49GxlDGWOF5mujalNG7/K26GSu3hlcbwbXfvqOxjGrBMrxuhzz7
+ UrBYM1K0roAYvm4Dn1SvlOtNJDKhAtm+BRTYwFQm9dapA6tlxS10pBX9UuH8kCL6FC+b
+ p92w==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp4vW9Fiy5u6Z6wShF3IAwN6joffVkow2UrQe1Tp/B3uel4uh+YWzfpLTp+cXi4Lliu5f9uY9rzWqA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwDPRuDA3WxigZRGNjxpvD/h+UCr60MWGULD8/6PE6Q35k1KvFa
- vk30wlni+Jzxc9ne99E86nCFpf2etd46tsQGwBn3/o6K8t/fn1V5oxJDBwLSlA==
-X-Gm-Gg: AfdE7cmNbT2WztSzszGVhUqZCWaQ8O/17O9qHDYjz/0rRudz/wqhbWaXH5khg8Dl4oR
- OJh3YZmn+OwFnpL+ZETtezxOqY4uO27Wd6/OTh+iGO/DiuYDDp14fkUfiRirA3oZLvsPUfrwWde
- WaPzD7evXd25HTprvqBJYK9AK3TdXfNsMetj2OtsrEkD3C27AgHZQrloYL7eOBQkIEiiDifKD+M
- MHq9861ZSULZ+UqGWhaEBnfODjOHqtZ8Jfs2XomHz5egn0JVXZ2RPdCA9+mza7S3tXm8NNHxg9R
- 1Su20uAKLQaOWeUO1VF812SouOtjCahNljapMKdlPN9ZE9TI0V+DMqdZm3Hv0GUv0Ud0i56Hn5W
- l/MxUR2Rr7AyHutHvWBoKvbsCwE3la7VLLQNs3v04zrY894pSo922areWa1DQJbw8Q+J/Gyk69F
- HVKCUCN18D+GunmKI6b/tjpXZ4lg==
-X-Received: by 2002:a05:600c:821a:b0:493:bba7:e9f4 with SMTP id
- 5b1f17b1804b1-493f881ddfbmr1001965e9.18.1783710477135; 
- Fri, 10 Jul 2026 12:07:57 -0700 (PDT)
+ AHgh+RrLV2RCMW7wVKE++eW6IMdptMEpZL4j0yvC/Y5DZaVP0QXcH1MWF6qPgNkIi4C9VAPjRifemrxY4vo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyDG0ueP1syULtAnlsPWyUFXWm0pS7QbAeLuB8+iDH9LoPCsb8/
+ o38aPiNOvusk/JBz7D6peALJX09mas8ODMBLv5zJt6ztktGFUmG99R7XJKDQvAbGlJ0=
+X-Gm-Gg: AfdE7cmdcnP3LYzZi+QK+KiY2TGwNj/IIwFJoEnFeAC0jcvGXqDgqAzB+B+NbRSlRVy
+ LJUf5P3vTiWLlgXeGpB9zTiZINIZYK4MB4hzcBXl3Le5T20JSRIdoDGpmrd8ozQRltgM//jh+ae
+ HHFE2aarqVsdZodm877UA/+IWM50qROSEJb6BCXkjr9DVXV2kMry9n7U6hwUYLxhrHJC35B1ZRT
+ 3bpPDjRWoPVhHhd7wyxVmZvmzgoOu7vx/1WNLhP649QQ5U3EN+lpQtPKppNDUO8uO83kBltgrsw
+ u2T+bFzgy78LUeRQH68M3+5ElKpQdJz9fmp5vAmUxS51jHYce2zKatrCCBTQX3r3PBhzCfIK1YX
+ cq8mkNNhRvtsHY8kbLuuWkOQP/3UvNCNHm1shlPQW9W2H7XDnKwFDYorFRMywpx82jh/GpucCQ6
+ jIPqgr88G6XQkx1Gp8rQO1iDbU6kmoHvQvLz6u
+X-Received: by 2002:a05:600c:1f91:b0:493:e79e:daa6 with SMTP id
+ 5b1f17b1804b1-493f8826e69mr975965e9.33.1783710481767; 
+ Fri, 10 Jul 2026 12:08:01 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:154f:ec00:aa08:de24:db33:4496])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493f567eadfsm55000755e9.6.2026.07.10.12.07.56
+ 5b1f17b1804b1-493f567eadfsm55000755e9.6.2026.07.10.12.08.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 12:07:56 -0700 (PDT)
+ Fri, 10 Jul 2026 12:08:01 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -71,10 +71,10 @@ To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
  airlied@gmail.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 02/12] dma-buf/tests: Convert st-dma-resv tests to use
- dma_resv_alloc
-Date: Fri, 10 Jul 2026 20:52:42 +0200
-Message-ID: <20260710190752.2355-3-christian.koenig@amd.com>
+Subject: [PATCH 07/12] drm/ttm: use ttm_bo_lru_for_each_reserved_guarded in
+ evict_all
+Date: Fri, 10 Jul 2026 20:52:47 +0200
+Message-ID: <20260710190752.2355-8-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260710190752.2355-1-christian.koenig@amd.com>
 References: <20260710190752.2355-1-christian.koenig@amd.com>
@@ -97,266 +97,136 @@ Reply-To: christian.koenig@amd.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Update all test cases in st-dma-resv.c to use the new dma_resv_alloc()
-API instead of stack-allocating dma_resv objects. This demonstrates the
-proper usage of the new allocation and reference counting interface.
+Use the for_each loop to evict all BOs of an resource manager as well.
 
-All five test functions now:
-- Use dma_resv_alloc() to allocate objects
-- Check for allocation failure with KUNIT_ASSERT_NOT_NULL
-- Clean up with dma_resv_put() which handles freeing
-
-This change also provides better test coverage for the reference
-counting implementation.
+Greately simplifying the handling and finally allows us to
+remove ttm_bo_evict_first().
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
-Assisted-by: Claude:Sonnet 4
 ---
- drivers/dma-buf/st-dma-resv.c | 90 +++++++++++++++++++----------------
- 1 file changed, 50 insertions(+), 40 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo.c       | 51 +-----------------------------
+ drivers/gpu/drm/ttm/ttm_resource.c | 22 +++++++++----
+ include/drm/ttm/ttm_bo.h           |  1 +
+ 3 files changed, 17 insertions(+), 57 deletions(-)
 
-diff --git a/drivers/dma-buf/st-dma-resv.c b/drivers/dma-buf/st-dma-resv.c
-index 2c43d2d2b0169..b843d90417822 100644
---- a/drivers/dma-buf/st-dma-resv.c
-+++ b/drivers/dma-buf/st-dma-resv.c
-@@ -41,7 +41,7 @@ static struct dma_fence *alloc_fence(void)
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index e28e11c06ef48..6af247dba53e5 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -355,8 +355,7 @@ static int ttm_bo_bounce_temp_buffer(struct ttm_buffer_object *bo,
+ 	return 0;
+ }
  
- static void test_sanitycheck(struct kunit *test)
+-static int ttm_bo_evict(struct ttm_buffer_object *bo,
+-			struct ttm_operation_ctx *ctx)
++int ttm_bo_evict(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx)
  {
--	struct dma_resv resv;
-+	struct dma_resv *resv;
- 	struct dma_fence *f;
- 	int r;
- 
-@@ -53,20 +53,22 @@ static void test_sanitycheck(struct kunit *test)
- 	dma_fence_signal(f);
- 	dma_fence_put(f);
- 
--	dma_resv_init(&resv);
--	r = dma_resv_lock(&resv, NULL);
-+	resv = dma_resv_alloc();
-+	KUNIT_ASSERT_NOT_NULL(test, resv);
-+
-+	r = dma_resv_lock(resv, NULL);
- 	if (r)
- 		KUNIT_FAIL(test, "Resv locking failed\n");
- 	else
--		dma_resv_unlock(&resv);
--	dma_resv_put(&resv);
-+		dma_resv_unlock(resv);
-+	dma_resv_put(resv);
+ 	struct ttm_resource *evict_mem;
+ 	struct ttm_placement placement;
+@@ -441,54 +440,6 @@ bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
  }
+ EXPORT_SYMBOL(ttm_bo_eviction_valuable);
  
- static void test_signaling(struct kunit *test)
+-/**
+- * ttm_bo_evict_first() - Evict the first bo on the manager's LRU list.
+- * @bdev: The ttm device.
+- * @man: The manager whose bo to evict.
+- * @ctx: The TTM operation ctx governing the eviction.
+- *
+- * Return: 0 if successful or the resource disappeared. Negative error code on error.
+- */
+-int ttm_bo_evict_first(struct ttm_device *bdev, struct ttm_resource_manager *man,
+-		       struct ttm_operation_ctx *ctx)
+-{
+-	struct ttm_resource_cursor cursor;
+-	struct ttm_buffer_object *bo;
+-	struct ttm_resource *res;
+-	unsigned int mem_type;
+-	int ret = 0;
+-
+-	spin_lock(&bdev->lru_lock);
+-	ttm_resource_cursor_init(&cursor, man);
+-	res = ttm_resource_manager_first(&cursor);
+-	ttm_resource_cursor_fini(&cursor);
+-	if (!res) {
+-		ret = -ENOENT;
+-		goto out_no_ref;
+-	}
+-	bo = res->bo;
+-	if (!ttm_bo_get_unless_zero(bo))
+-		goto out_no_ref;
+-	mem_type = res->mem_type;
+-	spin_unlock(&bdev->lru_lock);
+-	ret = ttm_bo_reserve(bo, ctx->interruptible, ctx->no_wait_gpu, NULL);
+-	if (ret)
+-		goto out_no_lock;
+-	if (!bo->resource || bo->resource->mem_type != mem_type)
+-		goto out_bo_moved;
+-
+-	ret = ttm_bo_evict(bo, ctx);
+-out_bo_moved:
+-	dma_resv_unlock(bo->base.resv);
+-out_no_lock:
+-	ttm_bo_put(bo);
+-	return ret;
+-
+-out_no_ref:
+-	spin_unlock(&bdev->lru_lock);
+-	return ret;
+-}
+-
+ /**
+  * struct ttm_bo_evict_walk - Parameters for the evict walk.
+  */
+diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+index 4a765b25472c3..e686fc2849d99 100644
+--- a/drivers/gpu/drm/ttm/ttm_resource.c
++++ b/drivers/gpu/drm/ttm/ttm_resource.c
+@@ -561,17 +561,25 @@ EXPORT_SYMBOL(ttm_resource_manager_init);
+ int ttm_resource_manager_evict_all(struct ttm_device *bdev,
+ 				   struct ttm_resource_manager *man)
  {
- 	const struct dma_resv_usage_param *param = test->param_value;
- 	enum dma_resv_usage usage = param->usage;
--	struct dma_resv resv;
-+	struct dma_resv *resv;
- 	struct dma_fence *f;
- 	int r;
+-	struct ttm_operation_ctx ctx = { };
++	struct ttm_bo_lru_cursor cursor;
++	struct ttm_operation_ctx ctx = {
++		.interruptible = false,
++		.no_wait_gpu = false,
++	};
++	struct ttm_lru_walk_arg arg = {
++		.ctx = &ctx,
++		.trylock_only = true
++	};
++	struct ttm_buffer_object *bo;
+ 	struct dma_fence *fence;
+ 	int ret, i;
  
-@@ -75,33 +77,35 @@ static void test_signaling(struct kunit *test)
+-	do {
+-		ret = ttm_bo_evict_first(bdev, man, &ctx);
++	ttm_bo_lru_for_each_reserved_guarded(&cursor, man, &arg, bo) {
++		ret = ttm_bo_evict(bo, &ctx);
++		if (ret)
++			return ret;
+ 		cond_resched();
+-	} while (!ret);
+-
+-	if (ret && ret != -ENOENT)
+-		return ret;
++	}
  
- 	dma_fence_enable_signaling(f);
+ 	ret = 0;
  
--	dma_resv_init(&resv);
--	r = dma_resv_lock(&resv, NULL);
-+	resv = dma_resv_alloc();
-+	KUNIT_ASSERT_NOT_NULL(test, resv);
-+
-+	r = dma_resv_lock(resv, NULL);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv locking failed");
- 		goto err_free;
- 	}
- 
--	r = dma_resv_reserve_fences(&resv, 1);
-+	r = dma_resv_reserve_fences(resv, 1);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv shared slot allocation failed");
- 		goto err_unlock;
- 	}
- 
--	dma_resv_add_fence(&resv, f, usage);
--	if (dma_resv_test_signaled(&resv, usage)) {
-+	dma_resv_add_fence(resv, f, usage);
-+	if (dma_resv_test_signaled(resv, usage)) {
- 		KUNIT_FAIL(test, "Resv unexpectedly signaled");
- 		goto err_unlock;
- 	}
- 	dma_fence_signal(f);
--	if (!dma_resv_test_signaled(&resv, usage)) {
-+	if (!dma_resv_test_signaled(resv, usage)) {
- 		KUNIT_FAIL(test, "Resv not reporting signaled");
- 		goto err_unlock;
- 	}
- err_unlock:
--	dma_resv_unlock(&resv);
-+	dma_resv_unlock(resv);
- err_free:
--	dma_resv_put(&resv);
-+	dma_resv_put(resv);
- 	dma_fence_put(f);
- }
- 
-@@ -111,7 +115,7 @@ static void test_for_each(struct kunit *test)
- 	enum dma_resv_usage usage = param->usage;
- 	struct dma_resv_iter cursor;
- 	struct dma_fence *f, *fence;
--	struct dma_resv resv;
-+	struct dma_resv *resv;
- 	int r;
- 
- 	f = alloc_fence();
-@@ -119,23 +123,25 @@ static void test_for_each(struct kunit *test)
- 
- 	dma_fence_enable_signaling(f);
- 
--	dma_resv_init(&resv);
--	r = dma_resv_lock(&resv, NULL);
-+	resv = dma_resv_alloc();
-+	KUNIT_ASSERT_NOT_NULL(test, resv);
-+
-+	r = dma_resv_lock(resv, NULL);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv locking failed");
- 		goto err_free;
- 	}
- 
--	r = dma_resv_reserve_fences(&resv, 1);
-+	r = dma_resv_reserve_fences(resv, 1);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv shared slot allocation failed");
- 		goto err_unlock;
- 	}
- 
--	dma_resv_add_fence(&resv, f, usage);
-+	dma_resv_add_fence(resv, f, usage);
- 
- 	r = -ENOENT;
--	dma_resv_for_each_fence(&cursor, &resv, usage, fence) {
-+	dma_resv_for_each_fence(&cursor, resv, usage, fence) {
- 		if (!r) {
- 			KUNIT_FAIL(test, "More than one fence found");
- 			goto err_unlock;
-@@ -158,9 +164,9 @@ static void test_for_each(struct kunit *test)
- 	}
- 	dma_fence_signal(f);
- err_unlock:
--	dma_resv_unlock(&resv);
-+	dma_resv_unlock(resv);
- err_free:
--	dma_resv_put(&resv);
-+	dma_resv_put(resv);
- 	dma_fence_put(f);
- }
- 
-@@ -170,7 +176,7 @@ static void test_for_each_unlocked(struct kunit *test)
- 	enum dma_resv_usage usage = param->usage;
- 	struct dma_resv_iter cursor;
- 	struct dma_fence *f, *fence;
--	struct dma_resv resv;
-+	struct dma_resv *resv;
- 	int r;
- 
- 	f = alloc_fence();
-@@ -178,25 +184,27 @@ static void test_for_each_unlocked(struct kunit *test)
- 
- 	dma_fence_enable_signaling(f);
- 
--	dma_resv_init(&resv);
--	r = dma_resv_lock(&resv, NULL);
-+	resv = dma_resv_alloc();
-+	KUNIT_ASSERT_NOT_NULL(test, resv);
-+
-+	r = dma_resv_lock(resv, NULL);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv locking failed");
- 		goto err_free;
- 	}
- 
--	r = dma_resv_reserve_fences(&resv, 1);
-+	r = dma_resv_reserve_fences(resv, 1);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv shared slot allocation failed");
--		dma_resv_unlock(&resv);
-+		dma_resv_unlock(resv);
- 		goto err_free;
- 	}
- 
--	dma_resv_add_fence(&resv, f, usage);
--	dma_resv_unlock(&resv);
-+	dma_resv_add_fence(resv, f, usage);
-+	dma_resv_unlock(resv);
- 
- 	r = -ENOENT;
--	dma_resv_iter_begin(&cursor, &resv, usage);
-+	dma_resv_iter_begin(&cursor, resv, usage);
- 	dma_resv_for_each_fence_unlocked(&cursor, fence) {
- 		if (!r) {
- 			KUNIT_FAIL(test, "More than one fence found");
-@@ -231,7 +239,7 @@ static void test_for_each_unlocked(struct kunit *test)
- 	dma_resv_iter_end(&cursor);
- 	dma_fence_signal(f);
- err_free:
--	dma_resv_put(&resv);
-+	dma_resv_put(resv);
- 	dma_fence_put(f);
- }
- 
-@@ -240,7 +248,7 @@ static void test_get_fences(struct kunit *test)
- 	const struct dma_resv_usage_param *param = test->param_value;
- 	enum dma_resv_usage usage = param->usage;
- 	struct dma_fence *f, **fences = NULL;
--	struct dma_resv resv;
-+	struct dma_resv *resv;
- 	int r, i;
- 
- 	f = alloc_fence();
-@@ -248,24 +256,26 @@ static void test_get_fences(struct kunit *test)
- 
- 	dma_fence_enable_signaling(f);
- 
--	dma_resv_init(&resv);
--	r = dma_resv_lock(&resv, NULL);
-+	resv = dma_resv_alloc();
-+	KUNIT_ASSERT_NOT_NULL(test, resv);
-+
-+	r = dma_resv_lock(resv, NULL);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv locking failed");
- 		goto err_resv;
- 	}
- 
--	r = dma_resv_reserve_fences(&resv, 1);
-+	r = dma_resv_reserve_fences(resv, 1);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv shared slot allocation failed");
--		dma_resv_unlock(&resv);
-+		dma_resv_unlock(resv);
- 		goto err_resv;
- 	}
- 
--	dma_resv_add_fence(&resv, f, usage);
--	dma_resv_unlock(&resv);
-+	dma_resv_add_fence(resv, f, usage);
-+	dma_resv_unlock(resv);
- 
--	r = dma_resv_get_fences(&resv, usage, &i, &fences);
-+	r = dma_resv_get_fences(resv, usage, &i, &fences);
- 	if (r) {
- 		KUNIT_FAIL(test, "get_fences failed");
- 		goto err_free;
-@@ -282,7 +292,7 @@ static void test_get_fences(struct kunit *test)
- 		dma_fence_put(fences[i]);
- 	kfree(fences);
- err_resv:
--	dma_resv_put(&resv);
-+	dma_resv_put(resv);
- 	dma_fence_put(f);
- }
- 
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index 33dfa61ba882a..026ab044b0202 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -404,6 +404,7 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
+ void ttm_bo_fini(struct ttm_buffer_object *bo);
+ void ttm_bo_set_bulk_move(struct ttm_buffer_object *bo,
+ 			  struct ttm_lru_bulk_move *bulk);
++int ttm_bo_evict(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx);
+ bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 			      const struct ttm_place *place);
+ int ttm_bo_init_reserved(struct ttm_device *bdev, struct ttm_buffer_object *bo,
 -- 
 2.43.0
 
