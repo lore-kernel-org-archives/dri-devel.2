@@ -4,91 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F580C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 14:51:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 575EDC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 14:52:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A063910E1DB;
-	Fri, 10 Jul 2026 14:51:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE57210E1C9;
+	Fri, 10 Jul 2026 14:52:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GV0G1PCd";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="QqbufOoh";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67B7D10E1C9;
- Fri, 10 Jul 2026 14:51:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 67B6960051;
- Fri, 10 Jul 2026 14:51:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A13DE1F00A3A;
- Fri, 10 Jul 2026 14:50:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783695069;
- bh=/adl28F1RG11+xFCTzjhiMT3/quSA/55SrYHe5Xl+as=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=GV0G1PCdVWL/17cPDVZfz86GmBO0VpAcpElRSgqzkFaZnFKsDK6rIw+lxzMvM7oyM
- gOb7BmlLZV+r7XfvVToV0An5vS3DWoiRNZEtakP1kgKdd/pwAzK/AhJrUnpZlFH/ma
- IDgVC6vlNuOfwFAEke1UlfCP3mMcmRNqv1rAQF1Ta5n8CDc7P/kP23VMlYUdFRkbMx
- btXD63gJA5fhI4bndbOxrinkAQhHaNvBor7RN1UECzz5h5BotHDkxdGHR0ZdFn1Wle
- sxRRlN3kLf8W7g8Lmmkim9s7ySe4W1NlivrC5VU8viOWzvoYYPKNt7/4lb6lTsMCz8
- i1PWPp9WBYC/w==
-Date: Fri, 10 Jul 2026 15:50:44 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Gregory Price <gourry@gourry.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
- Kees Cook <kees@kernel.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
- iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, 
- Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 13/30] mm/vma: refactor vmg_adjust_set_range() for clarity
-Message-ID: <alEGqHY5GPhT30Ty@lucifer>
-References: <cover.1782735110.git.ljs@kernel.org>
- <ada7972f49ea7f1ff1df6d11e4651f270444f8fd.1782735110.git.ljs@kernel.org>
- <ak-70CHGujkI5jJI@gourry-fedora-PF4VCD3F>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 933EC10E1C9
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 14:52:39 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D1668176A;
+ Fri, 10 Jul 2026 07:52:34 -0700 (PDT)
+Received: from [10.1.29.35] (e122027.cambridge.arm.com [10.1.29.35])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3E8373F7B4;
+ Fri, 10 Jul 2026 07:52:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1783695159; bh=lrwcfh7jxqx8sWkwzuuyiRWPy3xMYQEYtJ8uSO1cQ1E=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=QqbufOohbLWhkcSZXDY4302lROBr5o3t5oU+S4xls+fsndU1w+u+TZOr9rG56qlZY
+ vQlCgu1NaZuuxhnzjk0HmVnu+p/Jce+GHViH8Zuy6Qyylz5RMzhxqGTO9sLhz+HyuT
+ w06FL1rluqtf2i3DphRY2/uIPWubl+xO3tNRZSkE=
+Message-ID: <98345cd1-9693-447d-b4cd-08a889b2303b@arm.com>
+Date: Fri, 10 Jul 2026 15:52:34 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ak-70CHGujkI5jJI@gourry-fedora-PF4VCD3F>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/panthor: add gpu_load debugfs node
+To: Guangliu Ding <guangliu.ding@nxp.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260708-master-v1-1-713a00fe35ec@nxp.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260708-master-v1-1-713a00fe35ec@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,71 +60,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 09, 2026 at 11:18:40AM -0400, Gregory Price wrote:
-> On Mon, Jun 29, 2026 at 01:23:24PM +0100, Lorenzo Stoakes wrote:
-> > Add comments with ASCII diagrams to describe what we're doing, avoid
-> > dubious use of PHYS_PFN(), and use vma_start_pgoff().
-> >
-> > The most complicated scenario represented here is vmg->__adjust_next_start
-> > - when this is set, vmg->[start, end] actually indicate the range to be
-> > retained, so take special care to describe this accurately.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
->
-> Reviewed-by: Gregory Price <gourry@gourry.net>
->
-> > +		/*
-> > +		 * vmg->start    vmg->end
-> > +		 * |             |
-> > +		 * v    merge    v
-> > +		 * <------------->
-> > +		 *         delta
-> > +		 *        <------>
-> > +		 * |------|----------------|
-> > +		 * | prev |    middle      |
-> > +		 * |------|----------------|
-> > +		 *        ^
-> > +		 *        |
-> > +		 *        middle->vm_start
-> > +		 */
->
-> Even with these diagrams, it's a bit difficult to understand what the
-> actual intent/result of this chunk is (but that may be a limitation of
-> me not spending enough time reading the surrounding code, not a comment
-> of your work here).
+On 08/07/2026 04:24, Guangliu Ding wrote:
+> Expose GPU utilization via /sys/kernel/debug/dri/<N>/gpu_load.  The
+> file reports busy_time_ns, idle_time_ns and gpu_load %.
+> 
+> Values are snapshotted at the end of each devfreq sampling window
+> (~50 ms) rather than read from live accumulators, avoiding load swings
+> over short observation intervals.
+> 
+> The snapshot is cleared on suspend to avoid stale data when the GPU
+> is powered off.
+> 
+> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
 
-Yeah I know, I do hope to refactor all this at some point to make it simpler,
-but for the time being tried to make the confusing thing at least _slightly_
-less confusing :)
+Hi Guangliu,
 
->
-> ~Gregory
+I'm puzzled exactly what you're trying to achieve with this. I can see
+that getting the GPU load might be useful, we do already have the
+'fdinfo' mechanism to do this in a per-client manner but nothing good
+for "whole GPU" measurements.
 
-Cheers, Lorenzo
+But stashing it in debugfs and formatting it as a string seems odd. Do
+you have a tool which uses this file, or is just for 'cat'ing to see the
+instantaneous load?
 
->
-> > +		/*
-> > +		 *                Originally:
-> > +		 *
-> > +		 *            vmg->start   vmg->end
-> > +		 *            |            |
-> > +		 *            v    merge   v
-> > +		 *            <------------>
-> > +		 *            .            .
-> > +		 * merge_existing_range() updates to:
-> > +		 *            .            .
-> > +		 * vmg->start vmg->end     .
-> > +		 * |          |            .
-> > +		 * v  retain  v            .
-> > +		 * <---------->            .
-> > +		 *             delta       .
-> > +		 *            <----->      .
-> > +		 * |----------------|------|
-> > +		 * |    middle      | next |
-> > +		 * |----------------|------|
-> > +		 *                  ^
-> > +		 *                  |
-> > +		 *                  next->vm_start
-> > +		 */
+Ideally we'd have something that would provide this information in a
+format that all drivers could implement, and not rely on debugfs files.
+
+Thanks,
+Steve
+
+> ---
+> Add /sys/kernel/debug/dri/<N>/gpu_load to expose GPU utilisation
+> from the last devfreq sampling window (~50 ms).
+> The file reports busy_time_ns, idle_time_ns and load percentage.
+> 
+> Tested on NXP i.MX95 EVK (Mali-G310 V2).
+> ---
+>  drivers/gpu/drm/panthor/panthor_devfreq.c | 80 +++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/panthor/panthor_devfreq.h |  6 +++
+>  drivers/gpu/drm/panthor/panthor_drv.c     |  2 +
+>  3 files changed, 88 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> index 2249b41ca4af..1b3f58ddfbd3 100644
+> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
+> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> @@ -1,12 +1,16 @@
+>  // SPDX-License-Identifier: GPL-2.0 or MIT
+>  /* Copyright 2019 Collabora ltd. */
+> +/* Copyright 2026 NXP */
+>  
+>  #include <linux/clk.h>
+> +#include <linux/debugfs.h>
+>  #include <linux/devfreq.h>
+>  #include <linux/devfreq_cooling.h>
+> +#include <linux/math64.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_opp.h>
+>  
+> +#include <drm/drm_file.h>
+>  #include <drm/drm_managed.h>
+>  #include <drm/drm_print.h>
+>  
+> @@ -43,6 +47,22 @@ struct panthor_devfreq {
+>  	 * and panthor_devfreq_record_{busy,idle}().
+>  	 */
+>  	spinlock_t lock;
+> +
+> +#ifdef CONFIG_DEBUG_FS
+> +	/**
+> +	 * @last_busy_ns: Busy time in nanoseconds of the last completed devfreq window.
+> +	 * Updated by panthor_devfreq_get_dev_status() before resetting the counters.
+> +	 * Protected by @lock.
+> +	 */
+> +	u64 last_busy_ns;
+> +
+> +	/**
+> +	 * @last_total_ns: Total time in nanoseconds of the last completed devfreq window.
+> +	 * Updated by panthor_devfreq_get_dev_status() before resetting the counters.
+> +	 * Protected by @lock.
+> +	 */
+> +	u64 last_total_ns;
+> +#endif
+>  };
+>  
+>  static void panthor_devfreq_update_utilization(struct panthor_devfreq *pdevfreq)
+> @@ -101,6 +121,11 @@ static int panthor_devfreq_get_dev_status(struct device *dev,
+>  
+>  	status->busy_time = ktime_to_ns(pdevfreq->busy_time);
+>  
+> +#ifdef CONFIG_DEBUG_FS
+> +	pdevfreq->last_busy_ns = status->busy_time;
+> +	pdevfreq->last_total_ns = status->total_time;
+> +#endif
+> +
+>  	panthor_devfreq_reset(pdevfreq);
+>  
+>  	spin_unlock_irqrestore(&pdevfreq->lock, irqflags);
+> @@ -283,6 +308,17 @@ void panthor_devfreq_suspend(struct panthor_device *ptdev)
+>  		return;
+>  
+>  	drm_WARN_ON(&ptdev->base, devfreq_suspend_device(pdevfreq->devfreq));
+> +
+> +#ifdef CONFIG_DEBUG_FS
+> +	{
+> +		unsigned long irqflags;
+> +
+> +		spin_lock_irqsave(&pdevfreq->lock, irqflags);
+> +		pdevfreq->last_busy_ns = 0;
+> +		pdevfreq->last_total_ns = 0;
+> +		spin_unlock_irqrestore(&pdevfreq->lock, irqflags);
+> +	}
+> +#endif
+>  }
+>  
+>  void panthor_devfreq_record_busy(struct panthor_device *ptdev)
+> @@ -332,3 +368,47 @@ unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev)
+>  
+>  	return freq;
+>  }
+> +
+> +#ifdef CONFIG_DEBUG_FS
+> +static int panthor_devfreq_gpu_load_show(struct seq_file *m, void *unused)
+> +{
+> +	struct panthor_device *ptdev = m->private;
+> +	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+> +	unsigned long irqflags;
+> +	unsigned int gpu_load;
+> +	u64 total_ns;
+> +	u64 busy_ns;
+> +
+> +	if (!pdevfreq->devfreq) {
+> +		seq_puts(m, "devfreq not initialized\n");
+> +		return 0;
+> +	}
+> +
+> +	spin_lock_irqsave(&pdevfreq->lock, irqflags);
+> +	busy_ns = pdevfreq->last_busy_ns;
+> +	total_ns = pdevfreq->last_total_ns;
+> +	spin_unlock_irqrestore(&pdevfreq->lock, irqflags);
+> +
+> +	busy_ns = min(busy_ns, total_ns);
+> +	gpu_load = total_ns ? (unsigned int)div64_u64(busy_ns * 100ULL, total_ns) : 0;
+> +
+> +	seq_printf(m, "busy_time_ns: %llu  idle_time_ns: %llu  gpu_load: %u%%\n",
+> +		   busy_ns, total_ns - busy_ns, gpu_load);
+> +
+> +	return 0;
+> +}
+> +DEFINE_SHOW_ATTRIBUTE(panthor_devfreq_gpu_load);
+> +
+> +/**
+> + * panthor_devfreq_debugfs_init() - Initialize devfreq debugfs entries
+> + * @minor: DRM minor.
+> + */
+> +void panthor_devfreq_debugfs_init(struct drm_minor *minor)
+> +{
+> +	struct panthor_device *ptdev = container_of(minor->dev,
+> +						    struct panthor_device, base);
+> +
+> +	debugfs_create_file("gpu_load", 0444, minor->debugfs_root, ptdev,
+> +			    &panthor_devfreq_gpu_load_fops);
+> +}
+> +#endif /* CONFIG_DEBUG_FS */
+> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.h b/drivers/gpu/drm/panthor/panthor_devfreq.h
+> index f8e29e02f66c..4552569abfe4 100644
+> --- a/drivers/gpu/drm/panthor/panthor_devfreq.h
+> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.h
+> @@ -1,5 +1,6 @@
+>  /* SPDX-License-Identifier: GPL-2.0 or MIT */
+>  /* Copyright 2019 Collabora ltd. */
+> +/* Copyright 2026 NXP */
+>  
+>  #ifndef __PANTHOR_DEVFREQ_H__
+>  #define __PANTHOR_DEVFREQ_H__
+> @@ -20,4 +21,9 @@ void panthor_devfreq_record_idle(struct panthor_device *ptdev);
+>  
+>  unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev);
+>  
+> +#ifdef CONFIG_DEBUG_FS
+> +struct drm_minor;
+> +void panthor_devfreq_debugfs_init(struct drm_minor *minor);
+> +#endif
+> +
+>  #endif /* __PANTHOR_DEVFREQ_H__ */
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index e8dc4096c1d2..4093a6d21337 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -2,6 +2,7 @@
+>  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+>  /* Copyright 2019 Linaro, Ltd., Rob Herring <robh@kernel.org> */
+>  /* Copyright 2019 Collabora ltd. */
+> +/* Copyright 2026 NXP */
+>  
+>  #ifdef CONFIG_ARM_ARCH_TIMER
+>  #include <asm/arch_timer.h>
+> @@ -1761,6 +1762,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
+>  {
+>  	panthor_mmu_debugfs_init(minor);
+>  	panthor_gem_debugfs_init(minor);
+> +	panthor_devfreq_debugfs_init(minor);
+>  }
+>  #endif
+>  
+> 
+> ---
+> base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+> change-id: 20260706-master-bd0eef99ca8e
+> 
+> Best regards,
+> --  
+> Guangliu Ding <guangliu.ding@nxp.com>
+> 
+
