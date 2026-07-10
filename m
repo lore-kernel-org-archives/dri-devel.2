@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF312C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:29:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B1D6C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:30:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1291F10F9A3;
-	Fri, 10 Jul 2026 22:29:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E104F10F9A8;
+	Fri, 10 Jul 2026 22:30:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="huKeNSQD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q3shIXAX";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62B9E10F9A3
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 22:29:07 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0769710F9A8
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 22:30:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7612F60051;
- Fri, 10 Jul 2026 22:29:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CB431F000E9;
- Fri, 10 Jul 2026 22:29:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CB23C4108E;
+ Fri, 10 Jul 2026 22:30:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DED51F000E9;
+ Fri, 10 Jul 2026 22:30:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783722546;
- bh=2s4cfhtCmFZxLAy2P0iNkX+oKLU/n60xHZMOO8xbWXg=;
+ s=k20260515; t=1783722632;
+ bh=243JxOLClJJZjSVIZk8lyk4wCZTYkUkCsRC/T+CWK7w=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=huKeNSQDXmN64BJnqUNfzKUh9r5LImFJlxfH31+vb+943Gnn4SlY30aS5nT/mdCyv
- 9mcBuH6k60swdEbl1bf5DBAsXdtPJ9LrqcspJpFG5SldqSyeMGT/LEvBDZFytCLkaV
- OZIgudmPQJKA37UmLPNgv676EQ9CEma58Apeflqc52PwI4DQdTjMIJ07b4VLsGQ1nR
- etZ/t83WzzEbBe6AQJ6k8/URFvichUWF2kmXCw3KeqCmlFaEt4M3tGfq7jdB86uXAe
- FzW0LtDncoUIxTru7YN3s/604Yd4q76uZUvcTf9M+B6eHWmu5CDQs29pn3DyF/tRY0
- TF5jp/s0at7cg==
+ b=Q3shIXAX9BnqMG4bomHeTGwGAYOE6bidssZ03jwWcII14X5CyWBu/L+0GGt/ksick
+ lehMDe9R92dDN7L0r03zFdipmPADdBoObo5r2TOIZ4lwX8ZY9yXkVtpY6PPQeG4m0q
+ eNmLLIkUlA5ZggXz5NsIlHGnqn4XlePvCSzyFf2Zuw4TpMK2GaMyRcMtahfc+G7XUo
+ yk1PP7gfhVcuI+L3FWQmlPAL617NIJZVlMXLJWhuxVLUEoBE8li78yXDh8dHYXMsn+
+ pLVzQe+GZrwCtiDEc7hC8rdJse8aiGWRu3u6+DgdGvywvGtXzduDkWGAdn5Xk7Z6be
+ GHxlsa3EYpZKQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 33/33] drm/amdgpu: Preallocate system BO pages
- outside the reservation lock
+Subject: Re: [PATCH v2 31/33] drm/xe: Blit src-natural to dst-packed for
+ defrag-IOVA copies
 To: "Matthew Brost" <matthew.brost@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260710215442.2444235-34-matthew.brost@intel.com>
+In-Reply-To: <20260710215442.2444235-32-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
- <20260710215442.2444235-34-matthew.brost@intel.com>
+ <20260710215442.2444235-32-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 22:29:05 +0000
-Message-Id: <20260710222906.0CB431F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 22:30:32 +0000
+Message-Id: <20260710223032.8DED51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,114 +60,112 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] Preallocated pages can be configured with Write-Combined (WC) =
-caching but assigned to a Write-Back (WB) TTM buffer object if the platform=
- rejects USWC, causing PAT aliasing and TTM pool corruption.
-- [High] Unbounded memory preallocation allows unprivileged users to cause =
-massive memory pressure and kernel stalls before BO size limits are checked.
+
+New issues:
+- [High] Overloading `dst_packed_pages` as a boolean flag causes GPU IOMMU =
+faults when defragmentation yields 0 changed pages.
+
+Pre-existing issues:
+- [High] Mismatch between XE_PTE_SHIFT and PAGE_SHIFT causes out-of-bounds =
+array indexing and assertion failures on architectures with 64K pages.
 --
 
---- Patch [33]: [PATCH v2 33/33] drm/amdgpu: Preallocate system BO pages ou=
-tside the reservation lock ---
-commit 4ff1d390d0b654be970d2510b2e5cd29bc266121
+--- Patch [31]: [PATCH v2 31/33] drm/xe: Blit src-natural to dst-packed for=
+ defrag-IOVA copies ---
+commit b1d39bbd2548d9ad82a4ac12f4936dc748d93736
 Author: Matthew Brost <matthew.brost@intel.com>
+Subject: drm/xe: Blit src-natural to dst-packed for defrag-IOVA copies
 
-drm/amdgpu: Preallocate system BO pages outside the reservation lock
+This commit adds a packed-destination mode to __xe_migrate_copy for defrag
+moves with IOVA enabled. It allows reading from the old tt at natural offse=
+ts
+and writing to the new tt at packed contiguous offsets. A new
+xe_migrate_copy_defrag_iova entry point is exposed for this functionality.
 
-This commit mirrors Xe's out-of-lock preallocation for pure system BOs in
-amdgpu. When a gem_create request targets only AMDGPU_GEM_DOMAIN_GTT, it
-fills the full page backing up front before taking the reservation lock,
-to prevent stalls in reclaim and compaction while holding the lock.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gem.c
-> index 6a0699746fbcd..bef8b5bc8b892 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-
+> diff --git a/drivers/gpu/drm/xe/xe_migrate.c b/drivers/gpu/drm/xe/xe_migr=
+ate.c
+> index 0a3a1c5ca1938..35fd0253fef30 100644
+> --- a/drivers/gpu/drm/xe/xe_migrate.c
+> +++ b/drivers/gpu/drm/xe/xe_migrate.c
 [ ... ]
-
-> @@ -443,10 +448,29 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev,=
- void *data,
->  		flags |=3D AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
->  	}
+> @@ -883,9 +949,71 @@ static u32 emit_copy_chunks(struct xe_gt *gt, struct=
+ xe_bb *bb,
 > =20
-> +	/*
-> +	 * For system-only (pure GTT) BOs, preallocate the whole page backing
-> +	 * up front, outside the reservation lock. Populate under the lock then
-> +	 * just installs these pages instead of reclaiming/compacting in the
-> +	 * critical section. Best-effort: a short fill falls back to the normal
-> +	 * in-lock allocation for the missing pages.
-> +	 */
-> +	if (args->in.domains =3D=3D AMDGPU_GEM_DOMAIN_GTT) {
-> +		int32_t xcp_id =3D adev->gmc.mem_partitions ? fpriv->xcp_id : 0;
-> +		int32_t pool_id =3D amdgpu_ttm_tt_pool_id(adev, xcp_id);
-> +		enum ttm_caching caching =3D
-> +			(flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC) ?
-> +			ttm_write_combined : ttm_cached;
-
-[Severity: Critical]
-Is it possible for the preallocated pages to be configured with write-combi=
-ned
-caching here, but later assigned to a write-back TTM buffer object?
-
-If an unprivileged user requests AMDGPU_GEM_CREATE_CPU_GTT_USWC on a platfo=
-rm
-where amdgpu_bo_support_uswc() returns false, the code preallocates the
-pages as ttm_write_combined.
-
-Later, amdgpu_bo_create() in drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-strips the unsupported flag:
-
-amdgpu_bo_create() {
-    ...
-    if (!amdgpu_bo_support_uswc(bo->flags))
-        bo->flags &=3D ~AMDGPU_GEM_CREATE_CPU_GTT_USWC;
-    ...
-}
-
-This creates a ttm_tt initialized as ttm_cached (write-back). When the
-object is eventually destroyed, ttm_pool_free() will use the write-back
-caching state, bypassing the required PAT restoration.
-
-Does this leak the write-combined physical pages back into the kernel
-allocator and cause PAT aliasing or machine check exceptions?
-
-> +
-> +		prealloc_pool =3D amdgpu_ttm_pool(adev, pool_id);
-> +		ttm_pool_prealloc_fill_full(prealloc_pool, caching, &prealloc,
-> +					    PFN_UP(size), false);
+>  		if (bb)
+>  			emit_copy(gt, bb, src_L0_ofs + (u64)i * PAGE_SIZE,
+> -				  dst_L0_ofs + (u64)i * PAGE_SIZE,
+> +				  dst_L0_ofs +
+> +				  (u64)(pack_dst ? pack : i) * PAGE_SIZE,
+>  				  run * PAGE_SIZE, PAGE_SIZE);
 
 [Severity: High]
-Could this allow unprivileged users to trigger massive memory pressure befo=
-re
-buffer object size limits are checked?
+This isn't a bug introduced by this patch, but does passing PAGE_SIZE as the
+pitch to emit_copy overflow the 16-bit pitch limit on systems with 64KB CPU
+pages? The xe_gt_assert condition in emit_xy_fast_copy expects the pitch to=
+ be
+<=3D U16_MAX, which could cause a crash on architectures like ARM64 when
+defragmenting BOs.
 
-The user-provided size is passed directly to ttm_pool_prealloc_fill_full()
-here, but the size validation against domain limits does not happen until
-later in the call chain:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:amdgpu_bo_create() {
-    ...
-    if (!amdgpu_bo_validate_size(adev, size, bp->domain))
-        return -ENOMEM;
-    ...
-}
-
-If an unprivileged user makes an ioctl request with an excessively large si=
-ze
-(e.g., 100 GB), ttm_pool_prealloc_fill_full() will attempt to satisfy the
-request, triggering intensive reclaim and compaction before the size is ever
-validated.
-
-Would it be safer to validate the size against domain limits before
-attempting the preallocation?
-
+>  		nblits++;
+> +		pack +=3D run;
+> +		i +=3D run;
 > +	}
-> +
->  	if (flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID) {
->  		r =3D amdgpu_bo_reserve(vm->root.bo, false);
+[ ... ]
+> @@ -1005,6 +1134,23 @@ static struct dma_fence *__xe_migrate_copy(struct =
+xe_migrate *m,
+>  	 */
+>  	struct ttm_tt *dst_tt =3D dst_bo->ttm.ttm;
+>  	bool skip_borrowed =3D flags.defrag_copy && src_tt && dst_tt;
+> +	/*
+> +	 * Defrag-IOVA copy: the destination tt only maps the changed
+> +	 * (non-borrowed) pages, packed contiguously into the first
+> +	 * @dst_packed_pages pages of its IOVA. The source is read from the old
+> +	 * tt at natural offsets and each changed run is blitted into the packed
+> +	 * destination prefix.
+> +	 */
+> +	bool pack_dst =3D dst_packed_pages !=3D 0;
+
+[Severity: High]
+Can evaluating pack_dst this way lead to GPU IOMMU faults when a
+defragmentation move yields 0 changed pages?
+
+If a BO defragmentation successfully borrows all pages, dst_packed_pages wi=
+ll
+be 0. This makes pack_dst false, which disables the packed CCS logic. During
+the CCS pass, the driver might then fall back to a full BO CCS copy via
+xe_migrate_ccs_copy(), assuming the destination is fully mapped. However,
+because the destination IOVA mapping only covers the 0 changed pages, the G=
+PU
+would write CCS data to unmapped IOVA addresses.
+
+> +	/*
+> +	 * Packed defrag CCS pass: migrate the flat-CCS aux state of the changed
+> +	 * pages only, from the source at its natural offset to the destination
+> +	 * packed prefix. Borrowed pages share the physical page (and thus its
+> +	 * aux) on both sides, so they are skipped exactly like the data pass.
+> +	 */
+> +	bool ccs_pack =3D flags.defrag_ccs && pack_dst && src_tt && dst_tt;
+[ ... ]
+> @@ -1054,29 +1202,86 @@ static struct dma_fence *__xe_migrate_copy(struct=
+ xe_migrate *m,
+>  		u32 pte_flags;
+>  		pgoff_t start_page =3D (xe_bo_size(src_bo) - size) >> XE_PTE_SHIFT;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could the start_page
+calculation cause out-of-bounds array indexing on architectures with
+64KB pages?=20
+
+The index start_page is computed using XE_PTE_SHIFT (which is 4KB), but
+it is later used to index ttm_tt->pages which is sized based on
+PAGE_SHIFT. On a 64KB page system, the calculated index would be 16x
+larger than the array bounds, potentially leading to memory corruption
+during defragmentation.
+
+>  		u32 ndata_blits =3D 1;
+> +		u32 nchg =3D 0;
+> +		u64 dst_size;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710215442.2444=
-235-1-matthew.brost@intel.com?part=3D33
+235-1-matthew.brost@intel.com?part=3D31
