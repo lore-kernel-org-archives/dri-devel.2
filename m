@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3A54C44508
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEC32C44514
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 21:55:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6071710F987;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFA0710F98E;
 	Fri, 10 Jul 2026 21:54:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CoP68tZq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OCygifMH";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30B1610E4B2;
- Fri, 10 Jul 2026 21:54:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8620210F963;
+ Fri, 10 Jul 2026 21:54:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783720491; x=1815256491;
+ t=1783720494; x=1815256494;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Da6VyRQ660SNvDX2zt5AkYpTegXVeoQ+XA6FIQ1ygJo=;
- b=CoP68tZqk3odl51vqpxr+Qe2j0xblyZVt6QOBKC2W8MNmwRqRy1UI5w3
- ifwH+uG25vQLv2pB7sEaiVdOvd9udI1D+/bwzXAsNgNdgXD4v1fwwcyhl
- LVANB9KFpccXJuajhFFC7FjSyiTIc6pDVqRo9Xjwb32U2bLnedhEvzP1Y
- I6bvdqlPxk0gRVKpJRsx3Dfl2/1TBj2Rt31Gw/INgatGEqyM/3qgCIebm
- 4cXHVsTS96IeCv6AJRctJRkF6e92N+2k5indSSYbPS6Sh6hI2fRk9Ufuf
- MuwxTQvHaK2z7BUDiCPDvkjJFqzq4dse8vhrpWi7UPD8DCz0o8s8rw2ZT g==;
-X-CSE-ConnectionGUID: WqccR5tBR4eWGVq9705+FQ==
-X-CSE-MsgGUID: FEtWDa0cT168fkzZEZ9s0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543119"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543119"
+ bh=nn+M/8PLlLtKIB9/allZXyCpaBAHNBmt3SZOdW8TBhg=;
+ b=OCygifMHWy0erCLcBIP8wya4tM5JUqikg1Hl4TPCghgytkO1kRmHjvPw
+ QNY9p+5x1ZJkYslX422gDQ885HB1iW6oIa9jVTxxMyIC2aOCTrQmOFyYo
+ AgT9ERqbsJ+zdXcW8B9c+a4h2KMCzAOTsNg2uwpveDLqSvR+eJybJvq/V
+ 5yDF7nVSewmahB2iAFjIspRENeqsMieqQlNCWoTEfASJX21yvLzyMANl/
+ C+4Kl2BYIqZKMBsLgsk/yG1Cltb6rJAXgEiaPN9TI9IgvKpFY11UHHmoL
+ egNWikCNCLnJxLvL3duu6zbvgSaRbaPg98mXQFOHZmAj7rdPpqcpBVTbL g==;
+X-CSE-ConnectionGUID: l6L81E2xS+q7IUmy7NcSGw==
+X-CSE-MsgGUID: zD/G+NSXRra1M/G4atgL7Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83543173"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="83543173"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:51 -0700
-X-CSE-ConnectionGUID: FMX2oLEsQ4mhQWWNx/bIPw==
-X-CSE-MsgGUID: 0TX0mgMGQ7WDqy1XsAbcLA==
+ 10 Jul 2026 14:54:53 -0700
+X-CSE-ConnectionGUID: kYpc8AmURU6Kel0HZxQSQw==
+X-CSE-MsgGUID: 3B2iPam1SMuppOnPuzLjOQ==
 X-ExtLoop1: 1
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 14:54:51 -0700
+ 10 Jul 2026 14:54:53 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -51,10 +51,10 @@ Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v2 10/33] drm/ttm: Add full out-of-lock preallocation for
- ttm_pool_alloc()
-Date: Fri, 10 Jul 2026 14:54:19 -0700
-Message-Id: <20260710215442.2444235-11-matthew.brost@intel.com>
+Subject: [PATCH v2 19/33] drm/xe: Skip self-copies for borrowed pages on
+ defrag moves
+Date: Fri, 10 Jul 2026 14:54:28 -0700
+Message-Id: <20260710215442.2444235-20-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260710215442.2444235-1-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
@@ -76,54 +76,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ttm_pool_prealloc_fill() lets a driver preallocate beneficial-order pages
-outside the dma-resv lock for a defragmentation move, so the high-order
-allocations that may stall in reclaim/compaction happen off the critical
-section.  That bag is deliberately partial: it holds only interchangeable
-beneficial-order chunks and the allocator consumes it opportunistically,
-falling back to in-line allocation for everything else.
+A defrag move may harvest already beneficial-order chunks from the old
+tt, so the freshly reallocated backing borrows (references) some of the
+same physical pages. For those pages the source and destination GPU
+mappings alias the same memory, making the data blit a pointless
+self-copy.
 
-An ordinary populate of a system-memory buffer object has the same
-problem - the whole backing is allocated under the dma-resv lock - but no
-way to move it out of the critical section, because the existing bag does
-not cover sub-beneficial orders and does not describe a full tt.
+Pass the source (old) tt into __xe_migrate_copy() instead of just its sg
+table, so the data pass can compare the src and dst tt page arrays at the
+matching offset and only blit runs of pages that actually differ. A new
+emit_copy_chunks() helper walks each L0 chunk, skips borrowed-page runs,
+and coalesces contiguous to-copy pages into a single emit_copy(). It runs
+twice per chunk: once with a NULL batch buffer to count the blits for
+batch sizing, then again to emit them.
 
-Add a "full" flavour of the same preallocation mechanism:
+When an entire L0 chunk turns out to be borrowed, skip it outright: no
+batch buffer is allocated and no GPU commands are issued, the cursors are
+just advanced past the chunk. If every chunk of the move is borrowed the
+copy is a complete no-op, so hand back a signaled stub fence.
 
-  - struct ttm_pool_prealloc gains a @full flag.  In full mode the bag is
-    an ordered tiling of an entire tt at mixed orders (pool pages
-    included), rather than a set of interchangeable beneficial-order
-    chunks.  The per-chunk order is recorded on the page itself and read
-    back at consume time, so no parallel order array is needed.
+The comparison is a cheap per-page pointer test (src page != dst page)
+that coalesces contiguous to-copy pages into a single blit. PTEs are
+still emitted for partially borrowed chunks, since that setup is cheap and
+only the data copies are worth skipping. Only the defrag data pass is
+affected; the separate CCS pass still migrates all aux state.
 
-  - ttm_pool_prealloc_fill_full() allocates the whole backing for a tt of
-    @num_pages pages up front, mirroring the in-line allocator's order
-    walk (highest order first, capped by the remaining page count).  It
-    reuses the existing unlocked helpers (ttm_pool_prealloc_gfp(),
-    ttm_pool_set_caching()) via a new ttm_pool_take_page() helper that
-    tries a same-order pool page before a fresh system allocation.
-
-  - ttm_pool_prealloc_fini() frees any unconsumed tail at each chunk's own
-    order when @full.
-
-  - ttm_pool_prealloc_fill_full() takes a @beneficial_reclaim_backoff
-    argument, plumbed to ttm_pool_alloc_page(), that lets the caller
-    allocate higher-order chunks without aggressive reclaim/compaction.
-    This suits a driver that upgrades suboptimal pages to beneficial order
-    in place later (e.g. via a background defragmenter) and so has no need
-    to stall the user context reclaiming for contiguity up front.
-
-  - __ttm_pool_alloc() consumes a full bag with a single early branch in
-    ttm_pool_iter_acquire_page(): install the next chunk as-is (order
-    taken from the page) and return; once the best-effort bag is drained
-    the loop falls through to normal in-line allocation.  The defrag
-    harvest and reuse-old phases are inert here as there is no
-    defrag_old_tt.
-
-Like the defrag bag, this is best-effort: a short fill is fine (the pool
-allocates the shortfall in-line) and DMA-alloc pools are unsupported
-(caching is applied on the kernel mapping).  No functional change for
-existing users; the new fill routine has no in-tree caller yet.
+Since the Xe tt sg lives in the xe_ttm_tt subclass rather than the base
+ttm_tt, add an xe_tt_sg() helper to fetch it from a struct ttm_tt.
 
 Cc: Carlos Santa <carlos.santa@intel.com>
 Cc: Ryan Neph <ryanneph@google.com>
@@ -141,367 +120,349 @@ Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Assisted-by: GitHub_Copilot:claude-opus-4.8
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 232 ++++++++++++++++++++++++++++++++-
- include/drm/ttm/ttm_bo.h       |  19 +--
- include/drm/ttm/ttm_pool.h     |  27 +++-
- 3 files changed, 258 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/xe/xe_bo.c      |  22 +++++-
+ drivers/gpu/drm/xe/xe_bo.h      |   2 +
+ drivers/gpu/drm/xe/xe_migrate.c | 136 ++++++++++++++++++++++++++++----
+ drivers/gpu/drm/xe/xe_migrate.h |   3 +-
+ 4 files changed, 142 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 76e5fc54ea9a..762ff1c73390 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -1031,6 +1031,7 @@ int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
- 	pp->caching = tt_caching;
- 	pp->count = 0;
- 	pp->used = 0;
-+	pp->full = false;
- 
- 	/* Nothing to gain without a beneficial order or for DMA-alloc pools. */
- 	if (!order || !count || ttm_pool_uses_dma_alloc(pool))
-@@ -1087,6 +1088,187 @@ int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index 8e9fc8b3dffa..3b867c486ea4 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -473,6 +473,22 @@ struct sg_table *xe_bo_sg(struct xe_bo *bo)
+ 	return xe_tt->sg;
  }
- EXPORT_SYMBOL(ttm_pool_prealloc_fill);
  
-+/*
-+ * Acquire a single *@order chunk, trying a same-order pool page first (already
-+ * carries @caching) then a fresh system allocation (write-back). Runs unlocked.
-+ * When @beneficial_reclaim_backoff is set, higher-order system allocations skip
-+ * aggressive reclaim/compaction (see ttm_pool_alloc_page()).
-+ *
-+ * A fresh system page is write-back and needs the tt's caching applied later in
-+ * bulk; *@need_caching is set true for it and false for a (pre-cached) pool
-+ * page.
-+ *
-+ * On a genuine failure *@order is left untouched (the caller lowers it by one
-+ * and retries). Fault injection instead pretends allocation at (or above) the
-+ * beneficial order failed and lowers *@order to the beneficial order, so the
-+ * caller's next attempt lands below it - mirroring the in-line acquire path's
-+ * fail_beneficial jump and exercising the beneficial_order_failed tracking
-+ * without driving the system into real fragmentation.
-+ *
-+ * Returns NULL if no page of *@order could be obtained.
-+ */
-+static struct page *ttm_pool_take_page(struct ttm_pool *pool,
-+				       enum ttm_caching caching,
-+				       unsigned int *order, gfp_t gfp,
-+				       bool *need_caching,
-+				       bool beneficial_reclaim_backoff)
-+{
-+	unsigned int beneficial = ttm_pool_beneficial_order(pool);
-+	struct ttm_pool_type *pt;
-+	struct page *p;
-+
-+	*need_caching = false;
-+
-+	if (IS_ENABLED(CONFIG_FAULT_INJECTION) && beneficial &&
-+	    *order >= beneficial &&
-+	    should_fail(&beneficial_order_fault_inject, 1)) {
-+		*order = beneficial;
-+		return NULL;
-+	}
-+
-+	pt = ttm_pool_select_type(pool, caching, *order);
-+	if (pt) {
-+		p = ttm_pool_type_take(pt, ttm_pool_nid(pool));
-+		if (p)
-+			return p;	/* pool page already carries @caching */
-+	}
-+
-+	p = ttm_pool_alloc_page(pool, gfp, *order, beneficial_reclaim_backoff);
-+	if (!p)
-+		return NULL;
-+
-+	/* Fresh system page is write-back; caller applies @caching in bulk. */
-+	*need_caching = true;
-+	return p;
-+}
-+
 +/**
-+ * ttm_pool_prealloc_fill_full() - Preallocate a whole tt's backing outside any
-+ * lock
-+ * @pool: The pool to allocate from.
-+ * @tt_caching: The requested cpu-caching for the pages allocated.
-+ * @pp: Prealloc bag to fill; marked @full and tiled with mixed-order chunks.
-+ * @num_pages: Number of 4K pages the tt needs backed.
++ * xe_tt_sg() - Return the DMA scatter-gather table backing a ttm_tt.
++ * @tt: The ttm_tt to query.
 + *
-+ * Unlike ttm_pool_prealloc_fill() (which parks a bag of interchangeable
-+ * beneficial-order defrag chunks), this allocates the ENTIRE backing for a tt
-+ * of @num_pages pages up front, at whatever mix of orders is available (pool
-+ * pages included), so that the subsequent __ttm_pool_alloc() under the dma-resv
-+ * lock merely installs the pages without stalling in reclaim/compaction. The
-+ * chunk orders mirror the in-line allocator's order walk; each chunk's order is
-+ * recorded on the page itself and read back at consume time.
++ * Like xe_bo_sg(), but takes the ttm_tt directly. Used by the defrag copy
++ * path which needs the old (source) tt's sg table without a backing xe_bo.
 + *
-+ * May sleep/reclaim freely as it runs unlocked. When
-+ * @beneficial_reclaim_backoff is set, higher-order chunks are taken without
-+ * aggressive reclaim/compaction: the caller relies on a background
-+ * defragmenter to upgrade to beneficial-order pages in place later, so there
-+ * is no need to stall the user context reclaiming for contiguity here. A short
-+ * fill is fine: the pool falls back to in-line allocation for the shortfall.
-+ * DMA-alloc pools are not supported (the bag stays empty). Returns 0 (release
-+ * with ttm_pool_prealloc_fini()).
++ * Return: The sg table, or NULL if the tt is not currently mapped.
 + */
-+int ttm_pool_prealloc_fill_full(struct ttm_pool *pool,
-+				enum ttm_caching tt_caching,
-+				struct ttm_pool_prealloc *pp,
-+				unsigned int num_pages,
-+				bool beneficial_reclaim_backoff)
++struct sg_table *xe_tt_sg(struct ttm_tt *tt)
 +{
-+	gfp_t gfp = ttm_pool_prealloc_gfp(pool) | __GFP_ZERO |
-+		__GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-+	unsigned int highest = MAX_PAGE_ORDER;
-+	unsigned int remaining = num_pages;
-+	struct page **cpages = NULL;
-+	unsigned int ncpages = 0;
-+	int r;
++	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
 +
-+	pp->pages = NULL;
-+	pp->order = 0;
-+	pp->caching = tt_caching;
-+	pp->count = 0;
-+	pp->used = 0;
-+	pp->full = true;
-+
-+	/* Caching is applied on the kernel mapping, so DMA-alloc is unsupported. */
-+	if (!num_pages || ttm_pool_uses_dma_alloc(pool))
-+		return 0;
-+
-+	/* Worst case is one order-0 chunk per page. */
-+	pp->pages = kvzalloc_objs(*pp->pages, num_pages);
-+	if (!pp->pages)
-+		return 0;
-+
-+	/*
-+	 * Fresh write-back chunks get their caching changed in a single
-+	 * set_pages_array_*() after the fill; collect their constituent pages
-+	 * into an unpacked scratch array (one entry per 4K page) since the
-+	 * packed bag holds mixed-order chunks. Cached tts and pool pages need
-+	 * no change (and non-x86 handles caching at map time).
-+	 */
-+	if (IS_ENABLED(CONFIG_X86) && tt_caching != ttm_cached) {
-+		cpages = kvzalloc_objs(*cpages, num_pages);
-+		if (!cpages) {
-+			kvfree(pp->pages);
-+			pp->pages = NULL;
-+			return 0;
-+		}
-+	}
-+
-+	while (remaining) {
-+		unsigned int order = min_t(unsigned int, highest,
-+					   __fls(remaining));
-+		bool need_caching;
-+		struct page *p;
-+
-+		for (;;) {
-+			p = ttm_pool_take_page(pool, tt_caching, &order, gfp,
-+					       &need_caching,
-+					       beneficial_reclaim_backoff);
-+			if (p)
-+				break;
-+			if (!order)
-+				goto apply_caching;	/* short fill */
-+			/*
-+			 * Genuine failure: retry one order down. A fault
-+			 * injection lowered @order to the beneficial order
-+			 * above, so this drops it below - landing on a
-+			 * sub-optimal (defrag-worthy) chunk.
-+			 */
-+			order--;
-+		}
-+
-+		pp->pages[pp->count++] = p;
-+		if (cpages && need_caching)
-+			ttm_pool_prealloc_stage_caching(cpages, &ncpages, p,
-+							order);
-+		remaining -= 1u << order;
-+		highest = order;
-+	}
-+
-+apply_caching:
-+	/*
-+	 * Apply the requested caching to every collected page in one shot. On
-+	 * failure the pages' caching is indeterminate, so drop the whole bag
-+	 * (freeing restores write-back) and let the consumer allocate in-line.
-+	 */
-+	r = ttm_pool_prealloc_apply_caching(tt_caching, cpages, ncpages);
-+	kvfree(cpages);
-+	if (r) {
-+		unsigned int i;
-+
-+		for (i = 0; i < pp->count; i++) {
-+			struct page *p = pp->pages[i];
-+
-+			ttm_pool_free_page(pool, tt_caching,
-+					   ttm_pool_page_order_nodma(p), p,
-+					   false);
-+		}
-+		pp->count = 0;
-+	}
-+
-+	return 0;
++	return xe_tt->sg;
 +}
-+EXPORT_SYMBOL(ttm_pool_prealloc_fill_full);
 +
- /**
-  * ttm_pool_prealloc_fini() - Release unconsumed preallocated pages
-  * @pool: The pool the pages came from.
-@@ -1096,9 +1278,13 @@ void ttm_pool_prealloc_fini(struct ttm_pool *pool, struct ttm_pool_prealloc *pp)
- {
- 	unsigned int i;
- 
--	for (i = pp->used; i < pp->count; ++i)
--		ttm_pool_free_page(pool, pp->caching, pp->order, pp->pages[i],
--				   false);
-+	for (i = pp->used; i < pp->count; ++i) {
-+		struct page *p = pp->pages[i];
-+		unsigned int order = pp->full ?
-+			ttm_pool_page_order_nodma(p) : pp->order;
-+
-+		ttm_pool_free_page(pool, pp->caching, order, p, false);
-+	}
- 	kvfree(pp->pages);
- 	pp->pages = NULL;
- 	pp->count = pp->used = 0;
-@@ -1235,9 +1421,10 @@ static int ttm_pool_iter_reuse_old(struct ttm_pool_alloc_iter *it)
- 
  /*
-  * Acquire a single page for the current order, leaving it in @it->p (NULL on
-- * failure). Tries, in order: a beneficial-order page preallocated outside the
-- * dma-resv lock (defrag), a same-order pool page, then a fresh system
-- * allocation. Fault injection can force the beneficial-order paths to "fail".
-+ * failure). Tries, in order: a chunk from a full out-of-lock prealloc (populate
-+ * of the whole tt), a beneficial-order page preallocated outside the dma-resv
-+ * lock (defrag), a same-order pool page, then a fresh system allocation. Fault
-+ * injection can force the beneficial-order paths to "fail".
-  */
- static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
- {
-@@ -1246,6 +1433,39 @@ static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
+  * Account ttm pages against the device shrinker's shrinkable and
+  * purgeable counts.
+@@ -1284,11 +1300,9 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
  
- 	it->p = NULL;
- 
-+	/*
-+	 * Full prealloc: the entire backing was allocated (pool + system, at
-+	 * mixed orders) outside the dma-resv lock. Install the next chunk as-is,
-+	 * taking its order from the page. Falls through to in-line allocation
-+	 * once the best-effort bag is drained.
-+	 */
-+	if (pp && pp->full && pp->used < pp->count) {
-+		it->fail_beneficial = false;
-+		it->p = pp->pages[pp->used++];
-+		it->order = ttm_pool_page_order_nodma(it->p);
-+		it->page_caching = it->tt->caching;
-+
-+		/*
-+		 * The full prealloc tiles at whatever orders were available
-+		 * without stalling in reclaim. A sub-beneficial chunk only
-+		 * means a sub-optimal backing (defrag-worthy) when it sits in a
-+		 * beneficial-order aligned region that fully fits in the tt -
-+		 * that region could have been a beneficial-order page. A low
-+		 * order in the unaligned trailing tail is expected and must not
-+		 * flag the tt (mirrors ttm_pool_harvest_remaining()).
-+		 */
-+		if (it->beneficial_order && it->order < it->beneficial_order) {
-+			pgoff_t bnr = 1UL << it->beneficial_order;
-+			pgoff_t off = it->tt->num_pages -
-+				      it->alloc->remaining_pages;
-+
-+			if (round_down(off, bnr) + bnr <= it->tt->num_pages)
-+				it->tt->page_flags |=
-+					TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
-+		}
-+		return;
-+	}
-+
- 	/*
- 	 * Fault injection: pretend allocation at (or above) the device's
- 	 * beneficial order failed, forcing a sub-optimal backing. Exercises the
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index a80304f179ba..52ec7e5c0d2d 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -238,14 +238,17 @@ struct ttm_operation_ctx {
- 	 */
- 	s64 defrag_bytes_remaining;
- 	/**
--	 * @prealloc: Pages preallocated outside the dma-resv lock for a defrag
--	 * move. The pool allocator consumes these instead of allocating fresh
--	 * beneficial-order pages under the lock, moving the (potentially
--	 * reclaim/compaction stalling) high-order allocations out of the
--	 * critical section. NULL means allocate in-line as usual. The pool
--	 * silently falls back to in-line allocation for any shortfall. The
--	 * allocator consumes it for beneficial-order chunks of any populate;
--	 * drivers only set it for a defrag move.
-+	 * @prealloc: Pages preallocated outside the dma-resv lock. The pool
-+	 * allocator consumes these instead of allocating under the lock, moving
-+	 * the (potentially reclaim/compaction stalling) allocations out of the
-+	 * critical section. NULL means allocate in-line as usual. Two flavours,
-+	 * distinguished by ttm_pool_prealloc::full:
-+	 *   - defrag bag (full=false): a bag of interchangeable beneficial-order
-+	 *     chunks consumed only for beneficial-order chunks of a defrag move.
-+	 *   - full tiling (full=true): the entire backing of the tt, at mixed
-+	 *     orders, consumed for every chunk of an ordinary populate.
-+	 * The allocator silently falls back to in-line allocation for any
-+	 * shortfall.
- 	 */
- 	struct ttm_pool_prealloc *prealloc;
- 	/**
-diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
-index 71670350eb15..777d5aa08f6a 100644
---- a/include/drm/ttm/ttm_pool.h
-+++ b/include/drm/ttm/ttm_pool.h
-@@ -83,18 +83,27 @@ void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
- 
- /**
-  * struct ttm_pool_prealloc - Pages preallocated outside the dma-resv lock
-- * @pages: Array of @count beneficial-order pages (or fewer if a fill fell
-- *         short); each entry is the head page of a 1 << @order chunk.
-- * @order: Page order of every preallocated chunk.
-+ * @pages: Array of @count preallocated chunks; each entry is the head page of a
-+ *         chunk. In defrag mode every chunk is @order pages; in @full mode the
-+ *         chunks tile a whole tt at mixed orders and the per-chunk order is read
-+ *         back from the page itself.
-+ * @order: Page order of every preallocated chunk (defrag mode only; 0 in @full
-+ *         mode where each chunk carries its own order).
-  * @caching: CPU caching applied to the pages, so leftovers can be restored
-  *           to write-back before being freed.
-  * @count: Number of valid entries in @pages.
-  * @used: Number of entries already consumed by the pool allocator.
-+ * @full: When set the bag holds a full, mixed-order tiling of an entire tt
-+ *        (produced by ttm_pool_prealloc_fill_full()) rather than a bag of
-+ *        interchangeable beneficial-order defrag chunks. The pool allocator
-+ *        then drains the bag in order for every populate, taking each chunk's
-+ *        order from the page, and falls back to in-line allocation only for any
-+ *        shortfall.
-  *
-  * Defrag pages are interchangeable, so only a count of beneficial-order chunks
-- * is needed. ttm_pool_prealloc_fill() populates this outside the lock and
-- * __ttm_pool_alloc() drains it; any unused tail is released by
-- * ttm_pool_prealloc_fini().
-+ * is needed. ttm_pool_prealloc_fill() / ttm_pool_prealloc_fill_full() populate
-+ * this outside the lock and __ttm_pool_alloc() drains it; any unused tail is
-+ * released by ttm_pool_prealloc_fini().
-  */
- struct ttm_pool_prealloc {
- 	struct page **pages;
-@@ -102,10 +111,16 @@ struct ttm_pool_prealloc {
- 	enum ttm_caching caching;
- 	unsigned int count;
- 	unsigned int used;
-+	bool full;
+ 		fence = xe_migrate_clear(migrate, bo, new_mem, flags);
+ 	} else if (ttm_bo->defrag_old_tt) {
+-		struct xe_ttm_tt *old_xe_tt =
+-			container_of(ttm_bo->defrag_old_tt, struct xe_ttm_tt, ttm);
+-
+ 		fence = xe_migrate_copy_defrag(migrate, bo, old_mem, new_mem,
+-					       old_xe_tt->sg, handle_system_ccs);
++					       ttm_bo->defrag_old_tt,
++					       handle_system_ccs);
+ 	} else {
+ 		fence = xe_migrate_copy(migrate, bo, bo, old_mem, new_mem,
+ 					handle_system_ccs);
+diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+index 4186cb51af87..32211016a722 100644
+--- a/drivers/gpu/drm/xe/xe_bo.h
++++ b/drivers/gpu/drm/xe/xe_bo.h
+@@ -110,6 +110,7 @@ enum xe_madv_purgeable_state {
  };
  
- int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
- 			   struct ttm_pool_prealloc *pp, unsigned int count);
-+int ttm_pool_prealloc_fill_full(struct ttm_pool *pool,
-+				enum ttm_caching tt_caching,
-+				struct ttm_pool_prealloc *pp,
-+				unsigned int num_pages,
-+				bool beneficial_reclaim_backoff);
- void ttm_pool_prealloc_fini(struct ttm_pool *pool,
- 			    struct ttm_pool_prealloc *pp);
- unsigned int ttm_pool_prealloc_order(struct ttm_pool *pool);
+ struct sg_table;
++struct ttm_tt;
+ 
+ struct xe_bo *xe_bo_alloc(void);
+ void xe_bo_free(struct xe_bo *bo);
+@@ -547,6 +548,7 @@ void xe_bo_dev_init(struct xe_bo_dev *bo_device);
+ void xe_bo_dev_fini(struct xe_bo_dev *bo_device);
+ 
+ struct sg_table *xe_bo_sg(struct xe_bo *bo);
++struct sg_table *xe_tt_sg(struct ttm_tt *tt);
+ 
+ /*
+  * xe_sg_segment_size() - Provides upper limit for sg segment size.
+diff --git a/drivers/gpu/drm/xe/xe_migrate.c b/drivers/gpu/drm/xe/xe_migrate.c
+index 305c6e1942fb..c1e96f105648 100644
+--- a/drivers/gpu/drm/xe/xe_migrate.c
++++ b/drivers/gpu/drm/xe/xe_migrate.c
+@@ -811,6 +811,63 @@ static void emit_copy(struct xe_gt *gt, struct xe_bb *bb,
+ 		emit_xy_fast_copy(gt, bb, src_ofs, dst_ofs, size, pitch);
+ }
+ 
++/*
++ * emit_copy_chunks() - Emit the data blits for one defrag L0 chunk, skipping
++ * borrowed pages.
++ * @gt: The GT.
++ * @bb: The batch buffer to emit into, or NULL to only count the blits needed.
++ * @src_L0_ofs: GPU offset of the source pages mapped for this L0 chunk.
++ * @dst_L0_ofs: GPU offset of the destination pages mapped for this L0 chunk.
++ * @src_L0: Byte size of the L0 chunk (page aligned).
++ * @src_tt: Source (old) tt providing the page pointers.
++ * @dst_tt: Destination (new) tt providing the page pointers.
++ * @start_page: Page offset of this L0 chunk within the tt page arrays.
++ *
++ * A defragmentation move may harvest already beneficial-order chunks from the
++ * old tt, so the new tt references (borrows) some of the same physical pages.
++ * For those pages the source and destination GPU mappings alias the same
++ * memory and the data blit is a pointless self-copy. Walk the L0 chunk and
++ * only blit runs of pages that actually differ (src page != dst page),
++ * coalescing contiguous to-copy pages into a single blit.
++ *
++ * Return: The number of blits emitted (or that would be emitted when @bb is
++ * NULL).
++ */
++static u32 emit_copy_chunks(struct xe_gt *gt, struct xe_bb *bb,
++			    u64 src_L0_ofs, u64 dst_L0_ofs, u32 src_L0,
++			    struct ttm_tt *src_tt, struct ttm_tt *dst_tt,
++			    pgoff_t start_page)
++{
++	u32 npages = src_L0 >> PAGE_SHIFT;
++	u32 i = 0, nblits = 0;
++
++	while (i < npages) {
++		u32 run = 0;
++
++		/* Skip a run of borrowed pages (src and dst alias). */
++		if (src_tt->pages[start_page + i] ==
++		    dst_tt->pages[start_page + i]) {
++			i++;
++			continue;
++		}
++
++		/* Coalesce a run of pages that actually need copying. */
++		while (i + run < npages &&
++		       src_tt->pages[start_page + i + run] !=
++		       dst_tt->pages[start_page + i + run])
++			run++;
++
++		if (bb)
++			emit_copy(gt, bb, src_L0_ofs + (u64)i * PAGE_SIZE,
++				  dst_L0_ofs + (u64)i * PAGE_SIZE,
++				  run * PAGE_SIZE, PAGE_SIZE);
++		nblits++;
++		i += run;
++	}
++
++	return nblits;
++}
++
+ static u64 xe_migrate_batch_base(struct xe_migrate *m, bool usm)
+ {
+ 	return usm ? m->usm_batch_base_ofs : m->batch_base_ofs;
+@@ -865,13 +922,15 @@ static u32 xe_migrate_ccs_copy(struct xe_migrate *m,
+  * @is_vram_resolve: Decompression (VRAM -> system) resolve; always uses the
+  * compression PAT index for the data copy.
+  * @defrag_ccs: Defrag move pass that migrates only the CCS aux state between
+- * two distinct page sets (old @src_sg pages -> new pages). The data blit is
++ * two distinct page sets (old @src_tt pages -> new pages). The data blit is
+  * skipped (the data was copied by the @defrag_copy pass) and both the source
+  * and destination data pages are mapped with the compression PAT so the aux
+  * state is copied indirect -> indirect.
+  * @defrag_copy: Defrag move pass that copies the data pages between two
+- * distinct page sets (old @src_sg pages -> new pages) without touching the CCS
+- * aux state. The data pages are mapped without the compression PAT so the
++ * distinct page sets (old @src_tt pages -> new pages) without touching the CCS
++ * aux state. Pages the new tt borrowed from @src_tt (harvested already
++ * beneficial-order chunks) alias the same memory on both sides and are skipped.
++ * The data pages are mapped without the compression PAT so the
+  * (possibly compressed) bytes are copied verbatim rather than being
+  * decompressed and recompressed, and no CCS aux copy is appended; the aux
+  * state is migrated separately by the @defrag_ccs pass. The two passes need
+@@ -889,7 +948,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+ 					   struct xe_bo *dst_bo,
+ 					   struct ttm_resource *src,
+ 					   struct ttm_resource *dst,
+-					   struct sg_table *src_sg,
++					   struct ttm_tt *src_tt,
+ 					   struct xe_migrate_copy_flags flags)
+ {
+ 	struct xe_gt *gt = m->tile->primary_gt;
+@@ -914,6 +973,14 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+ 		!flags.defrag_copy;
+ 	bool copy_system_ccs = copy_ccs && (!src_is_vram || !dst_is_vram) &&
+ 		!flags.defrag_ccs && !flags.defrag_copy;
++	/*
++	 * On the defrag data pass the new (destination) tt may have borrowed
++	 * already beneficial-order pages from the old (source) tt, so skip the
++	 * self-copy for any page they share. Compare the tt page arrays at the
++	 * matching offset.
++	 */
++	struct ttm_tt *dst_tt = dst_bo->ttm.ttm;
++	bool skip_borrowed = flags.defrag_copy && src_tt && dst_tt;
+ 
+ 	/*
+ 	 * For decompression operation, always use the compression PAT index.
+@@ -926,7 +993,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+ 
+ 	/*
+ 	 * The defrag CCS pass migrates the aux state from the old pages
+-	 * (@src_sg) to the new pages with both sides accessed indirectly, so
++	 * (@src_tt) to the new pages with both sides accessed indirectly, so
+ 	 * keep both src_is_pltt and dst_is_pltt set (no direct staging side).
+ 	 */
+ 
+@@ -938,7 +1005,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+ 		return ERR_PTR(-EINVAL);
+ 
+ 	if (!src_is_vram)
+-		xe_res_first_sg(src_sg ? src_sg : xe_bo_sg(src_bo), 0, size, &src_it);
++		xe_res_first_sg(src_tt ? xe_tt_sg(src_tt) : xe_bo_sg(src_bo), 0, size, &src_it);
+ 	else
+ 		xe_res_first(src, 0, size, &src_it);
+ 	if (!dst_is_vram)
+@@ -947,7 +1014,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+ 		xe_res_first(dst, 0, size, &dst_it);
+ 
+ 	if (copy_system_ccs)
+-		xe_res_first_sg(src_sg ? src_sg : xe_bo_sg(src_bo),
++		xe_res_first_sg(src_tt ? xe_tt_sg(src_tt) : xe_bo_sg(src_bo),
+ 				xe_bo_ccs_pages_start(src_bo),
+ 				PAGE_ALIGN(xe_device_ccs_bytes(xe, size)),
+ 				&ccs_it);
+@@ -961,6 +1028,8 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+ 		u64 ccs_ofs, ccs_size;
+ 		u32 ccs_pt;
+ 		u32 pte_flags;
++		pgoff_t start_page = (xe_bo_size(src_bo) - size) >> XE_PTE_SHIFT;
++		u32 ndata_blits = 1;
+ 
+ 		bool usm = xe->info.has_usm;
+ 		u32 avail_pts = max_mem_transfer_per_pass(xe) / LEVEL0_PAGE_TABLE_ENCODE_SIZE;
+@@ -998,9 +1067,30 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+ 			xe_assert(xe, IS_ALIGNED(ccs_it.start, PAGE_SIZE));
+ 		}
+ 
+-		/* Add copy commands size here */
++		/*
++		 * Add copy commands size here. On the defrag data pass the blit
++		 * is split into one command per run of non-borrowed pages, so
++		 * size for the number of runs actually needed.
++		 */
++		if (skip_borrowed)
++			ndata_blits = emit_copy_chunks(gt, NULL, 0, 0, src_L0,
++						       src_tt, dst_tt, start_page);
++
++		/*
++		 * If every page in this chunk was borrowed there is nothing to
++		 * copy: don't build a batch or issue any GPU commands, just
++		 * advance the cursors past the chunk. The non-vram tt cursors
++		 * would otherwise be advanced by emit_pte().
++		 */
++		if (skip_borrowed && !ndata_blits) {
++			xe_res_next(&src_it, src_L0);
++			xe_res_next(&dst_it, src_L0);
++			size -= src_L0;
++			continue;
++		}
++
+ 		batch_size += ((flags.copy_only_ccs || flags.defrag_ccs) ? 0 :
+-			       emit_copy_cmd_len(xe)) +
++			       ndata_blits * emit_copy_cmd_len(xe)) +
+ 			((needs_ccs_emit ? EMIT_COPY_CCS_DW : 0));
+ 
+ 		bb = xe_bb_new(gt, batch_size, usm);
+@@ -1029,7 +1119,10 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+ 		bb->cs[bb->len++] = MI_BATCH_BUFFER_END;
+ 		update_idx = bb->len;
+ 
+-		if (!flags.copy_only_ccs && !flags.defrag_ccs)
++		if (skip_borrowed)
++			emit_copy_chunks(gt, bb, src_L0_ofs, dst_L0_ofs, src_L0,
++					 src_tt, dst_tt, start_page);
++		else if (!flags.copy_only_ccs && !flags.defrag_ccs)
+ 			emit_copy(gt, bb, src_L0_ofs, dst_L0_ofs, src_L0, XE_PAGE_SIZE);
+ 
+ 		if (needs_ccs_emit)
+@@ -1088,6 +1181,14 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+ 		return ERR_PTR(err);
+ 	}
+ 
++	/*
++	 * Every chunk of a defrag data pass may have been borrowed (nothing
++	 * copied), leaving no job and a NULL fence. Hand back a signaled stub
++	 * so callers always get a valid fence to wait on.
++	 */
++	if (!fence)
++		return dma_fence_get_stub();
++
+ 	return fence;
+ }
+ 
+@@ -1129,18 +1230,21 @@ struct dma_fence *xe_migrate_copy(struct xe_migrate *m,
+  * @bo: The buffer object being defragmented. Both @src and @dst belong to @bo.
+  * @src: The source TTM resource (the old backing).
+  * @dst: The dst TTM resource (the freshly reallocated backing).
+- * @src_sg: Scatter-gather table of the source (old) backing pages.
++ * @src_tt: The source (old) backing tt, providing both the scatter-gather
++ * table and page pointers of the old pages.
+  * @need_ccs: Whether the BO has CCS aux state that must be migrated too.
+  *
+  * Used by the defrag path where a single BO has its backing reallocated at a
+  * more beneficial page order. The contents are relocated from the old pages
+- * (@src_sg) to the new pages (the BO's current backing) entirely on the GPU,
++ * (@src_tt) to the new pages (the BO's current backing) entirely on the GPU,
+  * in up to two passes:
+  *
+  *  - Data pass (always): copy the data pages verbatim. The pages are mapped
+  *    without the compression PAT, so the (possibly compressed) bytes are copied
+  *    as-is rather than being decompressed and recompressed, and no CCS aux copy
+- *    is appended.
++ *    is appended. Pages the new backing borrowed from @src_tt (harvested
++ *    already beneficial-order chunks) alias the same memory on both sides and
++ *    are skipped.
+  *
+  *  - CCS pass (@need_ccs): copy the CCS aux (compression) state. Both the old
+  *    and new data pages are mapped with the compression PAT so the copy engine
+@@ -1159,11 +1263,11 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
+ 					 struct xe_bo *bo,
+ 					 struct ttm_resource *src,
+ 					 struct ttm_resource *dst,
+-					 struct sg_table *src_sg,
++					 struct ttm_tt *src_tt,
+ 					 bool need_ccs)
+ {
+ 	struct dma_fence *fence2, *fence =
+-		__xe_migrate_copy(m, bo, bo, src, dst, src_sg,
++		__xe_migrate_copy(m, bo, bo, src, dst, src_tt,
+ 				  (struct xe_migrate_copy_flags) {
+ 					 .defrag_copy = true,
+ 					 });
+@@ -1171,7 +1275,7 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
+ 	if (IS_ERR(fence) || !need_ccs)
+ 		return fence;
+ 
+-	fence2 = __xe_migrate_copy(m, bo, bo, src, dst, src_sg,
++	fence2 = __xe_migrate_copy(m, bo, bo, src, dst, src_tt,
+ 				   (struct xe_migrate_copy_flags) {
+ 				   .defrag_ccs = true,
+ 				   });
+diff --git a/drivers/gpu/drm/xe/xe_migrate.h b/drivers/gpu/drm/xe/xe_migrate.h
+index e4f996942a6d..4094ea1c19c1 100644
+--- a/drivers/gpu/drm/xe/xe_migrate.h
++++ b/drivers/gpu/drm/xe/xe_migrate.h
+@@ -13,6 +13,7 @@ struct drm_pagemap_addr;
+ struct iosys_map;
+ struct sg_table;
+ struct ttm_resource;
++struct ttm_tt;
+ 
+ struct xe_bo;
+ struct xe_gt;
+@@ -137,7 +138,7 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
+ 					 struct xe_bo *bo,
+ 					 struct ttm_resource *src,
+ 					 struct ttm_resource *dst,
+-					 struct sg_table *src_sg,
++					 struct ttm_tt *src_tt,
+ 					 bool need_ccs);
+ 
+ struct dma_fence *xe_migrate_resolve(struct xe_migrate *m,
 -- 
 2.34.1
 
