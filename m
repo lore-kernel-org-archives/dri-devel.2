@@ -4,98 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC657C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 05:52:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79731C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 05:56:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 538F810E13B;
-	Fri, 10 Jul 2026 05:52:06 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=googlemail.com header.i=@googlemail.com header.b="bHSA1A5r";
-	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6330610E141
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 05:52:05 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2cc84e77e78so4039855ad.2
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 22:52:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783662725; cv=none;
- d=google.com; s=arc-20260327;
- b=f/H3VSNkBW6LQffG9p3haGNGGzQ7dQ0WV9EYkKfMjc1bYBUycH1JBpKhLcVzoPKV1I
- WsUw+R/vZZKOLlq9N83cKW+sAcz1LD2VXRhBMgvQTg4k4W9NbPfC0zO6Tk6QFUunsoHz
- 8nbnVyt8nfqDGL8Sluh7xY7tK9YyQ7KJAoWIO7N/nYxh+D3tdYEJ52P3twU7OpNP/Y/M
- 9zUwaTWRXdHDXQy4AMxBOHQqvk1b+E5DubYzyr8uzjv9qHgxrLK+ApjBYcX8eMTPRyfj
- Gobauq2f86hXYTUj+cY256HdYHWu/BcnRoyEGBFlPhUwvJus1QD9bIhaEGzDtsTpJQlq
- +voQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=nM5Txl5PUCIYtmpQVuxaJ2s6Fzf95yv2bzIgjxFh4kY=;
- fh=g4YpCByELDBB/6+pv6Lm5ZQeUWNzZtS1DBehWhB7yvc=;
- b=KkZu7UE2AaF0qW12o6Qc0RwjkXcgtFvrwT9VI9pCvpHvPmw8BHHsbU4rW2vX4Uk6Bs
- x150qDy49vKLxYGH64QZgHfj+E5y8kxYZgD5+DGpCKJFS50U23beN2CIb9YoR6UrlgKh
- stldWgrtsdt5cyuRHHP7OItOYpHKrVu2FXSunkTlKj8R7fC6m1w5fYtqXp3Wjrr9/TJy
- Y2TOn8E7OUa35VL2FZA3vk7zrrQ5l6BcgcUBeGk71IAQPdAyMFA5yOQG8gTCSs1FPn8v
- q0VTwd3WDC/P/Q60sXbu9e7qQnX5/EoC5tG16WZk0o2OlQ9RGLjxAONjBqvFHcHSuW1M
- eCfg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20251104; t=1783662725; x=1784267525;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=nM5Txl5PUCIYtmpQVuxaJ2s6Fzf95yv2bzIgjxFh4kY=;
- b=bHSA1A5r3+JBebGAWNR4EL/16nkZzHBArpI0n7r/O72cHcznGc8wU0iFSStKainEY+
- fgsoyU9Yff+GFNXfssQYdLtUupQ//Ml55tX6oOsz3qoYc+t9fTMwmt+9/o9jiQbJ0CBv
- riFRWcK7Si52VR5qaXk6wL0xc5qSJ7RNZ0cmzGS0cQK5wxfxJsJwRZBJfoMp6HIpLdgI
- FYtCSudUxzuB+gXoLAfZgI6GRWJFYKrEYWQ1orBJs5DjTUS0Os6COClay+IDnc7xzImq
- 9TRDnnHwAzc8LW+XmzZ88VMRiKmHgIjJHDgTUXAjfPisPvUnJ1M88C49TuTTUZeTjGty
- 2UPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783662725; x=1784267525;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=nM5Txl5PUCIYtmpQVuxaJ2s6Fzf95yv2bzIgjxFh4kY=;
- b=euTboLwddn3veWtUKX55jKuH/b4BdSRxBQOReOEkpVXw5r67NcoPRxbkhAzxEDOZTq
- Q1wBEI2zwDCF7p2D6+O2onUL0D+fmB5EzkWy+JrhcEWmp6+bLG7b1FWSA0dMmUmTl/lg
- +ZAC4Di5vUqQNirBRP9B0cc1bt94AAo89f9y1/8lxCf1Ke1FPTeHRDdHYd+iVZfhwZuJ
- ljTNwtJ9DXKj5PMRoXp9iRytwmNYLpmkJ5eGSk585RWNJPIAJSOcQZmOUPLusNlDqWVV
- LNvxUFqtoVxrmDwqk5bNEyQFMJqh7Z2RdEbmtTpKvUYgRqX7Sc0+T86vGob+uTBS8sYi
- jy9g==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rpi4emLTDDRiOVoNfFUBHVi8q978xCAQI0u2Cd0Yi6TNzYp+o7//mRZw/9VJb/zBKqDIN4W/bLlph4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGquLCJxP5GsSqeR61d++wbEzvFXQFxWU4MpaZccfWM02HFn8Z
- j4NsHV3eo2HpwM/oat8blPWXJ+6BI5mBiJgyTHWf9VByOKQVPtuRwwEvSeA2Vls9eGepQl1KKSN
- 8yd9hMPQeGvNlytp7I/95VYRfg4UVkc8=
-X-Gm-Gg: AfdE7cmMMO9uXrx5x3yip9ZBLyJBuIePt/JkjPbXLwbZWaVZkLmU2XWBlO5uL2A+cKg
- svSGEl5EaCmnF04X9xBm+MDvpB+aY3opzdCSybnekXgQkZvgDaHwwJ3kyPpVZA6G1NLlKObpMIa
- 0Zm2UKAeojvr32UY4Jif1VzVH7kn8n91Pkw8xFV+fHWYgF6ngNC/kzA1Em+1wC3zukYwhltQ04C
- vxN/HvNooUwE85zsh3k3bzmo7lhWZQ19Na5II0PW4Ji3FtVOL+O1cSWR+WU4aAYk1t64ajf67C7
- a0ob7frCAHRAV9CLG17SUxBM8P3E7Q==
-X-Received: by 2002:a17:902:cec2:b0:2ca:ea56:7a58 with SMTP id
- d9443c01a7336-2ccea58039amr108040895ad.37.1783662724844; Thu, 09 Jul 2026
- 22:52:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB3D010E12E;
+	Fri, 10 Jul 2026 05:56:03 +0000 (UTC)
+Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E00FD10E12E
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 05:56:01 +0000 (UTC)
+X-AuditID: a67dfc5b-c2dff70000001609-a0-6a508970bfb3
+Date: Fri, 10 Jul 2026 14:55:55 +0900
+From: Byungchul Park <byungchul@sk.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Jeff Layton <jlayton@kernel.org>, ojeda@kernel.org, tytso@mit.edu,
+ Chuck Lever <cel@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ linux-kernel@vger.kernel.org, cassel@kernel.org,
+ linux-rt-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ dlemoal@kernel.org, linux-ide@vger.kernel.org,
+ linux-modules@vger.kernel.org, kernel_team@skhynix.com
+Subject: Re: [PATCH v19 38/40] mm: percpu: increase PERCPU_DYNAMIC_SIZE_SHIFT
+ on DEPT and large PAGE_SIZE
+Message-ID: <20260710055555.GB37630@system.software.com>
+References: <20260706061928.66713-1-byungchul@sk.com>
+ <20260706061928.66713-39-byungchul@sk.com>
+ <20260707073357.1DE2D1F00A3F@smtp.kernel.org>
 MIME-Version: 1.0
-References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
- <20260709-drm-no-more-plane-reset-v1-23-302d986fe5f0@kernel.org>
-In-Reply-To: <20260709-drm-no-more-plane-reset-v1-23-302d986fe5f0@kernel.org>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Fri, 10 Jul 2026 07:51:53 +0200
-X-Gm-Features: AUfX_mw7meUv4qkFmsOwX-oOv3_0V3pYNleMU-cUI1ei3foVYgmTF1K4dDloyU0
-Message-ID: <CAFBinCBZ4JxY=rRLM+m780VjceNgCKUObuwBDYzS-KJmuqsDeQ@mail.gmail.com>
-Subject: Re: [PATCH 23/60] drm/meson: Convert to atomic_create_state
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, jbrunet@baylibre.com, khilman@baylibre.com, 
- linux-amlogic@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260707073357.1DE2D1F00A3F@smtp.kernel.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupikeLIzCtJLcpLzFFi42LhesuzULewMyDLoJ/VonXnfxaLYxNWMFus
+ e3GEzeLBfnuLK1/fs1n8XLaK3eLYjkdMFpd3zWGzaJj9ndXi0uoLLBYr5y9ntGhYehuotecn
+ uwOvx6ZVnWwe97uPM3m82DyT0aPpzFFmj8+b5AJYo7hsUlJzMstSi/TtErgypv//wlZwUrzi
+ 2583TA2MC4S7GDk5JARMJN6e+8rexcgBZj9YFAkSZhFQldi/qpsZxGYTUJe4ceMnmC0ioCwx
+ e8dZpi5GLg5mgRdMEs8/HwBLCAtkS+x+dI0dxOYVsJBY9vEYWJGQwCRGide77zBBJAQlTs58
+ wgJiMwvoSOzceocNZDGzgLTE8n8cEGF5ieats8FmcgpYSWxp+g/WKgq0+MC240wQNz9nk+h+
+ lgZhS0ocXHGDZQKj4CwkG2Yh2TALYcMsJBsWMLKsYhTKzCvLTczMMdHLqMzLrNBLzs/dxAiM
+ oWW1f6J3MH66EHyIUYCDUYmH16DeP0uINbGsuDL3EKMEB7OSCO8DGaAQb0piZVVqUX58UWlO
+ avEhRmkOFiVxXqNv5SlCAumJJanZqakFqUUwWSYOTqkGxo6QEJ8F2ZVM+83L5uxLZsp/w18U
+ aS+1a8qJaP5oZomjNasTbja8mten7nD+/l/+vY++SFjsM+7k7zhdynDhiaCICONdCw8dJrNF
+ zZ7X11/7xP/qK+umQhGhxRKnAgJ9jFeKMTos89zTveTDmbarC3+sSayOa13FY5phZqf4i+Pw
+ RrcA52cJSizFGYmGWsxFxYkAW4ACRJ0CAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrMLMWRmVeSWpSXmKPExsXC5WfdrFvQGZBlcOaCsUXrzv8sFscmrGC2
+ WPfiCJvFg/32Fle+vmez+LlsFbvF4bknWS2O7XjEZHF51xw2i4bZ31ktLq2+wGKxcv5yRouG
+ pbdZLVp7frI78HlsWtXJ5nG/+ziTx4vNMxk9ms4cZfZY/OIDk8fnTXIBbFFcNimpOZllqUX6
+ dglcGdP/f2ErOCle8e3PG6YGxgXCXYwcHBICJhIPFkV2MXJysAioSuxf1c0MYrMJqEvcuPET
+ zBYRUJaYveMsUxcjFwezwAsmieefD4AlhAWyJXY/usYOYvMKWEgs+3gMrEhIYBKjxOvdd5gg
+ EoISJ2c+YQGxmQV0JHZuvcMGsphZQFpi+T8OiLC8RPPW2WAzOQWsJLY0/QdrFQVafGDbcaYJ
+ jHyzkEyahWTSLIRJs5BMWsDIsopRJDOvLDcxM8dUrzg7ozIvs0IvOT93EyMwKpbV/pm4g/HL
+ ZfdDjAIcjEo8vAb1/llCrIllxZW5hxglOJiVRHgfyACFeFMSK6tSi/Lji0pzUosPMUpzsCiJ
+ 83qFpyYICaQnlqRmp6YWpBbBZJk4OKUaGP0UwhvX1ZUEpFy6MPEt967sq1xS+xYJLY3M4Xzq
+ 5dBf/Wxxu9KNoDQbpugKPeegm0tEWhRzN3LwTw/6fTfyU8v5KZt4/4r+/Zr1ZdLsJy9urWc2
+ 2TXfRdyAX3t3/M1Ury+rb0mqH/Za0NJ9Os/Noi4z8jjj5naJdSav247sE79zP+mSkJj4bSWW
+ 4oxEQy3mouJEAKzaWcKGAgAA
+X-CFilter-Loop: Reflected
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,12 +74,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 9, 2026 at 1:51=E2=80=AFPM Maxime Ripard <mripard@kernel.org> w=
-rote:
->
-> The plane only initializes a pristine state in its reset hook
-> using drm_atomic_helper_plane_reset(), which is equivalent to what
-> atomic_create_state expects. Convert to it.
-[...]
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+On Tue, Jul 07, 2026 at 07:33:56AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The patch addresses a compile-time BUILD_BUG_ON failure that no longer exists, referencing a deleted structure (`struct kmem_cache_cpu`) and function (`alloc_kmem_cache_cpus()`). Both have been removed from the upstream kernel. The only remaining BUILD_BUG_ON checking `PERCPU_DYNAMIC_EARLY_SIZE` in SLUB is in `alloc_kmem_cache_stats()`, which evaluates `sizeof(struct kmem_cache_stats)`. Because `struct kmem_cache_stats` consists solely of an integer array, its size is entirely unaffected by `CONFIG_DEPT` or `local_lock_t`. Thus, this patch needlessly increases the dynamically reserved per-CPU memory based on an obsolete and misleading justification.
+> --
+> 
+> commit 279fb8fb2919a407c18ab625ec67d2a3430b7b4d
+> Author: Byungchul Park <byungchul@sk.com>
+> 
+> mm: percpu: increase PERCPU_DYNAMIC_SIZE_SHIFT on DEPT and large PAGE_SIZE
+> 
+> This commit increases PERCPU_DYNAMIC_SIZE_SHIFT to 11 when both CONFIG_DEPT
+> and a PAGE_SIZE larger than 4KiB are enabled. It aims to prevent a build
+> failure related to the size of struct kmem_cache_cpu.
+> 
+> >     Yunseong reported a build failure due to the BUILD_BUG_ON() statement in
+> >     alloc_kmem_cache_cpus().  In the following test:
+> >
+> >       PERCPU_DYNAMIC_EARLY_SIZE < NR_KMALLOC_TYPES * KMALLOC_SHIFT_HIGH * sizeof(struct kmem_cache_cpu)
+> 
+> [Severity: Medium]
+> Are we referencing structures and functions that have been removed from the
+> upstream kernel?
+> 
+> Both alloc_kmem_cache_cpus() and struct kmem_cache_cpu no longer exist
+> upstream. The only remaining BUILD_BUG_ON() checking PERCPU_DYNAMIC_EARLY_SIZE
+> in SLUB is in alloc_kmem_cache_stats():
+> 
+> mm/slub.c:alloc_kmem_cache_stats() {
+>         BUILD_BUG_ON(PERCPU_DYNAMIC_EARLY_SIZE <
+>                         NR_KMALLOC_TYPES * KMALLOC_SHIFT_HIGH *
+>                         sizeof(struct kmem_cache_stats));
+> }
+> 
+> Since struct kmem_cache_stats consists solely of an integer array, its size
+> is entirely unaffected by CONFIG_DEPT or local_lock_t. Does this mean the
+> increase in dynamically reserved per-CPU memory is no longer needed?
+
+Agree.  It seems no longer needed.  I will fix it.
+
+	Byungchul
+
+> > diff --git a/include/linux/percpu.h b/include/linux/percpu.h
+> > index 85bf8dd9f0874..dd74321d4bbd0 100644
+> > --- a/include/linux/percpu.h
+> > +++ b/include/linux/percpu.h
+> > @@ -43,7 +43,11 @@
+> >  # define PERCPU_DYNAMIC_SIZE_SHIFT      12
+> >  #endif /* LOCKDEP and PAGE_SIZE > 4KiB */
+> >  #else
+> > +#if defined(CONFIG_DEPT) && !defined(CONFIG_PAGE_SIZE_4KB)
+> > +#define PERCPU_DYNAMIC_SIZE_SHIFT      11
+> > +#else
+> >  #define PERCPU_DYNAMIC_SIZE_SHIFT      10
+> > +#endif /* DEPT and PAGE_SIZE > 4KiB */
+> >  #endif
+> 
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260706061928.66713-1-byungchul@sk.com?part=38
