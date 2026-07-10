@@ -4,100 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81FCCC44501
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 13:27:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF529C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 13:39:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0B5410E1D8;
-	Fri, 10 Jul 2026 13:27:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C6F310F8F0;
+	Fri, 10 Jul 2026 13:39:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QiOegJAu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fydQPaDx";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C292B10F8EB
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 13:27:36 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-38096590070so209638a91.3
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 06:27:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783690056; cv=none;
- d=google.com; s=arc-20260327;
- b=F4OrrANRcuh9X7zuTzKz+yqSSrbpjn+JJo2kzYsZrjHgvnBLuN0HFIZsAXcZTnR4Sm
- p4eDW2ZUoA203XF56w5W9sBkwNOCp08bFeCDDUFrfUxakFkEGTA1nR3dZgScEpN2n27f
- wXNWWOQPH/DNGcFPMSA/FdqnsOsQj2dJlKKDqPnTX6SK2rbLmqnPwT7DF763JYuBgddu
- VH6wmno5ryVM3Tf05YMfa3IoOeRVslXHgNQ7pOlUir0P+CndpxB9aWsoCZT6/azs7ph0
- 8dLAJdocxy+ICN2dhewWpa5b2Fy+jkti+bPSDrwnS5HRI0+RHENd8cs/Keb3JQY5hzBy
- dZJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=8Xz8mAiIS9bhxJSnBlNVStU7ycoiUswNHhwr3rObZng=;
- fh=ynoepbZjkm3j9pimh2LUBjGuaK4ZrRkyebdaalUFvso=;
- b=MRzN3gaHmTmlRp8b7Yi1O98CXfMJBAOXSiqAs0Hk9uv1/swIPsVV2F6LaHhZV7whe8
- 51ofVojdmIsHrzBbXIAUGLadnzO1Gpq4S9NfwtN1xLQWZM/AFDLi/j9Jhdo9/Jyx8RJ7
- z+j0Sb+l/eXmqpHmyEEhDmzm+1gjCcmN6RW3U4Q6e8KDoUaoZ2A5PWtdwA8GfYQaOKWp
- u7CPlFaiCXAFbrrpXiF4kHZMcW2auiJ0Utakgk1dKe1T1iJCF4eXTY/sGiV1/gPlARC0
- Mfa5hGmvbey/lOJH2sCSB9yDt6Eo5ExjzRlyg3mX5yWsZZROHwR61Uiw/WloPZez7mqB
- BOaw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783690056; x=1784294856; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=8Xz8mAiIS9bhxJSnBlNVStU7ycoiUswNHhwr3rObZng=;
- b=QiOegJAu0Dati0+Qo2es+1AYTiX16oEq7iaiLSu1D7zDZwRkJnhG9TBcMNRnFS0D39
- 2cBTI8XcKO0CEJWAtP5tgUt0fmDninA3ge3AlcqyC4awgo4yDXqQo601XnlqkTBv9uHX
- rjeCj3GxuchqHtJoxzWthwKPxnJ23RWBbX75dByjy9Y5ahFor9BGhVtM8NF4RjUk6nvh
- 2g3zWrYcY734NAGfqKEZuNG6l23qnEUu7BbDssgKsP62miB4hSiCW/R0hbAhjcIT/dZw
- cRMN+vqL7HmEDPtv0OhQtek/nMAWh9RswNemljl4HnHhEVdtX2LseQlTzsqWzRukEUFq
- N42Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783690056; x=1784294856;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=8Xz8mAiIS9bhxJSnBlNVStU7ycoiUswNHhwr3rObZng=;
- b=Mp7gtSQ2B3VbtwgjBFPLofren/ZM2Vlru4FetcOpmZKXi4zqiKeMr6ofzPwy11bGwj
- cHcbTXeBK6PmINuI/HS/g2unVdqjj8lpQIV8EdICtSf25eV95BA09+0ohDn4faVOSmvR
- Kr39yhCBeBuTWWGVAZ6j0zGNdeD7WojqHnEQLtzKnQ41ss4K/7PrctajaVmUgNYRoixm
- h1cPVWE9GdtMEIBY8kAXUuFSnDYYo7Z32AxZtGa3lHxdpSH20q4LaXg1hsbkJ/KPU4YC
- EaNCOA64cL1b/1MsWTMVVReUgjSQxyA9KDaLcKB1ouMsljRydl4nmV2YzmGPaBi2k14r
- Pmhg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpekOYct+RetgSR1cYwHoeomie0DOA86yDu0ek7RyWGQ34PRD6FY6Y8m2p++jwJMoeNP0z22Nyjnjc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxtxpZ01QKDilSnrUByEqtC32N8QtMGiDmxpskM1XInJPVagrIm
- FlwEAUCNlit6jt64B8Op/UqMsORIb8B2EVC4PaiTfGquLDH5o1QdwvpS62SjfmaXJG5Bggr0XY4
- cztVVyhlHU/SaY6kRxpZlsDIHebU/kSK16g==
-X-Gm-Gg: AfdE7ckn6tBQ3xXiB5qDjyHFxiexX+rI9wL5Bsah0BUhHqKLQF3vogdH5XS2jz7tcO+
- RHHgSB85CiAR82vAOqfQWreeSeA+amm6SpI+aFNfh2ne5PZZZYTLx2DtZQ65Ie+PlX7l44+ntxG
- Gi8V/RI2Kqs8feCGn1lbmaup3Le/LVY8nTJbAa7n3dsnGkUzF+GTEybUa+h/78rdf01KSene4/x
- 8rPXzWK3BHQXeZlIFcsDBIS4b8XYcahYAa1SyyhUedzI86KEhBzBmUZC2iDD/0CcLKCW0mDuItd
- pzd0Lgw/rCc9tSCQUjlSLIeI70FXjfhQPkVLN2VKI+boc3kzsL38gb4iwMHjxWU53ztwVA==
-X-Received: by 2002:a17:90b:390e:b0:381:77cd:38ca with SMTP id
- 98e67ed59e1d1-38a20c48ce0mr6963500a91.4.1783690056153; Fri, 10 Jul 2026
- 06:27:36 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E045B10F8F0;
+ Fri, 10 Jul 2026 13:39:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8B73443C2D;
+ Fri, 10 Jul 2026 13:39:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F051F000E9;
+ Fri, 10 Jul 2026 13:39:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783690762;
+ bh=hWe5y0XfVr4QQQGo0kaEF8UGbBWB4HZz8UbrXKM7Z28=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=fydQPaDxS/hHGLVdvf977qUXBNSF6t19lqQW/RqVTS+Xk5pgKo0deA+cWIFhyYRvv
+ IeSezmg4COMZrohE1QJ6gnvclo/bOnA8j2IrdEmxinGMPa0Cv9pB6NQzVtyWt96x//
+ 6dNWU5GX7waS+2jwE8BVZ3WNZw/wsfy0C0SSKxIKb3QlnIRCNzHVm3c5Ps0q8mrTgW
+ zsWArKYrCmnfDcrebwcipzmYNQ0mhqZJQQZSGHykLDKtejNlCDmPcno/dc/3rjzGeu
+ kuxVdLjqHCE3kyZgIMxt9Re36Qo0mzOOVMmO0ZdfPfAx62l26oANlEaaJo1XHJjjzR
+ MdqLjT6QyxJDg==
+Date: Fri, 10 Jul 2026 14:38:58 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Suren Baghdasaryan <surenb@google.com>, "Liam R . Howlett" <liam@infradead.org>,
+ Matthew Wilcox <willy@infradead.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ SeongJae Park <sj@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Kees Cook <kees@kernel.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, 
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, 
+ Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 02/30] mm: add kdoc comments for vma_start/last_pgoff()
+Message-ID: <alD1h7kHZdX_0I-0@lucifer>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <8c618dfd7de419e3b797b8bd1cd921d4c5b8878b.1782735110.git.ljs@kernel.org>
+ <03762de9-c695-4cdd-8c25-4fc31335ea15@kernel.org>
 MIME-Version: 1.0
-References: <20260708222035.7324-1-nico.antinori.7@gmail.com>
- <fd5ecc7b-b9b5-4653-b7ad-72bdcd0b8518@suse.de>
-In-Reply-To: <fd5ecc7b-b9b5-4653-b7ad-72bdcd0b8518@suse.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 10 Jul 2026 09:27:24 -0400
-X-Gm-Features: AVVi8CfC8WMQvuOOX9IbEu4pHDNwlbHNhnBztQ4WqIxX3gf9mAdHkuUx5nllMac
-Message-ID: <CADnq5_OBYXSz2HG7SCA2eK5_z1J0SmJCwCW2RkGJ5d1-tAVC6g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Inline drm_simple_encoder_init()
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: =?UTF-8?Q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Brigham Campbell <me@brighamcampbell.com>, 
- David Airlie <airlied@gmail.com>, Shuah Khan <skhan@linuxfoundation.org>, 
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, 
- linux-kernel-mentees@lists.linux.dev, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <03762de9-c695-4cdd-8c25-4fc31335ea15@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,78 +104,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
-
-On Thu, Jul 9, 2026 at 3:17=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse.=
-de> wrote:
->
->
->
-> Am 09.07.26 um 00:20 schrieb Nicol=C3=A1s Antinori:
-> > Simple KMS helpers are deprecated because they introduce an unnecessary
-> > intermediate layer between atomic modesetting and the DRM driver.
+On Tue, Jul 07, 2026 at 04:46:13PM +0200, David Hildenbrand (Arm) wrote:
+> On 6/29/26 14:23, Lorenzo Stoakes wrote:
+> > Describe what vma_start_pgoff() and vma_last_pgoff() actually provide in
+> > detail.
 > >
-> > Inline the functionality of drm_simple_encoder_init() to remove
-> > dependencies on these deprecated helpers.
+> > This is in order that we can differentiate this between functions that will
+> > be added in a subsequent patch which provide a different page offset.
 > >
-> > Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
->
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
->
+> > No functional change intended.
+> >
+> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 > > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 10 ++++++++--
-> >   1 file changed, 8 insertions(+), 2 deletions(-)
+> >  include/linux/mm.h | 26 ++++++++++++++++++++++++++
+> >  1 file changed, 26 insertions(+)
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_vkms.c
-> > index 170adaf7e76a..d5b0692fe860 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> > @@ -2,7 +2,7 @@
+> > diff --git a/include/linux/mm.h b/include/linux/mm.h
+> > index 059144435729..2f00c75e66bd 100644
+> > --- a/include/linux/mm.h
+> > +++ b/include/linux/mm.h
+> > @@ -4278,11 +4278,37 @@ static inline unsigned long vma_pages(const struct vm_area_struct *vma)
+> >  	return (vma->vm_end - vma->vm_start) >> PAGE_SHIFT;
+> >  }
 > >
-> >   #include <drm/drm_atomic_helper.h>
-> >   #include <drm/drm_edid.h>
-> > -#include <drm/drm_simple_kms_helper.h>
-> > +#include <drm/drm_encoder.h>
-> >   #include <drm/drm_gem_framebuffer_helper.h>
-> >   #include <drm/drm_vblank.h>
-> >   #include <drm/drm_vblank_helper.h>
-> > @@ -316,6 +316,10 @@ static struct drm_plane *amdgpu_vkms_plane_init(st=
-ruct drm_device *dev,
-> >       return plane;
-> >   }
-> >
-> > +static const struct drm_encoder_funcs drm_encoder_funcs_cleanup =3D {
-> > +     .destroy =3D drm_encoder_cleanup,
-> > +};
-> > +
-> >   static int amdgpu_vkms_output_init(struct drm_device *dev, struct
-> >                                  amdgpu_vkms_output *output, int index)
-> >   {
-> > @@ -342,7 +346,9 @@ static int amdgpu_vkms_output_init(struct drm_devic=
-e *dev, struct
-> >
-> >       drm_connector_helper_add(connector, &amdgpu_vkms_conn_helper_func=
-s);
-> >
-> > -     ret =3D drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VI=
-RTUAL);
-> > +     ret =3D drm_encoder_init(dev, encoder,
-> > +                            &drm_encoder_funcs_cleanup,
-> > +                            DRM_MODE_ENCODER_VIRTUAL, NULL);
-> >       if (ret) {
-> >               DRM_ERROR("Failed to init encoder\n");
-> >               goto err_encoder;
-> > --
-> > 2.47.3
-> >
+> > +/**
+> > + * vma_start_pgoff() - Get the page offset of the start of @vma
+> > + * @vma: The VMA whose page offset is required.
+> > + *
+> > + * If the VMA is file-backed, this is the page offset into the file.
+> > + *
+> > + * If the VMA is anonymous, this is the virtual page offset of the start of the
+> > + * VMA - if unfaulted, then vma->vm_start >> PAGE_SHIFT, if faulted then the
+> > + * virtual page offset at the time of first fault.
+> > + *
+> > + * Note that if @vma is a MAP_PRIVATE file-backed mapping, then this returns the
+> > + * file offset.
+>
+> There is the ugly case of @vma being a MAP_PRIVATE PFNMAP mapping, where it
+> returns something different.
+
+Yup, the pfn  I will update doc to mention this abomination too.
+
+The virt pgoff stuff in the RFC fixes this also.
+
+>
+> (remap_pfn_range_prepare_vma() -> vma->vm_pgoff set to PFN)
 >
 > --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
-> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG N=C3=BCrnberg)
+> Cheers,
 >
->
+> David
+
+Cheers, Lorenzo
