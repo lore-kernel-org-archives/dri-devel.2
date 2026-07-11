@@ -4,75 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A015FC43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 23:07:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46DA9C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 23:20:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92F1410E2B0;
-	Sat, 11 Jul 2026 23:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75BAD10E174;
+	Sat, 11 Jul 2026 23:20:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=asu.edu header.i=@asu.edu header.b="J7aICwPN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZhasAK7c";
 	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6F6710E181
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 23:07:33 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-38a0c7e841fso2391766a91.2
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 16:07:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=asu.edu; s=google; t=1783811253; x=1784416053; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=b01MPLPFUTPl/FZxo6tsZL3gbo3NnjDL9LbETEmQYys=;
- b=J7aICwPN3yO2bWpZvoq+DsSdj8GXURuum0etHGOvEUNUpF2FnBhzYdw/VrQJ6kbpkM
- 6qOJjzJ1ncR/Eyb0KagfF3ouUVBOfCCR6eI39nXVrjN43r8t6qR4Nf8fRH1KFIEkvcpg
- aZNsvY5bjh9atHY2HAkRFaGPGM6z2+ESKzfzWxXDyQvd8EDYbXxAX+WH/H033yO1mKW2
- L47MeUjctNLM4/W1Qa6LsX1rU0vH1xg8ct1rDqU8O554nVcVmwi9dN6MDJuxeYIhBDG+
- Rxhripc1GmPR/v6675OY79rw75Wu64E+DrLwnMOA4sAMBsmr2nLxz5daVTxuBAtyDxHi
- O9Tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783811253; x=1784416053;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=b01MPLPFUTPl/FZxo6tsZL3gbo3NnjDL9LbETEmQYys=;
- b=ALEtqLb50MvbwFYmEB5FVKD2n8c45mhBzlnhfZSq1fbjcMfy7zL0Zzi+o+mMo5Xbkn
- GUTp1BM9N5AnMGL2ppXrb68Ml2+s4s4wiCPc25peQLmC5Mxleax65Y0yogEa2jxfu4qA
- 8CoknyjfndUbW72Fx2uTQETa89B2wGT4S/5wGxJmo57kB2/lxI/eGEypw2tiycGg70SW
- X0XqBYIhIFhNxSwU7awqKeeHQQ8T/1q1AKFJpD8Ye0vLq02tgXmDD76PiXSMMa0Zj/Tl
- UADzw+Wd4PxV8ez/9QIMye8EvlJz17czbDlRElM7EvdpuNV4wLrQrAVpEy+zIrOT8cVS
- ETHA==
-X-Gm-Message-State: AOJu0YybygNKxt6R4Kzagmz2Cdsd5W1VFM+uO1NHac6QAHKR9sn2Z3sR
- 5WY4MeJn0yfwviGAWLLdRhOCPmgmG1Bn6NmtrzY20BWO06YHkI0NMttJjoLn5ZEKcQ==
-X-Gm-Gg: AfdE7cmyJ9D4TgKKbyHe9maYUBATmPnLl9YYHkTx5hpXRYpPmAvvmnEnnzQIKAX9BI5
- ePlF8D9jX1dJ0FY/L5UNG3cdAbwqzyRVKNVNzjLInLWFfFbm4fPWDQAf7gFzVaZr9rDyzfoRXYl
- i24KM3KsGu+3X1WvW86OkMQ+KJggnJATCjuck8W3x80376JE13JPMMUWpcgGnA+8rIOXG/HPYVj
- T3SoO+JdGhDnJWT8+KyxVqIZvsA0J4xIYKAKjqL5N0KI3E1o+OBOWiAquGb4Wevk/ICvsqTqyOH
- /4baU2QPujI7NTxCLWkbdZAwr87bcQEmkhPbRAkWf1N4wLVSXbIaDTkNZK/6yQyR0uVd3bxCAWU
- oPkqr6dDyBiJyIKSmEWL0speaZIim2Ffm4li+QR9Ja5i02MWp2JCoP7B4347ZcDiNAs0iTQiCow
- ==
-X-Received: by 2002:a17:90b:1c88:b0:38d:b36e:9824 with SMTP id
- 98e67ed59e1d1-38dc7736eb2mr3773848a91.20.1783811253273; 
- Sat, 11 Jul 2026 16:07:33 -0700 (PDT)
-Received: from p1.. ([2607:fb90:ecae:8611:d369:525c:ef37:7318])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-38a583a16c2sm4447555a91.13.2026.07.11.16.07.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Jul 2026 16:07:32 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Dave Airlie <airlied@linux.ie>, Zhao Yakui <yakui.zhao@intel.com>,
- Weiming Shi <bestswngs@gmail.com>, Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH] drm/modes: reject out-of-range GTF blanking duty cycle
-Date: Sat, 11 Jul 2026 16:07:28 -0700
-Message-ID: <20260711230728.2250485-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB36910E174
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 23:20:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4ADAF4040A;
+ Sat, 11 Jul 2026 23:20:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57081F000E9;
+ Sat, 11 Jul 2026 23:20:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783812013;
+ bh=UeU0CZa/3I9AV6gyvWg3P/zLMWU+SW7k/xxzhphEKcg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ZhasAK7cb/kq040xIOzQZLp9o2OHqueC541XAuaFNsOwN8q5YWj0+QZaXcbSgbb5S
+ 2xY/4WQ21/lS0OQRS72d5RDhjArndK8G0NF5A67EZPSiF1wRheTafG3+6WWhXBBzVo
+ yaSD3ob0cKpWTIIT+r1NR4LJcEBajccazddCEvenyc6sgUx8Phu8YMU/9Exd3654NQ
+ zkWIS1dPWxW0Tie044p+l9/2MwNRCTBvL2Zi7/SUZdOONhQqg4/cExpItTUv+ZSw5q
+ oVhPTnCgmCjlKvZVVQaqTspwcNytBrd60wYvSsoNEnWrSrKQ/Kmjbt4rzINGeUTM24
+ /RE1u7ts9g1bA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/modes: reject out-of-range GTF blanking duty cycle
+To: "Xiang Mei" <xmei5@asu.edu>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260711230728.2250485-1-xmei5@asu.edu>
+References: <20260711230728.2250485-1-xmei5@asu.edu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 11 Jul 2026 23:20:12 +0000
+Message-Id: <20260711232012.E57081F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,69 +52,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_gtf_mode_complex() derives the blanking duty cycle from the GTF
-C/M/K/J coefficients and divides by its complement:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-	ideal_duty_cycle = GTF_C_PRIME * 1000 -
-				(GTF_M_PRIME * 1000000 / hfreq_est);
-	hblank = total_active_pixels * ideal_duty_cycle /
-			(100000 - ideal_duty_cycle);
+Pre-existing issues:
+- [Medium] Unchecked `vrefresh` parameter from kernel command line can caus=
+e multiple divide-by-zero panics.
+--
 
-ideal_duty_cycle is an unsigned per-mille percentage that must stay below
-100000, but nothing enforces it. Via drm_gtf2_mode() the coefficients come
-straight from an EDID secondary-GTF range descriptor, so a crafted monitor
-(or an edid_override re-probed with DRM_IOCTL_MODE_GETCONNECTOR) can set
-ideal_duty_cycle to exactly 100000, making the divisor 0 and trapping with
-a divide error; a larger value wraps the unsigned subtraction and yields a
-garbage modeline.
+--- Patch [1]: [PATCH] drm/modes: reject out-of-range GTF blanking duty cyc=
+le ---
+commit c78fc29b3d453bf33d5cd88746572b5f1e9a5c60
+Author: Xiang Mei <xmei5@asu.edu>
 
-Reject a duty cycle of 100% or more, which is never a valid GTF result.
-drm_gtf2_mode() and the inferred-mode helpers already handle a NULL return.
+drm/modes: reject out-of-range GTF blanking duty cycle
 
-Crash:
+This commit rejects GTF blanking duty cycles of 100% or more to prevent a
+divide-by-zero error that occurs when the divisor (100000 - ideal_duty_cycl=
+e)
+evaluates to 0.
 
-  Oops: divide error: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:drm_gtf_mode_complex (drivers/gpu/drm/drm_modes.c:972)
-  Call Trace:
-   drm_gtf2_mode (drivers/gpu/drm/drm_edid.c:3365)
-   drm_mode_std (drivers/gpu/drm/drm_edid.c:3464)
-   _drm_edid_connector_add_modes.part.0 (drivers/gpu/drm/drm_edid.c:4024)
-   drm_edid_connector_add_modes (drivers/gpu/drm/drm_edid.c:7020)
-   bochs_connector_helper_get_modes (drivers/gpu/drm/tiny/bochs.c:575)
-   drm_helper_probe_single_connector_modes (drivers/gpu/drm/drm_probe_helper.c:426)
-   drm_mode_getconnector (drivers/gpu/drm/drm_connector.c:3376)
-   ...
-   __x64_sys_ioctl (fs/ioctl.c:597)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:94)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-  Kernel panic - not syncing: Fatal exception
+> diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
+> index e1eed13a8e94f..291037706b587 100644
+> --- a/drivers/gpu/drm/drm_modes.c
+> +++ b/drivers/gpu/drm/drm_modes.c
+> @@ -966,6 +966,10 @@ drm_gtf_mode_complex(struct drm_device *dev, int hdi=
+splay, int vdisplay,
+>  	/* 18.Find the ideal blanking duty cycle from blanking duty cycle */
+>  	ideal_duty_cycle =3D GTF_C_PRIME * 1000 -
+>  				(GTF_M_PRIME * 1000000 / hfreq_est);
 
-Fixes: 26bbdadad356 ("drm/mode: add the GTF algorithm in kernel space")
-Reported-by: Weiming Shi <bestswngs@gmail.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
----
- drivers/gpu/drm/drm_modes.c | 4 ++++
- 1 file changed, 4 insertions(+)
+[Severity: Medium]
+This is a pre-existing issue, but while fixing divide-by-zero crashes here,
+could an unvalidated vrefresh parameter cause other divide-by-zero panics
+in this function?
 
-diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
-index 3f8e025fd6d9..b6f263e9ba86 100644
---- a/drivers/gpu/drm/drm_modes.c
-+++ b/drivers/gpu/drm/drm_modes.c
-@@ -966,6 +966,10 @@ drm_gtf_mode_complex(struct drm_device *dev, int hdisplay, int vdisplay,
- 	/* 18.Find the ideal blanking duty cycle from blanking duty cycle */
- 	ideal_duty_cycle = GTF_C_PRIME * 1000 -
- 				(GTF_M_PRIME * 1000000 / hfreq_est);
-+	if (ideal_duty_cycle >= 100000) {
-+		drm_mode_destroy(dev, drm_mode);
-+		return NULL;
-+	}
- 	/* 19.Find the number of pixels in the blanking time to the nearest
- 	 * double character cell: */
- 	hblank = total_active_pixels * ideal_duty_cycle /
--- 
-2.43.0
+For example, if an administrator provides a kernel command line parameter
+with a refresh rate of @0 (e.g., video=3D1024x768@0), vfieldrate_rqd
+evaluates to 0. This would cause a panic earlier in drm_gtf_mode_complex():
 
+    hperiod =3D 1000000 / (vfieldrate_rqd * vtotal_lines);
+
+Also, if the refresh rate is @1818, tmp1 evaluates to 0:
+
+    tmp1 =3D (1000000  - MIN_VSYNC_PLUS_BP * vfieldrate_rqd) / 500;
+    // (1000000 - 550 * 1818) / 500 =3D 0
+
+This leads to another direct division by zero:
+
+    hfreq_est =3D (tmp2 * 1000 * vfieldrate_rqd) / tmp1;
+
+And if hfreq_est evaluates to 0, it causes a third divide-by-zero on the
+ideal_duty_cycle assignment above.
+
+Should drm_gtf_mode_complex() validate the vrefresh parameter before
+performing these calculations?
+
+> +	if (ideal_duty_cycle >=3D 100000) {
+> +		drm_mode_destroy(dev, drm_mode);
+> +		return NULL;
+> +	}
+>  	/* 19.Find the number of pixels in the blanking time to the nearest
+>  	 * double character cell: */
+>  	hblank =3D total_active_pixels * ideal_duty_cycle /
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711230728.2250=
+485-1-xmei5@asu.edu?part=3D1
