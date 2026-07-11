@@ -4,73 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A8CC43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 02:04:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11E03C44506
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 02:56:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01F3C10E28B;
-	Sat, 11 Jul 2026 02:04:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9E5510E25A;
+	Sat, 11 Jul 2026 02:56:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="Hhf/cKNh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LJV9TzpN";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EE8610E28B
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 02:04:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783735493; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=DFt5XI/uVIlPrhi6BtcY2PK8BsEqMJOrtwekYuk6TL6sy07VTBlZx1Tr+hAOkCbOyMI4B/bvU56tDDdNUDfqgZuD2hItRKzjFLrUtDzzWR3JGrBhCDNNffIwmL/0Y9uBdpWrB+S4xNfMiKrTxXNWKoeVKWIoFrlLo/3RR+mK4no=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783735493;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=GheCYDBFLZZB5JG+aBFxTpvjzySJCMbAaM1ydg78v1c=; 
- b=H2N5ciVYyEmPE9quuYsVvUMqGWK3erEmjVvVcyKnBhxeYkaaAFhoLqeGF5/ECWW9kEZgQN2Vx36hOoYv0Wd3YUHKXcSIFNxhfSZ/bDvXkzhJXDdKEmTbmcF1TtWI4t5Y8PMsgud2jcUSdvoRWbuuBnc+lAcxWRzibKedAqLzKGI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783735493; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
- bh=GheCYDBFLZZB5JG+aBFxTpvjzySJCMbAaM1ydg78v1c=;
- b=Hhf/cKNhwLOFWPO5pkhC2vRYS4duMk+TKKkU5qgJwH+JNY802v8BRlYuQpY88TLb
- /Uc1sEkVnwvk2P4c8um7DvuDUYPD0ukW85yRP+uCfqWxmlqq4zGXRjllXYO2jBWg6XC
- yPixNXDbcxX2j6q8iHLqMoJpjrBtmCRJwOo0wfFk=
-Received: by mx.zohomail.com with SMTPS id 1783735492286730.8704422431059;
- Fri, 10 Jul 2026 19:04:52 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v6 18/20] rust: dma: drop `dma_read!` and `dma_write!` API
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260706-io_projection-v6-18-72cd5d055d54@garyguo.net>
-Date: Fri, 10 Jul 2026 23:04:32 -0300
-Cc: Alice Ryhl <aliceryhl@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <4990B3CF-C19E-4282-B749-D02ABECD59DC@collabora.com>
-References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
- <20260706-io_projection-v6-18-72cd5d055d54@garyguo.net>
-To: Gary Guo <gary@garyguo.net>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 011E510E1DF;
+ Sat, 11 Jul 2026 02:56:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783738585; x=1815274585;
+ h=from:to:cc:subject:date:message-id:
+ content-transfer-encoding;
+ bh=7Pe5r50awa0Y+o8F872BO2/tNpkaXhk6mOAyEdPkFog=;
+ b=LJV9TzpNcmMKvamDabO30NHFnQEWdZeqGWDSvt0gQtQUL+fnDtYgP4Zv
+ 5FmpfQpRfZrSu9aKZh/+kOZSEPVJJz5GYzBiTUx4NG8qeRRGzw1Wvqww9
+ tdNScTpUZYrZd+odP+1G7S86w4GYfMF3gaMKlUHym9oXmYWtOMk7ik0X/
+ 629QrU8xNBfTLL+AHxibfpqLZkvZQJLl06JwD5DeX6i1bLPxiY3mctTpc
+ myMFP+GjQhQrwsnPi5Y1aW1Ze5Tvj0MNKF0O4Yf+aeC3jyMqOHgx6k8WE
+ PSHPd9k51SXrEEm+YSjz2UMoTGRFRuQW1evOChZf/9pHE3ZuOVyYTW51D g==;
+X-CSE-ConnectionGUID: GT/Y4uChQkyjzDjgTrX47g==
+X-CSE-MsgGUID: C6f2ZGwTRE2JlIutcidevA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="101986172"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="101986172"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2026 19:56:25 -0700
+X-CSE-ConnectionGUID: IYZC1CkKTnygStZt0qQ07Q==
+X-CSE-MsgGUID: nguZw0NfSIirH3bjEgKP8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="256987673"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2026 19:56:24 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v3 00/33] drm/ttm,
+ drm/xe: Minimize dma-resv hold times and defragment sub-optimally
+ backed BOs
+Date: Fri, 10 Jul 2026 19:55:46 -0700
+Message-Id: <20260711025619.2540575-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,252 +78,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The overarching goal of this series is to keep user-facing IOCTLs snappy
+by holding the BO dma-resv lock for the shortest possible time, and to
+push the expensive, best-effort work - page (re)allocation, DMA mapping
+and placement fixups - into the background or out of the locked critical
+section entirely.
 
+Two related mechanisms fall out of that goal:
 
-> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
->=20
-> The primitive read/write use case is covered by the `io_read!` and
-> `io_write!` macro. The non-primitive use case was finicky; they should
-> either be achieved using `CoherentBox` or `as_ref()/as_mut()` to =
-assert the
-> lack of concurrent access, or should be using memcpy-like APIs to =
-express
-> the non-atomic and tearable nature.
->=20
-> Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> ---
-> rust/kernel/dma.rs       | 128 =
------------------------------------------------
-> samples/rust/rust_dma.rs |  11 ++--
-> 2 files changed, 8 insertions(+), 131 deletions(-)
->=20
-> diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
-> index 1535bc6eec64..6e7ea3b72f2f 100644
-> --- a/rust/kernel/dma.rs
-> +++ b/rust/kernel/dma.rs
-> @@ -661,52 +661,6 @@ pub unsafe fn as_mut(&self) -> &mut T {
->         // SAFETY: per safety requirement.
->         unsafe { &mut *self.as_mut_ptr() }
->     }
-> -
-> -    /// Reads the value of `field` and ensures that its type is =
-[`FromBytes`].
-> -    ///
-> -    /// # Safety
-> -    ///
-> -    /// This must be called from the [`dma_read`] macro which ensures =
-that the `field` pointer is
-> -    /// validated beforehand.
-> -    ///
-> -    /// Public but hidden since it should only be used from =
-[`dma_read`] macro.
-> -    #[doc(hidden)]
-> -    pub unsafe fn field_read<F: FromBytes>(&self, field: *const F) -> =
-F {
-> -        // SAFETY:
-> -        // - By the safety requirements field is valid.
-> -        // - Using read_volatile() here is not sound as per the usual =
-rules, the usage here is
-> -        // a special exception with the following notes in place. =
-When dealing with a potential
-> -        // race from a hardware or code outside kernel (e.g. =
-user-space program), we need that
-> -        // read on a valid memory is not UB. Currently =
-read_volatile() is used for this, and the
-> -        // rationale behind is that it should generate the same code =
-as READ_ONCE() which the
-> -        // kernel already relies on to avoid UB on data races. Note =
-that the usage of
-> -        // read_volatile() is limited to this particular case, it =
-cannot be used to prevent
-> -        // the UB caused by racing between two kernel functions nor =
-do they provide atomicity.
-> -        unsafe { field.read_volatile() }
-> -    }
-> -
-> -    /// Writes a value to `field` and ensures that its type is =
-[`AsBytes`].
-> -    ///
-> -    /// # Safety
-> -    ///
-> -    /// This must be called from the [`dma_write`] macro which =
-ensures that the `field` pointer is
-> -    /// validated beforehand.
-> -    ///
-> -    /// Public but hidden since it should only be used from =
-[`dma_write`] macro.
-> -    #[doc(hidden)]
-> -    pub unsafe fn field_write<F: AsBytes>(&self, field: *mut F, val: =
-F) {
-> -        // SAFETY:
-> -        // - By the safety requirements field is valid.
-> -        // - Using write_volatile() here is not sound as per the =
-usual rules, the usage here is
-> -        // a special exception with the following notes in place. =
-When dealing with a potential
-> -        // race from a hardware or code outside kernel (e.g. =
-user-space program), we need that
-> -        // write on a valid memory is not UB. Currently =
-write_volatile() is used for this, and the
-> -        // rationale behind is that it should generate the same code =
-as WRITE_ONCE() which the
-> -        // kernel already relies on to avoid UB on data races. Note =
-that the usage of
-> -        // write_volatile() is limited to this particular case, it =
-cannot be used to prevent
-> -        // the UB caused by racing between two kernel functions nor =
-do they provide atomicity.
-> -        unsafe { field.write_volatile(val) }
-> -    }
-> }
->=20
-> impl<T: AsBytes + FromBytes> Coherent<T> {
-> @@ -1266,85 +1220,3 @@ fn as_view(self) -> CoherentView<'a, =
-Self::Target> {
->         }
->     }
-> }
-> -
-> -/// Reads a field of an item from an allocated region of structs.
-> -///
-> -/// The syntax is of the form `kernel::dma_read!(dma, proj)` where =
-`dma` is an expression evaluating
-> -/// to a [`Coherent`] and `proj` is a [projection =
-specification](kernel::ptr::project!).
-> -///
-> -/// # Examples
-> -///
-> -/// ```
-> -/// use kernel::device::Device;
-> -/// use kernel::dma::{attrs::*, Coherent};
-> -///
-> -/// struct MyStruct { field: u32, }
-> -///
-> -/// // SAFETY: All bit patterns are acceptable values for `MyStruct`.
-> -/// unsafe impl kernel::transmute::FromBytes for MyStruct{};
-> -/// // SAFETY: Instances of `MyStruct` have no uninitialized =
-portions.
-> -/// unsafe impl kernel::transmute::AsBytes for MyStruct{};
-> -///
-> -/// # fn test(alloc: &kernel::dma::Coherent<[MyStruct]>) -> Result {
-> -/// let whole =3D kernel::dma_read!(alloc, [try: 2]);
-> -/// let field =3D kernel::dma_read!(alloc, [panic: 1].field);
-> -/// # Ok::<(), Error>(()) }
-> -/// ```
-> -#[macro_export]
-> -macro_rules! dma_read {
-> -    ($dma:expr, $($proj:tt)*) =3D> {{
-> -        let dma =3D &$dma;
-> -        let ptr =3D $crate::ptr::project!(
-> -            $crate::dma::Coherent::as_ptr(dma), $($proj)*
-> -        );
-> -        // SAFETY: The pointer created by the projection is within =
-the DMA region.
-> -        unsafe { $crate::dma::Coherent::field_read(dma, ptr) }
-> -    }};
-> -}
-> -
-> -/// Writes to a field of an item from an allocated region of structs.
-> -///
-> -/// The syntax is of the form `kernel::dma_write!(dma, proj, val)` =
-where `dma` is an expression
-> -/// evaluating to a [`Coherent`], `proj` is a
-> -/// [projection specification](kernel::ptr::project!), and `val` is =
-the value to be written to the
-> -/// projected location.
-> -///
-> -/// # Examples
-> -///
-> -/// ```
-> -/// use kernel::device::Device;
-> -/// use kernel::dma::{attrs::*, Coherent};
-> -///
-> -/// struct MyStruct { member: u32, }
-> -///
-> -/// // SAFETY: All bit patterns are acceptable values for `MyStruct`.
-> -/// unsafe impl kernel::transmute::FromBytes for MyStruct{};
-> -/// // SAFETY: Instances of `MyStruct` have no uninitialized =
-portions.
-> -/// unsafe impl kernel::transmute::AsBytes for MyStruct{};
-> -///
-> -/// # fn test(alloc: &kernel::dma::Coherent<[MyStruct]>) -> Result {
-> -/// kernel::dma_write!(alloc, [try: 2].member, 0xf);
-> -/// kernel::dma_write!(alloc, [panic: 1], MyStruct { member: 0xf });
-> -/// # Ok::<(), Error>(()) }
-> -/// ```
-> -#[macro_export]
-> -macro_rules! dma_write {
-> -    (@parse [$dma:expr] [$($proj:tt)*] [, $val:expr]) =3D> {{
-> -        let dma =3D &$dma;
-> -        let ptr =3D $crate::ptr::project!(
-> -            mut $crate::dma::Coherent::as_mut_ptr(dma), $($proj)*
-> -        );
-> -        let val =3D $val;
-> -        // SAFETY: The pointer created by the projection is within =
-the DMA region.
-> -        unsafe { $crate::dma::Coherent::field_write(dma, ptr, val) }
-> -    }};
-> -    (@parse [$dma:expr] [$($proj:tt)*] [.$field:tt $($rest:tt)*]) =3D> =
-{
-> -        $crate::dma_write!(@parse [$dma] [$($proj)* .$field] =
-[$($rest)*])
-> -    };
-> -    (@parse [$dma:expr] [$($proj:tt)*] [[$flavor:ident: $index:expr] =
-$($rest:tt)*]) =3D> {
-> -        $crate::dma_write!(@parse [$dma] [$($proj)* [$flavor: =
-$index]] [$($rest)*])
-> -    };
-> -    ($dma:expr, $($rest:tt)*) =3D> {
-> -        $crate::dma_write!(@parse [$dma] [] [$($rest)*])
-> -    };
-> -}
-> diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
-> index 5046b4628d0e..4af46e99d2dd 100644
-> --- a/samples/rust/rust_dma.rs
-> +++ b/samples/rust/rust_dma.rs
-> @@ -12,6 +12,10 @@
->         Device,
->         DmaMask, //
->     },
-> +    io::{
-> +        io_project,
-> +        io_read, //
-> +    },
->     page, pci,
->     prelude::*,
->     scatterlist::{Owned, SGTable},
-> @@ -77,7 +81,8 @@ fn probe<'bound>(
->                 Coherent::zeroed_slice(pdev.as_ref(), =
-TEST_VALUES.len(), GFP_KERNEL)?;
->=20
->             for (i, value) in TEST_VALUES.into_iter().enumerate() {
-> -                kernel::dma_write!(ca, [try: i], =
-MyStruct::new(value.0, value.1));
-> +                // SAFETY: `ca` is not yet shared with device or =
-other threads.
-> +                unsafe { *io_project!(ca, [panic: i]).as_mut() =3D =
-MyStruct::new(value.0, value.1) };
->             }
->=20
->             let size =3D 4 * page::PAGE_SIZE;
-> @@ -97,8 +102,8 @@ fn probe<'bound>(
-> impl DmaSampleDriver {
->     fn check_dma(&self) {
->         for (i, value) in TEST_VALUES.into_iter().enumerate() {
-> -            let val0 =3D kernel::dma_read!(self.ca, [panic: i].h);
-> -            let val1 =3D kernel::dma_read!(self.ca, [panic: i].b);
-> +            let val0 =3D io_read!(self.ca, [panic: i].h);
-> +            let val1 =3D io_read!(self.ca, [panic: i].b);
->=20
->             assert_eq!(val0, value.0);
->             assert_eq!(val1, value.1);
->=20
-> --=20
-> 2.54.0
->=20
->=20
+ - Out-of-lock backing. Page allocation and DMA mapping are the dominant
+   cost of gem_create and of BO moves, and doing them under the dma-resv
+   lock serializes otherwise-independent clients. This series preallocates
+   the backing pages (and, where applicable, builds the DMA/IOVA mapping)
+   outside the lock, then transfers the result into the BO under a brief
+   lock hold. The user gets a fast IOCTL return; the heavy lifting happens
+   without contending the reservation.
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+ - Page defragmentation. A BO allocated under memory pressure keeps its
+   scattered, sub-optimally-ordered backing for its entire lifetime,
+   costing TLB efficiency forever. TTM grows the plumbing to track
+   order-failure and to re-back a populated BO in place at the beneficial
+   order, and Xe wires up a background delayed worker that promotes such
+   BOs on the GPU once memory is available again - again, off the hot
+   path and without stalling the submitting thread.
+
+Since v1 [1] the series has grown considerably. The bulk of the new
+material is a direct result of profiling: once the defragmenter was in
+place, the remaining dma-resv hold times and the per-BO
+allocation/mapping costs showed up clearly, which motivated the
+out-of-lock preallocation, the IOVA-based mapping path, and the amdgpu
+counterpart. Rather than land the defragmenter alone, v2 folds in these
+optimizations since they share the same infrastructure and the same
+"hold dma-resv briefly, fix up in the background" architecture.
+
+The series is organized in sections rather than described patch by patch:
+
+ - Patches 1-10 (drm/ttm): core TTM preparation - order-failure tracking,
+   the defragmentation move, reclaim backoff, and out-of-lock page
+   preallocation plumbing.
+ - Patches 11-14: other dependent drm/gpusvm and drm/xe patches this
+   series builds on (DMA-mapping accounting, per-order DMA stats, async
+   L2 flush, and a VM-teardown ordering fix).
+ - Patches 15-23 (drm/xe): the page defragmenter itself - BO tracking,
+   the on-GPU defrag copy, xe_bo_move() handling, and the background
+   worker with its stats and configuration.
+ - Patches 24-25 (drm/xe): out-of-lock system BO backing preallocation
+   in gem_create, moving page allocation out of the dma-resv lock.
+ - Patches 26-32 (drm/xe): IOVA-based DMA mapping optimizations, building
+   and finalizing the mapping outside the lock.
+ - Patch 33 (drm/amdgpu): the equivalent out-of-lock system BO
+   preallocation for amdgpu, exercising the shared TTM plumbing.
+
+Testing
+=======
+
+ - 3D benchmarks on Ubuntu and on Android, with memory intentionally
+   fragmented by a separate program at launch (plus beneficial-order
+   error injection). BOs are initially backed at a sub-optimal order and
+   scores start lower; the background defrag worker then promotes the
+   backing to the beneficial order and scores climb back in line with the
+   unfragmented baseline.
+ - IGT:
+   https://patchwork.freedesktop.org/patch/739052/?series=170046&rev=2
+
+Matt
+
+v3:
+ - Fix valid raised raised by Sashiko on v2 [2]
+
+[1] https://patchwork.freedesktop.org/series/169053/
+[2] https://sashiko.dev/#/patchset/20260710215442.2444235-1-matthew.brost%40intel.com
+
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Carlos Santa <carlos.santa@intel.com>
+Cc: Ryan Neph <ryanneph@google.com>
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+
+Matthew Brost (31):
+  drm/ttm/pool: Allow backing off reclaim at the beneficial order
+  drm/ttm/pool: Add ttm_pool_page_order_nodma() helper
+  drm/ttm: Record sub-optimal page order allocations in ttm_tt
+  drm/ttm: Introduce ttm_pool_alloc_iter for __ttm_pool_alloc()
+  drm/ttm: Support defragmentation moves
+  drm/ttm: Add fault injection for beneficial-order allocation failures
+  drm/ttm: Harvest beneficial-order pages on defragmentation moves
+  drm/ttm: Bound page (re)allocation per defragmentation move
+  drm/ttm: Preallocate beneficial-order defrag pages outside the lock
+  drm/ttm: Add full out-of-lock preallocation for ttm_pool_alloc()
+  drm/xe: Flush L2 asynchronously in xe_bo_trigger_rebind()
+  drm/xe: Destroy page tables after unlinking all VMAs on VM close
+  drm/xe: Track BOs backed at a sub-optimal page order
+  drm/xe: Back off beneficial-order reclaim under defrag pressure
+  drm/xe: Add xe_migrate_copy_defrag() for on-GPU defrag copies
+  drm/xe: Handle defrag moves in xe_bo_move()
+  drm/xe: Skip self-copies for borrowed pages on defrag moves
+  drm/xe: Add a page defragmentation worker
+  drm/xe: Add defrag GT stats
+  drm/xe: Add Kconfig.profile options for BO defrag configuration
+  drm/xe: Defrag using out-of-lock page preallocation
+  drm/xe: Add defrag profiling tracepoints
+  drm/xe: Preallocate system BO backing outside the dma-resv lock
+  drm/xe: Add tracepoint for xe_gem_create_ioctl
+  drm/xe: Add IOVA-based xe_res_cursor variant
+  drm/xe: Use IOVA-based DMA mapping for eligible tt BOs
+  drm/xe: Add per-device dependency scheduler for IOVA defrag finalize
+  drm/xe: Add packed copy-step IOVA mapping for defrag
+  drm/xe: Blit src-natural to dst-packed for defrag-IOVA copies
+  drm/xe: Finalize defrag-IOVA moves with post-copy job
+  drm/amdgpu: Preallocate system BO pages outside the reservation lock
+
+Thomas Hellström (2):
+  drm/gpusvm: Add a DMA-mapping accounting callback
+  drm/xe: Add debugfs stats for DMA-mapped pages per order
+
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |    4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |    2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |   73 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h       |    5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |    3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |    4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   39 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |    3 +
+ drivers/gpu/drm/drm_gpusvm.c                  |   17 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                  |  118 +-
+ drivers/gpu/drm/ttm/ttm_bo_util.c             |   21 +-
+ drivers/gpu/drm/ttm/ttm_pool.c                |  947 ++++++++-
+ drivers/gpu/drm/ttm/ttm_tt.c                  |   67 +
+ drivers/gpu/drm/xe/Kconfig.profile            |   40 +
+ drivers/gpu/drm/xe/tests/xe_bo.c              |    8 +-
+ drivers/gpu/drm/xe/tests/xe_dma_buf.c         |    2 +-
+ drivers/gpu/drm/xe/tests/xe_migrate.c         |   12 +-
+ drivers/gpu/drm/xe/xe_bo.c                    | 1699 ++++++++++++++++-
+ drivers/gpu/drm/xe/xe_bo.h                    |   15 +-
+ drivers/gpu/drm/xe/xe_bo_types.h              |    6 +
+ drivers/gpu/drm/xe/xe_debugfs.c               |   26 +
+ drivers/gpu/drm/xe/xe_device.c                |   41 +
+ drivers/gpu/drm/xe/xe_device_types.h          |   57 +
+ drivers/gpu/drm/xe/xe_dma_buf.c               |    2 +-
+ drivers/gpu/drm/xe/xe_ggtt.c                  |    2 +-
+ drivers/gpu/drm/xe/xe_gt_stats.c              |    5 +
+ drivers/gpu/drm/xe/xe_gt_stats_types.h        |   17 +
+ drivers/gpu/drm/xe/xe_migrate.c               |  531 +++++-
+ drivers/gpu/drm/xe/xe_migrate.h               |   17 +
+ drivers/gpu/drm/xe/xe_pt.c                    |    2 +-
+ drivers/gpu/drm/xe/xe_res_cursor.h            |   56 +-
+ drivers/gpu/drm/xe/xe_svm.c                   |   44 +-
+ drivers/gpu/drm/xe/xe_svm.h                   |    4 +-
+ drivers/gpu/drm/xe/xe_trace_bo.h              |   90 +
+ drivers/gpu/drm/xe/xe_userptr.c               |   63 +
+ drivers/gpu/drm/xe/xe_userptr.h               |    1 +
+ drivers/gpu/drm/xe/xe_vm.c                    |  149 +-
+ drivers/gpu/drm/xe/xe_vm.h                    |    5 +
+ include/drm/drm_gpusvm.h                      |   19 +
+ include/drm/ttm/ttm_bo.h                      |   64 +
+ include/drm/ttm/ttm_pool.h                    |   46 +
+ include/drm/ttm/ttm_tt.h                      |   43 +-
+ 42 files changed, 4179 insertions(+), 190 deletions(-)
+
+-- 
+2.34.1
 
