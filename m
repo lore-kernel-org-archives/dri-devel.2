@@ -4,80 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9050C44508
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 17:10:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27C22C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 19:02:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 933A310E3BA;
-	Sat, 11 Jul 2026 17:10:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62B1310E1B4;
+	Sat, 11 Jul 2026 19:02:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k3fNhKS6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ajHQuPPn";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6550110E3A9;
- Sat, 11 Jul 2026 17:10:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F098B10E1B4
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 19:02:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3878D6111A;
- Sat, 11 Jul 2026 17:10:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA6F71F000E9;
- Sat, 11 Jul 2026 17:09:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4476760052
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 19:02:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5EA71F000E9;
+ Sat, 11 Jul 2026 19:02:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783789801;
- bh=AvtNjMXUVGcPIUxCxCfqbdEtpU8jR9HOTGYaAlW6IJ8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=k3fNhKS66r/p/o8Bc1xI7ewhTioGM5eE5UxTbAfHwiEEG5NZOQoHjazK2cWX+6/SE
- v+U9r2rkD4VP0CNSplf/nSgPr33pdrLmGKOrJy6x0c8Xsnfudte+l8CuZRkvsJHzhL
- 2xzdkO2v+Q+2PPXWrMuMSvbGqEw9CmT9+ZHMiG1WT8jUC5NdwLiZsm50xu5zeD+/aW
- zvImcxhwsTnEPAUhEbcG4TpZeBj1kqZVb6dm8VWTrMRJu36W2lybHuDy0lpFg0MMPF
- ANsT8GKLEgijBVcxkcvqBp+1nPOUHmAwPtV+5/DPz8eLqjTPOJ42AuY6RZqVPq55n+
- bc2Qco/fVIOQQ==
-Date: Sat, 11 Jul 2026 18:09:35 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org, 
- tsbogend@alpha.franken.de, maddy@linux.ibm.com, mpe@ellerman.id.au, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, 
- simona@ffwll.ch, l.stach@pengutronix.de, inki.dae@samsung.com, 
- sw0312.kim@samsung.com, kyungmin.park@samsung.com, krzk@kernel.org, 
- peter.griffin@linaro.org, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, 
- rodrigo.vivi@intel.com, tursulin@ursulin.net, robin.clark@oss.qualcomm.com, 
- lumag@kernel.org, lyude@redhat.com, dakr@kernel.org, 
- tomi.valkeinen@ideasonboard.com, hjc@rock-chips.com, heiko@sntech.de,
- andy.yan@rock-chips.com, 
- thierry.reding@kernel.org, mperttunen@nvidia.com, jonathanh@nvidia.com,
- kraxel@redhat.com, 
- dmitry.osipenko@collabora.com, zack.rusin@broadcom.com, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, oleksandr_andrushchenko@epam.com,
- deller@gmx.de, bcrl@kvack.org, 
- viro@zeniv.linux.org.uk, brauner@kernel.org, muchun.song@linux.dev,
- osalvador@suse.de, 
- david@kernel.org, baolin.wang@linux.alibaba.com, liam@infradead.org, 
- npache@redhat.com, ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, 
- hughd@google.com, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
- mhocko@suse.com, jannh@google.com, pfalcato@suse.de, kees@kernel.org, 
- perex@perex.cz, tiwai@suse.com, linux-mips@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- virtualization@lists.linux.dev, 
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- linux-fbdev@vger.kernel.org, 
- linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
- linux-sound@vger.kernel.org
-Subject: Re: [PATCH 13/13] mm/mremap: convert mremap code to use vma_flags_t
-Message-ID: <alJ4VPr7Igk3SJYt@lucifer>
-References: <380f761d35a3faa4370f8b3f92e3d4af3d4c7110.1782760670.git.ljs@kernel.org>
- <20260702134947.25189-1-lance.yang@linux.dev>
- <akaJx8Zt8kazlrjq@lucifer> <DJTOP760MDDG.2KUSKD8WVVKJ5@nvidia.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DJTOP760MDDG.2KUSKD8WVVKJ5@nvidia.com>
+ s=k20260515; t=1783796527;
+ bh=TZHloQKNAFXMBlHDdvAHgpB/8+D6uVMJrmrRqUvTUhU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ajHQuPPnUZkVdgNztuV/tTSjRrrUdutbSE5TK23/RC7RRLwTXKoGZsL1z1bB5tj4h
+ WLY9JD6caClERWQ0dQDj5aRJGxBdOWkOVcAU7CgH7PZWW8V/PkSXDdb98468TTh45Q
+ Pz4x5b3bg+bW7s1eG8tLSV3Ig3/TTmKEaqDjKdyBmE+16I8DkdexzzaArrylmJI3Db
+ Q/yO4kND6bxLSsa5KDHCwptNCAnqJUujYsB4u5fEpy6hZeXV3AOJ3BjI61YeMmWZGk
+ 9kWAHmiQYDVuU1k3IWNTkhVU5Ee/CHTLLYRx8B6mStwryBrijHBwY4Z+vja7HMcvS8
+ peKBmVR4lC0yg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 04/13] mm: update
+ generic_get_unmapped_area[_topdown]() to use vma_flags_t
+To: "Lorenzo Stoakes" <ljs@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260711-b4-vma-flags-mm-v2-4-0fa2357d5431@kernel.org>
+References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+ <20260711-b4-vma-flags-mm-v2-4-0fa2357d5431@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 11 Jul 2026 19:02:06 +0000
+Message-Id: <20260711190206.C5EA71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,57 +54,86 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 08, 2026 at 10:28:00PM -0400, Zi Yan wrote:
-> On Thu Jul 2, 2026 at 12:07 PM EDT, Lorenzo Stoakes wrote:
-> > On Thu, Jul 02, 2026 at 09:49:47PM +0800, Lance Yang wrote:
-> >>
-> >> On Mon, Jun 29, 2026 at 08:25:36PM +0100, Lorenzo Stoakes wrote:
-> >> >Replace use of the legacy vm_flags_t flags with vma_flags_t values
-> >> >throughout the mremap logic.
-> >> >
-> >> >Additionally update comments to reflect the changes to be consistent.
-> >> >
-> >> >No functional change intended.
-> >> >
-> >> >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> >> >---
-> >>
-> >> The vm_flags_set() cases below spell out vma_start_write(), but the
-> >> vm_flags_clear() cases don't?
-> >
-> > Yep as I said elsewhere, implicitly taking the lock is terrible and me doing
-> > this is completely on purpose to get rid of that :)
-> >
-> > But I haven't been clear enough clearly, so I should put the argument as to why
-> > that's ok in the commit message.
-> >
-> > Will do so on respin.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the x86-specific=
+ bottom-up mmap fallback path silently discards VMA flags, bypassing the sh=
+adow stack guard gap allocation.
+--
+
+--- Patch [4]: [PATCH v2 04/13] mm: update generic_get_unmapped_area[_topdo=
+wn]() to use vma_flags_t ---
+commit 00b351f4aaa23a000490d96bd47f04d6f2e0f5d1
+Author: Lorenzo Stoakes <ljs@kernel.org>
+
+mm: update generic_get_unmapped_area[_topdown]() to use vma_flags_t
+
+This commit updates generic_get_unmapped_area() and
+generic_get_unmapped_area_topdown() to accept vma_flags_t instead of
+vm_flags_t. It also updates stack_guard_placement() to use the new type.
+The architecture-specific wrappers are retained but use legacy_to_vma_flags=
+()
+for compatibility.
+
+> diff --git a/mm/mmap.c b/mm/mmap.c
+> index 4a88b2a233f7f..39d33f3a55c2e 100644
+> --- a/mm/mmap.c
+> +++ b/mm/mmap.c
+
+[ ... ]
+
+> @@ -807,7 +807,7 @@ arch_get_unmapped_area_topdown(struct file *filp, uns=
+igned long addr,
+>  			       unsigned long flags, vm_flags_t vm_flags)
+>  {
+>  	return generic_get_unmapped_area_topdown(filp, addr, len, pgoff, flags,
+> -						 vm_flags);
+> +						 legacy_to_vma_flags(vm_flags));
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the x86-specific bottom-up m=
+map
+fallback path silently discards VMA flags, bypassing the shadow stack guard
+gap allocation.
+
+Is it possible for an attacker to intentionally exhaust the top-down alloca=
+tion
+space (e.g., via high stack limits) to force the shadow stack allocation (u=
+sing
+the map_shadow_stack syscall) into the fallback bottom-up path in
+arch_get_unmapped_area_topdown()?
+
+In arch/x86/kernel/sys_x86_64.c, the fallback path looks like this:
+
+bottomup:
+	/*
+	 * A failed mmap() very likely causes application failure,
+	 * so fall back to the bottom-up function here. This scenario
+	 * can happen with large stack limits and large mmap()
+	 * allocations.
+	 */
+	return arch_get_unmapped_area(filp, addr0, len, pgoff, flags, 0);
+
+By passing 0 for vm_flags, does this completely drop the VM_SHADOW_STACK fl=
+ag
+before the guard gap allocation logic checks for it?
+
+Could this bypass allow shadow stacks to be allocated immediately adjacent =
+to
+other mappings, meaning if a shadow stack overflows, it corrupts adjacent d=
+ata
+instead of hitting a guard page?
+
+>  }
+>  #endif
 >
-> How about also add a comment to vma_clear*() telling us a lock is not
-> needed and why like you explained a lock is needed for vma_set*()?
-> This asymmetry could confuse people.
 
-Well you do absolutely have to hold the lock once the VMA is initialised when
-using any VMA flags API that manipulates flags (apart from the explicitly atomic
-case).
-
-The argument here is that the VMA was _already locked_ at the point of clearing
-:)
-
->
-> This patch looks good to me.
->
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-
-Thanks!
-
->
-> --
-> Best Regards,
-> Yan, Zi
->
-
-Cheers, Lorenzo
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711-b4-vma-fla=
+gs-mm-v2-0-0fa2357d5431@kernel.org?part=3D4
