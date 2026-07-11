@@ -4,66 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74354C44506
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 06:08:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24D07C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 06:08:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D67A10E730;
-	Sat, 11 Jul 2026 06:08:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE2D10E733;
+	Sat, 11 Jul 2026 06:08:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="H0E6fUOI";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="o0YSAyo+";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="Jv/FjH7Q";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="VQOxmGic";
 	dkim-atps=neutral
-Received: from mo4-p04-ob.smtp.rzone.de (mo4-p04-ob.smtp.rzone.de
- [85.215.255.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E539310E72B
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 06:08:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783749746; cv=none;
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
+ [81.169.146.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 167FD10E727
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 06:08:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783749726; cv=none;
  d=strato.com; s=strato-dkim-0002;
- b=g9M4gqJl1SHWv2ddnj27JmqGZPXr91e/K/2pnJNAEchnkCkPExHpVQbpPBr5hRQ3g8
- qDuN4k5maOCku7toQYWBo2QVzxOA+YZfM72g+2P0xzZtUcvR3YUHFAXrVfUmc6JMRfG3
- IuIM/Kehz89pN9CWDPSVVXQgxzS7m8dAPmawcyfonIwhV451+MtVxPLmtoHjFe01NwEs
- qibE+4iPhbm0R4HVd4pCw5ccdtYqGo/f59KKFGPh65gpg1arm8BfHk3QPfH4/4HKGomF
- JNz4hiKa9fUn5bQL8iQBbjN+iQEnIs4RMO9c+iiiU7e1joKaaSMrKBSiEhttavkXjUMh
- CPQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783749746;
+ b=R1xy+vjV5qGJrZp3bx10t+TOSl93Iw/vG76b8g20LekJuqGlCtnQVAs6vaKz1vBe9G
+ vs7zukbaccMv3BIwll4TDG6SEbJBmv1Shaz/Q1Y9jEgXbLMGeVCHhdPXRrHtlk3At0xR
+ D6hvmhEjziT3ND82R4Fr8Fyhrw66VHWAUXb+jiDdFVjcq0Mfcu/OL/O1jVW2uR8q8F29
+ cOEMBGHY4f0WQkTjfjlqsr5iNfuNJfK7gfCBJFcC2Wb4WgeLDZ9Wf1c39bT0XxtChp8u
+ hCM2brIcZyCdO2iyfc5kAr63e2/fhYHy4qKFbg2LDOq/LFh0L0xy8VWCnD2hCkf1pOt/
+ Bgtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783749726;
  s=strato-dkim-0002; d=strato.com;
- h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
- From:Subject:Sender;
- bh=7pA0TFC7UkEDXI5FUk59zdzYhP+mOINP0O+fHg17PO8=;
- b=FozWwp/sAiNBb0Vi3waIgup6pPUUKBANGqkq1yFyQATClVwnivdeT+iujS+w41DceP
- KmcbvodJ8dz085DHhYjYmLFmEoPj0/H42iM1pHoNSPh1R8G7ZbZ+yRItLikSL2MfhGff
- 1Rhy8/5f3T1e5TxT1iuDyo9zQkm+KxA4nWqkPGiXeQd/P9QbOXCbO/pRBs/towBV62FH
- d55CLgTFTB1JqL2NRuXJIApZX2F7dSRuU/jZG1RFTYPKU6Ua9VkCeyaA8NEU90du6kJc
- nikb4byzkE2gxIG0DNwaEVpBfMczzxJIpg62ag8yBeWvPNGnAcdcwLv6hAlhatjtISa5
- PmiQ==
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=55SlABL8sC4/v91Mc2l87z9dg40TyXcYAN1WaabwtgA=;
+ b=QoYeJb9+wBLMRfWj+jYkjq7jsoxyOht91kWkbtZKkPLRwYozYvc8mrS19LOxdMAGW6
+ 6du5JmRGvMyrN6cPg+MvWC9o+c12+ie5ZyxfmUOdPosQimyGVV3+8AiI/+zI/l5pZ0JB
+ swZnhbntxVIqpF7wgKvIceCcuZzObRlPI8sNzb35mG7OhALO1bQAaqUK7hbrxohWeAZM
+ syWX/ry7fLJnE2tOoPPYHlHe58NwP0QkIrCmfhjiBtUqYuirx5kQJ9kn05mByJyA2/iE
+ 42s8GFhSCGCg/dANzUnhz4kmVnDpfZ96aCTvrEqkbgFxndovBSXirQ3L63urQ9u0JBhi
+ +/FA==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
-X-RZG-CLASS-ID: mo04
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783749746;
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783749726;
  s=strato-dkim-0002; d=goldelico.com;
- h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
- From:Subject:Sender;
- bh=7pA0TFC7UkEDXI5FUk59zdzYhP+mOINP0O+fHg17PO8=;
- b=H0E6fUOI+kXtvl2A2BrQrKmQMA7wJAlkBsexcdVWxwz2btf0WN9fY+v+U2YaSltr2W
- XLMTszlt7IJ3CY4YmdBUAyrJI/zz18XDsb7IddVY6Kn3lHm9JnFsDj50UB982jC/7HAr
- xCe2Wrp5bVtJD1BIn+z4wJLeQrBWihUu+p7LvCOUr2OlpBVZyr/VnacHDLUbkca7px/r
- 9sBZdwK/vaSRmNEQrbWzLgVW+AKObAWBooN5BaNpBZfLaJnQvPJBouuOV35cdp94iXuG
- QaaqBiHzhakev6bvUronTMahQDRfBdXXMDfMCPY6MFEOIMIuWg1Ve45pbkAAdmqLQkD7
- CWgw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783749746;
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=55SlABL8sC4/v91Mc2l87z9dg40TyXcYAN1WaabwtgA=;
+ b=Jv/FjH7QzkuyigtT8XXK2dwQ2vGQcHzBu9aWuIeAgyAcdv6gxMxDSqiY6pwaSNJSzw
+ wD2mal/H8htwmWvXrBI45troLrwAstuv3kZz1eJxIVeItPL+Vvm97abhVZm5INH+QShk
+ S0fUmJbprZy/3RkBB3MkiZRQ34wLkfGTrf8xfj7rXfWb43fT4pOIHl52srVxlFM8t34Q
+ VV/NNaa61kBSf932uC+GrazstytyFbgtDINJPqWbK34DWd6P48uJ545YS5eMNhFk/pfP
+ bTcZ7nqqj5AfKnM421S/6MOaLGGPxfuOEtxHmEG65+SquAM8oT8yTEJk1VmDvnKKmCwY
+ qBFg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783749726;
  s=strato-dkim-0003; d=goldelico.com;
- h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
- From:Subject:Sender;
- bh=7pA0TFC7UkEDXI5FUk59zdzYhP+mOINP0O+fHg17PO8=;
- b=o0YSAyo+ZlRrYAUyXkQ2aUg8Awuw7E4YNwmC7YQ62b8sLgqlZ/QhLRRf48RMtbtKsg
- 43T3NehK34SoQdLmktBg==
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=55SlABL8sC4/v91Mc2l87z9dg40TyXcYAN1WaabwtgA=;
+ b=VQOxmGicLvbfDiAUwz97zqTfaoLdmVuKV/V2cinZ5idzgW5WRVnp5mS1n7P6/55AvT
+ Yge9NQzSyXvQXRFfSHDA==
 X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrT35oLmciNszeF4HOToVDOd6S1gdjuILE2MKVd"
 Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.5.6 AUTH)
- with ESMTPSA id Q4b76426B62PGi1
+ with ESMTPSA id Q4b76426B624Ghk
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Sat, 11 Jul 2026 08:02:25 +0200 (CEST)
+ Sat, 11 Jul 2026 08:02:04 +0200 (CEST)
 From: "H. Nikolaus Schaller" <hns@goldelico.com>
 To: Grond <grond66@riseup.net>, Stefan Leichter <sle85276@gmx.de>,
  "H . Nikolaus Schaller" <hns@goldelico.com>,
@@ -90,12 +87,11 @@ Cc: letux-kernel@openphoenux.org, devicetree@vger.kernel.org,
  linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
  kernel@pyra-handheld.com, mfd@lists.linux.dev
-Subject: [PATCH 15/16] backlight: remove pandora_bl
-Date: Sat, 11 Jul 2026 08:02:02 +0200
-Message-ID: <f897f695c0e1e128d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com>
+Subject: [PATCH 00/16] ARM: omap3: pandora: Modernize audio and backlight to
+ Device Tree to finally remove pdata-quirks
+Date: Sat, 11 Jul 2026 08:01:47 +0200
+Message-ID: <cover.1783749722.git.hns@goldelico.com>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <cover.1783749722.git.hns@goldelico.com>
-References: <cover.1783749722.git.hns@goldelico.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF8
 Content-Transfer-Encoding: 8bit
@@ -114,212 +110,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Retire the platform specific pandora backlight driver since
-it can now be replaced by twl_pm and device tree.
+PATCH V1 2026-07-11 08:02:02:
+This series modernizes the OpenPandora handheld support by converting the 
+sound subsystem and backlight control to proper platform drivers and Device 
+Tree definitions.
 
-Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
----
- drivers/video/backlight/Kconfig      |   7 --
- drivers/video/backlight/Makefile     |   1 -
- drivers/video/backlight/pandora_bl.c | 159 ---------------------------
- 3 files changed, 167 deletions(-)
+The primary goal is the complete removal of omap3_pandora_legacy_init() 
+and the elimination of the last remaining user of machine_is_omap3_pandora().
+
+History and Context
+===================
+The necessity of this cleanup was highlighted in several recent discussions:
+
+1. Tony Lindgren noted that machine_is_omap3_pandora() checks never succeed 
+   on Device Tree-booted machines, leaving the audio subsystem functionally 
+   broken since the DT conversion years ago:
+   https://marc.info/?l=alsa-devel&m=165632351319716&w=2
+
+2. Ethan Nelson-Moore submitted a patch to replace the macro with DT 
+   compatibility checks (accepted as commit 45efb8fbdae3 in v7.2-rc1):
+   https://marc.info/?l=linux-omap&m=177841578110704&w=2
+
+3. Sascha Hauer pointed out that the entire omap3pandora driver fundamentally 
+   depended on this broken machine ID check:
+   https://marc.info/?l=linux-omap&m=178048982272252&w=2
+
+Design Choices and Implementation
+=================================
+Based on these discussions and a long-standing and working out-of-tree solution,
+we initially attempted a migration to generic frameworks like simple-audio-card 
+or audio-graph-card. However, the hardware routing peculiarities of the 
+OpenPandora introduced too many functional gaps. Replacing omap3pandora.c 
+entirely with pure DT definitions proved unfeasible. 
+
+Therefore, we opted to base a new proposal on the out-of-tree rewrite of
+the old-style sound board file kernel driver (sound/soc/ti/omap3pandora.c)
+into a proper platform driver that cleanly fetches its resources from the
+Device Tree, while adding specific handling for the twl4030-regen output
+and adapting the pandora device tree files.
+
+Series Structure
+================
+* Patches 01–06 (Preparation): Move highly specific legacy code to its proper 
+  infrastructure (TWL4030 regulator regeneration and codec handling).
+* Patch 07-08 (New Driver): Introduce a dedicated platform driver for the 
+  PCM1773 audio DAC.
+* Patches 09-14 (Audio Core): Rewrite the omap3pandora ASoC fabric driver 
+  and update the respective Device Tree nodes.
+* Patches 14–15 (Backlight): Remove the custom, legacy Pandora backlight driver,
+  convert it to generic Device Tree nodes
+* Patch 16: (Cleanup) safely delete the obsolete omap3_pandora_legacy_init().
+
+Notes & Testing
+===============
+* Testing: This series has been tested on real OpenPandora hardware.
+
+Credits
+=======
+This work is a collaborative effort by multiple authors over several years:
+* Grond <grond66@riseup.net>
+* Stefan Leichter <sle85276@gmx.de>
+* H. Nikolaus Schaller <hns@goldelico.com>
+
+
+Grond (8):
+  dt-bindings: twl-regulator: Add bindings for exposing ti,twl4030-regen
+  regulator: twl: Expose the TWL4030's REGEN signal as a regulator
+  arm: dts: twl4030: add twl4030-regen child
+  arm: dts: omap3pandora: Populate DT data for the TWL4030's REGEN
+    regulator
+  arm: dts: omap3pandora: Don't use DMA channels for unused SPI masters
+  ASoC: twl4030-codec: Allow setting APLL rate through the .set_sysclk()
+    interface
+  ASoC: pcm1773-codec: write a driver for the PCM1773 chip from TI
+  arm: dts: omap3pandora: Add device node for PCM1773 codec
+
+H. Nikolaus Schaller (5):
+  ASoC: dt-bindings: add TI PCM1773
+  ASoC: dt-bindings: add OpenPandora Sound Card
+  arm: dts: omap3-pandora-common: backlight: switch to twl4030 pwm and
+    pwm_bl
+  backlight: remove pandora_bl
+  arm: omap2: remove remaining pdata-quirks for pandora legacy devices
+
+Stefan Leichter (3):
+  ASoC: omap3pandora: Rewrite sound card driver as a platform driver
+    with DT
+  ARM: dts: omap3-pandora-common: Enable audio in/out (mcbsp4/2)
+  arm: dts: omap3pandora: create new DT node for the sound card
+
+ .../devicetree/bindings/mfd/ti,twl.yaml       |   1 +
+ .../sound/openpandora,omap3pandora-sound.yaml |  94 ++++
+ .../devicetree/bindings/sound/pcm1773.yaml    |  32 ++
+ .../dts/ti/omap/omap3-pandora-common.dtsi     |  84 ++++
+ arch/arm/boot/dts/ti/omap/twl4030.dtsi        |  14 +
+ arch/arm/mach-omap2/pdata-quirks.c            |  23 -
+ drivers/regulator/twl-regulator.c             |  52 ++
+ drivers/video/backlight/Kconfig               |   7 -
+ drivers/video/backlight/Makefile              |   1 -
+ drivers/video/backlight/pandora_bl.c          | 159 ------
+ include/linux/mfd/twl.h                       |   3 +
+ include/linux/mfd/twl4030-audio.h             |   3 +
+ sound/soc/codecs/Kconfig                      |   5 +
+ sound/soc/codecs/pcm1773.c                    | 149 ++++++
+ sound/soc/codecs/twl4030.c                    | 140 ++++--
+ sound/soc/ti/omap3pandora.c                   | 454 ++++++++++++------
+ 16 files changed, 855 insertions(+), 366 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/pcm1773.yaml
  delete mode 100644 drivers/video/backlight/pandora_bl.c
+ create mode 100644 sound/soc/codecs/pcm1773.c
 
-diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-index 7aa1c4b21111f..a250b3edc152c 100644
---- a/drivers/video/backlight/Kconfig
-+++ b/drivers/video/backlight/Kconfig
-@@ -451,13 +451,6 @@ config BACKLIGHT_MP3309C
- 	  To compile this driver as a module, choose M here: the module will
- 	  be called mp3309c.
- 
--config BACKLIGHT_PANDORA
--	tristate "Backlight driver for Pandora console"
--	depends on TWL4030_CORE
--	help
--	  If you have a Pandora console, say Y to enable the
--	  backlight driver.
--
- config BACKLIGHT_SKY81452
- 	tristate "Backlight driver for SKY81452"
- 	depends on MFD_SKY81452
-diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-index 21c8313cfb121..f97ab8ba85807 100644
---- a/drivers/video/backlight/Makefile
-+++ b/drivers/video/backlight/Makefile
-@@ -52,7 +52,6 @@ obj-$(CONFIG_BACKLIGHT_MAX8925)		+= max8925_bl.o
- obj-$(CONFIG_BACKLIGHT_MP3309C)		+= mp3309c.o
- obj-$(CONFIG_BACKLIGHT_MT6370)		+= mt6370-backlight.o
- obj-$(CONFIG_BACKLIGHT_OMAP1)		+= omap1_bl.o
--obj-$(CONFIG_BACKLIGHT_PANDORA)		+= pandora_bl.o
- obj-$(CONFIG_BACKLIGHT_PWM)		+= pwm_bl.o
- obj-$(CONFIG_BACKLIGHT_QCOM_WLED)	+= qcom-wled.o
- obj-$(CONFIG_BACKLIGHT_RT4831)		+= rt4831-backlight.o
-diff --git a/drivers/video/backlight/pandora_bl.c b/drivers/video/backlight/pandora_bl.c
-deleted file mode 100644
-index 8a63ded0fa90f..0000000000000
---- a/drivers/video/backlight/pandora_bl.c
-+++ /dev/null
-@@ -1,159 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * Backlight driver for Pandora handheld.
-- * Pandora uses TWL4030 PWM0 -> TPS61161 combo for control backlight.
-- * Based on pwm_bl.c
-- *
-- * Copyright 2009,2012 Gražvydas Ignotas <notasas@gmail.com>
-- */
--
--#include <linux/module.h>
--#include <linux/kernel.h>
--#include <linux/platform_device.h>
--#include <linux/delay.h>
--#include <linux/backlight.h>
--#include <linux/mfd/twl.h>
--#include <linux/err.h>
--
--#define TWL_PWM0_ON		0x00
--#define TWL_PWM0_OFF		0x01
--
--#define TWL_INTBR_GPBR1		0x0c
--#define TWL_INTBR_PMBR1		0x0d
--
--#define TWL_PMBR1_PWM0_MUXMASK	0x0c
--#define TWL_PMBR1_PWM0		0x04
--#define PWM0_CLK_ENABLE		BIT(0)
--#define PWM0_ENABLE		BIT(2)
--
--/* range accepted by hardware */
--#define MIN_VALUE 9
--#define MAX_VALUE 63
--#define MAX_USER_VALUE (MAX_VALUE - MIN_VALUE)
--
--struct pandora_private {
--	unsigned old_state;
--#define PANDORABL_WAS_OFF 1
--};
--
--static int pandora_backlight_update_status(struct backlight_device *bl)
--{
--	int brightness = bl->props.brightness;
--	struct pandora_private *priv = bl_get_data(bl);
--	u8 r;
--
--	if (bl->props.power != BACKLIGHT_POWER_ON)
--		brightness = 0;
--	if (bl->props.state & BL_CORE_FBBLANK)
--		brightness = 0;
--	if (bl->props.state & BL_CORE_SUSPENDED)
--		brightness = 0;
--
--	if ((unsigned int)brightness > MAX_USER_VALUE)
--		brightness = MAX_USER_VALUE;
--
--	if (brightness == 0) {
--		if (priv->old_state == PANDORABL_WAS_OFF)
--			goto done;
--
--		/* first disable PWM0 output, then clock */
--		twl_i2c_read_u8(TWL4030_MODULE_INTBR, &r, TWL_INTBR_GPBR1);
--		r &= ~PWM0_ENABLE;
--		twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
--		r &= ~PWM0_CLK_ENABLE;
--		twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
--
--		goto done;
--	}
--
--	if (priv->old_state == PANDORABL_WAS_OFF) {
--		/*
--		 * set PWM duty cycle to max. TPS61161 seems to use this
--		 * to calibrate it's PWM sensitivity when it starts.
--		 */
--		twl_i2c_write_u8(TWL_MODULE_PWM, MAX_VALUE, TWL_PWM0_OFF);
--
--		/* first enable clock, then PWM0 out */
--		twl_i2c_read_u8(TWL4030_MODULE_INTBR, &r, TWL_INTBR_GPBR1);
--		r &= ~PWM0_ENABLE;
--		r |= PWM0_CLK_ENABLE;
--		twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
--		r |= PWM0_ENABLE;
--		twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
--
--		/*
--		 * TI made it very easy to enable digital control, so easy that
--		 * it often triggers unintentionally and disabes PWM control,
--		 * so wait until 1 wire mode detection window ends.
--		 */
--		usleep_range(2000, 10000);
--	}
--
--	twl_i2c_write_u8(TWL_MODULE_PWM, MIN_VALUE + brightness, TWL_PWM0_OFF);
--
--done:
--	if (brightness != 0)
--		priv->old_state = 0;
--	else
--		priv->old_state = PANDORABL_WAS_OFF;
--
--	return 0;
--}
--
--static const struct backlight_ops pandora_backlight_ops = {
--	.options	= BL_CORE_SUSPENDRESUME,
--	.update_status	= pandora_backlight_update_status,
--};
--
--static int pandora_backlight_probe(struct platform_device *pdev)
--{
--	struct backlight_properties props;
--	struct backlight_device *bl;
--	struct pandora_private *priv;
--	u8 r;
--
--	priv = devm_kmalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
--	if (!priv)
--		return -ENOMEM;
--
--	memset(&props, 0, sizeof(props));
--	props.max_brightness = MAX_USER_VALUE;
--	props.type = BACKLIGHT_RAW;
--	bl = devm_backlight_device_register(&pdev->dev, pdev->name, &pdev->dev,
--					priv, &pandora_backlight_ops, &props);
--	if (IS_ERR(bl)) {
--		dev_err(&pdev->dev, "failed to register backlight\n");
--		return PTR_ERR(bl);
--	}
--
--	platform_set_drvdata(pdev, bl);
--
--	/* 64 cycle period, ON position 0 */
--	twl_i2c_write_u8(TWL_MODULE_PWM, 0x80, TWL_PWM0_ON);
--
--	priv->old_state = PANDORABL_WAS_OFF;
--	bl->props.brightness = MAX_USER_VALUE;
--	backlight_update_status(bl);
--
--	/* enable PWM function in pin mux */
--	twl_i2c_read_u8(TWL4030_MODULE_INTBR, &r, TWL_INTBR_PMBR1);
--	r &= ~TWL_PMBR1_PWM0_MUXMASK;
--	r |= TWL_PMBR1_PWM0;
--	twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_PMBR1);
--
--	return 0;
--}
--
--static struct platform_driver pandora_backlight_driver = {
--	.driver		= {
--		.name	= "pandora-backlight",
--	},
--	.probe		= pandora_backlight_probe,
--};
--
--module_platform_driver(pandora_backlight_driver);
--
--MODULE_AUTHOR("Gražvydas Ignotas <notasas@gmail.com>");
--MODULE_DESCRIPTION("Pandora Backlight Driver");
--MODULE_LICENSE("GPL");
--MODULE_ALIAS("platform:pandora-backlight");
 -- 
 2.50.1 (Apple Git-155)
 
