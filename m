@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4205C44506
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 06:02:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDBDCC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 06:02:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEF0210E40D;
-	Sat, 11 Jul 2026 06:02:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03E9910E481;
+	Sat, 11 Jul 2026 06:02:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="DsjtJ+yW";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="rAEbVbwN";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="Zhji+Fru";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="zCuCf5AQ";
 	dkim-atps=neutral
 Received: from mo4-p04-ob.smtp.rzone.de (mo4-p04-ob.smtp.rzone.de
- [85.215.255.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BF1110E481
+ [85.215.255.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88C7B10E40D
  for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 06:02:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783749745; cv=none;
+ARC-Seal: i=1; a=rsa-sha256; t=1783749744; cv=none;
  d=strato.com; s=strato-dkim-0002;
- b=rEKQcvgPuzF3DSEKNCIEmjFwHWJl8G4DFCL+RzQNbiCZUamh6K4Kx2BIMqLZwf0FdS
- 2IooEYvGMEghIaLo8iXNUXHE6rSEr2HBPGpot7PsYW6d89ubt84pkVC4X9EfjlFbdD1q
- /Am2zmTbYa8uIuFjilbQlonx64ueydadG6IHHs/Nw4oDDX0zeqk7THXpeXVlvSpchPIx
- mS6EjzwgsMX9Qhzrf9nP+qnCa380DmxEbZKHcbHv7OXgM0uQJAYz9sYsQWw44U8FJPEM
- kr/Ip6KN/sOHSY/NIBwebtMhw5KFmTOVldhFhL5NN9ohnDnE9NFQgS9kbZbQ9ZGYzQ4/
- 6K4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783749745;
+ b=PR1nHFc/QTqY+8hJVt2n1XSc8RSndpL3dJcVeJbTVYupGbSxEx8+IdKq0jW851lDMy
+ Fb1OL1qYyjm0rry27iYDx9oVVr8WJnH+FGZOEfp10EKfLPK08+y2D7arl+tOfsWuyiHM
+ MuKxA1uEbFgRTmC+NKcZiX9ujqAzDf633fe9IbE8lAJnk8oyn2NCUP5L65LcSHBFb7tp
+ LTIzJ3aMk84+yc2Qsiw6ll+fFzZiXGjyv3Fv4Fxri4VduNcOI9pUX4soGBjusB8E3jLF
+ BjlczD38d/LpCsHCoAOa9i3Kx3birvPMIFhJu3zTukod8E0rasrztihvczZIJskOec1B
+ j4Zw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783749744;
  s=strato-dkim-0002; d=strato.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=SWpm4yra0YVt5/zp7rN7HY5VEk+YLEulFULLYXtLgbQ=;
- b=BrXc0GJPyiNyVMdcMgLreB6sPP2tqdS7nck1elLTZ0TQ4U4a+zN/5ztDV+foO6T7yA
- bvMJDlQM2xwSu7s6TAJrEeAGSEqjhP2jiywW2UoGoNBKY7Mu/JOxUvhpdVjbO/pJFMp+
- ArGHnPJ6OSDt2OlYlRGv+sZBzc+HgiO7HGMrYEZOqwel+ap9Ljl+X23ABAHo56acIOuV
- MbSFcO+pNwtDoQWOP3dOumJXo1rg37R69CR+N6RAonUakTXMKbc4uffNM4YpgfH0+TW1
- 1jEQ1H+QKhcJEcafe9owptr5Nxyd2oOW30j4Lunp2KLLndsfzWmB5czNkrC35aWKoJ1c
- 305Q==
+ bh=hz7dWutT/qhmVRNalsYplqBc+0PlAjZb59MfOBNTMdM=;
+ b=B55AYc3/CiWoSmm0ewOMOylZKiox5tJZ8moAzxu1QA1GxA3jlJL7N4AeHBmi+WEUfv
+ 0G03dm8zIi43QpfwfO4q1XBsT9NNYsYFTwkKNjp8QFaN3XDdyYO0TUmj33vvPzwmlx0e
+ RHuwcAEQVIW43CZ7v1Ctdo+IbGaFDH1ff+5ibVwjjh0DEINqNw+hvrk7OUyUw0qgIiGR
+ 4bc6h9D4teQ5MMIudFPdAgJAiuYHb3Tgob5Okp1FmgN/XFizAiCA3lonc583jKPssjwk
+ /eyvrQlsIxw0EWMJTS5mNMj4r0ts/V+EdreNDaffHhsVQQNVenJBF1KDwuA5IRAXdMbU
+ NVgg==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo04
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783749745;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783749744;
  s=strato-dkim-0002; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=SWpm4yra0YVt5/zp7rN7HY5VEk+YLEulFULLYXtLgbQ=;
- b=DsjtJ+yWeQXeGXSXqayzMJFv7mIvd3himmCZ8aVwJqI7AJ6vYiFdDFp7pxEsoNbOD4
- B/+NhjSFGn3w/MohgisZorBTHTlAD2rUAmEPKzuL6G3HrV/h7DDN9bBvJhvFV7XZ0OK8
- Jqp7rUhyw8YvSl0OfVqP55prKr8SaFXoTFz9drv7wF9I53GJnUOu5NIdD2R06/VSwcF4
- sXN8EvBPPE823SJ8yOf1huBAVNXpbVfwmkLAERxGau77u5rDt3Xw2mDnfU8/fn4cwn0b
- rBKfJechv3HX4Vpakvvyd9c3xtuFZH3IeO+vGIp0nczvcCTSGP/EzJvzne6sOF5wqV5M
- JJcA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783749745;
+ bh=hz7dWutT/qhmVRNalsYplqBc+0PlAjZb59MfOBNTMdM=;
+ b=Zhji+FruYjtrExERO7SrSZF2ktV6BXHMG6nFLQw6JxfER1ygmuRuKHQ8W4GWjh8vrU
+ sZLSgQy7qmu4CU3KTW2L/JgZ1+wzgoI8W3r8xSqIkKZK31vghaSHjMRWAP86FcUopR3r
+ uptdedwaZu9HcOgEgoYTUxQny1XML+MsoOkX69rG6xD6O1a1ZMibAdn8alk/PypHD9AD
+ gJqcbXhcnoAUkI/ifROQtV/IMzkebsvdvuFGP0vn9B3ywlkeLtwfe69zqlKa3CG1qaWb
+ oG3g5Dgss/7Lxsu2iJIzU4y96cCXnYeZhtOwqWMZA6ckg6FWxrnSaGvlBgOVCPvWyVJV
+ +zZg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783749744;
  s=strato-dkim-0003; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=SWpm4yra0YVt5/zp7rN7HY5VEk+YLEulFULLYXtLgbQ=;
- b=rAEbVbwNm8gmkWWJ4kg92pEQvoOB/LZXTOFifk6HWsHiLmQ6vGhRcSnzE2IUnCIesb
- iWhaItEvuBz+aWs9j6Cw==
+ bh=hz7dWutT/qhmVRNalsYplqBc+0PlAjZb59MfOBNTMdM=;
+ b=zCuCf5AQ74RZRR3454ckpV2ZuySuLSyvn2wqrvlKki4HgJirIrNwTdc7KDvLkpElY7
+ T1I+KXo3MgT3AXba0YDg==
 X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrT35oLmciNszeF4HOToVDOd6S1gdjuILE2MKVd"
 Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.5.6 AUTH)
- with ESMTPSA id Q4b76426B62OGhz
+ with ESMTPSA id Q4b76426B62MGhy
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Sat, 11 Jul 2026 08:02:24 +0200 (CEST)
+ Sat, 11 Jul 2026 08:02:22 +0200 (CEST)
 From: "H. Nikolaus Schaller" <hns@goldelico.com>
 To: Grond <grond66@riseup.net>, Stefan Leichter <sle85276@gmx.de>,
  "H . Nikolaus Schaller" <hns@goldelico.com>,
@@ -90,10 +90,10 @@ Cc: letux-kernel@openphoenux.org, devicetree@vger.kernel.org,
  linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
  kernel@pyra-handheld.com, mfd@lists.linux.dev
-Subject: [PATCH 14/16] arm: dts: omap3-pandora-common: backlight: switch to
- twl4030 pwm and pwm_bl
-Date: Sat, 11 Jul 2026 08:02:01 +0200
-Message-ID: <e528e00899fb93f67e8480874fc114b21ae3e520.1783749722.git.hns@goldelico.com>
+Subject: [PATCH 13/16] arm: dts: omap3pandora: create new DT node for the
+ sound card
+Date: Sat, 11 Jul 2026 08:02:00 +0200
+Message-ID: <e21be70f6ac6691c4a42808693215ed2f58eace2.1783749722.git.hns@goldelico.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <cover.1783749722.git.hns@goldelico.com>
 References: <cover.1783749722.git.hns@goldelico.com>
@@ -115,32 +115,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This allows to remove the pandora_bl driver and pdata-quirks.
+From: Stefan Leichter <sle85276@gmx.de>
 
+This means that the sound card driver (snd-soc-omap3pandora) will get
+loaded by default.
+
+To make this work, we also add dac pcm1773-codec and widgets and
+routing as needed.
+
+Signed-off-by: Stefan Leichter <sle85276@gmx.de>
+Signed-off-by: Grond <grond66@riseup.net>
 Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 ---
- arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../dts/ti/omap/omap3-pandora-common.dtsi     | 42 +++++++++++++++++++
+ 1 file changed, 42 insertions(+)
 
 diff --git a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi b/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-index 13821d926afb0..fea7132ce7c5e 100644
+index de9860526b323..13821d926afb0 100644
 --- a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
 +++ b/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-@@ -31,6 +31,14 @@ hfclk_26m: oscillator {
- 		clock-frequency = <26000000>;
- 	};
- 
-+	backlight {
-+		compatible = "pwm-backlight";
-+		pwms = <&twl_pwm 0 1922710>;
-+
-+		brightness-levels = <0 150 158 166 174 185 205 230 255>;
-+		default-brightness-level = <6>;
+@@ -47,6 +47,45 @@ dac: pcm1773-codec {
+ 		vcc-supply = <&vsim>;
+ 		enable-gpio = <&gpio4 22 GPIO_ACTIVE_HIGH>; /* GPIO 118 */
+ 		status = "okay";
++		#sound-dai-cells = <0>;
 +	};
 +
- 	tv: connector {
- 		compatible = "connector-analog-tv";
- 		label = "tv";
++	twl_audio_clk: twl-audio-clock {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <12288000>;
++		clock-output-names = "clk256fs";
++	};
++
++	sound: sound {
++		compatible = "openpandora,omap3pandora-sound";
++		status = "okay";
++
++		label = "OpenPandora";
++
++		amp-gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
++		amp-supply = <&regen>;
++
++		widgets =
++			"Line", "Line Out",
++			"Line", "Line In",
++			"Headphone", "Headphone Jack",
++			"Microphone", "Mic (internal)",
++			"Microphone", "Mic (external)";
++
++		routing =
++			"PCM1773 DAC", "APLL Enable",
++			"Headphone Amplifier", "PCM1773 DAC",
++			"Line Out", "PCM1773 DAC",
++			"Headphone Jack", "Headphone Amplifier",
++			"AUXL", "Line In",
++			"AUXR", "Line In",
++			"MAINMIC", "Mic (internal)",
++			"Mic (internal)", "Mic Bias 1",
++			"SUBMIC", "Mic (external)",
++			"Mic (external)", "Mic Bias 2";
++
++		sound-dai = <&mcbsp2>, <&dac>;
+ 	};
+ 
+ 	gpio-leds {
+@@ -724,6 +763,9 @@ &mcbsp1 {
+ /* audio DAC */
+ &mcbsp2 {
+ 	status = "okay";
++	#sound-dai-cells = <0>;
++	clocks = <&mcbsp2_fck>, <&mcbsp2_ick>;
++	clock-names = "fck", "ick";
+ };
+ 
+ /* bluetooth */
 -- 
 2.50.1 (Apple Git-155)
 
