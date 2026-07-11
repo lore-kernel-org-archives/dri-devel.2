@@ -4,128 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E15C8C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D41B8C44506
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAF6D10E7EC;
-	Mon, 13 Jul 2026 07:10:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DF8110E7EE;
+	Mon, 13 Jul 2026 07:10:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JBGjC0JG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="o/GZOk3a";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94CF310E22D;
- Fri, 10 Jul 2026 20:27:34 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 483E741879;
- Fri, 10 Jul 2026 20:27:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534F11F000E9;
- Fri, 10 Jul 2026 20:27:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783715254;
- bh=nwHLf7niWPUb+EByGfZPa1IGezWCh6hKiz5/kPjeOK4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=JBGjC0JG6taRh6W76fZOLNsjNinAKtLEZdyZf56hkpmD1SsPyspbJgP79fA97RNFu
- rInXrcVoyDKxluHVIscUJlMQmCqhyn5vwU71G1ydzkj06R3KS8xqkqBGEHAwFFX5/0
- oLU/CAkX/h1Gzz1GS/ZeKTBmtJF2fpl8ljFKwZRglGHj0rtfQ8ndwlo5G5KRsMycDE
- nxh7CmmMG6beLYOuSIkOMMaLZ1yeaXbdG7b7alCjP4UkqQg8wtUK6yOWoFCJZKQTpC
- o0a+qybijiTRUl268p65PJiHOM6drgF6XspLNQuwd7bBhft3/7HTnnjHqcGpREBH1/
- t6TG2qcQpKTOw==
-From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Fri, 10 Jul 2026 21:17:07 +0100
-Subject: [PATCH v2 26/33] mm/vma: update vma_shrink() to not pass start,
- pgoff parameters
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20C2010E2B4
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 03:09:23 +0000 (UTC)
+Received: by mail-pf1-f181.google.com with SMTP id
+ d2e1a72fcca58-848595b338cso1740602b3a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 20:09:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783739362; x=1784344162; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=KBT/pxhbpviyB1eK4ppjTwsrTkYiVk3Lhi/aEEh6q5s=;
+ b=o/GZOk3aY4ZbdXQMhDJ5o8GibBVP5/Y4qU0MuTHOBmVbvm+lFEVfqReWbdMRdofKbp
+ PXXeAPk9Af/Io6nrzhbtzf/Qp0aTDtq/fxiWeHTIpNXTr/01BM4Sl7ncER9v+k1zzice
+ bRnzO7MiYeg+YVcQZsV5AtGSsObZ74yY3wi0gziL87zentOEOod26svFWXCpUHGctOIE
+ h4bmI7oKJAzVcYoQOvft3/s6y1Q+PE2z3ugi/2yCnvhR5aBkrbSeXXXjwz8rmd9c3dLc
+ 81eJf6Ip/lGQPJ+gNIjNubQj7IJYg7iVFs1yS2p1DnhCBaEw3X9eIKnGcjRcwWgMd3Jv
+ xThQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783739362; x=1784344162;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=KBT/pxhbpviyB1eK4ppjTwsrTkYiVk3Lhi/aEEh6q5s=;
+ b=fWReiT9HMZWkoKpqyqxkM6LqCEMqd56xKVooJHS8vvNTBC+heVRw4Wqyug8yS1/qjJ
+ lmXGoMg6x3XlP6qqBuRc0FAr8rxNdX9VKtfT8T8hWKw0qk7VfdAyIY12X1+4B6gObJ4i
+ OL8dqeJo1DJTsXkMLdvl1liDHRPKEBHbaIN65cvKMUZjqDld8zIarUkwXAz8D3+PqMUv
+ eSlLmVPq9MrqmaCl2eOJBQs02KWAs9EslfH3mgQlz/YJJYZw6uWAi1y4lZmra6Hyu6qv
+ frEdR2gPJoqj9nSABlY0XdkCkR/EBg8OtqSGtkytkRidFmUsMe8euRCfebhjqPTZWy4B
+ Ik5g==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqiSGJXEsaUzEG0w+dM5Qy5ihstZSGF2wF2zz8w725XTQrvy+tPp5bh1yg3XWLSXz7nctBFfC6Z3A8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwxTn1E8jd5KpiPbDYzopoFIWCs2oS/ZnUoHQAYReNuMpGQIZzq
+ rSVzop1m2jpLJ5YJMCNmhMrXCgDPbQotND0NHFC+ZtXq6LIB4RbyHsFT
+X-Gm-Gg: AfdE7cmPn3Y7VXF94YIb7xjbjHDek7jsxLI5A4kpAvK0rjXth0QfNTPZSR/FowIPsv2
+ xohcTY4eKE0GTrI2gm0uk6Pg3BIIEeIroaHQ1KnjJQDYVJS9XuK2s724TVBPf0/io+xRc6sHcUQ
+ W1Wd0GouxRP2Ghut05okax1eR5g6qC/HaJ1gUHDUgLIA5VVQ0kjuTp69bSCdyHN5Sy75YD7+gBn
+ C6BylQSfgMv7R0ICTvYqr4KgxVRGubuquqjTbV44pi57bbhVjYK4M7FCycEuXHnyKMWNJ6C1a7L
+ QPqijVKFfqQteR9cZSM2OpIZ0bel3+fZ2Ry8Qfvo9O3zg8L5e3rryYlUuLwGX0GpltFgUHfgz8A
+ W6RvD8gSwGC/RB9FSTFwyaNwE4/+RKasCClOgF6aMjA0HILAoPU+SGCTCq8ibGGCkegOhiSHeRi
+ ggJ514zMZ6FanVELWEhdxGruTT4EDBbCQRnSI+yHKold/jHXxSWhGrDc4=
+X-Received: by 2002:a05:6a00:3404:b0:847:9151:3409 with SMTP id
+ d2e1a72fcca58-84889797ad5mr1318139b3a.55.1783739362452; 
+ Fri, 10 Jul 2026 20:09:22 -0700 (PDT)
+Received: from skinsburskii (c-98-225-44-182.hsd1.wa.comcast.net.
+ [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-847f6db29d1sm11140358b3a.53.2026.07.10.20.09.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Jul 2026 20:09:21 -0700 (PDT)
+Date: Fri, 10 Jul 2026 20:09:18 -0700
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, corbet@lwn.net,
+ dakr@kernel.org, david@kernel.org, decui@microsoft.com,
+ haiyangz@microsoft.com, jgg@ziepe.ca, kees@kernel.org,
+ kys@microsoft.com, leon@kernel.org, liam@infradead.org,
+ lizhi.hou@amd.com, ljs@kernel.org, longli@microsoft.com,
+ lyude@redhat.com, maarten.lankhorst@linux.intel.com,
+ mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
+ nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
+ rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
+ skhan@linuxfoundation.org, surenb@google.com, tzimmermann@suse.de,
+ vbabka@kernel.org, wei.liu@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rdma@vger.kernel.org
+Subject: Re: [PATCH v8 2/8] mm/hmm: add hmm_range_fault_unlocked_timeout()
+ for mmap lock-drop support
+Message-ID: <alGz3vywc6W5hvso@skinsburskii>
+References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
+ <178371879503.900500.7148019929226548795.stgit@skinsburskii>
+ <20260710151209.157d7c80b03dc56d73b5884a@linux-foundation.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-b4-pre-scalable-cow-v2-26-2a5aa403d977@kernel.org>
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
-In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
- Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>, 
- Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Andrey Konovalov <andreyknvl@gmail.com>, 
- Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>, 
- Lucas Stach <l.stach@pengutronix.de>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Yishai Hadas <yishaih@nvidia.com>, 
- Shameer Kolothum <skolothumtho@nvidia.com>, 
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Paolo Bonzini <pbonzini@redhat.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Usama Arif <usama.arif@linux.dev>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev, 
- iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
- kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4413; i=ljs@kernel.org;
- h=from:subject:message-id; bh=0LxPiqBxAD9IhreoUXWjHFUoHlm6qZINpaBU8bU6qMA=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg23LjgYW8Qj8SmXmjwgOjpPi2iF7zC5wcn+95fs7l
- iaOVf86SlkYxLgYZMUUWZ5/Ed8fJBI2r/OCvxvMHFYmkCEMXJwCMBFxP0aGV36b2hPsZB4I79HY
- so+HedmSLrH9my+69IdZeCZd5ouYx8iwVvT+y+n/804y/Dn3tjAuJ/T0sU1CtjziL09p1mW378z
- nAAA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260710151209.157d7c80b03dc56d73b5884a@linux-foundation.org>
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,140 +108,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vma_shrink() is only used by relocate_vma_down() to shrink the tail of a
-VMA. Therefore neither the start nor the pgoff parameters make any sense.
+On Fri, Jul 10, 2026 at 03:12:09PM -0700, Andrew Morton wrote:
+> On Fri, 10 Jul 2026 14:26:35 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
+> 
+> > hmm_range_fault() requires the caller to hold the mmap read lock for the
+> > duration of the call. This is incompatible with mappings whose fault
+> > handler may release the mmap lock, notably userfaultfd-managed regions,
+> > where handle_mm_fault() can return VM_FAULT_RETRY or VM_FAULT_COMPLETED
+> > after dropping the lock. Drivers that need to populate device page tables
+> > for such mappings have no way to do so today.
+> > 
+> > Add hmm_range_fault_unlocked_timeout() for callers that do not need to hold
+> > mmap_lock across any work outside the HMM fault itself. The helper takes
+> > mmap_read_lock_killable() internally, calls the common HMM fault
+> > implementation, and releases the lock before returning if it is still held.
+> > The timeout is specified in jiffies; passing 0 retries indefinitely, while
+> > a non-zero timeout makes the helper return -EBUSY when the retry budget
+> > expires.
+> > 
+> > When handle_mm_fault() drops mmap_lock, or when the range is invalidated,
+> > hmm_range_fault_unlocked_timeout() refreshes range->notifier_seq and
+> > retries the walk internally. If the lock was dropped, the retry deadline is
+> > also restarted because a lock-dropping fault handler made progress.
+> > Ordinary -EBUSY retries keep the existing deadline, preserving the caller's
+> > timeout policy for repeated mmu-notifier invalidations.
+> > 
+> > The caller only needs to perform the usual post-success
+> > mmu_interval_read_retry() check while holding its update lock before
+> > consuming the pfns. If mmap_lock acquisition is interrupted or a fatal
+> > signal is pending during retry handling, -EINTR is returned instead.
+> > 
+> > The common implementation conditionally sets FAULT_FLAG_ALLOW_RETRY and
+> > FAULT_FLAG_KILLABLE only for hmm_range_fault_unlocked_timeout(). The
+> > existing hmm_range_fault() path still passes no locked state, does not
+> > allow handle_mm_fault() to drop mmap_lock, and remains a thin wrapper
+> > preserving the existing API contract for current callers.
+> > 
+> > The previous refactor that moved page fault handling out of the page-table
+> > walk callbacks is what makes this change small. Faults now run after
+> > walk_page_range() has unwound, with only mmap_lock held, so dropping it
+> > does not interact with the walker's pte spinlock or hugetlb_vma_lock.
+> > Hugetlb regions therefore participate in the unlocked path uniformly with
+> > PTE- and PMD-level mappings; no special case is required.
+> > 
+> > Documentation/mm/hmm.rst is updated with a description of the new API and
+> > the recommended caller pattern.
+> > 
+> > ...
+> >
+> 
+> A trivial thing:
+> 
+> > +int hmm_range_fault_unlocked_timeout(struct hmm_range *range,
+> > +				     unsigned long timeout)
+> > +{
+> > +	struct mm_struct *mm = range->notifier->mm;
+> > +	unsigned long deadline = 0;
+> > +	bool locked = false;
+> 
+> This could be local to the do loop and it needn't be initialized.
+> 
 
-It seemed we were passing the pgoff parameter solely to satisfy
-vma_set_range()'s requirement for pgoff being specified.
+Unfortunately, it can’t, because its state is mutated in
+hmm_range_fault_locked() and the resulting state needs to be preserved
+across iterations of the loop as deadline reset depends on it.
 
-Since vma_set_range() is now isolated to vma.c, we can simply introduce
-__vma_set_range() which sets only vma->vm_[start, end], and invoke this
-instead, removing start and pgoff from vma_shrink() altogether.
+Thanks,
+Stanislav
 
-No functional change intended.
-
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
----
- mm/vma.c                        | 31 +++++++++++++++++--------------
- mm/vma.h                        |  3 +--
- mm/vma_exec.c                   |  2 +-
- tools/testing/vma/tests/merge.c |  2 +-
- 4 files changed, 20 insertions(+), 18 deletions(-)
-
-diff --git a/mm/vma.c b/mm/vma.c
-index cc0e449ad0be..a474920a25b3 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -70,11 +70,17 @@ struct mmap_state {
- 		.state = VMA_MERGE_START,				\
- 	}
- 
--static void vma_set_range(struct vm_area_struct *vma, unsigned long start,
--			  unsigned long end, pgoff_t pgoff)
-+static void __vma_set_range(struct vm_area_struct *vma, unsigned long start,
-+			    unsigned long end)
- {
- 	vma->vm_start = start;
- 	vma->vm_end = end;
-+}
-+
-+static void vma_set_range(struct vm_area_struct *vma, unsigned long start,
-+			  unsigned long end, pgoff_t pgoff)
-+{
-+	__vma_set_range(vma, start, end);
- 	vma->vm_pgoff = pgoff;
- }
- 
-@@ -1279,27 +1285,24 @@ int vma_expand(struct vma_merge_struct *vmg)
- 	return -ENOMEM;
- }
- 
--/*
-- * vma_shrink() - Reduce an existing VMAs memory area
-+/**
-+ * vma_shrink() - Shrink the end of a VMA
-  * @vmi: The vma iterator
-  * @vma: The VMA to modify
-- * @start: The new start
-  * @end: The new end
-  *
-+ * Note that the caller may only shrink the end of the VMA.
-+ *
-  * Returns: 0 on success, -ENOMEM otherwise
-  */
- int vma_shrink(struct vma_iterator *vmi, struct vm_area_struct *vma,
--	       unsigned long start, unsigned long end, pgoff_t pgoff)
-+	       unsigned long end)
- {
- 	struct vma_prepare vp;
- 
--	WARN_ON((vma->vm_start != start) && (vma->vm_end != end));
--
--	if (vma->vm_start < start)
--		vma_iter_config(vmi, vma->vm_start, start);
--	else
--		vma_iter_config(vmi, end, vma->vm_end);
-+	VM_WARN_ON_ONCE(end > vma->vm_end);
- 
-+	vma_iter_config(vmi, end, vma->vm_end);
- 	if (vma_iter_prealloc(vmi, NULL))
- 		return -ENOMEM;
- 
-@@ -1307,10 +1310,10 @@ int vma_shrink(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 
- 	init_vma_prep(&vp, vma);
- 	vma_prepare(&vp);
--	vma_adjust_trans_huge(vma, start, end, NULL);
-+	vma_adjust_trans_huge(vma, vma->vm_start, end, NULL);
- 
- 	vma_iter_clear(vmi);
--	vma_set_range(vma, start, end, pgoff);
-+	__vma_set_range(vma, vma->vm_start, end);
- 	vma_complete(&vp, vmi, vma->vm_mm);
- 	validate_mm(vma->vm_mm);
- 	return 0;
-diff --git a/mm/vma.h b/mm/vma.h
-index 14f026bf3be4..40effaa3ebe4 100644
---- a/mm/vma.h
-+++ b/mm/vma.h
-@@ -297,8 +297,7 @@ void validate_mm(struct mm_struct *mm);
- 
- __must_check int vma_expand(struct vma_merge_struct *vmg);
- __must_check int vma_shrink(struct vma_iterator *vmi,
--		struct vm_area_struct *vma,
--		unsigned long start, unsigned long end, pgoff_t pgoff);
-+		struct vm_area_struct *vma, unsigned long end);
- 
- static inline int vma_iter_store_gfp(struct vma_iterator *vmi,
- 			struct vm_area_struct *vma, gfp_t gfp)
-diff --git a/mm/vma_exec.c b/mm/vma_exec.c
-index e3644a3042e2..13a05e041195 100644
---- a/mm/vma_exec.c
-+++ b/mm/vma_exec.c
-@@ -89,7 +89,7 @@ int relocate_vma_down(struct vm_area_struct *vma, unsigned long shift)
- 
- 	vma_prev(&vmi);
- 	/* Shrink the vma to just the new range */
--	return vma_shrink(&vmi, vma, new_start, new_end, vma_start_pgoff(vma));
-+	return vma_shrink(&vmi, vma, new_end);
- }
- 
- /*
-diff --git a/tools/testing/vma/tests/merge.c b/tools/testing/vma/tests/merge.c
-index f8666a755749..e357accc8499 100644
---- a/tools/testing/vma/tests/merge.c
-+++ b/tools/testing/vma/tests/merge.c
-@@ -227,7 +227,7 @@ static bool test_simple_shrink(void)
- 
- 	ASSERT_FALSE(attach_vma(&mm, vma));
- 
--	ASSERT_FALSE(vma_shrink(&vmi, vma, 0, 0x1000, 0));
-+	ASSERT_FALSE(vma_shrink(&vmi, vma, 0x1000));
- 
- 	ASSERT_EQ(vma->vm_start, 0);
- 	ASSERT_EQ(vma->vm_end, 0x1000);
-
--- 
-2.55.0
-
+> > +	int ret;
+> > +
+> > +	do {
+> > +		if (fatal_signal_pending(current))
+> > +			return -EINTR;
+> > +
+> > +		if (timeout) {
+> > +			/*
+> > +			 * If the previous fault dropped mmap_lock, then the fault
+> > +			 * handler made progress. Restart the retry timeout in that
+> > +			 * case, but keep the existing deadline for ordinary -EBUSY
+> > +			 * retries.
+> > +			 */
+> > +			if (!locked)
+> > +				deadline = jiffies + timeout;
+> > +
+> > +			if (time_after(jiffies, deadline))
+> > +				return -EBUSY;
+> > +		}
+> > +
+> > +		range->notifier_seq =
+> > +			mmu_interval_read_begin(range->notifier);
+> > +
+> > +		ret = mmap_read_lock_killable(mm);
+> > +		if (ret)
+> > +			return ret;
+> > +
+> > +		locked = true;
+> > +		ret = hmm_range_fault_locked(range, &locked);
+> > +		if (locked)
+> > +			mmap_read_unlock(mm);
+> > +	} while (ret == -EBUSY);
+> > +
+> > +	return ret;
+> > +}
+> > +EXPORT_SYMBOL(hmm_range_fault_unlocked_timeout);
+> > +
+> 
