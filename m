@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 530E0C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 05:46:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B377DC44501
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 05:48:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AD8310E2B3;
-	Sat, 11 Jul 2026 05:46:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9175610E2D4;
+	Sat, 11 Jul 2026 05:48:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="QgCET+Tx";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="zxP6H3RU";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C07DB10E2B3;
- Sat, 11 Jul 2026 05:46:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1627D10E2D4;
+ Sat, 11 Jul 2026 05:48:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6D02D60051;
- Sat, 11 Jul 2026 05:46:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBB7E1F000E9;
- Sat, 11 Jul 2026 05:46:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 839E54166C;
+ Sat, 11 Jul 2026 05:48:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40B1C1F000E9;
+ Sat, 11 Jul 2026 05:48:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=korg; t=1783748768;
- bh=EaiPorL9ahIoJjJNitVwjgM9ztVnjvN7foqXLiq04lM=;
+ d=linux-foundation.org; s=korg; t=1783748915;
+ bh=/bm56TdW2Rt1TzYZP4AwroZ1H/akE8N7PaZmAo9v49o=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=QgCET+Tx8Bz0jrdks+rAbU8mUQHeVPcVhmNjnY9QEy3j0IQt8dtIhIBSKEh+5N9As
- WQNaEldSNdp9DDaqnyfla/F2QwjYqb48w5VbRYV51VDzIlmiP+A0SWtLpP3PLpBuAV
- qLAHT72ptNutim6kRtqCLNoKDrjqrESrQiMjB/7M=
-Date: Fri, 10 Jul 2026 22:46:06 -0700
+ b=zxP6H3RUmBd6ihlhUQIdRJzfv+dWAy7/NIa1aujz+UJUigwYO9G60/3Bm1HoqfjnX
+ DZhiti+OpHf6AgYSszNldBtjYCKgg5QG6160LxG4/45mDd4arD7V/RUmAhgcW9bWTx
+ E9/cf5f5XfN6+ulL7h4VwT+i3BR5zKS6NdueS7go=
+Date: Fri, 10 Jul 2026 22:48:33 -0700
 From: Andrew Morton <akpm@linux-foundation.org>
 To: Stanislav Kinsburskii <skinsburskii@gmail.com>
 Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, corbet@lwn.net,
@@ -43,14 +43,14 @@ Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, corbet@lwn.net,
  linux-mm@kvack.org, linux-doc@vger.kernel.org,
  linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-rdma@vger.kernel.org
-Subject: Re: [PATCH v8 4/8] mshv: Use hmm_range_fault_unlocked_timeout() for
- region faults
-Message-Id: <20260710224606.69235ab5c49b5987fd33e924@linux-foundation.org>
-In-Reply-To: <alG1JwgUK44dCiN4@skinsburskii>
+Subject: Re: [PATCH v8 5/8] drm/nouveau: Use
+ hmm_range_fault_unlocked_timeout() for SVM faults
+Message-Id: <20260710224833.9caf2a0a9906f0515e326a45@linux-foundation.org>
+In-Reply-To: <alG1k3JsoywE2CBM@skinsburskii>
 References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
- <178371881034.900500.5214601525971121683.stgit@skinsburskii>
- <20260710151216.0397a6f9ac5c7b4ccd274cc1@linux-foundation.org>
- <alG1JwgUK44dCiN4@skinsburskii>
+ <178371881847.900500.8789369230260725500.stgit@skinsburskii>
+ <20260710151222.ddb35eab9c81a8720491464a@linux-foundation.org>
+ <alG1k3JsoywE2CBM@skinsburskii>
 X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -70,27 +70,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 10 Jul 2026 20:14:47 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
+On Fri, 10 Jul 2026 20:16:35 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
 
-> > > +	mutex_lock(&region->mreg_mutex);
-> > > +
-> > > +	if (mmu_interval_read_retry(range.notifier, range.notifier_seq)) {
-> > > +		mutex_unlock(&region->mreg_mutex);
-> > > +		cond_resched();
-> > > +		goto again;
-> > > +	}
-> > > +
+> On Fri, Jul 10, 2026 at 03:12:22PM -0700, Andrew Morton wrote:
+> > On Fri, 10 Jul 2026 14:26:58 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
 > > 
-> > If the calling process has realtime scheduling policy and either a)
-> > we're uniprocessor or b) this process and the holder of
-> > interval_sub->invalidate_seq are both pinned to the same CPU then
-> > cond_resched() won't do anything, and this might be an infinite loop?
+> > > @@ -683,15 +683,11 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
+> > >  			goto out;
+> > >  		}
+> > >  
+> > > -		range.notifier_seq = mmu_interval_read_begin(range.notifier);
+> > > -		mmap_read_lock(mm);
+> > > -		ret = hmm_range_fault(&range);
+> > > -		mmap_read_unlock(mm);
+> > > -		if (ret) {
+> > > -			if (ret == -EBUSY)
+> > > -				continue;
+> > > +		ret = hmm_range_fault_unlocked_timeout(&range,
+> > > +						       max(timeout - jiffies,
+> > > +							   1L));
+> > 
+> > "1UL" here?  I'd have expected min() to warn, as it likes to do.
 > 
-> Yes, looks like it might.
-> What can be done to prevent this?
+> I'm not sure... The "timeout - jiffies" can become negative.
+> Won't 1UL convert both of them to "UL" and thus make the comparison
+> overflow?
 
-Well the best way is remove the polling loop and use a proper sleep/wakeup
-mechanism - mutex_lock()/prepare_to_wait()/etc.
-
-If the polling loop is to be retained then maybe msleep(1) or
-usleep_range()?
+`timeout' and `jiffies' are both unsigned long.
