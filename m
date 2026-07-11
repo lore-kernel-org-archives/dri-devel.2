@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F43DC43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 03:15:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E789C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 03:16:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C875A10E708;
-	Sat, 11 Jul 2026 03:15:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DB5F10E70F;
+	Sat, 11 Jul 2026 03:16:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ccTDYRDk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xae01we1";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B705110E708
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 03:15:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B97C10E707
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 03:16:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 062E460051;
- Sat, 11 Jul 2026 03:15:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9137C1F000E9;
- Sat, 11 Jul 2026 03:15:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1483041346;
+ Sat, 11 Jul 2026 03:16:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB7E11F000E9;
+ Sat, 11 Jul 2026 03:16:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783739749;
- bh=fzX/uwnectF4S9u4w2ORwhjvuIbg5buAfn9kwccK3Yw=;
+ s=k20260515; t=1783739761;
+ bh=aGfMSWxEm12+es2GtddVvqpxk4jok4+PsR0HDiiloTQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ccTDYRDkzhcwSKARzns4yAJ3Hl1M8InQuGyZ3FzkLgNFtoK0sgEmq1ZIywRIjWVTd
- mRbySkzHJQ0KMrgrZrYURYIxIgc7Pzkg2lQceEFurZRtOqHv6W8/SpMuRVz99CvcEa
- HaaoTyLeihy8jEqtD9bE7lKD6y5Tg+1LCVsusI+hci324/ScAOQjS5phIUb+o3iz+B
- nuXL1BaiXaVRgJ3b2sDIKTbUdgz91ilJajbckYBIaketwKf+eQP4RdIYFBlvbvZcV7
- F9ZDSm35RptWnu/uw6YkDg43e/zHzpPu1PiHShOa2Ag+coa/z172ay+cufvdbw7IET
- 8zIUUeIghcs4A==
+ b=Xae01we1PKe85xufDfDeQlegkJyHUZfrexYl4Vc0Cgp8tDGHDJRoOWeN/YrVGccVt
+ X6uqtnm2O1M/ntjsu06E/JbNeNzluFgOWsuj5IrgSbC03TykDUSR7Fssofemf7tnTl
+ ke19q9aX7mpvMilIWfi92FzuE/wEXcpeBcRpY8Y1RVnOslt0ALz3cGGxKq1OMplkJ4
+ ZrCj6S76pN6ZbLrPfPU6gQDLe/70ZASWJI5dzAzTsGp0QGLBQOSbIoXVSlqQUNDXlX
+ ZwdkH4MVIzfqXz9q891W9Rk/C6OddvxYUPrPo4D6MbrRMhHmwu+q2KvGI+eBx/zo6O
+ bQdFo+zG/cNXA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 27/33] drm/xe: Add IOVA-based xe_res_cursor variant
+Subject: Re: [PATCH v3 07/33] drm/ttm: Harvest beneficial-order pages on
+ defragmentation moves
 To: "Matthew Brost" <matthew.brost@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260711025619.2540575-28-matthew.brost@intel.com>
+In-Reply-To: <20260711025619.2540575-8-matthew.brost@intel.com>
 References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-28-matthew.brost@intel.com>
+ <20260711025619.2540575-8-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 03:15:49 +0000
-Message-Id: <20260711031549.9137C1F000E9@smtp.kernel.org>
+Date: Sat, 11 Jul 2026 03:16:00 +0000
+Message-Id: <20260711031600.CB7E11F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,72 +58,126 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The newly added `is_iova` block in `xe_res_next()` is mathematicall=
-y unreachable and completely redundant.
+- [Critical] Defragmentation of DMA-alloc or external buffer objects causes=
+ out-of-bounds memory corruption.
+- [Low] Comment falsely documents non-existent capping and prealloc logic.
 --
 
---- Patch [27]: [PATCH v3 27/33] drm/xe: Add IOVA-based xe_res_cursor varia=
-nt ---
-commit 41ab8ab5c8919ddc065db2f6f0c78d6b5b1b51d0
+--- Patch [7]: [PATCH v3 07/33] drm/ttm: Harvest beneficial-order pages on =
+defragmentation moves ---
+commit 6003b76a02bde0abed96778f39a94035b5bc6acd
 Author: Matthew Brost <matthew.brost@intel.com>
 
-drm/xe: Add IOVA-based xe_res_cursor variant
+drm/ttm: Harvest beneficial-order pages on defragmentation moves
+   =20
+A defragmentation move relocates a populated tt into a freshly allocated
+one so that sub-beneficial-order chunks can be upgraded to the device's
+beneficial order.
 
-This patch introduces a variant of xe_res_cursor for walking buffer objects
-DMA mapped using the IOVA-based DMA API. It adds an is_iova flag to
-distinguish single contiguous IOVA mappings and updates the cursor functions
-to handle this contiguous segment appropriately.
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
+l.c
+> index 2598d2f33767e..52f5e64f05ddc 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
 
-> diff --git a/drivers/gpu/drm/xe/xe_res_cursor.h b/drivers/gpu/drm/xe/xe_r=
-es_cursor.h
-> index 0522caafd89d7..f0f1d699e16e5 100644
-> --- a/drivers/gpu/drm/xe/xe_res_cursor.h
-> +++ b/drivers/gpu/drm/xe/xe_res_cursor.h
 [ ... ]
-> @@ -283,6 +327,13 @@ static inline void xe_res_next(struct xe_res_cursor =
-*cur, u64 size)
->  		return;
->  	}
-> =20
-> +	if (cur->is_iova) {
-> +		/* Single contiguous IOVA segment. */
-> +		cur->start +=3D size;
-> +		cur->size =3D cur->remaining;
-> +		return;
-> +	}
-> +
+
+> +static int ttm_pool_harvest_remaining(struct ttm_pool *pool,
+> +				      struct ttm_tt *old_tt, pgoff_t off,
+> +				      struct ttm_pool_alloc_state *alloc)
+> +{
+> +	/*
+> +	 * @off is always an old-tt chunk head here, never a tail page, so
+> +	 * reading the per-chunk order below is safe. This holds because:
+> +	 *  - Old chunks are self-aligned: greedy largest-power-of-two fill
+> +	 *    places an order-k chunk at a 2^k-aligned offset, so any
+> +	 *    beneficial-order-aligned offset is a chunk boundary.
+> +	 *  - Fresh defrag allocations are capped at the beneficial order (see
+> +	 *    ttm_pool_iter_acquire_page()), so they advance @off in beneficial
+> +	 *    steps and never overshoot into the middle of a larger old chunk;
+> +	 *    super-beneficial old chunks are always harvested whole by
+> +	 *    ttm_pool_iter_reuse_old().
+> +	 *  - We are only reached once the defrag budget/prealloc is exhausted,
+> +	 *    which in the capped/prealloc config leaves @off beneficial-aligned
+> +	 *    (or, in the sub-beneficial tail, already walking old boundaries).
+> +	 */
 
 [Severity: Low]
-Is this block reachable?
+Are the invariants described in this comment block referring to code that i=
+s=20
+missing from this series?
 
-In xe_res_first_iova(), cur->size is initialized to the full size, matching
-cur->remaining.
+The documentation states that allocations are capped and references=20
+ttm_pool_iter_acquire_page(), but that function does not appear to contain =
+any
+capping logic.
 
-When xe_res_next(cur, size) is called, it first decrements cur->remaining:
+The comment also refers to a defrag budget/prealloc exhaustion, but those
+mechanisms do not seem to be present in the code.
 
-	cur->remaining -=3D size;
-	if (!cur->remaining)
-		return;
+> +	while (alloc->remaining_pages) {
+> +		struct page *p =3D old_tt->pages[off];
 
-If the cursor isn't exhausted, the original cur->remaining must have been
-greater than size. Since cur->size equals the original cur->remaining for
-single contiguous IOVA mappings, cur->size will also be greater than size.=
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
+> index b645a18181843..2388ff794a594 100644
+> --- a/drivers/gpu/drm/ttm/ttm_tt.c
+> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
+
+[ ... ]
+
+> +void ttm_tt_defrag_disown_borrowed(struct ttm_tt *tt, const struct ttm_t=
+t *src)
+> +{
+> +	pgoff_t i =3D 0, run_start =3D 0;
+> +	bool in_run =3D false;
+
+[ ... ]
+
+> +	while (i < tt->num_pages) {
+> +		struct page *sp =3D src->pages[i];
+> +		unsigned int order =3D sp ? ttm_pool_page_order_nodma(sp) : 0;
+> +		pgoff_t nr =3D 1UL << order;
+
+[Severity: Critical]
+Can this lead to a massive out-of-bounds memset and memcpy when
+defragmentation targets a dma-alloc pool or externally allocated buffer obj=
+ect?
+
+If a defragmentation move is initiated in ttm_bo_handle_move_mem() on a=20
+buffer object using a dma-alloc pool or with TTM_TT_FLAG_EXTERNAL set, page=
 =20
+private data often contains a kernel pointer or arbitrary foreign data=20
+instead of an allocation order.
 
-This means execution will always enter the generic segment advancement block
-immediately preceding this one:
+Since ttm_pool_page_order_nodma() treats this data as an integer, the=20
+resulting order calculation would yield an astronomically large chunk size=
+=20
+for nr. This size is then used in the memset operation immediately below,=20
+and in the memcpy operation within ttm_pool_harvest_page():
 
-	if (cur->size > size) {
-		cur->size -=3D size;
-		cur->start +=3D size;
-		return;
-	}
+drivers/gpu/drm/ttm/ttm_pool.c:ttm_pool_harvest_page() {
+    ...
+    memcpy(alloc->pages, &old_tt->pages[off], nr * sizeof(*alloc->pages));
+    ...
+}
 
-Does this make the newly added is_iova block mathematically unreachable dead
-code?
+Does ttm_bo_handle_move_mem() need validation to block defragmentation=20
+on these configurations?
+
+> +
+> +		if (sp && tt->pages[i] =3D=3D sp) {
+> +			if (!in_run) {
+> +				run_start =3D i;
+> +				in_run =3D true;
+> +			}
+> +		} else if (in_run) {
+> +			memset(&tt->pages[run_start], 0,
+> +			       (i - run_start) * sizeof(*tt->pages));
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711025619.2540=
-575-1-matthew.brost@intel.com?part=3D27
+575-1-matthew.brost@intel.com?part=3D7
