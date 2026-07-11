@@ -4,55 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EABAC43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 14:49:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 772B7C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 14:58:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9581E10E1C1;
-	Sat, 11 Jul 2026 14:48:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9468310E303;
+	Sat, 11 Jul 2026 14:58:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="lFe06t0V";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iKHFj8d0";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E42B310E1C1
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 14:48:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783781337; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Pj8aR3IrKz+/CtebXwpLpunMYcMVL0mBNT1XAIp10WtYHkaOj8JX5sIXHS+WapMYXd3i3phiX83zHGUI6NXCsyAjZeC/+DIGbMXCiv2RTF3e/G0+PAwCwUdQUy4OHryCspfM443MTNW875ZKwBS4W+GjTWIeuo5pwRKafSDoFbc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783781337;
- h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=8EhoijJuAVpKhH0B/9K0NROY2MQn/U8qlWzqclSATrk=; 
- b=VEtw4m1/C/z+o3/zqtg70bZY5pqWW581LCIzm202l3ducVlq5xlGUHcSKFPjk+q1Ccylq+obuSC72363W6uk/8uvEWjrRDtRzrz5Lv2qhUVt2rqIIfbYeVrPJKjqZPY8dHQ8UU48iq0gep7c0Zo8pWsOBg8idEtSfJ9kIackBrU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783781336; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=8EhoijJuAVpKhH0B/9K0NROY2MQn/U8qlWzqclSATrk=;
- b=lFe06t0VSWW7qAZWgQqe49gBXNN6/gxc/dfXhAFhRuvDeHfPoWcol7AAhZGIoIs4
- q1rBuF02J43wuAdbflnunKCaHyUV92ULV8yjVMdef5k7okwidKSKSO8lik4HxwrFxcu
- CCkpCU4SYD+6HJwUnLyRIFMxXdQGpFDNCURiPU18=
-Received: by mx.zohomail.com with SMTPS id 1783781333885846.2310772290999;
- Sat, 11 Jul 2026 07:48:53 -0700 (PDT)
-From: Robert Mader <robert.mader@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Robert Mader <robert.mader@collabora.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 2/2] dma-buf/udmabuf: Increase default size limit to 256MB
-Date: Sat, 11 Jul 2026 16:48:13 +0200
-Message-ID: <20260711144814.8205-2-robert.mader@collabora.com>
-X-Mailer: git-send-email 2.55.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95E9F10E303
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 14:58:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id ED7C440A8C;
+ Sat, 11 Jul 2026 14:58:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5EE31F000E9;
+ Sat, 11 Jul 2026 14:58:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783781924;
+ bh=WPi1L7xQOWiwatZ/hC9K9mCYevpguHfCwz8Wk1/V/NA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=iKHFj8d0wU0N6fY94nxRJA1eqk7n4mlKUU+MQRug7CYTsU2X88L3dKoE4u9KUiZuc
+ sWvMDchX66NilRh4/mzHHQ2oG2JPueoMISBAx8wYFKRotzKzubsB8phUvvuxRZEO7c
+ qxvpt+mDROhbFvwL9CnRIc6CcioRAWarpH1sphv9aQW2oZ3gVc1sUMyuTnN2hfi8ht
+ WZ/Pt/zQeRGxX6epgDd5Oza4xWaVfxNVzn2YOxTafHC1L79LDN5hLTIrdgYQQ+W/pe
+ /Ev0v1DS5CfvjPCxjXj2PE8wdb+AF/6ts806bCAi5UhgfJBpVFMgnVk6HuZzcaFSzP
+ broOvKM/n5IfQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 1/2] dma-buf/udmabuf: Introduce
+ CONFIG_UDMABUF_SIZE_LIMIT_MBYTES
+To: "Robert Mader" <robert.mader@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
 In-Reply-To: <20260711144814.8205-1-robert.mader@collabora.com>
 References: <20260711144814.8205-1-robert.mader@collabora.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 11 Jul 2026 14:58:44 +0000
+Message-Id: <20260711145844.A5EE31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,53 +53,117 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-While there does not seem to be a particularly strong reason to have a
-size limit for udmabufs in the first place, raising the limit moderatly
-to 256MB is enough to avoid hitting the limit in increasingly common
-use-cases - notably allocating video buffers for 8K resolutions.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Signed-off-by: Robert Mader <robert.mader@collabora.com>
----
- drivers/dma-buf/Kconfig   | 4 ++--
- drivers/dma-buf/udmabuf.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+New issues:
+- [Low] CONFIG_UDMABUF_SIZE_LIMIT_MBYTES lacks a dependency on CONFIG_UDMAB=
+UF.
+- [Low] Missing range constraint on UDMABUF_SIZE_LIMIT_MBYTES allows negati=
+ve values, bypassing size validation.
 
-diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
-index 35f0779cdc80..0e7f5dc978e2 100644
---- a/drivers/dma-buf/Kconfig
-+++ b/drivers/dma-buf/Kconfig
-@@ -42,9 +42,9 @@ config UDMABUF
- 
- config UDMABUF_SIZE_LIMIT_MBYTES
- 	int "Size limit in Mega Bytes"
--	default 64
-+	default 256
- 	help
--	  Maximum size of a udmabuf, in megabytes. Default is 64.
-+	  Maximum size of a udmabuf, in megabytes. Default is 256.
- 
- config DMABUF_DEBUG
- 	bool "DMA-BUF debug checks"
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index a83153326362..c7649a04b865 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -23,10 +23,10 @@ MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.
- #ifdef CONFIG_UDMABUF_SIZE_LIMIT_MBYTES
- static int size_limit_mb = CONFIG_UDMABUF_SIZE_LIMIT_MBYTES;
- #else
--static int size_limit_mb = 64;
-+static int size_limit_mb = 256;
- #endif
- module_param(size_limit_mb, int, 0644);
--MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 64.");
-+MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 256.");
- 
- struct udmabuf {
- 	pgoff_t pagecount;
--- 
-2.55.0
+Pre-existing issues:
+- [High] Concurrent calls to DMA_BUF_IOCTL_SYNC trigger a race condition in=
+ begin_cpu_udmabuf, leading to a memory leak.
+--
 
+--- Patch [1]: [RFC PATCH 1/2] dma-buf/udmabuf: Introduce CONFIG_UDMABUF_SI=
+ZE_LIMIT_MBYTES ---
+commit 258354f822e15700d93d45826a3e51b308dd35b8
+Author: Robert Mader <robert.mader@collabora.com>
+
+dma-buf/udmabuf: Introduce CONFIG_UDMABUF_SIZE_LIMIT_MBYTES
+
+This patch introduces a new Kconfig option, CONFIG_UDMABUF_SIZE_LIMIT_MBYTE=
+S,
+to allow distributions to configure the maximum size limit for udmabufs at=
+=20
+compile time. The limit defaults to 64MB and was previously only configurab=
+le=20
+via the kernel command line.
+
+> diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
+> index 7efc0f0d07126..35f0779cdc801 100644
+> --- a/drivers/dma-buf/Kconfig
+> +++ b/drivers/dma-buf/Kconfig
+> @@ -40,6 +40,12 @@ config UDMABUF
+>  	  A driver to let userspace turn memfd regions into dma-bufs.
+>  	  Qemu can use this to create host dmabufs for guest framebuffers.
+> =20
+> +config UDMABUF_SIZE_LIMIT_MBYTES
+> +	int "Size limit in Mega Bytes"
+> +	default 64
+
+[Severity: Low]
+Should this config have a 'depends on UDMABUF' directive?
+
+Without it, users might be prompted to configure the size limit even
+when the UDMABUF driver itself is disabled, polluting the global config.
+
+[Severity: Low]
+Could a user configure a negative value here and bypass the size limits?
+
+If this is set to a negative value, it appears it will wrap around to a=20
+massive value when cast to u64 in udmabuf_create():
+
+drivers/dma-buf/udmabuf.c:udmabuf_create() {
+...
+	pglimit =3D ((u64)size_limit_mb * 1024 * 1024) >> PAGE_SHIFT;
+...
+}
+
+Would it be safer to add a range constraint to the Kconfig definition?
+
+> +	help
+> +	  Maximum size of a udmabuf, in megabytes. Default is 64.
+> +
+>  config DMABUF_DEBUG
+>  	bool "DMA-BUF debug checks"
+>  	depends on DMA_SHARED_BUFFER
+
+[ ... ]
+
+> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+> index bced421c0d658..a831533263621 100644
+> --- a/drivers/dma-buf/udmabuf.c
+> +++ b/drivers/dma-buf/udmabuf.c
+> @@ -20,7 +20,11 @@ static int list_limit =3D 1024;
+>  module_param(list_limit, int, 0644);
+>  MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default =
+is 1024.");
+> =20
+> +#ifdef CONFIG_UDMABUF_SIZE_LIMIT_MBYTES
+> +static int size_limit_mb =3D CONFIG_UDMABUF_SIZE_LIMIT_MBYTES;
+> +#else
+>  static int size_limit_mb =3D 64;
+> +#endif
+>  module_param(size_limit_mb, int, 0644);
+>  MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Def=
+ault is 64.");
+> =20
+
+[Severity: High]
+This is a pre-existing issue, but can concurrent calls to=20
+DMA_BUF_IOCTL_SYNC cause a memory leak?
+
+Looking at begin_cpu_udmabuf(), the scatter-gather table pointer is=20
+checked and assigned without locks:
+
+drivers/dma-buf/udmabuf.c:begin_cpu_udmabuf() {
+...
+	if (!ubuf->sg) {
+		ubuf->sg =3D get_sg_table(dev, buf, direction);
+...
+}
+
+If multiple threads invoke the ioctl simultaneously, could they bypass=20
+the check, allocate multiple tables, and overwrite ubuf->sg, permanently
+leaking the previously allocated tables and mappings?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711144814.8205=
+-1-robert.mader@collabora.com?part=3D1
