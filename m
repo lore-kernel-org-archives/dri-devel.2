@@ -4,44 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EC9FC43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 06:44:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43CBDC44501
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 07:39:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 773B210E2F0;
-	Sat, 11 Jul 2026 06:44:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A74F910E1DE;
+	Sat, 11 Jul 2026 07:39:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lIBzf7N+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DAEUkMAp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44EB610E2F0
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 06:44:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33F3210E1DE
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 07:39:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 15B3643970;
- Sat, 11 Jul 2026 06:44:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A80E61F000E9;
- Sat, 11 Jul 2026 06:44:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8A9EA601D9;
+ Sat, 11 Jul 2026 07:39:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1282A1F00A3A;
+ Sat, 11 Jul 2026 07:39:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783752295;
- bh=Te45nAF8NrZ7lSerCwRdZjZ5bDcjCgyWOkKbEgSGRDU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lIBzf7N+OTsX3PU7We6A5cEVsLId0PaaI9pjvSyVZZGx8TSBL/6ZOQ+NeLpI5zh8i
- 7jaNUrL5KPL39yI9Lt4SfSmtOdC/6D99BuV0M4cJran9yG1BBFqC7nJ2eExOpyiGBc
- s+cZM1q7BpoUTAeF0YbZEaFohXJ2I52nhlO4h/f4ah+Q6/GA/7qmrhqnEkCycDk0Ai
- 4wuOKAQ1IhyUdtdjpYKtqiFpWSy4pyLMuzSlPWoYpKwfUC4d4jNMi359CSezOxp/Rt
- xiuTy+fKA9smA8jnB7QtINE0mpip/+5o9odqPwj3Gg3L5N6pZGrL1h8q3Yx1bePy8K
- NwStAaQpbabiA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance
- for region allocations
-To: "Yury Norov" <ynorov@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>,
- "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org
-In-Reply-To: <20260711063602.426311-1-ynorov@nvidia.com>
-References: <20260711063602.426311-1-ynorov@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 06:44:54 +0000
-Message-Id: <20260711064454.A80E61F000E9@smtp.kernel.org>
+ s=k20260515; t=1783755563;
+ bh=iV5e6pRe5bHAjJTm6bWvI5nFVRDfFXzcLJLu3ZoiTio=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject;
+ b=DAEUkMAp2/M99hv5JAlJsvDDrRXFNP24LsCgoiohXjn6HURC+eEyNFPG3FEN/jdVJ
+ 2cSYPMD16xyDYscq6hOUYQlWdHu6y3h038V5Lj8mRNWepM3vXLdf5Vbtvy9KQL8rI0
+ ri7EEkjZ3FD4ynF+vqFPeP0W+dXdS3tVli8dAI5NRmFfgrORV707PHCGOjv1Wq7HGY
+ WFXhJw+XW/+5tWrlblqFRBElP9YXVIyudq6eBpJlLxc7iN0/kasokANd4XFzJxonr5
+ PdfDjpcrTiOct/J2T0GdHzUV7ysbR0xPdOhpeE4J/a9rs8coZBjiVRAMLJ71QwQuH4
+ rvprBma6OslAA==
+Date: Sat, 11 Jul 2026 02:39:22 -0500
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Stefan Leichter <sle85276@gmx.de>, Daniel Thompson <danielt@kernel.org>, 
+ Arnd Bergmann <arnd@arndb.de>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>, 
+ linux-kernel@vger.kernel.org, Tony Lindgren <tony@atomide.com>, 
+ Lee Jones <lee@kernel.org>, Andreas Kemnade <andreas@kemnade.info>, 
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>, linux-omap@vger.kernel.org, 
+ mfd@lists.linux.dev, linux-sound@vger.kernel.org, 
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Niranjan H Y <niranjan.hy@ti.com>, 
+ Grazvydas Ignotas <notasas@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
+ Jarkko Nikula <jarkko.nikula@bitmer.com>, Jingoo Han <jingoohan1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, Roger Quadros <rogerq@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, dri-devel@lists.freedesktop.org, 
+ Aaro Koskinen <aaro.koskinen@iki.fi>, Liam Girdwood <lgirdwood@gmail.com>, 
+ linux-arm-kernel@lists.infradead.org, Helge Deller <deller@gmx.de>, 
+ Grond <grond66@riseup.net>, linux-fbdev@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, devicetree@vger.kernel.org, 
+ Kevin Hilman <khilman@baylibre.com>, Sen Wang <sen@ti.com>, 
+ kernel@pyra-handheld.com, Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ letux-kernel@openphoenux.org
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <a02383ea5907a677f4c61066d423efde2b9de48b.1783749722.git.hns@goldelico.com>
+References: <cover.1783749722.git.hns@goldelico.com>
+ <a02383ea5907a677f4c61066d423efde2b9de48b.1783749722.git.hns@goldelico.com>
+Message-Id: <178375556139.2516965.6236993416627662539.robh@kernel.org>
+Subject: Re: [PATCH 07/16] ASoC: dt-bindings: add TI PCM1773
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,61 +75,42 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The benchmark allocates over 9.1 MB of static arrays in `.init.d=
-ata`, which bloats the kernel image and can cause boot failures on memory-c=
-onstrained architectures.
---
 
---- Patch [1]: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance=
- for region allocations ---
-commit 3ff59b7f49e8b1a285e39778b952abbfe86e1ed9
-Author: Yury Norov <ynorov@nvidia.com>
+On Sat, 11 Jul 2026 08:01:54 +0200, H. Nikolaus Schaller wrote:
+> PCM1771/3 is a simple audio codec that can be enabled through an
+> enable-gpio.
+> 
+> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+> ---
+>  .../devicetree/bindings/sound/pcm1773.yaml    | 32 +++++++++++++++++++
+>  1 file changed, 32 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/pcm1773.yaml
+> 
 
-lib: test bitmap vs IDA vs Maple Tree performance for region allocations
+My bot found errors running 'make dt_binding_check' on your patch:
 
-This commit adds a microbenchmark to compare the cost of allocating and
-freeing variable-sized regions using a bitmap, IDA, and a Maple Tree. It
-processes a randomly generated sequence of region sizes until the configured
-capacity is exhausted.
+yamllint warnings/errors:
 
-Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvi=
-dia.com/
+dtschema/dtc warnings/errors:
 
-> diff --git a/lib/region_alloc_benchmark.c b/lib/region_alloc_benchmark.c
-> new file mode 100644
-> index 0000000000000..46cd0dfe935f6
-> --- /dev/null
-> +++ b/lib/region_alloc_benchmark.c
-> @@ -0,0 +1,174 @@
-[ ... ]
-> +#define MAP_SIZE	(1000000UL)
-> +#define REGION_MAX_SIZE	32
-> +
-> +static DECLARE_BITMAP(alloc_bitmap, MAP_SIZE) __initdata;
-> +/* One more request guarantees that even an all-ones trace reaches ENOSP=
-C. */
-> +static u8 region_sizes[MAP_SIZE + 1] __initdata;
-> +static unsigned long region_indexes[MAP_SIZE] __initdata;
 
-[Severity: Medium]
-Is it safe to allocate over 9.1 MB of static arrays in .init.data here?
+doc reference errors (make refcheckdocs):
 
-This inflates the uncompressed kernel image size and can cause build failur=
-es
-like relocation truncation or boot failures on memory-constrained architect=
-ures,
-especially when built-in via allmodconfig.
+See https://patchwork.kernel.org/project/devicetree/patch/a02383ea5907a677f4c61066d423efde2b9de48b.1783749722.git.hns@goldelico.com
 
-Could these large benchmark buffers be dynamically allocated at runtime usi=
-ng
-kvmalloc_array() or vmalloc() instead?
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711063602.4263=
-11-1-ynorov@nvidia.com?part=3D1
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
