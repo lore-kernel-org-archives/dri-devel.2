@@ -4,81 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C95F8C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 08:41:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37311C44501
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 10:33:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03D4B10E30D;
-	Sat, 11 Jul 2026 08:41:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0742B10E32F;
+	Sat, 11 Jul 2026 10:33:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oPesYcM1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m7nA+XVS";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F157F10E318
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 08:41:36 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-4629051c9d1so928251f8f.2
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 01:41:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783759295; x=1784364095; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=V6EtDjfFX/wsIJgz4N5ldSWx9PPXT0Y4/MdltpptGMY=;
- b=oPesYcM1lVepzQkHkf2zmdJcCIxkP5cyHr6PLmOFZRG0yTxTe9y37eMLbGRBOjOUPE
- m7NeFWjIsQnEHFEEGA0xBS7VJL3hxw7LLyaF51gPWm4iSj7d7XEuYf1VY4kfzSzrAG7a
- adCBkFp99XjkaujRe53SCrwuph/zBQfYfrcqAF7klqEj8vtwqjVDyhcfMPRCz/Sm5vAg
- a0BYyv1Bc+DrZKO1gv/lWat7YKMjdMb7OAYsOLvMt8F5B1z3ENGV4sHeMsVfSR2jZ8EZ
- TrmbP8A066cZImcd8F8MD3pQeV2CgYj/Z0fg6OvRNE20HlEP8jrXspkMANjS0zZHzuOS
- wjkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783759295; x=1784364095;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=V6EtDjfFX/wsIJgz4N5ldSWx9PPXT0Y4/MdltpptGMY=;
- b=q8bwLo7dIdGlPvLMh+aZvS9H9PJSa/7EodSh3DtIsw87CqZkhyQAHSRI++O0T8G3eT
- /4RQYLagL1HIZ2QhqHyeThDOXhUvOQxcHpfAKWNmYP3rg2ylUrswdRpr3IdMw2HkphdB
- YHgt0hQ4ShbBaAio7yWiP1fHJqeOdwiAtp2bKaLVN0rUugdJidj7II+Pu0X9WK7mj4Ls
- KHiYuu5lfj2RnSUM8iBIZb+xg88FqCJoVs29GcHoZuJGPLZVaR+J3k2F/Xs2ppQfwfK5
- uRfZUKDFASObGY+3xHezMn3chUHcdwZWwiLD5gUrWSQ3HxDWRr3ZLjsGXs5ixx2XI+vk
- 24dg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro6JM2BCThHh9UPv5IlPUVIj2WPr0K1zDdv6OhEXd/hE0UU6qI1AoUkBwFGfuBW01uzSkL6PNqXgVk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwWEC9ZKZfEFnfUOgU8xnVjmC/dJF2NjuFsc+Ue9+3S26FUv0Q1
- yMmv5QMv45yXVugKsrh3kOJy4T8pubPh19Pnm8O46AxcXdTx6JEmtdEC
-X-Gm-Gg: AfdE7cmn3V5fxKV5PegIsmYOMQ7LgueYYN3qHxmMH82gJY54qFPHfhyAPoCJMVhoMdR
- Q6FuIr0iz9q7rjmv6t6IHdUn1mP8XW7LNDJq8/oATeWgSf/c1oL8TRlpwwDZq7YylzS7DjdNQQu
- Y9sLaLdTaTHEBxCUoJ9u1qhI+7dMzuG/OUQ1u8uu7mbTTLDjatsY0gmOt3mhxWCFiWPKrQICDmG
- urXbJKJT6YzDMXik81xIfb+Nkkh+58eDWR9QLENSO1AwYMP0L8EvT9Tuh6K1w/6GuEoNwMilIij
- Idba+qz1nGMKrp9aqo40DZ/YBWbkyQ9xHj4OMDGH0YBHLHhIK+Cd8BMbPE2sa+kPMLzdw5n0ieA
- W/mBrGxYdUVEtRZ8UzD6zlMwdsA8iwmNEldckquvqYU5jXEh9mrgQ+6XhnQ3LoA2Jna50ZEM4QY
- ydkVUbKMbotl09CobMfFrmXo2pcbn8ehXzsXBELtwfm7ywWsQ2EdhTeXfuawb6c5woFvA=
-X-Received: by 2002:a05:6000:250d:b0:47f:28d6:27ab with SMTP id
- ffacd0b85a97d-47f2dc8d72cmr2097181f8f.8.1783759295139; 
- Sat, 11 Jul 2026 01:41:35 -0700 (PDT)
-Received: from ?IPV6:2a06:4944:10fb:f400:509b:3e86:dfb4:f404?
- ([2a06:4944:10fb:f400:509b:3e86:dfb4:f404])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-47a9e4d6e4csm63435639f8f.10.2026.07.11.01.41.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 11 Jul 2026 01:41:34 -0700 (PDT)
-Message-ID: <180318e7-0432-403a-b87b-6f9a455bb86a@gmail.com>
-Date: Sat, 11 Jul 2026 10:41:33 +0200
-MIME-Version: 1.0
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011042.outbound.protection.outlook.com [40.107.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3E5910E25B;
+ Sat, 11 Jul 2026 10:33:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eCvqlXqiL1tsvhohgB5rAGvEPexSwxN3QPU7B9LIANnogz9du0UWmdKq+fzNKeTYpdu5FC8dQuRAue2NxnMZDahY3RZleMVdC3hM3Aogt9xrfKrW02gJ1cMpaNfMO+qEAiLrmIEOlGUq47R+Hni/wnMd0IWEAFlb2vLrjwj6f7UdktgwmX2fNjvTJOyJZY/VDzgzZ+uwNw+VuRUW6u2hzhLFdEBKb/08JyNUeZeNVavhQXUqId/DQav0rA96AxWp9e6tw2foREa89kR71aiZlLjJ3fKf6CziD1AL9Ls5fNpjXecmLrsw9CcIpqnQZUsuZienvgHDabz77vRrplx60A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ai6vy7TkoMZyuPtcxflq53yptLS9EotaB74S1nchYQI=;
+ b=E336lEAVEdFN7SAJmTQiXUgJWEmqzMgWHcEpUA2PhpPtxOvByWHvXcTqQ+9MiRA6twHtrciEzpsYIBHMWTNOEfNfCRLVygtKblxuoFL4H1FBPO2cev7ifaPgBcrrcRqxct9BEBtcvefKy+AIhaBGNs3qgr2dZ4R6f8UubpKpP0w9rq9RfNSJb5rfzsgrwNMTFb7lYwlv9JjJRXItoX6efUDqGXhL+m2SW4HK5NE86SqUZTNjDLdeshTojstlQ5rRO9ehLTlLOb9nU/2jEPnVGsP5V10t99vWWZJUgVKM73x60yVAhbfvrJexYnwIDtYtuX7K7Vj+ubkBPIbx70jdrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ai6vy7TkoMZyuPtcxflq53yptLS9EotaB74S1nchYQI=;
+ b=m7nA+XVSN2i7muyk5INtz7C5KmdVBMzyS3f92K3bt5wS6nBjLohQjVDOI/QM8IP8YLM42g0RPyPqZ4sUNckWb5uSd4WxQ1e/8Kq2WXX/m5OjQqN4nlHzv/zk4GqF1J429ksgkkbAZkGDyRU1AZ9SO9ACsS44aghI+xtUfX3VC6Q=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DSVPR12MB999307.namprd12.prod.outlook.com (2603:10b6:8:41a::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.18; Sat, 11 Jul
+ 2026 10:33:26 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Sat, 11 Jul 2026
+ 10:33:25 +0000
+Message-ID: <971f7948-b241-46cc-980f-61df43af22bd@amd.com>
+Date: Sat, 11 Jul 2026 12:33:20 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] drm/radeon: fix internal display on iMac11,1
- (RV770/DCE3.1)
-To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+Subject: Re: [PATCH v2 00/33] drm/ttm, drm/xe: Minimize dma-resv hold times
+ and defragment sub-optimally backed BOs
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-References: <CADnq5_Os2Bk8Dd9d8m_CkK9nYSporzUqbiRA=YD85nRBB6XjMw@mail.gmail.com>
- <20260601211931.2837-2-gilles.risch@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+References: <20260710215442.2444235-1-matthew.brost@intel.com>
 Content-Language: en-US
-From: Gilles Risch <gilles.risch@gmail.com>
-In-Reply-To: <20260601211931.2837-2-gilles.risch@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260710215442.2444235-1-matthew.brost@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0112.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:bb::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DSVPR12MB999307:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3002876a-04c6-4c86-74ba-08dedf37d6f0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|23010399003|366016|1800799024|22082099003|18002099003|6133799003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: XrN1TKwpLqNlLWWYZjTdu4bcaKg0eqBsiz/DrOcApqOI2GuRxdVYolSCdvqQF7qta3Bl1Jo6hm45f6vD8+OJpwn0R+OVEeppd2mg89caWJlF1UEFz+AW8eLuN7ops570K1NP9UA69UJb1MvXxDPUpg6QK+ONZmz/VjZZ5v+Dl7dzTGZnXup3eA2zZ3xljvYs3qEWONgXmTX2ghlVGazWiySlNcZ6/5yHEdm+l7YOHMuAWS2+j/VjZi2AFIYPsEswwVwhQ0DGeOyg/Nlsfjow5otrWcijgZ7gxvogM9sGfphAX91KvcAqnbGgT/xvZZuyfyBOUJvakiDCMnrWa0LuC+JftBHQ9Bh7ACLdu5anyL04YSzV4rSmVcgwaj50Mbwnk0vgs0n2CBoDLweXm5A7gtLOP/3ADol1OuatXvOqHbqTsvKfodRmaNsLlW3J27ekPRS/Wu3YiREXa2oEcUvyOTbeF+2YlLAsbBp79//6k+lpIX1sQ0hvnfkRC43HC9EapA5NUAyHJprOaEtuuvDugIZl0f8T3V5Dw1P1uzPf4bolBTF0P4wRyGceBvVy3sudD7Z6QsfgouZH0m5ClbmXH/zabuQuEVuJ3t/nHtmGV8dKF1RL5GqGYomYM5xNlTEd
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(6133799003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NG5QVXRtOVVRQ3pmWXgzUmdsRmlvUDRGRjVoUWRSaXlBaTQxMnFtek5LaTRY?=
+ =?utf-8?B?WXo3eURvVEZlWEhTeXBHKzVIVi8zQXdKY0E2clJuSnEra09UM3ppdmVTc2Rh?=
+ =?utf-8?B?U1AyajFXZ2paZWI1K1hyeU5WSVNwMCtSRWtWQkgzVURkM28xck1HZnhPSGpY?=
+ =?utf-8?B?TmFGOWh5VTFPR1FwSVAzbEZvaFNhYTFPWE1sVzA0NXlGdGl2RlE5a0RHSGxY?=
+ =?utf-8?B?K2cwNkhqUUlSL1VGNi9Ia25pS0QxZzFjM2RIbFJJSngrREI3Zk1JQWlVTHZv?=
+ =?utf-8?B?RldiNEE0VzFPbTQxM1BWNHVxbmRlcWRPckxFc0xxTDlha1ZPR2x6YzZsdUR5?=
+ =?utf-8?B?SDJVd3FKdTIzU0hEeHZjbUlMQkk5VUYydjdHeTI1YnlWc3ZBQ2NoWitmb1VH?=
+ =?utf-8?B?QU84Z3dNc051Qys5eEpBemU5ZVcxTnZuUHUyQ1RMMTFTYkM0NnlBbzhGakxB?=
+ =?utf-8?B?a1J6RlFWWlFzMENxZ2wxU1dBZDVoZHNwZ0dJR3dsQU9FbHVML0tqR1hPYVNv?=
+ =?utf-8?B?bERQaFNFYUczVDlsWWlGaTA2VTlPR2ZqRzNWYnMzczgrZmlBOU9GUkhOSUo1?=
+ =?utf-8?B?R3NnMFl0Z1Framh0eGRIdjNQbzgrTTR4ZDQxUTRXZHZoQklDbDVwL0gybDhm?=
+ =?utf-8?B?cmloaGU5U1RrN2Q5bk1uZENCWWNCanlrbzdoY1B4MjM0TTRycXVwd092SXVU?=
+ =?utf-8?B?NnE5RHUrZmUreTZXRGRsVkFkQUpEUEEyRnNGZm45Yk5DZjcwWUNnaWZ2WWlt?=
+ =?utf-8?B?TzRySmlkYUg0MnhwNWJTTnVqZ0FZZmxka3JrS25OeDZuUVRHWnc2NUpOUGtt?=
+ =?utf-8?B?Nks5TFp3emlKcXUwQkluNGo2NDhYZkx4NEVMUWROcEVCUXlFdGpTcG1Nc1lF?=
+ =?utf-8?B?dDhTdFNTTjFiazErRGcydU5hYmlXdnVGWUFocVVpZ0tLbEtpd25URHpmcGVQ?=
+ =?utf-8?B?ZnhGT3RIWlovQ05GdjFkTHhWTjJHTzBwV1RCZG1waHFIMFRZeVZZa1dmeFRN?=
+ =?utf-8?B?Ti9PRFZqdVFSYjl6MlZKckJBcGx0a3MxOXZvWWJGMmpDM2pEelZ4V1pwRWJJ?=
+ =?utf-8?B?YjhuM0s5U252TkRsSjlPSzNoWUxnc2J4cmNoZ1NuSEdrbVUrQ2cyOXhnWnZ3?=
+ =?utf-8?B?NE9DL0VHc1VyRVVhQ29td3NTckRUNDE0SGozYUp0SzJ2ekg4QjdmeG5pazJT?=
+ =?utf-8?B?ZThuVW1XUVg1ckh0MXhvK1EyeHQzbi9KQnkxTnk0eUQ0cDlLdGQ2Qm1DV2xw?=
+ =?utf-8?B?ZmNxQUFTTkhqWlVSamwwR3Q5S2g3ZHZFUWlFcTFxYWNoQVNoaWtMUDJuUDVs?=
+ =?utf-8?B?a1lvb1ZqcWZuR0hvTTVBc01mQVAyOVQ5TW9GVUpwNnlOeWZ2NE0yRW1rYTJ1?=
+ =?utf-8?B?dkpLYllzczNDK3cyUlN5dkUwcFErQ2oyV2FSMWEwOHJheTgzVHdIQWh0aWNF?=
+ =?utf-8?B?eFNVV1l4S2F0RENHcm1QTm1OaUMvMWpSeURkZW9ack5idE9yalVBSGZ3QTZk?=
+ =?utf-8?B?UndtSEVxYlMwNEVwTDRwMlIyWlV6WEpUSDRidS9VbmxPUnVITWFnZUdJRHZ6?=
+ =?utf-8?B?SHBiUWp5SHdiN1RXMkd2YWlJckFhNnQzNjZKSmM5a3VTZWY5SjJ0WWNsV2NI?=
+ =?utf-8?B?OW95cjd3SkdVdzV5eXdoVTNFM21zOUFBU1VkMUN1ZjBpa2UvU1ByZFNFaXVr?=
+ =?utf-8?B?dnNxUjJ6RVlWOThwSXVYNmhobU5PbWVqczdSd2VxMFJZRW1maVo3dEovR3Ev?=
+ =?utf-8?B?WUt1SVJtMm9seVNaN01qZk11SlY2UW1HeVpDb2hrOFI3TWtJYWVvS1ZOMXpk?=
+ =?utf-8?B?VVEzdEV0bVIvSHcweHpMVEMyQVdRc0JwYXVQN1plNzRkMG8rWDhtTUlwWlR6?=
+ =?utf-8?B?Z2ZUN2tMV2hzRHpSZ2dpZjlQdGNUVmpEbHMwQ0d0TnFwRUtqeVltRldxWWlI?=
+ =?utf-8?B?dEU4dkZkdXNsbTl3blZlMlgvT3ZRcFdXUlRPak41aitBbW5ITTk1di8zWitR?=
+ =?utf-8?B?Q3hqYjV4MXczRTZuejFVcmxnUFpIYy8xMnQ2dXRIeGVCcVpSM2NlVmdoWXFU?=
+ =?utf-8?B?OElGMWRvN1JZcWJMakF1Si80aWlJQ0l1ZGYrMFhFVXhwRU9wVWo3dmFrMFJS?=
+ =?utf-8?B?N3lpa0VUVVNNWVJDQmd3YTlsMFZXcTd3NjFUWWhyL3dEb2FFeVpxM05aUFpH?=
+ =?utf-8?B?SGtKcFp4ak82ZWloWnZRY0Z1V2hydVhVWWhxZjE1S0lRRVh2VDlWSzYrekVK?=
+ =?utf-8?B?RzFuZllyZlhBZ3FGL2czTldsa3VxQnIxTWdOalhGTkRLNFY4cWphNzE1aHdM?=
+ =?utf-8?Q?+yIS90MzGRgzKccTkA?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3002876a-04c6-4c86-74ba-08dedf37d6f0
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2026 10:33:25.7033 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: k3LxMkzU4YHR77Nl4fWnvHLH9EJoTamSYHOr5kPiB2ocPbQVDM60mjAX/LdzCM/9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999307
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,101 +143,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+On 7/10/26 23:54, Matthew Brost wrote:
+> The overarching goal of this series is to keep user-facing IOCTLs snappy
+> by holding the BO dma-resv lock for the shortest possible time, and to
+> push the expensive, best-effort work - page (re)allocation, DMA mapping
+> and placement fixups - into the background or out of the locked critical
+> section entirely.
+> 
+> Two related mechanisms fall out of that goal:
+> 
+>  - Out-of-lock backing. Page allocation and DMA mapping are the dominant
+>    cost of gem_create and of BO moves, and doing them under the dma-resv
+>    lock serializes otherwise-independent clients.
 
-gentle ping on this v5 patch — is there anything else needed to get this 
-merged?
+Saying that doesn't make sense.
+
+The DMA-resv lock is either per BO or per VM and so the clients are not even remotely independent of that lock.
+
+>    This series preallocates
+>    the backing pages (and, where applicable, builds the DMA/IOVA mapping)
+>    outside the lock, then transfers the result into the BO under a brief
+>    lock hold. The user gets a fast IOCTL return; the heavy lifting happens
+>    without contending the reservation.
+
+Ok, that sounds like a really bad idea.
+
+Why in the world would you do this? The dma_resv lock is exactly what is used to prevent something like that.
+
+> 
+>  - Page defragmentation. A BO allocated under memory pressure keeps its
+>    scattered, sub-optimally-ordered backing for its entire lifetime,
+>    costing TLB efficiency forever. TTM grows the plumbing to track
+>    order-failure and to re-back a populated BO in place at the beneficial
+>    order, and Xe wires up a background delayed worker that promotes such
+>    BOs on the GPU once memory is available again - again, off the hot
+>    path and without stalling the submitting thread.
+
+That could be quite beneficial, but so far falling back to low order allocation was only seen as last resort to avoid OOM.
 
 Regards,
-Gilles
+Christian.
 
-
-On 01.06.26 23:19, Gilles Risch wrote:
-> The Apple iMac11,1 (27-inch, Late 2009) uses a Mobility Radeon HD 4850
-> (RV770/DCE3.1) with a 2560x1440 internal panel on an internal
-> DisplayPort path. Without this fix the display stays dark under KMS.
->
-> This machine suffers from the same issue as iMac10,1 and iMac11,2:
-> Apple routes the internal display through Link B of the DIG encoder
-> instead of Link A. Add iMac11,1 to the existing DMI quirk and move
-> the Apple-specific encoder assignment into its own block, independent
-> of the DCE version check.
->
-> Additionally, the 2560x1440 panel requires RADEON_PLL_USE_FRAC_FB_DIV
-> and ATOM_ENCODER_CMD_DP_VIDEO_ON, limited to iMac11,1 via dmi_match()
-> to avoid affecting other boards.
->
-> Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
-> ---
->   drivers/gpu/drm/radeon/atombios_crtc.c     |  5 ++++-
->   drivers/gpu/drm/radeon/atombios_encoders.c | 23 ++++++++++++----------
->   2 files changed, 17 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/radeon/atombios_crtc.c
-> index 2fc0334e0..075eba2d4 100644
-> --- a/drivers/gpu/drm/radeon/atombios_crtc.c
-> +++ b/drivers/gpu/drm/radeon/atombios_crtc.c
-> @@ -24,6 +24,8 @@
->    *          Alex Deucher
->    */
->   
-> +#include <linux/dmi.h>
-> +
->   #include <drm/drm_fixed.h>
->   #include <drm/drm_fourcc.h>
->   #include <drm/drm_framebuffer.h>
-> @@ -594,7 +596,8 @@ static u32 atombios_adjust_pll(struct drm_crtc *crtc,
->   		if (((rdev->family == CHIP_RS780) || (rdev->family == CHIP_RS880))
->   		    && !radeon_crtc->ss_enabled)
->   			radeon_crtc->pll_flags |= RADEON_PLL_USE_FRAC_FB_DIV;
-> -		if (ASIC_IS_DCE32(rdev) && mode->clock > 165000)
-> +		if ((ASIC_IS_DCE32(rdev) || dmi_match(DMI_PRODUCT_NAME, "iMac11,1"))
-> +		    && mode->clock > 165000)
->   			radeon_crtc->pll_flags |= RADEON_PLL_USE_FRAC_FB_DIV;
->   	} else {
->   		radeon_crtc->pll_flags |= RADEON_PLL_LEGACY;
-> diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
-> index 5cfd8fcfa..8b3f8303a 100644
-> --- a/drivers/gpu/drm/radeon/atombios_encoders.c
-> +++ b/drivers/gpu/drm/radeon/atombios_encoders.c
-> @@ -1707,7 +1707,7 @@ radeon_atom_encoder_dpms_dig(struct drm_encoder *encoder, int mode)
->   		if (ENCODER_MODE_IS_DP(atombios_get_encoder_mode(encoder)) && connector) {
->   			/* DP_SET_POWER_D0 is set in radeon_dp_link_train */
->   			radeon_dp_link_train(encoder, connector);
-> -			if (ASIC_IS_DCE4(rdev))
-> +			if (ASIC_IS_DCE4(rdev) || dmi_match(DMI_PRODUCT_NAME, "iMac11,1"))
->   				atombios_dig_encoder_setup(encoder, ATOM_ENCODER_CMD_DP_VIDEO_ON, 0);
->   		}
->   		if (radeon_encoder->devices & (ATOM_DEVICE_LCD_SUPPORT)) {
-> @@ -2123,17 +2123,20 @@ int radeon_atom_pick_dig_encoder(struct drm_encoder *encoder, int fe_idx)
->   	}
->   
->   	/*
-> -	 * On DCE32 any encoder can drive any block so usually just use crtc id,
-> -	 * but Apple thinks different at least on iMac10,1 and iMac11,2, so there use linkb,
-> -	 * otherwise the internal eDP panel will stay dark.
-> +	 * Apple routes the internal eDP panel through Link B of the DIG encoder
-> +	 * instead of Link A on the iMac10,1, iMac11,1 and iMac11,2.
-> +	 * Use linkb to avoid a dark display.
->   	 */
-> -	if (ASIC_IS_DCE32(rdev)) {
-> -		if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
-> -		    dmi_match(DMI_PRODUCT_NAME, "iMac11,2"))
-> -			enc_idx = (dig->linkb) ? 1 : 0;
-> -		else
-> -			enc_idx = radeon_crtc->crtc_id;
-> +	if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
-> +	    dmi_match(DMI_PRODUCT_NAME, "iMac11,1") ||
-> +	    dmi_match(DMI_PRODUCT_NAME, "iMac11,2")) {
-> +		enc_idx = (dig->linkb) ? 1 : 0;
-> +		goto assigned;
-> +	}
->   
-> +	/* on DCE32 and encoder can driver any block so just crtc id */
-> +	if (ASIC_IS_DCE32(rdev)) {
-> +		enc_idx = radeon_crtc->crtc_id;
->   		goto assigned;
->   	}
->   
-
+> 
+> Since v1 [1] the series has grown considerably. The bulk of the new
+> material is a direct result of profiling: once the defragmenter was in
+> place, the remaining dma-resv hold times and the per-BO
+> allocation/mapping costs showed up clearly, which motivated the
+> out-of-lock preallocation, the IOVA-based mapping path, and the amdgpu
+> counterpart. Rather than land the defragmenter alone, v2 folds in these
+> optimizations since they share the same infrastructure and the same
+> "hold dma-resv briefly, fix up in the background" architecture.
+> 
+> The series is organized in sections rather than described patch by patch:
+> 
+>  - Patches 1-10 (drm/ttm): core TTM preparation - order-failure tracking,
+>    the defragmentation move, reclaim backoff, and out-of-lock page
+>    preallocation plumbing.
+>  - Patches 11-14: other dependent drm/gpusvm and drm/xe patches this
+>    series builds on (DMA-mapping accounting, per-order DMA stats, async
+>    L2 flush, and a VM-teardown ordering fix).
+>  - Patches 15-23 (drm/xe): the page defragmenter itself - BO tracking,
+>    the on-GPU defrag copy, xe_bo_move() handling, and the background
+>    worker with its stats and configuration.
+>  - Patches 24-25 (drm/xe): out-of-lock system BO backing preallocation
+>    in gem_create, moving page allocation out of the dma-resv lock.
+>  - Patches 26-32 (drm/xe): IOVA-based DMA mapping optimizations, building
+>    and finalizing the mapping outside the lock.
+>  - Patch 33 (drm/amdgpu): the equivalent out-of-lock system BO
+>    preallocation for amdgpu, exercising the shared TTM plumbing.
+> 
+> Testing
+> =======
+> 
+>  - 3D benchmarks on Ubuntu and on Android, with memory intentionally
+>    fragmented by a separate program at launch (plus beneficial-order
+>    error injection). BOs are initially backed at a sub-optimal order and
+>    scores start lower; the background defrag worker then promotes the
+>    backing to the beneficial order and scores climb back in line with the
+>    unfragmented baseline.
+>  - IGT:
+>    https://patchwork.freedesktop.org/patch/739052/?series=170046&rev=2
+> 
+> Matt
+> 
+> [1] https://patchwork.freedesktop.org/series/169053/
+> 
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Carlos Santa <carlos.santa@intel.com>
+> Cc: Ryan Neph <ryanneph@google.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Cc: Huang Rui <ray.huang@amd.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> 
+> 
+> 
+> Matthew Brost (31):
+>   drm/ttm/pool: Allow backing off reclaim at the beneficial order
+>   drm/ttm/pool: Add ttm_pool_page_order_nodma() helper
+>   drm/ttm: Record sub-optimal page order allocations in ttm_tt
+>   drm/ttm: Introduce ttm_pool_alloc_iter for __ttm_pool_alloc()
+>   drm/ttm: Support defragmentation moves
+>   drm/ttm: Add fault injection for beneficial-order allocation failures
+>   drm/ttm: Harvest beneficial-order pages on defragmentation moves
+>   drm/ttm: Bound page (re)allocation per defragmentation move
+>   drm/ttm: Preallocate beneficial-order defrag pages outside the lock
+>   drm/ttm: Add full out-of-lock preallocation for ttm_pool_alloc()
+>   drm/xe: Flush L2 asynchronously in xe_bo_trigger_rebind()
+>   drm/xe: Destroy page tables after unlinking all VMAs on VM close
+>   drm/xe: Track BOs backed at a sub-optimal page order
+>   drm/xe: Back off beneficial-order reclaim under defrag pressure
+>   drm/xe: Add xe_migrate_copy_defrag() for on-GPU defrag copies
+>   drm/xe: Handle defrag moves in xe_bo_move()
+>   drm/xe: Skip self-copies for borrowed pages on defrag moves
+>   drm/xe: Add a page defragmentation worker
+>   drm/xe: Add defrag GT stats
+>   drm/xe: Add Kconfig.profile options for BO defrag configuration
+>   drm/xe: Defrag using out-of-lock page preallocation
+>   drm/xe: Add defrag profiling tracepoints
+>   drm/xe: Preallocate system BO backing outside the dma-resv lock
+>   drm/xe: Add tracepoint for xe_gem_create_ioctl
+>   drm/xe: Add IOVA-based xe_res_cursor variant
+>   drm/xe: Use IOVA-based DMA mapping for eligible tt BOs
+>   drm/xe: Add per-device dependency scheduler for IOVA defrag finalize
+>   drm/xe: Add packed copy-step IOVA mapping for defrag
+>   drm/xe: Blit src-natural to dst-packed for defrag-IOVA copies
+>   drm/xe: Finalize defrag-IOVA moves with post-copy job
+>   drm/amdgpu: Preallocate system BO pages outside the reservation lock
+> 
+> Thomas Hellström (2):
+>   drm/gpusvm: Add a DMA-mapping accounting callback
+>   drm/xe: Add debugfs stats for DMA-mapped pages per order
+> 
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |    4 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |    2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |   45 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h       |    5 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |    3 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |    4 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   39 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |    3 +
+>  drivers/gpu/drm/drm_gpusvm.c                  |   17 +-
+>  drivers/gpu/drm/ttm/ttm_bo.c                  |  101 +-
+>  drivers/gpu/drm/ttm/ttm_bo_util.c             |   21 +-
+>  drivers/gpu/drm/ttm/ttm_pool.c                |  931 +++++++++-
+>  drivers/gpu/drm/ttm/ttm_tt.c                  |   67 +
+>  drivers/gpu/drm/xe/Kconfig.profile            |   40 +
+>  drivers/gpu/drm/xe/tests/xe_bo.c              |    8 +-
+>  drivers/gpu/drm/xe/tests/xe_dma_buf.c         |    2 +-
+>  drivers/gpu/drm/xe/tests/xe_migrate.c         |   12 +-
+>  drivers/gpu/drm/xe/xe_bo.c                    | 1632 ++++++++++++++++-
+>  drivers/gpu/drm/xe/xe_bo.h                    |   15 +-
+>  drivers/gpu/drm/xe/xe_bo_types.h              |    6 +
+>  drivers/gpu/drm/xe/xe_debugfs.c               |   26 +
+>  drivers/gpu/drm/xe/xe_device.c                |   35 +
+>  drivers/gpu/drm/xe/xe_device_types.h          |   57 +
+>  drivers/gpu/drm/xe/xe_dma_buf.c               |    2 +-
+>  drivers/gpu/drm/xe/xe_ggtt.c                  |    2 +-
+>  drivers/gpu/drm/xe/xe_gt_stats.c              |    5 +
+>  drivers/gpu/drm/xe/xe_gt_stats_types.h        |   17 +
+>  drivers/gpu/drm/xe/xe_migrate.c               |  531 +++++-
+>  drivers/gpu/drm/xe/xe_migrate.h               |   17 +
+>  drivers/gpu/drm/xe/xe_pt.c                    |    2 +-
+>  drivers/gpu/drm/xe/xe_res_cursor.h            |   56 +-
+>  drivers/gpu/drm/xe/xe_svm.c                   |   36 +-
+>  drivers/gpu/drm/xe/xe_svm.h                   |    3 +-
+>  drivers/gpu/drm/xe/xe_trace_bo.h              |   90 +
+>  drivers/gpu/drm/xe/xe_userptr.c               |   55 +
+>  drivers/gpu/drm/xe/xe_userptr.h               |    1 +
+>  drivers/gpu/drm/xe/xe_vm.c                    |  149 +-
+>  drivers/gpu/drm/xe/xe_vm.h                    |    5 +
+>  include/drm/drm_gpusvm.h                      |   19 +
+>  include/drm/ttm/ttm_bo.h                      |   64 +
+>  include/drm/ttm/ttm_pool.h                    |   46 +
+>  include/drm/ttm/ttm_tt.h                      |   43 +-
+>  42 files changed, 4029 insertions(+), 189 deletions(-)
+> 
 
