@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71771C44507
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 02:56:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97DA7C44508
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 02:56:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30FDD10F9BC;
-	Sat, 11 Jul 2026 02:56:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7706510F9C5;
+	Sat, 11 Jul 2026 02:56:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Bl3970H/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="M+YiTJOK";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E49610F973;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E54BB10F973;
  Sat, 11 Jul 2026 02:56:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1783738595; x=1815274595;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Q8HOoPevGIk9MZakQbQGysTvJT9qdXtzDwsreqW46KM=;
- b=Bl3970H/uOogxUAwtkSbbjd4KtuXgRA7KliZh9WEa50DG4S0RkGd8AmM
- FBdPV+YYnyUayy1YjN7JIpqJsq0xPRUvfqRhRaHuhmLtJ/PtZxcTOjhJ8
- nz7NMgQQ+iMhPn+IqCbhxE6FnQUSjA/OHQ4NBPbPFkP7uPMRVmAxP5Ahf
- j74phGobIcSufDo1X/CPTtvXwc+gYR8llKRmZYEVH+NNbu2c6nzUeiNcz
- cyOPYkXwMje0Ecj655oQuoRjAxKN45+I/IFxUpNj73z8FZ3Rl4VgqZN+B
- GpMDv/whmu6G+VCx/E1U8RzHdA530linyZa7507Lnx1tpUYtplQc7gTDw w==;
-X-CSE-ConnectionGUID: 75hQc6t5Re2wPrPmcBTfQg==
-X-CSE-MsgGUID: iK8DOu11T+6JfIj2gqqGKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="101986398"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="101986398"
+ bh=RVnvTEPiT/bY86Rmxc3sAybyTt7DvaOGn1yf4x6plso=;
+ b=M+YiTJOKYVT79EiBQ26HJnIbTALl9TYB/n6nSLRu13zMtRK6U9vlD/iZ
+ fC5s3c2evDZkCnUTjNmT4AbAPAcW1o1Vlc+v+G6mbhcx/ZRo1u+30nWku
+ 5EPsJHUKrnqvkjisNalBQHKkCe2ezxl3WnvFRDQDwkdKTA8BIvOW0R/bM
+ 9smGuyHQmx2DCRoYz1dV0ueAYl2DjU10vs7yvbzFhJW2bsB+3a74X77dV
+ 1ja3bkAyWFrlkteSdNK2NhtZFLVeg/t5x9XLXehnbiKQrNfB4w18r/48Y
+ P+i9K7bzNzTbTVyf+AeGFgcHf6FxDDJLGRYM3/gUzDnlYW46WTAx8b7kU w==;
+X-CSE-ConnectionGUID: drmo7i+2T9icXhf26C8UbA==
+X-CSE-MsgGUID: Vp2qzlozTPyueR1IMV2ARQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="101986407"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="101986407"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 19:56:34 -0700
-X-CSE-ConnectionGUID: HF3lPNmlRvGjSsvr11bGsQ==
-X-CSE-MsgGUID: y9vKfz0aSI6AHKvSc4DGMw==
+ 10 Jul 2026 19:56:35 -0700
+X-CSE-ConnectionGUID: OesT3nFLSsyfAVbuHyMlFQ==
+X-CSE-MsgGUID: +7vc+MaOQM2sNljJClfTFQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="256987800"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="256987803"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 19:56:33 -0700
+ 10 Jul 2026 19:56:34 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -52,10 +52,9 @@ Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v3 31/33] drm/xe: Blit src-natural to dst-packed for
- defrag-IOVA copies
-Date: Fri, 10 Jul 2026 19:56:17 -0700
-Message-Id: <20260711025619.2540575-32-matthew.brost@intel.com>
+Subject: [PATCH v3 32/33] drm/xe: Finalize defrag-IOVA moves with post-copy job
+Date: Fri, 10 Jul 2026 19:56:18 -0700
+Message-Id: <20260711025619.2540575-33-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260711025619.2540575-1-matthew.brost@intel.com>
 References: <20260711025619.2540575-1-matthew.brost@intel.com>
@@ -77,36 +76,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A defrag move with IOVA enabled only DMA-maps the changed (non-borrowed)
-pages of the new tt, packed contiguously into the front of its IOVA
-reservation (xe_tt_map_iova_copy()). The GPU copy therefore has an
-asymmetric geometry: the source is read from the old tt at its natural
-page offsets (via the old tt's full IOVA), while the destination only
-exposes the changed pages, packed.
+Wire up end-to-end defrag for IOVA-mapped BOs. A defrag move
+is eligible whenever the destination TT is IOVA mapped. The
+packed-copy step moves only changed pages; the IOVA reservation
+is transferred to the new backing so device-visible addresses
+are preserved, avoiding GPU rebind overhead.
 
-Teach __xe_migrate_copy() about this packed-destination mode:
+Add xe_bo_defrag_use_iova() to select the IOVA defrag path.
+Add xe_bo_defrag_iova_copy() to drive the move: diff new vs
+stashed old TT, link changed pages packed, blit them, then
+queue a post-copy finalize job.
 
-- Add a @dst_packed_pages argument. When non-zero the destination tt
-  cursor walks just that many packed pages and the source (not the
-  destination) drives the chunk size, so the smaller packed prefix never
-  clamps the source walk.
+The finalize job tears down the temporary packed mapping,
+transfers the full old TT reservation to the new one, and
+relinks the copied pages at natural offsets.
 
-- Size the destination PTE update for each chunk from the changed-page
-  count (xe_migrate_count_changed_pages()) rather than the full chunk,
-  and skip the destination PTEs entirely for an all-borrowed chunk.
+Borrowed pages skip the copy and simply adopt the old
+reservation.
 
-- Extend emit_copy_chunks() with a @pack_dst flag so each emitted run is
-  blitted from its natural source offset into a running packed
-  destination offset that only advances for changed runs. The
-  all-borrowed skip leaves the packed destination cursor untouched.
-
-Expose this via xe_migrate_copy_defrag_iova(). It is only valid when the
-BO needs no CCS pass, since the separate CCS pass migrates aux state for
-all pages and would require the full destination mapping. The existing
-xe_migrate_copy_defrag() (full destination mapping) remains the path for
-CCS BOs and the non-IOVA fallback.
-
-No users yet; xe_bo_move() is wired to this path in a later patch.
+Since reservation transfer preserves device-visible addresses,
+xe_bo_trigger_rebind() skips drm_gpuvm_bo_evict() marking;
+GPU PTEs stay valid.
 
 Cc: Carlos Santa <carlos.santa@intel.com>
 Cc: Ryan Neph <ryanneph@google.com>
@@ -123,506 +113,483 @@ Cc: linux-kernel@vger.kernel.org
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Assisted-by: GitHub_Copilot:claude-opus-4.8
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/xe/xe_migrate.c | 307 ++++++++++++++++++++++++++++++--
- drivers/gpu/drm/xe/xe_migrate.h |   8 +
- 2 files changed, 296 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_migrate.c b/drivers/gpu/drm/xe/xe_migrate.c
-index 666c715a9067..e1dc2fb5c5cb 100644
---- a/drivers/gpu/drm/xe/xe_migrate.c
-+++ b/drivers/gpu/drm/xe/xe_migrate.c
-@@ -811,6 +811,64 @@ static void emit_copy(struct xe_gt *gt, struct xe_bb *bb,
- 		emit_xy_fast_copy(gt, bb, src_ofs, dst_ofs, size, pitch);
+---
+
+v3:
+ - Check dma_iova_sync(), wait the copy fence before unlink on error,
+   and gate the fast path on old_tt->use_iova (Sashiko)
+---
+ drivers/gpu/drm/xe/xe_bo.c | 325 +++++++++++++++++++++++++++++++++++--
+ 1 file changed, 311 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index c087f17ad6db..36290f58ccc1 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -13,6 +13,7 @@
+ #include <drm/drm_dumb_buffers.h>
+ #include <drm/drm_gem_ttm_helper.h>
+ #include <drm/drm_managed.h>
++#include <drm/gpu_scheduler.h>
+ #include <drm/ttm/ttm_backup.h>
+ #include <drm/ttm/ttm_device.h>
+ #include <drm/ttm/ttm_placement.h>
+@@ -25,6 +26,7 @@
+ #include <trace/events/gpu_mem.h>
+ 
+ #include "xe_device.h"
++#include "xe_dep_job_types.h"
+ #include "xe_dep_scheduler.h"
+ #include "xe_dma_buf.h"
+ #include "xe_drm_client.h"
+@@ -542,7 +544,6 @@ static void xe_tt_unaccount_iova(struct xe_device *xe,
+  * @xe_tt->iova_dma_pages[]. Used to (re)derive accounting that exactly matches
+  * the pages a tt is actually mapped with.
+  */
+-__maybe_unused
+ static void xe_tt_account_iova_pages(struct xe_device *xe,
+ 				     struct xe_ttm_tt *xe_tt)
+ {
+@@ -567,7 +568,6 @@ static void xe_tt_unaccount_iova(struct xe_device *xe,
+ {
  }
  
-+/*
-+ * xe_migrate_count_changed_pages() - Count non-borrowed pages in a defrag chunk.
-+ * @src_tt: Source (old) tt providing the page pointers.
-+ * @dst_tt: Destination (new) tt providing the page pointers.
-+ * @start_page: Page offset of this L0 chunk within the tt page arrays.
-+ * @npages: Number of pages in the L0 chunk.
-+ *
-+ * A defragmentation move may harvest already beneficial-order chunks from the
-+ * old tt, so the new tt references (borrows) some of the same physical pages.
-+ * Count the pages that actually differ (src page != dst page) within the chunk.
-+ *
-+ * Return: The number of non-borrowed (changed) pages.
-+ */
-+static u32 xe_migrate_count_changed_pages(struct ttm_tt *src_tt,
-+					  struct ttm_tt *dst_tt,
-+					  pgoff_t start_page, u32 npages)
-+{
-+	u32 i, nchg = 0;
-+
-+	for (i = 0; i < npages; i++)
-+		if (src_tt->pages[start_page + i] !=
-+		    dst_tt->pages[start_page + i])
-+			nchg++;
-+
-+	return nchg;
-+}
-+
-+/*
-+ * xe_migrate_leading_borrowed_pages() - Count the run of borrowed pages at the
-+ * head of the remaining copy.
-+ * @src_tt: Source (old) tt providing the page pointers.
-+ * @dst_tt: Destination (new) tt providing the page pointers.
-+ * @start_page: Page offset of the next page to copy within the tt page arrays.
-+ * @max_pages: Pages left to copy.
-+ *
-+ * A defragmentation move borrows the already beneficial-order chunks from the
-+ * old tt, so the new tt references (borrows) the same physical pages for the
-+ * unchanged majority of a large object. Those pages alias on both the source
-+ * and destination GPU mappings and need no copy. Count how many consecutive
-+ * pages starting at @start_page are borrowed so the caller can advance past the
-+ * whole run at once instead of rediscovering it one L0 chunk at a time.
-+ *
-+ * Return: The number of leading borrowed (src page == dst page) pages, capped
-+ * at @max_pages.
-+ */
-+static u32 xe_migrate_leading_borrowed_pages(struct ttm_tt *src_tt,
-+					     struct ttm_tt *dst_tt,
-+					     pgoff_t start_page, u32 max_pages)
-+{
-+	u32 n = 0;
-+
-+	while (n < max_pages &&
-+	       src_tt->pages[start_page + n] == dst_tt->pages[start_page + n])
-+		n++;
-+
-+	return n;
-+}
-+
- /*
-  * emit_copy_chunks() - Emit the data blits for one defrag L0 chunk, skipping
-  * borrowed pages.
-@@ -822,6 +880,9 @@ static void emit_copy(struct xe_gt *gt, struct xe_bb *bb,
-  * @src_tt: Source (old) tt providing the page pointers.
-  * @dst_tt: Destination (new) tt providing the page pointers.
-  * @start_page: Page offset of this L0 chunk within the tt page arrays.
-+ * @pack_dst: If true the destination only maps the changed pages packed
-+ *	      contiguously, so the destination offset advances by changed-page
-+ *	      runs instead of tracking the source page index.
-  *
-  * A defragmentation move may harvest already beneficial-order chunks from the
-  * old tt, so the new tt references (borrows) some of the same physical pages.
-@@ -830,16 +891,21 @@ static void emit_copy(struct xe_gt *gt, struct xe_bb *bb,
-  * only blit runs of pages that actually differ (src page != dst page),
-  * coalescing contiguous to-copy pages into a single blit.
-  *
-+ * When @pack_dst is set the source pages are read from their natural offsets
-+ * (@src_L0_ofs + page index) while the destination pages were packed into a
-+ * contiguous prefix, so the destination offset is a running counter that only
-+ * advances for emitted (changed) runs.
-+ *
-  * Return: The number of blits emitted (or that would be emitted when @bb is
-  * NULL).
+-__maybe_unused
+ static void xe_tt_account_iova_pages(struct xe_device *xe,
+ 				     struct xe_ttm_tt *xe_tt)
+ {
+@@ -806,7 +806,6 @@ struct xe_tt_iova_copy {
+  * differ. Coalesce contiguous changed folios into runs and, for each run,
+  * invoke @fn. Returns the total number of changed pages.
   */
- static u32 emit_copy_chunks(struct xe_gt *gt, struct xe_bb *bb,
- 			    u64 src_L0_ofs, u64 dst_L0_ofs, u32 src_L0,
- 			    struct ttm_tt *src_tt, struct ttm_tt *dst_tt,
--			    pgoff_t start_page)
-+			    pgoff_t start_page, bool pack_dst)
+-__maybe_unused
+ static pgoff_t xe_tt_iova_walk_changed(struct ttm_tt *new_tt,
+ 				       struct ttm_tt *old_tt,
+ 				       void (*fn)(pgoff_t start, pgoff_t count,
+@@ -855,7 +854,6 @@ struct xe_tt_iova_run_collect {
+ };
+ 
+ /* Geometrically grow @arr (element size @elem) to hold at least @need slots. */
+-__maybe_unused
+ static int xe_tt_iova_grow(void **arr, unsigned int *cap, unsigned int need,
+ 			   size_t elem)
  {
- 	u32 npages = src_L0 >> PAGE_SHIFT;
--	u32 i = 0, nblits = 0;
-+	u32 i = 0, pack = 0, nblits = 0;
+@@ -878,7 +876,6 @@ static int xe_tt_iova_grow(void **arr, unsigned int *cap, unsigned int need,
+ 	return 0;
+ }
  
- 	while (i < npages) {
- 		u32 run = 0;
-@@ -859,9 +925,71 @@ static u32 emit_copy_chunks(struct xe_gt *gt, struct xe_bb *bb,
- 
- 		if (bb)
- 			emit_copy(gt, bb, src_L0_ofs + (u64)i * PAGE_SIZE,
--				  dst_L0_ofs + (u64)i * PAGE_SIZE,
-+				  dst_L0_ofs +
-+				  (u64)(pack_dst ? pack : i) * PAGE_SIZE,
- 				  run * PAGE_SIZE, XE_PAGE_SIZE);
- 		nblits++;
-+		pack += run;
-+		i += run;
-+	}
-+
-+	return nblits;
-+}
-+
-+/*
-+ * emit_ccs_copy_chunks() - Emit the indirect CCS aux copies for one packed
-+ * defrag L0 chunk, skipping borrowed pages.
-+ * @gt: The GT.
-+ * @bb: The batch buffer to emit into, or NULL to only count the copies needed.
-+ * @src_L0_ofs: GPU offset of the source pages mapped (comp PAT) for this chunk.
-+ * @dst_L0_ofs: GPU offset of the destination pages mapped (comp PAT) for this
-+ *	        chunk (the packed changed-page prefix).
-+ * @src_L0: Byte size of the L0 chunk (page aligned).
-+ * @src_tt: Source (old) tt providing the page pointers.
-+ * @dst_tt: Destination (new) tt providing the page pointers.
-+ * @start_page: Page offset of this L0 chunk within the tt page arrays.
-+ *
-+ * Companion to emit_copy_chunks() for the packed defrag CCS pass. The flat-CCS
-+ * aux state is migrated indirectly through the data-page mappings, so it
-+ * follows the physical page regardless of the (packed) GPU VA layout. Borrowed
-+ * pages alias the same physical page on both sides, so their aux is already
-+ * identical and is skipped; only the changed runs are copied, from the source
-+ * at its natural offset to the destination at its packed offset.
-+ *
-+ * Return: The number of CCS copies emitted (or that would be emitted when @bb
-+ * is NULL).
-+ */
-+static u32 emit_ccs_copy_chunks(struct xe_gt *gt, struct xe_bb *bb,
-+				u64 src_L0_ofs, u64 dst_L0_ofs, u32 src_L0,
-+				struct ttm_tt *src_tt, struct ttm_tt *dst_tt,
-+				pgoff_t start_page)
-+{
-+	u32 npages = src_L0 >> PAGE_SHIFT;
-+	u32 i = 0, pack = 0, nblits = 0;
-+
-+	while (i < npages) {
-+		u32 run = 0;
-+
-+		/* Skip a run of borrowed pages (src and dst alias). */
-+		if (src_tt->pages[start_page + i] ==
-+		    dst_tt->pages[start_page + i]) {
-+			i++;
-+			continue;
-+		}
-+
-+		/* Coalesce a run of pages whose aux must be migrated. */
-+		while (i + run < npages &&
-+		       src_tt->pages[start_page + i + run] !=
-+		       dst_tt->pages[start_page + i + run])
-+			run++;
-+
-+		if (bb)
-+			emit_copy_ccs(gt, bb,
-+				      dst_L0_ofs + (u64)pack * PAGE_SIZE, true,
-+				      src_L0_ofs + (u64)i * PAGE_SIZE, true,
-+				      run * PAGE_SIZE);
-+		nblits++;
-+		pack += run;
- 		i += run;
- 	}
- 
-@@ -949,6 +1077,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 					   struct ttm_resource *src,
- 					   struct ttm_resource *dst,
- 					   struct ttm_tt *src_tt,
-+					   pgoff_t dst_packed_pages,
- 					   struct xe_migrate_copy_flags flags)
+-__maybe_unused
+ static void xe_tt_iova_store_run(pgoff_t start, pgoff_t count, void *arg)
  {
- 	struct xe_gt *gt = m->tile->primary_gt;
-@@ -981,6 +1110,23 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 	 */
- 	struct ttm_tt *dst_tt = dst_bo->ttm.ttm;
- 	bool skip_borrowed = flags.defrag_copy && src_tt && dst_tt;
-+	/*
-+	 * Defrag-IOVA copy: the destination tt only maps the changed
-+	 * (non-borrowed) pages, packed contiguously into the first
-+	 * @dst_packed_pages pages of its IOVA. The source is read from the old
-+	 * tt at natural offsets and each changed run is blitted into the packed
-+	 * destination prefix.
-+	 */
-+	bool pack_dst = dst_packed_pages != 0;
-+	/*
-+	 * Packed defrag CCS pass: migrate the flat-CCS aux state of the changed
-+	 * pages only, from the source at its natural offset to the destination
-+	 * packed prefix. Borrowed pages share the physical page (and thus its
-+	 * aux) on both sides, so they are skipped exactly like the data pass.
-+	 */
-+	bool ccs_pack = flags.defrag_ccs && pack_dst && src_tt && dst_tt;
-+	/* Per-run, borrowed-skipping defrag emission (data or packed CCS). */
-+	bool defrag_runs = skip_borrowed || ccs_pack;
- 
- 	/*
- 	 * For decompression operation, always use the compression PAT index.
-@@ -1009,7 +1155,9 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 	else
- 		xe_res_first(src, 0, size, &src_it);
- 	if (!dst_is_vram)
--		xe_res_first_tt(dst_bo->ttm.ttm, 0, size, &dst_it);
-+		xe_res_first_tt(dst_bo->ttm.ttm, 0,
-+				pack_dst ? (u64)dst_packed_pages << PAGE_SHIFT :
-+				size, &dst_it);
- 	else
- 		xe_res_first(dst, 0, size, &dst_it);
- 
-@@ -1030,29 +1178,86 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 		u32 pte_flags;
- 		pgoff_t start_page = (xe_bo_size(src_bo) - size) >> PAGE_SHIFT;
- 		u32 ndata_blits = 1;
-+		u32 nchg = 0;
-+		u64 dst_size;
- 
- 		bool usm = xe->info.has_usm;
- 		u32 avail_pts = max_mem_transfer_per_pass(xe) / LEVEL0_PAGE_TABLE_ENCODE_SIZE;
- 
-+		/*
-+		 * Defrag fast-forward: the new (destination) tt borrows the
-+		 * unchanged beneficial-order chunks from the old tt, so for a
-+		 * large object the bulk of the copy is borrowed pages that alias
-+		 * the same memory on both sides. Skip the entire leading
-+		 * borrowed run in a single cursor stride rather than discovering
-+		 * it one (8 MB) L0 chunk at a time - each such pass would
-+		 * otherwise pay xe_migrate_res_sizes() + pte_update_size() + a
-+		 * full chunk walk only to copy nothing. The non-vram tt cursors
-+		 * are normally advanced by emit_pte(); replicate that with
-+		 * xe_res_next(). In pack_dst mode the destination only maps the
-+		 * changed pages, so its cursor must not advance for borrowed
-+		 * pages.
-+		 */
-+		if (defrag_runs) {
-+			u32 brun = xe_migrate_leading_borrowed_pages(src_tt,
-+								     dst_tt,
-+								     start_page,
-+								     size >> PAGE_SHIFT);
-+
-+			if (brun) {
-+				u64 brun_bytes = (u64)brun << PAGE_SHIFT;
-+
-+				xe_res_next(&src_it, brun_bytes);
-+				if (!pack_dst)
-+					xe_res_next(&dst_it, brun_bytes);
-+				size -= brun_bytes;
-+				continue;
-+			}
-+		}
-+
- 		src_L0 = xe_migrate_res_sizes(m, &src_it);
- 		dst_L0 = xe_migrate_res_sizes(m, &dst_it);
- 
- 		drm_dbg(&xe->drm, "Pass %u, sizes: %llu & %llu\n",
- 			pass++, src_L0, dst_L0);
- 
--		src_L0 = min(src_L0, dst_L0);
-+		/*
-+		 * In pack_dst mode the destination is the (smaller) packed
-+		 * prefix, so it must not clamp the source chunk size; the
-+		 * source drives the walk and the destination is sized
-+		 * independently from the changed-page count below.
-+		 */
-+		if (!pack_dst)
-+			src_L0 = min(src_L0, dst_L0);
- 
- 		pte_flags = src_is_vram ? PTE_UPDATE_FLAG_IS_VRAM : 0;
- 		pte_flags |= use_comp_pat ? PTE_UPDATE_FLAG_IS_COMP_PTE : 0;
- 		batch_size += pte_update_size(m, pte_flags, src, &src_it, &src_L0,
- 					      &src_L0_ofs, &src_L0_pt, 0, 0,
- 					      avail_pts);
-+		/*
-+		 * The source chunk size may have been clamped above, so derive
-+		 * the packed destination size from the changed-page count of
-+		 * the final chunk.
-+		 */
-+		if (pack_dst) {
-+			nchg = xe_migrate_count_changed_pages(src_tt, dst_tt,
-+							      start_page,
-+							      src_L0 >> PAGE_SHIFT);
-+			dst_size = (u64)nchg << PAGE_SHIFT;
-+		} else {
-+			dst_size = src_L0;
-+		}
- 		if (flags.copy_only_ccs) {
- 			dst_L0_ofs = src_L0_ofs;
-+		} else if (pack_dst && !nchg) {
-+			/* All borrowed: no destination PTEs for this chunk. */
-+			dst_L0_ofs = 0;
-+			dst_L0_pt = 0;
- 		} else {
- 			pte_flags = dst_is_vram ? PTE_UPDATE_FLAG_IS_VRAM : 0;
- 			batch_size += pte_update_size(m, pte_flags, dst,
--						      &dst_it, &src_L0,
-+						      &dst_it, &dst_size,
- 						      &dst_L0_ofs, &dst_L0_pt,
- 						      0, avail_pts, avail_pts);
- 		}
-@@ -1072,26 +1277,31 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 		 * is split into one command per run of non-borrowed pages, so
- 		 * size for the number of runs actually needed.
- 		 */
--		if (skip_borrowed)
-+		if (defrag_runs)
- 			ndata_blits = emit_copy_chunks(gt, NULL, 0, 0, src_L0,
--						       src_tt, dst_tt, start_page);
-+						       src_tt, dst_tt, start_page,
-+						       pack_dst);
- 
- 		/*
- 		 * If every page in this chunk was borrowed there is nothing to
- 		 * copy: don't build a batch or issue any GPU commands, just
- 		 * advance the cursors past the chunk. The non-vram tt cursors
--		 * would otherwise be advanced by emit_pte().
-+		 * would otherwise be advanced by emit_pte(). In pack_dst mode
-+		 * the destination consumed no packed pages, so leave its cursor
-+		 * untouched.
- 		 */
--		if (skip_borrowed && !ndata_blits) {
-+		if (defrag_runs && !ndata_blits) {
- 			xe_res_next(&src_it, src_L0);
--			xe_res_next(&dst_it, src_L0);
-+			if (!pack_dst)
-+				xe_res_next(&dst_it, src_L0);
- 			size -= src_L0;
- 			continue;
- 		}
- 
- 		batch_size += ((flags.copy_only_ccs || flags.defrag_ccs) ? 0 :
- 			       ndata_blits * emit_copy_cmd_len(xe)) +
--			((needs_ccs_emit ? EMIT_COPY_CCS_DW : 0));
-+			(ccs_pack ? ndata_blits * EMIT_COPY_CCS_DW :
-+			 (needs_ccs_emit ? EMIT_COPY_CCS_DW : 0));
- 
- 		bb = xe_bb_new(gt, batch_size, usm);
- 		if (IS_ERR(bb)) {
-@@ -1111,7 +1321,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 		else if (!flags.copy_only_ccs)
- 			emit_pte(m, bb, dst_L0_pt, dst_is_vram,
- 				 copy_system_ccs || flags.defrag_ccs,
--				 &dst_it, src_L0, dst);
-+				 &dst_it, dst_size, dst);
- 
- 		if (copy_system_ccs)
- 			emit_pte(m, bb, ccs_pt, false, false, &ccs_it, ccs_size, src);
-@@ -1121,16 +1331,22 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 
- 		if (skip_borrowed)
- 			emit_copy_chunks(gt, bb, src_L0_ofs, dst_L0_ofs, src_L0,
--					 src_tt, dst_tt, start_page);
-+					 src_tt, dst_tt, start_page, pack_dst);
- 		else if (!flags.copy_only_ccs && !flags.defrag_ccs)
- 			emit_copy(gt, bb, src_L0_ofs, dst_L0_ofs, src_L0, XE_PAGE_SIZE);
- 
--		if (needs_ccs_emit)
-+		if (ccs_pack) {
-+			if (emit_ccs_copy_chunks(gt, bb, src_L0_ofs, dst_L0_ofs,
-+						 src_L0, src_tt, dst_tt,
-+						 start_page))
-+				flush_flags = MI_FLUSH_DW_CCS;
-+		} else if (needs_ccs_emit) {
- 			flush_flags = xe_migrate_ccs_copy(m, bb, src_L0_ofs,
- 							  IS_DGFX(xe) ? src_is_vram : src_is_pltt,
- 							  dst_L0_ofs,
- 							  IS_DGFX(xe) ? dst_is_vram : dst_is_pltt,
- 							  src_L0, ccs_ofs, copy_ccs);
-+		}
- 
- 		job = xe_bb_create_migration_job(m->q, bb,
- 						 xe_migrate_batch_base(m, usm),
-@@ -1218,7 +1434,7 @@ struct dma_fence *xe_migrate_copy(struct xe_migrate *m,
- 				  struct ttm_resource *dst,
- 				  bool copy_only_ccs)
+ 	struct xe_tt_iova_run_collect *c = arg;
+@@ -933,7 +930,6 @@ static void xe_tt_iova_store_run(pgoff_t start, pgoff_t count, void *arg)
+  *
+  * Return: 0 on success, -ENOMEM on allocation failure.
+  */
+-__maybe_unused
+ static int xe_tt_iova_copy_init(struct ttm_tt *new_tt, struct ttm_tt *old_tt,
+ 				struct xe_tt_iova_copy *copy)
  {
--	return __xe_migrate_copy(m, src_bo, dst_bo, src, dst, NULL,
-+	return __xe_migrate_copy(m, src_bo, dst_bo, src, dst, NULL, 0,
- 				 (struct xe_migrate_copy_flags) {
- 					 .copy_only_ccs = copy_only_ccs,
- 				 });
-@@ -1267,7 +1483,7 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
- 					 bool need_ccs)
+@@ -969,7 +965,6 @@ static int xe_tt_iova_copy_init(struct ttm_tt *new_tt, struct ttm_tt *old_tt,
+  * xe_tt_iova_copy_fini() - Release a struct xe_tt_iova_copy
+  * @copy: The copy description to release.
+  */
+-__maybe_unused
+ static void xe_tt_iova_copy_fini(struct xe_tt_iova_copy *copy)
  {
- 	struct dma_fence *fence2, *fence =
--		__xe_migrate_copy(m, bo, bo, src, dst, src_tt,
-+		__xe_migrate_copy(m, bo, bo, src, dst, src_tt, 0,
- 				  (struct xe_migrate_copy_flags) {
- 					 .defrag_copy = true,
- 					 });
-@@ -1275,7 +1491,7 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
- 	if (IS_ERR(fence) || !need_ccs)
- 		return fence;
- 
--	fence2 = __xe_migrate_copy(m, bo, bo, src, dst, src_tt,
-+	fence2 = __xe_migrate_copy(m, bo, bo, src, dst, src_tt, 0,
- 				   (struct xe_migrate_copy_flags) {
- 				   .defrag_ccs = true,
- 				   });
-@@ -1286,6 +1502,59 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
- 	return fence2;
+ 	kfree(copy->runs);
+@@ -1000,7 +995,6 @@ static void xe_tt_iova_copy_fini(struct xe_tt_iova_copy *copy)
+  * Return: 0 on success, negative error code on failure (any partial linkage is
+  * unwound).
+  */
+-__maybe_unused
+ static int xe_tt_map_iova_copy(struct xe_device *xe, struct ttm_tt *new_tt,
+ 			       const struct xe_tt_iova_copy *copy)
+ {
+@@ -1047,6 +1041,133 @@ static int xe_tt_map_iova_copy(struct xe_device *xe, struct ttm_tt *new_tt,
+ 	return ret;
  }
  
 +/**
-+ * xe_migrate_copy_defrag_iova() - Copy a defrag move into a packed IOVA dst.
-+ * @m: The migration context.
-+ * @bo: The buffer object being defragmented.
-+ * @src: The source (old) TTM resource.
-+ * @dst: The destination (new) TTM resource.
-+ * @src_tt: The stashed source (old) tt providing the page pointers, fully
-+ *	    IOVA-mapped at natural offsets.
-+ * @dst_packed_pages: Number of changed pages packed into the destination tt's
-+ *	    IOVA prefix by xe_tt_map_iova_copy().
-+ * @need_ccs: Whether the BO has flat-CCS aux state that must be migrated too.
++ * struct xe_iova_defrag_job - Post-copy finalize job for an IOVA defrag move.
 + *
-+ * Defrag copy variant for IOVA-mapped BOs where the destination only maps the
-+ * changed (non-borrowed) pages, packed contiguously into the first
-+ * @dst_packed_pages of its IOVA. The source is read from the old tt at its
-+ * natural offsets and each changed run is blitted into the packed destination
-+ * prefix. When @need_ccs is set a second pass migrates the flat-CCS aux state
-+ * of the same changed pages indirectly through their (packed) data mappings;
-+ * borrowed pages share the physical page and its aux, so only the changed runs
-+ * are touched.
-+ *
-+ * Return: Pointer to a dma_fence representing the last copy batch, or an error
-+ * pointer on failure.
++ * After the GPU defrag copy into the packed copy-step mapping completes, this
++ * dependency job runs the CPU-side IOMMU fixups at the point of no failure:
++ * tear down the temporary packed mapping, then per changed run unlink the old
++ * pages and link the new pages into the (transferred) reservation at their
++ * natural offset.
 + */
-+struct dma_fence *xe_migrate_copy_defrag_iova(struct xe_migrate *m,
-+					      struct xe_bo *bo,
-+					      struct ttm_resource *src,
-+					      struct ttm_resource *dst,
-+					      struct ttm_tt *src_tt,
-+					      pgoff_t dst_packed_pages,
-+					      bool need_ccs)
++struct xe_iova_defrag_job {
++	/** @dep: base generic dependency Xe job. */
++	struct xe_dep_job dep;
++	/** @xe: The xe device. */
++	struct xe_device *xe;
++	/** @new_tt: The destination tt being finalized (owns the reservation). */
++	struct ttm_tt *new_tt;
++	/**
++	 * @copy_iova: Snapshot of the new tt's original IOVA reservation that
++	 * held the temporary packed copy-step mapping. Destroyed by the job
++	 * (the new tt itself adopts the old tt's reservation at job creation).
++	 */
++	struct dma_iova_state copy_iova;
++	/** @copy_bytes: Byte length of the packed copy-step mapping. */
++	size_t copy_bytes;
++	/** @copy: Changed-page description; the job owns and frees @copy.runs. */
++	struct xe_tt_iova_copy copy;
++};
++
++static struct dma_fence *xe_iova_defrag_job_run(struct xe_dep_job *dep_job)
 +{
-+	struct dma_fence *fence2, *fence =
-+		__xe_migrate_copy(m, bo, bo, src, dst, src_tt, dst_packed_pages,
-+				  (struct xe_migrate_copy_flags) {
-+					 .defrag_copy = true,
-+				 });
++	struct xe_iova_defrag_job *job =
++		container_of(dep_job, typeof(*job), dep);
++	struct xe_device *xe = job->xe;
++	struct device *dev = xe->drm.dev;
++	struct xe_ttm_tt *xe_tt =
++		container_of(job->new_tt, struct xe_ttm_tt, ttm);
++	unsigned int r, l;
 +
-+	if (IS_ERR(fence) || !need_ccs)
-+		return fence;
++	/*
++	 * Tear down the temporary packed copy-step mapping and free its
++	 * reservation. The new tt has already adopted the old tt's full
++	 * reservation (transferred at job creation), so this only touches the
++	 * snapshot taken before the transfer.
++	 *
++	 * This mapping was the GPU blit's write destination, so tear it down
++	 * with attrs 0 (not DMA_ATTR_SKIP_CPU_SYNC): for non-coherent or
++	 * bounced (SWIOTLB) mappings the device->CPU copy-back / cache sync of
++	 * the freshly copied data happens during unlink, exactly as
++	 * xe_tt_unmap_iova() does. Skipping it would silently drop the
++	 * defragmented data on those configs.
++	 */
++	if (job->copy_bytes)
++		dma_iova_destroy(dev, &job->copy_iova, job->copy_bytes,
++				 DMA_BIDIRECTIONAL, 0);
++	else
++		dma_iova_free(dev, &job->copy_iova);
 +
-+	fence2 = __xe_migrate_copy(m, bo, bo, src, dst, src_tt,
-+				   dst_packed_pages,
-+				   (struct xe_migrate_copy_flags) {
-+					 .defrag_ccs = true,
-+				   });
-+	if (IS_ERR(fence2))
-+		dma_fence_wait(fence, false);
-+	dma_fence_put(fence);
++	/*
++	 * For each changed run, unlink the old pages (still linked from the
++	 * adopted reservation).
++	 */
++	for (r = 0; r < job->copy.nr_runs; r++) {
++		size_t off = (size_t)job->copy.runs[r].start << PAGE_SHIFT;
++		size_t len = (size_t)job->copy.runs[r].count << PAGE_SHIFT;
 +
-+	return fence2;
++		dma_iova_unlink(dev, &xe_tt->iova, off, len,
++				DMA_BIDIRECTIONAL, DMA_ATTR_SKIP_CPU_SYNC);
++	}
++
++	/*
++	 * Relink the freshly copied new pages from the snapshot captured at job
++	 * creation. The destination tt's page array may have been mutated (or
++	 * torn down) by TTM since then, so it is never dereferenced here.
++	 * Borrowed pages are shared with the old tt and stay correctly linked
++	 * for free, so the snapshot only covers the changed runs.
++	 */
++	for (l = 0; l < job->copy.nr_links; l++) {
++		int ret = dma_iova_link(dev, &xe_tt->iova,
++					job->copy.links[l].phys,
++					job->copy.links[l].offset,
++					job->copy.links[l].len,
++					DMA_BIDIRECTIONAL,
++					DMA_ATTR_SKIP_CPU_SYNC);
++		/*
++		 * Point of no failure: the data is already copied and the
++		 * reservation ownership has been transferred. A relink failure
++		 * leaves a hole in the mapping; there is no safe recovery, so
++		 * just warn.
++		 */
++		drm_WARN_ON(&xe->drm, ret);
++	}
++
++	/* Sync the relinked changed runs into the device's view. */
++	for (r = 0; r < job->copy.nr_runs; r++) {
++		size_t off = (size_t)job->copy.runs[r].start << PAGE_SHIFT;
++		size_t len = (size_t)job->copy.runs[r].count << PAGE_SHIFT;
++
++		/*
++		 * Point of no failure (as with the relink above): warn on a
++		 * sync error so a stale IOMMU cache does not fail silently.
++		 */
++		drm_WARN_ON(&xe->drm, dma_iova_sync(dev, &xe_tt->iova, off, len));
++	}
++
++	/*
++	 * All work is synchronous CPU-side IOMMU fixup, so there is no hardware
++	 * fence to wait on; returning NULL makes the scheduler signal the job's
++	 * finished fence immediately.
++	 */
++	return NULL;
 +}
 +
- /**
-  * xe_migrate_resolve() - Resolve and decompress a buffer object if required.
-  * @m: The migrate context
-@@ -1301,7 +1570,7 @@ struct dma_fence *xe_migrate_resolve(struct xe_migrate *m,
- 				     struct xe_bo *bo,
- 				     struct ttm_resource *res)
- {
--	return __xe_migrate_copy(m, bo, bo, res, res, NULL,
-+	return __xe_migrate_copy(m, bo, bo, res, res, NULL, 0,
- 				 (struct xe_migrate_copy_flags) {
- 					 .is_vram_resolve = true,
- 				 });
-diff --git a/drivers/gpu/drm/xe/xe_migrate.h b/drivers/gpu/drm/xe/xe_migrate.h
-index 4094ea1c19c1..da066cdf01bf 100644
---- a/drivers/gpu/drm/xe/xe_migrate.h
-+++ b/drivers/gpu/drm/xe/xe_migrate.h
-@@ -141,6 +141,14 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
- 					 struct ttm_tt *src_tt,
- 					 bool need_ccs);
- 
-+struct dma_fence *xe_migrate_copy_defrag_iova(struct xe_migrate *m,
-+					      struct xe_bo *bo,
-+					      struct ttm_resource *src,
-+					      struct ttm_resource *dst,
-+					      struct ttm_tt *src_tt,
-+					      pgoff_t dst_packed_pages,
-+					      bool need_ccs);
++static void xe_iova_defrag_job_free(struct xe_dep_job *dep_job)
++{
++	struct xe_iova_defrag_job *job =
++		container_of(dep_job, typeof(*job), dep);
 +
- struct dma_fence *xe_migrate_resolve(struct xe_migrate *m,
- 				     struct xe_bo *bo,
- 				     struct ttm_resource *res);
++	xe_tt_iova_copy_fini(&job->copy);
++	drm_sched_job_cleanup(&job->dep.drm);
++	kfree(job);
++}
++
++static const struct xe_dep_job_ops xe_iova_defrag_job_ops = {
++	.run_job = xe_iova_defrag_job_run,
++	.free_job = xe_iova_defrag_job_free,
++};
++
+ /*
+  * xe_tt_iova_transfer - Transfer a full IOVA reservation old_tt -> new_tt.
+  *
+@@ -1063,7 +1184,6 @@ static int xe_tt_map_iova_copy(struct xe_device *xe, struct ttm_tt *new_tt,
+  * folio walk of the new tt keeps xe->mem.dma_mapped_pages[] exact while the new
+  * mapping lives, rather than carrying the old tt's stale distribution.
+  */
+-__maybe_unused
+ static void xe_tt_iova_transfer(struct xe_device *xe,
+ 				struct xe_ttm_tt *new_tt,
+ 				struct xe_ttm_tt *old_tt)
+@@ -1078,6 +1198,154 @@ static void xe_tt_iova_transfer(struct xe_device *xe,
+ 	old_tt->use_iova = false;
+ }
+ 
++/*
++ * xe_bo_defrag_iova_copy - Run an IOVA defrag move with a packed copy mapping.
++ *
++ * Only the changed (non-borrowed) pages of @new_tt are DMA mapped, packed
++ * contiguously into the front of its reservation, the GPU copy blits them from
++ * the old tt at natural offsets, and a post-copy finalize job adopts the old
++ * tt's full reservation and relinks the changed runs. Returns the finalize
++ * job's finished fence (the fence the move waits on), or an ERR_PTR on failure
++ * with all partial state unwound.
++ */
++static struct dma_fence *
++xe_bo_defrag_iova_copy(struct xe_device *xe, struct xe_migrate *migrate,
++		       struct xe_bo *bo, struct ttm_resource *old_mem,
++		       struct ttm_resource *new_mem, struct ttm_tt *old_tt,
++		       bool handle_system_ccs)
++{
++	struct ttm_tt *new_tt = bo->ttm.ttm;
++	struct xe_ttm_tt *new_xe_tt = container_of(new_tt, struct xe_ttm_tt, ttm);
++	struct xe_ttm_tt *old_xe_tt = container_of(old_tt, struct xe_ttm_tt, ttm);
++	struct drm_sched_entity *entity =
++		xe_dep_scheduler_entity(xe->mem.defrag.iova_sched);
++	struct xe_iova_defrag_job *job;
++	struct dma_fence *copy_fence;
++	struct dma_fence *fence;
++	struct xe_tt_iova_copy copy;
++	bool packed = false;
++	int err;
++
++	xe_assert(xe, new_xe_tt->use_iova && !new_xe_tt->iova_linked);
++	xe_assert(xe, old_xe_tt->use_iova && old_xe_tt->iova_linked);
++
++	err = xe_tt_iova_copy_init(new_tt, old_tt, &copy);
++	if (err)
++		return ERR_PTR(err);
++
++	if (copy.nr_changed) {
++		err = xe_tt_map_iova_copy(xe, new_tt, &copy);
++		if (err)
++			goto err_copy;
++		packed = true;
++
++		copy_fence = xe_migrate_copy_defrag_iova(migrate, bo, old_mem,
++							 new_mem, old_tt,
++							 copy.nr_changed,
++							 handle_system_ccs);
++	} else {
++		copy_fence = dma_fence_get_stub();
++	}
++	if (IS_ERR(copy_fence)) {
++		err = PTR_ERR(copy_fence);
++		goto err_unmap;
++	}
++
++	job = kzalloc(sizeof(*job), GFP_KERNEL);
++	if (!job) {
++		err = -ENOMEM;
++		goto err_fence;
++	}
++
++	job->dep.ops = &xe_iova_defrag_job_ops;
++	job->xe = xe;
++	job->new_tt = new_tt;
++	job->copy_iova = new_xe_tt->iova;
++	job->copy_bytes = (size_t)copy.nr_changed << PAGE_SHIFT;
++	job->copy = copy;
++
++	err = drm_sched_job_init(&job->dep.drm, entity, 1, NULL, 0);
++	if (err)
++		goto err_job;
++
++	err = drm_sched_job_add_dependency(&job->dep.drm,
++					   dma_fence_get(copy_fence));
++	if (err)
++		goto err_job_init;
++
++	/*
++	 * Point of no failure: transfer the old tt's full reservation to the
++	 * new tt. The finalize job (already armed below) destroys the packed
++	 * copy mapping snapshot and relinks the changed runs.
++	 */
++	xe_tt_iova_transfer(xe, new_xe_tt, old_xe_tt);
++	memset(&copy, 0, sizeof(copy)); /* ownership moved to the job */
++
++	drm_sched_job_arm(&job->dep.drm);
++	fence = dma_fence_get(&job->dep.drm.s_fence->finished);
++	drm_sched_entity_push_job(&job->dep.drm);
++
++	dma_fence_put(copy_fence);
++
++	return fence;
++
++err_job_init:
++	drm_sched_job_cleanup(&job->dep.drm);
++err_job:
++	kfree(job);
++err_fence:
++	/*
++	 * The GPU copy into the packed destination mapping was already
++	 * submitted; it must finish before we tear that mapping down below,
++	 * otherwise the blit would fault or scribble on unmapped IOVA. (Reached
++	 * only with a valid, submitted copy_fence; the IS_ERR(copy_fence) case
++	 * jumps straight to err_unmap with no GPU work in flight.)
++	 */
++	if (packed)
++		dma_fence_wait(copy_fence, false);
++	dma_fence_put(copy_fence);
++err_unmap:
++	if (packed)
++		dma_iova_unlink(xe->drm.dev, &new_xe_tt->iova, 0,
++				(size_t)copy.nr_changed << PAGE_SHIFT,
++				DMA_BIDIRECTIONAL, DMA_ATTR_SKIP_CPU_SYNC);
++err_copy:
++	xe_tt_iova_copy_fini(&copy);
++	return ERR_PTR(err);
++}
++
++/*
++ * xe_bo_defrag_use_iova - Whether a defrag move should use the packed IOVA path.
++ *
++ * Eligible when the move is a defrag (stashed old tt) and the destination tt is
++ * IOVA mapped. The IOVA reservation is transferred to the new backing, so the
++ * device-visible addresses are preserved and no GPU rebind is needed (see
++ * xe_bo_trigger_rebind()); this makes the path worthwhile regardless of BO
++ * size. A flat-CCS aux pass, if needed, is migrated packed alongside the data
++ * (changed pages only), so it does not disqualify the path. Otherwise the
++ * full-mapping defrag path is used.
++ */
++static bool xe_bo_defrag_use_iova(struct ttm_buffer_object *ttm_bo)
++{
++	struct xe_ttm_tt *xe_tt, *old_xe_tt;
++
++	if (!ttm_bo->defrag_old_tt || !ttm_bo->ttm)
++		return false;
++
++	xe_tt = container_of(ttm_bo->ttm, struct xe_ttm_tt, ttm);
++	old_xe_tt = container_of(ttm_bo->defrag_old_tt, struct xe_ttm_tt, ttm);
++
++	/*
++	 * Both tts must be IOVA mapped: the packed copy reads the old tt's IOVA
++	 * and the finalize job transfers the old tt's reservation to the new
++	 * one. use_iova is a deterministic per-device decision taken at tt
++	 * creation, so for a given BO the old and new tt always agree; the
++	 * explicit old-tt check guards against ever routing a sg-fallback old
++	 * tt into xe_tt_iova_transfer() (which would copy an invalid iova).
++	 */
++	return xe_tt->use_iova && old_xe_tt->use_iova;
++}
++
+ /*
+  * Account ttm pages against the device shrinker's shrinkable and
+  * purgeable counts.
+@@ -1357,6 +1625,7 @@ static int xe_bo_trigger_rebind(struct xe_device *xe, struct xe_bo *bo,
+ 	struct drm_gem_object *obj = &bo->ttm.base;
+ 	struct drm_gpuvm_bo *vm_bo;
+ 	bool idle = false;
++	bool defrag_iova;
+ 	int ret = 0;
+ 
+ 	dma_resv_assert_held(bo->ttm.base.resv);
+@@ -1369,12 +1638,25 @@ static int xe_bo_trigger_rebind(struct xe_device *xe, struct xe_bo *bo,
+ 		dma_resv_iter_end(&cursor);
+ 	}
+ 
++	/*
++	 * A defrag move that reallocates IOVA-mapped backing preserves the
++	 * device-visible addresses: the IOVA reservation is transferred from
++	 * the old to the new tt, so the existing GPU PTEs stay valid and the
++	 * BO must not be marked evicted (the rebind paths in xe_exec_ioctl()
++	 * and preempt_rebind_work_func() would otherwise needlessly rebind).
++	 * Preempt fences still need to be triggered, and fault-mode / L2
++	 * flush-optimized configs still need a TLB invalidation below, so only
++	 * the eviction marking is skipped.
++	 */
++	defrag_iova = xe_bo_defrag_use_iova(&bo->ttm);
++
+ 	drm_gem_for_each_gpuvm_bo(vm_bo, obj) {
+ 		struct xe_vm *vm = gpuvm_to_vm(vm_bo->vm);
+ 		struct drm_gpuva *gpuva;
+ 
+ 		if (!xe_vm_in_fault_mode(vm)) {
+-			drm_gpuvm_bo_evict(vm_bo, true);
++			if (!defrag_iova)
++				drm_gpuvm_bo_evict(vm_bo, true);
+ 			/*
+ 			 * L2 cache may not be flushed, so ensure that is done in
+ 			 * xe_vm_invalidate_vma() below
+@@ -1394,6 +1676,8 @@ static int xe_bo_trigger_rebind(struct xe_device *xe, struct xe_bo *bo,
+ 			if (!ctx->no_wait_gpu &&
+ 			    !xe_vm_flush_vm_bo_tlb_async(vm, bo, vm_bo))
+ 				continue;
++			else if (defrag_iova)
++				drm_gpuvm_bo_evict(vm_bo, true);
+ 		}
+ 
+ 		if (!idle) {
+@@ -2120,6 +2404,7 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+ 	bool needs_clear;
+ 	bool handle_system_ccs = (!IS_DGFX(xe) && xe_bo_needs_ccs_pages(bo) &&
+ 				  ttm && ttm_tt_is_populated(ttm)) ? true : false;
++	bool defrag_iova = xe_bo_defrag_use_iova(ttm_bo);
+ 	int ret = 0;
+ 
+ 	/*
+@@ -2168,7 +2453,12 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+ 	needs_clear = (ttm && ttm->page_flags & TTM_TT_FLAG_ZERO_ALLOC) ||
+ 		(!ttm && ttm_bo->type == ttm_bo_type_device);
+ 
+-	if (new_mem->mem_type == XE_PL_TT) {
++	/*
++	 * For a defrag move using the packed IOVA path the destination tt is
++	 * not fully mapped here; only the changed pages are mapped (packed) for
++	 * the copy, and the finalize job establishes the full mapping.
++	 */
++	if (new_mem->mem_type == XE_PL_TT && !defrag_iova) {
+ 		ret = xe_tt_map(xe, ttm);
+ 		if (ret)
+ 			goto out;
+@@ -2278,9 +2568,16 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+ 
+ 		fence = xe_migrate_clear(migrate, bo, new_mem, flags);
+ 	} else if (ttm_bo->defrag_old_tt) {
+-		fence = xe_migrate_copy_defrag(migrate, bo, old_mem, new_mem,
+-					       ttm_bo->defrag_old_tt,
+-					       handle_system_ccs);
++		if (defrag_iova)
++			fence = xe_bo_defrag_iova_copy(xe, migrate, bo, old_mem,
++						       new_mem,
++						       ttm_bo->defrag_old_tt,
++						       handle_system_ccs);
++		else
++			fence = xe_migrate_copy_defrag(migrate, bo, old_mem,
++						       new_mem,
++						       ttm_bo->defrag_old_tt,
++						       handle_system_ccs);
+ 	} else {
+ 		fence = xe_migrate_copy(migrate, bo, bo, old_mem, new_mem,
+ 					handle_system_ccs);
 -- 
 2.34.1
 
