@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FC81C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 06:16:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7C5FC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 06:16:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7265C10E737;
-	Sat, 11 Jul 2026 06:16:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15C1910E738;
+	Sat, 11 Jul 2026 06:16:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SVJzTsvb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NbUG+UxP";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6DFF10E737
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 06:16:18 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D65910E738
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 06:16:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 399EE600C3;
- Sat, 11 Jul 2026 06:16:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BCF11F000E9;
- Sat, 11 Jul 2026 06:16:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1B1B441AB0;
+ Sat, 11 Jul 2026 06:16:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98C311F000E9;
+ Sat, 11 Jul 2026 06:16:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783750577;
- bh=TsxwHRUdAoFCs4rmn9WpxfuzGLdKHzwN6S7lKjUzQpQ=;
+ s=k20260515; t=1783750611;
+ bh=bbRcXIdZQ0Qdx6AX/x2KCedJWmaRmvN6j2/QCo9a5Ao=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SVJzTsvbBvo4MrxAmwlPTJPdo1u/4FYZIloegOQRPYIDZkw5SLdccXnb19wv81Tte
- QEWNl8VYENgXJnqzau4SIrFM3tj4lMYvrVhkgDIM2zJx9dmpAan6ddWgGd0P+TQpC6
- pHrBfPUMm/as2wqwUAMrTnqzipcfT0pTtmP+20yo4jRNPR2JuqJt3Cj6zav+CIYqJU
- DKM4cPR6dcG38g9VN+UUjatfDd+EsCw6Zj5a37VverbP4swMH0kPGYwOCfOVeqLqP9
- YDeAx1WezgonAvVmwNEGYp+t7XJ+i2ZhRgt2fAnqjya075FJTGXWMa11Sav46PAfOy
- p+I+O4XIXfjRg==
+ b=NbUG+UxPg5Lzk6+2QVBiPqA1KI1HVH7v9P7tl635XqxisY95cDFcxyRR9Ez//G5T+
+ D6dR7dOUCDV/f8aluQYDE8EhBe5PbLCdD/VHOG3vM1rvqgLymLaQLTLyPPP/HM5Fjq
+ r0yD2EHrmWgK3CPDq8OgKWsbcjG2A/tMWqMD/aTTfAWCj3V40HeKgIdwrwMpeayPmo
+ WLusjXAo92gPF4LkXtbAXW6gcZyvlok6DlYSfDGgYuX2s6jeFB+jD+91bceG0Jo3t8
+ 0nuO/gZTQ4NR1cbGopt59Vk0FXuLKN7kSz1e2eEXgtAWmaCYaixMCDRJ7j+fSNijI8
+ nzkoQ7OqLKqGg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 15/16] backlight: remove pandora_bl
+Subject: Re: [PATCH 02/16] regulator: twl: Expose the TWL4030's REGEN signal
+ as a regulator
 To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: mfd@lists.linux.dev, lee@kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <f897f695c0e1e128d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com>
+Cc: mfd@lists.linux.dev, lee@kernel.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <1746667e5c17e2d39fc0747d7e098b32b3d7b479.1783749722.git.hns@goldelico.com>
 References: <cover.1783749722.git.hns@goldelico.com>
- <f897f695c0e1e128d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com>
+ <1746667e5c17e2d39fc0747d7e098b32b3d7b479.1783749722.git.hns@goldelico.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 06:16:17 +0000
-Message-Id: <20260711061617.8BCF11F000E9@smtp.kernel.org>
+Date: Sat, 11 Jul 2026 06:16:49 +0000
+Message-Id: <20260711061650.98C311F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,105 +59,64 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Removal of the TPS61161 backlight controller PWM mode initializati=
-on sequence, potentially breaking backlight control.
-- [Low] The 'pandora-backlight' platform device is still registered in lega=
-cy pdata quirks despite the driver being removed, resulting in an unbound d=
-ead device.
-- [Low] Stale Kconfig reference to `CONFIG_BACKLIGHT_PANDORA` remains in `o=
-map2plus_defconfig`.
+- [Low] Unnecessarily strict DT property enforcement causes probe failure.
 --
 
---- Patch [15]: [PATCH 15/16] backlight: remove pandora_bl ---
-commit 6eef80f63fc65c8cd1ed05d5c2e07cc3c726434e
-Author: H. Nikolaus Schaller <hns@goldelico.com>
+--- Patch [2]: [PATCH 02/16] regulator: twl: Expose the TWL4030's REGEN sig=
+nal as a regulator ---
+commit d13717da4f5b51bb52a516562b40db8ac7694aad
+Author: Grond <grond66@riseup.net>
 
-backlight: remove pandora_bl
+regulator: twl: Expose the TWL4030's REGEN signal as a regulator
 
-Retire the platform specific pandora backlight driver since
-it can now be replaced by twl_pm and device tree.
+This commit exposes the TWL4030 REGEN signal as a regulator. This functiona=
+lity
+is needed on some boards where REGEN is used to drive external regulators.
+
+> diff --git a/drivers/regulator/twl-regulator.c b/drivers/regulator/twl-re=
+gulator.c
+> index 5bacfcebf59aa..d883ee8abec32 100644
+> --- a/drivers/regulator/twl-regulator.c
+> +++ b/drivers/regulator/twl-regulator.c
+
+[ ... ]
+
+> @@ -615,6 +647,26 @@ static int twlreg_probe(struct platform_device *pdev)
+>  	case TWL4030_REG_VINTANA2:
+>  	case TWL4030_REG_VINTDIG:
+>  		c->always_on =3D true;
+> +		break;
+> +	case TWL4030_REG_REGEN:
+
+[ ... ]
+
+> +		info->desc.fixed_uV =3D c->min_uV;
+> +
+> +		ret =3D of_property_read_u32(pdev->dev.of_node, "startup-delay-us",
+> +					   &info->desc.enable_time);
+> +		if (ret) {
+> +			dev_err(&pdev->dev, "no valid startup delay set in DT: %d\n", ret);
+> +			return ret;
+> +		}
 
 [Severity: Low]
-Does this commit leave an unbound dead device registered in the system?
+This isn't a bug, but does this code need to fail the probe if the
+startup-delay-us property is missing?
 
-The pandora-backlight platform driver is removed here, but it appears
-arch/arm/mach-omap2/pdata-quirks.c still statically defines and registers
-the device in omap3_pandora_legacy_init():
+Since enable_time already defaults to 0 in the template structure, could th=
+is
+be treated as an optional property similar to standard fixed-regulator
+behavior, rather than strictly enforcing its presence and returning an erro=
+r?
 
-    platform_device_register(&pandora_backlight);
-
-Should this platform device registration be removed as well?
-
-> diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kc=
-onfig
-> index 7aa1c4b21111f..a250b3edc152c 100644
-> --- a/drivers/video/backlight/Kconfig
-> +++ b/drivers/video/backlight/Kconfig
-> @@ -451,13 +451,6 @@ config BACKLIGHT_MP3309C
-[ ... ]
-> -config BACKLIGHT_PANDORA
-> -	tristate "Backlight driver for Pandora console"
-> -	depends on TWL4030_CORE
-> -	help
-> -	  If you have a Pandora console, say Y to enable the
-> -	  backlight driver.
-> -
-
-[Severity: Low]
-Will this removal trigger a Kconfig warning during omap2plus_defconfig
-generation?
-
-The defconfig file still explicitly enables CONFIG_BACKLIGHT_PANDORA=3Dm.
-Should arch/arm/configs/omap2plus_defconfig be updated to remove this stale
-entry?
-
-> diff --git a/drivers/video/backlight/pandora_bl.c b/drivers/video/backlig=
-ht/pandora_bl.c
-> deleted file mode 100644
-> index 8a63ded0fa90f..0000000000000
-> --- a/drivers/video/backlight/pandora_bl.c
-> +++ /dev/null
-> @@ -1,159 +0,0 @@
-[ ... ]
-> -	if (priv->old_state =3D=3D PANDORABL_WAS_OFF) {
-> -		/*
-> -		 * set PWM duty cycle to max. TPS61161 seems to use this
-> -		 * to calibrate it's PWM sensitivity when it starts.
-> -		 */
-> -		twl_i2c_write_u8(TWL_MODULE_PWM, MAX_VALUE, TWL_PWM0_OFF);
-> -
-> -		/* first enable clock, then PWM0 out */
-> -		twl_i2c_read_u8(TWL4030_MODULE_INTBR, &r, TWL_INTBR_GPBR1);
-> -		r &=3D ~PWM0_ENABLE;
-> -		r |=3D PWM0_CLK_ENABLE;
-> -		twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
-> -		r |=3D PWM0_ENABLE;
-> -		twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
-> -
-> -		/*
-> -		 * TI made it very easy to enable digital control, so easy that
-> -		 * it often triggers unintentionally and disabes PWM control,
-> -		 * so wait until 1 wire mode detection window ends.
-> -		 */
-> -		usleep_range(2000, 10000);
-> -	}
-
-[Severity: High]
-When switching to the generic pwm-backlight driver, how is the TPS61161
-initialized into PWM mode?
-
-Because the TPS61161 shares its EN pin for both 1-wire EasyScale digital
-control and PWM control, the removed pandora_bl driver included this
-hardware workaround to force a 100% PWM duty cycle and sleep for 2-10ms at
-startup.
-
-Without this initialization pulse, could the TPS61161 misinterpret the init=
-ial
-PWM signal as a 1-wire EasyScale command and disable PWM control, preventing
-the backlight from turning on properly?
+> +
+> +		break;
+>  	default:
+>  		break;
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783749722.gi=
-t.hns@goldelico.com?part=3D15
+t.hns@goldelico.com?part=3D2
