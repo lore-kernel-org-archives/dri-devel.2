@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F907C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 11:57:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D0BAC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 11:59:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C43610E34A;
-	Sat, 11 Jul 2026 11:57:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DFB710E363;
+	Sat, 11 Jul 2026 11:59:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K/YsLIeL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ebI3jUna";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA99C10E34A
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 11:57:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E8D210E363
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 11:59:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ECA06601D9;
- Sat, 11 Jul 2026 11:57:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A7D1F000E9;
- Sat, 11 Jul 2026 11:57:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EF2D2601D9;
+ Sat, 11 Jul 2026 11:59:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 776051F000E9;
+ Sat, 11 Jul 2026 11:59:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783771047;
- bh=5fghWZgD03N+xXUq7mmIzZJwZsUWTETRpLc7dkfy7BA=;
+ s=k20260515; t=1783771141;
+ bh=vW+1epFmxJNmQVmSUF1fFGWt5tCj92rd9RfzRJgbXb4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=K/YsLIeL3JoD5lxDLJBm31fmYDCD1RYjMqY1nKuf5ZFrbVgPmil/H+Fj2Y3YCChwv
- i223MXw4uSEgwLq6O2AnBs/ji4M8ayEZMc5Nm0YB9LbB2tHBPUaIQZ70yZJo+gfitA
- UnXfFpcg68x60i5UANCCzvoI0lYt5OU1263IYBFE1uhSGDIWkOFy+9r6jZvW0TJn9Q
- z1+6NgpV74yad2alj8PgFB9JLq9wnsH2/k2yfIyOjjqkZ7XLbR4Nq2TL6MQCi675oP
- 7aJGVayimE2jU5cnkF+idurJ/RrPv8wNgwKkKKJA94I1Mmqb5ypS+qRI7lWHXR5uDG
- K7lJRXd+uqJtQ==
+ b=ebI3jUnaUk+qZ3xWokfosFyf2nlob4CizKxCgeV59tjrSmokKscigFnQ87GFCEeSR
+ NyiNwhfxHWFMQmLWLLRwcMrA0WtLLgFYgCweGSnH0btPMa77+IFiUJJKeyWeOy5rgR
+ 4EhIsN1XnGaZTNjM5GqY+gs3WS42DouUVh5i7G46K3oy4whHitnKmaIYhdhtVNYTP5
+ PCESPFg6xrB3d4fREaZesMl3qUSi8U8iJXsTDRJ5DiYVtv+t98UpyToL4hOM9axUcA
+ bcosZbbMzLBTUilJ0nwA5FC85UYO3CMIwi0B9yFIR5yh81GIAeFjTNJY2b43HzZ+UH
+ Jp2IHGJTZSgfg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/bridge: ti-sn65dsi83: Support LVDS Channel B on
- SN65DSI84
+Subject: Re: [PATCH 2/2] drm/bridge: ti-sn65dsi83: Fix problem with
+ premature PLL locking
 To: "Esben Haabendal" <esben@geanix.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260711-ti-sn65dsi83-fixes-v1-1-d85eb5342b98@geanix.com>
+In-Reply-To: <20260711-ti-sn65dsi83-fixes-v1-2-d85eb5342b98@geanix.com>
 References: <20260711-ti-sn65dsi83-fixes-v1-0-d85eb5342b98@geanix.com>
- <20260711-ti-sn65dsi83-fixes-v1-1-d85eb5342b98@geanix.com>
+ <20260711-ti-sn65dsi83-fixes-v1-2-d85eb5342b98@geanix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 11:57:26 +0000
-Message-Id: <20260711115727.51A7D1F000E9@smtp.kernel.org>
+Date: Sat, 11 Jul 2026 11:59:01 +0000
+Message-Id: <20260711115901.776051F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,97 +58,98 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Leftover debug `pr_warn` statements unconditionally print warnin=
-gs on standard, valid hardware configurations during device probe.
+
+New issues:
+- [High] Missing SRCU read lock release in error path of sn65dsi83_atomic_e=
+nable().
+
+Pre-existing issues:
+- [High] Missing SRCU read lock release in error path of sn65dsi83_reset_wo=
+rk().
 --
 
---- Patch [1]: [PATCH 1/2] drm/bridge: ti-sn65dsi83: Support LVDS Channel B=
- on SN65DSI84 ---
-commit f232cbf82d686f0a82f41ef8eedda5654e9deea0
+--- Patch [2]: [PATCH 2/2] drm/bridge: ti-sn65dsi83: Fix problem with prema=
+ture PLL locking ---
+commit 0c69248e520fff24e51d45bfab961991fbdb4267
 Author: Esben Haabendal <esben@geanix.com>
 
-drm/bridge: ti-sn65dsi83: Support LVDS Channel B on SN65DSI84
+drm/bridge: ti-sn65dsi83: Fix problem with premature PLL locking
 
-This adds support for using SN65DSI84 in single-link mode with output to
-LVDS Channel B.
+This patch moves the PLL locking sequence from atomic_pre_enable to
+atomic_enable. This ensures the DSI HS clock is running before attempting to
+lock the PLL.
+
+Link: https://lore.kernel.org/all/20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.c=
+om/
 
 > diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
 ge/ti-sn65dsi83.c
-> index 42b451432bbb6..32e9eadd7452f 100644
+> index 32e9eadd7452f..e87bed3a6640b 100644
 > --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
 > +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
 
 [ ... ]
 
-> @@ -904,29 +907,40 @@ static int sn65dsi83_parse_dt(struct sn65dsi83 *ctx=
-, enum sn65dsi83_model model)
->  		return ret;
+> @@ -712,11 +697,24 @@ static void sn65dsi83_atomic_enable(struct drm_brid=
+ge *bridge,
+>  {
+>  	struct sn65dsi83 *ctx =3D bridge_to_sn65dsi83(bridge);
+>  	unsigned int pval;
+> -	int idx;
+> +	int idx, ret;
 > =20
->  	ctx->lvds_dual_link =3D false;
-> -	ctx->lvds_dual_link_even_odd_swap =3D false;
-> +	ctx->lvds_channel_swap =3D false;
->  	if (model !=3D MODEL_SN65DSI83) {
-> -		struct device_node *port2, *port3;
-> +		struct device_node *port0, *port1, *port2, *port3;
->  		int dual_link;
+>  	if (!drm_bridge_enter(bridge, &idx))
+>  		return;
 > =20
-> +		port0 =3D of_graph_get_port_by_id(dev->of_node, 0);
-> +		port1 =3D of_graph_get_port_by_id(dev->of_node, 1);
->  		port2 =3D of_graph_get_port_by_id(dev->of_node, 2);
->  		port3 =3D of_graph_get_port_by_id(dev->of_node, 3);
->  		dual_link =3D drm_of_lvds_get_dual_link_pixel_order(port2, port3);
-> -		of_node_put(port2);
-> -		of_node_put(port3);
-> =20
->  		if (dual_link =3D=3D DRM_LVDS_DUAL_LINK_ODD_EVEN_PIXELS) {
-> -			ctx->lvds_dual_link =3D true;
->  			/* Odd pixels to LVDS Channel A, even pixels to B */
-> -			ctx->lvds_dual_link_even_odd_swap =3D false;
-> -		} else if (dual_link =3D=3D DRM_LVDS_DUAL_LINK_EVEN_ODD_PIXELS) {
->  			ctx->lvds_dual_link =3D true;
-> +		} else if (dual_link =3D=3D DRM_LVDS_DUAL_LINK_EVEN_ODD_PIXELS) {
->  			/* Even pixels to LVDS Channel A, odd pixels to B */
-> -			ctx->lvds_dual_link_even_odd_swap =3D true;
-> +			ctx->lvds_dual_link =3D true;
-> +			ctx->lvds_channel_swap =3D true;
-> +		} else if (port0 && !port1 && port2 && !port3) {
-> +			/* DSI Channel A to LVDS Channel A */
-> +			pr_warn("%s: DSI Channel A to LVDS Channel A\n", __func__);
-> +		} else if (port0 && !port1 && !port2 && port3) {
-> +			/* DSI Channel A to LVDS Channel B */
-> +			pr_warn("%s: DSI Channel A to LVDS Channel B\n", __func__);
+> +	/* Enable PLL */
+> +	regmap_write(ctx->regmap, REG_RC_PLL_EN, REG_RC_PLL_EN_PLL_EN);
+> +	usleep_range(3000, 4000);
+> +	ret =3D regmap_read_poll_timeout(ctx->regmap, REG_RC_LVDS_PLL, pval,
+> +				       pval & REG_RC_LVDS_PLL_PLL_EN_STAT,
+> +				       1000, 100000);
+> +	if (ret) {
+> +		dev_err(ctx->dev, "failed to lock PLL, ret=3D%i\n", ret);
+> +		/* On failure, disable PLL again and exit. */
+> +		regmap_write(ctx->regmap, REG_RC_PLL_EN, 0x00);
+> +		return;
 
-[Severity: Medium]
-Are these pr_warn() statements leftover debugging code?
+[Severity: High]
+Does this error path leak the SRCU read lock acquired by drm_bridge_enter()?
 
-Since this patch introduces normal support for single-link modes, printing
-unconditional warnings in sn65dsi83_parse_dt() on perfectly valid hardware=
-=20
-configurations (single-link DSI to LVDS channel A or B) will pollute the=20
-dmesg log during device probe. This might cause false failures in CI system=
-s=20
-that check for kernel warnings, and confuse users into thinking there is a=
-=20
-hardware or driver issue.
+If the PLL lock fails and regmap_read_poll_timeout() returns an error, the
+function returns immediately without calling drm_bridge_exit(idx).=20
 
-> +			ctx->lvds_channel_swap =3D true;
-> +			panel_port =3D 3;
->  		}
-> +		of_node_put(port0);
-> +		of_node_put(port1);
-> +		of_node_put(port2);
-> +		of_node_put(port3);
->  	}
-> =20
-> -	panel_bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 2, 0);
-> +	panel_bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, panel_port, =
-0);
->  	if (IS_ERR(panel_bridge))
->  		return dev_err_probe(dev, PTR_ERR(panel_bridge), "Failed to get panel =
-bridge\n");
+This unreleased lock could cause subsequent calls to synchronize_srcu() to
+hang during module unload or bridge unplug.
+
+> +	}
+> +
+>  	/* Clear all errors that got asserted during initialization. */
+>  	regmap_read(ctx->regmap, REG_IRQ_STAT, &pval);
+
+[Severity: High]
+This is a pre-existing issue, but I noticed a similar pattern in another
+function in this file. Does sn65dsi83_reset_work() also leak the SRCU read
+lock on failure?
+
+drivers/gpu/drm/bridge/ti-sn65dsi83.c:sn65dsi83_reset_work() {
+    if (!drm_bridge_enter(&ctx->bridge, &idx))
+        return;
+    ...
+    ret =3D sn65dsi83_reset_pipe(ctx);
+    if (ret) {
+        dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
+        return;
+    }
+    ...
+    drm_bridge_exit(idx);
+}
+
+Like the atomic_enable path, if sn65dsi83_reset_pipe() fails, it appears to
+return early without calling drm_bridge_exit(idx).
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711-ti-sn65dsi=
-83-fixes-v1-0-d85eb5342b98@geanix.com?part=3D1
+83-fixes-v1-0-d85eb5342b98@geanix.com?part=3D2
