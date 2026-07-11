@@ -4,130 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2115C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0116C44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 321E010E816;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF07510E819;
 	Mon, 13 Jul 2026 07:11:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="gMmna9HG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cml+CY1M";
 	dkim-atps=neutral
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
- [209.85.160.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABC5F10E21D
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 20:20:05 +0000 (UTC)
-Received: by mail-qt1-f171.google.com with SMTP id
- d75a77b69052e-51c5382806fso12686911cf.2
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 13:20:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1783714804; x=1784319604; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Atx/vDG1sDwzZEMAHR3NGh72ccSeLTTbFrhohwZH8Yk=;
- b=gMmna9HGX81Srp5mNwT1debIT3UUjnMKS2fMuhY/BbODaPVdmlZHVRemJkxaRAQtSS
- S5D8I0koAzPMOFHuuZiECW9qA1DjAUkcTCdHX7+D4IFCdtuB98/xY1/gEPhaUlzKhxeY
- v7wp+0S1QnmOs21FUOM+n/f0M26MlUFHmdwi6D3/IraWfWVTDoqpLfj1lxg3IgN1S3+M
- pQxuFyp6ORD99Z5mfLTtYN5oUG3bSLVRkLcLBLteJWPb6w899DNtaKbOeylIfbWOxzy8
- 7Gq7nUuqRtp6/vodjh7RB/JTiyv67lBwsIYP66d5KpkSlX274ZNB184r02RlAUMcfM4G
- +OOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783714804; x=1784319604;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Atx/vDG1sDwzZEMAHR3NGh72ccSeLTTbFrhohwZH8Yk=;
- b=prmd7wf6TSfY/uxCoG18i6qdq7z0deR4RnCcxbEgxxJE169MPS6DeY2QvpTr8vDXuj
- q+vYi4YUjYhOaEYs8tFRZzCyLUmRf9U+CYXKEiHZ+xl0b53zazhxOfCM11fDfQfBbOch
- 6tx9SSFDMtaUD6djbv0WUyF8LDCsCtOmEgrDxsnwRAGULSCN/7Bz2+YWC58SMAKDk1+j
- nFgdUTmNyeKkI/Aal7MyQhObZluHxPSEfFnBv9uFndmfz9CQantk9Xy7Em8Uq+sfl55o
- kmjHGBkHTx+72dbcC44p6ceOAGFVYn6abV8FsjC71zSzChHNcAcluSNGjXN/jywjRRPZ
- cnSg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpPTohIbVHp09vc+Xoa6EmZ0iDi5JrWC14Wz4Qz7YKCyV4Svah05iX8WEKgeeQrg1sICtZMozWpyyc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxoBUeidcuU4kq/nTMoYLxlhA4Sq5HKE9En8lJtXz8aNON1+/vC
- nUKZXoLJmFG7Ngw/oUVJ32Q7Hou8v3wBzLEkyPFK4OCWepvgTqMVb45Nv9lk0qmQRUs=
-X-Gm-Gg: AfdE7cm4XzQGtLPDzaKb9LTcr9U/Ztdw4ADUFWajFF5VpZ0iz3ViF86982hmmgwFrnC
- agqpfEwb37kKeVr9oReywXwm3rOUUGE+KQEgcHumGP2kmKptpfVe/CwYDXfP6PMtStzp2mLHczc
- dFWkGBD1JQyGyPItmsH/619mTmbBea012nIPoLh9YTF3fxMqPtDEP8jlyxOtj1UdaG++jQz9FGT
- 5R/pj9G7cJvAY1Zafu/9t4ZVKreQT7gVDxzYoAKGxF+8LxnZRqksNJV1bDTXLqFbZzyHMZVEUDS
- snayjap8gcg1nNjKXbyIunE1n3Ja+mkbcZb9tUV/C939rDBnn31rpnd3i6rn7OLStYCQavCby+v
- oG4HDbBtnBz6hbHeHbTjqha5+dkc/zE+oEaqFxawNvRCsBWsc7mN6EmYEtpN04jO6QQMu1+a5Jw
- 5Ex2Foo5we6bB03vA9DXpj+7Wgt7jBjYpd5teY6TJ5YuGAaO75En7kcMC/UALvt9NbG6ec
-X-Received: by 2002:ac8:7c56:0:b0:51c:1291:911c with SMTP id
- d75a77b69052e-51cbf0e0649mr5096251cf.14.1783714804352; 
- Fri, 10 Jul 2026 13:20:04 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F
- (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ffd50e10f4sm49427896d6.1.2026.07.10.13.20.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 13:20:03 -0700 (PDT)
-Date: Fri, 10 Jul 2026 16:19:58 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
- Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
- linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 29/30] tools/testing/vma: default VMA flag bits to 64-bit
-Message-ID: <alFT7lx8F04rN01D@gourry-fedora-PF4VCD3F>
-References: <cover.1782735110.git.ljs@kernel.org>
- <27cd07f6dd862d92410cf9db03f7c11e5f66854d.1782735110.git.ljs@kernel.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D62BE89A1F;
+ Sat, 11 Jul 2026 18:46:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 89392411CA;
+ Sat, 11 Jul 2026 18:46:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B0801F00A3A;
+ Sat, 11 Jul 2026 18:46:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783795605;
+ bh=+oyZ6VXOyf4ckjeNtdyGIBWr/UznafJo3nCv5RCwhdU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=Cml+CY1MKh9iVCaXSwyy6lG3+svNJMWg+WudrFkeSHkVlr1sQGGiZzdcqL8HJbI+A
+ rXuXtkh5gKQ1rSQYZPuWrdWlAUMPoPlZVEDx0atFOjr2KtSAJjf3rDgIu3xThiSiQM
+ HX1/tqt8hWTLPU/KAccJSQ5EH/bfLUB7EEfE0AKJp85chpipCgPl9xVnNZagJbwTfR
+ I/eUKWUU5C/SeilvNVERd66MVxAvV2vsfeTyz76Ualz74to9fWZfJVf52ooiF2vi+v
+ 7G6CnYstSi7Q/Nn0dfxn9rxYwzz4gdrTPUd0waE92egL1j6qcgR2A2M2kyUPm8UN72
+ XTgF2KlMJvQSA==
+From: Lorenzo Stoakes <ljs@kernel.org>
+Date: Sat, 11 Jul 2026 19:45:00 +0100
+Subject: [PATCH v2 03/13] mm: convert __get_unmapped_area() to use vma_flags_t
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <27cd07f6dd862d92410cf9db03f7c11e5f66854d.1782735110.git.ljs@kernel.org>
-X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260711-b4-vma-flags-mm-v2-3-0fa2357d5431@kernel.org>
+References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Zi Yan <ziy@nvidia.com>, 
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+ Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev, 
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
+ linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9398; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=P0Efpepv9aum3/hXSHnF6jwUomGPaWFDJdFnLdhoXJo=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+i1XfIv0CD/o0frojeduF9dp+Rfm/9jrr3ds68Nz3
+ 57n/OKU6yhlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEnDoZGd5HcnpZ869dcttu
+ 2bF2Swk/5rTaDe8c/3RGds0Md33/o5Dhf5b45Mv7GttXXJ6oxSr/d85Sl/UV2UdDRPJXMmd5+xk
+ 8YwAA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-Mailman-Approved-At: Mon, 13 Jul 2026 07:11:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,44 +132,240 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:40PM +0100, Lorenzo Stoakes wrote:
-> With all of the sanitisers turned on, setting the VMA flag bits depth to
-> 128 by default results in overly long build times.
-> 
-> Reduce this to 64 - we can always manipulate these later for testing of
-> larger bitmaps as needed.
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+Update __get_unmapped_area() to be parameterised by vma_flags_t rather than
+vm_flags_t as part of the effort to move VMA flags from a system word to a
+bitmap.
 
-Seems like this causes instrumented inlining to go crazy.
+We cascade the changes up to arch_get_unmapped_area_topdown() and
+arch_get_unmapped_area(), where, for now, we use vma_flags_to_legacy() in
+order to propagate the VMA flags.
 
-static inline void bitmap_or(...) {
-	if (small_const_nbits(nbits))
-		*dst = *src1 | *src2;
-	else
-		__bitmap_or(dst, src1, src2, nbits);
-	        ^^^^ this branch is being hit ^^^^
-}
+No functional change intended.
 
-tl;dr: __bitmap_or() gets emitted and then the sanitizers have to
-instrument a ton of inlined functions instead of the compiler simply
-injecting a couple 'or' instructions.
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+---
+ fs/hugetlbfs/inode.c     |  3 ++-
+ include/linux/huge_mm.h  | 10 +++++-----
+ include/linux/mm.h       |  6 ++++--
+ include/linux/sched/mm.h |  9 +++------
+ mm/huge_memory.c         | 21 ++++++++++++---------
+ mm/mmap.c                | 27 ++++++++++++++-------------
+ 6 files changed, 40 insertions(+), 36 deletions(-)
 
-if you wanted to keep the coverage you could do something like
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 9fddd1e0b813..43066f9ddf52 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -184,7 +184,8 @@ hugetlb_get_unmapped_area(struct file *file, unsigned long addr,
+ 	if (addr)
+ 		addr0 = ALIGN(addr, huge_page_size(h));
+ 
+-	return mm_get_unmapped_area_vmflags(file, addr0, len, pgoff, flags, 0);
++	return mm_get_unmapped_area_vmaflags(file, addr0, len, pgoff, flags,
++					     EMPTY_VMA_FLAGS);
+ }
+ 
+ /*
+diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
+index cae97c307280..9e43e138c0b7 100644
+--- a/include/linux/huge_mm.h
++++ b/include/linux/huge_mm.h
+@@ -391,9 +391,9 @@ static inline bool thp_disabled_by_hw(void)
+ 
+ unsigned long thp_get_unmapped_area(struct file *filp, unsigned long addr,
+ 		unsigned long len, unsigned long pgoff, unsigned long flags);
+-unsigned long thp_get_unmapped_area_vmflags(struct file *filp, unsigned long addr,
++unsigned long thp_get_unmapped_area_vmaflags(struct file *filp, unsigned long addr,
+ 		unsigned long len, unsigned long pgoff, unsigned long flags,
+-		vm_flags_t vm_flags);
++		vma_flags_t vma_flags);
+ 
+ enum split_type {
+ 	SPLIT_TYPE_UNIFORM,
+@@ -617,9 +617,9 @@ static inline unsigned long thp_vma_allowable_orders(struct vm_area_struct *vma,
+ #define thp_get_unmapped_area	NULL
+ 
+ static inline unsigned long
+-thp_get_unmapped_area_vmflags(struct file *filp, unsigned long addr,
+-			      unsigned long len, unsigned long pgoff,
+-			      unsigned long flags, vm_flags_t vm_flags)
++thp_get_unmapped_area_vmaflags(struct file *filp, unsigned long addr,
++			       unsigned long len, unsigned long pgoff,
++			       unsigned long flags, vma_flags_t vma_flags)
+ {
+ 	return 0;
+ }
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index d20aa2f80472..5b3825fddf58 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4191,13 +4191,15 @@ unsigned long randomize_page(unsigned long start, unsigned long range);
+ 
+ unsigned long
+ __get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
+-		    unsigned long pgoff, unsigned long flags, vm_flags_t vm_flags);
++		    unsigned long pgoff, unsigned long flags,
++		    vma_flags_t vma_flags);
+ 
+ static inline unsigned long
+ get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
+ 		  unsigned long pgoff, unsigned long flags)
+ {
+-	return __get_unmapped_area(file, addr, len, pgoff, flags, 0);
++	return __get_unmapped_area(file, addr, len, pgoff, flags,
++				   EMPTY_VMA_FLAGS);
+ }
+ 
+ unsigned long do_mmap(struct file *file, unsigned long addr,
+diff --git a/include/linux/sched/mm.h b/include/linux/sched/mm.h
+index 95d0040df584..10d723bee95c 100644
+--- a/include/linux/sched/mm.h
++++ b/include/linux/sched/mm.h
+@@ -193,12 +193,9 @@ unsigned long mm_get_unmapped_area(struct file *filp, unsigned long addr,
+ 				   unsigned long len, unsigned long pgoff,
+ 				   unsigned long flags);
+ 
+-unsigned long mm_get_unmapped_area_vmflags(struct file *filp,
+-					   unsigned long addr,
+-					   unsigned long len,
+-					   unsigned long pgoff,
+-					   unsigned long flags,
+-					   vm_flags_t vm_flags);
++unsigned long mm_get_unmapped_area_vmaflags(struct file *filp,
++		unsigned long addr, unsigned long len, unsigned long pgoff,
++		unsigned long flags, vma_flags_t vma_flags);
+ 
+ unsigned long
+ generic_get_unmapped_area(struct file *filp, unsigned long addr,
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 0dc6d630570f..40d6b4078e3d 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1196,7 +1196,7 @@ static inline bool is_transparent_hugepage(const struct folio *folio)
+ static unsigned long __thp_get_unmapped_area(struct file *filp,
+ 		unsigned long addr, unsigned long len,
+ 		loff_t off, unsigned long flags, unsigned long size,
+-		vm_flags_t vm_flags)
++		vma_flags_t vma_flags)
+ {
+ 	loff_t off_end = off + len;
+ 	loff_t off_align = round_up(off, size);
+@@ -1212,8 +1212,9 @@ static unsigned long __thp_get_unmapped_area(struct file *filp,
+ 	if (len_pad < len || (off + len_pad) < off)
+ 		return 0;
+ 
+-	ret = mm_get_unmapped_area_vmflags(filp, addr, len_pad,
+-					   off >> PAGE_SHIFT, flags, vm_flags);
++	ret = mm_get_unmapped_area_vmaflags(filp, addr, len_pad,
++					    off >> PAGE_SHIFT, flags,
++					    vma_flags);
+ 
+ 	/*
+ 	 * The failure might be due to length padding. The caller will retry
+@@ -1238,25 +1239,27 @@ static unsigned long __thp_get_unmapped_area(struct file *filp,
+ 	return ret;
+ }
+ 
+-unsigned long thp_get_unmapped_area_vmflags(struct file *filp, unsigned long addr,
++unsigned long thp_get_unmapped_area_vmaflags(struct file *filp, unsigned long addr,
+ 		unsigned long len, unsigned long pgoff, unsigned long flags,
+-		vm_flags_t vm_flags)
++		vma_flags_t vma_flags)
+ {
+ 	unsigned long ret;
+ 	loff_t off = (loff_t)pgoff << PAGE_SHIFT;
+ 
+-	ret = __thp_get_unmapped_area(filp, addr, len, off, flags, PMD_SIZE, vm_flags);
++	ret = __thp_get_unmapped_area(filp, addr, len, off, flags, PMD_SIZE,
++				      vma_flags);
+ 	if (ret)
+ 		return ret;
+ 
+-	return mm_get_unmapped_area_vmflags(filp, addr, len, pgoff, flags,
+-					    vm_flags);
++	return mm_get_unmapped_area_vmaflags(filp, addr, len, pgoff, flags,
++					     vma_flags);
+ }
+ 
+ unsigned long thp_get_unmapped_area(struct file *filp, unsigned long addr,
+ 		unsigned long len, unsigned long pgoff, unsigned long flags)
+ {
+-	return thp_get_unmapped_area_vmflags(filp, addr, len, pgoff, flags, 0);
++	return thp_get_unmapped_area_vmaflags(filp, addr, len, pgoff, flags,
++					      EMPTY_VMA_FLAGS);
+ }
+ EXPORT_SYMBOL_GPL(thp_get_unmapped_area);
+ 
+diff --git a/mm/mmap.c b/mm/mmap.c
+index bcc3793e532d..4a88b2a233f7 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -411,8 +411,7 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
+ 	/* Obtain the address to map to. we verify (or select) it and ensure
+ 	 * that it represents a valid section of the address space.
+ 	 */
+-	addr = __get_unmapped_area(file, addr, len, pgoff, flags,
+-				   vma_flags_to_legacy(vma_flags));
++	addr = __get_unmapped_area(file, addr, len, pgoff, flags, vma_flags);
+ 	if (IS_ERR_VALUE(addr))
+ 		return addr;
+ 
+@@ -812,19 +811,20 @@ arch_get_unmapped_area_topdown(struct file *filp, unsigned long addr,
+ }
+ #endif
+ 
+-unsigned long mm_get_unmapped_area_vmflags(struct file *filp, unsigned long addr,
+-					   unsigned long len, unsigned long pgoff,
+-					   unsigned long flags, vm_flags_t vm_flags)
++unsigned long mm_get_unmapped_area_vmaflags(struct file *filp, unsigned long addr,
++		unsigned long len, unsigned long pgoff, unsigned long flags,
++		vma_flags_t vma_flags)
+ {
+ 	if (mm_flags_test(MMF_TOPDOWN, current->mm))
+ 		return arch_get_unmapped_area_topdown(filp, addr, len, pgoff,
+-						      flags, vm_flags);
+-	return arch_get_unmapped_area(filp, addr, len, pgoff, flags, vm_flags);
++				flags, vma_flags_to_legacy(vma_flags));
++	return arch_get_unmapped_area(filp, addr, len, pgoff, flags,
++			vma_flags_to_legacy(vma_flags));
+ }
+ 
+ unsigned long
+ __get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
+-		unsigned long pgoff, unsigned long flags, vm_flags_t vm_flags)
++		unsigned long pgoff, unsigned long flags, vma_flags_t vma_flags)
+ {
+ 	unsigned long (*get_area)(struct file *, unsigned long,
+ 				  unsigned long, unsigned long, unsigned long)
+@@ -859,11 +859,11 @@ __get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
+ 		   && !addr /* no hint */
+ 		   && IS_ALIGNED(len, PMD_SIZE)) {
+ 		/* Ensures that larger anonymous mappings are THP aligned. */
+-		addr = thp_get_unmapped_area_vmflags(file, addr, len,
+-						     pgoff, flags, vm_flags);
++		addr = thp_get_unmapped_area_vmaflags(file, addr, len,
++						      pgoff, flags, vma_flags);
+ 	} else {
+-		addr = mm_get_unmapped_area_vmflags(file, addr, len,
+-						    pgoff, flags, vm_flags);
++		addr = mm_get_unmapped_area_vmaflags(file, addr, len,
++						     pgoff, flags, vma_flags);
+ 	}
+ 	if (IS_ERR_VALUE(addr))
+ 		return addr;
+@@ -881,7 +881,8 @@ unsigned long
+ mm_get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
+ 		     unsigned long pgoff, unsigned long flags)
+ {
+-	return mm_get_unmapped_area_vmflags(file, addr, len, pgoff, flags, 0);
++	return mm_get_unmapped_area_vmaflags(file, addr, len, pgoff, flags,
++					     EMPTY_VMA_FLAGS);
+ }
+ EXPORT_SYMBOL(mm_get_unmapped_area);
+ 
 
-# These can be varied to test different sizes.
-NUM_VMA_FLAG_BITS ?= 64
-NUM_MM_FLAG_BITS  ?= 64
-CFLAGS += -DNUM_VMA_FLAG_BITS=$(NUM_VMA_FLAG_BITS) -DNUM_MM_FLAG_BITS=$(NUM_MM_FLAG_BITS)
+-- 
+2.55.0
 
-w/ 
-
-make NUM_VMA_FLAG_BITS=128
-
-would let you still test the branch but not by default.
-
-anyway:
-
-Reviewed-by: Gregory Price <gourry@gourry.net>
-
-~Gregory
