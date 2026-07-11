@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8C1BC43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 03:19:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 956D9C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 03:21:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E95610E710;
-	Sat, 11 Jul 2026 03:19:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0127A10E716;
+	Sat, 11 Jul 2026 03:21:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SaJn9AN0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QEEyClGq";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D52E10E710
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 03:19:51 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 922DD10E716
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 03:21:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0CE7C401F2;
- Sat, 11 Jul 2026 03:19:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9D831F000E9;
- Sat, 11 Jul 2026 03:19:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 16968600C3;
+ Sat, 11 Jul 2026 03:21:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96FD31F000E9;
+ Sat, 11 Jul 2026 03:21:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783739990;
- bh=P98W199MicHvfiZnwwbAMXFj5BZkNJW363xZptxQRRs=;
+ s=k20260515; t=1783740063;
+ bh=rYB4ZFzK306PwQ7JoW8K6xL/61MKI1H0sg4oASK4vUY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SaJn9AN0bDvQ5jIecUlTmFr2LvmdmA9ICmXSxf6NBKwPLdbtJMhV6wq3saTUgyomo
- 62+2ZmydH/JINANtXMssC9o6kHjVgd0nj6yI3yxrurFW8I9sXpCRcN5TadUB9Ky2aR
- xdUm7sfhvdphDSfuNrXi/NpKh60SpdRXOBDEl+cobHEbJENB0JVZKEQ5x8pa+b0SeJ
- 0a+3XdG09rFzKogvhg05V6hibgvNbdqw8kAU84eH30iGkwLB7houWABmTIh1VasHGA
- wMYw2h77T6VWeJ4PpXg0l0qjSdKbXDzHjE6IHHqdmQrt+hhwAOdRkHahUgn5tmUeSa
- uMCSGnemM09Fw==
+ b=QEEyClGqO3rdpbbfTR7Te9RepVbwNnvUxX5D5tSHJPnEF561KM5F5mwMr3+A1NNja
+ J96XI7VARMHx6iYUxnDoYWqJuVNsS0dnnZwzsWzKMo6OUag6IlcMCDz0hpWKow5si7
+ 78J5rwVOv3RvEirO6G2Xkk84rbCXOM1nsuATCvRMspgzDrogErKCQFsYqDDkEoCIV3
+ MmHdoMN7Mx4KFqv0hOmtmTdyQS0WbP+eM+YfP76v9FiuEtlptLN5KaudFyK8gwCX8n
+ DS9xj8lqSzJB8xoBYIEY3pTBMbBDzcoP3UUU4de6Ka/iTrzVjpPAF11ay38wjAg8VW
+ 0WN35hExru+qA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 25/33] drm/xe: Preallocate system BO backing outside
- the dma-resv lock
+Subject: Re: [PATCH v3 29/33] drm/xe: Add per-device dependency scheduler
+ for IOVA defrag finalize
 To: "Matthew Brost" <matthew.brost@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260711025619.2540575-26-matthew.brost@intel.com>
+In-Reply-To: <20260711025619.2540575-30-matthew.brost@intel.com>
 References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-26-matthew.brost@intel.com>
+ <20260711025619.2540575-30-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 03:19:50 +0000
-Message-Id: <20260711031950.B9D831F000E9@smtp.kernel.org>
+Date: Sat, 11 Jul 2026 03:21:03 +0000
+Message-Id: <20260711032103.96FD31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,88 +60,62 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [Critical] `xe_device_ccs_bytes()` truncates the calculated CCS size to `=
-u32`, causing massive under-allocation of the `ttm_tt` pages array for buff=
-ers >=3D 1TB.
+- [High] Early return on xe_dep_scheduler_create() failure skips registerin=
+g the devm teardown action for the defrag worker, leading to a use-after-fr=
+ee.
 --
 
---- Patch [25]: [PATCH v3 25/33] drm/xe: Preallocate system BO backing outs=
-ide the dma-resv lock ---
-commit 4ef9a2744ced48ab96c8a05eeb4fe0fa0b3bafac
+--- Patch [29]: [PATCH v3 29/33] drm/xe: Add per-device dependency schedule=
+r for IOVA defrag finalize ---
+commit 4091ca99808dbd61930846733ec6c77fcca46fe9
 Author: Matthew Brost <matthew.brost@intel.com>
 
-drm/xe: Preallocate system BO backing outside the dma-resv lock
-   =20
-This commit uses the TTM full-preallocation mechanism to allocate the entire
-tt backing up front before entering the validation guard for system-only,
-non-deferred user BOs. It sizes the preallocation by querying the CCS-pages
-decision directly from the ioctl.
+drm/xe: Add per-device dependency scheduler for IOVA defrag finalize
+
+This commit adds a per-device dependency scheduler for IOVA defrag finalize
+jobs, which tears down temporary copy mappings and links new backing memory.
+The scheduler is created in xe_bo_defrag_init() and destroyed in
+xe_bo_defrag_fini().
 
 > diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index 25e5b72f870c0..a646a72122d40 100644
+> index d54e69aefeba5..c5022c16411f6 100644
 > --- a/drivers/gpu/drm/xe/xe_bo.c
 > +++ b/drivers/gpu/drm/xe/xe_bo.c
 
 [ ... ]
 
-> @@ -4018,6 +4033,64 @@ int xe_gem_create_ioctl(struct drm_device *dev, vo=
-id *data,
->  			return -ENOENT;
->  	}
-> =20
-> +	/*
-> +	 * For system-only BOs, preallocate the whole backing outside the
-> +	 * dma-resv lock so the populate under the validation guard does not
-> +	 * stall in reclaim/compaction. The caching mirrors the system-BO path
-> +	 * in xe_ttm_tt_create(); the pool falls back to in-line allocation for
-> +	 * any shortfall, so a failed fill is harmless.
-> +	 */
-> +	if ((bo_flags & XE_BO_FLAG_SYSTEM) &&
-> +	    !(bo_flags & (XE_BO_FLAG_DEFER_BACKING | XE_BO_FLAG_VRAM_MASK |
-> +			  XE_BO_FLAG_STOLEN))) {
-> +		struct ttm_resource_manager *tt_man =3D
-> +			ttm_manager_type(&xe->ttm, XE_PL_TT);
-> +		enum ttm_caching caching =3D ttm_cached;
-> +		unsigned long num_pages =3D args->size >> PAGE_SHIFT;
+> @@ -1342,6 +1347,16 @@ void xe_bo_defrag_init_early(struct xe_device *xe)
+>   */
+>  int xe_bo_defrag_init(struct xe_device *xe)
+>  {
+> +#define XE_BO_MAX_IOVA_DEFRAG_JOBS	16	/* Picking a reasonable value */
+> +	struct xe_dep_scheduler *iova_sched;
 > +
-> +		if (!IS_DGFX(xe) &&
-> +		    args->cpu_caching =3D=3D DRM_XE_GEM_CPU_CACHING_WC)
-> +			caching =3D ttm_write_combined;
+> +	iova_sched =3D xe_dep_scheduler_create(xe, NULL, "xe_iova_defrag",
+> +					     XE_BO_MAX_IOVA_DEFRAG_JOBS);
+> +	if (IS_ERR(iova_sched))
+> +		return PTR_ERR(iova_sched);
+
+[Severity: High]
+If xe_dep_scheduler_create() fails and we return early, does this skip
+registering the teardown action xe_bo_defrag_fini?
+
+Since xe_bo_defrag_init_early() initializes the defrag delayed worker
+earlier in device creation, could the worker already be armed via
+schedule_delayed_work() if BOs hit sub-optimal page allocations during
+other initializations?
+
+If probe fails and devres unwinds, the xe_device struct is freed. Since
+the early return bypasses devm_add_action_or_reset(), the worker is never
+canceled. Could this lead to a use-after-free when the armed worker
+eventually fires and dereferences the freed xe_device?
+
+> +	xe->mem.defrag.iova_sched =3D iova_sched;
+> +#undef XE_BO_MAX_IOVA_DEFRAG_JOBS
 > +
-> +		/*
-> +		 * Cover the CCS backup pages appended to the tt (see
-> +		 * xe_ttm_tt_create()) so the whole tt is preallocated.
-> +		 */
-> +		if (__xe_bo_needs_ccs_pages(xe, ttm_bo_type_device, bo_flags,
-> +					    args->cpu_caching))
-> +			num_pages +=3D DIV_ROUND_UP(xe_device_ccs_bytes(xe,
-> +								      args->size),
-> +						  PAGE_SIZE);
-
-[Severity: Critical]
-This is a pre-existing issue, but does xe_device_ccs_bytes() truncate the
-calculated size for very large buffers?
-
-Looking at drivers/gpu/drm/xe/xe_device.c:
-
-u32 xe_device_ccs_bytes(struct xe_device *xe, u64 size)
-{
-	return xe_device_has_flat_ccs(xe) ?
-		DIV_ROUND_UP_ULL(size, NUM_BYTES_PER_CCS_BYTE(xe)) : 0;
-}
-
-Because the return type is u32, if a user requests a buffer of 1TB or large=
-r,
-the calculated CCS size truncates. For a 1TB buffer with a 256:1 compression
-ratio, size / 256 exactly equals 0x100000000, which truncates to 0.
-
-This means num_pages will not include the necessary CCS backup pages (and
-similarly extra_pages in xe_ttm_tt_create() will be 0), which can lead to a
-massive heap buffer overflow when the driver or GPU writes past the end of
-the under-sized ttm_tt pages array.
+>  	return devm_add_action_or_reset(xe->drm.dev, xe_bo_defrag_fini, xe);
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711025619.2540=
-575-1-matthew.brost@intel.com?part=3D25
+575-1-matthew.brost@intel.com?part=3D29
