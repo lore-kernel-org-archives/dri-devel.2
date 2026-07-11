@@ -4,43 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23A41C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 21:02:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A015FC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 23:07:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B0B810E0A3;
-	Sat, 11 Jul 2026 21:02:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92F1410E2B0;
+	Sat, 11 Jul 2026 23:07:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bibNFbOA";
+	dkim=pass (2048-bit key; unprotected) header.d=asu.edu header.i=@asu.edu header.b="J7aICwPN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5651310E0A3
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 21:02:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6FEA160098
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 21:02:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92F001F000E9;
- Sat, 11 Jul 2026 21:02:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783803745;
- bh=TnPsdIsKuWMK8aTWgXnkzDCAg/thdyb9K33stjKETRY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bibNFbOAhdl5JXb5qkKpNcphWyAFNF8e71gQ9lQFTDbijSBNwCVmDA96Kr8EDLyyE
- 5UYpxUm83szaMphCV6fh97cP2Rne9d8hfVKoU7ddqKvCzg3MemjWXWaKaAtOPDjihw
- bYLsMFd0pVOHc0bBShZdyOzsTHUFSM06y/4UM3A0DVpPHgToslMH9WK+TJ1S6+6bf5
- WotmwzDybXgbUtOHYj2c6wRRLEH3/Pn8yp0xWFwcJJk0o1Hls0iTl9xZKuNYoDddFa
- D7ACmnLVPykLgu93eYc3N6efi1Xumogd4t85sOrTE90O2vw19QhLCzJL9zsJh6lGYo
- iGxgwt/DhYE9w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/13] mm: introduce vma_get_page_prot() and use it
-To: "Lorenzo Stoakes" <ljs@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260711-b4-vma-flags-mm-v2-8-0fa2357d5431@kernel.org>
-References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
- <20260711-b4-vma-flags-mm-v2-8-0fa2357d5431@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 21:02:24 +0000
-Message-Id: <20260711210224.92F001F000E9@smtp.kernel.org>
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6F6710E181
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 23:07:33 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-38a0c7e841fso2391766a91.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 16:07:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=asu.edu; s=google; t=1783811253; x=1784416053; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=b01MPLPFUTPl/FZxo6tsZL3gbo3NnjDL9LbETEmQYys=;
+ b=J7aICwPN3yO2bWpZvoq+DsSdj8GXURuum0etHGOvEUNUpF2FnBhzYdw/VrQJ6kbpkM
+ 6qOJjzJ1ncR/Eyb0KagfF3ouUVBOfCCR6eI39nXVrjN43r8t6qR4Nf8fRH1KFIEkvcpg
+ aZNsvY5bjh9atHY2HAkRFaGPGM6z2+ESKzfzWxXDyQvd8EDYbXxAX+WH/H033yO1mKW2
+ L47MeUjctNLM4/W1Qa6LsX1rU0vH1xg8ct1rDqU8O554nVcVmwi9dN6MDJuxeYIhBDG+
+ Rxhripc1GmPR/v6675OY79rw75Wu64E+DrLwnMOA4sAMBsmr2nLxz5daVTxuBAtyDxHi
+ O9Tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783811253; x=1784416053;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=b01MPLPFUTPl/FZxo6tsZL3gbo3NnjDL9LbETEmQYys=;
+ b=ALEtqLb50MvbwFYmEB5FVKD2n8c45mhBzlnhfZSq1fbjcMfy7zL0Zzi+o+mMo5Xbkn
+ GUTp1BM9N5AnMGL2ppXrb68Ml2+s4s4wiCPc25peQLmC5Mxleax65Y0yogEa2jxfu4qA
+ 8CoknyjfndUbW72Fx2uTQETa89B2wGT4S/5wGxJmo57kB2/lxI/eGEypw2tiycGg70SW
+ X0XqBYIhIFhNxSwU7awqKeeHQQ8T/1q1AKFJpD8Ye0vLq02tgXmDD76PiXSMMa0Zj/Tl
+ UADzw+Wd4PxV8ez/9QIMye8EvlJz17czbDlRElM7EvdpuNV4wLrQrAVpEy+zIrOT8cVS
+ ETHA==
+X-Gm-Message-State: AOJu0YybygNKxt6R4Kzagmz2Cdsd5W1VFM+uO1NHac6QAHKR9sn2Z3sR
+ 5WY4MeJn0yfwviGAWLLdRhOCPmgmG1Bn6NmtrzY20BWO06YHkI0NMttJjoLn5ZEKcQ==
+X-Gm-Gg: AfdE7cmyJ9D4TgKKbyHe9maYUBATmPnLl9YYHkTx5hpXRYpPmAvvmnEnnzQIKAX9BI5
+ ePlF8D9jX1dJ0FY/L5UNG3cdAbwqzyRVKNVNzjLInLWFfFbm4fPWDQAf7gFzVaZr9rDyzfoRXYl
+ i24KM3KsGu+3X1WvW86OkMQ+KJggnJATCjuck8W3x80376JE13JPMMUWpcgGnA+8rIOXG/HPYVj
+ T3SoO+JdGhDnJWT8+KyxVqIZvsA0J4xIYKAKjqL5N0KI3E1o+OBOWiAquGb4Wevk/ICvsqTqyOH
+ /4baU2QPujI7NTxCLWkbdZAwr87bcQEmkhPbRAkWf1N4wLVSXbIaDTkNZK/6yQyR0uVd3bxCAWU
+ oPkqr6dDyBiJyIKSmEWL0speaZIim2Ffm4li+QR9Ja5i02MWp2JCoP7B4347ZcDiNAs0iTQiCow
+ ==
+X-Received: by 2002:a17:90b:1c88:b0:38d:b36e:9824 with SMTP id
+ 98e67ed59e1d1-38dc7736eb2mr3773848a91.20.1783811253273; 
+ Sat, 11 Jul 2026 16:07:33 -0700 (PDT)
+Received: from p1.. ([2607:fb90:ecae:8611:d369:525c:ef37:7318])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-38a583a16c2sm4447555a91.13.2026.07.11.16.07.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 11 Jul 2026 16:07:32 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Dave Airlie <airlied@linux.ie>, Zhao Yakui <yakui.zhao@intel.com>,
+ Weiming Shi <bestswngs@gmail.com>, Xiang Mei <xmei5@asu.edu>
+Subject: [PATCH] drm/modes: reject out-of-range GTF blanking duty cycle
+Date: Sat, 11 Jul 2026 16:07:28 -0700
+Message-ID: <20260711230728.2250485-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,142 +85,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+drm_gtf_mode_complex() derives the blanking duty cycle from the GTF
+C/M/K/J coefficients and divides by its complement:
 
-Pre-existing issues:
-- [High] Modifying `vma->vm_page_prot` after `vm_mmap()` without `vma_start=
-_write(vma)` causes data races with per-VMA lock readers and allows cache a=
-liasing via concurrent page faults.
-- [High] Multiple DRM drivers call `drm_gem_vm_close(vma)` on their interna=
-l `mmap` error paths, causing a double-put and Use-After-Free (UAF).
-- [High] `i915_gem_mmap_ioctl()` leaks a user-space memory mapping (VMA) if=
- operations fail after `vm_mmap()` succeeds.
-- [High] `exynos_drm_gem_mmap()` leaks a GEM object reference when delegati=
-ng mapping of an imported dma-buf.
---
+	ideal_duty_cycle = GTF_C_PRIME * 1000 -
+				(GTF_M_PRIME * 1000000 / hfreq_est);
+	hblank = total_active_pixels * ideal_duty_cycle /
+			(100000 - ideal_duty_cycle);
 
---- Patch [8]: [PATCH v2 08/13] mm: introduce vma_get_page_prot() and use i=
-t ---
-commit 02617eb8c6f24873696c9debadc114509af28be5
-Author: Lorenzo Stoakes <ljs@kernel.org>
+ideal_duty_cycle is an unsigned per-mille percentage that must stay below
+100000, but nothing enforces it. Via drm_gtf2_mode() the coefficients come
+straight from an EDID secondary-GTF range descriptor, so a crafted monitor
+(or an edid_override re-probed with DRM_IOCTL_MODE_GETCONNECTOR) can set
+ideal_duty_cycle to exactly 100000, making the divisor 0 and trapping with
+a divide error; a larger value wraps the unsigned subtraction and yields a
+garbage modeline.
 
-mm: introduce vma_get_page_prot() and use it
+Reject a duty cycle of 100% or more, which is never a valid GTF result.
+drm_gtf2_mode() and the inferred-mode helpers already handle a NULL return.
 
-This commit introduces a new helper vma_get_page_prot() to simplify
-retrieving the page protection from a VMA. It replaces numerous direct
-calls to vm_get_page_prot() across various DRM and core mm files.
+Crash:
 
-> diff --git a/drivers/gpu/drm/drm_gem_dma_helper.c b/drivers/gpu/drm/drm_g=
-em_dma_helper.c
-> index 1c00a71ab3c9d..7d9612075d310 100644
-> --- a/drivers/gpu/drm/drm_gem_dma_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_dma_helper.c
-> @@ -540,7 +540,7 @@ int drm_gem_dma_mmap(struct drm_gem_dma_object *dma_o=
-bj, struct vm_area_struct *
->  	vm_flags_mod(vma, VM_DONTDUMP | VM_DONTEXPAND, VM_PFNMAP);
-> =20
->  	if (dma_obj->map_noncoherent) {
-> -		vma->vm_page_prot =3D vm_get_page_prot(vma->vm_flags);
-> +		vma->vm_page_prot =3D vma_get_page_prot(vma);
+  Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:drm_gtf_mode_complex (drivers/gpu/drm/drm_modes.c:972)
+  Call Trace:
+   drm_gtf2_mode (drivers/gpu/drm/drm_edid.c:3365)
+   drm_mode_std (drivers/gpu/drm/drm_edid.c:3464)
+   _drm_edid_connector_add_modes.part.0 (drivers/gpu/drm/drm_edid.c:4024)
+   drm_edid_connector_add_modes (drivers/gpu/drm/drm_edid.c:7020)
+   bochs_connector_helper_get_modes (drivers/gpu/drm/tiny/bochs.c:575)
+   drm_helper_probe_single_connector_modes (drivers/gpu/drm/drm_probe_helper.c:426)
+   drm_mode_getconnector (drivers/gpu/drm/drm_connector.c:3376)
+   ...
+   __x64_sys_ioctl (fs/ioctl.c:597)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:94)
+   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+  Kernel panic - not syncing: Fatal exception
 
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed a potential refere=
-nce
-count underflow here.
+Fixes: 26bbdadad356 ("drm/mode: add the GTF algorithm in kernel space")
+Reported-by: Weiming Shi <bestswngs@gmail.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+---
+ drivers/gpu/drm/drm_modes.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-In drm_gem_dma_mmap(), if the dma_mmap_pages() or dma_mmap_wc() mapping
-fails, we call drm_gem_vm_close(vma) which drops the GEM object reference.
-However, the caller drm_gem_mmap_obj() will also hit its own error path
-and call drm_gem_object_put(obj) again on the same object. Could this
-lead to a double-put and use-after-free? I see a similar pattern in
-__tegra_gem_mmap() in the tegra driver as well.
+diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
+index 3f8e025fd6d9..b6f263e9ba86 100644
+--- a/drivers/gpu/drm/drm_modes.c
++++ b/drivers/gpu/drm/drm_modes.c
+@@ -966,6 +966,10 @@ drm_gtf_mode_complex(struct drm_device *dev, int hdisplay, int vdisplay,
+ 	/* 18.Find the ideal blanking duty cycle from blanking duty cycle */
+ 	ideal_duty_cycle = GTF_C_PRIME * 1000 -
+ 				(GTF_M_PRIME * 1000000 / hfreq_est);
++	if (ideal_duty_cycle >= 100000) {
++		drm_mode_destroy(dev, drm_mode);
++		return NULL;
++	}
+ 	/* 19.Find the number of pixels in the blanking time to the nearest
+ 	 * double character cell: */
+ 	hblank = total_active_pixels * ideal_duty_cycle /
+-- 
+2.43.0
 
-> =20
->  		ret =3D dma_mmap_pages(drm_dev_dma_dev(dma_obj->base.dev),
->  				     vma, vma->vm_end - vma->vm_start,
-
-> [ ... ]
-
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/ex=
-ynos/exynos_drm_gem.c
-> index 9a6270f3dca6b..0208c92595725 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> @@ -377,13 +377,13 @@ static int exynos_drm_gem_mmap(struct drm_gem_objec=
-t *obj, struct vm_area_struct
-> =20
->  	/* non-cachable as default. */
->  	if (exynos_gem->flags & EXYNOS_BO_CACHABLE)
-> -		vma->vm_page_prot =3D vm_get_page_prot(vma->vm_flags);
-> +		vma->vm_page_prot =3D vma_get_page_prot(vma);
-
-[Severity: High]
-This is a pre-existing issue, but does this function leak a GEM object
-reference when mapping an imported dma-buf?
-
-When exynos_drm_gem_mmap() delegates an imported dma-buf to dma_buf_mmap()
-early in the function, the dma_buf_mmap() routine replaces
-vma->vm_private_data and vma->vm_ops with the exporter's state. When the
-VMA is later unmapped, the exporter's close handler is invoked instead of
-drm_gem_vm_close(). Doesn't this mean the reference originally taken by
-drm_gem_mmap_obj() right before calling this callback is never dropped?
-
->  	else if (exynos_gem->flags & EXYNOS_BO_WC)
->  		vma->vm_page_prot =3D
-> -			pgprot_writecombine(vm_get_page_prot(vma->vm_flags));
-> +			pgprot_writecombine(vma_get_page_prot(vma));
-
-> [ ... ]
-
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i=
-915/gem/i915_gem_mman.c
-> index 0644f85c6c8e5..9ca90c1bb5b42 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> @@ -112,7 +112,7 @@ i915_gem_mmap_ioctl(struct drm_device *dev, void *dat=
-a,
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could this code leak a VMA?
-
-If vm_mmap() succeeds earlier in i915_gem_mmap_ioctl(), but we then hit
-the mmap_write_lock_killable() failure path:
-
-i915_gem_mmap_ioctl()
-    addr =3D vm_mmap(...);
-    ...
-    if (mmap_write_lock_killable(mm)) {
-        addr =3D -EINTR;
-        goto err;
-    }
-   =20
-Does this overwrite the successfully mapped address and jump to the error
-handling without unmapping the VMA, permanently leaking it?
-
->  		vma =3D find_vma(mm, addr);
->  		if (vma && __vma_matches(vma, obj->base.filp, addr, args->size))
->  			vma->vm_page_prot =3D
-> -				pgprot_writecombine(vm_get_page_prot(vma->vm_flags));
-> +				pgprot_writecombine(vma_get_page_prot(vma));
-
-[Severity: High]
-This is also a pre-existing issue, but is it safe to modify the VMA
-page protection properties here without holding the per-VMA write lock?
-
-We hold the mmap_write_lock, but since vma_start_write() is not called
-first, per-VMA lock readers are not drained. Could a concurrent page
-fault handle install Write-Back PTEs while we change the VMA to
-Write-Combine, leading to cache aliasing?
-
->  		else
->  			addr =3D -ENOMEM;
->  		mmap_write_unlock(mm);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711-b4-vma-fla=
-gs-mm-v2-0-0fa2357d5431@kernel.org?part=3D8
