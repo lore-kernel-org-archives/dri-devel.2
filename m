@@ -4,58 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 577B5C44508
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 02:56:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32A08C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 02:56:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11A2E10E2A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94CD010E6F2;
 	Sat, 11 Jul 2026 02:56:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="F/czYRyX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GInt172H";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7C2610E714;
- Sat, 11 Jul 2026 02:56:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 657AB10E2AD;
+ Sat, 11 Jul 2026 02:56:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783738594; x=1815274594;
+ t=1783738589; x=1815274589;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=s1kAvnvnQkwVmd4imVG6gsZyMofshgCgR4AnJw6ACCI=;
- b=F/czYRyXH13ArX7QHKgN3v04esSIrK1u7+MqyGXJBU4rOXNdQFhrMPxi
- bxPuOv+5b0lwrkFEA7qEDPAyioSbOoo6QXjhwEA5Rq/OL/MZQQGC3LRKt
- 67IBv2dStrnzhsaSbjc/V13FENghUsEVgPcY3S09b9R0NY4r7KPuk49MM
- wb6H+uzQIHp2wSK58bI7HmwePoDGCwwGzSSVT6Q7MGpNlb3uC7/EmkJU+
- 7Lt6a/92ThE5xRAHOE+/wZj1y0CSgaENJMYNNYhKKXbw+HKBUMQNQxFzl
- qWjrQQitbePxh0YPf+f3h5/6BR+Z1tl7HbedzDUl+v9ifN/6H8fTki4iK g==;
-X-CSE-ConnectionGUID: Nhr1UpCMSCmm4oykawVTXQ==
-X-CSE-MsgGUID: qAFmnVQTQDm3MRi8O+iPaw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="101986381"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="101986381"
+ bh=Dww0yEVCQagosf6H5V5oeLo+lU6pkgwQ2dn/EPyhfeg=;
+ b=GInt172HzRJDHLW3Q1okU52uZoXGWY4NpeCZacWoL226sRFRINX+Q7IK
+ GnIGUZfOyps+n8E4+M2WlJxSLouFYy6zzZuJ5GyogXgO3lgAP3inzEKso
+ cYk6d5eRtQ+LAxYui0TbvVlAaFlXus8JTMygaf9GAgVic2S7QU68nE4/y
+ 15u1U9+ZUXqJhnxCys9dfnrCjafV/0NURz72WVusYkv7onkx7bJc0Y5TH
+ igbW6Y+i598HQ71uumhB/nPAFHQzsJByWzsxs9i3XIlzrtoTSrzOuLML0
+ W/hxFLaLJ5dzHdbWPj4pY3FCBm2DqT2Dnme0hZcAVgrgCoK5jxf3Hrhn9 g==;
+X-CSE-ConnectionGUID: 14IpCb7FTpOIDHC3CIDoAA==
+X-CSE-MsgGUID: 4qixP2ygQl6Cj1ZeGb6Sgw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="101986258"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="101986258"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 19:56:34 -0700
-X-CSE-ConnectionGUID: tcsmkzlRQvGZjOWC4QDdxw==
-X-CSE-MsgGUID: nvJ5LVzwRCaSfF1y268Qww==
+ 10 Jul 2026 19:56:28 -0700
+X-CSE-ConnectionGUID: BfCQa9p3Taa4DMwsDTnghg==
+X-CSE-MsgGUID: AaQ/0KMUTGWDXfmPsP8YRw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="256987792"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="256987710"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 19:56:33 -0700
+ 10 Jul 2026 19:56:27 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v3 29/33] drm/xe: Add per-device dependency scheduler for IOVA
- defrag finalize
-Date: Fri, 10 Jul 2026 19:56:15 -0700
-Message-Id: <20260711025619.2540575-30-matthew.brost@intel.com>
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v3 11/33] drm/gpusvm: Add a DMA-mapping accounting callback
+Date: Fri, 10 Jul 2026 19:55:57 -0700
+Message-Id: <20260711025619.2540575-12-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260711025619.2540575-1-matthew.brost@intel.com>
 References: <20260711025619.2540575-1-matthew.brost@intel.com>
@@ -77,107 +69,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A future patch performs the destination DMA mapping of a defrag move in
-two stages when the BO is IOVA mapped: a temporary contiguous mapping of
-just tht changed pages used for the GPU copy, followed by a post-copy
-finalize stet that tears that mapping down and links the new backing
-into the (transferred) IOVA reservation. The finalize step must run only
-after the GPU copy it depends on has completed, so it is dispatched as
-an xe_dep_job,
+From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-Add a per-device xe_dep_scheduler dedicated to these finalize jobs,
-created in xe_bo_defrag_init() (after the migrate contexts are up) and
-torn down in xe_bo_defrag_fini(). No users yet; the job itself is added
-in a later patch.
+Drivers that use the GPU SVM core to DMA-map system memory for GPU
+access may want to keep track of how many pages they have mapped, for
+example to expose statistics or to detect leaks. Doing this accounting
+in the driver around drm_gpusvm_get_pages() / drm_gpusvm_unmap_pages()
+is error prone: the number, order and kind of the dma_addr[] entries can
+change between map and unmap (migration, partial unmaps, the iova vs
+non-iova paths), which makes symmetric accounting hard to get right.
 
-Cc: Carlos Santa <carlos.santa@intel.com>
-Cc: Ryan Neph <ryanneph@google.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Add an optional @dma_map_account callback to struct drm_gpusvm_ops and
+invoke it once per &drm_pagemap_addr entry at the exact points where the
+entry is DMA-mapped (sign == +1) in drm_gpusvm_get_pages() and unmapped
+(sign == -1) in __drm_gpusvm_unmap_pages(). Since the map error path and
+every unmap/free path funnel through __drm_gpusvm_unmap_pages() for the
+entries that were actually mapped, the accounting is symmetric by
+construction. The callback receives the full &drm_pagemap_addr so the
+driver can use the order and the proto field to distinguish system
+memory mappings from device interconnect mappings.
+
+The callback must also be usable by the core drm_gpusvm_pages-only API
+(mm == NULL), as used e.g. for userptr-style mappings. Relax
+drm_gpusvm_init() to allow such users to pass a restricted @ops that
+only implements the page-level hooks; the full-SVM hooks (@invalidate)
+and the chunk configuration must still be unset in that mode.
+
 Assisted-by: GitHub_Copilot:claude-opus-4.8
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/xe/xe_bo.c           | 15 +++++++++++++++
- drivers/gpu/drm/xe/xe_device_types.h | 10 ++++++++++
- 2 files changed, 25 insertions(+)
+ drivers/gpu/drm/drm_gpusvm.c | 17 +++++++++++++++--
+ include/drm/drm_gpusvm.h     | 19 +++++++++++++++++++
+ 2 files changed, 34 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index d54e69aefeba..c5022c16411f 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -25,6 +25,7 @@
- #include <trace/events/gpu_mem.h>
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index fcfe635bc195..512f52471419 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -474,8 +474,15 @@ int drm_gpusvm_init(struct drm_gpusvm *gpusvm,
+ 			return -EINVAL;
+ 		mmgrab(mm);
+ 	} else {
+-		/* No full SVM mode, only core drm_gpusvm_pages API. */
+-		if (ops || num_chunks || mm_range || notifier_size)
++		/*
++		 * No full SVM mode, only core drm_gpusvm_pages API. A
++		 * restricted @ops that only implements the page-level hooks
++		 * (e.g. @dma_map_account) is allowed; the full-SVM hooks must
++		 * not be set.
++		 */
++		if (num_chunks || mm_range || notifier_size)
++			return -EINVAL;
++		if (ops && ops->invalidate)
+ 			return -EINVAL;
+ 	}
  
- #include "xe_device.h"
-+#include "xe_dep_scheduler.h"
- #include "xe_dma_buf.h"
- #include "xe_drm_client.h"
- #include "xe_ggtt.h"
-@@ -1306,6 +1307,10 @@ static void xe_bo_defrag_fini(void *arg)
- 	struct xe_device *xe = arg;
+@@ -1246,6 +1253,8 @@ static void __drm_gpusvm_unmap_pages(struct drm_gpusvm *gpusvm,
+ 			else if (dpagemap && dpagemap->ops->device_unmap)
+ 				dpagemap->ops->device_unmap(dpagemap,
+ 							    dev, addr);
++			if (gpusvm->ops && gpusvm->ops->dma_map_account)
++				gpusvm->ops->dma_map_account(gpusvm, addr, -1);
+ 			i += 1 << addr->order;
+ 		}
  
- 	disable_delayed_work_sync(&xe->mem.defrag.worker);
-+	if (xe->mem.defrag.iova_sched) {
-+		xe_dep_scheduler_fini(xe->mem.defrag.iova_sched);
-+		xe->mem.defrag.iova_sched = NULL;
-+	}
- }
+@@ -1654,6 +1663,10 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+ 				(addr, DRM_INTERCONNECT_SYSTEM, order,
+ 				 dma_dir);
+ 		}
++		if (gpusvm->ops && gpusvm->ops->dma_map_account)
++			gpusvm->ops->dma_map_account(gpusvm,
++						     &svm_pages->dma_addr[j],
++						     1);
+ 		i += 1 << order;
+ 		num_dma_mapped = i;
+ 		flags.has_dma_mapping = true;
+diff --git a/include/drm/drm_gpusvm.h b/include/drm/drm_gpusvm.h
+index b7d987bf76aa..36f35816a569 100644
+--- a/include/drm/drm_gpusvm.h
++++ b/include/drm/drm_gpusvm.h
+@@ -75,6 +75,25 @@ struct drm_gpusvm_ops {
+ 	void (*invalidate)(struct drm_gpusvm *gpusvm,
+ 			   struct drm_gpusvm_notifier *notifier,
+ 			   const struct mmu_notifier_range *mmu_range);
++
++	/**
++	 * @dma_map_account: Account a DMA-mapping change (optional)
++	 * @gpusvm: Pointer to the GPU SVM
++	 * @addr: The address descriptor of the chunk being (un)mapped
++	 * @sign: +1 when @addr has just been DMA-mapped, -1 when it is being
++	 *        unmapped
++	 *
++	 * Called once per &drm_pagemap_addr entry, when the entry is
++	 * DMA-mapped by drm_gpusvm_get_pages() (@sign == +1) and when it is
++	 * unmapped (@sign == -1), so the driver can keep symmetric accounting
++	 * of the pages it has mapped for GPU access. The @addr->proto field
++	 * can be used to distinguish system-memory mappings from device
++	 * interconnect mappings. May be provided in both full SVM mode and the
++	 * core drm_gpusvm_pages-only mode.
++	 */
++	void (*dma_map_account)(struct drm_gpusvm *gpusvm,
++				const struct drm_pagemap_addr *addr,
++				int sign);
+ };
  
  /**
-@@ -1342,6 +1347,16 @@ void xe_bo_defrag_init_early(struct xe_device *xe)
-  */
- int xe_bo_defrag_init(struct xe_device *xe)
- {
-+#define XE_BO_MAX_IOVA_DEFRAG_JOBS	16	/* Picking a reasonable value */
-+	struct xe_dep_scheduler *iova_sched;
-+
-+	iova_sched = xe_dep_scheduler_create(xe, NULL, "xe_iova_defrag",
-+					     XE_BO_MAX_IOVA_DEFRAG_JOBS);
-+	if (IS_ERR(iova_sched))
-+		return PTR_ERR(iova_sched);
-+	xe->mem.defrag.iova_sched = iova_sched;
-+#undef XE_BO_MAX_IOVA_DEFRAG_JOBS
-+
- 	return devm_add_action_or_reset(xe->drm.dev, xe_bo_defrag_fini, xe);
- }
- 
-diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
-index 6e68add4d652..b55d549d5e30 100644
---- a/drivers/gpu/drm/xe/xe_device_types.h
-+++ b/drivers/gpu/drm/xe/xe_device_types.h
-@@ -38,6 +38,7 @@
- 
- struct drm_pagemap_shrinker;
- struct intel_display;
-+struct xe_dep_scheduler;
- struct intel_dg_nvm_dev;
- struct xe_ggtt;
- struct xe_i2c;
-@@ -325,6 +326,15 @@ struct xe_device {
- 			 * @mem.defrag.worker, in milliseconds.
- 			 */
- 			unsigned int interval_ms;
-+			/**
-+			 * @mem.defrag.iova_sched: Dependency scheduler used to
-+			 * run the post-copy IOVA finalize job for defrag moves
-+			 * of IOVA-mapped BOs. The job tears down the temporary
-+			 * copy-step IOVA mapping and links the new backing into
-+			 * the (transferred) reservation once the GPU copy that
-+			 * its dependencies gate has completed.
-+			 */
-+			struct xe_dep_scheduler *iova_sched;
- 		} defrag;
- 	} mem;
- 
 -- 
 2.34.1
 
