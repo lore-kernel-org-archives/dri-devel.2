@@ -4,130 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 254AFC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 201CAC44506
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D94EB10E830;
-	Mon, 13 Jul 2026 07:11:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21EB310E820;
+	Mon, 13 Jul 2026 07:11:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="fD4KRU8n";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jgpXcvfv";
 	dkim-atps=neutral
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com
- [209.85.160.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 943AA10F93B
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 19:08:38 +0000 (UTC)
-Received: by mail-qt1-f169.google.com with SMTP id
- d75a77b69052e-51c2a449c57so7492141cf.1
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:08:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1783710517; x=1784315317; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=iFtVuusRSG4YUFzvnh+nyLwKm1T7E76ZywXpwPdPfD8=;
- b=fD4KRU8n1uPG1nZgw3cqES1SP0xkWDXBK5I1zajMK/xl4blIMuVrYuDfhAqTQ/rTsf
- xtgC/4ybO7PYoOOzvEvdf5qAX5hS7oAGaibJI5N1HXG89vBXuM/mripBUou6qBNOHdnv
- vNrdA8uz2QGw/lFyTSuCdsEKuo1Ieu0aF/bDFN5e9Y3lpI08Gpg3q/g2HmNldASGXiom
- 5C72LNq4cUGdR+eQkfM4b2hjq+S+sQpHgBtuCjg+v82+85zFTu+SU795T3/5iQTa3eHk
- fIpsmgFR3W50upaoIoVGqkR3hegDHs/Kx+ypeQvgv3kGTHKIF23EEH/NmnunvNaH93BK
- vITA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783710517; x=1784315317;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=iFtVuusRSG4YUFzvnh+nyLwKm1T7E76ZywXpwPdPfD8=;
- b=kquOXevzg9XrqIOBs3kJq9/tdEbAIofd/NOmz8OxKvq9fDjeAleB/bQGqyFoeNkBXC
- s2oNTEdAGNFlOGKzog6sctR/Z3jiR87/YrjCPRvcPddvT4kuwsZQRmARFBtaQh7CQh8a
- IgRbc2uHMbADQhfmbhLXDAEi404uotqeUoZZh7sYMCNJ5FfhtMlsrRaFTpTk99id1ySM
- 5lB72NGfEwHLnwOb4sahc2DX/Qwzzuz8Qz0Ao5pQN13IeOayg1MLne6zkrEpKGtAHNTZ
- C8kRA6b9NO/Djrw52XzH52Ehp3RKebBZ5pz8YJfUljg9kQ16x9uioZCmyJg45tkB4Gc/
- R88Q==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpyhQv6vthUrLWmHjVPRjcPi1zoK/xgVlVUmjWmxWd4tQsCqNgr1G0KEQFBpm7QM5vr46L85esZJW8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwBok0J1Gbo024JBY4bWFkcUywrlz33XXJG3/4fGdsfOy3ERBI7
- /oVXrbMb2vjr2yY8048V1bGfYV/Ez//63gEE9U80TfzhFZq8Y455aGs4T3xZ3WHm3D8=
-X-Gm-Gg: AfdE7cl4pGGJsvsxyPFfArmPZgzhabWth3W/kMVfS5UNme/C5FRohfhIBD0NOzp+PXr
- FlG//DFaIDJ9wqgKft1tNwx9UWQMo+wrypcrYlUzAtdlcJvBglSbODrYgPsDRcXOv45f44X2oRO
- xK9nwkVB6OL2RSwu+bMZD6Mv69WQdYKw/rKEXSvVEoq5elfTKzluuvAWEvs0aHs7BZD4q/sUP8h
- j3KPXaOIbcBB0vhVjFJSX5INZh7slFIQBNVzxLaW9RqPSeHvvF0ZxSPL9GB13DABew7vodV2Hya
- jdVkm4sSQ8EvzbXoP3VqatB269VcThwm5MKtRrK79oAZxMFejOyr4ZrZapBGXIRauMUXE0pDKa/
- tXiKhJ0CDwVU3HbJpebLWOdVEW5EM//cD/dWu4Xwdz9DvC3IKF0G222ZEYdYA2R+/9tOnmYxIrB
- IEojuA1YKdDK2D7a6Fam2rhmL+9SkLZUpTqvcQHsXQEMRtI4L41/nj4oPYDIiOj3DDf8b1
-X-Received: by 2002:a05:622a:1818:b0:51c:b900:513d with SMTP id
- d75a77b69052e-51cbf280a8amr2226311cf.53.1783710517321; 
- Fri, 10 Jul 2026 12:08:37 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F
- (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ffd7c1da1bsm47847566d6.30.2026.07.10.12.08.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 12:08:36 -0700 (PDT)
-Date: Fri, 10 Jul 2026 15:08:31 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
- Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
- linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 22/30] mm/vma: move __install_special_mapping() to vma.c
-Message-ID: <alFDLz9_oSSvHTuJ@gourry-fedora-PF4VCD3F>
-References: <cover.1782735110.git.ljs@kernel.org>
- <b3254231831037ca3e9757e3e05c90072e04a6aa.1782735110.git.ljs@kernel.org>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17A7710E08B;
+ Sat, 11 Jul 2026 18:48:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 49C4360052;
+ Sat, 11 Jul 2026 18:48:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94E9F1F00A3A;
+ Sat, 11 Jul 2026 18:47:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783795689;
+ bh=QPt/8l9E60JoRhMjGZtDOkVB0VSnW+l2hm5OFyFrrO0=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=jgpXcvfv3gVBn7IsGBF1ebSBCDETWMhhmUgGYFu1KJSh6jDQWPcTX0Vq7whuKCVn4
+ rBhFdMRmgxmdR8P0PcWxbkTlO8COzjvSFflXXXwYeV1HcoXi8sN68u8NJ26w+IOyUw
+ R0sApERkImbfGC1PQUNQIDENSFzQep8HDEipIa0GQAQDHYmD1VBxVxmWBk3vGxNW/K
+ 4N9W61bIOsobxULyDZZV6QFTrlSEId1V48hblg2M8NWfCHnUNfV+Pr7EKw+8P7wBkV
+ cuWci1FXthx0PZWUsCVBzadkDWBmiusvn/RlVjMBQh/ePtU/5mvkHHdKyTyd9zk3sK
+ /EpfagqzUOOIA==
+From: Lorenzo Stoakes <ljs@kernel.org>
+Date: Sat, 11 Jul 2026 19:45:04 +0100
+Subject: [PATCH v2 07/13] mm/vma: rename vma_get_page_prot to
+ vma_flags_to_page_prot
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b3254231831037ca3e9757e3e05c90072e04a6aa.1782735110.git.ljs@kernel.org>
-X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260711-b4-vma-flags-mm-v2-7-0fa2357d5431@kernel.org>
+References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Zi Yan <ziy@nvidia.com>, 
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+ Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev, 
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
+ linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2845; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=Soud7SJAfopgWlkROt1dYPu535d7z0wbh0cd1bt/8n8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+i1r+Lfnqbc90vrVGDSl+P4cT/kJqy/bTGI35c5dL
+ sXF8uhaRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACaSn8zwP+Tvx29OMZ4Olxy3
+ dh5LDd7V18X908Jec02jyvrfMTdLNRj+cLwPSWPNn3D00+v715gv/5eulHkbvKPiskGWQoG+s6U
+ EAwA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-Mailman-Approved-At: Mon, 13 Jul 2026 07:11:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,22 +133,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:33PM +0100, Lorenzo Stoakes wrote:
-> This function is operating on VMAs and rightly belongs in vma.c, where it
-> can be subject to VMA userland testing and allows us to isolate it from the
-> rest of mm.
-> 
-> The _install_special_mapping() function will remain in mmap.c as a wrapper,
-> since this is used by architecture-specific code.
-> 
-> Doing so allows us to isolate more functions in vma.c for the same reasons.
-> 
-> This forms part of work to allow for tracking MAP_PRIVATE file-backed
-> mappings by their anonymous virtual page offset, as doing so allows us to
-> isolate and keep code that interacts with this together.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+Having vma_get_page_prot() refer to VMA flags and vma_set_page_prot() refer
+to a VMA is confusing.
 
-Reviewed-by: Gregory Price <gourry@gourry.net>
+Rename vma_get_page_prot() to vma_flags_to_page_prot() to resolve this
+confusion.
+
+No functional change intended.
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+---
+ include/linux/mm.h              | 4 ++--
+ mm/vma.c                        | 2 +-
+ mm/vma.h                        | 2 +-
+ tools/testing/vma/include/dup.h | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 5b3825fddf58..b8fe40f89d87 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4603,7 +4603,7 @@ static inline bool range_in_vma_desc(const struct vm_area_desc *desc,
+ #ifdef CONFIG_MMU
+ pgprot_t vm_get_page_prot(vm_flags_t vm_flags);
+ 
+-static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
++static inline pgprot_t vma_flags_to_page_prot(vma_flags_t vma_flags)
+ {
+ 	const vm_flags_t vm_flags = vma_flags_to_legacy(vma_flags);
+ 
+@@ -4616,7 +4616,7 @@ static inline pgprot_t vm_get_page_prot(vm_flags_t vm_flags)
+ {
+ 	return __pgprot(0);
+ }
+-static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
++static inline pgprot_t vma_flags_to_page_prot(vma_flags_t vma_flags)
+ {
+ 	return __pgprot(0);
+ }
+diff --git a/mm/vma.c b/mm/vma.c
+index a74a0e467c63..38481aca7321 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -56,7 +56,7 @@ struct mmap_state {
+ 		.pglen = PHYS_PFN(len_),				\
+ 		.vma_flags = vma_flags_,				\
+ 		.file = file_,						\
+-		.page_prot = vma_get_page_prot(vma_flags_),		\
++		.page_prot = vma_flags_to_page_prot(vma_flags_),	\
+ 	}
+ 
+ #define VMG_MMAP_STATE(name, map_, vma_)				\
+diff --git a/mm/vma.h b/mm/vma.h
+index 8ca6e7e8ae28..0bc7d521e976 100644
+--- a/mm/vma.h
++++ b/mm/vma.h
+@@ -543,7 +543,7 @@ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma
+ #ifdef CONFIG_MMU
+ static inline pgprot_t vma_pgprot_modify(pgprot_t oldprot, vma_flags_t vma_flags)
+ {
+-	const pgprot_t prot = vma_get_page_prot(vma_flags);
++	const pgprot_t prot = vma_flags_to_page_prot(vma_flags);
+ 
+ 	return pgprot_modify(oldprot, prot);
+ }
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 24955a1e318a..8621a7ae8980 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1545,7 +1545,7 @@ static inline int get_sysctl_max_map_count(void)
+ #define pgtable_supports_soft_dirty()	IS_ENABLED(CONFIG_MEM_SOFT_DIRTY)
+ #endif
+ 
+-static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
++static inline pgprot_t vma_flags_to_page_prot(vma_flags_t vma_flags)
+ {
+ 	const vm_flags_t vm_flags = vma_flags_to_legacy(vma_flags);
+ 
+
+-- 
+2.55.0
+
