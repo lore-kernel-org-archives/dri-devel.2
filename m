@@ -4,44 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0C1AC44501
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 01:48:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8802C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 01:57:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A01AE10E288;
-	Sat, 11 Jul 2026 01:48:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F348510E286;
+	Sat, 11 Jul 2026 01:57:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DCxnb8c0";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="k4zEEJ/I";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B66710E288
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 01:48:32 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8F1F1416E5;
- Sat, 11 Jul 2026 01:48:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E6EF1F000E9;
- Sat, 11 Jul 2026 01:48:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783734511;
- bh=zaeAvDlHuOgr1xacoL1QtMGVgRHfk8h/damG4GnbUN0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DCxnb8c0FCzLa3pgo34SGywdUSdkyFw58PDHots55Y9Z7OVOwT4Ic/9GenVRq4e4n
- R60k1n/zlrL+wEKWKU+rXEDJtWZEhUtaSbed+pFv8UYKEr7/lWCIzHgz43poRZ4S5N
- IveVFTOnItSxYgyfkM2nmVQ7Vv3sJfE7vHvyjsu84Hwk4rGsSnqlnrihs5YHsmaTUQ
- Cd6phoTWB7LziHRsydvYtV9ET9xzx25ISvnrcrUPFDpIdPjXDvRH6bBZFLUFsWBnv9
- ASM7uyb6oKZkRG0iwo7sUvUKUWv/r6mZMGgV2FAjZotj8erFsjW5mKSvD7KTVQ7PIh
- g+rHBm5e/0wTA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] lib: test bitmap vs Maple Tree performance for region
- allocations
-To: "Yury Norov" <ynorov@nvidia.com>
-Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260711013910.349586-1-ynorov@nvidia.com>
-References: <20260711013910.349586-1-ynorov@nvidia.com>
-Content-Type: text/plain; charset=utf-8
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 758C210E286
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 01:57:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783735041; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=YOOXsfWNurUB7U6xaTiLZN2mdbXZ6J7cxNrFmFPPvaQUF5og/+/OxV31HD5GdxpQYvNXBXZx4Efgoyh4D77eX/FOA4ssZUksQTJPPQ52gxJ92lWti691BQ+b96oUBtZBFy8BwK/U5i7EQ/I7PrtSY0KlkSVVlmRUft8BqrjLw50=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783735041;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=a3swyPTykbuD+CwqZCknMVLw1USPNnXvjXdGLga/u/8=; 
+ b=XctaSMeg28CHEj9Me6/xGVG6QXL8T6g+sGyTcdIeWP1hCKwMIKerzdEDoo9kwBIXIYPucDZoIzn0Q4XCrPjT3b80D7F+DdbdFQEn2QHSd1mdXAx7sfl3Sr/4RoIGbjOvuGk+2NIhHHOAGpaazDKkxcJ/0EbuezUZSCqZfjKKqGA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783735041; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
+ bh=a3swyPTykbuD+CwqZCknMVLw1USPNnXvjXdGLga/u/8=;
+ b=k4zEEJ/IwKT0fkBVSqVH69yP5lFTtbQolmmH/7VSP3YcVqYDKv5jFPklMr/jtrko
+ C73mXfJJn1tGi4T53bxKbK80MQKBqKm1Grw8qGA+bHWdbPJpzONOT8arCqfOgB9I5c8
+ PvLsocRoJB1gRZIhAZoQeSt05nnqBDWnT0br3xfw=
+Received: by mx.zohomail.com with SMTPS id 1783735040661684.9698758517445;
+ Fri, 10 Jul 2026 18:57:20 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v6 16/20] rust: io: add `read_val` and `write_val`
+ functions on `Io`
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260706-io_projection-v6-16-72cd5d055d54@garyguo.net>
+Date: Fri, 10 Jul 2026 22:56:59 -0300
+Cc: Alice Ryhl <aliceryhl@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 01:48:29 +0000
-Message-Id: <20260711014830.6E6EF1F000E9@smtp.kernel.org>
+Message-Id: <5D0DCE0B-2F9D-4B12-9C1E-3FB6EC61129A@collabora.com>
+References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
+ <20260706-io_projection-v6-16-72cd5d055d54@garyguo.net>
+To: Gary Guo <gary@garyguo.net>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,139 +84,182 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] Large uninitialized static arrays marked with `__initdata` bloat=
- the kernel binary by ~9.1MB.
-- [Medium] Transient memory allocation failures trigger false positive `WAR=
-N_ON` bug reports.
-- [Medium] Initializing a maple tree on the stack with `MTREE_INIT` causes =
-a lockdep splat.
---
 
---- Patch [1]: [PATCH] lib: test bitmap vs Maple Tree performance for regio=
-n allocations ---
-commit b546f14f1527daeb17ae5d45e14a867ddc37369e
-Author: Yury Norov <ynorov@nvidia.com>
 
-lib: test bitmap vs Maple Tree performance for region allocations
-
-This commit adds a microbenchmark to compare the performance of allocating
-and freeing variable-sized regions. It tests a bitmap implementation against
-a Maple Tree implementation across several capacities when the module loads.
-
-Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvi=
-dia.com/
-Link: https://lore.kernel.org/all/tencent_FBA5367F4AA8C57DE2198975767E416FC=
-90A@qq.com/
-
-> diff --git a/lib/region_alloc_benchmark.c b/lib/region_alloc_benchmark.c
-> new file mode 100644
-> index 0000000000000..7459e37608bca
-> --- /dev/null
-> +++ b/lib/region_alloc_benchmark.c
-> @@ -0,0 +1,112 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/* Benchmark bitmap and Maple Tree allocation of variable-sized regions.=
- */
+> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
+>=20
+> Provide `read_val` and `write_val` that allow I/O views to be accessed =
+when
+> they're narrowed down to just views of primitives.
+>=20
+> This is used to provide `io_read!` and `io_write!` macros, which are
+> generalized version of current `dma_read!` and `dma_write!` macro that =
+work
+> for all types that implement `Io`.
+>=20
+> Note though `io_read!` and `io_write!` only works if backend =
+implements
+> `IoCapable` for the type; which is typically only implemented for
+> atomically accessible primitives. `dma_read!` and `dma_write!` =
+currently
+> supports them via `read_volatile` and `write_volatile`; this can be
+> undesirable for aggregates as LLVM may turn them to multiple =
+instructions
+> to access parts and re-assemble, even if they could be combined to a =
+single
+> instruction. Thus, `io_read!()` and `io_write!()` does not fully =
+replace
+> `dma_read!()` and `dma_write!()` in this scenario. The ability to
+> read/write aggregates (when atomicity is of no concern) is better =
+served
+> with copying primitives (e.g. memcpy_{from,to}io).
+>=20
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+> rust/kernel/io.rs | 106 =
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+> 1 file changed, 106 insertions(+)
+>=20
+> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+> index 78c6ae2a0db8..c423125870b7 100644
+> --- a/rust/kernel/io.rs
+> +++ b/rust/kernel/io.rs
+> @@ -398,6 +398,50 @@ fn try_cast<U>(self) -> Result<<Self::Backend as =
+IoBackend>::View<'a, U>>
+>         Ok(unsafe { Self::Backend::project_view(view, ptr.cast()) })
+>     }
+>=20
+> +    /// Read a value from I/O.
+> +    ///
+> +    /// This only works for primitives supported by the I/O backend.
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// ```no_run
+> +    /// # use kernel::io::*;
+> +    /// # fn test_read_val(mmio: Mmio<'_, u32>) {
+> +    /// // let mmio: Mmio<'_, u32>;
+> +    /// let val: u32 =3D mmio.read_val();
+> +    /// # }
+> +    /// ```
+> +    #[inline]
+> +    fn read_val(self) -> Self::Target
+> +    where
+> +        Self::Backend: IoCapable<Self::Target>,
+> +        Self::Target: Sized,
+> +    {
+> +        Self::Backend::io_read(self.as_view())
+> +    }
 > +
-> +#include <linux/bitmap.h>
-> +#include <linux/kernel.h>
-> +#include <linux/maple_tree.h>
-> +#include <linux/module.h>
-> +#include <linux/printk.h>
-> +#include <linux/random.h>
-> +#include <linux/xarray.h>
+> +    /// Write a value to I/O.
+> +    ///
+> +    /// This only works for primitives supported by the I/O backend.
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// ```no_run
+> +    /// # use kernel::io::*;
+> +    /// # fn test_write_val(mmio: Mmio<'_, u32>) {
+> +    /// // let mmio: Mmio<'_, u32>;
+> +    /// mmio.write_val(1u32);
+> +    /// # }
+> +    /// ```
+> +    #[inline]
+> +    fn write_val(self, value: Self::Target)
+> +    where
+> +        Self::Backend: IoCapable<Self::Target>,
+> +        Self::Target: Sized,
+> +    {
+> +        Self::Backend::io_write(self.as_view(), value)
+> +    }
 > +
-> +#define MAP_SIZE	(1000000UL)
-> +#define REGION_MAX_SIZE	32
+>     /// Fallible 8-bit read with runtime bounds check.
+>     #[inline(always)]
+>     fn try_read8(self, offset: usize) -> Result<u8>
+> @@ -1229,3 +1273,65 @@ macro_rules! io_project {
+> }
+> #[doc(inline)]
+> pub use crate::io_project;
 > +
-> +static DECLARE_BITMAP(alloc_bitmap, MAP_SIZE) __initdata;
-> +/* One more request guarantees that even an all-ones trace reaches ENOSP=
-C. */
-> +static u8 region_sizes[MAP_SIZE + 1] __initdata;
-> +static unsigned long region_indexes[MAP_SIZE] __initdata;
-
-[Severity: Medium]
-Does using the __initdata macro on these large uninitialized arrays push
-them into the PROGBITS .init.data section instead of .bss?
-
-This can bloat the vmlinux image by around 9.1MB at build time, which
-might cause boot or build failures on memory-constrained embedded
-architectures with strict size limits.
-
-[ ... ]
-
-> +static unsigned long __init benchmark_maple_tree(unsigned long capacity)
-> +{
-> +	struct maple_tree mt =3D MTREE_INIT(mt, MT_FLAGS_ALLOC_RANGE);
-
-[Severity: Medium]
-Is it safe to initialize this maple tree on the stack using MTREE_INIT?
-
-The MTREE_INIT macro uses __SPIN_LOCK_UNLOCKED, which relies on a C99
-compound literal for the lockdep lock class key. At block scope, C99
-compound literals have automatic storage duration. This places the lockdep
-key on the stack and triggers a lockdep warning about registering a
-non-static key.
-
-Should dynamic initialization with mt_init_flags() be used here instead?
-
-> +	unsigned long count, index;
-> +	ktime_t alloc_time, free_time;
-> +	size_t memory;
-> +	int ret;
+> +/// Read from I/O memory.
+> +///
+> +/// The syntax is of form `io_read!(io, proj)` where `io` is an =
+expression to a type that
+> +/// implements [`Io`] and `proj` is a [projection =
+specification](kernel::ptr::project!).
+> +///
+> +/// # Examples
+> +///
+> +/// ```
+> +/// #[repr(C)]
+> +/// struct MyStruct { field: u32, }
+> +///
+> +/// # fn test(mmio: kernel::io::Mmio<'_, [MyStruct]>) -> Result {
+> +/// // let mmio: Mmio<'_, [MyStruct]>;
+> +/// let field: u32 =3D kernel::io::io_read!(mmio, [try: 2].field);
+> +/// # Ok::<(), Error>(()) }
+> +/// ```
+> +#[macro_export]
+> +#[doc(hidden)]
+> +macro_rules! io_read {
+> +    ($io:expr, $($proj:tt)*) =3D> {
+> +        $crate::io::Io::read_val($crate::io_project!($io, $($proj)*))
+> +    };
+> +}
+> +#[doc(inline)]
+> +pub use crate::io_read;
 > +
-> +	alloc_time =3D ktime_get();
-> +	for (count =3D 0; count < ARRAY_SIZE(region_sizes); count++) {
-> +		ret =3D mtree_alloc_range(&mt, &index, xa_mk_value(count + 1),
-> +					region_sizes[count], 0, capacity - 1,
-> +					GFP_KERNEL);
-> +		if (ret)
-> +			break;
-> +
-> +		region_indexes[count] =3D index;
-> +	}
-> +	alloc_time =3D ktime_get() - alloc_time;
-> +	WARN_ON(ret !=3D -EBUSY);
+> +/// Writes to I/O memory.
+> +///
+> +/// The syntax is of form `io_write!(io, proj, val)` where `io` is an =
+expression to a type that
+> +/// implements [`Io`] and `proj` is a [projection =
+specification](kernel::ptr::project!),
+> +/// and `val` is the value to be written to the projected location.
+> +///
+> +/// # Examples
+> +///
+> +/// ```
+> +/// #[repr(C)]
+> +/// struct MyStruct { field: u32, }
+> +///
+> +/// # fn test(mmio: kernel::io::Mmio<'_, [MyStruct]>) -> Result {
+> +/// // let mmio: Mmio<'_, [MyStruct]>;
+> +/// kernel::io::io_write!(mmio, [try: 2].field, 10);
+> +/// # Ok::<(), Error>(()) }
+> +/// ```
+> +#[macro_export]
+> +#[doc(hidden)]
+> +macro_rules! io_write {
+> +    (@parse [$io:expr] [$($proj:tt)*] [, $val:expr]) =3D> {
+> +        $crate::io::Io::write_val($crate::io_project!($io, =
+$($proj)*), $val)
+> +    };
+> +    (@parse [$io:expr] [$($proj:tt)*] [.$field:tt $($rest:tt)*]) =3D> =
+{
+> +        $crate::io_write!(@parse [$io] [$($proj)* .$field] =
+[$($rest)*])
+> +    };
+> +    (@parse [$io:expr] [$($proj:tt)*] [[$flavor:ident: $index:expr] =
+$($rest:tt)*]) =3D> {
+> +        $crate::io_write!(@parse [$io] [$($proj)* [$flavor: $index]] =
+[$($rest)*])
+> +    };
+> +    ($io:expr, $($rest:tt)*) =3D> {
+> +        $crate::io_write!(@parse [$io] [] [$($rest)*])
+> +    };
+> +}
+> +#[doc(inline)]
+> +pub use crate::io_write;
+>=20
+> --=20
+> 2.54.0
+>=20
+>=20
 
-[Severity: Medium]
-Could mtree_alloc_range() legitimately fail with -ENOMEM?
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
 
-Since it uses GFP_KERNEL to allocate tree nodes internally, transient
-memory pressure could cause an allocation failure. If that happens, this
-WARN_ON will trigger a false positive bug report.
-
-[ ... ]
-
-> +static int __init region_alloc_benchmark(void)
-> +{
-> +	static const unsigned long capacities[] =3D { 1000000, 100000, 10000, 1=
-000 };
-> +	unsigned long bitmap_count, maple_count;
-> +	unsigned long i;
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(region_sizes); i++)
-> +		region_sizes[i] =3D get_random_u32_below(REGION_MAX_SIZE) + 1;
-> +
-> +	pr_err("\nStart testing bitmap vs Maple Tree region allocation\n");
-> +	pr_err("%-6s   %12s   %12s   %8s   %10s\n", "type", "alloc (ns)", "free=
- (ns)",
-> +		"capacity", "memory (B)");
-> +	for (i =3D 0; i < ARRAY_SIZE(capacities); i++) {
-> +		bitmap_count =3D benchmark_bitmap(capacities[i]);
-> +		maple_count =3D benchmark_maple_tree(capacities[i]);
-> +		WARN_ON(bitmap_count !=3D maple_count);
-
-[Severity: Medium]
-If benchmark_maple_tree() experiences an early -ENOMEM failure, will it
-return a different element count than benchmark_bitmap(), leading to a
-secondary false positive warning here?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711013910.3495=
-86-1-ynorov@nvidia.com?part=3D1
