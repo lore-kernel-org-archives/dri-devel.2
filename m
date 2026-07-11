@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53A68C4450C
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 02:56:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB79AC44511
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 02:56:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F31910F9BE;
-	Sat, 11 Jul 2026 02:56:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7C6D10F9E7;
+	Sat, 11 Jul 2026 02:56:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NzBxxq3F";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="A7nrS0cZ";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26F2710E6FE;
- Sat, 11 Jul 2026 02:56:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6876610E6F0;
+ Sat, 11 Jul 2026 02:56:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1783738592; x=1815274592;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=J1YcdAqKuIyiuZspeqa7qmtktzppXeERlakUfbNUKXM=;
- b=NzBxxq3F+gcRKF47eEQiuUc1ZJzGoIoFmlhIKgtejT6aUN1r0XwFZ13P
- cgNMtQbWzzd2MAGUlUvHH0yUyUDNii2lLX9FVUoUdR0CxW33Z/DXxXMPs
- dGHvyyhdOuaxGbEYc2vX8qNh34F151QmAFM/F1/+qo8XmwA42V1R44YQx
- DY7JWFdI+P4KI/kpjRcOVDpCFI7uqTbTOswalCa0By/GA4F8JLrVMiaSj
- y5tIXXBc8w8iDKf1hr2bU22EI1HtoH1gLkPi03KBI3C6jV6PNlha3L9Jv
- f9jB/dicudzDnvAFUutDwuZtH1qc6RZ0unfa1QMr9PK3zus+ZBdMphLei Q==;
-X-CSE-ConnectionGUID: s1bZKW3EQ5e/Jv8FchTd1Q==
-X-CSE-MsgGUID: 7zMCsudkS3C2ut2DXSe/eQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="101986339"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="101986339"
+ bh=jmFpHjqNdJa+TqbFOH1B7sfGPu+FdIecupYR3B+0tKY=;
+ b=A7nrS0cZ7KeJ3PQhEKQOkpsh6gfLo2qaNGiwpYxzDrSUFUTv9C867E2E
+ IinsY2wg3kwSUMJWUCnyZYGTkjCpJ63cUwMV5p8xDA3gKknbDea0iB8gQ
+ /OAAxA+t60exBz4KDkJYQzcHFJWdkdO2j0ODTsjQKardPeaCvKVt0osOJ
+ qfZjEtzXrlkKM2Lna1ZYok15JmexkGewvZXVsOfMck3GGqgd5C8iTshHX
+ V6gu+YfCHu2j6leYUXUM8FA9sgYucZdRhHJ67UGcvAqZWzFgwdrmyZ880
+ E26D4zOsWg2wqkiy/qXsmN0wv8MpQ5uOhWp/dc8Rlj+rVdCETwBp86VVt w==;
+X-CSE-ConnectionGUID: FdqDWaU3T8iNhJ/E8U+qJA==
+X-CSE-MsgGUID: 6S05zHqfTE2VT2ejJkIJ5g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="101986323"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="101986323"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 19:56:32 -0700
-X-CSE-ConnectionGUID: gN9+bWohTD27RwrHoJ61QQ==
-X-CSE-MsgGUID: R7lxnx79R5iLY0OPROz9aQ==
+ 10 Jul 2026 19:56:31 -0700
+X-CSE-ConnectionGUID: DRVvVHk3SHmlo1yazSd+ow==
+X-CSE-MsgGUID: bW4vLIekTDyeov1Z3glwEw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="256987776"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="256987768"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 19:56:31 -0700
+ 10 Jul 2026 19:56:30 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -52,9 +52,10 @@ Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v3 24/33] drm/xe: Add defrag profiling tracepoints
-Date: Fri, 10 Jul 2026 19:56:10 -0700
-Message-Id: <20260711025619.2540575-25-matthew.brost@intel.com>
+Subject: [PATCH v3 22/33] drm/xe: Add Kconfig.profile options for BO defrag
+ configuration
+Date: Fri, 10 Jul 2026 19:56:08 -0700
+Message-Id: <20260711025619.2540575-23-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260711025619.2540575-1-matthew.brost@intel.com>
 References: <20260711025619.2540575-1-matthew.brost@intel.com>
@@ -76,19 +77,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add two tracepoints to profile the page defragmentation worker:
+Add Kconfig.profile options to make XE_BO_DEFRAG_* defines configurable:
+- DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD: Threshold for TTM reclaim
+  backoff
+- DRM_XE_BO_DEFRAG_SIZE_LIMIT: Maximum number of bytes to defrag per
+  work run
+- DRM_XE_BO_DEFRAG_INTERVAL_MS: Default delay before defrag worker runs
+- DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS: Upper bound for defrag worker
+  interval
 
- - xe_bo_defrag_worker: emitted on worker entry and exit with the
-   current defrag list count and the bytes processed in the run.
- - xe_bo_defrag_one: emitted per BO with the run budget, the prealloc
-   fill ratio (got/want) and the lock-held, lock-wait and prealloc
-   durations, plus the bytes consumed and the result.
+Update xe_bo.c to use these Kconfig options as defaults via #ifdef
+guards, maintaining backward compatibility with hardcoded values when
+not configured.
 
-These break down the cost of a defrag attempt into its locked vs
-unlocked phases, making it possible to confirm that the expensive
-beneficial-order allocation and cpu cache mode change happen outside
-the BO dma-resv lock and that the residual lock-held time is copy-bound
-(with the tail dominated by lock-wait behind active rendering).
+Additionally, disable defrag completely when XE_BO_DEFRAG_SIZE_LIMIT is
+set less than 2M by returning early from xe_bo_defrag_update() (and
+xe_bo_defrag_remove()) so BOs are never added to the defrag list or the
+worker kicked; xe_bo_defrag_add() and xe_bo_defrag_schedule() assert the
+limit is at least 2M.
 
 Cc: Carlos Santa <carlos.santa@intel.com>
 Cc: Ryan Neph <ryanneph@google.com>
@@ -103,162 +109,145 @@ Cc: Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Assisted-by: GitHub_Copilot:claude-opus-4.8
+Assisted-by: GitHub_Copilot:claude-haiku-4.5
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-
 ---
+ drivers/gpu/drm/xe/Kconfig.profile | 40 ++++++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_bo.c         | 26 +++++++++++++++++++
+ 2 files changed, 66 insertions(+)
 
-v3:
- - Move the ns-to-us division into TP_fast_assign() to avoid a 64-bit
-   divide in TP_printk() (Sashiko)
----
- drivers/gpu/drm/xe/xe_bo.c       | 18 +++++++++-
- drivers/gpu/drm/xe/xe_trace_bo.h | 59 ++++++++++++++++++++++++++++++++
- 2 files changed, 76 insertions(+), 1 deletion(-)
-
+diff --git a/drivers/gpu/drm/xe/Kconfig.profile b/drivers/gpu/drm/xe/Kconfig.profile
+index e07517d120e0..e0aade41f53e 100644
+--- a/drivers/gpu/drm/xe/Kconfig.profile
++++ b/drivers/gpu/drm/xe/Kconfig.profile
+@@ -74,3 +74,43 @@ config DRM_XE_ENABLE_SCHEDTIMEOUT_LIMIT
+ 	  to apply to applicable user. For elevated user, all above MIN
+ 	  and MAX values will apply when this configuration is enable to
+ 	  apply limitation. By default limitation is applied.
++
++config DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD
++	int "BO defrag reclaim backoff threshold"
++	default 2
++	range 1 1000
++	help
++	  Once this many BOs are tracked on the device defrag list (i.e. were
++	  backed with a sub-optimal page order), request that the TTM pool backs
++	  off from aggressive reclaim at the beneficial order during populate,
++	  so that allocations make forward progress instead of stalling.
++
++config DRM_XE_BO_DEFRAG_SIZE_LIMIT
++	int "Maximum bytes to defrag per work run"
++	default 33554432
++	range 0 1073741824
++	help
++	  Maximum number of bytes the defrag worker will process in a single run
++	  before yielding and rescheduling itself. Set to less than large page
++	  size (2M) to disable defrag. A defrag move synchronously reallocates
++	  and re-copies a BO's backing store, which is not free. If a large
++	  number of BOs become eligible at once, processing them all in one
++	  worker run would hold things up for a long, unbounded stretch.
++	  Instead, cap the work done per run and requeue, spreading the defrag
++	  effort out over time.
++
++config DRM_XE_BO_DEFRAG_INTERVAL_MS
++	int "Default delay before defrag worker run (ms)"
++	default 25
++	range 1 1000
++	help
++	  Default delay before (re)running the defrag worker, in milliseconds.
++
++config DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS
++	int "Upper bound for defrag worker interval (ms)"
++	default 15000
++	range 100 1000000
++	help
++	  Upper bound for the (exponentially backed off) defrag worker interval,
++	  in milliseconds, so repeated failures don't push the retry arbitrarily
++	  far out. 15000 ms = 15 seconds.
 diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 8b89d34f37d4..25e5b72f870c 100644
+index 073d926ef9ac..0bdd1c920404 100644
 --- a/drivers/gpu/drm/xe/xe_bo.c
 +++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -1263,7 +1263,9 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
- 	struct ttm_placement placement;
- 	struct ttm_place place;
- 	enum ttm_caching tt_caching;
--	unsigned int order, want = 0;
-+	unsigned int order, want = 0, got = 0;
-+	u64 lock_ns = 0, prealloc_ns = 0, lockwait_ns = 0;
-+	ktime_t t0;
- 	int ret = 0;
+@@ -49,7 +49,11 @@
+  * aggressive reclaim at the beneficial order during populate, so that
+  * allocations make forward progress instead of stalling.
+  */
++#ifdef CONFIG_DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD
++#define XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD	CONFIG_DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD
++#else
+ #define XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD	2
++#endif
  
- 	*consumed = 0;
-@@ -1294,6 +1296,7 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
+ /*
+  * Maximum number of bytes of newly (re)allocated backing the defrag worker will
+@@ -65,17 +69,31 @@
+  * Only pages a move truly reallocates are charged; pages harvested from the old
+  * backing are free, so an object larger than the budget is upgraded in
+  * budget-sized slices across runs.
++ *
++ * Set to 0 to disable defrag completely.
+  */
++#ifdef CONFIG_DRM_XE_BO_DEFRAG_SIZE_LIMIT
++#define XE_BO_DEFRAG_SIZE_LIMIT			CONFIG_DRM_XE_BO_DEFRAG_SIZE_LIMIT
++#else
+ #define XE_BO_DEFRAG_SIZE_LIMIT			SZ_32M
++#endif
  
- 	/* Phase 2: preallocate outside the lock; */
- 	if (want) {
-+		t0 = ktime_get();
- 		ret = ttm_pool_prealloc_fill(pool, tt_caching, &pp, want);
- 		if (ret || !pp.count) {
- 			ret = ret ?: -ENOMEM;
-@@ -1301,12 +1304,16 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
- 					 XE_GT_STATS_ID_DEFRAG_FAILED_COUNT, 1);
- 			goto out_err;
- 		}
-+		prealloc_ns = ktime_to_ns(ktime_sub(ktime_get(), t0));
- 	}
+ /* Default delay before (re)running the defrag worker, in milliseconds. */
++#ifdef CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MS
++#define XE_BO_DEFRAG_INTERVAL_MS		CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MS
++#else
+ #define XE_BO_DEFRAG_INTERVAL_MS		25
++#endif
  
- 	/*
- 	 * Phase 3: re-take the lock, re-check, and validate using the prealloc.
- 	 */
-+	t0 = ktime_get();
- 	xe_bo_lock(bo, false);
-+	lockwait_ns = ktime_to_ns(ktime_sub(ktime_get(), t0));
-+	t0 = ktime_get();
+ /*
+  * Upper bound for the (exponentially backed off) defrag worker interval, in
+  * milliseconds, so repeated failures don't push the retry arbitrarily far out.
+  */
++#ifdef CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS
++#define XE_BO_DEFRAG_INTERVAL_MAX_MS		CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS
++#else
+ #define XE_BO_DEFRAG_INTERVAL_MAX_MS		15000	/* 15 seconds */
++#endif
  
- 	if (!xe_bo_needs_defrag(bo)) {
- 		xe_bo_defrag_remove(bo);
-@@ -1362,9 +1369,13 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
+ static void xe_bo_defrag_worker(struct work_struct *w);
+ static void xe_place_from_ttm_type(u32 mem_type, struct ttm_place *place);
+@@ -1126,6 +1144,7 @@ int xe_bo_defrag_init(struct xe_device *xe)
  
- unlock:
- 	xe_bo_unlock(bo);
-+	lock_ns = ktime_to_ns(ktime_sub(ktime_get(), t0));
-+	got = pp.used;
- out_err:
- 	ttm_pool_prealloc_fini(pool, &pp);
- out:
-+	trace_xe_bo_defrag_one(bo, budget, want, got, lock_ns, prealloc_ns,
-+			       lockwait_ns, *consumed, ret);
- 	return ret;
+ static void xe_bo_defrag_schedule(struct xe_device *xe)
+ {
++	xe_assert(xe, XE_BO_DEFRAG_SIZE_LIMIT >= SZ_2M);
+ 	schedule_delayed_work(&xe->mem.defrag.worker,
+ 			      msecs_to_jiffies(xe->mem.defrag.interval_ms));
  }
+@@ -1152,6 +1171,7 @@ static void xe_bo_defrag_add(struct xe_bo *bo)
  
-@@ -1396,6 +1407,9 @@ static void xe_bo_defrag_worker(struct work_struct *w)
+ 	xe_bo_assert_held(bo);
+ 	xe_assert(xe, xe_bo_needs_defrag(bo));
++	xe_assert(xe, XE_BO_DEFRAG_SIZE_LIMIT >= SZ_2M);
+ 
+ 	scoped_guard(spinlock, &xe->mem.defrag.lock) {
+ 		if (list_empty(&bo->defrag_link)) {
+@@ -1185,6 +1205,9 @@ static void xe_bo_defrag_remove(struct xe_bo *bo)
+ {
+ 	xe_bo_assert_held(bo);
+ 
++	if (XE_BO_DEFRAG_SIZE_LIMIT < SZ_2M)
++		return;
++
+ 	if (list_empty(&bo->defrag_link))
  		return;
- 	}
  
-+	trace_xe_bo_defrag_worker(xe, 0, atomic_read(&xe->mem.defrag.count),
-+				  true);
+@@ -1204,6 +1227,9 @@ static void xe_bo_defrag_update(struct xe_bo *bo)
+ {
+ 	xe_bo_assert_held(bo);
+ 
++	if (XE_BO_DEFRAG_SIZE_LIMIT < SZ_2M)
++		return;
 +
- 	/*
- 	 * Process at most XE_BO_DEFRAG_SIZE_LIMIT bytes of newly (re)allocated
- 	 * backing per run rather than draining the whole list in one go. Only
-@@ -1503,6 +1517,8 @@ static void xe_bo_defrag_worker(struct work_struct *w)
- 
- 	xe_pm_runtime_put(xe);
- 	drm_dev_exit(idx);
-+	trace_xe_bo_defrag_worker(xe, defrag_bytes,
-+				  atomic_read(&xe->mem.defrag.count), false);
- }
- 
- static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
-diff --git a/drivers/gpu/drm/xe/xe_trace_bo.h b/drivers/gpu/drm/xe/xe_trace_bo.h
-index 86323cf3be2c..b159d37d39a1 100644
---- a/drivers/gpu/drm/xe/xe_trace_bo.h
-+++ b/drivers/gpu/drm/xe/xe_trace_bo.h
-@@ -85,6 +85,65 @@ TRACE_EVENT(xe_bo_move,
- 		      __get_str(new_placement_name), __get_str(device_id))
- );
- 
-+TRACE_EVENT(xe_bo_defrag_worker,
-+	    TP_PROTO(struct xe_device *xe, u64 defrag_bytes, int count,
-+		     bool enter),
-+	    TP_ARGS(xe, defrag_bytes, count, enter),
-+	    TP_STRUCT__entry(
-+		     __string(dev, dev_name(xe->drm.dev))
-+		     __field(u64, defrag_bytes)
-+		     __field(int, count)
-+		     __field(bool, enter)
-+		     ),
-+	    TP_fast_assign(
-+		   __assign_str(dev);
-+		   __entry->defrag_bytes = defrag_bytes;
-+		   __entry->count = count;
-+		   __entry->enter = enter;
-+		   ),
-+	    TP_printk("dev=%s %s defrag_bytes=%llu count=%d",
-+		      __get_str(dev), __entry->enter ? "enter" : "exit",
-+		      __entry->defrag_bytes, __entry->count)
-+);
-+
-+TRACE_EVENT(xe_bo_defrag_one,
-+	    TP_PROTO(struct xe_bo *bo, u64 budget, unsigned int prealloc_want,
-+		     unsigned int prealloc_got, u64 lock_ns, u64 prealloc_ns,
-+		     u64 lockwait_ns, u64 consumed, int ret),
-+	    TP_ARGS(bo, budget, prealloc_want, prealloc_got, lock_ns,
-+		    prealloc_ns, lockwait_ns, consumed, ret),
-+	    TP_STRUCT__entry(
-+		     __string(dev, __dev_name_bo(bo))
-+		     __field(size_t, size)
-+		     __field(u64, budget)
-+		     __field(unsigned int, prealloc_want)
-+		     __field(unsigned int, prealloc_got)
-+		     __field(u64, lock_us)
-+		     __field(u64, prealloc_us)
-+		     __field(u64, lockwait_us)
-+		     __field(u64, consumed)
-+		     __field(int, ret)
-+		     ),
-+	    TP_fast_assign(
-+		   __assign_str(dev);
-+		   __entry->size = xe_bo_size(bo);
-+		   __entry->budget = budget;
-+		   __entry->prealloc_want = prealloc_want;
-+		   __entry->prealloc_got = prealloc_got;
-+		   __entry->lock_us = div_u64(lock_ns, 1000);
-+		   __entry->prealloc_us = div_u64(prealloc_ns, 1000);
-+		   __entry->lockwait_us = div_u64(lockwait_ns, 1000);
-+		   __entry->consumed = consumed;
-+		   __entry->ret = ret;
-+		   ),
-+	    TP_printk("dev=%s size=%zu budget=%llu prealloc=%u/%u lock_us=%llu lockwait_us=%llu prealloc_us=%llu consumed=%llu ret=%d",
-+		      __get_str(dev), __entry->size, __entry->budget,
-+		      __entry->prealloc_got, __entry->prealloc_want,
-+		      __entry->lock_us, __entry->lockwait_us,
-+		      __entry->prealloc_us, __entry->consumed,
-+		      __entry->ret)
-+);
-+
- DECLARE_EVENT_CLASS(xe_vma,
- 		    TP_PROTO(struct xe_vma *vma),
- 		    TP_ARGS(vma),
+ 	if (xe_bo_needs_defrag(bo))
+ 		xe_bo_defrag_add(bo);
+ 	else
 -- 
 2.34.1
 
