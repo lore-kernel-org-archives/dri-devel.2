@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37311C44501
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 10:33:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A56BCC44506
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 10:38:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0742B10E32F;
-	Sat, 11 Jul 2026 10:33:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D026710E326;
+	Sat, 11 Jul 2026 10:38:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m7nA+XVS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DOZtr9YX";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011042.outbound.protection.outlook.com [40.107.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3E5910E25B;
- Sat, 11 Jul 2026 10:33:30 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011058.outbound.protection.outlook.com
+ [40.93.194.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01FD5892F2;
+ Sat, 11 Jul 2026 10:38:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eCvqlXqiL1tsvhohgB5rAGvEPexSwxN3QPU7B9LIANnogz9du0UWmdKq+fzNKeTYpdu5FC8dQuRAue2NxnMZDahY3RZleMVdC3hM3Aogt9xrfKrW02gJ1cMpaNfMO+qEAiLrmIEOlGUq47R+Hni/wnMd0IWEAFlb2vLrjwj6f7UdktgwmX2fNjvTJOyJZY/VDzgzZ+uwNw+VuRUW6u2hzhLFdEBKb/08JyNUeZeNVavhQXUqId/DQav0rA96AxWp9e6tw2foREa89kR71aiZlLjJ3fKf6CziD1AL9Ls5fNpjXecmLrsw9CcIpqnQZUsuZienvgHDabz77vRrplx60A==
+ b=UURlf+Zp0hGhyGQrUezRsmXavib+g9NRqJ/cFY65phZVnvT5aBCf1Oqj2zVEHlD6Ba3q5sSHk7ZU//F4x+UfAN/OIfx+N6d6ikSu1klmq04XSGLxe8EwT74wKp1Rw+nXWJ70paxC80P89ZLbQnVSgbbjRxdPAIgMVAr4SMGJkXCUNOh4djllR6VjvLy9YIzOwzNsWWp8NzseiQFl4TnKWx8cpBfLH0FJ2gd5P21a5hBMExvr+Eiro1MmjAkusHg0akIXfXB3ulxWwbRdQ2UntLj+XWONDRxjtc+SGHhLh93nj2WIIQXYRUZHDZEZ7BAQheGnQTFFOFBeNn1acCX3Zg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ai6vy7TkoMZyuPtcxflq53yptLS9EotaB74S1nchYQI=;
- b=E336lEAVEdFN7SAJmTQiXUgJWEmqzMgWHcEpUA2PhpPtxOvByWHvXcTqQ+9MiRA6twHtrciEzpsYIBHMWTNOEfNfCRLVygtKblxuoFL4H1FBPO2cev7ifaPgBcrrcRqxct9BEBtcvefKy+AIhaBGNs3qgr2dZ4R6f8UubpKpP0w9rq9RfNSJb5rfzsgrwNMTFb7lYwlv9JjJRXItoX6efUDqGXhL+m2SW4HK5NE86SqUZTNjDLdeshTojstlQ5rRO9ehLTlLOb9nU/2jEPnVGsP5V10t99vWWZJUgVKM73x60yVAhbfvrJexYnwIDtYtuX7K7Vj+ubkBPIbx70jdrg==
+ bh=xOdmSV0jLg4djF4K1FzqtFxOU06v2ryRZM/w+MXadQo=;
+ b=fu9lwkpzq3hN5QdRTXoftU5KoyxyOyWgLKpEi3Lne+dcsAc6uwj7IiLvGzW+QnPYK1skOf3lh6I6RnQJEfc7i3Kf5iyPlgyNn9NjYi+0UNSSJ+Y6PcO0lo8ZN78n5/LsvpfBPG18SzuBdtw1WOs/mCGpwWprJdaEG6Rm/ojPVlj+S0/ItqUKA3u8LKA5w79A7KELJPevxZhoYGWUXGylc6W8bAPM+JS4jvICVHyiyIjK3TUueHrN2fTBmOEJ1iWNM+xR5F6vxCj2cf1Ni+mTRqVnA8yQ1q1pZ6SrTVZmW+TymGU0c/Qppq5crmEeOrM7y3/26aBxR1/jm1t7TNhbPw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ai6vy7TkoMZyuPtcxflq53yptLS9EotaB74S1nchYQI=;
- b=m7nA+XVSN2i7muyk5INtz7C5KmdVBMzyS3f92K3bt5wS6nBjLohQjVDOI/QM8IP8YLM42g0RPyPqZ4sUNckWb5uSd4WxQ1e/8Kq2WXX/m5OjQqN4nlHzv/zk4GqF1J429ksgkkbAZkGDyRU1AZ9SO9ACsS44aghI+xtUfX3VC6Q=
+ bh=xOdmSV0jLg4djF4K1FzqtFxOU06v2ryRZM/w+MXadQo=;
+ b=DOZtr9YXIH7ZoW2WFVqxjEzZvs4GrQvi1dUBiITRZXVepYO9Kpj+0+7zzjHrX6K6lpPxhHoq0om8aUJj8TAJSGk3qqh2ZkVMocB9Q/hdKW7iJ7ynDezLYPjrBtayn8hE3s/uXBeMbY1Ri/tczMWXbj0QmiRkucxYYO5elxjI2/A=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by DSVPR12MB999307.namprd12.prod.outlook.com (2603:10b6:8:41a::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.18; Sat, 11 Jul
- 2026 10:33:26 +0000
+ 2026 10:38:15 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Sat, 11 Jul 2026
- 10:33:25 +0000
-Message-ID: <971f7948-b241-46cc-980f-61df43af22bd@amd.com>
-Date: Sat, 11 Jul 2026 12:33:20 +0200
+ 10:38:15 +0000
+Message-ID: <731fc65a-ab8a-43f6-be6e-03b7fc08698c@amd.com>
+Date: Sat, 11 Jul 2026 12:38:10 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/33] drm/ttm, drm/xe: Minimize dma-resv hold times
- and defragment sub-optimally backed BOs
+Subject: Re: [PATCH v2 01/33] drm/ttm/pool: Allow backing off reclaim at the
+ beneficial order
 To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
  Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -57,76 +57,77 @@ Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  linux-kernel@vger.kernel.org,
  =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
+ <20260710215442.2444235-2-matthew.brost@intel.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260710215442.2444235-1-matthew.brost@intel.com>
+In-Reply-To: <20260710215442.2444235-2-matthew.brost@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0112.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:bb::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0088.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1f::16) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DSVPR12MB999307:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3002876a-04c6-4c86-74ba-08dedf37d6f0
+X-MS-Office365-Filtering-Correlation-Id: 2ce42ba7-b04c-49bc-7c2a-08dedf388373
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|23010399003|366016|1800799024|22082099003|18002099003|6133799003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: XrN1TKwpLqNlLWWYZjTdu4bcaKg0eqBsiz/DrOcApqOI2GuRxdVYolSCdvqQF7qta3Bl1Jo6hm45f6vD8+OJpwn0R+OVEeppd2mg89caWJlF1UEFz+AW8eLuN7ops570K1NP9UA69UJb1MvXxDPUpg6QK+ONZmz/VjZZ5v+Dl7dzTGZnXup3eA2zZ3xljvYs3qEWONgXmTX2ghlVGazWiySlNcZ6/5yHEdm+l7YOHMuAWS2+j/VjZi2AFIYPsEswwVwhQ0DGeOyg/Nlsfjow5otrWcijgZ7gxvogM9sGfphAX91KvcAqnbGgT/xvZZuyfyBOUJvakiDCMnrWa0LuC+JftBHQ9Bh7ACLdu5anyL04YSzV4rSmVcgwaj50Mbwnk0vgs0n2CBoDLweXm5A7gtLOP/3ADol1OuatXvOqHbqTsvKfodRmaNsLlW3J27ekPRS/Wu3YiREXa2oEcUvyOTbeF+2YlLAsbBp79//6k+lpIX1sQ0hvnfkRC43HC9EapA5NUAyHJprOaEtuuvDugIZl0f8T3V5Dw1P1uzPf4bolBTF0P4wRyGceBvVy3sudD7Z6QsfgouZH0m5ClbmXH/zabuQuEVuJ3t/nHtmGV8dKF1RL5GqGYomYM5xNlTEd
+ ARA:13230040|376014|7416014|23010399003|366016|1800799024|22082099003|18002099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: jutyY6rxU7hwkDfFAFT4dUwSGH5m2ZxAfU3MN1p1iPL6M9EieJ9GhiJi7kDu2gSTaobijN3jAElDn3s8PNbrPP3vZa8/g+7OLVi0VrvO7rFE0eYxMvHRcRqiv3VrSUHcbq4awF3jrgOcrSTrPE+I2zw3tXGJdmZdRFfIlIlq8zSxYJE7gD2mpaWj3zOXTN0sgLXbdlItO5hW+7wG2jd7dP0/UYS1kjiwq8n/SAqynbnP+LD+JWvAEaRMSopuyJtggKesAxT8NdvvAtbqcY7f95qljk2TEAh39RhghDJi3wTfG+o8vWEJdnqk9EQdl+DycyRI6hUjJQS5c7uFEts5KP6cZWuf3jhqzuGMJx8romJZXn67tVLJ811M6tQzF4hxDTVoOW7UbXH5kq6V7zUE1hZ1EB+OteyXHnTA2xBuynFLD5B1tZy6zDmjP4jYFxsX2uUpuTc/bu/ecyQ/vyD8UMNK+aOid7sPgwPHv060wiK/lusJkJaF1Loz+vdpeO6fXXak2EYme4QVb42FYl/XkbYqUVCoz6zwXCteV3R+Mq7ABsv/TG7qu1i/OV1Ld7GEuCDvyb9VB82Gp3gpeJH2kIkS0VEKQvKnXW/S+RNjaroqMq3nb8rdHFDmMXGxfNJxs8UAMI3N0drrx2X4tdy8B/UUBLaNLUi9QqriXMhHJ8c=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(6133799003)(56012099006)(11063799006);
+ SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NG5QVXRtOVVRQ3pmWXgzUmdsRmlvUDRGRjVoUWRSaXlBaTQxMnFtek5LaTRY?=
- =?utf-8?B?WXo3eURvVEZlWEhTeXBHKzVIVi8zQXdKY0E2clJuSnEra09UM3ppdmVTc2Rh?=
- =?utf-8?B?U1AyajFXZ2paZWI1K1hyeU5WSVNwMCtSRWtWQkgzVURkM28xck1HZnhPSGpY?=
- =?utf-8?B?TmFGOWh5VTFPR1FwSVAzbEZvaFNhYTFPWE1sVzA0NXlGdGl2RlE5a0RHSGxY?=
- =?utf-8?B?K2cwNkhqUUlSL1VGNi9Ia25pS0QxZzFjM2RIbFJJSngrREI3Zk1JQWlVTHZv?=
- =?utf-8?B?RldiNEE0VzFPbTQxM1BWNHVxbmRlcWRPckxFc0xxTDlha1ZPR2x6YzZsdUR5?=
- =?utf-8?B?SDJVd3FKdTIzU0hEeHZjbUlMQkk5VUYydjdHeTI1YnlWc3ZBQ2NoWitmb1VH?=
- =?utf-8?B?QU84Z3dNc051Qys5eEpBemU5ZVcxTnZuUHUyQ1RMMTFTYkM0NnlBbzhGakxB?=
- =?utf-8?B?a1J6RlFWWlFzMENxZ2wxU1dBZDVoZHNwZ0dJR3dsQU9FbHVML0tqR1hPYVNv?=
- =?utf-8?B?bERQaFNFYUczVDlsWWlGaTA2VTlPR2ZqRzNWYnMzczgrZmlBOU9GUkhOSUo1?=
- =?utf-8?B?R3NnMFl0Z1Framh0eGRIdjNQbzgrTTR4ZDQxUTRXZHZoQklDbDVwL0gybDhm?=
- =?utf-8?B?cmloaGU5U1RrN2Q5bk1uZENCWWNCanlrbzdoY1B4MjM0TTRycXVwd092SXVU?=
- =?utf-8?B?NnE5RHUrZmUreTZXRGRsVkFkQUpEUEEyRnNGZm45Yk5DZjcwWUNnaWZ2WWlt?=
- =?utf-8?B?TzRySmlkYUg0MnhwNWJTTnVqZ0FZZmxka3JrS25OeDZuUVRHWnc2NUpOUGtt?=
- =?utf-8?B?Nks5TFp3emlKcXUwQkluNGo2NDhYZkx4NEVMUWROcEVCUXlFdGpTcG1Nc1lF?=
- =?utf-8?B?dDhTdFNTTjFiazErRGcydU5hYmlXdnVGWUFocVVpZ0tLbEtpd25URHpmcGVQ?=
- =?utf-8?B?ZnhGT3RIWlovQ05GdjFkTHhWTjJHTzBwV1RCZG1waHFIMFRZeVZZa1dmeFRN?=
- =?utf-8?B?Ti9PRFZqdVFSYjl6MlZKckJBcGx0a3MxOXZvWWJGMmpDM2pEelZ4V1pwRWJJ?=
- =?utf-8?B?YjhuM0s5U252TkRsSjlPSzNoWUxnc2J4cmNoZ1NuSEdrbVUrQ2cyOXhnWnZ3?=
- =?utf-8?B?NE9DL0VHc1VyRVVhQ29td3NTckRUNDE0SGozYUp0SzJ2ekg4QjdmeG5pazJT?=
- =?utf-8?B?ZThuVW1XUVg1ckh0MXhvK1EyeHQzbi9KQnkxTnk0eUQ0cDlLdGQ2Qm1DV2xw?=
- =?utf-8?B?ZmNxQUFTTkhqWlVSamwwR3Q5S2g3ZHZFUWlFcTFxYWNoQVNoaWtMUDJuUDVs?=
- =?utf-8?B?a1lvb1ZqcWZuR0hvTTVBc01mQVAyOVQ5TW9GVUpwNnlOeWZ2NE0yRW1rYTJ1?=
- =?utf-8?B?dkpLYllzczNDK3cyUlN5dkUwcFErQ2oyV2FSMWEwOHJheTgzVHdIQWh0aWNF?=
- =?utf-8?B?eFNVV1l4S2F0RENHcm1QTm1OaUMvMWpSeURkZW9ack5idE9yalVBSGZ3QTZk?=
- =?utf-8?B?UndtSEVxYlMwNEVwTDRwMlIyWlV6WEpUSDRidS9VbmxPUnVITWFnZUdJRHZ6?=
- =?utf-8?B?SHBiUWp5SHdiN1RXMkd2YWlJckFhNnQzNjZKSmM5a3VTZWY5SjJ0WWNsV2NI?=
- =?utf-8?B?OW95cjd3SkdVdzV5eXdoVTNFM21zOUFBU1VkMUN1ZjBpa2UvU1ByZFNFaXVr?=
- =?utf-8?B?dnNxUjJ6RVlWOThwSXVYNmhobU5PbWVqczdSd2VxMFJZRW1maVo3dEovR3Ev?=
- =?utf-8?B?WUt1SVJtMm9seVNaN01qZk11SlY2UW1HeVpDb2hrOFI3TWtJYWVvS1ZOMXpk?=
- =?utf-8?B?VVEzdEV0bVIvSHcweHpMVEMyQVdRc0JwYXVQN1plNzRkMG8rWDhtTUlwWlR6?=
- =?utf-8?B?Z2ZUN2tMV2hzRHpSZ2dpZjlQdGNUVmpEbHMwQ0d0TnFwRUtqeVltRldxWWlI?=
- =?utf-8?B?dEU4dkZkdXNsbTl3blZlMlgvT3ZRcFdXUlRPak41aitBbW5ITTk1di8zWitR?=
- =?utf-8?B?Q3hqYjV4MXczRTZuejFVcmxnUFpIYy8xMnQ2dXRIeGVCcVpSM2NlVmdoWXFU?=
- =?utf-8?B?OElGMWRvN1JZcWJMakF1Si80aWlJQ0l1ZGYrMFhFVXhwRU9wVWo3dmFrMFJS?=
- =?utf-8?B?N3lpa0VUVVNNWVJDQmd3YTlsMFZXcTd3NjFUWWhyL3dEb2FFeVpxM05aUFpH?=
- =?utf-8?B?SGtKcFp4ak82ZWloWnZRY0Z1V2hydVhVWWhxZjE1S0lRRVh2VDlWSzYrekVK?=
- =?utf-8?B?RzFuZllyZlhBZ3FGL2czTldsa3VxQnIxTWdOalhGTkRLNFY4cWphNzE1aHdM?=
- =?utf-8?Q?+yIS90MzGRgzKccTkA?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UGFzT1FCRkluZlJDSE41Rm4yV29EV2pJWVVkcFRIOEhWZFl4Z1pyRWZ1NUxs?=
+ =?utf-8?B?NjZBRTlSaWROdjdha3ExTnhsa3AvZ2RjTnBERzFWUFJHak8wa294dFpZS2Fm?=
+ =?utf-8?B?YURrYkY2NHhHSXUrMncxbkZGcDF4YVJSWFhHczNyRTdNSFZUUEc3SzJYZ0RL?=
+ =?utf-8?B?N2p0aDJSQUU3WkErb0dXc3FyUFRHcFlHSEVlS0k1S0RVTnAzbjJNcWxoenQ5?=
+ =?utf-8?B?ZTE4bVVveGxRYkhFVlpnTW5wK0RMN2g5UDdyc1JjOHJRQnE0bnFlU1E3UmlH?=
+ =?utf-8?B?NlArK0JWeU5CaVhuZ0tmdW5raE05WHNNcnpML0k4SHR5MFVmOUdpNm5uY042?=
+ =?utf-8?B?NXRSSzRVTUxveVNwTUFZTlRXZ1RqOFhOcTdwR3lrUjlya014MGpvUk5wYkFY?=
+ =?utf-8?B?RVJxcUEzYW1pVkFEY2lvdDVucUpRMXh6cWJWdkF3TXVvUzhXWVkzTmNZNjJG?=
+ =?utf-8?B?WE9XcmErdlcwQmNhMUJnWUM4ckRRVStCOTVGRTMwM1JoWTlDeXhMUHFuMVY1?=
+ =?utf-8?B?RzZPUzc3OUs1S0V1NkhFSDRPaVBja1M3NFJRRU14Y1hMWnFhK0tkYXYrdHFC?=
+ =?utf-8?B?T25hYjRIVkxHdm1STVY5TTFWZmhQZnRNMWdGN0dCblEvQlRSM0NxTG94TUx6?=
+ =?utf-8?B?VWVucDRmM3prWHcrMUlPNzFld2k5TzQ5M1lLTXptVFE3bnBndmRKekVhQVhw?=
+ =?utf-8?B?RDQ3T1pnRmltMXhYUjMyR1A0K2QvRU9kYzlyTnBweFY1ZmJFNFcvLzRTc25s?=
+ =?utf-8?B?cDFwVUhJVkJuRVgwbDZHRHZFKy8zRWZ3cXhQZVh4SEVVcjc3Z2xEY20yWVgz?=
+ =?utf-8?B?anM1SFRIS0Z1Y0I0bnIvbm44MnVSUTZrQzBvYm9qNmo1Q3FSdFNnMXlpWExQ?=
+ =?utf-8?B?YW9zME03Z3hVZllPYXBHd3l0VUd5UWo0NWE2MVJVMklLblRIYjV2TUpHd0c5?=
+ =?utf-8?B?c1lUblQzRVNUTTlVZ21EVnVQYjhXVUVuQ3lvQ1l6YWducnR6U2hhdkV3WEYw?=
+ =?utf-8?B?R0tOR3JxN1ZjSE5lNURJa1VYRmZ4MEhHbStNaTB3T1ljc1daSzhSVU5lT2Q3?=
+ =?utf-8?B?Y3hxSng4Qk1aUEt6MlZIYVNoTTF5YTlOWTZlMXRLazNaR0FocWxBelFrbXhi?=
+ =?utf-8?B?RDdSV1lrUzVuTUxmMkJBcjhBb243TjRXWjkvK29PSkRkSmtBS1dSUlpwVTNl?=
+ =?utf-8?B?MjlqQjl5bWNTOWNneW9JaEZCbVJHb0dhRWFxSXg3TmhHRURNUmNvTVNXSE5I?=
+ =?utf-8?B?RHlPRDNUVGswTDBGcXQzMGN0empZa0tGNTJuMDMvK2k5UVJGL1hneVphNVRH?=
+ =?utf-8?B?cksyTTBVRmkwYzhXcElhU2YxS3duR3VNN2lJNXVCOU5FWTZHK3o4WmgzWXBD?=
+ =?utf-8?B?ZDVRSTVBSVhIZWZoZ0ozY252ZXhIZC83eUhEVThsOFgrSWhjejIyREQrQ2gv?=
+ =?utf-8?B?ZGpqam52aEdFMW5RcFRuTzQySlBNSk9kalcxb3k2Um9URjB0ZDhwOFR6emt1?=
+ =?utf-8?B?Y1I5TVdqMERWdUhoNjM4c2hGRmllV1daVXJtNjAxTm1sZjcrb0w1TzBMM1Bq?=
+ =?utf-8?B?NnhETGNmdzArcmFWTEkzWWVFL0hzQXppRGFyNXZjTkY3dis5ZzBwbmFwR2xz?=
+ =?utf-8?B?R3dGNC9LMVFQb24rd2NRNlk3WmEvUzhrK3RBRDludVJjQzBRRG9ua2ROaGhR?=
+ =?utf-8?B?NWdDV1R5bVZ1bTgwaEVxMjBDNHZjeUlzY0lERFkzaWRCaFo2ZFE2SDltT0Rs?=
+ =?utf-8?B?KzhnUnJiTUpCaVVKME5TTFlGcVdmL21QV2VuTHhYU016KzBjdHU3NjZ3K2xk?=
+ =?utf-8?B?aHBjajFZZDJGMlpVcmJ0Y3FiRUJwNzVlZ28xY0ZmcmpqWms0WmNuVTVISkRr?=
+ =?utf-8?B?RWxNTGhIZWlhamtZWENHYllaZnNxWDNHajVLVm5PeERxSzNZTWlZV29vcSsy?=
+ =?utf-8?B?bFR1U3d6aXBkeThEbHFyZytLOTZJV1dRdzhWS2lGQ1FGOE9KejdHWFEyWnlk?=
+ =?utf-8?B?a0hqeUx6NG0wN0hlUG1heHRNTkRsS3VBTWlvS3BiV1ErdnVwQzc1TFJrN2Fw?=
+ =?utf-8?B?T2k4TmFBTU1HR2tOejR3OElWcU5wWnR3d3lqdzFnSVZCbXpiV25ROEQzdnRH?=
+ =?utf-8?B?dVU4Z2pta2J3SUgrd2k4YlBPWVNRQmxJSTNIOENJUFI5U3NrdGVBTXk4Z25o?=
+ =?utf-8?B?cldCMnZnejA5ejdxTDlENUZtdGJIOVV2eGdKazNhb005RkVLNktTcEU2SkpX?=
+ =?utf-8?B?NjlWeDJMMkhRdmhXZVR2VHlOOWE0TWFHdFFWVG51R0xQQXBRMzZBNkJtSjgx?=
+ =?utf-8?Q?w9apqBRmFJdLLJDD/y?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3002876a-04c6-4c86-74ba-08dedf37d6f0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ce42ba7-b04c-49bc-7c2a-08dedf388373
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2026 10:33:25.7033 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2026 10:38:15.1691 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k3LxMkzU4YHR77Nl4fWnvHLH9EJoTamSYHOr5kPiB2ocPbQVDM60mjAX/LdzCM/9
+X-MS-Exchange-CrossTenant-UserPrincipalName: xv40vscsL+q2uL51jX18nHyhUsySTIMKU54E7jVlzGvphTB9ahgN7oPmGcrDLqjy
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999307
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,92 +145,36 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 7/10/26 23:54, Matthew Brost wrote:
-> The overarching goal of this series is to keep user-facing IOCTLs snappy
-> by holding the BO dma-resv lock for the shortest possible time, and to
-> push the expensive, best-effort work - page (re)allocation, DMA mapping
-> and placement fixups - into the background or out of the locked critical
-> section entirely.
+> Allocating at the pool's beneficial order normally uses
+> __GFP_RETRY_MAYFAIL to push hard for a contiguous high-order page. When
+> beneficial-order allocations have recently been failing, this retry just
+> burns CPU cycles in reclaim/compaction before falling back to a smaller
+> order anyway.
 > 
-> Two related mechanisms fall out of that goal:
-> 
->  - Out-of-lock backing. Page allocation and DMA mapping are the dominant
->    cost of gem_create and of BO moves, and doing them under the dma-resv
->    lock serializes otherwise-independent clients.
+> Add a beneficial_reclaim_backoff flag to struct ttm_operation_ctx and
+> plumb it through to ttm_pool_alloc_page(). When set, the beneficial
+> order is treated like the orders we already consider not worth stalling
+> for: __GFP_RECLAIM is cleared so the allocation skips reclaim/compaction
+> entirely, and the __GFP_NORETRY clearing / __GFP_RETRY_MAYFAIL promotion
+> is skipped. Together this makes the allocator back off quickly to a
+> smaller order instead of stalling.
 
-Saying that doesn't make sense.
+That makes no sense at all.
 
-The DMA-resv lock is either per BO or per VM and so the clients are not even remotely independent of that lock.
+You first give a beneficial order from the driver and then later overwrite it.
 
->    This series preallocates
->    the backing pages (and, where applicable, builds the DMA/IOVA mapping)
->    outside the lock, then transfers the result into the BO under a brief
->    lock hold. The user gets a fast IOCTL return; the heavy lifting happens
->    without contending the reservation.
+What could be done is to make the beneficial order part of the context in the first place, but I don't get what the use case for this should be.
 
-Ok, that sounds like a really bad idea.
+It looks like you propose that TTM should accept smaller chunks of memory initially and then comes back later on and re-allocates things in huge pages.
 
-Why in the world would you do this? The dma_resv lock is exactly what is used to prevent something like that.
-
-> 
->  - Page defragmentation. A BO allocated under memory pressure keeps its
->    scattered, sub-optimally-ordered backing for its entire lifetime,
->    costing TLB efficiency forever. TTM grows the plumbing to track
->    order-failure and to re-back a populated BO in place at the beneficial
->    order, and Xe wires up a background delayed worker that promotes such
->    BOs on the GPU once memory is available again - again, off the hot
->    path and without stalling the submitting thread.
-
-That could be quite beneficial, but so far falling back to low order allocation was only seen as last resort to avoid OOM.
+If that is really the case then I would clearly reject the whole idea. De-fragmentation of smaller pages into larger ones is the job of the core memory management and *not* TTM.
 
 Regards,
 Christian.
 
 > 
-> Since v1 [1] the series has grown considerably. The bulk of the new
-> material is a direct result of profiling: once the defragmenter was in
-> place, the remaining dma-resv hold times and the per-BO
-> allocation/mapping costs showed up clearly, which motivated the
-> out-of-lock preallocation, the IOVA-based mapping path, and the amdgpu
-> counterpart. Rather than land the defragmenter alone, v2 folds in these
-> optimizations since they share the same infrastructure and the same
-> "hold dma-resv briefly, fix up in the background" architecture.
+> This is a no-op until a caller opts in.
 > 
-> The series is organized in sections rather than described patch by patch:
-> 
->  - Patches 1-10 (drm/ttm): core TTM preparation - order-failure tracking,
->    the defragmentation move, reclaim backoff, and out-of-lock page
->    preallocation plumbing.
->  - Patches 11-14: other dependent drm/gpusvm and drm/xe patches this
->    series builds on (DMA-mapping accounting, per-order DMA stats, async
->    L2 flush, and a VM-teardown ordering fix).
->  - Patches 15-23 (drm/xe): the page defragmenter itself - BO tracking,
->    the on-GPU defrag copy, xe_bo_move() handling, and the background
->    worker with its stats and configuration.
->  - Patches 24-25 (drm/xe): out-of-lock system BO backing preallocation
->    in gem_create, moving page allocation out of the dma-resv lock.
->  - Patches 26-32 (drm/xe): IOVA-based DMA mapping optimizations, building
->    and finalizing the mapping outside the lock.
->  - Patch 33 (drm/amdgpu): the equivalent out-of-lock system BO
->    preallocation for amdgpu, exercising the shared TTM plumbing.
-> 
-> Testing
-> =======
-> 
->  - 3D benchmarks on Ubuntu and on Android, with memory intentionally
->    fragmented by a separate program at launch (plus beneficial-order
->    error injection). BOs are initially backed at a sub-optimal order and
->    scores start lower; the background defrag worker then promotes the
->    backing to the beneficial order and scores climb back in line with the
->    unfragmented baseline.
->  - IGT:
->    https://patchwork.freedesktop.org/patch/739052/?series=170046&rev=2
-> 
-> Matt
-> 
-> [1] https://patchwork.freedesktop.org/series/169053/
-> 
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Carlos Santa <carlos.santa@intel.com>
 > Cc: Ryan Neph <ryanneph@google.com>
 > Cc: Christian Koenig <christian.koenig@amd.com>
@@ -243,88 +188,68 @@ Christian.
 > Cc: dri-devel@lists.freedesktop.org
 > Cc: linux-kernel@vger.kernel.org
 > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Assisted-by: GitHub_Copilot:claude-opus-4.8
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> ---
+>  drivers/gpu/drm/ttm/ttm_pool.c | 12 ++++++++----
+>  include/drm/ttm/ttm_bo.h       |  7 +++++++
+>  2 files changed, 15 insertions(+), 4 deletions(-)
 > 
-> 
-> 
-> Matthew Brost (31):
->   drm/ttm/pool: Allow backing off reclaim at the beneficial order
->   drm/ttm/pool: Add ttm_pool_page_order_nodma() helper
->   drm/ttm: Record sub-optimal page order allocations in ttm_tt
->   drm/ttm: Introduce ttm_pool_alloc_iter for __ttm_pool_alloc()
->   drm/ttm: Support defragmentation moves
->   drm/ttm: Add fault injection for beneficial-order allocation failures
->   drm/ttm: Harvest beneficial-order pages on defragmentation moves
->   drm/ttm: Bound page (re)allocation per defragmentation move
->   drm/ttm: Preallocate beneficial-order defrag pages outside the lock
->   drm/ttm: Add full out-of-lock preallocation for ttm_pool_alloc()
->   drm/xe: Flush L2 asynchronously in xe_bo_trigger_rebind()
->   drm/xe: Destroy page tables after unlinking all VMAs on VM close
->   drm/xe: Track BOs backed at a sub-optimal page order
->   drm/xe: Back off beneficial-order reclaim under defrag pressure
->   drm/xe: Add xe_migrate_copy_defrag() for on-GPU defrag copies
->   drm/xe: Handle defrag moves in xe_bo_move()
->   drm/xe: Skip self-copies for borrowed pages on defrag moves
->   drm/xe: Add a page defragmentation worker
->   drm/xe: Add defrag GT stats
->   drm/xe: Add Kconfig.profile options for BO defrag configuration
->   drm/xe: Defrag using out-of-lock page preallocation
->   drm/xe: Add defrag profiling tracepoints
->   drm/xe: Preallocate system BO backing outside the dma-resv lock
->   drm/xe: Add tracepoint for xe_gem_create_ioctl
->   drm/xe: Add IOVA-based xe_res_cursor variant
->   drm/xe: Use IOVA-based DMA mapping for eligible tt BOs
->   drm/xe: Add per-device dependency scheduler for IOVA defrag finalize
->   drm/xe: Add packed copy-step IOVA mapping for defrag
->   drm/xe: Blit src-natural to dst-packed for defrag-IOVA copies
->   drm/xe: Finalize defrag-IOVA moves with post-copy job
->   drm/amdgpu: Preallocate system BO pages outside the reservation lock
-> 
-> Thomas Hellström (2):
->   drm/gpusvm: Add a DMA-mapping accounting callback
->   drm/xe: Add debugfs stats for DMA-mapped pages per order
-> 
->  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |    4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |    2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |   45 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h       |    5 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |    3 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |    4 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   39 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |    3 +
->  drivers/gpu/drm/drm_gpusvm.c                  |   17 +-
->  drivers/gpu/drm/ttm/ttm_bo.c                  |  101 +-
->  drivers/gpu/drm/ttm/ttm_bo_util.c             |   21 +-
->  drivers/gpu/drm/ttm/ttm_pool.c                |  931 +++++++++-
->  drivers/gpu/drm/ttm/ttm_tt.c                  |   67 +
->  drivers/gpu/drm/xe/Kconfig.profile            |   40 +
->  drivers/gpu/drm/xe/tests/xe_bo.c              |    8 +-
->  drivers/gpu/drm/xe/tests/xe_dma_buf.c         |    2 +-
->  drivers/gpu/drm/xe/tests/xe_migrate.c         |   12 +-
->  drivers/gpu/drm/xe/xe_bo.c                    | 1632 ++++++++++++++++-
->  drivers/gpu/drm/xe/xe_bo.h                    |   15 +-
->  drivers/gpu/drm/xe/xe_bo_types.h              |    6 +
->  drivers/gpu/drm/xe/xe_debugfs.c               |   26 +
->  drivers/gpu/drm/xe/xe_device.c                |   35 +
->  drivers/gpu/drm/xe/xe_device_types.h          |   57 +
->  drivers/gpu/drm/xe/xe_dma_buf.c               |    2 +-
->  drivers/gpu/drm/xe/xe_ggtt.c                  |    2 +-
->  drivers/gpu/drm/xe/xe_gt_stats.c              |    5 +
->  drivers/gpu/drm/xe/xe_gt_stats_types.h        |   17 +
->  drivers/gpu/drm/xe/xe_migrate.c               |  531 +++++-
->  drivers/gpu/drm/xe/xe_migrate.h               |   17 +
->  drivers/gpu/drm/xe/xe_pt.c                    |    2 +-
->  drivers/gpu/drm/xe/xe_res_cursor.h            |   56 +-
->  drivers/gpu/drm/xe/xe_svm.c                   |   36 +-
->  drivers/gpu/drm/xe/xe_svm.h                   |    3 +-
->  drivers/gpu/drm/xe/xe_trace_bo.h              |   90 +
->  drivers/gpu/drm/xe/xe_userptr.c               |   55 +
->  drivers/gpu/drm/xe/xe_userptr.h               |    1 +
->  drivers/gpu/drm/xe/xe_vm.c                    |  149 +-
->  drivers/gpu/drm/xe/xe_vm.h                    |    5 +
->  include/drm/drm_gpusvm.h                      |   19 +
->  include/drm/ttm/ttm_bo.h                      |   64 +
->  include/drm/ttm/ttm_pool.h                    |   46 +
->  include/drm/ttm/ttm_tt.h                      |   43 +-
->  42 files changed, 4029 insertions(+), 189 deletions(-)
-> 
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+> index 3d5f2ae0a456..dbe977412a81 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -145,7 +145,8 @@ static int ttm_pool_nid(struct ttm_pool *pool)
+>  
+>  /* Allocate pages of size 1 << order with the given gfp_flags */
+>  static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+> -					unsigned int order)
+> +					unsigned int order,
+> +					bool beneficial_reclaim_backoff)
+>  {
+>  	const unsigned int beneficial_order = ttm_pool_beneficial_order(pool);
+>  	unsigned long attr = DMA_ATTR_FORCE_CONTIGUOUS;
+> @@ -165,10 +166,12 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+>  	 * Do not add latency to the allocation path for allocations orders
+>  	 * device tolds us do not bring them additional performance gains.
+>  	 */
+> -	if (order && beneficial_order && order != beneficial_order)
+> +	if (order && (beneficial_reclaim_backoff ||
+> +		      (beneficial_order && order != beneficial_order)))
+>  		gfp_flags &= ~__GFP_RECLAIM;
+>  
+> -	if (beneficial_order && order == beneficial_order) {
+> +	if (!beneficial_reclaim_backoff &&
+> +	    beneficial_order && order == beneficial_order) {
+>  		gfp_flags &= ~__GFP_NORETRY;
+>  		gfp_flags |= __GFP_RETRY_MAYFAIL;
+>  	}
+> @@ -814,7 +817,8 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+>  		if (!p) {
+>  			page_caching = ttm_cached;
+>  			allow_pools = false;
+> -			p = ttm_pool_alloc_page(pool, gfp_flags, order);
+> +			p = ttm_pool_alloc_page(pool, gfp_flags, order,
+> +						ctx->beneficial_reclaim_backoff);
+>  		}
+>  		/* If that fails, lower the order if possible and retry. */
+>  		if (!p) {
+> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+> index 8310bc3d55f9..fd814b5cf535 100644
+> --- a/include/drm/ttm/ttm_bo.h
+> +++ b/include/drm/ttm/ttm_bo.h
+> @@ -187,6 +187,13 @@ struct ttm_operation_ctx {
+>  	 * when multiple BOs share the same reservation object @resv.
+>  	 */
+>  	bool allow_res_evict;
+> +	/**
+> +	 * @beneficial_reclaim_backoff: Back off from direct reclaim at the
+> +	 * pool's beneficial order. Useful when beneficial-order allocation has
+> +	 * recently been failing, to avoid burning CPU cycles in
+> +	 * reclaim/compaction before falling back to a smaller order anyway.
+> +	 */
+> +	bool beneficial_reclaim_backoff;
+>  	/**
+>  	 * @resv: Reservation object to be used together with
+>  	 * @allow_res_evict.
 
