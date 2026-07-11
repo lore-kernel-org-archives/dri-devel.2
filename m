@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E789C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 03:16:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FABAC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 03:18:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DB5F10E70F;
-	Sat, 11 Jul 2026 03:16:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1746D10E70B;
+	Sat, 11 Jul 2026 03:18:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xae01we1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F/UiwZmC";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B97C10E707
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 03:16:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B56FD10E70B
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 03:18:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1483041346;
- Sat, 11 Jul 2026 03:16:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB7E11F000E9;
- Sat, 11 Jul 2026 03:16:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 82B624379E;
+ Sat, 11 Jul 2026 03:18:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33CAA1F000E9;
+ Sat, 11 Jul 2026 03:18:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783739761;
- bh=aGfMSWxEm12+es2GtddVvqpxk4jok4+PsR0HDiiloTQ=;
+ s=k20260515; t=1783739928;
+ bh=Ymlq4/mxPl1TkS/VBFhY9xs7LqaWhmbIoZDt2+pPhb0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Xae01we1PKe85xufDfDeQlegkJyHUZfrexYl4Vc0Cgp8tDGHDJRoOWeN/YrVGccVt
- X6uqtnm2O1M/ntjsu06E/JbNeNzluFgOWsuj5IrgSbC03TykDUSR7Fssofemf7tnTl
- ke19q9aX7mpvMilIWfi92FzuE/wEXcpeBcRpY8Y1RVnOslt0ALz3cGGxKq1OMplkJ4
- ZrCj6S76pN6ZbLrPfPU6gQDLe/70ZASWJI5dzAzTsGp0QGLBQOSbIoXVSlqQUNDXlX
- ZwdkH4MVIzfqXz9q891W9Rk/C6OddvxYUPrPo4D6MbrRMhHmwu+q2KvGI+eBx/zo6O
- bQdFo+zG/cNXA==
+ b=F/UiwZmClPN3ZmXc/LKTbETDukoRmrVwzwaBzgPufF5XvX6l8DppFUsUAjh8JJeJG
+ niKmOJj/bUPianzGw6znvktS6Tw55AY5FbxcYnCdRH2vpYk95CkC8+mz52MUNKPeGW
+ JH3uKx+mO6BIGIZa17MYTRj5zig0YMjx2vTBdMs21nBOdqK8wpHquhFZ3GHf2y9Ngm
+ 0MB4j1IsIzLO4AkEE+LaC8lLmGUp8LNn7GjyzFANfE3Uvf/kMrYW1kpK/XYYb55JaK
+ lGWYUxtwDgfAhvpVYeKxffmuR4rfWOGCWr1aAIEdF6jBCMJfwoSyIJXLbHaDJCo3cm
+ Y8kv0/gZOPQNA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 07/33] drm/ttm: Harvest beneficial-order pages on
- defragmentation moves
+Subject: Re: [PATCH v3 20/33] drm/xe: Add a page defragmentation worker
 To: "Matthew Brost" <matthew.brost@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260711025619.2540575-8-matthew.brost@intel.com>
+In-Reply-To: <20260711025619.2540575-21-matthew.brost@intel.com>
 References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-8-matthew.brost@intel.com>
+ <20260711025619.2540575-21-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 03:16:00 +0000
-Message-Id: <20260711031600.CB7E11F000E9@smtp.kernel.org>
+Date: Sat, 11 Jul 2026 03:18:47 +0000
+Message-Id: <20260711031848.33CAA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,126 +57,147 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Critical] Defragmentation of DMA-alloc or external buffer objects causes=
- out-of-bounds memory corruption.
-- [Low] Comment falsely documents non-existent capping and prealloc logic.
+- [Critical] The defrag worker can be scheduled during probe teardown but i=
+s never canceled if probe fails early, leading to a UAF of the `xe_device`.
+- [High] The defrag worker continuously polls at a high frequency (40Hz / 2=
+5ms) while the device is runtime-suspended or idle, causing significant pow=
+er regression.
+- [High] The defrag worker enters an infinite 40Hz retry loop on the same B=
+O when memory is fragmented, bypassing exponential backoff.
 --
 
---- Patch [7]: [PATCH v3 07/33] drm/ttm: Harvest beneficial-order pages on =
-defragmentation moves ---
-commit 6003b76a02bde0abed96778f39a94035b5bc6acd
+--- Patch [20]: [PATCH v3 20/33] drm/xe: Add a page defragmentation worker =
+---
+commit 1f23cf5472cb7a98f4987467477a919155eb0dc0
 Author: Matthew Brost <matthew.brost@intel.com>
+Subject: drm/xe: Add a page defragmentation worker
 
-drm/ttm: Harvest beneficial-order pages on defragmentation moves
-   =20
-A defragmentation move relocates a populated tt into a freshly allocated
-one so that sub-beneficial-order chunks can be upgraded to the device's
-beneficial order.
+This patch adds a delayed worker to the DRM XE driver to periodically
+defragment buffer objects whose backing TT pages were allocated below the
+optimal order. It bounds the work done per run and applies exponential
+backoff on failures.
 
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
-l.c
-> index 2598d2f33767e..52f5e64f05ddc 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
 [ ... ]
-
-> +static int ttm_pool_harvest_remaining(struct ttm_pool *pool,
-> +				      struct ttm_tt *old_tt, pgoff_t off,
-> +				      struct ttm_pool_alloc_state *alloc)
+> +static void xe_bo_defrag_worker(struct work_struct *w)
 > +{
-> +	/*
-> +	 * @off is always an old-tt chunk head here, never a tail page, so
-> +	 * reading the per-chunk order below is safe. This holds because:
-> +	 *  - Old chunks are self-aligned: greedy largest-power-of-two fill
-> +	 *    places an order-k chunk at a 2^k-aligned offset, so any
-> +	 *    beneficial-order-aligned offset is a chunk boundary.
-> +	 *  - Fresh defrag allocations are capped at the beneficial order (see
-> +	 *    ttm_pool_iter_acquire_page()), so they advance @off in beneficial
-> +	 *    steps and never overshoot into the middle of a larger old chunk;
-> +	 *    super-beneficial old chunks are always harvested whole by
-> +	 *    ttm_pool_iter_reuse_old().
-> +	 *  - We are only reached once the defrag budget/prealloc is exhausted,
-> +	 *    which in the capped/prealloc config leaves @off beneficial-aligned
-> +	 *    (or, in the sub-beneficial tail, already walking old boundaries).
-> +	 */
-
-[Severity: Low]
-Are the invariants described in this comment block referring to code that i=
-s=20
-missing from this series?
-
-The documentation states that allocations are capped and references=20
-ttm_pool_iter_acquire_page(), but that function does not appear to contain =
-any
-capping logic.
-
-The comment also refers to a defrag budget/prealloc exhaustion, but those
-mechanisms do not seem to be present in the code.
-
-> +	while (alloc->remaining_pages) {
-> +		struct page *p =3D old_tt->pages[off];
-
 [ ... ]
+> +	if (!drm_dev_enter(&xe->drm, &idx))
+> +		return;
+> +
+> +	if (!xe_pm_runtime_get_if_in_use(xe)) {
+> +		/*
+> +		 * The device is (runtime) suspending/suspended. Reschedule so
+> +		 * the pass retries once it is active again: the enqueue-time
+> +		 * kick in xe_bo_defrag_add() only fires on an empty->non-empty
+> +		 * transition, so it will not re-arm the worker while the list
+> +		 * is still non-empty. Requeue here to avoid stranding tracked
+> +		 * BOs. The get attempt does not resume the device, so this is
+> +		 * just a lightweight CPU-side timer while suspended.
+> +		 */
+> +		if (atomic_read(&xe->mem.defrag.count))
+> +			xe_bo_defrag_schedule(xe);
+> +		drm_dev_exit(idx);
+> +		return;
+> +	}
 
-> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
-> index b645a18181843..2388ff794a594 100644
-> --- a/drivers/gpu/drm/ttm/ttm_tt.c
-> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
+[Severity: High]
+Will this cause the worker to endlessly poll at a high frequency while the
+device is suspended?
 
-[ ... ]
+Looking at xe_bo_defrag_worker() in xe_bo.c, when the device is runtime
+suspended, xe_pm_runtime_get_if_in_use(xe) returns false. The worker then
+hits this early return path and schedules itself via
+xe_bo_defrag_schedule(xe) if the defrag count is non-zero.
 
-> +void ttm_tt_defrag_disown_borrowed(struct ttm_tt *tt, const struct ttm_t=
-t *src)
-> +{
-> +	pgoff_t i =3D 0, run_start =3D 0;
-> +	bool in_run =3D false;
-
-[ ... ]
-
-> +	while (i < tt->num_pages) {
-> +		struct page *sp =3D src->pages[i];
-> +		unsigned int order =3D sp ? ttm_pool_page_order_nodma(sp) : 0;
-> +		pgoff_t nr =3D 1UL << order;
-
-[Severity: Critical]
-Can this lead to a massive out-of-bounds memset and memcpy when
-defragmentation targets a dma-alloc pool or externally allocated buffer obj=
-ect?
-
-If a defragmentation move is initiated in ttm_bo_handle_move_mem() on a=20
-buffer object using a dma-alloc pool or with TTM_TT_FLAG_EXTERNAL set, page=
-=20
-private data often contains a kernel pointer or arbitrary foreign data=20
-instead of an allocation order.
-
-Since ttm_pool_page_order_nodma() treats this data as an integer, the=20
-resulting order calculation would yield an astronomically large chunk size=
-=20
-for nr. This size is then used in the memset operation immediately below,=20
-and in the memcpy operation within ttm_pool_harvest_page():
-
-drivers/gpu/drm/ttm/ttm_pool.c:ttm_pool_harvest_page() {
-    ...
-    memcpy(alloc->pages, &old_tt->pages[off], nr * sizeof(*alloc->pages));
-    ...
-}
-
-Does ttm_bo_handle_move_mem() need validation to block defragmentation=20
-on these configurations?
+Since this rescheduling uses the current interval_ms (which is typically
+25ms) and applies no backoff, the worker will repeatedly wake up the CPU
+every 25ms (40Hz) endlessly while the device is suspended, preventing deep
+sleep C-states.
 
 > +
-> +		if (sp && tt->pages[i] =3D=3D sp) {
-> +			if (!in_run) {
-> +				run_start =3D i;
-> +				in_run =3D true;
+> +	/*
+> +	 * Process at most XE_BO_DEFRAG_SIZE_LIMIT bytes of newly (re)allocated
+[ ... ]
+> +		if (ret || needs_more) {
+> +			scoped_guard(spinlock, &xe->mem.defrag.lock) {
+> +				if (ret)
+> +					/*
+> +					 * Abort the pass and retry the whole
+> +					 * list later, backing off exponentially
+> +					 * on every failure.
+> +					 */
+> +					xe->mem.defrag.interval_ms =3D
+> +						min(xe->mem.defrag.interval_ms * 2,
+> +						    (unsigned int)XE_BO_DEFRAG_INTERVAL_MAX_MS);
+> +				else
+> +					/* Progress, reset interval */
+> +					xe->mem.defrag.interval_ms =3D XE_BO_DEFRAG_INTERVAL_MS;
 > +			}
-> +		} else if (in_run) {
-> +			memset(&tt->pages[run_start], 0,
-> +			       (i - run_start) * sizeof(*tt->pages));
+> +
+> +			xe_bo_put(bo);
+> +			requeue =3D true;
+> +			break;
+> +		}
+
+[Severity: High]
+Does this create an infinite 40Hz retry loop on the same BO when memory is
+fragmented, bypassing the exponential backoff?
+
+When xe_bo_defrag_one() successfully satisfies an allocation using
+lower-order pages, ret is 0 but needs_more is true. In this block, because
+ret is 0, the else branch resets the interval_ms to 25ms, and the loop
+breaks with requeue set to true.
+
+Since the BO is never moved to the back of the list or removed, it remains
+at the head. On the next run in 25ms, the worker attempts to defrag the
+exact same BO again, likely hitting the exact same fragmentation fallback,
+and reschedules at 25ms again.
+
+> +
+> +		xe_bo_put(bo);
+> +	}
+[ ... ]
+> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_devic=
+e.c
+> --- a/drivers/gpu/drm/xe/xe_device.c
+> +++ b/drivers/gpu/drm/xe/xe_device.c
+[ ... ]
+> @@ -1069,6 +1069,15 @@ int xe_device_probe(struct xe_device *xe)
+>  			return err;
+>  	}
+> =20
+> +	/*
+> +	 * Register the defrag worker teardown now that the migrate contexts it
+> +	 * depends on are initialized, so devm's reverse-order cleanup stops the
+> +	 * worker before those contexts are torn down.
+> +	 */
+> +	err =3D xe_bo_defrag_init(xe);
+> +	if (err)
+> +		return err;
+
+[Severity: Critical]
+Is there a use-after-free risk if the device probe fails before this point?
+
+The devm action to cleanly cancel the worker (xe_bo_defrag_init) is
+registered late in xe_device_probe(). If the probe fails before this
+registration (e.g., during xe_display_init_early() or xe_gt_init()), the
+devm teardown will unpin BOs.
+
+Unpinning a BO calls xe_bo_unpin() -> xe_bo_defrag_update(), which can
+schedule the worker. Because the devm cleanup action was never registered,
+the worker won't be cancelled during teardown, leaving it active after the
+xe struct is freed.
+
+> +
+>  	err =3D xe_pagefault_init(xe);
+>  	if (err)
+>  		return err;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711025619.2540=
-575-1-matthew.brost@intel.com?part=3D7
+575-1-matthew.brost@intel.com?part=3D20
