@@ -4,54 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2C33C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E315DC44508
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C52310E81B;
-	Mon, 13 Jul 2026 07:11:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D08410E828;
+	Mon, 13 Jul 2026 07:11:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="E8eegfOl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Oj2bbZq2";
 	dkim-atps=neutral
-Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
- [109.224.244.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CE8E10E2C9
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 11:36:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=idjl6gsmt5bhdow5z6z2rvgixu.protonmail; t=1783856171; x=1784115371;
- bh=G1MjZuFHK3Lys9+L8NuiAc1Kc/+5IEFQrCjyjzdi0vU=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=E8eegfOl9Gh4aaUqD7FvJxo8017Jtu/z1+HCzOzj+kNJfHmZPQdSsvm8ZnaFBZEST
- 5TZbGrGkNUNY3S9P/kQbmldmR4OSgaAKu1QSHauuaN+omW2RbwWy+NcSk5UE97eYiq
- UmVr6MhbV4Ebh7eyxHDgZP3E1rViSKBKnDM3PD55hatcnFZqAEBD3bPhBDU3qA6XfZ
- To8Y0VorGq9h8pxVwWThv+QAit4hUNjTghazU/GbBv3H0w3/Jc8CJrhyYpB4J9HLuI
- IOlyoSmZmL5itAx19NZpw/IJS3aSNCDREvb1LMO3j9p1kYGZV1NGVh2UQTSRkqSv11
- wlnuU0dE7IcPQ==
-Date: Sun, 12 Jul 2026 11:36:05 +0000
-To: Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-From: Lorenzo Delgado <lnsdev@proton.me>
-Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>, John Hubbard <jhubbard@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
- dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
- Lorenzo Delgado <lnsdev@proton.me>
-Subject: [PATCH] rust: io: convert ResourceSize into a transparent newtype
-Message-ID: <20260712113602.389060-1-lnsdev@proton.me>
-Feedback-ID: 53083996:user:proton
-X-Pm-Message-ID: edbbd905501a46a21956dba14434fbb5a51bd63e
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08F5210E08B;
+ Sat, 11 Jul 2026 18:47:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7F64D60052;
+ Sat, 11 Jul 2026 18:47:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9E271F00A3A;
+ Sat, 11 Jul 2026 18:47:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783795647;
+ bh=4YSWAKth/DAZEc/MzMRhpX5OSIdEQ/yxeUWHtpyMER8=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=Oj2bbZq2ueyXMY7p77+CFk7KQGuguV+50w4ZIUQ3vDaeafeKSyr0+ZYcJDubPtLNZ
+ sJRwgYlEz100fbFYljWUFkR/aPeb1rLheG84FTwtN8ZRUfctoXXsBHdSy8qI71UJOJ
+ dg/wbxCPU7ZbHdmLXYfyUofuSsmh6hs/WTMBZ7ZZw8n0FLFgvBmCyQthypfFVSbSNO
+ yHJjuwm/P2LYqsxijaLaLepajZ099PPnEwDe01Ij8FEmBIB/uvMIEuvsz6Cp7HYgSB
+ 88rYybISb+jVWxJ0M5ETwHbF/oOafId49qQKlqekjyCWQccGO/6+cbQyFvdid/L/wa
+ 7g5Vp/gB+SANw==
+From: Lorenzo Stoakes <ljs@kernel.org>
+Date: Sat, 11 Jul 2026 19:45:02 +0100
+Subject: [PATCH v2 05/13] mm: prefer mm->def_vma_flags in mm logic
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260711-b4-vma-flags-mm-v2-5-0fa2357d5431@kernel.org>
+References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Zi Yan <ziy@nvidia.com>, 
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+ Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev, 
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
+ linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4997; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=znvD/86roRelXlsxkkyvLX6yQAgqFWtP++AzhbmZe7g=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+i31WndfM+frXN4sPvuH9w6+orV5IQ9e9ZyfL3g4f
+ rWG7aetHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiItyUjw6sjzxQ4DtU+eKxS
+ vvH1lgeXZAX7sk8X3267Whxu8rz8fB3D/8oZYmmbF/D99t5rvYvDWH/z7caXj3f8bt538lfH7D1
+ yenwA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:11:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,203 +132,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-`ResourceSize` was a bare type alias for `resource_size_t`, so it
-inherited every integer operation and `as` cast. That silently permits
-operations that are meaningless for the size of a hardware resource:
-mixing it with unrelated integers and truncating casts.
+Currently mm->def_flags (of type vm_flags_t) is union'd with
+mm->def_vma_flags (of type vma_flags_t).
 
-Wrap it in a `#[repr(transparent)]` newtype so each conversion at a
-boundary becomes explicit and reviewable. The representation is
-unchanged, so this is ABI-identical; only the spelling at the FFI
-boundary changes. Provide the minimal conversion surface the call sites
-need: `from_raw`/`into_raw`, `From` in both directions, and a fallible
-`TryFrom<ResourceSize> for usize` for the page-count site that can
-truncate on 32-bit. Update the two producers, `Resource::size` and
-`SGEntry::dma_len`, and the `request_region` and nova-core consumers so
-the tree builds green. Add doctest examples for the new type.
+As part of the effort to convert vm_flags_t usage to vma_flags_t (in order
+to no longer be arbitrarily limited to a system word size for VMA flags),
+prefer mm->def_vma_flags to mm->def_flags throughout the mm logic.
 
-Suggested-by: Miguel Ojeda <ojeda@kernel.org>
-Link: https://github.com/Rust-for-Linux/linux/issues/1203
-Signed-off-by: Lorenzo Delgado <lnsdev@proton.me>
+We update dump_mm() to use the %*pb format which means we make no
+assumption about the number of VMA flag bits on output when outputting
+default VMA flags.
+
+No functional change intended.
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
-An earlier attempt at this conversion was posted by Moritz Zielke [1]. This
-is a fresh, independent implementation that reuses none of that code; it
-additionally converts the nova-core consumer and adds doctest examples.
+ mm/debug.c |  5 +++--
+ mm/mlock.c | 13 +++++++------
+ mm/mmap.c  | 11 ++++++-----
+ mm/vma.c   |  2 +-
+ 4 files changed, 17 insertions(+), 14 deletions(-)
 
-[1] https://lore.kernel.org/all/20251203-res-size-newtype-v1-1-22ed0b8a7a18=
-@gmail.com/
-
- drivers/gpu/nova-core/firmware/gsp.rs |  2 +-
- rust/kernel/io.rs                     | 73 +++++++++++++++++++++++++--
- rust/kernel/io/resource.rs            |  6 +--
- rust/kernel/scatterlist.rs            |  2 +-
- 4 files changed, 74 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/firmware/gsp.rs b/drivers/gpu/nova-core/=
-firmware/gsp.rs
-index 99a302bae567..d7593888e65b 100644
---- a/drivers/gpu/nova-core/firmware/gsp.rs
-+++ b/drivers/gpu/nova-core/firmware/gsp.rs
-@@ -175,7 +175,7 @@ pub(crate) fn radix3_dma_handle(&self) -> DmaAddress {
- fn map_into_lvl(sg_table: &SGTable<Owned<VVec<u8>>>, mut dst: VVec<u8>) ->=
- Result<VVec<u8>> {
-     for sg_entry in sg_table.iter() {
-         // Number of pages we need to map.
--        let num_pages =3D usize::from_safe_cast(sg_entry.dma_len()).div_ce=
-il(GSP_PAGE_SIZE);
-+        let num_pages =3D usize::try_from(sg_entry.dma_len())?.div_ceil(GS=
-P_PAGE_SIZE);
-=20
-         for i in 0..num_pages {
-             let entry =3D sg_entry.dma_address()
-diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index fcc7678fd9e3..ebf00b4536d6 100644
---- a/rust/kernel/io.rs
-+++ b/rust/kernel/io.rs
-@@ -6,9 +6,12 @@
-=20
- use crate::{
-     bindings,
-+    fmt,
-     prelude::*, //
- };
-=20
-+use core::num::TryFromIntError;
-+
- pub mod mem;
- pub mod poll;
- pub mod register;
-@@ -25,11 +28,73 @@
- /// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit archite=
-ctures.
- pub type PhysAddr =3D bindings::phys_addr_t;
-=20
--/// Resource Size type.
-+/// Resource size type.
- ///
--/// This is a type alias to either `u32` or `u64` depending on the config =
-option
--/// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit archite=
-ctures.
--pub type ResourceSize =3D bindings::resource_size_t;
-+/// This wraps either `u32` or `u64` depending on the config option
-+/// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a `u64` even on 32-bit archi=
-tectures.
-+///
-+/// # Examples
-+///
-+/// ```
-+/// use kernel::io::ResourceSize;
-+///
-+/// let size =3D ResourceSize::from_raw(0x1000);
-+/// assert_eq!(size.into_raw(), 0x1000);
-+///
-+/// // Round-trips through the raw C type.
-+/// let raw: kernel::bindings::resource_size_t =3D size.into();
-+/// assert_eq!(ResourceSize::from(raw), size);
-+///
-+/// // Fallible conversion to `usize` (can truncate on 32-bit).
-+/// assert_eq!(usize::try_from(size)?, 0x1000);
-+/// # Ok::<(), core::num::TryFromIntError>(())
-+/// ```
-+#[repr(transparent)]
-+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-+pub struct ResourceSize(bindings::resource_size_t);
-+
-+impl ResourceSize {
-+    /// Creates a resource size from the raw C type.
-+    #[inline]
-+    pub const fn from_raw(value: bindings::resource_size_t) -> Self {
-+        Self(value)
-+    }
-+
-+    /// Turns this resource size into the raw C type.
-+    #[inline]
-+    pub const fn into_raw(self) -> bindings::resource_size_t {
-+        self.0
-+    }
-+}
-+
-+impl fmt::Debug for ResourceSize {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        write!(f, "{:#x}", self.0)
-+    }
-+}
-+
-+impl From<bindings::resource_size_t> for ResourceSize {
-+    #[inline]
-+    fn from(value: bindings::resource_size_t) -> Self {
-+        Self::from_raw(value)
-+    }
-+}
-+
-+impl From<ResourceSize> for bindings::resource_size_t {
-+    #[inline]
-+    fn from(value: ResourceSize) -> Self {
-+        value.into_raw()
-+    }
-+}
-+
-+impl TryFrom<ResourceSize> for usize {
-+    type Error =3D TryFromIntError;
-+
-+    #[inline]
-+    fn try_from(value: ResourceSize) -> Result<Self, Self::Error> {
-+        Self::try_from(value.into_raw())
-+    }
-+}
-=20
- /// Raw representation of an MMIO region.
- ///
-diff --git a/rust/kernel/io/resource.rs b/rust/kernel/io/resource.rs
-index 17b0c174cfc5..a33a416b289a 100644
---- a/rust/kernel/io/resource.rs
-+++ b/rust/kernel/io/resource.rs
-@@ -58,7 +58,7 @@ fn drop(&mut self) {
-         };
-=20
-         // SAFETY: Safe as per the invariant of `Region`.
--        unsafe { release_fn(start, size) };
-+        unsafe { release_fn(start, size.into_raw()) };
-     }
+diff --git a/mm/debug.c b/mm/debug.c
+index 497654b36f1a..9a0297b3988d 100644
+--- a/mm/debug.c
++++ b/mm/debug.c
+@@ -197,7 +197,7 @@ void dump_mm(const struct mm_struct *mm)
+ 		"numa_next_scan %lu numa_scan_offset %lu numa_scan_seq %d\n"
+ #endif
+ 		"tlb_flush_pending %d\n"
+-		"def_flags: %#lx(%pGv)\n",
++		"def_flags: %*pb(%pGv)\n",
+ 
+ 		mm, mm->task_size,
+ 		mm->mmap_base, mm->mmap_legacy_base,
+@@ -226,7 +226,8 @@ void dump_mm(const struct mm_struct *mm)
+ 		mm->numa_next_scan, mm->numa_scan_offset, mm->numa_scan_seq,
+ #endif
+ 		atomic_read(&mm->tlb_flush_pending),
+-		mm->def_flags, &mm->def_flags
++		NUM_VMA_FLAG_BITS, mm->def_vma_flags.__vma_flags,
++		&mm->def_vma_flags
+ 	);
  }
-=20
-@@ -114,7 +114,7 @@ pub fn request_region(
-             bindings::__request_region(
-                 self.0.get(),
-                 start,
--                size,
-+                size.into_raw(),
-                 name.as_char_ptr(),
-                 flags.0 as c_int,
-             )
-@@ -130,7 +130,7 @@ pub fn request_region(
-     pub fn size(&self) -> ResourceSize {
-         let inner =3D self.0.get();
-         // SAFETY: Safe as per the invariants of `Resource`.
--        unsafe { bindings::resource_size(inner) }
-+        ResourceSize::from_raw(unsafe { bindings::resource_size(inner) })
-     }
-=20
-     /// Returns the start address of the resource.
-diff --git a/rust/kernel/scatterlist.rs b/rust/kernel/scatterlist.rs
-index b83c468b5c63..5d67242befd8 100644
---- a/rust/kernel/scatterlist.rs
-+++ b/rust/kernel/scatterlist.rs
-@@ -93,7 +93,7 @@ pub fn dma_address(&self) -> dma::DmaAddress {
-     pub fn dma_len(&self) -> ResourceSize {
-         #[allow(clippy::useless_conversion)]
-         // SAFETY: `self.as_raw()` is a valid pointer to a `struct scatter=
-list`.
--        unsafe { bindings::sg_dma_len(self.as_raw()) }.into()
-+        ResourceSize::from_raw(unsafe { bindings::sg_dma_len(self.as_raw()=
-) }.into())
-     }
+ EXPORT_SYMBOL(dump_mm);
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 97e49038d8d3..34ffa954006f 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -699,26 +699,27 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
+ 
+ /*
+  * Take the MCL_* flags passed into mlockall (or 0 if called from munlockall)
+- * and translate into the appropriate modifications to mm->def_flags and/or the
+- * flags for all current VMAs.
++ * and translate into the appropriate modifications to mm->def_vma_flags and/or
++ * the flags for all current VMAs.
+  *
+  * There are a couple of subtleties with this.  If mlockall() is called multiple
+  * times with different flags, the values do not necessarily stack.  If mlockall
+  * is called once including the MCL_FUTURE flag and then a second time without
+- * it, VM_LOCKED and VM_LOCKONFAULT will be cleared from mm->def_flags.
++ * it, VM_LOCKED and VM_LOCKONFAULT will be cleared from mm->def_vma_flags.
+  */
+ static int apply_mlockall_flags(int flags)
+ {
+ 	VMA_ITERATOR(vmi, current->mm, 0);
++	struct mm_struct *mm = current->mm;
+ 	struct vm_area_struct *vma, *prev = NULL;
+ 	vm_flags_t to_add = 0;
+ 
+-	current->mm->def_flags &= ~VM_LOCKED_MASK;
++	vma_flags_clear_mask(&mm->def_vma_flags, VMA_LOCKED_MASK);
+ 	if (flags & MCL_FUTURE) {
+-		current->mm->def_flags |= VM_LOCKED;
++		vma_flags_set(&mm->def_vma_flags, VMA_LOCKED_BIT);
+ 
+ 		if (flags & MCL_ONFAULT)
+-			current->mm->def_flags |= VM_LOCKONFAULT;
++			vma_flags_set(&mm->def_vma_flags, VMA_LOCKONFAULT_BIT);
+ 
+ 		if (!(flags & MCL_CURRENT))
+ 			goto out;
+diff --git a/mm/mmap.c b/mm/mmap.c
+index 39d33f3a55c2..ae9a5018e20e 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -102,15 +102,16 @@ void vma_set_page_prot(struct vm_area_struct *vma)
+  */
+ static int check_brk_limits(unsigned long addr, unsigned long len)
+ {
++	const struct mm_struct *mm = current->mm;
++	const bool is_def_locked =
++		vma_flags_test(&mm->def_vma_flags, VMA_LOCKED_BIT);
+ 	unsigned long mapped_addr;
+ 
+ 	mapped_addr = get_unmapped_area(NULL, addr, len, 0, MAP_FIXED);
+ 	if (IS_ERR_VALUE(mapped_addr))
+ 		return mapped_addr;
+ 
+-	return mlock_future_ok(current->mm,
+-			      current->mm->def_flags & VM_LOCKED, len)
+-		? 0 : -EAGAIN;
++	return mlock_future_ok(mm, is_def_locked, len) ? 0 : -EAGAIN;
  }
-=20
+ 
+ SYSCALL_DEFINE1(brk, unsigned long, brk)
+@@ -197,7 +198,7 @@ SYSCALL_DEFINE1(brk, unsigned long, brk)
+ 		goto out;
+ 
+ 	mm->brk = brk;
+-	if (mm->def_flags & VM_LOCKED)
++	if (vma_flags_test(&mm->def_vma_flags, VMA_LOCKED_BIT))
+ 		populate = true;
+ 
+ success:
+@@ -1247,7 +1248,7 @@ int vm_brk_flags(unsigned long addr, unsigned long request, bool is_exec)
+ 
+ 	vma = vma_prev(&vmi);
+ 	ret = do_brk_flags(&vmi, vma, addr, len, vma_flags);
+-	populate = ((mm->def_flags & VM_LOCKED) != 0);
++	populate = vma_flags_test(&mm->def_vma_flags, VMA_LOCKED_BIT);
+ 	mmap_write_unlock(mm);
+ 	userfaultfd_unmap_complete(mm, &uf);
+ 	if (populate && !ret)
+diff --git a/mm/vma.c b/mm/vma.c
+index 70b08c76ea2f..1f443d979a7d 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -3426,7 +3426,7 @@ struct vm_area_struct *__install_special_mapping(
+ 	if (unlikely(vma == NULL))
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	vm_flags |= mm->def_flags | VM_DONTEXPAND;
++	vm_flags |= vma_flags_to_legacy(mm->def_vma_flags) | VM_DONTEXPAND;
+ 	if (pgtable_supports_soft_dirty())
+ 		vm_flags |= VM_SOFTDIRTY;
+ 	vm_flags_init(vma, vm_flags & ~VM_LOCKED_MASK);
 
-base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
---=20
-2.54.0
-
+-- 
+2.55.0
 
