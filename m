@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03C7AC44501
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 06:36:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EC9FC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 06:44:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 609D610E03D;
-	Sat, 11 Jul 2026 06:36:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 773B210E2F0;
+	Sat, 11 Jul 2026 06:44:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mVzYtiDW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lIBzf7N+";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68F2E10E03D
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 06:36:39 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44EB610E2F0
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 06:44:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CA442600C3;
- Sat, 11 Jul 2026 06:36:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B411F000E9;
- Sat, 11 Jul 2026 06:36:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 15B3643970;
+ Sat, 11 Jul 2026 06:44:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A80E61F000E9;
+ Sat, 11 Jul 2026 06:44:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783751798;
- bh=JogfN73SWne51LzGJNSir4GAt/uI9nlNm8r6mVlz5J8=;
+ s=k20260515; t=1783752295;
+ bh=Te45nAF8NrZ7lSerCwRdZjZ5bDcjCgyWOkKbEgSGRDU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mVzYtiDWlHaNnqBsW+nGjIEvoQ+IrKkc0+NdoM9+P/m7+n2x1YuSTfV6C/xVxjtos
- ls3wQUpxv3TEJwX8WjgyIG8T7+uzf13HPVQyxnHlY0aRLkVU1yaVNu9XOupfygjQrK
- 3lxrPoYECuD1Q3MdpTQuEKdnfROldg6SwvrjcsVyrYpPHeAntCI4jd4J08Zu/Nfmjh
- XTubfM6u1/03jzyxg7fPGY+AYJzMc8qP5xO6kYcgcVLhrP73co3YSB4WfyEbCaAVZT
- eNchC0MiRpqX/mgbt6b4iPNL8J+qpvFoiEUxGqPrO74fNWVXGoopp8yoghsyJH3rXh
- 8bH5M/I4jJv6A==
+ b=lIBzf7N+OTsX3PU7We6A5cEVsLId0PaaI9pjvSyVZZGx8TSBL/6ZOQ+NeLpI5zh8i
+ 7jaNUrL5KPL39yI9Lt4SfSmtOdC/6D99BuV0M4cJran9yG1BBFqC7nJ2eExOpyiGBc
+ s+cZM1q7BpoUTAeF0YbZEaFohXJ2I52nhlO4h/f4ah+Q6/GA/7qmrhqnEkCycDk0Ai
+ 4wuOKAQ1IhyUdtdjpYKtqiFpWSy4pyLMuzSlPWoYpKwfUC4d4jNMi359CSezOxp/Rt
+ xiuTy+fKA9smA8jnB7QtINE0mpip/+5o9odqPwj3Gg3L5N6pZGrL1h8q3Yx1bePy8K
+ NwStAaQpbabiA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] accel/rocket: Validate task regcmd address and count on
- submission
-To: "Sidong Yang" <sidong.yang@furiosa.ai>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260711062137.36044-1-sidong.yang@furiosa.ai>
-References: <20260711062137.36044-1-sidong.yang@furiosa.ai>
+Subject: Re: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance
+ for region allocations
+To: "Yury Norov" <ynorov@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org
+In-Reply-To: <20260711063602.426311-1-ynorov@nvidia.com>
+References: <20260711063602.426311-1-ynorov@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 06:36:37 +0000
-Message-Id: <20260711063638.61B411F000E9@smtp.kernel.org>
+Date: Sat, 11 Jul 2026 06:44:54 +0000
+Message-Id: <20260711064454.A80E61F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,146 +58,57 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [Critical] Signed integer overflow in loop counter allows massive out-of-=
-bounds kernel memory write.
-- [High] Silent failure of job submission due to ignored return value.
-- [High] IOMMU group reference leak on every job completion.
-- [High] Hardware incompatibility due to 32-bit DMA address truncation for =
-IOMMU allocations.
-- [High] Unprivileged userspace can trigger a WARN_ON and panic the kernel =
-via an invalid DMA address.
+- [Medium] The benchmark allocates over 9.1 MB of static arrays in `.init.d=
+ata`, which bloats the kernel image and can cause boot failures on memory-c=
+onstrained architectures.
 --
 
---- Patch [1]: [PATCH] accel/rocket: Validate task regcmd address and count=
- on submission ---
-commit f9e96d89fbac295861e6b6ae4bd9fc056fddf28a
-Author: Sidong Yang <sidong.yang@furiosa.ai>
-Subject: accel/rocket: Validate task regcmd address and count on submission
+--- Patch [1]: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance=
+ for region allocations ---
+commit 3ff59b7f49e8b1a285e39778b952abbfe86e1ed9
+Author: Yury Norov <ynorov@nvidia.com>
 
-This commit adds validation to the drm_rocket_task regcmd fields from
-userspace. It rejects unaligned addresses and out-of-range counts with
--EINVAL at submission time to prevent hardware drops and mode flips.
+lib: test bitmap vs IDA vs Maple Tree performance for region allocations
 
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index bb77b6bf0f231..9ebabf86fe97f 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
+This commit adds a microbenchmark to compare the cost of allocating and
+freeing variable-sized regions using a bitmap, IDA, and a Maple Tree. It
+processes a randomly generated sequence of region sizes until the configured
+capacity is exhausted.
+
+Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvi=
+dia.com/
+
+> diff --git a/lib/region_alloc_benchmark.c b/lib/region_alloc_benchmark.c
+> new file mode 100644
+> index 0000000000000..46cd0dfe935f6
+> --- /dev/null
+> +++ b/lib/region_alloc_benchmark.c
+> @@ -0,0 +1,174 @@
 [ ... ]
-> @@ -95,6 +105,20 @@ rocket_copy_tasks(struct drm_device *dev,
->  			goto fail;
->  		}
-> =20
-> +		if (task.regcmd_count > ROCKET_MAX_REGCMDS) {
-> +			drm_dbg(dev, "regcmd_count field in drm_rocket_task should be <=3D %u=
-.\n",
-> +				ROCKET_MAX_REGCMDS);
-> +			ret =3D -EINVAL;
-> +			goto fail;
-> +		}
+> +#define MAP_SIZE	(1000000UL)
+> +#define REGION_MAX_SIZE	32
 > +
-> +		if (!IS_ALIGNED(task.regcmd, ROCKET_REGCMD_ALIGN)) {
-> +			drm_dbg(dev, "regcmd field in drm_rocket_task should be aligned to %u=
- bytes.\n",
-> +				ROCKET_REGCMD_ALIGN);
-> +			ret =3D -EINVAL;
-> +			goto fail;
-> +		}
-> +
->  		rjob->tasks[i].regcmd =3D task.regcmd;
+> +static DECLARE_BITMAP(alloc_bitmap, MAP_SIZE) __initdata;
+> +/* One more request guarantees that even an all-ones trace reaches ENOSP=
+C. */
+> +static u8 region_sizes[MAP_SIZE + 1] __initdata;
+> +static unsigned long region_indexes[MAP_SIZE] __initdata;
 
-[Severity: Critical]
-This is a pre-existing issue, but can the loop counter i overflow here?
+[Severity: Medium]
+Is it safe to allocate over 9.1 MB of static arrays in .init.data here?
 
-Looking at rocket_copy_tasks(), the loop is defined as:
+This inflates the uncompressed kernel image size and can cause build failur=
+es
+like relocation truncation or boot failures on memory-constrained architect=
+ures,
+especially when built-in via allmodconfig.
 
-for (int i =3D 0; i < rjob->task_count; i++)
-
-Since rjob->task_count is a u32 controlled by userspace and i is a signed
-32-bit integer, if a user requests exactly 0x80000001 tasks, could i wrap
-to a negative value?
-
-If i wraps to a negative value, does this assignment allow an out-of-bounds
-memory write before the allocated array?
-
->  		rjob->tasks[i].regcmd_count =3D task.regcmd_count;
->  	}
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but while reviewing the error
-handling for these new -EINVAL checks, it appears the return value of
-rocket_ioctl_submit_job() might be ignored.
-
-drivers/accel/rocket/rocket_job.c:rocket_ioctl_submit() {
-    ...
-    rocket_ioctl_submit_job(dev, file, &jobs[i]);
-
-exit:
-    kvfree(jobs);
-
-    return ret;
-}
-
-Does this allow the ioctl to silently return 0 even if the job was rejected
-by the validations added in this patch?
-
-
-[Severity: High]
-This is a pre-existing issue, but does this code leak an IOMMU group
-reference on every job completion?
-
-drivers/accel/rocket/rocket_job.c:rocket_job_handle_irq() {
-    ...
-    iommu_detach_group(NULL, iommu_group_get(core->dev));
-    ...
-}
-
-Since iommu_group_get() increments the kref and iommu_detach_group() does
-not consume it, are we missing a matching iommu_group_put()?
-
-
-[Severity: High]
-This is a pre-existing issue, but can the 32-bit regcmd truncate 64-bit
-IOVAs?
-
-include/uapi/drm/rocket_accel.h:drm_rocket_task {
-    ...
-    __u32 regcmd;
-    ...
-}
-
-The allocator appears to be given the full IOMMU aperture:
-
-drivers/accel/rocket/rocket_drv.c:rocket_open() {
-    ...
-    drm_mm_init(&rocket_priv->mm, start, end - start + 1);
-    ...
-}
-
-If a buffer object is allocated above 4GB, does the UAPI structure truncate
-the DMA address, causing the NPU to read unmapped memory?
-
-
-[Severity: High]
-This is a pre-existing issue, but can unprivileged userspace trigger a
-kernel panic here?
-
-drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
-    ...
-    WARN_ON(raw_status & PC_INTERRUPT_RAW_STATUS_DMA_READ_ERROR);
-    ...
-}
-
-If userspace provides an invalid DMA address, the hardware will trigger a
-DMA read error. Could this WARN_ON crash the system if panic_on_warn is
-enabled?
+Could these large benchmark buffers be dynamically allocated at runtime usi=
+ng
+kvmalloc_array() or vmalloc() instead?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711062137.3604=
-4-1-sidong.yang@furiosa.ai?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711063602.4263=
+11-1-ynorov@nvidia.com?part=3D1
