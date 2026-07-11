@@ -4,127 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB410C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D219C44507
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB1FD10E7E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8029810E7E4;
 	Mon, 13 Jul 2026 07:10:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nnZWKKwQ";
+	dkim=pass (1024-bit key; unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.b="aZgfseqH";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E278410E22E;
- Fri, 10 Jul 2026 20:26:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BE3BE40AFA;
- Fri, 10 Jul 2026 20:26:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 040C01F00A3A;
- Fri, 10 Jul 2026 20:26:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783715184;
- bh=EoBc9Cck8QPIUuFmOHzMvwYdqHwSHiAvFbLNRDR+Z9M=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=nnZWKKwQGGxjXu3htGgxhTUQDnCEXUl7LPNi5xqYnZkUbGo1boxmUZ4jMcSnGPa8i
- Cdq0zmAoabCTJPgvcH704ilNEq/Ye6VnkDCtpiBuVV+HrMul1jwsLD/FL+/NUNH+UE
- jLwiS3icG2eXldivvwwNlYAmJcrYPX50bkfd64kAjxsdct+YancsphH8qpXVExYDlT
- yAQhZn70hX03zCCJonjRxCouPcJSSZ+25F/wSTWv+rPVm+SfSwEsQVz28CtqYqOg2o
- VYAg9RMa5jRoWUJRb35weSHr3hP0iurv4fyrxnkbNGnbQNMk6eGzB0KdytpIUEu7yD
- ak+FqZs7bYOdw==
-From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Fri, 10 Jul 2026 21:17:04 +0100
-Subject: [PATCH v2 23/33] mm/vma: add and use vma_[add/sub]_pgoff()
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A610810E2E3
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 06:21:52 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-2cab973140bso18334875ad.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 23:21:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=furiosa.ai; s=google; t=1783750912; x=1784355712; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=MohOilWXvpBfnew3g4ppmtjZUX4BYD1OOd5Gl7wJD2A=;
+ b=aZgfseqHbAv9RQ9Doira0OgWHo8DD3oNaaHWggVmZQWTcumVSUas0BFNuCbkN2hcel
+ wPbzBNYq48qc9jDC0iPu2ep3ho/RjZR+t3jVwcDdlZEwzOrsUg6iT3wUKigarlv4mToM
+ 2NSoc7j8l/UmrBO0H+Ehv0ZmCNZ6HQA8NBvFI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783750912; x=1784355712;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=MohOilWXvpBfnew3g4ppmtjZUX4BYD1OOd5Gl7wJD2A=;
+ b=EpLBqQPlYnwubvz6YvyuN4qr1+Ksji9Ur6zfHKHYTkJhSDalmHc4QbMGCLwcOMImV4
+ xgosujtFhg1Hg6JwsEIwrfRVgus3T6URL+PI9rcxP82nhoj9PWrJY0iU96Kiq5LX+J5B
+ uaGTVkxGi2EvXndp6T2HxvixI8kv+SuWNewvxaJ7NFaGUnim8aSkQi2JwkGA3PXv3OuQ
+ x3a+WrNfw0IrsnE8/e/4sOH1hlEm4uM0lPJAY6XEeD1SWTTdC+okEGhPQK4D5fQi3aiu
+ fIr1EUBbXEKXZEIRLXtdTrJNv8rbYp9WyXttWKYqZNOMAfNJJRy3t7NoAnWizLAXBw3g
+ YdTQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqHemziyM+DB4fzUWXPaanZMterYGJgUe0jpzYsxNgftk9Y9WuejL1yjfHl/Q/UpAwTOaZwF7Q6do8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwvsYLxy0ndmLiVjalJW/vzySdjjldsvlf8m0KYVE4KHIxTiD0D
+ HDPwwMV7toeTZZNVROLPszpuJZk3JOBH59IMVqRe/U7ujEfdWfoKoXkoaXIrUrg4hwo=
+X-Gm-Gg: AfdE7cl/dK2YBw7aMatySmMbNIQ4obcmThwpsq3TQLUNZuiXFe1j6bht0OEOzPuhGUI
+ rlBmQmxw2bzWlEWZ8DGS7OcM9ildcrNsr53TWzgzG14IbI+6GjOq3AaRS3awk8g2YWZBH79Su5y
+ rT5sq3UwOo0/G9KZ/bZE9pOI7/RFnLUa4S9tfnFGmeK0HM5nayiVUkGhm8OduXtCEy4Zn2O3BTq
+ 0f5Zgh2qt7E5E/LGYw0TuJCuhfiJL590NkTmywqVREE/pHSC+VoUrI2ci+b4ib9mkps22xcanaC
+ naOjYWIlSGmJwIIJZytrJePgMxCwTT9Z2vnhLV/fv5D9Il1onwnVdk5niTVptt0f2q+N3MA4zgI
+ NOHL2VmuCmMMI059Mb3ZD6cnDRlW3KCVkoq9hOCahyJ9kKjtnKiRT09qg0hr0TGTi7++UfuMkl0
+ Oynvo3rJGnh3xsJKS4G0CUZ19kY51E4Nhv2HURtMsGAkSX+g==
+X-Received: by 2002:a17:902:ea08:b0:2c9:e69f:8b0f with SMTP id
+ d9443c01a7336-2ce9eabda1cmr21679715ad.17.1783750912060; 
+ Fri, 10 Jul 2026 23:21:52 -0700 (PDT)
+Received: from localhost.localdomain ([116.124.210.178])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2ccc9bf7858sm70071775ad.23.2026.07.10.23.21.50
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 10 Jul 2026 23:21:51 -0700 (PDT)
+From: Sidong Yang <sidong.yang@furiosa.ai>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Sidong Yang <sidong.yang@furiosa.ai>
+Subject: [PATCH] accel/rocket: Validate task regcmd address and count on
+ submission
+Date: Sat, 11 Jul 2026 15:21:37 +0900
+Message-ID: <20260711062137.36044-1-sidong.yang@furiosa.ai>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-b4-pre-scalable-cow-v2-23-2a5aa403d977@kernel.org>
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
-In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
- Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>, 
- Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Andrey Konovalov <andreyknvl@gmail.com>, 
- Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>, 
- Lucas Stach <l.stach@pengutronix.de>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Yishai Hadas <yishaih@nvidia.com>, 
- Shameer Kolothum <skolothumtho@nvidia.com>, 
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Paolo Bonzini <pbonzini@redhat.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Usama Arif <usama.arif@linux.dev>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev, 
- iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
- kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3543; i=ljs@kernel.org;
- h=from:subject:message-id; bh=ZykHi81wjQuWfRemBZVxUwwzxVVCtKrbcdoOfofMf0c=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg20+71xl9Xdvl/PM42+UlvYeXrRPfeGpawtvPEwPW
- fxCOqHWsKOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATkTdk+GfVJxzqWh+YI/SB
- sZp3xrekzOOXTvowLn6rtXh75oOdWiIM/9TdVa+lRLyvavvEU3RRcqO+06X/DwT2fLhxZqHUw1l
- fjVkB
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -141,111 +85,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add helpers for adding or subtracting to a VMA's page offset, exposed
-internally for VMA users within mm in mm/vma.h.
+The regcmd fields in drm_rocket_task come from userspace and are
+programmed into the PC unit without any validation.
 
-This is to lay the foundations for tracking anonymous page offset for
-MAP_PRIVATE file-backed mappings, where adding and subtracting from this
-value must be reflected in both the file and anonymous offsets.
+Bits 31:4 of PC_BASE_ADDRESS hold the register command DMA address
+and bit 0 selects slave mode, so a misaligned regcmd silently drops
+its low bits, and an odd address flips the PC unit into slave mode.
+Similarly, pc_data_amount is a 16-bit field holding
+(regcmd_count + 1) / 2 - 1, so a larger regcmd_count is silently
+truncated by the register encoding.
 
-These are used on VMA split and downward stack expansion.
+Reject unaligned regcmd addresses and out-of-range regcmd_count with
+-EINVAL at submission time. Existing userspace is not affected: Mesa
+places regcmd buffers at 64-byte aligned offsets, and its regcmd
+counts stay far below the limit.
 
-No functional change intended.
-
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
 ---
- mm/nommu.c |  6 ++++--
- mm/vma.c   |  6 +++---
- mm/vma.h   | 12 ++++++++++++
- 3 files changed, 19 insertions(+), 5 deletions(-)
+ drivers/accel/rocket/rocket_job.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/mm/nommu.c b/mm/nommu.c
-index c0a0869cd0d6..2a0136f6081d 100644
---- a/mm/nommu.c
-+++ b/mm/nommu.c
-@@ -41,6 +41,7 @@
- #include <asm/tlbflush.h>
- #include <asm/mmu_context.h>
- #include "internal.h"
-+#include "vma.h"
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index bb77b6bf0f23..9ebabf86fe97 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -7,6 +7,7 @@
+ #include <drm/drm_file.h>
+ #include <drm/drm_gem.h>
+ #include <drm/rocket_accel.h>
++#include <linux/align.h>
+ #include <linux/interrupt.h>
+ #include <linux/overflow.h>
+ #include <linux/iommu.h>
+@@ -21,6 +22,15 @@
  
- unsigned long highest_memmap_pfn;
- int heap_stack_gap = 0;
-@@ -1361,7 +1362,8 @@ static int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 		region->vm_top = region->vm_end = new->vm_end = addr;
- 	} else {
- 		region->vm_start = new->vm_start = addr;
--		region->vm_pgoff = new->vm_pgoff += npages;
-+		vma_add_pgoff(new, npages);
-+		region->vm_pgoff = vma_start_pgoff(new);
- 	}
+ #define JOB_TIMEOUT_MS 500
  
- 	vma_iter_config(vmi, new->vm_start, new->vm_end);
-@@ -1378,7 +1380,7 @@ static int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	delete_nommu_region(vma->vm_region);
- 	if (new_below) {
- 		vma->vm_region->vm_start = vma->vm_start = addr;
--		vma->vm_pgoff += npages;
-+		vma_add_pgoff(vma, npages);
- 		vma->vm_region->vm_pgoff = vma_start_pgoff(vma);
- 	} else {
- 		vma->vm_region->vm_end = vma->vm_end = addr;
-diff --git a/mm/vma.c b/mm/vma.c
-index 7aa0149f076c..bdd99ba56b4d 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -517,7 +517,7 @@ __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 		new->vm_end = addr;
- 	} else {
- 		new->vm_start = addr;
--		new->vm_pgoff += linear_page_delta(vma, addr);
-+		vma_add_pgoff(new, linear_page_delta(vma, addr));
- 	}
- 
- 	err = -ENOMEM;
-@@ -556,7 +556,7 @@ __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 
- 	if (new_below) {
- 		vma->vm_start = addr;
--		vma->vm_pgoff += (addr - new->vm_start) >> PAGE_SHIFT;
-+		vma_add_pgoff(vma, (addr - new->vm_start) >> PAGE_SHIFT);
- 	} else {
- 		vma->vm_end = addr;
- 	}
-@@ -3305,7 +3305,7 @@ int expand_downwards(struct vm_area_struct *vma, unsigned long address)
- 				vm_stat_account(mm, vma->vm_flags, grow);
- 				anon_rmap_tree_pre_update_vma(vma);
- 				vma->vm_start = address;
--				vma->vm_pgoff -= grow;
-+				vma_sub_pgoff(vma, grow);
- 				/* Overwrite old entry in mtree. */
- 				vma_iter_store_overwrite(&vmi, vma);
- 				anon_rmap_tree_post_update_vma(vma);
-diff --git a/mm/vma.h b/mm/vma.h
-index 2342516ce00e..47fe35e5307e 100644
---- a/mm/vma.h
-+++ b/mm/vma.h
-@@ -247,6 +247,18 @@ static inline pgoff_t vmg_end_pgoff(const struct vma_merge_struct *vmg)
- 	return vmg_start_pgoff(vmg) + vmg_pages(vmg);
- }
- 
-+static inline void vma_add_pgoff(struct vm_area_struct *vma, pgoff_t delta)
-+{
-+	vma_assert_can_modify(vma);
-+	vma->vm_pgoff += delta;
-+}
++/*
++ * The PC unit fetches two 64-bit register commands per pc_data_amount unit,
++ * and the field holds (regcmd_count + 1) / 2 - 1.
++ */
++#define ROCKET_MAX_REGCMDS	((PC_REGISTER_AMOUNTS_PC_DATA_AMOUNT__MASK + 1) * 2U)
 +
-+static inline void vma_sub_pgoff(struct vm_area_struct *vma, pgoff_t delta)
-+{
-+	vma_assert_can_modify(vma);
-+	vma->vm_pgoff -= delta;
-+}
++/* Bits 3:0 of PC_BASE_ADDRESS hold the mode selection bit and reserved bits */
++#define ROCKET_REGCMD_ALIGN	16
 +
- #define VMG_STATE(name, mm_, vmi_, start_, end_, vma_flags_, pgoff_)	\
- 	struct vma_merge_struct name = {				\
- 		.mm = mm_,						\
+ static struct rocket_job *
+ to_rocket_job(struct drm_sched_job *sched_job)
+ {
+@@ -95,6 +105,20 @@ rocket_copy_tasks(struct drm_device *dev,
+ 			goto fail;
+ 		}
+ 
++		if (task.regcmd_count > ROCKET_MAX_REGCMDS) {
++			drm_dbg(dev, "regcmd_count field in drm_rocket_task should be <= %u.\n",
++				ROCKET_MAX_REGCMDS);
++			ret = -EINVAL;
++			goto fail;
++		}
++
++		if (!IS_ALIGNED(task.regcmd, ROCKET_REGCMD_ALIGN)) {
++			drm_dbg(dev, "regcmd field in drm_rocket_task should be aligned to %u bytes.\n",
++				ROCKET_REGCMD_ALIGN);
++			ret = -EINVAL;
++			goto fail;
++		}
++
+ 		rjob->tasks[i].regcmd = task.regcmd;
+ 		rjob->tasks[i].regcmd_count = task.regcmd_count;
+ 	}
 
+base-commit: a284476db2653ae893f46cbea408eb412db54eb0
 -- 
-2.55.0
+2.42.0
 
