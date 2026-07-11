@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23E22C44506
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 02:56:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49F18C44507
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 02:56:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19C6E10E2CA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AE3E10E2C4;
 	Sat, 11 Jul 2026 02:56:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VjD7kxtg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OV9irarI";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25CD910E25A;
- Sat, 11 Jul 2026 02:56:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CBBD10E2AD;
+ Sat, 11 Jul 2026 02:56:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783738585; x=1815274585;
+ t=1783738588; x=1815274588;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=mmFrx4Dja2D4OA3tWnljR27NvP7JQWDMKwyqsxVk7n4=;
- b=VjD7kxtgk8DmxJUr0pRddciDircDni1FHs51RcZ5t4q25FD1bkekQq32
- 9BcKI7mNmZ9yXO/VEum0A0z9d5gaigzbGCdLWzSC18ZbW5JtJA8W21MeX
- p1d72l8HibWCk9LFpupF5Jc2hu3odrsdvhykmabINjGoHrg76eo9X2k12
- W5DwkqBoGJviFPY7x4/alofyyw+CGqOEttfRdqfibFOVPRMLr1dNG1z5e
- qmIiB8UExJxcxmS/sRZfDWS3v3qZoqvRy+bi2Axrq9B2D3TBg4Gwvp/Wb
- D1mDG7uvd3n3ESaR+KjuwIb5vO05L7s0S7WOeroYtAWDA1TqQhskws4uB Q==;
-X-CSE-ConnectionGUID: UvvNjam9RzK/LDk/PDWxcQ==
-X-CSE-MsgGUID: o7OV6/f7RsCTVvCIiFAzeQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="101986182"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="101986182"
+ bh=UmmUGujR7ekaYvxU92RahIGeI5Kc1uWeEYRMlJ6rZgY=;
+ b=OV9irarIWpdZuIvod293z74l4WEwGzlLc4NZqrEHAItOwrvTWmVZ/dxs
+ IsDCmZ5YWnFAWiP+LMiBz8t05MJPM2vWbBsImo2C5ZEAmiFEpn56PIyOf
+ gQY6w0M4NcZlC8J0+Iz0T8VnSAc+CebQ1++8YPQZwYKxtHqB0Sw3IesdF
+ wS3t/6Xw7DnfPGumuuWLloH1elsvpPz7027WBIxetJJ+WF8mvhZ10Rwea
+ Kyi+d3QRjvRTCjYB+VDLOZaEpaVKd/tOUXLkrqsS7ZqBerX0ULSFPoqwl
+ tg0emc9hFtXOygHpSMxG54AzfJ+ZEN6YPxvQI+UwhUqF5zxFpMFCj0TSC w==;
+X-CSE-ConnectionGUID: yVLcroc6Qv+mu/JDhqjtIw==
+X-CSE-MsgGUID: nJRJqCr0QHGvI4fIklcmnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="101986239"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="101986239"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 19:56:25 -0700
-X-CSE-ConnectionGUID: wuxuNC8+SWGV8q3yE5Qw6w==
-X-CSE-MsgGUID: WB3Q9LK3Q2Wfi7vS+cA02g==
+ 10 Jul 2026 19:56:27 -0700
+X-CSE-ConnectionGUID: 4kcxHNPSSBKiXA9QVnFvoA==
+X-CSE-MsgGUID: CN19geG3TZuLjuEaQvofDw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="256987676"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="256987699"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2026 19:56:24 -0700
+ 10 Jul 2026 19:56:26 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -52,10 +52,10 @@ Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v3 01/33] drm/ttm/pool: Allow backing off reclaim at the
- beneficial order
-Date: Fri, 10 Jul 2026 19:55:47 -0700
-Message-Id: <20260711025619.2540575-2-matthew.brost@intel.com>
+Subject: [PATCH v3 08/33] drm/ttm: Bound page (re)allocation per
+ defragmentation move
+Date: Fri, 10 Jul 2026 19:55:54 -0700
+Message-Id: <20260711025619.2540575-9-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260711025619.2540575-1-matthew.brost@intel.com>
 References: <20260711025619.2540575-1-matthew.brost@intel.com>
@@ -77,21 +77,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Allocating at the pool's beneficial order normally uses
-__GFP_RETRY_MAYFAIL to push hard for a contiguous high-order page. When
-beneficial-order allocations have recently been failing, this retry just
-burns CPU cycles in reclaim/compaction before falling back to a smaller
-order anyway.
+A defragmentation move reallocates an object's backing at the device's
+beneficial order and harvests whatever the allocator cannot upgrade from
+the old tt. For a very large object this can reallocate (and have the
+driver re-copy) the entire backing in one move, which is expensive and
+can stall concurrent work for an unbounded stretch.
 
-Add a beneficial_reclaim_backoff flag to struct ttm_operation_ctx and
-plumb it through to ttm_pool_alloc_page(). When set, the beneficial
-order is treated like the orders we already consider not worth stalling
-for: __GFP_RECLAIM is cleared so the allocation skips reclaim/compaction
-entirely, and the __GFP_NORETRY clearing / __GFP_RETRY_MAYFAIL promotion
-is skipped. Together this makes the allocator back off quickly to a
-smaller order instead of stalling.
+Add an optional per-move byte budget so a large object can be upgraded in
+slices across successive moves. Plumb a new
+ttm_operation_ctx::defrag_bytes_remaining through to the pool allocator:
+only pages actually (re)allocated at the beneficial order are charged
+against it; pages harvested (borrowed) from defrag_old_tt are free and do
+not count. Once the budget is exhausted the allocator stops upgrading and
+completes the new tt by harvesting the remainder of the old tt as-is,
+marking the tt sub-optimal (TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED) so the
+driver re-queues it and a later move resumes the upgrade. The slices
+already upgraded come back as free already-beneficial harvests on the
+next pass, so each move spends budget only on new forward progress.
 
-This is a no-op until a caller opts in.
+The allocator decrements the budget as it allocates and writes the unused
+remainder back on success, letting the caller compute how many bytes were
+actually spent. A value of 0 means unlimited (upgrade the whole object in
+one move), preserving the previous behaviour. This is only consulted on a
+defragmentation move, i.e. when defrag_old_tt is set.
 
 Cc: Carlos Santa <carlos.santa@intel.com>
 Cc: Ryan Neph <ryanneph@google.com>
@@ -108,71 +116,233 @@ Cc: linux-kernel@vger.kernel.org
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Assisted-by: GitHub_Copilot:claude-opus-4.8
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-
 ---
-
-v3:
- - Require a valid beneficial order before backing off reclaim in
-   ttm_pool_alloc_page() (Sashiko)
----
- drivers/gpu/drm/ttm/ttm_pool.c | 12 ++++++++----
- include/drm/ttm/ttm_bo.h       |  7 +++++++
- 2 files changed, 15 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/ttm/ttm_pool.c | 101 ++++++++++++++++++++++++++++++++-
+ include/drm/ttm/ttm_bo.h       |  14 +++++
+ 2 files changed, 112 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 3d5f2ae0a456..ab242ad4339e 100644
+index 52f5e64f05dd..1673e81b8df8 100644
 --- a/drivers/gpu/drm/ttm/ttm_pool.c
 +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -145,7 +145,8 @@ static int ttm_pool_nid(struct ttm_pool *pool)
+@@ -77,6 +77,11 @@ struct ttm_pool_dma {
+  * @dma_addr: Pointer to the next tt dma_address entry to populate if any.
+  * @remaining_pages: Remaining pages to populate.
+  * @tt_caching: The requested cpu-caching for the pages allocated.
++ * @defrag_bytes_remaining: Byte budget for newly (re)allocated pages on a
++ * defragmentation move, seeded from ttm_operation_ctx::defrag_bytes_remaining.
++ * Pages harvested (borrowed) from the old tt are free and do not count; once
++ * this drops to zero the allocator stops upgrading and harvests the remainder.
++ * On completion it holds the unused budget. 0 means unlimited (no defrag cap).
+  */
+ struct ttm_pool_alloc_state {
+ 	struct page **pages;
+@@ -84,6 +89,7 @@ struct ttm_pool_alloc_state {
+ 	dma_addr_t *dma_addr;
+ 	pgoff_t remaining_pages;
+ 	enum ttm_caching tt_caching;
++	s64 defrag_bytes_remaining;
+ };
  
- /* Allocate pages of size 1 << order with the given gfp_flags */
- static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
--					unsigned int order)
-+					unsigned int order,
-+					bool beneficial_reclaim_backoff)
+ /**
+@@ -780,6 +786,7 @@ static void ttm_pool_alloc_state_init(const struct ttm_tt *tt,
+ 	alloc->dma_addr = tt->dma_address;
+ 	alloc->remaining_pages = tt->num_pages;
+ 	alloc->tt_caching = tt->caching;
++	alloc->defrag_bytes_remaining = 0;
+ }
+ 
+ /*
+@@ -885,8 +892,12 @@ static int ttm_pool_harvest_page(struct ttm_tt *old_tt, unsigned int order,
+ 
+ static int ttm_pool_harvest_remaining(struct ttm_pool *pool,
+ 				      struct ttm_tt *old_tt, pgoff_t off,
+-				      struct ttm_pool_alloc_state *alloc)
++				      struct ttm_pool_alloc_state *alloc,
++				      bool *suboptimal)
  {
- 	const unsigned int beneficial_order = ttm_pool_beneficial_order(pool);
- 	unsigned long attr = DMA_ATTR_FORCE_CONTIGUOUS;
-@@ -165,10 +166,12 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
- 	 * Do not add latency to the allocation path for allocations orders
- 	 * device tolds us do not bring them additional performance gains.
- 	 */
--	if (order && beneficial_order && order != beneficial_order)
-+	if (order && beneficial_order &&
-+	    (beneficial_reclaim_backoff || order != beneficial_order))
- 		gfp_flags &= ~__GFP_RECLAIM;
++	unsigned int beneficial = ttm_pool_beneficial_order(pool);
++	pgoff_t bnr = 1UL << beneficial;
++
+ 	/*
+ 	 * @off is always an old-tt chunk head here, never a tail page, so
+ 	 * reading the per-chunk order below is safe. This holds because:
+@@ -906,8 +917,23 @@ static int ttm_pool_harvest_remaining(struct ttm_pool *pool,
+ 		struct page *p = old_tt->pages[off];
+ 		unsigned int order = ttm_pool_page_order(pool, p);
+ 		pgoff_t nr = 1UL << order;
++		pgoff_t num_pages = off + alloc->remaining_pages;
+ 		int r;
  
--	if (beneficial_order && order == beneficial_order) {
-+	if (!beneficial_reclaim_backoff &&
-+	    beneficial_order && order == beneficial_order) {
- 		gfp_flags &= ~__GFP_NORETRY;
- 		gfp_flags |= __GFP_RETRY_MAYFAIL;
- 	}
-@@ -814,7 +817,8 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 		if (!p) {
- 			page_caching = ttm_cached;
- 			allow_pools = false;
--			p = ttm_pool_alloc_page(pool, gfp_flags, order);
-+			p = ttm_pool_alloc_page(pool, gfp_flags, order,
-+						ctx->beneficial_reclaim_backoff);
++		/*
++		 * Only report a sub-optimal backing when a chunk we cannot
++		 * upgrade (out of budget/prealloc) sits in a beneficial-order
++		 * aligned region that fully fits in the tt: that region could
++		 * have been upgraded with more budget. A chunk below the
++		 * beneficial order is expected for the unaligned tail (the last
++		 * partial beneficial-order region) and for already beneficial-
++		 * order harvests - neither leaves real defrag work, so they must
++		 * not flag the tt for re-queue.
++		 */
++		if (beneficial && order < beneficial &&
++		    round_down(off, bnr) + bnr <= num_pages)
++			*suboptimal = true;
++
+ 		r = ttm_pool_harvest_page(old_tt, order, off, alloc);
+ 		if (r)
+ 			return r;
+@@ -951,6 +977,7 @@ struct ttm_pool_alloc_iter {
+ 	struct ttm_tt *defrag_old_tt;
+ 	unsigned int beneficial_order;
+ 	gfp_t gfp_flags;
++	bool defrag_capped;
+ 
+ 	/* Mutated as the loop walks the orders. */
+ 	unsigned int order;
+@@ -962,6 +989,44 @@ struct ttm_pool_alloc_iter {
+ 	struct page *p;
+ };
+ 
++/*
++ * Defrag move budget exhausted: the upgrade can make no further progress this
++ * pass. Snapshot @defrag_capped is set only when a byte budget was in force at
++ * entry.
++ */
++static bool ttm_pool_iter_defrag_exhausted(const struct ttm_pool_alloc_iter *it)
++{
++	if (!it->defrag_old_tt)
++		return false;
++
++	return it->defrag_capped && it->alloc->defrag_bytes_remaining <= 0;
++}
++
++/*
++ * Complete the new tt by harvesting the rest of the old tt as-is (borrowing its
++ * pages, including any still below beneficial order). Never fall back to in-lock
++ * reclaim for the shortfall - that would reintroduce the stall we preallocated
++ * to avoid. Only re-queue (flag) the tt when the harvested remainder is
++ * genuinely sub-optimal; if every remaining old chunk was already at beneficial
++ * order the move fully upgraded the object.
++ */
++static int ttm_pool_iter_harvest_rest(struct ttm_pool_alloc_iter *it)
++{
++	pgoff_t off = it->tt->num_pages - it->alloc->remaining_pages;
++	bool suboptimal = false;
++	int r;
++
++	r = ttm_pool_harvest_remaining(it->pool, it->defrag_old_tt, off,
++				       it->alloc, &suboptimal);
++	if (r)
++		return r;
++
++	if (suboptimal)
++		it->tt->page_flags |= TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
++
++	return 0;
++}
++
+ /*
+  * Defrag move: reuse an already beneficial-order chunk from the old tt at this
+  * offset rather than reallocating it. Harvest whatever order the old chunk has
+@@ -1062,11 +1127,12 @@ static int ttm_pool_iter_lower_order(struct ttm_pool_alloc_iter *it)
+ 		if (it->alloc_count && it->defrag_old_tt) {
+ 			pgoff_t off = it->tt->num_pages -
+ 				      it->alloc->remaining_pages;
++			bool suboptimal = false;
+ 			int r;
+ 
+ 			r = ttm_pool_harvest_remaining(it->pool,
+ 						       it->defrag_old_tt, off,
+-						       it->alloc);
++						       it->alloc, &suboptimal);
+ 			if (r)
+ 				return r;
+ 
+@@ -1121,10 +1187,23 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+ 		gfp_flags |= GFP_HIGHUSER;
+ 
+ 	it.gfp_flags = gfp_flags;
++	it.defrag_capped = it.defrag_old_tt && alloc->defrag_bytes_remaining > 0;
+ 
+ 	for (it.order = ttm_pool_alloc_find_order(MAX_PAGE_ORDER, alloc);
+ 	     alloc->remaining_pages;
+ 	     it.order = ttm_pool_alloc_find_order(it.order, alloc)) {
++		/*
++		 * Out of defrag budget: harvest the rest of the old tt as-is and
++		 * stop (the tt is re-queued if the remainder is still
++		 * sub-optimal).
++		 */
++		if (ttm_pool_iter_defrag_exhausted(&it)) {
++			r = ttm_pool_iter_harvest_rest(&it);
++			if (r)
++				goto error_free_all;
++			break;
++		}
++
+ 		/* Reuse an already beneficial-order chunk from the old tt. */
+ 		r = ttm_pool_iter_reuse_old(&it);
+ 		if (r < 0)
+@@ -1155,6 +1234,15 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+ 				goto error_free_all;
  		}
- 		/* If that fails, lower the order if possible and retry. */
- 		if (!p) {
+ 
++		/*
++		 * Charge a newly (re)allocated chunk against the defrag move
++		 * budget. Harvested chunks borrow the old tt's pages for free
++		 * and never reach here.
++		 */
++		if (it.defrag_capped)
++			alloc->defrag_bytes_remaining -=
++				(s64)(1UL << it.order) << PAGE_SHIFT;
++
+ 		it.alloc_count++;
+ 	}
+ 
+@@ -1204,14 +1292,21 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+ 		   struct ttm_operation_ctx *ctx)
+ {
+ 	struct ttm_pool_alloc_state alloc;
++	int ret;
+ 
+ 	if (WARN_ON(ttm_tt_is_backed_up(tt)))
+ 		return -EINVAL;
+ 
+ 	tt->page_flags &= ~TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
+ 	ttm_pool_alloc_state_init(tt, &alloc);
++	alloc.defrag_bytes_remaining = ctx->defrag_bytes_remaining;
++
++	ret = __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL);
++
++	/* Report the unused defrag budget back to the caller. */
++	ctx->defrag_bytes_remaining = alloc.defrag_bytes_remaining;
+ 
+-	return __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL);
++	return ret;
+ }
+ EXPORT_SYMBOL(ttm_pool_alloc);
+ 
 diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index 8310bc3d55f9..fd814b5cf535 100644
+index fcaba5fb8bf7..6124d2627b47 100644
 --- a/include/drm/ttm/ttm_bo.h
 +++ b/include/drm/ttm/ttm_bo.h
-@@ -187,6 +187,13 @@ struct ttm_operation_ctx {
- 	 * when multiple BOs share the same reservation object @resv.
+@@ -223,6 +223,20 @@ struct ttm_operation_ctx {
+ 	 * NULL for non-defrag operations.
  	 */
- 	bool allow_res_evict;
+ 	struct ttm_tt *defrag_old_tt;
 +	/**
-+	 * @beneficial_reclaim_backoff: Back off from direct reclaim at the
-+	 * pool's beneficial order. Useful when beneficial-order allocation has
-+	 * recently been failing, to avoid burning CPU cycles in
-+	 * reclaim/compaction before falling back to a smaller order anyway.
++	 * @defrag_bytes_remaining: Byte budget for newly allocated pages during
++	 * a defragmentation move. Only pages that are actually (re)allocated at
++	 * the beneficial order count against it; pages harvested (borrowed) from
++	 * @defrag_old_tt are free and do not. When the budget is exhausted the
++	 * pool allocator stops upgrading and completes the new tt by harvesting
++	 * the remainder of @defrag_old_tt, marking the tt sub-optimal so the
++	 * driver can resume on a later pass. The allocator decrements this as it
++	 * allocates, so on return it holds the unused budget (which the caller
++	 * can use to compute how many bytes were spent). A value of 0 means
++	 * unlimited (upgrade the whole object). Only consulted when
++	 * @defrag_old_tt is set.
 +	 */
-+	bool beneficial_reclaim_backoff;
++	s64 defrag_bytes_remaining;
  	/**
  	 * @resv: Reservation object to be used together with
  	 * @allow_res_evict.
