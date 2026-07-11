@@ -4,42 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46DA9C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 23:20:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48E3AC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 23:42:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75BAD10E174;
-	Sat, 11 Jul 2026 23:20:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6059110E28E;
+	Sat, 11 Jul 2026 23:42:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZhasAK7c";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lui8bE16";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB36910E174
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 23:20:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4ADAF4040A;
- Sat, 11 Jul 2026 23:20:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57081F000E9;
- Sat, 11 Jul 2026 23:20:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783812013;
- bh=UeU0CZa/3I9AV6gyvWg3P/zLMWU+SW7k/xxzhphEKcg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZhasAK7cb/kq040xIOzQZLp9o2OHqueC541XAuaFNsOwN8q5YWj0+QZaXcbSgbb5S
- 2xY/4WQ21/lS0OQRS72d5RDhjArndK8G0NF5A67EZPSiF1wRheTafG3+6WWhXBBzVo
- yaSD3ob0cKpWTIIT+r1NR4LJcEBajccazddCEvenyc6sgUx8Phu8YMU/9Exd3654NQ
- zkWIS1dPWxW0Tie044p+l9/2MwNRCTBvL2Zi7/SUZdOONhQqg4/cExpItTUv+ZSw5q
- oVhPTnCgmCjlKvZVVQaqTspwcNytBrd60wYvSsoNEnWrSrKQ/Kmjbt4rzINGeUTM24
- /RE1u7ts9g1bA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/modes: reject out-of-range GTF blanking duty cycle
-To: "Xiang Mei" <xmei5@asu.edu>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260711230728.2250485-1-xmei5@asu.edu>
-References: <20260711230728.2250485-1-xmei5@asu.edu>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 23:20:12 +0000
-Message-Id: <20260711232012.E57081F000E9@smtp.kernel.org>
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08F7810E28E
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 23:42:36 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-4720d22c94aso1637140f8f.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 16:42:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783813354; x=1784418154; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=DD8ngpZmt3sRDOk6LigSkTSJKrQed+P69f515uIeFdw=;
+ b=lui8bE16BPAeHMJ+H0ffw/Z/kNl0qLtCoHA8H7ht6zKeb90RSohGa44U1kMtTQUgBu
+ dKsMkA3dXsELQ9fjEbSgvC+koVc8Fj7ACfqh9Xa92I3IWq0AWwmMsLjA4FrSa2WQVsVc
+ WHSiOW8QElNBNDf69nIcVEGAeBUmdfmLllI6kUYImkILlKpiayOErXFuCsLI5akUp2DN
+ IQxNhqe0PnMFLmNtHZLbY9l3gme9th1e5NHazSmJqOZi9KX/69rb2EBLFAJoqMQlOqS6
+ Swrn/uhsfO21wPuHRCbISenVjNchP/+yzX/bDhjPO8SmETDtzM3Iv1Og1O7bLEZKsKrG
+ aEbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783813354; x=1784418154;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=DD8ngpZmt3sRDOk6LigSkTSJKrQed+P69f515uIeFdw=;
+ b=rMx+gIG5S/mMPwk7pGvgSYaSqUVavrvpGHlkPv8eWD1LyFQfiA6cL8kgodwZxiQBMq
+ RUGIke3xetZyzeZDUGmjqchQPzx6oymvBeezgpVyGPF5Ghu1HHBL8lNEIWLyIgUkKjHW
+ SgdcmYId/14M0GvzevITAVPmGfXcq+11zZ3UZ+Js9V4vq4qwMMUbwV2MuAv4eIHS0Ol8
+ 9cEZ5/Z3hh1uge09yKBvgbYTd5LuO4lE4OOUeC2uccDaMq2lM8kwJBvjay9aCce6c5Mg
+ ueRbE7rt3jsgqTLe9uZSGOOjFHxFC5mdplZcUX5z4MPaTuh4nU+my+OxZUq25k5xiA7J
+ T2fQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqWEwZiCWmMQxSDZQYcbpsC+n7Ds5Djix22jvHlBAvZUHbl1aGfA7QyHsI8HjCPa8ayESwS+wubSLo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzD97LZ4l0KE/FKttzRZjjjqe9tDq+I6sOcbwmFFqgp7pE/UtWJ
+ lO+fhabHOBBis9rLOZh8TKgIdcZam6gxcTCdo8IvTb8o9ajomb54xeYi
+X-Gm-Gg: AfdE7cnfmp29fEzcArhrHUJxPV9L7Kgm0aSp4lZGs5s67j/fhKt6Um5D3ZfMaahj/eH
+ XX8v0BHpnO9XtVCYt6XEuFr2I5g/q3zm2CGc5Y8bFim2KY5YMbi8Wiw7KmV37/vOASRLR3euby6
+ O8rdAzjYnQU6z6pyP/UjKSXjgBw9WMNnubmLHNZYD7vAeVGBy/647nKor/3C+MoZhiQbL8CWVwQ
+ 24tV3GBht7l3sMfFSKjMwTsPNsemPKB+UfPLFuOKun8P26afg15yV5xPm+TnJjhKB3DyUxCP3ky
+ zPjdNGvA7kyLJpeRm/LzZcsQzSiDKw6AJfwGHZNFzwDHTwXmK8s0vx4tocVULc+nU5TAcDAIVEt
+ PPOnB1ZGW65KguRJ7OhCXiXpIFqL1jX/SPSpFrGkkbLE3Qd/J5Y7LG7w+8jnhwEvb3/PDRQSnN/
+ gWnndHhS4uL8C9UHtgsPfCc1RnJ8PKwIXs50lX+uwC90kUaSC5l2E/Zh+NwJGXJw5dmzL/aOlBJ
+ O8+
+X-Received: by 2002:a05:6000:2008:b0:47d:dfc6:b27e with SMTP id
+ ffacd0b85a97d-47f2dcf8a00mr4044740f8f.31.1783813354222; 
+ Sat, 11 Jul 2026 16:42:34 -0700 (PDT)
+Received: from nixos-office (195-23-151-163.net.novis.pt. [195.23.151.163])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47a9e4d843csm71751908f8f.14.2026.07.11.16.42.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 11 Jul 2026 16:42:33 -0700 (PDT)
+From: Julian Braha <julianbraha@gmail.com>
+To: neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+Cc: david@ixit.cz, arnd@arndb.de, jesszhan0024@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Julian Braha <julianbraha@gmail.com>
+Subject: [PATCH] drm/panel: fix unmet dependency bug for
+ DRM_PANEL_HIMAX_HX83121A
+Date: Sun, 12 Jul 2026 00:42:30 +0100
+Message-ID: <20260711234230.2236041-1-julianbraha@gmail.com>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,74 +87,43 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Currently, DRM_PANEL_HIMAX_HX83121A selects DRM_DISPLAY_DSC_HELPER
+without also ensuring DRM_DISPLAY_HELPER is enabled, causing an unmet
+dependency:
 
-Pre-existing issues:
-- [Medium] Unchecked `vrefresh` parameter from kernel command line can caus=
-e multiple divide-by-zero panics.
---
+WARNING: unmet direct dependencies detected for DRM_DISPLAY_DSC_HELPER
+  Depends on [n]: HAS_IOMEM [=y] && DRM [=m] && DRM_DISPLAY_HELPER [=n]
+  Selected by [m]:
+  - DRM_PANEL_HIMAX_HX83121A [=m] && HAS_IOMEM [=y] && DRM [=m] && DRM_PANEL [=y] && OF [=y] && DRM_MIPI_DSI [=y] && BACKLIGHT_CLASS_DEVICE [=m]
+  - DRM_PANEL_ILITEK_ILI9882T [=m] && HAS_IOMEM [=y] && DRM [=m] && DRM_PANEL [=y] && OF [=y] && DRM_MIPI_DSI [=y] && BACKLIGHT_CLASS_DEVICE [=m]
 
---- Patch [1]: [PATCH] drm/modes: reject out-of-range GTF blanking duty cyc=
-le ---
-commit c78fc29b3d453bf33d5cd88746572b5f1e9a5c60
-Author: Xiang Mei <xmei5@asu.edu>
+Many other DRM_PANEL_* options select DRM_DISPLAY_HELPER when selecting
+DRM_DISPLAY_DSC_HELPER, let's do the same here.
 
-drm/modes: reject out-of-range GTF blanking duty cycle
+This unmet dependency bug was found by kconfirm, a static analysis tool
+for Kconfig.
 
-This commit rejects GTF blanking duty cycles of 100% or more to prevent a
-divide-by-zero error that occurs when the divisor (100000 - ideal_duty_cycl=
-e)
-evaluates to 0.
+Fixes: defab7b01e08 ("drm/panel: hx83121a: select DRM_DISPLAY_DSC_HELPER")
+Signed-off-by: Julian Braha <julianbraha@gmail.com>
+---
+ drivers/gpu/drm/panel/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-> diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
-> index e1eed13a8e94f..291037706b587 100644
-> --- a/drivers/gpu/drm/drm_modes.c
-> +++ b/drivers/gpu/drm/drm_modes.c
-> @@ -966,6 +966,10 @@ drm_gtf_mode_complex(struct drm_device *dev, int hdi=
-splay, int vdisplay,
->  	/* 18.Find the ideal blanking duty cycle from blanking duty cycle */
->  	ideal_duty_cycle =3D GTF_C_PRIME * 1000 -
->  				(GTF_M_PRIME * 1000000 / hfreq_est);
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index cfbfb371bc67..06bfcef35a72 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -253,6 +253,7 @@ config DRM_PANEL_HIMAX_HX83121A
+ 	depends on OF
+ 	depends on DRM_MIPI_DSI
+ 	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_DISPLAY_HELPER
+ 	select DRM_DISPLAY_DSC_HELPER
+ 	select DRM_KMS_HELPER
+ 	help
+-- 
+2.54.0
 
-[Severity: Medium]
-This is a pre-existing issue, but while fixing divide-by-zero crashes here,
-could an unvalidated vrefresh parameter cause other divide-by-zero panics
-in this function?
-
-For example, if an administrator provides a kernel command line parameter
-with a refresh rate of @0 (e.g., video=3D1024x768@0), vfieldrate_rqd
-evaluates to 0. This would cause a panic earlier in drm_gtf_mode_complex():
-
-    hperiod =3D 1000000 / (vfieldrate_rqd * vtotal_lines);
-
-Also, if the refresh rate is @1818, tmp1 evaluates to 0:
-
-    tmp1 =3D (1000000  - MIN_VSYNC_PLUS_BP * vfieldrate_rqd) / 500;
-    // (1000000 - 550 * 1818) / 500 =3D 0
-
-This leads to another direct division by zero:
-
-    hfreq_est =3D (tmp2 * 1000 * vfieldrate_rqd) / tmp1;
-
-And if hfreq_est evaluates to 0, it causes a third divide-by-zero on the
-ideal_duty_cycle assignment above.
-
-Should drm_gtf_mode_complex() validate the vrefresh parameter before
-performing these calculations?
-
-> +	if (ideal_duty_cycle >=3D 100000) {
-> +		drm_mode_destroy(dev, drm_mode);
-> +		return NULL;
-> +	}
->  	/* 19.Find the number of pixels in the blanking time to the nearest
->  	 * double character cell: */
->  	hblank =3D total_active_pixels * ideal_duty_cycle /
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711230728.2250=
-485-1-xmei5@asu.edu?part=3D1
