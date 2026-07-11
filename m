@@ -4,89 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E554C44506
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D838C44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89FC310E7D9;
-	Mon, 13 Jul 2026 07:10:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11B4410E7E2;
+	Mon, 13 Jul 2026 07:10:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LB00bvgt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OstrPz6A";
 	dkim-atps=neutral
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A242A10E494
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 21:27:15 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-8478fe07f0fso1478809b3a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 14:27:15 -0700 (PDT)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8D8710E708
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 03:14:57 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-38125cebfdaso2159748a91.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 20:14:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783718835; x=1784323635; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:user-agent
- :references:in-reply-to:message-id:date:cc:to:from:subject:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=SsZ1Rl/n/xZapvBLsULQnfYoRJnC5F850v9mJm5328I=;
- b=LB00bvgttTI29BSFvJxkKHWxTgwiu9llCFgDnPe/usTt2ghuy0rFA1LlJzTStos4zf
- 4BPbI62aN2u8jPrz70NGprLzKtY2OAeXwCq7tqT6Sl1aItSJueiiHqZmBhaI68zqgNf5
- EqtWlY2WvFE4vNU6XTFrZc+IIrd4tA/OqEoFuU2IpagRioH56e1vCDgOTh+GTN42/bcp
- Dc/F1awNTDE79TzVbn7N3CBVIOxLjNO8Bc6DudofDEuajNlwA5HSXeIDFB/KJovssjpK
- DGkBqr/ePkmVCPamyNcoibZfBUM3QwKScKKJw8funHBskeJzftLzykSp+/rMNjHGzCIJ
- FZyQ==
+ d=gmail.com; s=20251104; t=1783739697; x=1784344497; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=xrd/oJTRX2Uc0zxJ+R9Qjxy6xmTV66E4ZoYglWTlGgs=;
+ b=OstrPz6AeKvRyr2DhgvuNlfKE2EUzV7MwKQH0Q7iVKOd8dqmwEL8hjVrixOM+CVWyd
+ ND9ZqesyhtAWyuONW0zThqM0Iu6O5q1cTy+MP7j/8gNy8WtAXk7juzUxflw+fdAqpCkb
+ Y0ZAexnCAi7LVxEwiX8xGA8WDuoh8n95r+v0D8DnAWlaw9Sl5wZN7gWEil1qJs/SXluN
+ hZgWlAQLssTiVj51V8FmxETiz4HzGszcelcDYG4kIMeOJXoA7pc5K/oTlqlHl5P1z/iV
+ DwW2jtVrLYBVyv6tZQ3FXfnmUR/XxnaiDy5qS+qmRMtoCaXuzDggHwopMSe1UG0KZxDU
+ rzXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783718835; x=1784323635;
- h=content-transfer-encoding:content-type:mime-version:user-agent
- :references:in-reply-to:message-id:date:cc:to:from:subject:x-gm-gg
+ d=1e100.net; s=20251104; t=1783739697; x=1784344497;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=SsZ1Rl/n/xZapvBLsULQnfYoRJnC5F850v9mJm5328I=;
- b=fMDGEmIo1K7RKEESnzMpWyF7+xeeA2vGqVWwr0p3Kj2CsuxcHLlCMWbNSgvRY66P30
- kDseMvdVp9SW200aro/dR962cJZ9TAisRu9pUeA5cXrv0H5IKQxYQjxVYTVbzKbI6DdD
- OOyLR/XVaBIj73QQk95xaLMNqlMuQoyE221GVHJW4XvESjdLLLccLqexY0wYF/jtk00j
- QhqNNIDOBVdCc8Tsvz7WVJBfE9id1oGRE5gx4z0Ac2/2bx4KBXjdk2sDNC/izEd4J/Nu
- cAdMZ8fH6v/6POTZviRmN2QaioO6BWfLR1JvhphgAOY/HNFxSbY2AmPAev41dMs4VFGk
- b5Hg==
-X-Gm-Message-State: AOJu0YzyOGjeLCKgUzIT4MKWVaHz9YO6OAS0nlmIo/9tdDUGKeA1vLO2
- UmBXwdHLGn8eBAHD0BxA6KEOeHFrX6jRhPURER2+MMEt0Y9MMY+omNYl
-X-Gm-Gg: AfdE7cn3w8MGdz1shluMdGAslG0je2wC59piFeWa7UouvTtMKPIn3iXMjuXftgrGRRH
- 0LkIkDx2Ga94tdCYYkLf/3mj7VIo8dlGnY0uZu5XB5oHmj1U5emayn2jrirjnbDs/2Oo6EAHYnq
- MObqZgRaBwv7OwoS2Yc1lpi5Yz5WBOIDVxpqslso03CskyK4X3d13e88yRlkc3/4x2LsdP6XIVX
- 6NLrc0bsCvwlpbgEZp0A3ihAWGhDEW4QIJT4LFOFGfs2VOPNcHJMcdZW+v51Mld+R3dLp6jvCrP
- BwLC0jcEQdWCF60j/urxd43YWCiaLFio4+8vYidCYorSG0+Ul8/emN1dKoJ8WkX/t1+ymO/6IlM
- nH20eeenIcobhroRQxTdU+hGoGf5bAIS38LmwjztgbkEXV7n4DGhRjXcgl7ZKSt3SwK30siosng
- VUs1Ea5AU15sAHkEyhFS3ep++/oZBrQk+UhT5cerLfW5ecQC0Q+J0W00BjcRnma8VcaXJlZA==
-X-Received: by 2002:a05:6a00:3397:b0:848:2f84:737 with SMTP id
- d2e1a72fcca58-8488990b261mr583131b3a.74.1783718835015; 
- Fri, 10 Jul 2026 14:27:15 -0700 (PDT)
-Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net.
+ bh=xrd/oJTRX2Uc0zxJ+R9Qjxy6xmTV66E4ZoYglWTlGgs=;
+ b=bthgSPr3DjW7IEqF7McwKn4rDPamMsUd1cKowYvbbyiahP173w8BubqHpccSCeeLcL
+ i7bKdcw6nfRd6IgXJtnxhGkg2OKG1GQiZNtbhduCcJlnAQ2tdpUMt5jxESQ1eMT9/Qim
+ Jj8LU22ekpLUIwTmE3u3iKPezvQukIAE1LRPHR7X7yd3EXLf/UYmhBkFbK499pWrejst
+ UguYCJ7QxdKbvzB+bqNavN8s4aSDkB77v4wVLpjgwxj1okbDfmAQ43+jZw82dnmHqn0O
+ u2PAAV6VPyEO88MTe4wvmDkMzijOr+3GFGjwowJQo0jmP4lv9C7wQ3IJ6XcLDxuB540p
+ 6sUA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqTG9kbjDMbygiwEy9017mHqQ9IDljDXg7FkKNMqTep2W1EvoWEy0DJxuXexMCxHmpOv8ZvvMWGXP8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz+rmTSihkMsV/rpZtec2FGazj/tEKVIY5KGZ4ZtZIcjXUDEaHE
+ dZ6vowsZlbUCXeVlOv35GRK7KqKOJeF5lrKAuLiCzR/tplG/02J5vthr
+X-Gm-Gg: AfdE7claj06r5Ei5ampN8OmFYAw2xw+odDN0WTmxaQnbFEzzvUPpzLkrKZB5tu4lBAB
+ WHM+RM/EJ40B/VFw5Pluz25Z8wLeQ58M/PS0I2p8eYvOGSC5vDO0ivesey72ysWs1SNN2b3fIDk
+ Dpud3rTkyoqNpRjowEyCVhTrhxDOwI3h+FDFTtCJtMiAfZni1JU3HmfcD43zeKIAgGEL4jICUos
+ LGafukU/1dlNHdHc5hFt4wzQ62rS9tG7FpF2I2J7D08h7shW3uPWvu1SRoFFzyrObD3hpbihrsj
+ ZsRGMPWnh7t7Z0N/RpUsqff9PXRxXY+7GZW4AU72QH6ZP+b2YQGKcofAEfGk+VkFxJn4nm/ZYaR
+ 2we6zDcZwNLJGg8Q3jl+nnR35/HalWDJEXb4tZ1FJft//K6KapV8fUsEXgC3avhaNm710NeN9tL
+ jWXuALfTpK7wR7V2xOmXixdFN1Dugb5xiFac/slPhta6QIYzqfSP4XwFw=
+X-Received: by 2002:a17:90b:5688:b0:381:29f2:481b with SMTP id
+ 98e67ed59e1d1-38dc74cbe73mr1405854a91.11.1783739697430; 
+ Fri, 10 Jul 2026 20:14:57 -0700 (PDT)
+Received: from skinsburskii (c-98-225-44-182.hsd1.wa.comcast.net.
  [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84870d76ce7sm1801076b3a.55.2026.07.10.14.27.13
+ 98e67ed59e1d1-38a55a47286sm3463061a91.10.2026.07.10.20.14.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 14:27:14 -0700 (PDT)
-Subject: [PATCH v8 7/8] accel/amdxdna: Use hmm_range_fault_unlocked_timeout()
- for range population
+ Fri, 10 Jul 2026 20:14:56 -0700 (PDT)
+Date: Fri, 10 Jul 2026 20:14:47 -0700
 From: Stanislav Kinsburskii <skinsburskii@gmail.com>
-To: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
- corbet@lwn.net, dakr@kernel.org, david@kernel.org, decui@microsoft.com,
- haiyangz@microsoft.com, jgg@ziepe.ca, kees@kernel.org, kys@microsoft.com,
- leon@kernel.org, liam@infradead.org, lizhi.hou@amd.com, ljs@kernel.org,
- longli@microsoft.com, lyude@redhat.com, maarten.lankhorst@linux.intel.com,
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, corbet@lwn.net,
+ dakr@kernel.org, david@kernel.org, decui@microsoft.com,
+ haiyangz@microsoft.com, jgg@ziepe.ca, kees@kernel.org,
+ kys@microsoft.com, leon@kernel.org, liam@infradead.org,
+ lizhi.hou@amd.com, ljs@kernel.org, longli@microsoft.com,
+ lyude@redhat.com, maarten.lankhorst@linux.intel.com,
  mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
  nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
  rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
- skhan@linuxfoundation.org, skinsburskii@gmail.com, surenb@google.com,
- tzimmermann@suse.de, vbabka@kernel.org, wei.liu@kernel.org,
- skinsburskii@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ skhan@linuxfoundation.org, surenb@google.com, tzimmermann@suse.de,
+ vbabka@kernel.org, wei.liu@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-rdma@vger.kernel.org
-Date: Fri, 10 Jul 2026 14:27:12 -0700
-Message-ID: <178371883276.900500.12789147320642521200.stgit@skinsburskii>
-In-Reply-To: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
+Subject: Re: [PATCH v8 4/8] mshv: Use hmm_range_fault_unlocked_timeout() for
+ region faults
+Message-ID: <alG1JwgUK44dCiN4@skinsburskii>
 References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
-User-Agent: StGit/0.19
+ <178371881034.900500.5214601525971121683.stgit@skinsburskii>
+ <20260710151216.0397a6f9ac5c7b4ccd274cc1@linux-foundation.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260710151216.0397a6f9ac5c7b4ccd274cc1@linux-foundation.org>
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,54 +107,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-aie2_populate_range() takes mmap_read_lock() only around hmm_range_fault().
-It keeps a single HMM_RANGE_DEFAULT_TIMEOUT deadline for the populate pass
-and retries -EBUSY until that deadline expires.
+On Fri, Jul 10, 2026 at 03:12:16PM -0700, Andrew Morton wrote:
+> On Fri, 10 Jul 2026 14:26:50 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
+> 
+> > MSHV currently faults movable memory regions by taking mmap_read_lock()
+> > around hmm_range_fault(). That prevents the fault path from handling VMAs
+> > whose fault handlers need to drop mmap_lock, such as userfaultfd-backed
+> > mappings.
+> > 
+> > Use hmm_range_fault_unlocked_timeout() instead. Passing a timeout of 0
+> > preserves MSHV's existing unbounded retry behavior while letting the HMM
+> > helper own mmap_lock acquisition and refresh range->notifier_seq internally
+> > before walking the range. After the fault succeeds, MSHV still takes
+> > mreg_mutex and checks mmu_interval_read_retry() before installing the pages
+> > into the region, so the existing invalidation synchronization is preserved.
+> > 
+> > Fold the small fault-and-lock helper into mshv_region_range_fault(), since
+> > the remaining retry path is just the standard "fault, take the driver lock,
+> > check the interval notifier sequence" pattern.
+> > 
+> > ...
+> >
+> > @@ -452,13 +412,19 @@ static int mshv_region_range_fault(struct mshv_mem_region *region,
+> >  	range.start = region->start_uaddr + page_offset * HV_HYP_PAGE_SIZE;
+> >  	range.end = range.start + page_count * HV_HYP_PAGE_SIZE;
+> >  
+> > -	do {
+> > -		ret = mshv_region_hmm_fault_and_lock(region, &range);
+> > -	} while (ret == -EBUSY);
+> > -
+> > +again:
+> > +	ret = hmm_range_fault_unlocked_timeout(&range, 0);
+> >  	if (ret)
+> >  		goto out;
+> >  
+> > +	mutex_lock(&region->mreg_mutex);
+> > +
+> > +	if (mmu_interval_read_retry(range.notifier, range.notifier_seq)) {
+> > +		mutex_unlock(&region->mreg_mutex);
+> > +		cond_resched();
+> > +		goto again;
+> > +	}
+> > +
+> 
+> If the calling process has realtime scheduling policy and either a)
+> we're uniprocessor or b) this process and the holder of
+> interval_sub->invalidate_seq are both pinned to the same CPU then
+> cond_resched() won't do anything, and this might be an infinite loop?
 
-Use hmm_range_fault_unlocked_timeout() instead. The HMM helper now owns
-the mmap lock and refreshes mapp->range.notifier_seq for its internal
-retries. Pass the remaining jiffies from the existing deadline to HMM,
-while preserving the driver's existing outer loop for interval invalidation
-retries and for selecting the next invalid mapping.
+Yes, looks like it might.
+What can be done to prevent this?
 
-Keep returning -ETIME when the retry budget expires, matching the driver's
-existing timeout error convention.
-
-Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
----
- drivers/accel/amdxdna/aie2_ctx.c |   17 +++--------------
- 1 file changed, 3 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index 54486960cbf5..a16b8d7deaea 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -1061,22 +1061,11 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
- 		return -EFAULT;
- 	}
- 
--	mapp->range.notifier_seq = mmu_interval_read_begin(&mapp->notifier);
--	mmap_read_lock(mm);
--	ret = hmm_range_fault(&mapp->range);
--	mmap_read_unlock(mm);
-+	ret = hmm_range_fault_unlocked_timeout(&mapp->range,
-+			max_t(long, timeout - jiffies, 1));
- 	if (ret) {
--		if (time_after(jiffies, timeout)) {
-+		if (ret == -EBUSY)
- 			ret = -ETIME;
--			goto put_mm;
--		}
--
--		if (ret == -EBUSY) {
--			amdxdna_umap_put(mapp);
--			mmput(mm);
--			goto again;
--		}
--
- 		goto put_mm;
- 	}
- 
-
+Thanks,
+Stanislav
 
