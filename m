@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83C36C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 03:12:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2ED1C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 03:12:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E46A010E54B;
-	Sat, 11 Jul 2026 03:12:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A21410E6FF;
+	Sat, 11 Jul 2026 03:12:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wg5M+f+h";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OBB14Yzu";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3080010E54B
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 03:12:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8137310E6FF
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 03:12:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8EDF160051;
- Sat, 11 Jul 2026 03:12:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B74E1F000E9;
- Sat, 11 Jul 2026 03:12:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4CBDE408FE;
+ Sat, 11 Jul 2026 03:12:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F40E1F000E9;
+ Sat, 11 Jul 2026 03:12:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783739529;
- bh=wa8hr/G+ntGTx+pbf6WTAwBD10PQK6BQu7AsPuQdJyQ=;
+ s=k20260515; t=1783739566;
+ bh=p7NKV0plSrqzA5mI7keJvoc53RsE67obhEFJII74C2I=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Wg5M+f+hnXNegk2N7ugvGw+MUT/KgPR1vDY7ub7r2SrIKZkuT2+ItRiktrsle6OIR
- w5oo//75iED5X00XNdLth0mzpK/8zRMKDWn9OXcLCAw8FRWAc7YcOjWgBox5mcW+BV
- H9yDDf+YjZ8LnG38JmYSBx+JByb2kElaxkR/Wg8JU7kbGEO6cLEve/V0JVatedSbWw
- 43wl3q4TMTglhehr0d0pm+Tm/d4xtyDNXx3qmaWPr/5Uu79TlBLZLHMmAqaMoBYZeB
- 943cXJPBentt/FAp5fdGwnTrHjs5kUtjyDICEtUVsRsK+oG8/9vewhKcOJYHjpelbQ
- L7F5jHZbrm04Q==
+ b=OBB14YzuXW6oSGmQkFdtyieorSwKAJ98oZ0NSeFkjT01/3Z4ZS06uxFE86EeGLefW
+ KxthGYY4rJsQYIPIKe+cev/MY1HNV4yQJ7XGZpMU6JA3cfCrMZpQw9kRaVCt7cHZEk
+ ci45tiWcR4Z5qfC6pGY6/+M3sHJk3EM8cS9PIj5OauLbToLNpt05pNpTXS1cSjVtXP
+ teksl75df+yviCCPed22ZwmQS6A02onWLg2JSpur/wkJdfNgSSm+U1T4xijloKqF9r
+ abe/VUqnsqu+OZzh51p+vfGOqA71B/2K+/XRX6Ejtzl2gIpRPy6O7dgQYnsx4DwgIF
+ Rvy5tTNnquhFw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/33] drm/ttm: Bound page (re)allocation per
- defragmentation move
+Subject: Re: [PATCH v3 05/33] drm/ttm: Support defragmentation moves
 To: "Matthew Brost" <matthew.brost@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260711025619.2540575-9-matthew.brost@intel.com>
+In-Reply-To: <20260711025619.2540575-6-matthew.brost@intel.com>
 References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-9-matthew.brost@intel.com>
+ <20260711025619.2540575-6-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 03:12:08 +0000
-Message-Id: <20260711031209.1B74E1F000E9@smtp.kernel.org>
+Date: Sat, 11 Jul 2026 03:12:45 +0000
+Message-Id: <20260711031246.0F40E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,61 +57,135 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Negative defrag budget values are incorrectly treated as unlimit=
-ed instead of exhausted.
+- [Critical] Data loss due to `ttm_bo_move_memcpy` and driver hardware copy=
+ routines ignoring `bo->defrag_old_tt`.
+- [Critical] Asynchronous GPU copy Use-After-Free due to synchronous teardo=
+wn on defrag move failure.
+- [High] Victim BOs during multihop bounce moves are misclassified as defra=
+g targets.
 --
 
---- Patch [8]: [PATCH v3 08/33] drm/ttm: Bound page (re)allocation per defr=
-agmentation move ---
-commit 933e390472c0331c941d5caa6b241841ec7bb236
+--- Patch [5]: [PATCH v3 05/33] drm/ttm: Support defragmentation moves ---
+commit fba7dcbd46a60b9e14c15b0602b46ebb23a7bc37
 Author: Matthew Brost <matthew.brost@intel.com>
+Subject: drm/ttm: Support defragmentation moves
 
-drm/ttm: Bound page (re)allocation per defragmentation move
+This commit introduces infrastructure to re-back an already-resident buffer
+object with fresh pages at a more beneficial order. It stashes the old
+backing in a new defrag_old_tt pointer and creates a fresh one during the
+move.
 
-This commit introduces a per-move byte budget to bound the reallocation
-size during TTM object defragmentation. It updates the pool allocator to
-track upgraded pages against this budget, stopping the upgrade process and
-harvesting the remaining old pages once the budget is exhausted.
-
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
-l.c
-> index 52f5e64f05ddc..1673e81b8df81 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-
-[ ... ]
-
-> @@ -1121,10 +1187,23 @@ static int __ttm_pool_alloc(struct ttm_pool *pool=
-, struct ttm_tt *tt,
->  		gfp_flags |=3D GFP_HIGHUSER;
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -125,49 +125,133 @@ static int ttm_bo_handle_move_mem(struct ttm_buffe=
+r_object *bo,
+>  {
+>  	struct ttm_device *bdev =3D bo->bdev;
+>  	bool old_use_tt, new_use_tt;
+> +	bool defrag;
+>  	int ret;
 > =20
->  	it.gfp_flags =3D gfp_flags;
-> +	it.defrag_capped =3D it.defrag_old_tt && alloc->defrag_bytes_remaining =
-> 0;
+>  	old_use_tt =3D !bo->resource || ttm_manager_type(bdev, bo->resource->me=
+m_type)->use_tt;
+>  	new_use_tt =3D ttm_manager_type(bdev, mem->mem_type)->use_tt;
+> =20
+> -	ttm_bo_unmap_virtual(bo);
+> +	/*
+> +	 * Only the BO that is the actual defrag target (moved in place via
+> +	 * ttm_bo_validate(), evict =3D=3D false) is being defragmented. The sa=
+me
+> +	 * ctx->defrag is threaded into evictions triggered while allocating
+> +	 * that target's new backing (ttm_bo_evict_alloc()), so guard against
+> +	 * an unrelated victim BO (evict =3D=3D true) being misclassified as a
+> +	 * defrag move and needlessly reallocating its backing.
+> +	 */
+> +	defrag =3D ctx->defrag && !evict && new_use_tt && bo->ttm &&
+> +		 ttm_tt_is_populated(bo->ttm);
 
-[Severity: Medium]
-Does this initialization correctly handle negative budget values?
+[Severity: High]
+Are victim buffer objects misclassified as defragmentation targets during
+multihop bounce moves?
 
-If a caller uses the same ttm_operation_ctx for multiple defragmentation
-moves, the first move that overshoots the budget can leave
-defrag_bytes_remaining as a negative value.
+When a victim BO's eviction requires a multihop bounce, ttm_bo_evict()
+calls ttm_bo_bounce_temp_buffer(), which subsequently calls
+ttm_bo_handle_move_mem() with evict =3D false.
 
-When this negative value is passed to the next __ttm_pool_alloc() call,
-the alloc->defrag_bytes_remaining > 0 check evaluates to false.
+If ctx->defrag is true from the surrounding defragmentation pass, this
+condition will evaluate to true for the bounce move.
 
-Will this disable the cap entirely (defrag_capped =3D false) and cause the
-allocator to perform an unlimited upgrade, potentially reintroducing the
-unbounded stall this budget was designed to prevent? Should this condition
-be !=3D 0 instead to properly enforce negative or exhausted budgets?
-
->  	for (it.order =3D ttm_pool_alloc_find_order(MAX_PAGE_ORDER, alloc);
->  	     alloc->remaining_pages;
->  	     it.order =3D ttm_pool_alloc_find_order(it.order, alloc)) {
+Could this unnecessarily reallocate the victim's backing, and subsequently
+trigger the WARN_ON_ONCE below if a bounce is requested?
 
 [ ... ]
+
+> +	/*
+> +	 * A defrag move deferred its virtual unmap until the new backing was
+> +	 * successfully populated; tear the userspace mappings down now, before
+> +	 * the move swaps in the new pages, so the next fault re-establishes
+> +	 * them against the new backing.
+> +	 */
+> +	if (defrag)
+> +		ttm_bo_unmap_virtual(bo);
+> +
+>  	ret =3D bdev->funcs->move(bo, evict, ctx, mem, hop);
+
+[Severity: Critical]
+Does this result in data loss if the driver falls back to the generic copy
+routines?
+
+If a driver opts into defragmentation via ctx->defrag =3D true,
+ttm_bo_handle_move_mem() allocates a new TT backing (bo->ttm) and stashes
+the old data in bo->defrag_old_tt before calling the driver's move callback.
+
+If the driver falls back to the generic ttm_bo_move_memcpy() or uses a
+hardware copy that directly relies on bo->ttm:
+
+drivers/gpu/drm/ttm/ttm_bo_util.c:ttm_bo_move_memcpy() {
+    ...
+    dst_iter =3D ttm_kmap_iter_tt_init(&_dst_iter.tt, bo->ttm);
+    ...
+    src_iter =3D ttm_kmap_iter_tt_init(&_src_iter.tt, bo->ttm);
+    ...
+}
+
+Won't both the source and destination initialize using the newly allocated
+uninitialized bo->ttm, copying garbage onto itself, while the actual data
+in bo->defrag_old_tt is ignored and eventually freed?
+
+[ ... ]
+
+>  out_err:
+> -	if (!old_use_tt)
+> +	if (bo->defrag_old_tt) {
+> +		/* Failed defrag move: restore the original backing. */
+> +		ttm_bo_tt_destroy(bo);
+
+[Severity: Critical]
+Can this synchronously free the backing memory while an asynchronous GPU co=
+py
+is still executing?
+
+During a defrag move, the driver's move callback may launch an asynchronous
+hardware copy to populate the new TT backing.
+
+If a subsequent cleanup step fails (for example, ttm_bo_move_accel_cleanup()
+returning -ENOMEM), the failure falls through to this out_err block.
+
+If the memory is synchronously freed here using ttm_bo_tt_destroy(), won't
+the GPU continue executing the copy into the now-freed system pages,
+causing memory corruption?
+
+> +		bo->ttm =3D bo->defrag_old_tt;
+> +		bo->defrag_old_tt =3D NULL;
+> +	} else if (!old_use_tt) {
+>  		ttm_bo_tt_destroy(bo);
+> +	}
+> =20
+>  	return ret;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711025619.2540=
-575-1-matthew.brost@intel.com?part=3D8
+575-1-matthew.brost@intel.com?part=3D5
