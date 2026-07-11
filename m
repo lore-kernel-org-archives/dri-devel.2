@@ -4,62 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6880C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 08:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C95F8C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 08:41:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1963910E214;
-	Sat, 11 Jul 2026 08:27:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03D4B10E30D;
+	Sat, 11 Jul 2026 08:41:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="Pj+fWrEQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oPesYcM1";
 	dkim-atps=neutral
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch
- [109.224.244.106])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB1D310E214
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 08:27:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=protonmail; t=1783758451; x=1784017651;
- bh=PlOt4NbNmlRlFRophHEiAi0ynsEu/WmQ+w5dHk7ziXw=;
- h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=Pj+fWrEQAHY2lFD81TrVw4qdqh5a/EqaMEyOCSZ/gbRRN3mdcihapcwpHRmGtZY1g
- fK4BeqI4vic6i14vTSUZnxRoEC8+4sUYy6BhLOY33QGxXo58Cu21UohPBol9vSk1Aa
- DaucRJNjd9FMAbSALNkIIMpolIHpNHoXdw+SsdDjjbo+aWRTR/zZ6YFW9tT2wI5So5
- 7lIpCIm+xPMsM6nCM1YRz2LyoXIwfxfkPS1bXvdtlpTCvpKPIDopelQcrKeejZ4MeZ
- esEDjieTJXwEjhq63JoT+BmRYV5ltt0f7UzMre5nMj9XRPZbDyjDV+DUqr6gb6E9MW
- /UzF+dhsKw7Pg==
-X-Pm-Submission-Id: 4gy1z22L2Jz2ScPY
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Yury Norov <ynorov@nvidia.com>
-Cc: Eliot Courtney <ecourtney@nvidia.com>,
- Greg KH <gregkh@linuxfoundation.org>, Burak Emir <bqe@google.com>,
- John Hubbard <jhubbard@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Andrew Ballance <andrewjballance@gmail.com>,
- Matthew Wilcox <willy@infradead.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Boqun Feng <boqun@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
- Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Tamir Duberstein <tamird@kernel.org>,
- Timur Tabi <ttabi@nvidia.com>, Trevor Gross <tmgross@umich.edu>,
- Yury Norov <yury.norov@gmail.com>, Zhi Wang <zhiw@nvidia.com>,
- maple-tree@lists.infradead.org, linux-kernel@vger.kernel.org,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance for
- region allocations
-Date: Sat, 11 Jul 2026 11:27:08 +0300
-Message-ID: <20260711082725.12176-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260711063602.426311-1-ynorov@nvidia.com>
-References: <20260711063602.426311-1-ynorov@nvidia.com>
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F157F10E318
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 08:41:36 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-4629051c9d1so928251f8f.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 01:41:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783759295; x=1784364095; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=V6EtDjfFX/wsIJgz4N5ldSWx9PPXT0Y4/MdltpptGMY=;
+ b=oPesYcM1lVepzQkHkf2zmdJcCIxkP5cyHr6PLmOFZRG0yTxTe9y37eMLbGRBOjOUPE
+ m7NeFWjIsQnEHFEEGA0xBS7VJL3hxw7LLyaF51gPWm4iSj7d7XEuYf1VY4kfzSzrAG7a
+ adCBkFp99XjkaujRe53SCrwuph/zBQfYfrcqAF7klqEj8vtwqjVDyhcfMPRCz/Sm5vAg
+ a0BYyv1Bc+DrZKO1gv/lWat7YKMjdMb7OAYsOLvMt8F5B1z3ENGV4sHeMsVfSR2jZ8EZ
+ TrmbP8A066cZImcd8F8MD3pQeV2CgYj/Z0fg6OvRNE20HlEP8jrXspkMANjS0zZHzuOS
+ wjkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783759295; x=1784364095;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=V6EtDjfFX/wsIJgz4N5ldSWx9PPXT0Y4/MdltpptGMY=;
+ b=q8bwLo7dIdGlPvLMh+aZvS9H9PJSa/7EodSh3DtIsw87CqZkhyQAHSRI++O0T8G3eT
+ /4RQYLagL1HIZ2QhqHyeThDOXhUvOQxcHpfAKWNmYP3rg2ylUrswdRpr3IdMw2HkphdB
+ YHgt0hQ4ShbBaAio7yWiP1fHJqeOdwiAtp2bKaLVN0rUugdJidj7II+Pu0X9WK7mj4Ls
+ KHiYuu5lfj2RnSUM8iBIZb+xg88FqCJoVs29GcHoZuJGPLZVaR+J3k2F/Xs2ppQfwfK5
+ uRfZUKDFASObGY+3xHezMn3chUHcdwZWwiLD5gUrWSQ3HxDWRr3ZLjsGXs5ixx2XI+vk
+ 24dg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro6JM2BCThHh9UPv5IlPUVIj2WPr0K1zDdv6OhEXd/hE0UU6qI1AoUkBwFGfuBW01uzSkL6PNqXgVk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWEC9ZKZfEFnfUOgU8xnVjmC/dJF2NjuFsc+Ue9+3S26FUv0Q1
+ yMmv5QMv45yXVugKsrh3kOJy4T8pubPh19Pnm8O46AxcXdTx6JEmtdEC
+X-Gm-Gg: AfdE7cmn3V5fxKV5PegIsmYOMQ7LgueYYN3qHxmMH82gJY54qFPHfhyAPoCJMVhoMdR
+ Q6FuIr0iz9q7rjmv6t6IHdUn1mP8XW7LNDJq8/oATeWgSf/c1oL8TRlpwwDZq7YylzS7DjdNQQu
+ Y9sLaLdTaTHEBxCUoJ9u1qhI+7dMzuG/OUQ1u8uu7mbTTLDjatsY0gmOt3mhxWCFiWPKrQICDmG
+ urXbJKJT6YzDMXik81xIfb+Nkkh+58eDWR9QLENSO1AwYMP0L8EvT9Tuh6K1w/6GuEoNwMilIij
+ Idba+qz1nGMKrp9aqo40DZ/YBWbkyQ9xHj4OMDGH0YBHLHhIK+Cd8BMbPE2sa+kPMLzdw5n0ieA
+ W/mBrGxYdUVEtRZ8UzD6zlMwdsA8iwmNEldckquvqYU5jXEh9mrgQ+6XhnQ3LoA2Jna50ZEM4QY
+ ydkVUbKMbotl09CobMfFrmXo2pcbn8ehXzsXBELtwfm7ywWsQ2EdhTeXfuawb6c5woFvA=
+X-Received: by 2002:a05:6000:250d:b0:47f:28d6:27ab with SMTP id
+ ffacd0b85a97d-47f2dc8d72cmr2097181f8f.8.1783759295139; 
+ Sat, 11 Jul 2026 01:41:35 -0700 (PDT)
+Received: from ?IPV6:2a06:4944:10fb:f400:509b:3e86:dfb4:f404?
+ ([2a06:4944:10fb:f400:509b:3e86:dfb4:f404])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-47a9e4d6e4csm63435639f8f.10.2026.07.11.01.41.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 11 Jul 2026 01:41:34 -0700 (PDT)
+Message-ID: <180318e7-0432-403a-b87b-6f9a455bb86a@gmail.com>
+Date: Sat, 11 Jul 2026 10:41:33 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] drm/radeon: fix internal display on iMac11,1
+ (RV770/DCE3.1)
+To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <CADnq5_Os2Bk8Dd9d8m_CkK9nYSporzUqbiRA=YD85nRBB6XjMw@mail.gmail.com>
+ <20260601211931.2837-2-gilles.risch@gmail.com>
+Content-Language: en-US
+From: Gilles Risch <gilles.risch@gmail.com>
+In-Reply-To: <20260601211931.2837-2-gilles.risch@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,108 +94,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 11 Jul 2026 02:36:01 -0400=0D
-Yury Norov <ynorov@nvidia.com> wrote:=0D
-=0D
-> Compare the cost of allocating and freeing variable-sized regions using=0D
-> a bitmap, IDA and a Maple Tree. All implementations process the same=0D
-> randomly generated sequence of region sizes, ranging from 1 to 32 entries=
-,=0D
-> until the configured capacity is exhausted.=0D
-> =0D
-> Run the benchmark at several capacities to show how the approaches=0D
-> scale. Report allocation and free times separately because bitmap,=0D
-> IDA and Maple Tree removal have substantially different costs.=0D
-> =0D
-> On x86/kvm, the output example is:=0D
-> =0D
-> type       alloc (ns)      free (ns)   capacity   memory (B)=0D
-> bitmap      179573071         342105    1000000       125000=0D
-> IDA          46555636       33931498    1000000       134864=0D
-> maple        18629665       19741396    1000000      1548304=0D
-> bitmap        1630912          30933     100000        12504=0D
-> IDA           6144785        3354590     100000        14288=0D
-> maple         1745026        1825032     100000       155408=0D
-> bitmap          28448           3374      10000         1256=0D
-> IDA            418978         333641      10000         1872=0D
-> maple          185398         211138      10000        15632=0D
-> bitmap           2253            610       1000          128=0D
-> IDA             42755          36432       1000          144=0D
-> maple           19728          23474       1000         1552=0D
-> =0D
-> Reported IDA and Maple Tree memory figures exclude slab overhead=0D
-> and transient allocations. The Maple Tree figure is additionally=0D
-> a lower-bound estimate that assumes fully occupied leaf nodes and=0D
-> excludes internal nodes.=0D
-=0D
-The report itself doesn't make it obvious. I think "memory (B)" can be=0D
-misleading. Perhaps we should use a clearer column name or add a short note=
-=0D
-before/after the report for explaining the columns?=0D
-=0D
-Regards,=0D
-Onur=0D
-=0D
-> =0D
-> IDA has no region-allocation API, so each region is implemented as=0D
-> a sequence of single-ID allocations. The IDs remain contiguous=0D
-> because this benchmark fills an initially empty IDA monotonically.=0D
-> =0D
-> The benchmark is motivated by the discussion at the link below about=0D
-> choosing the best data structure for the channel ID pool with the=0D
-> capacity of 2048 IDs for the nova GPU driver.=0D
-> =0D
-> Specifically for 2048 IDs the result is:=0D
-> =0D
-> bitmap           3907            831       2048          256=0D
-> IDA             83545          71007       2048          848=0D
-> maple           34632          39710       2048         3600=0D
-> =0D
-> Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@n=
-vidia.com/=0D
-> Signed-off-by: Yury Norov <ynorov@nvidia.com>=0D
-> ---=0D
-> v2: add IDA benchmark (Matthew)=0D
-> v1: https://lore.kernel.org/all/20260711013910.349586-1-ynorov@nvidia.com=
-/=0D
-> =0D
->  MAINTAINERS                  |   3 +=0D
->  lib/Kconfig.debug            |   9 ++=0D
->  lib/Makefile                 |   1 +=0D
->  lib/region_alloc_benchmark.c | 174 +++++++++++++++++++++++++++++++++++=0D
->  4 files changed, 187 insertions(+)=0D
->  create mode 100644 lib/region_alloc_benchmark.c=0D
-> =0D
-> diff --git a/MAINTAINERS b/MAINTAINERS=0D
-> index 7cc4bca5a2c5..9e487a94aba4 100644=0D
-> --- a/MAINTAINERS=0D
-> +++ b/MAINTAINERS=0D
-> @@ -4615,6 +4615,7 @@ F:	lib/bitmap.c=0D
->  F:	lib/cpumask.c=0D
->  F:	lib/find_bit.c=0D
->  F:	lib/find_bit_benchmark.c=0D
-> +F:	lib/region_alloc_benchmark.c=0D
->  F:	lib/test_bitmap.c=0D
->  F:	lib/tests/cpumask_kunit.c=0D
-> +		bitmap_count =3D benchmark_bitmap(capacities[i]);=0D
-=0D
-[...]=0D
-=0D
-> +		ida_count =3D benchmark_ida(capacities[i]);=0D
-> +		maple_count =3D benchmark_maple_tree(capacities[i]);=0D
-> +		WARN_ON(bitmap_count !=3D ida_count);=0D
-> +		WARN_ON(bitmap_count !=3D maple_count);=0D
-> +	}=0D
-> +=0D
-> +	/* Let the benchmark be loaded and run repeatedly without rmmod. */=0D
-> +	return -EINVAL;=0D
-> +}=0D
-> +module_init(region_alloc_benchmark);=0D
-> +=0D
-> +MODULE_AUTHOR("Yury Norov <ynorov@nvidia.com>");=0D
-> +MODULE_DESCRIPTION("Benchmark bitmap, IDA and Maple Tree region allocati=
-on");=0D
-> +MODULE_LICENSE("GPL");=0D
-> -- =0D
-> 2.53.0=0D
-> =0D
+Hello,
+
+gentle ping on this v5 patch — is there anything else needed to get this 
+merged?
+
+Regards,
+Gilles
+
+
+On 01.06.26 23:19, Gilles Risch wrote:
+> The Apple iMac11,1 (27-inch, Late 2009) uses a Mobility Radeon HD 4850
+> (RV770/DCE3.1) with a 2560x1440 internal panel on an internal
+> DisplayPort path. Without this fix the display stays dark under KMS.
+>
+> This machine suffers from the same issue as iMac10,1 and iMac11,2:
+> Apple routes the internal display through Link B of the DIG encoder
+> instead of Link A. Add iMac11,1 to the existing DMI quirk and move
+> the Apple-specific encoder assignment into its own block, independent
+> of the DCE version check.
+>
+> Additionally, the 2560x1440 panel requires RADEON_PLL_USE_FRAC_FB_DIV
+> and ATOM_ENCODER_CMD_DP_VIDEO_ON, limited to iMac11,1 via dmi_match()
+> to avoid affecting other boards.
+>
+> Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
+> ---
+>   drivers/gpu/drm/radeon/atombios_crtc.c     |  5 ++++-
+>   drivers/gpu/drm/radeon/atombios_encoders.c | 23 ++++++++++++----------
+>   2 files changed, 17 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/radeon/atombios_crtc.c
+> index 2fc0334e0..075eba2d4 100644
+> --- a/drivers/gpu/drm/radeon/atombios_crtc.c
+> +++ b/drivers/gpu/drm/radeon/atombios_crtc.c
+> @@ -24,6 +24,8 @@
+>    *          Alex Deucher
+>    */
+>   
+> +#include <linux/dmi.h>
+> +
+>   #include <drm/drm_fixed.h>
+>   #include <drm/drm_fourcc.h>
+>   #include <drm/drm_framebuffer.h>
+> @@ -594,7 +596,8 @@ static u32 atombios_adjust_pll(struct drm_crtc *crtc,
+>   		if (((rdev->family == CHIP_RS780) || (rdev->family == CHIP_RS880))
+>   		    && !radeon_crtc->ss_enabled)
+>   			radeon_crtc->pll_flags |= RADEON_PLL_USE_FRAC_FB_DIV;
+> -		if (ASIC_IS_DCE32(rdev) && mode->clock > 165000)
+> +		if ((ASIC_IS_DCE32(rdev) || dmi_match(DMI_PRODUCT_NAME, "iMac11,1"))
+> +		    && mode->clock > 165000)
+>   			radeon_crtc->pll_flags |= RADEON_PLL_USE_FRAC_FB_DIV;
+>   	} else {
+>   		radeon_crtc->pll_flags |= RADEON_PLL_LEGACY;
+> diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
+> index 5cfd8fcfa..8b3f8303a 100644
+> --- a/drivers/gpu/drm/radeon/atombios_encoders.c
+> +++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+> @@ -1707,7 +1707,7 @@ radeon_atom_encoder_dpms_dig(struct drm_encoder *encoder, int mode)
+>   		if (ENCODER_MODE_IS_DP(atombios_get_encoder_mode(encoder)) && connector) {
+>   			/* DP_SET_POWER_D0 is set in radeon_dp_link_train */
+>   			radeon_dp_link_train(encoder, connector);
+> -			if (ASIC_IS_DCE4(rdev))
+> +			if (ASIC_IS_DCE4(rdev) || dmi_match(DMI_PRODUCT_NAME, "iMac11,1"))
+>   				atombios_dig_encoder_setup(encoder, ATOM_ENCODER_CMD_DP_VIDEO_ON, 0);
+>   		}
+>   		if (radeon_encoder->devices & (ATOM_DEVICE_LCD_SUPPORT)) {
+> @@ -2123,17 +2123,20 @@ int radeon_atom_pick_dig_encoder(struct drm_encoder *encoder, int fe_idx)
+>   	}
+>   
+>   	/*
+> -	 * On DCE32 any encoder can drive any block so usually just use crtc id,
+> -	 * but Apple thinks different at least on iMac10,1 and iMac11,2, so there use linkb,
+> -	 * otherwise the internal eDP panel will stay dark.
+> +	 * Apple routes the internal eDP panel through Link B of the DIG encoder
+> +	 * instead of Link A on the iMac10,1, iMac11,1 and iMac11,2.
+> +	 * Use linkb to avoid a dark display.
+>   	 */
+> -	if (ASIC_IS_DCE32(rdev)) {
+> -		if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
+> -		    dmi_match(DMI_PRODUCT_NAME, "iMac11,2"))
+> -			enc_idx = (dig->linkb) ? 1 : 0;
+> -		else
+> -			enc_idx = radeon_crtc->crtc_id;
+> +	if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
+> +	    dmi_match(DMI_PRODUCT_NAME, "iMac11,1") ||
+> +	    dmi_match(DMI_PRODUCT_NAME, "iMac11,2")) {
+> +		enc_idx = (dig->linkb) ? 1 : 0;
+> +		goto assigned;
+> +	}
+>   
+> +	/* on DCE32 and encoder can driver any block so just crtc id */
+> +	if (ASIC_IS_DCE32(rdev)) {
+> +		enc_idx = radeon_crtc->crtc_id;
+>   		goto assigned;
+>   	}
+>   
+
+
