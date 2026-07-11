@@ -4,86 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1818DC44507
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37F9DC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF39410E82D;
-	Mon, 13 Jul 2026 07:11:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D35A10E835;
+	Mon, 13 Jul 2026 07:11:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZHA31VqS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T2G/K9FQ";
 	dkim-atps=neutral
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 437A910E318
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 08:45:16 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-8485fad302bso1742985b3a.3
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 01:45:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783759516; cv=none;
- d=google.com; s=arc-20260327;
- b=HUEe/zamID00L/QninETLOB2ueH1deXyOfS/8H2+LkfApG1fV4Lx/ACa4u3p0xLg/s
- 25b1KTRKU7K7OIdy/rQLFR4CZ35Zz9rYf6rjKjMMKagl100OWeSqx9CKcgi4D6M+8k8T
- t4xXdmi3tl2OUON0UNuu4JZbahzugwvJIKTo/hIktbYG7bzmnrj6wHE8M40NwadAMdoJ
- iWUhaEowD0YowrL4+pIi5nWOvPaM0ezhb/J1pXlMZXtzIYG5Eri0T1fJrznerXHteopM
- hey4Z7y2zOw6l4wq26HITXwk5tOO3r9TfRoSJtCCZ061o5Bhlz2XNrAP++6I/jDDWNFH
- He1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=d5f6B0smxVafC/d5W+ptxFghTcXMGQ4dtdszLH5dcD0=;
- fh=S060n98uRc3qitglJ91GafjaEKA4wE9FvJPYRWVCvv4=;
- b=ND19Q5RXNB2JqSw5Rmik17wlFynQzWd5A0xxD5PhlL9NoYJrzACIv8lc8VS2SiU6hD
- ioa7O8ZksK7vL2Vfa0X8CAzH+j5aD+ENv0efa2QUKpJlyUO6ZFH+x4fUoiF1G7j3qY9s
- usdFAc4d96nLgzWNuWc0pl9eazNpJuxaSSeQnjJS8W5cwW9c5nRTJfcfSFrbh0o2OBe9
- HGoOUGxpFJpqjbvPCo3sQZEzVbH1SnkTau0XUvuLxLLFwTnX/IC5XfXbBEctXmpPLoPJ
- 6q5WgsF07V2djhwYPoxA5UmE0TCOOfhoDVVBTrwTSX5jw0DsfnWTnG7SmNBQNLhqt/Wl
- JV9A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783759516; x=1784364316; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=d5f6B0smxVafC/d5W+ptxFghTcXMGQ4dtdszLH5dcD0=;
- b=ZHA31VqSbSLFs+j9nGb/vyVT8ZXBIMKnyMIv+S7h/OhQsg4gpjdkmWfQnnoUZf4sMl
- C3cC+cb77ZpyMznObMGh5Vbf5eA6jQkX940yH5K/cOS05MFMNO/ZKbk6uqeTI6GVYIfR
- D8P1Ha8GRrtkFGUcd8PoRBMIU8/9AqFEx/a5rkwjun2I3tgiIYyMRashuFIg+eSTvXG7
- 9FLEKL6+1s+jlWhXrBqJl/QgPP4cpLMUTpxH0jZ3pwx0dSoLWpkPtDMtK6DOaRilDEEg
- x0QhVYaSXFDCwJBETRrCVjNPvmS2ad6Rc/tuTpVHrFjHBe/ux/B0baraXqjcF3MQn+dR
- VvGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783759516; x=1784364316;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=d5f6B0smxVafC/d5W+ptxFghTcXMGQ4dtdszLH5dcD0=;
- b=qWsuWpKA0K1yxyVTTaQCHyn7IURqyGJTZGTN0fl7eNh58DilH8v470huzOGoFFvDuE
- 1AiuZ9rTJIZdMXG7ec+awi+sa3KAYG894Fp7EpeOtGLxczU4xMeCBYOqTs1GtKAIBCTL
- xss6AmaJnoiaECrE4AMgqV0J5geP6Bg6HY2hwrEcDOonumBzA/1oKwZG27NlJ/hCk1iq
- J9MEYEqFAu8zt7WusVNN1mByFclYNVImia0MB2QKPJB9gi4rJyukX162imncWtUIuhG5
- /tQoChOVDda1Nslb86mJYVgxS+bJ2uQwmTmFlHWBG3xILJHkRCdP5OGjGk0AiSjxIBur
- xK1A==
-X-Gm-Message-State: AOJu0Yyxrne9umwuv0JPXSIVSSA/hToBFSi8NBdAImGRkhfas2MxM5ZZ
- e00UsSqYB8PPjASJASDheDCGRcF3Fs75Es9IGTwhBPLESg79VSBMCs73QkzvWUHNJVEfkO/fN4I
- MYcqE2w5WW2IDW2HQBQ/4es/FVOAGkmRH0ZE8
-X-Gm-Gg: AfdE7ckuMDMdYb1HeOzy7EP2KlTirusS2b6rXQFJ3NGgMqCsSdGQeJUlSrdvy7gb4GJ
- zYxuFGjX6CvpPNVC/25MeXxWbbxXFNe066dYRobeg1qHzwamzB1WmOIW5kZhz5hfIIIwwGweDWS
- fBxNNc8hP8k0XTnb8Biem/nwcjYh3E5B5YaMBUUWOmA2WQLFcDDcCvN9B2cTXUzNjEkbY3MTdwp
- ASYeLud3TLS4chqx7WpMbVI5EplBug6zt4zV4/Y8MI8c3loSmUIkdW5MOhmOG4de2XVG+/wogiL
- RwOdcxGM9Y8QjUDIqXlfQZt9K/U1
-X-Received: by 2002:aa7:8891:0:b0:845:44c7:5e28 with SMTP id
- d2e1a72fcca58-84889649d8cmr2012798b3a.31.1783759515638; Sat, 11 Jul 2026
- 01:45:15 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53D4310E08B;
+ Sat, 11 Jul 2026 18:48:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1AF7E418D3;
+ Sat, 11 Jul 2026 18:48:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9008E1F00A3A;
+ Sat, 11 Jul 2026 18:48:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783795731;
+ bh=xUC24CQFaY5LbYrAu8Wt8s4S5Jfizo903DYj6Alr2hU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=T2G/K9FQZYBazUrgB2p6/rvfCKhk9yVPWpSxduMlumEpHCAb8GIbHDFOcJ29GZ34U
+ FXoVtM0TahqpG2/h+I35MFGUy4UrraSO9nANAAN+M49Y3tgJA4m0CYLj+ru8taIP0e
+ 7EwnqOpFEKL4iXCg5QZZwK5koK5H5QEVreRGd5cREPAjXQl/m6ADMh2C7JiS0ReU18
+ sLcJRzfxdd1qFQvsCzgzdlU8pnCRI6OHlZ/0t0TJhZtZlO6HOaThVpZM8GMKxdOOxO
+ D08lfnlYbZAwAhOcCcewMb1kpDKqfnnPKEY1kl5rBn0b7BUgoqExRSpaXAvWTzltve
+ YRk/0mVL7ztfw==
+From: Lorenzo Stoakes <ljs@kernel.org>
+Date: Sat, 11 Jul 2026 19:45:06 +0100
+Subject: [PATCH v2 09/13] mm/vma: update create_init_stack_vma() to use
+ vma_flags_t
 MIME-Version: 1.0
-From: Francesco <postadelmaga@gmail.com>
-Date: Sat, 11 Jul 2026 10:45:02 +0200
-X-Gm-Features: AUfX_mzSuKPUAnaWauxVFZ8dn-PVTnVgi02lCEG6OlYh7Rf8UL0yhrQEFIw3mPY
-Message-ID: <CAHwn+vnw=DD=j7umFVdcr8-F6yUz=iM+3yfA+HcHKXJwpNrHRA@mail.gmail.com>
-Subject: [PATCH 2/2] drm/nouveau/clk: don't clobber reclock status when
- restoring volt/fan
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org
-Cc: lyude@redhat.com, dakr@kernel.org, kherbst@redhat.com
-Content-Type: multipart/alternative; boundary="0000000000004b61c7065651e01f"
-X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260711-b4-vma-flags-mm-v2-9-0fa2357d5431@kernel.org>
+References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Zi Yan <ziy@nvidia.com>, 
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+ Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev, 
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
+ linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4313; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=9FQuWO1YsUxULowpltE39pKMqBbYRFh58BoyoKhWb3A=;
+ b=kA0DAAoWz53NioHifxQByyZiAGpSjzqg8y14Kh5MvFuw4iTsl7kJvl53Dij+JdajKdpzjYsNp
+ oh1BAAWCgAdFiEE5/QXv1IUVp6J0E9Gz53NioHifxQFAmpSjzoACgkQz53NioHifxQcIwD/VYCq
+ 8XVlwzBqdiLqx84JrVaGvSVASgylLrKcnFTCHu8BANPzzRn5WflkqRuMXJ46TwzQqPTztlhZtDp
+ EX8lo8YsM
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-Mailman-Approved-At: Mon, 13 Jul 2026 07:11:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,91 +133,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000004b61c7065651e01f
-Content-Type: text/plain; charset="UTF-8"
+Replace use of the legacy vm_flags_t flags with vma_flags_t values in
+create_init_stack_vma().
 
-nvkm_cstate_prog() reuses 'ret' for the voltage and fan-speed restore
-calls made after clock programming. As a result a clock programming
-failure is silently discarded if the restore calls succeed, and
-conversely a successful reclock can return an error if the final
-therm/volt call fails (which is already only logged, not acted upon).
+As part of this change we add VMA_STACK_EARLY and VMA_STACK_INCOMPLETE
+vma_flags_t defines, and slightly rework create_init_stack_vma() for
+clarity.
 
-Keep the calc/prog status in 'ret' and use a local for the restore
-calls, so the function reports what actually matters.
+No functional change intended.
 
-Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
-Signed-off-by: Francesco Magazzu <postadelmaga@gmail.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
-drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c | 14 +++++++-------
-1 file changed, 7 insertions(+), 7 deletions(-)
+ include/linux/mm.h              |  4 ++++
+ mm/vma_exec.c                   | 18 +++++++++++-------
+ tools/testing/vma/include/dup.h |  4 ++++
+ 3 files changed, 19 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-index 42f3709e0..4f08326f2 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-@@ -199,16 +199,16 @@ nvkm_cstate_prog(struct nvkm_clk *clk, struct
-nvkm_pstate *pstate, int cstatei)
-}
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 1209db1a4b92..550fb92957d1 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -442,8 +442,10 @@ enum {
+ #define VM_STACK	INIT_VM_FLAG(STACK)
+ #ifdef CONFIG_STACK_GROWSUP
+ #define VM_STACK_EARLY	INIT_VM_FLAG(STACK_EARLY)
++#define VMA_STACK_EARLY mk_vma_flags(VMA_STACK_EARLY_BIT)
+ #else
+ #define VM_STACK_EARLY	VM_NONE
++#define VMA_STACK_EARLY EMPTY_VMA_FLAGS
+ #endif
+ #ifdef CONFIG_ARCH_HAS_PKEYS
+ #define VM_PKEY_SHIFT ((__force int)VMA_HIGH_ARCH_0_BIT)
+@@ -544,6 +546,8 @@ enum {
+ 
+ /* Bits set in the VMA until the stack is in its final location */
+ #define VM_STACK_INCOMPLETE_SETUP (VM_RAND_READ | VM_SEQ_READ | VM_STACK_EARLY)
++#define VMA_STACK_INCOMPLETE_SETUP append_vma_flags(		\
++	VMA_STACK_EARLY, VMA_RAND_READ_BIT, VMA_SEQ_READ_BIT)
+ 
+ #define TASK_EXEC_BIT ((current->personality & READ_IMPLIES_EXEC) ? \
+ 		       VMA_EXEC_BIT : VMA_READ_BIT)
+diff --git a/mm/vma_exec.c b/mm/vma_exec.c
+index a3c6b05c65fe..7af1260689b9 100644
+--- a/mm/vma_exec.c
++++ b/mm/vma_exec.c
+@@ -112,15 +112,17 @@ int relocate_vma_down(struct vm_area_struct *vma, unsigned long shift)
+ int create_init_stack_vma(struct mm_struct *mm, struct vm_area_struct **vmap,
+ 			  unsigned long *top_mem_p)
+ {
+-	unsigned long flags = VM_STACK_FLAGS | VM_STACK_INCOMPLETE_SETUP;
++	vma_flags_t flags = VMA_STACK_INCOMPLETE_SETUP;
++	struct vm_area_struct *vma;
+ 	int err;
+-	struct vm_area_struct *vma = vm_area_alloc(mm);
+ 
++	/* VMA_STACK_FLAGS and VMA_STACK_INCOMPLETE_SETUP must not overlap. */
++	VM_WARN_ON_ONCE(vma_flags_test_any_mask(&flags, VMA_STACK_FLAGS));
++
++	vma = vm_area_alloc(mm);
+ 	if (!vma)
+ 		return -ENOMEM;
+ 
+-	vma_set_anonymous(vma);
+-
+ 	if (mmap_write_lock_killable(mm)) {
+ 		err = -EINTR;
+ 		goto err_free;
+@@ -134,18 +136,20 @@ int create_init_stack_vma(struct mm_struct *mm, struct vm_area_struct **vmap,
+ 	if (err)
+ 		goto err_ksm;
+ 
++	vma_flags_set_mask(&flags, VMA_STACK_FLAGS);
++	vma_set_anonymous(vma);
++
+ 	/*
+ 	 * Place the stack at the largest stack address the architecture
+ 	 * supports. Later, we'll move this to an appropriate place. We don't
+ 	 * use STACK_TOP because that can depend on attributes which aren't
+ 	 * configured yet.
+ 	 */
+-	VM_WARN_ON_ONCE(VM_STACK_FLAGS & VM_STACK_INCOMPLETE_SETUP);
+ 	vma->vm_end = STACK_TOP_MAX;
+ 	vma->vm_start = vma->vm_end - PAGE_SIZE;
+ 	if (pgtable_supports_soft_dirty())
+-		flags |= VM_SOFTDIRTY;
+-	vm_flags_init(vma, flags);
++		vma_flags_set(&flags, VMA_SOFTDIRTY_BIT);
++	vma->flags = flags;
+ 	vma->vm_page_prot = vma_get_page_prot(vma);
+ 
+ 	err = insert_vm_struct(mm, vma);
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 57c80924813d..64f38a83613e 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -245,8 +245,10 @@ enum {
+ #define VM_STACK	INIT_VM_FLAG(STACK)
+ #ifdef CONFIG_STACK_GROWSUP
+ #define VM_STACK_EARLY	INIT_VM_FLAG(STACK_EARLY)
++#define VMA_STACK_EARLY mk_vma_flags(VMA_STACK_EARLY_BIT)
+ #else
+ #define VM_STACK_EARLY	VM_NONE
++#define VMA_STACK_EARLY EMPTY_VMA_FLAGS
+ #endif
+ #ifdef CONFIG_ARCH_HAS_PKEYS
+ #define VM_PKEY_SHIFT ((__force int)VMA_HIGH_ARCH_0_BIT)
+@@ -315,6 +317,8 @@ enum {
+ 
+ /* Bits set in the VMA until the stack is in its final location */
+ #define VM_STACK_INCOMPLETE_SETUP (VM_RAND_READ | VM_SEQ_READ | VM_STACK_EARLY)
++#define VMA_STACK_INCOMPLETE_SETUP append_vma_flags(		\
++	VMA_STACK_EARLY, VMA_RAND_READ_BIT, VMA_SEQ_READ_BIT)
+ 
+ #define TASK_EXEC_BIT ((current->personality & READ_IMPLIES_EXEC) ? \
+ 		       VM_EXEC_BIT : VM_READ_BIT)
 
-if (volt) {
-- ret = nvkm_volt_set_id(volt, cstate->voltage,
-- pstate->base.voltage, clk->temp, -1);
-- if (ret && ret != -ENODEV)
-- nvkm_error(subdev, "failed to lower voltage: %d\n", ret);
-+ int tmp = nvkm_volt_set_id(volt, cstate->voltage,
-+ pstate->base.voltage, clk->temp, -1);
-+ if (tmp && tmp != -ENODEV)
-+ nvkm_error(subdev, "failed to lower voltage: %d\n", tmp);
-}
-
-if (therm) {
-- ret = nvkm_therm_cstate(therm, pstate->fanspeed, -1);
-- if (ret && ret != -ENODEV)
-- nvkm_error(subdev, "failed to lower fan speed: %d\n", ret);
-+ int tmp = nvkm_therm_cstate(therm, pstate->fanspeed, -1);
-+ if (tmp && tmp != -ENODEV)
-+ nvkm_error(subdev, "failed to lower fan speed: %d\n", tmp);
-}
-
-return ret;
 -- 
 2.55.0
 
---0000000000004b61c7065651e01f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div dir=3D"auto">nvkm_cstate_prog() reuses &#39;ret&=
-#39; for the voltage and fan-speed restore<br>calls made after clock progra=
-mming.  As a result a clock programming<br>failure is silently discarded if=
- the restore calls succeed, and<br>conversely a successful reclock can retu=
-rn an error if the final<br>therm/volt call fails (which is already only lo=
-gged, not acted upon).<br><br>Keep the calc/prog status in &#39;ret&#39; an=
-d use a local for the restore<br>calls, so the function reports what actual=
-ly matters.<br><br>Co-Authored-By: Claude Fable 5 &lt;<a href=3D"mailto:nor=
-eply@anthropic.com" target=3D"_blank">noreply@anthropic.com</a>&gt;<br>Sign=
-ed-off-by: Francesco Magazzu &lt;<a href=3D"mailto:postadelmaga@gmail.com" =
-target=3D"_blank">postadelmaga@gmail.com</a>&gt;<br>---<br> drivers/gpu/drm=
-/nouveau/nvkm/subdev/clk/base.c | 14 +++++++-------<br> 1 file changed, 7 i=
-nsertions(+), 7 deletions(-)<br><br>diff --git a/drivers/gpu/drm/nouveau/nv=
-km/subdev/clk/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c<br>in=
-dex 42f3709e0..4f08326f2 100644<br>--- a/drivers/gpu/drm/nouveau/nvkm/subde=
-v/clk/base.c<br>+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c<br>@@ =
--199,16 +199,16 @@ nvkm_cstate_prog(struct nvkm_clk *clk, struct nvkm_pstat=
-e *pstate, int cstatei)<br> 	}<br> <br> 	if (volt) {<br>-		ret =3D nvkm_vol=
-t_set_id(volt, cstate-&gt;voltage,<br>-				       pstate-&gt;base.voltage, =
-clk-&gt;temp, -1);<br>-		if (ret &amp;&amp; ret !=3D -ENODEV)<br>-			nvkm_e=
-rror(subdev, &quot;failed to lower voltage: %d\n&quot;, ret);<br>+		int tmp=
- =3D nvkm_volt_set_id(volt, cstate-&gt;voltage,<br>+					   pstate-&gt;base=
-.voltage, clk-&gt;temp, -1);<br>+		if (tmp &amp;&amp; tmp !=3D -ENODEV)<br>=
-+			nvkm_error(subdev, &quot;failed to lower voltage: %d\n&quot;, tmp);<br>=
- 	}<br> <br> 	if (therm) {<br>-		ret =3D nvkm_therm_cstate(therm, pstate-&g=
-t;fanspeed, -1);<br>-		if (ret &amp;&amp; ret !=3D -ENODEV)<br>-			nvkm_err=
-or(subdev, &quot;failed to lower fan speed: %d\n&quot;, ret);<br>+		int tmp=
- =3D nvkm_therm_cstate(therm, pstate-&gt;fanspeed, -1);<br>+		if (tmp &amp;=
-&amp; tmp !=3D -ENODEV)<br>+			nvkm_error(subdev, &quot;failed to lower fan=
- speed: %d\n&quot;, tmp);<br> 	}<br> <br> 	return ret;<br>-- <br>2.55.0<br>=
-</div></div></div>
-
---0000000000004b61c7065651e01f--
