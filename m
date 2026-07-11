@@ -4,165 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44C06C44501
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 13:49:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F2F8C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 13:51:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BBF410E378;
-	Sat, 11 Jul 2026 13:49:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD83010E36B;
+	Sat, 11 Jul 2026 13:51:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kuKf5MuJ";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="ORDaDiVH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB9CC10E35B;
- Sat, 11 Jul 2026 13:49:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783777766; x=1815313766;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=xBw8Wvi2cr/A64XQHrCQcIWWL3FnIJcGsP0dGSsoegA=;
- b=kuKf5MuJsVIicuHWYPdYAjtoQuajEPKZhpvIi4IPPjOUh+JqQ6sdeB/5
- brj3E6X1MhMxpfOzNaLAaTwutwjCBY3UjvGBN3ajSKY6X1n/mlcdMtnug
- x0mg+OujV5lLHN0ribRDwH4RJKiDXUJ9XqSPXDmcL0G8MJTQwn/EdK+WG
- TZf6LbdU3hUcmGp/ByjXOmpDnsw49s2nIFA36QWv5o1cUCcdjPfkKW4WS
- EVimgy6BfArfT3lkjmHJFg3PZL+6Ss/6RUGlDNjz/EDeNclF1+KGTWxZr
- kckcg2QSeJ83NOnPyfeIRZbU+597dpQj9Ag95y/lsExDs7Nt3e6OB2lfW A==;
-X-CSE-ConnectionGUID: 0UunQTPFStuzGHmtjEDp7Q==
-X-CSE-MsgGUID: zo/2z0qPTN2ZQogEFZ13fg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="71980739"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="71980739"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2026 06:49:25 -0700
-X-CSE-ConnectionGUID: f8ODoE77Qh+2baDJUMvBbQ==
-X-CSE-MsgGUID: IM380V/xQ1GnPiKmuKId1A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="254003342"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2026 06:49:25 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Sat, 11 Jul 2026 06:49:24 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Sat, 11 Jul 2026 06:49:24 -0700
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.30) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Sat, 11 Jul 2026 06:49:24 -0700
+Received: from CWXP265CU008.outbound.protection.outlook.com
+ (mail-ukwestazon11020103.outbound.protection.outlook.com [52.101.195.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97AC610E36B
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 13:51:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dOI7BNAdf54ZcCwvZp+Pty7WFMzNc7c1eLpTqF04776/5Uq+H+v/uqsUPkFTcPaQXqpd2gXcuwYx32cdhMMpSVFTd7uaFB1Vt8s2iIi1QPK0SQi43i33UdMhZztkHe5qQ5+e841e2oAqQtJG+69SqxCr2M2BEqEyiruz1CCC86gYLBKccjFQjcLVZN5AWp4zNwJG6nFMh12hIa6bN5+/nGaFdH8/838q97+38She2DPm/6RKSXwiVF+Zi2fCnR1eMtt7LWZEzn/F9Aqgrv+xMYuLDNk38Pggz+h15a6rWRezRFz7eSdh4jG97apSBmJlW0Ie4aRC8q5EbfUtDQgjSQ==
+ b=PTPyd00PurWTIhZ8+riIfFvnXdHgZnKehxkXw74Qum6FtDD30dTkf7Xt6PYfu/Hc1zdKZ5Y+KadoBUasZh43wOnDSi7LpEz6aJhpBAPdzAhR4G88K/cU8Bd+dvTdC5cdys2ckCJLk57ZPHpGHLOltvV7ZAFAQIskAOmaLU71UrRdoFSFyGmNct1djHp6cwP7LRwHCJuTzIlaMuV3aaHYcwQHh7FneUOxnL+vqHUvFejeQ/4cTPrBblHEFzGlrFUFO4Ml4KcXV6Fjt4Re4uDlv8LK8A1X9TSr0ozOvDnmiw6cHj4ZWX8rFoCvKl85gG84KcX1sZZKOLYs9VZK1U5MTQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nBOrcf+isJUbTu2/pwxbXWRiptCZlWRbYjtUyDY2RkI=;
- b=kDUPINQcOkudq6tD2AWAskuEdispXa7Ml+QnbgRxwrxKy4k2KAS89NvmMAYm5B5OXjTfOy3qriaOyzaxL46Da/G7R0JY4i87ADAE6sPUDtH8LPon9Rsb2LzeqUUf4le8jjIDY+aiantUqo9YwveKDLFNW7idddmslvYXom0EFwwMqs5Awgxg/BNSUjYS9Gb+d8LFD7s1ZmneM1fw7Z4uo05q8+/60+wv4AtE+qu804LodsC+tWUJozJqkQEVkafqw2HQwGGc4Nl9cM/UoZJFrbnK8q0ZmyN7IDtU97gu5vWBljZvcTgOcbyydnnga89V9wZrYdfG1vLpQubR1h8fLA==
+ bh=ii207h6L//BzVM5S+SDs7y1/JlG7+yDORGg5iBxKcFk=;
+ b=sifX48xD2onektk2VnI4CWOSw1mKuSSq7D2kL31jeXt7YkxQVyI9HxOgyZbgfqCC1iEcFRdZ8M+TTCiiOf/T5KvKHvin6plq/LW/nsZxB4Bf3kMJYLIDcbSeUZyJVKmJh/ryyBrQErz0GrjIpG1dl2S+BmflBd3KMH/6PutlURVHQLx7RZ2xmc3VIJHL2OGyX46g8B9iHAsSJ2V/pkYDHyCDgvMG+FHw0FD/3cCAUqs2QZRMB6oXNL7jkOSp+BmIGNKttHn/VLYtvoq1+V+cvfvrYO0r4xAIiRon40m2iDUBaNuKaluRlw6LrDjZOI8l1pCEU+CbSNeIXxzIyQxW6w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ii207h6L//BzVM5S+SDs7y1/JlG7+yDORGg5iBxKcFk=;
+ b=ORDaDiVHTOjGvyih5OB4Oh1tnopN6rBZxfeaIpVXEpc3xUo4aBlWV9wGn/CK+5NAmupNwmJQFwbTEQ9HYyTj2lixpYPxzXJ9KFfj+5c1TK+FQRspxpGScXTtYfgXha3EWC+RT3ibb5ctXZorSOSkB3gn7l8BRSvrmlyohrlTzQQ=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by PH0PR11MB5029.namprd11.prod.outlook.com (2603:10b6:510:30::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.22; Sat, 11 Jul
- 2026 13:49:19 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0181.017; Sat, 11 Jul 2026
- 13:49:19 +0000
-Date: Sat, 11 Jul 2026 06:49:16 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>,
- Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- "Huang Rui" <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- <linux-kernel@vger.kernel.org>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v2 00/33] drm/ttm, drm/xe: Minimize dma-resv hold times
- and defragment sub-optimally backed BOs
-Message-ID: <alJJ3CensWXW+Wa7@gsse-cloud1.jf.intel.com>
-References: <20260710215442.2444235-1-matthew.brost@intel.com>
- <971f7948-b241-46cc-980f-61df43af22bd@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <971f7948-b241-46cc-980f-61df43af22bd@amd.com>
-X-ClientProxiedBy: MW4PR04CA0105.namprd04.prod.outlook.com
- (2603:10b6:303:83::20) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO6P265MB6560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2d8::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.19; Sat, 11 Jul
+ 2026 13:51:29 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.017; Sat, 11 Jul 2026
+ 13:51:29 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 11 Jul 2026 14:51:28 +0100
+Message-Id: <DJVSHL6XP43R.1INHQRXAG8UA3@garyguo.net>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Benno
+ Lossin" <lossin@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Boqun Feng" <boqun@kernel.org>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "David Airlie" <airlied@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, "Miguel Ojeda" <ojeda@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Simona Vetter"
+ <simona@ffwll.ch>, "Tamir Duberstein" <tamird@kernel.org>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Trevor Gross" <tmgross@umich.edu>, "Yury Norov"
+ <yury.norov@gmail.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <maple-tree@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance
+ for region allocations
+From: "Gary Guo" <gary@garyguo.net>
+To: "Yury Norov" <ynorov@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Greg KH" <gregkh@linuxfoundation.org>, "Burak
+ Emir" <bqe@google.com>, "John Hubbard" <jhubbard@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Liam R . Howlett" <liam@infradead.org>, "Andrew
+ Ballance" <andrewjballance@gmail.com>, "Matthew Wilcox"
+ <willy@infradead.org>
+X-Mailer: aerc 0.21.0
+References: <20260711063602.426311-1-ynorov@nvidia.com>
+In-Reply-To: <20260711063602.426311-1-ynorov@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0604.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:314::13) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|PH0PR11MB5029:EE_
-X-MS-Office365-Filtering-Correlation-Id: ffb0e994-410c-4009-c988-08dedf533485
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO6P265MB6560:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5608c761-986b-48b4-70db-08dedf538212
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|7416014|4143699003|11063799006|56012099006|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: zQ+JXAMDvf94z9HGzabDm+BnwC413ckNjleJU5EPLcpDrEm0d02hVKoYUdG42yqrRsJ25Sqx4YvVExZpyOmQ8/zrU7pLbVKHFQtkNPPedo3R9T2SN+Bnczn2Bwe3I6UnTG4rWqoZ0H6CRnDUbXnXcgIE7Ykv7nRGOMMmF0jEB0Gqcd/8N8de/RB/Xi/h/9cPWqWQyzUlJ/uA2VCwAwFSbVLKDkjOYv+iJQsr9ZtTMuOOWCcv9lI3FCI0SdnxFaIQ6b5oIsYM6XRVwh+kWxTdwe79B+dV7nKHbRMqfp1FCZeEPyGZkwnFiOAnKRL/FDh3E9MtE8SE217bWGW46aIsNpquUF3jxgUXGUrhip8e44yvF0WwDBo3LEG+RiBMGBT9HtpEBJTnVm4hoe3kkaiSG6x0VqIRTe3xld6Sa/OZAVU3z4C/G80EY9cPK9UtALYA0IjNdSyNResNuKWOOMxHOIGsWzLJriDiYLhJafl+x/uVp/kFxONU88RqKY37bNsG6HEpyG8ueNhAKJEDjgkT3wPb230B7aW1K4MNAm4U56WNbJqCvYI34pByFCB2vBodzlTxjQr5Z+GzOjmbZlBuT2SObGZ6NL/hfmGQviqbw2sAuPXLn3X0fMOoj9Z0tqGq
+ ARA:13230040|376014|366016|10070799003|1800799024|7416014|23010399003|18002099003|22082099003|3023799007|6133799003|56012099006;
+X-Microsoft-Antispam-Message-Info: hRPzayZ1V6nEMKDh5JOrzB7Jnj8qRCzs29SOuPp2u25eZp7LYxKBkv7c6IZyrB323meP1Sw+Kk4LLKb6dRFWcyRYGxUM2OT2i6VTpM0cUKqp+57pgqSGGLMEXLABo0ItOqdY3Q4g/W30UPJADhWZZt124CTn3AfTIR+TybQA3fwnuO3E1VMhEUqTc4EoFQ4qfw4g0kTTSVKqj1PeBqfFYVWPjkWnPmRMJD+AJgeKWVbULRj+hgEE4TPuRtdXqZa175HekFCuwdhZSUQT0UFCht9sJe3Yp7YMqK48p8F0cHhboi8j33WN2fDktykNwv0zpu5c5vHt9vsaghjNbcT4dPQaskuwBbUSb1sqK8fP04FTxI05AtmYzeCCefukiPRuda9RWcXD6lHKrR/IUcP7few2n0MEOA8zlL5SPlcIQOtVRSlBNQPMQWg8KO1plUmSrNdacrGfxDvtTX2Cyvx3DLgKIzt7o0IRx8l5OfHdHSmlQ056NjBvRlNe/BgwHllyYhSJfZQ/mpY1WZNlhFVnLqNnT6zh4PRwBLcirLrlLTCj+brZh7BuqBkLVI/VWLJghxhuxMLfYxi+9rAZsrac+v6P4e+iqKf0wSvu4oRxPSFPv0pVg1kaEiG7yfoFNajOugj7p0dYqwqs0AMnJwdspdES4MphsNqhssNJt2kRmlg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(10070799003)(1800799024)(7416014)(23010399003)(18002099003)(22082099003)(3023799007)(6133799003)(56012099006);
+ DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZjJxQmhJOTFoMUdrZ1M0aHl2SlhnYTdjbmFsN2phUlg5NzFFMUFxOTVsc05D?=
- =?utf-8?B?WkVtaE1yTWlWejZ6RldwUlYyQXcwYVRUbTlUQm1sT3NpZ0tCL0dvdFhuekho?=
- =?utf-8?B?NWFtb1k4ZXdEa1RrNnhKcEhhTE9QazlVWnFZV0VwVkh3NkVDUWV3Z2lhMzd2?=
- =?utf-8?B?Q1VNWU5YYmpETGNwQWU4aVNJT1VWbE9PTDRLY00vVVJZMHplcjJnenpVMVds?=
- =?utf-8?B?ZXJHUHVhbDI4QWVnYWhoS1J2a2pBKzRrK3RKM1NSakIvbjJhNVp0MitJR0NV?=
- =?utf-8?B?ZWxVRm5Cb2p2eVNTOU1jMFc5R2Zyblp3RDk3MlVoMS9uWGswNStwVVBqNFZV?=
- =?utf-8?B?Z2FTZzcyaFdYbGNRQmw1TjhjaVVwUHk1b1EzRSswRkFiMVA4VnFHVzQvNkhM?=
- =?utf-8?B?STJsQjJRLysrSHRXSE0zUkdYM0JwYVIrRzRJZFBVb2E0M3k4WGVIanVUMGRr?=
- =?utf-8?B?c092MlFaVEFRZUF4UWMwWU5ranpkUk43a2YxSUQrS0ZuVDFabFJ2L2RaNG9v?=
- =?utf-8?B?SDd5L1FHV29VMDB4bEpSNWp3VEZXTDM2WUNhQ0dCQWJ4b1EyNHdlTWlDbWxw?=
- =?utf-8?B?aUNtTDY1N0ZiejlXd1BuZFg0OGNxN0NkR3pmT3pEMTlMMEZ1TllYNGo0bHda?=
- =?utf-8?B?OE5kWlpvSk43YzU0KzlVMno4QSszSi9OS292Z2F1UWd3M2xFNCtKWjh1Q2Er?=
- =?utf-8?B?dEwrUURBUHNKR0UwRjBORGtGVVNIckJ2ZnNaUTRCVyt4ZlU3b0pIR3M3WTZC?=
- =?utf-8?B?TVloRDBSeXVFa1QremNaeHpJSVk2WmNsMlFTYVBkbVVpNVFTMGZnWmJ4WS9W?=
- =?utf-8?B?VUFyTm0xMWQ3U0tmRDZYeG1mdllTVVpYb2RFUEV6b01vb2haVUlPQ3l0SUJQ?=
- =?utf-8?B?TVlhdXFHZ3BCWjE4WnllWlBqSlhvZlluR0MyTjJCMVhHQmlIbFp6T1RaUWp6?=
- =?utf-8?B?MUswOWVoWUF1cExObVNOYnE5ejFkUkRYOFJCbUo3RkMyZ0tJeGdJSnpkWFVa?=
- =?utf-8?B?NWpqUjNPVmQwTDlVU2p1bzZFcnlPNlZuUFVUNzRwbDFqelJONDJQTk9hdU4z?=
- =?utf-8?B?SmFxZGNGenI1L2pLRjNoTVQ2ZjVKWEt1WVZVbVFmdHZwQW5qcHZhZEprL3Nz?=
- =?utf-8?B?WE5aOUJWRlh0dGhnZHRiaDJhN1U1VVRxblltSTduSEhKMXRoaFRtSmxSOVAy?=
- =?utf-8?B?M1JhTnBsL3RseElZSEJYY1BKdmhUbUk5amJxVTBuaEtoOUkvRVV1YjJCZGda?=
- =?utf-8?B?Z0lVUUZyKzlLblZQOU54b2o3UFFxdGZRSEFvV3R3RUpMclBmYUhnYk9NeU5E?=
- =?utf-8?B?aWVDOWhVekNpejlaRVduT3dsTTJaUVAxN2RGNGx5SDRxUjVBNXFya0grUFAx?=
- =?utf-8?B?NWdDRWZUQnBCN0s0cmpwTVBPbTdDTm9xUTNTQnQyK2JXcEg5NVRaR2tPa1d5?=
- =?utf-8?B?Rm95NVd6Mkk3dUhwTXZ0ZWNSd09Ubk5YZlRsRTF2U1dFMmZjTDI0bmx6djhE?=
- =?utf-8?B?QndTUnk2R241YVJMYzF4TzdRZ2NEVUl6SHRqMnVyTGt3dHpyNzVYd2hWU3lT?=
- =?utf-8?B?MC9KZUpTOGppcHJpeStJam1pNkJUWEJBdmlPbUZod3ZQeHZaT1NlTVNSS3lB?=
- =?utf-8?B?T3QyMG5va2M0RmtEdUhHUE8wSXFpZTRXemtHek5YdWkxdnVJU3NTVjBpNWxW?=
- =?utf-8?B?M0JYNE0xaDdSbU1xemxRQTVieHYyc0kxRWdWQngrUjl2OEt6ODhJYzRRWEo3?=
- =?utf-8?B?YXdYVG1iYXZNY0JQekVWeTExdEdXY1gvY0hHdzZHT1NMYUtRS3ZOb0lJZVVC?=
- =?utf-8?B?SDU1TUdUazB0RUMycHBGRXk3bU5oemhVVUVqY093VmQ3b0pFSkFmb0tWSGlv?=
- =?utf-8?B?L3lzdTJNZktQMzlkWlNpcXUzSnJGanVqM0xCZjZWY1F5bDIyaEkwajJrV3lF?=
- =?utf-8?B?cEJVeXlPeEgwMDlTTkNURXZqT21zWENSY0pFTDRLdVMwVzNVZmd2UStpTEtu?=
- =?utf-8?B?dzBlWm8xYU5UNnpISTVaZVBKMHRCUnZKRmZMZDBMVTlsejlIWVBueDVvanlX?=
- =?utf-8?B?ZnhjVnE3UUdLLzlGVFNUTnVod0lEekRkVXZTZGlTdEtxQnZCRExNTTJGKzlv?=
- =?utf-8?B?NXo1MDFDeFd3UHZ5ZzRYMWxhL2N6eHZndzdKRG50b2hNY0JsMzBoR0pXQ3NJ?=
- =?utf-8?B?dUsxek1KSEdJUTQvYUkrQWZGMGdrcjQ0NHBQV2ZwVUlIQlhCZG5TUzFmRE8v?=
- =?utf-8?B?RmF4TVN0c2M2Qm1ZNVVjU2YzbGYyNHVUSTBOYjkwM0pmRFV6WE1SVzhGZnpu?=
- =?utf-8?B?cFNOT0ZVclJxQ2YvRzk4SWx5TTBsQlJwWVF2MGlnQVlhVkpKSUsxdz09?=
-X-Exchange-RoutingPolicyChecked: n7dSWTrxxjJvmRjCW6yx5ZinaybCcRRTPoC5DYpugOXG3y0fjHn3iWmHkcXAr1VI3IgBvENZIGezNan0x5+uYX3oqb+d6FWTJb1AhkgMKU5zOt+7yoDW+79BmXheviZ7FKxaVRZI3cX9Ke3aQRlR7Rpx0/kVXcZ+NSI0Sv3F559tC5ViQFqJ094eNrbG36gcGeUuricp+uMzBnzx5/Y5Oq4eNp34xdrDa4AdN0nKRPRWQG5Or+Th5Y2y5rVWw1Q/kpSz766rYhtgy+Wm0PSzF/s8cWTHhvivY94KHBm/uuQ5LGFTfNEnBUDTP5RYE8aupEQLeRfqY7BFulTSLmRO0w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffb0e994-410c-4009-c988-08dedf533485
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cG1ySnZmU1F0bWd0aytLOG8yMkpkWFprbFBPa2NwNU5hdDZ0VjZyaUdHMDA5?=
+ =?utf-8?B?R0ZLYUEwRnZqZTlwS0hpcnp2T3l1aStwMTJKMHBjTUZqZk5LczhybGtPbUh0?=
+ =?utf-8?B?NjU2Rkxsa0R5UnUrWllvQW0rbFA5WDdmYVVDbTJMdFdBMkQvblFaSDJQaDNJ?=
+ =?utf-8?B?OFp2VXhCZEV0R3psUVBEdk8zMnc3cHJzVVoxcHY5Q2FlVEhCUFJJOVFtRG1W?=
+ =?utf-8?B?WmhIVStBOG5DZktJcGRHcDNIa3k4N1hOcFFwNHR5eWQyMHVPSm80c3FxejJu?=
+ =?utf-8?B?MFZwZkxxejBMQnk4YmRENmZOZVI1OWhYNENSSU1VNUNCL0Q1SElqaHQyd1dW?=
+ =?utf-8?B?OVkxUDNRNzhyVFlmVDVsL3hIVkZ5M0NJRVFuRXRzWWNKSTJsWFBmUjdsUzFk?=
+ =?utf-8?B?Vmx4OEgwUVh0NjhiZVVzWU9nV2Vza1FYblZOQzNLcEVUSzMvdXBWS2R0SUx0?=
+ =?utf-8?B?MXJWWC9iYlVydUplZkJvZTRMMHZlZUVjSzkyTXhmMElFZ2srYis1LzN3QWxa?=
+ =?utf-8?B?WGphOER5cGI4UWVjenlmSUN5Z3BEYVhFWGt5elQ4bVZCbzlZakpCeFFQUE9W?=
+ =?utf-8?B?LzREVE1QWWFjRTVDczMyQWtUM01EQUFXb3hucXVVbnpiN1lNZkNYZFlPV3dn?=
+ =?utf-8?B?TDBPSE02djdpN28zT1J5VzZJSVpLQ0cwN1BtSFJ0bmw1eXRwalcvTmg3eUZ0?=
+ =?utf-8?B?NEg0RU9ET0doeDdiYnVCdUd0REFRNlIveFc0SzJFeGtwYU5UNnp4NDI0dWFS?=
+ =?utf-8?B?cUFjQ3dhZEVGb1pIbmxCYTd2Y2c0QzZrMkY5cVdmN3FNd25ZQndpbGc0ZDRB?=
+ =?utf-8?B?YlFBNXNZUElPSVhZSGg5TStXWFUyK0hmOENIUnhKdWNvNk0zc3RRazVES2V5?=
+ =?utf-8?B?Zk9lZ1I4NlJ6dFI3WFVJUFp0WmwzNEtRVnNTTFQ3U0hRVjBwM2xhWnhrN3Fh?=
+ =?utf-8?B?ZFFsR0VuVlM0NzlQQ0c0UmJsOTVwNWUzbVIwUnRTL1pmWFlmYWxGTlVURFVY?=
+ =?utf-8?B?QUFJTTlwU2RvcHdvS2s4QVFrYit6dWRVQ3o3cVkrUFpHN0N6RUZJdlJNZFlC?=
+ =?utf-8?B?NnQ0bDNLVmNtWWF3R3Byd0JRM3pOcmkzQUV6VHhVWFkzbUxra1JmaWlNNTFV?=
+ =?utf-8?B?S042YmlPQVFHTUVVTkFsbE84d3ZWNGp0ei95NGRWV2ptZC90Y0FtYWJIWUFV?=
+ =?utf-8?B?dlJUbU1jQTNieERCeXJxamFSZmgrMVFabWpBMklVZ2Jta1QrVWxZVXBPWkNT?=
+ =?utf-8?B?dEhYblkzSGViNUNTWlZRRVduRm5iOWRUWUFKbHRXOWR3ZTNHOTlXRnJzeHd6?=
+ =?utf-8?B?Zk5BdFhiV3RKN3JKc1NVUVIybHV4UUZDSnFQMDZuUm5ld3lIYWgwN3hFUEIw?=
+ =?utf-8?B?ZFRyWXllNTc3MDdrWklBR2NQb1lZMzMybk9ZSFVVYW5LQ1NPRVhHSHZ5Y2dp?=
+ =?utf-8?B?cUpEb01ObFFScGFFbEp4RXBJZEs1QXduZTU3SitXTnpGeHM2S2xiL3lBdnh6?=
+ =?utf-8?B?aGo0UU9NTTByV3Exakh6MytKUkNKQU5WdWFBcThyM0xVOWp4MFVqK1BwRHlP?=
+ =?utf-8?B?RjlHdVEwaFFjSTNIQVpqRnRWcldvUlMvWWw0a2xZYi90djFzQ2V4bzlzWHFw?=
+ =?utf-8?B?Q0tpQ2xqY2dObUdSNmpVMnVyNnVtRjkzd3MxVmJZRVQvNDF5WHZ5WjRuY0VC?=
+ =?utf-8?B?YjlzK3BDWEl2dnlBK056RXRhTGVzckMzSUMvS2llSlR5Y09obVU0WFpKbmVz?=
+ =?utf-8?B?SWRaREhOaEpJWVgvYTQ2UTJOWllkTEF5WThTaWFvTEtWU1RPZHErNlIzamtU?=
+ =?utf-8?B?Tm13Uk9MYVdPTDlCMEFKYWtrZlFQQWk5U3FnRTR3S2F4OXVZTkZWWmt3SEI1?=
+ =?utf-8?B?dWRwM29kUHZlb3d3cStDdkNKWWk4NEUrdGxXRkc2SkxiN0VkeXNwdXp3WFRN?=
+ =?utf-8?B?cm91TE9GQ2tMR0lTcGI2N25iNjlCd1Fxc2RLZDBmbDFyODJ1T0dQYWVPOGxV?=
+ =?utf-8?B?aDExYk9zZ252R3hHVWhIaFlNQktEdFRVVE56QkVvQVlRVGZibmFNdW9rYVVO?=
+ =?utf-8?B?UXZyM1k5QnBpNTNlQXlyQTE3b3dmUUZ6N3l4OVJxY3dESjJ0YitzNi8zVlhh?=
+ =?utf-8?B?OVZLMElCVzFpV05qc3crSG1RUkZ2MDhOdnJVdng5OHQ5NGU0T3dienQwd3Bt?=
+ =?utf-8?B?amNQTU9aRmdPeVY5SkxxKyszRHZ3S2xxeVlBbHRYWXNrS2FKYk5oNXdZQjJR?=
+ =?utf-8?B?QjR3UkY5VFRrQVlMeVB2Y2RVcnFrMzVJUWxXdWUzTWRpcGVSWkppbkRCS0FZ?=
+ =?utf-8?B?UUtUQnA5UnFOUDRnY0V6ZE5QcTFxNy8welpYVDBOZUo2dkY4azdNUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5608c761-986b-48b4-70db-08dedf538212
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2026 13:49:19.0854 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2026 13:51:29.1599 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Yq2qgeRbTAiFFC2JQLBYtR5GuxznA1Rn7NfUjOo4AC77gInEXv0aA6+ZwyiT5RB7r1u37VuZ9RU7FVyxQTodFA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5029
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: KbphYCaFVqyd6AeRnrG+MqF0CCcaSrlGd3kU5Mdmx4ljwduiYXhlVZlkDtOsnDS8cioUpZklakTntGXmPwBx/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB6560
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,222 +153,291 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Jul 11, 2026 at 12:33:20PM +0200, Christian König wrote:
-> On 7/10/26 23:54, Matthew Brost wrote:
-> > The overarching goal of this series is to keep user-facing IOCTLs snappy
-> > by holding the BO dma-resv lock for the shortest possible time, and to
-> > push the expensive, best-effort work - page (re)allocation, DMA mapping
-> > and placement fixups - into the background or out of the locked critical
-> > section entirely.
-> > 
-> > Two related mechanisms fall out of that goal:
-> > 
-> >  - Out-of-lock backing. Page allocation and DMA mapping are the dominant
-> >    cost of gem_create and of BO moves, and doing them under the dma-resv
-> >    lock serializes otherwise-independent clients.
-> 
-> Saying that doesn't make sense.
-> 
-> The DMA-resv lock is either per BO or per VM and so the clients are not even remotely independent of that lock.
-> 
+On Sat Jul 11, 2026 at 7:36 AM BST, Yury Norov wrote:
+> Compare the cost of allocating and freeing variable-sized regions using
+> a bitmap, IDA and a Maple Tree. All implementations process the same
+> randomly generated sequence of region sizes, ranging from 1 to 32 entries=
+,
+> until the configured capacity is exhausted.
+>
+> Run the benchmark at several capacities to show how the approaches
+> scale. Report allocation and free times separately because bitmap,
+> IDA and Maple Tree removal have substantially different costs.
+>
+> On x86/kvm, the output example is:
+>
+> type       alloc (ns)      free (ns)   capacity   memory (B)
+> bitmap      179573071         342105    1000000       125000
+> IDA          46555636       33931498    1000000       134864
+> maple        18629665       19741396    1000000      1548304
+> bitmap        1630912          30933     100000        12504
+> IDA           6144785        3354590     100000        14288
+> maple         1745026        1825032     100000       155408
+> bitmap          28448           3374      10000         1256
+> IDA            418978         333641      10000         1872
+> maple          185398         211138      10000        15632
+> bitmap           2253            610       1000          128
+> IDA             42755          36432       1000          144
+> maple           19728          23474       1000         1552
+>
+> Reported IDA and Maple Tree memory figures exclude slab overhead
+> and transient allocations. The Maple Tree figure is additionally
+> a lower-bound estimate that assumes fully occupied leaf nodes and
+> excludes internal nodes.
+>
+> IDA has no region-allocation API, so each region is implemented as
+> a sequence of single-ID allocations. The IDs remain contiguous
+> because this benchmark fills an initially empty IDA monotonically.
+>
+> The benchmark is motivated by the discussion at the link below about
+> choosing the best data structure for the channel ID pool with the
+> capacity of 2048 IDs for the nova GPU driver.
+>
+> Specifically for 2048 IDs the result is:
+>
+> bitmap           3907            831       2048          256
+> IDA             83545          71007       2048          848
+> maple           34632          39710       2048         3600
+>
+> Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@n=
+vidia.com/
+> Signed-off-by: Yury Norov <ynorov@nvidia.com>
+> ---
+> v2: add IDA benchmark (Matthew)
+> v1: https://lore.kernel.org/all/20260711013910.349586-1-ynorov@nvidia.com=
+/
+>
+>  MAINTAINERS                  |   3 +
+>  lib/Kconfig.debug            |   9 ++
+>  lib/Makefile                 |   1 +
+>  lib/region_alloc_benchmark.c | 174 +++++++++++++++++++++++++++++++++++
+>  4 files changed, 187 insertions(+)
+>  create mode 100644 lib/region_alloc_benchmark.c
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 7cc4bca5a2c5..9e487a94aba4 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -4615,6 +4615,7 @@ F:	lib/bitmap.c
+>  F:	lib/cpumask.c
+>  F:	lib/find_bit.c
+>  F:	lib/find_bit_benchmark.c
+> +F:	lib/region_alloc_benchmark.c
+>  F:	lib/test_bitmap.c
+>  F:	lib/tests/cpumask_kunit.c
+>  F:	tools/include/linux/bitfield.h
+> @@ -15581,6 +15582,7 @@ F:	Documentation/core-api/maple_tree.rst
+>  F:	include/linux/maple_tree.h
+>  F:	include/trace/events/maple_tree.h
+>  F:	lib/maple_tree.c
+> +F:	lib/region_alloc_benchmark.c
+>  F:	lib/test_maple_tree.c
+>  F:	rust/helpers/maple_tree.c
+>  F:	rust/kernel/maple_tree.rs
+> @@ -29323,6 +29325,7 @@ F:	Documentation/core-api/xarray.rst
+>  F:	include/linux/idr.h
+>  F:	include/linux/xarray.h
+>  F:	lib/idr.c
+> +F:	lib/region_alloc_benchmark.c
+>  F:	lib/test_xarray.c
+>  F:	lib/xarray.c
+>  F:	tools/testing/radix-tree
+> diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+> index 1244dcac2294..40872263cff1 100644
+> --- a/lib/Kconfig.debug
+> +++ b/lib/Kconfig.debug
+> @@ -2683,6 +2683,15 @@ config FIND_BIT_BENCHMARK
+> =20
+>  	  If unsure, say N.
+> =20
+> +config REGION_ALLOC_BENCHMARK
+> +	tristate "Benchmark bitmap, IDA and Maple Tree region allocation"
+> +	help
+> +	  This builds a microbenchmark comparing variable-sized region
+> +	  allocation using bitmaps, IDA and Maple Tree. The benchmark
+> +	  runs at module load time.
+> +
+> +	  If unsure, say N.
+> +
+>  config FIND_BIT_BENCHMARK_RUST
+>  	tristate "Test find_bit functions in Rust"
+>  	depends on RUST
+> diff --git a/lib/Makefile b/lib/Makefile
+> index 7f75cc6edf94..adb18810e3f7 100644
+> --- a/lib/Makefile
+> +++ b/lib/Makefile
+> @@ -64,6 +64,7 @@ obj-y +=3D hexdump.o
+>  obj-$(CONFIG_TEST_HEXDUMP) +=3D test_hexdump.o
+>  obj-y +=3D kstrtox.o
+>  obj-$(CONFIG_FIND_BIT_BENCHMARK) +=3D find_bit_benchmark.o
+> +obj-$(CONFIG_REGION_ALLOC_BENCHMARK) +=3D region_alloc_benchmark.o
+>  obj-$(CONFIG_FIND_BIT_BENCHMARK_RUST) +=3D find_bit_benchmark_rust.o
+>  obj-$(CONFIG_TEST_BPF) +=3D test_bpf.o
+>  test_dhry-objs :=3D dhry_1.o dhry_2.o dhry_run.o
+> diff --git a/lib/region_alloc_benchmark.c b/lib/region_alloc_benchmark.c
+> new file mode 100644
+> index 000000000000..0e000c4f9926
+> --- /dev/null
+> +++ b/lib/region_alloc_benchmark.c
+> @@ -0,0 +1,174 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/* Benchmark bitmap, IDA and Maple Tree allocation of variable-sized reg=
+ions. */
+> +
+> +#include <linux/bitmap.h>
+> +#include <linux/idr.h>
+> +#include <linux/kernel.h>
+> +#include <linux/maple_tree.h>
+> +#include <linux/module.h>
+> +#include <linux/printk.h>
+> +#include <linux/random.h>
+> +#include <linux/xarray.h>
+> +
+> +#define MAP_SIZE	(1000000UL)
+> +#define REGION_MAX_SIZE	32
+> +
+> +static DECLARE_BITMAP(alloc_bitmap, MAP_SIZE) __initdata;
+> +/* One more request guarantees that even an all-ones trace reaches ENOSP=
+C. */
+> +static u8 region_sizes[MAP_SIZE + 1] __initdata;
+> +static unsigned long region_indexes[MAP_SIZE] __initdata;
+> +
+> +static unsigned long __init benchmark_bitmap(unsigned long capacity)
+> +{
+> +	unsigned long count, index;
+> +	ktime_t alloc_time, free_time;
+> +	size_t memory;
+> +
+> +	bitmap_zero(alloc_bitmap, MAP_SIZE);
+> +	alloc_time =3D ktime_get();
 
-s/clients/threads:
+To eliminate possible effects of optimization messing up benchmark, please =
+add a
+barrier() after start timing and a barrier() before end timing. Probably yo=
+u'd
+want one between each loop iteration too.
 
-Same VM:
+> +	for (count =3D 0; count < ARRAY_SIZE(region_sizes); count++) {
+> +		index =3D bitmap_find_next_zero_area(alloc_bitmap, capacity, 0,
+> +						   region_sizes[count], 0);
+> +		if (index >=3D capacity)
+> +			break;
+> +
+> +		region_indexes[count] =3D index;
+> +		bitmap_set(alloc_bitmap, index, region_sizes[count]);
+> +	}
+> +	alloc_time =3D ktime_get() - alloc_time;
+> +
+> +	index =3D count;
+> +	free_time =3D ktime_get();
+> +	while (index--)
+> +		bitmap_clear(alloc_bitmap, region_indexes[index],
+> +			     region_sizes[index]);
+> +	free_time =3D ktime_get() - free_time;
+> +	memory =3D BITS_TO_LONGS(capacity) * sizeof(unsigned long);
+> +	pr_err("%-6s   %12llu   %12llu   %8lu   %10zu\n", "bitmap", alloc_time,
+> +		free_time, capacity, memory);
 
-Thread A - allocate memory under VM's dma-resv, takes a very long time
-Thread B - tries to submit, blocks on Thread A
+I wonder if the numbers could be more useful if it is somehow normalized (e=
+.g.
+by how many iterations are performed?)? This number can be computed by addi=
+ng
+up the prefix of region_sizes until it cover all capacity.
 
-> >    This series preallocates
-> >    the backing pages (and, where applicable, builds the DMA/IOVA mapping)
-> >    outside the lock, then transfers the result into the BO under a brief
-> >    lock hold. The user gets a fast IOCTL return; the heavy lifting happens
-> >    without contending the reservation.
-> 
-> Ok, that sounds like a really bad idea.
-> 
-> Why in the world would you do this? The dma_resv lock is exactly what is used to prevent something like that.
-> 
+Also, the capacity should probably be made part of the report header for al=
+l 3
+ID allocators. Given this is randomized benchmark the single line, when tak=
+en
+out of context, is not very meaningful anyway.
 
-Allocating pages from the core MM subsystem does not really have anything to do
-with dma_resv. Moving pages attached to a BO, however, is related to dma_resv,
-and that is where TTM comes into play.
+Something like this might be better (fake numbers below, you might also nee=
+d
+some fix point printing):
 
-The TL;DR is that a defragmenter does not work well when page allocations are
-performed while holding the dma_resv lock. During the v1 implementation, I
-quickly noticed that the dma_resv lock could be held for up to 100 ms in the
-worst case, and more typically for 5–10 ms. When the frame budget at 60 Hz is
-only 16 ms, this is obviously a problem, and it becomes even more problematic at
-higher refresh rates.
+capacity =3D 1000000, regions =3D 100000
+type       alloc (ns/region) free (ns/region) memory (B/capacity)
+bitmap              1795.730           3.421                0.125
+IDA                  465.556         339.314                0.134
+maple                186.296         197.413                1.548
 
-After quite a bit of work, the common-case lock hold time is now below 100 µs,
-while the worst case is under 1 ms. At that point, a defragmenter becomes much
-more viable.
+capacity =3D 100000, regions =3D 10000
+bitmap               163.091           3.093                0.125
+IDA                  614.478         335.459                0.142
+maple                174.502         182.503                1.554
 
-I'm applying the same defragmentation logic to IOCTLs. Why hold the lock any
-longer than necessary and introduce additional pipeline stalls?
+capacity =3D 10000, regions =3D 1000
+bitmap                28.448           3.374                0.125
+IDA                  418.978         333.641                0.187
+maple                185.398         211.138                1.563
 
-> > 
-> >  - Page defragmentation. A BO allocated under memory pressure keeps its
-> >    scattered, sub-optimally-ordered backing for its entire lifetime,
-> >    costing TLB efficiency forever. TTM grows the plumbing to track
-> >    order-failure and to re-back a populated BO in place at the beneficial
-> >    order, and Xe wires up a background delayed worker that promotes such
-> >    BOs on the GPU once memory is available again - again, off the hot
-> >    path and without stalling the submitting thread.
-> 
-> That could be quite beneficial, but so far falling back to low order allocation was only seen as last resort to avoid OOM.
-> 
+capacity =3D 1000, regions =3D 100
+bitmap                22.530           6.100                0.128
+IDA                  427.550         364.320                0.144
+maple                197.280         234.740                1.552
 
-Right now, the situation is effectively "once placed badly, forever placed
-badly."
+Best,
+Gary
 
-Matt
+> +
+> +	return count;
+> +}
+> +
+> +static size_t __init ida_memory(unsigned long nr_ids)
+> +{
+> +	unsigned long entries =3D DIV_ROUND_UP(nr_ids, IDA_BITMAP_BITS);
+> +	unsigned long bitmaps =3D nr_ids / IDA_BITMAP_BITS;
+> +	unsigned long nodes =3D 0;
+> +
+> +	if (nr_ids % IDA_BITMAP_BITS > BITS_PER_XA_VALUE)
+> +		bitmaps++;
+> +
+> +	while (entries > 1) {
+> +		entries =3D DIV_ROUND_UP(entries, XA_CHUNK_SIZE);
+> +		nodes +=3D entries;
+> +	}
+> +
+> +	return sizeof(struct ida) + bitmaps * sizeof(struct ida_bitmap) +
+> +		nodes * sizeof(struct xa_node);
+> +}
+> +
+> +static unsigned long __init benchmark_ida(unsigned long capacity)
+> +{
+> +	struct ida ida =3D IDA_INIT(ida);
+> +	unsigned long count, index, offset, nr_ids =3D 0;
+> +	ktime_t alloc_time, free_time;
+> +	int id =3D -ENOSPC;
+> +
+> +	alloc_time =3D ktime_get();
+> +	for (count =3D 0; count < ARRAY_SIZE(region_sizes); count++) {
+> +		for (offset =3D 0; offset < region_sizes[count]; offset++) {
+> +			id =3D ida_alloc_max(&ida, capacity - 1, GFP_KERNEL);
+> +			if (id < 0)
+> +				break;
+> +			if (!offset)
+> +				region_indexes[count] =3D id;
+> +		}
+> +		if (id < 0) {
+> +			while (offset--)
+> +				ida_free(&ida, region_indexes[count] + offset);
+> +			break;
+> +		}
+> +		WARN_ON(id !=3D region_indexes[count] + region_sizes[count] - 1);
+> +		nr_ids +=3D region_sizes[count];
+> +	}
+> +	alloc_time =3D ktime_get() - alloc_time;
+> +	WARN_ON(id !=3D -ENOSPC);
+> +
+> +	index =3D count;
+> +	free_time =3D ktime_get();
+> +	while (index--)
+> +		for (offset =3D 0; offset < region_sizes[index]; offset++)
+> +			ida_free(&ida, region_indexes[index] + offset);
+> +	free_time =3D ktime_get() - free_time;
+> +	pr_err("%-6s   %12llu   %12llu   %8lu   %10zu\n", "IDA", alloc_time,
+> +		free_time, capacity, ida_memory(nr_ids));
+> +	ida_destroy(&ida);
+> +
+> +	return count;
+> +}
+> +
 
-> Regards,
-> Christian.
-> 
-> > 
-> > Since v1 [1] the series has grown considerably. The bulk of the new
-> > material is a direct result of profiling: once the defragmenter was in
-> > place, the remaining dma-resv hold times and the per-BO
-> > allocation/mapping costs showed up clearly, which motivated the
-> > out-of-lock preallocation, the IOVA-based mapping path, and the amdgpu
-> > counterpart. Rather than land the defragmenter alone, v2 folds in these
-> > optimizations since they share the same infrastructure and the same
-> > "hold dma-resv briefly, fix up in the background" architecture.
-> > 
-> > The series is organized in sections rather than described patch by patch:
-> > 
-> >  - Patches 1-10 (drm/ttm): core TTM preparation - order-failure tracking,
-> >    the defragmentation move, reclaim backoff, and out-of-lock page
-> >    preallocation plumbing.
-> >  - Patches 11-14: other dependent drm/gpusvm and drm/xe patches this
-> >    series builds on (DMA-mapping accounting, per-order DMA stats, async
-> >    L2 flush, and a VM-teardown ordering fix).
-> >  - Patches 15-23 (drm/xe): the page defragmenter itself - BO tracking,
-> >    the on-GPU defrag copy, xe_bo_move() handling, and the background
-> >    worker with its stats and configuration.
-> >  - Patches 24-25 (drm/xe): out-of-lock system BO backing preallocation
-> >    in gem_create, moving page allocation out of the dma-resv lock.
-> >  - Patches 26-32 (drm/xe): IOVA-based DMA mapping optimizations, building
-> >    and finalizing the mapping outside the lock.
-> >  - Patch 33 (drm/amdgpu): the equivalent out-of-lock system BO
-> >    preallocation for amdgpu, exercising the shared TTM plumbing.
-> > 
-> > Testing
-> > =======
-> > 
-> >  - 3D benchmarks on Ubuntu and on Android, with memory intentionally
-> >    fragmented by a separate program at launch (plus beneficial-order
-> >    error injection). BOs are initially backed at a sub-optimal order and
-> >    scores start lower; the background defrag worker then promotes the
-> >    backing to the beneficial order and scores climb back in line with the
-> >    unfragmented baseline.
-> >  - IGT:
-> >    https://patchwork.freedesktop.org/patch/739052/?series=170046&rev=2
-> > 
-> > Matt
-> > 
-> > [1] https://patchwork.freedesktop.org/series/169053/
-> > 
-> > Cc: amd-gfx@lists.freedesktop.org
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: Carlos Santa <carlos.santa@intel.com>
-> > Cc: Ryan Neph <ryanneph@google.com>
-> > Cc: Christian Koenig <christian.koenig@amd.com>
-> > Cc: Huang Rui <ray.huang@amd.com>
-> > Cc: Matthew Auld <matthew.auld@intel.com>
-> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > Cc: Maxime Ripard <mripard@kernel.org>
-> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > Cc: David Airlie <airlied@gmail.com>
-> > Cc: Simona Vetter <simona@ffwll.ch>
-> > Cc: dri-devel@lists.freedesktop.org
-> > Cc: linux-kernel@vger.kernel.org
-> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> > 
-> > 
-> > 
-> > Matthew Brost (31):
-> >   drm/ttm/pool: Allow backing off reclaim at the beneficial order
-> >   drm/ttm/pool: Add ttm_pool_page_order_nodma() helper
-> >   drm/ttm: Record sub-optimal page order allocations in ttm_tt
-> >   drm/ttm: Introduce ttm_pool_alloc_iter for __ttm_pool_alloc()
-> >   drm/ttm: Support defragmentation moves
-> >   drm/ttm: Add fault injection for beneficial-order allocation failures
-> >   drm/ttm: Harvest beneficial-order pages on defragmentation moves
-> >   drm/ttm: Bound page (re)allocation per defragmentation move
-> >   drm/ttm: Preallocate beneficial-order defrag pages outside the lock
-> >   drm/ttm: Add full out-of-lock preallocation for ttm_pool_alloc()
-> >   drm/xe: Flush L2 asynchronously in xe_bo_trigger_rebind()
-> >   drm/xe: Destroy page tables after unlinking all VMAs on VM close
-> >   drm/xe: Track BOs backed at a sub-optimal page order
-> >   drm/xe: Back off beneficial-order reclaim under defrag pressure
-> >   drm/xe: Add xe_migrate_copy_defrag() for on-GPU defrag copies
-> >   drm/xe: Handle defrag moves in xe_bo_move()
-> >   drm/xe: Skip self-copies for borrowed pages on defrag moves
-> >   drm/xe: Add a page defragmentation worker
-> >   drm/xe: Add defrag GT stats
-> >   drm/xe: Add Kconfig.profile options for BO defrag configuration
-> >   drm/xe: Defrag using out-of-lock page preallocation
-> >   drm/xe: Add defrag profiling tracepoints
-> >   drm/xe: Preallocate system BO backing outside the dma-resv lock
-> >   drm/xe: Add tracepoint for xe_gem_create_ioctl
-> >   drm/xe: Add IOVA-based xe_res_cursor variant
-> >   drm/xe: Use IOVA-based DMA mapping for eligible tt BOs
-> >   drm/xe: Add per-device dependency scheduler for IOVA defrag finalize
-> >   drm/xe: Add packed copy-step IOVA mapping for defrag
-> >   drm/xe: Blit src-natural to dst-packed for defrag-IOVA copies
-> >   drm/xe: Finalize defrag-IOVA moves with post-copy job
-> >   drm/amdgpu: Preallocate system BO pages outside the reservation lock
-> > 
-> > Thomas Hellström (2):
-> >   drm/gpusvm: Add a DMA-mapping accounting callback
-> >   drm/xe: Add debugfs stats for DMA-mapped pages per order
-> > 
-> >  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |    4 +-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |    2 +-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |   45 +-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h       |    5 +-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |    3 +-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |    4 +
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   39 +-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |    3 +
-> >  drivers/gpu/drm/drm_gpusvm.c                  |   17 +-
-> >  drivers/gpu/drm/ttm/ttm_bo.c                  |  101 +-
-> >  drivers/gpu/drm/ttm/ttm_bo_util.c             |   21 +-
-> >  drivers/gpu/drm/ttm/ttm_pool.c                |  931 +++++++++-
-> >  drivers/gpu/drm/ttm/ttm_tt.c                  |   67 +
-> >  drivers/gpu/drm/xe/Kconfig.profile            |   40 +
-> >  drivers/gpu/drm/xe/tests/xe_bo.c              |    8 +-
-> >  drivers/gpu/drm/xe/tests/xe_dma_buf.c         |    2 +-
-> >  drivers/gpu/drm/xe/tests/xe_migrate.c         |   12 +-
-> >  drivers/gpu/drm/xe/xe_bo.c                    | 1632 ++++++++++++++++-
-> >  drivers/gpu/drm/xe/xe_bo.h                    |   15 +-
-> >  drivers/gpu/drm/xe/xe_bo_types.h              |    6 +
-> >  drivers/gpu/drm/xe/xe_debugfs.c               |   26 +
-> >  drivers/gpu/drm/xe/xe_device.c                |   35 +
-> >  drivers/gpu/drm/xe/xe_device_types.h          |   57 +
-> >  drivers/gpu/drm/xe/xe_dma_buf.c               |    2 +-
-> >  drivers/gpu/drm/xe/xe_ggtt.c                  |    2 +-
-> >  drivers/gpu/drm/xe/xe_gt_stats.c              |    5 +
-> >  drivers/gpu/drm/xe/xe_gt_stats_types.h        |   17 +
-> >  drivers/gpu/drm/xe/xe_migrate.c               |  531 +++++-
-> >  drivers/gpu/drm/xe/xe_migrate.h               |   17 +
-> >  drivers/gpu/drm/xe/xe_pt.c                    |    2 +-
-> >  drivers/gpu/drm/xe/xe_res_cursor.h            |   56 +-
-> >  drivers/gpu/drm/xe/xe_svm.c                   |   36 +-
-> >  drivers/gpu/drm/xe/xe_svm.h                   |    3 +-
-> >  drivers/gpu/drm/xe/xe_trace_bo.h              |   90 +
-> >  drivers/gpu/drm/xe/xe_userptr.c               |   55 +
-> >  drivers/gpu/drm/xe/xe_userptr.h               |    1 +
-> >  drivers/gpu/drm/xe/xe_vm.c                    |  149 +-
-> >  drivers/gpu/drm/xe/xe_vm.h                    |    5 +
-> >  include/drm/drm_gpusvm.h                      |   19 +
-> >  include/drm/ttm/ttm_bo.h                      |   64 +
-> >  include/drm/ttm/ttm_pool.h                    |   46 +
-> >  include/drm/ttm/ttm_tt.h                      |   43 +-
-> >  42 files changed, 4029 insertions(+), 189 deletions(-)
-> > 
-> 
