@@ -4,47 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFD6BC43458
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 12:26:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C0C6C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 12:28:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB77310E0A9;
-	Sat, 11 Jul 2026 12:26:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B5B110E347;
+	Sat, 11 Jul 2026 12:28:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="Z4ZOCfVa";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="U7/FwH6T";
 	dkim-atps=neutral
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch
- [79.135.106.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1497910E0A9
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 12:26:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail3; t=1783772805; x=1784032005;
- bh=DtiWi6MODkSCkd9+MM7sUob/C9gfrkcTdQDOCr3HaVg=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=Z4ZOCfVagGLzb7NmPR5unZKbVzq7KvCOf4SkGgYZBXLLlUGfS6ZELqyIIkH2HPyz+
- /ZoOd1XXK6Qc6S0KwGuPt9ql7JT1eUdu1E1vsvvw9KhwVLq3rNNLDbQAFiKcdohCZQ
- BB9U+NHAN1uatfLZ5Lcb786L8tz229jYuN/PzEWzealC/ByD35Dp7RLCPG6MGWrdV2
- Ghl1I0oqZvsx+GEOa4rQX63yjwKy7YAYHu7vK1QYMoA4Cau6KHAoBjy+76F9hWl1Ot
- MK59kGy/6V2BIH6qGG8Xo5dqNyg83RGsKbIM/OiljQ5Q739M3c0NIb5zEFI0z2ejyl
- hOUkecvKbs+Iw==
-X-Pm-Submission-Id: 4gy7H80M2nz1DDrP
-From: Esben Haabendal <esben@geanix.com>
-To: <sashiko-bot@kernel.org>
-Cc: <sashiko-reviews@lists.linux.dev>,  <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] drm/bridge: ti-sn65dsi83: Fix problem with
- premature PLL locking
-In-Reply-To: <20260711115901.776051F000E9@smtp.kernel.org>
- (sashiko-bot@kernel.org's message of "Sat, 11 Jul 2026 11:59:01
- +0000")
-References: <20260711-ti-sn65dsi83-fixes-v1-0-d85eb5342b98@geanix.com>
- <20260711-ti-sn65dsi83-fixes-v1-2-d85eb5342b98@geanix.com>
- <chBX3JDWouBBGINJdo11hbT-ASZLlDvZuU0gaNJp0MVS_1e6FqR3vrBdulsfPr7_YeAVR4DaEwA3bEJ-sExo8Q==@protonmail.internalid>
- <20260711115901.776051F000E9@smtp.kernel.org>
-Date: Sat, 11 Jul 2026 14:26:43 +0200
-Message-ID: <87bjcdempo.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from mail-wm1-f73.google.com (mail-wm1-f73.google.com
+ [209.85.128.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF22A10E347
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 12:28:43 +0000 (UTC)
+Received: by mail-wm1-f73.google.com with SMTP id
+ 5b1f17b1804b1-493bdf90adaso13575915e9.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 05:28:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1783772922; x=1784377722;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=1zqV6pU7J/up3BiO4WkzdnwyvKk4FnHi04KFj10WU3o=;
+ b=U7/FwH6TIhuZK+ps0j0p4/BnBlfJ8K0b5XzHmTe8IVOWQpZcMYnBkVe5yobRLPY+cC
+ EG4kvRZEmkcARrww3pZ70nDKR4vqsIM0Vb6DjswOA3m9dQek6Or/tZ7MlC850FE/EOrj
+ fEdxmNbocTaimNof3eh4XdpLmdZQfaXyV3y2rk20SqEWvhQ5uNQOCZZOOe1s2pb4fwgq
+ chp8rVhrSuQPB2f8acyHpIyUUCrXPsVWXVk2evVN+02/RkWUgcuLn7R0iOj2mt5n2ilE
+ fEsSrbQwjeGRQWyh/I1CCOZWBOXbJWRwNkDqvjF2tcHielwXIK4J6NOf3b+cPiiw28Do
+ iecg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783772922; x=1784377722;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=1zqV6pU7J/up3BiO4WkzdnwyvKk4FnHi04KFj10WU3o=;
+ b=XZGkbBdQ/ke8TWjrCY27jQSSnfFMRO/UX/C8/QhHkAUSV+DIoRgFf43Sx8g6iIijSU
+ Z/S9R9PfY1wU9AVllNcF/z3TO2JQ4LTsfsIW0sCTcvLWRQEVfTUOkbzxC/DTC+Kct4ZO
+ p6Sfh9V8eo9/k0iioQ6529AwnSi5ULhqtxXJ1jK8phlfAvPuxE1w1SeUNsPLtGbvsxsk
+ BFQsdJ0EIDfpWYRQLiVTGxVMIQRDoeVfg4UVRCzW+C1dHK2rbEqscJoESMurAUb8k9wn
+ yqX4IkItQ/WB0UPX8QZna0WrVdXn3mva6K08VBWUjHLjkpjOOIuBlns3F7j6yc8hOq0Q
+ 53dQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoYUirZIor5ZvqckMJ2NHqcDUGixAfe4YQHdxRC5uv4X3oTC6/m/axMtiG8wnDuSsapw66IkWXy/Oc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzNHlGDv3uhsYzN1PEy9nkUzU0+Mk7vxYu6ci+CKwKXl038OsS3
+ 9Tf0IJAMFV9xmbeGUDbNLvi5cQYu8aTHpPe4/j1xVWb91xwLHOZbgMDEM6QCxwXAaYj+dM0dLX/
+ LA/OWqbYYr2ax4wh9mw==
+X-Received: from wrue11.prod.google.com ([2002:a5d:4e8b:0:b0:46c:d068:1ef8])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:6692:b0:493:bf84:53d8 with SMTP id
+ 5b1f17b1804b1-493f87e472cmr24827145e9.9.1783772921797; 
+ Sat, 11 Jul 2026 05:28:41 -0700 (PDT)
+Date: Sat, 11 Jul 2026 12:28:40 +0000
+In-Reply-To: <84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@nvidia.com>
+Mime-Version: 1.0
+References: <20260710-chid-maple-v1-1-4ee869055268@nvidia.com>
+ <84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@nvidia.com>
+Message-ID: <alI2-KaHDTmUvNK8@google.com>
+Subject: Re: [PATCH] gpu: nova-core: add ChannelIdPool
+From: Alice Ryhl <aliceryhl@google.com>
+To: John Hubbard <jhubbard@nvidia.com>
+Cc: Eliot Courtney <ecourtney@nvidia.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, 
+ "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>,
+ Greg KH <gregkh@linuxfoundation.org>, 
+ Burak Emir <bqe@google.com>, Yury Norov <yury.norov@gmail.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,103 +95,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-<sashiko-bot@kernel.org> writes:
+On Fri, Jul 10, 2026 at 02:29:39PM -0700, John Hubbard wrote:
+> On 7/10/26 6:42 AM, Eliot Courtney wrote:
+> ...
+> > +use kernel::{
+> > +    maple_tree::MapleTreeAlloc,
+> 
+> Hi Eliot, Alice, all,
+> 
+> Eliot already laid out the maple costs (the alloc_range+erase loop
+> replicating find_next_zero_area, the extra mutex, allocation on
+> alloc and free), so I won't rehash them. What I can add is why the
+> alignment is a hard requirement, since that is what seems to make
+> the decision clearer to me at least.
+> 
+> Pre-Blackwell, USERD sits in BAR1 at page granularity, 8 channels to a
+> 4K page (chid = page*8 + slot). Giving a VM its own channels means
+> giving it whole USERD pages, so a VM's chid range has to be 8-aligned
+> and a multiple of 8. Blackwell moves submit to a per-function doorbell
+> keyed by (runlist, chid), and the constraint goes away. So it's a
+> constraint we're stuck with pre-Blackwell, not one we can design away.
+> 
+> Given that, the bitmap version is hard to argue with. The aligned
+> allocation is the one call the API is built around, roughly:
+> 
+>     let mut ids = self.inner.lock();
+>     let area = ids.find_unused_area(0, count, align_mask)
+>                   .ok_or(ENOSPC)?;
+>     // area.acquire() reserves and returns the range, drop clears it
+> 
+> One lock, no retry, and release is a bitmap_clear that can't fail. For
+> 2048 IDs the backing store is a 256-byte array. find_next_zero_area()
+> is also the existing idiom for this (IOMMU, DMA, IRQ), so it answers
+> Greg's reuse-what-exists point as well.
+> 
+> I'd go with the bitmap id_pool.
 
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->
-> New issues:
-> - [High] Missing SRCU read lock release in error path of sn65dsi83_atomic_enable().
->
-> Pre-existing issues:
-> - [High] Missing SRCU read lock release in error path of sn65dsi83_reset_work().
-> --
->
-> --- Patch [2]: [PATCH 2/2] drm/bridge: ti-sn65dsi83: Fix problem with premature PLL locking ---
-> commit 0c69248e520fff24e51d45bfab961991fbdb4267
-> Author: Esben Haabendal <esben@geanix.com>
->
-> drm/bridge: ti-sn65dsi83: Fix problem with premature PLL locking
->
-> This patch moves the PLL locking sequence from atomic_pre_enable to
-> atomic_enable. This ensures the DSI HS clock is running before attempting to
-> lock the PLL.
->
-> Link: https://lore.kernel.org/all/20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com/
->
->> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
->> index 32e9eadd7452f..e87bed3a6640b 100644
->> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
->> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
->
-> [ ... ]
->
->> @@ -712,11 +697,24 @@ static void sn65dsi83_atomic_enable(struct drm_bridge *bridge,
->>  {
->>  	struct sn65dsi83 *ctx = bridge_to_sn65dsi83(bridge);
->>  	unsigned int pval;
->> -	int idx;
->> +	int idx, ret;
->>
->>  	if (!drm_bridge_enter(bridge, &idx))
->>  		return;
->>
->> +	/* Enable PLL */
->> +	regmap_write(ctx->regmap, REG_RC_PLL_EN, REG_RC_PLL_EN_PLL_EN);
->> +	usleep_range(3000, 4000);
->> +	ret = regmap_read_poll_timeout(ctx->regmap, REG_RC_LVDS_PLL, pval,
->> +				       pval & REG_RC_LVDS_PLL_PLL_EN_STAT,
->> +				       1000, 100000);
->> +	if (ret) {
->> +		dev_err(ctx->dev, "failed to lock PLL, ret=%i\n", ret);
->> +		/* On failure, disable PLL again and exit. */
->> +		regmap_write(ctx->regmap, REG_RC_PLL_EN, 0x00);
->> +		return;
->
-> [Severity: High]
-> Does this error path leak the SRCU read lock acquired by drm_bridge_enter()?
->
-> If the PLL lock fails and regmap_read_poll_timeout() returns an error, the
-> function returns immediately without calling drm_bridge_exit(idx).
->
-> This unreleased lock could cause subsequent calls to synchronize_srcu() to
-> hang during module unload or bridge unplug.
+Completely agreed. The loop in this patch seems like a really bad idea
+to me. If the maple tree doesn't natively provide a way to allocate the
+range with an alignment requirement, we should not attempt to hack in
+support for alignment by looping. Please use the bitmap.
 
-Yes, that does look like a bug. I will fix it for v2.
+(Even without the alignment requirement, I think that the 2048 size
+limit is also a good reason to use a bitmap, but the argument is less
+strong in that case.)
 
->> +	}
->> +
->>  	/* Clear all errors that got asserted during initialization. */
->>  	regmap_read(ctx->regmap, REG_IRQ_STAT, &pval);
->
-> [Severity: High]
-> This is a pre-existing issue, but I noticed a similar pattern in another
-> function in this file. Does sn65dsi83_reset_work() also leak the SRCU read
-> lock on failure?
->
-> drivers/gpu/drm/bridge/ti-sn65dsi83.c:sn65dsi83_reset_work() {
->     if (!drm_bridge_enter(&ctx->bridge, &idx))
->         return;
->     ...
->     ret = sn65dsi83_reset_pipe(ctx);
->     if (ret) {
->         dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
->         return;
->     }
->     ...
->     drm_bridge_exit(idx);
-> }
->
-> Like the atomic_enable path, if sn65dsi83_reset_pipe() fails, it appears to
-> return early without calling drm_bridge_exit(idx).
-
-Yes.
-
-But is it enough to call drm_bridge_exit(idx), or do we want to
-enable_irq() also? We are calling disable_irq_nosync() before scheduling
-reset_ork, so if don't enable it again in case of error, it will be
-stuck disabled. But what is supposed to happen if/when
-sn65dsi83_reset_pipe() fails?
-
-If we enable_irq() again, are we just going to endure endless pain?
-
-/Esben
+Alice
