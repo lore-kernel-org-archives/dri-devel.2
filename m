@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8893C44501
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 06:02:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93663C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Jul 2026 06:02:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A941310E701;
-	Sat, 11 Jul 2026 06:02:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06EBE10E71B;
+	Sat, 11 Jul 2026 06:02:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="XY7dnCSJ";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="hDVrjEmI";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="AC5mqVJg";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="+jn36CyM";
 	dkim-atps=neutral
-Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de
- [85.215.255.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DABBA10E2DE
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 06:02:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783749729; cv=none;
+Received: from mo4-p04-ob.smtp.rzone.de (mo4-p04-ob.smtp.rzone.de
+ [85.215.255.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BB2A10E481
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Jul 2026 06:02:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783749737; cv=none;
  d=strato.com; s=strato-dkim-0002;
- b=UUOLd6ZyshpRymv4dMO+rXsVCXV2tZHyHRsZt7+F2cmqOcPlQnOcbv/LSWzLaNDgB/
- YNylaLvpItMRoF/TlLWQfY0AeqwQHyjViw6MRXXF/0RCvTe5vR/1vXCLSG3jEZNdHF+K
- iK5JSu/65A22CTSQsXAwTor+CE9wWmRpOoNsSh2+s0M7KhzCc4Mq3PLjdA96Od9zn7ai
- Zrrw5PoMJ06dQHAFe2ppTcHA2AqtYW4oGfmxs6LN3dcjEbB6A8LRss2t/31h/fe7QFhu
- VVJdiMcxyZQLEzc3qaDIQdejt+nBDFFt71gwhaXSkT4m0bG0CnTMgYaJmuPmSunE3ONm
- 8vAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783749729;
+ b=iC0toLXH6Gq6Gbb1wbRJptb/CqlDMcjfKVE70kAJslXM0CYebLJGl+dmsWtcrUGBE9
+ yGiLYIxAm+wnQ4N3zLDHtcssisr/W2dyZAVagtr2wAeh8mDKJga74qoXHDd6HKSfzwAM
+ vdwBF2BXqgnsPjpFrSdKrKJHMIphQavB8W4WUwrkZ3bc4nkae5wOkUQzA1PQbF9RZ/UQ
+ ImVNOmv2Y14SoVExyHf9JzPGTZX9R2QAaF40v55023I8eMfa5Pg/ozqUI716SIezvsQf
+ d9xt+npKPRxPZdz02ZL7+c9vg9GwGSEICCJqDdXVFrAwJWr62kQ6yRzV4yARiQs+engn
+ sbew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783749737;
  s=strato-dkim-0002; d=strato.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=5Okt1Bb33hbe5/L8F0+NBgH6ufNIVFYW7HZ0thAd5DA=;
- b=EOiIll0xUNOQO16tRr+AFZxfJKyD/dMmzbBK9pDwDM8iUEPho0teVtwsyY/dmxBJy8
- /ZkfclCgKDABxl6k9Hrg9rfw3+/FMnOuFN9AhoAS84SA/qaNbWpDNXgaRv2ReGkSluwe
- M/+z3p4tXw55Nsl393cMfgA+me91QxOzddKDiu+wNFWrxtjndyfYXvTrZHssWaC1V+D4
- ArROF93vwHJADQ52hfU3io1DEvXR8Sc20KIE2SGYLNghkjXefBsZP6rASsPOKxhdl9cz
- 436vZEDGtUTtcMVT90HujVVbxUYRCgnecoUk+Ho5+lrVW9lSrlkyklHjxIoxm2eBdjSs
- R70A==
+ bh=c2DakEhHWnDx3DdMaI7lEbd6D5ZL7hHtybFNpEKNGEY=;
+ b=p3xqTKNzxP2MJOusO2HDNwJQGi+JFybPWQ/Q8v+AEvtTQds6DtK0cWHu53f5LA2/8V
+ KEX/vmxJ1UQU0DeW+UMenWaDtKYkSEobm5J5SxIz+RgcsGdTxupDL/mxNKbDnB7DHpUa
+ 5XOpvmonYsjgv+tD86sOkgzwZyuieAsufVkd+92MU7w1y8d4+jZP9g8MPuqcCMmkWzep
+ f0htsqJrbazcS6uK1F2aEjCQRyDr8Ay0oE8v91QDNJpY2qLpKo03NA9cFnR9dEFITTyd
+ 3AL5IhlLtYUbVbZNd+GZWMrs/hoQrRbItQAZAaX86z06YZ/dSCsnWnxYAnkAd5boyCe4
+ Ijag==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
-X-RZG-CLASS-ID: mo03
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783749729;
+X-RZG-CLASS-ID: mo04
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783749737;
  s=strato-dkim-0002; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=5Okt1Bb33hbe5/L8F0+NBgH6ufNIVFYW7HZ0thAd5DA=;
- b=XY7dnCSJueGYOy9UvXVGd6wc/nYTWW4OvK0E7XnuX+uFv5AaYufWrAVdAO8Sgw3zP+
- fJ5158HiEExFYOBnPgUgSjhH5fn62sU/w5ylGXg350dxNf4Hou6YLfVQlldraiGwEIPr
- dcZbh3DHadmjIVrBjhrcI0cKVGfgUNHTW5VJPdJ3nLyw/Ii6LmWyjyzfRLcyDH2UYSIV
- zzKfWcfkHoD05foa+8jVbnYuujJARRVAqXUgLU9K61zGsLEQm5eyw3tpiRoRKab2aCTI
- wgl2UI+u+QxxG7f/0jILfh6szUL7zFXiLXW4rs0XEoGsFHJTqk0P3nRk7OhDnoOHQK2+
- j7/A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783749729;
+ bh=c2DakEhHWnDx3DdMaI7lEbd6D5ZL7hHtybFNpEKNGEY=;
+ b=AC5mqVJgoMmhA3Zb/MSpoOfeAR1ZVSKJIcEc3MCzA3Z142xI8pEe5Db6aR194cu0YG
+ dQg4sGBvsBLzcNVS30nO3nsg4A5aIkIWhaKY0cH5NPe426IyTy97+6PjNlMy2MAmThiE
+ oSkncAjB3E+cDANu0EbBiwfK4POGt/e3CrAED3dWbXLCb6n1wHd5xTXYiJeuS7seljip
+ a46TZb5pKbKx/saN9zIJABswzIAOD3hmh9QneQKXOUA+XHalTCN/Yqat2LLHnjaLhWLd
+ zQusI0eJNMQoSNAjwWLUYKcpPaIiv7GF2K0JSSgaVbamua77vJdorFfiZT0I1UAzFhSU
+ Psmw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783749737;
  s=strato-dkim-0003; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=5Okt1Bb33hbe5/L8F0+NBgH6ufNIVFYW7HZ0thAd5DA=;
- b=hDVrjEmIFOAJHf7Fq5bMo30S77ZameLirNq7/VgCssyuhHYXNrG8TlO2qfaxIuT8fw
- tWgU5Cx0gbYidKyBDHAA==
+ bh=c2DakEhHWnDx3DdMaI7lEbd6D5ZL7hHtybFNpEKNGEY=;
+ b=+jn36CyMpIt/846xR0wkPkUKOdBAInJWGBq2O5KYF6pSDWRs3pT4NMJFVBeD+fyNBz
+ ekmrFK8i/KxIrSgszUAg==
 X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrT35oLmciNszeF4HOToVDOd6S1gdjuILE2MKVd"
 Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.5.6 AUTH)
- with ESMTPSA id Q4b76426B628Ghm
+ with ESMTPSA id Q4b76426B62GGht
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Sat, 11 Jul 2026 08:02:08 +0200 (CEST)
+ Sat, 11 Jul 2026 08:02:16 +0200 (CEST)
 From: "H. Nikolaus Schaller" <hns@goldelico.com>
 To: Grond <grond66@riseup.net>, Stefan Leichter <sle85276@gmx.de>,
  "H . Nikolaus Schaller" <hns@goldelico.com>,
@@ -90,10 +90,10 @@ Cc: letux-kernel@openphoenux.org, devicetree@vger.kernel.org,
  linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
  kernel@pyra-handheld.com, mfd@lists.linux.dev
-Subject: [PATCH 02/16] regulator: twl: Expose the TWL4030's REGEN signal as a
- regulator
-Date: Sat, 11 Jul 2026 08:01:49 +0200
-Message-ID: <1746667e5c17e2d39fc0747d7e098b32b3d7b479.1783749722.git.hns@goldelico.com>
+Subject: [PATCH 08/16] ASoC: pcm1773-codec: write a driver for the PCM1773
+ chip from TI
+Date: Sat, 11 Jul 2026 08:01:55 +0200
+Message-ID: <7d8989813cbd750259dfdde2e1187082493279a0.1783749722.git.hns@goldelico.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <cover.1783749722.git.hns@goldelico.com>
 References: <cover.1783749722.git.hns@goldelico.com>
@@ -117,135 +117,194 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Grond <grond66@riseup.net>
 
-This is needed on some boards (for example, the Pandora), where REGEN is
-used to drive external regulators.
+This chip is used in the OpenPandora.
 
 Signed-off-by: Grond <grond66@riseup.net>
 Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 ---
- drivers/regulator/twl-regulator.c | 52 +++++++++++++++++++++++++++++++
- include/linux/mfd/twl.h           |  3 ++
- 2 files changed, 55 insertions(+)
+ sound/soc/codecs/Kconfig   |   5 ++
+ sound/soc/codecs/pcm1773.c | 149 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 154 insertions(+)
+ create mode 100644 sound/soc/codecs/pcm1773.c
 
-diff --git a/drivers/regulator/twl-regulator.c b/drivers/regulator/twl-regulator.c
-index 5bacfcebf59aa..d883ee8abec32 100644
---- a/drivers/regulator/twl-regulator.c
-+++ b/drivers/regulator/twl-regulator.c
-@@ -451,6 +451,16 @@ static const struct regulator_ops twl4030fixed_ops = {
- 	.get_status	= twl4030reg_get_status,
- };
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 252f683be3c18..3e186652fa06d 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -182,6 +182,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_HDMI_CODEC
+ 	imply SND_SOC_PCM1681
+ 	imply SND_SOC_PCM1754
++	imply SND_SOC_PCM1773
+ 	imply SND_SOC_PCM1789_I2C
+ 	imply SND_SOC_PCM179X_I2C
+ 	imply SND_SOC_PCM179X_SPI
+@@ -1541,6 +1542,10 @@ config SND_SOC_PCM1754
+ 	tristate "Texas Instruments PCM1754 CODEC"
+ 	depends on GPIOLIB
  
-+static const struct regulator_ops twl4030signal_ops = {
-+	.enable		= twl4030reg_enable,
-+	.disable	= twl4030reg_disable,
-+	.is_enabled	= twl4030reg_is_enabled,
++config SND_SOC_PCM1773
++	tristate "Texas Instruments PCM1773 CODEC"
++	select GPIOLIB
 +
-+	.set_mode	= twl4030reg_set_mode,
+ config SND_SOC_PCM1789
+ 	tristate
+ 
+diff --git a/sound/soc/codecs/pcm1773.c b/sound/soc/codecs/pcm1773.c
+new file mode 100644
+index 0000000000000..75f9fe40a89d5
+--- /dev/null
++++ b/sound/soc/codecs/pcm1773.c
+@@ -0,0 +1,149 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * pcm1773.c -- codec for the simple PCM1773 output codec from TI
++ *
++ * Shamelessly cobbled together from sound/soc/ti/omap3pandora.c and a few
++ * other codec drivers in sound/soc/codecs/
++ *
++ * Author: Grond <grond66@riseup.net>
++ */
 +
-+	.get_status	= twl4030reg_get_status,
++#include <linux/gpio/consumer.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/regulator/consumer.h>
++#include <sound/soc.h>
++
++struct pcm1773 {
++	struct regulator *regulator;
++	struct gpio_desc *enable_gpio;
 +};
 +
- /*----------------------------------------------------------------------*/
- 
- #define TWL4030_ADJUSTABLE_LDO(label, offset, num, turnon_delay, remap_conf) \
-@@ -511,6 +521,24 @@ static const struct twlreg_info TWLFIXED_INFO_##label = { \
- 		}, \
- 	}
- 
-+#define TWL4030_SIGNAL(label, offset, num, remap_conf) \
-+static const struct twlreg_info TWLSIGNAL_INFO_##label = { \
-+	.base = offset, \
-+	.id = num, \
-+	.remap = remap_conf, \
-+	.desc = { \
-+		.name = #label, \
-+		.id = TWL4030_REG_##label, \
-+		.n_voltages = 1, \
-+		.fixed_uV = 0, /* filled in from DT later */ \
-+		.ops = &twl4030signal_ops, \
-+		.type = REGULATOR_VOLTAGE, \
-+		.owner = THIS_MODULE, \
-+		.enable_time = 0, /* also filled in from DT */ \
-+		.of_map_mode = twl4030reg_map_mode, \
-+		}, \
++static int pcm1773_dac_event(struct snd_soc_dapm_widget *w,
++			     struct snd_kcontrol *k, int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++	struct pcm1773 *ctx = snd_soc_component_get_drvdata(component);
++	struct device *dev = component->dev;
++	int ret;
++
++	/*
++	 * The PCM1773 DAC datasheet requires 1ms delay between switching
++	 * VCC power on/off and /PD pin high/low
++	 */
++	if (SND_SOC_DAPM_EVENT_ON(event)) {
++		if (ctx->regulator) {
++			ret = regulator_enable(ctx->regulator);
++			if (ret) {
++				dev_err(dev, "Failed to power DAC: %d\n", ret);
++				return ret;
++			}
++			mdelay(1);
++		}
++
++		if (ctx->enable_gpio)
++			gpiod_set_value_cansleep(ctx->enable_gpio, 1);
++	} else {
++		if (ctx->enable_gpio)
++			gpiod_set_value_cansleep(ctx->enable_gpio, 0);
++
++		if (ctx->regulator) {
++			mdelay(1);
++			regulator_disable(ctx->regulator);
++		}
 +	}
 +
- /*
-  * We list regulators here if systems need some level of
-  * software control over them after boot.
-@@ -536,6 +564,7 @@ TWL4030_FIXED_LDO(VINTDIG, 0x47, 1500, 13, 100, 0x08);
- TWL4030_FIXED_LDO(VUSB1V5, 0x71, 1500, 17, 100, 0x08);
- TWL4030_FIXED_LDO(VUSB1V8, 0x74, 1800, 18, 100, 0x08);
- TWL4030_FIXED_LDO(VUSB3V1, 0x77, 3100, 19, 150, 0x08);
-+TWL4030_SIGNAL(REGEN, 0x7f, 21, 0x08);
- 
- #define TWL_OF_MATCH(comp, family, label) \
- 	{ \
-@@ -548,6 +577,7 @@ TWL4030_FIXED_LDO(VUSB3V1, 0x77, 3100, 19, 150, 0x08);
- #define TWL6032_OF_MATCH(comp, label) TWL_OF_MATCH(comp, TWL6032, label)
- #define TWLFIXED_OF_MATCH(comp, label) TWL_OF_MATCH(comp, TWLFIXED, label)
- #define TWLSMPS_OF_MATCH(comp, label) TWL_OF_MATCH(comp, TWLSMPS, label)
-+#define TWLSIGNAL_OF_MATCH(comp, label) TWL_OF_MATCH(comp, TWLSIGNAL, label)
- 
- static const struct of_device_id twl_of_match[] = {
- 	TWL4030_OF_MATCH("ti,twl4030-vaux1", VAUX1),
-@@ -570,6 +600,7 @@ static const struct of_device_id twl_of_match[] = {
- 	TWLFIXED_OF_MATCH("ti,twl4030-vusb1v5", VUSB1V5),
- 	TWLFIXED_OF_MATCH("ti,twl4030-vusb1v8", VUSB1V8),
- 	TWLFIXED_OF_MATCH("ti,twl4030-vusb3v1", VUSB3V1),
-+	TWLSIGNAL_OF_MATCH("ti,twl4030-regen", REGEN),
- 	{},
- };
- MODULE_DEVICE_TABLE(of, twl_of_match);
-@@ -583,6 +614,7 @@ static int twlreg_probe(struct platform_device *pdev)
- 	struct regulation_constraints	*c;
- 	struct regulator_dev		*rdev;
- 	struct regulator_config		config = { };
++	return 0;
++}
++
++static const struct snd_soc_dapm_widget pcm1773_dapm_widgets[] = {
++	SND_SOC_DAPM_DAC_E("PCM1773 DAC", "HiFi Playback", SND_SOC_NOPM,
++			   0, 0, pcm1773_dac_event,
++			   SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
++};
++
++static const struct snd_soc_dapm_route pcm1773_dapm_routes[] = {
++	/* tell DAPM that the main stream flows to the PCM1773 */
++	{"PCM1773 DAC", NULL, "PCM1773 IN"},
++};
++
++static struct snd_soc_dai_driver pcm1773_dai = {
++	.name = "pcm1773-hifi",
++	.playback = {
++		.stream_name = "PCM1773 IN",
++		.channels_min = 2,
++		.channels_max = 2,
++		.rates = SNDRV_PCM_RATE_8000_48000,
++		// [TODO] these really should be BE, per the data sheet but for
++		// some reason the omap-mcbsp driver claims only to support LE.
++		// investigate
++		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
++	},
++};
++
++static int pcm1773_probe(struct snd_soc_component *component)
++{
++	struct pcm1773 *ctx = NULL;
++	struct device *dev = component->dev;
 +	int ret;
- 
- 	template = of_device_get_match_data(&pdev->dev);
- 	if (!template)
-@@ -615,6 +647,26 @@ static int twlreg_probe(struct platform_device *pdev)
- 	case TWL4030_REG_VINTANA2:
- 	case TWL4030_REG_VINTDIG:
- 		c->always_on = true;
-+		break;
-+	case TWL4030_REG_REGEN:
-+		if (c->min_uV == 0 || c->max_uV == 0) {
-+			dev_err(&pdev->dev, "minimum or maximum regulator voltage zero in DT\n");
-+			return -EINVAL;
-+		}
 +
-+		if (c->min_uV != c->max_uV) {
-+			dev_err(&pdev->dev, "minimum and maximum voltage are different in DT\n");
-+			return -EINVAL;
-+		}
-+		info->desc.fixed_uV = c->min_uV;
++	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
++	if (!ctx)
++		return -ENOMEM;
++	snd_soc_component_set_drvdata(component, ctx);
 +
-+		ret = of_property_read_u32(pdev->dev.of_node, "startup-delay-us",
-+					   &info->desc.enable_time);
-+		if (ret) {
-+			dev_err(&pdev->dev, "no valid startup delay set in DT: %d\n", ret);
-+			return ret;
-+		}
++	ctx->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_LOW);
++	if (IS_ERR(ctx->enable_gpio)) {
++		return dev_err_probe(dev, PTR_ERR(ctx->enable_gpio),
++				     "invalid GPIO specification for enable");
++	}
++	if (ctx->enable_gpio)
++		dev_dbg(dev, "got enable-gpio\n");
++	else
++		dev_warn(dev, "enable-gpio not specified\n");
 +
- 		break;
- 	default:
- 		break;
-diff --git a/include/linux/mfd/twl.h b/include/linux/mfd/twl.h
-index b31e07fa4d516..d249b4b22c898 100644
---- a/include/linux/mfd/twl.h
-+++ b/include/linux/mfd/twl.h
-@@ -738,6 +738,9 @@ int twl4030_sih_setup(struct device *dev, int module, int irq_base);
- #define TWL4030_REG_VUSB1V8	18
- #define TWL4030_REG_VUSB3V1	19
- 
-+/* digital output signal for enabling external regulators */
-+#define TWL4030_REG_REGEN	21
++	ctx->regulator = devm_regulator_get(dev, "vcc");
++	if (IS_ERR(ctx->regulator)) {
++		dev_warn(dev, "cannot get regulator 'vcc'");
++		ctx->regulator = NULL;
++	}
 +
- /* TWL6030 SMPS/LDO's */
- /* EXTERNAL dc-to-dc buck convertor controllable via SR */
- #define TWL6030_REG_VDD1	30
++	return 0;
++}
++
++static const struct snd_soc_component_driver soc_component_dev_pcm1773 = {
++	.probe = pcm1773_probe,
++	.dapm_widgets = pcm1773_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(pcm1773_dapm_widgets),
++	.dapm_routes = pcm1773_dapm_routes,
++	.num_dapm_routes = ARRAY_SIZE(pcm1773_dapm_routes),
++};
++
++static int pcm1773_codec_probe(struct platform_device *pdev)
++{
++	return devm_snd_soc_register_component(&pdev->dev,
++		&soc_component_dev_pcm1773,
++		&pcm1773_dai, 1);
++}
++
++static const struct of_device_id pcm1773_of_match[] = {
++	{
++		.compatible = "ti,pcm1773",
++	},
++	{ },
++};
++MODULE_DEVICE_TABLE(of, pcm1773_of_match);
++
++static struct platform_driver pcm1773_codec_driver = {
++	.probe = pcm1773_codec_probe,
++	.driver = {
++		.name = "pcm1773-codec",
++		.of_match_table = pcm1773_of_match,
++	},
++};
++
++module_platform_driver(pcm1773_codec_driver);
++
++MODULE_DESCRIPTION("ASoC codec driver PCM1773");
++MODULE_AUTHOR("Grond");
++MODULE_LICENSE("GPL");
 -- 
 2.50.1 (Apple Git-155)
 
