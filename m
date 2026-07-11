@@ -4,126 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB412C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF09DC44506
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:11:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7D5610E7DC;
-	Mon, 13 Jul 2026 07:10:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB62110E7E5;
+	Mon, 13 Jul 2026 07:10:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Yvcme1ie";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b3IJ5UKX";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE05810E50F;
- Fri, 10 Jul 2026 20:24:05 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80F4B89A1F;
+ Sat, 11 Jul 2026 18:46:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A9AD6411DC;
- Fri, 10 Jul 2026 20:24:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B448D1F00A3A;
- Fri, 10 Jul 2026 20:23:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EA6AD60052;
+ Sat, 11 Jul 2026 18:46:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2428F1F00A3A;
+ Sat, 11 Jul 2026 18:45:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783715045;
- bh=7rHiUFVguoq1IEHDVydiWk+wjTNnrgUwNwUljwJg4jE=;
+ s=k20260515; t=1783795563;
+ bh=4X8Clz3fd1owNiO9Pv6vUhPn41dQXdJma9VDgzp5GpU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Yvcme1ieNXyFDoo+lIS03nV9pipt34r5wD+C/clXyI1xGd4MIhe9cWBew+GBWRUkJ
- OfNs6ewKzvo+PT4kUyxpZzl1C28zcBojxJSpeoM1fltsLT4Q3YftMtg84J6KqN16lM
- i6bmnzRy3cNRGNjTONoKz6tAu0Xm9REPzvoTin9cYBi7f97Cr3waoYlROrRJyJh08B
- iFqx09yKxv+YjA7GXu/KYTgZod4stmW3dMbcoBXT5wmPGSf8M/ZsOcAn4azvutQbxN
- YKaBXd6IIQNWqpqMBTU8pGx5qikO6e/CXGgvZLiiCoSPGHjrXioIbjQ0XF2RIK/9G/
- CmjN3WgETetvA==
+ b=b3IJ5UKXJWHdstaNE7y5ot+/3k3QKa6AhRc7Wffa4hfZ305PVpEvaJKNGHLJ3wiys
+ kqVIiX25qZVXJaTT+Qgjr5ODbLIA55N49hux0vbRs0et3au9LBQKwrVwghVFXrLl7E
+ 817VHGE33QrB50d5C1LscqS/7pNneUD0nYGcnWDai8gQyjsw4TcvH+fgmF1OwsvnN9
+ 2pvaWR1/mhz3yp4qVYs3qwET2uh7D30e/8XDBnKYPp1TnRGR39oxh4CFkY52uJlQ/8
+ VseCL2NAhZF2r9D5qvydoKSBQPUnQ2/tkYhPSxvwJKQj0iFEdbJlYmSDUW8OLt0N5o
+ c+59QXF0t/z1Q==
 From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Fri, 10 Jul 2026 21:16:58 +0100
-Subject: [PATCH v2 17/33] mm: introduce and use linear_page_delta()
+Date: Sat, 11 Jul 2026 19:44:58 +0100
+Subject: [PATCH v2 01/13] mm: introduce vma_flags_can_grow() and vma_can_grow()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-b4-pre-scalable-cow-v2-17-2a5aa403d977@kernel.org>
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
-In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+Message-Id: <20260711-b4-vma-flags-mm-v2-1-0fa2357d5431@kernel.org>
+References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  David Hildenbrand <david@kernel.org>, 
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
- Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Michal Hocko <mhocko@suse.com>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
  Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>, 
- Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Andrey Konovalov <andreyknvl@gmail.com>, 
- Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>, 
- Lucas Stach <l.stach@pengutronix.de>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Zi Yan <ziy@nvidia.com>, 
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
  Rob Clark <robin.clark@oss.qualcomm.com>, 
  Dmitry Baryshkov <lumag@kernel.org>, 
  Abhinav Kumar <abhinav.kumar@linux.dev>, 
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
  Thierry Reding <thierry.reding@kernel.org>, 
  Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Yishai Hadas <yishaih@nvidia.com>, 
- Shameer Kolothum <skolothumtho@nvidia.com>, 
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Paolo Bonzini <pbonzini@redhat.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Usama Arif <usama.arif@linux.dev>
+ Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+ Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
 Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev, 
- iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
- kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>, 
- Ackerley Tng <ackerleytng@google.com>
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev, 
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
+ linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2722; i=ljs@kernel.org;
- h=from:subject:message-id; bh=RyHoLL9QYKzn8GmfhUypF1HMy7j9yuNgRKqt7m0CxCM=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg20sa5N6ffOdZY/uuM49Q6T0gTqfSuNy/0tvAlWFV
- naFqt7oKGVhEONikBVTZHn+RXx/kEjYvM4L/m4wc1iZQIYwcHEKwEQiUhj+CqbqT5iddiQ5f9qS
- CascLV90qXjKHGEJqw4LrAm3UHI/xcjwb/6q1bkn6llcu88Ye2TFXFveuNVaLfBPeaex5DqGCYy
- MAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2177; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=oSsuzEZdPIZ+otSvvS1qpHgk2++YqmMZy2jJkjlchbs=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+i1DpYuvr35hfGA9T/DrI/smfbvJXDzdl/eEd9+FF
+ xnT800OdZSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiZhoM/6xY7sV0KDJr3XKY
+ uPtiX7X4ZaX5Xemv3hiY8c63tfCt1WL4xXQgV6XZa8a6lMQPuqVRFwM4zMVNbzY+TJao67/8NWA
+ vKwA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
@@ -142,83 +132,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It's often useful to obtain the number of pages a given address lies at
-within a VMA.
+These test whether the VMA has stack semantics, i.e. is able to grow
+upwards or downwards depending on the architecture.
 
-Add linear_page_delta() to determine this and update linear_page_index() to
-make use of it.
-
-Add comments to describe both linear_page_delta() and linear_page_index().
-
-We refer the reader to the comment for vma_start_pgoff() so we don't
-duplicate information about the meaning of a VMA's page offset, which is
-also less likely to result in bitrot.
+In order to account for arches which do not support upward-growing stacks,
+introduce VMA_GROWSUP whose definition depends on the architecture
+supporting it, and use vma_flags_test_single_mask() in vma_flags_can_grow()
+to account for this.
 
 No functional change intended.
 
-Reviewed-by: Ackerley Tng <ackerleytng@google.com>
-Reviewed-by: Gregory Price <gourry@gourry.net>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- include/linux/pagemap.h | 33 +++++++++++++++++++++++++++++++--
- 1 file changed, 31 insertions(+), 2 deletions(-)
+ include/linux/mm.h | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-index 2c3718d592d6..a950070b045f 100644
---- a/include/linux/pagemap.h
-+++ b/include/linux/pagemap.h
-@@ -1063,11 +1063,40 @@ static inline pgoff_t folio_pgoff(const struct folio *folio)
- 	return folio->index;
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 32bb723ffbb9..7a7f559b3df0 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -474,6 +474,7 @@ enum {
+ #define VM_SAO		INIT_VM_FLAG(SAO)
+ #elif defined(CONFIG_PARISC)
+ #define VM_GROWSUP	INIT_VM_FLAG(GROWSUP)
++#define VMA_GROWSUP	mk_vma_flags(VMA_GROWSUP_BIT)
+ #elif defined(CONFIG_SPARC64)
+ #define VM_SPARC_ADI	INIT_VM_FLAG(SPARC_ADI)
+ #define VM_ARCH_CLEAR	INIT_VM_FLAG(ARCH_CLEAR)
+@@ -485,6 +486,7 @@ enum {
+ #endif
+ #ifndef VM_GROWSUP
+ #define VM_GROWSUP	VM_NONE
++#define VMA_GROWSUP	EMPTY_VMA_FLAGS
+ #endif
+ #ifdef CONFIG_ARM64_MTE
+ #define VM_MTE		INIT_VM_FLAG(MTE)
+@@ -1578,11 +1580,24 @@ static inline bool vma_is_initial_stack(const struct vm_area_struct *vma)
+ 		vma->vm_end >= vma->vm_mm->start_stack;
  }
  
-+/**
-+ * linear_page_delta() - Determine the relative page offset of @address within
-+ * @vma.
-+ * @vma: The VMA in which @address resides.
-+ * @address: The address whose relative page offset is required.
-+ *
-+ * The result is identical for both file-backed and anonymous mappings and
-+ * simply determines how many pages @address lies from @vma->vm_start.
-+ *
-+ * Returns: The number of pages @address is offset by within @vma.
-+ */
-+static inline pgoff_t linear_page_delta(const struct vm_area_struct *vma,
-+					const unsigned long address)
+-static inline bool vma_is_temporary_stack(const struct vm_area_struct *vma)
++static inline bool vma_flags_can_grow(const vma_flags_t *flags)
+ {
+-	int maybe_stack = vma->vm_flags & (VM_GROWSDOWN | VM_GROWSUP);
++	if (vma_flags_test_single_mask(flags, VMA_GROWSUP))
++		return true;
++	if (vma_flags_test(flags, VMA_GROWSDOWN_BIT))
++		return true;
++
++	return false;
++}
+ 
+-	if (!maybe_stack)
++static inline bool vma_can_grow(const struct vm_area_struct *vma)
 +{
-+	return (address - vma->vm_start) >> PAGE_SHIFT;
++	return vma_flags_can_grow(&vma->flags);
 +}
 +
-+/**
-+ * linear_page_index() - Determine the absolute page offset of @address within
-+ * @vma.
-+ * @vma: The VMA in which @address resides.
-+ * @address: The address whose absolute page offset is required.
-+ *
-+ * See the comment for vma_start_pgoff() for a description of what the page
-+ * offset signifies.
-+ *
-+ * Returns: The absolute page offset of @address within @vma.
-+ */
- static inline pgoff_t linear_page_index(const struct vm_area_struct *vma,
- 					const unsigned long address)
- {
- 	pgoff_t pgoff;
--	pgoff = (address - vma->vm_start) >> PAGE_SHIFT;
-+
-+	pgoff = linear_page_delta(vma, address);
- 	pgoff += vma->vm_pgoff;
- 	return pgoff;
- }
-@@ -1219,7 +1248,7 @@ static inline vm_fault_t folio_lock_or_retry(struct folio *folio,
- void folio_wait_bit(struct folio *folio, int bit_nr);
- int folio_wait_bit_killable(struct folio *folio, int bit_nr);
++static inline bool vma_is_temporary_stack(const struct vm_area_struct *vma)
++{
++	if (!vma_can_grow(vma))
+ 		return false;
  
--/* 
-+/*
-  * Wait for a folio to be unlocked.
-  *
-  * This must be called with the caller "holding" the folio,
+ 	if ((vma->vm_flags & VM_STACK_INCOMPLETE_SETUP) ==
 
 -- 
 2.55.0
