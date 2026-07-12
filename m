@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF395C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 13:54:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4139CC43458
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 13:54:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EEC210E46E;
-	Sun, 12 Jul 2026 13:54:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A705210E472;
+	Sun, 12 Jul 2026 13:54:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="SvLyWJeh";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="s0N/ZBXJ";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6825610E46E
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 13:54:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7D70710E470
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 13:54:54 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9F8A21BB2;
- Sun, 12 Jul 2026 06:54:46 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BA9981684;
+ Sun, 12 Jul 2026 06:54:49 -0700 (PDT)
 Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com
  [10.42.46.160])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5F42C3F7D8;
- Sun, 12 Jul 2026 06:54:48 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 50D763F7D8;
+ Sun, 12 Jul 2026 06:54:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1783864490; bh=r0aRd83PxUdqrq7QseJnx2XvSdqq33zFHUbq1D38tOo=;
+ t=1783864494; bh=AECzyyBsTPn756pAm2Zz9lalYMCyXNCh2wmchjJwJ2U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SvLyWJehFCcvFwhSx+sDjCah9sQfbzuhqSkzUeGlmaosIDGgHmlCD0pKx9FG6IDjl
- mRZpTXlp14UG16uu/i9WybsHYvFqYBupBEgeOCG7SR/gzLy7cmVx6+FDOklcAX0U3e
- tH8ccjzIYE3k/EdCKe6FNtyTWhnMCQKYgxo5JC7w=
+ b=s0N/ZBXJy5fuRpuaniv4sXBx6YYhuILtmmvJg528CVmD7y8kJSbVbCwqN029CeQVb
+ Z/pHM5f4ETKNVev9Qg/BGBNC/+d/1jp2GyPR/zIYNcUqBLWkRYnNoE6fMgA88gl69o
+ SvHzlpDURl5NRV9Shz84O+Ix1ZGgOK22l7TS/auU=
 From: Ketil Johnsen <ketil.johnsen@arm.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>,
  Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
@@ -38,10 +38,11 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
  Daniel Almeida <daniel.almeida@collabora.com>,
  Alice Ryhl <aliceryhl@google.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Florent Tomasin <florent.tomasin@arm.com>,
  Ketil Johnsen <ketil.johnsen@arm.com>
-Subject: [PATCH v2 1/7] drm/panthor: De-duplicate FW memory section sync
-Date: Sun, 12 Jul 2026 15:54:33 +0200
-Message-ID: <20260712135439.1546950-2-ketil.johnsen@arm.com>
+Subject: [PATCH v2 2/7] drm/panthor: Minor scheduler refactoring
+Date: Sun, 12 Jul 2026 15:54:34 +0200
+Message-ID: <20260712135439.1546950-3-ketil.johnsen@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260712135439.1546950-1-ketil.johnsen@arm.com>
 References: <20260712135439.1546950-1-ketil.johnsen@arm.com>
@@ -62,85 +63,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Handle the sync to device of FW memory sections inside
-panthor_fw_init_section_mem() so that the callers do not have to.
+From: Florent Tomasin <florent.tomasin@arm.com>
 
-This small improvement is also critical for protected FW sections,
-so we avoid issuing memory transactions to protected memory from
-CPU running in normal mode.
+Refactor parts of the group scheduling logic into new helper functions.
+This will simplify addition of the protected mode feature.
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Remove redundant assignments of csg_slot.
+
+Signed-off-by: Florent Tomasin <florent.tomasin@arm.com>
+Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
 Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
 ---
- drivers/gpu/drm/panthor/panthor_fw.c | 22 ++++++----------------
- 1 file changed, 6 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/panthor/panthor_sched.c | 126 ++++++++++++++----------
+ 1 file changed, 74 insertions(+), 52 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index 986151681b246..389f9182fac16 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -449,6 +449,7 @@ static void panthor_fw_init_section_mem(struct panthor_device *ptdev,
- 					struct panthor_fw_section *section)
- {
- 	bool was_mapped = !!section->mem->kmap;
-+	struct sg_table *sgt;
- 	int ret;
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 5b34032deff81..465f1b86249f8 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -2267,12 +2267,75 @@ tick_ctx_cleanup(struct panthor_scheduler *sched,
+ 	}
+ }
  
- 	if (!section->data.size &&
-@@ -467,6 +468,11 @@ static void panthor_fw_init_section_mem(struct panthor_device *ptdev,
- 
- 	if (!was_mapped)
- 		panthor_kernel_bo_vunmap(section->mem);
++static void
++tick_ctx_evict_group(struct panthor_scheduler *sched,
++		     struct panthor_csg_slots_upd_ctx *upd_ctx,
++		     struct panthor_group *group)
++{
++	struct panthor_device *ptdev = sched->ptdev;
 +
-+	/* An sgt should have been requested when the kernel BO was GPU-mapped. */
-+	sgt = to_panthor_bo(section->mem->obj)->dmap.sgt;
-+	if (!drm_WARN_ON_ONCE(&ptdev->base, !sgt))
-+		dma_sync_sgtable_for_device(ptdev->base.dev, sgt, DMA_TO_DEVICE);
- }
++	if (drm_WARN_ON(&ptdev->base, group->csg_id < 0))
++		return;
++
++	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, group->csg_id,
++				group_can_run(group) ?
++				CSG_STATE_SUSPEND : CSG_STATE_TERMINATE,
++				CSG_STATE_MASK);
++}
++
++static void
++tick_ctx_reschedule_group(struct panthor_scheduler *sched,
++			  struct panthor_csg_slots_upd_ctx *upd_ctx,
++			  struct panthor_group *group,
++			  int new_csg_prio)
++{
++	struct panthor_device *ptdev = sched->ptdev;
++	struct panthor_fw_csg_iface *csg_iface;
++	struct panthor_csg_slot *csg_slot;
++
++	if (group->csg_id < 0)
++		return;
++
++	csg_iface = panthor_fw_get_csg_iface(ptdev, group->csg_id);
++	csg_slot = &sched->csg_slots[group->csg_id];
++
++	if (csg_slot->priority != new_csg_prio) {
++		panthor_fw_update_reqs(csg_iface, endpoint_req,
++				       CSG_EP_REQ_PRIORITY(new_csg_prio),
++				       CSG_EP_REQ_PRIORITY_MASK);
++		csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, group->csg_id,
++					csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
++					CSG_ENDPOINT_CONFIG);
++	}
++}
++
++static void
++tick_ctx_schedule_group(struct panthor_scheduler *sched,
++			struct panthor_csg_slots_upd_ctx *upd_ctx,
++			struct panthor_group *group,
++			int csg_id, int csg_prio)
++{
++	struct panthor_device *ptdev = sched->ptdev;
++	struct panthor_fw_csg_iface *csg_iface =
++		panthor_fw_get_csg_iface(ptdev, csg_id);
++
++	group_bind_locked(group, csg_id);
++	csg_slot_prog_locked(ptdev, csg_id, csg_prio);
++
++	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, csg_id,
++				group->state == PANTHOR_CS_GROUP_SUSPENDED ?
++				CSG_STATE_RESUME : CSG_STATE_START,
++				CSG_STATE_MASK);
++	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, csg_id,
++				csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
++				CSG_ENDPOINT_CONFIG);
++}
++
+ static void
+ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *ctx)
+ {
+ 	struct panthor_group *group, *tmp;
+ 	struct panthor_device *ptdev = sched->ptdev;
+-	struct panthor_csg_slot *csg_slot;
+ 	int prio, new_csg_prio = MAX_CSG_PRIO, i;
+ 	u32 free_csg_slots = 0;
+ 	struct panthor_csg_slots_upd_ctx upd_ctx;
+@@ -2282,44 +2345,13 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
  
- /**
-@@ -629,7 +635,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
- 	section_size = hdr.va.end - hdr.va.start;
- 	if (section_size) {
- 		u32 cache_mode = hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_CACHE_MODE_MASK;
--		struct panthor_gem_object *bo;
- 		u32 vm_map_flags = 0;
- 		u64 va = hdr.va.start;
+ 	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1; prio >= 0; prio--) {
+ 		/* Suspend or terminate evicted groups. */
+-		list_for_each_entry(group, &ctx->old_groups[prio], run_node) {
+-			bool term = !group_can_run(group);
+-			int csg_id = group->csg_id;
+-
+-			if (drm_WARN_ON(&ptdev->base, csg_id < 0))
+-				continue;
+-
+-			csg_slot = &sched->csg_slots[csg_id];
+-			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
+-						term ? CSG_STATE_TERMINATE : CSG_STATE_SUSPEND,
+-						CSG_STATE_MASK);
+-		}
++		list_for_each_entry(group, &ctx->old_groups[prio], run_node)
++			tick_ctx_evict_group(sched, &upd_ctx, group);
  
-@@ -666,14 +671,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+ 		/* Update priorities on already running groups. */
+-		list_for_each_entry(group, &ctx->groups[prio], run_node) {
+-			struct panthor_fw_csg_iface *csg_iface;
+-			int csg_id = group->csg_id;
+-
+-			if (csg_id < 0) {
+-				new_csg_prio--;
+-				continue;
+-			}
+-
+-			csg_slot = &sched->csg_slots[csg_id];
+-			csg_iface = panthor_fw_get_csg_iface(ptdev, csg_id);
+-			if (csg_slot->priority == new_csg_prio) {
+-				new_csg_prio--;
+-				continue;
+-			}
+-
+-			panthor_fw_csg_endpoint_req_update(ptdev, csg_iface,
+-							   CSG_EP_REQ_PRIORITY(new_csg_prio),
+-							   CSG_EP_REQ_PRIORITY_MASK);
+-			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
+-						csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
+-						CSG_ENDPOINT_CONFIG);
+-			new_csg_prio--;
+-		}
++		list_for_each_entry(group, &ctx->groups[prio], run_node)
++			tick_ctx_reschedule_group(sched, &upd_ctx, group,
++						  new_csg_prio--);
+ 	}
+ 
+ 	ret = csgs_upd_ctx_apply_locked(ptdev, &upd_ctx);
+@@ -2355,28 +2387,18 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
+ 	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1; prio >= 0; prio--) {
+ 		list_for_each_entry(group, &ctx->groups[prio], run_node) {
+ 			int csg_id = group->csg_id;
+-			struct panthor_fw_csg_iface *csg_iface;
++			int csg_prio = new_csg_prio--;
+ 
+-			if (csg_id >= 0) {
+-				new_csg_prio--;
++			if (csg_id >= 0)
+ 				continue;
+-			}
+ 
+ 			csg_id = ffs(free_csg_slots) - 1;
+ 			if (drm_WARN_ON(&ptdev->base, csg_id < 0))
+ 				break;
+ 
+-			csg_iface = panthor_fw_get_csg_iface(ptdev, csg_id);
+-			csg_slot = &sched->csg_slots[csg_id];
+-			group_bind_locked(group, csg_id);
+-			csg_slot_prog_locked(ptdev, csg_id, new_csg_prio--);
+-			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
+-						group->state == PANTHOR_CS_GROUP_SUSPENDED ?
+-						CSG_STATE_RESUME : CSG_STATE_START,
+-						CSG_STATE_MASK);
+-			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
+-						csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
+-						CSG_ENDPOINT_CONFIG);
++			tick_ctx_schedule_group(sched, &upd_ctx, group, csg_id,
++						csg_prio);
++
+ 			free_csg_slots &= ~BIT(csg_id);
  		}
- 
- 		panthor_fw_init_section_mem(ptdev, section);
--
--		bo = to_panthor_bo(section->mem->obj);
--
--		/* An sgt should have been requested when the kernel BO was GPU-mapped. */
--		if (drm_WARN_ON_ONCE(&ptdev->base, !bo->dmap.sgt))
--			return -EINVAL;
--
--		dma_sync_sgtable_for_device(ptdev->base.dev, bo->dmap.sgt, DMA_TO_DEVICE);
  	}
- 
- 	if (hdr.va.start == CSF_MCU_SHARED_REGION_START)
-@@ -727,17 +724,10 @@ panthor_reload_fw_sections(struct panthor_device *ptdev, bool full_reload)
- 	struct panthor_fw_section *section;
- 
- 	list_for_each_entry(section, &ptdev->fw->sections, node) {
--		struct sg_table *sgt;
--
- 		if (!full_reload && !(section->flags & CSF_FW_BINARY_IFACE_ENTRY_WR))
- 			continue;
- 
- 		panthor_fw_init_section_mem(ptdev, section);
--
--		/* An sgt should have been requested when the kernel BO was GPU-mapped. */
--		sgt = to_panthor_bo(section->mem->obj)->dmap.sgt;
--		if (!drm_WARN_ON_ONCE(&ptdev->base, !sgt))
--			dma_sync_sgtable_for_device(ptdev->base.dev, sgt, DMA_TO_DEVICE);
- 	}
- }
- 
 -- 
 2.43.0
 
