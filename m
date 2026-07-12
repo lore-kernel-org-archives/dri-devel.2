@@ -4,44 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93FA3C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 12:48:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7473C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 13:40:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 036E010E452;
-	Sun, 12 Jul 2026 12:48:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19F3E10E45A;
+	Sun, 12 Jul 2026 13:40:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Eumjqq18";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VB3aDO17";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 377DF10E452
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 12:48:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B25544326C;
- Sun, 12 Jul 2026 12:48:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 725B61F000E9;
- Sun, 12 Jul 2026 12:48:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783860495;
- bh=NxABF4bQ0vO4pbUBoFVI+QWidPEPiaVQGPG/udvt+eU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Eumjqq186bYIIesngL0EEU39gJwLLKilpPQETZSPZtigYgjLcypySI9P7jI+FIDGI
- L3Jw36hpFa7mKhErMLDUEVy4e0gFDvcw/0daH5RWmKLzSuzvXwlexhUkkQKgA7cWog
- MyCQxGCF1UK5XKnFgw1vCBBTqXEBeGCE6KN3cj0IgirEdkx1Tdyw39+gV5I8CDmilg
- KY9Nf1VcDIGeKeu7upAnOTUT8yGyfX8L5rbgwJZV20kj9IyS7fWUxiiUrYgkrVqHLL
- bXJK10eckPtsy9HMwiYkyasTV5To9lY6rA1TqHT82XtYDhWlRvg2fbZqrp6tyjgMuo
- 0R28ui1dIJ7JA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] drm/nouveau/clk: don't use the pstate cursor
- after the loop
-To: "Francesco Magazzu" <postadelmaga@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260712123616.1180830-3-postadelmaga@gmail.com>
-References: <20260712123616.1180830-1-postadelmaga@gmail.com>
- <20260712123616.1180830-3-postadelmaga@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 12 Jul 2026 12:48:14 +0000
-Message-Id: <20260712124815.725B61F000E9@smtp.kernel.org>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAD4010E45A
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 13:40:05 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 705D640261;
+ Sun, 12 Jul 2026 13:40:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4D784C2BCB9;
+ Sun, 12 Jul 2026 13:40:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1783863605;
+ bh=VF4oES448GeKOYooFFIccE4cclg+MSX91v4GScUJ3jk=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=VB3aDO17PDh6OHUWcr4qNaKci/4zvYJdyFfCEJCrPTS6Qq98tuKwF529edw2SJBhk
+ ejHYT43cJ9+wl4RAf9+nIHWk9oypwgKQPr4ONfcXGPlKxvHQRpV/tRoMVJ9otm6XXF
+ 4GAun65yMsT7ZwzawdLzfrBcK+Yk8v2Z5hZqlwpYXxd8edKyK0wW+NngW7gaU6IDVI
+ WKKbdt1BSkJrzql/RRQhVO7Ip7c70+qzcROYQCaOyziCDlGwWlTvgOJR7YNSUQPDP+
+ jzzpaEWB9kbojTsnDf9OrJZ4bc82CrhWeVUcNB2U7N6bGhaYmxdUDtgnYS1eTFUw1g
+ rxfwIKoxPKEcA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 3A66BC43458;
+ Sun, 12 Jul 2026 13:40:05 +0000 (UTC)
+From: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>
+Date: Sun, 12 Jul 2026 15:39:46 +0200
+Subject: [PATCH] rust: drm: Fix typo in FEAT_RENDER documentation
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260712-docs-drm-feat-render-rustdoc-typo-v1-1-c9df1cbbce4b@younes.io>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWN2wrCMBBEf6XsswttqQb8FfEhl6mNYFp2U6mU/
+ ruJPi1nZji7k0IilK7NToJ31DinAt2pIT/Z9ADHUJj6tr+0pus5zF45yItH2MyCFCAsq+ZScP4
+ sM8OYwdnhPJZLxbMIxrj9ftzuf9bVPeFzFdeFswp2YpOfalRtnLBlOo4vWD1XTaEAAAA=
+X-Change-ID: 20260712-docs-drm-feat-render-rustdoc-typo-e774ba45f774
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783863604; l=1163;
+ i=git@younes.io; s=20260712; h=from:subject:message-id;
+ bh=nFTIjsRD4bAT2kAKAWEo3ns3uC/V61sCbGPMbgYLnGE=;
+ b=mJDT9j37Cs4ako4ZtN9x7e2ECNdlWeueLgwKLlhevca2zuiuJ861CYUDa37FTGv3U8yA3AtLM
+ +tGJLO4D6O/AQOqrADyKe9FAKoYweLjol7FDYAkRMMUR1nfF0iAS3vy
+X-Developer-Key: i=git@younes.io; a=ed25519;
+ pk=1DRfzPrQ04RQHHgGK28t+vjIAPv5oISPiAdLMU6J5dE=
+X-Endpoint-Received: by B4 Relay for git@younes.io/20260712 with
+ auth_id=866
+X-Original-From: Younes Akhouayri <git@younes.io>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,116 +81,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: git@younes.io
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+From: Younes Akhouayri <git@younes.io>
 
-Pre-existing issues:
-- [High] Clobbered Hardware Clock Programming Error in `nvkm_cstate_prog`
-- [High] State Tracking Desync in `nvkm_pstate_prog`
-- [High] Ignored RAM Clock Programming Error in `nvkm_pstate_prog`
---
+Correct the spelling of "privilege" in the DRIVER_RENDER Rustdoc.
 
---- Patch [2]: [PATCH v2 2/4] drm/nouveau/clk: don't use the pstate cursor =
-after the loop ---
-commit 9e641d48c614d5036ae19e8053df44c4f5085e05
-Author: Francesco Magazzu <postadelmaga@gmail.com>
+Signed-off-by: Younes Akhouayri <git@younes.io>
+---
+ rust/kernel/drm/driver.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-drm/nouveau/clk: don't use the pstate cursor after the loop
+diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
+index 25f7e233884d..1dff81442b61 100644
+--- a/rust/kernel/drm/driver.rs
++++ b/rust/kernel/drm/driver.rs
+@@ -125,7 +125,7 @@ pub trait Driver {
+     /// Sets the `DRIVER_RENDER` feature for this driver.
+     ///
+     /// When enabled, the driver exposes `/dev/dri/renderDXX` render nodes to
+-    /// userspace. The render node is an alternate low-priviledge way to access
++    /// userspace. The render node is an alternate low-privilege way to access
+     /// the driver, which is enforced on a per-ioctl level. Userspace processes
+     /// that open the render node can only invoke ioctls explicitly listed as
+     /// usable from the render node (i.e. marked DRM_RENDER_ALLOW), whereas
 
-nvkm_pstate_prog() walks clk->states looking for an entry and uses the
-list_for_each_entry cursor after the loop. Although current callers clamp t=
-he
-index to prevent out-of-bounds access, this leaves a trap for future caller=
-s.
-To fix this, the code now tracks whether the entry was found and returns
--EINVAL if it was not.
+---
+base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+change-id: 20260712-docs-drm-feat-render-rustdoc-typo-e774ba45f774
 
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c b/drivers/gpu=
-/drm/nouveau/nvkm/subdev/clk/base.c
-> index 42f3709e07474..4d546b07f4cbf 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-[ ... ]
-> @@ -270,13 +270,19 @@ nvkm_pstate_prog(struct nvkm_clk *clk, int pstatei)
-[ ... ]
-> +	if (!found)
-> +		return -EINVAL;
-> +
->  	nvkm_debug(subdev, "setting performance state %d\n", pstatei);
->  	clk->pstate =3D pstatei;
+Best regards,
+--  
+Younes Akhouayri <git@younes.io>
 
-[Severity: High]
-This isn't a bug introduced by this patch, but could this prematurely
-update the software state tracker before hardware programming has
-completed and been verified?
 
-If a hardware failure occurs during nvkm_cstate_prog() or RAM clock
-programming, the transition fails.
-
-Because clk->pstate is updated here before hardware programming finishes,
-a failure leaves the hardware out of sync with software.
-
-Future requests for this state might be incorrectly skipped because the
-software evaluates pstate !=3D clk->pstate to false, leaving the hardware
-stuck in an inconsistent state.
-
-drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c:nvkm_pstate_prog() {
-	...
-		do {
-			ret =3D ram->func->calc(ram, khz);
-			if (ret =3D=3D 0)
-				ret =3D ram->func->prog(ram);
-		} while (ret > 0);
-		ram->func->tidy(ram);
-	}
-
-	return nvkm_cstate_prog(clk, pstate, NVKM_CLK_CSTATE_HIGHEST);
-}
-
-[Severity: High]
-This is also a pre-existing issue, but does nvkm_pstate_prog() silently
-discard the RAM clock programming error?
-
-If ram->func->calc() or ram->func->prog() fails and returns a negative error
-code (like -EINVAL or a hardware timeout), the error stored in 'ret' is
-discarded when the loop exits.
-
-The function then proceeds to unconditionally return the result of
-nvkm_cstate_prog().
-
-This decoupling of memory and core clocks could lead to hardware lockups or
-severe screen corruption due to mismatched frequencies.
-
-drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c:nvkm_cstate_prog() {
-	...
-	ret =3D clk->func->calc(clk, cstate);
-	if (ret =3D=3D 0) {
-		ret =3D clk->func->prog(clk);
-		clk->func->tidy(clk);
-	}
-
-	if (volt) {
-		ret =3D nvkm_volt_set_id(volt, cstate->voltage,
-				       pstate->base.voltage, clk->temp, -1);
-	...
-}
-
-[Severity: High]
-This is another pre-existing issue, but is the hardware clock programming=20
-error clobbered in nvkm_cstate_prog()?
-
-If clk->func->calc() or clk->func->prog() fails and returns a negative
-error code, the 'ret' variable containing the error is unconditionally
-overwritten by the return value of nvkm_volt_set_id() (which will be 0 on
-success).
-
-This causes the transition to report success despite a hardware failure,
-masking the error and corrupting higher-level state tracking.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260712123616.1180=
-830-1-postadelmaga@gmail.com?part=3D2
