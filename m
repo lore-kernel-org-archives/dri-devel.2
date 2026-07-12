@@ -4,42 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9546C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 12:11:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68027C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 12:47:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24E4210E0E6;
-	Sun, 12 Jul 2026 12:11:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B347A10E459;
+	Sun, 12 Jul 2026 12:47:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PysOQpRV";
+	dkim=pass (1024-bit key; secure) header.d=quora.org header.i=@quora.org header.b="RpYIeLIN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C83FE10E0E6
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 12:11:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A90796004E;
- Sun, 12 Jul 2026 12:11:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E8A01F000E9;
- Sun, 12 Jul 2026 12:11:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783858263;
- bh=q19ItgJwyg0YzkRLdP32Zwx2RCDKHiDKbWWTzdskXds=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PysOQpRVzHDoovBkahIzty4BRzIIMA3+l6HaSdYlEob8lbJZnYUbhzGI6ynpX6TPu
- XuE596kmTaU7T5G+2OhBs0S0Ytfl15ovZ/aHdvFmIkTm6fcz/f5ILS6+Qj0wt2N0vP
- yYt5OniCkjeVR0/q+zKohT1Rk2ssBxSLTJ845aZ/flXDxtnTNk3eh1EwI9oqaBIR72
- /eZO0Od+IoCwLY/uwg+P+55qhIwkhpxY42vZAzCx++k84hObDuM8tpn4kO1wdKO6qH
- /9WSAE7IBlQ6ZfOshyt7KkZ3I2EX6QXE3mBWFE9XhHqiuOjkKJgeSsLHWDkUSPxEsR
- vU3+wyQY8rdoQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] Revert "drm/msm: dsi: fix PLL init in bonded mode"
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260712-msm-revert-dsi-pll-fix-v1-1-40122689ea25@oss.qualcomm.com>
-References: <20260712-msm-revert-dsi-pll-fix-v1-1-40122689ea25@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 12 Jul 2026 12:11:02 +0000
-Message-Id: <20260712121103.3E8A01F000E9@smtp.kernel.org>
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C7C610E459
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 12:47:47 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-2ceab75934dso9385775ad.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 05:47:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783860467; cv=none;
+ d=google.com; s=arc-20260327;
+ b=QBz8HQOI9v7KXRIDv6Dktbs7weQPyeUJUXsfm1dkkRvfZ770bsaTLFx0eokgRtFOJl
+ +LPCAvhdve+MJA7nUzeQ4g6C1mRk0upSnBfFcouvdcIrApnoTOq1K3l8lRc6aAXEpsU2
+ 9dVR9AGgWJDie+AnnSnNb62hDn/OTogIw0vQgXSmLiBygHO4DNNNxmHajhvnhxvTKJ+1
+ T7FBN/TGeZmmsE4O87aCuWzoMqkI4dXRELC/BJLQwxjDa8/fK4gkAiIs26Mw7bHmnp1a
+ 0bOfj+SBovKAayVPmBKeW++DqZBIXzZdllLG7rE09PGZzu7FeaXZxGbpdwRQhnFhX4EB
+ GJdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=ikvSy5XLG1P+DmNPA6bgvTYTJm+JvB6ahXSZXySRz+4=;
+ fh=mJfMOT8sCNIVEf6V1BK60ovrvQn4Wdqd3v4WBzt4e/g=;
+ b=ktvYtCZIAuhq64l4ZFX6aAcbqsgYJGBAiHZ5z9IriLCAWWuZA7qRNF60l0SBnBdpnw
+ Gvxpx5ZA7brPEDWkIJbJxBSKY4Ug1nmnd3WKd4AYoa6RLTlunvXoTM9Q0bePPCePu43n
+ UsbBbRD3RoGdt9RqFaT7VFSmHiF7Z7rXlbtS0TXze9+j9JIDNQQJyFmAjuWM2sK9fCV9
+ ZsJL/2np4IxDnrltMpDu29Mvp1fUBy2SKPKZUh3vfwGB/EGNDcPNSFbm3Bewelu8ficJ
+ XSN+OYA0aSHGkP612hct24Vvg5zETdyZbwbHMRGqK97rNeQpr6Fa7tHUvvVOyGMAMrZD
+ zpVw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quora.org; s=google; t=1783860467; x=1784465267; darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=ikvSy5XLG1P+DmNPA6bgvTYTJm+JvB6ahXSZXySRz+4=;
+ b=RpYIeLINWk2VI+fNHjJRa1106Ju2+Rbwpl8m55KRWa5KdcyiJWhpuPmVVB04CyxmrG
+ 1AZCjE6Qrz9o4eFAJKeLM801a+/LgTzBBLwS1al3T7DKhpe9KVIBjEXv5WyV9UQD8y49
+ P5LMALpw6bSQHYDim6blLhSQ5uoXuVmENu+QQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783860467; x=1784465267;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=ikvSy5XLG1P+DmNPA6bgvTYTJm+JvB6ahXSZXySRz+4=;
+ b=UxeXqDDtP5FOeY0Lh+0TeHs6JuDV/fG6Dfg5IXkawmpTdHqTBVTAFQWVXDejT650Gi
+ hff+dA51PBtElwc0YK2Hek76VvHBsfuIpvmxqS+V9K7/9XXh8hpiTVFlVs3vUUrrmXS7
+ olkhvlkFkOjHh2mVTFIjw1LyXL5Ad7Duy7FtJqdJxFzWMufmkI8jBYznsZPIyoHw6kPv
+ svxML8ufzZu2pFnTF9lWL2YjC36/GQInDdqzSinazdS2My8iBe4za+JczttP14FPlAiw
+ +2026PdLX1lEKOUv3QKLLR0PUpo1SgL40SO+UyKUviAkYpCzbrsABMn86jG/4A2tiBoO
+ GwHA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp7Ogj9mCk8RYfvGYSVzjOMopRfI/tMjaenK2LAGnejLgJk2reYsq0qb+UmyQtZjFHxcttk47YUIzo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwzUhFCwjc5ORAdHp/bzAT8YFK1DewHNXflfG45BbZ7r00tMWGe
+ wvKbUXqmwBuMbPWv9bYxIIDHjmlIUKSGsBhbRhuETQbyT+JiP8NeDp5CN0Lbw1bMZltR+/sTsMH
+ 3rH9/qeojL2oatYbaYtpadIZITyOQ4fS4kiKF7Gb0nw==
+X-Gm-Gg: AfdE7cnpVWG1FF9h9IWoXjFfvnR3wTHDeG7cwjoMxxveex8AvHwudMb6IbVcggdkpca
+ o7DggnWfCznjrnfklPUvXwNGOLDYz4duOmsgbIQT4VDwCMdHP9EaVkBf2Eb+kYwefMW6uNDWAY7
+ JJWgYPUrzAC936+nI/EDuPS6+e8hlM3cjQPCLm3DS3vLHlYwH9/JbaUPcMtwtKycdFU9Jlcqo+a
+ wHthHUWL80+V92hrBHDz4aTd17wAe9hVeRciJkxOGvYFOS2JQe+ssIx/WahYirMBJJ1bJ/wEgp9
+ QnwkteRrx0EjPsRKP3nmpVrizy3mgNWHtD3HRqdew1I/c1CaSU3jEgAb+1dp7bj8ExAOOq/NeKm
+ 8qaugNYWtCrUyLydsLr2U20itykmVvs4ntnHz7mX1b+Klt2Sl83gebi+x3qFGoP27XsTAWcWPhr
+ 0e4ClPyavRc/+Hn+8mJsMtX9AQpJ/Isdqm253DeeNtdRRQHyAeJoADm0amFzpsqkCRP6i6q/E=
+X-Received: by 2002:a17:903:37c4:b0:2ca:bc05:b082 with SMTP id
+ d9443c01a7336-2ce9f052b73mr58124925ad.29.1783860466725; Sun, 12 Jul 2026
+ 05:47:46 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAMVG2st2udHCUHZ_2j=jNmwTAVi2Cvda0qGgH4tDZHwsGVfLKQ@mail.gmail.com>
+ <CAMVG2stuY5aTwfmJkL_cLDn86hfuFD+sT-LdqdmN5m21y2aL5g@mail.gmail.com>
+ <zscjwjuqhg36vwsbt735y5gq3bcfxcfh4m46zcgpakacyoxrvf@ekji5eglhdcn>
+In-Reply-To: <zscjwjuqhg36vwsbt735y5gq3bcfxcfh4m46zcgpakacyoxrvf@ekji5eglhdcn>
+From: Daniel J Blueman <daniel@quora.org>
+Date: Sun, 12 Jul 2026 20:47:34 +0800
+X-Gm-Features: AVVi8CdulQCM4FcxmDA84gLCyj97rAnjiQtbUfGcHr-szb3Uwrhdqe4fpBDVKoc
+Message-ID: <CAMVG2st0i7W3S5pyZRqMufL+pfKTkv8e3sLnws0UhOpbqfXbmg@mail.gmail.com>
+Subject: Re: [BUG] qcom: x1: GAMMA_LUT corruption on DPMS wake
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Jun Nie <jun.nie@linaro.org>, Federico Amedeo Izzo <federico@izzo.pro>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+ Randy Dunlap <rdunlap@infradead.org>,
+ Linux Kernel <linux-kernel@vger.kernel.org>, 
+ Val Packett <val@packett.cool>, Steev Klimaszewski <threeway@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,130 +113,94 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Sun, 12 Jul 2026 at 19:56, Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> On Sun, Jun 14, 2026 at 06:27:50PM +0800, Daniel J Blueman wrote:
+> > On Mon, 1 Jun 2026 at 13:37, Daniel J Blueman <daniel@quora.org> wrote:
+> > > Since Adreno X1-85 GAMMA_LUT support was introduced in Linux v7.0 (eg
+> > > Ubuntu 26.04), when waking from DPMS-off, palette corruption is
+> > > frequently seen; this manifests as purple banding. If GNOME night
+> > > light or similar is enabled, the visual impact is greater.
+> > >
+> > > Further, on larger panel monitors or laptops eg the Lenovo Yoga Slim
+> > > 7x (2944x1840), a second INT2 block is used for the right half of the
+> > > screen, which may remain totally blank on wake; major usability
+> > > impact.
+> > >
+> > > Intuitively, the symptoms feel like the LUT SRAM clock isn't being
+> > > driven soon enough during the wakeup, thus state loss may depend on
+> > > silicon binning/variation or related. No such symptom is seen in
+> > > Windows on the same hardware. I found a workaround supporting this
+> > > mechanism is to activate the GNOME night light and adjust the slider
+> > > to update the LUT - any black right half of the screen always
+> > > reappears.
+> > >
+> > > Please can someone with X1-85 Adreno insight check the Linux clock and
+> > > power domain behaviour around GC_EN, Layer Mixer, INTerFace and INT2
+> > > on DPMS wake? Happy to test changes; this is a stunning platform
+> > > otherwise.
+> > ...
+> > > Link: https://gitlab.freedesktop.org/drm/msm/-/work_items/89
+> >
+> > Just a heads-up on this with additional findings. Note this issue
+> > could be the only remaining daily friction on X1 laptops with suspend,
+> > once my video decode reboot workaround or similar is merged. Also note
+> > in my case, without GNOME night light active, only a few LUT entries
+> > render purple so visual artifacts often go unnoticed until a gradient
+> > eg in an image is visible.
+>
+> Could you please check if increasing reg_bus_bw in msm_mdss.c would fix
+> the issue? It's not a proper fix yet, but it might help me to understand
+> the issue.
 
-New issues:
-- [High] Forced overwrite of PLL reference counter in PHY enable/disable co=
-nflicts with VCO prepare/unprepare, leading to skipped hardware initializat=
-ion and PLL lock failures.
-- [Medium] Data race when reading `pll_enable_cnt` outside of its protectin=
-g spinlock in `dsi_pll_enable_pll_bias`.
+Adjusting like so [1] didn't resolve the issue, however it was worth
+ruling out. Perhaps you could check with the Windows driver team why
+the DMA descriptor approach was used for LUT setup?
 
-Pre-existing issues:
-- [High] Dangling pointer in the global `pll_7nm_list` array leads to a Use=
--After-Free if device probe fails.
---
+> > From DPMS wake on a dual-LM panel (>2560 pixels wide) with
+> > INTF_5/DSPP_0 (master) and INTF_6/DSPP_1, I find DSPP_1's registers
+> > are intermittently unresponsive just after MDSS resume. DSPP_0 doesn't
+> > exhibit this issue, suggesting some missing slave/second unit setup,
+> > despite booting clk_ignore_unused pd_ignore_unused.
+> >
+> > I found the extracted Windows DSDT \_SB.PEP0.G0MD F-state EXIT block
+> > enables disp_cc_mdss_rscc_ahb_clk and disp_cc_mdss_rscc_vsync_clk;
+> > could this relate? RSCC being the RPMh bridge subblock. Also, could
+> > any of the *1_CLK or MDSS_INT2_GDSC entries in dispcc-x1e80100.c lack
+> > setup?
+>
+> RSCC should not affect these blocks.
 
---- Patch [1]: [PATCH] Revert "drm/msm: dsi: fix PLL init in bonded mode" -=
---
-commit 04f56183f63de02b770cafb9bbcc705bedd10f12
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Good tip on ruling this out too!
 
-Revert "drm/msm: dsi: fix PLL init in bonded mode"
+Thanks,
+  Dan
 
-This commit reverts commit 93c97bc8d85d which fixed an issue with DSI
-bonded mode but broke non-bonded usecases. The clock divider was being
-programmed incorrectly in non-bonded mode, resulting in the wrong display
-mode being selected.
+-- [1]
 
-Closes: https://lore.kernel.org/r/ae07cef84AmXK43H@hu-mdsor-hyd.qualcomm.com
+--- a/drivers/gpu/drm/msm/msm_mdss.c
++++ b/drivers/gpu/drm/msm/msm_mdss.c
+@@ -22,7 +22,7 @@
 
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/=
-msm/dsi/phy/dsi_phy_7nm.c
-> index 984a66085dfbf..5d805a797abdb 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-> @@ -426,8 +426,11 @@ static void dsi_pll_enable_pll_bias(struct dsi_pll_7=
-nm *pll)
->  	u32 data;
-> =20
->  	spin_lock_irqsave(&pll->pll_enable_lock, flags);
-> -	pll->pll_enable_cnt++;
-> -	WARN_ON(pll->pll_enable_cnt =3D=3D INT_MAX);
-> +	if (pll->pll_enable_cnt++) {
-> +		spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
-> +		WARN_ON(pll->pll_enable_cnt =3D=3D INT_MAX);
+ #include <generated/mdss.xml.h>
 
-[Severity: Medium]
-Can reading pll_enable_cnt outside of pll_enable_lock cause a data race?
+-#define MIN_IB_BW      400000000UL /* Min ib vote 400MB */
++#define MIN_IB_BW      800000000UL /* Min ib vote 400MB */
 
-If dsi_7nm_phy_enable() or dsi_7nm_phy_disable() concurrently forces
-pll_enable_cnt to 1 or 0, this lockless read of pll->pll_enable_cnt in the
-WARN_ON statement could result in undefined behavior or spurious warnings.
+ struct msm_mdss_data {
+        u32 reg_bus_bw;
+@@ -521,7 +521,7 @@ static const struct msm_mdss_data data_76k8 = {
+ };
 
-> +		return;
-> +	}
-> =20
->  	data =3D readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
->  	data |=3D DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
+ static const struct msm_mdss_data data_153k6 = {
+-       .reg_bus_bw = 153600,
++       .reg_bus_bw = 153600*16,
+ };
 
-[ ... ]
-
-> @@ -873,6 +876,7 @@ static int dsi_pll_7nm_init(struct msm_dsi_phy *phy)
->  	spin_lock_init(&pll_7nm->pll_enable_lock);
-> =20
->  	pll_7nm->phy =3D phy;
-> +	phy->pll_data =3D pll_7nm;
-
-[Severity: High]
-This is a pre-existing issue, but can this lead to a Use-After-Free if the
-device probe fails?
-
-In dsi_pll_7nm_init(), the newly allocated pll_7nm is assigned to the
-global pll_7nm_list[phy->id] before this section. If pll_7nm_register() or
-a subsequent probe operation fails, the devm framework frees the pll_7nm
-struct, but the dangling pointer remains in pll_7nm_list.
-
-If another bonded PHY probes successfully, could it assign this dangling
-pointer to its pll_7nm->slave and dereference it during
-dsi_pll_enable_pll_bias(), causing memory corruption?
-
-> =20
->  	ret =3D pll_7nm_register(pll_7nm, phy->provided_clocks->hws);
->  	if (ret) {
-
-[ ... ]
-
-> @@ -1084,10 +1090,13 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy =
-*phy,
->  		glbl_rescode_bot_ctrl =3D 0x3c;
->  	}
-> =20
-> +	spin_lock_irqsave(&pll->pll_enable_lock, flags);
-> +	pll->pll_enable_cnt =3D 1;
-
-[Severity: High]
-Does forcing pll_enable_cnt to 1 here conflict with the increment in
-dsi_pll_enable_pll_bias()?
-
-During display bringup, dsi_7nm_phy_enable() is called and sets
-pll_enable_cnt to 1. When clk_prepare() subsequently calls
-dsi_pll_enable_pll_bias(), the condition:
-
-	if (pll->pll_enable_cnt++) {
-		spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
-		...
-		return;
-	}
-
-will evaluate to true, causing the function to return early and skip
-programming REG_DSI_7nm_PHY_PLL_SYSTEM_MUXES. Will this cause the PLL to
-fail to lock and break the display?
-
->  	/* de-assert digital and pll power down */
->  	data =3D DSI_7nm_PHY_CMN_CTRL_0_DIGTOP_PWRDN_B |
->  	       DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
->  	writel(data, base + REG_DSI_7nm_PHY_CMN_CTRL_0);
-> +	spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
-> =20
->  	/* Assert PLL core reset */
->  	writel(0x00, base + REG_DSI_7nm_PHY_CMN_PLL_CNTRL);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260712-msm-revert=
--dsi-pll-fix-v1-1-40122689ea25@oss.qualcomm.com?part=3D1
+ static const struct of_device_id mdss_dt_match[] = {
+-- 
+Daniel J Blueman
