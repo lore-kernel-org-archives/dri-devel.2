@@ -4,141 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2015C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 23:46:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D98BAC43458
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 23:46:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CAAA10E503;
-	Sun, 12 Jul 2026 23:46:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1190010E2A3;
+	Sun, 12 Jul 2026 23:46:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jF4o180L";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SW9ILec5";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="B5kYly1o";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OYrR77Un";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E226210E4FF
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 23:46:49 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BCD710E2A3
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 23:46:54 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66CNX3Vp3948713
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 23:46:49 GMT
+ 66CNWEAn3963999
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 23:46:54 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 4y8OHZ/EXAVlMihWZ1dk1clB/7sEMPnke8vGFcWsrqY=; b=jF4o180Ln8MEnBOY
- GQ05meA+hMD5C3g/Mg5AsMFDkeqRy6eG1nF01tr6ZNDMEQctXCv1kzfsfTSu/we4
- aLuIZh9FelCoTzByeEZv6BsuQnHwFcA1rAuhde5qwV0TVBOSTFdu1ZLgIUyfX+SK
- lNobd/weO8z0Wxr0tiX7OHpzQlTfZQ8uHS8CUc3x5LbeTc1qDTIyPiq436qMvxg+
- 0ANdty6zqOOYGK9mx9vKLTGhHDct22sHkyZ6SFO8fZjRhQqJbveSWnO2fnq7zgMS
- cBIcxEZsZpl+pnFbxfyC8SFK0hm884Kmoed4z6Dzt0MWdwENQYYe8u3PTColkBoG
- OGchPQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbebr3mmg-1
+ JYV1vviYmvv18rlHbpJk8khcLhfX/RfZkk0vj4YXymk=; b=B5kYly1otcGPDCYb
+ 8q7zTMc8iglLa6qIZzyq0FTbqvDGRoThhUCgzX2IbYCnWMaZTu0/fOXLUVZhw8Wx
+ Upy7BoOdu6dTgbEEWcujNgoPFl1UiRmXlB1uO4XyVVyU/Gf2HDzmHYtMqjVqa0I9
+ JbC+98CTnFA+lcphysAsmKlBDkJaHaqRxBhb7zZo4fWYqOlGPouag2bAD8F8nU9v
+ noXF296oGLIqzffKCiuNl7ExY4aLakK3QHSyZ92NdGiYMYMGmsy7r4re+9lA5wGG
+ 1CbhWyN3JTC11GyOs7MxVYL2OdnGjkMsIspp1aKBhIw26ZqZjSBYIXYXC0fbU6gG
+ h2iieQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcjnm060j-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 23:46:49 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-51c21c01cf3so50758221cf.2
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 16:46:48 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 23:46:53 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-90284139cceso26092566d6.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 16:46:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783900008; x=1784504808;
+ d=oss.qualcomm.com; s=google; t=1783900013; x=1784504813;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=4y8OHZ/EXAVlMihWZ1dk1clB/7sEMPnke8vGFcWsrqY=;
- b=SW9ILec5zlR9rBBsM02m6oNCG/6J6o50IghHI2lb8UZ1b2sFnMK+ynOszN0VeflkkL
- WViuHGfEmzfRAiUrJH03zEMofJI51rDqY0TSeO2vF47ZNs8W7zFU4JKZwQQzCULrDWTE
- GeStF2cIkFnJmw4a0LQGt+NBF5om/lqGV6yTR51tiR/kfbDF7PfRoO19u/KOpm1r99YP
- dGiQ8CpsqnQ5N6RNRs3ddYuU+M4Pt/kGpnlL77SeKgePVZfrqKilk+aVg+ESYsIHaNqN
- hHhFKSJpbBcBQvpZbIqkfvIsUxpKuMClnzkvNCW7WHuCafx7bU5KsiJNjaMKTNAB1qpn
- 6ugg==
+ bh=JYV1vviYmvv18rlHbpJk8khcLhfX/RfZkk0vj4YXymk=;
+ b=OYrR77UnG+lS+xRuOQB/mjSgkBo+BWUohBhd7vNiTvyy2h0M1/Dieb2QeAbB/CnxJv
+ yz9+/yewBm3nkbRK1bHgBmMpvmaaSwIi6qs+5FDx0xHOg86+s1ev6LdIcLit3ofJwG3g
+ eRl+MvzbTezTfM+IpevkaN5w7Chba0/820dGjKN7Hw1N2ygzXfhXATlwfEGdqSNJFvOO
+ q0+OiwIMIT/uVNWBreDh3GStCqImqhr49hAjH+i2YpecGJg2gc+GCSiqbfWMOfdaxKLE
+ w4ToyNyS2E1K6XNGHLLXuO8qEGGjIJFNJe1hgawVb3VZVEGXhZ0SW8UKB9840tzjNlNK
+ Fo4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783900008; x=1784504808;
+ d=1e100.net; s=20251104; t=1783900013; x=1784504813;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=4y8OHZ/EXAVlMihWZ1dk1clB/7sEMPnke8vGFcWsrqY=;
- b=gtj6co3NDMJfaObj9KelB94QWEBaQTg12swcSLVQyoX+audyBltpOPnWP1zy19HTbA
- TA5INltgG/gKs8h5QQCtlK75R8Ys00q0P9Xhb8AelG9DSPVpvzm9moE8Cs8TQ2ti9yPj
- 6nkE0xyobgr4tzcn+8GbFIA3ZhDMKLtYT6TYCuMbS3GwCdZZI+BOWrR3Tyxkkj3Zye/r
- ZUYTObGtVqvdHK01QAv7VvTg3kEi+I5h6mI8OKa0hhnn/fRQZ0jNQ0Bz1oPyjaSYZ2XI
- fKnLloHFoXWh53tjEci02mf8wkx/v3dYnSWCxkIaHFnfK9yRGKxFQiZCDs8qV8I7L4wb
- b7CQ==
+ bh=JYV1vviYmvv18rlHbpJk8khcLhfX/RfZkk0vj4YXymk=;
+ b=lQwWm6IbK6ikWuWfMTVdo0s+jcbS98sSgCF593JWkUdNHm8qlG+XpeXt4iaEVGdeY1
+ Sbl8Agc6RwPLG08TkUC4ApLTchwb9V8AF4kc9E3qYYgtnnmi8bwabuU9/VP4aZgZFvgK
+ /hciuMY1QF6lp/7Xd0so78FZZffe/olezDL7p4YUKg34UAo8owHUb7mpcLCGe8F1BQQF
+ PkM909LLOXXfIyIPATkt6jtaNLZuKpI8Fn2MBK4me4euels2p6VyOTsuZNUBQN6cvhxI
+ P+85xEeHNPs8rrmOha85Cr8JHD+T0dnDAH5Tklal4D6mLkoWdZ2ayLETvogQApJYP6QE
+ 5fdA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq39TyrMgCLNbIW0b5bTMnxCxGBrP2kUCVyMaeJjWRf1lhMN30hHi6c9IX1E5w7yBS8P2egP1KgDiM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywx0sYlPnHHfGqGjM9sn34Do607Inniw1lZCnC4dIoHkE3j/Pj+
- b97QA4/ZuvF3LkB4oZ00WusVvbC7kcXrCbeb5HLfNmXlGex664Eq9KkSvQbIwYkI/kP2fcpc1AC
- JVD77W/O8XxscRKxOhmb0SN9jBLvbqkH/32P8NRCK58mg1CAV0ms9o/iJ5kxV1xXWGuyxyj0=
-X-Gm-Gg: AfdE7ckGJMEy8qaII2VCBxCTAs8QyLEMBm8FxENODrdtDtJkwNWJ0F4dBsyWfOlMClX
- s+VQQY6B0D6jFtJDVKW2Wj8mKystINnhzzA3rKI6Z8c3aDVoUZiaL517dXuL2gm++iXwNGdKuR0
- StkUWFWv6CDyqBZxX1lbdK7YAWNAYDiHD4XVFiZSDgjT9PlO3ZOUTP5oueH9GQdyfG6b/nz+A1V
- WQRHvC9ari7+A1jZYCVDAOtbDsAJyCz20RJi4AEhusrPf9/aMk2IZdPEhOzTUvyI5yGgmO39Lww
- wAqWUAkOti3n46Ygb1jyvR8Av1E2GU/x6h0YwYOw/aUjlOtDzBm/9V28NakCZohRBaIs/G+QnwB
- KR/gaWd2as2jZAJC99PCjqkxU51cf6Mhx4wZ95PtF4yJlztT9kWBb7V8GNGO5UVcwKAtgEGZSe/
- N+wZnW/2P3Ey8Xq6dI86iJOmbk
-X-Received: by 2002:ac8:5808:0:b0:51c:7b12:120d with SMTP id
- d75a77b69052e-51cbf3402b7mr73169541cf.75.1783900008138; 
- Sun, 12 Jul 2026 16:46:48 -0700 (PDT)
-X-Received: by 2002:ac8:5808:0:b0:51c:7b12:120d with SMTP id
- d75a77b69052e-51cbf3402b7mr73169401cf.75.1783900007719; 
- Sun, 12 Jul 2026 16:46:47 -0700 (PDT)
+ AHgh+RrXBefsRHeKySuOvAhw0iEVvAoY/ej35EfWAaE8+qdKxcgmfmaW35TdrJZTcN5R5xic2LCw+3rlg0s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyNPB6Zjk+m1Iieg2yUtlBaI/Fxz5GcfrXWm9vkzQqZNmLU0syN
+ k59oScE5iHvofyl4qa0tcjq4McAsxBgVwcBFpKaCrIoSt0TphFgapRH+GTilv2VtGNYNepf1Ee9
+ OUtcUojp+lWzjzrxGULmq52TA5By+qNf6/gNLJA+EJY6tEb/l3yMb3rAlDMyxN3ULAwS7l1s=
+X-Gm-Gg: AfdE7cm1Gafc9CBgE9r27hkRWWhae4/SHGJwh9y++9tw6QLGRpPq9s8w719X4MWNK4A
+ 5mVDeM22uz0cSrH7s3oRFiS3FJAnS2YfNGxMnysBPtEU3uS4Hj+CXes9jqpKUSd93Qp5Fg1W2DT
+ CXCQ1As+TgrUMuaoyz79YB4/gK0UgreGZViZEwxzMPSd5HxJ8kM8uOKBMyOqaOkrP14FO92W+6h
+ K4eUEJFGat/L+u5HUcevXMHUmdTblAKBqKnm8lcfy66+yn4tTAk1FHCAQaXMPaao3S7Tz/GL52G
+ CgQsqx459FMIlqNEX/UKuwAFkJlAX4LRMuYx6Rz3zJi4bL1ECkwZIPybHiwc+5YenleX5/2JSrM
+ amg/7SYH8L+IiDCamVReyzID8bs0lgNpGQjN8ytmJdZ1UtKlaNGsPsYqH8x1NxCJpX21lPNiG99
+ 7QHVfjNNfDYNb0kpe7zpxeRLyE
+X-Received: by 2002:a05:622a:4089:b0:51c:8556:55f0 with SMTP id
+ d75a77b69052e-51caa173e38mr122326761cf.34.1783900012667; 
+ Sun, 12 Jul 2026 16:46:52 -0700 (PDT)
+X-Received: by 2002:a05:622a:4089:b0:51c:8556:55f0 with SMTP id
+ d75a77b69052e-51caa173e38mr122326611cf.34.1783900012272; 
+ Sun, 12 Jul 2026 16:46:52 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b01caaf40esm2371357e87.71.2026.07.12.16.46.43
+ 2adb3069b0e04-5b01caaf40esm2371357e87.71.2026.07.12.16.46.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 Jul 2026 16:46:45 -0700 (PDT)
+ Sun, 12 Jul 2026 16:46:49 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Douglas Anderson <dianders@chromium.org>,
- Jani Nikula <jani.nikula@intel.com>,
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drm/msm/dp: add missing drm_edid_connector_update()
- before add_modes on cached EDID
-Date: Mon, 13 Jul 2026 02:46:39 +0300
-Message-ID: <178389962795.1434604.5841714986393955443.b4-ty@b4>
+To: quic_abhinavk@quicinc.com, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Kavan Smith <kavansmith82@gmail.com>
+Cc: sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
+ simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Daniel Mack <daniel@zonque.org>
+Subject: Re: [PATCH v2] drm/msm/dsi: round 6G byte clock rate to the
+ PLL-achievable value
+Date: Mon, 13 Jul 2026 02:46:40 +0300
+Message-ID: <178389962794.1434604.86942707756896992.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260608-drm_plug_flaky_edid-v3-1-1ca632938e7f@oldschoolsolutions.biz>
-References: <20260608-drm_plug_flaky_edid-v3-1-1ca632938e7f@oldschoolsolutions.biz>
+In-Reply-To: <20260707013240.681012-1-kavansmith82@gmail.com>
+References: <20260707013240.681012-1-kavansmith82@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEyMDI1NyBTYWx0ZWRfX83pyP7JChOAg
- 7C41ucfrk+ZydF+PtH2DwVGTS+CyM70TrY9XpCDOTy3dYlfDx+Qo+NCt1XwQvIEePJ1X7RbncVL
- R2R0Jhux04D+XXdQK7mBJdEpi1Wrizk=
-X-Authority-Analysis: v=2.4 cv=OK8XGyaB c=1 sm=1 tr=0 ts=6a542769 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-ORIG-GUID: CamuYU4GLD1brp2qjmcbYsRr1jYYRx4u
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEyMDI1NyBTYWx0ZWRfX/DH5xN5kPb1x
+ zeaM71NU1VqpufKikP/PUodc0buV2VjWUGlfr5snKcei4eq5FriocHtadIJrljaxyF0oF4FrHSH
+ LOPv9vT6Ysy7zu1XW1GE5kfAJ5Zk5R4MTGlgDfBOH/a1AQDhfIVzUScU1/wBPEK5OtgnOJujmI8
+ uLj9bCIEMg6egNfZZdJTnQLpoyqxypuyO+MLxOvDfnEQzx2EEFt60H4Z2AqVdJa9i+0nNO6kEj7
+ o8XW7/CeSWNg1dvKlDoLG6K/5xuPBHq7LCqqjG28K69B8ZZpzJWU+BU8kmUXx/DsslyfWUJQsS2
+ 5Y7T1Rf17ejHG2MpU36NKEuk/d/VjuwWJPJU8UUoVKJy7SNBoea2XGa0JkCeGIgsf0TOvmTpirq
+ wXD0H8JHNvsVmlrtk/0H90fQNRI4xxuQ+hUFAQ3G9Frnn+GbSskEqQVbc3m/J//eebQYjV2/Uhk
+ 6UZsz5cVeBEbAC04FEQ==
+X-Proofpoint-GUID: CamuYU4GLD1brp2qjmcbYsRr1jYYRx4u
+X-Authority-Analysis: v=2.4 cv=AfmB2XXG c=1 sm=1 tr=0 ts=6a54276d cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=e5mUnYsNAAAA:8
- a=sa5PkiOI6JPz9RB1ZpgA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
- a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: 9ZcuSKI5VpNAMpmHZoGolB3o1VFnNWil
-X-Proofpoint-ORIG-GUID: 9ZcuSKI5VpNAMpmHZoGolB3o1VFnNWil
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEyMDI1NyBTYWx0ZWRfX6dg0GhFuYJzX
- YXPGxZ3OynkZLZRMNbEkukWw/BIToEzDs0DlYM6+NAmg0MhTEyr84jSAatrt9zLpMcJCExxSYT1
- oqSNe18XhAwlLrT8BQlPrMNkD3P2/MpKusBBrzPhJ3voy1EePDf2X6wRNbE8jK5lUZ0Iig6zkTJ
- UMZTX3q+L0itl91qwZ+ecRixz450ymL2KuF9104EBhF8uWlNLoVQ6FA04T/aP4I+Lx+dC4i/GkP
- 7xquM7dfNxXNdW6Ih4oxXlp05PGg/VDAC7jBCwL5XFvvIpS/4+cCd+xpHjo9fZO6r8QZS9kcP+U
- WRTVMEeTKXKnn3u/qkR/VWOSOMleU3JpybW23miqWxhJwFpkoTU++z372emInwQPfAu+5iWUBFe
- /ophcsyEH6uJjG2rcoDSkFy2AqIPvgazkcPe8EJG31W5GM0alClNIQRw+fZm6acYSNOKoMBKDzE
- 1/z7XWX5cOC/UTeopNg==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=e5mUnYsNAAAA:8
+ a=TRR5xVq1x4uEjgd2TI8A:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEyMDI1NyBTYWx0ZWRfX1OjpNDDg31vk
+ h15ssmU/azecA5GgzT7sCCvb5qxjur1BwcwX31vIxWTPsZzXpTH1BguuX1xL4hTTScVQjaHny6y
+ srp1/IkN6d0cJ5ABf+pXR9aR3RW2gwU=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-12_08,2026-07-10_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 phishscore=0 spamscore=0 adultscore=0
- clxscore=1015 impostorscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607120257
+ spamscore=0 lowpriorityscore=0 phishscore=0 priorityscore=1501
+ impostorscore=0 malwarescore=0 clxscore=1015 suspectscore=0 adultscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607120257
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,22 +151,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 08 Jun 2026 06:54:39 +0200, Jens Glathe wrote:
-> After the refactor to struct drm_edid, the fast path in
-> msm_dp_panel_get_modes() that already held a cached EDID called
-> drm_edid_connector_add_modes() directly without first calling
-> drm_edid_connector_update().
-> 
-> The new API requires the update step to associate the EDID with the
-> connector. Add the missing call. This restores correct behaviour for
-> the cached-EDID path.
+On Mon, 06 Jul 2026 18:32:40 -0700, Kavan Smith wrote:
+> MSM8916 runtime DSI commands still go through
+> msm_dsi_host_xfer_prepare(), which re-applies the link clock rate before
+> enabling the link clocks. That is fine in principle, but on DSI 6G the
+> requested byte clock rate often does not exactly match the DSI PHY PLL's
+> realizable rate. For example, the driver can request 56250000 Hz while the
+> PLL actually runs at 56246337 Hz.
 > 
 > [...]
 
 Applied to msm-fixes, thanks!
 
-[1/1] drm/msm/dp: add missing drm_edid_connector_update() before add_modes on cached EDID
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/b7088d58dccf
+[1/1] drm/msm/dsi: round 6G byte clock rate to the PLL-achievable value
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/6cd33b6f4155
 
 Best regards,
 -- 
