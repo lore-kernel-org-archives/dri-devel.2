@@ -4,129 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C443EC44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2C33C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DCB110E823;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C52310E81B;
 	Mon, 13 Jul 2026 07:11:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YA5DDqaf";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="E8eegfOl";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8589610E21D;
- Fri, 10 Jul 2026 20:21:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CA97460051;
- Fri, 10 Jul 2026 20:21:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D21581F000E9;
- Fri, 10 Jul 2026 20:21:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783714883;
- bh=gVQmK7W6QoKtw/kGvaitEcUKY+xFpiYNr8Q5ruqmHhg=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=YA5DDqafLIqNPLP9XGD/K2+Z42mVK146zNneUnUQphi9T6ZT5dS9mtuvVEfhJDTSi
- s//g62lEPa/5fM6Rj+MfHLeFXY4lmP8YRRNVv/IBUuJF+3suQJzo279O+JLZ3oR0g8
- 17RPG3oi0R+HZ04oSDHcjxfiOvDAfUyl/59WBZGvYlcTsOfv5QtyYXwRI0mROoCNg6
- bDmWqupn7Bivg41Bjy1cY8FcRJcw1cPUnFVaTBUJXi8e+rHys2oigCKJ0ZN7zH42Qh
- xqfydxdwf+sygnAcS/tTpUOLud5oxgOgbKSoUNdV2wDLWFryUxryD6cA7pwzceYtQs
- toirvlGHi640Q==
-From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Fri, 10 Jul 2026 21:16:51 +0100
-Subject: [PATCH v2 10/33] mm/rmap: rename anon_vma_interval_tree_*() params
- and use pgoff_t
+Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
+ [109.224.244.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CE8E10E2C9
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 11:36:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=idjl6gsmt5bhdow5z6z2rvgixu.protonmail; t=1783856171; x=1784115371;
+ bh=G1MjZuFHK3Lys9+L8NuiAc1Kc/+5IEFQrCjyjzdi0vU=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=E8eegfOl9Gh4aaUqD7FvJxo8017Jtu/z1+HCzOzj+kNJfHmZPQdSsvm8ZnaFBZEST
+ 5TZbGrGkNUNY3S9P/kQbmldmR4OSgaAKu1QSHauuaN+omW2RbwWy+NcSk5UE97eYiq
+ UmVr6MhbV4Ebh7eyxHDgZP3E1rViSKBKnDM3PD55hatcnFZqAEBD3bPhBDU3qA6XfZ
+ To8Y0VorGq9h8pxVwWThv+QAit4hUNjTghazU/GbBv3H0w3/Jc8CJrhyYpB4J9HLuI
+ IOlyoSmZmL5itAx19NZpw/IJS3aSNCDREvb1LMO3j9p1kYGZV1NGVh2UQTSRkqSv11
+ wlnuU0dE7IcPQ==
+Date: Sun, 12 Jul 2026 11:36:05 +0000
+To: Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+From: Lorenzo Delgado <lnsdev@proton.me>
+Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>, John Hubbard <jhubbard@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
+ Lorenzo Delgado <lnsdev@proton.me>
+Subject: [PATCH] rust: io: convert ResourceSize into a transparent newtype
+Message-ID: <20260712113602.389060-1-lnsdev@proton.me>
+Feedback-ID: 53083996:user:proton
+X-Pm-Message-ID: edbbd905501a46a21956dba14434fbb5a51bd63e
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-b4-pre-scalable-cow-v2-10-2a5aa403d977@kernel.org>
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
-In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
- Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>, 
- Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Andrey Konovalov <andreyknvl@gmail.com>, 
- Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>, 
- Lucas Stach <l.stach@pengutronix.de>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Yishai Hadas <yishaih@nvidia.com>, 
- Shameer Kolothum <skolothumtho@nvidia.com>, 
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Paolo Bonzini <pbonzini@redhat.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Usama Arif <usama.arif@linux.dev>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev, 
- iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
- kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5211; i=ljs@kernel.org;
- h=from:subject:message-id; bh=BHX0baiEr9bg7gCqCCxbadqLVVJLcigeq+b/x/sekB0=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg62/nLvR48oWtTJvwtcdDA9nW79gPecs6J5qwZB8n
- +XZu7VdHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZgIkw4jQxvjWqM9y/w8s1l1
- C5JkljBK2jl9eq/WKbJLfeZ/rp9NCxn+GTsztZksXHtZye1dF8fVwCnL321Zn9aseENRcKXNgt5
- 7/AA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 13 Jul 2026 07:11:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,137 +68,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rename parameters used by anon_vma_interval_tree_*() functions: 'node' to
-'avc', 'start/first' to 'pgoff_start', and 'last' to 'pgoff_last' to make
-clear what is being passed.
+`ResourceSize` was a bare type alias for `resource_size_t`, so it
+inherited every integer operation and `as` cast. That silently permits
+operations that are meaningless for the size of a hardware resource:
+mixing it with unrelated integers and truncating casts.
 
-Also, express page offsets in terms of pgoff_t to be consistent.
+Wrap it in a `#[repr(transparent)]` newtype so each conversion at a
+boundary becomes explicit and reviewable. The representation is
+unchanged, so this is ABI-identical; only the spelling at the FFI
+boundary changes. Provide the minimal conversion surface the call sites
+need: `from_raw`/`into_raw`, `From` in both directions, and a fallible
+`TryFrom<ResourceSize> for usize` for the page-count site that can
+truncate on 32-bit. Update the two producers, `Resource::size` and
+`SGEntry::dma_len`, and the `request_region` and nova-core consumers so
+the tree builds green. Add doctest examples for the new type.
 
-No functional change intended.
-
-Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+Suggested-by: Miguel Ojeda <ojeda@kernel.org>
+Link: https://github.com/Rust-for-Linux/linux/issues/1203
+Signed-off-by: Lorenzo Delgado <lnsdev@proton.me>
 ---
- include/linux/mm.h | 19 +++++++++++--------
- mm/interval_tree.c | 34 +++++++++++++++++-----------------
- 2 files changed, 28 insertions(+), 25 deletions(-)
+An earlier attempt at this conversion was posted by Moritz Zielke [1]. This
+is a fresh, independent implementation that reuses none of that code; it
+additionally converts the nova-core consumer and adds doctest examples.
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 5d825824f7e4..ae7c976b516a 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4110,23 +4110,26 @@ mapping_rmap_tree_iter_next(struct vm_area_struct *vma,
- 	     vma; vma = mapping_rmap_tree_iter_next(vma, pgoff_start,	 \
- 						    pgoff_last))
- 
--void anon_vma_interval_tree_insert(struct anon_vma_chain *node,
-+void anon_vma_interval_tree_insert(struct anon_vma_chain *avc,
- 				   struct anon_vma *anon_vma);
--void anon_vma_interval_tree_remove(struct anon_vma_chain *node,
-+void anon_vma_interval_tree_remove(struct anon_vma_chain *avc,
- 				   struct anon_vma *anon_vma);
+[1] https://lore.kernel.org/all/20251203-res-size-newtype-v1-1-22ed0b8a7a18=
+@gmail.com/
+
+ drivers/gpu/nova-core/firmware/gsp.rs |  2 +-
+ rust/kernel/io.rs                     | 73 +++++++++++++++++++++++++--
+ rust/kernel/io/resource.rs            |  6 +--
+ rust/kernel/scatterlist.rs            |  2 +-
+ 4 files changed, 74 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/firmware/gsp.rs b/drivers/gpu/nova-core/=
+firmware/gsp.rs
+index 99a302bae567..d7593888e65b 100644
+--- a/drivers/gpu/nova-core/firmware/gsp.rs
++++ b/drivers/gpu/nova-core/firmware/gsp.rs
+@@ -175,7 +175,7 @@ pub(crate) fn radix3_dma_handle(&self) -> DmaAddress {
+ fn map_into_lvl(sg_table: &SGTable<Owned<VVec<u8>>>, mut dst: VVec<u8>) ->=
+ Result<VVec<u8>> {
+     for sg_entry in sg_table.iter() {
+         // Number of pages we need to map.
+-        let num_pages =3D usize::from_safe_cast(sg_entry.dma_len()).div_ce=
+il(GSP_PAGE_SIZE);
++        let num_pages =3D usize::try_from(sg_entry.dma_len())?.div_ceil(GS=
+P_PAGE_SIZE);
+=20
+         for i in 0..num_pages {
+             let entry =3D sg_entry.dma_address()
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index fcc7678fd9e3..ebf00b4536d6 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -6,9 +6,12 @@
+=20
+ use crate::{
+     bindings,
++    fmt,
+     prelude::*, //
+ };
+=20
++use core::num::TryFromIntError;
 +
- struct anon_vma_chain *
- anon_vma_interval_tree_iter_first(struct anon_vma *anon_vma,
--				  unsigned long start, unsigned long last);
-+				  pgoff_t pgoff_start, pgoff_t pgoff_last);
- struct anon_vma_chain *
- anon_vma_interval_tree_iter_next(struct anon_vma_chain *avc,
--				 unsigned long start, unsigned long last);
-+				 pgoff_t pgoff_start, pgoff_t pgoff_last);
- #ifdef CONFIG_DEBUG_VM_RB
--void anon_vma_interval_tree_verify(struct anon_vma_chain *node);
-+void anon_vma_interval_tree_verify(struct anon_vma_chain *avc);
- #endif
- 
--#define anon_vma_interval_tree_foreach(avc, root, start, last)		 \
--	for (avc = anon_vma_interval_tree_iter_first(root, start, last); \
--	     avc; avc = anon_vma_interval_tree_iter_next(avc, start, last))
-+#define anon_vma_interval_tree_foreach(avc, anon_vma, pgoff_start, pgoff_last) \
-+	for (avc = anon_vma_interval_tree_iter_first(anon_vma, pgoff_start,    \
-+						     pgoff_last);	       \
-+	     avc; avc = anon_vma_interval_tree_iter_next(avc, pgoff_start,     \
-+							 pgoff_last))
- 
- /* mmap.c */
- extern int __vm_enough_memory(const struct mm_struct *mm, long pages, int cap_sys_admin);
-diff --git a/mm/interval_tree.c b/mm/interval_tree.c
-index b82d2a0d9c4e..5bfe95b5cd28 100644
---- a/mm/interval_tree.c
-+++ b/mm/interval_tree.c
-@@ -81,55 +81,55 @@ mapping_rmap_tree_iter_next(struct vm_area_struct *vma,
- 
- /* Anonymous interval tree (anon_vma->rb_root) */
- 
--static unsigned long avc_start_pgoff(struct anon_vma_chain *avc)
-+static pgoff_t avc_start_pgoff(struct anon_vma_chain *avc)
- {
- 	return vma_start_pgoff(avc->vma);
+ pub mod mem;
+ pub mod poll;
+ pub mod register;
+@@ -25,11 +28,73 @@
+ /// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit archite=
+ctures.
+ pub type PhysAddr =3D bindings::phys_addr_t;
+=20
+-/// Resource Size type.
++/// Resource size type.
+ ///
+-/// This is a type alias to either `u32` or `u64` depending on the config =
+option
+-/// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit archite=
+ctures.
+-pub type ResourceSize =3D bindings::resource_size_t;
++/// This wraps either `u32` or `u64` depending on the config option
++/// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a `u64` even on 32-bit archi=
+tectures.
++///
++/// # Examples
++///
++/// ```
++/// use kernel::io::ResourceSize;
++///
++/// let size =3D ResourceSize::from_raw(0x1000);
++/// assert_eq!(size.into_raw(), 0x1000);
++///
++/// // Round-trips through the raw C type.
++/// let raw: kernel::bindings::resource_size_t =3D size.into();
++/// assert_eq!(ResourceSize::from(raw), size);
++///
++/// // Fallible conversion to `usize` (can truncate on 32-bit).
++/// assert_eq!(usize::try_from(size)?, 0x1000);
++/// # Ok::<(), core::num::TryFromIntError>(())
++/// ```
++#[repr(transparent)]
++#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
++pub struct ResourceSize(bindings::resource_size_t);
++
++impl ResourceSize {
++    /// Creates a resource size from the raw C type.
++    #[inline]
++    pub const fn from_raw(value: bindings::resource_size_t) -> Self {
++        Self(value)
++    }
++
++    /// Turns this resource size into the raw C type.
++    #[inline]
++    pub const fn into_raw(self) -> bindings::resource_size_t {
++        self.0
++    }
++}
++
++impl fmt::Debug for ResourceSize {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        write!(f, "{:#x}", self.0)
++    }
++}
++
++impl From<bindings::resource_size_t> for ResourceSize {
++    #[inline]
++    fn from(value: bindings::resource_size_t) -> Self {
++        Self::from_raw(value)
++    }
++}
++
++impl From<ResourceSize> for bindings::resource_size_t {
++    #[inline]
++    fn from(value: ResourceSize) -> Self {
++        value.into_raw()
++    }
++}
++
++impl TryFrom<ResourceSize> for usize {
++    type Error =3D TryFromIntError;
++
++    #[inline]
++    fn try_from(value: ResourceSize) -> Result<Self, Self::Error> {
++        Self::try_from(value.into_raw())
++    }
++}
+=20
+ /// Raw representation of an MMIO region.
+ ///
+diff --git a/rust/kernel/io/resource.rs b/rust/kernel/io/resource.rs
+index 17b0c174cfc5..a33a416b289a 100644
+--- a/rust/kernel/io/resource.rs
++++ b/rust/kernel/io/resource.rs
+@@ -58,7 +58,7 @@ fn drop(&mut self) {
+         };
+=20
+         // SAFETY: Safe as per the invariant of `Region`.
+-        unsafe { release_fn(start, size) };
++        unsafe { release_fn(start, size.into_raw()) };
+     }
  }
- 
--static unsigned long avc_last_pgoff(struct anon_vma_chain *avc)
-+static pgoff_t avc_last_pgoff(struct anon_vma_chain *avc)
- {
- 	return vma_last_pgoff(avc->vma);
+=20
+@@ -114,7 +114,7 @@ pub fn request_region(
+             bindings::__request_region(
+                 self.0.get(),
+                 start,
+-                size,
++                size.into_raw(),
+                 name.as_char_ptr(),
+                 flags.0 as c_int,
+             )
+@@ -130,7 +130,7 @@ pub fn request_region(
+     pub fn size(&self) -> ResourceSize {
+         let inner =3D self.0.get();
+         // SAFETY: Safe as per the invariants of `Resource`.
+-        unsafe { bindings::resource_size(inner) }
++        ResourceSize::from_raw(unsafe { bindings::resource_size(inner) })
+     }
+=20
+     /// Returns the start address of the resource.
+diff --git a/rust/kernel/scatterlist.rs b/rust/kernel/scatterlist.rs
+index b83c468b5c63..5d67242befd8 100644
+--- a/rust/kernel/scatterlist.rs
++++ b/rust/kernel/scatterlist.rs
+@@ -93,7 +93,7 @@ pub fn dma_address(&self) -> dma::DmaAddress {
+     pub fn dma_len(&self) -> ResourceSize {
+         #[allow(clippy::useless_conversion)]
+         // SAFETY: `self.as_raw()` is a valid pointer to a `struct scatter=
+list`.
+-        unsafe { bindings::sg_dma_len(self.as_raw()) }.into()
++        ResourceSize::from_raw(unsafe { bindings::sg_dma_len(self.as_raw()=
+) }.into())
+     }
  }
- 
--INTERVAL_TREE_DEFINE(struct anon_vma_chain, rb, unsigned long, rb_subtree_last,
-+INTERVAL_TREE_DEFINE(struct anon_vma_chain, rb, pgoff_t, rb_subtree_last,
- 		     avc_start_pgoff, avc_last_pgoff,
- 		     static, __anon_vma_interval_tree)
- 
--void anon_vma_interval_tree_insert(struct anon_vma_chain *node,
-+void anon_vma_interval_tree_insert(struct anon_vma_chain *avc,
- 				   struct anon_vma *anon_vma)
- {
- #ifdef CONFIG_DEBUG_VM_RB
--	node->cached_vma_start = avc_start_pgoff(node);
--	node->cached_vma_last = avc_last_pgoff(node);
-+	avc->cached_vma_start = avc_start_pgoff(avc);
-+	avc->cached_vma_last = avc_last_pgoff(avc);
- #endif
--	__anon_vma_interval_tree_insert(node, &anon_vma->rb_root);
-+	__anon_vma_interval_tree_insert(avc, &anon_vma->rb_root);
- }
- 
--void anon_vma_interval_tree_remove(struct anon_vma_chain *node,
-+void anon_vma_interval_tree_remove(struct anon_vma_chain *avc,
- 				   struct anon_vma *anon_vma)
- {
--	__anon_vma_interval_tree_remove(node, &anon_vma->rb_root);
-+	__anon_vma_interval_tree_remove(avc, &anon_vma->rb_root);
- }
- 
- struct anon_vma_chain *
- anon_vma_interval_tree_iter_first(struct anon_vma *anon_vma,
--				  unsigned long first, unsigned long last)
-+				  pgoff_t pgoff_start, pgoff_t pgoff_last)
- {
- 	return __anon_vma_interval_tree_iter_first(&anon_vma->rb_root,
--						   first, last);
-+						   pgoff_start, pgoff_last);
- }
- 
- struct anon_vma_chain *
--anon_vma_interval_tree_iter_next(struct anon_vma_chain *node,
--				 unsigned long first, unsigned long last)
-+anon_vma_interval_tree_iter_next(struct anon_vma_chain *avc,
-+				  pgoff_t pgoff_start, pgoff_t pgoff_last)
- {
--	return __anon_vma_interval_tree_iter_next(node, first, last);
-+	return __anon_vma_interval_tree_iter_next(avc, pgoff_start, pgoff_last);
- }
- 
- #ifdef CONFIG_DEBUG_VM_RB
--void anon_vma_interval_tree_verify(struct anon_vma_chain *node)
-+void anon_vma_interval_tree_verify(struct anon_vma_chain *avc)
- {
--	WARN_ON_ONCE(node->cached_vma_start != avc_start_pgoff(node));
--	WARN_ON_ONCE(node->cached_vma_last != avc_last_pgoff(node));
-+	WARN_ON_ONCE(avc->cached_vma_start != avc_start_pgoff(avc));
-+	WARN_ON_ONCE(avc->cached_vma_last != avc_last_pgoff(avc));
- }
- #endif
+=20
 
--- 
-2.55.0
+base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+--=20
+2.54.0
+
 
