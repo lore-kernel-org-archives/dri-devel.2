@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4139CC43458
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 13:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E27C1C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 13:55:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A705210E472;
-	Sun, 12 Jul 2026 13:54:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BC2610E470;
+	Sun, 12 Jul 2026 13:55:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="s0N/ZBXJ";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="X4rRAFmd";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7D70710E470
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 13:54:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9324910E470
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 13:54:57 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BA9981684;
- Sun, 12 Jul 2026 06:54:49 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AA4CB1684;
+ Sun, 12 Jul 2026 06:54:52 -0700 (PDT)
 Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com
  [10.42.46.160])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 50D763F7D8;
- Sun, 12 Jul 2026 06:54:51 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6BA3D3F7D8;
+ Sun, 12 Jul 2026 06:54:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1783864494; bh=AECzyyBsTPn756pAm2Zz9lalYMCyXNCh2wmchjJwJ2U=;
+ t=1783864496; bh=0vuEUipr2Pz5kr1HUOhPNLBdi7tGEKWJIfEyTufgknk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=s0N/ZBXJy5fuRpuaniv4sXBx6YYhuILtmmvJg528CVmD7y8kJSbVbCwqN029CeQVb
- Z/pHM5f4ETKNVev9Qg/BGBNC/+d/1jp2GyPR/zIYNcUqBLWkRYnNoE6fMgA88gl69o
- SvHzlpDURl5NRV9Shz84O+Ix1ZGgOK22l7TS/auU=
+ b=X4rRAFmdcWdGFmpEc9NIlJyFEXssEKPnZ7hthJApP0Y6TY3kKCHJlldlIwucIZAmx
+ 6eaklnLBeZhZmtxxVpV8MwCv7tn1rIevg7EJr82RDkbN8q6EUzUJ2tiBsbRW390R+e
+ l5yf+VPSPkAOy4RtNWGihf+s4lJUbl70yP65YRoo=
 From: Ketil Johnsen <ketil.johnsen@arm.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>,
  Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
@@ -38,11 +38,10 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
  Daniel Almeida <daniel.almeida@collabora.com>,
  Alice Ryhl <aliceryhl@google.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Florent Tomasin <florent.tomasin@arm.com>,
  Ketil Johnsen <ketil.johnsen@arm.com>
-Subject: [PATCH v2 2/7] drm/panthor: Minor scheduler refactoring
-Date: Sun, 12 Jul 2026 15:54:34 +0200
-Message-ID: <20260712135439.1546950-3-ketil.johnsen@arm.com>
+Subject: [PATCH v2 3/7] drm/panthor: Explicit expansion of locked VM region
+Date: Sun, 12 Jul 2026 15:54:35 +0200
+Message-ID: <20260712135439.1546950-4-ketil.johnsen@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260712135439.1546950-1-ketil.johnsen@arm.com>
 References: <20260712135439.1546950-1-ketil.johnsen@arm.com>
@@ -63,185 +62,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Florent Tomasin <florent.tomasin@arm.com>
+Currently the panthor_vm_lock_region() function will implicitly expand
+an already locked VM region. This can be problematic because the caller
+do not reliably know if it needs to call panthor_vm_unlock_region()
+or not.
 
-Refactor parts of the group scheduling logic into new helper functions.
-This will simplify addition of the protected mode feature.
+Worth noting, there is currently no known issues with this as the code
+is written today.
 
-Remove redundant assignments of csg_slot.
+This change introduces panthor_vm_expand_region() which will only work
+if there is already a locked VM region. This again means that the
+original lock and unlock functions can work as a pair. This pairing is
+needed for subsequent protected memory changes.
 
-Signed-off-by: Florent Tomasin <florent.tomasin@arm.com>
-Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
 Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
 ---
- drivers/gpu/drm/panthor/panthor_sched.c | 126 ++++++++++++++----------
- 1 file changed, 74 insertions(+), 52 deletions(-)
+ drivers/gpu/drm/panthor/panthor_mmu.c | 87 +++++++++++++++++++--------
+ 1 file changed, 62 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 5b34032deff81..465f1b86249f8 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -2267,12 +2267,75 @@ tick_ctx_cleanup(struct panthor_scheduler *sched,
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index 1f6b9242279c2..b82b01013611c 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -1774,20 +1774,49 @@ static const char *access_type_name(struct panthor_device *ptdev,
  	}
  }
  
-+static void
-+tick_ctx_evict_group(struct panthor_scheduler *sched,
-+		     struct panthor_csg_slots_upd_ctx *upd_ctx,
-+		     struct panthor_group *group)
++static int panthor_vm_apply_as_lock(struct panthor_vm *vm, u64 region)
 +{
-+	struct panthor_device *ptdev = sched->ptdev;
++	struct panthor_device *ptdev = vm->ptdev;
 +
-+	if (drm_WARN_ON(&ptdev->base, group->csg_id < 0))
-+		return;
++	lockdep_assert_held(&ptdev->mmu->as.slots_lock);
 +
-+	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, group->csg_id,
-+				group_can_run(group) ?
-+				CSG_STATE_SUSPEND : CSG_STATE_TERMINATE,
-+				CSG_STATE_MASK);
++	gpu_write64(ptdev->mmu->iomem, AS_LOCKADDR(vm->as.id), region);
++	return as_send_cmd_and_wait(ptdev, vm->as.id, AS_COMMAND_LOCK);
 +}
 +
-+static void
-+tick_ctx_reschedule_group(struct panthor_scheduler *sched,
-+			  struct panthor_csg_slots_upd_ctx *upd_ctx,
-+			  struct panthor_group *group,
-+			  int new_csg_prio)
-+{
-+	struct panthor_device *ptdev = sched->ptdev;
-+	struct panthor_fw_csg_iface *csg_iface;
-+	struct panthor_csg_slot *csg_slot;
-+
-+	if (group->csg_id < 0)
-+		return;
-+
-+	csg_iface = panthor_fw_get_csg_iface(ptdev, group->csg_id);
-+	csg_slot = &sched->csg_slots[group->csg_id];
-+
-+	if (csg_slot->priority != new_csg_prio) {
-+		panthor_fw_update_reqs(csg_iface, endpoint_req,
-+				       CSG_EP_REQ_PRIORITY(new_csg_prio),
-+				       CSG_EP_REQ_PRIORITY_MASK);
-+		csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, group->csg_id,
-+					csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
-+					CSG_ENDPOINT_CONFIG);
-+	}
-+}
-+
-+static void
-+tick_ctx_schedule_group(struct panthor_scheduler *sched,
-+			struct panthor_csg_slots_upd_ctx *upd_ctx,
-+			struct panthor_group *group,
-+			int csg_id, int csg_prio)
-+{
-+	struct panthor_device *ptdev = sched->ptdev;
-+	struct panthor_fw_csg_iface *csg_iface =
-+		panthor_fw_get_csg_iface(ptdev, csg_id);
-+
-+	group_bind_locked(group, csg_id);
-+	csg_slot_prog_locked(ptdev, csg_id, csg_prio);
-+
-+	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, csg_id,
-+				group->state == PANTHOR_CS_GROUP_SUSPENDED ?
-+				CSG_STATE_RESUME : CSG_STATE_START,
-+				CSG_STATE_MASK);
-+	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, csg_id,
-+				csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
-+				CSG_ENDPOINT_CONFIG);
-+}
-+
- static void
- tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *ctx)
+ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
  {
- 	struct panthor_group *group, *tmp;
- 	struct panthor_device *ptdev = sched->ptdev;
--	struct panthor_csg_slot *csg_slot;
- 	int prio, new_csg_prio = MAX_CSG_PRIO, i;
- 	u32 free_csg_slots = 0;
- 	struct panthor_csg_slots_upd_ctx upd_ctx;
-@@ -2282,44 +2345,13 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
+ 	struct panthor_device *ptdev = vm->ptdev;
+ 	int ret = 0;
  
- 	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1; prio >= 0; prio--) {
- 		/* Suspend or terminate evicted groups. */
--		list_for_each_entry(group, &ctx->old_groups[prio], run_node) {
--			bool term = !group_can_run(group);
--			int csg_id = group->csg_id;
--
--			if (drm_WARN_ON(&ptdev->base, csg_id < 0))
--				continue;
--
--			csg_slot = &sched->csg_slots[csg_id];
--			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
--						term ? CSG_STATE_TERMINATE : CSG_STATE_SUSPEND,
--						CSG_STATE_MASK);
--		}
-+		list_for_each_entry(group, &ctx->old_groups[prio], run_node)
-+			tick_ctx_evict_group(sched, &upd_ctx, group);
- 
- 		/* Update priorities on already running groups. */
--		list_for_each_entry(group, &ctx->groups[prio], run_node) {
--			struct panthor_fw_csg_iface *csg_iface;
--			int csg_id = group->csg_id;
--
--			if (csg_id < 0) {
--				new_csg_prio--;
--				continue;
--			}
--
--			csg_slot = &sched->csg_slots[csg_id];
--			csg_iface = panthor_fw_get_csg_iface(ptdev, csg_id);
--			if (csg_slot->priority == new_csg_prio) {
--				new_csg_prio--;
--				continue;
--			}
--
--			panthor_fw_csg_endpoint_req_update(ptdev, csg_iface,
--							   CSG_EP_REQ_PRIORITY(new_csg_prio),
--							   CSG_EP_REQ_PRIORITY_MASK);
--			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
--						csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
--						CSG_ENDPOINT_CONFIG);
--			new_csg_prio--;
--		}
-+		list_for_each_entry(group, &ctx->groups[prio], run_node)
-+			tick_ctx_reschedule_group(sched, &upd_ctx, group,
-+						  new_csg_prio--);
- 	}
- 
- 	ret = csgs_upd_ctx_apply_locked(ptdev, &upd_ctx);
-@@ -2355,28 +2387,18 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
- 	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1; prio >= 0; prio--) {
- 		list_for_each_entry(group, &ctx->groups[prio], run_node) {
- 			int csg_id = group->csg_id;
--			struct panthor_fw_csg_iface *csg_iface;
-+			int csg_prio = new_csg_prio--;
- 
--			if (csg_id >= 0) {
--				new_csg_prio--;
-+			if (csg_id >= 0)
- 				continue;
--			}
- 
- 			csg_id = ffs(free_csg_slots) - 1;
- 			if (drm_WARN_ON(&ptdev->base, csg_id < 0))
- 				break;
- 
--			csg_iface = panthor_fw_get_csg_iface(ptdev, csg_id);
--			csg_slot = &sched->csg_slots[csg_id];
--			group_bind_locked(group, csg_id);
--			csg_slot_prog_locked(ptdev, csg_id, new_csg_prio--);
--			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
--						group->state == PANTHOR_CS_GROUP_SUSPENDED ?
--						CSG_STATE_RESUME : CSG_STATE_START,
--						CSG_STATE_MASK);
--			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
--						csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
--						CSG_ENDPOINT_CONFIG);
-+			tick_ctx_schedule_group(sched, &upd_ctx, group, csg_id,
-+						csg_prio);
+-	/* sm_step_remap() can call panthor_vm_lock_region() to account for
+-	 * the wider unmap needed when doing a partial huge page unamp. We
+-	 * need to ignore the lock if it's already part of the locked region.
+-	 */
+-	if (start >= vm->locked_region.start &&
+-	    start + size <= vm->locked_region.start + vm->locked_region.size)
+-		return 0;
++	if (drm_WARN_ON(&ptdev->base, vm->locked_region.size))
++		return -EINVAL;
 +
- 			free_csg_slots &= ~BIT(csg_id);
- 		}
++	mutex_lock(&ptdev->mmu->as.slots_lock);
++	if (vm->as.id >= 0 && size) {
++		u64 region = pack_region_range(ptdev, &start, &size);
++
++		ret = panthor_vm_apply_as_lock(vm, region);
++	}
+ 
+-	/* sm_step_remap() may need a locked region that isn't a strict superset
++	if (!ret) {
++		vm->locked_region.start = start;
++		vm->locked_region.size = size;
++	}
++	mutex_unlock(&ptdev->mmu->as.slots_lock);
++
++	return ret;
++}
++
++static int panthor_vm_expand_locked_region(struct panthor_vm *vm,
++					   u64 start, u64 size)
++{
++	struct panthor_device *ptdev = vm->ptdev;
++	u64 end;
++	int ret = 0;
++
++	/* This function is here to handle the following case:
++	 * sm_step_remap() may need a locked region that isn't a strict superset
+ 	 * of the original one because of having to extend unmap boundaries beyond
+ 	 * it to deal with partial unmaps of transparent huge pages. What we want
+ 	 * in those cases is to lock the union of both regions. The new region must
+@@ -1795,25 +1824,30 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
+ 	 * boundaries in a remap operation can only shift up or down respectively,
+ 	 * but never otherwise.
+ 	 */
+-	if (vm->locked_region.size) {
+-		u64 end = max(vm->locked_region.start + vm->locked_region.size,
+-			      start + size);
+ 
+-		drm_WARN_ON_ONCE(&vm->ptdev->base, (start + size <= vm->locked_region.start) ||
+-				 (start >= vm->locked_region.start + vm->locked_region.size));
++	/* This function can only expand an already locked region */
++	if (drm_WARN_ON(&ptdev->base, !vm->locked_region.size))
++		return -EINVAL;
++
++	/* Early out if requested range is already locked */
++	if (start >= vm->locked_region.start &&
++	    start + size <= vm->locked_region.start + vm->locked_region.size)
++		return 0;
+ 
+-		start = min(start, vm->locked_region.start);
+-		size = end - start;
+-	}
++	end = max(vm->locked_region.start + vm->locked_region.size,
++		  start + size);
++
++	drm_WARN_ON_ONCE(&ptdev->base, (start + size <= vm->locked_region.start) ||
++			 (start >= vm->locked_region.start + vm->locked_region.size));
++
++	start = min(start, vm->locked_region.start);
++	size = end - start;
+ 
+ 	mutex_lock(&ptdev->mmu->as.slots_lock);
+ 	if (vm->as.id >= 0 && size) {
+-		/* Lock the region that needs to be updated */
+-		gpu_write64(ptdev->mmu->iomem, AS_LOCKADDR(vm->as.id),
+-			    pack_region_range(ptdev, &start, &size));
++		u64 region = pack_region_range(ptdev, &start, &size);
+ 
+-		/* If the lock succeeded, update the locked_region info. */
+-		ret = as_send_cmd_and_wait(ptdev, vm->as.id, AS_COMMAND_LOCK);
++		ret = panthor_vm_apply_as_lock(vm, region);
  	}
+ 
+ 	if (!ret) {
+@@ -2367,11 +2401,14 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+ 		 */
+ 		unmap_hugepage_align(&op->remap, &unmap_start, &unmap_range);
+ 
+-		/* If the range changed, we might have to lock a wider region to guarantee
+-		 * atomicity. panthor_vm_lock_region() bails out early if the new region
+-		 * is already part of the locked region, so no need to do this check here.
++		/* If the range changed, we might have to lock a wider region to
++		 * guarantee atomicity.
+ 		 */
+-		panthor_vm_lock_region(vm, unmap_start, unmap_range);
++		ret = panthor_vm_expand_locked_region(vm, unmap_start,
++						      unmap_range);
++		if (ret)
++			return ret;
++
+ 		panthor_vm_unmap_pages(vm, unmap_start, unmap_range);
+ 	}
+ 
 -- 
 2.43.0
 
