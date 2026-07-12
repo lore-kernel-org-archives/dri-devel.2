@@ -4,63 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8970DC43458
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 15:15:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC15FC44506
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 15:22:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE0C510E4A1;
-	Sun, 12 Jul 2026 15:15:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF3E010E49E;
+	Sun, 12 Jul 2026 15:22:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="I8DUQyG2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Byp017tr";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8F8C10E49E
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 15:15:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
- Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
- Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
- :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=POVecxJo4zwZUgERoZ5svXQmm69KssESofLU10hbjYM=; b=I8DUQyG2bkjduejyIHXjg+FFCp
- uYv6u1Co7CrDBpkvlco7IEJTuUNTRdq7mV3g4Uq1hEAWklK4AmPl67v5MHs6SELeVh28JUfQ04pQv
- 6t1f1IL6YugkQNqUffpHuQAmWGoDoPWcIdsSXJpytzNcd+R0KaUz+tAaXIn+Nu3oCwnSnkOjk6Tla
- TTc5E2RIIQqUXLERZVzFvWcCLtZHEmaWE0gOf6r+1iZIFqDr6D4oB96yAcnIkzl0sn07Sf3UrASgo
- f38NFfqieGzv8Ut9K6gNPezSf0VfMUINUf9CV1Obep2zQNZQJto6u3X+qS9AyUgg8U+euMmC0/cXK
- 4N8VN48Q==;
-Received: from [189.7.87.67] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wivtn-00DnB6-4i; Sun, 12 Jul 2026 17:15:19 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sun, 12 Jul 2026 12:14:41 -0300
-Subject: [PATCH v3 8/8] drm/vc4: Use unique fence timeline names per queue
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5E9410E49E
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 15:22:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8256A4325B;
+ Sun, 12 Jul 2026 15:22:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A15231F000E9;
+ Sun, 12 Jul 2026 15:22:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783869734;
+ bh=DuaiB+g90evMEnQ75glw9g8iH9UnlpaAQbng8V1ssBs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Byp017trUwl/8psOoSyDdN8PtY7+zecQELkM7ZiyxQf/cRCTQO+ugA+tXHJUoPtj1
+ P8Togkk32pLjMyqbfV33rMfj5OXwjMUiYcGjYxuHKsBxZoLXHFqVJAzIks1ND47AD7
+ WiIKN5DKkyBMetJJXIHTavH9NHVACUAgWOuGWeH9IE+FKeB4g8MlhdkD2ydvhlY7D6
+ HsUXCIUPg5kil7KSF8xcPnpYSpQt2lJFcLKk042r1i5ot5xxVdDAw/3bBhVLT2XrOG
+ dwiZili2xMav43/ICOeZV14fGdX2gnE2MYTslx4YI5cHO4mexPM0wp9VPbKwPmyGfN
+ TmhTRPn5RxXNQ==
+Date: Sun, 12 Jul 2026 17:22:10 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ chunkuang.hu@kernel.org, 
+ p.zabel@pengutronix.de, matthias.bgg@gmail.com, justin.yeh@mediatek.com, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, kernel@collabora.com
+Subject: Re: [PATCH 1/2] dt-bindings: phy: mediatek,dsi-phy: Add support for
+ MT8196
+Message-ID: <20260712-unselfish-topaz-roadrunner-f0bbfb@quoll>
+References: <20260701121943.19430-1-angelogioacchino.delregno@collabora.com>
+ <20260701121943.19430-2-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260712-vc4-drm-scheduler-v3-8-ed6dc4defa53@igalia.com>
-References: <20260712-vc4-drm-scheduler-v3-0-ed6dc4defa53@igalia.com>
-In-Reply-To: <20260712-vc4-drm-scheduler-v3-0-ed6dc4defa53@igalia.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Melissa Wen <mwen@igalia.com>, Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1108; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=/B+/LCq2qCK0xfxjZR1vfiQzIm5bA193rCDvDqMipoc=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqU69gP5RbopA00s/amsKHQ8OTdSWgS+qiIOMxG
- 7Q1Mx5+teCJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCalOvYAAKCRA/8w6Kdoj6
- ql8LB/0UcUsJcG4zGlpfbuIM2XB3AM5fi1o8Qa2BTB+xDRuoNZgqwN2DNgLGmdYaopxtyLwVvML
- ZC0NNGRUYNoAwm4PUYAmi3sJxDtZ5mH9CXkyor5hpVM6hsvd5BvGR9/5f024RtxHt0nviJbqXhJ
- vdHZEDvHNNq8wCZ2ZSZXqJS/S48AMDwelk/M+zn5/NsVwpAWDf/zpH7uSYc2FkV0IpiLHgOgzRR
- ZdrQXfbRQPrh5sFfD9FLB3fEyEaH5txqSCkR6i6acbO6Qz4FaugTr4BshHpZYC/a1GylXOjGbYk
- GeL/BTuX2t33BVTSr3LFqfMhDEPKVgLS65ssPmbRZkAgsxBB
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260701121943.19430-2-angelogioacchino.delregno@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,40 +65,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Return distinct timeline names ("vc4-bin" and "vc4-render") from
-vc4_fence_get_timeline_name() based on the fence's queue, instead of
-the generic "vc4-v3d" for all fences. This improves debuggability when
-inspecting fence state.
+On Wed, Jul 01, 2026 at 02:19:42PM +0200, AngeloGioacchino Del Regno wrote:
+> Add support for the MediaTek Kompanio Ultra (MT8196) SoC: this
+> chip features a DSI PHY that is similar to the one found in the
+> MT8183 SoC, but is a new (incremental) revision with a different
+> register layout.
+> 
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  Documentation/devicetree/bindings/phy/mediatek,dsi-phy.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/vc4/vc4_fence.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/drivers/gpu/drm/vc4/vc4_fence.c b/drivers/gpu/drm/vc4/vc4_fence.c
-index 12f164983238..3b30107bbc4a 100644
---- a/drivers/gpu/drm/vc4/vc4_fence.c
-+++ b/drivers/gpu/drm/vc4/vc4_fence.c
-@@ -48,7 +48,16 @@ static const char *vc4_fence_get_driver_name(struct dma_fence *fence)
- 
- static const char *vc4_fence_get_timeline_name(struct dma_fence *fence)
- {
--	return "vc4-v3d";
-+	struct vc4_fence *f = to_vc4_fence(fence);
-+
-+	switch (f->queue) {
-+	case VC4_BIN:
-+		return "vc4-bin";
-+	case VC4_RENDER:
-+		return "vc4-render";
-+	default:
-+		return "vc4-unknown";
-+	}
- }
- 
- const struct dma_fence_ops vc4_fence_ops = {
-
--- 
-2.54.0
+Best regards,
+Krzysztof
 
