@@ -4,124 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0A5DC43458
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 16:58:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE1B1C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 17:15:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34FB510E3D5;
-	Sun, 12 Jul 2026 16:58:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1240510E283;
+	Sun, 12 Jul 2026 17:15:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="CFP0IaDN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M9U3kKJh";
 	dkim-atps=neutral
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D87710E3D5
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 16:58:43 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout02.posteo.de (Postfix) with ESMTPS id BF525240103
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 18:58:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
- s=1984.8680eb; t=1783875521;
- bh=WrFV3DYGEdX1yssc8kRGqHi4rldvULjAXPP84Ohqy4A=;
- h=From:Date:Subject:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
- b=CFP0IaDNoZh/WaNXi8PsVYH+w4P6E8cIqbpwF6A8CwP3JDE79miLX4pKLZAm0+jCl
- /EZGdxb3AGgQwSQsaeOX43Davl6v/G1tAy0IXlME4Yg52UJvGYtgJwy6WwpvRoR8BP
- CIExaKpPmYhqDoEMg/I8G3OPy7Gu48misZqT2Y+0iODt7Zyhe3GeLGwFejjQTGJbN+
- XUIdlK8KI2LvZA63VEWACplQEgAA8ch683SeD713hDyQ4/axwlwpB2fGg/j1YZSO7l
- yMKCT9gwH2BrLzthEVa7CAr4oNGj/UdQ4uIKtBrT1sPeEsPGj9hoV7wCMpK02wpvEo
- 4HQIp04c24Qrg==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4gysGP71vNz6v0l;
- Sun, 12 Jul 2026 18:58:37 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Sun, 12 Jul 2026 16:58:40 +0000
-Subject: [PATCH v13 3/3] MAINTAINERS: serdev: Add self for serdev
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260712-rust_serdev-v13-3-2c4060bc8e30@posteo.de>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E34EF10E283
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 17:15:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id F008E4024E;
+ Sun, 12 Jul 2026 17:15:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E3F1F000E9;
+ Sun, 12 Jul 2026 17:15:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783876525;
+ bh=e+AQFnZVR9/lh4OG8N1eP0DIwuByipDjMU88vJla5p0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=M9U3kKJhvtGqcysAsvbFzB69Q4CKxUqsQuOA/+wO+0HIOn2HTVz090GNzf1PYZPtm
+ 9nI4LelLlyIw+4vtwcYj8JvEtWcepwWnl3k9x3EoCthVlDo+rpXajOfYz94dxqdsnP
+ rh6Ni6WxlVcIR58yDe/3Wo38ucMvEuvUUUGamwO3n+jo+P62Y/aiTjfC/E6tjOdzfY
+ c4Xo0511U0oHjIFiQkRSqw0UltVt0PRWq8T1LfnY95X0+yp8T0x9BbieHzw9/HOlwL
+ GCZYAtJvygZJKItfhzY31LB8MpzjRKWbHqtu97ZD3NnLigtGN/LozDcTMkdUTQ72Us
+ Os10nzMiyYeDA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v13 1/3] rust: add basic serial device bus abstractions
+To: "Markus Probst" <markus.probst@posteo.de>
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260712-rust_serdev-v13-1-2c4060bc8e30@posteo.de>
 References: <20260712-rust_serdev-v13-0-2c4060bc8e30@posteo.de>
-In-Reply-To: <20260712-rust_serdev-v13-0-2c4060bc8e30@posteo.de>
-To: Rob Herring <robh@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Kari Argillander <kari.argillander@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Boqun Feng <boqun@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=885;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=swgmVY9FtI4pJ4eSMqifCns/lebL+9czFMeFZTNDdOY=;
- b=owEBiAJ3/ZANAwAIATR2H/jnrUPSAcsmYgBqU8e1cVm2pRJGsy/rHT4RGT5iiImhRDxB663h4
- QKe1S8JnJqJAk4EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCalPHtRsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9JfFQ/4+7hfSOYVQVEPYPNEKHojF7bH25UKqor
- 3TewJIl2z3ilEtx5m9abP+ZDZ3H+yv8KVQuH3tLT/InPCDV71YlKu6kLkcepBWX6wGzC8rc/Clk
- +w6ksLNPeFVDlNeCFfpcrQSE0Jy3Frkkwm9HQ9hCSQ0XWq/9Vqc58sGYf2lNYx+N7SiPrA2Xa7l
- Kq+aY/SoD7JJXS04HwOSB70WYFOar3kPgrU6gdBr7yOGP+3Qd7kYUq8RUbpCNsh05yIuOQ6JLTr
- PEsQ6Br78pRb7Yig4+8kg5A0LrPNX9rqbBI44RluufCQLgMmOd5mK7jPKiHz5I6+1RZE4T+XuU7
- 4X+5AmZvNwbTBiTtoUBj1Te8ZzesyoSf6RUBJarAhXNBQjBXwudtk8IalRl/IcTwG9re89/iRhA
- FmC/goOBXqvkpwXJaEkQpHCbrHzzD+rw0jXFQvkxv5GCON1Eb/TEn7i43liNOIfg8cTvU6ArF9y
- seRXIkwhq4TNgfzNlqWNoT5iOdOyNYeimYjkU7TdsynRXOln4PRsqNYA/wdcpH4Bw3oMb3FfFR/
- oR+fkGbdxrmPPgUF1jJ+q1kmDwC2JEjfIMm+YcGP10qx6H5U/03qmI04iQUyMF/OvyMkIHNEQxi
- HPAthn6x0NpH5dVXeowcQG7QicExV99vpSzyzTr+NHLHJaLLU4A==
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+ <20260712-rust_serdev-v13-1-2c4060bc8e30@posteo.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 12 Jul 2026 17:15:25 +0000
+Message-Id: <20260712171525.A5E3F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,33 +53,214 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rob mentioned he needs to find someone else to maintain serdev.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] `serdev::Driver::Data` is missing a `Sync` trait bound, allowing s=
+afe code to trigger Undefined Behavior via data races.
+- [High] The framework defers `serdev_device_close()` to `PrivateData::drop=
+` and fails to close the device synchronously in `remove_callback`, creatin=
+g a race window that leads to NULL pointer dereferences, Use-After-Free, an=
+d deadlocks.
+- [High] Holding the `active` mutex across `T::probe` introduces a cyclic A=
+B-BA deadlock if a driver synchronously awaits receive data during initiali=
+zation.
+- [Medium] `write_all` improperly casts the `ssize_t` return value of `serd=
+ev_device_write` to `i32`, which causes successful writes larger than 2GB t=
+o be incorrectly treated as negative error codes.
+--
 
-Link: https://lore.kernel.org/rust-for-linux/20260430195858.GA1650658-robh@kernel.org/
-Link: https://lore.kernel.org/rust-for-linux/da85ceb81f51079d4a8248a1ffde6a27d2ef24ad.camel@posteo.de/
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--- Patch [1]: [PATCH v13 1/3] rust: add basic serial device bus abstractio=
+ns ---
+commit d3271c073101a0f9ce803c8c5d6de6e1b8618c41
+Author: Markus Probst <markus.probst@posteo.de>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ed4f8f2f17d5..c2e3430ac213 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24561,7 +24561,7 @@ F:	drivers/iio/chemical/sps30_i2c.c
- F:	drivers/iio/chemical/sps30_serial.c
- 
- SERIAL DEVICE BUS
--M:	Rob Herring <robh@kernel.org>
-+M:	Markus Probst <markus.probst@posteo.de>
- L:	linux-serial@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/serial/serial.yaml
+rust: add basic serial device bus abstractions
+   =20
+This commit introduces the Rust abstractions for the serial device bus API.
+It adds the serdev::Driver trait, the serdev::Device abstraction representi=
+ng
+a struct serdev_device, and adapter mechanisms to register drivers with the
+generic driver core.
 
--- 
-2.54.0
+> diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
+> new file mode 100644
+> index 0000000000000..ab5d6446b091e
+> --- /dev/null
+> +++ b/rust/kernel/serdev.rs
+[ ... ]
+> +#[pinned_drop]
+> +impl<T: Driver> PinnedDrop for PrivateData<'_, T> {
+> +    fn drop(self: Pin<&mut Self>) {
+> +        let mut active =3D self.active.lock();
+> +        if *active {
+> +            // SAFETY:
+> +            // - We have exclusive access to `self.driver`.
+> +            // - `self.driver` is guaranteed to be initialized.
+> +            unsafe { (*self.driver.get()).assume_init_drop() };
+> +            *active =3D false;
+> +        }
+> +
+> +        // SAFETY: We have exclusive access to `self.open`.
+> +        if unsafe { *self.open.get() } {
+> +            // SAFETY: `self.sdev.as_raw()` is guaranteed to be a pointe=
+r to a valid
+> +            // `struct serdev_device`.
+> +            unsafe { bindings::serdev_device_close(self.sdev.as_raw()) };
+> +        }
+> +    }
+> +}
 
+[Severity: High]
+Does deferring serdev_device_close() to drop() introduce an AB-BA deadlock?
+
+If receive_buf_callback() executes on the receive workqueue while PrivateDa=
+ta
+is being dropped, the receive thread will block waiting for the 'active'
+mutex. Meanwhile, this drop() method holds the 'active' mutex and calls
+serdev_device_close(), which synchronously flushes the workqueue. This
+seems like it would cause the two threads to deadlock.
+
+[ ... ]
+> +    extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -> =
+kernel::ffi::c_int {
+[ ... ]
+> +            let mut active =3D private_data.active.lock();
+> +
+> +            // SAFETY: `sdev.as_raw()` is guaranteed to be a valid point=
+er to `serdev_device`.
+> +            unsafe { bindings::serdev_device_set_client_ops(sdev.as_raw(=
+), Self::OPS) };
+> +
+> +            // SAFETY: The serial device bus only ever calls the probe c=
+allback with a valid pointer
+> +            // to a `serdev_device`.
+> +            to_result(unsafe { bindings::serdev_device_open(sdev.as_raw(=
+)) })?;
+> +
+> +            // SAFETY: We have exclusive access to `private_data.open`.
+> +            unsafe { *private_data.open.get() =3D true };
+> +
+> +            let data =3D T::probe(sdev, info);
+
+[Severity: High]
+Can holding the 'active' mutex across T::probe() cause a cyclic deadlock
+during device initialization?
+
+If a driver sends a hardware identification command in its probe() routine
+and synchronously waits for the response, the incoming data will trigger
+receive_buf_callback() on a separate thread. Because receive_buf_callback()
+unconditionally attempts to acquire the 'active' mutex, it will block
+forever while probe_callback() holds the mutex and waits for the receive
+data.
+
+[ ... ]
+> +    extern "C" fn remove_callback(sdev: *mut bindings::serdev_device) {
+> +        // SAFETY: The serial device bus only ever calls the remove call=
+back with a valid pointer
+> +        // to a `struct serdev_device`.
+> +        //
+> +        // INVARIANT: `sdev` is valid for the duration of `remove_callba=
+ck()`.
+> +        let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInternal<=
+'_>>>() };
+> +
+> +        // SAFETY: `remove_callback` is only ever called after a success=
+ful call to
+> +        // `probe_callback`, hence it's guaranteed that `Device::set_drv=
+data()` has been called
+> +        // and stored a `Pin<KBox<PrivateData<'_, T>>>`.
+> +        let private_data =3D unsafe { sdev.as_ref().drvdata_borrow::<Pri=
+vateData<'_, T>>() };
+> +
+> +        // SAFETY: No one has exclusive access to `private_data.driver`.
+> +        let data =3D unsafe { &*private_data.driver.get() };
+> +        // SAFETY:
+> +        // - `private_data.driver` is pinned.
+> +        // - `remove_callback` is only ever called after a successful ca=
+ll to `probe_callback`,
+> +        //   hence it's guaranteed that `private_data.driver` was initia=
+lized.
+> +        let data_pinned =3D unsafe { Pin::new_unchecked(data.assume_init=
+_ref()) };
+> +
+> +        T::unbind(sdev, data_pinned);
+> +    }
+
+[Severity: High]
+Should serdev_device_close() be called synchronously in remove_callback()
+rather than waiting for PrivateData::drop?
+
+By not closing the device synchronously here, the device remains active
+and the receive layer can asynchronously trigger receive_buf_callback() on a
+workqueue. In the unbind path, the device core subsequently invokes
+post_unbind_rust(), which clears the device's drvdata pointer.=20
+
+If receive_buf_callback() executes right after drvdata is cleared, it
+blindly dereferences a null pointer via drvdata_borrow().
+
+[ ... ]
+> +pub trait Driver {
+> +    /// The type holding driver private data about each device id suppor=
+ted by the driver.
+> +    // TODO: Use associated_type_defaults once stabilized:
+> +    //
+> +    // ```
+> +    // type IdInfo: 'static =3D ();
+> +    // ```
+> +    type IdInfo: 'static;
+> +
+> +    /// The type of the driver's bus device private data.
+> +    type Data<'bound>: Send + 'bound;
+
+[Severity: High]
+Is serdev::Driver::Data missing a Sync trait bound?
+
+The serdev framework invokes receive_buf_callback() from the receive
+workqueue and remove_callback() from the driver core unbind context. Both
+callbacks synthesize a shared reference Pin<&T::Data> from the raw driver
+pointer without any mutual exclusion.
+
+Because T::Data does not require Sync, safe Rust code could use
+non-thread-safe types (e.g., core::cell::Cell) in the driver state,
+leading to data races and undefined behavior.
+
+[ ... ]
+> +    pub fn write_all(&self, data: &[u8], timeout: Timeout) -> Result<usi=
+ze> {
+> +        // SAFETY:
+> +        // - `self.as_raw()` is guaranteed to be a pointer to a valid `s=
+erdev_device`.
+> +        // - `data.as_ptr()` is guaranteed to be a valid array pointer w=
+ith the size of
+> +        //   `data.len()`.
+> +        let ret =3D unsafe {
+> +            bindings::serdev_device_write(
+> +                self.as_raw(),
+> +                data.as_ptr(),
+> +                data.len(),
+> +                timeout.into_jiffies(),
+> +            )
+> +        };
+> +        // CAST: negative return values are guaranteed to be between `-M=
+AX_ERRNO` and `-1`,
+> +        // which always fit into a `i32`.
+> +        to_result(ret as i32).map(|()| ret.unsigned_abs())
+> +    }
+
+[Severity: Medium]
+Does casting the ssize_t return value of serdev_device_write() to i32
+incorrectly treat large successful writes as errors?
+
+If a caller passes a slice larger than 2GB (e.g., on a 64-bit architecture)
+and the write succeeds, the positive isize return value will overflow
+during the 'as i32' cast, resulting in a negative number. to_result()
+will then erroneously interpret this successful return as a kernel error
+code.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260712-rust_serde=
+v-v13-0-2c4060bc8e30@posteo.de?part=3D1
