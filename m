@@ -4,138 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36954C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 09:37:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5CCEC43458
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 10:17:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9051C10E1BC;
-	Sun, 12 Jul 2026 09:37:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD24510E292;
+	Sun, 12 Jul 2026 10:17:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZgQxYWWd";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YSsBPwKx";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TcdywV/v";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eVfDcizo";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE8D210E1BC
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 09:37:13 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CA5510E0A5
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 10:17:05 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66C7T58Q2059956
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 09:37:13 GMT
+ 66C7SG1O1857802
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 10:17:04 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=oE/19i9toA96SneFhi3ZDhc+
- txpytRBTsnN+E2BtECQ=; b=ZgQxYWWdXQej79t/PWYU5EcGWePsmavZwZYbK1vb
- zpiH8MZz65yTkuCOr/gcFX2nNBvcaWWCGspiS5RxKhwOEyDCd7iwii+qZc83g1Go
- t09F/qrsvh3iHfcRdjO2F/A3pqNTa1LTDAjQeL7OrUgyXUjtZb8EAwNfXx5i4/AI
- QfuRvP+aawc9AnkUrIl8E35mNOnOsWM8QtSUrfxIYJsEB/UdJHMq5ZMuR58vN2r7
- YW7RtfhgBWrvr/qgGp/Z6eNZbO1NDdqLQ1RaHEsC6bBWr+ooHPzqY54rFxgYaQ2k
- Dc2bbJbaKfpYOnm5FIbhTf24RW3EI4O49QnZmKY03sdnPQ==
+ :references:subject:to; s=qcppdkim1; bh=kTvxjps4eROawjZBgxnV201Y
+ dE2QzA2QQ1k2r2UcRA4=; b=TcdywV/vnEEIA006FwxTQ6S1QW+0Esa9QDL8jdxA
+ y2ypJsBk27z4Km/8mR1fUI8TWQAPIEt/04kdeg+x8D1b2+PPzxNGHq7rZ9wm2JtD
+ T5RrVyACmTP6PVmukRT4mgmJo7KFf737RO7GwYWhCJVyRjYXnc3aM6TW2Sg3Nlgu
+ zQHnI9b5krQqAoMXbiCI2FFo9XyWTjUGaYQd1znq46B802odlXPnkVV75D6WrYLh
+ XlfeDeBTWaQFuGwlTmeBKEMgGaAp+N+mWPQlhD9iptSzUSlImHP8gKejVC5t1n+T
+ z1xZMvpbfeihXI+1eyomiM0wsDZK5tf0ziGWLOZSzNXqkA==
 Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com
  [209.85.221.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbeafag6h-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbekcjhjf-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 09:37:12 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 10:17:04 +0000 (GMT)
 Received: by mail-vk1-f197.google.com with SMTP id
- 71dfb90a1353d-5bfd8a074e0so321642e0c.0
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 02:37:12 -0700 (PDT)
+ 71dfb90a1353d-5bbd4255f46so420428e0c.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 03:17:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783849032; x=1784453832;
+ d=oss.qualcomm.com; s=google; t=1783851423; x=1784456223;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=oE/19i9toA96SneFhi3ZDhc+txpytRBTsnN+E2BtECQ=;
- b=YSsBPwKxJ94XvWoVHYslpURjVVDhj4Ee72W2xdvg2PWY8vOIEZJvogXPJ/Taja110t
- 2BoPMWDlB7e4n6vCwXwu7++6e5CsG/qz3r0OebRDFUqKuFEIRdIOaFZ6k1LGbWrlKlfC
- zPMOMLD56C/N++3LVHfYsCpu/+tB8uy217QBzMZrRa/upN3NzkBrfwSPO/eIU7UntpYJ
- jEYVDCVdT7VaCdiO7x9n4wGMAeCXIc2IJbNFrEJ55IkUEjw29Og3VohF15pxbe7OVhRN
- g6nRtqJfeZ9mtvGX2P1e0Qfa0J3IF9UgMSj/RjE5E+ewREmmVroPvCDZUFGFzTllMSPC
- FmHw==
+ bh=kTvxjps4eROawjZBgxnV201YdE2QzA2QQ1k2r2UcRA4=;
+ b=eVfDcizoVS2vdjoo+qC+UcJm5GOV7hlnu4D50++V4FxYgcCFKfg0ZUUjXlFrJ1kN85
+ k0oLKRkkanKBq+LskqAE+D5SVK4uinyyrYVzCYmkaL+ldTpYNraexO+FBsCWSFGBbIuP
+ OUOdd7mAwrYMSZwUdaT+yRtD1mE+ljHcOPmehUSVdMLzmMSrO3nOr3Gu59OeV8G3Ph2f
+ jHi+A0iZdZ1qeZ8MxYqM1FnUvrayUTbpxSAhm64vqF8OkssQ8EMWiFaprPaW8DnjMYhE
+ ls9QY5Fdo3lW86XxnyGK3PvvzV8sSenkkSkVpQ/Jk3wzBk3eG0EJ9W9bHBhO0hgaLR51
+ R5xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783849032; x=1784453832;
+ d=1e100.net; s=20251104; t=1783851423; x=1784456223;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=oE/19i9toA96SneFhi3ZDhc+txpytRBTsnN+E2BtECQ=;
- b=EEHt/SpHVgMWcdgy2MoCMKYEgPqNHXLE8DicJBNsqVPHpiY+hZ1DzPalzzgokKOLtt
- 5Z1HH4ufsI6A2XM7cYEtokKRm0wt/17PXw0HpalNcsEDmrwntaaXOS8ml3TutqXxf0wq
- dnoyh8EEkmQr9FfY35WT9BNmprm5BN+HDEzY1+WtgMkahyiimLjUWDCFrDbEG5g3keUP
- KJirPagGvDceWDFurY8Hrz7w0a8Iw9lO2JK/Vya3WRiwLVZggS/KW3b3smkldPqCvoIn
- hcxWGm0nPahbGojkj0TFpAA9UXOEe+xnhn5wsI7d2r8v6F4zdVLtCAAsUfj+jqF6SJnN
- VL5w==
-X-Gm-Message-State: AOJu0YxZvaoUdZG+wmQRDgQUFc7+SY0X9hz9/GkpNfeettcpjPAG38zj
- ZksYhlJ4S45l2lp7o4N6Dry1xAccGl0PsE+cMGX66vp78h9HRhfWoEN/5V2k40pcodP9FBtKHTT
- 9AStJsQZZN/uFnV+sFMrsit40TYge8D0SWl6OdYXIQSRF3oPsr12BG5PvNouQ5pKVU4L715M=
-X-Gm-Gg: AfdE7ckuMOLWaY2Pr3hjyZW94W4bD8jRgspI4MfdU4+d6hemI4dn55HexbRbavlH7zo
- /qzf2zgwybAopLcZE2pMxFLlBQO59jPARwGNqr8fzVnM43c/fsDo5OFViKHQWspIoqsBwkLbJrW
- hhZTW3YTMuW42wBbf+wt4dblcetTlz9qEu8B5hLn2leDoOohHolVMxRzhu3hJPsjKH6xZT+x9+n
- boi/Ka0YqiWO+V8JkbwnCRkqEUwuNnDWsgsVH+M4h4ADvRTajuqB8d22pvmeIhx2l+GkJXDTF8K
- sPui9wfzfYdOVDEikQzZi64eywI5AwmtYOdskj0fqlCXLFgbYPWrbk2TD0UA0mteHtTgYjNCjyE
- kZgw7ubCNtYQ6M6pSdSpn5kAEAANs3LnPO3RVuA2sGchKAeD1PK4VmOGITsqY+x0P1RIygmBIE5
- TlQ65SFmexRHj2pkrgMyEOKpQR
-X-Received: by 2002:a05:6122:169e:b0:5bd:a247:49e2 with SMTP id
- 71dfb90a1353d-5bfbf04ffa4mr3254314e0c.1.1783849031896; 
- Sun, 12 Jul 2026 02:37:11 -0700 (PDT)
-X-Received: by 2002:a05:6122:169e:b0:5bd:a247:49e2 with SMTP id
- 71dfb90a1353d-5bfbf04ffa4mr3254297e0c.1.1783849031479; 
- Sun, 12 Jul 2026 02:37:11 -0700 (PDT)
+ bh=kTvxjps4eROawjZBgxnV201YdE2QzA2QQ1k2r2UcRA4=;
+ b=aDlZcD8ZfixPWssz0YGAw2NvjZk1Hnkc1TpPyXAoEvWggHrQb5zvIYK4MjEs27TxA+
+ 6hj5p0kk7ZCdW8a5SsLRqap3ldmPHcyWi2/oiPYS6fNhecgBt4qIQdGGXZaoe9ufM8/a
+ OTdKJMh2h/sbsgZjuMngjUpo3FMHRLo1DGggypForXkopSzRURgGnhayw97AY0srpNrz
+ geM3h8LwC4pBKlt/N+OAJhfGdjetPByxXciStRQky2PaHE97efnrIifGJi1Z54CdOggV
+ SnkAPBrfMUa350mb0wpshOCFu8UL93mZ/e70YBPaHhSGdCWHiumojAvPONAkINtRzr60
+ V+lQ==
+X-Gm-Message-State: AOJu0YxrTnU7yQmrXqUPTaK6zZKI7HPSg0JoAu09zpNj1DAruIK4b+86
+ Hz8f1cbOdRouaklt6Ulix3OxDRO6Mnyz6a1X83jnwGASmos3j/Rq/jUbJO2qKpvTpyi5NTWbmRT
+ b48NAb/LdCKM9E2MN5vl9lf915wXnB7CX29ry0Rt/OiKmZZIK/4E0DwmRgWC2K4t+J8WEYn8=
+X-Gm-Gg: AfdE7clhVf5H9iOB9stiUShAhyQyL77Two6iCHsPwgJ1rshyKrwE6g7FnXIU2YDDbCB
+ LfZ1FfrBHvLiY2wDOPE7riW2vMKQVN9ASUPuJv5O3WczGPh13+RWlx9Q498nVF4yA1fyKO9gtrp
+ loFG86g6vYuqJHmlAoLJa0YfDcDUYLZmbEbm/+qWNBJP6yRckPFi1/Hhoxw+yp58fCSYbzqjxhW
+ HujJ+4ySwFh7+6pf0QIGLFb/Xce4MOz57t9+Y7fCIDp29II8vlbR1Jsk6iBcJMEbbCDDwg5wl9S
+ AH3ozM35YE3HU6VQK8eMlJCFL9wFxZSDqpArU69OqsnBsx64jg3ntPeswVjSadQdOqxFDIrkiPo
+ pDwNwGrVoANmf5lSG3f/NWueb0CWjRliTMKv44QYeifJo+qezybAKW8f0ljfdcbZZiroWqU3tDx
+ aJEilPgkRn1JwYipkLNt3TrEAX
+X-Received: by 2002:a05:6122:218f:b0:5bd:faa8:74e1 with SMTP id
+ 71dfb90a1353d-5bfbf4da3bcmr2919339e0c.13.1783851423190; 
+ Sun, 12 Jul 2026 03:17:03 -0700 (PDT)
+X-Received: by 2002:a05:6122:218f:b0:5bd:faa8:74e1 with SMTP id
+ 71dfb90a1353d-5bfbf4da3bcmr2919310e0c.13.1783851422514; 
+ Sun, 12 Jul 2026 03:17:02 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-39c84b83a93sm21643201fa.24.2026.07.12.02.37.07
+ 38308e7fff4ca-39c84b97553sm22237151fa.33.2026.07.12.03.16.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 Jul 2026 02:37:09 -0700 (PDT)
-Date: Sun, 12 Jul 2026 12:37:05 +0300
+ Sun, 12 Jul 2026 03:17:00 -0700 (PDT)
+Date: Sun, 12 Jul 2026 13:16:57 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
+To: sashiko-reviews@lists.linux.dev,
+ Kumar Anurag <kumar.singh@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Abhinav Kumar <abhinav.kumar@linux.dev>, 
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "open list:DRM DRIVER for Qualcomm display hardware"
- <linux-arm-msm@vger.kernel.org>, 
- "open list:DRM DRIVER for Qualcomm display hardware"
- <freedreno@lists.freedesktop.org>, 
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/msm/dpu: fix parameter name in
- dpu_core_perf_adjusted_mode_clk kernel-doc
-Message-ID: <u5ozkmhq3ll4pfhvxl63ezf5dtgz25lvrwmpk6u7ofccnjicw7@skim2jft2cyp>
-References: <20260530201342.10538-1-rosenp@gmail.com>
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-sound@vger.kernel.org
+Subject: Re: [PATCH v1] drm/msm/dp: return 0 from audio_prepare when cable is
+ disconnected
+Message-ID: <5ixuxbgngzobl5c5fsyahdsouohwuykoat7s4hy6sczrye7vwf@rj7nmn7x3c56>
+References: <20260616151252.3599089-2-kumar.singh@oss.qualcomm.com>
+ <20260616152536.D81FB1F000E9@smtp.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260530201342.10538-1-rosenp@gmail.com>
-X-Proofpoint-ORIG-GUID: ewGX1tND9OXOl-Tkmvi-mpbffsx7UAgQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEyMDA5OSBTYWx0ZWRfX/W6+iQR3GYnI
- jr4Dgg4domJ/6XfPbMlykN1XQ7ihk4ZX+ZfZPr93dA9vseuew+eaImFU1NUOFpEycrpA6KA85RZ
- 4lYsG6VROtA40F5Aptdwx6D+K6PltX70prs91K9Nx9V5Nt0Saxa7mnn2Lb1HRehDjuruMQMnlQj
- 4ZeqpzMxEXaG7+79oEdx/BbQUuPDXs7hGorGrl4GL+t3fNrAAmWdtDMHhNWVVrSr77b5cLnOSCK
- rE1L0liOuNfFLESrcRsmmLQJqga2Y6PzKHSyJ9ripvldcdUbkHeEPVQI4BX3F+iiuF8/l55goQV
- Wc5JY6TmQSIsv5hqsebD+vvnV1esRklFY2/3w9ZTV5IjEY28bhitGvFf5NyMuvp7RXVgtI4z/wQ
- 7nqx+vLTO49G1KRFxlNEjMvom4i5upnaxlQDXRQDcD4IQlYVya6aTnsGxYpf9pperf78ANFq3ey
- rZxNVw3Yt55seP8HR2g==
-X-Authority-Analysis: v=2.4 cv=O5MJeh9W c=1 sm=1 tr=0 ts=6a536048 cx=c_pps
+In-Reply-To: <20260616152536.D81FB1F000E9@smtp.kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEyMDEwNiBTYWx0ZWRfX6vAUuTLW5zWk
+ LVPR+fD0dpM6U5rmqNvv1LD97HrDIh7m/uaHBYfjXFH2a2krUpm1KweyJGe57bgTecana4foY6f
+ O3MKgm4YtVaZ6EMTnt+KhZINndEZND0S9dEWdCaiT+VsEcuUZ+MhT04Q+AKZ90v9Kgn2EFLXisH
+ dt9tpqz2DixmxVbpDCFWSYfnIoGT7mQdMAD6BXLcPzcM0eOorIn4DORM1SLWX2GvfMUYpZfuab6
+ 6oSigK1AIhucgkzrp2wh2yekPm6AVW6Yxa0MRM1qJhifH2OvVlf2anJkWV4CrrmMkvPbIFCs24k
+ sL7+ifUGpPt9+FCKHC/lJu9LBKQK0dh0KSH8QzADXvE3zoiTu96Eap57gbjhdzoIHvVHmSNxXeH
+ ndXPbiRb1TLBe4hND/hxKVsSdkcQ7zq5SVBp4tJ3dHLpxvVCrwamreTcN261PFuQR0iKGQWmDuL
+ ZLrq9YYm2Yny/ywPWnA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEyMDEwNiBTYWx0ZWRfX5VWMZnDl+HLK
+ csFLZCTbrBrgt8UaP5uLY1z9XdNPUSU13HMHLaw7BFk38siQq6vGEnsaXmRRRFSsqV1VL+JcjY5
+ Lia3X2CKq/Xs3/XQZ7A4lx60NiQwsbQ=
+X-Proofpoint-GUID: EdCxMA8gnDgtKeTIDg45vP_1CUMGYlVM
+X-Authority-Analysis: v=2.4 cv=XNsAjwhE c=1 sm=1 tr=0 ts=6a5369a0 cx=c_pps
  a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=zdcK4JMYJf_hBWaldjIA:9 a=CjuIK1q_8ugA:10
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=8zdHjTvXFIs7SsKF2MMA:9 a=CjuIK1q_8ugA:10
  a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-GUID: ewGX1tND9OXOl-Tkmvi-mpbffsx7UAgQ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEyMDA5OSBTYWx0ZWRfX5fQyzENfLplZ
- o8tcc3mhyYwAeWGCJ+YP0GIS5M9I5RPfeXffDl4khZ9OzdgSn0nvVPRZvOPLXo2pyJDwooWnKHK
- p1wOjx3Rr2AsY0mFNNyW/8pKgSHBzMs=
+X-Proofpoint-ORIG-GUID: EdCxMA8gnDgtKeTIDg45vP_1CUMGYlVM
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-12_03,2026-07-10_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 phishscore=0
+ clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 phishscore=0 spamscore=0 impostorscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607120099
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607120106
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,38 +152,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, May 30, 2026 at 01:13:42PM -0700, Rosen Penev wrote:
-> The kernel-doc referred to @crtc_clk_rate but the actual parameter is @mode_clk_rate.
+On Tue, Jun 16, 2026 at 03:25:36PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
 > 
-> Assisted-by: Opencode:Big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-
-Fixes: 62b7d6835288 ("drm/msm/dpu: Filter modes based on adjusted mode clock")
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
-
+> New issues:
+> - [High] Returning success (0) from `msm_dp_audio_prepare` when the display is disconnected causes silent audio failures upon hotplug and NoC errors due to unclocked DSP hardware access.
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> index 13cc658065c5..2ff255d7795e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> @@ -34,7 +34,7 @@ enum dpu_perf_mode {
->  /**
->   * dpu_core_perf_adjusted_mode_clk - Adjust given mode clock rate according to
->   *   the perf clock factor.
-> - * @crtc_clk_rate - Unadjusted mode clock rate
-> + * @mode_clk_rate: unadjusted mode clock rate
->   * @perf_cfg: performance configuration
->   */
->  u64 dpu_core_perf_adjusted_mode_clk(u64 mode_clk_rate,
+> Pre-existing issues:
+> - [High] Race condition between `msm_dp_audio_prepare` and `msm_dp_display_disable` causes unclocked MMIO accesses.
 > --
-> 2.54.0
 > 
+> commit bfb65364e66313dc1385a42e09172f44a1e1fbd1
+> Author: Kumar Anurag <kumar.singh@oss.qualcomm.com>
+> 
+> drm/msm/dp: return 0 from audio_prepare when cable is disconnected
+> 
+> PipeWire treats a non-zero return from prepare as fatal, marking the
+> DP audio device as a dummy sink when the cable is unplugged.
+> 
+> > The active_stream_cnt guard already prevents any unclocked hardware access,
+> > so return success instead of -EINVAL when the link is not active.
+> 
+> [Severity: High]
+> Is this commit message accurate for the upstream tree? There doesn't appear
+> to be an active_stream_cnt guard in the mainline driver. Without this guard,
+> will the DSP push data to powered-off, unclocked DP hardware and cause NoC
+> errors?
+
+$ git describe
+v7.2-rc2-4669-gb9810cd75b9f
+$ git grep active_stream_cnt
+$
+
+Which tree has this commit message been based on?
+
+> 
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
+> > index 41018e82efa10..df222943ae57f 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_audio.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_audio.c
+> > @@ -284,10 +284,8 @@ int msm_dp_audio_prepare(struct drm_bridge *bridge,
+> >  	 * such cases check for connection status and bail out if not
+> >  	 * connected.
+> >  	 */
+> > -	if (!msm_dp_display->power_on) {
+> > -		rc = -EINVAL;
+> > +	if (!msm_dp_display->power_on)
+> >  		goto end;
+> 
+> [Severity: High]
+> Does returning 0 here trick the ALSA/ASoC framework into marking the stream
+> as successfully prepared?
+> 
+> If the stream is marked RUNNING, ALSA won't re-invoke prepare() when the
+> display is later connected. Could this regression result in silent playback
+> because the DP hardware is never actually configured?
+> 
+> [Severity: High]
+> This is a pre-existing issue, but does this lockless check of power_on
+> race with msm_dp_display_disable()?
+> 
+> If msm_dp_display_disable() runs concurrently (e.g., from a hotplug interrupt)
+> immediately after this check but before audio_enabled is set to true, it will
+> skip waiting and disable the DP link and clocks.
+> 
+> When msm_dp_audio_prepare() resumes, it will call msm_dp_audio_setup_sdp() and
+> attempt MMIO operations on unclocked DP audio registers. Could this lead to a
+> synchronous external abort?
+
+I'd agree with Sashiko here. Do we guard against the unlocked access? Or
+how do we ensure that the stream will be prepared later?
+
+I think this needs to be fixed on the other side of the pipe. Do we need
+to define a special prepare error code, which means "working, but not
+available now" and make PulseAudio / PipeWire handle those errors
+specially? How is it solved for other platforms? I don't think that
+msm/dp is unique here.
+
+Mark, would you have any particular recommendations?
 
 -- 
 With best wishes
