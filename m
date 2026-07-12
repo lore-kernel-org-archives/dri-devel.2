@@ -4,46 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F208EC44501
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 15:14:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24C1CC43458
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 15:15:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90E5710E48F;
-	Sun, 12 Jul 2026 15:14:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 343EA10E489;
+	Sun, 12 Jul 2026 15:15:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="oPRVIvr+";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="q14VtRXy";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16C9210E485
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 15:14:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE5710E491
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 15:14:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
- Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=/AuTA9EBwccAC5vo+uY11/3p9kdffneb3KqFGukpGuw=; b=oPRVIvr+Ro/eRrrx1I2C65Kx8e
- QdQSU8lbpqlDQrTr1IglkQeFktTQPMOnDFO+guoXpIaYYL3FPW85e1uM8DH9wUs3dLxFoRxwmASr/
- Oit1gVvwz+IRW38ZVMUleuhmUkRJyztXeP4LacjtF0/NlgUa/g3T2g1TII9VUh3iK0RUfL8FyEzsM
- AhSHnTQXQTbajR7ERElbDOgRLPD2V/PiG5+lioTCDX3rKl0wAgW2XMVZ6g+n9h8kviHnAoNmrvSHp
- gciFtPciB3ctZmfmZIBypvoK1dstnBJmetf40/D9dQfZQuxkB7TW/3nlEqZd9H9q3Sgc4VDN6PC1C
- sxZCwsoA==;
+ s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+ Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+ :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ntBywDeia7svNAy3qWUcP4LHdS0UXf++eFs7xXdxCls=; b=q14VtRXyUZcGSpHLR0n0aFgXRM
+ uueP8kR9nm3caBfniPbGu7GUoeZZgMRQRsJplmzj+9Yreq3bqChahfEd/tiTHzrkE5kAc+3ER8Pxr
+ uF8FGQO+ES9hFIIXIpVzlnngOWTaj+KgpD+e9zWjbkUkisIqRUtVhsaLn4iWeHX1iihW+bNIjp4SW
+ Lc8ulhT+CapbGHEZNMuQTGvu63L3G+BSHKZ009mrf7BjQxkn6nyIjwpX/60GpF31k0z8fdmTSP9//
+ 63oIz/PFmphi+8oA8m7xsH3DAE0vCPw87jE4EDlfgoGDBvahxHKG4yWh1ECx2JglsUtsbpEEfo48u
+ tjq8MxAA==;
 Received: from [189.7.87.67] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wivtE-00DnB6-K4; Sun, 12 Jul 2026 17:14:44 +0200
+ id 1wivtN-00DnB6-Dp; Sun, 12 Jul 2026 17:14:53 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Subject: [PATCH v3 0/8] drm/vc4: Switch to DRM GPU scheduler
-Date: Sun, 12 Jul 2026 12:14:33 -0300
-Message-Id: <20260712-vc4-drm-scheduler-v3-0-ed6dc4defa53@igalia.com>
+Date: Sun, 12 Jul 2026 12:14:35 -0300
+Subject: [PATCH v3 2/8] drm/vc4: Protect perfmon state with a dedicated
+ lock
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NywrCMBCF4VcpWRvJrWlx5XuIi3SStAO9kWhQS
- t/dtC5E6PIfmO8sJLqALpJLsZDgEkacxhzyVBDozNg6ijY3EUxoxgWnCRS1YaAROmefvQuUSbC
- 1rlgjvSb5bw7O42s3b/fcHcbHFN77ROLb9asJVh5oiVNGQfNKeVs1DfArtqZHc4ZpIBuXxI9QT
- BwRIhO2VsZbWUIe+iPWdf0A3z6MHfYAAAA=
-X-Change-ID: 20260121-vc4-drm-scheduler-03cd8670b3f6
+Message-Id: <20260712-vc4-drm-scheduler-v3-2-ed6dc4defa53@igalia.com>
+References: <20260712-vc4-drm-scheduler-v3-0-ed6dc4defa53@igalia.com>
+In-Reply-To: <20260712-vc4-drm-scheduler-v3-0-ed6dc4defa53@igalia.com>
 To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
  Melissa Wen <mwen@igalia.com>, Maxime Ripard <mripard@kernel.org>, 
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
@@ -54,15 +51,15 @@ To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6642; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=OGOkn6EDZcq/1ZNeQPpJhfMhgmSw7RVVtY96OALOSDQ=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqU69fTbnZpoPBiAJSZN2jaUxF8cij9TwL1AqQM
- O4MsjBUGVeJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCalOvXwAKCRA/8w6Kdoj6
- qhncCAC6+fOD+/dRZ8mEborQ9VLoRuNpZzPY1//Q+M+fXT9JDUJINo1UPRQeJAnVZUaQ4o5KOZK
- Ravtd4faIl49odPsmA/43iMUZD4TElrA5HM7evtLnWTs4xeC8+WvVzEA3TFAyjh7yf3nLPA6CcG
- Ggu0hd1p8U4CrGTUi8YDKhIEfPsBFKELpQamMVjKU7DdsByUJCYZinbL6S8ESvroVznqUh1feTx
- wxyqzZblnqs+ISZyLbKSVX/IuVk07Tdnt8Fkq5dw13bDpT/rnLB8F+ngQj5z0cXlfL/mbb+gDV3
- AvZoJqK12YnzvMMuJjs73RnozMJlDiQyk5Z0406pByqb2u2q
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6010; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=vC2xJ36NYn6iPtW2Gf5VXVICB9nq00CAWAMSIrrtngw=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqU69f+CxlSLevR3uGT2pETrWGfiKJ2RPjY1TUp
+ oS9sxPQ9UqJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCalOvXwAKCRA/8w6Kdoj6
+ qhkbCACv1hT7e21PW9RqdGVE1cSTdk9Egr725cLXYLjmZxPITMP+msP4pM2KhTMPRiD09Z/NyvG
+ 4ZfsCz4xfUiHO2G6rZJWvoUv9qthQK9UbP54QnnUaHoz1K6CAIIVfnp55WBWOTk9Xm0RyTPBFKN
+ rczyVa9fJkuY7E0A2HR4F46jbjw9mkyXVbARXbGMYoZex5F4yiw9wuigbxysy3xUcEBg4WhQ+p+
+ C4iKp94LNat31O0/sviiWhItY+GiPdX/CaCKKMDowbj6vIRUzwuh5szhtTzIpZH5PSx9LAmf9+l
+ hGrSMD28zjnyjDzY/luhZH+xYW7N5Q2NFszSTBNVhNUWuYuz
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,133 +77,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+The V3D block exposes a single set of performance counters, so at most
+one perfmon can be programmed into the hardware at a time. Until now the
+active perfmon was tracked by a bare pointer whose access was serialized
+by job_lock, which was sufficient because the legacy job queue started
+and stopped perfmons from a single serialized context.
 
-Since its introduction, the vc4 driver schedules its jobs and tracks the
-dependencies in between them using its own internal job queue
-implementation. This internal implementation is based in job lists, wait
-queues and hand-rolled seqnos. Although job scheduling worked most of
-the time, in more GPU intensive scenarios, many GPU hangs were reported
-[1][2].
+Once job execution moves to the DRM GPU scheduler, a perfmon is started
+from the job's run_job() callback but stopped from the IRQ handler and
+the reset path, so the shared perfmon state can be touched concurrently
+and job_lock no longer covers those accesses.
 
-After investigating several GPU hangs, I noticed that job dependencies
-weren't being tracked correctly, which could lead to synchronization
-issues and GPU resets. Also, the GPU reset path had issues related to
-job resubmission.
+Introduce a dedicated spinlock next to the active perfmon pointer and
+take it in vc4_perfmon_start() and vc4_perfmon_stop(). Snapshot the
+counter values under the same lock in vc4_perfmon_get_values_ioctl() so
+that a concurrent stop cannot expose a half-updated array to userspace.
 
-Considering the many issues related to the internal job queue
-implementation, this series proposes switching to the DRM GPU scheduler,
-which is a well-established implementation used by multiple DRM drivers.
-
-This has many advantages:
-
-1. Using common code: Instead of relying on a custom implementation, use
-   a trusted common framework. This helps with maintainability of the
-   vc4 driver. It also makes the code more readable.
-
-2. Synchronization issues are gone: With this series, applications can
-   work reliably on RPi 3. Many users reported that they weren't able to
-   open applications like emulators on the device. Now, it's possible to
-   play several retro games without issues.
-
-3. GPU resets are recoverable: Even if a timeout happens, the GPU is able
-   to recover successfully with minimal impact to the user.
-
-4. PM actually works: Before this series, the GPU was active during the 
-   entire runtime. After this series, the GPU is able to autosuspend and
-   resume when needed.
-
-In order to improve reviewability of the patches, I introduced piece by
-piece of the new infrastructure without actually plugging it in. The
-actual switchover only happens in the patch "drm/vc4: Switch to DRM GPU
-scheduler".
-
-This series was mostly based on the design of the v3d driver as the two
-drivers are very similar.
-
-[1] https://github.com/raspberrypi/linux/issues/5780
-[2] https://github.com/raspberrypi/linux/issues/3221
-
-Best regards,
-- Maíra
-
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
-v1 -> v2: https://lore.kernel.org/r/20260205-vc4-drm-scheduler-v1-0-c6174fd7bbc1@igalia.com
+ drivers/gpu/drm/vc4/vc4_drv.h     | 13 ++++++++++---
+ drivers/gpu/drm/vc4/vc4_gem.c     |  3 ++-
+ drivers/gpu/drm/vc4/vc4_perfmon.c | 34 ++++++++++++++++++++++------------
+ 3 files changed, 34 insertions(+), 16 deletions(-)
 
-- Moved all miscellaneous fixes and improvements to a separate series:
-  https://lore.kernel.org/dri-devel/20260330-vc4-misc-fixes-v1-0-92defc940a29@igalia.com/T/
-- [1/7] Add Melissa's R-b (Melissa Wen)
-- [2/7] Squash "[PATCH 04/11] drm/vc4: Introduce vc4_job structures for DRM
-  scheduler integration" and "[PATCH 05/11] drm/vc4: Add DRM GPU scheduler
-  infrastructure" (Tvrtko Ursulin)
-- [2/7] Centralize the initialization of queues in vc4_sched_init() (Melissa Wen)
-- [2/7] Handle error when vc4_fence_create() fails (Melissa Wen)
-- [2/7] Protect vc4->render_job when updating the pointer in `run_job()` (Melissa Wen)
-- [2/7] Handle error when drm_sched_entity_init() fails (Tvrtko Ursulin)
-- [2/7] Clarify comment in sched_lock (Tvrtko Ursulin)
-- [2/7] Remove fence_lock as dma-fences now support a built-in lock (Tvrtko Ursulin)
-- [2/7] Use spin_(un)lock_irq in `run_job()` callbacks (Tvrtko Ursulin)
-- [3/7] Add a comment explaining why we don't need to unreference BOs in
-  case of failure in vc4_lookup_bos()
-- [3/7] Several stylistic adjustments to vc4_get_bcl() (Tvrtko Ursulin)
-- [3/7] s/kvmalloc_array/kvmalloc in vc4_get_bcl() (Tvrtko Ursulin)
-- [3/7] Remove all error messages related to allocation failures (Tvrtko Ursulin)
-- [3/7] Rename vc4_job_init() to vc4_job_alloc() (Tvrtko Ursulin)
-- [3/7] Address cases in which in_sync or out_sync <= 0 (Tvrtko Ursulin)
-- [3/7] Replace vc4_attach_fences_and_unlock_reservation() with
-  vc4_attach_fences() + drm_exec_fini() (Tvrtko Ursulin)
-- [3/7] Don't clean-up the BIN job if it has already been pushed.
-- [4/7] NEW PATCH: "drm/vc4: Refcount vc4_file for safe access by jobs" (Tvrtko Ursulin)
-- [5/7] Use vc4_file refcount to get a fd reference.
-- [5/7] Add comment explaining why we use dma_fence_get_rcu() in
-  vc4_wait_seqno_ioctl() (Tvrtko Ursulin)  
-- [7/7] Return "unknown" instead of NULL when the fence type is unknown (Tvrtko Ursulin)
+diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
+index fe313027a91e..91c9c7aa8039 100644
+--- a/drivers/gpu/drm/vc4/vc4_drv.h
++++ b/drivers/gpu/drm/vc4/vc4_drv.h
+@@ -181,10 +181,17 @@ struct vc4_dev {
+ 	wait_queue_head_t job_wait_queue;
+ 	struct work_struct job_done_work;
+ 
+-	/* Used to track the active perfmon if any. Access to this field is
+-	 * protected by job_lock.
++	/* Tracks the performance monitor state. The V3D block exposes a single
++	 * set of performance counters, so at most one perfmon can be active at
++	 * any moment.
+ 	 */
+-	struct vc4_perfmon *active_perfmon;
++	struct {
++		/* Protects @active. */
++		spinlock_t lock;
++
++		/* Perfmon currently programmed in HW (or NULL if none). */
++		struct vc4_perfmon *active;
++	} perfmon_state;
+ 
+ 	/* The memory used for storing binner tile alloc, tile state,
+ 	 * and overflow memory allocations.  This is freed when V3D
+diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
+index f0c711f114cf..f84d82b3bfbb 100644
+--- a/drivers/gpu/drm/vc4/vc4_gem.c
++++ b/drivers/gpu/drm/vc4/vc4_gem.c
+@@ -491,7 +491,7 @@ vc4_submit_next_bin_job(struct drm_device *dev)
+ 	/* Only start the perfmon if it was not already started by a previous
+ 	 * job.
+ 	 */
+-	if (exec->perfmon && vc4->active_perfmon != exec->perfmon)
++	if (exec->perfmon && vc4->perfmon_state.active != exec->perfmon)
+ 		vc4_perfmon_start(vc4, exec->perfmon);
+ 
+ 	/* Either put the job in the binner if it uses the binner, or
+@@ -1138,6 +1138,7 @@ int vc4_gem_init(struct drm_device *dev)
+ 	INIT_LIST_HEAD(&vc4->render_job_list);
+ 	INIT_LIST_HEAD(&vc4->job_done_list);
+ 	spin_lock_init(&vc4->job_lock);
++	spin_lock_init(&vc4->perfmon_state.lock);
+ 
+ 	INIT_WORK(&vc4->hangcheck.reset_work, vc4_reset_work);
+ 	timer_setup(&vc4->hangcheck.timer, vc4_hangcheck_elapsed, 0);
+diff --git a/drivers/gpu/drm/vc4/vc4_perfmon.c b/drivers/gpu/drm/vc4/vc4_perfmon.c
+index f75dfd156756..2bcf6a7d538f 100644
+--- a/drivers/gpu/drm/vc4/vc4_perfmon.c
++++ b/drivers/gpu/drm/vc4/vc4_perfmon.c
+@@ -51,16 +51,18 @@ void vc4_perfmon_start(struct vc4_dev *vc4, struct vc4_perfmon *perfmon)
+ 	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
+ 		return;
+ 
+-	if (WARN_ON_ONCE(!perfmon || vc4->active_perfmon))
++	if (!perfmon)
+ 		return;
+ 
++	guard(spinlock_irqsave)(&vc4->perfmon_state.lock);
++
+ 	for (i = 0; i < perfmon->ncounters; i++)
+ 		V3D_WRITE(V3D_PCTRS(i), perfmon->events[i]);
+ 
+ 	mask = GENMASK(perfmon->ncounters - 1, 0);
+ 	V3D_WRITE(V3D_PCTRC, mask);
+ 	V3D_WRITE(V3D_PCTRE, V3D_PCTRE_EN | mask);
+-	vc4->active_perfmon = perfmon;
++	vc4->perfmon_state.active = perfmon;
+ }
+ 
+ void vc4_perfmon_stop(struct vc4_dev *vc4, struct vc4_perfmon *perfmon,
+@@ -71,8 +73,12 @@ void vc4_perfmon_stop(struct vc4_dev *vc4, struct vc4_perfmon *perfmon,
+ 	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
+ 		return;
+ 
+-	if (WARN_ON_ONCE(!vc4->active_perfmon ||
+-			 perfmon != vc4->active_perfmon))
++	if (!perfmon)
++		return;
++
++	guard(spinlock_irqsave)(&vc4->perfmon_state.lock);
++
++	if (perfmon != vc4->perfmon_state.active)
+ 		return;
+ 
+ 	if (capture) {
+@@ -81,7 +87,7 @@ void vc4_perfmon_stop(struct vc4_dev *vc4, struct vc4_perfmon *perfmon,
+ 	}
+ 
+ 	V3D_WRITE(V3D_PCTRE, 0);
+-	vc4->active_perfmon = NULL;
++	vc4->perfmon_state.active = NULL;
+ }
+ 
+ struct vc4_perfmon *vc4_perfmon_find(struct vc4_file *vc4file, int id)
+@@ -116,8 +122,7 @@ static void vc4_perfmon_delete(struct vc4_file *vc4file,
+ 	struct vc4_dev *vc4 = vc4file->dev;
+ 
+ 	/* If the active perfmon is being destroyed, stop it first */
+-	if (perfmon == vc4->active_perfmon)
+-		vc4_perfmon_stop(vc4, perfmon, false);
++	vc4_perfmon_stop(vc4, perfmon, false);
+ 
+ 	vc4_perfmon_put(perfmon);
+ }
+@@ -222,8 +227,10 @@ int vc4_perfmon_get_values_ioctl(struct drm_device *dev, void *data,
+ 	struct vc4_dev *vc4 = to_vc4_dev(dev);
+ 	struct vc4_file *vc4file = file_priv->driver_priv;
+ 	struct drm_vc4_perfmon_get_values *req = data;
++	u64 values[DRM_VC4_MAX_PERF_COUNTERS];
+ 	struct vc4_perfmon *perfmon;
+-	int ret;
++	size_t size;
++	int ret = 0;
+ 
+ 	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
+ 		return -ENODEV;
+@@ -237,11 +244,14 @@ int vc4_perfmon_get_values_ioctl(struct drm_device *dev, void *data,
+ 	if (!perfmon)
+ 		return -EINVAL;
+ 
+-	if (copy_to_user(u64_to_user_ptr(req->values_ptr), perfmon->counters,
+-			 perfmon->ncounters * sizeof(u64)))
++	size = perfmon->ncounters * sizeof(u64);
++
++	/* Snapshot the counters under the perfmon lock */
++	scoped_guard(spinlock_irqsave, &vc4->perfmon_state.lock)
++		memcpy(values, perfmon->counters, size);
++
++	if (copy_to_user(u64_to_user_ptr(req->values_ptr), values, size))
+ 		ret = -EFAULT;
+-	else
+-		ret = 0;
+ 
+ 	vc4_perfmon_put(perfmon);
+ 	return ret;
 
-v2 -> v3: https://lore.kernel.org/r/20260402-vc4-drm-scheduler-v2-0-d84afd35c602@igalia.com
-
-- [2/8] NEW PATCH: "drm/vc4: Protect perfmon state with a dedicated lock"
-  - Addresses synchorization issues with active_perfmon (Tvrtko Ursulin)
-- [3/8] Return the fence error if vc4_fence_create() fails
-- [3/8] Allocate the fence context in vc4_queue_sched_init() (Tvrtko Ursulin)
-- [4/8] Fail if the sync_out passed in by userspace was not found (Tvrtko Ursulin)
-- [4/8] Fix implicit dependencies attachment
-- [4/8] Fail all job submissions if adding dependencies fails
-- [4/8] Demote drm_warn() to drm_dbg() in v3d_lookup_bos() and check bo_count
-  before assigning it to a variable (Tvrtko Ursulin)
-- [4/8] Some small clean-ups in the function vc4_get_bcl() (Tvrtko Ursulin)
-- [4/8] Return `struct vc4_job *` in vc4_job_alloc() instead of void * (Tvrtko Ursulin)
-- [5/8] Static inline the functions vc4_file_get/put() (Tvrtko Ursulin)
-- [6/8] Use xa_store to avoid failing before arming the job (Tvrtko Ursulin) 
-- [8/8] s/unknown/vc4-unknown/ (Tvrtko Ursulin)
-- [8/8] Add Tvrtko's R-b (Tvrtko Ursulin)
-
----
-Maíra Canal (8):
-      drm/vc4: Move vc4_wait_bo_ioctl() to vc4_bo.c
-      drm/vc4: Protect perfmon state with a dedicated lock
-      drm/vc4: Add DRM GPU scheduler infrastructure and job structures
-      drm/vc4: Add new job submission implementation
-      drm/vc4: Refcount vc4_file for safe access by jobs
-      drm/vc4: Add per-file descriptor seqno tracking
-      drm/vc4: Switch to DRM GPU scheduler
-      drm/vc4: Use unique fence timeline names per queue
-
- drivers/gpu/drm/vc4/Kconfig         |   1 +
- drivers/gpu/drm/vc4/Makefile        |   2 +
- drivers/gpu/drm/vc4/vc4_bo.c        |  33 ++
- drivers/gpu/drm/vc4/vc4_drv.c       |  38 +-
- drivers/gpu/drm/vc4/vc4_drv.h       | 260 +++++-----
- drivers/gpu/drm/vc4/vc4_fence.c     |  34 +-
- drivers/gpu/drm/vc4/vc4_gem.c       | 961 ++----------------------------------
- drivers/gpu/drm/vc4/vc4_irq.c       | 140 ++----
- drivers/gpu/drm/vc4/vc4_perfmon.c   |  34 +-
- drivers/gpu/drm/vc4/vc4_render_cl.c |  17 +-
- drivers/gpu/drm/vc4/vc4_sched.c     | 331 +++++++++++++
- drivers/gpu/drm/vc4/vc4_submit.c    | 650 ++++++++++++++++++++++++
- drivers/gpu/drm/vc4/vc4_v3d.c       |  24 +-
- drivers/gpu/drm/vc4/vc4_validate.c  |  21 +-
- 14 files changed, 1352 insertions(+), 1194 deletions(-)
----
-base-commit: a284476db2653ae893f46cbea408eb412db54eb0
-change-id: 20260121-vc4-drm-scheduler-03cd8670b3f6
+-- 
+2.54.0
 
