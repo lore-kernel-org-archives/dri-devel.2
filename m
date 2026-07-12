@@ -4,44 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6767C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 15:32:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA754C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 15:36:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 068B010E4BD;
-	Sun, 12 Jul 2026 15:32:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EB6810E0EA;
+	Sun, 12 Jul 2026 15:36:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VdfxQIws";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YM1SkcF7";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3789E10E430
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 15:32:53 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D2F610E0EA
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 15:36:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CAA6F413EB;
- Sun, 12 Jul 2026 15:32:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 879E41F000E9;
- Sun, 12 Jul 2026 15:32:52 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B641E6004E;
+ Sun, 12 Jul 2026 15:36:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6B81F000E9;
+ Sun, 12 Jul 2026 15:35:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783870372;
- bh=zcPHkN7YRoSFIShAJM721c3FMKA93RMN6qUaYsRmlrw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VdfxQIwsrzdX46QXRNyMFFRsMBBiyQGu219210a74AlOGIZcgjDbDa0guQCII/FWa
- zbZOPpQD7/IELCJtZbz2E3EN/mdoHNAnjho/THe7hmUYk4Rn+nokRuRk4Do3voLeVd
- Tkh5NZIjSA9Y3UfnAZs2sIHzmhHyKcvMBCaegpTEthyuXxyl6XimI9fj/B7qjjqQvp
- iQfxlxB+F0qckiOGH9E1mXXMbL/8KwI1ko03D4qI6zhFEsCaE/O+L4ZSW43GhV0SZK
- 2eQ8Z5zNXfg/9AkB20z6QEGzM/fcxyS61uGXU//b22igQY/aOWh5ibYL5swxHaqxfK
- eZIjkBAn+FeVA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/8] drm/vc4: Add DRM GPU scheduler infrastructure
- and job structures
-To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260712-vc4-drm-scheduler-v3-3-ed6dc4defa53@igalia.com>
-References: <20260712-vc4-drm-scheduler-v3-0-ed6dc4defa53@igalia.com>
- <20260712-vc4-drm-scheduler-v3-3-ed6dc4defa53@igalia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 12 Jul 2026 15:32:52 +0000
-Message-Id: <20260712153252.879E41F000E9@smtp.kernel.org>
+ s=k20260515; t=1783870562;
+ bh=/c8dQlrD+UopIRGkuo0OWH1leob6jgbBkZdHtJYCJ9E=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=YM1SkcF7SY84HKWxBJqeyCkrPQB8hvipq1YbGjaTSOLWX2edqyfRC7/aRJY46FRVQ
+ 8OppOKhkEskZ1hFCJd8S15txrxcTrRJmIb/NqLzj49jVXwk3QgP4vq8zC4p9A8mBmi
+ CxjTipfMBJocq1yS3ImtkUJJgX4VYcgU4E60RQRYVPmMFUv2j0sJ/zhOPTPedhTHG/
+ A2WKkWkva4pDBjhwgQeL/3PwoU0A/3kGrtD8nLcDUrtjD6OG4vWC+JcI4QAwNZreMZ
+ QU98zlLyaGlSsvG2T/X34wZJvv2XbSrTxW6uWGr8nrYkuhVbDUSKuvCM2U471/109U
+ h1ezctZwG8/IA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: aliceryhl@google.com, daniel.almeida@collabora.com, acourbot@nvidia.com,
+ ecourtney@nvidia.com, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ tmgross@umich.edu, deborah.brouwer@collabora.com,
+ boris.brezillon@collabora.com, lyude@redhat.com,
+ driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 00/19] rust: drm: Higher-Ranked Lifetime private data
+Date: Sun, 12 Jul 2026 17:35:51 +0200
+Message-ID: <20260712153551.1097724-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260628145406.2107056-1-dakr@kernel.org>
+References: <20260628145406.2107056-1-dakr@kernel.org>
+X-Patch-Reply: applied
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,269 +62,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
+On Sun, 28 Jun 2026 16:53:20 +0200, Danilo Krummrich wrote:
+> [PATCH v5 00/19] rust: drm: Higher-Ranked Lifetime private data
 
-New issues:
-- [Critical] `vc4_sched_init()` is never called, leading to a zero-initiali=
-zed scheduler and a kernel panic.
-- [High] Unsigned enum used as a reverse loop counter causes an infinite lo=
-op and out-of-bounds access.
-- [High] Dereferencing `bin->render` without checking for NULL causes a ker=
-nel panic.
-- [High] Race condition between concurrent multi-queue timeout handlers cau=
-ses Use-After-Free.
-- [High] Missing `dma_fence_put()` for `irq_fence` causes a steady memory l=
-eak.
-- [High] GFP_KERNEL memory allocations during GPU reset recovery cause dead=
-locks.
-- [Low] Missing definition of `vc4_job_cleanup` causing build failure.
+Applied, thanks!
 
-Pre-existing issues:
-- [High] Infinite loop in a command list extends the GPU timeout indefinite=
-ly (DoS).
-- [High] Hardware registers are accessed without guaranteeing the device is=
- successfully powered on.
---
+  Branch: drm-rust-next
+  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
 
---- Patch [3]: [PATCH v3 3/8] drm/vc4: Add DRM GPU scheduler infrastructure=
- and job structures ---
-commit 823d1127ab669811483f871897f29bae5ea3a18f
-Author: Ma=C3=ADra Canal <mcanal@igalia.com>
+[1/19] rust: drm: ioctl: fix unbounded lifetimes in ioctl handler arguments
+      commit: 68b151bc6145
+[2/19] rust: drm: rename Uninit DeviceContext to Normal
+      commit: fd0f827c532b
+[3/19] rust: faux: add Device type with AsBusDevice support
+      commit: 893f39dadaa1
 
-drm/vc4: Add DRM GPU scheduler infrastructure and job structures
+      [ Drop redundant 'struct device' invariant; implied by valid
+        struct faux_device. - Danilo ]
 
-Introduce struct vc4_job as the new base structure for GPU jobs, embedding
-struct drm_sched_job for use with the DRM GPU scheduler. Add core scheduler
-infrastructure in vc4_sched.c, implementing queue operations, timeout
-handling, and job cleanup.
+[4/19] rust: drm: Add Driver::ParentDevice associated type
+      commit: 49e27d58a06d
+[5/19] rust: drm: change default DeviceContext to Normal
+      commit: 903001300874
+[6/19] rust: drm: restrict AlwaysRefCounted to Normal Device context
+      commit: 506a7d63dab0
+[7/19] rust: drm: restrict AlwaysRefCounted to Normal GEM Object context
+      commit: ec8b2cc27c76
+[8/19] rust: drm/gem: remove DeviceContext from shmem::Object
+      commit: 7f994b8912eb
+[9/19] rust: drm: split Deref for Device context typestates
+      commit: 1c8a1f88ac32
+[10/19] rust: drm: pin ioctl Device reference to Normal context
+      commit: 499eb35cd477
+[11/19] rust: drm: add Ioctl device context typestate
+      commit: 86b20b11505d
+[12/19] rust: drm: Add RegistrationGuard for drm_dev_enter/exit critical sections
+      commit: 2455d5f2d5e8
+[13/19] rust: drm: Wrap ioctl dispatch in RegistrationGuard
+      commit: 478da53e5b68
 
-> diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-> --- a/drivers/gpu/drm/vc4/vc4_drv.c
-> +++ b/drivers/gpu/drm/vc4/vc4_drv.c
+      [ Use imperative mood in commit message; clarify __dev_ctx_cast() doc
+        comment to reflect Ioctl-to-Registered cast. - Danilo ]
 
-[ ... ]
+[14/19] rust: drm: return ParentDevice from Device AsRef
+      commit: 47f600d40bc6
+[15/19] rust: drm: add AsRef<ParentDevice<Bound>> for Device<Registered>
+      commit: 453197b7cc32
+[16/19] drm: fix race between partial drm_dev_register() failure and ioctl
+      commit: eb197f7d60f0
+[17/19] rust: drm: Add RegistrationData to drm::Driver
+      commit: e15b88223dc1
 
-> @@ -155,15 +158,33 @@ static int vc4_open(struct drm_device *dev, struct =
-drm_file *file)
->  		return -ENOMEM;
->  	vc4file->dev =3D vc4;
-> =20
-> +	for (q =3D 0; q < VC4_MAX_QUEUES; q++) {
-> +		sched =3D &vc4->queue[q].sched;
-> +		ret =3D drm_sched_entity_init(&vc4file->sched_entity[q],
-> +					    DRM_SCHED_PRIORITY_NORMAL, &sched,
-> +					    1, NULL);
+      [ Move registration_data_unchecked() to Device<T, Registered> impl
+        block. - Danilo ]
 
-[Severity: Critical]
-Is it intentional that the DRM schedulers are initialized against a
-zero-initialized structure?
+[18/19] rust: drm: Pass registration data to ioctl handlers
+      commit: 3ba210061c29
+[19/19] drm: nova: Use drm::Device<Registered> to access the parent bus device
+      commit: 354a8f8b098b
 
-I see vc4_sched_init() is implemented in vc4_sched.c but it never seems to
-be called during driver setup. If vc4->queue[q].sched is completely
-zero-initialized, doesn't opening and then closing a file trigger a NULL
-pointer dereference in vc4_close() when calling
-drm_sched_entity_destroy() due to the uninitialized wait queues?
+The patches will appear in the next linux-next integration (typically within 24
+hours on weekdays).
 
-> +		if (ret)
-> +			goto err_sched;
-> +	}
-> +
->  	vc4_perfmon_open_file(vc4file);
->  	file->driver_priv =3D vc4file;
-> +
->  	return 0;
-> +
-> +err_sched:
-> +	for (q--; q >=3D 0; q--)
-> +		drm_sched_entity_destroy(&vc4file->sched_entity[q]);
-
-[Severity: High]
-Will this loop ever terminate on failure?
-
-Since q is of type enum vc4_queue, the compiler will likely treat it as
-an unsigned integer type. If the first allocation fails (q =3D 0), wouldn't
-q-- underflow to the maximum unsigned value, making q >=3D 0 always true
-and leading to an out-of-bounds access and infinite loop?
-
-> diff --git a/drivers/gpu/drm/vc4/vc4_fence.c b/drivers/gpu/drm/vc4/vc4_fe=
-nce.c
-> --- a/drivers/gpu/drm/vc4/vc4_fence.c
-> +++ b/drivers/gpu/drm/vc4/vc4_fence.c
-> @@ -23,6 +23,24 @@
-> =20
->  #include "vc4_drv.h"
-> =20
-> +struct dma_fence *vc4_fence_create(struct vc4_dev *vc4, enum vc4_queue q)
-> +{
-> +	struct vc4_queue_state *queue =3D &vc4->queue[q];
-> +	struct vc4_fence *fence;
-> +
-> +	fence =3D kzalloc_obj(*fence);
-
-[Severity: High]
-Can this memory allocation cause a deadlock during GPU reset?
-
-When the GPU hangs, the timeout handler calls drm_sched_resubmit_jobs()
-which invokes the run_job callbacks. If vc4_fence_create() is called in
-this path and implicitly uses GFP_KERNEL (via kzalloc_obj), memory
-reclaim might block waiting for fences from the already hung GPU,
-preventing the reset from ever completing.
-
-> diff --git a/drivers/gpu/drm/vc4/vc4_sched.c b/drivers/gpu/drm/vc4/vc4_sc=
-hed.c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/vc4/vc4_sched.c
-
-[ ... ]
-
-> +static void
-> +vc4_sched_job_free(struct drm_sched_job *sched_job)
-> +{
-> +	struct vc4_job *job =3D to_vc4_job(sched_job);
-> +
-> +	vc4_job_cleanup(job);
-> +}
-
-[Severity: Low]
-Will this compile successfully?
-
-The function vc4_job_cleanup() is called here but it does not appear to
-be defined anywhere in this patch or the surrounding code.
-
-[ ... ]
-
-> +static struct dma_fence *vc4_bin_job_run(struct drm_sched_job *sched_job)
-> +{
-
-[ ... ]
-
-> +	/* Release the previous fence if the scheduler is resubmitting this
-> +	 * job after a GPU reset.
-> +	 */
-> +	if (job->base.irq_fence)
-> +		dma_fence_put(job->base.irq_fence);
-> +	job->base.irq_fence =3D dma_fence_get(fence);
-
-[Severity: High]
-Does this code leak the extra dma_fence reference?
-
-We acquire an extra reference here with dma_fence_get() in both the bin
-and render job paths, but I don't see a corresponding dma_fence_put() in
-the job teardown paths. Doesn't this mean every executed job permanently
-leaks a fence?
-
-[ ... ]
-
-> +static void
-> +vc4_reset(struct drm_device *dev)
-> +{
-> +	struct vc4_dev *vc4 =3D to_vc4_dev(dev);
-> +
-> +	drm_err(dev, "Resetting GPU.\n");
-> +
-> +	mutex_lock(&vc4->power_lock);
-> +	if (vc4->power_refcount) {
-> +		/* Power the device off and back on the by dropping the
-> +		 * reference on runtime PM.
-> +		 */
-> +		pm_runtime_put_sync_suspend(&vc4->v3d->pdev->dev);
-> +		pm_runtime_get_sync(&vc4->v3d->pdev->dev);
-
-[Severity: High]
-This is a pre-existing issue, but shouldn't we check the return value of
-pm_runtime_get_sync() here?
-
-If the device fails to resume, it remains powered off. The function then
-proceeds to call vc4_irq_reset() which performs MMIO writes to V3D_INTCTL
-and V3D_INTENA. Writing to unclocked hardware typically triggers bus
-errors and a kernel crash.
-
-> +	}
-> +	mutex_unlock(&vc4->power_lock);
-> +
-> +	vc4_irq_reset(dev);
-> +}
-> +
-> +static enum drm_gpu_sched_stat
-> +vc4_gpu_reset_for_timeout(struct vc4_dev *vc4, struct drm_sched_job *sch=
-ed_job)
-> +{
-> +	struct vc4_job *job =3D to_vc4_job(sched_job);
-> +	enum vc4_queue q;
-> +
-> +	mutex_lock(&vc4->reset_lock);
-
-[Severity: High]
-Can this mutex_lock() race with a concurrent timeout handler?
-
-VC4 has separate schedulers for the BIN and RENDER queues. If jobs on
-both queues time out simultaneously, Thread A might acquire the lock,
-reset the GPU, restart both schedulers, and unlock.
-
-Thread B would block here. Once Thread A releases the lock, Thread B
-wakes up and proceeds to use sched_job. However, since Thread A already
-restarted the schedulers, the RENDER scheduler could immediately execute
-and complete Thread B's job, freeing it.
-
-Wouldn't this cause a use-after-free when Thread B finally acquires the
-lock and dereferences sched_job below?
-
-> +
-> +	/* block scheduler */
-> +	for (q =3D 0; q < VC4_MAX_QUEUES; q++)
-> +		drm_sched_stop(&vc4->queue[q].sched, sched_job);
-> +
-> +	if (sched_job) {
-> +		drm_sched_increase_karma(sched_job);
-> +
-> +		/* If the guilty job is a BIN job, also increase the karma
-> +		 * of its paired render job. Otherwise, the RENDER job would
-> +		 * be submitted to the GPU without binner output.
-> +		 */
-> +		if (sched_job->sched =3D=3D &vc4->queue[VC4_BIN].sched) {
-> +			struct vc4_bin_job *bin =3D to_bin_job(sched_job);
-> +
-> +			drm_sched_increase_karma(&bin->render->base.base);
-
-[Severity: High]
-Can bin->render be NULL here?
-
-If userspace submits a job that only has a BIN component, or if the
-RENDER job allocation failed prior to submission, won't dereferencing
-bin->render->base.base result in a kernel panic?
-
-[ ... ]
-
-> +static enum drm_gpu_sched_stat
-> +vc4_cl_job_timedout(struct drm_sched_job *sched_job, enum vc4_queue q)
-> +{
-> +	struct vc4_job *job =3D to_vc4_job(sched_job);
-> +	struct vc4_dev *vc4 =3D job->vc4;
-> +	u32 ctca =3D V3D_READ(V3D_CTNCA(q));
-> +	u32 ctra =3D V3D_READ(V3D_CTNRA0(q));
-> +
-> +	/* If the current address or return address have changed, then the GPU
-> +	 * has probably made progress and we should delay the reset. This could
-> +	 * fail if the GPU got in an infinite loop in the CL, but that is pretty
-> +	 * unlikely outside of an i-g-t testcase.
-> +	 */
-> +	if (job->timedout_ctca !=3D ctca || job->timedout_ctra !=3D ctra) {
-
-[Severity: High]
-This is a pre-existing issue, but does this logic safely handle infinite
-loops in command lists?
-
-It assumes any change in the execution address means forward progress. If
-an unprivileged user submits a command list with a backward branch, the
-execution address will constantly change. Won't this cause the timeout
-handler to infinitely defer the reset, resulting in a permanent GPU
-lockup and a denial of service?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260712-vc4-drm-sc=
-heduler-v3-0-ed6dc4defa53@igalia.com?part=3D3
+The patches are queued up for the upcoming merge window for the next major
+kernel release.
