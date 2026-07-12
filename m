@@ -4,136 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91A07C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 11:35:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98183C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 11:50:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0873610E43D;
-	Sun, 12 Jul 2026 11:35:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8836988A3E;
+	Sun, 12 Jul 2026 11:50:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RBT1c7RP";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kQ8+zwH9";
+	dkim=pass (1024-bit key; secure) header.d=quora.org header.i=@quora.org header.b="CQYNxzha";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A316810E2C9
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 11:35:20 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66CAceBl2195992
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 11:35:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=C/wSXBBN4gDQlGAHKupNpiLX
- 9M+PtyJNTEFTUsKADHs=; b=RBT1c7RPzYBAedGXHdXmBTnwN5FnPZpHPQNSL5G1
- hyEafsAKOXd+T/QugnDyvL8xPk2jEO/eOLfLu7nJXq4VxouQjy5+6MpVnXDO37Qg
- BqKwlulzJOCN65RxXSTeOzbQOmEyDRIdFvoDSYcXD153X41BvoNKeVh6TJ5apDkK
- /x9V4o7LjHyiihA1WyhZAazmRt/PIYvH8P89oe9QH8//OB8XNQu9TswnO9QwhRD8
- /8yhKklJcUEu/btJ/L7k1XGJg0d/ZbLPZXevRRSkxzgeGnkAEc2+0ijkVqKVhwqc
- kWJxoaI+RyTKV2QMsl85uQrt2151mjqmli1aH1/1Uhqmlg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbee9jqyc-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 11:35:19 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-51bfe3fa93bso34698481cf.2
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 04:35:19 -0700 (PDT)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C0C710E0E6
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 11:50:10 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-38dc4553f62so1120470a91.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 04:50:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783857010; cv=none;
+ d=google.com; s=arc-20260327;
+ b=W72aZ+DQ1pyvkX9BByKwVohvT9XiflyF6iJ/yLlS82ZEOcI1+sZ607P50QZ5LX4qVe
+ UhCKG+6+Q2/o2KOHjWpzL5qaSFmVslPcqXTw+9jF08t3dCqErS5/TU4vA83oOz7G9peV
+ XNn5XKN/nOSw6D7Mr4AtDdSW67a5w/duJWpT3Z3uXF/BDtQynw3q+TMaZr8fvOGUKljf
+ RUbqFTCUHgYttz7FCSRq5GDq+0U6SgRIdclSWQv5jf4i8VzpNan+dzRLPfSXy/2Q9TXA
+ SnG4GxG2xCqlNyI6bXhGwTCA6zUDfccjE6zvQI3WLkZ7pNl4Ym0f0QV8OO2Ib8CVx7vh
+ yngA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=Sp9a2KMToJnfNko4S/JCutxocl3+KvZJzirc4K2SinU=;
+ fh=ZTrV8f8o4jxOB3O25ZPk/enC8L839mUqQTFvekwuF7k=;
+ b=Mnb8t79tf9spXjbWsj2Icrzbd5Zl6NJ5GXVM9SFCUXm7vx7eqknlcmQ2d46llm3VaC
+ Tn5czWhfW8Blo2Gh0bHyPHDgN75NPnemRBqnuaA0ldAhrepIWzhc7hxFvF5vZV6rcV3j
+ pIRDiZzCfWNOgeXnQ+scPXWIY1Y58vb12DvDZjeEAhcKyoAWxHn2gZeLuvO4C1SzrPi9
+ 5NCFRDFgrBrGNBL+xl+IS8DabcYzG5bwEhPke6tSFNpkMTWSCGrnYEy3lRUPNKTFRZ+M
+ gP7hixFrwacvYRRq/60XerVBjRFP+rCQUU9iW4PDeDSuX+5WjIcBa7ABTay4krYFMavx
+ vkTQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783856119; x=1784460919;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=C/wSXBBN4gDQlGAHKupNpiLX9M+PtyJNTEFTUsKADHs=;
- b=kQ8+zwH9vftljXqB2TccZE3h+x3HBUUSZ7KjzbuHh2mtdEhQVP0gd6A/NULo3P/Et8
- ce2uAsMbeWFHmzQqDBrbQSf9GG+E7/XE+Uzyfn7G31hgV0Wh2yEIGWFKgVmrUT2xng1q
- uLpQXvdmn8V8r8uNKYz37GEDtulVg3HtEDLx+61JuvrkvmjnYVZxZlPoLQLoKKS09uci
- xCh07qptCJQNKWtQALHdzymHcLrd+eiUkk6hS0iFv5PhQw+n3H8Vo3G6LxyPfb7RuoRv
- CRE+8oLLAx/GCnWtLRLHuLAW2jaIewB9sFFY3w6sW7uetoMXcsU/Nnh2XBe9oZA802Pr
- Ntlw==
+ d=quora.org; s=google; t=1783857010; x=1784461810; darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Sp9a2KMToJnfNko4S/JCutxocl3+KvZJzirc4K2SinU=;
+ b=CQYNxzhavpUIb5+nZEcmUO6kis9pn7JuDCPcGT/U7b/IH7H6t0wNLZ/Tg7XLBxbLMQ
+ QECYKrTX+k4qmiZ1QF4L6FBPc57Mw/Oj5yThdOHzmuTXayrcbmn7ePnS3fFfZNN6geaS
+ kMfrLJewYTMbxMDQO1RBdrWuhkmmS/b6tfG6g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783856119; x=1784460919;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=C/wSXBBN4gDQlGAHKupNpiLX9M+PtyJNTEFTUsKADHs=;
- b=huTKOoOsHmAVzDqVyzlM7EpQnNnHIorgKuaTALeLGaRJ0c4B1s78MSzySE2H4cBYLF
- EUMeblGUb8lksBVg3lMfIyYS/D4DUG7jvrEel3oLz6VhISoeKW9J7AcoWXbFgw0C2fWC
- sNJ9otwgzVVtz025tV9IVW/0dbzU1GZS2eDQnfH/zfvkVY3n80zPXJCYjdV196G0YF3x
- 9MRVK7/pkfYz+Kh9jodntVmpUaEvypiFWXaB51quqnbQmdPrGVgFgtKKAbbj/hfwLTaz
- gT+KVWDcwtVZpZflLS/Fzvv4qwgtcyN4p5n+5tDOZ5DhW6Kpn0fpN2lpRovHH/OgjctV
- U7Fw==
+ d=1e100.net; s=20251104; t=1783857010; x=1784461810;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=Sp9a2KMToJnfNko4S/JCutxocl3+KvZJzirc4K2SinU=;
+ b=OWAPF/zS2JB/whFCK1W5HPTTUgyu6uIlR80rPuqKZcDlXcNvsc7EmlpMUaBvCKrSpp
+ UBi17962A7bDyi8D6PH41aPVrKPGWE38gbvh6qwDIOb8YQInE7tCpnC5VtFAJCNxYXM4
+ R/jVgPiNuBTFuG0ZGgHSyxcv4sWH7lJJ5qKZ1xRTUVTdvZFlEKW5txZMw6JRow+Sd3Wt
+ Sc64wVOxsVhnycXS03zyNHIM50Qo9buI/2lerKO9DbsgVrkr/g0qKaR1Cb338gQQgjGu
+ 4QNbJIEjZ0r3QnY8wmRQcl+0GTt36C8WZME9f2U40THFB60RHyFvC1FbUKlHCQEEjen3
+ H05A==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqctqdDoBw1uhkqCVqMrN2eCPcqpUlbo2Nrl7t9cKb0lBlmh7mErdPpwi4KfhgmsnsdqsfqvkA5LEg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwU2AZsE2hWQCm0KreM2NzlOJHIM/oqDK0Yr7b9HcOH08Nxe5D/
- vnURtn30KKGwGrhc2jzEJ2SFsnAlgkhpbvHg0a5Ih7kUoKrapp6bKXXNd7N1pGwwlP8oNOH2ITz
- HAad4+b9SoQ4N4XiWafvLaCue1CaVnNx8POszcXjw5rJ1D8Jfijaz/DFoowacOr3RszzL378Go7
- qNEdI=
-X-Gm-Gg: AfdE7cnQ+6Hxuq2f4iRVosISjHv5bFSVVbxVXNVWyWLjBEA+MARsZxQP5Ab8Pao3sBE
- v02gpMp86vqkxFCN3YLDdCcKrOAEISS/Q/5WtAjsv+/HVyF7iug7nh63KeoSgjFcxCvjKVMVA/n
- a7LGNLHyhMAEtu/+RiuuAoPhx+l5bHojKhK6vy4O1eub36TOI/BRYlNVciRJ//aDzuYRAXOmMwS
- YOwwwzNSLzFlwiAYFyk3T7BGYaLB4PXmHdQm+AgKc7x5RwZa+ppbAD5cBRXllg5DbD5/PzXT2uE
- 0lxrilDstgMvyT1dI9ZL3GZYYxE6AQlMXAEtq9pYJslUuYNqcR7EJegXwcatmaxnluqNfodmgQf
- KvICfNPViAEgSlG8eF0yinRCpMC9zV7uGpMTdAByaVTBjRpnKlppcTXjgw0LiCPLivbEIjxo4oS
- Foc87NftT/xszux2QbEDUXICVw
-X-Received: by 2002:a05:622a:54b:b0:51c:1f97:e852 with SMTP id
- d75a77b69052e-51cbf0e00d1mr55823861cf.6.1783856118755; 
- Sun, 12 Jul 2026 04:35:18 -0700 (PDT)
-X-Received: by 2002:a05:622a:54b:b0:51c:1f97:e852 with SMTP id
- d75a77b69052e-51cbf0e00d1mr55823491cf.6.1783856118185; 
- Sun, 12 Jul 2026 04:35:18 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b01ca5002fsm2010096e87.27.2026.07.12.04.35.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 Jul 2026 04:35:16 -0700 (PDT)
-Date: Sun, 12 Jul 2026 14:35:13 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Kavan Smith <kavansmith82@gmail.com>
-Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Daniel Mack <daniel@zonque.org>
-Subject: Re: [PATCH v2] drm/msm/dsi: round 6G byte clock rate to the
- PLL-achievable value
-Message-ID: <5zcohpmyufznjrqvs5iqpcbsziq7fg47e7rsbj4hndrcp4c4po@lgc2kunzwwd3>
-References: <20260706180753.408753-1-kavansmith82@gmail.com>
- <20260707013240.681012-1-kavansmith82@gmail.com>
+ AHgh+RredHBXDjH4IDgDabGaSkduYwm8Bp/OTZSZq7tWoX6a41IXuID4K3xXInOVgKNCI2vo+KVh6GjG67M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy+agc0FfQS7kCZdIpNCeEPXtOLZNWCV8PqZO3vYjPmfiiaU8jx
+ pD6tXCtSbSLzMWzCMndvrz1sV44YK9k5GAdUUFh9KCE49kHtCZrBEwof4K5gVaeExuN96eLrV2m
+ LDETzdgvfeSim9k9mB6qMAbcb27ANUgBFg08lKNqBtA==
+X-Gm-Gg: AfdE7ckqkx5jjLHMvU3MjnLNKjc7RLfepJojXa9ZP8yyBFbsXnBPgofytsUrAatE7O0
+ 3OWwJYUtMZqXUOtf6fmQTaDPSJ2j0gvk9y0V3zC8YYqBnmJ0BLOmbX8YJsBzJYI7Ub+CBGIQQYz
+ vKYk/H1jKjGthnPEamb0KJ9XBUxgHC34aFPe5tBIy5+qc9Yb6F4eCy0GgK+ds9KpRD5IKGisQmu
+ YM41rqnJs3SUB9W2jDsJaf3o0MtKgR12yrxnFmSO9ruvcykRIPiLO5X3sjJp5jQUbePEyFdtn/A
+ zo7YsTiY8tSPTIcDuFOMjSf77Na4XwGBzRtdXk6e4Pg1wxwT7PX/i3T8K3vM4eO9+NemziCmbwl
+ cXSsGCWr0/vmFyp/6YeykjURrC7oPgs1ZbOetnBcUmXTmv9aRon2CaGGeQYF8P5ybAhYofPCm5m
+ Pc+Y40UuJoR6Uh1BoSbwSYbyymWgYTpVsVesdK5b6zQ8tENv6jTATIUMAnBq8mHZY39Ki3syo=
+X-Received: by 2002:a17:90b:314c:b0:380:94de:155e with SMTP id
+ 98e67ed59e1d1-38dc73c1d67mr5199069a91.5.1783857009794; Sun, 12 Jul 2026
+ 04:50:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260707013240.681012-1-kavansmith82@gmail.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEyMDEyMSBTYWx0ZWRfX7DbrbOrLNPmp
- dUUZsuqM5wiKlSecOTKUZce/GfpsdnYJSL0FZww4cKaS8CM2dqpsshpDypZmCHtjS8hzXn9MEXS
- v9wvyo349MIa2WSSbEOSZHZocfwSwqg=
-X-Proofpoint-GUID: 2PGfSuZ1JTQnVIkc4almLNCCJ1H-0AnF
-X-Authority-Analysis: v=2.4 cv=a7UAM0SF c=1 sm=1 tr=0 ts=6a537bf7 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=S4yUXPuXAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=chEMFHXW5F1Shr2T6d0A:9
- a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22 a=uB3M1fsSz_FXjR1IXk1m:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEyMDEyMSBTYWx0ZWRfX2RnNn0gAKc/G
- UW+hn7H5+QE8iFbXhmHla73Ksmrumu4P+YZSuqb5g8oCqYxQLinS8gwbbN/ukacvaL+JBUDsHYi
- sHkO6u5Jy53aJDwT9Dc54rv9ofekcG6T5thsseMoA1Qvkga3MSEQ480/u+MdX8gG1Fur/z1n8Io
- qunygytlhXYCqLdG0Mye9xUPw46xH+ugnVdyShOQdgKd/myiYRMtYyzhrwmZZxV2tX3+DpdmZt2
- C9ZCw1m7Kn/Jo9/lxv480+vDIhDZ/hn5ISPNPlhnkTkLnjjYJLTBdxd6gry82ue1K2O4W8lF3xG
- 3oR0zifHlhl2pg5UT3MMmvkC2UAxu/u+REDTMy4Gv/ptuuWfDqW2lkofV7NfcPo24jDlnz6iPts
- zGfzkVtqeQ1QT9NjgTEIDgOF1EaXaVg2usxMxODwETsCRHn/x+U+UhmO7tmsw3HzbCDDNfCarpG
- rs6qJcEOAlPg819U/Eg==
-X-Proofpoint-ORIG-GUID: 2PGfSuZ1JTQnVIkc4almLNCCJ1H-0AnF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-12_04,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 priorityscore=1501 malwarescore=0 adultscore=0
- clxscore=1015 spamscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607120121
+References: <CAMVG2st2udHCUHZ_2j=jNmwTAVi2Cvda0qGgH4tDZHwsGVfLKQ@mail.gmail.com>
+ <CAMVG2stuY5aTwfmJkL_cLDn86hfuFD+sT-LdqdmN5m21y2aL5g@mail.gmail.com>
+In-Reply-To: <CAMVG2stuY5aTwfmJkL_cLDn86hfuFD+sT-LdqdmN5m21y2aL5g@mail.gmail.com>
+From: Daniel J Blueman <daniel@quora.org>
+Date: Sun, 12 Jul 2026 19:49:58 +0800
+X-Gm-Features: AVVi8CfnlO117VJ3lWa7mSJR7b-rlpaw2gAO1sdjMy1bq3J7HIu3u3SqtlgnsgQ
+Message-ID: <CAMVG2suBZFMbUmUaAdyOhZ=WNysecPQCD5rZpj96AUi7Au_xHw@mail.gmail.com>
+Subject: Re: [BUG] qcom: x1: GAMMA_LUT corruption on DPMS wake
+To: linux-arm-msm@vger.kernel.org, Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jun Nie <jun.nie@linaro.org>, Federico Amedeo Izzo <federico@izzo.pro>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+ Randy Dunlap <rdunlap@infradead.org>,
+ Linux Kernel <linux-kernel@vger.kernel.org>, 
+ Val Packett <val@packett.cool>, Steev Klimaszewski <threeway@gmail.com>,
+ Sean Paul <sean@poorly.run>, 
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Marijn Suijten <marijn.suijten@somainline.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,107 +115,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 06, 2026 at 06:32:40PM -0700, Kavan Smith wrote:
-> MSM8916 runtime DSI commands still go through
-> msm_dsi_host_xfer_prepare(), which re-applies the link clock rate before
-> enabling the link clocks. That is fine in principle, but on DSI 6G the
-> requested byte clock rate often does not exactly match the DSI PHY PLL's
-> realizable rate. For example, the driver can request 56250000 Hz while the
-> PLL actually runs at 56246337 Hz.
-> 
-> Because the requested and actual rates differ slightly, every later
-> link_clk_set_rate() call is treated as a real clock change and re-locks
-> the PLL. On a video-mode panel without an internal timing generator, such
-> as samsung,s6d7aa0 / lsl080al03 on MSM8916, that live-clock glitch makes
-> the panel lose pixel lock and visibly corrupts scanout on each runtime DCS
-> command, including backlight writes.
-> 
-> Fix this by rounding the computed 6G byte clock rate up front, before it is
-> stored in msm_host->byte_clk_rate and reused by later transfers. Once the
-> host carries the PLL-achievable rate instead of the idealized one,
-> repeated link_clk_set_rate() calls become no-ops in the common clock
-> framework and no longer re-lock the PLL.
-> 
-> This keeps the normal transfer callback sequencing intact, preserves the
-> OPP vote path in link_clk_set_rate(), and matches the fix direction
-> suggested in the original 2018 discussion.
-> 
-> Reported-by: Daniel Mack <daniel@zonque.org>
-> Closes: https://lore.kernel.org/all/1a682c5b-7fc9-3aaa-120b-64b239a355a3@zonque.org/
-> Fixes: 6b16f05aa39f ("drm/msm/dsi: Split clk rate setting and enable")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Kavan Smith <kavansmith82@gmail.com>
-> ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 25 +++++++++++++------------
->  1 file changed, 13 insertions(+), 12 deletions(-)
+On Sun, 14 Jun 2026 at 18:27, Daniel J Blueman <daniel@quora.org> wrote:
+> On Mon, 1 Jun 2026 at 13:37, Daniel J Blueman <daniel@quora.org> wrote:
+> > Since Adreno X1-85 GAMMA_LUT support was introduced in Linux v7.0 (eg
+> > Ubuntu 26.04), when waking from DPMS-off, palette corruption is
+> > frequently seen; this manifests as purple banding. If GNOME night
+> > light or similar is enabled, the visual impact is greater.
+> >
+> > Further, on larger panel monitors or laptops eg the Lenovo Yoga Slim
+> > 7x (2944x1840), a second INT2 block is used for the right half of the
+> > screen, which may remain totally blank on wake; major usability
+> > impact.
+> >
+> > Intuitively, the symptoms feel like the LUT SRAM clock isn't being
+> > driven soon enough during the wakeup, thus state loss may depend on
+> > silicon binning/variation or related. No such symptom is seen in
+> > Windows on the same hardware. I found a workaround supporting this
+> > mechanism is to activate the GNOME night light and adjust the slider
+> > to update the LUT - any black right half of the screen always
+> > reappears.
+> >
+> > Please can someone with X1-85 Adreno insight check the Linux clock and
+> > power domain behaviour around GC_EN, Layer Mixer, INTerFace and INT2
+> > on DPMS wake? Happy to test changes; this is a stunning platform
+> > otherwise.
+> ...
+> > Link: https://gitlab.freedesktop.org/drm/msm/-/work_items/89
+>
+> Just a heads-up on this with additional findings. Note this issue
+> could be the only remaining daily friction on X1 laptops with suspend,
+> once my video decode reboot workaround or similar is merged. Also note
+> in my case, without GNOME night light active, only a few LUT entries
+> render purple so visual artifacts often go unnoticed until a gradient
+> eg in an image is visible.
+>
+> From DPMS wake on a dual-LM panel (>2560 pixels wide) with
+> INTF_5/DSPP_0 (master) and INTF_6/DSPP_1, I find DSPP_1's registers
+> are intermittently unresponsive just after MDSS resume. DSPP_0 doesn't
+> exhibit this issue, suggesting some missing slave/second unit setup,
+> despite booting clk_ignore_unused pd_ignore_unused.
 
-Don't send next iterations of patches as a reply to the previous thread.
-Always start a new thread for the new iteration.
+Guys, further debug reveals the Windows driver (which doesn't exhibit
+the issue) doesn't use the same register access as Linux to reprogram
+all LUT entries on DPMS wake. Instead, it appears to submit a DMA
+descriptor to fetch LUT values which get internally loaded in a stable
+manner.
 
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index eabdaa4..5119862 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -603,12 +603,24 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->  
->  int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->  {
-> +	long rounded_byte_clk_rate;
-> +
->  	if (!msm_host->mode) {
->  		pr_err("%s: mode not set\n", __func__);
->  		return -EINVAL;
->  	}
->  
->  	dsi_calc_pclk(msm_host, is_bonded_dsi);
-> +
-> +	rounded_byte_clk_rate = clk_round_rate(msm_host->byte_clk,
-> +					       msm_host->byte_clk_rate);
-> +	if (rounded_byte_clk_rate < 0) {
-> +		pr_err("%s: failed to round byte clock rate, %ld\n",
-> +		       __func__, rounded_byte_clk_rate);
-> +		return rounded_byte_clk_rate;
-> +	}
-> +
-> +	msm_host->byte_clk_rate = rounded_byte_clk_rate;
->  	msm_host->esc_clk_rate = clk_get_rate(msm_host->esc_clk);
->  	return 0;
->  }
-> @@ -2056,18 +2068,7 @@ int msm_dsi_host_xfer_prepare(struct mipi_dsi_host *host,
->  	 * mdp clock need to be enabled to receive dsi interrupt
->  	 */
->  	pm_runtime_get_sync(&msm_host->pdev->dev);
-> -	/*
-> -	 * Do NOT re-set the link clock rate when the link is already up and
-> -	 * streaming. On MSM8916 the requested byte-clock rate never exactly equals
-> -	 * the DSI PHY PLL's achievable rate, so clk_set_rate() re-locks the PLL on
-> -	 * every command. For a video-mode panel with no internal timing generator
-> -	 * (e.g. s6d7aa0), that clock glitch makes the panel lose pixel lock mid-
-> -	 * scanout -> ~1s of displaced/wrapped image on every DCS write (backlight).
-> -	 * The rate is already correct from power-on; downstream MDSS only refcount-
-> -	 * enables the clocks here (CMD_CLK_CTRL) and never re-sets the rate.
-> -	 */
-> -	if (!msm_host->power_on)
-> -		cfg_hnd->ops->link_clk_set_rate(msm_host);
+Is it possible for Qualcomm to attempt a minimal fix, or share the DMA
+description struct and doorbell/completion register offsets and
+related so the community can?
 
-There is no such code upstream. You are reverting a code from v1, but it
-wasn't applied. Please don't send iterative patches (fix for the fix).
+Also, it would be good to hear if anyone with an X1E running a 7.0
+kernel or newer with a 4K monitor *doesn't* see palette corruption
+across DPMS sleep-wake, as this could indicate another possible
+solution.
 
-I'll drop the chunk while applying, but in future please don't make
-such mistakes.
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
-> +	cfg_hnd->ops->link_clk_set_rate(msm_host);
->  	cfg_hnd->ops->link_clk_enable(msm_host);
->  
->  	/* TODO: vote for bus bandwidth */
-> -- 
-> 2.43.0
-> 
-
+Thanks,
+  Dan
 -- 
-With best wishes
-Dmitry
+Daniel J Blueman
