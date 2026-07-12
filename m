@@ -4,155 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84786C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 13:53:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA4FDC43458
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Jul 2026 13:54:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73A6810E464;
-	Sun, 12 Jul 2026 13:53:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29A5810E44B;
+	Sun, 12 Jul 2026 13:54:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MkrXFiIu";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HiAYtWRO";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="WrypsVEZ";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A21B10E464
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 13:53:51 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66CDZaNV2808058
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 13:53:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=wjc4jE7ttkmjfByvpgXMpVeJ
- fd5zNu6E5KL7m0FWXjA=; b=MkrXFiIuacuzuNaxb/j54iq2shzJb0TXLsDf1iOy
- 9z4WJXtOUu50Srh5JFv7/gR8NM/d69SQe+Q0qm52LEU1D5mHaZPNkK43vyywzU45
- 2U/ED91zhZfO7MfvoSdM/sFiFfZeQyOS09yYfHuW0scvB3JdyhaIIrUx7YvdjxCJ
- aJ8hxvvBhNNwVHBwuavigvlrRiirB/NV6amwGfVPq1tvt1CXpOmtW7rSXdjJodSp
- /wZkU+wk+l5nf9lB6hbUW4NHws83g0xEunzRQSZa4Yvv9d8IHC7GFoBUEyKsy3Rj
- 8LTdMdCVjJmudA/Aw9EvjhXQH+jhbrCRsB+1x1F1/3y7cQ==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbeafau2m-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 13:53:51 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-848568a6f62so4107487b3a.0
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 06:53:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783864431; cv=none;
- d=google.com; s=arc-20260327;
- b=DdNg9FvGrNKixFUrqDMDDLHdw3gwrlNJ4bVHNuELAvUtAhr79lmMo5SZgILu4s3pAO
- K/ASz8gLS5EdP8N0Vmyl0AzqYmTcSe8dcnNOLw7KIE38j3tQUzVzKYNGWf8tB4uDEUpb
- Dx4gCn5uwK1b0R5VbN03ENdVBrENwtie4r54Su3YaKsoIi1zQ0TM+L4HANmxltysrJhC
- DlsSJfaG/X8VJ2pgqvzDhcS48DoA7AFmksqEuFyeCHZtPBR8g+XEI5T0kl/W3DbGF0hj
- PiT5guoVfZCxUgLQZlliXyfX/4cjACc7AOUmzzBVDFMBTj7AfhHJFT+DXYCxfXTHy1zu
- F/gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=wjc4jE7ttkmjfByvpgXMpVeJfd5zNu6E5KL7m0FWXjA=;
- fh=OeGwkY+Oa8MCBn0Mb0xx31+jqiZthd3fws5y1jtrnbw=;
- b=Wyiw1SvVGGCGr3YkvuRHDJXHDBA8/FpH1RNsxyJ2ZHEKTZAfoAbx/xH+cI9RyekuxA
- Byjhf5KO/i3XPquOXvq8fkuWSjv+9EOkOCX23Q8GLRAx32SpUlV9BipiP5kFTydXQSVj
- VrmQuCgsLwC+SUuPTGHQqJ0tpOgyNODe5n+m/6CtmO1xi2piZAmL2fdELitzy5AJYsov
- G/bakgmJSHn+eDxI2+9FK4Ix/PuYh482dMFSTOjZRy8DsOjIKvtfXHcI5/GpjAIx0Y//
- rlklQWRCFR+yYme8jUAiNsB0d7d6Mn07bU8s7JD4b3jn4IgTFrL3UfCpuWTfpDeeP4cg
- zdnQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783864431; x=1784469231;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=wjc4jE7ttkmjfByvpgXMpVeJfd5zNu6E5KL7m0FWXjA=;
- b=HiAYtWROwrAp01HaYyimEzWqDV8HtZxMqWwfVn2aifI+0OkmtakQj4TgQam40uJxyS
- iowJ/vkvbh/0DBhZyZU2K+YtGqNWsE6Mrv/wvb2qxVHHpB6rSeMQgddb7q35fYyQkVfb
- uuZbI+i0gRceSzv+m87KJ0bNqYFk6R0koUQRX1XN9t971eKh+gj72sQboGX6EZCc5e7Y
- leg7otG5TF/yzIw00DRnWTW1WPN8CgT9MoQ9o7zO1h+SB6vodtHiMNbN74BeEiYiAWO2
- 5/wD4HsOHtETWydlmd/jCE1nZnByJat29Z/ZnT9Ctf3LiL33ANluKny7hYLMLEChwv4y
- ZFsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783864431; x=1784469231;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=wjc4jE7ttkmjfByvpgXMpVeJfd5zNu6E5KL7m0FWXjA=;
- b=oz9r0Gklh0ck23VW8lFK/WycRIYMRyZ8niIci3t16z1wK8CRoSA4Frkyzxv0TV16sv
- T4p3jkxxp6dyJyyUbLtYng1iShCFb5Xl4HRVN7s9X7wSArO1hD/Ayr88QLv671VT6Vpu
- WwwOYYMfg41mGXMtHd0+gSXWLPJX6MIEzJQOOw4TdVqnnQ84SNbKY9HHXTlWhgPDR2Ts
- CKjqjYNY98MmZ+Z3rY5/ndVRgIZ7id49iNLZ8YHFah6ue0KC/d2DgQqIuB01fjmilpy4
- RJr2pfbpy6io5wenitc01M2zsyK6sPkE5yLOj68vWDcbK/iKBMBTR2ygphPe7iXFQlfq
- v29g==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rpkw0Rz1AHaAcQMSXg/r0YYbc9bFAQAAG4mboY0aakdvzKAL522Skq2Mui3nF4wqOpZm/ATmYcebEU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw9VVABGWcz8nWk0WpYDiaQC9vBLzX/9bVDwJB/ccIFHu5fjEZv
- 8BhLd9NyOLbcQtbEQpBemg7yuXIJPHxQw3b4CMpDi7/W934or5BOBXCfyYE96gQN2v1LJvmFmD/
- R8kLP5OX4pgUsR6rQ6VguFXYCjzZBGjzyAVeYshqtCVtLXfs3CMwLx7CopWrcdDeWnsNhvuRH/K
- 4+juF5ZYePt+1aU2emnqbfTzhdR1NkPaMf2245BC90PR1mJQ==
-X-Gm-Gg: AfdE7cm3JUrr6AeHq7LQ+WrQ3+WjKHZyRztCHo883f7sV2psfTZoYD5Edjo8y6VnqP7
- tS0wRWnymNxjCryRvVZ521xbeuyrXlKoPhjGuKJOK65J/dE6hMfz9nFuFtUbZ+hQElRiDDwchqp
- OTBkjExreH8DzGGeJVH5RfTDBfe8dmf1KKn6mecFn0bdPih0fsew7ERk1bxh4AQMxwFt0=
-X-Received: by 2002:a05:6a00:a14:b0:848:44ae:47c1 with SMTP id
- d2e1a72fcca58-848897e8fe5mr5691768b3a.78.1783864430563; 
- Sun, 12 Jul 2026 06:53:50 -0700 (PDT)
-X-Received: by 2002:a05:6a00:a14:b0:848:44ae:47c1 with SMTP id
- d2e1a72fcca58-848897e8fe5mr5691735b3a.78.1783864430087; Sun, 12 Jul 2026
- 06:53:50 -0700 (PDT)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 68BD210E44B
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Jul 2026 13:54:48 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AD72C1684;
+ Sun, 12 Jul 2026 06:54:43 -0700 (PDT)
+Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com
+ [10.42.46.160])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6D6143F7D8;
+ Sun, 12 Jul 2026 06:54:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1783864487; bh=vSrIv2j9F39UXRUCXJIkutVobSrA/KqX+K/OE0mluiA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=WrypsVEZVKD1c1cAoijPe+akHKMW8nzO6Py8oTjHZ7QXOfr6pG0c++UxVoG8gpx+8
+ Bl3/xOgSvQ87KArPV/PcbV8b1LZt1qKQLWwjI8lVBLau680OC4AsSDvKNuEZZbu497
+ S0jxQwbQo3DpS9+IAafI56GXQ4tHauyWlBBAwTtA=
+From: Ketil Johnsen <ketil.johnsen@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Ketil Johnsen <ketil.johnsen@arm.com>
+Subject: [PATCH v2 0/7] drm/panthor: Protected mode support for Mali CSF GPUs
+Date: Sun, 12 Jul 2026 15:54:32 +0200
+Message-ID: <20260712135439.1546950-1-ketil.johnsen@arm.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <CAMVG2st2udHCUHZ_2j=jNmwTAVi2Cvda0qGgH4tDZHwsGVfLKQ@mail.gmail.com>
- <CAMVG2stuY5aTwfmJkL_cLDn86hfuFD+sT-LdqdmN5m21y2aL5g@mail.gmail.com>
- <zscjwjuqhg36vwsbt735y5gq3bcfxcfh4m46zcgpakacyoxrvf@ekji5eglhdcn>
- <CAMVG2st0i7W3S5pyZRqMufL+pfKTkv8e3sLnws0UhOpbqfXbmg@mail.gmail.com>
-In-Reply-To: <CAMVG2st0i7W3S5pyZRqMufL+pfKTkv8e3sLnws0UhOpbqfXbmg@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sun, 12 Jul 2026 16:53:38 +0300
-X-Gm-Features: AVVi8CfadGqN0BIMmGxTSgFHMkTaIMmMj6VdmWTupcppvZWmGwD2dRsxo7YUrZY
-Message-ID: <CAO9ioeV7tJ01eH6m9nSKv4Xr0gi3x0uaidFZNSKsKSQrTSqLow@mail.gmail.com>
-Subject: Re: [BUG] qcom: x1: GAMMA_LUT corruption on DPMS wake
-To: Daniel J Blueman <daniel@quora.org>
-Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jun Nie <jun.nie@linaro.org>, Federico Amedeo Izzo <federico@izzo.pro>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
- Randy Dunlap <rdunlap@infradead.org>,
- Linux Kernel <linux-kernel@vger.kernel.org>,
- Val Packett <val@packett.cool>, Steev Klimaszewski <threeway@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Proofpoint-ORIG-GUID: 4rW4YEYhWEVdRAnm1mphn7s4-nZVD9B8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEyMDE0NyBTYWx0ZWRfXx2CjeissXxL0
- 5+IzG7+48XyXkHIhifYPsWX8t9zKKUEWb9zSH/FYStqeqx7ero5LnmuJlW5aC3AJqknKkwWlnuW
- vODi03pFeAcZBeceJN0Yjw4VH/fnO9WjHQjuX2luZC7OHOZ03nB85X94RLH8bmQoDvA+D0hLDAH
- JSZjMAtpxnTj0ShCZ8Y9QAzvqr6/m/fxThIyUuhMY28YJbDZ+u4HTXjg0rc2JwhDby4WHamlq7s
- s2Pk4SAy9MjQ/5uvDTeaCXu9u1u7mF4Dz2+FP5m7SOTLRIjcZryKfLiYsOTuBuu96onfNiY1wCk
- KwFlnf5lFfoAWG735hlraaV+PCIwRzyQEeXZLKfdXd2MfTKqsMgDee7ZHP4D1H8NALylW0PL0fm
- /YhLIiBHHZ+80HALTOOzdzr+l/TJbT4lGhE/GCue9GawbLc5d8URVAoP/UyScP0Q/9FbQtozx+t
- 9C0XhijX0P/kMv/Jb7A==
-X-Authority-Analysis: v=2.4 cv=O5MJeh9W c=1 sm=1 tr=0 ts=6a539c6f cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=e5mUnYsNAAAA:8 a=t9ty7G3lAAAA:8 a=EUspDBNiAAAA:8
- a=FiFy6uYC1nMt2OdNVO0A:9 a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
- a=Vxmtnl_E_bksehYqCbjh:22 a=CsAS6f0m0zARWR-uHzm3:22
-X-Proofpoint-GUID: 4rW4YEYhWEVdRAnm1mphn7s4-nZVD9B8
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEyMDE0NyBTYWx0ZWRfXwscvlTnr6XPE
- sj4U3mxgeEcWInWEECcdnIntp9Rc8qNqRsAu7gDgnpYGL9wiWlPsPqHTKiIzz/pCBUh5wehuVyQ
- BZUwS8dDiu3uHH9PLMACvk1Dokc5TLo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-12_05,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607120147
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,59 +60,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, 12 Jul 2026 at 15:47, Daniel J Blueman <daniel@quora.org> wrote:
->
-> On Sun, 12 Jul 2026 at 19:56, Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> >
-> > On Sun, Jun 14, 2026 at 06:27:50PM +0800, Daniel J Blueman wrote:
-> > > On Mon, 1 Jun 2026 at 13:37, Daniel J Blueman <daniel@quora.org> wrote:
-> > > > Since Adreno X1-85 GAMMA_LUT support was introduced in Linux v7.0 (eg
-> > > > Ubuntu 26.04), when waking from DPMS-off, palette corruption is
-> > > > frequently seen; this manifests as purple banding. If GNOME night
-> > > > light or similar is enabled, the visual impact is greater.
-> > > >
-> > > > Further, on larger panel monitors or laptops eg the Lenovo Yoga Slim
-> > > > 7x (2944x1840), a second INT2 block is used for the right half of the
-> > > > screen, which may remain totally blank on wake; major usability
-> > > > impact.
-> > > >
-> > > > Intuitively, the symptoms feel like the LUT SRAM clock isn't being
-> > > > driven soon enough during the wakeup, thus state loss may depend on
-> > > > silicon binning/variation or related. No such symptom is seen in
-> > > > Windows on the same hardware. I found a workaround supporting this
-> > > > mechanism is to activate the GNOME night light and adjust the slider
-> > > > to update the LUT - any black right half of the screen always
-> > > > reappears.
-> > > >
-> > > > Please can someone with X1-85 Adreno insight check the Linux clock and
-> > > > power domain behaviour around GC_EN, Layer Mixer, INTerFace and INT2
-> > > > on DPMS wake? Happy to test changes; this is a stunning platform
-> > > > otherwise.
-> > > ...
-> > > > Link: https://gitlab.freedesktop.org/drm/msm/-/work_items/89
-> > >
-> > > Just a heads-up on this with additional findings. Note this issue
-> > > could be the only remaining daily friction on X1 laptops with suspend,
-> > > once my video decode reboot workaround or similar is merged. Also note
-> > > in my case, without GNOME night light active, only a few LUT entries
-> > > render purple so visual artifacts often go unnoticed until a gradient
-> > > eg in an image is visible.
-> >
-> > Could you please check if increasing reg_bus_bw in msm_mdss.c would fix
-> > the issue? It's not a proper fix yet, but it might help me to understand
-> > the issue.
->
-> Adjusting like so [1] didn't resolve the issue, however it was worth
-> ruling out. Perhaps you could check with the Windows driver team why
-> the DMA descriptor approach was used for LUT setup?
+Hi,
 
-Thanks for the test.
+This is a patch series covering the support for protected mode execution in
+Mali Panthor CSF kernel driver.
 
-SDE driver also uses LUT DMA, it's just another piece of code that has
-not been ported from the downstream.
+It builds on the initial RFC posted by Florent Tomasin back in January of 2025.
 
+The initial RFC can be found here:
+https://lore.kernel.org/lkml/cover.1738228114.git.florent.tomasin@arm.com/
+
+The Mali CSF GPUs come with the support for protected mode execution at the
+HW level. This feature requires two main changes in the kernel driver:
+
+1) Configure the GPU with a protected buffer. The system must provide a DMA
+   heap from which the driver can get protected buffers.
+   It can be a carved-out memory or dynamically allocated protected memory region.
+   Some system includes a trusted FW which is in charge of the protected memory.
+   This problem is integration specific and the responsibility to allocate the
+   required protected memory from the correct and system specific DMA heap is
+   left to user space (Mesa). Panthor CSF driver must be handed the needed
+   buffers via new IOCTLs.
+
+2) Handle enter and exit of the GPU HW from normal to protected mode of execution.
+   FW sends a request for protected mode entry to the kernel driver.
+   The acknowledgment of that request is a scheduling decision. Effectively,
+   protected mode execution should not overrule normal mode of execution.
+   A fair distribution of execution time will guaranty the overall performance
+   of the device, including the UI (usually executing in normal mode),
+   will not regress when a protected mode job is submitted by an application.
+
+
+Background
+----------
+
+Current Mali Panthor CSF driver does not allow a user space application to
+execute protected jobs on the GPU. This use case is quite common on end-user-device.
+A user may want to watch a video or render content that is under a "Digital Right
+Management" protection, or launch an application with user private data.
+
+1) User-space:
+
+   In order for an application to execute protected jobs on a Mali CSF GPU the
+   user space application must submit jobs to the GPU within a "protected regions"
+   (range of commands to execute in protected mode).
+
+   Find here an example of a command buffer that contains protected commands:
+
+```
+          <--- Normal mode ---><--- Protected mode ---><--- Normal mode --->
+   +-------------------------------------------------------------------------+
+   | ... | CMD_0 | ... | CMD_N | PROT_REGION | CMD_N+1 | ... | CMD_N+M | ... |
+   +-------------------------------------------------------------------------+
+```
+
+   The PROT_REGION command acts as a barrier to notify the HW of upcoming
+   protected jobs. It also defines the number of commands to execute in protected
+   mode.
+
+   The Mesa definition of the opcode can be found here:
+
+     https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/panfrost/lib/genxml/v10.xml?ref_type=heads#L763
+
+2) Kernel-space:
+
+   When loading the FW image, the Kernel driver must also load the data section of
+   CSF FW that comes from the protected memory, in order to allow FW to execute in
+   protected mode.
+
+   Important: this memory is not owned by any process. It is a GPU device level
+              protected memory.
+
+   In addition, when a CSG (group) is created, it must have a protected suspend buffer.
+   This memory is allocated within the kernel but bound to a specific CSG that belongs
+   to a process. The kernel owns this allocation and does not allow user space mapping.
+   The format of the data in this buffer is only known by the FW and does not need to
+   be shared with other entities. The purpose of this buffer is the same as the normal
+   suspend buffer but for protected mode. FW will use it to suspend the execution of
+   PROT_REGION before returning to normal mode of execution.
+
+
+Design decisions
+----------------
+
+The earlier versions (RFC and v1) relied on in-kernel allocation of protected
+DMA-bufs, both for the required FW memory (system wide), and per group
+suspend buffers (per process). This is no longer needed.
+Starting with v2, this is now changed and it is user space which is responsible
+for supplying these buffers.
+Only a user space processes with elevated privileges (CAP_SYS_MODULE) is trusted
+to provide the system wide protected FW memory. This only needs to happen once
+per boot, and is needed before any non-privileged processes can make use of
+protected rendering.
+
+The Mali Panthor CSF kernel driver will handle enter/exit of protected
+mode with a fair consideration of the job scheduling.
+
+If the system integrator does not provide a protected DMA heap, the driver
+will not allow any protected mode execution.
+
+Patch series
+------------
+
+[PATCHES 1-5]:
+  These are refactoring to aid the implementation of the protected rendering
+  feature itself.
+
+  * drm/panthor: De-duplicate FW memory section sync
+  * drm/panthor: Minor scheduler refactoring
+  * drm/panthor: Explicit expansion of locked VM region
+  * drm/panthor: Pass drm_file instead of panthor_file - NEW
+  * drm/panthor: Don't allocate protm_suspend_buf - NEW
+
+[PATCH 6]:
+  This patch implements the logic to handle enter/exit of the GPU protected
+  mode in Panthor CSF driver.
+
+  Note: To ease the handling of faults from protected mode, only a single CSG is
+        allowed to execute while in protected mode. It must be the top priority one.
+
+  * drm/panthor: Add support for entering and exiting protected mode
+
+[PATCH 7]:
+  The final patch exposes this feature via the uAPI and adds the necessary
+  handling/use of user space provided protected memory.
+
+  * drm/panthor: Expose protected rendering features - NEW
+
+Testing
+-------
+
+1) Platform and development environment
+
+   Any platform containing a Mali CSF type of GPU and a protected memory allocator
+   that is based on DMA Heap can be used. For example, it can be a physical platform
+   or a simulator such as Arm Total Compute FVPs platforms. Reference to the latter:
+
+     https://developer.arm.com/Tools%20and%20Software/Fixed%20Virtual%20Platforms/Total%20Compute%20FVPs
+
+2) Mesa:
+
+PanVK support can be found here:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40044
+
+
+Changes in v2:
+- Patches 1-5: Refactoring/prep work patches are either new or have only minor changes.
+- Patch 6: Heavily reworked, although conceptually similar to v1.
+- Patch 7: New
+- All old code for in-kernel allocation of protected memory has been dropped.
+  There are no longer any dependencies on dma-heap changes.
+
+Boris Brezillon (2):
+  drm/panthor: Pass drm_file instead of panthor_file
+  drm/panthor: Expose protected rendering features
+
+Florent Tomasin (2):
+  drm/panthor: Minor scheduler refactoring
+  drm/panthor: Add support for entering and exiting protected mode
+
+Ketil Johnsen (3):
+  drm/panthor: De-duplicate FW memory section sync
+  drm/panthor: Explicit expansion of locked VM region
+  drm/panthor: Don't allocate protm_suspend_buf
+
+ drivers/gpu/drm/panthor/panthor_device.c |   1 +
+ drivers/gpu/drm/panthor/panthor_device.h |  36 ++
+ drivers/gpu/drm/panthor/panthor_drv.c    |  59 ++-
+ drivers/gpu/drm/panthor/panthor_fw.c     | 272 +++++++++--
+ drivers/gpu/drm/panthor/panthor_fw.h     |   7 +
+ drivers/gpu/drm/panthor/panthor_gem.c    | 102 +++--
+ drivers/gpu/drm/panthor/panthor_gem.h    |   7 +-
+ drivers/gpu/drm/panthor/panthor_gpu.c    |  53 ++-
+ drivers/gpu/drm/panthor/panthor_gpu.h    |   4 +
+ drivers/gpu/drm/panthor/panthor_mmu.c    | 123 +++--
+ drivers/gpu/drm/panthor/panthor_mmu.h    |   6 +-
+ drivers/gpu/drm/panthor/panthor_sched.c  | 545 +++++++++++++++++++----
+ drivers/gpu/drm/panthor/panthor_sched.h  |  27 +-
+ include/uapi/drm/panthor_drm.h           |  85 +++-
+ 14 files changed, 1080 insertions(+), 247 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.43.0
+
