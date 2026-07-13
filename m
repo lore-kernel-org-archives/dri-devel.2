@@ -4,77 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33AF2C44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 22:36:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12663C44507
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 22:36:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4902310EB2F;
-	Mon, 13 Jul 2026 22:36:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5151C10EB47;
+	Mon, 13 Jul 2026 22:36:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=sigma-star.at header.i=@sigma-star.at header.b="YsnYua8/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qqXPbpsa";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59B5C10E396
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:22:18 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-493c7902f47so26232015e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 01:22:18 -0700 (PDT)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E202910E610
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 16:56:15 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-388b404ea89so105079a91.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 09:56:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sigma-star.at; s=google; t=1783930936; x=1784535736;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=xQcjUHDQsEmNnfkTtBFa/uOHpWpolesI3ffGjo8pqaw=;
- b=YsnYua8/rOyJBBsnOJUj5xrBipMm9NP/MSacn8B03GQEgHHlLGhKrSBTmDm/HwuNnh
- y0AjaHnFfXJI32W0PRh7X3jLfDdmHMy5sXVT8sDNpHw++5aVRcPQAsrrC5cGwtPDK5Qo
- uzBBcVcFopMQpraUAgZYhofs777vCxfjLadvktv07tHSu0rk9zeAPzdLUHZgPC6yb4Id
- 5OD6PqMYsLebgFh8f0yKkAH5cnQFZgmPHTMBEK7YWxwSQqcI+F48vHwZjMYo/JWXLqrO
- IgbHWigWmix+fOzV5UpjPzuOhoHwBrjFWMIniskEy5gK5zN+/VEUACyP1yW4oasPO2Hg
- U9Ug==
+ d=gmail.com; s=20251104; t=1783961775; x=1784566575; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=+wyTThpzWI663yfCX7yR0ohXV0bj+fwjL2+oCBrswHw=;
+ b=qqXPbpsad4Ff23vhjTjQfJGs1mkZz7MjIXIIzbvfDvPMlV0LrpK99LsJAdACNYPiK5
+ DECzYPgs8sMitz1nTAvb3sv5a0Ax5pVGUAsiR1hBrbYdpqfyDpK9g7f5zdyERlnQcCTJ
+ /1SrK9kHugrRIDkQkszneIw+MTHZKubiyohMmqvYqU7S79SptXzmj2/SsjG8Dgsqh6ot
+ cZ4a7pPggVPAQiMTm+29frYM/hgBbulNPg6fNETQiYRconjplhyuk1Hq4ARS4VE3YOsu
+ vi3pFq6PGzoF5XdKwiex7oVMF+BUA7KvGlTuw4T5xDXtI8Pp3t9liGhh9QRowJBCePRw
+ ITEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783930936; x=1784535736;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=xQcjUHDQsEmNnfkTtBFa/uOHpWpolesI3ffGjo8pqaw=;
- b=YmMjUzSIEVLJd2axLFLZvGyNy366EqumwOkjkQgxincchCt3pVzR/DUeGVhbpZXqzX
- /Q58YNquvTLYboHuqSnLYcdjH2QI1NCI5xGyyl+EYgsR4BAh01AmOqgT7n8NhAjZ0VOu
- 0Zy2v48/mWQmtOZhue61+m7JAVvAcHuzdH9dPgroW+ZX2UaZijl/4YgIqSMfe/2FvxKj
- 6D93F4OPjkDQQIwA2PXYMOB9pbpZB8cTRthE1DHjEGKymQwFWzkkjjQd5H1erz5ioIrN
- PXM7zUxtlPwqEsEjIxPNSnhRsboCpwPcSTXKeNq7+MqC2/47VDfSVvR+/W8LWqUxoYzz
- VTMw==
-X-Gm-Message-State: AOJu0YzUabA0BYDIZnCpYmZbMI0DYYLeiiC7YC2SxXrfPTLz9gMZTXJ1
- 7jxPi0/zl2hYF4uMm3UYPwFUSj93QyEwukbAW9GGzeBCU+oLrjrl9sl07fs+XIGrhZ0GbmZPyx+
- JmSo8kVUU6w==
-X-Gm-Gg: AfdE7cl1DLC4RUOCk3PyZXJXLDQBCoKQFo5mnswlOFA+NFqwzTMCL4JelowDjSt5v0Z
- K4/pHokm16bs12lArdwNcoXJXf9ob84QarHjfQF0QAj2U7dUVN9CT3UVj4s8xz5/f48wlg3MHCP
- M3Eg5DxIB5sLuWNg1PqEidA5Mnaz9vufI2ZpaCLoevW2wRMZp3B0zIs31XxsKOgV+7hSX3igPMc
- +RkDjbr0dWu686t6fydzPWes4TeH2I6FFSOVuFudLqQRA5q2O3doc2sD5eVU3TfEAlfVf2DVeb9
- S8fCmdlCUBqvaeNJ0sc/AjyFHMyvYvJxDXPYHVMEMd5ZAJUpo1ZTSrCO1Nca57l0tOyQvFMnsQr
- ArFiu5HDf0gSSrAMpTsKWk9ZjJDpZa1BUk35Lq/YOpoV5b3x5WdcTHGRX/E90RMvWUyZz958zPe
- +flcHJ7fs+f2kfWKAlRLpfCRJWz2gZQpfArtrtYw==
-X-Received: by 2002:a05:600c:37cf:b0:493:c4e1:40a6 with SMTP id
- 5b1f17b1804b1-493f882e97fmr71475255e9.32.1783930936201; 
- Mon, 13 Jul 2026 01:22:16 -0700 (PDT)
-Received: from localtoast.corp.sigma-star.at ([82.150.214.1])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493eb6ff432sm332879075e9.4.2026.07.13.01.22.15
+ d=1e100.net; s=20251104; t=1783961775; x=1784566575;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=+wyTThpzWI663yfCX7yR0ohXV0bj+fwjL2+oCBrswHw=;
+ b=g0D0At6u/tXlj3iggxLtDDqqL1FD4QKW0NusuvYcQM8LpyxZGjuXLq1NZBkKBvmOsf
+ OxszadhchPQ0z7lP6SmcaYbp0BfRpFkNO0b0kP11qNdNZP+G55NyUFXEuswEFrmoytTY
+ s+twmCJZcgalGD/0/BwNoF0KdgCGQwCgDquLt6DzZi76D7DQILsTkn6DRiofXhJI9E9G
+ DLpqhZtoqGXgFiYabHSzCjo66qYgX/DUd8Bb2umkr6waqK5/aDuKZ37FxajUWz6WL1Lw
+ C7eAp8V/FdFgaFopktcTyB9PvaWvP0v1leg8o1++Nexkl5WNIGwz+WjwKgcDNFHKpTPm
+ uGZw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqL4ixgXAotobPZ9RiYGKRY60WwHlVbXpPtOBnZFoIhK5menPMFP1BHxSnSmxt4+CGHo7go1Wkp8/E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz/8oPIKvBt4fTt+xP6r7TIcB0d6yXUxubzIb/TVJIyEa8IVD7e
+ 2HzlMfKgexj9gVFhtZXfjXQCHr1MGG4wWIHWYJbgqb8/YmMGWO1dBSyQ
+X-Gm-Gg: AfdE7cliqeVeYCUVgwiCLre4UbPt+9NVOoglnEkya1AO4PhSe18wKV5L3MHFZEBf3P5
+ TSvYZNe68RIW8iWQWRRqL83MWVf3P+K3yLZYSDHd1k0nj3QrR4GQla8N2OTNr6xBFGnxwId86Gu
+ 4fZe00WPiwtAfneYyzP+yP5JQcim1UGREG4DrFLg0MwRlsoEOZU5cHLfiJpG9nDFNpbYfwmxyxr
+ F2MidNreB+rZR8AGR2/H5gQyPCKCIbzWU5nIt8f1Oyfz7Rr/GR8W4TMRdzA3JJ5/Ozc0Objb/PR
+ 5/vFRAsmtadJir6InDbel08W2rtfSNmjMrSHZkYSSSSaCbaQK+1ZGJyEHDun2L0cWH52UFZnAYR
+ GqYiySCHk/rGtJAH+W2MQMz20o+n+DFqBNQDC/VL9HRMHMt8WBidthH90TPFMDda7yFAKfoW62w
+ xIBmKSu+2lYe16+2wmtQrdKvq+d6LxwJn0H8eKrobSahOJVQqK2+ML6Es=
+X-Received: by 2002:a17:90b:57cb:b0:36b:769c:c037 with SMTP id
+ 98e67ed59e1d1-38dc81978ecmr7351194a91.5.1783961775319; 
+ Mon, 13 Jul 2026 09:56:15 -0700 (PDT)
+Received: from skinsburskii (c-98-225-44-182.hsd1.wa.comcast.net.
+ [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-38e1745a596sm180718a91.15.2026.07.13.09.56.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 01:22:15 -0700 (PDT)
-From: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
-To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linusw@kernel.org, dmitry.baryshkov@oss.qualcomm.com,
- neil.armstrong@linaro.org
-Cc: jesszhan0024@gmail.com, upstream+drm@sigma-star.at,
- Julian.FRIEDRICH@frequentis.com,
- David Oberhollenzer <david.oberhollenzer@sigma-star.at>
-Subject: [PATCH] drm/panel: ilitek-ili9881c: do not fail probe if iovcc is
- absent
-Date: Mon, 13 Jul 2026 10:22:13 +0200
-Message-ID: <20260713082213.75759-1-david.oberhollenzer@sigma-star.at>
-X-Mailer: git-send-email 2.55.0
+ Mon, 13 Jul 2026 09:56:14 -0700 (PDT)
+Date: Mon, 13 Jul 2026 09:56:12 -0700
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, corbet@lwn.net,
+ dakr@kernel.org, david@kernel.org, decui@microsoft.com,
+ haiyangz@microsoft.com, jgg@ziepe.ca, kees@kernel.org,
+ kys@microsoft.com, leon@kernel.org, liam@infradead.org,
+ lizhi.hou@amd.com, ljs@kernel.org, longli@microsoft.com,
+ lyude@redhat.com, maarten.lankhorst@linux.intel.com,
+ mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
+ nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
+ rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
+ skhan@linuxfoundation.org, surenb@google.com, tzimmermann@suse.de,
+ vbabka@kernel.org, wei.liu@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rdma@vger.kernel.org
+Subject: Re: [PATCH v8 4/8] mshv: Use hmm_range_fault_unlocked_timeout() for
+ region faults
+Message-ID: <alUYrESVcHR_p-S_@skinsburskii>
+References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
+ <178371881034.900500.5214601525971121683.stgit@skinsburskii>
+ <20260710151216.0397a6f9ac5c7b4ccd274cc1@linux-foundation.org>
+ <alG1JwgUK44dCiN4@skinsburskii>
+ <20260710224606.69235ab5c49b5987fd33e924@linux-foundation.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260710224606.69235ab5c49b5987fd33e924@linux-foundation.org>
 X-Mailman-Approved-At: Mon, 13 Jul 2026 22:35:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,45 +110,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit 4c95b2b7d49e ("drm/panel: ilitek-ili9881c: support Waveshare
-7.0" DSI panel") adds an additional iovcc regulator that other
-Ilitek ili9881c based panels apparently do not have or need.
+On Fri, Jul 10, 2026 at 10:46:06PM -0700, Andrew Morton wrote:
+> On Fri, 10 Jul 2026 20:14:47 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
+> 
+> > > > +	mutex_lock(&region->mreg_mutex);
+> > > > +
+> > > > +	if (mmu_interval_read_retry(range.notifier, range.notifier_seq)) {
+> > > > +		mutex_unlock(&region->mreg_mutex);
+> > > > +		cond_resched();
+> > > > +		goto again;
+> > > > +	}
+> > > > +
+> > > 
+> > > If the calling process has realtime scheduling policy and either a)
+> > > we're uniprocessor or b) this process and the holder of
+> > > interval_sub->invalidate_seq are both pinned to the same CPU then
+> > > cond_resched() won't do anything, and this might be an infinite loop?
+> > 
+> > Yes, looks like it might.
+> > What can be done to prevent this?
+> 
+> Well the best way is remove the polling loop and use a proper sleep/wakeup
+> mechanism - mutex_lock()/prepare_to_wait()/etc.
+> 
+> If the polling loop is to be retained then maybe msleep(1) or
+> usleep_range()?
 
-The commit goes out of its way to make usage of this new regulator
-optional, dutifully testing if the field in `struct ili9881c` is NULL
-before touching the new regulator. However, in the probe function,
-it unconditionally fails if devm_regulator_get_optional returns an
-error.
+Well, running MSHV - or, I suppose, any other VM - on a uniprocessor host
+would not be very efficient.
 
-devm_regulator_get_optional() returns -ENODEV if the regulator is
-missing, causing probe to fail for other panels that do not have
-an iovcc-supply set in the device tree.
+I’m not sure whether this corner case needs to be handled explicitly.
+But even if it does, supporting or explicitly forbidding it would be a
+separate change. As Jason noted, this is not a regression introduced by
+this series.
 
-Fixes: 4c95b2b7d49e ("drm/panel: ilitek-ili9881c: support Waveshare 7.0" DSI panel")
-Signed-off-by: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
----
- drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-index 0652cdb57d11..6c8d02712566 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-@@ -2562,9 +2562,12 @@ static int ili9881c_dsi_probe(struct mipi_dsi_device *dsi)
- 				     "Couldn't get our power regulator\n");
- 
- 	ctx->iovcc = devm_regulator_get_optional(&dsi->dev, "iovcc");
--	if (IS_ERR(ctx->iovcc))
--		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->iovcc),
-+	if (IS_ERR(ctx->iovcc)) {
-+		if (PTR_ERR(ctx->iovcc) != -ENODEV)
-+			return dev_err_probe(&dsi->dev, PTR_ERR(ctx->iovcc),
- 				     "Couldn't get our iovcc regulator\n");
-+		ctx->iovcc = NULL;
-+	}
- 
- 	ctx->reset = devm_gpiod_get_optional(&dsi->dev, "reset", GPIOD_OUT_LOW);
- 	if (IS_ERR(ctx->reset))
--- 
-2.55.0
-
+Thanks,
+Stanislav
