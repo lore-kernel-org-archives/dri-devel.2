@@ -4,150 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92C2EC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 19:50:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFB1AC44508
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 20:06:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E475E10E658;
-	Mon, 13 Jul 2026 19:50:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6E1510E665;
+	Mon, 13 Jul 2026 20:06:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LyBk6hsU";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kVbXsWWD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ecDW9i3s";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC19410E653
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 19:50:25 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66DJ9FTr2448898
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 19:50:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 2ucGZQxg2reJFI939JSAKmdJkAoKn8gx0mJoRPr4qic=; b=LyBk6hsU5QfSEQIl
- a7iKaaVJ5egLKv+CBOviDq4gAmwGWqnQFRWUdVXsrX8zU2EvXLEiI0U3NkuXTQB1
- 5XJrafTzPcublpd/6SMcJd9MpBINSDU0ImV2FVCq0QRMZKUUFTm1Gdv3lR+1vD2e
- ibmSEsZG9iGnKsHvxw2JdzmMOIAAy0KolV3IbxmFe5PTM5no8OE1IxDcdkhMldRp
- Cem6cuxLQeiuu9BmOsMrOPW1XbChhmz/FX/W+FSWa8Q18kT2W41Mbih0RZM0er3s
- ICvrBCD6y0CsVOMNM4j7L4tqvce9Jc3bgALNRi7wCk3OY56Y3NEZg7FEHzCZW3fw
- aDwIXw==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fd37x8ub9-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 19:50:25 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-c9c26587e67so382697a12.0
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:50:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783972225; x=1784577025;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=2ucGZQxg2reJFI939JSAKmdJkAoKn8gx0mJoRPr4qic=;
- b=kVbXsWWDmQyjt5rSpT+Ehikm8Djv7vITOoTYE2Hv6hhsgaProFWi1unu4at8H7i/Jy
- 4MSizqHETbiD5jKnKNmwBmAKVaUBQW87qFj7JYJLaAe72tx8YFTtjD9qzTG6ayTmco/2
- kCBO9Jc2yN8BV5vowmsTqwFBa1BRs+kT77xYhTmgC46La4DJjBUSiqruJCX/PRQdp0Zo
- Fa65CDS3v3eWX0AHgCrFse9/6pnXJsvRnSHJrWyjdN+/H/zUFq5/7HLHSp6WUGYzig+b
- EDR+dn/HxQqy8rV9ZDnaENWK7nSLcnYQCICuO5BYC5w8Vc8dlPnKM1bkGstoCFIuc5ER
- eI4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783972225; x=1784577025;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=2ucGZQxg2reJFI939JSAKmdJkAoKn8gx0mJoRPr4qic=;
- b=PjeT1/GAzcJW546G4zBFdAg/ETEpTvAi8YLxCa4BTpREzs/vgSmp1xsoWaugls2/h7
- dX3rxn6VRUEPqJXTOGI1/KdSAwN4c61Bm/IzEY2Yif0smJWmslXgADmaQaXM0+IZHxGG
- rbiZ+2jgdV2KVv0Vq51GiazMnqpE7/tjsc17FP1skkXH/sG0NhwxKbGrHpEeQ1UbFlVn
- 0cvpCu7udTlAzcQPO7b6+cPwCEx5bi3t5b9rd9lUfpsIOW2yvTXC1PkuB2S2tClLVrmg
- tjXJ7tO8VqYPPLTN1QrrwuSDVTfthxKnxOpqSaQ/lGhTgRCoMvVBP/Wz9yMJ+eL+0NGe
- gL5g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrDs8N9dTyUpTchFYTbewn2L1djfvh2nzfI6C5yyVazXm0OuC/k9RpTSOoOOLrpEbF942JirGpKmV4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy9ixwIm/krpnBUIAfvSHD4pQ4ZbWK5uKjnWrhQS+LFWZB2h2T+
- E2LJGT8vvjXltTIqTg0O4lsoJxfNevs4aiUT5XJ9VDyWMMCHF6Q2oxlxWiSVi5SMLCwJWA8Vkk1
- rU5l6KReKQQjxZQJHJIQnrlsBtn/mWKC2kQxuEJdy1k+IkOJk45xiqCmM84uNpJJKaOntHFE=
-X-Gm-Gg: AfdE7cmyuOJN7vxwJj3uD/JNEOo/h0Uz/FitbpMjZmNrcFhPvkSP3m0VOXIOaNlKbDQ
- BCO0ee74cy/jl0zTQmvz9YwvmWh/3itwY2KFklZdXKpMStsQEsFdL54figtVo3ZOjzcBf4lGOZW
- Kk9VnI7c61Z61sugmj5q7jwh/X1mjNK1mkJlXJqjmXhgMFu7VlwlaE6Q+K3ppd8KaTgpGnJo9rJ
- Y83bDgBCVYK5FndxtZNwg935K4Eb0B8aTblgdgsnqak0MjNpT0CBY83iEG5cHrauM//nSQvW+vK
- Wcmo5fA7dhWWPaeHDlpX9eGMcj6zxsN8ogVD9y/vHGQXmJ34xFh8h2DI1LJpBGe020l0L4hW8Yc
- RrJZDUOEsAOjqQ3SqYiLIrbORjepu5XEwcXo=
-X-Received: by 2002:a05:6a21:6e43:b0:3bf:b7e8:68ab with SMTP id
- adf61e73a8af0-3c0f08602bbmr16998108637.2.1783972224694; 
- Mon, 13 Jul 2026 12:50:24 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6e43:b0:3bf:b7e8:68ab with SMTP id
- adf61e73a8af0-3c0f08602bbmr16998079637.2.1783972224229; 
- Mon, 13 Jul 2026 12:50:24 -0700 (PDT)
-Received: from [192.168.1.5] ([106.222.235.180])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-13b924258a2sm57081837c88.1.2026.07.13.12.50.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Jul 2026 12:50:23 -0700 (PDT)
-Message-ID: <2d9d6724-a3ea-42ad-8cb3-ef08fd0882be@oss.qualcomm.com>
-Date: Tue, 14 Jul 2026 01:20:13 +0530
-MIME-Version: 1.0
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012043.outbound.protection.outlook.com [40.107.209.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 592B810E65A;
+ Mon, 13 Jul 2026 20:06:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RtK7ZmQIP2qQ3w21I3oDcXztJj+UlRRDMtGviF+ZSkp8euq70MwV75juUNkS/V8gmS1DS942Dtyp8Nnf16S1Uvodd7lG7mk48Vd0KIfpne+UKCuiGanYZ0/wJ69PkswAwJls7vBOclAqSthrh6OnxXuEUEfv1p8X/VnW6QQiYqd/F6Fp+t8jQt1Gcrv2ir+I3SmmCIO/VD8Jho3v83Ehg5ZcWTgWcANeGDej5K59H53KSqX3zPsdZcT7owSaXT638jWBVgTPx6OCvf7+gsfP9PU70QvPL7yTxqeuUjRLAqipIs2LrGsjd+zi+ZHzNLw6YtQiqXTHUsgYonerFFLyTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CvtFaoklJHZcO7xD9NbgTPWTQmEla24kl7d1kBmeS/0=;
+ b=QWAieqy6L0p8834O5MGtwe3pLRG7311U/p9JHXCxQ+vn9SAzN59cRlwnBQ+7rnqDZ3geraqeP2O2qNiR7+Lootw+CZ9wvomNUJtzBMc/SzLC9fnjPgfBtn01yrmA8EkQ7a2E8vE3j8OurwAd4wSzoDF8Xv6jjPWZt7RPrjNljgbgVqBaPFK4igMjACpoe6u/0/zpLfTwuKwFld+RcxeWpbH6822gRjHVTww/CMSrOx6oZ8ZN3fqbyymRCwppmy7ggDgd/bcKvTY7APQZN9HAo1Xi3eHYdTStsfsRB4XGRl4VuUODxnPxUUErRDYlfmiipQWZUehKZBR5z7OxfwIAcg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CvtFaoklJHZcO7xD9NbgTPWTQmEla24kl7d1kBmeS/0=;
+ b=ecDW9i3sSn5WbI+kYF/uQd5Lf898GHmar+kYLcSuM40uV8Fmj/txEaCwjYj0RxwwGOrxXl0QWK6gDU3j3zZVVHsjScznd4B0AqChVq28bIBa73Jp0HtU4lJhZHED5++T7Ns3vTBtN/1C7Zu+coeVA3mOOPKZenM3gMYeyHSEr/Y=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
+ by SN7PR12MB7348.namprd12.prod.outlook.com (2603:10b6:806:29b::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Mon, 13 Jul
+ 2026 20:06:03 +0000
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0181.019; Mon, 13 Jul 2026
+ 20:06:02 +0000
+Message-ID: <2fa23cb1-b4c9-459b-a0dc-31960313a243@amd.com>
+Date: Mon, 13 Jul 2026 16:05:51 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/8] arm64: dts: qcom: eliza-mtp: Enable Adreno A722 GPU
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev
-References: <20260705-eliza-gpu-v1-0-c9f1354dbd29@oss.qualcomm.com>
- <20260705-eliza-gpu-v1-8-c9f1354dbd29@oss.qualcomm.com>
- <clfy5lvz7vm3ogw7pvyyidiujqcjxftx55p67szwgc6ivsq6r6@xrrcbfdkqkjo>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Robert Mader <robert.mader@collabora.com>,
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Daniel Stone <daniels@collabora.com>, Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>
+References: <20260703073230.19982-1-robert.mader@collabora.com>
+ <6d8806b8-fc71-4699-82c4-7189a0ea2284@intel.com>
+ <bb5918f5-a6da-4908-9332-18e0df39c005@linux.intel.com>
+ <7d58b289-eabe-4d68-9080-c7202b0f60a0@intel.com>
+ <d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com>
+ <361dfc91-94e8-4289-9b3e-5280803d9257@collabora.com>
+ <a7887776-c26c-4f6d-a662-2d8ef005ff4c@linux.intel.com>
 Content-Language: en-US
-In-Reply-To: <clfy5lvz7vm3ogw7pvyyidiujqcjxftx55p67szwgc6ivsq6r6@xrrcbfdkqkjo>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <a7887776-c26c-4f6d-a662-2d8ef005ff4c@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDIwNSBTYWx0ZWRfX8gxj6Trgb0YK
- calwsiNFn937o2YGBMnWDDZ0316KeDMIWhDvyp8F2N3Cm3s1lCltHPVHKfU+1NTehBb7EvxE/Tj
- 7Jiu2r+WUgY/dtvCo4fz59ZDimqWNaAgb7kiKTmSTFrms3khD21DAAV/+m5iKxs9HujpgM4Ofq8
- mrdvnEz+S6qybe0ngS554eEScvYSWM2niHzjCMliNl56fOGEiZO8EO26gAteAGekgEmo/JDIdCN
- DFplxDhSreXxG/1U5lI0CmvDqiTg26OHwSPpObrd6GfE1Xo/5hkmPsmPYNdkyjoo8Ti14VRThiO
- nUs3fpuIID8eNdGWlUuVqm3DxCrvG1M4i+JlI6QQZMcguR4t3/EZUaNoSGx+I/q/7TZ7r6jfe83
- iAE7euIxQkxYk1DvuKwqDDXvcAcHGd70mTs6eoW2SF980ybw/sSyzCuiXVw5Q/w8U/IFSzDH2Yb
- LkbdapGKjerpUtbISmA==
-X-Authority-Analysis: v=2.4 cv=BNWDalQG c=1 sm=1 tr=0 ts=6a554181 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=yNfbWwvibup9Ri9izU+P7Q==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=JoE_KpbED9LNO2fW3XkA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-ORIG-GUID: UZzidlEkJd0MIPPbhXcYYHLZip-FPGkM
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDIwNSBTYWx0ZWRfX0P/X+76gooug
- I7d2QtSOmdiMnlVZmns8gschNC8ySCJqNWzm8p1I8/QKnYQrap1oanQ+nXPbAtn2wCbDeMpZEWu
- CULZ1QV8k6MPtgM75bGnb613E4te9y8=
-X-Proofpoint-GUID: UZzidlEkJd0MIPPbhXcYYHLZip-FPGkM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-13_05,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130205
+X-ClientProxiedBy: YT4PR01CA0375.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:fd::10) To SJ0PR12MB7007.namprd12.prod.outlook.com
+ (2603:10b6:a03:486::8)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|SN7PR12MB7348:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e6cf495-b3ff-4b51-e556-08dee11a2a24
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|23010399003|22082099003|18002099003|4143699003|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info: KDmTXZrKpxJM1/ZgYCmTXOsdv8NYeCZfqvy8VMfQSxAG31Cls8vCL9D6o2im/bujVZ5xL/TzdNWCxrBjeRJ45hTK1M3u81DG9v//2DSCqC+NcdURNxrkAxkJhtGLZdZoV2/2fR1bEdwg2mWuiskr3VeLAXpSFvr1T4Bt7OTdwYStHgKOrnOES6FR43XGtnW29yOEyviQKCYBpZXsKS/IF+SH6xsUhKKbZCoGdb96Ec1F8TR9Ojs3aohh6bPpRIXY/araXEAK2opohMHkODBebNJDIuSGKfUzGYuNVe+QoJsbpGA6n6Fh5TQqm08JxapKpWgARWjYTPmq/CIjkk2woXFEhKV40QRH99ot5c98yPidxg07QJwAzj2UranrVx/mP2t552y6jTyCOUAKpsqQPgQgh6DMhkFzgyIq7TGLxy6fIA05bmIQEUCEidNO24LAKs0/ngSuHar+/rkWuXOHdJ4j7zWR0NtJxAA5y36/rhc0rO3T3OirhVOq76yb8Tbl3q5Lwns1WkKVckRAKRW4lEh0qX5pGskJnohKpmyyfV24IjUnK7zQn0PtmiG5RwFZa9Er8DHrQq0Gs1kg3P0Qnc7y4xFegUsbkplYGolUs7fx+jYB0c1oNOqFRyTFdEybPfhRItMwc9JJM+c2xxv+pGP3Q6qBZV/A6Woj+qNztlg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZWVPeFhESlR5N0x2MEc3ZHorNWYzL0RzOFZDL0pLVjZqTFI2Z0IrKzlqNGxU?=
+ =?utf-8?B?V2RHbkFaRWh3bEdPbGYrMVJrRHBJeFB1YWZHSElZUEdJempNRGJWdkJOZ3Zw?=
+ =?utf-8?B?N3JlbXJpenJ2eDNnR3YrZUQ4MXlZV0hjNmxFZldybzdSd3BqMFdValEySEVp?=
+ =?utf-8?B?aFh2dDJmQyt3K3p1OEVXY1lFN3htTFB2UEVRQjBXSGNaVUI1TUl6Kzk5VnJ1?=
+ =?utf-8?B?UFFTN2k3QjFsS2lGOVNrOEhSSW54aER0SXNvQllWMXdyL3FSVUN3UjJtQ1Jz?=
+ =?utf-8?B?ZFIyUE1OOVN3VVFSbHR1ZEE1MndqTnZuQmk4ZFNKdVRWV1dHbnZlSjIzeFdh?=
+ =?utf-8?B?ajhDSkdlSXMycGlWQXZ5RXEvbHpRMUpZbEhsc1NWV0dtR0QvN3NzMi9IbWdl?=
+ =?utf-8?B?a2RraWZRN0V2UXdrV0FCN2JxejFFajhTSXVxc3lXWk1NZ3ZMeUszL0ZsVWhl?=
+ =?utf-8?B?NTVvNTRENm40TkowT1JxUzhDNjVsNUVidmY3cmFFMkJPdjlEMWpGWW10c0wy?=
+ =?utf-8?B?WFBpSEtWa0xIS1lIOGt0aWNXWGpLa2hrMGRndVRQK3hxSlUxazBPS3FZa210?=
+ =?utf-8?B?TGU3bHNOaDByTDFOblVDSlVidmtHaFNCR2o5UUc1bVhZSVd1TU5qNkRVYzNi?=
+ =?utf-8?B?dEt0dy9vRCtDRkkvTFozZEpTM0dYaUlKdFczMEljamxjN2daUDJZOGJuTlZV?=
+ =?utf-8?B?OE44bm5FcUs5ditReXhlT2wrMG1LVCs2ZUQ5S2VBZHAxT2pXSHJtTllNc3R0?=
+ =?utf-8?B?NXVrODdDZTZkcDVZeFN4UXcyRHlRRmgrTmF6clhXY3dnd1h3VDdFSmE3NTUr?=
+ =?utf-8?B?dWsvUjFhNm02UUVRV0F3S3F5SDZlZDRES1I4b0RPVDlwc0ZyUUt4bUJtSW5a?=
+ =?utf-8?B?bWlFY0FYVXUwYThRVXZBbWgwOElwSXR4OGhDbHFHc1ZUVzI4RXNyajh5ejI0?=
+ =?utf-8?B?aVZsWjZWaFd1TUE3TGJLaHFxNDZER1YycWEvOHRaKzI0YitZM2ZZYVlHTTN4?=
+ =?utf-8?B?czlOSEVESHo0T1JJNzd1Y215M0QxaytmR3MvSkJOVDdNdVpreHNhQ3BrMVpz?=
+ =?utf-8?B?Yy82SkNYZzEwTUw3VDRDaExvbjZtQUFieGNwNFZ2bVJvYzZaOUZFdjBjb0dq?=
+ =?utf-8?B?UmcrS285QkVZeUwxK0FET3dZN2toQ1E0RnJjaG52dFgrRDJ1NG13dXErRUs2?=
+ =?utf-8?B?RWNaM2k4WnV4dFp4Skl4K1VCaTI2aFVFaGQ2QjFmN1REdW9kTms4MFRRU1JV?=
+ =?utf-8?B?K1FDVC9aQU0vNUFVVHk5blgreGliUlp2QXkrQmZacklZSXltVE1tV3Y5R29r?=
+ =?utf-8?B?c3Ywd3BQVHFTUGFFeHNMR1lOUTUyWVVxb2ZNZmtySm1iL2pNNkd4eHJ6d2dr?=
+ =?utf-8?B?TzEvV3JTcnJqb0RPbFRGMVB2dDNka2orMlFaSVdsZXJYdWpUdEpRZW1mQ1pI?=
+ =?utf-8?B?QXdYdDhvZkJVZnlCM3c4TnduYnMvZEpVd0dFVVhXYmZkS0NUOWZheGErNnFo?=
+ =?utf-8?B?dDhOUFR4Y1BmS0tGUGJqV2h1TkZySXVjSENnS3lZZW0zem5zOGlxVkl5QWor?=
+ =?utf-8?B?d25id1lSVmRoMklrdU02K3diQ2cyaHV0Zzc2OU9mbzRQTnFCZXI5YzdxMTRH?=
+ =?utf-8?B?Tnc3b1J0VThyN3MrdlZlSGJmYVg3aXZvc3dFNVA4Zk5hRHA3WFU5YmxUZTI5?=
+ =?utf-8?B?bUdXQUgzZng5bkVqZDdFcHVwZ0ZrVEhZaTd5WlVCMndzNy9iYTNEN0pWZnA0?=
+ =?utf-8?B?b0ExcFNqOXBxL0laa2Y2OFVIOGFZZ21MOEJyczhkL3NjNFJHUXd1eFNJMm9o?=
+ =?utf-8?B?ck1iRXNDYXBNTDVmeVdUaUU1V2tWdzdTeGNaZ3UrSWs5M0oyRHBvb1FuaXlS?=
+ =?utf-8?B?ZzgxVTZlNWRqVlV5Ym1EcTFzSHRMYVlJeW9kaDZEQkxEZUkrNmNHOU9IYXds?=
+ =?utf-8?B?UTJYenJ6R056b011MElFVnRHcDQ2YTIwd2ZlUkR3bzNlWjJJQmRINjNvSm02?=
+ =?utf-8?B?c0VGZXIwM1JOZGhjdU1rcnNwQllXdmlBNnhRQWJ6YW04WGxzTmpUVkZQQ29E?=
+ =?utf-8?B?ZmdQLy9zeVA0K0Q1VnZmSTNsdWk2Ujl6bjE5TUNHMWJhWXQ4OTc5UGJSTjBW?=
+ =?utf-8?B?bHF4ZkppWDFnT3ZGQ1pBaW9PVFhnMWZzdGovSWJMRTRFRG5GTi9ZZktEc1JY?=
+ =?utf-8?B?Nm9WZDE3S1VOZmw2NEVRa1E3S0NNT2sxUmtyUmJGQmNLTlpnU2RUSnNXTHRU?=
+ =?utf-8?B?TXpsTEdyT0dpSzhLZ2FnV1FoN2kzSmQvLzZKSDBYMktsNUFUTkhtSGdTcmZT?=
+ =?utf-8?B?eXVnRWVwbm1XT0drNUR3dmVVbklrS0VTSS85M0NRcmFFR2xlZUZzQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e6cf495-b3ff-4b51-e556-08dee11a2a24
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 20:06:02.7241 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9nc4baFflIsc6WL7TPzSn12O0oNcEwqKEboL3sO+bhJWlBfc+YiNynQG3X0uGUiIcLK/cruUyLiToT3Ttkb7XA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7348
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,51 +151,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/7/2026 3:53 AM, Dmitry Baryshkov wrote:
-> On Sun, Jul 05, 2026 at 01:44:23PM +0530, Akhil P Oommen wrote:
->> From: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>
->>
->> Enable the Adreno A722 GPU on the Eliza MTP board and provide the zap
->> shader firmware path.
->>
->> Signed-off-by: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>
->> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/eliza-mtp.dts | 8 ++++++++
->>  1 file changed, 8 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/eliza-mtp.dts b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
->> index 1374afd9d14e..b280d8e845b1 100644
->> --- a/arch/arm64/boot/dts/qcom/eliza-mtp.dts
->> +++ b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
->> @@ -417,6 +417,14 @@ vreg_l7k: ldo7 {
->>  	};
->>  };
->>  
->> +&gpu {
->> +	status = "okay";
->> +};
->> +
->> +&gpu_zap_shader {
->> +	firmware-name = "qcom/eliza/gen70e00_zap.mbn";
-> 
-> Should it be gen71700_zap.mbn?
 
-Downstream uses gen70e00_zap.mbn as this fw is shared between Eliza and
-another GPU. But, for upstream we can rename it. In linux-firmware, I
-will keep gen71700_zap.mbn as a symlink to gen70e00_zap.mbn.
 
--Akhil.
+On 2026-07-09 07:49, Maarten Lankhorst wrote:
+> Hey,
+> 
+> On 7/9/26 13:14, Robert Mader wrote:
+>> Hi,
+>>
+>> On 09.07.26 12:02, Maarten Lankhorst wrote:
+>>> Hey,
+>>>
+>>> On 7/9/26 08:44, Borah, Chaitanya Kumar wrote:
+>>>>
+>>>> On 7/7/2026 6:31 PM, Maarten Lankhorst wrote:
+>>>>> Hey,
+>>>>>
+>>>>> On 7/7/26 10:03, Borah, Chaitanya Kumar wrote:
+>>>>>> On 7/3/2026 1:02 PM, Robert Mader wrote:
+>>>>>>> The client cap is currently advertised unconditionally, even for drivers
+>>>>>>> that do not support plane color pipelines. If clients supporting the later,
+>>>>>> s/later/latter
+>>>>>>
+>>>>>>> like Wayland compositors or tools like drm_info, enable the client cap on
+>>>>>>> such drivers they will be left without both color pipeline and the legacy
+>>>>>>> properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
+>>>>>>> conversion support.
+>>>>>>>
+>>>>>>> Prevent that by only marking the cap supported if there are actually planes
+>>>>>>> with color pipelines.
+>>>>>>>
+>>>>>>> Note: while the color pipeline replacement for the legacy properties is
+>>>>>>> still under review (1), we can assume that it will work as a drop-in
+>>>>>>> replacement.
+>>>>>> This change will but a driver can also choose to export colorops like programmable CTM_3x4 to achieve the same.
+>>>>>>
+>>>>>> We should also perhaps document this somewhere that if a driver supports LEGACY properties, it is imperative to implement some version of it with the color pipeline line property.
+>>>>> Would this be doable inside drm core? Implement the color pipeline properties, get the fixed pipeline for free?
+>>>> Right now, the Bypass(default) pipeline is automatically created when we call drm_plane_create_color_pipeline_property(), we could come up with a similar helper that could also create a pipeline that replaces the legacy properties.
+>>>>
+>>>> But this can't replace the existing helper entirely because some HW (though unlikely) might not support YUV buffers.
+>>> No need to do this for free, but a cheaper way for drivers to implement legacy
+>>> properties by only implementing the pipeline would be nice, similar to how
+>>> atomic also implements legacy modesetting and universal planes.
+>>
+>> I really like this idea - should we take it to the corresponding series, https://lore.kernel.org/dri-devel/20260623164812.81110-1-harry.wentland@amd.com/ so the initial implementations for AMD and VKMS directly do so?
+> 
+> That would be great!
+> 
 
-> 
->> +};
->> +
->>  &mdss {
->>  	status = "okay";
->>  };
->>
->> -- 
->> 2.54.0
->>
-> 
+If I understand you correctly you suggest to map legacy COLOR_RANGE and COLOR_ENCODING to the new FIXED_MATRIX colorop in a generic way, instead of having drivers advertise them separately. Do I have that right?
+
+It's probably a good idea. It should be easy to make that change after merging the Fixed Matrix series with YUV support.
+
+Harry
+
+> Kind regards,
+> ~Maarten Lankhorst
 
