@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29306C44509
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 13:01:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76081C44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 13:01:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76B3C10E983;
-	Mon, 13 Jul 2026 13:01:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1CA310E984;
+	Mon, 13 Jul 2026 13:01:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="PWTtl8yJ";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="BPcY8tNg";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C25FC10E975
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 13:01:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D23E10E97B
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 13:01:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783947674;
- bh=xUmbeuNXP/vmDishEba9WwlN8rEC1bG4DX5W2fr1jPI=;
+ s=mail; t=1783947680;
+ bh=S6xslIlneoYrBpHES1PffEa3DuBeUqp8ucbfNtHNZwQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PWTtl8yJdAyjW2cscBLYsEO9HdZHmM0wUJrJJ+oOZUZn9P+FQWNLrYsUXi9NB39+5
- VLqZPnCpU/at7d70VUbxxIXxN1d34oRd9O/I1E0t+/2XRzHzuhVKdptPu/w0UPK/vN
- 60pfLuecphTEMrfEB4Bkvau44f7p7ajFHKiQAhEbW6Q93KYbia1jJ7FndOoW6RmYfW
- fcjBrQ82e/UA8UFN9xZIYfHJUbzjsSBpx25PUqf2scqwvQ3HEAARNdMz087vhPOUM1
- 0iu3EXb9CPGwiuExTfh+VrncOywzb57KMeu9OCSGiPkAlQu2h6D9huBzvRHe/quxFY
- acaBAVGDIq8AQ==
+ b=BPcY8tNgQQx3xzIMWU4n4gcAv3gJdv011/CRBVjdsSPo7Cwcf3ajOScDve3OSPmGN
+ LytSFX3UX2vT1T84cDdFWO+XWxzsuoGrhLme/BqSPs/SMB5Zbx+1SoEN3+pXYPcuM/
+ sNZBFU8VNC/jmG90ZGsyVoKX2rdsL+EhAB8WniUZH7qwmH7c1R0+WMWe+Bb+6ZcAer
+ BvwhllNjay5p6mMDAJBB15ioRdk1chxByWq7F1c8wCHu9Mgt1vR6e0hPG0W1KaTsLl
+ 7HS1/5gYagDYbpYbg8htPn6FfnjNJzSckDaBy8N/JEOqI0va9Nfo85zLeCAsTyI4d2
+ C9pn45h8Ln3gw==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BB7CE17E0DD8;
- Mon, 13 Jul 2026 15:01:13 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2137017E0E6C;
+ Mon, 13 Jul 2026 15:01:20 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
@@ -41,12 +41,10 @@ Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
  jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org,
  linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 03/10] dt-bindings: display: mediatek: dsi: Document MT8189
- and MT8196
-Date: Mon, 13 Jul 2026 15:00:56 +0200
-Message-ID: <20260713130103.34654-4-angelogioacchino.delregno@collabora.com>
+ kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
+Subject: [PATCH v3 08/10] drm/mediatek: mtk_dsi: Enable PM Runtime on probe
+Date: Mon, 13 Jul 2026 15:01:01 +0200
+Message-ID: <20260713130103.34654-9-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260713130103.34654-1-angelogioacchino.delregno@collabora.com>
 References: <20260713130103.34654-1-angelogioacchino.delregno@collabora.com>
@@ -67,29 +65,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add compatible strings for MT8189 and MT8196 SoCs.
-These are compatible with the DSI IPs found in the MT8188/95 and
-others, but with differences making them not fully compatible.
+Enable PM Runtime at the end of mtk_dsi_probe() so that the
+mediatek-drm mtk_ddp_comp_power_on() function is able to do
+pm_runtime_resume_and_get() and, analogously, the function
+mtk_ddp_comp_power_off() to pm_runtime_put() for the DSI
+device.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+This makes sure that the power domains for the DSI IP are
+turned on and off when necessary.
+
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../devicetree/bindings/display/mediatek/mediatek,dsi.yaml      | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/mediatek/mtk_dsi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
-index 27ffbccc2a08..b5cdfe0eaca4 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
-@@ -30,6 +30,8 @@ properties:
-           - mediatek,mt8183-dsi
-           - mediatek,mt8186-dsi
-           - mediatek,mt8188-dsi
-+          - mediatek,mt8189-dsi
-+          - mediatek,mt8196-dsi
-       - items:
-           - enum:
-               - mediatek,mt6795-dsi
+diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+index 89264d8705c1..23934daa45b3 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dsi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+@@ -1716,6 +1716,10 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+ 
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return ret;
++
+ 	ret = mipi_dsi_host_register(&dsi->host);
+ 	if (ret < 0)
+ 		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
 -- 
 2.54.0
 
