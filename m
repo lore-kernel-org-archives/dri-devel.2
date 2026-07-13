@@ -4,56 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FDC7C44506
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 05:39:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F1ADC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 05:48:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B100C10E7A0;
-	Mon, 13 Jul 2026 05:39:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 969EC10E7A8;
+	Mon, 13 Jul 2026 05:48:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Kam+rE0A";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LD6ZAr8e";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED91C10E79F;
- Mon, 13 Jul 2026 05:39:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783921185; x=1815457185;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=QXM6kN8y0jm0X/adCMbIt+oj2kR++CxjonAU0QJOvhs=;
- b=Kam+rE0A3PTCKqbAu+aGnrL02qgSiD+4jJTolebueeOd+lPr3hGn1/fJ
- MMxECDEdtu5Ym+67hVNmY+iSX3JOqcimFb/DUUbeX9Zc9R6CWu1WEGtEk
- ocfR/VFlej9LoAKVk64Z0ZfTeXJ0V+4K3BiZF76jmYNijgqxtUq39YEK3
- biAOETPJiFsn5SP98L9dXJl2j82+J4WOrosAUZZnrcmFKJuvuWPKQXyhw
- MJkKbG3B8j274Gz0SGnHabw/3Y+3r9tB47qOz9A92WbHXMwhqAe/4mVvl
- nISFURr/Es9gZvhje220wq7CrDEJ3EMaSGi6YMjo+FQu1vBkZ94XuQ9Sf w==;
-X-CSE-ConnectionGUID: ULL1ZzK8TNy52bbOjZnRXA==
-X-CSE-MsgGUID: clUJik6GQkqaYX8L/l7k5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="95670009"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="95670009"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2026 22:39:45 -0700
-X-CSE-ConnectionGUID: cES7nrCiTGqgTelfxN4bKQ==
-X-CSE-MsgGUID: XYGgV8RKSJy/uaktO0MvGg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="252066360"
-Received: from dut-2a59.iind.intel.com ([10.190.239.113])
- by fmviesa007.fm.intel.com with ESMTP; 12 Jul 2026 22:39:43 -0700
-From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>
-Subject: [CI v4 14/14] drm/i915/color: Add color pipeline support for SDR
- planes
-Date: Mon, 13 Jul 2026 10:45:16 +0530
-Message-Id: <20260713051516.4087420-15-chaitanya.kumar.borah@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260713051516.4087420-1-chaitanya.kumar.borah@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CA7C10E7A8
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 05:48:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 97FE14328D;
+ Mon, 13 Jul 2026 05:48:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5435A1F000E9;
+ Mon, 13 Jul 2026 05:48:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783921723;
+ bh=84agCsdfIKzQxWoPiUaE8OGnbw4Baiigi1dlH6qtqmQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LD6ZAr8e+w5gg9deM2pPu/ZWXVdHbmyflsWRuBlu0x8aRLd/uowMvbx+nnIRlTF73
+ q/bOcD2P94TXy7XpzG68KOEp5Lr0C8WlAn79oSD4hzIiQRZm77EaoF0DD4qCNFuXW4
+ m0HKv+EaEYfswm+eKKZlsb9XGdpDJh/Jnxjsb7+zAYklKkdf39LirmhxnXBY47kX7r
+ Vx3KGzCzNcLTZsQWyNRLjQeujj2Zl55i5tSL0Jq9QxhJFJeXr5T50E4lI1Dd6BDVkC
+ zGAPlQrh5ZGfsGgZ3KtLWs3lmWJkZf5TiyWJoakW1JUgG4GuhSzUA//QMbFr7aL1TJ
+ gpsnZUk5oYj6w==
+From: sashiko-bot@kernel.org
+Subject: Re: [CI v4 01/14] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260713051516.4087420-2-chaitanya.kumar.borah@intel.com>
 References: <20260713051516.4087420-1-chaitanya.kumar.borah@intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260713051516.4087420-2-chaitanya.kumar.borah@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 13 Jul 2026 05:48:42 +0000
+Message-Id: <20260713054843.5435A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,40 +53,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that everything is in place expose the SDR plane color pipeline
-to user-space.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `u64 supported_fm` bitmask is incorrectly validated using th=
+e 32-bit `BIT()` macro, causing the validation to ignore invalid high bits =
+on 32-bit systems.
+--
 
-Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
----
- drivers/gpu/drm/i915/display/intel_color_pipeline.c | 6 ------
- 1 file changed, 6 deletions(-)
+--- Patch [1]: [CI v4 01/14] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX ---
+commit c09a55528ad3801e2bc4cab04c676078a00cc4e2
+Author: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-index 136b9378ca48..a99b6eb20448 100644
---- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-+++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-@@ -188,17 +188,11 @@ int _intel_color_pipeline_plane_init(struct drm_plane *plane, struct drm_prop_en
- 
- int intel_color_pipeline_plane_init(struct drm_plane *plane, enum pipe pipe)
- {
--	struct drm_device *dev = plane->dev;
--	struct intel_display *display = to_intel_display(dev);
- 	struct drm_prop_enum_list pipelines[MAX_COLOR_PIPELINES] = {};
- 	int len = 0;
- 	int ret = 0;
- 	int i;
- 
--	/* Currently expose pipeline only for HDR planes */
--	if (!icl_is_hdr_plane(display, to_intel_plane(plane)->id))
--		return 0;
--
- 	/* Add pipeline consisting of transfer functions */
- 	ret = _intel_color_pipeline_plane_init(plane, &pipelines[len], pipe);
- 	if (ret)
--- 
-2.25.1
+drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
 
+Introduce DRM_COLOROP_FIXED_MATRIX, a new colorop type representing a
+hardware that performs a fixed matrix operation. Userspace selects one of
+the predefined hardware modes via a new FIXED_MATRIX_TYPE enum property.
+
+> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+> index 682fcc6515259..483defad699c0 100644
+> --- a/drivers/gpu/drm/drm_colorop.c
+> +++ b/drivers/gpu/drm/drm_colorop.c
+
+[ ... ]
+
+> @@ -453,6 +462,80 @@ int drm_plane_colorop_3dlut_init(struct drm_device *=
+dev, struct drm_colorop *col
+>  }
+>  EXPORT_SYMBOL(drm_plane_colorop_3dlut_init);
+> =20
+> +/**
+> + * drm_plane_colorop_fixed_matrix_init - Initialize a DRM_COLOROP_FIXED_=
+MATRIX
+> + *
+> + * @dev: DRM device
+> + * @colorop: The drm_colorop object to initialize
+> + * @plane: The associated drm_plane
+> + * @funcs: control functions for the new colorop
+> + * @supported_fm: A bitfield of supported drm_colorop_fixed_matrix_type =
+enum values,
+> + *               created using BIT(fixed_matrix_type) and combined with =
+the OR '|'
+> + *               operator.
+> + * @flags: bitmask of misc, see DRM_COLOROP_FLAG_* defines.
+> + * @return zero on success, -E value on failure
+> + */
+> +int drm_plane_colorop_fixed_matrix_init(struct drm_device *dev, struct d=
+rm_colorop *colorop,
+> +					struct drm_plane *plane,
+> +					const struct drm_colorop_funcs *funcs,
+> +					u64 supported_fm, uint32_t flags)
+> +{
+> +	struct drm_prop_enum_list enum_list[DRM_COLOROP_FM_COUNT];
+> +	int i, len;
+> +	struct drm_property *prop;
+> +	int ret;
+> +
+> +	if (!supported_fm) {
+> +		drm_err(dev,
+> +			"No supported FM type op for new Fixed Matrix colorop on [PLANE:%d:%s=
+]\n",
+> +			plane->base.id, plane->name);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if ((supported_fm & -BIT(DRM_COLOROP_FM_COUNT)) !=3D 0) {
+
+[Severity: Medium]
+Will this check ignore invalid high bits in supported_fm on 32-bit systems?
+
+Since supported_fm is a u64, using the 32-bit BIT() macro on a 32-bit
+architecture means -BIT(DRM_COLOROP_FM_COUNT) will result in a 32-bit
+unsigned long (e.g., 0xFFFFFFE0UL). When bitwise-ANDed with a u64, this mask
+zero-extends to 0x00000000FFFFFFE0ULL, causing any invalid bits set in the
+upper 32 bits to be silently ignored instead of returning -EINVAL.
+
+Would it be safer to use BIT_ULL() or GENMASK_ULL() here?
+
+> +		drm_err(dev, "Unknown Fixed Matrix provided on [PLANE:%d:%s]\n",
+> +			plane->base.id, plane->name);
+> +		return -EINVAL;
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713051516.4087=
+420-1-chaitanya.kumar.borah@intel.com?part=3D1
