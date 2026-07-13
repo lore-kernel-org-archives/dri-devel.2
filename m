@@ -4,62 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BB89C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:18:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC28EC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:27:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC40B10E3CD;
-	Mon, 13 Jul 2026 08:18:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 092F810E396;
+	Mon, 13 Jul 2026 08:27:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="WGeehacX";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="p4xjHkYV";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="Ir3lWB6A";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AADB10E3CD
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:18:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783930720; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=CCzEAyyDAqOaijwTtHRBa3meIU1gqCu75+nAyzxVcCibwVj8Pc0s8XvWECzsGGpyfAtqLRbnauKwsyMxHUJgpRp1ZLkaajMUru5rfho7MFSRa43HzKc49ZgF5qS7q8bri2oqA4IRaCdWUNbhYBD4eDg7bTHfMcr6cIZQrKHmWW0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783930720;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=3rwuiDV4HrdRMWAasmC8HPEn1/+k4IH7cCNwetclgfY=; 
- b=OOq81/hHNPxQ9U98Y8cgMxLxIrwU0o9r/lDyron8hmY/pBuaiiQ50X98Vu2JTYQpXlFMSukitM5A5nuvBTyoxYlkLTxs42Hf8UrVs3jgr8tqxeQU8oWzmMO9HttPd6dr5q1DaZue7XBO0myBil5OsUmd3N2Kp4ur+r+CVmy9VuE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783930720; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=3rwuiDV4HrdRMWAasmC8HPEn1/+k4IH7cCNwetclgfY=;
- b=WGeehacXL2n4Jy/EacoJpWEXVcAJ+xWbR3vSHTsePpb+CYnIJjdUlMgSXBkjhrN5
- 6txF7i8ZFG78WTcfQh/3QvGiLGoSciHY47vgszyyR2ilhJ8VyPak/n3qc7LbX7rhLzw
- XguTqPWFpEUVPu2wT2Rrz4iygRVqqIn30FM+Sygg=
-Received: by mx.zohomail.com with SMTPS id 1783930717446792.9871784491783;
- Mon, 13 Jul 2026 01:18:37 -0700 (PDT)
-Message-ID: <c5d207ea-6995-4cac-9286-b02e067384a0@collabora.com>
-Date: Mon, 13 Jul 2026 10:18:33 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] udmabuf: Ensure to perform cache synchronisation in
- begin_cpu_udmabuf()
-To: "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20260627105725.9083-1-robert.mader@collabora.com>
- <CABXGCsPHdi3=Tpg2uZhZMuLNmg8r9Bg=OgD39eyMc=pv8gc_TQ@mail.gmail.com>
- <bc41095d-8956-4c3e-8f99-f4bda41f81e7@collabora.com>
- <CABXGCsNYEhkprpTh9Pd8Y46520fwNJngS_Bg_QJCQPCf3_qv0g@mail.gmail.com>
- <0a444d8c-6107-4577-bed3-0039333a5244@collabora.com>
- <9fa5e38c-0200-4724-b5db-739ea67c1181@collabora.com>
- <IA0PR11MB71853CC1CC0D0C778DAC154BF8F02@IA0PR11MB7185.namprd11.prod.outlook.com>
-Content-Language: en-US, de-DE, en-GB
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <IA0PR11MB71853CC1CC0D0C778DAC154BF8F02@IA0PR11MB7185.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de
+ [81.169.146.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 164E310E396
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:27:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783931203; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=ApQ3WWCvBciM8URTbhxcxqb4i8zY4Wa35Ijaz69v+oBKLcM1aVNqHoqUTGZeNYRIhc
+ p3rOoNfW4pCwUYdeUN1u08wepro6wyrkzbQrOA/4TnWuc6Ziy8dPGCy9yWPrquD/r7Qr
+ SNp2p1/Qh0aM9E1g3ecQpwr/TGeuIdYRuGmA8pSa+CphL75R1gH9X8E0C/SslCkARY9F
+ j2gmsK/aTPGDAD0p2bVM7U7dFTZ3AyEUVI2xMfqEX0zlCzwgnI3ELjfbglhH9hxqO6av
+ TLCIVcLEDd0i0r25PPcLfSk8HyvaUX2HiV+4Xn1lp3Fq2M73Cj7jhuY5GbUAlPLta9Wp
+ jtBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783931203;
+ s=strato-dkim-0002; d=strato.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=X5eaNUk6cCIj7tkB6iVA5BRLOW7UfZYznohwiY6XKyM=;
+ b=jkw1cYEuSot5zixvbO2Br/oB1pen23UVnS3yKFShKiB/eFVK0I/qQruj4Q/u7GbzLD
+ 708vqr5eEwC5WA/8t83sD6ZnTYL2sWEqWAjo0s0PhEbCgJmOsANB/f+d6AZEWOlfKA3f
+ Ve+ECJAWcWgrpjIFkm7vuY45I2Ty9xZtj0tHztVJAVbdJJnbNdpvoBZOnw/VB1BeYolT
+ OiuOWVu6aDSbIUEJXeCKCQTyVnBZXSAMAWSukhc73+Oo3MbI/bn799GVDwGy7ABjhDtF
+ qi0jVqPdlLr8QUVqX0epVHtutYSYIu7BInotdu4QukP63gdwksRdMuS1Hm+U7+SOWWq3
+ CAbA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo03
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783931203;
+ s=strato-dkim-0002; d=goldelico.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=X5eaNUk6cCIj7tkB6iVA5BRLOW7UfZYznohwiY6XKyM=;
+ b=p4xjHkYVayC9PTvG1lMRwEsAQQ0Ig/+fv7E0yJHN0xgS4xCjV0PSAWHVZuWsOlD5rZ
+ 00rXBzV20qRSG8VlSv2pIO9dEe1Bfdv1CPXEontcCOiZmFAywiZJtw5w/71tZyNHGtSi
+ TrM67CF5eJQHee6YA+wAAMgvWdfHnGX1TfmZNDa278lwYJ6ZtUPToR5SZqhVQzNe2USY
+ cPJdob4Lf3v0GSyl+rCW4B+uenQvP4swR6esOmZLXrNb9KKlLfqQp8kITojd0fdsFqXg
+ juSj4/qeM7LyBuW356p6XVtq+ksYktxICTTxIYWNfduWx5+KlTzIwKJ7WRBNTDDonBBp
+ KL/Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783931203;
+ s=strato-dkim-0003; d=goldelico.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=X5eaNUk6cCIj7tkB6iVA5BRLOW7UfZYznohwiY6XKyM=;
+ b=Ir3lWB6ATJq5Hfy9Uynb83ys1EpQsZ8CxCjBrPT4OB1dURlxyuLB9A2UFe50CGsdn4
+ sfRMP8oQAZABq37w88Cg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQi5pZlciNgDl2kEp5oHJ2/c57N2Mc49IfXTKd"
+Received: from smtpclient.apple by smtp.strato.de (RZmta 55.5.6 AUTH)
+ with ESMTPSA id Q4b76426D8QfMvC
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1
+ with 256 ECDH bits, eq. 3072 bits RSA))
+ (Client did not present a certificate);
+ Mon, 13 Jul 2026 10:26:41 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH 01/16] dt-bindings: twl-regulator: Add bindings for
+ exposing ti,twl4030-regen
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20260713-aquatic-memorable-griffin-cf9e46@quoll>
+Date: Mon, 13 Jul 2026 10:26:31 +0200
+Cc: Stefan Leichter <sle85276@gmx.de>, Grazvydas Ignotas <notasas@gmail.com>,
+ Tony Lindgren <tony@atomide.com>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Andreas Kemnade <andreas@kemnade.info>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Sen Wang <sen@ti.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Niranjan H Y <niranjan.hy@ti.com>, letux-kernel@openphoenux.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, kernel@pyra-handheld.com, mfd@lists.linux.dev
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <3D58F644-3EAA-4BE7-88FB-1DCEAE7D5768@goldelico.com>
+References: <cover.1783749722.git.hns@goldelico.com>
+ <00718b18253a764c2a7c9a2b95c3b8c411796583.1783749722.git.hns@goldelico.com>
+ <20260713-aquatic-memorable-griffin-cf9e46@quoll>
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Grond <grond66@riseup.net>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,75 +119,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Krzysztof,
 
-On 07.07.26 08:16, Kasireddy, Vivek wrote:
->> Subject: Re: [PATCH v1] udmabuf: Ensure to perform cache
->> synchronisation in begin_cpu_udmabuf()
->>
->> Hi, sorry for the noise - adding more udmabuf maintainers in case Vivek
->> doesn't have time to look into it atm, just to ensure people are aware.
->>
->> Gerd, Sumit, Christian: this is a simple fix for a minor regression in
->> the upcoming 7.2 release - it would therefor be great if anyone could
->> pick it to the fixes branch :)
-> Hi Robert,
->
-> Your patch LGTM. If no one else picks it up soon, I'll push it to drm-misc-fixes in the
-> next few days.
+Thank you for the feedback.
 
-gentle ping ;) Would be great if this could go into this weeks fixes push.
+> Am 13.07.2026 um 09:39 schrieb Krzysztof Kozlowski <krzk@kernel.org>:
+>=20
+> On Sat, Jul 11, 2026 at 08:01:48AM +0200, H. Nikolaus Schaller wrote:
+>> From: Grond <grond66@riseup.net>
+>>=20
+>> FIXME: not reflected in the bindings
+>>=20
+>> +Reguired properties:
+>> +For twl3040 REGEN signal:
+>> + - regulator-min-microvolt:
+>> +  - Same meaning as in bindings/regulator/regulator.yaml, but must =
+match
+>> +    regulator-max-microvolt.
+>> + - regulator-max-microvolt:
+>> +  - Same meaning as in bindings/regulator/regulator.yaml, but must =
+match
+>> +    regulator-min-microvolt.
+>> + - startup-delay-us:
+>> +  - Same meaning as in bindings/regulator/fixed-regulator.yaml.
+>=20
+> I don't know what that means.
+>=20
+>>=20
+>> Signed-off-by: Grond <grond66@riseup.net>
+>=20
+> As explicitly written in submitting patches: we do not take anonymous
+> contributions.
 
-Thanks and best regards,
+Thanks for pointing this out. In more than 10 years of contributing, I =
+actually have never run into this specific issue before.
 
-Robert
+To give some context: this is a contribution we received on our mailing =
+list about 5 years ago. We do not know the author personally, but the =
+code looks good and has been thoroughly tested by us. I kept their =
+Signed-off-by because I didn't want to falsely claim authorship.
 
->
-> Thanks,
-> Vivek
->
->> Thanks and best regards,
->>
->> Robert
->>
->> On 29.06.26 13:58, Robert Mader wrote:
->>> On 29.06.26 13:48, Mikhail Gavrilov wrote:
->>>> On Mon, Jun 29, 2026 at 3:57 PM Robert Mader
->>>> <robert.mader@collabora.com> wrote:
->>>>> Hi Mikhail,
->>>>>
->>>>> thanks for the quick review! And no worries, I was very happy about
->>>>> your
->>>>> patch, which is why I looked deeper into it in the first place.
->>>>>
->>>>> Given the patch fixes a newly introduced regression (and is very
->>>>> simple), do you think there's a chance to still get it into 7.1 - or
->>>>> would it need to go via the usual 7.2/7.3 release schedule +
->> backport?
->>>> Hi Robert,
->>>>
->>>> The timing depends on Vivek and the drm-misc maintainers, not me,
->>>> but here's the situation as I understand it:
->>>>
->>>> The original commit 504e2b4ab97a only landed in 7.2 (it went into
->>>> drm-misc-next, not drm-misc-fixes). So 7.1 was never affected by
->>>> the regression -- there's nothing to fix there.
->>>>
->>>> For 7.2: since your patch fixes a regression introduced in the same
->>>> cycle, it would ideally go through drm-misc-fixes to land in 7.2
->>>> before release, avoiding a broken commit in the final tree. That's
->>>> the cleanest outcome.
->>>>
->>>> Adding Vivek -- he pushed the original patch and would know
->> whether
->>>> drm-misc-fixes is the right route at this point in the cycle.
->>> Hi Mikhail, I of course meant 7.2, not 7.1, sorry! And agreed, that
->>> would be ideal / perfect.
->>>
->> --
->> Robert Mader
->> Consultant Software Developer
->>
->> Collabora Ltd.
->> Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
->> Registered in England & Wales, no. 5513718
+Unless he answers to this mail, what would be the best way to proceed?
+
+Should I keep him as the Author: in the git metadata but remove the =
+pseudo-anonymous Signed-off-by, and instead add my own Signed-off-by =
+(and perhaps a Co-developed-by or From: note) to certify the Developer's =
+Certificate of Origin (DCO) myself?
+
+Anyways this will likely be reworked based on the sahiko-bot =
+recommendations to make regen not a regulator but a gpio that can be =
+controlled by a separate regulator-fixed. This will also clarify/remove =
+the "same meaning" statements and ambiguities.
+
+Thanks and BR,
+Nikolaus=
