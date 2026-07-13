@@ -4,128 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5ACA0C44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 09:26:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 543C8C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 09:37:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCF6110E5B3;
-	Mon, 13 Jul 2026 09:25:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC89810E56A;
+	Mon, 13 Jul 2026 09:37:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LcvSPjQr";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="GR+pzhec";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="dC8bNf8x";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010025.outbound.protection.outlook.com [52.101.46.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFD0010E346;
- Mon, 13 Jul 2026 09:25:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MsiFTdV/qIKceG4U4iF/1dcFY/xNAdKjlbGUpPA8Vpg4sVwwfaZuwPRPI+T4kiiSVqZpGrjgCmSblSeHIjUhAwCZ6SqQmZhVex3Pemwc3GavnihtJXtXaxMM5oH+iUzrv8t05S8LprZWizEouWtTms+zOmZUTwtFDMFr42+oiHvMg0mzLW+rSKXK6aXhfK93aAYoCmsCuEWOoT0O8KXehbTBeGraaCdfdNtaOGfVAfmKXMiU5u5gZ743jQNwbyqt1Jxd5W/CM+eZYNUROiIpUvZbYFE9CKP6VIp+Wl0winTjkCmda22gBl+5fuMzhS39EGgoFLV/8qr+OdOoOpWBpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YJL7fSWtbJQ9qquLdsMs3PMO9RebXbIvrBE/1ASKxhM=;
- b=NOoIOeiRrVxTcNpLh+NoR75yYDKQ7jDt1kPKU9+lluoquxY9A0+U+XYYWceDQQb/+iQqAmU+TNt6zh+UXuhROxTuNf1xIUk8XvnuOmUC0fkNX9YeCF7s0WjiagsM0SiKOSYLLfKD9WZ3C3mQryK7azkDEoHGa7yRSGsNlHbxrfEGMx4M+KTi3aOr0RHbjIo6DrVajajwxlMIVKP0aUJmzTHaU2G2oFWOVhfMnSRj0q45apL23AQ7qQHtT8tn+2rKkUcHhzFt4WbDm+VxXybhUIX5GBbgrOSAkkPzWtfiOEPIhY+lkz347S95oGwFDIHfrMpkGQRY/dJTDQ5aOGC5cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YJL7fSWtbJQ9qquLdsMs3PMO9RebXbIvrBE/1ASKxhM=;
- b=LcvSPjQr6+GgdBBgmVaHH7O5yZoj+h7qu3vSZqbkWp3NloWVSx0pLFVr8iDg5/XMPu/uyiAj/4mu90bBunpOej4lh3Bf+vwfQtkZAbYZmA97EofOw15Ed59nkc57k0qLvjrtbhC2WMOZGw5yrVw7vPwEOICkm+XThj0FqOekRQE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW4PR12MB5643.namprd12.prod.outlook.com (2603:10b6:303:188::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Mon, 13 Jul
- 2026 09:25:52 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0202.014; Mon, 13 Jul 2026
- 09:25:51 +0000
-Message-ID: <aff7eb27-22c1-4e84-91ab-627c2604e488@amd.com>
-Date: Mon, 13 Jul 2026 11:25:43 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/12] dma-buf: Add reference counting to dma_resv
-To: Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>
-Cc: thomas.hellstrom@linux.intel.com, ecourtney@nvidia.com, simona@ffwll.ch,
- nat@pixelcluster.dev, airlied@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20260710190752.2355-1-christian.koenig@amd.com>
- <20260710190752.2355-2-christian.koenig@amd.com>
- <alGcHjo9fzhHshx8@gsse-cloud1.jf.intel.com>
- <DJVRML4G11GZ.Z7FTZH7I1LZN@kernel.org>
- <alPwTypl8Y8PN7hz@gsse-cloud1.jf.intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <alPwTypl8Y8PN7hz@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0PR04CA0025.namprd04.prod.outlook.com
- (2603:10b6:208:52d::24) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB5643:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87db089c-44f0-43d8-0fa8-08dee0c0bb85
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|7416014|1800799024|376014|4143699003|11063799006|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: cIKPKbrJw6i3BYgknbdEvGSn+wu1AYhPvsWS3uapzzdbLHtLeVdloCnszeOipFTGSVbnaEVgKJnhWmRQrUEWpqVvJE+eFNEWHrKZ0Fz2kiUjBE8kry2pbg0SfP4SPrFU/j9sFWrmlolRUczP406KvVN+ClHyxM+38rg0uEW/dMwqJjNjO/wf88aieglxmmXPg5li9sPcLCOiLSjOuHU/tyV5nafg2AEWrhHT/IzcClmtUq8fP5Np0l8sOzu0AiraS98Lu7O9EPBw8xDhXBm3eK4PmqYOp14EzbVTzShCjthdsd39JxVHojtUMqBGfHWCq1jSrmviL4khiiwyoIlWsL2q3L/UKUoSjKzGvGc5U4c73s3EqK0evKknXO427A1K1MqweaP33bhoK/STIBljR+aDxT6X09QrY/JPTZD+LzyXMcMEl+Icd60VCsCSzbj3I9JjqR7EobrlkuTnAM+eu1bvo8g3ACd9vzM5B01DwmR5jW6ZGloWJ+4g4ERS6y0muvzuwueDUEZ02S1bAXzIsoBFz4pfhmPzEucG3sFg6/Fx8Pyp9riiIYxFCxlgtR8lR9itkmVE6iKnfMHkUTwpoVUfC5rWuWUcldKdwsGQl9UDFk2FPpENcoYvr5wdtvrNkOU5gID1eYnlb7PBNLL+QgbqeHdfyO2jXRtt9/+C9AM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(7416014)(1800799024)(376014)(4143699003)(11063799006)(18002099003)(22082099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R3VhallvUTNQZHhNR2JGU2NsMnZZT29SSUNGU2dHcE1UcVBub0JsQXdHRDli?=
- =?utf-8?B?UW1sVnZVQlo3NUtLVFpCU2JZdXZlbENqU2VFS0tNNEVUb2ZOUm5rR3EwRHQx?=
- =?utf-8?B?VDJNdXFocFN4YTlTZjhlWE1qcVlaSGY2a3RLeXl1OGNLb2t1cG1BZ0IyTEww?=
- =?utf-8?B?a2p1ODZBZnhYaGRMZllsTnYxSDFNZCtLcitETStJbnJPRW9aNkNTcHhFOWlp?=
- =?utf-8?B?MDZTc3F5SCtiSnNIa2pFSFB4djlTcEluUWcxVnFVbUprdUdwNnJ6SXZZbklT?=
- =?utf-8?B?REZwUlI4MXBHUEZML0Y4bTNzczcyTjRRNmtXWitBaUF1THp4eXZSUWRNcjJO?=
- =?utf-8?B?V1Q4ZWFyRHRLUHVEMHdUa3ZuSW1QV1hMYkN5djg0MnFwaWJrbUJOSWFLWlVz?=
- =?utf-8?B?enQ3dTdVYkFIMWlWQkFHRUxtU1FFazY2TmpHRTIxMHZKc3hJRzJaU0N4cStY?=
- =?utf-8?B?NUJLTVAzajd2UWtjb3NCY05QbkVDRXBVdm9Danc1dzY3bmZMZ2lTcG84T0RH?=
- =?utf-8?B?Y2RrVlByYnQ2UFZuNDR4b0Q3ajZKUVViTkJIeWFicWNLWXRsc25FYmZxcmF5?=
- =?utf-8?B?bGE0dUxrWTh3SG9XSnAzcnZRMjJlN2dTekZ0RjN4TEFrRFNzQmMzNytIYTdi?=
- =?utf-8?B?TWFxYmVwYlM1OVhOVFd6UmlVaGFnWWI4T25Qb050eVY3dkxZSElkQmQ2UWhx?=
- =?utf-8?B?NTVMNzFYMk1mS2lmNFdlWGxaT0ZmYVpGWjJYcyt6NHhXUWlCenJEQjhWWGhZ?=
- =?utf-8?B?d2tIWk9CV3hMSXgreUl1aDNKVWtMMVZ5cHBCUHpkNEE4bmVWVThlT3htb0ZZ?=
- =?utf-8?B?MWx1bFRFUzBNaENLV0hReWVlcjhOVUNjOVdWc0hvWTdSb0FCdnRnUzJNOUtT?=
- =?utf-8?B?Z1JkTGhIZ2NqTVI3OFQ5QkRoVlFhZXJjWit2MGNzbUNvSVhVZnJwNWExUEFo?=
- =?utf-8?B?UzJlVmZyUGk1TC93UW5WY2drN3ByNVRrSVR6TDVjSXh3KzlRYTIwNGtQWHE4?=
- =?utf-8?B?UkNsRzRRZ0NJZEJOVmpsMTR0eVBVU3dqTVdKekIyL0lvTTBDczdyb21ibkg4?=
- =?utf-8?B?UlZMYzkyaU1CVXBqaWRXelE2enFpdmdHQ2Ixa1o3L0djYXpjM0JTeFBXU3cw?=
- =?utf-8?B?SzFBVXR1UnlHN3I2d0R6S0QwTERING12M2FUcUlxcWxVV1l5Y0JBMHRlaGo3?=
- =?utf-8?B?cEM4QXpHQnVnTTZrS29aUkVpM3VtckRnYmFQUS8wWkQyTDRrbjA1d0pKUHV2?=
- =?utf-8?B?QUNqcUM1a2hWWVVFdGJHRkNEWFpxSHR4aDhTeTl0ang3bmtXNnJKZjUwVlZZ?=
- =?utf-8?B?cDNZMm92dmpoWGRmbk1mczFqbE5mTEdOV0lzQUlSVG9Cd2tCemtaczI1ak9J?=
- =?utf-8?B?SXF4UitWZjBhbkZpMURsQkU1TWE0VHNweDkxOGlxaWZpY2YrVHlmSzJ4dXZV?=
- =?utf-8?B?bW45N0NBRWp2cmNYOElaclN4WTB3cDQyUFVybGhmUklNaUhBdVRqZFpTRk5Z?=
- =?utf-8?B?TUdmYitCaElkUGUzMGdrbCs5ZndNdWlBODc2dVJuNU11UEZiWTRaR0YvOUlT?=
- =?utf-8?B?azc4VVlucUthOU9vY09mY3VuRVBYYU1zSEVuYnRueFFnNExGeEVDMG1GeVo0?=
- =?utf-8?B?QW50VDRxbTJQK2lrd0QreE9pMktKWWYvbW9IQ0NWSGJuZVo3ZWJ0aUlubmhz?=
- =?utf-8?B?cFR1TVlZUE52NDVWTGFYcFk2T0xpZERMcmFRTHh2K0pvSGxFUUNOZ1IyaFo3?=
- =?utf-8?B?Y0J6ZGJ1VjluY2VSNlJkMzNHR2YwR1BwcEZjaExsY0VhQnFad0VnMzJQWFFi?=
- =?utf-8?B?cmZWM08xR2NCTG1wdlZaOEpYK1ZEbm1WVmJZQWlNaVpheGV3VXBVMTNKY0JV?=
- =?utf-8?B?dDkzWHZhZm5VUmxpSWFJK3UvcEFaMHVGbDA4UlIwWk81c3h6NXBlZWRHVkNS?=
- =?utf-8?B?REFqaHBzY3lnaHBlMElTaWd4SVlBVlhURVpGWGZUWUYwTFFHdmdhSDhlMmZL?=
- =?utf-8?B?SVdHbG5FZ0RiZnFHcDhBMDJ1NHNucVpxRTBuYlVnRUNvd2tramdldG8rbjNw?=
- =?utf-8?B?ZDRhSmxxSytKVFhKVzg2YnZjL1JRVEdCM213S0hNL09IYTl5aVdrM3J5NzNS?=
- =?utf-8?B?SE03aVJTUTRiSGhwSmFFbyttVWY4OFltNzVHNmdnM1QvWm8yamxTWG9QNmVn?=
- =?utf-8?B?Y1lIL0FuNFNEcXEvRXByTjZWNnkxN3B3TXlxUjJYNlY4eUFMd0NoTmV5Z2h4?=
- =?utf-8?B?dXd6bnRNLzV4UnhLZ0JwbDVGWmtDcEVxWmprYmNBVHMvQ0ZJY3BVZDhHaGI3?=
- =?utf-8?Q?wU50kANYEIMqrYZVvQ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87db089c-44f0-43d8-0fa8-08dee0c0bb85
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 09:25:51.8678 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gS+4WUy+Fh+JMJmWkhjldpVrZf5NzWGLf4+Nqfh4meTaKusT3ILZi3epxm1+t0Ip
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5643
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
+ [85.215.255.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54D7610E56A
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 09:37:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783935395; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=dP7OcmRnbwhCBH1RoJu0txmmrfPY1oppMgEqp052JfsHPADq+XQmroimpG/Bcd1tQ2
+ XkUF8sIltV3UbQKKEVvwnPLPY1isrhIkqM8+BH0cNyuMJZ647KC/9j9akGQwGMCBMDGY
+ 2CHTazeGLdAOb7z1EvGSIL7q01ddxCVu4eWk3cW7Sic7J68wL72vEu8Eeg9L22dsd7kr
+ etviG/LUL9RVSvHOKzFhBrGA4lnscNb9P6f71d62ArlACy+3r7ukkTQT4eoJpUrSDNgw
+ BtVpqhFeiFQAt2Pf1ney1jGlCAQrTdHz+3k59/QNUxwbzbZCjP8wW0ukq9DpUu2zp/4X
+ z5HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783935395;
+ s=strato-dkim-0002; d=strato.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=hnhHYznYw4U+dJX7Gr1QJFYbWAhkfB84VU99JrG/Yvg=;
+ b=i4ylZOSETHOTtxTdM6FHIyJqoa1k5j8HFL1QUpsJGOci28Q7PDUR47wd+g173HWoYh
+ VvbTln2Babj6qzPodSTUnafD3yN6AJhAx4KjjalBC8DHfJTIAcRWPe+wh1jjsU1E6goG
+ izTHi4psfYWBT47tHAfOn3ELPpq8/C+DQJDkOidIP7nEKDyzdb6wowVAmh1Bka5LPI0/
+ O8ncVDwXSEGbj2Zv74GkKZOnwq3A7KKo8SVfpUFMbg+oJUjkbxpuCnoTxSk2QqfAY0zD
+ JtjXfC3phLcUTla7szaN/zyMiNf/uReytyKl8PVt0JS/1yuJ0uOvLvZjVK527lvGHzbp
+ dq3w==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783935395;
+ s=strato-dkim-0002; d=goldelico.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=hnhHYznYw4U+dJX7Gr1QJFYbWAhkfB84VU99JrG/Yvg=;
+ b=GR+pzhecddLYFJZMc2TkGjkjxgc7DC0nZFR03CQdi+czSfM6pxlv/3KTMXQCGBNz9z
+ BcJuwmMD+eyqm9Gq96U9Fgny+Gkd9td1wnpUYRaXIzGjKFDXgR5JWNkkx97bxd9NdKmR
+ Ot6Nnogfl9XsMNwLcZPqnbQVo/77HbxfxrQMnIKbOhLUaM6FOKFU4PK0y0GH6QK9j1bQ
+ UGAG2tZ+xAvYFn3dJmvoVnJElakBDEcUMsjRQbukdeJIJKoDJ7yy7O/+QHBTfCO6Sz7d
+ wdafVe+iE9kJ4weOtCaj5gKcOGg1HmTshPDlA0BsSTq0U6xEQ4jqfgwRlttZHIn658vQ
+ O3ug==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783935395;
+ s=strato-dkim-0003; d=goldelico.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=hnhHYznYw4U+dJX7Gr1QJFYbWAhkfB84VU99JrG/Yvg=;
+ b=dC8bNf8xW+rX8n44wt9DVlrzvORrz9yJLqjhY6lCP6awzocEeb+ilJ8db4Rk1zkHNL
+ Mg/Z3iyLc5JCNkCNZiDg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQi5pZlciNgDl2kEp5oHJ2/c57N2Mc49IfXTKd"
+Received: from smtpclient.apple by smtp.strato.de (RZmta 55.5.6 AUTH)
+ with ESMTPSA id Q4b76426D9aXNNi
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1
+ with 256 ECDH bits, eq. 3072 bits RSA))
+ (Client did not present a certificate);
+ Mon, 13 Jul 2026 11:36:33 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH 01/16] dt-bindings: twl-regulator: Add bindings for
+ exposing ti,twl4030-regen
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <17497012-97d8-4c52-89b8-f433179f1eda@kernel.org>
+Date: Mon, 13 Jul 2026 11:36:23 +0200
+Cc: Grond <grond66@riseup.net>, Stefan Leichter <sle85276@gmx.de>,
+ Grazvydas Ignotas <notasas@gmail.com>, Tony Lindgren <tony@atomide.com>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Andreas Kemnade <andreas@kemnade.info>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Sen Wang <sen@ti.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Niranjan H Y <niranjan.hy@ti.com>, letux-kernel@openphoenux.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, kernel@pyra-handheld.com, mfd@lists.linux.dev
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <CA2C7052-43D0-411C-8556-26228EB6FEC2@goldelico.com>
+References: <cover.1783749722.git.hns@goldelico.com>
+ <00718b18253a764c2a7c9a2b95c3b8c411796583.1783749722.git.hns@goldelico.com>
+ <20260713-aquatic-memorable-griffin-cf9e46@quoll>
+ <3D58F644-3EAA-4BE7-88FB-1DCEAE7D5768@goldelico.com>
+ <17497012-97d8-4c52-89b8-f433179f1eda@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,78 +120,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/12/26 21:51, Matthew Brost wrote:
-> On Sat, Jul 11, 2026 at 03:10:58PM +0200, Danilo Krummrich wrote:
->> On Sat Jul 11, 2026 at 3:27 AM CEST, Matthew Brost wrote:
->>> On Fri, Jul 10, 2026 at 08:52:41PM +0200, Christian König wrote:
->>>> This provides clearer ownership semantics and makes the code more
->>>> maintainable by removing the embedded allocation hack.
->>>>
->>>
->>> This looks a lot better to me. In particular, I agree with the last
->>> sentence in the commit message.
->>
->> I have to disagree with this, it is the opposite. As long as the struct
-> 
-> Daniilo is of course correct here, completely missed this when I looked.
-> 
->> dma_resv::allocated fields and the corresponding semantics exists, this does
->> result into less clear ownership semantics.
->>
->> When the dma_resv is embedded in another object the reference count becomes
->> meaningless. If the object embedding the dma_resv is freed it doesn't matter
->> whether I have a reference count, it would a UAF regardless.
->>
-> 
-> Yes, I agree. The allocated field would need to be dropped to make this
-> viable, and we would disallow embedding a dma-resv object into other
-> objects (which I believe is the suggestion).
 
-Yeah completely agree as well. This was basically just the first hacky version.
 
-> This doesn't look too painful, as I can only find two instances of
-> embedding in the kernel: drm_gem_object and i915_address_space and
-> handful of stack variables.
+> Am 13.07.2026 um 11:19 schrieb Krzysztof Kozlowski <krzk@kernel.org>:
+>=20
+> On 13/07/2026 10:26, H. Nikolaus Schaller wrote:
+>> Hi Krzysztof,
+>>=20
+>> Thank you for the feedback.
+>>=20
+>>> Am 13.07.2026 um 09:39 schrieb Krzysztof Kozlowski =
+<krzk@kernel.org>:
+>>>=20
+>>> On Sat, Jul 11, 2026 at 08:01:48AM +0200, H. Nikolaus Schaller =
+wrote:
+>>>> From: Grond <grond66@riseup.net>
+>>>>=20
+>>>=20
+>>>>=20
+>>>> Signed-off-by: Grond <grond66@riseup.net>
+>>>=20
+>>> As explicitly written in submitting patches: we do not take =
+anonymous
+>>> contributions.
+>>=20
+>> Thanks for pointing this out. In more than 10 years of contributing, =
+I actually have never run into this specific issue before.
+>>=20
+>> To give some context: this is a contribution we received on our =
+mailing list about 5 years ago. We do not know the author personally, =
+but the code looks good and has been thoroughly tested by us. I kept =
+their Signed-off-by because I didn't want to falsely claim authorship.
+>=20
+> Take the authorship. You are allowed to do that by both DCO and common
+> sense (you are not doing something immoral, unless author shows
+> interest/hints to fix it by themself).
 
-The use case in the TTM BO deletion path is the only really ugly one as far as I can see.
+Ok, let's give him some days to respond. Thanks for the procedure
+to resolve a potential deadlock.
 
-It uses the drm_gem_object embedded reservation object to make sure memory allocation can't fail during deletion.
+>=20
+> Commit msg also needs fixing/rewriting.
+>=20
+> Beside, one more nit since there will be a new version:
+>=20
+> A nit, subject: drop second/last, redundant "bindings for". The
+> "dt-bindings" prefix is already stating that these are bindings.
 
-We need something like a dummy delete_resv allocated for each TTM BO during creation or something like that to avoid this.
+Ok.
 
-But that in turn means potentially means taking a look at all TTM using drivers if/when they use this in their deletion path.
+> Best regards,
+> Krzysztof
 
-Doable but a bit more work. Probably also a good job for AI.
-
-Question is also who is taking that work? @Natalie can you pick up from here?
-
-Regards,
-Christian.
-
-> 
-> Matt
-> 
->> It is misleading (and hence error prone) to have an API where one can obtain a
->> reference count of an object where the underlying memory can be freed regardless
->> of the obtained reference count.
->>
->> A refernece count represents a shared ownership model, which is undermined if
->> the underlying memory is not owned by the reference count.
->>
->> That said, I don't mind the reference count, but we can't mix up exclusive
->> ownership (embedding a structure) and shared ownership (reference count).
->>
->>>> +static void dma_resv_release(struct kref *kref)
->>>>  {
->>>> -	/*
->>>> -	 * This object should be dead and all references must have
->>>> -	 * been released to it, so no need to be protected with rcu.
->>>> -	 */
->>>> +	struct dma_resv *obj = container_of(kref, struct dma_resv, refcount);
->>>> +
->>>>  	dma_resv_list_free(rcu_dereference_protected(obj->fences, true));
->>>>  	ww_mutex_destroy(&obj->lock);
->>>> +	if (obj->allocated)
->>>> +		kfree(obj);
->>>> +}
 
