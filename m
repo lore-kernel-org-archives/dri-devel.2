@@ -4,113 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0E20C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 09:22:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5ACA0C44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 09:26:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5469E10E5B0;
-	Mon, 13 Jul 2026 09:22:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCF6110E5B3;
+	Mon, 13 Jul 2026 09:25:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FNFJCAIX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LcvSPjQr";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF1D10E5B0
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 09:22:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 993BD60018;
- Mon, 13 Jul 2026 09:22:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E2A11F000E9;
- Mon, 13 Jul 2026 09:21:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783934525;
- bh=EwGFQPVm1bO26xVtJmF/8zr4bH7SQWGraeozh6dAE00=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=FNFJCAIXF25WJ/l3S1PuHjuS15i1f4nVeVa5bQYaX9p+eCM//GITkfpYGvdlyow6W
- kN40V6AbNtRsrOq6AaOspfyuSzsb1QJhVfy8yjn0AexPt8A2LFxLHwLQy9awKxkLiX
- xDD+2gC+xYZ8F0V02nKAFP6uYd+QgFkEEQnFA7Y+svx1YFFFGXJjdyGvBVZWco2G4I
- O7Qyu2ngpsulFGAk8AeJI2urR7mRnx3IpGCs0i5peznFx35bRVxOKBVkaY7ZxrT7UN
- 2U6hkTrk7xZIvWhkxtpNDeN6IWAU4FnJZfvIWCdulQazJGsqWugmkrp/IW5Ecqyj0s
- KeGYDjgTZZ+sw==
-Message-ID: <5667350d-cc3f-421d-899f-f353b05c5ea1@kernel.org>
-Date: Mon, 13 Jul 2026 11:21:49 +0200
-MIME-Version: 1.0
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010025.outbound.protection.outlook.com [52.101.46.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFD0010E346;
+ Mon, 13 Jul 2026 09:25:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MsiFTdV/qIKceG4U4iF/1dcFY/xNAdKjlbGUpPA8Vpg4sVwwfaZuwPRPI+T4kiiSVqZpGrjgCmSblSeHIjUhAwCZ6SqQmZhVex3Pemwc3GavnihtJXtXaxMM5oH+iUzrv8t05S8LprZWizEouWtTms+zOmZUTwtFDMFr42+oiHvMg0mzLW+rSKXK6aXhfK93aAYoCmsCuEWOoT0O8KXehbTBeGraaCdfdNtaOGfVAfmKXMiU5u5gZ743jQNwbyqt1Jxd5W/CM+eZYNUROiIpUvZbYFE9CKP6VIp+Wl0winTjkCmda22gBl+5fuMzhS39EGgoFLV/8qr+OdOoOpWBpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YJL7fSWtbJQ9qquLdsMs3PMO9RebXbIvrBE/1ASKxhM=;
+ b=NOoIOeiRrVxTcNpLh+NoR75yYDKQ7jDt1kPKU9+lluoquxY9A0+U+XYYWceDQQb/+iQqAmU+TNt6zh+UXuhROxTuNf1xIUk8XvnuOmUC0fkNX9YeCF7s0WjiagsM0SiKOSYLLfKD9WZ3C3mQryK7azkDEoHGa7yRSGsNlHbxrfEGMx4M+KTi3aOr0RHbjIo6DrVajajwxlMIVKP0aUJmzTHaU2G2oFWOVhfMnSRj0q45apL23AQ7qQHtT8tn+2rKkUcHhzFt4WbDm+VxXybhUIX5GBbgrOSAkkPzWtfiOEPIhY+lkz347S95oGwFDIHfrMpkGQRY/dJTDQ5aOGC5cw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YJL7fSWtbJQ9qquLdsMs3PMO9RebXbIvrBE/1ASKxhM=;
+ b=LcvSPjQr6+GgdBBgmVaHH7O5yZoj+h7qu3vSZqbkWp3NloWVSx0pLFVr8iDg5/XMPu/uyiAj/4mu90bBunpOej4lh3Bf+vwfQtkZAbYZmA97EofOw15Ed59nkc57k0qLvjrtbhC2WMOZGw5yrVw7vPwEOICkm+XThj0FqOekRQE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW4PR12MB5643.namprd12.prod.outlook.com (2603:10b6:303:188::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Mon, 13 Jul
+ 2026 09:25:52 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0202.014; Mon, 13 Jul 2026
+ 09:25:51 +0000
+Message-ID: <aff7eb27-22c1-4e84-91ab-627c2604e488@amd.com>
+Date: Mon, 13 Jul 2026 11:25:43 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/16] ASoC: dt-bindings: add OpenPandora Sound Card
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Grond <grond66@riseup.net>, Stefan Leichter <sle85276@gmx.de>,
- Grazvydas Ignotas <notasas@gmail.com>, Tony Lindgren <tony@atomide.com>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Andreas Kemnade
- <andreas@kemnade.info>, Lee Jones <lee@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Sen Wang <sen@ti.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Niranjan H Y <niranjan.hy@ti.com>, letux-kernel@openphoenux.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, kernel@pyra-handheld.com, mfd@lists.linux.dev
-References: <cover.1783749722.git.hns@goldelico.com>
- <7989e699de400c0fe3f0cb7af77a54077784df78.1783749722.git.hns@goldelico.com>
- <20260713-infallible-capable-dormouse-aaaebe@quoll>
- <BF2B6C4A-A4CC-48D7-9854-DC014950184B@goldelico.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH 01/12] dma-buf: Add reference counting to dma_resv
+To: Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>
+Cc: thomas.hellstrom@linux.intel.com, ecourtney@nvidia.com, simona@ffwll.ch,
+ nat@pixelcluster.dev, airlied@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20260710190752.2355-1-christian.koenig@amd.com>
+ <20260710190752.2355-2-christian.koenig@amd.com>
+ <alGcHjo9fzhHshx8@gsse-cloud1.jf.intel.com>
+ <DJVRML4G11GZ.Z7FTZH7I1LZN@kernel.org>
+ <alPwTypl8Y8PN7hz@gsse-cloud1.jf.intel.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <BF2B6C4A-A4CC-48D7-9854-DC014950184B@goldelico.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <alPwTypl8Y8PN7hz@gsse-cloud1.jf.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN0PR04CA0025.namprd04.prod.outlook.com
+ (2603:10b6:208:52d::24) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB5643:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87db089c-44f0-43d8-0fa8-08dee0c0bb85
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|7416014|1800799024|376014|4143699003|11063799006|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info: cIKPKbrJw6i3BYgknbdEvGSn+wu1AYhPvsWS3uapzzdbLHtLeVdloCnszeOipFTGSVbnaEVgKJnhWmRQrUEWpqVvJE+eFNEWHrKZ0Fz2kiUjBE8kry2pbg0SfP4SPrFU/j9sFWrmlolRUczP406KvVN+ClHyxM+38rg0uEW/dMwqJjNjO/wf88aieglxmmXPg5li9sPcLCOiLSjOuHU/tyV5nafg2AEWrhHT/IzcClmtUq8fP5Np0l8sOzu0AiraS98Lu7O9EPBw8xDhXBm3eK4PmqYOp14EzbVTzShCjthdsd39JxVHojtUMqBGfHWCq1jSrmviL4khiiwyoIlWsL2q3L/UKUoSjKzGvGc5U4c73s3EqK0evKknXO427A1K1MqweaP33bhoK/STIBljR+aDxT6X09QrY/JPTZD+LzyXMcMEl+Icd60VCsCSzbj3I9JjqR7EobrlkuTnAM+eu1bvo8g3ACd9vzM5B01DwmR5jW6ZGloWJ+4g4ERS6y0muvzuwueDUEZ02S1bAXzIsoBFz4pfhmPzEucG3sFg6/Fx8Pyp9riiIYxFCxlgtR8lR9itkmVE6iKnfMHkUTwpoVUfC5rWuWUcldKdwsGQl9UDFk2FPpENcoYvr5wdtvrNkOU5gID1eYnlb7PBNLL+QgbqeHdfyO2jXRtt9/+C9AM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(7416014)(1800799024)(376014)(4143699003)(11063799006)(18002099003)(22082099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R3VhallvUTNQZHhNR2JGU2NsMnZZT29SSUNGU2dHcE1UcVBub0JsQXdHRDli?=
+ =?utf-8?B?UW1sVnZVQlo3NUtLVFpCU2JZdXZlbENqU2VFS0tNNEVUb2ZOUm5rR3EwRHQx?=
+ =?utf-8?B?VDJNdXFocFN4YTlTZjhlWE1qcVlaSGY2a3RLeXl1OGNLb2t1cG1BZ0IyTEww?=
+ =?utf-8?B?a2p1ODZBZnhYaGRMZllsTnYxSDFNZCtLcitETStJbnJPRW9aNkNTcHhFOWlp?=
+ =?utf-8?B?MDZTc3F5SCtiSnNIa2pFSFB4djlTcEluUWcxVnFVbUprdUdwNnJ6SXZZbklT?=
+ =?utf-8?B?REZwUlI4MXBHUEZML0Y4bTNzczcyTjRRNmtXWitBaUF1THp4eXZSUWRNcjJO?=
+ =?utf-8?B?V1Q4ZWFyRHRLUHVEMHdUa3ZuSW1QV1hMYkN5djg0MnFwaWJrbUJOSWFLWlVz?=
+ =?utf-8?B?enQ3dTdVYkFIMWlWQkFHRUxtU1FFazY2TmpHRTIxMHZKc3hJRzJaU0N4cStY?=
+ =?utf-8?B?NUJLTVAzajd2UWtjb3NCY05QbkVDRXBVdm9Danc1dzY3bmZMZ2lTcG84T0RH?=
+ =?utf-8?B?Y2RrVlByYnQ2UFZuNDR4b0Q3ajZKUVViTkJIeWFicWNLWXRsc25FYmZxcmF5?=
+ =?utf-8?B?bGE0dUxrWTh3SG9XSnAzcnZRMjJlN2dTekZ0RjN4TEFrRFNzQmMzNytIYTdi?=
+ =?utf-8?B?TWFxYmVwYlM1OVhOVFd6UmlVaGFnWWI4T25Qb050eVY3dkxZSElkQmQ2UWhx?=
+ =?utf-8?B?NTVMNzFYMk1mS2lmNFdlWGxaT0ZmYVpGWjJYcyt6NHhXUWlCenJEQjhWWGhZ?=
+ =?utf-8?B?d2tIWk9CV3hMSXgreUl1aDNKVWtMMVZ5cHBCUHpkNEE4bmVWVThlT3htb0ZZ?=
+ =?utf-8?B?MWx1bFRFUzBNaENLV0hReWVlcjhOVUNjOVdWc0hvWTdSb0FCdnRnUzJNOUtT?=
+ =?utf-8?B?Z1JkTGhIZ2NqTVI3OFQ5QkRoVlFhZXJjWit2MGNzbUNvSVhVZnJwNWExUEFo?=
+ =?utf-8?B?UzJlVmZyUGk1TC93UW5WY2drN3ByNVRrSVR6TDVjSXh3KzlRYTIwNGtQWHE4?=
+ =?utf-8?B?UkNsRzRRZ0NJZEJOVmpsMTR0eVBVU3dqTVdKekIyL0lvTTBDczdyb21ibkg4?=
+ =?utf-8?B?UlZMYzkyaU1CVXBqaWRXelE2enFpdmdHQ2Ixa1o3L0djYXpjM0JTeFBXU3cw?=
+ =?utf-8?B?SzFBVXR1UnlHN3I2d0R6S0QwTERING12M2FUcUlxcWxVV1l5Y0JBMHRlaGo3?=
+ =?utf-8?B?cEM4QXpHQnVnTTZrS29aUkVpM3VtckRnYmFQUS8wWkQyTDRrbjA1d0pKUHV2?=
+ =?utf-8?B?QUNqcUM1a2hWWVVFdGJHRkNEWFpxSHR4aDhTeTl0ang3bmtXNnJKZjUwVlZZ?=
+ =?utf-8?B?cDNZMm92dmpoWGRmbk1mczFqbE5mTEdOV0lzQUlSVG9Cd2tCemtaczI1ak9J?=
+ =?utf-8?B?SXF4UitWZjBhbkZpMURsQkU1TWE0VHNweDkxOGlxaWZpY2YrVHlmSzJ4dXZV?=
+ =?utf-8?B?bW45N0NBRWp2cmNYOElaclN4WTB3cDQyUFVybGhmUklNaUhBdVRqZFpTRk5Z?=
+ =?utf-8?B?TUdmYitCaElkUGUzMGdrbCs5ZndNdWlBODc2dVJuNU11UEZiWTRaR0YvOUlT?=
+ =?utf-8?B?azc4VVlucUthOU9vY09mY3VuRVBYYU1zSEVuYnRueFFnNExGeEVDMG1GeVo0?=
+ =?utf-8?B?QW50VDRxbTJQK2lrd0QreE9pMktKWWYvbW9IQ0NWSGJuZVo3ZWJ0aUlubmhz?=
+ =?utf-8?B?cFR1TVlZUE52NDVWTGFYcFk2T0xpZERMcmFRTHh2K0pvSGxFUUNOZ1IyaFo3?=
+ =?utf-8?B?Y0J6ZGJ1VjluY2VSNlJkMzNHR2YwR1BwcEZjaExsY0VhQnFad0VnMzJQWFFi?=
+ =?utf-8?B?cmZWM08xR2NCTG1wdlZaOEpYK1ZEbm1WVmJZQWlNaVpheGV3VXBVMTNKY0JV?=
+ =?utf-8?B?dDkzWHZhZm5VUmxpSWFJK3UvcEFaMHVGbDA4UlIwWk81c3h6NXBlZWRHVkNS?=
+ =?utf-8?B?REFqaHBzY3lnaHBlMElTaWd4SVlBVlhURVpGWGZUWUYwTFFHdmdhSDhlMmZL?=
+ =?utf-8?B?SVdHbG5FZ0RiZnFHcDhBMDJ1NHNucVpxRTBuYlVnRUNvd2tramdldG8rbjNw?=
+ =?utf-8?B?ZDRhSmxxSytKVFhKVzg2YnZjL1JRVEdCM213S0hNL09IYTl5aVdrM3J5NzNS?=
+ =?utf-8?B?SE03aVJTUTRiSGhwSmFFbyttVWY4OFltNzVHNmdnM1QvWm8yamxTWG9QNmVn?=
+ =?utf-8?B?Y1lIL0FuNFNEcXEvRXByTjZWNnkxN3B3TXlxUjJYNlY4eUFMd0NoTmV5Z2h4?=
+ =?utf-8?B?dXd6bnRNLzV4UnhLZ0JwbDVGWmtDcEVxWmprYmNBVHMvQ0ZJY3BVZDhHaGI3?=
+ =?utf-8?Q?wU50kANYEIMqrYZVvQ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87db089c-44f0-43d8-0fa8-08dee0c0bb85
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 09:25:51.8678 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gS+4WUy+Fh+JMJmWkhjldpVrZf5NzWGLf4+Nqfh4meTaKusT3ILZi3epxm1+t0Ip
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5643
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,55 +141,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 13/07/2026 10:27, H. Nikolaus Schaller wrote:
-> Hi Krzysztof,
-> 
-> Thank you for the feedback.
-> 
->> Am 13.07.2026 um 09:37 schrieb Krzysztof Kozlowski <krzk@kernel.org>:
->>
->> On Sat, Jul 11, 2026 at 08:01:56AM +0200, H. Nikolaus Schaller wrote:
->>> The OpenPandora audio subsystem describes the routing links between the
->>> OMAP3 McBSP interface, the external PCM1773 DAC, and the TWL4030 audio
->>> codec, alongside amplifiers and power supplies.
+On 7/12/26 21:51, Matthew Brost wrote:
+> On Sat, Jul 11, 2026 at 03:10:58PM +0200, Danilo Krummrich wrote:
+>> On Sat Jul 11, 2026 at 3:27 AM CEST, Matthew Brost wrote:
+>>> On Fri, Jul 10, 2026 at 08:52:41PM +0200, Christian König wrote:
+>>>> This provides clearer ownership semantics and makes the code more
+>>>> maintainable by removing the embedded allocation hack.
+>>>>
 >>>
->>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
->>> ---
->>> .../sound/openpandora,omap3pandora-sound.yaml | 94 +++++++++++++++++++
->>> 1 file changed, 94 insertions(+)
->>> create mode 100644 Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml
->>>
->>> diff --git a/Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml b/Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml
->>> new file mode 100644
->>> index 0000000000000..d3c747e5c58d6
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml
->>> @@ -0,0 +1,94 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org
->>> +$schema: http://devicetree.org
+>>> This looks a lot better to me. In particular, I agree with the last
+>>> sentence in the commit message.
 >>
->> This wasn't ever tested. Why?
+>> I have to disagree with this, it is the opposite. As long as the struct
 > 
-> It does not emit any C compiler issues or runtime problems so it remained unnoticed.
+> Daniilo is of course correct here, completely missed this when I looked.
+> 
+>> dma_resv::allocated fields and the corresponding semantics exists, this does
+>> result into less clear ownership semantics.
+>>
+>> When the dma_resv is embedded in another object the reference count becomes
+>> meaningless. If the object embedding the dma_resv is freed it doesn't matter
+>> whether I have a reference count, it would a UAF regardless.
+>>
+> 
+> Yes, I agree. The allocated field would need to be dropped to make this
+> viable, and we would disallow embedding a dma-resv object into other
+> objects (which I believe is the suggestion).
 
-I do not believe.
+Yeah completely agree as well. This was basically just the first hacky version.
 
-There is a clear warning from Rob's bot.
+> This doesn't look too painful, as I can only find two instances of
+> embedding in the kernel: drm_gem_object and i915_address_space and
+> handful of stack variables.
 
-You just did not follow the process of building the code (compiler has
-nothing to do here). Read submitting patches in DT dir and then writing
-schema for further instructions. This is ABSOLUTE MINIMUM. We are not
-your build test service.
+The use case in the TTM BO deletion path is the only really ugly one as far as I can see.
+
+It uses the drm_gem_object embedded reservation object to make sure memory allocation can't fail during deletion.
+
+We need something like a dummy delete_resv allocated for each TTM BO during creation or something like that to avoid this.
+
+But that in turn means potentially means taking a look at all TTM using drivers if/when they use this in their deletion path.
+
+Doable but a bit more work. Probably also a good job for AI.
+
+Question is also who is taking that work? @Natalie can you pick up from here?
+
+Regards,
+Christian.
 
 > 
-> It was notified by the sahiko-bot and will be fixed in v2.
+> Matt
+> 
+>> It is misleading (and hence error prone) to have an API where one can obtain a
+>> reference count of an object where the underlying memory can be freed regardless
+>> of the obtained reference count.
+>>
+>> A refernece count represents a shared ownership model, which is undermined if
+>> the underlying memory is not owned by the reference count.
+>>
+>> That said, I don't mind the reference count, but we can't mix up exclusive
+>> ownership (embedding a structure) and shared ownership (reference count).
+>>
+>>>> +static void dma_resv_release(struct kref *kref)
+>>>>  {
+>>>> -	/*
+>>>> -	 * This object should be dead and all references must have
+>>>> -	 * been released to it, so no need to be protected with rcu.
+>>>> -	 */
+>>>> +	struct dma_resv *obj = container_of(kref, struct dma_resv, refcount);
+>>>> +
+>>>>  	dma_resv_list_free(rcu_dereference_protected(obj->fences, true));
+>>>>  	ww_mutex_destroy(&obj->lock);
+>>>> +	if (obj->allocated)
+>>>> +		kfree(obj);
+>>>> +}
 
-Sashiko has nothing to do with that.
-
-You DID NOT BUILD the code.
-
-Best regards,
-Krzysztof
