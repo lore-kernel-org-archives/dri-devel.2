@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5508CC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:11:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2817C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:11:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD55010E95E;
-	Mon, 13 Jul 2026 12:11:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D9A210E961;
+	Mon, 13 Jul 2026 12:11:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BNOXlS3U";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i3UGCPVo";
 	dkim-atps=neutral
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
- [209.85.215.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D8FB10E95E
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:11:43 +0000 (UTC)
-Received: by mail-pg1-f179.google.com with SMTP id
- 41be03b00d2f7-caf45fc5202so769910a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 05:11:43 -0700 (PDT)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A5C710E961
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:11:54 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-383cb94f742so2619604a91.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 05:11:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783944703; x=1784549503; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783944714; x=1784549514; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=xrLz/BgMOWZJw3Q53MMnd8sHfRljAQMBGTN2LAcpT4M=;
- b=BNOXlS3U4u47OGEFtPsclA9QZnusXkALSNlqq+pj1PKghWAeyAhqYhK/8OEJ6lB7Zu
- d8qpebOoRAlwqzSuQB/vFeK4VV7SQ1n6d14r9A8XobXqffGniod/19+gFrMUlE1WX6Mg
- Qdc5rI3Vgaj4gX1G2iePgp8FwGS10++PK5dRLPPGfGKlXc6/G3PKhDIeyvH5y4kr+izx
- 7aquiNePoI2pm5miW7SUGSdTTSez5u0JALJL2PjLkAmkLUHi6SlbYKcdekbn9oJWjJ2m
- X9iQuI/ZEOp60JGqI6gI5XqFqM8R3aN85SD4VRojFmxOl5qeitviJkJ10O4r20MPOGpH
- 0knQ==
+ bh=M8Fc1y4+RwjniJfgwRtIk0X9ABaeOzCopsCGLc1zspc=;
+ b=i3UGCPVouZPKB+0/mH59PWIWSY+WhQvcQ+mr+1DqA34/Aw18PZSvVh9lFOmmnc4Jv3
+ LGdNDOVSYTt6jLgYTYCGRLBWRYUwQ1fxjZoxqDtObBO/x0IWlmyyu8fRzbJZoziq/azj
+ dRUHHMo+/ZLqje0JfL3flIUEPIchvTiWVbUEZpPtaNnsco6YB/0CwX43iZ5hO4uPq3+o
+ n2Os8vfNmq9oC/MOqdKexcG5sGRr758wjObLBSK+WoewTLVZ/DQ0cJwsnAnqacs137ku
+ XN9GOxJMxgKYA+/rDucUY+4NltBzIfu/zov+J/cNyGPiIhlRlSJBrauhdgx89cV6jEZQ
+ OFWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783944703; x=1784549503;
+ d=1e100.net; s=20251104; t=1783944714; x=1784549514;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=xrLz/BgMOWZJw3Q53MMnd8sHfRljAQMBGTN2LAcpT4M=;
- b=p67jvD44htAE7X0qEYwv0Hl00t67372BLtzg1SrdxioAPP22V2+4vVE3TNqbbNdWZO
- j2EPJFUDjrwVdkGJyGxgh2ia9wfMn07Lf1gXbX7+sAVp5Iq0+qtuVIk/UnihnoydupbC
- 6Xmsu1rLLVGtKAZVjTSYOh7M2vnn8LtV00GJcYl4/zycuV6q8Wrsi0cupJZHIBb/dsMO
- CjM8LryB0zTKgAsHTYs+1NwASjOmL0u7IP754cwSPcHPxgyia53XpHa1DyZRq7Y0HpSe
- 2gDhZigoLFaz+ORG6GzyGS0sKAff2VwBhWbdKXjZ+QdXPaLUgq+ah/n14sTY/986Kkf+
- 0mLw==
+ bh=M8Fc1y4+RwjniJfgwRtIk0X9ABaeOzCopsCGLc1zspc=;
+ b=FD92OaVsc73g6zNlaJx1EJoJplRFIAN0Om1g/xDvloRP2QyHDMo71n07Dadz6BaFX7
+ TUbcH/J+AVbG0siCn5Tr0+j8hQ7JbjnOZdn6X9shzYK394S+Jp/RZIqO6jUSs67a8hBH
+ qU5HTbMNc0ZNjZgZ5q67AuLuWsAcXuPAzaG67Uv11nnISoy+fS166RIyrZMrNiTGvX7Z
+ +Sq/1K+6alMrkJ/kWcuAYj4sGDzAFBvVkcofRhfnPkYsWZBryCsTIazRsO4SN3dA5yc6
+ cXjIjy863JIPHq6mC07iV7CKcTrAk5JUqcqeAW7SkG8tizl0tWvFZ57e1fFLDXajm8kt
+ i9Mw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpnnwNfQqPvbYH+nywhe2KGAlJ8cbfli+ULhn/+I2A4++QTMZYRHjqKBcC145gW79MLld8BflOn5no=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx8gbbG7Iz1LCQ1wQdkKUX53fsbGXpjeeps7TH3Gqh2SOVbsPWA
- qjWU3hskiDGnefqki+60OxtCDbR1DMe8qgMlLIbIqHd5NegodxJO/fio
-X-Gm-Gg: AfdE7clgjRY5DmWqxo1xnhlSbNUgk3GiJ/3EtS58KEAf+IB44p55B4J2xOlnI0OnhmO
- QyDs/5n0PEzz0WwwkufO1toVp2KBCJ3TDYbgKBQAyK1CoQx7+ubssyz2EJ/wEyUqbHrAoPN7S3+
- WhMvXCJjA4mIdI85z3rXK1pILDsG3GmEl5jClCusoVWGsqsIKev/OgRyOl6XPW4Vji9QiYYQVA0
- XWZcHNkJJ4Ur3+BahbDCeD1OJM8hT4Oy/6aQErb5DcecgDYM5xDJAr3WPNsOLS+joGqFINSXEYm
- bZwfW9FGahQjppc7pHpVyJigOyS0ftImCdZbq8bXY60y0YNGSPJWIku7PmGEddkG/IgRG9Wf0zZ
- sVYaw26bQRV0Ts01ifj9Io0nI25kqMOIzOHroYge1/SSWJXQ6ndWhWX3bfPQsmSWr457YPcNgZ6
- x89E/a9ZFpZw==
-X-Received: by 2002:a05:6a20:da1a:b0:3c0:9c18:d5a5 with SMTP id
- adf61e73a8af0-3c111073a84mr9971121637.66.1783944702870; 
- Mon, 13 Jul 2026 05:11:42 -0700 (PDT)
+ AHgh+RoZ063z4k1ELJug5IHXIqk/G1FsH6xqmlD0XD9jVzNF86u7MZ6/cyf92L2MRO3wK5NTQHPn20lqR2Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwxTkPlX3+8VryINEau8a8dq/FUBlzelVFrFPudcEYYS45aZMkI
+ Me8/FSCPmqKglHcLnPAoR/ShFl4hV322xDVw3pU51A93UP2dOQ08aK+r
+X-Gm-Gg: AfdE7ckJsG83QkdbaYSo718xq87PBNpdcdA2EF1IiYY42rOE9q4VKrF3KJeTUPBIfmc
+ ifs+IA1julUPmvm0XzGavgOvFvaTGVICAx8YOe/yEJI81yV/fiKbJwfOkQt9KxrBSHdQEbpIvAp
+ L1oMPSyxG5CET7WaNWmRFALYWeYcIeeuYsYrrnouI7uNp6H2LEjbsCWFjjMs/s52ombHLIztIpI
+ aiiYENYasTsbOf0M9hm4A8VDtJI/dj4Jauf+6g0Tr2WrLlCwz+iUBMhQE9fP2cqVi3at/HVuX1r
+ FEQI7oLvAaLDDl7wXvzP6HbKUH5WbW0h1vA1mK2NqxR4PANb/VNbgd6uSceVG3ywAkXcABfNnZm
+ fu196z5Bh5FPHiyyAqknNO3i05XY14PSk+o8gszgQwf3bDI16pD4tIpkkqNfigT8PNww/RECtX7
+ 27ZqJIiFvwEg==
+X-Received: by 2002:a17:90b:4c51:b0:37c:607b:2cd9 with SMTP id
+ 98e67ed59e1d1-38dc7607589mr7644160a91.0.1783944713757; 
+ Mon, 13 Jul 2026 05:11:53 -0700 (PDT)
 Received: from rockpi-5b ([45.112.0.180]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-311747f7293sm67756935eec.3.2026.07.13.05.11.36
+ 5a478bee46e88-311747f7293sm67756935eec.3.2026.07.13.05.11.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 05:11:42 -0700 (PDT)
+ Mon, 13 Jul 2026 05:11:53 -0700 (PDT)
 From: Anand Moon <linux.amoon@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -78,11 +78,11 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  linux-media@vger.kernel.org (open list:MESON VIDEO DECODER DRIVER FOR AMLOGIC
  SOCS), linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM)
 Cc: Anand Moon <linux.amoon@gmail.com>, Doruk Tan Ozturk <doruk@0sec.ai>,
- Nicolas Dufresne <nicolas@ndufresne.ca>
-Subject: [PATCH v7 16/19] media: meson: vdec: Configure DMA mask and segment
- size in probe
-Date: Mon, 13 Jul 2026 17:37:11 +0530
-Message-ID: <20260713120840.17427-17-linux.amoon@gmail.com>
+ Nicolas Dufresne <nicolas@ndufresne.ca>, Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v7 17/19] media: meson: canvas: Fix Use-After-Free by linking
+ canvas provider device
+Date: Mon, 13 Jul 2026 17:37:12 +0530
+Message-ID: <20260713120840.17427-18-linux.amoon@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260713120840.17427-1-linux.amoon@gmail.com>
 References: <20260713120840.17427-1-linux.amoon@gmail.com>
@@ -103,51 +103,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The vdec probe routine does not set explicit DMA constraints, leaving the
-driver completely dependent on platform bus default values. This lack of
-explicit layout initialization can lead to allocation failures, restricted
-address space mappings, or broken contiguous buffer handling on
-architectures with restrictive DMA layers.
+The vdec driver retrieves a canvas instance using meson_canvas_get() and
+stores the raw pointer in core->canvas. However, the helper drops the
+provider device reference via put_device() right before returning. Because
+no formal device relationship is established, an unbind of the canvas
+provider driver triggers a Use-After-Free (UAF) bug when the video decoder
+subsequently attempts to access that memory block.
 
-Address these platform constraints with the following changes during driver
-initialization:
-1. Enforce a 32-bit coherent DMA allocation window by invoking
-   dma_set_mask_and_coherent() with a DMA_BIT_MASK(32) argument.
-2. Maximize the contiguous allocation segment boundary constraint to
-   UINT_MAX using the vb2_dma_contig_set_max_seg_size() configuration
-   helper.
+Fix this lifecycle hazard by enhancing meson_canvas_get() to establish a
+formal managed device link between the consumer device and the underlying
+canvas platform device. Using DL_FLAG_AUTOREMOVE_CONSUMER ensures the
+dependency link is automatically torn down when the consumer driver
+unbinds.
 
-This guarantees that large, contiguous video frame allocation requests
-work reliably and explicitly aligns the memory management paths with
-standard Linux kernel DMA management paradigms.
+Additionally, handle missing link conditions using dev_err_probe() to
+clean up upstream error diagnostics, and ensure the canvas platform device
+reference count is dropped safely along the uninitialized driver data
+path.
 
 Cc: Nicolas Dufresne <nicolas@ndufresne.ca>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260530111022.9C6D71F00893@smtp.kernel.org
 Signed-off-by: Anand Moon <linux.amoon@gmail.com>
 ---
- drivers/staging/media/meson/vdec/vdec.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/soc/amlogic/meson-canvas.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/media/meson/vdec/vdec.c
-index ac86a9c4febff..d33cbebc4453b 100644
---- a/drivers/staging/media/meson/vdec/vdec.c
-+++ b/drivers/staging/media/meson/vdec/vdec.c
-@@ -1186,6 +1186,16 @@ static int vdec_probe(struct platform_device *pdev)
- 	if (IS_ERR(core->canvas))
- 		return PTR_ERR(core->canvas);
+diff --git a/drivers/soc/amlogic/meson-canvas.c b/drivers/soc/amlogic/meson-canvas.c
+index 79681afea8c61..5102a491bf778 100644
+--- a/drivers/soc/amlogic/meson-canvas.c
++++ b/drivers/soc/amlogic/meson-canvas.c
+@@ -54,6 +54,7 @@ struct meson_canvas *meson_canvas_get(struct device *dev)
+ 	struct device_node *canvas_node;
+ 	struct platform_device *canvas_pdev;
+ 	struct meson_canvas *canvas;
++	struct device_link *link;
  
-+	/* Enforce strict 32-bit DMA limit to match hardware capabilities */
-+	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to set 32-bit DMA mask\n");
+ 	canvas_node = of_parse_phandle(dev->of_node, "amlogic,canvas", 0);
+ 	if (!canvas_node)
+@@ -70,9 +71,18 @@ struct meson_canvas *meson_canvas_get(struct device *dev)
+ 	 * current state, this driver probe cannot return -EPROBE_DEFER
+ 	 */
+ 	canvas = dev_get_drvdata(&canvas_pdev->dev);
+-	put_device(&canvas_pdev->dev);
+-	if (!canvas)
++	if (!canvas) {
++		put_device(&canvas_pdev->dev);
+ 		return ERR_PTR(-EINVAL);
++	}
 +
-+	ret = vb2_dma_contig_set_max_seg_size(dev, UINT_MAX);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to set DMA max segment size\n");
-+
- 	of_id = of_match_node(vdec_dt_match, dev->of_node);
- 	core->platform = of_id->data;
++	/* Establish device link to prevent Use-After-Free */
++	link = device_link_add(dev, &canvas_pdev->dev,
++			       DL_FLAG_AUTOREMOVE_CONSUMER);
++	put_device(&canvas_pdev->dev);
++	if (!link)
++		return ERR_PTR(dev_err_probe(dev, -EINVAL,
++				     "Failed to create device link canvas\n"));
  
+ 	return canvas;
+ }
 -- 
 2.50.1
 
