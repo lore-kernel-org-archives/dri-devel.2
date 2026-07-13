@@ -4,119 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFC4AC44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 11:53:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EBFEC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 11:54:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1954710E331;
-	Mon, 13 Jul 2026 11:53:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B3F310E91E;
+	Mon, 13 Jul 2026 11:54:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ahPEPnV8";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="Y+mVFkcz";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="s5oUxzPz";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 637F110E331
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 11:53:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1783943625;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=B54XxYOgQOiIEJK7sD0ym83+/MGWSHFF64vmz3jQu+o=;
- b=ahPEPnV8zcddpMKlIS6pb+xp30RpF7wNgpA3bTIjmri6TQAfXvaGq7YlCnpe81E7m0pRb9
- v+I0+/2PFQESwDzyuQIgFTIc1LQi1ARBkduHG/CQhqP8ku6fX4/jR+3taMGOvUCvBpJbz5
- Rp8/A7uGgVPJmBRHPmdKw4EHZ2XtScA=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-572-Dn27GUPQMfSOFm3Mg7PNRQ-1; Mon,
- 13 Jul 2026 07:53:41 -0400
-X-MC-Unique: Dn27GUPQMfSOFm3Mg7PNRQ-1
-X-Mimecast-MFC-AGG-ID: Dn27GUPQMfSOFm3Mg7PNRQ_1783943616
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id CA9E61955D91; Mon, 13 Jul 2026 11:53:33 +0000 (UTC)
-Received: from [192.168.1.153] (headnet04.pony-001.prod.iad2.dc.redhat.com
- [10.2.32.116])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 0CB6118005A0; Mon, 13 Jul 2026 11:53:14 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Subject: [PATCH v2 0/5] drm/panel: refcounting panel lookups and references
-Date: Mon, 13 Jul 2026 13:53:03 +0200
-Message-Id: <20260713-drm_refcount_wiring-v2-0-d3bb61f4bd4d@redhat.com>
-MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NzQ6CMBCEX8Xs2Zq2/DR68j0MIaVdYA+0ZouoI
- by7Fa8ev8nMNyskZMIEl8MKjAsliiGDPh7AjTYMKMhnBi11LStVCM9Ty9i7+Ahz+ySmMIgSKzS
- VwbMsDeTlPRfotVtvTeaR0hz5vZ8s6pv+fLWu//oWJaRwzipruqLz2F8Z/Wjnk4sTNNu2fQCw2
- Q5NtwAAAA==
-X-Change-ID: 20260513-drm_refcount_wiring-4e5e757e9047
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
- Linus Walleij <linusw@kernel.org>, Marek Vasut <marex@denx.de>, 
- Stefan Agner <stefan@agner.ch>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- Jyri Sarha <jyri.sarha@iki.fi>, Jingoo Han <jingoohan1@gmail.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>, 
- Paul Kocialkowski <paulk@sys-base.io>, 
- Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
- linux-samsung-soc@vger.kernel.org, linux-tegra@vger.kernel.org, 
- Albert Esteve <aesteve@redhat.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783943594; l=5435;
- i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=SRtXo7qoSqgK5l+umf1rMmWNg22khBPItUlyntwmvA0=;
- b=krKLhcYOsELwWzp4Mkmstg1CoAIW+2iQNP5Bx9vPTWdaJHFoUApmueGaj5CJ94aMN2hbmSM4Z
- i48STMH6Q1GA5qfKEcIhF79Cp9o+131NV2sOs0w0IemF64ja2dO5wAc
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Qu2qn5T2A9oaRLiyoOUpD_8nz_X2dQIRfbhtfmMQIvY_1783943616
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
+ [81.169.146.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D80CE10E91E
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 11:54:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783943621; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=Kx1wuMGhNx1H1qyfH20/px3rarhlIIZQ+JjJo0CEpux60nBDZPSSrKgs9Rl3tQiiv6
+ 0l0dKIVzgcjkdC3daT6DTHReUrAge2lS4LW7dM4khoLYId08yYBqLVzE1l5J6wBWMpH8
+ Z9EKVYSrbNd1ti3fQ8QLOb3Gv+e+XkFK96rSLufhJeeYCIRWK65kErEhJA2uI4N64NjH
+ JYSz8Sn6nZ5H52RQdUFyCUCbhgdybWcihOBibDK90RNM5bcsxZ71wwF406c4ytvZT3In
+ Jmfs6IOFCUNNXe4kTJbT6bMATZ+WUR8O3jLEfZRx5UHgEo1lrh2NyIzmi2jqKLw22ZXr
+ uAgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783943620;
+ s=strato-dkim-0002; d=strato.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=i3ds+ZfPgSmMxk9w62eeDN6HWFjTVsxsr0xp5kuGCo0=;
+ b=BGXfZQIZ3SaQrA5X07mjvAtyo/KMJXmohUec/pZZWOecujXRZ34ILOkWUzK+DTpm19
+ DnpguzbL1Z0SCC3Hpgm/18BSBg1BUOyrgDyO7vWh76TBoIxvViomlPgRdOZ2QVUU4HYJ
+ 9MnaMHd5KOuuqTngGz2RsP1yw3WZXZYIMWeZ4mFAuJqNK8eiiCW8p7lsgvjwiESjK51O
+ CPH9DVJh5ImrcAWh/khAd7tG3GbgFouS5hc5XVRw9jo2Ln5FSuy0ML7nLcdmYFGdvT3r
+ R43lS5IAIwKYUfF7w6e/7VOy2rLBLnJm7Ve0Od7qnIVFb2QhXsSPXw8SkmrsjC/GoGeM
+ QLOw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783943620;
+ s=strato-dkim-0002; d=goldelico.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=i3ds+ZfPgSmMxk9w62eeDN6HWFjTVsxsr0xp5kuGCo0=;
+ b=Y+mVFkczigTwHh07i5RU3dZ4pxUtVVhWXaI+p5c5AuX4Ed3wFswQZy7pu7aGlrJMG1
+ FBOO2pYQMlDx3CJBFf33GdHpPyDq1MlQdZiKOkP9d3deI3MUqXWAt7ei92bTojyXs1W1
+ +luDZjQbt02BL4qKEod75NByenN/O2d9h78LoyQmDKJg1cmhUNdKVrH18UxMrNgsE3qU
+ lxDmX3AeDOyw33C7ZsKCdbNSFmDJB481hWSDhvS9ew4kZtFwMWys2mWiY8aV3XJ1eMh5
+ Z44CypUzRk/gNuUvXICD9kW/AkreJKPPPMJr1hGp01t11GWAMRgt5E0gycK3VwVa6b97
+ Muyg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783943620;
+ s=strato-dkim-0003; d=goldelico.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=i3ds+ZfPgSmMxk9w62eeDN6HWFjTVsxsr0xp5kuGCo0=;
+ b=s5oUxzPzsKSduKARr3lcDfEnRpESmipObP6NRDu3IJDlm6uuVQYxwV1+P6l65C1tdO
+ QuCLZy3VdSu64X4cJwCw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQi5pZlciNgDl2kEp5oHJ2/c57N2Mc49IfXTKd"
+Received: from smtpclient.apple by smtp.strato.de (RZmta 55.5.6 AUTH)
+ with ESMTPSA id Q4b76426DBrcOAG
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1
+ with 256 ECDH bits, eq. 3072 bits RSA))
+ (Client did not present a certificate);
+ Mon, 13 Jul 2026 13:53:38 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH 09/16] ASoC: dt-bindings: add OpenPandora Sound Card
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <741706c6-e6ff-4bc2-8ea1-28ebada6032c@kernel.org>
+Date: Mon, 13 Jul 2026 13:53:28 +0200
+Cc: Grond <grond66@riseup.net>, Stefan Leichter <sle85276@gmx.de>,
+ Grazvydas Ignotas <notasas@gmail.com>, Tony Lindgren <tony@atomide.com>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Andreas Kemnade <andreas@kemnade.info>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Sen Wang <sen@ti.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Niranjan H Y <niranjan.hy@ti.com>, letux-kernel@openphoenux.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, kernel@pyra-handheld.com, mfd@lists.linux.dev
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <9E796FCB-F393-48F9-A8D4-6E433EFB6876@goldelico.com>
+References: <cover.1783749722.git.hns@goldelico.com>
+ <7989e699de400c0fe3f0cb7af77a54077784df78.1783749722.git.hns@goldelico.com>
+ <20260713-infallible-capable-dormouse-aaaebe@quoll>
+ <BF2B6C4A-A4CC-48D7-9854-DC014950184B@goldelico.com>
+ <5667350d-cc3f-421d-899f-f353b05c5ea1@kernel.org>
+ <8A0C119B-7885-4538-8D4F-AC60E5C91B7E@goldelico.com>
+ <741706c6-e6ff-4bc2-8ea1-28ebada6032c@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,106 +121,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The drm_panel subsystem provides kref-based reference counting [1]
-(drm_panel_get/put) but almost nothing in the tree actually uses it.
-This results in a systemic use-after-free pattern throughout the codebase.
 
-This series aims to close all those issues.
 
-Patches 1-2: fix the infrastructure. drm_panel_add/remove now keep
-a counted reference for the list entry. drm_panel_bridge_add_typed()
-now holds a counted reference for the lifetime of the panel_bridge.
+> Am 13.07.2026 um 11:42 schrieb Krzysztof Kozlowski <krzk@kernel.org>:
+>=20
+> On 13/07/2026 11:38, H. Nikolaus Schaller wrote:
+>>=20
+>>=20
+>>> Am 13.07.2026 um 11:21 schrieb Krzysztof Kozlowski =
+<krzk@kernel.org>:
+>>>=20
+>>> On 13/07/2026 10:27, H. Nikolaus Schaller wrote:
+>>>> Hi Krzysztof,
+>>>>=20
+>>>> Thank you for the feedback.
+>>>>=20
+>>>>=20
+>>>> It does not emit any C compiler issues or runtime problems so it =
+remained unnoticed.
+>>>=20
+>>> I do not believe.
+>>>=20
+>>> There is a clear warning from Rob's bot.
+>>>=20
+>>> You just did not follow the process of building the code (compiler =
+has
+>>> nothing to do here). Read submitting patches in DT dir and then =
+writing
+>>> schema for further instructions. This is ABSOLUTE MINIMUM. We are =
+not
+>>> your build test service.
+>>>=20
+>>>>=20
+>>>> It was notified by the sahiko-bot and will be fixed in v2.
+>>>=20
+>>> Sashiko has nothing to do with that.
+>>>=20
+>>> You DID NOT BUILD the code.
+>>=20
+>> Hm. You are confusing me. I did "make" and did not get any errors...
+>> And the resulting code works as intended.
+>=20
+> 'make' alone does not build that, just like other pieces of code they
+> have own - well documented and always expected - build processes.
+>=20
+> I don't know what is confusing in my message, since I pointed you to
+> SPECIFIC guide telling you EXACTLY what to do (and which you did not =
+do).
 
-Patch 3: change the semantics of of_drm_find_panel(). It now acquires
-a reference before returning, under panel_lock. All in-tree callers
-of of_drm_find_panel() and drm_of_find_panel_or_bridge() are updated.
-Two patterns are common in these fixes:
+Confusing was the phrase "building the code". For my understanding
+"building the code" is the process of building ("translating the code")
+to get vmlinux or similar and a DTB and kernel modules.
 
-- Bridge-wrapping: the panel is passed to devm_drm_panel_bridge_add()
-  or equivalent, which acquires its own reference. The caller (including
-  devm_drm_of_get_bridge() and drmm_of_get_bridge()) releases its lookup
-  reference immediately after.
-- Store-and-use: the panel pointer is kept in a driver struct and
-  used directly for the device lifetime. The reference is released in the
-  remove/unbind path, or via devm_add_action_or_reset() where no explicit
-  teardown function exists.
+As far as I understand the bindings they are used to check the DTS =
+source
+files against. So here is no translation of bindings into a real DTB =
+that
+finaly runs on a device. So I had assumed that schemas are "validated"
+(not "built") by dt_binding_check.
 
-Patch 4: extend the same fix to find_panel_by_fwnode(), a static helper
-used internally by drm_panel_add_follower(). Since it has no external
-callers, the fix is self-contained: drm_panel_remove_follower() is
-updated to call drm_panel_put() to balance the reference.
+This made me confused.
 
-Patch 5: update a remaining batch of drivers calling of_drm_find_panel()
-or drm_of_find_panel_or_bridge() to release the reference after wrapping
-the panel in a bridge or on error paths.
+Back to topic:
 
-In order to catch all places in the tree that required releasing the
-reference, the search was assisted by an AI model. Specifically, a
-Coccinelle script was designed by the agent to address the trivial changes
-(not included in the series). Although a few required manual fixes, with goto
-labels or bracket additions. Additionally, the model helped to discern implicit
-teardown paths that were addressed with devm_add_action_or_reset() calls.
-Thus, these commits have the Assisted-by label following the project guidelines.
+It finally turned out that our script to run the required checks =
+automatically
+was no longer operational and silently ignored the validations. =
+Therefore
+nobody noticed before the bots did. Good to have a second and =
+independent
+check.
 
-No functional change is intended for any driver. The reference
-counting only affects object lifetime; panel operations are unaffected.
+So sorry for the confusion we have introduced...
 
-[1] https://lore.kernel.org/all/20250331-b4-panel-refcounting-v4-0-dad50c60c6c9@redhat.com/
+v2 will be checked as it previously was.
 
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
-Changes in v2:
-- Squash of_drm_find_panel() API change with its caller fixes
-- Split find_panel_by_fwnode() into its own commit
-- Update kernel-doc for drm_of_find_panel_or_bridge()
-- Link to v1: https://lore.kernel.org/r/20260626-drm_refcount_wiring-v1-0-cca1a7b3bdef@redhat.com
-
----
-Albert Esteve (5):
-      drm/panel: have drm_panel_add/remove manage a list reference
-      drm/bridge/panel: hold a reference to the wrapped panel
-      drm/panel: of_drm_find_panel() return a counted reference
-      drm/panel: find_panel_by_fwnode() return a counted reference
-      drm: release panel reference after panel bridge creation
-
- drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |  3 +++
- drivers/gpu/drm/bridge/panel.c                     | 18 ++++++++++++----
- drivers/gpu/drm/drm_of.c                           |  3 ++-
- drivers/gpu/drm/drm_panel.c                        | 24 +++++++++++++++++-----
- drivers/gpu/drm/exynos/exynos_dp.c                 | 10 +++++++++
- drivers/gpu/drm/exynos/exynos_drm_dpi.c            |  3 +++
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c          | 18 ++++++++++++++++
- drivers/gpu/drm/imx/dcss/dcss-kms.c                |  3 +++
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  4 +++-
- drivers/gpu/drm/logicvc/logicvc_interface.c        | 12 +++++++++++
- drivers/gpu/drm/mcde/mcde_drv.c                    |  1 +
- drivers/gpu/drm/mcde/mcde_dsi.c                    |  1 +
- drivers/gpu/drm/mxsfb/mxsfb_drv.c                  |  1 +
- drivers/gpu/drm/omapdrm/dss/output.c               |  1 +
- drivers/gpu/drm/pl111/pl111_drv.c                  |  1 +
- drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c  |  1 +
- drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c        |  1 +
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c   |  1 +
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    | 11 ++++++++++
- drivers/gpu/drm/rockchip/rockchip_lvds.c           |  1 +
- drivers/gpu/drm/rockchip/rockchip_rgb.c            |  1 +
- drivers/gpu/drm/sti/sti_dvo.c                      |  3 +++
- drivers/gpu/drm/stm/ltdc.c                         |  1 +
- drivers/gpu/drm/stm/lvds.c                         |  3 +++
- drivers/gpu/drm/sun4i/sun4i_lvds.c                 | 13 ++++++++++++
- drivers/gpu/drm/sun4i/sun4i_rgb.c                  | 13 ++++++++++++
- drivers/gpu/drm/sun4i/sun4i_tcon.c                 |  2 ++
- drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c             |  2 ++
- drivers/gpu/drm/tegra/dsi.c                        |  1 +
- drivers/gpu/drm/tegra/output.c                     |  3 +++
- drivers/gpu/drm/tidss/tidss_kms.c                  | 16 ++++++++++-----
- drivers/gpu/drm/tve200/tve200_drv.c                |  1 +
- 32 files changed, 161 insertions(+), 16 deletions(-)
----
-base-commit: 502d801f0ab03e4f32f9a33d203154ce84887921
-change-id: 20260513-drm_refcount_wiring-4e5e757e9047
-
-Best regards,
--- 
-Albert Esteve <aesteve@redhat.com>
+BR and thanks,
+Nikolaus
 
