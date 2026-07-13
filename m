@@ -4,58 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AF01C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 10:18:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0B07C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 10:18:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAC8C10E5C8;
-	Mon, 13 Jul 2026 10:18:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0778F10E8D4;
+	Mon, 13 Jul 2026 10:18:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="EbxSN6TK";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="QU1hSfS9";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B346810E5C8
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:18:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783937877; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Bnbl8tTJoTfaGvyRZh19eYasH4GlvD7TOPy1Jz+1oKPn5sLTI4gDwsn0skyhDADEhq3dAZwuX4rJimB/zjA+rthcUcVcGbekaNMXBgjh+zAFRYLaho2N/WG3d6b7CUgAhhxoLFqt3QgmJTQccMGqoTgv3gfSChiuI3HCtozcPek=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783937877;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=eF/PXcf5sIdDIk+5d8YuZl+bijPIvKV3sjgnL2+qmBQ=; 
- b=i3w83ygpTmlBL/bKPlDv745OLrYadG1ksIx19btlL+fnAacW6RHqF/XosREGy06EtpfqHFhKlZDZ0US2h06Kjrv5riHStqv/iX8GXlAJpxD1zHPeOOtyvY+9S1JhPSi6qSahgOS/CBTL3x+NMCVvId+7MGrSqzo+GeyW3Pnsldo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783937877; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=eF/PXcf5sIdDIk+5d8YuZl+bijPIvKV3sjgnL2+qmBQ=;
- b=EbxSN6TKUlA5zMtHfxad/oc9MbDccq+wPYy2CoD2wp5bQzEs/DyRZFMdvYFt52iw
- 1Bk9QRKUWxvh7MUPucZ8pFFqypg/l9cGWbAhEvzlu0N5Be1skzztRhOaDJFrCdNe0O+
- 6dzegfpYMxr4aDQXJ849ry3YGXKDfy8bjqFFyD1Q=
-Received: by mx.zohomail.com with SMTPS id 1783937875341589.3965950125053;
- Mon, 13 Jul 2026 03:17:55 -0700 (PDT)
-Message-ID: <8b0d0180-09ef-42c7-b111-db51d5ddacca@collabora.com>
-Date: Mon, 13 Jul 2026 12:17:51 +0200
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D89A210E8D4
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:18:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1783937892; x=1784542692; i=markus.elfring@web.de;
+ bh=bCFTcLrIfbS67Q8Dxj6lfchLKQ7pfKN0vMLQi3APqeY=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:From:
+ Subject:Content-Type:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=QU1hSfS9Q+XwXRSZATJ50WwDaeiCjWLKSXzzzf2tSrqQrnpVjblHH2J9u2kJh1Zc
+ DiQW88B+BdjnqCptxcGjxpV6776DuEI0bXTjEUQv2G3VOWQn3crGxZ/UTuOVBWM5W
+ U/p9X3lVNn+/1NH7xpyxvKtpLa0SWSOa5yT81/ciBkLiTeXRRxVaLn257Rf0euJRa
+ bvZqM3gtZs8Dj9myW7VnNkEN5ANvgkZpAYcWGCvonKNWtCWJYkrTWM56qKF06GDMT
+ Akq66ev2pZA2TJjsyFuBgsLxGwnsBZXcKwII4ccK7SEPJT2q17Jr0KeLJfqTdgJn3
+ 7Q3zFfuOHl+KcXrPBw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MNOQy-1wQ0pq1Pzu-00Q09L; Mon, 13
+ Jul 2026 12:18:12 +0200
+Message-ID: <36d0eba7-e78d-4a06-95bc-c97d9b91f8f0@web.de>
+Date: Mon, 13 Jul 2026 12:18:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/2] dma-buf/udmabuf: Introduce
- CONFIG_UDMABUF_SIZE_LIMIT_MBYTES
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Gerd Hoffmann
- <kraxel@redhat.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-References: <20260711144814.8205-1-robert.mader@collabora.com>
- <6764ca6f-b4d8-4baa-9d27-2ca867ac2d41@amd.com>
-Content-Language: en-US, de-DE, en-GB
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <6764ca6f-b4d8-4baa-9d27-2ca867ac2d41@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+To: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Content-Language: en-GB, de-DE
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
+From: Markus Elfring <Markus.Elfring@web.de>
+Subject: [PATCH] fbdev: arkfb: Move a variable assignment behind a condition
+ check in ics5342_init()
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:4VBd3fn+X2oA7NYVn4bnuoMq/q3dM9IlcWBnxAeRnBsEFp89iZP
+ h+5qhXgFJ8IpR/EorSXFdn4uBrJlG0gKwLjpWtyRRDryKza/yoE1pC3CohWYh4j99uV+ql4
+ I8g60hH4CNYDt13paPZbXqrGBsgVjy9x6o8waI/OFq5tgJfeoQPQgq0yY6L5tSsZMCzu8aM
+ YIA0G7SUc1BHC9Hk/k/eQ==
+UI-OutboundReport: notjunk:1;M01:P0:IgK3AsApLzA=;y2FLiTygFYjUEKtTlUnZM213f+q
+ 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
+ 7WrvkNgjNKBgp7VjQtjn+
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,75 +147,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+From: Markus Elfring <elfring@users.sourceforge.net>
+Date: Mon, 13 Jul 2026 12:12:52 +0200
 
-On 13.07.26 11:12, Christian König wrote:
-> On 7/11/26 16:48, Robert Mader wrote:
->> As udmabuf increasingly enjoys popularity - being used in projects like
->> libcamera, Gstreamer, Mesa and KWin - users more frequently encounter
->> cases where the current default size limit of 64MB is too low. Examples
->> include allocating video buffers at a 8K resolution - and even 4K is
->> affected when using non-subsampled video formats or high bit depths.
->>
->> While the limit can already be changed via the kernel command line,
->> exposing it as a kernel config makes that easier and more discoverable
->> for distros. Thus let's do that.
-> Well config options are usually only useful if the value can't be changed on runtime through a module parameter, but that is clearly not the case here.
->
-> On the other hand I do see your problem. I would just vote to disable the limit by default, there is nothing preventing userspace from allocating multiple uDMA-bufs so it doesn't seem to prevent any security issue or similar.
+The address of a data structure member was determined before
+a corresponding null pointer check in the implementation of
+the function =E2=80=9Cics5342_init=E2=80=9D.
 
-I fully agree and would prefer that as well. If there is no resistance / 
-concerns from anybody I'll send a corresponding patch at the end of the 
-week.
+Thus avoid the risk for undefined behaviour by moving the assignment
+for the variable =E2=80=9Cinfo=E2=80=9D behind a condition check.
 
-Thanks,
+This issue was detected by using the Coccinelle software.
 
-Robert
+Fixes: ede481f6dad47d40b7e561cfbc6c04286a9faf1a ("fbdev: arkfb: Cast ics53=
+42_init() allocation type")
+Cc: stable@vger.kernel.org
+Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
+=2D--
+ drivers/video/fbdev/arkfb.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
->
-> Regards,
-> Christian.
->
->
->> Signed-off-by: Robert Mader <robert.mader@collabora.com>
->> ---
->>   drivers/dma-buf/Kconfig   | 6 ++++++
->>   drivers/dma-buf/udmabuf.c | 4 ++++
->>   2 files changed, 10 insertions(+)
->>
->> diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
->> index 7efc0f0d0712..35f0779cdc80 100644
->> --- a/drivers/dma-buf/Kconfig
->> +++ b/drivers/dma-buf/Kconfig
->> @@ -40,6 +40,12 @@ config UDMABUF
->>            A driver to let userspace turn memfd regions into dma-bufs.
->>            Qemu can use this to create host dmabufs for guest framebuffers.
->>
->> +config UDMABUF_SIZE_LIMIT_MBYTES
->> +       int "Size limit in Mega Bytes"
->> +       default 64
->> +       help
->> +         Maximum size of a udmabuf, in megabytes. Default is 64.
->> +
->>   config DMABUF_DEBUG
->>          bool "DMA-BUF debug checks"
->>          depends on DMA_SHARED_BUFFER
->> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
->> index bced421c0d65..a83153326362 100644
->> --- a/drivers/dma-buf/udmabuf.c
->> +++ b/drivers/dma-buf/udmabuf.c
->> @@ -20,7 +20,11 @@ static int list_limit = 1024;
->>   module_param(list_limit, int, 0644);
->>   MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
->>
->> +#ifdef CONFIG_UDMABUF_SIZE_LIMIT_MBYTES
->> +static int size_limit_mb = CONFIG_UDMABUF_SIZE_LIMIT_MBYTES;
->> +#else
->>   static int size_limit_mb = 64;
->> +#endif
->>   module_param(size_limit_mb, int, 0644);
->>   MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 64.");
->>
->> --
->> 2.55.0
->>
+diff --git a/drivers/video/fbdev/arkfb.c b/drivers/video/fbdev/arkfb.c
+index 195dbf4a5142..9658f407b79a 100644
+=2D-- a/drivers/video/fbdev/arkfb.c
++++ b/drivers/video/fbdev/arkfb.c
+@@ -432,11 +432,12 @@ static struct dac_ops ics5342_ops =3D {
+ static struct dac_info * ics5342_init(dac_read_regs_t drr, dac_write_regs=
+_t dwr, void *data)
+ {
+ 	struct ics5342_info *ics_info =3D kzalloc_obj(struct ics5342_info);
+-	struct dac_info *info =3D &ics_info->dac;
++	struct dac_info *info;
+=20
+ 	if (!ics_info)
+ 		return NULL;
+=20
++	info =3D &ics_info->dac;
+ 	info->dacops =3D &ics5342_ops;
+ 	info->dac_read_regs =3D drr;
+ 	info->dac_write_regs =3D dwr;
+=2D-=20
+2.55.0
+
