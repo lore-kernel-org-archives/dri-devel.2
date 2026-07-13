@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8D63C44507
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 13:07:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E369C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 13:11:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 381A310E99D;
-	Mon, 13 Jul 2026 13:07:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FDB410E9B3;
+	Mon, 13 Jul 2026 13:11:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ol29E5aG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VJspJBMN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 611D910E99D
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 13:07:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E81F510E9C1
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 13:11:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2EE1C403BD;
- Mon, 13 Jul 2026 13:07:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B44A91F00A3D;
- Mon, 13 Jul 2026 13:07:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4543E600AA;
+ Mon, 13 Jul 2026 13:11:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11C21F00A3A;
+ Mon, 13 Jul 2026 13:11:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783948050;
- bh=UTOfQVyoSaNNp8kRqF4v3J1WE1kp20ix5FCDOhfJqwQ=;
+ s=k20260515; t=1783948263;
+ bh=Rx34yiMHP3dtMokDvLG+d6m0CB0mXQweyMxiFGb19VE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ol29E5aGJPfkNvdI3Pm9yb0e27XtygfR1YxGb7ek7ddLug+PJwWBuDBF8oemwoHsP
- +RVSIkF0Oq4OSTXxUK1HViYGFLXAQKwyy+dMflW5/ru9JKr1f/PkCq9uhUkGjZ0lbi
- dNuSQYHhdQZu96yvZFTpSAMZ4OFKnVhKtKHCeEPB6jAoe49ym0cACAjt6ObaLi1fgO
- 5Eyy5IhLarCDM472BttHf+uwUiGenzVOuQR1a+/gT5EKrtZXyG9MbLvawUxFvZf2nm
- hg2YPXgW21EDfM7PYxmHIO1E7pUdJ37iLzKFTxi020YaK42DLyPKyutUP7sJyBd677
- Qudyp4+tSvueQ==
+ b=VJspJBMNKJGHM9OilSAAIgNQwAHhCAgi1z8b8BFHWSWcz/xYLnrfgiey+HgQYPsir
+ g+1Yq4FQzTMGoByw3gcTVjqvw71VvSpC88grbJhzikLyFHWa6d7itzkU+T20tPQ+Gx
+ s12D7N+eOdxFpMmGFDkDdUR6TmXKit8+qJhgWiOEVKcXhdIQV2JzhymHO5jFfFXzZ6
+ //KsofN2K4cEPBjMk0j6t18VN1a0xOmAYipNpl1aOvXd302HVQdhuHMGLvKcNXuCWa
+ ztets/uNngJxpRJBRipNN+BdzrhTHKX08A5zgL9ZR++D6ZhQpU7WUhSrTD7SvKEZz8
+ NDFUana+uoMUA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 05/10] drm/mediatek: mtk_dsi: Transfer register
- offsets to per-SoC const
+Subject: Re: [PATCH v3 07/10] drm/mediatek: mtk_dsi: Add support for MT8196
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260713130103.34654-6-angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260713130103.34654-8-angelogioacchino.delregno@collabora.com>
 References: <20260713130103.34654-1-angelogioacchino.delregno@collabora.com>
- <20260713130103.34654-6-angelogioacchino.delregno@collabora.com>
+ <20260713130103.34654-8-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 13:07:29 +0000
-Message-Id: <20260713130729.B44A91F00A3D@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 13:11:02 +0000
+Message-Id: <20260713131102.A11C21F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,59 +58,91 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] In `mtk_dsi_host_transfer()`, reading from DSI RX data registers i=
-ncorrectly adds the byte offset `i` to the `reg_main` enum array index rath=
-er than the resolved register address, causing out-of-bounds array reads an=
-d invalid MMIO access.
+- [High] Unit mismatch between DSI data rate (Hz) and pixel clock rate (MHz=
+) leads to integer underflow and incorrect QoS hardware buffer configuratio=
+n.
+- [High] 64-bit division by a non-constant variable causes a build error on=
+ 32-bit platforms.
 --
 
---- Patch [5]: [PATCH v3 05/10] drm/mediatek: mtk_dsi: Transfer register of=
-fsets to per-SoC const ---
-commit a32b9a7c67e660488b31bdcea6dd9055c83b92eb
+--- Patch [7]: [PATCH v3 07/10] drm/mediatek: mtk_dsi: Add support for MT81=
+96 ---
+commit 92e543d518b805c7b9129880068f5a6955059779
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: drm/mediatek: mtk_dsi: Add support for MT8196
 
-drm/mediatek: mtk_dsi: Transfer register offsets to per-SoC const
-
-This commit transfers DSI register offsets to two const arrays to support n=
-ewer
-generation DSI IPs with different register offsets. It separates DSI IP
-version-specific registers from SoC-specific ones.
+This commit adds support for the new DSI IP in the MT8196 SoC. It
+implements hardware buffer configuration and initializes QoS parameters
+required by this newer hardware.
 
 > diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
 k/mtk_dsi.c
-> index bdb9ea2e7b6f6..4d5cb91c788f6 100644
+> index dffb6befc749e..573299f0e63b6 100644
 > --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
 > +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-
 [ ... ]
-
-> @@ -1297,7 +1432,8 @@ static ssize_t mtk_dsi_host_transfer(struct mipi_ds=
-i_host *host,
->  	}
+> @@ -776,6 +872,91 @@ static int mtk_dsi_set_dsc_params(struct mtk_dsi *ds=
+i)
+>  	return drm_dsc_compute_rc_parameters(dsc);
+>  }
 > =20
->  	for (i =3D 0; i < 16; i++)
-> -		*(read_data + i) =3D readb(dsi->regs + DSI_RX_DATA0 + i);
-> +		*(read_data + i) =3D readb(dsi->regs +
-> +					 dsi->driver_data->reg_main[DSI_RX_DATA0 + i]);
+> +static void mtk_dsi_config_hw_buffers(struct mtk_dsi *dsi)
+> +{
+[ ... ]
+> +	tmp =3D (u64)dsi->data_rate * dsi->lanes;
+> +	data_rate_per_buf =3D tmp / 8 / buffer_unit;
 
 [Severity: High]
-Does this code perform an out-of-bounds array read?=20
+Does this 64-bit division break builds on 32-bit platforms?
 
-Since DSI_RX_DATA0 is 17 and DSI_MAIN_REG_MAX is 28, the loop will read pas=
-t=20
-the end of the reg_main array when i >=3D 11. Even for smaller values of i,=
- this=20
-will fetch the base offsets of unrelated registers (like DSI_RX_DATA1,=20
-DSI_RACK, and DSI_PHY_LCCON) instead of consecutive bytes of the RX payload.
+Since tmp is a u64 and buffer_unit is a non-constant u32, this will likely
+cause an undefined reference to __udivdi3 or __aeabi_uldivmod when compiling
+for 32-bit architectures. Should this use div_u64() instead?
 
-Should the byte offset i be added outside the array subscript instead, like
-dsi->driver_data->reg_main[DSI_RX_DATA0] + i?
+> +
+> +	/* Calculate valid threshold and avoid exceeding FIFO size */
+> +	out_valid_thresh =3D MTK_DSI_DEFAULT_QOS_VALID_FIFO_US * data_rate_per_=
+buf;
 
-> =20
->  	recv_cnt =3D mtk_dsi_recv_cnt(read_data[0], read_data);
+[Severity: High]
+Are there unit mismatches in these rate calculations?
+
+Since dsi->data_rate is in Hz, data_rate_per_buf is calculated
+as buffers per second (e.g., ~15,000,000). Multiplying it by
+MTK_DSI_DEFAULT_QOS_VALID_FIFO_US (25) will result in a huge value
+that will always over-saturate the FIFO limit.
+
+> +	out_valid_thresh =3D min(out_valid_thresh, MTK_DSI_MAX_FIFO_BYTES - 1);
+> +	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_BUF_CON1], BUF_OUT_VALID_THRESH, out_=
+valid_thresh);
+> +
+> +	/* Enable ULTRA signal trigger between SOF and VACT */
+> +	mtk_dsi_mask(dsi, data->reg_adv[DSI_VDE], VDE_BLOCK_ULTRA, 0);
+> +
+> +	/* Calculate fill rate with line counter mode for DSI Video Mode */
+> +	if (dsi->format =3D=3D MIPI_DSI_FMT_RGB565)
+> +		dsi_buf_bpp =3D 2;
+> +	else
+> +		dsi_buf_bpp =3D 3;
+> +
+> +	pclk_mhz =3D dsi->vm.pixelclock / HZ_PER_MHZ;
+> +	fill_rate =3D pclk_mhz * data->pixels_per_iter * dsi_buf_bpp / buffer_u=
+nit;
+> +
+> +	/* Calculate QoS Anti-Latency parameters */
+> +	sodi_hi =3D MTK_DSI_MAX_FIFO_BYTES * num_hw_buffers;
+> +	sodi_hi -=3D (fill_rate - data_rate_per_buf) * 12 / 10;
+
+Similarly, here fill_rate is computed using pclk_mhz and results in
+buffers per microsecond (e.g., ~40). Subtracting the much larger
+buffers-per-second value of data_rate_per_buf will cause an integer
+underflow, resulting in incorrect hardware buffer configurations.
+
+Could data_rate_per_buf be converted to a per-microsecond rate to align
+with fill_rate and the microseconds constant?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713130103.3465=
-4-1-angelogioacchino.delregno@collabora.com?part=3D5
+4-1-angelogioacchino.delregno@collabora.com?part=3D7
