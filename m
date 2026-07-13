@@ -4,160 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1589FC44507
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 16:30:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30332C44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 16:31:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6867B10EA33;
-	Mon, 13 Jul 2026 16:30:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9309810EA41;
+	Mon, 13 Jul 2026 16:31:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jWfFgQv2";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="RFFyisxL";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 889CA10EA45;
- Mon, 13 Jul 2026 16:30:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783960246; x=1815496246;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=+iM7UMlTI5Awm5KGCZHGksDQhUXyXkHsyWUwQTroEf0=;
- b=jWfFgQv2h0A/RYP1Z+v723Apj8FH32RLGw/Tj7yElAFtFKCAuNxVLoMu
- pJXd0rwEHnedLQYjsykGDDtwU2HptwXIvDyg3MJUP/i5dwMsRI81hr4Lr
- O91PwJKPFa5lSp65DOQdR9+Ua0w95w5XI7mCR1omphx3KbypH2iQDvkJS
- AM52b8F61xHKFKKGBIc3S9h39gFvIIrZ7v2OcLkrco19uz1eXg/quJ4YH
- fMqHBOWhozTjIB436rJMVZnTf1zQtsCPYUKNFB/xrK/JnRF2Wk3+/PxsK
- 3kUAFcQQF8m6if2ixvjHeJgOTh2Hdg1bmyp70o+LAq1+csdfEKcvdpPui Q==;
-X-CSE-ConnectionGUID: kGRLVNjjSPuSE7L90os5wQ==
-X-CSE-MsgGUID: eeWzbs3yREiaxppz6vjJig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84430202"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="84430202"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2026 09:30:45 -0700
-X-CSE-ConnectionGUID: Q9j7w+qrTO28zp7CylLXDw==
-X-CSE-MsgGUID: MXcEJyz4T/2oo2OJ9YDiuA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="280011461"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2026 09:30:44 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 13 Jul 2026 09:30:43 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Mon, 13 Jul 2026 09:30:43 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.11) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 13 Jul 2026 09:30:42 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dO+Df+r51vSGgJY4q24+uharpanMnAallz2mI3Wv9zfG5PtxO60Bt8csozdhkeaoDqyqcA2bYPTDm8kh1lPmCrAfKswqdgrMh6NbNGWsH2KKM41xkcVMUsOPpxwkQzuGgAKl0/67xL+CwJwxc2fZAEWwjZR6g0fSYx9vYjaul9ourHKj6LIDegLgIxAXT6M7nn3UnQtXpniIak5Oi0ojCxbahht9qBdhejfvYX043jxmK8IThuhX+mA9bSXTSDf7BI6pialtvhX3Tj7IkJfbsDzoF/d1dRg6x/heHBiA7dHl5vX9NobCowNEEdT2p6n1nrmNKC1Zj8lI2vVWsMjPVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=shJFAyHrud5YcV5uquL8TTVZ94XzsbEgXibQPpr2JOQ=;
- b=KiHV29us3ehwfKhFbqTR4jLDuqIRcBb1zdwKy2NrLh6jsYNcT22vlPjreBKR8HrtxSZUOUPAVYd7r7q2Kdqw/Lxjv2LCk7HQcc3Yxzh8ZBkPWKc7iQSB4OM5ynTjLzFk2Wn80ppvNmb2FzQOX8Mv/FllXmSzwzQY6KxG5A3kh5JobhiZbkVfPv7zrOYOa3EVKcIFPJZg5QaQRaTz8y7DpDu0eum3/+KXnanhEaqU8URb3CoaGpvFgneiaDQqlLm5b1sxD1xVS8tT2s9u1RTpjFGtvINDU2rLYlQLk1dEfHuwdzLE9VJpRx7lU314RbVe/09B3kvhg5QI+NG6VEZ8Cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by DM6PR11MB4531.namprd11.prod.outlook.com (2603:10b6:5:2a5::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Mon, 13 Jul
- 2026 16:30:40 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0202.014; Mon, 13 Jul 2026
- 16:30:40 +0000
-Date: Mon, 13 Jul 2026 09:30:35 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Stanislav Kinsburskii <skinsburskii@gmail.com>
-CC: <airlied@gmail.com>, <akhilesh@ee.iitb.ac.in>,
- <akpm@linux-foundation.org>, <corbet@lwn.net>, <dakr@kernel.org>,
- <david@kernel.org>, <decui@microsoft.com>, <haiyangz@microsoft.com>,
- <jgg@ziepe.ca>, <kees@kernel.org>, <kys@microsoft.com>, <leon@kernel.org>,
- <liam@infradead.org>, <lizhi.hou@amd.com>, <ljs@kernel.org>,
- <longli@microsoft.com>, <lyude@redhat.com>,
- <maarten.lankhorst@linux.intel.com>, <mamin506@gmail.com>, <mhocko@suse.com>, 
- <mripard@kernel.org>, <nouveau@lists.freedesktop.org>, <ogabbay@kernel.org>,
- <oleg@redhat.com>, <rppt@kernel.org>, <shuah@kernel.org>, <simona@ffwll.ch>,
- <skhan@linuxfoundation.org>, <surenb@google.com>, <tzimmermann@suse.de>,
- <vbabka@kernel.org>, <wei.liu@kernel.org>, <dri-devel@lists.freedesktop.org>, 
- <linux-mm@kvack.org>, <linux-doc@vger.kernel.org>,
- <linux-hyperv@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-rdma@vger.kernel.org>
-Subject: Re: [PATCH v8 8/8] drm/gpusvm: Use
- hmm_range_fault_unlocked_timeout() for range faults
-Message-ID: <alUSq0o7CC2Pnr+H@gsse-cloud1.jf.intel.com>
-References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
- <178371883977.900500.2198446134676328631.stgit@skinsburskii>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <178371883977.900500.2198446134676328631.stgit@skinsburskii>
-X-ClientProxiedBy: MW4PR02CA0002.namprd02.prod.outlook.com
- (2603:10b6:303:16d::10) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 208FE10EA45
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 16:31:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783960280; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=GEUd5sO4Kd331S+tm1yinPmN5WzjrElrLeQNPthbpiF39oM3ndkrMPYOFtmRvOKoW0CRnwMwvS/YGAdqfKUEpq+GeFNq9pIA5iZu+UUcxyLJ9LFbwKH8wUTlCv9O3gz1dGnAZOcrS6UAY76mYozcBmUCqe2Z0KOkVMCvn2e6fUU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783960280;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=9zEIUPMLCsE36OjvFSukd8t2dWhpMDWdJ+AkDZhPyEE=; 
+ b=GVx3VtzJDRFwIWFoI6roAW1Rachrcb0HzWdjI9ZtPHkQdHjI4ezN5RQDMgkRKxBXKrIy8XzcelrPN1jBB8F15krK/0z+bdh4sMHZO+JIbbXEU2cXaObMv6wu9oqMo+doq2h1ji0+E6TztQsLuN9DMGMRQkZRIE3X/+SOX99ahPU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783960280; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=9zEIUPMLCsE36OjvFSukd8t2dWhpMDWdJ+AkDZhPyEE=;
+ b=RFFyisxLF4DLP5nRF3oiXI6CaoTtMBhdW3FHHGxjucdL5QXUTujusoPRUjJa7m1B
+ vgOZJdoGcv04E5w1C+g126B9Y1fxMxc749DuyBdL4MaS8cMeRJg60wYC7lPDhpih6jD
+ jxq3bOIJLZoBvakiq5O01D3FydmYJ4feKChZatdI=
+Received: by mx.zohomail.com with SMTPS id 1783960278783950.5167538807655;
+ Mon, 13 Jul 2026 09:31:18 -0700 (PDT)
+Message-ID: <ba8a2de8-8ac7-490d-b48e-767d1e7893a9@collabora.com>
+Date: Mon, 13 Jul 2026 19:31:14 +0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|DM6PR11MB4531:EE_
-X-MS-Office365-Filtering-Correlation-Id: 038359bf-0ffe-445b-af99-08dee0fc1388
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|23010399003|18002099003|22082099003|6133799003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info: Uy1x/Y56yo0/5EKDU1d1nqG2fXHZ0QxWg6ItuwcJWEZMCPGFdxzVq4IVduoQ43AyvoEOXSf0MAcFVyehjDfhkCX0i7su/IPvsXyoiHoQZqQ8Dv2HP8AEikASNYLZS+IuysMzzEby6H35hsrYGzZLxH+b8fAOBaN8VtmfSXIA6G1UokKRJ4rzfBOpOvr1dw4ywMjWl+i08Z89lVK1z0pfygG/OyHAKRFGOoUvyGmmxyEd8zxEhs0R8SB9NuGcKp9f5i4obyAPiH9u8WtVWATwiDNkrBwI+zXe3P8IuMu7Z9XoKKaNxeDIHll/QX9KEiK8xALVEGWp2ell5clgbouxHPpS0+ycPFLOF/nqM5StqsL60slg18SnrJW6BRm3ht28ANMjSeYSo97dcbKxl8eMrqC0mUMPRlieyOUGiWtdASg9JNBjHSn9GzJhDLNWA+6wqL13Mh/Aqe2mkEWJiCd/tm8c/QZkNvR/jO1b766NF2WVIrlOw1+ubQcf/durbzxLQWlF18fUwvH1j7Mt7Tf3uTDcLhh7YaDZzgg5zrUkmdGdS7ChUbxAQEnuIR0sUqUjuq/zsmNaWzQKom+tBJ06fWfIxcBVku67npUvTgbFYe6nnYlmt2PK7pRzk3mfraIavKfx33wP3+/HKfJLkx7dsT58fS7ierfERQMCOaQcVxM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(18002099003)(22082099003)(6133799003)(11063799006)(56012099006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?i35I8h1Qg41m/1i0+vp/K+Ws0I4HcXNsWMXEyeFo6j+ErcwN0vF89z7MxUJO?=
- =?us-ascii?Q?TfrEy1OS6JEn/HioGZBFBHqMvUpvftIHdDiwUwYTV8gF9b+PKGfNT9EofcIF?=
- =?us-ascii?Q?kxAr+JW68gMrgQmIG7HGYwrZtoFOxmxdXddl52+WqInjBuYKtuSVn+xrhh6w?=
- =?us-ascii?Q?ofmp/i+zvbrO5mMH8TbO5lA/XclWWPhlvRpDyywFuaR+h7HwimenEK/D4r2J?=
- =?us-ascii?Q?SRzl2LfbTeWNRDpQ3FvBE7RIql/eo0ErFk6cNc+ust6Agl71ywqyJ8AjQVSJ?=
- =?us-ascii?Q?GFNh7foo9S5O6TW/LDRUbbJPdkK12+mgZhYC2JvHVfZfuaOarttpXlX9pAs2?=
- =?us-ascii?Q?ZY0RbdAJzuD9/zud/bepmkd2hqWGAqKcfSJqTLStvlNFxZzZEWeQ4pja8BAo?=
- =?us-ascii?Q?KBJ4uudo8rNms//io9vUACgyxAWNop61RknymYk+8rHpcJ8IuvSNN5T0Z+Qq?=
- =?us-ascii?Q?NOWMy1oe5MiNIf4vW4pSQggeqUhhnQ74AMRj7d4UMa8dfxvHMTlhIawvp6t8?=
- =?us-ascii?Q?FllhpTRohH/fP8ggN0VbLme0iut14hrCXuWQRSv+4MqAAK4RVkknbHfDwobo?=
- =?us-ascii?Q?ZbB2E9d3YSyhUfeU6EIelh9y7VVKLkYFL73qOpjG3LkgjSkTWCBfZ5xeebLi?=
- =?us-ascii?Q?rdjXqwQxrU+0Kx50KRPDX+Ic2muPtZX+70IgW1PeXxScdKKd22nE0RxH6tbE?=
- =?us-ascii?Q?ccvGnfi2tMMGCqimetFGFAYHnnIqiWUH7UNK14z4eHXbW7nrAUyuRJ/e2Dau?=
- =?us-ascii?Q?krf4cONY2ro48k3e+4KAgV10esntGIZK7YrKfUW0ndihJSECe8lScTpfMYs7?=
- =?us-ascii?Q?5QL3Ce8S05doBSHzVOyCbTsfcX71a76H+0LkSO3WiKbCSx27kgpsxGk2FFh4?=
- =?us-ascii?Q?6X3buTsP4ZcSHsditXTWXjRjJ/0peZJwQ0p07Rbr3SCIdPcbpKeKpLBCD2Zv?=
- =?us-ascii?Q?M4HUcgwcHL4iOk331/rTlkyYl53Lj0OgM7WXXrYNKL5TUdmvEYmYEXnwxchg?=
- =?us-ascii?Q?YA+jQnptLkAm2bTb40fXKDZPD/TjejuZnk6j0LrsilzT0xK6xCRaP/rCLIMC?=
- =?us-ascii?Q?Ugt3jdORZKcHh5Kkc+raIpySlobyBJC+spPx8stKH5WprR41XpdxtQnIn3P8?=
- =?us-ascii?Q?XjTwnInZjmp11425f6WoOnN5XDuXOMnHiuHBVZ10ps6eUmOkH9Tp+eJc02js?=
- =?us-ascii?Q?XS69z9Qah0onHgzrz3hDooM3ohrBxwqoWZ7F0zK4pVJ6NZ1FKX4k6J47Fi3k?=
- =?us-ascii?Q?0TbNI7QzwU+zR68mhTg4iskc6DAz2O+Mkkhsph0IbOgPVpnAuNrZjw3Br/4G?=
- =?us-ascii?Q?qW4JpJ7skduIky6+IyaggiX8k9f2KZaAdE33Lg1rdngaAMzr5WjjHYjpgE7q?=
- =?us-ascii?Q?SNupJpp8Gt4mFJp3Ey39m0I83Bffw934wPJhgPyz6ate9+aub8ag+I/0Gt+o?=
- =?us-ascii?Q?sL1d18Ctv7dN0+jGMwVx6CQigMJJ6xLmL+rhCEerZv/q3dwvSYbfIwG1p9R2?=
- =?us-ascii?Q?ckZe1xvps6VZdexAYiiiTE2ROsZhB2XwF4iaXOQF89ZfatOqLED2zAm7fwdb?=
- =?us-ascii?Q?CuFmgwpL+8qGaEoimLEpYnk/huUgRlojFELYMCNs+bbHslcQUH45PsQnX70y?=
- =?us-ascii?Q?Z1cMiwmWGmULvi4pz2yFdwMVfwCnXsLoRPAEsLMDR8yuNQ4FHHoiHyRLVZae?=
- =?us-ascii?Q?GFBYFLNY6D351FPQrgLPoyvjLLUtTEIR7Wf62GeS17rEC8cADr5RfiKfC19L?=
- =?us-ascii?Q?7oeKnjo1Ew=3D=3D?=
-X-Exchange-RoutingPolicyChecked: Uz3sd0ycUUqWQ5KTeaItux2tw84wrnYOP/bPowPxlfT6bc/PeHAaQiNH4SatJw6zGNjbWxRnP5sD5JjkASnq7ZMGn/4YlbOnQYuGzic2xwaJZ73QxlElHrcDQBw8eAaZjL9SgTgFJ3rLUvjdmcOoChpa0KJklBkDflFuClCRUoCNB7RnhiFzkmQ7SvDPPF+w8QBcWMHRJ4YVSLJ02I/bEYNvDvdqySeTHOyFIIUIKnF/Wp0fLaOLMOSSzKX+CQEOwaYg82YvkfeZzSg8ovKmw/Wfty+H2Psxbf+dXGJUkjHBurstLpZj+xGLusUaHP1JVgBzVFMsrRsTRvrW7Pd2lg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 038359bf-0ffe-445b-af99-08dee0fc1388
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 16:30:40.0039 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qIzXeIH+EO/jPACPKgGCD2jncJwlH1gYdiRQ0zxBrmUz9WUoPq6pex720qNzBuYNYpO3uOuOpkf1T8bNrQpbpA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4531
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/virtio: fix deadlock in display_info_cb by
+ removing hotplug from dequeue worker
+To: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>, 
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260713-virtiogpu_syzbot-v2-1-2958fa37d46d@redhat.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260713-virtiogpu_syzbot-v2-1-2958fa37d46d@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,127 +74,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2026 at 02:27:19PM -0700, Stanislav Kinsburskii wrote:
-
-Please send series like this to intel-xe@lists.freedesktop.org list too
-as this will trigger our CI which expercises the change paths changed in
-this series.
-
-> Several GPU SVM paths take mmap_read_lock() only to call hmm_range_fault(),
-> then retry -EBUSY until HMM_RANGE_DEFAULT_TIMEOUT expires. Those paths use
-> MMU interval notifiers whose mm matches the mm that was locked for the HMM
-> fault.
+On 7/13/26 16:01, Ryosuke Yasuoka wrote:
+> A probe-time deadlock can occur between the dequeue worker and
+> drm_client_register(). During probe, drm_client_register() holds
+> clientlist_mutex and calls the fbdev hotplug callback, which triggers an
+> atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
+> waiting for virtqueue space. The dequeue worker that would free that
+> space calls virtio_gpu_cmd_get_display_info_cb(), which invokes
+> drm_kms_helper_hotplug_event() -> drm_client_dev_hotplug(), attempting
+> to acquire the same clientlist_mutex. Since wake_up() is only called
+> after the resp_cb loop, the probe thread is never woken and both threads
+> deadlock.
 > 
-> Use hmm_range_fault_unlocked_timeout() for those faults and pass the
-> remaining retry budget to HMM. The helper owns mmap_lock acquisition and
-> refreshes range->notifier_seq internally for each retry, while GPU SVM
-> keeps its existing driver-lock validation with mmu_interval_read_retry()
-> after a successful fault.
+> Fix this by removing the hotplug notification from
+> virtio_gpu_cmd_get_display_info_cb(). The display data (outputs[i].info)
+> is still updated synchronously in the callback.
 > 
-> Leave drm_gpusvm_check_pages() on hmm_range_fault() because that path is
-> called with the mmap lock already held by its caller.
+> For the init path, drm_client_register() already fires an initial
+> hotplug when the client is registered, which picks up the connector
+> state updated by display_info_cb.
 > 
-> Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> For the runtime config_changed path, add a wait_event_timeout() in
+> config_changed_work_func() so that display_info_cb updates the connector
+> data before the hotplug notification is sent. Also replace
+> drm_helper_hpd_irq_event() with drm_kms_helper_hotplug_event() since
+> virtio-gpu never calls drm_kms_helper_poll_init() and thus
+> drm_helper_hpd_irq_event() always returns false without doing anything.
+> 
+> Fixes: 27655b9bb9f0 ("drm/client: Send hotplug event after registering a client")
+> Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
+> Closes: https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
+> Suggested-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
 > ---
->  drivers/gpu/drm/drm_gpusvm.c |   52 ++++++------------------------------------
->  1 file changed, 7 insertions(+), 45 deletions(-)
+> I checked whether drm_helper_hpd_irq_event() is needed in
+> virtio_gpu_init(), as Dmitry suggested. AFAIS, it is not needed because:
 > 
-> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-> index 958cb605aedd..6b7a6eaebcd9 100644
-> --- a/drivers/gpu/drm/drm_gpusvm.c
-> +++ b/drivers/gpu/drm/drm_gpusvm.c
-> @@ -788,22 +788,8 @@ enum drm_gpusvm_scan_result drm_gpusvm_scan_mm(struct drm_gpusvm_range *range,
->  	hmm_range.hmm_pfns = pfns;
->  
->  retry:
-> -	hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
-> -	mmap_read_lock(range->gpusvm->mm);
-> -
-> -	while (true) {
-> -		err = hmm_range_fault(&hmm_range);
-> -		if (err == -EBUSY) {
-> -			if (time_after(jiffies, timeout))
-> -				break;
-> -
-> -			hmm_range.notifier_seq =
-> -				mmu_interval_read_begin(notifier);
-> -			continue;
-> -		}
-> -		break;
-> -	}
-> -	mmap_read_unlock(range->gpusvm->mm);
-> +	err = hmm_range_fault_unlocked_timeout(&hmm_range,
-> +					       max(timeout - jiffies, 1L));
->  	if (err)
->  		goto err_free;
->  
-> @@ -1439,21 +1425,8 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+> 1. drm_helper_hpd_irq_event() is always a no-op in virtio-gpu.
+>    It returns false immediately probe_helper.c:1088 because
+>    dev->mode_config.poll_enabled is false — virtio-gpu never calls
+>    drm_kms_helper_poll_init(). Even if it passed that gate, no
+>    virtio-gpu connectors set DRM_CONNECTOR_POLL_HPD.
+> 
+> 1082 bool drm_helper_hpd_irq_event(struct drm_device *dev)
+> 1083 {
+> ...
+> 1088         if (!dev->mode_config.poll_enabled)
+> 1089                 return false;
+> 
+> 2. virtio_gpu_init() runs before drm_dev_register() and
+>    drm_client_setup(), so no DRM clients are registered yet.
+>    drm_kms_helper_hotplug_event() would iterate an empty client list.
+>    The initial hotplug is handled by drm_client_register(), which fires
+>    a hotplug callback to the newly registered client. By that time,
+>    display_info_cb has already updated the connector data.
+> 
+> For the same reason, drm_helper_hpd_irq_event() in
+> config_changed_work_func() was also a no-op. The actual runtime hotplug
+> notification was always delivered by display_info_cb's call to
+> drm_kms_helper_hotplug_event(). This patch replaces it with a direct
+> drm_kms_helper_hotplug_event() call after waiting for the display info
+> response.
+> ---
+> Changes in v2:
+> - Dropped the work_struct approach from v1.
+> - Instead, removed the hotplug calls from display_info_cb entirely, as
+> suggested by Dmitry.
+> - Added wait_event_timeout() in config_changed_work_func() so that the
+> display info response is received before sending the hotplug
+> notification.
+> - Replaced drm_helper_hpd_irq_event() with drm_kms_helper_hotplug_event()
+> in config_changed_work_func() since drm_helper_hpd_irq_event() is
+> always a no-op in virtio-gpu (poll_enabled is never set).
+> - No changes to virtio_gpu_init() — drm_client_register() already
+> handles the initial hotplug and hotplug event does nothing before DRM
+> device/client has been registered.
+> - Link to v1: https://lore.kernel.org/r/20260630-virtiogpu_syzbot-v1-1-0aa06630750e@redhat.com
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_kms.c | 5 ++++-
+>  drivers/gpu/drm/virtio/virtgpu_vq.c  | 3 ---
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+> index cfde9f573df6..b4329f28e976 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+> @@ -49,7 +49,10 @@ static void virtio_gpu_config_changed_work_func(struct work_struct *work)
+>  				virtio_gpu_cmd_get_edids(vgdev);
+>  			virtio_gpu_cmd_get_display_info(vgdev);
+>  			virtio_gpu_notify(vgdev);
+> -			drm_helper_hpd_irq_event(vgdev->ddev);
+> +			wait_event_timeout(vgdev->resp_wq,
+> +					   !vgdev->display_info_pending,
+> +					   5 * HZ);
+> +			drm_kms_helper_hotplug_event(vgdev->ddev);
+>  		}
+>  		events_clear |= VIRTIO_GPU_EVENT_DISPLAY;
 >  	}
->  
->  	hmm_range.hmm_pfns = pfns;
-> -	while (true) {
-> -		mmap_read_lock(mm);
-> -		err = hmm_range_fault(&hmm_range);
-> -		mmap_read_unlock(mm);
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+> index c8b9475a7472..e5e1af8b8e8a 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+> @@ -840,9 +840,6 @@ static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
+>  	vgdev->display_info_pending = false;
+>  	spin_unlock(&vgdev->display_info_lock);
+>  	wake_up(&vgdev->resp_wq);
 > -
-> -		if (err == -EBUSY) {
-> -			if (time_after(jiffies, timeout))
-> -				break;
-> -
-> -			hmm_range.notifier_seq =
-> -				mmu_interval_read_begin(notifier);
-> -			continue;
-> -		}
-> -		break;
-> -	}
-> +	err = hmm_range_fault_unlocked_timeout(&hmm_range,
-> +				max_t(long, timeout - jiffies, 1));
-
-Unaligned indentation.
-
-So I'd write this like this to avoid weird wraps:
-
-ctimeout = max_t(long, timeout - jiffies, 1));
-err = hmm_range_fault_unlocked_timeout(&hmm_range, ctimeout);
-
->  	mmput(mm);
->  	if (err)
->  		goto err_free;
-> @@ -1736,24 +1709,13 @@ int drm_gpusvm_range_evict(struct drm_gpusvm *gpusvm,
->  		return -ENOMEM;
->  
->  	hmm_range.hmm_pfns = pfns;
-> -	while (!time_after(jiffies, timeout)) {
-> -		hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
-> -		if (time_after(jiffies, timeout)) {
-> -			err = -ETIME;
-> -			break;
-> -		}
-> -
-> -		mmap_read_lock(mm);
-> -		err = hmm_range_fault(&hmm_range);
-> -		mmap_read_unlock(mm);
-> -		if (err != -EBUSY)
-> -			break;
-> -	}
-> +	err = hmm_range_fault_unlocked_timeout(&hmm_range,
-> +				max_t(long, timeout - jiffies, 1));
->  
-
-Same here.
-
-Nits, aside LGTM.
-
-Matt
-
->  	kvfree(pfns);
->  	mmput(mm);
->  
-> -	return err;
-> +	return err == -EBUSY ? -ETIME : err;
+> -	if (!drm_helper_hpd_irq_event(vgdev->ddev))
+> -		drm_kms_helper_hotplug_event(vgdev->ddev);
 >  }
->  EXPORT_SYMBOL_GPL(drm_gpusvm_range_evict);
 >  
+>  static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device *vgdev,
 > 
+> ---
+> base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
+> change-id: 20260619-virtiogpu_syzbot-bdab508ffcd5
 > 
+> Best regards,
+
+Appled to misc-fixes, thanks!
+
+-- 
+Best regards,
+Dmitry
