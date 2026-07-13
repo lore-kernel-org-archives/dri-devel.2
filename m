@@ -4,80 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11D86C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 06:49:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91C2AC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 06:56:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6265D10E797;
-	Mon, 13 Jul 2026 06:49:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA80889FF9;
+	Mon, 13 Jul 2026 06:56:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="kpu6iM1O";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jHpbrlB9";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2120910E778
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 06:48:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 81BCE43A99;
- Mon, 13 Jul 2026 06:48:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0DA11C4DDE4;
- Mon, 13 Jul 2026 06:48:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1783925319; bh=QmTLOgo7aXA9zuZDrP9v2Yja8XJBBoTtumcmBNGhRbE=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=kpu6iM1OURuiXn11BOuY+KjkzB0fwkDfS5EVp/B86KIsbzFl5ljBkhh7qvKFqrePY
- WxM0Vg74rMbWM+sMJnfy2vg6UrgvqWu1tdbYrVyLmSeRWkFPk7SGe4eFbYNGMI+aBg
- WZH7KAZpgAI9837KpTIeguOZcptHTKPMd2weXDdY=
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id ECF77C43458;
- Mon, 13 Jul 2026 06:48:38 +0000 (UTC)
-From: Alvin Sun <alvin.sun@linux.dev>
-Date: Mon, 13 Jul 2026 14:45:31 +0800
-Subject: [PATCH v8 10/10] rust: module: update MAINTAINERS to cover module.rs
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E30089FF9
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 06:56:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783925786;
+ bh=niiiZtan73ryDXlNQx8+/6p6Ds58BR6uKO8QgjGILIs=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=jHpbrlB9Lic6LVh5qyMNIdVjwnPAYeBqe3Df03J8igvEp5lL9SN3WmHTBIyvJugxs
+ srX+chsAYyKYEcYpitCoKlh3I0+u6FnfbxjBF5FKuhWPmL9YjDGZYpM6eKMsfIkLQw
+ kduQSf2CK9n2oC+M7J3YkSj4ZaSGsGrRQylEmrLxGMAUg/cdcu93m7pZNhJHa0vgH6
+ LsPw6bKAp14yFDCf0VpHPTxtBSU3EO4G3AUyJ6TjnihfjOy/01t5p0IL9X70f80qqG
+ r7eErmoMVsgvYCui1hTdYUgA3pp+aTovcIPJcTuwTRVzMHfcnUejteBaqD/DMwEU30
+ Rgz5PRWn7D1KQ==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3EA6917E010F;
+ Mon, 13 Jul 2026 08:56:26 +0200 (CEST)
+Date: Mon, 13 Jul 2026 08:56:19 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Ketil Johnsen <ketil.johnsen@arm.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/7] drm/panthor: Explicit expansion of locked VM region
+Message-ID: <20260713085619.0f2b1197@fedora-2.home>
+In-Reply-To: <20260712135439.1546950-4-ketil.johnsen@arm.com>
+References: <20260712135439.1546950-1-ketil.johnsen@arm.com>
+ <20260712135439.1546950-4-ketil.johnsen@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260713-fix-fops-owner-v8-10-2495cfa82d47@linux.dev>
-References: <20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev>
-In-Reply-To: <20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
- Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, 
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
- Igor Korotin <igor.korotin@linux.dev>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>
-Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
- kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783925315; l=906;
- i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=QmTLOgo7aXA9zuZDrP9v2Yja8XJBBoTtumcmBNGhRbE=;
- b=S9aChhiKKu65DEXGmqAdOf61niEqmE03VUZFyaC/krJ78x9IDgK+ouwFQEUrljjCCtrw6f6v4
- CFgVQqjN4XbDllbnVsX9hu9npp0s0DPYaKJ6eUcdZjUC3DlskQQCdiC
-X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
- pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
-X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
- auth_id=684
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,34 +67,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Module types now live in `rust/kernel/module.rs` alongside
-`rust/kernel/module_param.rs`. Update the MODULE SUPPORT file pattern
-from `rust/kernel/module_param.rs` to `rust/kernel/module*.rs` so both
-files are covered.
+On Sun, 12 Jul 2026 15:54:35 +0200
+Ketil Johnsen <ketil.johnsen@arm.com> wrote:
 
-Cc: Petr Pavlu <petr.pavlu@suse.com>
-Assisted-by: opencode:glm-5.2
-Link: https://lore.kernel.org/rust-for-linux/8ea21b29-9baf-4926-a16f-7d21c5a1a1b8@suse.com
-Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
----
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Currently the panthor_vm_lock_region() function will implicitly expand
+> an already locked VM region. This can be problematic because the caller
+> do not reliably know if it needs to call panthor_vm_unlock_region()
+> or not.
+> 
+> Worth noting, there is currently no known issues with this as the code
+> is written today.
+> 
+> This change introduces panthor_vm_expand_region() which will only work
+> if there is already a locked VM region. This again means that the
+> original lock and unlock functions can work as a pair. This pairing is
+> needed for subsequent protected memory changes.
+> 
+> Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 87 +++++++++++++++++++--------
+>  1 file changed, 62 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 1f6b9242279c2..b82b01013611c 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -1774,20 +1774,49 @@ static const char *access_type_name(struct panthor_device *ptdev,
+>  	}
+>  }
+>  
+> +static int panthor_vm_apply_as_lock(struct panthor_vm *vm, u64 region)
+> +{
+> +	struct panthor_device *ptdev = vm->ptdev;
+> +
+> +	lockdep_assert_held(&ptdev->mmu->as.slots_lock);
+> +
+> +	gpu_write64(ptdev->mmu->iomem, AS_LOCKADDR(vm->as.id), region);
+> +	return as_send_cmd_and_wait(ptdev, vm->as.id, AS_COMMAND_LOCK);
+> +}
+> +
+>  static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
+>  {
+>  	struct panthor_device *ptdev = vm->ptdev;
+>  	int ret = 0;
+>  
+> -	/* sm_step_remap() can call panthor_vm_lock_region() to account for
+> -	 * the wider unmap needed when doing a partial huge page unamp. We
+> -	 * need to ignore the lock if it's already part of the locked region.
+> -	 */
+> -	if (start >= vm->locked_region.start &&
+> -	    start + size <= vm->locked_region.start + vm->locked_region.size)
+> -		return 0;
+> +	if (drm_WARN_ON(&ptdev->base, vm->locked_region.size))
+> +		return -EINVAL;
+> +
+> +	mutex_lock(&ptdev->mmu->as.slots_lock);
+> +	if (vm->as.id >= 0 && size) {
+> +		u64 region = pack_region_range(ptdev, &start, &size);
+> +
+> +		ret = panthor_vm_apply_as_lock(vm, region);
+> +	}
+>  
+> -	/* sm_step_remap() may need a locked region that isn't a strict superset
+> +	if (!ret) {
+> +		vm->locked_region.start = start;
+> +		vm->locked_region.size = size;
+> +	}
+> +	mutex_unlock(&ptdev->mmu->as.slots_lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static int panthor_vm_expand_locked_region(struct panthor_vm *vm,
+> +					   u64 start, u64 size)
+> +{
+> +	struct panthor_device *ptdev = vm->ptdev;
+> +	u64 end;
+> +	int ret = 0;
+> +
+> +	/* This function is here to handle the following case:
+> +	 * sm_step_remap() may need a locked region that isn't a strict superset
+>  	 * of the original one because of having to extend unmap boundaries beyond
+>  	 * it to deal with partial unmaps of transparent huge pages. What we want
+>  	 * in those cases is to lock the union of both regions. The new region must
+> @@ -1795,25 +1824,30 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
+>  	 * boundaries in a remap operation can only shift up or down respectively,
+>  	 * but never otherwise.
+>  	 */
+> -	if (vm->locked_region.size) {
+> -		u64 end = max(vm->locked_region.start + vm->locked_region.size,
+> -			      start + size);
+>  
+> -		drm_WARN_ON_ONCE(&vm->ptdev->base, (start + size <= vm->locked_region.start) ||
+> -				 (start >= vm->locked_region.start + vm->locked_region.size));
+> +	/* This function can only expand an already locked region */
+> +	if (drm_WARN_ON(&ptdev->base, !vm->locked_region.size))
+> +		return -EINVAL;
+> +
+> +	/* Early out if requested range is already locked */
+> +	if (start >= vm->locked_region.start &&
+> +	    start + size <= vm->locked_region.start + vm->locked_region.size)
+> +		return 0;
+>  
+> -		start = min(start, vm->locked_region.start);
+> -		size = end - start;
+> -	}
+> +	end = max(vm->locked_region.start + vm->locked_region.size,
+> +		  start + size);
+> +
+> +	drm_WARN_ON_ONCE(&ptdev->base, (start + size <= vm->locked_region.start) ||
+> +			 (start >= vm->locked_region.start + vm->locked_region.size));
+> +
+> +	start = min(start, vm->locked_region.start);
+> +	size = end - start;
+>  
+>  	mutex_lock(&ptdev->mmu->as.slots_lock);
+>  	if (vm->as.id >= 0 && size) {
+> -		/* Lock the region that needs to be updated */
+> -		gpu_write64(ptdev->mmu->iomem, AS_LOCKADDR(vm->as.id),
+> -			    pack_region_range(ptdev, &start, &size));
+> +		u64 region = pack_region_range(ptdev, &start, &size);
+>  
+> -		/* If the lock succeeded, update the locked_region info. */
+> -		ret = as_send_cmd_and_wait(ptdev, vm->as.id, AS_COMMAND_LOCK);
+> +		ret = panthor_vm_apply_as_lock(vm, region);
+>  	}
+>  
+>  	if (!ret) {
+> @@ -2367,11 +2401,14 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+>  		 */
+>  		unmap_hugepage_align(&op->remap, &unmap_start, &unmap_range);
+>  
+> -		/* If the range changed, we might have to lock a wider region to guarantee
+> -		 * atomicity. panthor_vm_lock_region() bails out early if the new region
+> -		 * is already part of the locked region, so no need to do this check here.
+> +		/* If the range changed, we might have to lock a wider region to
+> +		 * guarantee atomicity.
+>  		 */
+> -		panthor_vm_lock_region(vm, unmap_start, unmap_range);
+> +		ret = panthor_vm_expand_locked_region(vm, unmap_start,
+> +						      unmap_range);
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e035a3be797c4..74733de3e41ee 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17984,7 +17984,7 @@ F:	include/linux/module*.h
- F:	kernel/module/
- F:	lib/test_kmod.c
- F:	lib/tests/module/
--F:	rust/kernel/module_param.rs
-+F:	rust/kernel/module*.rs
- F:	rust/macros/module.rs
- F:	scripts/module*
- F:	tools/testing/selftests/kmod/
+Could we add the panthor_vm_lock_region() error check in a commit coming
+before this one, and maybe flag it for backport, with a Fixes tag?
 
--- 
-2.43.0
-
+> +		if (ret)
+> +			return ret;
+> +
+>  		panthor_vm_unmap_pages(vm, unmap_start, unmap_range);
+>  	}
+>  
 
