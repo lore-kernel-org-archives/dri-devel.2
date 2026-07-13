@@ -4,61 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30332C44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 16:31:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3139FC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 16:33:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9309810EA41;
-	Mon, 13 Jul 2026 16:31:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A33310EA45;
+	Mon, 13 Jul 2026 16:33:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="RFFyisxL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WyKAnUJw";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 208FE10EA45
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 16:31:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783960280; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=GEUd5sO4Kd331S+tm1yinPmN5WzjrElrLeQNPthbpiF39oM3ndkrMPYOFtmRvOKoW0CRnwMwvS/YGAdqfKUEpq+GeFNq9pIA5iZu+UUcxyLJ9LFbwKH8wUTlCv9O3gz1dGnAZOcrS6UAY76mYozcBmUCqe2Z0KOkVMCvn2e6fUU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783960280;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=9zEIUPMLCsE36OjvFSukd8t2dWhpMDWdJ+AkDZhPyEE=; 
- b=GVx3VtzJDRFwIWFoI6roAW1Rachrcb0HzWdjI9ZtPHkQdHjI4ezN5RQDMgkRKxBXKrIy8XzcelrPN1jBB8F15krK/0z+bdh4sMHZO+JIbbXEU2cXaObMv6wu9oqMo+doq2h1ji0+E6TztQsLuN9DMGMRQkZRIE3X/+SOX99ahPU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783960280; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=9zEIUPMLCsE36OjvFSukd8t2dWhpMDWdJ+AkDZhPyEE=;
- b=RFFyisxLF4DLP5nRF3oiXI6CaoTtMBhdW3FHHGxjucdL5QXUTujusoPRUjJa7m1B
- vgOZJdoGcv04E5w1C+g126B9Y1fxMxc749DuyBdL4MaS8cMeRJg60wYC7lPDhpih6jD
- jxq3bOIJLZoBvakiq5O01D3FydmYJ4feKChZatdI=
-Received: by mx.zohomail.com with SMTPS id 1783960278783950.5167538807655;
- Mon, 13 Jul 2026 09:31:18 -0700 (PDT)
-Message-ID: <ba8a2de8-8ac7-490d-b48e-767d1e7893a9@collabora.com>
-Date: Mon, 13 Jul 2026 19:31:14 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/virtio: fix deadlock in display_info_cb by
- removing hotplug from dequeue worker
-To: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>, 
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
- Javier Martinez Canillas <javierm@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D694910EA45
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 16:33:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 676E7405B1;
+ Mon, 13 Jul 2026 16:33:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 538941F00A3A;
+ Mon, 13 Jul 2026 16:33:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783960433;
+ bh=pTuteeMtWZKH6Y5iqChJ75qGlkMn9FpzzYmPrZJQ6uE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=WyKAnUJw5TZvDqjJVvIuLkssi6RuPK8GuIE9UgKX2GBjuha5LXz48xmN/opw6AeTK
+ KckaoUaWi/Hu4TcPz8+mJbLkBkBeS5EV1njH3QQzEwKx3Y0FzedP4ebVZ5tymDlqcK
+ TNqIlMQFZy4x0Wc3RkSIhHsTYWcO8hfN3qRdDSf3r7t+0J6EsJpv8rkW7HRtLrQYlp
+ AoG60WV/Zyw2KdPazkMsojIrzD6M1z852odBx3OY9KLVCe2CPRAXwH3OSPlqNY+OrM
+ B5rK1J2vN91pC/OCRGxEfRslE6b/iB5hxOsUlf0osU5beoIj1IGj/5SP9uviP0J3Iv
+ y/rWPQ56rRXtQ==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Younes Akhouayri <git@younes.io>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20260713-virtiogpu_syzbot-v2-1-2958fa37d46d@redhat.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260713-virtiogpu_syzbot-v2-1-2958fa37d46d@redhat.com>
+Subject: Re: [PATCH] rust: drm: Fix typo in FEAT_RENDER documentation
+Date: Mon, 13 Jul 2026 18:33:47 +0200
+Message-ID: <20260713163347.1525217-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260712-docs-drm-feat-render-rustdoc-typo-v1-1-c9df1cbbce4b@younes.io>
+References: <20260712-docs-drm-feat-render-rustdoc-typo-v1-1-c9df1cbbce4b@younes.io>
+X-Patch-Reply: applied
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,126 +70,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/13/26 16:01, Ryosuke Yasuoka wrote:
-> A probe-time deadlock can occur between the dequeue worker and
-> drm_client_register(). During probe, drm_client_register() holds
-> clientlist_mutex and calls the fbdev hotplug callback, which triggers an
-> atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
-> waiting for virtqueue space. The dequeue worker that would free that
-> space calls virtio_gpu_cmd_get_display_info_cb(), which invokes
-> drm_kms_helper_hotplug_event() -> drm_client_dev_hotplug(), attempting
-> to acquire the same clientlist_mutex. Since wake_up() is only called
-> after the resp_cb loop, the probe thread is never woken and both threads
-> deadlock.
-> 
-> Fix this by removing the hotplug notification from
-> virtio_gpu_cmd_get_display_info_cb(). The display data (outputs[i].info)
-> is still updated synchronously in the callback.
-> 
-> For the init path, drm_client_register() already fires an initial
-> hotplug when the client is registered, which picks up the connector
-> state updated by display_info_cb.
-> 
-> For the runtime config_changed path, add a wait_event_timeout() in
-> config_changed_work_func() so that display_info_cb updates the connector
-> data before the hotplug notification is sent. Also replace
-> drm_helper_hpd_irq_event() with drm_kms_helper_hotplug_event() since
-> virtio-gpu never calls drm_kms_helper_poll_init() and thus
-> drm_helper_hpd_irq_event() always returns false without doing anything.
-> 
-> Fixes: 27655b9bb9f0 ("drm/client: Send hotplug event after registering a client")
-> Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
-> Closes: https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
-> Suggested-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
-> ---
-> I checked whether drm_helper_hpd_irq_event() is needed in
-> virtio_gpu_init(), as Dmitry suggested. AFAIS, it is not needed because:
-> 
-> 1. drm_helper_hpd_irq_event() is always a no-op in virtio-gpu.
->    It returns false immediately probe_helper.c:1088 because
->    dev->mode_config.poll_enabled is false — virtio-gpu never calls
->    drm_kms_helper_poll_init(). Even if it passed that gate, no
->    virtio-gpu connectors set DRM_CONNECTOR_POLL_HPD.
-> 
-> 1082 bool drm_helper_hpd_irq_event(struct drm_device *dev)
-> 1083 {
-> ...
-> 1088         if (!dev->mode_config.poll_enabled)
-> 1089                 return false;
-> 
-> 2. virtio_gpu_init() runs before drm_dev_register() and
->    drm_client_setup(), so no DRM clients are registered yet.
->    drm_kms_helper_hotplug_event() would iterate an empty client list.
->    The initial hotplug is handled by drm_client_register(), which fires
->    a hotplug callback to the newly registered client. By that time,
->    display_info_cb has already updated the connector data.
-> 
-> For the same reason, drm_helper_hpd_irq_event() in
-> config_changed_work_func() was also a no-op. The actual runtime hotplug
-> notification was always delivered by display_info_cb's call to
-> drm_kms_helper_hotplug_event(). This patch replaces it with a direct
-> drm_kms_helper_hotplug_event() call after waiting for the display info
-> response.
-> ---
-> Changes in v2:
-> - Dropped the work_struct approach from v1.
-> - Instead, removed the hotplug calls from display_info_cb entirely, as
-> suggested by Dmitry.
-> - Added wait_event_timeout() in config_changed_work_func() so that the
-> display info response is received before sending the hotplug
-> notification.
-> - Replaced drm_helper_hpd_irq_event() with drm_kms_helper_hotplug_event()
-> in config_changed_work_func() since drm_helper_hpd_irq_event() is
-> always a no-op in virtio-gpu (poll_enabled is never set).
-> - No changes to virtio_gpu_init() — drm_client_register() already
-> handles the initial hotplug and hotplug event does nothing before DRM
-> device/client has been registered.
-> - Link to v1: https://lore.kernel.org/r/20260630-virtiogpu_syzbot-v1-1-0aa06630750e@redhat.com
-> ---
->  drivers/gpu/drm/virtio/virtgpu_kms.c | 5 ++++-
->  drivers/gpu/drm/virtio/virtgpu_vq.c  | 3 ---
->  2 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> index cfde9f573df6..b4329f28e976 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> @@ -49,7 +49,10 @@ static void virtio_gpu_config_changed_work_func(struct work_struct *work)
->  				virtio_gpu_cmd_get_edids(vgdev);
->  			virtio_gpu_cmd_get_display_info(vgdev);
->  			virtio_gpu_notify(vgdev);
-> -			drm_helper_hpd_irq_event(vgdev->ddev);
-> +			wait_event_timeout(vgdev->resp_wq,
-> +					   !vgdev->display_info_pending,
-> +					   5 * HZ);
-> +			drm_kms_helper_hotplug_event(vgdev->ddev);
->  		}
->  		events_clear |= VIRTIO_GPU_EVENT_DISPLAY;
->  	}
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> index c8b9475a7472..e5e1af8b8e8a 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> @@ -840,9 +840,6 @@ static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
->  	vgdev->display_info_pending = false;
->  	spin_unlock(&vgdev->display_info_lock);
->  	wake_up(&vgdev->resp_wq);
-> -
-> -	if (!drm_helper_hpd_irq_event(vgdev->ddev))
-> -		drm_kms_helper_hotplug_event(vgdev->ddev);
->  }
->  
->  static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device *vgdev,
-> 
-> ---
-> base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
-> change-id: 20260619-virtiogpu_syzbot-bdab508ffcd5
-> 
-> Best regards,
+On Sun, 12 Jul 2026 15:39:46 +0200, Younes Akhouayri wrote:
+> [PATCH] rust: drm: Fix typo in FEAT_RENDER documentation
 
-Appled to misc-fixes, thanks!
+Applied, thanks!
 
--- 
-Best regards,
-Dmitry
+  Branch: drm-rust-next
+  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
+
+[1/1] rust: drm: Fix typo in FEAT_RENDER documentation
+      commit: 6cb3fdc9f5ae
+
+The patch will appear in the next linux-next integration (typically within 24
+hours on weekdays).
+
+The patch is queued up for the upcoming merge window for the next major kernel
+release.
