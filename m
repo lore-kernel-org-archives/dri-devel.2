@@ -4,44 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27B23C44508
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 22:36:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE56C44507
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 22:36:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF8510EB52;
-	Mon, 13 Jul 2026 22:36:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D243810EB43;
+	Mon, 13 Jul 2026 22:36:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=picoheart.com header.i=@picoheart.com header.b="IVDIch5s";
+	dkim=pass (2048-bit key; unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.b="ZstIlkRU";
 	dkim-atps=neutral
-Received: from va-2-52.ptr.blmpb.com (va-2-52.ptr.blmpb.com [209.127.231.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2566F10E9AF
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 13:17:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1783948639; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=HQryPrQFSPbWa2anbiX1aauRwBJAIVsu6Hx1hZ3u8hA=;
- b=IVDIch5sqQBnkCivGu4rn3gRCg8Y/+45QTggMK5xKt0e1yb/rSuDNS+6ed4+d2Lfhekl98
- 2LGxbaae+EDrv/Uir0+PrXPFsY+pcBfpoKzEdwGiHBJCWhpltGeCnn0qP92JMKXOiHLcGy
- K6MnQfn7AtZP3c8JSeBXQPZ1c8Q/aEsp+BWAuVHdbDm5owGuGKDhpGOY19XrYVE3KjL6ty
- g4ubf7Br9IhvOcDznPjJttP90hVTVbFTCqKzfpBALL87ix+HTQJykmioUXmITCvIhoQOIq
- HLWGrhbjSkefHWJlAdPjbRMEtnz1AG0M9dJMLZcKP/1iRk2YE/LiEwBORZ3WYQ==
-Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26a54e55e+523be2+lists.freedesktop.org+liuzhaoyu.zackary@picoheart.com>
-To: <matthew.auld@intel.com>, <arunpravin.paneerselvam@amd.com>, 
- <joelagnelf@nvidia.com>, <airlied@gmail.com>, <simona@ffwll.ch>, 
- <francois.dugast@intel.com>
-Message-Id: <alTlW8TmTXLocWKP@hostpc>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: [PATCH v2] gpu: buddy: avoid repeated builds of root dfs when alloc
- range
-Content-Disposition: inline
-X-Original-From: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
-From: "Zhaoyu Liu" <liuzhaoyu.zackary@picoheart.com>
-Date: Mon, 13 Jul 2026 21:17:15 +0800
-Received: from hostpc ([183.129.139.234]) by smtp.feishu.cn with ESMTPS;
- Mon, 13 Jul 2026 21:17:17 +0800
+X-Greylist: delayed 544 seconds by postgrey-1.36 at gabe;
+ Mon, 13 Jul 2026 18:02:04 UTC
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru
+ [37.230.196.243])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11CBF10E3E1
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 18:02:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+ s=mail; t=1783965174;
+ bh=qTFbrJO1EIURj5coHE7P8jfs+T3R57WvmR8hoGJitbA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ZstIlkRUUKnGElVKoX+VXKqW/ZCcdaYL9K0C8NptQI04CCWLg6skHvRWVwN4hvVxw
+ AtXlTUkZjwuPyrLHyraOorUqq5fARQKq/PnNvJt9zSsZK2M+/aXVEVPJ0XoK6BGmut
+ fbx4LSUyDm1xYXVuiOwgrtbR+3RM9zt10s92N8R12vO9qGClVWHBk9uepx9ePWDhaF
+ alyGrQOA8GiThkO9E8ejQqkrAiSU9wKy6C1QuicS/Okg682M3/HKtz3Dr9MUIHofQm
+ tDbUAzMe3NvxBo+RJH3Vyn8SiCy/Hx9Y4GYahgQCrGeNCJAKXnBvqsQm8bQh0iqnBn
+ k+LoE3rhl85Mw==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+ by mail-gw01.astralinux.ru (Postfix) with ESMTP id 934B425596;
+ Mon, 13 Jul 2026 20:52:54 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.5])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+ Mon, 13 Jul 2026 20:52:50 +0300 (MSK)
+Received: from rbta-spb-lt-115149.astralinux.ru
+ (rbta-spb-lt-115149.astralinux.ru [10.198.24.8])
+ by new-mail.astralinux.ru (Postfix) with ESMTPA id 4gzVQT3vP9z4lNf;
+ Mon, 13 Jul 2026 20:52:49 +0300 (MSK)
+From: Elizaveta Tereshkina <etereshkina@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Elizaveta Tereshkina <etereshkina@astralinux.ru>,
+ Chen-Yu Tsai <wens@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org, Ethan Tidmore <ethantidmore06@gmail.com>
+Subject: [PATCH 5.10/5.15] drm/sun4i: backend: fix error pointer dereference
+Date: Mon, 13 Jul 2026 20:52:37 +0300
+Message-Id: <20260713175238.715526-1-etereshkina@astralinux.ru>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/07/13 17:19:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: etereshkina@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 112 0.3.112
+ 7c8d497b0e572fbfa504a2ee62037c045a8cb4ec, {Tracking_ml_letters},
+ {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_internal2},
+ {Tracking_from_domain_doesnt_match_to}, patch.msgid.link:7.1.1;
+ 127.0.0.199:7.1.2; d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;
+ astralinux.ru:7.1.1; new-mail.astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 204404 [Jul 13 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.22
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854,
+ bases: 2026/07/13 15:36:00 #28439953
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/07/13 17:19:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 X-Mailman-Approved-At: Mon, 13 Jul 2026 22:35:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,144 +98,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The buddy allocator previously pre-built a DFS list by inserting all
-root blocks via list_add_tail() before every allocation call in
-__alloc_range_bias() and __gpu_buddy_alloc_range(). This is wasteful
-when the allocation can be satisfied by the first root or by sub-blocks
-produced from splits, as the remaining roots are never consumed.
+From: Ethan Tidmore <ethantidmore06@gmail.com>
 
-Introduce __get_candidate_block() which unifies the block acquisition
-logic for both __alloc_range_bias() and __alloc_range(): it first
-checks the DFS list (populated by splits during allocation or
-pre-filled by the caller for trim), and only when the list is exhausted
-does it lazily fetch the next root block through a cursor.
+commit 06277983eca4a31d3c2114fa33d99a6e82484b11 upstream.
 
-When the caller pre-fills the DFS list (trim scenario), the cursor is
-initialized to mm->n_roots to disable root iteration entirely,
-preserving the original behavior.
+The function drm_atomic_get_plane_state() can return an error pointer
+and is not checked for it. Add error pointer check.
 
-Signed-off-by: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
-Suggested-by: Arun Pravin <arunpravin.paneerselvam@amd.com>
+Detected by Smatch:
+drivers/gpu/drm/sun4i/sun4i_backend.c:496 sun4i_backend_atomic_check() error:
+'plane_state' dereferencing possible ERR_PTR()
+
+Fixes: 96180dde23b79 ("drm/sun4i: backend: Add a custom atomic_check for the frontend")
+Signed-off-by: Ethan Tidmore <ethantidmore06@gmail.com>
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+Link: https://patch.msgid.link/20260217014801.60760-1-ethantidmore06@gmail.com
+Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+Signed-off-by: Elizaveta Tereshkina <etereshkina@astralinux.ru>
 ---
+Backport fix for CVE-2026-53066
+ drivers/gpu/drm/sun4i/sun4i_backend.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-v2:
-- Change __get_candidate_block to inline
-- Link to v1: https://lore.kernel.org/all/ak+ECwsuSljmvyKd@hostpc/
-
----
- drivers/gpu/buddy.c | 61 ++++++++++++++++++++++++++++++---------------
- 1 file changed, 41 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index dc81fe0301ce..63b3959973fa 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -700,6 +700,41 @@ static void __gpu_buddy_undo_splits(struct gpu_buddy *mm,
- 	}
- }
- 
-+/**
-+ * __get_candidate_block - Get a candidate block for allocation.
-+ * @mm: GPU buddy manager
-+ * @dfs: List of candidate blocks. Populated in two ways: (1) pre-filled by
-+ *       the caller before allocation with blocks available for allocation,
-+ *       and (2) extended during allocation by block splits, which add the
-+ *       resulting sub-blocks for subsequent finer-grained allocation.
-+ * @cursor: Pointer to current root index, advanced when iterating roots.
-+ *          Pass in a value >= mm->n_roots to disable root iteration entirely,
-+ *          restricting block acquisition to @dfs only; this is used in the
-+ *          trim scenario where only pre-split sub-blocks should be considered.
-+ *
-+ * Return: Pointer to the acquired block on success, ERR_PTR(-ENOSPC) when no
-+ * more blocks are available.
-+ */
-+static inline struct gpu_buddy_block*
-+__get_candidate_block(struct gpu_buddy *mm, struct list_head *dfs,
-+		uint32_t *cursor)
-+{
-+	struct gpu_buddy_block *block;
+diff --git a/drivers/gpu/drm/sun4i/sun4i_backend.c b/drivers/gpu/drm/sun4i/sun4i_backend.c
+index d935f36a24dd..b3741827c6c3 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_backend.c
++++ b/drivers/gpu/drm/sun4i/sun4i_backend.c
+@@ -507,6 +507,9 @@ static int sun4i_backend_atomic_check(struct sunxi_engine *engine,
+ 	drm_for_each_plane_mask(plane, drm, crtc_state->plane_mask) {
+ 		struct drm_plane_state *plane_state =
+ 			drm_atomic_get_plane_state(state, plane);
++		if (IS_ERR(plane_state))
++			return PTR_ERR(plane_state);
 +
-+	block = list_first_entry_or_null(dfs,
-+					struct gpu_buddy_block,
-+					tmp_link);
-+	if (block) {
-+		list_del(&block->tmp_link);
-+		return block;
-+	}
-+
-+	if (*cursor >= mm->n_roots)
-+		return ERR_PTR(-ENOSPC);
-+
-+	return mm->roots[(*cursor)++];
-+}
-+
- static struct gpu_buddy_block *
- __alloc_range_bias(struct gpu_buddy *mm,
- 		   u64 start, u64 end,
-@@ -711,25 +746,18 @@ __alloc_range_bias(struct gpu_buddy *mm,
- 	struct gpu_buddy_block *block;
- 	LIST_HEAD(dfs);
- 	int err;
--	int i;
-+	uint32_t cursor = 0;
- 
- 	end = end - 1;
- 
--	for (i = 0; i < mm->n_roots; ++i)
--		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
--
- 	do {
- 		u64 block_start;
- 		u64 block_end;
- 
--		block = list_first_entry_or_null(&dfs,
--						 struct gpu_buddy_block,
--						 tmp_link);
--		if (!block)
-+		block = __get_candidate_block(mm, &dfs, &cursor);
-+		if (IS_ERR(block))
- 			break;
- 
--		list_del(&block->tmp_link);
--
- 		if (gpu_buddy_block_order(block) < order)
- 			continue;
- 
-@@ -1023,6 +1051,7 @@ static int __alloc_range(struct gpu_buddy *mm,
- 	LIST_HEAD(allocated);
- 	u64 end;
- 	int err;
-+	uint32_t cursor = list_empty(dfs) ? 0 : mm->n_roots;
- 
- 	end = start + size - 1;
- 
-@@ -1030,14 +1059,10 @@ static int __alloc_range(struct gpu_buddy *mm,
- 		u64 block_start;
- 		u64 block_end;
- 
--		block = list_first_entry_or_null(dfs,
--						 struct gpu_buddy_block,
--						 tmp_link);
--		if (!block)
-+		block = __get_candidate_block(mm, dfs, &cursor);
-+		if (IS_ERR(block))
- 			break;
- 
--		list_del(&block->tmp_link);
--
- 		block_start = gpu_buddy_block_offset(block);
- 		block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
- 
-@@ -1109,10 +1134,6 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
- 				   struct list_head *blocks)
- {
- 	LIST_HEAD(dfs);
--	int i;
--
--	for (i = 0; i < mm->n_roots; ++i)
--		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
- 
- 	return __alloc_range(mm, &dfs, start, size,
- 			     blocks, total_allocated_on_err);
+ 		struct sun4i_layer_state *layer_state =
+ 			state_to_sun4i_layer_state(plane_state);
+ 		struct drm_framebuffer *fb = plane_state->fb;
 -- 
-2.34.1
+2.39.2
+
