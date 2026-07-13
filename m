@@ -4,61 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97DC4C44508
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 11:59:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27FCCC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:06:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CED1B10E954;
-	Mon, 13 Jul 2026 11:59:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95CCB10E59C;
+	Mon, 13 Jul 2026 12:06:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SQ6Oafh/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J40BPP6v";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F4AF10E947;
- Mon, 13 Jul 2026 11:59:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783943963; x=1815479963;
- h=message-id:subject:from:to:date:in-reply-to:references:
- content-transfer-encoding:mime-version;
- bh=PgDGdaaeyCwoG8D4U3B9sdB9c36Rvxkiwqgo8Jml1n0=;
- b=SQ6Oafh/KNxQF42zEF2I94Jj+VRU02uujLwe3NiP8qmC6WquIxjmZ9Dg
- W40vtOSS95LZ+4JqxfGVAlz2hohsr5DNavjNEsk6i6qpdPBV0IYkYOCV0
- GCuj3v9FlgTsCQagzabaqw3sLDOTZfRNQVeYbhBijRYJU71J6l/a50bLc
- bKzlwRaBEAYd0k4/Lu+Lfe74/nOcMKPZQ9on13I+S5ajhUrI8a8W1DxsI
- rBQVF3UiEB9LmJT15OHviNjfxOtnObQflN4eVnaRKg6FlXW6CoUytvfVO
- Jr0Q0143Oj6lYNhBUfTsZEaoW/fWPPbNlLkz4KnChROMEW+9p+8k3cEzg w==;
-X-CSE-ConnectionGUID: 0YipjySqQK+eXLIYU9kO4g==
-X-CSE-MsgGUID: JjJm1zbyRdKVjeVbXmYuPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="110093147"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="110093147"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2026 04:59:23 -0700
-X-CSE-ConnectionGUID: EdEs7uRIQRK4Y6eKspC4zA==
-X-CSE-MsgGUID: aWF+8JjORm2nS6zE8oKajA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="254399571"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.245.123])
- ([10.245.245.123])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2026 04:59:20 -0700
-Message-ID: <d09a8c6871494c34af9cdf8f99d3739e78427223.camel@linux.intel.com>
-Subject: Re: [PATCH 11/12] drm/ttm: support using drm_exec during eviction v4
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: christian.koenig@amd.com, dakr@kernel.org, ecourtney@nvidia.com, 
- simona@ffwll.ch, matthew.brost@intel.com, nat@pixelcluster.dev,
- airlied@gmail.com, 	dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 	intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, 	amd-gfx@lists.freedesktop.org
-Date: Mon, 13 Jul 2026 13:59:17 +0200
-In-Reply-To: <20260710190752.2355-12-christian.koenig@amd.com>
-References: <20260710190752.2355-1-christian.koenig@amd.com>
- <20260710190752.2355-12-christian.koenig@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC28110E59C
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:06:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id DBE9D6004E;
+ Mon, 13 Jul 2026 12:06:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2261C1F000E9;
+ Mon, 13 Jul 2026 12:06:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783944365;
+ bh=ncSUzhfaIWuTva3U59ghWnssJa86zskFapx+JwmVkqs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=J40BPP6vB4giCMEjMvHGxjcjzZw7R3d1RAkU7Sj0OvbpSg5siDqwK+48ZWrPP6CP3
+ PlutQa/NjbdPuXpYaRusw0AO5vFANZClLT8ysMojJqVuvKwHT5ywW9mb/qHgIdc/di
+ 9KlE6pqxl7++1pkq/3Sr1K3uUojv5tg1uH7dwId57JRxt5cSvOTwsTQloXJKogUqxH
+ m+nBLsGE1MjU5Bs9hru/jUA5SglFyuEUM1tpTEIQwgabnrM5pvIkkuptGyHhU89to/
+ Qyo+hM+3Cln0ZkZy58IIMG9o3d/WWt1wSVFg08o6yNUkFsEH8fCgiFsxe9CxGSHJHX
+ d6vk87QyOgtrw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/5] drm/bridge/panel: hold a reference to the
+ wrapped panel
+To: "Albert Esteve" <aesteve@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, wsa+renesas@sang-engineering.com,
+ imx@lists.linux.dev, linux-sunxi@lists.linux.dev, Frank.Li@kernel.org
+In-Reply-To: <20260713-drm_refcount_wiring-v2-2-d3bb61f4bd4d@redhat.com>
+References: <20260713-drm_refcount_wiring-v2-0-d3bb61f4bd4d@redhat.com>
+ <20260713-drm_refcount_wiring-v2-2-d3bb61f4bd4d@redhat.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-MIME-Version: 1.0
+Date: Mon, 13 Jul 2026 12:06:04 +0000
+Message-Id: <20260713120605.2261C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,101 +55,106 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-07-10 at 20:52 +0200, Christian K=C3=B6nig wrote:
-> Allow specifying a drm_exec object in TTMs operation context which is
-> used to lock objects during eviction.
->=20
-> This allows to handle deadlocks much more gracefully and with that
-> avoid returning -ENOMEM on heavily contended domains.
->=20
-> v2: rebased on top of Thomas work
-> v3: rebased again
-> v4: adjust to dma_resv changes
->=20
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Same thing here. Use a ww context at the dma-buf level.
+New issues:
+- [High] Dereference of `panel_bridge` after it may have been freed inside =
+`devm_drm_panel_bridge_release()`.
 
-Thanks,
-Thomas
+Pre-existing issues:
+- [High] `drm_panel_bridge_remove()` accesses `panel->dev` for devres remov=
+al, but the underlying `struct device` may have already been freed.
+--
 
+--- Patch [2]: [PATCH v2 2/5] drm/bridge/panel: hold a reference to the wra=
+pped panel ---
+commit 94f4ef45af3a89d595cd95811619b47c422771c3
+Author: Albert Esteve <aesteve@redhat.com>
 
-> ---
-> =C2=A0drivers/gpu/drm/ttm/ttm_bo_util.c | 12 ++++++++----
-> =C2=A0include/drm/ttm/ttm_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 5 +++++
-> =C2=A02 files changed, 13 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c
-> b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> index 1bdd69643c313..570640ae79d84 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> @@ -38,6 +38,7 @@
-> =C2=A0#include <drm/ttm/ttm_tt.h>
-> =C2=A0
-> =C2=A0#include <drm/drm_cache.h>
-> +#include <drm/drm_exec.h>
-> =C2=A0
-> =C2=A0struct ttm_transfer_obj {
-> =C2=A0	struct ttm_buffer_object base;
-> @@ -839,7 +840,9 @@ static int ttm_lru_walk_ticketlock(struct
-> ttm_bo_lru_cursor *curs,
-> =C2=A0	struct ttm_lru_walk_arg *arg =3D curs->arg;
-> =C2=A0	int ret;
-> =C2=A0
-> -	if (arg->ctx->interruptible)
-> +	if (arg->ctx->exec)
-> +		ret =3D drm_exec_lock_resv(arg->ctx->exec, resv);
-> +	else if (arg->ctx->interruptible)
-> =C2=A0		ret =3D dma_resv_lock_interruptible(resv, arg-
-> >ticket);
-> =C2=A0	else
-> =C2=A0		ret =3D dma_resv_lock(resv, arg->ticket);
-> @@ -853,7 +856,8 @@ static int ttm_lru_walk_ticketlock(struct
-> ttm_bo_lru_cursor *curs,
-> =C2=A0		 * trylocking for this walk.
-> =C2=A0		 */
-> =C2=A0		arg->ticket =3D NULL;
-> -	} else if (ret =3D=3D -EDEADLK) {
-> +
-> +	} else if (!arg->ctx->exec && ret =3D=3D -EDEADLK) {
-> =C2=A0		/* Caller needs to exit the ww transaction. */
-> =C2=A0		ret =3D -ENOSPC;
-> =C2=A0	}
-> @@ -993,8 +997,8 @@ __ttm_bo_lru_cursor_iter(struct ttm_bo_lru_cursor
-> *curs, bool first)
-> =C2=A0		if (!ttm_lru_walk_trylock(curs, res->bo->base.resv))
-> {
-> =C2=A0			struct dma_resv *resv;
-> =C2=A0
-> -			if (!arg->ticket || arg->ctx->no_wait_gpu ||
-> -			=C2=A0=C2=A0=C2=A0 arg->trylock_only) {
-> +			if ((!arg->ticket || arg->ctx->no_wait_gpu
-> ||
-> +			=C2=A0=C2=A0=C2=A0=C2=A0 arg->trylock_only) && !arg->ctx->exec)
-> {
-> =C2=A0				spin_unlock(lru_lock);
-> =C2=A0				continue;
-> =C2=A0			}
-> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-> index e1221e3be7bda..0ffa84a5caa65 100644
-> --- a/include/drm/ttm/ttm_bo.h
-> +++ b/include/drm/ttm/ttm_bo.h
-> @@ -186,6 +186,11 @@ struct ttm_operation_ctx {
-> =C2=A0	 * @bytes_moved: Statistics on how many bytes have been
-> moved.
-> =C2=A0	 */
-> =C2=A0	uint64_t bytes_moved;
-> +	/*
-> +	 * @exec: optional drm_exec object to use for locking and
-> contention
-> +	 * handling
-> +	 */
-> +	struct drm_exec *exec;
-> =C2=A0};
-> =C2=A0
-> =C2=A0struct ttm_lru_walk;
+drm/bridge/panel: hold a reference to the wrapped panel
+
+This patch acquires a reference to the wrapped drm_panel in
+drm_panel_bridge_add_typed() using drm_panel_get() and releases it in
+the teardown paths to prevent dereferencing dangling pointers.
+
+> diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/pane=
+l.c
+> index 4978ec98a0828..6b98ad19508df 100644
+> --- a/drivers/gpu/drm/bridge/panel.c
+> +++ b/drivers/gpu/drm/bridge/panel.c
+[ ... ]
+> @@ -316,6 +316,7 @@ EXPORT_SYMBOL(drm_panel_bridge_add_typed);
+>  void drm_panel_bridge_remove(struct drm_bridge *bridge)
+>  {
+>  	struct panel_bridge *panel_bridge;
+> +	struct drm_panel *panel;
+> =20
+>  	if (!bridge)
+>  		return;
+> @@ -326,10 +327,12 @@ void drm_panel_bridge_remove(struct drm_bridge *bri=
+dge)
+>  	}
+> =20
+>  	panel_bridge =3D drm_bridge_to_panel_bridge(bridge);
+> +	panel =3D panel_bridge->panel;
+> =20
+>  	drm_bridge_remove(bridge);
+>  	/* TODO remove this after reworking panel_bridge lifetime */
+> -	devm_drm_put_bridge(panel_bridge->panel->dev, bridge);
+> +	devm_drm_put_bridge(panel->dev, bridge);
+
+[Severity: High]
+This is a pre-existing issue, but can accessing panel->dev here lead to
+a use-after-free of the struct device?
+
+While this patch successfully keeps the drm_panel structure alive via
+drm_panel_get(), it does not appear to take a get_device() reference to
+the underlying struct device (panel->dev).=20
+
+If the panel device was completely unregistered, could the struct device
+memory be freed while the drm_panel object remains alive, causing
+devm_drm_put_bridge() to operate on a dangling pointer?
+
+> +	drm_panel_put(panel);
+>  }
+>  EXPORT_SYMBOL(drm_panel_bridge_remove);
+> =20
+> @@ -357,11 +360,14 @@ EXPORT_SYMBOL(drm_panel_bridge_set_orientation);
+>  static void devm_drm_panel_bridge_release(struct device *dev, void *res)
+>  {
+>  	struct drm_bridge *bridge =3D *(struct drm_bridge **)res;
+> +	struct panel_bridge *panel_bridge;
+> =20
+>  	if (!bridge)
+>  		return;
+> =20
+> +	panel_bridge =3D drm_bridge_to_panel_bridge(bridge);
+>  	drm_bridge_remove(bridge);
+> +	drm_panel_put(panel_bridge->panel);
+
+[Severity: High]
+Could this result in a use-after-free of the panel_bridge structure?
+
+If the consumer device unbinds, devm_drm_panel_bridge_release() calls
+drm_bridge_remove(bridge). If this drops the final reference to the
+bridge, it triggers __drm_bridge_free() which frees the panel_bridge
+structure.
+
+The very next line calls drm_panel_put(panel_bridge->panel). Does this
+dereference the potentially freed panel_bridge pointer?
+
+Perhaps panel_bridge->panel should be cached in a local variable before
+calling drm_bridge_remove()?
+
+>  }
+> =20
+>  /**
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-drm_refcou=
+nt_wiring-v2-0-d3bb61f4bd4d@redhat.com?part=3D2
