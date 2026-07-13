@@ -4,148 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12889C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:07:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CB35C44508
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:07:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AA6010E93C;
-	Mon, 13 Jul 2026 12:07:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E990810E947;
+	Mon, 13 Jul 2026 12:07:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="EvkqveAU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yPvXr7XC";
 	dkim-atps=neutral
-Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020124.outbound.protection.outlook.com [52.101.196.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54B2510E93C
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:07:29 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011026.outbound.protection.outlook.com [52.101.57.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B81CE10E93E;
+ Mon, 13 Jul 2026 12:07:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Pxx3vf3iWRGRxk273JbXcDK4MB9JgIWtA8yElwQ545z82OG+WtzC1z5YgbFKJ2iynlA3ix0HXf6uNM9GXgYCE2plnBcAkzKAKQTkV3mwRUMhAs/qdW/Ag6yqRh0418jyt7NvUtvahOT6IGBNoNoPAL7xInlWdav8zTcwSw0oIJyOa6o5M0jUtUpNSVTzy7DBxK2rkwEgCZx9r/oAb3U7RZDFQH3mbs9D397I+SqdOuOntFIGZGM8H7T7tD2JKPRdoj+uMKk9WgvlLGFkdiE3CLL98fEtYtFAaiQBW+cVH3yyUkQopS04yi+2Ts1w0VmKTC2aM+4cwbQqwJGzfYvQRg==
+ b=neWSdib4jXUqW09MetSBotp53eKeMg96N0fADWk+AD3Y4vNdmhEyVhIL+i17OHZc9end0EBQr9sLL97S7UmNGUyqJhXz4USz16tNJgppe7zD16pof4RGTFurkHyfYMxGGR2w5qJjVXySQUUtsf0J20gjEz1k7eVo+BeplapOBifLG2q6HtLyYbL4IjSwqjCz1dGL0pHbQz1baVfX9wvZhtee7ajyeqCgYfdT5jSlNglmnmLMAC+vCgou5DQbAxgYFF6aVR1zHwF0FlbQpS8zzTeRWhNePWau+FJpLwz+kqGmpmDtBiqg6EOze+e4DDPMxacUStieeYIRP0Zjwl0VsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3qirLLX/ZhQD3j7TnLcMoexVuF2EazNr5u8vL+5VLNE=;
- b=iZUX5ORQFjYztha8b/vMcd1W68I68u092vtDiIIisfeGhcZr7ETFkNo51apA+KyNr4H66ftCXdpGu2NZSPRVyvn/Lg6hzy7laL3IMgrogBxo+O33tnjQiP5BVgd3czJMtB4TNqDG12DwnProeOJkV/qh2lboBOJ+6R/O91Zhda6GrFcAXYjRgFFkHyI5m+1NEdpL+bM+Lu3LYbJ+nAUWsTPiQcqe1U17+4fMAn//+0zrm5lJK76U7SdzB4/wwemSEHkvmulPv3HuzjONSTX9BpcFvE6czMpQRx05jCneFNbyJyz7Qm+Hi44yAm6y+JAzB3y6WKPYFwkjCG6KV9VQDg==
+ bh=XTaAAxO5hBpZIFEqVe+LZVXPw5tha+HsJvlBRYleHJU=;
+ b=YCbmLu5+bBLSb6Ms/6iu0HTDcgPoX29RVeCTssK/TxJGd0aal1xJNzrvnVRM9AermBDS8U2hwXBpQXszht3S7K4eTsONL6iJLkJ1eNwpQSmhnwioZhGHlWS8pu4HqBEWV9twKrsr1TNaaJCt/B72BMmZ1p5YKmwco7akhGde+Oc6IFiAuOD2I45J0eTRiRj27sa98uxsPQNCprUMWtkjZzgpOuYCvWrCiJuTEUKcDu8MxRsbIIKm7wXtvYTGMYWmk+pokjj8D/me85LStdR7WcX55VgWEq1jn2MwJABnFhu4olJqtf73jRblm1DBsBbPrjY/jHGRuUJw+IFwKQnT0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3qirLLX/ZhQD3j7TnLcMoexVuF2EazNr5u8vL+5VLNE=;
- b=EvkqveAU2zWjkyYiaLcVSzSg2gtdPgO9VZrfOR2jHOLDXfMR0pjoum+Ywea1sCJx1qAULBfC6LbHOJmXAnhLCSVzZiZjnYl7k4keD2EK+jJo7q/zAAAnakxPUhdAQlU8g2V8qGvsj/aEKA/+lYYTx30qTk/ehNTgdNTosTwX4dc=
+ bh=XTaAAxO5hBpZIFEqVe+LZVXPw5tha+HsJvlBRYleHJU=;
+ b=yPvXr7XC/bNa4o+WKGdd5R4iraS7bqL7n7jz1QFQtMBdbnaEwA3zyr2PKFoy+I5UgnI97b2MWGSpe32MgEx5b/DNQ1diUaDAo1KpLqO2L6cgF7hx03wQ3iTyzalmwdV76NibbDEAsDToWT3f1sUI/oXPPbDp0ge04Td8k5bEsSA=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
- by LO0P265MB6995.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ec::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Mon, 13 Jul
- 2026 12:07:25 +0000
-Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6c9e:93c8:10db:e995%3]) with mapi id 15.21.0202.014; Mon, 13 Jul 2026
- 12:07:25 +0000
-Content-Transfer-Encoding: quoted-printable
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ5PPFCD5E2E1DE.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::9a2) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.12; Mon, 13 Jul
+ 2026 12:07:50 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0202.014; Mon, 13 Jul 2026
+ 12:07:50 +0000
+Message-ID: <bda9ac0e-cca5-4262-94e1-d048c470c3af@amd.com>
+Date: Mon, 13 Jul 2026 14:07:44 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/12] drm/exec: add drm_exec_lock_resv function
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ dakr@kernel.org, ecourtney@nvidia.com, simona@ffwll.ch,
+ matthew.brost@intel.com, nat@pixelcluster.dev, airlied@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20260710190752.2355-1-christian.koenig@amd.com>
+ <20260710190752.2355-11-christian.koenig@amd.com>
+ <0cfc1913440ce8f19f715f5df7faa23dc1164755.camel@linux.intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <0cfc1913440ce8f19f715f5df7faa23dc1164755.camel@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 13 Jul 2026 13:07:24 +0100
-Message-Id: <DJXFJ00EOKDK.CNXCIN7TMZU3@garyguo.net>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alvin Sun" <alvin.sun@linux.dev>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Luis Chamberlain" <mcgrof@kernel.org>, "Petr
- Pavlu" <petr.pavlu@suse.com>, "Daniel Gomez" <da.gomez@kernel.org>, "Sami
- Tolvanen" <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Brendan Higgins" <brendan.higgins@linux.dev>,
- "David Gow" <david@davidgow.net>, "Rae Moar" <raemoar63@gmail.com>, "Breno
- Leitao" <leitao@debian.org>, "Jens Axboe" <axboe@kernel.dk>, "Dave Ertman"
- <david.m.ertman@intel.com>, "Leon Romanovsky" <leon@kernel.org>, "Igor
- Korotin" <igor.korotin@linux.dev>, "FUJITA Tomonori"
- <fujita.tomonori@gmail.com>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
- <tkjos@android.com>, "Christian Brauner" <brauner@kernel.org>, "Carlos
- Llamas" <cmllamas@google.com>
-Cc: <rust-for-linux@vger.kernel.org>, <linux-modules@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <nova-gpu@lists.linux.dev>, <linux-kselftest@vger.kernel.org>,
- <kunit-dev@googlegroups.com>, <linux-block@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v8 07/10] rust: configfs: use `LocalModule` for
- `THIS_MODULE`
-X-Mailer: aerc 0.21.0
-References: <20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev>
- <20260713-fix-fops-owner-v8-7-2495cfa82d47@linux.dev>
-In-Reply-To: <20260713-fix-fops-owner-v8-7-2495cfa82d47@linux.dev>
-X-ClientProxiedBy: LO3P265CA0016.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:bb::21) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:27c::13)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0339.namprd13.prod.outlook.com
+ (2603:10b6:208:2c6::14) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|LO0P265MB6995:EE_
-X-MS-Office365-Filtering-Correlation-Id: 962ce0e8-cd1a-400e-47af-08dee0d74d81
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ5PPFCD5E2E1DE:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7cb5539-8809-4abf-bb6c-08dee0d75c27
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|10070799003|23010399003|921020|18002099003|22082099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info: PwJe6ZszOhIvyq8wDahoMSzBsEiSw7nZB8jX8hPmfFA05i8jCrVlhnUJ0sLp2Di1Z7Jtx0qBwQVcf/M43ObaXllEv4VrqbWGLVj72cuTg9qxPgPq/9q73A8cc8f69Cqg3/JR5TM0XBICNxU9s5m4kpwHBHws4U61VneB2UB19zVv+BqMTWwCN1/aGppLY5z6NCPAhfN6ZHhAsNmfVyeyW8vHEUXUlVSze3oBAwhO6qZ0oLsFrAQ2N8rz1/bH6xN8Il+z82DrX4ttcWjJv2j94xP7LBbVI2L5qNUReoRbK4HHC0NGzH7IyqhaHLsUmEwntw2tfb3FQJDijJR94ej+sLqqKLsI+EmCLK6VL3mSaIdB1mMmE+naRoI89xa386OQj354IRYs2W70fOw6BWolY0Des599JUuGbUzHN/7zRIj+X+6bQ2/RTiGpzxwewjGqQDHMn4wyk0rSiVEVqmyI9a0C6nSDYkf1ThiW3KASpK5kA25Dbv7wL2X1CN77sQqT4JVoNsaWp55V5IUCrFV5Rj+hD3SafaonNvTFU5x36U9ptHmm7NqkYHfOrxZwFJTKYSBUcedi9qRX3BywTCLZpdIUwxuk1xuSWu+O+s2d36LIKW77UHGqH92QTUy1kF+FSNahCsFRI7WxGbhlygHtZ1Qs+WyHuuCs/TdxmpuEg4bcmQI0rCYel4zKHZquZd3m
+ ARA:13230040|23010399003|7416014|376014|1800799024|366016|11063799006|4143699003|56012099006|18002099003|22082099003|6133799003|921020;
+X-Microsoft-Antispam-Message-Info: +LscVOL25I4Lll6z3HJPlaYdyCsQFKS5giITvkwhMYUKsbnoeTHOXlowd/tJJs54Dv0H+qI7jWOLTnaccbnd94hFNdmqADWNUBdovqpEy+U7dRwmK82erjseW8uoj7MDCn9wQP0XFkwYSnnpSPjhGsBoUvtrR4qCJcgGoYi7Dk3pXYD829VXOVbX6Otv36OYLoaVHVg/xNSVnpdhjRbQouqTAyeB3NImNidT45rK7venCMs8T1ksZkAoheBlFUqK7oou5XAn2jTqhZLsizVOsRdxdXt6KQXRyAdj057lsKaZz0SNKCauWeiAk4IotbedilC/MniCUHZ/XT0doIPaLmCNoEf9UYjaGXIcp9s7Y9+CkdyYozQ166FO2e9TLUZJtNA57R/4kh0zpKrzJe42SeZGb/ML7l+H+2eKUvc6GC0zWFX9FyzY2dJAx6bhscMzWe84DLf4LkshWHVH74W0i35sAEywr28sra/BWvv9FKglRFiphzS+u4a0ppZc+I7uqfbqHjYE+KSH+9zI/G6L3Q82wdeYBNab1WhbPVqL9IenRkl8UxoS2nBI/ooKLR1x73eiIshUIVkI/6GINzqTXr//4eVNaG+6zoqq3yPBmgcMKl1/Fai+lWTFAtdAE3bEwQ/rXeAgt0BLtpcBscJYkUsdLa2tKLWclXRowEPkZiOIszeoQzPNTsnCgWhYFMHP8OCAYDG22Wef1NTWWuws1Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(10070799003)(23010399003)(921020)(18002099003)(22082099003)(56012099006)(4143699003);
- DIR:OUT; SFP:1102; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003)(6133799003)(921020);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZjRSTWJYWlRmbk05WUlUOCtDemFJbC9lWkZEakxQc0ZWUlRqeUc5aWpKWUxQ?=
- =?utf-8?B?dFlad3JaVEkrWDU2VnE1Q1UvaXI4bm8vNGdtZDZuUzdDNEo0WXYvVFh3Nno0?=
- =?utf-8?B?MUUwNlhUQmU1UEN6QjVXbUR0NW5hNm15LzNxTmdVK25RNVBacTZQcFdUdHlu?=
- =?utf-8?B?bno0YjNoaEUzVURSSWJoNkdGcXJ3UmNLZEwySkdqaFQxUExnR0RibkJuQXYr?=
- =?utf-8?B?dWN6bU9FUFN5dXpvTnZkUWRZZTIvVkFkTkRWN0RldzNocUdhc012YkdsTU9h?=
- =?utf-8?B?Q2JvREZmd3VIYnlJQzlGN3BySXpnczVLNTNCZXNRc0p0cllvT2Y1NlgvamhR?=
- =?utf-8?B?UDlleGxranNnWEdKSEZLbWdMQzFMTSs2UEpLRWh1S3IySkNNb3Byb1RkaU84?=
- =?utf-8?B?dXlXcHp0UzZlbVlIL2E1MlYzUUJYUWZtWGVYb1BETjJoWW4zaEhEdWZCZVBF?=
- =?utf-8?B?bGE0NzhOd1VnQWtUcTFVeWdSeEpiOUZWNXNmZ1dTNWx1Rit1a2E0dlcwajh0?=
- =?utf-8?B?SjB2dytrM0xKN1cwMTJIUEM5WkZmU1BMYndDbmpLb3dIcEludHZoMkQrNGZv?=
- =?utf-8?B?dXJqNUJtQXhzbHNPaE9QTDUxWXU0VlR4UVpuSlBabEMyeTBWK2M1UlZmSlVF?=
- =?utf-8?B?eGZiRkNxOGV5aTRkZU9BK0JTYnU1M1VYWVQ5K0F5MEh5Y2NGbzd0TUR4L2h4?=
- =?utf-8?B?Uk5YWno3TE1yV2JHYlRuZldqbHFtVGdlRmF2dW9wSnNVaVY3ZzJMVW51UWZJ?=
- =?utf-8?B?VTFFTGNsdkxWYTJaMm5VbjNQc3l3RnBZcXRjbjhVTm53SXNQQXhpeWhjM0s3?=
- =?utf-8?B?UXpsemZqSmdROGJzR2E0TTV6MmZNL1FXVDlQNmErYUpUR0JwR29ndGxRTjBh?=
- =?utf-8?B?bGxBaCtWOUVRc0lianc1K2lBeUp0L2tFUWl4WExXSUdBaFVvRnhDTis1dXNy?=
- =?utf-8?B?SnRnbzRVb1l5Yjd1SUh5dXpDU3crUVYxenUyckhRYjZOODl6K3NjQ2c1Vlk4?=
- =?utf-8?B?VVhZQzY0aG9ZditzdWFWMXFNZXJCNVJNMTVhM3R6WmpEYU84ZVpZODFuNVdE?=
- =?utf-8?B?N0s0NXh0aWYvWFkydXA2WjdXdU12dHYvbFEzSE1hRDRjbUhSTW44TjErQ2l1?=
- =?utf-8?B?Z0R0aVhQaEdnK0lVQ0R5VFFETSthY1VQTFpOODN4V3A4bFRoZzkxcll0TUZN?=
- =?utf-8?B?MXpZZ3F1ZzAxWittWGZXeTNnaEIxRTk0VS9iZGNqaTVETUVPY3YzWW15dmtP?=
- =?utf-8?B?d3ZXVXdPdm9BOUFDL3pWU244dWpuQXNpY2thRVMydTNRMjh4R2hIY0hvS2FB?=
- =?utf-8?B?Z2YxOG1Nb0J4U0ZyTVJPQkRxVjhxY21zTVgvSzZVRHE0bHgyYm43dFh2ZExG?=
- =?utf-8?B?Qlo3bUkwYmlqbEJicGtUelBUMTFOUjBWOFlFUElueVJYWTJybWFqQWRtK2pH?=
- =?utf-8?B?em1hZEZDSFZuT2VZU0lRdkluOW5BVEEzQlNMT3BkYk1rZGlpT3JnUWcxS21H?=
- =?utf-8?B?VEx4cElUZjE2d3hNUXNkYmRCNUhwK2dJNnNwbWkxT29DNlZyV1NRdE4vcGgw?=
- =?utf-8?B?NXpSOWNoQTJGMjRpRS9yN1lMdHF5UjNQbDhZVzV3SzBXVTlJRmNNVGxZbE5K?=
- =?utf-8?B?cEM4WGZXZGY3U0FOMHhOOXdKRHliS1IyTWJaYTdZd1N2TWNmMkZ6blBPcytu?=
- =?utf-8?B?azl5WlZBb2Z6eG9icmFqUlUybzBZbE5WQ0V4NXdlUkExaTU2NXRFOGFFMVlv?=
- =?utf-8?B?MXEwL1dEcUI3cEwzTmw4QlZWeFE5eE1QTGNpSW9TVlJzSWs2OWNySFY1MnpU?=
- =?utf-8?B?NXhzTWtGSm1WTnpDSWkvM0VXY3hqN1RPaWpQdWQ1OXNHUnExbjFnNGxRaktN?=
- =?utf-8?B?SGpHQkdZY25DR0lKR3U5QVF0RGJ2WXhsVmtyOWYydlBaVExLR2FWVkNYUmNH?=
- =?utf-8?B?VDM1NnRZR2dFVEhzZUtJRjZONk96Q1lZM3hxUk5Ba0FTYkFVOW96emxIV1E2?=
- =?utf-8?B?a0tpdDdBMldrY1pHK3dYdTdpaHhnYmVmQ00ybjhPVXMwWDhGSTRKdkY2R2k1?=
- =?utf-8?B?R3FsemJOVzIzTU12QzQyOVp0RWk3WSs0Q2JWU3lnZVZsQk12eTZoUTBybUpo?=
- =?utf-8?B?ZG95VlBFS1Bna2pSVE9IS2l3T1YzVlJZWW0rTWJiR1BENHV2UXB1L2h0QmVn?=
- =?utf-8?B?cnpyOUNZVnUvSXdvZkxpWldYVGlvUVM1Tnk5cWhsaWxGR3FXRk91NVN4QjFB?=
- =?utf-8?B?MTd5eXcxWkdDRVhRMHVFeG1SY3k4T1d4N2lnTnFiUnBYQmx4a1F6MEZjZDd6?=
- =?utf-8?B?bXR6RERUVUhIYkc1K1pnOVZaRTlqcXA0c3k3TklnVzczMndvVEg4Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 962ce0e8-cd1a-400e-47af-08dee0d74d81
-X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXhzc2tFSHlhbmsxeVFnV1hvaDdBbTdlQUZzaFdQTnJZT2JacVRlbFk2cE5J?=
+ =?utf-8?B?eUVCdXNReG1hRVVBOGI1RFR0dy9NTFpqQ2xMNkYwUVR4MTEzOGQxcmZsODRE?=
+ =?utf-8?B?Qnh0SEU3SDZFNjU4aVBQMWR0VWNBUkM1dldBZHJ3c1JpQzhqcnhlZUg4TUhM?=
+ =?utf-8?B?SkRmeW0wZThRcnNzanBmMDlSOThVRTNSSENJUHo5elk2U0VMTFNYN3lLRVRC?=
+ =?utf-8?B?VURpa2x2RWFCTmozWEMvMFU1MGJMV0NveUNTeVI5QWxRVTZENU1MQkJDRFdT?=
+ =?utf-8?B?WkhSS3YxczBwNm5IOWppU2VsQTg0VUw1M0dLODZhQlNiRDBHRVlEMXNZWm80?=
+ =?utf-8?B?dmtteHVmVHVCSGduMlMydld2ZGhGT1pQcTg1N2Zuek14VTZram5lTGhhZWJW?=
+ =?utf-8?B?SVUrOGFISjZ6NVNlMjltd2ttVHQvYTZqRFdkcjdoRFY3b1NoMGVHbGdHRDBw?=
+ =?utf-8?B?K2p2c3lHNDVCQTZPU3h5K3EyZlZOYUdsUklBWEYzYzdxd2h5WGVpSHp5VWoy?=
+ =?utf-8?B?MGdEV01ydDY4UnVTOTYreUl4N3lvQVo4VzB4VGJVeS82K2k0Njk1b2JsNU03?=
+ =?utf-8?B?SVZvRUVPZjJvUVlPYXZCR1B4UFIwc25kaXhpL2N3SUdxaGlFVVQ2azlodXhJ?=
+ =?utf-8?B?YkFTaWdHWnNFSE8vYlZvSGNzMTlkRnF1NWJ6Qy82ai9XQzdDSzJ0VUplMmt3?=
+ =?utf-8?B?NjdWaXhmbEhHeXZQM0huOWpJTVc5RGh0Nk03d3F5US90R3V2WFlJRXdMRW05?=
+ =?utf-8?B?OFRDemJ2QUZtOG1kbDVHNGZwd3owczgzTXQxWUhYLzhFZk9xY1JWeXAwOEFU?=
+ =?utf-8?B?RVp1cEdpMXhIYVUxLzFSaTd0Q0xvTkpzV2hKWDhYdHBvSTJFNFRBZnd3cytB?=
+ =?utf-8?B?TjNDZkpQOFc1a3FxZzE0YllvQVBDRHNyWGJHQWlES3ZtTVFIaURlQzJIUFh5?=
+ =?utf-8?B?eGg0a2hLQmJ2RE9mMjFlNGdablYwK3diRTc1aDVMYWMvU2ZyekQzNlVCUklk?=
+ =?utf-8?B?d2c1YzQ5UHR4YW5vQ3VralMrTzI3VjNFUnV2dVNoblNZMWw5K0JoL2ZqNHow?=
+ =?utf-8?B?Z09OTHJTbjdkbDBmOFRoQXJlcitjSzRNR1U4NFF6b1FBZlJCS2hYSW9zZTVF?=
+ =?utf-8?B?blp5dUVZRFZITE5pelh5SktTRU5mbzdOWHhjZTNnNGdiU0pZdmZvWktwOTVo?=
+ =?utf-8?B?Uml2dWtkTzNNS256ZnprbHdreFdYdlNCUnF0V3IwMkFJT21TUUkwdDd0dzdV?=
+ =?utf-8?B?Z3hKbTRZYVRwSzg2N2xHM3hjdUVTRHhOSGdpaWlhRE05bGZLOEdqdkE2dWov?=
+ =?utf-8?B?Umx0MjdDMmZWc0VKZVhCeHh4OGpmSWFKYW1nbDBQcklpblMzWTMrVGpSN1FF?=
+ =?utf-8?B?aFl6ZUxiSjRsVm5vdG90MDlhQTg0bk80QjZtOHJHV3BFK296OTJCNTFEbHJz?=
+ =?utf-8?B?MkZnMTFtTDRpWkZhV2c0ODltOTQyL2Fud0tpVWIzeXNJTTdPRWRVUWRROUUz?=
+ =?utf-8?B?c0xPYzVnL2hHWFlGeFNIdExhbkZpUWx2OUZ5TGJZTDZ1ejFCdG1qYmhrSi9Z?=
+ =?utf-8?B?OEYzSnRmZjU4ZG4wRlg0YmNiOUZWQW1MNWRidE0ydVk4VkhRM2R4enlrYWZw?=
+ =?utf-8?B?MHFRSVV2UXNtVzBuSmVNRC9BV0VYeVNwVnEzYnFwYUFtL0l2UU5YUHRSYm8x?=
+ =?utf-8?B?RVduekVDSHA1SCt4ZFBHSEhvK1J6U2ZmdHhzUjJSd1JtVkhqTm9GMk9JRzlu?=
+ =?utf-8?B?MW1DZExPMWxLSHlWYlFhUjU0eFNtRHFUWS9BbXB5MEF0V1IyL0FsTVdhYjdG?=
+ =?utf-8?B?dmhxK2M1QnBWTHBsdXZ1OTB2SHlweXZOZVZwZHphL1IrcmxPaEpqZi9QNFpY?=
+ =?utf-8?B?elZYbk9mVzlrVVk0TDF0U3NSNkQ4R0FldjY3QUl2SWh2Q1crTzhzRjN4WG9W?=
+ =?utf-8?B?dy9FL2VtcURPcGVvdFNKMkJEUkRmTEdnSUxkTVljZWpHalVEcXNXWDF2MzAv?=
+ =?utf-8?B?Sjk1ck5VUHhNT2hPUC9PN2NPN0kxUkI0TE5rcGxweVNLN29QSGx3LzgxdVNF?=
+ =?utf-8?B?TGFjT2l3c3NqVk4vSFF0NGVMWUdvZFVDSGxaQ2VPbzdkY0tGQy9uUko0Q0lH?=
+ =?utf-8?B?NmdHSHVvVWlEb2RkZng3VHM4V1VaMDJtWWlOWmE2c0czNnNNS1hYdEZMaDdR?=
+ =?utf-8?B?VDdxaFF5eTdjRjFzSEFVTVRobDdFTFJLaTNzaVE0dWFYT2Z6Q1ZEV0FMVG5y?=
+ =?utf-8?B?SEkrNkI0L2Fyb3FhV3BBUFpOSUp3M2owdmJ2d3BqbHF0dEdMay9ZK212YUVM?=
+ =?utf-8?Q?FA5FZRpOSujLenpW48?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7cb5539-8809-4abf-bb6c-08dee0d75c27
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 12:07:25.7333 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 12:07:50.3634 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l9vU4FMqa6vZWMbev4hqWyBPSLty0QuHXD/Lc1QATdjQDB2VLyVSZMxxoLXCyPy1JR8bTfRv3mapYfUwTDPPbg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB6995
+X-MS-Exchange-CrossTenant-UserPrincipalName: LtIYUtoMH0YLJfdk0IY7+WHJ15OjvCEuTREO7C8lsGnzpJpf3xg8LE+5z874yiiS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFCD5E2E1DE
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,21 +140,259 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jul 13, 2026 at 7:45 AM BST, Alvin Sun wrote:
-> Replace the `THIS_MODULE` static reference in the `configfs_attrs!`
-> macro with `this_module::<LocalModule>()`, and update
-> rnull to import `LocalModule` instead of `THIS_MODULE`, consistent
-> with the move of `THIS_MODULE` into the `ModuleMetadata` trait.
->=20
-> Assisted-by: opencode:glm-5.2
-> Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
-> Acked-by: Danilo Krummrich <dakr@kernel.org>
-> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+On 7/13/26 13:57, Thomas Hellström wrote:
+> On Fri, 2026-07-10 at 20:52 +0200, Christian König wrote:
+>> Restructure the drm_exec object to work with dma_resv references
+>> instead
+>> of GEM object references.
+>>
+>> Add the new function dma_exec_lock_resv() to lock individual dma_resv
+>> objects and so allow higher level implementations to handle
+>> contention
+>> purely on dma_resv objects.
+>>
+>> WIP! Don't commit like that!
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+> 
+> Here, IMO we should move a dma-resv based implementation to dma-buf to
+> facilitate passing it also through dma_buf_map(),
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+I still don't see why that would be necessary?
 
-> ---
->  drivers/block/rnull/configfs.rs | 5 +----
->  rust/kernel/configfs.rs         | 9 ++++++---
->  2 files changed, 7 insertions(+), 7 deletions(-)
+dma_buf_map() just maps the current location of the buffer, it has no requirement to force the buffer into VRAM.
+
+At least on amdgpu we always validate buffer during dma_buf_map() with VRAM|GTT, so we never cause any eviction at all.
+ 
+> And if wanting to avoid rewriting all users of drm_exec, Make drm_exec
+> a thin wrapper on top.
+
+DMA-buf looks like the wrong place for this since it only works on exported buffers and that should be the absolute minority.
+
+We could have a dma-resv contention tracking helper, but I still don't see for what that would be good for?
+
+Regards,
+Christian.
+
+> 
+> Thanks,
+> Thomas
+> 
+> 
+> 
+>> ---
+>>  drivers/gpu/drm/drm_exec.c | 75 ++++++++++++++++++++++--------------
+>> --
+>>  drivers/gpu/drm/drm_gem.c  |  2 +
+>>  include/drm/drm_exec.h     |  9 +++--
+>>  3 files changed, 50 insertions(+), 36 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
+>> index fa923852fae45..382bf7bcd5ff3 100644
+>> --- a/drivers/gpu/drm/drm_exec.c
+>> +++ b/drivers/gpu/drm/drm_exec.c
+>> @@ -58,8 +58,11 @@ static void drm_exec_unlock_all(struct drm_exec
+>> *exec)
+>>  		drm_gem_object_put(obj);
+>>  	}
+>>  
+>> -	drm_gem_object_put(exec->prelocked);
+>> -	exec->prelocked = NULL;
+>> +	if (exec->prelocked) {
+>> +		dma_resv_unlock(exec->prelocked);
+>> +		dma_resv_put(exec->prelocked);
+>> +		exec->prelocked = NULL;
+>> +	}
+>>  }
+>>  
+>>  /**
+>> @@ -101,7 +104,7 @@ void drm_exec_fini(struct drm_exec *exec)
+>>  	drm_exec_unlock_all(exec);
+>>  	kvfree(exec->objects);
+>>  	if (exec->contended != DRM_EXEC_DUMMY) {
+>> -		drm_gem_object_put(exec->contended);
+>> +		dma_resv_put(exec->contended);
+>>  		ww_acquire_fini(&exec->ticket);
+>>  	}
+>>  }
+>> @@ -158,50 +161,41 @@ static int drm_exec_obj_locked(struct drm_exec
+>> *exec,
+>>  /* Make sure the contended object is locked first */
+>>  static int drm_exec_lock_contended(struct drm_exec *exec)
+>>  {
+>> -	struct drm_gem_object *obj = exec->contended;
+>> +	struct dma_resv *resv = exec->contended;
+>>  	int ret;
+>>  
+>> -	if (likely(!obj))
+>> +	if (likely(!resv))
+>>  		return 0;
+>>  
+>>  	/* Always cleanup the contention so that error handling can
+>> kick in */
+>>  	exec->contended = NULL;
+>>  	if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT) {
+>> -		ret = dma_resv_lock_slow_interruptible(obj->resv,
+>> -						       &exec-
+>>> ticket);
+>> +		ret = dma_resv_lock_slow_interruptible(resv, &exec-
+>>> ticket);
+>>  		if (unlikely(ret))
+>>  			goto error_dropref;
+>>  	} else {
+>> -		dma_resv_lock_slow(obj->resv, &exec->ticket);
+>> +		dma_resv_lock_slow(resv, &exec->ticket);
+>>  	}
+>>  
+>> -	ret = drm_exec_obj_locked(exec, obj);
+>> -	if (unlikely(ret))
+>> -		goto error_unlock;
+>> -
+>> -	exec->prelocked = obj;
+>> +	exec->prelocked = resv;
+>>  	return 0;
+>>  
+>> -error_unlock:
+>> -	dma_resv_unlock(obj->resv);
+>> -
+>>  error_dropref:
+>> -	drm_gem_object_put(obj);
+>> +	dma_resv_put(resv);
+>>  	return ret;
+>>  }
+>>  
+>>  /**
+>> - * drm_exec_lock_obj - lock a GEM object for use
+>> + * drm_exec_lock_resv - lock a dma_resv object
+>>   * @exec: the drm_exec object with the state
+>> - * @obj: the GEM object to lock
+>> + * @resv: the dma_resv object to lock
+>>   *
+>> - * Lock a GEM object for use and grab a reference to it.
+>> + * Lock a dma_resv object for use or grab a reference to it on
+>> contention.
+>>   *
+>>   * Returns: -EDEADLK if a contention is detected, -EALREADY when
+>> object is
+>> - * already locked (can be suppressed by setting the
+>> DRM_EXEC_IGNORE_DUPLICATES
+>> - * flag), -ENOMEM when memory allocation failed and zero for
+>> success.
+>> + * already locked, -ENOMEM when memory allocation failed and zero
+>> for success.
+>>   */
+>> -int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object
+>> *obj)
+>> +int drm_exec_lock_resv(struct drm_exec *exec, struct dma_resv *resv)
+>>  {
+>>  	int ret;
+>>  
+>> @@ -209,22 +203,39 @@ int drm_exec_lock_obj(struct drm_exec *exec,
+>> struct drm_gem_object *obj)
+>>  	if (unlikely(ret))
+>>  		return ret;
+>>  
+>> -	if (exec->prelocked == obj) {
+>> -		drm_gem_object_put(exec->prelocked);
+>> +	if (exec->prelocked == resv) {
+>> +		dma_resv_put(exec->prelocked);
+>>  		exec->prelocked = NULL;
+>>  		return 0;
+>>  	}
+>>  
+>>  	if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT)
+>> -		ret = dma_resv_lock_interruptible(obj->resv, &exec-
+>>> ticket);
+>> +		ret = dma_resv_lock_interruptible(resv, &exec-
+>>> ticket);
+>>  	else
+>> -		ret = dma_resv_lock(obj->resv, &exec->ticket);
+>> +		ret = dma_resv_lock(resv, &exec->ticket);
+>>  
+>> -	if (unlikely(ret == -EDEADLK)) {
+>> -		drm_gem_object_get(obj);
+>> -		exec->contended = obj;
+>> -		return -EDEADLK;
+>> -	}
+>> +	if (unlikely(ret == -EDEADLK))
+>> +		exec->contended = dma_resv_get(resv);
+>> +	return ret;
+>> +}
+>> +EXPORT_SYMBOL(drm_exec_lock_resv);
+>> +
+>> +/**
+>> + * drm_exec_lock_obj - lock a GEM object for use
+>> + * @exec: the drm_exec object with the state
+>> + * @obj: the GEM object to lock
+>> + *
+>> + * Lock a GEM object for use and grab a reference to it.
+>> + *
+>> + * Returns: -EDEADLK if a contention is detected, -EALREADY when
+>> object is
+>> + * already locked (can be suppressed by setting the
+>> DRM_EXEC_IGNORE_DUPLICATES
+>> + * flag), -ENOMEM when memory allocation failed and zero for
+>> success.
+>> + */
+>> +int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object
+>> *obj)
+>> +{
+>> +	int ret;
+>> +
+>> +	ret = drm_exec_lock_resv(exec, obj->resv);
+>>  
+>>  	if (unlikely(ret == -EALREADY) &&
+>>  	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
+>> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+>> index bbcbd25f014f0..f5cf9ad596a67 100644
+>> --- a/drivers/gpu/drm/drm_gem.c
+>> +++ b/drivers/gpu/drm/drm_gem.c
+>> @@ -229,6 +229,8 @@ void drm_gem_private_object_init(struct
+>> drm_device *dev,
+>>  	obj->size = size;
+>>  	mutex_init(&obj->gpuva.lock);
+>>  	dma_resv_init(&obj->_resv);
+>> +
+>> +	/* TODO: This needs to go away for drm_exec to work
+>> correctly!!! */
+>>  	if (!obj->resv)
+>>  		obj->resv = dma_resv_get(&obj->_resv);
+>>  
+>> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+>> index 8725ba92ff916..9daedb676d7b1 100644
+>> --- a/include/drm/drm_exec.h
+>> +++ b/include/drm/drm_exec.h
+>> @@ -47,14 +47,14 @@ struct drm_exec {
+>>  	struct drm_gem_object	**objects;
+>>  
+>>  	/**
+>> -	 * @contended: contended GEM object we backed off for
+>> +	 * @contended: contended dma_resv object we backed off for
+>>  	 */
+>> -	struct drm_gem_object	*contended;
+>> +	struct dma_resv		*contended;
+>>  
+>>  	/**
+>> -	 * @prelocked: already locked GEM object due to contention
+>> +	 * @prelocked: already locked dma_resv object due to
+>> contention
+>>  	 */
+>> -	struct drm_gem_object *prelocked;
+>> +	struct dma_resv		*prelocked;
+>>  };
+>>  
+>>  /**
+>> @@ -175,6 +175,7 @@ static inline struct ww_acquire_ctx
+>> *drm_exec_ticket(struct drm_exec *exec)
+>>  void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
+>>  void drm_exec_fini(struct drm_exec *exec);
+>>  bool drm_exec_cleanup(struct drm_exec *exec);
+>> +int drm_exec_lock_resv(struct drm_exec *exec, struct dma_resv
+>> *resv);
+>>  int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object
+>> *obj);
+>>  void drm_exec_unlock_obj(struct drm_exec *exec, struct
+>> drm_gem_object *obj);
+>>  int drm_exec_prepare_obj(struct drm_exec *exec, struct
+>> drm_gem_object *obj,
 
