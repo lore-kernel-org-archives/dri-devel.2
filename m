@@ -4,118 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5241EC44507
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 11:55:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8664CC44508
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 11:57:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE75710E929;
-	Mon, 13 Jul 2026 11:55:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CC6310E935;
+	Mon, 13 Jul 2026 11:57:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="C6I3aXwD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hpiGrhQT";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7A8110E929
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 11:55:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1783943713;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iNPubKjBMqN3gTmvYDkvcmawrm5Mwj72gRd4ijQR7wo=;
- b=C6I3aXwDYV+0uF/J2t852vtSbhr+xUEq2TsOT1cdAl1RI05ZO+iAWHluQz+ba8uZSwSvZa
- BuwO4LRZsIeIVKSgcZbNF24hkQxgkp3k11IlnfPT7XTovsf0EWG0ZzwpZRhosddtZECt61
- whc2pu2Jac8zpIPYK5kol+eXKfRz7Gw=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-316-e_HZoDjEObKsgTdsUXzdjQ-1; Mon,
- 13 Jul 2026 07:55:07 -0400
-X-MC-Unique: e_HZoDjEObKsgTdsUXzdjQ-1
-X-Mimecast-MFC-AGG-ID: e_HZoDjEObKsgTdsUXzdjQ_1783943689
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 26A6A1955D6B; Mon, 13 Jul 2026 11:54:49 +0000 (UTC)
-Received: from [192.168.1.153] (headnet04.pony-001.prod.iad2.dc.redhat.com
- [10.2.32.116])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 464E41800586; Mon, 13 Jul 2026 11:54:35 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Mon, 13 Jul 2026 13:53:08 +0200
-Subject: [PATCH v2 5/5] drm: release panel reference after panel bridge
- creation
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D46B10E92E;
+ Mon, 13 Jul 2026 11:57:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783943873; x=1815479873;
+ h=message-id:subject:from:to:date:in-reply-to:references:
+ content-transfer-encoding:mime-version;
+ bh=cfUXpxVp+7cu4pl6gIthdexAErydheekjCls546oHYg=;
+ b=hpiGrhQTq54RFfEIxUaCBY6mYuQZSihVUU1sA0T3vCBEYtv9LTouy52z
+ 7uCxSKCturyAe7rZ8Ubd0Kl/jL2U06PGpvTwUT3Zwx5AgwnZsIv0v2OsI
+ 3tNB5Vw7VkXeiFgX2uciKBRaTau63i6C3YuBP8p5TLPjV2JmMo+eobrsb
+ BICAoWf33/xmigPzZ1b2Lj0YM5JKd/XP0SP++TL7SMVYHO8kUDUxsbrVU
+ InXpdOP1PEWXjxsdh37+NQoTCcBodQXLtovHPxPOoUcdYoyADhY/+Wp3I
+ 3Vlj6hJKFqOtljMz5m/hrGG1ejqDxW9U5OtiGtgNCcoYkOagV78sEKRgS A==;
+X-CSE-ConnectionGUID: rxDPvbwzS32al3ZLbT54xA==
+X-CSE-MsgGUID: sl4uMp1LQq+wodt1vX3CLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88454027"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="88454027"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 04:57:52 -0700
+X-CSE-ConnectionGUID: /ixp9IyJSH2NFzO+DeuKBg==
+X-CSE-MsgGUID: lloBdu5TQF6BU8rf5JZBUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="253796075"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.245.123])
+ ([10.245.245.123])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 04:57:49 -0700
+Message-ID: <0cfc1913440ce8f19f715f5df7faa23dc1164755.camel@linux.intel.com>
+Subject: Re: [PATCH 10/12] drm/exec: add drm_exec_lock_resv function
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: christian.koenig@amd.com, dakr@kernel.org, ecourtney@nvidia.com, 
+ simona@ffwll.ch, matthew.brost@intel.com, nat@pixelcluster.dev,
+ airlied@gmail.com, 	dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 	intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, 	amd-gfx@lists.freedesktop.org
+Date: Mon, 13 Jul 2026 13:57:46 +0200
+In-Reply-To: <20260710190752.2355-11-christian.koenig@amd.com>
+References: <20260710190752.2355-1-christian.koenig@amd.com>
+ <20260710190752.2355-11-christian.koenig@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Message-Id: <20260713-drm_refcount_wiring-v2-5-d3bb61f4bd4d@redhat.com>
-References: <20260713-drm_refcount_wiring-v2-0-d3bb61f4bd4d@redhat.com>
-In-Reply-To: <20260713-drm_refcount_wiring-v2-0-d3bb61f4bd4d@redhat.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
- Linus Walleij <linusw@kernel.org>, Marek Vasut <marex@denx.de>, 
- Stefan Agner <stefan@agner.ch>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- Jyri Sarha <jyri.sarha@iki.fi>, Jingoo Han <jingoohan1@gmail.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>, 
- Paul Kocialkowski <paulk@sys-base.io>, 
- Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
- linux-samsung-soc@vger.kernel.org, linux-tegra@vger.kernel.org, 
- Albert Esteve <aesteve@redhat.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783943594; l=10544;
- i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=dzpeOF7sIt4/OTXPktgi6VTN8JiIFkFsUfT9qr3ZGsc=;
- b=GTZrudD6UEdPrnwfxKbrh6LYnSu+4moS+csq9PLxmamwmOpey3SHrVdp4Cw1NF18XT2asYUWL
- /5o3jUmUMIMBF0G2HX7WJZ5BCOeYsD6p9xLxNE+1MBRYjLSN1ZCU0L1
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: EvndBBaXBk9jY12bRAH7I0k6IhVDZ7ads1cyLVu4_p8_1783943689
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,270 +74,244 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Update a second batch of drivers calling of_drm_find_panel() or
-drm_of_find_panel_or_bridge() to release the lookup reference after
-wrapping the panel in a bridge.
+On Fri, 2026-07-10 at 20:52 +0200, Christian K=C3=B6nig wrote:
+> Restructure the drm_exec object to work with dma_resv references
+> instead
+> of GEM object references.
+>=20
+> Add the new function dma_exec_lock_resv() to lock individual dma_resv
+> objects and so allow higher level implementations to handle
+> contention
+> purely on dma_resv objects.
+>=20
+> WIP! Don't commit like that!
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-Also handle the cases where a panel is found but cannot be used,
-dropping the reference immediately in those paths.
+Here, IMO we should move a dma-resv based implementation to dma-buf to
+facilitate passing it also through dma_buf_map(),
 
-Assisted-by: Claude:claude-opus-4-6
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- drivers/gpu/drm/imx/dcss/dcss-kms.c               |  3 +++
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c         |  4 +++-
- drivers/gpu/drm/mcde/mcde_drv.c                   |  1 +
- drivers/gpu/drm/mcde/mcde_dsi.c                   |  1 +
- drivers/gpu/drm/mxsfb/mxsfb_drv.c                 |  1 +
- drivers/gpu/drm/omapdrm/dss/output.c              |  1 +
- drivers/gpu/drm/pl111/pl111_drv.c                 |  1 +
- drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c |  1 +
- drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c       |  1 +
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  1 +
- drivers/gpu/drm/rockchip/rockchip_lvds.c          |  1 +
- drivers/gpu/drm/rockchip/rockchip_rgb.c           |  1 +
- drivers/gpu/drm/stm/ltdc.c                        |  1 +
- drivers/gpu/drm/sun4i/sun4i_tcon.c                |  2 ++
- drivers/gpu/drm/tidss/tidss_kms.c                 | 16 +++++++++++-----
- drivers/gpu/drm/tve200/tve200_drv.c               |  1 +
- 16 files changed, 31 insertions(+), 6 deletions(-)
+And if wanting to avoid rewriting all users of drm_exec, Make drm_exec
+a thin wrapper on top.
 
-diff --git a/drivers/gpu/drm/imx/dcss/dcss-kms.c b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-index 50bd7f36d36dd..01e0c10b6ea1a 100644
---- a/drivers/gpu/drm/imx/dcss/dcss-kms.c
-+++ b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-@@ -77,6 +77,9 @@ static int dcss_kms_bridge_connector_init(struct dcss_kms_dev *kms)
- 	if (ret)
- 		return ret;
- 
-+	if (panel)
-+		drm_panel_put(panel);
-+
- 	if (!bridge) {
- 		dev_err(ddev->dev, "No bridge found %d.\n", ret);
- 		return -ENODEV;
-diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-index 42c86f195c66b..1887e01d29701 100644
---- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-+++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-@@ -1297,9 +1297,11 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
- 			goto err_drvdata;
- 		}
- 
--		if (panel)
-+		if (panel) {
- 			bridge = devm_drm_panel_bridge_add_typed(dev, panel,
- 								 DRM_MODE_CONNECTOR_DPI);
-+			drm_panel_put(panel);
-+		}
- 
- 		ib = drmm_encoder_alloc(drm, struct ingenic_drm_bridge, encoder,
- 					NULL, DRM_MODE_ENCODER_DPI, NULL);
-diff --git a/drivers/gpu/drm/mcde/mcde_drv.c b/drivers/gpu/drm/mcde/mcde_drv.c
-index 5f2c462bad7e1..53275b575f0cb 100644
---- a/drivers/gpu/drm/mcde/mcde_drv.c
-+++ b/drivers/gpu/drm/mcde/mcde_drv.c
-@@ -153,6 +153,7 @@ static int mcde_modeset_init(struct drm_device *drm)
- 		if (panel) {
- 			bridge = drm_panel_bridge_add_typed(panel,
- 					DRM_MODE_CONNECTOR_DPI);
-+			drm_panel_put(panel);
- 			if (IS_ERR(bridge)) {
- 				dev_err(drm->dev,
- 					"Could not connect panel bridge\n");
-diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_dsi.c
-index 47d45897ed069..d9a454f226f79 100644
---- a/drivers/gpu/drm/mcde/mcde_dsi.c
-+++ b/drivers/gpu/drm/mcde/mcde_dsi.c
-@@ -1124,6 +1124,7 @@ static int mcde_dsi_bind(struct device *dev, struct device *master,
- 	if (panel) {
- 		bridge = drm_panel_bridge_add_typed(panel,
- 						    DRM_MODE_CONNECTOR_DSI);
-+		drm_panel_put(panel);
- 		if (IS_ERR(bridge)) {
- 			dev_err(dev, "error adding panel bridge\n");
- 			return PTR_ERR(bridge);
-diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-index 0b756da2fec22..bfcdc0c237ee1 100644
---- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-+++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-@@ -128,6 +128,7 @@ static int mxsfb_attach_bridge(struct mxsfb_drm_private *mxsfb)
- 	if (panel) {
- 		bridge = devm_drm_panel_bridge_add_typed(drm->dev, panel,
- 							 DRM_MODE_CONNECTOR_DPI);
-+		drm_panel_put(panel);
- 		if (IS_ERR(bridge))
- 			return PTR_ERR(bridge);
- 	}
-diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
-index ca891aba38209..6e9bc605ee22f 100644
---- a/drivers/gpu/drm/omapdrm/dss/output.c
-+++ b/drivers/gpu/drm/omapdrm/dss/output.c
-@@ -43,6 +43,7 @@ int omapdss_device_init_output(struct omap_dss_device *out,
- 		struct drm_bridge *bridge;
- 
- 		bridge = drm_panel_bridge_add(out->panel);
-+		drm_panel_put(out->panel);
- 		if (IS_ERR(bridge)) {
- 			dev_err(out->dev,
- 				"unable to create panel bridge (%ld)\n",
-diff --git a/drivers/gpu/drm/pl111/pl111_drv.c b/drivers/gpu/drm/pl111/pl111_drv.c
-index ac7b1d12a0f59..8ec659b3c08eb 100644
---- a/drivers/gpu/drm/pl111/pl111_drv.c
-+++ b/drivers/gpu/drm/pl111/pl111_drv.c
-@@ -145,6 +145,7 @@ static int pl111_modeset_init(struct drm_device *dev)
- 	if (panel) {
- 		bridge = drm_panel_bridge_add_typed(panel,
- 						    DRM_MODE_CONNECTOR_Unknown);
-+		drm_panel_put(panel);
- 		if (IS_ERR(bridge)) {
- 			ret = PTR_ERR(bridge);
- 			goto finish;
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-index db2088529b480..d8e7e9877ba86 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-@@ -69,6 +69,7 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
- 
- 		bridge = devm_drm_panel_bridge_add_typed(rcdu->dev, panel,
- 							 DRM_MODE_CONNECTOR_DPI);
-+		drm_panel_put(panel);
- 		if (IS_ERR(bridge))
- 			return PTR_ERR(no_free_ptr(bridge));
- 
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c b/drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c
-index 154410745a74b..cc2996f044721 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c
-@@ -791,6 +791,7 @@ static int rcar_lvds_parse_dt(struct rcar_lvds *lvds)
- 	if (lvds->panel) {
- 		lvds->next_bridge = devm_drm_panel_bridge_add(lvds->dev,
- 							      lvds->panel);
-+		drm_panel_put(lvds->panel);
- 		if (IS_ERR_OR_NULL(lvds->next_bridge)) {
- 			ret = -EINVAL;
- 			goto done;
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-index f50d166b764f5..3d0999e4fcfdf 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-@@ -90,6 +90,7 @@ int rzg2l_du_encoder_init(struct rzg2l_du_device  *rcdu,
- 
- 		bridge = devm_drm_panel_bridge_add_typed(rcdu->dev, panel,
- 							 DRM_MODE_CONNECTOR_DPI);
-+		drm_panel_put(panel);
- 		if (IS_ERR(bridge))
- 			return PTR_ERR(no_free_ptr(bridge));
- 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-index 7a0c4fa29f2f0..f754445d2631b 100644
---- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-@@ -605,6 +605,7 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
- 
- 	if (lvds->panel) {
- 		lvds->bridge = drm_panel_bridge_add_typed(lvds->panel, DRM_MODE_CONNECTOR_LVDS);
-+		drm_panel_put(lvds->panel);
- 		if (IS_ERR(lvds->bridge)) {
- 			ret = PTR_ERR(lvds->bridge);
- 			goto err_free_encoder;
-diff --git a/drivers/gpu/drm/rockchip/rockchip_rgb.c b/drivers/gpu/drm/rockchip/rockchip_rgb.c
-index add3123e5ce70..ea66c70013787 100644
---- a/drivers/gpu/drm/rockchip/rockchip_rgb.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_rgb.c
-@@ -139,6 +139,7 @@ struct rockchip_rgb *rockchip_rgb_init(struct device *dev,
- 	if (panel) {
- 		bridge = drm_panel_bridge_add_typed(panel,
- 						    DRM_MODE_CONNECTOR_LVDS);
-+		drm_panel_put(panel);
- 		if (IS_ERR(bridge))
- 			return ERR_CAST(bridge);
- 	}
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index 95fcfa48d8be3..daf198edb42f5 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -1982,6 +1982,7 @@ int ltdc_load(struct drm_device *ddev)
- 
- 		if (panel) {
- 			bridge = drmm_panel_bridge_add(ddev, panel);
-+			drm_panel_put(panel);
- 			if (IS_ERR(bridge)) {
- 				drm_err(ddev, "panel-bridge endpoint %d\n", i);
- 				ret = PTR_ERR(bridge);
-diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-index 960e83c8291da..d4c1723c5e3d8 100644
---- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-@@ -1326,6 +1326,8 @@ static int sun4i_tcon_probe(struct platform_device *pdev)
- 		ret = drm_of_find_panel_or_bridge(node, 1, 0, &panel, &bridge);
- 		if (ret == -EPROBE_DEFER)
- 			return ret;
-+		if (panel)
-+			drm_panel_put(panel);
- 	}
- 
- 	return component_add(&pdev->dev, &sun4i_tcon_ops);
-diff --git a/drivers/gpu/drm/tidss/tidss_kms.c b/drivers/gpu/drm/tidss/tidss_kms.c
-index 1512ee2574b66..70c14c3be10d5 100644
---- a/drivers/gpu/drm/tidss/tidss_kms.c
-+++ b/drivers/gpu/drm/tidss/tidss_kms.c
-@@ -162,6 +162,7 @@ static int tidss_dispc_modeset_init(struct tidss_device *tidss)
- 
- 		if (panel) {
- 			u32 conn_type;
-+			int ret;
- 
- 			dev_dbg(dev, "Setting up panel for port %d\n", i);
- 
-@@ -176,7 +177,8 @@ static int tidss_dispc_modeset_init(struct tidss_device *tidss)
- 				break;
- 			default:
- 				WARN_ON(1);
--				return -EINVAL;
-+				ret = -EINVAL;
-+				goto put_panel;
- 			}
- 
- 			if (panel->connector_type != conn_type) {
-@@ -184,16 +186,20 @@ static int tidss_dispc_modeset_init(struct tidss_device *tidss)
- 					"%s: Panel %s has incompatible connector type for vp%d (%d != %d)\n",
- 					 __func__, dev_name(panel->dev), i,
- 					 panel->connector_type, conn_type);
--				return -EINVAL;
-+				ret = -EINVAL;
-+				goto put_panel;
- 			}
- 
- 			bridge = devm_drm_panel_bridge_add(dev, panel);
--			if (IS_ERR(bridge)) {
-+			ret = PTR_ERR_OR_ZERO(bridge);
-+			if (ret)
- 				dev_err(dev,
- 					"failed to set up panel bridge for port %d\n",
- 					i);
--				return PTR_ERR(bridge);
--			}
-+put_panel:
-+			drm_panel_put(panel);
-+			if (ret)
-+				return ret;
- 		}
- 
- 		pipes[num_pipes].hw_videoport = i;
-diff --git a/drivers/gpu/drm/tve200/tve200_drv.c b/drivers/gpu/drm/tve200/tve200_drv.c
-index 562f3f11812a3..f858c58ccb994 100644
---- a/drivers/gpu/drm/tve200/tve200_drv.c
-+++ b/drivers/gpu/drm/tve200/tve200_drv.c
-@@ -84,6 +84,7 @@ static int tve200_modeset_init(struct drm_device *dev)
- 	if (panel) {
- 		bridge = drm_panel_bridge_add_typed(panel,
- 						    DRM_MODE_CONNECTOR_Unknown);
-+		drm_panel_put(panel);
- 		if (IS_ERR(bridge)) {
- 			ret = PTR_ERR(bridge);
- 			goto out_bridge;
+Thanks,
+Thomas
 
--- 
-2.54.0
 
+
+> ---
+> =C2=A0drivers/gpu/drm/drm_exec.c | 75 ++++++++++++++++++++++-------------=
+-
+> --
+> =C2=A0drivers/gpu/drm/drm_gem.c=C2=A0 |=C2=A0 2 +
+> =C2=A0include/drm/drm_exec.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 9 +++--
+> =C2=A03 files changed, 50 insertions(+), 36 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
+> index fa923852fae45..382bf7bcd5ff3 100644
+> --- a/drivers/gpu/drm/drm_exec.c
+> +++ b/drivers/gpu/drm/drm_exec.c
+> @@ -58,8 +58,11 @@ static void drm_exec_unlock_all(struct drm_exec
+> *exec)
+> =C2=A0		drm_gem_object_put(obj);
+> =C2=A0	}
+> =C2=A0
+> -	drm_gem_object_put(exec->prelocked);
+> -	exec->prelocked =3D NULL;
+> +	if (exec->prelocked) {
+> +		dma_resv_unlock(exec->prelocked);
+> +		dma_resv_put(exec->prelocked);
+> +		exec->prelocked =3D NULL;
+> +	}
+> =C2=A0}
+> =C2=A0
+> =C2=A0/**
+> @@ -101,7 +104,7 @@ void drm_exec_fini(struct drm_exec *exec)
+> =C2=A0	drm_exec_unlock_all(exec);
+> =C2=A0	kvfree(exec->objects);
+> =C2=A0	if (exec->contended !=3D DRM_EXEC_DUMMY) {
+> -		drm_gem_object_put(exec->contended);
+> +		dma_resv_put(exec->contended);
+> =C2=A0		ww_acquire_fini(&exec->ticket);
+> =C2=A0	}
+> =C2=A0}
+> @@ -158,50 +161,41 @@ static int drm_exec_obj_locked(struct drm_exec
+> *exec,
+> =C2=A0/* Make sure the contended object is locked first */
+> =C2=A0static int drm_exec_lock_contended(struct drm_exec *exec)
+> =C2=A0{
+> -	struct drm_gem_object *obj =3D exec->contended;
+> +	struct dma_resv *resv =3D exec->contended;
+> =C2=A0	int ret;
+> =C2=A0
+> -	if (likely(!obj))
+> +	if (likely(!resv))
+> =C2=A0		return 0;
+> =C2=A0
+> =C2=A0	/* Always cleanup the contention so that error handling can
+> kick in */
+> =C2=A0	exec->contended =3D NULL;
+> =C2=A0	if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT) {
+> -		ret =3D dma_resv_lock_slow_interruptible(obj->resv,
+> -						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &exec-
+> >ticket);
+> +		ret =3D dma_resv_lock_slow_interruptible(resv, &exec-
+> >ticket);
+> =C2=A0		if (unlikely(ret))
+> =C2=A0			goto error_dropref;
+> =C2=A0	} else {
+> -		dma_resv_lock_slow(obj->resv, &exec->ticket);
+> +		dma_resv_lock_slow(resv, &exec->ticket);
+> =C2=A0	}
+> =C2=A0
+> -	ret =3D drm_exec_obj_locked(exec, obj);
+> -	if (unlikely(ret))
+> -		goto error_unlock;
+> -
+> -	exec->prelocked =3D obj;
+> +	exec->prelocked =3D resv;
+> =C2=A0	return 0;
+> =C2=A0
+> -error_unlock:
+> -	dma_resv_unlock(obj->resv);
+> -
+> =C2=A0error_dropref:
+> -	drm_gem_object_put(obj);
+> +	dma_resv_put(resv);
+> =C2=A0	return ret;
+> =C2=A0}
+> =C2=A0
+> =C2=A0/**
+> - * drm_exec_lock_obj - lock a GEM object for use
+> + * drm_exec_lock_resv - lock a dma_resv object
+> =C2=A0 * @exec: the drm_exec object with the state
+> - * @obj: the GEM object to lock
+> + * @resv: the dma_resv object to lock
+> =C2=A0 *
+> - * Lock a GEM object for use and grab a reference to it.
+> + * Lock a dma_resv object for use or grab a reference to it on
+> contention.
+> =C2=A0 *
+> =C2=A0 * Returns: -EDEADLK if a contention is detected, -EALREADY when
+> object is
+> - * already locked (can be suppressed by setting the
+> DRM_EXEC_IGNORE_DUPLICATES
+> - * flag), -ENOMEM when memory allocation failed and zero for
+> success.
+> + * already locked, -ENOMEM when memory allocation failed and zero
+> for success.
+> =C2=A0 */
+> -int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object
+> *obj)
+> +int drm_exec_lock_resv(struct drm_exec *exec, struct dma_resv *resv)
+> =C2=A0{
+> =C2=A0	int ret;
+> =C2=A0
+> @@ -209,22 +203,39 @@ int drm_exec_lock_obj(struct drm_exec *exec,
+> struct drm_gem_object *obj)
+> =C2=A0	if (unlikely(ret))
+> =C2=A0		return ret;
+> =C2=A0
+> -	if (exec->prelocked =3D=3D obj) {
+> -		drm_gem_object_put(exec->prelocked);
+> +	if (exec->prelocked =3D=3D resv) {
+> +		dma_resv_put(exec->prelocked);
+> =C2=A0		exec->prelocked =3D NULL;
+> =C2=A0		return 0;
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT)
+> -		ret =3D dma_resv_lock_interruptible(obj->resv, &exec-
+> >ticket);
+> +		ret =3D dma_resv_lock_interruptible(resv, &exec-
+> >ticket);
+> =C2=A0	else
+> -		ret =3D dma_resv_lock(obj->resv, &exec->ticket);
+> +		ret =3D dma_resv_lock(resv, &exec->ticket);
+> =C2=A0
+> -	if (unlikely(ret =3D=3D -EDEADLK)) {
+> -		drm_gem_object_get(obj);
+> -		exec->contended =3D obj;
+> -		return -EDEADLK;
+> -	}
+> +	if (unlikely(ret =3D=3D -EDEADLK))
+> +		exec->contended =3D dma_resv_get(resv);
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(drm_exec_lock_resv);
+> +
+> +/**
+> + * drm_exec_lock_obj - lock a GEM object for use
+> + * @exec: the drm_exec object with the state
+> + * @obj: the GEM object to lock
+> + *
+> + * Lock a GEM object for use and grab a reference to it.
+> + *
+> + * Returns: -EDEADLK if a contention is detected, -EALREADY when
+> object is
+> + * already locked (can be suppressed by setting the
+> DRM_EXEC_IGNORE_DUPLICATES
+> + * flag), -ENOMEM when memory allocation failed and zero for
+> success.
+> + */
+> +int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object
+> *obj)
+> +{
+> +	int ret;
+> +
+> +	ret =3D drm_exec_lock_resv(exec, obj->resv);
+> =C2=A0
+> =C2=A0	if (unlikely(ret =3D=3D -EALREADY) &&
+> =C2=A0	=C2=A0=C2=A0=C2=A0 exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index bbcbd25f014f0..f5cf9ad596a67 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -229,6 +229,8 @@ void drm_gem_private_object_init(struct
+> drm_device *dev,
+> =C2=A0	obj->size =3D size;
+> =C2=A0	mutex_init(&obj->gpuva.lock);
+> =C2=A0	dma_resv_init(&obj->_resv);
+> +
+> +	/* TODO: This needs to go away for drm_exec to work
+> correctly!!! */
+> =C2=A0	if (!obj->resv)
+> =C2=A0		obj->resv =3D dma_resv_get(&obj->_resv);
+> =C2=A0
+> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+> index 8725ba92ff916..9daedb676d7b1 100644
+> --- a/include/drm/drm_exec.h
+> +++ b/include/drm/drm_exec.h
+> @@ -47,14 +47,14 @@ struct drm_exec {
+> =C2=A0	struct drm_gem_object	**objects;
+> =C2=A0
+> =C2=A0	/**
+> -	 * @contended: contended GEM object we backed off for
+> +	 * @contended: contended dma_resv object we backed off for
+> =C2=A0	 */
+> -	struct drm_gem_object	*contended;
+> +	struct dma_resv		*contended;
+> =C2=A0
+> =C2=A0	/**
+> -	 * @prelocked: already locked GEM object due to contention
+> +	 * @prelocked: already locked dma_resv object due to
+> contention
+> =C2=A0	 */
+> -	struct drm_gem_object *prelocked;
+> +	struct dma_resv		*prelocked;
+> =C2=A0};
+> =C2=A0
+> =C2=A0/**
+> @@ -175,6 +175,7 @@ static inline struct ww_acquire_ctx
+> *drm_exec_ticket(struct drm_exec *exec)
+> =C2=A0void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
+> =C2=A0void drm_exec_fini(struct drm_exec *exec);
+> =C2=A0bool drm_exec_cleanup(struct drm_exec *exec);
+> +int drm_exec_lock_resv(struct drm_exec *exec, struct dma_resv
+> *resv);
+> =C2=A0int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object
+> *obj);
+> =C2=A0void drm_exec_unlock_obj(struct drm_exec *exec, struct
+> drm_gem_object *obj);
+> =C2=A0int drm_exec_prepare_obj(struct drm_exec *exec, struct
+> drm_gem_object *obj,
