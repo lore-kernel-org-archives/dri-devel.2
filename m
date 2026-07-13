@@ -4,92 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 412F0C44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 14:17:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 169FCC44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 14:20:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5104610E9D3;
-	Mon, 13 Jul 2026 14:17:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6008610E9F6;
+	Mon, 13 Jul 2026 14:20:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="glR+f9W6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TMXawPon";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F7E210E9D3
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 14:17:42 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2ccae46de39so5787555ad.3
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 07:17:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783952262; cv=none;
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
+ [209.85.215.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BB5510E9F5
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 14:20:40 +0000 (UTC)
+Received: by mail-pg1-f179.google.com with SMTP id
+ 41be03b00d2f7-ca8a3a77daaso57925a12.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 07:20:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783952440; cv=none;
  d=google.com; s=arc-20260327;
- b=Ac14DjQ6Z4/I/U4+xyujJEDftmsc2e+iJOkdqqVQ1Fxtt3lRnthFq6NIWhmZLtZiJf
- ReOrM7QSSHuNkBImN3kBb37XRtflOp9HUKkd+HW+HPk9aunZZ97yc5Tw4pjFW7BvjTls
- iBfihzcJdRtmiq4egVWeBv8udEsXSQwNv7ClE35wKDwHd1DuWRnB0aka2aLICMSpMpvG
- 5nnYDLWa3eKEChzZsDIcvxWk25HuPARA5gofb2CRmWg3FffVQMt+a81p8YAWRRUMqSqv
- IVJhG88k4y8M+8Figl4Gnvc9II/XVmx/Ar4CTFHsGB0+Jefv4f1wp3mYafqVaPY9nw2V
- Sf9A==
+ b=DLwY5HIApXyBBshyfOhSj/cLmhJ4ye+uk78ZAYUi78LhCbgIj3ECtFKcc5Xo4+x+VY
+ Vjc8gHWZPvNJH0DvOgUHQIhTC4ZZ9IgE/4cn/z/7/eAv97SIUEd1E2y8YAxfWlP5LW/Q
+ ckbzXOUynJl6tQIeUraOtlkf485Bd/NO4pMy2SulPJRajjZZh90z8fJcik/PZjbTY1Qz
+ VKSaJu+ZWQks41aBkoSKuCJOtKGOOBSYCNtMxt7RT209SlSt4jwAw1g8tyc5yMQwt8WK
+ pD5aYIjdcw/a1+DivfYBpP1okLeCHSSjf6YaHirTHxfVlnkadHRryOsdPot3vJJ6f6V2
+ 5sKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=uI8pYvQDTVFaBU/6757QQZt+Es90CqnPBzdo3TbBxgk=;
- fh=vxfRPQBnXcX1bn2taEsQeBwdlr6dLdrPrm4lN6gvZPc=;
- b=seG3Ruiz14hus1D+nde6bWLkUd5xYW2ojN3G7G7bFx0T/aqLbw7PLvbHiueIXNZ4Wx
- /VJzJzBkCFbrPJpfYTv2a8xHWAM51M4cs3Jjhs06AJC2j4ou1E6V/y1RG9Gnm9Kr5bFa
- m2c6UoKxoC4OWXBKU2tbrDDMGMtqa3H9/IHkwWLo8ZFhG0Od+iRGkX07RFrLaeZh1qy3
- k8w+2yel0Kou4+TyxTxcn5QaIOvmZzYpJh0brUiu4faK8nBo8CQcIsTFhRtDrgcOSW++
- ATwh33TqA5+0rGKfdgvAxJ3osJYwkgix8iguWV3U9KY5uq/5UTTQJ8kqab2caQxbEHPg
- S/jA==; darn=lists.freedesktop.org
+ bh=w4ixAGYQ3iLxgjQfDz+/RUCZM5NtPQu9ZWh2FbDKX/Q=;
+ fh=7uE+2qcogpUMnu0rcbkkP50nqMdmK2b8c7jEYYmtIGc=;
+ b=D5XLMM6UILVom+KsoD3xvA2ZF3majuZn1je9N5on2CymfXp5ywgG7IyeUJyWUUAuIB
+ qnPM1OfaUMSdrpy9zoYjuNAnUN90MJ/le838nAUtGiqUYB/EaUW5d8IufocxRHuGP8pU
+ N56CFg4C21Kq3Vl7JF+vwbjp4QOjgRLmiTfuKjymka0dvK+dyJk/Mw7X63ZqAJmEU5cx
+ eGp86cNgGwL6X4xGDEyXHrJt3ORQ8CDevs9X0/AYfmz/JShMOhyhYLBU7NrF7IYnVX18
+ qHxV42TJgRIgdidoiOE8gU4yh1F04/PZWCiu8hgajeZtMAfj5ChjYvxSplNuj3KFKopU
+ i7MQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783952262; x=1784557062; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783952440; x=1784557240; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=uI8pYvQDTVFaBU/6757QQZt+Es90CqnPBzdo3TbBxgk=;
- b=glR+f9W666PxY5mZ/E+9X9SJgdEC4M/MqbD9eZM7bsRZsRfQXiXm4qLcguvR/ZBNOS
- xeFLVR3v50G0HZmtVZZyulFXTOcvrh82ZCyrddQNPVT+XaU4URYpkPxPVVUr852ArTWN
- iqFof0KcbKTlV6I5KqyWvol/Vpfk/+k53AlON8103aWrDBZsRIuP4YfPCU6SjHshpLEL
- Cw9WJYdIzrJVOr2n072d777ERtSnExZYC6JFASEXXE+CckGPS83rFwodFb9BQL9XuvLu
- X7bIyJZMJGtXuC5DjTVceC4nfCPJCrV+e1EiUQ30mQE5KhVTe9nntkmasnNTaZOgnosR
- RXog==
+ bh=w4ixAGYQ3iLxgjQfDz+/RUCZM5NtPQu9ZWh2FbDKX/Q=;
+ b=TMXawPongH8NjyocgEETaeP0/j3uOyBbwHq9ZjNUBotRNVMgX55hsjo9C71wDkuvbY
+ qwDQei6pfVAnbQPAyx4Jc9gZcElA6jo347uXHdhmOxz2+2Zdfny0p7X932EMFWlIeae8
+ CXE2aHqol0bhRMXpq7b/f7i2uE1/70dfccMy0wJv8OyX0qGRW2K8SAHWZEhXiq2WNamj
+ MvAdMYVe/rF7e0YqUbOBlrrkBDHsTeuwL0pi/cvUAN4y0GMutjWs6TGRFv2r0Quvp2DZ
+ z5tpe8KckpxeiRnkXMJFBJaBz85KchB1SC0PcQMM1Rc/YSbKa5jciDalTsR9LibfNEae
+ bdmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783952262; x=1784557062;
+ d=1e100.net; s=20251104; t=1783952440; x=1784557240;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=uI8pYvQDTVFaBU/6757QQZt+Es90CqnPBzdo3TbBxgk=;
- b=LX7Ikmx7xi6+bdBBPlDSLb8iWLzZMti9cmR+K2VoD3EOpgWAjyq7iX+X0tSGNOTmf7
- apwoHc1L8tu8bHAJI8AUu7nVzp6hVFhhy8fILqsog1qzZ/nGaHPLgP9PVrLpiS2zmUjQ
- oea06CHl/ebIXNhxXI2DHAQijkLyRHXwpoERFgKpz+cElF2a+v2VLpb9BdrJqHoyDHPN
- tiS+ZyOF7nboCXI6Qu9f3MJ/U/uQeTnKagjas4RTT4IKmUm+6EbGqVKp0qkzuHMMIsmP
- pTS4XWSL3ZGzCXMa9b9gpOGmOCokuHoJBaWmbmEI2heHO4aptXjlW0qygCM7oT4eEy9L
- FJHw==
+ bh=w4ixAGYQ3iLxgjQfDz+/RUCZM5NtPQu9ZWh2FbDKX/Q=;
+ b=bVTi4TrLL0jQ1b2GttmQG9NfFTDUd6fVQrytiUlArkIpSoAHg9o9VrUzmggRly7zEd
+ PybdP8cdOggvczKFySl3leBY+63tf2QQ31nAysYevgxoA0Lh2RLCGoV7iDItRzF/cKgc
+ Xj+9ankXOFSZ6WamhzDx8H3wRlROBOXVYF/dck2aAJGvIJsH/iEobCZycCw2cRfiEDlg
+ 55tzb6P9piovrJpv4IZF4MX1UjPq4YIN6zUX9RlwtLeYl05pgvDSmbD4KDB9snpy48GK
+ LnBKsi68n0AN3/vtfWv/Timi894tPg81NfuQtgfZlCfJsU7XdPF8A9PzraudXMl8LaQ7
+ sWfQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpGtsV9BbUp06WTIIv6Qfz4xD4/qEYUiJgFkVUFTYUx403FmuADDtXyG3aE2GbOtBaKdaGWnFZEIKA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRT4mKmkEjiUiySeBGMX0gSw5mjfb6L4SJtAxrTRDXDNBqfe+8
- j+qbSslNtLOuJYvrauUio0YRG2zzbAuoljU4RMojAlPUrcn5ZOKXFdhGMm3tCYpZmzq21lUXsGZ
- ezXNTTSgJgHQqVCKKAVdQSVBt9eYKfBk=
-X-Gm-Gg: AfdE7ckyxjx8PieZNqntqK/UC/fBQmmNzhkHA2LVNNkLuKD/liEJY4j6COTHaaO36A4
- /E2/MB0ydKlLZrPH9ZZRw3WeEM/rgxtbv7mpIScnKn3zeQw/DempXimZXsUBNW2K+ZS97UTh6t7
- jgogkIRdCQZM/InzBi2aeFCv71LUOiRtOaaQOw0zmk5AIONME176cR7iodf8FJAEnq9KJvJXqrU
- nSFb9XXNBzD81CZM4Rme8aE7zdcnOZ0kEnkfczR0ElbX1GbsrjNcRj328Wf1XK5INBiIf2xDlL+
- 0f9qvK56JffaN92pKjpmN99flLRtRGm6tubP9VROIIeVK+VPqpmHx322c+q63l6LU52kHw==
-X-Received: by 2002:a17:902:fdab:b0:2cc:df15:91e2 with SMTP id
- d9443c01a7336-2ce9f1838d2mr77380885ad.7.1783952261799; Mon, 13 Jul 2026
- 07:17:41 -0700 (PDT)
+ AHgh+Ro+zGBJI7slqaaUpmmtiAXz5w7emhIhGOcbclEHJqNMQ1TB0rlSa/WUOvTJCD6+2U/RQ8kspMizcEk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx4i01Gy27+R7fTCgMBvrRvpdptmYLNLGsAxSu+q7E+21k+reTW
+ q6bGyEWpjuYUWZbyhMxeiXjBf8V2OinxoR+XB8W8NIachy9Zal0IlOD40BpzzdiG2Rh2RfHBbGq
+ J51q23DmsirVGZIu2ub4SNSKF6y6pLGg=
+X-Gm-Gg: AfdE7ckV9AiBInP0jk7Wmi8zZbT4bgh9eLSqB5mqOeZyX8sakvbsl++DG/CdOyybQNX
+ BH+EHGD6xPH/lIsgvePe+H0CR8zI7TxQwFkwGwsMBBYMIkQWhPrQebMDrss2DThVJ62y2KAf9zY
+ Xq0TS3lqQ6AIoOtvJNXozfArPrOyGaEfphkkJgHULrH9LWF/t0GuD0UnWGkEkPnfCQCqN1bZ6Fk
+ wJzBS19pP901DKgE7+0WoZ05i2XOEyKObBigEHEWw8nmXa3c6Qfd3SJP3D89PjDy3lDYwRyqFAY
+ v0Jlin/SEDmV5QG5Sj+GbevyUpIxOUG3NKOmVjZZ0OJ5pJLAJ2rt/TUcV7k=
+X-Received: by 2002:a17:903:b85:b0:2c0:db23:4a6 with SMTP id
+ d9443c01a7336-2ce9e2a0fb6mr71886975ad.1.1783952440035; Mon, 13 Jul 2026
+ 07:20:40 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAOidqQDq6khYfEjSz8=FHNBnR_nd17WYZDn7OdWOPG4BgPtTwQ@mail.gmail.com>
-In-Reply-To: <CAOidqQDq6khYfEjSz8=FHNBnR_nd17WYZDn7OdWOPG4BgPtTwQ@mail.gmail.com>
+References: <20260711032956.87948-1-venkat88@linux.ibm.com>
+In-Reply-To: <20260711032956.87948-1-venkat88@linux.ibm.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Jul 2026 10:17:30 -0400
-X-Gm-Features: AVVi8CfQIS4rEL1wc5ky61QejnpfLIm4aqhKsrQowe1QPdHtP2twCTzHwUMyN5Y
-Message-ID: <CADnq5_Oga9bvHFdYgnq47h+-xznkcOOsi5U18CCaApLg9rSu9w@mail.gmail.com>
-Subject: Re: [PATCH drm-amd] drm/amd/display: dce100: skip non-DP stream
- encoders for DP MST
-To: Andriy Korud <a.korud@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- mario.limonciello@amd.com, dri-devel@lists.freedesktop.org
+Date: Mon, 13 Jul 2026 10:20:26 -0400
+X-Gm-Features: AVVi8CcB2dqpTs105ob76x_imqEEzPY-WD1QMD_DNLZ4L-_LJeV3UARqjaSdjqw
+Message-ID: <CADnq5_Ncims12dEqPybVFS0Hgi3Aqc798nxnFQ+ygm0-om2aFQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Shorten KUnit exported symbol names
+To: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Cc: alexander.deucher@amd.com, chleroy@kernel.org, alex.hung@amd.com, 
+ maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, harry.wentland@amd.com, 
+ sunpeng.li@amd.com, christian.koenig@amd.com, siqueira@igalia.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -107,93 +109,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jul 12, 2026 at 11:39=E2=80=AFAM Andriy Korud <a.korud@gmail.com> w=
-rote:
->
-> From d37cbde6a3b3e57a5dc794514e77fc66e7fa8943 Mon Sep 17 00:00:00 2001
-> From: Andriy Korud <a.korud@gmail.com>
-> Date: Fri, 10 Jul 2026 12:36:59 +0200
-> Subject: [PATCH drm-amd] drm/amd/display: dce100: skip non-DP stream enco=
-ders
-> for DP MST
->
-> On DCE8-class ASICs (e.g. Bonaire), the resource pool contains digital
-> DIG stream encoders plus one analog DAC encoder. When assigning a stream
-> encoder for a second DisplayPort MST stream, if the preferred digital
-> encoder is already acquired, dce100_find_first_free_match_stream_enc_for_=
-link()
-> falls back to the first free pool entry. That entry may be the analog
-> encoder, whose funcs table lacks DP hooks such as dp_set_stream_attribute=
-.
-> The subsequent atomic commit then dereferences NULL function pointers in
-> link_set_dpms_on() and crashes.
->
-> Skip encoders without dp_set_stream_attribute when the stream uses a DP
-> signal (including MST). Use dc_is_dp_signal(stream->signal) for the MST
-> fallback path instead of checking only the link connector signal.
->
-> Tested on:
-> - GPU: AMD Radeon R7 260X (Bonaire / DCE8)
-> - Board: Supermicro C9X299-PG300
-> - Setup: DP MST daisy chain, hotplug second monitor or have it connected =
-on boot
-> - Kernel: 7.1.3 (issue observed since 6.19)
-> - Result: kernel oops without patch; dual monitors stable with patch
->
-> Signed-off-by: Andriy Korud <a.korud@gmail.com>
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5162
+Applied.  Thanks!
 
-I've manually fixed this up, but please use git send email in the
-future to avoid having the patch get mangled.
-
-Thanks!
-
-Alex
-
+On Sat, Jul 11, 2026 at 10:09=E2=80=AFAM Venkat Rao Bagalkote
+<venkat88@linux.ibm.com> wrote:
+>
+> The KUnit exported helpers
+>
+>   amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers()
+>   amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers()
+>
+> exceed MODULE_NAME_LEN and cause modpost to fail with:
+>
+>   ERROR: modpost: too long symbol
+>   "amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers"
+>
+> Shorten the helper names while preserving their functionality.
+>
+> Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+> Link: https://lore.kernel.org/all/fde3656e-9e22-4e4c-937f-7e8cb918da6b@li=
+nux.ibm.com/
+> Signed-off-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
 > ---
-> .../drm/amd/display/dc/resource/dce100/dce100_resource.c | 9 ++++++++-
-> 1 file changed, 8 insertions(+), 1 deletion(-)
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c  | 12 ++++++------
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h  |  4 ++--
+>  .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c   |  8 ++++----
+>  3 files changed, 12 insertions(+), 12 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resour=
-ce.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-> index b92d4f378d60..beaf2e654672 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-> @@ -29,6 +29,7 @@
-> #include "stream_encoder.h"
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index 1b564cfe2120..b58225338bc4 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -328,7 +328,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_plane_validate_dcc(str=
+uct amdgpu_device *adev,
+>  }
+>  EXPORT_IF_KUNIT(amdgpu_dm_plane_validate_dcc);
 >
-> #include "resource.h"
-> +#include "signal_types.h"
-> #include "clk_mgr.h"
-> #include "include/irq_service_interface.h"
-> #include "dio/virtual/virtual_stream_encoder.h"
-> @@ -992,6 +993,12 @@ struct stream_encoder
-> *dce100_find_first_free_match_stream_enc_for_link(
->        for (i =3D 0; i < pool->stream_enc_count; i++) {
->                if (!res_ctx->is_stream_enc_acquired[i] &&
->                                pool->stream_enc[i]) {
-> +                       /* DP/MST needs a digital encoder; skip
-> analog/no-DP encoders */
-> +                       if (dc_is_dp_signal(stream->signal) &&
-> +                           (!pool->stream_enc[i]->funcs ||
-> +
-> !pool->stream_enc[i]->funcs->dp_set_stream_attribute))
-> +                               continue;
-> +
->                        /* Store first available for MST second display
->                         * in daisy chain use case
->                         */
-> @@ -1014,7 +1021,7 @@ struct stream_encoder
-> *dce100_find_first_free_match_stream_enc_for_link(
->         * required for non DP connectors.
->         */
+> -STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx9_plane_attributes_from_mod=
+ifiers(struct amdgpu_device *adev,
+> +STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(stru=
+ct amdgpu_device *adev,
+>                                                                          =
+      const struct amdgpu_framebuffer *afb,
+>                                                                          =
+      const enum surface_pixel_format format,
+>                                                                          =
+      const enum dc_rotation_angle rotation,
+> @@ -378,9 +378,9 @@ STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx9_plane_=
+attributes_from_modifiers(s
 >
-> -       if (j >=3D 0 && link->connector_signal =3D=3D SIGNAL_TYPE_DISPLAY=
-_PORT)
-> +       if (j >=3D 0 && dc_is_dp_signal(stream->signal))
->                return pool->stream_enc[j];
+>         return ret;
+>  }
+> -EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifier=
+s);
+> +EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers);
 >
->        return NULL;
+> -STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx12_plane_attributes_from_mo=
+difiers(struct amdgpu_device *adev,
+> +STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(str=
+uct amdgpu_device *adev,
+>                                                                          =
+       const struct amdgpu_framebuffer *afb,
+>                                                                          =
+       const enum surface_pixel_format format,
+>                                                                          =
+       const enum dc_rotation_angle rotation,
+> @@ -419,7 +419,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx12_plane=
+_attributes_from_modifiers(
+>
+>         return ret;
+>  }
+> -EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifie=
+rs);
+> +EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers);
+>
+>  static void amdgpu_dm_plane_add_gfx10_1_modifiers(const struct amdgpu_de=
+vice *adev,
+>                                                   uint64_t **mods,
+> @@ -927,14 +927,14 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(st=
+ruct amdgpu_device *adev,
+>         }
+>
+>         if (adev->family =3D=3D AMDGPU_FAMILY_GC_12_0_0) {
+> -               ret =3D amdgpu_dm_plane_fill_gfx12_plane_attributes_from_=
+modifiers(adev, afb, format,
+> +               ret =3D amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(a=
+dev, afb, format,
+>                                                                          =
+        rotation, plane_size,
+>                                                                          =
+        tiling_info, dcc,
+>                                                                          =
+        address);
+>                 if (ret)
+>                         return ret;
+>         } else if (adev->family >=3D AMDGPU_FAMILY_AI) {
+> -               ret =3D amdgpu_dm_plane_fill_gfx9_plane_attributes_from_m=
+odifiers(adev, afb, format,
+> +               ret =3D amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(ad=
+ev, afb, format,
+>                                                                          =
+       rotation, plane_size,
+>                                                                          =
+       tiling_info, dcc,
+>                                                                          =
+       address);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> index 911fb2d73e22..55c33e051aee 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> @@ -92,7 +92,7 @@ int amdgpu_dm_plane_get_plane_modifiers(struct amdgpu_d=
+evice *adev,
+>  int amdgpu_dm_plane_get_plane_formats(const struct drm_plane *plane,
+>                                       const struct dc_plane_cap *plane_ca=
+p,
+>                                       uint32_t *formats, int max_formats)=
+;
+> -int amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(struct amd=
+gpu_device *adev,
+> +int amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(struct amdgpu_device =
+*adev,
+>                                                               const struc=
+t amdgpu_framebuffer *afb,
+>                                                               const enum =
+surface_pixel_format format,
+>                                                               const enum =
+dc_rotation_angle rotation,
+> @@ -100,7 +100,7 @@ int amdgpu_dm_plane_fill_gfx9_plane_attributes_from_m=
+odifiers(struct amdgpu_devi
+>                                                               struct dc_t=
+iling_info *tiling_info,
+>                                                               struct dc_p=
+lane_dcc_param *dcc,
+>                                                               struct dc_p=
+lane_address *address);
+> -int amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(struct am=
+dgpu_device *adev,
+> +int amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(struct amdgpu_device=
+ *adev,
+>                                                                const stru=
+ct amdgpu_framebuffer *afb,
+>                                                                const enum=
+ surface_pixel_format format,
+>                                                                const enum=
+ dc_rotation_angle rotation,
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_=
+test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
+> index 46c9af432e37..fc84f5a08596 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
+> @@ -579,7 +579,7 @@ static void dm_test_fill_gfx12_plane_attributes_from_=
+modifiers(struct kunit *tes
+>         plane_size.surface_size.height =3D 1080;
+>
+>         KUNIT_EXPECT_EQ(test,
+> -                       amdgpu_dm_plane_fill_gfx12_plane_attributes_from_=
+modifiers(
+> +                       amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(
+>                         adev, afb, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
+>                         ROTATION_ANGLE_0, &plane_size, &tiling_info, &dcc=
+, &address),
+>                         0);
+> @@ -623,7 +623,7 @@ static void dm_test_fill_gfx9_plane_attributes_from_m=
+odifiers(struct kunit *test
+>         afb->base.modifier =3D DRM_FORMAT_MOD_LINEAR;
+>
+>         KUNIT_EXPECT_EQ(test,
+> -                       amdgpu_dm_plane_fill_gfx9_plane_attributes_from_m=
+odifiers(
+> +                       amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(
+>                         adev, afb, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
+>                         ROTATION_ANGLE_0, &plane_size, &tiling_info, &dcc=
+, &address),
+>                         0);
+> @@ -1187,9 +1187,9 @@ static struct kunit_case amdgpu_dm_plane_test_cases=
+[] =3D {
+>         KUNIT_CASE(dm_test_get_cursor_position),
+>         /* amdgpu_dm_plane_format_mod_supported() */
+>         KUNIT_CASE(dm_test_format_mod_supported),
+> -       /* amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers() *=
+/
+> +       /* amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers() */
+>         KUNIT_CASE(dm_test_fill_gfx12_plane_attributes_from_modifiers),
+> -       /* amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers() */
+> +       /* amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers() */
+>         KUNIT_CASE(dm_test_fill_gfx9_plane_attributes_from_modifiers),
+>         /* amdgpu_dm_plane_helper_check_state() */
+>         KUNIT_CASE(dm_test_helper_check_state_viewport_reject),
 > --
-> 2.55.0
+> 2.45.2
+>
