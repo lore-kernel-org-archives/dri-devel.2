@@ -4,49 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43405C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 06:35:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE2F5C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 06:48:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82F5210E556;
-	Mon, 13 Jul 2026 06:35:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD04610E55C;
+	Mon, 13 Jul 2026 06:48:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mg1CT20k";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="BXVjhzeZ";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77EA810E556
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 06:35:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=aFXP8cQmdcTent4eO19k0k1vw+AqjjgOWTJfbGUYqH0=; b=mg1CT20kXxJ5gwS91MIDF1EQP6
- mNRgtU6B5c//r1L+1EpIGeI/rgWTht1vnWMWV9NGtGu0yOJCvS2f7cCFVuc4BrIsrRrPJGLnLPXRg
- jaPfcS+rrvZDy5TCruTxN0YVlHWIAO0oyiC6888/IHK/iR0paPQARAwwkcKOc4J2SwRPOjOPhQHsx
- 3NhrhIgYmGn9SDdVoh4Rlx7ZdBhGCtK9dLjEw1PTjNbeJTfiVligqL/Wi7MbrZOhSD6PRRrHQjWhf
- w2MKYzjuR158kmXt8GVq+1AgN/n99uSgr6d8mOv+Kp7zkxvp0iolw3SfQJtiTX+lUwIIbLMkfPIy0
- V3cmdxxg==;
-Received: from [159.147.19.205] (helo=[192.168.0.17])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wjAFo-00EN8A-Ck; Mon, 13 Jul 2026 08:35:00 +0200
-Message-ID: <d575adcb0a5c5eb4b4a85bea2c5a778fc8137a50.camel@igalia.com>
-Subject: Re: [PATCH v4] drm/v3d: Associate BOs with every job that accesses
- them
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
- <mwen@igalia.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-Date: Mon, 13 Jul 2026 08:34:49 +0200
-In-Reply-To: <20260710114734.2731000-1-mcanal@igalia.com>
-References: <20260710114734.2731000-1-mcanal@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBC5C10E56F
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 06:48:39 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id D2269439C1;
+ Mon, 13 Jul 2026 06:48:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 87E37C2BCFF;
+ Mon, 13 Jul 2026 06:48:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+ t=1783925318; bh=f19XCtBPrdV1fkgcubKrKRKRYVaBwil44TIB/tWiXTo=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=BXVjhzeZwahs+QSBGxRaEQberUUsAY6ye/bAc8jOFXC3o89DcjSKDgBIkWPfNZ7pp
+ sv5hzhl8mFV6uauuUaYCC2q6P4H3kqRRcJRqFvIBBscD0nXA+uSPuChCb6iuc7emOy
+ 7ZqNjfLuQzA1MFpF8upjxidZkyRzz543EnFfeEBg=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 6DDD2C44508;
+ Mon, 13 Jul 2026 06:48:38 +0000 (UTC)
+From: Alvin Sun <alvin.sun@linux.dev>
+Date: Mon, 13 Jul 2026 14:45:24 +0800
+Subject: [PATCH v8 03/10] rust: doctest: add LocalModule fallback for
+ #[vtable] ThisModule
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260713-fix-fops-owner-v8-3-2495cfa82d47@linux.dev>
+References: <20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev>
+In-Reply-To: <20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, 
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+ Igor Korotin <igor.korotin@linux.dev>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783925315; l=1329;
+ i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
+ bh=f19XCtBPrdV1fkgcubKrKRKRYVaBwil44TIB/tWiXTo=;
+ b=pARwJxVcVRoXymIcGQkDnow+q6ikOGmiQ4rE0dnkq/TcJlojyMxZzqzh1CwphkdeHA11KajRg
+ nJIHFGtIelqCc4wXIGt+qScHDx9PAjITpWZcK9AYEYxozWl5BQSqsZV
+X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
+ auth_id=684
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,26 +94,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Looks good to me:
+Add a `LocalModule` struct with a null-pointer `ModuleMetadata` impl
+in the doctest harness, so that `crate::LocalModule` (auto-inserted
+by `#[vtable]`) resolves correctly when there is no `module!` macro.
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+Assisted-by: opencode:glm-5.2
+Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Acked-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+---
+ scripts/rustdoc_test_gen.rs | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-A small question below:
+diff --git a/scripts/rustdoc_test_gen.rs b/scripts/rustdoc_test_gen.rs
+index ee76e96b41eea..198af4e446c8c 100644
+--- a/scripts/rustdoc_test_gen.rs
++++ b/scripts/rustdoc_test_gen.rs
+@@ -239,6 +239,22 @@ macro_rules! assert_eq {{
+ 
+ const __LOG_PREFIX: &[u8] = b"rust_doctests_kernel\0";
+ 
++/// Dummy module type for doctest context.
++struct LocalModule;
++
++use kernel::{{
++    str::CStr,
++    ModuleMetadata,
++    ThisModule, //
++}};
++use core::ptr::null_mut;
++
++impl ModuleMetadata for LocalModule {{
++    const NAME: &'static CStr = c"rust_doctests_kernel";
++    // SAFETY: `try_module_get`/`module_put` handle null module pointers gracefully.
++    const THIS_MODULE: ThisModule = unsafe {{ ThisModule::from_ptr(null_mut()) }};
++}}
++
+ {rust_tests}
+ "#
+     )
 
-El vie, 10-07-2026 a las 08:43 -0300, Ma=C3=ADra Canal escribi=C3=B3:
->=20
-(...)
+-- 
+2.43.0
 
-> +/**
-> + * v3d_job_reference_bos() - Share another job's BOs with @dst
-> + * @dst: job that acquires references to the BOs
-> + * @src: job whose already-resolved BO list is shared
-> + *
-> + * For submissions with multiple jobs that use the same BOs, a
-> trailing job
-> + * shouldn't look the handles up again, as it could cause
-> inconsistencies.
 
-What kind of inconsistencies?
-
-Iago
