@@ -4,119 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 201CAC44506
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 242C5C44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21EB310E820;
-	Mon, 13 Jul 2026 07:11:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 391CE10E829;
+	Mon, 13 Jul 2026 07:11:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jgpXcvfv";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="WBV7jahz";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17A7710E08B;
- Sat, 11 Jul 2026 18:48:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 49C4360052;
- Sat, 11 Jul 2026 18:48:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94E9F1F00A3A;
- Sat, 11 Jul 2026 18:47:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783795689;
- bh=QPt/8l9E60JoRhMjGZtDOkVB0VSnW+l2hm5OFyFrrO0=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=jgpXcvfv3gVBn7IsGBF1ebSBCDETWMhhmUgGYFu1KJSh6jDQWPcTX0Vq7whuKCVn4
- rBhFdMRmgxmdR8P0PcWxbkTlO8COzjvSFflXXXwYeV1HcoXi8sN68u8NJ26w+IOyUw
- R0sApERkImbfGC1PQUNQIDENSFzQep8HDEipIa0GQAQDHYmD1VBxVxmWBk3vGxNW/K
- 4N9W61bIOsobxULyDZZV6QFTrlSEId1V48hblg2M8NWfCHnUNfV+Pr7EKw+8P7wBkV
- cuWci1FXthx0PZWUsCVBzadkDWBmiusvn/RlVjMBQh/ePtU/5mvkHHdKyTyd9zk3sK
- /EpfagqzUOOIA==
-From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Sat, 11 Jul 2026 19:45:04 +0100
-Subject: [PATCH v2 07/13] mm/vma: rename vma_get_page_prot to
- vma_flags_to_page_prot
+X-Greylist: delayed 378 seconds by postgrey-1.36 at gabe;
+ Mon, 13 Jul 2026 05:52:57 UTC
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.64.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03B1E10E562
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 05:52:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+ s=onoh2408; t=1783921971;
+ bh=xsMiDfHY3No78dLfmPMb1cw+NhSYORJVBK/d0sBYa00=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=WBV7jahzjBx4/oZXXSB+ZExi6pl8j/sTGt7Wvf5fshgJtuk3odXx6Ky3HyBbzKGNA
+ jjlXqv/5Xb9sep1s1k+VErutq/7kEVDqjG2da39NT6re7cD3vxXDt8dWL5JM/qXsWV
+ ErX7ORcFPKrQmH8ZVWsKqvbPZP2VyjqASJhEoxeQ=
+X-QQ-mid: esmtpgz15t1783921433tee904caf
+X-QQ-Originating-IP: KGIqFQ6ZwelBHVBQsdz3AWi16EJ0V4fs0KzB/tMla+U=
+Received: from PEN202512010004 ( [113.57.152.160])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Mon, 13 Jul 2026 13:43:51 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 2535388820443823587
+EX-QQ-RecipientCnt: 9
+From: raoxu <raoxu@uniontech.com>
+To: srini@kernel.org
+Cc: amahesh@qti.qualcomm.com, arnd@arndb.de, gregkh@linuxfoundation.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, raoxu@uniontech.com, stable@vger.kernel.org
+Subject: [PATCH] misc: fastrpc: drop channel context ref on failed open
+Date: Mon, 13 Jul 2026 13:43:50 +0800
+Message-ID: <DD9C99F155919095+20260713054350.3170620-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260711-b4-vma-flags-mm-v2-7-0fa2357d5431@kernel.org>
-References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
-In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, Zi Yan <ziy@nvidia.com>, 
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Lucas Stach <l.stach@pengutronix.de>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
- Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev, 
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
- linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2845; i=ljs@kernel.org;
- h=from:subject:message-id; bh=Soud7SJAfopgWlkROt1dYPu535d7z0wbh0cd1bt/8n8=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+i1r+Lfnqbc90vrVGDSl+P4cT/kJqy/bTGI35c5dL
- sXF8uhaRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACaSn8zwP+Tvx29OMZ4Olxy3
- dh5LDd7V18X908Jec02jyvrfMTdLNRj+cLwPSWPNn3D00+v715gv/5eulHkbvKPiskGWQoG+s6U
- EAwA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NMMSTmykDl9bgEGgFJOxAt4Kbkvw2ZUq1E1Wkn+adv2mtjA8zWOfWcUH
+ lSNyKF5UafBfrMamnG9iErGLVR/LDAqA5M9hO7wn5dG+3l2Or54Ojv00KeTZrGUS5Fo1Si6
+ Z17NIJrnp27sdzUFUtySMM8u9xg2SqlQ7ierndn5nsyV2+fAr/5oO/pH7NhUDL+cMmme87U
+ +PSvdkXnK5SC6Nbzl4uin2VLvFT8ELDkTNNam0cWOHml547O3OzeBFDIZ6t7v72dK/Wr2vL
+ AUQMuPHFWSjGsxnDQW5NeIxG23UpqsHx1wZhixFSvTD5LPRQuKrr8x3sf7nWPoBz7dSG14N
+ N+A4XH+Nm6u8HDbSo/WviHKTYscGlYffd2j1A4oLDPkhEfIogscqIhOeICSqTwStVpSotag
+ ATPf0RJh0k+zm/lxsz2pzHsrkx3pHG/mZlzEOkkGPgFjAyrx/Ei5zh/7WQEpdKlFs9UCXtC
+ /P1OYMMYm9p0HKUPpldkvO0Q5h14xGVJ0n5aE2AbLPAGQ+83L1NlgbWcX0ZQmlAXfM4Lz5M
+ f7g1zux9zHjn8xFGgxFwS49NQURCnc+NLjCimzNxMnOt71NYpwxA9C5wNjpB1InI0Fk5qY2
+ ZK/ngTRxXvpvC624U+t/eeXR2lX1WqbE8Sv3rT1J4heYQZrYay6ML3gooMyDPNPPNy/gTLV
+ 00TA0TSS/4OTFQYGU5DsiVyWSNS7K/FFuFcajdam3MRzwHQi8Wv6JFD89AV2D22GMHb4gop
+ LzNssl8C5sesR1XHWwUkbfkdFFvTLdVS46uMq1RL4mY6bE42jZ+FPmLQAZChL20B9DOhDmm
+ Ng0vTuqsiv7QQsqvkxsvMQUPB5F0p3KTtI8Qu6ATkd/hOQK8YECB69tWg45AmczHxId1d2m
+ SdXC04MV++gHjKYe90Bc9wIs6ritthT7QBLLQkSYMOBpcVgrTc85XTsmO/qShKME9oiyNCj
+ y1GQdd+dBCxbEzJo0Lm11F/Bq9E9DYE6IJnKjgYEr+Mc0rR3brveiXOyYIp1HRmJmfktt/H
+ bqTBbr4Smyr9s15WTkVkUSeKRD3oLjBj4AAJVcA5iYIZ9HaM1Bp7vsT8Yix1YM6efTPy6VO
+ A==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:11:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -133,86 +81,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Having vma_get_page_prot() refer to VMA flags and vma_set_page_prot() refer
-to a VMA is confusing.
+From: Xu Rao <raoxu@uniontech.com>
 
-Rename vma_get_page_prot() to vma_flags_to_page_prot() to resolve this
-confusion.
+fastrpc_device_open() takes a reference on the channel context before it
+allocates a session.  On a successful open, that reference is tied to the
+fastrpc_user object and is released from fastrpc_user_free(), which is
+reached through fastrpc_device_release().
 
-No functional change intended.
+If fastrpc_session_alloc() fails because no valid session is available,
+open returns -EBUSY before the user refcount is initialized and before
+release can run.  The channel-context reference taken earlier in open is
+therefore left behind.  Repeated opens while the session pool is
+exhausted can permanently pin the channel context and prevent the rpmsg
+remove path from freeing it.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+Drop the channel-context reference on this failed-open path before
+freeing the partially initialized fastrpc_user.
+
+Fixes: 278d56f970ae ("misc: fastrpc: Reference count channel context")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
 ---
- include/linux/mm.h              | 4 ++--
- mm/vma.c                        | 2 +-
- mm/vma.h                        | 2 +-
- tools/testing/vma/include/dup.h | 2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/misc/fastrpc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 5b3825fddf58..b8fe40f89d87 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4603,7 +4603,7 @@ static inline bool range_in_vma_desc(const struct vm_area_desc *desc,
- #ifdef CONFIG_MMU
- pgprot_t vm_get_page_prot(vm_flags_t vm_flags);
- 
--static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
-+static inline pgprot_t vma_flags_to_page_prot(vma_flags_t vma_flags)
- {
- 	const vm_flags_t vm_flags = vma_flags_to_legacy(vma_flags);
- 
-@@ -4616,7 +4616,7 @@ static inline pgprot_t vm_get_page_prot(vm_flags_t vm_flags)
- {
- 	return __pgprot(0);
- }
--static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
-+static inline pgprot_t vma_flags_to_page_prot(vma_flags_t vma_flags)
- {
- 	return __pgprot(0);
- }
-diff --git a/mm/vma.c b/mm/vma.c
-index a74a0e467c63..38481aca7321 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -56,7 +56,7 @@ struct mmap_state {
- 		.pglen = PHYS_PFN(len_),				\
- 		.vma_flags = vma_flags_,				\
- 		.file = file_,						\
--		.page_prot = vma_get_page_prot(vma_flags_),		\
-+		.page_prot = vma_flags_to_page_prot(vma_flags_),	\
- 	}
- 
- #define VMG_MMAP_STATE(name, map_, vma_)				\
-diff --git a/mm/vma.h b/mm/vma.h
-index 8ca6e7e8ae28..0bc7d521e976 100644
---- a/mm/vma.h
-+++ b/mm/vma.h
-@@ -543,7 +543,7 @@ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma
- #ifdef CONFIG_MMU
- static inline pgprot_t vma_pgprot_modify(pgprot_t oldprot, vma_flags_t vma_flags)
- {
--	const pgprot_t prot = vma_get_page_prot(vma_flags);
-+	const pgprot_t prot = vma_flags_to_page_prot(vma_flags);
- 
- 	return pgprot_modify(oldprot, prot);
- }
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 24955a1e318a..8621a7ae8980 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -1545,7 +1545,7 @@ static inline int get_sysctl_max_map_count(void)
- #define pgtable_supports_soft_dirty()	IS_ENABLED(CONFIG_MEM_SOFT_DIRTY)
- #endif
- 
--static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
-+static inline pgprot_t vma_flags_to_page_prot(vma_flags_t vma_flags)
- {
- 	const vm_flags_t vm_flags = vma_flags_to_legacy(vma_flags);
- 
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index f3a49384586d..907a87d7ca56 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -1671,6 +1671,7 @@ static int fastrpc_device_open(struct inode *inode, struct file *filp)
+ 	fl->sctx = fastrpc_session_alloc(fl);
+ 	if (!fl->sctx) {
+ 		dev_err(&cctx->rpdev->dev, "No session available\n");
++		fastrpc_channel_ctx_put(cctx);
+ 		mutex_destroy(&fl->mutex);
+ 		kfree(fl);
 
--- 
-2.55.0
+--
+2.50.1
 
