@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43E55C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:36:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F3D2C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:38:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A374710E974;
-	Mon, 13 Jul 2026 12:36:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A902510E5B9;
+	Mon, 13 Jul 2026 12:38:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bl/X/ES9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fpmLs3+q";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B539410E5B9
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:35:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8D0B10E5B9
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:38:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 69FD843220;
- Mon, 13 Jul 2026 12:35:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CB271F000E9;
- Mon, 13 Jul 2026 12:35:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9D46C41B15;
+ Mon, 13 Jul 2026 12:38:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F7BE1F00A3A;
+ Mon, 13 Jul 2026 12:38:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783946159;
- bh=0zQftI8gXC+XES+wMoyUMPji3VVBgZY1MuF+lSepCsQ=;
+ s=k20260515; t=1783946283;
+ bh=cA1yaA6sEa8uFS7G+v67FepW2YBQwUnLfdEu2CTbOIU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bl/X/ES9mKCRcfWnYjfivGM3DoI84jXSk8+gCDlk+lOzXlfVlH4qgKCh1w+0oZmlN
- /1KaLH09nws18FS1yV6Gfsv3hx15aTV9eLm+w5gaHw5VxQqihWL7ImPJoVtBFojhMu
- dZRcmn8HFbJHYrtTUKAOdUBJ842/Li9EbYC0+DxxcZlUM3D2XEKFcca9ZGKPGl+Zpc
- Tpo/wQueYgBo55bHxFR/UAQBBzhqZgnAjxmdGm+4ltTaO3hHfN3Rd/BQwrWmiXn/cN
- klTcEPDbbltMRc0FEq2JLRR2GLKCC/pn472+WvTEODjQj2WUI6AJ/GN5ZB/gEBdI1x
- WjIsS1UumGILw==
+ b=fpmLs3+qtmsd3LF4ThqmYXsxHX6+DsU1U/CZjEbX5tXap50NBDxpWyeF49ORsTJsk
+ ROyRf6ovNpV+I9LiIJTAvKzci8S18hP32n9q1fH1Jvk39ls/HSKX8dPJoh4KGuZphU
+ Vbq2DfsXkME4Ea4AWzpJODMbzuq9KYY/knlWmImBK7L7icYw1j4slg4WmMUlQ0xDTr
+ 4Hd3Syhbg1eC3ywpQ/1UHPDLu+fm2/bpzNbo2t60RdJVg/klJKmXhnT18tKqZOijIw
+ CoQTXtq3uahtHNSaw8PuDFi/OpzkqP3/LNrAoEVDBJKejE8GWt10/YqAqvyteheBXR
+ DvZGCFTH49njQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 01/19] media: meson: vdec: Fix m2m device lifetime
- and cleanup path
+Subject: Re: [PATCH v7 02/19] media: meson: vdec: Fix STREAMON / STREAMOFF
+ race conditions and session teardown
 To: "Anand Moon" <linux.amoon@gmail.com>
-Cc: neil.armstrong@linaro.org, dri-devel@lists.freedesktop.org,
- linux-amlogic@lists.infradead.org
-In-Reply-To: <20260713120840.17427-2-linux.amoon@gmail.com>
+Cc: linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260713120840.17427-3-linux.amoon@gmail.com>
 References: <20260713120840.17427-1-linux.amoon@gmail.com>
- <20260713120840.17427-2-linux.amoon@gmail.com>
+ <20260713120840.17427-3-linux.amoon@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 12:35:58 +0000
-Message-Id: <20260713123559.0CB271F000E9@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 12:38:02 +0000
+Message-Id: <20260713123803.3F7BE1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,89 +59,176 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Moving `v4l2_m2m_dev` allocation to the driver core introduces an =
-exploitable Use-After-Free (UAF) during device removal when file descriptor=
-s remain open.
+- [High] The vdec_recycle_thread is conditionally skipped from being stoppe=
+d but its resources are unconditionally freed during a partial STREAMOFF, l=
+eading to Use-After-Free and list corruption.
+- [High] Failing start_streaming with -EBUSY permanently leaks streamon fla=
+gs, causing state inconsistency and cross-session hardware corruption.
 
 Pre-existing issues:
-- [High] The `amvdec_core` structure is improperly allocated using `devm_kz=
-alloc`, leading to Use-After-Free bugs when the device is unbound.
+- [High] The return value of `kthread_run()` is not checked, leading to a k=
+ernel crash when `kthread_stop()` is called on an `ERR_PTR`.
+- [High] vdec_reset_timestamps accesses the timestamps list without holding=
+ ts_spinlock, leading to list corruption.
+- [High] Missing cancel_work_sync for esparser_queue_work causes UAF and un=
+clocked register access.
 --
 
---- Patch [1]: [PATCH v7 01/19] media: meson: vdec: Fix m2m device lifetime=
- and cleanup path ---
-commit f97dc3a43da5c78cbae7f710eb7770593a75ff3e
+--- Patch [2]: [PATCH v7 02/19] media: meson: vdec: Fix STREAMON / STREAMOF=
+F race conditions and session teardown ---
+commit c8f8b26e4a120933b5b1d329b3cc6e97ea21778d
 Author: Anand Moon <linux.amoon@gmail.com>
+Subject: media: meson: vdec: Fix STREAMON / STREAMOFF race conditions and s=
+ession teardown
 
-media: meson: vdec: Fix m2m device lifetime and cleanup path
+This commit addresses race conditions during concurrent STREAMON / STREAMOFF
+calls and dynamic resolution changes. It restructures initialization paths,
+error handling, and state tracking to prevent hardware state corruption.
 
-The vdec driver was incorrectly initializing a new v4l2_m2m device
-instance per session inside vdec_open() and releasing it in vdec_close().
-This design is faulty because the m2m device models the core hardware
-engine and must persist across multiple sessions.
-
-Closes: https://lore.kernel.org/all/20260520045905.6ACBA1F000E9@smtp.kernel=
-.org/#t
+Closes: https://lore.kernel.org/all/20260530100841.9CEBA1F00893@smtp.kernel=
+.org/
 
 > diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/me=
 dia/meson/vdec/vdec.c
-> index a039d925c0fe5..6ae3471155a87 100644
 > --- a/drivers/staging/media/meson/vdec/vdec.c
 > +++ b/drivers/staging/media/meson/vdec/vdec.c
 
 [ ... ]
 
-> @@ -1105,6 +1106,7 @@ static void vdec_remove(struct platform_device *pde=
-v)
->  	struct amvdec_core *core =3D platform_get_drvdata(pdev);
+> @@ -308,9 +303,29 @@ static int vdec_start_streaming(struct vb2_queue *q,=
+ unsigned int count)
+>  	}
 > =20
->  	video_unregister_device(core->vdev_dec);
-> +	v4l2_m2m_release(core->m2m_dev);
+>  	if (sess->status =3D=3D STATUS_RUNNING ||
+> -	    sess->status =3D=3D STATUS_NEEDS_RESUME ||
+> -	    sess->status =3D=3D STATUS_INIT)
+> +	    sess->status =3D=3D STATUS_NEEDS_RESUME)
+>  		return 0;
+> =20
+> +	/*
+> +	 * Secure the core hardware lock before checking availability
+> +	 * and updating session states to prevent STREAMON race conditions.
+> +	 */
+> +	mutex_lock(&core->lock);
+> +	if (core->cur_sess && core->cur_sess !=3D sess) {
+> +		ret =3D -EBUSY;
+> +		mutex_unlock(&core->lock);
+> +		goto err_unlock_no_hw;
+> +	}
 
 [Severity: High]
-Does releasing the m2m device here introduce a use-after-free if a file
-descriptor remains open?
+If we jump to err_unlock_no_hw here, doesn't it bypass the
+err_cleanup_session label that clears the streamon flags?
 
-If a user unbinds the driver, vdec_remove() synchronously frees core->m2m_d=
-ev.
-However, if an application still holds a file descriptor open, it will
-eventually close it, triggering vdec_close():
+If session B calls VIDIOC_STREAMON on its OUTPUT queue and hits this path,
+sess->streamon_out will remain 1.
 
-vdec_close()
-  v4l2_m2m_ctx_release(sess->m2m_ctx)
-    v4l2_m2m_cancel_job()
-      spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
+Could a subsequent VIDIOC_QBUF from session B cause vdec_vb2_buf_queue to
+schedule esparser_queue_work, potentially overwriting the active hardware
+registers of the current session?
 
-Since core->m2m_dev was already freed during unbind, could this dereference
-cause memory corruption or a crash?
+[ ... ]
+
+>  	sess->sequence_cap =3D 0;
+>  	sess->sequence_out =3D 0;
+> +
+>  	if (vdec_codec_needs_recycle(sess))
+>  		sess->recycle_thread =3D kthread_run(vdec_recycle_thread, sess,
+>  						   "vdec_recycle");
 
 [Severity: High]
-This is a pre-existing issue, but does returning from vdec_remove() without
-waiting for open file descriptors to close lead to a use-after-free of the
-core driver structure?
+This is a pre-existing issue, but does this code properly handle thread
+creation failure?
 
-The core structure and its mutex are allocated via devres (devm_kzalloc)
-during vdec_probe(). If the device is unbound, devres will automatically fr=
-ee
-the core structure as soon as vdec_remove() returns.
+If kthread_run fails due to memory constraints, it returns an ERR_PTR.
+Later in vdec_stop_streaming, this pointer is passed unconditionally to
+kthread_stop.
 
-If an ioctl is currently blocked waiting on vdev->lock (which points to
-core->lock), it will attempt to unlock a freed mutex when it resumes.
+Could this cause a kernel panic when kthread_stop attempts to dereference
+the ERR_PTR?
 
-Additionally, if the asynchronous esparser_queue_work runs after unbind, it
-will dereference the freed sess->core.
+> -	sess->status =3D STATUS_INIT;
+> -	core->cur_sess =3D sess;
+>  	schedule_work(&sess->esparser_queue_work);
+>  	return 0;
 
-Could the driver synchronize active sessions or use a different lifecycle f=
-or
-the core structure to prevent this?
+[Severity: High]
+This is a pre-existing issue, but does closing the file descriptor safely
+clean up the workqueue scheduled here?
 
->  	v4l2_device_unregister(&core->v4l2_dev);
+When the client queues a buffer and then closes the file descriptor,
+vdec_close destroys mutexes and frees the amvdec_session memory via kfree
+without cancelling the pending esparser_queue_work.
+
+When the workqueue executes vdec_esparser_queue_work, could it access the
+freed session memory and attempt to take a destroyed mutex?
+
+[ ... ]
+
+> @@ -399,30 +424,13 @@ static void vdec_stop_streaming(struct vb2_queue *q)
+
+[ ... ]
+
+> +	if (full_cleanup) {
+> +		if ((q->type !=3D V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE ||
+> +		     !sess->streamon_out) && vdec_codec_needs_recycle(sess)) {
+> +			kthread_stop(sess->recycle_thread);
+> +		}
+> +
+> +		vdec_poweroff(sess);
+
+[Severity: High]
+If a userspace client starts streaming on both queues and then calls
+VIDIOC_STREAMOFF on the CAPTURE queue, the newly added condition evaluating
+q->type !=3D V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE or !sess->streamon_out
+will evaluate to false, skipping kthread_stop.
+
+Since full_cleanup is true, the code proceeds to tear down resources via
+vdec_reset_bufs_recycle and kfree of sess->priv.
+
+Could this lead to a use-after-free or list corruption if the recycle thread
+continues executing while its backing resources are freed?
+
+> +		vdec_free_canvas(sess);
+> +
+> +		if (sess->vififo_vaddr) {
+> +			dma_free_coherent(sess->core->dev, sess->vififo_size,
+> +					  sess->vififo_vaddr, sess->vififo_paddr);
+> +			sess->vififo_vaddr =3D NULL;
+> +			sess->vififo_paddr =3D 0;
+> +		}
+> +
+> +		vdec_reset_timestamps(sess);
+
+[Severity: High]
+This is a pre-existing issue, but does vdec_reset_timestamps safely access
+the timestamps list here?
+
+The function iterates and frees elements of the sess->timestamps list
+without holding ts_spinlock.
+
+If a concurrent threaded ISR executes amvdec_dst_buf_done_idx and calls
+amvdec_remove_ts, it will acquire ts_spinlock and attempt to remove an
+element.
+
+Could this race condition lead to linked list corruption and use-after-free?
+
+> +		vdec_reset_bufs_recycle(sess);
+> +		core->cur_sess =3D NULL;
+> +
+> +		kfree(sess->priv);
+> +		sess->priv =3D NULL;
+> +	} else {
+> +		if (sess->status =3D=3D STATUS_NEEDS_RESUME)
+> +			sess->changed_format =3D 0;
+> +	}
+> +	mutex_unlock(&core->lock);
 >  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713120840.1742=
-7-1-linux.amoon@gmail.com?part=3D1
+7-1-linux.amoon@gmail.com?part=3D2
