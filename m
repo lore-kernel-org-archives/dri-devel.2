@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6468C44512
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 09:59:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 942C4C44514
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 09:59:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A485010E8C5;
-	Mon, 13 Jul 2026 09:58:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9B0B10E8CE;
+	Mon, 13 Jul 2026 09:58:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="XfI8zCM7";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MczT9WRb";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFB2310E8B8
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 09:58:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B856810E8C0
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 09:58:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783936730;
- bh=rmsWzjYu13QI4/ZdMCt2yyUfIs7DoluYPX3I9YKGZEE=;
+ s=mail; t=1783936733;
+ bh=+1IMus2mrgKgBZBYS1iIfAgpNfuoFnLk9RiPJiZi4LU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XfI8zCM7Q6TUI1e8NSj670UfZlSqE6JFEhIWAvUAyDnPKWFMbf1gBaSn5W00LYI/s
- WAaiWbGNZlJPJKm0I0ipML5mtWZ2/U7pdvZH4ejagIatKY8GlIjI31FfXnQ8kMxYce
- 7RhBKo64G40RL2kjbBoAWTr2iIHvee0sxzY0lyfFtkNX50VvLwDK4WaxvJDEaIMKkt
- Cn+LeQJ8EGvWjuPLELjkMO0bxPkaoqA6oiAWo2+wfVWZk8De5O5iEr9jXxYU4zRc35
- p5Saj/iwme1jTV54NnX/QkCUFq/Q8llUkOiO8H2XMA/NUgCW14FCuf5yp0i+VgDsQi
- /uBKy2oupcmXg==
+ b=MczT9WRbTbCsqjMp5vSHiucbPL5Cs1Rubk5Eu031T5z0ccy6b8l1601kYbIYRrd9q
+ LPOTobYg1jozA3qmf8scQORu20asJtGOBB0PGE8AnyRYI/+/hjd0Eb4fg9pS8M1RuC
+ zhTacXNx+Pz+nKjgXrmWOGb3DBL1K+ywSl2GGgr8byf/Fz5UoE+djFMwnBWBHw8wPN
+ lb8ITAcEYv/wb5YHVZumXFdwQP+JpTHi41ggaWhJAe2V1sI5EiwWz/6Ca38y4wRhbg
+ z88lqaTnhIK/9bK5MtXQ3pn34dvOI3GemA7T6nsl+5G7U/Si3j9LlwXa3XtUKLDWdN
+ MPh7yaamcHgBA==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A295A17E0E6C;
- Mon, 13 Jul 2026 11:58:49 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B5CAE17E0DD8;
+ Mon, 13 Jul 2026 11:58:52 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
@@ -41,10 +41,12 @@ Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
  jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org,
  linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
-Subject: [PATCH v2 06/10] drm/mediatek: mtk_dsi: Add support for MT8189
-Date: Mon, 13 Jul 2026 11:58:33 +0200
-Message-ID: <20260713095837.16590-7-angelogioacchino.delregno@collabora.com>
+ kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2 09/10] dt-bindings: display: mediatek: wdma: Add
+ compatibles for more SoCs
+Date: Mon, 13 Jul 2026 11:58:36 +0200
+Message-ID: <20260713095837.16590-10-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260713095837.16590-1-angelogioacchino.delregno@collabora.com>
 References: <20260713095837.16590-1-angelogioacchino.delregno@collabora.com>
@@ -65,112 +67,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for the DSI IP found in the MT8189 SoC: this one is
-similar to the IPs found in the most recent already supported SoCs
-with the only difference being that it supports a higher link rate
-of 2.5Gbps instead of 1.5Gbps.
+Multiple MediaTek SoCs have the Write DMA hardware in their Display
+Controller: add the missing compatibles for Dimensity 1200 (MT6893)
+and for Kompanio 500/520/820/1200 (MT8183/MT8186/MT8192/MT8195).
 
-To support the higher rate, add a new "max_link_rate_mbps" member
-to the mtk_dsi_driver_data, assign the correct one to all of the
-supported SoCs, other than to the newly introduced MT8189, and
-use it in the .mode_valid() callback in place of the hardcoded
-1.5Gbps value.
-
-Since .mode_valid() is supposed to run just for resolution changes
-the link rate was expressed in Mbps and gets multiplied on the fly
-to save some bits.
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_dsi.c | 26 +++++++++++++++++++++++++-
- 1 file changed, 25 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/display/mediatek/mediatek,wdma.yaml  | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 6a77ce8eea91..2df2a9d5ec03 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -235,6 +235,8 @@ struct mtk_dsi_driver_data {
- 	const u16 *reg_main;
- 	const u16 *reg_adv;
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
+index 97d052b0fb61..c3ed867d058d 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
+@@ -22,11 +22,16 @@ properties:
+   compatible:
+     oneOf:
+       - enum:
++          - mediatek,mt6893-disp-wdma
+           - mediatek,mt8173-disp-wdma
+       - items:
+           - enum:
+               - mediatek,mt6795-disp-wdma
+               - mediatek,mt8167-disp-wdma
++              - mediatek,mt8183-disp-wdma
++              - mediatek,mt8186-disp-wdma
++              - mediatek,mt8192-disp-wdma
++              - mediatek,mt8195-disp-wdma
+           - const: mediatek,mt8173-disp-wdma
  
-+	const u16 max_link_rate_mbps;
-+
- 	bool has_size_ctl;
- 	bool cmdq_long_packet_ctl;
- 	bool support_per_frame_lp;
-@@ -1070,13 +1072,20 @@ mtk_dsi_bridge_mode_valid(struct drm_bridge *bridge,
- 			  const struct drm_display_mode *mode)
- {
- 	struct mtk_dsi *dsi = bridge_to_dsi(bridge);
-+	const struct mtk_dsi_driver_data *data = dsi->driver_data;
-+	u64 wanted_link_rate, max_link_rate;
- 	int bpp;
- 
- 	bpp = mipi_dsi_pixel_format_to_bpp(dsi->format);
- 	if (bpp < 0)
- 		return MODE_ERROR;
- 
--	if (mode->clock * bpp / dsi->lanes > 1500000)
-+	wanted_link_rate = mode->clock * bpp;
-+	max_link_rate = data->max_link_rate_mbps;
-+	max_link_rate *= dsi->lanes;
-+	max_link_rate *= KILO;
-+
-+	if (wanted_link_rate > max_link_rate)
- 		return MODE_CLOCK_HIGH;
- 
- 	if (dsi->dsc) {
-@@ -1506,28 +1515,42 @@ static void mtk_dsi_remove(struct platform_device *pdev)
- static const struct mtk_dsi_driver_data mt8173_dsi_driver_data = {
- 	.reg_main = mtk_dsi_regs_main_v1,
- 	.reg_adv = mtk_dsi_regs_mt8173,
-+	.max_link_rate_mbps = 1500,
- };
- 
- static const struct mtk_dsi_driver_data mt2701_dsi_driver_data = {
- 	.reg_main = mtk_dsi_regs_main_v1,
- 	.reg_adv = mtk_dsi_regs_mt2701,
-+	.max_link_rate_mbps = 1500,
- };
- 
- static const struct mtk_dsi_driver_data mt8183_dsi_driver_data = {
- 	.reg_main = mtk_dsi_regs_main_v1,
- 	.reg_adv = mtk_dsi_regs_mt8183,
-+	.max_link_rate_mbps = 1500,
- 	.has_size_ctl = true,
- };
- 
- static const struct mtk_dsi_driver_data mt8186_dsi_driver_data = {
- 	.reg_main = mtk_dsi_regs_main_v1,
- 	.reg_adv = mtk_dsi_regs_mt8186,
-+	.max_link_rate_mbps = 1500,
- 	.has_size_ctl = true,
- };
- 
- static const struct mtk_dsi_driver_data mt8188_dsi_driver_data = {
- 	.reg_main = mtk_dsi_regs_main_v1,
- 	.reg_adv = mtk_dsi_regs_mt8186,
-+	.max_link_rate_mbps = 1500,
-+	.has_size_ctl = true,
-+	.cmdq_long_packet_ctl = true,
-+	.support_per_frame_lp = true,
-+};
-+
-+static const struct mtk_dsi_driver_data mt8189_dsi_driver_data = {
-+	.reg_main = mtk_dsi_regs_main_v1,
-+	.reg_adv = mtk_dsi_regs_mt8186,
-+	.max_link_rate_mbps = 2500,
- 	.has_size_ctl = true,
- 	.cmdq_long_packet_ctl = true,
- 	.support_per_frame_lp = true,
-@@ -1540,6 +1563,7 @@ static const struct of_device_id mtk_dsi_of_match[] = {
- 	{ .compatible = "mediatek,mt8183-dsi", .data = &mt8183_dsi_driver_data },
- 	{ .compatible = "mediatek,mt8186-dsi", .data = &mt8186_dsi_driver_data },
- 	{ .compatible = "mediatek,mt8188-dsi", .data = &mt8188_dsi_driver_data },
-+	{ .compatible = "mediatek,mt8189-dsi", .data = &mt8189_dsi_driver_data },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, mtk_dsi_of_match);
+   reg:
 -- 
 2.54.0
 
