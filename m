@@ -4,43 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A69AC44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:54:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EA48C44506
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:58:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8101F10E877;
-	Mon, 13 Jul 2026 08:54:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D66C110E87A;
+	Mon, 13 Jul 2026 08:58:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UXyMzKec";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="TOINnr5z";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B16A310E875
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:54:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 345DE600FC;
- Mon, 13 Jul 2026 08:54:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF5F81F000E9;
- Mon, 13 Jul 2026 08:54:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783932865;
- bh=Dc3ldH8WKQOjoqDRMdsgukNkoLTfPjmP/BLzsng3n/g=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UXyMzKecjIUUDT1DsQrkzf0giXJI15AD3kjCCtD4fWync4LL8FFlo6SHqeRQRhWuo
- iIDhKhCIi5XhNJvRop8uLukWykpGqyXEqC6EUfLZ1WfFy85WHBRgUV12QXLyYLBkUc
- +cHc1zfa8L7SYyJrfXKKs+EjuRC/5YIdpWQoRMBNGc4gUnpgAdEOBQxqzloFa7w7Aw
- d75VC0HBQtkfyu4nhHJWIes/n87Rya86GXGlUeiO5RDfT86ILlfFSjM2Lux7E7fJwa
- JpAEh3ZqmRb6mOU+3DUiuH3YtN1DmlcGh6LdnBPh7MgzMh4hKV3tg8Don0lTze/9Pg
- kuT+k0k4gBeCA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 1/4] drm/xe/xe_ras: Do not Review, compilation only.
-To: "Mallesh Koujalagi" <mallesh.koujalagi@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260713083939.251872-7-mallesh.koujalagi@intel.com>
-References: <20260713083939.251872-6-mallesh.koujalagi@intel.com>
- <20260713083939.251872-7-mallesh.koujalagi@intel.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54C6F10E879
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:57:52 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-47640541585so1322843f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 01:57:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783933071; cv=none;
+ d=google.com; s=arc-20260327;
+ b=kiJii1PpI8A3ykBFvl81asdpgT/8+qOQrrcigyUEL96NnGWFMFP8Lm/7hOCYsO/Tvt
+ 6KAy4xtJ+NeFcuHbzsjYh5AUP8+sWQLTq5YcRNEUDbyzTHGY7ImET1MMYNXSb9eVKjJ/
+ jzQoX5OCEBlb2924dTqDxqVsaAVmW9XTk9XJi1Aq1GtYb0gtX3jQrwdgg46haneRsIAt
+ ZTYctQkdJP9uJx0EEtw1zrC1EEZBwYo7BqP7ad1Hsn20K/rRTIgGKW53VQn9JA4QE+5q
+ zI69ezycBnvMn80+Fnzx5cBX8Tk8kXZxt5laCGTAJVqagwtHh/tTbBMsu6YtinwQMET2
+ SeRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Niw6ma3uSQo4Oag5BSyj5O/UfANxhnZNo3KLkxIFV/I=;
+ fh=v+lxHQW7V6Q6U2BF4JSzmu382kzZo8zX+RfE1NMh0JI=;
+ b=NkMzjuWuX/F0KTu/YYtrzq1W3BDBlZ0NbqhwplyiFzk1UbG+3BcQQBX5eLt/4fdQ0L
+ dBVS8Q/jh37fK37P0ArMX3uLMbYmbP/wNddyGfHKLFPCskHdqjFwRUoDe3Lp6xWeTwYs
+ mgYKwNZSWBZ5IuDbkxleql+paF7nGJqJm7MbiZ55hH8gs9LBQaSKfaEwqztoAMMIeQ0V
+ CLZYZNLduT60H38/Hvw5z+iyRFL02E3CX6BKB++MdHPR/fK58v7FCWzre2pYFAOY7N/G
+ c73BjwbCSTGHeX3VHeThNLquvJdeMWBuGURqjCV4aelP8YUqin/KToFW8tA60RWEVxWM
+ rtXg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1783933071; x=1784537871;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Niw6ma3uSQo4Oag5BSyj5O/UfANxhnZNo3KLkxIFV/I=;
+ b=TOINnr5zd8b0vJQk95EmGWhnETn4/tsceHruJUi86ZVyfSQx3kr0kHB09f+pIXpysf
+ rV5eJHeWAc6QoyhQronJicIHS9olRJS2SdyUqHtCY0oWcmgMfJGU8QCUk98YVW9+xkdP
+ vYc4oKy7nhm8qsvYdxpz+VIROPs5IMRTry45YN3sYBEPG3Q12mys6cMq42tUGjSuMmlv
+ 7KYlQp+etahnNqAiHf/Wdqm3MIasxm0M46Pw1+qB5RoC7TSUPxyo4qG9MT7kS5BtmdC6
+ gmJOCIn4Hxty1mCLxT9ztWYOZRw2eqNTkdYLsx/sopAwWj8e7wX+k+M6izjZ5XVH6HZM
+ giRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783933071; x=1784537871;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Niw6ma3uSQo4Oag5BSyj5O/UfANxhnZNo3KLkxIFV/I=;
+ b=L3p/sqIBJ+RueJk3ipupqbBCDPjP9z9+1z0GC9QBh0IUlY45go2lf2M3Fq8VYLpzj6
+ N10FAEfNPdSfroZht4T8cZ7Ay8mrebZldUJtmaDYoMPtGw9YSmsCnztfHj/1tkel9qR3
+ 9P1g0XMtHE2d7kvZQT1DePbH6gSTfBs6zBa+pZkQ/igCfrHoX0yu+WD0vCZgJzFOmACG
+ d7Wwv2D+eizXdQSDXx/gssexjrvq9j/Fh0+KOkBjpUA6YIHU+pGTWk9pKIIdjaZFCVTc
+ wYfIoyOD5MZiTjNha8/cUdUeJ2SKVJxKunN4G1WQRt7Ekh2etqcj3nMp06NUFqK5oSt5
+ qduQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp0IvQbSVqIk6tC1OngiSWnp7td8piC8OnLjeGIuMp8MgaNDpJFHz9hk0ZzRQSBflAQ/Qm+iiTv328=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxYfmrculR93/3v5jm1llZmPI0A+Y7CzT0wYSKwTuVP6cpXo3FH
+ aJKboCLsfzHBleurGp8tt+C+SL8OzR0eqEqLfkS046jZ9x/nSLnI36gHNLoVxDnJ/khYPABxCmq
+ m4E5D2YuCalWHNwYjbbHv1y0cDVAoJt3fr8PrvM1p
+X-Gm-Gg: AfdE7ckCIiTQ+LXVpZKQLD8vdhcYsmDPT6HjCbhq88/0/E3V1FyiYO+Reb0/CTGZLOK
+ 8geHs0D5uOKrwJfjK8P1rrijx4Xx8dG0FBNS3w1FpsuIb5VgZyhsPEZgs8MtosxUWTInkLtK9rC
+ 6tpFACZjfVt0QljUh7QVPkRj2E/9XXnOn1Oj0hbWhzPM601K+eVJcOL5peE4ci8xP4fgeQEiUze
+ b9POgD5omswueTpgcCYCWKOeaiLkjmZrhR4ScExhttqDHPqGNOrC5l/2XAK6awMNJq6NAx7t9QT
+ 8D4OCRXzM7Q1173660/mCG15HYGLyOEN38J5RPZPGGy1cDFEGEjnD+RqwSJ/QCRTvITPbQ==
+X-Received: by 2002:a5d:5850:0:b0:472:55a:ef9b with SMTP id
+ ffacd0b85a97d-47f2dcac418mr8602513f8f.8.1783933070140; Mon, 13 Jul 2026
+ 01:57:50 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev>
+ <20260713-fix-fops-owner-v8-10-2495cfa82d47@linux.dev>
+ <alSe6PsvdrSYP_Z0@google.com>
+ <d7c1607f-ea74-442a-9700-7fc4f0c64b76@linux.dev>
+In-Reply-To: <d7c1607f-ea74-442a-9700-7fc4f0c64b76@linux.dev>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Mon, 13 Jul 2026 10:57:37 +0200
+X-Gm-Features: AUfX_mw1uUYgV4eMXkVflbUYoDKpPh-OOQHMx0yAVcG6yUMQsdEhmzk4SLg_fQ0
+Message-ID: <CAH5fLggszOnUm7Rykt41V91de8h9YVaZt49wr52i3t5-QV84Xg@mail.gmail.com>
+Subject: Re: [PATCH v8 10/10] rust: module: update MAINTAINERS to cover
+ module.rs
+To: Alvin Sun <alvin.sun@linux.dev>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+ Rae Moar <raemoar63@gmail.com>, Breno Leitao <leitao@debian.org>,
+ Jens Axboe <axboe@kernel.dk>, 
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+ Igor Korotin <igor.korotin@linux.dev>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org, 
+ linux-modules@vger.kernel.org, driver-core@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-pci@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 08:54:25 +0000
-Message-Id: <20260713085425.BF5F81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,127 +134,54 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Hardware/firmware error payload structures use non-portable C bi=
-tfields and host-native integer types instead of explicitly sized little-en=
-dian types.
-- [Low] The newly added function `handle_soc_internal_errors` is marked as =
-`__maybe_unused`, has no callers, and contains incomplete PUNIT error handl=
-ing.
---
+On Mon, Jul 13, 2026 at 10:48=E2=80=AFAM Alvin Sun <alvin.sun@linux.dev> wr=
+ote:
+>
+>
+> On 7/13/26 16:16, Alice Ryhl wrote:
+> > On Mon, Jul 13, 2026 at 02:45:31PM +0800, Alvin Sun wrote:
+> >> Module types now live in `rust/kernel/module.rs` alongside
+> >> `rust/kernel/module_param.rs`. Update the MODULE SUPPORT file pattern
+> >> from `rust/kernel/module_param.rs` to `rust/kernel/module*.rs` so both
+> >> files are covered.
+> >>
+> >> Cc: Petr Pavlu <petr.pavlu@suse.com>
+> >> Assisted-by: opencode:glm-5.2
+> >> Link: https://lore.kernel.org/rust-for-linux/8ea21b29-9baf-4926-a16f-7=
+d21c5a1a1b8@suse.com
+> >> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> >> ---
+> >>   MAINTAINERS | 2 +-
+> >>   1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/MAINTAINERS b/MAINTAINERS
+> >> index e035a3be797c4..74733de3e41ee 100644
+> >> --- a/MAINTAINERS
+> >> +++ b/MAINTAINERS
+> >> @@ -17984,7 +17984,7 @@ F:   include/linux/module*.h
+> >>   F: kernel/module/
+> >>   F: lib/test_kmod.c
+> >>   F: lib/tests/module/
+> >> -F:  rust/kernel/module_param.rs
+> >> +F:  rust/kernel/module*.rs
+> >>   F: rust/macros/module.rs
+> >>   F: scripts/module*
+> >>   F: tools/testing/selftests/kmod/
+> > Is there a reason why this is a separate commit from the commit that
+> > introduces rust/kernel/module.rs file?
+>
+> Gary asked the same on v6; `git log` shows MAINTAINERS changes are
+> conventionally
+> standalone commits with a `MAINTAINERS: ` prefix, so I kept it separate.
+> Gary agreed [1].
+>
+> [1]:
+> https://lore.kernel.org/rust-for-linux/DJJ26195JBS9.D3DNLZPRJYO4@garyguo.=
+net/
 
---- Patch [1]: [PATCH v10 1/4] drm/xe/xe_ras: Do not Review, compilation on=
-ly. ---
-commit 8b53e475734bf697402ee545f94eb93bf4f28f2b
-Author: Riana Tauro <riana.tauro@intel.com>
+Ok, that's fine then.
 
-drm/xe/xe_ras: Do not Review, compilation only.
-   =20
-DO NOT REVIEW. COMPILATION ONLY
-This patch is from https://patchwork.freedesktop.org/series/160482/
-Added only for Compilation.
-
-> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-> index 74d5016d9ffe7..3d39bb95e94d6 100644
-> --- a/drivers/gpu/drm/xe/xe_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_ras.c
-[ ... ]
-> @@ -193,6 +194,48 @@ static void ras_usp_aer_init(struct xe_device *xe)
->  	dev_dbg(&usp->dev, "Uncorrectable Internal Errors downgraded and unmask=
-ed\n");
->  }
-> =20
-> +static __maybe_unused enum xe_ras_recovery_action
-> +handle_soc_internal_errors(struct xe_device *xe,
-> +			   struct xe_ras_error_array *arr)
-
-[Severity: Low]
-Does this introduce dead, incomplete code into the tree?
-
-This function is marked __maybe_unused, has no callers, and contains an
-incomplete PUNIT error handling TODO below.
-
-> +{
-> +	struct xe_ras_soc_error *info =3D (void *)arr->details;
-> +	struct xe_ras_soc_error_source *source =3D &info->source;
-
-[Severity: Medium]
-Can this cause misinterpretation of firmware error messages on big-endian
-architectures?
-
-This code reads firmware values via the bitfield struct without endianness
-conversion. The hardware/firmware error payload structures are defined using
-non-portable C bitfields and host-native integer types instead of explicitly
-sized little-endian types.
-
-Using C bitfields inside __packed structs for hardware/firmware interface
-definitions relies on compiler-specific bit-packing rules. Explicitly sized
-little-endian types (e.g., __le32) and bitwise macros (like FIELD_GET())
-should probably be used to parse these hardware structures.
-
-> +	struct xe_ras_error_class *counter =3D &arr->counter;
-> +
-> +	if (source->csc) {
-> +		struct xe_ras_csc_error *csc_error =3D (void *)info->details;
-[ ... ]
-> diff --git a/drivers/gpu/drm/xe/xe_ras_types.h b/drivers/gpu/drm/xe/xe_ra=
-s_types.h
-> index 6688e11f57a86..3c165096ea20c 100644
-> --- a/drivers/gpu/drm/xe/xe_ras_types.h
-> +++ b/drivers/gpu/drm/xe/xe_ras_types.h
-[ ... ]
-> +/**
-> + * struct xe_ras_soc_error_source - Source of SoC error
-> + */
-> +struct xe_ras_soc_error_source {
-> +	/** @csc: CSC */
-> +	u32 csc:1;
-> +	/** @ieh: IEH (Integrated Error Handler) */
-> +	u32 ieh:1;
-> +	/** @reserved: Reserved for future use */
-> +	u32 reserved:30;
-> +} __packed;
-
-[Severity: Medium]
-Will this bitfield layout work correctly across different architectures?
-
-This struct defines hardware/firmware error source flags using brittle C
-bitfields. As noted above, relying on compiler-specific bit-packing inside
-__packed structs for hardware interfaces can lead to issues.
-
-[ ... ]
-> +/**
-> + * struct xe_ras_ieh_error - SoC IEH (Integrated Error Handler) error de=
-tails
-> + */
-> +struct xe_ras_ieh_error {
-> +	/** @ieh_instance: IEH instance */
-> +	u32 ieh_instance:2;
-> +	/** @reserved: Reserved for future use */
-> +	u32 reserved:30;
-> +	/** @global_error_status: Global error status */
-> +	u32 global_error_status;
-> +	/** @local_error_status: Local error status */
-> +	u32 local_error_status;
-> +	/** @gerr_mask: Global error mask */
-> +	u32 gerr_mask;
-> +	/** @info: Additional information */
-> +	u32 info[10];
-> +} __packed;
-
-[Severity: Medium]
-Could this bitfield layout be problematic for similar reasons?
-
-This struct defines hardware/firmware IEH error layout using C bitfields and
-host-native types instead of explicitly sized little-endian types.
-
->  #endif
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713083939.2518=
-72-6-mallesh.koujalagi@intel.com?part=3D1
+Alice
