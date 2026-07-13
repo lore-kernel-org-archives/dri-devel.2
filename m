@@ -4,93 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D611FC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 22:36:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FB5FC44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 22:36:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46CBE10EB44;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E46010EB51;
 	Mon, 13 Jul 2026 22:36:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cWObE4+7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JvC0l00d";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A03CA10E627
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 17:01:26 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2cc61541f8cso1114645ad.0
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:01:26 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3D210E655
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 18:39:04 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-493c52cde9eso31058665e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 11:39:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783962086; x=1784566886; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1783967942; x=1784572742; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=R9LV+16tD32KS6yXCzCBkB0u2lL8SNr6pDg+a+HPC20=;
- b=cWObE4+7shrvUl4uaczCEu7Kv3aOoU9zBS94KfdE10ghs3QaLn+9Lne+ko6GBxY/H0
- 3vpJFD4vDqfbyZGLPL62DdaYkymGzsWzsucuEcIBhEPA9BrRI+EQGIac50Bcp8ujo1mu
- Bxyy1WCFd5Avn51ddba5WLaLz+kIT9BUafo5MVVAu6gMbSJoBvI6ujzyIYJivGmJ4m9f
- XfiW54YDMyZ2h3vSmeonSp8tX8MquI9BR1AbHNPg4MOlwxhECQYd2zXah+ZOYMjjsl1d
- EzwpWYCLXXVKgC7JYUfuzp2dhVB8MCIlQY9WurkeUy94sQ1BIxDbtscJAQtp9iam0d76
- 0eBw==
+ bh=zd5o6Ej/s5YZL/Mnfze+Lcvp2kVDTJWSbodyoJwd+Bc=;
+ b=JvC0l00dC7cj4COn6E2bhVpxBjIQ1fVJh1tIUk6Eq2PRiASOn45Kf2C88ov+1LeyaC
+ 9XGA5IG89x6gk6n/fagxMstyEC5d6eZkUD/xYfPSwH3oGSnPuhrXlkzNQ7RSrBvfVuoq
+ 6+4Wjthg2VljV7Sp2C/horq+kyppR1snWOvEAfhexCHddAFD2Kob1g+eHgVeNbkeo8n+
+ 8OWLkILfpujTI/5vRtpyqPma3Zd5Aeqi/6Z9GxefG38VE8iIQ/9Cjb4zHthnAYNi7ESO
+ sbkj5uOIMnLk0+/WgWZxxt+U5kpyXS+B8QDjy5YYB7Su6UkDZzxIxgvH+ZwSU472r7dD
+ NErg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783962086; x=1784566886;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20251104; t=1783967942; x=1784572742;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=R9LV+16tD32KS6yXCzCBkB0u2lL8SNr6pDg+a+HPC20=;
- b=DwrhtKFAtorwH89LO1/6gLGLJKFaW49zGLcRdf8vDIHg3sXBWiYfQvpFKmAaHXYZus
- U3rGLTkJC7mb4uLa759qzBQSKcV0BjKWUnXU7I7BEGLrL7eueOnsdOGnNkx0QVGX86pA
- E6r0bIKqycg/mQfxfbnYuOgvMwCjx/DigrdP85rctu5MGvxh/O6U9sPQMXaI1jZvsYwo
- oslxBl2JAKiXLFMULrik18IqjeleqGYVOKIyWmN93m2VdN4NeVZ268S/DA3xk42uE2wr
- 6hnKMK6vnAf9RIhJwvU8gO00UQ/IgRZ308vinnS+gmJoww6aRUlalp50ngW4tS2VgQ7I
- 0hxg==
+ bh=zd5o6Ej/s5YZL/Mnfze+Lcvp2kVDTJWSbodyoJwd+Bc=;
+ b=YKOEJHQLUiNw7INwfG4SGzx0WyDlIZni02BkmgKBx24O+HkiPrVV5wbnWNmRXJM4np
+ ZF30HGHU6QKn7Y/EsawmsYHBKwYuHHM5YskQsv0A8Bvw4ZKGf00aai8ep/0H6xjJxJxq
+ 32HSJyoq8pDxpqLFBv5v7Ajq7IliQEJyh2aIk1D6m/8wdcQkctrhcRRb2S7SxbfxpN7O
+ a4YUwOsyXNam6JBOQYRZ8ywEG+orMPh39m9VSUQxGKRuehZAzcmZL3rdzkY+y3Qtcleb
+ JwHwrhriuYCnbS7StfnJCw0ILgzi77azEwUyRTbzQ1V+W38ygDvOyfrRHIOqjpEKre8l
+ lQOA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rpk+G2dScUW1Qf+za79wcCPWBZGvlUFuE24t45mhRwohR2LCP+W5prV/jB34ewk8/uYoZSAENYZscM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwD+tYhSBLamsNbpRHO8kzmwrYBQ48akG9zKuqNcnXKvkgkHNAy
- Ghz5JEiro/bvLt/lCPPuLDuiSS9/WvwQ1lys4TM328AKJ13dhKjK/+z0
-X-Gm-Gg: AfdE7cnGmKh3gHfjU+iTlu8hT8BGKPqYuVCRQRb4C09+zVYOGGEMlP5TPupaw+W26er
- Xsjo60ZQQF/emfMLTpku6u3iUnbKbWl2F3ck/cxHhABDXrT4FjTC7wzQkBdVUEU3Zf5IlqvvhMb
- hPfWCl0B8sqMCZ78xvWF/JswUSOseMMVSL/ZRqZ4VVcbYB0ZfWWooHCq195ZuFsvs9pxTjiAiTo
- g/OUKbfSVoz9szQulWBgi8CwmwwMFZS6YxQkdUeXJrVOA3pkMy09jNUxpXqZuSXcuZ4s+PPzJSZ
- zg3Oo1V5sUZlVYPquu/ZHgEo/b/kjXlhPel6umKjbT8rVCcHvyuZIUkWkDsiFEmN1TVQmgOADab
- gHn3nQIIAbvKA/BL5U6m6J89EshV5OWno16KbtaG6rrenFBrUbBkRuwQrarSBJJUKrbOhUZK2D2
- 5mSJxoQBjDajrIuo1b/TAZLyzPSFDhBJIzAX1ZJm6qxFxXBiYIUIDZA0k=
-X-Received: by 2002:a17:902:e88a:b0:2ca:de3:15d7 with SMTP id
- d9443c01a7336-2ce8292bad0mr123460335ad.16.1783962085860; 
- Mon, 13 Jul 2026 10:01:25 -0700 (PDT)
-Received: from skinsburskii (c-98-225-44-182.hsd1.wa.comcast.net.
- [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ccc9d3d451sm102224465ad.65.2026.07.13.10.01.21
+ AHgh+RrF1l1gbNa3TICCUGXQ6ndDQFJw1NoKXLe6PHtqsGTvxJBdxWHljDe9/g1bZA3Bms5DwfIhNRq7ZV0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxsUT1TWGIXohIF2b/R7pGhyJU9eSS6U8ckodLXHG5bOkbgdo4Z
+ 8H5blyBCjIFoxXCQxbaUDj1aCYhHGF+NppfpVflEZXIrLK/kN4rSWkCB
+X-Gm-Gg: AfdE7clrbpZLphR5yzikKtxv86LhTc4rZOfR2+Ct79C02fnxkKJSpcZK4H8GofXhl1x
+ Pyli9fZC+oZfxkXCnWtJlakKFu4Hptc21mthph4I36zG19DgkglgirPpB3e0qP9BaJ9Qct5pIRu
+ 3IF4UR0iMkD6QJ1MQg/VG2DZRK0rWH8lSopGdcYKunUBae+Myh0hRtEQsdzW6v+sr2gP5Yzjiro
+ tQyh0Jogo47FVUZi7OvsqxAUaNoYtNXOw4+29uEZoiW9bJN5+loNFR0l1eVTwc4x8B/REYC6NgC
+ QUzD3OK7hbH6ZPb/pIUW8otmyW6RB1De0KCGgwQnDkVxSDonn5uVPpPcLC9mXOV9a8bLpY1vbt7
+ Htb4lETsEN16bl9N9RNxO3oVG3xa+a2knLnOyr6Rw3XzD49Q+CETqswGp9d6TbWmM+ChkxGc3pT
+ igKrh+7Bh8BSOp61KmvGmPkJ95lh+A
+X-Received: by 2002:a05:600d:109:b0:493:e8bc:a75b with SMTP id
+ 5b1f17b1804b1-493f882b13cmr69903995e9.30.1783967942492; 
+ Mon, 13 Jul 2026 11:39:02 -0700 (PDT)
+Received: from timo-z13.fritz.box ([193.30.163.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49508727f7dsm14702455e9.4.2026.07.13.11.39.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 10:01:22 -0700 (PDT)
-Date: Mon, 13 Jul 2026 10:01:20 -0700
-From: Stanislav Kinsburskii <skinsburskii@gmail.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
- corbet@lwn.net, dakr@kernel.org, david@kernel.org,
- decui@microsoft.com, haiyangz@microsoft.com, jgg@ziepe.ca,
- kees@kernel.org, kys@microsoft.com, leon@kernel.org,
- liam@infradead.org, lizhi.hou@amd.com, ljs@kernel.org,
- longli@microsoft.com, lyude@redhat.com,
- maarten.lankhorst@linux.intel.com, mamin506@gmail.com,
- mhocko@suse.com, mripard@kernel.org, nouveau@lists.freedesktop.org,
- ogabbay@kernel.org, oleg@redhat.com, rppt@kernel.org,
- shuah@kernel.org, simona@ffwll.ch, skhan@linuxfoundation.org,
- surenb@google.com, tzimmermann@suse.de, vbabka@kernel.org,
- wei.liu@kernel.org, dri-devel@lists.freedesktop.org,
- linux-mm@kvack.org, linux-doc@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-rdma@vger.kernel.org
-Subject: Re: [PATCH v8 8/8] drm/gpusvm: Use
- hmm_range_fault_unlocked_timeout() for range faults
-Message-ID: <alUZ4NQptiD9fRfz@skinsburskii>
-References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
- <178371883977.900500.2198446134676328631.stgit@skinsburskii>
- <alUSq0o7CC2Pnr+H@gsse-cloud1.jf.intel.com>
+ Mon, 13 Jul 2026 11:39:02 -0700 (PDT)
+From: =?UTF-8?q?Timo=20Pr=C3=B6mer?= <timo.proemer04@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Timo=20Pr=C3=B6mer?= <timo.proemer04@gmail.com>
+Subject: [PATCH 2/2] drm/amd/display: Use drm_edid_block_count() instead of
+ raw extensions
+Date: Mon, 13 Jul 2026 20:38:41 +0200
+Message-ID: <20260713183841.5921-3-timo.proemer04@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260713183841.5921-1-timo.proemer04@gmail.com>
+References: <20260713183841.5921-1-timo.proemer04@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alUSq0o7CC2Pnr+H@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 Jul 2026 22:35:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,134 +100,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 13, 2026 at 09:30:35AM -0700, Matthew Brost wrote:
-> On Fri, Jul 10, 2026 at 02:27:19PM -0700, Stanislav Kinsburskii wrote:
-> 
-> Please send series like this to intel-xe@lists.freedesktop.org list too
-> as this will trigger our CI which expercises the change paths changed in
-> this series.
-> 
-> > Several GPU SVM paths take mmap_read_lock() only to call hmm_range_fault(),
-> > then retry -EBUSY until HMM_RANGE_DEFAULT_TIMEOUT expires. Those paths use
-> > MMU interval notifiers whose mm matches the mm that was locked for the HMM
-> > fault.
-> > 
-> > Use hmm_range_fault_unlocked_timeout() for those faults and pass the
-> > remaining retry budget to HMM. The helper owns mmap_lock acquisition and
-> > refreshes range->notifier_seq internally for each retry, while GPU SVM
-> > keeps its existing driver-lock validation with mmu_interval_read_retry()
-> > after a successful fault.
-> > 
-> > Leave drm_gpusvm_check_pages() on hmm_range_fault() because that path is
-> > called with the mmap lock already held by its caller.
-> > 
-> > Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
-> > Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> > ---
-> >  drivers/gpu/drm/drm_gpusvm.c |   52 ++++++------------------------------------
-> >  1 file changed, 7 insertions(+), 45 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-> > index 958cb605aedd..6b7a6eaebcd9 100644
-> > --- a/drivers/gpu/drm/drm_gpusvm.c
-> > +++ b/drivers/gpu/drm/drm_gpusvm.c
-> > @@ -788,22 +788,8 @@ enum drm_gpusvm_scan_result drm_gpusvm_scan_mm(struct drm_gpusvm_range *range,
-> >  	hmm_range.hmm_pfns = pfns;
-> >  
-> >  retry:
-> > -	hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
-> > -	mmap_read_lock(range->gpusvm->mm);
-> > -
-> > -	while (true) {
-> > -		err = hmm_range_fault(&hmm_range);
-> > -		if (err == -EBUSY) {
-> > -			if (time_after(jiffies, timeout))
-> > -				break;
-> > -
-> > -			hmm_range.notifier_seq =
-> > -				mmu_interval_read_begin(notifier);
-> > -			continue;
-> > -		}
-> > -		break;
-> > -	}
-> > -	mmap_read_unlock(range->gpusvm->mm);
-> > +	err = hmm_range_fault_unlocked_timeout(&hmm_range,
-> > +					       max(timeout - jiffies, 1L));
-> >  	if (err)
-> >  		goto err_free;
-> >  
-> > @@ -1439,21 +1425,8 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
-> >  	}
-> >  
-> >  	hmm_range.hmm_pfns = pfns;
-> > -	while (true) {
-> > -		mmap_read_lock(mm);
-> > -		err = hmm_range_fault(&hmm_range);
-> > -		mmap_read_unlock(mm);
-> > -
-> > -		if (err == -EBUSY) {
-> > -			if (time_after(jiffies, timeout))
-> > -				break;
-> > -
-> > -			hmm_range.notifier_seq =
-> > -				mmu_interval_read_begin(notifier);
-> > -			continue;
-> > -		}
-> > -		break;
-> > -	}
-> > +	err = hmm_range_fault_unlocked_timeout(&hmm_range,
-> > +				max_t(long, timeout - jiffies, 1));
-> 
-> Unaligned indentation.
-> 
-> So I'd write this like this to avoid weird wraps:
-> 
-> ctimeout = max_t(long, timeout - jiffies, 1));
-> err = hmm_range_fault_unlocked_timeout(&hmm_range, ctimeout);
-> 
-> >  	mmput(mm);
-> >  	if (err)
-> >  		goto err_free;
-> > @@ -1736,24 +1709,13 @@ int drm_gpusvm_range_evict(struct drm_gpusvm *gpusvm,
-> >  		return -ENOMEM;
-> >  
-> >  	hmm_range.hmm_pfns = pfns;
-> > -	while (!time_after(jiffies, timeout)) {
-> > -		hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
-> > -		if (time_after(jiffies, timeout)) {
-> > -			err = -ETIME;
-> > -			break;
-> > -		}
-> > -
-> > -		mmap_read_lock(mm);
-> > -		err = hmm_range_fault(&hmm_range);
-> > -		mmap_read_unlock(mm);
-> > -		if (err != -EBUSY)
-> > -			break;
-> > -	}
-> > +	err = hmm_range_fault_unlocked_timeout(&hmm_range,
-> > +				max_t(long, timeout - jiffies, 1));
-> >  
-> 
-> Same here.
-> 
-> Nits, aside LGTM.
-> 
+Instead of manually calculating the EDID block count by reading the
+extensions field from the raw edid structure (`edid->extensions + 1`),
+utilize the core DRM helper `drm_edid_block_count()`.
 
-Will change as requested and send to intel-xe@lists.freedesktop.org next time.
+This now includes possible HF-EEODB extension blocks, which are not
+included in `edid->extensions` and were previously truncated with the
+`memmove`.
 
-Thanks,
-Stanislav
+Signed-off-by: Timo Prömer <timo.proemer04@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-> Matt
-> 
-> >  	kvfree(pfns);
-> >  	mmput(mm);
-> >  
-> > -	return err;
-> > +	return err == -EBUSY ? -ETIME : err;
-> >  }
-> >  EXPORT_SYMBOL_GPL(drm_gpusvm_range_evict);
-> >  
-> > 
-> > 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index c6f94eb71..ac5a3b337 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -1160,6 +1160,7 @@ enum dc_edid_status dm_helpers_read_local_edid(
+ 	struct drm_connector *connector = &aconnector->base;
+ 	struct i2c_adapter *ddc;
+ 	int retry = 25;
++	int block_count;
+ 	enum dc_edid_status edid_status = EDID_NO_RESPONSE;
+ 	const struct drm_edid *drm_edid;
+ 	const struct edid *edid;
+@@ -1205,7 +1206,9 @@ enum dc_edid_status dm_helpers_read_local_edid(
+ 		    edid->extensions >= sizeof(sink->dc_edid.raw_edid) / EDID_LENGTH)
+ 			return EDID_BAD_INPUT;
+ 
+-		sink->dc_edid.length = EDID_LENGTH * (edid->extensions + 1);
++		block_count = drm_edid_block_count(drm_edid);
++
++		sink->dc_edid.length = EDID_LENGTH * block_count;
+ 		memmove(sink->dc_edid.raw_edid, (uint8_t *)edid, sink->dc_edid.length);
+ 
+ 		/* We don't need the original edid anymore */
+-- 
+2.55.0
+
