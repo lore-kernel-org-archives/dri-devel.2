@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 893FFC43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE3E1C44501
 	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 23:52:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB6F610E39D;
-	Mon, 13 Jul 2026 23:52:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27F5C10E84A;
+	Mon, 13 Jul 2026 23:52:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ItWEj+pJ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hUKlz+1N";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E6ED10E39D
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 23:52:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 923B910E39D
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 23:52:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,25 +22,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=ogqx4JC2Bn9jeLYccrvGTKzYR0yir8BnH1/SoTEeO2w=; b=ItWEj+pJONztpGDkC1mM51JOGE
- /gnYhD5lGPLXae/TdgfnTH7AhRCcGaPt7o9k2KKVDd+KcY+qhfmUcUtc2oQH0ZzfqBL+mk2Uaav53
- UsGzBw6S+UXVN415GwXwPD+TBV/evxTtMOcwFfyP2JKmMsJj24lsNcSpyx/iJjiLJXQMc2vh0jiD7
- 06cKpPPxGUuXQNclxdh9lMqZQeBgWRuHCppVuBDkicBSCUK7xAbQd5Z1efD6ATytoYS+SdxunfXai
- SVgjbGKeD/JNJY3FLuqqryvFU+X8LoMrzyekW3kCJfcxoLbxtQ/6XoSDH+y409YeqINszXc+FOD+u
- Xs898EOQ==;
+ bh=q4zTrWvspNQOgrPNXPQgwUnNIIyzAJpXvOzRD+1kkDU=; b=hUKlz+1NmtrWamYNsg0GEbavcL
+ BQynWoe02rtU60Yu0q7Ar9Q7qB7IwroP2H2r+F2CGC3VvpGQpYqynh0NeXoN7dK/sIdR55LsUcAvv
+ +58M7demEIl1IkmkWmKa0/QP4rSJDop7S69plPoSBuZorre336Mk4x9e5rC5ANksD13FT+hLjg7Jo
+ d5ARjwIrYD8wo9cD9EoMDnfodxtKgnQSMpdU8dkI/dNq36NuJpyiGXTNbi0S3LjxMS0mnrNN39UZS
+ gwQBd30ktodFiAs0iOy83ZrTEu0T7R/PFUybMVR21ymG1hs2yBoawO1um4uSvp4UTvdQvR1eSzlWw
+ Hp8DL8KA==;
 Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
  helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wjQS7-00EjJa-BP; Tue, 14 Jul 2026 01:52:47 +0200
+ id 1wjQS5-00EjJa-7v; Tue, 14 Jul 2026 01:52:45 +0200
 From: John Harrison <John.Harrison@Igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH v7 3/9] drm/amd/display: use drmm_writeback_connector_init()
-Date: Mon, 13 Jul 2026 16:51:45 -0700
-Message-ID: <20260713235153.3862650-4-John.Harrison@Igalia.com>
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Alex Hung <alex.hung@amd.com>
+Subject: [PATCH v7 2/9] drm/amd/display: use drmm allocation for writeback
+ connector
+Date: Mon, 13 Jul 2026 16:51:44 -0700
+Message-ID: <20260713235153.3862650-3-John.Harrison@Igalia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260713235153.3862650-1-John.Harrison@Igalia.com>
 References: <20260713235153.3862650-1-John.Harrison@Igalia.com>
@@ -63,80 +64,51 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-The driver uses drm_writeback_connector_init() instead of its drmm
-counterpart, but it doesn't perform the job queue cleanup (neither
-manually nor by calling drm_writeback_connector_cleanup()). On the
-contrary, the drmm_writeback_connector_init() function ensures the
-proper cleanup of the job queue.
+Currently memory used for writeback connectors isn't freed on driver
+unbinding, leaking the memory. Use drm_device-memory allocation
+function for the writeback connector, making sure that the memory is
+freed on the driver unbinding.
 
-Use drmm_plain_encoder_alloc() to allocate simple encoder and
-drmm_writeback_connector_init() in order to initialize writeback
-connector instance.
+v2: Fixed missing parameter
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Reported-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Suggested-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: John Harrison <John.Harrison@Igalia.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  2 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   | 18 +++++++++++++-----
- 2 files changed, 14 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 1fd48e28f5fe..1726eb6a3c63 100644
+index 67b825cbb88f..1fd48e28f5fe 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4899,7 +4899,7 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
- 		return;
- 	}
+@@ -96,6 +96,7 @@
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_eld.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_mode.h>
+ #include <drm/drm_utils.h>
+ #include <drm/drm_vblank.h>
+@@ -2597,7 +2598,7 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 		link = dc_get_link_at_index(dm->dc, i);
  
--	acrtc = to_amdgpu_crtc(wb_conn->encoder.crtc);
-+	acrtc = to_amdgpu_crtc(crtc_state->base.crtc);
- 	if (!acrtc) {
- 		drm_err(adev_to_drm(adev), "no amdgpu_crtc found\n");
- 		kfree(wb_info);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-index 0bf82e46f773..3ee31634549e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-@@ -174,7 +174,6 @@ static const struct drm_encoder_helper_funcs amdgpu_dm_wb_encoder_helper_funcs =
+ 		if (link->connector_signal == SIGNAL_TYPE_VIRTUAL) {
+-			struct amdgpu_dm_wb_connector *wbcon = kzalloc_obj(*wbcon);
++			struct amdgpu_dm_wb_connector *wbcon = drmm_kzalloc_obj(adev_to_drm(adev), *wbcon);
  
- static const struct drm_connector_funcs amdgpu_dm_wb_connector_funcs = {
- 	.fill_modes = drm_helper_probe_single_connector_modes,
--	.destroy = drm_connector_cleanup,
- 	.reset = amdgpu_dm_connector_funcs_reset,
- 	.atomic_duplicate_state = amdgpu_dm_connector_atomic_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-@@ -193,17 +192,26 @@ int amdgpu_dm_wb_connector_init(struct amdgpu_display_manager *dm,
- 	struct dc *dc = dm->dc;
- 	struct dc_link *link = dc_get_link_at_index(dc, link_index);
- 	int res;
-+	struct drm_encoder *encoder;
-+
-+	encoder = drmm_plain_encoder_alloc(&dm->adev->ddev, NULL,
-+					   DRM_MODE_ENCODER_VIRTUAL, NULL);
-+	if (IS_ERR(encoder))
-+		return PTR_ERR(encoder);
-+
-+	drm_encoder_helper_add(encoder, &amdgpu_dm_wb_encoder_helper_funcs);
-+
-+	encoder->possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(dm->adev);
+ 			if (!wbcon) {
+ 				drm_err(adev_to_drm(adev), "KMS: Failed to allocate writeback connector\n");
+@@ -2606,7 +2607,7 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
  
- 	wbcon->link = link;
+ 			if (amdgpu_dm_wb_connector_init(dm, wbcon, i)) {
+ 				drm_err(adev_to_drm(adev), "KMS: Failed to initialize writeback connector\n");
+-				kfree(wbcon);
++				drmm_kfree(adev_to_drm(adev), wbcon);
+ 				continue;
+ 			}
  
- 	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_funcs);
- 
--	res = drm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
-+	res = drmm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
- 					    &amdgpu_dm_wb_connector_funcs,
--					    &amdgpu_dm_wb_encoder_helper_funcs,
-+					    encoder,
- 					    amdgpu_dm_wb_formats,
--					    ARRAY_SIZE(amdgpu_dm_wb_formats),
--					    amdgpu_dm_get_encoder_crtc_mask(dm->adev));
-+					    ARRAY_SIZE(amdgpu_dm_wb_formats));
- 
- 	if (res)
- 		return res;
 -- 
 2.43.0
 
