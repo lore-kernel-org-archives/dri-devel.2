@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34A17C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:43:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 481F9C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:43:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 999DE10E65C;
-	Mon, 13 Jul 2026 08:43:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2F6910E76B;
+	Mon, 13 Jul 2026 08:43:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hsWt/brN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZK8soW8s";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1517010E866;
- Mon, 13 Jul 2026 08:43:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C2E410E804;
+ Mon, 13 Jul 2026 08:43:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783932206; x=1815468206;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=alTSpKSQs27e75ukLSjfbEXioTiLDlcHn9L262AUuKc=;
- b=hsWt/brN03lXDqTbxavQN/KJKnrtLv0LuGkodyH87SM1OLk4zwYP8FfQ
- q1KU8W0FZCG25kW81hHioq7L6b0ad54AjBB8b9bFGmb9AH9C+U5eKRKkC
- gndd1mFVLTfbE7Hjzikn/WIGQoUy3BVdbu2Av9TD8WzwD6gkfdFdK/a2X
- eEJPYgyzRyXDPILkoSi/RH9kSHm/rm84iWaL3mhHxszox0s/Iu88Acaeh
- xZaordRfcY/8vwJ1Jjfxh94v6x3aeJ2lYW0JBgP7V8wNlMl+tnnrPGC7V
- t0LHqlMLD7F5aLRSCSa04mGHPKygaCYTWdVYYGFVDnSgxiCZnuXcofc8B w==;
-X-CSE-ConnectionGUID: OhfDKasgSkiitgyDMlUhiw==
-X-CSE-MsgGUID: Y2dni422Q0+HehZ9PS+YXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="95903945"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="95903945"
+ t=1783932211; x=1815468211;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=RG0vpfipCCIQ9ePMFRvG1rogYs2H67IUjGi7Xs9KTgk=;
+ b=ZK8soW8sNC4TDfZ8d06Gphjo9t+3os+05iK4cdBYn1EZlhWIpqW9uM13
+ 4clYI+BeyF2uY59W0zbPhKY2fz/E+DmPHPJ0U/zTyHvK0cpge5XlXsyti
+ jxRPJ9dAn81Y4QMWGWGv6ra0iJPUl2PGTJqsjealWoIyoiFnSupOIPmfu
+ PId97y5rgtO5r/NlhAIEaKdra1Ub/zZDFDUzYPjEsGlpUIREl1BTcx7KL
+ uTdrfYCzlvYoVJRF9xPG3UwLm+ynNwDsP4cK7Av+AMZFXU/kWrNncAiyY
+ /En62pLVxgL8EOophMaWNsOfffsG962FDs/6iN0KfW+l1eepSHl7vNsPn Q==;
+X-CSE-ConnectionGUID: JtuEfA5FTeehqAtW6DJhlQ==
+X-CSE-MsgGUID: ms8nx25wT4+RbftHstHQaw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="95903956"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="95903956"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2026 01:43:26 -0700
-X-CSE-ConnectionGUID: s2Im1l2eRKKG723mADf2wA==
-X-CSE-MsgGUID: eavohGnXQrCXG55zeYWKbw==
+ 13 Jul 2026 01:43:30 -0700
+X-CSE-ConnectionGUID: 5SO2CJh2SHuLK1/Ug72C6A==
+X-CSE-MsgGUID: XetzrjuMSNidgVS7NvDahg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="251072975"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="251073024"
 Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by fmviesa006.fm.intel.com with ESMTP; 13 Jul 2026 01:43:21 -0700
+ by fmviesa006.fm.intel.com with ESMTP; 13 Jul 2026 01:43:26 -0700
 From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  rodrigo.vivi@intel.com
@@ -49,12 +49,13 @@ Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
  anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
  karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
  Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Subject: [PATCH v10 0/4] Introduce cold reset recovery method
-Date: Mon, 13 Jul 2026 14:09:40 +0530
-Message-ID: <20260713083939.251872-6-mallesh.koujalagi@intel.com>
+Subject: [PATCH v10 1/4] drm/xe/xe_ras: Do not Review, compilation only.
+Date: Mon, 13 Jul 2026 14:09:41 +0530
+Message-ID: <20260713083939.251872-7-mallesh.koujalagi@intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260713083939.251872-6-mallesh.koujalagi@intel.com>
+References: <20260713083939.251872-6-mallesh.koujalagi@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,116 +72,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series builds on top of Introduce Xe Uncorrectable Error Handling[1]
-and adds support for handling errors that require a complete
-device power cycle (cold reset) to recover.
+From: Riana Tauro <riana.tauro@intel.com>
 
-Certain error conditions leave the device in a persistent hardware
-error state that cannot be cleared through existing recovery mechanisms
-such as driver reload or PCIe reset. In these cases, functionality can
-only be restored by performing a cold reset.
+DO NOT REVIEW. COMPILATION ONLY
+This patch is from https://patchwork.freedesktop.org/series/160482/
+Added only for Compilation.
 
-To support this, the series introduces a new DRM wedging recovery
-method, DRM_WEDGE_RECOVERY_COLD_RESET (BIT(4)). When a device is wedged
-with this method, the DRM core notifies userspace via a uevent that a cold
-reset is required. This allows userspace to take appropriate action to
-power-cycle the device.
+Signed-off-by: Riana Tauro <riana.tauro@intel.com>
+Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+---
+ drivers/gpu/drm/xe/xe_ras.c       | 43 +++++++++++++++++
+ drivers/gpu/drm/xe/xe_ras_types.h | 80 +++++++++++++++++++++++++++++++
+ 2 files changed, 123 insertions(+)
 
-Example uevent received:
-  SUBSYSTEM=drm
-  WEDGED=cold-reset
-  DEVPATH=/devices/.../drm/card0
-
-Detailed description in commit message.
-
-[1] https://patchwork.freedesktop.org/series/160482/
-This patch series introduces a call to punit_error_handler() from
-within handle_soc_internal_errors() when PUNIT errors detected.
-
-v2:
-- Add use case: Handling errors from power management unit,
-  which requires a complete power cycle to
-  recover. (Christian)
-- Add several instead of number to avoid update. (Jani)
-
-v3:
-- Update any scenario that requires cold-reset. (Riana)
-- Update document with generic scenario. (Riana)
-- Consistent with terminology. (Raag)
-- Remove already covered information.
-- Use PUNIT instead of PMU. (Riana)
-- Use consistent wordingi.
-- Remove log. (Raag)
-
-v4:
-- Rename cold reset to power cyclce. (Raag)
-- Update doc. (Raag/Riana)
-- Change commit message. (Raag)
-- Make function static. (Raag)
-
-v5:
-- Make it consistent with consumer expectations. (Raag)
-- Update commit message.
-- Remove unbind.
-- Simplify cold-reset script.
-- Remove kdoc for static function.
-- Remove xe_ prefix for static function.
-
-v6:
-- Drop "last resort" wording. (Riana)
-- Look up the hotplug slot in DEVPATH instead of scanning
-  every PCI slot on the system. (Raag)
-- Drop arbitrary sleep values from the example script.
-- Expand commit message to explain why SUR_DN is masked. (Raag/Riana)
-- Check Slot Implemented bit before reading Slot Capabilities, per
-  PCIe spec. (Riana)
-- Add debug log.
-
-v7:
-- Update recovery script. (Raag)
-- Handle surprise link down event properly. (Aravind/Riana)
-- Update commit message. (Riana)
-- Correct log message.
-
-v8:
-- Add rescan instead of reset. (Raag)
-- Use find_usp_dev() in punit_error_handler() function.
-
-v9:
-- Remove unwanted header. (Sashiko)
-- Removed #ifdef CONFIG_PCIEAER. (Riana)
-- Used pci_find_ext_capability() instead of usp->aer_cap.
-- Clear the PCI_ERR_UNC_SURPDN status bit (W1C) after
-  reset complete. (Lukas Wunner)
-- Use pci_clear_and_set_config_dword() helper.
-
-v10:
-- Rebase.
-- Fix column width. (Sashiko) 
-
-Cc: André Almeida <andrealmeid@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-
-Mallesh Koujalagi (3):
-  drm: Add DRM_WEDGE_RECOVERY_COLD_RESET recovery method
-  drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET recovery method
-  drm/xe: Handle PUNIT errors by requesting cold-reset recovery
-
-Riana Tauro (1):
-  drm/xe/xe_ras: Do not Review, compilation only.
-
- Documentation/gpu/drm-uapi.rst    | 91 +++++++++++++++++++++++++++++--
- drivers/gpu/drm/drm_drv.c         |  2 +
- drivers/gpu/drm/xe/xe_ras.c       | 49 +++++++++++++++++
- drivers/gpu/drm/xe/xe_ras_types.h | 80 +++++++++++++++++++++++++++
- include/drm/drm_device.h          |  1 +
- 5 files changed, 219 insertions(+), 4 deletions(-)
-
+diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
+index 74d5016d9ffe..3d39bb95e94d 100644
+--- a/drivers/gpu/drm/xe/xe_ras.c
++++ b/drivers/gpu/drm/xe/xe_ras.c
+@@ -9,6 +9,7 @@
+ #include "xe_printk.h"
+ #include "xe_ras.h"
+ #include "xe_ras_types.h"
++#include "xe_survivability_mode.h"
+ #include "xe_sysctrl.h"
+ #include "xe_sysctrl_event_types.h"
+ #include "xe_sysctrl_mailbox.h"
+@@ -193,6 +194,48 @@ static void ras_usp_aer_init(struct xe_device *xe)
+ 	dev_dbg(&usp->dev, "Uncorrectable Internal Errors downgraded and unmasked\n");
+ }
+ 
++static __maybe_unused enum xe_ras_recovery_action
++handle_soc_internal_errors(struct xe_device *xe,
++			   struct xe_ras_error_array *arr)
++{
++	struct xe_ras_soc_error *info = (void *)arr->details;
++	struct xe_ras_soc_error_source *source = &info->source;
++	struct xe_ras_error_class *counter = &arr->counter;
++
++	if (source->csc) {
++		struct xe_ras_csc_error *csc_error = (void *)info->details;
++
++		/*
++		 * CSC uncorrectable errors are classified as hardware errors and firmware errors.
++		 * CSC firmware errors are critical errors that can be recovered only by firmware
++		 * update via SPI driver. On a CSC firmware error, PCODE enables FDO mode and sets
++		 * the bit in the capability register. On receiving this error, the driver enables
++		 * runtime survivability mode which notifies userspace that a firmware update
++		 * is required.
++		 */
++		if (csc_error->hec_fw_error) {
++			xe_err(xe, "[RAS]: CSC %s detected: 0x%x\n",
++			       sev_to_str(counter->common.severity),
++			       csc_error->hec_fw_error);
++			xe_survivability_mode_runtime_enable(xe);
++			return XE_RAS_RECOVERY_ACTION_DISCONNECT;
++		}
++	} else if (source->ieh) {
++		struct xe_ras_ieh_error *ieh_error = (void *)info->details;
++
++		if (ieh_error->global_error_status & XE_RAS_SOC_IEH_PUNIT) {
++			xe_err(xe, "[RAS]: PUNIT %s detected: 0x%x\n",
++			       sev_to_str(counter->common.severity),
++			       ieh_error->global_error_status);
++			/* TODO: Add PUNIT error handling */
++			return XE_RAS_RECOVERY_ACTION_DISCONNECT;
++		}
++	}
++
++	/* For other SOC internal errors, request a reset as recovery mechanism */
++	return XE_RAS_RECOVERY_ACTION_RESET;
++}
++
+ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
+ 				      struct xe_sysctrl_event_response *response)
+ {
+diff --git a/drivers/gpu/drm/xe/xe_ras_types.h b/drivers/gpu/drm/xe/xe_ras_types.h
+index 6688e11f57a8..3c165096ea20 100644
+--- a/drivers/gpu/drm/xe/xe_ras_types.h
++++ b/drivers/gpu/drm/xe/xe_ras_types.h
+@@ -9,6 +9,7 @@
+ #include <linux/types.h>
+ 
+ #define XE_RAS_NUM_COUNTERS			16
++#define XE_RAS_SOC_IEH_PUNIT			BIT(1)
+ 
+ /**
+  * struct xe_ras_error_common - Error fields that are common across all products
+@@ -121,4 +122,83 @@ struct xe_ras_clear_counter_response {
+ 	/** @reserved1: Reserved for future use */
+ 	u32 reserved1[3];
+ } __packed;
++
++/**
++ * enum xe_ras_recovery_action - RAS recovery actions
++ *
++ * @XE_RAS_RECOVERY_ACTION_RECOVERED: Error recovered
++ * @XE_RAS_RECOVERY_ACTION_RESET: Requires reset
++ * @XE_RAS_RECOVERY_ACTION_DISCONNECT: Requires disconnect
++ * @XE_RAS_RECOVERY_ACTION_MAX: Max action value
++ */
++enum xe_ras_recovery_action {
++	XE_RAS_RECOVERY_ACTION_RECOVERED = 0,
++	XE_RAS_RECOVERY_ACTION_RESET,
++	XE_RAS_RECOVERY_ACTION_DISCONNECT,
++	XE_RAS_RECOVERY_ACTION_MAX
++};
++
++/**
++ * struct xe_ras_error_array - Details of the error types
++ */
++struct xe_ras_error_array {
++	/** @counter_value: Counter value of the returned error */
++	u32 counter_value;
++	/** @counter: Error counter */
++	struct xe_ras_error_class counter;
++	/** @timestamp: Timestamp */
++	u64 timestamp;
++	/** @details: Error details specific to the counter */
++	u32 details[XE_RAS_NUM_COUNTERS];
++} __packed;
++
++/**
++ * struct xe_ras_soc_error_source - Source of SoC error
++ */
++struct xe_ras_soc_error_source {
++	/** @csc: CSC */
++	u32 csc:1;
++	/** @ieh: IEH (Integrated Error Handler) */
++	u32 ieh:1;
++	/** @reserved: Reserved for future use */
++	u32 reserved:30;
++} __packed;
++
++/**
++ * struct xe_ras_soc_error - Error details of SoC internal error
++ */
++struct xe_ras_soc_error {
++	/** @source: Error source */
++	struct xe_ras_soc_error_source source;
++	/** @details: Error details specific to the error source */
++	u32 details[15];
++} __packed;
++
++/**
++ * struct xe_ras_csc_error - CSC error details
++ */
++struct xe_ras_csc_error {
++	/** @reserved: Reserved */
++	u32 reserved;
++	/** @hec_fw_error: CSC firmware error */
++	u32 hec_fw_error;
++} __packed;
++
++/**
++ * struct xe_ras_ieh_error - SoC IEH (Integrated Error Handler) error details
++ */
++struct xe_ras_ieh_error {
++	/** @ieh_instance: IEH instance */
++	u32 ieh_instance:2;
++	/** @reserved: Reserved for future use */
++	u32 reserved:30;
++	/** @global_error_status: Global error status */
++	u32 global_error_status;
++	/** @local_error_status: Local error status */
++	u32 local_error_status;
++	/** @gerr_mask: Global error mask */
++	u32 gerr_mask;
++	/** @info: Additional information */
++	u32 info[10];
++} __packed;
+ #endif
 -- 
 2.48.1
 
