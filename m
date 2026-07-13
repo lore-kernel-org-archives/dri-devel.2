@@ -4,43 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C4DDC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 10:58:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33D76C44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 11:19:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B457810E0FA;
-	Mon, 13 Jul 2026 10:58:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90D1210E8FE;
+	Mon, 13 Jul 2026 11:19:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ioVvDgMa";
+	dkim=pass (2048-bit key; unprotected) header.d=alyssa.is header.i=@alyssa.is header.b="RWP92p1H";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="qWXdBcI+";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F096810E8FE;
- Mon, 13 Jul 2026 10:58:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1783940319;
- bh=CFvRifISqpjztbxD6ia6T3+vhSFdflja51r+XaALe0c=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ioVvDgMaiSWyGtW7hYsVfUOn0brD7n9VtNk8/pOvLJ4alxmfgHA94De4CWKwul29x
- IxAlBx19KwqccKsE8KA6QZUeLqApdixn/AKBBLQ+EC0kjamjM0wrFKMNFqjjcUd4eW
- 8rBlPpS4tlUZq5t3BH85X+d9c2IRXzf+kGfWaTW1tY97g4mfHYiIPsD8IxEbUCV/3F
- 3Q7BInZkvnecja/JQ6RXasRNTNoZybnDvmw6e/DpslbJXZsSj/nKKyGs6wluRItYVL
- /kqsrtS4kzloIbR3HsyoTpJIbMZ+lKiToWOz35dzoHN6WFBTVsNZGa4Gq7l315jVUA
- rAAv+fcECzIcg==
-Message-ID: <41c1ec3b-e397-419b-bd92-4b923cee6ed0@lankhorst.se>
-Date: Mon, 13 Jul 2026 12:59:27 +0200
+Received: from fhigh-a5-smtp.messagingengine.com
+ (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB52110E8FE
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 11:19:26 +0000 (UTC)
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 86E10140012F;
+ Mon, 13 Jul 2026 07:19:25 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-05.internal (MEProxy); Mon, 13 Jul 2026 07:19:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alyssa.is; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm1; t=1783941565; x=1784027965; bh=yT9VqomZcO
+ G4Li63LujiZvIPJTvQIbrR8WYQQGQ3dLo=; b=RWP92p1HPNRwXIAJTA6wxYiR5s
+ dDVZ+vxkWdiuMHCSLNF1yCSYL9DVbKSMpwUds6Qy5bQWgQ6nxdLf+Z2JROrp8ZJo
+ sYCB9gdPEaGHScxdhiXs0Ual8GuGschwpvTNSPJyY9GFVBMRiNsK63syvsLXKYpo
+ uNKijbuX+akrLEsJBEGzCuIhI19NC68podVTa0mV6MTA9Q8XapDT0FBqbRp9kYGu
+ qr66hyr2rPlQuOQkeH8kbCKjBy78+BSMPVkf6LvyyKZ13OpYJoyQ5QDjtvzjAyjB
+ 1bXMLokh9+QdUTJEkPCoC8yr8XlK4hs2JsUYjamc967yRYdzmoUaCfNjHcvA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+ 1783941565; x=1784027965; bh=yT9VqomZcOG4Li63LujiZvIPJTvQIbrR8WY
+ QQGQ3dLo=; b=qWXdBcI+9mMUyOV736pzhMKnIosxPDD03Pdg27SRAGr+XMzTPcg
+ piJkRc1b3qAMmtRlm6zvAa+lJsSas9bHiOHiXX2APl1MxritVjJ95+9+R2jTCuTy
+ uyjQa5SGLPLtJbqjrw1ZjOxl/sbKlNoqiUAl5Zw4Q3rQVKeaFReE3rvbmRp4936i
+ CYPkF9X1jIaJs2SFTMYEHhtZORtPTqtZHefkkD8k2XCYig5CXQ1q4mGdydEcXTLV
+ upgSkw5Rsv5AxmN2Vx2CKklFC9h/WQnQJuY4NfKBtIoBXC2aVr5uRFGg+1Rp1YF8
+ q33ZHAuzYizLNAOwl9Zv3SznpWYmPUWnr6Q==
+X-ME-Sender: <xms:vMlUamNdeIIBqEmyROVTindp-ddbQb1HTXYfPj-ckTY79qhXozxIxg>
+ <xme:vMlUajWf3fXvjU0xT0_go4n7v9qMmeZov4i9RIbq6WU89N9iLG-WhHBBh4HX230UM
+ sNkPIK0Pd54B1m4_VJjqtf8T9RkbHJ1-VjIxDwMGsJv4bKRGnIToQ>
+X-ME-Received: <xmr:vMlUapQgrgIAjV9-nJn_YfiikwEBRbVl4G5Xg_J9BNWZiVCk4KhKCW0PpmCut9Z2_o_FQPJod49Qo66fjy2IffKgOlmd>
+X-ME-Proxy-Cause: dmFkZTEmqZ7TAdgkhsVLF10QcecpSioUfFnynZGAJevuRYSinOHZT6954DLFDLV2f197AC
+ xIkjtIsnFeEOiRWxHQ92KhHJ5FbE2CIVXtVQp35m5vgB1TdteP1uF+zxwXpsEU2IowTr6a
+ p/nQIxJ/OD0BssMZbEYK6obpZNWtBrrYekvopJ9YQQ/zxWnLjYpJsy1JDV/HuS8tuHCYGW
+ iEobftEBqrjqwIeuPDCgNo8+hnb3iXO1gXd6bsCkXdSfHxUs1UxAk1BMLFKlWJOa8ehTK1
+ /QjhZvRqsjH5E45ff666SyjY9AwjnzOly2LFKu7IQNJvsxFqfbWc8lCfFZ8kbDQ0p5A9S5
+ Mn4xvw1cIfoW306LXPcAp9Z+4cMAui/AHBudqGkybOysHVJqNnomvR3MO5Ex0l8N7U8ZgX
+ scfkjRtzlwImm4vmsKYXzgEe4qL9CjdGTVwHtJ0GdLkGK2OTZMtAyHhPmIo5xQPIbtN8Ir
+ cdZotW86mZJw9XNd9V+gCUbz1unWGQvj+eGZWj1aAv5odjLHiJbhylFBnpwHp15IbSqZ0f
+ FOCROf2zc+gF8d6gqcAPEGQhEAOb1xjUJb2sASw27YLFLGvFi3DpriLJs6dyn+DrWZCrEL
+ 0RUZomherRYtTDtIfEprWLE7HJraZSduIcSdjdvqtDEAkXEX3iCjq6RDVRfw
+X-ME-Proxy: <xmx:vMlUap1tNLbI5SugvJogY_LLDP7haIQlrJsMbjffSWwIIJU3XXk9jg>
+ <xmx:vMlUamjbU-tGiTq3DMwFyGW9ynaTZGYbJ0Ybj7eoOIJJt16KJAKs1g>
+ <xmx:vMlUanaPwsc1riTEhM_Qp-Q90cgDM44AorzDJJmFq7bOGptfNiDZxQ>
+ <xmx:vMlUavMmPe6ZrnxAtTGKoxljiieRFiQN0i04_IPKFtk4I2rvUkW-RA>
+ <xmx:vclUasgGEu-j-JiFb4k_0JnM1LH1EgVIUD9WD8Pbo-w7snFB3q7JdVnZ>
+Feedback-ID: i12284293:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 13 Jul 2026 07:19:24 -0400 (EDT)
+Received: by mbp.qyliss.net (Postfix, from userid 1000)
+ id 180CE8917846; Mon, 13 Jul 2026 13:19:22 +0200 (CEST)
+From: Alyssa Ross <hi@alyssa.is>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, Sergio Lopez
+ <slp@redhat.com>, Yiwei Zhang <zzyiwei@chromium.org>, Sergi Blanch Torne
+ <sergi@collabora.com>, Valentine Burley <valentine.burley@collabora.com>
+Cc: Chia-I Wu <olvaffe@gmail.com>, Jason Wang <jasowang@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Eugenio =?utf-8?Q?P=C3=A9rez?=
+ <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, Simona Vetter <simona@ffwll.ch>, Thomas
+ Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Gerd Hoffmann
+ <kraxel@redhat.com>, virtualization@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: Re: [PATCH v2 2/3] drm/virtio: honor blob_alignment requirements
+In-Reply-To: <c8bf0c19-316a-442e-a63e-1b52e7bb67c2@collabora.com>
+References: <20260428194450.518296-1-slp@redhat.com>
+ <20260428194450.518296-3-slp@redhat.com> <akT1XEW766c7Imst@mbp.qyliss.net>
+ <c8bf0c19-316a-442e-a63e-1b52e7bb67c2@collabora.com>
+Date: Mon, 13 Jul 2026 13:19:20 +0200
+Message-ID: <87v7ajyw5j.fsf@alyssa.is>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/10] drm/intel/display: Changes required to make vblank
- evasion PREEMPT_RT safe.
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260702072154.171324-1-dev@lankhorst.se>
- <alEFKfqD-69wOVxJ@intel.com>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <alEFKfqD-69wOVxJ@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="=-=-=";
+ micalg=pgp-sha512; protocol="application/pgp-signature"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,82 +106,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey,
+--=-=-=
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
 
-On 7/10/26 16:43, Ville Syrjälä wrote:
-> On Thu, Jul 02, 2026 at 09:21:43AM +0200, Maarten Lankhorst wrote:
->> CONFIG_PREEMPT_RT requires code to be as deterministic as possible,
->> and codes with interrupts disabled cannot use spinlocks.
->>
->> In order to handle this correctly, we ensure any locking requirements
->> are handled before disabling interrupts, and only start locking again
->> after interrupts are re-enabled and timing sensitive path completed.
->>
->> This also has the benefit of making the vblank evasion code more
->> deterministic; without locking there's much less jitter.
->>
->> Previously, we scheduled vblank work on completion.
->> This is now handled by scheduling the vblank in advance, only arming
->> it upon completion without locks.
-> 
-> Sashiko found a bunch of stuff that I was also thinking would be
-> a problem. Don't think I'll need to repeat it here.
-> 
-> I'm still thinking the easy way out would be to just convert
-> everything to raw spinlocks. The uncore lock I think should become
-> easier to deal with once I manage to move all of it into the
-> display code. I admit that the vblank locking is kinda annoying
-> and potentially inefficient. I've been pondering about making the
-> vblank locks to per-crtc to at least avoid some unnecessary contention,
-> but the fact that a lot of the drivers poke at the vblank internals
-> directly makes it a lot more work than it should be :/
+Dmitry Osipenko <dmitry.osipenko@collabora.com> writes:
 
-I'll do the full wmb instead of the smp wmb, should hopefully fix it.
+> On 7/1/26 14:10, Alyssa Ross wrote:
+>> On Tue, Apr 28, 2026 at 09:44:49PM +0200, Sergio Lopez wrote:
+>>> If VIRTIO_GPU_F_BLOB_ALIGNMENT has been negotiated, blob size must be
+>>> aligned to blob_alignment. Validate this in verify_blob() so that
+>>> invalid requests are rejected early.
+>>>
+>>> Signed-off-by: Sergio Lopez <slp@redhat.com>
+>>=20
+>> FYI: this change breaks crosvm, which is squatting the 5 and 6 values
+>> of VIRTIO_GPU_F_* with different meanings.  I've reported it as a
+>> crosvm bug, so hopefully it can be taken care of there.
+>>=20
+>> https://issuetracker.google.com/issues/529852979
+>>=20
+>>> ---
+>>>  drivers/gpu/drm/virtio/virtgpu_ioctl.c | 5 +++++
+>>>  1 file changed, 5 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/v=
+irtio/virtgpu_ioctl.c
+>>> index c33c057365f8..d0c4edf1eaf4 100644
+>>> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+>>> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+>>> @@ -489,6 +489,11 @@ static int verify_blob(struct virtio_gpu_device *v=
+gdev,
+>>>  	params->size =3D rc_blob->size;
+>>>  	params->blob =3D true;
+>>>  	params->blob_flags =3D rc_blob->blob_flags;
+>>> +
+>>> +	if (vgdev->has_blob_alignment &&
+>>> +	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
+>>> +		return -EINVAL;
+>>> +
+>>>  	return 0;
+>>>  }
+>>>
+>>> --
+>>> 2.53.0
+>>>
+>
+> Thanks for the report. Indeed, crosvm will need to fix its experimental
+> caps. CI will likely run into this problem first once it will update
+> guest to 7.2+ kernel.
 
-In general, the approach I'm taking was ensuring that no raw spinlocks are
-ever needed. Every lock is taken before disabling interrupts, and then we
-run the time sensitive code only after checking there's enough time left.
+I sent
+https://chromium-review.googlesource.com/c/crosvm/crosvm/+/8064741 last
+week but still waiting to hear anything.  Do you have any insight into
+whether it's still used / being pursued?
 
-This means that even on PROVE_LOCKING, there is no contention of locks,
-and the VBLANK_EVASION_TIME_US could be set to 100 µs even with
-PROVE_LOCKING set. You can take the uncore lock in advance just like any
-other lock if required, but no contention should happen and it can be
-taken as normal not raw spinlock.
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> 
->>
->> Maarten Lankhorst (9):
->>   drm/vblank_work: Add methods to schedule vblank_work in 2 stages
->>   drm/vblank: Add a 2-stage version of drm_crtc_arm_vblank_event
->>   drm/intel/display: Make intel_crtc_arm_vblank_event static
->>   drm/intel/display: Convert vblank event handling to 2-stage arming
->>   drm/i915/display: Move vblank put until after critical section
->>   drm/i915/display: Remove locking from intel_vblank_evade critical
->>     section
->>   drm/i915/display: Handle vlv dsi workaround in scanline_in_safe_range
->>     too
->>   drm/i915/display: Make get_vblank_counter use intel_de_read_fw()
->>   drm/i915/display: Do not take uncore lock in i915_get_vblank_counter
->>
->> Mike Galbraith (1):
->>   drm/i915: Use preempt_disable/enable_rt() where recommended
->>
->>  drivers/gpu/drm/drm_vblank.c                  |  64 +++++++++-
->>  drivers/gpu/drm/drm_vblank_work.c             | 110 +++++++++++++----
->>  drivers/gpu/drm/i915/display/intel_crtc.c     |  86 ++++++-------
->>  drivers/gpu/drm/i915/display/intel_crtc.h     |   1 -
->>  drivers/gpu/drm/i915/display/intel_cursor.c   |   8 +-
->>  drivers/gpu/drm/i915/display/intel_de.h       |   8 ++
->>  drivers/gpu/drm/i915/display/intel_vblank.c   | 115 ++++++++++--------
->>  drivers/gpu/drm/i915/display/intel_vblank.h   |   1 +
->>  drivers/gpu/drm/i915/intel_uncore.h           |  26 ++--
->>  .../drm/xe/compat-i915-headers/intel_uncore.h |   7 ++
->>  include/drm/drm_vblank.h                      |  14 ++-
->>  include/drm/drm_vblank_work.h                 |  12 ++
->>  12 files changed, 324 insertions(+), 128 deletions(-)
->>
->> -- 
->> 2.53.0
-> 
-Kind regards,
-~Maarten
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRV/neXydHjZma5XLJbRZGEIw/wogUCalTJuAAKCRBbRZGEIw/w
+olSQAP9qzYChgBOtNgtwj23gpSHyaReaZOMLJq5xNMgU5uryywEA88prn6UVr8ZA
+o6rYMiGcL4mLSwcdy71KOyCnjbegdw0=
+=IPYo
+-----END PGP SIGNATURE-----
+--=-=-=--
