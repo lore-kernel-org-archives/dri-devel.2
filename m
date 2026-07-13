@@ -4,90 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAA27C44506
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:58:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 097B7C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 09:11:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3297510E87B;
-	Mon, 13 Jul 2026 08:58:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6390510E32E;
+	Mon, 13 Jul 2026 09:11:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N3NNMC9W";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TPR3xo07";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0800E10E5B3
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:58:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77E2A10E32E
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 09:11:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8864A419DF;
- Mon, 13 Jul 2026 08:58:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 036DC1F00A3A;
- Mon, 13 Jul 2026 08:58:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 196B4436E8;
+ Mon, 13 Jul 2026 09:11:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C71241F000E9;
+ Mon, 13 Jul 2026 09:11:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783933099;
- bh=pAxpR9NFI9JqViz0jR02B8aYT21eVB9CVzgTB/HUmi0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=N3NNMC9WSVYvF0vTtvzbtTafU1C12Iav1SrwC0EHDSgNyIBN3QsjFcLHNCW0WuoOs
- HOKJk3TUhYJCgmvf+A6m7dKz7tF0TFWRlgGOIhP1zBFhk991wcoUHyemBtQscZaSPF
- grIi3qMtqMn45RAGuDAkEC6/nboWA9bdQvcIKdnVHm6KcvwBBMoWLYHGqXkY9oyJlr
- oFjNtNpk0uY2HsjWXWv5zbfX3/Gg2DBPhVIFf0bTB7ubjntp0SFesmP8h8I0Gt/xSN
- 88OJJdFZ5SRjeF4qJaK+pQ618pedRSX36I/wbzJ4WVmBP5i5SKWsA4ipG29xZnTQB2
- Lc4KSxIsFJSJQ==
-Message-ID: <0d40243b-0929-46d2-be85-e3248d4bd09c@kernel.org>
-Date: Mon, 13 Jul 2026 10:58:15 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] dma-buf: add dma_fence_was_initialized function v2
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- phasta@mailbox.org, tursulin@ursulin.net, matthew.brost@intel.com,
- sumit.semwal@linaro.org
-Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-References: <20260120105655.7134-1-christian.koenig@amd.com>
- <20260120105655.7134-2-christian.koenig@amd.com>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <20260120105655.7134-2-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1783933863;
+ bh=LHKv1vs7yJ3OJ5tdBF/G/J+9NhCg16dWEpdlk082his=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=TPR3xo075wA+GmBusyOYuaiHWC96VTQXkhsnLXOjdNVi1abHIR4KEvwG1vq8QY4W4
+ UNxfW2VUnkzJsJZ3uyO58QQl8xcnJqY3yrQ1nlQA7t5EKyRZ8K8VgJuleJF1/3iGWY
+ B37I9ZwVpjfhCagX+dQlP9MbMoHc6hLz1z5M/wtGSbrjxdavSvuu7xUWYBFp8CZLg/
+ 79kHclJ0SIiV1PMSOt0Vnx7RjPBlQXVpiOX1z8F6zISOFSoYxQaZvWwOvkXngo6Yqn
+ 7HKMRl54dJw5C7pqviEW89M5bdhjUtMlbl3loH7/DcPieYvZQbq2Vkcse6dZ8qzz5H
+ gClohddo40pAQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/2] drm/panthor: Add vm_bind region with kbo range
+ overlap check
+To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260713-vm_bind_checks-v5-1-0d2314af8d9d@collabora.com>
+References: <20260713-vm_bind_checks-v5-0-0d2314af8d9d@collabora.com>
+ <20260713-vm_bind_checks-v5-1-0d2314af8d9d@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 13 Jul 2026 09:11:02 +0000
+Message-Id: <20260713091102.C71241F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,110 +54,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On 20. 01. 26, 11:54, Christian König wrote:
-> Some driver use fence->ops to test if a fence was initialized or not.
-> The problem is that this utilizes internal behavior of the dma_fence
-> implementation.
-> 
-> So better abstract that into a function.
-> 
-> v2: use a flag instead of testing fence->ops, rename the function, move
->      to the beginning of the patch set.
-...
-> --- a/drivers/gpu/drm/qxl/qxl_release.c
-> +++ b/drivers/gpu/drm/qxl/qxl_release.c
-> @@ -146,7 +146,7 @@ qxl_release_free(struct qxl_device *qdev,
->   	idr_remove(&qdev->release_idr, release->id);
->   	spin_unlock(&qdev->release_idr_lock);
->   
-> -	if (release->base.ops) {
-> +	if (dma_fence_was_initialized(&release->base)) {
->   		WARN_ON(list_empty(&release->bos));
->   		qxl_release_free_list(release);
->   
+Pre-existing issues:
+- [High] Zero-size asynchronous VM_BIND operations can corrupt the drm_gpuv=
+m interval tree.
+--
 
-This likely breaks qxl:
-https://bugzilla.suse.com/show_bug.cgi?id=1271081
+--- Patch [1]: [PATCH v5 1/2] drm/panthor: Add vm_bind region with kbo rang=
+e overlap check ---
+commit 0c0faa58a385567244a3f75b05f6667907422807
+Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
- > refcount_t: underflow; use-after-free.
- > WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90, 
-CPU#0: kworker/0:0/1534
- > Modules linked in: af_packet nft_fib_inet ...
- > CPU: 0 UID: 0 PID: 1534 Comm: kworker/0:0 Not tainted 7.1.3-1-default 
-#1 PREEMPT(full) openSUSE Tumbleweed 
-b041a6527f6e58424f4cd3de0fade8d408b378fd
- > Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 
-rel-1.16.3-2-gc13ff2cd-prebuilt.qemu.org 04/01/2014
- > Workqueue: events qxl_gc_work [qxl]
- > RIP: 0010:refcount_warn_saturate+0x59/0x90
- > Code: 44 48 8d 3d a9 72 b7 01 67 48 0f b9 3a c3 cc cc cc cc 48 8d 3d 
-a8 72 b7 01 67 48 0f b9 3a c3 cc cc cc cc 48 8d 3d a7 72 b7 01 <67> 48 
-0f b9 3a c3 cc cc cc cc 48 8d 3d a6 72 b7 01 67 48 0f b9 3a
- > RSP: 0018:ffffce09019efe00 EFLAGS: 00010246
- > RAX: 0000000000000000 RBX: ffff8b5a56f819c0 RCX: 0000000000000017
- > RDX: 0000000000011696 RSI: 0000000000000003 RDI: ffffffffbc953b70
- > RBP: ffff8b5a4a314000 R08: 0000000000000001 R09: ffffffffc07d488a
- > R10: fffffa6fc4787d80 R11: ffff8b5a40044000 R12: 0000000000000004
- > R13: 0000000000000003 R14: ffffce09003f1434 R15: ffff8b5a410c4640
- > FS:  0000000000000000(0000) GS:ffff8b5afe954000(0000) 
-knlGS:0000000000000000
- > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
- > CR2: 00007ff463d65000 CR3: 000000012b476004 CR4: 0000000000772ef0
- > PKRU: 55555554
- > Call Trace:
- >  <TASK>
- >  qxl_release_free+0xee/0xf0 [qxl 
-d93e9381353e619799d56790f5f8dda6cce491f6]
- >  qxl_garbage_collect+0xd1/0x1b0 [qxl 
-d93e9381353e619799d56790f5f8dda6cce491f6]
- >  process_one_work+0x19e/0x3a0
- > ...
+drm/panthor: Add vm_bind region with kbo range overlap check
 
-The function does now:
+When a VM is created, the caller has to specify the range of the address
+space carve-out set aside for mapping kernel buffer objects. That means
+vm_bind mappings of userspace-exposed objects should not intersect with
+that region, which this patch checks during the vm_bind ioctl.
 
- > void
- > qxl_release_free(struct qxl_device *qdev,
- >                  struct qxl_release *release)
- > {
- > ...
- >         if (dma_fence_was_initialized(&release->base)) {
- >                 WARN_ON(list_empty(&release->bos)); 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pant=
+hor/panthor_mmu.c
+> index 31cc57029c12c..910c8e579770d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
 
- >                 qxl_release_free_list(release); 
+[ ... ]
 
- > 
+> @@ -2981,6 +2986,10 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *fi=
+le,
+>  	if (!IS_ALIGNED(op->va | op->size | op->bo_offset, vm_pgsz))
+>  		return -EINVAL;
+> =20
+> +	/* We don't allow mappings that overlap with kbo's reserved range */
+> +	if (range_overflows(op->va, op->size, vm->user_va_range))
+> +		return -EINVAL;
+> +
 
- >                 dma_fence_signal(&release->base); 
+[Severity: High]
+This is a pre-existing issue, but does this function need to reject
+op->size =3D=3D 0 before proceeding?
 
- >                 dma_fence_put(&release->base); 
+A zero-size map operation is currently treated as aligned, and
+range_overflows() will return false, allowing it to pass this validation.
 
-  
+If userspace passes a zero size, inserting a zero-size interval into the
+interval tree will compute an end address of addr - 1. This violates the
+red-black augmented tree invariants which require start to be less than
+or equal to last.
 
-refcount_dec_and_test() in kref_put() in this ^^ crashes. Apparently, 
-the reference count was not increased anywhere. QXL does not call 
-dma_fence_get() -- who is supposed to increase the refcount. And why it 
-did not fail before?
-  
+Could this cause structural corruption of the interval subtree values,
+leading to subsequent tree traversals silently failing to find mapped
+regions? Unlike the sync path, panthor_vm_bind_job_create() appears to lack
+a size check for asynchronous jobs, which might allow unprivileged
+userspace to trigger this directly.
 
- >         } else { 
+>  	switch (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) {
+>  	case DRM_PANTHOR_VM_BIND_OP_TYPE_MAP:
+>  		if (!(op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)) {
 
- >                 qxl_release_free_list(release); 
-
- >                 kfree(release); 
-
- >         } 
-
- >         atomic_dec(&qdev->release_count); 
-
- > }
-
-thanks,
--- 
-js
-suse labs
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-vm_bind_ch=
+ecks-v5-0-0d2314af8d9d@collabora.com?part=3D1
