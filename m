@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BE03C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 05:34:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F67BC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 05:37:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A7E310E547;
-	Mon, 13 Jul 2026 05:34:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A92410E551;
+	Mon, 13 Jul 2026 05:37:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hsM0Jp6c";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ScJeTJNk";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C13010E547
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 05:34:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C03A510E54C
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 05:37:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4DA8C60018;
- Mon, 13 Jul 2026 05:34:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE5501F000E9;
- Mon, 13 Jul 2026 05:34:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2A57760018;
+ Mon, 13 Jul 2026 05:37:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB6371F000E9;
+ Mon, 13 Jul 2026 05:37:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783920889;
- bh=xOtGlmeHnh4cfJlXl+UUiDNxxyNwG95RqLwvTPoSeMc=;
+ s=k20260515; t=1783921047;
+ bh=Sj2VBksojtUm013vrglosf48q9qrA3CKKcqMcU706/A=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hsM0Jp6cKUlEUVJygAGQQiXjp4Qu5PUChhf6cf6H2uInwQNlK0gH+x4R0zryb5Fd9
- dQ1OzYSxtehZ7rVZ0906Kb7A/yBFDxjFWEzoK0xbXjbLMkJQalBCLO9LQ5bN1I/tyy
- C/KcLejGm097o73+5gtWqL2nuWYHSSk58zETi4+z0gXzr2YkLbrLyL3vOtXABHAFXr
- LAve8a7EFoLIGNwsEvJt6LOVY7I+vwZKJZU8XPxIDS1Fvc0RpTkUmZWY2SpDIdDbxS
- mrZRoX7SQRvhlJGPqi6vroTRxxW3b99MDPvl+MRnqRTHecy468x4aqsHyJC90/Gw64
- yjd/buXFGbOxA==
+ b=ScJeTJNk1pD+RdynhVr8qNAW//IojBtbGVCTFhWq/oqpBVsB4q00jGmPVuOZt88cx
+ R7NeLDJySaTrA/HcR9gNU03GkJghW64kIu7AqTE8fi45VeZrNzH5+sufCWvSvAXABc
+ TY/QggZ26279lKvvejbtvS8gB7ef3Z6vKkIxW2jHlAaApi7qdtr5rOss/PUJVNs9he
+ VT+IVChDEeG8w1FvMeQFfPKqRdL14CiAGStbVftlDiHZr/UcA7PWNwCovHCV8Ksx9g
+ KgnL8+PW1IlN4IL/QV1y9Agx85UNZa96rkbaD71oKPOb6O7iUUw60SgVhFiIfES9Yw
+ 9jqIK94CnsrdQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 1/4] misc: fastrpc: Move fdlist to invoke context
- structure
+Subject: Re: [PATCH v13 3/4] misc: fastrpc: Expand context ID mask for DSP
+ polling mode support
 To: "Ekansh Gupta" <ekansh.gupta@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260713052236.3033744-2-ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20260713052236.3033744-4-ekansh.gupta@oss.qualcomm.com>
 References: <20260713052236.3033744-1-ekansh.gupta@oss.qualcomm.com>
- <20260713052236.3033744-2-ekansh.gupta@oss.qualcomm.com>
+ <20260713052236.3033744-4-ekansh.gupta@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 05:34:48 +0000
-Message-Id: <20260713053448.CE5501F000E9@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 05:37:27 +0000
+Message-Id: <20260713053727.AB6371F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,153 +58,188 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Arbitrary kernel memory read to userspace via untrusted `rpra`=
- pointers.
-- [Critical] Use-After-Free via DSP-manipulated `fdlist` dropping active ma=
-p references.
-- [Medium] Memory leak of `fastrpc_map` objects on timeout or interruption.
+- [High] Circular reference between fastrpc_user and fastrpc_invoke_ctx lea=
+ds to permanent memory leak on interrupted invokes
+- [High] IDR lookup without reference count acquisition in fastrpc_rpmsg_ca=
+llback leads to Use-After-Free
+- [High] DMA buffers moved to invoke_interrupted_mmaps are permanently leak=
+ed
+- [High] DSP's reference count on fastrpc_invoke_ctx is never dropped durin=
+g rpmsg device removal
+- [High] fastrpc_invoke_ctx is exposed to IDR before its refcount is initia=
+lized
 --
 
---- Patch [1]: [PATCH v13 1/4] misc: fastrpc: Move fdlist to invoke context=
- structure ---
-commit 3273bebbc8c035be416508d67400b312f049c6e6
+--- Patch [3]: [PATCH v13 3/4] misc: fastrpc: Expand context ID mask for DS=
+P polling mode support ---
+commit 3f54bd616159b6758a0a91f71a64fbcdf225579a
 Author: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-misc: fastrpc: Move fdlist to invoke context structure
+misc: fastrpc: Expand context ID mask for DSP polling mode support
 
-This commit moves the fdlist from being recalculated during
-fastrpc_put_args() to being stored directly in the fastrpc_invoke_ctx
-structure. This centralizes its handling and simplifies the meta buffer
-preparation and reading logic.
+Current FastRPC context uses a 12-bit mask for context ID and PD type.
+This expands it to a 16-bit layout for DSP polling mode support, ensuring
+the async mode bit doesn't overlap with odd context IDs.
 
 > diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index d86e79134c681..02c2765e1188c 100644
+> index 41c2ec0bc6281..78bd5b8f67f85 100644
 > --- a/drivers/misc/fastrpc.c
 > +++ b/drivers/misc/fastrpc.c
+> @@ -38,7 +38,7 @@
+>  #define FASTRPC_CTX_MAX (256)
+>  #define FASTRPC_INIT_HANDLE	1
+>  #define FASTRPC_DSP_UTILITIES_HANDLE	2
+> -#define FASTRPC_CTXID_MASK GENMASK(11, 4)
+> +#define FASTRPC_CTXID_MASK GENMASK(15, 8)
 
-[ ... ]
+[Severity: High]
+This isn't a bug introduced by this patch, but seeing the context ID mask
+update prompted me to look at how the IDR handles contexts, and I noticed a
+potential circular reference.
 
-> @@ -1165,18 +1167,11 @@ static int fastrpc_put_args(struct fastrpc_invoke=
-_ctx *ctx,
->  	union fastrpc_remote_arg *rpra =3D ctx->rpra;
->  	struct fastrpc_user *fl =3D ctx->fl;
->  	struct fastrpc_map *mmap =3D NULL;
-> -	struct fastrpc_invoke_buf *list;
-> -	struct fastrpc_phy_page *pages;
-> -	u64 *fdlist;
-> -	int i, inbufs, outbufs, handles;
-> +	u64 *fdlist =3D ctx->fdlist;
-> +	int i, inbufs;
->  	int ret =3D 0;
-> =20
->  	inbufs =3D REMOTE_SCALARS_INBUFS(ctx->sc);
-> -	outbufs =3D REMOTE_SCALARS_OUTBUFS(ctx->sc);
-> -	handles =3D REMOTE_SCALARS_INHANDLES(ctx->sc) + REMOTE_SCALARS_OUTHANDL=
-ES(ctx->sc);
-> -	list =3D fastrpc_invoke_buf_start(rpra, ctx->nscalars);
-> -	pages =3D fastrpc_phy_page_start(list, ctx->nscalars);
-> -	fdlist =3D (uint64_t *)(pages + inbufs + outbufs + handles);
-> =20
->  	for (i =3D inbufs; i < ctx->nbufs; ++i) {
->  		if (!ctx->maps[i]) {
-
-[Severity: Medium]
-This is a pre-existing issue, but does this code leak the fastrpc_map
-objects if an invoke operation times out or is interrupted?
-
-If fastrpc_internal_invoke() exits early for timeouts or signals, it skips
-fastrpc_put_args() and leaves the context in the pending list:
+Looking at fastrpc_internal_invoke(), if an RPC invoke is interrupted
+(-ERESTARTSYS) or times out, it skips dropping the context's initial refere=
+nce
+and leaves it in fl->pending indefinitely:
 
 drivers/misc/fastrpc.c:fastrpc_internal_invoke() {
     ...
-    if (err !=3D -ERESTARTSYS && err !=3D -ETIMEDOUT) {
-        /* We are done with this compute context */
-        spin_lock(&fl->lock);
-        list_del(&ctx->node);
-        spin_unlock(&fl->lock);
-        fastrpc_context_put(ctx);
-    }
+    if (err =3D=3D -ERESTARTSYS) {
     ...
 }
 
-When the DSP eventually replies, the completion callback asynchronously fre=
-es
-the context via fastrpc_context_free(). However, fastrpc_context_free() does
-not execute the fdlist cleanup logic:
+However, ctx holds a strong reference to the fastrpc_user object (fl) creat=
+ed
+in fastrpc_context_alloc():
+
+drivers/misc/fastrpc.c:fastrpc_context_alloc() {
+    ...
+    /* Take a reference to user, released in fastrpc_context_free() */
+    fastrpc_user_get(user);
+    ...
+}
+
+Does this create a circular reference where fl's refcount can never reach 0,
+meaning fastrpc_user_free() is never called to clean up the abandoned conte=
+xts?
+
+Can this be triggered by userspace sending a signal to a waiting thread?
+
+[Severity: High]
+This is a pre-existing issue, but I also noticed a potential Use-After-Free
+race condition regarding the context IDR.
+
+In fastrpc_rpmsg_callback(), the context is retrieved without acquiring a
+reference count (e.g., using kref_get_unless_zero) before dropping the lock:
+
+drivers/misc/fastrpc.c:fastrpc_rpmsg_callback() {
+    ...
+    spin_lock_irqsave(&cctx->lock, flags);
+    ctx =3D idr_find(&cctx->ctx_idr, ctxid);
+    spin_unlock_irqrestore(&cctx->lock, flags);
+    ...
+}
+
+If the context's refcount concurrently reaches zero, fastrpc_context_free()=
+ is
+called, but the object is removed from the IDR relatively late, after freei=
+ng
+buffers:
 
 drivers/misc/fastrpc.c:fastrpc_context_free() {
     ...
-    for (i =3D 0; i < ctx->nbufs; i++)
-        fastrpc_map_put(ctx->maps[i]);
+    spin_lock_irqsave(&cctx->lock, flags);
+    idr_remove(&cctx->ctx_idr, FIELD_GET(FASTRPC_CTXID_MASK, ctx->ctxid));
+    spin_unlock_irqrestore(&cctx->lock, flags);
     ...
 }
 
-Are maps the DSP returned in fdlist to be released permanently leaked in th=
-is
-scenario?
+Is there a wide race window here where a duplicate or delayed DSP response
+could find the context in the IDR, and then write to ctx->retval or schedul=
+e a
+work item on the freed object?
 
-[Severity: Critical]
-This is a pre-existing issue, but can a compromised DSP cause a
-use-after-free by manipulating the untrusted fdlist?
+[Severity: High]
+This isn't a bug introduced by this patch, but do the DMA buffers moved to
+invoke_interrupted_mmaps get permanently leaked?
 
-In fastrpc_put_args(), the kernel iterates over fdlist and drops references
-for maps without verifying if they are actively in use by the current
-context:
+When fastrpc_internal_invoke() is interrupted by a signal, buffers are moved
+to the interrupted list:
 
-drivers/misc/fastrpc.c:fastrpc_put_args() {
+drivers/misc/fastrpc.c:fastrpc_internal_invoke() {
     ...
-    for (i =3D 0; i < FASTRPC_MAX_FDLIST; i++) {
-        if (!fdlist[i])
-            break;
-        if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
-            fastrpc_map_put(mmap);
-    }
+            list_add_tail(&buf->node, &fl->cctx->invoke_interrupted_mmaps);
     ...
 }
 
-If a malicious DSP injects file descriptors of actively used maps (e.g.,
-those in ctx->maps[i]), it could cause their reference count to drop to zero
-prematurely. When the context is subsequently destroyed, the kernel drops
-references again:
+But when the DSP channel is closed or crashes, fastrpc_rpmsg_remove() itera=
+tes
+over this list and removes the nodes without calling fastrpc_buf_free():
 
-drivers/misc/fastrpc.c:fastrpc_context_free() {
+drivers/misc/fastrpc.c:fastrpc_rpmsg_remove() {
     ...
-    for (i =3D 0; i < ctx->nbufs; i++)
-        fastrpc_map_put(ctx->maps[i]);
-    ...
-}
-
-Could this lead to memory corruption when ctx->maps[i] is freed twice?
-
-[Severity: Critical]
-This is a pre-existing issue, but does this code allow arbitrary kernel mem=
-ory
-disclosure via untrusted rpra pointers?
-
-The rpra array resides within ctx->buf->virt, a DMA-mapped buffer accessible
-by the DSP. In fastrpc_put_args(), the kernel blindly reads the source poin=
-ter
-and length directly from this shared memory:
-
-drivers/misc/fastrpc.c:fastrpc_put_args() {
-    ...
-            void *src =3D (void *)(uintptr_t)rpra[i].buf.pv;
-            void *dst =3D (void *)(uintptr_t)ctx->args[i].ptr;
-            u64 len =3D rpra[i].buf.len;
-
-            if (!kernel) {
-                if (copy_to_user((void __user *)dst, src, len)) {
+    list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+        list_del(&buf->node);
     ...
 }
 
-If a compromised DSP manipulates rpra[i].buf.pv and rpra[i].buf.len to point
-to arbitrary kernel addresses, will the kernel pass these directly to
-copy_to_user(), leaking sensitive data to userspace?
+Are these memory map buffers deliberately dropped, or is this leaking the
+underlying kernel DMA memory?
+
+[Severity: High]
+This is a pre-existing issue, but is the DSP's outstanding reference count =
+on
+fastrpc_invoke_ctx ever dropped during rpmsg device removal?
+
+If the DSP crashes and fastrpc_rpmsg_remove() runs, it unblocks waiting thr=
+eads
+by setting -EPIPE and signaling completions:
+
+drivers/misc/fastrpc.c:fastrpc_notify_users() {
+    ...
+        ctx->retval =3D -EPIPE;
+        complete(&ctx->work);
+    ...
+}
+
+Previously, fastrpc_invoke_send() acquired a strong reference on ctx on
+behalf of the DSP, which is normally dropped by fastrpc_rpmsg_callback() wh=
+en
+the DSP replies.
+
+Does setting the completion here without dropping that reference leave the
+contexts with a non-zero refcount forever?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could fastrpc_invoke_ctx be
+exposed to the IDR before its refcount is initialized?
+
+In fastrpc_context_alloc(), the ctx is inserted into the IDR and the lock is
+dropped before initializing the refcount:
+
+drivers/misc/fastrpc.c:fastrpc_context_alloc() {
+    ...
+    spin_unlock_irqrestore(&cctx->lock, flags);
+
+    kref_init(&ctx->refcount);
+    ...
+}
+
+Could a compromised DSP send a duplicate response matching this newly recyc=
+led
+ID, triggering fastrpc_rpmsg_callback() to look up the ID, schedule put_wor=
+k,
+and decrement the uninitialized zero refcount (from kzalloc) before the
+allocation thread initializes it to 1?
+
+>  #define INIT_FILELEN_MAX (2 * 1024 * 1024)
+>  #define INIT_FILE_NAMELEN_MAX (128)
+>  #define FASTRPC_DEVICE_NAME	"fastrpc"
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713052236.3033=
-744-1-ekansh.gupta@oss.qualcomm.com?part=3D1
+744-1-ekansh.gupta@oss.qualcomm.com?part=3D3
