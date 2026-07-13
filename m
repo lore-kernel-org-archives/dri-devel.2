@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12B47C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 10:38:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7638DC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 10:38:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ACB910E8F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EADB10E8F9;
 	Mon, 13 Jul 2026 10:38:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ip+OlFxP";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="XADnlWxA";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7466B10E5A6
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:38:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C950710E5A6
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:38:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783939093;
- bh=j5lGbsuNrMuX2/MBNskiphqCbXX2IsyCVQqLudRvkx8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ip+OlFxPewx/MeOw5CRAZNfD9gBfEHDjiwiVUpBB3PKns7El48CnNmZxaus4X4+o4
- PCq3cX9/B2rqMulQCnSO4OCfMKHzS/RmmsyVRrSRPLhyh9B8OTvijFfswPkUagItYU
- ne/Ua18idlN1Fw0eMM34xzJDEQVhn0dvS8jeK9TNp7cXB+gghStUGyUKRJSUiv6cY0
- DPj+I+shzwA/iPYwY1i+GSl/EF6HE5IWI4og+XSwz918rzaeQKHAMdo4A3kPzzXGev
- hy1krySs+UafcBXjN6RSFhPLwmEHb7HxadC8le1YHvL10eoLoG+LT0fAnJaHT5XJoN
- 9OJaZe0gzNH9A==
+ s=mail; t=1783939092;
+ bh=4E+jdeyxHU72SDz0s7k3Q69ptccQSHWPz/W0Q42mOCY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=XADnlWxANguGJN7bl+NRzpLu1SRZZIU6um8d4jvJq6Sneksd0SUAmz1YhyvMqRHyQ
+ zdQ1JI1iP8aENu2q1GsS/WT+qfgENxK9OqH6JWjxV1Dt67+K8FZS2NGILxc+achbDr
+ oUjdJPxqi2sSjjGI8b3LuLsaPTt50zTDkMw+bFacMZ+ddJZpKWuPy9VPATLICGk1DU
+ hwR0nRXdzZfAfD4xu9/DaAziNJAiJRfBEG9anUTUZ72k0kFXz5hW2FRSMw6KY5YGpa
+ J8xTL9cjtVX4/v/VKG6FkbHwbatsWOWCE8XB4c2m59OQbrlEA788KXpEWErRRmCq+Q
+ fGByR+Cx9fpVQ==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 810B517E0DE6;
- Mon, 13 Jul 2026 12:38:12 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A900C17E05D3;
+ Mon, 13 Jul 2026 12:38:11 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunfeng.yun@mediatek.com
 Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
@@ -41,15 +41,11 @@ Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
  linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel@collabora.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 1/2] dt-bindings: phy: mediatek,
- dsi-phy: Add support for MT8196
-Date: Mon, 13 Jul 2026 12:38:04 +0200
-Message-ID: <20260713103805.23030-2-angelogioacchino.delregno@collabora.com>
+ kernel@collabora.com
+Subject: [PATCH v3 0/2] PHY: Add support for MT8196 DSI PHY
+Date: Mon, 13 Jul 2026 12:38:03 +0200
+Message-ID: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
-References: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -67,29 +63,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for the MediaTek Kompanio Ultra (MT8196) SoC: this
-chip features a DSI PHY that is similar to the one found in the
-MT8183 SoC, but is a new (incremental) revision with a different
-register layout.
+Changes in v3:
+ - Actually sent the correct patch series (sorry, I had messed up v2)
+ - Added definitions for minimum and maximum PLL rates
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- Documentation/devicetree/bindings/phy/mediatek,dsi-phy.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v2:
+ - Added a few comments and fix scheduling while atomic issue in clk
+   enable ops by waiting with udelay() instead
+ - Removed one unnecessary delay after clk/pwr isolation disablement
 
-diff --git a/Documentation/devicetree/bindings/phy/mediatek,dsi-phy.yaml b/Documentation/devicetree/bindings/phy/mediatek,dsi-phy.yaml
-index c6d0bbdbe0e2..9df1dbe1253b 100644
---- a/Documentation/devicetree/bindings/phy/mediatek,dsi-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/mediatek,dsi-phy.yaml
-@@ -39,6 +39,7 @@ properties:
-       - const: mediatek,mt2701-mipi-tx
-       - const: mediatek,mt8173-mipi-tx
-       - const: mediatek,mt8183-mipi-tx
-+      - const: mediatek,mt8196-mipi-tx
- 
-   reg:
-     maxItems: 1
+This series adds support for the DSI PHY found in the newer MediaTek
+Dimensity 9400 (MT6991), Genio Pro 5100 (MT8894) and Kompanio Ultra
+(MT8196) SoCs.
+
+AngeloGioacchino Del Regno (2):
+  dt-bindings: phy: mediatek,dsi-phy: Add support for MT8196
+  phy: mediatek: Add support for MT8196 MIPI DSI PHY
+
+ .../bindings/phy/mediatek,dsi-phy.yaml        |   1 +
+ drivers/phy/mediatek/Makefile                 |   1 +
+ .../phy/mediatek/phy-mtk-mipi-dsi-mt8196.c    | 201 ++++++++++++++++++
+ drivers/phy/mediatek/phy-mtk-mipi-dsi.c       |   1 +
+ drivers/phy/mediatek/phy-mtk-mipi-dsi.h       |   2 +-
+ 5 files changed, 205 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
+
 -- 
 2.54.0
 
