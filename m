@@ -4,71 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B7CFC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:48:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9362BC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:48:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD35510E5BA;
-	Mon, 13 Jul 2026 08:48:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBDD710E804;
+	Mon, 13 Jul 2026 08:48:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="T5/QGkKu";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="eTfDloii";
 	dkim-atps=neutral
-Received: from out-182.mta1.migadu.com (out-182.mta1.migadu.com
- [95.215.58.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A81810E5BA
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:48:15 +0000 (UTC)
-Message-ID: <d7c1607f-ea74-442a-9700-7fc4f0c64b76@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1783932491;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=GQlgXP7bj8bfTDjYknZjTJi5ysGxhStqQgrMWEWotTo=;
- b=T5/QGkKux4oRzWiz0v1dlhnIq9/TTeccaPXaIXG1RKQQN1W/8VMTI6h0trrs7uuLyg0x66
- WFpRHrrjbcJ7iVNdp2+/ucPBVn8kOi04fn0ljSUrxkgZ2DYozojIRSrt7Skde9XYDLsZnw
- xfiRE5qPtburcUDvr7r2kc1MzqmqAqc=
-Date: Mon, 13 Jul 2026 16:47:13 +0800
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B897F10E804
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:48:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783932505; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=lXKjaHIiHw8mXjf7Vn+TmZUYX2QhU3s0DjJwH/LN4kzuiJr9ZA8tH/Lv0HUGWGHhtDPtgDHdysYsdIjnS1QMgxqEr8GOWCliPuHcSSOrovafbjZdp8yHb7mGi7RY+VCjXG3bH1zwbc0kO342PxJXDUqlL9mCy5o86ypXg1kXppU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783932505;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=KsfxWRzAagCx14YxLvnO4oX7Kh2sQPKkaZZcrk4rEJ4=; 
+ b=lbta+zQ9p3jcSZ2leSDAdsqgwbE/5HRkcOUcA1zKlz8gnU4zmFjYs3XAGcr+qjN5qhf4nmWvzJTiSvZI4gD6MURK6tpmu5ZCqNYk59InIwohxi35oDQ2zwakT0yQroE3KTJrxeb3bHYx9Mc9l+9tw+yvI1+I4AIce7giX3WuuZ0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783932505; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=KsfxWRzAagCx14YxLvnO4oX7Kh2sQPKkaZZcrk4rEJ4=;
+ b=eTfDloiizlpLm3YsdFYEhWJPhSNku0fdjmBlNsVQGyq8DEYhIJ9Waf6dQvZMelkf
+ UjdmvsBqgV8qCWPm0bS9AB/gFkrNvSYxMp4CC1oDpLi7RTX26pIrBkKV6a7HKTCFwth
+ EW7pqRsHsuX6j8RGlWiadVCiHm0tf5WJGHTCPxZ4=
+Received: by mx.zohomail.com with SMTPS id 17839325039261007.2755806448675;
+ Mon, 13 Jul 2026 01:48:23 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH v5 0/2] Add vm_bind param check to ensure no overlap with
+ kbo AS carveout
+Date: Mon, 13 Jul 2026 09:48:00 +0100
+Message-Id: <20260713-vm_bind_checks-v5-0-0d2314af8d9d@collabora.com>
 MIME-Version: 1.0
-Subject: Re: [PATCH v8 10/10] rust: module: update MAINTAINERS to cover
- module.rs
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
- <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
- Igor Korotin <igor.korotin@linux.dev>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
- Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org,
- linux-modules@vger.kernel.org, driver-core@lists.linux.dev,
- dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-pci@vger.kernel.org
-References: <20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev>
- <20260713-fix-fops-owner-v8-10-2495cfa82d47@linux.dev>
- <alSe6PsvdrSYP_Z0@google.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Alvin Sun <alvin.sun@linux.dev>
-In-Reply-To: <alSe6PsvdrSYP_Z0@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23Q3UoDMRAF4FcpuTYyyeZn0yvfQ6RM0lk32m4kq
+ UEp++5mK2Lp9vLAme/AnFmhHKmw7ebMMtVYYppa0A8bFkacXonHfctMgjRghOL1uPNx2u/CSOG
+ 9cGXAao9gHAJrRx+Zhvh1AZ9ffnP59G8UTouyNMZYTil/XxarWHp/uLnFq+DAnTbC9QYkUvcU0
+ uGAPmV8DOnIloEqrwm3ImQjvBbo0Xd6sOIe0V0Rck10jeg1GatgMEHSPUL9ExZWX6qqEcqC9ia
+ gG3q8JeZ5/gHSALQhiwEAAA==
+X-Change-ID: 20260614-vm_bind_checks-46075ba069a0
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Heiko Stuebner <heiko@sntech.de>, Grant Likely <grant.likely@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2666;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=h+Y6xvjHuguWZKZVi+XscTQCBY616BZPFtqVxf0n/Vw=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqVKZTNT05L4/JIjQm+Mo9SwvqbXBO7Lrlyydx7
+ Ox0MrQp6VeJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCalSmUwAKCRAOJn5M7lND
+ PdQxDACzTYslNoeqyxIHN4lLekRNgKJCD7OQ+rA42184ROXJbGYHu93tu9SEnC1mooVZ+nZwQsU
+ 1p0O9MUD8zgknIj0MPKjU3z10W7tFlgyfI+O/dNvLPR7yvHzpIo5Sta5T4Tygw9pzh/6HB7Lm3e
+ FXGvwyt59cf6wiwvu8Swb1cO/0jNTx4nGJBCgqTCht1aKJmlxMdvvhJLXjRNRLjsYyBYrCXxVsc
+ hA2dIkJHCkpQ76e2SQPKXt9d2UWxI6kO5yxjdKyUaTMhC4HtK+Ly96BaUiBFtUZDP5ylHgWa/oK
+ W5HVZJWulMD50nsEVW2bORCzu2Gd82xXMnbQHF8gdq2Q08RA9zp+XzAyw7lE0bSUuppUzq/T6Ee
+ wlx766A8yGN9f/KTUA9vNEmdpD4csTUcfG5Ey+by+5+vY31LuMgkke88zbQGFCEWzGrvSV/NiHO
+ HrWwUvwlavymcNlUYsu8b8Px07ATDw1qkRQS+XRHqggiwqssbView+F6d87Oi4xkCgXik=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,48 +89,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Just a quick check to make sure user-supplied vm_bind regions aren't
+clashing with the region reserved for kernel bo's.
 
-On 7/13/26 16:16, Alice Ryhl wrote:
-> On Mon, Jul 13, 2026 at 02:45:31PM +0800, Alvin Sun wrote:
->> Module types now live in `rust/kernel/module.rs` alongside
->> `rust/kernel/module_param.rs`. Update the MODULE SUPPORT file pattern
->> from `rust/kernel/module_param.rs` to `rust/kernel/module*.rs` so both
->> files are covered.
->>
->> Cc: Petr Pavlu <petr.pavlu@suse.com>
->> Assisted-by: opencode:glm-5.2
->> Link: https://lore.kernel.org/rust-for-linux/8ea21b29-9baf-4926-a16f-7d21c5a1a1b8@suse.com
->> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
->> ---
->>   MAINTAINERS | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index e035a3be797c4..74733de3e41ee 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -17984,7 +17984,7 @@ F:	include/linux/module*.h
->>   F:	kernel/module/
->>   F:	lib/test_kmod.c
->>   F:	lib/tests/module/
->> -F:	rust/kernel/module_param.rs
->> +F:	rust/kernel/module*.rs
->>   F:	rust/macros/module.rs
->>   F:	scripts/module*
->>   F:	tools/testing/selftests/kmod/
-> Is there a reason why this is a separate commit from the commit that
-> introduces rust/kernel/module.rs file?
+I tried to introduce a similar check for panthor_vm_alloc_va(), to throw
+back an error when mappings of kernel bo's against specific addresses fall
+within the auto_va region. However that is not possible, since there's one
+FW region that must be mapped right at CSF_MCU_SHARED_REGION_START. That
+is usually not a problem, since drm_mm_insert_node_in_range() will pick
+the next one available.
 
-Gary asked the same on v6; `git log` shows MAINTAINERS changes are 
-conventionally
-standalone commits with a `MAINTAINERS: ` prefix, so I kept it separate. 
-Gary agreed [1].
+v3 also comes with an early bind range overflow check for sparse mappings.
 
-[1]: 
-https://lore.kernel.org/rust-for-linux/DJJ26195JBS9.D3DNLZPRJYO4@garyguo.net/
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+Changes in v5:
+- Coalesced uint64 and kbo ranges overflow checks into a single patch.
+- Link to v4: https://patch.msgid.link/20260704-vm_bind_checks-v4-0-4705b6ca9f8a@collabora.com
+
+Changes in v4:
+- Deleted commit that passes single operation to panthor_vm_prepare_unmap_op_ctx.
+- Moved overflow check one step above in the call stack.
+- Rearranged the commits in the series.
+- Link to v3: https://patch.msgid.link/20260629-vm_bind_checks-v3-0-85e6740f6c2e@collabora.com
+
+Changes in v3:
+- Fixed off-by-one error for user va range calculations.
+- Added new commit for panthor_vm_prepare_unmap_op_ctx to take a whole operation.
+- Added commit with bind range early overflow check.
+- Link to v2: https://patch.msgid.link/20260619-vm_bind_checks-v2-0-b51abab35f71@collabora.com
+
+Changes in v2:
+- Simplified user VA range with kernel BO range overlap to a single statement.
+- Link to v1: https://patch.msgid.link/20260616-vm_bind_checks-v1-0-956198602ae3@collabora.com
+
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Steven Price <steven.price@arm.com>
+To: Liviu Dudau <liviu.dudau@arm.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Heiko Stuebner <heiko@sntech.de>
+To: Grant Likely <grant.likely@linaro.org>
+To: Adrián Larumbe <adrian.larumbe@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Adrián Larumbe (2):
+      drm/panthor: Add vm_bind region with kbo range overlap check
+      drm/panthor: Fix comment to reflect actual struct field name
+
+ drivers/gpu/drm/panthor/panthor_mmu.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+---
+base-commit: 8fca3d8dbebf8d960dad7b10db3cb4a61139454b
+change-id: 20260614-vm_bind_checks-46075ba069a0
 
 Best regards,
-Alvin
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
 
->
-> Alice
