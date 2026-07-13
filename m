@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1525C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:09:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE44EC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:09:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BC4D10E950;
-	Mon, 13 Jul 2026 12:09:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4723D10E94F;
+	Mon, 13 Jul 2026 12:09:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b9gO6Ok6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MgBEBQZC";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8D1D10E950
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:09:46 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-381c51fde6bso2902021a91.2
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 05:09:46 -0700 (PDT)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69BDA10E94F
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:09:57 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-38dc4553f62so1785533a91.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 05:09:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783944586; x=1784549386; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783944597; x=1784549397; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Krigkeb0EY7ngMYX+Y7ADjdq0pOv6Fpp5Q1fhmmedpo=;
- b=b9gO6Ok6PmPJuwYJeNUJvQwFo/J3ZuAoY5WOdNRZg4U9sHsNMoXBXyKPMSEYePHvm2
- UGw0HqjJXkJtFk018YBrsHsitciMIi6ZmolmUI0JaLhmKJcKOgh++MQzQ+O8d/5hZMwH
- StIVFHA76nYeIVKL6FWRT1eEvsE3nrWOgcB3Hsft4Ktkt2rHErD3aBB4r77cwU6fCBL3
- om78t5z2TFJCGRnMt+hJFAoM74cWOJQJt7dM9nFu+6el4JSxDlCg3pnOhczMDleqHKyf
- 981zOJJOcTGpPDh6xAMbP8WILG6DyDdNkgzLXnj/T5ywEq1gKy8qRNOTXh/m0uFBaooH
- iWSw==
+ bh=R5VN0Op/PYgxXXGiNzBVb7Bc2A/YDsd2gosba72MniQ=;
+ b=MgBEBQZCskYeCLtyuur42Sr1YXUqrcuk6mbs7dgC6zdkrSRXvcLPRqthBu8veL+Qxw
+ kqXXLCOAdjmBQ2vCKrIN/0ZyDQwYNypsI9yRu0SAZGWdX+Xde1HqVRZOn46LfBhByM6a
+ CXBt5K45HgVi5hyUY9MNjiXz6DV/JmAyltPjCrZ4Nhipl5HcyJru3DLcBgMGt2J1hR54
+ 8bYoJo5B+rOP9Z5bPF92UsDnMJoFL6nl5j1Mwlp7W78Y/PkIUDbs+r92QqRpu1UoBt2m
+ QGh+KuL3E+YlYln2rf98sd3Cu7TK2ney7TplqR6ac9iWfyFwpqv7AAEJrn3p4lfZYx7Z
+ IrHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783944586; x=1784549386;
+ d=1e100.net; s=20251104; t=1783944597; x=1784549397;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Krigkeb0EY7ngMYX+Y7ADjdq0pOv6Fpp5Q1fhmmedpo=;
- b=iON6W4UkkloBsZAfyoxb0z2zVQOdOSeUdf4+7o0ayZ4sb/WlDLDUP+0pm+bVDfF7CY
- pjtVbao1+4t0zHxawn5XlceUq5Qy5atuaA5F2r8S323CdTqWMFGiNH9OSzNXKs18kYSQ
- mPDFPDARuIy2VEnsf/7VXp0fhCKp8UocIQJWM+DavcDEUaoHnO6AgByd1ppXr+Px7er1
- TNIU0cDrKlXWHujyJxoxjUyPvr8dP2o5o4vu6HYpKOo0/pCslytksCRKxzFi16ZpphCL
- wPn1CNG7z+vXuzTVKu2jOOtZuadNohzYooCpIjGumh8UPPE9Jfqmg0VvzXMrer8trV/b
- Kp/w==
+ bh=R5VN0Op/PYgxXXGiNzBVb7Bc2A/YDsd2gosba72MniQ=;
+ b=m1fjIt1Bj50kTPRTQbKpfEv2uoxUFoNYRtIf/K+D19r+YpaQntcrnABeNiTxrTFkdj
+ Hb8KFPtOomrVAEhUn0MlBYpaGbNqWPpbBGgR04Ph7pCI87kqfS4B1jVII3pZBLajkzIC
+ +yh/fyMRK/C4dScvqg3hJX7pZ7BfMiad2/Fm6Fwdg4KzjaonAsvZUu7ZJMgTm1C30rZ9
+ s7tmDCaF5IESJsQw/UQmj6eSgzKlIRwnex37f7B4f3Lebq3kNilxokcG2HqkmXJH0hfL
+ +ntF0aziXlUChNPIpaikdu+qdQ1uqNHh/C19U7yJu/iS7N+JWqDl3jMMuwbaP7NAXuMb
+ UDXQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpUHaIebwOBlNR9/72e7Y6ZU5PWMtuANgXOdoH3VMilLEakb/TV+pllzN7OO6ceODqkle95MBj/9HY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyVTiGkICXbtnr0IFoyr9cFe/Q+QawJCqIF0Xdu0qA65Wzn8XR9
- +2GfqDl995h8ib73kc3zhBcGGkOB8ZLOGjkWcjBeUejEGBxYwQxolfrt
-X-Gm-Gg: AfdE7cm4r5HbQHj5tVlMsLfyeckq5kjfiy1FDgaxwf92zx0mEdztpCbPmAWNKGXVo8b
- FV9ooQvOV0EbhBruybOXq82JXWFp0JOJcknFGVhJcH58lWrGqB/oWZCyaoAkRRerzbODdKa8eFK
- gbGBwBXZn67KfKFl/I4KB+LQGbd3YWQsUYwisDEe2BY1odyIlQGEeIuJwygj+WYAkh/KAaz2Bto
- C7RWSs1M3QgwM/OoEAV5Q2oNDyHjsZfloaDPvhWooCrIZBbU47g0u03QxJq3LtRCuC73NiXfQyb
- qovFWQmZ9ppQEnnMdiRBg8JV6S7jq69U7FfpQyKvYxIT+VE2+4gs54CxOY1UZrAfWccyUHFt3tv
- 46s2nGVrCIZnE8ToyhFxka7P/AaXTKRM7ugQVtIzDsWKnH73vnvatnuXQhhxv7CZxNthjSLOCZ+
- iw01cEHmhRAEj4MNvnhoE/
-X-Received: by 2002:a17:90b:4ac1:b0:38d:e0c4:c955 with SMTP id
- 98e67ed59e1d1-38de0c4ca49mr5634290a91.15.1783944586225; 
- Mon, 13 Jul 2026 05:09:46 -0700 (PDT)
+ AHgh+Ro7pWemWTTTnqaXA27lZDTqIacvWTBonYbyh+L4P9wxWwhdddaqZhWiOYlUzDe3t9PAJGWei/pOwpo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyYlkUARdTrnCVVSTZ+2fzXatzbNMT/FDxh9jIoBUr0ysF2iifN
+ SCZbkidqAqZdgoQOtNDw6fQcjZwxGqB33kE+/+qYHPWcFiAZgpn7QzwL
+X-Gm-Gg: AfdE7cm1QzJSpU0vK2Mi9awuW721t1L86vi889cPrvVT5pHKrejFy9ihrpFj2WmpLpk
+ wPPdKhJr30wy0k8U7vvrst4dSHvaWfxQeFZxDLk2pWqTeaTaOHKSmJ+UHr0JuOzYYuXjfV1cStx
+ mUSMuHHfppxTGHNRIvUPohnbcAKvN3o24jcrXC/fMJnlXPJVSXyWkDq85hI/neGFb5aO6RAnruZ
+ abyNuJNbJINszC0UD3N7q2j4HADz+gVHjbvLvlzvyikKW5QRd6SecktoARg7k8U7EAoU6heBGda
+ t35r5KkaT+4s+HHx5iTfMkpPaHCfdaHoaBS4sHW/GLOhHHStRxW1yt5lJXhapL4cip/GOa2f9cv
+ 79uQN68sELPBxZvSuwZyCKAtYihsU5MNmO1zQnlRZXt+cn+QHhDBhrtFzo5N1S0erwCpBsqhIc6
+ PnZ8eh4aPiuQ==
+X-Received: by 2002:a17:90b:3c43:b0:37f:9ce3:ca97 with SMTP id
+ 98e67ed59e1d1-38dc777b8a2mr8263084a91.32.1783944596948; 
+ Mon, 13 Jul 2026 05:09:56 -0700 (PDT)
 Received: from rockpi-5b ([45.112.0.180]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-311747f7293sm67756935eec.3.2026.07.13.05.09.40
+ 5a478bee46e88-311747f7293sm67756935eec.3.2026.07.13.05.09.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 05:09:45 -0700 (PDT)
+ Mon, 13 Jul 2026 05:09:56 -0700 (PDT)
 From: Anand Moon <linux.amoon@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -78,11 +78,11 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  linux-media@vger.kernel.org (open list:MESON VIDEO DECODER DRIVER FOR AMLOGIC
  SOCS), linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM)
 Cc: Anand Moon <linux.amoon@gmail.com>, Doruk Tan Ozturk <doruk@0sec.ai>,
- Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v7 05/19] media: meson: vdec: Fix race condition and
- synchronize esparser IRQ
-Date: Mon, 13 Jul 2026 17:37:00 +0530
-Message-ID: <20260713120840.17427-6-linux.amoon@gmail.com>
+ Nicolas Dufresne <nicolas@ndufresne.ca>, Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v7 06/19] media: meson: vdec: Fix race condition by canceling
+ work sync
+Date: Mon, 13 Jul 2026 17:37:01 +0530
+Message-ID: <20260713120840.17427-7-linux.amoon@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260713120840.17427-1-linux.amoon@gmail.com>
 References: <20260713120840.17427-1-linux.amoon@gmail.com>
@@ -103,96 +103,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-During session teardown sequences in vdec_stop_streaming() and
-vdec_close(), the 'esparser' hardware interrupt handler can still be
-actively triggered or executing on another CPU core. This creates a
-transient race condition where the ISR attempts to handle stream data and
-allocate internal tracking state structures after session contexts have
-been modified or freed.
+Synchronize work-queue states cleanly during streaming teardown and
+close operations to eliminate asynchronous pipeline race conditions.
 
-Update esparser_isr() to read the current session context utilizing an
-smp_load_acquire() barrier snapshot. If the pointer resolves to NULL,
-terminate processing early with IRQ_HANDLED to protect against
-concurrent dismantling.
+The esparser ISR can schedule work onto 'esparser_queue_work'. While
+synchronize_irq() ensures the ISR itself finishes executing, it does
+not prevent any already scheduled work items from running concurrently
+during driver teardown. This causes a race condition during stream
+stopping or file closing.
 
-Suggested-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Remove the scheduling of esparser queue work during destination buffer
+completion, as freeing the vififo is handled elsewhere. Add synchronous
+cancellation of any pending work in vdec_stop_streaming and vdec_close
+before synchronizing interrupts to prevent use-after-free and race
+conditions.
+
+Cc: Nicolas Dufresne <nicolas@ndufresne.ca>
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Closes: https://lore.kernel.org/all/20260521090944.F35401F00A3D@smtp.kernel.org/
 Signed-off-by: Anand Moon <linux.amoon@gmail.com>
 ---
- drivers/staging/media/meson/vdec/esparser.c | 8 ++++++++
- drivers/staging/media/meson/vdec/vdec.c     | 4 ++++
- drivers/staging/media/meson/vdec/vdec.h     | 2 ++
- 3 files changed, 14 insertions(+)
+ drivers/staging/media/meson/vdec/vdec.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/staging/media/meson/vdec/esparser.c b/drivers/staging/media/meson/vdec/esparser.c
-index 4632346f04a9e..37749ede308c6 100644
---- a/drivers/staging/media/meson/vdec/esparser.c
-+++ b/drivers/staging/media/meson/vdec/esparser.c
-@@ -60,6 +60,12 @@ static irqreturn_t esparser_isr(int irq, void *dev)
- {
- 	int int_status;
- 	struct amvdec_core *core = dev;
-+	struct amvdec_session *sess;
-+
-+	/* Secure an atomic snapshot to protect against concurrent teardown */
-+	sess = smp_load_acquire(&core->cur_sess);
-+	if (!sess)
-+		return IRQ_HANDLED;
- 
- 	int_status = amvdec_read_parser(core, PARSER_INT_STATUS);
- 	amvdec_write_parser(core, PARSER_INT_STATUS, int_status);
-@@ -439,6 +445,8 @@ int esparser_init(struct platform_device *pdev, struct amvdec_core *core)
- 	if (irq < 0)
- 		return irq;
- 
-+	core->esparser_irq = irq;
-+
- 	ret = devm_request_irq(dev, irq, esparser_isr, IRQF_SHARED,
- 			       "esparserirq", core);
- 	if (ret) {
 diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/media/meson/vdec/vdec.c
-index 7ae3d5a9dd6ab..7689ffdb2e500 100644
+index 7689ffdb2e500..6fe9722577179 100644
 --- a/drivers/staging/media/meson/vdec/vdec.c
 +++ b/drivers/staging/media/meson/vdec/vdec.c
-@@ -486,6 +486,8 @@ static void vdec_stop_streaming(struct vb2_queue *q)
+@@ -484,11 +484,15 @@ static void vdec_stop_streaming(struct vb2_queue *q)
+ 			}
+ 		}
  
++		mutex_unlock(&core->lock);
  		/* Synchronize and flush pending hardware interrupt service routines */
  		synchronize_irq(core->vdec_irq);
-+		/* Ensure esparser ISR finishes executing */
-+		synchronize_irq(core->esparser_irq);
+ 		/* Ensure esparser ISR finishes executing */
+ 		synchronize_irq(core->esparser_irq);
  
++		cancel_work_sync(&sess->esparser_queue_work);
++		mutex_lock(&core->lock);
++
  		vdec_poweroff(sess);
  		vdec_free_canvas(sess);
-@@ -994,6 +996,8 @@ static int vdec_close(struct file *file)
  
- 	/* Synchronize and flush pending hardware interrupt service routines */
- 	synchronize_irq(core->vdec_irq);
-+	/* Ensure esparser ISR finishes executing */
-+	synchronize_irq(core->esparser_irq);
+@@ -999,6 +1003,8 @@ static int vdec_close(struct file *file)
+ 	/* Ensure esparser ISR finishes executing */
+ 	synchronize_irq(core->esparser_irq);
  
++	cancel_work_sync(&sess->esparser_queue_work);
++
  	if (!IS_ERR_OR_NULL(sess->recycle_thread)) {
  		kthread_stop(sess->recycle_thread);
-diff --git a/drivers/staging/media/meson/vdec/vdec.h b/drivers/staging/media/meson/vdec/vdec.h
-index d165c343fd022..c4639cf33e73e 100644
---- a/drivers/staging/media/meson/vdec/vdec.h
-+++ b/drivers/staging/media/meson/vdec/vdec.h
-@@ -68,6 +68,7 @@ struct amvdec_session;
-  * @cur_sess: current decoding session
-  * @lock: video device lock
-  * @vdec_irq: irq for video decoding
-+ * @esparser_irq: irq for elementary stream parsing
-  */
- struct amvdec_core {
- 	void __iomem *dos_base;
-@@ -95,6 +96,7 @@ struct amvdec_core {
- 	struct amvdec_session *cur_sess;
- 	struct mutex lock;
- 	int vdec_irq;
-+	int esparser_irq;
- };
- 
- /**
+ 		sess->recycle_thread = NULL;
 -- 
 2.50.1
 
