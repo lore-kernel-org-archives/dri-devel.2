@@ -4,61 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0B30C44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 11:32:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D337C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 11:43:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0813110E91A;
-	Mon, 13 Jul 2026 11:32:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7C9210E345;
+	Mon, 13 Jul 2026 11:43:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IGLzlfl/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EtXIWSzH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4331F10E911;
- Mon, 13 Jul 2026 11:32:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783942374; x=1815478374;
- h=message-id:subject:from:to:date:in-reply-to:references:
- content-transfer-encoding:mime-version;
- bh=db9eSoCMqiyiPL1Dl/5RAF99+DSiTdsNrZQEK+Xtow4=;
- b=IGLzlfl/PyTO9DdmIbT7L6B3ut87KaSPabi+2qbQYa3T4EqHHI+//z3z
- mTo6KkU7ln2Q4atfc1c7FMfw90CyFBuCyMzpLEhzuKZLI26ClwS/YWF3Q
- RgL5/7yxg0GW8IeAxJkYRtVIGW5dHFaYUW8064y9uCtopQo2data0vPNg
- r4f/L6ppsjE3KDatOUvjTegirnjs2YMJlMH2AScGOFUDyTxSEwVnH/WbI
- IcksfCPAMTLmVLjO1i6VY4HteZm6Tm5we6Lvfr4P1DxUJkoPDv6a68Hgi
- BaFp1QTF3bZDGio/0bhLcU5bDumR/24b3wWBiV4dExNP0Hz67BWGffDjG w==;
-X-CSE-ConnectionGUID: 6yh5gdxGQ1amq2PyCvPvVw==
-X-CSE-MsgGUID: QOo+hmy2QNSqlRF9lVtMEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="94899550"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="94899550"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2026 04:32:54 -0700
-X-CSE-ConnectionGUID: iec/IZY9Tk20QDiTheYBsA==
-X-CSE-MsgGUID: 0BwvW1IXQdK1LgG/q/5QaA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="251105714"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.245.123])
- ([10.245.245.123])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2026 04:32:51 -0700
-Message-ID: <b1eb8f038e0cb094b9df35cdea400b7fd7cd2d54.camel@linux.intel.com>
-Subject: Re: Refcounting dma_resv and using that for drm_exec support in TTM
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
- dakr@kernel.org, ecourtney@nvidia.com, simona@ffwll.ch,
- matthew.brost@intel.com, 	nat@pixelcluster.dev, airlied@gmail.com,
- dri-devel@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, 	intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Date: Mon, 13 Jul 2026 13:32:48 +0200
-In-Reply-To: <20260710190752.2355-1-christian.koenig@amd.com>
-References: <20260710190752.2355-1-christian.koenig@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10AC710E345
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 11:43:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A5B58412BC;
+ Mon, 13 Jul 2026 11:43:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8DA1F000E9;
+ Mon, 13 Jul 2026 11:43:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783943034;
+ bh=FA5sgqjvQjZRyts8vzjbpcKLs5iIbjcY8Nd4IZFvOLs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=EtXIWSzHxllU34WHRkfr0cxuTQef5Zn5NB2EYqwReexhRNWWSx+YBgRVYY85TFEy9
+ BbxDWIkQNiFzm3U4kWv8DJ7ZZCGu0ySg1H2rpU+uaxVg8T8vpHs2BrPXDAfowD5g7U
+ KGZwOGZ2O+r2ZkOO7sDY/89wwe3Z8uvSG+0Hn/1pX5vYwk4uf70xK85C1OdAcmYb1K
+ TUeDaY6xPHfV0qcMTImiWtbUBPJgJObhtGkzcnUAO5n8C8MyJrU6aain6KkwKMPMyN
+ 2DeoPEnioCoiwHjIH6aUbBv72jJWNCV/H5Xp6+cppW2pPTM/osEl9Q2y6RAtb0Lzn4
+ xx84tm7NdKWnQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/mediatek: mtk_hdmi: Fix DDC adapter double put
+ in v2
+To: "Guangshuo Li" <lgs201920130244@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260713112957.884640-1-lgs201920130244@gmail.com>
+References: <20260713112957.884640-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-MIME-Version: 1.0
+Date: Mon, 13 Jul 2026 11:43:53 +0000
+Message-Id: <20260713114354.5F8DA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,70 +53,131 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi, Christian,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-On Fri, 2026-07-10 at 20:52 +0200, Christian K=C3=B6nig wrote:
-> Hi everybody,
->=20
-> The idea of ref-counting dma_resv or ww_mutex came up multiple times
-> from
-> different people, but so far at least I have abandoned that as to
-> complicated to implement considering how widely used that object is.
->=20
-> Thanks to AI I gave the task to refcount dma_resv to Claude Sonet 4
-> just
-> to check how horrible it would look like.
->=20
-> Well turns out that this is actually a cleanup we should most likely
-> aim
-> for and I'm really wondering why we haven't done it like this in the
-> first place.
->=20
-> Not only resolves it a bunch of issues with dma_resv instances shared
-> by
-> multiple GEM objects (we just recently had a bunch of patches for
-> that on
-> the mailing list), but also allows TTM to implement it's delayed
-> delete
-> handling without any zombie resurrection or similar hacks.
->=20
-> The patch set is totally work in progress and only survives a smoke
-> test
-> with amdgpu, but I still wanted to check if the idea is valuable and
-> should be looked in further.
->=20
-> Please comment and/or tear apart :)
+Pre-existing issues:
+- [High] Clocks acquired via `of_clk_get_by_name()` are never released, cau=
+sing a permanent memory and module reference leak.
+- [High] The bridge reference acquired via `of_drm_find_and_get_bridge()` i=
+s leaked on error paths and during driver unbind.
+- [High] The driver uses `of_find_i2c_adapter_by_node()` instead of `of_get=
+_i2c_adapter_by_node()`, failing to pin the I2C adapter module.
+--
 
-Before starting to look at this, in the spirit of trying to aligning on
-a "final" solution for ww transactions used in TTM, could we agree on
-how we are supposed to pass the importer's ww transaction context to
-the exporter's dma_map_attachment() operation to handle exporter
-evictions while mapping, because that decides what abstaction we should
-use for WW transations within TTM.
+--- Patch [1]: [PATCH v3] drm/mediatek: mtk_hdmi: Fix DDC adapter double pu=
+t in v2 ---
+commit 0f15e03f2f19d66ee64acb93c6d5a19fae97377f
+Author: Guangshuo Li <lgs201920130244@gmail.com>
+Subject: drm/mediatek: mtk_hdmi: Fix DDC adapter double put in v2
 
-drm_exec_init()
-xe_bo_validate() // IMporter
-dma_buf_map()    // importer;
-map_attachment() // callback in exporter
-xe_bo_validate() // exporter tries to move exportert bo to VRAM but
-runs out of memory.
-ttm_bo_evict()   // exporter's evict needs importer's drm_exec
+This commit fixes a double-put issue with the DDC I2C adapter in the HDMI v2
+driver. The probe function registers a devm action to release the adapter,
+but the remove callback also manually dropped the reference. This removes
+the manual drop and the empty remove callback.
 
-As mentioned a couple of times before, we can't pass a drm_exec to the
-exporter because that would make dma-buf depend on drm.
+> diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c b/drivers/gpu/drm/med=
+iatek/mtk_hdmi_v2.c
+> index d9316d30fd5f7..f0277fcf3345b 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
+> @@ -1499,13 +1499,6 @@ static int mtk_hdmi_v2_probe(struct platform_devic=
+e *pdev)
+>  	return 0;
+>  }
+> =20
+> -static void mtk_hdmi_v2_remove(struct platform_device *pdev)
+> -{
+> -	struct mtk_hdmi *hdmi =3D platform_get_drvdata(pdev);
+> -
+> -	i2c_put_adapter(hdmi->ddc_adpt);
+> -}
+> -
 
-So with this series it would be sufficient to move drm_exec to the dma-
-buf layer and rename it, but I still think we should have a plan.
+[Severity: High]
+This isn't a bug introduced by this patch, but while you are cleaning up the
+I2C adapter references here, the underlying use of of_find_i2c_adapter_by_n=
+ode()
+in mtk_hdmi_dt_parse_pdata() might be incorrect:
 
-Thanks,
-Thomas
+drivers/gpu/drm/mediatek/mtk_hdmi_common.c:mtk_hdmi_dt_parse_pdata() {
+    ...
+    hdmi->ddc_adpt =3D of_find_i2c_adapter_by_node(i2c_np);
+    ...
+}
 
+It appears of_find_i2c_adapter_by_node() only increments the device referen=
+ce
+count, but does not pin the I2C adapter driver module.
 
+Could this allow the adapter module to be unexpectedly unloaded while the H=
+DMI
+driver is still bound? If drm_edid_read_ddc() later attempts to read the ED=
+ID
+via i2c_transfer(), it might cause a crash by accessing the unloaded module.
 
+Would it be safer to use of_get_i2c_adapter_by_node() to properly pin the
+module?
 
->=20
-> Cheers,
-> Christian.
+[Severity: High]
+This is a pre-existing issue, but I noticed there might be a memory and mod=
+ule
+reference leak during clock initialization.
+
+drivers/gpu/drm/mediatek/mtk_hdmi_common.c:mtk_hdmi_get_all_clk() {
+    ...
+    hdmi->clk[i] =3D of_clk_get_by_name(np, clock_names[i]);
+    ...
+}
+
+The of_clk_get_by_name() function allocates a new struct clk and increments
+the provider's module reference count, but these clocks don't seem to ever =
+be
+released with clk_put().
+
+If the probe is later deferred (e.g., returning -EPROBE_DEFER when waiting =
+for
+the remote bridge or DDC I2C adapter), will all successfully acquired clocks
+be permanently leaked?
+
+[Severity: High]
+This is also a pre-existing issue, but there appears to be a leaked bridge
+module reference on error paths:
+
+drivers/gpu/drm/mediatek/mtk_hdmi_common.c:mtk_hdmi_dt_parse_pdata() {
+    ...
+    hdmi->bridge.next_bridge =3D of_drm_find_and_get_bridge(remote);
+    ...
+}
+
+This successfully bumps the module reference count of the bridge driver.
+
+However, if the subsequent call to of_find_i2c_adapter_by_node() fails and
+returns -EPROBE_DEFER, the driver bails out of probe without dropping the b=
+ridge
+reference via drm_bridge_put().
+
+Could this permanently leak the bridge module reference count, preventing t=
+he
+external bridge module from being unloaded?
+
+>  static const struct of_device_id mtk_drm_hdmi_v2_of_ids[] =3D {
+>  	{ .compatible =3D "mediatek,mt8188-hdmi-tx", .data =3D &mtk_hdmi_conf_m=
+t8188 },
+>  	{ .compatible =3D "mediatek,mt8195-hdmi-tx", .data =3D &mtk_hdmi_conf_m=
+t8195 },
+> @@ -1515,7 +1508,6 @@ MODULE_DEVICE_TABLE(of, mtk_drm_hdmi_v2_of_ids);
+> =20
+>  static struct platform_driver mtk_hdmi_v2_driver =3D {
+>  	.probe =3D mtk_hdmi_v2_probe,
+> -	.remove =3D mtk_hdmi_v2_remove,
+>  	.driver =3D {
+>  		.name =3D "mediatek-drm-hdmi-v2",
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713112957.8846=
+40-1-lgs201920130244@gmail.com?part=3D1
