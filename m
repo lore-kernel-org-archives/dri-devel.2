@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACD22C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 13:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 838B5C44507
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 13:31:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E414C10E602;
-	Mon, 13 Jul 2026 13:23:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0F8410E110;
+	Mon, 13 Jul 2026 13:31:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T6UFHAKr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nch39BDY";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D34D610E9DD
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 13:23:22 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDC7F10E110
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 13:31:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 17C9E601DE;
- Mon, 13 Jul 2026 13:23:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F9A01F00A3A;
- Mon, 13 Jul 2026 13:23:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 60484414DF;
+ Mon, 13 Jul 2026 13:31:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18DB21F000E9;
+ Mon, 13 Jul 2026 13:31:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783949001;
- bh=u1I7KAAFJztmcwbIAGF1z+v8qO6GPhxde8Gm82PqgUk=;
+ s=k20260515; t=1783949492;
+ bh=+gg5/r5gl23UMWz23t+ZU7I8b3f/rtTQHYytnt7hECI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=T6UFHAKr6eM3WFJhgjzHITorm4bsPfTZA3nCVyFAYVRcJ7jba7PV8xJ3T5hIKhpWA
- hMh2XxEflDjBJA2J7uUfdcT5CxaFDKOP2EoQdrkb3kBBkPLuYjgBy/NLCeMXRs5V/n
- hZVJ5U9gqqlpStNMZ0m4EUEd6EV+0Rs5QTedtV+p9jWwVX2okAgbsM3R6s0DPOZuBa
- 0R/7gSc6FpD2cpejWvPw1suH6NsdXMWj0szNmcYpmnYHHI0s3qpPeF83FGbyEbX2+y
- rdRBAtNfYS7uNwZnH7RjQKF7y4eaLjCaqOPbdAPbtD8NTeRujjMxdMpWVGseHpwRv8
- bR7S0vjBQYG1A==
+ b=nch39BDYwAknGSrMRi/abqmbLsvNMMV36O/foddEGQ5XznmTDaoydg23uQ6XSYOfw
+ 3Bf7xo7YQL6Cr1VKwvXgEEVZkrpvWrgGWdwlv3nuBXETVf74YqrBzyyd7VAphKyjSV
+ N7QtMv10/NhJqSlxTilRfnMzkv9FTl/byCmXMx6mJmgpnkQVazgjoXXikWxbSLVbMB
+ BWA8PFUVcwIDAyVcucB927HhlNyQ9QTPLT+SmcXBsLmCmsOZqhYU3SWBnFYPMeAXik
+ cEe5WBPUypofBFB3dFbCWVAgMCGTscxA6QFsMRUAdKTFL/Yxbl573DK5jeBPKVtRXE
+ W/MexYNIGBPdQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/virtio: fix deadlock in display_info_cb by
- removing hotplug from dequeue worker
-To: "Ryosuke Yasuoka" <ryasuoka@redhat.com>
+Subject: Re: [PATCH v2] gpu: buddy: avoid repeated builds of root dfs when
+ alloc range
+To: "Zhaoyu Liu" <liuzhaoyu.zackary@picoheart.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260713-virtiogpu_syzbot-v2-1-2958fa37d46d@redhat.com>
-References: <20260713-virtiogpu_syzbot-v2-1-2958fa37d46d@redhat.com>
+In-Reply-To: <alTlW8TmTXLocWKP@hostpc>
+References: <alTlW8TmTXLocWKP@hostpc>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 13:23:20 +0000
-Message-Id: <20260713132321.9F9A01F00A3A@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 13:31:31 +0000
+Message-Id: <20260713133132.18DB21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,132 +57,85 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Moving the acknowledgment of the VIRTIO_GPU_EVENT_DISPLAY event (`=
-events_clear` write) to the end of the work function, after a potential 5-s=
-econd `wait_event_timeout`, introduces a race window where subsequent hardw=
-are hotplug events can be lost.
-- [High] Userspace permanently misses hotplug events if the virtqueue respo=
-nse takes longer than 5 seconds.
-- [High] The patch introduces a 5-second stall during device removal or res=
-ource exhaustion because it unconditionally waits for a response without ch=
-ecking if the command was successfully queued.
-
 Pre-existing issues:
-- [High] Flushing virtqueue dequeue workers before resetting the device lea=
-ves a window for new interrupts to reschedule the workers, leading to Use-A=
-fter-Free on teardown.
+- [High] Spurious -ENOSPC failure in __alloc_range() for fully free memory =
+ranges due to unmerged SPLIT blocks.
 --
 
---- Patch [1]: [PATCH v2] drm/virtio: fix deadlock in display_info_cb by re=
-moving hotplug from dequeue worker ---
-commit 22579633647788efae56c2e855be2b742b38fc3c
-Author: Ryosuke Yasuoka <ryasuoka@redhat.com>
+--- Patch [1]: [PATCH v2] gpu: buddy: avoid repeated builds of root dfs whe=
+n alloc range ---
+commit 87b87afa0112d6b6bc23de2294a961d8ef1fb83e
+Author: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
 
-    drm/virtio: fix deadlock in display_info_cb by removing hotplug from de=
-queue worker
-   =20
-    A probe-time deadlock can occur between the dequeue worker and
-    drm_client_register(). During probe, drm_client_register() holds
-    clientlist_mutex and calls the fbdev hotplug callback, which triggers an
-    atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
-    waiting for virtqueue space.
+gpu: buddy: avoid repeated builds of root dfs when alloc range
 
-    Closes: https://syzkaller.appspot.com/bug?id=3Dd6dd6f86d3aaf7eebe7406e4=
-5c1c6e549453f224
-    Closes: https://syzkaller.appspot.com/bug?id=3D908bd910da5dd79b88de4cf7=
-baf376cc873a922e
-    Link: https://lore.kernel.org/r/20260630-virtiogpu_syzbot-v1-1-0aa06630=
-750e@redhat.com
+This commit optimizes the buddy allocator by avoiding wasteful repeated bui=
+lds
+of the DFS list during range allocations. It introduces __get_candidate_blo=
+ck()
+to unify block acquisition, falling back to lazily fetching the next root b=
+lock
+only when the DFS list is exhausted.
 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virti=
-o/virtgpu_kms.c
-> index cfde9f573df6e..b4329f28e9766 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> @@ -49,7 +49,10 @@ static void virtio_gpu_config_changed_work_func(struct=
- work_struct *work)
->  				virtio_gpu_cmd_get_edids(vgdev);
->  			virtio_gpu_cmd_get_display_info(vgdev);
->  			virtio_gpu_notify(vgdev);
-> -			drm_helper_hpd_irq_event(vgdev->ddev);
-> +			wait_event_timeout(vgdev->resp_wq,
-> +					   !vgdev->display_info_pending,
-> +					   5 * HZ);
-> +			drm_kms_helper_hotplug_event(vgdev->ddev);
-
-[Severity: High]
-If virtio_gpu_cmd_get_display_info() fails to queue the buffer (for example,
-if drm_dev_enter() fails during a hot-unplug), virtio_gpu_queue_ctrl_buffer=
-()
-will return an error but display_info_pending remains true.
-
-Does this cause wait_event_timeout() to stall for the full 5 seconds during
-device removal?
-
-[Severity: High]
-If the host takes longer than 5 seconds to respond, wait_event_timeout() wi=
-ll
-expire and drm_kms_helper_hotplug_event() will fire using the old connector
-data.
-
-When the delayed response eventually arrives, the callback in
-virtio_gpu_cmd_get_display_info_cb() updates the internal driver state but =
-no
-longer triggers a hotplug event because it was removed in this patch.
-
-Will this leave userspace permanently out of sync with the hardware state?
-
->  		}
->  		events_clear |=3D VIRTIO_GPU_EVENT_DISPLAY;
->  	}
-
-[Severity: High]
-Does moving the wait_event_timeout() before the virtio_cwrite_le() call ope=
-n a
-race condition?
-
-If a hardware hotplug event is asserted while this function is sleeping, the
-subsequent write of events_clear to the device config space will clear the
-newly asserted event without processing it, causing the event to be lost.
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index 3c73ae87f3c5b..72f521c51b3fa 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
 
 [ ... ]
 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio=
-/virtgpu_vq.c
-> index c8b9475a7472e..e5e1af8b8e8a0 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> @@ -840,9 +840,6 @@ static void virtio_gpu_cmd_get_display_info_cb(struct=
- virtio_gpu_device *vgdev,
->  	vgdev->display_info_pending =3D false;
->  	spin_unlock(&vgdev->display_info_lock);
->  	wake_up(&vgdev->resp_wq);
+> @@ -1030,14 +1059,10 @@ static int __alloc_range(struct gpu_buddy *mm,
+>  		u64 block_start;
+>  		u64 block_end;
+> =20
+> -		block =3D list_first_entry_or_null(dfs,
+> -						 struct gpu_buddy_block,
+> -						 tmp_link);
+> -		if (!block)
+> +		block =3D __get_candidate_block(mm, dfs, &cursor);
+> +		if (IS_ERR(block))
+>  			break;
+> =20
+> -		list_del(&block->tmp_link);
 > -
-> -	if (!drm_helper_hpd_irq_event(vgdev->ddev))
-> -		drm_kms_helper_hotplug_event(vgdev->ddev);
->  }
+>  		block_start =3D gpu_buddy_block_offset(block);
+>  		block_end =3D block_start + gpu_buddy_block_size(mm, block) - 1;
 
 [Severity: High]
-This is a pre-existing issue, but I noticed a potential use-after-free duri=
-ng
-device removal in virtio_gpu_deinit():
+This is a pre-existing issue, but could allocations fail spuriously in
+__alloc_range() due to unmerged SPLIT blocks?
 
-drivers/gpu/drm/virtio/virtgpu_kms.c:virtio_gpu_deinit() {
-    ...
-	flush_work(&vgdev->config_changed_work);
-	virtio_reset_device(vgdev->vdev);
-    ...
-}
+Looking further down in this same loop in __alloc_range():
 
-Are we at risk of rescheduling workers if a virtqueue interrupt or config
-change fires immediately after flush_work() returns, but before
-virtio_reset_device() stops the interrupts? If the driver frees vgdev
-shortly after, the rescheduled worker might access freed memory.
+    if (contains(start, end, block_start, block_end)) {
+        if (gpu_buddy_block_is_free(block)) {
+            ...
+        } else if (!mm->clear_avail) {
+            err =3D -ENOSPC;
+            goto err_free;
+        }
+    }
+
+If a previous allocation attempt splits a large free block but fails and do=
+es
+not undo the splits, the parent block is left marked as SPLIT with fully FR=
+EE
+children.
+
+If the system globally has no available clear memory (mm->clear_avail =3D=
+=3D 0), a
+subsequent call to __alloc_range() requesting a range that completely
+encompasses this SPLIT block will satisfy the contains() check. However,
+because the parent block is SPLIT rather than FREE, it hits the
+!mm->clear_avail condition and immediately aborts the entire allocation with
+-ENOSPC.
+
+Should this logic instead traverse down to allocate the perfectly free
+children instead of aborting?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-virtiogpu_=
-syzbot-v2-1-2958fa37d46d@redhat.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/alTlW8TmTXLocWKP@ho=
+stpc?part=3D1
