@@ -4,54 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57091C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 18:45:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E60F9C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 18:50:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC94F10E641;
-	Mon, 13 Jul 2026 18:45:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4319610EAC4;
+	Mon, 13 Jul 2026 18:50:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d5IvSLT/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nTDIFZ8L";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E28210E641;
- Mon, 13 Jul 2026 18:45:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D124410EAC4
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 18:50:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CD25960120;
- Mon, 13 Jul 2026 18:45:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A9AB1F000E9;
- Mon, 13 Jul 2026 18:45:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 139C960103;
+ Mon, 13 Jul 2026 18:50:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9251A1F000E9;
+ Mon, 13 Jul 2026 18:50:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783968318;
- bh=3TSC+KUdH5M4xCMXy9wz487OBFA6h8jcvMXeHdaql+w=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=d5IvSLT/rz/829HpPPFjo+XOrJDmLVod1rZITHILzsDv4EcLo3fYShqoayG8n7Yuj
- /B2iKHULn7/VJZdzCe1wFTZsxMq/RjerO7eK2rvC1ZZ6dhtE23MY1pBM+vPWyjPVWK
- rCbLmMnTW7Bn6ywp859cpd/qCQxpgxp51szycmQdrQ2+50YYdLFxden7OmLAS4fl8r
- SECz7Lruw9T+HR5Jp2AdLueN3Jn9SZIIHZ0rOuJyN0kOKW6eXghpqBkwaVCWGDLOhh
- g6OpQuIYkadq9oAJD8pawXfbQJMNX2xRrfseAFQT7k9FRWNGylIDrRVT4qCi7SrNuv
- Xs+H1wopc266Q==
-Mime-Version: 1.0
+ s=k20260515; t=1783968652;
+ bh=I3zQobyzCvlt962kiYrzLeC/ZnXFcpbAQKE2dZ9gzHA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=nTDIFZ8LpneFq943aNn/JbXZZy5LUEZkWfMv8YcatVTqRgt4Mc0F6bdb1F8NdhTcK
+ FwOrW/0t6d1PKwaklTK73iukQ7NxcqSOp839ib/wK87pADE0xbI4svlxlR9+slIVHb
+ sfi6IgZlQeoTJt7pPnX3He3KOKZHLOuvuzAxCARe9vg55AX/cwptAYpLncCdhYR5gA
+ qJluH9EppnR7XDGqKWODp0WILQmZTa4Pa7Obn5JbxjXP0uSegD3akaQhv5cuF90esM
+ ECzaUKZOnyAHJlOsKyPZt8w8FVUguFHiWx5aToLbgHtMaXdfKnpfvaNfDnpFUAO73j
+ vuq4tcmUj2RqQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/amd/display: Use drm_edid_block_count() instead
+ of raw extensions
+To: =?utf-8?b?VGltbyBQcsO2bWVy?= <timo.proemer04@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260713183841.5921-3-timo.proemer04@gmail.com>
+References: <20260713183841.5921-1-timo.proemer04@gmail.com>
+ <20260713183841.5921-3-timo.proemer04@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 13 Jul 2026 20:45:13 +0200
-Message-Id: <DJXNZLE3L756.K5DYSTKM1UHT@kernel.org>
-Cc: "Maximilian Luz" <luzmaximilian@gmail.com>, "Hans de Goede"
- <hansg@kernel.org>, =?utf-8?q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>, "Matthew Brost" <matthew.brost@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "Rodrigo Vivi" <rodrigo.vivi@intel.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, <brgl@kernel.org>,
- <platform-driver-x86@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <driver-core@lists.linux.dev>
-To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v7 3/4] driver core: platform: unify release path
-References: <20260713-swnode-remove-on-dev-unreg-v7-0-6d6bc448427a@oss.qualcomm.com>
- <20260713-swnode-remove-on-dev-unreg-v7-3-6d6bc448427a@oss.qualcomm.com>
-In-Reply-To: <20260713-swnode-remove-on-dev-unreg-v7-3-6d6bc448427a@oss.qualcomm.com>
+Date: Mon, 13 Jul 2026 18:50:51 +0000
+Message-Id: <20260713185052.9251A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,117 +54,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jul 13, 2026 at 5:11 PM CEST, Bartosz Golaszewski wrote:
-> @@ -599,6 +599,7 @@ static void platform_device_release(struct device *de=
-v)
->  	struct platform_object *pa =3D container_of(dev, struct platform_object=
-,
->  						  pdev.dev);
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] Heap buffer overflow in `sink->dc_edid.raw_edid` due to mismat=
+ched bounds check when handling HF-EEODB EDID extensions.
+--
+
+--- Patch [2]: [PATCH 2/2] drm/amd/display: Use drm_edid_block_count() inst=
+ead of raw extensions ---
+commit 9d8e550a87693a10ec905e77e53d8e77319a53c9
+Author: Timo Pr=C3=B6mer <timo.proemer04@gmail.com>
+
+drm/amd/display: Use drm_edid_block_count() instead of raw extensions
+
+This commit replaces the manual EDID block count calculation with the core
+DRM helper drm_edid_block_count(). It aims to include possible HF-EEODB
+extension blocks that were previously truncated.
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+[ ... ]
+> @@ -1224,7 +1225,9 @@ enum dc_edid_status dm_helpers_read_local_edid(
+>  		    edid->extensions >=3D sizeof(sink->dc_edid.raw_edid) / EDID_LENGTH)
+>  			return EDID_BAD_INPUT;
 > =20
-> +	device_remove_software_node(dev);
->  	fwnode_handle_put(pa->pdev.dev.fwnode);
-
-This technically changes the semantics of platform_device_set_fwnode():
-
-Previously it took an additional reference count for the fwnode pointer pas=
-sed
-to it. But now, *iff* the fwnode is a software node it consumes the callers
-reference count, which for obvious reasons isn't great.
-
-Now, platform_device_set_fwnode() is unused now, so we could just get rid o=
-f it,
-which also gets us rid of its asymmetric semantics.
-
-However, couldn't we also just move the if (is_software_node(pdevinfo->fwno=
-de))
-conditional up here, such that we have:
-
-	device_remove_software_node(dev);
-	if (!is_software_node(dev->fwnode))
-	    fwnode_handle_put(pa->pdev.dev.fwnode);
-
-This way, the swnode special case would go away. Well, at least the "two
-reference counts" special case.
-
-Another special case I just noticed still remains, but is independent of th=
-is
-change:
-
-If platform_device_set_fwnode() or platform_device_set_of_node() is called =
-for a
-device that already has a swnode set, we only call fwnode_handle_put(), but
-software_node_notify_remove() etc. isn't called.
-
-Of course that never happens, but it is an inconsistency in the API. Now, i=
-t
-seems that neither platform_device_set_fwnode() (which we should remove any=
-way),
-nor platform_device_set_of_node() is ever called with a fwnode already set.
-
-So, either we have to special case platform_device_set_of_node() too (for t=
-he
-case that a swnode is set already), or just require that the function must =
-only
-be called when no node has been set, as all users already do; I'd go for th=
-e
-latter.
-
-If my proposal about moving the is_software_node() check into
-platform_device_release() holds, it would probably be good to just add thos=
-e
-patches in a subsequent version, otherwise I'm happy to pull this in as is =
-and
-address the other stuff subsequently.
-
->  	kfree(pa->pdev.dev.platform_data);
->  	kfree(pa->pdev.mfd_cell);
-> @@ -606,12 +607,6 @@ static void platform_device_release(struct device *d=
-ev)
->  	kfree(pa);
->  }
-> =20
-> -static void platform_device_release_full(struct device *dev)
-> -{
-> -	device_remove_software_node(dev);
-> -	platform_device_release(dev);
-> -}
-> -
->  /**
->   * platform_device_alloc - create a platform device
->   * @name: base name of the device we're adding
-> @@ -933,6 +928,16 @@ struct platform_device *platform_device_register_ful=
-l(const struct platform_devi
->  		pdev->dev.coherent_dma_mask =3D pdevinfo->dma_mask;
->  	}
-> =20
-> +	/*
-> +	 * If the primary firmware node is a software node and there's no
-> +	 * secondary firmware node, the primary will be affected by the call
-> +	 * to device_remove_software_node() in platform_device_release() and
-> +	 * its reference count will be dropped by one. Take another reference
-> +	 * here to make it have no effect.
-> +	 */
-> +	if (is_software_node(pdevinfo->fwnode))
-> +		fwnode_handle_get(pdevinfo->fwnode);
+> -		sink->dc_edid.length =3D EDID_LENGTH * (edid->extensions + 1);
+> +		block_count =3D drm_edid_block_count(drm_edid);
 > +
->  	ret =3D platform_device_add_resources(pdev, pdevinfo->res, pdevinfo->nu=
-m_res);
->  	if (ret)
->  		goto err;
-> @@ -945,8 +950,6 @@ struct platform_device *platform_device_register_full=
-(const struct platform_devi
->  		ret =3D device_add_software_node(&pdev->dev, pdevinfo->swnode);
->  		if (ret)
->  			goto err;
-> -
-> -		pdev->dev.release =3D platform_device_release_full;
->  	} else if (pdevinfo->properties) {
->  		ret =3D device_create_managed_software_node(&pdev->dev,
->  							  pdevinfo->properties, NULL);
->
-> --=20
-> 2.47.3
+> +		sink->dc_edid.length =3D EDID_LENGTH * block_count;
+>  		memmove(sink->dc_edid.raw_edid, (uint8_t *)edid, sink->dc_edid.length);
 
+[Severity: Critical]
+Can this cause a heap buffer overflow when handling HF-EEODB extensions?
+
+Looking at dm_helpers_read_local_edid(), the bounds check right before this
+change still validates against the raw edid->extensions count:
+
+    if (!edid ||
+        edid->extensions >=3D sizeof(sink->dc_edid.raw_edid) / EDID_LENGTH)
+        return EDID_BAD_INPUT;
+
+If an EDID specifies a small edid->extensions count (e.g., 1) but an
+HF-EEODB overrides the block count to a much larger value (e.g., 32), the
+bounds check evaluates to 1 >=3D 16 and passes.
+
+The new logic then calculates a length based on the larger block_count
+returned by drm_edid_block_count() and passes it directly to memmove().
+
+Since sink->dc_edid.raw_edid is a fixed-size buffer, does this result in
+copying more data than the buffer can safely hold?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713183841.5921=
+-1-timo.proemer04@gmail.com?part=3D2
