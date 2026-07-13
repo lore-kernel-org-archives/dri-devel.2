@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E592C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 14:27:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8712BC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 14:28:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABBEB10E5E3;
-	Mon, 13 Jul 2026 14:27:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB77D10E611;
+	Mon, 13 Jul 2026 14:28:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="P4Z0zQDw";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="L4f14ewj";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BF5810E5E3
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 14:27:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D327D10E600
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 14:27:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783952872;
- bh=Npx/orxONC+U2Qw/Hg1SfG0cpM+DWzLfcxEEfKhRItg=;
- h=From:To:Cc:Subject:Date:From;
- b=P4Z0zQDwSXxmOZsF+TNClXAbZ0zdXsLSsdMGMf/PkCt/szRXD303nMZ7xJGH7KHJi
- 6yRyHTH0FuU28D+GSP6DtQXpICYcxhpsAkSru4DWkx+MUetfi0IkJFNB/f1zNWd0jF
- EEcNDGT+6us8jOdSJG8LlESPQdLcyfHveLfUjn6auTfscebtcEwIItSpxdLqAvSwE/
- g95TrxpAYVd/30dIvg/cibHDgf8maMeP2nW5IhpuAs8eK/ghuJcOKmE9Keq0K2EBQl
- pMbUyWR/CDa8XT2ZFfATKU68ZV4oCpjlxCp9mDvass8ljwpy7bz8FBbaASvddpGlZx
- A+FIdRQdmqzXg==
+ s=mail; t=1783952877;
+ bh=KNbVNlFY+uLNDUXEXu75BAUx1ez1smVG3i7wUViK7BM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=L4f14ewju4LTblCAt0KdF/pgs7TvX0AfpQs2+1vkuGpjGGA39QYFe3h+/ZH1GGBfz
+ au33MnONA0TzpKvRaL41GPy5JignS4ZnQvVWc7SbH8ML9b/XEMGF6JY/bpjyDdGvAQ
+ ShNQ6yRI2EP0J9+nd9NA9LheRipAwJ+jE40SRSnvGiYLWG83z1CfvYrSLVDcwkfbun
+ AB4Kg4g50CrGFY7RTllMBKq8F14dwNKDQ6Ux/YSPaK3rTIoEzA5TZggUr1cfIRr3Tl
+ 5XpWAeLH0XgRCLyTVejxR8m6kB9IfoEQknJyVeKIPpDJix5fxOLblCsdAro8ZmKcEb
+ dUzE4RjuQ5VdQ==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E03E217E0720;
- Mon, 13 Jul 2026 16:27:51 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id BC6D717E0DE6;
+ Mon, 13 Jul 2026 16:27:56 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
@@ -42,10 +42,13 @@ Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
  linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
-Subject: [PATCH v4 00/10] drm/mediatek: Add DSC, WDMA, MT8189/96 DSI support
-Date: Mon, 13 Jul 2026 16:27:36 +0200
-Message-ID: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v4 04/10] drm/mediatek: mtk_dsi: Enable interrupt at component
+ bind time
+Date: Mon, 13 Jul 2026 16:27:40 +0200
+Message-ID: <20260713142746.40259-5-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
+References: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -63,78 +66,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Changes in v4:
- - WDMA: Delete the .remove() callback from WDMA as not needed anymore
- - WDMA: Add comments explaining no bus errors will happen if writing
-   to INT_ENABLE, INT_STATUS registers while unpowered or unclocked
- - Return error in mtk_wdma_wb_atomic_check() error conditions, oops!
- - DSC: Fix dsc_pad_num calculation (missing parenthesis...)
- - DSI: Change dsc slice check error to dev_dbg instead to avoid spam
- - DSI: Correctly cleanup dsi->dsc upon component_add failure
- - DSI: Make sure the CKTX_CKL_WC register is correctly programmed in
-   DSI w/DSC case
+Having the DSI interrupt enabled before actually binding the DSI
+component to the display controller driver is both useless and
+dangerous: the main purpose of this interrupt is to signal CMD
+done, LP RX data ready, or VideoMode done, or to reset the HW
+engine if this doesn't come.
 
-Changes in v3:
- - Changed mtk_dsi DSC implementation to use a different DSI_PS
-   setting function for compressed or uncompressed, as the dsc one
-   is way simpler than the regular one and becomes way shorter
- - DSC: Fixed missing PPS 19 register write
- - DSI: Anticipated call to devm_pm_runtime_enable() to before
-   registering the DSI Host interface
- - DSI: Anticipated installing IRQ handler before registering the
-   dsi host interface, which wasn't a problem before, but now it
-   would be one because the interrupt is being enabled when binding!
- - DSI: Fixed some possible calculation overflows that may happen in
-   MT8189 and MT8196 because of the higher supported resolutions
- - WDMA: Use devm variant of pm_runtime_enable()
- - Change WDMA interrupt handler to allow signaling WB complete even
-   if there is no specific vblank callback installed to avoid very
-   long timeouts (in any case, WB is complete for real even if there
-   is no vblank_cb, just a bit useless without, but still complete)
- - Fixed WDMA register writes as register id was in function signature
-   for mtk_wdma_ddp_write_dst_addr() but the function itself never
-   used it in DISP_REG_WDMA_DST_ADDRX() macro
+Should this interrupt come too late (during probe), the HW will
+be reset only at the next occurrence of a timeout, which slows
+down boot and may render artifacts to the DSI display.
 
-Changes in v2:
- - Rebased on next-20260706
+Moreover, clearing the DSI interrupt while the display controller
+is not ready yet, may result in an interrupt storm.
 
-This series adds support for:
- - Display Stream Compression (DSC) for DSI and DisplayPort for both
-   legacy (8188/92/95 and others) and for Kompanio Ultra MT8196 SoCs
- - Write DMA (WDMA) Engine (for legacy only at this time) as a step
-   to enable Writeback support (coming later with a restructuring of
-   the entire mediatek-drm driver)
- - Newer MIPI DSI IP revisions, found in MT8189 and MT8196 SoCs
+In order to prevent this from happening, request the interrupt
+with IRQF_NO_AUTOEN, and enable it only when binding DSI to its
+display controller component master.
 
-AngeloGioacchino Del Regno (10):
-  dt-bindings: display: mediatek: dsc: Add MT8196 compatible
-  drm/mediatek: Implement Display Stream Compression support
-  dt-bindings: display: mediatek: dsi: Document MT8189 and MT8196
-  drm/mediatek: mtk_dsi: Enable interrupt at component bind time
-  drm/mediatek: mtk_dsi: Transfer register offsets to per-SoC const
-  drm/mediatek: mtk_dsi: Add support for MT8189
-  drm/mediatek: mtk_dsi: Add support for MT8196
-  drm/mediatek: mtk_dsi: Enable PM Runtime on probe
-  dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
-  drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ drivers/gpu/drm/mediatek/mtk_dsi.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
- .../display/mediatek/mediatek,dsc.yaml        |   4 +-
- .../display/mediatek/mediatek,dsi.yaml        |   2 +
- .../display/mediatek/mediatek,wdma.yaml       |   5 +
- drivers/gpu/drm/mediatek/Makefile             |   2 +
- drivers/gpu/drm/mediatek/mtk_crtc.c           |  21 +
- drivers/gpu/drm/mediatek/mtk_ddp_comp.c       |  64 +-
- drivers/gpu/drm/mediatek/mtk_ddp_comp.h       |   9 +
- drivers/gpu/drm/mediatek/mtk_disp_drv.h       |  29 +
- drivers/gpu/drm/mediatek/mtk_disp_dsc.c       | 455 ++++++++++
- drivers/gpu/drm/mediatek/mtk_disp_wdma.c      | 622 ++++++++++++++
- drivers/gpu/drm/mediatek/mtk_drm_drv.c        |   8 +
- drivers/gpu/drm/mediatek/mtk_drm_drv.h        |   2 +
- drivers/gpu/drm/mediatek/mtk_dsi.c            | 799 ++++++++++++++----
- 13 files changed, 1832 insertions(+), 190 deletions(-)
- create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_dsc.c
- create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_wdma.c
-
+diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+index 8ab5c3431dbb..e24e7b91a361 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dsi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+@@ -225,6 +225,7 @@ struct mtk_dsi {
+ 	int refcount;
+ 	bool enabled;
+ 	bool lanes_ready;
++	int irq;
+ 	u32 irq_data;
+ 	wait_queue_head_t irq_wait_queue;
+ 	const struct mtk_dsi_driver_data *driver_data;
+@@ -1090,7 +1091,13 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
+ 	if (ret)
+ 		return ret;
+ 
+-	return device_reset_optional(dev);
++	ret = device_reset_optional(dev);
++	if (ret)
++		return ret;
++
++	enable_irq(dsi->irq);
++
++	return 0;
+ }
+ 
+ static void mtk_dsi_unbind(struct device *dev, struct device *master,
+@@ -1098,6 +1105,8 @@ static void mtk_dsi_unbind(struct device *dev, struct device *master,
+ {
+ 	struct mtk_dsi *dsi = dev_get_drvdata(dev);
+ 
++	disable_irq(dsi->irq);
++
+ 	drm_encoder_cleanup(&dsi->encoder);
+ }
+ 
+@@ -1331,7 +1340,6 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+ {
+ 	struct mtk_dsi *dsi;
+ 	struct device *dev = &pdev->dev;
+-	int irq_num;
+ 	int ret;
+ 
+ 	dsi = devm_drm_bridge_alloc(dev, struct mtk_dsi, bridge,
+@@ -1364,9 +1372,9 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+ 	if (IS_ERR(dsi->phy))
+ 		return dev_err_probe(dev, PTR_ERR(dsi->phy), "Failed to get MIPI-DPHY\n");
+ 
+-	irq_num = platform_get_irq(pdev, 0);
+-	if (irq_num < 0)
+-		return irq_num;
++	dsi->irq = platform_get_irq(pdev, 0);
++	if (dsi->irq < 0)
++		return dsi->irq;
+ 
+ 	dsi->host.ops = &mtk_dsi_ops;
+ 	dsi->host.dev = dev;
+@@ -1375,17 +1383,15 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, dsi);
+ 
++	ret = devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
++			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
++
+ 	ret = mipi_dsi_host_register(&dsi->host);
+ 	if (ret < 0)
+ 		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
+ 
+-	ret = devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq,
+-			       IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi);
+-	if (ret) {
+-		mipi_dsi_host_unregister(&dsi->host);
+-		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+-	}
+-
+ 	dsi->bridge.of_node = dev->of_node;
+ 	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
+ 
 -- 
 2.54.0
 
