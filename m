@@ -4,77 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FF43C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBEF5C44501
 	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 22:36:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 488F710EB46;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE1DD10EB57;
 	Mon, 13 Jul 2026 22:36:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=temperror (0-bit key; unprotected) header.d=0sec.ai header.i=@0sec.ai header.b="IHeJZAEU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aFJqT+dX";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C88C10E32A
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 17:30:35 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-493ece78b0cso25501245e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:30:34 -0700 (PDT)
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
+ [209.85.215.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8B3B10E639
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 16:59:20 +0000 (UTC)
+Received: by mail-pg1-f175.google.com with SMTP id
+ 41be03b00d2f7-c9cf07d2df6so2204806a12.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 09:59:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=0sec.ai; s=google; t=1783963833; x=1784568633; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=h1VuKaNm+FCqQ0Qgm5d1hgzA1jRjKkQpwwjQu1kdhRU=;
- b=IHeJZAEUGW8ru7/6JPG/qP2SkyWpo6zKdy4iHFMq6waZcj7L6xaL8aypVa7nWAKM6A
- I5MNgoKsaMP70tbJuyN3MoV1D83k9PhipP1+Y7/NWW/ItGLvhSPoV/6NazfoW4nBdGhV
- tmD1wAirzTP8fuz6fNWldBU2HQkXzkr6pNUWyRBCUFV/C/zZB2KE+n+AnStBI47A0Wpq
- VmHKpkKNKyg5AGMzMNspvqYJVNJ4R+ySdg4hUrf5EDJUfXdk+o76k1902kxD4oaP1vIN
- hS2DB7wtlh3MznzIId+MJNRxtc8trL8uWz45UCCCbWTxKg7paCoAc9R9i1lIqqkGTJAK
- isZQ==
+ d=gmail.com; s=20251104; t=1783961960; x=1784566760; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ntUweueTN5fRqaQOoy5Hqmcgc1LaFPt81cAcvUtqRRA=;
+ b=aFJqT+dXuuGboFsZSwoJnHWjFRHS5fCNMiU5u9SmvrrYVYjXApZMUVoQzxhj1/11wA
+ 7OXUzhVieb25IBuwid6MBcKMjvJY6Ffey6J3zu3/6gpEN80B81Ruub2Tb7SpTUzr0Wdj
+ ga3tzPcUDMRihri1yY5btb9w0ONABObAWBo6QCWyj7ap3zXPoNecoLMVG/jyB0nMvNR9
+ 3+f0xdEsJBwgRZ5jNBdhWjJ/2WejFiVlzi8nYurwwpH32Uvb0DD80fQCkILZF+AemB3R
+ dydjxM2NFmYU3FzVFbWtiZAJMgNcL0Ytyzaj90UbcdvgrgpKzbxgoSD1GdwC/ov1uFpI
+ j9Tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783963833; x=1784568633;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=h1VuKaNm+FCqQ0Qgm5d1hgzA1jRjKkQpwwjQu1kdhRU=;
- b=LULVj2YbUPTaJC26B2otkLKVrMhg9Lk3n7cOJ9hUzMRLNj+liTDbhtQI1O4gQ8VD1S
- oqhMTwVZ8QREzzhrPdXAmgH4Zj911BditfuwCLkQ2dJdNtPttENnqt2bMUMW+z2IymRg
- 2rbG2oAojDdX/LA/XE/7rJdAmaUQUQao4pdth4WHPzkXr15qpF4AIhBqh7Le+o2mf9sD
- e3MIzzllaM61POAaZe6lUM4eH+01moC+r1FWmChSNHNa0G3twWcxNU16mxex7muyZoN+
- dkC0eM2hqlDMSCiL3P9+cm78MmDQw8hlckCKJMw0QYYNq4nh2GWwqEJxoKYt2xWkp0v5
- /NLw==
-X-Gm-Message-State: AOJu0Yzh7Sg/8k1gXJVXaESGM7B7hK4GKqNXiL0uo4K3a2n85sFiV2yT
- 5dm3LhtvYZ8YjJM709vE0OiVzzAE66/VkyWH3t1fUgku8+xdemGLYpk7HToHkLHP5VpH
-X-Gm-Gg: AfdE7cnDLO5DVYnkB7doNmUYf53TSbpgOk78svIe0RDQ4FXiUZla1GjsP0tDdZBG36+
- Qbdpvwpkver1PIn0jLYkU4GO138/HEr7X3mmUSLJMirWj++u37hfnzxm3/vBrXyZCKjbfNidkfF
- PW9TJZr2aoj7x/Fr/i8PtGsLDsQXZHoTVD+Sn4sDVndH5h3f14IyR9MwkkKL61NtwFoAxTWq0Pp
- un1Gel5gdkW97Wygqd6gQPXmR8VNLdnHM/UPU+tjejHfECJwxYRiN9wKCelOQI0V+l8YBx3pI21
- qt2swN8CCC0TXmu+YWv9eudvDw6w0nRaVpYvWX4L4gYKFGgfjXg3aRyJ9B59kkbT4zs+QqDZZro
- 0ChifawMFEM/y7w80+IbShypfG8LhXWJ7Ngn4tCOr4xhz8XDsZIsdC7m5e4CPbE3O2SOTJl1KNo
- FrDdIgZfDYnQ2eCM7gyDnjHwjaJTwM4WANBl6oLZTSJd409xrsbBf8QWDjDxNN9R2HRQAio9Wem
- fZMQA1+vOSFb5pseweS/EzWwVdwu7Uhdv3HP/GhMWhRWw==
-X-Received: by 2002:a05:600c:6303:b0:493:cfe8:5b36 with SMTP id
- 5b1f17b1804b1-495158c6a1bmr3362305e9.8.1783963833325; 
- Mon, 13 Jul 2026 10:30:33 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493f3a60404sm260075855e9.1.2026.07.13.10.30.32
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 13 Jul 2026 10:30:32 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
- Oded Gabbay <ogabbay@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Doruk Tan Ozturk <doruk@0sec.ai>, stable@vger.kernel.org
-Subject: [PATCH 1/2] accel/amdxdna: reject user command submission without a
- command BO
-Date: Mon, 13 Jul 2026 19:30:28 +0200
-Message-ID: <20260713173030.87541-2-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260713173030.87541-1-doruk@0sec.ai>
-References: <20260713173030.87541-1-doruk@0sec.ai>
+ d=1e100.net; s=20251104; t=1783961960; x=1784566760;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=ntUweueTN5fRqaQOoy5Hqmcgc1LaFPt81cAcvUtqRRA=;
+ b=r1W2UD78thYS7zvRSrIdfqZrK2xzr9WOKP5bQ2HoxLDd0NtQkv/28jVgOxjeNQdbzf
+ ZGzTXHcbkbVtD4zhsS4O9OcSX+Xf1rUPUwe1gN+ytPk+JQ0954FKKbtxjh1pFcM3smgr
+ Ik5U1CfycLO2XPljyZGGwOyLDsL32XxeNahZ8pQ2jtm9PjEZYL3ZS3r05WGn0y2Alqev
+ qCtfb+4KlJnr4i7Li0Il+um3qWrh6Ah0M0j1SA5k8XFpzkgK7BhjB0CE8SGOOVtUXOHq
+ xT1FGdmN9R8QXT2/yoB4R7x/CTDSw4e75jWHy229AIHMhUXlmFIdGxr56/EGjYqdKDhS
+ udZA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rrq1HecJEJWltRSM5aYcYbsYsgGHUzTWsvejXw4sHKZKzBivPRRjIJZSfM5Lo8U/4A66AMbk7+suaw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyxdVbh6OdEGH1lqVfihvvBaRr6eil2y69xN0A+S4n7zlsRH0YR
+ lktpR7hy6qZ9njt2IUub9sQCl07rLHRvGoa0C5gr/qD3uh5UBZZdc7JT
+X-Gm-Gg: AfdE7cnBMmEd7Cj83rz/YgP3rCwCDi2UIGXKybMY8GhsQj8r99wrHK6KDNb4rExdrqm
+ Uat2mMMvMNDXcgG9oQB3rfj9cd73YYJh+ooEA/adpWCYqZ1pJckN6PbyrMOA3BElrGml5n9hZlc
+ EP8xTCnDndCYtDxXOUOYdc2wWdhrEzykRn0qlUE7e5FDxIqREsgvS9pPvIhV8IfyqF5KLiqZRDb
+ ihdZ8mdYn9CD9Sksklp9ST7e4fMY+dFzquYvKzJ+KjH5GH8LK6/Qsak7NiLJty+TfMyxRRigePf
+ zkIzKhH3ZTyooaxUhq89Fma0sPIGWxWhgrVe5JmHtU6zCqmvBB6cEdzL3I6cJ5qp/h6hwTv0RBe
+ ZVYzgnohOijWVBhApReQ5IDHlCX77n8txDhviECMbRrXyWWJ9Vvqp8+jB9yCwMmf//0uXSLi17t
+ nM8rZnXXIEs5w4xgxP1DrsDbm2/to75RCwYdIrC8ie9hiH5cc0/nhDC5U=
+X-Received: by 2002:a05:6a20:c907:b0:3bf:a1e5:ff62 with SMTP id
+ adf61e73a8af0-3c110cdb078mr12110955637.47.1783961960162; 
+ Mon, 13 Jul 2026 09:59:20 -0700 (PDT)
+Received: from skinsburskii (c-98-225-44-182.hsd1.wa.comcast.net.
+ [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-ca5afbc1208sm8643053a12.9.2026.07.13.09.59.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Jul 2026 09:59:19 -0700 (PDT)
+Date: Mon, 13 Jul 2026 09:59:17 -0700
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, corbet@lwn.net,
+ dakr@kernel.org, david@kernel.org, decui@microsoft.com,
+ haiyangz@microsoft.com, jgg@ziepe.ca, kees@kernel.org,
+ kys@microsoft.com, leon@kernel.org, liam@infradead.org,
+ lizhi.hou@amd.com, ljs@kernel.org, longli@microsoft.com,
+ lyude@redhat.com, maarten.lankhorst@linux.intel.com,
+ mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
+ nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
+ rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
+ skhan@linuxfoundation.org, surenb@google.com, tzimmermann@suse.de,
+ vbabka@kernel.org, wei.liu@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rdma@vger.kernel.org
+Subject: Re: [PATCH v8 5/8] drm/nouveau: Use
+ hmm_range_fault_unlocked_timeout() for SVM faults
+Message-ID: <alUZZYIPY-UkhpY4@skinsburskii>
+References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
+ <178371881847.900500.8789369230260725500.stgit@skinsburskii>
+ <20260710151222.ddb35eab9c81a8720491464a@linux-foundation.org>
+ <alG1k3JsoywE2CBM@skinsburskii>
+ <20260710224833.9caf2a0a9906f0515e326a45@linux-foundation.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260710224833.9caf2a0a9906f0515e326a45@linux-foundation.org>
 X-Mailman-Approved-At: Mon, 13 Jul 2026 22:35:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,55 +110,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdxdna_drm_submit_execbuf() passes the user-supplied command BO handle
-straight into amdxdna_cmd_submit() with drv_cmd == NULL. When the handle
-is AMDXDNA_INVALID_BO_HANDLE (0), the block that fetches job->cmd_bo is
-skipped, leaving it NULL, and no check rejects it on the user path (the
-!job->cmd_bo guard lives inside the != INVALID branch).
+On Fri, Jul 10, 2026 at 10:48:33PM -0700, Andrew Morton wrote:
+> On Fri, 10 Jul 2026 20:16:35 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
+> 
+> > On Fri, Jul 10, 2026 at 03:12:22PM -0700, Andrew Morton wrote:
+> > > On Fri, 10 Jul 2026 14:26:58 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
+> > > 
+> > > > @@ -683,15 +683,11 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
+> > > >  			goto out;
+> > > >  		}
+> > > >  
+> > > > -		range.notifier_seq = mmu_interval_read_begin(range.notifier);
+> > > > -		mmap_read_lock(mm);
+> > > > -		ret = hmm_range_fault(&range);
+> > > > -		mmap_read_unlock(mm);
+> > > > -		if (ret) {
+> > > > -			if (ret == -EBUSY)
+> > > > -				continue;
+> > > > +		ret = hmm_range_fault_unlocked_timeout(&range,
+> > > > +						       max(timeout - jiffies,
+> > > > +							   1L));
+> > > 
+> > > "1UL" here?  I'd have expected min() to warn, as it likes to do.
+> > 
+> > I'm not sure... The "timeout - jiffies" can become negative.
+> > Won't 1UL convert both of them to "UL" and thus make the comparison
+> > overflow?
+> 
+> `timeout' and `jiffies' are both unsigned long.
 
-The job is then armed and pushed to the DRM scheduler.
-aie2_sched_job_run() takes the drv_cmd == NULL path and calls
-amdxdna_cmd_set_state(job->cmd_bo) -> amdxdna_gem_vmap(NULL) ->
-to_gobj(NULL)->dev, a NULL pointer dereference in the drm_sched worker.
-A process with access to the accel node on a system with a probed AMD NPU
-can trigger a kernel oops with a single AMDXDNA_EXEC_CMD ioctl
-(cmd_handles = 0).
+Yeah, I’m sorry for the sloppy wording.
 
-Only internal driver commands (SYNC_DEBUG_BO / ATTACH_DEBUG_BO)
-legitimately pass AMDXDNA_INVALID_BO_HANDLE, and they always set drv_cmd.
-Reject the invalid handle for user submissions (drv_cmd == NULL) at the
-submit choke point so every user path is covered.
+What I meant was: will "max(timeout - jiffies, 1UL)" correctly handle
+the case where jiffies < timeout?
 
-Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
-Cc: stable@vger.kernel.org
-Found by 0sec automated security-research tooling (https://0sec.ai).
-Assisted-by: 0sec:claude-opus-4-8
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
----
- drivers/accel/amdxdna/amdxdna_ctx.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index 8f8df9d04ec5..a5c8c2c4de6d 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.c
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -603,6 +603,16 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
- 			ret = -EINVAL;
- 			goto free_job;
- 		}
-+	} else if (!drv_cmd) {
-+		/*
-+		 * Only internal driver commands (drv_cmd != NULL) may omit a
-+		 * command BO. A user command submission with the invalid handle
-+		 * would leave job->cmd_bo NULL and later fault when the scheduler
-+		 * dereferences it in amdxdna_cmd_set_state().
-+		 */
-+		XDNA_DBG(xdna, "Command BO handle required for user submission");
-+		ret = -EINVAL;
-+		goto free_job;
- 	}
- 
- 	ret = amdxdna_arg_bos_lookup(client, job, arg_bo_hdls, arg_bo_cnt);
--- 
-2.43.0
-
+Thanks,
+Stanislav
