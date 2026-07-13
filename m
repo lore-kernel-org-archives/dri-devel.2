@@ -4,87 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC6CDC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:08:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18830C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:08:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 503AA10E940;
-	Mon, 13 Jul 2026 12:08:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8079110E944;
+	Mon, 13 Jul 2026 12:08:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nwe9Pq0S";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PRGGotfK";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C01610E940
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:08:50 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2cad4170e8eso33530165ad.3
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 05:08:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783944530; x=1784549330; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=FR0HREIu+ElJTqYD8DnR97TKZwOpP6adDHM14P7pQGE=;
- b=nwe9Pq0SPspyAxzWVsOSKQJKf2NksdbsbN3X+dWExDTNESkShDnNL7pZ+VB31LC63V
- vMXd9/J8QUjGNVvehFTj5sGMm5lFoXTnpHjp5ro1qKM+LDw6jVpk8/WlR1ji9LwgvtwR
- DqyTaRLcIv7Rehu0CiE06rUFTzApOWg4XxIGmUKJqWVV5xhkfylhUSIN7TWTa9xQ/qri
- 09AXyjSRB4cN85z96HOKkx6wZffPkjAmFwOquMQXzuv2V3SowJLAIcz5GjmfMGnvekMD
- cYa0cw21bEP+nMLkVY8K0xQ1k5j4a/zwYGJwsOUs5/UNwFt+GzSKbflsaHZvfvKHjSHW
- s7DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783944530; x=1784549330;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=FR0HREIu+ElJTqYD8DnR97TKZwOpP6adDHM14P7pQGE=;
- b=RPj0lKP5eGo5+G0yHPXISpzUrTA/P+zdhC1N4mNYlawxLFMpYaBk8VF7UvqeeXdhss
- xDJYcELFYID5SR31uKEGK7foQQHzcyzXis35/xorDjuwR2d7MV5yf+lmYwEsG/PXT9NW
- U+T4ZDzbb4kHfEI9phU6KE73mqtzFd5fU8waI9H1d22E9kK/Mtc7tlad+VUDj8jqWV6P
- 8cUYSSW+XOFC9xXUUto7uVSltASZBZd7DC12CaP2yyhA2LIrII/R6UTSnotRe4oIorpz
- 7RJuwf0ZJYZEdiPYvaf2FtoY9/RXSD/Id3VxbPrNw25yIoWXCNJHpyBgls6EyFvL5KVp
- j3Ew==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqQ6IZODJKKEhr4OL+fyvhWA/WZf2qcjh9lCzsc3sqWfbu44GjFwu8dVmaQ2L9HS3fFsRkRtLFfkgs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyUx46mjD5VdEtz55fVt1LA4mPuCS2oB3ZDmUfu0U0pJsCbwpSW
- 7rLPWr1LfUBR8p5hpEqmAy9Wsu2Bcgf4cNdRhD/kcXZKs7t2Z5ISDnKd
-X-Gm-Gg: AfdE7cmHYQSJujZNxXHAReTP3NRMLxSUhtXQHaTiD55uW6Eo+hn2J9lvibS28qDXy70
- 90JUByaX7fvD91upgtiiRcNPzYvvfUz3MPLuH1wCt/QJhQr0apHEL3SGCQXrwiZKE7ybP1mUBSx
- XNFCtiCBJi7I6YtUnSBIeHkBmjSHY7hVg4Ql5OxHyjK/4XW8BuSKg5h7ayL5TSpN3LdWmpPf+kL
- 9xLTHBrrfghIVBDw+z13rN5l2SDFh/9q8NSUbJWy3IOCR0RCBC03Yb6CEPv1CBXRSCB+FwXuz5j
- XsjgVefYsW7zI95Qsra+1AgUh6MeR90Ppo1Hskwng5O2G5dcQsJlRyNE2QlJa++rCh8opolk/0V
- twfipcIzLMY7JLaf7l3x8/EiAuBqENXTpDwJUK2ICSySAEUmP/gs6g35KOd/0pMpbo3rO/7yVB7
- C/jP61mP65rymdf5LbLfEWrskzVGsU7aU=
-X-Received: by 2002:a17:90a:d64c:b0:366:3517:1aa2 with SMTP id
- 98e67ed59e1d1-38dc7296c33mr7622430a91.0.1783944529816; 
- Mon, 13 Jul 2026 05:08:49 -0700 (PDT)
-Received: from rockpi-5b ([45.112.0.180]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-311747f7293sm67756935eec.3.2026.07.13.05.08.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 05:08:49 -0700 (PDT)
-From: Anand Moon <linux.amoon@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS FOR AMLOGIC SOCS),
- linux-amlogic@lists.infradead.org (open list:DRM DRIVERS FOR AMLOGIC SOCS),
- linux-arm-kernel@lists.infradead.org (moderated list:ARM/Amlogic Meson SoC
- support), linux-kernel@vger.kernel.org (open list),
- linux-media@vger.kernel.org (open list:MESON VIDEO DECODER DRIVER FOR AMLOGIC
- SOCS), linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM)
-Cc: Anand Moon <linux.amoon@gmail.com>,
-	Doruk Tan Ozturk <doruk@0sec.ai>
-Subject: [PATCH v7 00/19] media: meson: vdec: Fix lifecycles, race conditions,
- and stability bugs
-Date: Mon, 13 Jul 2026 17:36:55 +0530
-Message-ID: <20260713120840.17427-1-linux.amoon@gmail.com>
-X-Mailer: git-send-email 2.50.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70B1310E944
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:08:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E903B6004E;
+ Mon, 13 Jul 2026 12:08:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50A971F000E9;
+ Mon, 13 Jul 2026 12:08:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783944530;
+ bh=FsObjmWYAUve1NK1KQo+HH5UBdK3xyiqAWwC+NNw56A=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=PRGGotfKuwCZoT9QGYvVXkHRw8K3zpSM9hZOPCZFH/yGLXk7YgNUlizgL9R31ZNie
+ xJ0Qv7n4pxLvVyA/U3VXoP9zv2OnsmgpMRMGzDTe2nXa/gm05oGEFfzp9aZp+o4kn7
+ eW9MJ2pDagm/8bcQKNs5425vWSlCqpW0OvN8OlMMCurQPe00ly27HLqFRN1aWIxjLu
+ U26FlTBvRkGb5QKcwYXbVu1gFnsioAQa/+NwyZ5GswQZlTzDTCUOdWlM/blw4YjJFM
+ Rr9QQLvkuY36BCjQkgJSirFxpyKlvt//IIGTO0nvk9nMZPaAERyYzp39hvfdaj2YGr
+ 4OouoOiGXiuow==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/5] drm/panel: find_panel_by_fwnode() return a
+ counted reference
+To: "Albert Esteve" <aesteve@redhat.com>
+Cc: linux-sunxi@lists.linux.dev, Frank.Li@kernel.org, imx@lists.linux.dev,
+ wsa+renesas@sang-engineering.com, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260713-drm_refcount_wiring-v2-4-d3bb61f4bd4d@redhat.com>
+References: <20260713-drm_refcount_wiring-v2-0-d3bb61f4bd4d@redhat.com>
+ <20260713-drm_refcount_wiring-v2-4-d3bb61f4bd4d@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 13 Jul 2026 12:08:49 +0000
+Message-Id: <20260713120850.50A971F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,109 +55,117 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series addresses a collection of critical race conditions,
-memory leaks, use-after-free bugs, and resource management issues
-within the Amlogic Meson video decoder (meson-vdec) driver and
-associated components.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-The primary focus is tightening session lifecycles, safely synchronising
-the V4L2 m2m framework callbacks, hardening work queue operations
-(esparser_queue_work), and correcting buffer validations to prevent
-stability issues like KASAN out-of-bounds errors or stream-on timeouts.
+New issues:
+- [Medium] Drivers calling of_drm_find_panel() directly leak the returned p=
+anel reference.
 
-Summary of Changes:
-* Race Conditions & Synchronisation: Fixes multi-threading and
-  execution races across stream-on, stream-off, job abort, and
-  teardown pathways.
-* Memory Lifecycle: Eliminates memory leaks and use-after-free
-  vulnerabilities by safely pinning, canceling, and sequencing
-  device removals.
-* VP9 & Buffer Hardening: Addresses payload handling bugs in the ES
-  parser, properly tracks ongoing buffers via atomic counters, and
-  prevents invalid memory writes.
-* Platform/DMA Adjustments: Adjusts DMA segment configurations,
-  canvas handling, and buffer sizes to match modern hardware demands.
+Pre-existing issues:
+- [High] TOCTOU race in drm_panel_add_follower() when acquiring the panel's=
+ underlying device, leading to a potential Use-After-Free of panel->dev.
+--
 
-Note on an outstanding issue:
-An execution deadlock occurs in the driver workqueue path during high
-stress or long playback sessions. This stall is triggered when the
-Amlogic hardware internal video FIFO buffer becomes completely full.
-When esparser_queue_all_src runs, the capacity validation check is
-tripped due to a design limitation in how buffer exhaustion is handled.
-This blocks progress and leaves the workqueue worker waiting indefinitely
-on a core mutex lock.
+--- Patch [4]: [PATCH v2 4/5] drm/panel: find_panel_by_fwnode() return a co=
+unted reference ---
+commit 5cd4c479944cf29f6f5aa4a3e31207bf48dc0567
+Author: Albert Esteve <aesteve@redhat.com>
 
-The resulting hung task call trace shows the worker thread blocking
-on the internal lock:
+drm/panel: find_panel_by_fwnode() return a counted reference
 
-Workqueue: events esparser_queue_all_src [meson_vdec]
-...
-__mutex_lock
-mutex_lock_nested
-esparser_queue_all_src
+This commit updates find_panel_by_fwnode() to return a refcounted pointer
+to the panel, mirroring a similar fix made to of_drm_find_panel(). It calls
+drm_panel_get() under the panel_lock before returning, ensuring the memory
+is not freed prematurely. Callers are now responsible for balancing this
+with drm_panel_put(), which is added to drm_panel_remove_follower().
 
-I have tried to address this issue, but the underlying deadlock persists
-under extreme conditions.
+> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+> index 72cf86253c0cd..a00ae98ed0956 100644
+> --- a/drivers/gpu/drm/drm_panel.c
+> +++ b/drivers/gpu/drm/drm_panel.c
+> @@ -542,7 +542,13 @@ int of_drm_get_panel_orientation(const struct device=
+_node *np,
+>  EXPORT_SYMBOL(of_drm_get_panel_orientation);
+>  #endif
+> =20
+> -/* Find panel by fwnode. This should be identical to of_drm_find_panel()=
+. */
+> +/*
+> + * Find panel by fwnode, returning a counted reference.
+> + *
+> + * Behaves identically to of_drm_find_panel(). On success the returned
+> + * pointer has been passed through drm_panel_get(); the caller must call
+> + * drm_panel_put() when done with it.
+> + */
 
-Any feedback on this new appock is welcome.
+[Severity: Medium]
+Since the earlier patch in this series updated of_drm_find_panel() to
+also return a counted reference, do drivers that call it directly need
+to drop their reference to prevent a memory leak?
 
-Testing was done using v4l2-compliance and active decoding pipelines
-on Meson platforms (like Hardkernel ODROID-N2+ and ODROID-C4) SBCs.
+For example, in bridge drivers like lvds-codec.c:
 
-The v4l2-compliance tests passed successfully via:
-$ v4l2-compliance -s -v -d /dev/video0
+drivers/gpu/drm/bridge/lvds-codec.c:lvds_codec_probe() {
+    panel =3D of_drm_find_panel(panel_node);
+    of_node_put(panel_node);
+    ...
+    lvds_codec->panel_bridge =3D devm_drm_panel_bridge_add_typed(dev, panel,
+                                                lvds_codec->connector_type);
+}
 
-Pipelines were validated using the following GStreamer script.
+Because devm_drm_panel_bridge_add_typed() takes its own reference to the
+panel via drm_panel_get(), does this code leak the initial reference
+returned by of_drm_find_panel() since drm_panel_put() is never called?
 
-[1] https://gist.github.com/moonlinux/08295ba1f17ce7155550773f2d2cb6e5
+This same leak pattern appears to exist in other callers as well, such as
+samsung-dsim.c:samsung_dsim_host_attach() and
+rcar_du_encoder.c:rcar_du_encoder_init().
 
-Previous changes:
-v6: https://lore.kernel.org/all/20260530094326.11892-2-linux.amoon@gmail.com/
+>  static struct drm_panel *find_panel_by_fwnode(const struct fwnode_handle=
+ *fwnode)
+>  {
+>  	struct drm_panel *panel;
+> @@ -554,6 +560,7 @@ static struct drm_panel *find_panel_by_fwnode(const s=
+truct fwnode_handle *fwnode
+> =20
+>  	list_for_each_entry(panel, &panel_list, list) {
+>  		if (dev_fwnode(panel->dev) =3D=3D fwnode) {
+> +			drm_panel_get(panel);
+>  			mutex_unlock(&panel_lock);
 
-Thanks
--Annad
+[Severity: High]
+This is a pre-existing issue, but is there a time-of-check to time-of-use
+race condition when callers attempt to pin the underlying device?
 
-Anand Moon (19):
-  media: meson: vdec: Fix m2m device lifetime and cleanup path
-  media: meson: vdec: Fix STREAMON / STREAMOFF race conditions and
-    session teardown
-  media: meson: vdec: Fix lifecycle leaks and race conditions in
-    recycle_thread
-  media: meson: vdec: Fix use-after-free race between teardown and ISR
-    routines
-  media: meson: vdec: Fix race condition and synchronize esparser IRQ
-  media: meson: vdec: Fix race condition by canceling work sync
-  media: meson: vdec: Refactor esparser work queue and fix teardown race
-  media: meson: vdec: Fix concurrent execution races and unsafe teardown
-  media: meson: vdec: Fix vp9 header update failure on invalid payloads
-  media: meson: vdec: Fix race conditions and leaks in esparser pipeline
-  media: meson: vdec: Update core m2m stream state during transitions
-  media: meson: vdec: Coordinate m2m task execution inside async loop
-  media: meson: vdec: Fix race conditions in job abort sequence
-  media: meson: vdec: Correct atomic counter placement in dst_buf_done
-  media: meson: vdec: Fix concurrent firmware loading race and hardware
-    timeout
-  media: meson: vdec: Configure DMA mask and segment size in probe
-  media: meson: canvas: Fix Use-After-Free by linking canvas provider
-    device
-  media: meson: vdec: Increase VIFIFO buffer size to 32 MiB
-  gpu: drm: meson: Fix DMA segment size limits and maximize allocation
-    boundaries
+When find_panel_by_fwnode() (or find_panel_by_dev()) returns, the panel's
+internal refcount is incremented under panel_lock, but the underlying
+struct device (panel->dev) is not pinned.
 
- drivers/gpu/drm/meson/meson_drv.c             |   6 +
- drivers/soc/amlogic/meson-canvas.c            |  14 +-
- drivers/staging/media/meson/vdec/esparser.c   | 127 +++++--
- drivers/staging/media/meson/vdec/vdec.c       | 320 ++++++++++++++----
- drivers/staging/media/meson/vdec/vdec.h       |   8 +-
- drivers/staging/media/meson/vdec/vdec_1.c     |  16 +-
- .../staging/media/meson/vdec/vdec_helpers.c   |   3 +
- 7 files changed, 388 insertions(+), 106 deletions(-)
+If a concurrent unbind occurs before the caller pins the device, the device
+memory could be freed. For example, looking at drm_panel_add_follower():
 
+drivers/gpu/drm/drm_panel.c:drm_panel_add_follower() {
+    panel =3D find_panel_by_dev(follower_dev);
+    if (IS_ERR(panel))
+        return PTR_ERR(panel);
 
-base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
--- 
-2.50.1
+    get_device(panel->dev);
+}
 
+If the panel device driver unbinds immediately after panel_lock is dropped,
+could get_device(panel->dev) trigger a use-after-free on the destroyed
+device?
+
+>  			return panel;
+>  		}
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-drm_refcou=
+nt_wiring-v2-0-d3bb61f4bd4d@redhat.com?part=3D4
