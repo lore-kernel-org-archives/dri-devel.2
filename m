@@ -4,76 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29675C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 14:47:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA199C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 14:55:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94D3310E60C;
-	Mon, 13 Jul 2026 14:47:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 104A310E5EA;
+	Mon, 13 Jul 2026 14:55:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="py9FDH0S";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="AvSbfpD6";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBEAD10EA0F
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 14:47:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=SvuaVuguofbRF9q1oBjo6t6tBdMHCaqLcJOWu1SImEs=; b=py9FDH0SPsKsOzQo15PPxBph30
- UEJP1Wl5LQZwVVTbuIu/9ERac5kSBkHdkiu4yfbri/43OJWLGbWC6krAjkFmTPbfYOoIAbM8peExu
- MyxMX7uqsfEf3uH/31L7ETZov1gqFmgfVqn9ZhZ0y1s81d+Bj6+gNC53K3/B7KOo+HAW5u/laYl1O
- 1gzYqjSZCwdDrlq6Vyhe71HQnQapIp7ScP7ce7iMCOKyas9+4JRLmLBEUK8kCa0L263EVJ3BlosZY
- vIn2dUJmEyd/x//KJUldDGsWexe7Gz8Why9l+2jyKLeCjWfJekveVeoMmFPwCVTPO5gggCFtB3cz9
- vrnYMb6A==;
-Received: from [189.7.87.67] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wjHwK-00EY0o-Ah; Mon, 13 Jul 2026 16:47:24 +0200
-Message-ID: <7284bc60-1866-432c-b617-f439265ae3d2@igalia.com>
-Date: Mon, 13 Jul 2026 11:47:19 -0300
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
+ [209.85.160.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3632510E5FF
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 14:55:06 +0000 (UTC)
+Received: by mail-qt1-f172.google.com with SMTP id
+ d75a77b69052e-51bfbe05683so23733511cf.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 07:55:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1783954505; x=1784559305; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=IZhqR4JgKFkSLvdz8vThCe3gL1K7igiBUDMCwA8QSjs=;
+ b=AvSbfpD6jIRj+KUZKP81+8XL2fltvzoIzPPoHWTNPRnx3RTDeKqLpGVHHvQSgl59z7
+ gF4s4Hc6dyP6J0kaBMABJC1CkhNuoojiukKhS0TQiTotnQGDWUPXu+8tp6Sxo5/3M6h0
+ Wptj8uTAR9VauxnIqBYvoEvfze4V/7AAJ/Wa7A0sXpne1ebIMaiTFJRL75J4dx2EJjzK
+ ojBxeT/vRF9YhC7eEU9EWfOlw7ELhiyQwx0kihZO52BxyU1W8OaVRmKB2Qu9rBEAmYz/
+ VjikekBolZhtJ9VB/FE0ZSGoduSto0qn9blOGX8/1aPKIcBO9TmTWzOv0HmHWCcnUVir
+ gk9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783954505; x=1784559305;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=IZhqR4JgKFkSLvdz8vThCe3gL1K7igiBUDMCwA8QSjs=;
+ b=rEe4Knsq6yZp4lh+lg/TBo7YiTk8KE/RuLvGuJhrVVf3DzARKmT5Yfhoas+vIO19S7
+ Mox5naO3wkMLEhoKfsfKXHEoJmk7baKaJzMR6xeQoRAaEfrl4Tf6aYNSJqkDGYweFtlQ
+ 2EfnrR7HbroUnYxrI1B3L94Bc0BZDUFY0I2PIw3wvhd4mbhEC07cw+QyHzFhRnxt5tUY
+ Gg2kjAp8N4n6siE8pWTEgehZaulnTKPtgjxhmwYBCUveGg9tNNUGQhb2vFIIKbOv7iBS
+ YBDTlCgrxsJpwncaCJs9Q27xQExn5Ty0+lGC5ljqg8QC/le5RrEwBoaNx0BhZoV6k0SF
+ CfBA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro1Z/xtkZrMHcDqAG4bzfek6KwBKRbNEsnZXAmiaJ0a0MUkBnsBgewXn+URjvtf+cgLZdFBOB/YzEo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwK+NJA0JXBgNdWiCXDWcTgOe4JjNOtENaVnXA8sk67SN5LKlL5
+ KySL5oRTYmWRhp6zuf/hjE1KHVSrE1E1w/uRo3jRkjrXYxTX9QG7bOrlqOTEsHRzeTs=
+X-Gm-Gg: AfdE7ckXke3jMOEirWWTcAsWokqa0fdPH5RaUCOdiCn+OjVF0Hj1KogSdVd+iDLl3Sv
+ 3Sk/mbv1/7hS9cqIWIcv4FUNsYqMZYcZI7VG5tIEOhahmDVXVS7BCXIYjJati7npnicmKfTPwt6
+ lC5eHUQKDYe+D6rfJcAyvfrV9r8Zr9NlgGuRxhuVYPETEmR9ijVE2DcK07/tvZAn2XNuozg7nQb
+ YLKAlRtsZpeff2xhntb0BRWoK74iu6hOsFIihRlJ9/WNj8wKulntdu1zpDkom5rYz3XjZpFAUHg
+ eAD46nR/AgObVuZEDo9QT0McU4rrspRi4TcwKBLaOd9BvQY1+TjtNP48yR5CZ2K43kDtEjZHqYL
+ xStnZMsXcq7XaJKpFjomVuhrzSTz9VsI1tA3rJMIrJWiKnu75yVHhzUmc6irWY1Sv2JHgS0U=
+X-Received: by 2002:a05:622a:1911:b0:51c:504:2ef7 with SMTP id
+ d75a77b69052e-51cbf305510mr90471451cf.67.1783954504822; 
+ Mon, 13 Jul 2026 07:55:04 -0700 (PDT)
+Received: from ziepe.ca ([159.2.72.92]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-51caab6d574sm84876451cf.3.2026.07.13.07.55.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Jul 2026 07:55:04 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wjI3j-0000000DQQj-2xH1;
+ Mon, 13 Jul 2026 11:55:03 -0300
+Date: Mon, 13 Jul 2026 11:55:03 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Stanislav Kinsburskii <skinsburskii@gmail.com>, airlied@gmail.com,
+ akhilesh@ee.iitb.ac.in, corbet@lwn.net, dakr@kernel.org,
+ david@kernel.org, decui@microsoft.com, haiyangz@microsoft.com,
+ kees@kernel.org, kys@microsoft.com, leon@kernel.org,
+ liam@infradead.org, lizhi.hou@amd.com, ljs@kernel.org,
+ longli@microsoft.com, lyude@redhat.com,
+ maarten.lankhorst@linux.intel.com, mamin506@gmail.com,
+ mhocko@suse.com, mripard@kernel.org, nouveau@lists.freedesktop.org,
+ ogabbay@kernel.org, oleg@redhat.com, rppt@kernel.org,
+ shuah@kernel.org, simona@ffwll.ch, skhan@linuxfoundation.org,
+ surenb@google.com, tzimmermann@suse.de, vbabka@kernel.org,
+ wei.liu@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-rdma@vger.kernel.org
+Subject: Re: [PATCH v8 4/8] mshv: Use hmm_range_fault_unlocked_timeout() for
+ region faults
+Message-ID: <20260713145503.GC3133966@ziepe.ca>
+References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
+ <178371881034.900500.5214601525971121683.stgit@skinsburskii>
+ <20260710151216.0397a6f9ac5c7b4ccd274cc1@linux-foundation.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 55/60] drm/vc4: Convert to atomic_create_state
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, dave.stevenson@raspberrypi.com,
- kernel-list@raspberrypi.com
-References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
- <20260709-drm-no-more-plane-reset-v1-55-302d986fe5f0@kernel.org>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260709-drm-no-more-plane-reset-v1-55-302d986fe5f0@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260710151216.0397a6f9ac5c7b4ccd274cc1@linux-foundation.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,78 +107,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 09/07/26 08:51, Maxime Ripard wrote:
-> The plane reset implementation creates a custom state
-> subclass, but only initializes a pristine state without resetting any
-> hardware. This is equivalent to what atomic_create_state expects.
-> Convert to it.
+On Fri, Jul 10, 2026 at 03:12:16PM -0700, Andrew Morton wrote:
+> > +	mutex_lock(&region->mreg_mutex);
+> > +
+> > +	if (mmu_interval_read_retry(range.notifier, range.notifier_seq)) {
+> > +		mutex_unlock(&region->mreg_mutex);
+> > +		cond_resched();
+> > +		goto again;
+> > +	}
+> > +
 > 
-> The conversion was done using the following Coccinelle semantic patch:
-> 
+> If the calling process has realtime scheduling policy and either a)
+> we're uniprocessor or b) this process and the holder of
+> interval_sub->invalidate_seq are both pinned to the same CPU then
+> cond_resched() won't do anything, and this might be an infinite loop?
 
-[...]
+I think hmm and kvm have had this issue for a long time? I don't see
+anything in the mmu notifier locking scheme that would alleviate it at
+least
 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+So.. In terms of this series I'd leave it, it is no worse than before?
 
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
-
-Best regards,
-- Maíra
-
-> ---
-> Cc: dave.stevenson@raspberrypi.com
-> Cc: kernel-list@raspberrypi.com
-> Cc: mcanal@igalia.com
-> ---
->   drivers/gpu/drm/vc4/vc4_plane.c | 15 ++++++---------
->   1 file changed, 6 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/vc4/vc4_plane.c b/drivers/gpu/drm/vc4/vc4_plane.c
-> index 6c433270214d..20c9fc9283a8 100644
-> --- a/drivers/gpu/drm/vc4/vc4_plane.c
-> +++ b/drivers/gpu/drm/vc4/vc4_plane.c
-> @@ -361,24 +361,21 @@ static void vc4_plane_destroy_state(struct drm_plane *plane,
->   	__drm_atomic_helper_plane_destroy_state(&vc4_state->base);
->   	kfree(state);
->   }
->   
->   /* Called during init to allocate the plane's atomic state. */
-> -static void vc4_plane_reset(struct drm_plane *plane)
-> +static struct drm_plane_state *vc4_plane_create_state(struct drm_plane *plane)
->   {
->   	struct vc4_plane_state *vc4_state;
->   
-> -	if (plane->state)
-> -		__drm_atomic_helper_plane_destroy_state(plane->state);
-> -
-> -	kfree(plane->state);
-> -
->   	vc4_state = kzalloc_obj(*vc4_state);
->   	if (!vc4_state)
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->   
-> -	__drm_atomic_helper_plane_reset(plane, &vc4_state->base);
-> +	__drm_atomic_helper_plane_state_init(&vc4_state->base, plane);
-> +
-> +	return &vc4_state->base;
->   }
->   
->   static void vc4_dlist_counter_increment(struct vc4_plane_state *vc4_state)
->   {
->   	if (vc4_state->dlist_count == vc4_state->dlist_size) {
-> @@ -2493,11 +2490,11 @@ static bool vc4_format_mod_supported(struct drm_plane *plane,
->   }
->   
->   static const struct drm_plane_funcs vc4_plane_funcs = {
->   	.update_plane = drm_atomic_helper_update_plane,
->   	.disable_plane = drm_atomic_helper_disable_plane,
-> -	.reset = vc4_plane_reset,
-> +	.atomic_create_state = vc4_plane_create_state,
->   	.atomic_duplicate_state = vc4_plane_duplicate_state,
->   	.atomic_destroy_state = vc4_plane_destroy_state,
->   	.format_mod_supported = vc4_format_mod_supported,
->   };
->   
-> 
-
+Jason
