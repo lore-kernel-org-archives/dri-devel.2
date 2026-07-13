@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73D95C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 06:00:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C186C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 06:01:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D823510E758;
-	Mon, 13 Jul 2026 06:00:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9139F10E78C;
+	Mon, 13 Jul 2026 06:01:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mwofq7MZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EA33/WV+";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1FC110E758
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 06:00:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 172CA10E78C
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 06:01:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9236E40521;
- Mon, 13 Jul 2026 06:00:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 621C81F00A3D;
- Mon, 13 Jul 2026 06:00:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5288A6004E;
+ Mon, 13 Jul 2026 06:01:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D36111F000E9;
+ Mon, 13 Jul 2026 06:01:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783922430;
- bh=ZYs3jvy6ixleHAJLLWgrcUaNFuzhdXGpHzAckJdc1LE=;
+ s=k20260515; t=1783922504;
+ bh=FLntpqDtzcAN/onUBp6tpIq3YtBawT7fMBONtCKQd+0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mwofq7MZXhnfPKNg7L206lYv8zgZGogRmuLqGY8kZwPZu+pAhBJf2Pd8OLi23XKkh
- MhEA7kHmC3AOYqiLGO+wCav7JIDDzWgmtX5tDOtm5JsisYakOPf1wj5MU1gARSqKDa
- Us0JyCWlFLpy8a2EsXtfUID38HNLcONG08zoMcsbWD4RJdbc/KBhq+wKRRYcx5Szn1
- A7TcDasij0TL1+PpEUqStL5PZeLbGYsneS5u7zRwKhnnfTfHivh4+hJ4jIH4Tpp58r
- j9FddpHrCc9Qg6SJZ8BWI8593vXsjn6R4fGr8MNzQp6757WNwN23WBU0LFOBrMePOE
- s0bZyRo3b+/8Q==
+ b=EA33/WV+DdDi2GenBdYd31D3i4ajWw+9dQ4J+ofuDuwEgxb5JlzvhQnqa4kC1GsHv
+ YdZzdD2hfT9D1VFeJSNGfBu2H5c4dTburCfMFuGVNUzHY0plaAg0W+SUO1oLLVgFjF
+ 9AJGtHoKvuf4KyYDEz84jkB6roEKU4s9mEbslZN+EmIaMOifaroviDSw+JbfQqJw/i
+ d7kHtYFFdAJOtmsR92lIRQ7U+FK/r4X7/ZBDHSfMb8wA56KvaP8iISS7+exsXpuaYl
+ gI/T14v21xT93W4rPbpzto7NXtqnK9jagXwp5e7pPUTWsVLv8YQijm87NXmRky+Lx3
+ Hj3qBBHrxbUCQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] misc: fastrpc: drop channel context ref on failed open
-To: raoxu <raoxu@uniontech.com>
+Subject: Re: [CI v4 02/14] drm/i915/color: Add CSC on SDR plane color pipeline
+To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <DD9C99F155919095+20260713054350.3170620-1-raoxu@uniontech.com>
-References: <DD9C99F155919095+20260713054350.3170620-1-raoxu@uniontech.com>
+In-Reply-To: <20260713051516.4087420-3-chaitanya.kumar.borah@intel.com>
+References: <20260713051516.4087420-1-chaitanya.kumar.borah@intel.com>
+ <20260713051516.4087420-3-chaitanya.kumar.borah@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 06:00:30 +0000
-Message-Id: <20260713060030.621C81F00A3D@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 06:01:43 +0000
+Message-Id: <20260713060143.D36111F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,196 +57,137 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] The newly added SDR plane color pipeline logic is completely unr=
+eachable due to an early return for non-HDR planes in the caller function.
+- [Medium] The driver exposes the `CSC_FF` colorop but fails to extract and=
+ apply its atomic state, violating the DRM API contract.
+
 Pre-existing issues:
-- [Critical] Integer overflow in `fastrpc_get_payload_size` leads to a mass=
-ive kernel heap buffer overflow during metadata initialization.
-- [High] A Time-of-Check to Time-of-Use (TOCTOU) race condition and lockles=
-s access to `cctx->rpdev` can lead to NULL pointer dereferences when `fastr=
-pc_rpmsg_remove()` runs concurrently.
-- [High] Exported DMA buffers retain a pointer to the `fastrpc_user` object=
- (`buf->fl`) without holding a reference, causing a use-after-free if the f=
-astrpc device is closed before the DMA buffer.
-- [High] Missing locking and reference counting in `fastrpc_req_munmap` lea=
-ds to concurrent use-after-free and double-free vulnerabilities.
-- [High] Missing reference counting during list traversal in `fastrpc_req_m=
-em_unmap_impl` leads to use-after-free.
-- [High] The kernel blindly trusts the untrusted DSP to supply a list of FD=
-s for unmapping, allowing a malicious DSP payload to force use-after-free c=
-onditions.
+- [Critical] `drm_colorop_cleanup()` fails to unregister the DRM mode objec=
+t, leading to a Use-After-Free via stale object IDs.
+- [High] `drm_colorop_cleanup` assumes `colorop->dev` and `colorop->head` a=
+re fully initialized, causing a NULL pointer dereference and crash on early=
+ initialization failures.
+- [High] Unchecked return value from `kasprintf()` leads to a NULL pointer =
+dereference during DRM property creation.
 --
 
---- Patch [1]: [PATCH] misc: fastrpc: drop channel context ref on failed op=
-en ---
-commit f86e434afd2dbbcb5bb07286bb0b83dad48769a0
-Author: Xu Rao <raoxu@uniontech.com>
+--- Patch [2]: [CI v4 02/14] drm/i915/color: Add CSC on SDR plane color pip=
+eline ---
+commit ed94f2ef5daa2b6a1fe43a799710d164ac1323d4
+Author: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 
-misc: fastrpc: drop channel context ref on failed open
+drm/i915/color: Add CSC on SDR plane color pipeline
 
-This patch drops the channel-context reference on the failed-open path
-before freeing the partially initialized fastrpc_user. This prevents
-permanently pinning the channel context if session allocation fails.
+Add the fixed-function CSC block to color pipeline in SDR planes
+as a DRM_COLOROP_FIXED_MATRIX colorop.
 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -1671,6 +1671,7 @@ static int fastrpc_device_open(struct inode *inode,=
- struct file *filp)
->  	fl->sctx =3D fastrpc_session_alloc(fl);
->  	if (!fl->sctx) {
->  		dev_err(&cctx->rpdev->dev, "No session available\n");
-> +		fastrpc_channel_ctx_put(cctx);
->  		mutex_destroy(&fl->mutex);
->  		kfree(fl);
+> diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/driver=
+s/gpu/drm/i915/display/intel_color_pipeline.c
+> index 6cf8080ee8000..2ef42a133a987 100644
+> --- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> +++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
 
-[Severity: High]
-This isn't a bug introduced by this patch, but while reviewing this file I
-noticed a potential race condition. In fastrpc_internal_invoke(), the code
-performs a lockless check of rpdev:
+[ ... ]
 
-drivers/misc/fastrpc.c:fastrpc_internal_invoke() {
-    ...
-    if (!fl->cctx->rpdev)
-        return -EPIPE;
-    ...
-}
+> @@ -92,6 +102,12 @@ struct intel_colorop *intel_color_pipeline_plane_add_=
+colorop(struct drm_plane *p
+>  							  DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR,
+>  							  DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>  		break;
+> +	case INTEL_PLANE_CB_CSC_FF:
+> +		ret =3D drm_plane_colorop_fixed_matrix_init(dev, &colorop->base, plane,
+> +							  &intel_colorop_funcs,
+> +							  intel_plane_supported_csc_ff,
+> +							  DRM_COLOROP_FLAG_ALLOW_BYPASS);
+> +		break;
 
-Concurrently, if the device unbinds, fastrpc_rpmsg_remove() sets this to
-NULL:
+[Severity: Medium]
+Will intel_plane_color_copy_uapi_to_hw_state() successfully extract the
+state for INTEL_PLANE_CB_CSC_FF?
 
-drivers/misc/fastrpc.c:fastrpc_rpmsg_remove() {
-    ...
-    cctx->rpdev =3D NULL;
-    ...
-}
+Looking at intel_plane_colorop_replace_blob() in
+drivers/gpu/drm/i915/display/intel_plane.c, it handles blob-based colorops
+like INTEL_PLANE_CB_CSC, but lacks a case for INTEL_PLANE_CB_CSC_FF.
 
-The ioctl thread then unconditionally accesses it in fastrpc_invoke_send():
-
-drivers/misc/fastrpc.c:fastrpc_invoke_send() {
-    ...
-    ret =3D rpmsg_send(cctx->rpdev->ept, (void *)msg, sizeof(*msg));
-    ...
-}
-
-Could this lead to a NULL pointer dereference if the device unbinds while
-an ioctl is in progress?
+Could this cause userspace settings for fixed_matrix_type and bypass on this
+colorop to be silently ignored when applying the pipeline?
 
 [Severity: High]
-This is a pre-existing issue, but I have a question about DMA buffer
-allocation. When exporting a buffer, the allocation function sets the fl
-pointer but does not elevate the reference count:
+This is a pre-existing issue, but if drm_plane_colorop_fixed_matrix_init()
+or other initialization functions fail early (e.g. due to OOM), the code
+jumps to the cleanup label in this function and calls intel_colorop_destroy=
+().
 
-drivers/misc/fastrpc.c:fastrpc_dmabuf_alloc() {
-    ...
-    err =3D fastrpc_buf_alloc(fl, fl->sctx->dev, bp.size, &buf);
-    ...
-}
+This calls drm_colorop_cleanup(), which unconditionally dereferences
+colorop->dev and colorop->head via list_del().
 
-If the application closes the fastrpc device first, the fastrpc_user object
-is freed. Later, closing the DMA buffer triggers the cleanup callback which
-dereferences the freed object:
-
-drivers/misc/fastrpc.c:fastrpc_buf_free() {
-    ...
-    fastrpc_ipa_to_dma_addr(buf->fl->cctx, buf->dma_addr)
-    ...
-}
-
-Does this cause a use-after-free if the device file descriptor is closed
-before the exported DMA buffer?
+Since these fields might not be initialized on early failure, is it possible
+for this to cause a NULL pointer dereference?
 
 [Severity: Critical]
-This isn't a bug introduced by this patch, but does the payload size
-calculation have an integer overflow? In fastrpc_get_payload_size(), lengths
-are accumulated:
+This is another pre-existing issue on the cleanup path. When
+drm_colorop_cleanup() runs, it never calls drm_mode_object_unregister().
 
-drivers/misc/fastrpc.c:fastrpc_get_payload_size() {
-    ...
-    size +=3D (ctx->olaps[oix].mend - ctx->olaps[oix].mstart);
-    ...
-}
+Because the object was registered in drm_mode_object_add() during init,
+does omitting drm_mode_object_unregister() leave a dangling pointer in the
+device's IDR, allowing userspace to trigger a use-after-free by querying
+the freed object ID?
 
-If a user provides large lengths, could this 64-bit sum wrap around to a
-small positive value? The undersized buffer would then be populated using
-the larger nscalars count:
+>  	default:
+>  		drm_err(plane->dev, "Invalid colorop id [%d]", id);
+>  		ret =3D -EINVAL;
 
-drivers/misc/fastrpc.c:fastrpc_get_args() {
-    ...
-    list =3D fastrpc_invoke_buf_start(rpra, ctx->nscalars);
-    pages =3D fastrpc_phy_page_start(list, ctx->nscalars);
-    ...
-}
+[ ... ]
 
-Can this lead to a heap buffer overflow during metadata initialization?
+> @@ -126,9 +142,12 @@ int _intel_color_pipeline_plane_init(struct drm_plan=
+e *plane, struct drm_prop_en
+>  	if (plane_has_3dlut(display, pipe, plane)) {
+>  		pipeline =3D xe3plpd_primary_plane_pipeline;
+>  		pipeline_len =3D ARRAY_SIZE(xe3plpd_primary_plane_pipeline);
+> -	} else {
+> +	} else if (icl_is_hdr_plane(display, to_intel_plane(plane)->id)) {
+>  		pipeline =3D hdr_plane_pipeline;
+>  		pipeline_len =3D ARRAY_SIZE(hdr_plane_pipeline);
+> +	} else {
+> +		pipeline =3D sdr_plane_pipeline;
+> +		pipeline_len =3D ARRAY_SIZE(sdr_plane_pipeline);
+>  	}
 
-[Severity: High]
-This is a pre-existing issue, but there appears to be a concurrency problem
-during unmapping. In fastrpc_req_munmap(), the lock is dropped without
-removing the buffer from the list or taking a reference:
+[Severity: Medium]
+Will this newly added sdr_plane_pipeline ever execute?
 
-drivers/misc/fastrpc.c:fastrpc_req_munmap() {
-    ...
-    spin_unlock(&fl->lock);
-    ...
-}
+The caller of this function, intel_color_pipeline_plane_init(), has an early
+return:
 
-The implementation then unconditionally deletes and frees the buffer:
+intel_color_pipeline_plane_init()
+    if (!icl_is_hdr_plane(display, to_intel_plane(plane)->id))
+        return 0;
+       =20
+    ret =3D _intel_color_pipeline_plane_init(plane, &pipelines[len], pipe);
 
-drivers/misc/fastrpc.c:fastrpc_req_munmap_impl() {
-    ...
-    list_del(&buf->node);
-    spin_unlock(&fl->lock);
-    fastrpc_buf_free(buf);
-    ...
-}
-
-If two threads concurrently call the munmap ioctl with the same arguments,
-could they both find the same buffer and cause list corruption and a
-double-free?
+Because it skips all non-HDR planes before calling this function, doesn't
+that make this else branch for SDR planes completely unreachable?
 
 [Severity: High]
-This isn't a bug introduced by this patch, but a similar reference counting
-issue seems to exist in fastrpc_req_mem_unmap_impl(). After finding the map,
-the lock is dropped without elevating the reference count:
+This isn't a bug introduced by this patch, but immediately below this block
+in _intel_color_pipeline_plane_init(), kasprintf() is called:
 
-drivers/misc/fastrpc.c:fastrpc_req_mem_unmap_impl() {
-    ...
-    spin_unlock(&fl->lock);
-    ...
-}
+    list->name =3D kasprintf(GFP_KERNEL, "Color Pipeline %d", ...);
 
-The code then accesses map fields and drops a reference it never acquired:
+The return value is not checked for NULL.
 
-drivers/misc/fastrpc.c:fastrpc_req_mem_unmap_impl() {
-    ...
-    req_msg.len =3D map->len;
-    ...
-    fastrpc_map_put(map);
-    ...
-}
+If kasprintf() fails, it passes the NULL pointer to
+drm_plane_create_color_pipeline_property(), which passes it to
+drm_property_create_enum().
 
-Does this allow concurrent threads to drop the reference count multiple
-times, leading to a use-after-free?
-
-[Severity: High]
-This is a pre-existing issue, but does the kernel blindly trust file
-descriptors provided by the DSP? In fastrpc_put_args(), it reads an array of
-FDs from shared memory and arbitrarily drops their references:
-
-drivers/misc/fastrpc.c:fastrpc_put_args() {
-    ...
-    if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
-        fastrpc_map_put(mmap);
-    ...
-}
-
-Because the lookup is done without taking a reference, the put operation
-lowers the active refcount. Can a malicious DSP payload supply arbitrary
-active file descriptors and force the kernel to drop their references,
-causing a use-after-free for actively used maps?
+Will this cause a panic when strlen(name) is called on the NULL pointer
+inside drm_property_add_enum()?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/DD9C99F155919095+20=
-260713054350.3170620-1-raoxu@uniontech.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713051516.4087=
+420-1-chaitanya.kumar.borah@intel.com?part=3D2
