@@ -4,94 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA199C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 14:55:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 076E8C44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 14:57:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 104A310E5EA;
-	Mon, 13 Jul 2026 14:55:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0167310EA0F;
+	Mon, 13 Jul 2026 14:57:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="AvSbfpD6";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O9IgtRRI";
 	dkim-atps=neutral
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3632510E5FF
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 14:55:06 +0000 (UTC)
-Received: by mail-qt1-f172.google.com with SMTP id
- d75a77b69052e-51bfbe05683so23733511cf.2
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 07:55:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1783954505; x=1784559305; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=IZhqR4JgKFkSLvdz8vThCe3gL1K7igiBUDMCwA8QSjs=;
- b=AvSbfpD6jIRj+KUZKP81+8XL2fltvzoIzPPoHWTNPRnx3RTDeKqLpGVHHvQSgl59z7
- gF4s4Hc6dyP6J0kaBMABJC1CkhNuoojiukKhS0TQiTotnQGDWUPXu+8tp6Sxo5/3M6h0
- Wptj8uTAR9VauxnIqBYvoEvfze4V/7AAJ/Wa7A0sXpne1ebIMaiTFJRL75J4dx2EJjzK
- ojBxeT/vRF9YhC7eEU9EWfOlw7ELhiyQwx0kihZO52BxyU1W8OaVRmKB2Qu9rBEAmYz/
- VjikekBolZhtJ9VB/FE0ZSGoduSto0qn9blOGX8/1aPKIcBO9TmTWzOv0HmHWCcnUVir
- gk9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783954505; x=1784559305;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=IZhqR4JgKFkSLvdz8vThCe3gL1K7igiBUDMCwA8QSjs=;
- b=rEe4Knsq6yZp4lh+lg/TBo7YiTk8KE/RuLvGuJhrVVf3DzARKmT5Yfhoas+vIO19S7
- Mox5naO3wkMLEhoKfsfKXHEoJmk7baKaJzMR6xeQoRAaEfrl4Tf6aYNSJqkDGYweFtlQ
- 2EfnrR7HbroUnYxrI1B3L94Bc0BZDUFY0I2PIw3wvhd4mbhEC07cw+QyHzFhRnxt5tUY
- Gg2kjAp8N4n6siE8pWTEgehZaulnTKPtgjxhmwYBCUveGg9tNNUGQhb2vFIIKbOv7iBS
- YBDTlCgrxsJpwncaCJs9Q27xQExn5Ty0+lGC5ljqg8QC/le5RrEwBoaNx0BhZoV6k0SF
- CfBA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro1Z/xtkZrMHcDqAG4bzfek6KwBKRbNEsnZXAmiaJ0a0MUkBnsBgewXn+URjvtf+cgLZdFBOB/YzEo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwK+NJA0JXBgNdWiCXDWcTgOe4JjNOtENaVnXA8sk67SN5LKlL5
- KySL5oRTYmWRhp6zuf/hjE1KHVSrE1E1w/uRo3jRkjrXYxTX9QG7bOrlqOTEsHRzeTs=
-X-Gm-Gg: AfdE7ckXke3jMOEirWWTcAsWokqa0fdPH5RaUCOdiCn+OjVF0Hj1KogSdVd+iDLl3Sv
- 3Sk/mbv1/7hS9cqIWIcv4FUNsYqMZYcZI7VG5tIEOhahmDVXVS7BCXIYjJati7npnicmKfTPwt6
- lC5eHUQKDYe+D6rfJcAyvfrV9r8Zr9NlgGuRxhuVYPETEmR9ijVE2DcK07/tvZAn2XNuozg7nQb
- YLKAlRtsZpeff2xhntb0BRWoK74iu6hOsFIihRlJ9/WNj8wKulntdu1zpDkom5rYz3XjZpFAUHg
- eAD46nR/AgObVuZEDo9QT0McU4rrspRi4TcwKBLaOd9BvQY1+TjtNP48yR5CZ2K43kDtEjZHqYL
- xStnZMsXcq7XaJKpFjomVuhrzSTz9VsI1tA3rJMIrJWiKnu75yVHhzUmc6irWY1Sv2JHgS0U=
-X-Received: by 2002:a05:622a:1911:b0:51c:504:2ef7 with SMTP id
- d75a77b69052e-51cbf305510mr90471451cf.67.1783954504822; 
- Mon, 13 Jul 2026 07:55:04 -0700 (PDT)
-Received: from ziepe.ca ([159.2.72.92]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-51caab6d574sm84876451cf.3.2026.07.13.07.55.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 07:55:04 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wjI3j-0000000DQQj-2xH1;
- Mon, 13 Jul 2026 11:55:03 -0300
-Date: Mon, 13 Jul 2026 11:55:03 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Stanislav Kinsburskii <skinsburskii@gmail.com>, airlied@gmail.com,
- akhilesh@ee.iitb.ac.in, corbet@lwn.net, dakr@kernel.org,
- david@kernel.org, decui@microsoft.com, haiyangz@microsoft.com,
- kees@kernel.org, kys@microsoft.com, leon@kernel.org,
- liam@infradead.org, lizhi.hou@amd.com, ljs@kernel.org,
- longli@microsoft.com, lyude@redhat.com,
- maarten.lankhorst@linux.intel.com, mamin506@gmail.com,
- mhocko@suse.com, mripard@kernel.org, nouveau@lists.freedesktop.org,
- ogabbay@kernel.org, oleg@redhat.com, rppt@kernel.org,
- shuah@kernel.org, simona@ffwll.ch, skhan@linuxfoundation.org,
- surenb@google.com, tzimmermann@suse.de, vbabka@kernel.org,
- wei.liu@kernel.org, dri-devel@lists.freedesktop.org,
- linux-mm@kvack.org, linux-doc@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-rdma@vger.kernel.org
-Subject: Re: [PATCH v8 4/8] mshv: Use hmm_range_fault_unlocked_timeout() for
- region faults
-Message-ID: <20260713145503.GC3133966@ziepe.ca>
-References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
- <178371881034.900500.5214601525971121683.stgit@skinsburskii>
- <20260710151216.0397a6f9ac5c7b4ccd274cc1@linux-foundation.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D5B310E5FF;
+ Mon, 13 Jul 2026 14:57:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783954666; x=1815490666;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=vGr1Y0YREj7u0VXJVlpLH/+1i6FIEq1VaYnIMWDINsY=;
+ b=O9IgtRRIbt+u4nbaffGFO0YVRhTJGVqX8/ntPclsX6dGFW/51xQj3SKT
+ jpiVazYwvnsCxcd39bJCLgNma9ZXR5Vf77luZ00wzJtStgmp0VpknSUN7
+ JP6t/u2FzTtB3qBdmC9s1mETjlGY5V2mlqQnen48va6/X6NR7yfdx/E9Y
+ txoxBoZHu+BAzyhMdIiVDwMULYJ+1/vv9F+AS5q/gyDhND1EEOMARXHCK
+ oIEPsBV2/BNwdbdeGrgAgAIrBfI/gyQNLE3Gnrj2NUX6URPfgRhIwxcbI
+ BU53TR5hwX81rOlYA1vgd/cY8LKxROdkCZH/7yHZTeUCCm5dYyN2I8LhL Q==;
+X-CSE-ConnectionGUID: tMYA7rysSXuac6Da5+nxPA==
+X-CSE-MsgGUID: dINhVRDSSy21G82cJ86mkA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="95713856"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="95713856"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 07:57:46 -0700
+X-CSE-ConnectionGUID: 3QhNCQeIR569pRTugrD7QQ==
+X-CSE-MsgGUID: ZSNnfrmrTIG8I0oXtwNxCQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="251629916"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 07:57:45 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 13 Jul 2026 07:57:45 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Mon, 13 Jul 2026 07:57:45 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.24) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 13 Jul 2026 07:57:44 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UZimCcbyYPB9c+njVrEP0RkZURGdKrkylixTQi48miIdQsJBAEj7ocNOCdGLRxuW/SgqQIem4NNV5RHeQlNtXACBH1PWidSZF1a4msAIzY02lz07GGSbsjHwbhm9hgUg36j+dSShp0f9XdBAebem3gTn0VYlubc6uV7FCSB/orBabvlQoV796cCPB5lztTXInLcupwFPN4DAIPsv0DniymhAsuztNNdXsw+IDFUko3zmnx1puhcyF5p5DkCuCB5+pb2Fx4GMw5uVB02Jto+LyN2Z5fIFTxihEdAEygnK68xueyUOhBOYE2YURxohdlZLsuKGMkP/yaDCwAnuZ1sGmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jKG/PPgJKnF2REyCXY2MNdYTYcHNkRvGNZrcWD+S5O8=;
+ b=sKA1ejNFDs5YfecLkikPz+KCs3UOKybWeYbnA9Y6eC7o9yu/WCEWu4Tl726j/kmlxt4wMXs5vNmD85yfUUC4RweeDUDEEeS+AFzW6uFb5C/aC+P+s+/HvgTNIIzz1pyAuiFoLu2Gtccqv0vv67KC5Tlc/ALnj662br6KXXv+DmSu79TvgF1ZF8wPxq2teubvxcKJk4Z2mLfWQWVo2cDgGE9gBCGuT5NTCXBO0eJWKkDn6kZPOJ67a01z5mo4xSbXTEfuG6qXLTc5Nr41Wy9yslaPchpk91EfHtJt44/rK7YasNU8aPx4PgzOJiEtMMp9Mmj71dV1+BrRbg/U7yDFQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by CH3PR11MB7324.namprd11.prod.outlook.com (2603:10b6:610:14f::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Mon, 13 Jul
+ 2026 14:57:41 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0202.014; Mon, 13 Jul 2026
+ 14:57:41 +0000
+Date: Mon, 13 Jul 2026 07:57:38 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+CC: Danilo Krummrich <dakr@kernel.org>, <thomas.hellstrom@linux.intel.com>,
+ <ecourtney@nvidia.com>, <simona@ffwll.ch>, <nat@pixelcluster.dev>,
+ <airlied@gmail.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 01/12] dma-buf: Add reference counting to dma_resv
+Message-ID: <alT84pX0nLaEtDl9@gsse-cloud1.jf.intel.com>
+References: <20260710190752.2355-1-christian.koenig@amd.com>
+ <20260710190752.2355-2-christian.koenig@amd.com>
+ <alGcHjo9fzhHshx8@gsse-cloud1.jf.intel.com>
+ <DJVRML4G11GZ.Z7FTZH7I1LZN@kernel.org>
+ <alPwTypl8Y8PN7hz@gsse-cloud1.jf.intel.com>
+ <aff7eb27-22c1-4e84-91ab-627c2604e488@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Disposition: inline
-In-Reply-To: <20260710151216.0397a6f9ac5c7b4ccd274cc1@linux-foundation.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aff7eb27-22c1-4e84-91ab-627c2604e488@amd.com>
+X-ClientProxiedBy: MW4PR04CA0289.namprd04.prod.outlook.com
+ (2603:10b6:303:89::24) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|CH3PR11MB7324:EE_
+X-MS-Office365-Filtering-Correlation-Id: 513c015f-fc27-4de3-8720-08dee0ef165c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|23010399003|376014|18002099003|22082099003|6133799003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: z6cjybvjv9WxQnzd6NDuOmCDH+NwDxy3sBhLC0hA+prj6kFMXtKSSbVZ9H5JxtzRdyCsLCNDXcaBszqnUIxvlds1+HO3Y3M5IEmd/pUnpTQwZ9l+Id6zc4E09MgSIfXIf1XZ3kofCy/dKjyirw9zmBSEkQo3Bkl2NSbSqjc6Dgca9iOeM4DaJk/Czqo2NJ9mOsObvmrPHJWFbo3mJWa3HLSXfL3Oz4XMYMtjCf0WaeG2wvoqq7Xu6AJmNhJN4rmJs3pALtqWQxywpx3vAhLmqO/u8TvRmPrKHMoTdGwJRBS2AAoQie2N7Ew03NDyR9N3xZmP9ifLdYl9/WXsDOhL6oKE8KIw0DJ1FhnDAxMiZou4ML0GHq1pPDTUt9yAdUtA5hsY+zRfai5gulcLshwC7za/7z8Zgds68iMVQlXdBO51EEZdyWH6K22Upj9hLSyDFpsJ5leBWQ3CQAXhQvbZil2cfK2slQDbZcr67mrmL+f2FbVOPIrImfn8GKCAfdiyHoAQMC+XarUFtfbhjViby3cxk107QxvDrP3fEKYCBlNhM8gR3NYj3WtqLyD7rt6uxog6l9OUz4DnwvBxApoM8d2kdh57oGGfK3+l+peJvJNCoMyRchFkDO31GprbM3BvFc6mi0n4T4OR/DT0MscUakFlGMYrZcglWqbcWlElgY4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(23010399003)(376014)(18002099003)(22082099003)(6133799003)(56012099006)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?eH2mnTaVBaV/L8J9v/o/JMVts3phvJglkhhgEuLFfv5smWs5qhv3Z+14p8?=
+ =?iso-8859-1?Q?khpD8t9+7eYYsAvOlpKNd/k51SVtj7qrXA3w4eIQQFkM6Xj5zNBtifbhJY?=
+ =?iso-8859-1?Q?o/L1LN3dlJdejnqevl3oiw2xykkf9V6aTyXxDebu/KM1qTDNvS2zSWdLVm?=
+ =?iso-8859-1?Q?CJ1Lx9WvsIMru0sjvPujSlcjuFHCVT9B+W/PBARc37IG2I0PQyHy/kPdxZ?=
+ =?iso-8859-1?Q?YhdZbCl/8TxJOgxJYj+ny21k3i7V367tHQ5O0SbmXCXhPeWw+dU6E/ab7G?=
+ =?iso-8859-1?Q?7cnlqtMyptawXV705aEgpw31X+qRyw17wprzRlz7t+96XhH/XfeTJAJoTb?=
+ =?iso-8859-1?Q?0t0uezxHm3lCN++zpWiY8Mzn6rrOXwRTrZZzvd4/0/83QPagKNhg7y+8b4?=
+ =?iso-8859-1?Q?AikcMf6HsOSsbIhYD445Z931sPOP3C5ORC01bjFW96tvYRCRd+T2qEvMK1?=
+ =?iso-8859-1?Q?Lo7zx8sDn6xNkX2j4huZW4CzOwRPK8EKPSiYxzIRsHr3EuywPMDSpIRIVx?=
+ =?iso-8859-1?Q?blrwAWd26p3BogTWJwl/bQ7LPVjXm4K3ePMwmaM9CW6ztcI7kvM5/kzI3x?=
+ =?iso-8859-1?Q?l/+xlN4oxspJXPq1PIPpP0WTdnekeO6IhqZ5nTEiwtg6lzhf9hqGamTTKa?=
+ =?iso-8859-1?Q?tr3H7jyvPoHej9u1xtvJZyg6Dg5ZcfX9Aa6IveFEIyhN+uUZ8nuISygTAn?=
+ =?iso-8859-1?Q?RKLdip8Z3oVKI/pUsMDJnQstdDPnu6FOFDj/WoU9lpuTyrhE5yZxNcjHVf?=
+ =?iso-8859-1?Q?fq1YiEWaEIUZio0nMdfD65TzJgypRrWlwf5rGcs8YIxzqzyaMl4fo2aEcq?=
+ =?iso-8859-1?Q?X3JlUIFejJAtHYR8rcMuf2fgvjUZUi/VHuGqItaZypU5XabppySaCcFS1Y?=
+ =?iso-8859-1?Q?Xas3lfRogJkZjKveUL+3q485LjbGgKG1Gcrei+wiso7slSAdT9pgwRYXP5?=
+ =?iso-8859-1?Q?PVuxx1y6TRTPXvlYLqhIrprTQMg1VosfSUP8Yw4DN2hX8BSmZjMTwut9uK?=
+ =?iso-8859-1?Q?eZWeDk4nSkLfUuwmNSshOvvC9dTg0tJl8Nwg0mrgupjlMJTLhJnuU/PTvU?=
+ =?iso-8859-1?Q?ipwb7IeoPdKmTSIQvSIO+CuNeTTnaNf1YlB3n4yvweQiZAQ2FQOTEHnZwH?=
+ =?iso-8859-1?Q?rEHd6tuikjjtAiLrcjQ8jhF9TSejoYsFm38wu51ImLyjX0NiX97bUEnfzW?=
+ =?iso-8859-1?Q?LhQ6VRlaWKx2x5CcUo4Q8tXqS6GtT1OnjR2be4p82O+zuAW6wTtKU7odE9?=
+ =?iso-8859-1?Q?0W38GgTogLYIC7kWQf/N53yE3lxbgNTLGvWV6Ea+PcWiPw6gJyaswiVFk0?=
+ =?iso-8859-1?Q?Pb9qSXSzG2+yvLoSQUdG094XRDgmskhKwsme/v11bNlmFBLpQjbrxTT8qY?=
+ =?iso-8859-1?Q?GGj7GbpzR3Np1ahyAmy7sbpgn3DxbA54wF5iDAZnYMdty4D+ou6UigjMM4?=
+ =?iso-8859-1?Q?loL6PI7uiQUqcBhwgdIm0WOA2mzvZcUpK5SR5PADesS34FVKaVMDUeJy1s?=
+ =?iso-8859-1?Q?U6tSjx55R0GanBIyOcGWQ+zjnZgWKP8zYS/Y9VWewbqFGKEmKTOe4AJcu3?=
+ =?iso-8859-1?Q?9024K3wzlq2GTGBpZUZdJ/NTU9X1BwgHyGXOF9lkx3JcpEEu0uaikpWVmb?=
+ =?iso-8859-1?Q?O42+pOCcYP6y/nUJr5Ptjv5B6csKH6LJ413+bwXt+TvTtdAolPOtNpAJkA?=
+ =?iso-8859-1?Q?KDtg/wGaGSnMlKnOGm7/X7MuerPn55YXfNy45DybgDmjl9at7jOb96hrku?=
+ =?iso-8859-1?Q?FC/r7XwOGp+SwSFljMZLFdpDrsJHFTUA6fSo4i+6v0lhVGSzE+f+jJz+1U?=
+ =?iso-8859-1?Q?HPtL3cgeag=3D=3D?=
+X-Exchange-RoutingPolicyChecked: dmMk7N7c6zvbU+/H7aldfpN2u0vSiTMUr4eqA5hJmOfus+2m/QhLoOaFDzpdmqGLgVykINjZcVxYAkNFfSj9K/PMI+Q9AyMqlQKWpD5L4VdaeD7zpeOWOwCT0ktoIOrbE33+vORvjmm/syBT7ZwwiBpAvZ93ZmizFxrf7ovNTawc4gVVNZZb28kAFEbCAHMljKGuGtki41IkIBG2EpD2DEo0kns6Rbqbmg+8E31hMFThe2/GvSKgvlsfgTaOr1KlgMZZgCRHEqQfo6Xd2FQ5gE77LE8L+YzQGumOCKnPJsmg4jsjGtcWOKw1Zm4qVe4K+L8APkpawjfwMqbDbcqjTg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 513c015f-fc27-4de3-8720-08dee0ef165c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 14:57:41.2616 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: g21noJe9wLacBqzf/vvDn5MaoCqJp12Apzo36aX5rNYbDo655tnbnDWO5vnu08AnvOQMWXYq32Yi5oXxp7MNLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB7324
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,25 +168,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2026 at 03:12:16PM -0700, Andrew Morton wrote:
-> > +	mutex_lock(&region->mreg_mutex);
-> > +
-> > +	if (mmu_interval_read_retry(range.notifier, range.notifier_seq)) {
-> > +		mutex_unlock(&region->mreg_mutex);
-> > +		cond_resched();
-> > +		goto again;
-> > +	}
-> > +
+On Mon, Jul 13, 2026 at 11:25:43AM +0200, Christian König wrote:
+> On 7/12/26 21:51, Matthew Brost wrote:
+> > On Sat, Jul 11, 2026 at 03:10:58PM +0200, Danilo Krummrich wrote:
+> >> On Sat Jul 11, 2026 at 3:27 AM CEST, Matthew Brost wrote:
+> >>> On Fri, Jul 10, 2026 at 08:52:41PM +0200, Christian König wrote:
+> >>>> This provides clearer ownership semantics and makes the code more
+> >>>> maintainable by removing the embedded allocation hack.
+> >>>>
+> >>>
+> >>> This looks a lot better to me. In particular, I agree with the last
+> >>> sentence in the commit message.
+> >>
+> >> I have to disagree with this, it is the opposite. As long as the struct
+> > 
+> > Daniilo is of course correct here, completely missed this when I looked.
+> > 
+> >> dma_resv::allocated fields and the corresponding semantics exists, this does
+> >> result into less clear ownership semantics.
+> >>
+> >> When the dma_resv is embedded in another object the reference count becomes
+> >> meaningless. If the object embedding the dma_resv is freed it doesn't matter
+> >> whether I have a reference count, it would a UAF regardless.
+> >>
+> > 
+> > Yes, I agree. The allocated field would need to be dropped to make this
+> > viable, and we would disallow embedding a dma-resv object into other
+> > objects (which I believe is the suggestion).
 > 
-> If the calling process has realtime scheduling policy and either a)
-> we're uniprocessor or b) this process and the holder of
-> interval_sub->invalidate_seq are both pinned to the same CPU then
-> cond_resched() won't do anything, and this might be an infinite loop?
+> Yeah completely agree as well. This was basically just the first hacky version.
+> 
+> > This doesn't look too painful, as I can only find two instances of
+> > embedding in the kernel: drm_gem_object and i915_address_space and
+> > handful of stack variables.
+> 
+> The use case in the TTM BO deletion path is the only really ugly one as far as I can see.
+> 
+> It uses the drm_gem_object embedded reservation object to make sure memory allocation can't fail during deletion.
+> 
 
-I think hmm and kvm have had this issue for a long time? I don't see
-anything in the mmu notifier locking scheme that would alleviate it at
-least
+Can't you just preallocate, during gem initialization, what is currently
+the embedded reservation as a separate pointer, drop the reference to
+the shared reservation, copy the fences, and then perform a pointer
+swap during individualization?
 
-So.. In terms of this series I'd leave it, it is no worse than before?
+Maybe I'm missing some details here, but when I briefly thought about
+the individualization, it seemed fairly straightforward.
 
-Jason
+Matt
+
+> We need something like a dummy delete_resv allocated for each TTM BO during creation or something like that to avoid this.
+> 
+> But that in turn means potentially means taking a look at all TTM using drivers if/when they use this in their deletion path.
+> 
+> Doable but a bit more work. Probably also a good job for AI.
+> 
+> Question is also who is taking that work? @Natalie can you pick up from here?
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> > Matt
+> > 
+> >> It is misleading (and hence error prone) to have an API where one can obtain a
+> >> reference count of an object where the underlying memory can be freed regardless
+> >> of the obtained reference count.
+> >>
+> >> A refernece count represents a shared ownership model, which is undermined if
+> >> the underlying memory is not owned by the reference count.
+> >>
+> >> That said, I don't mind the reference count, but we can't mix up exclusive
+> >> ownership (embedding a structure) and shared ownership (reference count).
+> >>
+> >>>> +static void dma_resv_release(struct kref *kref)
+> >>>>  {
+> >>>> -	/*
+> >>>> -	 * This object should be dead and all references must have
+> >>>> -	 * been released to it, so no need to be protected with rcu.
+> >>>> -	 */
+> >>>> +	struct dma_resv *obj = container_of(kref, struct dma_resv, refcount);
+> >>>> +
+> >>>>  	dma_resv_list_free(rcu_dereference_protected(obj->fences, true));
+> >>>>  	ww_mutex_destroy(&obj->lock);
+> >>>> +	if (obj->allocated)
+> >>>> +		kfree(obj);
+> >>>> +}
+> 
