@@ -4,50 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E891C44507
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 14:14:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB7A9C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 14:16:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B571810E9B8;
-	Mon, 13 Jul 2026 14:14:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B9D510E9BD;
+	Mon, 13 Jul 2026 14:16:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fR2maVA4";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="a89fZUTK";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UflVqyJf";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EFFF10E83E
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 14:14:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=u7t6AOIDaNt7cBQ+Qzxy/mJOkT7jvyaowGm0Gpy5iZo=; b=fR2maVA43y0R5k/FS9keoWevoO
- s5L0dVkPpsuKln9pPb7KMh0gbUYxycgzy7mMB2QBGX1esPIKXvnFrYtFwWG/k3fMh3kVG5Wv0cqRK
- mxlbiFdfEli99aH/o6Ir+cKxq9yReYOOvx5WY1eoCGUjlMjHbRsAQkixGh8pz4oLMJBeYdP6ye43J
- tk0E7+Cv7UK5DneD7J0TX0eUSPfnTjR2B6PEZXFRyAcx9JwRuzTN2nRTz+m7JjVacf5V68ds8/LV1
- HsE9wo+5DKRiw4j+Dse9YMeRkO/6LeFuAiiI3ZMa1zAI0NLNUqOZSIKwzPmidmObZITmb1AavEqSY
- dJX0Q3jg==;
-Received: from [90.240.106.137] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wjHQe-00EXHF-HP; Mon, 13 Jul 2026 16:14:40 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Chia-I Wu <olv@google.com>,
- Tejun Heo <tj@kernel.org>
-Subject: [RFC 1/2] workqueue: Add support for real-time workers
-Date: Mon, 13 Jul 2026 15:14:35 +0100
-Message-ID: <20260713141436.21547-2-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260713141436.21547-1-tvrtko.ursulin@igalia.com>
-References: <20260713141436.21547-1-tvrtko.ursulin@igalia.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 824A310E9BD
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 14:16:11 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66DCEDHq1304673
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 14:16:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ s9Td5s4NB4XQ8rznggNIITWnlk3IwS8MZDx5I4v8/zU=; b=a89fZUTKY0N0QfDn
+ ltmn0X2fEeXWAMOmkV1ChSPUa4LS39VVSoRq/MX4HbD3qqM/PSJhF8PpwLaXSCa8
+ o9nt5KCmu4pxH/m1eaEOoVi2fQ9Q9X2Kt7TTtdVbWz1ofkcMHyIdecFd/UW3j/Ak
+ qqd0pgE1cnesSMa/qX/22P+8OfLKvnaLqAoWZqi0XhbhmKzjeDMWUWDZGmAagz75
+ VlkBWRdyd5szxUzaEjlTba9l8CdVIuFjrbIYZS+ZbE2PXLX6aMTPY7RUq4ah5BSG
+ R/pzV6uYg9lieDTYDjXTzL8sUm2HcMJCYuuayVxWkymPCXXUxbWBpiJ5QYGHGwvQ
+ l4gJLA==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcwk9s1me-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 14:16:10 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-84a251c2e3eso1692509b3a.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 07:16:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1783952169; x=1784556969;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=s9Td5s4NB4XQ8rznggNIITWnlk3IwS8MZDx5I4v8/zU=;
+ b=UflVqyJfiC1DuLr6P2uQMov5ZV7uZxFS/EQxVFQozN3MIFBftVfuTmV1FeziZdMuFy
+ wRsZMA+zu1KfxSi6o9ue41XpnW+592zBIz9iGIUOlqpoAGuH9QG1yFz2SItIQMyglqmX
+ MkP6He2EgsLGouvKBkQvuLIOwDb8s7DctgySfEf0cppZqeHFFgbJSnX0nfA85V2eSKyu
+ BuNHAAx3+XbSANU8d5+3hK5zi9mU3GSznPiPfFkeKqkKbRkGQK5J1DDl4g2mq+NPa7cu
+ iHgPEMW/o+duYXC7sB+7zgAPumbRiDAd5JpjAj/d6XVn60I9H9AkWTlFOLt0MT6n3/4O
+ vjqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783952169; x=1784556969;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=s9Td5s4NB4XQ8rznggNIITWnlk3IwS8MZDx5I4v8/zU=;
+ b=Gh5jUfUWXHTKxHgTD+jViUisUvCzM2OXda/T8TltnTtsrlo7ivqCsfVeD13DxRQENA
+ JAa5Fqc6LLUrFgXJZD7cu7xBhm9klMIOEyvODYPE+c7yZ30NWteEBuhsHzzaRAeV2u/z
+ JEoMo2TrNQtVaxW9377f32/zcETT8OIjr2FfYzxUJaw+bE+QkrGcARA/yGQcuKY0XU5x
+ J4gwDXD3IH0HMv3xi0ZkOxgI/tNjmhTkQeNQ7fTbTF/nf2e7RDH5mpp2lCWzCg+h4T2O
+ Bfg+F2nj7OcqP81Ca2eUULpF0NgTpElt7GY6JWxMEnTCBYAwpjg+i+3OVXGMi/i/mcmi
+ DM7A==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr7Xx3WzENl07KBJE7aZG5tQs1zFdEBWMZW3VJU5jio22T7vwCtKsVnPkGbdyp9YK4rwZDXEZOt/J4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwY/MJ9ZXBQMsUkOh/McK+lt0gQXL5ZPz0Ubwwz1kN51JBmTpgT
+ bNGPF4vZjvmXIed7ek1nRJWCRtdVleTLKyTECnu8+OjWKKaEB0L6vHRwithKh63+9EWhUSb8Jl9
+ CSx/a+6+VehPhBPHKbsj2lyWzRXybu1DgVa9WmOT9xWZtO8sTiolhM9RBPkTVVcc/8APAeiw=
+X-Gm-Gg: AfdE7cmCD7S6nXV/QKLnPviqdvC/m+XaKPRjMCMVrmguUP6Y++LhK9qNXCKR4hTGuxQ
+ 7HtN0PwCNkoIfm2KuJNoWxjLHndLiIutrDVVak47Wnn7HSLqTjhF2obVL42FtzuQvsDN4X1hd+l
+ D0AUwAvv7GYGX8qCzNxqvDqkaB2lYgBHgFS4GJU/fPOShLUJTSw2FO49vvpuspuTArDGJg0PbKi
+ yir6q8rKrTspR3+Sg+zeY8xGKHJO5lVuOUnfA5/7DgM9APPG3fWoierj3nqfwan0B0VNNKpZ85E
+ POG/zjyKojRrWLZhZnTO+WQpc6faje8rqcM5TrJEtrCge5FAYVokYTCHB4NKOZ79sWPafClD1Ea
+ fxmKPt9fJ99+wN63/V1Y/m6ZbpiBEWf/4VYiy0cm19J5n
+X-Received: by 2002:a05:6a00:1c99:b0:848:2ef5:50dd with SMTP id
+ d2e1a72fcca58-8488ad09145mr7755449b3a.37.1783952169273; 
+ Mon, 13 Jul 2026 07:16:09 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1c99:b0:848:2ef5:50dd with SMTP id
+ d2e1a72fcca58-8488ad09145mr7755409b3a.37.1783952168780; 
+ Mon, 13 Jul 2026 07:16:08 -0700 (PDT)
+Received: from [192.168.0.215] ([49.205.244.213])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84a49591cbdsm452482b3a.40.2026.07.13.07.16.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Jul 2026 07:16:07 -0700 (PDT)
+Message-ID: <21867efc-b5a8-4ed9-92b4-059a020731a6@oss.qualcomm.com>
+Date: Mon, 13 Jul 2026 19:46:02 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/7] bus: mhi: Add QDU100 Sahara variant and firmware
+ fallback
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mhi@lists.linux.dev
+References: <20260701-sahara_protocol_new_v2-v6-0-3a78362c4741@oss.qualcomm.com>
+ <20260701-sahara_protocol_new_v2-v6-4-3a78362c4741@oss.qualcomm.com>
+ <n45ii7ekxeefuxw2ydwzsx7lqlfczbgg6obrzmzpytl2fin7j5@vbhmrptcjvcb>
+Content-Language: en-US
+From: Kishore Batta <kishore.batta@oss.qualcomm.com>
+In-Reply-To: <n45ii7ekxeefuxw2ydwzsx7lqlfczbgg6obrzmzpytl2fin7j5@vbhmrptcjvcb>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDE0NyBTYWx0ZWRfX+tfgfIwtqFwU
+ pIKuc+Qebt5U7qXfLIa6gZbW9Yr1k22WaDDIDtum2sRq6TJcufKYFf7tn2x22LUu7DaT84RT4ge
+ kqsccSY1s3RGyLokdnD4XWEYflun18rCDx8n63WVtopI2YeRjpqAeF8ANsjCLZiEWyZe/9N7zn7
+ lCKr6LFxnbUNtFQdHLyi0CO9QKFpj5/UEMkGxma2HGsiVHPh/nvSEMvh+kkoOgBXjZxxX8eKoRq
+ U7vPIDLdeffWuLSx5TnnDUDZsYOdaSUotDFOUmClDIw3E4FHoKWEDUOua2oNFxf7Wy6aYvJ6xQM
+ LOY13N+BTEKEnf0eqd0RZbi1zIC3NzviPoLDKRooFs4Y2kF76ibht2+Edp0kryIJBarn9rvRX7A
+ qd6PLjvlmGTc1WQ0lvTPzuKHKaRMxuqUgnrJXHWymSAx1ApTa9U95m/ohoIKl9HKomtpb/8j2ki
+ agnes0Fs2cQ7V9nzXEA==
+X-Proofpoint-ORIG-GUID: Oj9AWSgnzl79IKWXNBdjWCOvoYJC3lq9
+X-Authority-Analysis: v=2.4 cv=UMHt2ify c=1 sm=1 tr=0 ts=6a54f32a cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=KtsNJ/6bKgz7QsArn2OSsQ==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=ggBkse9BzyKxnYN-cX8A:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-GUID: Oj9AWSgnzl79IKWXNBdjWCOvoYJC3lq9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDE0NyBTYWx0ZWRfX3XBqfqlzuAbj
+ 7KMZpS6xcd2FQQHuAqZuLmYJmM63nsjBOXuRewtCHWtZTwS5gqmC+bhxzqsJ3QP8wBNlcHnje7W
+ +my+PMf+sg83Ab7SOkD5+cKs2pswiIA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_03,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 spamscore=0 clxscore=1011 adultscore=0
+ malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607130147
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,513 +151,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For use cases such as the DRM scheduler submitting work to the GPU on
-behalf of low latency userspace applications, where latter have sufficient
-privileges to have had successfuly obtained realtime Vulkan global
-priority, competing with random background CPU load can create large
-latency spikes which gets in the way of a smooth user experience.
 
-For these situations the existing WQ_HIPRI does not bring a noticeable
-improvemet and a stronger hint is needed.
+On 7/9/2026 11:49 AM, Manivannan Sadhasivam wrote:
+> On Wed, Jul 01, 2026 at 04:07:38PM +0530, Kishore Batta wrote:
+>> The Sahara driver currently selects a firmware image table based on the
+>> attached device, but it does not recognize QDU100 devices that expose the
+>> protocol on the SAHARA MHI channel. As a result, the host cannot associate
+>> QDU100 devices with the correct firmware namespace during image transfer.
+>>
+>> Extend the probe time variant selection to match the SAHARA MHI channel and
+>> associate it with the QDU100 firmware folder. Add a firmware lookup
+>> fallback for cases where an image does not have an explicit entry in the
+>> device's firmware table. This allows required images to be provisioned by
+>> the platform.
+>>
+>> This change only affects devices matched on the SAHARA MHI channel and
+>> does not change behavior for existing AIC100 and AIC200 devices.
+>>
+>> Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
+>> ---
+>>   drivers/bus/mhi/host/clients/sahara/sahara.c | 27 +++++++++++++++--
+>>   drivers/bus/mhi/host/pci_generic.c           | 45 ++++++++++++++++++++++++++++
+>>   2 files changed, 70 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/bus/mhi/host/clients/sahara/sahara.c b/drivers/bus/mhi/host/clients/sahara/sahara.c
+>> index e339c67e236af271645ca81cc517efd9eead87e4..9adbd84859073d8024ba2a5fcfa33897439d6759 100644
+>> --- a/drivers/bus/mhi/host/clients/sahara/sahara.c
+>> +++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
+>> @@ -189,6 +189,7 @@ static bool is_streaming(struct sahara_context *context)
+>>   
+>>   static int sahara_find_image(struct sahara_context *context, u32 image_id)
+>>   {
+>> +	char *fw_path;
+>>   	int ret;
+>>   
+>>   	if (image_id == context->active_image_id)
+>> @@ -201,8 +202,28 @@ static int sahara_find_image(struct sahara_context *context, u32 image_id)
+>>   	}
+>>   
+>>   	if (image_id >= context->table_size || !context->image_table[image_id]) {
+>> -		dev_err(&context->mhi_dev->dev, "request for unknown image: %d\n", image_id);
+>> -		return -EINVAL;
+>> +		if (!context->fw_folder) {
+>> +			dev_err(&context->mhi_dev->dev,
+>> +				"Request for unknown image: %u (no fw folder)\n", image_id);
+>> +			return -EINVAL;
+>> +		}
+>> +
+>> +		fw_path = kasprintf(GFP_KERNEL, "qcom/%s/%u",
+>> +				    context->fw_folder, image_id);
+>> +		if (!fw_path)
+>> +			return -ENOMEM;
+>> +
+>> +		ret = firmware_request_nowarn(&context->firmware,
+>> +					      fw_path,
+>> +					      &context->mhi_dev->dev);
+>> +		kfree(fw_path);
+>> +		if (ret) {
+>> +			dev_err(&context->mhi_dev->dev,
+>> +				"request for unknown image: %d\n", image_id);
+>> +			return -EINVAL;
+>> +		}
+>> +		context->active_image_id = image_id;
+>> +		return 0;
+>>   	}
+>>   
+>>   	/*
+>> @@ -870,8 +891,10 @@ static void sahara_mhi_dl_xfer_cb(struct mhi_device *mhi_dev, struct mhi_result
+>>   
+>>   static const struct mhi_device_id sahara_mhi_match_table[] = {
+>>   	{ .chan = "QAIC_SAHARA", },
+>> +	{ .chan = "SAHARA"},
+>>   	{},
+>>   };
+>> +MODULE_DEVICE_TABLE(mhi, sahara_mhi_match_table);
+>>   
+> This change should belong to a separate patch.
+>
+>>   static struct mhi_driver sahara_mhi_driver = {
+>>   	.id_table = sahara_mhi_match_table,
+>> diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
+>> index 391ab146f501c6ce1c81f6138f7c491a49c2f264..82e41632afc555a53dec3d8395558ae039b33bbd 100644
+>> --- a/drivers/bus/mhi/host/pci_generic.c
+>> +++ b/drivers/bus/mhi/host/pci_generic.c
+>> @@ -300,6 +300,43 @@ static const struct mhi_pci_dev_info mhi_qcom_qdu100_info = {
+>>   	.reset_on_remove = true,
+>>   };
+>>   
+>> +static const char * const qdu100_image_table[] = {
+>> +	[5] = "qcom/qdu100/uefi.elf",
+>> +	[8] = "qcom/qdu100/qdsp6sw.mbn",
+>> +	[16] = "qcom/qdu100/efs1.bin",
+>> +	[17] = "qcom/qdu100/efs2.bin",
+>> +	[20] = "qcom/qdu100/efs3.bin",
+>> +	[23] = "qcom/qdu100/aop.mbn",
+>> +	[25] = "qcom/qdu100/tz.mbn",
+>> +	[29] = "qcom/qdu100/zeros_1sector.bin",
+>> +	[33] = "qcom/qdu100/hypvm.mbn",
+>> +	[34] = "qcom/qdu100/mdmddr.mbn",
+>> +	[36] = "qcom/qdu100/multi_image_qti.mbn",
+>> +	[37] = "qcom/qdu100/multi_image.mbn",
+>> +	[38] = "qcom/qdu100/xbl_config.elf",
+>> +	[39] = "qcom/qdu100/abl_userdebug.elf",
+>> +	[40] = "qcom/qdu100/zeros_1sector.bin",
+>> +	[41] = "qcom/qdu100/devcfg.mbn",
+>> +	[42] = "qcom/qdu100/zeros_1sector.bin",
+>> +	[45] = "qcom/qdu100/tools_l.elf",
+>> +	[46] = "qcom/qdu100/Quantum.elf",
+>> +	[47] = "qcom/qdu100/quest.elf",
+>> +	[48] = "qcom/qdu100/xbl_ramdump.elf",
+>> +	[49] = "qcom/qdu100/shrm.elf",
+>> +	[50] = "qcom/qdu100/cpucp.elf",
+>> +	[51] = "qcom/qdu100/aop_devcfg.mbn",
+>> +	[52] = "qcom/qdu100/fw_csm_gsi_3.0.elf",
+>> +	[53] = "qcom/qdu100/qdsp6sw_dtbs.elf",
+>> +	[54] = "qcom/qdu100/qupv3fw.elf",
+>> +};
+>> +
+>> +static const struct mhi_sahara_fw_table qdu100_sahara_fw = {
+>> +	.image_table = qdu100_image_table,
+>> +	.table_size = ARRAY_SIZE(qdu100_image_table),
+>> +	.fw_folder = "qdu100",
+>> +	.non_streaming = false,
+>> +};
+>> +
+>>   static const struct mhi_channel_config mhi_qcom_sa8775p_channels[] = {
+>>   	MHI_CHANNEL_CONFIG_UL(46, "IP_SW0", 2048, 1),
+>>   	MHI_CHANNEL_CONFIG_DL(47, "IP_SW0", 2048, 2),
+>> @@ -1399,6 +1436,14 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>>   
+>>   	pci_set_drvdata(pdev, mhi_pdev);
+>>   
+>> +	/*
+>> +	 * Provide Sahara firmware mapping. Sahara consumes it via
+>> +	 * mhi_dev->mhi_cntrl->sahara_fw at probe time.
+>> +	 */
+>> +	if (info == &mhi_qcom_qdu100_info ||
+>> +	    (info->name && !strcmp(info->name, "qcom-qdu100")))
+>> +		mhi_cntrl->sahara_fw = &qdu100_sahara_fw;
+>> +
+> Why are you adding QAIC MHI controller config in pci_generic driver? This driver
+> only handles Modem devices.
+>
+> - Mani
 
-Lets add WQ_RTPRI which creates workers with a SCHED_FIFO scheduling class
-to improve this.
 
-We use a mininum priority level since we only care about winning the
-contest against normal background CPU load. We also limit the number of
-instantiated threads, both per workqueue to a maximum of two, and system-
-wide to a maximum of either two or one less than the number of online
-CPUs. The idea of that is to prevent system wide starvation cause by
-potentially misbehaving work items.
+Hi Mani, Above one is for QDU100 device. QAIC is not added in this file.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Chia-I Wu <olv@google.com>
-Cc: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Steven Price <steven.price@arm.com>
-Cc: Tejun Heo <tj@kernel.org>
----
- include/linux/workqueue.h |  22 ++++--
- kernel/workqueue.c        | 154 ++++++++++++++++++++++++++++----------
- 2 files changed, 131 insertions(+), 45 deletions(-)
-
-diff --git a/include/linux/workqueue.h b/include/linux/workqueue.h
-index 6177624539b3..bc313b9705cb 100644
---- a/include/linux/workqueue.h
-+++ b/include/linux/workqueue.h
-@@ -140,6 +140,12 @@ enum wq_affn_scope {
- 	WQ_AFFN_NR_TYPES,
- };
- 
-+enum wq_priority {
-+	WQ_PRIO_NORMAL = 0,
-+	WQ_PRIO_HIGH = 1,
-+	WQ_PRIO_RT = 2
-+};
-+
- /**
-  * struct workqueue_attrs - A struct for workqueue attributes.
-  *
-@@ -147,7 +153,12 @@ enum wq_affn_scope {
-  */
- struct workqueue_attrs {
- 	/**
--	 * @nice: nice level
-+	 * @prio: priority level
-+	 */
-+	enum wq_priority prio;
-+
-+	/**
-+	 * @nice: nice level for WQ_PRIO_HIGH
- 	 */
- 	int nice;
- 
-@@ -374,8 +385,9 @@ enum wq_flags {
- 	WQ_FREEZABLE		= 1 << 2, /* freeze during suspend */
- 	WQ_MEM_RECLAIM		= 1 << 3, /* may be used for memory reclaim */
- 	WQ_HIGHPRI		= 1 << 4, /* high priority */
--	WQ_CPU_INTENSIVE	= 1 << 5, /* cpu intensive workqueue */
--	WQ_SYSFS		= 1 << 6, /* visible in sysfs, see workqueue_sysfs_register() */
-+	WQ_RTPRI		= 1 << 5, /* real-time priority */
-+	WQ_CPU_INTENSIVE	= 1 << 6, /* cpu intensive workqueue */
-+	WQ_SYSFS		= 1 << 7, /* visible in sysfs, see workqueue_sysfs_register() */
- 
- 	/*
- 	 * Per-cpu workqueues are generally preferred because they tend to
-@@ -402,8 +414,8 @@ enum wq_flags {
- 	 *
- 	 * http://thread.gmane.org/gmane.linux.kernel/1480396
- 	 */
--	WQ_POWER_EFFICIENT	= 1 << 7,
--	WQ_PERCPU		= 1 << 8, /* bound to a specific cpu */
-+	WQ_POWER_EFFICIENT	= 1 << 8,
-+	WQ_PERCPU		= 1 << 9, /* bound to a specific cpu */
- 
- 	__WQ_DESTROYING		= 1 << 15, /* internal: workqueue is destroying */
- 	__WQ_DRAINING		= 1 << 16, /* internal: workqueue is draining */
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index 33b721a9af02..0473c009690f 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -80,9 +80,10 @@ enum worker_pool_flags {
- 	 * BH pool is per-CPU and always DISASSOCIATED.
- 	 */
- 	POOL_BH			= 1 << 0,	/* is a BH pool */
--	POOL_MANAGER_ACTIVE	= 1 << 1,	/* being managed */
--	POOL_DISASSOCIATED	= 1 << 2,	/* cpu can't serve workers */
--	POOL_BH_DRAINING	= 1 << 3,	/* draining after CPU offline */
-+	POOL_RT			= 1 << 1,	/* is a RT pool */
-+	POOL_MANAGER_ACTIVE	= 1 << 2,	/* being managed */
-+	POOL_DISASSOCIATED	= 1 << 3,	/* cpu can't serve workers */
-+	POOL_BH_DRAINING	= 1 << 4,	/* draining after CPU offline */
- };
- 
- enum worker_flags {
-@@ -104,7 +105,8 @@ enum work_cancel_flags {
- };
- 
- enum wq_internal_consts {
--	NR_STD_WORKER_POOLS	= 2,		/* # standard pools per cpu */
-+	NR_STD_WORKER_POOLS	= 3,		/* # standard pools per cpu */
-+	NR_BH_WORKER_POOLS	= 2,		/* # bottom-half pools per cpu */
- 
- 	UNBOUND_POOL_HASH_ORDER	= 6,		/* hashed by pool->attrs */
- 	BUSY_WORKER_HASH_ORDER	= 6,		/* 64 pointers */
-@@ -495,10 +497,10 @@ static bool wq_debug_force_rr_cpu = false;
- module_param_named(debug_force_rr_cpu, wq_debug_force_rr_cpu, bool, 0644);
- 
- /* to raise softirq for the BH worker pools on other CPUs */
--static DEFINE_PER_CPU_SHARED_ALIGNED(struct irq_work [NR_STD_WORKER_POOLS], bh_pool_irq_works);
-+static DEFINE_PER_CPU_SHARED_ALIGNED(struct irq_work [NR_BH_WORKER_POOLS], bh_pool_irq_works);
- 
- /* the BH worker pools */
--static DEFINE_PER_CPU_SHARED_ALIGNED(struct worker_pool [NR_STD_WORKER_POOLS], bh_worker_pools);
-+static DEFINE_PER_CPU_SHARED_ALIGNED(struct worker_pool [NR_BH_WORKER_POOLS], bh_worker_pools);
- 
- /* the per-cpu worker pools */
- static DEFINE_PER_CPU_SHARED_ALIGNED(struct worker_pool [NR_STD_WORKER_POOLS], cpu_worker_pools);
-@@ -546,6 +548,8 @@ EXPORT_SYMBOL_GPL(system_bh_highpri_wq);
- struct workqueue_struct *system_dfl_long_wq __ro_after_init;
- EXPORT_SYMBOL_GPL(system_dfl_long_wq);
- 
-+static atomic_t total_rtpri_workers = ATOMIC_INIT(0);
-+
- static int worker_thread(void *__worker);
- static void workqueue_sysfs_unregister(struct workqueue_struct *wq);
- static void show_pwq(struct pool_workqueue *pwq);
-@@ -561,7 +565,7 @@ static void show_one_worker_pool(struct worker_pool *pool);
- 
- #define for_each_bh_worker_pool(pool, cpu)				\
- 	for ((pool) = &per_cpu(bh_worker_pools, cpu)[0];		\
--	     (pool) < &per_cpu(bh_worker_pools, cpu)[NR_STD_WORKER_POOLS]; \
-+	     (pool) < &per_cpu(bh_worker_pools, cpu)[NR_BH_WORKER_POOLS]; \
- 	     (pool)++)
- 
- #define for_each_cpu_worker_pool(pool, cpu)				\
-@@ -1236,9 +1240,7 @@ static bool assign_work(struct work_struct *work, struct worker *worker,
- 
- static struct irq_work *bh_pool_irq_work(struct worker_pool *pool)
- {
--	int high = pool->attrs->nice == HIGHPRI_NICE_LEVEL ? 1 : 0;
--
--	return &per_cpu(bh_pool_irq_works, pool->cpu)[high];
-+	return &per_cpu(bh_pool_irq_works, pool->cpu)[pool->attrs->prio];
- }
- 
- static void kick_bh_pool(struct worker_pool *pool)
-@@ -1251,7 +1253,7 @@ static void kick_bh_pool(struct worker_pool *pool)
- 		return;
- 	}
- #endif
--	if (pool->attrs->nice == HIGHPRI_NICE_LEVEL)
-+	if (pool->attrs->prio >= WQ_PRIO_HIGH)
- 		raise_softirq_irqoff(HI_SOFTIRQ);
- 	else
- 		raise_softirq_irqoff(TASKLET_SOFTIRQ);
-@@ -2801,13 +2803,16 @@ static int format_worker_id(char *buf, size_t size, struct worker *worker,
- 				 worker->rescue_wq->name);
- 
- 	if (pool) {
--		if (pool->cpu >= 0)
-+		if (pool->cpu >= 0) {
-+			const char *suffix[NR_STD_WORKER_POOLS] = { "", "H", "R" };
-+
- 			return scnprintf(buf, size, "kworker/%d:%d%s",
- 					 pool->cpu, worker->id,
--					 pool->attrs->nice < 0  ? "H" : "");
--		else
-+					 suffix[pool->attrs->prio]);
-+		} else {
- 			return scnprintf(buf, size, "kworker/u%d:%d",
- 					 pool->id, worker->id);
-+		}
- 	} else {
- 		return scnprintf(buf, size, "kworker/dying");
- 	}
-@@ -2863,7 +2868,11 @@ static struct worker *create_worker(struct worker_pool *pool)
- 			goto fail;
- 		}
- 
--		set_user_nice(worker->task, pool->attrs->nice);
-+		if (pool->attrs->prio == WQ_PRIO_RT)
-+			sched_set_fifo_low(worker->task);
-+		else if (pool->attrs->prio == WQ_PRIO_HIGH)
-+			set_user_nice(worker->task, pool->attrs->nice);
-+
- 		kthread_bind_mask(worker->task, pool_allowed_cpus(pool));
- 	}
- 
-@@ -2876,6 +2885,9 @@ static struct worker *create_worker(struct worker_pool *pool)
- 	worker->pool->nr_workers++;
- 	worker_enter_idle(worker);
- 
-+	if (pool->flags & POOL_RT)
-+		atomic_inc(&total_rtpri_workers);
-+
- 	/*
- 	 * @worker is waiting on a completion in kthread() and will trigger hung
- 	 * check if not woken up soon. As kick_pool() is noop if @pool is empty,
-@@ -2909,6 +2921,8 @@ static void reap_dying_workers(struct list_head *cull_list)
- 	list_for_each_entry_safe(worker, tmp, cull_list, entry) {
- 		list_del_init(&worker->entry);
- 		kthread_stop_put(worker->task);
-+		if (worker->flags & WQ_RTPRI)
-+			atomic_dec(&total_rtpri_workers);
- 		kfree(worker);
- 	}
- }
-@@ -3110,6 +3124,19 @@ __acquires(&pool->lock)
- 	mod_timer(&pool->mayday_timer, jiffies + MAYDAY_INITIAL_TIMEOUT);
- 
- 	while (true) {
-+		if (pool->flags & POOL_RT) {
-+			unsigned int max = num_online_cpus();
-+
-+			if (max > 2)
-+				max = max - 1;
-+			else
-+				max = 2;
-+
-+			/* Global cap on the number of RT workers */
-+			if (atomic_read(&total_rtpri_workers) >= max)
-+				break;
-+		}
-+
- 		if (create_worker(pool) || !need_to_create_worker(pool))
- 			break;
- 
-@@ -3765,7 +3792,7 @@ static void drain_dead_softirq_workfn(struct work_struct *work)
- 	 * don't hog this CPU's BH.
- 	 */
- 	if (repeat) {
--		if (pool->attrs->nice == HIGHPRI_NICE_LEVEL)
-+		if (pool->attrs->prio >= WQ_PRIO_HIGH)
- 			queue_work(system_bh_highpri_wq, work);
- 		else
- 			queue_work(system_bh_wq, work);
-@@ -3786,7 +3813,7 @@ void workqueue_softirq_dead(unsigned int cpu)
- {
- 	int i;
- 
--	for (i = 0; i < NR_STD_WORKER_POOLS; i++) {
-+	for (i = 0; i < NR_BH_WORKER_POOLS; i++) {
- 		struct worker_pool *pool = &per_cpu(bh_worker_pools, cpu)[i];
- 		struct wq_drain_dead_softirq_work dead_work;
- 
-@@ -3797,7 +3824,7 @@ void workqueue_softirq_dead(unsigned int cpu)
- 		dead_work.pool = pool;
- 		init_completion(&dead_work.done);
- 
--		if (pool->attrs->nice == HIGHPRI_NICE_LEVEL)
-+		if (pool->attrs->prio >= WQ_PRIO_HIGH)
- 			queue_work(system_bh_highpri_wq, &dead_work.work);
- 		else
- 			queue_work(system_bh_wq, &dead_work.work);
-@@ -4772,6 +4799,7 @@ struct workqueue_attrs *alloc_workqueue_attrs_noprof(void)
- static void copy_workqueue_attrs(struct workqueue_attrs *to,
- 				 const struct workqueue_attrs *from)
- {
-+	to->prio = from->prio;
- 	to->nice = from->nice;
- 	cpumask_copy(to->cpumask, from->cpumask);
- 	cpumask_copy(to->__pod_cpumask, from->__pod_cpumask);
-@@ -4803,6 +4831,7 @@ static u32 wqattrs_hash(const struct workqueue_attrs *attrs)
- {
- 	u32 hash = 0;
- 
-+	hash = jhash_1word(attrs->prio, hash);
- 	hash = jhash_1word(attrs->nice, hash);
- 	hash = jhash_1word(attrs->affn_strict, hash);
- 	hash = jhash(cpumask_bits(attrs->__pod_cpumask),
-@@ -4817,6 +4846,8 @@ static u32 wqattrs_hash(const struct workqueue_attrs *attrs)
- static bool wqattrs_equal(const struct workqueue_attrs *a,
- 			  const struct workqueue_attrs *b)
- {
-+	if (a->prio != b->prio)
-+		return false;
- 	if (a->nice != b->nice)
- 		return false;
- 	if (a->affn_strict != b->affn_strict)
-@@ -5603,11 +5634,17 @@ static void unbound_wq_update_pwq(struct workqueue_struct *wq, int cpu)
- 
- static int alloc_and_link_pwqs(struct workqueue_struct *wq)
- {
--	bool highpri = wq->flags & WQ_HIGHPRI;
--	int cpu, ret;
-+	int prio, cpu, ret;
- 
- 	lockdep_assert_held(&wq_pool_mutex);
- 
-+	if (wq->flags & WQ_RTPRI)
-+		prio = WQ_PRIO_RT;
-+	else if (wq->flags & WQ_HIGHPRI)
-+		prio = WQ_PRIO_HIGH;
-+	else
-+		prio = WQ_PRIO_NORMAL;
-+
- 	wq->cpu_pwq = alloc_percpu(struct pool_workqueue *);
- 	if (!wq->cpu_pwq)
- 		goto enomem;
-@@ -5624,7 +5661,7 @@ static int alloc_and_link_pwqs(struct workqueue_struct *wq)
- 			struct pool_workqueue **pwq_p;
- 			struct worker_pool *pool;
- 
--			pool = &(per_cpu_ptr(pools, cpu)[highpri]);
-+			pool = &(per_cpu_ptr(pools, cpu)[prio]);
- 			pwq_p = per_cpu_ptr(wq->cpu_pwq, cpu);
- 
- 			*pwq_p = kmem_cache_alloc_node(pwq_cache, GFP_KERNEL,
-@@ -5644,14 +5681,14 @@ static int alloc_and_link_pwqs(struct workqueue_struct *wq)
- 	if (wq->flags & __WQ_ORDERED) {
- 		struct pool_workqueue *dfl_pwq;
- 
--		ret = apply_workqueue_attrs_locked(wq, ordered_wq_attrs[highpri]);
-+		ret = apply_workqueue_attrs_locked(wq, ordered_wq_attrs[prio]);
- 		/* there should only be single pwq for ordering guarantee */
- 		dfl_pwq = rcu_access_pointer(wq->dfl_pwq);
- 		WARN(!ret && (wq->pwqs.next != &dfl_pwq->pwqs_node ||
- 			      wq->pwqs.prev != &dfl_pwq->pwqs_node),
- 		     "ordering guarantee broken for workqueue %s\n", wq->name);
- 	} else {
--		ret = apply_workqueue_attrs_locked(wq, unbound_std_wq_attrs[highpri]);
-+		ret = apply_workqueue_attrs_locked(wq, unbound_std_wq_attrs[prio]);
- 	}
- 
- 	if (ret)
-@@ -5816,6 +5853,11 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
- 			return NULL;
- 	}
- 
-+	if (flags & WQ_RTPRI) {
-+		if (WARN_ON_ONCE(flags & WQ_HIGHPRI))
-+			return NULL;
-+	}
-+
- 	/* see the comment above the definition of WQ_POWER_EFFICIENT */
- 	if ((flags & WQ_POWER_EFFICIENT) && wq_power_efficient)
- 		flags |= WQ_UNBOUND;
-@@ -5842,7 +5884,12 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
- 		pr_warn_once("workqueue: name exceeds WQ_NAME_LEN. Truncating to: %s\n",
- 			     wq->name);
- 
--	if (flags & WQ_BH) {
-+	if (flags & WQ_RTPRI) {
-+		/*
-+		 * RT workqueues are limited to max half of the online CPUs.
-+		 */
-+		max_active = min_t(int, max_active, num_online_cpus() / 2);
-+	} else if (flags & WQ_BH) {
- 		/*
- 		 * BH workqueues always share a single execution context per CPU
- 		 * and don't impose any max_active limit.
-@@ -6344,17 +6391,26 @@ void print_worker_info(const char *log_lvl, struct task_struct *task)
- 	}
- }
- 
-+static void pr_cont_bh_suffix(enum wq_priority prio)
-+{
-+	if (prio == WQ_PRIO_RT)
-+		pr_cont("bh-rt");
-+	else if (prio == WQ_PRIO_HIGH)
-+		pr_cont("bh-hi");
-+	else
-+		pr_cont("bh");
-+}
-+
- static void pr_cont_pool_info(struct worker_pool *pool)
- {
- 	pr_cont(" cpus=%*pbl", nr_cpumask_bits, pool->attrs->cpumask);
- 	if (pool->node != NUMA_NO_NODE)
- 		pr_cont(" node=%d", pool->node);
--	pr_cont(" flags=0x%x", pool->flags);
-+	pr_cont(" flags=0x%x ", pool->flags);
- 	if (pool->flags & POOL_BH)
--		pr_cont(" bh%s",
--			pool->attrs->nice == HIGHPRI_NICE_LEVEL ? "-hi" : "");
-+		pr_cont_bh_suffix(pool->attrs->prio);
- 	else
--		pr_cont(" nice=%d", pool->attrs->nice);
-+		pr_cont("prio=%d", pool->attrs->prio);
- }
- 
- static void pr_cont_worker_id(struct worker *worker)
-@@ -6362,8 +6418,7 @@ static void pr_cont_worker_id(struct worker *worker)
- 	struct worker_pool *pool = worker->pool;
- 
- 	if (pool->flags & POOL_BH)
--		pr_cont("bh%s",
--			pool->attrs->nice == HIGHPRI_NICE_LEVEL ? "-hi" : "");
-+		pr_cont_bh_suffix(pool->attrs->prio);
- 	else
- 		pr_cont("%d%s", task_pid_nr(worker->task),
- 			worker->rescue_wq ? "(RESCUER)" : "");
-@@ -7284,10 +7339,14 @@ static ssize_t wq_nice_show(struct device *dev, struct device_attribute *attr,
- 			    char *buf)
- {
- 	struct workqueue_struct *wq = dev_to_wq(dev);
--	int written;
-+	int written, nice;
- 
- 	mutex_lock(&wq->mutex);
--	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->unbound_attrs->nice);
-+	if (wq->unbound_attrs->prio == WQ_PRIO_RT)
-+		nice = INT_MIN;
-+	else
-+		nice = wq->unbound_attrs->nice;
-+	written = scnprintf(buf, PAGE_SIZE, "%d\n", nice);
- 	mutex_unlock(&wq->mutex);
- 
- 	return written;
-@@ -7313,13 +7372,20 @@ static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
- {
- 	struct workqueue_struct *wq = dev_to_wq(dev);
- 	struct workqueue_attrs *attrs;
--	int ret = -ENOMEM;
-+	int ret;
- 
- 	apply_wqattrs_lock();
- 
- 	attrs = wq_sysfs_prep_attrs(wq);
--	if (!attrs)
-+	if (!attrs) {
-+		ret = -ENOMEM;
- 		goto out_unlock;
-+	}
-+
-+	if (attrs->prio == WQ_PRIO_RT) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
- 
- 	if (sscanf(buf, "%d", &attrs->nice) == 1 &&
- 	    attrs->nice >= MIN_NICE && attrs->nice <= MAX_NICE)
-@@ -7927,12 +7993,13 @@ static void __init restrict_unbound_cpumask(const char *name, const struct cpuma
- 	cpumask_and(wq_unbound_cpumask, wq_unbound_cpumask, mask);
- }
- 
--static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int nice)
-+static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, enum wq_priority prio, int nice)
- {
- 	BUG_ON(init_worker_pool(pool));
- 	pool->cpu = cpu;
- 	cpumask_copy(pool->attrs->cpumask, cpumask_of(cpu));
- 	cpumask_copy(pool->attrs->__pod_cpumask, cpumask_of(cpu));
-+	pool->attrs->prio = prio;
- 	pool->attrs->nice = nice;
- 	pool->attrs->affn_strict = true;
- 	pool->node = cpu_to_node(cpu);
-@@ -7956,8 +8023,9 @@ static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int n
- void __init workqueue_init_early(void)
- {
- 	struct wq_pod_type *pt = &wq_pod_types[WQ_AFFN_SYSTEM];
--	int std_nice[NR_STD_WORKER_POOLS] = { 0, HIGHPRI_NICE_LEVEL };
--	void (*irq_work_fns[NR_STD_WORKER_POOLS])(struct irq_work *) =
-+	int std_prio[NR_STD_WORKER_POOLS] = { 0, WQ_PRIO_HIGH, WQ_PRIO_RT };
-+	int std_nice[NR_STD_WORKER_POOLS] = { 0, HIGHPRI_NICE_LEVEL, 0 };
-+	void (*irq_work_fns[NR_BH_WORKER_POOLS])(struct irq_work *) =
- 		{ bh_pool_kick_normal, bh_pool_kick_highpri };
- 	int i, cpu;
- 
-@@ -8008,15 +8076,19 @@ void __init workqueue_init_early(void)
- 
- 		i = 0;
- 		for_each_bh_worker_pool(pool, cpu) {
--			init_cpu_worker_pool(pool, cpu, std_nice[i]);
-+			init_cpu_worker_pool(pool, cpu, std_prio[i], std_nice[i]);
- 			pool->flags |= POOL_BH;
- 			init_irq_work(bh_pool_irq_work(pool), irq_work_fns[i]);
- 			i++;
- 		}
- 
- 		i = 0;
--		for_each_cpu_worker_pool(pool, cpu)
--			init_cpu_worker_pool(pool, cpu, std_nice[i++]);
-+		for_each_cpu_worker_pool(pool, cpu) {
-+			init_cpu_worker_pool(pool, cpu, std_prio[i], std_nice[i]);
-+			if (i == WQ_PRIO_RT)
-+				pool->flags |= POOL_RT;
-+			i++;
-+		}
- 	}
- 
- 	/* create default unbound and ordered wq attrs */
-@@ -8024,6 +8096,7 @@ void __init workqueue_init_early(void)
- 		struct workqueue_attrs *attrs;
- 
- 		BUG_ON(!(attrs = alloc_workqueue_attrs()));
-+		attrs->prio = std_prio[i];
- 		attrs->nice = std_nice[i];
- 		unbound_std_wq_attrs[i] = attrs;
- 
-@@ -8032,6 +8105,7 @@ void __init workqueue_init_early(void)
- 		 * guaranteed by max_active which is enforced by pwqs.
- 		 */
- 		BUG_ON(!(attrs = alloc_workqueue_attrs()));
-+		attrs->prio = std_prio[i];
- 		attrs->nice = std_nice[i];
- 		attrs->ordered = true;
- 		ordered_wq_attrs[i] = attrs;
--- 
-2.54.0
-
+>
