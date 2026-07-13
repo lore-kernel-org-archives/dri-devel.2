@@ -4,85 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C11D4C44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:16:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AB78C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:16:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 245C010E807;
-	Mon, 13 Jul 2026 07:16:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2676110E834;
+	Mon, 13 Jul 2026 07:16:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="QXkWykl8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZOZVCVrE";
 	dkim-atps=neutral
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [188.68.63.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A439310E571;
- Mon, 13 Jul 2026 07:14:52 +0000 (UTC)
-Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
- by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4gzDFF2YLdz41mt;
- Mon, 13 Jul 2026 09:13:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1783926833;
- bh=ft5/eljShbuYhVYHfb0X4qATRaHxv9WlJJ3lqFQIN2A=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=QXkWykl8hifEgutAY/lzyn35YKVwZWQWF3ZaqD7dFUropywiLUD+NzTU9FbrMS8Gb
- N7TxJzsyM0rLg1s/N6S+evPSuSWcZKd3S72/5H9dIgpUVrYW9zJfbJ/NJReuVi0hiA
- ZEdzy7+Yr2Yn2lwb9NaTOuQbP8Q03XImk0jOy1ds6DrsPXaCFjrUwgbNgeJU2W9foc
- IeTnObDohuNHv8HGeUgcPfb760bwn+7YdwIoW7B5laHHhvYjg6ZsQPAN7SCUtJNtAk
- XCKUKycfalhsqa+m1pOL8dSc8Pd5aec/KxZiGCDjsJndw0jrSY8Hn+zQwBmHhsLsgy
- IClFEYaqTfVJA==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4gzDF31rC6z41vC;
- Mon, 13 Jul 2026 09:13:43 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy01-mors.netcup.net (Postfix) with ESMTPS id 4gzDDz3Vhbz8tbl;
- Mon, 13 Jul 2026 09:13:39 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id 81FD66041D;
- Mon, 13 Jul 2026 09:13:31 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <ae5c29aa-3790-479a-bdfb-1b571eaab809@leemhuis.info>
-Date: Mon, 13 Jul 2026 09:13:30 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9316510E818
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 07:11:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B4E676136B;
+ Mon, 13 Jul 2026 07:11:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CD691F000E9;
+ Mon, 13 Jul 2026 07:11:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783926714;
+ bh=V0SQazfmiiDid/ub71XMFNMwikO65Q1xOsWBI2MU7TE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=ZOZVCVrEFOzlje9n34CxwxIMMkQDMJJG7xi422dkfRoOhhJE7rnttLW/PDJe9fFMm
+ CLVwZGKMH9F7caqiWLGKEfL5VudHkzazNc8RH8af3newjz1bZfPte9CpHU/gLtLBIJ
+ nZqvUhoXLHwYZWnfDvilLdQ+KAaJja8+E2kQaETYxd38pJUphNksur326xvX9ddmly
+ gn5jxm5qn/mguix6GWiVoPafDZrt2pjyUW1riQCmC0JfehlxyglKZ4HnGBIAQUhuqc
+ qmGwOblBkZCR9b/sgSpLxgYtgRQH5xmmvfU6cg7CmKQ0RL0L+9PKbytdQ3pq4TVlYI
+ Gg1NFhbBbvHMA==
+Date: Mon, 13 Jul 2026 09:11:52 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>,
+ Jonas =?utf-8?B?w4VkYWhs?= <jadahl@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>, 
+ Simon Ser <contact@emersion.fr>, Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/8] drm: Add DRM_MODE_ATOMIC_RESET flag
+Message-ID: <20260713-amphibian-fair-sponge-f3de96@houat>
+References: <20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org>
+ <fd3b9da8-6ccc-4730-b8ff-08cfcfa286a9@mailbox.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [resend] [regression] amdgpu carrizo: no display signal after
- modeset
-To: Dianne Skoll <dianne@skoll.ca>, Jaak Ristioja <jaak@ristioja.ee>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Salvatore Bonaccorso <carnil@debian.org>, Chris Park <chris.park@amd.com>,
- Matthew Stewart <matthew.stewart2@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- 1139950@bugs.debian.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <9fba2020-24d1-4235-9869-319d4aab3a4c@ristioja.ee>
- <178198613176.3658222.16247101620976737948@eldamar.lan>
- <ajcLuO0YZCoPN7Xw@eldamar.lan> <e4f60b98-9bd8-491a-9703-a5a7a58a4ca0@amd.com>
- <82b5026d-2dcc-4dcd-9094-2ccf70057964@ristioja.ee>
- <6cf6be99-76c3-43b3-854f-96cae180318c@ristioja.ee>
- <20260622153449.453b493e@gato.skoll.ca>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260622153449.453b493e@gato.skoll.ca>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178392681229.3442660.9578169747564647640@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 81FD66041D
-X-NC-CID: MzLG2tZMKB/ADR25837MhEmuu9VJVl40ek1ivkRoK5XTXQ/26lE=
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="6kmo46d4vwwqliwk"
+Content-Disposition: inline
+In-Reply-To: <fd3b9da8-6ccc-4730-b8ff-08cfcfa286a9@mailbox.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,23 +67,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/22/26 21:34, Dianne Skoll wrote:
-> On Mon, 22 Jun 2026 20:46:44 +0300
-> Jaak Ristioja <jaak@ristioja.ee> wrote:
-> 
->> Reverting commit fee50077656 ("drm/amd/display: Bump the HDMI clock to 
->> 340MHz") on top of v7.1.1 appears to resolve the issue, as I am now able 
->> to get a picture.
-> 
-> Unfortunately, reverting that commit will *break* it for me with my Dasung
-> E-Ink monitor. :(
-Jaak, was this ever resolved? It looks like this fell through the
-cracks, but maybe I missed something.
 
-If this is still unfixed, I think it likely is best if you report this
-to https://gitlab.freedesktop.org/drm/amd/-/work_items/ if you haven't
-done so already -- I suspect that is more likely to get the attention of
-the amdgpu maintainers. Please drop the link to the ticket here after
-submitting the issue.
+--6kmo46d4vwwqliwk
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC 0/8] drm: Add DRM_MODE_ATOMIC_RESET flag
+MIME-Version: 1.0
 
-Ciao, Thorsten
+Hi Michel,
+
+On Fri, Jul 10, 2026 at 07:01:29PM +0200, Michel D=E4nzer wrote:
+> On 7/8/26 18:08, Maxime Ripard wrote:
+> >=20
+> > Userspace currently has no atomic way to bring a display pipeline back
+> > to a pristine state. A compositor that wants to start from a known
+> > baseline must explicitly set every property on every KMS object to its
+> > default value, which requires tracking which properties exist and what
+> > their defaults are. This is fragile and must be updated every time a
+> > new property is added to the kernel.
+> >=20
+> > This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
+> > atomic ioctl. When set, the kernel fills the commit with default
+> > states for all KMS objects before applying the properties supplied in
+> > the request. Properties not explicitly included remain at their
+> > defaults (CRTCs inactive, planes disabled, connectors unbound, and so
+> > on). This allows userspace to describe the desired end state
+> > declaratively, without having to care about the current state or the
+> > full set of properties.
+>=20
+> Nice!
+>=20
+>=20
+> > Patch 8 wires it all up by adding DRM_MODE_ATOMIC_RESET to the atomic
+> > ioctl.
+>=20
+> The new flag should be accompanied by a new DRM_CAP_* cap, so user
+> space knows when the new flag is valid.
+
+Ack.
+
+> > This series is untested and relies on all drivers implementing the
+> > atomic_create_state hook, which is not yet the case. The conversion
+> > is actively in progress but not complete, so this will not work as-is
+> > today.
+>=20
+> As discussed on IRC, the new cap could be made conditional on the
+> atomic_create_state hook being available. That would allow this series
+> to land before all in-tree drivers are converted. (As a bonus, it
+> would also avoid issues with out-of-tree drivers which might not
+> support the atomic_create_state hook)
+
+My initial reaction when we discussed it on IRC was that the conversion
+=66rom reset to atomic_create_state is going to remove reset, so by the
+time it's merged, an out-of-tree driver that wouldn't implement
+atomic_create_state would not compile.
+
+That being said, I just remembered that i915 implements neither, so it's
+a good thing to have indeed.
+
+Maxime
+
+--6kmo46d4vwwqliwk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCalSPtwAKCRAnX84Zoj2+
+djsqAYDBFbu/FMTGy1QenpQD+E7YhaAoi5SxA0OuHErTcZqv3X0HqP5JMSNX0uOk
+gBPgyOABgNFgIIK7MVoeYkzBt2SSRjufnKDEdTrpHJqeByuoVYUxIllgGp/45f8y
+pperuBwGZw==
+=2ZXg
+-----END PGP SIGNATURE-----
+
+--6kmo46d4vwwqliwk--
