@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7620C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:23:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B68E0C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:27:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48EFE10E960;
-	Mon, 13 Jul 2026 12:23:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21AAE10E5CB;
+	Mon, 13 Jul 2026 12:27:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bYYb3iC2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DPpbyazk";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4072610E960
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:23:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D028C10E5CB
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:27:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0DEF443E6D;
- Mon, 13 Jul 2026 12:23:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4AF61F000E9;
- Mon, 13 Jul 2026 12:23:51 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8508A43A30;
+ Mon, 13 Jul 2026 12:27:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 277121F000E9;
+ Mon, 13 Jul 2026 12:27:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783945431;
- bh=mfkYvXchsq41aWkSrCkNKYoKA+D2jJR6+NT5QAp3nGA=;
+ s=k20260515; t=1783945668;
+ bh=9lWL1wFnx282U3FDeE8CTKRAyj7rhRIO0WfAjoBdkiw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bYYb3iC2JeTQ3Yv/rpmn2BOrLwMsGk26C+xDWIBkxo8xTZlZyg2iRWxVSpp+bLTb6
- p13byozgJaUcrmUQU7KulchWBAApLfv5f240N8j5tLHhLYyjV8Xpk1GLB2UWjNPcSZ
- Gr3GDrJob7H33wzVviHZfnwTGdBDHdKEtwPQNlIoHencG2la5iDz9csDwtBQeB0fJA
- 3IbdD0Ur5zhR1nOeF4BVYTrCSKbQN/bWUgUHmuvPEvIJbEIyTpeh/NSj2pzh3Mnvxp
- QaNU3+LdXwwiD4zingrHZCb02zDAoVwJTcunNYCL0SYPEFSYsdpqVyrW4RrtWjXw46
- jAWgWqcd8D6+A==
+ b=DPpbyazknplDjaZuVWkH7+Ch96IGMJG7w0HcTNEYzlCW8ubiDXdy/7X8D5Drfpw4N
+ eXW0Eg3Z28CQgjzhxJa6nLe3PFk1xJ3Rm/WHzbAlh2C4n3AqWOYAoSyBmhcTLQA9Wb
+ gPSj4fx3Z4ru1AKpME4u0CntE57iV6b3FVd8PhfstCz3B7K0UNM84voXvXyw8XU8PZ
+ lj1xS4egpjQehuDdjFgBY8MmP9CPj5QQ93LWJYUQ1OStISIxXWWZxuGChKVOQo6Vja
+ 0/P81c36xjdLYecCrpCNyLz7uAfylmE4RTkiRNE/SjwEym4/qetTqBsX46HU3drf5Q
+ EiSGpuQxJVHEg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 04/19] media: meson: vdec: Fix use-after-free race
- between teardown and ISR routines
+Subject: Re: [PATCH v7 07/19] media: meson: vdec: Refactor esparser work
+ queue and fix teardown race
 To: "Anand Moon" <linux.amoon@gmail.com>
-Cc: neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260713120840.17427-5-linux.amoon@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ neil.armstrong@linaro.org
+In-Reply-To: <20260713120840.17427-8-linux.amoon@gmail.com>
 References: <20260713120840.17427-1-linux.amoon@gmail.com>
- <20260713120840.17427-5-linux.amoon@gmail.com>
+ <20260713120840.17427-8-linux.amoon@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 12:23:51 +0000
-Message-Id: <20260713122351.A4AF61F000E9@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 12:27:46 +0000
+Message-Id: <20260713122748.277121F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,166 +59,175 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Returning `IRQ_HANDLED` for a NULL session in the hardware interru=
-pt handler causes an infinite interrupt storm.
+- [High] The worker thread enters a 100% CPU infinite loop when the queue i=
+s empty, full, or hits an EOS buffer, and prematurely exits after a single =
+frame on success due to an inverted loop condition and misuse of `scoped_gu=
+ard`.
 
 Pre-existing issues:
-- [High] Calling `synchronize_irq()` before stopping hardware interrupts fa=
-ils to fix the use-after-free race condition.
-- [High] Unbind operations destroy devm-managed structures and the m2m devi=
-ce while open file descriptors remain, causing UAF on closure.
+- [Critical] Maliciously crafted VP9 superframe headers can cause an intege=
+r overflow in `total_datasize`, bypassing bounds checks and triggering a ma=
+ssive out-of-bounds `memmove()`.
 --
 
---- Patch [4]: [PATCH v7 04/19] media: meson: vdec: Fix use-after-free race=
- between teardown and ISR routines ---
-commit 7f1533ed7c182234db28cc4195417115cb635bb9
+--- Patch [7]: [PATCH v7 07/19] media: meson: vdec: Refactor esparser work =
+queue and fix teardown race ---
+commit f4cf4afadbba1cd9ed8438a311d676dabd768d33
 Author: Anand Moon <linux.amoon@gmail.com>
 
-media: meson: vdec: Fix use-after-free race between teardown and ISR routin=
-es
+media: meson: vdec: Refactor esparser work queue and fix teardown race
 
-This patch attempts to prevent race conditions and null pointer dereferences
-by synchronizing interrupt service routines during session teardown and file
-descriptor release phases. It adds synchronize_irq() calls and uses
-smp_load_acquire() to safely capture the current session in the ISR handler=
-s.
+Rework the esparser work queue logic to prevent concurrent queue mutations
+and fix a race condition during streaming teardown.
 
-Link: https://lore.kernel.org/all/20260521090944.F35401F00A3D@smtp.kernel.o=
-rg/
+> diff --git a/drivers/staging/media/meson/vdec/esparser.c b/drivers/stagin=
+g/media/meson/vdec/esparser.c
+> index 37749ede308c6..e5d3d817b9b2b 100644
+> --- a/drivers/staging/media/meson/vdec/esparser.c
+> +++ b/drivers/staging/media/meson/vdec/esparser.c
 
-> diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/me=
-dia/meson/vdec/vdec.c
-> index 7fc73d5cdebbf..7ae3d5a9dd6ab 100644
-> --- a/drivers/staging/media/meson/vdec/vdec.c
-> +++ b/drivers/staging/media/meson/vdec/vdec.c
-> @@ -484,6 +484,9 @@ static void vdec_stop_streaming(struct vb2_queue *q)
->  			}
+[ ... ]
+
+> @@ -348,12 +344,10 @@ esparser_queue(struct amvdec_session *sess, struct =
+vb2_v4l2_buffer *vbuf)
+>  	if (sess->fmt_out->pixfmt =3D=3D V4L2_PIX_FMT_VP9) {
+>  		payload_size =3D vp9_update_header(core, vb);
+> =20
+> -		/* If unable to alter buffer to add headers */
+>  		if (payload_size =3D=3D 0) {
+> +			dev_err(core->dev, "esparser: VP9 header update failed\n");
+>  			amvdec_remove_ts(sess, vb->timestamp);
+> -			v4l2_m2m_buf_done(vbuf, VB2_BUF_STATE_ERROR);
+> -
+> -			return 0;
+> +			return -EBADMSG;
 >  		}
-> =20
-> +		/* Synchronize and flush pending hardware interrupt service routines */
-> +		synchronize_irq(core->vdec_irq);
-> +
+>  	}
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does calling synchronize_irq=
-()
-before vdec_poweroff() actually prevent the race condition?
+[Severity: Critical]
+This is a pre-existing issue, but can maliciously crafted VP9 superframe
+headers cause an integer overflow in vp9_update_header(), leading to a
+massive out-of-bounds memory copy?
 
-Since synchronize_irq() only waits for currently executing handlers to fini=
-sh
-and does not disable the IRQ line or prevent new hardware interrupts, it se=
-ems
-new interrupts can still fire immediately after it returns.
+Looking at vp9_update_header() in the same file:
 
-Because the hardware isn't stopped until vdec_poweroff() runs, could a newly
-triggered ISR observe a valid session pointer and execute concurrently with=
- the
-rest of the teardown sequence?
+    for (cur_mag =3D 0; cur_mag < mag; cur_mag++) {
+        ...
+        frame_size[cur_frame] |=3D
+            (dp[mag_ptr] << (cur_mag * 8));
+        mag_ptr++;
+    }
+    ...
+    total_datasize +=3D frame_size[cur_frame];
 
-Should the hardware be stopped via vdec_poweroff() before synchronizing IRQ=
-s?
+If untrusted user data shifted into the signed 32-bit frame_size becomes
+negative, multiple negative values can sum to a small positive
+total_datasize, which bypasses the size checks:
 
->  		vdec_poweroff(sess);
->  		vdec_free_canvas(sess);
-> =20
+    new_frame_size =3D total_datasize + num_frames * VP9_HEADER_SIZE;
+    if (new_frame_size >=3D vb2_plane_size(buf, 0)) {
+        return -ENOMEM;
+    }
 
-[ ... ]
+Then, later in the same function:
 
-> @@ -989,6 +992,9 @@ static int vdec_close(struct file *file)
->  	struct amvdec_session *sess =3D file_to_amvdec_session(file);
->  	struct amvdec_core *core =3D sess->core;
-> =20
-> +	/* Synchronize and flush pending hardware interrupt service routines */
-> +	synchronize_irq(core->vdec_irq);
-> +
+    int framesize =3D frame_size[cur_frame];
+    ...
+    memmove(fdata + VP9_HEADER_SIZE, old_framedata, framesize);
 
-[Severity: High]
-This is a pre-existing issue, but does the driver handle unbind safely if
-user-space keeps the video device file open?
-
-If the driver is unbound, vdec_remove() executes:
-
-vdec_remove()
-    video_unregister_device(core->vdev_dec);
-    v4l2_m2m_release(core->m2m_dev);
-    v4l2_device_unregister(&core->v4l2_dev);
-
-Since devres automatically frees the amvdec_core structure upon unbind
-completion, and video_unregister_device() does not forcefully close open fi=
-le
-descriptors, could a later call to vdec_close() dereference the freed core
-structure?
-
-For instance, this newly added synchronize_irq(core->vdec_irq) call would
-use the freed core pointer. Similarly, v4l2_m2m_ctx_release(sess->m2m_ctx)
-later in vdec_close() would use the freed core->m2m_dev.
-
->  	if (!IS_ERR_OR_NULL(sess->recycle_thread)) {
->  		kthread_stop(sess->recycle_thread);
->  		sess->recycle_thread =3D NULL;
+The negative framesize is implicitly converted to a size_t, which causes
+an out-of-bounds memmove(). Could this lead to memory corruption when
+handling untrusted V4L2 video stream data?
 
 [ ... ]
 
-> @@ -1038,7 +1044,12 @@ static const struct v4l2_file_operations vdec_fops=
- =3D {
->  static irqreturn_t vdec_isr(int irq, void *data)
+>  void esparser_queue_all_src(struct work_struct *work)
 >  {
->  	struct amvdec_core *core =3D data;
-> -	struct amvdec_session *sess =3D core->cur_sess;
-> +	struct amvdec_session *sess;
+> -	struct v4l2_m2m_buffer *buf, *n;
+>  	struct amvdec_session *sess =3D
+>  		container_of(work, struct amvdec_session, esparser_queue_work);
+> +	struct device *dev =3D sess->core->dev_dec;
+> +	int ret;
+> =20
+> -	mutex_lock(&sess->lock);
+> -	v4l2_m2m_for_each_src_buf_safe(sess->m2m_ctx, buf, n) {
+> -		if (sess->should_stop)
+> -			break;
+> +	while (1) {
+> +		struct vb2_v4l2_buffer *vbuf =3D NULL;
+> +		bool processed_frame =3D false;
 > +
-> +	/* Secure an atomic acquire snapshot to protect against concurrent tear=
-down */
-> +	sess =3D smp_load_acquire(&core->cur_sess);
-> +	if (!sess)
-> +		return IRQ_HANDLED;
+> +		scoped_guard(mutex, &sess->lock) {
+> +			/* Safe atomic tracking check: exit loop if session is shutting down =
+*/
+> +			if (sess->should_stop)
+> +				return;
+> +
+> +			/* Queue completely empty: exit work loop cleanly */
+> +			vbuf =3D v4l2_m2m_next_src_buf(sess->m2m_ctx);
+> +			if (!vbuf)
+> +				break;
+> +
+> +			/* Stop processing if we hit the end-of-stream drain buffer */
+> +			if (vbuf->flags & V4L2_BUF_FLAG_LAST)
+> +				break;
+> +
+> +			/* Check hardware FIFO limits safely inside the locks */
+> +			ret =3D esparser_queue(sess, vbuf);
+> +			if (ret =3D=3D -EAGAIN)
+> +				break;
+> +
+> +			/* Pop the buffer from the source queue since it is now processed */
+> +			vbuf =3D v4l2_m2m_src_buf_remove(sess->m2m_ctx);
+> +			if (!vbuf) {
+> +				dev_dbg(dev, "Buffer missing during queue removal\n");
+> +				break;
+> +			}
+> +
+> +			/* Complete the buffer transaction based on parser results */
+> +			if (ret < 0)
+> +				v4l2_m2m_buf_done(vbuf, VB2_BUF_STATE_ERROR);
+> +			else
+> +				v4l2_m2m_buf_done(vbuf, VB2_BUF_STATE_DONE);
+> =20
+> -		if (esparser_queue(sess, &buf->vb) < 0)
+> +			/* Set tracking flag indicating transaction completion */
+> +			processed_frame =3D true;
+> +		}
+> +
+> +		if (processed_frame)
+>  			break;
 
 [Severity: High]
-Can returning IRQ_HANDLED here cause an infinite interrupt storm?
+Does this code inadvertently create an infinite loop?
 
-If the handler evaluates the session to NULL and returns IRQ_HANDLED without
-acknowledging or clearing the interrupt at the hardware level, the generic =
-IRQ
-framework will unmask the interrupt line.
+Because scoped_guard() is implemented internally as a for-loop, the
+break statements inside the scoped_guard() block will only exit the lock
+scope, not the outer while (1) loop.
 
-Since the hardware interrupt source hasn't been cleared, won't the interrupt
-controller immediately re-trigger the interrupt, resulting in a soft lockup=
- or
-CPU stall?
+If the queue is empty (!vbuf), we break out of the scoped_guard(),
+processed_frame remains false, and the while (1) loop continues infinitely,
+consuming 100% CPU.
 
-Should this return IRQ_NONE so the IRQ subsystem can detect it as spurious =
-and
-eventually disable the IRQ line?
+Conversely, if a frame is successfully processed, processed_frame becomes
+true, which causes the outer while (1) loop to exit after just one frame
+instead of continuing to drain the queue.
 
-> =20
->  	sess->last_irq_jiffies =3D get_jiffies_64();
-> =20
-> @@ -1048,7 +1059,12 @@ static irqreturn_t vdec_isr(int irq, void *data)
->  static irqreturn_t vdec_threaded_isr(int irq, void *data)
->  {
->  	struct amvdec_core *core =3D data;
-> -	struct amvdec_session *sess =3D core->cur_sess;
-> +	struct amvdec_session *sess;
+Could the logic here be inverted, or should the inner loop use goto
+instead of break to exit the outer loop?
+
 > +
-> +	/* Prevent late-stage threaded interrupts from dereferencing a NULL ses=
-sion */
-> +	sess =3D smp_load_acquire(&core->cur_sess);
-> +	if (!sess)
-> +		return IRQ_HANDLED;
-
-[Severity: High]
-Does returning IRQ_HANDLED here also incorrectly propagate the same interru=
-pt
-storm behavior?
-
-> =20
->  	return sess->fmt_out->codec_ops->threaded_isr(sess);
+> +		/* Give other threads and IRQ routines a window to execute while unloc=
+ked */
+> +		cond_resched();
+>  	}
+> -	mutex_unlock(&sess->lock);
 >  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713120840.1742=
-7-1-linux.amoon@gmail.com?part=3D4
+7-1-linux.amoon@gmail.com?part=3D7
