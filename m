@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1DF2C44506
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 05:39:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A20EC44507
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 05:39:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9F8010E79B;
-	Mon, 13 Jul 2026 05:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5666610E79D;
+	Mon, 13 Jul 2026 05:39:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hLBxxmAU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jtw00SVz";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59BE810E79A;
- Mon, 13 Jul 2026 05:39:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53CF310E79A;
+ Mon, 13 Jul 2026 05:39:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783921179; x=1815457179;
+ t=1783921183; x=1815457183;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ltH5BrN7Z3fULNLccZCl4YnN+OB3W5aCUsT8/Fg2rFg=;
- b=hLBxxmAUU8Lb4YGY7UGSk1djGYi/ISmmkTDhFxSSR+4ZrJSrmMR3Cnpv
- 7NwVxfGMirafyvoOY079kmBgo0/cC8/7+uVSZmE+oZgprCY9d4P8zqe7z
- edMH9RpBEErRu16V74oQmTDUbO0JYYHVFNkSM7hMJfnEit05XkY46Chp4
- sjt6dqh17I/bsTBFHdzKn1+7lPjrfGc1XXWite4+a2fGn4G1sQweBK5r6
- oWU7DNRCrpfpN16gs7IUHfx/qt7MSRO1qU1rTuZm0OHivgx2ZgDK8lqAj
- a9TUVcEQ0hVaRY4AS0Z9IuLUe9HrMNEsXeKrvUVcP608i3rzIhrvk1fPG A==;
-X-CSE-ConnectionGUID: Pn9aLHOtQwCrpDxrbXSBVw==
-X-CSE-MsgGUID: loNdtd6lR360LX0465l6Gg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="95670004"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="95670004"
+ bh=AOXW8hpfBPAlRCpckC1QA77FRTJg53CFTUFQtoMqKR4=;
+ b=jtw00SVzZt+qZ/Fe5TC+ktJVBPR140ex2rbKtctWbVN8BQEnXJVc4+o9
+ uwaNS7EzDF8ZliM4nKRODm6D7i2AbbbUiaseY9Y76xTDF6QoFdjEQXBgZ
+ TM4m7DNf1ZV7pTgE8RKIhdsPR4VLNQRybEoK2RxAzybZu7wqtl8PubHjH
+ CVJfR4L7kvbVDuNZunow+kF4s5AZx/20MOLTO1Tv9KUnZjQFthAiSq2DQ
+ f+FkH1WHINvi50PEWy3otTqZ3/3zT48kgowkJjRCBx1Ed9+wo9yGChuOx
+ gz2UxadTfoyjw7cAV6noyJn3y6mfvdh+fc7dhIN54skIS1PdC8ddnNeGY g==;
+X-CSE-ConnectionGUID: O5EVmFl0Ts2o1Y17nLY5tA==
+X-CSE-MsgGUID: L3dJxQUaSjCUL0CYQhjRpg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="95670008"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="95670008"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2026 22:39:39 -0700
-X-CSE-ConnectionGUID: O+OL8ibKTmmDYFAM7rO7BA==
-X-CSE-MsgGUID: IRidxWznQ1OlpRZdchWlGQ==
+ 12 Jul 2026 22:39:43 -0700
+X-CSE-ConnectionGUID: kvD5PQtUSyWESDU2SO3CRw==
+X-CSE-MsgGUID: WfVWdBkWSDqIsnRvEmJFiw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="252066349"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="252066356"
 Received: from dut-2a59.iind.intel.com ([10.190.239.113])
- by fmviesa007.fm.intel.com with ESMTP; 12 Jul 2026 22:39:37 -0700
+ by fmviesa007.fm.intel.com with ESMTP; 12 Jul 2026 22:39:41 -0700
 From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: Pranay Samala <pranay.samala@intel.com>,
  Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
  Uma Shankar <uma.shankar@intel.com>
-Subject: [CI v4 11/14] drm/i915/color: Program Pre-CSC registers for SDR
-Date: Mon, 13 Jul 2026 10:45:13 +0530
-Message-Id: <20260713051516.4087420-12-chaitanya.kumar.borah@intel.com>
+Subject: [CI v4 13/14] drm/i915/color: Program Plane Post CSC registers for
+ SDR planes
+Date: Mon, 13 Jul 2026 10:45:15 +0530
+Message-Id: <20260713051516.4087420-14-chaitanya.kumar.borah@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260713051516.4087420-1-chaitanya.kumar.borah@intel.com>
 References: <20260713051516.4087420-1-chaitanya.kumar.borah@intel.com>
@@ -71,12 +72,9 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Pranay Samala <pranay.samala@intel.com>
 
-Implement plane pre-CSC LUT support for SDR planes.
+Implement plane post-CSC LUT support for SDR planes.
 
 v2:
-- s/drm_color_lut_extract/drm_color_lut32_extract
-
-v3:
 - Restructure loop to match HDR function pattern
 
 Assisted-by: Claude:claude-opus-4.6
@@ -85,23 +83,23 @@ Co-developed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 42 ++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+ drivers/gpu/drm/i915/display/intel_color.c | 41 ++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 2a32ab62721c..abf3b3a2e177 100644
+index 360046979556..be2e1d8ce0e6 100644
 --- a/drivers/gpu/drm/i915/display/intel_color.c
 +++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -3992,6 +3992,46 @@ xelpd_load_hdr_pre_csc_lut(struct intel_display *display,
- 	intel_de_write_dsb(display, dsb, PLANE_PRE_CSC_GAMC_INDEX_ENH(pipe, plane, 0), 0);
+@@ -4082,6 +4082,45 @@ xelpd_load_hdr_post_csc_lut(struct intel_display *display,
+ 	intel_de_write_dsb(display, dsb, PLANE_POST_CSC_GAMC_INDEX_ENH(pipe, plane, 0), 0);
  }
  
 +static void
-+xelpd_load_sdr_pre_csc_lut(struct intel_display *display,
-+			   struct intel_dsb *dsb,
-+			   enum pipe pipe,
-+			   enum plane_id plane,
-+			   const struct drm_color_lut32 *pre_csc_lut)
++xelpd_load_sdr_post_csc_lut(struct intel_display *display,
++			    struct intel_dsb *dsb,
++			    enum pipe pipe,
++			    enum plane_id plane,
++			    const struct drm_color_lut32 *post_csc_lut)
 +{
 +	int i, lut_size = 32;
 +	u32 lut_val;
@@ -112,14 +110,13 @@ index 2a32ab62721c..abf3b3a2e177 100644
 +	 */
 +	plane = plane - 3;
 +
-+	intel_de_write_dsb(display, dsb,
-+			   PLANE_PRE_CSC_GAMC_INDEX(pipe, plane, 0),
++	intel_de_write_dsb(display, dsb, PLANE_POST_CSC_GAMC_INDEX(pipe, plane, 0),
 +			   PLANE_PAL_PREC_AUTO_INCREMENT);
 +
 +	for (i = 0; i < lut_size + 3; i++) {
-+		if (pre_csc_lut) {
++		if (post_csc_lut) {
 +			if (i < lut_size)
-+				lut_val = drm_color_lut32_extract(pre_csc_lut[i].green, 16);
++				lut_val = drm_color_lut32_extract(post_csc_lut[i].green, 16);
 +			/* else duplicate last lut_val */
 +		} else {
 +			if (i < lut_size)
@@ -129,22 +126,22 @@ index 2a32ab62721c..abf3b3a2e177 100644
 +		}
 +
 +		intel_de_write_dsb(display, dsb,
-+				   PLANE_PRE_CSC_GAMC_DATA(pipe, plane, 0),
++				   PLANE_POST_CSC_GAMC_DATA(pipe, plane, 0),
 +				   lut_val);
 +	}
 +
-+	intel_de_write_dsb(display, dsb, PLANE_PRE_CSC_GAMC_INDEX(pipe, plane, 0), 0);
++	intel_de_write_dsb(display, dsb, PLANE_POST_CSC_GAMC_INDEX(pipe, plane, 0), 0);
 +}
 +
  static void
- xelpd_program_plane_pre_csc_lut(struct intel_dsb *dsb,
- 				const struct intel_plane_state *plane_state)
-@@ -4005,6 +4045,8 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb *dsb,
+ xelpd_program_plane_post_csc_lut(struct intel_dsb *dsb,
+ 				 const struct intel_plane_state *plane_state)
+@@ -4095,6 +4134,8 @@ xelpd_program_plane_post_csc_lut(struct intel_dsb *dsb,
  
  	if (icl_is_hdr_plane(display, plane))
- 		xelpd_load_hdr_pre_csc_lut(display, dsb, pipe, plane, pre_csc_lut);
+ 		xelpd_load_hdr_post_csc_lut(display, dsb, pipe, plane, post_csc_lut);
 +	else
-+		xelpd_load_sdr_pre_csc_lut(display, dsb, pipe, plane, pre_csc_lut);
++		xelpd_load_sdr_post_csc_lut(display, dsb, pipe, plane, post_csc_lut);
  }
  
  static void
