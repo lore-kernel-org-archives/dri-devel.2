@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FB25C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:12:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F81AC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:12:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4E8B10E95F;
-	Mon, 13 Jul 2026 12:12:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B774E10E962;
+	Mon, 13 Jul 2026 12:12:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RsF85VDy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lRCQb18t";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA06610E962
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:12:04 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2cc61541f8cso45631995ad.0
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 05:12:04 -0700 (PDT)
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
+ [209.85.215.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 144A610E96B
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:12:15 +0000 (UTC)
+Received: by mail-pg1-f179.google.com with SMTP id
+ 41be03b00d2f7-c9aea40d799so1328531a12.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 05:12:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783944724; x=1784549524; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783944734; x=1784549534; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=yPxreeozyC9OlzBX8SeJZagWhfw9u0AGRhVPID7x7h0=;
- b=RsF85VDyhjZom//9oz1rx59zF/cMZXCvFewGcjfDKSC68qCWuHir/uQskXscieeKmk
- AU4spzU9s+wAENmOgePsngO98w+bOO1VoccILWxThIb7YHN6FwgI+LS1DL0dvRFJtdX0
- 8WE+5P+LXb+5ddGwylFQlxUDJUNMXx5//2GpHxFT/DJW6wlhE8NQy1vHJhlXPK/VbG67
- WcN20hIr93a2VrcQ17hBMXTL2G8oL/cJeM2ZbEEvCCLac0vxq9b1PmNPXBjszdMFKEyb
- 8h1RF94G5DaRWUwG6wkQ3Z+qRSpcs7uPd/B+UFm6aDHvgi4sMri+Yf2QzD+/kf4sCJtx
- Pdmg==
+ bh=bCvZS+UotNJvFZgti0pR+2qbKuDNmgfw3z2iv69lpMk=;
+ b=lRCQb18t/Tui4PAE85gQEP8qwTDsrYMcuUcsBpgmaNdSzFfMk5f4mPb3PCrVhA3jBm
+ dyDx6ghz/VShuSOk6XUoRpLzthpdDMEpNmR9t9MmTgq1kdyJIHGTV7q9MJf5cfsms9QZ
+ 4fXfSLEnSZAwlhAu6KeplK/R2zZfgOkEw9395n3nFZ2qgGuZyQPZZUBowukR56XHA6e3
+ waFVeFnjWnpjyXufpj9pB25F5JcGdK1i+bG6qA15P4MQYh49U3cVgm4CTEV0FR7v33cF
+ KdsmB9beyaRdQ2Mhfk/47Eb4r20P2pNl28BOo2s+FsFToQc3goRHFYAGUHDYC8wGlsSR
+ picg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783944724; x=1784549524;
+ d=1e100.net; s=20251104; t=1783944734; x=1784549534;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=yPxreeozyC9OlzBX8SeJZagWhfw9u0AGRhVPID7x7h0=;
- b=fQSJDuSWZkw6U2Cz6a3+NCBPF8OZQVzBCrBDLUbZQKG7e3A8Na6vWss1rd7QySEq+S
- d0hHz23zhQUniy6nc9AwyXPWA4SuuMXHm9P7mNCUZ+qNZkk/auTlYm5INGZu2xpRdxcw
- V85kL9iYkmpLgXetxvMQ7KfNalAvJTuSB1MB+mkHismck2+KaQ5FE/wuKRWvJN0dU4mq
- 1rhpamBUFxp0omb3f3lbLqZQKPSZ0BcEHMOy9wE+MDhr+0jk4Jt95qWpgiO/vp4neXL7
- /xnMFDlIvkgY2VY5DRjX7h1AXwzw29skdw2pjNJnGqOisjUPF9RGuUoQ8lDyQoYK5xJS
- YCsw==
+ bh=bCvZS+UotNJvFZgti0pR+2qbKuDNmgfw3z2iv69lpMk=;
+ b=SvMytjXUPS5fk/Tk65Vp3Itq+RvsZn2RUKO7TBF0nKBeJmngZxNf31CV/EnWB62J+3
+ ghCDEnTdzPWZyEyAKKpP561yO4JkWaEU7zw4SBcZnPaknHXgOA5rEn9562UDTBCbR1Xe
+ inLsztrQEdriQ9EeYMjXIKBLOR0gOUjh7ByZCNb/D4zQP92ULsBLGYHES/TKd3OaY6p6
+ XN8NZlTJbe4phaKn0eV9q1fU0v/unWyODUOuWsSNmuEY/rtKEYkcGpSCtSUiSVud8GxC
+ IY0CDwA0Oik+Vsqb+2JR4TyuKsPNvDJ3fdjwR6nMmiQPtPvcS/6iHDxPeHAci1GCV+Wj
+ nzzA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoKlNzFMK5u86V28bfSmE9fvBTxRRPfrBIeiQSJNZ0nEv87oFEkO1gYaoPSgH7upxHgjn+jaGnKIAc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwFIqam/ENR4XjLbqPNF3c13lEmtmOa7MsK22chudztKEpBf6a+
- LX1V3A3jnZxgylEohsKPlVHJwkhU9wklpxiXUFHcVxElfHXXkilDwi5f
-X-Gm-Gg: AfdE7cngMMxL56nxliDU/O6E4gKk4oanCr7FRjs8jrJhjop51ms0qABqwhV+ru8DLT+
- DeHXMVD5dRACpN3Fosh0/5O6DNLnkNXq+7urIjOZUM3Dcnr1qhgO7NvKuRTtKpPtn3w8S4QKPSn
- wjadxtxbLFOxE8YFzr37spVA3TvJgRKkZHdSz8qbIsxBMV1ZWayTbSFqneHh2OZti11FJX6gnr7
- EMBye+7ZON8tlSfEIkEIJHv+0alKAnpqQsPpj55dR7TT3VM1JxGAzZncDbiWfAuuRb9voU9+wxc
- 04PVdIpOonnuRzfUfjKCqhspxgCp0ffNDY+8kiSBdMvVUhqGJ+apqD5/mxjq7SbHsbPac5uJ5Gr
- 8gRysYjK7XHWJPq3kU6CXN0sXDDGXxLQoPd2zaMhGs6vUtXBPa/J6v47s09zAKaiBt5ptjCqMgC
- hhR47VuA0vGqyNbLNkC6QvKVbRl+PkI8c=
-X-Received: by 2002:a17:90b:4cc7:b0:36b:b903:994 with SMTP id
- 98e67ed59e1d1-38d13768de2mr15332791a91.4.1783944724165; 
- Mon, 13 Jul 2026 05:12:04 -0700 (PDT)
+ AHgh+Rr/KcFUOAW7+4n5Cr98HG9a0b34B3nZlzTz18M9NHI0IhMkou7a+rgwqKW1lxupV8ok9LcG2rlAfqE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxRX5B2edUwJprNyHw57HQPspsUgAzrL1lzcV4SC91oeVEywgnj
+ d6lQRYGBth8uD+d27WzPqWkmck30KesznW4YlqkAHpMquMe8KEqsU3od
+X-Gm-Gg: AfdE7clPzP8bUJMex4/V3itXGDckgAH+JLo3QFbu/5d/Dp+ISXOfoXiASqWvB+7I0kr
+ 5SfKQ2fj13pG6V5CyyZyuC0ufOYrnf9b2fA7xS8JqNQ000nbkiM1abnJb9KKFedJ0mBp2tWM0KP
+ OU9irl5w2aB+XwaxJnFrT/mO+YLoQcpU0mx3VqKlkhty1LJbAsdf7zZHiVva97hzNhGxoQCDmgM
+ 7gCxqo7cbWGFXqoobihQELmjRh2A99QUngk5ETlXBX/AIECIz+pW3lyaO5L9ba85UBvTE1c5aIJ
+ 9BDXWSU3Avp7hAgIFXh9Zemv9OGgcl+yEo3iulW1a8/n0/VjuYhzvql1IcexhJxDk/fEvHX5Qhn
+ wRZoGLAzIN7tHwhSLS4EQDIiSOdUAytvdY1YudTVs0SDnMnnDLMjj7XhHlZUcUw/ku3yotrOs4y
+ JdbhvIiw1I5A==
+X-Received: by 2002:a05:6a21:6817:b0:3bf:80b8:9c8a with SMTP id
+ adf61e73a8af0-3c1102d7cf9mr9542534637.6.1783944734620; 
+ Mon, 13 Jul 2026 05:12:14 -0700 (PDT)
 Received: from rockpi-5b ([45.112.0.180]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-311747f7293sm67756935eec.3.2026.07.13.05.11.58
+ 5a478bee46e88-311747f7293sm67756935eec.3.2026.07.13.05.12.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 05:12:03 -0700 (PDT)
+ Mon, 13 Jul 2026 05:12:13 -0700 (PDT)
 From: Anand Moon <linux.amoon@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -79,10 +79,10 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  SOCS), linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM)
 Cc: Anand Moon <linux.amoon@gmail.com>, Doruk Tan Ozturk <doruk@0sec.ai>,
  Nicolas Dufresne <nicolas@ndufresne.ca>
-Subject: [PATCH v7 18/19] media: meson: vdec: Increase VIFIFO buffer size to
- 32 MiB
-Date: Mon, 13 Jul 2026 17:37:13 +0530
-Message-ID: <20260713120840.17427-19-linux.amoon@gmail.com>
+Subject: [PATCH v7 19/19] gpu: drm: meson: Fix DMA segment size limits and
+ maximize allocation boundaries
+Date: Mon, 13 Jul 2026 17:37:14 +0530
+Message-ID: <20260713120840.17427-20-linux.amoon@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260713120840.17427-1-linux.amoon@gmail.com>
 References: <20260713120840.17427-1-linux.amoon@gmail.com>
@@ -103,43 +103,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-During 4K video playback, the hardware Elementary Stream Parser (esparser)
-can rapidly push massive burst data payloads into the Video Input FIFO
-faster than the VPU decoding block can consume it. This causes a buffer
-overflow when stream usage breaks past the allocated hardware boundary:
+When importing DMABUFs exported by the Amlogic video decoder driver
+(meson_vdec) for hardware-accelerated rendering paths, the DMA core
+subsystem throws constraint validation warnings. This occurs because the
+display controller master device lacks explicit DMA layout configuration,
+causing it to fall back to a default 64KB maximum segment size limit.
 
-[ 1852.587956] meson-vdec ff620000.video-decoder: VIFIFO usage (16779003) > VIFIFO size (16777216)
+Address these architectural constraints during the master bind sequence:
 
-When this overflow happens on Amlogic SoCs, it triggers an invalid memory
-state, leading to stream corruption and fatal kernel panic lockups within
-videobuf2 error rollback handling routines.
+1. Initialize and validate a 32-bit coherent DMA allocation window by
+   invoking dma_set_mask_and_coherent() with a DMA_BIT_MASK(32) argument.
+2. Maximize the contiguous scatter-gather allocation segment boundary
+   check constraint to UINT_MAX using the dma_set_max_seg_size() helper.
 
-Double the parsed bitstream swap exchange memory pool (SIZE_VIFIFO) from
-16 MiB (SZ_16M) to 32 MiB (SZ_32M). This provides a larger canvas window
-to cushion high-frequency frame reordering spikes and prevents the VPU
-from crashing on demanding modern streams.
+This guarantees that large video bitstream frame buffers can be imported
+and scanned out across sub-driver domains without triggering allocation
+warnings or page boundary splits.
 
 Cc: Nicolas Dufresne <nicolas@ndufresne.ca>
 Signed-off-by: Anand Moon <linux.amoon@gmail.com>
 ---
- drivers/staging/media/meson/vdec/vdec.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/meson/meson_drv.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/media/meson/vdec/vdec.c
-index d33cbebc4453b..824e2f156adeb 100644
---- a/drivers/staging/media/meson/vdec/vdec.c
-+++ b/drivers/staging/media/meson/vdec/vdec.c
-@@ -29,8 +29,8 @@ struct dummy_buf {
- 	struct list_head list;
- };
+diff --git a/drivers/gpu/drm/meson/meson_drv.c b/drivers/gpu/drm/meson/meson_drv.c
+index 49ff9f1f16d32..899e70bca4ce2 100644
+--- a/drivers/gpu/drm/meson/meson_drv.c
++++ b/drivers/gpu/drm/meson/meson_drv.c
+@@ -202,6 +202,12 @@ static int meson_drv_bind_master(struct device *dev, bool has_components)
+ 	if (IS_ERR(drm))
+ 		return PTR_ERR(drm);
  
--/* 16 MiB for parsed bitstream swap exchange */
--#define SIZE_VIFIFO SZ_16M
-+/* 32 MiB for parsed bitstream swap exchange */
-+#define SIZE_VIFIFO SZ_32M
- 
- static void vdec_free_canvas(struct amvdec_session *sess);
- static void vdec_reset_timestamps(struct amvdec_session *sess);
++	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
++	if (ret)
++		goto free_drm;
++
++	dma_set_max_seg_size(dev, UINT_MAX);
++
+ 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv) {
+ 		ret = -ENOMEM;
 -- 
 2.50.1
 
