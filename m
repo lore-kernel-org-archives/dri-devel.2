@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 650F2C44507
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 22:36:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FF43C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 22:36:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B352010EB54;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 488F710EB46;
 	Mon, 13 Jul 2026 22:36:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=temperror (0-bit key; unprotected) header.d=0sec.ai header.i=@0sec.ai header.b="nwhh/BOw";
+	dkim=temperror (0-bit key; unprotected) header.d=0sec.ai header.i=@0sec.ai header.b="IHeJZAEU";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 276A78992E
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 17:30:37 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-493c52cde9eso30584725e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:30:37 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C88C10E32A
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 17:30:35 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-493ece78b0cso25501245e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:30:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=0sec.ai; s=google; t=1783963835; x=1784568635; darn=lists.freedesktop.org;
+ d=0sec.ai; s=google; t=1783963833; x=1784568633; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=bhFRmtEAl63b5XEQYkBemzUeown6Ez5I0lj5DtalopQ=;
- b=nwhh/BOwRhy7s249UsLLXGj20NpNqLJFircPaL5Qle4M5iARl6a2rowDdOIJLCs0uO
- n8JgUljH1VitOgSoHB/WNX0mfMsjXsimwF26anEASR2XJjcj0CXalTsNmnDk/hn+LBRo
- cAh4znuWQOcPBVP9o9smDh0QQOeDBNKOdStYgERO8bldvlU/LCkY0tlCzSlBbzXxqgx7
- GdWZz5/7XvqXmchils4lX9GM5Y4fm48/0PK5VNqbRnHgAPqBB3Hn3ZpOu04b7ayVyQOX
- /T0KlR4ZgIHdPGAO6bKupyZFCbDnm4R25EYYr3iDqq4NF6UH4paMo+NI9gdQTNel3+rd
- OYCQ==
+ bh=h1VuKaNm+FCqQ0Qgm5d1hgzA1jRjKkQpwwjQu1kdhRU=;
+ b=IHeJZAEUGW8ru7/6JPG/qP2SkyWpo6zKdy4iHFMq6waZcj7L6xaL8aypVa7nWAKM6A
+ I5MNgoKsaMP70tbJuyN3MoV1D83k9PhipP1+Y7/NWW/ItGLvhSPoV/6NazfoW4nBdGhV
+ tmD1wAirzTP8fuz6fNWldBU2HQkXzkr6pNUWyRBCUFV/C/zZB2KE+n+AnStBI47A0Wpq
+ VmHKpkKNKyg5AGMzMNspvqYJVNJ4R+ySdg4hUrf5EDJUfXdk+o76k1902kxD4oaP1vIN
+ hS2DB7wtlh3MznzIId+MJNRxtc8trL8uWz45UCCCbWTxKg7paCoAc9R9i1lIqqkGTJAK
+ isZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783963835; x=1784568635;
+ d=1e100.net; s=20251104; t=1783963833; x=1784568633;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=bhFRmtEAl63b5XEQYkBemzUeown6Ez5I0lj5DtalopQ=;
- b=rbtzxf7ZjiBGyVhYlZOwG9iILY23twsljmnAzCD9fbc/y//WznikotU9bVxMI5MxK6
- v4PCYBFHa3CUSgAyY+qtWleoza8IhVX4QrNeo71pCUB21Jov/pWLXIvpws3u78M5Qgx9
- H0+eRN3RPvfZ62i6DJ2NZ6P0VkjLt2ImKL+PpTsazHPN/ndI4BN59tMl96sLQ2OEjDZu
- +UTgKI3V9KKpBcrdE22aQxHA22Fq2yqXxc4tA3S6Tt84VU4xME/UlUZKmFj1eh9vlh9G
- oTW+UNrlOPQn/5YskRftlxNyF+/visecgKKjdv/d/aNRYBnLpp5S6ylNFfl6uMseODGD
- aGLA==
-X-Gm-Message-State: AOJu0Yzgp6aI+AI4hy2CcBbBMhXsl1gbD9A5zi5O6ZL5c3evk3j3inye
- RQjxFGYFJUAghHfQLezhuoTwqortfmVgvx5Zz0/zcv4d1unumhVHnLW8LEjywAovnGlV
-X-Gm-Gg: AfdE7cknKgOB8GQwTtVyTrRKvxSM/XsyzBvUDA725OA5vpExn53al8AgxO//ZDV6EAB
- ByP1pomF5ukkkez1chUYrSYhfh1qdAsGduJpM/r44lyFTAcn0pqRFL48HSgQIq/5KQRafNr/cQE
- CLYNcyubR+zjuwdH6ZM1a2Py5LtqrVmaKlXB2aU9ulcoJZ+0oyj6u1q3l5llNB9d/dzqlJ/FM2k
- CWXNp+R9SRNYdtgUDwdUW+Pp654YFApsDeDGGWLMviQ0NXqf6f7QyTAi4u3u7iVDNs/BGfiuu/u
- CHosuHrZAkC4XBH0rNDody6lFvdnlsWdLTevfWAS1OQLcbJo8kxmg5156iSm7fZ0OSdp1bX295+
- CsPrpSTdvUbm2B+0O6ZbTMYX7VkwXAE0xENDZdeHdu7MLJPs0IlQpCzL6fGQY+RBWbovBgcvNhz
- cBCTwzZaidcsTyjLQrj6TdHr3XS7coXxsmQ+GSMI4y/g/LuQvuD5+BMpc2q2bcbwRORra05cqua
- 9SGa4gMMz5abLBxD92lNTwHvIlhKreTXTaL8FBEVvbNdA==
-X-Received: by 2002:a05:600c:8718:b0:493:c1a1:68f0 with SMTP id
- 5b1f17b1804b1-493f881f0f1mr96584005e9.20.1783963834676; 
- Mon, 13 Jul 2026 10:30:34 -0700 (PDT)
+ bh=h1VuKaNm+FCqQ0Qgm5d1hgzA1jRjKkQpwwjQu1kdhRU=;
+ b=LULVj2YbUPTaJC26B2otkLKVrMhg9Lk3n7cOJ9hUzMRLNj+liTDbhtQI1O4gQ8VD1S
+ oqhMTwVZ8QREzzhrPdXAmgH4Zj911BditfuwCLkQ2dJdNtPttENnqt2bMUMW+z2IymRg
+ 2rbG2oAojDdX/LA/XE/7rJdAmaUQUQao4pdth4WHPzkXr15qpF4AIhBqh7Le+o2mf9sD
+ e3MIzzllaM61POAaZe6lUM4eH+01moC+r1FWmChSNHNa0G3twWcxNU16mxex7muyZoN+
+ dkC0eM2hqlDMSCiL3P9+cm78MmDQw8hlckCKJMw0QYYNq4nh2GWwqEJxoKYt2xWkp0v5
+ /NLw==
+X-Gm-Message-State: AOJu0Yzh7Sg/8k1gXJVXaESGM7B7hK4GKqNXiL0uo4K3a2n85sFiV2yT
+ 5dm3LhtvYZ8YjJM709vE0OiVzzAE66/VkyWH3t1fUgku8+xdemGLYpk7HToHkLHP5VpH
+X-Gm-Gg: AfdE7cnDLO5DVYnkB7doNmUYf53TSbpgOk78svIe0RDQ4FXiUZla1GjsP0tDdZBG36+
+ Qbdpvwpkver1PIn0jLYkU4GO138/HEr7X3mmUSLJMirWj++u37hfnzxm3/vBrXyZCKjbfNidkfF
+ PW9TJZr2aoj7x/Fr/i8PtGsLDsQXZHoTVD+Sn4sDVndH5h3f14IyR9MwkkKL61NtwFoAxTWq0Pp
+ un1Gel5gdkW97Wygqd6gQPXmR8VNLdnHM/UPU+tjejHfECJwxYRiN9wKCelOQI0V+l8YBx3pI21
+ qt2swN8CCC0TXmu+YWv9eudvDw6w0nRaVpYvWX4L4gYKFGgfjXg3aRyJ9B59kkbT4zs+QqDZZro
+ 0ChifawMFEM/y7w80+IbShypfG8LhXWJ7Ngn4tCOr4xhz8XDsZIsdC7m5e4CPbE3O2SOTJl1KNo
+ FrDdIgZfDYnQ2eCM7gyDnjHwjaJTwM4WANBl6oLZTSJd409xrsbBf8QWDjDxNN9R2HRQAio9Wem
+ fZMQA1+vOSFb5pseweS/EzWwVdwu7Uhdv3HP/GhMWhRWw==
+X-Received: by 2002:a05:600c:6303:b0:493:cfe8:5b36 with SMTP id
+ 5b1f17b1804b1-495158c6a1bmr3362305e9.8.1783963833325; 
+ Mon, 13 Jul 2026 10:30:33 -0700 (PDT)
 Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493f3a60404sm260075855e9.1.2026.07.13.10.30.33
+ 5b1f17b1804b1-493f3a60404sm260075855e9.1.2026.07.13.10.30.32
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 13 Jul 2026 10:30:34 -0700 (PDT)
+ Mon, 13 Jul 2026 10:30:32 -0700 (PDT)
 From: Doruk Tan Ozturk <doruk@0sec.ai>
 To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
  Oded Gabbay <ogabbay@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Doruk Tan Ozturk <doruk@0sec.ai>, stable@vger.kernel.org
-Subject: [PATCH 2/2] accel/amdxdna: reject command submission on devices
- without a submit op
-Date: Mon, 13 Jul 2026 19:30:29 +0200
-Message-ID: <20260713173030.87541-3-doruk@0sec.ai>
+Subject: [PATCH 1/2] accel/amdxdna: reject user command submission without a
+ command BO
+Date: Mon, 13 Jul 2026 19:30:28 +0200
+Message-ID: <20260713173030.87541-2-doruk@0sec.ai>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260713173030.87541-1-doruk@0sec.ai>
 References: <20260713173030.87541-1-doruk@0sec.ai>
@@ -91,15 +91,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdxdna_cmd_submit() calls xdna->dev_info->ops->cmd_submit()
-unconditionally, but only aie2_dev_ops defines that callback.
-aie4_vf_ops (the AIE4 SR-IOV virtual function) does not, so a user
-AMDXDNA_EXEC_CMD ioctl on an AIE4 device reaches a NULL function-pointer
-call and oopses the kernel. AIE4 submits work through a mapped user queue
-and doorbell, not this ioctl path.
+amdxdna_drm_submit_execbuf() passes the user-supplied command BO handle
+straight into amdxdna_cmd_submit() with drv_cmd == NULL. When the handle
+is AMDXDNA_INVALID_BO_HANDLE (0), the block that fetches job->cmd_bo is
+skipped, leaving it NULL, and no check rejects it on the user path (the
+!job->cmd_bo guard lives inside the != INVALID branch).
 
-Reject the submission early with -EOPNOTSUPP when the device provides no
-cmd_submit op, so the shared EXEC ioctl is a clean no-op on such devices.
+The job is then armed and pushed to the DRM scheduler.
+aie2_sched_job_run() takes the drv_cmd == NULL path and calls
+amdxdna_cmd_set_state(job->cmd_bo) -> amdxdna_gem_vmap(NULL) ->
+to_gobj(NULL)->dev, a NULL pointer dereference in the drm_sched worker.
+A process with access to the accel node on a system with a probed AMD NPU
+can trigger a kernel oops with a single AMDXDNA_EXEC_CMD ioctl
+(cmd_handles = 0).
+
+Only internal driver commands (SYNC_DEBUG_BO / ATTACH_DEBUG_BO)
+legitimately pass AMDXDNA_INVALID_BO_HANDLE, and they always set drv_cmd.
+Reject the invalid handle for user submissions (drv_cmd == NULL) at the
+submit choke point so every user path is covered.
 
 Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
 Cc: stable@vger.kernel.org
@@ -107,24 +116,30 @@ Found by 0sec automated security-research tooling (https://0sec.ai).
 Assisted-by: 0sec:claude-opus-4-8
 Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 ---
- drivers/accel/amdxdna/amdxdna_ctx.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/accel/amdxdna/amdxdna_ctx.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index a5c8c2c4de6d..bdbd3db12a6c 100644
+index 8f8df9d04ec5..a5c8c2c4de6d 100644
 --- a/drivers/accel/amdxdna/amdxdna_ctx.c
 +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -590,6 +590,10 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
- 	int ret, idx;
+@@ -603,6 +603,16 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
+ 			ret = -EINVAL;
+ 			goto free_job;
+ 		}
++	} else if (!drv_cmd) {
++		/*
++		 * Only internal driver commands (drv_cmd != NULL) may omit a
++		 * command BO. A user command submission with the invalid handle
++		 * would leave job->cmd_bo NULL and later fault when the scheduler
++		 * dereferences it in amdxdna_cmd_set_state().
++		 */
++		XDNA_DBG(xdna, "Command BO handle required for user submission");
++		ret = -EINVAL;
++		goto free_job;
+ 	}
  
- 	XDNA_DBG(xdna, "Command BO hdl %d, Arg BO count %d", cmd_bo_hdl, arg_bo_cnt);
-+
-+	if (!xdna->dev_info->ops->cmd_submit)
-+		return -EOPNOTSUPP;
-+
- 	job = kzalloc_flex(*job, bos, arg_bo_cnt);
- 	if (!job)
- 		return -ENOMEM;
+ 	ret = amdxdna_arg_bos_lookup(client, job, arg_bo_hdls, arg_bo_cnt);
 -- 
 2.43.0
 
