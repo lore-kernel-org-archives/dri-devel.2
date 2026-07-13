@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D986C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 10:13:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E741DC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 10:13:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E809210E8CA;
-	Mon, 13 Jul 2026 10:13:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A02F10E8CD;
+	Mon, 13 Jul 2026 10:13:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E/kFnxQ1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VoLD8bc7";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42BAF10E8CA
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:13:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0933610E8CD
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:13:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 086D743B91;
- Mon, 13 Jul 2026 10:13:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5E11F000E9;
- Mon, 13 Jul 2026 10:13:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E682043B90;
+ Mon, 13 Jul 2026 10:13:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D12C1F00A3D;
+ Mon, 13 Jul 2026 10:13:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783937585;
- bh=nC4OZ58ETTeCF7peTj2WIW3KIY2k58M6dxPQQ2rjIu0=;
+ s=k20260515; t=1783937622;
+ bh=H7vQ7bWq9uCbycXa4tVFVOTqwgXO8ifRlZEJt7lWlb0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=E/kFnxQ1f6XZc1s44fE+SqxhUrPobwn67/oPEQC3tfYBeEsfB736uCbEzomk8D1UL
- Gd3U1rDCy0M4yNPFAGVwa1Z7ioQR93YAqyiwtfntGfk0+BO0rnq5yTwjvFZtgYvtTV
- 5T9iNKjc2KWkgcUEKY36AViK3Yxl49wJrcQRldopcJXxj0O7nAeSJfBWkldZfwJ8k1
- NIWpzw0XuvKbhnJrLHD6tlQkMnnjiJzNap92x7qAv3aQu+HekmLxqcurdidXPdAxnh
- oQlaaGGfirN9DIpz2K0qIeSpv9ZRs7bP2nm363lW4W7HN/GbystGLWnDrZacif+KRd
- coyPdvH2xSvXA==
+ b=VoLD8bc72E+UAuQ7u2oqxyFtPzYQLgI2ck/3jEN35bWXZdeEpc4rH7oq/9SOs+kzU
+ MfqGZrrK/LaPcftCNOem54TpKR5cL4HVTmq30ww1RJWZRZhjJgGYy9KpMUcHp/EJq4
+ G1EsRVECI2CjcFFQ8NskEdUoEFdS01e2q4oOvB4Jo6sos5h2FXfLA4OD2sba/EnAZE
+ +Kb8usRc0UAW4NS+CEW6d+Bwd1GkibNcb/+SV5cTGjo1GcatIbNTC4xDseB7Rr7tdq
+ IM691RfvsYuSMf0Rw0HmTcIunRVJiqlLkzhuhFUWihKWo1yCscb3nYVzk8Fc7m9qsH
+ Ug/GtQ7VkWHWQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 06/10] drm/mediatek: mtk_dsi: Add support for MT8189
+Subject: Re: [PATCH v2 07/10] drm/mediatek: mtk_dsi: Add support for MT8196
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20260713095837.16590-7-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260713095837.16590-8-angelogioacchino.delregno@collabora.com>
 References: <20260713095837.16590-1-angelogioacchino.delregno@collabora.com>
- <20260713095837.16590-7-angelogioacchino.delregno@collabora.com>
+ <20260713095837.16590-8-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 10:13:05 +0000
-Message-Id: <20260713101305.9C5E11F000E9@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 10:13:42 +0000
+Message-Id: <20260713101342.7D12C1F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,99 +58,86 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Inaccurate link rate overestimation falsely rejects valid modes an=
-d incorrectly configures the PHY clock when DSC is enabled.
-
-Pre-existing issues:
-- [High] Silent 32-bit integer overflow when calculating DSI data rate for =
-high-resolution panels on 32-bit architectures.
-- [Medium] 32-bit signed integer overflow in `wanted_link_rate` calculation=
- allows maliciously crafted modes to bypass the maximum link rate security =
-check.
+- [High] Integer overflow and time-domain unit mismatch (bps vs Mbps) in Qo=
+S HW buffer calculations corrupts DSI thresholds.
+- [High] Space domain unit mismatch (Bytes vs Buffer Units) in QoS threshol=
+d calculations bypasses physical FIFO limits.
 --
 
---- Patch [6]: [PATCH v2 06/10] drm/mediatek: mtk_dsi: Add support for MT81=
-89 ---
-commit 06bb023e18f2fab2efd045626f608227b5c0522f
+--- Patch [7]: [PATCH v2 07/10] drm/mediatek: mtk_dsi: Add support for MT81=
+96 ---
+commit b12ec6677a476992917258eedb82bde7663b944c
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: drm/mediatek: mtk_dsi: Add support for MT8189
+Subject: drm/mediatek: mtk_dsi: Add support for MT8196
 
-This commit adds support for the DSI IP in the MT8189 SoC, which supports a
-higher link rate of 2.5Gbps. It introduces a max_link_rate_mbps member to
-parameterize the maximum link rate per SoC and updates the mode validation
-callback to use this new parameter with 64-bit math.
+Add support for the new DSI IP found in the Kompanio Ultra MT8196 SoC.
+This introduces the initialization of QoS parameters and can make use
+of a DSI SRAM reserved buffer.
 
 > diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
 k/mtk_dsi.c
-> index 6a77ce8eea91f..2df2a9d5ec038 100644
+> index 2df2a9d5ec038..5af44c13bd5ac 100644
 > --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
 > +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -1070,13 +1072,20 @@ mtk_dsi_bridge_mode_valid(struct drm_bridge *brid=
-ge,
->  			  const struct drm_display_mode *mode)
->  {
->  	struct mtk_dsi *dsi =3D bridge_to_dsi(bridge);
-> +	const struct mtk_dsi_driver_data *data =3D dsi->driver_data;
-> +	u64 wanted_link_rate, max_link_rate;
->  	int bpp;
-> =20
->  	bpp =3D mipi_dsi_pixel_format_to_bpp(dsi->format);
->  	if (bpp < 0)
->  		return MODE_ERROR;
-> =20
-> -	if (mode->clock * bpp / dsi->lanes > 1500000)
-> +	wanted_link_rate =3D mode->clock * bpp;
-
-[Severity: Medium]
-This is a pre-existing issue, but does this calculation allow a 32-bit sign=
-ed
-integer overflow? Since mode->clock and bpp are both evaluated as 32-bit
-signed integers, an abnormally high clock value could wrap around to a small
-positive value before being zero-extended and assigned to the 64-bit
-wanted_link_rate. Could this allow crafted modes to bypass the maximum link
-rate check?
+[ ... ]
+> @@ -753,6 +849,89 @@ static int mtk_dsi_set_dsc_params(struct mtk_dsi *ds=
+i)
+> +static void mtk_dsi_config_hw_buffers(struct mtk_dsi *dsi)
+> +{
+[ ... ]
+> +	data_rate_per_buf =3D dsi->data_rate * dsi->lanes / 8 / buffer_unit;
 
 [Severity: High]
-Does this calculation also overestimate the link rate when Display Stream
-Compression (DSC) is enabled? By using the raw uncompressed bpp instead of
-the compressed bit rate (dsi->dsc->bits_per_pixel), high-resolution
-DSC-enabled displays might be falsely rejected as MODE_CLOCK_HIGH.
+Will this calculation overflow 32-bit arithmetic for typical displays?
+Since dsi->data_rate is in Hz, a bandwidth over 1 Gbps combined with 4 lanes
+will exceed the u32 limit before the division.
 
-[Severity: High]
-This is a pre-existing issue, but does a similar 32-bit integer overflow oc=
-cur
-in mtk_dsi_poweron() on 32-bit architectures?=20
+Also, is it intentional that data_rate_per_buf is calculated in units per
+second instead of units per microsecond? Later in mtk_dsi_config_hw_buffers=
+(),
+it is mixed with microsecond constants and fill_rate.
 
-drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_poweron() {
-    ...
-    dsi->data_rate =3D DIV_ROUND_UP_ULL(dsi->vm.pixelclock * bit_per_pixel,
-                                      dsi->lanes);
-    ...
-}
-
-On 32-bit systems, pixelclock is a 32-bit unsigned long. For high-resolution
-panels, the multiplication could overflow the 32-bit limit before the macro
-casts the result to unsigned long long, resulting in a corrupted frequency
-being sent to clk_set_rate().
-
-Additionally, does mtk_dsi_poweron() configure the hardware DSI HS clock
-using the uncompressed data rate rather than the DSC compressed data rate?
-If so, could this overclock the hardware and cause it to fail when DSC is
-active?
-
-> +	max_link_rate =3D data->max_link_rate_mbps;
-> +	max_link_rate *=3D dsi->lanes;
-> +	max_link_rate *=3D KILO;
 > +
-> +	if (wanted_link_rate > max_link_rate)
->  		return MODE_CLOCK_HIGH;
+> +	/* Calculate valid threshold and avoid exceeding FIFO size */
+> +	out_valid_thresh =3D MTK_DSI_DEFAULT_QOS_VALID_FIFO_US * data_rate_per_=
+buf;
+> +	out_valid_thresh =3D min(out_valid_thresh, MTK_DSI_MAX_FIFO_BYTES - 1);
 
+[Severity: High]
+Does this min() correctly clamp the threshold? out_valid_thresh appears to =
+be
+calculated in buffer units, but it is being clamped against a limit specifi=
+ed
+in bytes (MTK_DSI_MAX_FIFO_BYTES - 1, which is 1553). For an MT8196 where a
+buffer unit is 32 bytes, this would allow up to 1553 buffer units (49,696
+bytes), bypassing the intended physical FIFO limits.
+
+[ ... ]
+> +	pclk_mhz =3D dsi->vm.pixelclock / HZ_PER_MHZ;
+> +	fill_rate =3D pclk_mhz * data->pixels_per_iter * dsi_buf_bpp / buffer_u=
+nit;
+> +
+> +	/* Calculate QoS Anti-Latency parameters */
+> +	sodi_hi =3D MTK_DSI_MAX_FIFO_BYTES * num_hw_buffers;
+
+[Severity: High]
+Is this mixing bytes and buffer units? MTK_DSI_MAX_FIFO_BYTES is in bytes,
+but it seems to be multiplied by the number of hardware buffers here instead
+of a byte-based metric.
+
+> +	sodi_hi -=3D (fill_rate - data_rate_per_buf) * 12 / 10;
+
+[Severity: High]
+Could this subtraction cause an integer underflow? fill_rate is calculated
+using pclk_mhz so it is a per-microsecond rate, while data_rate_per_buf is
+a per-second rate. Subtracting a large per-second rate from a small
+per-microsecond rate will wrap around.
+
+> +	sodi_lo =3D (23 + 5) * data_rate_per_buf;
 [ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713095837.1659=
-0-1-angelogioacchino.delregno@collabora.com?part=3D6
+0-1-angelogioacchino.delregno@collabora.com?part=3D7
