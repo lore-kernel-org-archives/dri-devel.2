@@ -4,53 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31452C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 16:19:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B98E5C44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 16:28:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86C0110E4D9;
-	Mon, 13 Jul 2026 16:19:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F88D10E981;
+	Mon, 13 Jul 2026 16:28:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YHZfWHGi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mALAnz7m";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81B3610E4D9
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 16:19:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C81E710EA33
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 16:28:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 063EF413C5;
- Mon, 13 Jul 2026 16:19:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34D041F000E9;
- Mon, 13 Jul 2026 16:19:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4915240201;
+ Mon, 13 Jul 2026 16:28:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011C71F00A3A;
+ Mon, 13 Jul 2026 16:28:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783959576;
- bh=7sX79a8gzjULeBFsanRoK3h8jRzavZVqjAH+0r52JCY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=YHZfWHGiNL7wt3TvUIYLlK4BfKSOHjHBwxYwk/zvwIf2rvEop5c3zO5SQWl1FNDl6
- sKfWPIc2QkyeFCdUdPj10w69oQF6AbH6ryEwN+hRgJCXVrUUzY99k6/LBPiN+znnZM
- 9J7twPP/a1frJ3fk6piU7PPiQuWByd4KLbmCS2b3GmW3yHRO0QdqGOVbXC190beDxK
- TdfFAUTo/IrZtav5IcEsvwIBJEE6eRU+b+6AdHdjz/2b9Zgqv+nz9QtkKEZDcDLq4A
- 80MGwLtfTpIUYFSktpkx25fvJnOqLvfRm4QC4fIXU0UHcxVfMU61tfSPdeZN4u9v+e
- hOXK/Z3egO6kg==
-Date: Mon, 13 Jul 2026 18:19:28 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Kishore Batta <kishore.batta@oss.qualcomm.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, mhi@lists.linux.dev
-Subject: Re: [PATCH v6 4/7] bus: mhi: Add QDU100 Sahara variant and firmware
- fallback
-Message-ID: <kwq7tajvlnm5sesmthseleenbah6d5kuj5d2msyspme7je6o2h@rx3dbqyqeywh>
-References: <20260701-sahara_protocol_new_v2-v6-0-3a78362c4741@oss.qualcomm.com>
- <20260701-sahara_protocol_new_v2-v6-4-3a78362c4741@oss.qualcomm.com>
- <n45ii7ekxeefuxw2ydwzsx7lqlfczbgg6obrzmzpytl2fin7j5@vbhmrptcjvcb>
- <21867efc-b5a8-4ed9-92b4-059a020731a6@oss.qualcomm.com>
-MIME-Version: 1.0
+ s=k20260515; t=1783960084;
+ bh=lEzs+36qm1YL+btu7eavpa3XeFIUZVgKGJzWaYh5870=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mALAnz7mKy16Tu2+qfGavcz1zRH9FWTZ1Upn2t04MYLXoOdwIgqZep5Epk99WOuCB
+ irWoYyZJnOsZ6wTZkSnQykN0lhIH34WD1gTbPSwFssIPm/PGUioTZRYb2Df2MLw6cx
+ SFsuzpMgKS4MWIpor7jb4VW3r9yhGXQMnOP4XP4Zm7WHZ3GsSmj11D5FhTJ7/NVMIs
+ vKHX3nAMHP3OYkvz4gqM1w6MwykH3YlrsHegQhISyAfHRJV1hRCNV1orYlcovJ5M+i
+ cbwuiBJFoHeOftDPO09sbLk9MLAESamfw5whbNlkzjWZ7eVFdaMH2LOd+aL68MGkUg
+ PHkWkmcEAkP9w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/v3d: release CPU job resources on pre-init failures
+To: "Guangshuo Li" <lgs201920130244@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260713160630.1362131-1-lgs201920130244@gmail.com>
+References: <20260713160630.1362131-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <21867efc-b5a8-4ed9-92b4-059a020731a6@oss.qualcomm.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 13 Jul 2026 16:28:03 +0000
+Message-Id: <20260713162804.011C71F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,153 +52,149 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 13, 2026 at 07:46:02PM +0530, Kishore Batta wrote:
-> 
-> On 7/9/2026 11:49 AM, Manivannan Sadhasivam wrote:
-> > On Wed, Jul 01, 2026 at 04:07:38PM +0530, Kishore Batta wrote:
-> > > The Sahara driver currently selects a firmware image table based on the
-> > > attached device, but it does not recognize QDU100 devices that expose the
-> > > protocol on the SAHARA MHI channel. As a result, the host cannot associate
-> > > QDU100 devices with the correct firmware namespace during image transfer.
-> > > 
-> > > Extend the probe time variant selection to match the SAHARA MHI channel and
-> > > associate it with the QDU100 firmware folder. Add a firmware lookup
-> > > fallback for cases where an image does not have an explicit entry in the
-> > > device's firmware table. This allows required images to be provisioned by
-> > > the platform.
-> > > 
-> > > This change only affects devices matched on the SAHARA MHI channel and
-> > > does not change behavior for existing AIC100 and AIC200 devices.
-> > > 
-> > > Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
-> > > ---
-> > >   drivers/bus/mhi/host/clients/sahara/sahara.c | 27 +++++++++++++++--
-> > >   drivers/bus/mhi/host/pci_generic.c           | 45 ++++++++++++++++++++++++++++
-> > >   2 files changed, 70 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/drivers/bus/mhi/host/clients/sahara/sahara.c b/drivers/bus/mhi/host/clients/sahara/sahara.c
-> > > index e339c67e236af271645ca81cc517efd9eead87e4..9adbd84859073d8024ba2a5fcfa33897439d6759 100644
-> > > --- a/drivers/bus/mhi/host/clients/sahara/sahara.c
-> > > +++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
-> > > @@ -189,6 +189,7 @@ static bool is_streaming(struct sahara_context *context)
-> > >   static int sahara_find_image(struct sahara_context *context, u32 image_id)
-> > >   {
-> > > +	char *fw_path;
-> > >   	int ret;
-> > >   	if (image_id == context->active_image_id)
-> > > @@ -201,8 +202,28 @@ static int sahara_find_image(struct sahara_context *context, u32 image_id)
-> > >   	}
-> > >   	if (image_id >= context->table_size || !context->image_table[image_id]) {
-> > > -		dev_err(&context->mhi_dev->dev, "request for unknown image: %d\n", image_id);
-> > > -		return -EINVAL;
-> > > +		if (!context->fw_folder) {
-> > > +			dev_err(&context->mhi_dev->dev,
-> > > +				"Request for unknown image: %u (no fw folder)\n", image_id);
-> > > +			return -EINVAL;
-> > > +		}
-> > > +
-> > > +		fw_path = kasprintf(GFP_KERNEL, "qcom/%s/%u",
-> > > +				    context->fw_folder, image_id);
-> > > +		if (!fw_path)
-> > > +			return -ENOMEM;
-> > > +
-> > > +		ret = firmware_request_nowarn(&context->firmware,
-> > > +					      fw_path,
-> > > +					      &context->mhi_dev->dev);
-> > > +		kfree(fw_path);
-> > > +		if (ret) {
-> > > +			dev_err(&context->mhi_dev->dev,
-> > > +				"request for unknown image: %d\n", image_id);
-> > > +			return -EINVAL;
-> > > +		}
-> > > +		context->active_image_id = image_id;
-> > > +		return 0;
-> > >   	}
-> > >   	/*
-> > > @@ -870,8 +891,10 @@ static void sahara_mhi_dl_xfer_cb(struct mhi_device *mhi_dev, struct mhi_result
-> > >   static const struct mhi_device_id sahara_mhi_match_table[] = {
-> > >   	{ .chan = "QAIC_SAHARA", },
-> > > +	{ .chan = "SAHARA"},
-> > >   	{},
-> > >   };
-> > > +MODULE_DEVICE_TABLE(mhi, sahara_mhi_match_table);
-> > This change should belong to a separate patch.
-> > 
-> > >   static struct mhi_driver sahara_mhi_driver = {
-> > >   	.id_table = sahara_mhi_match_table,
-> > > diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
-> > > index 391ab146f501c6ce1c81f6138f7c491a49c2f264..82e41632afc555a53dec3d8395558ae039b33bbd 100644
-> > > --- a/drivers/bus/mhi/host/pci_generic.c
-> > > +++ b/drivers/bus/mhi/host/pci_generic.c
-> > > @@ -300,6 +300,43 @@ static const struct mhi_pci_dev_info mhi_qcom_qdu100_info = {
-> > >   	.reset_on_remove = true,
-> > >   };
-> > > +static const char * const qdu100_image_table[] = {
-> > > +	[5] = "qcom/qdu100/uefi.elf",
-> > > +	[8] = "qcom/qdu100/qdsp6sw.mbn",
-> > > +	[16] = "qcom/qdu100/efs1.bin",
-> > > +	[17] = "qcom/qdu100/efs2.bin",
-> > > +	[20] = "qcom/qdu100/efs3.bin",
-> > > +	[23] = "qcom/qdu100/aop.mbn",
-> > > +	[25] = "qcom/qdu100/tz.mbn",
-> > > +	[29] = "qcom/qdu100/zeros_1sector.bin",
-> > > +	[33] = "qcom/qdu100/hypvm.mbn",
-> > > +	[34] = "qcom/qdu100/mdmddr.mbn",
-> > > +	[36] = "qcom/qdu100/multi_image_qti.mbn",
-> > > +	[37] = "qcom/qdu100/multi_image.mbn",
-> > > +	[38] = "qcom/qdu100/xbl_config.elf",
-> > > +	[39] = "qcom/qdu100/abl_userdebug.elf",
-> > > +	[40] = "qcom/qdu100/zeros_1sector.bin",
-> > > +	[41] = "qcom/qdu100/devcfg.mbn",
-> > > +	[42] = "qcom/qdu100/zeros_1sector.bin",
-> > > +	[45] = "qcom/qdu100/tools_l.elf",
-> > > +	[46] = "qcom/qdu100/Quantum.elf",
-> > > +	[47] = "qcom/qdu100/quest.elf",
-> > > +	[48] = "qcom/qdu100/xbl_ramdump.elf",
-> > > +	[49] = "qcom/qdu100/shrm.elf",
-> > > +	[50] = "qcom/qdu100/cpucp.elf",
-> > > +	[51] = "qcom/qdu100/aop_devcfg.mbn",
-> > > +	[52] = "qcom/qdu100/fw_csm_gsi_3.0.elf",
-> > > +	[53] = "qcom/qdu100/qdsp6sw_dtbs.elf",
-> > > +	[54] = "qcom/qdu100/qupv3fw.elf",
-> > > +};
-> > > +
-> > > +static const struct mhi_sahara_fw_table qdu100_sahara_fw = {
-> > > +	.image_table = qdu100_image_table,
-> > > +	.table_size = ARRAY_SIZE(qdu100_image_table),
-> > > +	.fw_folder = "qdu100",
-> > > +	.non_streaming = false,
-> > > +};
-> > > +
-> > >   static const struct mhi_channel_config mhi_qcom_sa8775p_channels[] = {
-> > >   	MHI_CHANNEL_CONFIG_UL(46, "IP_SW0", 2048, 1),
-> > >   	MHI_CHANNEL_CONFIG_DL(47, "IP_SW0", 2048, 2),
-> > > @@ -1399,6 +1436,14 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-> > >   	pci_set_drvdata(pdev, mhi_pdev);
-> > > +	/*
-> > > +	 * Provide Sahara firmware mapping. Sahara consumes it via
-> > > +	 * mhi_dev->mhi_cntrl->sahara_fw at probe time.
-> > > +	 */
-> > > +	if (info == &mhi_qcom_qdu100_info ||
-> > > +	    (info->name && !strcmp(info->name, "qcom-qdu100")))
-> > > +		mhi_cntrl->sahara_fw = &qdu100_sahara_fw;
-> > > +
-> > Why are you adding QAIC MHI controller config in pci_generic driver? This driver
-> > only handles Modem devices.
-> > 
-> > - Mani
-> 
-> 
-> Hi Mani, Above one is for QDU100 device. QAIC is not added in this file.
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Sorry, my bad. But anyhow, you should provide this mapping table pointer via
-'struct mhi_pci_dev_info'.
+New issues:
+- [Critical] Double-free vulnerability of query arrays introduced by new er=
+ror handling.
 
-- Mani
+Pre-existing issues:
+- [Critical] Deterministic NULL pointer dereference in `drm_sched_job_clean=
+up()` when pre-init validation fails.
+- [High] Memory and syncobj leak in CL, CSD, and TFU ioctls on partial exte=
+nsion parsing failure.
+- [High] Memory and WW-Mutex lock leak of nested jobs for INDIRECT_CSD on e=
+arly failures.
+--
 
--- 
-மணிவண்ணன் சதாசிவம்
+--- Patch [1]: [PATCH v2] drm/v3d: release CPU job resources on pre-init fa=
+ilures ---
+commit e05d6340b909c6cf82de569c1c19fd20b04f9a1f
+Author: Guangshuo Li <lgs201920130244@gmail.com>
+Date:   Mon Jul 13 16:05:31 2026 +0000
+
+    drm/v3d: release CPU job resources on pre-init failures
+   =20
+    The changes referenced by the Fixes tags moved CPU job resource cleanup
+    to v3d_cpu_job_free(), the CPU job kref destructor.
+   =20
+    However, CPU job extensions are parsed before v3d_job_init() has
+    successfully installed that destructor. Timestamp and performance query
+    arrays, their syncobj references, and the indirect CSD GEM reference can
+    therefore be acquired before the CPU job is managed by the kref cleanup
+    path.
+   =20
+    If a later pre-init validation fails, or if v3d_job_init() itself fails,
+    the CPU job can be cleaned up or deallocated without running
+    v3d_cpu_job_free(). Those extension resources are then leaked.
+   =20
+    Move the CPU-job-owned resource release into a helper and call it both
+    from the normal CPU job destructor and from the pre-init error paths.
+   =20
+    Fixes: b0fe80c0b925 ("drm/v3d: Fix use-after-free of CPU job query arra=
+ys on error path")
+    Fixes: 6eb6e5acafa4 ("drm/v3d: Release indirect CSD GEM reference on CP=
+U job free")
+    Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
+ubmit.c
+> index 1db43c6a078d5..7775fd4a9417b 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+
+[ ... ]
+
+> @@ -1311,6 +1316,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *=
+data,
+>  		ret =3D v3d_get_extensions(file_priv, args->extensions, &se, cpu_job);
+>  		if (ret) {
+>  			drm_dbg(dev, "Failed to get extensions.\n");
+> +			v3d_cpu_job_free_resources(cpu_job);
+
+[Severity: Critical]
+Does this new error handling introduce a double-free?
+
+If v3d_get_cpu_timestamp_query_params() fails midway (for instance, if
+drm_syncobj_find() returns NULL), it internally cleans up by calling
+v3d_timestamp_query_info_free(). This frees the query array via kvfree()
+but leaves a dangling pointer in job->timestamp_query.queries since it
+isn't set to NULL.
+
+Because v3d_cpu_job_free_resources() is now called on the failure path
+here, it unconditionally calls v3d_timestamp_query_info_free() again.
+The dangling pointer evaluates to true, resulting in a second kvfree()
+on the same address.
+
+[Severity: High]
+This is a pre-existing issue, but does a failure in v3d_get_extensions() le=
+ak
+syncobjs in other ioctls?
+
+While v3d_submit_cpu_ioctl() uses goto fail to clean up the multisync
+dependencies via v3d_put_multisync_post_deps(&se), v3d_submit_cl_ioctl() and
+v3d_submit_csd_ioctl() use a direct return:
+
+	if (args->flags & DRM_V3D_SUBMIT_EXTENSION) {
+		ret =3D v3d_get_extensions(file_priv, args->extensions, &se, NULL);
+		if (ret) {
+			drm_dbg(dev, "Failed to get extensions.\n");
+			return ret;
+		}
+	}
+
+If a valid MULTI_SYNC extension is processed before an invalid extension,
+this direct return bypasses the cleanup, permanently leaking the allocated
+se.out_syncs array and the acquired syncobj references.
+
+>  			goto fail;
+
+[Severity: Critical]
+This is a pre-existing issue, but can this goto fail result in a
+NULL pointer dereference?
+
+If we jump to fail before v3d_job_init() is called, cpu_job has only been
+allocated (and zero-initialized). At the fail label, v3d_job_cleanup(cpu_jo=
+b)
+is called, which directly calls drm_sched_job_cleanup(&job->base).
+
+Since the scheduler job wasn't initialized, job->s_fence is NULL, and
+drm_sched_job_cleanup() will crash when attempting to read the fence
+refcount via kref_read(&job->s_fence->finished.refcount).
+
+>  		}
+>  	}
+> =20
+> @@ -1318,12 +1324,14 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void=
+ *data,
+>  	/* Every CPU job must have a CPU job user extension */
+>  	if (!cpu_job->job_type) {
+>  		drm_dbg(dev, "CPU job must have a CPU job user extension.\n");
+> +		v3d_cpu_job_free_resources(cpu_job);
+>  		ret =3D -EINVAL;
+>  		goto fail;
+
+[Severity: High]
+This is a pre-existing issue, but does jumping to fail here leak memory
+and WW-Mutex locks for nested INDIRECT_CSD jobs?
+
+If v3d_get_extensions() successfully parsed an INDIRECT_CSD extension, it
+allocated cpu_job->indirect_csd.job and clean_job, and locked their BO
+reservations.
+
+Because the local variables csd_job and clean_job are only assigned later in
+this function, they remain NULL during this early goto fail. When the fail
+block calls v3d_job_cleanup() on them, it does nothing, bypassing
+fail_unreserve and permanently abandoning both the allocations and the lock=
+s.
+
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713160630.1362=
+131-1-lgs201920130244@gmail.com?part=3D1
