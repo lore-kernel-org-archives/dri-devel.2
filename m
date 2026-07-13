@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E369C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 13:11:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02E1AC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 13:13:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FDB410E9B3;
-	Mon, 13 Jul 2026 13:11:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AC7A10E9A5;
+	Mon, 13 Jul 2026 13:13:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VJspJBMN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="etrzTFq1";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E81F510E9C1
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 13:11:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0076610E9A5
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 13:13:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4543E600AA;
- Mon, 13 Jul 2026 13:11:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11C21F00A3A;
- Mon, 13 Jul 2026 13:11:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 440EF6004E;
+ Mon, 13 Jul 2026 13:13:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1B31F000E9;
+ Mon, 13 Jul 2026 13:13:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783948263;
- bh=Rx34yiMHP3dtMokDvLG+d6m0CB0mXQweyMxiFGb19VE=;
+ s=k20260515; t=1783948404;
+ bh=nPPbVfeBDtFBts62tQhN/as11CFK0syN/en3nddvyuU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VJspJBMNKJGHM9OilSAAIgNQwAHhCAgi1z8b8BFHWSWcz/xYLnrfgiey+HgQYPsir
- g+1Yq4FQzTMGoByw3gcTVjqvw71VvSpC88grbJhzikLyFHWa6d7itzkU+T20tPQ+Gx
- s12D7N+eOdxFpMmGFDkDdUR6TmXKit8+qJhgWiOEVKcXhdIQV2JzhymHO5jFfFXzZ6
- //KsofN2K4cEPBjMk0j6t18VN1a0xOmAYipNpl1aOvXd302HVQdhuHMGLvKcNXuCWa
- ztets/uNngJxpRJBRipNN+BdzrhTHKX08A5zgL9ZR++D6ZhQpU7WUhSrTD7SvKEZz8
- NDFUana+uoMUA==
+ b=etrzTFq1dSmpmfZXwogFya7nUTs5i/r9/KLlbWzwuA+9kSQ0Ev52A6BBUG9uvHNtm
+ XUHP0CE1xr6We7HP1/y5hALn8ob4OhwuSab7xl34lsEYKw9w1XrINl+qvaL5do9r1q
+ 3CgAq8blgWeez33TN0GCcV2AzH7ODyyDtRJ5pO9frHygw8ClfXXdq8nm27W6sTBLHf
+ BocY1b4a6R1Q47DilzyoWerfuS3NxuWRjwSq+R7TH0w9bcjadoMJa4hM9K+zO3nx+A
+ G4AlX1yhsCB5/Sk+R4REkJn56uuxsP7x9Epibi4p8ffwDlPQybet2TpxX+kcAIC2W3
+ a3EkMwySs5Tgg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 07/10] drm/mediatek: mtk_dsi: Add support for MT8196
+Subject: Re: [PATCH v3 06/10] drm/mediatek: mtk_dsi: Add support for MT8189
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260713130103.34654-8-angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260713130103.34654-7-angelogioacchino.delregno@collabora.com>
 References: <20260713130103.34654-1-angelogioacchino.delregno@collabora.com>
- <20260713130103.34654-8-angelogioacchino.delregno@collabora.com>
+ <20260713130103.34654-7-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 13:11:02 +0000
-Message-Id: <20260713131102.A11C21F00A3A@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 13:13:23 +0000
+Message-Id: <20260713131323.9F1B31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,91 +58,81 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Unit mismatch between DSI data rate (Hz) and pixel clock rate (MHz=
-) leads to integer underflow and incorrect QoS hardware buffer configuratio=
-n.
-- [High] 64-bit division by a non-constant variable causes a build error on=
- 32-bit platforms.
+- [High] DSI link bandwidth and clock rate calculations ignore DSC (Display=
+ Stream Compression), incorrectly rejecting valid high-resolution modes and=
+ configuring the PHY clock out of spec.
 --
 
---- Patch [7]: [PATCH v3 07/10] drm/mediatek: mtk_dsi: Add support for MT81=
-96 ---
-commit 92e543d518b805c7b9129880068f5a6955059779
+--- Patch [6]: [PATCH v3 06/10] drm/mediatek: mtk_dsi: Add support for MT81=
+89 ---
+commit 89dc8fbb4f8f90dfbd3c155b69311aad3902771f
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: drm/mediatek: mtk_dsi: Add support for MT8196
 
-This commit adds support for the new DSI IP in the MT8196 SoC. It
-implements hardware buffer configuration and initializes QoS parameters
-required by this newer hardware.
+drm/mediatek: mtk_dsi: Add support for MT8189
+
+This commit adds support for the DSI IP in the MT8189 SoC. It increases the
+maximum link rate to 2.5Gbps and introduces a max_link_rate_mbps parameter
+to replace hardcoded values. It also casts calculations to u64 to avoid
+overflows with higher pixel clock rates.
 
 > diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
 k/mtk_dsi.c
-> index dffb6befc749e..573299f0e63b6 100644
+> index 4d5cb91c788f6..dffb6befc749e 100644
 > --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
 > +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-[ ... ]
-> @@ -776,6 +872,91 @@ static int mtk_dsi_set_dsc_params(struct mtk_dsi *ds=
-i)
->  	return drm_dsc_compute_rc_parameters(dsc);
->  }
+> @@ -924,7 +926,7 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+>  	}
+>  	bit_per_pixel =3D ret;
 > =20
-> +static void mtk_dsi_config_hw_buffers(struct mtk_dsi *dsi)
-> +{
+> -	dsi->data_rate =3D DIV_ROUND_UP_ULL(dsi->vm.pixelclock * bit_per_pixel,
+> +	dsi->data_rate =3D DIV_ROUND_UP_ULL((u64)dsi->vm.pixelclock * bit_per_p=
+ixel,
+>  					  dsi->lanes);
+> =20
+>  	ret =3D clk_set_rate(dsi->hs_clk, dsi->data_rate);
+
+[Severity: High]
+Does this code ignore Display Stream Compression (DSC) when calculating the
+PHY clock rate? The calculation uses the uncompressed bits per pixel, which
+might set the DSI hardware PHY clock far higher than the actual compressed
+link rate requires.
+
 [ ... ]
-> +	tmp =3D (u64)dsi->data_rate * dsi->lanes;
-> +	data_rate_per_buf =3D tmp / 8 / buffer_unit;
+
+> @@ -1099,13 +1101,21 @@ mtk_dsi_bridge_mode_valid(struct drm_bridge *brid=
+ge,
+>  			  const struct drm_display_mode *mode)
+>  {
+>  	struct mtk_dsi *dsi =3D bridge_to_dsi(bridge);
+> +	const struct mtk_dsi_driver_data *data =3D dsi->driver_data;
+> +	u64 wanted_link_rate, max_link_rate;
+>  	int bpp;
+> =20
+>  	bpp =3D mipi_dsi_pixel_format_to_bpp(dsi->format);
+>  	if (bpp < 0)
+>  		return MODE_ERROR;
+> =20
+> -	if (mode->clock * bpp / dsi->lanes > 1500000)
+> +	wanted_link_rate =3D mode->clock;
+> +	wanted_link_rate *=3D bpp;
+> +	max_link_rate =3D data->max_link_rate_mbps;
+> +	max_link_rate *=3D dsi->lanes;
+> +	max_link_rate *=3D KILO;
+> +
+> +	if (wanted_link_rate > max_link_rate)
+>  		return MODE_CLOCK_HIGH;
 
 [Severity: High]
-Does this 64-bit division break builds on 32-bit platforms?
+Does this calculation also ignore DSC?=20
 
-Since tmp is a u64 and buffer_unit is a non-constant u32, this will likely
-cause an undefined reference to __udivdi3 or __aeabi_uldivmod when compiling
-for 32-bit architectures. Should this use div_u64() instead?
-
-> +
-> +	/* Calculate valid threshold and avoid exceeding FIFO size */
-> +	out_valid_thresh =3D MTK_DSI_DEFAULT_QOS_VALID_FIFO_US * data_rate_per_=
-buf;
-
-[Severity: High]
-Are there unit mismatches in these rate calculations?
-
-Since dsi->data_rate is in Hz, data_rate_per_buf is calculated
-as buffers per second (e.g., ~15,000,000). Multiplying it by
-MTK_DSI_DEFAULT_QOS_VALID_FIFO_US (25) will result in a huge value
-that will always over-saturate the FIFO limit.
-
-> +	out_valid_thresh =3D min(out_valid_thresh, MTK_DSI_MAX_FIFO_BYTES - 1);
-> +	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_BUF_CON1], BUF_OUT_VALID_THRESH, out_=
-valid_thresh);
-> +
-> +	/* Enable ULTRA signal trigger between SOF and VACT */
-> +	mtk_dsi_mask(dsi, data->reg_adv[DSI_VDE], VDE_BLOCK_ULTRA, 0);
-> +
-> +	/* Calculate fill rate with line counter mode for DSI Video Mode */
-> +	if (dsi->format =3D=3D MIPI_DSI_FMT_RGB565)
-> +		dsi_buf_bpp =3D 2;
-> +	else
-> +		dsi_buf_bpp =3D 3;
-> +
-> +	pclk_mhz =3D dsi->vm.pixelclock / HZ_PER_MHZ;
-> +	fill_rate =3D pclk_mhz * data->pixels_per_iter * dsi_buf_bpp / buffer_u=
-nit;
-> +
-> +	/* Calculate QoS Anti-Latency parameters */
-> +	sodi_hi =3D MTK_DSI_MAX_FIFO_BYTES * num_hw_buffers;
-> +	sodi_hi -=3D (fill_rate - data_rate_per_buf) * 12 / 10;
-
-Similarly, here fill_rate is computed using pclk_mhz and results in
-buffers per microsecond (e.g., ~40). Subtracting the much larger
-buffers-per-second value of data_rate_per_buf will cause an integer
-underflow, resulting in incorrect hardware buffer configurations.
-
-Could data_rate_per_buf be converted to a per-microsecond rate to align
-with fill_rate and the microseconds constant?
+The wanted_link_rate is calculated using the uncompressed bpp instead of the
+compressed bits per pixel. This could incorrectly reject valid high-resolut=
+ion
+display modes if their uncompressed bandwidth exceeds the DSI link's maximum
+capacity.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713130103.3465=
-4-1-angelogioacchino.delregno@collabora.com?part=3D7
+4-1-angelogioacchino.delregno@collabora.com?part=3D6
