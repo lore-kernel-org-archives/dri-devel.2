@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09795C44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:09:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4539AC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:09:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A4DB10E94D;
-	Mon, 13 Jul 2026 12:09:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC46A10E94B;
+	Mon, 13 Jul 2026 12:09:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U57QQULB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AzlVSHFO";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7847910E94D
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:09:25 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-38dfe7eb825so533617a91.0
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 05:09:25 -0700 (PDT)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DC6510E94F
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:09:36 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-381b831d535so3503112a91.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 05:09:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783944565; x=1784549365; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783944576; x=1784549376; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=1Pn+IHk1Sk762XTDH7lvSm6CZZGNFHunM58OnD0jYLk=;
- b=U57QQULBYCgcTrkOj6vnJd3ShQVteXbtf+i+kUhAVO+SCezBrktlOncOL55u8x3YbC
- sSLK2731193kmY9ZQp3w5izwsZQRvFv5wZOBtz6slJ1PI9ED+heN8pVANeimhb1j7+ol
- wR8H4h6suR1opO5m2p2/hIDMm9IGirtkN6L2zdNEOklf7sd1rrx3zkYJDoHMGqY09YbU
- u4RUv7rOrXxllxJ0i2nzin36wNT80ZRiwuM1zFKsGmjeZLp3phbjIMuleZkaBTdCQC7H
- g6wUcqv/KVga4TOp2jeXENfdLgp2lIr1EQoPl44i5lvjJnTVs4a+MjYMnHISy34UOugH
- iwmQ==
+ bh=K3WTyPeomnpShciKNumkAzLHLjjvlL0zze6H3PBXARM=;
+ b=AzlVSHFOTg0xACtaKyXtNR5UCQf2RhXfxO48me4MCniHglYtVF24EpQp9ayL1vGVoc
+ 4Zt2n29RqudHYvWEKZxZ5CfR91kwuOrNAuD3h/LyhEE+FfxRBP/fXAuXBob/aYsJhe+m
+ 1POYGfBuT6WyT2UuVoh6whCfhQusUvD6nVhqTXTx5G7mphajow3X+sbDrqlPPb5WghND
+ VTrlEDsgMDyvJJEABEUO5XCnrngBKpN8MnryQwrayEO+vzdWZXnRVRjFKP0oZpsi7aQ7
+ uPBymIpGmh3U+QIIHSKpVmPgpoeZXqQ/W+XjTWNfsK4+qxy/N6Gnd/V0mXjWDOE2w/cF
+ QsDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783944565; x=1784549365;
+ d=1e100.net; s=20251104; t=1783944576; x=1784549376;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=1Pn+IHk1Sk762XTDH7lvSm6CZZGNFHunM58OnD0jYLk=;
- b=UvoMhGbWY3YI78UQ5ZtdH/xHLr4hgycX1Tj+xUKU7JXv3z9AkqsQQJpn+RdCxtpham
- DTCUGzkoQmn2smZyKePJLcSov3wcOzNUVgFJR7H7jaqI25OvwFlRTsnl74bQYR9aNfRP
- 1rrP3svssRy95wgdo6tWbnGWuyYXIl3w0mN0GjhTV4Cu70A/v+8VbIWuJ1zRm5KdUxFv
- nSlGwRfkSk18ISQDpIkvGlD07sOAdY1o4DS3IVcihgORXBA7D9utUsS2beDtRfvrC6yR
- 10ZHc1oZoZvyiSCyIWT62OkRVR6ZlBXQtmeGtn+xDVC9o2nStVeIE1cqhObuoiFyBohN
- y1Dg==
+ bh=K3WTyPeomnpShciKNumkAzLHLjjvlL0zze6H3PBXARM=;
+ b=BMk4F38/yRIA5fM17ZSaTF998kiqH4gSYJk7ft71buowpzMPALGzns84bDyT3wsqh0
+ Pc6Pt9+/89euEdGxCnv0CK9egHjcW8RO3o1NdrYUrzdbY0KD1jhGJ6TBgyhTfns9ZXBF
+ enAYI1lEEeBYI7TpFp6ppfI5vbKkIFbbwugCS8kzmxK2MLgBqljSusAGgb2tcRrFXnZP
+ WHe7Fm20SiumUKnZFusN7/E9XD8i64CIRdFHXIt76aJlaoV1A77prXLOsBkykFhKk1mE
+ 1xq0LepK5P4rVBc7EdQ+D5fDnBEhNZucNg67C5PAPBqCnxSRn5Nf754er+vZBZrOTcCv
+ mQ2Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoQRyLFCQSc2L6IfDK/0sNZF1mCKnnG1BumojEN9CyFcVnP4oLjGZZLhedkqx2eb8Q401G3nt+5TIE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx0WtvtHp/+9xA/5Ag/2bm3+/n4sAns2lgwovP6vg1qHMm95XsP
- KKLWwobz9i3vY0slk5znXzcZrLHNRycQNnG6qkpqmGZ9UR+UFpn4Uewg
-X-Gm-Gg: AfdE7cn1dEtMfq34hXy6A40ahcw6a43oOJzBvqbS22Bh6x5IsECYaF7x04gou7ortXe
- m35DhZXVNLpyLzVGBw+VTPh66Hps2ndcGc5lveEcIKRrBk7UPD4+j8OTUzzJ+QVl3LkJPAj0E+1
- 6TRXSYauXQcGb+hR+jGuPatCizGYaPvaZDy/d4M078BDNWNyc69UQ3p02EubVhiBrX4kmB2oWjy
- IjPUhXq/kMO+7KdCEc+m7ZVU69zbc6eRyfC3ggzN3vB/RA3BD8uU7Sk1u6HqNsj2O8lA9UjeS7M
- zdTZQwtTnLJgzbrGoYxLc//3MpK7t0iwHrgto5kI4X31DYCSAm8ZKDVYAH4jvzAzLZ/2elSbEPL
- s68/KwvFvfcUuku6s6KT7Q9oJLTdWN72RWV6okoPB8TXO683FPuQUhqwlJ8brdp+DwgIIeiLr+/
- aKiHb4kJP66I33lGbniXuS
-X-Received: by 2002:a17:90b:2884:b0:387:e0db:bc22 with SMTP id
- 98e67ed59e1d1-38dc77b3846mr9100073a91.34.1783944564932; 
- Mon, 13 Jul 2026 05:09:24 -0700 (PDT)
+ AHgh+RpipKXoNprlNzOBqpOyZnOW8XFedtyxLATfb56WEQe/Wuh/KzOUf7PPeyawGOyk6Ifm04WVD3PRJU4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwAciDHQUxsHDC0rblIBLURX89ZuJqmd8a3N9jole0olnyMm0YR
+ 3MLatWHybQZ3tqC07x+lSWkGmNzzBTKjF4YSrCxoRjynjqdQmCa2FVSO
+X-Gm-Gg: AfdE7ckw1CRGHjlJpWqZYpkBU2i2qXkLZoWp1Pk5IILI3RSYpIZPSScnqgviuZZrWlg
+ eCi3q0jaOXk5oT0pTEXKX8dxniNlNHHLBF52R1UDj5XDsQkI9ZzhKgawBhSbG1Tow238zLAX598
+ Nx0vNe54F/Z5fHHpVgXemnjiQ4p5ZW1h0HlggCL1fMsjJWTwQDDUlDJaI+3liXIjmhw1ruj84+S
+ FZJtZQC30t3J7LHLaqynDr+sIDuBEYwrL/PIa0zVkmXURQ/Z+gJ0oCiVl/mljiDgx5zFpsHFWkh
+ k73k6wzUAkfpIJtvv2Kxj/N0N06L6jnDhNbrpDnQJ0tAerbRPEWeM0P/H1Pol8rxhNS27NSHCCx
+ MwPqjgNUumcSbW5y8zCA1n0is8+xw11WbD3pioUj+zzwQOaGpl17wzmZysIPbd+vL5xSJIo3EaB
+ NG/5AorhIQPw==
+X-Received: by 2002:a17:90b:2248:b0:387:e0db:3fae with SMTP id
+ 98e67ed59e1d1-38dc7779d32mr8371305a91.39.1783944575701; 
+ Mon, 13 Jul 2026 05:09:35 -0700 (PDT)
 Received: from rockpi-5b ([45.112.0.180]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-311747f7293sm67756935eec.3.2026.07.13.05.09.18
+ 5a478bee46e88-311747f7293sm67756935eec.3.2026.07.13.05.09.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 05:09:24 -0700 (PDT)
+ Mon, 13 Jul 2026 05:09:34 -0700 (PDT)
 From: Anand Moon <linux.amoon@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -79,10 +79,10 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  SOCS), linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM)
 Cc: Anand Moon <linux.amoon@gmail.com>, Doruk Tan Ozturk <doruk@0sec.ai>,
  Nicolas Dufresne <nicolas@ndufresne.ca>, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v7 03/19] media: meson: vdec: Fix lifecycle leaks and race
- conditions in recycle_thread
-Date: Mon, 13 Jul 2026 17:36:58 +0530
-Message-ID: <20260713120840.17427-4-linux.amoon@gmail.com>
+Subject: [PATCH v7 04/19] media: meson: vdec: Fix use-after-free race between
+ teardown and ISR routines
+Date: Mon, 13 Jul 2026 17:36:59 +0530
+Message-ID: <20260713120840.17427-5-linux.amoon@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260713120840.17427-1-linux.amoon@gmail.com>
 References: <20260713120840.17427-1-linux.amoon@gmail.com>
@@ -103,139 +103,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Validate the return status of kthread_run() during decoder recycling
-thread initialization to prevent memory leaks, and enforce robust state
-checking before invoking kthread_stop() to prevent kernel panics.
+Prevent critical race conditions and null pointer dereferences inside
+the Amlogic video decoder driver by synchronizing the interrupt service
+routines during session teardown and file descriptor release phases.
 
-If the system operates under severe memory constraints, the previous
-implementation silently accepted error pointers returned by a failed
-kthread_run() operation. Attempting to pass these invalid error pointers
-downstream to kthread_stop() during streaming stop or application
-teardown routines triggered instant kernel panics.
+The hardware interrupt handler (vdec_isr) and threaded handler
+(vdec_threaded_isr) read 'core->cur_sess' without proper synchronization.
+During a streaming teardown sequence via vdec_stop_streaming() or session
+release inside vdec_close(), the underlying session structures can be
+modified or freed concurrently. This creates a transient window where a
+late-stage hardware interrupt can wake up, read 'core->cur_sess', and
+dereference an invalid or NULL session pointer, causing a kernel panic.
 
-Furthermore, when thread initialization failed, the lack of an explicit
-unwinding path leaked the session's private context (sess->priv) and its
-associated firmware memory block allocations. Because sess->status was
-never transitioned to STATUS_INIT, any subsequent call to stop streaming
-or close the driver file node failed its state validation checks,
-permanently orphaning active platform DMA assets and codec parameters.
-
-Fix these thread lifetime and memory leak bugs via the following:
-
-1. In vdec_start_streaming(), add an explicit IS_ERR() verification
-   barrier immediately following the recycling kthread launch. If thread
-   creation fails, capture the error code via PTR_ERR(), clear the
-   dangling pointer tracking entry to NULL, and jump to a newly added
-   'err_poweroff' label to unwind hardware settings and clear out
-   allocated structural components cleanly.
-
-2. In vdec_stop_streaming(), protect the teardown execution track by
-   wrapping the kthread_stop() invocation inside a safe !IS_ERR_OR_NULL()
-   conditional block to ensure the target thread structure actually exists
-   in system memory before stopping it.
-
-3. In vdec_close(), cleanly wind down and terminate any lingering
-   recycling threads at the absolute entry boundary of the routine
-   before flushing data framework contexts and releasing the file
-   descriptor matrices to user space.
-
-Together, these changes ensure predictable driver behavior, prevent
-kernel panics during low-memory conditions, and guarantee that memory
-and DMA assets are fully reclaimed during teardown.
+Update both the hard and threaded interrupt service routines to capture
+the current session reference using an smp_load_acquire() barrier snapshot.
+If the snapshot resolves to NULL, terminate immediately with IRQ_HANDLED
+to guarantee execution contexts do not process stale structures.
 
 Cc: Nicolas Dufresne <nicolas@ndufresne.ca>
+Suggested-by: Druk Tan Ozturk <doruk@0sec.ai>
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Closes: https://lore.kernel.org/all/20260521090944.F35401F00A3D@smtp.kernel.org/
 Signed-off-by: Anand Moon <linux.amoon@gmail.com>
 ---
- drivers/staging/media/meson/vdec/vdec.c | 48 +++++++++++++++++++++++--
- 1 file changed, 45 insertions(+), 3 deletions(-)
+ drivers/staging/media/meson/vdec/vdec.c | 22 ++++++++++++++++++++--
+ drivers/staging/media/meson/vdec/vdec.h |  2 ++
+ 2 files changed, 22 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/media/meson/vdec/vdec.c
-index d1f35fc893de1..7fc73d5cdebbf 100644
+index 7fc73d5cdebbf..7ae3d5a9dd6ab 100644
 --- a/drivers/staging/media/meson/vdec/vdec.c
 +++ b/drivers/staging/media/meson/vdec/vdec.c
-@@ -32,6 +32,10 @@ struct dummy_buf {
- /* 16 MiB for parsed bitstream swap exchange */
- #define SIZE_VIFIFO SZ_16M
- 
-+static void vdec_free_canvas(struct amvdec_session *sess);
-+static void vdec_reset_timestamps(struct amvdec_session *sess);
-+static void vdec_reset_bufs_recycle(struct amvdec_session *sess);
-+
- static u32 get_output_size(u32 width, u32 height)
- {
- 	return ALIGN(width * height, SZ_64K);
-@@ -353,13 +357,23 @@ static int vdec_start_streaming(struct vb2_queue *q, unsigned int count)
- 	sess->sequence_cap = 0;
- 	sess->sequence_out = 0;
- 
--	if (vdec_codec_needs_recycle(sess))
-+	if (vdec_codec_needs_recycle(sess) && !sess->recycle_thread) {
- 		sess->recycle_thread = kthread_run(vdec_recycle_thread, sess,
- 						   "vdec_recycle");
--
-+		if (IS_ERR(sess->recycle_thread)) {
-+			ret = PTR_ERR(sess->recycle_thread);
-+			sess->recycle_thread = NULL;
-+			goto err_poweroff;
-+		}
-+	}
- 	schedule_work(&sess->esparser_queue_work);
- 	return 0;
- 
-+err_poweroff:
-+	vdec_poweroff(sess);
-+	vdec_free_canvas(sess);
-+	vdec_reset_timestamps(sess);
-+	vdec_reset_bufs_recycle(sess);
- err_free_vififo:
- 	if (sess->vififo_vaddr) {
- 		dma_free_coherent(sess->core->dev, sess->vififo_size,
-@@ -464,7 +478,10 @@ static void vdec_stop_streaming(struct vb2_queue *q)
- 	if (full_cleanup) {
- 		if ((q->type != V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE ||
- 		     !sess->streamon_out) && vdec_codec_needs_recycle(sess)) {
--			kthread_stop(sess->recycle_thread);
-+			if (!IS_ERR_OR_NULL(sess->recycle_thread)) {
-+				kthread_stop(sess->recycle_thread);
-+				sess->recycle_thread = NULL;
-+			}
+@@ -484,6 +484,9 @@ static void vdec_stop_streaming(struct vb2_queue *q)
+ 			}
  		}
  
++		/* Synchronize and flush pending hardware interrupt service routines */
++		synchronize_irq(core->vdec_irq);
++
  		vdec_poweroff(sess);
-@@ -970,6 +987,31 @@ static int vdec_open(struct file *file)
- static int vdec_close(struct file *file)
- {
- 	struct amvdec_session *sess = file_to_amvdec_session(file);
-+	struct amvdec_core *core = sess->core;
-+
-+	if (!IS_ERR_OR_NULL(sess->recycle_thread)) {
-+		kthread_stop(sess->recycle_thread);
-+		sess->recycle_thread = NULL;
-+	}
-+
-+	mutex_lock(&core->lock);
-+
-+	vdec_poweroff(sess);
-+	vdec_free_canvas(sess);
-+	core->cur_sess = NULL;
-+
-+	if (sess->vififo_vaddr) {
-+		dma_free_coherent(core->dev, sess->vififo_size,
-+				  sess->vififo_vaddr, sess->vififo_paddr);
-+		sess->vififo_vaddr = NULL;
-+		sess->vififo_paddr = 0;
-+	}
-+	vdec_reset_timestamps(sess);
-+	vdec_reset_bufs_recycle(sess);
-+	kfree(sess->priv);
-+	sess->priv = NULL;
-+
-+	mutex_unlock(&core->lock);
+ 		vdec_free_canvas(sess);
  
- 	v4l2_m2m_ctx_release(sess->m2m_ctx);
- 	v4l2_fh_del(&sess->fh, file);
+@@ -989,6 +992,9 @@ static int vdec_close(struct file *file)
+ 	struct amvdec_session *sess = file_to_amvdec_session(file);
+ 	struct amvdec_core *core = sess->core;
+ 
++	/* Synchronize and flush pending hardware interrupt service routines */
++	synchronize_irq(core->vdec_irq);
++
+ 	if (!IS_ERR_OR_NULL(sess->recycle_thread)) {
+ 		kthread_stop(sess->recycle_thread);
+ 		sess->recycle_thread = NULL;
+@@ -1038,7 +1044,12 @@ static const struct v4l2_file_operations vdec_fops = {
+ static irqreturn_t vdec_isr(int irq, void *data)
+ {
+ 	struct amvdec_core *core = data;
+-	struct amvdec_session *sess = core->cur_sess;
++	struct amvdec_session *sess;
++
++	/* Secure an atomic acquire snapshot to protect against concurrent teardown */
++	sess = smp_load_acquire(&core->cur_sess);
++	if (!sess)
++		return IRQ_HANDLED;
+ 
+ 	sess->last_irq_jiffies = get_jiffies_64();
+ 
+@@ -1048,7 +1059,12 @@ static irqreturn_t vdec_isr(int irq, void *data)
+ static irqreturn_t vdec_threaded_isr(int irq, void *data)
+ {
+ 	struct amvdec_core *core = data;
+-	struct amvdec_session *sess = core->cur_sess;
++	struct amvdec_session *sess;
++
++	/* Prevent late-stage threaded interrupts from dereferencing a NULL session */
++	sess = smp_load_acquire(&core->cur_sess);
++	if (!sess)
++		return IRQ_HANDLED;
+ 
+ 	return sess->fmt_out->codec_ops->threaded_isr(sess);
+ }
+@@ -1136,6 +1152,8 @@ static int vdec_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
++	core->vdec_irq = irq;
++
+ 	ret = devm_request_threaded_irq(core->dev, irq, vdec_isr,
+ 					vdec_threaded_isr, IRQF_ONESHOT,
+ 					"vdec", core);
+diff --git a/drivers/staging/media/meson/vdec/vdec.h b/drivers/staging/media/meson/vdec/vdec.h
+index cc0cfafb8a951..d165c343fd022 100644
+--- a/drivers/staging/media/meson/vdec/vdec.h
++++ b/drivers/staging/media/meson/vdec/vdec.h
+@@ -67,6 +67,7 @@ struct amvdec_session;
+  * @v4l2_dev: v4l2 device
+  * @cur_sess: current decoding session
+  * @lock: video device lock
++ * @vdec_irq: irq for video decoding
+  */
+ struct amvdec_core {
+ 	void __iomem *dos_base;
+@@ -93,6 +94,7 @@ struct amvdec_core {
+ 
+ 	struct amvdec_session *cur_sess;
+ 	struct mutex lock;
++	int vdec_irq;
+ };
+ 
+ /**
 -- 
 2.50.1
 
