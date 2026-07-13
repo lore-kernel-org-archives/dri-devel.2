@@ -4,124 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EA48C44506
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:58:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAA27C44506
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:58:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D66C110E87A;
-	Mon, 13 Jul 2026 08:58:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3297510E87B;
+	Mon, 13 Jul 2026 08:58:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="TOINnr5z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N3NNMC9W";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54C6F10E879
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:57:52 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-47640541585so1322843f8f.1
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 01:57:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783933071; cv=none;
- d=google.com; s=arc-20260327;
- b=kiJii1PpI8A3ykBFvl81asdpgT/8+qOQrrcigyUEL96NnGWFMFP8Lm/7hOCYsO/Tvt
- 6KAy4xtJ+NeFcuHbzsjYh5AUP8+sWQLTq5YcRNEUDbyzTHGY7ImET1MMYNXSb9eVKjJ/
- jzQoX5OCEBlb2924dTqDxqVsaAVmW9XTk9XJi1Aq1GtYb0gtX3jQrwdgg46haneRsIAt
- ZTYctQkdJP9uJx0EEtw1zrC1EEZBwYo7BqP7ad1Hsn20K/rRTIgGKW53VQn9JA4QE+5q
- zI69ezycBnvMn80+Fnzx5cBX8Tk8kXZxt5laCGTAJVqagwtHh/tTbBMsu6YtinwQMET2
- SeRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Niw6ma3uSQo4Oag5BSyj5O/UfANxhnZNo3KLkxIFV/I=;
- fh=v+lxHQW7V6Q6U2BF4JSzmu382kzZo8zX+RfE1NMh0JI=;
- b=NkMzjuWuX/F0KTu/YYtrzq1W3BDBlZ0NbqhwplyiFzk1UbG+3BcQQBX5eLt/4fdQ0L
- dBVS8Q/jh37fK37P0ArMX3uLMbYmbP/wNddyGfHKLFPCskHdqjFwRUoDe3Lp6xWeTwYs
- mgYKwNZSWBZ5IuDbkxleql+paF7nGJqJm7MbiZ55hH8gs9LBQaSKfaEwqztoAMMIeQ0V
- CLZYZNLduT60H38/Hvw5z+iyRFL02E3CX6BKB++MdHPR/fK58v7FCWzre2pYFAOY7N/G
- c73BjwbCSTGHeX3VHeThNLquvJdeMWBuGURqjCV4aelP8YUqin/KToFW8tA60RWEVxWM
- rtXg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1783933071; x=1784537871;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Niw6ma3uSQo4Oag5BSyj5O/UfANxhnZNo3KLkxIFV/I=;
- b=TOINnr5zd8b0vJQk95EmGWhnETn4/tsceHruJUi86ZVyfSQx3kr0kHB09f+pIXpysf
- rV5eJHeWAc6QoyhQronJicIHS9olRJS2SdyUqHtCY0oWcmgMfJGU8QCUk98YVW9+xkdP
- vYc4oKy7nhm8qsvYdxpz+VIROPs5IMRTry45YN3sYBEPG3Q12mys6cMq42tUGjSuMmlv
- 7KYlQp+etahnNqAiHf/Wdqm3MIasxm0M46Pw1+qB5RoC7TSUPxyo4qG9MT7kS5BtmdC6
- gmJOCIn4Hxty1mCLxT9ztWYOZRw2eqNTkdYLsx/sopAwWj8e7wX+k+M6izjZ5XVH6HZM
- giRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783933071; x=1784537871;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Niw6ma3uSQo4Oag5BSyj5O/UfANxhnZNo3KLkxIFV/I=;
- b=L3p/sqIBJ+RueJk3ipupqbBCDPjP9z9+1z0GC9QBh0IUlY45go2lf2M3Fq8VYLpzj6
- N10FAEfNPdSfroZht4T8cZ7Ay8mrebZldUJtmaDYoMPtGw9YSmsCnztfHj/1tkel9qR3
- 9P1g0XMtHE2d7kvZQT1DePbH6gSTfBs6zBa+pZkQ/igCfrHoX0yu+WD0vCZgJzFOmACG
- d7Wwv2D+eizXdQSDXx/gssexjrvq9j/Fh0+KOkBjpUA6YIHU+pGTWk9pKIIdjaZFCVTc
- wYfIoyOD5MZiTjNha8/cUdUeJ2SKVJxKunN4G1WQRt7Ekh2etqcj3nMp06NUFqK5oSt5
- qduQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp0IvQbSVqIk6tC1OngiSWnp7td8piC8OnLjeGIuMp8MgaNDpJFHz9hk0ZzRQSBflAQ/Qm+iiTv328=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxYfmrculR93/3v5jm1llZmPI0A+Y7CzT0wYSKwTuVP6cpXo3FH
- aJKboCLsfzHBleurGp8tt+C+SL8OzR0eqEqLfkS046jZ9x/nSLnI36gHNLoVxDnJ/khYPABxCmq
- m4E5D2YuCalWHNwYjbbHv1y0cDVAoJt3fr8PrvM1p
-X-Gm-Gg: AfdE7ckCIiTQ+LXVpZKQLD8vdhcYsmDPT6HjCbhq88/0/E3V1FyiYO+Reb0/CTGZLOK
- 8geHs0D5uOKrwJfjK8P1rrijx4Xx8dG0FBNS3w1FpsuIb5VgZyhsPEZgs8MtosxUWTInkLtK9rC
- 6tpFACZjfVt0QljUh7QVPkRj2E/9XXnOn1Oj0hbWhzPM601K+eVJcOL5peE4ci8xP4fgeQEiUze
- b9POgD5omswueTpgcCYCWKOeaiLkjmZrhR4ScExhttqDHPqGNOrC5l/2XAK6awMNJq6NAx7t9QT
- 8D4OCRXzM7Q1173660/mCG15HYGLyOEN38J5RPZPGGy1cDFEGEjnD+RqwSJ/QCRTvITPbQ==
-X-Received: by 2002:a5d:5850:0:b0:472:55a:ef9b with SMTP id
- ffacd0b85a97d-47f2dcac418mr8602513f8f.8.1783933070140; Mon, 13 Jul 2026
- 01:57:50 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0800E10E5B3
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:58:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8864A419DF;
+ Mon, 13 Jul 2026 08:58:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 036DC1F00A3A;
+ Mon, 13 Jul 2026 08:58:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783933099;
+ bh=pAxpR9NFI9JqViz0jR02B8aYT21eVB9CVzgTB/HUmi0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=N3NNMC9WSVYvF0vTtvzbtTafU1C12Iav1SrwC0EHDSgNyIBN3QsjFcLHNCW0WuoOs
+ HOKJk3TUhYJCgmvf+A6m7dKz7tF0TFWRlgGOIhP1zBFhk991wcoUHyemBtQscZaSPF
+ grIi3qMtqMn45RAGuDAkEC6/nboWA9bdQvcIKdnVHm6KcvwBBMoWLYHGqXkY9oyJlr
+ oFjNtNpk0uY2HsjWXWv5zbfX3/Gg2DBPhVIFf0bTB7ubjntp0SFesmP8h8I0Gt/xSN
+ 88OJJdFZ5SRjeF4qJaK+pQ618pedRSX36I/wbzJ4WVmBP5i5SKWsA4ipG29xZnTQB2
+ Lc4KSxIsFJSJQ==
+Message-ID: <0d40243b-0929-46d2-be85-e3248d4bd09c@kernel.org>
+Date: Mon, 13 Jul 2026 10:58:15 +0200
 MIME-Version: 1.0
-References: <20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev>
- <20260713-fix-fops-owner-v8-10-2495cfa82d47@linux.dev>
- <alSe6PsvdrSYP_Z0@google.com>
- <d7c1607f-ea74-442a-9700-7fc4f0c64b76@linux.dev>
-In-Reply-To: <d7c1607f-ea74-442a-9700-7fc4f0c64b76@linux.dev>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Mon, 13 Jul 2026 10:57:37 +0200
-X-Gm-Features: AUfX_mw1uUYgV4eMXkVflbUYoDKpPh-OOQHMx0yAVcG6yUMQsdEhmzk4SLg_fQ0
-Message-ID: <CAH5fLggszOnUm7Rykt41V91de8h9YVaZt49wr52i3t5-QV84Xg@mail.gmail.com>
-Subject: Re: [PATCH v8 10/10] rust: module: update MAINTAINERS to cover
- module.rs
-To: Alvin Sun <alvin.sun@linux.dev>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
- Aaron Tomlin <atomlin@atomlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann <arnd@arndb.de>, 
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
- Rae Moar <raemoar63@gmail.com>, Breno Leitao <leitao@debian.org>,
- Jens Axboe <axboe@kernel.dk>, 
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
- Igor Korotin <igor.korotin@linux.dev>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>, 
- Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org, 
- linux-modules@vger.kernel.org, driver-core@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, 
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org, linux-pci@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/9] dma-buf: add dma_fence_was_initialized function v2
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ phasta@mailbox.org, tursulin@ursulin.net, matthew.brost@intel.com,
+ sumit.semwal@linaro.org
+Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+References: <20260120105655.7134-1-christian.koenig@amd.com>
+ <20260120105655.7134-2-christian.koenig@amd.com>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <20260120105655.7134-2-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,51 +103,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 13, 2026 at 10:48=E2=80=AFAM Alvin Sun <alvin.sun@linux.dev> wr=
-ote:
->
->
-> On 7/13/26 16:16, Alice Ryhl wrote:
-> > On Mon, Jul 13, 2026 at 02:45:31PM +0800, Alvin Sun wrote:
-> >> Module types now live in `rust/kernel/module.rs` alongside
-> >> `rust/kernel/module_param.rs`. Update the MODULE SUPPORT file pattern
-> >> from `rust/kernel/module_param.rs` to `rust/kernel/module*.rs` so both
-> >> files are covered.
-> >>
-> >> Cc: Petr Pavlu <petr.pavlu@suse.com>
-> >> Assisted-by: opencode:glm-5.2
-> >> Link: https://lore.kernel.org/rust-for-linux/8ea21b29-9baf-4926-a16f-7=
-d21c5a1a1b8@suse.com
-> >> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-> >> ---
-> >>   MAINTAINERS | 2 +-
-> >>   1 file changed, 1 insertion(+), 1 deletion(-)
-> >>
-> >> diff --git a/MAINTAINERS b/MAINTAINERS
-> >> index e035a3be797c4..74733de3e41ee 100644
-> >> --- a/MAINTAINERS
-> >> +++ b/MAINTAINERS
-> >> @@ -17984,7 +17984,7 @@ F:   include/linux/module*.h
-> >>   F: kernel/module/
-> >>   F: lib/test_kmod.c
-> >>   F: lib/tests/module/
-> >> -F:  rust/kernel/module_param.rs
-> >> +F:  rust/kernel/module*.rs
-> >>   F: rust/macros/module.rs
-> >>   F: scripts/module*
-> >>   F: tools/testing/selftests/kmod/
-> > Is there a reason why this is a separate commit from the commit that
-> > introduces rust/kernel/module.rs file?
->
-> Gary asked the same on v6; `git log` shows MAINTAINERS changes are
-> conventionally
-> standalone commits with a `MAINTAINERS: ` prefix, so I kept it separate.
-> Gary agreed [1].
->
-> [1]:
-> https://lore.kernel.org/rust-for-linux/DJJ26195JBS9.D3DNLZPRJYO4@garyguo.=
-net/
+Hi,
 
-Ok, that's fine then.
+On 20. 01. 26, 11:54, Christian König wrote:
+> Some driver use fence->ops to test if a fence was initialized or not.
+> The problem is that this utilizes internal behavior of the dma_fence
+> implementation.
+> 
+> So better abstract that into a function.
+> 
+> v2: use a flag instead of testing fence->ops, rename the function, move
+>      to the beginning of the patch set.
+...
+> --- a/drivers/gpu/drm/qxl/qxl_release.c
+> +++ b/drivers/gpu/drm/qxl/qxl_release.c
+> @@ -146,7 +146,7 @@ qxl_release_free(struct qxl_device *qdev,
+>   	idr_remove(&qdev->release_idr, release->id);
+>   	spin_unlock(&qdev->release_idr_lock);
+>   
+> -	if (release->base.ops) {
+> +	if (dma_fence_was_initialized(&release->base)) {
+>   		WARN_ON(list_empty(&release->bos));
+>   		qxl_release_free_list(release);
+>   
 
-Alice
+This likely breaks qxl:
+https://bugzilla.suse.com/show_bug.cgi?id=1271081
+
+ > refcount_t: underflow; use-after-free.
+ > WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90, 
+CPU#0: kworker/0:0/1534
+ > Modules linked in: af_packet nft_fib_inet ...
+ > CPU: 0 UID: 0 PID: 1534 Comm: kworker/0:0 Not tainted 7.1.3-1-default 
+#1 PREEMPT(full) openSUSE Tumbleweed 
+b041a6527f6e58424f4cd3de0fade8d408b378fd
+ > Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 
+rel-1.16.3-2-gc13ff2cd-prebuilt.qemu.org 04/01/2014
+ > Workqueue: events qxl_gc_work [qxl]
+ > RIP: 0010:refcount_warn_saturate+0x59/0x90
+ > Code: 44 48 8d 3d a9 72 b7 01 67 48 0f b9 3a c3 cc cc cc cc 48 8d 3d 
+a8 72 b7 01 67 48 0f b9 3a c3 cc cc cc cc 48 8d 3d a7 72 b7 01 <67> 48 
+0f b9 3a c3 cc cc cc cc 48 8d 3d a6 72 b7 01 67 48 0f b9 3a
+ > RSP: 0018:ffffce09019efe00 EFLAGS: 00010246
+ > RAX: 0000000000000000 RBX: ffff8b5a56f819c0 RCX: 0000000000000017
+ > RDX: 0000000000011696 RSI: 0000000000000003 RDI: ffffffffbc953b70
+ > RBP: ffff8b5a4a314000 R08: 0000000000000001 R09: ffffffffc07d488a
+ > R10: fffffa6fc4787d80 R11: ffff8b5a40044000 R12: 0000000000000004
+ > R13: 0000000000000003 R14: ffffce09003f1434 R15: ffff8b5a410c4640
+ > FS:  0000000000000000(0000) GS:ffff8b5afe954000(0000) 
+knlGS:0000000000000000
+ > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+ > CR2: 00007ff463d65000 CR3: 000000012b476004 CR4: 0000000000772ef0
+ > PKRU: 55555554
+ > Call Trace:
+ >  <TASK>
+ >  qxl_release_free+0xee/0xf0 [qxl 
+d93e9381353e619799d56790f5f8dda6cce491f6]
+ >  qxl_garbage_collect+0xd1/0x1b0 [qxl 
+d93e9381353e619799d56790f5f8dda6cce491f6]
+ >  process_one_work+0x19e/0x3a0
+ > ...
+
+The function does now:
+
+ > void
+ > qxl_release_free(struct qxl_device *qdev,
+ >                  struct qxl_release *release)
+ > {
+ > ...
+ >         if (dma_fence_was_initialized(&release->base)) {
+ >                 WARN_ON(list_empty(&release->bos)); 
+
+ >                 qxl_release_free_list(release); 
+
+ > 
+
+ >                 dma_fence_signal(&release->base); 
+
+ >                 dma_fence_put(&release->base); 
+
+  
+
+refcount_dec_and_test() in kref_put() in this ^^ crashes. Apparently, 
+the reference count was not increased anywhere. QXL does not call 
+dma_fence_get() -- who is supposed to increase the refcount. And why it 
+did not fail before?
+  
+
+ >         } else { 
+
+ >                 qxl_release_free_list(release); 
+
+ >                 kfree(release); 
+
+ >         } 
+
+ >         atomic_dec(&qdev->release_count); 
+
+ > }
+
+thanks,
+-- 
+js
+suse labs
+
