@@ -4,93 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33D76C44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 11:19:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E36DC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 11:32:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90D1210E8FE;
-	Mon, 13 Jul 2026 11:19:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2AB510E905;
+	Mon, 13 Jul 2026 11:32:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=alyssa.is header.i=@alyssa.is header.b="RWP92p1H";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="qWXdBcI+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R74e1uH0";
 	dkim-atps=neutral
-Received: from fhigh-a5-smtp.messagingengine.com
- (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB52110E8FE
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 11:19:26 +0000 (UTC)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 86E10140012F;
- Mon, 13 Jul 2026 07:19:25 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Mon, 13 Jul 2026 07:19:25 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alyssa.is; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:subject
- :subject:to:to; s=fm1; t=1783941565; x=1784027965; bh=yT9VqomZcO
- G4Li63LujiZvIPJTvQIbrR8WYQQGQ3dLo=; b=RWP92p1HPNRwXIAJTA6wxYiR5s
- dDVZ+vxkWdiuMHCSLNF1yCSYL9DVbKSMpwUds6Qy5bQWgQ6nxdLf+Z2JROrp8ZJo
- sYCB9gdPEaGHScxdhiXs0Ual8GuGschwpvTNSPJyY9GFVBMRiNsK63syvsLXKYpo
- uNKijbuX+akrLEsJBEGzCuIhI19NC68podVTa0mV6MTA9Q8XapDT0FBqbRp9kYGu
- qr66hyr2rPlQuOQkeH8kbCKjBy78+BSMPVkf6LvyyKZ13OpYJoyQ5QDjtvzjAyjB
- 1bXMLokh9+QdUTJEkPCoC8yr8XlK4hs2JsUYjamc967yRYdzmoUaCfNjHcvA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
- 1783941565; x=1784027965; bh=yT9VqomZcOG4Li63LujiZvIPJTvQIbrR8WY
- QQGQ3dLo=; b=qWXdBcI+9mMUyOV736pzhMKnIosxPDD03Pdg27SRAGr+XMzTPcg
- piJkRc1b3qAMmtRlm6zvAa+lJsSas9bHiOHiXX2APl1MxritVjJ95+9+R2jTCuTy
- uyjQa5SGLPLtJbqjrw1ZjOxl/sbKlNoqiUAl5Zw4Q3rQVKeaFReE3rvbmRp4936i
- CYPkF9X1jIaJs2SFTMYEHhtZORtPTqtZHefkkD8k2XCYig5CXQ1q4mGdydEcXTLV
- upgSkw5Rsv5AxmN2Vx2CKklFC9h/WQnQJuY4NfKBtIoBXC2aVr5uRFGg+1Rp1YF8
- q33ZHAuzYizLNAOwl9Zv3SznpWYmPUWnr6Q==
-X-ME-Sender: <xms:vMlUamNdeIIBqEmyROVTindp-ddbQb1HTXYfPj-ckTY79qhXozxIxg>
- <xme:vMlUajWf3fXvjU0xT0_go4n7v9qMmeZov4i9RIbq6WU89N9iLG-WhHBBh4HX230UM
- sNkPIK0Pd54B1m4_VJjqtf8T9RkbHJ1-VjIxDwMGsJv4bKRGnIToQ>
-X-ME-Received: <xmr:vMlUapQgrgIAjV9-nJn_YfiikwEBRbVl4G5Xg_J9BNWZiVCk4KhKCW0PpmCut9Z2_o_FQPJod49Qo66fjy2IffKgOlmd>
-X-ME-Proxy-Cause: dmFkZTEmqZ7TAdgkhsVLF10QcecpSioUfFnynZGAJevuRYSinOHZT6954DLFDLV2f197AC
- xIkjtIsnFeEOiRWxHQ92KhHJ5FbE2CIVXtVQp35m5vgB1TdteP1uF+zxwXpsEU2IowTr6a
- p/nQIxJ/OD0BssMZbEYK6obpZNWtBrrYekvopJ9YQQ/zxWnLjYpJsy1JDV/HuS8tuHCYGW
- iEobftEBqrjqwIeuPDCgNo8+hnb3iXO1gXd6bsCkXdSfHxUs1UxAk1BMLFKlWJOa8ehTK1
- /QjhZvRqsjH5E45ff666SyjY9AwjnzOly2LFKu7IQNJvsxFqfbWc8lCfFZ8kbDQ0p5A9S5
- Mn4xvw1cIfoW306LXPcAp9Z+4cMAui/AHBudqGkybOysHVJqNnomvR3MO5Ex0l8N7U8ZgX
- scfkjRtzlwImm4vmsKYXzgEe4qL9CjdGTVwHtJ0GdLkGK2OTZMtAyHhPmIo5xQPIbtN8Ir
- cdZotW86mZJw9XNd9V+gCUbz1unWGQvj+eGZWj1aAv5odjLHiJbhylFBnpwHp15IbSqZ0f
- FOCROf2zc+gF8d6gqcAPEGQhEAOb1xjUJb2sASw27YLFLGvFi3DpriLJs6dyn+DrWZCrEL
- 0RUZomherRYtTDtIfEprWLE7HJraZSduIcSdjdvqtDEAkXEX3iCjq6RDVRfw
-X-ME-Proxy: <xmx:vMlUap1tNLbI5SugvJogY_LLDP7haIQlrJsMbjffSWwIIJU3XXk9jg>
- <xmx:vMlUamjbU-tGiTq3DMwFyGW9ynaTZGYbJ0Ybj7eoOIJJt16KJAKs1g>
- <xmx:vMlUanaPwsc1riTEhM_Qp-Q90cgDM44AorzDJJmFq7bOGptfNiDZxQ>
- <xmx:vMlUavMmPe6ZrnxAtTGKoxljiieRFiQN0i04_IPKFtk4I2rvUkW-RA>
- <xmx:vclUasgGEu-j-JiFb4k_0JnM1LH1EgVIUD9WD8Pbo-w7snFB3q7JdVnZ>
-Feedback-ID: i12284293:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 13 Jul 2026 07:19:24 -0400 (EDT)
-Received: by mbp.qyliss.net (Postfix, from userid 1000)
- id 180CE8917846; Mon, 13 Jul 2026 13:19:22 +0200 (CEST)
-From: Alyssa Ross <hi@alyssa.is>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, Sergio Lopez
- <slp@redhat.com>, Yiwei Zhang <zzyiwei@chromium.org>, Sergi Blanch Torne
- <sergi@collabora.com>, Valentine Burley <valentine.burley@collabora.com>
-Cc: Chia-I Wu <olvaffe@gmail.com>, Jason Wang <jasowang@redhat.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Eugenio =?utf-8?Q?P=C3=A9rez?=
- <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, Simona Vetter <simona@ffwll.ch>, Thomas
- Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Gerd Hoffmann
- <kraxel@redhat.com>, virtualization@lists.linux.dev,
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: Re: [PATCH v2 2/3] drm/virtio: honor blob_alignment requirements
-In-Reply-To: <c8bf0c19-316a-442e-a63e-1b52e7bb67c2@collabora.com>
-References: <20260428194450.518296-1-slp@redhat.com>
- <20260428194450.518296-3-slp@redhat.com> <akT1XEW766c7Imst@mbp.qyliss.net>
- <c8bf0c19-316a-442e-a63e-1b52e7bb67c2@collabora.com>
-Date: Mon, 13 Jul 2026 13:19:20 +0200
-Message-ID: <87v7ajyw5j.fsf@alyssa.is>
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 258AC10E905
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 11:32:17 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-848882fdb18so2129538b3a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 04:32:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783942337; x=1784547137; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=bQ5YkObDJn3q5yEXBMbpydhpxp/loGCG/PfQF+sLSPI=;
+ b=R74e1uH0KeBQtNG/YabQOSd3yU00aplrZ4eIOAI6Jjo/IPk4afLBqnL5zaicm9rMAQ
+ i+YQO7CF5aQVV+Q/uZF9Ze7/lZPjgRzpucYnxiCVX0+O9RxOn9KULZaMIcWcUTW+CzoR
+ kOozIkJsIlzlkKzmvordxVMhmqjtuJ+I/Y9cVLuNBcclOQOH4XMNkBigoj792CBH0ypC
+ olvLvIkEiU/b8KS5IW4AenYRffsPPSJxEC93UHY9Smz+xqdkCcWOpnNOeBZJby9PpKVq
+ QrPWtvIPVWlzRevh974fttlDidGZ0wAKhHzePYqvTxLAKkAtziez3JPC3mUskHd6GXI9
+ Dc9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783942337; x=1784547137;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=bQ5YkObDJn3q5yEXBMbpydhpxp/loGCG/PfQF+sLSPI=;
+ b=aIKEXGx6CwdWLMDdfNjqQ+WcnWxZlgu37GkdWYBhT8jCYy63LKVu72JXipcIDxTzwj
+ q9LXlXYcfsLmqZNlrAP4+auP25Ipisx9Q2hoNArTlJno4Bu1qScOH9ex+ugfoWHR+7Jl
+ vvT32hppAj/t/rGsph1/wQqd5GBEAoyOrxKtunlnWSMVq/2ftT29nz3WsrJU4U58aPZy
+ qohBMS9MUOfLClrL4V6eR1m/Zkj3vIZ3ohM2NDjy8TjQUscumXCb/MshMQGUEYpuose/
+ y4N5oapNe905JFD8q28Qb85BQYJ7SxFTgQWp3ZuSwAvhWn1oqrUl1rz0ASxm4hS/sMs0
+ LcNg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrkBu7musB7OERQOeQ7TIVOOosrT6vcxNPI+xQEbDO7a0IbeKKGPjcZBBMF6VNxoEiF48XqdzqSg/o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxRHPqnRTiTxBKlwd1QF66EJPUT1U/YrOwfmoBkr+o2isdhDiOl
+ aU4usU2qpccN9pdKEO2oHoBYKy34AF8/LI7F7SZ29GPesuqeS1jcWU9o
+X-Gm-Gg: AfdE7ckeeGZuhcb3AKWSN7xiF3dQfHw6ABFgcPHjGp2A/hiiIbY28Y6p7awhkcW589c
+ /AiVVGlcpmWDRibe3+7vHyMabj31oZxcR8PNbdxDQnjFmqB5ikz9ImzjXgJSrfDG7t9gh9FxPQG
+ aQzgru5wlEsfusq916SaoANXeoWvhT/N3BgHo5hehNjNai/b5nnBI443ukf+fYfquI1RFDnSiON
+ T2bYo9IbRf2GHSKIcySVRUzVlgvhvEBBFFzAuLXymRbzcvyEQq8N+RHpdXx8Lt9d++KQjT7BQE8
+ 5VOWCEV90V5We9PlohV6jBs0SM/+wyLLBu47jcFYrlUx+eKH155qi02spDDBwEyDkaIjLs5T9Uw
+ Rb1NTqiwvWu8ej08cByntkkFFHFnN/c3mzbyztj/3Vkve9KmhZFJ+9OJDRR5V8EhewzYe8rg=
+X-Received: by 2002:a05:6a00:18aa:b0:845:d286:1fa8 with SMTP id
+ d2e1a72fcca58-84889768958mr8641367b3a.55.1783942336528; 
+ Mon, 13 Jul 2026 04:32:16 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1000::f280])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84880a4abf1sm4318802b3a.16.2026.07.13.04.32.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Jul 2026 04:32:16 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ CK Hu <ck.hu@mediatek.com>,
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: Johan Hovold <johan@kernel.org>, Guangshuo Li <lgs201920130244@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH v3] drm/mediatek: mtk_hdmi: Fix DDC adapter double put in v2
+Date: Mon, 13 Jul 2026 19:29:57 +0800
+Message-ID: <20260713112957.884640-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
- micalg=pgp-sha512; protocol="application/pgp-signature"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,69 +92,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+mtk_hdmi_common_probe() gets the DDC adapter with
+of_find_i2c_adapter_by_node() and registers a devm action to release the
+adapter device reference with put_device().
 
-Dmitry Osipenko <dmitry.osipenko@collabora.com> writes:
+The HDMI v2 remove callback also calls i2c_put_adapter() on the same DDC
+adapter. This is not paired with of_find_i2c_adapter_by_node(): it drops
+the adapter device reference before the devm action drops it again, and
+it also puts a module reference that was never taken.
 
-> On 7/1/26 14:10, Alyssa Ross wrote:
->> On Tue, Apr 28, 2026 at 09:44:49PM +0200, Sergio Lopez wrote:
->>> If VIRTIO_GPU_F_BLOB_ALIGNMENT has been negotiated, blob size must be
->>> aligned to blob_alignment. Validate this in verify_blob() so that
->>> invalid requests are rejected early.
->>>
->>> Signed-off-by: Sergio Lopez <slp@redhat.com>
->>=20
->> FYI: this change breaks crosvm, which is squatting the 5 and 6 values
->> of VIRTIO_GPU_F_* with different meanings.  I've reported it as a
->> crosvm bug, so hopefully it can be taken care of there.
->>=20
->> https://issuetracker.google.com/issues/529852979
->>=20
->>> ---
->>>  drivers/gpu/drm/virtio/virtgpu_ioctl.c | 5 +++++
->>>  1 file changed, 5 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/v=
-irtio/virtgpu_ioctl.c
->>> index c33c057365f8..d0c4edf1eaf4 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
->>> @@ -489,6 +489,11 @@ static int verify_blob(struct virtio_gpu_device *v=
-gdev,
->>>  	params->size =3D rc_blob->size;
->>>  	params->blob =3D true;
->>>  	params->blob_flags =3D rc_blob->blob_flags;
->>> +
->>> +	if (vgdev->has_blob_alignment &&
->>> +	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
->>> +		return -EINVAL;
->>> +
->>>  	return 0;
->>>  }
->>>
->>> --
->>> 2.53.0
->>>
->
-> Thanks for the report. Indeed, crosvm will need to fix its experimental
-> caps. CI will likely run into this problem first once it will update
-> guest to 7.2+ kernel.
+Remove the extra i2c_put_adapter() call and drop the now-empty HDMI v2
+remove callback. The common devm action releases the adapter device
+reference.
 
-I sent
-https://chromium-review.googlesource.com/c/crosvm/crosvm/+/8064741 last
-week but still waiting to hear anything.  Do you have any insight into
-whether it's still used / being pursued?
+Fixes: 8d0f79886273 ("drm/mediatek: Introduce HDMI/DDC v2 for MT8195/MT8188")
+Cc: stable@vger.kernel.org
+Reviewed-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v3:
+  - Add Reviewed-by tag from Johan Hovold.
+  - No code changes.
 
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
+v2:
+  - Drop the empty remove callback, as suggested by Johan Hovold.
+  - Mention that i2c_put_adapter() also drops a module reference that was
+    never taken.
+  - Fix the Fixes tag.
+  - Add Cc stable.
 
------BEGIN PGP SIGNATURE-----
+ drivers/gpu/drm/mediatek/mtk_hdmi_v2.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-iHUEARYKAB0WIQRV/neXydHjZma5XLJbRZGEIw/wogUCalTJuAAKCRBbRZGEIw/w
-olSQAP9qzYChgBOtNgtwj23gpSHyaReaZOMLJq5xNMgU5uryywEA88prn6UVr8ZA
-o6rYMiGcL4mLSwcdy71KOyCnjbegdw0=
-=IPYo
------END PGP SIGNATURE-----
---=-=-=--
+diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
+index 7bbf463056c9..ffe456238a2b 100644
+--- a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
++++ b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
+@@ -1499,13 +1499,6 @@ static int mtk_hdmi_v2_probe(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-static void mtk_hdmi_v2_remove(struct platform_device *pdev)
+-{
+-	struct mtk_hdmi *hdmi = platform_get_drvdata(pdev);
+-
+-	i2c_put_adapter(hdmi->ddc_adpt);
+-}
+-
+ static const struct of_device_id mtk_drm_hdmi_v2_of_ids[] = {
+ 	{ .compatible = "mediatek,mt8188-hdmi-tx", .data = &mtk_hdmi_conf_mt8188 },
+ 	{ .compatible = "mediatek,mt8195-hdmi-tx", .data = &mtk_hdmi_conf_mt8195 },
+@@ -1515,7 +1508,6 @@ MODULE_DEVICE_TABLE(of, mtk_drm_hdmi_v2_of_ids);
+ 
+ static struct platform_driver mtk_hdmi_v2_driver = {
+ 	.probe = mtk_hdmi_v2_probe,
+-	.remove = mtk_hdmi_v2_remove,
+ 	.driver = {
+ 		.name = "mediatek-drm-hdmi-v2",
+ 		.of_match_table = mtk_drm_hdmi_v2_of_ids,
+-- 
+2.43.0
+
