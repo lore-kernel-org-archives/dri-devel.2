@@ -4,44 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 297DDC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:47:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B7CFC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:48:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8189510E598;
-	Mon, 13 Jul 2026 08:47:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD35510E5BA;
+	Mon, 13 Jul 2026 08:48:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dqR2K7lv";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="T5/QGkKu";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA44D10E598
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:47:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8B33B432D2;
- Mon, 13 Jul 2026 08:47:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DBCA1F000E9;
- Mon, 13 Jul 2026 08:47:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783932463;
- bh=YOiWsVYePENIgmiWgGcFF0+UMyuKNwYIHdZl5PwSyTE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dqR2K7lvHusjyFfYN5xFRfZTaIaOze5UKJQhuczky9xmvhEiM2tcIsPGvuqHBMxna
- 5cmJy2EGJ/JTrTpbhvS2UQLgJQww7a6IDmynTone05ouX3B41qRlEi6aX6IjZ4inPh
- LJ/WaYTV0nFXsN+EKcTCm2lFMsWZGmL4ELYE+/N2FXPpslHloJcVCefKevYUfi73we
- oQJQfgrh4ZuclXd6J+0SJHSWI8ZgjexB8oZbSBYeBPkh858ASshLkAjuDZhs1/4ejP
- Y+W/JS51/aPc/r9Ni4WOjQxsWG8QzKTbPDgQjjdWaeRAu9SI9ET0UBPEMZtyuyvkc7
- pdrHRB69fZ97w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 3/4] drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET
- recovery method
-To: "Mallesh Koujalagi" <mallesh.koujalagi@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260713083939.251872-9-mallesh.koujalagi@intel.com>
-References: <20260713083939.251872-6-mallesh.koujalagi@intel.com>
- <20260713083939.251872-9-mallesh.koujalagi@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 08:47:42 +0000
-Message-Id: <20260713084743.4DBCA1F000E9@smtp.kernel.org>
+Received: from out-182.mta1.migadu.com (out-182.mta1.migadu.com
+ [95.215.58.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A81810E5BA
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:48:15 +0000 (UTC)
+Message-ID: <d7c1607f-ea74-442a-9700-7fc4f0c64b76@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1783932491;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=GQlgXP7bj8bfTDjYknZjTJi5ysGxhStqQgrMWEWotTo=;
+ b=T5/QGkKux4oRzWiz0v1dlhnIq9/TTeccaPXaIXG1RKQQN1W/8VMTI6h0trrs7uuLyg0x66
+ WFpRHrrjbcJ7iVNdp2+/ucPBVn8kOi04fn0ljSUrxkgZ2DYozojIRSrt7Skde9XYDLsZnw
+ xfiRE5qPtburcUDvr7r2kc1MzqmqAqc=
+Date: Mon, 13 Jul 2026 16:47:13 +0800
+MIME-Version: 1.0
+Subject: Re: [PATCH v8 10/10] rust: module: update MAINTAINERS to cover
+ module.rs
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
+ <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
+ Igor Korotin <igor.korotin@linux.dev>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
+ Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org,
+ linux-modules@vger.kernel.org, driver-core@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-pci@vger.kernel.org
+References: <20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev>
+ <20260713-fix-fops-owner-v8-10-2495cfa82d47@linux.dev>
+ <alSe6PsvdrSYP_Z0@google.com>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Alvin Sun <alvin.sun@linux.dev>
+In-Reply-To: <alSe6PsvdrSYP_Z0@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,65 +81,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing udev rule line continuation causes the example recovery =
-script to execute for every system uevent.
---
 
---- Patch [3]: [PATCH v10 3/4] drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RE=
-SET recovery method ---
-commit 38af50f95ad4b618e8f2b464d3185bfdd320b4f3
-Author: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+On 7/13/26 16:16, Alice Ryhl wrote:
+> On Mon, Jul 13, 2026 at 02:45:31PM +0800, Alvin Sun wrote:
+>> Module types now live in `rust/kernel/module.rs` alongside
+>> `rust/kernel/module_param.rs`. Update the MODULE SUPPORT file pattern
+>> from `rust/kernel/module_param.rs` to `rust/kernel/module*.rs` so both
+>> files are covered.
+>>
+>> Cc: Petr Pavlu <petr.pavlu@suse.com>
+>> Assisted-by: opencode:glm-5.2
+>> Link: https://lore.kernel.org/rust-for-linux/8ea21b29-9baf-4926-a16f-7d21c5a1a1b8@suse.com
+>> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+>> ---
+>>   MAINTAINERS | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index e035a3be797c4..74733de3e41ee 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -17984,7 +17984,7 @@ F:	include/linux/module*.h
+>>   F:	kernel/module/
+>>   F:	lib/test_kmod.c
+>>   F:	lib/tests/module/
+>> -F:	rust/kernel/module_param.rs
+>> +F:	rust/kernel/module*.rs
+>>   F:	rust/macros/module.rs
+>>   F:	scripts/module*
+>>   F:	tools/testing/selftests/kmod/
+> Is there a reason why this is a separate commit from the commit that
+> introduces rust/kernel/module.rs file?
 
-drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET recovery method
-   =20
-This commit documents the cold-reset recovery method for devices that encou=
-nter
-unrecoverable errors. It provides an example udev rule and shell script to
-handle cutting and restoring power to the PCIe slot.
+Gary asked the same on v6; `git log` shows MAINTAINERS changes are 
+conventionally
+standalone commits with a `MAINTAINERS: ` prefix, so I kept it separate. 
+Gary agreed [1].
 
-> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.=
-rst
-> index 93df92c4ac8cf..43294a10738e6 100644
-> --- a/Documentation/gpu/drm-uapi.rst
-> +++ b/Documentation/gpu/drm-uapi.rst
-[ ... ]
-> @@ -530,6 +542,77 @@ Recovery script::
->      echo -n $DEVICE > $DRIVER/unbind
->      echo -n $DEVICE > $DRIVER/bind
-> =20
-> +Example - cold-reset
-> +--------------------
-> +
-> +Udev rule::
-> +
-> +    SUBSYSTEM=3D=3D"drm", ENV{WEDGED}=3D=3D"cold-reset", DEVPATH=3D=3D"*=
-/drm/card[0-9]",
-> +    RUN+=3D"/path/to/cold-reset.sh $env{DEVPATH}"
+[1]: 
+https://lore.kernel.org/rust-for-linux/DJJ26195JBS9.D3DNLZPRJYO4@garyguo.net/
 
-[Severity: Medium]
-Since udev rules are line-based, does missing a line continuation character
-(\) here cause the second line to be parsed as a standalone, unconditional
-rule?
+Best regards,
+Alvin
 
-If an administrator copies this example verbatim, it appears that
-cold-reset.sh might be executed for every single system uevent. While the
-script exits early for non-PCI devices, spawning a shell script for every
-uevent (add, remove, change, etc.) could cause severe system performance
-degradation and boot delays.
-
-> +
-> +Recovery script::
-> +
-> +    #!/bin/sh
-> +    die() { echo "ERROR: $*" >&2; exit 1; }
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713083939.2518=
-72-6-mallesh.koujalagi@intel.com?part=3D3
+>
+> Alice
