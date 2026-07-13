@@ -4,52 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CE5BC44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 10:38:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43D46C44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 10:48:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6521A10E5A6;
-	Mon, 13 Jul 2026 10:38:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9952C10E8F1;
+	Mon, 13 Jul 2026 10:48:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jiZj5bf1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NQXKinrI";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58F0010E5A6
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:38:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783939094;
- bh=vSaLwTxwvF2SlDcyfPwVEj3OClsBegI8OCTI30PtJQw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jiZj5bf1OJWHue23ld6e8uzXr9/nKOPbupVih+j/auQ3Oa2xhuVEa1bflkrrrWd97
- w4oii8VWHwdCk4FqLNzQVZowUFcoNg2yyXgUAhXZ0BmJrzkOMfPw+O4aO3vp8AKy+P
- NwJ8hC3qa3RuzeFeeKB8+/rjaNhfNiaA1mJmC5jMh3F3DxNM0JzedK1T5W0j00u6w6
- lZHDThd+99U5d+HW50hJxsEBW48m3JVS2w35sHOvJ2YUBCIJPB4eFShjMvCD3m1T1q
- 8yOeBmjQDxpcHkt9ryCF1vG7ftpxhW+8Yzgd1YAuTJjp2/Qa1qbT96mC2qiMM2T+je
- AxbbswI7YlGfw==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5EE9F17E0E1C;
- Mon, 13 Jul 2026 12:38:13 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunfeng.yun@mediatek.com
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, chunkuang.hu@kernel.org,
- p.zabel@pengutronix.de, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, justin.yeh@mediatek.com,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel@collabora.com
-Subject: [PATCH v3 2/2] phy: mediatek: Add support for MT8196 MIPI DSI PHY
-Date: Mon, 13 Jul 2026 12:38:05 +0200
-Message-ID: <20260713103805.23030-3-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6089410E8F1
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:48:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 82B8E6004E;
+ Mon, 13 Jul 2026 10:48:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14401F000E9;
+ Mon, 13 Jul 2026 10:48:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783939716;
+ bh=joM5xgBMc4RGmzMrirARnsAMqCbi+hseeTpklEeWnqo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=NQXKinrIg9//o0fJBswvaUnIFClXlbvufjwxhxiQzNiUN+VETRDFM+7g5gdvzDQ6O
+ 9E/IjbbdeM/Qk4P4xEk68XBBPQkFM7pUlk+STlyXZLaNY6McVVm2f//w5QriwD4bJm
+ 1NAga6WZLWuFHzfhVbT6YwQRAUmGOkDLVfjGdbDnklZqy23of59R+2tKeTQr8uGnh4
+ 29uVQzOQaeveYE2RNSWh0sfVqTqiC1caWZmBcEEIqxxG3RADDCGmdOUwqK9xi2I7Fd
+ jzRtGNYrJFLEVb4IqRA/NViBACFFYFg+g6y5RSF0daOJVS5CZc/v325MZyYHGqe1GL
+ +oyFUnnAyq7zA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] phy: mediatek: Add support for MT8196 MIPI DSI PHY
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, neil.armstrong@linaro.org,
+ linux-phy@lists.infradead.org, vkoul@kernel.org, robh@kernel.org,
+ olteanv@gmail.com
+In-Reply-To: <20260713103805.23030-3-angelogioacchino.delregno@collabora.com>
 References: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260713103805.23030-3-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 13 Jul 2026 10:48:35 +0000
+Message-Id: <20260713104835.B14401F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,269 +56,72 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for the MIPI DSI PHY found in the MediaTek MT8196 SoC
-and its variants.
-This PHY has a different register layout and provides support for
-more hardware features compared to the previous generation.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Signaling voltage boost is exclusively tied to the absolute maxi=
+mum clamped frequency, preventing high data rates from receiving the boost.
+--
 
-This initial driver only adds support for basic functionality that
-is necessary to drive MIPI DSI displays as a D-PHY.
+--- Patch [2]: [PATCH v3 2/2] phy: mediatek: Add support for MT8196 MIPI DS=
+I PHY ---
+commit a6b40caad1ac266a0481ef7b26baffceb672008c
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Feature additions like lane-swap, DPHY/CPHY switching, dual-port,
-and others, may be done in the future.
+phy: mediatek: Add support for MT8196 MIPI DSI PHY
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/phy/mediatek/Makefile                 |   1 +
- .../phy/mediatek/phy-mtk-mipi-dsi-mt8196.c    | 201 ++++++++++++++++++
- drivers/phy/mediatek/phy-mtk-mipi-dsi.c       |   1 +
- drivers/phy/mediatek/phy-mtk-mipi-dsi.h       |   2 +-
- 4 files changed, 204 insertions(+), 1 deletion(-)
- create mode 100644 drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
+This commit adds support for the MIPI DSI PHY found in the MediaTek MT8196
+SoC and its variants. It introduces a new register layout and basic D-PHY
+functionality needed to drive MIPI DSI displays.
 
-diff --git a/drivers/phy/mediatek/Makefile b/drivers/phy/mediatek/Makefile
-index 1b8088df71e8..ed0da708759b 100644
---- a/drivers/phy/mediatek/Makefile
-+++ b/drivers/phy/mediatek/Makefile
-@@ -21,4 +21,5 @@ obj-$(CONFIG_PHY_MTK_MIPI_CSI_0_5)	+= phy-mtk-mipi-csi-0-5.o
- phy-mtk-mipi-dsi-drv-y			:= phy-mtk-mipi-dsi.o
- phy-mtk-mipi-dsi-drv-y			+= phy-mtk-mipi-dsi-mt8173.o
- phy-mtk-mipi-dsi-drv-y			+= phy-mtk-mipi-dsi-mt8183.o
-+phy-mtk-mipi-dsi-drv-y			+= phy-mtk-mipi-dsi-mt8196.o
- obj-$(CONFIG_PHY_MTK_MIPI_DSI)		+= phy-mtk-mipi-dsi-drv.o
-diff --git a/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c b/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
-new file mode 100644
-index 000000000000..eac3db9922db
---- /dev/null
-+++ b/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
-@@ -0,0 +1,201 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2019 MediaTek Inc.
-+ * Author: jitao.shi <jitao.shi@mediatek.com>
-+ *
-+ * Copyright (c) 2026 Collabora Ltd.
-+ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-+ */
-+
-+#include "phy-mtk-io.h"
-+#include "phy-mtk-mipi-dsi.h"
-+
-+#define MIPITX_LANE_CON		0x0004
-+#define RG_DSI_CPHY_T1DRV_EN		BIT(0)
-+#define RG_DSI_ANA_CK_SEL		BIT(1)
-+#define RG_DSI_PHY_CK_SEL		BIT(2)
-+#define RG_DSI_CPHY_EN			BIT(3)
-+#define RG_DSI_PHYCK_INV_EN		BIT(4)
-+#define RG_DSI_PWR04_EN			BIT(5)
-+#define RG_DSI_BG_LPF_EN		BIT(6)
-+#define RG_DSI_BG_CORE_EN		BIT(7)
-+#define RG_DSI_PAD_TIEL_SEL		BIT(8)
-+
-+#define MIPITX_VOLTAGE_SEL	0x0008
-+#define RG_DSI_HSTX_LDO_REF_SEL		GENMASK(9, 6)
-+#define RG_DSI_PRD_REF_SEL		GENMASK(5, 0)
-+#define RG_DSI_PRD_REF_MINI		0
-+#define RG_DSI_PRD_REF_DEF		4
-+#define RG_DSI_PRD_REF_MAX		7
-+
-+#define MIPITX_PRESERVED	0x000c
-+#define MIPITX_PRESERVED_DEF		0xffff0040
-+#define MIPITX_PRESERVED_MINI		0xffff00f0
-+
-+#define MIPITX_PLL_PWR		0x0028
-+#define AD_DSI_PLL_SDM_PWR_ON		BIT(0)
-+#define AD_DSI_PLL_SDM_ISO_EN		BIT(1)
-+#define MIPITX_PLL_CON0		0x002c
-+#define MIPITX_PLL_CON1		0x0030
-+#define RG_DSI_PLL_EN			BIT(0)
-+#define RG_DSI_PLL_POSDIV		GENMASK(10, 8)
-+#define MIPITX_PLL_CON2		0x0034
-+#define MIPITX_PLL_CON3		0x0038
-+#define MIPITX_PLL_CON4		0x003c
-+#define RG_DSI_PLL_IBIAS		GENMASK(11, 10)
-+
-+#define MIPITX_D2_SW_CTL_EN	0x015c
-+#define MIPITX_D0_SW_CTL_EN	0x025c
-+#define MIPITX_CK_CKMODE_EN	0x0320
-+#define DSI_CK_CKMODE_EN		BIT(0)
-+#define MIPITX_CK_SW_CTL_EN	0x035c
-+#define MIPITX_D1_SW_CTL_EN	0x045c
-+#define MIPITX_D3_SW_CTL_EN	0x055c
-+#define DSI_SW_CTL_EN			BIT(0)
-+
-+#define DSI_PHY_XTAL_CLK_HZ		26000000
-+#define DSI_PHY_PLL_MIN_RATE_HZ		125000000
-+#define DSI_PHY_PLL_MAX_RATE_HZ		2000000000
-+
-+static int mtk_mipi_tx_pll_enable(struct clk_hw *hw)
-+{
-+	struct mtk_mipi_tx *mipi_tx = mtk_mipi_tx_from_clk_hw(hw);
-+	void __iomem *base = mipi_tx->regs;
-+	u32 voltage = RG_DSI_PRD_REF_MINI;
-+	u32 pres = MIPITX_PRESERVED_MINI;
-+	unsigned long long pcw_calc;
-+	unsigned int txdiv, txdiv0;
-+	u32 pcw;
-+
-+	dev_dbg(mipi_tx->dev, "enable: %u bps\n", mipi_tx->data_rate);
-+
-+	if (mipi_tx->data_rate >= DSI_PHY_PLL_MAX_RATE_HZ) {
-+		/* Select higher signaling voltage for fast data rates */
-+		voltage = RG_DSI_PRD_REF_DEF;
-+		pres = MIPITX_PRESERVED_DEF;
-+		txdiv = 1;
-+		txdiv0 = 0;
-+	} else if (mipi_tx->data_rate >= 1000000000) {
-+		txdiv = 2;
-+		txdiv0 = 1;
-+	} else if (mipi_tx->data_rate >= 500000000) {
-+		txdiv = 4;
-+		txdiv0 = 2;
-+	} else if (mipi_tx->data_rate > 250000000) {
-+		txdiv = 8;
-+		txdiv0 = 3;
-+	} else if (mipi_tx->data_rate >= 125000000) {
-+		txdiv = 16;
-+		txdiv0 = 4;
-+	} else {
-+		return -EINVAL;
-+	}
-+
-+	pcw_calc = ((u64)(mipi_tx->data_rate / 2) * txdiv) << 24;
-+	pcw_calc = div_u64(pcw_calc, DSI_PHY_XTAL_CLK_HZ);
-+
-+	if (pcw_calc > U32_MAX) {
-+		dev_err(mipi_tx->dev, "Calculated PCW=%llu overflow!\n", pcw_calc);
-+		return -EINVAL;
-+	}
-+	pcw = (u32)pcw_calc;
-+
-+	mtk_phy_update_field(base + MIPITX_VOLTAGE_SEL, RG_DSI_PRD_REF_SEL, voltage);
-+	writel(pres, base + MIPITX_PRESERVED);
-+
-+	/* Enable the SDM and wait for power to stabilize */
-+	mtk_phy_set_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_PWR_ON);
-+	mtk_phy_clear_bits(base + MIPITX_PLL_CON1, RG_DSI_PLL_EN);
-+	udelay(30);
-+
-+	/* Disable isolation and program PLL's PCW and dividers */
-+	mtk_phy_clear_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_ISO_EN);
-+	writel(pcw, base + MIPITX_PLL_CON0);
-+	mtk_phy_update_field(base + MIPITX_PLL_CON1, RG_DSI_PLL_POSDIV, txdiv0);
-+
-+	/* Enable the PLL and wait for the clock output to stabilize */
-+	mtk_phy_set_bits(base + MIPITX_PLL_CON1, RG_DSI_PLL_EN);
-+	udelay(30);
-+
-+	return 0;
-+}
-+
-+static void mtk_mipi_tx_pll_disable(struct clk_hw *hw)
-+{
-+	struct mtk_mipi_tx *mipi_tx = mtk_mipi_tx_from_clk_hw(hw);
-+	void __iomem *base = mipi_tx->regs;
-+
-+	mtk_phy_clear_bits(base + MIPITX_PLL_CON1, RG_DSI_PLL_EN);
-+
-+	mtk_phy_set_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_ISO_EN);
-+	mtk_phy_clear_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_PWR_ON);
-+}
-+
-+static int mtk_mipi_tx_pll_determine_rate(struct clk_hw *hw,
-+					  struct clk_rate_request *req)
-+{
-+	req->rate = clamp_val(req->rate,
-+			      DSI_PHY_PLL_MIN_RATE_HZ, DSI_PHY_PLL_MAX_RATE_HZ);
-+
-+	return 0;
-+}
-+
-+static const struct clk_ops mtk_mipi_tx_pll_ops = {
-+	.enable = mtk_mipi_tx_pll_enable,
-+	.disable = mtk_mipi_tx_pll_disable,
-+	.determine_rate = mtk_mipi_tx_pll_determine_rate,
-+	.set_rate = mtk_mipi_tx_pll_set_rate,
-+	.recalc_rate = mtk_mipi_tx_pll_recalc_rate,
-+};
-+
-+static void mtk_mipi_tx_power_on_signal(struct phy *phy)
-+{
-+	struct mtk_mipi_tx *mipi_tx = phy_get_drvdata(phy);
-+	void __iomem *base = mipi_tx->regs;
-+
-+	/* BG_LPF_EN / BG_CORE_EN */
-+	writel(RG_DSI_PAD_TIEL_SEL | RG_DSI_BG_CORE_EN, base + MIPITX_LANE_CON);
-+	/* Wait for MIPI core to enable */
-+	usleep_range(30, 100);
-+	writel(RG_DSI_BG_CORE_EN | RG_DSI_BG_LPF_EN, base + MIPITX_LANE_CON);
-+
-+	/* Switch OFF each Lane */
-+	mtk_phy_clear_bits(base + MIPITX_D0_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_clear_bits(base + MIPITX_D1_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_clear_bits(base + MIPITX_D2_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_clear_bits(base + MIPITX_D3_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_clear_bits(base + MIPITX_CK_SW_CTL_EN, DSI_SW_CTL_EN);
-+
-+	/*
-+	 * The MIPI TX drive strength is in the range of 3000 ~ 6000 microamps:
-+	 * RG_DSI_HSTX_LDO_REF_SEL expresses an offset from the minimum drive
-+	 * strength (3000uA) and can add a maximum offset of 3000uA, reaching a
-+	 * maximum drive strength of 3000+3000=6000uA.
-+	 */
-+	mtk_phy_update_field(base + MIPITX_VOLTAGE_SEL, RG_DSI_HSTX_LDO_REF_SEL,
-+			     (mipi_tx->mipitx_drive - 3000) / 200);
-+
-+	mtk_phy_set_bits(base + MIPITX_CK_CKMODE_EN, DSI_CK_CKMODE_EN);
-+}
-+
-+static void mtk_mipi_tx_power_off_signal(struct phy *phy)
-+{
-+	struct mtk_mipi_tx *mipi_tx = phy_get_drvdata(phy);
-+	void __iomem *base = mipi_tx->regs;
-+
-+	/* Switch ON each lane one by one */
-+	mtk_phy_set_bits(base + MIPITX_D0_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_set_bits(base + MIPITX_D1_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_set_bits(base + MIPITX_D2_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_set_bits(base + MIPITX_D3_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_set_bits(base + MIPITX_CK_SW_CTL_EN, DSI_SW_CTL_EN);
-+
-+	writel(RG_DSI_PAD_TIEL_SEL | RG_DSI_BG_CORE_EN, base + MIPITX_LANE_CON);
-+	writel(RG_DSI_PAD_TIEL_SEL, base + MIPITX_LANE_CON);
-+}
-+
-+const struct mtk_mipitx_data mt8196_mipitx_data = {
-+	.mipi_tx_clk_ops = &mtk_mipi_tx_pll_ops,
-+	.mipi_tx_enable_signal = mtk_mipi_tx_power_on_signal,
-+	.mipi_tx_disable_signal = mtk_mipi_tx_power_off_signal,
-+};
-diff --git a/drivers/phy/mediatek/phy-mtk-mipi-dsi.c b/drivers/phy/mediatek/phy-mtk-mipi-dsi.c
-index 065ea626093a..46f0cb3ac096 100644
---- a/drivers/phy/mediatek/phy-mtk-mipi-dsi.c
-+++ b/drivers/phy/mediatek/phy-mtk-mipi-dsi.c
-@@ -183,6 +183,7 @@ static const struct of_device_id mtk_mipi_tx_match[] = {
- 	{ .compatible = "mediatek,mt2701-mipi-tx", .data = &mt2701_mipitx_data },
- 	{ .compatible = "mediatek,mt8173-mipi-tx", .data = &mt8173_mipitx_data },
- 	{ .compatible = "mediatek,mt8183-mipi-tx", .data = &mt8183_mipitx_data },
-+	{ .compatible = "mediatek,mt8196-mipi-tx", .data = &mt8196_mipitx_data },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, mtk_mipi_tx_match);
-diff --git a/drivers/phy/mediatek/phy-mtk-mipi-dsi.h b/drivers/phy/mediatek/phy-mtk-mipi-dsi.h
-index 5d4876f1dc95..e6f967078e3b 100644
---- a/drivers/phy/mediatek/phy-mtk-mipi-dsi.h
-+++ b/drivers/phy/mediatek/phy-mtk-mipi-dsi.h
-@@ -42,5 +42,5 @@ unsigned long mtk_mipi_tx_pll_recalc_rate(struct clk_hw *hw,
- extern const struct mtk_mipitx_data mt2701_mipitx_data;
- extern const struct mtk_mipitx_data mt8173_mipitx_data;
- extern const struct mtk_mipitx_data mt8183_mipitx_data;
--
-+extern const struct mtk_mipitx_data mt8196_mipitx_data;
- #endif
--- 
-2.54.0
+> diff --git a/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c b/drivers/phy=
+/mediatek/phy-mtk-mipi-dsi-mt8196.c
+> new file mode 100644
+> index 0000000000000..eac3db9922dba
+> --- /dev/null
+> +++ b/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
 
+[ ... ]
+
+> +static int mtk_mipi_tx_pll_enable(struct clk_hw *hw)
+> +{
+> +	struct mtk_mipi_tx *mipi_tx =3D mtk_mipi_tx_from_clk_hw(hw);
+> +	void __iomem *base =3D mipi_tx->regs;
+> +	u32 voltage =3D RG_DSI_PRD_REF_MINI;
+> +	u32 pres =3D MIPITX_PRESERVED_MINI;
+> +	unsigned long long pcw_calc;
+> +	unsigned int txdiv, txdiv0;
+> +	u32 pcw;
+> +
+> +	dev_dbg(mipi_tx->dev, "enable: %u bps\n", mipi_tx->data_rate);
+> +
+> +	if (mipi_tx->data_rate >=3D DSI_PHY_PLL_MAX_RATE_HZ) {
+> +		/* Select higher signaling voltage for fast data rates */
+> +		voltage =3D RG_DSI_PRD_REF_DEF;
+> +		pres =3D MIPITX_PRESERVED_DEF;
+> +		txdiv =3D 1;
+> +		txdiv0 =3D 0;
+> +	} else if (mipi_tx->data_rate >=3D 1000000000) {
+
+[Severity: Medium]
+Does this logic unintentionally restrict the higher signaling voltage to on=
+ly
+exact matches of the maximum PLL rate?
+
+Since mtk_mipi_tx_pll_determine_rate() clamps the clock rate to
+DSI_PHY_PLL_MAX_RATE_HZ (2.0 GHz), mipi_tx->data_rate can never exceed this
+value. Consequently, panels requesting data rates slightly below 2.0 GHz
+(for example, 1.99 GHz) will fall through to the 1.0 GHz branch instead of
+receiving the voltage boost and correct PLL dividers intended for fast data
+rates.
+
+Could this conflation between the PLL octave band threshold and the maximum
+frequency clamp macro also break the PLL divider logic if the maximum
+supported rate limit is increased in the future?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713103805.2303=
+0-1-angelogioacchino.delregno@collabora.com?part=3D2
