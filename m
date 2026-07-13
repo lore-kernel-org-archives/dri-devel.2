@@ -4,64 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60D6FC44507
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:19:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7620C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:23:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B159C10E5C2;
-	Mon, 13 Jul 2026 12:19:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48EFE10E960;
+	Mon, 13 Jul 2026 12:23:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jd61HAKo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bYYb3iC2";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89E2F10E5BC;
- Mon, 13 Jul 2026 12:19:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783945183; x=1815481183;
- h=message-id:subject:from:to:date:in-reply-to:references:
- content-transfer-encoding:mime-version;
- bh=IZQoCw4zFHoIsaOtNqVAGzibUeI1cYE5cMzCRHow/7U=;
- b=jd61HAKoLpRRFxj4Exa7wu2pdL8ae464gJeQgtP2uB3ti97gDSn14YTN
- dqwHzz9k9OzAljElYjAb/F03ATWeL+Y8jx5thq/3Y0UsyNOiubPwDZCc5
- ymc7//thHN/3r5pPJNK3D5Dtfv4S88FkXj27JdRfp74/RKhEUqeh2eArT
- XgJ9AIOy+a6VC4SuVXdWxyJI1CCLpH6RYvvSSdIKg/Of0A5IVsW4fA1Cm
- dOwMdWLGuEJZfOHtmN6wnm+Mc2s5Y+nb7TcByZk8j8aL2o4bHPD9OQaYS
- 8SiIapEq0C+n1LFDzQRIPGIEeXVFzC+o4eczyHI+ioEzgd3vHIMfQ1sKC Q==;
-X-CSE-ConnectionGUID: vwJwzBOuQ3CkXugnHjrlxA==
-X-CSE-MsgGUID: RSJKxoOUQhiDfsM26ZSdXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="95151239"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="95151239"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2026 05:19:42 -0700
-X-CSE-ConnectionGUID: GXjhng3mTven0vdxjMHrYg==
-X-CSE-MsgGUID: oHnvA9XXTp6qHPuNUaHSLw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="253801424"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.245.123])
- ([10.245.245.123])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2026 05:19:39 -0700
-Message-ID: <60e358ad5babca098e4ae20fa89703988fda64f2.camel@linux.intel.com>
-Subject: Re: [PATCH 10/12] drm/exec: add drm_exec_lock_resv function
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- dakr@kernel.org, ecourtney@nvidia.com, simona@ffwll.ch,
- matthew.brost@intel.com, 	nat@pixelcluster.dev, airlied@gmail.com,
- dri-devel@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, 	intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Date: Mon, 13 Jul 2026 14:19:37 +0200
-In-Reply-To: <bda9ac0e-cca5-4262-94e1-d048c470c3af@amd.com>
-References: <20260710190752.2355-1-christian.koenig@amd.com>
- <20260710190752.2355-11-christian.koenig@amd.com>
- <0cfc1913440ce8f19f715f5df7faa23dc1164755.camel@linux.intel.com>
- <bda9ac0e-cca5-4262-94e1-d048c470c3af@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4072610E960
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:23:52 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0DEF443E6D;
+ Mon, 13 Jul 2026 12:23:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4AF61F000E9;
+ Mon, 13 Jul 2026 12:23:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783945431;
+ bh=mfkYvXchsq41aWkSrCkNKYoKA+D2jJR6+NT5QAp3nGA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=bYYb3iC2JeTQ3Yv/rpmn2BOrLwMsGk26C+xDWIBkxo8xTZlZyg2iRWxVSpp+bLTb6
+ p13byozgJaUcrmUQU7KulchWBAApLfv5f240N8j5tLHhLYyjV8Xpk1GLB2UWjNPcSZ
+ Gr3GDrJob7H33wzVviHZfnwTGdBDHdKEtwPQNlIoHencG2la5iDz9csDwtBQeB0fJA
+ 3IbdD0Ur5zhR1nOeF4BVYTrCSKbQN/bWUgUHmuvPEvIJbEIyTpeh/NSj2pzh3Mnvxp
+ QaNU3+LdXwwiD4zingrHZCb02zDAoVwJTcunNYCL0SYPEFSYsdpqVyrW4RrtWjXw46
+ jAWgWqcd8D6+A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 04/19] media: meson: vdec: Fix use-after-free race
+ between teardown and ISR routines
+To: "Anand Moon" <linux.amoon@gmail.com>
+Cc: neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260713120840.17427-5-linux.amoon@gmail.com>
+References: <20260713120840.17427-1-linux.amoon@gmail.com>
+ <20260713120840.17427-5-linux.amoon@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-MIME-Version: 1.0
+Date: Mon, 13 Jul 2026 12:23:51 +0000
+Message-Id: <20260713122351.A4AF61F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,305 +55,170 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-07-13 at 14:07 +0200, Christian K=C3=B6nig wrote:
-> On 7/13/26 13:57, Thomas Hellstr=C3=B6m wrote:
-> > On Fri, 2026-07-10 at 20:52 +0200, Christian K=C3=B6nig wrote:
-> > > Restructure the drm_exec object to work with dma_resv references
-> > > instead
-> > > of GEM object references.
-> > >=20
-> > > Add the new function dma_exec_lock_resv() to lock individual
-> > > dma_resv
-> > > objects and so allow higher level implementations to handle
-> > > contention
-> > > purely on dma_resv objects.
-> > >=20
-> > > WIP! Don't commit like that!
-> > >=20
-> > > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >=20
-> > Here, IMO we should move a dma-resv based implementation to dma-buf
-> > to
-> > facilitate passing it also through dma_buf_map(),
->=20
-> I still don't see why that would be necessary?
->=20
-> dma_buf_map() just maps the current location of the buffer, it has no
-> requirement to force the buffer into VRAM.
->=20
-> At least on amdgpu we always validate buffer during dma_buf_map()
-> with VRAM|GTT, so we never cause any eviction at all.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-For fast interconnects xe wants to avoid pinning in VRAM and needs a
-more aggressive validation. If you have a bunch of processes using WW
-transactions to lock out others from VRAM allocation with one process
-not participating that wouldn't work out well.
+New issues:
+- [High] Returning `IRQ_HANDLED` for a NULL session in the hardware interru=
+pt handler causes an infinite interrupt storm.
 
-> =C2=A0
-> > And if wanting to avoid rewriting all users of drm_exec, Make
-> > drm_exec
-> > a thin wrapper on top.
->=20
-> DMA-buf looks like the wrong place for this since it only works on
-> exported buffers and that should be the absolute minority.
->=20
-> We could have a dma-resv contention tracking helper, but I still
-> don't see for what that would be good for?
+Pre-existing issues:
+- [High] Calling `synchronize_irq()` before stopping hardware interrupts fa=
+ils to fix the use-after-free race condition.
+- [High] Unbind operations destroy devm-managed structures and the m2m devi=
+ce while open file descriptors remain, causing UAF on closure.
+--
 
-See the above. The problem is that the WW transaction always starts
-with a drm_exec on the importer side and it needs to be the same
-structure that holds the contended lock on rollback.
+--- Patch [4]: [PATCH v7 04/19] media: meson: vdec: Fix use-after-free race=
+ between teardown and ISR routines ---
+commit 7f1533ed7c182234db28cc4195417115cb635bb9
+Author: Anand Moon <linux.amoon@gmail.com>
 
-What are the issues you are seeing?
+media: meson: vdec: Fix use-after-free race between teardown and ISR routin=
+es
 
-/Thomas
+This patch attempts to prevent race conditions and null pointer dereferences
+by synchronizing interrupt service routines during session teardown and file
+descriptor release phases. It adds synchronize_irq() calls and uses
+smp_load_acquire() to safely capture the current session in the ISR handler=
+s.
 
+Link: https://lore.kernel.org/all/20260521090944.F35401F00A3D@smtp.kernel.o=
+rg/
 
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > Thanks,
-> > Thomas
-> >=20
-> >=20
-> >=20
-> > > ---
-> > > =C2=A0drivers/gpu/drm/drm_exec.c | 75 ++++++++++++++++++++++---------=
--
-> > > ----
-> > > --
-> > > =C2=A0drivers/gpu/drm/drm_gem.c=C2=A0 |=C2=A0 2 +
-> > > =C2=A0include/drm/drm_exec.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 9 +++--
-> > > =C2=A03 files changed, 50 insertions(+), 36 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/drm_exec.c
-> > > b/drivers/gpu/drm/drm_exec.c
-> > > index fa923852fae45..382bf7bcd5ff3 100644
-> > > --- a/drivers/gpu/drm/drm_exec.c
-> > > +++ b/drivers/gpu/drm/drm_exec.c
-> > > @@ -58,8 +58,11 @@ static void drm_exec_unlock_all(struct
-> > > drm_exec
-> > > *exec)
-> > > =C2=A0		drm_gem_object_put(obj);
-> > > =C2=A0	}
-> > > =C2=A0
-> > > -	drm_gem_object_put(exec->prelocked);
-> > > -	exec->prelocked =3D NULL;
-> > > +	if (exec->prelocked) {
-> > > +		dma_resv_unlock(exec->prelocked);
-> > > +		dma_resv_put(exec->prelocked);
-> > > +		exec->prelocked =3D NULL;
-> > > +	}
-> > > =C2=A0}
-> > > =C2=A0
-> > > =C2=A0/**
-> > > @@ -101,7 +104,7 @@ void drm_exec_fini(struct drm_exec *exec)
-> > > =C2=A0	drm_exec_unlock_all(exec);
-> > > =C2=A0	kvfree(exec->objects);
-> > > =C2=A0	if (exec->contended !=3D DRM_EXEC_DUMMY) {
-> > > -		drm_gem_object_put(exec->contended);
-> > > +		dma_resv_put(exec->contended);
-> > > =C2=A0		ww_acquire_fini(&exec->ticket);
-> > > =C2=A0	}
-> > > =C2=A0}
-> > > @@ -158,50 +161,41 @@ static int drm_exec_obj_locked(struct
-> > > drm_exec
-> > > *exec,
-> > > =C2=A0/* Make sure the contended object is locked first */
-> > > =C2=A0static int drm_exec_lock_contended(struct drm_exec *exec)
-> > > =C2=A0{
-> > > -	struct drm_gem_object *obj =3D exec->contended;
-> > > +	struct dma_resv *resv =3D exec->contended;
-> > > =C2=A0	int ret;
-> > > =C2=A0
-> > > -	if (likely(!obj))
-> > > +	if (likely(!resv))
-> > > =C2=A0		return 0;
-> > > =C2=A0
-> > > =C2=A0	/* Always cleanup the contention so that error handling
-> > > can
-> > > kick in */
-> > > =C2=A0	exec->contended =3D NULL;
-> > > =C2=A0	if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT) {
-> > > -		ret =3D dma_resv_lock_slow_interruptible(obj-
-> > > >resv,
-> > > -						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &exec-
-> > > > ticket);
-> > > +		ret =3D dma_resv_lock_slow_interruptible(resv,
-> > > &exec-
-> > > > ticket);
-> > > =C2=A0		if (unlikely(ret))
-> > > =C2=A0			goto error_dropref;
-> > > =C2=A0	} else {
-> > > -		dma_resv_lock_slow(obj->resv, &exec->ticket);
-> > > +		dma_resv_lock_slow(resv, &exec->ticket);
-> > > =C2=A0	}
-> > > =C2=A0
-> > > -	ret =3D drm_exec_obj_locked(exec, obj);
-> > > -	if (unlikely(ret))
-> > > -		goto error_unlock;
-> > > -
-> > > -	exec->prelocked =3D obj;
-> > > +	exec->prelocked =3D resv;
-> > > =C2=A0	return 0;
-> > > =C2=A0
-> > > -error_unlock:
-> > > -	dma_resv_unlock(obj->resv);
-> > > -
-> > > =C2=A0error_dropref:
-> > > -	drm_gem_object_put(obj);
-> > > +	dma_resv_put(resv);
-> > > =C2=A0	return ret;
-> > > =C2=A0}
-> > > =C2=A0
-> > > =C2=A0/**
-> > > - * drm_exec_lock_obj - lock a GEM object for use
-> > > + * drm_exec_lock_resv - lock a dma_resv object
-> > > =C2=A0 * @exec: the drm_exec object with the state
-> > > - * @obj: the GEM object to lock
-> > > + * @resv: the dma_resv object to lock
-> > > =C2=A0 *
-> > > - * Lock a GEM object for use and grab a reference to it.
-> > > + * Lock a dma_resv object for use or grab a reference to it on
-> > > contention.
-> > > =C2=A0 *
-> > > =C2=A0 * Returns: -EDEADLK if a contention is detected, -EALREADY whe=
-n
-> > > object is
-> > > - * already locked (can be suppressed by setting the
-> > > DRM_EXEC_IGNORE_DUPLICATES
-> > > - * flag), -ENOMEM when memory allocation failed and zero for
-> > > success.
-> > > + * already locked, -ENOMEM when memory allocation failed and
-> > > zero
-> > > for success.
-> > > =C2=A0 */
-> > > -int drm_exec_lock_obj(struct drm_exec *exec, struct
-> > > drm_gem_object
-> > > *obj)
-> > > +int drm_exec_lock_resv(struct drm_exec *exec, struct dma_resv
-> > > *resv)
-> > > =C2=A0{
-> > > =C2=A0	int ret;
-> > > =C2=A0
-> > > @@ -209,22 +203,39 @@ int drm_exec_lock_obj(struct drm_exec
-> > > *exec,
-> > > struct drm_gem_object *obj)
-> > > =C2=A0	if (unlikely(ret))
-> > > =C2=A0		return ret;
-> > > =C2=A0
-> > > -	if (exec->prelocked =3D=3D obj) {
-> > > -		drm_gem_object_put(exec->prelocked);
-> > > +	if (exec->prelocked =3D=3D resv) {
-> > > +		dma_resv_put(exec->prelocked);
-> > > =C2=A0		exec->prelocked =3D NULL;
-> > > =C2=A0		return 0;
-> > > =C2=A0	}
-> > > =C2=A0
-> > > =C2=A0	if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT)
-> > > -		ret =3D dma_resv_lock_interruptible(obj->resv,
-> > > &exec-
-> > > > ticket);
-> > > +		ret =3D dma_resv_lock_interruptible(resv, &exec-
-> > > > ticket);
-> > > =C2=A0	else
-> > > -		ret =3D dma_resv_lock(obj->resv, &exec->ticket);
-> > > +		ret =3D dma_resv_lock(resv, &exec->ticket);
-> > > =C2=A0
-> > > -	if (unlikely(ret =3D=3D -EDEADLK)) {
-> > > -		drm_gem_object_get(obj);
-> > > -		exec->contended =3D obj;
-> > > -		return -EDEADLK;
-> > > -	}
-> > > +	if (unlikely(ret =3D=3D -EDEADLK))
-> > > +		exec->contended =3D dma_resv_get(resv);
-> > > +	return ret;
-> > > +}
-> > > +EXPORT_SYMBOL(drm_exec_lock_resv);
-> > > +
-> > > +/**
-> > > + * drm_exec_lock_obj - lock a GEM object for use
-> > > + * @exec: the drm_exec object with the state
-> > > + * @obj: the GEM object to lock
-> > > + *
-> > > + * Lock a GEM object for use and grab a reference to it.
-> > > + *
-> > > + * Returns: -EDEADLK if a contention is detected, -EALREADY when
-> > > object is
-> > > + * already locked (can be suppressed by setting the
-> > > DRM_EXEC_IGNORE_DUPLICATES
-> > > + * flag), -ENOMEM when memory allocation failed and zero for
-> > > success.
-> > > + */
-> > > +int drm_exec_lock_obj(struct drm_exec *exec, struct
-> > > drm_gem_object
-> > > *obj)
-> > > +{
-> > > +	int ret;
-> > > +
-> > > +	ret =3D drm_exec_lock_resv(exec, obj->resv);
-> > > =C2=A0
-> > > =C2=A0	if (unlikely(ret =3D=3D -EALREADY) &&
-> > > =C2=A0	=C2=A0=C2=A0=C2=A0 exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
-> > > diff --git a/drivers/gpu/drm/drm_gem.c
-> > > b/drivers/gpu/drm/drm_gem.c
-> > > index bbcbd25f014f0..f5cf9ad596a67 100644
-> > > --- a/drivers/gpu/drm/drm_gem.c
-> > > +++ b/drivers/gpu/drm/drm_gem.c
-> > > @@ -229,6 +229,8 @@ void drm_gem_private_object_init(struct
-> > > drm_device *dev,
-> > > =C2=A0	obj->size =3D size;
-> > > =C2=A0	mutex_init(&obj->gpuva.lock);
-> > > =C2=A0	dma_resv_init(&obj->_resv);
-> > > +
-> > > +	/* TODO: This needs to go away for drm_exec to work
-> > > correctly!!! */
-> > > =C2=A0	if (!obj->resv)
-> > > =C2=A0		obj->resv =3D dma_resv_get(&obj->_resv);
-> > > =C2=A0
-> > > diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> > > index 8725ba92ff916..9daedb676d7b1 100644
-> > > --- a/include/drm/drm_exec.h
-> > > +++ b/include/drm/drm_exec.h
-> > > @@ -47,14 +47,14 @@ struct drm_exec {
-> > > =C2=A0	struct drm_gem_object	**objects;
-> > > =C2=A0
-> > > =C2=A0	/**
-> > > -	 * @contended: contended GEM object we backed off for
-> > > +	 * @contended: contended dma_resv object we backed off
-> > > for
-> > > =C2=A0	 */
-> > > -	struct drm_gem_object	*contended;
-> > > +	struct dma_resv		*contended;
-> > > =C2=A0
-> > > =C2=A0	/**
-> > > -	 * @prelocked: already locked GEM object due to
-> > > contention
-> > > +	 * @prelocked: already locked dma_resv object due to
-> > > contention
-> > > =C2=A0	 */
-> > > -	struct drm_gem_object *prelocked;
-> > > +	struct dma_resv		*prelocked;
-> > > =C2=A0};
-> > > =C2=A0
-> > > =C2=A0/**
-> > > @@ -175,6 +175,7 @@ static inline struct ww_acquire_ctx
-> > > *drm_exec_ticket(struct drm_exec *exec)
-> > > =C2=A0void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned
-> > > nr);
-> > > =C2=A0void drm_exec_fini(struct drm_exec *exec);
-> > > =C2=A0bool drm_exec_cleanup(struct drm_exec *exec);
-> > > +int drm_exec_lock_resv(struct drm_exec *exec, struct dma_resv
-> > > *resv);
-> > > =C2=A0int drm_exec_lock_obj(struct drm_exec *exec, struct
-> > > drm_gem_object
-> > > *obj);
-> > > =C2=A0void drm_exec_unlock_obj(struct drm_exec *exec, struct
-> > > drm_gem_object *obj);
-> > > =C2=A0int drm_exec_prepare_obj(struct drm_exec *exec, struct
-> > > drm_gem_object *obj,
+> diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/me=
+dia/meson/vdec/vdec.c
+> index 7fc73d5cdebbf..7ae3d5a9dd6ab 100644
+> --- a/drivers/staging/media/meson/vdec/vdec.c
+> +++ b/drivers/staging/media/meson/vdec/vdec.c
+> @@ -484,6 +484,9 @@ static void vdec_stop_streaming(struct vb2_queue *q)
+>  			}
+>  		}
+> =20
+> +		/* Synchronize and flush pending hardware interrupt service routines */
+> +		synchronize_irq(core->vdec_irq);
+> +
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does calling synchronize_irq=
+()
+before vdec_poweroff() actually prevent the race condition?
+
+Since synchronize_irq() only waits for currently executing handlers to fini=
+sh
+and does not disable the IRQ line or prevent new hardware interrupts, it se=
+ems
+new interrupts can still fire immediately after it returns.
+
+Because the hardware isn't stopped until vdec_poweroff() runs, could a newly
+triggered ISR observe a valid session pointer and execute concurrently with=
+ the
+rest of the teardown sequence?
+
+Should the hardware be stopped via vdec_poweroff() before synchronizing IRQ=
+s?
+
+>  		vdec_poweroff(sess);
+>  		vdec_free_canvas(sess);
+> =20
+
+[ ... ]
+
+> @@ -989,6 +992,9 @@ static int vdec_close(struct file *file)
+>  	struct amvdec_session *sess =3D file_to_amvdec_session(file);
+>  	struct amvdec_core *core =3D sess->core;
+> =20
+> +	/* Synchronize and flush pending hardware interrupt service routines */
+> +	synchronize_irq(core->vdec_irq);
+> +
+
+[Severity: High]
+This is a pre-existing issue, but does the driver handle unbind safely if
+user-space keeps the video device file open?
+
+If the driver is unbound, vdec_remove() executes:
+
+vdec_remove()
+    video_unregister_device(core->vdev_dec);
+    v4l2_m2m_release(core->m2m_dev);
+    v4l2_device_unregister(&core->v4l2_dev);
+
+Since devres automatically frees the amvdec_core structure upon unbind
+completion, and video_unregister_device() does not forcefully close open fi=
+le
+descriptors, could a later call to vdec_close() dereference the freed core
+structure?
+
+For instance, this newly added synchronize_irq(core->vdec_irq) call would
+use the freed core pointer. Similarly, v4l2_m2m_ctx_release(sess->m2m_ctx)
+later in vdec_close() would use the freed core->m2m_dev.
+
+>  	if (!IS_ERR_OR_NULL(sess->recycle_thread)) {
+>  		kthread_stop(sess->recycle_thread);
+>  		sess->recycle_thread =3D NULL;
+
+[ ... ]
+
+> @@ -1038,7 +1044,12 @@ static const struct v4l2_file_operations vdec_fops=
+ =3D {
+>  static irqreturn_t vdec_isr(int irq, void *data)
+>  {
+>  	struct amvdec_core *core =3D data;
+> -	struct amvdec_session *sess =3D core->cur_sess;
+> +	struct amvdec_session *sess;
+> +
+> +	/* Secure an atomic acquire snapshot to protect against concurrent tear=
+down */
+> +	sess =3D smp_load_acquire(&core->cur_sess);
+> +	if (!sess)
+> +		return IRQ_HANDLED;
+
+[Severity: High]
+Can returning IRQ_HANDLED here cause an infinite interrupt storm?
+
+If the handler evaluates the session to NULL and returns IRQ_HANDLED without
+acknowledging or clearing the interrupt at the hardware level, the generic =
+IRQ
+framework will unmask the interrupt line.
+
+Since the hardware interrupt source hasn't been cleared, won't the interrupt
+controller immediately re-trigger the interrupt, resulting in a soft lockup=
+ or
+CPU stall?
+
+Should this return IRQ_NONE so the IRQ subsystem can detect it as spurious =
+and
+eventually disable the IRQ line?
+
+> =20
+>  	sess->last_irq_jiffies =3D get_jiffies_64();
+> =20
+> @@ -1048,7 +1059,12 @@ static irqreturn_t vdec_isr(int irq, void *data)
+>  static irqreturn_t vdec_threaded_isr(int irq, void *data)
+>  {
+>  	struct amvdec_core *core =3D data;
+> -	struct amvdec_session *sess =3D core->cur_sess;
+> +	struct amvdec_session *sess;
+> +
+> +	/* Prevent late-stage threaded interrupts from dereferencing a NULL ses=
+sion */
+> +	sess =3D smp_load_acquire(&core->cur_sess);
+> +	if (!sess)
+> +		return IRQ_HANDLED;
+
+[Severity: High]
+Does returning IRQ_HANDLED here also incorrectly propagate the same interru=
+pt
+storm behavior?
+
+> =20
+>  	return sess->fmt_out->codec_ops->threaded_isr(sess);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713120840.1742=
+7-1-linux.amoon@gmail.com?part=3D4
