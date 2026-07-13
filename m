@@ -4,48 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A51AC44509
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 23:08:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E42FC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 23:16:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37D8510EB70;
-	Mon, 13 Jul 2026 23:08:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDEAC10E374;
+	Mon, 13 Jul 2026 23:16:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DmlLwH/6";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="VQvFIpw9";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4957F10E90C;
- Mon, 13 Jul 2026 23:08:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=oshCRkuTSc7HxbPUpUr4GjCt+a0l1+09+Fh6sX4fpLk=; b=DmlLwH/6NutqCUyxeNF/F1+a/v
- bUV+IJzG28pvrTIYoYlgp0HQlfJjfamy9+jQh8BToWUqmEjDeV4P2lNe3cJIX36z9rAi6eAFzaCGA
- wnkSZdTp2mgFeyx4vNqQqWeGCogW1QJI0yct7Rb+C3/MZAlTiExZ+h/H1spXbbMOFzf5vfFz1v/jZ
- muLHFECSTfZNaUSzrkRTHddXFTOaR4I4WzK5nvf4wEdAt9lG5zIeNSW1DROXUZpHjAOndoTk+hljb
- ZIwq+DM23AAhQvuueCEWyId6gSwFa6sYuEpDl1Wu+PreDHn8gfQzB953Br97QsPOkX7u1bpHl5w//
- lDY2rkvQ==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
- helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wjPkj-00EiHA-Vu; Tue, 14 Jul 2026 01:07:58 +0200
-From: John Harrison <John.Harrison@Igalia.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v7 0/9] v7 drm: writeback: clean up writeback connector
- initialization
-Date: Mon, 13 Jul 2026 16:07:16 -0700
-Message-ID: <20260713230726.3738290-1-John.Harrison@Igalia.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
+ [209.85.215.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EE8A10E374
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 23:16:04 +0000 (UTC)
+Received: by mail-pg1-f177.google.com with SMTP id
+ 41be03b00d2f7-caf45fc5202so1361792a12.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 16:16:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783984564; cv=none;
+ d=google.com; s=arc-20260327;
+ b=VwbAy/wZ7S7Cmxjbnqj265lDJZzKitk/VdFjhMhN5IKPuod8aC6+xe/tUDLaKh7gDr
+ m50Gs/lmtM8djkrfOp0mq0CHCwDb3FSZlV6B3bJzfbCtxu7+XF4fluEh0CPbNa0Bh6yq
+ NedMeXI6Xjjop5Cq+3isC5vxVjWH8w1wyD9yIX8Fe5Ctj3W6bIgyFz9AM0w3l2YXOY7w
+ GNmxmZXQ4V889p+8mMTGomsT5pI258qEkDd6nhGE6fbBIX+93Dk0d7wjWBMMJfpbur21
+ 0264mU4pSAIbFEyN03KBUxu5+84hzBSGDs6MhGe4KidnwUdU5tlDFdNDegParDb9pNRv
+ 3pFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+ :from:dkim-signature;
+ bh=mNe9rM8ZI02kYm64C7ciEQBT8YD2/cothZS9irUHQA8=;
+ fh=wSMEt3efUrGL7bQylPkSgxS+sR0LTCkS6l0xy4Dr3es=;
+ b=FJvKNvOGVbUTvgaGXvlFjkC/b11SfLo8Ra8cIaA59h0Ccrcz2NwnRuR0rzEWdmnBa3
+ Lzkcn+PedEZsqaNVQ9GRiIdmyh5J9gbrIq64i4usn9JHaqCA2gduhRVeXnNmAzLkwAP9
+ fSVw9H2vXR0Y4BwGwOa/DsbpThtRTbpK8c8hjksx+i2LUwxP0aC4QMx9lVzu2Wzfw9tj
+ TH1h2clZsc8Ngk7ghsEwqovUFmYstohI7dQ2Ewk1NeBt4XRxxqlYm3VFrbwdZiiJ0N5h
+ rr/+3QjeHqRL4/6eUvchfLIv+fM3UtvgZ3IEsyHvUQEYKUAXRnrSbyfjV7cIqc6LOERs
+ 7gPg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1783984564; x=1784589364;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:mime-version:references
+ :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=mNe9rM8ZI02kYm64C7ciEQBT8YD2/cothZS9irUHQA8=;
+ b=VQvFIpw97XUntahkUGjryH+q+4VMWK9QTodcScMA1khND9HAReJqAKCGPWmloA7ttR
+ 0OjAvikjvpq69cK7Pq8Z3MXrNKrqb09ODnmoyOhNfIg1KT9lFPvTBEc0FlCTAssBQz8X
+ CobyNRtM9aQKGjqsVbs48yk7nCv29hbGxJ9cf6S4p/Bnfdm2Vj+Y/ypmRV1XpXbfoaCQ
+ 7dR+1kjMbFZ01H+pV1XJlP6GB/48HQK4E1vHcP7JZ26ERymyXDhVI/+Mbwtu9dkAUxeW
+ eHTQ95p5HWzVf9NAQmS7qaL7pWOgqvsmWJHnIPo8MxD3nXvam9xxq1WNUIX49cEfcIBJ
+ 1WAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783984564; x=1784589364;
+ h=content-type:cc:to:subject:message-id:date:mime-version:references
+ :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=mNe9rM8ZI02kYm64C7ciEQBT8YD2/cothZS9irUHQA8=;
+ b=qnxnLO8asi4SpfRttnrYtrEjXBxrIt0b21bKKHS25l/8mgtBxkNaCDSxHQ8XDOpffz
+ 1Fhpr8F5LpuANjPGfrgZk86jIqZJuRZHP9F1dybXqj+ehDsAKpTq1uJlSSME1/xS6P1N
+ iPhwL/2uFDfbqRZdAIozapqExHBr7zpAjG9s9O76itAQNP/CBxnJzTohpGtDY7l8Cb89
+ wPQvloqmpfisah78gRR14IMjZJBxOd9MxesdhO6pWRAgw9jpMGOEmggCNriAx/pIywaR
+ FOyC4cO/VlAxoNe1//s6AEd7/MAO3XmIwQbP+tq3gDdgK1MRGn+JXNcEDiMbjKFQDk18
+ E6lA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpdLv2hdo/Z86uNTIogQOPaqjrC5eFK7fDK5+tG4gZnbWOgkkH5Q9pfk6jTXa8wxqh6j7d4cKRyDLo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yznu5Z5gewVhXd2frx1d3aaL6NpSBxmVCGMHMx1L5x9FjXzH6em
+ JZFvNhzB13bXKgUxA2vPkK0IYkeGN6hRt+0dJstqF8FcK1KnUV8HGHnEyPn4PSruJB2X05bJU9i
+ 3Lvy0iS2oX4L1rNg8V49ElGxTLg3+O4Rg5HiN0Mht
+X-Gm-Gg: AfdE7cmnn/hM61iRI5tPZMOcrywWEjJEFIXOA6pwmb4zkSiNfvVwmFvPcxHDl5/f0+F
+ GBWi5UTcvZDk9P/QAgLDQmnm/9VBHCSa0WYujsxypKz9/o33iJsGNCw2IDYwIQUmiFvnRm/EnU8
+ S0S/z8A0QCLFooKHv0brja/w4HmIJ6xgijl5vMpawSpM376/NYfB3L9bSYwmTuKWzDRYDUjZrTA
+ zuZJp9ful8UpoQE3WN1q5lx+nf8YTHhQs5TkzW2dqX4mj/AS4MywNwOp3y/hJU9wUEGIdsEEWf3
+ qTj7sGuvlr9mA3YfzrXVsl8BBT2pgLmLXddNpDnSD7KRoPi3kcjVGlQ7eFo=
+X-Received: by 2002:a05:6a20:cd8f:b0:3bf:83f3:b810 with SMTP id
+ adf61e73a8af0-3c110a7b287mr11689858637.29.1783984563364; Mon, 13 Jul 2026
+ 16:16:03 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 13 Jul 2026 16:16:02 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 13 Jul 2026 16:16:02 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20260712221934.GF674038@nvidia.com>
+References: <20250529053513.1592088-1-yilun.xu@linux.intel.com>
+ <20250529053513.1592088-11-yilun.xu@linux.intel.com>
+ <20250602133009.GC233377@nvidia.com>
+ <CAEvNRgFpJWQ5M5sQhGpQUV3GbBq9N+MQhhaxdxa=D8ky94SCsw@mail.gmail.com>
+ <20260712221934.GF674038@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Mon, 13 Jul 2026 16:16:02 -0700
+X-Gm-Features: AVVi8CczeGanVcGdhsy5HlDfD2XYPmjZautNceRH5dXiMXcxQCHaSODxjV4xdX8
+Message-ID: <CAEvNRgEo2kLUmaGU-Vsgx2sTQvU_NNUJ4bRp5Z4Ygs_xvVLOYA@mail.gmail.com>
+Subject: Re: [RFC PATCH 10/30] vfio/pci: Export vfio dma-buf specific info for
+ importers
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Xu Yilun <yilun.xu@linux.intel.com>, kvm@vger.kernel.org,
+ sumit.semwal@linaro.org, 
+ christian.koenig@amd.com, pbonzini@redhat.com, seanjc@google.com, 
+ alex.williamson@redhat.com, dan.j.williams@intel.com, aik@amd.com, 
+ linux-coco@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+ vivek.kasireddy@intel.com, yilun.xu@intel.com, linux-kernel@vger.kernel.org, 
+ lukas@wunner.de, yan.y.zhao@intel.com, daniel.vetter@ffwll.ch, 
+ leon@kernel.org, baolu.lu@linux.intel.com, zhenzhong.duan@intel.com, 
+ tao1.su@intel.com, linux-pci@vger.kernel.org, zhiw@nvidia.com, 
+ simona.vetter@ffwll.ch, shameerali.kolothum.thodi@huawei.com, 
+ aneesh.kumar@kernel.org, iommu@lists.linux.dev, kevin.tian@intel.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,103 +123,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Drivers using drm_writeback_connector_init() / _with_encoder() don't
-perform cleanup in a manner similar to drmm_writeback_connector_init()
-(see drm_writeback_connector_cleanup()). Migrate all existing drivers
-to use drmm_writeback_connector_init(), drop
-drm_writeback_connector_init() and drm_writeback_connector::encoder
-(it's unused afterwards).
+Jason Gunthorpe <jgg@nvidia.com> writes:
 
-This series leaves former drm_writeback_connector_init_with_encoder()
-(renamed to drm_writeback_connector_init as a non-managed counterpart
-for drmm_writeback_connector_init()). It is supposed to be used by
-drivers which can not use drmm functions (like Intel). However I think
-it would be better to drop it completely.
+> On Sat, Jul 11, 2026 at 06:01:31PM -0700, Ackerley Tng wrote:
+>
+>> In the course of a CoCo guest's operation, will the guest need to
+>> convert between private/shared MMIO? Will the guest need some pages
+>> shared and others private? If these are required operations, guest_memfd
+>> already provides the tracking and is going to have a conversion ioctl
+>> very soon. Instead of further extending dmabuf to track more things, how
+>> about letting guest_memfd track it?
+>
+> Use another FD type was sort of my fallback if we couldn't get DMABUF
+> into something workable. I'm kind of surprised to see guestmemfd
+> proposed as the other FD, but I don't know much about its insides.
+>
 
-NB: Patch set written by Dmitry B but taken over by John H at v7 due to
-time pressures.
+For now guest_memfd only supports 4K pages, so the interfaces we're
+interested in are:
 
----
-Changes in v7 (by John Harrison):
-- Fix missing parameter in drmm_kfree
-- Fix leaking error paths
-- Fix kernel docs
-- Add typecast to drmm_zalloc_obj(s)
-- Drop extra obsolete cleanup call in vc4
++ The .fault() handler, which core mm calls to service any page
+  faults. For this, guest_memfd first checks if the page is shared, and
+  if so, proceeds to return a struct page.
+    + For VFIO, guest_memfd could call vfio_pci_mmap_huge_fault() and do
+      vmf_insert_pfn().
++ The kvm_gmem_get_pfn() function, which kvm calls to get a pfn and a
+  max_order to set up stage 2 page tables. Now guest_memfd returns
+  folio_pfn(folio) and max_order = 0 since guest_memfd only supports
+  PAGE_SIZE pages now.
+    + For VFIO, guest_memfd would need some way to get the PFN, so
+      probably something like dma_buf_get_pfn_unlocked() [1], but
+      probably from VFIO instead of dmabuf. Perhaps pci_resource_start()
+      is good enough to get a pfn.
 
-Changes in v6:
-- Dropped applied patch
-- Implemented suggestion by Alex to use drmm allocation for the
-  writeback connector.
-- Link to v5: https://patch.msgid.link/20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com
+[1] https://lore.kernel.org/all/20250529053513.1592088-2-yilun.xu@linux.intel.com/
 
-Changes in v5:
-- Rebased on top of drm-misc-next
-- Expanded commit message for msm patch, describing devm vs drmm issues (Laurent)
-- Expanded commit messages, describing why the drivers are converted to
-  drmm_writeback_connector_init() (Laurent)
-- Link to v4: https://lore.kernel.org/r/20251228-wb-drop-encoder-v4-0-58d28e668901@oss.qualcomm.com
+> If VFIO can create one
 
-Changes in v4:
-- Rebase on top of drm-misc-next, dropping applied patch.
-- Added a note regarding memory leak in the AMDGPU driver.
-- Fixed a devm vs drmm issue in the msm/dpu driver.
-- Link to v3: https://lore.kernel.org/r/20250819-wb-drop-encoder-v3-0-b48a6af7903b@oss.qualcomm.com
+At guest_memfd creation time, guest_memfd is always created for a
+KVM. This is the first place where it is bound to a kvm instance. This
+is one place where it helps Yilun with Confidential VMs, so KVM can be
+sure that the memory was meant for a specific CoCo kvm and not any VM.
 
-Changes in v3:
-- Fixed subject prefix for the rcar-du patch (Jessica Zhang)
-- Link to v2: https://lore.kernel.org/r/20250816-wb-drop-encoder-v2-0-f951de04f4f9@oss.qualcomm.com
+I think it might be weird to have VFIO take a kvm fd to create a
+guest_memfd?
 
-Changes in v2:
-- Switched to drm_crtc_mask() where applicable (Louis Chauvet)
-- Link to v1: https://lore.kernel.org/r/20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com
+I was thinking that the userspace VMM could do something like:
 
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Harry Wentland <harry.wentland@amd.com>
-To: Leo Li <sunpeng.li@amd.com>
-To: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-To: Christian König <christian.koenig@amd.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-To: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-To: Magnus Damm <magnus.damm@gmail.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-To: Maíra Canal <mcanal@igalia.com>
-To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org
-Cc: linux-renesas-soc@vger.kernel.org
+  int vfio_fd = open("/dev/vfio/devices/vfio0");
+  int gmem_fd = ioctl(KVM_CREATE_GUEST_MEMFD, { .fd = vfio_fd });
 
-Dmitry Baryshkov (9):
-  drm/managed: implement managed versions of kzalloc_obj/objs()
-  drm/amd/display: use drmm allocation for writeback connector
-  drm/amd/display: use drmm_writeback_connector_init()
-  drm/komeda: use drmm_writeback_connector_init()
-  drm/mali: use drmm_writeback_connector_init()
-  drm: renesas: rcar-du: use drmm_writeback_connector_init()
-  drm/vc4: use drmm_writeback_connector_init()
-  drm: writeback: drop excess connector initialization functions
-  drm: writeback: rename drm_writeback_connector_init_with_encoder()
+and creating from a template fd would also disable/close the vfio_fd so
+that the following will fail:
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  7 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  | 18 +++--
- .../arm/display/komeda/komeda_wb_connector.c  | 37 ++++++----
- drivers/gpu/drm/arm/malidp_mw.c               | 26 ++++---
- drivers/gpu/drm/drm_writeback.c               | 71 +++----------------
- .../drm/renesas/rcar-du/rcar_du_writeback.c   | 22 ++++--
- drivers/gpu/drm/vc4/vc4_txp.c                 | 18 ++---
- include/drm/drm_managed.h                     | 23 ++++++
- include/drm/drm_writeback.h                   | 22 +-----
- 9 files changed, 106 insertions(+), 138 deletions(-)
+  addr = mmap(vfio_fd);  // Maybe this should fail too?
+  *addr = 1;             // But this should definitely fail so that
+                         // guest_memfd gets to block private writes.
 
--- 
-2.43.0
+> and fill it with MMIO physical addresses then
+> maybe it is OK?
+>
+> Jason
 
+What interface would be used fill a guest_memfd with MMIO physical
+addresses?
+
+When a vdev is associated with a vfio file, can some other vfio file be
+created that can also do MMIO to the vdev's PFNs? Would I be able to set
+something to block any future associations to those PFNs? This will help
+guest_memfd to prevent any other writes to private PFNs.
