@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90BCBC43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE4A7C44501
 	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 23:52:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9B3E10E93D;
-	Mon, 13 Jul 2026 23:52:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3762610E9C9;
+	Mon, 13 Jul 2026 23:52:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NqPqJAms";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="sBwW9Ewk";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE0110E93D
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 23:52:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63FFC10E93D
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 23:52:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,26 +22,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=+tg9dlhEHHqwfrhhDFo1lwzWM4tV6Ypa5QR5gmWEPjs=; b=NqPqJAmsXrrHQn5pazVBQYvVMV
- JFr+4Of6RpiLaH8sl6SiiplWPUj8cZ60c//cnMEN9IPrau5rjqfGNGlKOVl0cPt6WUozdRICshwen
- oz5wIm4mdY2LsmD0MuLXVWEb2Iqs8c/0OVAU8qdkzU9KvCtka81otH2vaZcvN6mUi5fDcM1nfd5HB
- 6XhEtz0bMIivIxNP8qEj2Kjx/duZ6/oRyaQBw8UHm8SOmMyIHMXRJTHmlO7ZpVDop9umgAmKDtzWa
- dZXfWOB4DuRee/TYuijW4GRJhOuGc8mumef+40JXqvBLTBHWnZJulxCsS9Y4mJ9HBcMblprfnDlOX
- 0OcSsAHg==;
+ bh=2Y9m0rT5of52KPtGGBWUfbnf0VkaffRAoZKmusQxBts=; b=sBwW9Ewk+c8krM+H+8v46Lfkas
+ /ewBWxVTWhqtSxgEREI1jSnafTzizZSzt1dlZSLJ05bAPfYHzxdONzraLnfbqbsgjW9eYfWISii2k
+ OTQM9xN0k1sDYN8Hg8bZ0A9x9CbBO1iM3lTH0t/AvKHPKFCuiK/fwBpLLG9yBQnt4V9lGofjQmRmz
+ gJWzq6Yu1T9sDb/nQc1Mz/atMZfn9dcqYGeeJWB6z/MTnyypLRz5g09WtMFPVIJ5UU2mEeGfldJs2
+ E+NsKIdX62pgqaHrPZfaMp4R4fItHUZcJ3JZWJJEgpYDyvhopKt2l2ahlTD4DuNVpKrMS95gX7yxd
+ h8nI3eNw==;
 Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
  helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wjQSC-00EjJa-7u; Tue, 14 Jul 2026 01:52:52 +0200
+ id 1wjQSE-00EjJa-8B; Tue, 14 Jul 2026 01:52:54 +0200
 From: John Harrison <John.Harrison@Igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Suraj Kandpal <suraj.kandpal@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Liviu Dudau <liviu.dudau@arm.com>
-Subject: [PATCH v7 5/9] drm/mali: use drmm_writeback_connector_init()
-Date: Mon, 13 Jul 2026 16:51:47 -0700
-Message-ID: <20260713235153.3862650-6-John.Harrison@Igalia.com>
+ Louis Chauvet <louis.chauvet@bootlin.com>
+Subject: [PATCH v7 6/9] drm: renesas: rcar-du: use
+ drmm_writeback_connector_init()
+Date: Mon, 13 Jul 2026 16:51:48 -0700
+Message-ID: <20260713235153.3862650-7-John.Harrison@Igalia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260713235153.3862650-1-John.Harrison@Igalia.com>
 References: <20260713235153.3862650-1-John.Harrison@Igalia.com>
@@ -74,75 +74,57 @@ Use drmm_plain_encoder_alloc() to allocate simple encoder and
 drmm_writeback_connector_init() in order to initialize writeback
 connector instance.
 
-v2: Fix error path (as complained by Sashiko).
-
 Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: John Harrison <John.Harrison@Igalia.com>
 ---
- drivers/gpu/drm/arm/malidp_mw.c | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
+ .../drm/renesas/rcar-du/rcar_du_writeback.c   | 22 +++++++++++++------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/arm/malidp_mw.c b/drivers/gpu/drm/arm/malidp_mw.c
-index f8be65119e3b..a4c6a00c0941 100644
---- a/drivers/gpu/drm/arm/malidp_mw.c
-+++ b/drivers/gpu/drm/arm/malidp_mw.c
-@@ -84,11 +84,6 @@ malidp_mw_connector_detect(struct drm_connector *connector, bool force)
- 	return connector_status_connected;
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+index e5e6e6a156aa..ecfd4fc1f210 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+@@ -134,7 +134,6 @@ static void rcar_du_wb_conn_reset(struct drm_connector *connector)
+ static const struct drm_connector_funcs rcar_du_wb_conn_funcs = {
+ 	.reset = rcar_du_wb_conn_reset,
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+-	.destroy = drm_connector_cleanup,
+ 	.atomic_duplicate_state = rcar_du_wb_conn_duplicate_state,
+ 	.atomic_destroy_state = rcar_du_wb_conn_destroy_state,
+ };
+@@ -201,16 +200,25 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
+ 			   struct rcar_du_crtc *rcrtc)
+ {
+ 	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
++	struct drm_encoder *encoder;
++
++	encoder = drmm_plain_encoder_alloc(&rcdu->ddev, NULL,
++					   DRM_MODE_ENCODER_VIRTUAL, NULL);
++	if (IS_ERR(encoder))
++		return PTR_ERR(encoder);
++
++	drm_encoder_helper_add(encoder, &rcar_du_wb_enc_helper_funcs);
++
++	encoder->possible_crtcs = drm_crtc_mask(&rcrtc->crtc);
+ 
+ 	drm_connector_helper_add(&wb_conn->base,
+ 				 &rcar_du_wb_conn_helper_funcs);
+ 
+-	return drm_writeback_connector_init(&rcdu->ddev, wb_conn,
+-					    &rcar_du_wb_conn_funcs,
+-					    &rcar_du_wb_enc_helper_funcs,
+-					    writeback_formats,
+-					    ARRAY_SIZE(writeback_formats),
+-					    1 << drm_crtc_index(&rcrtc->crtc));
++	return drmm_writeback_connector_init(&rcdu->ddev, wb_conn,
++					     &rcar_du_wb_conn_funcs,
++					     encoder,
++					     writeback_formats,
++					     ARRAY_SIZE(writeback_formats));
  }
  
--static void malidp_mw_connector_destroy(struct drm_connector *connector)
--{
--	drm_connector_cleanup(connector);
--}
--
- static struct drm_connector_state *
- malidp_mw_connector_duplicate_state(struct drm_connector *connector)
- {
-@@ -114,7 +109,6 @@ static const struct drm_connector_funcs malidp_mw_connector_funcs = {
- 	.reset = malidp_mw_connector_reset,
- 	.detect = malidp_mw_connector_detect,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
--	.destroy = malidp_mw_connector_destroy,
- 	.atomic_duplicate_state = malidp_mw_connector_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
- };
-@@ -211,6 +205,7 @@ static u32 *get_writeback_formats(struct malidp_drm *malidp, int *n_formats)
- int malidp_mw_connector_init(struct drm_device *drm)
- {
- 	struct malidp_drm *malidp = drm_to_malidp(drm);
-+	struct drm_encoder *encoder;
- 	u32 *formats;
- 	int ret, n_formats;
- 
-@@ -224,11 +219,20 @@ int malidp_mw_connector_init(struct drm_device *drm)
- 	if (!formats)
- 		return -ENOMEM;
- 
--	ret = drm_writeback_connector_init(drm, &malidp->mw_connector,
--					   &malidp_mw_connector_funcs,
--					   &malidp_mw_encoder_helper_funcs,
--					   formats, n_formats,
--					   1 << drm_crtc_index(&malidp->crtc));
-+	encoder = drmm_plain_encoder_alloc(drm, NULL, DRM_MODE_ENCODER_VIRTUAL, NULL);
-+	if (IS_ERR(encoder)) {
-+		kfree(formats);
-+		return PTR_ERR(encoder);
-+	}
-+
-+	drm_encoder_helper_add(encoder, &malidp_mw_encoder_helper_funcs);
-+
-+	encoder->possible_crtcs = drm_crtc_mask(&malidp->crtc);
-+
-+	ret = drmm_writeback_connector_init(drm, &malidp->mw_connector,
-+					    &malidp_mw_connector_funcs,
-+					    encoder,
-+					    formats, n_formats);
- 	kfree(formats);
- 	if (ret)
- 		return ret;
+ void rcar_du_writeback_setup(struct rcar_du_crtc *rcrtc,
 -- 
 2.43.0
 
