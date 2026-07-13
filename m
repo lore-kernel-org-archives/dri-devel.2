@@ -4,96 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12663C44507
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D611FC43458
 	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 22:36:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5151C10EB47;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46CBE10EB44;
 	Mon, 13 Jul 2026 22:36:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qqXPbpsa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cWObE4+7";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E202910E610
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 16:56:15 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-388b404ea89so105079a91.0
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 09:56:15 -0700 (PDT)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A03CA10E627
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 17:01:26 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-2cc61541f8cso1114645ad.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:01:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783961775; x=1784566575; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=+wyTThpzWI663yfCX7yR0ohXV0bj+fwjL2+oCBrswHw=;
- b=qqXPbpsad4Ff23vhjTjQfJGs1mkZz7MjIXIIzbvfDvPMlV0LrpK99LsJAdACNYPiK5
- DECzYPgs8sMitz1nTAvb3sv5a0Ax5pVGUAsiR1hBrbYdpqfyDpK9g7f5zdyERlnQcCTJ
- /1SrK9kHugrRIDkQkszneIw+MTHZKubiyohMmqvYqU7S79SptXzmj2/SsjG8Dgsqh6ot
- cZ4a7pPggVPAQiMTm+29frYM/hgBbulNPg6fNETQiYRconjplhyuk1Hq4ARS4VE3YOsu
- vi3pFq6PGzoF5XdKwiex7oVMF+BUA7KvGlTuw4T5xDXtI8Pp3t9liGhh9QRowJBCePRw
- ITEA==
+ d=gmail.com; s=20251104; t=1783962086; x=1784566886; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=R9LV+16tD32KS6yXCzCBkB0u2lL8SNr6pDg+a+HPC20=;
+ b=cWObE4+7shrvUl4uaczCEu7Kv3aOoU9zBS94KfdE10ghs3QaLn+9Lne+ko6GBxY/H0
+ 3vpJFD4vDqfbyZGLPL62DdaYkymGzsWzsucuEcIBhEPA9BrRI+EQGIac50Bcp8ujo1mu
+ Bxyy1WCFd5Avn51ddba5WLaLz+kIT9BUafo5MVVAu6gMbSJoBvI6ujzyIYJivGmJ4m9f
+ XfiW54YDMyZ2h3vSmeonSp8tX8MquI9BR1AbHNPg4MOlwxhECQYd2zXah+ZOYMjjsl1d
+ EzwpWYCLXXVKgC7JYUfuzp2dhVB8MCIlQY9WurkeUy94sQ1BIxDbtscJAQtp9iam0d76
+ 0eBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783961775; x=1784566575;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=+wyTThpzWI663yfCX7yR0ohXV0bj+fwjL2+oCBrswHw=;
- b=g0D0At6u/tXlj3iggxLtDDqqL1FD4QKW0NusuvYcQM8LpyxZGjuXLq1NZBkKBvmOsf
- OxszadhchPQ0z7lP6SmcaYbp0BfRpFkNO0b0kP11qNdNZP+G55NyUFXEuswEFrmoytTY
- s+twmCJZcgalGD/0/BwNoF0KdgCGQwCgDquLt6DzZi76D7DQILsTkn6DRiofXhJI9E9G
- DLpqhZtoqGXgFiYabHSzCjo66qYgX/DUd8Bb2umkr6waqK5/aDuKZ37FxajUWz6WL1Lw
- C7eAp8V/FdFgaFopktcTyB9PvaWvP0v1leg8o1++Nexkl5WNIGwz+WjwKgcDNFHKpTPm
- uGZw==
+ d=1e100.net; s=20251104; t=1783962086; x=1784566886;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=R9LV+16tD32KS6yXCzCBkB0u2lL8SNr6pDg+a+HPC20=;
+ b=DwrhtKFAtorwH89LO1/6gLGLJKFaW49zGLcRdf8vDIHg3sXBWiYfQvpFKmAaHXYZus
+ U3rGLTkJC7mb4uLa759qzBQSKcV0BjKWUnXU7I7BEGLrL7eueOnsdOGnNkx0QVGX86pA
+ E6r0bIKqycg/mQfxfbnYuOgvMwCjx/DigrdP85rctu5MGvxh/O6U9sPQMXaI1jZvsYwo
+ oslxBl2JAKiXLFMULrik18IqjeleqGYVOKIyWmN93m2VdN4NeVZ268S/DA3xk42uE2wr
+ 6hnKMK6vnAf9RIhJwvU8gO00UQ/IgRZ308vinnS+gmJoww6aRUlalp50ngW4tS2VgQ7I
+ 0hxg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqL4ixgXAotobPZ9RiYGKRY60WwHlVbXpPtOBnZFoIhK5menPMFP1BHxSnSmxt4+CGHo7go1Wkp8/E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz/8oPIKvBt4fTt+xP6r7TIcB0d6yXUxubzIb/TVJIyEa8IVD7e
- 2HzlMfKgexj9gVFhtZXfjXQCHr1MGG4wWIHWYJbgqb8/YmMGWO1dBSyQ
-X-Gm-Gg: AfdE7cliqeVeYCUVgwiCLre4UbPt+9NVOoglnEkya1AO4PhSe18wKV5L3MHFZEBf3P5
- TSvYZNe68RIW8iWQWRRqL83MWVf3P+K3yLZYSDHd1k0nj3QrR4GQla8N2OTNr6xBFGnxwId86Gu
- 4fZe00WPiwtAfneYyzP+yP5JQcim1UGREG4DrFLg0MwRlsoEOZU5cHLfiJpG9nDFNpbYfwmxyxr
- F2MidNreB+rZR8AGR2/H5gQyPCKCIbzWU5nIt8f1Oyfz7Rr/GR8W4TMRdzA3JJ5/Ozc0Objb/PR
- 5/vFRAsmtadJir6InDbel08W2rtfSNmjMrSHZkYSSSSaCbaQK+1ZGJyEHDun2L0cWH52UFZnAYR
- GqYiySCHk/rGtJAH+W2MQMz20o+n+DFqBNQDC/VL9HRMHMt8WBidthH90TPFMDda7yFAKfoW62w
- xIBmKSu+2lYe16+2wmtQrdKvq+d6LxwJn0H8eKrobSahOJVQqK2+ML6Es=
-X-Received: by 2002:a17:90b:57cb:b0:36b:769c:c037 with SMTP id
- 98e67ed59e1d1-38dc81978ecmr7351194a91.5.1783961775319; 
- Mon, 13 Jul 2026 09:56:15 -0700 (PDT)
+ AHgh+Rpk+G2dScUW1Qf+za79wcCPWBZGvlUFuE24t45mhRwohR2LCP+W5prV/jB34ewk8/uYoZSAENYZscM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwD+tYhSBLamsNbpRHO8kzmwrYBQ48akG9zKuqNcnXKvkgkHNAy
+ Ghz5JEiro/bvLt/lCPPuLDuiSS9/WvwQ1lys4TM328AKJ13dhKjK/+z0
+X-Gm-Gg: AfdE7cnGmKh3gHfjU+iTlu8hT8BGKPqYuVCRQRb4C09+zVYOGGEMlP5TPupaw+W26er
+ Xsjo60ZQQF/emfMLTpku6u3iUnbKbWl2F3ck/cxHhABDXrT4FjTC7wzQkBdVUEU3Zf5IlqvvhMb
+ hPfWCl0B8sqMCZ78xvWF/JswUSOseMMVSL/ZRqZ4VVcbYB0ZfWWooHCq195ZuFsvs9pxTjiAiTo
+ g/OUKbfSVoz9szQulWBgi8CwmwwMFZS6YxQkdUeXJrVOA3pkMy09jNUxpXqZuSXcuZ4s+PPzJSZ
+ zg3Oo1V5sUZlVYPquu/ZHgEo/b/kjXlhPel6umKjbT8rVCcHvyuZIUkWkDsiFEmN1TVQmgOADab
+ gHn3nQIIAbvKA/BL5U6m6J89EshV5OWno16KbtaG6rrenFBrUbBkRuwQrarSBJJUKrbOhUZK2D2
+ 5mSJxoQBjDajrIuo1b/TAZLyzPSFDhBJIzAX1ZJm6qxFxXBiYIUIDZA0k=
+X-Received: by 2002:a17:902:e88a:b0:2ca:de3:15d7 with SMTP id
+ d9443c01a7336-2ce8292bad0mr123460335ad.16.1783962085860; 
+ Mon, 13 Jul 2026 10:01:25 -0700 (PDT)
 Received: from skinsburskii (c-98-225-44-182.hsd1.wa.comcast.net.
  [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-38e1745a596sm180718a91.15.2026.07.13.09.56.13
+ d9443c01a7336-2ccc9d3d451sm102224465ad.65.2026.07.13.10.01.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 09:56:14 -0700 (PDT)
-Date: Mon, 13 Jul 2026 09:56:12 -0700
+ Mon, 13 Jul 2026 10:01:22 -0700 (PDT)
+Date: Mon, 13 Jul 2026 10:01:20 -0700
 From: Stanislav Kinsburskii <skinsburskii@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, corbet@lwn.net,
- dakr@kernel.org, david@kernel.org, decui@microsoft.com,
- haiyangz@microsoft.com, jgg@ziepe.ca, kees@kernel.org,
- kys@microsoft.com, leon@kernel.org, liam@infradead.org,
- lizhi.hou@amd.com, ljs@kernel.org, longli@microsoft.com,
- lyude@redhat.com, maarten.lankhorst@linux.intel.com,
- mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
- nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
- rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
- skhan@linuxfoundation.org, surenb@google.com, tzimmermann@suse.de,
- vbabka@kernel.org, wei.liu@kernel.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-rdma@vger.kernel.org
-Subject: Re: [PATCH v8 4/8] mshv: Use hmm_range_fault_unlocked_timeout() for
- region faults
-Message-ID: <alUYrESVcHR_p-S_@skinsburskii>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
+ corbet@lwn.net, dakr@kernel.org, david@kernel.org,
+ decui@microsoft.com, haiyangz@microsoft.com, jgg@ziepe.ca,
+ kees@kernel.org, kys@microsoft.com, leon@kernel.org,
+ liam@infradead.org, lizhi.hou@amd.com, ljs@kernel.org,
+ longli@microsoft.com, lyude@redhat.com,
+ maarten.lankhorst@linux.intel.com, mamin506@gmail.com,
+ mhocko@suse.com, mripard@kernel.org, nouveau@lists.freedesktop.org,
+ ogabbay@kernel.org, oleg@redhat.com, rppt@kernel.org,
+ shuah@kernel.org, simona@ffwll.ch, skhan@linuxfoundation.org,
+ surenb@google.com, tzimmermann@suse.de, vbabka@kernel.org,
+ wei.liu@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-rdma@vger.kernel.org
+Subject: Re: [PATCH v8 8/8] drm/gpusvm: Use
+ hmm_range_fault_unlocked_timeout() for range faults
+Message-ID: <alUZ4NQptiD9fRfz@skinsburskii>
 References: <178371866223.900500.12312667138651735591.stgit@skinsburskii>
- <178371881034.900500.5214601525971121683.stgit@skinsburskii>
- <20260710151216.0397a6f9ac5c7b4ccd274cc1@linux-foundation.org>
- <alG1JwgUK44dCiN4@skinsburskii>
- <20260710224606.69235ab5c49b5987fd33e924@linux-foundation.org>
+ <178371883977.900500.2198446134676328631.stgit@skinsburskii>
+ <alUSq0o7CC2Pnr+H@gsse-cloud1.jf.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260710224606.69235ab5c49b5987fd33e924@linux-foundation.org>
+In-Reply-To: <alUSq0o7CC2Pnr+H@gsse-cloud1.jf.intel.com>
 X-Mailman-Approved-At: Mon, 13 Jul 2026 22:35:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,39 +107,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2026 at 10:46:06PM -0700, Andrew Morton wrote:
-> On Fri, 10 Jul 2026 20:14:47 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
+On Mon, Jul 13, 2026 at 09:30:35AM -0700, Matthew Brost wrote:
+> On Fri, Jul 10, 2026 at 02:27:19PM -0700, Stanislav Kinsburskii wrote:
 > 
-> > > > +	mutex_lock(&region->mreg_mutex);
-> > > > +
-> > > > +	if (mmu_interval_read_retry(range.notifier, range.notifier_seq)) {
-> > > > +		mutex_unlock(&region->mreg_mutex);
-> > > > +		cond_resched();
-> > > > +		goto again;
-> > > > +	}
-> > > > +
-> > > 
-> > > If the calling process has realtime scheduling policy and either a)
-> > > we're uniprocessor or b) this process and the holder of
-> > > interval_sub->invalidate_seq are both pinned to the same CPU then
-> > > cond_resched() won't do anything, and this might be an infinite loop?
+> Please send series like this to intel-xe@lists.freedesktop.org list too
+> as this will trigger our CI which expercises the change paths changed in
+> this series.
+> 
+> > Several GPU SVM paths take mmap_read_lock() only to call hmm_range_fault(),
+> > then retry -EBUSY until HMM_RANGE_DEFAULT_TIMEOUT expires. Those paths use
+> > MMU interval notifiers whose mm matches the mm that was locked for the HMM
+> > fault.
 > > 
-> > Yes, looks like it might.
-> > What can be done to prevent this?
+> > Use hmm_range_fault_unlocked_timeout() for those faults and pass the
+> > remaining retry budget to HMM. The helper owns mmap_lock acquisition and
+> > refreshes range->notifier_seq internally for each retry, while GPU SVM
+> > keeps its existing driver-lock validation with mmu_interval_read_retry()
+> > after a successful fault.
+> > 
+> > Leave drm_gpusvm_check_pages() on hmm_range_fault() because that path is
+> > called with the mmap lock already held by its caller.
+> > 
+> > Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
+> > Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> > ---
+> >  drivers/gpu/drm/drm_gpusvm.c |   52 ++++++------------------------------------
+> >  1 file changed, 7 insertions(+), 45 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+> > index 958cb605aedd..6b7a6eaebcd9 100644
+> > --- a/drivers/gpu/drm/drm_gpusvm.c
+> > +++ b/drivers/gpu/drm/drm_gpusvm.c
+> > @@ -788,22 +788,8 @@ enum drm_gpusvm_scan_result drm_gpusvm_scan_mm(struct drm_gpusvm_range *range,
+> >  	hmm_range.hmm_pfns = pfns;
+> >  
+> >  retry:
+> > -	hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
+> > -	mmap_read_lock(range->gpusvm->mm);
+> > -
+> > -	while (true) {
+> > -		err = hmm_range_fault(&hmm_range);
+> > -		if (err == -EBUSY) {
+> > -			if (time_after(jiffies, timeout))
+> > -				break;
+> > -
+> > -			hmm_range.notifier_seq =
+> > -				mmu_interval_read_begin(notifier);
+> > -			continue;
+> > -		}
+> > -		break;
+> > -	}
+> > -	mmap_read_unlock(range->gpusvm->mm);
+> > +	err = hmm_range_fault_unlocked_timeout(&hmm_range,
+> > +					       max(timeout - jiffies, 1L));
+> >  	if (err)
+> >  		goto err_free;
+> >  
+> > @@ -1439,21 +1425,8 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+> >  	}
+> >  
+> >  	hmm_range.hmm_pfns = pfns;
+> > -	while (true) {
+> > -		mmap_read_lock(mm);
+> > -		err = hmm_range_fault(&hmm_range);
+> > -		mmap_read_unlock(mm);
+> > -
+> > -		if (err == -EBUSY) {
+> > -			if (time_after(jiffies, timeout))
+> > -				break;
+> > -
+> > -			hmm_range.notifier_seq =
+> > -				mmu_interval_read_begin(notifier);
+> > -			continue;
+> > -		}
+> > -		break;
+> > -	}
+> > +	err = hmm_range_fault_unlocked_timeout(&hmm_range,
+> > +				max_t(long, timeout - jiffies, 1));
 > 
-> Well the best way is remove the polling loop and use a proper sleep/wakeup
-> mechanism - mutex_lock()/prepare_to_wait()/etc.
+> Unaligned indentation.
 > 
-> If the polling loop is to be retained then maybe msleep(1) or
-> usleep_range()?
+> So I'd write this like this to avoid weird wraps:
+> 
+> ctimeout = max_t(long, timeout - jiffies, 1));
+> err = hmm_range_fault_unlocked_timeout(&hmm_range, ctimeout);
+> 
+> >  	mmput(mm);
+> >  	if (err)
+> >  		goto err_free;
+> > @@ -1736,24 +1709,13 @@ int drm_gpusvm_range_evict(struct drm_gpusvm *gpusvm,
+> >  		return -ENOMEM;
+> >  
+> >  	hmm_range.hmm_pfns = pfns;
+> > -	while (!time_after(jiffies, timeout)) {
+> > -		hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
+> > -		if (time_after(jiffies, timeout)) {
+> > -			err = -ETIME;
+> > -			break;
+> > -		}
+> > -
+> > -		mmap_read_lock(mm);
+> > -		err = hmm_range_fault(&hmm_range);
+> > -		mmap_read_unlock(mm);
+> > -		if (err != -EBUSY)
+> > -			break;
+> > -	}
+> > +	err = hmm_range_fault_unlocked_timeout(&hmm_range,
+> > +				max_t(long, timeout - jiffies, 1));
+> >  
+> 
+> Same here.
+> 
+> Nits, aside LGTM.
+> 
 
-Well, running MSHV - or, I suppose, any other VM - on a uniprocessor host
-would not be very efficient.
-
-I’m not sure whether this corner case needs to be handled explicitly.
-But even if it does, supporting or explicitly forbidding it would be a
-separate change. As Jason noted, this is not a regression introduced by
-this series.
+Will change as requested and send to intel-xe@lists.freedesktop.org next time.
 
 Thanks,
 Stanislav
+
+> Matt
+> 
+> >  	kvfree(pfns);
+> >  	mmput(mm);
+> >  
+> > -	return err;
+> > +	return err == -EBUSY ? -ETIME : err;
+> >  }
+> >  EXPORT_SYMBOL_GPL(drm_gpusvm_range_evict);
+> >  
+> > 
+> > 
