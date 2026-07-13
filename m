@@ -4,51 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1414C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:29:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70C33C44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:30:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CC818920E;
-	Mon, 13 Jul 2026 08:29:25 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8908E8920E
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:29:23 +0000 (UTC)
-X-UUID: f043f9627e9411f1aa26b74ffac11d73-20260713
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:68dbee0a-a14d-4316-aa3b-dbdd65e251d0, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:e7bac3a, CLOUDID:2107eb310cd2b0f4eca5df1b7a170f1a,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
- DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
- :0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f043f9627e9411f1aa26b74ffac11d73-20260713
-X-User: lilinmao@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <lilinmao@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 1964969803; Mon, 13 Jul 2026 16:29:17 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Linmao Li <lilinmao@kylinos.cn>
-Subject: [PATCH] drm/panthor: Check debugfs GEM lock initialization
-Date: Mon, 13 Jul 2026 16:29:12 +0800
-Message-Id: <20260713082912.321021-1-lilinmao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB6E110E5A7;
+	Mon, 13 Jul 2026 08:30:13 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F/x4fXrZ";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C30910E5A7
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:30:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5548660018;
+ Mon, 13 Jul 2026 08:30:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D51951F000E9;
+ Mon, 13 Jul 2026 08:30:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783931411;
+ bh=F9CNNKvYwBXnlZRTZBvyJFrNt40eYKWPXShSgljFkhQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=F/x4fXrZus7y/MAzoZMqcuLKpo7U6y6/NeZ6FZddq7qpHo7yxd8umE+ujkMHCs/e8
+ 7J6mQPhsTxi1HzH+qWQ8mHzgLh4bxlZFqkiStwnK5ZkQwbHuE86sXMYwzNgOyJvMch
+ dWl12D8y5JbD+2KT8NrwLqAlyRkuX2ukScYmUAeOodVb2gSiJgBk1I5v+ce+FFj8RI
+ 71SJbbh9WO1w3zLRzWMhC4K6U6bjPj7cjl1wJzvYtQWI95eWnOOHokkjTz+5EY2+Rj
+ dTtXY2zOsPluC6JG3IcoBcZMQo4q9+n+ZtEKJ+KBrU88quqeWvStSq73GgkiJjC+0L
+ tGWH89oLH2oNQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/panel: ilitek-ili9881c: do not fail probe if iovcc
+ is absent
+To: "David Oberhollenzer" <david.oberhollenzer@sigma-star.at>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260713082213.75759-1-david.oberhollenzer@sigma-star.at>
+References: <20260713082213.75759-1-david.oberhollenzer@sigma-star.at>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 13 Jul 2026 08:30:10 +0000
+Message-Id: <20260713083010.D51951F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,39 +53,105 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drmm_mutex_init() can fail while registering the managed cleanup action.
-When that happens, drmm_add_action_or_reset() destroys the mutex before
-returning the error. Continuing initialization would therefore leave the
-debugfs GEM object list with an unusable lock.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Propagate the error as is already done for the other managed mutexes in
-panthor_device_init().
+Pre-existing issues:
+- [High] Missing `drm_panel_remove()` cleanup on the error path of `mipi_ds=
+i_attach()` in probe leads to Use-After-Free.
+- [High] The reset GPIO is asserted after regulators are disabled in the un=
+prepare sequence, risking back-powering the display controller.
+--
 
-Fixes: a3707f53eb3f ("drm/panthor: show device-wide list of DRM GEM objects over DebugFS")
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
----
- drivers/gpu/drm/panthor/panthor_device.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+--- Patch [1]: [PATCH] drm/panel: ilitek-ili9881c: do not fail probe if iov=
+cc is absent ---
+commit 20684573ac473e40824b8b3fb7de5a67cbfc4efa
+Author: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-index 0b25abebb803..9687c59de350 100644
---- a/drivers/gpu/drm/panthor/panthor_device.c
-+++ b/drivers/gpu/drm/panthor/panthor_device.c
-@@ -182,7 +182,10 @@ int panthor_device_init(struct panthor_device *ptdev)
- 		return ret;
- 
- #ifdef CONFIG_DEBUG_FS
--	drmm_mutex_init(&ptdev->base, &ptdev->gems.lock);
-+	ret = drmm_mutex_init(&ptdev->base, &ptdev->gems.lock);
-+	if (ret)
-+		return ret;
-+
- 	INIT_LIST_HEAD(&ptdev->gems.node);
- #endif
- 
--- 
-2.25.1
+drm/panel: ilitek-ili9881c: do not fail probe if iovcc is absent
 
+Commit 4c95b2b7d49e ("drm/panel: ilitek-ili9881c: support Waveshare
+7.0" DSI panel") adds an additional iovcc regulator that other
+Ilitek ili9881c based panels apparently do not have or need.
+
+The commit goes out of its way to make usage of this new regulator
+optional, dutifully testing if the field in struct ili9881c is NULL
+before touching the new regulator. However, in the probe function,
+it unconditionally fails if devm_regulator_get_optional returns an
+error.
+
+> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/=
+drm/panel/panel-ilitek-ili9881c.c
+> index 3abdd0870e831..c3d5ab67121d9 100644
+> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> @@ -2563,9 +2563,12 @@ static int ili9881c_dsi_probe(struct mipi_dsi_devi=
+ce *dsi)
+>  				     "Couldn't get our power regulator\n");
+> =20
+>  	ctx->iovcc =3D devm_regulator_get_optional(&dsi->dev, "iovcc");
+> -	if (IS_ERR(ctx->iovcc))
+> -		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->iovcc),
+> +	if (IS_ERR(ctx->iovcc)) {
+> +		if (PTR_ERR(ctx->iovcc) !=3D -ENODEV)
+> +			return dev_err_probe(&dsi->dev, PTR_ERR(ctx->iovcc),
+>  				     "Couldn't get our iovcc regulator\n");
+> +		ctx->iovcc =3D NULL;
+> +	}
+> =20
+>  	ctx->reset =3D devm_gpiod_get_optional(&dsi->dev, "reset", GPIOD_OUT_LO=
+W);
+>  	if (IS_ERR(ctx->reset))
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while looking at
+ili9881c_dsi_probe(), it appears there is a missing cleanup if mipi_dsi_att=
+ach()
+fails later in the function:
+
+	drm_panel_add(&ctx->panel);
+
+	dsi->mode_flags =3D ctx->desc->mode_flags;
+	dsi->format =3D MIPI_DSI_FMT_RGB888;
+	dsi->lanes =3D ctx->desc->lanes;
+
+	return mipi_dsi_attach(dsi);
+}
+
+If mipi_dsi_attach() returns an error, the ctx memory (allocated via
+devm_drm_panel_alloc()) is automatically freed upon probe failure.
+
+However, since drm_panel_remove() isn't called, does the freed memory remain
+linked in the global panel_list?
+
+Could this lead to a use-after-free crash if another driver traverses
+panel_list by calling of_drm_find_panel()?
+
+
+[Severity: High]
+This is another pre-existing issue, but I noticed a potential power sequenc=
+ing
+problem in ili9881c_unprepare():
+
+drivers/gpu/drm/panel/panel-ilitek-ili9881c.c:ili9881c_unprepare() {
+    ...
+	regulator_disable(ctx->power);
+	if (ctx->iovcc)
+		regulator_disable(ctx->iovcc);
+	gpiod_set_value_cansleep(ctx->reset, 1);
+    ...
+}
+
+Is it safe to disable the regulators before asserting the reset GPIO?
+
+If the regulators are disabled while the reset GPIO is still driving a high
+voltage, could the unpowered display panel be back-powered through the reset
+pin's ESD protection diodes?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713082213.7575=
+9-1-david.oberhollenzer@sigma-star.at?part=3D1
