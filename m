@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ED6AC44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:54:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 439BDC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:55:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73E7D10E5B8;
-	Mon, 13 Jul 2026 12:54:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A909110E5C0;
+	Mon, 13 Jul 2026 12:55:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fZE+7puU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Zkp2yEE9";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3336410E5B8
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:54:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF63710E5C0
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:55:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D3A8D411BD;
- Mon, 13 Jul 2026 12:54:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1031F00A3D;
- Mon, 13 Jul 2026 12:54:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C25DA43C30;
+ Mon, 13 Jul 2026 12:55:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D4E91F000E9;
+ Mon, 13 Jul 2026 12:55:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783947283;
- bh=qzX7WoC3qvXqkDe9glXp9hxIbPF/2xEOQoFZ6eRB9qs=;
+ s=k20260515; t=1783947310;
+ bh=6xBAIfGUbxPLmgHkxAU+wWWFPgYDU3FyB6AIPEj+xN4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fZE+7puUdRkn6rpP0JIKN9WXG1RbYZ0sW4PDWjzDFhdhJ3KQzBCw4bSUVk/z+pdU9
- hVsC6TfBJwiR/RZ0Hqw17gEwTG4zaidOh9QsZfFeRVe2kFafhlqn5ib8KqwQccqHq/
- 5V5ZP41yFKzYa2ojGxp3s9HFIzq6h6AOZz3Z4BgnrcqV7814vPl6vO7p+38Sl0EDYK
- KUggPuGJMi5ppmwmbvFTIqFpE1QH6iO7V9yg0SO3duZODwtz/5ygqKl+AFUfBWJL2D
- 55kTz59aKrEbQgdq08DeT8ayJ5nXJpJ2nRzEbZOY+zdfjJkdcDBCNM20w+z3zciHqj
- 6dLpoZqNgM+eQ==
+ b=Zkp2yEE9mXfWj3kJbenz6aEZfWiXARsI6bltW83hym3SgfwbsNsbq8xlzEKivfkXq
+ pfFcoNtJVmu+TYNZ6VmgfQ7S6RSqW9XnpWwlnsQ5oWEWDoMUHn9TixWZ54qzxvpPDN
+ dNFNkqOrvfoooKPpxl2LZb6K4i3pP/3MybbQ9Pf5FZ/QrH5g+Co+ffZfc9yT5M2Tji
+ xYYsC1wr8gZ9A0MgBW7rFv+kUEwwiyqYb50Bm5+RnA/iqjEzLFewRsXmtjxga928NV
+ /z0Zv9Z+T2ueRpM5G5tIp+FNqU1S2gnBp/ak5tOBy8e+gtyLNNKIEWmFW605gIaoru
+ HtTbtyO4auL9g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 12/19] media: meson: vdec: Coordinate m2m task
- execution inside async loop
+Subject: Re: [PATCH v7 13/19] media: meson: vdec: Fix race conditions in job
+ abort sequence
 To: "Anand Moon" <linux.amoon@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org,
- linux-amlogic@lists.infradead.org
-In-Reply-To: <20260713120840.17427-13-linux.amoon@gmail.com>
+Cc: linux-amlogic@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ neil.armstrong@linaro.org
+In-Reply-To: <20260713120840.17427-14-linux.amoon@gmail.com>
 References: <20260713120840.17427-1-linux.amoon@gmail.com>
- <20260713120840.17427-13-linux.amoon@gmail.com>
+ <20260713120840.17427-14-linux.amoon@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 12:54:43 +0000
-Message-Id: <20260713125443.7F1031F00A3D@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 12:55:09 +0000
+Message-Id: <20260713125510.5D4E91F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,246 +59,157 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-
-New issues:
-- [Critical] An AB-BA deadlock occurs between the V4L2 `VIDIOC_STREAMOFF` i=
-octl and the workqueue worker `esparser_queue_all_src` over `sess->lock`.
-- [Critical] A recursive mutex self-deadlock occurs because `core->lock` is=
- manually acquired inside functions already protected by the V4L2 core.
-- [High] The `esparser_queue_all_src` workqueue thread enters a 100% CPU in=
-finite busy-loop on empty queues, end-of-stream buffers, or hardware FIFO f=
-ull conditions.
-- [High] The V4L2 M2M framework permanently stalls due to a leaked job cont=
-ext when `esparser_queue_all_src` exits early or hits loop break conditions=
- without calling `v4l2_m2m_job_finish()`.
-- [High] Closing any secondary file descriptor unconditionally clears `core=
-->cur_sess`, stripping hardware ownership from the active session and causi=
-ng permanent DMA memory leaks.
-
-Pre-existing issues:
-- [Critical] An unconditional out-of-bounds heap write occurs when padding =
-artificially small, user-controlled buffers in `esparser_pad_start_code()`.
-- [Critical] An integer overflow during VP9 sub-frame length parsing allows=
- attackers to bypass size boundaries and trigger an out-of-bounds `memmove`=
- copy.
+- [Critical] Clearing the active session pointer while the hardware is stil=
+l running causes unacknowledged interrupts and a CPU-locking interrupt stor=
+m.
+- [High] Premature clearing of the active session pointer in job_abort bypa=
+sses hardware teardown and resource cleanup, causing severe memory and reso=
+urce leaks.
+- [High] AB-BA lock inversion deadlock between VIDIOC_STREAMOFF and the esp=
+arser_queue_work worker thread.
+- [High] Releasing session ownership without stopping the hardware allows c=
+oncurrent DMA overwrites and hardware state corruption.
+- [High] Infinite loop inside esparser_queue_all_src() causing 100% CPU loc=
+kup when the queue is empty.
 --
 
---- Patch [12]: [PATCH v7 12/19] media: meson: vdec: Coordinate m2m task ex=
-ecution inside async loop ---
-commit 8f8ffb4492573d6d82ee209ecb382a9f5fbed9e4
+--- Patch [13]: [PATCH v7 13/19] media: meson: vdec: Fix race conditions in=
+ job abort sequence ---
+commit bc32f101c548ab648eb44ae46f9cc2ea72d4c339
 Author: Anand Moon <linux.amoon@gmail.com>
 
-media: meson: vdec: Coordinate m2m task execution inside async loop
+media: meson: vdec: Fix race conditions in job abort sequence
 
-This commit introduces proper V4L2 Memory-to-Memory (m2m) scheduler pipelin=
-e=20
-tracking by handling job finalisation inside the asynchronous esparser=20
-workqueue. It defers the scheduling call to v4l2_m2m_job_finish() to execut=
-e=20
-within the worker routine.
-
-> diff --git a/drivers/staging/media/meson/vdec/esparser.c b/drivers/stagin=
-g/media/meson/vdec/esparser.c
-> index b9f36fef4be12..939b239c2af47 100644
-> --- a/drivers/staging/media/meson/vdec/esparser.c
-> +++ b/drivers/staging/media/meson/vdec/esparser.c
-[ ... ]
-> @@ -437,6 +438,9 @@ void esparser_queue_all_src(struct work_struct *work)
->  			else
->  				v4l2_m2m_buf_done(vbuf, VB2_BUF_STATE_DONE);
-> =20
-> +			/* Safely notify the V4L2 core sub-framework */
-> +			v4l2_m2m_job_finish(core->m2m_dev, sess->m2m_ctx);
-> +
->  			/* Set tracking flag indicating transaction completion */
->  			processed_frame =3D true;
->  		}
-
-[Severity: High]
-Does this worker thread run into an infinite busy-loop on empty queues or=20
-end-of-stream buffers?
-
-In esparser_queue_all_src(), the code uses a scoped_guard for the lock:
-
-	while (1) {
-		...
-		scoped_guard(mutex, &sess->lock) {
-			if (!vbuf)
-				break;
-		}
-	}
-
-Since scoped_guard expands into a hidden for-loop, the break statement only=
-=20
-exits the scoped_guard's loop, not the outer while (1) loop. This could tra=
-p=20
-execution indefinitely, consuming 100% CPU when the queue is empty, hits an=
-=20
-EOS buffer, or the hardware FIFO is full.
-
-[Severity: High]
-Could the V4L2 M2M job context permanently leak if the session shuts down?
-
-Looking at esparser_queue_all_src():
-
-	scoped_guard(mutex, &sess->lock) {
-		/* Safe atomic tracking check: exit loop if session is shutting down */
-		if (READ_ONCE(sess->should_stop))
-			return;
-
-Returning early directly bypasses the newly added v4l2_m2m_job_finish() cal=
-l.
-This could permanently hang the V4L2 memory-to-memory framework because it=
-=20
-considers the device busy forever, preventing further decoding jobs.
-
-[Severity: Critical]
-Is there a risk of an AB-BA deadlock between the V4L2 VIDIOC_STREAMOFF ioct=
-l=20
-and the workqueue worker?
-
-The V4L2 core framework acquires sess->lock during VIDIOC_STREAMOFF and the=
-n=20
-calls vdec_stop_streaming(), which waits for the active worker thread:
-
-drivers/staging/media/meson/vdec/vdec.c:vdec_stop_streaming() {
-	...
-	cancel_work_sync(&sess->esparser_queue_work);
-}
-
-Concurrently, the worker thread esparser_queue_all_src spins up and blocks=
-=20
-attempting to acquire the identical sess->lock:
-
-drivers/staging/media/meson/vdec/esparser.c:esparser_queue_all_src() {
-	...
-	scoped_guard(mutex, &sess->lock) {
-}
-
-This sequence would entirely deadlock the system when stopping the video st=
-ream.
+Implement proper cleanup inside vdec_m2m_job_abort to safely stop
+the hardware job sequence during a streaming abort or teardown.
 
 > diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/me=
 dia/meson/vdec/vdec.c
-> index 0eb39aa6014ee..b3e1d99e8889f 100644
+> index b3e1d99e8889f..ac86a9c4febff 100644
 > --- a/drivers/staging/media/meson/vdec/vdec.c
 > +++ b/drivers/staging/media/meson/vdec/vdec.c
-> @@ -149,6 +149,17 @@ vdec_queue_recycle(struct amvdec_session *sess, stru=
-ct vb2_buffer *vb)
->  static void vdec_m2m_device_run(void *priv)
+> @@ -167,6 +167,17 @@ static void vdec_m2m_device_run(void *priv)
+>  static void vdec_m2m_job_abort(void *priv)
 >  {
 >  	struct amvdec_session *sess =3D priv;
 > +	struct amvdec_core *core =3D sess->core;
 > +
-> +	if (READ_ONCE(sess->should_stop)) {
-> +		v4l2_m2m_job_finish(core->m2m_dev, sess->m2m_ctx);
-> +		return;
-> +	}
+> +	WRITE_ONCE(sess->should_stop, 1);
 > +
-> +	mutex_lock(&core->lock);
-> +	if (!core->cur_sess)
-> +		core->cur_sess =3D sess;
-> +	mutex_unlock(&core->lock);
-> =20
->  	schedule_work(&sess->esparser_queue_work);
->  }
-
-[Severity: Critical]
-Will acquiring core->lock manually here and in vdec_start_streaming result=
-=20
-in a recursive mutex self-deadlock?
-
-Because vdev->queue is intentionally left NULL for M2M devices, the V4L2 co=
-re=20
-ioctl wrapper unconditionally acquires vdev->lock (which is mapped to=20
-&core->lock) before delegating execution to the ioctl implementations.
-
-The underlying driver callback vdec_start_streaming then attempts to manual=
-ly=20
-acquire it again:
-
-drivers/staging/media/meson/vdec/vdec.c:vdec_start_streaming() {
-	...
-	mutex_lock(&core->lock);
-	if (core->cur_sess && core->cur_sess !=3D sess) {
-}
-
-This would immediately self-deadlock the kernel thread processing=20
-VIDIOC_STREAMON or VIDIOC_STREAMOFF.
+> +	cancel_work_sync(&sess->esparser_queue_work);
 
 [Severity: High]
-Does closing a secondary file descriptor unintentionally strip hardware=20
-ownership from the active session?
+Does this introduce an AB-BA deadlock with VIDIOC_STREAMOFF?
 
-In vdec_close(), the state modification is placed outside the active sessio=
-n=20
-check block:
+The V4L2 core acquires the queue lock (sess->lock) during VIDIOC_STREAMOFF
+and calls vdec_m2m_job_abort(), which blocks here indefinitely waiting for
+the worker.=20
 
-drivers/staging/media/meson/vdec/vdec.c:vdec_close() {
-	...
-	/* Safely clear hardware ownership since we were confirmed as the owner */
-	smp_store_release(&core->cur_sess, NULL);
+Meanwhile, the worker thread unconditionally attempts to acquire sess->lock
+in esparser_queue_all_src():
+
+drivers/staging/media/meson/vdec/esparser.c:esparser_queue_all_src() {
+    ...
+    scoped_guard(mutex, &sess->lock) {
+    ...
 }
 
-If a user-space process opens the video node twice, streams on the first=20
-session, and then closes the second session, this clears core->cur_sess=20
-unconditionally. This destroys the ownership state of the active session,=20
-bypassing its cleanup sequence and permanently leaking DMA buffers and canv=
-ases.
+> +
+> +	mutex_lock(&core->lock);
+> +	if (core->cur_sess =3D=3D sess)
+> +		/* Safely clear hardware ownership since we were confirmed as the owne=
+r */
+> +		smp_store_release(&core->cur_sess, NULL);
+
+[Severity: High]
+Does clearing cur_sess here prematurely bypass hardware teardown?
+
+During a normal VIDIOC_STREAMOFF, vdec_m2m_job_abort() is called before
+the stop_streaming hook. If cur_sess is cleared here, the later teardown
+in vdec_stop_streaming() will skip powering off the hardware and freeing
+the DMA buffer (vififo_size) because core->cur_sess =3D=3D sess evaluates to
+false:
+
+drivers/staging/media/meson/vdec/vdec.c:vdec_stop_streaming() {
+    ...
+    if (core->cur_sess =3D=3D sess) {
+        vdec_poweroff(sess);
+        vdec_free_canvas(sess);
+    ...
+}
 
 [Severity: Critical]
-This is a pre-existing issue, but can esparser_pad_start_code() cause an=20
-out-of-bounds heap write when handling artificially small buffers?
+Can this cause an interrupt storm and CPU lockup?
 
-If userspace negotiates a small sizeimage and queues a tiny buffer, the pad=
-ding=20
-function computes pad_size based on ESPARSER_MIN_PACKET_SIZE and executes=20
-a memset before verifying the vb2_plane_size:
+Since the physical hardware isn't stopped, it may complete its active task
+and assert a level-triggered interrupt.=20
 
-drivers/staging/media/meson/vdec/esparser.c:esparser_pad_start_code() {
-	...
-		pad_size =3D ESPARSER_MIN_PACKET_SIZE - payload_size;
-		memset(vaddr + payload_size, 0, pad_size);
-	}
+The ISR checks cur_sess, reads NULL, and immediately returns IRQ_HANDLED
+without acknowledging or clearing the hardware register:
 
-	if ((payload_size + pad_size + SEARCH_PATTERN_LEN) >
-						vb2_plane_size(vb, 0)) {
+drivers/staging/media/meson/vdec/vdec.c:vdec_isr() {
+    ...
+    if (!sess)
+        return IRQ_HANDLED;
+    ...
 }
 
-This could allow a local user to overwrite memory with zeroes by passing a=
-=20
-payload_size of 0, resulting in a 4096-byte memset.
+Will this cause the unacknowledged interrupt to immediately fire again,
+locking up the CPU?
 
-[Severity: Critical]
-This is a pre-existing issue, but might an integer overflow in=20
-vp9_update_header() allow attackers to trigger an out-of-bounds memmove?
+[Severity: High]
+Could this allow concurrent DMA overwrites and hardware state corruption?
 
-The parser reconstructs frame lengths by bit-shifting byte payloads:
+By clearing core->cur_sess here, the V4L2 framework considers the hardware
+idle and can schedule a new session.=20
 
-drivers/staging/media/meson/vdec/esparser.c:vp9_update_header() {
-	...
-				frame_size[cur_frame] |=3D
-					(dp[mag_ptr] << (cur_mag * 8));
+Since the hardware is actually still running, a newly scheduled session
+might blindly overwrite the active hardware's registers in esparser_queue(),
+corrupting the ongoing DMA operations:
+
+drivers/staging/media/meson/vdec/esparser.c:esparser_queue() {
+    ...
+    amvdec_write_parser(core, PARSER_VIDEO_START_PTR, payload_paddr);
+    ...
 }
 
-If dp[mag_ptr] is >=3D 128 and cur_mag is 3, the unsigned 8-bit value promo=
-tes=20
-to an int and shifts into the sign bit, resulting in a large negative integ=
-er.
+> +	mutex_unlock(&core->lock);
+> =20
+>  	v4l2_m2m_job_finish(sess->core->m2m_dev, sess->m2m_ctx);
+>  }
 
-Later, this negative frame_size is passed to memmove():
+[Severity: High]
+Does the esparser_queue_all_src() worker have an infinite loop?
 
-drivers/staging/media/meson/vdec/esparser.c:vp9_update_header() {
-	...
-		memmove(fdata + VP9_HEADER_SIZE, old_framedata, framesize);
+When looking into the interaction with esparser_queue_work, the outer
+loop in esparser_queue_all_src() appears to never terminate when the
+queue is empty:
+
+drivers/staging/media/meson/vdec/esparser.c:esparser_queue_all_src() {
+    while (1) {
+        struct vb2_v4l2_buffer *vbuf =3D NULL;
+        bool processed_frame =3D false;
+        ...
+        scoped_guard(mutex, &sess->lock) {
+            ...
+            vbuf =3D v4l2_m2m_next_src_buf(sess->m2m_ctx);
+            if (!vbuf)
+                break;
+            ...
+        }
+        ...
+    }
 }
 
-The negative framesize implicitly converts to a massive size_t, which could=
-=20
-corrupt arbitrary kernel memory.
+Since scoped_guard is implemented as a hidden for-loop, the break
+statement only exits the scoped_guard's internal loop, not the outer
+while(1) loop.=20
+
+Because processed_frame remains false, the code calls cond_resched() and
+spins indefinitely. Could this cause a 100% CPU lockup?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713120840.1742=
-7-1-linux.amoon@gmail.com?part=3D12
+7-1-linux.amoon@gmail.com?part=3D13
