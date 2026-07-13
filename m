@@ -4,68 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63578C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 10:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90C00C44507
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 10:23:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4AA310E5BE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCCFB10E8DD;
 	Mon, 13 Jul 2026 10:23:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NZb6XZ//";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D4zAOOJp";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 803F710E5BE
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:23:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783938182;
- bh=2r583XFfObOO9iTa1b+fiv9AEByaQ06sNo4m0E6ODtM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=NZb6XZ//5JX0tOhJA7XAYNQcOl8FFLopCWT74GVz3uGNrs+oaysIKDUILbXHolj+l
- U+mXStLMVirMzQviZqKZdgRuZquMmdUmTRhmnSi6PtHnXAl1JTEfnLFS57pAH/SBnR
- 30ki5UfRzkg1XBOZPkJzntRo2UZ94AEu9cHDdXypFjbbY2pI0EIbCtPKMuJxIuHqKN
- ewK6lzPzuebILhrYvY8M82B++JGnIgeXbY6Mzp5hr7q2zQG59hBMwTDpIaHxOcJ0YC
- Kz4su9gynjYJwiTYM1VPdRigw/pfrLyGO2jTFwg0CYakYgC39zNYlkEX88Jfhufu0/
- 4dQY1Nt2JIHOg==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4DB7C17E03CE;
- Mon, 13 Jul 2026 12:23:01 +0200 (CEST)
-Message-ID: <91c3a825-3344-4ff5-8ea0-f8f057665b3f@collabora.com>
-Date: Mon, 13 Jul 2026 13:23:00 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/39] drm/connector: Add HDMI 2.0 scrambler
- infrastructure
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
- <20260702-dw-hdmi-qp-scramb-v8-4-d79890d00b6a@collabora.com>
- <tjsidlnvswo2rdhqa6jybxrnb47lxgmxdlfrfbasuh67wjbqoy@3a45n3zawvnf>
- <17753a1c-824a-4835-ac2d-8b2796bba1eb@collabora.com>
- <534b921c-638c-4fc3-b89e-5dfc1f269f96@collabora.com>
- <20260713-statuesque-nonchalant-seagull-b9c39d@houat>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20260713-statuesque-nonchalant-seagull-b9c39d@houat>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E0E110E5BE
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:23:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id DBE2743B9D;
+ Mon, 13 Jul 2026 10:23:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71B961F000E9;
+ Mon, 13 Jul 2026 10:23:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783938183;
+ bh=O4pFbY3sHD35vNUh03hA6PVgcanumjvglL4prHYJS54=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=D4zAOOJpJ3HRzS6StXQSWrN4sBtu6+4EhL6/CGoLj1oeOW244nKM5SnQ3KMxyajVz
+ reCAMlJCBqO1B+JcIzFiVqZlpu6NEksG882AbktSH9hAtY8FSzX2ATper5nPFhYiis
+ ktE4CdvEnoWp0G7dJWYf+qsaikrkj27GacBZrla8fr/1dqvx7oziAmQZjgTNXSlncH
+ bwVrzBwGSCIE1nbodKTebh+O+j9bS3E8m0n7f+zL3zVVtwrIYpcXGcijCsDzjj5J0r
+ 1uqfgr6QGiMxO/NDJoZg9DinqKh4RmVEE7xpSn9N2JFDqx/X+006GyZ/FSKFErMVR+
+ NuRc4jBntJVSA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 09/10] dt-bindings: display: mediatek: wdma: Add
+ compatibles for more SoCs
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260713095837.16590-10-angelogioacchino.delregno@collabora.com>
+References: <20260713095837.16590-1-angelogioacchino.delregno@collabora.com>
+ <20260713095837.16590-10-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 13 Jul 2026 10:23:03 +0000
+Message-Id: <20260713102303.71B961F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,58 +55,67 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/13/26 11:50 AM, Maxime Ripard wrote:
-> On Thu, Jul 09, 2026 at 10:25:54PM +0300, Cristian Ciocaltea wrote:
->> On 7/3/26 11:54 PM, Cristian Ciocaltea wrote:
->>> On 7/3/26 5:34 PM, Dmitry Baryshkov wrote:
->>>> On Thu, Jul 02, 2026 at 05:46:17PM +0300, Cristian Ciocaltea wrote:
->>>>> Add the connector-level infrastructure to support HDMI 2.0 scrambling:
->>>>>
->>>>> - A scrambler_supported flag to indicate whether the source supports the
->>>>>   scrambling capability, in which case the newly introduced
->>>>>   .scrambler_{enable|disable}() callbacks in drm_connector_hdmi_funcs
->>>>>   are mandatory
->>>>
->>>> Do we need a flag? What would it mean if the flag is set, but the
->>>> callbacks are not? Can we drop the flag and use the presence of the
->>>> callbacks as a way to identify that scrambler is enabled?
->>>
->>> The flag is intended to be set only within drmm_connector_hdmi_init_with_caps()
->>> when drivers advertise HDMI 2.x capability, in which case it also ensures the
->>> callbacks are provided.  
->>>
->>> We could drop the flag and instead have the init helper clear the callbacks if
->>> they were provided for HDMI 1.x.  This might slightly reduce code readability,
->>> as it relies on checking the presence of individual callbacks - especially since
->>> we plan to extend this further with HDMI 2.1 support, providing four or five
->>> additional FRL-specific callbacks.
->>
->> I tried to replace the flag with a helper that checks the presence of (one of)
->> the callbacks, but it's not straightforward to unset those for non-HDMI 2.x
->> cases since the hdmi_funcs argument is immutable.
-> 
-> I'm not sure why we would need to unset them. If the driver states that
-> it support HDMI 2.0, then it needs to be there, if it doesn't, then who
-> cares? it's not going to be used. We can log a warning that it's
-> inconsistent I guess, but there's no need to actively remove it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The mediatek,mt6893-disp-wdma compatible string is incorrectly p=
+laced in the standalone enum block, preventing it from using the mediatek,m=
+t8173-disp-wdma fallback.
+--
 
-I was trying to address the use case where drivers provide the scrambler
-callbacks despite not supporting HDMI 2.0.  If we replace the
-scrambler_supported flag with a helper checking the presence of the scrambler
-callbacks, then we would need to ensure the callbacks do not exist in this case.
-Since we cannot/don't want to unset them, the remaining solution would be to
-bail out in init().
+--- Patch [9]: [PATCH v2 09/10] dt-bindings: display: mediatek: wdma: Add c=
+ompatibles for more SoCs ---
+commit f57f0fa27efb2b4a343645baf41ff18e654a1717
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
->> Also, rejecting that use case is less than ideal, since we would restrict
->> reusing the struct instance, e.g. to support HW revisions with varying
->> scrambling capabilities.
-> 
-> We can have several structures instances in that case.
+dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
 
-Fair enough, I wasn't sure if that'd be an acceptable drawback.
+This commit adds missing device tree compatible strings for the Write DMA
+hardware on several MediaTek SoCs. It specifically targets the Dimensity 12=
+00
+and the Kompanio 500/520/820/1200 series.
 
-Thanks,
-Cristian
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,=
+wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdm=
+a.yaml
+> index 97d052b0fb614..c3ed867d058d9 100644
+> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.ya=
+ml
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.ya=
+ml
+> @@ -22,11 +22,16 @@ properties:
+>    compatible:
+>      oneOf:
+>        - enum:
+> +          - mediatek,mt6893-disp-wdma
+
+[Severity: Medium]
+Is mediatek,mt6893-disp-wdma incorrectly placed in this standalone enum blo=
+ck?
+
+Placing it here prevents it from using the mediatek,mt8173-disp-wdma
+fallback string. Because the MediaTek DRM driver only matches
+mediatek,mt8173-disp-wdma, Device Trees for the MT6893 will either break
+driver probing if they follow this schema strictly, or fail validation
+if they include the fallback string to allow the driver to probe.
+
+Should this compatible string be placed in the items block below with the
+other SoCs instead?
+
+>            - mediatek,mt8173-disp-wdma
+>        - items:
+>            - enum:
+>                - mediatek,mt6795-disp-wdma
+>                - mediatek,mt8167-disp-wdma
+> +              - mediatek,mt8183-disp-wdma
+> +              - mediatek,mt8186-disp-wdma
+> +              - mediatek,mt8192-disp-wdma
+> +              - mediatek,mt8195-disp-wdma
+>            - const: mediatek,mt8173-disp-wdma
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713095837.1659=
+0-1-angelogioacchino.delregno@collabora.com?part=3D9
