@@ -4,44 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C432C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:53:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE207C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 08:54:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2877010E58E;
-	Mon, 13 Jul 2026 08:53:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B0B610E874;
+	Mon, 13 Jul 2026 08:54:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W3QndzcW";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="RUIqvmAD";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0067410E58E
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:53:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2FB43600AA;
- Mon, 13 Jul 2026 08:53:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF33D1F000E9;
- Mon, 13 Jul 2026 08:53:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783932786;
- bh=IEa1MC7QdTpeH+2xZXu8yEjRvTeCQSzy8AnMMPT17dw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=W3QndzcWxg+AGWIcnE07AfX9oHJ3ppV1gciMozcAroMcoZMn0TBN8dQELMBD+X4Ti
- LT5uIsFFPmMNpKQZvx39wdDzCrk5IAgPrB6LhtMrOe8sfqNR2kVXmamqyh9ne2xB8s
- CVMyGedTyh78K8SaYSfDus6zrAnaYJV+6exNJ5lGEksfUc9y+szGWESZIpEYKw4y3C
- 3j1LA2FPoWjjp2yNKgWVqzVjBgsUCk6SYlep0xkmfBqmEVPCL3De07XKuCpRFcpbLN
- otxNhGJsK/uTubOqbykTaz3wHBNV0Mw59hz6TYkB8NAlpjegQJmNwto/JRarthEzFT
- 6LlJBWrbklYZg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 2/4] drm: Add DRM_WEDGE_RECOVERY_COLD_RESET recovery
- method
-To: "Mallesh Koujalagi" <mallesh.koujalagi@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260713083939.251872-8-mallesh.koujalagi@intel.com>
-References: <20260713083939.251872-6-mallesh.koujalagi@intel.com>
- <20260713083939.251872-8-mallesh.koujalagi@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 08:53:06 +0000
-Message-Id: <20260713085306.AF33D1F000E9@smtp.kernel.org>
+Received: from out-172.mta1.migadu.com (out-172.mta1.migadu.com
+ [95.215.58.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 320A710E874
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 08:54:00 +0000 (UTC)
+Message-ID: <0d439442-19b5-43b7-b4a2-1db31c5b4ebc@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1783932835;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zvIp+NR3qYt0PrZhDL/f2qxIy2gEc52ljxfHQCXyhr4=;
+ b=RUIqvmADdYkety6SJEMUvPmUVl1FlTSnH4pfZO2icxTa5w3TBNYqcfBM4n1KYGDarXxqYl
+ u40sg7a6WvMKynquAjKrvQ9QgIkjuf6AOJ80ap/o5+Tit35evljxX52dy3jOnhg65mJCLL
+ kpz1hvGHzfnvtIiYRs5Pa0CvbZs3mMw=
+Date: Mon, 13 Jul 2026 16:53:29 +0800
+MIME-Version: 1.0
+Subject: Re: [PATCH v8 08/10] rust: binder: use `LocalModule` for `THIS_MODULE`
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
+ <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
+ Igor Korotin <igor.korotin@linux.dev>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
+ Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org,
+ linux-modules@vger.kernel.org, driver-core@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-pci@vger.kernel.org
+References: <20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev>
+ <20260713-fix-fops-owner-v8-8-2495cfa82d47@linux.dev>
+ <alSeRIaps6QSqxJE@google.com>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Alvin Sun <alvin.sun@linux.dev>
+In-Reply-To: <alSeRIaps6QSqxJE@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,104 +80,30 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-New issues:
-- [Medium] The patch introduces a new UAPI recovery method `DRM_WEDGE_RECOV=
-ERY_COLD_RESET` (`cold-reset`) but fails to document it in the DRM UAPI doc=
-umentation.
+On 7/13/26 16:13, Alice Ryhl wrote:
+> On Mon, Jul 13, 2026 at 02:45:29PM +0800, Alvin Sun wrote:
+>> Replace the `THIS_MODULE` static reference in the binder fops with
+>> `this_module::<LocalModule>()`, consistent with the move of
+>> `THIS_MODULE` into the `ModuleMetadata` trait.
+>>
+>> Assisted-by: opencode:glm-5.2
+>> Reviewed-by: Gary Guo <gary@garyguo.net>
+>> Acked-by: Danilo Krummrich <dakr@kernel.org>
+>> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> Most other Rust Binder commits use 'rust_binder:' prefix rather than
+> 'rust: binder:'.
 
-Pre-existing issues:
-- [High] The `event_string` buffer used for the `WEDGED=3D` uevent is fixed=
- at 32 bytes (`WEDGE_STR_LEN`), which is too small to hold multiple recover=
-y methods, leading to silent string truncation and malformed UAPI strings.
---
+I missed this prefix convention — thanks for catching it.
 
---- Patch [2]: [PATCH v10 2/4] drm: Add DRM_WEDGE_RECOVERY_COLD_RESET recov=
-ery method ---
-commit 683268e37f79f71da69dfdeafdea583f1453ed24
-Author: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+I'll fix it in the next revision, along with any other feedback that 
+comes in.
 
-drm: Add DRM_WEDGE_RECOVERY_COLD_RESET recovery method
+Best regards,
+Alvin
 
-Introduce DRM_WEDGE_RECOVERY_COLD_RESET (BIT(4)) recovery method to handle
-scenarios requiring device power cycle.
-
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 1ff0bf7cba6aa..94abe7a811a52 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -537,6 +537,8 @@ static const char *drm_get_wedge_recovery(unsigned in=
-t opt)
->  		return "bus-reset";
->  	case DRM_WEDGE_RECOVERY_VENDOR:
->  		return "vendor-specific";
-> +	case DRM_WEDGE_RECOVERY_COLD_RESET:
-> +		return "cold-reset";
-
-[Severity: High]
-This is a pre-existing issue, but does adding a new recovery method increase
-the risk of truncating the UAPI event string?
-
-Looking at drm_dev_wedged_event(), the event_string buffer is fixed to 32
-bytes (WEDGE_STR_LEN). If a driver sets multiple recovery methods (like reb=
-ind,
-bus-reset, and cold-reset), their concatenated length plus "WEDGED=3D" could
-easily exceed this limit:
-
-drivers/gpu/drm/drm_drv.c:drm_dev_wedged_event() {
-    ...
-		len +=3D scnprintf(event_string + len, sizeof(event_string) - len, "%s,",=
- recovery);
-	}
-
-	if (recovery)
-		/* Get rid of trailing comma */
-		event_string[len - 1] =3D '\0';
-    ...
-}
-
-When the buffer truncates, won't the trailing comma removal overwrite the l=
-ast
-valid character of the truncated string and result in malformed UAPI strings
-being sent to userspace (e.g., "WEDGED=3Drebind,bus-reset,cold-r")?
-
-[Severity: Medium]
-Should this new recovery method also be documented in the UAPI documentatio=
-n?
-
-The current Recovery section table in Documentation/gpu/drm-uapi.rst lists =
-all
-other UAPI recovery methods and their expectations:
-
-    =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D
-    Recovery method Consumer expectations
-    =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D
-    none            optional telemetry collection
-    rebind          unbind + bind driver
-    bus-reset       unbind + bus reset/re-enumeration + bind
-    vendor-specific vendor specific recovery method
-    unknown         consumer policy
-    =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D
-
-Could "cold-reset" be added here so userspace consumers have official
-documentation for implementing their recovery rules?
-
->  	default:
->  		return NULL;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713083939.2518=
-72-6-mallesh.koujalagi@intel.com?part=3D2
+>
+> Alice
