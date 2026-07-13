@@ -4,46 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7DB3C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 19:00:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BF68C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 19:09:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1122610E659;
-	Mon, 13 Jul 2026 19:00:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F7EB10EACC;
+	Mon, 13 Jul 2026 19:09:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fgn4n54/";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="BXZb1gx3";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6673810E642
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 19:00:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1AA58410BE;
- Mon, 13 Jul 2026 19:00:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 948861F000E9;
- Mon, 13 Jul 2026 18:59:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783969199;
- bh=WwN1FUXHZdBtCSCaA6p8iXqe7Pn9drR2i58Rj5ZKzQ8=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=Fgn4n54/RZtHB6yzGbfG6nypXHSUVMhBu68Py/sanzic9+rBTQiOelRMl4GXpKW87
- 5HNtAyoxKFkYjqnz0tGnJWtZ0trcYAByob2GUCAyWhI2IgexbgQBdaqLLd0Fyn2a/r
- NiT5fGZyjjOgfvIO8AuLWi1jXAiUdVI3f27fXe1rhFG9d0I7QCScog0TfOrDtq1Jpz
- eYoJIzs8HqMpWqxQRsGkNTKYGUcb72qPZ9uYXDumJgrCmmywFuEQPNOgZaR2DFwKju
- +nL1pLNq0bB6yDFfAHyr24gzvXqqXR6nEohk/6MRvEeKSFIMg/VFYK4q89LOF78iMW
- pMuz0uzf3mixQ==
-Date: Mon, 13 Jul 2026 08:59:58 -1000
-Message-ID: <b3e5bcb21184d13c7c631daac955f465@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- Chia-I Wu <olv@google.com>
-Subject: Re: [RFC 1/2] workqueue: Add support for real-time workers
-In-Reply-To: <20260713141436.21547-2-tvrtko.ursulin@igalia.com>
-References: <20260713141436.21547-1-tvrtko.ursulin@igalia.com>
- <20260713141436.21547-2-tvrtko.ursulin@igalia.com>
+Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com
+ [95.215.58.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB3210EAED
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 19:09:16 +0000 (UTC)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpC1meIXmD+nc6pjna6NBKCoO70GPTMS8gfJ5r1TpNXyaaXraR/rCmUGoWD+M0rc7MXe57yk0q0vhE=@lists.freedesktop.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1783969753;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=P+3EWmrn9TlytCVwvSjefnIQTVg7nZtucIhvwx2Wfn4=;
+ b=BXZb1gx3NFj8vrIgM4HSurMjir1DehFEYbaDkgEeNAGxi2bY9KyMknwlhWstC+mbS2DNuX
+ d0R/lhCBEkMfSmNNjroLUNKYHnlfG+pEHEP8/KooQn7qV/Cb7dNWpe2l9VA08tDrDSq/DC
+ MbFbsE3NiJxBAmZ6y9qWAbPQs/xayiA=
+X-Gm-Message-State: AOJu0YwSKyKgKBaSXqoIK3tX63kh7yrA2gi5scXKhQhVp8m3Y3WoqMlj
+ +tqmGEuGiIVxrK+Ubsx8am3SxawNTnnDm7e1Wc7lM7cw+AEOhyWjLvyjSsOZBdkWXsegYzB9ZRQ
+ SchhVBcBoCOZmAD1cK0H1wJQKWhUZpXRoHmWlQJE+
+X-Received: by 2002:a05:622a:4d47:b0:517:5e32:2d14 with SMTP id
+ d75a77b69052e-51d7bc5094cmr5957821cf.10.1783969731978; Mon, 13 Jul 2026
+ 12:08:51 -0700 (PDT)
+MIME-Version: 1.0
+References: <20250529053513.1592088-1-yilun.xu@linux.intel.com>
+ <20250529053513.1592088-11-yilun.xu@linux.intel.com>
+ <20250602133009.GC233377@nvidia.com>
+ <CAEvNRgFpJWQ5M5sQhGpQUV3GbBq9N+MQhhaxdxa=D8ky94SCsw@mail.gmail.com>
+In-Reply-To: <CAEvNRgFpJWQ5M5sQhGpQUV3GbBq9N+MQhhaxdxa=D8ky94SCsw@mail.gmail.com>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Mon, 13 Jul 2026 20:08:14 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTwd9uku-ZV5y8xcK8VWdOfhcchyW=_fzjpCf5Vk2wQoGQ@mail.gmail.com>
+X-Gm-Features: AUfX_mw-84x_DmgF59r9sD3Wt_uWXnd6_ELlU4FK10Faaz6XnikTNIHgvUm1jO4
+Message-ID: <CA+EHjTwd9uku-ZV5y8xcK8VWdOfhcchyW=_fzjpCf5Vk2wQoGQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 10/30] vfio/pci: Export vfio dma-buf specific info for
+ importers
+To: Ackerley Tng <ackerleytng@google.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+ kvm@vger.kernel.org, 
+ sumit.semwal@linaro.org, christian.koenig@amd.com, pbonzini@redhat.com, 
+ seanjc@google.com, alex.williamson@redhat.com, dan.j.williams@intel.com, 
+ aik@amd.com, linux-coco@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+ vivek.kasireddy@intel.com, yilun.xu@intel.com, linux-kernel@vger.kernel.org, 
+ lukas@wunner.de, yan.y.zhao@intel.com, daniel.vetter@ffwll.ch, 
+ leon@kernel.org, baolu.lu@linux.intel.com, zhenzhong.duan@intel.com, 
+ tao1.su@intel.com, linux-pci@vger.kernel.org, zhiw@nvidia.com, 
+ simona.vetter@ffwll.ch, shameerali.kolothum.thodi@huawei.com, 
+ aneesh.kumar@kernel.org, iommu@lists.linux.dev, kevin.tian@intel.com
+Content-Type: text/plain; charset="UTF-8"
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,255 +78,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello, Tvrtko.
-
-On Mon, Jul 13, 2026 at 03:14:35PM +0100, Tvrtko Ursulin wrote:
-> We use a mininum priority level since we only care about winning the
-> contest against normal background CPU load. We also limit the number of
-> instantiated threads, both per workqueue to a maximum of two, and system-
-> wide to a maximum of either two or one less than the number of online
-> CPUs. The idea of that is to prevent system wide starvation cause by
-> potentially misbehaving work items.
-
-Do your use cases need concurrency management on per-cpu workqueues?
-Concurrency management is what per-cpu pools do to reduce the number of
-parallel worker contexts when there are multiple pending work items
-competing for the same CPU - the next work item starts executing only
-after the current worker blocks. That doesn't seem applicable to RT
-usage where the point is running each work item as soon as possible.
-
-If it isn't needed, how about supporting RT only on unbound workqueues?
-Where per-cpu execution is wanted, an unbound workqueue with the
-affinity scope set to "cpu" and affn_strict on behaves like a per-cpu
-workqueue sans concurrency management. That'd leave the per-cpu worker
-pools alone and confine the changes to the unbound side.
-
-The following is an AI review of the patch:
-
-> For use cases such as the DRM scheduler submitting work to the GPU on
-> behalf of low latency userspace applications, where latter have sufficient
-> privileges to have had successfuly obtained realtime Vulkan global
-> priority, competing with random background CPU load can create large
-> latency spikes which gets in the way of a smooth user experience.
+On Sun, 12 Jul 2026 at 02:02, Ackerley Tng <ackerleytng@google.com> wrote:
 >
-> For these situations the existing WQ_HIPRI does not bring a noticeable
-> improvemet and a stronger hint is needed.
+> Jason Gunthorpe <jgg@nvidia.com> writes:
 >
-> Lets add WQ_RTPRI which creates workers with a SCHED_FIFO scheduling class
-> to improve this.
+> > On Thu, May 29, 2025 at 01:34:53PM +0800, Xu Yilun wrote:
+> >> Export vfio dma-buf specific info by attaching vfio_dma_buf_data in
+> >> struct dma_buf::priv. Provide a helper vfio_dma_buf_get_data() for
+> >> importers to fetch these data. Exporters identify VFIO dma-buf by
+> >> successfully getting these data.
+> >>
+> >> VFIO dma-buf supports disabling host access to these exported MMIO
+> >> regions when the device is converted to private. Exporters like KVM
+> >> need to identify this type of dma-buf to decide if it is good to use.
+> >> KVM only allows host unaccessible MMIO regions been mapped in private
+> >> roots.
+> >>
+> >> Export struct kvm * handler attached to the vfio device. This
+> >> allows KVM to do another sanity check. MMIO should only be assigned to
+> >> a CoCo VM if its owner device is already assigned to the same VM.
+> >
+> > This doesn't seem right, it should be encapsulated into the standard
+> > DMABUF API in some way.
+> >
 >
-> We use a mininum priority level since we only care about winning the
-> contest against normal background CPU load. We also limit the number of
-> instantiated threads, both per workqueue to a maximum of two, and system-
-> wide to a maximum of either two or one less than the number of online
-> CPUs. The idea of that is to prevent system wide starvation cause by
-> potentially misbehaving work items.
-
-A few typos: "successfuly", "improvemet", "WQ_HIPRI", "mininum",
-"cause by".
-
-Where does the "per workqueue to a maximum of two" limit come from?
-__alloc_workqueue() clamps max_active to num_online_cpus() / 2, which is
-four on an eight-CPU machine; the two in this series comes from the
-max_active the panthor patch passes in.
-
-The system-wide limit also doesn't seem to apply to the panthor use case
-at all, see the POOL_RT questions below.
-
-> diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-> index 33b721a9af02..0473c009690f 100644
-> --- a/kernel/workqueue.c
-> +++ b/kernel/workqueue.c
-
-[ ... ]
-
-> @@ -2863,7 +2868,11 @@ static struct worker *create_worker(struct worker_pool *pool)
->  			goto fail;
->  		}
+> I'd like to propose an alternative. I've been working on guest_memfd and
+> new to the world of IO, please help me along! :)
 >
-> -		set_user_nice(worker->task, pool->attrs->nice);
-> +		if (pool->attrs->prio == WQ_PRIO_RT)
-> +			sched_set_fifo_low(worker->task);
-> +		else if (pool->attrs->prio == WQ_PRIO_HIGH)
-> +			set_user_nice(worker->task, pool->attrs->nice);
-> +
->  		kthread_bind_mask(worker->task, pool_allowed_cpus(pool));
->  	}
-
-Doesn't this stop applying attrs->nice to WQ_PRIO_NORMAL pools?
-
-Unbound workqueues have a user-settable nice level via the sysfs "nice"
-attribute, and wq_nice_store() still accepts it for non-RT workqueues
-and stores it in the pool attrs.  For example the "writeback" workqueue
-is WQ_UNBOUND | WQ_SYSFS with normal priority.
-
-After this change, a pool created from attrs with prio == WQ_PRIO_NORMAL
-and nice != 0 spawns workers that never get the nice value applied, so
-the existing sysfs knob silently stops having any effect.
-
-> @@ -2876,6 +2885,9 @@ static struct worker *create_worker(struct worker_pool *pool)
->  	worker->pool->nr_workers++;
->  	worker_enter_idle(worker);
+> It seems like using dmabufs are used a little awkwardly here. IIUC
+> dmabufs were originally meant to expose memory of one device to another
+> device, mostly meant to share memory. Dmabufs do expose MMIO too, for
+> device to device communications. Without virtualization, userspace MMIO
+> would be done by mmap()-ing a VFIO fd and having the userspace program
+> write to the userspace addresses.
 >
-> +	if (pool->flags & POOL_RT)
-> +		atomic_inc(&total_rtpri_workers);
-> +
-
-[ ... ]
-
-> @@ -2909,6 +2921,8 @@ static void reap_dying_workers(struct list_head *cull_list)
->  	list_for_each_entry_safe(worker, tmp, cull_list, entry) {
->  		list_del_init(&worker->entry);
->  		kthread_stop_put(worker->task);
-> +		if (worker->flags & WQ_RTPRI)
-> +			atomic_dec(&total_rtpri_workers);
->  		kfree(worker);
->  	}
->  }
-
-Is this decrement testing the right flags field?  worker->flags holds
-enum worker_flags values (WORKER_DIE, WORKER_IDLE, ...) and no worker
-flag uses the bit that WQ_RTPRI (an enum wq_flags value) occupies, so
-this condition is never true.
-
-That means total_rtpri_workers is only ever incremented and can never
-drop when workers of an RT pool are culled or their pool is released.
-The increment above keys off pool->flags & POOL_RT, so the two sides of
-the accounting can't pair up as written.
-
-> @@ -3110,6 +3124,19 @@ __acquires(&pool->lock)
->  	mod_timer(&pool->mayday_timer, jiffies + MAYDAY_INITIAL_TIMEOUT);
+> Before CoCo, device passthrough (MMIO) is mostly handled by mmap()-ing a
+> VFIO fd and setting up the userspace address in a KVM memslot for the
+> guest.
 >
->  	while (true) {
-> +		if (pool->flags & POOL_RT) {
-> +			unsigned int max = num_online_cpus();
-> +
-> +			if (max > 2)
-> +				max = max - 1;
-> +			else
-> +				max = 2;
-> +
-> +			/* Global cap on the number of RT workers */
-> +			if (atomic_read(&total_rtpri_workers) >= max)
-> +				break;
-> +		}
-> +
->  		if (create_worker(pool) || !need_to_create_worker(pool))
->  			break;
-
-Three questions about this cap.
-
-1) Isn't the cap already fully consumed at boot?  workqueue_init() runs
-create_worker() for every per-CPU standard pool of every online CPU, and
-with NR_STD_WORKER_POOLS now 3 that includes the new POOL_RT pool:
-
-	for_each_online_cpu(cpu) {
-		for_each_cpu_worker_pool(pool, cpu) {
-			pool->flags &= ~POOL_DISASSOCIATED;
-			BUG_ON(!create_worker(pool));
-		}
-	}
-
-On an N-CPU machine total_rtpri_workers is N right after boot while the
-cap is max(N - 1, 2), so for any N >= 2 the break above already fires
-before the first WQ_RTPRI user exists, and with the decrement never
-running (see above) it stays that way.  A side effect is that every
-machine now boots one idle SCHED_FIFO kworker per CPU whether or not
-anything uses WQ_RTPRI.
-
-2) What happens when this break fires while need_to_create_worker() is
-still true?  The code after the loop is:
-
-	timer_delete_sync(&pool->mayday_timer);
-	raw_spin_lock_irq(&pool->lock);
-	if (need_to_create_worker(pool))
-		goto restart;
-
-so the manager goes back to restart and loops forever.  Nothing in the
-cap path sleeps, and each pass re-arms and then deletes the mayday timer
-before it can expire, so pool_mayday_timeout() never runs and no rescuer
-is engaged either.
-
-Since worker_thread() only starts processing work once
-may_start_working() holds, the first work item ever queued on a per-CPU
-WQ_RTPRI workqueue would leave its SCHED_FIFO worker spinning in
-worker_thread() -> manage_workers() -> maybe_create_worker() on that CPU
-while the work item is never executed.  Nothing in this series creates a
-per-CPU WQ_RTPRI workqueue, but __alloc_workqueue() only rejects the
-WQ_HIGHPRI combination, so this is reachable as soon as one appears.
-
-3) POOL_RT is only set on the per-CPU pools in workqueue_init_early().
-get_unbound_pool() never sets it, so neither the cap nor the accounting
-applies to unbound RT pools, which is the only configuration the panthor
-patch in this series uses (WQ_RTPRI | WQ_MEM_RECLAIM | WQ_UNBOUND).
-
-That seems to invert the commit message: the system-wide limit doesn't
-restrict the posted consumer at all, while it permanently prevents
-worker creation in the per-CPU pools it does cover.
-
-[ ... ]
-
-> @@ -5842,7 +5884,12 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
->  		pr_warn_once("workqueue: name exceeds WQ_NAME_LEN. Truncating to: %s\n",
->  			     wq->name);
+> With CoCo, is the problem we're solving that we want KVM to know what
+> pfns to set up in stage 2 page tables, but not via userspace addresses?
 >
-> -	if (flags & WQ_BH) {
-> +	if (flags & WQ_RTPRI) {
-> +		/*
-> +		 * RT workqueues are limited to max half of the online CPUs.
-> +		 */
-> +		max_active = min_t(int, max_active, num_online_cpus() / 2);
-> +	} else if (flags & WQ_BH) {
-
-Can max_active end up 0 here?  Two ways:
-
-  - With one online CPU (nr_cpus=1 or maxcpus=1 boots),
-    num_online_cpus() / 2 is 0, so the panthor workqueue created with
-    max_active == 2 gets 0.
-
-  - Passing max_active == 0, the documented "use default" value, stays
-    0 because the "max_active ?: WQ_DFL_ACTIVE" fallback and
-    wq_clamp_max_active(), which enforces a minimum of 1, are in the
-    else branch and are skipped for WQ_RTPRI.
-
-With wq->max_active == 0, wq_adjust_max_active() returns before
-activating anything and pwq_tryinc_nr_active() can never succeed, so
-every work item queued on such a workqueue stays on the inactive list
-forever and flush/destroy hang.
-
-Also, num_online_cpus() is sampled once at allocation time, so a
-workqueue allocated before secondary CPUs are brought online keeps a
-limit computed from the momentary CPU count.
-
-While in this area: for WQ_RTPRI | WQ_MEM_RECLAIM, should the rescuer
-get SCHED_FIFO as well?  rescuer_thread() runs at RESCUER_NICE_LEVEL,
-so under a mayday the work this flag is trying to keep low latency
-executes below the promised priority.
-
-[ ... ]
-
-> @@ -7284,10 +7339,14 @@ static ssize_t wq_nice_show(struct device *dev, struct device_attribute *attr,
->  			    char *buf)
->  {
->  	struct workqueue_struct *wq = dev_to_wq(dev);
-> -	int written;
-> +	int written, nice;
+> guest_memfd already does that for regular host memory, tracks the
+> private/shared-ness of the memory, tracks which struct kvm the memory
+> belongs to.
 >
->  	mutex_lock(&wq->mutex);
-> -	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->unbound_attrs->nice);
-> +	if (wq->unbound_attrs->prio == WQ_PRIO_RT)
-> +		nice = INT_MIN;
-> +	else
-> +		nice = wq->unbound_attrs->nice;
-> +	written = scnprintf(buf, PAGE_SIZE, "%d\n", nice);
+> guest_memfd functions as KVM's bridge to host memory. KVM already can
+> ask guest_memfd for the pfn to map into stage 2 page tables, and already
+> asks guest_memfd for the shared/private state of the memory. guest_memfd
+> already also blocks the host from faulting guest private memory
+> (mmap()-ing is always allowed).
+>
+>
+> Instead of using dmabuf as the intermediary between the MMIO PFNs and
+> KVM, why not use guest_memfd?
+>
+> What if we make guest_memfd accept a VFIO fd, or a dmabuf fd?
 
-This isn't a bug, but is INT_MIN the value userspace should read from
-the nice attribute of an RT workqueue?  This file has so far only ever
-produced values in the [-20, 19] range.
+This is interesting for pKVM too, provided it covers more than MMIO.
 
-[ ... ]
+We need guest_memfd to be backable by a dmabuf for ordinary guest memory, not
+only for device MMIO. There is mobile hardware that doesn't tolerate scattered
+private memory (DMA engines that can't gather, IOMMU page-table size
+constraints), and a CMA-backed dmabuf heap is the practical way to get
+contiguous memory at runtime. HugeTLB doesn't help, it wants boot-time
+reservation. Those pages are struct-page backed, so it's a different problem
+from the non-struct-page MMIO case, and the shared parts still need to be
+GUP-able.
 
-Thanks.
+More important for the API shape: conversions have to work on subsets of such a
+region, at page granularity. A pKVM guest doesn't know what backs its memory, so
+it will issue share/unshare hypercalls over arbitrary ranges of whatever it was
+given. If a dmabuf-backed guest_memfd can only be converted as a whole, we can't
+use it for memory, and the guest can't be taught to care.
 
--- 
-tejun
+Quentin made both points on the in-place conversion series [1], and covered the
+wider framing at KVM Forum [2].
+
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/all/od4dx6snqsl2qiocgf3jxm4dndxhrlvsfr22eveuno6nskgfdj@mxsywvku2jk5/
+[2] https://www.youtube.com/watch?v=zaBxoyRepzA
+
+>
+> guest_memfd can then take the mmap() calls from userspace and .fault()
+> from mm, and then forward them to VFIO or dmabuf. This way, VFIO/dmabuf
+> can stick to their original functions, and the changes to VFIO/dmabuf
+> would probably revolve around disabling access.
+>
+> Disabling access would probably involve some of these:
+>
+> + When guest_memfd receives the fd, it could return error for existing
+>   mappings, or perhaps it could just force-unmap.
+> + 1 extra flag or field to indicate that guest_memfd is controlling this
+>   file, so that if userspace tries to take some actions with the
+>   original VFIO or dmabuf fd, the request should be blocked.
+> + Perhaps just close the original fd, like dup2(oldfd, newfd) closes
+>   newfd?
+>
+>
+> I'm about to restart work on guest_memfd HugeTLB and I'm thinking about
+> a similar approach for guest_memfd HugeTLB, where perhaps the interface
+> could be that userspace will give guest_memfd a HugeTLB fd at creation
+> time, and then the original HugeTLB fd would be rendered unusable in the
+> same way as above, perhaps like with the S_IMMUTABLE inode flag, but
+> also blocking reads, and not userspace-modifiable.
+>
+>
+> In the course of a CoCo guest's operation, will the guest need to
+> convert between private/shared MMIO? Will the guest need some pages
+> shared and others private? If these are required operations, guest_memfd
+> already provides the tracking and is going to have a conversion ioctl
+> very soon. Instead of further extending dmabuf to track more things, how
+> about letting guest_memfd track it?
+>
