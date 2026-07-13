@@ -4,54 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 942C4C44514
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 09:59:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BB98C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 10:07:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9B0B10E8CE;
-	Mon, 13 Jul 2026 09:58:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAB8B10E8C7;
+	Mon, 13 Jul 2026 10:07:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MczT9WRb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ASx7LbFT";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B856810E8C0
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 09:58:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783936733;
- bh=+1IMus2mrgKgBZBYS1iIfAgpNfuoFnLk9RiPJiZi4LU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MczT9WRbTbCsqjMp5vSHiucbPL5Cs1Rubk5Eu031T5z0ccy6b8l1601kYbIYRrd9q
- LPOTobYg1jozA3qmf8scQORu20asJtGOBB0PGE8AnyRYI/+/hjd0Eb4fg9pS8M1RuC
- zhTacXNx+Pz+nKjgXrmWOGb3DBL1K+ywSl2GGgr8byf/Fz5UoE+djFMwnBWBHw8wPN
- lb8ITAcEYv/wb5YHVZumXFdwQP+JpTHi41ggaWhJAe2V1sI5EiwWz/6Ca38y4wRhbg
- z88lqaTnhIK/9bK5MtXQ3pn34dvOI3GemA7T6nsl+5G7U/Si3j9LlwXa3XtUKLDWdN
- MPh7yaamcHgBA==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B5CAE17E0DD8;
- Mon, 13 Jul 2026 11:58:52 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunkuang.hu@kernel.org
-Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2 09/10] dt-bindings: display: mediatek: wdma: Add
- compatibles for more SoCs
-Date: Mon, 13 Jul 2026 11:58:36 +0200
-Message-ID: <20260713095837.16590-10-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260713095837.16590-1-angelogioacchino.delregno@collabora.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF08510E8C7
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 10:07:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0443D6004E;
+ Mon, 13 Jul 2026 10:07:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 607151F000E9;
+ Mon, 13 Jul 2026 10:07:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783937249;
+ bh=dDzfYof70ljUNHuLry4Fi5f1sDYBScDeZGbh7HflqXM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ASx7LbFTAYU/Tf/TIOiVh+8EccB7uWXEF8VryO9iMhmv9MYL78zXpfS11ZB7HSw7T
+ 3VP9exWopeHyjvvwfmTtV6dbKfm32NsykQk76g7l7+M9qC5FaFN0zobdKlu2tzd2XP
+ aAkDETzzlCznUAmwpAIXGl7PWgvT4yrs+0UPySYHcAAc2v6y80Cu73f6PBZL5+VyDw
+ CZj5+2vRsiRVDAp1tWHOzZyIHppMGD50JKa9QYCUyqgnX3N+Uq1FFU8NDG/hFbzI9G
+ n2PK3MscrCDeZ2ROAoHtp+S7bQS8nXNVxvG4++uLRNAH5iIblQRn3nETYvTJe0TyY1
+ tje1ovhXP9VUQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 05/10] drm/mediatek: mtk_dsi: Transfer register
+ offsets to per-SoC const
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260713095837.16590-6-angelogioacchino.delregno@collabora.com>
 References: <20260713095837.16590-1-angelogioacchino.delregno@collabora.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260713095837.16590-6-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 13 Jul 2026 10:07:28 +0000
+Message-Id: <20260713100729.607151F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,40 +55,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Multiple MediaTek SoCs have the Write DMA hardware in their Display
-Controller: add the missing compatibles for Dimensity 1200 (MT6893)
-and for Kompanio 500/520/820/1200 (MT8183/MT8186/MT8192/MT8195).
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The loop reading DSI RX data in `mtk_dsi_host_transfer` incorrectl=
+y uses the loop counter to offset the `reg_main` array index instead of the=
+ MMIO base offset, causing out-of-bounds array reads and accessing incorrec=
+t hardware registers.
+--
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- .../devicetree/bindings/display/mediatek/mediatek,wdma.yaml  | 5 +++++
- 1 file changed, 5 insertions(+)
+--- Patch [5]: [PATCH v2 05/10] drm/mediatek: mtk_dsi: Transfer register of=
+fsets to per-SoC const ---
+commit 43b878ef0a8fe56d80e1c26ea5be280083d3ccaf
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
-index 97d052b0fb61..c3ed867d058d 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
-@@ -22,11 +22,16 @@ properties:
-   compatible:
-     oneOf:
-       - enum:
-+          - mediatek,mt6893-disp-wdma
-           - mediatek,mt8173-disp-wdma
-       - items:
-           - enum:
-               - mediatek,mt6795-disp-wdma
-               - mediatek,mt8167-disp-wdma
-+              - mediatek,mt8183-disp-wdma
-+              - mediatek,mt8186-disp-wdma
-+              - mediatek,mt8192-disp-wdma
-+              - mediatek,mt8195-disp-wdma
-           - const: mediatek,mt8173-disp-wdma
- 
-   reg:
--- 
-2.54.0
+drm/mediatek: mtk_dsi: Transfer register offsets to per-SoC const
 
+This patch refactors the MediaTek DSI driver by moving register offsets
+into per-SoC constant arrays. This separates the main DSI registers from the
+advanced and SoC-specific ones, preparing the driver for newer hardware
+generations with different register layouts.
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 284dae372c7c2..6a77ce8eea91f 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+[ ... ]
+> @@ -1259,7 +1394,8 @@ static ssize_t mtk_dsi_host_transfer(struct mipi_ds=
+i_host *host,
+>  	}
+> =20
+>  	for (i =3D 0; i < 16; i++)
+> -		*(read_data + i) =3D readb(dsi->regs + DSI_RX_DATA0 + i);
+> +		*(read_data + i) =3D readb(dsi->regs +
+> +					 dsi->driver_data->reg_main[DSI_RX_DATA0 + i]);
+
+[Severity: High]
+Does this code read out of bounds on the reg_main array?
+
+The original code added i to the DSI_RX_DATA0 offset to read consecutive by=
+tes.
+In the new code, DSI_RX_DATA0 is an enum value (17). When adding i (which g=
+oes
+up to 15) to DSI_RX_DATA0 inside the index, this accesses reg_main up to in=
+dex
+32, but DSI_MAIN_REG_MAX is only 28.
+
+This means for i >=3D 4, the code will fetch unrelated register offsets (su=
+ch as
+DSI_RACK or DSI_PHY_LCCON) instead of the expected RX data bytes. For i >=
+=3D 11,
+it reads past the end of the reg_main array, which could cause MMIO reads at
+unexpected addresses.
+
+Should the loop counter i be added after the array lookup instead, such as
+dsi->driver_data->reg_main[DSI_RX_DATA0] + i?
+
+> =20
+>  	recv_cnt =3D mtk_dsi_recv_cnt(read_data[0], read_data);
+> =20
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713095837.1659=
+0-1-angelogioacchino.delregno@collabora.com?part=3D5
