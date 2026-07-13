@@ -4,150 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92FA3C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 18:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7DB3C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 19:00:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7CE810E64E;
-	Mon, 13 Jul 2026 18:58:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1122610E659;
+	Mon, 13 Jul 2026 19:00:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WdU4k/7w";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gk2US6Sf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fgn4n54/";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B44E10E642
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 18:58:42 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66DH6a352107867
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 18:58:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- EGm08z2QRTZQR1FZakby7UHoEn+vMY549zyGYn80n3k=; b=WdU4k/7wJY4565Q3
- OBIv/l/9/g9bOCtXtJdW5RUd40bhhXJJtBGCi5XyLAHtadKYz5hVdLU8knWINlps
- bNUIkviKqHLWLxv9gNI9iqXdGJ2UVEa6jsENcnQVNwq4EoYLEz470KHRNeHUHT8o
- sa+g5Qw8UDN99M8RL+ra2kDJC1ovboKK5zPW4s1STq08y2RwX3+UBJFecEuQ8H0O
- 9XnFwJm6nPXYLi65NhRQ+zIzTRuprHoYo7OT+5G6P0c+/w8vIfA0qbM/PnP+tnvS
- HmjjtQxXp4vx87eHAWKG9gGELlUiYgWMLYLOoSeiuwkqWt+92FJ1lGBo9st/xAKt
- nCGidg==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fd44j0e4k-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 18:58:40 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-c88aab7c1d4so5308700a12.3
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 11:58:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783969120; x=1784573920;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=EGm08z2QRTZQR1FZakby7UHoEn+vMY549zyGYn80n3k=;
- b=gk2US6SfD2QljcUBawX7B+urO0+4CUvFG5g/uSfYZwYe4/oD0+Wdz0i+H7X26eqiu6
- J/wVrcEY1XnyJSAClyNzLcMBvtnzG63aas2AzmhtFQJsEuliodEJoCzU5GVXFSvjWu3e
- LQkWyRdQJiyu/x/L8ctr1NRu7eYmn4NDSi2JwFm5CYVygoVe0GugTBgxfCsOQwSyTUF5
- v4ayhISrq8aM5GiwucZhHZHaJpdvAOiYUEXechuskoos49qU2Zos9zpiYrn6uF39r6Hc
- kcFbN57cN1FRodsVGFP0su51+PKcFXAxFRO3XR7y17FPpGK9mgjJDdvSbEgDh4v2+p0o
- zEKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783969120; x=1784573920;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=EGm08z2QRTZQR1FZakby7UHoEn+vMY549zyGYn80n3k=;
- b=cuD+N9f3rUHpSfghYEscnpLzUPBXVj0yZjbShMO5miqColUHF0O7NvHzZNDIle2MiW
- 4WoK++ZVH+ztVBDJVGqYZ7btyt7prGLROuie/uz3OT41obaq0TSAwQldMAOgrHVabSs9
- Wgvo2i5F3+vx/OV/XocDpZnGGnO5Ld12Ppxh4Q04Q7Liy2L/zl/jMuC/GUg3SGkJRSfy
- jcYVkJNh4NoiOiCCyVLEFcsDkzjisdDdjDvCaAprE3v4OiptLeuPQuaWei2RjrF1/25i
- Cu2pv9NjGP6FpMlrPK9IDMTz3pXRlEqs6JXPMoGqNu2f2iyZQa4P+HgM8E/5q690wWPj
- tb+w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpwM4OtNZ4toYu2FN5gzAKBD1HI+pKIpn8EOSVEdUxjHdw+UG9705NMASLOvTqQWe++2IhXItM+dDc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz1+qxqw12fqpH8Zwhi4RHl9qArClTRwey+ZbsbN/bmi1ua0aUP
- Ganvvj17nFrJWifCBXB88h9FTteINb7FMqV9QMVGnAhaqS4VymvPx2QhMwbCfBbx85T2Mfwmr7Q
- wZsG6N5E81fg5y38zCD8FPlh4AMIhxQuH2HogIITxkAuTpb8I7OwJUuVxoCTNZRhdgHQ0x1k=
-X-Gm-Gg: AfdE7cn6Ur4G9jmnAJfziFzCanm8I0ZdJfE9RRfmOHJJmYVCNFGC1wVec+i2Px488xP
- Tuf9HO23x+tN0HaW8t/Qcanyryi4uqznYfHLC91tvx2yO78Ax/pnXp88jMl/hmQZza39vzGGHIm
- MVeDfCHiIHqOcGWpCWofh2ZWqI/K4AgRmTM4b+gvRh2wnYTIW2Huqjy1QibVLU/VMetddKNd7SO
- BfOtCN9GDcu30M1WhXJTLDaiEOZOqKBUq1qG1eHpD9qrahNCnmjwKLow1bn1/9YkCs8tXr9i/3Y
- iMFhOnUDMMv5KyrpOxxDGuimkhWGcQKOlcDCJ13MJZWsuFQtHHZ+NjZAuzCErZFFzNdLTzb9o5F
- fqJff+P2NIhLQjUQOjLop1LOrGR4bFxmIXgsf5yQ/GGbfZNAwhtdW6G58BXmmTSkCt2Tf
-X-Received: by 2002:a05:6a20:b7a7:b0:3bf:63af:859 with SMTP id
- adf61e73a8af0-3c110ad2e6amr11568623637.45.1783969119589; 
- Mon, 13 Jul 2026 11:58:39 -0700 (PDT)
-X-Received: by 2002:a05:6a20:b7a7:b0:3bf:63af:859 with SMTP id
- adf61e73a8af0-3c110ad2e6amr11568594637.45.1783969119131; 
- Mon, 13 Jul 2026 11:58:39 -0700 (PDT)
-Received: from [192.168.1.11] (15.sub-75-218-246.myvzw.com. [75.218.246.15])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3118ee6091dsm83117734eec.14.2026.07.13.11.58.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Jul 2026 11:58:38 -0700 (PDT)
-Message-ID: <09e17504-d1b3-4e3a-b547-3c3c1040015c@oss.qualcomm.com>
-Date: Mon, 13 Jul 2026 11:58:34 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 12/14] wifi: ath12k: Switch to generic PAS TZ APIs
-To: Sumit Garg <sumit.garg@kernel.org>, andersson@kernel.org,
- konradybcio@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
- mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
- mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
- jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
- vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jenswi@kernel.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-References: <20260702115835.167602-1-sumit.garg@kernel.org>
- <20260702115835.167602-13-sumit.garg@kernel.org>
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260702115835.167602-13-sumit.garg@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDE5NyBTYWx0ZWRfX11ig9UQ6oCY/
- 68SJHz95FcIrW62nl7dEexy9xGEVP2M8HLnT1mAipoPMFal8ChKe4w/OhKY75lgrDmoblV+oQBX
- g/jIh3wjrSf6EjORASrjnCbPzy1unbU=
-X-Authority-Analysis: v=2.4 cv=N4UZ0W9B c=1 sm=1 tr=0 ts=6a553560 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=6VQYfvmiyQ8t40WkS/mQdw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=CBpSC656wZACrugyqBAA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-GUID: 6Gq48CoiVqzcRaKi0JQ_JMXBzgatLLq6
-X-Proofpoint-ORIG-GUID: 6Gq48CoiVqzcRaKi0JQ_JMXBzgatLLq6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDE5NyBTYWx0ZWRfX6pHm7n0B/yGK
- XXHyYdS9p1DDvfAEABcXig6Apt9soOlg2nylBAmCaYE+AwJXZki5IlG//tFEnDVL7uTMA0YeBc5
- SNY2hdEzQZZSaC8Qgwh/FtvRhKSbioD1UQkK3x6CtFHc3yDRRV2GzCzLG2xz6/+Hz6/elfI32e6
- WHw5QqZnO1P+ECphkXpPaQbYrO3BaG/WwmGNJHSysax/Pvb2TW8/OZucx08lyKmccE3NyAloMB2
- DSldF/o91STWjNI8A0AH8ffvSSifE8tH/YaGZkn1vviwqYIwdOk1kHtyEG2CO6enVydO6EqMVfG
- iDfs0bCw9wTn8uGAg1aEd7zbB6u4MwPoSzh1Q8NZpfd6znlYm8YGX/LVh+f8jTaD3l4NWs8PXm3
- d3MMas+RevCC7QlhOD0cuPsZhG5gmHIU8GlFl1gPii6CI/4czcd7TCumkkl/Ei3Y8XQvHuabl98
- P4iLC0GQxHUVMb5m+rQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-13_04,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 phishscore=0 priorityscore=1501 suspectscore=0
- bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130197
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6673810E642
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 19:00:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1AA58410BE;
+ Mon, 13 Jul 2026 19:00:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 948861F000E9;
+ Mon, 13 Jul 2026 18:59:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783969199;
+ bh=WwN1FUXHZdBtCSCaA6p8iXqe7Pn9drR2i58Rj5ZKzQ8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=Fgn4n54/RZtHB6yzGbfG6nypXHSUVMhBu68Py/sanzic9+rBTQiOelRMl4GXpKW87
+ 5HNtAyoxKFkYjqnz0tGnJWtZ0trcYAByob2GUCAyWhI2IgexbgQBdaqLLd0Fyn2a/r
+ NiT5fGZyjjOgfvIO8AuLWi1jXAiUdVI3f27fXe1rhFG9d0I7QCScog0TfOrDtq1Jpz
+ eYoJIzs8HqMpWqxQRsGkNTKYGUcb72qPZ9uYXDumJgrCmmywFuEQPNOgZaR2DFwKju
+ +nL1pLNq0bB6yDFfAHyr24gzvXqqXR6nEohk/6MRvEeKSFIMg/VFYK4q89LOF78iMW
+ pMuz0uzf3mixQ==
+Date: Mon, 13 Jul 2026 08:59:58 -1000
+Message-ID: <b3e5bcb21184d13c7c631daac955f465@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+ Chia-I Wu <olv@google.com>
+Subject: Re: [RFC 1/2] workqueue: Add support for real-time workers
+In-Reply-To: <20260713141436.21547-2-tvrtko.ursulin@igalia.com>
+References: <20260713141436.21547-1-tvrtko.ursulin@igalia.com>
+ <20260713141436.21547-2-tvrtko.ursulin@igalia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,90 +59,255 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/2/2026 4:58 AM, Sumit Garg wrote:
-> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> 
-> Switch ath12k client driver over to generic PAS TZ APIs. Generic PAS TZ
-> service allows to support multiple TZ implementation backends like QTEE
-> based SCM PAS service, OP-TEE based PAS service and any further future TZ
-> backend service.
-> 
-> Acked-by: Jeff Johnson <jjohnson@kernel.org>
-> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> ---
->  drivers/net/wireless/ath/ath12k/Kconfig |  2 +-
->  drivers/net/wireless/ath/ath12k/ahb.c   | 10 +++++-----
->  2 files changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/ath/ath12k/Kconfig b/drivers/net/wireless/ath/ath12k/Kconfig
-> index 4a2b240f967a..0d5d1c55bfc1 100644
-> --- a/drivers/net/wireless/ath/ath12k/Kconfig
-> +++ b/drivers/net/wireless/ath/ath12k/Kconfig
-> @@ -18,7 +18,7 @@ config ATH12K_AHB
->  	bool "Qualcomm ath12k AHB support"
->  	depends on ATH12K && REMOTEPROC
->  	select QCOM_MDT_LOADER
-> -	select QCOM_SCM
-> +	select QCOM_PAS
->  	help
->  	  Enable support for Ath12k AHB bus chipsets, example IPQ5332.
->  
-> diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless/ath/ath12k/ahb.c
-> index 30733a244454..69e21214e629 100644
-> --- a/drivers/net/wireless/ath/ath12k/ahb.c
-> +++ b/drivers/net/wireless/ath/ath12k/ahb.c
-> @@ -5,7 +5,7 @@
->   */
->  
->  #include <linux/dma-mapping.h>
-> -#include <linux/firmware/qcom/qcom_scm.h>
-> +#include <linux/firmware/qcom/qcom_pas.h>
->  #include <linux/of.h>
->  #include <linux/of_device.h>
->  #include <linux/platform_device.h>
-> @@ -420,7 +420,7 @@ static int ath12k_ahb_power_up(struct ath12k_base *ab)
->  
->  	if (ab_ahb->scm_auth_enabled) {
->  		/* Authenticate FW image using peripheral ID */
-> -		ret = qcom_scm_pas_auth_and_reset(pasid);
-> +		ret = qcom_pas_auth_and_reset(pasid);
->  		if (ret) {
->  			ath12k_err(ab, "failed to boot the remote processor %d\n", ret);
->  			goto err_fw2;
-> @@ -485,10 +485,10 @@ static void ath12k_ahb_power_down(struct ath12k_base *ab, bool is_suspend)
->  		pasid = (u32_encode_bits(ab_ahb->userpd_id, ATH12K_USERPD_ID_MASK)) |
->  			 ATH12K_AHB_UPD_SWID;
->  		/* Release the firmware */
-> -		ret = qcom_scm_pas_shutdown(pasid);
-> +		ret = qcom_pas_shutdown(pasid);
->  		if (ret)
-> -			ath12k_err(ab, "scm pas shutdown failed for userPD%d\n",
-> -				   ab_ahb->userpd_id);
-> +			ath12k_err(ab, "PAS shutdown failed for userPD%d: %d\n",
-> +				   ab_ahb->userpd_id, ret);
+Hello, Tvrtko.
+
+On Mon, Jul 13, 2026 at 03:14:35PM +0100, Tvrtko Ursulin wrote:
+> We use a mininum priority level since we only care about winning the
+> contest against normal background CPU load. We also limit the number of
+> instantiated threads, both per workqueue to a maximum of two, and system-
+> wide to a maximum of either two or one less than the number of online
+> CPUs. The idea of that is to prevent system wide starvation cause by
+> potentially misbehaving work items.
+
+Do your use cases need concurrency management on per-cpu workqueues?
+Concurrency management is what per-cpu pools do to reduce the number of
+parallel worker contexts when there are multiple pending work items
+competing for the same CPU - the next work item starts executing only
+after the current worker blocks. That doesn't seem applicable to RT
+usage where the point is running each work item as soon as possible.
+
+If it isn't needed, how about supporting RT only on unbound workqueues?
+Where per-cpu execution is wanted, an unbound workqueue with the
+affinity scope set to "cpu" and affn_strict on behaves like a per-cpu
+workqueue sans concurrency management. That'd leave the per-cpu worker
+pools alone and confine the changes to the unbound side.
+
+The following is an AI review of the patch:
+
+> For use cases such as the DRM scheduler submitting work to the GPU on
+> behalf of low latency userspace applications, where latter have sufficient
+> privileges to have had successfuly obtained realtime Vulkan global
+> priority, competing with random background CPU load can create large
+> latency spikes which gets in the way of a smooth user experience.
+>
+> For these situations the existing WQ_HIPRI does not bring a noticeable
+> improvemet and a stronger hint is needed.
+>
+> Lets add WQ_RTPRI which creates workers with a SCHED_FIFO scheduling class
+> to improve this.
+>
+> We use a mininum priority level since we only care about winning the
+> contest against normal background CPU load. We also limit the number of
+> instantiated threads, both per workqueue to a maximum of two, and system-
+> wide to a maximum of either two or one less than the number of online
+> CPUs. The idea of that is to prevent system wide starvation cause by
+> potentially misbehaving work items.
+
+A few typos: "successfuly", "improvemet", "WQ_HIPRI", "mininum",
+"cause by".
+
+Where does the "per workqueue to a maximum of two" limit come from?
+__alloc_workqueue() clamps max_active to num_online_cpus() / 2, which is
+four on an eight-CPU machine; the two in this series comes from the
+max_active the panthor patch passes in.
+
+The system-wide limit also doesn't seem to apply to the panthor use case
+at all, see the POOL_RT questions below.
+
+> diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+> index 33b721a9af02..0473c009690f 100644
+> --- a/kernel/workqueue.c
+> +++ b/kernel/workqueue.c
+
+[ ... ]
+
+> @@ -2863,7 +2868,11 @@ static struct worker *create_worker(struct worker_pool *pool)
+>  			goto fail;
+>  		}
+>
+> -		set_user_nice(worker->task, pool->attrs->nice);
+> +		if (pool->attrs->prio == WQ_PRIO_RT)
+> +			sched_set_fifo_low(worker->task);
+> +		else if (pool->attrs->prio == WQ_PRIO_HIGH)
+> +			set_user_nice(worker->task, pool->attrs->nice);
+> +
+>  		kthread_bind_mask(worker->task, pool_allowed_cpus(pool));
+>  	}
+
+Doesn't this stop applying attrs->nice to WQ_PRIO_NORMAL pools?
+
+Unbound workqueues have a user-settable nice level via the sysfs "nice"
+attribute, and wq_nice_store() still accepts it for non-RT workqueues
+and stores it in the pool attrs.  For example the "writeback" workqueue
+is WQ_UNBOUND | WQ_SYSFS with normal priority.
+
+After this change, a pool created from attrs with prio == WQ_PRIO_NORMAL
+and nice != 0 spawns workers that never get the nice value applied, so
+the existing sysfs knob silently stops having any effect.
+
+> @@ -2876,6 +2885,9 @@ static struct worker *create_worker(struct worker_pool *pool)
+>  	worker->pool->nr_workers++;
+>  	worker_enter_idle(worker);
+>
+> +	if (pool->flags & POOL_RT)
+> +		atomic_inc(&total_rtpri_workers);
+> +
+
+[ ... ]
+
+> @@ -2909,6 +2921,8 @@ static void reap_dying_workers(struct list_head *cull_list)
+>  	list_for_each_entry_safe(worker, tmp, cull_list, entry) {
+>  		list_del_init(&worker->entry);
+>  		kthread_stop_put(worker->task);
+> +		if (worker->flags & WQ_RTPRI)
+> +			atomic_dec(&total_rtpri_workers);
+>  		kfree(worker);
 >  	}
 >  }
->  
 
-My code review agent is flagging:
+Is this decrement testing the right flags field?  worker->flags holds
+enum worker_flags values (WORKER_DIE, WORKER_IDLE, ...) and no worker
+flag uses the bit that WQ_RTPRI (an enum wq_flags value) occupies, so
+this condition is never true.
 
-**Missing probe-defer guard** (`ahb.c:422`) — `qcom_pas_is_available()` is
-explicitly documented as mandatory before any PAS call. The OP-TEE backend
-registers its ops asynchronously; without an `if (!qcom_pas_is_available())
-return -EPROBE_DEFER` in the probe path, firmware auth silently returns
-`-ENODEV` with no retry.
+That means total_rtpri_workers is only ever incremented and can never
+drop when workers of an RT pool are culled or their pool is released.
+The increment above keys off pool->flags & POOL_RT, so the two sides of
+the accounting can't pair up as written.
 
-Is it an existing deficiency in ath12k that there is no probe deferral?
-Or did the qcom_scm_*() calls somehow guarantee something that is no longer
-true with the qcom_pas_*() calls?
+> @@ -3110,6 +3124,19 @@ __acquires(&pool->lock)
+>  	mod_timer(&pool->mayday_timer, jiffies + MAYDAY_INITIAL_TIMEOUT);
+>
+>  	while (true) {
+> +		if (pool->flags & POOL_RT) {
+> +			unsigned int max = num_online_cpus();
+> +
+> +			if (max > 2)
+> +				max = max - 1;
+> +			else
+> +				max = 2;
+> +
+> +			/* Global cap on the number of RT workers */
+> +			if (atomic_read(&total_rtpri_workers) >= max)
+> +				break;
+> +		}
+> +
+>  		if (create_worker(pool) || !need_to_create_worker(pool))
+>  			break;
 
-And also for future cleanup:
-**Misleading field name** (`ahb.c:384`) — `scm_auth_enabled` should be
-`pas_auth_enabled` to match the backend-agnostic API it now guards.
+Three questions about this cap.
 
-I plan on taking this patch as-is through the ath tree since it is currently
-just simple API changes. Any additional changes can come separately.
+1) Isn't the cap already fully consumed at boot?  workqueue_init() runs
+create_worker() for every per-CPU standard pool of every online CPU, and
+with NR_STD_WORKER_POOLS now 3 that includes the new POOL_RT pool:
 
-/jeff
+	for_each_online_cpu(cpu) {
+		for_each_cpu_worker_pool(pool, cpu) {
+			pool->flags &= ~POOL_DISASSOCIATED;
+			BUG_ON(!create_worker(pool));
+		}
+	}
 
+On an N-CPU machine total_rtpri_workers is N right after boot while the
+cap is max(N - 1, 2), so for any N >= 2 the break above already fires
+before the first WQ_RTPRI user exists, and with the decrement never
+running (see above) it stays that way.  A side effect is that every
+machine now boots one idle SCHED_FIFO kworker per CPU whether or not
+anything uses WQ_RTPRI.
 
+2) What happens when this break fires while need_to_create_worker() is
+still true?  The code after the loop is:
+
+	timer_delete_sync(&pool->mayday_timer);
+	raw_spin_lock_irq(&pool->lock);
+	if (need_to_create_worker(pool))
+		goto restart;
+
+so the manager goes back to restart and loops forever.  Nothing in the
+cap path sleeps, and each pass re-arms and then deletes the mayday timer
+before it can expire, so pool_mayday_timeout() never runs and no rescuer
+is engaged either.
+
+Since worker_thread() only starts processing work once
+may_start_working() holds, the first work item ever queued on a per-CPU
+WQ_RTPRI workqueue would leave its SCHED_FIFO worker spinning in
+worker_thread() -> manage_workers() -> maybe_create_worker() on that CPU
+while the work item is never executed.  Nothing in this series creates a
+per-CPU WQ_RTPRI workqueue, but __alloc_workqueue() only rejects the
+WQ_HIGHPRI combination, so this is reachable as soon as one appears.
+
+3) POOL_RT is only set on the per-CPU pools in workqueue_init_early().
+get_unbound_pool() never sets it, so neither the cap nor the accounting
+applies to unbound RT pools, which is the only configuration the panthor
+patch in this series uses (WQ_RTPRI | WQ_MEM_RECLAIM | WQ_UNBOUND).
+
+That seems to invert the commit message: the system-wide limit doesn't
+restrict the posted consumer at all, while it permanently prevents
+worker creation in the per-CPU pools it does cover.
+
+[ ... ]
+
+> @@ -5842,7 +5884,12 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+>  		pr_warn_once("workqueue: name exceeds WQ_NAME_LEN. Truncating to: %s\n",
+>  			     wq->name);
+>
+> -	if (flags & WQ_BH) {
+> +	if (flags & WQ_RTPRI) {
+> +		/*
+> +		 * RT workqueues are limited to max half of the online CPUs.
+> +		 */
+> +		max_active = min_t(int, max_active, num_online_cpus() / 2);
+> +	} else if (flags & WQ_BH) {
+
+Can max_active end up 0 here?  Two ways:
+
+  - With one online CPU (nr_cpus=1 or maxcpus=1 boots),
+    num_online_cpus() / 2 is 0, so the panthor workqueue created with
+    max_active == 2 gets 0.
+
+  - Passing max_active == 0, the documented "use default" value, stays
+    0 because the "max_active ?: WQ_DFL_ACTIVE" fallback and
+    wq_clamp_max_active(), which enforces a minimum of 1, are in the
+    else branch and are skipped for WQ_RTPRI.
+
+With wq->max_active == 0, wq_adjust_max_active() returns before
+activating anything and pwq_tryinc_nr_active() can never succeed, so
+every work item queued on such a workqueue stays on the inactive list
+forever and flush/destroy hang.
+
+Also, num_online_cpus() is sampled once at allocation time, so a
+workqueue allocated before secondary CPUs are brought online keeps a
+limit computed from the momentary CPU count.
+
+While in this area: for WQ_RTPRI | WQ_MEM_RECLAIM, should the rescuer
+get SCHED_FIFO as well?  rescuer_thread() runs at RESCUER_NICE_LEVEL,
+so under a mayday the work this flag is trying to keep low latency
+executes below the promised priority.
+
+[ ... ]
+
+> @@ -7284,10 +7339,14 @@ static ssize_t wq_nice_show(struct device *dev, struct device_attribute *attr,
+>  			    char *buf)
+>  {
+>  	struct workqueue_struct *wq = dev_to_wq(dev);
+> -	int written;
+> +	int written, nice;
+>
+>  	mutex_lock(&wq->mutex);
+> -	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->unbound_attrs->nice);
+> +	if (wq->unbound_attrs->prio == WQ_PRIO_RT)
+> +		nice = INT_MIN;
+> +	else
+> +		nice = wq->unbound_attrs->nice;
+> +	written = scnprintf(buf, PAGE_SIZE, "%d\n", nice);
+
+This isn't a bug, but is INT_MIN the value userspace should read from
+the nice attribute of an RT workqueue?  This file has so far only ever
+produced values in the [-20, 19] range.
+
+[ ... ]
+
+Thanks.
+
+-- 
+tejun
