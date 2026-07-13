@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE4A7C44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 23:52:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04FC4C44507
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 23:52:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3762610E9C9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C804A10E9FB;
 	Mon, 13 Jul 2026 23:52:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="sBwW9Ewk";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BKFtSQs4";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63FFC10E93D
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 23:52:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E4FE10E93D
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 23:52:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,26 +22,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=2Y9m0rT5of52KPtGGBWUfbnf0VkaffRAoZKmusQxBts=; b=sBwW9Ewk+c8krM+H+8v46Lfkas
- /ewBWxVTWhqtSxgEREI1jSnafTzizZSzt1dlZSLJ05bAPfYHzxdONzraLnfbqbsgjW9eYfWISii2k
- OTQM9xN0k1sDYN8Hg8bZ0A9x9CbBO1iM3lTH0t/AvKHPKFCuiK/fwBpLLG9yBQnt4V9lGofjQmRmz
- gJWzq6Yu1T9sDb/nQc1Mz/atMZfn9dcqYGeeJWB6z/MTnyypLRz5g09WtMFPVIJ5UU2mEeGfldJs2
- E+NsKIdX62pgqaHrPZfaMp4R4fItHUZcJ3JZWJJEgpYDyvhopKt2l2ahlTD4DuNVpKrMS95gX7yxd
- h8nI3eNw==;
+ bh=ZZwAgxnkHzktMb5U4wE4YbJHahYoje/mh57jqEi5T8E=; b=BKFtSQs4b59GB3KHn1NwkdFcr7
+ TlBsbeOH1SoEzllfLgVaFTAD5XZCyRkL/f1wwZAAu+W/dqPJp7yEBiMaYHKnUOVKTOPTQJuVG0A4R
+ ec23YuLESPHjnnX+OKfUBJpdd8TmCBKJ6NXuOJl/JZ76BeVaT0r+sV78osLHzva+jlJJiSzO2Wqf5
+ izBtr5b9gOuaHI8UybP6KH7FDUNIC29r+kFgJObihwXoV2F1Hcmbvh7xZ/1oL/ntZCe2KJ1hijrFr
+ 2/TF2RKlErC+t1IZ4MZ9fp15W5pfiISR4QGUY9Ty8IDGHGSHwEHgnAzyWKxAJRqfsCb1UOQpkLa5l
+ S0AyJH5A==;
 Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
  helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wjQSE-00EjJa-8B; Tue, 14 Jul 2026 01:52:54 +0200
+ id 1wjQS9-00EjJa-Q6; Tue, 14 Jul 2026 01:52:50 +0200
 From: John Harrison <John.Harrison@Igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Suraj Kandpal <suraj.kandpal@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>
-Subject: [PATCH v7 6/9] drm: renesas: rcar-du: use
- drmm_writeback_connector_init()
-Date: Mon, 13 Jul 2026 16:51:48 -0700
-Message-ID: <20260713235153.3862650-7-John.Harrison@Igalia.com>
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Liviu Dudau <liviu.dudau@arm.com>
+Subject: [PATCH v7 4/9] drm/komeda: use drmm_writeback_connector_init()
+Date: Mon, 13 Jul 2026 16:51:46 -0700
+Message-ID: <20260713235153.3862650-5-John.Harrison@Igalia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260713235153.3862650-1-John.Harrison@Igalia.com>
 References: <20260713235153.3862650-1-John.Harrison@Igalia.com>
@@ -74,57 +74,101 @@ Use drmm_plain_encoder_alloc() to allocate simple encoder and
 drmm_writeback_connector_init() in order to initialize writeback
 connector instance.
 
+v2: Fix error paths (as complained by Sashiko).
+
 Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: John Harrison <John.Harrison@Igalia.com>
 ---
- .../drm/renesas/rcar-du/rcar_du_writeback.c   | 22 +++++++++++++------
- 1 file changed, 15 insertions(+), 7 deletions(-)
+ .../arm/display/komeda/komeda_wb_connector.c  | 37 +++++++++++--------
+ 1 file changed, 22 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-index e5e6e6a156aa..ecfd4fc1f210 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-@@ -134,7 +134,6 @@ static void rcar_du_wb_conn_reset(struct drm_connector *connector)
- static const struct drm_connector_funcs rcar_du_wb_conn_funcs = {
- 	.reset = rcar_du_wb_conn_reset,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
--	.destroy = drm_connector_cleanup,
- 	.atomic_duplicate_state = rcar_du_wb_conn_duplicate_state,
- 	.atomic_destroy_state = rcar_du_wb_conn_destroy_state,
- };
-@@ -201,16 +200,25 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
- 			   struct rcar_du_crtc *rcrtc)
- {
- 	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
-+	struct drm_encoder *encoder;
-+
-+	encoder = drmm_plain_encoder_alloc(&rcdu->ddev, NULL,
-+					   DRM_MODE_ENCODER_VIRTUAL, NULL);
-+	if (IS_ERR(encoder))
-+		return PTR_ERR(encoder);
-+
-+	drm_encoder_helper_add(encoder, &rcar_du_wb_enc_helper_funcs);
-+
-+	encoder->possible_crtcs = drm_crtc_mask(&rcrtc->crtc);
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+index 41cc3e080dc9..c1bedbaa26f9 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+@@ -5,6 +5,7 @@
+  *
+  */
+ #include <drm/drm_framebuffer.h>
++#include <drm/drm_managed.h>
+ #include "komeda_dev.h"
+ #include "komeda_kms.h"
  
- 	drm_connector_helper_add(&wb_conn->base,
- 				 &rcar_du_wb_conn_helper_funcs);
- 
--	return drm_writeback_connector_init(&rcdu->ddev, wb_conn,
--					    &rcar_du_wb_conn_funcs,
--					    &rcar_du_wb_enc_helper_funcs,
--					    writeback_formats,
--					    ARRAY_SIZE(writeback_formats),
--					    1 << drm_crtc_index(&rcrtc->crtc));
-+	return drmm_writeback_connector_init(&rcdu->ddev, wb_conn,
-+					     &rcar_du_wb_conn_funcs,
-+					     encoder,
-+					     writeback_formats,
-+					     ARRAY_SIZE(writeback_formats));
+@@ -121,17 +122,10 @@ komeda_wb_connector_fill_modes(struct drm_connector *connector,
+ 	return 0;
  }
  
- void rcar_du_writeback_setup(struct rcar_du_crtc *rcrtc,
+-static void komeda_wb_connector_destroy(struct drm_connector *connector)
+-{
+-	drm_connector_cleanup(connector);
+-	kfree(to_kconn(to_wb_conn(connector)));
+-}
+-
+ static const struct drm_connector_funcs komeda_wb_connector_funcs = {
+ 	.reset			= drm_atomic_helper_connector_reset,
+ 	.detect			= komeda_wb_connector_detect,
+ 	.fill_modes		= komeda_wb_connector_fill_modes,
+-	.destroy		= komeda_wb_connector_destroy,
+ 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
+ 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
+ };
+@@ -143,13 +137,15 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
+ 	struct komeda_wb_connector *kwb_conn;
+ 	struct drm_writeback_connector *wb_conn;
+ 	struct drm_display_info *info;
++	struct drm_encoder *encoder;
++
+ 	u32 *formats, n_formats = 0;
+ 	int err;
+ 
+ 	if (!kcrtc->master->wb_layer)
+ 		return 0;
+ 
+-	kwb_conn = kzalloc_obj(*kwb_conn);
++	kwb_conn = drmm_kzalloc(&kms->base, sizeof(*kwb_conn), GFP_KERNEL);
+ 	if (!kwb_conn)
+ 		return -ENOMEM;
+ 
+@@ -161,18 +157,29 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
+ 					       kwb_conn->wb_layer->layer_type,
+ 					       &n_formats);
+ 	if (!formats) {
+-		kfree(kwb_conn);
++		drmm_kfree(&kms->base, kwb_conn);
+ 		return -ENOMEM;
+ 	}
+ 
+-	err = drm_writeback_connector_init(&kms->base, wb_conn,
+-					   &komeda_wb_connector_funcs,
+-					   &komeda_wb_encoder_helper_funcs,
+-					   formats, n_formats,
+-					   BIT(drm_crtc_index(&kcrtc->base)));
++	encoder = drmm_plain_encoder_alloc(&kms->base, NULL,
++					   DRM_MODE_ENCODER_VIRTUAL, NULL);
++	if (IS_ERR(encoder)) {
++		komeda_put_fourcc_list(formats);
++		drmm_kfree(&kms->base, kwb_conn);
++		return PTR_ERR(encoder);
++	}
++
++	drm_encoder_helper_add(encoder, &komeda_wb_encoder_helper_funcs);
++
++	encoder->possible_crtcs = drm_crtc_mask(&kcrtc->base);
++
++	err = drmm_writeback_connector_init(&kms->base, wb_conn,
++					    &komeda_wb_connector_funcs,
++					    encoder,
++					    formats, n_formats);
+ 	komeda_put_fourcc_list(formats);
+ 	if (err) {
+-		kfree(kwb_conn);
++		drmm_kfree(&kms->base, kwb_conn);
+ 		return err;
+ 	}
+ 
 -- 
 2.43.0
 
