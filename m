@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8F8BC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:42:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1649C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 12:46:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46EEB10E5C6;
-	Mon, 13 Jul 2026 12:42:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8D1810E09F;
+	Mon, 13 Jul 2026 12:46:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fqYCaxOi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MjHezeNR";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C75F410E5C6
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:42:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA9AD10E09F
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 12:46:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B0C9C41B22;
- Mon, 13 Jul 2026 12:42:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DAC21F000E9;
- Mon, 13 Jul 2026 12:42:51 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2DA2140A8D;
+ Mon, 13 Jul 2026 12:46:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDAE71F000E9;
+ Mon, 13 Jul 2026 12:46:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783946571;
- bh=DLOKfhMF9U39UQq9muQz486tYguO/0MmnNEfurD/sVQ=;
+ s=k20260515; t=1783946801;
+ bh=5qp4cB28UsZKGHNVhMCm/1kfvcwCj7c2iWrRp/RkMyc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fqYCaxOi03effUzQZfKSZcF2VHc7fh3Xj6I52F9B5Hh6LZEu/QMixgkdShZMkIfYk
- FyQhbzPge7tc4U5m9cufkRGP5OgBVQYhq27i2LuBvF103ASJNa14/FFzsHHrIRY4Q7
- 1n4apn+NFXjNPbqqVtv7oWdIKleEnkKim4R1LV3mq5zrbBgeUD/SJFdKBaS6RA8i0s
- xbvCtfeRn1LnbpuMrRkmxYbLH0l7emyvGNp6bV8CdTluwXl5+He5raxBvVCZrJnGQk
- Y9UJF7YIvDRLsVvpCOtDmT8UZVNK7DtI3kItL9c2H0CJm2vsQiQSY8oO2+fpY10G9J
- 0a1ycD+UtNJyg==
+ b=MjHezeNR8aDJFQXD+LYaTJEEHFUxCWP2HlFAlRSf6lAk035xOu58EPgx942BBLA8I
+ 3TavJA7Z/asNzkWmbqEj/jBRyWuqUfSpfc3zUsR0JpmDE5rLZEm5ZzKLZ+g7mOIHTm
+ 9RN9IespmO+eFmfLPA8CCeOPXi0YoqzkTWjPTSAsQRX7pDX12rFce9Zj+9+2MtO1hU
+ M0W5gNlKJ3tnfUrdGBu3XibexmgYiVT0Pb0HrxtEKrd5qIDBXUPXbqpjEbXjrIjjY8
+ wUW6jL5VarNGYry/Lqg3qsofsz2i5w+DcRe/YuCLMBL1FUvUgy3FifPyVma69vDyAS
+ pTuUrTfWoZ6XA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 09/19] media: meson: vdec: Fix vp9 header update
- failure on invalid payloads
+Subject: Re: [PATCH v7 10/19] media: meson: vdec: Fix race conditions and
+ leaks in esparser pipeline
 To: "Anand Moon" <linux.amoon@gmail.com>
-Cc: neil.armstrong@linaro.org, dri-devel@lists.freedesktop.org,
+Cc: dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org,
  linux-amlogic@lists.infradead.org
-In-Reply-To: <20260713120840.17427-10-linux.amoon@gmail.com>
+In-Reply-To: <20260713120840.17427-11-linux.amoon@gmail.com>
 References: <20260713120840.17427-1-linux.amoon@gmail.com>
- <20260713120840.17427-10-linux.amoon@gmail.com>
+ <20260713120840.17427-11-linux.amoon@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 12:42:50 +0000
-Message-Id: <20260713124251.5DAC21F000E9@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 12:46:40 +0000
+Message-Id: <20260713124640.CDAE71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,220 +59,238 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
 s) to consider:
 
 New issues:
-- [Critical] Negative error code converted to massive positive integer bypa=
-sses validation, leading to out-of-bounds DMA fetch and memory corruption.
-- [High] Early return from `esparser_isr` bypasses hardware interrupt clear=
-ing, leading to an unrecoverable IRQ storm and system lockup.
-- [High] Using `break` inside `scoped_guard` escapes only the guard mechani=
-sm, causing an infinite busy-wait loop when the worker queue is empty.
+- [High] Infinite loop and CPU soft-lockup in `esparser_queue_all_src` due =
+to inverted `processed_frame` logic.
+- [High] Self-deadlock in `vdec_start_streaming` and `vdec_stop_streaming` =
+due to recursive acquisition of `core->lock`.
+- [High] AB-BA deadlock in `vdec_stop_streaming` caused by calling `cancel_=
+work_sync` while holding `sess->lock`.
+- [High] AB-BA lock inversion deadlock between `core->lock` and `sess->lock=
+` in the esparser workqueue.
+- [High] System-wide V4L2 stall due to sleeping for up to 200ms while holdi=
+ng the driver-wide `core->lock`.
+- [High] Silent omission of start code padding for unmapped buffers leads t=
+o hardware out-of-bounds DMA.
 
 Pre-existing issues:
-- [Critical] Implicit integer promotion of VP9 frame sizes allows crafting =
-negative sizes to bypass bounds checks, causing a massive out-of-bounds hea=
-p copy.
-- [High] esparser worker accesses hardware registers and waitqueues without=
- taking the global lock, causing hardware state corruption across concurren=
-t sessions.
-- [High] VP9 frame size validation checks against maximum buffer capacity i=
-nstead of actual payload size, allowing information disclosure of uninitial=
-ized kernel memory.
+- [Critical] Integer overflow in `vp9_update_header` allows massive out-of-=
+bounds heap corruption from untrusted payload data.
+- [High] `esparser_pad_start_code` executes an out-of-bounds memory write b=
+efore evaluating bounds checks.
 --
 
---- Patch [9]: [PATCH v7 09/19] media: meson: vdec: Fix vp9 header update f=
-ailure on invalid payloads ---
-commit e42c61ef1ea850aa0156d3301824f682854a42da
+--- Patch [10]: [PATCH v7 10/19] media: meson: vdec: Fix race conditions an=
+d leaks in esparser pipeline ---
+commit f978165e2ef967ec3f207c80310d474efee3c9e8
 Author: Anand Moon <linux.amoon@gmail.com>
+Subject: media: meson: vdec: Fix race conditions and leaks in esparser pipe=
+line
 
-media: meson: vdec: Fix vp9 header update failure on invalid payloads
-
-Ensure vp9_update_header() returns an explicit error code on invalid or
-malformed buffer payloads instead of silently returning zero.
+This commit fixes a circular locking dependency and potential race conditio=
+ns
+within the asynchronous esparser queue. It moves hardware ownership validat=
+ion
+inside the core->lock mutex region and properly cleans up timestamp tracker=
+s.
+The VP9 payload evaluation logic is also refined.
 
 > diff --git a/drivers/staging/media/meson/vdec/esparser.c b/drivers/stagin=
 g/media/meson/vdec/esparser.c
+> index edbfc829e2da8..b9f36fef4be12 100644
 > --- a/drivers/staging/media/meson/vdec/esparser.c
 > +++ b/drivers/staging/media/meson/vdec/esparser.c
-> @@ -97,11 +97,15 @@ static int vp9_update_header(struct amvdec_core *core=
-, struct vb2_buffer *buf)
->  	unsigned char *old_header =3D NULL;
-> =20
->  	dp =3D (uint8_t *)vb2_plane_vaddr(buf, 0);
-> +	if (!dp)
-> +		return -EINVAL;
-
-[Severity: Critical]
-Does returning a negative error code here cause an issue in the caller?
-
-Looking at esparser_queue(), it assigns the return value of=20
-vp9_update_header() to payload_size and checks if (payload_size =3D=3D 0). =
-If=20
-this returns -EINVAL and the caller assigns the result to a u32 variable,=20
-could the negative error code underflow to a massive positive integer (like=
-=20
-4294967274)?=20
-
-This might completely bypass validation and be passed to=20
-esparser_pad_start_code(), causing an out-of-bounds memset and out-of-bound=
-s=20
-DMA commands to the hardware.
-
->  	dsize =3D vb2_get_plane_payload(buf, 0);
-> =20
-> -	if (dsize =3D=3D vb2_plane_size(buf, 0)) {
-> -		dev_warn(core->dev, "%s: unable to update header\n", __func__);
-> -		return 0;
-> +	if (dsize <=3D 0 || dsize > vb2_plane_size(buf, 0)) {
-> +		dev_warn(core->dev, "%s: invalid payload size %d\n",
-> +			 __func__, dsize);
-> +		return -EINVAL;
->  	}
-> =20
-
-[ ... ]
-
-> @@ -109,13 +113,16 @@ static int vp9_update_header(struct amvdec_core *co=
+> @@ -199,12 +199,16 @@ static int vp9_update_header(struct amvdec_core *co=
 re, struct vb2_buffer *buf)
->  		num_frames =3D (marker & 0x7) + 1;
->  		mag =3D ((marker >> 3) & 0x3) + 1;
->  		mag_ptr =3D dsize - mag * num_frames - 2;
-> -		if (dp[mag_ptr] !=3D marker)
-> -			return 0;
-> +		if (mag_ptr < 0 || dp[mag_ptr] !=3D marker)
-> +			return -EINVAL;
+>   * the ESPARSER interrupt.
+>   */
+>  static u32 esparser_pad_start_code(struct amvdec_core *core,
+> +				   struct amvdec_session *sess,
+>  				   struct vb2_buffer *vb,
+>  				   u32 payload_size)
+>  {
+>  	u32 pad_size =3D 0;
+>  	u8 *vaddr =3D vb2_plane_vaddr(vb, 0);
 > =20
->  		mag_ptr++;
->  		for (cur_frame =3D 0; cur_frame < num_frames; cur_frame++) {
->  			frame_size[cur_frame] =3D 0;
->  			for (cur_mag =3D 0; cur_mag < mag; cur_mag++) {
-> +				if (mag_ptr >=3D dsize)
-> +					return -EINVAL;
-> +
->  				frame_size[cur_frame] |=3D
->  					(dp[mag_ptr] << (cur_mag * 8));
+> +	if (!sess || READ_ONCE(sess->should_stop) || !sess->priv || !vaddr)
+> +		return 0;
 
-[Severity: Critical]
-This isn't a bug introduced by this patch, but does this shift operation=20
-cause an implicit sign extension?
+[Severity: High]
+Does returning 0 here skip the start code injection and cause an
+out-of-bounds DMA scan?
 
-Because dp is a pointer to u8, the byte at dp[mag_ptr] undergoes integer=20
-promotion to a signed int before shifting. If cur_mag is 3 and the byte is=
-=20
-128 or larger, shifting it by 24 bits produces a negative value due to the=
-=20
-sign bit.
+By bypassing the injection of the SEARCH_PATTERN start code, the caller
+esparser_queue() might interpret the 0 as success and instruct the DMA
+engine to fetch the buffer.=20
 
-Could this allow crafting combinations of large positive and negative=20
-frame_size values so their sum wraps around to a small positive integer,=20
-bypassing the bounds check later on and causing a massive out-of-bounds=20
-memmove()?
+Since the search pattern is missing, could the hardware parser scan
+indefinitely past the valid buffer into adjacent physical memory, resulting
+in an out-of-bounds DMA read?
 
->  				mag_ptr++;
->  			}
-
-[ ... ]
-
-> @@ -140,7 +147,7 @@ static int vp9_update_header(struct amvdec_core *core=
-, struct vb2_buffer *buf)
-> =20
->  	if (new_frame_size >=3D vb2_plane_size(buf, 0)) {
->  		dev_warn(core->dev, "%s: unable to update header\n", __func__);
-> -		return 0;
-> +		return -ENOMEM;
+>  	if (payload_size < ESPARSER_MIN_PACKET_SIZE) {
+>  		pad_size =3D ESPARSER_MIN_PACKET_SIZE - payload_size;
+>  		memset(vaddr + payload_size, 0, pad_size);
 >  	}
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does validating against the=
-=20
-total buffer capacity instead of the actual payload size allow information=
-=20
-disclosure?
+This is a pre-existing issue, but does this memset() write out of bounds?
 
-If the check uses vb2_plane_size(buf, 0) instead of the actual received=20
-payload length in dsize, could a valid short payload with a crafted=20
-superframe index declare frame sizes that exceed the payload length but=20
-remain under the total buffer capacity?
+If a small buffer is queued, this calculation executes before the
+overall bounds check is evaluated.=20
 
-If so, memmove() could copy trailing uninitialized or stale kernel memory=20
-from the buffer into the active payload stream.
+Could this overwrite adjacent kernel memory with zeroes before validating=20
+the size?
 
+[ ... ]
 
-Outside of the immediate diff, there are a few other questions about the=20
-esparser implementation that may be worth reviewing:
+> @@ -349,24 +356,38 @@ esparser_queue(struct amvdec_session *sess, struct =
+vb2_v4l2_buffer *vbuf)
+>  	vbuf->sequence =3D sess->sequence_out++;
+> =20
+>  	if (sess->fmt_out->pixfmt =3D=3D V4L2_PIX_FMT_VP9) {
+> -		payload_size =3D vp9_update_header(core, vb);
+> +		int res =3D vp9_update_header(core, vb);
+
+[Severity: Critical]
+This is a pre-existing issue, but does vp9_update_header() have an integer
+overflow?
+
+By extracting untrusted payload bytes and shifting them left up to 24 bits
+into a signed integer, can malicious payloads construct negative frame size=
+s?
+
+If a highly negative signed integer is produced and passed to memmove() as =
+an
+unsigned size_t, could this cause massive out-of-bounds reads and writes on
+the kernel heap or DMA memory?
+
+> =20
+> -		if (payload_size =3D=3D 0) {
+> -			dev_err(core->dev, "esparser: VP9 header update failed\n");
+> +		if (res <=3D 0) {
+> +			dev_err(core->dev,
+> +				"esparser: VP9 header update failed (%d)\n",
+> +				res);
+>  			amvdec_remove_ts(sess, vb->timestamp);
+>  			return -EBADMSG;
+>  		}
+> +		payload_size =3D res;
+> +	}
+> +
+> +	pad_size =3D esparser_pad_start_code(core, sess, vb, payload_size);
+> +
+> +	/* Protect hardware register writes under core->lock */
+> +	mutex_lock(&core->lock);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does esparser_queue_all_src(=
-)=20
-queue hardware operations without acquiring the global hardware lock?
+Does this new mutex_lock() introduce an AB-BA lock inversion?
 
-The worker runs concurrently for multiple sessions because the work queue i=
-s=20
-initialized per-session. The worker locks the per-session sess->lock but=20
-does not appear to acquire the global core->lock or verify hardware ownersh=
-ip=20
-before calling esparser_write_data():
+The background workqueue thread esparser_queue_all_src() acquires sess->loc=
+k=20
+first (via scoped_guard) and then calls esparser_queue().=20
 
-esparser_queue_all_src() {
+By adding mutex_lock(&core->lock) here, could this conflict with V4L2 ioctls
+that implicitly acquire core->lock before sess->lock, resulting in an AB-BA
+deadlock?
+
+> +	if (core->cur_sess !=3D sess || READ_ONCE(sess->should_stop)) {
+> +		mutex_unlock(&core->lock);
+> +		amvdec_remove_ts(sess, vb->timestamp);
+> +		return -ESHUTDOWN;
+>  	}
+> =20
+> -	pad_size =3D esparser_pad_start_code(core, vb, payload_size);
+>  	ret =3D esparser_write_data(core, phy, payload_size + pad_size);
+
+[Severity: High]
+Could sleeping inside esparser_write_data() block all other V4L2 ioctls?
+
+Because core->lock is mapped to vdev->lock, sleeping via=20
+wait_event_interruptible_timeout() while waiting for the hardware interrupt=
+=20
+blocks all other V4L2 ioctls across the entire device for the duration of=20
+the fetch.=20
+
+Can this severely degrade system performance?
+
+> =20
+>  	if (ret <=3D 0) {
+>  		dev_warn(core->dev, "esparser: input parsing error\n");
+>  		amvdec_remove_ts(sess, vb->timestamp);
+>  		amvdec_write_parser(core, PARSER_FETCH_CMD, 0);
+> +		mutex_unlock(&core->lock);
+>  		return -EIO;
+>  	}
+> +	mutex_unlock(&core->lock);
+> =20
+>  	atomic_inc(&sess->esparser_queued_bufs);
+> =20
+
+I also have some questions about related code paths outside the diff:
+
+[Severity: High]
+Is there an infinite loop in esparser_queue_all_src()?
+
+When looking at the worker thread:
+
+drivers/staging/media/meson/vdec/esparser.c:esparser_queue_all_src() {
     ...
-    ret =3D esparser_queue(sess, vbuf);
+		bool processed_frame =3D false;
+        ...
+		if (processed_frame)
+			break;
     ...
 }
 
-Could multiple sessions invoke esparser_write_data() simultaneously, causin=
-g=20
-conflicting writes to the hardware parser registers and corruption of the=20
-global search_done waitqueue flag?
+Because the break statements inside the scoped_guard macro only exit the=20
+internal macro loop, processed_frame remains false when the queue is empty.=
+=20
+
+Does the inverted logic cause the thread to bypass the outer break and loop=
+=20
+infinitely, soft-locking the CPU?
 
 [Severity: High]
-Could the early return in esparser_isr() bypass clearing the hardware=20
-interrupt?
+Do vdec_start_streaming() and vdec_stop_streaming() self-deadlock?
 
-The interrupt service routine starts with a check:
+In the current code:
 
-esparser_isr() {
-    if (!sess)
-        return IRQ_HANDLED;
+drivers/staging/media/meson/vdec/vdec.c:vdec_start_streaming() {
+    ...
+	mutex_lock(&core->lock);
     ...
 }
 
-If a hardware interrupt asserts just as the session is torn down, returning=
+Because the device's vdev->lock is mapped directly to &core->lock, the V4L2=
 =20
-early leaves the hardware interrupt un-cleared. Would this cause the=20
-hardware to hold the interrupt line asserted indefinitely, leading to an=20
-unrecoverable IRQ storm and system lockup?
+core framework automatically acquires it before dispatching standard ioctls=
+.=20
+
+Does explicitly calling mutex_lock(&core->lock) inside these callbacks=20
+result in a permanent self-deadlock?
 
 [Severity: High]
-Does the break statement inside esparser_queue_all_src() properly exit the=
-=20
-worker loop?
+Is there an AB-BA deadlock during stream teardown?
 
-When checking if a buffer is available inside a scoped_guard():
+During streamoff:
 
-esparser_queue_all_src() {
+drivers/staging/media/meson/vdec/vdec.c:vdec_stop_streaming() {
     ...
-    vbuf =3D v4l2_m2m_next_src_buf(sess->m2m_ctx);
-    if (!vbuf)
-        break;
+		cancel_work_sync(&sess->esparser_queue_work);
     ...
 }
 
-Since scoped_guard() is implemented internally as a for loop, breaking here=
-=20
-would only escape the guard's inner loop. If processed_frame remains false,=
-=20
-the outer while (1) loop proceeds past its own exit condition:
+The ioctl thread acquires sess->lock before invoking this callback.=20
+Concurrently, the background workqueue thread esparser_queue_all_src()=20
+blocks waiting for sess->lock.=20
 
-    if (processed_frame)
-        break;
-    /* Give other threads and IRQ routines a window ... */
-    cond_resched();
-
-Could this pin a CPU core at 100% in an infinite busy-wait loop when the=20
-queue is empty?
+Does calling cancel_work_sync() here cause the ioctl thread to block foreve=
+r=20
+waiting for the worker thread, resulting in an AB-BA deadlock?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713120840.1742=
-7-1-linux.amoon@gmail.com?part=3D9
+7-1-linux.amoon@gmail.com?part=3D10
