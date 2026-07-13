@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8712BC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 14:28:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6056C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 14:28:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB77D10E611;
-	Mon, 13 Jul 2026 14:28:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69D2810E9CB;
+	Mon, 13 Jul 2026 14:28:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="L4f14ewj";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Htl3eNoT";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D327D10E600
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 14:27:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F06CF10E600
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Jul 2026 14:27:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783952877;
- bh=KNbVNlFY+uLNDUXEXu75BAUx1ez1smVG3i7wUViK7BM=;
+ s=mail; t=1783952876;
+ bh=xUmbeuNXP/vmDishEba9WwlN8rEC1bG4DX5W2fr1jPI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=L4f14ewju4LTblCAt0KdF/pgs7TvX0AfpQs2+1vkuGpjGGA39QYFe3h+/ZH1GGBfz
- au33MnONA0TzpKvRaL41GPy5JignS4ZnQvVWc7SbH8ML9b/XEMGF6JY/bpjyDdGvAQ
- ShNQ6yRI2EP0J9+nd9NA9LheRipAwJ+jE40SRSnvGiYLWG83z1CfvYrSLVDcwkfbun
- AB4Kg4g50CrGFY7RTllMBKq8F14dwNKDQ6Ux/YSPaK3rTIoEzA5TZggUr1cfIRr3Tl
- 5XpWAeLH0XgRCLyTVejxR8m6kB9IfoEQknJyVeKIPpDJix5fxOLblCsdAro8ZmKcEb
- dUzE4RjuQ5VdQ==
+ b=Htl3eNoTJt774JP7adfv/BcUhPddiYNOYr7Tof4ld61sc1Jc+IVnQpeEQzdWXPZ9i
+ ScGYG9gpanxRoS409nkCa3klozTW4IEJ0p5McChGRy88GjtYNqDmCXf3yvPYT2OUQ6
+ TlLwhkZGowg4dkylKOhH7AS8FskkQJeGNErmiC2obvidCNxSkshXzsGJ/JI9zguPln
+ S/a+1ZUA1aV3Q0SfZTPdtkFKbtI+TMoKOKxQ+YEThHM6wFItlyIIEFPWhUh71rCndR
+ V/OhWEZsuAE+0PVQh/5KKkkSzbgkdMllaFEdSIjrB0mwKL8E2Rc4XSNaB8/DCeKGfz
+ U9npXpW8yNBvg==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BC6D717E0DE6;
- Mon, 13 Jul 2026 16:27:56 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id CB01F17E0DD8;
+ Mon, 13 Jul 2026 16:27:55 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
@@ -41,11 +41,12 @@ Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
  jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org,
  linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
-Subject: [PATCH v4 04/10] drm/mediatek: mtk_dsi: Enable interrupt at component
- bind time
-Date: Mon, 13 Jul 2026 16:27:40 +0200
-Message-ID: <20260713142746.40259-5-angelogioacchino.delregno@collabora.com>
+ kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v4 03/10] dt-bindings: display: mediatek: dsi: Document MT8189
+ and MT8196
+Date: Mon, 13 Jul 2026 16:27:39 +0200
+Message-ID: <20260713142746.40259-4-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
 References: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
@@ -66,108 +67,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Having the DSI interrupt enabled before actually binding the DSI
-component to the display controller driver is both useless and
-dangerous: the main purpose of this interrupt is to signal CMD
-done, LP RX data ready, or VideoMode done, or to reset the HW
-engine if this doesn't come.
+Add compatible strings for MT8189 and MT8196 SoCs.
+These are compatible with the DSI IPs found in the MT8188/95 and
+others, but with differences making them not fully compatible.
 
-Should this interrupt come too late (during probe), the HW will
-be reset only at the next occurrence of a timeout, which slows
-down boot and may render artifacts to the DSI display.
-
-Moreover, clearing the DSI interrupt while the display controller
-is not ready yet, may result in an interrupt storm.
-
-In order to prevent this from happening, request the interrupt
-with IRQF_NO_AUTOEN, and enable it only when binding DSI to its
-display controller component master.
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_dsi.c | 30 ++++++++++++++++++------------
- 1 file changed, 18 insertions(+), 12 deletions(-)
+ .../devicetree/bindings/display/mediatek/mediatek,dsi.yaml      | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 8ab5c3431dbb..e24e7b91a361 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -225,6 +225,7 @@ struct mtk_dsi {
- 	int refcount;
- 	bool enabled;
- 	bool lanes_ready;
-+	int irq;
- 	u32 irq_data;
- 	wait_queue_head_t irq_wait_queue;
- 	const struct mtk_dsi_driver_data *driver_data;
-@@ -1090,7 +1091,13 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
- 	if (ret)
- 		return ret;
- 
--	return device_reset_optional(dev);
-+	ret = device_reset_optional(dev);
-+	if (ret)
-+		return ret;
-+
-+	enable_irq(dsi->irq);
-+
-+	return 0;
- }
- 
- static void mtk_dsi_unbind(struct device *dev, struct device *master,
-@@ -1098,6 +1105,8 @@ static void mtk_dsi_unbind(struct device *dev, struct device *master,
- {
- 	struct mtk_dsi *dsi = dev_get_drvdata(dev);
- 
-+	disable_irq(dsi->irq);
-+
- 	drm_encoder_cleanup(&dsi->encoder);
- }
- 
-@@ -1331,7 +1340,6 @@ static int mtk_dsi_probe(struct platform_device *pdev)
- {
- 	struct mtk_dsi *dsi;
- 	struct device *dev = &pdev->dev;
--	int irq_num;
- 	int ret;
- 
- 	dsi = devm_drm_bridge_alloc(dev, struct mtk_dsi, bridge,
-@@ -1364,9 +1372,9 @@ static int mtk_dsi_probe(struct platform_device *pdev)
- 	if (IS_ERR(dsi->phy))
- 		return dev_err_probe(dev, PTR_ERR(dsi->phy), "Failed to get MIPI-DPHY\n");
- 
--	irq_num = platform_get_irq(pdev, 0);
--	if (irq_num < 0)
--		return irq_num;
-+	dsi->irq = platform_get_irq(pdev, 0);
-+	if (dsi->irq < 0)
-+		return dsi->irq;
- 
- 	dsi->host.ops = &mtk_dsi_ops;
- 	dsi->host.dev = dev;
-@@ -1375,17 +1383,15 @@ static int mtk_dsi_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, dsi);
- 
-+	ret = devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
-+			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
-+
- 	ret = mipi_dsi_host_register(&dsi->host);
- 	if (ret < 0)
- 		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
- 
--	ret = devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq,
--			       IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi);
--	if (ret) {
--		mipi_dsi_host_unregister(&dsi->host);
--		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
--	}
--
- 	dsi->bridge.of_node = dev->of_node;
- 	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
- 
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
+index 27ffbccc2a08..b5cdfe0eaca4 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
+@@ -30,6 +30,8 @@ properties:
+           - mediatek,mt8183-dsi
+           - mediatek,mt8186-dsi
+           - mediatek,mt8188-dsi
++          - mediatek,mt8189-dsi
++          - mediatek,mt8196-dsi
+       - items:
+           - enum:
+               - mediatek,mt6795-dsi
 -- 
 2.54.0
 
