@@ -4,54 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0309EC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 07:53:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E0D5C44501
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 07:54:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3301410E029;
-	Tue, 14 Jul 2026 07:53:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FBEB10EC2D;
+	Tue, 14 Jul 2026 07:54:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="jaJ4r2ix";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MQNf0/ig";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 292F010E029
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 07:53:25 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gzs4K1CZMzKngh;
- Tue, 14 Jul 2026 09:53:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1784015601; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=E86emSsGnNboEBZz/nB/ic8WsIfQJK/xE8FObu6WebA=;
- b=jaJ4r2ixSyy5ZMqCjJ4PkmGeKFvgIbO8WFUlPvQLUoetPOycliithx3DloUAkqUPTXQmv+
- ihGegmn87UF6HycjtAWL3oRgIniHETVJ0ZJwgbVwr7mHCWYltjTl9RTmYicEt1v68xyZUS
- JSTfSDWAedG1qx8q4VcGGwAAsu2YiW1Pn7KrcLJOnOLM5c32qMcml9vjG1rfSZcespulID
- sFFG/XIx9j1Dd8agq3kZCrpAL7fid3sB4WtIhEcoyXgPhVnNVcIiuKSiVxauS0fahlqG06
- 4XokDyCKPAqJRPzsWf/Oj/u1nbPoNi1dPpgZQYq8eqzyE1Q72QAGV/EMpM0WUA==
-Message-ID: <aee97ce4aad6bcf63ce9e7066e20a4ff6f082669.camel@mailbox.org>
-Subject: Re: [PATCH 1/9] dma-buf: add dma_fence_was_initialized function v2
-From: Philipp Stanner <phasta@mailbox.org>
-To: Jiri Slaby <jirislaby@kernel.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <ckoenig.leichtzumerken@gmail.com>, tursulin@ursulin.net, 
- matthew.brost@intel.com, sumit.semwal@linaro.org
-Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-Date: Tue, 14 Jul 2026 09:53:18 +0200
-In-Reply-To: <0d40243b-0929-46d2-be85-e3248d4bd09c@kernel.org>
-References: <20260120105655.7134-1-christian.koenig@amd.com>
- <20260120105655.7134-2-christian.koenig@amd.com>
- <0d40243b-0929-46d2-be85-e3248d4bd09c@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 311F710EC2D
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 07:54:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id BF89A43B09;
+ Tue, 14 Jul 2026 07:54:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82C241F000E9;
+ Tue, 14 Jul 2026 07:54:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784015651;
+ bh=j8bA+pvRXRVOxhA1Xg963pwv3BPAbmzdiL3SoZFLDUA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MQNf0/igPfM2ZzvP1jj8fKgVE4p1lzftDh1yH6aQ1o885LmRBr6kKhVeO4KGEBaz/
+ nVVlq94uDNJdXt2yORw3ui4E5bfV/yZV6N4lP67LFCid2OG5KLnTQ+OgWbTMxfA3JY
+ NMnDHtTr5S38fyMB4goVyd4cDoBHU7gUiXGu8sEEbUNNY6ErE2dT3H8l+aR9h4nhhc
+ teJH9Q1ajv+8N+JdEjyTNYXBty+ViRw/XHWLXw8acxRQCgkNOY//d3k/GLWctlPPDg
+ w3B5Q+L/7VMc5WAvqTp7+tUJw6c+WLPLdsr9rzMhph88NN7D6iqe+lTc4rr88KXxkJ
+ 5J49XGnFrGfYw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/imagination: acquire vm_ctx->lock before mapping
+ memory to GPU VM
+To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
+References: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MBO-RS-ID: 34a5d9ee4190364e532
-X-MBO-RS-META: mp11rxeenwe8wkcn3hooppsutsh3h59w
+Date: Tue, 14 Jul 2026 07:54:11 +0000
+Message-Id: <20260714075411.82C241F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,148 +53,119 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-07-13 at 10:58 +0200, Jiri Slaby wrote:
-> Hi,
->=20
-> On 20. 01. 26, 11:54, Christian K=C3=B6nig wrote:
-> > Some driver use fence->ops to test if a fence was initialized or not.
-> > The problem is that this utilizes internal behavior of the dma_fence
-> > implementation.
-> >=20
-> > So better abstract that into a function.
-> >=20
-> > v2: use a flag instead of testing fence->ops, rename the function, move
-> > =C2=A0=C2=A0=C2=A0=C2=A0 to the beginning of the patch set.
-> ...
-> > --- a/drivers/gpu/drm/qxl/qxl_release.c
-> > +++ b/drivers/gpu/drm/qxl/qxl_release.c
-> > @@ -146,7 +146,7 @@ qxl_release_free(struct qxl_device *qdev,
-> > =C2=A0=C2=A0	idr_remove(&qdev->release_idr, release->id);
-> > =C2=A0=C2=A0	spin_unlock(&qdev->release_idr_lock);
-> > =C2=A0=20
-> > -	if (release->base.ops) {
-> > +	if (dma_fence_was_initialized(&release->base)) {
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Could you verify the cause with sth like
+Pre-existing issues:
+- [High] Calling `drm_gpuvm_bo_put()` without holding the GEM object's dma_=
+resv lock in `pvr_vm_bind_op_fini()` causes lockdep splats and GEM gpuva li=
+st corruption on error paths.
+- [High] Infinite loop in `pvr_vm_unmap_all()` when `pvr_vm_unmap_obj_locke=
+d()` fails, leading to a kernel thread hang (Denial of Service).
+--
 
-if (release->base.ops && dma_fence_was_initialized(=E2=80=A6)) {
+--- Patch [1]: [PATCH v2] drm/imagination: acquire vm_ctx->lock before mapp=
+ing memory to GPU VM ---
+commit 1da21cbc09436cbb38e021164bab86864e2bacca
+Author: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
-?
+drm/imagination: acquire vm_ctx->lock before mapping memory to GPU VM
 
-> > =C2=A0=C2=A0		WARN_ON(list_empty(&release->bos));
-> > =C2=A0=C2=A0		qxl_release_free_list(release);
-> > =C2=A0=20
->=20
-> This likely breaks qxl:
-> https://bugzilla.suse.com/show_bug.cgi?id=3D1271081
->=20
-> =C2=A0> refcount_t: underflow; use-after-free.
-> =C2=A0> WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90,=
-=20
-> CPU#0: kworker/0:0/1534
-> =C2=A0> Modules linked in: af_packet nft_fib_inet ...
-> =C2=A0> CPU: 0 UID: 0 PID: 1534 Comm: kworker/0:0 Not tainted 7.1.3-1-def=
-ault=20
-> #1 PREEMPT(full) openSUSE Tumbleweed=20
-> b041a6527f6e58424f4cd3de0fade8d408b378fd
-> =C2=A0> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS=20
-> rel-1.16.3-2-gc13ff2cd-prebuilt.qemu.org 04/01/2014
-> =C2=A0> Workqueue: events qxl_gc_work [qxl]
-> =C2=A0> RIP: 0010:refcount_warn_saturate+0x59/0x90
-> =C2=A0> Code: 44 48 8d 3d a9 72 b7 01 67 48 0f b9 3a c3 cc cc cc cc 48 8d=
- 3d=20
-> a8 72 b7 01 67 48 0f b9 3a c3 cc cc cc cc 48 8d 3d a7 72 b7 01 <67> 48=
-=20
-> 0f b9 3a c3 cc cc cc cc 48 8d 3d a6 72 b7 01 67 48 0f b9 3a
-> =C2=A0> RSP: 0018:ffffce09019efe00 EFLAGS: 00010246
-> =C2=A0> RAX: 0000000000000000 RBX: ffff8b5a56f819c0 RCX: 0000000000000017
-> =C2=A0> RDX: 0000000000011696 RSI: 0000000000000003 RDI: ffffffffbc953b70
-> =C2=A0> RBP: ffff8b5a4a314000 R08: 0000000000000001 R09: ffffffffc07d488a
-> =C2=A0> R10: fffffa6fc4787d80 R11: ffff8b5a40044000 R12: 0000000000000004
-> =C2=A0> R13: 0000000000000003 R14: ffffce09003f1434 R15: ffff8b5a410c4640
-> =C2=A0> FS:=C2=A0 0000000000000000(0000) GS:ffff8b5afe954000(0000)=20
-> knlGS:0000000000000000
-> =C2=A0> CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> =C2=A0> CR2: 00007ff463d65000 CR3: 000000012b476004 CR4: 0000000000772ef0
-> =C2=A0> PKRU: 55555554
-> =C2=A0> Call Trace:
-> =C2=A0>=C2=A0 <TASK>
-> =C2=A0>=C2=A0 qxl_release_free+0xee/0xf0 [qxl=20
-> d93e9381353e619799d56790f5f8dda6cce491f6]
-> =C2=A0>=C2=A0 qxl_garbage_collect+0xd1/0x1b0 [qxl=20
-> d93e9381353e619799d56790f5f8dda6cce491f6]
-> =C2=A0>=C2=A0 process_one_work+0x19e/0x3a0
-> =C2=A0> ...
->=20
-> The function does now:
->=20
-> =C2=A0> void
-> =C2=A0> qxl_release_free(struct qxl_device *qdev,
-> =C2=A0>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct qxl_release *release)
-> =C2=A0> {
-> =C2=A0> ...
-> =C2=A0>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (dma_fence_was=
-_initialized(&release->base)) {
-> =C2=A0>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WARN_ON(list_empty(&release->bos));=20
->=20
-> =C2=A0>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 qxl_release_free_list(release);=20
->=20
-> =C2=A0>=20
->=20
-> =C2=A0>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma_fence_signal(&release->base);=20
->=20
-> =C2=A0>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma_fence_put(&release->base);=20
->=20
-> =C2=A0=20
->=20
-> refcount_dec_and_test() in kref_put() in this ^^ crashes. Apparently,
-> the reference count was not increased anywhere. QXL does not call=20
-> dma_fence_get() -- who is supposed to increase the refcount.
->=20
+The drm gpuvm code doesn't protect find operation against map operation,
+and the driver needs to ensure a map operation shouldn't happen when a
+find operation is in progress.
 
-dma_fence_init() initializes the refcount to 1. So since there is only
-one place with dma_fence_put(), it probably aims at countering that.
+> diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagi=
+nation/pvr_vm.c
+> index 396d349fb6ce4..ceb78694cd987 100644
+> --- a/drivers/gpu/drm/imagination/pvr_vm.c
+> +++ b/drivers/gpu/drm/imagination/pvr_vm.c
+> @@ -747,6 +747,7 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx, struct pvr_=
+gem_object *pvr_obj,
+> =20
+>  	pvr_gem_object_get(pvr_obj);
+> =20
+> +	mutex_lock(&vm_ctx->lock);
+>  	err =3D drm_gpuvm_exec_lock(&vm_exec);
+>  	if (err)
+>  		goto err_cleanup;
+> @@ -756,6 +757,7 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx, struct pvr_=
+gem_object *pvr_obj,
+>  	drm_gpuvm_exec_unlock(&vm_exec);
+> =20
+>  err_cleanup:
+> +	mutex_unlock(&vm_ctx->lock);
+>  	pvr_vm_bind_op_fini(&bind_op);
 
+[Severity: High]
+This is a pre-existing issue, but does calling pvr_vm_bind_op_fini() in the
+error path here drop the drm_gpuvm_bo reference without holding the GEM's
+dma_resv lock?
 
->  And why it=20
-> did not fail before?
+Looking at pvr_vm_bind_op_fini(), it calls drm_gpuvm_bo_put() unconditional=
+ly:
 
-My guess would be that base->ops was used as a boolean to see whether
-qxl_release contains a valid fence. It seems qxl_release_free() is
-intended as some sort of universal function; it is called at many
-places. So I would suppose it is sometimes being called without the
-fence being initialized.
+drivers/gpu/drm/imagination/pvr_vm.c:pvr_vm_bind_op_fini() {
+    drm_gpuvm_bo_put(bind_op->gpuvm_bo);
+    ...
+}
 
-Should most certainly have been documented. Anyways, verifying the
-issue would probably be cool
+When drm_gpuvm_bo_put() drops the reference count to zero, it destroys the =
+BO
+and removes it from the GEM's gpuva.list. This API requires the caller to h=
+old
+the dma_resv lock.
 
-Cheers,
-P.
+In error paths like when drm_gpuvm_exec_lock() fails, this cleanup path runs
+without the dma_resv lock held.
 
-> =C2=A0=20
->=20
-> =C2=A0>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } else {=20
->=20
-> =C2=A0>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 qxl_release_free_list(release);=20
->=20
-> =C2=A0>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kfree(release);=20
->=20
-> =C2=A0>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }=20
->=20
-> =C2=A0>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atomic_dec(&qdev-=
->release_count);=20
->=20
-> =C2=A0> }
->=20
-> thanks,
+Could this lead to list corruption and use-after-free conditions on the GEM=
+'s
+gpuva lists if multiple threads operate concurrently?
+
+> =20
+>  	return err;
+>  }
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but can pvr_vm_unmap_all() enter an infinite
+loop if pvr_vm_unmap_obj_locked() fails?
+
+Looking at pvr_vm_unmap_all():
+
+drivers/gpu/drm/imagination/pvr_vm.c:pvr_vm_unmap_all() {
+    for (;;) {
+        ...
+        va =3D drm_gpuva_find_first(&vm_ctx->gpuvm_mgr, ...);
+        if (!va)
+            break;
+
+        pvr_obj =3D gem_to_pvr_gem(va->gem.obj);
+
+        WARN_ON(pvr_vm_unmap_obj_locked(vm_ctx, pvr_obj,
+                                        va->va.addr, va->va.range));
+    }
+}
+
+The return value of pvr_vm_unmap_obj_locked() is tested inside a WARN_ON but
+otherwise ignored. If it fails, the mapping is not removed from the tree, a=
+nd
+the next iteration will find the exact same mapping via drm_gpuva_find_firs=
+t().
+
+Since pvr_vm_unmap_obj_locked() uses DRM_EXEC_INTERRUPTIBLE_WAIT,
+if a process is being killed (e.g. SIGKILL during teardown), this lock will
+repeatedly fail with -ERESTARTSYS.
+
+Does this cause an unrecoverable infinite loop in the kernel under
+vm_ctx->lock?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714073641.1935=
+075-1-zhengxingda@iscas.ac.cn?part=3D1
