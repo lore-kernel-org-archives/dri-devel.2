@@ -4,78 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8F57C4450A
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BBFDC44513
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A777310F1F2;
-	Thu, 16 Jul 2026 08:19:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF1410F1FB;
+	Thu, 16 Jul 2026 08:19:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QBaqPSt5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qgftXjlc";
 	dkim-atps=neutral
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com
- [209.85.160.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5BE910E168
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 09:33:28 +0000 (UTC)
-Received: by mail-oa1-f52.google.com with SMTP id
- 586e51a60fabf-455ca262ccbso2129547fac.1
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 02:33:28 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 291F510E057
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 19:11:30 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-493e4ccccc2so29828865e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 12:11:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784108008; x=1784712808; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=qpKE0Ztd8LwTs3URtxw/L1Mr92CYYHr0Elkx6ZybgOo=;
- b=QBaqPSt5q23JSyeY32Ko5Ev/0XqLoSGUwR1KoNQBGUseHNUfvvP+sLrd1M1E0l225r
- VTdRwKALGIOpfyzkgLv+ZZCSXlqrAPvO9WcnsxAcutWd0HuMjeMdJLBZ7VUgaacuLHtN
- lq2yHo5PaLy1izhSMhTfblEwc+/B1cPA6TxRd87qlpPLfUKvBkEIYufENgcGy870kblu
- ZKvbsDk9IASyOJRdZ6LxIJRlEPJNsYjHdorRBtULYSaF8djMwwmO6zzyYuSG/pgnsfw9
- 9byIBGxA/iOUBZZhYwOXrAoE9eBCLV6bdumwenAydAEM+utUxeNyU0ReBecAqarIdLWI
- nBoQ==
+ d=gmail.com; s=20251104; t=1784056288; x=1784661088; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=EfWoPu5aITaJ5jCwkR3a7VKo4LHkSTdvVPxiL19RVY4=;
+ b=qgftXjlcgyzV4WRDw275Y0v22ysG4jMLDzMElSyAXajrwkknuKWFbGZb0Mp/EDPvzk
+ JbLe431/c+ATKnKbxWelum/C5UJsWYKdXXm7Eqse2vKzhdwoaFiV5ZBvHl97c+ux7ib3
+ ycWIfyUtNOXbnJQY4YfP6U4rw9FiMilUsepCK2JnFUE6knwzRsLmxu0bNMA2YbwFsbaS
+ XDNKbQ8aSdYbYrp2EapSivEg90wQcw4Wd/z93OXAiopefocJpQTv/Qac7Wmby38gu1Sk
+ ZIyrwaOWr4LNvAIWuwLhjpalz/jDxzgbaFS7ffY+Br1yE7+6AlT1PYtwjCw575rWC2gA
+ /vwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784108008; x=1784712808;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=qpKE0Ztd8LwTs3URtxw/L1Mr92CYYHr0Elkx6ZybgOo=;
- b=dlEaIXSqCz8LUNjsDYX+aruCoiMUQMOdPIm6sknP7ERCDwehwUFp/+K7se7WIsFURD
- 7dPxdCGsTon0UVSbAFn+kbdGBYAtNX2/AscNxxjmU3K/ra7NZMzG8zRlar9wqO/OV7bF
- oLUTDlyLyttL6vDQ399+mbPqxKyo4ADTHlMIW1/Sv3xl8fnyyHoqWViXAmAKerfFpbhh
- CaDebtmryo6tEp9TP8n5tUTE4kVSAAVYD95IeyCujJUtuakp3aBIz6oFUgJ2v6wt2Qyy
- 5cYwJrCw5iXdogxIdluOnzIQJXAengzVGovOt/PCog6FpuxBqZBCgz6ebVVZ/p8QuCK2
- lv6Q==
-X-Gm-Message-State: AOJu0YwMEG7gtctSzVzPAaimmUUL+fESzCZJUWXdPd8x9anBYK45VMor
- fcybh+DVo3hrlp6guQrb5J8iikKmVY3xYRRAFZnIX6adOw0XHvZH0fuB
-X-Gm-Gg: AfdE7cnMQZMnFC2XalMPqN6+D8ZrFccu9KHIUamLkkKp8rvjvL9zAu/nHA4expZmfkM
- 4UMmWZ46hFFh/UcrG4PO2Mq2UpKVbM6UmS7O/xJMuVwna6ZEUBxLJAIYvTw4NRbwoA0zLWjqXeF
- S2Y7BVifjsBml11sBx1ITNNQwb6OT65pBxylFmO/Wx9YWGu+NZZDJvkV8Qo3UahIRTwot9xo1oT
- h+w1oOJvea/CcPyKctGMhyt3uHnSpUKJJw/chgZtSDKBHUKZWQNfZnr3/dVeYl7rrojmprXgFtP
- nsfOn47axO0jQ/L/wgDVMHkHT2GgljcZRI4kx4i9pUplbnIIJoEoEgcfSq3h5kIj+YAtfyhmIe0
- 2pqU3usQ/RUgW4p0AlFIW0ExFDk/bc+VnAK2peyhDo6TW8vyaWda8c58tZdhdZnz4EjNHgxj4Zo
- 3VltNJsB60NdQ/WracEgXwbymJJR05sedtOQLjwu+6YkM=
-X-Received: by 2002:a05:6870:d32b:b0:448:6ba8:be6f with SMTP id
- 586e51a60fabf-4562b4c48f0mr1353839fac.19.1784108007743; 
- Wed, 15 Jul 2026 02:33:27 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:6::])
+ d=1e100.net; s=20251104; t=1784056288; x=1784661088;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=EfWoPu5aITaJ5jCwkR3a7VKo4LHkSTdvVPxiL19RVY4=;
+ b=naO6pP1Z6nyL2v0bHQDyOXJ1+RoLI/zBrVLUJP5ooSJf4SkbXlm4YhFIa1KLN3oo9u
+ 1mbov20P7Cnq4ottwjKRZxyp58uYrbO+iLo4IPU7h53FEVkaPbc5sS2uFP6z9ZUckvZV
+ NMBbH7eUOQ1PvPXdwXpl2/JNJJX9L+oV1c8vQDOdbScUa1gfJNyJe9ZhwXxib3n8OGmi
+ o8wmSeNe3a1QH1f5o0OtHHuwswCnEn65IH4odlOO5QHJJCHnn01c+pQ+kRKw1g5t5rbr
+ fCDhj6bTFQ2CTdqrdoGC3T1WU1h4eWfQfLVAxFyG1Hz4TTa1byCmJRhtTJt87I6YQay7
+ kIGA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rqjn3o6wp2IJ46EIFY5jMznfyhHIosgGubAPGHmm+cmr/4+0pxGyH81MtVPi4zZKU/MEJBB9hyCWl0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxbnAqXzlulMkPoQ7BWTcJZG6PzopGV84dYjMNFb2CHYolDwbD4
+ CTIr1pLrX6QO2FKsvXtEngxnfgAlZBJY8pfFkl1JQ36+U7RHQr7NKpYmhNvRpVCc9uQ=
+X-Gm-Gg: AfdE7cmWpvyVFnHsNgL0vbCqGAUZfPqS3mRO8LNfym17HFHC0WNuHYfsqkV1HhfyDZZ
+ q3PzcuqjywnmhIJB2I2k+I3PBrRYVu/3ssPZhawVRw8TeHfEht53Z8TMRaV4s9uSwxMaPC1hc8C
+ g2Z3wg7isRZ/NXf5Xk7FJ8tKVgkdFOiqsgLxWHxhyU6CpN8RKBXZQva4zAByEBwa7v1iUNJVY3f
+ H+LvX0nxQ+/9gRSlA5tkFnoLwEqN14BZOadgdNOmH7xwzLwGqAb+R4iGb2dIkQKTK52VqEjnRsS
+ VKLthOpzXhUVaTnleT3kOUWi7e2uxeLkIuN1UZ001uQYYNqyyZlNB0SMOvnMDf6ddQV6YLunXW2
+ TH/8dD1UPzrNnkYjRN2/isaT4LQGTmh2lD2SGtDx5eqW9wmeuX8+omu9uXGG9QrAGNHZQ6e9iUk
+ 20LPdzCNDBxvq6zV0CzXtEdX0C2P1OOE/bPvg7erRx1D19reJNH1ohysEO/F1CRBhxQEnGV5NMB
+ XaO6y31Te8ncSgqAGpnHQ==
+X-Received: by 2002:a05:600d:644d:20b0:493:c601:3e23 with SMTP id
+ 5b1f17b1804b1-49538992cfbmr31608585e9.5.1784056288413; 
+ Tue, 14 Jul 2026 12:11:28 -0700 (PDT)
+Received: from evil-archie.tail5479a9.ts.net
+ ([2a02:1388:23c0:16c0:aa41:f4ff:fec6:26e2])
  by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-455ad91df9esm9770592fac.9.2026.07.15.02.33.25
+ 5b1f17b1804b1-4950a2f951asm100677815e9.14.2026.07.14.12.11.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jul 2026 02:33:27 -0700 (PDT)
-Date: Wed, 15 Jul 2026 02:33:24 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH net-next v5 3/3] selftests/net: devmem.py: add
- check_rx_large_niov
-Message-ID: <aldT5PnKUFHTlCkg@devvm29614.prn0.facebook.com>
-References: <20260708-tcpdm-large-niovs-v5-0-34bf6fac941b@meta.com>
- <20260708-tcpdm-large-niovs-v5-3-34bf6fac941b@meta.com>
- <20260710072712.0F50B1F000E9@smtp.kernel.org>
+ Tue, 14 Jul 2026 12:11:28 -0700 (PDT)
+From: Panagiotis Gravias <graviaspanagiotis1@gmail.com>
+To: andy@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: namcao@linutronix.de, tomasz.unger@yahoo.pl,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Panagiotis Gravias <graviaspanagiotis1@gmail.com>
+Subject: [PATCH 3/3] staging: fbtft: Replace udelay with usleep_range
+Date: Tue, 14 Jul 2026 22:09:42 +0300
+Message-ID: <20260714190958.219437-6-graviaspanagiotis1@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260714190958.219437-2-graviaspanagiotis1@gmail.com>
+References: <20260714190958.219437-2-graviaspanagiotis1@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260710072712.0F50B1F000E9@smtp.kernel.org>
-X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:21 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,51 +95,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2026 at 07:27:11AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Unhandled Python exception in selftests when hugepages are disabled or sysctl is read-only.
-> --
-> 
-> --- Patch [3]: [PATCH net-next v5 3/3] selftests/net: devmem.py: add check_rx_large_niov ---
-> commit c6680f91b9c04fa78f7d8b9d5f92ce1bee9816c1
-> Author: Bobby Eshleman <bobbyeshleman@meta.com>
-> 
-> selftests/net: devmem.py: add check_rx_large_niov
-> 
-> This commit adds a new devmem test case for binding a dmabuf with a 16K
-> rx-buf-size. It also sweeps various RX payload sizes across the niov boundary
-> to exercise the sub-niov, exact-niov, and multi-niov RX paths.
-> 
-> > diff --git a/tools/testing/selftests/drivers/net/hw/devmem_lib.py b/tools/testing/selftests/drivers/net/hw/devmem_lib.py
-> > --- a/tools/testing/selftests/drivers/net/hw/devmem_lib.py
-> > +++ b/tools/testing/selftests/drivers/net/hw/devmem_lib.py
-> 
-> [ ... ]
-> 
-> > +def run_rx_large_niov(cfg):
-> > +    """Run the devmem RX test with a large niov (rx-buf-size > PAGE_SIZE).
-> > +
-> > +    Sweep payload sizes that straddle the niov boundary: below, equal to,
-> > +    and above rx_buf_size, to exercise sub-niov, exact-niov, and multi-niov
-> > +    RX paths.
-> > +    """
-> > +    hp_file = "/proc/sys/vm/nr_hugepages"
-> > +    with open(hp_file, 'r+', encoding='utf-8') as f:
-> 
-> [Severity: Medium]
-> Will this crash with an unhandled exception on systems without hugepages
-> enabled or when run without write permissions to /proc/sys?
-> 
-> If the system was compiled without CONFIG_HUGETLB_PAGE=y, opening this file
-> will throw a FileNotFoundError, causing the kselftest framework to report a
-> test failure rather than gracefully skipping. 
-> 
-> Could this be wrapped in a try/except block to catch these exceptions and
-> raise KsftSkipEx instead?
+Fix checkpatch warnings preferring usleep_range over udelay.
+Replaced udelay() calls with usleep_range() providing a reasonable
+upper bound to allow the scheduler to coalesce timer interrupts.
 
-Do we usually defend against kernels not using the config (in this case,
-selftests/drivers/net/hw/config)? Maybe should be a skip? We do already
-use this pattern in iou-zcrx.py and nk_qlease.py.
+Signed-off-by: Panagiotis Gravias <graviaspanagiotis1@gmail.com>
+---
+ drivers/staging/fbtft/fb_ra8875.c    |  4 ++--
+ drivers/staging/fbtft/fb_upd161704.c | 18 +++++++++---------
+ 2 files changed, 11 insertions(+), 11 deletions(-)
 
-Best,
-Bobby
+diff --git a/drivers/staging/fbtft/fb_ra8875.c b/drivers/staging/fbtft/fb_ra8875.c
+index 0ab1de6647d0..d2400bb44f1c 100644
+--- a/drivers/staging/fbtft/fb_ra8875.c
++++ b/drivers/staging/fbtft/fb_ra8875.c
+@@ -210,7 +210,7 @@ static void write_reg8_bus8(struct fbtft_par *par, int len, ...)
+ 	}
+ 	len--;
+ 
+-	udelay(100);
++	usleep_range(100, 200);
+ 
+ 	if (len) {
+ 		buf = (u8 *)par->buf;
+@@ -231,7 +231,7 @@ static void write_reg8_bus8(struct fbtft_par *par, int len, ...)
+ 
+ 	/* restore user spi-speed */
+ 	par->fbtftops.write = fbtft_write_spi;
+-	udelay(100);
++	usleep_range(100, 200);
+ }
+ 
+ static int write_vmem16_bus8(struct fbtft_par *par, size_t offset, size_t len)
+diff --git a/drivers/staging/fbtft/fb_upd161704.c b/drivers/staging/fbtft/fb_upd161704.c
+index c680160d6380..e26766f58a50 100644
+--- a/drivers/staging/fbtft/fb_upd161704.c
++++ b/drivers/staging/fbtft/fb_upd161704.c
+@@ -32,27 +32,27 @@ static int init_display(struct fbtft_par *par)
+ 
+ 	/* oscillator start */
+ 	write_reg(par, 0x003A, 0x0001);	/*Oscillator 0: stop, 1: operation */
+-	udelay(100);
++	usleep_range(100, 200);
+ 
+ 	/* y-setting */
+ 	write_reg(par, 0x0024, 0x007B);	/* amplitude setting */
+-	udelay(10);
++	usleep_range(10, 20);
+ 	write_reg(par, 0x0025, 0x003B);	/* amplitude setting */
+ 	write_reg(par, 0x0026, 0x0034);	/* amplitude setting */
+-	udelay(10);
++	usleep_range(10, 20);
+ 	write_reg(par, 0x0027, 0x0004);	/* amplitude setting */
+ 	write_reg(par, 0x0052, 0x0025);	/* circuit setting 1 */
+-	udelay(10);
++	usleep_range(10, 20);
+ 	write_reg(par, 0x0053, 0x0033);	/* circuit setting 2 */
+ 	write_reg(par, 0x0061, 0x001C);	/* adjustment V10 positive polarity */
+-	udelay(10);
++	usleep_range(10, 20);
+ 	write_reg(par, 0x0062, 0x002C);	/* adjustment V9 negative polarity */
+ 	write_reg(par, 0x0063, 0x0022);	/* adjustment V34 positive polarity */
+-	udelay(10);
++	usleep_range(10, 20);
+ 	write_reg(par, 0x0064, 0x0027);	/* adjustment V31 negative polarity */
+-	udelay(10);
++	usleep_range(10, 20);
+ 	write_reg(par, 0x0065, 0x0014);	/* adjustment V61 negative polarity */
+-	udelay(10);
++	usleep_range(10, 20);
+ 	write_reg(par, 0x0066, 0x0010);	/* adjustment V61 negative polarity */
+ 
+ 	/* Basical clock for 1 line (BASECOUNT[7:0]) number specified */
+@@ -60,7 +60,7 @@ static int init_display(struct fbtft_par *par)
+ 
+ 	/* Power supply setting */
+ 	write_reg(par, 0x0019, 0x0000);	/* DC/DC output setting */
+-	udelay(200);
++	usleep_range(200, 300);
+ 	write_reg(par, 0x001A, 0x1000);	/* DC/DC frequency setting */
+ 	write_reg(par, 0x001B, 0x0023);	/* DC/DC rising setting */
+ 	write_reg(par, 0x001C, 0x0C01);	/* Regulator voltage setting */
+-- 
+2.55.0
+
