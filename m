@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 769A3C44507
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:44:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE651C44507
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:44:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B426A10E6A8;
-	Tue, 14 Jul 2026 11:44:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09C3F10E68B;
+	Tue, 14 Jul 2026 11:44:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="l8OQgMMv";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="HuWe809i";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D0BA10E059
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:44:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3219410E6AB
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:44:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784029471;
- bh=Syavb1TDB0/uFM5ETGFncFvguzPZylk13cGK8Z1yBaw=;
+ s=mail; t=1784029477;
+ bh=qmm4EBgk4CKMOA9uebUkAhr6dijvA08Jzo9H7dlU4BY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=l8OQgMMvekJOD5M0cFCl7g2xbCTK9sXKF1133smdV7nBPQ4wyy4e14WGdrG3zEZMz
- yEbFrb6GlKbowv2rXJ7gJy4i1M5SFYnndy6WspkoGRewMOO5OGsEf42Z/JhrKcmabQ
- 4MLxTNGIyU+knh0iehU0ZxwTWRCgOYbrdb+x+osKdhf+DKC2TCsUPCbbYvdhzwHEb8
- eJUcs1CMMkberPHZPktjGpQEJ4+WGao72I6q904YiQe6DehbWCDB3D3ZE+Mro62pGI
- TAnfJOMOi0Zq3b/FeS6nQez8Vu+j7a4ztU18AzFSX9kZe2k+Szox3mhcIRHcFBfcFO
- 6lJpNga3dlyvg==
+ b=HuWe809iFGOpYTB9P92eOXHbXRgPrB09fs1QBXmpUhX27tBSjMWPxCyDN//hIaR/4
+ dbBk2oXX8tgWa4TyotoE7FD+X2lcmDND/rjjK40SJTzpI91AYD4ECGlLTPuSkMMKmC
+ 813O3HSuK4Qe6HWw3XAhsD4tDIxG+6ApXzcBD9IJkXZ57cCcd7w5Pd+JGWSBp51cWw
+ 1weXmUd12XlQBfDTNfpehsrhsKTUbmpB8UHXobPEiJimY6afblQRge5lNsE47FnuMw
+ RyIT4fM9H0UJ5bsulGZ90OIS1pcyjOTavBWOzacI54qgl+rEvkZcFmvNDG0q9G7bkA
+ +ArCMmywcd6xw==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3446E17E010F;
- Tue, 14 Jul 2026 13:44:30 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B1D2417E0E6C;
+ Tue, 14 Jul 2026 13:44:35 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
@@ -41,11 +41,11 @@ Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
  dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
- jason-jh.lin@mediatek.com, kernel@collabora.com,
- Paul-pl Chen <paul-pl.chen@mediatek.com>, CK Hu <ck.hu@mediatek.com>
-Subject: [PATCH v2 01/46] drm/mediatek: Rename OVL format naming
-Date: Tue, 14 Jul 2026 13:43:29 +0200
-Message-ID: <20260714114414.184512-2-angelogioacchino.delregno@collabora.com>
+ jason-jh.lin@mediatek.com, kernel@collabora.com, CK Hu <ck.hu@mediatek.com>
+Subject: [PATCH v2 06/46] drm/mediatek: Rename all display component type to
+ have DISP_ prefix
+Date: Tue, 14 Jul 2026 13:43:34 +0200
+Message-ID: <20260714114414.184512-7-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
 References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
@@ -66,150 +66,177 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Paul-pl Chen <paul-pl.chen@mediatek.com>
+The mtk_ddp_comp_type enumeration will end up containing both the
+Display Controller and Media Data Path Controller components: this
+is because those can be interconnected together (as in, using MDP
+components in Display Controller paths is possible!) and because
+both MMSYS and MuteX are managing both of those in practically the
+same way.
 
-Rename format arrays from mt8173_formats[] to mt8173_ovl_formats[]
-to explicitly indicate that these format definitions are specific
-to OVL (Overlay) components.
+Rename all of the Display Controller related HW components in the
+list to always have a "DISP_" prefix.
+This includes components that are in the MDP Controller instead,
+and the strategy here is for some of those to also have the same
+DISP_ prefix, so that:
+ - Display Controller specific components have a DISP_ prefix
+   - Example: MTK_DISP_(NAME)
+ - MDP Controller components that can be interconnected to the
+   Display Controller will have both DISP_ and MDP_ prefixes
+   - Example: MTK_DISP_MDP_(NAME)
+ - MDP Controller components that are exclusive to MDP and can
+   not be interconnected with Display Controller will only have
+   an MDP_ prefix but not a DISP_ prefix
+   - Example: MTK_MDP_(NAME).
 
-This naming improvement is necessary because MT8196 introduces new
-display components (EXDMA, BLENDER, OUTPROC) that support different
-format capabilities than OVL. Without clear naming, it becomes
-ambiguous which formats apply to which component type.
-
-Examples of format differences between components:
-- EXDMA supports 10-bit RGB formats that some OVL variants don't
-- BLENDER has different YUV handling requirements
-- Component-specific format conversion capabilities vary
-
-The explicit naming:
-- Prevents confusion when debugging format-related issues
-- Makes it immediately clear which component a format array belongs to
-- Improves code searchability (grep for "ovl_formats")
-- Follows consistent naming convention for component-specific definitions
-- Prepares for adding exdma_formats[], blender_formats[] arrays
-
-This is a preparatory patch for MT8196 component support, which
-requires clear distinction between OVL formats and EXDMA/BLENDER
-formats to avoid applying incorrect format configurations.
-
-Signed-off-by: Paul-pl Chen <paul-pl.chen@mediatek.com>
 Reviewed-by: CK Hu <ck.hu@mediatek.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_disp_ovl.c | 36 ++++++++++++-------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.c | 28 +++++++++----------
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c  | 36 ++++++++++++-------------
+ include/linux/soc/mediatek/mtk-mmsys.h  |  6 ++---
+ 3 files changed, 35 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_disp_ovl.c b/drivers/gpu/drm/mediatek/mtk_disp_ovl.c
-index 97a899e4bd99..135bf5fedc8a 100644
---- a/drivers/gpu/drm/mediatek/mtk_disp_ovl.c
-+++ b/drivers/gpu/drm/mediatek/mtk_disp_ovl.c
-@@ -101,7 +101,7 @@ static inline bool is_10bit_rgb(u32 fmt)
- 	return false;
- }
- 
--static const u32 mt8173_formats[] = {
-+static const u32 mt8173_ovl_formats[] = {
- 	DRM_FORMAT_XRGB8888,
- 	DRM_FORMAT_ARGB8888,
- 	DRM_FORMAT_BGRX8888,
-@@ -115,7 +115,7 @@ static const u32 mt8173_formats[] = {
- 	DRM_FORMAT_YUYV,
+diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+index 94b356da6de7..a6c1815ffa39 100644
+--- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
++++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+@@ -423,9 +423,9 @@ static const char * const mtk_ddp_comp_stem[MTK_DDP_COMP_TYPE_MAX] = {
+ 	[MTK_DISP_RDMA] = "rdma",
+ 	[MTK_DISP_UFOE] = "ufoe",
+ 	[MTK_DISP_WDMA] = "wdma",
+-	[MTK_DP_INTF] = "dp-intf",
+-	[MTK_DPI] = "dpi",
+-	[MTK_DSI] = "dsi",
++	[MTK_DISP_DP_INTF] = "dp-intf",
++	[MTK_DISP_DPI] = "dpi",
++	[MTK_DISP_DSI] = "dsi",
  };
  
--static const u32 mt8195_formats[] = {
-+static const u32 mt8195_ovl_formats[] = {
- 	DRM_FORMAT_XRGB8888,
- 	DRM_FORMAT_ARGB8888,
- 	DRM_FORMAT_XRGB2101010,
-@@ -667,8 +667,8 @@ static const struct mtk_disp_ovl_data mt2701_ovl_driver_data = {
- 	.gmc_bits = 8,
- 	.layer_nr = 4,
- 	.fmt_rgb565_is_0 = false,
--	.formats = mt8173_formats,
--	.num_formats = ARRAY_SIZE(mt8173_formats),
-+	.formats = mt8173_ovl_formats,
-+	.num_formats = ARRAY_SIZE(mt8173_ovl_formats),
+ struct mtk_ddp_comp_match {
+@@ -442,17 +442,17 @@ static const struct mtk_ddp_comp_match mtk_ddp_matches[DDP_COMPONENT_DRM_ID_MAX]
+ 	[DDP_COMPONENT_COLOR0]		= { MTK_DISP_COLOR,		0, &ddp_color },
+ 	[DDP_COMPONENT_COLOR1]		= { MTK_DISP_COLOR,		1, &ddp_color },
+ 	[DDP_COMPONENT_DITHER0]		= { MTK_DISP_DITHER,		0, &ddp_dither },
+-	[DDP_COMPONENT_DP_INTF0]	= { MTK_DP_INTF,		0, &ddp_dpi },
+-	[DDP_COMPONENT_DP_INTF1]	= { MTK_DP_INTF,		1, &ddp_dpi },
+-	[DDP_COMPONENT_DPI0]		= { MTK_DPI,			0, &ddp_dpi },
+-	[DDP_COMPONENT_DPI1]		= { MTK_DPI,			1, &ddp_dpi },
++	[DDP_COMPONENT_DP_INTF0]	= { MTK_DISP_DP_INTF,		0, &ddp_dpi },
++	[DDP_COMPONENT_DP_INTF1]	= { MTK_DISP_DP_INTF,		1, &ddp_dpi },
++	[DDP_COMPONENT_DPI0]		= { MTK_DISP_DPI,		0, &ddp_dpi },
++	[DDP_COMPONENT_DPI1]		= { MTK_DISP_DPI,		1, &ddp_dpi },
+ 	[DDP_COMPONENT_DRM_OVL_ADAPTOR]	= { MTK_DISP_OVL_ADAPTOR,	0, &ddp_ovl_adaptor },
+ 	[DDP_COMPONENT_DSC0]		= { MTK_DISP_DSC,		0, &ddp_dsc },
+ 	[DDP_COMPONENT_DSC1]		= { MTK_DISP_DSC,		1, &ddp_dsc },
+-	[DDP_COMPONENT_DSI0]		= { MTK_DSI,			0, &ddp_dsi },
+-	[DDP_COMPONENT_DSI1]		= { MTK_DSI,			1, &ddp_dsi },
+-	[DDP_COMPONENT_DSI2]		= { MTK_DSI,			2, &ddp_dsi },
+-	[DDP_COMPONENT_DSI3]		= { MTK_DSI,			3, &ddp_dsi },
++	[DDP_COMPONENT_DSI0]		= { MTK_DISP_DSI,		0, &ddp_dsi },
++	[DDP_COMPONENT_DSI1]		= { MTK_DISP_DSI,		1, &ddp_dsi },
++	[DDP_COMPONENT_DSI2]		= { MTK_DISP_DSI,		2, &ddp_dsi },
++	[DDP_COMPONENT_DSI3]		= { MTK_DISP_DSI,		3, &ddp_dsi },
+ 	[DDP_COMPONENT_GAMMA]		= { MTK_DISP_GAMMA,		0, &ddp_gamma },
+ 	[DDP_COMPONENT_MERGE0]		= { MTK_DISP_MERGE,		0, &ddp_merge },
+ 	[DDP_COMPONENT_MERGE1]		= { MTK_DISP_MERGE,		1, &ddp_merge },
+@@ -659,9 +659,9 @@ int mtk_ddp_comp_init(struct device *dev, struct device_node *node, struct mtk_d
+ 	    type == MTK_DISP_PWM ||
+ 	    type == MTK_DISP_RDMA ||
+ 	    type == MTK_DISP_WDMA ||
+-	    type == MTK_DPI ||
+-	    type == MTK_DP_INTF ||
+-	    type == MTK_DSI)
++	    type == MTK_DISP_DPI ||
++	    type == MTK_DISP_DP_INTF ||
++	    type == MTK_DISP_DSI)
+ 		return 0;
+ 
+ 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+index e54f0654f2f9..9c6dfc1e384b 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+@@ -801,35 +801,35 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
+ 	{ .compatible = "mediatek,mt8173-disp-wdma",
+ 	  .data = (void *)MTK_DISP_WDMA },
+ 	{ .compatible = "mediatek,mt2701-dpi",
+-	  .data = (void *)MTK_DPI },
++	  .data = (void *)MTK_DISP_DPI },
+ 	{ .compatible = "mediatek,mt8167-dsi",
+-	  .data = (void *)MTK_DSI },
++	  .data = (void *)MTK_DISP_DSI },
+ 	{ .compatible = "mediatek,mt8173-dpi",
+-	  .data = (void *)MTK_DPI },
++	  .data = (void *)MTK_DISP_DPI },
+ 	{ .compatible = "mediatek,mt8183-dpi",
+-	  .data = (void *)MTK_DPI },
++	  .data = (void *)MTK_DISP_DPI },
+ 	{ .compatible = "mediatek,mt8186-dpi",
+-	  .data = (void *)MTK_DPI },
++	  .data = (void *)MTK_DISP_DPI },
+ 	{ .compatible = "mediatek,mt8188-dp-intf",
+-	  .data = (void *)MTK_DP_INTF },
++	  .data = (void *)MTK_DISP_DP_INTF },
+ 	{ .compatible = "mediatek,mt8192-dpi",
+-	  .data = (void *)MTK_DPI },
++	  .data = (void *)MTK_DISP_DPI },
+ 	{ .compatible = "mediatek,mt8195-dp-intf",
+-	  .data = (void *)MTK_DP_INTF },
++	  .data = (void *)MTK_DISP_DP_INTF },
+ 	{ .compatible = "mediatek,mt8195-dpi",
+-	  .data = (void *)MTK_DPI },
++	  .data = (void *)MTK_DISP_DPI },
+ 	{ .compatible = "mediatek,mt2701-dsi",
+-	  .data = (void *)MTK_DSI },
++	  .data = (void *)MTK_DISP_DSI },
+ 	{ .compatible = "mediatek,mt8173-dsi",
+-	  .data = (void *)MTK_DSI },
++	  .data = (void *)MTK_DISP_DSI },
+ 	{ .compatible = "mediatek,mt8183-dsi",
+-	  .data = (void *)MTK_DSI },
++	  .data = (void *)MTK_DISP_DSI },
+ 	{ .compatible = "mediatek,mt8186-dsi",
+-	  .data = (void *)MTK_DSI },
++	  .data = (void *)MTK_DISP_DSI },
+ 	{ .compatible = "mediatek,mt8188-dsi",
+-	  .data = (void *)MTK_DSI },
++	  .data = (void *)MTK_DISP_DSI },
+ 	{ .compatible = "mediatek,mt8196-dsi",
+-	  .data = (void *)MTK_DSI },
++	  .data = (void *)MTK_DISP_DSI },
+ 	{ }
  };
  
- static const struct mtk_disp_ovl_data mt8167_ovl_driver_data = {
-@@ -677,8 +677,8 @@ static const struct mtk_disp_ovl_data mt8167_ovl_driver_data = {
- 	.layer_nr = 4,
- 	.fmt_rgb565_is_0 = true,
- 	.smi_id_en = true,
--	.formats = mt8173_formats,
--	.num_formats = ARRAY_SIZE(mt8173_formats),
-+	.formats = mt8173_ovl_formats,
-+	.num_formats = ARRAY_SIZE(mt8173_ovl_formats),
- };
+@@ -1176,9 +1176,9 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ 		    comp_type == MTK_DISP_OVL_ADAPTOR ||
+ 		    comp_type == MTK_DISP_RDMA ||
+ 		    comp_type == MTK_DISP_WDMA ||
+-		    comp_type == MTK_DP_INTF ||
+-		    comp_type == MTK_DPI ||
+-		    comp_type == MTK_DSI) {
++		    comp_type == MTK_DISP_DP_INTF ||
++		    comp_type == MTK_DISP_DPI ||
++		    comp_type == MTK_DISP_DSI) {
+ 			dev_info(dev, "Adding component match for %pOF\n",
+ 				 node);
+ 			drm_of_component_match_add(dev, &match, component_compare_of,
+diff --git a/include/linux/soc/mediatek/mtk-mmsys.h b/include/linux/soc/mediatek/mtk-mmsys.h
+index 3ddfdeac658d..bbdd0b01927d 100644
+--- a/include/linux/soc/mediatek/mtk-mmsys.h
++++ b/include/linux/soc/mediatek/mtk-mmsys.h
+@@ -111,9 +111,9 @@ enum mtk_ddp_comp_type {
+ 	MTK_DISP_MDP_RDMA,
  
- static const struct mtk_disp_ovl_data mt8173_ovl_driver_data = {
-@@ -686,8 +686,8 @@ static const struct mtk_disp_ovl_data mt8173_ovl_driver_data = {
- 	.gmc_bits = 8,
- 	.layer_nr = 4,
- 	.fmt_rgb565_is_0 = true,
--	.formats = mt8173_formats,
--	.num_formats = ARRAY_SIZE(mt8173_formats),
-+	.formats = mt8173_ovl_formats,
-+	.num_formats = ARRAY_SIZE(mt8173_ovl_formats),
- };
+ 	/* Keep Display outputs at the end for readability */
+-	MTK_DPI,
+-	MTK_DP_INTF,
+-	MTK_DSI,
++	MTK_DISP_DPI,
++	MTK_DISP_DP_INTF,
++	MTK_DISP_DSI,
  
- static const struct mtk_disp_ovl_data mt8183_ovl_driver_data = {
-@@ -695,8 +695,8 @@ static const struct mtk_disp_ovl_data mt8183_ovl_driver_data = {
- 	.gmc_bits = 10,
- 	.layer_nr = 4,
- 	.fmt_rgb565_is_0 = true,
--	.formats = mt8173_formats,
--	.num_formats = ARRAY_SIZE(mt8173_formats),
-+	.formats = mt8173_ovl_formats,
-+	.num_formats = ARRAY_SIZE(mt8173_ovl_formats),
+ 	MTK_DDP_COMP_TYPE_MAX
  };
- 
- static const struct mtk_disp_ovl_data mt8183_ovl_2l_driver_data = {
-@@ -704,8 +704,8 @@ static const struct mtk_disp_ovl_data mt8183_ovl_2l_driver_data = {
- 	.gmc_bits = 10,
- 	.layer_nr = 2,
- 	.fmt_rgb565_is_0 = true,
--	.formats = mt8173_formats,
--	.num_formats = ARRAY_SIZE(mt8173_formats),
-+	.formats = mt8173_ovl_formats,
-+	.num_formats = ARRAY_SIZE(mt8173_ovl_formats),
- };
- 
- static const struct mtk_disp_ovl_data mt8192_ovl_driver_data = {
-@@ -717,8 +717,8 @@ static const struct mtk_disp_ovl_data mt8192_ovl_driver_data = {
- 	.blend_modes = BIT(DRM_MODE_BLEND_PREMULTI) |
- 		       BIT(DRM_MODE_BLEND_COVERAGE) |
- 		       BIT(DRM_MODE_BLEND_PIXEL_NONE),
--	.formats = mt8173_formats,
--	.num_formats = ARRAY_SIZE(mt8173_formats),
-+	.formats = mt8173_ovl_formats,
-+	.num_formats = ARRAY_SIZE(mt8173_ovl_formats),
- };
- 
- static const struct mtk_disp_ovl_data mt8192_ovl_2l_driver_data = {
-@@ -730,8 +730,8 @@ static const struct mtk_disp_ovl_data mt8192_ovl_2l_driver_data = {
- 	.blend_modes = BIT(DRM_MODE_BLEND_PREMULTI) |
- 		       BIT(DRM_MODE_BLEND_COVERAGE) |
- 		       BIT(DRM_MODE_BLEND_PIXEL_NONE),
--	.formats = mt8173_formats,
--	.num_formats = ARRAY_SIZE(mt8173_formats),
-+	.formats = mt8173_ovl_formats,
-+	.num_formats = ARRAY_SIZE(mt8173_ovl_formats),
- };
- 
- static const struct mtk_disp_ovl_data mt8195_ovl_driver_data = {
-@@ -744,8 +744,8 @@ static const struct mtk_disp_ovl_data mt8195_ovl_driver_data = {
- 	.blend_modes = BIT(DRM_MODE_BLEND_PREMULTI) |
- 		       BIT(DRM_MODE_BLEND_COVERAGE) |
- 		       BIT(DRM_MODE_BLEND_PIXEL_NONE),
--	.formats = mt8195_formats,
--	.num_formats = ARRAY_SIZE(mt8195_formats),
-+	.formats = mt8195_ovl_formats,
-+	.num_formats = ARRAY_SIZE(mt8195_ovl_formats),
- 	.supports_clrfmt_ext = true,
- };
- 
 -- 
 2.54.0
 
