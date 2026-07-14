@@ -4,43 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 989F1C44501
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 07:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96E93C44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 08:00:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 025B610E0AD;
-	Wed, 15 Jul 2026 07:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCC2910EF38;
+	Wed, 15 Jul 2026 08:00:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hC3ryODu";
+	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="mTP7tQZ7";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C69E10E0AD
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 07:58:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DC88640350;
- Wed, 15 Jul 2026 07:58:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960001F000E9;
- Wed, 15 Jul 2026 07:58:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784102307;
- bh=SCxGMhXAckoMulFh2tSSC5a/vs6HgzhO+ywlKaGyrRk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hC3ryODura3sD4Hw++uxtrBQ85OuQSGHGrIVONey9JOqswRBJvojUY8iBHfkPvkfY
- JEFTQc2qwyw7/iTNON+QyrvtXKYxFR8U97JFTSyEfvkHXYO2PYpHBXfMDHucYAj/N1
- RPOtO+dwkq21eiBty9EiJ/Tct8OowR0arcWXVOnN4vrSEcYzsgdLK2o9nK8rfpMC9b
- iW+VQDeG4p/rXVVRn/hJg35N71odO8ZWsbppubhkRurM3a3dyvlq/yyYD9YW07JyQh
- irLS5IigGKSEpFeGT+/2IamaclZfCbIO61iqYgMbMauTqhLoW7BHkTaO7qAu8K7Rbk
- 4iDH2sa+M5Ghw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] accel/ivpu: Reject firmware log with size smaller than
- header
-To: Jhonraushan <raushan.jhon@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260715074206.867712-1-raushan.jhon@gmail.com>
-References: <20260715074206.867712-1-raushan.jhon@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 07:58:26 +0000
-Message-Id: <20260715075827.960001F000E9@smtp.kernel.org>
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7517610E13D
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 08:00:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+ Reply-To:Content-ID:Content-Description;
+ bh=N3CkAi0NhBu7kRLp3iC2P9Ehn1eHefsaOWNM8LYTF4k=; t=1784102401; x=1785312001; 
+ b=mTP7tQZ7bR/NrOJyqNFXHEhLDV/eEbBQLajm5BZfM5gnh5/uxZpAgH/xC29tkDwqOFRrSftwpVu
+ gh1ODH2pcKZ9ef8Gvk859iGhDWpP0MfsA5vA0dq+IaxOLkGXDo6A/xV1ZXcQkiFEoYDrY490cbnSi
+ gMJqvV9SB+AE6JuZVVuSmvQseuHCIGzqNO2TtVqMaJ3r+mSf94LpYy5IXHs4ijintCKujdkB/sE94
+ DqQdrquBul0b4gweTZoGss4pT/mTHtvjUjoxZzZFVcXGbtpUsGCVRjLPEXTf0WtXij7/rmSAX/Avw
+ uTOz3liCQe8mCLNK0cwpmWaF93MoqW2Bqg+w==;
+Date: Tue, 14 Jul 2026 20:36:04 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Grond <grond66@riseup.net>, Stefan Leichter <sle85276@gmx.de>, Grazvydas
+ Ignotas <notasas@gmail.com>, Tony Lindgren <tony@atomide.com>, Ethan
+ Nelson-Moore <enelsonmoore@gmail.com>, Jarkko Nikula
+ <jarkko.nikula@bitmer.com>, Sascha Hauer <s.hauer@pengutronix.de>, Lee
+ Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Aaro Koskinen
+ <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, Roger Quadros
+ <rogerq@kernel.org>, Russell King <linux@armlinux.org.uk>, Daniel Thompson
+ <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, Helge Deller
+ <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>, Sen Wang <sen@ti.com>, Richard Fitzgerald
+ <rf@opensource.cirrus.com>, Arnd Bergmann <arnd@arndb.de>, Srinivas
+ Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, Kuninori Morimoto
+ <kuninori.morimoto.gx@renesas.com>, Charles Keepax
+ <ckeepax@opensource.cirrus.com>, Niranjan H Y <niranjan.hy@ti.com>,
+ letux-kernel@openphoenux.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ kernel@pyra-handheld.com, mfd@lists.linux.dev
+Subject: Re: [PATCH 06/16] ASoC: twl4030-codec: Allow setting APLL rate
+ through the .set_sysclk() interface
+Message-ID: <20260714203549.4b070f72@kemnade.info>
+In-Reply-To: <7ea589f951baf1e217c7169ae21c0bf510672ecf.1783749722.git.hns@goldelico.com>
+References: <cover.1783749722.git.hns@goldelico.com>
+ <7ea589f951baf1e217c7169ae21c0bf510672ecf.1783749722.git.hns@goldelico.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,96 +70,26 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Sat, 11 Jul 2026 08:01:53 +0200
+"H. Nikolaus Schaller" <hns@goldelico.com> wrote:
 
-Pre-existing issues:
-- [High] The validation of `log->size` and `log->header_size` is vulnerable=
- to a Time-Of-Check to Time-Of-Use (TOCTOU) race condition because the fiel=
-ds are read multiple times directly from firmware-shared BO memory, allowin=
-g malicious firmware to bypass bounds checks.
-- [Medium] The firmware-controlled `log->name` character array is printed u=
-sing an unbounded `%s` format specifier, which can lead to out-of-bounds re=
-ads if the device does not null-terminate the string.
---
+> From: Grond <grond66@riseup.net>
+> 
+> On the Pandora, the APLL is actually what drives all of the audio
+> clocks on the board. Since the TWL4030 is only used for capture, we
+> need some way of setting the correct rate for playback streams, since
+> they will not go through the TWL4030's .hw_params() code path (which
+> is normally how APLL rate is set).
+> 
+> Signed-off-by: Grond <grond66@riseup.net>
+> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 
---- Patch [1]: [PATCH] accel/ivpu: Reject firmware log with size smaller th=
-an header ---
-commit 8efc93a32eb39ab04f9058367f2b3c6355d62590
-Author: Jhonraushan <raushan.jhon@gmail.com>
+As a general comment: might we model this as clock provider (and maybe
+that enables the usage of a generic audio-graph-card)?
 
-accel/ivpu: Reject firmware log with size smaller than header
+Regards,
+Andreas
 
-This commit adds a check to fw_log_from_bo() to reject firmware logs where
-the log size is smaller than the header size. This is intended to prevent
-an integer underflow when calculating the data size in fw_log_print_buffer(=
-),
-which could defeat bounds checks.
-
-> diff --git a/drivers/accel/ivpu/ivpu_fw_log.c b/drivers/accel/ivpu/ivpu_f=
-w_log.c
-> index 275baf844b562..716467aa31567 100644
-> --- a/drivers/accel/ivpu/ivpu_fw_log.c
-> +++ b/drivers/accel/ivpu/ivpu_fw_log.c
-> @@ -43,6 +43,10 @@ static int fw_log_from_bo(struct ivpu_device *vdev, st=
-ruct ivpu_bo *bo, u32 *off
->  		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", log->header_size=
-);
->  		return -EINVAL;
->  	}
-> +	if (log->size < log->header_size) {
-> +		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
-> +		return -EINVAL;
-> +	}
-
-[Severity: High]
-This is a pre-existing issue, but since the log pointer accesses BO memory
-shared directly with the firmware, could a malicious firmware alter log->si=
-ze
-or log->header_size after these checks are performed?
-
-For example, in fw_log_from_bo() the offset is later updated:
-
-	*offset +=3D log->size;
-
-And in fw_log_print_buffer() data_size is calculated:
-
-	u32 data_size =3D log->size - log->header_size;
-
-If the firmware changes the values between the validation here and these
-subsequent reads, could this bypass the bounds checks and lead to the very
-same underflow or infinite loop this patch aims to fix? Would it be safer
-to read these values once into local variables?
-
-[Severity: Medium]
-This is also a pre-existing issue, but I noticed that later in
-fw_log_from_bo(), the log->name array is printed using the %s format:
-
-	ivpu_dbg(vdev, FW_BOOT,
-		 "FW log name \"%s\", write offset 0x%x size 0x%x, wrap count %d, hdr ver=
-sion %d size %d format %d, alignment %d",
-		 log->name, log->write_index, log->size, log->wrap_count, log->header_ver=
-sion,
-		 log->header_size, log->format, log->alignment);
-
-Since log->name is a 16-byte character array in the shared firmware BO
-memory, what happens if the firmware fills it without a null terminator?
-
-Could the %s format specifier read past the array bounds and leak memory
-or cause a page fault?
-
-This similarly occurs in fw_log_print_buffer() when using drm_printf()
-with %s on log->name.
-
->  	if ((char *)log + log->size > (char *)ivpu_bo_vaddr(bo) + ivpu_bo_size(=
-bo)) {
->  		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
->  		return -EINVAL;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715074206.8677=
-12-1-raushan.jhon@gmail.com?part=3D1
