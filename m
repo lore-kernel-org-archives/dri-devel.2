@@ -4,68 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 801B7C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:30:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DA3CC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:44:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DB5410E03F;
-	Tue, 14 Jul 2026 11:30:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 921BA10E059;
+	Tue, 14 Jul 2026 11:44:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MEOj3oSD";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="DLUzoYrN";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5507710E03F
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:30:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FE7010E059
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:44:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784028608;
- bh=waq8VNJgFB3A36U/4yF+C9LFLMZXFtLcZD4Rdi3vW0g=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=MEOj3oSDyNmyy/GypNt45JfGP7JIaCnJTwCrLbfTwKLTp3sduf5RrEgoiK8Srmta3
- 4M5zNKV9H21OauxA08+FzweV5Hd4GEKAoYS0GMPqIY1Zq/EWol8gZAbIrywicI5dDz
- Lw2D0RdT3DxCV8j3X65fNLRLrL1HsGxYF067NU2PM41u4tvlaqeXhCPNyZJQh7im3M
- ph0St825k7qUgqKJ6DqH1QprJfvn9K9Sh3ebpQuzeCfGelCLFZlHXYZW41olbI0cFU
- QtrhXtf2RhBd/e2xtotYObWxuZeFTj2JWSlNcXkCKOwTZ5wL5MlqZ5+XFp0SnNu3dA
- hJIllBFjVt/eg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ s=mail; t=1784029470;
+ bh=sg/qb5PkGX7tR09vyvKceTb/h4QIBy2j/DQj8rCSgng=;
+ h=From:To:Cc:Subject:Date:From;
+ b=DLUzoYrNAKC/8cgUMk33HmyTIYiZs70WrjKpWlSJgRji9ApyCuR45+IIfHPuUX7h3
+ G3Vdk10o0fB6RygAcaA2QGgCcUqyAPWVZgyrFENao0nSuD8nnxRUXBEoSM2z+q87kg
+ dOLWw3glTaNtPE2KRo6dPiC9z+QiSgSEDnLCpRVp6/p5B2YGnFTwuw6AR+LRU6fN4k
+ iJ0OClf82yoxucnf3nxsxITit2NYqKlDEDZ5zSYjIGfblH6L6RGeo8gmUBotawtKG8
+ 2ouBpFXKNKnXrClKnKC+cllzAVepgAiPTy/0EJpaoyEJs3dlr3d3pz3haq49Ttsy6g
+ C78rc5zgsvt2A==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 90D9717E07A2;
- Tue, 14 Jul 2026 13:30:07 +0200 (CEST)
-Message-ID: <c5afe7db-d753-4202-b368-1680195cbd2f@collabora.com>
-Date: Tue, 14 Jul 2026 13:30:07 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/42] drm/mediatek: Use hashtable for components
- discovery and registration
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id CA5C917E0076;
+ Tue, 14 Jul 2026 13:44:28 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-Cc: "robh@kernel.org" <robh@kernel.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
- <mripard@kernel.org>, "kernel@collabora.com" <kernel@collabora.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "airlied@gmail.com" <airlied@gmail.com>,
- =?UTF-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- =?UTF-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
-References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
- <20260701122057.19648-7-angelogioacchino.delregno@collabora.com>
- <79f44c827c78fd823300509c22058f2b6f3600b6.camel@mediatek.com>
- <16980e9f-c183-41c4-8001-ac7807cc087b@collabora.com>
-Content-Language: en-US
-In-Reply-To: <16980e9f-c183-41c4-8001-ac7807cc087b@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: chunkuang.hu@kernel.org
+Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
+ jason-jh.lin@mediatek.com, kernel@collabora.com
+Subject: [PATCH v2 00/46] drm/mediatek: The Huge Restructuring and MT8196
+ support
+Date: Tue, 14 Jul 2026 13:43:28 +0200
+Message-ID: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,258 +64,306 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/7/26 13:56, AngeloGioacchino Del Regno wrote:
-> On 7/6/26 09:02, CK Hu (胡俊光) wrote:
->> On Wed, 2026-07-01 at 14:20 +0200, AngeloGioacchino Del Regno wrote:
->>> As a preparation for refactoring the concept of hardware component
->>> identification, search, and final usage, remove the ddp_comp array
->>> of components and replace it with a hashtable, indexed by ID.
->>>
->>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->>> ---
->>>   drivers/gpu/drm/mediatek/mtk_crtc.c     | 44 ++++++++++++++++-------
->>>   drivers/gpu/drm/mediatek/mtk_ddp_comp.c | 48 ++++++++++++++++++-------
->>>   drivers/gpu/drm/mediatek/mtk_ddp_comp.h | 23 +++++++++++-
->>>   drivers/gpu/drm/mediatek/mtk_drm_drv.c  |  7 ++--
->>>   drivers/gpu/drm/mediatek/mtk_drm_drv.h  |  2 +-
->>>   5 files changed, 94 insertions(+), 30 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/ 
->>> mtk_crtc.c
->>> index f39f197057a7..3f4d6ab1bfc2 100644
->>> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
->>> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
->>> @@ -725,8 +725,12 @@ static void mtk_crtc_update_output(struct drm_crtc *crtc,
->>>           crtc_state->connectors_changed, encoder_mask, crtc_index);
->>>       for (i = 0; i < mtk_crtc->num_conn_routes; i++) {
->>> -        unsigned int comp_id = mtk_crtc->conn_routes[i].route_ddp;
->>> -        struct mtk_ddp_comp *comp = &priv->ddp_comp[comp_id];
->>> +        const struct mtk_drm_route *conn_route = &mtk_crtc->conn_routes[i];
->>> +        struct mtk_ddp_comp *comp;
->>> +
->>> +        comp = mtk_ddp_comp_find_by_id(&priv->hlist, conn_route->route_ddp);
->>
->> I don't know why you invent conn_route? Keep comp_id use it here looks the same.
->>
-> 
-> I'm not inventing conn_route, that's something that was already there as a dynamic
-> replacement of the last component in a stack of possible outputs for a single
-> full-fledged display pipeline.
-> 
-> The change here is about changing the search/retrieval of a `route_ddp` from a
-> number that comes from an enumeration, to a full component structure instead....
-> 
->>> +        if (!comp)
->>> +            continue;
->>
->> In original code, it never check comp is null or not.
->> I think it base on an assumption that it would not be null.
->> If it's null here, print error message and it's not necessary to do the rest thing.
->>
-> 
-> .... and the component structure, with the new code, has to be *initialized*: this
-> is because we cannot assume that a component that was not registered will actually
-> be registered later (which was a broken behavior of mediatek-drm!).
-> 
-> 
-> 
-> ----> IMPORTANT PART: <-----
-> Note that, at this point, "comp" is *not* pointing to a *statically* initialized
-> array of components, but to a *dynamically* initialized one: while before this the
-> comp pointer was guaranteed to be *always* a valid pointer to a comp structure, now
-> it is *not guaranteed anymore*, because again - it's *dynamically* allocated, so
-> we NEED to check for comp != NULL, or we're exposing ourselves to a possible NULL
-> pointer kernel panic (or worse)!
-> 
-> 
-> 
-> If the component is not initialized at this point, it simply means that it cannot
-> be - in any way - used by mediatek-drm, so.. if !comp -> continue means effectively
-> "if the component is not registered, we cannot use it, hence don't try to evaluate
-> the possibility of using it".
-> 
-> Is it clear now?
-> 
->>>           if (comp->encoder_index >= 0 &&
->>>               (encoder_mask & BIT(comp->encoder_index))) {
->>> @@ -1028,10 +1032,11 @@ int mtk_crtc_create(struct drm_device *drm_dev, const 
->>> unsigned int *path,
->>>   {
->>>       struct mtk_drm_private *priv = drm_dev->dev_private;
->>>       struct device *dev = drm_dev->dev;
->>> +    struct mtk_ddp_comp *dma_comp;
->>>       struct mtk_crtc *mtk_crtc;
->>>       unsigned int num_comp_planes = 0;
->>>       int ret;
->>> -    int i;
->>> +    int i, j;
->>>       bool has_ctm = false;
->>>       uint gamma_lut_size = 0;
->>>       struct drm_crtc *tmp;
->>> @@ -1051,7 +1056,7 @@ int mtk_crtc_create(struct drm_device *drm_dev, const 
->>> unsigned int *path,
->>>           struct mtk_ddp_comp *comp;
->>>           node = priv->comp_node[comp_id];
->>> -        comp = &priv->ddp_comp[comp_id];
->>> +        comp = mtk_ddp_comp_find_by_id(&priv->hlist, comp_id);
->>>           /* Not all drm components have a DTS device node, such as ovl_adaptor,
->>>            * which is the drm bring up sub driver
->>> @@ -1063,7 +1068,7 @@ int mtk_crtc_create(struct drm_device *drm_dev, const 
->>> unsigned int *path,
->>>               return 0;
->>>           }
->>> -        if (!comp->dev) {
->>> +        if (!comp || !comp->dev) {
->>>               dev_err(dev, "Component %pOF not initialized\n", node);
->>
->> I think you should print other error message and return other value for !comp.
->>
-> 
-> In mtk_crtc_create, at this point, the component (which always has a node, pointed
-> by node = priv->comp_node[comp_id]) has to be initialized by mtk_ddp_comp.
-> 
-> Keeping in mind that the component is actually a device, if the component itself
-> was not initialized at this point, this means that there is NO DEVice associated
-> with it.
-> 
-> This is why -ENODEV.
-> 
-> Also, we're printing %pOF (like before) because this gives hints about precisely
-> which one was not registered at this point.
-> 
->>>               return -ENODEV;
->>>           }
->>> @@ -1089,12 +1094,17 @@ int mtk_crtc_create(struct drm_device *drm_dev, const 
->>> unsigned int *path,
->>>           return ret;
->>>       }
->>> -    for (i = 0; i < mtk_crtc->ddp_comp_nr; i++) {
->>> +    for (i = 0, j = 0; i < mtk_crtc->ddp_comp_nr; i++, j++) {
->>>           unsigned int comp_id = path[i];
->>>           struct mtk_ddp_comp *comp;
->>> -        comp = &priv->ddp_comp[comp_id];
->>> -        mtk_crtc->ddp_comp[i] = comp;
->>> +        comp = mtk_ddp_comp_find_by_id(&priv->hlist, comp_id);
->>> +        if (!comp) {
->>
->> In original code, it never check comp is null or not.
->> I think it base on an assumption that it would not be null.
->> If it's null here, print error message and it's not necessary to do the rest thing.
->>
-> 
-> The iterator here tries to still setup a display pipeline in case a component is
-> missing, and this actually works in a couple of corner cases, which were not
-> possible before the restructuring of mediatek-drm.
-> 
-> In later commits, this case will be handled differently: the problem here is rather
-> that the code readability is not the best at this point in time (of the series),
-> but this will make a lot more sense when going forward in this exact series.
-> 
-> The main issue here is that mediatek-drm's complexity is very, very high, and the
-> maintainability suffers a lot: doing each and every change as a perfectly clean
-> (and perfectly readable) diff means adding another ~4k thousand lines of changes
-> that are simply addition and removal of the same lines over and over again.
-> 
->>> +            j--;
->>> +            dev_dbg(dev, "Cannot find component %d.\n", comp_id);
->>> +            continue;
->>> +        }
->>> +        mtk_crtc->ddp_comp[j] = comp;
->>>           if (comp->funcs) {
->>>               if (comp->funcs->gamma_set && comp->funcs->gamma_get_lut_size) {
->>> @@ -1131,7 +1141,14 @@ int mtk_crtc_create(struct drm_device *drm_dev, const 
->>> unsigned int *path,
->>>        * In the case of ovl_adaptor sub driver, it needs to use the
->>>        * dma_dev_get function to get representative dma dev.
->>>        */
->>> -    mtk_crtc->dma_dev = mtk_ddp_comp_dma_dev_get(&priv->ddp_comp[path[0]]);
->>> +    dma_comp = mtk_ddp_comp_find_by_id(&priv->hlist, path[0]);
->>> +    if (dma_comp == NULL) {
->>
->> if (!dma_comp) is more simple.
->>
-> 
-> Yeah, I agree. If you're really worried about seeing this instead of !dma_comp I
-> can change it here... but if you can ignore that, in later commits this will be
-> removed and completely changed so that it becomes
-> 
->      ret = mtk_crtc_find_suitable_dma_dev(mtk_crtc);
->      if (ret) {
->          dev_err(dev, "Could not find appropriate DMA device!\n");
->          return -EINVAL;
->      }
->      dev_dbg(dev, "Using DMA device %pOF\n", mtk_crtc->dma_dev->of_node);
-> 
-> Note that if I change this simple line here, I'll have to fix other patches as
-> they won't apply anymore because of the changed line... so again, if we could
-> ignore that it would be great...
-> 
->>> +        dev_err(dev, "Could not find appropriate DMA device!\n");
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    mtk_crtc->dma_dev = mtk_ddp_comp_dma_dev_get(dma_comp);
->>> +    dev_dbg(dev, "Using DMA device %pOF\n", mtk_crtc->dma_dev->of_node);
->>>       ret = mtk_crtc_init(drm_dev, mtk_crtc, crtc_i);
->>>       if (ret < 0)
->>> @@ -1188,17 +1205,18 @@ int mtk_crtc_create(struct drm_device *drm_dev, const 
->>> unsigned int *path,
->>>           for (i = 0; i < num_conn_routes; i++) {
->>>               unsigned int comp_id = conn_routes[i].route_ddp;
->>>               struct device_node *node = priv->comp_node[comp_id];
->>> -            struct mtk_ddp_comp *comp = &priv->ddp_comp[comp_id];
->>> +            struct mtk_ddp_comp *comp = mtk_ddp_comp_find_by_id(&priv->hlist, 
->>> comp_id);
->>> -            if (!comp->dev) {
->>> +            if (!comp || !comp->dev) {
->>
->> In original code, it never check comp is null or not.
->> I think it base on an assumption that it would not be null.
->> If it's null here, print error message and it's not necessary to do the rest thing.
->>
-> 
-> Already explained why we need comp to be checked for NULL.
-> 
->>>                   dev_dbg(dev, "comp_id:%d, Component %pOF not initialized\n",
->>>                       comp_id, node);
->>>                   /* mark encoder_index to -1, if route comp device is not 
->>> enabled */
->>> -                comp->encoder_index = -1;
->>> +                if (comp)
->>> +                    comp->encoder_index = -1;
->>>                   continue;
->>>               }
->>> -            mtk_ddp_comp_encoder_index_set(&priv->ddp_comp[comp_id]);
->>> +            mtk_ddp_comp_encoder_index_set(comp);
->>>
->>
->> [snip]
->>
->>>         }
->>>   @@ -1116,8 +1118,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
->>>                                   PLATFORM_DEVID_AUTO,
->>>                                   (void *)private->mmsys_dev,
->>>                                   sizeof(*private->mmsys_dev));
->>> -        private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR].dev = &ovl_adaptor->dev;
->>> -        mtk_ddp_comp_init(dev, NULL, &private- 
->>> >ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR],
->>> +        mtk_ddp_comp_init(&ovl_adaptor->dev, NULL, &private->hlist,
->>
->> mtk_ddp_comp_init(dev, NULL, &private->hlist,
->>
-> 
-> That was only done for readability purposes. This will be entirely moved out of
-> here in a later commit.
+NOTE:
+ This series depends on and will not apply without the following series:
+ drm/mediatek: Add DSC, WDMA, MT8189/96 DSI support [1]
+ [1]: https://lore.kernel.org/r/20260713142746.40259-1-angelogioacchino.delregno@collabora.com
 
-Actually, no, I gave the wrong information here.
+Changes in v2:
+ - Rebased on next-20260713
+ - Changed DVO to use atomic_create_state
+ - Fixed partial RSZ addition in wrong patch
+ - Transferred bindings and mutex commits from soc series to this
+   one, as those require some changes from this series in order to
+   even compile
+ - Fixed indentation in patch 1
+ - Fixed using blend_mode in patch 2
+ - Fixed whitespace issues (oops) in various patches
+ - Fixed binding errors for blender, exdma, outproc, tdshp, resizer
+ - Changed commit moving mtk_ddp_comp_type enumeration to mtk-mmsys.h
+   to actually only move the enumeration
+ - Added commit that introduces the missing component types in the
+   mtk_ddp_comp_type enumeration
 
-Registering with mtk_ddp_comp_init(dev, xxxx ...) will make the called function to
-assign a pointer to mediatek-drm's device, but since the mtk_ddp_comp_init function
-changed, this needs to pass a pointer to the OVL ADAPTOR's device, not to the main
-mediatek-drm device.
 
-So this has to be mtk_ddp_comp_init(&ovl_adaptor->dev, ...) otherwise this will not
-work as intended.
+Okay, yes, this is very big. :-)
 
-Cheers,
-Angelo
+This series "only" does two things:
+ 1. Restructures mediatek-drm to optimize components discovery,
+    pipeline building, changes components relationship, and to
+    make use new-style trigger-sources for MuteX, other than
+    paving the way for *easily* adding support for up to 31
+    concurrent display outputs (of which, 6-8 are realistic now
+    with newer SoCs); and
+ 2. Adds support for the new DirectLink architecture and for most
+    of the new Display Controller components found in newer gen
+    SoCs, like MT8196.
+
+Note that, mixed in all this, there are some changes to the mediatek
+MMSYS driver: those *cannot* be performed separately, and *must* land
+in the same moment as the other changes, as otherwise it's all going
+to break.
+That was unavoidable, unless adding another ~10 (big) commits to keep
+support for old code while introducing the new (not devicetree, just
+code, mind you!) which is, at this point, completely unnecessary and
+just big noise for no reason.
+
+The two soc/mediatek commits already have my Acked-by tag for them to
+be picked by a drm maintainer instead.
+
+Important summary done, let's go deeper!
+
+(from mtk-mmsys new-style series, important context)
+As of now, all of the components in MediaTek DRM, hence also in the
+MMSYS driver, are thrown in a catch-all enumeration that does not
+make any distinction between Type-Instance relationship, and it is
+like so (mock-up names ahead):
+
+DISPLAY_DITHER0
+DISPLAY_DITHER1
+DISPLAY_DSI0
+DISPLAY_DSI1
+
+... and so on.
+
+Since the number of components is now becoming uncontrollably large,
+the catch-all enumeration poses a big issue as the mediatek-drm driver
+is allocating a huge array that will be only half full (optimistically,
+because usually it's way less than half full) and with repeated ops
+assignment for each and every instance of the very same Sub-IP,
+effectively treating every instance of a Sub-IP like it is completely
+different from one another (for example, like DSI0 and DSI1 are as
+different as DITHER0 and DSI1).
+
+This has to change. It had to change months ago, but now it has become
+not only a maintenance burden, but also a... (sorry) big mess.
+
+And well, that... especially looking forward to add support for newer
+SoCs, using even more components in one pipeline, and using different
+and newer components (of new types...), making the catch-all enum to
+grow of another ~20 entries or more.
+(end of context paste)
+
+This is the reason why the mediatek-drm driver now structures the HW
+components in a different way, and specifically, it now makes a clear
+distinction between HARDWARE TYPE and HARDWARE INSTANCE ID.
+
+With this distinction is done, it also made sense to change the highly
+unoptimized array search with a hashtable, making the entire components
+discovery process faster (with or without MT8196 support), while using
+less memory (compared to if this driver had MT8196 support without the
+restructured code).
+
+Moreover, the mediatek-drm driver now supports dynamic selection of the
+DMA device, the VBLANK component and of the CONFIG component, necessary
+for Multi-Controller Display Path (with DirectLink) architecture of new
+SoCs (like MT8196), and also makes it possible for slightly older ones
+to use multi-controller paths (though very restrictive due to the actual
+hardware support).
+
+Moving on to the MT8196 specific support...
+
+This adds knowledge to mediatek-drm and hence introduces support for
+the new concept of "Layer Stages", seen in MT6991/93, MT8196/8894 and
+other new SoCs, where each (one) full layer is now composed of multiple
+different hardware IPs and where, depending on the usecase (which is
+BOARD specific!!!), can be set to have less, or more, capabilities in
+terms of number of Blending stages, number of DMA stages, etc, so that
+one board may choose to have up to 6-8 display outputs featuring lower
+resolution displays, or 2-3 outputs supporting high resolution with high
+framerates (like 4k120, 8k60 etc).
+
+This also restructures the MediaTek DPI driver to be split in a common
+library and HW version specific drivers, and on the base of this, adds
+support for the new MediaTek Display Video Output (DVO) hardware, being
+a revised and extended version of the previous DPI one.
+
+Moreover, adds support for the Extended DMA (exDMA), Blender and Output
+Processor engines, providing single stages of layers and forming one
+layer when chained together.
+
+More new-gen components include the 2D Sharpness Processor (TDSHP) and
+the Display Image Resizer (effectively, a Scaler engine).
+
+This also adds support for the Asynchronous DirectLink Controller, or
+"DL_ASYNC", responsible for internally connecting different display
+controllers to finally form one (or multiple) display path(s), which
+may include a relatively infinite (real, and full) display controller
+jumps or even intertwining (where jumps are fully supported in this
+version of the driver, but intertwining is only partially supported).
+
+In the case of paths using multiple display controllers, this is now
+automatically calculating the order of those, important not only for
+power management, but also for actually setting them up.
+
+There's more to say, but this cover letter is already way too long now
+so, well, if you want to know more about this, please the description
+in the relevant commit from this series and feel free to ask for any
+clarification.
+
+
+All of this was manually tested on multiple MediaTek boards, both the
+reference ones and partner boards, and that includes:
+Acer Chromebook Elm (MT8173)
+Acer Chromebook Corsola Steelix (MT8186)
+Acer Chromebook Asurada (MT8192)
+Acer Chromebook Cherry Tomato (MT8195)
+Acer Chromebook Rauru Hylia (MT8196)
+
+MediaTek Genio 510 EVK (MT8370)
+MediaTek Genio 700 EVK (MT8390)
+MediaTek Genio 1200 EVK (MT8395)
+Radxa NIO-12L (MT8395)
+
+Note: with this series, MT8196 support reaches a 95% done state for
+DSI or eDP outputs, but needs some more code to work; the test that
+was performed on the Hylia Chromebook had the rest of the required
+code in place: said code is not perfectly clean yet and was not sent
+for this exact reason. Cleanups to the remaining MT8196 code will
+not change anything of what is introduced with this patch series.
+
+
+AngeloGioacchino Del Regno (43):
+  drm/mediatek: Move mtk_ddp_comp_type enumeration to mtk-mmsys.h
+  drm/mediatek: Add missing component types in mtk_ddp_comp_type
+  drm/mediatek: Rename all display component type to have DISP_ prefix
+  drm/mediatek: Use hashtable for components discovery and registration
+  drm/mediatek: ddp_comp: Move internal component register in function
+  drm/mediatek: De-duplicate internal component checks
+  drm/mediatek: Introduce and use path/comp definition structures
+  drm/mediatek: Create new mtk_drm_legacy and move deprecated code
+  dt-bindings: soc: mediatek: mutex: Allow #trigger-source-cells
+  dt-bindings: display: mediatek: Allow trigger-sources on relevant HW
+  drm/mediatek: Add support for MuteX trigger-sources parsing
+  drm/mediatek: ovl_adaptor: Add special MERGE component check
+  drm/mediatek: mtk_hdmi_v2: Don't warn on RPM active during detach
+  drm/mediatek: Add support for hardware multi-stage layers
+  drm/mediatek: mtk_crtc: Complete documentation for struct mtk_crtc
+  drm/mediatek: mtk_crtc: Minimize spinlocked time in cmdq callback
+  drm/mediatek: mtk_crtc: Dynamically find vblank/cfg component indices
+  soc: mediatek: mtk-mutex: Add new functions to add/remove triggers
+  soc: mediatek: mtk-mmsys: Migrate to new Multimedia DDP HW indexing
+  drm/mediatek: Fully migrate to new Display Controller HW indexing
+  drm/mediatek: mtk_dpi: Pass parameters with new mtk_dpi_sync structure
+  drm/mediatek: mtk_dpi: Fully separate HW setup from common code
+  drm/mediatek: Create new mtk_dpi_common lib and move mtk_dpi code
+  dt-bindings: display: mediatek: Introduce Digital Video Output HW
+  drm/mediatek: Add support for MediaTek Digital Video Output (DVO)
+  drm/mediatek: Pass mtk_ddp_comp in clk and config callbacks
+  dt-bindings: display: mediatek: Introduce MT8196 Layer Blender
+  drm/mediatek: Add support for Display Layer Blender component
+  dt-bindings: display: mediatek: Introduce MT8196 extended DMA Engine
+  drm/mediatek: Add support for Display Controller exDMA component
+  dt-bindings: display: mediatek: Introduce MT8196 Output Processor
+  drm/mediatek: Add support for Display Output Processor component
+  drm/mediatek: mtk_crtc: Dynamically find suitable CRTC DMA device
+  drm/mediatek: Prepare path builder for multi-controller architecture
+  drm/mediatek: Enable bring-up of multi-controller CRTC paths
+  drm/mediatek: Introduce MediaTek Asynchronous DirectLink Controller
+  drm/mediatek: Support registering disp controller device subnodes
+  soc: mediatek: mtk-mmsys: Populate multimedia subsystem subdevices
+  dt-bindings: display: mediatek: Introduce MT8196 2D Sharpness
+    Processor
+  drm/mediatek: Add Two-Dimension Sharpness Processor (TDSHP) driver
+  dt-bindings: display: mediatek: Introduce MT8196 Image Resizer
+  drm/mediatek: Add support for Display Image Resizer (Scaler)
+  drm/mediatek: mtk_drm_drv: Fail init only if all paths are invalid
+
+Nancy Lin (1):
+  drm/mediatek: Export OVL formats definitions and format conversion API
+
+Paul-pl Chen (2):
+  drm/mediatek: Rename OVL format naming
+  drm/mediatek: Export OVL Blend function
+
+ .../display/mediatek/mediatek,aal.yaml        |    3 +
+ .../display/mediatek/mediatek,ccorr.yaml      |    3 +
+ .../display/mediatek/mediatek,color.yaml      |    3 +
+ .../display/mediatek/mediatek,dither.yaml     |    3 +
+ .../display/mediatek/mediatek,dp.yaml         |    3 +
+ .../display/mediatek/mediatek,dpi.yaml        |    3 +
+ .../display/mediatek/mediatek,dsc.yaml        |    3 +
+ .../display/mediatek/mediatek,dsi.yaml        |    3 +
+ .../display/mediatek/mediatek,ethdr.yaml      |    3 +
+ .../display/mediatek/mediatek,gamma.yaml      |    3 +
+ .../display/mediatek/mediatek,merge.yaml      |    3 +
+ .../mediatek/mediatek,mt8196-blender.yaml     |   97 ++
+ .../display/mediatek/mediatek,mt8196-dvo.yaml |  143 +++
+ .../mediatek/mediatek,mt8196-exdma.yaml       |  104 ++
+ .../mediatek/mediatek,mt8196-outproc.yaml     |  107 ++
+ .../display/mediatek/mediatek,mt8196-rsz.yaml |   97 ++
+ .../mediatek/mediatek,mt8196-tdshp.yaml       |   98 ++
+ .../display/mediatek/mediatek,od.yaml         |    3 +
+ .../display/mediatek/mediatek,ovl-2l.yaml     |    3 +
+ .../display/mediatek/mediatek,ovl.yaml        |    3 +
+ .../display/mediatek/mediatek,padding.yaml    |    3 +
+ .../display/mediatek/mediatek,postmask.yaml   |    3 +
+ .../display/mediatek/mediatek,rdma.yaml       |    3 +
+ .../display/mediatek/mediatek,split.yaml      |    3 +
+ .../display/mediatek/mediatek,ufoe.yaml       |    3 +
+ .../display/mediatek/mediatek,wdma.yaml       |    3 +
+ .../bindings/soc/mediatek/mediatek,mutex.yaml |    4 +
+ drivers/gpu/drm/mediatek/Makefile             |    8 +
+ drivers/gpu/drm/mediatek/mtk_crtc.c           |  973 ++++++++++----
+ drivers/gpu/drm/mediatek/mtk_crtc.h           |    4 +-
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.c       |  457 ++++---
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.h       |  145 ++-
+ drivers/gpu/drm/mediatek/mtk_disp_aal.c       |   12 +-
+ drivers/gpu/drm/mediatek/mtk_disp_blender.c   |  318 +++++
+ drivers/gpu/drm/mediatek/mtk_disp_ccorr.c     |   12 +-
+ drivers/gpu/drm/mediatek/mtk_disp_color.c     |   12 +-
+ .../gpu/drm/mediatek/mtk_disp_directlink.c    |  434 +++++++
+ drivers/gpu/drm/mediatek/mtk_disp_drv.h       |  158 ++-
+ drivers/gpu/drm/mediatek/mtk_disp_dsc.c       |    8 +-
+ drivers/gpu/drm/mediatek/mtk_disp_exdma.c     |  344 +++++
+ drivers/gpu/drm/mediatek/mtk_disp_gamma.c     |   12 +-
+ drivers/gpu/drm/mediatek/mtk_disp_merge.c     |   18 +-
+ drivers/gpu/drm/mediatek/mtk_disp_outproc.c   |  247 ++++
+ drivers/gpu/drm/mediatek/mtk_disp_ovl.c       |  269 ++--
+ drivers/gpu/drm/mediatek/mtk_disp_ovl.h       |   27 +
+ .../gpu/drm/mediatek/mtk_disp_ovl_adaptor.c   |  182 ++-
+ drivers/gpu/drm/mediatek/mtk_disp_rdma.c      |   21 +-
+ drivers/gpu/drm/mediatek/mtk_disp_tdshp.c     |  167 +++
+ drivers/gpu/drm/mediatek/mtk_disp_wdma.c      |   14 +-
+ drivers/gpu/drm/mediatek/mtk_dpi.c            |  762 +----------
+ drivers/gpu/drm/mediatek/mtk_dpi_common.c     |  477 +++++++
+ drivers/gpu/drm/mediatek/mtk_dpi_common.h     |  299 +++++
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        | 1141 ++++++++++-------
+ drivers/gpu/drm/mediatek/mtk_drm_drv.h        |   34 +-
+ drivers/gpu/drm/mediatek/mtk_drm_legacy.c     |  879 +++++++++++++
+ drivers/gpu/drm/mediatek/mtk_drm_legacy.h     |   37 +
+ drivers/gpu/drm/mediatek/mtk_dvo.c            |  677 ++++++++++
+ drivers/gpu/drm/mediatek/mtk_dvo_regs.h       |  192 +++
+ drivers/gpu/drm/mediatek/mtk_ethdr.c          |   10 +-
+ drivers/gpu/drm/mediatek/mtk_ethdr.h          |    4 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi_v2.c        |    2 -
+ drivers/gpu/drm/mediatek/mtk_mdp_rdma.c       |    8 +-
+ drivers/gpu/drm/mediatek/mtk_padding.c        |    8 +-
+ drivers/soc/mediatek/mtk-mmsys.c              |  107 +-
+ drivers/soc/mediatek/mtk-mmsys.h              |   15 +-
+ drivers/soc/mediatek/mtk-mutex.c              |   60 +
+ include/linux/soc/mediatek/mtk-mmsys.h        |   56 +-
+ include/linux/soc/mediatek/mtk-mutex.h        |    6 +
+ 68 files changed, 7411 insertions(+), 1915 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-blender.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-exdma.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-outproc.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-rsz.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-tdshp.yaml
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_blender.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_directlink.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_exdma.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_outproc.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_ovl.h
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_tdshp.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_dpi_common.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_dpi_common.h
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_drm_legacy.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_drm_legacy.h
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_dvo.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_dvo_regs.h
+
+-- 
+2.54.0
+
