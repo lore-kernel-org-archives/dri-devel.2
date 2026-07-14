@@ -4,146 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F544C44501
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 16:10:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BBA7C44508
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 16:11:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C789F10EDE7;
-	Tue, 14 Jul 2026 16:10:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D69310E075;
+	Tue, 14 Jul 2026 16:11:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="USKTxdpH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z2FvZeNS";
 	dkim-atps=neutral
-X-Greylist: delayed 93854 seconds by postgrey-1.36 at gabe;
- Tue, 14 Jul 2026 16:10:18 UTC
-Received: from mout.web.de (mout.web.de [217.72.192.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 246EA10E0B8;
- Tue, 14 Jul 2026 16:10:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1784045411; x=1784650211; i=markus.elfring@web.de;
- bh=EderJaK9SWfHtM5yP4F5xgy26wvyZY2GJGBK0Hhwouc=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=USKTxdpH41riR1NA740kUGL5HpRUJvh+ccQBjEBoCLuVFKHr6y/KvS3OMNgPiPKk
- clg3exRs26L8yQXoOQzFBf8htwSYSPSlmv6fgy5h7u3wqcI+i9kwvBICGkNtUdWm4
- jZUwyZtY3Tm51isNQsYcTrndLExh4e8Sr3Kwze1B30lhLNNy6BsnuDwMPgXGUVxl+
- clyu86kYYqCyWlwS4J3zlwD17dWtVFBpcrKcb6bxzeBbUsht1ORiS2O9V6WOCUk0P
- NDK/M1bQcptFFMs7AyWi8jZ4ZocBcUL6VHz8M/lwRJZ3Gk+g8nuL9WyeFzWwe4SPz
- K0DBKR3dEyqPyEjhbA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MVaYw-1wZjWh1lNU-00LwjW; Tue, 14
- Jul 2026 18:10:11 +0200
-Message-ID: <4d0426b4-e40b-4cc6-841f-ca18b2256db4@web.de>
-Date: Tue, 14 Jul 2026 18:10:08 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/i915/bios: Move a variable assignment behind a null
- pointer check in intel_bios_encoder_supports_dp_dual_mode()
-To: Dan Carpenter <error27@gmail.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
-Cc: David Airlie <airlied@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>
-References: <e81277a0-93f8-45e9-9fa4-7c2c2df9c311@web.de>
- <alZVl0o7uBoncUos@intel.com> <alZZviFT2jfABiZq@stanley.mountain>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <alZZviFT2jfABiZq@stanley.mountain>
-Content-Type: text/plain; charset=UTF-8
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8C1510E075
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 16:11:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id BED3760103;
+ Tue, 14 Jul 2026 16:11:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 188571F00A3A;
+ Tue, 14 Jul 2026 16:11:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784045478;
+ bh=bP813PqWGE4hbwxeUEuzsb08+vCc6RJ8tsVru+Mo02Q=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Z2FvZeNS2VE0kpaK6NJaT9zqDFWmgYfggvB7wjGkGOzRb/E+yKwxdaL/KTI7HBJA0
+ 9eAc56b+BypNNimlNjhVrgpP4Lamfr6k07tMCqegkTFWAAoNxOLwe15H4XAD+iP1KV
+ lDmAM5f+WcPPu8uovKQkANrZqUC85t0b7MzsRoa5imLZ8GItAjROo/OsKZgwN0w6NV
+ dbp6zyFIIr6vrmM3LrDmGu9nM9/mPklc+TU44RRFkUbPnbtfIHzAazbXqLvF7EKimc
+ U+o+7T02wfmW004DT+bLg0dmPnR+HETdlPSwJo9mMV6/4QeW7Yf76nSxOdwSdTB/fy
+ YNlHziUULw5mg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/8] Add Advantech EIO I2C driver
+To: "Ramiro Oliveira" <ramiro.oliveira@advantech.com>
+Cc: linux-hwmon@vger.kernel.org, mfd@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, lee@kernel.org,
+ linux-watchdog@vger.kernel.org
+In-Reply-To: <20260714-upstream-v2-v2-4-76e5e41026db@advantech.com>
+References: <20260714-upstream-v2-v2-0-76e5e41026db@advantech.com>
+ <20260714-upstream-v2-v2-4-76e5e41026db@advantech.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:rC82bBKYgByUw3tV+iK2Ar/aoTlmebweQ6hkSraBLf3yDTNlEz5
- SZArnp8I5ofkNDsnsKqH2OBdMb9n1LVhB69wpq2arr/PTZcJdQls26K9F6FMRsqAszgfiXy
- kHYLr2rC2cw1swmaWBDlYM2s1N2CIhrhwFnM4jAXkcaZ/rkNmKTRjFFXgxPseZpgpn5O9vr
- xujztEtI6Gpk1/acKBnWQ==
-UI-OutboundReport: notjunk:1;M01:P0:JtLtSE3GLwQ=;quLuQAb9zq7gLSzE93g5oCau1ct
- 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
- w7xQ7RWs2U+hx8MJX/3/j23IpSHeHBIDXw==
+Date: Tue, 14 Jul 2026 16:11:17 +0000
+Message-Id: <20260714161118.188571F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,35 +55,560 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
->>> The address of a data structure member was determined before
->>> a corresponding null pointer check in the implementation of
->>> the function =E2=80=9Cintel_bios_encoder_supports_dp_dual_mode=E2=80=
-=9D.
->>>
->>> Thus avoid the risk for undefined behaviour by reducing the scope for
->>> the variable =E2=80=9Cchild=E2=80=9D behind condition checks.
->>>
->>> This issue was detected by using the Coccinelle software.
->>>
->>> Fixes: 044cbc7a74c136f12a80c855cadd1b085084aef1 ("drm/i915/bios: Nuke =
-DEVICE_TYPE_DP_DUAL_MODE_BITS")
->>> Cc: stable@vger.kernel.org
->=20
-> Please stop adding Fixes tags to these and talking about "undefined
-> behavior" in the commit message.  Pointer math is defined...
+Thank you for your contribution! Sashiko AI review found 18 potential issue=
+(s) to consider:
+- [Critical] Reading SMBus block data via an `unsigned int *` cast causes o=
+ut-of-bounds memory writes and stack corruption.
+- [Critical] The driver does not validate the userspace-provided block leng=
+th for SMBus block writes, allowing an out-of-bounds read of kernel memory.
+- [High] Premature exit in `i2c_xfer` causes silent truncation of multi-mes=
+sage I2C transactions.
+- [High] Local mutex `pnp_mutex` fails to protect the shared MFD-level PNP =
+configuration sequence from concurrent access by other child drivers.
+- [High] Misuse of `regmap_update_bits` (`eio_reg_or`) on W1C status regist=
+ers and with 0 masks acts as a no-op, failing to clear hardware errors.
+- [High] Off-by-one boundary check strictly rejects valid maximum-length (3=
+2-byte) SMBus block transfers.
+- [High] The 10-bit I2C addressing implementation is structurally flawed, l=
+osing the R/W bit, corrupting the address, and omitting Repeated Start.
+- [High] Uninitialized stack variables in `smb_access` are returned to user=
+space if regmap reads fail.
+- [High] SMBus read emulation over I2C incorrectly marks the command byte p=
+hase as a read operation.
+- [High] The read phase for `I2C_SMBUS_BLOCK_PROC_CALL` is completely omitt=
+ed, dropping the response data.
+- [High] Destructive bitwise operation wipes out `SMB_REG_HC` configuration=
+ during Block Process Call.
+- [Medium] Incorrect endianness handling in SMBus Word Data and Process Cal=
+l transfers corrupts data on big-endian architectures.
+- [Medium] The hardware is left stuck in PNP Extended Configuration Mode if=
+ any register access fails during `load_i2c`.
+- [Medium] Clock configuration logic is structurally disjoint when the requ=
+ested frequency equals exactly 30 kHz (`I2C_THRESHOLD_SCLH`), resulting in =
+massive under-clocking.
+- [Medium] Polling loops can falsely trigger timeout errors because they ev=
+aluate expiration before executing the final register read.
+- [Low] The block write formatting logic in `smbus_xfer` copies one byte pa=
+st the end of the payload buffer.
+- [Low] Module parameters for configuring I2C and SMBus frequencies are dec=
+lared but completely ignored by the driver logic.
+- [Low] Driver-specific header file is inappropriately placed in the global=
+ MFD include directory.
+--
 
-What does hinder you to take additional information sources better into ac=
-count?
+--- Patch [4]: [PATCH v2 4/8] Add Advantech EIO I2C driver ---
+commit 0b05c6638fad42a025d75120571d2def944319c3
+Author: Ramiro Oliveira <ramiro.oliveira@advantech.com>
 
+    Add Advantech EIO I2C driver
+   =20
+    This commit adds the driver to control the Advantech EIO I2C block, this
+    block is included in the Advantech EIO MFD.
 
-> It's just a style preference on your part.
-Do you find the guidance appropriate according to the SEI CERT C Coding St=
-andard?
-https://cmu-sei.github.io/secure-coding-standards/sei-cert-c-coding-standa=
-rd/rules/expressions-exp/exp34-c/
+> diff --git a/drivers/i2c/busses/i2c-eio.c b/drivers/i2c/busses/i2c-eio.c
+> new file mode 100644
+> index 0000000000000..56a89ca18f328
+> --- /dev/null
+> +++ b/drivers/i2c/busses/i2c-eio.c
+> @@ -0,0 +1,1135 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+[ ... ]
+> +#include <linux/device.h>
+> +#include <linux/delay.h>
+> +#include <linux/errno.h>
+> +#include <linux/i2c.h>
+> +#include <linux/mfd/core.h>
+> +#include <linux/mfd/eio.h>
 
-Regards,
-Markus
+[Severity: Low]
+Does this include violate MFD architectural guidelines? The subsystem guide
+specifies that driver-specific header files should be kept local to
+drivers/mfd/ and not placed in the global include/linux/mfd/ directory if
+they are only used by the parent and its immediate children.
+
+[ ... ]
+> +struct eio_i2c_dev {
+> +	struct device *dev;
+> +	struct device *mfd;
+> +	struct regmap *regmap;
+> +	struct mutex pnp_mutex; /* Mutex for PNP acces */
+
+[Severity: High]
+Since this mutex is initialized locally within the I2C child driver, does it
+fail to protect the shared MFD-level PNP configuration registers (0x299/0x2=
+9A)
+from concurrent access by other sibling drivers (like GPIO or HWMON)?
+
+[ ... ]
+> +static int wait_busy(struct eio_i2c_chan *i2c_chan)
+> +{
+> +	ktime_t time_end =3D ktime_add_us(ktime_get(), I2C_TIMEOUT);
+> +	unsigned int reg =3D eio_chan_reg(i2c_chan, I2C_REG_STAT, SMB_REG_HS);
+> +	unsigned int target =3D eio_chan_reg(i2c_chan, I2C_STAT_BUSY, SMB_HS_BU=
+SY);
+> +	unsigned int val;
+> +	int cnt =3D 0;
+> +
+> +	do {
+> +		fsleep(cnt++);
+> +
+> +		if (ktime_after(ktime_get(), time_end)) {
+> +			dev_err(eio_dev(i2c_chan), "Wait I2C bus busy timeout\n");
+> +			return -ETIME;
+> +		}
+> +
+> +		if (eio_reg_read(i2c_chan, reg, &val))
+> +			return -EIO;
+> +
+> +	} while (val & target);
+
+[Severity: Medium]
+Could this polling loop falsely return a timeout? If the thread experiences
+latency during the sleep and the timer expires, the loop will exit with an
+error without performing a final register read to check if the hardware
+actually completed the operation.
+
+[ ... ]
+> +static void i2c_clear(struct eio_i2c_chan *i2c_chan)
+> +{
+> +	if (is_i2c(i2c_chan)) {
+> +		eio_reg_write(i2c_chan, I2C_REG_STAT, 0xFF);
+> +	} else {
+> +		eio_reg_or(i2c_chan, SMB_REG_HS,  0xA9);
+> +		eio_reg_or(i2c_chan, SMB_REG_HS2, 0x4C);
+> +	}
+> +}
+
+[Severity: High]
+Does using a read-modify-write operation (eio_reg_or -> regmap_update_bits)
+work for clearing Write-1-to-Clear (W1C) bits? If the bits are already set
+in the hardware, reading them and writing back the same value will often be
+skipped by regmap, leaving the errors uncleared.
+
+[ ... ]
+> +static int wait_write_done(struct eio_i2c_chan *i2c_chan, bool no_ack)
+> +{
+> +	ktime_t time_end =3D ktime_add_us(ktime_get(), I2C_TIMEOUT);
+> +	unsigned int val =3D 0;
+> +	int cnt =3D 0;
+> +	unsigned int reg =3D eio_chan_reg(i2c_chan, I2C_REG_STAT, SMB_REG_HS);
+> +	unsigned int target =3D eio_chan_reg(i2c_chan, I2C_STAT_TXDONE, SMB_HS_=
+TX_DONE);
+> +
+> +	do {
+> +		fsleep(cnt++);
+> +		if (ktime_after(ktime_get(), time_end)) {
+> +			if (is_i2c(i2c_chan)) {
+> +				eio_reg_or(i2c_chan, I2C_REG_STAT, 0);
+
+[Severity: High]
+Is it possible this fails to clear the status flags? Passing a mask of 0 to
+regmap_update_bits will result in no bits being changed, and the write will
+likely be optimized out entirely.
+
+[ ... ]
+> +static int set_freq(struct eio_i2c_chan *i2c_chan, int freq)
+> +{
+> +	u8 pre1, pre2;
+> +	u16 speed;
+> +	unsigned int reg1 =3D eio_chan_reg(i2c_chan, I2C_REG_PRESCALE1, SMB_REG=
+_HPRESCALE1);
+> +	unsigned int reg2 =3D eio_chan_reg(i2c_chan, I2C_REG_PRESCALE2, SMB_REG=
+_HPRESCALE2);
+> +
+> +	dev_dbg(eio_dev(i2c_chan), "set freq: %dkHz\n", freq);
+> +	if (freq > I2C_FREQ_MAX || freq < I2C_FREQ_MIN) {
+> +		dev_err(eio_dev(i2c_chan), "Invalid i2c freq: %d\n", freq);
+> +		return -EINVAL;
+> +	}
+> +
+> +	speed =3D (freq < I2C_THRESHOLD_SCLH) ? I2C_SCLH_LOW : I2C_SCLH_HIGH;
+> +
+> +	pre1 =3D (u8)(CHIP_CLK / speed);
+> +	pre2 =3D (u8)((speed / freq) - 1);
+> +
+> +	if (freq > I2C_THRESHOLD_SCLH)
+> +		pre2 |=3D I2C_SCL_FAST_MODE;
+
+[Severity: Medium]
+What happens if the requested frequency is exactly 30 kHz (I2C_THRESHOLD_SC=
+LH)?
+The first check (< 30) evaluates to false, making speed 2500. However, the
+second check (> 30) also evaluates to false, failing to set the FAST_MODE b=
+it.
+Will this combination drastically underclock the bus?
+
+[ ... ]
+> +static int smb_access(struct eio_i2c_chan *i2c_chan, u8 addr, bool is_re=
+ad, u8 cmd,
+> +		      int size, union i2c_smbus_data *data)
+> +{
+> +	int i, tmp, ret =3D 0;
+[ ... ]
+> +	case I2C_SMBUS_BLOCK_DATA:
+> +		dev_dbg(eio_dev(i2c_chan), "I2C_SMBUS_BLOCK_DATA\n");
+> +		if (is_read)
+> +			break;
+> +
+> +		/* Program command type */
+> +		eio_reg_read(i2c_chan, SMB_REG_HC, (unsigned int *)&tmp);
+> +		tmp &=3D ~(0x07 << SMB_HC_CMD_SHIFT);
+> +		tmp |=3D  (size << SMB_HC_CMD_SHIFT);
+> +		eio_reg_write(i2c_chan, SMB_REG_HC, tmp);
+> +
+> +		/* Force write for payload stage */
+> +		eio_reg_write(i2c_chan, SMB_REG_HADDR, addr & ~0x01);
+> +
+> +		/* Reset internal buffer index pointer */
+> +		eio_reg_and(i2c_chan, SMB_REG_HC2, (int)~SMB_HC2_E32B);
+> +		eio_reg_or(i2c_chan, SMB_REG_HC2, SMB_HC2_E32B);
+> +
+> +		/* Write length + data */
+> +		eio_reg_write(i2c_chan, SMB_REG_HD0, data->block[0]);
+> +		for (i =3D 1; i <=3D data->block[0]; i++)
+> +			eio_reg_write(i2c_chan, SMB_REG_HBLOCK, data->block[i]);
+
+[Severity: Critical]
+Does this loop need to validate the length of data->block[0] against
+I2C_SMBUS_BLOCK_MAX before writing? Without bounds checking, this may blind=
+ly
+read past the union's memory boundary and dump kernel stack contents onto t=
+he
+I2C bus.
+
+> +		break;
+> +
+> +	case I2C_SMBUS_BLOCK_PROC_CALL:
+> +		/* Set command type field */
+> +		eio_reg_and(i2c_chan, SMB_REG_HC, (0x07 << SMB_HC_CMD_SHIFT));
+
+[Severity: High]
+Does this bitwise operation wipe out configuration flags? Because eio_reg_a=
+nd
+uses regmap_update_bits with an inverted mask, providing only the command b=
+its
+implies all other active control bits in the register will be zeroed out.
+
+> +		eio_reg_write(i2c_chan, SMB_REG_HD0, data->block[0]);
+> +
+> +		/* Reset buffer index */
+> +		eio_reg_and(i2c_chan, SMB_REG_HC2, (int)~SMB_HC2_E32B);
+> +		eio_reg_or(i2c_chan, SMB_REG_HC2, SMB_HC2_E32B);
+> +
+> +		for (i =3D 1; i <=3D data->block[0]; i++)
+> +			eio_reg_write(i2c_chan, SMB_REG_HBLOCK, data->block[i]);
+
+[Severity: Critical]
+Similar to the block data write above, does data->block[0] need bounds chec=
+king
+here to prevent out-of-bounds kernel memory reads?
+
+[ ... ]
+> +	switch (size) {
+> +	case I2C_SMBUS_QUICK:
+> +		dev_dbg(eio_dev(i2c_chan), "I2C_SMBUS_QUICK\n");
+> +		break;
+> +
+> +	case I2C_SMBUS_BYTE:
+> +	case I2C_SMBUS_BYTE_DATA:
+> +		if (is_read) {
+> +			unsigned int v;
+> +
+> +			dev_dbg(eio_dev(i2c_chan), "I2C_SMBUS_BYTE/I2C_SMBUS_BYTE_DATA\n");
+> +			eio_reg_read(i2c_chan, SMB_REG_HD0, &v);
+> +			data->block[0] =3D (u8)v;
+
+[Severity: High]
+If eio_reg_read fails (e.g. from a hardware error), the error is ignored and
+the uninitialized stack variable 'v' will be copied into data->block[0]. Wi=
+ll
+this leak uninitialized kernel memory to userspace during an ioctl?
+
+> +			dev_dbg(eio_dev(i2c_chan), "read %X\n", data->block[0]);
+> +		}
+> +		break;
+> +
+> +	case I2C_SMBUS_WORD_DATA: {
+> +		unsigned int v0, v1;
+> +
+> +		if (is_read) {
+> +			dev_dbg(eio_dev(i2c_chan), "I2C_SMBUS_WORD_DATA\n");
+> +			eio_reg_read(i2c_chan, SMB_REG_HD0, &v0);
+> +			eio_reg_read(i2c_chan, SMB_REG_HD1, &v1);
+> +			data->block[0] =3D (u8)v0;
+> +			data->block[1] =3D (u8)v1;
+
+[Severity: Medium]
+Is it safe to assign word bytes directly into the data->block byte array?
+Because data->block shares a union with the 16-bit data->word, this mappings
+changes based on host endianness. Will this corrupt word values on big-endi=
+an
+architectures?
+
+[Severity: High]
+Also, just like the byte read case, an error in eio_reg_read will cause the
+uninitialized stack variables v0 and v1 to be returned to the client.
+
+> +		}
+> +		break;
+> +	}
+> +
+> +	case I2C_SMBUS_PROC_CALL: {
+> +		unsigned int v0, v1;
+> +
+> +		dev_dbg(eio_dev(i2c_chan), "I2C_SMBUS_PROC_CALL\n");
+> +		eio_reg_read(i2c_chan, SMB_REG_HD0, &v0);
+> +		eio_reg_read(i2c_chan, SMB_REG_HD1, &v1);
+> +		data->block[0] =3D (u8)v0;
+> +		data->block[1] =3D (u8)v1;
+
+[Severity: Medium]
+Similar endianness handling issue exists here for Process Call responses.
+
+[Severity: High]
+And once again, uninitialized memory leaks are possible if the reads fail.
+
+> +		break;
+> +	}
+> +
+> +	case I2C_SMBUS_BLOCK_DATA:
+> +		if (!is_read)
+> +			break;
+> +
+> +		dev_dbg(eio_dev(i2c_chan), "I2C_SMBUS_BLOCK_DATA\n");
+> +		eio_reg_read(i2c_chan, SMB_REG_HD0, (unsigned int *)&len);
+> +		len =3D min(len, I2C_SMBUS_BLOCK_MAX);
+> +		data->block[0] =3D len;
+> +
+> +		for (i =3D 1; i <=3D len; i++)
+> +			eio_reg_read(i2c_chan, SMB_REG_HBLOCK,
+> +				     (unsigned int *)&data->block[i]);
+
+[Severity: Critical]
+Is it safe to cast the 8-bit array slot pointer &data->block[i] to a 32-bit
+unsigned int * ? When regmap_read populates the result, it will write 32 bi=
+ts,
+causing it to overwrite up to 3 bytes past the end of the union i2c_smbus_d=
+ata
+structure on the final iterations, corrupting the stack.
+
+> +		break;
+> +
+> +	default:
+> +		ret =3D -EINVAL;
+> +		goto exit;
+> +	}
+
+[Severity: High]
+Is the read phase for I2C_SMBUS_BLOCK_PROC_CALL intentionally missing? The
+switch statement falls through to default, throwing away the response data =
+and
+returning an error.
+
+[ ... ]
+> +static int i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int =
+nmsgs)
+> +{
+[ ... ]
+> +	for (msg =3D 0; msg < nmsgs; msg++) {
+> +		int is_read =3D msgs[msg].flags & I2C_M_RD;
+> +		bool no_ack =3D msgs[msg].flags & I2C_M_IGNORE_NAK;
+> +
+> +		dev_dbg(eio_dev(i2c_chan), "message %d len=3D%d\n", msg, msgs[msg].len=
+);
+> +
+> +		if (!msgs[msg].len)
+> +			let_stop(i2c_chan);
+> +
+> +		if (msgs[msg].flags & I2C_M_TEN) {
+> +			addr =3D eio_enc_10bit_addr(msgs[msg].addr);
+> +			addr |=3D is_read;
+> +			dev_dbg(eio_dev(i2c_chan), "10-bit addr: %X\n", addr);
+> +
+> +			ret =3D write_addr(i2c_chan, addr >> 8, no_ack);
+> +			if (!ret)
+> +				ret =3D write_data(i2c_chan, addr & 0x7F, no_ack);
+
+[Severity: High]
+Is this 10-bit addressing logic accurate? ORing the read flag into the lower
+byte, dropping the upper bit via a shift, and masking the bottom bits seems=
+ to
+corrupt the address format. Additionally, shouldn't there be a Repeated Sta=
+rt
+phase explicitly generated for reads?
+
+> +		} else {
+> +			addr =3D eio_enc_7bit_addr(msgs[msg].addr);
+> +			addr |=3D is_read;
+> +			dev_dbg(eio_dev(i2c_chan), "7-bit addr: %X\n", addr);
+> +
+> +			ret =3D write_addr(i2c_chan, addr, no_ack);
+> +		}
+> +
+> +		if (ret)
+> +			goto exit;
+> +
+> +		if (!msgs[msg].len)
+> +			goto exit;
+
+[Severity: High]
+Will exiting here prematurely abort multi-message transfers? For 0-length p=
+robe
+messages, this breaks out of the loop over nmsgs, failing to process any
+subsequent messages while still returning success.
+
+> +
+> +		if (is_read)
+> +			ret =3D eio_trigger_read(i2c_chan, (u32 *)&dummy);
+> +
+> +		/* Transmit all messages */
+> +		for (data =3D 0; data < msgs[msg].len; data++) {
+> +			if (msgs[msg].flags & I2C_M_RD) {
+> +				bool last =3D (msgs[msg].len =3D=3D data + 1);
+> +
+> +				if (last)
+> +					let_stop(i2c_chan);
+> +
+> +				ret =3D read_data(i2c_chan, &msgs[msg].buf[data]);
+> +				dev_dbg(eio_dev(i2c_chan), "I2C read[%d] =3D %x\n",
+> +					data, msgs[msg].buf[data]);
+> +
+> +				/* Don't stop twice */
+> +				if (last && ret =3D=3D 0)
+> +					goto exit;
+
+[Severity: High]
+Similarly, doesn't this goto break out of the nmsgs loop entirely? If a read
+message is followed by further messages in a single I2C transaction, those
+remaining messages will be silently ignored.
+
+[ ... ]
+> +static int smbus_xfer(struct i2c_adapter *adap, u16 addr,
+> +		      u16 flags, char is_read, u8 cmd,
+> +		      int size, union i2c_smbus_data *data)
+> +{
+[ ... ]
+> +	if (data) {
+> +		buf[0] =3D cmd;
+> +		/* FIX: preserve other flags; only toggle I2C_M_RD */
+> +		msgs[0].flags =3D is_read ? (flags | I2C_M_RD) : (flags & ~I2C_M_RD);
+
+[Severity: High]
+Does this break the semantic structure of an SMBus read transaction? Setting
+I2C_M_RD on the first message (the command byte phase) means it will be sen=
+t to
+the device as an I2C read rather than an I2C write, causing emulated SMBus =
+reads
+to fail entirely.
+
+[ ... ]
+> +	case I2C_SMBUS_I2C_BLOCK_DATA:
+> +	case I2C_SMBUS_I2C_BLOCK_BROKEN:
+> +		dev_dbg(eio_dev(i2c_chan), "I2C_SMBUS_I2C_BLOCK_(DATA/BROKEN) on I2C l=
+en=3D%d\n",
+> +			data->block[0]);
+> +		if (!data)
+> +			return -EINVAL;
+> +		msgs[0].len =3D is_read ? 1 : data->block[0] + 1;
+> +		msgs[1].len =3D data->block[0];
+> +		msgs[1].buf =3D data->block + 1;
+> +		if (msgs[0].len >=3D I2C_SMBUS_BLOCK_MAX ||
+> +		    msgs[1].len >=3D I2C_SMBUS_BLOCK_MAX)
+> +			return -EINVAL;
+
+[Severity: High]
+Does this boundary check strictly reject valid 32-byte payloads? Since
+I2C_SMBUS_BLOCK_MAX is 32, using >=3D instead of > causes perfectly valid
+maximum-length transfers to fail with -EINVAL.
+
+> +		if (!is_read)
+> +			memcpy(buf + 1, data->block + 1, msgs[0].len);
+
+[Severity: Low]
+Since msgs[0].len is set to data->block[0] + 1, won't copying msgs[0].len b=
+ytes
+from data->block + 1 pull one extra uninitialized byte from past the end of=
+ the
+populated payload?
+
+[ ... ]
+> +static int load_i2c(struct device *dev, enum eio_chan_id id,
+> +		    struct eio_i2c_chan *i2c_chan)
+> +{
+[ ... ]
+> +	/* Read channel I/O base via shared PNP window */
+> +	mutex_lock(&eio_i2c->pnp_mutex);
+> +	if (regmap_write(map, REG_PNP_INDEX, REG_EXT_MODE_ENTER) ||
+> +	    regmap_write(map, REG_PNP_INDEX, REG_EXT_MODE_ENTER) ||
+> +	    regmap_write(map, REG_PNP_INDEX, REG_LDN) ||
+> +	    regmap_write(map, REG_PNP_DATA,  ldn) ||
+> +	    regmap_write(map, REG_PNP_INDEX, REG_BASE_HI) ||
+> +	    regmap_read(map,  REG_PNP_DATA,  &base_hi) ||
+> +	    regmap_write(map, REG_PNP_INDEX, REG_BASE_LO) ||
+> +	    regmap_read(map,  REG_PNP_DATA,  &base_lo) ||
+> +	    regmap_write(map, REG_PNP_INDEX, REG_EXT_MODE_EXIT)) {
+> +		mutex_unlock(&eio_i2c->pnp_mutex);
+> +		dev_err(dev, "error read/write I2C[%d] IO port\n", id);
+> +		return -EIO;
+> +	}
+
+[Severity: Medium]
+If any of these hardware accesses fail, the logical OR sequence short-circu=
+its.
+Doesn't this mean the REG_EXT_MODE_EXIT command is never sent, leaving the =
+Super
+I/O controller permanently stuck in configuration mode?
+
+> +	mutex_unlock(&eio_i2c->pnp_mutex);
+> +
+> +	base =3D (base_hi << 8) | base_lo;
+> +	if (base =3D=3D 0xFFFF || base =3D=3D 0) {
+> +		dev_dbg(dev, "i2c[%d] base addr=3D%#x (not in-use)\n", id, base);
+> +		return -ENODEV;
+> +	}
+> +
+> +	dev_dbg(dev, "i2c[%d] base addr=3D%#x\n", id, base);
+> +
+> +	/* Bind channel (no per-chan dev) */
+> +	i2c_chan->base =3D (u16)base;
+> +	i2c_chan->id   =3D id;
+> +
+> +	/* Per-channel frequency policy */
+> +	if (i2c_chan->freq_override !=3D USE_DEFAULT)
+> +		set_freq(i2c_chan, i2c_chan->freq_override);
+
+[Severity: Low]
+Does this actually have an effect? It appears i2c_chan->freq_override is
+unconditionally initialized to USE_DEFAULT in the probe function just before
+this is called, rendering the check dead code and ignoring user-provided mo=
+dule
+parameters.
+
+[ ... ]
+> +static int eio_i2c_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	for (ch =3D EIO_I2C0; ch < MAX_I2C_SMB; ch++) {
+> +		struct eio_i2c_chan *i2c_chan;
+> +
+> +		i2c_chan =3D devm_kzalloc(dev, sizeof(*i2c_chan), GFP_KERNEL);
+> +		if (!i2c_chan) {
+> +			ret =3D -ENOMEM;
+> +			break;
+> +		}
+> +
+> +		i2c_chan->parent =3D eio_i2c;
+> +		i2c_chan->freq_override =3D USE_DEFAULT;
+
+[Severity: Low]
+This initialization unconditionally overrides any module parameters provide=
+d by
+the system administrator.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-upstream-v=
+2-v2-0-76e5e41026db@advantech.com?part=3D4
