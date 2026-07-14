@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 458BEC44501
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 08:29:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13C7AC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 08:43:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EEE410EC81;
-	Tue, 14 Jul 2026 08:29:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E4D510E00E;
+	Tue, 14 Jul 2026 08:43:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aT/ee9yE";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="PY+5wKmO";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D291810EC80
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 08:29:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784017793;
- bh=0z1IK69pS9jc49SbkL5azQzEAF3MoW806mjpXyXyOvI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=aT/ee9yEREkPyq59qQsKaO0Vne6ZLmp13nINGbI8/uV2dAIPHDktBHnWzc/CMpXLU
- xhhmirWSLZyi+08ZXfv2yvLLfIGDhR2aDKvTS39oNRbZUgHR8rwxFsOpsxGmfSFLmP
- NKDXADPU9/dn8CQ7Aup2SnrqrL3g8TL7sY8r4WG6dJr20lXzz1NDLWuaB/KGrcAkZY
- /i88igMVpH/U0E8Ml4FRFjsgZ03xte5LaUJb3R/Pa4h9ojkd1DEga2JbnwLoSlwmsC
- oiIicGGV4+Q5K52yTNSITTjT0PdVtahyv94m9C6qzD0HuPZZehyEhuN3svvXVOjOgd
- m45Gyll8PpqQA==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 23AB017E07AA;
- Tue, 14 Jul 2026 10:29:53 +0200 (CEST)
-Message-ID: <cd633f0b-7f6b-42cf-b1e5-79ca56d62716@collabora.com>
-Date: Tue, 14 Jul 2026 10:29:52 +0200
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1F0910E00E
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 08:43:07 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gzt9h32YhzKnkS;
+ Tue, 14 Jul 2026 10:43:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1784018584; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kcuVd28/B1/gjyhzwuyoKO1FA4PSc1ZXawv4lavDk0g=;
+ b=PY+5wKmO7NrZO97V1BWq6hfWTjLqFxemVZr19+pe70WS5T+1In+T2C7IclYuwamarw/j1s
+ Hc20Cc5FjVIYg/c4lOAaeOzC8vWqJB+XMhQ/5MSnLQ97JFvr7As8avAjFxXl/9FZh6OtVE
+ EYN2Gn1BxvoATXFO2wCmnoMDRUlR21YJC61KxjncigYzO6QpwNt5/38Cax7miMPJ5KweqA
+ BHm+jzx1yze0iYmrYsczrL5GQX3XXjqxu3FX43+ALoXw20k9IeNeQd2rHgx+/XH1Buf5uK
+ ZJr9/Tgmaflc586NX8blEXAlkxqkCOZP2s2BgnVHEVaNArD6N9/hXCbpuN0W2Q==
+Message-ID: <9edeaa17aebc284f1f171b1dd4d9ffee4721b750.camel@mailbox.org>
+Subject: Re: [PATCH 1/9] dma-buf: add dma_fence_was_initialized function v2
+From: Philipp Stanner <phasta@mailbox.org>
+To: phasta@kernel.org, Jiri Slaby <jirislaby@kernel.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ tursulin@ursulin.net, matthew.brost@intel.com, sumit.semwal@linaro.org
+Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+Date: Tue, 14 Jul 2026 10:43:00 +0200
+In-Reply-To: <aee97ce4aad6bcf63ce9e7066e20a4ff6f082669.camel@mailbox.org>
+References: <20260120105655.7134-1-christian.koenig@amd.com>
+ <20260120105655.7134-2-christian.koenig@amd.com>
+ <0d40243b-0929-46d2-be85-e3248d4bd09c@kernel.org>
+ <aee97ce4aad6bcf63ce9e7066e20a4ff6f082669.camel@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] phy: mediatek: Add support for MT8196 MIPI DSI PHY
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, neil.armstrong@linaro.org,
- linux-phy@lists.infradead.org, vkoul@kernel.org, robh@kernel.org,
- olteanv@gmail.com
-References: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
- <20260713103805.23030-3-angelogioacchino.delregno@collabora.com>
- <20260713104835.B14401F000E9@smtp.kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260713104835.B14401F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 51ec5f551e682329c92
+X-MBO-RS-META: xy77jqgsk5tqheuk9x6qp7fhyrm8obhg
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,77 +64,44 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/13/26 12:48, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Signaling voltage boost is exclusively tied to the absolute maximum clamped frequency, preventing high data rates from receiving the boost.
-> --
-> 
-> --- Patch [2]: [PATCH v3 2/2] phy: mediatek: Add support for MT8196 MIPI DSI PHY ---
-> commit a6b40caad1ac266a0481ef7b26baffceb672008c
-> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> 
-> phy: mediatek: Add support for MT8196 MIPI DSI PHY
-> 
-> This commit adds support for the MIPI DSI PHY found in the MediaTek MT8196
-> SoC and its variants. It introduces a new register layout and basic D-PHY
-> functionality needed to drive MIPI DSI displays.
-> 
->> diff --git a/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c b/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
->> new file mode 100644
->> index 0000000000000..eac3db9922dba
->> --- /dev/null
->> +++ b/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
-> 
-> [ ... ]
-> 
->> +static int mtk_mipi_tx_pll_enable(struct clk_hw *hw)
->> +{
->> +	struct mtk_mipi_tx *mipi_tx = mtk_mipi_tx_from_clk_hw(hw);
->> +	void __iomem *base = mipi_tx->regs;
->> +	u32 voltage = RG_DSI_PRD_REF_MINI;
->> +	u32 pres = MIPITX_PRESERVED_MINI;
->> +	unsigned long long pcw_calc;
->> +	unsigned int txdiv, txdiv0;
->> +	u32 pcw;
->> +
->> +	dev_dbg(mipi_tx->dev, "enable: %u bps\n", mipi_tx->data_rate);
->> +
->> +	if (mipi_tx->data_rate >= DSI_PHY_PLL_MAX_RATE_HZ) {
->> +		/* Select higher signaling voltage for fast data rates */
->> +		voltage = RG_DSI_PRD_REF_DEF;
->> +		pres = MIPITX_PRESERVED_DEF;
->> +		txdiv = 1;
->> +		txdiv0 = 0;
->> +	} else if (mipi_tx->data_rate >= 1000000000) {
-> 
-> [Severity: Medium]
-> Does this logic unintentionally restrict the higher signaling voltage to only
-> exact matches of the maximum PLL rate?
-> 
+On Tue, 2026-07-14 at 09:53 +0200, Philipp Stanner wrote:
+> On Mon, 2026-07-13 at 10:58 +0200, Jiri Slaby wrote:
+> > Hi,
+> >=20
+> > On 20. 01. 26, 11:54, Christian K=C3=B6nig wrote:
+> > > Some driver use fence->ops to test if a fence was initialized or not.
+> > > The problem is that this utilizes internal behavior of the dma_fence
+> > > implementation.
+> > >=20
+> > > So better abstract that into a function.
+> > >=20
+> > > v2: use a flag instead of testing fence->ops, rename the function, mo=
+ve
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 to the beginning of the patch set.
+> > ...
+> > > --- a/drivers/gpu/drm/qxl/qxl_release.c
+> > > +++ b/drivers/gpu/drm/qxl/qxl_release.c
+> > > @@ -146,7 +146,7 @@ qxl_release_free(struct qxl_device *qdev,
+> > > =C2=A0=C2=A0	idr_remove(&qdev->release_idr, release->id);
+> > > =C2=A0=C2=A0	spin_unlock(&qdev->release_idr_lock);
+> > > =C2=A0=20
+> > > -	if (release->base.ops) {
+> > > +	if (dma_fence_was_initialized(&release->base)) {
+>=20
+> Could you verify the cause with sth like
+>=20
+> if (release->base.ops && dma_fence_was_initialized(=E2=80=A6)) {
 
-Yes, it does. It's fine. This is on purpose.
+Forget about that, probably would not work or cause other issues
+because the NULL-setting on signal().
 
-There's a way to scale voltages a bit differently (for 4 different freq ranges)
-but it's a bit messy to implement, needs me to have different displays to test
-all different frequencies (which I don't have), and a bit more code.
-
-The only frequencies that really need the higher signaling voltage are the ones
-from 2GHz (which is currently the max frequency, but can be expanded later, as
-there will be new HW supporting higher freqs, with the same signaling voltage
-increase and the same code for it) onwards.
+I'd then probably try to verify it with a separate boolean in struct
+release. Though I also don't get why the fence-initialized check does
+not do the trick.
 
 
-> Since mtk_mipi_tx_pll_determine_rate() clamps the clock rate to
-> DSI_PHY_PLL_MAX_RATE_HZ (2.0 GHz), mipi_tx->data_rate can never exceed this
-> value. Consequently, panels requesting data rates slightly below 2.0 GHz
-> (for example, 1.99 GHz) will fall through to the 1.0 GHz branch instead of
-> receiving the voltage boost and correct PLL dividers intended for fast data
-> rates.
-> 
-> Could this conflation between the PLL octave band threshold and the maximum
-> frequency clamp macro also break the PLL divider logic if the maximum
-> supported rate limit is increased in the future?
-> 
+P.
