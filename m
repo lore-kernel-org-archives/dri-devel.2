@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF9D4C44501
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:46:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48EF0C44507
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:46:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04C7110ED06;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53B5B10ED1C;
 	Tue, 14 Jul 2026 11:46:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LM8UtgIp";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VP0D7i7M";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8ED310ED0A
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:45:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C808E10ED03
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:45:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784029524;
- bh=OxOb0JKMyxrT84QMeUNz8vqDSuZGP3qA19Lm+2k3CE0=;
+ s=mail; t=1784029527;
+ bh=gtWgV3EHGj3zf87Dq37OV2eHbi/Epwr88/DfrM7HNF0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LM8UtgIpyXud4ISL5VBeY5+8SqiEE32azSDWqqvCJKtk8D3LSnVilYl6YzIn67oOp
- mKFyvC3CJFRZCguUbwsq3l2tXuguJ/YQYVGA90dgsEp8ykDot0E614aRJiHPImgBzW
- L8qFIngaYEUp4bJ1w1zoSOy7Srd9CFdIIJ3j/1duYQZyVDbQo5N5luRhwmkR9y3kbh
- IKvgdc5Pp3As5CLlpmt6QRSxbU2mVqBKlAqTIHWO61xnEC/Dk78JP1+sddSe4Hz1rK
- +VEgDiACeC9D8v9XgB62lzECNLlxxUuEJKfniX/fRMLOdKUa0AAKJJE/xj5HOqAjbU
- Wkv4SmTje1wkQ==
+ b=VP0D7i7Mddv28dKFVKdkqhwfTltP2i6hEYHmkDBVB+7J42n39meKRO71EtdC9EPmj
+ GGCv1XK1X/siHiINKpmjx4xfTGZuYmHgYYwcw2NxtkoMi+z5iDcWz03jgy9CdbO5xE
+ Oe7vaR1t0kvO0EmfNaN/Pg8FqtldufZz9meWCDu8NEbB+OwMB5ID0JCkQNTrrOYFcI
+ jumdJaqR5LRhCnIE3epr0gJIFfzudThMFOZcMXVNxMO/zGJBMBeir+G9JAQjsxowa4
+ rwrVsROp+Rg7fXXa1L9tBLadMz9qaQ52r3LutW8dVDTCcsh8ZKYvNi3YmyTEXt0Ej6
+ LGfhwzPvjNxmg==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id AB56C17E0076;
- Tue, 14 Jul 2026 13:45:23 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9482E17E0F76;
+ Tue, 14 Jul 2026 13:45:26 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
@@ -42,10 +42,10 @@ Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
  jason-jh.lin@mediatek.com, kernel@collabora.com
-Subject: [PATCH v2 40/46] drm/mediatek: Support registering disp controller
- device subnodes
-Date: Tue, 14 Jul 2026 13:44:08 +0200
-Message-ID: <20260714114414.184512-41-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v2 43/46] drm/mediatek: Add Two-Dimension Sharpness Processor
+ (TDSHP) driver
+Date: Tue, 14 Jul 2026 13:44:11 +0200
+Message-ID: <20260714114414.184512-44-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
 References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
@@ -66,264 +66,319 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In order to have a correct description of the hardware in the SoC
-devicetree, look for Display Controller Subsystem sub-components
-declared as subnodes of the display controller itself; to retain
-compatibility with the older devicetrees, also keep looking for
-sub-components in the main /soc node like before.
+The MediaTek 2D Sharpness Processor (TDSHP) is responsible for
+performing image sharpness adjustments/enhancements in a display
+pipeline.
+
+Even though this hardware block supports adjusting the luma and
+contour 2D histograms, frequency weighting, luma-chroma gain and
+others, this only introduces a basic configuration which allows
+to bypass TDSHP processing in an effort to forward the data from
+this block to others.
+
+That is necessary because some components cannot be connected
+directly in specific pipelines; for example, in MT8196/MT6991
+pipelines, when Display Resizer (RSZ) and Color Correction (CCORR)
+components are required, it is necessary to pass through TDSHP as
+direct connection between RSZ and CCORR is not possible due to HW
+limitations.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_drm_drv.c | 218 ++++++++++++++-----------
- 1 file changed, 121 insertions(+), 97 deletions(-)
+ drivers/gpu/drm/mediatek/Makefile         |   1 +
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.c   |  10 ++
+ drivers/gpu/drm/mediatek/mtk_disp_drv.h   |   8 ++
+ drivers/gpu/drm/mediatek/mtk_disp_tdshp.c | 167 ++++++++++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c    |   3 +
+ drivers/gpu/drm/mediatek/mtk_drm_drv.h    |   1 +
+ include/linux/soc/mediatek/mtk-mmsys.h    |   2 +
+ 7 files changed, 192 insertions(+)
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_tdshp.c
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index 4f39df23c51e..d1086c86cb77 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -1247,6 +1247,107 @@ static int mtk_drm_of_ddp_path_build(struct device *dev, struct device_node *nod
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/mediatek/Makefile b/drivers/gpu/drm/mediatek/Makefile
+index e9478fa1a2ba..47ba6bc17d9e 100644
+--- a/drivers/gpu/drm/mediatek/Makefile
++++ b/drivers/gpu/drm/mediatek/Makefile
+@@ -15,6 +15,7 @@ mediatek-drm-y := mtk_crtc.o \
+ 		  mtk_disp_ovl.o \
+ 		  mtk_disp_ovl_adaptor.o \
+ 		  mtk_disp_rdma.o \
++		  mtk_disp_tdshp.o \
+ 		  mtk_disp_wdma.o \
+ 		  mtk_drm_drv.o \
+ 		  mtk_drm_legacy.o \
+diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+index 702b860ef69e..e1873a20e64b 100644
+--- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
++++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+@@ -414,6 +414,14 @@ static const struct mtk_ddp_comp_funcs ddp_rdma = {
+ 	.get_num_formats = mtk_rdma_get_num_formats,
+ };
  
-+static int mtk_drm_register_sibling(struct device *dev, struct mtk_drm_private *private,
-+				    struct device_node *node, struct component_match **match)
++static const struct mtk_ddp_comp_funcs ddp_tdshp = {
++	.clk_enable = mtk_tdshp_clk_enable,
++	.clk_disable = mtk_tdshp_clk_disable,
++	.config = mtk_tdshp_config,
++	.start = mtk_tdshp_start,
++	.stop = mtk_tdshp_stop,
++};
++
+ static const struct mtk_ddp_comp_funcs ddp_wdma = {
+ 	.clk_enable = mtk_wdma_clk_enable,
+ 	.clk_disable = mtk_wdma_clk_disable,
+@@ -481,6 +489,7 @@ static const char * const mtk_ddp_comp_stem[MTK_DDP_COMP_TYPE_MAX] = {
+ 	[MTK_DISP_POSTMASK] = "postmask",
+ 	[MTK_DISP_PWM] = "pwm",
+ 	[MTK_DISP_RDMA] = "rdma",
++	[MTK_DISP_TDSHP] = "tdshp",
+ 	[MTK_DISP_UFOE] = "ufoe",
+ 	[MTK_DISP_WDMA] = "wdma",
+ 	[MTK_DISP_DP_INTF] = "dp-intf",
+@@ -508,6 +517,7 @@ static const struct mtk_ddp_comp_funcs *mtk_ddp_funcs[MTK_DDP_COMP_TYPE_MAX] = {
+ 	[MTK_DISP_POSTMASK]		= &ddp_postmask,
+ 	[MTK_DISP_PWM]			= NULL,
+ 	[MTK_DISP_RDMA]			= &ddp_rdma,
++	[MTK_DISP_TDSHP]		= &ddp_tdshp,
+ 	[MTK_DISP_UFOE]			= &ddp_ufoe,
+ 	[MTK_DISP_WDMA]			= &ddp_wdma,
+ 	[MTK_DISP_DPI]			= &ddp_dpi,
+diff --git a/drivers/gpu/drm/mediatek/mtk_disp_drv.h b/drivers/gpu/drm/mediatek/mtk_disp_drv.h
+index f78f12da08a8..0308094b29cd 100644
+--- a/drivers/gpu/drm/mediatek/mtk_disp_drv.h
++++ b/drivers/gpu/drm/mediatek/mtk_disp_drv.h
+@@ -243,6 +243,14 @@ void mtk_mdp_rdma_config(struct device *dev, struct mtk_mdp_rdma_cfg *cfg,
+ const u32 *mtk_mdp_rdma_get_formats(struct device *dev);
+ size_t mtk_mdp_rdma_get_num_formats(struct device *dev);
+ 
++int mtk_tdshp_clk_enable(struct mtk_ddp_comp *comp);
++void mtk_tdshp_clk_disable(struct mtk_ddp_comp *comp);
++void mtk_tdshp_config(struct mtk_ddp_comp *comp, unsigned int w,
++			   unsigned int h, unsigned int vrefresh,
++			   unsigned int bpc, struct cmdq_pkt *cmdq_pkt);
++void mtk_tdshp_start(struct device *dev);
++void mtk_tdshp_stop(struct device *dev);
++
+ int mtk_wdma_clk_enable(struct mtk_ddp_comp *comp);
+ void mtk_wdma_clk_disable(struct mtk_ddp_comp *comp);
+ void mtk_wdma_config(struct mtk_ddp_comp *comp, unsigned int width,
+diff --git a/drivers/gpu/drm/mediatek/mtk_disp_tdshp.c b/drivers/gpu/drm/mediatek/mtk_disp_tdshp.c
+new file mode 100644
+index 000000000000..31f57c567137
+--- /dev/null
++++ b/drivers/gpu/drm/mediatek/mtk_disp_tdshp.c
+@@ -0,0 +1,167 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * MediaTek Two-Dimension Sharpness Processor (TDSHP)
++ *
++ * Copyright (c) 2025 MediaTek Inc.
++ * Copyright (c) 2026 Collabora Ltd.
++ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
++ */
++
++#include <linux/clk.h>
++#include <linux/component.h>
++#include <linux/module.h>
++#include <linux/of_device.h>
++#include <linux/of_platform.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/soc/mediatek/mtk-cmdq.h>
++
++#include "mtk_disp_drv.h"
++#include "mtk_disp_ovl.h"
++#include "mtk_drm_drv.h"
++
++#define DISP_REG_TDSHP_EN			0x0000
++#  define DISP_TDSHP_TDS_EN			BIT(31)
++#define DISP_REG_TDSHP_CTRL			0x0100
++#  define DISP_TDSHP_CTRL_EN			BIT(0)
++#  define DISP_TDSHP_PWR_SCL_EN			BIT(2)
++#define DISP_REG_TDSHP_CFG			0x0110
++#  define DISP_TDSHP_RELAY_MODE			BIT(0)
++#define DISP_REG_TDSHP_INPUT_SIZE		0x0120
++#define DISP_REG_TDSHP_OUTPUT_OFFSET		0x0124
++#define DISP_REG_TDSHP_OUTPUT_SIZE		0x0128
++
++struct mtk_disp_tdshp {
++	void __iomem *regs;
++	struct clk *clk;
++	struct cmdq_client_reg cmdq_reg;
++};
++
++void mtk_tdshp_config(struct mtk_ddp_comp *comp, unsigned int w,
++		      unsigned int h, unsigned int vrefresh,
++		      unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
 +{
-+	enum mtk_ddp_comp_type comp_type;
-+	int comp_inst_id;
-+	bool comp_found;
-+	int ret;
++	struct mtk_disp_tdshp *tdshp = dev_get_drvdata(comp->dev);
++	u32 val = bpc == 8 ? DISP_TDSHP_PWR_SCL_EN : 0;
 +
-+	ret = mtk_drm_of_get_ddp_comp_type(node, &comp_type);
++	/* Set basic parameters to at least pass the data on */
++	mtk_ddp_write(cmdq_pkt, val | DISP_TDSHP_CTRL_EN, &tdshp->cmdq_reg,
++		      tdshp->regs, DISP_REG_TDSHP_CTRL);
++
++	mtk_ddp_write(cmdq_pkt, w << 16 | h, &tdshp->cmdq_reg,
++		      tdshp->regs, DISP_REG_TDSHP_INPUT_SIZE);
++	mtk_ddp_write(cmdq_pkt, w << 16 | h, &tdshp->cmdq_reg,
++		      tdshp->regs, DISP_REG_TDSHP_OUTPUT_SIZE);
++	mtk_ddp_write(cmdq_pkt, 0x0, &tdshp->cmdq_reg,
++		      tdshp->regs, DISP_REG_TDSHP_OUTPUT_OFFSET);
++
++	/* Set RELAY mode to bypass 2D Sharpness processing */
++	mtk_ddp_write(cmdq_pkt, DISP_TDSHP_RELAY_MODE, &tdshp->cmdq_reg,
++		      tdshp->regs, DISP_REG_TDSHP_CFG);
++
++	mtk_ddp_write_mask(cmdq_pkt, DISP_TDSHP_TDS_EN, &tdshp->cmdq_reg,
++			   tdshp->regs, DISP_REG_TDSHP_EN, DISP_TDSHP_TDS_EN);
++}
++
++void mtk_tdshp_start(struct device *dev)
++{
++	struct mtk_disp_tdshp *tdshp = dev_get_drvdata(dev);
++
++	writel(DISP_TDSHP_CTRL_EN, tdshp->regs + DISP_REG_TDSHP_CTRL);
++}
++
++void mtk_tdshp_stop(struct device *dev)
++{
++	struct mtk_disp_tdshp *tdshp = dev_get_drvdata(dev);
++
++	writel(0, tdshp->regs + DISP_REG_TDSHP_CTRL);
++}
++
++int mtk_tdshp_clk_enable(struct mtk_ddp_comp *comp)
++{
++	struct mtk_disp_tdshp *tdshp = dev_get_drvdata(comp->dev);
++
++	return clk_prepare_enable(tdshp->clk);
++}
++
++void mtk_tdshp_clk_disable(struct mtk_ddp_comp *comp)
++{
++	struct mtk_disp_tdshp *tdshp = dev_get_drvdata(comp->dev);
++
++	clk_disable_unprepare(tdshp->clk);
++}
++
++static int mtk_tdshp_bind(struct device *dev, struct device *master, void *data)
++{
++	return 0;
++}
++
++static void mtk_tdshp_unbind(struct device *dev, struct device *master, void *data)
++{
++}
++
++static const struct component_ops mtk_disp_tdshp_component_ops = {
++	.bind	= mtk_tdshp_bind,
++	.unbind = mtk_tdshp_unbind,
++};
++
++static int mtk_disp_tdshp_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct mtk_disp_tdshp *tdshp;
++	int ret = 0;
++
++	tdshp = devm_kzalloc(dev, sizeof(*tdshp), GFP_KERNEL);
++	if (!tdshp)
++		return -ENOMEM;
++
++	tdshp->regs = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(tdshp->regs))
++		return dev_err_probe(dev, PTR_ERR(tdshp->regs), "Cannot get reg resource\n");
++
++	tdshp->clk = devm_clk_get(dev, NULL);
++	if (IS_ERR(tdshp->clk))
++		return dev_err_probe(dev, PTR_ERR(tdshp->clk), "Cannot get clocks\n");
++
++#if IS_REACHABLE(CONFIG_MTK_CMDQ)
++	ret = cmdq_dev_get_client_reg(dev, &tdshp->cmdq_reg, 0);
 +	if (ret)
-+		return -EAGAIN;
++		dev_dbg(dev, "No mediatek,gce-client-reg\n");
++#endif
++	platform_set_drvdata(pdev, tdshp);
 +
-+	ret = of_device_is_available(node);
-+	if (!ret) {
-+		dev_dbg(dev, "Skipping disabled component %pOF\n", node);
-+		return -EAGAIN;
-+	}
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return ret;
 +
-+	if (comp_type == MTK_DISP_MUTEX) {
-+		int id;
-+
-+		id = of_alias_get_id(node, "mutex");
-+		if (id < 0 || id == private->data->mmsys_id) {
-+			private->mutex_node = of_node_get(node);
-+			dev_dbg(dev, "get mutex for mmsys %d", private->data->mmsys_id);
-+		}
-+		return 0;
-+	}
-+
-+	comp_inst_id = mtk_ddp_comp_get_id(node, NULL, comp_type);
-+	if (comp_inst_id < 0) {
-+		dev_info(dev, "Skipping unknown component %pOF\n", node);
-+		return 0;
-+	}
-+
-+	if (comp_type == MTK_DISP_DIRECT_LINK)
-+		comp_found = mtk_drm_find_directlink_comp(private);
-+	else
-+		comp_found = mtk_drm_find_mmsys_comp(private,
-+						     comp_type, comp_inst_id);
-+
-+	if (!comp_found)
-+		return -EAGAIN;
-+
-+	/*
-+	 * Currently only the AAL, CCORR, COLOR, GAMMA, MERGE, OVL, RDMA, DSI, and DPI
-+	 * blocks have separate component platform drivers and initialize their own
-+	 * DDP component structure. The others are initialized here.
-+	 */
-+	if (!mtk_ddp_comp_is_internal_comp(comp_type) &&
-+	    !mtk_ovl_adaptor_is_comp_present(node)) {
-+		dev_info(dev, "Adding component match for %pOF\n",
-+			 node);
-+		drm_of_component_match_add(dev, match, component_compare_of,
-+					   node);
-+	}
-+
-+	if (comp_type == MTK_DISP_DIRECT_LINK) {
-+		for_each_of_graph_port(node, port) {
-+			u32 port_id;
-+
-+			of_property_read_u32(port, "reg", &port_id);
-+			if (port_id > 1)
-+				continue;
-+
-+			/* Even ports are inputs, odd ports are outputs */
-+			if (port_id % 2)
-+				comp_type = MTK_DISP_DIRECT_LINK_OUT;
-+
-+			for_each_of_graph_port_endpoint(port, ep) {
-+				struct of_endpoint of_ep;
-+
-+				ret = of_graph_parse_endpoint(ep, &of_ep);
-+				if (ret)
-+					break;
-+
-+				ret = mtk_ddp_comp_init(dev, node, &private->hlist,
-+							private->data->mmsys_id,
-+							comp_type, of_ep.id);
-+				if (ret)
-+					break;
-+			}
-+
-+			if (ret) {
-+				of_node_put(node);
-+				return ret;
-+			}
-+		}
-+	} else {
-+		ret = mtk_ddp_comp_init(dev, node, &private->hlist,
-+					private->data->mmsys_id,
-+					comp_type, comp_inst_id);
-+		if (ret) {
-+			of_node_put(node);
-+			return ret;
-+		}
-+	}
++	ret = component_add(dev, &mtk_disp_tdshp_component_ops);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to add component\n");
 +
 +	return 0;
 +}
 +
- static int mtk_drm_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -1308,107 +1409,29 @@ static int mtk_drm_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	/* Iterate over sibling DISP function blocks */
--	for_each_child_of_node(phandle->parent, node) {
--		enum mtk_ddp_comp_type comp_type;
--		u8 comp_inst_id;
--		bool comp_found;
--
--		ret = mtk_drm_of_get_ddp_comp_type(node, &comp_type);
--		if (ret)
--			continue;
--
--		if (!of_device_is_available(node)) {
--			dev_dbg(dev, "Skipping disabled component %pOF\n",
--				node);
--			continue;
--		}
--
--		if (comp_type == MTK_DISP_MUTEX) {
--			int id;
--
--			id = of_alias_get_id(node, "mutex");
--			if (id < 0 || id == private->data->mmsys_id) {
--				private->mutex_node = of_node_get(node);
--				dev_dbg(dev, "get mutex for mmsys %d", private->data->mmsys_id);
--			}
--			continue;
--		}
--
--		comp_inst_id = mtk_ddp_comp_get_id(node, NULL, comp_type);
--		if (comp_inst_id < 0) {
--			dev_warn(dev, "Skipping unknown component %pOF\n",
--				 node);
--			continue;
--		}
--
--		if (comp_type == MTK_DISP_DIRECT_LINK)
--			comp_found = mtk_drm_find_directlink_comp(private);
--		else
--			comp_found = mtk_drm_find_mmsys_comp(private,
--							     comp_type, comp_inst_id);
--
--		if (!comp_found)
--			continue;
--
--		/*
--		 * Currently only the AAL, CCORR, COLOR, GAMMA, MERGE, OVL, RDMA, DSI, and DPI
--		 * blocks have separate component platform drivers and initialize their own
--		 * DDP component structure. The others are initialized here.
--		 */
--		if (!mtk_ddp_comp_is_internal_comp(comp_type) &&
--		    !mtk_ovl_adaptor_is_comp_present(node)) {
--			dev_info(dev, "Adding component match for %pOF\n",
--				 node);
--			drm_of_component_match_add(dev, &match, component_compare_of,
--						   node);
--		}
--
--		if (comp_type == MTK_DISP_DIRECT_LINK) {
--			for_each_of_graph_port(node, port) {
--				u32 port_id;
--
--				of_property_read_u32(port, "reg", &port_id);
--				if (port_id > 1)
--					continue;
--
--				/* Even ports are inputs, odd ports are outputs */
--				if (port_id % 2)
--					comp_type = MTK_DISP_DIRECT_LINK_OUT;
--
--				for_each_of_graph_port_endpoint(port, ep) {
--					struct of_endpoint of_ep;
--
--					ret = of_graph_parse_endpoint(ep, &of_ep);
--					if (ret)
--						break;
--
--					ret = mtk_ddp_comp_init(dev, node, &private->hlist,
--								private->data->mmsys_id,
--								comp_type, of_ep.id);
--					if (ret)
--						break;
--				}
-+	for_each_child_of_node(phandle, node) {
-+		ret = mtk_drm_register_sibling(dev, private, node, &match);
-+		if (ret && ret != -EAGAIN)
-+			goto err_node;
-+	}
- 
--				if (ret) {
--					of_node_put(node);
--					goto err_node;
--				}
--			}
--		} else {
--			ret = mtk_ddp_comp_init(dev, node, &private->hlist,
--						private->data->mmsys_id,
--						comp_type, comp_inst_id);
--			if (ret) {
--				of_node_put(node);
--				goto err_node;
--			}
--		}
-+	/*
-+	 * After the previous loop, it is expected to have all of the display
-+	 * controller sibling function blocks registered and added to the list.
-+	 *
-+	 * If nothing got registered this is a legacy devicetree with DISP
-+	 * siblings located under the /soc node instead of being children of
-+	 * the main Display Controller node.
-+	 */
-+	for_each_child_of_node(phandle->parent, node) {
-+		ret = mtk_drm_register_sibling(dev, private, node, &match);
-+		if (ret && ret != -EAGAIN)
-+			goto err_node;
- 	}
- 
- 	if (!private->mutex_node) {
- 		dev_err(dev, "Failed to find disp-mutex node\n");
--		ret = -ENODEV;
--		goto err_node;
-+		return -ENODEV;
- 	}
- 
- 	/* If mtk-mutex is not a trigger source, this is an old devicetree */
-@@ -1435,7 +1458,8 @@ static int mtk_drm_probe(struct platform_device *pdev)
- err_pm:
- 	pm_runtime_disable(dev);
- err_node:
--	of_node_put(private->mutex_node);
-+	if (private->mutex_node)
-+		of_node_put(private->mutex_node);
- 	return ret;
- }
++static void mtk_disp_tdshp_remove(struct platform_device *pdev)
++{
++	component_del(&pdev->dev, &mtk_disp_tdshp_component_ops);
++}
++
++static const struct of_device_id mtk_disp_tdshp_driver_dt_match[] = {
++	{ .compatible = "mediatek,mt8196-disp-tdshp", },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, mtk_disp_tdshp_driver_dt_match);
++
++struct platform_driver mtk_disp_tdshp_driver = {
++	.probe = mtk_disp_tdshp_probe,
++	.remove = mtk_disp_tdshp_remove,
++	.driver = {
++		.name = "mediatek-disp-tdshp",
++		.owner = THIS_MODULE,
++		.of_match_table = mtk_disp_tdshp_driver_dt_match,
++	},
++};
++
++MODULE_AUTHOR("AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>");
++MODULE_DESCRIPTION("MediaTek Display Controller 2D Sharpness Processor Driver");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+index d1086c86cb77..6cf285f1879d 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+@@ -714,6 +714,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
+ 	  .data = (void *)MTK_DISP_RDMA },
+ 	{ .compatible = "mediatek,mt8195-disp-rdma",
+ 	  .data = (void *)MTK_DISP_RDMA },
++	{ .compatible = "mediatek,mt8196-disp-tdshp",
++	  .data = (void *)MTK_DISP_TDSHP },
+ 	{ .compatible = "mediatek,mt8173-disp-ufoe",
+ 	  .data = (void *)MTK_DISP_UFOE },
+ 	{ .compatible = "mediatek,mt6893-disp-wdma",
+@@ -1531,6 +1533,7 @@ static struct platform_driver * const mtk_drm_drivers[] = {
+ 	&mtk_disp_ovl_adaptor_driver,
+ 	&mtk_disp_ovl_driver,
+ 	&mtk_disp_rdma_driver,
++	&mtk_disp_tdshp_driver,
+ 	&mtk_disp_wdma_driver,
+ 	&mtk_dpi_driver,
+ 	&mtk_dvo_driver,
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.h b/drivers/gpu/drm/mediatek/mtk_drm_drv.h
+index 76325d1be5f4..8bdd7f1017b9 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.h
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.h
+@@ -87,6 +87,7 @@ extern struct platform_driver mtk_disp_outproc_driver;
+ extern struct platform_driver mtk_disp_ovl_adaptor_driver;
+ extern struct platform_driver mtk_disp_ovl_driver;
+ extern struct platform_driver mtk_disp_rdma_driver;
++extern struct platform_driver mtk_disp_tdshp_driver;
+ extern struct platform_driver mtk_disp_wdma_driver;
+ extern struct platform_driver mtk_dpi_driver;
+ extern struct platform_driver mtk_dsi_driver;
+diff --git a/include/linux/soc/mediatek/mtk-mmsys.h b/include/linux/soc/mediatek/mtk-mmsys.h
+index d6742ca39d86..e33cb5b2638c 100644
+--- a/include/linux/soc/mediatek/mtk-mmsys.h
++++ b/include/linux/soc/mediatek/mtk-mmsys.h
+@@ -109,6 +109,8 @@ enum mtk_ddp_comp_type {
+ 	MTK_DISP_POSTMASK,
+ 	MTK_DISP_PWM,
+ 	MTK_DISP_RDMA,
++	MTK_DISP_RSZ,
++	MTK_DISP_TDSHP,
+ 	MTK_DISP_UFOE,
+ 	MTK_DISP_WDMA,
  
 -- 
 2.54.0
