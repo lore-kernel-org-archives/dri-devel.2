@@ -4,61 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C829C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 03:12:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BB90C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 03:19:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A01AD10E5EE;
-	Tue, 14 Jul 2026 03:12:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B13C410EBA8;
+	Tue, 14 Jul 2026 03:19:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="URr+GzdK";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="eV4j5SG8";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDEE110E0D2
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 03:12:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783998743; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2E1110E0AE
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 03:19:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783999138; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=OIS7QC1b7joiARMBkNgiyNP5pZZNcp3O3eK81g1Gtp3x3tPN3W8XZjedVJ4hNNE2AbYgq/wFDz+t1n1AlKcSHPjdnSO7rVFwNJdikbQrQmm69R6+M2rXWnMShQbBj8/C0d3nX0R4mHEaaVGFHQppaBgW9bd1/jCOUc9nISzE3tI=
+ b=byvetco8qi7CiJUhJQzFGVO6TH8GeMLxazyceny52YxSwDH5yGVLzk0PsuvtL+kdwYMsFFIC58RpT7zVOxOFdXC3vKHOmQ1dIX7dkS6FI2qb+u9pHmaQEZORhPhsV3JZ62y1Y1sEScQqSc/E0WPETw4qrnGsOgZg3VtB6CoysuU=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783998743;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Wi5h6oeP9HWr70m6aoIQ5B1xgYt2IfshPyZ/wqBUZkY=; 
- b=dH97cxHAv4oXS/3eC7/nC7nAlaa/9E5I0oitd9HfUWOVEGB1kbt4NabnN1h2xv/PrzmUB1ld3Q58aAdytInaLO72XSaqtQBVI5uGo5LIqZL6mSQC2Mq7yl2ODO7gJ2zKx3y3RukKqd9bXXxmvjKhrFnxftU2DQ7Ib/SlncXsdig=
+ s=zohoarc; t=1783999138;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Rv7OUTiUkuVMgVM7v+6qo0GShNvkJAcTOE3YgtjTRH0=; 
+ b=JEh5kqFtGtlvR96xurKyT85DAw/kA1y2z0GhR2tMgHfM4CL0Gm8NJlTutwgtAGEXcnhigTQ2sDfp1BCevNxZ6MTMiJENSU7EapzHBlyVPqo70y5TmlobVtShA0+0ihtoCoTUHo0hNrzktb3DKiYuTWKrvCwkQlwU0++GbADZGM4=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783998743; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783999138; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=Wi5h6oeP9HWr70m6aoIQ5B1xgYt2IfshPyZ/wqBUZkY=;
- b=URr+GzdK5JjimSDBMt8bgBJz7GGANKf0fpNJ+AJYM2zHPhrvrtwx0G/uYdwntdSN
- 54LbSYU7fNn9W/y4Rkkc1mubdFZxavwQm8HFEvXQLoUYLos39DQy73Yqc3pluGuuYXe
- ueUHHQILuRPGfzvkN6WRZdNTsseO5x30Y+xNOj34=
-Received: by mx.zohomail.com with SMTPS id 1783998742550199.74308223190712;
- Mon, 13 Jul 2026 20:12:22 -0700 (PDT)
-Date: Mon, 13 Jul 2026 20:12:21 -0700
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=Rv7OUTiUkuVMgVM7v+6qo0GShNvkJAcTOE3YgtjTRH0=;
+ b=eV4j5SG8nshUNLrGLstU34/oK9jGUC8f9yqKwOGN7VxZgls1Hjx9YRyNKqR3eiFQ
+ J4IctfszRGzwZOnyqVPf4Vf+EMCn9tT3kiOuqoYH5oxkIk5ALkZwKC0zXmZ+MVvFOG2
+ HXdg5ZWzUuR4EIeQKj9cBazDLCmIYhu3awNOcNGc=
+Received: by mx.zohomail.com with SMTPS id 1783999136859124.5213531717726;
+ Mon, 13 Jul 2026 20:18:56 -0700 (PDT)
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, boris.brezillon@collabora.com,
- samitolvanen@google.com, acourbot@nvidia.com, alvin.sun@linux.dev,
- laura.nao@collabora.com, work@onurozkan.dev,
- beata.michalska@arm.com, steven.price@arm.com, lyude@redhat.com
-Subject: Re: [PATCH v6 4/7] drm/tyr: add GPU virtual memory (VM) support
-Message-ID: <alWpFZfj1oj6IZMn@um790>
-References: <20260709-fw-boot-b4-v6-0-ca391e1a4108@collabora.com>
- <20260709-fw-boot-b4-v6-4-ca391e1a4108@collabora.com>
- <alD-bUuMS2913WJO@google.com>
+Subject: [PATCH v7 0/7] drm/tyr: firmware loading and MCU boot support
+Date: Mon, 13 Jul 2026 20:18:44 -0700
+Message-Id: <20260713-fw-boot-b4-v7-0-afd8dc1494dd@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <alD-bUuMS2913WJO@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23O3wrCIBiH4VsJjzM+nX9mR91HdOCca8KaocOKs
+ XvPraAagSe/D54XRxRtcDai/WZEwSYXne/zkNsNMq3uzxa7Om9EgQqQUOLmhivvB1wx3ICUIDQ
+ V3EiUwTXYxt2X2PGUd+vi4MNjaScyX18ZRtnC36XE5gdY81oR4CBLVR+M7zpd+aB3xl/QXEv8U
+ 1h9JPHMpVRUV6K0BVf/uPjm6oeLzI0uFLFEMwLlmk/T9AR+zsbVKQEAAA==
+X-Change-ID: 20260708-fw-boot-b4-f07706a265c7
+To: Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>, 
+ boris.brezillon@collabora.com, samitolvanen@google.com, work@onurozkan.dev, 
+ acourbot@nvidia.com, lyude@redhat.com, laura.nao@collabora.com, 
+ beata.michalska@arm.com, alvin.sun@linux.dev, steven.price@arm.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5900;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=96fgh1jBo63JWVTUnNnKqniWb7MFpaQ73x8i18SysxI=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFmhq+Y/bj665ZWEoBrPzfe3/13Jm3py9ym+4+eyNDhUD
+ ma5Vvg2d5SyMIhxMciKKbKctTfqEa96b6Q7/38zzBxWJpAhDFycAjCRPHeG/641a5Y/qOtTfHbF
+ fvLy2vqzt+Wmqf+Zt3hfTVCqcNUGaw1Ghv1q4jHF87hia8IfzJv5eJXnHZei9zU58VPe3g8Kqm7
+ JYgMA
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,180 +84,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2026 at 02:15:09PM +0000, Alice Ryhl wrote:
-> On Thu, Jul 09, 2026 at 02:36:44PM -0700, Deborah Brouwer wrote:
-> > From: Boris Brezillon <boris.brezillon@collabora.com>
-> > 
-> > Add GPU virtual address space management using the DRM GPUVM framework.
-> > Each virtual memory (VM) space is backed by ARM64 LPAE Stage 1 page tables
-> > and can be mapped into hardware address space (AS) slots for GPU execution.
-> > 
-> > The implementation provides memory isolation and virtual address
-> > allocation. VMs support mapping GEM buffer objects with configurable
-> > protection flags (readonly, noexec, uncached) and handle both 4KB and 2MB
-> > page sizes. A new_dummy_object() helper is provided to create a dummy GEM
-> > object for use as a GPUVM root.
-> > 
-> > The vm module integrates with the MMU for address space activation and
-> > provides map/unmap/remap operations with page table synchronization.
-> > 
-> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> > Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-> > Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> > Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> 
-> > +impl core::fmt::Display for VmMapFlags {
-> 
-> Use kernel::fmt instead of core::fmt.
-> 
-> > +impl TryFrom<u32> for VmMapFlags {
-> > +    type Error = Error;
-> > +
-> > +    fn try_from(value: u32) -> core::result::Result<Self, Self::Error> {
-> 
-> Simplifies to Result<Self, Self::Error> without full path.
-> 
-> > +        let valid = (kernel::uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_READONLY
-> > +            | kernel::uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC
-> > +            | kernel::uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED)
-> > +            as u32;
-> 
-> Simplifies to
-> 
-> 	let valid = Self::Readonly as u32 | Self::Noexec as u32 | Self::Uncached as u32;
-> 
-> > +impl Drop for PtUpdateContext<'_, '_> {
-> > +    fn drop(&mut self) {
-> > +        if let Err(e) = self.mmu.end_vm_update(self.as_data) {
-> > +            pr_err!("Failed to end VM update {:?}\n", e);
-> > +        }
-> > +
-> > +        if let Err(e) = self.mmu.flush_vm(self.as_data) {
-> > +            pr_err!("Failed to flush VM {:?}\n", e);
-> > +        }
-> 
-> I assume it's not possible for this to run during a VM eviction, right?
+This series adds firmware loading and MCU boot support to the Tyr DRM
+driver. It includes:
+ - A parser for the Mali CSF firmware binary format
+ - A kernel-managed BO type (KernelBo) for internal driver allocations
+ - GPU virtual memory (VM) integration using drm_gpuvm
+ - An MMU module and a generic slot manager
+ - Loading firmware, VM activation, and MCU boot at probe()
 
-In this series I don't think it's possible.
-VM eviction only happens on firmware drop which happens on device unbind.
-So, since firmware is held in RegistrationData, my understanding is that
-it won't be dropped while a device-bound VM operation is in progress.
+It is based on drm-rust-next but also depends on:
 
-The slot manager does have a function to evict an idle vm to allocate an address
-space for a new vm during a mapping/unmapping, but for this fw boot series there
-is only one vm and it’s never marked as idle.
+1. [PATCH v3] rust: iommu: add device lifetime to IoPageTable
+   https://lore.kernel.org/rust-for-linux/20260703-pgtable_lt_b4-v3-1-e738e1f513a4@collabora.com
 
-> 
-> > +        let gpuvm_unique = kernel::drm::gpuvm::GpuVm::new::<Error, _>(
-> > +            c_str!("Tyr::GpuVm"),
-> 
-> This can just be c"Tyr::GpuVm". The macro is only needed in macro
-> contexts where this rewrite is not possible e.g. because the macro's
-> caller provides a non-c str literal.
-> 
-> > +        let mut gpuvm_unique = self.gpuvm_unique.lock();
-> > +
-> > +        self.exec_op(gpuvm_unique.as_mut().get_mut(), req, &mut resources)?;
-> > +
-> > +        // We flush the defer cleanup list now. Things will be different in
-> > +        // the asynchronous VM_BIND path, where we want the cleanup to
-> > +        // happen outside the DMA signalling path.
-> > +        self.gpuvm.deferred_cleanup();
-> 
-> You should probably release the gpuvm_unique mutex before invoking
-> deferred_cleanup().
-> 
-> (Multiple occurances in this patch.)
-> 
-> > +            if gem_offset > 0 {
-> > +                // Skip the entire SGT entry if the gem_offset exceeds its length
-> > +                let skip = sgt_entry_length.min(gem_offset);
-> 
-> Nit: this may just be my idiosyncrasy, but I think this is more readable as:
-> 
-> 	usize::min(sgt_entry_length, gem_offset)
-> 
-> (Multiple occurances in this file.)
-> 
-> > +            let segment_mapped = match pt_map(context.pt, iova, paddr, len, prot) {
-> > +                Ok(segment_mapped) => segment_mapped,
-> > +                Err(e) => {
-> > +                    // clean up any successful mappings from previous SGT entries.
-> > +                    let total_mapped = iova - start_iova;
-> > +                    if total_mapped > 0 {
-> > +                        pt_unmap(context.pt, start_iova..(start_iova + total_mapped)).ok();
-> 
-> Nit: the idiomatic way to ignore errors is to write:
-> 
-> 	let _ = pt_unmap(context.pt, start_iova..(start_iova + total_mapped));
-> 
-> instead of converting the Result into an Option with .ok() and abusing
-> the fact that Option is not #[must_use].
-> 
-> > +/// This function selects the largest supported block size (currently 4KB or 2MB)
-> > +/// that can be used for a mapping at the given address and size, respecting alignment constraints.
-> > +///
-> > +/// We can map multiple pages at once but we can't exceed the size of the
-> > +// table entry itself. So, if mapping 4KB pages, figure out how many pages
-> > +// can be mapped before we hit the 2MB boundary. Or, if mapping 2MB pages,
-> > +// figure out how many pages can be mapped before hitting the 1GB boundary
-> > +// Returns the page size (4KB or 2MB) and the number of pages that can be mapped at that size.
-> > +fn get_pgsize(addr: u64, size: u64) -> (u64, u64) {
-> 
-> Some of these comments are missing a / character.
-> 
-> > +        // SAFETY: Exclusive access to the page table is ensured because
-> > +        // the pt reference comes from PtUpdateContext, which is created
-> > +        // during a VM update operation, ensuring the driver does not concurrently
-> > +        // modify the page table.
-> > +        let (mapped, result) = unsafe {
-> > +            pt.map_pages(
-> > +                curr_iova as usize,
-> > +                (curr_paddr as usize).try_into().unwrap(),
-> > +                pgsize as usize,
-> > +                pgcount as usize,
-> > +                prot,
-> > +                GFP_KERNEL,
-> > +            )
-> > +        };
-> 
-> It would be ideal if this SAFETY comment explains why this safety
-> requirement is satisfied:
-> 
-> 	This page table must not contain any mapping that overlaps with
-> 	the mapping created by this call.
-> 
-> (It's because GPUVM tells you to unmap pages before it tells you to map
-> them.)
-> 
-> > +/// Unmaps a virtual address range from the page table.
-> > +///
-> > +/// This function removes all page table entries in the specified range,
-> > +/// automatically handling different page sizes that may be present.
-> > +fn pt_unmap(pt: &IoPageTable<'_, ARM64LPAES1>, range: Range<u64>) -> Result {
-> > +    let mut iova = range.start;
-> > +    let mut bytes_left_to_unmap = range.end - range.start;
-> > +
-> > +    while bytes_left_to_unmap > 0 {
-> > +        let (pgsize, pgcount) = get_pgsize(iova, bytes_left_to_unmap);
-> > +
-> > +        // SAFETY: Exclusive access to the page table is ensured because
-> > +        // the pt reference comes from PtUpdateContext, which was
-> > +        // created while holding &mut Vm, preventing any other access to the
-> > +        // page table for the duration of this operation.
-> > +        let unmapped = unsafe { pt.unmap_pages(iova as usize, pgsize as usize, pgcount as usize) };
-> 
-> It would be ideal if this SAFETY comment explains why this safety
-> requirement is satisfied:
-> 
-> 	This page table must contain one or more consecutive mappings
-> 	starting at `iova` whose total size is `pgcount * pgsize`.
-> 
-> I.e. why can we be sure that this call isn't trying to unmap a 4KB
-> sub-page in something that exists as a 2MB mapping in the page table?
-> 
-> (It's because GPUVM tells you to unmap exactly the range you were
-> previously told to map.)
-> 
-> Alice
+2. [PATCH] drm: Remove DRIVER_GEM_GPUVA feature flag
+   https://lore.kernel.org/dri-devel/20260421084701.24227-1-laura.nao@collabora.com/
+   This patch is in drm-misc-next for v7.3:
+   https://lore.kernel.org/dri-devel/20260702-powerful-successful-raptor-eded34@houat/
+
+A branch with all dependencies is available here:
+https://gitlab.freedesktop.org/dbrouwer/linux/-/commits/fw-boot-b4
+
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+---
+Changes in v7:
+- slot.rs: don't print an error when all slots are busy
+- change all allow(dead_code) to expect(dead_code)
+- use LockedSeat type alias in VmAsData
+- shift the lockaddr_base so it fits properly in LOCKADDR
+- replace core::fmt with kernel::fmt
+- make SAFETY comments clearer for map/unmap pages
+- fix arm 32-bit build failures
+- release gpuvm_unique lock before calling deferred_cleanup
+- Link to v6: https://lore.kernel.org/r/20260709-fw-boot-b4-v6-0-ca391e1a4108@collabora.com
+
+Changes in v6:
+- Move gpu_info from drm::Driver::Data to RegistrationData
+  and remove drm::Driver::Data entirely.
+- Remove the extra drm::Device ARef in TyrPlatformDriverData
+  since drm::Registration already owns an ARef to the drm::Device.
+- Stop storing platform::Device ARef in firmware since it is unused.
+- Pass a generic kernel::Device instead of the platform::Device through
+  firmware to Vm and pagetables since this is all that they need.
+- Link to v5: https://lore.kernel.org/r/20260708-fw-boot-b4-v5-0-7792ab68e359@collabora.com
+
+Changes in v5:
+- Reduce the scope of this series back to just MCU booting.
+- Drop the CSF global interface, job IRQ, wait, and arch timer patches
+  since they will be sent as subsequent series.
+- Add lifetimes to resources and store them in TyrRegistrationData.
+
+- Link to v4: https://lore.kernel.org/r/20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com
+
+Changes in v4:
+ New commits:
+  - drm/tyr: program CSF global interface
+  - rust: time: add arch_timer_get_rate wrapper
+  - drm/tyr: add CSF firmware interface support
+  - drm/tyr: validate presence of CSF shared section
+  - drm/tyr: wait for global interface readiness
+  - drm/tyr: add Job IRQ handling
+  - drm/tyr: add Wait type for GPU events
+
+ The existing commits from v3 remain unchanged.
+ - Link to v3: https://lore.kernel.org/r/20260413-b4-fw-boot-v3-v3-0-b422f3c03885@collabora.com
+    
+Changes in v3:
+ New commits:
+  - drm/tyr: remove unused device from platform data
+  - drm/tyr: use shmem GEM object type in TyrDrmDriver
+    
+ drm/tyr: select required dependencies in Kconfig
+  - Rename commit since the dependencies are not limited to DRM.
+  - Select new RUST_DRM_GEM_SHMEM_HELPER instead of DRM_GEM_SHMEM_HELPER.
+    
+ drm/tyr: set DMA mask using GPU physical address
+  - Use register macro to read pa_bits instead of separate helper function.
+    
+ drm/tyr: add MMU module
+  - Switch MMU code to typed register APIs (TRANSCFG, MEMATTR, STATUS, LOCKADDR, etc.).
+  - Use MmuCommand enum for MMU commands instead of raw constants.
+  - Minor cleanups and renaming (MAX_AS, AS_PRESENT handling).
+    
+ drm/tyr: add GPU virtual memory module
+  - Extract VA/PA bits via typed MMU_FEATURES register.
+  - Update the VM code to match the new GPUVM v6 and shmem GEM v10 APIs.
+    
+ drm/tyr: add a kernel buffer object
+  - Reject zero-sized KernelBo allocations up front.
+    
+ drm/tyr: add firmware loading and MCU boot support
+  - Use typed GPU control registers.
+  - Pass iomem by Arc into Firmware::new() since we store it eventually.
+    
+  - Link to v2: https://lore.kernel.org/rust-for-linux/20260302232500.244489-1-deborah.brouwer@collabora.com/
+    
+Changes in v2:
+ - The whole series is rebased on drm-rust-next including v7.0-rc1.
+ - Each patch has its own changelog.
+    
+ Link to v1: https://lore.kernel.org/rust-for-linux/20260212013713.304343-1-deborah.brouwer@collabora.com/
+
+---
+Boris Brezillon (3):
+      drm/tyr: add a generic slot manager
+      drm/tyr: add Memory Management Unit (MMU) support
+      drm/tyr: add GPU virtual memory (VM) support
+
+Daniel Almeida (1):
+      drm/tyr: add parser for firmware binary
+
+Deborah Brouwer (3):
+      drm/tyr: add resources to RegistrationData
+      drm/tyr: add a kernel buffer object
+      drm/tyr: add Microcontroller Unit (MCU) booting
+
+ drivers/gpu/drm/tyr/Kconfig              |   5 +
+ drivers/gpu/drm/tyr/driver.rs            |  64 ++-
+ drivers/gpu/drm/tyr/file.rs              |  11 +-
+ drivers/gpu/drm/tyr/fw.rs                | 263 ++++++++++
+ drivers/gpu/drm/tyr/fw/parser.rs         | 521 ++++++++++++++++++++
+ drivers/gpu/drm/tyr/gem.rs               | 122 ++++-
+ drivers/gpu/drm/tyr/mmu.rs               | 102 ++++
+ drivers/gpu/drm/tyr/mmu/address_space.rs | 490 +++++++++++++++++++
+ drivers/gpu/drm/tyr/regs.rs              | 123 ++++-
+ drivers/gpu/drm/tyr/slot.rs              | 377 ++++++++++++++
+ drivers/gpu/drm/tyr/tyr.rs               |   4 +
+ drivers/gpu/drm/tyr/vm.rs                | 810 +++++++++++++++++++++++++++++++
+ 12 files changed, 2860 insertions(+), 32 deletions(-)
+---
+base-commit: c8482fab3418955dcd322bea615857adf8c47caa
+change-id: 20260708-fw-boot-b4-f07706a265c7
+
+Best regards,
+-- 
+Deborah Brouwer <deborah.brouwer@collabora.com>
+
