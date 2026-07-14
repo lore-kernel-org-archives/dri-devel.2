@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E01DAC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:45:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF9D4C44501
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:46:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 417CE10ED18;
-	Tue, 14 Jul 2026 11:45:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04C7110ED06;
+	Tue, 14 Jul 2026 11:46:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QqPu+Z7U";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LM8UtgIp";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B6C210ED0A
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:45:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8ED310ED0A
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:45:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784029517;
- bh=EgR1iXxVkGF7W6gjrep5XaQEFBsxQtSA3zzD1LWLtHI=;
+ s=mail; t=1784029524;
+ bh=OxOb0JKMyxrT84QMeUNz8vqDSuZGP3qA19Lm+2k3CE0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QqPu+Z7UYxi3JJoxSnEqQraq5WJ2rEcQ4iQdk1RJG7CbxXJPwYIyRfyt/U9NJOB28
- A9GggvTV1DSwf1tfbDxDxVSU+0THNwnQ4GiLbnPco4aqXhKoT6ZRId+u1/Srb+RD7L
- kV1lHs2vt1+LFIW5MkxIKFnKfLnq/FZji2EDbLYNl10LxzdzaqdLn6ZFji+8bpt4rx
- gZzMlxMQkQbtYlaaFdwestXDWG5HVAbHxyi10Zx+3gdQAVDanJ8Xf2/2YZbUo+aoxd
- raBAUz3HgeEiPeMQn5C8wxKV9SMT4AwiZ+JXu7okHkG5AKaOi7NINdKKuqU+0daKl1
- hP8YkTYgxLlAw==
+ b=LM8UtgIpyXud4ISL5VBeY5+8SqiEE32azSDWqqvCJKtk8D3LSnVilYl6YzIn67oOp
+ mKFyvC3CJFRZCguUbwsq3l2tXuguJ/YQYVGA90dgsEp8ykDot0E614aRJiHPImgBzW
+ L8qFIngaYEUp4bJ1w1zoSOy7Srd9CFdIIJ3j/1duYQZyVDbQo5N5luRhwmkR9y3kbh
+ IKvgdc5Pp3As5CLlpmt6QRSxbU2mVqBKlAqTIHWO61xnEC/Dk78JP1+sddSe4Hz1rK
+ +VEgDiACeC9D8v9XgB62lzECNLlxxUuEJKfniX/fRMLOdKUa0AAKJJE/xj5HOqAjbU
+ Wkv4SmTje1wkQ==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C658917E0FD0;
- Tue, 14 Jul 2026 13:45:16 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id AB56C17E0076;
+ Tue, 14 Jul 2026 13:45:23 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
@@ -42,10 +42,10 @@ Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
  jason-jh.lin@mediatek.com, kernel@collabora.com
-Subject: [PATCH v2 36/46] drm/mediatek: mtk_crtc: Dynamically find suitable
- CRTC DMA device
-Date: Tue, 14 Jul 2026 13:44:04 +0200
-Message-ID: <20260714114414.184512-37-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v2 40/46] drm/mediatek: Support registering disp controller
+ device subnodes
+Date: Tue, 14 Jul 2026 13:44:08 +0200
+Message-ID: <20260714114414.184512-41-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
 References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
@@ -66,125 +66,265 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that the vblank and config components are being dynamically
-selected, the only hardcoded strategy that is left is selecting
-a DMA device for a CRTC that is being created.
-
-In order to support pipelines including an embedded multimedia
-controller (like MDP3) chained with the display controller and
-pipelines chaining multiple display controllers together, stop
-assuming that the first component in the pipeline is suited to
-do DMA operations and implement support to dynamically find not
-only a suitable DMA device, but also the best one.
-
-This finds the first device that provides DMA and the first one
-that is also behind an IOMMU.
-
-The criteria for selecting the best device is to prefer a DMA
-device behind an IOMMU; if not found, the first DMA capable
-one is selected instead.
+In order to have a correct description of the hardware in the SoC
+devicetree, look for Display Controller Subsystem sub-components
+declared as subnodes of the display controller itself; to retain
+compatibility with the older devicetrees, also keep looking for
+sub-components in the main /soc node like before.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_crtc.c | 68 ++++++++++++++++++++++++-----
- 1 file changed, 56 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c | 218 ++++++++++++++-----------
+ 1 file changed, 121 insertions(+), 97 deletions(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
-index 3cb2d1a28987..16c9ff2cfe32 100644
---- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-+++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-@@ -1132,6 +1132,60 @@ struct device *mtk_crtc_dma_dev_get(struct drm_crtc *crtc)
- 	return mtk_crtc->dma_dev;
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+index 4f39df23c51e..d1086c86cb77 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+@@ -1247,6 +1247,107 @@ static int mtk_drm_of_ddp_path_build(struct device *dev, struct device_node *nod
+ 	return 0;
  }
  
-+static int mtk_crtc_find_suitable_dma_dev(struct mtk_drm_private *priv,
-+					  struct mtk_crtc *mtk_crtc,
-+					  const struct mtk_drm_path_definition *path)
++static int mtk_drm_register_sibling(struct device *dev, struct mtk_drm_private *private,
++				    struct device_node *node, struct component_match **match)
 +{
-+	struct mtk_ddp_comp *dma_comp = NULL, *dma_comp_mmu = NULL;
-+	int i;
++	enum mtk_ddp_comp_type comp_type;
++	int comp_inst_id;
++	bool comp_found;
++	int ret;
 +
-+	for (i = 0; i < mtk_crtc->ddp_comp_nr; i++) {
-+		const struct mtk_drm_comp_definition *cdef = path[i].comp;
-+		struct mtk_ddp_comp *comp;
++	ret = mtk_drm_of_get_ddp_comp_type(node, &comp_type);
++	if (ret)
++		return -EAGAIN;
 +
-+		comp = mtk_ddp_comp_find_by_id(&priv->hlist,
-+					       cdef->type, cdef->inst_id);
-+		if (!comp)
-+			continue;
-+
-+		/*
-+		 * Check if this is a legacy OVL_ADAPTOR component and, if so, this
-+		 * has to forcefully be the DMA device for this CRTC: assign it to
-+		 * dma_comp_mmu to force that.
-+		 */
-+		if (comp->type == MTK_DISP_OVL_ADAPTOR) {
-+			dma_comp_mmu = comp;
-+			break;
-+		}
-+
-+		if (!comp->dev || !comp->dev->of_node)
-+			continue;
-+
-+		/* Find the first device provides DMA... */
-+		if (!dma_comp) {
-+			if (of_property_present(comp->dev->of_node, "#dma-cells"))
-+				dma_comp = comp;
-+		}
-+
-+		/* ...and check if that device is also behind an IOMMU */
-+		if (!of_property_present(comp->dev->of_node, "iommus"))
-+			continue;
-+
-+		/* If a device behind IOMMU is found, this is the best outcome */
-+		dma_comp_mmu = comp;
-+		break;
++	ret = of_device_is_available(node);
++	if (!ret) {
++		dev_dbg(dev, "Skipping disabled component %pOF\n", node);
++		return -EAGAIN;
 +	}
 +
-+	if (dma_comp_mmu)
-+		mtk_crtc->dma_dev = mtk_ddp_comp_dma_dev_get(dma_comp_mmu);
-+	else if (dma_comp)
-+		mtk_crtc->dma_dev = mtk_ddp_comp_dma_dev_get(dma_comp);
++	if (comp_type == MTK_DISP_MUTEX) {
++		int id;
++
++		id = of_alias_get_id(node, "mutex");
++		if (id < 0 || id == private->data->mmsys_id) {
++			private->mutex_node = of_node_get(node);
++			dev_dbg(dev, "get mutex for mmsys %d", private->data->mmsys_id);
++		}
++		return 0;
++	}
++
++	comp_inst_id = mtk_ddp_comp_get_id(node, NULL, comp_type);
++	if (comp_inst_id < 0) {
++		dev_info(dev, "Skipping unknown component %pOF\n", node);
++		return 0;
++	}
++
++	if (comp_type == MTK_DISP_DIRECT_LINK)
++		comp_found = mtk_drm_find_directlink_comp(private);
 +	else
-+		return -EINVAL;
++		comp_found = mtk_drm_find_mmsys_comp(private,
++						     comp_type, comp_inst_id);
++
++	if (!comp_found)
++		return -EAGAIN;
++
++	/*
++	 * Currently only the AAL, CCORR, COLOR, GAMMA, MERGE, OVL, RDMA, DSI, and DPI
++	 * blocks have separate component platform drivers and initialize their own
++	 * DDP component structure. The others are initialized here.
++	 */
++	if (!mtk_ddp_comp_is_internal_comp(comp_type) &&
++	    !mtk_ovl_adaptor_is_comp_present(node)) {
++		dev_info(dev, "Adding component match for %pOF\n",
++			 node);
++		drm_of_component_match_add(dev, match, component_compare_of,
++					   node);
++	}
++
++	if (comp_type == MTK_DISP_DIRECT_LINK) {
++		for_each_of_graph_port(node, port) {
++			u32 port_id;
++
++			of_property_read_u32(port, "reg", &port_id);
++			if (port_id > 1)
++				continue;
++
++			/* Even ports are inputs, odd ports are outputs */
++			if (port_id % 2)
++				comp_type = MTK_DISP_DIRECT_LINK_OUT;
++
++			for_each_of_graph_port_endpoint(port, ep) {
++				struct of_endpoint of_ep;
++
++				ret = of_graph_parse_endpoint(ep, &of_ep);
++				if (ret)
++					break;
++
++				ret = mtk_ddp_comp_init(dev, node, &private->hlist,
++							private->data->mmsys_id,
++							comp_type, of_ep.id);
++				if (ret)
++					break;
++			}
++
++			if (ret) {
++				of_node_put(node);
++				return ret;
++			}
++		}
++	} else {
++		ret = mtk_ddp_comp_init(dev, node, &private->hlist,
++					private->data->mmsys_id,
++					comp_type, comp_inst_id);
++		if (ret) {
++			of_node_put(node);
++			return ret;
++		}
++	}
 +
 +	return 0;
 +}
 +
- int mtk_crtc_create(struct drm_device *drm_dev,
- 		    enum mtk_crtc_path path_sel, int priv_data_index,
- 		    const struct mtk_drm_route *conn_routes,
-@@ -1140,7 +1194,6 @@ int mtk_crtc_create(struct drm_device *drm_dev,
- 	struct mtk_drm_private *priv = drm_dev->dev_private;
- 	const struct mtk_drm_path_definition *output_path;
- 	struct device *dev = drm_dev->dev;
--	struct mtk_ddp_comp *dma_comp;
- 	struct mtk_crtc *mtk_crtc;
- 	unsigned int num_comp_planes = 0;
- 	unsigned int max_comp_stages = 0;
-@@ -1307,20 +1360,11 @@ int mtk_crtc_create(struct drm_device *drm_dev,
- 	dev_dbg(dev, "Found %u layers composed by maximum of %u stage(s) each.\n",
- 		mtk_crtc->hwlayer_nr, max_comp_stages);
+ static int mtk_drm_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -1308,107 +1409,29 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
  
--	/*
--	 * Default to use the first component as the dma dev.
--	 * In the case of ovl_adaptor sub driver, it needs to use the
--	 * dma_dev_get function to get representative dma dev.
--	 */
--	dma_comp = mtk_ddp_comp_find_by_id(&priv->hlist,
--					   output_path->comp[0].type,
--					   output_path->comp[0].inst_id);
--	if (dma_comp == NULL) {
-+	ret = mtk_crtc_find_suitable_dma_dev(priv, mtk_crtc, output_path);
-+	if (ret) {
- 		dev_err(dev, "Could not find appropriate DMA device!\n");
- 		return -EINVAL;
- 	}
+ 	/* Iterate over sibling DISP function blocks */
+-	for_each_child_of_node(phandle->parent, node) {
+-		enum mtk_ddp_comp_type comp_type;
+-		u8 comp_inst_id;
+-		bool comp_found;
 -
--	mtk_crtc->dma_dev = mtk_ddp_comp_dma_dev_get(dma_comp);
- 	dev_dbg(dev, "Using DMA device %pOF\n", mtk_crtc->dma_dev->of_node);
+-		ret = mtk_drm_of_get_ddp_comp_type(node, &comp_type);
+-		if (ret)
+-			continue;
+-
+-		if (!of_device_is_available(node)) {
+-			dev_dbg(dev, "Skipping disabled component %pOF\n",
+-				node);
+-			continue;
+-		}
+-
+-		if (comp_type == MTK_DISP_MUTEX) {
+-			int id;
+-
+-			id = of_alias_get_id(node, "mutex");
+-			if (id < 0 || id == private->data->mmsys_id) {
+-				private->mutex_node = of_node_get(node);
+-				dev_dbg(dev, "get mutex for mmsys %d", private->data->mmsys_id);
+-			}
+-			continue;
+-		}
+-
+-		comp_inst_id = mtk_ddp_comp_get_id(node, NULL, comp_type);
+-		if (comp_inst_id < 0) {
+-			dev_warn(dev, "Skipping unknown component %pOF\n",
+-				 node);
+-			continue;
+-		}
+-
+-		if (comp_type == MTK_DISP_DIRECT_LINK)
+-			comp_found = mtk_drm_find_directlink_comp(private);
+-		else
+-			comp_found = mtk_drm_find_mmsys_comp(private,
+-							     comp_type, comp_inst_id);
+-
+-		if (!comp_found)
+-			continue;
+-
+-		/*
+-		 * Currently only the AAL, CCORR, COLOR, GAMMA, MERGE, OVL, RDMA, DSI, and DPI
+-		 * blocks have separate component platform drivers and initialize their own
+-		 * DDP component structure. The others are initialized here.
+-		 */
+-		if (!mtk_ddp_comp_is_internal_comp(comp_type) &&
+-		    !mtk_ovl_adaptor_is_comp_present(node)) {
+-			dev_info(dev, "Adding component match for %pOF\n",
+-				 node);
+-			drm_of_component_match_add(dev, &match, component_compare_of,
+-						   node);
+-		}
+-
+-		if (comp_type == MTK_DISP_DIRECT_LINK) {
+-			for_each_of_graph_port(node, port) {
+-				u32 port_id;
+-
+-				of_property_read_u32(port, "reg", &port_id);
+-				if (port_id > 1)
+-					continue;
+-
+-				/* Even ports are inputs, odd ports are outputs */
+-				if (port_id % 2)
+-					comp_type = MTK_DISP_DIRECT_LINK_OUT;
+-
+-				for_each_of_graph_port_endpoint(port, ep) {
+-					struct of_endpoint of_ep;
+-
+-					ret = of_graph_parse_endpoint(ep, &of_ep);
+-					if (ret)
+-						break;
+-
+-					ret = mtk_ddp_comp_init(dev, node, &private->hlist,
+-								private->data->mmsys_id,
+-								comp_type, of_ep.id);
+-					if (ret)
+-						break;
+-				}
++	for_each_child_of_node(phandle, node) {
++		ret = mtk_drm_register_sibling(dev, private, node, &match);
++		if (ret && ret != -EAGAIN)
++			goto err_node;
++	}
  
- 	ret = mtk_crtc_init(drm_dev, mtk_crtc, crtc_i);
+-				if (ret) {
+-					of_node_put(node);
+-					goto err_node;
+-				}
+-			}
+-		} else {
+-			ret = mtk_ddp_comp_init(dev, node, &private->hlist,
+-						private->data->mmsys_id,
+-						comp_type, comp_inst_id);
+-			if (ret) {
+-				of_node_put(node);
+-				goto err_node;
+-			}
+-		}
++	/*
++	 * After the previous loop, it is expected to have all of the display
++	 * controller sibling function blocks registered and added to the list.
++	 *
++	 * If nothing got registered this is a legacy devicetree with DISP
++	 * siblings located under the /soc node instead of being children of
++	 * the main Display Controller node.
++	 */
++	for_each_child_of_node(phandle->parent, node) {
++		ret = mtk_drm_register_sibling(dev, private, node, &match);
++		if (ret && ret != -EAGAIN)
++			goto err_node;
+ 	}
+ 
+ 	if (!private->mutex_node) {
+ 		dev_err(dev, "Failed to find disp-mutex node\n");
+-		ret = -ENODEV;
+-		goto err_node;
++		return -ENODEV;
+ 	}
+ 
+ 	/* If mtk-mutex is not a trigger source, this is an old devicetree */
+@@ -1435,7 +1458,8 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ err_pm:
+ 	pm_runtime_disable(dev);
+ err_node:
+-	of_node_put(private->mutex_node);
++	if (private->mutex_node)
++		of_node_put(private->mutex_node);
+ 	return ret;
+ }
+ 
 -- 
 2.54.0
 
