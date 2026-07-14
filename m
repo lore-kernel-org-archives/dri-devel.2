@@ -4,45 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AF90C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 06:58:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E30DC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 07:24:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE47B10E051;
-	Tue, 14 Jul 2026 06:58:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C98C10E365;
+	Tue, 14 Jul 2026 07:23:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hn2eGnyG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Uq/VITh/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 065F210E051
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 06:58:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E32D942EA6;
- Tue, 14 Jul 2026 06:58:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78EA91F000E9;
- Tue, 14 Jul 2026 06:58:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784012329;
- bh=5/OaUK+k5M+Xre+14Np8m75VkZzuoGorbG9uW6qe5KA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Hn2eGnyG4g+UIayZCzy4/lakKne+Yy8W6b3FhDPA2AIwO1QaGorZyr3Xw0VCUoLRp
- P626Tv4wY0Bh04ooZI9Z+6WP6GAT4EqCtrYCjmsZhZKylf5EVvDAEWN3Zfci5mvsC/
- HPvbEG8+Hk4faWaQI5xWD8PfatYd9oVUsplqDY5ooXMJLR9WerOgdCXCqbcWPxNe8R
- AKO4cppD9gEmFcP09sub2eduiD+W8q2Yp7+ztEydEqtj2T3hjTL7wbqtLQ8yS06HXh
- RjdsN5PUzHBCIQspVH5Fqgi3I4uc8wiRQktRqMRYRUsWnCgRYqWVUpiHnCqzEvViCb
- mTeEVOt7/KWHA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI
- DSI bridge
-To: syyang@lontium.com
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260714064822.2753289-3-syyang@lontium.com>
-References: <20260714064822.2753289-1-syyang@lontium.com>
- <20260714064822.2753289-3-syyang@lontium.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 06:58:48 +0000
-Message-Id: <20260714065849.78EA91F000E9@smtp.kernel.org>
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B5CF10EC0A
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 07:23:58 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-69c5fda04a8so5866973a12.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 00:23:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784013837; cv=none;
+ d=google.com; s=arc-20260327;
+ b=nkHAs19k8G5J1XKfIGD7DhxZyeSiUrzUnPceIVDkz5f+TpY/lG6ssZzdz35gDgmA9o
+ RBqZjIphP+ZUD5hkwrcDuaDnhKMhiTAVYAmXG21IuAB+marZ8Z2Q6NNsfIqodeS45mDt
+ 4MYtOP47W5OYZ20bvSY4SbbqaS9tfZhDaT+LsE7PwzOPukWpBZgqZSx1LyXj5qUI9YgC
+ 02YeGhkJpTn38Tfk5p4VWRAAit81TOM8dSNk8A8U+3KnQNsDpoc2zK9Oi6t527JSfJrq
+ aQ+B9W22x+JxnRvmYUXdRuwWoW2Q0dFG18GYR2VrZipQ/2qkhpfkm10G6j7TTlPLO5W0
+ ixww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=4otLa0osIIgCWg6PJhWGRKAbFh1CF4DbrLX8uzqDyWU=;
+ fh=jS8viB+7gmYHL9Vx26Vm4iNVwFx22X9OzaGqIXIfxAY=;
+ b=qSBplCDFU0mVgv9gs3NLHDoNG0E4DAyPAYyWiGlnFh89S7/cC5TcsUNpJ6V9Kx+71F
+ FbOBsVc9k0GZmk55lWszgDUkatfjVZhyHvfkhI88YGmeRox2MF/30kfS3ZIhCgDoh2Oy
+ EURAh8ouCKQlRV5tiV2K1Ry8Eu6JRCKuwhAVJaceuM4NIPKVOxu3y//0iIlsuD4Ck/MI
+ K8r1sRJkuje8bStvJVnl+103zGoMRBmaWIj2L3gs0CjMXQR2VZAGZLIh7s5bOvhPSQUi
+ s3Eir8sRoLbhP1f1tFNxilB9YvlXvNIKeawqoyG8EvGUTalS1+KVB2mb3NvM9HEbN316
+ /U+g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784013837; x=1784618637; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=4otLa0osIIgCWg6PJhWGRKAbFh1CF4DbrLX8uzqDyWU=;
+ b=Uq/VITh/q/+VpId1HdYfKW9ktugJgJ71BeBgVVrLnhR6ewU6acWmflZrzWR1yXYG4J
+ XBmPfZN+drXf4wjwKNSvqy5ykq4nLEH7CC67duIehucAokiW3Z+Gb7gGytxC0Hzw6bJX
+ VigSrwWMmV+2+NvILB7swA7BdpKUUZN1hqqvS5tyQ5f702yoev8IFDqUyYkCQpYL44ZN
+ hKn2S0aOgmHpE7R4llaShqeFH1BKy6qUg4rnHh2dLgD+WFwwfgSvljGuabiSV9ZTSbMO
+ ogj73jrGFIvBY1KUUnIONZK676YEoZpCmPOc/ud7IKJ+GS3TJmclxEY1iLp9D4RqLp/h
+ dTsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784013837; x=1784618637;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=4otLa0osIIgCWg6PJhWGRKAbFh1CF4DbrLX8uzqDyWU=;
+ b=Y3LrVJ7Qyp1fsyVIz5bVW+9CBbcQk0gk3uWbNyVD5Ek+j43yYwzyqaK83thghA8fy4
+ WDNeJTF7owDgJ8YWzmS4QNf+MGN6TCW2SZGjbc+EpD+5ZAVdVMAfwPQDFGQVNUIHhzH/
+ stB2Hs2Vx3bWKNhnEoEWcHjkO1irlRaZMH3tUcDhmy+xsniFPiKrl2BpWsJywkFUMg2z
+ b+7Z4QSnYe0UEFTGe0tETfKvfSlDIixY+Afmz2u8SMrHhPy5CwvysuK28c3UiqRFgTrc
+ vwwvJ9N91SL1crjL7dPytiikI8KhjwT5+vR29JmG+lEVTX4+ISY8IT3dCsCgGqR1hd70
+ AIVA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RokbvSAVyGyQ8fEz2yClgGQZtkJNjKy6RxQZmL+GUWJmP8IE3EuqFdji7vpkGhsS4QX7veM38vcEzE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzRuoNPHwjvlUex5AkBQQ5PHrr7hMigTnNqUKj57SI8sVZGpxOW
+ NV8/gSCSRR47TN0h8Zmb+0tUGVhZj1w2NklxFbFN6Hm38EHk7hc0RKmAMozSzJuRrJgAQF0DCKW
+ dHUKIrTVsFPIAjy96um2xDyZPHmNGdGU=
+X-Gm-Gg: AfdE7clhGfDpRrQF3RkmukpyNq4W4QX7ZD3T5z9mVWeB9blupDJYeQwk65tJY+reBz5
+ d48uZcU/EfBQfjtxeUB1keFnxkXTEXfSKcstqQtCrZmzfD4+menCEqVE1KXG/k7JDN6qwlivRFp
+ teW0MzMxNkpLG+IN2L1OIOX9DctYHi+8eGXwEDKmnJwku1ym8oVuB0yNs/2LOrQ7FWaqgQ0a/yo
+ WWZoYb+Te7IN8CWBbFyxz1kuFUDtPUpV3hTwOh5mm4/qxTcFd6CHpmj5ZLZACR3Z0M9vxWD55Wd
+ EiJLwQ==
+X-Received: by 2002:a05:6402:e94:b0:698:c13e:179a with SMTP id
+ 4fb4d7f45d1cf-69cd2a001acmr1004913a12.10.1784013836409; Tue, 14 Jul 2026
+ 00:23:56 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260713120840.17427-1-linux.amoon@gmail.com>
+In-Reply-To: <20260713120840.17427-1-linux.amoon@gmail.com>
+From: Anand Moon <linux.amoon@gmail.com>
+Date: Tue, 14 Jul 2026 12:53:43 +0530
+X-Gm-Features: AUfX_mzvXnkQt9N3uwj4z53r62LfKGSebrr5Wzfs3imVuOH5yaZKNS9xAf_UWqU
+Message-ID: <CANAwSgSz+e483m9VKkFZzSKzB1Tsd8kS20UcB3ON-cZ=J8gX+w@mail.gmail.com>
+Subject: Re: [PATCH v7 00/19] media: meson: vdec: Fix lifecycles, race
+ conditions, and stability bugs
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "open list:DRM DRIVERS FOR AMLOGIC SOCS" <dri-devel@lists.freedesktop.org>, 
+ "open list:DRM DRIVERS FOR AMLOGIC SOCS" <linux-amlogic@lists.infradead.org>, 
+ "moderated list:ARM/Amlogic Meson SoC support"
+ <linux-arm-kernel@lists.infradead.org>, 
+ open list <linux-kernel@vger.kernel.org>, 
+ "open list:MESON VIDEO DECODER DRIVER FOR AMLOGIC SOCS"
+ <linux-media@vger.kernel.org>, 
+ "open list:STAGING SUBSYSTEM" <linux-staging@lists.linux.dev>
+Cc: Doruk Tan Ozturk <doruk@0sec.ai>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,172 +116,78 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] `devm_drm_of_get_bridge()` in the hot-pluggable `lt7911exc_dsi_hos=
-t_attach()` callback leaks devres memory and causes use-after-free upon pan=
-el unbind/rebind.
-- [High] Double removal of the DRM bridge due to a flawed `list_empty` chec=
-k in `lt7911exc_remove()`, leading to double mutex destruction and use-afte=
-r-free.
-- [High] Firmware upgrade clears the `upgrade` flag AFTER sending the hotpl=
-ug event, causing potential modesets to fail silently.
-- [Medium] Direct mutation of `pre_enable_prev_first` on an external `drm_b=
-ridge` object owned by a downstream driver.
---
+Hi All,
 
---- Patch [2]: [PATCH v15 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIP=
-I DSI bridge ---
-commit 4c1fba2c711f35f533a59a3680b0b1fda9a82f94
-Author: Sunyun Yang <syyang@lontium.com>
+On Mon, 13 Jul 2026 at 17:38, Anand Moon <linux.amoon@gmail.com> wrote:
+>
+> This patch series addresses a collection of critical race conditions,
+> memory leaks, use-after-free bugs, and resource management issues
+> within the Amlogic Meson video decoder (meson-vdec) driver and
+> associated components.
+>
+> The primary focus is tightening session lifecycles, safely synchronising
+> the V4L2 m2m framework callbacks, hardening work queue operations
+> (esparser_queue_work), and correcting buffer validations to prevent
+> stability issues like KASAN out-of-bounds errors or stream-on timeouts.
+>
+> Summary of Changes:
+> * Race Conditions & Synchronisation: Fixes multi-threading and
+>   execution races across stream-on, stream-off, job abort, and
+>   teardown pathways.
+> * Memory Lifecycle: Eliminates memory leaks and use-after-free
+>   vulnerabilities by safely pinning, canceling, and sequencing
+>   device removals.
+> * VP9 & Buffer Hardening: Addresses payload handling bugs in the ES
+>   parser, properly tracks ongoing buffers via atomic counters, and
+>   prevents invalid memory writes.
+> * Platform/DMA Adjustments: Adjusts DMA segment configurations,
+>   canvas handling, and buffer sizes to match modern hardware demands.
+>
+> Note on an outstanding issue:
+> An execution deadlock occurs in the driver workqueue path during high
+> stress or long playback sessions. This stall is triggered when the
+> Amlogic hardware internal video FIFO buffer becomes completely full.
+> When esparser_queue_all_src runs, the capacity validation check is
+> tripped due to a design limitation in how buffer exhaustion is handled.
+> This blocks progress and leaves the workqueue worker waiting indefinitely
+> on a core mutex lock.
+>
+> The resulting hung task call trace shows the worker thread blocking
+> on the internal lock:
+>
+> Workqueue: events esparser_queue_all_src [meson_vdec]
+> ...
+> __mutex_lock
+> mutex_lock_nested
+> esparser_queue_all_src
+>
+> I have tried to address this issue, but the underlying deadlock persists
+> under extreme conditions.
+>
+> Any feedback on this new appock is welcome.
+>
+> Testing was done using v4l2-compliance and active decoding pipelines
+> on Meson platforms (like Hardkernel ODROID-N2+ and ODROID-C4) SBCs.
+>
+> The v4l2-compliance tests passed successfully via:
+> $ v4l2-compliance -s -v -d /dev/video0
+>
+> Pipelines were validated using the following GStreamer script.
+>
+> [1] https://gist.github.com/moonlinux/08295ba1f17ce7155550773f2d2cb6e5
+>
+> Previous changes:
+> v6: https://lore.kernel.org/all/20260530094326.11892-2-linux.amoon@gmail.com/
+>
 
-drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
-   =20
-Add support for the Lontium LT7911EXC bridge chip, which converts
-eDP input to MIPI DSI output using an internal firmware-controlled
-pipeline.
+I will review Sashiko's feedback. I will look into these suggestions and
+work on incorporating them to improve the code quality
 
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm=
-/bridge/lontium-lt7911exc.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-[ ... ]
-> +static void lt7911exc_firmware_upgrade_work(struct work_struct *work)
-> +{
-[ ... ]
-> +	if (ret)
-> +		dev_err(dev, "failed to read version after upgrade\n");
-> +
-> +	/* Notify DRM to re-trigger modeset after firmware upgrade */
-> +	if (lt7911exc->bridge.dev)
-> +		drm_kms_helper_hotplug_event(lt7911exc->bridge.dev);
-
-[Severity: High]
-Could this hotplug event fire before the upgrade flag is cleared?
-
-Since drm_kms_helper_hotplug_event() triggers modesets synchronously
-(or fast async), it might call lt7911exc_atomic_pre_enable() while
-lt7911exc->upgrade is still true. If that happens, pre_enable() will
-silently skip writing the hardware enable registers, resulting in a=20
-black screen.
-
-Would it be safer to clear the upgrade flag before firing the hotplug
-event?
-
-> +
-> +	goto out_release_fw;
-> +
-> +out_mcu_run:
-> +	scoped_guard(mutex, &lt7911exc->ocm_lock)
-> +		lt7911exc_inside_mcu_run(lt7911exc);
-> +
-> +out_release_fw:
-> +	release_firmware(fw);
-> +
-> +out_unlock_upgrade:
-> +	scoped_guard(mutex, &lt7911exc->ocm_lock) {
-> +		if (!lt7911exc->removed)
-> +			lt7911exc->upgrade =3D false;
-> +	}
-> +	mutex_unlock(&lt7911exc->upgrade_lock);
-> +}
-[ ... ]
-> +static int lt7911exc_dsi_host_attach(struct mipi_dsi_host *host, struct =
-mipi_dsi_device *dev)
-> +{
-> +	struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
-> +
-> +	if (dev->lanes > 4) {
-> +		dev_err(lt7911exc->dev, "unsupported number of data lanes(%u)\n", dev-=
->lanes);
-> +		return -EINVAL;
-> +	}
-> +
-> +	lt7911exc->output_bridge =3D devm_drm_of_get_bridge(lt7911exc->dev, hos=
-t->dev->of_node, 1, 0);
-
-[Severity: High]
-Could this devm allocation leak devres memory and cause a use-after-free?
-
-The devm_drm_of_get_bridge() allocation is tied to the host device
-(lt7911exc->dev), but it runs in lt7911exc_dsi_host_attach() which can
-be called repeatedly if the downstream DSI panel is unbound and rebound.
-
-Because the allocation is tied to the host device, it won't be freed until
-the host driver unbinds. This leaks memory on every panel rebind. Also, the
-retained drm_panel_bridge will hold a dangling pointer after the panel is
-destroyed, risking a use-after-free if accessed later.
-
-> +	if (IS_ERR(lt7911exc->output_bridge))
-> +		return PTR_ERR(lt7911exc->output_bridge);
-> +
-> +	/*
-> +	 * LT7911EXC requires the panel to be powered and ready before
-> +	 * enabling MIPI DSI output. Keep default order (panel first)
-> +	 * regardless of panel's prepare_prev_first setting, since the
-> +	 * chip's internal firmware handles panel initialization.
-> +	 */
-> +	lt7911exc->output_bridge->pre_enable_prev_first =3D false;
-
-[Severity: Medium]
-Is it safe to directly mutate the state of an external bridge object?
-
-This output_bridge is owned and managed by the downstream driver. Setting
-its pre_enable_prev_first field from this host driver violates object
-ownership and could override necessary configuration expected by the
-downstream driver.
-
-> +
-> +	drm_bridge_add(&lt7911exc->bridge);
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static void lt7911exc_remove(struct i2c_client *client)
-> +{
-> +	struct device *dev =3D &client->dev;
-> +	struct lt7911exc *lt7911exc =3D dev_get_drvdata(dev);
-> +
-> +	if (!lt7911exc)
-> +		return;
-> +
-> +	scoped_guard(mutex, &lt7911exc->ocm_lock) {
-> +		lt7911exc->removed =3D true;
-> +		lt7911exc->upgrade =3D true;
-> +	}
-> +
-> +	cancel_work_sync(&lt7911exc->work);
-> +
-> +	dev_set_drvdata(dev, NULL);
-> +
-> +	mipi_dsi_host_unregister(&lt7911exc->dsi_host);
-> +
-> +	if (!list_empty(&lt7911exc->bridge.list))
-> +		drm_bridge_remove(&lt7911exc->bridge);
-
-[Severity: High]
-Will this result in a double free of the bridge?
-
-During module unload, mipi_dsi_host_unregister() detaches all DSI children,
-which calls lt7911exc_dsi_host_detach(). That explicitly calls
-drm_bridge_remove() and moves the list node to the global
-bridge_lingering_list.
-
-When execution reaches this list_empty() check, it will evaluate to false
-because the node is on the lingering list (and its next pointer isn't
-pointing to itself). This causes drm_bridge_remove() to be erroneously
-called a second time on the same bridge, leading to a double free and
-double mutex_destroy().
-
-> +
-> +	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714064822.2753=
-289-1-syyang@lontium.com?part=3D2
+> Thanks
+> -Annad
+>
+Thanks
+-Anand
