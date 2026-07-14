@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10FBBC44501
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:45:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C75CC44510
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:45:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55C6110ED0A;
-	Tue, 14 Jul 2026 11:45:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67D7C10ED15;
+	Tue, 14 Jul 2026 11:45:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kYGEeu1q";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Kpxd7Lxf";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2D3410ED0A
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:45:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 771C010ED03
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:45:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784029514;
- bh=+oDh9PjXrbCMeDx9GVj6Fq71HnM2Op/ThSxNhsoWK2E=;
+ s=mail; t=1784029530;
+ bh=xVf5evvB8FvUTkLLMIdH5J561qbfcKhWFLWfJ3S1bPI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kYGEeu1qVVQAITLGmwMGSGU3tfj0yNtM7XvxOmZTYwCthZM1Yk4TcHlNM1BiZV+iy
- YEjfgjjUL6fcTOl/1YvmzblLxxfNCbXERDhymWnXiOA8v7Gl6C/svlurlzh+PtGYT7
- 9+EFOk0pVhK2BjPhyo/3u9aIk+D1wI9zX1l/Jx8t3LyT4g96S+usCMm5cRH6XJCgfD
- k0i9tIHqovB0tn8NWNZW1YFRFIkEbrf0yYCGO6qnjoU4jLbU/vuyB61oxKUdMki9o3
- rMjd3g2MxzlgC+0Iki144r3kGy74bbLmw9WzFtSo2ZXb2MapAn1sinwLZyJOl/zq9t
- b9ILK3B63zHMg==
+ b=Kpxd7Lxfm1d+n3Zqc5Cp5QDwyzhBw2qRRrDJHAx38FDPIN2Kpt5QP1I4/zoWo3FEU
+ 5d6cXAlXo0JBWf8KJwRDC93xyRliRrLZoR3o5Q1ccjTfP9Ncn7UPhykRozQsbrWO74
+ C09PmdgjlidhA5D1IVCf9b2hhKpgXPm1j8T9QwZUhIJ6BEHQ9jKSQAmLjYXilvf/0U
+ oy0pFYYLCRdU1U3wPmbxHBiIkdV/C/ICSXafaVpTHBf/E9/tky8eUpICuqGzusnmxr
+ QO5RPjSWltpQ48LjwziKr8/KDzH3Z1y95IHu1KqQx+lt94dO3aAwpBwyS6lLT9NRf8
+ CJz0fixDM5y9g==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id DEED417E0FC9;
- Tue, 14 Jul 2026 13:45:12 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 80E2B17E0956;
+ Tue, 14 Jul 2026 13:45:29 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
@@ -42,10 +42,10 @@ Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
  jason-jh.lin@mediatek.com, kernel@collabora.com
-Subject: [PATCH v2 33/46] drm/mediatek: Add support for Display Controller
- exDMA component
-Date: Tue, 14 Jul 2026 13:44:01 +0200
-Message-ID: <20260714114414.184512-34-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v2 46/46] drm/mediatek: mtk_drm_drv: Fail init only if all
+ paths are invalid
+Date: Tue, 14 Jul 2026 13:44:14 +0200
+Message-ID: <20260714114414.184512-47-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
 References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
@@ -66,497 +66,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for the Display Overlay extended DMA engine (exDMA) as
-found in the MediaTek Kompanio Ultra MT8196, Genio Pro 5100 MT8894,
-Dimensity 9400 MT6991 and others.
+Up until now, if not all display controller paths were valid, the
+driver would fail probing and refuse to bind components: while
+that was a good idea before, now that mediatek-drm gained much
+more flexibility, it is finally possible to gracefully handle
+this situation and register only the valid paths while leaving
+the invalid ones unregistered, without any crash.
 
-This is a DMA engine and its purpose is to configure the Display
-Controller to read data from DRAM and also includes color transfer
-functions to process pixels into a consistent color domain.
+Count how many output paths are found, and then count how many
+have failed probing: if there is at least one valid path, avoid
+erroring out, so that at least some outputs will just work.
+
+Of course, any path failing is not a clean situation and must be
+resolved: in this case, function mtk_crtc_create() still prints
+error messages so, even though some output works, that will not
+go unnoticed, as a quick check in kmsg will show the errors that
+made a certain path not to register.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/Makefile         |   1 +
- drivers/gpu/drm/mediatek/mtk_ddp_comp.c   |  14 +
- drivers/gpu/drm/mediatek/mtk_disp_drv.h   |  14 +
- drivers/gpu/drm/mediatek/mtk_disp_exdma.c | 344 ++++++++++++++++++++++
- drivers/gpu/drm/mediatek/mtk_drm_drv.c    |   3 +
- drivers/gpu/drm/mediatek/mtk_drm_drv.h    |   1 +
- include/linux/soc/mediatek/mtk-mmsys.h    |   1 +
- 7 files changed, 378 insertions(+)
- create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_exdma.c
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/mediatek/Makefile b/drivers/gpu/drm/mediatek/Makefile
-index a3c1285e8f33..5506f306a7b6 100644
---- a/drivers/gpu/drm/mediatek/Makefile
-+++ b/drivers/gpu/drm/mediatek/Makefile
-@@ -7,6 +7,7 @@ mediatek-drm-y := mtk_crtc.o \
- 		  mtk_disp_ccorr.o \
- 		  mtk_disp_color.o \
- 		  mtk_disp_dsc.o \
-+		  mtk_disp_exdma.o \
- 		  mtk_disp_gamma.o \
- 		  mtk_disp_merge.o \
- 		  mtk_disp_ovl.o \
-diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-index 0f4acb6b1100..b59b2b6ceed1 100644
---- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-@@ -308,6 +308,18 @@ static const struct mtk_ddp_comp_funcs ddp_dvo = {
- 	.encoder_index = mtk_dvo_encoder_index,
- };
- 
-+static const struct mtk_ddp_comp_funcs ddp_exdma = {
-+	.clk_enable = mtk_exdma_clk_enable,
-+	.clk_disable = mtk_exdma_clk_disable,
-+	.config = mtk_exdma_config,
-+	.start = mtk_exdma_start,
-+	.stop = mtk_exdma_stop,
-+	.layer_config = mtk_exdma_layer_config,
-+	.layer_nr = mtk_exdma_layer_nr,
-+	.get_formats = mtk_exdma_get_formats,
-+	.get_num_formats = mtk_exdma_get_num_formats,
-+};
-+
- static const struct mtk_ddp_comp_funcs ddp_gamma = {
- 	.clk_enable = mtk_gamma_clk_enable,
- 	.clk_disable = mtk_gamma_clk_disable,
-@@ -434,6 +446,7 @@ static const char * const mtk_ddp_comp_stem[MTK_DDP_COMP_TYPE_MAX] = {
- 	[MTK_DISP_COLOR] = "color",
- 	[MTK_DISP_DITHER] = "dither",
- 	[MTK_DISP_DSC] = "dsc",
-+	[MTK_DISP_EXDMA] = "exdma",
- 	[MTK_DISP_GAMMA] = "gamma",
- 	[MTK_DISP_MERGE] = "merge",
- 	[MTK_DISP_MUTEX] = "mutex",
-@@ -460,6 +473,7 @@ static const struct mtk_ddp_comp_funcs *mtk_ddp_funcs[MTK_DDP_COMP_TYPE_MAX] = {
- 	[MTK_DISP_COLOR]		= &ddp_color,
- 	[MTK_DISP_DITHER]		= &ddp_dither,
- 	[MTK_DISP_DSC]			= &ddp_dsc,
-+	[MTK_DISP_EXDMA]		= &ddp_exdma,
- 	[MTK_DISP_GAMMA]		= &ddp_gamma,
- 	[MTK_DISP_MERGE]		= &ddp_merge,
- 	[MTK_DISP_OD]			= &ddp_od,
-diff --git a/drivers/gpu/drm/mediatek/mtk_disp_drv.h b/drivers/gpu/drm/mediatek/mtk_disp_drv.h
-index e834bf17d86c..df4357b0954b 100644
---- a/drivers/gpu/drm/mediatek/mtk_disp_drv.h
-+++ b/drivers/gpu/drm/mediatek/mtk_disp_drv.h
-@@ -82,6 +82,20 @@ void mtk_dvo_start(struct device *dev);
- void mtk_dvo_stop(struct device *dev);
- unsigned int mtk_dvo_encoder_index(struct device *dev);
- 
-+int mtk_exdma_clk_enable(struct mtk_ddp_comp *comp);
-+void mtk_exdma_clk_disable(struct mtk_ddp_comp *comp);
-+void mtk_exdma_start(struct device *dev);
-+void mtk_exdma_stop(struct device *dev);
-+void mtk_exdma_config(struct mtk_ddp_comp *comp, unsigned int w,
-+			   unsigned int h, unsigned int vrefresh,
-+			   unsigned int bpc, struct cmdq_pkt *cmdq_pkt);
-+void mtk_exdma_layer_config(struct device *dev, unsigned int idx,
-+				 struct mtk_plane_state *state,
-+				 struct cmdq_pkt *cmdq_pkt);
-+unsigned int mtk_exdma_layer_nr(struct device *dev, int pipeline_index);
-+const u32 *mtk_exdma_get_formats(struct device *dev);
-+size_t mtk_exdma_get_num_formats(struct device *dev);
-+
- int mtk_gamma_clk_enable(struct mtk_ddp_comp *comp);
- void mtk_gamma_clk_disable(struct mtk_ddp_comp *comp);
- void mtk_gamma_config(struct mtk_ddp_comp *comp, unsigned int w,
-diff --git a/drivers/gpu/drm/mediatek/mtk_disp_exdma.c b/drivers/gpu/drm/mediatek/mtk_disp_exdma.c
-new file mode 100644
-index 000000000000..c06eb85ebc2b
---- /dev/null
-+++ b/drivers/gpu/drm/mediatek/mtk_disp_exdma.c
-@@ -0,0 +1,344 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2025 MediaTek Inc.
-+ * Copyright (c) 2026 Collabora Ltd.
-+ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-+ */
-+
-+#include <drm/drm_blend.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_fourcc.h>
-+#include <linux/clk.h>
-+#include <linux/component.h>
-+#include <linux/module.h>
-+#include <linux/of_address.h>
-+#include <linux/of_device.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/soc/mediatek/mtk-cmdq.h>
-+
-+#include "mtk_disp_drv.h"
-+#include "mtk_disp_ovl.h"
-+#include "mtk_drm_drv.h"
-+
-+#define DISP_REG_OVL_EXDMA_EN_CON		0xc
-+#  define OVL_EXDMA_OP_8BIT_MODE			BIT(4)
-+#  define OVL_EXDMA_HG_FOVL_EXDMA_CK_ON			BIT(8)
-+#  define OVL_EXDMA_HF_FOVL_EXDMA_CK_ON			BIT(10)
-+#define DISP_REG_OVL_EXDMA_DATAPATH_CON		0x014
-+#  define OVL_EXDMA_DATAPATH_CON_LAYER_SMI_ID_EN	BIT(0)
-+#  define OVL_EXDMA_DATAPATH_CON_GCLAST_EN		BIT(24)
-+#  define OVL_EXDMA_DATAPATH_CON_HDR_GCLAST_EN		BIT(25)
-+#define DISP_REG_OVL_EXDMA_EN			0x020
-+#  define OVL_EXDMA_EN					BIT(0)
-+#  define OVL_EXDMA_FORCE_RELAY_MODE			BIT(4)
-+#define DISP_REG_OVL_EXDMA_RST			0x024
-+#  define OVL_EXDMA_RST					BIT(0)
-+#define DISP_REG_OVL_EXDMA_SRC_CON		0x02c
-+#  define OVL_EXDMA_FORCE_CONSTANT_LAYER		BIT(4)
-+#define DISP_REG_OVL_EXDMA_ROI_SIZE		0x030
-+#define DISP_REG_OVL_EXDMA_L0_EN		0x040
-+#  define OVL_EXDMA_L0_EN				BIT(0)
-+#  define OVL_EXDMA_L0_SRC				GENMASK(9, 8)
-+#  define OVL_EXDMA_L0_SRC_BLENDER			0
-+#  define OVL_EXDMA_L0_SRC_COLOR			1
-+#  define OVL_EXDMA_L0_SRC_UFOD				2
-+#  define OVL_EXDMA_L0_SRC_PQ				3
-+#define DISP_REG_OVL_EXDMA_L0_OFFSET		0x044
-+#define DISP_REG_OVL_EXDMA_SRC_SIZE		0x048
-+#define DISP_REG_OVL_EXDMA_L0_CLRFMT		0x050
-+#  define OVL_EXDMA_CON_FLD_CLRFMT			GENMASK(3, 0)
-+#  define OVL_EXDMA_CON_CLRFMT_MAN			BIT(4)
-+#  define OVL_EXDMA_CON_FLD_CLRFMT_NB			GENMASK(9, 8)
-+#  define OVL_EXDMA_CON_CLRFMT_NB_10_BIT		BIT(8)
-+#  define OVL_EXDMA_CON_BYTE_SWAP			BIT(16)
-+#  define OVL_EXDMA_CON_RGB_SWAP			BIT(17)
-+#define DISP_REG_OVL_EXDMA_RDMA0_CTRL		0x100
-+#  define OVL_EXDMA_RDMA0_EN				BIT(0)
-+#define DISP_REG_OVL_EXDMA_RDMA_BURST_CON1	0x1f4
-+#  define OVL_EXDMA_RDMA_BURST_CON1_BURST16_EN		BIT(28)
-+#  define OVL_EXDMA_RDMA_BURST_CON1_DDR_EN		BIT(30)
-+#  define OVL_EXDMA_RDMA_BURST_CON1_DDR_ACK_EN		BIT(31)
-+#define DISP_REG_OVL_EXDMA_DUMMY_REG		0x200
-+#  define OVL_EXDMA_EXT_DDR_EN_OPT			BIT(2)
-+#  define OVL_EXDMA_FORCE_EXT_DDR_EN			BIT(3)
-+#define DISP_REG_OVL_EXDMA_GDRDY_PRD		0x208
-+#define DISP_REG_OVL_EXDMA_PITCH_MSB		0x2f0
-+#  define OVL_EXDMA_L0_SRC_PITCH_MSB_MASK		GENMASK(3, 0)
-+#define DISP_REG_OVL_EXDMA_PITCH		0x2f4
-+#  define OVL_EXDMA_L0_CONST_BLD			BIT(28)
-+#  define OVL_EXDMA_L0_SRC_PITCH_MASK			GENMASK(15, 0)
-+#define DISP_REG_OVL_EXDMA_L0_GUSER_EXT		0x2fc
-+#  define OVL_EXDMA_RDMA0_L0_VCSEL			BIT(5)
-+#  define OVL_EXDMA_RDMA0_HDR_L0_VCSEL			BIT(21)
-+#define DISP_REG_OVL_EXDMA_CON			0x300
-+#  define OVL_EXDMA_CON_FLD_INT_MTX_SEL			GENMASK(19, 16)
-+#  define OVL_EXDMA_CON_INT_MTX_BT601_TO_RGB		6
-+#  define OVL_EXDMA_CON_INT_MTX_BT709_TO_RGB		7
-+#  define OVL_EXDMA_CON_INT_MTX_EN			BIT(27)
-+#define DISP_REG_OVL_EXDMA_ADDR			0xf40
-+#define DISP_REG_OVL_EXDMA_MOUT			0xff0
-+#  define OVL_EXDMA_MOUT_OUT_DATA			BIT(0)
-+#  define OVL_EXDMA_MOUT_BGCLR_OUT			BIT(1)
-+
-+#define OVL_EXDMA_MAX_SIZE			(8191)
-+
-+struct mtk_disp_exdma {
-+	void __iomem *regs;
-+	struct clk *clk;
-+	struct cmdq_client_reg cmdq_reg;
-+};
-+
-+static unsigned int mtk_exdma_color_convert(unsigned int color_encoding)
-+{
-+	switch (color_encoding) {
-+	default:
-+	case DRM_COLOR_YCBCR_BT709:
-+		return FIELD_PREP_CONST(OVL_EXDMA_CON_FLD_INT_MTX_SEL,
-+					OVL_EXDMA_CON_INT_MTX_BT709_TO_RGB);
-+	case DRM_COLOR_YCBCR_BT601:
-+		return FIELD_PREP_CONST(OVL_EXDMA_CON_FLD_INT_MTX_SEL,
-+					OVL_EXDMA_CON_INT_MTX_BT601_TO_RGB);
-+	}
-+}
-+
-+void mtk_exdma_start(struct device *dev)
-+{
-+	struct mtk_disp_exdma *priv = dev_get_drvdata(dev);
-+	const u32 val = OVL_EXDMA_DATAPATH_CON_LAYER_SMI_ID_EN |
-+			OVL_EXDMA_DATAPATH_CON_HDR_GCLAST_EN |
-+			OVL_EXDMA_DATAPATH_CON_GCLAST_EN;
-+
-+	writel(val, priv->regs + DISP_REG_OVL_EXDMA_DATAPATH_CON);
-+	writel(OVL_EXDMA_EN, priv->regs + DISP_REG_OVL_EXDMA_EN);
-+}
-+
-+void mtk_exdma_stop(struct device *dev)
-+{
-+	struct mtk_disp_exdma *priv = dev_get_drvdata(dev);
-+
-+	writel(0, priv->regs + DISP_REG_OVL_EXDMA_EN);
-+	writel(0, priv->regs + DISP_REG_OVL_EXDMA_DATAPATH_CON);
-+	writel(OVL_EXDMA_RST, priv->regs + DISP_REG_OVL_EXDMA_RST);
-+	writel(0, priv->regs + DISP_REG_OVL_EXDMA_RST);
-+}
-+
-+void mtk_exdma_layer_config(struct device *dev, unsigned int idx,
-+				 struct mtk_plane_state *state,
-+				 struct cmdq_pkt *cmdq_pkt)
-+{
-+	struct mtk_disp_exdma *priv = dev_get_drvdata(dev);
-+	struct mtk_plane_pending_state *pending = &state->pending;
-+	const struct drm_format_info *fmt_info = drm_format_info(pending->format);
-+	const u32 blend_mode = mtk_ovl_get_blend_mode(state, MTK_OVL_SUPPORT_BLEND_MODES);
-+	const bool csc_enable = (fmt_info) ? fmt_info->is_yuv : false;
-+	u32 val;
-+
-+	if (!pending->enable || pending->height == 0 || pending->width == 0 ||
-+	    pending->x > OVL_EXDMA_MAX_SIZE || pending->y > OVL_EXDMA_MAX_SIZE) {
-+		mtk_ddp_write_mask(cmdq_pkt, 0, &priv->cmdq_reg, priv->regs,
-+				   DISP_REG_OVL_EXDMA_RDMA0_CTRL, OVL_EXDMA_RDMA0_EN);
-+		mtk_ddp_write_mask(cmdq_pkt, 0, &priv->cmdq_reg, priv->regs,
-+				   DISP_REG_OVL_EXDMA_L0_EN, OVL_EXDMA_L0_EN);
-+		return;
-+	}
-+
-+	/* Set layer Width and Height */
-+	val = ((pending->height & GENMASK(15, 0)) << 16) | (pending->width & GENMASK(15, 0));
-+	mtk_ddp_write(cmdq_pkt, val, &priv->cmdq_reg,
-+		      priv->regs, DISP_REG_OVL_EXDMA_ROI_SIZE);
-+
-+	mtk_ddp_write(cmdq_pkt, val, &priv->cmdq_reg,
-+		      priv->regs, DISP_REG_OVL_EXDMA_SRC_SIZE);
-+
-+	/* The layer X/Y */
-+	mtk_ddp_write(cmdq_pkt,
-+		      ((pending->y & GENMASK(15, 0)) << 16) | (pending->x & GENMASK(15, 0)),
-+		      &priv->cmdq_reg, priv->regs, DISP_REG_OVL_EXDMA_L0_OFFSET);
-+
-+	/* The memory address */
-+	mtk_ddp_write(cmdq_pkt, pending->addr, &priv->cmdq_reg,
-+		      priv->regs, DISP_REG_OVL_EXDMA_ADDR);
-+
-+	/* ...and the pitch. */
-+	val = pending->pitch;
-+	if (mtk_ovl_is_ignore_pixel_alpha(state, blend_mode))
-+		val |= OVL_EXDMA_L0_CONST_BLD;
-+
-+	mtk_ddp_write_mask(cmdq_pkt, val, &priv->cmdq_reg, priv->regs, DISP_REG_OVL_EXDMA_PITCH,
-+			   OVL_EXDMA_L0_CONST_BLD | OVL_EXDMA_L0_SRC_PITCH_MASK);
-+	mtk_ddp_write_mask(cmdq_pkt, pending->pitch >> 16, &priv->cmdq_reg, priv->regs,
-+			   DISP_REG_OVL_EXDMA_PITCH_MSB, OVL_EXDMA_L0_SRC_PITCH_MSB_MASK);
-+
-+	val = mtk_exdma_color_convert(pending->color_encoding);
-+	val |= csc_enable ? OVL_EXDMA_CON_INT_MTX_EN : 0;
-+	mtk_ddp_write_mask(cmdq_pkt, val, &priv->cmdq_reg, priv->regs, DISP_REG_OVL_EXDMA_CON,
-+			   OVL_EXDMA_CON_FLD_INT_MTX_SEL | OVL_EXDMA_CON_INT_MTX_EN);
-+
-+	val = mtk_ovl_fmt_convert(pending->format, blend_mode, true, false, 0,
-+				  OVL_EXDMA_CON_CLRFMT_MAN, OVL_EXDMA_CON_BYTE_SWAP,
-+				  OVL_EXDMA_CON_RGB_SWAP);
-+	if (mtk_ovl_is_10bit_rgb(pending->format))
-+		val |= OVL_EXDMA_CON_CLRFMT_NB_10_BIT;
-+	mtk_ddp_write_mask(cmdq_pkt, val, &priv->cmdq_reg, priv->regs,
-+			   DISP_REG_OVL_EXDMA_L0_CLRFMT,
-+			   OVL_EXDMA_CON_RGB_SWAP | OVL_EXDMA_CON_BYTE_SWAP |
-+			   OVL_EXDMA_CON_CLRFMT_MAN | OVL_EXDMA_CON_FLD_CLRFMT |
-+			   OVL_EXDMA_CON_FLD_CLRFMT_NB);
-+
-+	/* Virtual Channel selection */
-+	val = OVL_EXDMA_RDMA0_L0_VCSEL;
-+	mtk_ddp_write_mask(cmdq_pkt, val, &priv->cmdq_reg, priv->regs,
-+			   DISP_REG_OVL_EXDMA_L0_GUSER_EXT, val);
-+
-+	mtk_ddp_write_mask(cmdq_pkt, OVL_EXDMA_RDMA0_EN, &priv->cmdq_reg, priv->regs,
-+			   DISP_REG_OVL_EXDMA_RDMA0_CTRL, OVL_EXDMA_RDMA0_EN);
-+	mtk_ddp_write_mask(cmdq_pkt, OVL_EXDMA_L0_EN, &priv->cmdq_reg, priv->regs,
-+			   DISP_REG_OVL_EXDMA_L0_EN, OVL_EXDMA_L0_EN);
-+}
-+
-+unsigned int mtk_exdma_layer_nr(struct device *dev, int pipeline_index)
-+{
-+	return 1;
-+}
-+
-+void mtk_exdma_config(struct mtk_ddp_comp *comp, unsigned int w,
-+			   unsigned int h, unsigned int vrefresh,
-+			   unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
-+{
-+	struct mtk_disp_exdma *priv = dev_get_drvdata(comp->dev);
-+	unsigned int tmp, val, mask;
-+
-+	/*
-+	 * This configuration enables dynamic power switching mechanism for EXDMA,
-+	 * also known as "SRT mode".
-+	 * Such configuration allows the system to achieve better power efficiency.
-+	 */
-+	val = OVL_EXDMA_RDMA_BURST_CON1_BURST16_EN | OVL_EXDMA_RDMA_BURST_CON1_DDR_ACK_EN;
-+	mask = OVL_EXDMA_RDMA_BURST_CON1_BURST16_EN | OVL_EXDMA_RDMA_BURST_CON1_DDR_EN |
-+	       OVL_EXDMA_RDMA_BURST_CON1_DDR_ACK_EN;
-+	tmp = readl(priv->regs + DISP_REG_OVL_EXDMA_RDMA_BURST_CON1);
-+	tmp = (tmp & ~mask) | val;
-+	writel(tmp, priv->regs + DISP_REG_OVL_EXDMA_RDMA_BURST_CON1);
-+
-+	/*
-+	 * The dummy register is used in the configuration of the EXDMA engine to
-+	 * signal ddren_request, and get ddren_ack before accessing the DRAM to
-+	 * ensure data transfers occur normally.
-+	 */
-+	val = OVL_EXDMA_EXT_DDR_EN_OPT | OVL_EXDMA_FORCE_EXT_DDR_EN;
-+	writel(val, priv->regs + DISP_REG_OVL_EXDMA_DUMMY_REG);
-+	val = OVL_EXDMA_MOUT_BGCLR_OUT;
-+	mask = OVL_EXDMA_MOUT_BGCLR_OUT | OVL_EXDMA_MOUT_OUT_DATA;
-+	tmp = readl(priv->regs + DISP_REG_OVL_EXDMA_MOUT);
-+	tmp = (tmp & ~mask) | val;
-+	writel(tmp, priv->regs + DISP_REG_OVL_EXDMA_MOUT);
-+	writel(GENMASK(31, 0), priv->regs + DISP_REG_OVL_EXDMA_GDRDY_PRD);
-+	val = OVL_EXDMA_HG_FOVL_EXDMA_CK_ON | OVL_EXDMA_HF_FOVL_EXDMA_CK_ON |
-+	      OVL_EXDMA_OP_8BIT_MODE;
-+	writel(val, priv->regs + DISP_REG_OVL_EXDMA_EN_CON);
-+	writel(OVL_EXDMA_RDMA0_L0_VCSEL, priv->regs + DISP_REG_OVL_EXDMA_L0_GUSER_EXT);
-+}
-+
-+const u32 *mtk_exdma_get_formats(struct device *dev)
-+{
-+	return mt8195_ovl_formats;
-+}
-+
-+size_t mtk_exdma_get_num_formats(struct device *dev)
-+{
-+	return mt8195_ovl_formats_len;
-+}
-+
-+int mtk_exdma_clk_enable(struct mtk_ddp_comp *comp)
-+{
-+	struct mtk_disp_exdma *exdma = dev_get_drvdata(comp->dev);
-+
-+	return clk_prepare_enable(exdma->clk);
-+}
-+
-+void mtk_exdma_clk_disable(struct mtk_ddp_comp *comp)
-+{
-+	struct mtk_disp_exdma *exdma = dev_get_drvdata(comp->dev);
-+
-+	clk_disable_unprepare(exdma->clk);
-+}
-+
-+static int mtk_exdma_bind(struct device *dev, struct device *master,
-+			       void *data)
-+{
-+	return 0;
-+}
-+
-+static void mtk_exdma_unbind(struct device *dev, struct device *master,
-+				  void *data)
-+{
-+}
-+
-+static const struct component_ops mtk_disp_exdma_component_ops = {
-+	.bind	= mtk_exdma_bind,
-+	.unbind = mtk_exdma_unbind,
-+};
-+
-+static int mtk_disp_exdma_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct mtk_disp_exdma *priv;
-+	int ret = 0;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->regs = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(priv->regs))
-+		return dev_err_probe(dev, PTR_ERR(priv->regs), "Cannot get reg resource\n");
-+
-+	priv->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(priv->clk))
-+		return dev_err_probe(dev, PTR_ERR(priv->clk), "Cannot get clocks\n");
-+
-+#if IS_REACHABLE(CONFIG_MTK_CMDQ)
-+	ret = cmdq_dev_get_client_reg(dev, &priv->cmdq_reg, 0);
-+	if (ret)
-+		dev_dbg(dev, "No mediatek,gce-client-reg\n");
-+#endif
-+	platform_set_drvdata(pdev, priv);
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = component_add(dev, &mtk_disp_exdma_component_ops);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add component\n");
-+
-+	return 0;
-+}
-+
-+static void mtk_disp_exdma_remove(struct platform_device *pdev)
-+{
-+	component_del(&pdev->dev, &mtk_disp_exdma_component_ops);
-+}
-+
-+static const struct of_device_id mtk_disp_exdma_driver_dt_match[] = {
-+	{ .compatible = "mediatek,mt8196-disp-exdma", },
-+	{ /* sentinel */ },
-+};
-+MODULE_DEVICE_TABLE(of, mtk_disp_exdma_driver_dt_match);
-+
-+struct platform_driver mtk_disp_exdma_driver = {
-+	.probe = mtk_disp_exdma_probe,
-+	.remove = mtk_disp_exdma_remove,
-+	.driver = {
-+		.name = "mediatek-disp-exdma",
-+		.owner = THIS_MODULE,
-+		.of_match_table = mtk_disp_exdma_driver_dt_match,
-+	},
-+};
-+
-+MODULE_AUTHOR("AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>");
-+MODULE_AUTHOR("Nancy Lin <nancy.lin@mediatek.com>");
-+MODULE_DESCRIPTION("MediaTek Display Controller extended DMA Engine (exDMA) Driver");
-+MODULE_LICENSE("GPL");
 diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index 75791b57a885..757d3594e4dd 100644
+index 82d844b6abf7..7c9cb50909c8 100644
 --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
 +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -523,6 +523,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_DITHER },
- 	{ .compatible = "mediatek,mt8195-disp-dsc",
- 	  .data = (void *)MTK_DISP_DSC },
-+	{ .compatible = "mediatek,mt8196-disp-exdma",
-+	  .data = (void *)MTK_DISP_EXDMA },
- 	{ .compatible = "mediatek,mt8167-disp-gamma",
- 	  .data = (void *)MTK_DISP_GAMMA, },
- 	{ .compatible = "mediatek,mt8173-disp-gamma",
-@@ -1060,6 +1062,7 @@ static struct platform_driver * const mtk_drm_drivers[] = {
- 	&mtk_disp_ccorr_driver,
- 	&mtk_disp_color_driver,
- 	&mtk_disp_dsc_driver,
-+	&mtk_disp_exdma_driver,
- 	&mtk_disp_gamma_driver,
- 	&mtk_disp_merge_driver,
- 	&mtk_disp_ovl_adaptor_driver,
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.h b/drivers/gpu/drm/mediatek/mtk_drm_drv.h
-index f36888fd7244..4ef61c1e33e3 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.h
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.h
-@@ -77,6 +77,7 @@ extern struct platform_driver mtk_disp_blender_driver;
- extern struct platform_driver mtk_disp_ccorr_driver;
- extern struct platform_driver mtk_disp_color_driver;
- extern struct platform_driver mtk_disp_dsc_driver;
-+extern struct platform_driver mtk_disp_exdma_driver;
- extern struct platform_driver mtk_disp_gamma_driver;
- extern struct platform_driver mtk_disp_merge_driver;
- extern struct platform_driver mtk_disp_ovl_adaptor_driver;
-diff --git a/include/linux/soc/mediatek/mtk-mmsys.h b/include/linux/soc/mediatek/mtk-mmsys.h
-index b32f0c92f040..d5c082d920c4 100644
---- a/include/linux/soc/mediatek/mtk-mmsys.h
-+++ b/include/linux/soc/mediatek/mtk-mmsys.h
-@@ -94,6 +94,7 @@ enum mtk_ddp_comp_type {
- 	MTK_DISP_DITHER,
- 	MTK_DISP_DSC,
- 	MTK_DISP_ETHDR_MIXER,
-+	MTK_DISP_EXDMA,
- 	MTK_DISP_GAMMA,
- 	MTK_DISP_MERGE,
- 	MTK_DISP_MUTEX,
+@@ -394,6 +394,8 @@ static int mtk_drm_kms_init(struct drm_device *drm)
+ 	struct mtk_drm_private *priv_n;
+ 	struct device *dma_dev = NULL;
+ 	struct drm_crtc *crtc;
++	int num_failed = 0;
++	int num_paths = 0;
+ 	int ret, i, j;
+ 
+ 	if (drm_firmware_drivers_only())
+@@ -460,15 +462,29 @@ static int mtk_drm_kms_init(struct drm_device *drm)
+ 			if (!priv_n->data->output_paths[i].len)
+ 				continue;
+ 
++			num_paths++;
++
++			dev_vdbg(drm->dev,
++				 "[CTRL%d-CRTC%d] Path Len:%d, Controller Order:%u\n",
++				 j, i, priv_n->data->output_paths[i].len,
++				 priv_n->data->output_paths[i].order);
++
+ 			ret = mtk_crtc_create(drm, i, j,
+ 					      priv_n->data->conn_routes,
+ 					      priv_n->data->num_conn_routes);
++			if (ret == 0)
++				break;
+ 
+-			if (ret)
+-				goto err_component_unbind;
++			num_failed++;
+ 		}
+ 	}
+ 
++	if (num_failed == num_paths) {
++		dev_err(drm->dev, "No valid Display Controller path! Going out.\n");
++		ret = -ENODEV;
++		goto err_component_unbind;
++	}
++
+ 	/* IGT will check if the cursor size is configured */
+ 	drm->mode_config.cursor_width = 512;
+ 	drm->mode_config.cursor_height = 512;
 -- 
 2.54.0
 
