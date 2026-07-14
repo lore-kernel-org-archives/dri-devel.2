@@ -4,88 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A1E6C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 13:14:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54D82C44508
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 13:21:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EDB810E062;
-	Tue, 14 Jul 2026 13:14:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABFCA10E6BE;
+	Tue, 14 Jul 2026 13:21:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b/B9V8GF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P6CxU0Ar";
 	dkim-atps=neutral
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 271B710E062
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 13:14:03 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id
- 4fb4d7f45d1cf-697bd21fdc2so1731352a12.1
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 06:14:03 -0700 (PDT)
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com
+ [209.85.219.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EBB310E6C3
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 13:21:36 +0000 (UTC)
+Received: by mail-qv1-f41.google.com with SMTP id
+ 6a1803df08f44-8e5be46f663so7538296d6.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 06:21:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784034841; x=1784639641; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ny5+3yiTMDoQJssQpPJVjH5n2qiBSxJZzbYo0RMA4qo=;
- b=b/B9V8GFlzD86g8jMhR/oJ2tfjIUtWNwwMtYh8pQoDPwMmrxlva4yqNwl6VUC18UNr
- CRE3Lio7ADjbKce/MDsM3nj2j2NuSEj8B9viIYVc/noChR11EH3+Vo8sV+sav6Svc5Uc
- UVpRAtqiSdgzzR5aOH5QSPi62Fzf0z3EAAY2ugDkpJO8VVPHTzLPD+4i/ARdQqxfzJ+m
- ow1iVd2jahcZ+KwYYuwZRAy2fXLtbahEHihaINoOXKAuUBt5lSYpD6rSRHvUmMVZRpyl
- xe2ldynkculPXn29NCyj21EGVoSRY6RyrJJJEO/L879yeWysntRp/5XBsepxa8dPB7zV
- X9HA==
+ d=gmail.com; s=20251104; t=1784035295; x=1784640095; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Ljyj9DkB5xbAZqgYsTFaAqTNeOS834qmzh1t0MU7eq0=;
+ b=P6CxU0Are2FDh+IOSod1sXiggNUR5PalhfNDzxfyTQZarifv3XzPPVn3Hl64KeEBxQ
+ mhT7mXzyNz4FVsV4KqqoCYu33UzzH+xFaczimIYSM03/s8+FiNGVAXm4glgjSX17OlpA
+ NXKI1Neducy4ofhc3ORR3Dm3z5BCOwBUvF5jEPnCG6ssrN3Ey2ZWrK7Q/4v7B92fcx9z
+ tv3LmZbFQfz7urkKzbSnOcwieyQTM3FqIZaBa3GQ5NkjRiTEuLq4FagHj2oTYu1SkxTZ
+ ssIREKdVbJ42fQON8FfNeLBSq06+eZRi/630Wab6VUMPFnlA7oPCoZTSRq7bQqcL9nL6
+ iTmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784034841; x=1784639641;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ny5+3yiTMDoQJssQpPJVjH5n2qiBSxJZzbYo0RMA4qo=;
- b=iXjGpzKfER5MainI3YPDHsac1bqOM67o3n4WEgqR1UMzcVmoqT9diuVtIBSBTXtuGd
- +zV0UAxFfYeI0UGofl8PFe7zigH/feaI1dgvaJJF7MZ5WJjkU6EBH3azd/+3DAj9XeIR
- r/yALdZUsfWawQg3LUH7BOUl1/Wjr4pjqm8ePplj6XumT5i5vlA9sngC9IG5+Uify/9b
- 37lonvMA8IFX1qyE+sYd1Lfi8icgeuBSPbBzyGRIhpulSB9yT+SKjxj4ltsabmxn7fyA
- 1z3f4tx04obE6K55VlkiaD0ba4MdiPL2n2mmYhW7hfnbk9xut7RiO1DZqMF/TgEfr3dJ
- 2Gsw==
+ d=1e100.net; s=20251104; t=1784035295; x=1784640095;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Ljyj9DkB5xbAZqgYsTFaAqTNeOS834qmzh1t0MU7eq0=;
+ b=EVXizCEPL0InVO4qBB72EZXJod1BzsSfdSP8EV70u1JS70YbsXRZSRVmABsY5NulKO
+ mBHOqKjGmnqy0Km7T+53VR1Sw+xWlzQUCPKLPzYsiCBz3+AlZtoBv3xhpTZYWfaItjfU
+ 0jG6hTzdmqyPyPBZRG+ZuqCBapN/iq3aY6mOI4rIGZWEpZzVIrrrOrHxYt8/LnntDMl/
+ /Suu38KgsHpIz7h6lVmiXVDEx1+vVmsC6LggGJ+1Wt3nbMgzHkRdj5CQLKtVAW02MMFP
+ yTw35+hbn5KtP0y2VDd2iTliKxlKqXtmxB9sZ6b87a1vGTkU034TkquM6pMR158h2rVn
+ 7bPA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqSihaF7ZkAUyUvzPKCSsIdQvNOuN8eMFf2GfCQOLAyDvxMeNj+8Mr4eXTRRxpn9gpOOXID6dRP5xg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YykFI0+Tuvb4k4IZtyvvYUYK5heQntsRfjdp/iKs0ynVzOqqpF+
- 3oLM+YNrILhZ4CVLpEHSf4GUbCJobQQF1IQ2fdkIIOYj9GBwxsjqQutM
-X-Gm-Gg: AfdE7cl07efrviqnil3vhbS5RFfRAyYeswPlVxYRuNTXhH0LYGbYQ/1s7rBdY2f8ecs
- v0knxkwF4hX4Flhw/rk7NHXufRjvzDnjeFWrhRFM4LwqA618c2cNPOFu0SlU2db6Y71NSaAMHDb
- zlxUJqP3NYqPaSoSAEHfuRdVxvNCpYM5wyngjONy+VZSEj9Bkd6o4D/K6BxwYkAfgyaGyLepwl7
- aEKTjH4WvPIwIUu6zRZQr8au1sn8+UUovdgjBGbDklZlbAlPih+rsDEEI5usn7Gl2jYKseLIs5W
- a98yg/FwvPq982He6F75INGeXGUQyMPJa417qrgP8NUx221w3HTAgc6uxx4eYaGVNGCbRbnd4wm
- NVH484F6PE1Ibf+wbuGlYj3lA5jBU6i2yyteJr7ChA5yNt0c/hGhD8HfPV2FY+pqyfwi3XsRQBe
- PHRQGhGuI9WfhR0z6iUvMaY78SZTGI0TnKYjCQ+A+M9qpG7Cgk/g==
-X-Received: by 2002:a05:6402:1e8c:b0:683:e394:cc0c with SMTP id
- 4fb4d7f45d1cf-69c5ef84424mr6428415a12.4.1784034841275; 
- Tue, 14 Jul 2026 06:14:01 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ AHgh+RqRaTyLbOQWQorsWkhHkii40uXKNbCF6ELTBA93GUDh230rVDfWFD2Ted8CjM68NfFVsC1tLJSwNtw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzz5GqeW0pNYyl9GiGLRgiXi5mQkoQwrUZlZy7HyhEU0k65hV+j
+ BtHO6AwM24Nl4mUIGIOyoTFvFDxWpwDhtbEoZGhHuNXbm7jDllgIdk0/
+X-Gm-Gg: AfdE7cn62h1w3XaTZMe+gegBWdaxJobkASRISXQ0hu8SjdPw0578OzTYaF3YeoSvA61
+ USmASA29p4R36g0Slw0TxWyOplCuPIhTFecYDdAztBiuDdlj7rvDcZqqFQczWNYJ8/il13X50vw
+ +qrMC6z7Vpv2CypMUp4yUplMRZIBj33Rg3Nx5xVrjqV4DmP99lGFdLeCbOLR4ryhUm185L2i7m9
+ AvVLBTdhA3WWNLefIghHINAgsaKzYwtdTxZ/eYLVzOmfE4vMo82LttynozEXHrx+Dv6zgz/lTwA
+ ZDMah5F069js0Lue9mUdKyVBU3/3C764IHveL/LzShXHk7G4LrhkkTb33cigunDA/91+9ooX9DZ
+ RJf2gWyjU+pyNC6GXlAAq432B3TnQZApl+1OqylbG6T83mNaOTRGWroIvOv7aBkiVnNZKjhI=
+X-Received: by 2002:a05:6214:27c3:b0:8fd:6de3:dd8b with SMTP id
+ 6a1803df08f44-90402b67f93mr150157116d6.65.1784035295372; 
+ Tue, 14 Jul 2026 06:21:35 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1000::f280])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-69cd2952836sm1533316a12.27.2026.07.14.06.14.00
+ 6a1803df08f44-9063df4319asm66297986d6.38.2026.07.14.06.21.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jul 2026 06:14:00 -0700 (PDT)
-Date: Tue, 14 Jul 2026 14:13:59 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Baineng Shou <shoubaineng@gmail.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, "T . J . Mercier" <tjmercier@google.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey
- <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, Sandeep Patil
- <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>, Srinivas Kandagatla
- <srini@kernel.org>, stable@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dma-buf: dma-heap: don't publish fd before
- copy_to_user() succeeds
-Message-ID: <20260714141359.7758575d@pumpkin>
-In-Reply-To: <20260714114654.3885457-2-shoubaineng@gmail.com>
-References: <CABdmKX21NHc2=9Sk2F-BFpu6is0vTg-QXLE+wiFNEPdsWWjvog@mail.gmail.com>
- <20260714114654.3885457-1-shoubaineng@gmail.com>
- <20260714114654.3885457-2-shoubaineng@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+ Tue, 14 Jul 2026 06:21:34 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>
+Subject: [PATCH] drm/tegra: Finalize GEM object on initialization failure
+Date: Tue, 14 Jul 2026 21:19:22 +0800
+Message-ID: <20260714131923.1575860-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,35 +88,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 14 Jul 2026 19:46:53 +0800
-Baineng Shou <shoubaineng@gmail.com> wrote:
+tegra_bo_alloc_object() allocates bo and passes its embedded GEM object
+to drm_gem_object_init().
 
-> DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
-> caller's fd table via dma_buf_fd() -> fd_install() before
-> dma_heap_ioctl() copies the result back to userspace.  If the trailing
-> copy_to_user() fails, userspace never learns the fd number, but the
-> fd (and the underlying dma-buf reference) are already visible to
-> other threads in the same process and are leaked for the lifetime of
-> the process.
->=20
-> The obvious "close it on the failure path" fix is unsafe: once
-> fd_install() has run, another thread can already dup() the fd, send
-> it via SCM_RIGHTS, or close() it and let its number be reused, so a
-> subsequent close_fd() from the ioctl path can operate on an unrelated
-> file.  This was pointed out by Christian K=C3=B6nig on v1 [1].
-...
+drm_gem_object_init() initializes the GEM private state before creating
+the shmem backing file. If the file creation fails, it returns an error
+with the reservation object and GPUVA mutex still initialized.
 
-My 2c:
+The current error path directly frees bo, bypassing the matching GEM
+private-object cleanup. Finalize the partially initialized GEM object
+with drm_gem_private_object_fini() before freeing bo.
 
-The other option is just to leave it as a 'problem for user space'.
-No reasonable program is going to handle the EFAULT return by doing
-anything other than exiting.
-Even getting an EFAULT is really an indication that the application
-is already in a real mess - most likely with a badly corrupted heap.
+This issue was found by a static analysis tool I am developing.
 
-Anything else leaves error recovery code in the kernel that is pretty
-much never executed and open to a variety of bugs.
-While the recovery here is probably ok, there are some sockopt calls
-where it is all more complicated.
+Fixes: c28d4a317fef ("drm/tegra: gem: Extract tegra_bo_alloc_object()")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/gpu/drm/tegra/gem.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-	David
+diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+index 436394e04812..eb513cb7521c 100644
+--- a/drivers/gpu/drm/tegra/gem.c
++++ b/drivers/gpu/drm/tegra/gem.c
+@@ -314,8 +314,10 @@ static struct tegra_bo *tegra_bo_alloc_object(struct drm_device *drm,
+ 	size = round_up(size, PAGE_SIZE);
+ 
+ 	err = drm_gem_object_init(drm, &bo->gem, size);
+-	if (err < 0)
++	if (err < 0) {
++		drm_gem_private_object_fini(&bo->gem);
+ 		goto free;
++	}
+ 
+ 	err = drm_gem_create_mmap_offset(&bo->gem);
+ 	if (err < 0)
+-- 
+2.43.0
+
