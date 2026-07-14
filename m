@@ -4,44 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25FFBC44501
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 13:57:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03CFCC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 13:58:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB1A10E095;
-	Tue, 14 Jul 2026 13:57:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56A7C10E6D7;
+	Tue, 14 Jul 2026 13:58:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HrCrsGik";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Vtjgs2Ku";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02B1610E095
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 13:57:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1746860254;
- Tue, 14 Jul 2026 13:57:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 990481F000E9;
- Tue, 14 Jul 2026 13:57:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784037462;
- bh=0KaAF0kClUbWdLxRdVIdlkDOd9WedSGIozRki+L0Kzs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HrCrsGik5bWCVYCGfhWASaW9rcXAyOHOiDiBD+u5cvagQzO7e9SNLp6u9C9iUx7b1
- Dfhj5/YUh8ezxYmMN13/nbfAjVxoo+h5kB6cxrswBML9utSZ4V33Ide7xPaMUpsZFu
- aIva3KD7jYGsoMOVE1EZ9nKKcPlFl30MIiVIln9exa5HRsXmwM8rXYTYQKAosI5Itk
- RbMhqFU3dp1c60zEsVmQQMnsu2xxqOqm0eeQp6eOESBfwjCzTpC+/pbSAIBZHlpJvu
- oaCjMicVN+Ce5/A8hx6u2g87gS7VNN2rNDUe74oVQhBfFgXfcCqipkqtyG5DJO7lLK
- cujTJjukLGSFg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH for drm-misc-fixes 1/2] drm/hisilicon/hibmc: Modify the
- method of obtaining the hpd_status
-To: "Yongbang Shi" <shiyongbang@huawei.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260714132051.993356-2-shiyongbang@huawei.com>
-References: <20260714132051.993356-1-shiyongbang@huawei.com>
- <20260714132051.993356-2-shiyongbang@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 13:57:42 +0000
-Message-Id: <20260714135742.990481F000E9@smtp.kernel.org>
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012064.outbound.protection.outlook.com [52.101.66.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D27BB10E6D7
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 13:58:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uXGLwV5euJcTZx5D4ind3O6nMfJ96FigNhxO7CT+aw2TG4khc8GP6MZg0PbVLjEAfL6/wdfbFfwtfwYxuff0wPOMqC48j5KM6AN9lcZeT3p2ipeVmpPihxaCofHGSEtYDbXQFukuGNGq1JrJN2lUWss804f5hoR4GVOxZw9eC010vCan045xcGhxDQYgpwaZj2ywGmtdg8KiJhnJWTlNnHiNEwLGFle+WrvlzCLfMYBbbJNUE3F+TbxFvQ8qDdDjBJVelzBknBAj0cNO84I6KAzuQzrIJjX8whhbLNKGssxm7cyai5x6Dtj9O9cdfSkGZwupHvPFHjDkqD91KKy8nA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5aYMgx8PBsoCBESXYNUbJr6BHbqJS9oiEFR3VUA17Jc=;
+ b=EM+DyD1IUXaWR8f6QQCXfDYiJmdXO9b6kUosnpEYDeR/J1Uoud6bTuXiX9ur2NYYx51mvHp2Eo4z1fvCvIMl5rmDQUioI1O2sOEJeJqkXrH+Qppg0qFCgwpYIoSwGOowkMy/hFAEN4yOCpNPs7//szTpVtU/J23Mer+WI0qCT2ptg2zZGaL88SOqnFo5ioAv8/6W3AqVNUK/8BPZ0me6HzQgSHv7jS39JtRkQqvae5YxHv3eRlY3yZwIo3cVC2JaNsgC+wBHnmfWS3R62kj35MM3i42PMARvdzA1WNhyzwDgMfL/1UfGlYbeUZdP8BN0iNbZ3LX3tKIkzAnx+SLhAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5aYMgx8PBsoCBESXYNUbJr6BHbqJS9oiEFR3VUA17Jc=;
+ b=Vtjgs2KuxAnUhTUpN4m/UoXgjrPDfu3DhWwFyeE4loNLUwHPnDGImmNrg0/df4iCo3CS6HZRE7OMoxnuFBa6aVwW3aWB68uiFQ+vRZcR/7Q+69lSv46zjzgOzCN2tqDo7PtHTofumC13zyZX7QQ/0mxZXW1ERDFAmpytELq5eh411guzLWeGkSjXePeSKtH2LLqJ0DHXPwUM6YTem1KDSRZXBbvnpUdyHRrm+sPyGv+fdXqXMsvHFEylt0yHtGieuj7pYJ7VWt15PaMbB5cDkOBAgjBCo/Wq2+jA1VI4GSQ2TFVPs2lq68cIoREdOb7zh6KaUNvX1zca7d1kmcy7nw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA1PR04MB10842.eurprd04.prod.outlook.com (2603:10a6:102:483::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Tue, 14 Jul
+ 2026 13:58:51 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0202.018; Tue, 14 Jul 2026
+ 13:58:51 +0000
+From: Frank.Li@oss.nxp.com
+Subject: [PATCH 0/6] display: lcdif: imx: add display support for imx8dxl
+ and imx8qxp
+Date: Tue, 14 Jul 2026 09:58:42 -0400
+Message-Id: <20260714-dxl_lcdif-v1-0-6761a8a6592b@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJJAVmoC/yXM0QpAQBBA0V/RPNta+0D8iiQ7M8tIaBcp+XeLx
+ 1O3e0FgLxygSi7wfEiQZY7I0gRw6OaelVA0GG1yXehS0Tm1E5I4RTlash2WxlmI/erZyfm96uZ
+ 32O3IuL0DuO8HewVv120AAAA=
+X-Change-ID: 20260709-dxl_lcdif-d6cbdbac92fb
+To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, Robert Chiras <robert.chiras@nxp.com>, 
+ Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784037527; l=1681;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=v9sAuGJs+AsrhAzyqEtNkOIXJX9sZtdtSfjr35Mw5pQ=;
+ b=DtnDr1Yyu01qL4D8WGpA+wB8vccxRTOMqkCL49CX9mlR0KMktrtaBdiwtGDnXJrvxWoOVXDbM
+ j6IyoeLwsPoAZ/B7OI5arLs98tL2vHog6Qlvm6w3rmuKiWB+ME84OxL
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: SA9PR03CA0001.namprd03.prod.outlook.com
+ (2603:10b6:806:20::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB10842:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d60bc92-ae50-46ec-d0b1-08dee1b008fa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|366016|376014|19092799006|23010399003|1800799024|18002099003|56012099006|11063799006|921020;
+X-Microsoft-Antispam-Message-Info: 453QlmpOlgkQZLbwy6sKzPpdpq45BznCI/WALqodvL400rQ6Xn4X/nY0swHtxr3ihpZiAT9SLHqNloEBqTdzC5GlBkvb6SSW9Vo9MWC3Ra1N6Z1IHWaRr/wJqSz1MJCO+NjXJrYMrsVkaNrEFBQOkZ1W5pZqYhcoj1bX1ncTHqZ30zDxqX0C62tTRLoQ2v+BdDhEMrRznvSgbSp2TqCmIjM9QwW/Dhen9Boo5cx/QRB19r7Wu1yfBUfu2HG8mds4tQIMkIJn99WN79s8Yd6kPcc8XhUNOik8IfdnPmmmSZpuqxE+i/MvGYzJno80rJNLjD7PtLzeBEAlcJzy7h1R76BwykK6JTU9d1Y6Pbs8AeezhvTAsMOIr8g1N9zLuTdB53t4Th7i6MyJifuOptEF9zst4/MgGX3iu8G1lxuexOfQ45kpRML1qI4XAio4R1BBo7Qt2/rwJlYQdos40LVOKi+DWQjCMjUyLkTNVvTcfQ+L4rbYVSNaccrY/K59BcLPGdgxFYoaaBmaoYIOkL6hmY5WzWOO/TWLVMXins0mnl9NCLzcwyaLUc4gPveEyxRQSF6007CpRKYnW4s4M677XVjimAVYz9YB/WSjqAEgxsg9Zn5qf8WkXNtsZvfV/YB2D1YSafMcyhV1h4SvXeGmMRWlqgnvI/v94r8O0GlqJzU5+Zmsz4tExAz7p2CrDpOt7chuZVqqcvs5nmA+WSgBcQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(366016)(376014)(19092799006)(23010399003)(1800799024)(18002099003)(56012099006)(11063799006)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGpMNjdFS3E1aXdoejlyM1g0MFlVSjBEK0x5RGVONmQ3bEJwb1JiMlN5VGNU?=
+ =?utf-8?B?cCtJbDArb042UVdkU0FtcU5RUDA1MWJCdDViU0JmSGgxYUVKT1o1U0hsZ3VV?=
+ =?utf-8?B?UFVGMEJwQXAyelFWWEs3MHJjN3VPMzBHTFIvWVkzU2NLTUN1bFpDV3JZZzIw?=
+ =?utf-8?B?KzJ5WmJuOXVFa0dlK0NoMkpPKys0NTFudWFaYm43bkVVOU9yd1VqckxCWDV6?=
+ =?utf-8?B?WE1UN0s2Y3Q0ZFRWUUVYMkNZaHdhK1NRdnRZcEh0WWZLWEhoZHVvTENpQXdw?=
+ =?utf-8?B?TkFmVHZJTVE0Tkt5K3lVdzZGbFJlaW5lS3ZkUWY4UHRmSnVXMmZkZG1tNDJU?=
+ =?utf-8?B?b2I5UjhORlkwWVEvcEF6RVVVTGRZL2NZNWl6dkNYbXJvdVY1MFpmNGNGVVJB?=
+ =?utf-8?B?ZVVLOFdadStIOGxFKzFtMmk4RjRwOWpUVFNQTEpMcUVPa01XQXFFZi9rMjZN?=
+ =?utf-8?B?aWh2NkZZWGZ1clhTemZMcG94R0kwZ3MzUExSOHE4RlZXaWNnWElLNjRLbnN2?=
+ =?utf-8?B?eVp3UEc1MkxJdGtCQWJ6OTFZWkhVL052QjJMOVVnMWFSY1NWQURZMFF4Vkxs?=
+ =?utf-8?B?OTZTTGNPVVlVMWRoekI3SFRZbXVqVG9qYmVTQ3poZG4vWktybjBBcUxjaXRG?=
+ =?utf-8?B?OGsyekE5M2owWGUrcTJjWjV4UmYyRUkyeURpOXk2UDBrK1FKZk1sY2hmaHNn?=
+ =?utf-8?B?d2VOeEJ3b2o0N2xydXdKczNJdmtOY0tUQWxoR3NNNm9UQVRNL3hIRHVLVDZ4?=
+ =?utf-8?B?cEZhZWxscUJMWHhSMElDam12UThFcWRJcVB3dG5vcHJMYktVUEd1aEk2Tmlm?=
+ =?utf-8?B?cXVIQTV6QjFIVkpDODF0TFBmd0ZyZnA1NEhJZ2pKTnplUjBoL2l4TXlJOTVI?=
+ =?utf-8?B?aWJ3eU94K3g4NGN1QmRFRmRPSDZ0MTRGVDFEMEQ5TWgveXJOQnlaWTdGaHpX?=
+ =?utf-8?B?ZjdCUkZVL0IrcXFMVFFPTkVBUzVTQTQ4QWlVM28vTHZvT0JxakxvemZMbitU?=
+ =?utf-8?B?eTZ3SXN3bVRhSHRpOE01V29ZNjZlVW41VkgvM2lwSEtaMmpWeVZWM2Fkb2NN?=
+ =?utf-8?B?UFduSWNwbmJFbDZDRUI1QnA4UzJvQTMydVZuY0s4RVprYkxEM21kMjEwdEIw?=
+ =?utf-8?B?TDNSS1dFTlVjZUhjdFN1Snd3SXdjSVB1YUs4ZGRPT2M3V09ENGxtUUQ3SUJt?=
+ =?utf-8?B?ODQxWG5kMXl6T0lzZ0xVUW14dlBPVFNOSlpmd3c5SG93eXpaSWVNb1U0aXVh?=
+ =?utf-8?B?TVhmQnl1ZmhYbitwNVVSUDhPYVBUekMrVW5vbnltNk5MNGZVdVYrdlcyUFYx?=
+ =?utf-8?B?SWxPWlhmY2pGY1dCaFY2Z1BoemFJQlVZUlZVUXJEU1EzWHE3YnpVK2VRWjYx?=
+ =?utf-8?B?RFgzRGgvRFQ2bzF1SlhHbmdEYkNjYzZicGJhcUFSVFY4WHo0L2czWDdDbzZE?=
+ =?utf-8?B?MFZwaDhlaDRQOThpSG1zSnRxai9zYlo1MS8xblRnT24xbUJJaHFIa0FucUI2?=
+ =?utf-8?B?N1hZdGx4L1BqcjArKys3NWRDY25NKy9OVHFlNnNIbjYwSkhpOHpVRDY5d0FX?=
+ =?utf-8?B?bWJzdkcvTURhYkJ3Q1E4MHVIbERZeGNTT3N4RTY4RVBjNWJ2TFhScmtDdElQ?=
+ =?utf-8?B?b3FCTzNuTEt0Q3M0dnFsaDBXZ2V4SklmVXN4RHRCM09FajNERWpDNklWMmlq?=
+ =?utf-8?B?MENWT2Vlb0g5bUxjN0hYdUducVlMY2hHemUzZ1FUTzJQVllaOW1IUnlJYjIy?=
+ =?utf-8?B?czdscXlZdVYzL2pqekMwazFHeWVhbTR4TERua2NWdU9HR0VDUlFZQU4wYkJa?=
+ =?utf-8?B?Y1dyRWM1a1BNT1JkcGQ4UGR6WUFtdnhCQ29sK01LTnptWTFFalZualBjdlN4?=
+ =?utf-8?B?aVFqQ2JTUDI3M2xRczYxaTNBcXZySkVSYmVhQllHbS9rdXRQN2J2VDgxTU9T?=
+ =?utf-8?B?RmtBV2RldjJTVGxCdlcrc1hOZ042VWloVExIR2NFUlM1QWcxOGJVZUplZHJK?=
+ =?utf-8?B?aTFqMDArVFNTVWVKK3dsdFZSenVpUC9pSXhDZDZkNGtjc2VlcGlTamlYemhq?=
+ =?utf-8?B?K1pjNTJJZ3QwUkYwYk8vVmZ6b1ZxdXZGSWlwNmtsNWQ4bFE0WVRlUFg2K0tT?=
+ =?utf-8?B?bzE2eWNjNUpoTnpaRGo2dHU4Nk4xbTdJOHI2U0FDRCtnMXRNMjNlalVFbGJZ?=
+ =?utf-8?B?RTlzUUk3M3pPYkM1YUFFYzZIQTV0YUVoREdaT1JZRTdNODQ3M0N3U0dPVXJY?=
+ =?utf-8?B?cnl5Qnh6cnFJYVdtRlc2OHlFODF0L0Vra0QxRGQwdTdvNVZ5TjhmNlZWc0dp?=
+ =?utf-8?B?bDM3Q0FlVk1wRWVmUGJ5NXpZaFNDWkJ0QVhFeVVQSzJPSzVFaDR0MXpMMlcx?=
+ =?utf-8?Q?qEAn/X5xlF7w0Fm1PbrmES6VhYLwvx/m8U0JF?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d60bc92-ae50-46ec-d0b1-08dee1b008fa
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 13:58:51.5855 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: liQ9M5rdbR6HVOwWEZA6XtHxsRqpvmt3/IwCwvglsz1twg6AV4XkeFZfjB9kUpPAfIFZZ0ORwdHqelLGB4/JOzigCSczZ8e47T1wLVVjGWev0EUGLMSwyZ8IODZrsCyx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10842
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,226 +156,43 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+i.MX8DXL and i.MX8QX support LCDIF, which is compatible with i.MX6SX.
 
-New issues:
-- [High] Hardcoding the initial HPD status to `HIBMC_HPD_OUT` and unconditi=
-onally exiting in `hibmc_dp_detect()` breaks boot-time display detection fo=
-r monitors connected before the driver loads.
-- [High] Gating `hibmc_dp_encoder_enable` on HPD status breaks the DRM conn=
-ector 'force on' functionality.
-- [High] Reading the HPD state immediately in the hard IRQ handler without =
-waiting for it to settle can read transient states, permanently discarding =
-hotplug events.
+- Update lcdif binding doc to support front compatible string:
+fsl,imxqxp-lcdif and fsl,imx8dxl-lcdif
+- Update simple pannel binding doc and driver to support waiken,101wx001
+- update chip dts to support lcdif ip
+- add overlay file to enable lcd panel waiken,101wx001 and lcdif
+- use onboard pinmux "pinctrl-multiplexer" for on board signal switch
 
-Pre-existing issues:
-- [High] Unconditional dereference of `dp->dp_dev` in the shared interrupt =
-handler causes a kernel panic when the DP block is uninitialized.
-- [Medium] Unprotected concurrent access to shared IRQ state variables (`ir=
-q_status` and `hpd_status`) can lead to TOCTOU races and dropped interrupts.
---
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+Frank Li (6):
+      dt-bindings: lcdif: add compatible string for i.MX8QXP and i.MX8DXL
+      dt-bindings: display: simple: Add waiken,101wx001
+      drm/panel: simple: Add waiken WKS101WX001-WCT support
+      arm64: dts: imx8-ss-dma: Add lcdif support for i.MX8QXP and i.MX8DXL
+      arm64: dts: imx8dxl-evk: Add onboard GPIO mux controller
+      arm64: dts: imx8dxl-evk: add lcdif overlay
 
---- Patch [1]: [PATCH for drm-misc-fixes 1/2] drm/hisilicon/hibmc: Modify t=
-he method of obtaining the hpd_status ---
-commit 7415e727057e1237039f87fc5bb416de2f8548f4
-Author: Lin He <helin52@huawei.com>
-drm/hisilicon/hibmc: Modify the method of obtaining the hpd_status
+ .../devicetree/bindings/display/fsl,lcdif.yaml     |   2 +
+ .../bindings/display/panel/panel-simple.yaml       |   2 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ arch/arm64/boot/dts/freescale/Makefile             |   3 +
+ arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi     |  29 ++++++
+ .../boot/dts/freescale/imx8dxl-evk-lcdif.dtso      | 114 +++++++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx8dxl-evk.dts      |  76 ++++++++++++--
+ arch/arm64/boot/dts/freescale/imx8dxl-ss-adma.dtsi |  11 ++
+ drivers/gpu/drm/panel/panel-simple.c               |  31 ++++++
+ 9 files changed, 259 insertions(+), 11 deletions(-)
+---
+base-commit: 31bd73273b9bf03a3fe32227b417f00d4a94c6ac
+change-id: 20260709-dxl_lcdif-d6cbdbac92fb
 
-This commit changes how the HPD (Hot Plug Detect) status is retrieved for
-the DP connector. It replaces the polling mechanism in the lower-half
-interrupt handler with a direct status read in the upper-half handler, and
-sets the initial HPD status to disconnected.
+Best regards,
+--  
+Frank Li <Frank.Li@nxp.com>
 
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c b/drivers/gpu/drm=
-/hisilicon/hibmc/dp/dp_hw.c
-> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
-[ ... ]
-> @@ -322,20 +326,25 @@ void hibmc_dp_set_cbar(struct hibmc_dp *dp, const s=
-truct hibmc_dp_cbar_cfg *cfg)
-> -bool hibmc_dp_check_hpd_status(struct hibmc_dp *dp, int exp_status)
-> +int hibmc_dp_get_hpd_status(struct hibmc_dp *dp)
->  {
-> +	int ret =3D HIBMC_HPD_UNKNOWN;
->  	u32 status;
-> -	int ret;
-> =20
-> -	ret =3D readl_poll_timeout(dp->dp_dev->base + HIBMC_DP_HPD_STATUS, stat=
-us,
-> -				 FIELD_GET(HIBMC_DP_HPD_CUR_STATE, status) =3D=3D exp_status,
-> -				 1000, 100000); /* DP spec says 100ms */
-> -	if (ret) {
-> -		drm_dbg_dp(dp->drm_dev, "wait hpd status timeout");
-> -		return false;
-> +	status =3D FIELD_GET(HIBMC_DP_HPD_CUR_STATE,
-> +			   readl(dp->dp_dev->base + HIBMC_DP_HPD_STATUS));
-
-[Severity: High]
-This is a pre-existing issue, but could this dereference dp->dp_dev when it
-is NULL?
-
-If hibmc_kms_init() skips hibmc_dp_init(), dp->dp_dev remains NULL. If a
-spurious or shared interrupt fires, the hardirq handler calls
-hibmc_dp_get_hpd_status() and immediately dereferences dp->dp_dev->base
-causing a kernel panic.
-
-[Severity: High]
-Could this instantaneous read capture a transient state and permanently drop
-hotplug events?
-
-The previous code used readl_poll_timeout() to wait up to 100ms for the
-bouncing HPD signal to settle, as required by the DP spec.
-
-If this read occurs during a physical signal bounce upon plug-in, could it
-return HIBMC_HPD_UNKNOWN and cause the threaded handler to silently drop the
-event instead of waiting for the signal to stabilize?
-
-> +
-> +	switch (status) {
-> +	case 0: /* 0: unplug */
-> +	case 3: /* 3: done */
-> +		ret =3D HIBMC_HPD_OUT;
-> +		break;
-> +	case 1: /* plug */
-> +		ret =3D HIBMC_HPD_IN;
-> +		break;
-> +	default:
-> +		break;
->  	}
-> =20
-> -	dp->dp_dev->hpd_status =3D exp_status;
-> -
-> -	return true;
-> +	return ret;
->  }
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu=
-/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> @@ -63,12 +63,8 @@ static int hibmc_dp_detect(struct drm_connector *conne=
-ctor,
->  	struct hibmc_dp_dev *dp_dev =3D dp->dp_dev;
->  	int ret =3D connector_status_disconnected;
-> =20
-> -	if (dp->irq_status) {
-> -		if (dp_dev->hpd_status !=3D HIBMC_HPD_IN) {
-> -			ret =3D connector_status_disconnected;
-> -			goto exit;
-> -		}
-> -	}
-> +	if (dp->hpd_status !=3D HIBMC_HPD_IN)
-> +		goto exit;
-
-[Severity: High]
-Does this unconditional exit prevent the detection of displays connected
-before the driver loads?
-
-Since the initial state is hardcoded to HIBMC_HPD_OUT and we never poll
-the hardware register to get the actual physical state during initializatio=
-n,
-if a monitor is already plugged in at boot, no edge-triggered interrupt
-will fire.
-
-Will this cause hibmc_dp_detect() to unconditionally return
-connector_status_disconnected for displays connected at boot time?
-
-> =20
->  	if (!hibmc_dp_get_dpcd(dp_dev)) {
->  		ret =3D connector_status_disconnected;
-[ ... ]
-> @@ -166,6 +162,9 @@ static void hibmc_dp_encoder_enable(struct drm_encode=
-r *drm_encoder,
->  	struct hibmc_dp *dp =3D container_of(drm_encoder, struct hibmc_dp, enco=
-der);
->  	struct drm_display_mode *mode =3D &drm_encoder->crtc->state->mode;
-> =20
-> +	if (dp->hpd_status !=3D HIBMC_HPD_IN)
-> +		return;
-> +
-
-[Severity: High]
-Could this early return break the DRM connector force on functionality?
-
-If userspace explicitly forces the DP connector on when the physical HPD is
-disconnected or broken, the DRM core will commit a modeset expecting the
-encoder to be programmed.
-
-By returning early here based on the physical connection state, we bypass
-the hardware programming, leaving it out of sync with the DRM atomic state.
-Might this lead to VBLANK timeouts or pipeline hangs?
-
->  	if (hibmc_dp_prepare(dp, mode))
->  		return;
-> =20
-> @@ -189,24 +188,31 @@ irqreturn_t hibmc_dp_hpd_isr(int irq, void *arg)
->  {
->  	struct drm_device *dev =3D (struct drm_device *)arg;
->  	struct hibmc_drm_private *priv =3D to_hibmc_drm_private(dev);
-> -	int idx, exp_status;
-> +	int status =3D priv->dp.hpd_status;
-> +	int idx;
-> =20
->  	if (!drm_dev_enter(dev, &idx))
->  		return -ENODEV;
-> =20
->  	if (priv->dp.irq_status & DP_MASKED_SINK_HPD_PLUG_INT) {
-
-[Severity: Medium]
-This is a pre-existing issue, but could this lead to a race condition that
-drops interrupts?
-
-The hardirq handler writes to priv->dp.irq_status and priv->dp.hpd_status
-without locks, while this threaded handler reads them non-atomically.
-
-If a hardirq preempts the threaded handler after it reads priv->dp.hpd_stat=
-us
-into the local status variable but before evaluating priv->dp.irq_status,
-it will compare a stale status against a new irq_status. Will this mismatch
-trigger the error paths below and improperly discard the event?
-
->  		drm_dbg_dp(&priv->dev, "HPD IN isr occur!\n");
-> +		if (status !=3D HIBMC_HPD_IN) {
-> +			drm_err(&priv->dev, "HPD status (%d) error", status);
-> +			goto exit;
-> +		}
->  		hibmc_dp_hpd_cfg(&priv->dp);
-[ ... ]
-> @@ -223,6 +229,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
-> =20
->  	dp->mmio =3D priv->mmio;
->  	dp->drm_dev =3D dev;
-> +	dp->hpd_status =3D HIBMC_HPD_OUT;
-> =20
->  	ret =3D hibmc_dp_hw_init(&priv->dp);
-
-[Severity: High]
-Does hardcoding the initial state to HIBMC_HPD_OUT without checking the
-actual hardware register contribute to the boot-time detection issue
-mentioned in hibmc_dp_detect() above?
-
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gp=
-u/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> @@ -63,6 +63,7 @@ static irqreturn_t hibmc_dp_interrupt(int irq, void *ar=
-g)
->  	status =3D readl(priv->mmio + HIBMC_DP_INTSTAT);
->  	if (status) {
->  		priv->dp.irq_status =3D status;
-> +		priv->dp.hpd_status =3D hibmc_dp_get_hpd_status(&priv->dp);
->  		writel(status, priv->mmio + HIBMC_DP_INTCLR);
-
-[Severity: High]
-This is a pre-existing issue, but as mentioned above, if hibmc_dp_init() was
-skipped and the DP block is uninitialized, does calling
-hibmc_dp_get_hpd_status() here result in a NULL pointer dereference on
-dp->dp_dev?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714132051.9933=
-56-1-shiyongbang@huawei.com?part=3D1
