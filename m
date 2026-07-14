@@ -4,114 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24136C44511
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B233C4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:21:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC4510F20E;
-	Thu, 16 Jul 2026 08:19:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E0DC10E313;
+	Thu, 16 Jul 2026 08:21:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rWVNYQ/n";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KeHXwcoH";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF35D10E2A6
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 03:39:08 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-47dec32798aso6315018f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 20:39:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784173147; cv=none;
- d=google.com; s=arc-20260327;
- b=iZC2O2hqCU86kLZxV3tKy35cG9wf8E44EMAmNLjZzwFkHmXGHHwWn13oGoCxUtAwdL
- Y+nJ71OF4QTH/eItTXqVOXROgC3ZeY2nu2qWdjQ/7Ls8ny8I2BrrXNVV7gaaRxlIMbVF
- rQks4mjvc5FjOAGPbJin4l/FGdY/BwNV9BaSKxJb7cNCvlW+dU3Gif6OPZ+qFz3UkTiu
- TyQZsha+EtBDTPsR1tgvY1RFzfvy5C3HwDSv+8XEsNLB+qBmnBgn3BfWF1T35eRH3wVx
- Wvehg+jtq803vNEJ/5zThJRu1QTddKFxVksO6V1qQQbMROu1IiMERRYvz4/uRsdelKOJ
- II2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=HaAi6r0o04lXEAunGEp84mPQVwuTB4awISro/owjdbQ=;
- fh=BE2s/nSmpctq6M0USULiFaeu+AZjFDzTR0808BiExQU=;
- b=TU5jr1S67vC68hHYUphg9Z/ORxBnLOMhltgh47Zdw/KCGULHL0WLgUyKILx7PiXdJN
- nCAF0F6cH8PuQuFpE7S+09LOmrEtk9M/4TNuzW28Ef8kRl9HkF3R+utWMmaza3K+hy3F
- pbwotuDNPvji/3c/zx/HjgzA/lMlPL4Hjo2sBYCkxdGeKOFOKx/E2QCcZ8sewVeNi7F2
- xL3nggMc6Efq1m3XUEBrIwd51L1vH8q+v1rnvOjhCl279r2QtKClVg7/3cU8Bqs5bUGJ
- iZZA+vL/8ScD+kgtfb4kc/G+IxT3LT0LyzRVtHlvSSz+2P1PPO5mmZ3U8lM5BGeMSfI3
- Ezgw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5401D10E057
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 19:11:23 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-47defd0c1c5so1042079f8f.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 12:11:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784173147; x=1784777947; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=HaAi6r0o04lXEAunGEp84mPQVwuTB4awISro/owjdbQ=;
- b=rWVNYQ/nHAUqeJ8ym38AEDIdqyJN7fEX66taCp+eK1bc6s0qOpyGGfUU58uY0c3c2A
- Beqip1JMaM4zfuPH8fuAvJ3bkWwvHLm8Woc2Wpf5urb2EB19dFN37RKGurAPw2ooeGCu
- 61xghoYCM9RPy/lNSkH/BTo+/fvxyZf8D/DzbW3zQSvF1OTSPEqSl7dYPU5mCvXtVuh2
- gHe6lH+hSnjqAHEYGgyvZsFvp4+b+cBj8iTRYf3/aIffZF3BxgZGDsJEmuqVd0h8Vql+
- fnA9qiGfMD1cRCig6YEYwdzN9yaHSWSYqO0Vcd2GOnd2nOelQmG/yBpice2Ipua9CBew
- 8MmA==
+ d=gmail.com; s=20251104; t=1784056282; x=1784661082; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=8SgW7Vtvc0tFBeUiDAXyhdKRnHwKhXWugDI8a8LDJqs=;
+ b=KeHXwcoHfGLXeS9YtSfAG4yS3G3v+QCBtGtADbcbyfJC8MNWzLD1bBiovKq2majpRn
+ K/Q/wzAf07w1PHiuQqmNobWIoki2qRCruk6JJIeaHzFujCganysi/Bf47TfYEW5PpL2o
+ 34LUOakNDhl//5A6T/gfpmHzfkHJgoiknsePkZmEOIPTK84RJY72vMKKv6HdHHalOaIv
+ 1XkM2b9GBWEvr6CZ3jyRe5aKTfJuKmZDXvIhQ1aS9mJirWGiJUE67zwQv93CAQO17Knx
+ yhP7XVUi/VseP2Q/7VHuXOCtjshck9HzuAJU8erJtXKHzEF9lhspnEOarETjXDH9OBSF
+ Hg2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784173147; x=1784777947;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=HaAi6r0o04lXEAunGEp84mPQVwuTB4awISro/owjdbQ=;
- b=ogHHeoElTnuSYytl+59R4nIV0hjCwg/ychdPbL6zv7V9op9hoI30ydEvlITSaFmvxR
- MPQj4e+wvVs5h9HcrbUII36htx/3H7uhmc2sO1wsgR3/4SCgy7XgSHHYMcOqBCghD/I9
- YxSnEPP5eX29ybDSqm5Zmr69sqVMJRfn37QiGhvEqsaxeMs5PIjHe+k9mp46YuJln8jn
- qBRahl3qyQcoA6YKt7tOvK7rmmbHaWIPyML23uNkZnAJduYAuGooAdr6CbRqLw54c0NG
- I8DWq8sSu8fhM7mDFTOGgeYzPCPQYX8eYKX9CXdJEhgfl9AmG2RgMBDze8NNfv8TQ6Z+
- va9Q==
+ d=1e100.net; s=20251104; t=1784056282; x=1784661082;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=8SgW7Vtvc0tFBeUiDAXyhdKRnHwKhXWugDI8a8LDJqs=;
+ b=WZT+PjE2L7U5qF49/6m/VBMqzFBc542JGk3DesexpefKMxJQ1kDzCex5hd9qh4aiiQ
+ daQmhgAVc21+PwyJCDfBwhLBEHB3eptLELjRG7NyfGD57HJXHU9k5w4ZIHLewE/NOrdp
+ DVoF6bThTKV/Am3n5GvFfBnxtcLkl2+tkKn7511mwiGXKh146NLiMk3ZF2wVl4hzGiWI
+ j57zqHgZsJaE0uQuY4+4KOccka0yMevFWhf5N60UR3G+B8W0wfspOkzZ4uhMv86nMPBX
+ gY+eESSi4v2tuRDr0D8gY9pJkjPCWst5mB6tex5G7I1AlJYfvWV/jDbysUwI7M1V4Lix
+ wL/Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rpqti3jvkTayUxLJFupyprQC/sY1xvN4q4hly9m/6TH/9VcmNu8G4xsyvTzCk4+zxiYNM3eER+CuaM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwsAKDu8XXdGeaiGeBptPp5fkvioOW9RPwVwi96b289gLecb/I7
- JUsXiuh7n/YIz6vgnI4r2GMigLWTah2LaHsKWxnqJMQvmgrHGXMFzTkEjg9UPGqvZStM+4jFlfS
- AJmtYvqmMahwqGX1T26pddCrH+yIbDcI=
-X-Gm-Gg: AfdE7ckvlVhVSXDOAUYfU7Q2cSZf7pOm8C6tXb23PVe8xYtNy2Z46pl3kcNmE6dTUxy
- +6aC02ooohV8P39HKcy+zCJEMt7xQ5oclrlrsFPi2yMWNqwWpEAB25nXl6Jw0rHZpXcbhCK7Vy8
- H0O777Q8avaKb7zyAkS2SwsjqM0aH6zVjk2nxkzqC6CCz4L9E7m6An1Lx/sfqqSfPCp+O+rpdvv
- zEgg750g1SwpIlZJr47gNm/++ev35ppRpG8VboWsKNncbJi/DPgHZx9X4EH8K3daMW5rIj4
-X-Received: by 2002:a05:6000:461c:b0:473:506a:e47c with SMTP id
- ffacd0b85a97d-47f4886399amr11638724f8f.26.1784173146909; Wed, 15 Jul 2026
- 20:39:06 -0700 (PDT)
+ AHgh+RqZ13PTSCssQJ4JEE6isRAvjNqPZ7EueBcVvDlqUe0Fks+oiC5IAGhjopXOGPHzJdxwEXDkAPsjX/Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyD2fm/qJ5Sbe0jFYHB/9SjqsJ5XKSFuHKOC5/lIZJkCi27udqW
+ oeXzD/JF6Aog7moQ5uKegEfePoMlYMHWDfYIRFIbiTDkFMLzNf3+044SdCHe1xN1kc8=
+X-Gm-Gg: AfdE7cnl67tjnmobqlygICT7KBfbyoqEH8p+IT92M/ODq6b0GuebLaPiT3W5ZCl1Lmq
+ Ib+5otvDqJ47x4yJZ3di1rIcdaMC6fMjtoGoQZVGooOmjhnK6xtZlqXA8ryS+/KqnEjiVkKx4z6
+ U5N7qdqCpG+FI0deKgwmY7mfZEoxg1nkpDFrT4s040LpyoP9L+4j/BruQLe4EzhZL/uYDwGK6fG
+ S8h/RY+KPOD3Y0Y1EPx5jt81TEbBjYkhYJ9RhirDiXY+lOJJWXowQncy85TCMEYGzSOp6lF4jmP
+ 3YIi+DzpCClpBFMeTmY348hYLsBUzsAsgqFIBNt1vlw/ShAs6tv6ngY4c2fYUQx3n9rlgsxovsL
+ MHS+99Wju18feg+9IAB3Z09a4plNQ182UDNj9bZMk7eKoaBoRZKQJtza3xzMkSQR0sioKVQF9Eg
+ hRLhtbePTMm6cEZEOT8asg2xLi/JEUgWqsxNdaPwMxHxJ6w0p1Mqe99QnPTAGq+oMaKTuXnuyQ7
+ as9Ggmvexc=
+X-Received: by 2002:a05:600c:310f:b0:493:ee3a:f05b with SMTP id
+ 5b1f17b1804b1-493f87d7fcdmr147477765e9.7.1784056281449; 
+ Tue, 14 Jul 2026 12:11:21 -0700 (PDT)
+Received: from evil-archie.tail5479a9.ts.net
+ ([2a02:1388:23c0:16c0:aa41:f4ff:fec6:26e2])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4950a2f951asm100677815e9.14.2026.07.14.12.11.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2026 12:11:21 -0700 (PDT)
+From: Panagiotis Gravias <graviaspanagiotis1@gmail.com>
+To: andy@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: namcao@linutronix.de, tomasz.unger@yahoo.pl,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Panagiotis Gravias <graviaspanagiotis1@gmail.com>
+Subject: [PATCH 1/3] staging/fbtft: Remove prohibited space before close
+ parenthesis
+Date: Tue, 14 Jul 2026 22:09:40 +0300
+Message-ID: <20260714190958.219437-4-graviaspanagiotis1@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260714190958.219437-2-graviaspanagiotis1@gmail.com>
+References: <20260714190958.219437-2-graviaspanagiotis1@gmail.com>
 MIME-Version: 1.0
-References: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
- <CANbgqATR-V0rRGfzj0hdJ2hsJex-iWzHMwD1L4vavTi2Jd79Kw@mail.gmail.com>
- <alfV1691ZgZ6KylX@venus> <2301403.NgBsaNRSFp@phil>
-In-Reply-To: <2301403.NgBsaNRSFp@phil>
-From: Andy Yan <andyshrk@gmail.com>
-Date: Thu, 16 Jul 2026 11:38:53 +0800
-X-Gm-Features: AUfX_myr_sOq7hYE4m85iq51mdLC4kRmODLTYq7q95ypFNA8vqcVX-4llt0DR9M
-Message-ID: <CANbgqASSwGjnUsqmpyPgYQ8Qy_6++krbVMQQywB8oJv8Jziz-g@mail.gmail.com>
-Subject: Re: [PATCH v3 08/10] drm/rockchip: dw_dp: Add runtime PM support
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Damon Ding <damon.ding@rock-chips.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Alexey Charkov <alchark@gmail.com>,
- dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-arm-kernel@lists.infradead.org, yubing.zhang@rock-chips.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:21 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,67 +96,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello =EF=BC=8C
+Fix checkpatch error: "space prohibited before that close parenthesis"
+in the define_fbtft_write_reg macro.
 
-Heiko Stuebner <heiko@sntech.de> =E4=BA=8E2026=E5=B9=B47=E6=9C=8816=E6=97=
-=A5=E5=91=A8=E5=9B=9B 03:30=E5=86=99=E9=81=93=EF=BC=9A
->
-> Am Mittwoch, 15. Juli 2026, 21:00:12 Mitteleurop=C3=A4ische Sommerzeit sc=
-hrieb Sebastian Reichel:
-> > Hello Andy,
-> >
-> > On Tue, Jul 14, 2026 at 06:08:06PM +0800, Andy Yan wrote:
-> > > > @@ -58,6 +59,8 @@ static void dw_dp_rockchip_hpd_sw_sel(void *data,=
- bool
-> > > > force_hpd_from_sw)
-> > > >
-> > > >         dp->hpd_sel =3D force_hpd_from_sw;
-> > > >
-> > > > +       ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
-> > >
-> > > This can triger  HPD irq for USB-C DP AltMode, but for a standard
-> > > DP port, this is no way to acquire runtime, so there will no irq
-> > > when plug in.
-> >
-> > Right. I don't have any RK3588 or RK3576 system exposing a DP
-> > connector directly. This this is non-trivial to test for me :/
-> >
-> > I see the following options:
-> >
-> > 1. Only enable runtime PM when running in USB-C mode
-> > 2. Mux the HPD pin as GPIO to support waking up with the controller
-> >    being suspended; either remux when the controller is awake or use
-> >    the same mechanism as USB-C to do software based HPD on top of the
-> >    GPIO (which would allow using any GPIO as HPD).
-> > 3. Have a poll function, which wakes up the controller regularly to
-> >    check the status
-> >
-> > I consider going for option 1 for now, which allows option 2 to be
-> > implemented as a follow up. Mostly to avoid that the series becomes
-> > as big and messy as the USBDP PHY series became.
->
-> I'd agree with that solution.
-> I think we can all agree that option 3 is baaaad :-) .
+Signed-off-by: Panagiotis Gravias <graviaspanagiotis1@gmail.com>
+---
+ drivers/staging/fbtft/fbtft-bus.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-  I'm also in favor of moving ahead with 1.
+diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
+index 30e436ff19e4..38697992f5e1 100644
+--- a/drivers/staging/fbtft/fbtft-bus.c
++++ b/drivers/staging/fbtft/fbtft-bus.c
+@@ -62,9 +62,9 @@ out:									      \
+ }                                                                             \
+ EXPORT_SYMBOL(func);
+ 
+-define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
++define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8,)
+ define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
+-define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
++define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16,)
+ 
+ void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
+ {
+-- 
+2.55.0
 
-  About Option 2: we've got a GPIO-based HPD workaround in our  BSP
-tree, but it's a bit flaky in some use-cases=EF=BC=9A
-  According to the DP spec, there are two types of interrupts:
-  1.  HOTPLUG_IRQ: A level-transition pulse that must be sustained for
-at least 2=E2=80=AFms.
-  2. HPD_IRQ:  A low-level pulse with a duration between 0.25=E2=80=AFms ~ =
-2=E2=80=AFms.
- With the GPIO-based solution, it is difficult to reliably detect such
-short pulses.
-
-
->
-> So with 1, functionality keeps working, and then someone can put the
-> special HPD handling on top later - the Rock-5-ITX does expose the DP1
-> (on a hdmi port)
->
->
-> Heiko
->
->
