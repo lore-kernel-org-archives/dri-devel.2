@@ -4,43 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30D41C44501
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 03:34:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81C5BC44507
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 04:28:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DF6510E449;
-	Tue, 14 Jul 2026 03:34:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D00D10E35F;
+	Tue, 14 Jul 2026 04:28:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J1POJdXa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JPVr2H3F";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC3310E449
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 03:34:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AF7D6601EC;
- Tue, 14 Jul 2026 03:34:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B8B1F000E9;
- Tue, 14 Jul 2026 03:34:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784000093;
- bh=4e1/rHpEbIYgR2IML+AHGYSgM0oVz6M2HoanrlFzrqI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=J1POJdXaWX3Pp76A7MbL05U7B3i4xYjaiSw8fvErBc6sq0V9BscAYhHQ04bEdcT/j
- irXq5+R4uBZx6aSDzzGM3qAb962t3TUCZX0YW/JOqx4+lTyHPRsTV53uGtBSFhKPhb
- igqqApbuWu1V+qwdw28rkvBeg4axtwQiEH1IF8n74IpMPTuuCogXm689ySz3R0GBhS
- SFeSlGEpdckNSrd6GtO93pi2CBFOU3Yh8EgtgrIX15FuWHdsoCHL8qmd2DmPbivwBJ
- lH4ZTa80whtnoia6FZgUs55QDGI7p1zA4KPEh8ii4fM/1R+smWzq3jFCkZpuMjjFgF
- YcyYXRrosUopw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 7/7] drm/tyr: add Microcontroller Unit (MCU) booting
-To: "Deborah Brouwer" <deborah.brouwer@collabora.com>
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260713-fw-boot-b4-v7-7-afd8dc1494dd@collabora.com>
-References: <20260713-fw-boot-b4-v7-0-afd8dc1494dd@collabora.com>
- <20260713-fw-boot-b4-v7-7-afd8dc1494dd@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 03:34:52 +0000
-Message-Id: <20260714033453.34B8B1F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 316FA10E0B6;
+ Tue, 14 Jul 2026 04:28:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784003303; x=1815539303;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=BpdDvnS/3JQwR+hmDLbJAmbTdHlLpQQqf+n5ckydQ8U=;
+ b=JPVr2H3FW8o3k6a5DT4E2LnvQNKvf/4YZyGOzmzQJEstaBYoZq18Q7Pk
+ lhSg5WdNOtXWntnQSqUbiQfXUThPNZDux+RPhF3+Vm5lLlHnrJKoOln00
+ g733fPvyTNZNz+5DeP7cEuz76JIIDC21LokcgxvF2sqlOdIp/9gWkWXbj
+ ZE5TRFqUvSI5zck3ARBlBxsLIxJt/2mAqD8YnI/K4UPVGDfPYRZvOHBT1
+ BNPyansnpBQVb3rigHU9V2UtOCdwUYWexOTTVd0nkAK7FQNB3xmQYY9YU
+ 4IsqjaFVhvIhA7mAFKBndUYh8jPSCo/6emL8q+ozNc/iYIeZxLVprSqxF w==;
+X-CSE-ConnectionGUID: mGJEpg+ySTCbKAthqvAY6g==
+X-CSE-MsgGUID: HBvmafEcTHCNFE0sYsuZzA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88297015"
+X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; d="scan'208";a="88297015"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 21:28:22 -0700
+X-CSE-ConnectionGUID: ef5UR8ujS+Wyfe6V7diKHA==
+X-CSE-MsgGUID: IkJwYStrQcKHnimKpiOXGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; d="scan'208";a="255243092"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
+ by orviesa008.jf.intel.com with ESMTP; 13 Jul 2026 21:28:15 -0700
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-list@raspberrypi.com, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: uma.shankar@intel.com, arun.r.murthy@intel.com, abhinav.kumar@linux.dev,
+ tzimmermann@suse.de, sean@poorly.ru, marijn.suijten@somainline.org,
+ laurent.pinchart+renesas@ideasonboard.com, dave.stevenson@raspberrypi.com,
+ tomi.valkeinen+renesas@ideasonboard.com,
+ kieran.bingham+renesas@ideasonboard.com, louis.chauvet@bootlin.com,
+ kernel-dev@igalia.com, John.Harrison@Igalia.com,
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH v6 0/7]  Refactor drm_writeback_connector structure
+Date: Tue, 14 Jul 2026 09:57:58 +0530
+Message-Id: <20260714042805.77934-1-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,150 +70,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Hardware address space slots and `Vm` memory leak on `Firmware::ne=
-w` error paths.
-- [High] Integer underflow when parsing firmware entry sizes causes a kerne=
-l panic.
-- [Medium] The firmware boot sequence polls for the global interrupt to sig=
-nal completion but fails to clear it.
---
+Some drivers cannot work with the current design where the connector
+is embedded within the drm_writeback_connector such as intel and
+some drivers that can get it working end up adding a lot of checks
+all around the code to check if it's a writeback conenctor or not.
+This is due to the inheritance limitation in C.
+This series intends to solve it by moving the drm_writeback_connector
+within the drm_connector and remove the drm_connector base which was in
+drm_writeback_connector. This is done in union with hdmi connector
+within drm_connector to save memory and since drm_connector cannot be
+both hdmi and writeback it serves is well.
+A RFC version was floated and discussion had taken place at [1] which
+kicked of this more cleaner series.
+We do all other required modifications that come with these changes
+along with addition of new function which returns the drm_connector when
+drm_writeback_connector is present.
+This series also contains some writeback API cleanups as a consequence
+of writeback connector moving into drm_connector
+All drivers will be expected to allocate the drm_connector.
+This discussion was tiggered from [2] and sits on top of Dmitry's series
+see [3].
 
---- Patch [7]: [PATCH v7 7/7] drm/tyr: add Microcontroller Unit (MCU) booti=
-ng ---
-commit e1820d2f1cae463780da8954dc7c2dd33531c48e
-Author: Deborah Brouwer <deborah.brouwer@collabora.com>
+[1] https://patchwork.freedesktop.org/series/152758/
+[2] https://patchwork.freedesktop.org/series/152106/
+[3] https://patchwork.freedesktop.org/series/152420/
 
-drm/tyr: add Microcontroller Unit (MCU) booting
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 
-Add a firmware module to load, parse, and map the MCU firmware sections
-into shared GEM memory at the required virtual addresses accessible by the
-GPU.
+Suraj Kandpal (7):
+  drm: writeback: Refactor drm_writeback_connector structure
+  drm: writeback: Modify writeback init helpers
+  drm: writeback: Modify drm_writeback_queue_job helper
+  drm: writeback: Modify drm_writeback_signal_completion helper
+  drm: writeback: Modify drm_writeback_get_out_fence helper
+  drm: writeback: Modify prepare_writeback_job helper
+  drm: writeback: Modify cleanup_writeback_job helper
 
-> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-> index 0000000000000..554808a792aa5
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/fw.rs
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |  4 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  | 12 +--
+ .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  2 +-
+ .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
+ .../arm/display/komeda/komeda_wb_connector.c  | 11 +--
+ drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
+ drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
+ drivers/gpu/drm/arm/malidp_mw.c               |  7 +-
+ drivers/gpu/drm/drm_atomic_uapi.c             |  4 +-
+ drivers/gpu/drm/drm_writeback.c               | 47 +++++++-----
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  9 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 10 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h |  4 +-
+ .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  6 +-
+ .../drm/renesas/rcar-du/rcar_du_writeback.c   | 15 ++--
+ drivers/gpu/drm/vc4/vc4_txp.c                 |  6 +-
+ drivers/gpu/drm/vkms/vkms_drv.h               |  2 +-
+ drivers/gpu/drm/vkms/vkms_writeback.c         | 15 ++--
+ include/drm/drm_connector.h                   | 69 ++++++++++++++++-
+ include/drm/drm_modeset_helper_vtables.h      |  4 +-
+ include/drm/drm_writeback.h                   | 76 ++-----------------
+ 23 files changed, 160 insertions(+), 161 deletions(-)
 
-[ ... ]
+-- 
+2.34.1
 
-> +    fn load(
-> +        ddev: &TyrDrmDevice,
-> +        gpu_info: &GpuInfo,
-> +    ) -> Result<(kernel::firmware::Firmware, KVec<ParsedSection>)> {
-> +        let fw =3D Self::request(ddev, gpu_info)?;
-> +        let mut parser =3D FwParser::new(fw.data());
-> +
-> +        let parsed_sections =3D parser.parse()?;
-
-[Severity: High]
-When parsing the firmware entry sizes, is there a risk of an integer underf=
-low
-if the entry size is 0?
-
-Looking at FwParser::parse_entry() in parser.rs, the alignment check doesn't
-seem to reject a size of 0:
-
-    if self.cursor.pos() % size_of::<u32>() !=3D 0
-        || entry_section.entry_hdr.size() as usize % size_of::<u32>() !=3D 0
-    {
-        ...
-        return Err(EINVAL);
-    }
-
-Since 0 % 4 =3D=3D 0, the check passes. Then it calculates section_hdr_size:
-
-    let section_hdr_size =3D entry_section.entry_hdr.size() as usize - size=
-_of::<EntryHeader>();
-
-If the size is 0, subtracting size_of::<EntryHeader>() (which is 4) will
-underflow, causing a kernel panic. Should there be a check to ensure the
-size is at least size_of::<EntryHeader>()?
-
-> +
-> +        Ok((fw, parsed_sections))
-> +    }
-> +
-> +    /// Load firmware and map sections into MCU VM.
-> +    pub(crate) fn new(
-> +        dev: &'bound Device<Bound>,
-> +        iomem: Arc<IoMem<'bound>>,
-> +        ddev: &TyrDrmDevice,
-> +        mmu: ArcBorrow<'_, Mmu<'bound>>,
-> +        gpu_info: &GpuInfo,
-> +    ) -> Result<Firmware<'bound>> {
-> +        let vm =3D Vm::new(dev, ddev, mmu, gpu_info)?;
-> +        vm.activate()?;
-> +
-> +        let (fw, parsed_sections) =3D Self::load(ddev, gpu_info)?;
-> +        let mut sections =3D KVec::new();
-
-[Severity: High]
-If an error occurs after vm.activate(), such as in Self::load() or
-KernelBo::new(), does this leak the hardware address space slot and the
-Vm allocation?
-
-vm.activate() creates a circular reference by storing an Arc<VmAsData> in t=
-he
-hardware slot manager. This cycle is normally broken by self.vm.kill() in
-Firmware::drop():
-
-impl<'bound> Drop for Firmware<'bound> {
-    fn drop(&mut self) {
-        // AS slots retain a VM ref, we need to kill the circular ref manua=
-lly.
-        self.vm.kill();
-    }
-}
-
-If Firmware::new() returns early with an error, the Firmware object is never
-constructed, so its Drop implementation won't run. Should vm.kill() be
-called on these error paths before returning?
-
-[ ... ]
-
-> +    pub(crate) fn boot(&self) -> Result {
-> +        let io =3D &self.iomem;
-> +        io.write_reg(MCU_CONTROL::zeroed().with_req(McuControlMode::Auto=
-));
-> +
-> +        if let Err(e) =3D poll::read_poll_timeout(
-> +            || Ok((io.read(MCU_STATUS), io.read(JOB_IRQ_RAWSTAT))),
-> +            |(mcu_status, irq_rawstat)| {
-> +                mcu_status.value() =3D=3D McuStatus::Enabled && irq_raws=
-tat.glb()
-> +            },
-> +            time::Delta::from_millis(1),
-> +            time::Delta::from_millis(100),
-> +        ) {
-> +            let status =3D io.read(MCU_STATUS);
-> +            pr_err!("MCU failed to boot, status: {:?}", status.value());
-> +            return Err(e);
-> +        }
-> +        Ok(())
-> +    }
-> +}
-
-[Severity: Medium]
-Does this leave the global interrupt asserted in the hardware's RAWSTAT
-register?
-
-The polling loop checks for the interrupt:
-
-    |(mcu_status, irq_rawstat)| {
-        mcu_status.value() =3D=3D McuStatus::Enabled && irq_rawstat.glb()
-    }
-
-But once the loop succeeds, it returns without writing to JOB_IRQ_CLEAR to
-acknowledge and clear the interrupt. Could this cause an immediate spurious
-interrupt to fire once the DRM driver registers its interrupt handler and
-unmasks interrupts at the GIC?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-fw-boot-b4=
--v7-0-afd8dc1494dd@collabora.com?part=3D7
