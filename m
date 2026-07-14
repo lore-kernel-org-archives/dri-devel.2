@@ -4,60 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C11A6C44507
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 19:18:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0381C4450A
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 19:33:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B27010E0BF;
-	Tue, 14 Jul 2026 19:18:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EFCF10E07A;
+	Tue, 14 Jul 2026 19:33:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J/zn2hIY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dzMB0JYJ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B15FA10E0BF
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 19:18:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784056724; x=1815592724;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=GfOYDJlWg3IZFciu0wTO8HAj2UD1NUueTFeDJjUZDeQ=;
- b=J/zn2hIY/P5rE0lkozeKdpsqIc/alIB7VUb01eByA2tJMG7YSHMJE6oS
- WtDQMELiePGJWDOQ9eDOweMdqFVZA6TfR+jO0o9bVFnbUvf7R2yqvh3us
- bRGrI4IcFsu8hD5OJA1bRXZpE+p2eL8hJGT32ew6h5d374Zka5/jTuglD
- 5H/3BYSxG5J3yV1owiubRGt4NWrBIHUt0aa/W/Z6kciqQj3wz8cT63Ys9
- NzKkyrDvJ9EOXeRzsePs5l8M5HLwFNq2tjrQZgrXi815ZeXetV0HeFzCg
- Ry4aCyBOym7zC76pyXnpmQA2PC8HVNGXWg+38xRYTJ6C43QFALOaQeVQb w==;
-X-CSE-ConnectionGUID: JmJcKcHYSomhkTWXRRZ5xg==
-X-CSE-MsgGUID: hyg7dXLYQwCrjdrulStwZA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="72211824"
-X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; d="scan'208";a="72211824"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2026 12:18:44 -0700
-X-CSE-ConnectionGUID: 9jbTOM19QO6MueOyBhvGoA==
-X-CSE-MsgGUID: QKTFd/3vT42zxW848QgXAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; d="scan'208";a="254826846"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.44])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2026 12:18:42 -0700
-Date: Tue, 14 Jul 2026 22:18:39 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Panagiotis Gravias <graviaspanagiotis1@gmail.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org, namcao@linutronix.de,
- tomasz.unger@yahoo.pl, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] staging/fbtft: Minor cleanups.
-Message-ID: <alaLj25guWgLapBE@ashevche-desk.local>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2D4C10E07A
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 19:33:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 63A6F40B8C;
+ Tue, 14 Jul 2026 19:33:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BAD51F000E9;
+ Tue, 14 Jul 2026 19:33:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784057616;
+ bh=7m6dNZnf/89CMpn0yLcrIuJ16/Y51OvXQj0qnXcsQbg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=dzMB0JYJOl3FZvYahMjaR0MAYaxsOW0zxEuMmOmTc8fIOMoJPb2FAwk8YXV12ktdx
+ SohAG0TWe3Wa0xqGYobQ3amlk5g0rARnvse3pL6f8fI9rooOp0WMtLFCNoBh01ciXC
+ kCn2copqdP6CouIWjYHvL5dzYCH4FqdWaG+gcw8ysBWJGp7SmTocC4cKW03THX2XG3
+ CzsVw32OKoTTKH4eaZxIhnXz5DAsy8PMU4qcJIkET0Et6g4yPWxwYyP0GtUd/j2D6r
+ 80TapE9/ssGdrEq4xV0G8QkV4xV6S8ylPHQl/aFZ3Z24NSMCAEhrGZII/uLuNVBLU4
+ eznhAmLzjlZwA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] staging/fbtft: Remove prohibited space before close
+ parenthesis
+To: "Panagiotis Gravias" <graviaspanagiotis1@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260714190958.219437-4-graviaspanagiotis1@gmail.com>
 References: <20260714190958.219437-2-graviaspanagiotis1@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714190958.219437-2-graviaspanagiotis1@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+ <20260714190958.219437-4-graviaspanagiotis1@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 19:33:35 +0000
+Message-Id: <20260714193336.1BAD51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,24 +54,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 14, 2026 at 10:09:38PM +0300, Panagiotis Gravias wrote:
-> Solved some style errors,
-> parenthesis spacing, aligning arguments, replacing udelay() with
-> usleep_range().
-> 
-> I hope this makes future checks with the style script cleaner and more
-> helpfull.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-To understand the resolution, read the mailing list archives for
-the last ~6-9 months against this driver.
+Pre-existing issues:
+- [High] Constructing and dereferencing unaligned 16-bit pointers causes un=
+defined behavior and potential kernel panics on strict-alignment architectu=
+res.
+- [High] Incorrect SPI buffer size calculation transmits uninitialized memo=
+ry when multiple parameters are sent with `startbyte` enabled.
+--
 
-Also read and understand README in the folder of the driver.
+--- Patch [1]: [PATCH 1/3] staging/fbtft: Remove prohibited space before cl=
+ose parenthesis ---
+commit b5aeca6fddf7088401c92f0dfc0d9c7d04fb863a
+Author: Panagiotis Gravias <graviaspanagiotis1@gmail.com>
 
--- 
-With Best Regards,
-Andy Shevchenko
+staging/fbtft: Remove prohibited space before close parenthesis
 
+This commit cleans up a checkpatch error by removing a prohibited space
+before the close parenthesis in the define_fbtft_write_reg macro
+invocations.
 
+> diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fb=
+tft-bus.c
+> index 30e436ff19e4c..38697992f5e1b 100644
+> --- a/drivers/staging/fbtft/fbtft-bus.c
+> +++ b/drivers/staging/fbtft/fbtft-bus.c
+> @@ -62,9 +62,9 @@ out:									      \
+>  }                                                                       =
+      \
+>  EXPORT_SYMBOL(func);
+> =20
+> -define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
+> +define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8,)
+>  define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
+> -define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
+> +define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16,)
+
+[Severity: High]
+This is a pre-existing issue, but does expanding this macro for 16-bit
+types like fbtft_write_reg16_bus16 create an unaligned pointer dereference?
+
+In the define_fbtft_write_reg() macro definition, when a startbyte is used:
+
+	if (par->startbyte) {
+		*(u8 *)par->buf =3D par->startbyte;
+		buf =3D (buffer_type *)(par->buf + 1);
+		offset =3D 1;
+	}
+
+The pointer is advanced by 1 byte. When buffer_type is a 16-bit type, this
+creates an odd-aligned pointer. Later, the macro writes to it:
+
+	*buf =3D modifier((data_type)va_arg(args, unsigned int));
+
+This can cause unaligned memory access faults and lead to kernel panics on
+strict-alignment architectures. This same pattern also appears in
+fbtft_write_vmem16_bus8() where par->txbuf.buf + 1 is cast to a 16-bit
+pointer.
+
+[Severity: High]
+This is also a pre-existing issue within the same macro, but could the
+SPI buffer size calculation send uninitialized memory?
+
+When sending multiple parameters with a startbyte active, the macro packs
+exactly one start byte followed by the parameters. However, the transmission
+size is calculated as:
+
+	if (len) {
+		...
+		fbtft_write_buf_dc(par, par->buf,
+				   len * (sizeof(data_type) + offset), 1);
+	}
+
+Because offset is 1, if len is greater than 1, this calculates to
+len * sizeof(data_type) + len, instead of the actual payload size of
+1 + len * sizeof(data_type). Could this force the SPI core to transmit extra
+uninitialized out-of-bounds bytes and potentially corrupt the display
+controller's initialization state?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714190958.2194=
+37-2-graviaspanagiotis1@gmail.com?part=3D1
