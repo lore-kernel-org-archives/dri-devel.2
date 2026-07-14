@@ -4,45 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2207C44501
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 12:08:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B1D7C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 12:14:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32E2910E049;
-	Tue, 14 Jul 2026 12:08:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7179810E6B6;
+	Tue, 14 Jul 2026 12:14:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V+3JUEpf";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="bKY24GR3";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F6A810E049
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 12:08:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 61E7D6132C;
- Tue, 14 Jul 2026 12:08:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA55A1F00A3D;
- Tue, 14 Jul 2026 12:08:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784030917;
- bh=5x5iZn6A634BKpVAMFzEBOyUyZVD/c4xCK5jyrshXgs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=V+3JUEpf6Dc7Ut1FKr4W+E6we1VS96nAIN3g5/wf6NT6GsLEvK5WfO/PyWy0MAOPD
- GuKN6cyT9WGSzyPYh1cPPQXxmjtpiyzaHSL6HINI+TNDHhNiUr8/uTuOHTHXXRwUB7
- lSRGyn8COqCGQDSzVdWecUkYtVAczzGJS+NgJFbYw4KY9xUHJAJT1r5riATpMAj9WG
- EvmOKhXdgF7O9/Pv6b83EizAuzn9O8ENdbt7hAcNt8Sn3F0c/t1YwYXBcwsfeJ+Aje
- 3IjUKeg/9/1K/gwkiZS4AwL1zUXXKHCzKTAInOiCRylFIV2lGT77jgvzV/YlSpIrhn
- zuE2WViUsDviA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] misc: fastrpc: don't publish fd before
- copy_to_user() succeeds
-To: "Baineng Shou" <shoubaineng@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260714114654.3885457-3-shoubaineng@gmail.com>
-References: <CABdmKX21NHc2=9Sk2F-BFpu6is0vTg-QXLE+wiFNEPdsWWjvog@mail.gmail.com>
- <20260714114654.3885457-1-shoubaineng@gmail.com>
- <20260714114654.3885457-3-shoubaineng@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 12:08:36 +0000
-Message-Id: <20260714120836.EA55A1F00A3D@smtp.kernel.org>
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C02DD10E6B6
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 12:14:23 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-493ec555a26so27211515e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 05:14:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1784031262; x=1784636062;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=5JJ4kTtQhf+mxJB8QH4xv+X07dhaoQyWUqwyzTRdFrg=;
+ b=bKY24GR3mgfw6D3h/NF8VvT4UZAF/5WRuUSKUrSjeCXbbj0d48Ktm/BE6I1pDIynmz
+ Uo7GmTB851CXLQCTurpVuUMLz9Mn9R/kQQDvkLIwTy40pmln1xsi0LVYuu5REzubllmr
+ bck/Qmy4L2usnrDirOGLJO/uKtlhT972/WTBFDWgSAgJrPqz23Dsk5eanfpJNsacrYF3
+ 5dc8i1KG0GeRV0CKqLea+XNluujYevCuQhPYQY0z1bOPC+Uy2/dGe8d5Wx1i0XR9gHJm
+ UiKIKb18vaBDFm4CyuZpsG/1VrNJ4b3rSSlH88fYXOW3bf2SKnqrIhRpFLjuDVUFoibx
+ g0Qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784031262; x=1784636062;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=5JJ4kTtQhf+mxJB8QH4xv+X07dhaoQyWUqwyzTRdFrg=;
+ b=QrXtqfLj5u3n79JGpQvCI6YD4wffSaXGUMnaxx1nyAjrh74GP1/VgIBHp8DYT6UH7y
+ Do7WLrYYRy2wshJui5Kpb1yJ1kDeLw9PiZND5bHCHNg0OrMj30MMaS8sXq/FVkEQB7JA
+ JAXbOzDezwa0P6jMlI0cRy4iwERBl3f49bia4xp55pqI2XyTPDmKap2cS1YSQslaS/WU
+ OcD7atrdomWDrQozpQcxZsyoCZHZshLAj3BRaMfuDUzuS7Aq9mLfrf6YXBJgT2o1UaNZ
+ CW3w1O6Z7Z6fkccOvYSAQ9SMVgjHtrLCyYU5SnnieQqCy8aDZeLibVOuDrvBx12Wz5zj
+ 5jdw==
+X-Gm-Message-State: AOJu0YwuXjdqg+6GfaBofA7Zrzskkvtqal02F5PgE5mVlRBel3qyEnKH
+ 3yZGEXsVdUiyKS8ERM1qYIuZvJhbkP/U0qvuIm7r2MutzV68wZMFceeKIhXgMiNhGuI=
+X-Gm-Gg: AfdE7clzWQJXstMF6/2fZZYktQTcVYgvIFCIu5Ud8Om6SVMc1CUjt/zC2GsRwFbKcXZ
+ FXRPt3nE7mBt1C1IG4Ziq18cmPlBXIuSxwt4v6yNhWh77yK6muwpwvs8xw07fc5BeilPpMrwIoO
+ a/l+sMkLM+W0YDm/YjPXxS/fgAlZittkVKkrg1mUCLOXAG/fWNiOUwONEIMZ9AzPtnPnCB6hx+q
+ 1NW5SdrgD2tdkW4dQQFORu7nmrb0a2iQnLGvgJnzCbDabSID4tUskCUUqB7aN6bGJeh5FLkSgB+
+ boVpNr/jyrPF6jL6Nq5HEvnXTwYWnjHA0PITcvmMx1zN359oKcUo+wAs1GUT23FQyX9B+5RWkjY
+ F5gZzyv7zoxx8h3KOfRtlQQK+Gyi/svVKx734QKrnUAN1P1OfTH61oWusk4JpLofY+s+n/0Itnv
+ o/SW72kbourWMZujGFQh802k9wr3/oFZlIBY++D6g1kvWGCBuEOm44P3hbgPrVLoATfkBoC5oqp
+ Lc1
+X-Received: by 2002:a05:600c:310f:b0:493:c47f:3c55 with SMTP id
+ 5b1f17b1804b1-493f87d6196mr131633285e9.5.1784031261675; 
+ Tue, 14 Jul 2026 05:14:21 -0700 (PDT)
+Received: from localhost
+ (p200300f65f47db04b44a80421173aa03.dip0.t-ipconnect.de.
+ [2003:f6:5f47:db04:b44a:8042:1173:aa03])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-49508727f7dsm72931045e9.4.2026.07.14.05.14.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2026 05:14:20 -0700 (PDT)
+Date: Tue, 14 Jul 2026 14:14:19 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Leander Kieweg <kieweg.leander@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org
+Subject: Re: [RFC PATCH 2/3] drm/glanda: Add initial DRM driver for GlandaGPU
+Message-ID: <alYnPYdzBRUHBCIR@monoceros>
+References: <20260714101146.200416-1-kieweg.leander@gmail.com>
+ <20260714101146.200416-3-kieweg.leander@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="vomlj32cvkk2bmdr"
+Content-Disposition: inline
+In-Reply-To: <20260714101146.200416-3-kieweg.leander@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,121 +93,50 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [Critical] The `fastrpc_user` context can be used-after-free if an export=
-ed dmabuf outlives the fastrpc device file descriptor.
-- [Critical] Concurrent calls to `FASTRPC_IOCTL_MUNMAP` lead to list corrup=
-tion, Use-After-Free, and Double-Free of a `fastrpc_buf`.
-- [Critical] Concurrent calls to `FASTRPC_IOCTL_MEM_UNMAP` cause a Use-Afte=
-r-Free and Double-Free of a `fastrpc_map`.
---
+--vomlj32cvkk2bmdr
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [RFC PATCH 2/3] drm/glanda: Add initial DRM driver for GlandaGPU
+MIME-Version: 1.0
 
---- Patch [2]: [PATCH v3 2/2] misc: fastrpc: don't publish fd before copy_t=
-o_user() succeeds ---
-commit 385ee7a3198521d1682f7120112f746dede7b20d
-Author: Baineng Shou <shoubaineng@gmail.com>
-misc: fastrpc: don't publish fd before copy_to_user() succeeds
+Hello,
 
-This commit fixes an issue where the DMA buffer file descriptor is publishe=
-d=20
-to userspace before a successful usercopy. It reserves an unused fd, perfor=
-ms=20
-the copy, and only installs the fd if the copy succeeds. On failure, it=20
-cleanly unwinds the fd and buffer allocations.
+On Tue, Jul 14, 2026 at 12:11:44PM +0200, Leander Kieweg wrote:
+> +#include <linux/mod_devicetable.h>	/* Device Tree parsing */
 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index f3a49384586d1..c5143cd257674 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-[ ... ]
-> @@ -1709,24 +1709,20 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_us=
-er *fl, char __user *argp)
->  		return err;
->  	}
-> =20
-> -	bp.fd =3D dma_buf_fd(buf->dmabuf, O_ACCMODE);
-> +	bp.fd =3D get_unused_fd_flags(O_ACCMODE);
+Don't include this header, I plan to get rid of it soon. of_device_id is
+provided by <linux/of.h>, so you can just drop this #include.
 
-[Severity: Critical]
-This is a pre-existing issue, but does fastrpc_buf_alloc() fail to take a=20
-reference on the fastrpc_user context?
+> +/* Device Tree match table. */
+> +static const struct of_device_id glanda_of_match[] = {
+> +	{.compatible = "glanda,gpu-1.0", },
 
-Looking just above this diff in fastrpc_dmabuf_alloc():
+Make this:
 
-err =3D fastrpc_buf_alloc(fl, fl->sctx->dev, bp.size, &buf);
+	{ .compatible = "glanda,gpu-1.0" },
 
-This allocates the buffer and assigns the user context to buf->fl, but does=
-=20
-not increment the user context's reference count. If the fastrpc device fil=
-e=20
-descriptor is closed, fastrpc_device_release() drops the reference to fl an=
-d=20
-frees it, meaning the exported dmabuf can outlive it.
+please. (That is, a space after the opening { and no comma before the closing }).
 
-If the dmabuf is closed later, fastrpc_release() calls fastrpc_buf_free(),=
-=20
-which dereferences the freed context here:
+Thanks
+Uwe
 
-fastrpc_ipa_to_dma_addr(buf->fl->cctx, buf->dma_addr)
+--vomlj32cvkk2bmdr
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Can this lead to a use-after-free of the fastrpc_user context?
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: Critical]
-This is also a pre-existing issue, but does concurrent execution of=20
-FASTRPC_IOCTL_MUNMAP lead to list corruption or double-frees?
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpWKBkACgkQj4D7WH0S
+/k5+ZAf+PCrH1KEIEe5DEhx79yvrlJF2wcvN6MSddreJROzzmTkLNFRMKEE+/Obf
+MGsYDEskqaj8nzNTf8/v31DKVdOC1nYy3wZEJjBib4TJz70Tyy16xPMaJn9Aj9dx
+bthrR7oNOkQQL51gGcNVTVJblZX71D5G8w7JUvtXeD9fjP9yyiZA7W0WlXLyt4fw
+A7CkhG/rtjKRA8YR5/FYE5u7U7WZ6jG9iJkk2z2TE3KD8g0Q4tCHcRYwHB+P/xuI
+YlzkCQ2FuSfOqiDJgYmz6ytFZEWoVhr3OOo3SPlT6DBw2l9g8AWrTVAaDt/7rNO1
+TwijzResdCME0fHMgYOLkpRabjtKHQ==
+=0Gj4
+-----END PGP SIGNATURE-----
 
-In fastrpc_req_munmap(), the buf pointer is located under the lock:
-
-buf =3D iter;
-break;
-
-The lock is then dropped without taking a reference count on the buffer. Th=
-e=20
-raw pointer is passed to fastrpc_req_munmap_impl(). If two threads invoke=20
-the ioctl concurrently with the same arguments, could they both find the=20
-same buf and race?=20
-
-They would both concurrently execute this in fastrpc_req_munmap_impl():
-
-list_del(&buf->node);
-spin_unlock(&fl->lock);
-fastrpc_buf_free(buf);
-
-Does this result in list_del() and fastrpc_buf_free() executing twice on=20
-the same pointer?
-
-[Severity: Critical]
-This is another pre-existing issue, but does fastrpc_req_mem_unmap_impl()=20
-have a similar race condition?
-
-The map is extracted from the list under the lock, and then the lock is=20
-dropped without incrementing the map's reference count:
-
-map =3D iter;
-break;
-}
-}
-spin_unlock(&fl->lock);
-
-Multiple threads could extract the same map pointer. If both threads=20
-successfully proceed, they will both call:
-
-fastrpc_map_put(map);
-
-Since fastrpc_map_get() was never called during the lookup, does the first=
-=20
-thread drop the reference count to 0 and free the map prematurely? This=20
-could cause the second thread to trigger a use-after-free on failure paths=
-=20
-or a double-free when calling fastrpc_map_put() again.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714114654.3885=
-457-1-shoubaineng@gmail.com?part=3D2
+--vomlj32cvkk2bmdr--
