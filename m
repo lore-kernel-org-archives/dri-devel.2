@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68760C44508
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:44:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C786C4450E
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FB1010E6AA;
-	Tue, 14 Jul 2026 11:44:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D11F710E6AB;
+	Tue, 14 Jul 2026 11:44:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ACH7/Kgh";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="mgwGgJXC";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3138A10E68B
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:44:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EF4110E6AB
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:44:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784029484;
- bh=o8YYKxiHeKp1LzjoQjOrfXbhQoZHP34rBrUqNiu0F80=;
+ s=mail; t=1784029479;
+ bh=a3Zk9VtwjzQZ0fQ39QCCtxiwLry/La2QPCCPr/aNPEs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ACH7/KghPskErSaYSNY5ctnedsi9Xx7ix6ZVXYmtihF293LEdkHL/qlmNvegIMDz2
- a2N7jxftmz8qdeeGnxFKBTjFGwX/8U6kppYQ5NPNlziSGTg+Jm5XiG6SgHW/+fAOEa
- lzgHwe2HmkRgHPV/pneROJ7EtE96YvNI+B+JwLNCIpqWAYDRGo+IEDgVn6mQ/EjykK
- pYQZx/+3+dJ/cMckEsVeNLci4TZNnOikuUCjdf1YPltJMFhJVvmrjsWGwU4Oq0ZlFi
- JaLeY+5CDcP3KAqW5i8WgpJKj86rGdmqW7h+2Cqw7P7PDWKjYEbMSmnANAMlbp5906
- ZBshSGXp0wDvA==
+ b=mgwGgJXCRzEOdwC7wAnqJJ7sLRdNLOHiObE/1iZpQOdcG6n4pJfi6iEKexkOQjxq+
+ i8e8psG6eMH5lVecw5Nr8KhpUq+f2zjRf1A+3Wm1JJ5BHocNWmkmf60VpO22yjdQRX
+ I6lNxyVTEpEPx1Lk27kOJaFJsRgDKF4DxaGY6LYzJR8BjBqc5UCajlkcTfaKRuPP8p
+ 2GwzFEb26cMPTcQke3Gqlib1mMClMDhGlx19H3ygr+NHOlhnCn9ZDgdXMMqtKJwcIv
+ 3+M64jqq7dw9yhabTlAb3/U5PfJftdueXyGJPePhQQW8U16GPB7Iis6Vu2D+cf8Bp6
+ NsTfA0h0uYY2Q==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 18AB617E0B89;
- Tue, 14 Jul 2026 13:44:44 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 54F1317E010F;
+ Tue, 14 Jul 2026 13:44:38 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
@@ -41,11 +41,11 @@ Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
  dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
- jason-jh.lin@mediatek.com, kernel@collabora.com
-Subject: [PATCH v2 12/46] dt-bindings: soc: mediatek: mutex: Allow
- #trigger-source-cells
-Date: Tue, 14 Jul 2026 13:43:40 +0200
-Message-ID: <20260714114414.184512-13-angelogioacchino.delregno@collabora.com>
+ jason-jh.lin@mediatek.com, kernel@collabora.com, CK Hu <ck.hu@mediatek.com>
+Subject: [PATCH v2 08/46] drm/mediatek: ddp_comp: Move internal component
+ register in function
+Date: Tue, 14 Jul 2026 13:43:36 +0200
+Message-ID: <20260714114414.184512-9-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
 References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
@@ -66,38 +66,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This hardware controls trigger sources, and there's even a generic
-binding just for that: allow #trigger-source-cells in MuteX, so
-that this is allowed to provide triggers to external HW.
+In preparation for adding an helper serving the purpose of finally
+removing duplicated code to check for internal/simple components,
+and for improving human readability in the up coming refactoring,
+move the internal/simple component registration logic to its own
+mtk_ddp_comp_init_internal_comp() function.
 
-Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+This brings no functional changes.
+
+Reviewed-by: CK Hu <ck.hu@mediatek.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../devicetree/bindings/soc/mediatek/mediatek,mutex.yaml      | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.c | 55 +++++++++++++++----------
+ 1 file changed, 33 insertions(+), 22 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
-index 5267cfe92572..886e6f904b78 100644
---- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
-+++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
-@@ -54,6 +54,9 @@ properties:
-     items:
-       - description: MUTEX Clock
+diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+index d716fd9f8a70..2ba2123238b3 100644
+--- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
++++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+@@ -629,6 +629,38 @@ static void mtk_ddp_comp_clk_put(void *_clk)
+ 	clk_put(clk);
+ }
  
-+  '#trigger-source-cells':
-+    const: 1
++static int mtk_ddp_comp_init_internal_comp(struct device *dev, struct device *comp_dev)
++{
++	struct device_node *comp_node = comp_dev->of_node;
++	struct mtk_ddp_comp_dev *priv;
++	int ret;
 +
-   mediatek,gce-events:
-     description:
-       The event id which is mapping to the specific hardware event signal
-@@ -116,6 +119,7 @@ examples:
-             interrupts = <GIC_SPI 169 IRQ_TYPE_LEVEL_LOW>;
-             power-domains = <&spm MT8173_POWER_DOMAIN_MM>;
-             clocks = <&mmsys CLK_MM_MUTEX_32K>;
-+            #trigger-source-cells = <1>;
-             mediatek,gce-events = <CMDQ_EVENT_MUTEX0_STREAM_EOF>,
-                                   <CMDQ_EVENT_MUTEX1_STREAM_EOF>;
-         };
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	priv->regs = devm_of_iomap(dev, comp_node, 0, NULL);
++	if (IS_ERR(priv->regs))
++		return PTR_ERR(priv->regs);
++
++	priv->clk = of_clk_get(comp_node, 0);
++	if (IS_ERR(priv->clk))
++		return PTR_ERR(priv->clk);
++
++	ret = devm_add_action_or_reset(dev, mtk_ddp_comp_clk_put, priv->clk);
++	if (ret)
++		return ret;
++
++#if IS_REACHABLE(CONFIG_MTK_CMDQ)
++	ret = cmdq_dev_get_client_reg(comp_dev, &priv->cmdq_reg, 0);
++	if (ret)
++		dev_dbg(comp_dev, "get mediatek,gce-client-reg fail!\n");
++#endif
++	dev_set_drvdata(comp_dev, priv);
++
++	return 0;
++};
++
+ int mtk_ddp_comp_init(struct device *dev, struct device_node *node,
+ 		      struct mtk_drm_comp_list *hlist,
+ 		      unsigned int comp_id)
+@@ -636,7 +668,6 @@ int mtk_ddp_comp_init(struct device *dev, struct device_node *node,
+ 	struct platform_device *comp_pdev;
+ 	struct mtk_ddp_comp *comp;
+ 	enum mtk_ddp_comp_type type;
+-	struct mtk_ddp_comp_dev *priv;
+ 	int ret;
+ 
+ 	if (comp_id >= DDP_COMPONENT_DRM_ID_MAX)
+@@ -686,29 +717,9 @@ int mtk_ddp_comp_init(struct device *dev, struct device_node *node,
+ 	    type == MTK_DISP_DSI)
+ 		goto end;
+ 
+-	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+-	if (!priv)
+-		return -ENOMEM;
+-
+-	priv->regs = devm_of_iomap(dev, node, 0, NULL);
+-	if (IS_ERR(priv->regs))
+-		return PTR_ERR(priv->regs);
+-
+-	priv->clk = of_clk_get(node, 0);
+-	if (IS_ERR(priv->clk))
+-		return PTR_ERR(priv->clk);
+-
+-	ret = devm_add_action_or_reset(dev, mtk_ddp_comp_clk_put, priv->clk);
++	ret = mtk_ddp_comp_init_internal_comp(dev, comp->dev);
+ 	if (ret)
+ 		return ret;
+-
+-#if IS_REACHABLE(CONFIG_MTK_CMDQ)
+-	ret = cmdq_dev_get_client_reg(comp->dev, &priv->cmdq_reg, 0);
+-	if (ret)
+-		dev_dbg(comp->dev, "get mediatek,gce-client-reg fail!\n");
+-#endif
+-
+-	platform_set_drvdata(comp_pdev, priv);
+ end:
+ 	hash_add(hlist->ddp_list, &comp->lnode, comp->id);
+ 
 -- 
 2.54.0
 
