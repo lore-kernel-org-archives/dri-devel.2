@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81B08C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:44:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F693C44501
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:44:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B219E10E6A3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A167A10E69D;
 	Tue, 14 Jul 2026 11:44:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="j16Uz93h";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="SeuvzPuO";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E752F10E573
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:44:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4C4910E68B
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:44:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784029474;
- bh=Ip0z0Dqm9bUaaMp/etGb29cMeapZRLGllSD+m34VwVA=;
+ s=mail; t=1784029472;
+ bh=8OiVQ/Y/antXKCgdZsU2F6JKC0zWfdBF7J9KDfdME+0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=j16Uz93hCM00fKmLqkfKyUHd+O3FtxoL9CNdPoleCVNsfb5em7W+NNiIxnt/KmX8i
- 0KRQozPXAnTxiMkZbEnryV0X79Ulqgw71OhzZObmUpsHDGTHebWzQhJzie0s9cBM5l
- HO7391y4q3uIo7xqtB8q/WbzBYUF4A4U8/wn1ZR2o+RyXC8hLd/3VoMp3ub8vW5OBv
- DavFbTLvSjtv9LmMFyZm2VNaFR1/Agy6PynLQaEAQtFH2MJKH1Eviuqe5hHKN6ZMj9
- GvlZm7wcwmlQPYz4DJ7GAx91lWnHdGrnLjDVof4kqQtLQIANdx4irbEjNt9/A7HG4R
- s1bM3pLnpfIrg==
+ b=SeuvzPuOf7w8Iw6e9bmh7qWeVOnQ1rV0bkYRuP8zKxbMpG+A3N85V6dLIxGJ0m6Tg
+ 50lpM/VOLhP2xiJKe/M+jgdxoJKQL7BHzdOJlN/82vBp/cGPE4d1t5fapiWG2pIhp8
+ NLafxSN1Ja0PXl1lm2Szmqbktr1P1QMwowQVjYkrNbMCTOO6Pp/hXIxzG6qmKAqYuo
+ Mksb7Mcnn7+kGmfK+DK32N2BGQZCDjF3NnAPOQz+YqL4sMcifzNjX6CjKZQV9ct6lp
+ c5CYhDG01JxmNrJq0CQfQJgB5qKE8wNv1XZSKghAHhwynXTzLGvas4UGmGPtUqq3im
+ yY96jpmjtB0iA==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E777517E0DE9;
- Tue, 14 Jul 2026 13:44:33 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 46A1D17E087B;
+ Tue, 14 Jul 2026 13:44:31 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
@@ -41,11 +41,13 @@ Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
  dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
- jason-jh.lin@mediatek.com, kernel@collabora.com
-Subject: [PATCH v2 04/46] drm/mediatek: Move mtk_ddp_comp_type enumeration to
- mtk-mmsys.h
-Date: Tue, 14 Jul 2026 13:43:32 +0200
-Message-ID: <20260714114414.184512-5-angelogioacchino.delregno@collabora.com>
+ jason-jh.lin@mediatek.com, kernel@collabora.com,
+ Nancy Lin <nancy.lin@mediatek.com>,
+ Paul-pl Chen <paul-pl.chen@mediatek.com>
+Subject: [PATCH v2 02/46] drm/mediatek: Export OVL formats definitions and
+ format conversion API
+Date: Tue, 14 Jul 2026 13:43:30 +0200
+Message-ID: <20260714114414.184512-3-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
 References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
@@ -66,93 +68,389 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In preparation for a major refactoring of MMSYS, MUTEX and of
-mediatek-drm, move the mtk_ddp_comp_type enumeration to the
-mtk-mmsys.h header, as this will be shared between multiple
-MediaTek multimedia related drivers.
+From: Nancy Lin <nancy.lin@mediatek.com>
 
+In upcoming SoCs, the OVL component will be divided into multiple
+smaller hardware units to enhance flexibility. To facilitate this
+transition, the OVL format definitions and format conversion API
+should be exported for reuse across these units.
+
+Signed-off-by: Nancy Lin <nancy.lin@mediatek.com>
+Signed-off-by: Paul-pl Chen <paul-pl.chen@mediatek.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_ddp_comp.h | 25 ---------------------
- include/linux/soc/mediatek/mtk-mmsys.h  | 29 +++++++++++++++++++++++++
- 2 files changed, 29 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/mediatek/mtk_disp_ovl.c | 192 ++++++++++++++----------
+ drivers/gpu/drm/mediatek/mtk_disp_ovl.h |  19 +++
+ 2 files changed, 132 insertions(+), 79 deletions(-)
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_ovl.h
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.h b/drivers/gpu/drm/mediatek/mtk_ddp_comp.h
-index 99bf1e1015da..bbc66072fe6b 100644
---- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.h
-+++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.h
-@@ -22,31 +22,6 @@ struct mtk_plane_state;
- struct drm_crtc_state;
- struct drm_dsc_config;
+diff --git a/drivers/gpu/drm/mediatek/mtk_disp_ovl.c b/drivers/gpu/drm/mediatek/mtk_disp_ovl.c
+index 135bf5fedc8a..5cdaca8f68b2 100644
+--- a/drivers/gpu/drm/mediatek/mtk_disp_ovl.c
++++ b/drivers/gpu/drm/mediatek/mtk_disp_ovl.c
+@@ -4,7 +4,6 @@
+  */
  
--enum mtk_ddp_comp_type {
--	MTK_DISP_AAL,
--	MTK_DISP_BLS,
--	MTK_DISP_CCORR,
--	MTK_DISP_COLOR,
--	MTK_DISP_DITHER,
--	MTK_DISP_DSC,
--	MTK_DISP_GAMMA,
--	MTK_DISP_MERGE,
--	MTK_DISP_MUTEX,
--	MTK_DISP_OD,
--	MTK_DISP_OVL,
--	MTK_DISP_OVL_2L,
--	MTK_DISP_OVL_ADAPTOR,
--	MTK_DISP_POSTMASK,
--	MTK_DISP_PWM,
--	MTK_DISP_RDMA,
--	MTK_DISP_UFOE,
--	MTK_DISP_WDMA,
--	MTK_DPI,
--	MTK_DP_INTF,
--	MTK_DSI,
--	MTK_DDP_COMP_TYPE_MAX,
--};
--
- struct mtk_ddp_comp;
- struct cmdq_pkt;
- struct mtk_ddp_comp_funcs {
-diff --git a/include/linux/soc/mediatek/mtk-mmsys.h b/include/linux/soc/mediatek/mtk-mmsys.h
-index 4885b065b849..fb88202d100a 100644
---- a/include/linux/soc/mediatek/mtk-mmsys.h
-+++ b/include/linux/soc/mediatek/mtk-mmsys.h
-@@ -84,6 +84,35 @@ enum mtk_ddp_comp_id {
- 	DDP_COMPONENT_ID_MAX,
+ #include <drm/drm_blend.h>
+-#include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+ 
+ #include <linux/clk.h>
+@@ -18,6 +17,7 @@
+ #include "mtk_crtc.h"
+ #include "mtk_ddp_comp.h"
+ #include "mtk_disp_drv.h"
++#include "mtk_disp_ovl.h"
+ #include "mtk_drm_drv.h"
+ 
+ #define DISP_REG_OVL_INTEN			0x0004
+@@ -62,22 +62,16 @@
+ /* OVL_CON_RGB_SWAP works only if OVL_CON_CLRFMT_MAN is enabled */
+ #define OVL_CON_RGB_SWAP	BIT(25)
+ 
+-#define OVL_CON_CLRFMT_RGB	(1 << 12)
+-#define OVL_CON_CLRFMT_ARGB8888	(2 << 12)
+-#define OVL_CON_CLRFMT_RGBA8888	(3 << 12)
+-#define OVL_CON_CLRFMT_ABGR8888	(OVL_CON_CLRFMT_ARGB8888 | OVL_CON_BYTE_SWAP)
+-#define OVL_CON_CLRFMT_BGRA8888	(OVL_CON_CLRFMT_RGBA8888 | OVL_CON_BYTE_SWAP)
+-#define OVL_CON_CLRFMT_UYVY	(4 << 12)
+-#define OVL_CON_CLRFMT_YUYV	(5 << 12)
+-#define OVL_CON_MTX_YUV_TO_RGB	(6 << 16)
+-#define OVL_CON_CLRFMT_PARGB8888 ((3 << 12) | OVL_CON_CLRFMT_MAN)
+-#define OVL_CON_CLRFMT_PABGR8888 (OVL_CON_CLRFMT_PARGB8888 | OVL_CON_RGB_SWAP)
+-#define OVL_CON_CLRFMT_PBGRA8888 (OVL_CON_CLRFMT_PARGB8888 | OVL_CON_BYTE_SWAP)
+-#define OVL_CON_CLRFMT_PRGBA8888 (OVL_CON_CLRFMT_PABGR8888 | OVL_CON_BYTE_SWAP)
+-#define OVL_CON_CLRFMT_RGB565(ovl)	((ovl)->data->fmt_rgb565_is_0 ? \
+-					0 : OVL_CON_CLRFMT_RGB)
+-#define OVL_CON_CLRFMT_RGB888(ovl)	((ovl)->data->fmt_rgb565_is_0 ? \
+-					OVL_CON_CLRFMT_RGB : 0)
++#define OVL_CON_CLRFMT_SHIFT			(12)
++#define OVL_CON_CLRFMT_RGB565(shift)		(0 << (shift))
++#define OVL_CON_CLRFMT_RGB888(shift)		(1 << (shift))
++#define OVL_CON_CLRFMT_ARGB8888(shift)		(2 << (shift))
++#define OVL_CON_CLRFMT_RGBA8888(shift)		(3 << (shift))
++#define OVL_CON_CLRFMT_UYVY(shift)		(4 << (shift))
++#define OVL_CON_CLRFMT_YUYV(shift)		(5 << (shift))
++#define OVL_CON_MTX_YUV_TO_RGB			(6 << 16)
++#define OVL_CON_CLRFMT_PARGB8888(shift, man)	((3 << (shift)) | (man))
++
+ #define	OVL_CON_AEN		BIT(8)
+ #define	OVL_CON_ALPHA		0xff
+ #define	OVL_CON_VIRT_FLIP	BIT(9)
+@@ -85,21 +79,6 @@
+ 
+ #define OVL_COLOR_ALPHA		GENMASK(31, 24)
+ 
+-static inline bool is_10bit_rgb(u32 fmt)
+-{
+-	switch (fmt) {
+-	case DRM_FORMAT_XRGB2101010:
+-	case DRM_FORMAT_ARGB2101010:
+-	case DRM_FORMAT_RGBX1010102:
+-	case DRM_FORMAT_RGBA1010102:
+-	case DRM_FORMAT_XBGR2101010:
+-	case DRM_FORMAT_ABGR2101010:
+-	case DRM_FORMAT_BGRX1010102:
+-	case DRM_FORMAT_BGRA1010102:
+-		return true;
+-	}
+-	return false;
+-}
+ 
+ static const u32 mt8173_ovl_formats[] = {
+ 	DRM_FORMAT_XRGB8888,
+@@ -115,7 +94,9 @@ static const u32 mt8173_ovl_formats[] = {
+ 	DRM_FORMAT_YUYV,
  };
  
-+enum mtk_ddp_comp_type {
-+	/* DISP Components */
-+	MTK_DISP_AAL,
-+	MTK_DISP_BLS,
-+	MTK_DISP_CCORR,
-+	MTK_DISP_COLOR,
-+	MTK_DISP_DITHER,
-+	MTK_DISP_DSC,
-+	MTK_DISP_GAMMA,
-+	MTK_DISP_MERGE,
-+	MTK_DISP_MUTEX,
-+	MTK_DISP_OD,
-+	MTK_DISP_OVL,
-+	MTK_DISP_OVL_2L,
-+	MTK_DISP_OVL_ADAPTOR,
-+	MTK_DISP_POSTMASK,
-+	MTK_DISP_PWM,
-+	MTK_DISP_RDMA,
-+	MTK_DISP_UFOE,
-+	MTK_DISP_WDMA,
+-static const u32 mt8195_ovl_formats[] = {
++static const size_t mt8173_ovl_formats_len = ARRAY_SIZE(mt8173_ovl_formats);
 +
-+	/* Keep Display outputs at the end for readability */
-+	MTK_DPI,
-+	MTK_DP_INTF,
-+	MTK_DSI,
++const u32 mt8195_ovl_formats[] = {
+ 	DRM_FORMAT_XRGB8888,
+ 	DRM_FORMAT_ARGB8888,
+ 	DRM_FORMAT_XRGB2101010,
+@@ -139,6 +120,8 @@ static const u32 mt8195_ovl_formats[] = {
+ 	DRM_FORMAT_YUYV,
+ };
+ 
++const size_t mt8195_ovl_formats_len = ARRAY_SIZE(mt8195_ovl_formats);
 +
-+	MTK_DDP_COMP_TYPE_MAX
-+};
+ struct mtk_disp_ovl_data {
+ 	unsigned int addr;
+ 	unsigned int gmc_bits;
+@@ -167,6 +150,22 @@ struct mtk_disp_ovl {
+ 	void				*vblank_cb_data;
+ };
+ 
++bool mtk_ovl_is_10bit_rgb(unsigned int fmt)
++{
++	switch (fmt) {
++	case DRM_FORMAT_XRGB2101010:
++	case DRM_FORMAT_ARGB2101010:
++	case DRM_FORMAT_RGBX1010102:
++	case DRM_FORMAT_RGBA1010102:
++	case DRM_FORMAT_XBGR2101010:
++	case DRM_FORMAT_ABGR2101010:
++	case DRM_FORMAT_BGRX1010102:
++	case DRM_FORMAT_BGRA1010102:
++		return true;
++	}
++	return false;
++}
 +
- void mtk_mmsys_ddp_connect(struct device *dev,
- 			   enum mtk_ddp_comp_id cur,
- 			   enum mtk_ddp_comp_id next);
+ static irqreturn_t mtk_disp_ovl_irq_handler(int irq, void *dev_id)
+ {
+ 	struct mtk_disp_ovl *priv = dev_id;
+@@ -302,7 +301,7 @@ static void mtk_ovl_set_bit_depth(struct device *dev, int idx, u32 format,
+ 	if (!ovl->data->supports_clrfmt_ext)
+ 		return;
+ 
+-	if (is_10bit_rgb(format))
++	if (mtk_ovl_is_10bit_rgb(format))
+ 		bit_depth = OVL_CON_CLRFMT_10_BIT;
+ 
+ 	mtk_ddp_write_mask(cmdq_pkt, OVL_CON_CLRFMT_BIT_DEPTH(bit_depth, idx),
+@@ -401,70 +400,97 @@ void mtk_ovl_layer_off(struct device *dev, unsigned int idx,
+ 		      DISP_REG_OVL_RDMA_CTRL(idx));
+ }
+ 
+-static unsigned int mtk_ovl_fmt_convert(struct mtk_disp_ovl *ovl,
+-					struct mtk_plane_state *state)
++unsigned int mtk_ovl_fmt_convert(unsigned int fmt, unsigned int blend_mode,
++				 bool fmt_rgb565_is_0, bool color_convert,
++				 u8 clrfmt_shift, u32 clrfmt_man, u32 byte_swap, u32 rgb_swap)
+ {
+-	unsigned int fmt = state->pending.format;
+-	unsigned int blend_mode = DRM_MODE_BLEND_COVERAGE;
+-
+-	/*
+-	 * For the platforms where OVL_CON_CLRFMT_MAN is defined in the hardware data sheet
+-	 * and supports premultiplied color formats, such as OVL_CON_CLRFMT_PARGB8888.
+-	 *
+-	 * Check blend_modes in the driver data to see if premultiplied mode is supported.
+-	 * If not, use coverage mode instead to set it to the supported color formats.
+-	 *
+-	 * Current DRM assumption is that alpha is default premultiplied, so the bitmask of
+-	 * blend_modes must include BIT(DRM_MODE_BLEND_PREMULTI). Otherwise, mtk_plane_init()
+-	 * will get an error return from drm_plane_create_blend_mode_property() and
+-	 * state->base.pixel_blend_mode should not be used.
+-	 */
+-	if (ovl->data->blend_modes & BIT(DRM_MODE_BLEND_PREMULTI))
+-		blend_mode = state->base.pixel_blend_mode;
++	unsigned int con = 0;
++	bool need_byte_swap = false, need_rgb_swap = false;
+ 
+ 	switch (fmt) {
+ 	default:
+ 	case DRM_FORMAT_RGB565:
+-		return OVL_CON_CLRFMT_RGB565(ovl);
++		con = fmt_rgb565_is_0 ?
++			OVL_CON_CLRFMT_RGB565(clrfmt_shift) : OVL_CON_CLRFMT_RGB888(clrfmt_shift);
++		break;
+ 	case DRM_FORMAT_BGR565:
+-		return OVL_CON_CLRFMT_RGB565(ovl) | OVL_CON_BYTE_SWAP;
++		con = fmt_rgb565_is_0 ?
++			OVL_CON_CLRFMT_RGB565(clrfmt_shift) : OVL_CON_CLRFMT_RGB888(clrfmt_shift);
++		need_byte_swap = true;	/* RGB565 -> BGR565 */
++		break;
+ 	case DRM_FORMAT_RGB888:
+-		return OVL_CON_CLRFMT_RGB888(ovl);
++		con = fmt_rgb565_is_0 ?
++			OVL_CON_CLRFMT_RGB888(clrfmt_shift) : OVL_CON_CLRFMT_RGB565(clrfmt_shift);
++		break;
+ 	case DRM_FORMAT_BGR888:
+-		return OVL_CON_CLRFMT_RGB888(ovl) | OVL_CON_BYTE_SWAP;
++		con = fmt_rgb565_is_0 ?
++			OVL_CON_CLRFMT_RGB888(clrfmt_shift) : OVL_CON_CLRFMT_RGB565(clrfmt_shift);
++		need_byte_swap = true;	/* RGB888 -> BGR888 */
++		break;
+ 	case DRM_FORMAT_RGBX8888:
+ 	case DRM_FORMAT_RGBA8888:
+ 	case DRM_FORMAT_RGBX1010102:
+ 	case DRM_FORMAT_RGBA1010102:
+-		return blend_mode == DRM_MODE_BLEND_COVERAGE ?
+-		       OVL_CON_CLRFMT_RGBA8888 :
+-		       OVL_CON_CLRFMT_PRGBA8888;
++		if (blend_mode == DRM_MODE_BLEND_COVERAGE) {
++			con = OVL_CON_CLRFMT_RGBA8888(clrfmt_shift);
++		} else {
++			con = OVL_CON_CLRFMT_PARGB8888(clrfmt_shift, clrfmt_man);
++			need_byte_swap = true;	/* PARGB8888 -> PBGRA8888 */
++			need_rgb_swap = true;	/* PBGRA8888 -> PRGBA8888 */
++		}
++		break;
+ 	case DRM_FORMAT_BGRX8888:
+ 	case DRM_FORMAT_BGRA8888:
+ 	case DRM_FORMAT_BGRX1010102:
+ 	case DRM_FORMAT_BGRA1010102:
+-		return blend_mode == DRM_MODE_BLEND_COVERAGE ?
+-		       OVL_CON_CLRFMT_BGRA8888 :
+-		       OVL_CON_CLRFMT_PBGRA8888;
++		if (blend_mode == DRM_MODE_BLEND_COVERAGE) {
++			con = OVL_CON_CLRFMT_RGBA8888(clrfmt_shift);
++			need_byte_swap = true;	/* RGBA8888 -> BGRA8888 */
++		} else {
++			con = OVL_CON_CLRFMT_PARGB8888(clrfmt_shift, clrfmt_man);
++			need_byte_swap = true;	/* PARGB8888 -> PBGRA8888 */
++		}
++		break;
+ 	case DRM_FORMAT_XRGB8888:
+ 	case DRM_FORMAT_ARGB8888:
+ 	case DRM_FORMAT_XRGB2101010:
+ 	case DRM_FORMAT_ARGB2101010:
+-		return blend_mode == DRM_MODE_BLEND_COVERAGE ?
+-		       OVL_CON_CLRFMT_ARGB8888 :
+-		       OVL_CON_CLRFMT_PARGB8888;
++		if (blend_mode == DRM_MODE_BLEND_COVERAGE)
++			con = OVL_CON_CLRFMT_ARGB8888(clrfmt_shift);
++		else
++			con = OVL_CON_CLRFMT_PARGB8888(clrfmt_shift, clrfmt_man);
++		break;
+ 	case DRM_FORMAT_XBGR8888:
+ 	case DRM_FORMAT_ABGR8888:
+ 	case DRM_FORMAT_XBGR2101010:
+ 	case DRM_FORMAT_ABGR2101010:
+-		return blend_mode == DRM_MODE_BLEND_COVERAGE ?
+-		       OVL_CON_CLRFMT_ABGR8888 :
+-		       OVL_CON_CLRFMT_PABGR8888;
++		if (blend_mode == DRM_MODE_BLEND_COVERAGE) {
++			con = OVL_CON_CLRFMT_ARGB8888(clrfmt_shift);
++			need_rgb_swap = true;	/* ARGB8888 -> ABGR8888 */
++		} else {
++			con = OVL_CON_CLRFMT_PARGB8888(clrfmt_shift, clrfmt_man);
++			need_rgb_swap = true;	/* PARGB8888 -> PABGR8888 */
++		}
++		break;
+ 	case DRM_FORMAT_UYVY:
+-		return OVL_CON_CLRFMT_UYVY | OVL_CON_MTX_YUV_TO_RGB;
++		con = OVL_CON_CLRFMT_UYVY(clrfmt_shift);
++		if (color_convert)
++			con |= OVL_CON_MTX_YUV_TO_RGB;
++		break;
+ 	case DRM_FORMAT_YUYV:
+-		return OVL_CON_CLRFMT_YUYV | OVL_CON_MTX_YUV_TO_RGB;
++		con = OVL_CON_CLRFMT_YUYV(clrfmt_shift);
++		if (color_convert)
++			con |= OVL_CON_MTX_YUV_TO_RGB;
++		break;
+ 	}
++
++	if (need_byte_swap)
++		con |= byte_swap;
++
++	if (need_rgb_swap)
++		con |= rgb_swap;
++
++	return con;
+ }
+ 
+ static void mtk_ovl_afbc_layer_config(struct mtk_disp_ovl *ovl,
+@@ -511,7 +537,15 @@ void mtk_ovl_layer_config(struct device *dev, unsigned int idx,
+ 		return;
+ 	}
+ 
+-	con = mtk_ovl_fmt_convert(ovl, state);
++	if (ovl->data->blend_modes & BIT(DRM_MODE_BLEND_PREMULTI))
++		con = mtk_ovl_fmt_convert(fmt, blend_mode,
++					  ovl->data->fmt_rgb565_is_0, true, OVL_CON_CLRFMT_SHIFT,
++					  OVL_CON_CLRFMT_MAN, OVL_CON_BYTE_SWAP, OVL_CON_RGB_SWAP);
++	else
++		con = mtk_ovl_fmt_convert(fmt, DRM_MODE_BLEND_COVERAGE,
++					  ovl->data->fmt_rgb565_is_0, true, OVL_CON_CLRFMT_SHIFT,
++					  OVL_CON_CLRFMT_MAN, OVL_CON_BYTE_SWAP, OVL_CON_RGB_SWAP);
++
+ 	if (state->base.fb) {
+ 		con |= state->base.alpha & OVL_CON_ALPHA;
+ 
+@@ -668,7 +702,7 @@ static const struct mtk_disp_ovl_data mt2701_ovl_driver_data = {
+ 	.layer_nr = 4,
+ 	.fmt_rgb565_is_0 = false,
+ 	.formats = mt8173_ovl_formats,
+-	.num_formats = ARRAY_SIZE(mt8173_ovl_formats),
++	.num_formats = mt8173_ovl_formats_len,
+ };
+ 
+ static const struct mtk_disp_ovl_data mt8167_ovl_driver_data = {
+@@ -687,7 +721,7 @@ static const struct mtk_disp_ovl_data mt8173_ovl_driver_data = {
+ 	.layer_nr = 4,
+ 	.fmt_rgb565_is_0 = true,
+ 	.formats = mt8173_ovl_formats,
+-	.num_formats = ARRAY_SIZE(mt8173_ovl_formats),
++	.num_formats = mt8173_ovl_formats_len,
+ };
+ 
+ static const struct mtk_disp_ovl_data mt8183_ovl_driver_data = {
+@@ -696,7 +730,7 @@ static const struct mtk_disp_ovl_data mt8183_ovl_driver_data = {
+ 	.layer_nr = 4,
+ 	.fmt_rgb565_is_0 = true,
+ 	.formats = mt8173_ovl_formats,
+-	.num_formats = ARRAY_SIZE(mt8173_ovl_formats),
++	.num_formats = mt8173_ovl_formats_len,
+ };
+ 
+ static const struct mtk_disp_ovl_data mt8183_ovl_2l_driver_data = {
+@@ -705,7 +739,7 @@ static const struct mtk_disp_ovl_data mt8183_ovl_2l_driver_data = {
+ 	.layer_nr = 2,
+ 	.fmt_rgb565_is_0 = true,
+ 	.formats = mt8173_ovl_formats,
+-	.num_formats = ARRAY_SIZE(mt8173_ovl_formats),
++	.num_formats = mt8173_ovl_formats_len,
+ };
+ 
+ static const struct mtk_disp_ovl_data mt8192_ovl_driver_data = {
+@@ -718,7 +752,7 @@ static const struct mtk_disp_ovl_data mt8192_ovl_driver_data = {
+ 		       BIT(DRM_MODE_BLEND_COVERAGE) |
+ 		       BIT(DRM_MODE_BLEND_PIXEL_NONE),
+ 	.formats = mt8173_ovl_formats,
+-	.num_formats = ARRAY_SIZE(mt8173_ovl_formats),
++	.num_formats = mt8173_ovl_formats_len,
+ };
+ 
+ static const struct mtk_disp_ovl_data mt8192_ovl_2l_driver_data = {
+@@ -731,7 +765,7 @@ static const struct mtk_disp_ovl_data mt8192_ovl_2l_driver_data = {
+ 		       BIT(DRM_MODE_BLEND_COVERAGE) |
+ 		       BIT(DRM_MODE_BLEND_PIXEL_NONE),
+ 	.formats = mt8173_ovl_formats,
+-	.num_formats = ARRAY_SIZE(mt8173_ovl_formats),
++	.num_formats = mt8173_ovl_formats_len,
+ };
+ 
+ static const struct mtk_disp_ovl_data mt8195_ovl_driver_data = {
+@@ -745,7 +779,7 @@ static const struct mtk_disp_ovl_data mt8195_ovl_driver_data = {
+ 		       BIT(DRM_MODE_BLEND_COVERAGE) |
+ 		       BIT(DRM_MODE_BLEND_PIXEL_NONE),
+ 	.formats = mt8195_ovl_formats,
+-	.num_formats = ARRAY_SIZE(mt8195_ovl_formats),
++	.num_formats = mt8195_ovl_formats_len,
+ 	.supports_clrfmt_ext = true,
+ };
+ 
+diff --git a/drivers/gpu/drm/mediatek/mtk_disp_ovl.h b/drivers/gpu/drm/mediatek/mtk_disp_ovl.h
+new file mode 100644
+index 000000000000..919498496bb6
+--- /dev/null
++++ b/drivers/gpu/drm/mediatek/mtk_disp_ovl.h
+@@ -0,0 +1,19 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) 2025 MediaTek Inc.
++ */
++
++#ifndef __MTK_DISP_OVL_H__
++#define __MTK_DISP_OVL_H__
++
++#include <drm/drm_fourcc.h>
++
++extern const u32 mt8195_ovl_formats[];
++extern const size_t mt8195_ovl_formats_len;
++
++bool mtk_ovl_is_10bit_rgb(unsigned int fmt);
++unsigned int mtk_ovl_fmt_convert(unsigned int fmt, unsigned int blend_mode,
++				 bool fmt_rgb565_is_0, bool color_convert,
++				 u8 clrfmt_shift, u32 clrfmt_man, u32 byte_swap, u32 rgb_swap);
++
++#endif
 -- 
 2.54.0
 
