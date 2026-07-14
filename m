@@ -4,159 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12859C44513
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF73CC4450A
 	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D32D410F206;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3D1510F205;
 	Thu, 16 Jul 2026 08:19:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Aoq0Mas4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h28XSsV9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D978210E1BF;
- Wed, 15 Jul 2026 14:54:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9680561372;
- Wed, 15 Jul 2026 14:54:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC92F1F000E9;
- Wed, 15 Jul 2026 14:53:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784127261;
- bh=/OB/1yoUb/yshfvo5DGxrFMwSBU/fSVGv+sn/IUJmK4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Aoq0Mas4msa+C0vU61Lw93LC+D9qX3vgvHr2tfhvIyH8kjExPwNqepzNwJ10uvio8
- daLUV6JzNrdmXK1c2z3C2mkPoeQwtgHPDMoborLbq43909STfZwNoXcBGDlKCWbPAv
- lqqUyV5jUpvPfPDhGXWHsK56IWXxhactLULK6YLE8eVEtCN8NYsv9JVyQ9UITFuQiO
- XkKYVWHi+BMtChwXOTFsUV9blydWksfgPF0FO7H1SjBJZUp+fQvbqFJx4meLR+x3n/
- +dVkkZ85QU65d/BIsvSB1iyhkFUeN1/GR2/b9PIrjbwzdceAyLaqy1rWWz9i1PNkXX
- ENe6M+nOnapKg==
-Message-ID: <31887d81-659f-4eec-b423-005364263a58@kernel.org>
-Date: Wed, 15 Jul 2026 16:53:57 +0200
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 806F810E721
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 20:13:33 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-848882fdb18so1315983b3a.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 13:13:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784060013; x=1784664813; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:user-agent
+ :references:in-reply-to:message-id:date:cc:to:from:subject:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=Vc1a4EA+CKVDZWmxoam2W7gn+VW7+IE4FDUnuymM6t4=;
+ b=h28XSsV9o081kMgK7EZFHLjOejwOM77Faz3eVI/IkFUnCjH9xRS6q+3QkZWVIqAFbZ
+ pEjLiMXS/jQh7DhPGeM2pjJGAZdHMe2NAa8tuLlEh4WRCqig2g0PuqBwGkA12UC83WBi
+ isS0aI1N5uu38ap1pRVOii5bhEXP4YwKNaORu1WpGa6hVAAa6WqGZRLf+fcKmNL19NfL
+ rCwhRectI0TckuglFsJtYdPGRHycoBxJfphViSYtlDOGs+U3tEUxAghTaJbLUO7aFj/+
+ 5Y1Iay18obpGhnbdr56FrMzlUI/FDxfCqvt+qsNUGeICRBbvnKYWcT10n02CrijLmGt4
+ d96g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784060013; x=1784664813;
+ h=content-transfer-encoding:content-type:mime-version:user-agent
+ :references:in-reply-to:message-id:date:cc:to:from:subject:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Vc1a4EA+CKVDZWmxoam2W7gn+VW7+IE4FDUnuymM6t4=;
+ b=j3pWwlOchlZMMYcA7p3kZrT+B892nDWsHWNYKH3Ad2CMaNTktx5tq5lmMOtKDyrwY0
+ bSCIY7pH1Er0k2RtVdcuc5O+4m1pWckaPNNaW4QddR9AEGo4WfN8Qcy/IqcG1/K6Gq4m
+ hOAx50PVKs+vj8puKP/v3D421i+7DPZx0LnSRUlCartQwBGkBFlrM/Z6rkPGmp4dhf08
+ BqksQXzOlgowpRskcQ8qJ6fM4vTeAOd56L9NSeU0sOm5gZTOb7bLkARxuj+tcMn+B3uv
+ rkDaXmT3BoCT5iJTeGHkowAc9Im5pBVavSAflNy93DcMZhGYto4+ovuQJyo5A/uHCaca
+ wYfg==
+X-Gm-Message-State: AOJu0Yya6fKEHoTd8FliS1pgo/JVJPIDeKWjHI5GJdvgrq9zD0FBf/Js
+ x2nwkK8pcMl8+toQgRfM5/+jvPzTOvPb1pOzt1wou/kmBBJQoPV4lOyC
+X-Gm-Gg: AfdE7cmXSXaeKfHcbxPn1EdlEQc0EGiYVrlyuPoMdhRIrNY4ZN9gE1uZnuG0gwyuSD5
+ lB4HEl3lWqG/nUjm0csbXKv9pO1YcnvsyFKI3e5wvURGMvdvGdjFtFqg88KXz7H744Xsf0xTnF2
+ iQL/4Bokx8kV3DxW6zry0QGQGvk7CUn1IxpkNXcBnqbHLemOULYmoJ/Ckxdbn47YyQ4u3aKvdSr
+ sLsEIK5IVoBs6adSDa5rDckaMkolItBy/a1ts8qrNdARMp0jLorqiNHSpup028QvClgHGpCGJRk
+ OLa9XzzQM5JZDNn1RZ1enaKST9gOYwzJ3L4CQ57Ywz94OYhWvJEIbGm4HIz726IVxZeUWB/4VhH
+ 5Dv5SNr2x5bP2b1BJR4SEftPdKG2n5zEwT87K9xe068NYVEZmSnsp9nL3nR78eWtAoHfymO4H1Q
+ 12vrxkW7mY3x3D3h7lBAfbo1UkXOkpRlBp7drDcLS9u61v8LDSakR3ps/FYnE=
+X-Received: by 2002:a05:6a00:2341:b0:848:2f84:f429 with SMTP id
+ d2e1a72fcca58-84a6738a72fmr16414b3a.66.1784060012852; 
+ Tue, 14 Jul 2026 13:13:32 -0700 (PDT)
+Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net.
+ [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84a4f6bf5ecsm1974797b3a.29.2026.07.14.13.13.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2026 13:13:32 -0700 (PDT)
+Subject: [PATCH 1/4] fixup! mm/hmm: add hmm_range_fault_unlocked_timeout() for
+ mmap lock-drop support
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+To: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
+ corbet@lwn.net, dakr@kernel.org, david@kernel.org, jgg@ziepe.ca,
+ kees@kernel.org, leon@kernel.org, liam@infradead.org, lizhi.hou@amd.com,
+ ljs@kernel.org, lyude@redhat.com, maarten.lankhorst@linux.intel.com,
+ mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
+ nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
+ rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
+ skhan@linuxfoundation.org, skinsburskii@gmail.com, surenb@google.com,
+ tzimmermann@suse.de, vbabka@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-rdma@vger.kernel.org
+Date: Tue, 14 Jul 2026 13:13:31 -0700
+Message-ID: <178406001098.1082778.7615814555318834246.stgit@skinsburskii>
+In-Reply-To: <178405975214.1082778.5193079941156341151.stgit@skinsburskii>
+References: <178405975214.1082778.5193079941156341151.stgit@skinsburskii>
+User-Agent: StGit/0.19
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 16/33] mm/vma: minor cleanup of expand_[upwards,
- downwards]()
-Content-Language: en-US
-To: Lorenzo Stoakes <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
- Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>,
- Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>,
- Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
- Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov
- <andreyknvl@gmail.com>, Alexander Potapenko <glider@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Jarkko Sakkinen <jarkko@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner
- <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Yishai Hadas <yishaih@nvidia.com>, Shameer Kolothum
- <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>,
- Usama Arif <usama.arif@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev,
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- damon@lists.linux.dev, iommu@lists.linux.dev, kasan-dev@googlegroups.com,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
- <20260710-b4-pre-scalable-cow-v2-16-2a5aa403d977@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260710-b4-pre-scalable-cow-v2-16-2a5aa403d977@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:21 +0000
+X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,66 +100,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/10/26 22:16, Lorenzo Stoakes wrote:
-> Adjust the stack expansion functions expand_upwards() and
-> expand_downwards() such that they are expressed in terms of named constant
-> values, and make use of vma_start_pgoff().
-> 
-> This clearly documents that we are referencing the page offset of the start
-> of the VMA.
-> 
-> Additionally this cleans up the overflow check in expand_upwards().
-> 
-> No functional change intended.
-> 
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> Reviewed-by: Gregory Price <gourry@gourry.net>
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+The hmm_range_fault_unlocked_timeout() example checks for a concurrent
+mmu_interval_notifier invalidation after the HMM fault has succeeded.
+The sequence number used for that check is stored in range->notifier_seq
+by hmm_range_fault_unlocked_timeout(), so the retry check should use the
+same notifier stored in range as well.
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Update the example to pass range.notifier to mmu_interval_read_retry(),
+and spell out that the retry check uses the notifier and sequence number
+stored in range by the HMM fault helper. This makes the relationship
+between the HMM walk and the later invalidation check explicit.
 
-> ---
->  mm/vma.c | 17 +++++++----------
->  1 file changed, 7 insertions(+), 10 deletions(-)
-> 
-> diff --git a/mm/vma.c b/mm/vma.c
-> index 7265a054cfa3..5d5e60ea8a25 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -3216,13 +3216,12 @@ int expand_upwards(struct vm_area_struct *vma, unsigned long address)
->  
->  	/* Somebody else might have raced and expanded it already */
->  	if (address > vma->vm_end) {
-> -		unsigned long size, grow;
-> -
-> -		size = address - vma->vm_start;
-> -		grow = (address - vma->vm_end) >> PAGE_SHIFT;
-> +		const unsigned long size = address - vma->vm_start;
-> +		const unsigned long grow = (address - vma->vm_end) >> PAGE_SHIFT;
-> +		const pgoff_t pgoff = vma_start_pgoff(vma);
->  
->  		error = -ENOMEM;
-> -		if (vma->vm_pgoff + (size >> PAGE_SHIFT) >= vma->vm_pgoff) {
-> +		if (pgoff + (size >> PAGE_SHIFT) >= pgoff) {
->  			error = acct_stack_growth(vma, size, grow);
->  			if (!error) {
->  				if (vma_test(vma, VMA_LOCKED_BIT))
-> @@ -3295,13 +3294,11 @@ int expand_downwards(struct vm_area_struct *vma, unsigned long address)
->  
->  	/* Somebody else might have raced and expanded it already */
->  	if (address < vma->vm_start) {
-> -		unsigned long size, grow;
-> -
-> -		size = vma->vm_end - address;
-> -		grow = (vma->vm_start - address) >> PAGE_SHIFT;
-> +		const unsigned long size = vma->vm_end - address;
-> +		const unsigned long grow = (vma->vm_start - address) >> PAGE_SHIFT;
->  
->  		error = -ENOMEM;
-> -		if (grow <= vma->vm_pgoff) {
-> +		if (grow <= vma_start_pgoff(vma)) {
->  			error = acct_stack_growth(vma, size, grow);
->  			if (!error) {
->  				if (vma_test(vma, VMA_LOCKED_BIT))
-> 
+Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
+---
+ Documentation/mm/hmm.rst |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/mm/hmm.rst b/Documentation/mm/hmm.rst
+index 5c88d2cf0818..fc1b8dc19825 100644
+--- a/Documentation/mm/hmm.rst
++++ b/Documentation/mm/hmm.rst
+@@ -206,7 +206,7 @@ The usage pattern is::
+           goto out_put;
+ 
+       take_lock(driver->update);
+-      if (mmu_interval_read_retry(&interval_sub, range.notifier_seq)) {
++      if (mmu_interval_read_retry(range.notifier, range.notifier_seq)) {
+           release_lock(driver->update);
+           goto again;
+       }
+@@ -225,7 +225,8 @@ The usage pattern is::
+ The driver->update lock is the same lock that the driver takes inside its
+ invalidate() callback. That lock must be held before calling
+ mmu_interval_read_retry() to avoid any race with a concurrent CPU page table
+-update.
++update. The retry check must use the same notifier and sequence number stored
++in ``range`` by ``hmm_range_fault_unlocked_timeout()``.
+ 
+ Holding the mmap lock across HMM faults
+ =======================================
+
 
