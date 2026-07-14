@@ -4,44 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8896EC44508
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 16:14:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0458FC44508
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 16:31:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1BD710E09C;
-	Tue, 14 Jul 2026 16:14:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B80710E466;
+	Tue, 14 Jul 2026 16:31:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N+wUyMc4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hIzsnp9f";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 185A610E09C
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 16:14:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7743860103;
- Tue, 14 Jul 2026 16:14:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C72751F000E9;
- Tue, 14 Jul 2026 16:14:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784045686;
- bh=n6fpDDchRl+qTg8OO7QXdYt/sgsAvifY2+jx9NRSV4g=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=N+wUyMc4eIE7HHVn2QsheBZWQDtxw81r5IlOfhtJSWa1qsGXIsZHAIw7o4hMfCXyf
- WgEKlBx94zUkkhowkncSl9AyUzT9/8wVPYdg0SxcoqGppI3V+VQYzIMpQaeN1LZzNf
- kcNCsEI/kv9wIQWO0D+6gSyQdK8nFRgf4wda/pM8Od1k49qM2j/A61NjHtk2Fe4BcS
- vraLJKlrL/qav0A7LDCd0Ab6Y9eAxobnPnpnc1i6OTNonm6wXXi+dyULu1uryKRGQD
- saw7SV8bEMONQwyK6n0GSaiKQezIdFKMhZb60Jyjvf88VdQePCmKUp122Su0X2bibg
- AryqMegkqt3cw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 8/8] Add Advantech EIO Fan driver
-To: "Ramiro Oliveira" <ramiro.oliveira@advantech.com>
-Cc: linux-watchdog@vger.kernel.org, linux-hwmon@vger.kernel.org,
- dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, lee@kernel.org
-In-Reply-To: <20260714-upstream-v2-v2-8-76e5e41026db@advantech.com>
-References: <20260714-upstream-v2-v2-0-76e5e41026db@advantech.com>
- <20260714-upstream-v2-v2-8-76e5e41026db@advantech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 16:14:45 +0000
-Message-Id: <20260714161445.C72751F000E9@smtp.kernel.org>
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EA3A10E080
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 16:31:19 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-493e497643fso6012885e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 09:31:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784046678; x=1784651478; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=P+8jCTwgu5velxazBPk9XTR+aKK116XL3VK7F2AJFKk=;
+ b=hIzsnp9fhSa+jXPpzmrAIei9Hb5V+OTm3a/jyWYa4ofiZtD+BoDWbEmbBGGbwSlO4f
+ fi+zKP/BS85s24gk2gzBqpJlkbxLu2OpJ2D4weTw+kJsS5u+cud3mA1+3dG/H+bsIp6k
+ cOih9uW2O7ubu/NZkC6K0eaDHM5AL5xKjjq1e2e8Gts3uIZBZmN115o+kObCSWDbIHs4
+ pOPNJKRJE6LrmMhIyxodyAaTn9YMpXbp8LqE6HU0+REycSMxoTt2y9sxTr/ZhqIdFdbN
+ wJ5xlX3LRv7XcQ5wq6RQl2MRRIgv5jSXermHoUY5QNEKkhppWjMpfG19i4y3pOQ9dA/w
+ pI4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784046678; x=1784651478;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=P+8jCTwgu5velxazBPk9XTR+aKK116XL3VK7F2AJFKk=;
+ b=O8fQyUNJBBtFRwIhxeMJLUAg+AoJGjhrdsyHJXl3msDDXuZqjPzEdROTaMXKxKStQP
+ R8/id/UmZNOjrKfNTSPJje0BL+FsqMBxSSgyp3KJo1OWT8k3p2Jqa1F8zyDesqfx/mg8
+ PBRd/USsSSdoET1RlolQHgMMrYuu5JfkorXZUAxq//RDagktI1RoQU+QehLfG704+DNd
+ ezI47wmBM74GyAs73bziRdY2S9IeC514oOZbM2bWn8jERAXgfmJRlMYfNcIo9Lw1FZWm
+ amfNsGnxekQY3e9TfgJ13E6KdsQ4RTC8oXxi5vlrSAGfIvOBVg8hxE4kTAHD3Nl6tjsZ
+ O1cg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro5BFZ7qlj0+wNS6bTLwpwu2Cm/U8DNOKeggb7vlgryVF6rj+yGTqDQWEQiNuteQzmFzwYf65toHUQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxpjSVdYKT32/HXXCbIq8t0APmL17STElYK0fL33uLsG661QGOU
+ 9fo8Qe+rm6DJXNmysaamcgoNpUTflMSxKp85m7IwQnB1PQvpM+2WVbUU
+X-Gm-Gg: AfdE7cmsrXdsfB3XptN9rj3NEz4ShA/4nRWftWQYc9wZxMBbTD2XAEq7t2BfpaKv6l7
+ PA5HovswDgrDWGFCau9pm6H+1jdSCm5T+V9knbuxPAVJzTGh6TXl8kM4mwDA4l8V6Zec4m8n3dU
+ 2UNLpGmGB1T6oPHdkjrPIhtf92bSyFMyxnBGeEhFtCWu2mfi9eccTemO04SLqlfahQZAKgpJGtu
+ TvEt3v96hF2fpeF5UXL04LdG1HV8dQgM4fZAZhksNYgIgFvpreKNVIZcJ1vtgvRrqEeQ4cE0wnY
+ JsfQoHfRsvYCQsun9AB+wDDBUBKkMhE6nrsqVclv5eA40KxAUd7A5UQ/P/hTn7ZjRFrOQLcIGVx
+ b4joSLA6OxQficryyVtJ81fz574YaaYCfbQnk9b5Jl0LQnh51WYv5Gd40c2h25QsONznlhOI/3X
+ VcD0xFf3JYXzJ77a8jn2chhAm/KDZZD+3tKhhofEDXqpqpuNtg6A==
+X-Received: by 2002:a05:600c:b90:b0:493:b967:178d with SMTP id
+ 5b1f17b1804b1-493f881d05emr148460745e9.19.1784046677536; 
+ Tue, 14 Jul 2026 09:31:17 -0700 (PDT)
+Received: from osama.. ([2a02:908:185:7e40:af6d:c23e:9b4a:128c])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493f2d97527sm406414175e9.2.2026.07.14.09.31.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2026 09:31:16 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/panthor: return error on truncated firmware
+Date: Tue, 14 Jul 2026 18:30:55 +0200
+Message-ID: <20260714163056.22329-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,197 +89,35 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Missing `.remove` callback and incomplete probe error unwinding le=
-ads to thermal zone leaks and use-after-free vulnerabilities.
-- [High] Array index out-of-bounds when accessing the `fan_name` array usin=
-g an unvalidated hardware index.
-- [High] `eio_fan_should_bind` casts `cdev->devdata` to `struct eio_fan_dev=
- *` without verifying the cooling device type.
-- [Medium] `eio_fan_set_trip_temp` constantly fails because it incorrectly =
-double-adds the `CTRL_THERM_HIGH` offset.
-- [Medium] Passing pointers to 32-bit `int` variables for 1- or 2-byte hard=
-ware reads results in endianness corruption on big-endian architectures.
-- [Medium] Violation of MFD subsystem rules by using a custom parent-child =
-accessor function.
---
+panthor_fw_load() detects truncated firmware images, but jumps to the
+common cleanup path without setting ret. If no previous error was recorded,
+the function can return 0 and treat the invalid firmware as successfully
+loaded.
 
---- Patch [8]: [PATCH v2 8/8] Add Advantech EIO Fan driver ---
-commit 0e6353f2bcc96ca0d70e6ec50a52311c0213d5ad
-Author: Ramiro Oliveira <ramiro.oliveira@advantech.com>
+Set ret to -EINVAL before leaving the truncated-image path.
 
-Add Advantech EIO Fan driver
+Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
+Cc: stable@vger.kernel.org
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+ drivers/gpu/drm/panthor/panthor_fw.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-This commit adds the driver to control the Advantech EIO Fan block,
-which is included in the Advantech EIO Embedded Controller.
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+index 986151681b24..39fff094ebb5 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.c
++++ b/drivers/gpu/drm/panthor/panthor_fw.c
+@@ -829,6 +829,7 @@ static int panthor_fw_load(struct panthor_device *ptdev)
+ 	}
+ 
+ 	if (hdr.size > iter.size) {
++		ret = -EINVAL;
+ 		drm_err(&ptdev->base, "Firmware image is truncated\n");
+ 		goto out;
+ 	}
+-- 
+2.43.0
 
-> diff --git a/drivers/thermal/eio_fan.c b/drivers/thermal/eio_fan.c
-> new file mode 100644
-> index 0000000000000..e07b18c2ec44a
-> --- /dev/null
-> +++ b/drivers/thermal/eio_fan.c
-
-[ ... ]
-
-> +static int pmc_write(struct device *mfd, u8 ctrl, u8 id, void *data)
-> +{
-> +	if (ctrl >=3D ARRAY_SIZE(pmc_len))
-> +		return -EINVAL;
-> +
-> +	struct pmc_op op =3D {
-> +		.cmd       =3D CMD_FAN_WRITE,
-> +		.control   =3D ctrl,
-> +		.device_id =3D id,
-> +		.size	   =3D pmc_len[ctrl],
-> +		.payload   =3D (u8 *)data,
-> +	};
-> +	return eio_core_pmc_operation(mfd, &op);
-
-[Severity: Medium]
-Does using eio_core_pmc_operation() directly bypass standard kernel subsyst=
-em
-APIs like regmap? According to MFD guidelines, child drivers should retrieve
-parent driver data using standard APIs rather than custom parent-child
-accessors.
-
-[ ... ]
-
-> +static int eio_fan_get_temp(struct thermal_zone_device *tzd, int *temp)
-> +{
-> +	struct eio_fan_dev *fan =3D thermal_zone_device_priv(tzd);
-> +	struct device *mfd =3D fan->mfd;
-> +	u8 ch =3D fan->id;
-> +	int sensor =3D 0;
-> +	u16 val =3D 0;
-> +	int ret;
-> +
-> +	ret =3D pmc_read(mfd, CTRL_CTRL, ch, &sensor);
-
-[Severity: Medium]
-Since pmc_read() seems to read a 1-byte value based on pmc_len[CTRL_CTRL],
-does passing a pointer to a 32-bit integer write only to the most-significa=
-nt
-byte on big-endian platforms?
-
-[ ... ]
-
-> +static int eio_fan_set_trip_temp(struct thermal_zone_device *tzd,
-> +				 const struct thermal_trip *trip, int temp)
-> +{
-> +	struct eio_fan_dev *fan =3D thermal_zone_device_priv(tzd);
-> +	const struct eio_fan_trip *fan_trip =3D trip->priv;
-> +	u8 ctl =3D CTRL_THERM_HIGH + fan_trip->trip_ctl;
-
-[Severity: Medium]
-Since fan_trip->trip_ctl was already initialized to CTRL_THERM_HIGH during
-probe, does adding CTRL_THERM_HIGH again cause the offset to exceed the
-ARRAY_SIZE(pmc_len) limit of 33, making pmc_write() always return -EINVAL?
-
-[ ... ]
-
-> +static bool eio_fan_should_bind(struct thermal_zone_device *tzd,
-> +				const struct thermal_trip *trip,
-> +				struct thermal_cooling_device *cdev,
-> +				struct cooling_spec *spec)
-> +{
-> +	struct eio_fan_dev *tz_fan  =3D thermal_zone_device_priv(tzd);
-> +	struct eio_fan_dev *cd_fan  =3D cdev->devdata;
-> +
-> +	if (!tz_fan || !cd_fan)
-> +		return false;
-> +
-> +	if (tz_fan->mfd !=3D cd_fan->mfd || tz_fan->id !=3D cd_fan->id)
-
-[Severity: High]
-Is it safe to cast cdev->devdata to struct eio_fan_dev* here without first
-verifying that the cooling device actually belongs to this driver (for
-example, by checking cdev->ops)? Could this lead to out-of-bounds memory
-access if the thermal framework invokes this for a cooling device belonging=
- to
-another driver?
-
-[ ... ]
-
-> +static int eio_fan_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	unsigned int fan_id;
-> +	int ret;
-> +
-> +	if (!dev_get_drvdata(dev->parent)) {
-> +		dev_err(dev, "eio_core not present\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	for (fan_id =3D 0; fan_id < FAN_MAX; fan_id++) {
-> +		u8 state =3D 0, name =3D 0;
-> +		int trip_hi =3D 0, trip_lo =3D 0, trip_stop =3D 0;
-> +		int pwm_hi =3D 0, pwm_lo =3D 0;
-> +		struct eio_fan_dev *fan;
-> +		struct thermal_zone_device *tzd;
-> +		struct thermal_cooling_device *cdev;
-> +
-> +		if (pmc_read(dev->parent, CTRL_STATE, fan_id, &state) ||
-> +		    pmc_read(dev->parent, CTRL_TYPE, fan_id, &name) ||
-> +		    pmc_read(dev->parent, CTRL_THERM_HIGH, fan_id, &trip_hi) ||
-
-[Severity: Medium]
-Similar to eio_fan_get_temp(), does passing pointers to 32-bit integers for
-these hardware reads cause endianness corruption on big-endian architecture=
-s?
-
-[ ... ]
-
-> +		if (!(state & 0x1)) {
-> +			dev_info(dev, "fan%u: firmware reports disabled\n", fan_id);
-> +			continue;
-> +		}
-> +
-> +		if (!fan_name[name][0]) {
-
-[Severity: High]
-The 'name' index is read from hardware as a u8. Does this code need to check
-if 'name' exceeds the 32-element bounds of the fan_name[] array to prevent =
-an
-out-of-bounds read?
-
-[ ... ]
-
-> +		cdev =3D thermal_cooling_device_register(fan_name[name], fan, &cooling=
-_ops);
-> +		if (IS_ERR(cdev)) {
-> +			thermal_zone_device_unregister(tzd);
-> +			dev_err(dev, "fan%u: cdev register failed: %ld\n",
-> +				fan_id, PTR_ERR(cdev));
-> +			return PTR_ERR(cdev);
-> +		}
-
-[Severity: High]
-If this loop fails on a subsequent fan iteration, does returning directly
-here leave previously registered thermal zones and cooling devices active?
-Should this failure path unwind the already registered instances?
-
-[ ... ]
-
-> +static struct platform_driver eio_fan_driver =3D {
-> +	.probe  =3D eio_fan_probe,
-> +	.driver =3D {
-> +		.name =3D "eio_fan",
-> +	},
-> +};
-
-[Severity: High]
-Does the lack of a .remove callback mean that unbinding the driver via sysfs
-abandons the registered thermal zones and cooling devices? Because
-devm_kzalloc() frees the memory on unbind, could this leave dangling pointe=
-rs
-in the thermal subsystem?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-upstream-v=
-2-v2-0-76e5e41026db@advantech.com?part=3D8
