@@ -4,47 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C6FAC44513
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72A9EC4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92E2B10F1FC;
-	Thu, 16 Jul 2026 08:19:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15D9410F200;
+	Thu, 16 Jul 2026 08:19:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=picoheart.com header.i=@picoheart.com header.b="Bvnu3jqN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HMqYcdex";
 	dkim-atps=neutral
-Received: from va-2-26.ptr.blmpb.com (va-2-26.ptr.blmpb.com [209.127.231.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A4A210E15E
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 09:27:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1784107629; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=Ktj0wj7Y7uKnHqBv88iQF2zzd3kExNVGvafF+8u1e+Y=;
- b=Bvnu3jqNS6G4EyprBYIFzgMiAuLmZKpmeh56DZ02IHrIu8rbuouYShxGr0dsMW4x68ArVf
- QsfFGlu+pjHzTdEUwU8BsCV43Id4SEAiu61I2MrGAtsxfbbLMsWrk9Jumjbcmowhvm7Xe+
- sbQIC/gxddNwBwOfYpBhPq+G2dkm6Q6rTWmApNehnVfjNqveto1xU+2ibQgpEGWBEUQelv
- 0B7Ysl5mTyv6tvicjGauqrnhbsQUPX8fLbE9uLoQtUFs+o8wCGmjjD/994+xKiG+TFeajv
- HtfSwqIBBek37WemwO+LoOl0d3wROBUOxpgW7LoQx0BQvdENgZtZOImaiF/eRg==
-Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-X-Original-From: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
-To: <matthew.auld@intel.com>, <arunpravin.paneerselvam@amd.com>, 
- <joelagnelf@nvidia.com>, <airlied@gmail.com>, <simona@ffwll.ch>, 
- <francois.dugast@intel.com>
-From: "Zhaoyu Liu" <liuzhaoyu.zackary@picoheart.com>
-Message-Id: <aldSZ5Wm/clJMkRi@hostpc>
-In-Reply-To: <alTlW8TmTXLocWKP@hostpc>
-References: <alTlW8TmTXLocWKP@hostpc>
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 15 Jul 2026 17:27:03 +0800
-X-Lms-Return-Path: <lba+26a57526b+443d8c+lists.freedesktop.org+liuzhaoyu.zackary@picoheart.com>
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FE0A10E0C8
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 20:13:26 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-848d21bbaffso3812766b3a.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 13:13:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784060006; x=1784664806; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:user-agent
+ :message-id:date:cc:to:from:subject:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=TgA5/ZNNqpom9Ojeo649tW4NqgfWq3ikZU/yXXQBBgI=;
+ b=HMqYcdexkHdArUO1/rP8tshmydvD5MO82gSy8RRSELqnJpTOlrffDzFH6lha54J9wr
+ zxDlEMswqMUikE1jn3IrTvTN0DhT60RImyxP7oQQMcliEk6y+zC1Er+X5Xq7BW15W1r1
+ abF7TBnzSN6kq+gg3TVdyyx5FFri3vzAdGI3Pq26RTtOq5h5s1w6VGeXt6WFZLonbu57
+ pOd66vkHQ3HKbGi8jv25FRaDMgMVVjxOSTePdocisCunpHtDf7yVeuC8lE3DQzhxYARF
+ Yp9ufC4AKCYIJByyforpLQlLTPDZ/VBzQWz2Ck1BDsl/KKkeEU248JylORBPcqpodzRs
+ PsSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784060006; x=1784664806;
+ h=content-transfer-encoding:content-type:mime-version:user-agent
+ :message-id:date:cc:to:from:subject:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=TgA5/ZNNqpom9Ojeo649tW4NqgfWq3ikZU/yXXQBBgI=;
+ b=joU0Pe2xqb95DWCQ1cmAy0F85S4f0v9iTtJH1AM/Fr9xm0AP2MtchOfNbdbdHH6P5m
+ bRyIvUh6Bea/rhfAGLV3rkEtVh0/O0xLAOvpAnWUv9FM7NYZOVytxLhJ91FByB5zxxiI
+ z/FzByMA3iMxFGiKrGQZIAGlNSgfHlCRsbNvNTqKl9rSXvNwbskGGqbP9GnECijKbXLv
+ yeShVtoKY4jjgjYmgbwNYa5Fo7mQlN6EviWEVZNIS2kV+Fi9ifLiMZ+lPUjGfAGN1wIC
+ FggJeiBIzQJFkYZ6Iv0YwTXtocC4lDjzQvTtLzN6c7kD/EuB39krqYqzXURSMxCrl4w1
+ UW2A==
+X-Gm-Message-State: AOJu0YwMFGFWPprbJ4q3dElquVXPPcpAehudYvAzuPztOTHg7y5iyN29
+ bi1ShgNQPGB91S0mPvbYGVfyN+t6C+8/i+fsUjEORu5phZGIHrJqH/IF
+X-Gm-Gg: AfdE7cle8D0eyBPJLJFDCSc0VrCWTeLjbWneEZRY5OAhUui2WroUAQ0JEKUGW4OsDYV
+ RXYZNylmck45S+d8XtF/3Hu/L18xgFfc0+igFvWLkeRxp7NKO68HiHQtSvXWIZW9OVdLKvTjSpb
+ L9oGsB8VJj9IETa9Hq7n1DyTghVN9itnQAzxC5inaxQI4LFzSW8kKG9WPJCsWbBR9hfMaHjpDmk
+ 8djzkBzu0LRxSr9wZtNFLpOAgo5zMO3qroPzMd/8TjlxA2hWUz3KDRTEgSTbnt4d2lNGbUw5ZkX
+ t99zqN6Z8todDn4qSWRFZVW6qN7AHrHGF7uMmxVG/Zqi8ukdKgTpujXyBo8gabP2bSVTUI49eTH
+ sdCXfh21w2rcibrfh4BJ5T8hy6lMUiYAP2e9ESgpCGX5IF/Mjop9ky4s7rkPyE9Yfr/OND+gfzg
+ nl376MldNVdXA8Ms9zueBniDUc7qRobL4npyDbGGXZrahojRDxtQXViGL33G5xUJm3SsdLDQ==
+X-Received: by 2002:a05:6a00:1f14:b0:845:e9e5:cdec with SMTP id
+ d2e1a72fcca58-84a559bb7dfmr3412771b3a.62.1784060005776; 
+ Tue, 14 Jul 2026 13:13:25 -0700 (PDT)
+Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net.
+ [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84a4f7dade0sm1998127b3a.46.2026.07.14.13.13.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2026 13:13:25 -0700 (PDT)
+Subject: [PATCH 0/4] mm/hmm: Clarify notifier retry state and scope HMM
+ timeouts
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+To: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
+ corbet@lwn.net, dakr@kernel.org, david@kernel.org, jgg@ziepe.ca,
+ kees@kernel.org, leon@kernel.org, liam@infradead.org, lizhi.hou@amd.com,
+ ljs@kernel.org, lyude@redhat.com, maarten.lankhorst@linux.intel.com,
+ mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
+ nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
+ rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
+ skhan@linuxfoundation.org, skinsburskii@gmail.com, surenb@google.com,
+ tzimmermann@suse.de, vbabka@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-rdma@vger.kernel.org
+Date: Tue, 14 Jul 2026 13:13:23 -0700
+Message-ID: <178405975214.1082778.5193079941156341151.stgit@skinsburskii>
+User-Agent: StGit/0.19
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2] gpu: buddy: avoid repeated builds of root dfs when
- alloc range
-Mime-Version: 1.0
-Content-Disposition: inline
-Received: from hostpc ([124.160.26.250]) by smtp.feishu.cn with ESMTPS;
- Wed, 15 Jul 2026 17:27:06 +0800
-X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:21 +0000
+X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,153 +97,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 13, 2026 at 09:17:15PM +0800, Zhaoyu Liu wrote:
+This small fixup series applies on top of:
 
-Hi,
-Could you please help review and merge this patch?
-And I'll submit additional new patches for follow-up work later.
+  [PATCH v8 0/8] mm/hmm: Add mmap lock-drop support for userfaultfd-backed mappings
 
-Thanks,
-zackary
+The first patch updates the HMM documentation example to make the
+mmu_interval_read_retry() state explicit: callers should use the notifier and
+notifier_seq stored in the same hmm_range that was passed to
+hmm_range_fault_unlocked_timeout().
 
-> The buddy allocator previously pre-built a DFS list by inserting all
-> root blocks via list_add_tail() before every allocation call in
-> __alloc_range_bias() and __gpu_buddy_alloc_range(). This is wasteful
-> when the allocation can be satisfied by the first root or by sub-blocks
-> produced from splits, as the remaining roots are never consumed.
-> 
-> Introduce __get_candidate_block() which unifies the block acquisition
-> logic for both __alloc_range_bias() and __alloc_range(): it first
-> checks the DFS list (populated by splits during allocation or
-> pre-filled by the caller for trim), and only when the list is exhausted
-> does it lazily fetch the next root block through a cursor.
-> 
-> When the caller pre-fills the DFS list (trim scenario), the cursor is
-> initialized to mm->n_roots to disable root iteration entirely,
-> preserving the original behavior.
-> 
-> Signed-off-by: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
-> Suggested-by: Arun Pravin <arunpravin.paneerselvam@amd.com>
-> ---
-> 
-> v2:
-> - Change __get_candidate_block to inline
-> - Link to v1: https://lore.kernel.org/all/ak+ECwsuSljmvyKd@hostpc/
-> 
-> ---
->  drivers/gpu/buddy.c | 61 ++++++++++++++++++++++++++++++---------------
->  1 file changed, 41 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> index dc81fe0301ce..63b3959973fa 100644
-> --- a/drivers/gpu/buddy.c
-> +++ b/drivers/gpu/buddy.c
-> @@ -700,6 +700,41 @@ static void __gpu_buddy_undo_splits(struct gpu_buddy *mm,
->  	}
->  }
->  
-> +/**
-> + * __get_candidate_block - Get a candidate block for allocation.
-> + * @mm: GPU buddy manager
-> + * @dfs: List of candidate blocks. Populated in two ways: (1) pre-filled by
-> + *       the caller before allocation with blocks available for allocation,
-> + *       and (2) extended during allocation by block splits, which add the
-> + *       resulting sub-blocks for subsequent finer-grained allocation.
-> + * @cursor: Pointer to current root index, advanced when iterating roots.
-> + *          Pass in a value >= mm->n_roots to disable root iteration entirely,
-> + *          restricting block acquisition to @dfs only; this is used in the
-> + *          trim scenario where only pre-split sub-blocks should be considered.
-> + *
-> + * Return: Pointer to the acquired block on success, ERR_PTR(-ENOSPC) when no
-> + * more blocks are available.
-> + */
-> +static inline struct gpu_buddy_block*
-> +__get_candidate_block(struct gpu_buddy *mm, struct list_head *dfs,
-> +		uint32_t *cursor)
-> +{
-> +	struct gpu_buddy_block *block;
-> +
-> +	block = list_first_entry_or_null(dfs,
-> +					struct gpu_buddy_block,
-> +					tmp_link);
-> +	if (block) {
-> +		list_del(&block->tmp_link);
-> +		return block;
-> +	}
-> +
-> +	if (*cursor >= mm->n_roots)
-> +		return ERR_PTR(-ENOSPC);
-> +
-> +	return mm->roots[(*cursor)++];
-> +}
-> +
->  static struct gpu_buddy_block *
->  __alloc_range_bias(struct gpu_buddy *mm,
->  		   u64 start, u64 end,
-> @@ -711,25 +746,18 @@ __alloc_range_bias(struct gpu_buddy *mm,
->  	struct gpu_buddy_block *block;
->  	LIST_HEAD(dfs);
->  	int err;
-> -	int i;
-> +	uint32_t cursor = 0;
->  
->  	end = end - 1;
->  
-> -	for (i = 0; i < mm->n_roots; ++i)
-> -		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
-> -
->  	do {
->  		u64 block_start;
->  		u64 block_end;
->  
-> -		block = list_first_entry_or_null(&dfs,
-> -						 struct gpu_buddy_block,
-> -						 tmp_link);
-> -		if (!block)
-> +		block = __get_candidate_block(mm, &dfs, &cursor);
-> +		if (IS_ERR(block))
->  			break;
->  
-> -		list_del(&block->tmp_link);
-> -
->  		if (gpu_buddy_block_order(block) < order)
->  			continue;
->  
-> @@ -1023,6 +1051,7 @@ static int __alloc_range(struct gpu_buddy *mm,
->  	LIST_HEAD(allocated);
->  	u64 end;
->  	int err;
-> +	uint32_t cursor = list_empty(dfs) ? 0 : mm->n_roots;
->  
->  	end = start + size - 1;
->  
-> @@ -1030,14 +1059,10 @@ static int __alloc_range(struct gpu_buddy *mm,
->  		u64 block_start;
->  		u64 block_end;
->  
-> -		block = list_first_entry_or_null(dfs,
-> -						 struct gpu_buddy_block,
-> -						 tmp_link);
-> -		if (!block)
-> +		block = __get_candidate_block(mm, dfs, &cursor);
-> +		if (IS_ERR(block))
->  			break;
->  
-> -		list_del(&block->tmp_link);
-> -
->  		block_start = gpu_buddy_block_offset(block);
->  		block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
->  
-> @@ -1109,10 +1134,6 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
->  				   struct list_head *blocks)
->  {
->  	LIST_HEAD(dfs);
-> -	int i;
-> -
-> -	for (i = 0; i < mm->n_roots; ++i)
-> -		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
->  
->  	return __alloc_range(mm, &dfs, start, size,
->  			     blocks, total_allocated_on_err);
-> -- 
-> 2.34.1
+The remaining patches adjust nouveau, amdxdna, and drm_gpusvm users so the
+timeout passed to hmm_range_fault_unlocked_timeout() is treated as a relative
+HMM retry budget. These callers no longer keep an absolute deadline around
+their outer driver retry loops or pass a computed remaining time into HMM.
+
+This keeps the timeout scoped to HMM's internal mmu-notifier retry handling. If
+HMM succeeds and the driver later observes an invalidation through
+mmu_interval_read_retry(), the driver retries the operation with a fresh HMM
+retry budget.
+
+---
+
+Stanislav Kinsburskii (4):
+      fixup! mm/hmm: add hmm_range_fault_unlocked_timeout() for mmap lock-drop support
+      fixup! drm/nouveau: use hmm_range_fault_unlocked_timeout() for SVM faults
+      fixup! accel/amdxdna: use hmm_range_fault_unlocked_timeout() for range population
+      fixup! drm/gpusvm: use hmm_range_fault_unlocked_timeout() for range faults
+
+
+ Documentation/mm/hmm.rst              |    5 +++--
+ drivers/accel/amdxdna/aie2_ctx.c      |   12 ++++--------
+ drivers/gpu/drm/drm_gpusvm.c          |   21 ++++++---------------
+ drivers/gpu/drm/nouveau/nouveau_svm.c |   30 ++++++++++--------------------
+ 4 files changed, 23 insertions(+), 45 deletions(-)
+
