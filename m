@@ -4,90 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CB9EC44501
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 14:33:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 080D4C44508
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 14:34:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83B0710ED90;
-	Tue, 14 Jul 2026 14:33:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 690CA10ED7E;
+	Tue, 14 Jul 2026 14:34:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BbIJWPnP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CHtrnOnW";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96F0210ED81
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 14:33:23 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-493e8d4f4dcso34011815e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 07:33:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784039602; x=1784644402; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=yqr76+rJ8iwHayK7NjLGqhPMmOMQyjm2NesJQTgS2Xo=;
- b=BbIJWPnP9vCuzwkxQkKEuYhMbDQTiIizlVldn6YyqunhxFd/JItfTsxMjaV+YQ1f+C
- 19RxEor9ZJY4nUq5ZBa0P+OWyXKv/3F5edK8VSTsHFut3nwNaoSc0cbQcIaXvZI/rUOx
- DumLFwCNhd22Im6ZiWoNdRYWA8nOkthZ1mEfLdyOVbrTLaP5I58brzLABbNgm440ZVRn
- rsNj9gTJKjEusQGwe/ALzumZg/8YyEhu4KH8RsstzH2Ape6td6gLxrw3kaSEO4pkt2OO
- KMu5aMRNwuVwPb5W5BdgsSB8a3uPc4iZix1AMy1lK2QeN9jMOMEWGiqw3onvnBavXyJW
- 9OPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784039602; x=1784644402;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=yqr76+rJ8iwHayK7NjLGqhPMmOMQyjm2NesJQTgS2Xo=;
- b=dtwIwZos7nrt3EFvWJFRAp4kykV6yyrSW+rBRRhVwrJlIswmKO0QUMB+g/PbhuICJQ
- 066MdY0R8ferjIVfBJUzwrKary8dPH9IB3eQQ6jodoU4rAaILDINXfxybIIMbH8DpzWN
- QSZO55CqKbq9X3A4dpiU6O0xK15oe+gA9DK/K9ChELl8GTzSUBf97wP5nJpE4CB/fibl
- QF5bvH3SF8aHahZ37X8vsMlpcthY6gGfA05agRlc3ZIKL8gIw/Xd3Fmbwm7jiKckDkY8
- MmQK8aV//kCDQmxmd+myBVnAqugCBaIFfSalgbl0KKquZUztf+agl3VHb976x86ccqUk
- RcKg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpznKPj42UPrcNDHhZKywnUYTcsCqscPBNu8jV0jGDOnh1NUdxJSNDvybh+i4yhb6tnAllfoKuKqdc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz2vRlVxqeY12nYJQS0LGJCXKIkggBLDiHlVP22J27SrhrPwQtT
- gDrVMe8ggQ3OPRfSnuhzZG2dOWUL8Mh0p/3jVnJLu+BFgE661+9m0IfD
-X-Gm-Gg: AfdE7cn4jMkfti1R3mhHhO8QdfWuFXC5ZBROmlPNbXf71OvYuWeMLUoWva6Z6rMePUe
- Ao1Sx51I8NlRXTg0ZzqLWRapYXQ/49wI8wi43HKF4vkOjH/wGwjVtmkL2LAGS1XoXxp33vo+nt9
- MPDPTOzv9vFroeEtzqiOiFJtzk05yqmWJzIYRhYMCI/JHO7fZOjt5ST5DYdY0Lebchh1o4o8bWX
- DVa0EndpF+WvGz4w8gHmN3kgSKDHYnSKQuKfXz/Vg9Pj7gKSkGDYoYCcndv21slq4MSmEFw8w/4
- gTv/dpdsdHn0NlwXfarKKMa6FUnpmyA90UFFLWoGKs2PIE7pc8PtxN5zUDUlAfMhRqC95Ylai0E
- QZuup+yKSnVFZsG8ywFbOCxMI2r0ywC5YDpGBcp5kuAWKNE+y0Vpq5PWDmrej33WXQ1LLodZORX
- ThWK8AYAAqJzGvY8/FSw/tmxQ983XWJljFaBgdTL19webEDn1CJg==
-X-Received: by 2002:a05:600c:3e1b:b0:493:e890:9e0b with SMTP id
- 5b1f17b1804b1-493f883157bmr144382565e9.26.1784039601550; 
- Tue, 14 Jul 2026 07:33:21 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493f2e0f165sm270374515e9.0.2026.07.14.07.33.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jul 2026 07:33:20 -0700 (PDT)
-Date: Tue, 14 Jul 2026 15:33:19 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: =?UTF-8?B?5a+/5p+P6IO9?= <shoubaineng@gmail.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, "T . J . Mercier" <tjmercier@google.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey
- <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, Sandeep Patil
- <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>, Srinivas Kandagatla
- <srini@kernel.org>, stable@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dma-buf: dma-heap: don't publish fd before
- copy_to_user() succeeds
-Message-ID: <20260714153319.07b2b1e1@pumpkin>
-In-Reply-To: <CAGCp47zPkd6MWcMpxobphJp6giufpnJL46iFQMt9p76gb7OtKA@mail.gmail.com>
-References: <CABdmKX21NHc2=9Sk2F-BFpu6is0vTg-QXLE+wiFNEPdsWWjvog@mail.gmail.com>
- <20260714114654.3885457-1-shoubaineng@gmail.com>
- <20260714114654.3885457-2-shoubaineng@gmail.com>
- <20260714141359.7758575d@pumpkin>
- <CAGCp47zPkd6MWcMpxobphJp6giufpnJL46iFQMt9p76gb7OtKA@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30E8D10ED7E
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 14:34:35 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C348743612;
+ Tue, 14 Jul 2026 14:34:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 848591F000E9;
+ Tue, 14 Jul 2026 14:34:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784039674;
+ bh=EwNVTon+/nbjRpzwjhhjH2A7QsMv/Rt06oFZ3UT6FIQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=CHtrnOnW5stVfjfg02P3Kk3ImhP5f3aFDPiEpGg6wdMgZ/9LXy0mTkI/lSmvI8Bgt
+ xKuMEw2BY1JQ9HgU/AfzfHhwYqrV2ATAE2ixtJSv2E83srd2sFcJiRsYQ/nUBOM5nm
+ w8S3vB5vdcGKxe5jrQgeg/IUqs0r/tBaUdl6WZ3Car+jDA5rOYOfYOxTQI+F08O/aG
+ sOenvtzBEEyvzW37bXxTsBV+Vx/Z7As0lmA90UCQnEL3RIz7KldYtPma9E37lNt9eH
+ wbSoy0aJ4DYRQ9XuTxgKcOOtAowJrenvQ+CiR/ezRgldOVVw3gfJPIBuET81HqDMpi
+ +Nr7MZgJ4rbHw==
+Date: Tue, 14 Jul 2026 09:34:33 -0500
+From: Rob Herring <robh@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v4 09/10] dt-bindings: display: mediatek: wdma: Add
+ compatibles for more SoCs
+Message-ID: <20260714143433.GA1476641-robh@kernel.org>
+References: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
+ <20260713142746.40259-10-angelogioacchino.delregno@collabora.com>
+ <20260713144221.2C4F91F00A3A@smtp.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260713144221.2C4F91F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,78 +61,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 14 Jul 2026 21:38:07 +0800
-=E5=AF=BF=E6=9F=8F=E8=83=BD <shoubaineng@gmail.com> wrote:
+On Mon, Jul 13, 2026 at 02:42:20PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The compatible string `mediatek,mt6893-disp-wdma` is incorrectly added to the standalone enum instead of the fallback items list.
+> --
+> 
+> --- Patch [9]: [PATCH v4 09/10] dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs ---
+> commit 8001f83833ae9c684be67bc719c7aaa056f90763
+> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> 
+> dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
+> 
+> Multiple MediaTek SoCs have the Write DMA hardware in their Display
+> Controller. This commit adds the missing compatibles for Dimensity 1200
+> (MT6893) and for Kompanio 500/520/820/1200.
+> 
+> > diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
+> > index 97d052b0fb614..c3ed867d058d9 100644
+> > --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
+> > +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
+> > @@ -22,11 +22,16 @@ properties:
+> >    compatible:
+> >      oneOf:
+> >        - enum:
+> > +          - mediatek,mt6893-disp-wdma
+> 
+> [Severity: Medium]
+> Does this incorrectly place mediatek,mt6893-disp-wdma as a standalone
+> compatible string rather than in the items list requiring a fallback?
+> 
+> If a device tree uses compatible = "mediatek,mt6893-disp-wdma" to satisfy
+> this schema, the DRM driver will not probe the device since it only matches
+> mediatek,mt8173-disp-wdma. If the developer instead provides the fallback 
+> compatible = "mediatek,mt6893-disp-wdma", "mediatek,mt8173-disp-wdma" so the
+> driver can probe it, won't the device tree fail schema validation here?
 
-> Hi David,
->=20
-> Thanks for the feedback.
->=20
-> The concern is not just about the EFAULT return =E2=80=94 it's about the =
-race
-> window between fd_install() and copy_to_user().  Once fd_install()
-> returns, the fd is immediately observable by other threads in the same
-> process (via /proc/self/fd, SCM_RIGHTS, etc.), even before
-> copy_to_user() has a chance to fail.  The triggering condition is a
-> deliberate mprotect() flip, not a corrupted heap.
+Sashiko fails to look at patch 10. However, the commit message gives no 
+clue whether mt6893 is or is not compatible with something else. If not 
+compatible, explain why it isn't. What's different?
 
-That is what makes doing the close wrong.
-But that is a program aggressively trying to hit the timing window,
-not a normal program that has managed to pass an invalid pointer.
-The most likely reason for a real program passing an invalid pointer
-is a corrupted heap (assuming the stupid coding errors are fixed).
-
-It is really no different from the sockopt code that receives
-SCM_RIGHTS messages.
-In that case once you've removed the FILE from the socket (or similar)
-you really don't want to have to put it back because the write to the
-sockopt buffer or length field fails.
-The chance of correctly reverting the kernel state is small - and won't
-be tested.
-
-	David
-
->=20
-> The fix itself is small and follows the standard kernel idiom:
-> get_unused_fd_flags() reserves the fd without publishing it, so the
-> window between reservation and install is entirely under kernel control.
->=20
-> Baineng
->=20
-> David Laight <david.laight.linux@gmail.com> =E4=BA=8E2026=E5=B9=B47=E6=9C=
-=8814=E6=97=A5=E5=91=A8=E4=BA=8C 21:14=E5=86=99=E9=81=93=EF=BC=9A
->=20
-> > On Tue, 14 Jul 2026 19:46:53 +0800
-> > Baineng Shou <shoubaineng@gmail.com> wrote:
-> > =20
-> > > DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
-> > > caller's fd table via dma_buf_fd() -> fd_install() before
-> > > dma_heap_ioctl() copies the result back to userspace.  If the trailing
-> > > copy_to_user() fails, userspace never learns the fd number, but the
-> > > fd (and the underlying dma-buf reference) are already visible to
-> > > other threads in the same process and are leaked for the lifetime of
-> > > the process.
-> > >
-> > > The obvious "close it on the failure path" fix is unsafe: once
-> > > fd_install() has run, another thread can already dup() the fd, send
-> > > it via SCM_RIGHTS, or close() it and let its number be reused, so a
-> > > subsequent close_fd() from the ioctl path can operate on an unrelated
-> > > file.  This was pointed out by Christian K=C3=B6nig on v1 [1]. =20
-> > ...
-> >
-> > My 2c:
-> >
-> > The other option is just to leave it as a 'problem for user space'.
-> > No reasonable program is going to handle the EFAULT return by doing
-> > anything other than exiting.
-> > Even getting an EFAULT is really an indication that the application
-> > is already in a real mess - most likely with a badly corrupted heap.
-> >
-> > Anything else leaves error recovery code in the kernel that is pretty
-> > much never executed and open to a variety of bugs.
-> > While the recovery here is probably ok, there are some sockopt calls
-> > where it is all more complicated.
-> >
-> >         David
-> > =20
-
+Rob
