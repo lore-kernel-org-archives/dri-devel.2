@@ -4,52 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 522D2C4450A
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 19:36:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0899C4450A
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 19:48:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 479AF10E0D6;
-	Tue, 14 Jul 2026 19:36:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C817210E0CF;
+	Tue, 14 Jul 2026 19:48:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="KLkmofSR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iB5+Tjyl";
 	dkim-atps=neutral
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9C9110E0D6
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 19:36:35 +0000 (UTC)
-Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net
- [178.82.120.96])
- by mail11.truemail.it (Postfix) with ESMTPA id D7B871F8C1;
- Tue, 14 Jul 2026 21:36:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
- s=default; t=1784057792;
- bh=ouG4gU2sMxcP7NnkE/ZCp7siG/EcEqz4Sk7+xu/lKZg=; h=From:To:Subject;
- b=KLkmofSRNvGp46eG5l7vx8V8L3VWhoxxkU0Qzios6IVZWT3JpLVXNXwOivqOqVmPd
- sKtwfZ5GN719FY3GWAyiu7jqsgou3YE6aQYbNGOifKGrtsbBN3aXT4aq+XC/EPSmiX
- cDUQTAuRXJJSjuOz6wiqeNQlRcbNzl4dWC68kqDFfJDPZGOIrR+2hnGuLWYv8JDp4S
- rPiH7+i3nNht+tpnPz5rNIAUofST5jjdtDCwWaoBcj6JEzzNvp/w/FMMnBqLKeRFIi
- KKT7/5yyufWUTZiT/+binA7KtPbKrRxfeKw5RqnO8tx9eJYfYmqQlvIzT05Sv+GpOL
- bVakEGMeY31zw==
-Date: Tue, 14 Jul 2026 21:36:27 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, shawnguo@kernel.org, s.hauer@pengutronix.de,
- kernel@pengutronix.de, festevam@gmail.com, tglx@linutronix.de,
- vkoul@kernel.org, kishon@kernel.org, Frank.Li@nxp.com,
- lumag@kernel.org, aisheng.dong@nxp.com, agx@sigxcpu.org,
- u.kleine-koenig@baylibre.com, francesco@dolcini.it,
- dmitry.baryshkov@linaro.org
-Subject: Re: [PATCH v9 00/19] Add Freescale i.MX8qxp Display Controller support
-Message-ID: <20260714193627.GA9616@francesco-nb>
-References: <20250414035028.1561475-1-victor.liu@nxp.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250414035028.1561475-1-victor.liu@nxp.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E64B10E0CF
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 19:48:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C7B8341FC5;
+ Tue, 14 Jul 2026 19:48:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D2CA1F000E9;
+ Tue, 14 Jul 2026 19:48:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784058502;
+ bh=Ysy1j4NnlT/nPqS3a7fmG3akhWBRuHjAb1bb6Vqp06E=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=iB5+TjylW0rUwjIesqV0WQWeFmpKcgvDaHakx9P5xaeXlt8ajOkIa/z2oWEpgIE5s
+ aVh/7lQiWII0mtS2THKe28JK9vavC/D+HTbQ4mgxvDZcM3zq4rsRBkQQ3Bkv2aa/7z
+ vOhalmzTzqn02McC4b7jJp4sSPzzNMVGhSA/bPGcgVP5iKv39CWULBkO4h/3kqut09
+ iuruYnbwjj7mVQ6et1o7tz6Nr34z7HlImXBmN04OcPb3+Be7dUSg5mjDno/xQNAVNT
+ Ik+u9mKEtbLHjaErAJiGR0FThsiFytxlnsTmX3JeAQTPXcel1j7rY18KOwZ7NR7nDb
+ pWJL3e3PsN78Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] staging: fbtft: Replace udelay with usleep_range
+To: "Panagiotis Gravias" <graviaspanagiotis1@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260714190958.219437-6-graviaspanagiotis1@gmail.com>
+References: <20260714190958.219437-2-graviaspanagiotis1@gmail.com>
+ <20260714190958.219437-6-graviaspanagiotis1@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 19:48:22 +0000
+Message-Id: <20260714194822.8D2CA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,41 +53,85 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Liu,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On Mon, Apr 14, 2025 at 11:50:09AM +0800, Liu Ying wrote:
-> Hi,
-> 
-> This patch series aims to add Freescale i.MX8qxp Display Controller support.
-> 
-> The controller is comprised of three main components that include a blit
-> engine for 2D graphics accelerations, display controller for display output
-> processing, as well as a command sequencer.
+Pre-existing issues:
+- [High] If a SPI write fails in `write_reg8_bus8`, the function returns ea=
+rly without restoring `par->fbtftops.write` to its original value, permanen=
+tly downgrading the SPI interface speed.
+- [High] The `txbuf16` pointer in `write_vmem16_bus8` is assigned to an odd=
+-aligned address, causing unaligned memory writes that can trigger a kernel=
+ panic on strict architectures.
+--
 
-...
+--- Patch [3]: [PATCH 3/3] staging: fbtft: Replace udelay with usleep_range=
+ ---
+commit 7f6e8faf1241a2de5c5b0d51aa0632d9694e2167
+Author: Panagiotis Gravias <graviaspanagiotis1@gmail.com>
 
-> 
-> To follow up i.MX8qxp TRM, I changed the controller name to "Display Controller"
-> instead of the previous "DPU".  "DPU" is only mentioned in the SoC block
-> diagram and represents the whole display subsystem which includes the display
-> controller and prefech engines, etc.
-> 
-> With an additional patch[1] for simple-pm-bus.c, this series facilitates
-> testing a LVDS panel on i.MX8qxp MEK.
-> 
-> Please do NOT merge patch 14-19.  They are only used to facilitate testing
-> the LVDS panel.
+staging: fbtft: Replace udelay with usleep_range
 
-What's the plan to conclude this work? What's the latest status?
-I am looking forward to have a way to use the i.MX8QXP display with
-mainline, but to my understanding some required changes on the SOC dtsi
-are not merged.
+This commit replaces calls to udelay() with usleep_range() in the fbtft=20
+driver. This addresses checkpatch warnings and provides an upper bound to=20
+allow the scheduler to coalesce timer interrupts.
 
-Can you help?
+> diff --git a/drivers/staging/fbtft/fb_ra8875.c b/drivers/staging/fbtft/fb=
+_ra8875.c
+> index 0ab1de6647d07..d2400bb44f1c6 100644
+> --- a/drivers/staging/fbtft/fb_ra8875.c
+> +++ b/drivers/staging/fbtft/fb_ra8875.c
+[ ... ]
+> @@ -231,7 +231,7 @@ static void write_reg8_bus8(struct fbtft_par *par, in=
+t len, ...)
+> =20
+>  	/* restore user spi-speed */
+>  	par->fbtftops.write =3D fbtft_write_spi;
+> -	udelay(100);
+> +	usleep_range(100, 200);
+>  }
 
-Thanks,
-Francesco
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed something about the
+error handling in write_reg8_bus8() related to the SPI speed restore.
 
+When par->fbtftops.write() fails earlier in this function, it returns=20
+immediately:
+
+if (ret < 0) {
+        va_end(args);
+        dev_err(par->info->device, "write() failed and returned %dn", ret);
+        return;
+}
+
+Does this leave par->fbtftops.write permanently assigned to the slow
+write_spi function? It appears that if a register write fails, the driver
+never restores the fast fbtft_write_spi pointer, which might severely impact
+the performance of all future bulk video memory writes.
+
+[Severity: High]
+This is also a pre-existing issue, but looking at the neighboring=20
+write_vmem16_bus8() function in the same file:
+
+write_vmem16_bus8() {
+    ...
+    txbuf16 =3D par->txbuf.buf + 1;
+    ...
+    for (i =3D 0; i < to_copy; i++)
+        txbuf16[i] =3D cpu_to_be16(vmem16[i]);
+}
+
+Is there a risk of an alignment fault here? The txbuf16 pointer is assigned=
+=20
+an odd-aligned address (buf + 1). On architectures that do not support=20
+unaligned memory access in hardware (which is common for systems with SPI=20
+displays), would these 16-bit writes trigger a kernel panic? Should this=20
+be using put_unaligned_be16() instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714190958.2194=
+37-2-graviaspanagiotis1@gmail.com?part=3D3
