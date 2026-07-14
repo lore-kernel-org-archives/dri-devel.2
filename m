@@ -4,62 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFABDC44501
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 16:05:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 049E6C44508
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 16:05:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3206510E058;
-	Tue, 14 Jul 2026 16:05:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 552E510E471;
+	Tue, 14 Jul 2026 16:05:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="xMbC8IEA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gDA+JE6k";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32A2010E058
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 16:05:38 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 3CDE01A0FCE;
- Tue, 14 Jul 2026 16:05:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 0285660346;
- Tue, 14 Jul 2026 16:05:37 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 31C9111BD3A80; 
- Tue, 14 Jul 2026 18:05:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1784045135; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=p2Q03M5Qo5hBXFIilmL0M/xoaJQC1jAcQbHh/u0YmIM=;
- b=xMbC8IEAgTFmtK4TcGjrhyoQeEg9EPgAFQybhNbI3UPiNUpHLvBz52JW6MJSG1TBsFOKEG
- GxNCffBYTc7032xcZ4b1FEpxhQbzVj6b6EW40/hpvfRTIb+TEthC33HhgPUooFVY8sXA4e
- k2OVNgQzk4iKHp3Y0f7y8A5WFPJrViLWCGU182c0IjOJa4coLteIUKa+5Pmtpful3aX452
- /PHAbs50/xi76Lvq1zvPbqRhcZvgMR1CfRhfx8Vqd2nQGkx9Tp7hg81ti9bsyVtkuiiy69
- XYjUzN51qnx2dE5qWaUuuYhfvzHmUJdfCgQTAmI30hQtKIhcNDUtF/XPS4Kuxw==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Miguel Ojeda <ojeda@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- llvm@lists.linux.dev
-In-Reply-To: <20260630-drm-bridge-alloc-getput-for_each_bridge-2-v2-1-e0a1094cd1eb@bootlin.com>
-References: <20260630-drm-bridge-alloc-getput-for_each_bridge-2-v2-1-e0a1094cd1eb@bootlin.com>
-Subject: Re: [PATCH v2] drm/bridge: rename
- drm_for_each_bridge_in_chain_scoped() to drm_for_each_bridge_in_chain()
-Message-Id: <178404512885.172760.6481594517700778969.b4-ty@b4>
-Date: Tue, 14 Jul 2026 18:05:28 +0200
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEC9D10E471
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 16:05:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5D3A740497;
+ Tue, 14 Jul 2026 16:05:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC1B91F00A3A;
+ Tue, 14 Jul 2026 16:05:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784045153;
+ bh=bbmLOfvrgHxhc9SFOmHP6PJfVi5yA485zLVifceN9nY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=gDA+JE6kacJ+opnNq8hmWqFdcBpn2yE7sV77ZFzOEhlKT2Qt0rqu3yMwGb+N3WnBD
+ FtUDAnuFMApsUDcAQViA/l4X6cpnFXTbH91lVifRg3aKC70EsPwbw40TrYRwezCxFM
+ 8fzledjF7xp1enkMtojix6Sy+a1UPhQU5b0e/B9Ynie0EZNFKjrjggGrhgx/fi9umz
+ H6mHeOU05et2nTECxWfuJbX0OEQ7/CvCtzDM3MYmDZAufbgDsTpSL2ch4hpE2qs0Hh
+ k/7OLy9SrFdbY1dqAkJMaFX4b3CK4hTj542mwVdPsoHNOcrC1zWMCg+G/y7QiczIYs
+ D40CWk+uGJFlg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 7/8] Add Advantech EIO Thermal driver
+To: "Ramiro Oliveira" <ramiro.oliveira@advantech.com>
+Cc: linux-hwmon@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ lee@kernel.org, mfd@lists.linux.dev, linux-watchdog@vger.kernel.org
+In-Reply-To: <20260714-upstream-v2-v2-7-76e5e41026db@advantech.com>
+References: <20260714-upstream-v2-v2-0-76e5e41026db@advantech.com>
+ <20260714-upstream-v2-v2-7-76e5e41026db@advantech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 16:05:52 +0000
+Message-Id: <20260714160552.DC1B91F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,32 +54,183 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] The driver registers thermal zones in a loop but fails to unregist=
+er them on probe failure and completely lacks a `.remove` callback.
+- [High] The `.set_trip_temp` callback incorrectly uses the abstract trip I=
+D as a control register address, overwriting critical read-only state regis=
+ters.
+- [Medium] Multi-byte variable addresses (`int`, `enum`) are passed directl=
+y to hardware access functions which read bytes in host memory order, break=
+ing on big-endian architectures.
+- [Low] The child driver communicates with the parent using a bespoke inter=
+-driver function instead of utilizing standard MFD mechanisms.
+- [Low] Error codes from `pmc_write` are masked during the trip iteration i=
+n `eio_tz_change_mode`.
+--
 
-On Tue, 30 Jun 2026 17:34:04 +0200, Luca Ceresoli wrote:
-> drm_for_each_bridge_in_chain_scoped() was added in commit e46efc6a7d28
-> ("drm/bridge: add drm_for_each_bridge_in_chain_scoped()") to provide a
-> safer alternative to drm_for_each_bridge_in_chain().
-> 
-> Following commits converted all users to the _scoped variant.
-> 
-> Finally commit 2f08387a444c ("drm/bridge: remove
-> drm_for_each_bridge_in_chain()") removed the old
-> drm_for_each_bridge_in_chain() macro.
-> 
-> [...]
+--- Patch [7]: [PATCH v2 7/8] Add Advantech EIO Thermal driver ---
+commit 001e79fa1d8c0bd96fb7bffbb91c6090c53b08a4
+Author: Ramiro Oliveira <ramiro.oliveira@advantech.com>
 
-Applied, thanks!
+Add Advantech EIO Thermal driver
 
-[1/1] drm/bridge: rename drm_for_each_bridge_in_chain_scoped() to drm_for_each_bridge_in_chain()
-      commit: 12f5090aaa3cc82ce2d8ca0d7bb2b86817587ace
+This commit adds the driver to control the Advantech EIO Thermal block,
+this block is included in the Advantech EIO Embedded Controller.
 
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> diff --git a/drivers/thermal/eio_thermal.c b/drivers/thermal/eio_thermal.c
+> index 0000000000000..ad923acaf1389 100644
+> --- /dev/null
+> +++ b/drivers/thermal/eio_thermal.c
+[ ... ]
+> +static int pmc_write(struct device *mfd, u8 ctrl, u8 dev_id, void *data)
+> +{
+> +	if (ctrl >=3D ARRAY_SIZE(pmc_len))
+> +		return -EINVAL;
+> +
+> +	struct pmc_op op =3D {
+> +		.cmd       =3D CMD_THERM_WRITE,
+> +		.control   =3D ctrl,
+> +		.device_id =3D dev_id,
+> +		.payload   =3D (u8 *)data,
+> +		.size      =3D pmc_len[ctrl],
+> +	};
+> +
+> +	return eio_core_pmc_operation(mfd, &op);
 
+[Severity: Low]
+This isn't a bug, but does calling a bespoke helper function exported by
+the parent MFD driver conflict with the MFD subsystem guidelines? The MFD
+documentation suggests child drivers should use standard APIs and avoid
+custom accessors or helper functions in the parent to pass state.
 
+> +}
+[ ... ]
+> +static int eio_tz_set_trip_temp(struct thermal_zone_device *tzd,
+> +				const struct thermal_trip *trip, int temp)
+> +{
+> +	struct eio_thermal_dev *eio_thermal =3D thermal_zone_device_priv(tzd);
+> +	const u8 ctl =3D (uintptr_t)trip->priv;
+> +	u16 val;
+> +
+> +	if (temp < 1000)
+> +		return -EINVAL;
+> +
+> +	val =3D MILLI_CELSIUS_TO_DECI_KELVIN(temp);
+> +	return pmc_write(eio_thermal->mfd, ctl, eio_thermal->ch, &val);
+
+[Severity: High]
+Does this write to the wrong register?
+
+During probe, trip->priv is initialized with logical indices like
+TRIP_SHUTDOWN (which is 0). Here, the ctl variable is passed directly to
+pmc_write() as the control register address. Will this overwrite state
+registers like CTRL_STATE (0x00) instead of the limit registers like
+CTRL_SHUTDOWN_HI (0x41)?
+
+> +}
+> +
+> +static int eio_tz_change_mode(struct thermal_zone_device *tzd,
+> +			      enum thermal_device_mode mode)
+> +{
+> +	struct eio_thermal_dev *eio_thermal =3D thermal_zone_device_priv(tzd);
+> +	int trip;
+> +	int ret =3D 0;
+> +
+> +	for (trip =3D 0; trip < TRIP_NUM; trip++) {
+> +		ret =3D pmc_write(eio_thermal->mfd, ctrl_map[trip], eio_thermal->ch, &=
+mode);
+
+[Severity: Medium]
+Will this fail to set the mode correctly on big-endian architectures?
+
+The mode variable is an enum (typically 4 bytes), but it's passed as a byte
+array payload to pmc_write(). Because pmc_write() only copies 1 or 2 bytes,
+won't it read the most significant bytes (usually zeros) on big-endian
+systems?
+
+[Severity: Low]
+Could an early error in this loop be masked? If pmc_write() fails on the
+first iteration but succeeds on the next, ret will be overwritten with 0,
+hiding the failure from the caller.
+
+> +		if (ret)
+> +			dev_err(eio_thermal->dev, "Error when %s trip num %d\n",
+> +				mode =3D=3D THERMAL_DEVICE_ENABLED ? "enabling" : "disabling",
+> +				trip);
+> +	}
+> +
+> +	return ret;
+> +}
+[ ... ]
+> +static int eio_thermal_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +		/* Throttle starts a 1C increase it */
+> +		int throttle_temp =3D MILLI_CELSIUS_TO_DECI_KELVIN(60000);
+> +
+> +		pmc_write(dev->parent, CTRL_THROTTLE_HI, (u8)ch, &throttle_temp);
+
+[Severity: Medium]
+Does this have the same big-endian issue as eio_tz_change_mode()?
+
+The throttle_temp variable is a 32-bit int, and taking its address for a
+1 or 2 byte payload write in pmc_write() might read the zeroed upper bytes
+on big-endian systems.
+
+[ ... ]
+> +		tzd =3D thermal_zone_device_register_with_trips(therm_name[name],
+> +							      trips,
+> +							      ntrips,
+> +							      eio_th,
+> +							      &zone_ops,
+> +							      &zone_params,
+> +							      THERMAL_PASSIVE_DELAY,
+> +							      THERMAL_POLLING_DELAY);
+> +		if (IS_ERR(tzd))
+> +			return PTR_ERR(tzd);
+
+[Severity: High]
+Does this path leak resources if a failure occurs after some zones have been
+successfully registered?
+
+If the loop successfully registers a thermal zone on ch=3D0 but fails on ch=
+=3D1,
+it returns immediately without unregistering the thermal zone created for
+ch=3D0.
+
+> +		/* Make sure zones start disabled */
+> +		thermal_zone_device_disable(tzd);
+> +
+> +		dev_info(dev, "%s thermal up (ch=3D%d)\n", therm_name[name], ch);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static struct platform_driver eio_thermal_driver =3D {
+> +	.probe  =3D eio_thermal_probe,
+> +	.driver =3D {
+> +		.name =3D "eio_thermal",
+> +	},
+> +};
+
+[Severity: High]
+Are there use-after-free and resource leak bugs when this driver is unbound?
+
+Because there is no .remove callback in the platform driver, unbinding it v=
+ia
+sysfs will leave the registered thermal zones active in the thermal core
+while devres frees the eio_th private data. Could this lead to a
+use-after-free when the core polls the zones?
+
+> +module_platform_driver(eio_thermal_driver);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-upstream-v=
+2-v2-0-76e5e41026db@advantech.com?part=3D7
