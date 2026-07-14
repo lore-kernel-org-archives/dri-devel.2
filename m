@@ -4,131 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54D88C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 12:24:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A1E6C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 13:14:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15E5710E6AD;
-	Tue, 14 Jul 2026 12:24:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EDB810E062;
+	Tue, 14 Jul 2026 13:14:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="I6zmW3OK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b/B9V8GF";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012023.outbound.protection.outlook.com [40.107.209.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB4E010E6AD
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 12:24:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=isKA+3WlWv20An9N/0cBVXJZsgWcbMd/Zrj5YZFhXTTQ6yT4QOxZu0mLpgYwre5DZrMh4L0xYgdW9eZ+INW1fvfAS7GleERHslvUqX0PWeFUx00eS7ebU4gjLRPxeqjL955m9Is9CxBgm1sGPrV2Iy9cCx7gqPqOk8ul+c/NmFjX2sEvMpClL+RbwnSFeCIu1fvyzzPklITZRrpQcYFY8LJhSMwPQ6WtvaTJf76B3dTZcfdzkMkIY4iM7y8V13hP9l7a5z+1aUURHvyk1H2F8LPuKWIAIcMbF7mEtvg6oohLY/p37a5EjmEmxA5l8jiWo6com3dM55SmTbO4evp1AA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nGeT0F8HdfVtW/QKVHUM86s8Gy7Aqqi2GhckDlsZk+4=;
- b=T++Vuojcobl80AZBq228jWx6wQlsulZiYten/wlSB6HGaUn7XZbxAg6V/nkUqKKIu/COodddosb0FgRgRHOY3p6bYRpGq1a3lYiLmfKrWjgaW6wqDfqfw4Uqt9vMwAtQ7OtsZELB+Lt83+6NgMMJnSo3I580SeuXE3cfwzaA/tfCMqqnf+pcr52kaSTD6L0YQGEbnZR6B7kjg7o08a3BIBzL/VBiabcQhlTwICQiE3uyUcrlwRyL5or76Ik9ouxy6I6lpCCZ15tJSwZCcM6fCyXof5Rdus0eX4jOxMxExNhH1aIX1JOcobMf7S4RwkOVJvkRkHCqY3tESz4b9ThfZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nGeT0F8HdfVtW/QKVHUM86s8Gy7Aqqi2GhckDlsZk+4=;
- b=I6zmW3OKhZ8vQL57IaMnrnkfx+gKLlnyCgP+maLkWYxrCNjmVUi3NHjdK0Xp6o2zS81I5/t+a1BFrniRNGQJ0eQ9QoT8dPy4sr3XiTTG/sfw6iCfQjKU7F8inYUzoM9DxS1oytNQrKixTECMqRnp1QfBIs6eX0WE8pmulS+XpxU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB6742.namprd12.prod.outlook.com (2603:10b6:806:26e::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Tue, 14 Jul
- 2026 12:24:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0202.014; Tue, 14 Jul 2026
- 12:24:12 +0000
-Message-ID: <4ccf4ae5-ccd7-4bec-836a-fcebfa271c96@amd.com>
-Date: Tue, 14 Jul 2026 14:24:06 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] dma-buf: fix fd leak when copy_to_user() fails
- after fd_install()
-To: Baineng Shou <shoubaineng@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "T . J . Mercier" <tjmercier@google.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Sandeep Patil <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>,
- Srinivas Kandagatla <srini@kernel.org>
-Cc: stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 271B710E062
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 13:14:03 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-697bd21fdc2so1731352a12.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 06:14:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784034841; x=1784639641; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ny5+3yiTMDoQJssQpPJVjH5n2qiBSxJZzbYo0RMA4qo=;
+ b=b/B9V8GFlzD86g8jMhR/oJ2tfjIUtWNwwMtYh8pQoDPwMmrxlva4yqNwl6VUC18UNr
+ CRE3Lio7ADjbKce/MDsM3nj2j2NuSEj8B9viIYVc/noChR11EH3+Vo8sV+sav6Svc5Uc
+ UVpRAtqiSdgzzR5aOH5QSPi62Fzf0z3EAAY2ugDkpJO8VVPHTzLPD+4i/ARdQqxfzJ+m
+ ow1iVd2jahcZ+KwYYuwZRAy2fXLtbahEHihaINoOXKAuUBt5lSYpD6rSRHvUmMVZRpyl
+ xe2ldynkculPXn29NCyj21EGVoSRY6RyrJJJEO/L879yeWysntRp/5XBsepxa8dPB7zV
+ X9HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784034841; x=1784639641;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ny5+3yiTMDoQJssQpPJVjH5n2qiBSxJZzbYo0RMA4qo=;
+ b=iXjGpzKfER5MainI3YPDHsac1bqOM67o3n4WEgqR1UMzcVmoqT9diuVtIBSBTXtuGd
+ +zV0UAxFfYeI0UGofl8PFe7zigH/feaI1dgvaJJF7MZ5WJjkU6EBH3azd/+3DAj9XeIR
+ r/yALdZUsfWawQg3LUH7BOUl1/Wjr4pjqm8ePplj6XumT5i5vlA9sngC9IG5+Uify/9b
+ 37lonvMA8IFX1qyE+sYd1Lfi8icgeuBSPbBzyGRIhpulSB9yT+SKjxj4ltsabmxn7fyA
+ 1z3f4tx04obE6K55VlkiaD0ba4MdiPL2n2mmYhW7hfnbk9xut7RiO1DZqMF/TgEfr3dJ
+ 2Gsw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqSihaF7ZkAUyUvzPKCSsIdQvNOuN8eMFf2GfCQOLAyDvxMeNj+8Mr4eXTRRxpn9gpOOXID6dRP5xg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YykFI0+Tuvb4k4IZtyvvYUYK5heQntsRfjdp/iKs0ynVzOqqpF+
+ 3oLM+YNrILhZ4CVLpEHSf4GUbCJobQQF1IQ2fdkIIOYj9GBwxsjqQutM
+X-Gm-Gg: AfdE7cl07efrviqnil3vhbS5RFfRAyYeswPlVxYRuNTXhH0LYGbYQ/1s7rBdY2f8ecs
+ v0knxkwF4hX4Flhw/rk7NHXufRjvzDnjeFWrhRFM4LwqA618c2cNPOFu0SlU2db6Y71NSaAMHDb
+ zlxUJqP3NYqPaSoSAEHfuRdVxvNCpYM5wyngjONy+VZSEj9Bkd6o4D/K6BxwYkAfgyaGyLepwl7
+ aEKTjH4WvPIwIUu6zRZQr8au1sn8+UUovdgjBGbDklZlbAlPih+rsDEEI5usn7Gl2jYKseLIs5W
+ a98yg/FwvPq982He6F75INGeXGUQyMPJa417qrgP8NUx221w3HTAgc6uxx4eYaGVNGCbRbnd4wm
+ NVH484F6PE1Ibf+wbuGlYj3lA5jBU6i2yyteJr7ChA5yNt0c/hGhD8HfPV2FY+pqyfwi3XsRQBe
+ PHRQGhGuI9WfhR0z6iUvMaY78SZTGI0TnKYjCQ+A+M9qpG7Cgk/g==
+X-Received: by 2002:a05:6402:1e8c:b0:683:e394:cc0c with SMTP id
+ 4fb4d7f45d1cf-69c5ef84424mr6428415a12.4.1784034841275; 
+ Tue, 14 Jul 2026 06:14:01 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-69cd2952836sm1533316a12.27.2026.07.14.06.14.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2026 06:14:00 -0700 (PDT)
+Date: Tue, 14 Jul 2026 14:13:59 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Baineng Shou <shoubaineng@gmail.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, "T . J . Mercier" <tjmercier@google.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey
+ <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, Sandeep Patil
+ <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>, Srinivas Kandagatla
+ <srini@kernel.org>, stable@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dma-buf: dma-heap: don't publish fd before
+ copy_to_user() succeeds
+Message-ID: <20260714141359.7758575d@pumpkin>
+In-Reply-To: <20260714114654.3885457-2-shoubaineng@gmail.com>
 References: <CABdmKX21NHc2=9Sk2F-BFpu6is0vTg-QXLE+wiFNEPdsWWjvog@mail.gmail.com>
  <20260714114654.3885457-1-shoubaineng@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260714114654.3885457-1-shoubaineng@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0PR03CA0029.namprd03.prod.outlook.com
- (2603:10b6:208:52f::34) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ <20260714114654.3885457-2-shoubaineng@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6742:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a963880-8c1c-436d-2268-08dee1a2cf7c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|7416014|376014|1800799024|4143699003|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: TmR6DhnrJeDRyQZRfQAcbG6KOyJubG5+JSl71GWoff78uI4PAK+QNMK/VT4qH7q6YYxGUn2pPuBn6O4tMt4HkHMVH09ViYb3h/mgArDnctBroGfFD27IEEjqprxzzZ1JSF8nzX4lJ2Ifr64GsLxLHP3OBC4bl2HHAZ5asWSE7UB7RgmLVCzD8VQy8kuNxR8mIAHq9xtzZ/6bCG7xftNG861Vc8uZT85q1KEJl+Q21F5ELSEYg2N+jbqXdLZUNbY5KcXGFbQ2Fv8rnPSXE2q/f22SweLU0g6HAzHRVsAE9cnvqjJQv4NGAq4sDww2mqtfFBQELrUdwzCAWCyvbGJmmxpO+38BdMDdsaHvRfcSNnPS6oF0VL5kMKQ1+V3fLYHxioQd2zZkb2R4+yZXi2B4deLR5FS1FV90fDS/pBWh3ISMB7Khn84DPlVJRkl+Y/exOEvWEDkTy0rz/3TJr3yMTllfPxyeOMqS6hatBgBHUr89v2Y1MGiqoykXgEvD8PPoDLUGNBH9Jba2iXOrB4QoMsPOn9W7vZI5sQc//KevDi7onWSZhOCrQCQBkc1LMLbQvk06y/bMlvQvY40Bo+KI15VsjAKnXU5i7uQs7lEr4UY0nuAVBer4RbPWt3sfj8bSV9YkTSAzOnIPDTrUzPHwy+RdjZdy9XXS8TMLi6HXXf8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(4143699003)(18002099003)(22082099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L0ZUbDNFUEZMMThNT0szekwxRDdFR1I5ZVBSS2ZFUnkxUmU3SWZUMWpIOEo2?=
- =?utf-8?B?ekhqUEM5UklxNGtyTnBXRk4wdTEvdERSVWozaGFFa1JsTFMvZ1MrWHo2UkRz?=
- =?utf-8?B?cTRlbEkyZmFNb2N4bStoQWFzVkpFRTE1aG9yNlFtTVl5RkJwWUFaRitqSzR4?=
- =?utf-8?B?UWRtQUNQdm8wdEx1VHBSZXZ3cEJPeEthYmV5OFV0ZVk1SWZmQ3VTOVFBSSs2?=
- =?utf-8?B?QzNwOHo0Lys2T2EvSDluWTlEZmVHdzA5UFZNWmpRUDgxTk5OdTZIdytQSnl0?=
- =?utf-8?B?MHdTV3IrQlJjRkxTajNLdUNpVVFEUys0Q0hMNGpZTXAxUkVRbmJEVEZZRklX?=
- =?utf-8?B?Q3NlYTd5VGpWQUVTalI4LzE2NHlPOHJmblg2TDBOZTRCVDNOTmFicHJZVFk4?=
- =?utf-8?B?N1JNb1hodm9ieDNJNm5IRTNqMmtYbS9zUFg2aktuWDhHb25Pc3l2ZisvZS9S?=
- =?utf-8?B?Z3UwNnM3azJBOHNXbWtOOFVWTnBMMUVFekp0aDlTNXBwT0o4YndwM2hkOE5Z?=
- =?utf-8?B?WTRha1FWY3RJUTBlaG9DaGx6bHA0a3I4MFJuL1ZsMTN6bG5URDIwclRTSTdK?=
- =?utf-8?B?RDRPeEFsRVJlUnhaRlVNaUd2N1VLc2NhVW1zSHdUZE9lNHNyVWcyRFJnenp6?=
- =?utf-8?B?Z21vYXhDakYrQTVmOHY5Y0Zlc3JvbEdaVHZkZWlGVjgxSWs1OGpJdjluVVFY?=
- =?utf-8?B?KzMrNWZUdkdXU3UyVDdlUUhIQzBtbEk4d0FFNURiTDJSUEcvYXBodmE3UDIx?=
- =?utf-8?B?eWphcUF6YjR2U1RMbE14ZjRxV0ZmVEdjVEU2Mk9DaEM4T1I2ZWwyS3JjcTVr?=
- =?utf-8?B?ZVR2RTQ2YzBRc082bmtSSUlrdVhXbmRHQVdNNURkc1loNjVteXhTTUVMZnZB?=
- =?utf-8?B?YVMvaEtCNXBtK0h4R3ExaC9kbFpZMHBjSWE0NFRpZkszMkQzTHJpTXJoQjVR?=
- =?utf-8?B?WGQ3UVdtby9NTHNxYURxMEoxYmJPTkE0Z0dSNk0vWmg5cjJLaGV5TEUyRnZT?=
- =?utf-8?B?OFBEM3kxUThicUEvSzI3Y3V3UW42dWcyY2x4eGtpS0c2Nkl5VnIwZjVLSldt?=
- =?utf-8?B?a2N3a3Z2Q05YSnNaV3dpMUw0akJRM01NWklCOTBxWG11NFNlTTV1dm81dFQz?=
- =?utf-8?B?VnhsUHBHWFBWcGs4TnYvSFJ4QnFmNEI5RlRoWDhvSlNTRDhFdExERWgxUEd0?=
- =?utf-8?B?ZEdnRjBBdHh6a2FuMlY4TWpCSTNaZXJoNVdmdCtkTWZ0STFHdnJ5RTBBUXhw?=
- =?utf-8?B?VnF2dVI3KzBtS2ZvK3VscEltSjJmU2ZmSjkzL25NTE1rSUtjQm9JQnNBZW5G?=
- =?utf-8?B?OHQxYStLcFE0bld5M3dmaEtGQ2xtSmQ0WFNnby9pbGR5UDAxVVZzdFUzVTNP?=
- =?utf-8?B?aGppU0FpUEV1aVZXUGVkTXhzYVpxY3FTSUdKSTdqSmJZRjJ1TXVRanhIMVhY?=
- =?utf-8?B?NHUzOUI1cWJ1K0N2eXZicUtmbDl6NGdadk16MStCdXpOSUZlR3ZFVHNHOGF2?=
- =?utf-8?B?ZFlQa0dDdmZteVNIK0F4TnZKZ2pyeFcrMC9FaHFMNjkyV2xlSWNTcEEwY2t3?=
- =?utf-8?B?UDV1SWFiR1FFcGdPR0hPUjV5WEQzb29xRmZKWC84MjJDa3RQUVlPcXFkOXlG?=
- =?utf-8?B?S2d4b1R1M1YranlDVkcrWXFNTnR4cEl3dVp4ZjFrRnRsWHpzVUJJYmhyZ3Iw?=
- =?utf-8?B?SjBjMXVkeWhSY1FpQjlkOUpWeEVKUUR0dlNUaGRrUlVtWjQwb3o1SkRmRDVs?=
- =?utf-8?B?dythQjBiaXdjZlFnMFc0RTFLc1Y5Vk1Iak04TE9wY0xQTHBPSnpOdXdlWkxj?=
- =?utf-8?B?Wjc1cXlqaVlxZ1FhNHZBM3F4WHBqNXk2aXN5YXEyUW8rNG5tTWFXTUlwWFpk?=
- =?utf-8?B?c0t1OGJlZXlkYThhZTZqTC8yV0ZTQjA1SXJiQzUydVpkbzEwUWVFUGJ5b3My?=
- =?utf-8?B?czZqR0dIZG5ULytYVDZzWFBCMEpLNDZLbnlDYncwUENNQzFZS3dJWnJucjFD?=
- =?utf-8?B?bFJnUGpsUTVuRi9KR0JhVG5pTFVtRzF1SUs1SE10bjBEK0YwU0Jaa2ZQZVFZ?=
- =?utf-8?B?L0FycHlTRElhZDhSQ2w3NVBNZXNJeUs2ajdkZTV2eFJCby9SSTlDQ0V3ZSt4?=
- =?utf-8?B?K0JsZ253SGQxMUVzVEVSRXNhL25ZVkJ5eW5VQUx0ckt3MzViQmIzTGllblVU?=
- =?utf-8?B?Z2UrbnZIc0tRRUo2NlZjbWdoemtwMlNaWjZBMmlKSkV3a29sQyt3aXNzdkJE?=
- =?utf-8?B?amJWRmp0MnBHeGE3c0VNVXV0Y1F4ZGZyS0ZlL2k3ekE2ZklnRG1oaEZHNWdi?=
- =?utf-8?Q?BZQ8xLFIJlzsRfaGul?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a963880-8c1c-436d-2268-08dee1a2cf7c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 12:24:12.0337 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BeQTvqcjq5r1EEk5+QyHmoiqhxx3W+QWaSc+6Lvkdj5w2MobX66DjbBgKN+0Ahdx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6742
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,56 +101,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/14/26 13:46, Baineng Shou wrote:
-> Several drivers call dma_buf_fd() — which internally calls fd_install()
-> — before copy_to_user() returns the fd number to userspace.  If
-> copy_to_user() fails, the fd is already published in the caller's fd
-> table but the ioctl returns an error, so userspace never learns the fd
-> number.  Worse, the window between fd_install() and copy_to_user()
-> allows other threads to observe and manipulate the fd (dup, close,
-> SCM_RIGHTS), making any "close it on the failure path" fix unsafe.
-> 
-> The fix is to split the allocation into three steps: reserve an fd with
-> get_unused_fd_flags() (not yet visible to other threads), do
-> copy_to_user(), and only then publish the fd with fd_install() via the
-> new dma_buf_fd_install() helper.  On copy_to_user() failure,
-> put_unused_fd() + dma_buf_put() cleanly unwind with no user-visible
-> side effects.
-> 
-> Patch 1 introduces dma_buf_fd_install() in dma-buf.c (wrapping
-> fd_install() together with the DMA_BUF_TRACE call to preserve export
-> tracing) and applies the fix to dma-heap.
-> 
-> Patch 2 applies the same fix to fastrpc, which even had a comment
-> acknowledging the problem could not be fixed before.
+On Tue, 14 Jul 2026 19:46:53 +0800
+Baineng Shou <shoubaineng@gmail.com> wrote:
 
-drivers/gpu/drm/drm_prime.c is also using fd_install() of a DMA-buf file descriptor manually.
+> DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
+> caller's fd table via dma_buf_fd() -> fd_install() before
+> dma_heap_ioctl() copies the result back to userspace.  If the trailing
+> copy_to_user() fails, userspace never learns the fd number, but the
+> fd (and the underlying dma-buf reference) are already visible to
+> other threads in the same process and are leaked for the lifetime of
+> the process.
+>=20
+> The obvious "close it on the failure path" fix is unsafe: once
+> fd_install() has run, another thread can already dup() the fd, send
+> it via SCM_RIGHTS, or close() it and let its number be reused, so a
+> subsequent close_fd() from the ioctl path can operate on an unrelated
+> file.  This was pointed out by Christian K=C3=B6nig on v1 [1].
+...
 
-Would be nice if we could us the new dma_buf_fd_install() for tracing here as well.
+My 2c:
 
-Apart from that feel free to add Acked-by: Christian König <christian.koenig@amd.com> to the whole series.
+The other option is just to leave it as a 'problem for user space'.
+No reasonable program is going to handle the EFAULT return by doing
+anything other than exiting.
+Even getting an EFAULT is really an indication that the application
+is already in a real mess - most likely with a badly corrupted heap.
 
-Regards,
-Christian.
+Anything else leaves error recovery code in the kernel that is pretty
+much never executed and open to a variety of bugs.
+While the recovery here is probably ok, there are some sockopt calls
+where it is all more complicated.
 
-> 
-> v1: https://lore.kernel.org/dri-devel/20260703080922.1838362-1-shoubaineng@gmail.com/
-> v2: https://lore.kernel.org/dri-devel/20260710105430.3059661-1-shoubaineng@gmail.com/
-> 
-> Changes in v3:
->  - Split into two patches (dma-heap + fastrpc separately)
->  - Add dma_buf_fd_install() to preserve trace_dma_buf_fd tracepoint
->    (spotted by T.J. Mercier and sashiko-bot on v2)
->  - Add fastrpc fix using the new helper (suggested by T.J. Mercier)
-> 
-> Baineng Shou (2):
->   dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
->   misc: fastrpc: don't publish fd before copy_to_user() succeeds
-> 
->  drivers/dma-buf/dma-buf.c  | 20 ++++++++++
->  drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
->  drivers/misc/fastrpc.c     | 16 +++-----
->  include/linux/dma-buf.h    |  1 +
->  4 files changed, 67 insertions(+), 50 deletions(-)
-> 
-
+	David
