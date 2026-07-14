@@ -4,60 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2539EC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 13:31:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49E6DC44501
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 13:31:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BC0110ED36;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7A9C10ED37;
 	Tue, 14 Jul 2026 13:31:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="aswI5Lyo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jjOdgnSW";
 	dkim-atps=neutral
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com
- [113.46.200.220])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2255E10E06E
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 13:31:21 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=5qaPZ4JEy0yK4gYPWhByCSI0vDtbd1CSi7wizYH3Nd0=;
- b=aswI5LyoZwidw8xGU/bsFW01ANNWlTCsObfLrUDUy2eZYt6gTaTxtIgxLYr6uvoD3PI4gLP+a
- 1cqoBjIJdd0eeAsIjosB3ZhmeLfcC68Oz2OXkonm7vxnROo0r7lKOU1V9GMmTZGtO41Q42HVHMG
- T2YoWwTelv8D0owXPO2FOio=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
- by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4h00M835Byz12LCc;
- Tue, 14 Jul 2026 21:21:40 +0800 (CST)
-Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
- by mail.maildlp.com (Postfix) with ESMTPS id AEDE640591;
- Tue, 14 Jul 2026 21:31:18 +0800 (CST)
-Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 14 Jul 2026 21:31:16 +0800
-Received: from localhost.huawei.com (10.169.71.169) by
- kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 14 Jul 2026 21:31:16 +0800
-From: Yongbang Shi <shiyongbang@huawei.com>
-To: <tzimmermann@suse.de>, <dmitry.baryshkov@oss.qualcomm.com>,
- <tiantao6@hisilicon.com>, <xinliang.liu@linaro.org>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <airlied@gmail.com>, <daniel@ffwll.ch>, <kong.kongxinwei@hisilicon.com>
-CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
- <fengsheng5@huawei.com>, <shiyongbang@huawei.com>, <helin52@h-partners.com>,
- <shenjian15@huawei.com>, <shaojijie@huawei.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH for drm-misc-fixes 1/2] drm/hisilicon/hibmc: Modify the method
- of obtaining the hpd_status
-Date: Tue, 14 Jul 2026 21:20:50 +0800
-Message-ID: <20260714132051.993356-2-shiyongbang@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260714132051.993356-1-shiyongbang@huawei.com>
-References: <20260714132051.993356-1-shiyongbang@huawei.com>
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C161110E06E
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 13:31:20 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-388b404ea89so904943a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 06:31:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784035880; cv=none;
+ d=google.com; s=arc-20260327;
+ b=JkfUU4kw5w+xQcds2BnYafRPeHraIDiAV8U6ru3YpU035ADpBOdbwpX6wjKJ2DVALU
+ dLj9PgTKXNYHMNzdr1SQGHk3AiKkZVoYuzyWAj4Rma2+ETYJs9zq12rXfJt8+Mjzmkqx
+ XV6n1Vl/MdCzqDB9FRVO+sTOj06130YH1bly4FR7f78jv0Vzsaf7W/sKUGxTVvtwSytM
+ Q19ABj4KeJ54B1GGhTjPR8NnXWgqG5F1xAg9p8QzezNohin03z43yGY1QvT6sA8p+yvw
+ EYjz+vxie1DFAH48H7tuFcjvd84uKAlHppmTRN9OBDH/4VBbTZhMtQxzDMte6zt8Q5Is
+ tR+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=kLfW8NpBLmGd5rRr/q7P+WdrGpDQQoBNPKO5OnQCHQk=;
+ fh=j+L9txZgxOVqgRlJQ5feLffBFFOogV2nzZvEg8W81JA=;
+ b=n+KaMfIxhIkElhOFJo1sSG0/WUcxo/MY2hyroMMn+6RtuICDZDHS9vg/ectaiBYBKZ
+ J31v9d7uF2t8VQ428eA8qw0BgjqUVYBYmR1ek5XJglwh499JMDL9ZQwCSga/ObQam9YF
+ qGsuunz0qFgsS70Vyz/W45hDD6oxEUqz0UIsOGxs/U44Rl5lxWzRk5Syh7TEnPETqZM7
+ lFmnv6ku2lUjSv2CuuOQv5bE2QkxuRU8VEqAflRZSEbFCZyj+Rd4MFTILAHV3qEM2ICp
+ +IlHkZrumgaNkJDeo0s87czyzztrWBfTOHsN/pPW2kSEIeoKC0yfl9WB/dml7gfiGXdj
+ ph6w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784035880; x=1784640680; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=kLfW8NpBLmGd5rRr/q7P+WdrGpDQQoBNPKO5OnQCHQk=;
+ b=jjOdgnSWlLfs9ntwuZj6+EuInCTUzWWmcAtPnSF1bHc5/KrNaEmdJuao/OtBAsvLCs
+ nBonsOGC8zkFBtOHSE4aggrJw5l4qnaYUGHO8a95AwCl6FrypQ/SlyrwY7Lu7KWefSCy
+ OqlElpqpy7tPhllcprFMe0jG40IVBMgvnzF1OHvYo8FWRMde+2cCTBki5nOWSWVUgp3e
+ dq8KhJPr+vNLZ76Eqybt9nY7fGZPa3epOwbQlNpwFGQyhsh2A6ZC31UUcvCQqxiVZ1IO
+ WpqyBxWlBlHEBizT/qZviGF11BFd92lgvSI/WGdgS55+znlM0NNWAoDbRRW3Sz2f/jyj
+ aP9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784035880; x=1784640680;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=kLfW8NpBLmGd5rRr/q7P+WdrGpDQQoBNPKO5OnQCHQk=;
+ b=tFMCH5E4C7vVUWn/wcopfwITI7fCMyM4zihLtHijzdGFnLs5IqjP0HV/QmzK5Q9xI3
+ cS3P3cgm5AJaNPS6HLxxIdu/RUwkm6DjGUOxlTgjmIOT3PuRbdiHM5Oc1VxVcPA98FJN
+ T/LDtJSk1lETzewwGb+WfJA9d5CAm2XFD5+WQGhh6SpKYdweTW+0wfJmYUUiDU5Es11i
+ yEUhSdsuDeouF7zE8YorXtRWYr4Mqiqcrk98A6F5ZZuFnNIglbwIiRc5zQvX8eBJNsql
+ jnFkfxor4ck2+9qivZeTwHKAbXZWxZCtU/UqfOjUOhiiw7tjIMeKTN6G/wY/g/2BmS0C
+ 8vhw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrOUNyser56GqE+2iJDBZcc1p14hEA1uqSgyIGd4fzNj96OcUAeGLH4CFyjNO88VB3xForsV/66jc0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwilfowaN3ToNO3GKR/ExnGShC2u+qcL9A3OLcElUWiFoJwHg0/
+ ylSzb1o/Kq1a+j77fvfhaIH+U6MhSSZQ9wrMWMbHO57OEGlzQ3TJbSSBQvrj0EzGN9ygbVpQ0W9
+ lWcjqUwqPxzEjXb80bfoAf39nClX3+5o=
+X-Gm-Gg: AfdE7clkaykFCe5GEi3qbuy8lxV4Gn5noWy4AaFOHOVZnCz+MoajGKGZ70/yrzckfuc
+ CLR5Z6gGoAAQcMqJbw1ELTMMEvJbT9tjhRE4TR91+Hp1oC+2FyxeludKoxektOoq6CHRUG2cVnL
+ LQV7E/GE5nqfw038uBHNmYx55Fx7uF61oFELXHSbEAvkMiQUuc6ZAxsUkUmLLAsLc0X609lbrO7
+ c+5/Rm1oeVQweqdKH4ppg56CZ2xsCKW7aMHWccbyXf1LyIBoyKffiegRNW78JBoZbzCogIHsaVF
+ CwsjURrH9SRJeFK3TX46jPNbO0fiolN1bSKOr2im
+X-Received: by 2002:a17:90b:5607:b0:37f:e5b1:ec4b with SMTP id
+ 98e67ed59e1d1-38d13c60530mr18215292a91.5.1784035880304; Tue, 14 Jul 2026
+ 06:31:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.169.71.169]
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemq100007.china.huawei.com (7.202.195.175)
+References: <20260617080031.99156-1-clamor95@gmail.com>
+ <20260617080031.99156-6-clamor95@gmail.com>
+ <akeHC-OA8tqM941f@hovoldconsulting.com>
+In-Reply-To: <akeHC-OA8tqM941f@hovoldconsulting.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 14 Jul 2026 16:31:08 +0300
+X-Gm-Features: AUfX_mxzYxEuGLMctIZqZIdW8wmxIrFK1WcO0C4FctuVUcu9qYtJIaIs5OSxe4o
+Message-ID: <CAPVz0n2DPia=nfvd3W-rHy91OvZNO6jdSczT7kyvH-G138KJyg@mail.gmail.com>
+Subject: Re: [PATCH v5 05/14] iio: light: lm3533-als: Remove redundant pdata
+ helpers
+To: Johan Hovold <johan@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, 
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,208 +118,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Lin He <helin52@huawei.com>
+=D0=BF=D1=82, 3 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:55 Johan=
+ Hovold <johan@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Wed, Jun 17, 2026 at 11:00:22AM +0300, Svyatoslav Ryhel wrote:
+> > The lm3533_als_set_input_mode() and lm3533_als_set_resistor() functions
+> > are used only in lm3533_als_setup(). Incorporate their code into
+> > lm3533_als_setup() directly to simplify driver readability.
+>
+> That's a debatable claim.
+>
 
-To more accurately determine whether the current HPD status matches the
-interrupt status, the polling mechanism in the lower half of the HPD
-interrupt (via hibmc_dp_check_hpd_status) has been replaced with directly
-retrieving the interrupt status in the upper half of the interrupt (via
-hibmc_dp_get_hpd_status).
+Adding helpers to wrap custom regmap wrappers seems redundant twice.
 
-* Detection and training are not performed if hpd_status is not HPD_IN.
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/iio/light/lm3533-als.c | 56 ++++++++++------------------------
+> >  1 file changed, 16 insertions(+), 40 deletions(-)
+> >
+> > diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3533-=
+als.c
+> > index a9af8e2b965f..69bac1b202f1 100644
+> > --- a/drivers/iio/light/lm3533-als.c
+> > +++ b/drivers/iio/light/lm3533-als.c
+>
+> > -static int lm3533_als_setup(struct lm3533_als *als,
+> > -                         const struct lm3533_als_platform_data *pdata)
+> > -{
+> > -     int ret;
+> > -
+> > -     ret =3D lm3533_als_set_input_mode(als, pdata->pwm_mode);
+> > +                        pdata->r_select);
+> >       if (ret)
+> > -             return ret;
+> > -
+> > -     /* ALS input is always high impedance in PWM-mode. */
+> > -     if (!pdata->pwm_mode) {
+> > -             ret =3D lm3533_als_set_resistor(als, pdata->r_select);
+> > -             if (ret)
+> > -                     return ret;
+> > -     }
+> > +             return dev_err_probe(dev, ret, "failed to set resistor\n"=
+);
+> >       return 0;
+> >  }
+>
+> There's nothing hard to read about the above. To the contrary the logic
+> is more obvious this way.
+>
+> You also remove the high-impedance comment for no good reason.
+>
 
-* Set the initial status of hpd_status to HPD_OUT.
+Removing one level of indentations without obscuring readability is
+always a good idea.
 
-Fixes: 3906e7a3b26d ("drm/hisilicon/hibmc: fix dp probabilistical detect errors after HPD irq")
-Signed-off-by: Lin He <helin52@huawei.com>
-Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
----
- drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h  |  1 -
- drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c    | 31 ++++++++++++-------
- drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  4 ++-
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 29 ++++++++++-------
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  1 +
- 5 files changed, 42 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
-index f53dac256ee0..b0e258b9265e 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
-+++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
-@@ -43,7 +43,6 @@ struct hibmc_dp_dev {
- 	u8 downstream_ports[DP_MAX_DOWNSTREAM_PORTS];
- 	struct drm_dp_desc desc;
- 	bool is_branch;
--	int hpd_status;
- 	void __iomem *serdes_base;
- };
- 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
-index d5bd3c45649b..b3c7adaaedf7 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
-@@ -191,6 +191,10 @@ int hibmc_dp_hw_init(struct hibmc_dp *dp)
- 	writel(HIBMC_DP_HDCP, dp_dev->base + HIBMC_DP_HDCP_CFG);
- 	/* clock enable */
- 	writel(HIBMC_DP_CLK_EN, dp_dev->base + HIBMC_DP_DPTX_CLK_CTRL);
-+	/* To latch the HPD interrupt, ensuring that DP can support more modes
-+	 * within the fbcon framework when connected alone.
-+	 */
-+	msleep(100);
- 
- 	return 0;
- }
-@@ -322,20 +326,25 @@ void hibmc_dp_set_cbar(struct hibmc_dp *dp, const struct hibmc_dp_cbar_cfg *cfg)
- 	writel(HIBMC_DP_SYNC_EN_MASK, dp_dev->base + HIBMC_DP_TIMING_SYNC_CTRL);
- }
- 
--bool hibmc_dp_check_hpd_status(struct hibmc_dp *dp, int exp_status)
-+int hibmc_dp_get_hpd_status(struct hibmc_dp *dp)
- {
-+	int ret = HIBMC_HPD_UNKNOWN;
- 	u32 status;
--	int ret;
- 
--	ret = readl_poll_timeout(dp->dp_dev->base + HIBMC_DP_HPD_STATUS, status,
--				 FIELD_GET(HIBMC_DP_HPD_CUR_STATE, status) == exp_status,
--				 1000, 100000); /* DP spec says 100ms */
--	if (ret) {
--		drm_dbg_dp(dp->drm_dev, "wait hpd status timeout");
--		return false;
-+	status = FIELD_GET(HIBMC_DP_HPD_CUR_STATE,
-+			   readl(dp->dp_dev->base + HIBMC_DP_HPD_STATUS));
-+
-+	switch (status) {
-+	case 0: /* 0: unplug */
-+	case 3: /* 3: done */
-+		ret = HIBMC_HPD_OUT;
-+		break;
-+	case 1: /* plug */
-+		ret = HIBMC_HPD_IN;
-+		break;
-+	default:
-+		break;
- 	}
- 
--	dp->dp_dev->hpd_status = exp_status;
--
--	return true;
-+	return ret;
- }
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-index 0f3662d8737e..bcd4e9d155c8 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-+++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-@@ -15,6 +15,7 @@
- struct hibmc_dp_dev;
- 
- enum hibmc_hpd_status {
-+	HIBMC_HPD_UNKNOWN,
- 	HIBMC_HPD_OUT,
- 	HIBMC_HPD_IN,
- };
-@@ -55,6 +56,7 @@ struct hibmc_dp {
- 	struct drm_dp_aux aux;
- 	struct hibmc_dp_cbar_cfg cfg;
- 	u32 irq_status;
-+	int hpd_status;
- 	int phys_status;
- };
- 
-@@ -66,7 +68,7 @@ void hibmc_dp_reset_link(struct hibmc_dp *dp);
- void hibmc_dp_hpd_cfg(struct hibmc_dp *dp);
- void hibmc_dp_enable_int(struct hibmc_dp *dp);
- void hibmc_dp_disable_int(struct hibmc_dp *dp);
--bool hibmc_dp_check_hpd_status(struct hibmc_dp *dp, int exp_status);
-+int hibmc_dp_get_hpd_status(struct hibmc_dp *dp);
- u8 hibmc_dp_get_link_rate(struct hibmc_dp *dp);
- u8 hibmc_dp_get_lanes(struct hibmc_dp *dp);
- 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-index 2e9403b8bf3c..23716d48149f 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-@@ -63,12 +63,8 @@ static int hibmc_dp_detect(struct drm_connector *connector,
- 	struct hibmc_dp_dev *dp_dev = dp->dp_dev;
- 	int ret = connector_status_disconnected;
- 
--	if (dp->irq_status) {
--		if (dp_dev->hpd_status != HIBMC_HPD_IN) {
--			ret = connector_status_disconnected;
--			goto exit;
--		}
--	}
-+	if (dp->hpd_status != HIBMC_HPD_IN)
-+		goto exit;
- 
- 	if (!hibmc_dp_get_dpcd(dp_dev)) {
- 		ret = connector_status_disconnected;
-@@ -166,6 +162,9 @@ static void hibmc_dp_encoder_enable(struct drm_encoder *drm_encoder,
- 	struct hibmc_dp *dp = container_of(drm_encoder, struct hibmc_dp, encoder);
- 	struct drm_display_mode *mode = &drm_encoder->crtc->state->mode;
- 
-+	if (dp->hpd_status != HIBMC_HPD_IN)
-+		return;
-+
- 	if (hibmc_dp_prepare(dp, mode))
- 		return;
- 
-@@ -189,24 +188,31 @@ irqreturn_t hibmc_dp_hpd_isr(int irq, void *arg)
- {
- 	struct drm_device *dev = (struct drm_device *)arg;
- 	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
--	int idx, exp_status;
-+	int status = priv->dp.hpd_status;
-+	int idx;
- 
- 	if (!drm_dev_enter(dev, &idx))
- 		return -ENODEV;
- 
- 	if (priv->dp.irq_status & DP_MASKED_SINK_HPD_PLUG_INT) {
- 		drm_dbg_dp(&priv->dev, "HPD IN isr occur!\n");
-+		if (status != HIBMC_HPD_IN) {
-+			drm_err(&priv->dev, "HPD status (%d) error", status);
-+			goto exit;
-+		}
- 		hibmc_dp_hpd_cfg(&priv->dp);
--		exp_status = HIBMC_HPD_IN;
- 	} else {
- 		drm_dbg_dp(&priv->dev, "HPD OUT isr occur!\n");
-+		if (status != HIBMC_HPD_OUT) {
-+			drm_err(&priv->dev, "HPD status (%d) error", status);
-+			goto exit;
-+		}
- 		hibmc_dp_reset_link(&priv->dp);
--		exp_status = HIBMC_HPD_OUT;
- 	}
- 
--	if (hibmc_dp_check_hpd_status(&priv->dp, exp_status))
--		drm_connector_helper_hpd_irq_event(&priv->dp.connector);
-+	drm_connector_helper_hpd_irq_event(&priv->dp.connector);
- 
-+exit:
- 	drm_dev_exit(idx);
- 
- 	return IRQ_HANDLED;
-@@ -223,6 +229,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
- 
- 	dp->mmio = priv->mmio;
- 	dp->drm_dev = dev;
-+	dp->hpd_status = HIBMC_HPD_OUT;
- 
- 	ret = hibmc_dp_hw_init(&priv->dp);
- 	if (ret) {
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-index 4d85c89f3f88..e5cca7b63b78 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-@@ -63,6 +63,7 @@ static irqreturn_t hibmc_dp_interrupt(int irq, void *arg)
- 	status = readl(priv->mmio + HIBMC_DP_INTSTAT);
- 	if (status) {
- 		priv->dp.irq_status = status;
-+		priv->dp.hpd_status = hibmc_dp_get_hpd_status(&priv->dp);
- 		writel(status, priv->mmio + HIBMC_DP_INTCLR);
- 		return IRQ_WAKE_THREAD;
- 	}
--- 
-2.43.0
-
+> Johan
