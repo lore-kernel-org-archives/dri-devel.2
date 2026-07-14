@@ -4,43 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E0D5C44501
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 07:54:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6C63C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 08:02:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FBEB10EC2D;
-	Tue, 14 Jul 2026 07:54:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4487D10EC42;
+	Tue, 14 Jul 2026 08:02:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MQNf0/ig";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="TOb0j1Sn";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 311F710EC2D
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 07:54:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BF89A43B09;
- Tue, 14 Jul 2026 07:54:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82C241F000E9;
- Tue, 14 Jul 2026 07:54:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784015651;
- bh=j8bA+pvRXRVOxhA1Xg963pwv3BPAbmzdiL3SoZFLDUA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MQNf0/igPfM2ZzvP1jj8fKgVE4p1lzftDh1yH6aQ1o885LmRBr6kKhVeO4KGEBaz/
- nVVlq94uDNJdXt2yORw3ui4E5bfV/yZV6N4lP67LFCid2OG5KLnTQ+OgWbTMxfA3JY
- NMnDHtTr5S38fyMB4goVyd4cDoBHU7gUiXGu8sEEbUNNY6ErE2dT3H8l+aR9h4nhhc
- teJH9Q1ajv+8N+JdEjyTNYXBty+ViRw/XHWLXw8acxRQCgkNOY//d3k/GLWctlPPDg
- w3B5Q+L/7VMc5WAvqTp7+tUJw6c+WLPLdsr9rzMhph88NN7D6iqe+lTc4rr88KXxkJ
- 5J49XGnFrGfYw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/imagination: acquire vm_ctx->lock before mapping
- memory to GPU VM
-To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
-References: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 07:54:11 +0000
-Message-Id: <20260714075411.82C241F000E9@smtp.kernel.org>
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A409410EC42
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 08:02:58 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-4759b4f0897so363865f8f.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 01:02:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1784016177; x=1784620977; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=ZQs/lndaQfLqx30aI5NP0RL8O4A11HHgmOQfnkQqBC8=;
+ b=TOb0j1SnnMhq1NsW8GUSWBsojvFqH1xMDaGACyt63+G2+1/0UjisMiF4GpdWxfJy+D
+ 9EJCyWlX5PQqlLe+W4b9uQiJHCKQhrUKAEyYQYWCH2/juPG1YGSCJi4sGPx7K07CG/aW
+ SMXbyNjxAYEpErRet1TKFKb8+eYxAYmxQFdxGfPd8KrconLfp/d4wkb9l+xl0rHuvicc
+ kCcJGOp6uVIzImo7ZQJPteHP+7BqLcneRoa+AXnL1vdHjM/IFvSK6xrN80zf8Ou0lo/o
+ Xvyksa8EGIU3uAH2bjVOggQuq6oD4Pxz1GssfZxWqMf3UnTyWgQ5Kz4hGiKudUhx2gp5
+ soYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784016177; x=1784620977;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ZQs/lndaQfLqx30aI5NP0RL8O4A11HHgmOQfnkQqBC8=;
+ b=IQgTr9HX68ZJXaB0wYDt13Ua1HOAWB0uEJ+XvlLmAZR16Xi/+HEUpxJu7HU+L56ie+
+ HrmctkxUhWO4XJQZ67nFLLizLn72RhGA8ejtcfmgicLbmKcrDF6++93YFFtTTzBaX5mI
+ S6I9NUNpPSTCJozYfq0c7NV+SH/W10EYJH5yHAmSCKktNUfYZbWVTPot9ax0At8pO9b9
+ 30gbP7DX3/jXsDl6ysJWiYneN/7gN9OMp1JUdWevW2FlHuTpAi6RKKXZgKsrVQTSAREu
+ y9mP9fMjDRf4w9TfQYlKmMmRfPrfj4dK9SkuooGLlJ5ebL+SKtmLjaSQsE6q0mBJag33
+ G3lQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrPSzJlPg/UCXjnmZxWevnz4zuDwjaATHcyF55OZYGDdohE2jHFvGxFtPy6Xf63hvCT5mY3ESw+HFQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxxGtfPHSW1DDV2eJJyoY95lGywg/vV/qCdQweWqLDSvoOPJiWx
+ Xhjv3bkG8gD+KQbnR4kuzfn+344rfEm4NDIOgW7Zs+x+41mcQe20SYsA+TXYqebOED4=
+X-Gm-Gg: AfdE7cl///6q/blfQ2YxHbXcYmD9qg/smUrzYqB+5RjOKYll4seFfaVMxrmcNn43dXi
+ qnEARcfcLcH3WUs79cg+T3L3XW0UxtGMaFDSw6JRVD+Pb4odqyBRdo+az+Kn9yEeRlIwGyqj7HE
+ XpB5U58NzNMYDS8DR0IVBk69BgIk8iCEqHaULi038no4zGFGCaNWU3I5xkvzu0vMd/90T5UlJqZ
+ LiHct6fQjEDNQzlP7I/xnK9qE/O/I3hro1wMGLOriq42DVeBZvPaO0TcpMw240SOFyaYZKrF2RM
+ mQqpGl6ZhpBnsiVKQhWg5X9J0//ED7/i4uHGUK1gWTx4MjcwyqFOP0RtvBAImJn6jowzpWF1wXp
+ YhH1NocaNk2Nyw+xuzE3m4Ih1pyNPQbGxbJ37getnxzmQ3cjeEGay52I0zm2LMfXE4HweRGcRwl
+ ZUlixjoLVLerzrUfQq43L8x9hygx85NZR4A1WAQZWEmBp3
+X-Received: by 2002:a05:6000:2004:b0:45e:73eb:5119 with SMTP id
+ ffacd0b85a97d-47f2dc9bf61mr13935562f8f.22.1784016176473; 
+ Tue, 14 Jul 2026 01:02:56 -0700 (PDT)
+Received: from [192.168.0.116] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47f464c25b2sm6460345f8f.30.2026.07.14.01.02.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Jul 2026 01:02:56 -0700 (PDT)
+Message-ID: <3e109b17-539d-49be-a096-bcd669fed5ae@ursulin.net>
+Date: Tue, 14 Jul 2026 09:02:55 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Remove unneeded semicolon
+To: Chen Ni <nichen@iscas.ac.cn>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, tvrtko.ursulin@igalia.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260714073903.3646544-1-nichen@iscas.ac.cn>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260714073903.3646544-1-nichen@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,119 +89,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Calling `drm_gpuvm_bo_put()` without holding the GEM object's dma_=
-resv lock in `pvr_vm_bind_op_fini()` causes lockdep splats and GEM gpuva li=
-st corruption on error paths.
-- [High] Infinite loop in `pvr_vm_unmap_all()` when `pvr_vm_unmap_obj_locke=
-d()` fails, leading to a kernel thread hang (Denial of Service).
---
+On 14/07/2026 08:39, Chen Ni wrote:
+> Remove unnecessary semicolons reported by Coccinelle/coccicheck and the
+> semantic patch at scripts/coccinelle/misc/semicolon.cocci.
+> 
+> Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+> index ce1d08f112a8..c5cde42333d8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+> @@ -211,7 +211,7 @@ int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
+>   
+>   	default:
+>   		return -EINVAL;
+> -	};
+> +	}
+>   
+>   	switch (args->in.operation) {
+>   	case AMDGPU_BO_LIST_OP_CREATE:
 
---- Patch [1]: [PATCH v2] drm/imagination: acquire vm_ctx->lock before mapp=
-ing memory to GPU VM ---
-commit 1da21cbc09436cbb38e021164bab86864e2bacca
-Author: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-drm/imagination: acquire vm_ctx->lock before mapping memory to GPU VM
+Regards,
 
-The drm gpuvm code doesn't protect find operation against map operation,
-and the driver needs to ensure a map operation shouldn't happen when a
-find operation is in progress.
+Tvrtko
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagi=
-nation/pvr_vm.c
-> index 396d349fb6ce4..ceb78694cd987 100644
-> --- a/drivers/gpu/drm/imagination/pvr_vm.c
-> +++ b/drivers/gpu/drm/imagination/pvr_vm.c
-> @@ -747,6 +747,7 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx, struct pvr_=
-gem_object *pvr_obj,
-> =20
->  	pvr_gem_object_get(pvr_obj);
-> =20
-> +	mutex_lock(&vm_ctx->lock);
->  	err =3D drm_gpuvm_exec_lock(&vm_exec);
->  	if (err)
->  		goto err_cleanup;
-> @@ -756,6 +757,7 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx, struct pvr_=
-gem_object *pvr_obj,
->  	drm_gpuvm_exec_unlock(&vm_exec);
-> =20
->  err_cleanup:
-> +	mutex_unlock(&vm_ctx->lock);
->  	pvr_vm_bind_op_fini(&bind_op);
-
-[Severity: High]
-This is a pre-existing issue, but does calling pvr_vm_bind_op_fini() in the
-error path here drop the drm_gpuvm_bo reference without holding the GEM's
-dma_resv lock?
-
-Looking at pvr_vm_bind_op_fini(), it calls drm_gpuvm_bo_put() unconditional=
-ly:
-
-drivers/gpu/drm/imagination/pvr_vm.c:pvr_vm_bind_op_fini() {
-    drm_gpuvm_bo_put(bind_op->gpuvm_bo);
-    ...
-}
-
-When drm_gpuvm_bo_put() drops the reference count to zero, it destroys the =
-BO
-and removes it from the GEM's gpuva.list. This API requires the caller to h=
-old
-the dma_resv lock.
-
-In error paths like when drm_gpuvm_exec_lock() fails, this cleanup path runs
-without the dma_resv lock held.
-
-Could this lead to list corruption and use-after-free conditions on the GEM=
-'s
-gpuva lists if multiple threads operate concurrently?
-
-> =20
->  	return err;
->  }
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but can pvr_vm_unmap_all() enter an infinite
-loop if pvr_vm_unmap_obj_locked() fails?
-
-Looking at pvr_vm_unmap_all():
-
-drivers/gpu/drm/imagination/pvr_vm.c:pvr_vm_unmap_all() {
-    for (;;) {
-        ...
-        va =3D drm_gpuva_find_first(&vm_ctx->gpuvm_mgr, ...);
-        if (!va)
-            break;
-
-        pvr_obj =3D gem_to_pvr_gem(va->gem.obj);
-
-        WARN_ON(pvr_vm_unmap_obj_locked(vm_ctx, pvr_obj,
-                                        va->va.addr, va->va.range));
-    }
-}
-
-The return value of pvr_vm_unmap_obj_locked() is tested inside a WARN_ON but
-otherwise ignored. If it fails, the mapping is not removed from the tree, a=
-nd
-the next iteration will find the exact same mapping via drm_gpuva_find_firs=
-t().
-
-Since pvr_vm_unmap_obj_locked() uses DRM_EXEC_INTERRUPTIBLE_WAIT,
-if a process is being killed (e.g. SIGKILL during teardown), this lock will
-repeatedly fail with -ERESTARTSYS.
-
-Does this cause an unrecoverable infinite loop in the kernel under
-vm_ctx->lock?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714073641.1935=
-075-1-zhengxingda@iscas.ac.cn?part=3D1
