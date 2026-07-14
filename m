@@ -4,161 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82340C44508
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 15:28:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEE1AC44508
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 15:38:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E09F510EDCA;
-	Tue, 14 Jul 2026 15:28:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24DEB10EDCB;
+	Tue, 14 Jul 2026 15:38:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Oa+OcSYS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EBHvpIzC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7240710E6D6;
- Tue, 14 Jul 2026 15:28:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784042919; x=1815578919;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=QoraIUZBgGFyeC8SFrVMkgErJEWsvXvrsjoF0bQk2fA=;
- b=Oa+OcSYSwNk0/ZAw/5YqSNfyhrhLvBCpqTTMVNqTV0bpQsWC3YT/61yb
- iWem4Q9lU6ajd0oJEfzs0BBiwtJooRFxE/ENijG/aYnGkjKmdRFchb2dy
- nYDtJrNTwHPGeBNS0ZygAGQn/iu1NkN+Ljd8vQTpbShttcA+SII8JG3ig
- p6OiC/S+W5MsI7UuNuCtzs679eHwNUq4NH/mJrSXlMdECAMfI5XW3Urno
- Uk/KVE1FydJSEaSzGAvhpjLBwA5THUDn4emNq4SFdEVQ87eP3bLTKErAm
- MwcAuewfPnnU1m0QIXvnZL3wvEt/Op12pzCrcctQdZfg0T5VHhpdWnBEV A==;
-X-CSE-ConnectionGUID: sKL8ZT2bSt6UpLoFZKqQ4Q==
-X-CSE-MsgGUID: HrHDLd4bQzS3S0Ir4ryJtQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11846"; a="102222489"
-X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; d="scan'208";a="102222489"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2026 08:28:36 -0700
-X-CSE-ConnectionGUID: 7jy8zyDCSWaXbmXFLDAqDQ==
-X-CSE-MsgGUID: U9qWhL5MT2ujvwSUefpFUA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; d="scan'208";a="280310488"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2026 08:28:32 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Tue, 14 Jul 2026 08:28:32 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Tue, 14 Jul 2026 08:28:32 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.12) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Tue, 14 Jul 2026 08:28:30 -0700
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011008.outbound.protection.outlook.com [52.101.52.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D170510EDCB;
+ Tue, 14 Jul 2026 15:38:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cYRzRgLFaH34U5CVst2UfZFG9BbVzdN5dxSKHui+FR8eQXnSAowrrVHghtrce6dZhbacRdZ9m70rKyDFQX9YxY1C6KPWRyUwMXD5TxKWdyI+XMqwkd1axRfyx+46lzKkUT60uoOK+aBNbA8deq4BXRHQuZ1T7VpbEmXfDLPXEBhL17TvAGD5yG1IhldW2Dnyh0+teFTefrs6CK2XgWnKS8m3EXf/D1TCAlTYmunojSAyZyuxEk2bxgBmAsnT16yLucCVxeVTLu5z5xPSeovDa2Nbyt10fdFQTDDzVPYL6ERw5RFuScEHAqKBmbC8pGGXcWQJlKWto0HqUOE5sg3Wzg==
+ b=tmHYnbb3JTQgFnUr/+Ex1aXHLI+WBcseC33UMA852hHHsStMDbar9cYcJ9eE2npyPnBsYYsALXB/v6BxhdQvidGjG/okK87XG24/G+YRojdvgpwaZeBOMRCaBP+SbPuXvnkvRsqbt34pmdbL4n2EF/6ZXbUAcVFA4VGiCmsj4p147FdX3EFwfMvPEq1PNXEvmO2mnlvz0w2Xjjshm163wh7ZBsEDkZ4nzLqJX54eLTFIkLIsswGV0lPsVHvB5CH3SArk1rBRnuCIgpuINGYTXFj+81P01jYw/ldEYB66UKpptHZmp+J/gvVtqUb9CB7VkjLZj1WQ7Z5jJ4bue93KSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=igattHiCrm7Ur+OMsgKNb4GnPmeJ6czfKzazKFjh+24=;
- b=iimPk5g0skxb4jIQqYG+3pgfHwe4Rgeg5xUZmJnirzEUsl0Ix9mvJCbYFyxFROP4Z3GvaVRZ+7V1E+MI15IC8B4tJkvPcFKUbuVkhC319QaUpCFx3B++yCLj75RIKFAGhnsD7i1jT0R8skgvXUbeDG+k81/uqbN/d2IyTHRnX5Ov9PuQV56s92q27f63UMgtvZWkKimuI5Va0a90CR5WAO8gK9207yh0MSLmK0re+Tzcne4Nx/ctnmIJCifes4WBF9SGDPzY0/6t7CZxJ7WVftSdCDv+rLM7rWEYqm93+HJXTO18VNzbuvC316naz0aG2i9IEc7l0Q3499e8a5eATg==
+ bh=FkrrDHOmRZ2mKy6GWwwjY1FlbYv2gHznc4eKVLlGU8U=;
+ b=YJm+e/VYcn1sjIEjQWqdJwL4M5G+rvGzAhG3oO2766W06OJlyxWAWB9ogqg0UCpCm6lXbyJqe4+oRhyaezM4rliUnrnUFB4UyxKXyEakyb7LbQddl8GP8tAGJCtilLhImpK0ClM4LCvwFfHqwqvCcC8sFXLwlsgK287359unOC0qaipavSkxmG3NuYtGNzhz2XxZULPy2N3a/fgDeUGa6jbbXWRPEOcRHlTAVyWkTRu+UU+v28xF4HAcP1aQ11ysEpi7O+lcDM2VNEmue8iby+UNAmbM7uhBD3DkzJjmB4QFc47rEYBaQoV+UkfanZ8/GvDbazgMNuWmb3beoJvWpg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FkrrDHOmRZ2mKy6GWwwjY1FlbYv2gHznc4eKVLlGU8U=;
+ b=EBHvpIzCuyHXWIWIfY/kVqYCo3X9AOSYRoTq8iFu1EpuA0pB/2Fmqxysv9gpDcQhvWQsUtt6inXWjJBjISXhkyitR67NvrpFN2ss1smW5xg8RksK3NHAcev7iWfVqQD0axONbtsCL6/3E8bXzntCTFNL2QhaOT6r8pYjQReGSYE=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB5073.namprd11.prod.outlook.com (2603:10b6:303:92::23)
- by BY1PR11MB8080.namprd11.prod.outlook.com (2603:10b6:a03:528::22)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
+ by CH2PR12MB4166.namprd12.prod.outlook.com (2603:10b6:610:78::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.9; Tue, 14 Jul
- 2026 15:28:27 +0000
-Received: from CO1PR11MB5073.namprd11.prod.outlook.com
- ([fe80::a153:939c:df8c:f4fe]) by CO1PR11MB5073.namprd11.prod.outlook.com
- ([fe80::a153:939c:df8c:f4fe%4]) with mapi id 15.21.0223.008; Tue, 14 Jul 2026
- 15:28:27 +0000
-Date: Tue, 14 Jul 2026 11:28:23 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Markus Elfring <Markus.Elfring@web.de>
-CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, David Airlie <airlied@gmail.com>, "Jani
- Nikula" <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Simona Vetter <simona@ffwll.ch>, "Tvrtko
- Ursulin" <tursulin@ursulin.net>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?=
- <ville.syrjala@linux.intel.com>, LKML <linux-kernel@vger.kernel.org>,
- <kernel-janitors@vger.kernel.org>
-Subject: Re: [PATCH] drm/i915/bios: Move a variable assignment behind a null
- pointer check in intel_bios_encoder_supports_dp_dual_mode()
-Message-ID: <alZVl0o7uBoncUos@intel.com>
-References: <e81277a0-93f8-45e9-9fa4-7c2c2df9c311@web.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+ 2026 15:38:10 +0000
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0181.019; Tue, 14 Jul 2026
+ 15:38:10 +0000
+Message-ID: <f50d304a-c9c5-454c-a4ae-f4b6e9b85f4e@amd.com>
+Date: Tue, 14 Jul 2026 11:38:06 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 10/11] drm/amd/display: Set COLOR_SPACE_SRGB when fixed
+ matrix colorop is bypassed
+To: Robert Mader <robert.mader@collabora.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: stable@vger.kernel.org
+References: <20260623164812.81110-1-harry.wentland@amd.com>
+ <20260623164812.81110-11-harry.wentland@amd.com>
+ <eae10264-51ef-4e0b-9774-a694bc7f95b6@collabora.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <eae10264-51ef-4e0b-9774-a694bc7f95b6@collabora.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <e81277a0-93f8-45e9-9fa4-7c2c2df9c311@web.de>
-X-ClientProxiedBy: SJ0PR13CA0170.namprd13.prod.outlook.com
- (2603:10b6:a03:2c7::25) To CO1PR11MB5073.namprd11.prod.outlook.com
- (2603:10b6:303:92::23)
+X-ClientProxiedBy: YT4PR01CA0203.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ad::28) To SJ0PR12MB7007.namprd12.prod.outlook.com
+ (2603:10b6:a03:486::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB5073:EE_|BY1PR11MB8080:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11d6b6f0-6b1e-4b39-ef3a-08dee1bc8d29
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|CH2PR12MB4166:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99debf5e-f51c-4a90-8cd4-08dee1bde88a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|23010399003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: ++AC2Xfzb1go/ODbmISB66+4VvuExuvGvyqnPpJ4fLGeSHpVJdwIP4XIbnXhkm4L5W33x6aeU1XnNFsI43g2bMSqd8GYxLQ2YQn9Lyayn+DThVicfw1S+74UfV/yPMiwnugf4qyj2YptsDPJ1s4B2zIn6YZH9SalgeiLtkowHmIJCM2meJ/j+jHKWnRSxRFMhUcFEIHeaQvfM5nkfACGViK1E8+udMPENssf0o2UvJwQiX60lMSftgGrqA+FtEgvRDcPTmcAB/U8rpFdQrcnoSlEB53Fk7OV6Z5xtaSC2YgukRoRK1gOAQQ6KXoTBuLJjn/k0dkXNga2ClbfkMf1uesiGnqC/h41RhOT6+EovDxuSGGhRtO228RD/aQj5yqnqMZz9tCWk/ip5vVTmGfT6LP4/KWiPkPmMNAKaBJkpF756aAJtnEciDAW+jZ73RiL3Vd4R03iZgiVwM+EQlJr5aGshrFvvkgqA4v6mT77k8b/iXrEX0PMOgLhbJ3Q7RgqpND70smfCufwIUcUNiC6h2fUQytauvQeIT5aEbyykP88fRY4xpNzqAOn9pGAyGPcxkIwUQD1uk9aFRXM54Oi4GQQJicWGMqtFHw0MCntfQxz2pGFhnPzYzaqIFucel2/8qFNE/Y+p2gkLLdEnbp/OLXxghBT5FbYG/ZW8dhSmTM=
+ ARA:13230040|376014|23010399003|1800799024|366016|11063799006|5023799004|3023799007|4143699003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 0Wq5K+w4ZkKNqa6PNBvnj19yO2iumxU9h22OAmMP6eodxilvY61n/fNc7QIN5pJO2i3lVDHgFPfuB+cU5t4k4ZfjnO6LioyQS3crPCkwP9uH63bIrJohuCyZucQDAfovanzH35vfXcaz7K7nCOdphtEJ6I/KyY8H+rscMZx6v1Pazydg7TIQlA+p4v0X7FXrVirkqEsMgpBqfQXmJeBD699ThrJFi5YqM4pJnKHIMq0vEZM72JQLHDtM9b/Y89/z/nB6YgVJPTJIJgxkz87OQ2mw1BYA390pyiKYppVb0XFc8Ts1ujaLaShc9V3mWqxHIWnIclzLIsKUayVTjP47uK+ZrwWKDWyG67IJEBxzzIM3vdY3dWW8JFu+kkSrmW0XnkyISvkeHDfY4b/uOlY/2bnrC4jHrUX22JvVFzvVuQD28zCyp/5iuioUJ5vEomCzvVCgfBX2/C82HoaA3sSASjD/OZJpSxrlPea+jZwZtS5e4W/+8Vr+W/IX2ijaySI8cZpZRfdD0yLqEuOKycVYyBlzWk9iVBX6+XDfPLJ03VixRN/Bkf9ThOQC+PpP5cJAkUk7JY2N+Z0lUgf5wLSLRp4jOq54e1Ypd18JBCR82d8enNYHZN+i5VcPoqEsRi9CkyJtugrbpxKAM13Hm2zKdLBA42GATisux5VC4shlp8s=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB5073.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(56012099006)(11063799006)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(5023799004)(3023799007)(4143699003)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NHAyV2d1OE9MM3lwYnEwZlZoZVM2T1d4ditvUDU3T2FPRk5GMCtEZ01iUzlO?=
- =?utf-8?B?Qk9uV1FhaHBXRlBmRDk2ZDl1ZXdLNGxKbDVkZk9ibTNaNFVNejZ1aXMwQkhX?=
- =?utf-8?B?U2hmYm05aDFQMlF1WnhOdjJXZ3BsMkR3YTBIYkIxSTF0VXJBM1BKVWU4QXBC?=
- =?utf-8?B?TUQ1Y1dER043Mzk4UGd5aTV0eERvMjVQMUxCQVRvQkJ1eWR2bkR6ZHFhMnp0?=
- =?utf-8?B?dStRT0NFeDZVWUNGTkNOQXVVNmxPd1Y2M0pXajZoOUxoaHdaVDM4STNvNkgx?=
- =?utf-8?B?bDQ5UHE2UnNPWHVlbjZjZ0pvV0lVYXpXZDFtT1Q5VjcwdzRPMkxEVnJtNU9L?=
- =?utf-8?B?MDFwb1U3TmlDZHlDUzRoSG9UYnN1eDM0QVgyaXFwa24xK0Z6bVFDenJZQm94?=
- =?utf-8?B?NVdIL1lYQTRRYTErUVhFdlF5NUZ3ekVnTXlNSno5MWJZRDNzWmVyd2xkRTVL?=
- =?utf-8?B?QzZRdS9DaUF4VEgzNXhIS1NmUi9OMWluV3g4Tm9rQXVGNy82bnBvcmVsa3lG?=
- =?utf-8?B?Z0lhMXdqM1ZLSGdxaEJCZW5nU2NsaGxkRy9CTFR1YWJxeUtTRENVN1VjSzBj?=
- =?utf-8?B?R0pxUDV4ZVZwODNyWUljSU1xNWVEbml3WmdEWU9zcnYvQ1ZZKy95QkIrNld4?=
- =?utf-8?B?R1FGUEhaUFdieXJXZlVMR25ud0R6R0xsME5zMFhudFJkNHkvaVFwV01NNFRz?=
- =?utf-8?B?ZEFEVk1TZkRKL3dSRElQcElKS090YTBTeGZUQTducTJ0eVN5UW92T0JLaU5B?=
- =?utf-8?B?RTZJWS94QzBrOVh3TGRVckJhUkFBRHlRRG1qTjNjVDgyaXNJSDBESVQwaDZ5?=
- =?utf-8?B?dEhNTnJvUDB2dmQyN3hIRnFhaG10byttSzZhZHhJZGFRbU5teVN4YVpMSXdO?=
- =?utf-8?B?M0Y2NStBc1ozbTlzS0w3NTRVS256MkVkU0JZbGhRYUU3dGpzSkdMSlI2ZkUr?=
- =?utf-8?B?U3lJVFR4R05kekR0NTFualoyZFBVWmhlNWt6QWpCenF5UHA3dnYxbzMzUFI2?=
- =?utf-8?B?T2pFQUkvUEU4SDl5d0F4ZjRpSmxoYUoyU0ZVeVVYaFE1NGZsN1R2SDM2dG1l?=
- =?utf-8?B?ZytaWm05Y2NaUHlReHVtN0xhZmpwR1l6Tmh5UGJlSmdncjdBUFBOTXZDK1Zw?=
- =?utf-8?B?MHRCS3gxb3pDcWtQSlRGcFVyQi9BcmFKNW1wNWdrelFmdU4zRDdJUVpEUVVF?=
- =?utf-8?B?R3VXcXJabkxHZ3c4QzdtZG9ic0xHREx5SjFJb01EL0tMLzlLRU9MYWFJWTNC?=
- =?utf-8?B?ZjBwbnF4SWkwdE9tTUttZTBwWHhCc2xXejl1NkExMjc5NG5XdTVJSysxUStw?=
- =?utf-8?B?SE52cmhyZ0tMeHdWVDhKdjJOK3d2N2JyNU1iWFVqOE1zaU9DREoxbnE3Ynhp?=
- =?utf-8?B?bXRRTHhDSkpsZDFOOEdBanFwR2RGVHpQeGhjc0plelBLcDRxSkNTeFd0V3Zs?=
- =?utf-8?B?dFYwRkk5dGVvZkhCV2VlRlMzTGdEQUZBaEZmMHJwdWVaNTA2ZE1XWE0va0dQ?=
- =?utf-8?B?Z0hCRklUcHVIenFSR1IxZithL1l6b2o2R2gxYXphdCtPbUtpSVBCajVKK2Vr?=
- =?utf-8?B?a3V5OVZmY2g3OTBqa1Vodk5qSzc4cVJPME9Qc052MG1IUFVOOFEvanNxSkc2?=
- =?utf-8?B?NDNiRnhYUG1NclN5TURNTDNWNndMaUdLTzMyZ3RmUFNRUnF3bWZmMHZrbW5D?=
- =?utf-8?B?Y3IrZE9tem54eVl1dFJ3bmNFc1pYMUt0aVEvdy9xZ1hia05wa2VNN0VzSU02?=
- =?utf-8?B?c2lUbmRIQzlabXora01mRGJhdU5NMjVkUWJvKzRMYkZJeFAvNUFRb0IwVS9Z?=
- =?utf-8?B?WUVTYXNRSVFSSUVwTEhzNEpPeXRlKzkxV0hqd0ZQZlhVMy9OL0lNTFo4Uzdk?=
- =?utf-8?B?OTVSa2NmT3dkT2daRm0rUHkwZ2ZsZ0JVeWUycWxDOGsza1J1aWFlQkMzMTBG?=
- =?utf-8?B?VUhsMUwzRm5oMXRjNDJ5SS9sMVZIQUVPNi9kbmJpOVlhODlKV0pBNUpKVys4?=
- =?utf-8?B?QkZpZlk5TnBVM0Z1NkNLSlNkYTQ1K1k2aDJjRXB4VmwvcjBhZW5qbHpnd1M4?=
- =?utf-8?B?RkhpSUdLZGRPcHJnUnIwdmdjRnFJU0gxeDFDejRwVysvN0NBNnJaQUNOZWMv?=
- =?utf-8?B?MmEyT25teHdSRFl4eGZFUmZZZDltMWJkOElQQ25VWk9YZW9JRXU0dG5QYmo4?=
- =?utf-8?B?eXJJNm1tclh1NE1zOUsxZ2tRT0t6anRsNjdjN3VwTURLdnJRTWo4clF0Tkgy?=
- =?utf-8?B?SVJTSy9rMHJKb1c5c0lYTVFNaldndWc2RUI4Yy94ellzZ1dHSFRDMytVRmYr?=
- =?utf-8?B?U2l5dHo4d3phdXg0dmZxUWx1dWhNc1RneHRNd1N1WmNFaWRKMVkyQT09?=
-X-Exchange-RoutingPolicyChecked: d+zMC2193TA2PzBDFPVBuOqPIunYPalt6qkDOPh2bdWxk76oltjY+/kcTx7u8auZPrHZ8IvnhrhhHywN8lQDWWhDYpmtLBgbAN82VB/j3i/snPKzEyTMJqZCaJE/LpWiLXfo5XeMy6/YyhE2QkQCiH1OJGyOiWyPl8/cQQfXRz6ZUkECu1v7zDFip1Hag7ZPqpvEDf9G0bzUu7cT6utSlMpxPR/OxhPSs6Mr3BK6T3JzO4BCD0aVtesobJKTGUyhqnVXWcpE38BG4f7TZ/5qEDFsjnHrBGAWraHOGd0FrMeVSUHlgRAMwtlzOIsKhiIPrKR4DqE0IgU1xMYoOUXpIQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11d6b6f0-6b1e-4b39-ef3a-08dee1bc8d29
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5073.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UHB2TGhNUXBxZVhVcTdJSUtaV3RqNHBPV2lkOWZuYnFic2p5R1QyM1ZPU0cv?=
+ =?utf-8?B?WUVHeHBWRFVtQWtPR1lTRzY5eXAxY0ViL0NSQmc5WWVWSTRCNDExQy9JREpV?=
+ =?utf-8?B?WXpIU0wwYmxpNlFSNk1XeUVwRjlRWkt3WktaQWlxRGswNWRwUVNhOGJMb2k5?=
+ =?utf-8?B?aUF5RkZ3QXBLL29BWG9OcTkydlpZRytoS2NDbnRXSFVhT0hLWWFSUnVBQUR1?=
+ =?utf-8?B?YnRSSWJ0K1VZQXhLcUhpMEx6MUhieXpYb0xtbXQ4QTBsbEFFNEkrWnU4RmJD?=
+ =?utf-8?B?dVowVzQvZXRPdEQ1TENxZUVmckpSa1BjQnpVRXQwdUFrckw4c25tYkg0YjZw?=
+ =?utf-8?B?WGVRVm9BQ1ZhZFkwTWMzcnh6eTNsQ0wvZnN4eWhsM2E5elE3ZkNSS2ZDSUg0?=
+ =?utf-8?B?eFRNTFlPZ1YvN2NyN1dSc2wvTDFhQnBkbEZpZjN2bUNUbnB1V21hM2I4OXhS?=
+ =?utf-8?B?N29MTm1ZMUsrN1VMN0RWT1BXUWk2SE5QZlZaajhWdTVrd3dsUUZZNTZ0YStN?=
+ =?utf-8?B?amdMUW1mRG54TER2cVRWNzExMFM0UEVZbFlJckNxVmE0WWxtbEUxazFpSFpq?=
+ =?utf-8?B?RVNDN3k4cWhON1dDNmFmS1pkRHBXM0Y3dzI3OUJwSlJYWVVhVTZzTXd2akVv?=
+ =?utf-8?B?anRNNFJXTTRtbGRQVUtEN2laZmhTaTVwdzdSUVNxdnZlSGZjMnRhT1dWOUpS?=
+ =?utf-8?B?Y2NIU1dSd0JBMVlTQjlJVHArazBEamN0K3EzZHRDdlNCemRUbGxqbUw5TzZu?=
+ =?utf-8?B?VGMraFM0dFdOV1F2OVBLTnRzei82WXFMdktyQ2NIU3VGR3FpZWtXN2VVQnRz?=
+ =?utf-8?B?elFLTHdDZHZ1MnRjWnBGeFkwRTlVS3ZzSEdhVjJpbVZuck1KMFhleGVocVhF?=
+ =?utf-8?B?WnQ1QU1PczBKNWE0OUVySHBxZHZQUHMxM3FESVUrUS9DZzFMdldkUnpjSUZT?=
+ =?utf-8?B?UGNRV3hGVS95SkNQeWl2d1ZqK1NaQjZCaDh6K3NHa0YvTkNxbldSVmtmMnFh?=
+ =?utf-8?B?ejhuaHNxZjA2UCtRL2c3SDN6QkU0dTI4ZERsRjlHUXZkV00waDRiSFRBU3E1?=
+ =?utf-8?B?UkFyd0RkdklpblFWZERCMnYwSWUxWkhpN2V4bmZTQzJsaS94dzgwd05oMElU?=
+ =?utf-8?B?emZhRmlsd25VaGRQQ0xIcCswejdva0htRXh3UVFXMnBEL2QwV1NsLzViUUtE?=
+ =?utf-8?B?cGY1dEs5V0VXOUw5MXU1RW5iUWYxWDhyYkVzMGxZdXNGMFhYd3NiY2VtcU96?=
+ =?utf-8?B?REs4QWVLZllHUWs3ZmF3M1VxS2diT1FraDNOa2JIejE3K1QyR0VDT05UdW1a?=
+ =?utf-8?B?OVNqTFNjbzYydURMTndtK2FOK2tyNHQxdVI1OGljS0pIMDZoZDhGR2VFVGY1?=
+ =?utf-8?B?eml3REk5R3dmVHhRUU5FdTBjUURhVkZscC84VFdGcktUQWg5YWpoOS9xRHpi?=
+ =?utf-8?B?c3BJV200OUxzZi9QT0x1UkFaSk1aWi9iUDBGK2JtUC9Lc3U4QnYvR1NiS21F?=
+ =?utf-8?B?aWw5TEJQdDY3WjhzVFoyN0VBcWMyODZ6M3dHSjhMZjBiL2hVQnVRK0ptOGxm?=
+ =?utf-8?B?TDNHdEdGVjB5bVVXRnd0c0RSNXhFcVFJd0kyZmlZNzFzbURuMFA3K2psRUF2?=
+ =?utf-8?B?L0JrMGZuWTgwZ056M0VzV2Q2ek8xeTJUbG9YaStsTEYvMW12enNYK0I4cDY3?=
+ =?utf-8?B?SUVrbkNtd3Bzd0htRVA2eGp3WlFHNG90TFV5MFpDb3JIdlVXRVJVVjNYSjI4?=
+ =?utf-8?B?Rk1XUklUN3FjYlAzeDRjUnpGYVBWeXpmUVRqWDZYUWs1UU1vRzNCT0V3d0h2?=
+ =?utf-8?B?bm5MUCs5MGhvSzB2TUxPSVByWnNvdE11YVcram1UTFA2Uy95WEcvVnNYWTk1?=
+ =?utf-8?B?U2JCV08wZUc0SDVTV0RmSHVsbjVXMkUwNVBLc1crNjFielFabVRzNlJubmhS?=
+ =?utf-8?B?cGxBUVE0OXZRcnpiUUNzQjRjUytrbHFMR3A3b2hOL0hhdFJwSDNzdnFDc0hu?=
+ =?utf-8?B?N054MVd6THR5am9Lc2IvbCtiZk56SkswRjAyUVpKaVJYWDA0T3p3NEFLakE1?=
+ =?utf-8?B?NUhCU1poZzNvRFJzWWJJaXhienJZZ3gzbnIwa2d6eGpEY1pMbFhlMFNHMWJZ?=
+ =?utf-8?B?WjJ1anhYcTE3RnRScUFNMUovTHpVUVhJWTJaWmZHL3BkTXFtWEc2VFBpVGRi?=
+ =?utf-8?B?VTFMTjFKRFRPcWxOSjdyWnZTZFQ3S3B4WjNUMUhPdVFPRENGcVZNTkVadTV3?=
+ =?utf-8?B?TklETmZZMHpLd2lIYmFlMnpZWk5VK2JHSGhERGpldVdyQzljdUMzdlpDTDlV?=
+ =?utf-8?B?YWgxTFVCZldENnhkVnVWM01NZEY0WTFXSVR5ZXN4UHdacXVWb1pCZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99debf5e-f51c-4a90-8cd4-08dee1bde88a
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 15:28:27.4785 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 15:38:10.2129 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5FBwI2G5s72+xS4jtkHQzyVZgOUKFNVsZRodRRejigcCYsrEmrxMHXxFPk1IJIYGy31MPNWvko+Aksyj3+atLQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR11MB8080
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: yw2Do5w3BY0earQohyA8a2cLjh2/96U7EXw54WZMgIvqHtXuTfggsYAqVBJREKAtR1+UBlCdnusXElezxINDow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4166
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,57 +138,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 13, 2026 at 04:05:53PM +0200, Markus Elfring wrote:
-> From: Markus Elfring <elfring@users.sourceforge.net>
-> Date: Mon, 13 Jul 2026 15:56:46 +0200
-> 
-> The address of a data structure member was determined before
-> a corresponding null pointer check in the implementation of
-> the function “intel_bios_encoder_supports_dp_dual_mode”.
-> 
-> Thus avoid the risk for undefined behaviour by reducing the scope for
-> the variable “child” behind condition checks.
-> 
-> This issue was detected by using the Coccinelle software.
-> 
-> Fixes: 044cbc7a74c136f12a80c855cadd1b085084aef1 ("drm/i915/bios: Nuke DEVICE_TYPE_DP_DUAL_MODE_BITS")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-> ---
->  drivers/gpu/drm/i915/display/intel_bios.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-> index 97cbae2e547e..1c4760373514 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bios.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-> @@ -3514,8 +3514,6 @@ bool intel_bios_is_port_present(struct intel_display *display, enum port port)
->  
->  bool intel_bios_encoder_supports_dp_dual_mode(const struct intel_bios_encoder_data *devdata)
->  {
-> -	const struct child_device_config *child = &devdata->child;
-> -
->  	if (!devdata)
->  		return false;
->  
-> @@ -3523,6 +3521,8 @@ bool intel_bios_encoder_supports_dp_dual_mode(const struct intel_bios_encoder_da
->  	    !intel_bios_encoder_supports_hdmi(devdata))
->  		return false;
->  
-> +	const struct child_device_config *child = &devdata->child;
-> +
 
-does it compile?
 
-please keep the variable definition where it is and move only its
-assignment after the null check.
-
-Thanks,
-Rodrigo.
-
->  	if (dvo_port_type(child->dvo_port) == DVO_PORT_DPA)
->  		return true;
->  
-> -- 
-> 2.55.0
+On 2026-07-03 06:40, Robert Mader wrote:
+> Hi,
 > 
+> On 23.06.26 18:48, Harry Wentland wrote:
+>> When the fixed matrix colorop is bypassed, the color_space was set to
+>> COLOR_SPACE_UNKNOWN (0). In DC's DPP setup (dpp1_cnv_setup), the logic
+>> 'input_color_space ? input_color_space : color_space' treats 0 as
+>> 'not provided', causing it to fall back to the format-based default of
+>> COLOR_SPACE_YCBCR709 for YUV framebuffers. This results in an implicit
+>> YUV-to-RGB conversion via ICSC even when a color pipeline is active and
+>> the fixed matrix is bypassed.
+> 
+> shouldn't a commit with YUV framebuffer and fixed matrix set to bypass always fail, like it does in the VKMS implementation?
+> 
+> If this commit is only needed for RGB formats, somehow getting a YUV-to-RGB conversion applied to them otherwise, then I think the commit message should be clarified accordingly, no?
+
+I talked about this at Hackfest (with Xaver and Sebastian, I think) and we
+noted that since this is simply a fixed matrix colorop there is no reason to
+reject YUV + bypass or RGB + matrix. For all other colorops we assume
+that userspace knows what they're doing.
+
+Thanks for spotting the inconsistencies between VKMS and amdgpu. IMO VKMS
+shouldn't reject that commit and simply do a no-op (or identity matrix).
+
+For the RGB + fixed_matrix scenario both drivers already allow that.
+
+If no objection I'll make that change for v4.
+
+Harry
+
+> 
+>>
+>> Fix this by setting COLOR_SPACE_SRGB (1) instead. This is non-zero, so
+>> it overrides the format default. The SRGB entry in dpp_input_csc_matrix
+>> is an identity matrix, so ICSC performs no actual conversion, which is
+>> the correct behavior when the fixed matrix colorop is bypassed.
+>>
+>> Cc: stable@vger.kernel.org
+>> Fixes: 93d922f4833b ("drm/amd/display: Implement fixed matrix colorop color space mapping")
+>> Assisted-by: Copilot:claude-opus-4.6
+>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>> index 561ee9a2e749..984bbfcf23f0 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>> @@ -1534,7 +1534,7 @@ __set_dm_plane_colorop_fixed_matrix(struct drm_plane_state *plane_state,
+>>           return -EINVAL;
+>>         if (colorop_state->bypass) {
+>> -        dc_plane_state->color_space = COLOR_SPACE_UNKNOWN;
+>> +        dc_plane_state->color_space = COLOR_SPACE_SRGB;
+>>           return 0;
+>>       }
+>>   
+> 
+
