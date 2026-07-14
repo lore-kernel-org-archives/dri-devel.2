@@ -4,48 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 080D4C44508
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 14:34:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32AE0C44501
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 14:46:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 690CA10ED7E;
-	Tue, 14 Jul 2026 14:34:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9726510E07E;
+	Tue, 14 Jul 2026 14:46:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CHtrnOnW";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BrHbXxbJ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30E8D10ED7E
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 14:34:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C348743612;
- Tue, 14 Jul 2026 14:34:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 848591F000E9;
- Tue, 14 Jul 2026 14:34:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784039674;
- bh=EwNVTon+/nbjRpzwjhhjH2A7QsMv/Rt06oFZ3UT6FIQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=CHtrnOnW5stVfjfg02P3Kk3ImhP5f3aFDPiEpGg6wdMgZ/9LXy0mTkI/lSmvI8Bgt
- xKuMEw2BY1JQ9HgU/AfzfHhwYqrV2ATAE2ixtJSv2E83srd2sFcJiRsYQ/nUBOM5nm
- w8S3vB5vdcGKxe5jrQgeg/IUqs0r/tBaUdl6WZ3Car+jDA5rOYOfYOxTQI+F08O/aG
- sOenvtzBEEyvzW37bXxTsBV+Vx/Z7As0lmA90UCQnEL3RIz7KldYtPma9E37lNt9eH
- wbSoy0aJ4DYRQ9XuTxgKcOOtAowJrenvQ+CiR/ezRgldOVVw3gfJPIBuET81HqDMpi
- +Nr7MZgJ4rbHw==
-Date: Tue, 14 Jul 2026 09:34:33 -0500
-From: Rob Herring <robh@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v4 09/10] dt-bindings: display: mediatek: wdma: Add
- compatibles for more SoCs
-Message-ID: <20260714143433.GA1476641-robh@kernel.org>
-References: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
- <20260713142746.40259-10-angelogioacchino.delregno@collabora.com>
- <20260713144221.2C4F91F00A3A@smtp.kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6834810E07E
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 14:46:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=FXR9OAaAxM1L3FTq6o0cjHKYujoNgLjw0YNunYM0HJQ=; b=BrHbXxbJcHAAbx2Zie3nAAsiCp
+ kCxx34djm0RaqFLXVXl6sYpug2hJgz/P37MX4zJgAyJTFLVrIzwg4XOcIrTYsgwhEtXdbN9gR7O3S
+ u6Yeai+hgYbGyBS9D3xCU2M1P2fPbEHK2ZJJMLLAglDcLPd0Rze+pohQhGX5ogX1Ra2HrR0OmYll7
+ aMGsamNInOvl9hPYi0ppfnWEvee/lEfkK7VPe1eeOMFqJXkQss34Z0V2ZkdHhhE7AQKwEl+N6ANhd
+ bQ67NEVR5yp/km7+206zEtJvzQcaO3KtAiIyiNC04Rye6Yg+W6DbszAPY1Fxgfa3E2e0IXsu1dd/L
+ tUi4wh0w==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wjeOn-00F2Cb-Ea; Tue, 14 Jul 2026 16:46:17 +0200
+Message-ID: <bc2b6f80-ea85-4ca5-955a-37aedbaa03f8@igalia.com>
+Date: Tue, 14 Jul 2026 15:46:16 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260713144221.2C4F91F00A3A@smtp.kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 1/2] workqueue: Add support for real-time workers
+To: Tejun Heo <tj@kernel.org>
+Cc: dri-devel@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+ Chia-I Wu <olv@google.com>
+References: <20260713141436.21547-1-tvrtko.ursulin@igalia.com>
+ <20260713141436.21547-2-tvrtko.ursulin@igalia.com>
+ <b3e5bcb21184d13c7c631daac955f465@kernel.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <b3e5bcb21184d13c7c631daac955f465@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,43 +64,285 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 13, 2026 at 02:42:20PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The compatible string `mediatek,mt6893-disp-wdma` is incorrectly added to the standalone enum instead of the fallback items list.
-> --
-> 
-> --- Patch [9]: [PATCH v4 09/10] dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs ---
-> commit 8001f83833ae9c684be67bc719c7aaa056f90763
-> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> 
-> dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
-> 
-> Multiple MediaTek SoCs have the Write DMA hardware in their Display
-> Controller. This commit adds the missing compatibles for Dimensity 1200
-> (MT6893) and for Kompanio 500/520/820/1200.
-> 
-> > diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
-> > index 97d052b0fb614..c3ed867d058d9 100644
-> > --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
-> > +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
-> > @@ -22,11 +22,16 @@ properties:
-> >    compatible:
-> >      oneOf:
-> >        - enum:
-> > +          - mediatek,mt6893-disp-wdma
-> 
-> [Severity: Medium]
-> Does this incorrectly place mediatek,mt6893-disp-wdma as a standalone
-> compatible string rather than in the items list requiring a fallback?
-> 
-> If a device tree uses compatible = "mediatek,mt6893-disp-wdma" to satisfy
-> this schema, the DRM driver will not probe the device since it only matches
-> mediatek,mt8173-disp-wdma. If the developer instead provides the fallback 
-> compatible = "mediatek,mt6893-disp-wdma", "mediatek,mt8173-disp-wdma" so the
-> driver can probe it, won't the device tree fail schema validation here?
 
-Sashiko fails to look at patch 10. However, the commit message gives no 
-clue whether mt6893 is or is not compatible with something else. If not 
-compatible, explain why it isn't. What's different?
+Hi,
 
-Rob
+On 13/07/2026 19:59, Tejun Heo wrote:
+> Hello, Tvrtko.
+> 
+> On Mon, Jul 13, 2026 at 03:14:35PM +0100, Tvrtko Ursulin wrote:
+>> We use a mininum priority level since we only care about winning the
+>> contest against normal background CPU load. We also limit the number of
+>> instantiated threads, both per workqueue to a maximum of two, and system-
+>> wide to a maximum of either two or one less than the number of online
+>> CPUs. The idea of that is to prevent system wide starvation cause by
+>> potentially misbehaving work items.
+> 
+> Do your use cases need concurrency management on per-cpu workqueues?
+> Concurrency management is what per-cpu pools do to reduce the number of
+> parallel worker contexts when there are multiple pending work items
+> competing for the same CPU - the next work item starts executing only
+> after the current worker blocks. That doesn't seem applicable to RT
+> usage where the point is running each work item as soon as possible.
+> 
+> If it isn't needed, how about supporting RT only on unbound workqueues?
+> Where per-cpu execution is wanted, an unbound workqueue with the
+> affinity scope set to "cpu" and affn_strict on behaves like a per-cpu
+> workqueue sans concurrency management. That'd leave the per-cpu worker
+> pools alone and confine the changes to the unbound side.
+
+Panthor and xe are the two drivers where we are currently looking to 
+improve submission latency, so talking about only those two for is I 
+think fine and definitely makes sense to narrow the scope of RT workers.
+
+For panthor submission, unbound only would be fine since we have already 
+agreed it is okay to limit to two workers per device. So there we are 
+quite controlled - there will never be more than two threads.
+
+Xe on the other hand is creating one ordered wq per userspace context so 
+in theory could explode the number of RT threads. Although it is 
+probably only hypothetical since creating then requires CAP_SYS_NICE so 
+maybe not a concern.
+
+Given how it also uses WQ_MEM_RECLAIM, so creates a rescuer thread per 
+userspace context regardless, perhaps that is okay with everyone?
+
+[1] 746ae46c1113 ("drm/sched: Mark scheduler work queues with 
+WQ_MEM_RECLAIM")
+
+> The following is an AI review of the patch:
+
+Thank you, the RFC status is nicely reflected in the number of bugs and 
+typos. I will come to them later when the design opens from above are 
+agreed upon.
+
+Regards,
+
+Tvrtko
+
+>> For use cases such as the DRM scheduler submitting work to the GPU on
+>> behalf of low latency userspace applications, where latter have sufficient
+>> privileges to have had successfuly obtained realtime Vulkan global
+>> priority, competing with random background CPU load can create large
+>> latency spikes which gets in the way of a smooth user experience.
+>>
+>> For these situations the existing WQ_HIPRI does not bring a noticeable
+>> improvemet and a stronger hint is needed.
+>>
+>> Lets add WQ_RTPRI which creates workers with a SCHED_FIFO scheduling class
+>> to improve this.
+>>
+>> We use a mininum priority level since we only care about winning the
+>> contest against normal background CPU load. We also limit the number of
+>> instantiated threads, both per workqueue to a maximum of two, and system-
+>> wide to a maximum of either two or one less than the number of online
+>> CPUs. The idea of that is to prevent system wide starvation cause by
+>> potentially misbehaving work items.
+> 
+> A few typos: "successfuly", "improvemet", "WQ_HIPRI", "mininum",
+> "cause by".
+> 
+> Where does the "per workqueue to a maximum of two" limit come from?
+> __alloc_workqueue() clamps max_active to num_online_cpus() / 2, which is
+> four on an eight-CPU machine; the two in this series comes from the
+> max_active the panthor patch passes in.
+> 
+> The system-wide limit also doesn't seem to apply to the panthor use case
+> at all, see the POOL_RT questions below.
+> 
+>> diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+>> index 33b721a9af02..0473c009690f 100644
+>> --- a/kernel/workqueue.c
+>> +++ b/kernel/workqueue.c
+> 
+> [ ... ]
+> 
+>> @@ -2863,7 +2868,11 @@ static struct worker *create_worker(struct worker_pool *pool)
+>>   			goto fail;
+>>   		}
+>>
+>> -		set_user_nice(worker->task, pool->attrs->nice);
+>> +		if (pool->attrs->prio == WQ_PRIO_RT)
+>> +			sched_set_fifo_low(worker->task);
+>> +		else if (pool->attrs->prio == WQ_PRIO_HIGH)
+>> +			set_user_nice(worker->task, pool->attrs->nice);
+>> +
+>>   		kthread_bind_mask(worker->task, pool_allowed_cpus(pool));
+>>   	}
+> 
+> Doesn't this stop applying attrs->nice to WQ_PRIO_NORMAL pools?
+> 
+> Unbound workqueues have a user-settable nice level via the sysfs "nice"
+> attribute, and wq_nice_store() still accepts it for non-RT workqueues
+> and stores it in the pool attrs.  For example the "writeback" workqueue
+> is WQ_UNBOUND | WQ_SYSFS with normal priority.
+> 
+> After this change, a pool created from attrs with prio == WQ_PRIO_NORMAL
+> and nice != 0 spawns workers that never get the nice value applied, so
+> the existing sysfs knob silently stops having any effect.
+> 
+>> @@ -2876,6 +2885,9 @@ static struct worker *create_worker(struct worker_pool *pool)
+>>   	worker->pool->nr_workers++;
+>>   	worker_enter_idle(worker);
+>>
+>> +	if (pool->flags & POOL_RT)
+>> +		atomic_inc(&total_rtpri_workers);
+>> +
+> 
+> [ ... ]
+> 
+>> @@ -2909,6 +2921,8 @@ static void reap_dying_workers(struct list_head *cull_list)
+>>   	list_for_each_entry_safe(worker, tmp, cull_list, entry) {
+>>   		list_del_init(&worker->entry);
+>>   		kthread_stop_put(worker->task);
+>> +		if (worker->flags & WQ_RTPRI)
+>> +			atomic_dec(&total_rtpri_workers);
+>>   		kfree(worker);
+>>   	}
+>>   }
+> 
+> Is this decrement testing the right flags field?  worker->flags holds
+> enum worker_flags values (WORKER_DIE, WORKER_IDLE, ...) and no worker
+> flag uses the bit that WQ_RTPRI (an enum wq_flags value) occupies, so
+> this condition is never true.
+> 
+> That means total_rtpri_workers is only ever incremented and can never
+> drop when workers of an RT pool are culled or their pool is released.
+> The increment above keys off pool->flags & POOL_RT, so the two sides of
+> the accounting can't pair up as written.
+> 
+>> @@ -3110,6 +3124,19 @@ __acquires(&pool->lock)
+>>   	mod_timer(&pool->mayday_timer, jiffies + MAYDAY_INITIAL_TIMEOUT);
+>>
+>>   	while (true) {
+>> +		if (pool->flags & POOL_RT) {
+>> +			unsigned int max = num_online_cpus();
+>> +
+>> +			if (max > 2)
+>> +				max = max - 1;
+>> +			else
+>> +				max = 2;
+>> +
+>> +			/* Global cap on the number of RT workers */
+>> +			if (atomic_read(&total_rtpri_workers) >= max)
+>> +				break;
+>> +		}
+>> +
+>>   		if (create_worker(pool) || !need_to_create_worker(pool))
+>>   			break;
+> 
+> Three questions about this cap.
+> 
+> 1) Isn't the cap already fully consumed at boot?  workqueue_init() runs
+> create_worker() for every per-CPU standard pool of every online CPU, and
+> with NR_STD_WORKER_POOLS now 3 that includes the new POOL_RT pool:
+> 
+> 	for_each_online_cpu(cpu) {
+> 		for_each_cpu_worker_pool(pool, cpu) {
+> 			pool->flags &= ~POOL_DISASSOCIATED;
+> 			BUG_ON(!create_worker(pool));
+> 		}
+> 	}
+> 
+> On an N-CPU machine total_rtpri_workers is N right after boot while the
+> cap is max(N - 1, 2), so for any N >= 2 the break above already fires
+> before the first WQ_RTPRI user exists, and with the decrement never
+> running (see above) it stays that way.  A side effect is that every
+> machine now boots one idle SCHED_FIFO kworker per CPU whether or not
+> anything uses WQ_RTPRI.
+> 
+> 2) What happens when this break fires while need_to_create_worker() is
+> still true?  The code after the loop is:
+> 
+> 	timer_delete_sync(&pool->mayday_timer);
+> 	raw_spin_lock_irq(&pool->lock);
+> 	if (need_to_create_worker(pool))
+> 		goto restart;
+> 
+> so the manager goes back to restart and loops forever.  Nothing in the
+> cap path sleeps, and each pass re-arms and then deletes the mayday timer
+> before it can expire, so pool_mayday_timeout() never runs and no rescuer
+> is engaged either.
+> 
+> Since worker_thread() only starts processing work once
+> may_start_working() holds, the first work item ever queued on a per-CPU
+> WQ_RTPRI workqueue would leave its SCHED_FIFO worker spinning in
+> worker_thread() -> manage_workers() -> maybe_create_worker() on that CPU
+> while the work item is never executed.  Nothing in this series creates a
+> per-CPU WQ_RTPRI workqueue, but __alloc_workqueue() only rejects the
+> WQ_HIGHPRI combination, so this is reachable as soon as one appears.
+> 
+> 3) POOL_RT is only set on the per-CPU pools in workqueue_init_early().
+> get_unbound_pool() never sets it, so neither the cap nor the accounting
+> applies to unbound RT pools, which is the only configuration the panthor
+> patch in this series uses (WQ_RTPRI | WQ_MEM_RECLAIM | WQ_UNBOUND).
+> 
+> That seems to invert the commit message: the system-wide limit doesn't
+> restrict the posted consumer at all, while it permanently prevents
+> worker creation in the per-CPU pools it does cover.
+> 
+> [ ... ]
+> 
+>> @@ -5842,7 +5884,12 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+>>   		pr_warn_once("workqueue: name exceeds WQ_NAME_LEN. Truncating to: %s\n",
+>>   			     wq->name);
+>>
+>> -	if (flags & WQ_BH) {
+>> +	if (flags & WQ_RTPRI) {
+>> +		/*
+>> +		 * RT workqueues are limited to max half of the online CPUs.
+>> +		 */
+>> +		max_active = min_t(int, max_active, num_online_cpus() / 2);
+>> +	} else if (flags & WQ_BH) {
+> 
+> Can max_active end up 0 here?  Two ways:
+> 
+>    - With one online CPU (nr_cpus=1 or maxcpus=1 boots),
+>      num_online_cpus() / 2 is 0, so the panthor workqueue created with
+>      max_active == 2 gets 0.
+> 
+>    - Passing max_active == 0, the documented "use default" value, stays
+>      0 because the "max_active ?: WQ_DFL_ACTIVE" fallback and
+>      wq_clamp_max_active(), which enforces a minimum of 1, are in the
+>      else branch and are skipped for WQ_RTPRI.
+> 
+> With wq->max_active == 0, wq_adjust_max_active() returns before
+> activating anything and pwq_tryinc_nr_active() can never succeed, so
+> every work item queued on such a workqueue stays on the inactive list
+> forever and flush/destroy hang.
+> 
+> Also, num_online_cpus() is sampled once at allocation time, so a
+> workqueue allocated before secondary CPUs are brought online keeps a
+> limit computed from the momentary CPU count.
+> 
+> While in this area: for WQ_RTPRI | WQ_MEM_RECLAIM, should the rescuer
+> get SCHED_FIFO as well?  rescuer_thread() runs at RESCUER_NICE_LEVEL,
+> so under a mayday the work this flag is trying to keep low latency
+> executes below the promised priority.
+> 
+> [ ... ]
+> 
+>> @@ -7284,10 +7339,14 @@ static ssize_t wq_nice_show(struct device *dev, struct device_attribute *attr,
+>>   			    char *buf)
+>>   {
+>>   	struct workqueue_struct *wq = dev_to_wq(dev);
+>> -	int written;
+>> +	int written, nice;
+>>
+>>   	mutex_lock(&wq->mutex);
+>> -	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->unbound_attrs->nice);
+>> +	if (wq->unbound_attrs->prio == WQ_PRIO_RT)
+>> +		nice = INT_MIN;
+>> +	else
+>> +		nice = wq->unbound_attrs->nice;
+>> +	written = scnprintf(buf, PAGE_SIZE, "%d\n", nice);
+> 
+> This isn't a bug, but is INT_MIN the value userspace should read from
+> the nice attribute of an RT workqueue?  This file has so far only ever
+> produced values in the [-20, 19] range.
+> 
+> [ ... ]
+> 
+> Thanks.
+> 
+
