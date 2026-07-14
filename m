@@ -4,43 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B1C2C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 20:40:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DB6AC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 21:15:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AB9610E0CC;
-	Tue, 14 Jul 2026 20:40:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D015610E721;
+	Tue, 14 Jul 2026 21:15:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GZ88ljOH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MS/tHf+o";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4271510E0CC
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 20:40:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CCFB24049B;
- Tue, 14 Jul 2026 20:40:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B601F000E9;
- Tue, 14 Jul 2026 20:40:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784061626;
- bh=eMwuiiVXZtcMNsrsV59LBCASCN0xEf161qO/7bI4i+0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GZ88ljOH2zlrUPHIT/Ezhj37m1CJUwf9ixK/XdHxOXMC5zybZm64VQGEeI6TCRoDk
- J5m0k0ceg7WswOddTWJeHWV+ZP3dz+V4WoKgHWQljUWOeHYsdmVwg0C5N03CkpQsS6
- HMpcg5Kn+7fCwZJSqOsvOn4y6rYZejegg7UQJmVzTM8vFGUIQAvhjsHy5qkQL74KiX
- Y+2l7CNoLUOTVqAE8gcNALfL7fEyg6r5mCX1/OQJ+05ywRQfFWpG9UEo+1YQzFiCYM
- CKrJAhLfx0LUpodicx1WAMzamR2KU+qYLkdI2hZt32Gp6Z0+3jgp7UmbZVVDVVCPvA
- aUql5B9MG2tbQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/rockchip: dw_hdmi_qp: attach the HDMI Colorspace
- connector property
-To: "Igor Paunovic" <royalnet026@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260714202850.40999-1-royalnet026@gmail.com>
-References: <20260714202850.40999-1-royalnet026@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 20:40:26 +0000
-Message-Id: <20260714204026.84B601F000E9@smtp.kernel.org>
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED54B10E721
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 21:15:41 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-493e4cccd8dso7112205e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 14:15:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784063740; x=1784668540; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=RCq7Nx8/0JTWLcWo9D6VA1wUiUAA6aMWpwH1k5hkv5c=;
+ b=MS/tHf+oZlSwzDDENqfEjNvLETL6eRLHYknVTPATeAJMh9PpBktRasYRLZxLbA/HNN
+ xFxz7a06vbHNhvRj+Lzn/jAVY3KwR4wffW17WmV61xbH327C2xCmoBqtl66HJ1VW3aI+
+ sq7GJvcmroTiEBl5If1FKQ8xdVSvCjHRIY/q6BapeHZSVrDK7GnwtMNaTaA1v0lrhQpA
+ XIah8kvzyIfEJZCMoMES12SMESxL66vuGty7/vGpmdU3YeTc+e+XM0R8pv9m/eFyojNn
+ OmUGMopdW7+o92tcHDBc/SHtjiS0ED0/hNV22v4jQVspPPhi4dCcuJwZenf3Olt47Siz
+ YPbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784063740; x=1784668540;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=RCq7Nx8/0JTWLcWo9D6VA1wUiUAA6aMWpwH1k5hkv5c=;
+ b=rGSJk+giMwImbEy9usHw4ltYySB6yAqNm9s3iMCx8nmioedaZzsXLH2E0/9JlyLcBE
+ uYlmd4QD+oi6/0m20bV1nG0nDW280v4ToAuNFWWvb5TehCNXJX9/h8m5Kpgo4IyVkUdQ
+ uif8y/FDtfTSXlzN9aEsgszAWfmooay8243kDjQ3PikJVJOJ4cNgdNsh0WUuzyK0DGAM
+ KejR+o8FfjNtnD70SVVw1Vc225hinHKO1NeSkHeMARIagnmXd6+98jBnHJYghk9oquaQ
+ cu0ciaKeNBw4ZIjn4rV4OU2+TUkyr2Q1PZNPkQUe/d3qHJ3/V/ghsVePsrn6m4/1BAyn
+ ZySg==
+X-Gm-Message-State: AOJu0YyhORPI6ehQdwl+T8nCC/DXgO5rZAGfnPErwMVTTRtuAGdJWVWR
+ y8RNlhx4ErOnCiXRwd3nPAasGqln5UXs0FeMlvevHd8BPhGnz8II2Exw
+X-Gm-Gg: AfdE7cnNuv4bc6ZCGV6kfx36oX0tU5eusRPATq38SLAdEyJrz3J0iCuYnlkTTw0YwsR
+ /bovmY35IZBHRwNkgCeeGmjjzrflTDcuKr76TKSkaX6n6QHjVJiuTns2XhivGqm9k+qEc2kwcq+
+ KBURFxGSjjPhkKndCwKvY8qji6Gd9UDsIk5dC+POneeXbz+2HFF0lEhOKovzcfjGcxlbXA+B5yU
+ pCKDnKv4aFgeb+bZ0SEzLbTdOd7OPPbzas9zRVQzosil89D8fFMinvpPmG5nx2QoXi7uUb7kR4B
+ +UDObu8p/lZ/sBtVNz1bGV1Ad/rCvF/i+w7RyM4dtXuQ7D98nIrRwXiaJ0pv/LPtKGmXRON7loa
+ SHdWtORyxv26fwk3c+qbLkJN06pdO+vyiWrGpg9vgInluctdQuhThj2qiqK/KugwaadTph/41Be
+ VtBc0wbDMdzb1p2Imszi2u
+X-Received: by 2002:a05:600c:6387:b0:492:7142:f46e with SMTP id
+ 5b1f17b1804b1-493f87d8583mr168232975e9.2.1784063740186; 
+ Tue, 14 Jul 2026 14:15:40 -0700 (PDT)
+Received: from fedora ([94.205.182.68]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4950a32a2casm149843875e9.12.2026.07.14.14.15.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2026 14:15:38 -0700 (PDT)
+From: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Mary Guillemard <mary@mary.zone>,
+ Milos Tijanic <mtijanic@nvidia.com>, nouveau@lists.freedesktop.org,
+ Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
+Subject: [PATCH 0/6] drm/nouveau: GSP telemetry via RUSD,
+ and fdinfo telemetry exposure
+Date: Wed, 15 Jul 2026 01:14:23 +0400
+Message-ID: <20260714211429.238355-1-mohamedahmedegypt2001@gmail.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,82 +87,131 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On the GSP firmware, nouveau reports nothing about the GPU. The GSP owns
+the sensors, so the legacy nvkm therm/clk/volt hwmon paths never run, and
+monitoring tools have no data to read.
 
-Pre-existing issues:
-- [High] Returning an error from `dw_hdmi_qp_rockchip_bind()` without cance=
-lling `hdmi->hpd_work` leads to a Use-After-Free when the delayed work or H=
-PD interrupt fires.
---
+GSP on later firmware does publish all of it through a stable interface.
+It maintains a shared-memory region called "RM User Shared Data" (RUSD),
+which the firmware fills with all the relevant sensor readings like power,
+temperatures, clocks, and many others. Consuming it needs only two
+internal subdevice controls: INIT_USER_SHARED_DATA to register the buffer,
+and SET_DATA_POLL to tell the GSP which data groups to poll and how often.
 
---- Patch [1]: [PATCH] drm/rockchip: dw_hdmi_qp: attach the HDMI Colorspace=
- connector property ---
-commit 77d2f0e8bc60d50755aec22dee119ad08bb92b3c
-Author: Igor Paunovic <royalnet026@gmail.com>
+This series makes nouveau a RUSD client and exposes the data through two
+main surfaces:
 
-drm/rockchip: dw_hdmi_qp: attach the HDMI Colorspace connector property
+  - hwmon, for the values that map onto standard channels: GPU and memory
+    temperature, GPU/board/VRAM power, power cap. 
 
-This commit creates and attaches the standard HDMI colorspace property=20
-after the bridge connector is initialised. This allows userspace to request=
-=20
-BT.2020 colorimetry and enables wide-gamut/HDR output on RK3588.
+  - sysfs, under /sys/class/drm/cardN/device/rusd/, for everything hwmon
+    has no channel type for: clocks, utilisation, pstate, throttle reason,
+    ECC counters, PCIe error counters, and everything exposed to hwmon as
+    well. One value per file according to sysfs convention.
 
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
-/drm/rockchip/dw_hdmi_qp-rockchip.c
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-[ ... ]
-> @@ -695,6 +695,20 @@ static int dw_hdmi_qp_rockchip_bind(struct device *d=
-ev, struct device *master,
->  		return dev_err_probe(hdmi->dev, PTR_ERR(connector),
->  				     "Failed to init bridge connector\n");
-> =20
-> +	/*
-> +	 * Attach the HDMI Colorspace property. The HDMI connector framework
-> +	 * already consumes conn_state->colorspace for the AVI infoframe
-> +	 * (drm_hdmi_avi_infoframe_colorimetry()), and HDR_OUTPUT_METADATA and
-> +	 * max bpc are attached by drmm_connector_hdmi_init(), but without the
-> +	 * Colorspace property userspace cannot request BT.2020 signalling,
-> +	 * which keeps wide-gamut/HDR output unavailable. Passing 0 selects
-> +	 * the full HDMI colorspace set defined by the core.
-> +	 */
-> +	ret =3D drm_mode_create_hdmi_colorspace_property(connector, 0);
-> +	if (ret)
-> +		return ret;
+Polling is demand-driven. GSP polls a group only while a client is reading
+it, and a group idles off after 10s after the last read. Polling costs
+power, so nothing is polled unless someone is looking. A section that has
+not been polled yet, or that the board does not support, reads -ENODATA.
 
-[Severity: High]
-This is a pre-existing issue, but by adding this error path, the patch
-exposes it further. Does returning an error here without cancelling=20
-hdmi->hpd_work risk a use-after-free?
+The sysfs interface is documented in
+Documentation/ABI/testing/sysfs-driver-nouveau.
 
-If a hardware HPD interrupt fires right before the devres cleanup=20
-unregisters the IRQ, hdmi->hpd_work can get queued. The DRM master=20
-teardown then frees hdmi (which was allocated via drmm_kzalloc),=20
-leaving the delayed work to execute later with a dangling pointer:
+While the original scope was RUSD support only, monitoring tools needed
+two extra additions to complete the picture:
 
-drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c:dw_hdmi_qp_rk3588_hpd_work()=
- {
-        struct rockchip_hdmi_qp *hdmi =3D container_of(work,
-                                                     struct rockchip_hdmi_q=
-p,
-                                                     hpd_work.work);
-        struct drm_device *drm =3D hdmi->encoder.encoder.dev;
-        ...
-}
+  - VRAM size and usage on sysfs (patch 5): since this series adds a sysfs
+    interface for nouveau, it's better to expose VRAM metrics there rather
+    than force monitoring apps to pull in libdrm for the GETPARAM memory
+    ioctls.
 
-Could we ensure that the delayed work is properly cancelled before=20
-returning errors from dw_hdmi_qp_rockchip_bind()?
+  - fdinfo (patch 6): nouveau implemented none at all, and monitoring apps
+    could not show per-process GPU and memory usage. It now reports
+    per-client memory and per-engine busy time, accounted from the DRM
+    scheduler that the EXEC/VM_BIND path already uses.
 
-> +	drm_connector_attach_colorspace_property(connector);
-> =20
->  	return 0;
->  }
+Limitations, caveats, and additional considerations or questions:
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714202850.4099=
-9-1-royalnet026@gmail.com?part=3D1
+  - RUSD needs r570 or newer GSP firmware; r535 does not have the needed
+    controls. Pre-GSP and r535 behavior is identical to what it was: the
+    rusd/ group is not created, and hwmon keeps its current behavior.
+
+  - This is all read-only telemetry. Clock, voltage, or power control is
+    through other interfaces out of scope of this series.
+
+  - The sysfs interface exposed here should be stable and valid for nova
+    as well. RUSD is stable and only grows more fields with newer GSP
+    firmware (e.g., fan telemetry gets added in r580), so it is possible
+    to keep the same interface as we use newer firmware or as we move to
+    nova and any potential considerations should be ironed out before this
+    gets merged and the interface gets frozen.
+
+  - amdgpu offers a single binary blob with all the telemetry embedded in
+    addition to the sysfs sensor files. This series currently only exposes
+    sensor files, but it is possible to add a similar binary for a v2.
+    This mainly offers a more efficient way to read the telemetry as
+    clients would read only a few files instead of reading all of them.
+
+  - The last two patches don't depend on RUSD and work on every GPU. But
+    they are here because they complete the sensor telemetry story. I am
+    happy to split them into their own series if that is preferred.
+
+Userspace WIP work built on this sysfs surface exists in form of nouveau
+backends for nvtop, LACT, and a NVK HUD:
+
+  - nvtop: https://github.com/mohamexiety/nvtop/tree/nvtop-nouvtop
+
+  - LACT: https://github.com/mohamexiety/LACT/tree/lnouvct
+
+  - NVK HUD:
+    https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/39898
+
+None of these are merged yet and exist for testing only. Upstreaming will
+begin when this series gets merged and the interface is stable.
+
+Mohamed Ahmed (6):
+  drm/nouveau/gsp: vendor the RUSD header
+  drm/nouveau/gsp: add RUSD telemetry support
+  drm/nouveau: add GSP hwmon support
+  drm/nouveau: expose RUSD telemetry via sysfs
+  drm/nouveau: expose global VRAM size and usage via sysfs
+  drm/nouveau: expose per-client GPU usage via fdinfo
+
+ .../ABI/testing/sysfs-driver-nouveau          | 167 ++++++
+ MAINTAINERS                                   |   1 +
+ drivers/gpu/drm/nouveau/Kbuild                |   1 +
+ .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  33 ++
+ .../drm/nouveau/include/nvkm/subdev/rusd.h    | 114 ++++
+ .../gpu/drm/nouveau/include/nvrm/nvtypes.h    |   3 +
+ drivers/gpu/drm/nouveau/nouveau_abi16.c       |  16 +
+ drivers/gpu/drm/nouveau/nouveau_chan.h        |   2 +
+ drivers/gpu/drm/nouveau/nouveau_drm.c         |  22 +
+ drivers/gpu/drm/nouveau/nouveau_drv.h         |  29 +
+ drivers/gpu/drm/nouveau/nouveau_exec.c        |   3 +
+ drivers/gpu/drm/nouveau/nouveau_gem.c         |  16 +
+ drivers/gpu/drm/nouveau/nouveau_hwmon.c       | 375 ++++++++++---
+ drivers/gpu/drm/nouveau/nouveau_sched.c       |  87 +++
+ drivers/gpu/drm/nouveau/nouveau_sched.h       |  11 +
+ drivers/gpu/drm/nouveau/nouveau_sysfs.c       | 311 ++++++++++
+ drivers/gpu/drm/nouveau/nouveau_sysfs.h       |  10 +
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c |  26 +
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r535/rm.c  |   1 +
+ .../nouveau/nvkm/subdev/gsp/rm/r570/Kbuild    |   1 +
+ .../nvkm/subdev/gsp/rm/r570/nvrm/rusd.h       | 303 ++++++++++
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r570/rm.c  |   1 +
+ .../nouveau/nvkm/subdev/gsp/rm/r570/rusd.c    | 531 ++++++++++++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |   7 +
+ 24 files changed, 1990 insertions(+), 81 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-driver-nouveau
+ create mode 100644 drivers/gpu/drm/nouveau/include/nvkm/subdev/rusd.h
+ create mode 100644 drivers/gpu/drm/nouveau/nouveau_sysfs.c
+ create mode 100644 drivers/gpu/drm/nouveau/nouveau_sysfs.h
+ create mode 100644 drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/rusd.h
+ create mode 100644 drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/rusd.c
+
+-- 
+2.55.0
+
