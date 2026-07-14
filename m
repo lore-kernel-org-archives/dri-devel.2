@@ -4,68 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5673C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 06:46:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B22E0C44507
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 06:48:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0230E10E2A2;
-	Tue, 14 Jul 2026 06:46:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1030E10E680;
+	Tue, 14 Jul 2026 06:48:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="FQZv3bkz";
+	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="n03jmk+i";
 	dkim-atps=neutral
-X-Greylist: delayed 476 seconds by postgrey-1.36 at gabe;
- Tue, 14 Jul 2026 06:46:49 UTC
-Received: from out-181.mta1.migadu.com (out-181.mta1.migadu.com
- [95.215.58.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12A7610E2A2
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 06:46:49 +0000 (UTC)
-X-Forwarded-Encrypted: i=1;
- AHgh+RplJm8dvKF3csxxAsGyv10GN6YDN54jjhfu+SpSsi4w/vOmWWcRQYhzSiRcnmt4K5UWgG1y9UanoLM=@lists.freedesktop.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1784011131;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BwXrIUkjii1ll+DVDzD6pSQxEm1jWrnB4GfLjhOhNmE=;
- b=FQZv3bkzBH736Guoj2IMrcQO1CsXjjVHBhY3bBTw2kwQUgJEWM9XAiLfgPC8jHV0zllvsJ
- Ai3Bw1J7DVVYAZFq0RuwC/BpENoRqleln2aqnIQyi8AfbwZgS4jMl4uDZI/URI+SZk20aM
- UvqWaemAKXufjivC7BkULw5FXM+B9z8=
-X-Gm-Message-State: AOJu0YxOMRPsWgW3yq70JC7vQY0PT8h60bN9HDidFh6KAk9VRI28sBUK
- m5wzjMARF6CGV+T0IFAecK3oW+lG/oDulv60ncqaiJyXrueHnd4KJmebtGzjeQ+sanAQX6/uloy
- b7TNcmabh58kiN6NEVO/KL/DF0ahmwXjZjQUCtr+6
-X-Received: by 2002:ac8:5d56:0:b0:516:ccc0:ee38 with SMTP id
- d75a77b69052e-51d7bcd4bb1mr10963351cf.9.1784011118743; Mon, 13 Jul 2026
- 23:38:38 -0700 (PDT)
+Received: from out28-101.mail.aliyun.com (out28-101.mail.aliyun.com
+ [115.124.28.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89C9510E36D
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 06:48:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
+ t=1784011709; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
+ bh=iZSdXUrpc3JTe9hR1wfj5OvGHpoXaJVlBRfBjsWWXak=;
+ b=n03jmk+iYkG6jxwnndycKGVJreWR9adwjbh/aEXenjODIQrhmJi5VIQWNB6AxSxC7FQ5dXIL4yz3fcUfAEiVWZ9J55HoCnO5OhhiMCYzEho2QPweAYhXrH+ahZdDL24V1t0y1T8xT5X9us8hzN9LThN3C1V41ksZpqUTJM70wPK0ZSs0BWU2sJMX1Ftcdd4weGXn4zw9KXB7Ymzte7RlxgiYpbKOEtwZczBrpHmEdLqn2OdIcwV2ClyBtt38YZzJejrPGEol7cd5Za1Joie7tYPvo7jMF+NWPkHRL2cz+OMzZ2nC8oFfP71mUhRwCYX3/cZruXSMixmRPMFZyzqX2Q==
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436261|-1; CH=green;
+ DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.00558843-0.000153845-0.994258;
+ FP=7510168251847598650|0|0|0|0|-1|-1|-1; HT=maildocker-contentspam033037031241;
+ MF=syyang@lontium.com; NM=1; PH=DS; RN=24; RT=24; SR=0;
+ TI=SMTPD_---.iKq60Rs_1784011707; 
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
+ fp:SMTPD_---.iKq60Rs_1784011707 cluster:ay29) by smtp.aliyun-inc.com;
+ Tue, 14 Jul 2026 14:48:28 +0800
+From: syyang@lontium.com
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ rfoss@kernel.org, mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com,
+ xbpeng@lontium.com, qdchen@lontium.com, llzhang@lontium.com,
+ hfxia@lontium.com, Sunyun Yang <syyang@lontium.com>
+Subject: [PATCH v15 0/2] Add Lontium LT7911EXC eDP to MIPI DSI bridge
+Date: Tue, 14 Jul 2026 14:48:20 +0800
+Message-Id: <20260714064822.2753289-1-syyang@lontium.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20250529053513.1592088-1-yilun.xu@linux.intel.com>
- <20250529053513.1592088-11-yilun.xu@linux.intel.com>
- <20250602133009.GC233377@nvidia.com>
- <CAEvNRgFpJWQ5M5sQhGpQUV3GbBq9N+MQhhaxdxa=D8ky94SCsw@mail.gmail.com>
- <CA+EHjTwd9uku-ZV5y8xcK8VWdOfhcchyW=_fzjpCf5Vk2wQoGQ@mail.gmail.com>
- <20260713191727.GH674038@nvidia.com>
-In-Reply-To: <20260713191727.GH674038@nvidia.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 14 Jul 2026 07:38:01 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTxZ0N3Tfnid404B4tkb_E+Z8mODTHTgBPiF6=bwZp7Hjw@mail.gmail.com>
-X-Gm-Features: AUfX_mxAW6jRYwmHaZyFKiL0Q4hnn-XRmxgnYdjCPArDIPvmYwpLrjGWtt2STE0
-Message-ID: <CA+EHjTxZ0N3Tfnid404B4tkb_E+Z8mODTHTgBPiF6=bwZp7Hjw@mail.gmail.com>
-Subject: Re: [RFC PATCH 10/30] vfio/pci: Export vfio dma-buf specific info for
- importers
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Ackerley Tng <ackerleytng@google.com>, Xu Yilun <yilun.xu@linux.intel.com>,
- kvm@vger.kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com, 
- pbonzini@redhat.com, seanjc@google.com, alex.williamson@redhat.com, 
- dan.j.williams@intel.com, aik@amd.com, linux-coco@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, vivek.kasireddy@intel.com, yilun.xu@intel.com, 
- linux-kernel@vger.kernel.org, lukas@wunner.de, yan.y.zhao@intel.com, 
- daniel.vetter@ffwll.ch, leon@kernel.org, baolu.lu@linux.intel.com, 
- zhenzhong.duan@intel.com, tao1.su@intel.com, linux-pci@vger.kernel.org, 
- zhiw@nvidia.com, simona.vetter@ffwll.ch, shameerali.kolothum.thodi@huawei.com, 
- aneesh.kumar@kernel.org, iommu@lists.linux.dev, kevin.tian@intel.com
-Content-Type: text/plain; charset="UTF-8"
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,114 +62,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 13 Jul 2026 at 20:17, Jason Gunthorpe <jgg@nvidia.com> wrote:
->
-> On Mon, Jul 13, 2026 at 08:08:14PM +0100, Fuad Tabba wrote:
-> > On Sun, 12 Jul 2026 at 02:02, Ackerley Tng <ackerleytng@google.com> wrote:
-> > >
-> > > Jason Gunthorpe <jgg@nvidia.com> writes:
-> > >
-> > > > On Thu, May 29, 2025 at 01:34:53PM +0800, Xu Yilun wrote:
-> > > >> Export vfio dma-buf specific info by attaching vfio_dma_buf_data in
-> > > >> struct dma_buf::priv. Provide a helper vfio_dma_buf_get_data() for
-> > > >> importers to fetch these data. Exporters identify VFIO dma-buf by
-> > > >> successfully getting these data.
-> > > >>
-> > > >> VFIO dma-buf supports disabling host access to these exported MMIO
-> > > >> regions when the device is converted to private. Exporters like KVM
-> > > >> need to identify this type of dma-buf to decide if it is good to use.
-> > > >> KVM only allows host unaccessible MMIO regions been mapped in private
-> > > >> roots.
-> > > >>
-> > > >> Export struct kvm * handler attached to the vfio device. This
-> > > >> allows KVM to do another sanity check. MMIO should only be assigned to
-> > > >> a CoCo VM if its owner device is already assigned to the same VM.
-> > > >
-> > > > This doesn't seem right, it should be encapsulated into the standard
-> > > > DMABUF API in some way.
-> > > >
-> > >
-> > > I'd like to propose an alternative. I've been working on guest_memfd and
-> > > new to the world of IO, please help me along! :)
-> > >
-> > > It seems like using dmabufs are used a little awkwardly here. IIUC
-> > > dmabufs were originally meant to expose memory of one device to another
-> > > device, mostly meant to share memory. Dmabufs do expose MMIO too, for
-> > > device to device communications. Without virtualization, userspace MMIO
-> > > would be done by mmap()-ing a VFIO fd and having the userspace program
-> > > write to the userspace addresses.
-> > >
-> > > Before CoCo, device passthrough (MMIO) is mostly handled by mmap()-ing a
-> > > VFIO fd and setting up the userspace address in a KVM memslot for the
-> > > guest.
-> > >
-> > > With CoCo, is the problem we're solving that we want KVM to know what
-> > > pfns to set up in stage 2 page tables, but not via userspace addresses?
-> > >
-> > > guest_memfd already does that for regular host memory, tracks the
-> > > private/shared-ness of the memory, tracks which struct kvm the memory
-> > > belongs to.
-> > >
-> > > guest_memfd functions as KVM's bridge to host memory. KVM already can
-> > > ask guest_memfd for the pfn to map into stage 2 page tables, and already
-> > > asks guest_memfd for the shared/private state of the memory. guest_memfd
-> > > already also blocks the host from faulting guest private memory
-> > > (mmap()-ing is always allowed).
-> > >
-> > >
-> > > Instead of using dmabuf as the intermediary between the MMIO PFNs and
-> > > KVM, why not use guest_memfd?
-> > >
-> > > What if we make guest_memfd accept a VFIO fd, or a dmabuf fd?
-> >
-> > This is interesting for pKVM too, provided it covers more than MMIO.
-> >
-> > We need guest_memfd to be backable by a dmabuf for ordinary guest memory, not
-> > only for device MMIO. There is mobile hardware that doesn't tolerate scattered
-> > private memory (DMA engines that can't gather, IOMMU page-table size
-> > constraints), and a CMA-backed dmabuf heap is the practical way to get
-> > contiguous memory at runtime.
->
-> Why can't guestmemfd allocate directly from CMA? Allocating struct
-> page memory through dmabuf just to put it back in a guestmemfd sounds
-> very ugly to me.
+From: Sunyun Yang <syyang@lontium.com>
 
-Fair, and I think you're right. If guest_memfd can allocate from CMA directly
-that covers what we need for contiguous guest memory, and it's cleaner than
-routing it through a dmabuf. It also keeps the shared pages struct-page backed
-and GUP-able, which the CMA heap's own mmap doesn't, since it sets VM_PFNMAP.
-So going through a dmabuf for plain guest RAM would have cost us the thing we
-need on the shared side anyway.
+The LT7911EXC is an I2C-controlled bridge that receives eDP1.4
+and output mipi dsi. This series introduces:
 
-Consider the request to be for guest_memfd to be able to give us physically
-contiguous memory. dmabuf was the mechanism I assumed, not the requirement.
+- A device tree binding YAML file describing the hardware
+- A new DRM bridge driver implementing the basic functionality
 
+Signed-off-by: Sunyun Yang<syyang@lontium.com>
+---
+Change in v15:
+- dt-binding:
+- drm/bridge:
+ 1. Remove the Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> tag.
+ 2. Adjust the design architecture of the chip's MIPI host and bridge.
+ 3. remove devm_drm_panel_bridge_add_typed and drm_of_find_panel_or_bridge
+ 4. Use REGCACHE_NONE to avoid cache inconsistency due to internal MCU modifying registers asynchronously
+- Link to v14: https://lore.kernel.org/all/20260529112928.873766-1-syyang@lontium.com/
 
-> > HugeTLB doesn't help, it wants boot-time
-> > reservation. Those pages are struct-page backed, so it's a different problem
-> > from the non-struct-page MMIO case, and the shared parts still need to be
-> > GUP-able.
->
-> Isn't dmabuf pretty allergic to mmaping refcounted struct page backed
-> memory since that wrecks its lifetime model?
+Change in v14:
+- dt-binding:
+- drm/bridge:
+ 1. [High] AB-BA / self-deadlock between the bridge's ocm_lock and DRM modeset                             [sashiko-bot]
+    locks during hotplug notification. - fixed
+ 2. [High] Freeing the panel bridge in lt7911exc_dsi_host_detach while it is still
+    attached to the DRM bridge chain causes a Use-After-Free. - fixed
+- Link to v13: https://lore.kernel.org/lkml/20260529094547.869919-1-syyang@lontium.com/
 
-Yes, and that's the same point. Agreed.
+Change in v13:
+- dt-binding:
+- drm/bridge:
+ 1. [High] Dangling pointer created during MIPI DSI host detach if the downstream                           [sashiko-bot]
+           device is a bridge rather than a panel. - fixed
+ 2. [High] Firmware upgrade CRC mismatch due to unpadded partial page writes.
+           - hardware erases the entire flash area into a default state of 0xff. When doing
+             a partial page short write，the total unwritten residual bytes on the physical
+             flash sector inherently retain their 0xff state. Therefore, no modification is required.
+ 3. [High] Firmware upgrade workqueue accesses `bridge.dev` without ensuring the DRM device is alive,
+           leading to a Use-After-Free. - fixed
+ 4. [High] Regmap page selector cache desynchronization after device reset causes firmware upgrade
+           commands to be routed to the wrong register page. - fixed
+- Link to v12: https://lore.kernel.org/lkml/20260525010545.9470-1-syyang@lontium.com/
 
-> > More important for the API shape: conversions have to work on subsets of such a
-> > region, at page granularity. A pKVM guest doesn't know what backs its memory, so
-> > it will issue share/unshare hypercalls over arbitrary ranges of whatever it was
-> > given. If a dmabuf-backed guest_memfd can only be converted as a whole, we can't
-> > use it for memory, and the guest can't be taught to care.
->
-> More reasons not to involve DMABUF since guestmemfd already does all
-> of this...
+Change in v12:
+- dt-binding:
+- drm/bridge:
+ 1. Move the cleanup work of drm_panel_bridge_remove() forward into lt7911exc_dsi_host_detach().                        [sashiko-bot]
+ 2. Do not hold any lock during lt7911exc_reset().
+- Link to v11: https://lore.kernel.org/lkml/20260522015735.2833-1-syyang@lontium.com/
 
-Also agreed for guest RAM.
+Change in v11:
+- dt-binding:
+- drm/bridge:
+ 1. Removed Reviewed-by, we would appreciate it if the maintainer could help review this.
+ 2. Use devm_gpiod_get(,, GPIOD_OUT_HIGH) to fix the reset GPIO backpowering issue.                                       [sashiko-bot]
+ 3. Fixed Use-After-Free vulnerability due to dynamic DRM bridge removal in DSI detach callback.
+ 4. Fixed Use-After-Free of regmap during DRM teardown because firmware upgrade worker defeats removal safeguard.
+ 5. Fixed firmware upgrade performs a hardware reset, causing silent loss of DRM state and a blank screen.
+ 6. Use of kmalloc for a 64KB software buffer is susceptible to memory fragmentation failures - Fix by using kvmalloc
+ 7. Use the 'lt7911exc->ocm_lock' mutex and the 'lt7911exc->upgrade' flag to resolve the race condition between
+    DRM atomic modeset and firmware upgrade.
+ 8. Use the 'lt7911exc->upgrade_lock' mutex to prevent redundant upgrades.
+ 9. Use the 'lt7911exc->removed' flag to prevent the driver from being triggered to upgrade during the unload process.
+- Link to v10: https://lore.kernel.org/lkml/20260519135816.26996-1-syyang@lontium.com/
 
-Where I do still think a dmabuf is involved is the case where the buffer isn't
-guest_memfd's to allocate: it already belongs to another exporter, and the guest
-needs to see that same buffer. That's structurally what you're already handling
-for device memory rather than a separate guest_memfd-over-dmabuf path, so I
-don't think it argues for backing ordinary guest memory with a dmabuf.
+Change in v10:
+- dt-binding:
+- drm/bridge:
+ 1. Fixed the firmware upgrade error paths to always clear the upgrade
+    flag before returning, including firmware size validation failures
+    and allocation failures.                                                                [sashiko-bot]
+ 2. Added proper locking in lt7911exc_atomic_pre_enable() and
+    lt7911exc_atomic_post_disable() to serialize register accesses with the
+    firmware upgrade flow and avoid concurrent I2C transactions.
+ 3. Added an exclusivity check in lt7911exc_dsi_host_attach() to reject multiple
+    downstream attachments and prevent repeated drm_bridge_add() calls and panel bridge leaks.
+ 4. Reworked lt7911exc_firmware_store() to use mutex_trylock() so concurrent sysfs writers
+    immediately return -EBUSY instead of blocking behind an active firmware upgrade.
+ 5. Updated the remove path to prevent new firmware upgrade work from being queued after
+    device removal by setting the upgrade state before cancelling the worker.
+- Link to v9: https://lore.kernel.org/lkml/20260519105019.22622-1-syyang@lontium.com/
 
-> Jason
+Change in v9:
+- dt-binding:
+- drm/bridge:
+ 1. DSI transfer callback returns success for reads without populating                        [sashiko-bot]
+    the receive buffer, leaking uninitialized memory. - fixed it by
+    implementing  a strict whitelist mechanism.
+ 2. DSI transfer callback polls for eDP video readiness before the
+    upstream encoder is enabled, guaranteeing a timeout. - removed
+ 3. The driver attempts I2C transfers while the hardware is held in
+    physical reset. - fixed
+ 4. Missing DRM_MIPI_DSI Kconfig dependency causes linker errors. - fixed
+ 5. request_firmware is called while holding the hardware lock and
+    halting the MCU, risking a system pipeline stall. - fixed
+ 6. Sleeping functions are called from atomic context in the DRM bridge callbacks. - fixed
+ 7. lt7911exc_dsi_host_transfer bypasses the required MCU hardware halt sequence. - fixed by
+    internal firmware controls the panel initialization sequence and handles all MIPI
+    DSI command transmission.
+- Link to v8: https://lore.kernel.org/lkml/20260515080934.9870-1-syyang@lontium.com/
+
+Change in v8:
+- dt-binding:
+- drm/bridge:
+ 1. Protect firmware upgrade and DRM bridge callback paths with ocm_lock.          [sashiko-bot]
+ 2. Remove the hardware reset from the remove callback, and ensure that
+    all hardware reset operations are protected by ocm_lock.
+ 3. crc reconstruction explicitly casts each byte to u32 before shifting
+ 4. The display configuration is handled by the firmware, and the MIPI
+    DSI host registration issue has been fixed.
+ 5. The batch register read/write operations have already been updated
+    to include return value checking.
+ 6. The dev_err_probe() used outside of probe context has been fixed.
+- Link to v7: https://lore.kernel.org/lkml/20260512064013.40066-1-syyang@lontium.com/
+
+Change in v7:
+- dt-binding:
+ 1. fix commit message typos(Receiver、signal)                            [sashiko-bot]
+ 2. remove the ambiguity caused by "signal/dual".
+- drm/bridge:
+ 1. using devm_regulator_get_enable avoids power leaks.                   [sashiko-bot]
+ 2. set reset gpio is low after cutting off power in lt7911exc_remove function, avoid backpowering.
+ 3. synchronous request_firmware() call cause a permanent probe failure if the driver is built-in,
+    probe executes before the root filesystem is mounted, which would cause this to fail with -ENOENT,
+    we have removed this functionality. Use trigger to upgrade.
+ 4. add `depends on I2C` and `select REGMAP_I2C` in Kconfig.
+ 5. add return value of `devm_drm_bridge_add()` in `probe()`.
+ 6. add directly header files (linux/slab.h, linux/delay.h, linux/regulator/consumer.h)
+- Link to v6: https://lore.kernel.org/lkml/20260508134702.4713-1-syyang@lontium.com/
+
+Change in v6:
+- dt-binding:
+- drm/bridge:
+ 1. use #define FW_FILE  "Lontium/lt7911exc_fw.bin" to match linux-firmware
+- Link to v5: https://lore.kernel.org/lkml/20260506013153.2240-1-syyang@lontium.com/
+
+Change in v5:
+- dt-binding:
+- drm/bridge:
+ 1. Change "mipi" to "mipi dsi" in the commit message.     [Dmitry]
+ 2. Change "eDP/MIPI" to "eDP/MIPI DSI" in Kconfig.
+- Link to v4: https://lore.kernel.org/lkml/20260430094612.3408174-1-syyang@lontium.com/
+
+Change in v4:
+- dt-binding:
+ 1. Fix the missing spaces on the "subject".             [Krzysztof]
+ 2. Fix the error descriptions for port@0 and port@1.
+- drm/bridge:
+- Link to v3: https://lore.kernel.org/lkml/20260429040541.3404116-1-syyang@lontium.com/
+
+Change in v3:
+- dt-binding:
+- drm/bridge:
+ 1. already submit lt7911exc_fw.bin to linux-firmware.  [Dmitry]
+ 2. remove lt7911exc_remove function.
+ 3. drop  the "lontium, "  in lt7911exc_i2c_table.
+- Link to v2: https://lore.kernel.org/lkml/20260428063224.3316655-1-syyang@lontium.com/
+
+Change in v2:
+- dt-binding:
+ 1. reset pins use active low.                        [Dmitry]
+- drm/bridge:
+ 1. use atomic_* callbacks.                           [Quentin]
+ 2. fix the incorrect formatting and spaces.
+ 3. add the required header files.                    [Dmitry]
+ 4. remove "enabled" flag.
+ 5. remove *fw from the lt7911exc struct.
+ 6. .max_register and .range_max use actual range.
+ 7. regulator use bulk interface.
+ 8. use dev_err_probe, devm_mutex_init and devm_drm_bridge_add.
+ 9. Replace GPL v2 with GPL.
+- Link to v1: https://lore.kernel.org/lkml/20260420023354.1192642-1-syyang@lontium.com/
+
+---
+Sunyun Yang (2):
+  dt-bindings: bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+  drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+
+ .../display/bridge/lontium,lt7911exc.yaml     |  89 ++
+ drivers/gpu/drm/bridge/Kconfig                |  17 +
+ drivers/gpu/drm/bridge/Makefile               |   1 +
+ drivers/gpu/drm/bridge/lontium-lt7911exc.c    | 770 ++++++++++++++++++
+ 4 files changed, 877 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+ create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
+
+-- 
+2.34.1
+
