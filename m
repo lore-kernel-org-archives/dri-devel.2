@@ -4,158 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F75AC4450A
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:18:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1C27C44501
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:18:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77A0A10E2B7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B88310F1E1;
 	Thu, 16 Jul 2026 08:18:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GA0+FLfe";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sKjshJ2n";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5BD910E1FF;
- Wed, 15 Jul 2026 17:40:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 415BF4070D;
- Wed, 15 Jul 2026 17:40:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA1CD1F000E9;
- Wed, 15 Jul 2026 17:39:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784137218;
- bh=tH4QyDNP0efpSTBbWpcQuJMGvW7RLC8yuTK2WVW/q3U=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=GA0+FLfepgKGsqfA851a3z/LBMqjNvN7mlxIZadRUM1CQ31syIV69n+3dBWRo/wp1
- fJUduYImYES3PnHo2TdgTzhpdpkEUIFUX6NB8XvGrMhPgzcSqV1W6XUbdCo5iug2no
- IdjQNOsEYydF6h4M0TiG0qei9Y0DJcVDuF0swmZ588A1y1UkMZ3oIAhSrnsOi6In+v
- RsO/Z7TAh1/wV97q57f/nNooWy1GN3foCaP7j/ZbLLzTa9vJSIzN9ivMFGs2IXYXAP
- f4rr087CYj2fwrWuOva4EjDNOYMBshVbZ2amcUZakPRusysh8mUltZl9STn+gyKYpY
- NZezqYRSbhmRg==
-Message-ID: <cfd512d8-4c2b-4359-9255-a18b2f2f91bf@kernel.org>
-Date: Wed, 15 Jul 2026 19:39:53 +0200
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F87010E057
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 19:11:08 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-493b27c7451so15691965e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 12:11:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784056266; x=1784661066; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=V8cflk1NhiWz6I9y7ZdfFj/dVqPOluavFLdFslOwS/8=;
+ b=sKjshJ2nJ7VLtcTC9NAGTz1hOfI8nX8EOIfIJnt+6mu+JEv7C3/UMQkaVzr6U5GrwX
+ BguasDdSsIEuEBBNs2hagp4DcwrQ4DIxgBNiVIPnPeGDevZ+T0Yh2+F6nV8IT44HKfmV
+ s2Ard/I0hpNEmDMcXPTQFzlOy6SRmVpozasn/8lV1/QUZK/nNVTA5hz28JJgorfy0W+g
+ hgqk9R9b7EiboolmaqsjLmlHp5QR5COC2K3cb1z27D+dpTY4ADqQxXazpQ5UjRMPdrgs
+ TLGfUyKfePhq/5hn5JN1hy9MlkOvnUt14kUBlmPqqBo6j47V8dizrpa27J+RT+tuQwDh
+ 0TeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784056266; x=1784661066;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=V8cflk1NhiWz6I9y7ZdfFj/dVqPOluavFLdFslOwS/8=;
+ b=HGY1cEu81f9535cgr8KDIapL5wYrYt70GmzQlAzZv+3AWebJZWNXWmG3EatmvHJwXz
+ SrqEaEamMjhAk8MyV9IqL7L5OrWxEcyUjttqWxbzeTJic7ZkGeuRcBeYYXr1wH9/jQAB
+ zI9+Wm84BkerZiUCQusqGvp7qp7Svg33sSz9n1mtM5AJ1VyJzuRLExJ/DSc377QUi77I
+ a2w8f8JzPbiVU790lQneRWgNgsAoWgqDfIdtcLKkKUNOHMht6aJm4QBO5AvPHlW4XG6Y
+ 7+BkPeKCvadIE1Mvy/0Plk27Angj+iSgtCTiZ3C9Hb1K7Y1dQNb0DEI3c0LO65RRBybk
+ Oscg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrIjgAT4kfxEIN1klsGHdmiCXWAzUY9IMm8LyRNzSaMcqPtZDp8YPpg6FLKT4vizJADH18i0j3lWNs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzUgUR7TlKa27wTYMK0BsElDl54YQ3qU135/mI2n5FkgJtkZGAD
+ DR+uh7YYUq2kGvwaf+uH2EKayozgY1eR9s4S/rv6B6L8iLlqCJX8D8Cu
+X-Gm-Gg: AfdE7cng4YOlZZS9cu+W7/IPfEB7MfvzII+yArV6Ud94WrXUOZo1ziuBe4dp9GH8o6b
+ L74qZ4ApbeXK0WTNtTkUorrCM0QY/IGLV0tMfI7znsLlNqnBGLT3wmmevLqCE5CycLj0xvS4RFv
+ RtTP26uZd0pMBCw/kSXk6BrSmzBGWAlwOIxNA/Vc+rofxUjbMuHwEf7LUGJXrpVkGh0wX0Dbrc5
+ cTIXdgTNS1vR9A1Jj3+K/Xo8CHtvHbdAw6qdNPocZS7jJvPyVLgcpvpkCJMSO3PkSqNQFvf9skw
+ v5b/6t9m35s1Ti4egdvmo+86XY8siG4W/Z+sTQf+kof57DDKE93WpWoOKEcdejQDkXHCQK8FLZh
+ 3iNPgpwV7LTccyl5+Dus19u1p3adzRCQOvavzXLMtqw7Y1M4ZdEQd/I/sBS4A20+Va8OoEeQz19
+ uQut78s2C41dWYZWvCCGvMB7kSUhpd8+yAuqeHJYuyjUM/0qa50Cz27Rt0ZlVHDviMJYYnJrbRw
+ 4K0wTyvngEGNd7yay2Qzg==
+X-Received: by 2002:a05:600d:8444:20b0:493:e2c3:af25 with SMTP id
+ 5b1f17b1804b1-493f88bd90emr119328685e9.12.1784056266292; 
+ Tue, 14 Jul 2026 12:11:06 -0700 (PDT)
+Received: from evil-archie.tail5479a9.ts.net
+ ([2a02:1388:23c0:16c0:aa41:f4ff:fec6:26e2])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4950a2f951asm100677815e9.14.2026.07.14.12.11.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2026 12:11:05 -0700 (PDT)
+From: Panagiotis Gravias <graviaspanagiotis1@gmail.com>
+To: andy@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: namcao@linutronix.de, tomasz.unger@yahoo.pl,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Panagiotis Gravias <graviaspanagiotis1@gmail.com>
+Subject: [PATCH 0/3] staging/fbtft: Minor cleanups.
+Date: Tue, 14 Jul 2026 22:09:38 +0300
+Message-ID: <20260714190958.219437-2-graviaspanagiotis1@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 24/33] mm/vma: move __install_special_mapping() to vma.c
-Content-Language: en-US
-To: Lorenzo Stoakes <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
- Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>,
- Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>,
- Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
- Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov
- <andreyknvl@gmail.com>, Alexander Potapenko <glider@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Jarkko Sakkinen <jarkko@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner
- <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Yishai Hadas <yishaih@nvidia.com>, Shameer Kolothum
- <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>,
- Usama Arif <usama.arif@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev,
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- damon@lists.linux.dev, iommu@lists.linux.dev, kasan-dev@googlegroups.com,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
- <20260710-b4-pre-scalable-cow-v2-24-2a5aa403d977@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260710-b4-pre-scalable-cow-v2-24-2a5aa403d977@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:21 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,25 +92,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/10/26 22:17, Lorenzo Stoakes wrote:
-> This function is operating on VMAs and rightly belongs in vma.c, where it
-> can be subject to VMA userland testing and allows us to isolate it from the
-> rest of mm.
-> 
-> The _install_special_mapping() function will remain in mmap.c as a wrapper,
-> since this is used by architecture-specific code.
-> 
-> Doing so allows us to isolate more functions in vma.c for the same reasons.
-> 
-> This forms part of work to allow for tracking MAP_PRIVATE file-backed
-> mappings by their anonymous virtual page offset, as doing so allows us to
-> isolate and keep code that interacts with this together.
-> 
-> No functional change intended.
-> 
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> Reviewed-by: Gregory Price <gourry@gourry.net>
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+Solved some style errors,
+parenthesis spacing, aligning arguments, replacing udelay() with
+usleep_range().
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+I hope this makes future checks with the style script cleaner and more
+helpfull.
+
+Panagiotis Gravias (3):
+  staging/fbtft: Remove prohibited space before close parenthesis
+  staging/fbtft: Align arguments to match open parenthesis
+  staging: fbtft: Replace udelay with usleep_range
+
+ drivers/staging/fbtft/fb_ra8875.c    |  4 ++--
+ drivers/staging/fbtft/fb_tinylcd.c   |  2 +-
+ drivers/staging/fbtft/fb_upd161704.c | 18 +++++++++---------
+ drivers/staging/fbtft/fbtft-bus.c    |  4 ++--
+ 4 files changed, 14 insertions(+), 14 deletions(-)
+
+-- 
+2.55.0
 
