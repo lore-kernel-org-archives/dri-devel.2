@@ -4,90 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D8E6C44513
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC5D3C44516
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C52C110F1F4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B551210F1EB;
 	Thu, 16 Jul 2026 08:19:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aMG0c0HX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DjUtYql7";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4361310E07F
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 14:42:52 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-383cb94f742so5152210a91.3
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 07:42:52 -0700 (PDT)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D60510E0E0
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 21:45:16 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2ceae1ed204so18232875ad.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 14:45:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784126572; x=1784731372; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=YFdvFy4JZmcJMIT1d11E7kO8Wgq6KQpSjvMclrKV/Fk=;
- b=aMG0c0HXaHDF3+UpuSbMgTebk/ETEZDMSeJLciYua9HHa7eVxqHHfW03HyZ3o55cLn
- Ru/AqnHsjhcUSQ/A3kUgsqKglh7Fus4l7t0j9giwuJhu/8z+XqKBGcckcvRv2ASVmlZp
- MT9yRcVAf3jcMsOGyFcdGKx9Rf4QC4+vKwTFHR3RQ6D+K5PTMGFAx3OeW5+e3QIpVe3S
- YcM2dw21IpiG1e+2sGiRS/VYKMtdRA4hz5eB3g1iMQlfceEWT1PJQJKRBiT5a4vnUI44
- 0VLIkLy2K1IyD4O5XAeSXujq1cQCt78ko16MbJSQYGXNXFDjatOVyjB+E4rMFC0kgKBO
- JiIg==
+ d=gmail.com; s=20251104; t=1784065516; x=1784670316; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:user-agent
+ :message-id:date:cc:to:from:subject:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=76ycW+rBxOZYacJ1Dbj+MtJGsoesj/kofKqPC3AXyqE=;
+ b=DjUtYql7HCRwn7/CEQpU4n/PCycgq3HpOS0lJ7Ont5F4TQ/vr+c3DkCu8RApWL8psX
+ uB1+oU88VGlFV1X0nd68zM9Spho3OQiL6GbP9hSYmmvkm293jdqjvi/Q+KmnMfsXLnvq
+ Kzv970wah9rhIy9QXkNbcFVN+/PcnJ8qTM/OMdyQa7Gw7DGh5ZFMdU8FdoRHzzvpzs3r
+ N62PYE4HeHQlr3znJJF5q/lW0HGxKKI5ZxgfLcDMY5n2VooBr54MMzvA8nNeTAElDowf
+ 2G9VS2Z6iRMzWz5fp14sm+e/00a5mLFshVWbRYePAgyYx7p3hWf9MLQIWZegnYZQtuac
+ LlXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784126572; x=1784731372;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=YFdvFy4JZmcJMIT1d11E7kO8Wgq6KQpSjvMclrKV/Fk=;
- b=BFI715mt7WUnxWLa4Cszdiqkfn5gCthrB3tu/f6OU/aooqnBl/z66JAHAeHtqKpDDq
- OfxQwT1jP3/aA1k8nC9L9F+aJg7vfzNegZdF43avq/9y++VIJtv50ccU5dl3KzF/gdgw
- UX85YAHVdtHBwaTDuOtZO9h3tb3PWJ0QzwxB2Dxzd8GcCKvEoMw7VEiEhJuYDhNYNOwa
- c7CjTMpxsC+rLU7XX3vYDay8pst6IlFdOMINO0AF97zRW1Fu+LeW+2F6kfVPEiQ34x7w
- /bQfp+xZYbCJJFV0/RQW0kfiTNQI7el9vuLs17+eO/TAc2cT99Uc/IKqanQdbkUv/CUH
- krwQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr3kdhPwYOu7LgaPa7z819FVYtZIk/5c4d7ihoe7bwWdPWVOlnv3ejwa/1u5KKqMhKyqGBXsPDmqIE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx8dIQMCKpS4tMIa7pu7LfL4uzRY2SxRwL4zZg6EMHH0vKifE2n
- g9RZFz6/HfNNHWpcLTHI5Yjh0bsqCmLCdWuflYwV8bgLy/NQm0A18LPd
-X-Gm-Gg: AfdE7cmQl6IAiNMnQrWFWB7Dadd3gL3tq92TqKGbg3QKlFrRc7JA/hdbKx956rL2aWX
- 4daNP0Sh1J4O5Ll3u1BlSShRiGQRsTitUCp87TRVkzCR0bNT0hu5RxVYDb5qVInWFrjmnhJHUrD
- vr10yX+RixPiF3KY2+W7ebeNIloO/pTyTVYf97ouxgb8/iTQnOs6CBXQffz999C9D2vmLuwTU/E
- 491SAxQKZDeqyw+u8pSX6ELQqh1ReToPRtwhUQ4XhdoICOSFzMe6Hg8jHO9KWJnqjnYDXrYv/Tx
- xKrx+VJOt6Yedh9ur6Bcz+weTioYX+qxJou3n7azhQdk1qef+WePq8bEBzokuNImqi8K2iVNq+e
- oqZDdz+i8TX/zIbClVA5DIUUHvhB3I2RQZgpFe+i3aiKcg21ss5/5+4pCOiJnok2CdZOBiQLGvp
- A2tSHc7vfPIRiWx2KTp/Bo2wOF0grc1twVJdTUvYkYAhVd6RFiO45jTac=
-X-Received: by 2002:a17:90b:2890:b0:37d:f983:7b5 with SMTP id
- 98e67ed59e1d1-38e29ff97b1mr2563808a91.9.1784126571549; 
- Wed, 15 Jul 2026 07:42:51 -0700 (PDT)
-Received: from skinsburskii (c-98-225-44-182.hsd1.wa.comcast.net.
+ d=1e100.net; s=20251104; t=1784065516; x=1784670316;
+ h=content-transfer-encoding:content-type:mime-version:user-agent
+ :message-id:date:cc:to:from:subject:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=76ycW+rBxOZYacJ1Dbj+MtJGsoesj/kofKqPC3AXyqE=;
+ b=HHRj6pA9Ki38hrZdyY2G0CQoM1KMhUb/Dp/xl6jbO6acUPi502wO/PsdukiSfEZr6A
+ sNuHkVmdgoR6uM/kPX0eqmrbp+OIG4PnIi3bu2HtymkZa/1cpy7ublHHiWE2XlHyzDJH
+ YFpWPVy5OB93sEPzzLawoQu6LBKTlryvnuGW1ih4cE/fOORQ1pXWBI/jtPtbmJcVSWeY
+ NYM2mzoiFdfy9AAZI+XuvKF7+uR2jlvQ7QfWV/ZisN2AqG6VEinK4zeWcw3EW6f+F5OX
+ 6rbYqzjM1LS00bIRj6mmtmDwZ//irWwuDcwsENPWVXbiwncdV91DmsFcgWH5OCvB4WdY
+ tYhw==
+X-Gm-Message-State: AOJu0YygUrpKG4N+xeRHfHHoU3tRDoDHbTyKGzcV1qfxmKgogoWngkgB
+ bMv8INSfiY6hbOoOvhxb9wK3hUIWgm1lFVmqJVb1JFbDFcmHLGWXgGfJ
+X-Gm-Gg: AfdE7cnTF+T9wxQu8aTHck4ibCFnntZ+zp9juM6fMqhZziiAAwWkJ9MI6AXf+T2M4Fy
+ gPONvk/9Q81DT+NXe6ay0cq6AwwqXbwFQWV8FOz/0hd+qpORRdWa3BwboBfv2oSJ6sFjc2tgxXk
+ QK9P+zP/CJ+gdZ2P+9f76Z1SD9QTjFXzSzzilj29NRxnGgbMNsRe5J+9RUDtsPTR4vOjYpZlg5Q
+ A8Zkx9P7s9ioeW5BKZXo/lPwPRF1FqYFYr1zslvBHGnWHVfAi8y36GOaKJnF7GhC2ow08uO1cn1
+ 6UMy5C89Sk1mJ6yzlG3cZ1wqnbejoR4IoxAfyiXfn7l7oQDyo1fVurLEcBwMGBgHlab2RP/5BDi
+ A7HvUifEPXDX5u9dbxs3pJ+Y2+OHclx2Xv2csB/yyXwBL4Gc3Y6eTI44LeoBAdELFsQyjrpk3PY
+ 01cB48JGOsIc0s98EmZWwszEz9P+g2OIohODwu87jjAluOj+1TZkOgbBBq8hE=
+X-Received: by 2002:a17:903:124c:b0:2ca:3e3f:4956 with SMTP id
+ d9443c01a7336-2ce9f184054mr145126485ad.44.1784065515909; 
+ Tue, 14 Jul 2026 14:45:15 -0700 (PDT)
+Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net.
  [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-38e172b6da2sm3320825a91.4.2026.07.15.07.42.49
+ d9443c01a7336-2ccc9d1e284sm123142975ad.40.2026.07.14.14.45.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jul 2026 07:42:51 -0700 (PDT)
-Date: Wed, 15 Jul 2026 07:42:48 -0700
+ Tue, 14 Jul 2026 14:45:15 -0700 (PDT)
+Subject: [PATCH] drm/gpusvm: Fix mm reference leak in range eviction
 From: Stanislav Kinsburskii <skinsburskii@gmail.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
- corbet@lwn.net, dakr@kernel.org, jgg@ziepe.ca, kees@kernel.org,
- leon@kernel.org, liam@infradead.org, lizhi.hou@amd.com,
- ljs@kernel.org, lyude@redhat.com, maarten.lankhorst@linux.intel.com,
- mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
- nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
- rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
- skhan@linuxfoundation.org, surenb@google.com, tzimmermann@suse.de,
- vbabka@kernel.org, dri-devel@lists.freedesktop.org,
- linux-mm@kvack.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-rdma@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] mm/hmm: Clarify notifier retry state and scope
- HMM timeouts
-Message-ID: <alecaJ1FUso39D9k@skinsburskii>
-References: <178406760622.1106335.2379450382728057793.stgit@skinsburskii>
- <4300f09b-8f93-4605-b072-7c09a82cb16e@kernel.org>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ skinsburskii@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-xe@lists.freedesktop.org
+Date: Tue, 14 Jul 2026 14:45:14 -0700
+Message-ID: <178406551216.1092539.5238081578161393168.stgit@skinsburskii>
+User-Agent: StGit/0.19
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4300f09b-8f93-4605-b072-7c09a82cb16e@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,65 +89,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 15, 2026 at 02:41:43PM +0200, David Hildenbrand (Arm) wrote:
-> On 7/15/26 00:21, Stanislav Kinsburskii wrote:
-> > This small fixup series applies on top of:
-> > 
-> >   [PATCH v8 0/8] mm/hmm: Add mmap lock-drop support for userfaultfd-backed mappings
-> > 
-> > The first patch updates the HMM documentation example to make the
-> > mmu_interval_read_retry() state explicit: callers should use the notifier and
-> > notifier_seq stored in the same hmm_range that was passed to
-> > hmm_range_fault_unlocked_timeout().
-> > 
-> > The remaining patches adjust nouveau, amdxdna, and drm_gpusvm users so the
-> > timeout passed to hmm_range_fault_unlocked_timeout() is treated as a relative
-> > HMM retry budget. These callers no longer keep an absolute deadline around
-> > their outer driver retry loops or pass a computed remaining time into HMM.
-> > 
-> > This keeps the timeout scoped to HMM's internal mmu-notifier retry handling. If
-> > HMM succeeds and the driver later observes an invalidation through
-> > mmu_interval_read_retry(), the driver retries the operation with a fresh HMM
-> > retry budget.
-> > 
-> > Changes in v2:
-> >   - Kept the nouveau outer absolute timeout around the
-> >     mmu_interval_read_retry() loop. hmm_range_fault_unlocked_timeout() only
-> >     bounds HMM’s internal retries, while nouveau faults are handled from a GPU
-> >     fault worker, so userspace fatal signals cannot break an endless stream of
-> >     invalidations there.
-> >   - Updated nouveau to use time_after_eq() before calling HMM, so the remaining
-> >     timeout passed to hmm_range_fault_unlocked_timeout() is always positive and
-> >     never 0, which would mean retry indefinitely.
-> >   - Updated the nouveau fixup commit message to explain the worker-thread
-> >     timeout issue and the time_after_eq() boundary behavior.
-> >   - Fixed the amdxdna fixup commit message. It now describes
-> >     aie2_populate_range() correctly instead of carrying stale nouveau prose,
-> >     and notes that command submission still keeps its broader timeout while HMM
-> >     gets a fresh relative retry budget.
-> > 
-> > 
-> > ---
-> > 
-> > Stanislav Kinsburskii (4):
-> >       fixup! mm/hmm: add hmm_range_fault_unlocked_timeout() for mmap lock-drop support
-> >       fixup! drm/nouveau: use hmm_range_fault_unlocked_timeout() for SVM faults
-> >       fixup! accel/amdxdna: use hmm_range_fault_unlocked_timeout() for range population
-> >       fixup! drm/gpusvm: use hmm_range_fault_unlocked_timeout() for range faults
-> 
-> Why a fixup series instead of properly resending the full thing?
-> 
+drm_gpusvm_range_evict() pins gpusvm->mm with mmget_not_zero() before
+allocating the temporary HMM PFN array. If that allocation fails, the
+function returns -ENOMEM directly and leaks the mm reference.
 
-The goal was to get a Sashiko review, and v8 has already been applied to
-both `mm-new` and `linux-next`.
+Route the allocation failure through the common mmput() path after
+initializing err to -ENOMEM. This preserves the returned error while
+balancing the mm reference acquired by mmget_not_zero().
 
-You can find more details here:
+Fixes: 99624bdff8670 ("drm/gpusvm: Add support for GPU Shared Virtual Memory")
+Cc: stable@vger.kernel.org
+Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
+---
+ drivers/gpu/drm/drm_gpusvm.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-  https://sashiko.dev/#/message/alaWmUEeIBeSkmO0%40skinsburskii
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index 76e8a0028c7f..1a8bb83bd28d 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -1715,7 +1715,7 @@ int drm_gpusvm_range_evict(struct drm_gpusvm *gpusvm,
+ 	unsigned long *pfns;
+ 	unsigned long npages = npages_in_range(drm_gpusvm_range_start(range),
+ 					       drm_gpusvm_range_end(range));
+-	int err = 0;
++	int err = -ENOMEM;
+ 	struct mm_struct *mm = gpusvm->mm;
+ 
+ 	if (!mmget_not_zero(mm))
+@@ -1723,12 +1723,13 @@ int drm_gpusvm_range_evict(struct drm_gpusvm *gpusvm,
+ 
+ 	pfns = kvmalloc_array(npages, sizeof(*pfns), GFP_KERNEL);
+ 	if (!pfns)
+-		return -ENOMEM;
++		goto put_mm;
+ 
+ 	hmm_range.hmm_pfns = pfns;
+ 	err = hmm_range_fault_unlocked_timeout(&hmm_range, timeout);
+ 
+ 	kvfree(pfns);
++put_mm:
+ 	mmput(mm);
+ 
+ 	return err == -EBUSY ? -ETIME : err;
 
-Thanks, Stanislav
 
-> -- 
-> Cheers,
-> 
-> David
