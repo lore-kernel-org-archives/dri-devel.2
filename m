@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 161D7C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 21:27:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0370CC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 21:28:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19BC010E0D4;
-	Tue, 14 Jul 2026 21:27:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47F3710EE46;
+	Tue, 14 Jul 2026 21:28:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sd1KjvXG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fj1ny07j";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3738D10E0D4
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 21:27:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B00D010EE46
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 21:28:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6D0E8601D9;
- Tue, 14 Jul 2026 21:27:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0397C1F000E9;
- Tue, 14 Jul 2026 21:27:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 09C30601D9;
+ Tue, 14 Jul 2026 21:28:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B44F1F000E9;
+ Tue, 14 Jul 2026 21:28:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784064423;
- bh=SvXDW7J7jPIWH484T3DKZdikgboJXt22Q+eqUYK+3zM=;
+ s=k20260515; t=1784064496;
+ bh=2f4HjWVUjLbB/FEPz13juu1OpUDPEMMqr2yXMY/H2JQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Sd1KjvXGxxmDRYEY5V+UBg9LGdr3KhOaL6QksqNy7xFtGoVj6vHN4DgFQplTMdaKH
- 0igNY0zZ3BxruOY+gJF8qEoapnN4B0b+xuuSkiEjliZQxouFzqb8zoOErNtvVGO0Ar
- wjTMPQ7rO8LGYE7NDsTlTfjdZ8+iuJNEvvfehLjGaWCrcX/FI7Uv5y3EtroHZR7b2d
- bI+jfA5Q5m+krIaBA888/1vcoTVf1cEdJtC1G5vSntf2l9RhBXrabb7cJbtMQFOv3R
- OkA6gvccCQdiqONEl6Ejm6XlH3EFh8o6WECYLU0meiMwfQ4u3XvyHEi2DsS2BGdaI3
- IgTTypTJ2V0Uw==
+ b=fj1ny07jP2biDeRsAa5+7oFUyr38HdZ1N49eFKktLX2BCp+0OxjWKJ0+C/gF4qRxo
+ XNfXpPq/eSkFcZ8ytPd+hEdMEFi1BIHOh9wWSiUUgz7BKPwaetl0Pws1Sr69/hwlV3
+ Xkjr2Iqr8Eh6jibB2O5l3eYgU9axZa0gUN5KrgA4RaKtOt3wN73ue7YIF2CKjVMADu
+ CNkaNjlQQ5EpeZW7sq8tQQ1O8SAUyHSMmnUvHda//duWMouSafcJUSnrkE/Z/wkJkN
+ 80GMyUqCUiUhFeSoSYqFazaiYEpLPvC/lpM4BJDwaf9SmW76JWTa6PmoRDpOZ/fcu9
+ 53pSpMH43TNnQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/6] drm/nouveau/gsp: add RUSD telemetry support
+Subject: Re: [PATCH 3/6] drm/nouveau: add GSP hwmon support
 To: "Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260714211429.238355-3-mohamedahmedegypt2001@gmail.com>
+In-Reply-To: <20260714211429.238355-4-mohamedahmedegypt2001@gmail.com>
 References: <20260714211429.238355-1-mohamedahmedegypt2001@gmail.com>
- <20260714211429.238355-3-mohamedahmedegypt2001@gmail.com>
+ <20260714211429.238355-4-mohamedahmedegypt2001@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 21:27:02 +0000
-Message-Id: <20260714212703.0397C1F000E9@smtp.kernel.org>
+Date: Tue, 14 Jul 2026 21:28:16 +0000
+Message-Id: <20260714212816.8B44F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,122 +57,156 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] Missing delay or CPU relax in bounded retry loop causes spurious=
- -EAGAIN on GSP-RM telemetry reads.
-- [Medium] Jiffies wrap-around edge case causes telemetry group to be prema=
-turely dropped.
+- [High] Legacy (pre-GSP) hardware exposes duplicate dummy temperature and =
+power sensor attributes.
+- [High] Unconditional 2-second timeout delay during driver initialization =
+if the GPU supports only thermal or only power telemetry.
+- [Medium] The hwmon sysfs read callbacks fail intermittently with -EAGAIN =
+when racing with GSP telemetry updates.
+- [Medium] The GSP 'temp1' label incorrectly reports 'GPU core' instead of =
+'gpu', leaving the new label definition as dead code.
 --
 
---- Patch [2]: [PATCH 2/6] drm/nouveau/gsp: add RUSD telemetry support ---
-commit e2f85d24749e78bb60d3f7f4d694be38a59b92af
+--- Patch [3]: [PATCH 3/6] drm/nouveau: add GSP hwmon support ---
+commit ceccedcbd9d07d5becab288795d358c7f8e9d71b
 Author: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
 
-drm/nouveau/gsp: add RUSD telemetry support
+drm/nouveau: add GSP hwmon support
 
-This commit adds RUSD telemetry support for GSP-RM by allocating a shared-d=
-ata
-buffer and enabling demand-driven polling of sensor data. It tracks group
-access and disables polling for groups that have been idle for a timeout pe=
-riod.
+This commit wires up the RUSD telemetry to provide hwmon device support
+for Turing through Blackwell boards. It adds temperature and power readout
+channels, aiming to leave legacy therm/volt/iccsense paths unchanged.
 
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/rusd.c b/dri=
-vers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/rusd.c
-> new file mode 100644
-> index 0000000000000..d20dda07596a0
-> --- /dev/null
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/rusd.c
-> @@ -0,0 +1,531 @@
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_hwmon.c b/drivers/gpu/drm/no=
+uveau/nouveau_hwmon.c
+> --- a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
+
 [ ... ]
-> +static void
-> +r570_rusd_poke(struct nvkm_gsp *gsp, enum nvkm_gsp_rusd_group group)
+
+> @@ -243,52 +250,144 @@ nouveau_chip_is_visible(const void *data, u32 attr=
+, int channel)
+
+[ ... ]
+
+> +static umode_t
+> +nouveau_power_is_visible(const void *data, u32 attr, int channel)
 > +{
-> +	mutex_lock(&gsp->rusd.mutex);
-> +	/* @valid (not gsp->running) is the teardown fence: it is cleared under
-> +	 * this mutex at the very start of fini, while gsp->running is still
-> +	 * true, so checking it here stops a read from enabling a group and
-> +	 * issuing a SET_DATA_POLL to a firmware that is being unloaded.
-> +	 */
-> +	if (gsp->rusd.valid) {
-> +		gsp->rusd.group_access[group] =3D jiffies;
-> +		r570_rusd_set_mask(gsp, gsp->rusd.mask | r570_rusd_group_mask[group]);
+
+[ ... ]
+
+> +	if (nvkm_gsp_rusd(gsp))
+> +		return nouveau_rusd_power_is_visible(gsp, attr, channel);
+> +	else {
+> +		if (!iccsense || !iccsense->data_valid || list_empty(&iccsense->rails))
+> +			return 0;
+> +
+> +		switch (attr) {
+> +		case hwmon_power_input:
+> +			return 0444;
+
+[Severity: High]
+Does this inadvertently expose dummy power sensors on pre-GSP hardware?
+
+The hwmon core iterates over the newly added channels in nouveau_info, but
+this legacy fallback branch in nouveau_power_is_visible() does not check the
+channel index. Because it unconditionally returns 0444 for hwmon_power_inpu=
+t,
+it advertises support for channels 1 and 2 on legacy boards, duplicating
+channel 0.
+
+A similar issue appears in nouveau_temp_is_visible() which returns 0444 for
+hwmon_temp_input regardless of the channel parameter.
+
+> @@ -368,47 +471,67 @@ nouveau_temp_read(struct device *dev, u32 attr, int=
+ channel, long *val)
+
+[ ... ]
+
+> +	if (nvkm_gsp_rusd(gsp)) {
+
+[ ... ]
+
+> +		ret =3D nvkm_gsp_rusd_read(gsp, channel ? NVKM_GSP_RUSD_TEMP_HBM :
+> +							NVKM_GSP_RUSD_TEMP_GPU, &value);
+> +		if (ret)
+> +			return ret;
 
 [Severity: Medium]
-If jiffies happens to be exactly 0 during this assignment, could it cause i=
-ssues
-in the idle worker below?
+Could this cause sporadic sensor read failures in userspace?
 
-> +		if (gsp->rusd.mask)
-> +			schedule_delayed_work(&gsp->rusd.work,
-> +					      msecs_to_jiffies(R570_RUSD_IDLE_MS));
+When userspace reads a sysfs attribute like temp1_input during a GSP write
+window, nvkm_gsp_rusd_read() returns -EAGAIN. Since there is no retry loop
+here in nouveau_temp_read() (unlike the one implemented in nouveau_rusd_ok()
+for initialization), does this directly fail the userspace read and cause
+monitoring tools to report errors?
+
+This pattern also appears in nouveau_rusd_power_read().
+
+> @@ -597,6 +770,8 @@ nouveau_is_visible(const void *data, enum hwmon_senso=
+r_types type, u32 attr,
+>  }
+> =20
+>  static const char input_label[] =3D "GPU core";
+> +static const char * const nouveau_temp_labels[] =3D { "gpu", "vram" };
+> +static const char * const nouveau_power_labels[] =3D { "gpu", "board", "=
+vram" };
+> =20
+>  static int
+>  nouveau_read_string(struct device *dev, enum hwmon_sensor_types type, u3=
+2 attr,
+> @@ -607,6 +782,18 @@ nouveau_read_string(struct device *dev, enum hwmon_s=
+ensor_types type, u32 attr,
+>  		return 0;
+>  	}
+> =20
+> +	if (type =3D=3D hwmon_temp && attr =3D=3D hwmon_temp_label &&
+> +	    channel < ARRAY_SIZE(nouveau_temp_labels)) {
+> +		*buf =3D nouveau_temp_labels[channel];
+> +		return 0;
 > +	}
-> +	mutex_unlock(&gsp->rusd.mutex);
-> +}
-> +
-> +/* Drop the groups that haven't been read within the idle window. */
-> +static void
-> +r570_rusd_work_drop_idle(struct work_struct *work)
-> +{
-> +	struct nvkm_gsp *gsp =3D container_of(to_delayed_work(work),
-> +					    struct nvkm_gsp, rusd.work);
-> +	unsigned long idle =3D msecs_to_jiffies(R570_RUSD_IDLE_MS);
-> +	u64 mask =3D 0;
-> +	int g;
-> +
-> +	mutex_lock(&gsp->rusd.mutex);
-> +	if (gsp->rusd.valid) {
-> +		for (g =3D 0; g < NVKM_GSP_RUSD_GROUP_COUNT; g++) {
-> +			if (gsp->rusd.group_access[g] &&
 
 [Severity: Medium]
-When jiffies wraps to 0, this check evaluates to false.=20
+Is the new label for temp1 unreachable for GSP boards?
 
-Will this cause the telemetry group to be prematurely dropped from the poll=
- mask
-until the next read cycle?
+Earlier in nouveau_read_string(), there is a check for channel =3D=3D 0:
 
-> +			    time_before(jiffies, gsp->rusd.group_access[g] + idle))
-> +				mask |=3D r570_rusd_group_mask[g];
-> +		}
+	if (type =3D=3D hwmon_temp && attr =3D=3D hwmon_temp_label && channel =3D=
+=3D 0) {
+		*buf =3D input_label;
+		return 0;
+	}
+
+Because that check intercepts channel 0 and returns "GPU core", does it
+prevent the execution of this new block and leave nouveau_temp_labels[0]
+("gpu") as dead code?
+
+> @@ -667,13 +854,39 @@ nouveau_hwmon_init(struct drm_device *dev)
+
 [ ... ]
-> +/*
-> + * Copy one section out of the shared buffer, untorn. Every section star=
-ts
-> + * with a u64 timestamp GSP-RM sets to WRITE_IN_PROGRESS while updating =
-it.
-> + */
-> +static int
-> +r570_rusd_read_section(struct nvkm_gsp *gsp, size_t offset, size_t size,=
- void *data)
-> +{
-> +	const void *sect =3D gsp->rusd.mem.data + offset;
-> +	u64 seq0, seq1;
-> +	int retries;
-> +
-> +	for (retries =3D 10; retries; retries--) {
-> +		seq0 =3D READ_ONCE(*(const u64 *)sect);
-> +		if (seq0 =3D=3D RUSD_TIMESTAMP_INVALID)
-> +			return -ENODATA;
-> +		if (seq0 =3D=3D RUSD_TIMESTAMP_WRITE_IN_PROGRESS)
-> +			continue;
 
-[Severity: Medium]
-Without a delay or cpu_relax() here, the 10 iterations will exhaust extreme=
-ly
-fast (in tens of nanoseconds).=20
+> +		for (;;) {
+> +			thermal =3D nouveau_rusd_ok(gsp, NVKM_GSP_RUSD_TEMP_GPU);
+> +			power =3D nouveau_rusd_ok(gsp, NVKM_GSP_RUSD_POWER_GPU) ||
+> +				nouveau_rusd_ok(gsp, NVKM_GSP_RUSD_POWER_GPU_AVG) ||
+> +				nouveau_rusd_ok(gsp, NVKM_GSP_RUSD_POWER_CAP);
+> +			if ((thermal && power) || !time_before(jiffies, timeout))
+> +				break;
+> +			msleep(20);
+> +		}
 
-Could this cause spurious -EAGAIN errors if the CPU spins through all retri=
-es
-before the GSP firmware has time to finish its memory write?
+[Severity: High]
+Will this loop introduce a noticeable boot delay on configurations that only
+support one of these telemetry features?
 
-> +		/* Sequence counters appear only in sections written by the kernel and
-> +		 * never in GSP-polled ones.
-> +		 */
-> +		if (seq0 >=3D RUSD_SEQ_START)
-> +			return -ENODATA;
-> +
+The loop condition requires both thermal and power telemetry to become valid
+to break early. If a GPU SKU natively supports only thermal or only power
+sensors, the missing feature will constantly fail the check. Will this
+unnecessarily block driver probe for the full timeout duration (typically
+2 seconds) before proceeding?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714211429.2383=
-55-1-mohamedahmedegypt2001@gmail.com?part=3D2
+55-1-mohamedahmedegypt2001@gmail.com?part=3D3
