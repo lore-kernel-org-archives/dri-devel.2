@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41F9EC44501
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:45:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 873E2C4450B
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 11:45:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B92D10ED16;
-	Tue, 14 Jul 2026 11:45:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B53F710ED05;
+	Tue, 14 Jul 2026 11:45:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LlyhAQnq";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Q1Y/xXKL";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DC3010E943
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:45:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF2BA10ED0A
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 11:45:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784029501;
- bh=5D+Qf4Et20xghm98yfTvt8wO500Jdq69jIvqY26Bkww=;
+ s=mail; t=1784029512;
+ bh=jnjb7bbDatkp6uQNXKXGwV1y5BumXKMOkUY3tqjagkc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LlyhAQnq5GRWIE5GTPTnQ7IyXKZJjgozxZGTGAxckNonc1Ad5XoBbnHEeAvTylG18
- azfayW4fGoNvMr6zcO5CMb7UMyMMGzvGvJP5cRq13LKDRL+AO0mFDuMi7rZEpScGhJ
- IL/qRn70yaXnE1VKswMXwuBjQips5s7FgeCFt7waf9qZ9bocD2QRioTqUj3SKHYL2s
- 1wNFqwJLGL6PCrrifHsUiVw1hn/mnyd5TAgVpqPH3rGNlF369h3PxIK/ktqxgQQ8os
- fDeMTd6E2q2NFnDjoAjRF7W7AUHVlddfj39yQVhCu2JLCod7smy84GnF/siobwIkwp
- pbzmswLg7gcRg==
+ b=Q1Y/xXKLqg/IU6n2kGO5lrH73oThhlyiKWjQv0fhZEQfla63I/OMkKtdRYIwiNMbk
+ 0RVHXEzfLmkb96Iav7Bg7bsX8TJZltvYYNNYEsI5LYtwUByWseIWYMKnT/5pjoBV7J
+ QrOmNlyrKOCnhAPCcv6NQ38HeIpCMqRc4BALWscODOaQcPsbXWfk6HRFOgAvA2bU04
+ LD0rH1uKI2UVxMu2AcJjw+f5A22D3MwsFWrxOQ7T5wfktn2rk0+uOVElf5A5Thg2Pi
+ 66fnabOlrkdZePBojfu96+QybhHpXcuNB6QlGkMLTK2GdJ5ZUIeh3w0qZH5Vupuej1
+ fk1PFCtPZuUyQ==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D01A917E0956;
- Tue, 14 Jul 2026 13:45:00 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 01DAE17E0F76;
+ Tue, 14 Jul 2026 13:45:11 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
@@ -42,10 +42,10 @@ Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
  jason-jh.lin@mediatek.com, kernel@collabora.com
-Subject: [PATCH v2 25/46] drm/mediatek: mtk_dpi: Fully separate HW setup from
- common code
-Date: Tue, 14 Jul 2026 13:43:53 +0200
-Message-ID: <20260714114414.184512-26-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v2 32/46] dt-bindings: display: mediatek: Introduce MT8196
+ extended DMA Engine
+Date: Tue, 14 Jul 2026 13:44:00 +0200
+Message-ID: <20260714114414.184512-33-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
 References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
@@ -66,307 +66,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As a preparation step for adding support for DVO and creating a
-mtk_dpi_common library, fully separate all of the register writing
-mechanisms from commonizable hardware setup functions.
-
-While at it, also perform some spare code style cleanups and also
-remove the mtk_dpi_config_vsync_{l,r}{odd,even}() functions and
-open-code the single line found in each of those, as now all of
-the parameters are clearly labeled and won't have any meaningful
-impact on human readability.
-
-This change brings no functional differences.
+Add documentation for the extended DMA Engine (exDMA) IP found in
+the newer generation SoCs like MT8196, MT8894, MT6991, and their
+variants.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_dpi.c | 172 ++++++++++++++---------------
- 1 file changed, 86 insertions(+), 86 deletions(-)
+ .../mediatek/mediatek,mt8196-exdma.yaml       | 104 ++++++++++++++++++
+ 1 file changed, 104 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-exdma.yaml
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dpi.c b/drivers/gpu/drm/mediatek/mtk_dpi.c
-index f1200d5f926a..c39e0b064b6f 100644
---- a/drivers/gpu/drm/mediatek/mtk_dpi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dpi.c
-@@ -246,33 +246,6 @@ static void mtk_dpi_config_vsync(struct mtk_dpi *dpi,
- 		     dpi->conf->dimension_mask << VSYNC_FRONT_PORCH_SHIFT);
- }
- 
--static void mtk_dpi_config_vsync_lodd(struct mtk_dpi *dpi,
--				      struct mtk_dpi_sync_param *sync)
--{
--	mtk_dpi_config_vsync(dpi, sync, DPI_TGEN_VWIDTH, DPI_TGEN_VPORCH);
--}
--
--static void mtk_dpi_config_vsync_leven(struct mtk_dpi *dpi,
--				       struct mtk_dpi_sync_param *sync)
--{
--	mtk_dpi_config_vsync(dpi, sync, DPI_TGEN_VWIDTH_LEVEN,
--			     DPI_TGEN_VPORCH_LEVEN);
--}
--
--static void mtk_dpi_config_vsync_rodd(struct mtk_dpi *dpi,
--				      struct mtk_dpi_sync_param *sync)
--{
--	mtk_dpi_config_vsync(dpi, sync, DPI_TGEN_VWIDTH_RODD,
--			     DPI_TGEN_VPORCH_RODD);
--}
--
--static void mtk_dpi_config_vsync_reven(struct mtk_dpi *dpi,
--				       struct mtk_dpi_sync_param *sync)
--{
--	mtk_dpi_config_vsync(dpi, sync, DPI_TGEN_VWIDTH_REVEN,
--			     DPI_TGEN_VPORCH_REVEN);
--}
--
- static void mtk_dpi_config_pol(struct mtk_dpi *dpi,
- 			       struct mtk_dpi_polarities *dpi_pol)
- {
-@@ -311,30 +284,15 @@ static void mtk_dpi_config_fb_size(struct mtk_dpi *dpi, u32 width, u32 height)
- 		     dpi->conf->hvsize_mask << VSIZE);
- }
- 
--static void mtk_dpi_config_channel_limit(struct mtk_dpi *dpi)
-+static void mtk_dpi_config_channel_limit(struct mtk_dpi *dpi, struct mtk_dpi_yc_limit *limit)
- {
--	struct mtk_dpi_yc_limit limit;
--
--	if (drm_default_rgb_quant_range(&dpi->mode) ==
--	    HDMI_QUANTIZATION_RANGE_LIMITED) {
--		limit.y_bottom = 0x10;
--		limit.y_top = 0xfe0;
--		limit.c_bottom = 0x10;
--		limit.c_top = 0xfe0;
--	} else {
--		limit.y_bottom = 0;
--		limit.y_top = 0xfff;
--		limit.c_bottom = 0;
--		limit.c_top = 0xfff;
--	}
--
--	mtk_dpi_mask(dpi, DPI_Y_LIMIT, limit.y_bottom << Y_LIMINT_BOT,
-+	mtk_dpi_mask(dpi, DPI_Y_LIMIT, limit->y_bottom << Y_LIMINT_BOT,
- 		     Y_LIMINT_BOT_MASK);
--	mtk_dpi_mask(dpi, DPI_Y_LIMIT, limit.y_top << Y_LIMINT_TOP,
-+	mtk_dpi_mask(dpi, DPI_Y_LIMIT, limit->y_top << Y_LIMINT_TOP,
- 		     Y_LIMINT_TOP_MASK);
--	mtk_dpi_mask(dpi, DPI_C_LIMIT, limit.c_bottom << C_LIMIT_BOT,
-+	mtk_dpi_mask(dpi, DPI_C_LIMIT, limit->c_bottom << C_LIMIT_BOT,
- 		     C_LIMIT_BOT_MASK);
--	mtk_dpi_mask(dpi, DPI_C_LIMIT, limit.c_top << C_LIMIT_TOP,
-+	mtk_dpi_mask(dpi, DPI_C_LIMIT, limit->c_top << C_LIMIT_TOP,
- 		     C_LIMIT_TOP_MASK);
- }
- 
-@@ -516,7 +474,6 @@ static void mtk_dpi_power_off(struct mtk_dpi *dpi)
- 	if (--dpi->refcount != 0)
- 		return;
- 
--	mtk_dpi_disable(dpi);
- 	clk_disable_unprepare(dpi->pixel_clk);
- 	clk_disable_unprepare(dpi->tvd_clk);
- 	clk_disable_unprepare(dpi->engine_clk);
-@@ -607,40 +564,40 @@ static void mtk_dpi_set_pixel_clk(struct mtk_dpi *dpi, struct videomode *vm, int
- 		pll_rate, vm->pixelclock);
- }
- 
--static int mtk_dpi_set_display_mode(struct mtk_dpi *dpi,
-+static int mtk_dpi_set_display_mode(struct mtk_dpi *dpi, struct videomode *vm,
- 				    struct mtk_dpi_sync *sync,
--				    struct drm_display_mode *mode)
-+				    struct mtk_dpi_polarities *dpi_pol,
-+				    struct mtk_dpi_yc_limit *limit)
- {
--	struct mtk_dpi_polarities dpi_pol;
--	struct videomode vm = { 0 };
-+	struct drm_display_mode *mode = &dpi->mode;
- 
--	drm_display_mode_to_videomode(mode, &vm);
-+	drm_display_mode_to_videomode(mode, vm);
- 
- 	if (!dpi->conf->clocked_by_hdmi)
--		mtk_dpi_set_pixel_clk(dpi, &vm, mode->clock);
-+		mtk_dpi_set_pixel_clk(dpi, vm, mode->clock);
- 
--	dpi_pol.ck_pol = MTK_DPI_POLARITY_FALLING;
--	dpi_pol.de_pol = MTK_DPI_POLARITY_RISING;
--	dpi_pol.hsync_pol = vm.flags & DISPLAY_FLAGS_HSYNC_HIGH ?
-+	dpi_pol->ck_pol = MTK_DPI_POLARITY_FALLING;
-+	dpi_pol->de_pol = MTK_DPI_POLARITY_RISING;
-+	dpi_pol->hsync_pol = vm->flags & DISPLAY_FLAGS_HSYNC_HIGH ?
- 			    MTK_DPI_POLARITY_FALLING : MTK_DPI_POLARITY_RISING;
--	dpi_pol.vsync_pol = vm.flags & DISPLAY_FLAGS_VSYNC_HIGH ?
-+	dpi_pol->vsync_pol = vm->flags & DISPLAY_FLAGS_VSYNC_HIGH ?
- 			    MTK_DPI_POLARITY_FALLING : MTK_DPI_POLARITY_RISING;
- 
- 	/*
- 	 * Depending on the IP version, we may output a different amount of
- 	 * pixels for each iteration: adjust the display porches accordingly.
- 	 */
--	sync->hsync.sync_width = vm.hsync_len / dpi->conf->pixels_per_iter;
--	sync->hsync.back_porch = vm.hback_porch / dpi->conf->pixels_per_iter;
--	sync->hsync.front_porch = vm.hfront_porch / dpi->conf->pixels_per_iter;
-+	sync->hsync.sync_width = vm->hsync_len / dpi->conf->pixels_per_iter;
-+	sync->hsync.back_porch = vm->hback_porch / dpi->conf->pixels_per_iter;
-+	sync->hsync.front_porch = vm->hfront_porch / dpi->conf->pixels_per_iter;
- 	sync->hsync.shift_half_line = false;
- 
--	sync->vsync_l_odd.sync_width = vm.vsync_len;
--	sync->vsync_l_odd.back_porch = vm.vback_porch;
--	sync->vsync_l_odd.front_porch = vm.vfront_porch;
-+	sync->vsync_l_odd.sync_width = vm->vsync_len;
-+	sync->vsync_l_odd.back_porch = vm->vback_porch;
-+	sync->vsync_l_odd.front_porch = vm->vfront_porch;
- 	sync->vsync_l_odd.shift_half_line = false;
- 
--	if (vm.flags & DISPLAY_FLAGS_INTERLACED) {
-+	if (vm->flags & DISPLAY_FLAGS_INTERLACED) {
- 		sync->vsync_l_even = sync->vsync_l_odd;
- 		sync->vsync_l_even.shift_half_line = true;
- 
-@@ -653,27 +610,55 @@ static int mtk_dpi_set_display_mode(struct mtk_dpi *dpi,
- 		sync->vsync_r_odd = sync->vsync_l_odd;
- 	}
- 
-+	if (drm_default_rgb_quant_range(&dpi->mode) == HDMI_QUANTIZATION_RANGE_LIMITED) {
-+		limit->y_bottom = 0x10;
-+		limit->y_top = 0xfe0;
-+		limit->c_bottom = 0x10;
-+		limit->c_top = 0xfe0;
-+	} else {
-+		limit->y_bottom = 0;
-+		limit->y_top = 0xfff;
-+		limit->c_bottom = 0;
-+		limit->c_top = 0xfff;
-+	}
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-exdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-exdma.yaml
+new file mode 100644
+index 000000000000..d56bcd2f2b2e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-exdma.yaml
+@@ -0,0 +1,104 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/mediatek/mediatek,mt8196-exdma.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	return 0;
-+}
++title: MediaTek Display Overlay extended DMA (exDMA) Engine
 +
-+static void mtk_dpi_config_hw(struct mtk_dpi *dpi,
-+			      struct videomode *vm, struct mtk_dpi_sync *sync,
-+			      struct mtk_dpi_polarities *dpi_pol,
-+			      struct mtk_dpi_yc_limit *limit)
-+{
-+	struct drm_display_mode *mode = &dpi->mode;
-+	u32 vactive = vm->vactive;
++maintainers:
++  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 +
- 	mtk_dpi_sw_reset(dpi, true);
--	mtk_dpi_config_pol(dpi, &dpi_pol);
-+	mtk_dpi_config_pol(dpi, dpi_pol);
- 
- 	mtk_dpi_config_hsync(dpi, &sync->hsync);
--	mtk_dpi_config_vsync_lodd(dpi, &sync->vsync_l_odd);
--	mtk_dpi_config_vsync_rodd(dpi, &sync->vsync_r_odd);
--	mtk_dpi_config_vsync_leven(dpi, &sync->vsync_l_even);
--	mtk_dpi_config_vsync_reven(dpi, &sync->vsync_r_even);
++description:
++  The MediaTek Display Overlay extended DMA (exDMA) Engine hardware is used
++  to configure the Display Controller to read the data from DRAM to perform
++  layer overlaying.
++  This hardware also includes color conversion functions to output pixels
++  processed into a consistent color domain.
 +
-+	mtk_dpi_config_vsync(dpi, &sync->vsync_l_odd,
-+			     DPI_TGEN_VWIDTH, DPI_TGEN_VPORCH);
-+	mtk_dpi_config_vsync(dpi, &sync->vsync_r_odd,
-+			     DPI_TGEN_VWIDTH_RODD, DPI_TGEN_VPORCH_RODD);
-+	mtk_dpi_config_vsync(dpi, &sync->vsync_l_even,
-+			     DPI_TGEN_VWIDTH_LEVEN, DPI_TGEN_VPORCH_LEVEN);
-+	mtk_dpi_config_vsync(dpi, &sync->vsync_r_even,
-+			     DPI_TGEN_VWIDTH_REVEN, DPI_TGEN_VPORCH_REVEN);
- 
- 	mtk_dpi_config_3d(dpi, !!(mode->flags & DRM_MODE_FLAG_3D_MASK));
--	mtk_dpi_config_interface(dpi, !!(vm.flags &
--					 DISPLAY_FLAGS_INTERLACED));
--	if (vm.flags & DISPLAY_FLAGS_INTERLACED)
--		mtk_dpi_config_fb_size(dpi, vm.hactive, vm.vactive >> 1);
--	else
--		mtk_dpi_config_fb_size(dpi, vm.hactive, vm.vactive);
-+	mtk_dpi_config_interface(dpi, !!(vm->flags & DISPLAY_FLAGS_INTERLACED));
++properties:
++  compatible:
++    const: mediatek,mt8196-disp-exdma
 +
-+	if (vm->flags & DISPLAY_FLAGS_INTERLACED)
-+		vactive >>= 1;
- 
--	mtk_dpi_config_channel_limit(dpi);
-+	mtk_dpi_config_fb_size(dpi, vm->hactive, vactive);
-+	mtk_dpi_config_channel_limit(dpi, limit);
- 	mtk_dpi_config_bit_num(dpi, dpi->bit_num);
- 	mtk_dpi_config_channel_swap(dpi, dpi->channel_swap);
- 	mtk_dpi_config_color_format(dpi, dpi->color_format);
++  reg:
++    maxItems: 1
 +
- 	if (dpi->conf->support_direct_pin) {
- 		mtk_dpi_config_yc_map(dpi, dpi->yc_map);
- 		mtk_dpi_config_2n_h_fre(dpi);
-@@ -686,13 +671,13 @@ static int mtk_dpi_set_display_mode(struct mtk_dpi *dpi,
- 
- 		mtk_dpi_config_disable_edge(dpi);
- 	}
--	if (dpi->conf->input_2p_en_bit) {
++  "#dma-cells":
++    maxItems: 1
 +
-+	if (dpi->conf->input_2p_en_bit)
- 		mtk_dpi_mask(dpi, DPI_CON, dpi->conf->input_2p_en_bit,
- 			     dpi->conf->input_2p_en_bit);
--	}
--	mtk_dpi_sw_reset(dpi, false);
- 
--	return 0;
-+	mtk_dpi_sw_reset(dpi, false);
-+	return;
- }
- 
- static u32 *mtk_dpi_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
-@@ -855,6 +840,7 @@ static void mtk_dpi_bridge_disable(struct drm_bridge *bridge)
- {
- 	struct mtk_dpi *dpi = bridge_to_dpi(bridge);
- 
-+	mtk_dpi_disable(dpi);
- 	mtk_dpi_power_off(dpi);
- 
- 	if (dpi->pinctrl && dpi->pins_gpio)
-@@ -864,13 +850,22 @@ static void mtk_dpi_bridge_disable(struct drm_bridge *bridge)
- static void mtk_dpi_bridge_enable(struct drm_bridge *bridge)
- {
- 	struct mtk_dpi *dpi = bridge_to_dpi(bridge);
-+	struct mtk_dpi_polarities dpi_pol;
- 	struct mtk_dpi_sync sync = { 0 };
-+	struct mtk_dpi_yc_limit limit;
-+	struct videomode vm;
- 
- 	if (dpi->pinctrl && dpi->pins_dpi)
- 		pinctrl_select_state(dpi->pinctrl, dpi->pins_dpi);
- 
- 	mtk_dpi_power_on(dpi);
--	mtk_dpi_set_display_mode(dpi, &sync, &dpi->mode);
++  clocks:
++    maxItems: 1
 +
-+	/* Set pixel clock and initialize parameters to send to the HW */
-+	mtk_dpi_set_display_mode(dpi, &vm, &sync, &dpi_pol, &limit);
++  power-domains:
++    maxItems: 1
 +
-+	/* Format and send the parameters to the HW */
-+	mtk_dpi_config_hw(dpi, &vm, &sync, &dpi_pol, &limit);
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
 +
- 	mtk_dpi_enable(dpi);
- }
- 
-@@ -1003,16 +998,21 @@ void mtk_dpi_start(struct device *dev)
- {
- 	struct mtk_dpi *dpi = dev_get_drvdata(dev);
- 
--	if (!dpi->conf->clocked_by_hdmi)
--		mtk_dpi_power_on(dpi);
-+	if (dpi->conf->clocked_by_hdmi)
-+		return;
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
 +
-+	mtk_dpi_power_on(dpi);
- }
- 
- void mtk_dpi_stop(struct device *dev)
- {
- 	struct mtk_dpi *dpi = dev_get_drvdata(dev);
- 
--	if (!dpi->conf->clocked_by_hdmi)
--		mtk_dpi_power_off(dpi);
-+	if (dpi->conf->clocked_by_hdmi)
-+		return;
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
 +
-+	mtk_dpi_disable(dpi);
-+	mtk_dpi_power_off(dpi);
- }
- 
- unsigned int mtk_dpi_encoder_index(struct device *dev)
++    required:
++      - port@0
++      - port@1
++
++  trigger-sources:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - "#dma-cells"
++  - clocks
++  - clock-names
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/mediatek,mt8196-clock.h>
++    #include <dt-bindings/power/mediatek,mt8196-power.h>
++
++    dma-controller@32850000 {
++        compatible = "mediatek,mt8196-disp-exdma";
++        reg = <0x32850000 0x1000>;
++        #dma-cells = <1>;
++        clocks = <&ovlsys0 CLK_OVL_EXDMA2>;
++        power-domains = <&hpm_hwv MT8196_POWER_DOMAIN_OVL0_DORMANT>;
++        trigger-sources = <&ovl0_mutex 2>;
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                #address-cells = <1>;
++                #size-cells = <0>;
++                reg = <0>;
++
++                endpoint@0 {
++                    reg = <0>;
++                    remote-endpoint = <&ovl0_resizer0_out>;
++                };
++            };
++
++            port@1 {
++                #address-cells = <1>;
++                #size-cells = <0>;
++                reg = <1>;
++
++                endpoint@0 {
++                    reg = <0>;
++                    remote-endpoint = <&blender0_1_in>;
++                };
++            };
++        };
++    };
++
++...
 -- 
 2.54.0
 
