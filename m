@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A4DBC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 20:24:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A9AAC44507
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 20:27:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B556E882D0;
-	Tue, 14 Jul 2026 20:24:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8070C10E0C8;
+	Tue, 14 Jul 2026 20:27:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QU5qSweR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b/gsEeto";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B44C10E096
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 20:24:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2463310E096
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 20:27:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 81B4760103;
- Tue, 14 Jul 2026 20:24:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15D851F000E9;
- Tue, 14 Jul 2026 20:24:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D154D43962;
+ Tue, 14 Jul 2026 20:27:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 942241F00A3A;
+ Tue, 14 Jul 2026 20:27:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784060656;
- bh=+apwg8Fe1wTRyIxb1Wx/HRBQmjnk5ZMI+G9B0y0OaEk=;
+ s=k20260515; t=1784060828;
+ bh=ZwetuVAOsNI5iXtnhWONllCRufW52bqjWMCknfoR9r4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QU5qSweRw8YtbAwnXonZeHTfS4hbPkRiwThtLruEoFhKc1tu8ic3eRHTRViq+os1D
- eTclpQEmKYIT4i2FtA0X8qRbqeGbwS9/iVAEKEQwFIifxIWRTaqRm5vvs20uVrVsee
- jBF1robR0zQk7LqUgiSNcLG/ijF5G3WO+6sx4DD4worLurEPuNGQlP5JHu8U8Hpm1l
- 5dxkDr4+T3cYp7TZcrSWH++xVlxFhnfsUWr18m+dhK3jj+gZtPDuFX48ow1mPhIT6/
- C5rR7tsQcMNS76zBpDAj9dAHwp18ziZFq9RpltXGAIpb1N7mLLvm4+15lsLtP1OssC
- VJE7FiqVFfirQ==
+ b=b/gsEeto9GcCaSuNC4r1vn4/Fl3VBH96W/DnIEGuSWUa/fQvlk/t5zXBz/3WG+tfU
+ lNQifEnVsaiFwtaAMe9JH5PBhFcc6CvVpbQTCuktkN95H4dwoIz7XxEwqG3rMSrXcn
+ Vx1SGkjZ9nncN1DcbkKmXUuMvpaMgMwtH05w5a0YqgKC+IQtZDLz48nxrZt1Y1MqPd
+ mP5QT/fyUOoeSOnH/wgHeY4YnL/zReLJQ0NEwwO8kSIm8xTeSEqtcDGkceULwHX06S
+ YRAq5fI3NYTQ2cofo0ZAD+R9rJVPgCKeT0cL+Oos+XIzS/hmwjLXP/f/9YIPq35y4W
+ 1NEC5/xfvLrDA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] fixup! drm/gpusvm: use
- hmm_range_fault_unlocked_timeout() for range faults
+Subject: Re: [PATCH 3/4] fixup! accel/amdxdna: use
+ hmm_range_fault_unlocked_timeout() for range population
 To: "Stanislav Kinsburskii" <skinsburskii@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <178406003318.1082778.16211328573488321338.stgit@skinsburskii>
+In-Reply-To: <178406002613.1082778.11295976907808029605.stgit@skinsburskii>
 References: <178405975214.1082778.5193079941156341151.stgit@skinsburskii>
- <178406003318.1082778.16211328573488321338.stgit@skinsburskii>
+ <178406002613.1082778.11295976907808029605.stgit@skinsburskii>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 20:24:15 +0000
-Message-Id: <20260714202416.15D851F000E9@smtp.kernel.org>
+Date: Tue, 14 Jul 2026 20:27:08 +0000
+Message-Id: <20260714202708.942241F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,112 +58,47 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] drm_gpusvm passes uninitialized pfns arrays to hmm_range_fault, ca=
-using unintended page faults and write requests.
-- [High] Memory leak of `mm_struct` in `drm_gpusvm_range_evict` on allocati=
-on failure.
+- [Medium] The commit message describes changes to the nouveau driver, but =
+the patch modifies the amdxdna driver.
 --
 
---- Patch [4]: [PATCH 4/4] fixup! drm/gpusvm: use hmm_range_fault_unlocked_=
-timeout() for range faults ---
-commit afecb2c70fcbb0789fe0b4b948e05bb9f8070c63
+--- Patch [3]: [PATCH 3/4] fixup! accel/amdxdna: use hmm_range_fault_unlock=
+ed_timeout() for range population ---
+commit b015bb79070e6f1c36006ca6ff7e7e113d7ecbd7
 Author: Stanislav Kinsburskii <skinsburskii@gmail.com>
 
-fixup! drm/gpusvm: use hmm_range_fault_unlocked_timeout() for range faults
+fixup! accel/amdxdna: use hmm_range_fault_unlocked_timeout() for range popu=
+lation
 
-The patch removes the outer deadline tracking from hmm_range_fault loops
-and passes msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT) directly to each
-hmm_range_fault_unlocked_timeout() call. This avoids accounting for outer
-driver retry logic inside the HMM retry budget.
+This commit updates the hmm_range_fault_unlocked_timeout() usage to pass
+the full timeout value on each retry attempt. It also removes the open-coded
+absolute deadline and remaining-time calculation from the range population =
+path.
 
-> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-> index b8f2dd9982f53..76e8a0028c7fc 100644
-> --- a/drivers/gpu/drm/drm_gpusvm.c
-> +++ b/drivers/gpu/drm/drm_gpusvm.c
-> @@ -867,8 +866,7 @@ enum drm_gpusvm_scan_result drm_gpusvm_scan_mm(struct=
- drm_gpusvm_range *range,
->  	hmm_range.hmm_pfns =3D pfns;
-> =20
->  retry:
-> -	err =3D hmm_range_fault_unlocked_timeout(&hmm_range,
-> -					       max(timeout - jiffies, 1L));
-> +	err =3D hmm_range_fault_unlocked_timeout(&hmm_range, timeout);
+> nouveau_range_fault() now uses hmm_range_fault_unlocked_timeout() for
+> the HMM fault path. The timeout passed to that helper is meant to bound
+> HMM's internal mmu-notifier retry loop, not the whole nouveau retry loop
+> around mmu_interval_read_retry().
+>=20
+> Pass the full relative HMM_RANGE_DEFAULT_TIMEOUT value to
+> hmm_range_fault_unlocked_timeout() on each attempt, and retry from the
+> nouveau-side mmu_interval_read_retry() check with a fresh HMM retry
+> budget. This lets HMM continue when it has made progress, while still
+> preserving a timeout for repeated notifier invalidation retries inside
+> one HMM fault attempt.
+>=20
+> This also removes the open-coded absolute deadline and remaining-time
+> calculation from nouveau_range_fault().
 
-[Severity: High]
-This is a pre-existing issue, but does using kvmalloc_array() without
-zeroing memory cause unintended page faults?
-
-HMM reads hmm_pfns as input to determine per-page fault requests. The
-uninitialized memory can contain random bits like HMM_PFN_REQ_FAULT or
-HMM_PFN_REQ_WRITE, potentially triggering unintended faults or violating
-read-only mapping constraints.=20
-
-Additionally, the retry loop reuses output flags (HMM_PFN_VALID), which
-aliases with HMM_PFN_REQ_FAULT (both are the MSB), unintentionally forcing
-faults on previously valid pages during a scan.
-
-Should this allocate with kvcalloc() instead?
-
-[ ... ]
-
-> @@ -1495,8 +1489,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
->  	}
-> =20
->  	hmm_range.hmm_pfns =3D pfns;
-> -	err =3D hmm_range_fault_unlocked_timeout(&hmm_range,
-> -				max_t(long, timeout - jiffies, 1));
-> +	err =3D hmm_range_fault_unlocked_timeout(&hmm_range, timeout);
-
-[Severity: High]
-This is also a pre-existing issue, but similar to drm_gpusvm_scan_mm(),
-pfns is allocated with kvmalloc_array() earlier in drm_gpusvm_get_pages()
-and passed to hmm_range_fault_unlocked_timeout() here.
-
-Could this uninitialized memory cause unintended write requests or page
-faults?
-
-[ ... ]
-
-> @@ -1734,8 +1726,7 @@ int drm_gpusvm_range_evict(struct drm_gpusvm *gpusv=
-m,
->  		return -ENOMEM;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does returning -ENOMEM here
-leak the mm_struct?
-
-Earlier in drm_gpusvm_range_evict(), mmget_not_zero(mm) increments the
-reference count:
-
-	if (!mmget_not_zero(mm))
-		return -EFAULT;
-
-	pfns =3D kvmalloc_array(npages, sizeof(*pfns), GFP_KERNEL);
-	if (!pfns)
-		return -ENOMEM;
-
-If the kvmalloc_array() allocation for pfns fails, it returns directly
-without calling mmput(mm).
-
-> =20
->  	hmm_range.hmm_pfns =3D pfns;
-> -	err =3D hmm_range_fault_unlocked_timeout(&hmm_range,
-> -				max_t(long, timeout - jiffies, 1));
-> +	err =3D hmm_range_fault_unlocked_timeout(&hmm_range, timeout);
-
-[Severity: High]
-This is a pre-existing issue, but again, pfns is allocated with
-kvmalloc_array() and passed here. Does this need to be kvcalloc() to
-prevent uninitialized memory from causing unintended page faults?
-
-> =20
->  	kvfree(pfns);
->  	mmput(mm);
+[Severity: Medium]
+Is this description meant for a different patch? The commit message describ=
+es
+changes to nouveau_range_fault() and the nouveau driver, but the actual pat=
+ch
+modifies aie2_populate_range() in the amdxdna driver.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/178405975214.108277=
-8.5193079941156341151.stgit@skinsburskii?part=3D4
+8.5193079941156341151.stgit@skinsburskii?part=3D3
