@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85F05C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 21:24:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 161D7C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 21:27:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DE4B10E05B;
-	Tue, 14 Jul 2026 21:24:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19BC010E0D4;
+	Tue, 14 Jul 2026 21:27:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C61gt7DZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sd1KjvXG";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B348710E05B
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 21:23:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3738D10E0D4
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 21:27:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E3032601ED;
- Tue, 14 Jul 2026 21:23:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705981F00A3A;
- Tue, 14 Jul 2026 21:23:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6D0E8601D9;
+ Tue, 14 Jul 2026 21:27:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0397C1F000E9;
+ Tue, 14 Jul 2026 21:27:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784064237;
- bh=0qUhpyea9DsRFaa7i1kducwt5pAUOhEVL+D/nERV39U=;
+ s=k20260515; t=1784064423;
+ bh=SvXDW7J7jPIWH484T3DKZdikgboJXt22Q+eqUYK+3zM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=C61gt7DZRJdlF80q46ZTG1mVIVL0zkHDcitWfitXzejbqspGxfwLP/1Mdz5s7DwRp
- QI3d8RNCNRmPW2dxzo1PoMP4Z/1K0QzYyqbsst31cohGpm+KtiVnQi1qejLvXeBkC+
- +0K0Psn2hjUCBCDHn3uWSprlq2kX7/yXvimrxPGlmKFThqlC9cOWk6JBNrXUtigOI8
- y7foO4COy/4tycrPq8blIVgFEJDcTL/buZJF6Ft+5vOo5vAXKysWsQ0OQcwwV2DVwx
- WdCLRxSLZxAltfuVIWdYlvsQipp5BiJE4/Yo6SWo7gurUgQZpdxDm6ytIltCQmHrc0
- j33g+M/HrwKAg==
+ b=Sd1KjvXGxxmDRYEY5V+UBg9LGdr3KhOaL6QksqNy7xFtGoVj6vHN4DgFQplTMdaKH
+ 0igNY0zZ3BxruOY+gJF8qEoapnN4B0b+xuuSkiEjliZQxouFzqb8zoOErNtvVGO0Ar
+ wjTMPQ7rO8LGYE7NDsTlTfjdZ8+iuJNEvvfehLjGaWCrcX/FI7Uv5y3EtroHZR7b2d
+ bI+jfA5Q5m+krIaBA888/1vcoTVf1cEdJtC1G5vSntf2l9RhBXrabb7cJbtMQFOv3R
+ OkA6gvccCQdiqONEl6Ejm6XlH3EFh8o6WECYLU0meiMwfQ4u3XvyHEi2DsS2BGdaI3
+ IgTTypTJ2V0Uw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/6] drm/nouveau/gsp: vendor the RUSD header
+Subject: Re: [PATCH 2/6] drm/nouveau/gsp: add RUSD telemetry support
 To: "Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260714211429.238355-2-mohamedahmedegypt2001@gmail.com>
+In-Reply-To: <20260714211429.238355-3-mohamedahmedegypt2001@gmail.com>
 References: <20260714211429.238355-1-mohamedahmedegypt2001@gmail.com>
- <20260714211429.238355-2-mohamedahmedegypt2001@gmail.com>
+ <20260714211429.238355-3-mohamedahmedegypt2001@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 21:23:57 +0000
-Message-Id: <20260714212357.705981F00A3A@smtp.kernel.org>
+Date: Tue, 14 Jul 2026 21:27:02 +0000
+Message-Id: <20260714212703.0397C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,84 +59,120 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] 32-bit platform ABI mismatch in shared telemetry buffer layout due=
- to missing struct padding, leading to memory corruption.
-- [Medium] RUSD telemetry structures use native integer types, masking endi=
-anness mismatches on big-endian architectures.
+- [Medium] Missing delay or CPU relax in bounded retry loop causes spurious=
+ -EAGAIN on GSP-RM telemetry reads.
+- [Medium] Jiffies wrap-around edge case causes telemetry group to be prema=
+turely dropped.
 --
 
---- Patch [1]: [PATCH 1/6] drm/nouveau/gsp: vendor the RUSD header ---
-commit c1a3b8ad153588da7ba08ef117defa77f7ba5f2d
+--- Patch [2]: [PATCH 2/6] drm/nouveau/gsp: add RUSD telemetry support ---
+commit e2f85d24749e78bb60d3f7f4d694be38a59b92af
 Author: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
 
-drm/nouveau/gsp: vendor the RUSD header
+drm/nouveau/gsp: add RUSD telemetry support
 
-RM User Shared Data (RUSD) is GSP-RM's telemetry channel: the kernel
-hands the firmware a buffer and the firmware fills it with telemetry
-data (temperatures, power draw, power limits, clocks, utilizations,
-etc) on its own timer. This commit vendors the ABI needed to use it
-from the 570.144 tag of NVIDIA's open-gpu-kernel-modules.
+This commit adds RUSD telemetry support for GSP-RM by allocating a shared-d=
+ata
+buffer and enabling demand-driven polling of sensor data. It tracks group
+access and disables polling for groups that have been idle for a timeout pe=
+riod.
 
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/rusd.h =
-b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/rusd.h
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/rusd.c b/dri=
+vers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/rusd.c
 > new file mode 100644
-> index 0000000000000..9f1099a064301
+> index 0000000000000..d20dda07596a0
 > --- /dev/null
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/rusd.h
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/rusd.c
+> @@ -0,0 +1,531 @@
 [ ... ]
-> +typedef enum RUSD_TEMPERATURE_TYPE {
-> +   RUSD_TEMPERATURE_TYPE_GPU,
-> +   RUSD_TEMPERATURE_TYPE_HBM,
-> +   RUSD_TEMPERATURE_TYPE_MAX
-> +} RUSD_TEMPERATURE_TYPE;
-> +
-> +typedef struct RUSD_TEMPERATURE {
-> +   volatile NvU64 lastModifiedTimestamp;
-> +   NvTemp temperature;
-> +} RUSD_TEMPERATURE;
-
-[Severity: High]
-Does this struct lack explicit padding, causing an ABI mismatch on 32-bit
-platforms?
-
-On 32-bit platforms (like x86-32), NvU64 has a 4-byte natural alignment,
-making sizeof(RUSD_TEMPERATURE) exactly 12 bytes. On 64-bit systems and the
-64-bit RISC-V GSP firmware, it requires padding and is 16 bytes.
-
-[ ... ]
-> +typedef struct NV00DE_SHARED_DATA {
-> +   NV_DECLARE_ALIGNED(RUSD_BAR1_MEMORY_INFO bar1MemoryInfo, 8);
+> +static void
+> +r570_rusd_poke(struct nvkm_gsp *gsp, enum nvkm_gsp_rusd_group group)
+> +{
+> +	mutex_lock(&gsp->rusd.mutex);
+> +	/* @valid (not gsp->running) is the teardown fence: it is cleared under
+> +	 * this mutex at the very start of fini, while gsp->running is still
+> +	 * true, so checking it here stops a read from enabling a group and
+> +	 * issuing a SET_DATA_POLL to a firmware that is being unloaded.
+> +	 */
+> +	if (gsp->rusd.valid) {
+> +		gsp->rusd.group_access[group] =3D jiffies;
+> +		r570_rusd_set_mask(gsp, gsp->rusd.mask | r570_rusd_group_mask[group]);
 
 [Severity: Medium]
-Will these fields be read incorrectly on big-endian architectures?
+If jiffies happens to be exactly 0 during this assignment, could it cause i=
+ssues
+in the idle worker below?
 
-The shared data structures define fields with native integer types (NvU32,
-NvU64) instead of explicit little-endian types (__le32, __le64). On a
-big-endian host, the natively-read values will be byte-swapped versions of
-the little-endian data written by the RISC-V GSP firmware.
-
-[ ... ]
-> +   // POLL_POWER
-> +   // Module Limit is not supported on Ampere/Hopper
-> +   NV_DECLARE_ALIGNED(RUSD_POWER_LIMITS powerLimitGpu, 8);
+> +		if (gsp->rusd.mask)
+> +			schedule_delayed_work(&gsp->rusd.work,
+> +					      msecs_to_jiffies(R570_RUSD_IDLE_MS));
+> +	}
+> +	mutex_unlock(&gsp->rusd.mutex);
+> +}
 > +
-> +   // POLL_THERMAL
-> +   NV_DECLARE_ALIGNED(RUSD_TEMPERATURE temperatures[RUSD_TEMPERATURE_TYP=
-E_MAX], 8);
+> +/* Drop the groups that haven't been read within the idle window. */
+> +static void
+> +r570_rusd_work_drop_idle(struct work_struct *work)
+> +{
+> +	struct nvkm_gsp *gsp =3D container_of(to_delayed_work(work),
+> +					    struct nvkm_gsp, rusd.work);
+> +	unsigned long idle =3D msecs_to_jiffies(R570_RUSD_IDLE_MS);
+> +	u64 mask =3D 0;
+> +	int g;
+> +
+> +	mutex_lock(&gsp->rusd.mutex);
+> +	if (gsp->rusd.valid) {
+> +		for (g =3D 0; g < NVKM_GSP_RUSD_GROUP_COUNT; g++) {
+> +			if (gsp->rusd.group_access[g] &&
 
-[Severity: High]
-Will the missing padding in RUSD_TEMPERATURE cause memory corruption here?
+[Severity: Medium]
+When jiffies wraps to 0, this check evaluates to false.=20
 
-Because temperatures is declared as an array of 3 elements, the array occup=
-ies
-36 bytes on 32-bit versus 48 bytes on 64-bit. This difference in array stri=
-de
-shifts all subsequent fields by 8 bytes.
+Will this cause the telemetry group to be prematurely dropped from the poll=
+ mask
+until the next read cycle?
 
-The kernel will allocate a smaller buffer than the firmware expects, causing
-the 64-bit firmware to write past the end of the allocation when writing
-telemetry data.
+> +			    time_before(jiffies, gsp->rusd.group_access[g] + idle))
+> +				mask |=3D r570_rusd_group_mask[g];
+> +		}
+[ ... ]
+> +/*
+> + * Copy one section out of the shared buffer, untorn. Every section star=
+ts
+> + * with a u64 timestamp GSP-RM sets to WRITE_IN_PROGRESS while updating =
+it.
+> + */
+> +static int
+> +r570_rusd_read_section(struct nvkm_gsp *gsp, size_t offset, size_t size,=
+ void *data)
+> +{
+> +	const void *sect =3D gsp->rusd.mem.data + offset;
+> +	u64 seq0, seq1;
+> +	int retries;
+> +
+> +	for (retries =3D 10; retries; retries--) {
+> +		seq0 =3D READ_ONCE(*(const u64 *)sect);
+> +		if (seq0 =3D=3D RUSD_TIMESTAMP_INVALID)
+> +			return -ENODATA;
+> +		if (seq0 =3D=3D RUSD_TIMESTAMP_WRITE_IN_PROGRESS)
+> +			continue;
+
+[Severity: Medium]
+Without a delay or cpu_relax() here, the 10 iterations will exhaust extreme=
+ly
+fast (in tens of nanoseconds).=20
+
+Could this cause spurious -EAGAIN errors if the CPU spins through all retri=
+es
+before the GSP firmware has time to finish its memory write?
+
+> +		/* Sequence counters appear only in sections written by the kernel and
+> +		 * never in GSP-polled ones.
+> +		 */
+> +		if (seq0 >=3D RUSD_SEQ_START)
+> +			return -ENODATA;
+> +
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714211429.2383=
-55-1-mohamedahmedegypt2001@gmail.com?part=3D1
+55-1-mohamedahmedegypt2001@gmail.com?part=3D2
