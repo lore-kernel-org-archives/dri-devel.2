@@ -4,63 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82F88C44501
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 04:29:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B829C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 06:17:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB9FC10EBEB;
-	Tue, 14 Jul 2026 04:29:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AF7B10E012;
+	Tue, 14 Jul 2026 06:17:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="K/1Az9E7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NCjRekVa";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8F1710EBEB;
- Tue, 14 Jul 2026 04:29:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82D5110E002;
+ Tue, 14 Jul 2026 06:17:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784003356; x=1815539356;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=5pja3JWFJTGKx2DvNAs/27uLDMfwJ0xeptECvRU4MuE=;
- b=K/1Az9E7/pLDbFWfi11RqOY97HXMLTPJ1Wb5GM4MMBn8TGDkQO+KMB14
- 5ylGWlzFOP0ALiU/vsePl7V4g2VwRt5PdLh1+zheDlWbC/qi/Qi2GjoIq
- FH/svOF4oqYnYinA73WXF0sqAPV2Gr+MvYjIOCEqVRkfha+YU4lavzE2+
- IuY25QW+S2c075q2LHXGq8CSp63ot8AmsQmRWpWorcscjsJIA6ZbBItZK
- ZbEFVSGW459x/lyDZkOe5dP69fMofATUtV3dQMwvv9uwGhgjVfzeOO4h6
- r3Hm/AciJ9AeyiaWhqYhVKSpe1eOV3JkDkuggII2HJWUHqsc0ZbvtqVLL w==;
-X-CSE-ConnectionGUID: O7F2kOcLTViEp3WReB20Tg==
-X-CSE-MsgGUID: ykilnkpsSm6VYyMA82ve/A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88297179"
-X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; d="scan'208";a="88297179"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2026 21:29:15 -0700
-X-CSE-ConnectionGUID: DN9a1P+2RFCQCNqZ0GvMZg==
-X-CSE-MsgGUID: iPGMyXdzR6ONExyhsp+9nA==
+ t=1784009846; x=1815545846;
+ h=from:date:subject:mime-version:content-transfer-encoding:
+ message-id:to:cc;
+ bh=yPJi8dqAeqIB4aBsYSEWntf2un8xrRXwoxXijOHtDEo=;
+ b=NCjRekVa+IHfGyueB1J6gT14KR7koIj5OHu+ZtOoikvWomoCYNY9nJoH
+ NwxvGTLqhHXh6sAbsO35QYCU72HyK4G82EUXonPd3IjxY8lcQ8pIvCrjE
+ k5oxXjoqsO34EYNh+bE0QkvGvIRYoCUWYHUBq0yaHY0yBOuwur7cUEjSt
+ y/f2p78ScYOI8K5whoz0QKmYc9TpYpqORAoGCiCyM1oCXAJkDd/IDoMI9
+ nfVPyeFNEyQgXI60qiGHm3TafXK4uBJpWlnNWPqY60yJppoYlXb8mIy7L
+ vw74Aqk1OiLSm/Lyru9qfqigv2iIs1/33hZhNywx4QcU9DRJk7b+LtIuX Q==;
+X-CSE-ConnectionGUID: fbNKEfkdSjqaBWUFeqLJaw==
+X-CSE-MsgGUID: 5l/QVDxFT9e4FonG5ZdnGw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11846"; a="95227336"
+X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; d="scan'208";a="95227336"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 23:17:26 -0700
+X-CSE-ConnectionGUID: Qf5lIy5bRy2ZZHWUUqr0fA==
+X-CSE-MsgGUID: BZJf3tSWS8Gb7gK15xa2DA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; d="scan'208";a="255243256"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by orviesa008.jf.intel.com with ESMTP; 13 Jul 2026 21:29:07 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-list@raspberrypi.com, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: uma.shankar@intel.com, arun.r.murthy@intel.com, abhinav.kumar@linux.dev,
- tzimmermann@suse.de, sean@poorly.ru, marijn.suijten@somainline.org,
- laurent.pinchart+renesas@ideasonboard.com, dave.stevenson@raspberrypi.com,
- tomi.valkeinen+renesas@ideasonboard.com,
- kieran.bingham+renesas@ideasonboard.com, louis.chauvet@bootlin.com,
- kernel-dev@igalia.com, John.Harrison@Igalia.com,
- Suraj Kandpal <suraj.kandpal@intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v6 7/7] drm: writeback: Modify cleanup_writeback_job helper
-Date: Tue, 14 Jul 2026 09:58:05 +0530
-Message-Id: <20260714042805.77934-8-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260714042805.77934-1-suraj.kandpal@intel.com>
-References: <20260714042805.77934-1-suraj.kandpal@intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; d="scan'208";a="251809889"
+Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
+ by fmviesa010-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 23:17:23 -0700
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+Date: Tue, 14 Jul 2026 08:54:17 +0300
+Subject: [PATCH v2] drm/xe/nvm: fix writable override for CRI
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260714-cri_nvm_fdo_flip-v2-1-14580e71b58e@intel.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0JmbQ3tAEVX3sMQonSQSaAlLWk0p
+ He3cgCX7yX//R0CeaYA12IHT5EDO5tBnQoYpod9kWCTGVSpmlKXrRg89zYu/WhcP868CkR81lV
+ N0pgW8mz1NPL7SN67zBOHzfnP8RDlz/6JRSmk0BeFGptGI1Y3thvN58Et0KWUvlJDQFOwAAAA
+X-Change-ID: 20260708-cri_nvm_fdo_flip-333b545e1dd8
+To: Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Alexander Usyskin <alexander.usyskin@intel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784008475; l=2208;
+ i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
+ bh=yPJi8dqAeqIB4aBsYSEWntf2un8xrRXwoxXijOHtDEo=;
+ b=JQHtEsrvNDL7FiH3ZfVzZUo4fLLtwJWDYSOuLDPlhh7akUtWo+p1mOi3Vwj780IE8h8NmmJVt
+ BHEN//o76UVA16e/h48/bGJhHUaiQSKcmc293bfSCyqMQ1O/jm8wEQy
+X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
+ pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,126 +82,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The cleanup_writeback_job() connector helper hook needs access to
-the parent drm_connector object as well as the drm_writeback_connector
-object itself. So, pass in the top level drm_connector and traverse
-down to drm_writeback_connector rather than passing in the lower
-level object and traversing back up. This also makes it uniform
-with the params passed to other drm_connector_helper_funcs hooks.
+The witable override should be set when FDO_MODE bit is enabled.
+Fix the comparison to distingush this case from legacy systems
+where bit should be disabled to have override.
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: John Harrison <John.Harrison@Igalia.com>
+Cc: stable@vger.kernel.org
+Fixes: 9dde74fd9e65 ("drm/xe/nvm: enable cri platform")
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
-v5 -> v6:
-- Rebase over latest kernel
+Changes in v2:
+- avoid multiple assignments
+- Link to v1: https://lore.kernel.org/r/20260708-cri_nvm_fdo_flip-v1-1-792373667334@intel.com
+---
+ drivers/gpu/drm/xe/xe_nvm.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-v3 -> v4:
-- Update subject line for consitency (John)
-- Update commit message across commits for consitency (John)
+diff --git a/drivers/gpu/drm/xe/xe_nvm.c b/drivers/gpu/drm/xe/xe_nvm.c
+index 33487e91f366..1ea67eaeae24 100644
+--- a/drivers/gpu/drm/xe/xe_nvm.c
++++ b/drivers/gpu/drm/xe/xe_nvm.c
+@@ -60,35 +60,40 @@ static bool xe_nvm_writable_override(struct xe_device *xe)
+ 	struct xe_mmio *mmio = xe_root_tile_mmio(xe);
+ 	bool writable_override;
+ 	struct xe_reg reg;
+-	u32 test_bit;
++	u32 test_bit, test_val;
+ 
+ 	switch (xe->info.platform) {
+ 	case XE_CRESCENTISLAND:
+ 		reg = PCODE_SCRATCH(0);
+ 		test_bit = FDO_MODE;
++		test_val = FDO_MODE;
+ 		break;
+ 	case XE_BATTLEMAGE:
+ 		reg = HECI_FWSTS2(DG2_GSC_HECI2_BASE);
+ 		test_bit = HECI_FW_STATUS_2_NVM_ACCESS_MODE;
++		test_val = 0;
+ 		break;
+ 	case XE_PVC:
+ 		reg = HECI_FWSTS2(PVC_GSC_HECI2_BASE);
+ 		test_bit = HECI_FW_STATUS_2_NVM_ACCESS_MODE;
++		test_val = 0;
+ 		break;
+ 	case XE_DG2:
+ 		reg = HECI_FWSTS2(DG2_GSC_HECI2_BASE);
+ 		test_bit = HECI_FW_STATUS_2_NVM_ACCESS_MODE;
++		test_val = 0;
+ 		break;
+ 	case XE_DG1:
+ 		reg = HECI_FWSTS2(DG1_GSC_HECI2_BASE);
+ 		test_bit = HECI_FW_STATUS_2_NVM_ACCESS_MODE;
++		test_val = 0;
+ 		break;
+ 	default:
+ 		drm_err(&xe->drm, "Unknown platform\n");
+ 		return true;
+ 	}
+ 
+-	writable_override = !(xe_mmio_read32(mmio, reg) & test_bit);
++	writable_override = (xe_mmio_read32(mmio, reg) & test_bit) == test_val;
+ 	if (writable_override)
+ 		drm_info(&xe->drm, "NVM access overridden by jumper\n");
+ 	return writable_override;
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c | 4 ++--
- drivers/gpu/drm/drm_writeback.c                      | 2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c        | 3 +--
- drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c  | 5 ++---
- drivers/gpu/drm/vkms/vkms_writeback.c                | 5 +----
- include/drm/drm_modeset_helper_vtables.h             | 2 +-
- 6 files changed, 8 insertions(+), 13 deletions(-)
+---
+base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+change-id: 20260708-cri_nvm_fdo_flip-333b545e1dd8
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-index e0425eda0bb6..6fd1376fbc1a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-@@ -147,8 +147,8 @@ static int amdgpu_dm_wb_prepare_job(struct drm_connector *connector,
- 	return r;
- }
- 
--static void amdgpu_dm_wb_cleanup_job(struct drm_writeback_connector *connector,
--				struct drm_writeback_job *job)
-+static void amdgpu_dm_wb_cleanup_job(struct drm_connector *connector,
-+				     struct drm_writeback_job *job)
- {
- 	struct amdgpu_bo *rbo;
- 	int r;
-diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-index e6b52de69ad6..c8cc09118a6e 100644
---- a/drivers/gpu/drm/drm_writeback.c
-+++ b/drivers/gpu/drm/drm_writeback.c
-@@ -450,7 +450,7 @@ void drm_writeback_cleanup_job(struct drm_writeback_job *job)
- 		connector->helper_private;
- 
- 	if (job->prepared && funcs->cleanup_writeback_job)
--		funcs->cleanup_writeback_job(wb_connector, job);
-+		funcs->cleanup_writeback_job(connector, job);
- 
- 	if (job->fb)
- 		drm_framebuffer_put(job->fb);
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-index 061e6960c09b..c6396ac1f64c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-@@ -100,10 +100,9 @@ static int dpu_wb_conn_prepare_job(struct drm_connector *connector,
- 	return 0;
- }
- 
--static void dpu_wb_conn_cleanup_job(struct drm_writeback_connector *wb_connector,
-+static void dpu_wb_conn_cleanup_job(struct drm_connector *connector,
- 		struct drm_writeback_job *job)
- {
--	struct drm_connector *connector = drm_writeback_to_connector(wb_connector);
- 	struct dpu_wb_connector *dpu_wb_conn = to_dpu_wb_conn(connector);
- 
- 	if (!job->fb)
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-index 218b6504cacf..e7d7b221c487 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-@@ -72,11 +72,10 @@ static int rcar_du_wb_prepare_job(struct drm_connector *connector,
- 	return 0;
- }
- 
--static void rcar_du_wb_cleanup_job(struct drm_writeback_connector *connector,
-+static void rcar_du_wb_cleanup_job(struct drm_connector *connector,
- 				   struct drm_writeback_job *job)
- {
--	struct drm_connector *conn = drm_writeback_to_connector(connector);
--	struct rcar_du_crtc *rcrtc = wb_to_rcar_crtc(conn);
-+	struct rcar_du_crtc *rcrtc = wb_to_rcar_crtc(connector);
- 	struct rcar_du_wb_job *rjob = job->priv;
- 
- 	if (!job->fb)
-diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
-index 86e5b92c7965..775abb4677ef 100644
---- a/drivers/gpu/drm/vkms/vkms_writeback.c
-+++ b/drivers/gpu/drm/vkms/vkms_writeback.c
-@@ -103,13 +103,10 @@ static int vkms_wb_prepare_job(struct drm_connector *connector,
- 	return ret;
- }
- 
--static void vkms_wb_cleanup_job(struct drm_writeback_connector *wb_conn,
-+static void vkms_wb_cleanup_job(struct drm_connector *connector,
- 				struct drm_writeback_job *job)
- {
- 	struct vkms_writeback_job *vkmsjob = job->priv;
--	struct drm_connector *connector = container_of(wb_conn,
--						       struct drm_connector,
--						       writeback);
- 	struct vkms_output *vkms_output = container_of(connector,
- 						       struct vkms_output,
- 						       wb_connector);
-diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
-index 4e26568a16fb..9ce5ddd82057 100644
---- a/include/drm/drm_modeset_helper_vtables.h
-+++ b/include/drm/drm_modeset_helper_vtables.h
-@@ -1134,7 +1134,7 @@ struct drm_connector_helper_funcs {
- 	 *
- 	 * This callback is used by the atomic modeset helpers.
- 	 */
--	void (*cleanup_writeback_job)(struct drm_writeback_connector *connector,
-+	void (*cleanup_writeback_job)(struct drm_connector *connector,
- 				      struct drm_writeback_job *job);
- 
- 	/**
+Best regards,
 -- 
-2.34.1
+Alexander Usyskin <alexander.usyskin@intel.com>
 
