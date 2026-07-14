@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38E24C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 13:43:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DCC9C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 13:45:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E5FB10ED5A;
-	Tue, 14 Jul 2026 13:43:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A490610E067;
+	Tue, 14 Jul 2026 13:45:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vaa7jqYw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QU1UHXT/";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0305810ED5A
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 13:43:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B393C10E067
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 13:45:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1001D601ED;
- Tue, 14 Jul 2026 13:43:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1101F000E9;
- Tue, 14 Jul 2026 13:43:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0FBB2601ED;
+ Tue, 14 Jul 2026 13:45:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F8851F000E9;
+ Tue, 14 Jul 2026 13:45:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784036634;
- bh=/8BBFCby8zpZvXm8ZgPtUr5fAkL8w8J4AaTBkdkpBLg=;
+ s=k20260515; t=1784036749;
+ bh=Olf8cuYbrQKCftg/VPBSjdnUMUdAeP3FuWNEBQBL/Jo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Vaa7jqYwjxH7jgnVrXDsqOSYxfEdnoDKC8Od62lDJoJt3rowd6ghPLRjCoV3nnyGI
- xjEtab4im6+sj1zgDvgVoUsrrClqTItlsIdRvabj3cUp5RZmR9qhafTCaBfLiYJpTh
- Sbm8mrsl1JdRDbRn32ngk4D7HHPadeR68iMd/a1PyAIUwlWww1TxynJ7z0ogE2c8NQ
- fQG62TbACSpl4NtBvV/l3OCveNS9n/R2oVaI34mhBtni+xK5zYQhhUC0lXvKZWqDv3
- XfxUa4Eoq8g+XiANfNy4XantampTaBnF2LlP31+KkwoAuGZI1IzUXSVgdyQYE858ea
- uZq0ohgsvou8g==
+ b=QU1UHXT/tSxEVlFdVvfSmPy5lAZpHf2PEDfPjfZC4Znzy3P48gzCcenIMwggu0cj2
+ zdGuBI87ahD9WBB6OVTVVbBlHB5LBb4Ymu3YnvYZHER3wJCjzzeycm7DIBwjk2Xgb4
+ Pw33SPw7b09EQ0RiN0GClKnIUCjU0UP8XSY1OXKgrhMTXHUF1XfE3zUvleI76lHuMv
+ tKx/tmqYg3Ac66wvUFN9wnAL0zR2d2qwLDqR4HwfRlNOc8i08D+VeG6VuAcaCYWeF3
+ mw9JtwgmRDwDNSQRNJRaaHB26rrAn7NlxT6g5RANi60B77g8qJFR1JMC2E8PMDJvjK
+ uCwuuAosq+H1w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH for drm-misc-fixes 2/2] drm/hisilicon/hibmc: Add a flag
- to indicate whether the OS-side driver has been loaded
-To: "Yongbang Shi" <shiyongbang@huawei.com>
+Subject: Re: [PATCH v3] drm/prime: use dma_buf_fd_install() to preserve
+ export tracing
+To: "Baineng Shou" <shoubaineng@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260714132051.993356-3-shiyongbang@huawei.com>
-References: <20260714132051.993356-1-shiyongbang@huawei.com>
- <20260714132051.993356-3-shiyongbang@huawei.com>
+In-Reply-To: <20260714132727.200995-1-shoubaineng@gmail.com>
+References: <4ccf4ae5-ccd7-4bec-836a-fcebfa271c96@amd.com>
+ <20260714132727.200995-1-shoubaineng@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 13:43:54 +0000
-Message-Id: <20260714134354.8F1101F000E9@smtp.kernel.org>
+Date: Tue, 14 Jul 2026 13:45:49 +0000
+Message-Id: <20260714134549.8F8851F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,102 +60,81 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Directly writing to the `HIBMC_ENABLE_FLAG` register clobbers the =
-`GPIO_DATA_DIRECTION` I2C bits and creates a data race.
-- [High] The disable flag is set too early in the teardown sequence, allowi=
-ng the BMC to re-enable DP hardware while the OS driver is still active.
+
+New issues:
+- [High] Build failure due to missing dependency `dma_buf_fd_install`.
+
+Pre-existing issues:
+- [High] Permanent file descriptor and dmabuf leak if copy_to_user() fails =
+in drm_ioctl.
 --
 
---- Patch [2]: [PATCH for drm-misc-fixes 2/2] drm/hisilicon/hibmc: Add a fl=
-ag to indicate whether the OS-side driver has been loaded ---
-commit bfee57e8491146f1282ee8dc01bf699cf1bf50ed
-Author: Lin He <helin52@huawei.com>
+--- Patch [1]: [PATCH v3] drm/prime: use dma_buf_fd_install() to preserve e=
+xport tracing ---
+commit 0d84b19a88b6c4fa09505ca93169d721f3560e20
+Author: Baineng Shou <shoubaineng@gmail.com>
 
-drm/hisilicon/hibmc: Add a flag to indicate whether the OS-side driver has =
-been loaded
+drm/prime: use dma_buf_fd_install() to preserve export tracing
 
-This patch adds a flag to indicate whether the OS-side driver has been
-loaded to prevent the BMC from enabling DP if the driver is not loaded,
-which could lead to system failure in handling interrupts.
+This commit replaces fd_install() with dma_buf_fd_install() in
+drm_gem_prime_handle_to_fd() to ensure DMA_BUF_TRACE() is called when
+exporting a PRIME handle. It notes a dependency on a separate patch
+for the new helper.
 
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gp=
-u/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> index e5cca7b63b787..6436263a6c039 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+Link: https://lore.kernel.org/dri-devel/20260714114654.3885457-2-shoubainen=
+g@gmail.com/
 
-[ ... ]
-
-> @@ -424,6 +424,16 @@ static int hibmc_load(struct drm_device *dev)
->  	return ret;
->  }
+> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+> index 9b44c78cd77fc..fe3436d1235db 100644
+> --- a/drivers/gpu/drm/drm_prime.c
+> +++ b/drivers/gpu/drm/drm_prime.c
+> @@ -524,7 +524,7 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
+>  		return PTR_ERR(dmabuf);
+>  	}
 > =20
-> +static inline void hibmc_set_enable_flag(struct hibmc_drm_private *priv)
-> +{
-> +	writel(HIBMC_ENABLE_STATE, priv->mmio + HIBMC_ENABLE_FLAG);
-> +}
-> +
-> +static inline void hibmc_set_disable_flag(struct hibmc_drm_private *priv)
-> +{
-> +	writel(0, priv->mmio + HIBMC_ENABLE_FLAG);
-> +}
+> -	fd_install(fd, dmabuf->file);
+> +	dma_buf_fd_install(dmabuf, fd);
+[Severity: High]
+Is dma_buf_fd_install() defined in the current tree?
+
+The commit message notes a dependency on a patch that introduces this
+function, but without it present in the branch, won't this cause a build
+failure due to an implicit function declaration and undefined symbol?
 
 [Severity: High]
-Does this direct writel() overwrite the I2C bus state?
+This is a pre-existing issue, but can this leak the fd and dmabuf if
+copy_to_user() fails later in drm_ioctl()?
 
-The HIBMC_ENABLE_FLAG offset is 0x802A4, which aliases the
-GPIO_DATA_DIRECTION I2C register used by the driver's I2C bit-banging code.
+If userspace calls the DRM_IOCTL_PRIME_HANDLE_TO_FD ioctl with a read-only
+memory mapping for the argument pointer, drm_gem_prime_handle_to_fd() insta=
+lls
+the fd:
 
-Writing directly instead of using a read-modify-write clears the I2C
-mask bits that might be currently active. Direct writing of 0 clears both
-the enable bit and the I2C direction bits.
+drivers/gpu/drm/drm_prime.c:drm_gem_prime_handle_to_fd() {
+    ...
+    dma_buf_fd_install(dmabuf, fd);
+    ...
+}
 
->  static int hibmc_pci_probe(struct pci_dev *pdev,
->  			   const struct pci_device_id *ent)
->  {
+Afterward, the generic ioctl dispatcher attempts to write the resulting fd
+back to userspace:
 
-[ ... ]
+drivers/gpu/drm/drm_ioctl.c:drm_ioctl() {
+    ...
+    if (copy_to_user((void __user *)arg, kdata, out_size) !=3D 0)
+        retcode =3D -EFAULT;
+    ...
+}
 
-> @@ -468,6 +478,8 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
-> =20
->  	drm_client_setup(dev, NULL);
-> =20
-> +	hibmc_set_enable_flag(priv);
-> +
+If this copy fails, the ioctl returns -EFAULT and the user application never
+receives the fd number to close it. Will the fd remain open in the process,
+permanently leaking the dma_buf and associated GEM object until the process
+exits?
 
-[Severity: High]
-Can this call to hibmc_set_enable_flag() race with I2C EDID reads?
-
-Calling this immediately after drm_client_setup() means fbdev initialization
-can asynchronously probe connectors and trigger I2C bit-banging.
-
-Without locking between the I2C code's read-modify-write cycle and this
-direct write, the I2C code might overwrite and clear the enable flag,
-reverting the BMC driver status this patch intended to set.
-
+>  	*prime_fd =3D fd;
 >  	return 0;
-> =20
->  err_unload:
-> @@ -480,6 +492,7 @@ static void hibmc_pci_remove(struct pci_dev *pdev)
->  {
->  	struct drm_device *dev =3D pci_get_drvdata(pdev);
-> =20
-> +	hibmc_set_disable_flag(to_hibmc_drm_private(dev));
-
-[Severity: High]
-Is it safe to clear the disable flag before userspace is locked out and the
-hardware is quiesced?
-
-By clearing the flag before calling drm_dev_unregister() and hibmc_unload(),
-the BMC might attempt to take over the DP hardware or ignore interrupts
-while the OS is still actively managing it. This could race with the shutdo=
-wn
-of the display hardware in hibmc_unload().
-
->  	drm_dev_unregister(dev);
->  	hibmc_unload(dev);
 >  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714132051.9933=
-56-1-shiyongbang@huawei.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714132727.2009=
+95-1-shoubaineng@gmail.com?part=3D1
