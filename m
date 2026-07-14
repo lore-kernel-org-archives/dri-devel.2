@@ -4,44 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44402C44501
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 16:08:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F544C44501
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 16:10:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4ECF10EDED;
-	Tue, 14 Jul 2026 16:08:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C789F10EDE7;
+	Tue, 14 Jul 2026 16:10:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JDooNuiG";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="USKTxdpH";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E763410EDED
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 16:08:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B14F9413C9;
- Tue, 14 Jul 2026 16:08:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CA9B1F000E9;
- Tue, 14 Jul 2026 16:08:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784045294;
- bh=JE9aoAyM+Ji9IJXJXeicEhJkiknwGEHk7yrb4zd+SIk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JDooNuiG86fiOrjetlceQkGsxICbeghHbQu1F9Xb4kbQGS49Jo+U0LEi9Gv1xcmGk
- 0+rnORbH+zw7OW6sfqGmNT/pmWii8YAMDJYFgrzb+fawJz6sfLmXVsTFqBTH1Nuk31
- mO4BggfQAZuTETAZV9IwAPuAwo4maSjfOIwjAHm/LB7kS5hOjENzS9igBkDQxynbrO
- 1z4X83O9yPbtLt9ZaSDUkAS/FzqfeNsUtre0i82FE5Vv998F9cA97N5ulo7uj811/F
- F9StFVbAuhcV3/uxDaWULHQP3z6m1cxaJcrFa1/1MOKDHX4dhkXa5Hwm4zOsa0T0uI
- lQUb4Wl1ftfxQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/8] Add Advantech EIO driver
-To: "Ramiro Oliveira" <ramiro.oliveira@advantech.com>
-Cc: linux-hwmon@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-watchdog@vger.kernel.org, mfd@lists.linux.dev, lee@kernel.org
-In-Reply-To: <20260714-upstream-v2-v2-1-76e5e41026db@advantech.com>
-References: <20260714-upstream-v2-v2-0-76e5e41026db@advantech.com>
- <20260714-upstream-v2-v2-1-76e5e41026db@advantech.com>
-Content-Type: text/plain; charset=utf-8
+X-Greylist: delayed 93854 seconds by postgrey-1.36 at gabe;
+ Tue, 14 Jul 2026 16:10:18 UTC
+Received: from mout.web.de (mout.web.de [217.72.192.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 246EA10E0B8;
+ Tue, 14 Jul 2026 16:10:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1784045411; x=1784650211; i=markus.elfring@web.de;
+ bh=EderJaK9SWfHtM5yP4F5xgy26wvyZY2GJGBK0Hhwouc=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=USKTxdpH41riR1NA740kUGL5HpRUJvh+ccQBjEBoCLuVFKHr6y/KvS3OMNgPiPKk
+ clg3exRs26L8yQXoOQzFBf8htwSYSPSlmv6fgy5h7u3wqcI+i9kwvBICGkNtUdWm4
+ jZUwyZtY3Tm51isNQsYcTrndLExh4e8Sr3Kwze1B30lhLNNy6BsnuDwMPgXGUVxl+
+ clyu86kYYqCyWlwS4J3zlwD17dWtVFBpcrKcb6bxzeBbUsht1ORiS2O9V6WOCUk0P
+ NDK/M1bQcptFFMs7AyWi8jZ4ZocBcUL6VHz8M/lwRJZ3Gk+g8nuL9WyeFzWwe4SPz
+ K0DBKR3dEyqPyEjhbA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MVaYw-1wZjWh1lNU-00LwjW; Tue, 14
+ Jul 2026 18:10:11 +0200
+Message-ID: <4d0426b4-e40b-4cc6-841f-ca18b2256db4@web.de>
+Date: Tue, 14 Jul 2026 18:10:08 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/i915/bios: Move a variable assignment behind a null
+ pointer check in intel_bios_encoder_supports_dp_dual_mode()
+To: Dan Carpenter <error27@gmail.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
+Cc: David Airlie <airlied@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>
+References: <e81277a0-93f8-45e9-9fa4-7c2c2df9c311@web.de>
+ <alZVl0o7uBoncUos@intel.com> <alZZviFT2jfABiZq@stanley.mountain>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <alZZviFT2jfABiZq@stanley.mountain>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 16:08:13 +0000
-Message-Id: <20260714160814.3CA9B1F000E9@smtp.kernel.org>
+X-Provags-ID: V03:K1:rC82bBKYgByUw3tV+iK2Ar/aoTlmebweQ6hkSraBLf3yDTNlEz5
+ SZArnp8I5ofkNDsnsKqH2OBdMb9n1LVhB69wpq2arr/PTZcJdQls26K9F6FMRsqAszgfiXy
+ kHYLr2rC2cw1swmaWBDlYM2s1N2CIhrhwFnM4jAXkcaZ/rkNmKTRjFFXgxPseZpgpn5O9vr
+ xujztEtI6Gpk1/acKBnWQ==
+UI-OutboundReport: notjunk:1;M01:P0:JtLtSE3GLwQ=;quLuQAb9zq7gLSzE93g5oCau1ct
+ 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
+ w7xQ7RWs2U+hx8MJX/3/j23IpSHeHBIDXw==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,367 +156,35 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 15 potential issue=
-(s) to consider:
-- [Critical] Driver uses zero-initialized `pmc[0]` array without verifying =
-if the primary EC was successfully initialized, causing unintended I/O on s=
-ystem port 0x00.
-- [High] Missing success return for supported legacy code bases in `firmwar=
-e_code_base()`.
-- [High] Incorrect validation of `devm_ioport_map()` return value.
-- [Medium] The `mfd_cell` array `eio_devs` is not declared as `const`.
-- [Medium] The driver uses `PLATFORM_DEVID_NONE` instead of `PLATFORM_DEVID=
-_AUTO`, risking sysfs naming collisions.
-- [Medium] `acpi_ram_access()` truncates negative error codes into positive=
- 8-bit integers.
-- [Medium] The requested region for the PNP base ports is off-by-one and fa=
-ils to reserve the data port.
-- [Medium] Missing resource request for the dynamically discovered PMC comm=
-and port.
-- [Medium] Unaligned memory access and endianness assumptions in `info_show=
-()`.
-- [Medium] The IO port memory mapping is sized statically up to `0x49A`, bu=
-t accesses dynamically discovered hardware registers which can exceed the m=
-apped bounds.
-- [Medium] `pmc_clear` checks the wrong status bit (`IBF` instead of `OBF`)=
- before attempting to clear pending garbage data.
-- [Medium] Hardware PNP configuration mode is left unlocked on error and sk=
-ip paths in `eio_init()`.
-- [Low] The commit message prefix violates MFD subsystem naming conventions.
-- [Low] `MFD_EIO` uses the `isa_driver` API but lacks a Kconfig dependency =
-on `ISA_BUS_API`.
-- [Low] Driver-specific header file is improperly placed in the global `inc=
-lude/linux/mfd/` directory.
---
+>>> The address of a data structure member was determined before
+>>> a corresponding null pointer check in the implementation of
+>>> the function =E2=80=9Cintel_bios_encoder_supports_dp_dual_mode=E2=80=
+=9D.
+>>>
+>>> Thus avoid the risk for undefined behaviour by reducing the scope for
+>>> the variable =E2=80=9Cchild=E2=80=9D behind condition checks.
+>>>
+>>> This issue was detected by using the Coccinelle software.
+>>>
+>>> Fixes: 044cbc7a74c136f12a80c855cadd1b085084aef1 ("drm/i915/bios: Nuke =
+DEVICE_TYPE_DP_DUAL_MODE_BITS")
+>>> Cc: stable@vger.kernel.org
+>=20
+> Please stop adding Fixes tags to these and talking about "undefined
+> behavior" in the commit message.  Pointer math is defined...
 
---- Patch [1]: [PATCH v2 1/8] Add Advantech EIO driver ---
-commit d4de2a217ca69b28de748d9dadb7323cafed3d8e
-Author: Ramiro Oliveira <ramiro.oliveira@advantech.com>
-Subject: Add Advantech EIO driver
+What does hinder you to take additional information sources better into ac=
+count?
 
-Creating the core driver for Advantech EIO, all other drivers depend on thi=
-s.
 
-> Add Advantech EIO driver
+> It's just a style preference on your part.
+Do you find the guidance appropriate according to the SEI CERT C Coding St=
+andard?
+https://cmu-sei.github.io/secure-coding-standards/sei-cert-c-coding-standa=
+rd/rules/expressions-exp/exp34-c/
 
-[Severity: Low]
-This isn't a bug, but the commit message prefix violates MFD subsystem nami=
-ng
-conventions. Should it follow the mfd: <Driver>: <Capitalized description>
-format?
-
-> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-> index 35f6e9b76d056..42d133a2eb8dc 100644
-> --- a/drivers/mfd/Kconfig
-> +++ b/drivers/mfd/Kconfig
-
-[ ... ]
-
-> @@ -517,6 +517,16 @@ config MFD_DLN2
->  	  etc. must be enabled in order to use the functionality of
->  	  the device.
-> =20
-> +config MFD_EIO
-> +	tristate "Advantech EIO core"
-
-[Severity: Low]
-Does this config need a dependency on ISA_BUS_API? This driver uses the
-isa_driver API which requires CONFIG_ISA_BUS_API to avoid build errors on
-architectures lacking ISA support.
-
-> +	select MFD_CORE
-
-[ ... ]
-
-> diff --git a/drivers/mfd/eio_core.c b/drivers/mfd/eio_core.c
-> new file mode 100644
-> index 0000000000000..25873c0618127
-> --- /dev/null
-> +++ b/drivers/mfd/eio_core.c
-
-[ ... ]
-
-> +static struct mfd_cell eio_devs[] =3D {
-
-[Severity: Medium]
-Should this array be declared as static const? The MFD subsystem guidelines
-require child platform data arrays to reside in read-only memory.
-
-> +	MFD_CELL_NAME("eio_wdt"),
-> +	MFD_CELL_NAME("gpio_eio"),
-> +	MFD_CELL_NAME("eio_hwmon"),
-
-[ ... ]
-
-> +static ssize_t info_show(struct device *dev, struct device_attribute *at=
-tr, char *buf)
-> +{
-> +	uint i;
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(attrs); i++) {
-> +		int ret;
-> +		char str[32] =3D "";
-> +		int val;
-
-[ ... ]
-
-> +		if (attrs[i].size !=3D 4)
-> +			return sysfs_emit(buf, "%s\n", str);
-> +
-> +		val =3D *(u32 *)str;
-
-[Severity: Medium]
-Can this cast cause read corruption on big-endian platforms or potential
-alignment faults? Would using get_unaligned_le32() be safer here?
-
-> +
-> +		if (attrs[i].type =3D=3D HEX)
-
-[ ... ]
-
-> +static void pmc_clear(struct device *dev, int id)
-> +{
-> +	struct eio_dev *eio =3D dev_get_drvdata(dev);
-> +	unsigned int val;
-> +
-> +	/* Check if input buffer blocked */
-> +	if ((pmc_read_status(dev, id) & EIO_PMC_STATUS_IBF) =3D=3D 0)
-
-[Severity: Medium]
-Is this checking the wrong status bit? To check if there is residual output
-data to clear from the EC buffer, shouldn't this check OBF (Output Buffer
-Full) instead of IBF (Input Buffer Full)?
-
-> +		return;
-> +
-> +	/* Read out previous garbage */
-
-[ ... ]
-
-> +static int get_pmc_port(struct device *dev, int id,
-> +			struct eio_dev_port *port)
-> +{
-
-[ ... ]
-
-> +	/* Make sure IO ports are not occupied */
-> +	if (!devm_request_region(dev, pmc->data, 2, KBUILD_MODNAME)) {
-
-[Severity: Medium]
-Does this leave the PMC command port (pmc->cmd) unprotected? It looks like
-only the data port is requested here.
-
-> +		dev_err(dev, "Request region %X error\n", pmc->data);
-> +		return -EBUSY;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int eio_init(struct device *dev)
-> +{
-> +	struct eio_dev *eio =3D dev_get_drvdata(dev);
-> +	u16 chip_id;
-> +	unsigned int msb, lsb;
-> +	int tmp;
-> +	int ret =3D -ENOMEM;
-> +
-> +	for (int chip =3D 0; chip < ARRAY_SIZE(pnp_port); chip++) {
-> +		struct eio_dev_port *port =3D pnp_port + chip;
-> +
-> +		if (!devm_request_region(dev, pnp_port[chip].idx_port,
-> +					 pnp_port[chip].data_port -
-> +						 pnp_port[chip].idx_port,
-
-[Severity: Medium]
-Is this calculation off-by-one? The subtraction data_port - idx_port evalua=
-tes
-to 1, which only requests the index port. Should it include a + 1 to reserve
-the data port as well?
-
-> +					 KBUILD_MODNAME))
-> +			continue;
-> +
-> +		ret =3D eio_unlock_port(dev, port);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret =3D eio_pnp_read(dev, port, EIO_CHIPID1, &msb);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret =3D eio_pnp_read(dev, port, EIO_CHIPID2, &lsb);
-> +		if (ret)
-> +			return ret;
-> +
-> +		chip_id =3D (msb << 8) | lsb;
-> +
-> +		if (chip_id !=3D EIO200_CHIPID && chip_id !=3D EIO201_211_CHIPID)
-> +			continue;
-
-[Severity: Medium]
-Does this continue bypass eio_lock_port() and leave the hardware PNP
-configuration mode unlocked on error and skip paths? This might leave the
-index and data ports susceptible to accidental modification.
-
-[Severity: Critical]
-Additionally, if this loop completes without finding a valid chip_id, the l=
-oop
-exits and returns ret =3D 0. This causes eio_init() to succeed, and the=20
-uninitialized pmc[0] array is then passed to acpi_ram_access(). This could
-trigger regmap operations on system port 0x00 (system DMA controller base),
-potentially leading to hardware corruption or a system hang on unsupported
-hardware.
-
-> +
-> +		/* Turn on the enable flag */
-> +		ret =3D eio_pnp_read(dev, port, EIO_SIOCTRL, &tmp);
-
-[ ... ]
-
-> +static uint8_t acpi_ram_access(struct device *dev, uint8_t offset)
-
-[Severity: Medium]
-Does this function truncate negative error codes into positive 8-bit intege=
-rs?
-Since standard negative error codes (like -110 for timeout) can be returned=
- by
-PMC operations, the caller might misinterpret corrupted error codes as valid
-ACPI RAM data.
-
-> +{
-> +	uint8_t val;
-> +	int ret;
-> +	struct eio_dev *eio =3D dev_get_drvdata(dev);
-
-[ ... ]
-
-> +static int firmware_code_base(struct device *dev)
-> +{
-> +	struct eio_dev *eio =3D dev_get_drvdata(dev);
-> +	u8 ic_vendor, ic_code, code_base;
-> +
-> +	ic_vendor =3D acpi_ram_access(dev, EIO_ACPIRAM_ICVENDOR);
-> +	ic_code =3D acpi_ram_access(dev, EIO_ACPIRAM_ICCODE);
-> +	code_base =3D acpi_ram_access(dev, EIO_ACPIRAM_CODEBASE);
-> +
-> +	if (ic_vendor !=3D 'R')
-> +		return -ENODEV;
-> +
-> +	if (ic_code !=3D EIO200_ICCODE && ic_code !=3D EIO201_ICCODE &&
-> +	    ic_code !=3D EIO211_ICCODE)
-> +		goto err;
-> +
-> +	if (code_base =3D=3D EIO_ACPIRAM_CODEBASE_NEW) {
-> +		eio->flag |=3D EIO_F_NEW_CODE_BASE;
-> +		return 0;
-> +	}
-> +
-> +	if (code_base =3D=3D 0 &&
-> +	    (ic_code !=3D EIO201_ICCODE && ic_code !=3D EIO211_ICCODE)) {
-> +		dev_info(dev, "Old code base not supported.");
-> +		return -ENODEV;
-> +	}
-> +
-> +err:
-
-[Severity: High]
-Does this logic miss a success return for supported legacy code bases? If
-code_base =3D=3D 0 and ic_code is a supported legacy code, the if block is
-skipped and execution falls through to the err: label, erroneously returning
--ENODEV and failing to probe on supported hardware.
-
-> +	/* Codebase error. This should only happen on firmware error. */
-> +	dev_err(dev,
-> +		"Codebase check fail: vendor: 0x%X, code: 0x%X, base: 0x%X\n",
-
-[ ... ]
-
-> +static int eio_probe(struct device *dev, unsigned int id)
-> +{
-> +	int ret =3D 0;
-> +	struct eio_dev *eio;
-> +
-> +	eio =3D devm_kzalloc(dev, sizeof(*eio), GFP_KERNEL);
-> +	if (!eio)
-> +		return -ENOMEM;
-> +
-> +	eio->dev =3D dev;
-> +	mutex_init(&eio->mutex);
-> +
-> +	eio->iomem =3D devm_ioport_map(dev, 0, EIO_SUB_PNP_DATA + 1);
-
-[Severity: Medium]
-Is this static mapping bound potentially too small? The mapping strictly co=
-vers
-up to EIO_SUB_PNP_DATA + 1 (0x49B), but the driver accesses dynamically
-discovered hardware registers which can exceed these bounds anywhere in the
-16-bit IO space.
-
-> +	if (IS_ERR(eio->iomem))
-
-[Severity: High]
-Will this error check incorrectly pass on memory exhaustion?
-devm_ioport_map() returns NULL on failure, so checking IS_ERR instead of
-NULL could lead to a NULL pointer dereference in devm_regmap_init_mmio().
-
-> +		return PTR_ERR(eio->iomem);
-> +
-> +	eio->map =3D devm_regmap_init_mmio(dev, eio->iomem, &pnp_regmap_config);
-> +	if (IS_ERR(eio->map))
-> +		return PTR_ERR(eio->map);
-> +
-> +	/* Publish instance for subdrivers (dev_get_drvdata(dev->parent)) */
-> +	dev_set_drvdata(dev, eio);
-> +
-> +	if (eio_init(dev))
-> +		return -ENODEV;
-> +
-> +	ret =3D firmware_code_base(dev);
-> +	if (ret) {
-> +		dev_err(dev, "Chip code base check fail\n");
-> +		return ret;
-> +	}
-> +
-> +	ret =3D devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
-
-[Severity: Medium]
-Should PLATFORM_DEVID_AUTO be used here instead of PLATFORM_DEVID_NONE?
-The MFD subsystem guidelines require using PLATFORM_DEVID_AUTO for automatic
-cell indexing to avoid sysfs naming collisions.
-
-> +				   eio_devs, ARRAY_SIZE(eio_devs),
-> +				   NULL, 0, NULL);
-
-[ ... ]
-
-> diff --git a/include/linux/mfd/eio.h b/include/linux/mfd/eio.h
-> new file mode 100644
-> index 0000000000000..c2daad41318bf
-> --- /dev/null
-> +++ b/include/linux/mfd/eio.h
-> @@ -0,0 +1,124 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (C) 2025 Advantech Co., Ltd.
-> + */
-> +
-> +#ifndef _MFD_EIO_H_
-> +#define _MFD_EIO_H_
-
-[Severity: Low]
-This isn't a bug, but should this driver-specific header file be placed in
-drivers/mfd/ instead of the global include/linux/mfd/ directory? The MFD
-subsystem guidelines explicitly dictate keeping headers local if they are o=
-nly
-used by the parent and immediate children.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-upstream-v=
-2-v2-0-76e5e41026db@advantech.com?part=3D1
+Regards,
+Markus
