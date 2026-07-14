@@ -4,176 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 851B0C44507
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 02:47:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C829C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 03:12:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0563A10EBA2;
-	Tue, 14 Jul 2026 02:47:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A01AD10E5EE;
+	Tue, 14 Jul 2026 03:12:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="cOUZIdER";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="URr+GzdK";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012068.outbound.protection.outlook.com [52.101.53.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2203E10E1CC;
- Tue, 14 Jul 2026 02:47:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zE7+KsZQQV1iRbogED6kqqSbDBxNJ9jxwKu6XWPkG0GSZpmms0KWPis52BtvJqzhNm3aVdPulkpKsoPHUa3sDTle/ffziZX5Tzvp2fjYbQ8QogoLbiKfaqLC4C+3omLaXUbL1ULP/Cd6/F97Wc2yhMwuYSOgRusDfJQ63oHxXg+1xLcV20CGNSVgiBYwWqJGkiRg+F5xIedh++c8CtdW1tD0j4dnjjP1677QRkrTAWgaraxePJ/n5W9c9xEImb1G+mjIR78zqQrSxknpkgB2Lb6N38UkoWwqzfG1D1iczM/Q+RhTEg5IKwBh5I/K8YvAEoZdl3VzUKix5yCBQKR7Zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=feoIft/TLZO5dAhIHPg4039QYB9mwrIWxTuA8pa59uw=;
- b=TNhPwswseZss5Gych3ttTHKSW12ot+F8D8thV0U87mPrelQWF29y4bKvaQrTeHlqH4bsW7V1FSO7LOVymiqo3jvA1gCOsddKoFgpne2EBdNX5k6ZA/R5xv5OWJr7nHOjjqlzyYFk2fJuhh2Zxc0UZsl0YloQNYYDwBV9m/G0mhxRf99ksaT9vVNiYHhMRniWNfXRxkC9VTZ6VimMnvKKWeq2361+pHdRa2T3Ra3j7biDVZXAX5ikfxjUyodDWcit31WlMdKD0iORbie28nhbE+OZIA2f1Qq3GmlNowFIBgwjEZ8hKVJOgUwnSCh/JJXA3AxBvxvcdij21UZEq0iCjw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=feoIft/TLZO5dAhIHPg4039QYB9mwrIWxTuA8pa59uw=;
- b=cOUZIdERf22OunYxGqRWV0nEc5kxavp7gwUfCeG0vobu5aBFf74lQYoucZmsfnAGgzhISe+WUE4j8bv2KJVSxSVdTAiZ+XUDBar7iVDqZHYFgULe1wlG/+IJUwdxYx8DO5Og2GP98TaOXI3hcH9AJWVUeWiTk7v8n0TWq+8E64MTfW6HNB99hA9/VCDvtzCwgPAHFQqK6jri8k5D1xlfQNyG2umuf/mJJHitSR8nzGK60xO5LTp6ZHdtzTY6wkPNOKWCwRTvBOdC+p32lzC9cOa+7CEM4fBZePtZTMIouAnuRqZ/J1CStrJEfX1TyglwiCT2JarokvOS6rk1JSkMBQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by PH8PR12MB7136.namprd12.prod.outlook.com (2603:10b6:510:22b::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
- 2026 02:46:48 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0181.019; Tue, 14 Jul 2026
- 02:46:48 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDEE110E0D2
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 03:12:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783998743; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=OIS7QC1b7joiARMBkNgiyNP5pZZNcp3O3eK81g1Gtp3x3tPN3W8XZjedVJ4hNNE2AbYgq/wFDz+t1n1AlKcSHPjdnSO7rVFwNJdikbQrQmm69R6+M2rXWnMShQbBj8/C0d3nX0R4mHEaaVGFHQppaBgW9bd1/jCOUc9nISzE3tI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783998743;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Wi5h6oeP9HWr70m6aoIQ5B1xgYt2IfshPyZ/wqBUZkY=; 
+ b=dH97cxHAv4oXS/3eC7/nC7nAlaa/9E5I0oitd9HfUWOVEGB1kbt4NabnN1h2xv/PrzmUB1ld3Q58aAdytInaLO72XSaqtQBVI5uGo5LIqZL6mSQC2Mq7yl2ODO7gJ2zKx3y3RukKqd9bXXxmvjKhrFnxftU2DQ7Ib/SlncXsdig=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783998743; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=Wi5h6oeP9HWr70m6aoIQ5B1xgYt2IfshPyZ/wqBUZkY=;
+ b=URr+GzdK5JjimSDBMt8bgBJz7GGANKf0fpNJ+AJYM2zHPhrvrtwx0G/uYdwntdSN
+ 54LbSYU7fNn9W/y4Rkkc1mubdFZxavwQm8HFEvXQLoUYLos39DQy73Yqc3pluGuuYXe
+ ueUHHQILuRPGfzvkN6WRZdNTsseO5x30Y+xNOj34=
+Received: by mx.zohomail.com with SMTPS id 1783998742550199.74308223190712;
+ Mon, 13 Jul 2026 20:12:22 -0700 (PDT)
+Date: Mon, 13 Jul 2026 20:12:21 -0700
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+ Danilo Krummrich <dakr@kernel.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Sandy Huang <hjc@rock-chips.com>,
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, 
- Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Matthew Brost <matthew.brost@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- linux-aio@kvack.org, linux-fsdevel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH v2 12/13] mm/mprotect: convert mprotect code to use
- vma_flags_t
-Date: Mon, 13 Jul 2026 22:46:45 -0400
-X-Mailer: MailMate (3.0r7017)
-Message-ID: <E797FDEC-48B6-4D64-BEA1-3A15D5379652@nvidia.com>
-In-Reply-To: <20260711-b4-vma-flags-mm-v2-12-0fa2357d5431@kernel.org>
-References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
- <20260711-b4-vma-flags-mm-v2-12-0fa2357d5431@kernel.org>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BL1PR13CA0280.namprd13.prod.outlook.com
- (2603:10b6:208:2bc::15) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+ Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, boris.brezillon@collabora.com,
+ samitolvanen@google.com, acourbot@nvidia.com, alvin.sun@linux.dev,
+ laura.nao@collabora.com, work@onurozkan.dev,
+ beata.michalska@arm.com, steven.price@arm.com, lyude@redhat.com
+Subject: Re: [PATCH v6 4/7] drm/tyr: add GPU virtual memory (VM) support
+Message-ID: <alWpFZfj1oj6IZMn@um790>
+References: <20260709-fw-boot-b4-v6-0-ca391e1a4108@collabora.com>
+ <20260709-fw-boot-b4-v6-4-ca391e1a4108@collabora.com>
+ <alD-bUuMS2913WJO@google.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH8PR12MB7136:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98d9eb02-44c9-41a4-6336-08dee15226a7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|23010399003|366016|1800799024|18002099003|56012099006|4143699003|11063799006|22082099003;
-X-Microsoft-Antispam-Message-Info: g+UbA5RRGDxSjnEBQGbFA5Nzzl9skoKxx2Ji+Y63lvF4XNPGle/YwlqvU87ExSpIfBBaroYHg6lwNRb+5FCqrRqLVDR4t9PoC9WMLwUdLRWqGyDFmicU8MjQI5dj0efQlbPBN1wzsk84ZWFx3o3fv3AyLSQbPXCx6h/lKFHvSfJh+Ck88TCsk83Exfr/eIp0PcomRtd4IHCU2LDQhOgyMSTJNV7cmlhpglZIYp+CgjD98xGL48CaSIbbiXTfr98jdRv809b8lJeGCGsyLM0pkdLobMewUTSaTjEPhKJig8rbhQHuc7Rpf2Wru0+5MAk1nfANNL14YOXM9/0Dldugd/2kROMLLgi17TvpwM85cjxorQ2nz6tOWxtG0I/XrGoT0hz//aR68s+aA7JaFASLTzJbMJI+JdHPdCKVKAS+jrxTMWXNNyzBK3hZuYJxkvbS2M6OMTMOJQMbArU56BU4IDYjBZOSFYUqbE8OeDtX+3HYm+9ANCBEat87DXmbxpAXKqewMRPrioM7q1OVYfIsCqjzB1gXX8Mnk48PtCsFhgdsd6e2ZCgxR+13ebcXjRaVn9FcANGXXwfea0VikL3pjLFdOK32EMb4nYEbn3S9SeHG8twJ3+2lCzOKnUkhlDNqG5P8wh7BvMcN/VwZx76N5NMrEJ646i4OPLrXe7Hs0ig=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(18002099003)(56012099006)(4143699003)(11063799006)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vbCWyyx2FA82sXVNPKB4JfuJPnluc8V5q7vTn2rk1np1pMisQ32P4fICD6IT?=
- =?us-ascii?Q?kT7J1blQ86FTj8QsK1YzTa1LVrY4sTJ7zO7uaj+Fwko08P5G6oY0BQo2yd/D?=
- =?us-ascii?Q?86QyOmE6aGFVbsYcLRYea2MG8seNkNkfd1pNaJca9hy2nk8pOtxqybMpLoBk?=
- =?us-ascii?Q?XSOGei0I+fqqhMDaJl0E9I5QvWs3RKynjdueNGlm5ipdo278MEaNzckZiNf4?=
- =?us-ascii?Q?8jtv2IJd0BMb8aOkXurh3K8c2Mk/yQYDBEpQnR5b0QSxTA1zZ2ad74k718Z0?=
- =?us-ascii?Q?QiHLiT+8Ac4rikcXSUXVRNPllSxDmHZfTUnnWIiF7eF16kDx6RcfAZ1khrGP?=
- =?us-ascii?Q?+DYZfqcfdKr0iIZvfXqq8XLQTcW7LA14SZTl4tUCpIGqTXQc+ooGD2yWdqtD?=
- =?us-ascii?Q?uMlM79iQPCMxwoYSWvqQcyBJNPYzO4npwa+4ROdFtRaviwrQnLSR83RHCCYQ?=
- =?us-ascii?Q?ReOEI4nN8CW5nscd0F2nXoBVpjTvKU9ZZbn8Zs8L/nBUKboPVca/kMoScLaI?=
- =?us-ascii?Q?og6X/ilIrb+dqldrr7x2uz180DmriJXMafQjuQs67TICNF2crG7lsEIrxywj?=
- =?us-ascii?Q?fw0vMBAXddMjgECGOQ2wHCKgoaPKNaEZlhdWX16ZGXTCQISzQ2b0wBbShW87?=
- =?us-ascii?Q?7SLNOs+rDcNZqzRDlBXaS44ZTizjlzzIerNhRFLSCxC1j0V7RwU4gJrWZcil?=
- =?us-ascii?Q?PapVxG+LFW9ITOm9YNTnqzai7nfl4oE4/oU1mCEe2HH0Gql/1UVM0oBFNlUy?=
- =?us-ascii?Q?AaT1MR8xCYznZphoXZ/lQ5F4fCJAr3pfGPP/W1bsc6SSFmcQnHMA0BCBy40u?=
- =?us-ascii?Q?uagioAk/r8buuFRdvBc/lIndPfRWSWZlZ+RtupQ3NlVBPQiJriDgmXUkHRla?=
- =?us-ascii?Q?3oqlfHERHZ0oOYfSXbUyfQsBgu8ihE+QnsmW3Yk1lhf0im7PW060Gq/K171T?=
- =?us-ascii?Q?Jam47U2XbImLlFkDaF5xqvdkVu8qjuePtYbaFLni/ot9ke9dOVwhKAEpN1HO?=
- =?us-ascii?Q?hN5+dDC8CyKXuq0ebVz7UrLcusBTHWp9Tc3I2kft5CNz/o3JMuBx7QGfzZU6?=
- =?us-ascii?Q?AH0rXEdeBaEadZakzs71dO3Pf6U8pCpmN3RQM3LM6TACQxOgal9wgR2osEM5?=
- =?us-ascii?Q?kW63q0DqjF//S0CM+p8wimC6BoujtnjB6NUoUHcfnBUdUbsBaXPzO/D3p+F9?=
- =?us-ascii?Q?/7kJ7kq7VzL4Z/Kk8YWPwiXAnYbuBFca5lKQQchHTQzp6MR59B6jd1Y/tiuW?=
- =?us-ascii?Q?qT5PJy/v/awW88y1hEKabOlLdl2yYkm2mW2YoFxOiLK/zfufgl7qUuhuN/P2?=
- =?us-ascii?Q?JB6N01+w8hGVjNrQvir77M56la4FC31hAEfv6ESNd3ClOkMBZ/6WoIxSdQmG?=
- =?us-ascii?Q?nswstxJC8yQZKEd4JetK9nisacGAzjQAYb1xRxZGfRpujPVBCgo5NwbraYNi?=
- =?us-ascii?Q?bJ07R5kxdI4Ry3tfeSA9d5CwtWkWbguGr5zMA+9rDuFcvWhHCW34Ub83A5Sc?=
- =?us-ascii?Q?kMK/qMa7G0DD8+I6fhqW8TlyzLtp28m+16x+SebPd8PSIQeNJteD2HEc3eR6?=
- =?us-ascii?Q?byJb05MwIgM9eI5Wx7ko1UcvBAl2AaRXPH3WlvO9qJ89bsJBh4b/lYWYZ9aA?=
- =?us-ascii?Q?We1RsTwRCiH0tB0yq4Ah2NxIvNAqyp2Q6NIZbhjBfe5vjIYIOyZvMSsWS0nf?=
- =?us-ascii?Q?L7UeJ0+jSXn5FYXakjzK0aA4WT7zLlUu7EBFT5kv/NvBy/T/oqlTBCRFt5aV?=
- =?us-ascii?Q?+LnaLHJPaw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98d9eb02-44c9-41a4-6336-08dee15226a7
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 02:46:48.6918 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W7pmpah1sUuBVKsr1lh5nsapbyM94r/p/x7AVSFyuwMEnfxfSNJnSrS1SOk6gabX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7136
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <alD-bUuMS2913WJO@google.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -189,28 +74,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 11 Jul 2026, at 14:45, Lorenzo Stoakes wrote:
+On Fri, Jul 10, 2026 at 02:15:09PM +0000, Alice Ryhl wrote:
+> On Thu, Jul 09, 2026 at 02:36:44PM -0700, Deborah Brouwer wrote:
+> > From: Boris Brezillon <boris.brezillon@collabora.com>
+> > 
+> > Add GPU virtual address space management using the DRM GPUVM framework.
+> > Each virtual memory (VM) space is backed by ARM64 LPAE Stage 1 page tables
+> > and can be mapped into hardware address space (AS) slots for GPU execution.
+> > 
+> > The implementation provides memory isolation and virtual address
+> > allocation. VMs support mapping GEM buffer objects with configurable
+> > protection flags (readonly, noexec, uncached) and handle both 4KB and 2MB
+> > page sizes. A new_dummy_object() helper is provided to create a dummy GEM
+> > object for use as a GPUVM root.
+> > 
+> > The vm module integrates with the MMU for address space activation and
+> > provides map/unmap/remap operations with page table synchronization.
+> > 
+> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
+> > Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+> > Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> > Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> 
+> > +impl core::fmt::Display for VmMapFlags {
+> 
+> Use kernel::fmt instead of core::fmt.
+> 
+> > +impl TryFrom<u32> for VmMapFlags {
+> > +    type Error = Error;
+> > +
+> > +    fn try_from(value: u32) -> core::result::Result<Self, Self::Error> {
+> 
+> Simplifies to Result<Self, Self::Error> without full path.
+> 
+> > +        let valid = (kernel::uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_READONLY
+> > +            | kernel::uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC
+> > +            | kernel::uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED)
+> > +            as u32;
+> 
+> Simplifies to
+> 
+> 	let valid = Self::Readonly as u32 | Self::Noexec as u32 | Self::Uncached as u32;
+> 
+> > +impl Drop for PtUpdateContext<'_, '_> {
+> > +    fn drop(&mut self) {
+> > +        if let Err(e) = self.mmu.end_vm_update(self.as_data) {
+> > +            pr_err!("Failed to end VM update {:?}\n", e);
+> > +        }
+> > +
+> > +        if let Err(e) = self.mmu.flush_vm(self.as_data) {
+> > +            pr_err!("Failed to flush VM {:?}\n", e);
+> > +        }
+> 
+> I assume it's not possible for this to run during a VM eviction, right?
 
-> Replace use of the legacy vm_flags_t flags with vma_flags_t values
-> throughout the mprotect logic.
->
-> Note that we retain the legacy vm_flags_t bit shifting code in
-> do_mprotect_pkey(), deferring a vma_flags_t approach to this for the time
-> being.
->
-> Additionally update comments to reflect the changes to be consistent.
->
-> No functional change intended.
->
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> ---
->  mm/mprotect.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
->
-LGTM.
+In this series I don't think it's possible.
+VM eviction only happens on firmware drop which happens on device unbind.
+So, since firmware is held in RegistrationData, my understanding is that
+it won't be dropped while a device-bound VM operation is in progress.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+The slot manager does have a function to evict an idle vm to allocate an address
+space for a new vm during a mapping/unmapping, but for this fw boot series there
+is only one vm and it’s never marked as idle.
 
-
-Best Regards,
-Yan, Zi
+> 
+> > +        let gpuvm_unique = kernel::drm::gpuvm::GpuVm::new::<Error, _>(
+> > +            c_str!("Tyr::GpuVm"),
+> 
+> This can just be c"Tyr::GpuVm". The macro is only needed in macro
+> contexts where this rewrite is not possible e.g. because the macro's
+> caller provides a non-c str literal.
+> 
+> > +        let mut gpuvm_unique = self.gpuvm_unique.lock();
+> > +
+> > +        self.exec_op(gpuvm_unique.as_mut().get_mut(), req, &mut resources)?;
+> > +
+> > +        // We flush the defer cleanup list now. Things will be different in
+> > +        // the asynchronous VM_BIND path, where we want the cleanup to
+> > +        // happen outside the DMA signalling path.
+> > +        self.gpuvm.deferred_cleanup();
+> 
+> You should probably release the gpuvm_unique mutex before invoking
+> deferred_cleanup().
+> 
+> (Multiple occurances in this patch.)
+> 
+> > +            if gem_offset > 0 {
+> > +                // Skip the entire SGT entry if the gem_offset exceeds its length
+> > +                let skip = sgt_entry_length.min(gem_offset);
+> 
+> Nit: this may just be my idiosyncrasy, but I think this is more readable as:
+> 
+> 	usize::min(sgt_entry_length, gem_offset)
+> 
+> (Multiple occurances in this file.)
+> 
+> > +            let segment_mapped = match pt_map(context.pt, iova, paddr, len, prot) {
+> > +                Ok(segment_mapped) => segment_mapped,
+> > +                Err(e) => {
+> > +                    // clean up any successful mappings from previous SGT entries.
+> > +                    let total_mapped = iova - start_iova;
+> > +                    if total_mapped > 0 {
+> > +                        pt_unmap(context.pt, start_iova..(start_iova + total_mapped)).ok();
+> 
+> Nit: the idiomatic way to ignore errors is to write:
+> 
+> 	let _ = pt_unmap(context.pt, start_iova..(start_iova + total_mapped));
+> 
+> instead of converting the Result into an Option with .ok() and abusing
+> the fact that Option is not #[must_use].
+> 
+> > +/// This function selects the largest supported block size (currently 4KB or 2MB)
+> > +/// that can be used for a mapping at the given address and size, respecting alignment constraints.
+> > +///
+> > +/// We can map multiple pages at once but we can't exceed the size of the
+> > +// table entry itself. So, if mapping 4KB pages, figure out how many pages
+> > +// can be mapped before we hit the 2MB boundary. Or, if mapping 2MB pages,
+> > +// figure out how many pages can be mapped before hitting the 1GB boundary
+> > +// Returns the page size (4KB or 2MB) and the number of pages that can be mapped at that size.
+> > +fn get_pgsize(addr: u64, size: u64) -> (u64, u64) {
+> 
+> Some of these comments are missing a / character.
+> 
+> > +        // SAFETY: Exclusive access to the page table is ensured because
+> > +        // the pt reference comes from PtUpdateContext, which is created
+> > +        // during a VM update operation, ensuring the driver does not concurrently
+> > +        // modify the page table.
+> > +        let (mapped, result) = unsafe {
+> > +            pt.map_pages(
+> > +                curr_iova as usize,
+> > +                (curr_paddr as usize).try_into().unwrap(),
+> > +                pgsize as usize,
+> > +                pgcount as usize,
+> > +                prot,
+> > +                GFP_KERNEL,
+> > +            )
+> > +        };
+> 
+> It would be ideal if this SAFETY comment explains why this safety
+> requirement is satisfied:
+> 
+> 	This page table must not contain any mapping that overlaps with
+> 	the mapping created by this call.
+> 
+> (It's because GPUVM tells you to unmap pages before it tells you to map
+> them.)
+> 
+> > +/// Unmaps a virtual address range from the page table.
+> > +///
+> > +/// This function removes all page table entries in the specified range,
+> > +/// automatically handling different page sizes that may be present.
+> > +fn pt_unmap(pt: &IoPageTable<'_, ARM64LPAES1>, range: Range<u64>) -> Result {
+> > +    let mut iova = range.start;
+> > +    let mut bytes_left_to_unmap = range.end - range.start;
+> > +
+> > +    while bytes_left_to_unmap > 0 {
+> > +        let (pgsize, pgcount) = get_pgsize(iova, bytes_left_to_unmap);
+> > +
+> > +        // SAFETY: Exclusive access to the page table is ensured because
+> > +        // the pt reference comes from PtUpdateContext, which was
+> > +        // created while holding &mut Vm, preventing any other access to the
+> > +        // page table for the duration of this operation.
+> > +        let unmapped = unsafe { pt.unmap_pages(iova as usize, pgsize as usize, pgcount as usize) };
+> 
+> It would be ideal if this SAFETY comment explains why this safety
+> requirement is satisfied:
+> 
+> 	This page table must contain one or more consecutive mappings
+> 	starting at `iova` whose total size is `pgcount * pgsize`.
+> 
+> I.e. why can we be sure that this call isn't trying to unmap a 4KB
+> sub-page in something that exists as a 2MB mapping in the page table?
+> 
+> (It's because GPUVM tells you to unmap exactly the range you were
+> previously told to map.)
+> 
+> Alice
