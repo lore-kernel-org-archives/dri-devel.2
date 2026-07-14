@@ -4,105 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B5C0C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 13:27:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87631C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 13:27:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2DDD10E6C3;
-	Tue, 14 Jul 2026 13:27:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB09010E65E;
+	Tue, 14 Jul 2026 13:27:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="glVZqIAO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HiYI8UOI";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06E4F10E6C3
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 13:27:22 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-38de840f2f0so988278a91.0
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 06:27:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784035641; cv=none;
- d=google.com; s=arc-20260327;
- b=ZiEASOPQHyeLGXvtrJf1Uk7JzOsf/Fq/rUovEsU1gff8dMJmR9ATUxtD3UyP2Le7RQ
- 0ieciecOabAaqIxB+hlsQTQXWh1LTFWIC8rJjeHlDBcEGAIUJC0cF8hGUUQyis2AsoJe
- Fz6bK0SHIjyB6E2C6rK22c3lBFP/R8JUPQTraySzXKGYO8+fZL8jSDgSWrRztaMZrEF0
- Q8NXDy2FngPdP5t94Guw4eneXL0huppLa8nQ6VOuaWJzcypIHg2T8WseHey0DL1A0iz+
- HBNL2OicMHR9o9thDV76lHF/CybIV5hQ0JtlMJxP8ADp3hJPFRBT16hWsICXJlZVcnsy
- wOLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=PSq/mUWM2YvpW32XDTn1fQtxRJbdlACjQCMNg3wpfiM=;
- fh=Uvrf9Pqe282bGWwaiv7oc6IscFeixwusC9SXYjyPXJM=;
- b=giubvr6S0+FFMcbOEoOVr0X8m4ckQEjenxEYFa/l4Hjig518WGRx5tgOE0p4SdSEuw
- FfiQYhqyNFkyUPoB0OUWNwP+GmBy8hNerjAsUATR4Qxi0vU6R2lm7e/u315e2//Er1yn
- mM0fxp4yG9I1ci8uWfIkhCAw/JcO805DRbwLnFIlWkD99Cr8du6ViLjLYwdscYHO9FsT
- x+c9ZprXcg6hIQzcrnv1w+4UoHSkrbR3HbkOX9fJduwwmoNC0iMciX/eq/3y5KfOEKSW
- l4aI5rz+5+1Oc3ABZHphCmMtFtKiDW6MZaasPLHgD7R5T4T+WF/k0bo573lx5PRjyi0n
- KvoA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55A4710E65E
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 13:27:36 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id
+ d2e1a72fcca58-84a2dcede83so1303888b3a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 06:27:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784035641; x=1784640441; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1784035656; x=1784640456; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=PSq/mUWM2YvpW32XDTn1fQtxRJbdlACjQCMNg3wpfiM=;
- b=glVZqIAOBeoRYt9SNWvGCHnRdBHaKcHaoh1s22cxKlRjiF3TDPOHvftAeTSsaX3SQe
- wphhz2u0h7UBtXZaZjvLDHbT3GlpkozrKARUKZTd2pRXbud0EC3QYyQybQYBgt1W3CAl
- zfWNgfJh47MxfuOQePOx/moQKnMcB0QXTR+HsdTvSNM1xKClx4K49M/6AbYR+ou9EWgt
- tgBC7JsEYlWSVcg9MetN+/MxkAscu4j5rPSN8FRlnJFSlOLQopdo5HLksVUWtjTXy0b4
- /GU1Ca3jsgcYg/JGc4iqSLAPmr+78oxObHf16k+oxM3cX4k5NR2ycC51Fa/sFL97yBkK
- p++w==
+ bh=8LdAoJKwXyAPy2Oxe1p5of7f27uz/x1w5QiaYqvn624=;
+ b=HiYI8UOIErp7iKUOGCXdauVFRAx/MK6zpXrEe53jGEmP9dWwTh5ebPNCS/XjpWqOsM
+ +9eWb59XXKI7Mp+EU18XzQ78iY1KRlvxu4lBCeR3Lf8uMFOaFiNiQHMmrhjwanVellmq
+ 9pvnYFxHexRQe3G97PePnQAaKek20OBcs59w5rtTFRVPNFtyaE7aPC4hQ5dF/nQvh5Uj
+ n1Fd4KgpEtRg21BoiYKo54tkfw/4vw3CmvyUCEYXsd4jT9gkAs23wnEiRmUzX+hl3fx6
+ xoJ4e/inFDPuJwU0BVySCaHasLj9jUfs/sED4WP8UfqqO3xOkwWPAjJoDjUHwWqFhDhM
+ H0Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784035641; x=1784640441;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20251104; t=1784035656; x=1784640456;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=PSq/mUWM2YvpW32XDTn1fQtxRJbdlACjQCMNg3wpfiM=;
- b=kwPGYeA0ixgwKPJ2YUFOiK8D3HpM5kUzdW226fMIFmhrKQe5Jwra9V9xsZc6gaHQQj
- R84/jQTod3F1sFSJu3WyhVz7TU6YAvkQd+lCv+8c/ZlQ0V0xDXiDD7FKdED6H5WjShlt
- fY6QYdIW5snZ6+jSiwWk8/GInsd+Hs+T36XGk6pWoOjm+ir2AsoOUKxRfVVPaQF5kPZ1
- QZO3YHDyzJwkExpIfjgxy8W0qA1aERhsOck8xV2n01i55T1ymOySr1mivGRzQbOb3+yA
- 3SyHjApupJ2dl/eUgNNWYJGD8C/JaZTAdpQ5XOkq41JKAy3wb0etTam1Mrcr2LAZsDyw
- MZQw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqJtowW2wXeQfYrrufj+/GRCOLTvJvW3wR/jWuaMxh0hsZ8kVoMeaGTZ48RHw49mvPsl+P/YrVFnlU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzEObREzozQvkIFYhvAOgB7tTF4pwePqVz02OWB+hJNZc2ecDFf
- KCxmfUZaxw2dlu+GaHzmPpGRk4YqYZk1iCYjTp0LGul/7FmUTb1InfV5YkShSK2f/3KFrwa+P/U
- qEOv/5hzQpumV1YhL/gtIUuYrT0ukmNg=
-X-Gm-Gg: AfdE7cmwbBa+kRGmIrMLo4l6X+dSYMjfmRNwXvKigtZFJHi8LHl+Nng2TX2dYh/SfcT
- DEp+JRv+rrRuhyu4RKYNSNIaWWrNex/UXhHA1at9JvID+lxYuoAERudwDnOrNf6Df22vmJ04Ti2
- JcUr3+a7hjIpuO8PiE1WTBzzijJ2gpeawKfFEvi4wEFfZVH+RxHUvH3RvX9sjBHlerp5A35MLaJ
- 4hxwjw8LelCBZlHf94A52XBLNKMQWRJZgCwq1xPIIrxweUAfpnn98j1BKkDljwzUaSH0iSZT0Di
- lWYkT8yc7czhtJPEkq1eKynBXA2hvQ==
-X-Received: by 2002:a05:6a20:d70a:b0:3c0:b55a:80ff with SMTP id
- adf61e73a8af0-3c11063d595mr14450342637.24.1784035641387; Tue, 14 Jul 2026
- 06:27:21 -0700 (PDT)
+ bh=8LdAoJKwXyAPy2Oxe1p5of7f27uz/x1w5QiaYqvn624=;
+ b=VGpH3lYryUwJ1KrYladfN5FcboPqx6twIyHfemgv/xpSk4RA1RTaLiupFweeLuUeu0
+ XCQNMZcPQBRw+LH/2znbnKdgUxkxFArH3J4BTpjv6kQB73BhDC7WcHDXChGxZsHSW4QF
+ s4s6sJeq/nKMM/R4jqcqTEm1Ren78xRUyCbyqmDuNP/HXoni/A3PZ6mrO6+5Uvh0TSff
+ zpXG7EfOjR8ZSduzLdd2+52hfHruNcDkkOhWq11srw2gX+Fv6eN74n8VIfvAKdXv9TGV
+ PfPudHkBdR0p50Z16+DHUTHdiRCKAcfRMUpP1k59bawkFUtPk8d3sfllnhq5kA2v7cGQ
+ 0j5g==
+X-Gm-Message-State: AOJu0YzTuyoowTnCxdGaNNkK4giNVSlq+ODtAxu6ASBOTL1f/OB50uUz
+ aQ8+7L24kbVEJtNI1RtGRV2JdA0USSxxnaKLMDaVSfGEcG3Sg7HdD7V4
+X-Gm-Gg: AfdE7cl0usSYwGuWmTLd8QU5bpQi/C8GsxeF1CwO8Y+vKv5r0jOfnBO5KLom9GIl/jo
+ ad+d8F8+aMydRyKWKAbcLNds1RQm4FCSJLQ/7NIKeIvoz8rGUhySh4rQPRF5FRdCXTe7u8UvXO2
+ FB7U4xMOSgF4y0uvI/ZdJ2f8TStXEiGDvYaXDY5DH3jZL5DBWAAdxCNLVpMeBhcDjszSIjB19Ji
+ U2A0aLN9tYIWm1XI6iZPHQ69PI6Cmo+1h7ZpmLh+EjjZRDIicW3CuIrXWFKZOugVzOcsp9I2CNz
+ DUkaUuORKHOOskNnvZOxGDpwN7xwlGHzhbkWnUD3t3hehIiLxjdpxnNyDbmOPvsGmcMwzJDXQ3S
+ kk0kVwAJuGwJ8/wKfgx4tr8DG9nYE9e9aBztRmLFNso6We8ZKdSWX/VaO4WCt1U0qe+2lsS6q1m
+ +by0yfbWQXPa6GE7y1
+X-Received: by 2002:a05:6a00:3005:b0:848:76af:db34 with SMTP id
+ d2e1a72fcca58-848897b575dmr13368022b3a.76.1784035655743; 
+ Tue, 14 Jul 2026 06:27:35 -0700 (PDT)
+Received: from baineng-pc.. ([117.133.183.252])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84a4f819a92sm1513008b3a.52.2026.07.14.06.27.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2026 06:27:35 -0700 (PDT)
+From: Baineng Shou <shoubaineng@gmail.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Baineng Shou <shoubaineng@gmail.com>
+Subject: [PATCH v3] drm/prime: use dma_buf_fd_install() to preserve export
+ tracing
+Date: Tue, 14 Jul 2026 21:27:27 +0800
+Message-Id: <20260714132727.200995-1-shoubaineng@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <4ccf4ae5-ccd7-4bec-836a-fcebfa271c96@amd.com>
+References: <4ccf4ae5-ccd7-4bec-836a-fcebfa271c96@amd.com>
 MIME-Version: 1.0
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-2-clamor95@gmail.com>
- <akeFmMQ_S1Y18hlu@hovoldconsulting.com>
-In-Reply-To: <akeFmMQ_S1Y18hlu@hovoldconsulting.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 14 Jul 2026 16:27:08 +0300
-X-Gm-Features: AUfX_myw9KUnmAWsWcXDIJL61TlrVu8UIEI1kefy-2iSBs3h-OI28TD8pRQoND4
-Message-ID: <CAPVz0n23=F2Q2fSJJx1E_mST2zhomKcvhKtOy-Af3aoq-pZ-Zw@mail.gmail.com>
-Subject: Re: [PATCH v5 01/14] dt-bindings: leds: Document TI LM3533 LED
- controller
-To: Johan Hovold <johan@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, 
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,95 +93,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D0=BF=D1=82, 3 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:49 Johan=
- Hovold <johan@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Wed, Jun 17, 2026 at 11:00:18AM +0300, Svyatoslav Ryhel wrote:
-> > Document the LM3533 - a complete power source for backlight, keypad and
-> > indicator LEDs in smartphone handsets. The high-voltage inductive boost
-> > converter provides the power for two series LED strings display backlig=
-ht
-> > and keypad functions.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > Reviewed-by: Jonathan Cameron <jic23@kernel.org> #for light sensor
-> > Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org> #for backl=
-ight
-> > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
->
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/gpio/gpio.h>
-> > +    #include <dt-bindings/interrupt-controller/irq.h>
-> > +
-> > +    i2c {
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <0>;
-> > +
-> > +        led-controller@36 {
-> > +            compatible =3D "ti,lm3533";
-> > +            reg =3D <0x36>;
-> > +
-> > +            enable-gpios =3D <&gpio 110 GPIO_ACTIVE_HIGH>;
-> > +            vin-supply =3D <&vdd_3v3_bat>;
-> > +
-> > +            ti,boost-ovp-microvolt =3D <24000000>;
-> > +            ti,boost-freq-hz =3D <500000>;
-> > +
-> > +            #address-cells =3D <1>;
-> > +            #size-cells =3D <0>;
-> > +
-> > +            backlight@0 {
-> > +                compatible =3D "ti,lm3533-backlight";
-> > +                reg =3D <0>;
-> > +
-> > +                default-brightness =3D <113>;
-> > +
-> > +                led-max-microamp =3D <23400>;
-> > +                led-sources =3D <0 1>;
-> > +            };
-> > +
-> > +            led@2 {
-> > +                compatible =3D "ti,lm3533-leds";
-> > +                reg =3D <2>;
-> > +
-> > +                led-max-microamp =3D <23400>;
-> > +                led-sources =3D <0 1>;
-> > +            };
-> > +
-> > +            led@4 {
-> > +                compatible =3D "ti,lm3533-leds";
-> > +                reg =3D <4>;
-> > +
-> > +                led-max-microamp =3D <23400>;
-> > +                led-sources =3D <2>;
-> > +            };
-> > +
-> > +            led@5 {
-> > +                compatible =3D "ti,lm3533-leds";
-> > +                reg =3D <5>;
-> > +
-> > +                led-max-microamp =3D <23400>;
-> > +                led-sources =3D <3 4>;
-> > +            };
-> > +
-> > +            light-sensor {
->
-> Doesn't the binding (or dts) checker complain about this node not having
-> an address?
->
+drm_gem_prime_handle_to_fd() open-codes fd reservation and install
+using get_unused_fd_flags() + fd_install() directly.  This bypasses
+the DMA_BUF_TRACE() call that dma_buf_fd() emits, so observability
+tools relying on the trace_dma_buf_fd tracepoint silently miss all
+DRM PRIME exports.
 
-No it does not
+Replace the bare fd_install() with dma_buf_fd_install(), which wraps
+fd_install() together with DMA_BUF_TRACE(), restoring full tracepoint
+coverage.  No functional change; the fd lifecycle (get_unused_fd_flags
+→ work → install) is already correct.
 
-> > +                compatible =3D "ti,lm3533-als";
-> > +
-> > +                interrupt-parent =3D <&gpio>;
-> > +                interrupts =3D <80 IRQ_TYPE_LEVEL_LOW>;
-> > +
-> > +                ti,pwm-mode;
-> > +            };
-> > +        };
-> > +    };
-> > +...
->
-> Johan
+Note: this patch depends on dma_buf_fd_install() introduced in
+"dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds"
+[1].
+
+[1] https://lore.kernel.org/dri-devel/20260714114654.3885457-2-shoubaineng@gmail.com/
+
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+---
+ drivers/gpu/drm/drm_prime.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+index 9b44c78cd77f..fe3436d1235d 100644
+--- a/drivers/gpu/drm/drm_prime.c
++++ b/drivers/gpu/drm/drm_prime.c
+@@ -524,7 +524,7 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
+ 		return PTR_ERR(dmabuf);
+ 	}
+ 
+-	fd_install(fd, dmabuf->file);
++	dma_buf_fd_install(dmabuf, fd);
+ 	*prime_fd = fd;
+ 	return 0;
+ }
+-- 
+2.34.1
+
