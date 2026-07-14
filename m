@@ -4,64 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C02A8C44507
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 18:33:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84E78C44507
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 19:05:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DF6810E0D7;
-	Tue, 14 Jul 2026 18:33:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E032010E0A6;
+	Tue, 14 Jul 2026 19:05:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CH3qaEjK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iTPEQuk4";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 477F710E0D7;
- Tue, 14 Jul 2026 18:33:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784054022; x=1815590022;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=G+CQm2u0t0jDXEYLT97IgrcW4GZxek5QHJjqTILuWeo=;
- b=CH3qaEjKWw5poOJJ1jE++MnlO42OWSlwEBNt8V/3spY0DaS+/vMLX4aQ
- Sy6Yhtk2Z+RV5T92DD5iv5D8HrXom3wJIhQrEXjYxJweTJHHa9FRfINAq
- HrBzIENakx+G4OMXR17RfpGJJqumuYhBsW94g6OnTcr9fatfVgYWtqWoW
- 4Tty/GSvulR3uA2GZ+XnGxQE9cUs+byyIOMZA6hcL7/zTghrwdcjOFmxS
- DlZBD5xxPEnlWmBsReybEJKEz8nYOW7O8bHAOV15+ZuWanEDXpRuW7SjP
- ymn3ZQtFbTICISbfedaPYMklheF8n6w1SmptC94zvRBtpq4k9eWY03ZoW g==;
-X-CSE-ConnectionGUID: 3c2HRqJ1ToKRWq4VqMJR1g==
-X-CSE-MsgGUID: AYO/ZXUWRne+x7GFeQioKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="95038852"
-X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; d="scan'208";a="95038852"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2026 11:33:42 -0700
-X-CSE-ConnectionGUID: vI5Lrot2TqCssFkfALbIog==
-X-CSE-MsgGUID: a+xk3+08R8akDWBAe+bVnQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; d="scan'208";a="259511182"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.245.238])
- ([10.245.245.238])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2026 11:33:39 -0700
-Message-ID: <b66a85c300828f2a79bce20cdbad9051c617b694.camel@linux.intel.com>
-Subject: Re: [PATCH] drm/ttm: Account for NULL and handle pages in
- ttm_pool_backup
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui
- <ray.huang@amd.com>,  Matthew Auld <matthew.auld@intel.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 14 Jul 2026 20:33:36 +0200
-In-Reply-To: <20260702214815.4009271-1-matthew.brost@intel.com>
-References: <20260702214815.4009271-1-matthew.brost@intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D77D110E0A6
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 19:05:46 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-493e4cccd8dso6637625e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 12:05:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784055945; x=1784660745; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=FmXhBG5qfGiwm5Sxpbw0Qfvk0I/spud/+tFxZ2U3z1s=;
+ b=iTPEQuk48VTTbokbxCprN1SSRF2qHA7hS3SDeqUgSb0xY2uQAMXs7UjH+9bPkoj/6v
+ jZ5r2aXNwamlpypGwSECeKhiPPHnnxmzKI8Dt/xg+l5Fy8Y7CvZn1DTSUYXmwcxJ0psG
+ xLz12nfPKGgOhOgjyt9mbF3j9LwD3lXXqRkat9smoCZBmk5E+WwSD0967oXee6E6wqa+
+ K7TcFwJUQb7b4Ts2kOMvF8fv11MylsSTVcZjsQBjqgkG1H6e3i2JyqqB2rqZ4ASj7yQf
+ oM4bSWIqenmt86es0/5gvgYUi/8FiOQtuaIX+5SXRWI0vTxOg/kEZSpY6nSkd3kXwuXz
+ E7lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784055945; x=1784660745;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=FmXhBG5qfGiwm5Sxpbw0Qfvk0I/spud/+tFxZ2U3z1s=;
+ b=Oqeye2BZIdMOrSUZvewbve1ns1o6ZxIsmA0RwGlUi2WL8mjoQAqCcko77owyBsg4kq
+ +1tyiEwk4FRiPyq+MWAF23IMtJSwnZhtI4J/zMBIbj4V7/LRNpkPKSVsLjJDoxb0cipF
+ xPCHqDMWNiAsS9FOY29K8N2ieBnWpTlx39dLPrBipoGxu/ECNeWaocEUxY1pzv8kE0mH
+ IO09U0O8S14CD3RwTXUmYdnSSnP64GzmMP5l0UoeYMsK8gqnOuPgZ+h8f9zcjTMHwX8z
+ VJiLD7RgF611SCwY6kZExvuHped3U2hwnnv2py2wyCsTxXkK/9YWAU7ht9QAV11y4v0s
+ 0C9Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpDIl2jfD2pluoUkOsp1CaiZM6EfMGKpTNTe92GjcfMk7KI3ut17oxOz/9hE2xgrhDfD5ODAlcgJ5Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw02SH2YJAJ3F5S3XLEQm0sBCNmn7ADRLk91hL+whCHV/HzLu1e
+ Fi1diagYrg5MC2sWE7c6lA/PKiAVaDHvzPPZgfvT1cQtM1aCY2/AcT33
+X-Gm-Gg: AfdE7cmtAXrgcCK/PQdWNAxCIq23ytFbFuzwq9NSSBHo0MW5NF7ZfwLy9sTONwpDsfF
+ GhMsg/t5vm0uV1e76q6dE92NYrt5kp5TSpqEFPyvLJm0/3lf1EpMZZHCr7CYU3ODrlEp+1iT9aN
+ pFhrIvx31vmBHGnma7gYVIEvtFwAZ3blrqh16/cXX+2a3PLmVdUHajwB2+ra+TjRu7WoLfTLAxq
+ t/nvk6a3+NTukfao4ZEkGh1ExKMKkre4o8Rd14ipw6ZQgSbRB/zHGjYT9G3W2FE+clHOGrnwmhU
+ /cYejp/vSJ8trb+C+L/m6TyrgtdrNRFUF2nFg+I1fWRXv+qrGx4nyU9U/dVgxXwNl6nSnB9EWei
+ 5Ds1EfCbKgs0CO6XUcPqkhHf3mzIHtBCtSFFW/Ip9ivFRdDLBVMBGhH5eHDZ9uxJH00DjF9LiH+
+ t2EIu4Ty4wybk=
+X-Received: by 2002:a05:600c:3f06:b0:493:b9cd:1272 with SMTP id
+ 5b1f17b1804b1-493f881de56mr142657415e9.23.1784055945154; 
+ Tue, 14 Jul 2026 12:05:45 -0700 (PDT)
+Received: from localhost ([5.83.201.220]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4950a2e8f07sm86192295e9.7.2026.07.14.12.05.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2026 12:05:44 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Francesco Dolcini <francesco@dolcini.it>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/bridge: lontium-lt8912b: make read-only const array
+ supply_names static
+Date: Tue, 14 Jul 2026 20:03:59 +0100
+Message-ID: <20260714190400.194605-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,143 +96,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 2026-07-02 at 14:48 -0700, Matthew Brost wrote:
-> Pages in ttm_pool_backup can be NULL or backup handles
-> (ttm_backup_page_ptr_is_handle()), neither of which can be passed to
-> set_pages_array_wb() or freed. Add a dedicated WB pass before the
-> dma/purge loop that walks allocations using the same i +=3D num_pages
-> stride, skipping NULL and handle entries, and calls
-> set_pages_array_wb()
-> once per contiguous run of real pages. Apply the same NULL/handle
-> guard
-> to the dma/purge loop.
->=20
-> Fixes the following oops:
->=20
-> Oops: general protection fault, kernel NULL pointer dereference 0x0:
-> 0000 [#1] SMP NOPTI
-> RIP: 0010:__cpa_process_fault+0xf8/0x770
-> RSP: 0018:ffffc90000a87718 EFLAGS: 00010287
-> RAX: 0000000000000000 RBX: ffffc90000a87868 RCX: 0000000000000000
-> RDX: 0000000000001000 RSI: 0005088000000000 RDI: ffffffff827c5f34
-> RBP: 0005088000000000 R08: ffffc90000a877cb R09: ffffc90000a877d0
-> R10: 0000000000000000 R11: 000000000000001b R12: 000ffffffffff000
-> R13: ffffc90000a87868 R14: ffffc90000a87868 R15: ffff88815b882ae0
-> FS:=C2=A0 0000000000000000(0000) GS:ffff8884ec840000(0000)
-> knlGS:0000000000000000
-> CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00007f930b844000 CR3: 000000000262e003 CR4: 0000000008f70ef0
-> PKRU: 55555554
-> Call Trace:
-> =C2=A0<TASK>
-> =C2=A0__change_page_attr_set_clr+0x989/0xe90
-> =C2=A0? __purge_vmap_area_lazy+0x6c/0x3a0
-> =C2=A0? _vm_unmap_aliases+0x250/0x2a0
-> =C2=A0set_pages_array_wb+0x7f/0x120
-> =C2=A0ttm_pool_backup+0x4c9/0x5b0 [ttm]
-> =C2=A0? dma_resv_wait_timeout+0x3b/0xf0
-> =C2=A0ttm_tt_backup+0x32/0x60 [ttm]
-> =C2=A0ttm_bo_shrink+0x66/0x110 [ttm]
-> =C2=A0xe_bo_shrink_purge+0x12b/0x1b0 [xe]
-> =C2=A0xe_bo_shrink+0xbb/0x270 [xe]
-> =C2=A0__xe_shrinker_walk+0xf7/0x160 [xe]
-> =C2=A0xe_shrinker_walk+0x9d/0xc0 [xe]
-> =C2=A0xe_shrinker_scan+0x11f/0x210 [xe]
-> =C2=A0do_shrink_slab+0x13b/0x270
-> =C2=A0shrink_slab+0xf1/0x400
-> =C2=A0shrink_node+0x352/0x8a0
-> =C2=A0balance_pgdat+0x32c/0x700
-> =C2=A0kswapd+0x205/0x2f0
-> =C2=A0? __pfx_autoremove_wake_function+0x10/0x10
-> =C2=A0? __pfx_kswapd+0x10/0x10
-> =C2=A0kthread+0xd1/0x110
-> =C2=A0? __pfx_kthread+0x10/0x10
-> =C2=A0ret_from_fork+0x1b1/0x200
-> =C2=A0? __pfx_kthread+0x10/0x10
-> =C2=A0ret_from_fork_asm+0x1a/0x30
-> =C2=A0</TASK>
->=20
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: stable@vger.kernel.org
-> Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to
-> shrink pages")
-> Cc: stable@vger.kernel.org
-> Assisted-by: GitHub_Copilot:claude-opus-4.8
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Don't populate the read-only const array supply_names on the stack
+at run time, instead make it static
 
-Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ drivers/gpu/drm/bridge/lontium-lt8912b.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> ---
-> =C2=A0drivers/gpu/drm/ttm/ttm_pool.c | 30 ++++++++++++++++++++++++++----
-> =C2=A01 file changed, 26 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
-> b/drivers/gpu/drm/ttm/ttm_pool.c
-> index 3d5f2ae0a456..ff043420d517 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -1065,9 +1065,31 @@ long ttm_pool_backup(struct ttm_pool *pool,
-> struct ttm_tt *tt,
-> =C2=A0		return -EBUSY;
-> =C2=A0
-> =C2=A0#ifdef CONFIG_X86
-> -	/* Anything returned to the system needs to be cached. */
-> -	if (tt->caching !=3D ttm_cached)
-> -		set_pages_array_wb(tt->pages, tt->num_pages);
-> +	/* Anything returned to the system needs to be cached. Walk
-> allocations
-> +	 * skipping NULL pages and issue set_pages_array_wb() per
-> contiguous run.
-> +	 */
-> +	if (tt->caching !=3D ttm_cached) {
-> +		pgoff_t run_start =3D 0, run_count =3D 0;
-> +
-> +		for (i =3D 0; i < tt->num_pages; i +=3D num_pages) {
-> +			page =3D tt->pages[i];
-> +			if (unlikely(!page ||
-> ttm_backup_page_ptr_is_handle(page))) {
-> +				if (run_count) {
-> +					set_pages_array_wb(&tt-
-> >pages[run_start],
-> +							=C2=A0=C2=A0
-> run_count);
-> +					run_count =3D 0;
-> +				}
-> +				num_pages =3D 1;
-> +				continue;
-> +			}
-> +			num_pages =3D 1UL << ttm_pool_page_order(pool,
-> page);
-> +			if (!run_count)
-> +				run_start =3D i;
-> +			run_count +=3D num_pages;
-> +		}
-> +		if (run_count)
-> +			set_pages_array_wb(&tt->pages[run_start],
-> run_count);
-> +	}
-> =C2=A0#endif
-> =C2=A0
-> =C2=A0	if (tt->dma_address || flags->purge) {
-> @@ -1075,7 +1097,7 @@ long ttm_pool_backup(struct ttm_pool *pool,
-> struct ttm_tt *tt,
-> =C2=A0			unsigned int order;
-> =C2=A0
-> =C2=A0			page =3D tt->pages[i];
-> -			if (unlikely(!page)) {
-> +			if (unlikely(!page ||
-> ttm_backup_page_ptr_is_handle(page))) {
-> =C2=A0				num_pages =3D 1;
-> =C2=A0				continue;
-> =C2=A0			}
+diff --git a/drivers/gpu/drm/bridge/lontium-lt8912b.c b/drivers/gpu/drm/bridge/lontium-lt8912b.c
+index 729b12b67470..62eabf0a3b88 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt8912b.c
++++ b/drivers/gpu/drm/bridge/lontium-lt8912b.c
+@@ -673,7 +673,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(lt8912_bridge_pm_ops, lt8912_bridge_suspend, lt8
+ static int lt8912_get_regulators(struct lt8912 *lt)
+ {
+ 	unsigned int i;
+-	const char * const supply_names[] = {
++	static const char * const supply_names[] = {
+ 		"vdd", "vccmipirx", "vccsysclk", "vcclvdstx",
+ 		"vcchdmitx", "vcclvdspll", "vcchdmipll"
+ 	};
+-- 
+2.53.0
+
