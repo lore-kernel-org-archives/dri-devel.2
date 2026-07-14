@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BB7FC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 08:13:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DD0DC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Jul 2026 08:17:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB35510EC61;
-	Tue, 14 Jul 2026 08:13:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A14C010EC64;
+	Tue, 14 Jul 2026 08:17:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="iMb1PBMM";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VfJe61hn";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 724F710EC61
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 08:13:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9673210EC64
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 08:17:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784016816;
- bh=j0SI4YRtONPH0K9xM6ukMCwDrLUf3U7zNF0KhtJk7As=;
+ s=mail; t=1784017070;
+ bh=lmLRA1j6bU4TZIADuvEfELdVnzXyMHW+4VvSLzBy1ag=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=iMb1PBMMF837bfEMQna4u7Y6ASqMFr/SL7NFmouS/Ju4iC4Nx6Tn2F//n26abYXzr
- ja6EJ+WBTCZ4WYQ/GBv1aVDTkWcHTXnc3/h/PNqIJ03DJ62y5AAB1ldRnX4aqX/wkB
- IHhWhaCnt1qW8Z3uI1nkQ9+pNTJDVRc1Q/7zjPvK/wp5hk5eszaElhPzROuxFJqNBE
- WYoaMV5dxI4MW0x559Fs55UxDpHlsO8zAjJTCTW87ao+wWlb451YdV2fFUuBI3qV+G
- 8njOz4LJsil2xmzXip/pHie2UYb+FEKZXE6RNFmDIMJxX0HBo9JGrW1V9oFYoLPduj
- zF3+yyiWfHbPA==
+ b=VfJe61hn68YfPm/X1p7KJ/Zi8jTfMN+t01Jd0U/6ibLN1YAJNARz232fpKx6HHdPw
+ 6IKRlmv4xqg0EyynMbUoFGm6XN01PiW4Gp/eT77LMiejeOCkXgMDw5tENPQxn23cUv
+ EYb+/i2NvC0bQeAzCu6rQJ8nTY0SgvWmko+An7B7Vna6ll9LdxFyfh7hzPJU4Y8/lZ
+ SGmARv/n51CFJLhodu6RfmPYS+w44dUC2lqbMvT6WJdzj9q0bew0F1HonK5WOLN6pr
+ 6VUNL6cCTpWmRllYuDhm13QZJ+5on02doB5RWg1Go5g09KToesJT7xogsWY6UZC+ag
+ Jo2HIamzBEffg==
 Received: from [100.64.1.21] (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id DE50B17E0851;
- Tue, 14 Jul 2026 10:13:35 +0200 (CEST)
-Message-ID: <d6f220e2-2416-405c-b866-77179fcd0ad4@collabora.com>
-Date: Tue, 14 Jul 2026 10:13:35 +0200
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id DDDB417E01AC;
+ Tue, 14 Jul 2026 10:17:49 +0200 (CEST)
+Message-ID: <64f479f6-af9c-4bda-8a6c-ddbabc839f10@collabora.com>
+Date: Tue, 14 Jul 2026 10:17:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/10] drm/mediatek: mtk_dsi: Enable PM Runtime on probe
+Subject: Re: [PATCH v4 04/10] drm/mediatek: mtk_dsi: Enable interrupt at
+ component bind time
 To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
 References: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
- <20260713142746.40259-9-angelogioacchino.delregno@collabora.com>
- <20260713144303.D147C1F000E9@smtp.kernel.org>
+ <20260713142746.40259-5-angelogioacchino.delregno@collabora.com>
+ <20260713144340.736B11F000E9@smtp.kernel.org>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-In-Reply-To: <20260713144303.D147C1F000E9@smtp.kernel.org>
+In-Reply-To: <20260713144340.736B11F000E9@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -65,91 +66,93 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 7/13/26 16:43, sashiko-bot@kernel.org wrote:
 > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] Enabling PM runtime leaves the DSI hardware permanently suspended, resulting in system crashes during unpowered MMIO register accesses.
-> - [High] The IRQ handler accesses hardware registers without verifying the device's PM runtime state.
+> 
+> Pre-existing issues:
+> - [High] Missing cleanup of DRM encoder when device_reset_optional() fails in mtk_dsi_bind().
+> - [High] Read-modify-write data race on `dsi->irq_data` between process context and hardirq context.
 > --
 > 
-> --- Patch [8]: [PATCH v4 08/10] drm/mediatek: mtk_dsi: Enable PM Runtime on probe ---
-> commit 7ce79b5636ac6fccf8b21d5b0f6a67f31c6b10eb
+> --- Patch [4]: [PATCH v4 04/10] drm/mediatek: mtk_dsi: Enable interrupt at component bind time ---
+> commit 0607d3868a389c4103df3225d2bc7a47d44df3b0
 > Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > 
-> drm/mediatek: mtk_dsi: Enable PM Runtime on probe
+> drm/mediatek: mtk_dsi: Enable interrupt at component bind time
 > 
-> This commit enables PM runtime at the end of mtk_dsi_probe() to allow the
-> power domains for the DSI IP to be turned on and off when necessary. The
-> commit message assumes mtk_ddp_comp_power_on() will resume the device.
+> This patch requests the DSI interrupt with IRQF_NO_AUTOEN and enables it only
+> when binding the DSI to its display controller component master. This prevents
+> interrupt storms and delays caused by timeouts during probe.
 > 
 >> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
->> index 93bc507d77e20..1726f5a2683cf 100644
+>> index 8ab5c3431dbbc..e24e7b91a3618 100644
 >> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
 >> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
->> @@ -1731,6 +1731,10 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+> [ ... ]
+>> @@ -1090,7 +1091,13 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
 >>   	if (ret)
->>   		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+>>   		return ret;
 >>   
->> +	ret = devm_pm_runtime_enable(dev);
+>> -	return device_reset_optional(dev);
+>> +	ret = device_reset_optional(dev);
 >> +	if (ret)
 >> +		return ret;
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but does this error path leak
+> the DRM encoder?
+> 
+
+That's right. I will send a patch to fix this outside of this series.
+
+This series shall not be blocked by issues that were already present before.
+
+> If device_reset_optional(dev) fails, it returns without calling
+> drm_encoder_cleanup(&dsi->encoder). Because the component bind operation
+> fails, the component framework will not invoke mtk_dsi_unbind(), meaning
+> the encoder is never cleaned up.
+> 
+> If the DSI driver is subsequently unbound or removed, its locally managed
+> memory is freed while the encoder is still linked in the DRM core's list,
+> which could lead to a use-after-free or kernel panic when the list is
+> traversed.
+> 
 >> +
+>> +	enable_irq(dsi->irq);
+>> +
+>> +	return 0;
+>>   }
+> [ ... ]
+>> @@ -1375,17 +1383,15 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+>>   
+>>   	platform_set_drvdata(pdev, dsi);
+>>   
+>> +	ret = devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
+>> +			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
 > 
 > [Severity: High]
-> The commit message states that mtk_ddp_comp_power_on() will resume the
-> device. Is this assumption correct?
+> This is a pre-existing issue, but is there a read-modify-write data race on
+> dsi->irq_data between process context and hardirq context?
 > 
-> Looking at mtk_crtc_atomic_enable() in drivers/gpu/drm/mediatek/mtk_crtc.c,
-> mtk_ddp_comp_power_on() is only called for the first component in the display
-> pipeline (comp[0]), bypassing the DSI component entirely.
+> mtk_dsi_irq_data_clear() modifies dsi->irq_data using &= in process context
+> (from mtk_dsi_host_transfer()) without disabling interrupts or using atomic
+> bitwise operations. Concurrently, the hardirq handler mtk_dsi_irq() modifies
+> the same variable using |=.
 > 
-> Furthermore, even if mtk_ddp_comp_power_on() iterated over all components, it
-> executes after mtk_dsi_bridge_atomic_pre_enable(). The pre-enable hook calls
-> mtk_dsi_poweron(), which directly accesses hardware registers:
+> If a DSI interrupt fires during the process-context read-modify-write
+> sequence, won't the flag set by the interrupt handler be silently
+> overwritten and lost when the process context stores its computed value?
 > 
-> drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_poweron() {
-> 	...
-> 	mtk_dsi_enable(dsi);
-> 
-> 	/* Bypass shadow and force commit only if the register is present */
-> 	if (data->reg_adv[DSI_SHADOW_DEBUG])
-> 		writel(FORCE_COMMIT | BYPASS_SHADOW,
-> 		       dsi->regs + data->reg_adv[DSI_SHADOW_DEBUG]);
-> 	...
-> }
-> 
-> Since the PM domain is still powered off at this point, will these direct
-> MMIO accesses cause a bus hang or system crash?
+> This could lead to hardware interrupt events being lost, causing timeouts
+> in mtk_dsi_wait_for_irq_done() and potentially breaking display
+> initialization or frame updates.
 > 
 
-Before the mediatek-drm restructuring, the power domains and clocks will be always
-on because the poweron op will be called at startup time.
+That doesn't really happen for now, but it's a fair point. Will send a patch
+to fix outside of this series.
 
-After the restructuring, power is OFF when DSI unused, and ON when DSI used.
+This was not introduced by this series and shall not block it.
 
-The power domains will therefore be ON when needed in both cases.
-
-> [Severity: High]
-> Now that the device supports PM runtime, can the IRQ handler run while the
-> device is in the RPM_SUSPENDED state?
-> 
-> The interrupt is unconditionally enabled in mtk_dsi_bind() and remains
-> enabled at the IRQ controller level even when the device is suspended. If a
-> spurious or delayed interrupt fires, mtk_dsi_irq() directly reads the
-> hardware register:
-> 
-> drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_irq() {
-> 	...
-> 	status = readl(dsi->regs + dsi->driver_data->reg_main[DSI_INTSTA]) & flag;
-> 	...
-> }
-> 
-> Should the IRQ handler use pm_runtime_get_if_active() before accessing
-> hardware registers to avoid touching unpowered hardware?
-> 
-
-It's guaranteed to be powered. Anyway, even if it is, that will read zero and
-will not crash.
-
->>   	ret = mipi_dsi_host_register(&dsi->host);
->>   	if (ret < 0)
->>   		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
+>> +	if (ret)
+>> +		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+>> +
 > 
 
