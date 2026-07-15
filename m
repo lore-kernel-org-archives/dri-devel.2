@@ -4,63 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FCF9C44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 16:13:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5083C44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 16:27:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F73F10E1EA;
-	Wed, 15 Jul 2026 16:13:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C53C810E1F1;
+	Wed, 15 Jul 2026 16:27:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Mh1USqDf";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="p9Sh+aUi";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E11C10E1EA;
- Wed, 15 Jul 2026 16:13:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784132037; x=1815668037;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=rMmW2Pbr8nq4dSfDbUDPA5DWhKEqY/N6ExqKZSyESiU=;
- b=Mh1USqDfKVP4Wt1VDZinFJObauW71H6k4iThyhVBtpQNggxmynvRr/vw
- PKjJRNCfvFFkmmTXllS14MdoYqJMiwPH5s0QVtUctP41ahqETpMSb7GQg
- wfJJm4I0yoRSCR98zxqMiKQZnBqLrLzQnoCtZaP9ECgDHeXkogGlG+sTL
- P48u99rIbdEftwu6CdfZv4k2O/LMEouLHITZoHNRpu1SfL559QPQRB+bx
- I4Z6V8XRgQQFghoN2Zfhk578gZvDh7o7waWvtzM7vn4U7dqyEDeJDl7eP
- ssQqCNKo0AuVKJe1EXFyEtr2FYf2bP3DhFM1/z/V1qAFKR0QkQO1rVgzS w==;
-X-CSE-ConnectionGUID: 6DQH4g0OSJm/QfJjcpnGPA==
-X-CSE-MsgGUID: EwhIkgnZRH6lRAdsQNqQag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="88678502"
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="88678502"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2026 09:13:56 -0700
-X-CSE-ConnectionGUID: FjU4OgWGQ7CHzTc6h+YRRA==
-X-CSE-MsgGUID: Pj8VY7+xQ1yPu38HLo5C3g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="252263313"
-Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.244.212])
- ([10.245.244.212])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2026 09:13:52 -0700
-Message-ID: <f58b1d99-6485-4ef7-8a5f-c63e6fad9ba8@linux.intel.com>
-Date: Wed, 15 Jul 2026 18:13:30 +0200
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5DDD910E1F1
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 16:27:31 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 82B7C152B;
+ Wed, 15 Jul 2026 09:27:26 -0700 (PDT)
+Received: from [10.1.25.27] (e122027.cambridge.arm.com [10.1.25.27])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1FEF93F7B4;
+ Wed, 15 Jul 2026 09:27:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1784132850; bh=WSS/LNb399jZbCmldR8hLwzI7TWMSypv+u+nhmZNLy4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=p9Sh+aUi1hKwB6GS1qZUne2GtJK88tPpiWIBjscGyZLv4oHp4G/wKKa3S8In3Xceb
+ 6FRPadr0w1r9hkOgZSeut8Sukjn+SdpoWK3nTGhQ4e0T3PPCL3NKzewcj0B/K8enT2
+ AAVCexGQzma38VP3nI4Fu9vEOAHPv6mXMmTi9rkw=
+Message-ID: <6e9cdc1f-de2d-4ef4-9a30-42592752fd49@arm.com>
+Date: Wed, 15 Jul 2026 17:27:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7] drm/ttm/pool: back up at native page order
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+Subject: Re: [PATCH] drm/panthor: add gpu_load debugfs node
+To: Guangliu Ding <guangliu.ding@nxp.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260715080058.3794385-1-matthew.brost@intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-In-Reply-To: <20260715080058.3794385-1-matthew.brost@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260708-master-v1-1-713a00fe35ec@nxp.com>
+ <98345cd1-9693-447d-b4cd-08a889b2303b@arm.com>
+ <GVXPR04MB12158DCAE296381B3A0E7195FF3FA2@GVXPR04MB12158.eurprd04.prod.outlook.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <GVXPR04MB12158DCAE296381B3A0E7195FF3FA2@GVXPR04MB12158.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,480 +63,275 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 13/07/2026 04:19, Guangliu Ding wrote:
+>> On 08/07/2026 04:24, Guangliu Ding wrote:
+>>> Expose GPU utilization via /sys/kernel/debug/dri/<N>/gpu_load.  The
+>>> file reports busy_time_ns, idle_time_ns and gpu_load %.
+>>>
+>>> Values are snapshotted at the end of each devfreq sampling window
+>>> (~50 ms) rather than read from live accumulators, avoiding load swings
+>>> over short observation intervals.
+>>>
+>>> The snapshot is cleared on suspend to avoid stale data when the GPU is
+>>> powered off.
+>>>
+>>> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
+>>
+>> Hi Guangliu,
+>>
+>> I'm puzzled exactly what you're trying to achieve with this. I can see that
+>> getting the GPU load might be useful, we do already have the 'fdinfo' mechanism
+>> to do this in a per-client manner but nothing good for "whole GPU"
+>> measurements.
+>>
+>> But stashing it in debugfs and formatting it as a string seems odd. Do you have a
+>> tool which uses this file, or is just for 'cat'ing to see the instantaneous load?
+>>
+>> Ideally we'd have something that would provide this information in a format
+>> that all drivers could implement, and not rely on debugfs files.
+>>
+>> Thanks,
+>> Steve
+>>
+> 
+> Hi Steve
+> 
+> Panthor currently exposes very limited runtime telemetry. The intent is to expose utilization in this patch, 
+> together with other device-wide GPU runtime metrics (frequency, shader activity, draw-call counts,
+> memory usage, etc.) to a userspace tool for monitoring and workload-optimization purposes.
+> 
+> fdinfo is primarily a per-client interface. Since it requires an open DRM fd and
+> reports information associated with that client, it does not map particularly
+> well to the global metrics exported by this patch.
+> 
+> If a generic cross-driver interface for this kind of GPU telemetry emerges, 
+> I'm happy to switch to it. However, no such interface currently exists for
+> devfreq-based device utilization, so debugfs seemed like the most appropriate
+> existing option. Suggestions for a better interface are welcome.
 
-On 7/15/26 10:00, Matthew Brost wrote:
-> ttm_pool_split_for_swap() unconditionally splits high-order pool pages
-> into order-0 pages before backup, so every compound the shrinker
-> touches is shattered even when the rest of the system would prefer it
-> stay intact. Under sustained kswapd pressure this fragments memory
-> enough to drive other parts of MM into recovery loops.
->
-> Back up each compound at its native order instead. In
-> ttm_pool_backup(), hand the full compound to the new
-> ttm_backup_backup_folio(), which backs up subpages to a contiguous
-> range of shmem indices and returns the base handle plus the number of
-> subpages actually backed up (@nr_backed). On full success, free the
-> compound once at its native order -- no split_page(), no per-4K
-> refcount juggling.
->
-> A per-folio backup can't be made fully atomic under memory pressure:
-> ttm_backup_backup_folio() must allocate shmem folios before source
-> subpages can be released, so under true OOM any subpage may fail
-> while the rest of the compound is still live. Two mechanisms handle
-> this without regressing reclaim behaviour:
->
->    - alloc_gfp gets __GFP_NOMEMALLOC whenever order > 0 (cleared again
->      for order-0), so a high-order backup fails fast with -ENOMEM
->      instead of draining kernel reserves, leaving them for other
->      allocations under the same pressure.
->
->    - If ttm_backup_backup_folio() still returns a short @nr_backed with
->      a valid handle for the successfully-backed prefix, split the
->      source compound with ttm_pool_split_for_swap(), free the prefix as
->      order-0 pages (already safely in shmem), and retry the remaining
->      subpages at order 0, where __GFP_NOMEMALLOC is cleared and
->      reserves may be used as a last resort.
->
-> This preserves the original split-on-OOM fallback while keeping the
-> common case fragmentation-free, and preserves the "partial backup is
-> allowed" contract (shrunken is incremented per subpage backed up).
->
-> The restore-side leftover-page split in ttm_pool_restore_commit() is
-> left as-is: it's unreachable in practice and not worth complicating
-> the restore state machine to avoid.
->
-> Testing: the existing backup_fault_inject point only truncated
-> tt->num_pages, which never exercised the reactive split path above
-> since it never left a compound partially backed up. Wire fault
-> injection into ttm_backup_backup_folio() itself: past the first
-> subpage of a compound, synthesize a -ENOMEM in place of
-> shmem_read_folio_gfp() when should_fail() trips, producing the same
-> short @nr_pages_backed a real failure would and forcing
-> ttm_pool_backup() through the split-and-retry path. The fault_attr
-> stays private to ttm_pool.c; ttm_backup.c reaches it through
-> ttm_backup_fault_inject_folio(), declared in ttm_pool_internal.h.
->
-> While converting the writeback branch to operate on the whole folio,
-> the unlock condition after shmem_writeout() also changed from `if
-> (ret)` to `if (ret == AOP_WRITEPAGE_ACTIVATE)`, matching the actual
-> contract: shmem_writeout()/swap_writeout() only leave the folio locked
-> when returning AOP_WRITEPAGE_ACTIVATE; any other return (including a
-> hard error from arch_prepare_to_swap()) means the folio was already
-> unlocked internally. The old `if (ret)` check would have double-
-> unlocked in that hard-error case.
->
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: stable@vger.kernel.org
-> Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
-> Suggested-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Assisted-by: Claude:claude-opus-4.6
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> ---
->   drivers/gpu/drm/ttm/ttm_backup.c        | 138 +++++++++++++++---------
->   drivers/gpu/drm/ttm/ttm_pool.c          |  89 ++++++++++++---
->   drivers/gpu/drm/ttm/ttm_pool_internal.h |   8 ++
->   include/drm/ttm/ttm_backup.h            |  12 +--
->   4 files changed, 178 insertions(+), 69 deletions(-)
->
-> diff --git a/drivers/gpu/drm/ttm/ttm_backup.c b/drivers/gpu/drm/ttm/ttm_backup.c
-> index 81df4cb5606b..a8f0b12c86d2 100644
-> --- a/drivers/gpu/drm/ttm/ttm_backup.c
-> +++ b/drivers/gpu/drm/ttm/ttm_backup.c
-> @@ -6,23 +6,25 @@
->   #include <drm/ttm/ttm_backup.h>
->   
->   #include <linux/export.h>
-> -#include <linux/page-flags.h>
->   #include <linux/swap.h>
->   
-> +#include "ttm_pool_internal.h"
-> +
->   /*
->    * Need to map shmem indices to handle since a handle value
->    * of 0 means error, following the swp_entry_t convention.
->    */
-> -static unsigned long ttm_backup_shmem_idx_to_handle(pgoff_t idx)
-> -{
-> -	return (unsigned long)idx + 1;
-> -}
->   
->   static pgoff_t ttm_backup_handle_to_shmem_idx(pgoff_t handle)
->   {
->   	return handle - 1;
->   }
->   
-> +static unsigned long ttm_backup_shmem_idx_to_handle(pgoff_t idx)
-> +{
-> +	return (unsigned long)idx + 1;
-> +}
-> +
+So my point really is someone should ideally implement a better
+interface that multiple drivers can use. Having a point hack for one
+driver doesn't really help the situation.
 
-This seems like an unrelated change?
+Indeed you can get the load information with ftrace already:
 
+  cd /sys/kernel/tracing
+  echo 0 > tracing_on
+  echo > trace
+  echo 'dev_name == "fb000000.gpu"' > events/devfreq/devfreq_monitor/filter
+  echo 1 > events/devfreq/devfreq_monitor/enable
+  echo 1 > tracing_on
+  cat trace_pipe
 
->   /**
->    * ttm_backup_drop() - release memory associated with a handle
->    * @backup: The struct backup pointer used to obtain the handle
-> @@ -68,17 +70,23 @@ int ttm_backup_copy_page(struct file *backup, struct page *dst,
->   }
->   
->   /**
-> - * ttm_backup_backup_page() - Backup a page
-> + * ttm_backup_backup_folio() - Backup a folio
->    * @backup: The struct backup pointer to use.
-> - * @page: The page to back up.
-> - * @writeback: Whether to perform immediate writeback of the page.
-> + * @folio: The folio to back up.
-> + * @order: The allocation order of @folio.  Since TTM allocates higher-order
-> + *         pages without __GFP_COMP, folio_nr_pages(@folio) would always
-> + *         return 1; the caller must pass the true order explicitly.
-> + * @writeback: Whether to perform immediate writeback of the folio's pages.
->    * This may have performance implications.
-> - * @idx: A unique integer for each page and each struct backup.
-> + * @idx: A unique integer for the first page of the folio and each struct backup.
->    * This allows the backup implementation to avoid managing
->    * its address space separately.
-> - * @page_gfp: The gfp value used when the page was allocated.
-> - * This is used for accounting purposes.
-> + * @folio_gfp: The gfp value used when the folio was allocated.
-> + * Currently unused.
->    * @alloc_gfp: The gfp to be used when allocating memory.
-> + * @nr_pages_backed: Output. On a successful return, set to the number of
-> + * pages actually backed up, which may be less than (1 << @order)
-> + * if an -ENOMEM was encountered mid-folio.
->    *
->    * Context: If called from reclaim context, the caller needs to
->    * assert that the shrinker gfp has __GFP_FS set, to avoid
-> @@ -87,53 +95,87 @@ int ttm_backup_copy_page(struct file *backup, struct page *dst,
->    * that the shrinker gfp has __GFP_IO set, since without it,
->    * we're not allowed to start backup IO.
->    *
-> - * Return: A handle on success. Negative error code on failure.
-> - *
-> - * Note: This function could be extended to back up a folio and
-> - * implementations would then split the folio internally if needed.
-> - * Drawback is that the caller would then have to keep track of
-> - * the folio size- and usage.
-> + * Return: A handle for the first backed-up page on success (handles for
-> + * subsequent pages follow sequentially). -ENOMEM if no pages could be backed
-> + * up. Any other negative error code if a non-ENOMEM failure occurred; in that
-> + * case any pages backed up so far are truncated before returning.
->    */
->   s64
-> -ttm_backup_backup_page(struct file *backup, struct page *page,
-> -		       bool writeback, pgoff_t idx, gfp_t page_gfp,
-> -		       gfp_t alloc_gfp)
-> +ttm_backup_backup_folio(struct file *backup, struct folio *folio,
-> +			unsigned int order, bool writeback, pgoff_t idx,
-> +			gfp_t folio_gfp, gfp_t alloc_gfp,
-> +			pgoff_t *nr_pages_backed)
->   {
->   	struct address_space *mapping = backup->f_mapping;
-> -	unsigned long handle = 0;
-> +	int nr_pages = 1 << order;
->   	struct folio *to_folio;
-> -	int ret;
-> -
-> -	to_folio = shmem_read_folio_gfp(mapping, idx, alloc_gfp);
-> -	if (IS_ERR(to_folio))
-> -		return PTR_ERR(to_folio);
-> -
-> -	folio_mark_accessed(to_folio);
-> -	folio_lock(to_folio);
-> -	folio_mark_dirty(to_folio);
-> -	copy_highpage(folio_file_page(to_folio, idx), page);
-> -	handle = ttm_backup_shmem_idx_to_handle(idx);
-> -
-> -	if (writeback && !folio_mapped(to_folio) &&
-> -	    folio_clear_dirty_for_io(to_folio)) {
-> -		folio_set_reclaim(to_folio);
-> -		ret = shmem_writeout(to_folio, NULL, NULL);
-> -		if (!folio_test_writeback(to_folio))
-> -			folio_clear_reclaim(to_folio);
-> +	int ret, i;
-> +
-> +	*nr_pages_backed = 0;
-> +
-> +	for (i = 0; i < nr_pages; ) {
-> +		int to_nr, j;
-> +
->   		/*
-> -		 * If writeout succeeds, it unlocks the folio.	errors
-> -		 * are otherwise dropped, since writeout is only best
-> -		 * effort here.
-> +		 * Only inject past the first subpage so *nr_pages_backed is
-> +		 * always > 0 here, matching a genuine mid-compound -ENOMEM
-> +		 * and driving the caller's reactive split fallback instead
-> +		 * of an early, no-progress failure.
->   		 */
-> -		if (ret)
-> +		if (IS_ENABLED(CONFIG_FAULT_INJECTION) && i &&
-> +		    ttm_backup_fault_inject_folio())
-> +			to_folio = ERR_PTR(-ENOMEM);
-> +		else
-> +			to_folio = shmem_read_folio_gfp(mapping, idx + i, alloc_gfp);
-> +		if (IS_ERR(to_folio)) {
-> +			int err = PTR_ERR(to_folio);
-> +
-> +			if (err == -ENOMEM && *nr_pages_backed)
-> +				return ttm_backup_shmem_idx_to_handle(idx);
-> +
-> +			if (*nr_pages_backed) {
-> +				shmem_truncate_range(file_inode(backup),
-> +						     (loff_t)idx << PAGE_SHIFT,
-> +						     ((loff_t)(idx + i) << PAGE_SHIFT) - 1);
-> +				/*
-> +				 * The pages just truncated are no longer
-> +				 * backed up; don't let the caller mistake
-> +				 * them for valid handles.
-> +				 */
-> +				*nr_pages_backed = 0;
-> +			}
-> +			return err;
-> +		}
-> +
-> +		to_nr = min_t(int, nr_pages - i,
-> +			      folio_next_index(to_folio) - (idx + i));
-> +
-> +		folio_mark_accessed(to_folio);
-> +		folio_lock(to_folio);
-> +		folio_mark_dirty(to_folio);
-> +
-> +		for (j = 0; j < to_nr; j++)
-> +			copy_highpage(folio_file_page(to_folio, idx + i + j),
-> +				      folio_page(folio, i + j));
-> +
-> +		if (writeback && !folio_mapped(to_folio) &&
-> +		    folio_clear_dirty_for_io(to_folio)) {
-> +			folio_set_reclaim(to_folio);
-> +			ret = shmem_writeout(to_folio, NULL, NULL);
-> +			if (!folio_test_writeback(to_folio))
-> +				folio_clear_reclaim(to_folio);
-> +			if (ret == AOP_WRITEPAGE_ACTIVATE)
-> +				folio_unlock(to_folio);
-Actually, it may be that the whole above block (setting reclaim etc) is 
-duplicating what shmem_writeout already does and that got missed in the 
-conversion to shmem_writeout. In any case, that might belong in a 
-separate patch. Note also that if shmem happened to allocate a 2M page, 
-and we call shmem_writeout on it, it might be split on further copies to 
-it, like if we're trying to back up a 4K-populated bo to a 2M shmem 
-page. Also pre-existing.
+And you'll get a stream of messages when the GPU is in use which
+includes a "load=xx" value at the end.
 
+If this is going to be extended to other properties for a user space
+tool then we should probably be putting this in sysfs and trying to come
+up with a design that other drivers can copy.
 
-> +		} else {
->   			folio_unlock(to_folio);
-> -	} else {
-> -		folio_unlock(to_folio);
-> -	}
-> +		}
->   
-> -	folio_put(to_folio);
-> +		folio_put(to_folio);
-> +		i += to_nr;
-> +		*nr_pages_backed = i;
-> +	}
->   
-> -	return handle;
-> +	return ttm_backup_shmem_idx_to_handle(idx);
->   }
->   
->   /**
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-> index 80d0ad41456a..1bf37023fed6 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -53,8 +53,23 @@
->   #ifdef CONFIG_FAULT_INJECTION
->   #include <linux/fault-inject.h>
->   static DECLARE_FAULT_ATTR(backup_fault_inject);
-> +
-> +/*
-> + * Exposed to ttm_backup.c so a mid-compound subpage can be made to fail
-> + * with -ENOMEM, exercising the reactive split-and-retry fallback in
-> + * ttm_pool_backup() for high-order backups.
-> + */
-> +bool ttm_backup_fault_inject_folio(void)
-> +{
-> +	return should_fail(&backup_fault_inject, 1);
-> +}
->   #else
->   #define should_fail(...) false
-> +
-> +bool ttm_backup_fault_inject_folio(void)
-> +{
-> +	return false;
-> +}
->   #endif
->   
->   /**
-> @@ -492,7 +507,7 @@ static void ttm_pool_split_for_swap(struct ttm_pool *pool, struct page *p)
->   /**
->    * DOC: Partial backup and restoration of a struct ttm_tt.
->    *
-> - * Swapout using ttm_backup_backup_page() and swapin using
-> + * Swapout using ttm_backup_backup_folio() and swapin using
->    * ttm_backup_copy_page() may fail.
->    * The former most likely due to lack of swap-space or memory, the latter due
->    * to lack of memory or because of signal interruption during waits.
-> @@ -1050,12 +1065,12 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
->   {
->   	struct file *backup = tt->backup;
->   	struct page *page;
-> -	unsigned long handle;
->   	gfp_t alloc_gfp;
->   	gfp_t gfp;
->   	int ret = 0;
->   	pgoff_t shrunken = 0;
-> -	pgoff_t i, num_pages;
-> +	pgoff_t i, j, num_pages, npages;
-> +	pgoff_t nr_backed;
->   
->   	if (WARN_ON(ttm_tt_is_backed_up(tt)))
->   		return -EINVAL;
-> @@ -1133,9 +1148,11 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
->   	if (IS_ENABLED(CONFIG_FAULT_INJECTION) && should_fail(&backup_fault_inject, 1))
->   		num_pages = DIV_ROUND_UP(num_pages, 2);
->   
-> -	for (i = 0; i < num_pages; ++i) {
-> -		s64 shandle;
-> +	for (i = 0; i < num_pages; i += npages) {
-> +		unsigned int order;
-> +		s64 handle;
->   
-> +		npages = 1;
->   		page = tt->pages[i];
->   		if (unlikely(!page))
->   			continue;
-> @@ -1144,19 +1161,61 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
->   		if (unlikely(ttm_backup_page_ptr_is_handle(page)))
->   			continue;
->   
-> -		ttm_pool_split_for_swap(pool, page);
-> +		order = ttm_pool_page_order(pool, page);
-> +		npages = 1UL << order;
-> +
-> +		/*
-> +		 * We don't allow dipping kernel reserves for high order backup
-> +		 */
-> +		if (order)
-> +			alloc_gfp |= __GFP_NOMEMALLOC;
-> +		else
-> +			alloc_gfp &= ~__GFP_NOMEMALLOC;
-> +
-> +		/*
-> +		 * Back up the compound atomically at its native order. If
-> +		 * fault injection truncated num_pages mid-compound, skip
-> +		 * the partial tail rather than splitting.
-> +		 */
-> +		if (unlikely(i + npages > num_pages))
-> +			break;
->   
-> -		shandle = ttm_backup_backup_page(backup, page, flags->writeback, i,
-> -						 gfp, alloc_gfp);
-> -		if (shandle < 0) {
-> -			/* We allow partially shrunken tts */
-> -			ret = shandle;
-> +		handle = ttm_backup_backup_folio(backup, page_folio(page),
-> +						 order, flags->writeback, i,
-> +						 gfp, alloc_gfp,
-> +						 &nr_backed);
-> +		/*
-> +		 * Zero progress on this compound (whether order 0 or a
-> +		 * high-order compound that failed before backing up even
-> +		 * its first subpage) is unrecoverable: bail out rather than
-> +		 * looping forever with npages == nr_backed == 0 below.
-> +		 */
-> +		if (unlikely(handle < 0 && !nr_backed)) {
-> +			ret = handle;
->   			break;
->   		}
-> -		handle = shandle;
-> -		tt->pages[i] = ttm_backup_handle_to_page_ptr(handle);
-> -		__free_pages_gpu_account(page, 0, false);
-> -		shrunken++;
-> +
-> +		for (j = 0; j < nr_backed; j++)
-> +			tt->pages[i + j] = ttm_backup_handle_to_page_ptr(handle + j);
-> +
-> +		shrunken += nr_backed;
-> +
-> +		if (unlikely(nr_backed < npages)) {
-> +			/*
-> +			 * Partial OOM backup: split the compound and free the
-> +			 * subpages whose content is now in shmem. Continue the
-> +			 * loop from the first un-backed order-0 page.
-> +			 */
-> +			ttm_pool_split_for_swap(pool, page);
-> +			for (j = 0; j < nr_backed; j++)
-> +				__free_pages_gpu_account(page + j, 0, false);
-> +			npages = nr_backed;
-> +			continue;
-> +		}
-> +
-> +		/* Fully backed up: free at native order. */
-> +		page->private = 0;
-> +		__free_pages_gpu_account(page, order, false);
->   	}
->   
->   	return shrunken ? shrunken : ret;
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool_internal.h b/drivers/gpu/drm/ttm/ttm_pool_internal.h
-> index 24c179fd69d1..cbb17a2129fe 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
-> +++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
-> @@ -22,4 +22,12 @@ static inline unsigned int ttm_pool_beneficial_order(struct ttm_pool *pool)
->   	return pool->alloc_flags & 0xff;
->   }
->   
-> +/*
-> + * Implemented in ttm_pool.c, used by ttm_backup.c. Returns true if a fault
-> + * should be injected mid-compound to test the reactive split-and-retry
-> + * fallback in ttm_pool_backup(). Always returns false when
-> + * CONFIG_FAULT_INJECTION is disabled.
-> + */
-> +bool ttm_backup_fault_inject_folio(void);
-> +
->   #endif
-> diff --git a/include/drm/ttm/ttm_backup.h b/include/drm/ttm/ttm_backup.h
-> index 29b9c855af77..49efa713e87c 100644
-> --- a/include/drm/ttm/ttm_backup.h
-> +++ b/include/drm/ttm/ttm_backup.h
-> @@ -13,9 +13,8 @@
->    * ttm_backup_handle_to_page_ptr() - Convert handle to struct page pointer
->    * @handle: The handle to convert.
->    *
-> - * Converts an opaque handle received from the
-> - * ttm_backup_backup_page() function to an (invalid)
-> - * struct page pointer suitable for a struct page array.
-> + * Converts an opaque handle received from a ttm_backup_backup_*()
-> + * function to an (invalid) struct page pointer suitable for a struct page array.
->    *
->    * Return: An (invalid) struct page pointer.
->    */
-> @@ -59,9 +58,10 @@ int ttm_backup_copy_page(struct file *backup, struct page *dst,
->   			 pgoff_t handle, bool intr, gfp_t additional_gfp);
->   
->   s64
-> -ttm_backup_backup_page(struct file *backup, struct page *page,
-> -		       bool writeback, pgoff_t idx, gfp_t page_gfp,
-> -		       gfp_t alloc_gfp);
-> +ttm_backup_backup_folio(struct file *backup, struct folio *folio,
-> +			unsigned int order, bool writeback, pgoff_t idx,
-> +			gfp_t folio_gfp, gfp_t alloc_gfp,
-> +			pgoff_t *nr_pages_backed);
->   
->   void ttm_backup_fini(struct file *backup);
->   
-Otherwise LGTM.
+Thanks,
+Steve
 
-/Thomas
-
+> Best Regards,
+> Guangliu
+> 
+>>> ---
+>>> Add /sys/kernel/debug/dri/<N>/gpu_load to expose GPU utilisation from
+>>> the last devfreq sampling window (~50 ms).
+>>> The file reports busy_time_ns, idle_time_ns and load percentage.
+>>>
+>>> Tested on NXP i.MX95 EVK (Mali-G310 V2).
+>>> ---
+>>>  drivers/gpu/drm/panthor/panthor_devfreq.c | 80
+>>> +++++++++++++++++++++++++++++++
+>> drivers/gpu/drm/panthor/panthor_devfreq.h |  6 +++
+>>>  drivers/gpu/drm/panthor/panthor_drv.c     |  2 +
+>>>  3 files changed, 88 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c
+>>> b/drivers/gpu/drm/panthor/panthor_devfreq.c
+>>> index 2249b41ca4af..1b3f58ddfbd3 100644
+>>> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
+>>> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
+>>> @@ -1,12 +1,16 @@
+>>>  // SPDX-License-Identifier: GPL-2.0 or MIT
+>>>  /* Copyright 2019 Collabora ltd. */
+>>> +/* Copyright 2026 NXP */
+>>>
+>>>  #include <linux/clk.h>
+>>> +#include <linux/debugfs.h>
+>>>  #include <linux/devfreq.h>
+>>>  #include <linux/devfreq_cooling.h>
+>>> +#include <linux/math64.h>
+>>>  #include <linux/platform_device.h>
+>>>  #include <linux/pm_opp.h>
+>>>
+>>> +#include <drm/drm_file.h>
+>>>  #include <drm/drm_managed.h>
+>>>  #include <drm/drm_print.h>
+>>>
+>>> @@ -43,6 +47,22 @@ struct panthor_devfreq {
+>>>        * and panthor_devfreq_record_{busy,idle}().
+>>>        */
+>>>       spinlock_t lock;
+>>> +
+>>> +#ifdef CONFIG_DEBUG_FS
+>>> +     /**
+>>> +      * @last_busy_ns: Busy time in nanoseconds of the last completed
+>> devfreq window.
+>>> +      * Updated by panthor_devfreq_get_dev_status() before resetting the
+>> counters.
+>>> +      * Protected by @lock.
+>>> +      */
+>>> +     u64 last_busy_ns;
+>>> +
+>>> +     /**
+>>> +      * @last_total_ns: Total time in nanoseconds of the last completed
+>> devfreq window.
+>>> +      * Updated by panthor_devfreq_get_dev_status() before resetting the
+>> counters.
+>>> +      * Protected by @lock.
+>>> +      */
+>>> +     u64 last_total_ns;
+>>> +#endif
+>>>  };
+>>>
+>>>  static void panthor_devfreq_update_utilization(struct panthor_devfreq
+>>> *pdevfreq) @@ -101,6 +121,11 @@ static int
+>>> panthor_devfreq_get_dev_status(struct device *dev,
+>>>
+>>>       status->busy_time = ktime_to_ns(pdevfreq->busy_time);
+>>>
+>>> +#ifdef CONFIG_DEBUG_FS
+>>> +     pdevfreq->last_busy_ns = status->busy_time;
+>>> +     pdevfreq->last_total_ns = status->total_time; #endif
+>>> +
+>>>       panthor_devfreq_reset(pdevfreq);
+>>>
+>>>       spin_unlock_irqrestore(&pdevfreq->lock, irqflags); @@ -283,6
+>>> +308,17 @@ void panthor_devfreq_suspend(struct panthor_device *ptdev)
+>>>               return;
+>>>
+>>>       drm_WARN_ON(&ptdev->base,
+>>> devfreq_suspend_device(pdevfreq->devfreq));
+>>> +
+>>> +#ifdef CONFIG_DEBUG_FS
+>>> +     {
+>>> +             unsigned long irqflags;
+>>> +
+>>> +             spin_lock_irqsave(&pdevfreq->lock, irqflags);
+>>> +             pdevfreq->last_busy_ns = 0;
+>>> +             pdevfreq->last_total_ns = 0;
+>>> +             spin_unlock_irqrestore(&pdevfreq->lock, irqflags);
+>>> +     }
+>>> +#endif
+>>>  }
+>>>
+>>>  void panthor_devfreq_record_busy(struct panthor_device *ptdev) @@
+>>> -332,3 +368,47 @@ unsigned long panthor_devfreq_get_freq(struct
+>>> panthor_device *ptdev)
+>>>
+>>>       return freq;
+>>>  }
+>>> +
+>>> +#ifdef CONFIG_DEBUG_FS
+>>> +static int panthor_devfreq_gpu_load_show(struct seq_file *m, void
+>>> +*unused) {
+>>> +     struct panthor_device *ptdev = m->private;
+>>> +     struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+>>> +     unsigned long irqflags;
+>>> +     unsigned int gpu_load;
+>>> +     u64 total_ns;
+>>> +     u64 busy_ns;
+>>> +
+>>> +     if (!pdevfreq->devfreq) {
+>>> +             seq_puts(m, "devfreq not initialized\n");
+>>> +             return 0;
+>>> +     }
+>>> +
+>>> +     spin_lock_irqsave(&pdevfreq->lock, irqflags);
+>>> +     busy_ns = pdevfreq->last_busy_ns;
+>>> +     total_ns = pdevfreq->last_total_ns;
+>>> +     spin_unlock_irqrestore(&pdevfreq->lock, irqflags);
+>>> +
+>>> +     busy_ns = min(busy_ns, total_ns);
+>>> +     gpu_load = total_ns ? (unsigned int)div64_u64(busy_ns * 100ULL,
+>>> + total_ns) : 0;
+>>> +
+>>> +     seq_printf(m, "busy_time_ns: %llu  idle_time_ns: %llu
+>> gpu_load: %u%%\n",
+>>> +                busy_ns, total_ns - busy_ns, gpu_load);
+>>> +
+>>> +     return 0;
+>>> +}
+>>> +DEFINE_SHOW_ATTRIBUTE(panthor_devfreq_gpu_load);
+>>> +
+>>> +/**
+>>> + * panthor_devfreq_debugfs_init() - Initialize devfreq debugfs
+>>> +entries
+>>> + * @minor: DRM minor.
+>>> + */
+>>> +void panthor_devfreq_debugfs_init(struct drm_minor *minor) {
+>>> +     struct panthor_device *ptdev = container_of(minor->dev,
+>>> +                                                 struct
+>>> +panthor_device, base);
+>>> +
+>>> +     debugfs_create_file("gpu_load", 0444, minor->debugfs_root, ptdev,
+>>> +                         &panthor_devfreq_gpu_load_fops); } #endif
+>> /*
+>>> +CONFIG_DEBUG_FS */
+>>> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.h
+>>> b/drivers/gpu/drm/panthor/panthor_devfreq.h
+>>> index f8e29e02f66c..4552569abfe4 100644
+>>> --- a/drivers/gpu/drm/panthor/panthor_devfreq.h
+>>> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.h
+>>> @@ -1,5 +1,6 @@
+>>>  /* SPDX-License-Identifier: GPL-2.0 or MIT */
+>>>  /* Copyright 2019 Collabora ltd. */
+>>> +/* Copyright 2026 NXP */
+>>>
+>>>  #ifndef __PANTHOR_DEVFREQ_H__
+>>>  #define __PANTHOR_DEVFREQ_H__
+>>> @@ -20,4 +21,9 @@ void panthor_devfreq_record_idle(struct
+>>> panthor_device *ptdev);
+>>>
+>>>  unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev);
+>>>
+>>> +#ifdef CONFIG_DEBUG_FS
+>>> +struct drm_minor;
+>>> +void panthor_devfreq_debugfs_init(struct drm_minor *minor); #endif
+>>> +
+>>>  #endif /* __PANTHOR_DEVFREQ_H__ */
+>>> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c
+>>> b/drivers/gpu/drm/panthor/panthor_drv.c
+>>> index e8dc4096c1d2..4093a6d21337 100644
+>>> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+>>> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+>>> @@ -2,6 +2,7 @@
+>>>  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+>>>  /* Copyright 2019 Linaro, Ltd., Rob Herring <robh@kernel.org> */
+>>>  /* Copyright 2019 Collabora ltd. */
+>>> +/* Copyright 2026 NXP */
+>>>
+>>>  #ifdef CONFIG_ARM_ARCH_TIMER
+>>>  #include <asm/arch_timer.h>
+>>> @@ -1761,6 +1762,7 @@ static void panthor_debugfs_init(struct
+>>> drm_minor *minor)  {
+>>>       panthor_mmu_debugfs_init(minor);
+>>>       panthor_gem_debugfs_init(minor);
+>>> +     panthor_devfreq_debugfs_init(minor);
+>>>  }
+>>>  #endif
+>>>
+>>>
+>>> ---
+>>> base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+>>> change-id: 20260706-master-bd0eef99ca8e
+>>>
+>>> Best regards,
+>>> --
+>>> Guangliu Ding <guangliu.ding@nxp.com>
+>>>
+> 
 
