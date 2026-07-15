@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 446DEC44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 18:41:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81BDFC44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 18:48:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C80910E1E3;
-	Wed, 15 Jul 2026 18:41:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E193210E20A;
+	Wed, 15 Jul 2026 18:48:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CfAJvIgw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m7k/pHZE";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63BAB10E1E3
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 18:41:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F18DE10E20A
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 18:48:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7878B61838;
- Wed, 15 Jul 2026 18:41:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A2B1F000E9;
- Wed, 15 Jul 2026 18:41:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 25A2561836;
+ Wed, 15 Jul 2026 18:48:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B1F91F000E9;
+ Wed, 15 Jul 2026 18:48:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784140896;
- bh=x0pEQulyYR7FQvV6D3aEGp7u8u1THUnp3p3bfnB0OsY=;
+ s=k20260515; t=1784141309;
+ bh=aZUp5fesUF+4hvRNUbQFNXrqlCbH4FNJFJImBwGf/uc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CfAJvIgwkAsMFgFHbSAgx9iIcdIVc8sOdMhT8Fs/ykAGGZYj2ps2OXlS+y4hn/gtI
- ZolGsnvRunDGKrRMr/LVH57ZiURIoUJOzKjfMFs3Q+3JezHi3MMBEpfcF7l89Cyp7H
- gfUC/zrPyN6rSgY4CiP0D+H7NL9iVu6ZDrqMLYdW4QUiCby0b5t7MBCCVBz0lLoqVy
- cj7hyWnvs+nzhpL14HSMg7NKkyHtCaTv3pUjBUe1GeBOPf8wLm2xOFWOPnROT9PiPH
- noZQ35zFfPS+krNAY4AUlsYuAz5hxq3q77DGZ1rOY7ECfVTx1Jzw3VYMivufLvyS9B
- Nr+Yk5ylBl/Zg==
+ b=m7k/pHZEmgFcQBvZQQbdjgUpHcTSmjSuyegUVIXCskZPj+6IJTh9kYE5P+cmTEZCV
+ UuecMLUnCThCP070edOjkHIqD0Eoc5/0gkR829sQYW3y3Kdjzc+KWFXYW1eq2UcF4a
+ daP9K8F6u9C0ggwEWZsdvB3P1uL73F53hTfRtu6+FKNo+dfjXTDaNjgpAb3i1HW/1/
+ 5eXkttFCiGpdPWEQ0Co76mEHSbkv9Hs3EJmDIfghmyN+Gi5IGN4sZiq35tvy2jgLRp
+ 0YesnHEW8kWHGWuo2HZKlfnMtRwC2bwdvcjxgsOpHPzyQe9OW8+PjidMFm2PVKi5p8
+ 2agZoaX60L/2w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/7] arm64: dts: imx8dxl-evk: Move ACM MCLK pin to
- ACM pinctrl
+Subject: Re: [PATCH v2 4/7] arm64: dts: imx8-ss-dma: Add lcdif support for
+ i.MX8QXP and i.MX8DXL
 To: Frank.Li@oss.nxp.com
-Cc: imx@lists.linux.dev, dri-devel@lists.freedesktop.org, robh@kernel.org,
- conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260715-dxl_lcdif-v2-6-da797562636e@nxp.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org,
+ robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260715-dxl_lcdif-v2-4-da797562636e@nxp.com>
 References: <20260715-dxl_lcdif-v2-0-da797562636e@nxp.com>
- <20260715-dxl_lcdif-v2-6-da797562636e@nxp.com>
+ <20260715-dxl_lcdif-v2-4-da797562636e@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 18:41:35 +0000
-Message-Id: <20260715184135.C3A2B1F000E9@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 18:48:28 +0000
+Message-Id: <20260715184829.6B1F91F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,53 +61,50 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Moving the MCLK pin to the `&acm` node does not prevent it from =
-being unconditionally claimed, failing the stated goal of the patch.
+- [Low] Missing required 'port' node in the adma_lcdif device tree definiti=
+on.
 --
 
---- Patch [6]: [PATCH v2 6/7] arm64: dts: imx8dxl-evk: Move ACM MCLK pin to=
- ACM pinctrl ---
-commit fb6f6ae3a276dd7b713e3fe1ab6ebf914e293471
+--- Patch [4]: [PATCH v2 4/7] arm64: dts: imx8-ss-dma: Add lcdif support fo=
+r i.MX8QXP and i.MX8DXL ---
+commit 2f2508e8acf644f753c462595da01a137845e813
 Author: Frank Li <Frank.Li@nxp.com>
 
-arm64: dts: imx8dxl-evk: Move ACM MCLK pin to ACM pinctrl
+arm64: dts: imx8-ss-dma: Add lcdif support for i.MX8QXP and i.MX8DXL
 
-This commit moves the IMX8DXL_SPI3_CS0_ADMA_ACM_MCLK_OUT1 pin from the iomu=
-xc
-hog group to the ACM pinctrl state. The stated goal is to avoid uncondition=
-ally
-claiming the pin so that LCDIF can use it instead.
+This commit adds LCD interface (lcdif) device tree support for the i.MX8QXP
+and i.MX8DXL platforms.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts b/arch/arm64/b=
-oot/dts/freescale/imx8dxl-evk.dts
-> index 33941645641f5..3b96bab6aec80 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts
-> @@ -347,6 +347,11 @@ sound-wm8960-3 {
+> diff --git a/arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi b/arch/arm64/=
+boot/dts/freescale/imx8-ss-dma.dtsi
+> index 4de78f870c05c..87082c3fa9338 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi
+
+[ ... ]
+
+> @@ -149,6 +149,24 @@ lpuart3: serial@5a090000 {
+>  		status =3D "disabled";
 >  	};
->  };
 > =20
-> +&acm {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pinctrl_mclk>;
-> +};
+> +	adma_lcdif: lcdif@5a180000 {
+> +		compatible =3D "fsl,imx8qxp-lcdif", "fsl,imx6sx-lcdif";
 
-[Severity: Medium]
-Does moving this to the &acm node actually prevent the pin from being
-unconditionally claimed?
+[Severity: Low]
+Does this adma_lcdif node need a port sub-node to be defined here?=20
 
-Because the &acm node (a core clock controller) lacks a status =3D "disable=
-d"
-property, it seems the driver core's pinctrl_bind_pins() function will still
-unconditionally claim the default pinctrl state at boot. If a user enables
-the LCDIF node, won't it still fail to probe with a pinctrl -EBUSY conflict?
+The fsl,lcdif.yaml device tree binding schema explicitly requires a port no=
+de
+for all compatibles except fsl,imx28-lcdif. Omitting it will result in a
+validation warning during make dtbs_check against any board configuration
+that includes imx8-ss-dma.dtsi without adding the port node in the
+board-specific file.
 
-Should these pinctrl properties be attached to the optional end-consumer of
-the MCLK (like the sound card node) instead, so they are only claimed when
-LCDIF is inactive?
+> +		reg =3D <0x5a180000 0x10000>;
+> +		clocks =3D <&lcd_clk_lpcg IMX_LPCG_CLK_0>,
 
 [ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-dxl_lcdif-=
-v2-0-da797562636e@nxp.com?part=3D6
+v2-0-da797562636e@nxp.com?part=3D4
