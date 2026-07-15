@@ -4,57 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14100C44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 15:19:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECBBAC44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 15:21:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34C1210E1CE;
-	Wed, 15 Jul 2026 15:19:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B1FD10E1A3;
+	Wed, 15 Jul 2026 15:21:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DdAFpNDc";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HHLSeOKO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9031910E1A3;
- Wed, 15 Jul 2026 15:19:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C411440350;
- Wed, 15 Jul 2026 15:19:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 779B91F000E9;
- Wed, 15 Jul 2026 15:19:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784128796;
- bh=uPRJqOhJ5ehd7+9UhR8NT3FbaiC+PIupWZrQ/SZx09U=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=DdAFpNDc88INU2wPiosqcYm01E48OL4GfhJy/jDUk5cbe0HkYVqylm3R77edrbmHq
- 71Ttib5rCGXs7rF7z5HQkaTDjzPyo530APiLcllFfGilPwXEssE0qNLLHTSdd86Uej
- CNMFzfOdqEq3KpLBBFodc6/M5Y2m4P8ZleAY65sLAH7qFgbcqG3spOlFxKbamVL9gm
- Bj/vWxUPWfUf6LvH19/esEN5V3lMLn1vHtb/uRaJWQYO2uzhjgc5cdzeUcV1DQTqhR
- IDmo8q83SpfwT4teoAM+JDZz4e2zM4pwdtVW6EFOK1tg8M47GkiGHmZG43R65Dhwhp
- C6t3A4jvPTMZQ==
-Mime-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D20410E1A3;
+ Wed, 15 Jul 2026 15:21:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784128905; x=1815664905;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=ncXiZ3N9K4okkZV4BfOO7md4Q74b8pPvsDI3ButiQK4=;
+ b=HHLSeOKOSiQIuI/H3l+xe0YNk6L8NiUYFZUyAeMBhI9z9uE+dkh48rnj
+ +OqHBDE6NjEzUipA4R7YHPDyojQPR5XugngrU0rgWw3mwAFjkcc5tOmu4
+ LCduZBomcSZf/vRo3s+cZcRoGqZoijexAbryN/SMsI2eYjRaHWJ7UPwaE
+ vh52ZNRn5gNuT6Pr8ADZD6QkPpJtBvjKIL3ic5eb95e++3vpgqTmMeQj1
+ S07E8Oa8GwaUdGWp6Ivpd3uYC05xmGd1OsK2UnMorxfQKyQxV1AiXi1xG
+ XCM0IzHaOrYF5v9/9UwBiSPDPP02BeARFSdvpPyNS5aHJGzmjphrWOMC8 Q==;
+X-CSE-ConnectionGUID: rQvum0bAQwaVoq6J9wf9HQ==
+X-CSE-MsgGUID: U8ReVA4jT0K8Pu+H6f3Y/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="95417316"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="95417316"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2026 08:21:45 -0700
+X-CSE-ConnectionGUID: NQzVcubgSRSHdDd4Hvddvg==
+X-CSE-MsgGUID: IE/0a5nAQXSME1yrKfofWw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="294420716"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.25])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2026 08:21:43 -0700
+Message-ID: <ceb6e88a73eb99700b0af3e19e3d5c4941341752.camel@linux.intel.com>
+Subject: Re: [PATCH v3 3/5] drm/i915/gem: Pull out size validation into a
+ separate function
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: Krzysztof Karas <krzysztof.karas@intel.com>, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ iommu@lists.linux.dev
+Cc: Andi Shyti <andi.shyti@linux.intel.com>, Robin Murphy
+ <robin.murphy@arm.com>,  Jason Gunthorpe	 <jgg@ziepe.ca>,
+ =?UTF-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,  Sebastian
+ Brzezinka <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>
+Date: Wed, 15 Jul 2026 17:21:39 +0200
+In-Reply-To: <20260713095812.1014365-4-krzysztof.karas@intel.com>
+References: <20260713095812.1014365-1-krzysztof.karas@intel.com>
+ <20260713095812.1014365-4-krzysztof.karas@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 15 Jul 2026 17:19:52 +0200
-Message-Id: <DJZ8VG4H46XC.36XXT1A34B0TK@kernel.org>
-Subject: Re: [PATCH v7 3/4] driver core: platform: unify release path
-Cc: "Maximilian Luz" <luzmaximilian@gmail.com>, "Hans de Goede"
- <hansg@kernel.org>, =?utf-8?q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>, "Matthew Brost" <matthew.brost@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "Rodrigo Vivi" <rodrigo.vivi@intel.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, <platform-driver-x86@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <driver-core@lists.linux.dev>, "Bartosz
- Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-To: "Bartosz Golaszewski" <brgl@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260713-swnode-remove-on-dev-unreg-v7-0-6d6bc448427a@oss.qualcomm.com>
- <20260713-swnode-remove-on-dev-unreg-v7-3-6d6bc448427a@oss.qualcomm.com>
- <DJXNZLE3L756.K5DYSTKM1UHT@kernel.org>
- <CAMRc=MfOipGdiGXNgVrJVO8QOivQ-=8k3sX-nMfTS0DvdZcFnw@mail.gmail.com>
- <CAMRc=MeXwaRSDJYKeoM6PfqWqRPh9KCMF8HATFvaTWUf6N6GYA@mail.gmail.com>
-In-Reply-To: <CAMRc=MeXwaRSDJYKeoM6PfqWqRPh9KCMF8HATFvaTWUf6N6GYA@mail.gmail.com>
+User-Agent: Evolution 3.60.2 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,42 +78,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Jul 15, 2026 at 5:06 PM CEST, Bartosz Golaszewski wrote:
-> On Wed, 15 Jul 2026 15:52:07 +0200, Bartosz Golaszewski <brgl@kernel.org>=
- said:
->> On Mon, 13 Jul 2026 20:45:13 +0200, Danilo Krummrich <dakr@kernel.org> s=
-aid:
->>> On Mon Jul 13, 2026 at 5:11 PM CEST, Bartosz Golaszewski wrote:
->>>
->>> So, either we have to special case platform_device_set_of_node() too (f=
-or the
->>> case that a swnode is set already), or just require that the function m=
-ust only
->>> be called when no node has been set, as all users already do; I'd go fo=
-r the
->>> latter.
->>
->> This sounds good too and it should be easy to implement another test cas=
-e while
->> at it.
->
-> Oh but wouldn't that require us to introduce an integer return value for =
-these
-> functions? Or are you talking about simply updating the API contract?
+Hi Krzysztof,
 
-Yes, we could update the API contract; we could also consider adding a WARN=
-_ON()
-for the case a node is already set.
+On Mon, 2026-07-13 at 09:58 +0000, Krzysztof Karas wrote:
+> shmem_sg_alloc_table is a very large and hard to read function,
+> so reduce the number of operations it is responsible for by
+> placing "size" validation in a new helper.
+>=20
+> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> ---
+> v3:
+>  * Split refactoring and put it after the fix in shmem folio
+>   counting suggested by Andi.
+>=20
+>  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 29 ++++++++++++++++-------
+>  1 file changed, 20 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
+i915/gem/i915_gem_shmem.c
+> index 0011d76f5b8c..4a61b012fb6f 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> @@ -62,6 +62,22 @@ void shmem_sg_free_table(struct sg_table *st, struct a=
+ddress_space *mapping,
+>  	sg_free_table(st);
+>  }
+> =20
+> +static int validate_size(size_t size, unsigned int page_count,
+> +			 struct intel_memory_region *mr)
+> +{
+> +	if (overflows_type(size / PAGE_SIZE, page_count))
+> +		return -E2BIG;
+> +
+> +	/*
+> +	 * If there's no chance of allocating enough pages for the whole
+> +	 * object, bail early.
+> +	 */
+> +	if (size > resource_size(&mr->region))
+> +		return -ENOMEM;
+> +
+> +	return 0;
+> +}
+> +
+>  int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table =
+*st,
+>  			 size_t size, struct intel_memory_region *mr,
+>  			 struct address_space *mapping,
+> @@ -77,16 +93,11 @@ int shmem_sg_alloc_table(struct drm_i915_private *i91=
+5, struct sg_table *st,
+>  	unsigned long i;
+>  	int ret;
+> =20
+> -	if (overflows_type(size / PAGE_SIZE, page_count))
+> -		return -E2BIG;
+> -
+>  	page_count =3D size / PAGE_SIZE;
 
-> I think calling device_remove_software_node() on
-> is_software_node(dev_fwnode(dev)) in platform_device_set_fwnode() be enou=
-gh
-> to handle that case, right?
+Verifying if page_count can accommodate a result before assigning that
+result to=C2=A0it looked more correctly to me.  Since overflows_type() does=
+n't
+look at the variable's value, only its type, I think you could postpone=C2=
+=A0
+page_count=C2=A0initialization and pass its pointer to your helper to prese=
+rve=C2=A0
+that=C2=A0more=C2=A0reasonable order of operations.
 
-Yes, we can special case it, but the "replace the existing node if any" par=
-t of
-that function is already dead code.
+Thanks,
+Janusz
 
-So, if no one needs it now, I'd rather remove it and wait for someone to ha=
-ve a
-valid use-case.
+> -	/*
+> -	 * If there's no chance of allocating enough pages for the whole
+> -	 * object, bail early.
+> -	 */
+> -	if (size > resource_size(&mr->region))
+> -		return -ENOMEM;
+> +
+> +	ret =3D validate_size(size, page_count, mr);
+> +	if (ret < 0)
+> +		return ret;
+> =20
+>  	if (sg_alloc_table(st, page_count, GFP_KERNEL | __GFP_NOWARN))
+>  		return -ENOMEM;
