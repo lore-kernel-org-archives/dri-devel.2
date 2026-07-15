@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80CECC44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 13:18:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C315C44508
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 13:21:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCC4110F05E;
-	Wed, 15 Jul 2026 13:18:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 903B610E1B1;
+	Wed, 15 Jul 2026 13:21:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kNqEKsXj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cdk23ZJx";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFE4C10F05E
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 13:18:25 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 810B010E1B1
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 13:21:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C9027600BB;
- Wed, 15 Jul 2026 13:18:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 544FE1F00A3A;
- Wed, 15 Jul 2026 13:18:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C9D9140216;
+ Wed, 15 Jul 2026 13:21:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82D651F000E9;
+ Wed, 15 Jul 2026 13:21:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784121504;
- bh=mWFxM/YkO4pK8/S/Tj9uHsXnOe192aSQI/HoWD7JBZY=;
+ s=k20260515; t=1784121691;
+ bh=m70QW291spcG/qdXLklCYJuTnaSHAGhG84TuVd2HEtg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kNqEKsXjf+Ms9AED8CzoZclJdj+AMmsDco17ysbLYCnx3rUmFfzp+HDOBGa2QVlyM
- gD/w7lL1gB9ZgdW1ducmKv61JE3+grHHRUGsN7pU4Tr8Zta0nphPF6Xps29AWLCBLO
- cSGG78C70eZnLSeUQ3Vs8iFNafDXLorLJRxPgrHXYSatQ9jdxp8/uifS07/mwjCp/A
- gFpiOvm0lGYBrGNkoUImO/4emajq4vfBJLuL05ixy1bwOp/L0Rv4CG05oK2nPaPoLj
- rjHtxVeKhBJTzWM3PT7QXD1D8ojQ/U2MHnKElke1KgqheU/HDbqYGzH89J2rLXiXV6
- ZZq5JyxwgCsQg==
+ b=cdk23ZJxy8GEc4OwYICSLj4OpW4oaM++jzvQGkLWGYY9kVle70tOCr6Ybb3vIu8pC
+ GmzUOteO5rromHxnHx0jCyDZFx2K5t/VHt3c7thtyw4OMZaQlzrDcJzZ0BlHuOXgtw
+ iNQb/NMUu/g/REEJG2c350Ndz7uFUNutt8eZ+Lv5DUzjwx/Ifgt/KapGV/61qQFTH5
+ T1hWp11dXHPDrscy5sgx8CBZW42EApDi9MxegnL+znZUF4AxuUyeKiNiGCVWK1gdPe
+ fthPgfN57F9lfLlrv9gClYbJfH3z7cv65b+BcypxrWsjZkOK9srnHxwSygJGcuKjWl
+ DkzKNyiqQv1gQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] drm/bridge: ti-sn65dsi83: Support LVDS Channel B
- on SN65DSI84
+Subject: Re: [PATCH v2 2/3] drm/bridge: ti-sn65dsi83: Fix error handling in
+ sn65dsi83_reset_work()
 To: "Esben Haabendal" <esben@geanix.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260715-ti-sn65dsi83-fixes-v2-3-ebc4c3fe29b6@geanix.com>
+In-Reply-To: <20260715-ti-sn65dsi83-fixes-v2-2-ebc4c3fe29b6@geanix.com>
 References: <20260715-ti-sn65dsi83-fixes-v2-0-ebc4c3fe29b6@geanix.com>
- <20260715-ti-sn65dsi83-fixes-v2-3-ebc4c3fe29b6@geanix.com>
+ <20260715-ti-sn65dsi83-fixes-v2-2-ebc4c3fe29b6@geanix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 13:18:23 +0000
-Message-Id: <20260715131824.544FE1F00A3A@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 13:21:30 +0000
+Message-Id: <20260715132131.82D651F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,89 +58,94 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The logic to detect single-link LVDS Channel B requires `port@2`=
- to be absent from the device tree, but the DT binding strictly requires `p=
-ort@2` to be present.
+
+Pre-existing issues:
+- [High] The error handling branch patched by this commit is dead code beca=
+use sn65dsi83_reset_pipe() unconditionally returns 0.
+- [High] Missing cancellation of reset_work on driver removal leads to a po=
+tential Use-After-Free.
 --
 
---- Patch [3]: [PATCH v2 3/3] drm/bridge: ti-sn65dsi83: Support LVDS Channe=
-l B on SN65DSI84 ---
-commit e7655ab4d66cbec701adf0102160008944fa2a88
+--- Patch [2]: [PATCH v2 2/3] drm/bridge: ti-sn65dsi83: Fix error handling =
+in sn65dsi83_reset_work() ---
+commit da59dc684f40189c9b3344ad029c137b580d644a
 Author: Esben Haabendal <esben@geanix.com>
 
-drm/bridge: ti-sn65dsi83: Support LVDS Channel B on SN65DSI84
+drm/bridge: ti-sn65dsi83: Fix error handling in sn65dsi83_reset_work()
 
-This adds support for using SN65DSI84 in single-link mode with output to
-LVDS Channel B.
+This commit updates the error handling path in sn65dsi83_reset_work() to
+ensure the DRM bridge critical section is cleanly exited when resetting the
+pipe fails.
 
 > diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
 ge/ti-sn65dsi83.c
-> index 7e73035d77986..02ae2b8179b07 100644
+> index b4b220eee7909..7e73035d77986 100644
 > --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
 > +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-[ ... ]
-> @@ -904,29 +907,38 @@ static int sn65dsi83_parse_dt(struct sn65dsi83 *ctx=
-, enum sn65dsi83_model model)
->  		return ret;
-> =20
->  	ctx->lvds_dual_link =3D false;
-> -	ctx->lvds_dual_link_even_odd_swap =3D false;
-> +	ctx->lvds_channel_swap =3D false;
->  	if (model !=3D MODEL_SN65DSI83) {
-> -		struct device_node *port2, *port3;
-> +		struct device_node *port0, *port1, *port2, *port3;
->  		int dual_link;
-> =20
-> +		port0 =3D of_graph_get_port_by_id(dev->of_node, 0);
-> +		port1 =3D of_graph_get_port_by_id(dev->of_node, 1);
->  		port2 =3D of_graph_get_port_by_id(dev->of_node, 2);
->  		port3 =3D of_graph_get_port_by_id(dev->of_node, 3);
->  		dual_link =3D drm_of_lvds_get_dual_link_pixel_order(port2, port3);
-> =20
->  		if (dual_link =3D=3D DRM_LVDS_DUAL_LINK_ODD_EVEN_PIXELS) {
->  			/* Odd pixels to LVDS Channel A, even pixels to B */
->  			ctx->lvds_dual_link =3D true;
->  		} else if (dual_link =3D=3D DRM_LVDS_DUAL_LINK_EVEN_ODD_PIXELS) {
->  			/* Even pixels to LVDS Channel A, odd pixels to B */
->  			ctx->lvds_dual_link =3D true;
-> +			ctx->lvds_channel_swap =3D true;
-> +		} else if (port0 && !port1 && port2 && !port3) {
-> +			/* DSI Channel A to LVDS Channel A */
-> +		} else if (port0 && !port1 && !port2 && port3) {
-                                              ^^^^^^
-
-[Severity: Medium]
-Will this !port2 condition prevent the single-link LVDS Channel B feature
-from working with a standard-compliant device tree?
-
-If a user provides a compliant device tree by including an empty or
-unconnected port@2 to satisfy the DT schema required list for this binding,
-of_graph_get_port_by_id() will return a valid node.
-
-The driver would then fail this check, fall through leaving panel_port =3D =
-2,
-and subsequently fail to probe when it cannot find a panel connected to the
-empty port@2.
-
-> +			/* DSI Channel A to LVDS Channel B */
-> +			ctx->lvds_channel_swap =3D true;
-> +			panel_port =3D 3;
->  		}
-> +		of_node_put(port0);
-> +		of_node_put(port1);
-> +		of_node_put(port2);
-> +		of_node_put(port3);
+> @@ -419,11 +419,12 @@ static void sn65dsi83_reset_work(struct work_struct=
+ *ws)
+>  	ret =3D sn65dsi83_reset_pipe(ctx);
+>  	if (ret) {
+>  		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
+> -		return;
+> +		goto err_exit;
 >  	}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is this error handling block
+actually dead code?
+
+Looking at sn65dsi83_reset_pipe(), it appears to unconditionally return 0,
+even if drm_bridge_helper_reset_crtc() returns an error like -EINVAL or
+-ENOMEM:
+
+static int sn65dsi83_reset_pipe(struct sn65dsi83 *sn65dsi83)
+{
+	...
+retry:
+	err =3D drm_bridge_helper_reset_crtc(&sn65dsi83->bridge, &ctx);
+	if (err =3D=3D -EDEADLK) {
+		drm_modeset_backoff(&ctx);
+		goto retry;
+	}
+
+	drm_modeset_drop_locks(&ctx);
+	drm_modeset_acquire_fini(&ctx);
+
+	return 0;
+}
+
+Since ret is always 0, this error branch will never execute. If an actual
+hardware error persists (e.g., PLL unlock), the driver will unconditionally
+proceed to enable_irq(ctx->irq) below.=20
+
+Could this result in an immediate subsequent interrupt and cause an interru=
+pt
+storm that locks up the CPU?
+
+>  	if (ctx->irq)
+>  		enable_irq(ctx->irq);
 > =20
-> -	panel_bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 2, 0);
-> +	panel_bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, panel_port, =
-0);
->  	if (IS_ERR(panel_bridge))
->  		return dev_err_probe(dev, PTR_ERR(panel_bridge), "Failed to get panel =
-bridge\n");
+> +err_exit:
+>  	drm_bridge_exit(idx);
+>  }
+
+[Severity: High]
+This is also a pre-existing issue, but does this workqueue function have a
+use-after-free risk during driver removal?
+
+When the driver is unbound (e.g., via sysfs), sn65dsi83_remove() unregisters
+the bridge but does not appear to call cancel_work_sync(&ctx->reset_work).
+
+If an interrupt fires right before cleanup and schedules this work,
+devm_drm_bridge_alloc cleanup will free the ctx structure. The workqueue
+could then execute sn65dsi83_reset_work() asynchronously, causing a UAF
+when dereferencing ctx->bridge.
+
+Should sn65dsi83_remove() be updated to cancel the pending reset work?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-ti-sn65dsi=
-83-fixes-v2-0-ebc4c3fe29b6@geanix.com?part=3D3
+83-fixes-v2-0-ebc4c3fe29b6@geanix.com?part=3D2
