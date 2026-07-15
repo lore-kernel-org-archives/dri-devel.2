@@ -4,43 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B026CC44501
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 11:42:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2DA5C44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 11:49:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0293810EFC9;
-	Wed, 15 Jul 2026 11:42:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CE6310E184;
+	Wed, 15 Jul 2026 11:49:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xf1Ttbvv";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dypUvvxj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5479E10EFC9
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 11:42:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CB06B4139E;
- Wed, 15 Jul 2026 11:42:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856321F000E9;
- Wed, 15 Jul 2026 11:42:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784115758;
- bh=wQjoaO7ElEKJ4IdT9pqWvGpg3Ez/FMOfkg3Sq0p9Wvg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Xf1TtbvvnFNoMJUeAFN9F1/KgWY5pwQbTvWVtLd1sjTvWSEuzQEJTIUhnA18ruVHw
- 3UAT/ic+n3/uSaVvYkPhs4uHovJ/JA2+Iuf6HM8QzPiqLOTZxIwCQZjFVRXGsnF0It
- f4sHHkoUasdfodJA3WWRnGYQW26EkwNESNyhAm1g4MHUj8hetXWMs5MpfFxr0MwWZA
- R/jp26DJzm9RB57I/n5XQ3YtzUQVImgcQ/RPU7eyJBPTbtdqkwoVlMEsX9lUyQSj5s
- 8G9LB4/n9k4wWuLnBXy8mvxePqfLxhq8W3h6Pw28wT4zbdbvNaNmcO/IED7APDNzqo
- 6fapkCIwVD2ng==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] drm/amd/display: Don't use tiling flags anymore
-To: =?utf-8?b?VGltdXIgS3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260715105757.13125-5-timur.kristof@gmail.com>
-References: <20260715105757.13125-1-timur.kristof@gmail.com>
- <20260715105757.13125-5-timur.kristof@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 11:42:38 +0000
-Message-Id: <20260715114238.856321F000E9@smtp.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16E3310E184
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 11:49:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1784116166;
+ bh=htXBBYCCGNWLqgJjvvXUTq2WTxMjS9aKGJ0yCk36khU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=dypUvvxj+mWvebpf3uOAl9NHcaAf9zVbsY+DdcqpbyNO0xX5Ey9rvP74bfWcvT++u
+ if0qSIWdWNbQ5oTPBgAzooSD/VSNuYvgLzr7RVqJmZVw2Bu7yF6IxMgmQj6/94dwlL
+ NCkxkmu6CDZn6hmI0dGy1nLtA8/EYYM52ojklXfwMyQNFBFO4ZWodbFi91oMCUSP4J
+ qeiYDXeJVf8Jx1gpy1fIL4P/K24qhJJuFYRL6BhEjdVLWeDXuujHSsyJx7IZK6Tdtq
+ Z6+WysfgKca+F3i4rr41PkwGwMQSrsQ7lhtc5Mifnq/uwph+RZzcHlr9fqjFq8ZX0t
+ ViXTzAZ/vgcjA==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C146717E00F6;
+ Wed, 15 Jul 2026 13:49:25 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunkuang.hu@kernel.org
+Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
+Subject: [PATCH v5 00/11] drm/mediatek: Add DSC, WDMA, MT8189/96 DSI support
+Date: Wed, 15 Jul 2026 13:49:05 +0200
+Message-ID: <20260715114916.19690-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,82 +60,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Removing the `tiling_flags` check in `should_reset_plane` allows f=
-ramebuffers with different DCC pitches or dimensions (but identical modifie=
-rs) to bypass DRM atomic check validation, leading to hardware corruption a=
-nd stale DML calculations during commit.
---
+Changes in v5:
+ - Clarified commit description for WDMA binding compatibles addition
+   explaining why Dimensity 1200 is not compatible with MT8173
+ - Added missing mediatek,mt8189-dsi compatible in mtk_drm_drv.c
+ - Added fix in mtk_dsi for failing device_reset_optional() producing
+   a possible use-after-free issue
 
---- Patch [4]: [PATCH 4/4] drm/amd/display: Don't use tiling flags anymore =
----
-commit b71fc193d0b1254508d4ef4e5b1e90decbcba27a
-Author: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+Changes in v4:
+ - WDMA: Delete the .remove() callback from WDMA as not needed anymore
+ - WDMA: Add comments explaining no bus errors will happen if writing
+   to INT_ENABLE, INT_STATUS registers while unpowered or unclocked
+ - Return error in mtk_wdma_wb_atomic_check() error conditions, oops!
+ - DSC: Fix dsc_pad_num calculation (missing parenthesis...)
+ - DSI: Change dsc slice check error to dev_dbg instead to avoid spam
+ - DSI: Correctly cleanup dsi->dsc upon component_add failure
+ - DSI: Make sure the CKTX_CKL_WC register is correctly programmed in
+   DSI w/DSC case
 
-drm/amd/display: Don't use tiling flags anymore
+Changes in v3:
+ - Changed mtk_dsi DSC implementation to use a different DSI_PS
+   setting function for compressed or uncompressed, as the dsc one
+   is way simpler than the regular one and becomes way shorter
+ - DSC: Fixed missing PPS 19 register write
+ - DSI: Anticipated call to devm_pm_runtime_enable() to before
+   registering the DSI Host interface
+ - DSI: Anticipated installing IRQ handler before registering the
+   dsi host interface, which wasn't a problem before, but now it
+   would be one because the interrupt is being enabled when binding!
+ - DSI: Fixed some possible calculation overflows that may happen in
+   MT8189 and MT8196 because of the higher supported resolutions
+ - WDMA: Use devm variant of pm_runtime_enable()
+ - Change WDMA interrupt handler to allow signaling WB complete even
+   if there is no specific vblank callback installed to avoid very
+   long timeouts (in any case, WB is complete for real even if there
+   is no vblank_cb, just a bit useless without, but still complete)
+ - Fixed WDMA register writes as register id was in function signature
+   for mtk_wdma_ddp_write_dst_addr() but the function itself never
+   used it in DISP_REG_WDMA_DST_ADDRX() macro
 
-This commit removes all code from amdgpu_dm that dealt with tiling flags,
-as all supported GPU generations now support DRM format modifiers. The lega=
-cy
-non-DC display code still relies on tiling flags.
+Changes in v2:
+ - Rebased on next-20260706
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index c643cc5428577..2f7388c47d02a 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+This series adds support for:
+ - Display Stream Compression (DSC) for DSI and DisplayPort for both
+   legacy (8188/92/95 and others) and for Kompanio Ultra MT8196 SoCs
+ - Write DMA (WDMA) Engine (for legacy only at this time) as a step
+   to enable Writeback support (coming later with a restructuring of
+   the entire mediatek-drm driver)
+ - Newer MIPI DSI IP revisions, found in MT8189 and MT8196 SoCs
 
-[ ... ]
 
-> @@ -4279,7 +4277,6 @@ static void amdgpu_dm_commit_planes(struct drm_atom=
-ic_state *state,
-> =20
->  		fill_dc_plane_info_and_addr(
->  			dm->adev, new_plane_state,
-> -			afb->tiling_flags,
->  			&bundle->plane_infos[planes_count],
->  			&bundle->flip_addrs[planes_count].address,
->  			afb->tmz_surface);
+AngeloGioacchino Del Regno (11):
+  dt-bindings: display: mediatek: dsc: Add MT8196 compatible
+  drm/mediatek: Implement Display Stream Compression support
+  dt-bindings: display: mediatek: dsi: Document MT8189 and MT8196
+  drm/mediatek: mtk_dsi: Cleanup encoder if reset fails during bind
+  drm/mediatek: mtk_dsi: Enable interrupt at component bind time
+  drm/mediatek: mtk_dsi: Transfer register offsets to per-SoC const
+  drm/mediatek: mtk_dsi: Add support for MT8189
+  drm/mediatek: mtk_dsi: Add support for MT8196
+  drm/mediatek: mtk_dsi: Enable PM Runtime on probe
+  dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
+  drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
 
-[Severity: High]
-Since the return value of fill_dc_plane_info_and_addr() is ignored here,
-what happens if DCC validation fails due to missed dimension or pitch
-changes?
+ .../display/mediatek/mediatek,dsc.yaml        |   4 +-
+ .../display/mediatek/mediatek,dsi.yaml        |   2 +
+ .../display/mediatek/mediatek,wdma.yaml       |   5 +
+ drivers/gpu/drm/mediatek/Makefile             |   2 +
+ drivers/gpu/drm/mediatek/mtk_crtc.c           |  21 +
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.c       |  64 +-
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.h       |   9 +
+ drivers/gpu/drm/mediatek/mtk_disp_drv.h       |  29 +
+ drivers/gpu/drm/mediatek/mtk_disp_dsc.c       | 455 ++++++++++
+ drivers/gpu/drm/mediatek/mtk_disp_wdma.c      | 628 ++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  10 +
+ drivers/gpu/drm/mediatek/mtk_drm_drv.h        |   2 +
+ drivers/gpu/drm/mediatek/mtk_dsi.c            | 801 ++++++++++++++----
+ 13 files changed, 1842 insertions(+), 190 deletions(-)
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_dsc.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_wdma.c
 
-Could this result in a zero-filled plane_info structure being sent to the
-hardware (for example, setting global_alpha to 0) and causing a black
-screen?
+-- 
+2.54.0
 
-[ ... ]
-
-> @@ -6248,8 +6245,7 @@ static bool should_reset_plane(struct drm_atomic_st=
-ate *state,
->  		new_afb =3D (struct amdgpu_framebuffer *)new_other_state->fb;
-> =20
->  		/* Tiling and DCC changes also require bandwidth updates. */
-> -		if (old_afb->tiling_flags !=3D new_afb->tiling_flags ||
-> -		    old_afb->base.modifier !=3D new_afb->base.modifier)
-> +		if (old_afb->base.modifier !=3D new_afb->base.modifier)
->  			return true;
->  	}
-
-[Severity: High]
-By removing the tiling_flags check here in should_reset_plane(), how do we
-ensure that framebuffers with identical modifiers but different DCC pitches
-or dimensions still trigger a validation reset?
-
-If a user-space client flips between two framebuffers with the same format
-and source rectangle, but different backing buffer dimensions, it seems
-this might bypass DRM atomic check validation.
-
-Could this lead to DC hardware being programmed using stale Display Mode
-Logger (DML) calculations and watermarks, resulting in display corruption?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715105757.1312=
-5-1-timur.kristof@gmail.com?part=3D4
