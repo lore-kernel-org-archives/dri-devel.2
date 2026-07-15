@@ -4,64 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21021C44507
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 08:49:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E818BC44507
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 08:51:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 659BB10E13E;
-	Wed, 15 Jul 2026 08:49:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49E3D10E14D;
+	Wed, 15 Jul 2026 08:51:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="v0kbq9Wp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VQhVquvD";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E71410E13E
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 08:49:45 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 2ADF64E40DC9;
- Wed, 15 Jul 2026 08:49:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id F0D8D6035C;
- Wed, 15 Jul 2026 08:49:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 51F9311BD3C24; 
- Wed, 15 Jul 2026 10:49:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1784105381; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=rFNGUCLtwL0J9UMzLUhMW3/R8y1OqX7JmKnCzawnBV4=;
- b=v0kbq9Wp0Snw1mUEYQk9jToT+RDLdlswU2d0gC17xE5U6j9w26ZQcy27tuDIGkUnAsWC1r
- mfHKBcv8AJCFniJb3MRRErQT9zgqyu8yiiG8WlCormo77+OHu3roSFs/eepL/Uc4wb9WV1
- FbHWqZcpMDLxwYSTsZt8U3SBiWe14c6eWGWevDaw7Dgp2wSempFJvZIklMt7ywWFux98Zm
- MFBSwcNJRqJbqxBhDAMGbIV6SF3THRFUdD+AyVAuTBGTmxgDX9iIQaY/gXXJ2nLOVIu9xj
- 6NP6WpfY8ydvPcYOcFNuJvo9SL3ml07T795y/M9jWuPy4Zf6L+qUYNadwe6HRA==
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 2/2] drm/bridge: ti-sn65dsi83: Add reversed lvds
- lanes support
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Wojciech Dubowik <wojciech.dubowik@mt.com>
-Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6597310E14D
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 08:51:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3BDDA410A0;
+ Wed, 15 Jul 2026 08:51:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF18F1F00A3A;
+ Wed, 15 Jul 2026 08:50:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784105460;
+ bh=qCXCuR71/7ld5fnjtnlVmFnztWKJMWhQGvsU4ArYfYA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=VQhVquvDAc+PivI/GgyNFhFfn9k464FvW3H7RbaIZZXJBVbfy+eex8r/WHi4TJk8J
+ nUL2aLzEqlYTz+ATctm79EbpCBG7U4OgJ4oawXt7ct5zFYF3C3D959gyOSC7H26lok
+ QSlTykWXAyKwN2JFke23qMOalptkbylWE6cCIZ/PLbIciu34ADYoQi2+MXDlwvsDSA
+ r5H9jPjuair7oq48ERmBQIdSCsrJPpwAAgfXDZJGu6WgKffYanuzqDOXDQOEhacYIt
+ YwoN7xM4UUAnXVLzszXu5o1aFEreAgIbT43mjXvljwwaSdEmt9wnbHFjCXLdj9Mq7Z
+ uRnRYUqajBIAQ==
+Date: Wed, 15 Jul 2026 10:50:55 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Marek Vasut <marex@denx.de>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260713082622.52985-3-wojciech.dubowik@mt.com>
-References: <20260713082622.52985-1-wojciech.dubowik@mt.com>
- <20260713082622.52985-3-wojciech.dubowik@mt.com>
-Date: Wed, 15 Jul 2026 10:49:31 +0200
-Message-Id: <178410537112.253594.1490996314225033236.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH v8 02/39] drm/connector: Add caps-based HDMI connector
+ init helper
+Message-ID: <20260715-fair-opalescent-rhino-c6407b@houat>
+References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
+ <20260702-dw-hdmi-qp-scramb-v8-2-d79890d00b6a@collabora.com>
+ <i4tjtsf5rsckfcayo5nuhlger5wqxn3ujeaubm4g2fgrwvhzb2@hf4uhgq3ja5p>
+ <ad75cf26-9437-47d0-864d-d71263401615@collabora.com>
+ <20260707-illegal-tuna-of-force-1c06e3@houat>
+ <737678ab-f082-4a0e-b453-f403ba141437@collabora.com>
+ <80374deb-3246-413f-a043-66bcdb438ab1@collabora.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="z6feftgsn6dp6gmq"
+Content-Disposition: inline
+In-Reply-To: <80374deb-3246-413f-a043-66bcdb438ab1@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,95 +81,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 13 Jul 2026 10:26:20 +0200, Wojciech Dubowik <wojciech.dubowik@mt.com> wrote:
 
-Hello Wojciech,
+--z6feftgsn6dp6gmq
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v8 02/39] drm/connector: Add caps-based HDMI connector
+ init helper
+MIME-Version: 1.0
 
->
-> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> index e6dbe51d0dba..d676ea3b40e8 100644
-> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> @@ -148,6 +148,18 @@ enum sn65dsi83_lvds_term {
->  	OHM_200
->  };
->  
-> +enum {
-> +	NORMAL_LANE_MAPPING,
-> +	REVERSE_LANE_MAPPING,
+On Fri, Jul 10, 2026 at 01:27:37PM +0300, Cristian Ciocaltea wrote:
+> On 7/8/26 1:11 PM, Cristian Ciocaltea wrote:
+> > Hi Maxime,
+> >=20
+> > On 7/7/26 7:10 PM, Maxime Ripard wrote:
+> >> On Fri, Jul 03, 2026 at 10:31:55PM +0300, Cristian Ciocaltea wrote:
+> >>> Hi Dmitry,
+> >>>
+> >>> Thanks for your quick review!
+> >>>
+> >>> On 7/3/26 5:05 PM, Dmitry Baryshkov wrote:
+> >>>> On Thu, Jul 02, 2026 at 05:46:15PM +0300, Cristian Ciocaltea wrote:
+> >>>>> In preparation for adding HDMI 2.x source capabilities, introduce s=
+truct
+> >>>>> drm_connector_hdmi_caps and a new drmm_connector_hdmi_init_with_cap=
+s()
+> >>>>> helper.
+> >>>>>
+> >>>>> The existing drmm_connector_hdmi_init() helper currently takes
+> >>>>> individual capability arguments such as supported_formats and max_b=
+pc.
+> >>>>> Adding more HDMI-specific arguments to that function would not scale
+> >>>>> well, so move those values into a dedicated capabilities structure =
+and
+> >>>>> implement the existing helper as a wrapper around the new caps-based
+> >>>>> interface.
+> >>>>
+> >>>> I think, it was an intention of Maxime: make sure that every driver =
+is
+> >>>> forced to provide some values here. With the struct-based init it is
+> >>>> easy to overlook or to ommit a value.
+> >>>
+> >>> Agreed that the struct-based init loses the compile-time guarantee th=
+at every
+> >>> argument is explicitly provided - that's a real downside. =20
+> >>>
+> >>> I'd argue it's recoverable, though: the init helper validates the man=
+datory
+> >>> fields, so a driver that omits a required value gets rejected at init=
+ time
+> >>> rather than silently misconfigured.  The "you must provide sane value=
+s" property
+> >>> is expected to be preserved, just enforced at runtime instead of by t=
+he
+> >>> compiler.=20
+> >>
+> >> Yeah, I don't think we can win with C here. Rust might, but we're
+> >> probably a long way from that.
+> >>
+> >>> The main motivation for the struct is scalability/maintainability as =
+we add HDMI
+> >>> 2.x capabilities: new fields go into the struct rather than growing t=
+he helper's
+> >>> argument list, so existing callers don't need churny signature update=
+s on every
+> >>> extension.
+> >>>
+> >>> FWIW, in the previous revision we discussed addressing the concern wi=
+th a
+> >>> callback instead.  Sadly, I had to discard that approach, as it prove=
+d not
+> >>> flexible enough, e.g. drm_bridge_connector_init() computes caps dynam=
+ically, and
+> >>> would have required either stateful callbacks, or storing redundant/t=
+emporary
+> >>> cap data in driver-private structures just to satisfy the callback.
+> >>
+> >> I just realized something reviewing your patch: we don't necessarily
+> >> need an extra argument or a callback, we can just put these fields into
+> >> drm_hdmi_connector_funcs directly, and then validate them in init.
+> >=20
+> > If I understand correctly, we should drop the drm_connector_hdmi_caps s=
+truct
+> > introduced by this patch and move all its fields into drm_hdmi_connecto=
+r_funcs.
+> >=20
+> > In that case, how should we proceed with drmm_connector_hdmi_init()?=20
+>=20
+> Actually, this brings us to the callback issue: we cannot compute caps
+> dynamically, as it only works with static data, since funcs is supposed t=
+o be
+> immutable.
 
-Please use a fixed prefix and use the suffix to differentiate:
+Does it? The core and helpers must consider it immutable but it doesn't
+have to. drm_bridge_connector for example could totally allocate it and
+dynamically create it based on the bridge capabilities.
 
-  LANE_MAPPING_NORMAL,
-  LANE_MAPPING_REVERSE,
+> Moreover, we would end up with some redundancy, as most of these input fi=
+elds,
+> after validation, would be stored (altered or not) directly in
+> drm_connector/drm_connector_hdmi structs.
 
-> @@ -854,6 +873,37 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
->  		goto exit;
->  	}
->  
-> +	ret_data = of_property_read_u32_array(endpoint, "data-lanes", data_lanes,
-> +			ARRAY_SIZE(data_lanes));
-> +	if (ret_data != 0 && ret_data != -EINVAL) {
-> +		ret = ret_data;
-> +		goto exit;
+I mean, part of the conversion would obviously be to remove the
+redundant fields.
 
-The goto-based error handling is getting trickier and trickier with more
-error conditions. Can you please add a preliminary commit in this series
-that replaces:
+--z6feftgsn6dp6gmq
+Content-Type: application/pgp-signature; name="signature.asc"
 
- -struct device_node *endpoint;
- -endpoint = of_graph_get_endpoint_by_regs(dev->of_node, endpoint_reg, -1);
- +struct device_node *endpoint __free(device_node) =
- +         of_graph_get_endpoint_by_regs(dev->of_node, endpoint_reg, -1);
+-----BEGIN PGP SIGNATURE-----
 
-and removes the entire "ret = foo; goto exit;" logic with simple returns?
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaldJ7wAKCRAnX84Zoj2+
+dj33AX0ZUsd0ZtnCvNBfTVx1xc4lSlqSv96jF6MDRJm86n/BZPlTwIJXMW8LPOHp
+JGjDi6IBf2x6ikh1LwU7GSjP2yjVDjaxBerQjTbrwYyl3BAD2SowFtEHHWKJpUMH
+YvcCar5zdQ==
+=VuTq
+-----END PGP SIGNATURE-----
 
-> +	}
-> +
-> +	if (!ret_data) {
-> +		for (i = 0; i < ARRAY_SIZE(supported_data_lane_mapping); i++) {
-> +			for (j = 0; j < DATA_LANES_COUNT; j++) {
-> +				if (data_lanes[j] != supported_data_lane_mapping[i][j])
-> +					break;
-> +			}
-> +
-> +			if (j == DATA_LANES_COUNT)
-> +				break;
-> +		}
-
-I think a memcmp() can simplify the implementation if you use the same data
-type (u32) for data_lanes and supported_data_lane_mapping[].
-
-> +
-> +		switch (i) {
-> +		case NORMAL_LANE_MAPPING:
-> +			break;
-> +		case REVERSE_LANE_MAPPING:
-> +			ctx->lvds_reverse_lanes_conf[channel] = true;
-> +			break;
-> +		default:
-> +			dev_err(dev, "invalid data lanes mapping\n");
-> +			ret = -EINVAL;
-> +			goto exit;
-> +		}
-> +	}
-
-And perhaps the whole if (!ret_data) here can be simplified a lot as this
-(pseudocode, not tested):
-
-  if (!ret_data) {
-      if (memcmp(data_lanes[j], supported_data_lane_mapping[NORMAL_LANE_MAPPING], size) == 0)
-          break;
-      else if (memcmp(data_lanes[j], supported_data_lane_mapping[REVERSE_LANE_MAPPING], size) == 0)
-          ctx->lvds_reverse_lanes_conf[channel] = true;
-      else
-          return dev_err_probe(...);
-  }
-
-Luca
-
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+--z6feftgsn6dp6gmq--
