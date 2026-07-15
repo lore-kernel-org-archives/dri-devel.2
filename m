@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88932C44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 14:29:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCBCDC4450F
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 14:32:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7B3010F0ED;
-	Wed, 15 Jul 2026 14:29:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7A9410F03F;
+	Wed, 15 Jul 2026 14:32:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mGv4iySm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gp7/MJgq";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9128510F03F
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 14:29:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9749510F03F
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 14:32:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 527E44091B;
- Wed, 15 Jul 2026 14:29:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC281F000E9;
- Wed, 15 Jul 2026 14:29:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B2D8B600BB;
+ Wed, 15 Jul 2026 14:32:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 372901F00A3A;
+ Wed, 15 Jul 2026 14:32:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784125780;
- bh=im1k+IfTUTLk3amJC9dHFxUNEwpUogrUfZBR4wgapVo=;
+ s=k20260515; t=1784125923;
+ bh=0oPGzhU/tG0FFJFd2Zn/8xnXqm2rg9zDCMAO6d6GufY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mGv4iySmB8Qgcxphg9g6l8W8V7oZugFuufB/viYqV9llWLLCAEXopxzn/xjvaD5O8
- SYhbfy+K9gVsTc66/ANI+1TtpPxi0LA+WHQjqBiTVhmdp6Lt93PNdeUoDskZCwD+aA
- 9h3XiP7liSV3CG88kRgdJtKoDzUUsrjA70Hdjp0Gv1+MAVHoOb9qeHRctvhIqcoL8U
- Uwi8TWxawTcqe/Gy6ue/6gXvg1x0tm4HGy2XovOgX4R18z4P+iPhqyAkwnu52jViai
- ZhodIvrtn+xI5AFVGc1KBHa3FIQWl+41qdche/Vk0RJwf0j9tney5FCFlYVsg+KJI7
- N/Irh9w1AP0Qw==
+ b=gp7/MJgqV/7CapAHG/b2nzap/P5a4JX/4/v30rBzRvoGZOzlqeoTPP5VKOydeDma2
+ keZVDnVmlOtgXzKbFxSxx3fvKdOta2JiPtVWkf20ApkO46kMeaAR0g92zJ2zneRmmH
+ QfiqXGKh5Ptzsz6HBWu1Hmvse9PZ2AtIUVPqwk3vvWYkXVNcWBK58QcuVSqZyZSM7X
+ DNqQIIrToNjKiKVThcrsAAMFxwrMzVxeUHIhoeIbSQybzudnbrStmcFeCJiy7FwmM8
+ nb72QcUR1o9R7QBjStEH5PkFzu/j2m1RvhUpeY8an2nTsbXVixlY7yNKSZESWJB63+
+ aHj+MDv2im91A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 05/11] drm/mediatek: mtk_dsi: Enable interrupt at
- component bind time
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260715135703.46540-6-angelogioacchino.delregno@collabora.com>
-References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
- <20260715135703.46540-6-angelogioacchino.delregno@collabora.com>
+Subject: Re: [PATCH 2/2] drm/xe/nvm: define survivabilty partition
+To: "Alexander Usyskin" <alexander.usyskin@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260715-cri_surviv-v1-2-61763a6f1076@intel.com>
+References: <20260715-cri_surviv-v1-0-61763a6f1076@intel.com>
+ <20260715-cri_surviv-v1-2-61763a6f1076@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 14:29:39 +0000
-Message-Id: <20260715142939.DCC281F000E9@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 14:32:02 +0000
+Message-Id: <20260715143203.372901F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,109 +57,72 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Data race on `dsi->irq_data` between process context and hardirq c=
-ontext can cause false positive interrupt completions.
-- [High] Unbounded hardware polling loop in hardirq handler can lock up the=
- CPU.
+- [High] Enabling the survivability region causes an infinite loop during e=
+rase operations at the 8MB boundary, and bypasses bounds checks via integer=
+ underflow on reads and writes.
 --
 
---- Patch [5]: [PATCH v6 05/11] drm/mediatek: mtk_dsi: Enable interrupt at =
-component bind time ---
-commit 869a346c570d4022e4d54a10b57fcff068a735b6
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+--- Patch [2]: [PATCH 2/2] drm/xe/nvm: define survivabilty partition ---
+commit b38b020b9c762ee5ac9265db46b43fe2139de54d
+Author: Alexander Usyskin <alexander.usyskin@intel.com>
 
-drm/mediatek: mtk_dsi: Enable interrupt at component bind time
+drm/xe/nvm: define survivabilty partition
+   =20
+Define 8M survivability partition for CRI when
+storage is open for write.
 
-Having the DSI interrupt enabled before actually binding the DSI
-component to the display controller driver is both useless and dangerous.
-This commit fixes this by requesting the interrupt with IRQF_NO_AUTOEN,
-and enabling it only when binding DSI to its display controller component.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
-k/mtk_dsi.c
-> index e4a156a474e08..070d7d555bdbe 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -225,6 +225,7 @@ struct mtk_dsi {
->  	int refcount;
->  	bool enabled;
->  	bool lanes_ready;
-> +	int irq;
->  	u32 irq_data;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can the data race on
-dsi->irq_data between process context and hardirq context cause false posit=
-ive
-interrupt completions?
-
-The dsi->irq_data variable is modified locklessly using read-modify-write
-operations:
-
-drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_irq_data_clear() {
-    ...
-    dsi->irq_data &=3D ~irq_bit;
-    ...
-}
-
-drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_irq_data_set() {
-    ...
-    dsi->irq_data |=3D irq_bit;
-    ...
-}
-
-If a delayed interrupt sets a flag while a process on another CPU is cleari=
-ng
-a different flag for a new command, the process's clear operation can be lo=
-st
-if the interrupt handler overwrites it.
-
-The previously cleared flag remains set, causing mtk_dsi_wait_for_irq_done()
-to falsely return success.
-
->  	wait_queue_head_t irq_wait_queue;
->  	const struct mtk_dsi_driver_data *driver_data;
->  };
-
+> diff --git a/drivers/gpu/drm/xe/xe_nvm.c b/drivers/gpu/drm/xe/xe_nvm.c
+> index 1ea67eaeae243..54de0dbe1fa4d 100644
+> --- a/drivers/gpu/drm/xe/xe_nvm.c
+> +++ b/drivers/gpu/drm/xe/xe_nvm.c
 [ ... ]
-
-> @@ -1381,17 +1385,15 @@ static int mtk_dsi_probe(struct platform_device *=
-pdev)
-> =20
->  	platform_set_drvdata(pdev, dsi);
-> =20
-> +	ret =3D devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
-> +			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
+> @@ -67,6 +68,7 @@ static bool xe_nvm_writable_override(struct xe_device *=
+xe)
+>  		reg =3D PCODE_SCRATCH(0);
+>  		test_bit =3D FDO_MODE;
+>  		test_val =3D FDO_MODE;
+> +		s_size =3D SZ_8M;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but could the unbounded hardware
-polling loop in the mtk_dsi_irq() hardirq handler lock up the CPU?
+Does enabling this survivability region cause an infinite loop during erase
+operations in the MTD driver?
 
-The mtk_dsi_irq() function runs in hardirq context and uses an unbounded lo=
-op
-to wait for the hardware:
+When this patch sets the size to 8MB and survivability is enabled, all
+accesses are forced to use region 0, which has a hardcoded size of 8MB:
 
-drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_irq() {
+drivers/mtd/devices/mtd_intel_dg.c:idg_nvm_get_region() {
     ...
-    do {
-        mtk_dsi_mask(dsi, DSI_RACK, RACK, RACK);
-        tmp =3D readl(dsi->regs + DSI_INTSTA);
-    } while (tmp & DSI_BUSY);
+	if (nvm->survivability_enabled)
+		return 0;
     ...
 }
 
-If the DSI hardware hangs, loses its clock, or DSI_BUSY never clears for any
-other reason, the loop never terminates, which will permanently hang the CP=
-U.
+If a user performs an erase operation at or crossing the 8MB boundary, it c=
+an
+trigger an infinite loop in intel_dg_mtd_erase():
 
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
-> +
+drivers/mtd/devices/mtd_intel_dg.c:intel_dg_mtd_erase() {
+    ...
+	if (len > nvm->regions[idx].size - from)
+		len =3D nvm->regions[idx].size - from;
+    ...
+}
+
+When from reaches 8MB (the size of region 0), size - from evaluates to 0. T=
+his
+sets len to 0. This can cause the operation to return 0 immediately without
+decreasing total_len, leading to an infinite while (total_len > 0) loop.
+
+Additionally, read and write operations starting beyond 8MB might cause
+size - from to underflow to a massive positive number, bypassing bounds che=
+cks.
+
+>  		break;
+>  	case XE_BATTLEMAGE:
+>  		reg =3D HECI_FWSTS2(DG2_GSC_HECI2_BASE);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715135703.4654=
-0-1-angelogioacchino.delregno@collabora.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-cri_surviv=
+-v1-0-61763a6f1076@intel.com?part=3D2
