@@ -4,56 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 694A5C44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 17:48:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0535DC44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 17:52:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4C7E10EA71;
-	Wed, 15 Jul 2026 17:48:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2876210ED57;
+	Wed, 15 Jul 2026 17:52:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="meVllOTc";
+	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="Ff018Pq2";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E54910ED57
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 17:48:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1784137714;
- bh=pTQJGThb4edVbg5j3j/NZn6qcrGrxNFu94JuNXgxYKg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=meVllOTcTqfjtFMBJHiY8J+OfMU1exZVz7i+6TP+5/+ULib6A4KvV+rkxOhz8U+8f
- 296IM+RkPGxXCJyT2gkPJvbiMAQ41ShQE7oi1XNggwUiN0goTt4TXAvOzBWTvf3IBH
- MMAI1KdCytN0Q1d6zrv7kpsY0/laTwFuPmD/min+jcW3cyV1fhCHQCJ3Tmg5tGGT7a
- owjEjwTsywtpGF84Q5HMNwXvxthalKjELMwRuze8ocHBIbIjaHPjsH1THdEtLskVVG
- oC2SkGnuIvc/CZyk4v0SkYnejT9h0+DT5FC8GRMvdaKKPLiZy+GraPpd11Ip+5ZFUE
- Pa/HU3dsroLTA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4h0kDd2v5Rz4wCK;
- Thu, 16 Jul 2026 03:48:33 +1000 (AEST)
-From: Matt Evans <matt@ozlabs.org>
-To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
- Longfang Liu <liulongfang@huawei.com>
-Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-Subject: [PATCH v5 9/9] vfio/pci: Permanently revoke a DMABUF on request
-Date: Wed, 15 Jul 2026 18:47:32 +0100
-Message-ID: <20260715174737.15287-10-matt@ozlabs.org>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260715174737.15287-1-matt@ozlabs.org>
-References: <20260715174737.15287-1-matt@ozlabs.org>
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DFEC10ED57
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 17:52:52 +0000 (UTC)
+Received: from submission (posteo.de [185.67.36.169]) 
+ by mout02.posteo.de (Postfix) with ESMTPS id 97263240103
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 19:52:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+ s=1984.8680eb; t=1784137970;
+ bh=uppFLYZEKdPSHWk7UrhpBtU2MX2EFrENz0Run2QZ1Y0=;
+ h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+ MIME-Version:OpenPGP:From;
+ b=Ff018Pq27OgWyNbo+3HpCHaHhptSA/iixl04wRe+wtteKYbqCW/yP3ti/TwDifzZW
+ PtTTlxWTeuqVD/P6tkICVYoaGgdY6x2LsH1lT+AkLu16PNuCK8N6W9ghnvjs6hiekd
+ oGdZBYS44btgHPYixncH1XcZ77MXr7Mp3z8+iUj0CwiJftyyPEavv+BjL1HYIYwYiR
+ wQlaqjR+vqDl9HbAhMFHlvlMe5qVWeS0m8eht09K6pUoxdtWajkh77CtOEg+fylJm9
+ LirynwDY1jfT9ktvw20KeRbbsAjJUmLWZrfBJNGhnXP+zc0ZqYmRaRT0c8HUnj7hWM
+ UziGs4OEdtMQg==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4h0kKY3YKRz9rxR;
+ Wed, 15 Jul 2026 19:52:49 +0200 (CEST)
+Message-ID: <1a88b379490acf95826fea999084073ec75e32ed.camel@posteo.de>
+Subject: Re: [PATCH v13 2/3] samples: rust: add Rust serial device bus
+ sample device driver
+From: Markus Probst <markus.probst@posteo.de>
+To: sashiko-reviews@lists.linux.dev
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
+Date: Wed, 15 Jul 2026 17:52:50 +0000
+In-Reply-To: <20260712171942.5CE161F000E9@smtp.kernel.org>
+References: <20260712-rust_serdev-v13-0-2c4060bc8e30@posteo.de>
+ <20260712-rust_serdev-v13-2-2c4060bc8e30@posteo.de>
+ <20260712171942.5CE161F000E9@smtp.kernel.org>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=mQINBGiDvXgBEADAXUceKafpl46S35UmDh2wRvvx+UfZbcTjeQOlSwKP7YVJ4JOZrVs93
+ qReNLkOWguIqPBxR9blQ4nyYrqSCV+MMw/3ifyXIm6Pw2YRUDg+WTEOjTixRCoWDgUj1nOsvJ9tVA
+ m76Ww+/pAnepVRafMID0rqEfD9oGv1YrfpeFJhyE2zUw3SyyNLIKWD6QeLRhKQRbSnsXhGLFBXCqt
+ 9k5JARhgQof9zvztcCVlT5KVvuyfC4H+HzeGmu9201BVyihJwKdcKPq+n/aY5FUVxNTgtI9f8wIbm
+ fAjaoT1pjXSp+dszakA98fhONM98pOq723o/1ZGMZukyXFfsDGtA3BB79HoopHKujLGWAGskzClwT
+ jRQxBqxh/U/lL1pc+0xPWikTNCmtziCOvv0KA0arDOMQlyFvImzX6oGVgE4ksKQYbMZ3Ikw6L1Rv1
+ J+FvN0aNwOKgL2ztBRYscUGcQvA0Zo1fGCAn/BLEJvQYShWKeKqjyncVGoXFsz2AcuFKe1pwETSsN
+ 6OZncjy32e4ktgs07cWBfx0v62b8md36jau+B6RVnnodaA8++oXl3FRwiEW8XfXWIjy4umIv93tb8
+ 8ekYsfOfWkTSewZYXGoqe4RtK80ulMHb/dh2FZQIFyRdN4HOmB4FYO5sEYFr9YjHLmDkrUgNodJCX
+ CeMe4BO4iaxUQARAQABtCdNYXJrdXMgUHJvYnN0IDxtYXJrdXMucHJvYnN0QHBvc3Rlby5kZT6JAl
+ QEEwEIAD4CGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQSCdBjE9KxY53IwxHM0dh/4561
+ D0gUCaIZ9HQIZAQAKCRA0dh/4561D0pKmD/92zsCfbD+SrvBpNWtbit7J9wFBNr9qSFFm2n/65qen
+ NNWKDrCzDsjRbALMHSO8nigMWzjofbVjj8Nf7SDcdapRjrMCnidS0DuW3pZBo6W0sZqV/fLx+AzgQ
+ 7PAr6jtBbUoKW/GCGHLLtb6Hv+zjL17KGVO0DdQeoHEXMa48mJh8rS7VlUzVtpbxsWbb1wRZJTD88
+ ALDOLTWGqMbCTFDKFfGcqBLdUT13vx706Q29wrDiogmQhLGYKc6fQzpHhCLNhHTl8ZVLuKVY3wTT+
+ f9TzW1BDzFTAe3ZXsKhrzF+ud7vr6ff9p1Zl+Nujz94EDYHi/5Yrtp//+N/ZjDGDmqZOEA86/Gybu
+ 6XE/v4S85ls0cAe37WTqsMCJjVRMP52r7Y1AuOONJDe3sIsDge++XFhwfGPbZwBnwd4gEVcdrKhnO
+ ntuP9TvBMFWeTvtLqlWJUt7n8f/ELCcGoO5acai1iZ59GC81GLl2izObOLNjyv3G6hia/w50Mw9MU
+ dAdZQ2MxM6k+x4L5XeysdcR/2AydVLtu2LGFOrKyEe0M9XmlE6OvziWXvVVwomvTN3LaNUmaINhr7
+ pHTFwDiZCSWKnwnvD2+jA1trKq1xKUQY1uGW9XgSj98pKyixHWoeEpydr+alSTB43c3m0351/9rYT
+ TTi4KSk73wtapPKtaoIR3rOFHLQXbWFya3VzLnByb2JzdEBwb3N0ZW8uZGWJAlEEEwEIADsWIQSCd
+ BjE9KxY53IwxHM0dh/4561D0gUCaIO9eAIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCR
+ A0dh/4561D0oHZEACEmk5Ng9+OXoVxJJ+c9slBI2lYxyBO84qkWjoJ/0GpwoHk1IpyL+i+kF1Bb7y
+ Hx9Tiz8ENYX7xIPTZzS8hXs1ksuo76FQUyD6onA/69xZIrYZ0NSA5HUo62qzzMSZL7od5e12R6OPR
+ lR0PIuc4ecOGCEq3BLRPfZSYrL54tiase8HubXsvb6EBQ8jPI8ZUlr96ZqFEwrQZF/3ihyV6LILLk
+ geExgwlTzo5Wv3piOXPTITBuzuFhBJqEnT25q2j8OumGQ+ri8oVeAzx24g1kc11pwpR0sowfa5MvZ
+ WrrBcaIL7uJfR/ig7FyGnTQ1nS3btf3p0v8A3fc4eUu/K2No3l2huJp3+LHhCmpmeykOhSB63Mj3s
+ 3Q87LD0HE0HBkTEMwp+sD97ZRpO67H5shzJRanUaDTb/mREfzpJmRT1uuec0X2zItL7a6itgMJvYI
+ KG29aJLX3fTzzVzFGPgzVZYEdhu4y53p0qEGrrC1JtKR6DRPE1hb/OdWOkjmJ75+PPLD9U5IuRd6y
+ sHJWsEBR1F0wkMPkEofWsvMYJzWXx/rvTWO8N4D6HigTgBXAXNgbc3IHpHlkvKoBJptv6DRVRtIrz
+ 0G0cfBY0Sm7he4N2IYDWWdGnPBZ3rlLSdj5EiBU2YWgIgtLrb8ZNJ3ZlhYluGnBJDGRqy2jC9s1jY
+ 66sLA9rQZMHhJTzMyIDwweGlvMzJAcG9zdGVvLmV1PokCbQQTAQgAVxYhBIJ0GMT0rFjncjDEczR2
+ H/jnrUPSBQJpa71VGxSAAAAAAAQADm1hbnUyLDIuNSsxLjExLDIsMgIbAwULCQgHAgIiAgYVCgkIC
+ wIEFgIDAQIeBwIXgAAKCRA0dh/4561D0gKJD/9uOQKYlsDoQX65Gd0LiMT0C+5vXgr3VI0PHDOwcv
+ 51fJ3A1vNyPZRFPGrz8+mDEXUQOF/INfnz5Tu1QHwf+iYcWcTGAN/FHgVR6ET6VBNU2hJaKhu+Ggo
+ kjYyJTOvyX+3yNRUfSny0GjTjIPuPTErjqmHF+BtjXslpgwqnNMznf3lRIuUjRORupos6p3k1DndE
+ 5vzUTmXSvMyXyOD2KhBl/kL76k0bHYyAQytZPag12pltrtFbA/r2phDGN2si8PooDT99bSTJjaM45
+ MTAAHbHKJfvgfK41bNFD5mMtpWpL195XRtS0Nrxdg3PaYBxN5gtTG0RyZfpYRlkdEhm+jj/8RxuSG
+ i/qdhRdbiI7K2IELWeQVHSNDi9JabR/UzlR4NSnhfAjRIVlRM+eFbUl8XwxwVrAkojF5IraH2qRvg
+ VCmuFsHUW07FUlrDrzpjXsD73cKppoFGDCdDR0BHJepXbFLS9+AqkT+guRJlnCTg2p+TQtnbwPgKp
+ Vj98JixovCl99zRYTsL2bRNU5+q8iET65VMJ1ydyNanvLd5vI/NqDkXhlXLsGmdaDTtu4R21PkToX
+ dQNGrZ91M9nlIBKw8Y7c7xZ4098qX2b8JX/CxD+gC1r4C8vuA3GkhFLx+KlkON7LyiJPkrePp6Qky
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-N0BrJNR+DVlt3yfB9c4X"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
+ preference=encrypt
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,392 +107,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Expand the VFIO DMABUF revocation state to three states:
-Not revoked, temporarily revoked, and permanently revoked.
 
-The first two are for existing transient revocation, e.g. across a
-function reset, and the DMABUF is put into the last in response to a
-new VFIO feature VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE.
+--=-N0BrJNR+DVlt3yfB9c4X
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE passes a DMABUF by fd and requests
-that the DMABUF is permanently revoked.  On success, it's guaranteed
-that the buffer can never be imported/attached/mmap()ed in future,
-that dynamic imports have been cleanly detached, and that all mappings
-have been made inaccessible/PTEs zapped.
+On Sun, 2026-07-12 at 17:19 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential issu=
+e(s) to consider:
+> - [High] The `receive` callback issues an unbounded blocking write (`serd=
+ev::Timeout::Max`), which can stall the TTY receive worker indefinitely and=
+ cause kernel hangs during module unload.
+> - [High] The serdev abstraction's `remove_callback` fails to drop the dri=
+ver's private data, leaking memory and leaving the device open, which leads=
+ to a null-pointer dereference in the receive workqueue.
+> - [Medium] The driver attempts to read a non-standard "baudrate" property=
+ instead of the standard "current-speed" property.
+> - [Medium] The driver's probe function will fail on many valid hardware p=
+latforms because it rejects inexact baud rates.
+> - [Low] The commit message falsely claims the driver supports device/driv=
+er name matching and omits mention of ACPI support.
+> --
+>=20
+> --- Patch [2]: [PATCH v13 2/3] samples: rust: add Rust serial device bus =
+sample device driver ---
+> commit 44e3438d1218c2205d779354d11c50718f82dc2f
+> Author: Markus Probst <markus.probst@posteo.de>
+>=20
+> samples: rust: add Rust serial device bus sample device driver
+>=20
+> Add a sample Rust serial device bus device driver illustrating the usage
+> of the serial device bus abstractions.
+>=20
+> > This drivers probes through either a match of device / driver name or a
+> > match within the OF ID table.
+>=20
+> [Severity: Low]
+> This isn't a bug, but the commit message inaccurately describes the bus m=
+atching
+> behavior.
+>=20
+> serdev_device_match() exclusively checks ACPI and OF ID tables and does n=
+ot
+> fall back to device/driver name matching. The implemented ACPI matching i=
+s also
+> omitted from the description.
+>=20
+> Could the commit message be updated to accurately reflect the supported
+> matching mechanisms?
+There is a todo comment in serdev_device_match, so I will leave it for
+now.
 
-This is useful for lifecycle management, to reclaim VFIO PCI BAR
-ranges previously delegated to a subordinate client process: by
-revoking, the driver process can ensure that the loaned resources are
-made inaccessible when the client is deemed "done".  The original
-DMABUF is defunct, and BAR resources can then be safely re-exported
-for use by new clients.
+>=20
+> > diff --git a/samples/rust/rust_driver_serdev.rs b/samples/rust/rust_dri=
+ver_serdev.rs
+> > new file mode 100644
+> > index 0000000000000..824affbf65936
+> > --- /dev/null
+> > +++ b/samples/rust/rust_driver_serdev.rs
+> [ ... ]
+> > +    fn probe<'bound>(
+> > +        sdev: &'bound serdev::Device<Core<'_>>,
+> > +        _info: Option<&'bound Self::IdInfo>,
+> > +    ) -> impl PinInit<Self, Error> + 'bound {
+> > +        let dev =3D sdev.as_ref();
+> > +
+> > +        dev_dbg!(dev, "Probe Rust Serial device bus device driver samp=
+le.\n");
+> > +
+> > +        if sdev
+> > +            .set_baudrate(
+> > +                dev.fwnode()
+> > +                    .and_then(|fwnode| fwnode.property_read(c"baudrate=
+").optional())
+>=20
+> [Severity: Medium]
+> Will this fail to read the configured speed from standard device trees?
+>=20
+> The driver attempts to read a non-standard "baudrate" property instead of=
+ the
+> standard "current-speed" property. This causes a silent fallback to the 1=
+15200
+> default.
+>=20
+> Should this use the standard "current-speed" property instead?
+Just an example.
 
-Refactor the revocation code out of vfio_pci_dma_buf_move() to a
-function common to move and the new feature request path.  Note: this
-now only calls dma_buf_invalidate_mappings()/dma_resv_wait_timeout()
-on the revoke path, whereas vfio_pci_dma_buf_move() originally called
-them for both revoke and (unnecessarily) un-revoke.
+>=20
+> > +                    .unwrap_or(115200),
+> > +            )
+> > +            .is_err()
+>=20
+> [Severity: Medium]
+> Does strictly rejecting any Err with EINVAL cause the driver to fail prob=
+e when
+> an inexact baud rate is achieved?
+>=20
+> The bindings::serdev_device_set_baudrate() function returns the actual
+> configured speed. The Rust set_baudrate() abstraction returns Err(actual_=
+speed)
+> if the hardware cannot exactly match the requested speed due to clock div=
+iders.
+Just an example.
 
-Signed-off-by: Matt Evans <matt@ozlabs.org>
----
- drivers/vfio/pci/vfio_pci_core.c   |   6 +-
- drivers/vfio/pci/vfio_pci_dmabuf.c | 166 ++++++++++++++++++++++-------
- drivers/vfio/pci/vfio_pci_priv.h   |  19 +++-
- include/uapi/linux/vfio.h          |  25 +++++
- 4 files changed, 174 insertions(+), 42 deletions(-)
+>=20
+> > +        {
+> > +            return Err(EINVAL);
+> > +        }
+> > +        sdev.set_flow_control(false);
+> > +        sdev.set_parity(serdev::Parity::None)?;
+> > +
+> > +        Ok(Self { sdev: sdev.into() })
+> > +    }
+> > +
+> > +    fn receive<'bound>(
+> > +        sdev: &'bound serdev::Device<Bound>,
+> > +        _this: Pin<&Self>,
+> > +        data: &[u8],
+> > +    ) -> usize {
+> > +        let _ =3D sdev.write_all(data, serdev::Timeout::Max);
+>=20
+> [Severity: High]
+> Can this unbounded blocking write stall the TTY receive worker indefinite=
+ly?
+>=20
+> The receive() callback executes in the TTY RX workqueue. serdev::Timeout:=
+:Max
+> maps to a 0 timeout in serdev_device_write(), which waits indefinitely. I=
+f the
+> hardware TX buffer fills up due to a slow remote device or flow control, =
+the
+> worker thread will block forever.
+>=20
+> This deadlock of the TTY RX worker leads to an unkillable task and system=
+ hang
+> when cancel_work_sync() is called during module unload.
+Might or might not be an issue, I have to look into this. But its still
+an example.
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index ef93fbd5f1b6..0fa855ba537e 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -1633,6 +1633,8 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
- 		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
- 	case VFIO_DEVICE_FEATURE_DMA_BUF:
- 		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
-+	case VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE:
-+		return vfio_pci_core_feature_dma_buf_revoke(vdev, flags, arg, argsz);
- 	default:
- 		return -ENOTTY;
- 	}
-@@ -1844,7 +1846,7 @@ static vm_fault_t vfio_pci_mmap_huge_fault(struct vm_fault *vmf,
- 
- 	dma_resv_lock(priv->dmabuf->resv, NULL);
- 
--	if (priv->revoked) {
-+	if (priv->status != VFIO_PCI_DMABUF_OK) {
- 		pr_debug_ratelimited("%s VA 0x%lx, pgoff 0x%lx: DMABUF revoked/cleaned up\n",
- 				     __func__, vmf->address, vma->vm_pgoff);
- 		dma_resv_unlock(priv->dmabuf->resv);
-@@ -1869,7 +1871,7 @@ static vm_fault_t vfio_pci_mmap_huge_fault(struct vm_fault *vmf,
- 
- 	scoped_guard(rwsem_read, &vdev->memory_lock) {
- 		/* Revocation status must be re-read, under memory_lock */
--		if (!priv->revoked) {
-+		if (priv->status == VFIO_PCI_DMABUF_OK) {
- 			int pres = vfio_pci_dma_buf_find_pfn(priv, vma,
- 							     vmf->address,
- 							     order, &pfn);
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index ccfe861f88b6..36bf07530840 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -19,7 +19,7 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
- 	if (!attachment->peer2peer)
- 		return -EOPNOTSUPP;
- 
--	if (priv->revoked)
-+	if (priv->status != VFIO_PCI_DMABUF_OK)
- 		return -ENODEV;
- 
- 	if (!dma_buf_attach_revocable(attachment))
-@@ -44,7 +44,7 @@ static int vfio_pci_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *
- 	 * still safe because the fault handler ultimately prevents
- 	 * access to a revoked buffer if it isn't caught here.
- 	 */
--	if (READ_ONCE(priv->revoked))
-+	if (READ_ONCE(priv->status) != VFIO_PCI_DMABUF_OK)
- 		return -ENODEV;
- 	if ((vma->vm_flags & VM_SHARED) == 0)
- 		return -EINVAL;
-@@ -79,7 +79,7 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attachment,
- 
- 	dma_resv_assert_held(priv->dmabuf->resv);
- 
--	if (priv->revoked)
-+	if (priv->status != VFIO_PCI_DMABUF_OK)
- 		return ERR_PTR(-ENODEV);
- 
- 	ret = dma_buf_phys_vec_to_sgt(attachment, priv->provider,
-@@ -305,7 +305,8 @@ static int vfio_pci_dmabuf_export(struct vfio_pci_core_device *vdev,
- 	INIT_LIST_HEAD(&priv->dmabufs_elm);
- 	down_write(&vdev->memory_lock);
- 	dma_resv_lock(priv->dmabuf->resv, NULL);
--	priv->revoked = !__vfio_pci_memory_enabled(vdev);
-+	priv->status = __vfio_pci_memory_enabled(vdev) ? VFIO_PCI_DMABUF_OK :
-+		VFIO_PCI_DMABUF_TEMP_REVOKED;
- 	list_add_tail(&priv->dmabufs_elm, &vdev->dmabufs);
- 	dma_resv_unlock(priv->dmabuf->resv);
- 	up_write(&vdev->memory_lock);
-@@ -336,7 +337,7 @@ int vfio_pci_dma_buf_iommufd_map(struct dma_buf_attachment *attachment,
- 		return -EOPNOTSUPP;
- 
- 	priv = attachment->dmabuf->priv;
--	if (priv->revoked)
-+	if (priv->status != VFIO_PCI_DMABUF_OK)
- 		return -ENODEV;
- 
- 	/* More than one range to iommufd will require proper DMABUF support */
-@@ -600,6 +601,59 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
- 	return ret;
- }
- 
-+/* Set the DMABUF's revocation status (OK or temporarily/permanently revoked) */
-+static void vfio_pci_dma_buf_set_status(struct vfio_pci_dma_buf *priv,
-+					enum vfio_pci_dma_buf_status new_status)
-+{
-+	bool was_revoked;
-+
-+	lockdep_assert_held_write(&priv->vdev->memory_lock);
-+
-+	if (priv->status == VFIO_PCI_DMABUF_PERM_REVOKED ||
-+	    priv->status == new_status)
-+		return;
-+
-+	dma_resv_lock(priv->dmabuf->resv, NULL);
-+	was_revoked = (priv->status == VFIO_PCI_DMABUF_TEMP_REVOKED);
-+
-+	if (new_status != VFIO_PCI_DMABUF_OK) {
-+		priv->status = new_status; /* Temp or permanently revoked */
-+
-+		if (was_revoked) {
-+			/*
-+			 * TEMP_REVOKED is being upgraded to
-+			 * PERM_REVOKED.  The buffer is already gone,
-+			 * don't wait on it again.
-+			 */
-+			dma_resv_unlock(priv->dmabuf->resv);
-+			return;
-+		}
-+		dma_buf_invalidate_mappings(priv->dmabuf);
-+		dma_resv_wait_timeout(priv->dmabuf->resv,
-+				      DMA_RESV_USAGE_BOOKKEEP, false,
-+				      MAX_SCHEDULE_TIMEOUT);
-+		dma_resv_unlock(priv->dmabuf->resv);
-+		kref_put(&priv->kref, vfio_pci_dma_buf_done);
-+		wait_for_completion(&priv->comp);
-+		unmap_mapping_range(priv->dmabuf->file->f_mapping,
-+				    0, 0, true);
-+		/*
-+		 * Re-arm the registered kref reference and the
-+		 * completion so the post-revoke state matches the
-+		 * post-creation state.  An un-revoke followed by a
-+		 * new mapping needs the kref to be non-zero before
-+		 * kref_get(), and vfio_pci_dma_buf_cleanup()
-+		 * delegates its drain back through this revoke
-+		 * path on a possibly-already-revoked dma-buf.
-+		 */
-+		kref_init(&priv->kref);
-+		reinit_completion(&priv->comp);
-+	} else {
-+		priv->status = VFIO_PCI_DMABUF_OK;
-+		dma_resv_unlock(priv->dmabuf->resv);
-+	}
-+}
-+
- void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
- {
- 	struct vfio_pci_dma_buf *priv;
-@@ -607,45 +661,16 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
- 
- 	/*
- 	 * Holding memory_lock ensures a racing VMA fault observes
--	 * priv->revoked properly.
-+	 * priv->status properly.
- 	 */
- 	lockdep_assert_held_write(&vdev->memory_lock);
- 
- 	list_for_each_entry_safe(priv, tmp, &vdev->dmabufs, dmabufs_elm) {
- 		if (!get_file_active(&priv->dmabuf->file))
- 			continue;
--
--		if (priv->revoked != revoked) {
--			dma_resv_lock(priv->dmabuf->resv, NULL);
--			if (revoked)
--				priv->revoked = true;
--			dma_buf_invalidate_mappings(priv->dmabuf);
--			dma_resv_wait_timeout(priv->dmabuf->resv,
--					      DMA_RESV_USAGE_BOOKKEEP, false,
--					      MAX_SCHEDULE_TIMEOUT);
--			dma_resv_unlock(priv->dmabuf->resv);
--			if (revoked) {
--				kref_put(&priv->kref, vfio_pci_dma_buf_done);
--				wait_for_completion(&priv->comp);
--				unmap_mapping_range(priv->dmabuf->file->f_mapping,
--						    0, 0, true);
--				/*
--				 * Re-arm the registered kref reference and the
--				 * completion so the post-revoke state matches the
--				 * post-creation state.  An un-revoke followed by a
--				 * new mapping needs the kref to be non-zero before
--				 * kref_get(), and vfio_pci_dma_buf_cleanup()
--				 * delegates its drain back through this revoke
--				 * path on a possibly-already-revoked dma-buf.
--				 */
--				kref_init(&priv->kref);
--				reinit_completion(&priv->comp);
--			} else {
--				dma_resv_lock(priv->dmabuf->resv, NULL);
--				priv->revoked = false;
--				dma_resv_unlock(priv->dmabuf->resv);
--			}
--		}
-+		vfio_pci_dma_buf_set_status(priv, revoked ?
-+					    VFIO_PCI_DMABUF_TEMP_REVOKED :
-+					    VFIO_PCI_DMABUF_OK);
- 		fput(priv->dmabuf->file);
- 	}
- }
-@@ -671,9 +696,72 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
- 			continue;
- 
- 		list_del_init(&priv->dmabufs_elm);
--		priv->vdev = NULL;
-+		WRITE_ONCE(priv->vdev, NULL);
- 		vfio_device_put_registration(&vdev->vdev);
- 		fput(priv->dmabuf->file);
- 	}
- 	up_write(&vdev->memory_lock);
- }
-+
-+#ifdef CONFIG_VFIO_PCI_DMABUF
-+int vfio_pci_core_feature_dma_buf_revoke(
-+	struct vfio_pci_core_device *vdev, u32 flags,
-+	struct vfio_device_feature_dma_buf_revoke __user *arg,
-+	size_t argsz)
-+{
-+	struct vfio_device_feature_dma_buf_revoke db_revoke;
-+	struct vfio_pci_dma_buf *priv;
-+	struct dma_buf *dmabuf;
-+	int ret;
-+
-+	if (!vdev->pci_ops || !vdev->pci_ops->get_dmabuf_phys)
-+		return -EOPNOTSUPP;
-+
-+	ret = vfio_check_feature(flags, argsz,
-+				 VFIO_DEVICE_FEATURE_SET,
-+				 sizeof(db_revoke));
-+	if (ret != 1)
-+		return ret;
-+
-+	if (copy_from_user(&db_revoke, arg, sizeof(db_revoke)))
-+		return -EFAULT;
-+
-+	dmabuf = dma_buf_get(db_revoke.dmabuf_fd);
-+	if (IS_ERR(dmabuf))
-+		return PTR_ERR(dmabuf);
-+
-+	priv = dmabuf->priv;
-+	/*
-+	 * Sanity-check the DMABUF is really a vfio_pci_dma_buf _and_
-+	 * relates to the VFIO device it was provided with.
-+	 *
-+	 * If the DMABUF relates to this vdev then priv->vdev is
-+	 * stable because this open fd prevents cleanup.
-+	 *
-+	 * If it relates to a different vdev, reading priv->vdev might
-+	 * race with a concurrent cleanup on that device.  But if so,
-+	 * it points to a non-matching vdev or NULL and is unusable
-+	 * either way.
-+	 */
-+	if (dmabuf->ops != &vfio_pci_dmabuf_ops ||
-+	    READ_ONCE(priv->vdev) != vdev) {
-+		ret = -ENODEV;
-+		goto out_put_buf;
-+	}
-+
-+	scoped_guard(rwsem_write, &vdev->memory_lock) {
-+		if (priv->status == VFIO_PCI_DMABUF_PERM_REVOKED) {
-+			ret = -EBADFD;
-+		} else {
-+			vfio_pci_dma_buf_set_status(priv,
-+						    VFIO_PCI_DMABUF_PERM_REVOKED);
-+			ret = 0;
-+		}
-+	}
-+
-+out_put_buf:
-+	dma_buf_put(dmabuf);
-+
-+	return ret;
-+}
-+#endif /* CONFIG_VFIO_PCI_DMABUF */
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-index c3fa35381679..8741abd04461 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -23,6 +23,12 @@ struct vfio_pci_ioeventfd {
- 	bool			test_mem;
- };
- 
-+enum vfio_pci_dma_buf_status {
-+	VFIO_PCI_DMABUF_OK = 0,
-+	VFIO_PCI_DMABUF_TEMP_REVOKED = 1,
-+	VFIO_PCI_DMABUF_PERM_REVOKED = 2,
-+};
-+
- struct vfio_pci_dma_buf {
- 	struct dma_buf *dmabuf;
- 	struct vfio_pci_core_device *vdev;
-@@ -35,7 +41,7 @@ struct vfio_pci_dma_buf {
- 	struct kref kref;
- 	struct completion comp;
- 	unsigned long vma_pgoff_adjust;
--	u8 revoked : 1;
-+	enum vfio_pci_dma_buf_status status;
- };
- 
- bool vfio_pci_intx_mask(struct vfio_pci_core_device *vdev);
-@@ -147,6 +153,10 @@ void vfio_pci_set_vma_ops(struct vm_area_struct *vma);
- int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- 				  struct vfio_device_feature_dma_buf __user *arg,
- 				  size_t argsz);
-+int vfio_pci_core_feature_dma_buf_revoke(
-+	struct vfio_pci_core_device *vdev, u32 flags,
-+	struct vfio_device_feature_dma_buf_revoke __user *arg,
-+	size_t argsz);
- #else
- static inline int
- vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
-@@ -155,6 +165,13 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- {
- 	return -ENOTTY;
- }
-+static inline int vfio_pci_core_feature_dma_buf_revoke(
-+	struct vfio_pci_core_device *vdev, u32 flags,
-+	struct vfio_device_feature_dma_buf_revoke __user *arg,
-+	size_t argsz)
-+{
-+	return -ENOTTY;
-+}
- #endif
- 
- #endif
-diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-index 5de618a3a5ee..cbe03e5d1009 100644
---- a/include/uapi/linux/vfio.h
-+++ b/include/uapi/linux/vfio.h
-@@ -1534,6 +1534,31 @@ struct vfio_device_feature_dma_buf {
-  */
- #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
- 
-+/**
-+ * Given a dma_buf fd previously exported from the same device by
-+ * VFIO_DEVICE_FEATURE_DMA_BUF, a SET of this feature requests that
-+ * access to the corresponding DMABUF is immediately and permanently
-+ * revoked.  On successful return, the buffer is not accessible
-+ * through any mmap() or dma-buf import.  The buffer is permanently
-+ * disabled, and VFIO refuses all map, mmap, attach, etc. requests.
-+ *
-+ * Return: 0 on success, -1 and errno is set on failure:
-+ *
-+ *  EBADF, EINVAL: dmabuf_fd is not a DMABUF fd.
-+ *  EOPNOTSUPP: The VFIO device does not support DMABUF export.
-+ *  ENODEV: The device supports export but dmabuf_fd was exported
-+ *          from a different device.
-+ *  EBADFD: The DMABUF is already revoked.
-+ *
-+ * Additionally, common errors can occur: EFAULT accessing the struct,
-+ * or EINVAL requesting an unsupported feature op.
-+ */
-+#define VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE 13
-+
-+struct vfio_device_feature_dma_buf_revoke {
-+	__s32	dmabuf_fd;
-+};
-+
- /* -------- API for Type1 VFIO IOMMU -------- */
- 
- /**
--- 
-2.50.1 (Apple Git-155)
+>=20
+> > +        data.len()
+> > +    }
+> > +}
+>=20
+> Additionally, I noticed an issue in the underlying serdev abstraction cod=
+e in
+> rust/kernel/serdev.rs:
+>=20
+> [Severity: High]
+> Does Adapter::remove_callback() in rust/kernel/serdev.rs fail to drop the
+> driver's private data during unbind?
+>=20
+> During device unbind, remove_callback() uses drvdata_borrow() instead of
+> drvdata_obtain(). This fails to take ownership of the KBox<PrivateData>,
+> leaking the memory.
+driver.rs should take care of dropping PrivateData, which will also
+drop the underlying driver data.
 
+
+>=20
+> Because PrivateData::drop never runs, bindings::serdev_device_close() is =
+never
+> called. The C driver core then resets dev->driver_data to NULL. Because t=
+he
+> device is still open, incoming serial data triggers receive_buf_callback(=
+),
+> which calls drvdata_borrow() on the now-NULL drvdata pointer, causing a p=
+anic
+> when locking the mutex.
+See above.
+
+
+--=-N0BrJNR+DVlt3yfB9c4X
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmpXyOkbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPS/xEQAL+tJ55EoR0SO1xGsR5W
+3/t2+2wm0PYNi4mH+oxDGDyqflJNllcY1AlwuJp0mfGiRlnHB02Y1HRjZnQml+rO
+S8acnekNd3450i1RqVAeKsoVryJuiH5EoHXmAYLn8ZSumlZ5UI4FGgxYHY9rUB5F
+K+5J1E7ZBvT4ZrU6hmYo5WUyjDWB4KPnZ7USib6KIQWVqiFdbfoV/tEOgczmcJ/A
+oKzNRfrJvMDzbK1E1/zDGw17krCulMZWzu4cPunRWGuWpvjsOsOxi1E5nSxHqzT3
+TFNELfgE7BvX6UAbb2h8bTiLI92dauYuNJBbZJdLeMsoonUb9vYDiis9SOZraPIQ
+1Ag1SyylSe0/BSNpNLL5UAvycnOvOXY5ZRjQH8lRSkRynNiwWjvEV64lzD7jorpt
++HTYxEdj7etmQS9nCaPRzqmhPF/UvB0gqESA1HtJW7ZOqclRTRAbG95/tMQQvzBA
+R/n8oqWxH+hCjMjREupJ6h+zmj5RA53n/+oAQqkaMNSqcJrbR67db9Y8BmoCfDbl
+WAZv5j7sCBfvHUDXHSUF92BCye/Ee6aimKXVLq8m8e1tzm66HvkrfIXHVF7kKXzC
+EzfXUFcU+Fr7lRr1LlkueCISj7/dABPbe9EP3WfqpBTnd3Lu5DwsdXs2tKHnuJyA
+ZnxCSvxLpDto4clYeD6BgwZ4
+=fCc8
+-----END PGP SIGNATURE-----
+
+--=-N0BrJNR+DVlt3yfB9c4X--
