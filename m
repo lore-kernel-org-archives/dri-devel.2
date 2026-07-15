@@ -4,138 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDE1FC44501
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 07:31:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D487C44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 07:40:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D15210E130;
-	Wed, 15 Jul 2026 07:31:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBF4D10EF0D;
+	Wed, 15 Jul 2026 07:40:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="flWivHx6";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a4ZNcNbB";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="TSw9n3E5";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C259D10E130
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 07:31:12 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66F3lHIx2621111
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 07:31:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- eVZ9ZigYCDlcDM/PZqVHEcpbio13v2AmIbxFezgYnAc=; b=flWivHx6DSNcEF4l
- 3+WFGI5my90RIuFOWmXAH/VxAWTSY25H5DEk9L8jww59k0gz5NqgLobeUCCoRnPL
- hkVQWT2o39jdqbcaCjhudF01tzfSHGN+5+Fbp085SMJBeA5O9X5/il0/a6UU+JfF
- tFudpmaESNF+xHLhdbmvcYn7CS7pDJQJjpTGmwNQWk3N1aIbzWTvTKUYSBTPAs3q
- 5p462r957NYRZbi7tD/hlVGkw/zqcastK20VjPhAxYz+1eWdIBQl1FaET4C08WPo
- 5hVkFCG/XSgBf7Hhg8dVTiIG4IZsvjXhrSWwMu7ZFbJqrgjdtNA8gwVI40dshMNR
- /KwPAg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fe03vh58c-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 07:31:11 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-51c27616421so17482821cf.2
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 00:31:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784100671; x=1784705471;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=eVZ9ZigYCDlcDM/PZqVHEcpbio13v2AmIbxFezgYnAc=;
- b=a4ZNcNbBNDbgW1khEFeMb4FEitlp/7tIrFqpoBE2oW8oD9ekdmsnkUuecuArvRQ8Dv
- 6GeE2tmh7rbxuZ0RZdQPQXobl3KwFOr4uzeCEEnwmDe9A0zNN5gjQ+vw5mLPxmTOtMOj
- kY0KsPXJAWgfJgU5yj3SFQn3BPkx3JEVWF90sNC/1cDASoJ+NSDTiE6KrbXi175UQ0Xw
- eY0twSTZmcYpHeflg/EyWxMbmMg9jRgpRSp4lDKgipp4uB2Oh8LVj1zWT9xTKThBUySc
- 9l3Scqsd0BesCofErlOXm8KFhKJ7rZKvo1NnCiYj1Rl6hh3EPKsZ98zB4t7PA/GuZOtd
- RntA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784100671; x=1784705471;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=eVZ9ZigYCDlcDM/PZqVHEcpbio13v2AmIbxFezgYnAc=;
- b=Uq6UPtg1Lj+IZPTNy3iBzfsmdt2OTKMBraKhEyBV2n6y7XmCs8xT0O3EiXw4nHrkf0
- gAzUpPIcVkaTedgYsgauIO8PMAsTxnKjQZThiKtwiWAdSbllxmxIyRrYDVaTmjX6b84v
- SRLA8nrIo2S3q74FYJReA5UiRbeuIXVbAst1CvCF+l+xtcZdE7uMrVC4UPTEijtEfgF6
- klDtZ3Ebkbf66+XqXn47fSrtQRYSvgQFsX/ybZDMvk8i7tkc1kVkXCiwKRlb/2nqhiVw
- KHYWVxNIzc3NkSh5KERI7FGncaDaWrnm1qfnvLf+Nq/ZpwwXTS7/eZlOfuI/hA5m7nHb
- qwjg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr2bdZ7fFis3/ViubbgXM+JFhh5hayPOI/Fc+/pJwxIMRyzmVkhgy5x6Df0DdZFmpYegKBpx3tXQus=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx/jtTdO3BgDiKoxkkxOQI/bNzoBSrlTEX2Kprk9zQF0Xb9qx1A
- HYHP/C+qJ9I+CxhibmqRYcH4+yPQCREMR/S8iTDJkQv++7llRkjLetNotG2hnMFfVIvsh6HLn+Q
- mnliksflDwlH0ENvL/ZyRcIvGEvKvcEybYL4ZZrlqlHxeeLSCp21wCPyFgIUgGZet+IekMWE=
-X-Gm-Gg: AfdE7ckDrHeYjvBVYoKWozlvSw4SSB9KENzIvQbZQTWVMFZqMYiqVdch/0ixtitK54t
- g5kRwW1V2lvJNxt/wn1M3b3GIwERa1HCKryrDPoFIPaws6af4bWEdAjWAFrfDAq3a47ju463sYU
- SufcuktjJSc3hckCjWaSP/DgCw9ea+OQCohqyH/hCIZFi0nfT4DBCMb2nbiro99WQyCbWNQBUzM
- Pse2yU7exe7fwzJ/c4Paa77OP6aM+vlxDEFSxejfPMwH0BVemdPIT2LutlwmiSlZZXqNrwU3aab
- KWZNmuW3vLbQAZ5VSAsUMHyauWkrph7mNt6cg/vC5PLcEXYmx/2nCKQUlSb+Nl1CM22+m85j1UP
- sWcv8NDokHAwN3CsIyYk5J79iUV1c+B8b56s=
-X-Received: by 2002:ac8:5d4e:0:b0:51c:1744:edf0 with SMTP id
- d75a77b69052e-51cbf289286mr135432371cf.9.1784100670976; 
- Wed, 15 Jul 2026 00:31:10 -0700 (PDT)
-X-Received: by 2002:ac8:5d4e:0:b0:51c:1744:edf0 with SMTP id
- d75a77b69052e-51cbf289286mr135432081cf.9.1784100670440; 
- Wed, 15 Jul 2026 00:31:10 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c15fc29937esm790840866b.22.2026.07.15.00.31.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jul 2026 00:31:09 -0700 (PDT)
-Message-ID: <d6cbf1c1-9af5-4c06-abd0-0617dcce0bf8@oss.qualcomm.com>
-Date: Wed, 15 Jul 2026 09:31:06 +0200
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazon11013067.outbound.protection.outlook.com [40.107.159.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECECA10EF0D
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 07:40:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SVlS0K2gpr0YOOCKaT4e8azkexEYryYNoVk5oYO6BaGCOuBNdL+J+5F37PJ1Ih+qABVp3zQ0gWJdUar9Ezm5OOMSoykFUWIOS5o7+3jmSCHV8obTyd2XFke6lDeNj/szpi8vwY8uVrtF3NC7qJdpix2Gp7PslL3klxX6Wdtc5M3usEmJgdnqzVZpIC6R4biTy6/rMBBvOU9MZU4FrjSwk1900BAc713IBAymdh/xH1Aca9fzrSHAb7M3rPTDb9g4xR6ZUrG5+0VZ+XnWc1dI9pNyMLDZT2CQf3LywE0eabl9dCe6ftcpqiWml+q+yV3GO0o4ACKiP30Jbu4Vcq9bBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hUcPv2T6+zDq0VBxVV90Y4HPnXSOZ9AIkNLSbrDjkxs=;
+ b=ijkxJL0rPcVGW+5mhjmR7a5GHfRF5RkK0K54kKsHLcH9IbjLplB/h+1MIsCgtRUMVGgOAefht0tUd4snTq+w5HN9kH3fESwxS+xf5ZexJAI2kANvM7H0EOvJYsYXdL+HWZeZorlPwEUcWXTV8Ch5eG/EKk2V7vJm4yqsvJ73sVNVFIZzuL61R635rtNQcdUhesi8989kvwYPkCIbjURLUb/Wda1D5mS5GXsPiqtqdnPpwa4PLTp1JSgYgrso5i3PPUGsWoOfedri4g38WrVv/ZaVy7IzsdUxCKssA/oQeQ9B6l7iq6TCvN6KwmeywqHrBjersiRMigv2YqZkxugv4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hUcPv2T6+zDq0VBxVV90Y4HPnXSOZ9AIkNLSbrDjkxs=;
+ b=TSw9n3E5Y0HziGXQcz8br2ExOM6pU9zx9mJaf44QVN+OmHFEUtVONMXeGD06uBUvIMlE4SVFZN765DrljJBjvowEZdm0MQo07D1LqwchDF8tD9Wu9nf2bCFkHXHl9JXOcNnkOTv1uWTxaDx3YgWmAjKKgNcgl0UGWZXbYXlLrW8OMytmZrPrrF55NJfb7js1yn+q+OgTfyk1cgTWjMfWkXaVXlUZdfRMQcaI5FwOEIDq5S49slKStZPxTjry1oKeOiCOMyjHq9rBtR+VCuqz8hiGMI19wa6MqliqmXmu59nqyIW2PdQ4rUdOsxEN0OAAOm449cvMDh+BpU2J2XIRyg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
+ by AM0PR04MB6803.eurprd04.prod.outlook.com (2603:10a6:208:187::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Wed, 15 Jul
+ 2026 07:40:14 +0000
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0223.008; Wed, 15 Jul 2026
+ 07:40:14 +0000
+Date: Wed, 15 Jul 2026 15:41:43 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/2] drm/imx: Switch to irq_domain_create_linear()
+Message-ID: <178410074760.759322.11532753464327742911.b4-ty@b4>
+References: <20260708095645.385291-1-jirislaby@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708095645.385291-1-jirislaby@kernel.org>
+X-ClientProxiedBy: MA5PR01CA0284.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:21b::9) To AS1PR04MB9287.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4dd::8)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V4] i2c: qcom-geni: Add dynamic transfer timeout based on
- transfer length and frequency
-To: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
- Aniket Randive <aniket.randive@oss.qualcomm.com>,
- viken.dadhaniya@oss.qualcomm.com, andi.shyti@kernel.org,
- sumit.semwal@linaro.org, christian.koenig@amd.com
-Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- naresh.maramaina@oss.qualcomm.com
-References: <20260710161056.1799019-1-aniket.randive@oss.qualcomm.com>
- <e53ea721-bcd1-4d8f-9b7a-ea6ec3003f71@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <e53ea721-bcd1-4d8f-9b7a-ea6ec3003f71@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Ife3n2qa c=1 sm=1 tr=0 ts=6a57373f cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=lLXzRi4vikbFFa1iuNgA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-ORIG-GUID: 6VoaXMBSfvdv8KnH9NgkzPh6vcbE-p0h
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE1MDA3MSBTYWx0ZWRfX8IsxgRbVAzad
- q+lMXfCfnLISw5cleCQ2xQ4Y/XhZgtd3vORPJHg7bq2cR2gZpmcz+6Bspl7yPShBdTzBkU0psSs
- ECnbJCrjbN/ftIh79ey9J2uofIK+z2CvRgEOupoRStlHuxqTftQlkUTich1tdI/LR202AqER9en
- PRAB5Wv3S1AFPuJVNIWH+f2lYJOQrVd0aZH6Lvupc3qZiIJ7v1wwpY8ahrSwQ8WZPjLBHVeqto2
- n6MZOw3Gia/AzNtpun37kigcHktJRWWDnifGaQcRa5Tx7fHOtmaVLbPMx2+TcBrPrfSIajGpswm
- 2/AKCCzvKBHQ9yy6VsPd1z3Ofn6PUTWWFUBkBz/lKUNCky+PhGRMfL6smjUP4FMXkMLdztRuu/E
- N/u6N5786phhWEVSeBiybnPWPdbhR76r4g2udxr/r5xyx6oFmWiAGQ93EWCKp94iLgjPQj3gmmP
- bPDpvrcYuJpBvH02MGg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE1MDA3MSBTYWx0ZWRfX3A6rrOz3Iye/
- oJGTuru+r5rnqDoJYv5hLOZwtinLeBR/aEhL85thI0rD62UdQdBALbZA9oH3FXK2SSiIJJtu4m5
- LkFbliU1hMK2YktSYWu4tdLpWPshQqo=
-X-Proofpoint-GUID: 6VoaXMBSfvdv8KnH9NgkzPh6vcbE-p0h
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-15_02,2026-07-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 bulkscore=0 clxscore=1015 adultscore=0
- impostorscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607150071
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|AM0PR04MB6803:EE_
+X-MS-Office365-Filtering-Correlation-Id: 707828a1-3444-43b3-ca8c-08dee2444e91
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|23010399003|19092799006|1800799024|366016|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: H27P+h77Vch42VeLtx/eSiqSRSFlF6mWQmZDeCzNn7hPubzOh1lfj1c8kEVNB0j4me4x9vePOpkUEwXghQwYBFjBjxPVCsO6sZkhCczIGNOgJVy53MaE5d/e3PiRktKtxcomhuUqVrFpJIo0W0j5Zql/6HhSV61pkj7b2NOLk2OAn0uCBSvVxblCredOgK26+oZxkFVYxwpVS9H9TBAzPAapjjipUYSXGKwBTzhXdQXoTKD10CShWU67fWxLuh3ySeNZsQ67R35S/WcQxE2cGTnOjrAP9BfXvTLN3/zoMZ2ikLU9l9CFYqDDTYTG5hbZW96OAhW15blqTqM0AVOlwbwSQNfA8eFSlDInWvBuO9+Xf2OEhuU7SVcemJF4SdnKpITJPJfB5B/lm4FsL9TzNwfzeuzg8qu0q9bMb4e0LaCYFUnRj5CWgkgDVK4+WttXqBiEXi7HTRQacBEgYvG5z9akBn77M5AnW6HJ6TuB1cGY5ug8TcP55933M+xVcQFDIi4Gdtm/06q0TpU+H7iRllFipw920zNlJT6nGbAVDexzAfmnkdxNdDA58e7zOPFT0c46KDcPJBKcCpKmGRkxxVKn6bFHqR6n8SG2ISosv8fp8JLIVztnkemd3w8U03xtdMYXOZuYu3USqjC1EugKXeotvEWWRGTjHynNGhMwmt0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(23010399003)(19092799006)(1800799024)(366016)(11063799006)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?pIQ+t9GEL5HLAFnGcwkRfeNX/ECLH4t0mFORUX432n6ndffucucfnIkBjK4P?=
+ =?us-ascii?Q?inmgQe7X/h8+CAS+TYjs2ain8m0xuo6HI/oqhRLsBYm+cSF+Qlm6vyDDGcED?=
+ =?us-ascii?Q?TRnLkJY1DUXLeky/yWgC+u75uHiDTXigzvpwl/2Sxw3URh5RW84YBk4GMIN+?=
+ =?us-ascii?Q?VA5/1YwL85IpVSODA/s4R9KBM2/7+LzYrfCNnRTQ/gB4YYKJGtbwq/eDqsqW?=
+ =?us-ascii?Q?2HzGjpp0o2jUBcwqWzAOei0G0FU5+RP+XAas0zazxOdehO5oWzpFOJW/02x0?=
+ =?us-ascii?Q?ent3V7opPffPc38KqLULFzcFauL3+Rml8tROJt6HIZJksX0Z1inauHbc0jxl?=
+ =?us-ascii?Q?YJr6u4SZ1PUQoqjDzsw80YG0+nbJM2ra6C5Nd8nUVvp/NYh2upDlx8wztt36?=
+ =?us-ascii?Q?KTAMaqgSKcH3OYcsJFE5F9qL/PKmsUkrfl133vI/0oc9vsfD84NoyDZpFfWL?=
+ =?us-ascii?Q?Klsuvuggbk6aS6Ah4RjG33TS9NgHjsTIohFoHTdDftQzX/txkKlXT9mJeXT3?=
+ =?us-ascii?Q?xGy8o+0gtcRL4Os/I3ER2xLUlIB2mIXj03/2xJ1vA0v44pWApSlwUgkpgJi3?=
+ =?us-ascii?Q?6O4Tcv6gwrD0rds7QFTDrKBqMAZu/W1fCZuXdHXtgBAZ6KtKlAxFzOPuaBUh?=
+ =?us-ascii?Q?yVlXXNN5bXxmttIi4DJbrwmPUeozi1zri8QzKOudr0mJHBp7m/2XBXqyqB1Y?=
+ =?us-ascii?Q?gYAAHUxdMJivEQkTTxCQi7cWjTZlhsaAju8HHRb8tHH3ecWVvG1NfUbMYZzs?=
+ =?us-ascii?Q?XAzT/LQ1FEsCU2HAakGHBsVMlacW7mWUIbBtlWVH2hftJ2AmMO0zfP0A3SK2?=
+ =?us-ascii?Q?mO/yiJCLUo8bYGIed/b44hAH4yymL+ptm6TpAWB+5vzHwBggy7OfzznqNX29?=
+ =?us-ascii?Q?sM6M9pYkhnWdDbkHblKLLyJrwVVxkHQ9NjWH9jpNT3p/Qlqd0xkNYNY561yc?=
+ =?us-ascii?Q?S6aZ9y4LhFc8JHceG9y8ofso53qwNjYIT9arp+6tBjLuOkbxLTwR8c4KUBa6?=
+ =?us-ascii?Q?0YOfCJXhoqPLGKWa3chVIvJG1lJpat4mCmekpYcT3CpeeeXXSNYMdbJWAhT/?=
+ =?us-ascii?Q?QsKkEcLSnH4l4vcVg7ytr4Le40TNtGXWPnS77y628+ep9UlnDfUtQcW8NEBi?=
+ =?us-ascii?Q?BgQVWZHxp1fyG4lK/dF1h7+gGKhKP4xuJOV9HMw0zxVLqOjg3Z5kzxS1RVZT?=
+ =?us-ascii?Q?heneZ2iCPtADFYX379dvYACVSxreKLTSLh+kDXccRYvfFrRLo9Os8wtywG70?=
+ =?us-ascii?Q?qKlu8Lg8FgkkLvPfwlyXJnb+5R79E+1w4TaIpudsKGrZLeRcCTy8X/wZGo9b?=
+ =?us-ascii?Q?nfI/QxrehnckPi/Pe6HW+eF8VW9ZRDq6kzE5SFFHVr2NTmLUFXWUUM4s8Vlm?=
+ =?us-ascii?Q?vBO1BGhKaqcc++Fv8ZjdNtOzr6Qy1SZk8smMyTxfFXryimU8q64JaSVHZP7E?=
+ =?us-ascii?Q?+YMsvGsVD+iX8cgDCWzklzxOc9YlXY3nWr6+E2HxNxSujiVTLx6AuLtM2t2j?=
+ =?us-ascii?Q?Mrkskx8VGDIk9JK6OREI/vmkih/QL2rWWdX94STIVdMa3Ijgzgss7yy2fBbL?=
+ =?us-ascii?Q?bAuqERfLFE0aSFCQ+tUVMr/+Wz56/eYm3F0S/x2oLxC4t62T+oVfJbEz9ziQ?=
+ =?us-ascii?Q?IHfi2SMCeBHb2ohhzLlq3KTs3KB8KkJ2nZNvJ0YvcgH8ePwABN8B0CujW7qG?=
+ =?us-ascii?Q?DDA2P+R6z88aDZB01BFYD0p+ZcT3OCnWX+sy8Vv/1gxHX6dU9E3vbSvrrJ6H?=
+ =?us-ascii?Q?hoCRdarICw=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 707828a1-3444-43b3-ca8c-08dee2444e91
+X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 07:40:14.1836 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Lcm3XfG0+acV78zm06x227yCl0dtc1wrh6W4hH6qngDxWBY01xwUVhqL3MrtCsHWwUnQ1ZBgpBE7K/6JvHd0eQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6803
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,34 +131,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/15/26 6:06 AM, Mukesh Savaliya wrote:
-> Hi Aniket, Thanks for addressing previous comments.
+On Wed, 08 Jul 2026 11:56:44 +0200, Jiri Slaby (SUSE) wrote:
+> irq_domain_add_linear() is going away as being obsolete now. Switch to
+> the preferred irq_domain_create_linear(). That differs in the first
+> parameter: It takes more generic struct fwnode_handle instead of struct
+> device_node. Therefore, of_fwnode_handle() is added around the
+> parameter.
 > 
-> On 7/10/2026 9:40 PM, Aniket Randive wrote:
->> The driver uses a static XFER_TIMEOUT of HZ (1 second) for all transfers
->> regardless of message length or bus frequency, causing unnecessary
->> delays on error paths.
->>
->> Compute the timeout dynamically from message length and bus frequency
->> with a 10x safety margin over the theoretical wire time. Add a 300ms
->> floor to budget for I2C clock stretching, where a slave may hold SCL
->> low indefinitely during internal processing. This detects real hangs
-> not only internal processing but it may go bad holding SCL low indefinitely.
->> 3x faster than the old 1s static timeout.
-> Meaning, in such case/scenario, don't need to wait till fixes timeout.
-> I guess, 3x faster is relative to the 1 sec, but for larger data and slower frequency it may not be 3x. Hence, correct it accordingly.
->>
->> For GPI multi-descriptor transfers, use the maximum message length across
->> all queued messages as the per-completion timeout.
->>
->> Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
->> ---
+> Note some of the users can likely use dev->fwnode directly instead of
+> indirect of_fwnode_handle(dev->of_node). But dev->fwnode is not
+> guaranteed to be set for all, so this has to be investigated on case to
+> case basis (by people who can actually test with the HW).
+> 
+> [...]
 
-[...]
+Fixed a complaint from 'checkpatch.pl --strict' for patch 1/2.
 
->> +/* 300ms floor: budget for clock stretching; slave may hold SCL low indefinitely */
-> Already explained in commit log, can remove second part.
+Applied to misc/kernel.git (drm-misc-next), thanks!
 
-This is very much non-obvious, please keep it 
+[1/2] drm/imx: Switch to irq_domain_create_linear()
+      commit: d91748f683693be386fa127b7ec25d2a366b88b9
+[2/2] drm/imx: include dc-drv.h to avoid sparse warning
+      commit: 68952f1b00736f91867939f50d7b78c08126caad
 
-Konrad
+-- 
+Regards,
+Liu Ying
