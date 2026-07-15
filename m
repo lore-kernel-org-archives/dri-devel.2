@@ -4,43 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F344C44507
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 21:16:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 742D0C44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 21:17:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA53210E264;
-	Wed, 15 Jul 2026 21:16:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C574F10E320;
+	Wed, 15 Jul 2026 21:17:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BI03toNw";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="lw1aE0Rl";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B989210E264
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 21:16:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 796B310E250;
+ Wed, 15 Jul 2026 21:17:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 54FA142B7B;
- Wed, 15 Jul 2026 21:16:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 013001F000E9;
- Wed, 15 Jul 2026 21:16:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784150165;
- bh=QCHzCYSx6rkkGhOZYkoDAz6zF4WeNw8S5J3i9l6X/KA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BI03toNwOfUHtvIcGkP6G6a1Ysgnq9O58YVFJiDrHwVmGol5FybMpb2+QIF/8DLRz
- cjZURMj4bdxmjwQMqU0GTFD2XqHACf++05slC/Rl9AVYLTc2Yzb0ToyEYcNAGfIkaV
- fNg238gc0ne2L8WySyDPwA9usLMTwj99rFnzL62tqGkEF7Eb/xo3cHMh33jgmJx7tW
- fBnnXK342X4Dr/wLvgHS2BMpSdmiq5MfzO065UaFl52XtwHHXOYe/9yCJne3JJr/zB
- lXvHPcbsTcthgdDUZFYZly3WKbf3ZX1TtvPCX4rvOaLrRLtBxNc4mYx87Jl3U31hp2
- wq7IWucE4Cn/w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 1/3] rust: add basic serial device bus abstractions
-To: "Markus Probst" <markus.probst@posteo.de>
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260715-rust_serdev-v14-1-b4ed5c93606f@posteo.de>
-References: <20260715-rust_serdev-v14-0-b4ed5c93606f@posteo.de>
- <20260715-rust_serdev-v14-1-b4ed5c93606f@posteo.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 21:16:04 +0000
-Message-Id: <20260715211605.013001F000E9@smtp.kernel.org>
+ by sea.source.kernel.org (Postfix) with ESMTP id 19A494028F;
+ Wed, 15 Jul 2026 21:17:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C56601F000E9;
+ Wed, 15 Jul 2026 21:17:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=korg; t=1784150259;
+ bh=UU+zPW9iRvCJbBM3XKZCH/KKzyu8mkExGEFSmL1gNYg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=lw1aE0RlWxmrVX1SBFRJgy1UyPRTg4K6nP+DEjnY9dlEAsFMk2L2RNTreb0d+vs/k
+ 1gYgzd2yzaN3XobC7uyRdh1AW0rjf0Olb3qRLd+W/Q1HYfJhedn8GiXr9Nt0CNftbb
+ PL/NA8rFtyplykMr0XbJ7OZgExm1aHBfS+hm1Ecw=
+Date: Wed, 15 Jul 2026 14:17:37 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Stanislav Kinsburskii <skinsburskii@gmail.com>
+Cc: airlied@gmail.com, akhilesh@ee.iitb.ac.in, corbet@lwn.net,
+ dakr@kernel.org, david@kernel.org, decui@microsoft.com,
+ haiyangz@microsoft.com, jgg@ziepe.ca, kees@kernel.org, kys@microsoft.com,
+ leon@kernel.org, liam@infradead.org, lizhi.hou@amd.com, ljs@kernel.org,
+ longli@microsoft.com, lyude@redhat.com, maarten.lankhorst@linux.intel.com,
+ mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
+ nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
+ rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
+ skhan@linuxfoundation.org, surenb@google.com, tzimmermann@suse.de,
+ vbabka@kernel.org, wei.liu@kernel.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rdma@vger.kernel.org
+Subject: Re: [PATCH v9 0/8] mm/hmm: Add mmap lock-drop support for
+ userfaultfd-backed mappings
+Message-Id: <20260715141737.4097a5c7d74953ffd8ed66c9@linux-foundation.org>
+In-Reply-To: <178413903133.1155966.3904063656020521607.stgit@skinsburskii>
+References: <178413903133.1155966.3904063656020521607.stgit@skinsburskii>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,75 +65,27 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Drivers cannot synchronously wait for data during `probe` without =
-causing a deadlock, because `receive_buf_callback` blocks on a mutex held b=
-y `probe_callback`.
-- [High] Concurrent device callbacks during unbind or probe failure lead to=
- Use-After-Free (UAF) or NULL pointer dereference because driver data is cl=
-eared before the device is closed.
-- [High] `Device::set_baudrate` incorrectly treats approximate baudrates as=
- errors, which will fail driver initialization on many hardware platforms.
---
+On Wed, 15 Jul 2026 11:15:50 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
 
---- Patch [1]: [PATCH v14 1/3] rust: add basic serial device bus abstractio=
-ns ---
-Note: The format of this review is altered to provide a free-form summary of
-the findings, rather than inline diff comments, due to system recitation
-restrictions.
+> This series extends the HMM framework to support userfaultfd-backed memory
+> by allowing the mmap read lock to be dropped during hmm_range_fault().
 
-commit c091dc3bf08c045ff86b0afe5e41d3fd0a94bb83
-Author: Markus Probst <markus.probst@posteo.de>
-Subject: rust: add basic serial device bus abstractions
+Thanks, updated.
 
-Implement the basic serial device bus abstractions required to write a
-serial device bus device driver.
+> Changes in v9:
+> 
+>   - Folded the fixups into the full 8-patch series instead of sending a
+>     separate fixup series.
+>   - Clarified that the HMM timeout bounds repeated HMM/mmu-notifier retry
+>     attempts, with the helper refreshing range->notifier_seq internally.
+>   - Kept nouveau’s explicit outer deadline because its retry loop runs in a GPU
+>     fault worker and cannot rely on fatal signals from the faulting process.
+>   - Converted amdxdna, and GPU SVM callers to pass the shole timeout budget to
+>     hmm_range_fault_unlocked_timeout().
 
-[Severity: High]
-In Adapter<T>::probe_callback(), the code acquires the active mutex and
-holds it across serdev_device_open() and data.__pinned_init(). If a driver
-needs to send a command to the device and synchronously wait for a response
-during its probe routine, won't this cause a deadlock?
+These are all in your fixups for v8, so the v9 series made no
+alteration to mm.git.
 
-When the device responds, Adapter<T>::receive_buf_callback() is invoked in
-the RX workqueue and attempts to lock the exact same active mutex. Since
-probe_callback() is blocked waiting for the response, and
-receive_buf_callback() is blocked waiting for the mutex, the system seems
-like it will deadlock. Is it possible to unlock before waiting, or use a
-different synchronization strategy?
-
-[Severity: High]
-Looking at Adapter<T>::remove_callback(), it appears that T::unbind() is
-called, but PrivateData is never explicitly dropped or obtained from the
-device data, which might leave the device open and leak memory.
-
-When remove_callback() returns, the C driver core sets drvdata to NULL. If
-data arrives immediately after, receive_buf_callback() might read a NULL
-pointer from drvdata_borrow() and dereference it.
-
-Similarly, on a probe error in Adapter<T>::probe_callback(), ScopeGuard
-clears drvdata before PrivateData's PinnedDrop implementation closes the
-device. Does this create a race window where the device is still open and
-receiving data while drvdata is NULL or in the process of being destroyed?
-
-[Severity: High]
-In Device::set_baudrate(), the success condition is checked using strict
-equality (ret =3D=3D speed).
-
-Since serdev_device_set_baudrate() configures the hardware and returns the
-actual achieved baudrate (or 0 on failure), hardware clock divider
-limitations often result in a baudrate that is close but not exactly equal
-to the requested speed (for example, returning 115198 when 115200 is
-requested).
-
-Will this strict equality check cause valid driver initializations to fail
-on platforms that can only approximate the requested baudrate?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-rust_serde=
-v-v14-0-b4ed5c93606f@posteo.de?part=3D1
