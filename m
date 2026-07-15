@@ -4,61 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62CD4C4450A
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 06:08:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36ED1C44508
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 06:16:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B91E110EECC;
-	Wed, 15 Jul 2026 06:08:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9248510EED0;
+	Wed, 15 Jul 2026 06:16:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="msrmTNsY";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Ml0hrBmX";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D0BC10EECC
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 06:08:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2530E600FF;
- Wed, 15 Jul 2026 06:08:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A52BC1F000E9;
- Wed, 15 Jul 2026 06:08:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784095713;
- bh=1ULBlpWcCMHL+k8mUwAGMRXmL/LM436Hb11RBQxXZXI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=msrmTNsY7g4JoySUPK1RxwcFJKZNddLzswjgd1NLJg8MrXGz/iMisVd21N+dWpBWt
- Gby6reU0jSVj1jFxQX9VGOyQS+YV04CgK+CUbPmSkLm0JCq8GGRFnh6jeWaSo4HzWt
- OkKBNsumCIOF806T+AhormuIIC2LFCMzIq1CkXvekB85W5fVVljuzTxChVTHoRElbN
- oSFdtpLEDDXd2nVyBAHMHhUImInQ66Hh/Nm6nbacyCP+UD8aLrvUQiH1hFx8dnyhm8
- 0J6Y4eCbqKSnTrquLB5g1SwmhUpYRyMEqp5fkoViZLLoXFS+vBK77mWZO9hG1BYXXC
- TI8YW4af2ZwmA==
-Date: Wed, 15 Jul 2026 08:08:30 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Wojciech Dubowik <wojciech.dubowik@mt.com>
-Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: display: sn65dsi83: Add output
- data-lanes
-Message-ID: <20260715-successful-quetzal-of-amplitude-bf3cb8@quoll>
-References: <20260713082622.52985-1-wojciech.dubowik@mt.com>
- <20260713082622.52985-2-wojciech.dubowik@mt.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D952010EED0
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 06:16:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
+ From:Subject:Message-ID:From:Reply-To;
+ bh=QzPGCwr7V9AVee7yhQ+nczZfLMVvubjLDbugo6vaKzk=; b=Ml0hrBmXrzXwzw1PXzlS0wKa8D
+ hUmPS3lKyyBkZEE+Mc5eGEdeXxINH9p2DMEjZq5kzBwgloxAbumyui8o3FA9tqFcgotZYTSagcpZ3
+ BtbQb126EwgoT71DcmNutNEik725D+2+dqW+s4x5Q8gFHXU7rkYV0ax2BZG94jk827+hfvI2bdRY/
+ lNbN1oYuevU4JGcQ6NrOIVwDmFmJToXHMINI+zeqWhMU5CT8sXqPppj0n2xFqHCAQe7qK1fe9cjI1
+ zF1oPDfKU13FKH2D+UWgsTDr07UixnNgb85ajopIHItiDoU71uiuusmRbMFvHsIY3kttGrzHrl4iu
+ PcUXsllQ==;
+Received: from [159.147.19.205] (helo=[192.168.0.17])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wjsuz-00FJvv-74; Wed, 15 Jul 2026 08:16:29 +0200
+Message-ID: <e65137e19a8773a2f760531034481e0df60071d4.camel@igalia.com>
+Subject: Re: [PATCH] drm/v3d: Widen cache_clean_lock over the whole L2TCACTL
+ sequence
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
+ <mwen@igalia.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com, 
+ stable@vger.kernel.org
+Date: Wed, 15 Jul 2026 08:16:18 +0200
+In-Reply-To: <20260707200738.659002-2-mcanal@igalia.com>
+References: <20260707200738.659002-2-mcanal@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260713082622.52985-2-wojciech.dubowik@mt.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,77 +60,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 13, 2026 at 10:26:19AM +0200, Wojciech Dubowik wrote:
-> From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
-> 
-> Add an optional output lvds data lanes property with
-> two allowed values. The array <1 2 3 4> for standard
-> layout and <4 3 2 1> for reversed lvds output lanes.
-> The latter informs the driver that reverse lvds config
-> option has to be set in config register for the respective
-> output channel.
+Hi Ma=C3=ADra,
 
-Please wrap commit message according to Linux coding style / submission
-process (neither too early nor over the limit):
-https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
+has this change fixed anything?
 
-> 
-> Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+Also, I believe that GFXH-1897 is exclusive to Pi4. Have you tested if
+this change has any visible performance impact on Pi5?
+
+Iago
+
+
+El mar, 07-07-2026 a las 17:05 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> v3d_clean_caches() and v3d_flush_l2t() both write the single L2TCACTL
+> register and poll its status bits. The mutex cache_clean_lock exists
+> to
+> serialize them, but v3d_clean_caches() only took the lock around its
+> final
+> FLM_CLEAN write.
+>=20
+> These functions run concurrently: v3d_flush_l2t() is issued from the
+> BIN/RENDER/CSD invalidate path while v3d_clean_caches() runs from the
+> CACHE_CLEAN queue, and each queue's scheduler uses its own ordered
+> workqueue, so their run_job callbacks execute in parallel.
+>=20
+> Because clean locked only its final write, a concurrent flush can
+> write
+> L2TCACTL during clean's unlocked phase. Both use non read-modify-
+> write
+> writes to the one register, so whichever lands last wins: clean's
+> TMUWCF
+> write can land on the flush's in-flight L2TFLS invalidate, triggering
+> the
+> GFXH-1897 hazard of writing L2TCACTL while a flush is pending.
+>=20
+> Hold cache_clean_lock across the entire L2TCACTL access sequence so
+> it
+> is fully mutually exclusive with v3d_flush_l2t(), which already takes
+> the
+> lock around its own write.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: abf888b03a98 ("drm/v3d: Wait for pending L2T flush before
+> cleaning caches")
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
 > ---
->  .../bindings/display/bridge/ti,sn65dsi83.yaml | 52 +++++++++++++++++++
->  1 file changed, 52 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-> index e69b6343a8eb..2693c0273f9a 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-> @@ -86,10 +86,62 @@ properties:
->          description: Video port for LVDS Channel-A output (panel or bridge).
->          $ref: '#/$defs/lvds-port'
->  
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
+> =C2=A0drivers/gpu/drm/v3d/v3d_gem.c | 5 ++---
+> =C2=A01 file changed, 2 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/v3d/v3d_gem.c
+> b/drivers/gpu/drm/v3d/v3d_gem.c
+> index c43d9af41374..e597b6fd47c4 100644
+> --- a/drivers/gpu/drm/v3d/v3d_gem.c
+> +++ b/drivers/gpu/drm/v3d/v3d_gem.c
+> @@ -204,6 +204,8 @@ v3d_clean_caches(struct v3d_dev *v3d)
+> =C2=A0	struct drm_device *dev =3D &v3d->drm;
+> =C2=A0	int core =3D 0;
+> =C2=A0
+> +	guard(mutex)(&v3d->cache_clean_lock);
 > +
-> +            properties:
-> +              data-lanes:
-> +                $ref: /schemas/types.yaml#/definitions/uint32-array
-> +                description: |
-
-Drop |
-
-> +                  Array of physical LVDS data lane indexes
-> +                oneOf:
-> +                  - items:
-> +                      - const: 1
-> +                      - const: 2
-> +                      - const: 3
-> +                      - const: 4
-> +                    description: |
-
-As well
-
-> +                      This is the default layout
-> +                  - items:
-> +                      - const: 4
-> +                      - const: 3
-> +                      - const: 2
-> +                      - const: 1
-> +                    description: |
-
-Ditto
-
-> +                      This is the reversed layout
-
-Honestly, this previous description are redundant. I can read 4-3-2-1
-and I do understand it is a reversed from 1-2-3-4.
-
-Do not explain the obvious code, but rather design behind. Just drop the
-descriptions except the first one.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+> =C2=A0	trace_v3d_cache_clean_begin(dev);
+> =C2=A0
+> =C2=A0	/* GFXH-1897: Ensure pending flushes complete before writing
+> L2TCACTL */
+> @@ -220,7 +222,6 @@ v3d_clean_caches(struct v3d_dev *v3d)
+> =C2=A0		drm_err(dev, "Timeout waiting for TMU write combiner
+> flush\n");
+> =C2=A0	}
+> =C2=A0
+> -	mutex_lock(&v3d->cache_clean_lock);
+> =C2=A0	V3D_CORE_WRITE(core, V3D_CTL_L2TCACTL,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 V3D_L2TCACTL_L2TFLS |
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 V3D_SET_FIELD(V3D_L2TCACTL_F=
+LM_CLEAN,
+> V3D_L2TCACTL_FLM));
+> @@ -230,8 +231,6 @@ v3d_clean_caches(struct v3d_dev *v3d)
+> =C2=A0		drm_err(dev, "Timeout waiting for L2T clean\n");
+> =C2=A0	}
+> =C2=A0
+> -	mutex_unlock(&v3d->cache_clean_lock);
+> -
+> =C2=A0	trace_v3d_cache_clean_end(dev);
+> =C2=A0}
+> =C2=A0
 
