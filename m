@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42BBEC4450C
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 04:28:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45321C4450E
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 04:28:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 762FD10EEBB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6C1010EEBF;
 	Wed, 15 Jul 2026 04:28:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="geMLtSLT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="V/1Li9MQ";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72CF610E6F7;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3107110E6F7;
  Wed, 15 Jul 2026 04:28:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1784089720; x=1815625720;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Wy9+8To2sVLMqcSDXuxlfuAXKqIZg/OpTDV1l1EHa0o=;
- b=geMLtSLTgGk6qC9etEW/7b3X9yYNYy96cD93UBoNb51DWetixOVa7OQf
- z2nQRT0GGu2botWPBM8X8JcvVj7ExELlpkOpzWlgJkKRAsCpj4DuWCooB
- mI2BR0KgwWCn5QEG6eQZyw5SGtCgSYxZHib3pWIghPUEPHZY0cIw82rJv
- axljHZhHmeD/uJktnOf+eWbXk0yGOCPJLQ+lGzmO0C7+ff015F/fIMP7x
- ZOUex/DykrspgR94bPKzhLLVqsvCy1zdnpmqtV5JG7RHF0N12/T874j/4
- YaX4xoinL+6+JAtmgmgg1n1qiJdR/QKNC+0PbsVpohKGXHM0HBoON0qwy w==;
-X-CSE-ConnectionGUID: kF/X6Wf1TBex809jEbjm7w==
-X-CSE-MsgGUID: yg2SAMUsQuKOSiq+jJw8RA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="88542516"
-X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; d="scan'208";a="88542516"
+ bh=FyaOHPwhMBjY+6jO6x55uZ1GJ7QgN/z/l8C1NUGfhns=;
+ b=V/1Li9MQhN4mqUluFl3xA7mS1KfWXGo7bTIofQLpcQOSdKhu37I8+NKN
+ 6oo864gic89JRC7U7h3Lg9Qe3exdNEPy6z0WBSNO1X9i0Km4+bMcIwawP
+ n/g8dhV3GNQUELNvJw0oA5DYDBw/pr37QN+v1hMFdaladsEkYSOJKjIM2
+ LXUT2Zkn8p6Er5Pw1qgCcir1+eBK9764wDj8KgEnhRe7jlMA3uKTySqGh
+ MAyzjkeyzkGYetJX8AZTNd/BVW7l8k6QDvDI/9HpMHL2LT8Xm5huvBH2R
+ aizujR87zGNIs8/PqW+VkHvd1I6KVx6v5iQCfEpqlFNJUpOrp8MLbTzPa A==;
+X-CSE-ConnectionGUID: A0UK2iauSMmqIaU3LEGkMQ==
+X-CSE-MsgGUID: 8yoq8eSsREGbdgST53bR4g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="88542511"
+X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; d="scan'208";a="88542511"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Jul 2026 21:28:40 -0700
-X-CSE-ConnectionGUID: P5nAb4DdQnm6CuMFbhJmpw==
-X-CSE-MsgGUID: a8dx+a8YSiWJsgR+0pRFxg==
+X-CSE-ConnectionGUID: Y1TafN24TGSPiUBl7bEY4A==
+X-CSE-MsgGUID: q/B3aJA4Sx+0qFeGbCKeIg==
 X-ExtLoop1: 1
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
@@ -45,9 +45,10 @@ To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: Carlos Santa <carlos.santa@intel.com>,
 	Ryan Neph <ryanneph@google.com>
-Subject: [PATCH v2 3/4] drm/xe: Fix up BO TTM priority for late VM binds
-Date: Tue, 14 Jul 2026 21:28:31 -0700
-Message-Id: <20260715042832.3625096-4-matthew.brost@intel.com>
+Subject: [PATCH v2 1/4] drm/xe: Track exec queue priority band counts for user
+ VMs
+Date: Tue, 14 Jul 2026 21:28:29 -0700
+Message-Id: <20260715042832.3625096-2-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260715042832.3625096-1-matthew.brost@intel.com>
 References: <20260715042832.3625096-1-matthew.brost@intel.com>
@@ -68,98 +69,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A BO's TTM priority is only ever set once, at creation time, based on
-the priority band of exec queues attached to its VM at that moment
-(xe_vm_bo_priority()), or XE_BO_PRIORITY_HIGHEST for an extobj not
-tied to any single VM. This misses the common flow of VM create -> BO
-create -> exec queue create -> VM bind: the BO is created before any
-exec queue exists on the VM (so it gets XE_BO_PRIORITY_HIGH, the "no
-exec queues yet" default), the exec queue is added afterwards
-(xe_vm_add_exec_queue() only re-prioritizes BOs already bound to the
-VM at that time), and only then is the BO bound into the VM via
-VM_BIND, leaving it stuck at a stale priority that no longer reflects
-the VM's exec queues.
+Add a per-priority-band count (LOW/NORMAL/HIGH) of exec queues
+attached to a user VM in xe_vm_add_exec_queue()/xe_vm_remove_exec_queue(),
+protected by vm->exec_queues.lock in write mode. KERNEL priority is
+not counted since it is not possible for user exec queues.
 
-It also misses a second flow specific to extobjs: create BO with no
-vm_id (bo->vm == NULL) -> bind -> unbind -> rebind. The unbind can
-lower the BO's priority to XE_BO_PRIORITY_LOW once it has no VMA
-mappings left anywhere (see xe_vma_destroy()), but on rebind nothing
-brought it back up, leaving a still-useful, freshly rebound extobj
-stuck at the lowest priority, an easy target for eviction/shrinking.
+This count is needed so a VM's private buffer objects can later be
+prioritized for eviction based on the priority userspace has assigned
+to the exec queues using that VM (i.e. work submitted at a higher
+priority band implies its buffers are more important to keep
+resident), rather than treating every VM the same.
 
-Add op_update_bo_priority(), called from vm_bind_ioctl_ops_fini() for
-each DRM_GPUVA_OP_MAP operation. For a BO private to the VM being
-bound (bo->vm == vm), recompute the current priority band via
-xe_vm_bo_priority() and, if it differs, update bo->ttm.priority and
-move the BO to the tail of its new priority's LRU list. For an extobj
-(bo->vm == NULL, potentially shared with other VMs), instead restore
-it directly to XE_BO_PRIORITY_HIGHEST, since it is now in active use
-again and extobjs aren't tied to any single VM's exec queue priority
-band. This runs under the VM's dma-resv lock, already held via
-drm_exec in vm_bind_ioctl_ops_execute() since private BOs share the
-VM's reservation object, and extobjs are locked as part of the same
-bind operation.
+Also move the has_ctx_tlb_inval check inside the lock in
+xe_vm_add_exec_queue() so the list add/count update is properly
+gated under the same critical section, and make
+xe_vm_remove_exec_queue() bail out early if q->xef is not set,
+rather than relying on callers to check this.
 
 Cc: Carlos Santa <carlos.santa@intel.com>
 Cc: Ryan Neph <ryanneph@google.com>
 Assisted-by: GitHub_Copilot:claude-sonnet-5
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/xe/xe_vm.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ drivers/gpu/drm/xe/xe_vm.c       | 31 ++++++++++++++++++++-----------
+ drivers/gpu/drm/xe/xe_vm_types.h |  7 +++++++
+ 2 files changed, 27 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 3c5da9f52f72..d42390e7ae2f 100644
+index e915e33ebece..984e76248942 100644
 --- a/drivers/gpu/drm/xe/xe_vm.c
 +++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -3554,6 +3554,38 @@ static void op_add_ufence(struct xe_vm *vm, struct xe_vma_op *op,
- 	}
+@@ -4933,8 +4933,9 @@ int xe_vm_alloc_cpu_addr_mirror_vma(struct xe_vm *vm, uint64_t start, uint64_t r
+  * @vm: The VM.
+  * @q: The exec_queue
+  *
+- * Add exec queue to VM, skipped if the device does not have context based TLB
+- * invalidations.
++ * Track exec queue's priority band count for the VM. Also links the exec
++ * queue onto the per-GT list, skipped if the device does not have context
++ * based TLB invalidations.
+  */
+ void xe_vm_add_exec_queue(struct xe_vm *vm, struct xe_exec_queue *q)
+ {
+@@ -4948,12 +4949,14 @@ void xe_vm_add_exec_queue(struct xe_vm *vm, struct xe_exec_queue *q)
+ 	xe_assert(xe, vm->xef);
+ 	xe_assert(xe, vm == q->vm);
+ 
+-	if (!xe->info.has_ctx_tlb_inval)
+-		return;
+-
+ 	down_write(&vm->exec_queues.lock);
+-	list_add(&q->vm_exec_queue_link, &vm->exec_queues.list[q->gt->info.id]);
+-	++vm->exec_queues.count[q->gt->info.id];
++	if (xe->info.has_ctx_tlb_inval) {
++		list_add(&q->vm_exec_queue_link, &vm->exec_queues.list[q->gt->info.id]);
++		++vm->exec_queues.count[q->gt->info.id];
++	}
++	if (q->sched_props.priority >= XE_EXEC_QUEUE_PRIORITY_LOW &&
++	    q->sched_props.priority <= XE_EXEC_QUEUE_PRIORITY_HIGH)
++		++vm->exec_queues.priority_count[q->sched_props.priority];
+ 	up_write(&vm->exec_queues.lock);
  }
  
-+/*
-+ * A BO's TTM priority is set when it is created, based on the priority band
-+ * of @vm's exec queues at that time (for a private BO), or to the highest
-+ * level (for an extobj, bo->vm == NULL). If a BO is (re)mapped into @vm
-+ * afterwards, its priority may be stale: a private BO's VM may have gained
-+ * or lost exec queues since, and an extobj may have been lowered to
-+ * XE_BO_PRIORITY_LOW by xe_vma_destroy() after losing all of its VMA
-+ * mappings. Bring it in line with the current priority band here.
-+ */
-+static void op_update_bo_priority(struct xe_vm *vm, struct xe_vma_op *op)
-+{
-+	struct xe_bo *bo;
-+	int priority;
-+
-+	if (op->base.op != DRM_GPUVA_OP_MAP)
-+		return;
-+
-+	bo = xe_vma_bo(op->map.vma);
-+	if (!bo)
-+		return;
-+
-+	/* Private BOs are only ever bound to the VM they were created for. */
-+	xe_assert(vm->xe, !bo->vm || bo->vm == vm);
-+
-+	priority = bo->vm ? xe_vm_bo_priority(vm) : XE_BO_PRIORITY_HIGHEST;
-+	if (bo->ttm.priority == priority)
-+		return;
-+
-+	xe_vm_assert_held(vm);
-+	xe_bo_update_ttm_priority(bo, priority);
-+}
-+
- static void vm_bind_ioctl_ops_fini(struct xe_vm *vm, struct xe_vma_ops *vops,
- 				   struct dma_fence *fence)
+@@ -4962,18 +4965,24 @@ void xe_vm_add_exec_queue(struct xe_vm *vm, struct xe_exec_queue *q)
+  * @vm: The VM.
+  * @q: The exec_queue
+  *
+- * Remove exec queue from VM, skipped if the device does not have context based
+- * TLB invalidations.
++ * Untrack exec queue's priority band count for the VM. Also unlinks the
++ * exec queue from the per-GT list, skipped if the device does not have
++ * context based TLB invalidations. No-op if @q is not a user exec queue,
++ * or is a VM exec queue (VM exec queues are never tracked by
++ * xe_vm_add_exec_queue()).
+  */
+ void xe_vm_remove_exec_queue(struct xe_vm *vm, struct xe_exec_queue *q)
  {
-@@ -3566,6 +3598,8 @@ static void vm_bind_ioctl_ops_fini(struct xe_vm *vm, struct xe_vma_ops *vops,
- 		if (ufence)
- 			op_add_ufence(vm, op, ufence);
+-	if (!vm->xe->info.has_ctx_tlb_inval)
++	if (!q->xef || (q->flags & EXEC_QUEUE_FLAG_VM))
+ 		return;
  
-+		op_update_bo_priority(vm, op);
-+
- 		if (op->base.op == DRM_GPUVA_OP_UNMAP)
- 			xe_vma_destroy(gpuva_to_vma(op->base.unmap.va), fence);
- 		else if (op->base.op == DRM_GPUVA_OP_REMAP)
+ 	down_write(&vm->exec_queues.lock);
+-	if (!list_empty(&q->vm_exec_queue_link)) {
++	if (vm->xe->info.has_ctx_tlb_inval && !list_empty(&q->vm_exec_queue_link)) {
+ 		list_del(&q->vm_exec_queue_link);
+ 		--vm->exec_queues.count[q->gt->info.id];
+ 	}
++	if (q->sched_props.priority >= XE_EXEC_QUEUE_PRIORITY_LOW &&
++	    q->sched_props.priority <= XE_EXEC_QUEUE_PRIORITY_HIGH)
++		--vm->exec_queues.priority_count[q->sched_props.priority];
+ 	up_write(&vm->exec_queues.lock);
+ }
+diff --git a/drivers/gpu/drm/xe/xe_vm_types.h b/drivers/gpu/drm/xe/xe_vm_types.h
+index 635ed29b9a69..d75546c4eb66 100644
+--- a/drivers/gpu/drm/xe/xe_vm_types.h
++++ b/drivers/gpu/drm/xe/xe_vm_types.h
+@@ -16,6 +16,7 @@
+ #include <linux/scatterlist.h>
+ 
+ #include "xe_device_types.h"
++#include "xe_exec_queue_types.h"
+ #include "xe_pt_types.h"
+ #include "xe_range_fence.h"
+ #include "xe_tlb_inval_types.h"
+@@ -342,6 +343,12 @@ struct xe_vm {
+ 		 * per GT
+ 		 */
+ 		int count[XE_MAX_TILES_PER_DEVICE * XE_MAX_GT_PER_TILE];
++		/**
++		 * @exec_queues.priority_count: count of exec queues attached
++		 * to this VM, per priority band (LOW / NORMAL / HIGH only,
++		 * KERNEL priority is not possible for user exec queues)
++		 */
++		int priority_count[XE_EXEC_QUEUE_PRIORITY_HIGH + 1];
+ 		/** @exec_queues.lock: lock to protect exec_queues list */
+ 		struct rw_semaphore lock;
+ 	} exec_queues;
 -- 
 2.34.1
 
