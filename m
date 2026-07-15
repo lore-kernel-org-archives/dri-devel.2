@@ -4,52 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD453C44507
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 08:37:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71703C44507
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 08:49:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1362510EF50;
-	Wed, 15 Jul 2026 08:37:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA10910E140;
+	Wed, 15 Jul 2026 08:49:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="D5eEkzfW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i6Cnb2E3";
 	dkim-atps=neutral
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Wed, 15 Jul 2026 08:37:14 UTC
-Received: from mail-m12838.netease.com (mail-m12838.netease.com
- [103.209.128.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA6A210E13E
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 08:37:14 +0000 (UTC)
-Received: from [172.16.12.74] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4644b288e;
- Wed, 15 Jul 2026 16:32:08 +0800 (GMT+08:00)
-Message-ID: <00d3f58e-73bb-41da-a2df-dfeeca644b6f@rock-chips.com>
-Date: Wed, 15 Jul 2026 16:32:07 +0800
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2379110E13E
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 08:49:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 375F4600BB;
+ Wed, 15 Jul 2026 08:49:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4BA1F000E9;
+ Wed, 15 Jul 2026 08:49:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784105357;
+ bh=Tsnx7EZ3K3hSCWm/s0tNHSYkDr7roidM5tSjKqD3bPI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=i6Cnb2E3I+/RyJKcTwEIKMcax4M0sD05NYGRKzvCDRdCd6kjNoteV/SmLGx3Lyjjw
+ 9oDYbcsY2pP14PcN8Knk4UqbFwz7q0H8xlKkaMnSBrIGHtvDT6tKmYe0K6RgUdHK5u
+ yGvEcHmGsJTxvFxuW8wwnO/9JKSCVP6hH4b6C1zpM9Lv1OOxB6jXx6gF4GRqcu3lt9
+ XDy7WDX2U7ZL7ZvKSqkgpw3H6FBcUZz71FI+bAoLF1qCyh8uHQEtctRvdarC1c36UO
+ DRMZDs/8yAA+MPICnRFdhmdZEF2S8kNtEk0H5aGtjRHS74sZL1HeUraSUk2xW8VJaN
+ qa0sRcVChbguA==
+Date: Wed, 15 Jul 2026 10:49:11 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH v8 02/39] drm/connector: Add caps-based HDMI connector
+ init helper
+Message-ID: <20260715-functional-jackrabbit-of-enhancement-7c0db6@houat>
+References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
+ <20260702-dw-hdmi-qp-scramb-v8-2-d79890d00b6a@collabora.com>
+ <i4tjtsf5rsckfcayo5nuhlger5wqxn3ujeaubm4g2fgrwvhzb2@hf4uhgq3ja5p>
+ <ad75cf26-9437-47d0-864d-d71263401615@collabora.com>
+ <20260707-illegal-tuna-of-force-1c06e3@houat>
+ <737678ab-f082-4a0e-b453-f403ba141437@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/5] drm/bridge: analogix_dp: Restore mandatory samsung
- DP DT properties
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org,
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-References: <20260707040613.1992841-1-damon.ding@rock-chips.com>
- <20260707040613.1992841-4-damon.ding@rock-chips.com>
- <20260707041711.4F7351F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260707041711.4F7351F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9f64e79dc103a8kunmb5bc9ffe10ec8e
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCShhLVkpIGE5KGkkYQktLSFYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
- 9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=D5eEkzfWlQsu8P+ISq0oa6wJ8Fp89x3afKPHLzKZvgX2lw9+6aZwVlxKVWZEnPs8FJw9gB1HyUInUGo5sG6lF8usQP/Cti1YYzJXaqiAg3P+iHzT5vpLiFPZi78Tbf+TYkyKnMW/6neIZfvs9qsVEtaBK6JQyK+xJMcYCB+BA98=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=5k3VLyTE2W0brh6QXzfvnZyb5UNm/t6xk2HiFeq09E0=;
- h=date:mime-version:subject:message-id:from;
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="cp5o5xnmuujb2sqc"
+Content-Disposition: inline
+In-Reply-To: <737678ab-f082-4a0e-b453-f403ba141437@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,85 +80,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/7/2026 12:17 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Critical] Failing probe when deprecated DT properties are missing breaks DT ABI and prevents their deprecation.
-> --
-> 
-> --- Patch [3]: [PATCH v6 3/5] drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties ---
-> commit b573dba50acc6087122ffa4a65680322f4d004f8
-> Author: Damon Ding <damon.ding@rock-chips.com>
-> 
-> drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
-> 
-> This commit reverts a change that made the samsung,link-rate and
-> samsung,lane-count properties optional for Exynos DP. It adds error checking
-> to fail the probe early if these properties are missing, aiming to prevent
-> link training failures caused by zero values.
-> 
->> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> index 8cf6b73bceac0..293d8adfe9856 100644
->> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> [ ... ]
->> @@ -1258,10 +1259,14 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
->>   		 * NOTE: those property parseing code is used for
->>   		 * providing backward compatibility for samsung platform.
->>   		 */
->> -		of_property_read_u32(dp_node, "samsung,link-rate",
->> -				     &video_info->max_link_rate);
->> -		of_property_read_u32(dp_node, "samsung,lane-count",
->> -				     &video_info->max_lane_count);
->> +		if (of_property_read_u32(dp_node, "samsung,link-rate", &val))
->> +			return dev_err_probe(dp->dev, -EINVAL,
->> +					     "Failed to get samsung,link-rate\n");
-> 
-> [Severity: Critical]
-> Does failing the probe when this property is missing break the DT ABI?
-> 
-> Since samsung,link-rate is a deprecated property, a modern schema-compliant
-> Device Tree might intentionally omit it. If a system boots with such a DT,
-> this check will fail the probe with -EINVAL and disable the display.
-> 
-> Could the driver instead fall back to hardware maximums or sensible defaults
-> when the deprecated property is absent, rather than returning an error?
-> 
 
-I'm afraid it's difficult to provide a universal sensible default value 
-here.
+--cp5o5xnmuujb2sqc
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v8 02/39] drm/connector: Add caps-based HDMI connector
+ init helper
+MIME-Version: 1.0
 
-The samsung,lane-count and samsung,link-rate values vary significantly 
-across Exynos DP device trees, so a generic fallback to hardware 
-maximums cannot guarantee stable link training.
+Hi,
 
-Even though these two properties are marked deprecated, all existing DTS 
-files in our projects have already populated them completely. Moreover, 
-the current link training logic relies on these two parameters; omitting 
-either will directly cause link training failures at runtime.
+On Wed, Jul 08, 2026 at 01:11:49PM +0300, Cristian Ciocaltea wrote:
+> On 7/7/26 7:10 PM, Maxime Ripard wrote:
+> > On Fri, Jul 03, 2026 at 10:31:55PM +0300, Cristian Ciocaltea wrote:
+> >> Hi Dmitry,
+> >>
+> >> Thanks for your quick review!
+> >>
+> >> On 7/3/26 5:05 PM, Dmitry Baryshkov wrote:
+> >>> On Thu, Jul 02, 2026 at 05:46:15PM +0300, Cristian Ciocaltea wrote:
+> >>>> In preparation for adding HDMI 2.x source capabilities, introduce st=
+ruct
+> >>>> drm_connector_hdmi_caps and a new drmm_connector_hdmi_init_with_caps=
+()
+> >>>> helper.
+> >>>>
+> >>>> The existing drmm_connector_hdmi_init() helper currently takes
+> >>>> individual capability arguments such as supported_formats and max_bp=
+c.
+> >>>> Adding more HDMI-specific arguments to that function would not scale
+> >>>> well, so move those values into a dedicated capabilities structure a=
+nd
+> >>>> implement the existing helper as a wrapper around the new caps-based
+> >>>> interface.
+> >>>
+> >>> I think, it was an intention of Maxime: make sure that every driver is
+> >>> forced to provide some values here. With the struct-based init it is
+> >>> easy to overlook or to ommit a value.
+> >>
+> >> Agreed that the struct-based init loses the compile-time guarantee tha=
+t every
+> >> argument is explicitly provided - that's a real downside. =20
+> >>
+> >> I'd argue it's recoverable, though: the init helper validates the mand=
+atory
+> >> fields, so a driver that omits a required value gets rejected at init =
+time
+> >> rather than silently misconfigured.  The "you must provide sane values=
+" property
+> >> is expected to be preserved, just enforced at runtime instead of by the
+> >> compiler.=20
+> >=20
+> > Yeah, I don't think we can win with C here. Rust might, but we're
+> > probably a long way from that.
+> >=20
+> >> The main motivation for the struct is scalability/maintainability as w=
+e add HDMI
+> >> 2.x capabilities: new fields go into the struct rather than growing th=
+e helper's
+> >> argument list, so existing callers don't need churny signature updates=
+ on every
+> >> extension.
+> >>
+> >> FWIW, in the previous revision we discussed addressing the concern wit=
+h a
+> >> callback instead.  Sadly, I had to discard that approach, as it proved=
+ not
+> >> flexible enough, e.g. drm_bridge_connector_init() computes caps dynami=
+cally, and
+> >> would have required either stateful callbacks, or storing redundant/te=
+mporary
+> >> cap data in driver-private structures just to satisfy the callback.
+> >=20
+> > I just realized something reviewing your patch: we don't necessarily
+> > need an extra argument or a callback, we can just put these fields into
+> > drm_hdmi_connector_funcs directly, and then validate them in init.
+>=20
+> If I understand correctly, we should drop the drm_connector_hdmi_caps str=
+uct
+> introduced by this patch and move all its fields into drm_hdmi_connector_=
+funcs.
+>=20
+> In that case, how should we proceed with drmm_connector_hdmi_init()? I se=
+e the
+> following options:
+>=20
+> 1. Continue with drmm_connector_hdmi_init_with_caps() after removing the =
+caps
+>    parameter, and then drop drmm_connector_hdmi_init() after the migratio=
+n.
 
-Therefore, retaining the mandatory property check in probe is a 
-reasonable approach for now.
+If we're going that road, we can also move the format, bpc and vendor
+and product there for example.
 
->> +		video_info->max_link_rate = val;
->> +		if (of_property_read_u32(dp_node, "samsung,lane-count", &val))
->> +			return dev_err_probe(dp->dev, -EINVAL,
->> +					     "Failed to get samsung,lane-count\n");
-> 
-> [Severity: Critical]
-> Does making samsung,lane-count mandatory similarly break backward compatibility
-> for valid Device Trees that have intentionally omitted this deprecated property?
-> 
+> 2. Keep the existing (unaltered) drmm_connector_hdmi_init(), which would =
+be
+>    slightly inconsistent: supported_formats and max_bpc would still be pa=
+ssed=20
+>    as arguments, while the rest would go through drm_hdmi_connector_funcs.
 
-I don't think so. Missing either property will inevitably cause link 
-training failure, and all functional DTs have these deprecated 
-properties filled in already.
+I'm not sure why we would want to do that?
 
->> +		video_info->max_lane_count = val;
->>   		break;
->>   	}
->>
-> 
+> 3. A variation of option 1: additionally rename
+>    drmm_connector_hdmi_init_with_caps() to drmm_connector_hdmi_init() aft=
+er the
+>    migration.
 
-Best regards,
-Damon
+It should be renamed indeed.
 
+Maxime
+
+--cp5o5xnmuujb2sqc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaldJhgAKCRAnX84Zoj2+
+dqO/AYC9AZdgH/JpMcBIWDu/Vknv6j6Z9Z489YI50y9fj0sorpkNqOxc3b1y9/b+
+Rcc1YYQBf09mu2L5Oi1kiTr227962LwMKfviDKo0zifcYLjfkEzfBZUBCjdqznwe
+/4szmSGb5g==
+=1515
+-----END PGP SIGNATURE-----
+
+--cp5o5xnmuujb2sqc--
