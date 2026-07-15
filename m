@@ -4,38 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82C56C44513
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:21:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C33EC4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:21:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37CDE10F210;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F91B10F20F;
 	Thu, 16 Jul 2026 08:21:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G5OU+tyC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cPH7HtDg";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCD2610E1F9;
- Wed, 15 Jul 2026 17:46:24 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66B1310E1BF;
+ Wed, 15 Jul 2026 14:57:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E830D61838;
- Wed, 15 Jul 2026 17:46:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80E961F00A3D;
- Wed, 15 Jul 2026 17:46:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F28ED40C31;
+ Wed, 15 Jul 2026 14:57:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EA301F000E9;
+ Wed, 15 Jul 2026 14:57:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784137583;
- bh=i/u1LN79aK3IUnV77rgUOomTAlNWU5LxvGP54X7C8Ak=;
+ s=k20260515; t=1784127474;
+ bh=z+WsmMVZ0fijyeATWav3FVb2hBbQqIKn5lxc8dFuRgY=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=G5OU+tyC9Uci2mg2LwO/DFWdxzlrUtSjFyPEwxUdBWJMt8He0NI4s+djB8hRv4wOG
- 7VFuxq8y9+9BxbnbuVltajRTgY3sRE8fsrNdrqMeQAPpvsgJhYp2qjvxHS3+zTCPwV
- BKu6IMADurc9K/njpDhs42IUfi7xBFo/0LVy6ryOPdp/NJ86LNjc4rvUArFReaRCzN
- TFcWJeZrREGRa+rRh0IaoXvC4V6L0XzTEul5Fdipj4KCnpU4EFsQK/grpq8o1ltRPy
- aEhP5qFYigUt8IOAQlEaKa6y7ZZtkAkgO1E2W11msSgBOAan+xHgOE74SweMlVg+Z9
- LXI2hpD/Hsqlg==
-Message-ID: <b470eb19-d59c-4dd6-bf57-648b51281691@kernel.org>
-Date: Wed, 15 Jul 2026 19:45:59 +0200
+ b=cPH7HtDgs6cyYjA7uPw3ObONQWW0lg1fg4SZgc3/CVufpkG9c0IVzYYGe9hXpJnBM
+ EciYHh3CSE7MsJrRxFvgeaYvVVnyILFYrvi/K/lkgNkbDtTyzGT9fTt8evuEFCYNKJ
+ /6Q1cuzJWTgyEGbjV+4NTGMIIJQCdHaCzseCZF6+XN/OuEWTRyQp0SKjbilU0YyYVI
+ KJtH/kE43WeJygbG8X1i1uYX0DFToUTqRXR85bojPJPv5c5DdI0FMc6v6EjYbL3/yj
+ qOBAJ6EwOOA7jl4ITRmK6tGfFqVRS+PJHWo5bm2GfnQezZhI9NSeNqI7I+FBExuksu
+ LjiPFApKHUjLA==
+Message-ID: <67242b7a-d913-48f0-a2fd-56709e474b55@kernel.org>
+Date: Wed, 15 Jul 2026 16:57:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 25/33] mm/vma: make vma_set_range() static, drop
- insert_vm_struct() decl
+Subject: Re: [PATCH v2 17/33] mm: introduce and use linear_page_delta()
 Content-Language: en-US
 To: Lorenzo Stoakes <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
@@ -110,9 +109,10 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>,
+ Ackerley Tng <ackerleytng@google.com>
 References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
- <20260710-b4-pre-scalable-cow-v2-25-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-17-2a5aa403d977@kernel.org>
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 Autocrypt: addr=vbabka@kernel.org; keydata=
  xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
@@ -153,7 +153,7 @@ Autocrypt: addr=vbabka@kernel.org; keydata=
  NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
  OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
  jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
-In-Reply-To: <20260710-b4-pre-scalable-cow-v2-25-2a5aa403d977@kernel.org>
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-17-2a5aa403d977@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:21 +0000
@@ -172,119 +172,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/10/26 22:17, Lorenzo Stoakes wrote:
-> With __install_special_mapping() moved to vma.c, vma_set_range() can be
-> made into a static function there and is now completely isolated from the
-> rest of mm.
-
-Pedantic nit: it was already "static", but in a .h file
-Yeah it was also "inline" but that's not the important part of this change.
-
-So I'd say it was rather moved to vma.c, but you can ignore this nit if you
-want.
-
-> While we're here, we can also remove the insert_vm_struct() declaration
-> from mm.h - the function is implemented in vma.c and already declared in
-> vma.h, and has no users outside of mm.
+On 7/10/26 22:16, Lorenzo Stoakes wrote:
+> It's often useful to obtain the number of pages a given address lies at
+> within a VMA.
 > 
-> Also update the VMA userland tests to reflect this change.
+> Add linear_page_delta() to determine this and update linear_page_index() to
+> make use of it.
+> 
+> Add comments to describe both linear_page_delta() and linear_page_index().
+> 
+> We refer the reader to the comment for vma_start_pgoff() so we don't
+> duplicate information about the meaning of a VMA's page offset, which is
+> also less likely to result in bitrot.
 > 
 > No functional change intended.
 > 
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Reviewed-by: Ackerley Tng <ackerleytng@google.com>
 > Reviewed-by: Gregory Price <gourry@gourry.net>
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
 Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
 > ---
->  include/linux/mm.h         | 1 -
->  mm/internal.h              | 9 ---------
->  mm/vma.c                   | 8 ++++++++
->  tools/testing/vma/shared.c | 9 ---------
->  tools/testing/vma/shared.h | 5 -----
->  5 files changed, 8 insertions(+), 24 deletions(-)
+>  include/linux/pagemap.h | 33 +++++++++++++++++++++++++++++++--
+>  1 file changed, 31 insertions(+), 2 deletions(-)
 > 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 3d69b597b9b1..762313b47301 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -4130,7 +4130,6 @@ void anon_rmap_tree_verify(struct anon_vma_chain *avc);
+> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+> index 2c3718d592d6..a950070b045f 100644
+> --- a/include/linux/pagemap.h
+> +++ b/include/linux/pagemap.h
+> @@ -1063,11 +1063,40 @@ static inline pgoff_t folio_pgoff(const struct folio *folio)
+>  	return folio->index;
+>  }
 >  
->  /* mmap.c */
->  extern int __vm_enough_memory(const struct mm_struct *mm, long pages, int cap_sys_admin);
-> -extern int insert_vm_struct(struct mm_struct *, struct vm_area_struct *);
->  extern void exit_mmap(struct mm_struct *);
->  bool mmap_read_lock_maybe_expand(struct mm_struct *mm, struct vm_area_struct *vma,
->  				 unsigned long addr, bool write);
-> diff --git a/mm/internal.h b/mm/internal.h
-> index 01a762bcc2b2..2c650d280e90 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -1540,15 +1540,6 @@ extern bool mirrored_kernelcore;
->  bool memblock_has_mirror(void);
->  void memblock_free_all(void);
->  
-> -static __always_inline void vma_set_range(struct vm_area_struct *vma,
-> -					  unsigned long start, unsigned long end,
-> -					  pgoff_t pgoff)
-> -{
-> -	vma->vm_start = start;
-> -	vma->vm_end = end;
-> -	vma->vm_pgoff = pgoff;
-> -}
-> -
->  static inline bool vma_soft_dirty_enabled(struct vm_area_struct *vma)
->  {
->  	/*
-> diff --git a/mm/vma.c b/mm/vma.c
-> index 5308aa5a8c91..cc0e449ad0be 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -70,6 +70,14 @@ struct mmap_state {
->  		.state = VMA_MERGE_START,				\
->  	}
->  
-> +static void vma_set_range(struct vm_area_struct *vma, unsigned long start,
-> +			  unsigned long end, pgoff_t pgoff)
+> +/**
+> + * linear_page_delta() - Determine the relative page offset of @address within
+> + * @vma.
+> + * @vma: The VMA in which @address resides.
+> + * @address: The address whose relative page offset is required.
+> + *
+> + * The result is identical for both file-backed and anonymous mappings and
+> + * simply determines how many pages @address lies from @vma->vm_start.
+> + *
+> + * Returns: The number of pages @address is offset by within @vma.
+> + */
+> +static inline pgoff_t linear_page_delta(const struct vm_area_struct *vma,
+> +					const unsigned long address)
 > +{
-> +	vma->vm_start = start;
-> +	vma->vm_end = end;
-> +	vma->vm_pgoff = pgoff;
+> +	return (address - vma->vm_start) >> PAGE_SHIFT;
 > +}
 > +
->  /* Was this VMA ever forked from a parent, i.e. maybe contains CoW mappings? */
->  static bool vma_is_fork_child(struct vm_area_struct *vma)
+> +/**
+> + * linear_page_index() - Determine the absolute page offset of @address within
+> + * @vma.
+> + * @vma: The VMA in which @address resides.
+> + * @address: The address whose absolute page offset is required.
+> + *
+> + * See the comment for vma_start_pgoff() for a description of what the page
+> + * offset signifies.
+> + *
+> + * Returns: The absolute page offset of @address within @vma.
+> + */
+>  static inline pgoff_t linear_page_index(const struct vm_area_struct *vma,
+>  					const unsigned long address)
 >  {
-> diff --git a/tools/testing/vma/shared.c b/tools/testing/vma/shared.c
-> index 2565a5aecb80..bea9ea6db02a 100644
-> --- a/tools/testing/vma/shared.c
-> +++ b/tools/testing/vma/shared.c
-> @@ -120,12 +120,3 @@ unsigned long rlimit(unsigned int limit)
->  {
->  	return (unsigned long)-1;
+>  	pgoff_t pgoff;
+> -	pgoff = (address - vma->vm_start) >> PAGE_SHIFT;
+> +
+> +	pgoff = linear_page_delta(vma, address);
+>  	pgoff += vma->vm_pgoff;
+>  	return pgoff;
 >  }
-> -
-> -void vma_set_range(struct vm_area_struct *vma,
-> -		   unsigned long start, unsigned long end,
-> -		   pgoff_t pgoff)
-> -{
-> -	vma->vm_start = start;
-> -	vma->vm_end = end;
-> -	vma->vm_pgoff = pgoff;
-> -}
-> diff --git a/tools/testing/vma/shared.h b/tools/testing/vma/shared.h
-> index 8b9e3b11c3cb..ca4f1238f1c7 100644
-> --- a/tools/testing/vma/shared.h
-> +++ b/tools/testing/vma/shared.h
-> @@ -125,8 +125,3 @@ void __vma_set_dummy_anon_vma(struct vm_area_struct *vma,
->  /* Provide a simple dummy VMA/anon_vma dummy setup for testing. */
->  void vma_set_dummy_anon_vma(struct vm_area_struct *vma,
->  			    struct anon_vma_chain *avc);
-> -
-> -/* Helper function to specify a VMA's range. */
-> -void vma_set_range(struct vm_area_struct *vma,
-> -		   unsigned long start, unsigned long end,
-> -		   pgoff_t pgoff);
+> @@ -1219,7 +1248,7 @@ static inline vm_fault_t folio_lock_or_retry(struct folio *folio,
+>  void folio_wait_bit(struct folio *folio, int bit_nr);
+>  int folio_wait_bit_killable(struct folio *folio, int bit_nr);
+>  
+> -/* 
+> +/*
+>   * Wait for a folio to be unlocked.
+>   *
+>   * This must be called with the caller "holding" the folio,
 > 
 
