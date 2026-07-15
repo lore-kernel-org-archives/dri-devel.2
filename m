@@ -4,64 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D13AEC44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 11:18:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B026CC44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 11:42:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E62310EFDA;
-	Wed, 15 Jul 2026 11:18:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0293810EFC9;
+	Wed, 15 Jul 2026 11:42:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TeE0L6QB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xf1Ttbvv";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22D6510EFDA;
- Wed, 15 Jul 2026 11:18:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784114306; x=1815650306;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=CC6P2wrKIcoZEaiIEWAWWi4FyWI8km0hqh7Ch4T9O7U=;
- b=TeE0L6QB+8tRi0KNvYuc3s17tfNx9U1Ta9gYamUIOspQpMsqIkun8V5P
- fPFpKhg0Y7KSv7HZ2Yl5gnGMEedTBtDqF8E/MPS7FIC/J1bxpxBTuHaAe
- 0+Odc8l89ooFJ23XsoJ9qQiTb4CU1ZTKQ+A9XCcZSQCELJIXNfjEDbHJs
- nteUURrZ0yWNDIK2L5Vu1pKp/G89bPGLzrKVrZYUKLnqh1qutozR8M71x
- HPZvsYp42Xn9MmVE6T6q0Z8wbNmMuqxVe6WKEvT3Sq3JcBHr50Wfqb2OV
- n/nuMyUSRtHgi25XVtjsy+ZfCD/K3Eg/qfEmTFSxWSXl7DSdFHxOkT9nl Q==;
-X-CSE-ConnectionGUID: rcBPlDzoRb2CFY8X+yA5Aw==
-X-CSE-MsgGUID: efQAB7hTQXqSJ9uwlMmzKw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84865540"
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="84865540"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2026 04:18:25 -0700
-X-CSE-ConnectionGUID: u2o0R7ErSQCujMnC+Ky4Ww==
-X-CSE-MsgGUID: wRSBNKoKSQe4c+CmmbgppA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="251743504"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.25])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2026 04:18:23 -0700
-Message-ID: <18bc657539f1eeacf116e9d7a2b3c823017b953f.camel@linux.intel.com>
-Subject: Re: [PATCH v3 1/5] drm/i915/gem: Count mapped pages in a folio
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: Krzysztof Karas <krzysztof.karas@intel.com>, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- iommu@lists.linux.dev
-Cc: Andi Shyti <andi.shyti@linux.intel.com>, Robin Murphy
- <robin.murphy@arm.com>,  Jason Gunthorpe	 <jgg@ziepe.ca>,
- =?UTF-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,  Sebastian
- Brzezinka <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>
-Date: Wed, 15 Jul 2026 13:18:21 +0200
-In-Reply-To: <20260713095812.1014365-2-krzysztof.karas@intel.com>
-References: <20260713095812.1014365-1-krzysztof.karas@intel.com>
- <20260713095812.1014365-2-krzysztof.karas@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5479E10EFC9
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 11:42:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id CB06B4139E;
+ Wed, 15 Jul 2026 11:42:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856321F000E9;
+ Wed, 15 Jul 2026 11:42:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784115758;
+ bh=wQjoaO7ElEKJ4IdT9pqWvGpg3Ez/FMOfkg3Sq0p9Wvg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Xf1TtbvvnFNoMJUeAFN9F1/KgWY5pwQbTvWVtLd1sjTvWSEuzQEJTIUhnA18ruVHw
+ 3UAT/ic+n3/uSaVvYkPhs4uHovJ/JA2+Iuf6HM8QzPiqLOTZxIwCQZjFVRXGsnF0It
+ f4sHHkoUasdfodJA3WWRnGYQW26EkwNESNyhAm1g4MHUj8hetXWMs5MpfFxr0MwWZA
+ R/jp26DJzm9RB57I/n5XQ3YtzUQVImgcQ/RPU7eyJBPTbtdqkwoVlMEsX9lUyQSj5s
+ 8G9LB4/n9k4wWuLnBXy8mvxePqfLxhq8W3h6Pw28wT4zbdbvNaNmcO/IED7APDNzqo
+ 6fapkCIwVD2ng==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/4] drm/amd/display: Don't use tiling flags anymore
+To: =?utf-8?b?VGltdXIgS3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260715105757.13125-5-timur.kristof@gmail.com>
+References: <20260715105757.13125-1-timur.kristof@gmail.com>
+ <20260715105757.13125-5-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
-MIME-Version: 1.0
+Date: Wed, 15 Jul 2026 11:42:38 +0000
+Message-Id: <20260715114238.856321F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,276 +53,82 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Removing the `tiling_flags` check in `should_reset_plane` allows f=
+ramebuffers with different DCC pitches or dimensions (but identical modifie=
+rs) to bypass DRM atomic check validation, leading to hardware corruption a=
+nd stale DML calculations during commit.
+--
 
-Since reading your commit description I was not really able to understand
-what the issue you were trying to fix was about, I'm providing some=C2=A0
-comments based on my understanding of the issue.
+--- Patch [4]: [PATCH 4/4] drm/amd/display: Don't use tiling flags anymore =
+---
+commit b71fc193d0b1254508d4ef4e5b1e90decbcba27a
+Author: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
-On Mon, 2026-07-13 at 09:58 +0000, Krzysztof Karas wrote:
-> With addition of commit 029ae067431a
-> ("drm/i915: Fix potential overflow of shmem scatterlist length")
-> max_segment size was included in calculating a number of pages
-> for the scatterlist. This meant that segment sizes considerably
-> smaller than number of pages in a folio (see shmem_get_pages(),
-> rebuild_st label for context),=C2=A0
+drm/amd/display: Don't use tiling flags anymore
 
-Two values of max_segment only could and still can be expected, either=20
-maximum capacity of a scatterlist, or PAGE_SIZE.  Before the blamed=20
-commit, that argument was mostly (unintentionally?) not respected when=20
-allocating pages from a folio to a scatterlist.  IOW, complete folios were=
-=20
-always allocated, possibly overloading the scatterlist capacity, =20
-virtually never limited to PAGE_SIZE when requested via max_segment.
+This commit removes all code from amdgpu_dm that dealt with tiling flags,
+as all supported GPU generations now support DRM format modifiers. The lega=
+cy
+non-DC display code still relies on tiling flags.
 
-The blamed commit took care of scatterlist overloading, and
-unintentionally=C2=A0also of respecting the max_segment =3D=3D PAGE_SIZE ca=
-se, by=C2=A0
-limiting the number of folio pages allocated to a single scatterlist not
-to=C2=A0exceed max_segment, but failed to take care of correctly allocating=
-=C2=A0
-remaining pages from folios larger than max_segment.  That's what this=C2=
-=A0
-commit description should tell us about, I believe.
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index c643cc5428577..2f7388c47d02a 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 
-> were not enough to jump to the
-> next folio, which has never been a problem before folios have
-> been intoduced. In result, sg_set_folio() was called multiple
-> times with nr_pages smaller than folio size, using multitude of
-> scatterlists,=C2=A0
+[ ... ]
 
-I don't think it matters how many times sg_set_folio() was called or how=
-=20
-many scatterlists were used, since we may expect them to be huge when=20
-shmem_sg_alloc_table() is called  with max_segment =3D=3D PAGE_SIZE.
-
-> all pointing to the beginning pages of the folio
-> and never fully covering its range of pages.
-
-Yeah, that's the real issue.  An offset within a folio should be tracked
-and used when allocating pages still left in the folio.
-
-> Track how many pages have already been counted in a folio
-
-... and use that number as an offset on consecutive allocations from the=
-=20
-same folio ...
-
-> to ensure it is fully covered before reading next folio.
-
-> Fixes: 029ae067431a ("drm/i915: Fix potential overflow of shmem scatterli=
-st length")
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15816
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> ---
-> v3:
->  * Fixed a bug that caused first folio to never be considered.
->=20
->  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 120 +++++++++++++---------
->  1 file changed, 70 insertions(+), 50 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
-i915/gem/i915_gem_shmem.c
-> index 06543ae60706..0011d76f5b8c 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> @@ -68,10 +68,13 @@ int shmem_sg_alloc_table(struct drm_i915_private *i91=
-5, struct sg_table *st,
->  			 unsigned int max_segment)
->  {
->  	unsigned int page_count; /* restricted by sg_alloc_table */
-> -	unsigned long i;
-> +	unsigned long next_pfn =3D 0; /* suppress gcc warning */
-> +	unsigned long folio_start =3D 0;
-> +	unsigned long folio_end =3D 0;
-> +	struct folio *folio =3D NULL;
->  	struct scatterlist *sg;
-> -	unsigned long next_pfn =3D 0;	/* suppress gcc warning */
->  	gfp_t noreclaim;
-> +	unsigned long i;
->  	int ret;
+> @@ -4279,7 +4277,6 @@ static void amdgpu_dm_commit_planes(struct drm_atom=
+ic_state *state,
 > =20
->  	if (overflows_type(size / PAGE_SIZE, page_count))
-> @@ -101,7 +104,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i91=
-5, struct sg_table *st,
->  	sg =3D st->sgl;
->  	st->nents =3D 0;
->  	for (i =3D 0; i < page_count; i++) {
-> -		struct folio *folio;
-> +		unsigned long folio_page_index =3D 0;
->  		unsigned long nr_pages;
->  		const unsigned int shrink[] =3D {
->  			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
-> @@ -109,71 +112,87 @@ int shmem_sg_alloc_table(struct drm_i915_private *i=
-915, struct sg_table *st,
->  		}, *s =3D shrink;
->  		gfp_t gfp =3D noreclaim;
-> =20
-> -		do {
-> -			cond_resched();
-> -			folio =3D shmem_read_folio_gfp(mapping, i, gfp);
-> -			if (!IS_ERR(folio))
-> -				break;
-> -
-> -			if (!*s) {
-> -				ret =3D PTR_ERR(folio);
-> -				goto err_sg;
-> -			}
-> -
-> -			i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
-> -
-> -			/*
-> -			 * We've tried hard to allocate the memory by reaping
-> -			 * our own buffer, now let the real VM do its job and
-> -			 * go down in flames if truly OOM.
-> -			 *
-> -			 * However, since graphics tend to be disposable,
-> -			 * defer the oom here by reporting the ENOMEM back
-> -			 * to userspace.
-> -			 */
-> -			if (!*s) {
-> -				/* reclaim and warn, but no oom */
-> -				gfp =3D mapping_gfp_mask(mapping);
-> +		/* Grab the next folio if we exhausted the current one. */
-> +		if (!i || i > folio_end) {
-> +			do {
-> +				cond_resched();
-> +				folio =3D shmem_read_folio_gfp(mapping, i, gfp);
-> +				if (!IS_ERR(folio))
-> +					break;
-> +
-> +				if (!*s) {
-> +					ret =3D PTR_ERR(folio);
-> +					goto err_sg;
-> +				}
-> +
-> +				i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
-> =20
->  				/*
-> -				 * Our bo are always dirty and so we require
-> -				 * kswapd to reclaim our pages (direct reclaim
-> -				 * does not effectively begin pageout of our
-> -				 * buffers on its own). However, direct reclaim
-> -				 * only waits for kswapd when under allocation
-> -				 * congestion. So as a result __GFP_RECLAIM is
-> -				 * unreliable and fails to actually reclaim our
-> -				 * dirty pages -- unless you try over and over
-> -				 * again with !__GFP_NORETRY. However, we still
-> -				 * want to fail this allocation rather than
-> -				 * trigger the out-of-memory killer and for
-> -				 * this we want __GFP_RETRY_MAYFAIL.
-> -				 */
-> -				gfp |=3D __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-> -			}
-> -		} while (1);
-> +				* We've tried hard to allocate the memory by reaping
-> +				* our own buffer, now let the real VM do its job and
-> +				* go down in flames if truly OOM.
-> +				*
-> +				* However, since graphics tend to be disposable,
-> +				* defer the oom here by reporting the ENOMEM back
-> +				* to userspace.
-> +				*/
-> +				if (!*s) {
-> +					/* reclaim and warn, but no oom */
-> +					gfp =3D mapping_gfp_mask(mapping);
-> +
-> +					/*
-> +					 * Our bo are always dirty and so we require
-> +					 * kswapd to reclaim our pages (direct reclaim
-> +					 * does not effectively begin pageout of our
-> +					 * buffers on its own). However, direct reclaim
-> +					 * only waits for kswapd when under allocation
-> +					 * congestion. So as a result __GFP_RECLAIM is
-> +					 * unreliable and fails to actually reclaim our
-> +					 * dirty pages -- unless you try over and over
-> +					 * again with !__GFP_NORETRY. However, we still
-> +					 * want to fail this allocation rather than
-> +					 * trigger the out-of-memory killer and for
-> +					 * this we want __GFP_RETRY_MAYFAIL.
-> +					 */
-> +					gfp |=3D __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-> +				}
-> +			} while (1);
-> +
-> +			folio_start =3D folio_pgoff(folio);
-> +			folio_end =3D folio_start + folio_nr_pages(folio) - 1;
-> +		}
-> +
-> +		folio_page_index =3D i - folio_start;
-> +		if (WARN_ON_ONCE(folio_page_index >=3D folio_nr_pages(folio))) {
-> +			ret =3D -EINVAL;
-> +			folio_put(folio);
-> +			goto err_sg;
-> +		}
-> =20
->  		nr_pages =3D min_array(((unsigned long[]) {
-> -					folio_nr_pages(folio),
-> +					folio_nr_pages(folio) - folio_page_index,
->  					page_count - i,
-> -					max_segment / PAGE_SIZE,
-> +					max_t(unsigned int, 1, max_segment / PAGE_SIZE),
+>  		fill_dc_plane_info_and_addr(
+>  			dm->adev, new_plane_state,
+> -			afb->tiling_flags,
+>  			&bundle->plane_infos[planes_count],
+>  			&bundle->flip_addrs[planes_count].address,
+>  			afb->tmz_surface);
 
-Why?  This function is never called with max_segment less than PAGE_SIZE,=
-=C2=A0
-then max_segment / PAGE_SIZE can't drop to 0.  If you want to address the=
-=C2=A0
-unexpected 0 case then I think we should just validate max_segment before=
-=C2=A0
-using it.
+[Severity: High]
+Since the return value of fill_dc_plane_info_and_addr() is ignored here,
+what happens if DCC validation fails due to missed dimension or pitch
+changes?
 
->  				      }), 3);
+Could this result in a zero-filled plane_info structure being sent to the
+hardware (for example, setting global_alpha to 0) and causing a black
+screen?
+
+[ ... ]
+
+> @@ -6248,8 +6245,7 @@ static bool should_reset_plane(struct drm_atomic_st=
+ate *state,
+>  		new_afb =3D (struct amdgpu_framebuffer *)new_other_state->fb;
 > =20
->  		if (!i ||
->  		    sg->length >=3D max_segment ||
-> -		    folio_pfn(folio) !=3D next_pfn) {
-> +		    folio_pfn(folio) + folio_page_index !=3D next_pfn) {
->  			if (i)
->  				sg =3D sg_next(sg);
-> =20
->  			st->nents++;
-> -			sg_set_folio(sg, folio, nr_pages * PAGE_SIZE, 0);
-> +			sg_set_page(sg, folio_page(folio, folio_page_index),
-> +				    nr_pages * PAGE_SIZE, 0);
->  		} else {
->  			nr_pages =3D min_t(unsigned long, nr_pages,
-> -					 (max_segment - sg->length) / PAGE_SIZE);
-> +					 max_t(unsigned long, 1,
-> +					       (max_segment - sg->length) / PAGE_SIZE));
+>  		/* Tiling and DCC changes also require bandwidth updates. */
+> -		if (old_afb->tiling_flags !=3D new_afb->tiling_flags ||
+> -		    old_afb->base.modifier !=3D new_afb->base.modifier)
+> +		if (old_afb->base.modifier !=3D new_afb->base.modifier)
+>  			return true;
+>  	}
 
-The same as above, we may exepect max_segment not less than PAGE_SIZE.
+[Severity: High]
+By removing the tiling_flags check here in should_reset_plane(), how do we
+ensure that framebuffers with identical modifiers but different DCC pitches
+or dimensions still trigger a validation reset?
 
-> =20
->  			sg->length +=3D nr_pages * PAGE_SIZE;
+If a user-space client flips between two framebuffers with the same format
+and source rectangle, but different backing buffer dimensions, it seems
+this might bypass DRM atomic check validation.
 
-The only case for appending more pages to a not yet full scatterlist I can=
-=C2=A0
-imagine is when first page of next folio is next to the last page of a=C2=
-=A0
-previous folio assigned here before so contiguity of pages can be=C2=A0
-preserved.  Then, I think the above if conditions should better reflect=C2=
-=A0
-that only case for clarity.
+Could this lead to DC hardware being programmed using stale Display Mode
+Logger (DML) calculations and watermarks, resulting in display corruption?
 
-Thanks,
-Janusz
-
->  		}
-> -		next_pfn =3D folio_pfn(folio) + nr_pages;
-> +
-> +		next_pfn =3D folio_pfn(folio) + folio_page_index + nr_pages;
->  		i +=3D nr_pages - 1;
-> =20
->  		/* Check that the i965g/gm workaround works. */
-> @@ -186,6 +205,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i91=
-5, struct sg_table *st,
->  	i915_sg_trim(st);
-> =20
->  	return 0;
-> +
->  err_sg:
->  	sg_mark_end(sg);
->  	if (sg !=3D st->sgl) {
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715105757.1312=
+5-1-timur.kristof@gmail.com?part=3D4
