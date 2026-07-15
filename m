@@ -4,54 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8279C44501
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 13:57:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F1F2C44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 14:09:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BB5110F0C3;
-	Wed, 15 Jul 2026 13:57:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD07E10E1D7;
+	Wed, 15 Jul 2026 14:09:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LJWH9mZu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FJKbViBM";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C09A110F0C6
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 13:57:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784123830;
- bh=xUmbeuNXP/vmDishEba9WwlN8rEC1bG4DX5W2fr1jPI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LJWH9mZu3kWNHz2+QFo8/yqku09LMK/QMYUiDkq/mh9qONdpfko0lC+03HrJCcl7v
- haFs/7BNrB+A7Pzo7NZA3qt1MeLuOWf4jRwdtgC2SjL17ptQd8vEBClKFvSIiWHF0t
- hwuBxSlbVOi055ccpHHyakRdwJRUotL/AGCVFZxHwgeSc8MPAMgireMvhNwZ0VY5oM
- PVChOMjdGjQfvLvC1ybtG/Y4QLXyRrCbIq5PTBZ4Iu1epItLi5hEucfdyaEo5RPmDe
- Ipx96EfSUQbvGdXP6hoC0sxhbMRKrUO45X5zFqcpVii89quvKZEhBDtxB6towk/D9e
- p9N9f7ElGh17w==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BB1F517E0DFB;
- Wed, 15 Jul 2026 15:57:09 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunkuang.hu@kernel.org
-Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v6 03/11] dt-bindings: display: mediatek: dsi: Document MT8189
- and MT8196
-Date: Wed, 15 Jul 2026 15:56:55 +0200
-Message-ID: <20260715135703.46540-4-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
-References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A69810E109;
+ Wed, 15 Jul 2026 14:08:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784124539; x=1815660539;
+ h=from:subject:date:message-id:mime-version:
+ content-transfer-encoding:to:cc;
+ bh=dCyV2fCxlnQlIjGOH8f3xg6tybPY5EsXgQMhHPrmnlw=;
+ b=FJKbViBMbof7dL/GdESWirSZ4QDBr/JWbeBaNwya+2x+dwxhDBt19ROE
+ Uwug4H1aefTRerA8HVuHp6AFRO4A2DCMyrfu6oFMB2kGcJklMCl2fliap
+ ejnxnjQtb5V82jdj7u3VK62BDVx2u5pKNlhJZCWCluWc5EfcGzAIJ4cwb
+ 24ny3RNkslhF6C5rvo74LYGjYm8Cw2nXJoNAAWDmScW5gMsCZSLwBS9sV
+ 6g5EoXWUQQfdyEBJGMi+uCXwWsI3PkRbWRjB5GhkcHzrsz84coknb9HcT
+ 4xGTMRvPG1YMkihuGoxU5xL5p83x/Rqg2aZEGjc8twotamW0h+xL2FKWs w==;
+X-CSE-ConnectionGUID: cHtgjbpLS0i/bl10LOAdlQ==
+X-CSE-MsgGUID: 0NOe3NWFSJWJS3gZcLUOnw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84615774"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="84615774"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2026 07:08:58 -0700
+X-CSE-ConnectionGUID: V5IShM9eS32li9A4vFOTEw==
+X-CSE-MsgGUID: 9Y9MyI5OSDK0Vbv20334NQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="251777863"
+Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
+ by fmviesa006-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 07:08:55 -0700
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+Subject: [PATCH 0/2] drm/xe/nvm: add survivabilty partiton
+Date: Wed, 15 Jul 2026 16:45:28 +0300
+Message-Id: <20260715-cri_surviv-v1-0-61763a6f1076@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDc0NT3eSizPji0qKyzDJd00SztMQ0c1MLszRDJaCGgqLUtMwKsGHRsbW
+ 1ALqbZt9cAAAA
+X-Change-ID: 20260715-cri_surviv-5a6faf7586f1
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Alexander Usyskin <alexander.usyskin@intel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784123168; l=1018;
+ i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
+ bh=dCyV2fCxlnQlIjGOH8f3xg6tybPY5EsXgQMhHPrmnlw=;
+ b=46LI4ZEe2uhSuVa3oVAfJVy7yPFF6aoOdFUM+ZRMNQCKne9QxG9Ss9o18A2WESMv+4aZPFtym
+ kFy/eovxCiAAe6E43/TPisGnzvcHaGhKCJ6N45No2Uk40t0fCsNatX2
+X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
+ pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,29 +84,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add compatible strings for MT8189 and MT8196 SoCs.
-These are compatible with the DSI IPs found in the MT8188/95 and
-others, but with differences making them not fully compatible.
+One of the reasons for the CRI to enter survivability mode
+is corrupted storage.
+A corrupted storage partition table can make recovery impossible.
+A new partition with a pre-defined size, covering the entire storage,
+should be added when the card is in survivability mode to allow a full
+memory update.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+This series intended to be merged via drm tree for consistency
+and requires ack from MTD maintainer.
+
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
- .../devicetree/bindings/display/mediatek/mediatek,dsi.yaml      | 2 ++
- 1 file changed, 2 insertions(+)
+Alexander Usyskin (2):
+      mtd: mtd_intel_dg: add survivability partition
+      drm/xe/nvm: define survivabilty partition
 
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
-index 27ffbccc2a08..b5cdfe0eaca4 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
-@@ -30,6 +30,8 @@ properties:
-           - mediatek,mt8183-dsi
-           - mediatek,mt8186-dsi
-           - mediatek,mt8188-dsi
-+          - mediatek,mt8189-dsi
-+          - mediatek,mt8196-dsi
-       - items:
-           - enum:
-               - mediatek,mt6795-dsi
+ drivers/gpu/drm/xe/xe_nvm.c        | 13 +++++--
+ drivers/mtd/devices/mtd_intel_dg.c | 80 +++++++++++++++++++++++++++-----------
+ include/linux/intel_dg_nvm_aux.h   |  1 +
+ 3 files changed, 69 insertions(+), 25 deletions(-)
+---
+base-commit: acc744fa62fb098358f371bfb38e6b32032459c7
+change-id: 20260715-cri_surviv-5a6faf7586f1
+
+Best regards,
 -- 
-2.54.0
+Alexander Usyskin <alexander.usyskin@intel.com>
 
