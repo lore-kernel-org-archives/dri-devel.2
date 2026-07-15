@@ -4,43 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AF48C44507
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 10:32:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E28C1C44507
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 10:34:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D1EF10EFB0;
-	Wed, 15 Jul 2026 10:32:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2500310E172;
+	Wed, 15 Jul 2026 10:34:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g7heWBPC";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="CxCfyxWQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B72B10EFA4
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 10:32:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4D32643342;
- Wed, 15 Jul 2026 10:32:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9971F000E9;
- Wed, 15 Jul 2026 10:32:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784111534;
- bh=IEaTMro6D5oiVHLyiUTdBwefd7VHswLt6gRFU/gRM/Q=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=g7heWBPCobjk0aIIm4KIZIah0SeRYMrYduI2G6d004bdHCTZYOesqljZRfrhFaJIg
- GcNkYu8FHiPXXbPBSKzC7Cp/bsWv8/gKfQbzxSzQNT0cioO4o+0jWk/TmtxRo4mp/u
- tBrEruUiulbo5EjKC1UhqN8SM+ql/7z6IiJoHtSFFg2ynr4LedYxrZRNZXxrjyPQi0
- TQNylkL4ksm+VSK9W2IaqWw973Ma+a7+PhUro0Ev6iQbzxiZ1ilkeI7P+CqTLB2nW/
- 4602cMmU1oKXWjOc69NdmFVlWngYSvxhpqaa3xhBVqFYz1MN1OT/B/A9Q+7lsYztUY
- ksi1Md6jP1afw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V5] i2c: qcom-geni: Add dynamic transfer timeout based
- on transfer length and frequency
-To: "Aniket Randive" <aniket.randive@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260715101805.3615166-1-aniket.randive@oss.qualcomm.com>
-References: <20260715101805.3615166-1-aniket.randive@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 10:32:13 +0000
-Message-Id: <20260715103214.0F9971F000E9@smtp.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E606010E172
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 10:34:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1784111660;
+ bh=IkJnX4Q0f685MGMac/EYnUgIc/6fHPJFWwoic2nfCBc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=CxCfyxWQoK2fMzcMWdxysiIbfEO8pWawDkEtOLsZZ0z/6FsDYUX9OULxrqC34oZBH
+ N68/5SZtUEdYAw4scbkcZjpFg/Id+Eby8XuPmPeFHpm/q3EJX+NbmL0H1pjqvmWRw2
+ gf/OEkv50g2ICcYVGLdLUgXivS9ZmP2fSOAxiHnTSWtIZyI4LK0n/p8oHW1qk3223k
+ SRVRWYRp3xksrLBDUA/s2i7yxt8IetEFDamBHOYIJdxDpqlXBfdfDAKx4HrQ79DXi2
+ W34Lpeah3JDsmGJLzVLIx1MxfDGrHbcBiVl8234GCfyq2FhRBGRDObQEGoUqUb2s9/
+ JfJBXjRblX3zg==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id BAB4A17E0076;
+ Wed, 15 Jul 2026 12:34:19 +0200 (CEST)
+Message-ID: <45113534-94ad-4a0f-8014-c04e9ab67a26@collabora.com>
+Date: Wed, 15 Jul 2026 13:34:19 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 02/39] drm/connector: Add caps-based HDMI connector
+ init helper
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
+ <20260702-dw-hdmi-qp-scramb-v8-2-d79890d00b6a@collabora.com>
+ <i4tjtsf5rsckfcayo5nuhlger5wqxn3ujeaubm4g2fgrwvhzb2@hf4uhgq3ja5p>
+ <ad75cf26-9437-47d0-864d-d71263401615@collabora.com>
+ <20260707-illegal-tuna-of-force-1c06e3@houat>
+ <737678ab-f082-4a0e-b453-f403ba141437@collabora.com>
+ <80374deb-3246-413f-a043-66bcdb438ab1@collabora.com>
+ <20260715-fair-opalescent-rhino-c6407b@houat>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260715-fair-opalescent-rhino-c6407b@houat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,126 +80,105 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] A 32-bit integer overflow in `mult_frac()` causes the calculated t=
-imeout to be severely truncated on 32-bit targets for moderately large I2C =
-transfers, leading to premature aborts.
-- [High] For multi-descriptor transfers, the timeout is incorrectly calcula=
-ted based solely on the maximum single message length rather than the sum o=
-f all message lengths in the batch.
-- [Low] The kernel-doc block for `geni_i2c_gpi_multi_xfer_timeout_handler` =
-has an outdated parameter name, causing a kernel-doc warning.
---
+On 7/15/26 11:50 AM, Maxime Ripard wrote:
+> On Fri, Jul 10, 2026 at 01:27:37PM +0300, Cristian Ciocaltea wrote:
+>> On 7/8/26 1:11 PM, Cristian Ciocaltea wrote:
+>>> Hi Maxime,
+>>>
+>>> On 7/7/26 7:10 PM, Maxime Ripard wrote:
+>>>> On Fri, Jul 03, 2026 at 10:31:55PM +0300, Cristian Ciocaltea wrote:
+>>>>> Hi Dmitry,
+>>>>>
+>>>>> Thanks for your quick review!
+>>>>>
+>>>>> On 7/3/26 5:05 PM, Dmitry Baryshkov wrote:
+>>>>>> On Thu, Jul 02, 2026 at 05:46:15PM +0300, Cristian Ciocaltea wrote:
+>>>>>>> In preparation for adding HDMI 2.x source capabilities, introduce struct
+>>>>>>> drm_connector_hdmi_caps and a new drmm_connector_hdmi_init_with_caps()
+>>>>>>> helper.
+>>>>>>>
+>>>>>>> The existing drmm_connector_hdmi_init() helper currently takes
+>>>>>>> individual capability arguments such as supported_formats and max_bpc.
+>>>>>>> Adding more HDMI-specific arguments to that function would not scale
+>>>>>>> well, so move those values into a dedicated capabilities structure and
+>>>>>>> implement the existing helper as a wrapper around the new caps-based
+>>>>>>> interface.
+>>>>>>
+>>>>>> I think, it was an intention of Maxime: make sure that every driver is
+>>>>>> forced to provide some values here. With the struct-based init it is
+>>>>>> easy to overlook or to ommit a value.
+>>>>>
+>>>>> Agreed that the struct-based init loses the compile-time guarantee that every
+>>>>> argument is explicitly provided - that's a real downside.  
+>>>>>
+>>>>> I'd argue it's recoverable, though: the init helper validates the mandatory
+>>>>> fields, so a driver that omits a required value gets rejected at init time
+>>>>> rather than silently misconfigured.  The "you must provide sane values" property
+>>>>> is expected to be preserved, just enforced at runtime instead of by the
+>>>>> compiler. 
+>>>>
+>>>> Yeah, I don't think we can win with C here. Rust might, but we're
+>>>> probably a long way from that.
+>>>>
+>>>>> The main motivation for the struct is scalability/maintainability as we add HDMI
+>>>>> 2.x capabilities: new fields go into the struct rather than growing the helper's
+>>>>> argument list, so existing callers don't need churny signature updates on every
+>>>>> extension.
+>>>>>
+>>>>> FWIW, in the previous revision we discussed addressing the concern with a
+>>>>> callback instead.  Sadly, I had to discard that approach, as it proved not
+>>>>> flexible enough, e.g. drm_bridge_connector_init() computes caps dynamically, and
+>>>>> would have required either stateful callbacks, or storing redundant/temporary
+>>>>> cap data in driver-private structures just to satisfy the callback.
+>>>>
+>>>> I just realized something reviewing your patch: we don't necessarily
+>>>> need an extra argument or a callback, we can just put these fields into
+>>>> drm_hdmi_connector_funcs directly, and then validate them in init.
+>>>
+>>> If I understand correctly, we should drop the drm_connector_hdmi_caps struct
+>>> introduced by this patch and move all its fields into drm_hdmi_connector_funcs.
+>>>
+>>> In that case, how should we proceed with drmm_connector_hdmi_init()? 
+>>
+>> Actually, this brings us to the callback issue: we cannot compute caps
+>> dynamically, as it only works with static data, since funcs is supposed to be
+>> immutable.
+> 
+> Does it? The core and helpers must consider it immutable but it doesn't
+> have to. drm_bridge_connector for example could totally allocate it and
+> dynamically create it based on the bridge capabilities.
 
---- Patch [1]: [PATCH V5] i2c: qcom-geni: Add dynamic transfer timeout base=
-d on transfer length and frequency ---
-commit 99a3ffd517ce0554f8d902961d8c4336195d5457
-Author: Aniket Randive <aniket.randive@oss.qualcomm.com>
+If we take the VC4 case, is it fine to drop the const from the static
+drm_connector_hdmi_funcs to allow dynamically setting up supported_hdmi_ver and
+max_bpc in vc4_hdmi_connector_init()?
 
-i2c: qcom-geni: Add dynamic transfer timeout based on transfer length and f=
-requency
+static struct drm_connector_hdmi_funcs vc4_hdmi_hdmi_connector_funcs = {
+	.tmds_char_rate_valid	 = vc4_hdmi_connector_clock_valid,
+	...
+}
 
-This patch replaces the static 1-second transfer timeout with a dynamic=20
-timeout calculated from the message length and bus frequency. It adds a=20
-300 ms floor for clock stretching and updates the GPI multi-descriptor=20
-transfer to use a maximum message length timeout.
+static int vc4_hdmi_connector_init() 
+{
+	...
+    
+	if (vc4_hdmi->variant->supports_hdr)
+		vc4_hdmi_hdmi_connector_funcs.max_bpc = 12;
 
-> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-=
-qcom-geni.c
-> index 96dbf04138bee..f011d2564cd20 100644
-> --- a/drivers/i2c/busses/i2c-qcom-geni.c
-> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
-> @@ -204,6 +209,16 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev =
-*gi2c)
->  	return -EINVAL;
->  }
-> =20
-> +static unsigned long geni_i2c_xfer_timeout(struct geni_i2c_dev *gi2c, si=
-ze_t len)
-> +{
-> +	size_t bit_cnt =3D len * 9;
-> +	size_t bit_usec =3D mult_frac(bit_cnt, USEC_PER_SEC, gi2c->clk_freq_out=
-);
+	if (vc4_hdmi->variant->max_pixel_clock >= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ)
+		vc4_hdmi_hdmi_connector_funcs.supported_hdmi_ver = HDMI_VERSION_2_0;
+	else if (vc4_hdmi->variant->max_pixel_clock >= HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
+		vc4_hdmi_hdmi_connector_funcs.supported_hdmi_ver = HDMI_VERSION_1_3;
+	...
+}
 
-[Severity: High]
-Can this cause an integer overflow on 32-bit architectures?
+>> Moreover, we would end up with some redundancy, as most of these input fields,
+>> after validation, would be stored (altered or not) directly in
+>> drm_connector/drm_connector_hdmi structs.
+> 
+> I mean, part of the conversion would obviously be to remove the
+> redundant fields.
 
-Looking at mult_frac(x, n, d), it calculates r * n_ / d_ where r is the
-remainder of bit_cnt % gi2c->clk_freq_out and n_ is USEC_PER_SEC (1,000,000=
-).
-
-If size_t is 32-bit, r * USEC_PER_SEC will exceed U32_MAX for remainders
-larger than 4294. This wraps around and results in a truncated timeout
-that might prematurely abort valid large I2C transfers.
-
-[ ... ]
-
-> @@ -591,7 +608,7 @@ static void geni_i2c_gpi_multi_desc_unmap(struct geni=
-_i2c_dev *gi2c, struct i2c_
->   * geni_i2c_gpi_multi_xfer_timeout_handler() - Handles multi message tra=
-nsfer timeout
->   * @dev: Pointer to the corresponding dev node
->   * @multi_xfer: Pointer to the geni_i2c_gpi_multi_desc_xfer
-> - * @transfer_timeout_msecs: Timeout value in milliseconds
-> + * @transfer_timeout_msecs: Per-message completion timeout in jiffies
-
-[Severity: Low]
-This isn't a bug, but the kernel-doc parameter name @transfer_timeout_msecs
-was not updated to match the new function argument timeout_jiffies below,
-which will cause a kernel-doc warning during compilation.
-
->   * @transfer_comp: Completion object of the transfer
->   *
->   * This function waits for the completion of each processed transfer mes=
-sages
-> @@ -601,7 +618,7 @@ static void geni_i2c_gpi_multi_desc_unmap(struct geni=
-_i2c_dev *gi2c, struct i2c_
->   */
->  static int geni_i2c_gpi_multi_xfer_timeout_handler(struct device *dev,
->  						   struct geni_i2c_gpi_multi_desc_xfer *multi_xfer,
-> -						   u32 transfer_timeout_msecs,
-> +						   unsigned long timeout_jiffies,
->  						   struct completion *transfer_comp)
-
-[ ... ]
-
-> @@ -736,8 +753,16 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, s=
-truct i2c_msg msgs[],
->  		dma_async_issue_pending(gi2c->tx_c);
-> =20
->  		if ((msg_idx =3D=3D (gi2c->num_msgs - 1)) || flags & DMA_PREP_INTERRUP=
-T) {
-> +			unsigned long timeout;
-> +			size_t max_len =3D 0;
-> +			int j;
-> +
-> +			for (j =3D 0; j < gi2c->num_msgs; j++)
-> +				max_len =3D max_t(size_t, max_len, msgs[j].len);
-> +
-> +			timeout =3D geni_i2c_xfer_timeout(gi2c, max_len);
-
-[Severity: High]
-Will computing the timeout based on max_len cause multi-descriptor batches
-to time out prematurely?
-
-Since this is a Block Event Interrupt (BEI) DMA transfer, intermediate
-interrupts are suppressed and the hardware will take time proportional to
-the total sum of all message lengths in the batch.=20
-
-Calculating the timeout using only the maximum single message length rather
-than the cumulative length might result in a wait timeout that is shorter
-than the physical wire time needed to transmit the entire batch.
-
->  			ret =3D geni_i2c_gpi_multi_xfer_timeout_handler(gi2c->se.dev, gi2c_gp=
-i_xfer,
-> -								      XFER_TIMEOUT, &gi2c->done);
-> +								      timeout, &gi2c->done);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715101805.3615=
-166-1-aniket.randive@oss.qualcomm.com?part=3D1
+Ack.
