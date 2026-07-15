@@ -4,98 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9C4AC44511
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:21:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 440DFC44513
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:21:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4F9210E753;
-	Thu, 16 Jul 2026 08:21:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0224A10F1F9;
+	Thu, 16 Jul 2026 08:21:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ABZYoOnU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fw52mmgr";
 	dkim-atps=neutral
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9804310E12F
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 06:33:30 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id
- d2e1a72fcca58-8485ab7c382so789105b3a.1
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 23:33:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784097210; cv=none;
- d=google.com; s=arc-20260327;
- b=XXkUsBb84AkaZLtpkCgHIJ9gRv2ZlcLQ/bf6SMp/kuq8+rYILpBl76iD1RgDZ3ZMJD
- WEZtm49fz0u4dMkJjbBPsI29ONfzW8Jf3vtlpubCQmKqCNRj5ioEX56feTCuDK9i7Y9K
- 7ZYUeAemhgtorwYNcBeMAut08maeTqbCNTeNCm5KMCvCqx9dBfzREOY+Q+zRqJgHzNdT
- 4eqVI/cjj8XSp6zz4wI8FQhi11rwE+XWpVqx3QP00HdCrf3ji1/59QykPBy5TEdZZIGj
- y9Xq15UPWOjXWvWy+de6cVSmqEr7XPVe1Wf3kPqZaBtdJtgr3VgUxQ7UQsXJlfheHcsE
- oOmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=gWSeKvpcppphKo4JuhaQYfS686HzGPt1n2IjvkPZLEQ=;
- fh=GBmacVDeFEJjMoVFDdJ4RApqi7WOhPuR6bgG07yIMU8=;
- b=PLeNcZFLX/LQLNM71xYT2NBCtxulxnTH4WZokj2W56PzrRJp4FsHTX/ZB+WYmRKLOZ
- ZPGKutnNXi+6eja2QSgJgyPKzCPSkc2mj1A5CrPQuV/z4Mb0CEU08986zU7Mi08qnuLK
- ExB9s+/fRNoS37P0RJaiw29YkXnHGHFWaFcj6JKEU1jd6oE//iFxwJRBC/PK5jae+aLs
- yv1M8mBpLp1n2Sg/gGtZ25ouMT3EK+WRc39TqP9nQOhbdUa6EA+lm9EgNwpwdj0QT2gk
- pjiZf6qu0Iw+D+Y2ydvrv2CvrwWL0E8T98EbIFhBA6oG583dQQ97qkPfllztAmrHObDL
- SDWw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784097210; x=1784702010; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=gWSeKvpcppphKo4JuhaQYfS686HzGPt1n2IjvkPZLEQ=;
- b=ABZYoOnUz6mGc+t2pBBGBoHNWImitwDxQK2t9HUFQLu5HnNGB7A8GF5SLoX9nJsyWe
- EaKDOyG9gPunTTwaDqGMBs9nUcxJTy9zxDrmzPLhUbL6lkwdYLnuQUxRkZOSd/28Zypn
- 3bezo16M9UGwp4C9KFFswKIFQJY+GgNIYKvFYt6tx4IWk3119am96cCDGZA3QgVzK3E4
- MM+U/aFO5G+maarZ1mQsN+8W5pGoeqQGbVZyAizsT/+3EEVTb2TUOKPVqUrQyLd2zIs4
- +4cyAbmpQbyTLQ6h5ouR0RSTcAzo0ZNqnEW5IA4b1zcFLJD2emaWOU8cUOsQjV+OUeri
- YDKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784097210; x=1784702010;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=gWSeKvpcppphKo4JuhaQYfS686HzGPt1n2IjvkPZLEQ=;
- b=d4BnHjq0HnvdMnkB7em78h88WmuuUvCdaSUc5hQAo9B9RVex5dpIUMDZhnoFW63uXP
- FxWmD9yC1pGUcnP1IRxCrjgH35/5IXXUBog53GlHHjyP4miFg549P1fqWo1RA9h1vtPj
- bnabEFMEAh12blwiDgJjrEcLtgrE8ukApf5mqbrZOM8y6RjQkfVmDbQN7pxVv353z63H
- mlQ8FxYxiHdmKT3OY5Kg3lnKITN+G8yOhOoJSX9Sw0UxlV1ENdc2mmJkk+2lWgdj4Da0
- t2y23jv0cE6PTI6Xf4XHQpsdFkvVPBHkkxKa3b3HITk3NKTi29TSuyGdkftokl9DdZu2
- 2Zgw==
-X-Gm-Message-State: AOJu0Yyv8Vs8Q2yKh7Gl64EsjEF+F6RLtiWDjmnnHJpc1VaUE9BGpoUo
- HPyqzWtE6oG26uABT4+P0aWQp66aSKj7gV0r/FJceAEw+tayOgsTpuQS0iUbQn8W7SBRDMZvODp
- fo6fylNJ39a1o1Qw1QrosKKKOCE7+8ZBPtmXs6BI=
-X-Gm-Gg: AfdE7ck/ZoNNe4GDyHXbNSxD5zAQRt+mVSgC3BOZg5ABaDBzAhMQPsPToid6+Oy9niK
- V6TKhko3p70k4VWiQjF43XUMf7sT89hsInl03+3LMMg7wU2vKtJGHhVHdBJunu/jmldteTRbVWm
- udDyi1XQQoSsfJKdRq7oWJgIaLJllDb9fdjYziyqRjiLt7VxAtEIBIbZgc0A4aN0lT0fap4wHmj
- vFy7Ig4g4Ob1+zKiJlnDKDGIQGucT8WJlghZS9RWXghtO76YNehMNaNheicVcJxB2iOqWFldA+M
- 2Z8WyJO3hNf3F+7KmraFdAH9geOvjhnMGsGlIf2Lgw==
-X-Received: by 2002:a05:690e:4883:20b0:668:7e4:b078 with SMTP id
- 956f58d0204a3-66807e4be6dmr2370313d50.5.1784096804761; Tue, 14 Jul 2026
- 23:26:44 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE9510E07F;
+ Wed, 15 Jul 2026 14:49:46 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B4CD940E14;
+ Wed, 15 Jul 2026 14:49:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 476B91F00A3A;
+ Wed, 15 Jul 2026 14:49:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784126985;
+ bh=87AXpHBd0iv4TTy368Q/Q/UJb9Kqr8Gw4rcYfu4tUzw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=Fw52mmgrQV0ypMwmPeUbXHs2PV7Q6iuHdZpMDS0WtFeD3OitbvvZjBMj+irKiF3dp
+ PYtDAvEqTN9L/GMvzvNdEfg4kaq7c+zSVA4w5Q0v2iOKQbO1qbzodSHgDLF3CtV+A/
+ sb/1UdFFE6Oqw5YCsxuY1hfXCt5Ei6+8VX6QAudc4ZqUzq9PYAzTuw8s5gUeYv4x3d
+ 1v4b29vy5ZzTucemN5P4Zr5HytjLIPdwvJafKlDNMuSWGladOxxqZAORBc9RPPQxhZ
+ vmKp2IpCyLTKLk+1u71RNWu0lCfJCDsa+6+N9R+aOZl5qYBs88adESru+K2p3t9DoR
+ 0C9dzb1dLUfRQ==
+Message-ID: <c398dd9d-dff8-4af7-8a25-7f10ece442c9@kernel.org>
+Date: Wed, 15 Jul 2026 16:49:21 +0200
 MIME-Version: 1.0
-References: <20260714202850.40999-1-royalnet026@gmail.com>
- <20260714204026.84B601F000E9@smtp.kernel.org>
-In-Reply-To: <20260714204026.84B601F000E9@smtp.kernel.org>
-From: Royal Net <royalnet026@gmail.com>
-Date: Wed, 15 Jul 2026 08:26:32 +0200
-X-Gm-Features: AUfX_mx_GykK3yZd7csrMrPNJbBaiwMkpZUk534rlKvfi9UnpbROgKKA1H36E9M
-Message-ID: <CAEWPSH5KVBDE6s+7EYsyGEJ5BNv2Y6dtXXcKOfS=9xxjw6MtPA@mail.gmail.com>
-Subject: Re: [PATCH] drm/rockchip: dw_hdmi_qp: attach the HDMI Colorspace
- connector property
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>, 
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 16 Jul 2026 08:19:15 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 15/33] mm/vma: refactor vmg_adjust_set_range() for
+ clarity
+Content-Language: en-US
+To: Lorenzo Stoakes <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+ Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>,
+ Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>,
+ Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
+ Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov
+ <andreyknvl@gmail.com>, Alexander Potapenko <glider@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner
+ <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Yishai Hadas <yishaih@nvidia.com>, Shameer Kolothum
+ <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev,
+ linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ damon@lists.linux.dev, iommu@lists.linux.dev, kasan-dev@googlegroups.com,
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-15-2a5aa403d977@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-15-2a5aa403d977@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,109 +172,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> [Severity: High] This is a pre-existing issue, but by adding this
-> error path, the patch exposes it further. Does returning an error
-> here without cancelling hdmi->hpd_work risk a use-after-free?
+On 7/10/26 22:16, Lorenzo Stoakes wrote:
+> Add comments with ASCII diagrams to describe what we're doing, avoid
+> dubious use of PHYS_PFN(), and use vma_start_pgoff().
+> 
+> The most complicated scenario represented here is vmg->__adjust_next_start
+> - when this is set, vmg->[start, end] actually indicate the range to be
+> retained, so take special care to describe this accurately.
+> 
+> No functional change intended.
+> 
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Reviewed-by: Gregory Price <gourry@gourry.net>
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-Thanks for taking a look.
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-The window you describe does exist, but it is not introduced or
-widened by this patch: hdmi->hpd_work is initialized and the HPD
-interrupt requested early in dw_hdmi_qp_rockchip_bind(), and the
-function already has several error returns after the interrupt is
-live -- encoder init, dw_hdmi_qp_bind() and drm_bridge_connector_init()
--- none of which cancel the delayed work. This patch adds one more
-return immediately after the last of those, following the function's
-existing error-handling pattern.
-Since the cancellation gap is common to all of bind()'s error paths,
-I think the right fix is a separate patch addressing all of them at
-once (e.g. switching to devm_delayed_work_autocancel() or a devres
-action) rather than special-casing the new return. I'm happy to send
-that as a follow-up.
+> ---
+>  mm/vma.c | 51 +++++++++++++++++++++++++++++++++++++++++++++++----
+>  1 file changed, 47 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/vma.c b/mm/vma.c
+> index 084afdf37385..7265a054cfa3 100644
+> --- a/mm/vma.c
+> +++ b/mm/vma.c
+> @@ -704,11 +704,54 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
+>  	pgoff_t pgoff;
+>  
+>  	if (vmg->__adjust_middle_start) {
+> -		adjust = vmg->middle;
+> -		pgoff = adjust->vm_pgoff + PHYS_PFN(vmg->end - adjust->vm_start);
+> +		/*
+> +		 * vmg->start    vmg->end
+> +		 * |             |
+> +		 * v    merge    v
+> +		 * <------------->
+> +		 *         delta
+> +		 *        <------>
+> +		 * |------|----------------|
+> +		 * | prev |    middle      |
+> +		 * |------|----------------|
+> +		 *        ^
+> +		 *        |
+> +		 *        middle->vm_start
+> +		 */
+> +		struct vm_area_struct *middle = vmg->middle;
+> +		const unsigned long delta = vmg->end - middle->vm_start;
+> +
+> +		pgoff = vma_start_pgoff(middle) + (delta >> PAGE_SHIFT);
+> +		adjust = middle;
+>  	} else if (vmg->__adjust_next_start) {
+> -		adjust = vmg->next;
+> -		pgoff = adjust->vm_pgoff - PHYS_PFN(adjust->vm_start - vmg->end);
+> +		/*
+> +		 *                Originally:
+> +		 *
+> +		 *            vmg->start   vmg->end
+> +		 *            |            |
+> +		 *            v    merge   v
+> +		 *            <------------>
+> +		 *            .            .
+> +		 * merge_existing_range() updates to:
+> +		 *            .            .
+> +		 * vmg->start vmg->end     .
+> +		 * |          |            .
+> +		 * v  retain  v            .
+> +		 * <---------->            .
+> +		 *             delta       .
+> +		 *            <----->      .
+> +		 * |----------------|------|
+> +		 * |    middle      | next |
+> +		 * |----------------|------|
+> +		 *                  ^
+> +		 *                  |
+> +		 *                  next->vm_start
+> +		 */
+> +		struct vm_area_struct *next = vmg->next;
+> +		const unsigned long delta = next->vm_start - vmg->end;
+> +
+> +		pgoff = vma_start_pgoff(next) - (delta >> PAGE_SHIFT);
+> +		adjust = next;
+>  	} else {
+>  		return;
+>  	}
+> 
 
-Igor
-
-
-On Tue, Jul 14, 2026 at 10:40=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
->
-> Pre-existing issues:
-> - [High] Returning an error from `dw_hdmi_qp_rockchip_bind()` without can=
-celling `hdmi->hpd_work` leads to a Use-After-Free when the delayed work or=
- HPD interrupt fires.
-> --
->
-> --- Patch [1]: [PATCH] drm/rockchip: dw_hdmi_qp: attach the HDMI Colorspa=
-ce connector property ---
-> commit 77d2f0e8bc60d50755aec22dee119ad08bb92b3c
-> Author: Igor Paunovic <royalnet026@gmail.com>
->
-> drm/rockchip: dw_hdmi_qp: attach the HDMI Colorspace connector property
->
-> This commit creates and attaches the standard HDMI colorspace property
-> after the bridge connector is initialised. This allows userspace to reque=
-st
-> BT.2020 colorimetry and enables wide-gamut/HDR output on RK3588.
->
-> > diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/g=
-pu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> > --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> > +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> [ ... ]
-> > @@ -695,6 +695,20 @@ static int dw_hdmi_qp_rockchip_bind(struct device =
-*dev, struct device *master,
-> >               return dev_err_probe(hdmi->dev, PTR_ERR(connector),
-> >                                    "Failed to init bridge connector\n")=
-;
-> >
-> > +     /*
-> > +      * Attach the HDMI Colorspace property. The HDMI connector framew=
-ork
-> > +      * already consumes conn_state->colorspace for the AVI infoframe
-> > +      * (drm_hdmi_avi_infoframe_colorimetry()), and HDR_OUTPUT_METADAT=
-A and
-> > +      * max bpc are attached by drmm_connector_hdmi_init(), but withou=
-t the
-> > +      * Colorspace property userspace cannot request BT.2020 signallin=
-g,
-> > +      * which keeps wide-gamut/HDR output unavailable. Passing 0 selec=
-ts
-> > +      * the full HDMI colorspace set defined by the core.
-> > +      */
-> > +     ret =3D drm_mode_create_hdmi_colorspace_property(connector, 0);
-> > +     if (ret)
-> > +             return ret;
->
-> [Severity: High]
-> This is a pre-existing issue, but by adding this error path, the patch
-> exposes it further. Does returning an error here without cancelling
-> hdmi->hpd_work risk a use-after-free?
->
-> If a hardware HPD interrupt fires right before the devres cleanup
-> unregisters the IRQ, hdmi->hpd_work can get queued. The DRM master
-> teardown then frees hdmi (which was allocated via drmm_kzalloc),
-> leaving the delayed work to execute later with a dangling pointer:
->
-> drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c:dw_hdmi_qp_rk3588_hpd_work=
-() {
->         struct rockchip_hdmi_qp *hdmi =3D container_of(work,
->                                                      struct rockchip_hdmi=
-_qp,
->                                                      hpd_work.work);
->         struct drm_device *drm =3D hdmi->encoder.encoder.dev;
->         ...
-> }
->
-> Could we ensure that the delayed work is properly cancelled before
-> returning errors from dw_hdmi_qp_rockchip_bind()?
->
-> > +     drm_connector_attach_colorspace_property(connector);
-> >
-> >       return 0;
-> >  }
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714202850.40=
-999-1-royalnet026@gmail.com?part=3D1
