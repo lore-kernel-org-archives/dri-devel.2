@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7570C44515
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 13:57:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFAF9C44513
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 13:57:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 333DF10F0CA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCA6510F0C8;
 	Wed, 15 Jul 2026 13:57:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="g+MTMQ0O";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ac8RISxL";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C949710F0C7
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 13:57:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0A5D10F0D2
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 13:57:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784123837;
- bh=kjlUr3Ch3S1Nnn/sGM3fVDh9wRA8DvKZBv88ET/VBcU=;
+ s=mail; t=1784123832;
+ bh=ylJ+KBF1KQTUsnGxr+RTWuTp7Cy3Ot5iOaz4TQmao4A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=g+MTMQ0OZ/dPI6CpU0VZBLLHj8DQBXuE+Nhls+f5hmFVu4G7OVpS/Q8Lgdzggc8FV
- mlBPK/Wc4fD7YFVU1NcA1C8IdCBG5inD0HPq6/xihDwyupt7NL0KwLTG0tvJiMMIgJ
- 4ZyW7GdM9Yb1kCvb8AsHS6O8AfJag1hmQ9IQO50TqmukeegMblJmbkaSw5FPn48QXb
- cyWqjEeA95yiiiq5wwJBowZbzi4X5neFyJUpLS78iSjES0cLFmBhAQd/Qk/YAXwkGl
- rbULbbBGO7ZzQtSDWVz1cWJ7P9cZ9hjPQPDuLA2R2p5FIMTO6bI27b4U5PvW0P6T7w
- CTIQDR6xMt8aw==
+ b=ac8RISxL3tX/sKO+6f6j55b9vvZ6e3SKy69wOjaU5qCp8GOgCocE7uSaY3SUs3slE
+ DxuuHcprjuo2uEb3SpMi81M1aUlZ1oPA0/9QM8zVjKAuUKHUIbKpFO0T027GYHuCXX
+ oT6Td/zlRygl7RdVjdFl234b4QpcCtxjdZaJY/KcSlFP2BSQde2WxgBv4rH7NwLUsa
+ LDHEceUIDmNdMl2fjRskI7GbAt4W7lRSmEaUb4grmCTPf7Fsq7L6ZI3hax/HBhYNQf
+ 96UGWvc3ncvrLEq7cPR5VhTx8TBoeDO0gOaHt+4xaxnEZIJHGwi6tPVJRXor79XguI
+ saVGr+bLGAxAw==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C24A517E0DFB;
- Wed, 15 Jul 2026 15:57:16 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9670217E0E95;
+ Wed, 15 Jul 2026 15:57:11 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
@@ -42,9 +42,10 @@ Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
  linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
-Subject: [PATCH v6 09/11] drm/mediatek: mtk_dsi: Enable PM Runtime on probe
-Date: Wed, 15 Jul 2026 15:57:01 +0200
-Message-ID: <20260715135703.46540-10-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v6 05/11] drm/mediatek: mtk_dsi: Enable interrupt at component
+ bind time
+Date: Wed, 15 Jul 2026 15:56:57 +0200
+Message-ID: <20260715135703.46540-6-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
 References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
@@ -65,35 +66,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable PM Runtime at the end of mtk_dsi_probe() so that the
-mediatek-drm mtk_ddp_comp_power_on() function is able to do
-pm_runtime_resume_and_get() and, analogously, the function
-mtk_ddp_comp_power_off() to pm_runtime_put() for the DSI
-device.
+Having the DSI interrupt enabled before actually binding the DSI
+component to the display controller driver is both useless and
+dangerous: the main purpose of this interrupt is to signal CMD
+done, LP RX data ready, or VideoMode done, or to reset the HW
+engine if this doesn't come.
 
-This makes sure that the power domains for the DSI IP are
-turned on and off when necessary.
+Should this interrupt come too late (during probe), the HW will
+be reset only at the next occurrence of a timeout, which slows
+down boot and may render artifacts to the DSI display.
+
+Moreover, clearing the DSI interrupt while the display controller
+is not ready yet, may result in an interrupt storm.
+
+In order to prevent this from happening, request the interrupt
+with IRQF_NO_AUTOEN, and enable it only when binding DSI to its
+display controller component master.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_dsi.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/mediatek/mtk_dsi.c | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 4d8a02cbee38..dc0c4e867179 100644
+index e3d7338c35e3..d1aa258e3799 100644
 --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
 +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -1733,6 +1733,10 @@ static int mtk_dsi_probe(struct platform_device *pdev)
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+@@ -225,6 +225,7 @@ struct mtk_dsi {
+ 	int refcount;
+ 	bool enabled;
+ 	bool lanes_ready;
++	int irq;
+ 	u32 irq_data;
+ 	wait_queue_head_t irq_wait_queue;
+ 	const struct mtk_dsi_driver_data *driver_data;
+@@ -1096,6 +1097,8 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
+ 		return ret;
+ 	}
  
-+	ret = devm_pm_runtime_enable(dev);
++	enable_irq(dsi->irq);
++
+ 	return 0;
+ }
+ 
+@@ -1104,6 +1107,8 @@ static void mtk_dsi_unbind(struct device *dev, struct device *master,
+ {
+ 	struct mtk_dsi *dsi = dev_get_drvdata(dev);
+ 
++	disable_irq(dsi->irq);
++
+ 	drm_encoder_cleanup(&dsi->encoder);
+ }
+ 
+@@ -1337,7 +1342,6 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+ {
+ 	struct mtk_dsi *dsi;
+ 	struct device *dev = &pdev->dev;
+-	int irq_num;
+ 	int ret;
+ 
+ 	dsi = devm_drm_bridge_alloc(dev, struct mtk_dsi, bridge,
+@@ -1370,9 +1374,9 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+ 	if (IS_ERR(dsi->phy))
+ 		return dev_err_probe(dev, PTR_ERR(dsi->phy), "Failed to get MIPI-DPHY\n");
+ 
+-	irq_num = platform_get_irq(pdev, 0);
+-	if (irq_num < 0)
+-		return irq_num;
++	dsi->irq = platform_get_irq(pdev, 0);
++	if (dsi->irq < 0)
++		return dsi->irq;
+ 
+ 	dsi->host.ops = &mtk_dsi_ops;
+ 	dsi->host.dev = dev;
+@@ -1381,17 +1385,15 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, dsi);
+ 
++	ret = devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
++			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
 +	if (ret)
-+		return ret;
++		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
 +
  	ret = mipi_dsi_host_register(&dsi->host);
  	if (ret < 0)
  		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
+ 
+-	ret = devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq,
+-			       IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi);
+-	if (ret) {
+-		mipi_dsi_host_unregister(&dsi->host);
+-		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+-	}
+-
+ 	dsi->bridge.of_node = dev->of_node;
+ 	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
+ 
 -- 
 2.54.0
 
