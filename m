@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E33A9C44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 11:08:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1365AC44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 11:10:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1239C10EFD3;
-	Wed, 15 Jul 2026 11:08:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6050810EFD9;
+	Wed, 15 Jul 2026 11:10:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z/Ai7eNM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mYB6DIg9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D41410EFD3
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 11:08:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63EF310EFD9
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 11:10:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 405846111A;
- Wed, 15 Jul 2026 11:08:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF5F01F000E9;
- Wed, 15 Jul 2026 11:08:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DED3E4192D;
+ Wed, 15 Jul 2026 11:10:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0D9F1F000E9;
+ Wed, 15 Jul 2026 11:10:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784113702;
- bh=Na/rooKl4CFjWDDBWL5jLTuAIfxCefJVF8OqzS047vg=;
+ s=k20260515; t=1784113851;
+ bh=bD9vkBsPy35lSLZRkJtwFvZldGEfA35ChovNJjRfIuI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z/Ai7eNMF9H3Z4ASa0Eyt9PF/Z7ptNP1FtxhL38+pwsRPe3BeLShKDyo/HHupUCK1
- 5lSCqZKrJR3a71j2q7pQdWzkR9N85puU4xhuh/KX/b5S5+O5bETi9N2AfsJD94jwb+
- sr8xvgiI1SC3szNhaQOY7SGosI2ZuRyNQLhnMN7XIyUkDOD01nbHoqr1cx/ANZM+Om
- Au0olOEvXZQ8lk+QS9F0DZGqLvis5bINkkZmXEUnsFQ3L/Hvrl9YcuhMUfrBRo5fgY
- 0wG0nGZ79Q/5NsRwsf6TIWctWy4EheirU/7FgYCTBrnLdGNMx9PIdxhaHXzQvEIEhA
- paV3H/Ur44ulg==
+ b=mYB6DIg9ORhDizcz0DfZlq7qQTQqjcayxL070n8SRqqoVpxudvWQ8AHaGnE/Dw9C/
+ JQxL1r5H3XGwzXHp1N/8Hh/oh41GYxLssVkOMBWyWehED0B8hT3Do0HHeH7KBs0xCa
+ 9m4Cx9xyPMjo9EGCvvOT9FBnmAVc0G1WSixPDPNHbjDQmrH0ALobw8jeh3CUSfFcxD
+ TMqYtjYpEdPDUW0zd6tuUPFeJWBsmk/HBrsUnNmKl4iT88Zmp7jC9V3giB/6r1t4fe
+ jKh2aWuq9jB4Tt0OVq1XI3z8fh6vBIUwWws6gkmIuJ34ilqIXD4Z3IFZ4JRqWCblBg
+ Scg5NBgld598w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] drm/amd/display: Support DRM format modifiers on
+Subject: Re: [PATCH 2/4] drm/amdgpu: Convert tiling flags to modifiers on
  GFX6-8
 To: =?utf-8?b?VGltdXIgS3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260715105757.13125-4-timur.kristof@gmail.com>
+In-Reply-To: <20260715105757.13125-3-timur.kristof@gmail.com>
 References: <20260715105757.13125-1-timur.kristof@gmail.com>
- <20260715105757.13125-4-timur.kristof@gmail.com>
+ <20260715105757.13125-3-timur.kristof@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 11:08:20 +0000
-Message-Id: <20260715110821.BF5F01F000E9@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 11:10:51 +0000
+Message-Id: <20260715111051.A0D9F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,165 +60,206 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Missing bit-to-byte conversion in `tile_bytes` calculation.
-- [High] NULL pointer dereference in `amdgpu_dm_plane_add_modifier_dedup`.
-- [Medium] Missing 8-bpp modifier exposure in `amdgpu_dm_plane_add_gfx6_mod=
-ifiers`.
+- [High] Uninitialized variable `block_size_log2` in GFX6 modifier path cau=
+ses undefined behavior and potential kernel panic.
+- [High] User-controlled `PIPE_CONFIG` in GFX6 modifier can trigger `unreac=
+hable()`, leading to kernel panic or undefined behavior.
+- [Medium] Unbounded `drm_err()` on invalid GFX6 array mode allows userspac=
+e to flood the kernel log.
 --
 
---- Patch [3]: [PATCH 3/4] drm/amd/display: Support DRM format modifiers on=
+--- Patch [2]: [PATCH 2/4] drm/amdgpu: Convert tiling flags to modifiers on=
  GFX6-8 ---
-commit 3fb28c857b70a3a3413b8818708816df4bf9fc7e
+commit 642125971654c581668fe700356dfbee6905eccc
 Author: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+Subject: drm/amdgpu: Convert tiling flags to modifiers on GFX6-8
 
-    drm/amd/display: Support DRM format modifiers on GFX6-8
-   =20
-    Expose displayable DRM format modifiers based on which
-    tiling modes are supported by the GFX block.
+This commit converts the tiling flags to modifiers on GFX8 and older,
+so that the DC display driver can rely on them like on newer generations.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index b2507c5de7c86..9d56ce635cbda 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_display.c
+> index 950937b363fbe..dcca930ed3c04 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
 
 [ ... ]
 
-> @@ -180,6 +180,19 @@ STATIC_IFN_KUNIT void amdgpu_dm_plane_add_modifier(u=
-int64_t **mods, uint64_t *si
+> @@ -940,6 +940,55 @@ static int convert_tiling_flags_to_modifier(struct a=
+mdgpu_framebuffer *afb)
+>  	return 0;
 >  }
->  EXPORT_IF_KUNIT(amdgpu_dm_plane_add_modifier);
 > =20
-> +STATIC_IFN_KUNIT void amdgpu_dm_plane_add_modifier_dedup(uint64_t **mods=
-, uint64_t *size,
-> +							 uint64_t *cap, uint64_t mod)
+> +static int convert_tiling_flags_to_modifier_gfx6(struct amdgpu_framebuff=
+er *afb)
 > +{
-> +	uint64_t i;
-> +
-> +	for (i =3D 0; i < *size; ++i)
-> +		if ((*mods)[i] =3D=3D mod)
-> +			return;
-
-[Severity: High]
-If a previous call to amdgpu_dm_plane_add_modifier() fails to reallocate the
-array, it sets *mods to NULL but leaves *size at its previous non-zero valu=
-e:
-
-amdgpu_dm_plane_add_modifier() {
-    ...
-		if (!new_mods) {
-			kfree(*mods);
-			*mods =3D NULL;
-			return;
-		}
-    ...
-}
-
-Will this loop cause a NULL pointer dereference on the next call to=20
-amdgpu_dm_plane_add_modifier_dedup() since it unconditionally evaluates=20
-(*mods)[i] without checking if *mods is NULL?
-
-> +
-> +	amdgpu_dm_plane_add_modifier(mods, size, cap, mod);
-> +}
-> +EXPORT_IF_KUNIT(amdgpu_dm_plane_add_modifier_dedup);
+> +	const uint32_t array_mode =3D AMDGPU_TILING_GET(afb->tiling_flags, ARRA=
+Y_MODE);
+> +	const uint32_t pipe_config =3D AMDGPU_TILING_GET(afb->tiling_flags, PIP=
+E_CONFIG);
 
 [ ... ]
 
-> @@ -468,6 +516,246 @@ static void amdgpu_dm_plane_add_gfx10_1_modifiers(c=
-onst struct amdgpu_device *ad
-
-[ ... ]
-
-> +/**
-> + * amdgpu_dm_plane_get_gfx7_macro_tile_idx() - Get macro tile mode index=
- on GFX7-8
-> + *
-> + * @bpp: bits per pixel in the image
-> + * @tile_split_bytes: actual tile split bytes, see amdgpu_dm_plane_calc_=
-gfx7_tile_split()
-> + *
-> + * Select which macro tiling mode from the table is suitable for the giv=
-en bits per pixel,
-> + * assuming 2D_TILED_THIN1 array mode and DISPLAY micro tile mode (and n=
-o multisampling).
-> + * Note that the tiling table is uAPI and userspace relies on specific m=
-odes being
-> + * present at specific indices.
-> + * See CiLib::HwlComputeMacroModeIndex() in addrlib.
-> + */
-> +static u32 amdgpu_dm_plane_get_gfx7_macro_tile_idx(const u32 bpp, const =
-u32 tile_split_bytes)
-> +{
-> +	const u32 tile_bytes =3D clamp(8 * 8 * bpp, 64, tile_split_bytes);
-
-[Severity: High]
-Does this calculation compute the microtile size in bits instead of bytes?=
-=20
-Because it lacks a division by 8 (e.g., (8 * 8 * bpp) / 8), the computed=20
-tile_bytes is artificially inflated. For a 16bpp format, this would
-calculate 1024 instead of 128, leading to an incorrect macro tile index=20
-being selected which may cause tiled buffers to be rejected or misrendered=
-=20
-on GFX7-8.
-
-> +	const u32 macro_tile_idx =3D ilog2(tile_bytes / 64);
+> +	switch (array_mode) {
+> +	case DC_ARRAY_LINEAR_GENERAL:
+> +	case DC_ARRAY_LINEAR_ALLIGNED:
+> +		modifier =3D DRM_FORMAT_MOD_LINEAR;
+> +		break;
 > +
-> +	WARN_ON(macro_tile_idx >=3D 16);
+> +	case DC_ARRAY_2D_TILED_THIN1:
+> +		/* Macro tiled modes only */
+> +		modifier |=3D
+> +			AMD_FMT_MOD_SET(PIPE_CONFIG, pipe_config) |
+> +			AMD_FMT_MOD_SET(TILE_SPLIT, tile_split) |
+> +			AMD_FMT_MOD_SET(BANK_WIDTH, bank_width) |
+> +			AMD_FMT_MOD_SET(BANK_HEIGHT, bank_height) |
+> +			AMD_FMT_MOD_SET(MACRO_TILE_ASPECT, macro_tile_aspect) |
+> +			AMD_FMT_MOD_SET(NUM_BANKS, num_banks);
+> +		fallthrough;
 > +
-> +	return macro_tile_idx;
-> +}
-
-[ ... ]
-
-> +/**
-> + * amdgpu_dm_plane_add_gfx6_modifiers() - Expose modifiers for GFX6-8
-> + *
-> + * @adev: amdgpu_device pointer
-> + * @mods: Pointer to array of format modifiers
-> + * @size: Pointer to size of the array
-> + * @capacity: Pointer to capacity of the array
-> + *
-> + * Calculate a DRM format modifier for macro tiled modes for each suppor=
-ted
-> + * bits per pixel value. Use de-duplication because on some GPUs it may =
-happen
-> + * that different bpp results in the exact same macro tiling mode, depen=
-ding
-> + * on the tiling table.
-> + *
-> + * Also expose a micro tiled only mode. This is less optimal, but suppor=
-ted.
-> + */
-> +static void amdgpu_dm_plane_add_gfx6_modifiers(const struct amdgpu_devic=
-e *adev,
-> +					       u64 **mods,
-> +					       u64 *size,
-> +					       u64 *capacity)
-> +{
-> +	/* 2D tiled displayable */
-> +	amdgpu_dm_plane_add_modifier(mods, size, capacity,
-> +		amdgpu_dm_plane_calc_gfx6_mod(adev, 16, DC_ARRAY_2D_TILED_THIN1));
+> +	case DC_ARRAY_1D_TILED_THIN1:
+> +		/* Micro and macro tiled modes */
+> +		modifier |=3D
+> +			AMD_FMT_MOD |
+> +			AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX6) |
+> +			AMD_FMT_MOD_SET(TILE, array_mode) |
+> +			AMD_FMT_MOD_SET(MICROTILE, micro_tile_mode);
+> +		break;
+> +
+> +	default:
+> +		drm_err(&adev->ddev, "array mode 0x%x not supported by DCE\n", array_m=
+ode);
 
 [Severity: Medium]
-Are we missing the 8-bpp modifier exposure here?
+Could this drm_err() be triggered repeatedly by a user space process provid=
+ing
+an invalid array_mode to DRM_IOCTL_MODE_ADDFB2, flooding the kernel log?
 
-The helper function amdgpu_dm_plane_get_gfx6_tile_idx() explicitly supports=
-=20
-bpp =3D=3D 8, but we only seem to expose 16, 32, and 64 bpp formats here.=20
-Without this, userspace might not be able to negotiate 2D tiling for 8-bpp
-formats.
+Should this use a rate-limited print or drm_dbg_kms() instead to prevent log
+spam from unprivileged users?
 
-> +	amdgpu_dm_plane_add_modifier_dedup(mods, size, capacity,
-> +		amdgpu_dm_plane_calc_gfx6_mod(adev, 32, DC_ARRAY_2D_TILED_THIN1));
-> +	amdgpu_dm_plane_add_modifier_dedup(mods, size, capacity,
-> +		amdgpu_dm_plane_calc_gfx6_mod(adev, 64, DC_ARRAY_2D_TILED_THIN1));
+> +		return -EINVAL;
+> +	}
 > +
-> +	/* 1D tiled displayable */
-> +	amdgpu_dm_plane_add_modifier(mods, size, capacity,
-> +		amdgpu_dm_plane_calc_gfx6_mod(adev, 0, DC_ARRAY_1D_TILED_THIN1));
+> +	afb->base.modifier =3D modifier;
+> +	afb->base.flags |=3D DRM_MODE_FB_MODIFIERS;
+> +	return 0;
 > +}
+
+[ ... ]
+
+> @@ -1093,7 +1142,7 @@ static int amdgpu_display_verify_sizes(struct amdgp=
+u_framebuffer *rfb)
+> =20
+>  			get_block_dimensions(block_size_log2, format_info->cpp[i],
+>  					     &block_width, &block_height);
+> -		} else {
+> +		} else if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) >=3D AMD_FMT_MOD_TI=
+LE_VER_GFX9) {
+>  			int swizzle =3D AMD_FMT_MOD_GET(TILE, modifier);
+> =20
+>  			switch ((swizzle & ~3) + 1) {
+> @@ -1120,6 +1169,60 @@ static int amdgpu_display_verify_sizes(struct amdg=
+pu_framebuffer *rfb)
+> =20
+>  			get_block_dimensions(block_size_log2, format_info->cpp[i],
+>  					     &block_width, &block_height);
+> +		} else if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) =3D=3D AMD_FMT_MOD_=
+TILE_VER_GFX6) {
+> +			const u32 display_micro_tile_pitch =3D 32; /* required by DCE */
+> +			const u32 micro_tile_width =3D 8;
+> +			const u32 micro_tile_height =3D 8;
+> +			const u32 micro_tile_mode =3D AMD_FMT_MOD_GET(MICROTILE, modifier);
+> +			const u32 array_mode =3D AMD_FMT_MOD_GET(TILE, modifier);
+> +			u32 num_banks, bank_width, bank_height, pipe_config, macro_tile_aspec=
+t;
+> +			u32 num_pipes;
+> +
+> +			if (AMD_FMT_MOD_GET(DCC, modifier)) {
+> +				drm_dbg_kms(rfb->base.dev, "DCC is not displayable on GFX6-8\n");
+> +				return -EINVAL;
+> +			}
+> +			if (array_mode !=3D AMD_FMT_MOD_TILE_GFX6_1D_TILED_THIN1 &&
+> +			    array_mode !=3D AMD_FMT_MOD_TILE_GFX6_2D_TILED_THIN1) {
+> +				drm_dbg_kms(rfb->base.dev,
+> +					"Array mode %u is not supported by the display driver\n",
+> +					array_mode);
+> +				return -EINVAL;
+> +			}
+> +			if (micro_tile_mode !=3D AMD_FMT_MOD_MICROTILE_DISPLAY) {
+> +				drm_dbg_kms(rfb->base.dev,
+> +					"Micro tile mode %u is not displayable on GFX6-8\n",
+> +					micro_tile_mode);
+> +				return -EINVAL;
+> +			}
+> +
+> +			num_banks =3D 2 << AMD_FMT_MOD_GET(NUM_BANKS, modifier);
+> +			bank_width =3D 1 << AMD_FMT_MOD_GET(BANK_WIDTH, modifier);
+> +			bank_height =3D 1 << AMD_FMT_MOD_GET(BANK_HEIGHT, modifier);
+> +			pipe_config =3D AMD_FMT_MOD_GET(PIPE_CONFIG, modifier);
+> +			macro_tile_aspect =3D 1 << AMD_FMT_MOD_GET(MACRO_TILE_ASPECT, modifie=
+r);
+> +
+> +			if (pipe_config >=3D AMD_FMT_MOD_PIPE_CONFIG_P16_32x32_8x16)
+> +				num_pipes =3D 16;
+> +			else if (pipe_config >=3D AMD_FMT_MOD_PIPE_CONFIG_P8_16x16_8x16)
+> +				num_pipes =3D 8;
+> +			else if (pipe_config >=3D AMD_FMT_MOD_PIPE_CONFIG_P4_8x16)
+> +				num_pipes =3D 4;
+> +			else if (pipe_config =3D=3D AMD_FMT_MOD_PIPE_CONFIG_P2)
+> +				num_pipes =3D 2;
+> +			else
+> +				unreachable();
+
+[Severity: High]
+Since pipe_config comes from AMD_FMT_MOD_GET(PIPE_CONFIG, modifier), which =
+is
+user-controlled via the framebuffer modifier, could a user pass a value sma=
+ller
+than AMD_FMT_MOD_PIPE_CONFIG_P2?
+
+If so, hitting unreachable() here would result in undefined compiler behavi=
+or.
+With CONFIG_OBJTOOL enabled, it can emit an invalid instruction that immedi=
+ately
+panics the kernel. If execution falls through, num_pipes remains uninitiali=
+zed
+and is subsequently used in a multiplication.
+
+> +
+> +			if (array_mode < AMD_FMT_MOD_TILE_GFX6_2D_TILED_THIN1) {
+> +				block_width =3D display_micro_tile_pitch;
+> +				block_height =3D micro_tile_height;
+> +			} else {
+> +				/* Assume non-PRT macro tiling modes */
+> +				block_width =3D num_pipes * micro_tile_width *
+> +					      bank_width * macro_tile_aspect;
+> +				block_height =3D micro_tile_height * bank_height *
+> +					       num_banks / macro_tile_aspect;
+> +			}
+>  		}
+> =20
+>  		ret =3D amdgpu_display_verify_plane(rfb, i, format_info,
+>  						  block_width, block_height, block_size_log2);
+
+[Severity: High]
+Does this pass an uninitialized block_size_log2 into
+amdgpu_display_verify_plane()?
+
+It appears block_size_log2 is never set in the new AMD_FMT_MOD_TILE_VER_GFX6
+branch just above this call.
+
+Inside amdgpu_display_verify_plane(), this uninitialized value is used in a
+shift:
+unsigned int block_size =3D 1 << block_size_log2;
+
+If the uninitialized stack garbage causes block_size to evaluate to 0, this
+will trigger a divide-by-zero panic on the subsequent modulo check:
+if (rfb->base.offsets[plane] % block_size)
+
+Or if it underestimates the BO size, could this lead to out-of-bounds VRAM
+access during scanout?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715105757.1312=
-5-1-timur.kristof@gmail.com?part=3D3
+5-1-timur.kristof@gmail.com?part=3D2
