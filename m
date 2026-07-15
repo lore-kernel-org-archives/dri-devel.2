@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EE92C44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 13:10:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02404C44508
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 13:11:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D5B310F03C;
-	Wed, 15 Jul 2026 13:10:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6084010F050;
+	Wed, 15 Jul 2026 13:11:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="zA0J6HyX";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="EY8XRd2E";
 	dkim-atps=neutral
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch
- [79.135.106.113])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EE5610F03C
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 13:10:55 +0000 (UTC)
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch
+ [79.135.106.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF46010F058
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 13:10:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail3; t=1784121051; x=1784380251;
- bh=elEs6/r/QIGvt1rTdXTRifT6XlSg+OzMcAQsqVPf6ek=;
+ s=protonmail3; t=1784121055; x=1784380255;
+ bh=fpNoP3x4ecHrbdYLoDSmfRfkT+oA2F1jXjUdEDVmPSA=;
  h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
  Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=zA0J6HyXe+nF4sWhMD5uor/rb7+DpumqiDB3r0BDtpIo1xHNWvPVGP10d/C/J1WoL
- D+r8ZrG67zMVoX4UBbkeoMBwAjxpM9WAFIUX9CrOAtdaC5czD9MQN4sqaMYXggUEY4
- 6+RG3W4BB72zL4jH8Hg+Mj4hgb1pKvEuU7OzGuys6yCQTFRyRA0mVytZNw6fVpU59I
- Pm5y6B14EojXFMhQQKo7Acp/ohlr0uBG7avDiBdqVTGvYM49Lr0VSYljgEAF7X9Xhu
- 0n8g659f/obYWC1u9dw4e3rEdA5OR5AG5U0z2fpGwAwXRxwU1u0Qlp6CKDlCaq/MOj
- NlGF/2A5nWaPA==
-X-Pm-Submission-Id: 4h0c4573PPz1DDL5
+ b=EY8XRd2Ef6eJpDcoMLHsrgQ4o//EV6U1xE7ZHEAYU1IQwpxagBH5x/8V9B8iJXZvv
+ dLFAB8DlESijq13ochoN7l6Xn8+SYzqDafJG59Yv6Vr5pc5WIM8xlIwHzzAh4CpYgs
+ 35QFRNn03rrlcmlNe+TFKi0UI6D6hcEZ/+LcdaezZBsLDYhKx5ShdJ38j7wqMINRQL
+ iUx3hy+fKSSKYMxKDiIj8zAVDlxiEZ7RCmEctShE5fSPXKpiGyBeA8SATF3P5tXjg0
+ n/93JqPHYboF/biWjlbS/TZIrFXwXqN92Da7wSZAskjspfHUTBUL4za9ytwBTnS4s2
+ KSwI3QP0GaUKw==
+X-Pm-Submission-Id: 4h0c4D1B31z1DDLH
 From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 15 Jul 2026 15:10:31 +0200
-Subject: [PATCH v2 1/3] drm/bridge: ti-sn65dsi83: Fix problem with
- premature PLL locking
+Date: Wed, 15 Jul 2026 15:10:33 +0200
+Subject: [PATCH v2 3/3] drm/bridge: ti-sn65dsi83: Support LVDS Channel B on
+ SN65DSI84
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-ti-sn65dsi83-fixes-v2-1-ebc4c3fe29b6@geanix.com>
+Message-Id: <20260715-ti-sn65dsi83-fixes-v2-3-ebc4c3fe29b6@geanix.com>
 References: <20260715-ti-sn65dsi83-fixes-v2-0-ebc4c3fe29b6@geanix.com>
 In-Reply-To: <20260715-ti-sn65dsi83-fixes-v2-0-ebc4c3fe29b6@geanix.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,13 +49,13 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Linus Walleij <linusw@kernel.org>, 
  Frieder Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>
 Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784121041; l=3546;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784121041; l=3800;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=IYOu9ByE0D3xpXZcX73ITGOqwyqENpPSB8q5qtN4R8c=;
- b=x5qV3xl8KnTmqhftnOukNeNC3aRoGFMiTHpo57aJRd6b81UH8RbcAgh6YMUFuo4bsaDIt7Pc4
- iCz5SC6kfVWD5rvZQJeWTlqhdM4Fb3xZ8aprr9grwq5Mto83x1pJmAz
+ bh=h9dIMQP0Tsm18TrsOGbqn761cfKdFt6oxzQblqsWEuU=;
+ b=X9AfY8W9zOBkz71exGMXnsh6DfewD/dqZAHpYy7UPfG/j0ptJEsga/8KiEFt5tUni3lLBFzsP
+ eU8kz7BY17cB+5MiuIETZr5kcqcEjE59aII1mY1TexO0tftF5gij8mx
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,103 +73,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Locking PLL requires the DSI HS clock to be running, which it might not be
-in probe(), but should be in atomic_enable().
+This adds support for using SN65DSI84 in single-link mode with output to
+LVDS Channel B.
 
-This resolves issues like this:
-
-sn65dsi83 1-002c: failed to lock PLL, ret=-110
-sn65dsi83 1-002c: Unexpected link status 0x01
-sn65dsi83 1-002c: Unexpected link status 0x01
-sn65dsi83 1-002c: reset the pipe
-
-as seen with nwl-dsi bridge and others.
-
-This is the same issue as addressed in the patch by Gary Bisson [1],
-but changing the ti-sn65dsi83 driver instead, so we don't have to change
-all other drivers that could potentially be used with this chip.
-
-[1] https://lore.kernel.org/all/20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com/
-
-Fixes: ceb515ba29ba ("drm/bridge: ti-sn65dsi83: Add TI SN65DSI83 and SN65DSI84 driver")
-Cc: stable@vger.kernel.org
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 31 +++++++++++++++----------------
- 1 file changed, 15 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c | 34 +++++++++++++++++++++++-----------
+ 1 file changed, 23 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index 42b451432bbb..b4b220eee790 100644
+index 7e73035d7798..02ae2b8179b0 100644
 --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
 +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -530,7 +530,6 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
- 	bool test_pattern = sn65dsi83_test_pattern;
- 	bool lvds_format_24bpp;
- 	bool lvds_format_jeida;
--	unsigned int pval;
- 	__le16 le16val;
- 	u16 val;
- 	int ret;
-@@ -680,26 +679,12 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
- 	regmap_write(ctx->regmap, REG_VID_CHA_TEST_PATTERN,
- 		     test_pattern ? REG_VID_CHA_TEST_PATTERN_EN : 0);
- 
--	/* Enable PLL */
--	regmap_write(ctx->regmap, REG_RC_PLL_EN, REG_RC_PLL_EN_PLL_EN);
--	usleep_range(3000, 4000);
--	ret = regmap_read_poll_timeout(ctx->regmap, REG_RC_LVDS_PLL, pval,
--				       pval & REG_RC_LVDS_PLL_PLL_EN_STAT,
--				       1000, 100000);
--	if (ret) {
--		dev_err(ctx->dev, "failed to lock PLL, ret=%i\n", ret);
--		/* On failure, disable PLL again and exit. */
--		regmap_write(ctx->regmap, REG_RC_PLL_EN, 0x00);
--		goto err_add_action;
--	}
--
- 	/* Trigger reset after CSR register update. */
- 	regmap_write(ctx->regmap, REG_RC_RESET, REG_RC_RESET_SOFT_RESET);
- 
- 	/* Wait for 10ms after soft reset as specified in datasheet */
- 	usleep_range(10000, 12000);
- 
--err_add_action:
- 	devm_add_action(ctx->dev, sn65dsi83_release_resources, ctx);
- err_exit:
- 	drm_bridge_exit(idx);
-@@ -710,11 +695,24 @@ static void sn65dsi83_atomic_enable(struct drm_bridge *bridge,
+@@ -11,6 +11,8 @@
+  *   = 1x Single-link DSI ~ 2x Single-link or 1x Dual-link LVDS
+  *   - Supported
+  *   - Dual-link LVDS mode tested
++ *   - Single-link to LVDS Channel A tested
++ *   - Single-link to LVDS Channel B tested
+  *   - 2x Single-link LVDS mode unsupported
+  *     (should be easy to add by someone who has the HW)
+  * - SN65DSI85
+@@ -162,7 +164,7 @@ struct sn65dsi83 {
+ 	struct gpio_desc		*enable_gpio;
+ 	struct regulator		*vcc;
+ 	bool				lvds_dual_link;
+-	bool				lvds_dual_link_even_odd_swap;
++	bool				lvds_channel_swap;
+ 	int				lvds_vod_swing_conf[2];
+ 	int				lvds_term_conf[2];
+ 	int				irq;
+@@ -642,7 +644,7 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
+ 			REG_LVDS_VCOM_CHA_LVDS_VOD_SWING(ctx->lvds_vod_swing_conf[CHANNEL_A]) |
+ 			REG_LVDS_VCOM_CHB_LVDS_VOD_SWING(ctx->lvds_vod_swing_conf[CHANNEL_B]));
+ 	regmap_write(ctx->regmap, REG_LVDS_LANE,
+-		     (ctx->lvds_dual_link_even_odd_swap ?
++		     (ctx->lvds_channel_swap ?
+ 		      REG_LVDS_LANE_EVEN_ODD_SWAP : 0) |
+ 		     (ctx->lvds_term_conf[CHANNEL_A] ?
+ 			  REG_LVDS_LANE_CHA_LVDS_TERM : 0) |
+@@ -893,6 +895,7 @@ static int sn65dsi83_parse_dt(struct sn65dsi83 *ctx, enum sn65dsi83_model model)
  {
- 	struct sn65dsi83 *ctx = bridge_to_sn65dsi83(bridge);
- 	unsigned int pval;
--	int idx;
-+	int idx, ret;
+ 	struct drm_bridge *panel_bridge;
+ 	struct device *dev = ctx->dev;
++	u32 panel_port = 2;
+ 	int ret;
  
- 	if (!drm_bridge_enter(bridge, &idx))
- 		return;
+ 	ret = sn65dsi83_parse_lvds_endpoint(ctx, CHANNEL_A);
+@@ -904,29 +907,38 @@ static int sn65dsi83_parse_dt(struct sn65dsi83 *ctx, enum sn65dsi83_model model)
+ 		return ret;
  
-+	/* Enable PLL */
-+	regmap_write(ctx->regmap, REG_RC_PLL_EN, REG_RC_PLL_EN_PLL_EN);
-+	usleep_range(3000, 4000);
-+	ret = regmap_read_poll_timeout(ctx->regmap, REG_RC_LVDS_PLL, pval,
-+				       pval & REG_RC_LVDS_PLL_PLL_EN_STAT,
-+				       1000, 100000);
-+	if (ret) {
-+		dev_err(ctx->dev, "failed to lock PLL, ret=%i\n", ret);
-+		/* On failure, disable PLL again and exit. */
-+		regmap_write(ctx->regmap, REG_RC_PLL_EN, 0x00);
-+		goto err_exit;
-+	}
-+
- 	/* Clear all errors that got asserted during initialization. */
- 	regmap_read(ctx->regmap, REG_IRQ_STAT, &pval);
- 	regmap_write(ctx->regmap, REG_IRQ_STAT, pval);
-@@ -734,6 +732,7 @@ static void sn65dsi83_atomic_enable(struct drm_bridge *bridge,
- 		sn65dsi83_monitor_start(ctx);
+ 	ctx->lvds_dual_link = false;
+-	ctx->lvds_dual_link_even_odd_swap = false;
++	ctx->lvds_channel_swap = false;
+ 	if (model != MODEL_SN65DSI83) {
+-		struct device_node *port2, *port3;
++		struct device_node *port0, *port1, *port2, *port3;
+ 		int dual_link;
+ 
++		port0 = of_graph_get_port_by_id(dev->of_node, 0);
++		port1 = of_graph_get_port_by_id(dev->of_node, 1);
+ 		port2 = of_graph_get_port_by_id(dev->of_node, 2);
+ 		port3 = of_graph_get_port_by_id(dev->of_node, 3);
+ 		dual_link = drm_of_lvds_get_dual_link_pixel_order(port2, port3);
+-		of_node_put(port2);
+-		of_node_put(port3);
+ 
+ 		if (dual_link == DRM_LVDS_DUAL_LINK_ODD_EVEN_PIXELS) {
+-			ctx->lvds_dual_link = true;
+ 			/* Odd pixels to LVDS Channel A, even pixels to B */
+-			ctx->lvds_dual_link_even_odd_swap = false;
+-		} else if (dual_link == DRM_LVDS_DUAL_LINK_EVEN_ODD_PIXELS) {
+ 			ctx->lvds_dual_link = true;
++		} else if (dual_link == DRM_LVDS_DUAL_LINK_EVEN_ODD_PIXELS) {
+ 			/* Even pixels to LVDS Channel A, odd pixels to B */
+-			ctx->lvds_dual_link_even_odd_swap = true;
++			ctx->lvds_dual_link = true;
++			ctx->lvds_channel_swap = true;
++		} else if (port0 && !port1 && port2 && !port3) {
++			/* DSI Channel A to LVDS Channel A */
++		} else if (port0 && !port1 && !port2 && port3) {
++			/* DSI Channel A to LVDS Channel B */
++			ctx->lvds_channel_swap = true;
++			panel_port = 3;
+ 		}
++		of_node_put(port0);
++		of_node_put(port1);
++		of_node_put(port2);
++		of_node_put(port3);
  	}
  
-+err_exit:
- 	drm_bridge_exit(idx);
- }
+-	panel_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 2, 0);
++	panel_bridge = devm_drm_of_get_bridge(dev, dev->of_node, panel_port, 0);
+ 	if (IS_ERR(panel_bridge))
+ 		return dev_err_probe(dev, PTR_ERR(panel_bridge), "Failed to get panel bridge\n");
  
 
 -- 
