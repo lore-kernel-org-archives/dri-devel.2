@@ -4,44 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5033C44501
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 21:18:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0EB8C4450A
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 21:41:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E5ED10F16C;
-	Wed, 15 Jul 2026 21:18:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1376D10E1EC;
+	Wed, 15 Jul 2026 21:41:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YXUTWx4V";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="UQfi+QEH";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9V3Zl+Vr";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FkbjKIrS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tAp/8rqL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C1F510F16C
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 21:18:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B5BF46001D;
- Wed, 15 Jul 2026 21:18:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82FC91F000E9;
- Wed, 15 Jul 2026 21:18:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784150285;
- bh=8fyVFWEqwMqr6M9QCbQ4DwBrZz9sCVMK25CzJB5p8B4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YXUTWx4Vo4AxHZmcSKxXDLPvFDqpWkmBk/5aO4C4a0RDtnSuB8adahfV1PIMeLjuG
- LFMwOzkkZ6utXVBxiakt4+pk3vFjNRLdMj4tNJyM9nXXLTryPEdwZq7FtpJFubceGh
- wRyFDZ9DJusPlvCHBRlfNyqrZ+uBSo0cYlkfFXIosXeHrRkMaoO1pqg8rEmU9Br1IA
- HADU4LQNokY1XRuwLBvn4DXdDYg2NXMIieCmXZbsCuOhkz4xMI8YehE9TZnwMOq3EN
- g0Vym+xeG5s6GexfwlkqjlpIrfDao5QIAvE9D2cHpe/4YyefH4Yl3EhcA4bTddd1C6
- vdoIbakvj3sKg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 2/3] samples: rust: add Rust serial device bus
- sample device driver
-To: "Markus Probst" <markus.probst@posteo.de>
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260715-rust_serdev-v14-2-b4ed5c93606f@posteo.de>
-References: <20260715-rust_serdev-v14-0-b4ed5c93606f@posteo.de>
- <20260715-rust_serdev-v14-2-b4ed5c93606f@posteo.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 21:18:04 +0000
-Message-Id: <20260715211804.82FC91F000E9@smtp.kernel.org>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE40910E305
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 21:41:07 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F06483E33;
+ Wed, 15 Jul 2026 21:41:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784151666; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yYMKplsCkgS/AgLoG7aspJHYLX0DgYIKmuJDfJKj+XI=;
+ b=UQfi+QEHXnYWPHZus5KVQa5kmEvq+4jotF+eGbjyiYnFEmKxOF4WQOOSAodzuA1XDVlrei
+ ClluRDvLnJ9epgPd/w2JVLEmWHGwir9f//2KXL7cK9Wr30ptd7qVv/Br6qbHpZ0RLWFNBR
+ 0kZ19PcXyaFg1adKVrh7VbTkDO1xSx4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784151666;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yYMKplsCkgS/AgLoG7aspJHYLX0DgYIKmuJDfJKj+XI=;
+ b=9V3Zl+Vrvvjfsi7HybGde6vSyz8L0OlELcI33IJmbwmkDbMebH8Tb0WI/mugwnHWj4vxkK
+ DOcK9MJaUoVrhrBA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784151665; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yYMKplsCkgS/AgLoG7aspJHYLX0DgYIKmuJDfJKj+XI=;
+ b=FkbjKIrSBNYrrrKfZ1aju1sQOlBhHzR3cAqpKZQAbdMgo8KSjqP60nmT7I6fnMjFt7GSGw
+ mJ0xhXXwzoFQQs7+wMf/Nv1ceyp9d8yJau7A6EAGVkspS+53a+EwOKgQrrwzj724+LU+Tx
+ TfKFB6e39YYvBj0+VcwQpzD1xaHY+BQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784151665;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yYMKplsCkgS/AgLoG7aspJHYLX0DgYIKmuJDfJKj+XI=;
+ b=tAp/8rqLVWiKjDyjyu3wrOHjervyUuCazr/dg87LPi5g3QxP253MkMOFgFCxkS6l2eCU8J
+ YZcwTFqQMjpAbqBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DED92779AD;
+ Wed, 15 Jul 2026 21:41:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id +Ii7Mm7+V2o4cQAAD6G6ig
+ (envelope-from <pfalcato@suse.de>); Wed, 15 Jul 2026 21:41:02 +0000
+Date: Wed, 15 Jul 2026 22:41:01 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: Yury Norov <ynorov@nvidia.com>
+Cc: Eliot Courtney <ecourtney@nvidia.com>, 
+ Greg KH <gregkh@linuxfoundation.org>, Burak Emir <bqe@google.com>,
+ John Hubbard <jhubbard@nvidia.com>, 
+ Alice Ryhl <aliceryhl@google.com>, "Liam R . Howlett" <liam@infradead.org>, 
+ Andrew Ballance <andrewjballance@gmail.com>,
+ Matthew Wilcox <willy@infradead.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>, 
+ =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Boqun Feng <boqun@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Gary Guo <gary@garyguo.net>,
+ Miguel Ojeda <ojeda@kernel.org>, 
+ Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Simona Vetter <simona@ffwll.ch>,
+ Tamir Duberstein <tamird@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
+ Trevor Gross <tmgross@umich.edu>, 
+ Yury Norov <yury.norov@gmail.com>, Zhi Wang <zhiw@nvidia.com>,
+ maple-tree@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance for
+ region allocations
+Message-ID: <alf1lUH0EDf3CRMl@pedro-suse.lan>
+References: <20260711063602.426311-1-ynorov@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260711063602.426311-1-ynorov@nvidia.com>
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; MISSING_XM_UA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,protonmail.com];
+ MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TO_DN_SOME(0.00)[]; RCPT_COUNT_TWELVE(0.00)[32];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLq475o4sqxnbi6ha6okxtmkb4)];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[nvidia.com,linuxfoundation.org,google.com,infradead.org,gmail.com,kernel.org,protonmail.com,collabora.com,garyguo.net,onurozkan.dev,ffwll.ch,umich.edu,lists.infradead.org,vger.kernel.org,lists.linux.dev,lists.freedesktop.org];
+ TAGGED_RCPT(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[pedro-suse.lan:mid,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,139 +127,64 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] The `remove_callback` function in the Rust `serdev` abstraction fa=
-ils to free the driver's private data (`PrivateData`), leading to a memory =
-leak when the device is unbound.
-- [Medium] The `receive` callback returns the number of bytes written to th=
-e Tx buffer rather than the number of bytes consumed from the Rx buffer, wh=
-ich can permanently stall the TTY Rx path.
-- [Low] The driver queries the non-standard device tree property `baudrate`=
- instead of the standard `current-speed` to configure the serial speed.
-- [Low] The driver registers an ACPI ID table but this behavior is entirely=
- omitted from the commit message.
---
+On Sat, Jul 11, 2026 at 02:36:01AM -0400, Yury Norov wrote:
+> Compare the cost of allocating and freeing variable-sized regions using
+> a bitmap, IDA and a Maple Tree. All implementations process the same
+> randomly generated sequence of region sizes, ranging from 1 to 32 entries,
+> until the configured capacity is exhausted.
+> 
+> Run the benchmark at several capacities to show how the approaches
+> scale. Report allocation and free times separately because bitmap,
+> IDA and Maple Tree removal have substantially different costs.
+> 
+> On x86/kvm, the output example is:
+> 
+> type       alloc (ns)      free (ns)   capacity   memory (B)
+> bitmap      179573071         342105    1000000       125000
+> IDA          46555636       33931498    1000000       134864
+> maple        18629665       19741396    1000000      1548304
+> bitmap        1630912          30933     100000        12504
+> IDA           6144785        3354590     100000        14288
+> maple         1745026        1825032     100000       155408
+> bitmap          28448           3374      10000         1256
+> IDA            418978         333641      10000         1872
+> maple          185398         211138      10000        15632
+> bitmap           2253            610       1000          128
+> IDA             42755          36432       1000          144
+> maple           19728          23474       1000         1552
+> 
 
---- Patch [2]: [PATCH v14 2/3] samples: rust: add Rust serial device bus sa=
-mple device driver ---
-commit 119f675ea28625315fe04a8ca0cdd59f9d0f26bc
-Author: Markus Probst <markus.probst@posteo.de>
+I don't understand the comparison. bitmap, IDA and maple are
+completely different data structures for completely different purposes.
 
-samples: rust: add Rust serial device bus sample device driver
-   =20
-Add a sample Rust serial device bus device driver illustrating the usage
-of the serial device bus abstractions.
+1) IDA is 16 bytes when empty, maple is 16 bytes when empty, bitmap
+is $size bytes
+2) bitmap is statically sized, IDA and maple have to deal with actual
+allocation and freeing of memory
+3) xarray and maple (especially maple) are optimized for RCU usage and
+have different tradeoffs
+4) IDA does not support ranges
+5) xarray (the underlying data structure for IDA) does not support ranges
+in any optimal way
+6) maple is not optimized for 1-sized ranges, nor ID allocation; it
+actually stores data, so instead of 1 bit per index you get 8 whole
+bytes.
+7) maple and IDA both handle locking implicitly
 
-> This drivers probes through either a match of device / driver name or a
-> match within the OF ID table.
+There are also other pressing questions about the benchmark itself:
+it's pretty much the ideal scenario for bitmap. doing the find in
+bitmap is essentially testing how far the CPU can speculate, and how
+large the cache is. It's pretty darn large on modern hardware. Since you
+never actually free the ranges in any way, every bitmap branch should predict
+extremely well. Fragmentation in the bitmap can very quickly turn into a
+nightmare, while maple will eat it up just fine.
 
-[Severity: Low]
-Does this description omit the ACPI ID table?
+These are very different data structures and picking between them requires
+understanding all the tradeoffs. I don't think this benchmark helps with
+that.
 
-Looking at ACPI_TABLE in rust_driver_serdev.rs, the driver also registers an
-ACPI ID table for matching:
-
-kernel::acpi_device_table!(
-    ACPI_TABLE,
-    MODULE_ACPI_TABLE,
-    <SampleDriver as serdev::Driver>::IdInfo,
-    [(acpi::DeviceId::new(c"LNUXBEEF"), ())]
-);
-
-Could the commit message be updated to mention the ACPI matching behavior as
-well?
-
-> diff --git a/samples/rust/rust_driver_serdev.rs b/samples/rust/rust_drive=
-r_serdev.rs
-> new file mode 100644
-> index 0000000000000..a12b1412db30c
-> --- /dev/null
-> +++ b/samples/rust/rust_driver_serdev.rs
-> @@ -0,0 +1,90 @@
-[ ... ]
-> +    fn probe<'bound>(
-> +        sdev: &'bound serdev::Device<Core<'_>>,
-> +        _info: Option<&'bound Self::IdInfo>,
-> +    ) -> impl PinInit<Self, Error> + 'bound {
-> +        let dev =3D sdev.as_ref();
-> +
-> +        dev_dbg!(dev, "Probe Rust Serial device bus device driver sample=
-.\n");
-> +
-> +        if sdev
-> +            .set_baudrate(
-> +                dev.fwnode()
-> +                    .and_then(|fwnode| fwnode.property_read(c"baudrate")=
-.optional())
-
-[Severity: Low]
-Does this code use an incorrect, non-standard device tree property?
-
-It looks like it queries c"baudrate" instead of the standard c"current-spee=
-d"
-property, which could cause it to fail to configure the speed on platforms
-compliant with standard bindings.
-
-> +                    .unwrap_or(115200),
-> +            )
-> +            .is_err()
-> +        {
-> +            return Err(EINVAL);
-> +        }
-> +        sdev.set_flow_control(false);
-> +        sdev.set_parity(serdev::Parity::None)?;
-> +
-> +        Ok(Self { sdev: sdev.into() })
-> +    }
-> +
-> +    fn receive<'bound>(
-> +        sdev: &'bound serdev::Device<Bound>,
-> +        _this: Pin<&Self>,
-> +        data: &[u8],
-> +    ) -> usize {
-> +        sdev.write(data).unwrap_or_default() as usize
-
-[Severity: Medium]
-Could this permanently stall the TTY Rx path?
-
-The receive callback appears to return the number of bytes written to the
-Tx buffer rather than the number of bytes consumed from the Rx buffer.
-
-If the Tx buffer is full, sdev.write() returns 0, and the TTY layer will
-stop pushing data. Without a mechanism to wake up the Rx path when Tx space
-becomes available, does this permanently stall the receiver?
-
-> +    }
-> +}
-
-I also noticed an issue in rust/kernel/serdev.rs during driver unbind:
-
-rust/kernel/serdev.rs:remove_callback() {
-    ...
-    let private_data =3D unsafe { sdev.as_ref().drvdata_borrow::<PrivateDat=
-a<'_, T>>() };
-
-    // SAFETY: No one has exclusive access to private_data.driver.
-    let data =3D unsafe { &*private_data.driver.get() };
-    ...
-    T::unbind(sdev, data_pinned);
-}
-
-[Severity: High]
-Does this code leak the driver's private data?
-
-The remove_callback() function appears to fail to free PrivateData because =
-it
-uses drvdata_borrow() instead of drvdata_obtain() on the teardown path, whi=
-ch
-would take ownership back and allow the driver data allocation to be dropped
-when the device is unbound.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-rust_serde=
-v-v14-0-b4ed5c93606f@posteo.de?part=3D2
+-- 
+Pedro
