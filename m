@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D881FC44507
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 08:52:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C7E3C44507
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 08:52:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D48810EF63;
-	Wed, 15 Jul 2026 08:52:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B837110EF6C;
+	Wed, 15 Jul 2026 08:52:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="lB80sQGg";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="UktgJmLN";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7DA910EF63
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 08:52:28 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F42310EF66
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 08:52:31 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 8BD661A0FFC;
- Wed, 15 Jul 2026 08:52:27 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 975A5C2B9CC;
+ Wed, 15 Jul 2026 08:52:46 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 5F2C76035C;
- Wed, 15 Jul 2026 08:52:27 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id BC0826035C;
+ Wed, 15 Jul 2026 08:52:29 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 654F311BD3AAD; 
- Wed, 15 Jul 2026 10:52:23 +0200 (CEST)
+ with ESMTPSA id 035F611BD3AD3; 
+ Wed, 15 Jul 2026 10:52:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1784105546; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1784105548; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=+L3RNfT2DitNjOhps6faEinWiaF7NzwORWeYXgY5pMA=;
- b=lB80sQGg8roxFCLxcnYuDCandaP7aIV4BTp7KejC+pfKXaaCag8YXUMfqZBUCGTDz7Yeo7
- NYS35ndYkBzINK5eP6T5bNrdRcOw41FLIl+/30lG3LNXcN8Manwh8lZ/MFTrwQx1Xrt7QP
- dz5WQnetKve/U3ZaIq4VcedN42lmVAn8Q1IVMt5XdsyTnoaAkJgTS4glYxIO8etbogX8rv
- yQQ+P7NXgp898r1G0itrkur1dtzwuA1FWG7tplOXO76Dt8S0anefZTtkJ3KzNphPoh9Svx
- 8n3KageUVUBMVRtp5zVb3S8QQWefDI4Q+xGcb/WBHoRLG2BqsSbgt7FvouwZLQ==
+ bh=mAxNHnURgECiVgbbdE4OlSzC0AXpBOq2TdlBOOqCMVw=;
+ b=UktgJmLN1DSChEyr77+mRDqvR4VKDfZLyYQrRu/z+86zqysEZiCgL3BeDKTCimSjQKYQSs
+ 3bNwF3D6vjxkFAT22q+sVtw5HQ0KQTvxpUPjNEzcK5lY9/nBwe0h/9XIRShmjtMF8yKehG
+ +9lf2y8T4YNXth34t9snppDtrVxN3ZEnLiycLKJS17A7alr5FSEanPJopBuyLsJvCVzkyX
+ 2Uzw7pJaZ/Y+IkP+v53UgcBU+v70X0oIYwphU8FVfh5EN3zezqVb7WTlNuVyIUspUXJAXy
+ 8CWabKPlmVtaKrgiXMrvtnnEy2xEZVUwtNazsyKm0McW9PbkkT9uoZEqtavhJQ==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 1/2] drm/bridge: ti-sn65dsi83: Support LVDS Channel B
- on SN65DSI84
+Subject: Re: [PATCH 2/2] drm/bridge: ti-sn65dsi83: Fix problem with
+ premature PLL locking
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260711-ti-sn65dsi83-fixes-v1-1-d85eb5342b98@geanix.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Esben Haabendal <esben@geanix.com>, Gary Bisson <bisson.gary@gmail.com>
+In-Reply-To: <20260711-ti-sn65dsi83-fixes-v1-2-d85eb5342b98@geanix.com>
 References: <20260711-ti-sn65dsi83-fixes-v1-0-d85eb5342b98@geanix.com>
- <20260711-ti-sn65dsi83-fixes-v1-1-d85eb5342b98@geanix.com>
+ <20260711-ti-sn65dsi83-fixes-v1-2-d85eb5342b98@geanix.com>
 Date: Wed, 15 Jul 2026 10:52:18 +0200
-Message-Id: <178410553812.253594.14966104882062373528.b4-review@b4>
+Message-Id: <178410553814.253594.6153852459811911516.b4-review@b4>
 X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,37 +71,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 11 Jul 2026 13:51:14 +0200, Esben Haabendal <esben@geanix.com> wrote:
+On Sat, 11 Jul 2026 13:51:15 +0200, Esben Haabendal <esben@geanix.com> wrote:
 
 Hi Esben,
 
->
-> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> index e6dbe51d0dba..b11fbeb71229 100644
-> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> @@ -11,6 +11,8 @@
->   *   = 1x Single-link DSI ~ 2x Single-link or 1x Dual-link LVDS
->   *   - Supported
->   *   - Dual-link LVDS mode tested
-> + *   - Single-link to LVDS Channel A tested.
-> + *   - Single-link to LVDS Channel B tested.
++Cc Gary
 
-Small nit: no '.' at the end of the line, as for other lines in this list.
+> [...]
+> 
+> This is the same issue as addressed in the patch by Gary Bisson [1],
+> but changing the ti-sn65dsi83 driver instead, so we don't have to change
+> all other drivers that could potentially be used with this chip.
+> 
+> [1] https://lore.kernel.org/all/20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com/
 
-> @@ -904,29 +907,40 @@ static int sn65dsi83_parse_dt(struct sn65dsi83 *ctx, enum sn65dsi83_model model)
-> [ ... skip 26 lines ... ]
-> -			ctx->lvds_dual_link_even_odd_swap = true;
-> +			ctx->lvds_dual_link = true;
-> +			ctx->lvds_channel_swap = true;
-> +		} else if (port0 && !port1 && port2 && !port3) {
-> +			/* DSI Channel A to LVDS Channel A */
-> +			pr_warn("%s: DSI Channel A to LVDS Channel A\n", __func__);
+AFAICU your patch would replace Gary's one. Also Gary's patch has been
+reported to introduce regressions but it hasn't been reverted yet. Can you
+reply to that thread mentioning your patch, so everybody in the discussion
+is aware of your alternative proposal?
 
-No readon to warn here. At most a dev_dbg() can fit here, but I'd rather
-just print nothing.
+> 
+> Signed-off-by: Esben Haabendal <esben@geanix.com>
 
-Otherwise looks good.
+If it's a fix it should have a 'Fixes:' tag and a 'Cc: stable' line
+(https://docs.kernel.org/process/submitting-patches.html) and it should be
+the first patch in the series, to facilitate cherry-picking on stable
+branches.
 
 Luca
 
