@@ -4,49 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F5BCC44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 01:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7135C44508
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 01:56:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2DC610E145;
-	Wed, 15 Jul 2026 01:54:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9C1710E6ED;
+	Wed, 15 Jul 2026 01:56:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="vJP183/7";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="pfomCif5";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Sgd7kXKM";
 	dkim-atps=neutral
-Received: from out28-218.mail.aliyun.com (out28-218.mail.aliyun.com
- [115.124.28.218])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D78310E10B
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 01:54:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1784080485; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
- bh=BCOJcC3NiDauAvRQ+0BnCqTyDC9lADSH70VXTDXktj0=;
- b=vJP183/76uq/TO2dD7e0p7CYdDydELWNj5XccBWfRpQoU0fMey1dwpMTZ2NbjFat1SFFH+zrUlij1S2iEDXLbezK8k3KeCiIPaWnweda/u0f4qOb9bifTTsa8Grg3rnhgH5fdwNiaue3bhY939+ZpiLTYgU/QliJ98O5ucWbJaD/ucAnZEliYUJoL6yERveAKep/8mSxMWkjQGUscQox1XgehIV4ACdAh0GOIC+tarHQW009poZKJV+v4nQJDiJEX2FUvMYPBf6QxEyoLWkP/g+XaT2MXgG/aZiKr/u1FgkkjWU1ZeUJZFOeshO0PYl3I+HEZddOPI3zsFWvXfunXA==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436259|-1; CH=green;
- DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.00550697-0.000151559-0.994341;
- FP=7600378645421154876|0|0|0|0|-1|-1|-1; HT=maildocker-contentspam033068016216;
- MF=syyang@lontium.com; NM=1; PH=DS; RN=24; RT=24; SR=0;
- TI=SMTPD_---.iLU3ylL_1784080481; 
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
- fp:SMTPD_---.iLU3ylL_1784080481 cluster:ay29) by smtp.aliyun-inc.com;
- Wed, 15 Jul 2026 09:54:42 +0800
-From: syyang@lontium.com
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com,
- xbpeng@lontium.com, qdchen@lontium.com, llzhang@lontium.com,
- hfxia@lontium.com, Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v17 0/2] Add Lontium LT7911EXC eDP to MIPI DSI bridge
-Date: Wed, 15 Jul 2026 09:54:36 +0800
-Message-Id: <20260715015438.2770155-1-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A1DA10E6ED
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 01:56:53 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66F0IXg32049685
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 01:56:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ j1NEzi3ll4gdZ52BqXNdruNPx4sABY2QC7pNcTut8oo=; b=pfomCif5gd+3Hlkb
+ cZi2zrSktGeSpgnOcDMatkNWKIO9zn0xlT/6s40IuHSxZDsquL6GVkpaMT0yF0Cn
+ KaUM4iMKDnNmQ7q7ei6l+HZfLpjvHJXzExx8Uy3fu80gcSU+PgSqp2q0n7W5R6DZ
+ 33EQdIkgGz/8KH2Nwwwfr0tparSSRrFLQuog26OGg1VEbIVdlA//rsnbDQN8FY91
+ sQZjUKCLivPX/lXJ3uPq2dJb7V7NOJDKztJa8b5Y7TmBoHpoiXR5EY+gRIXgbrZb
+ 0DNIR12GF/PmpHMG+GGJ3SqCpcJXVfWKda5nRj49qzzcbeyxOic5biBonrSUws2r
+ 21m7sQ==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fdwk30m4t-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 01:56:51 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-38de0739ab6so3131808a91.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 18:56:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1784080611; x=1784685411;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=j1NEzi3ll4gdZ52BqXNdruNPx4sABY2QC7pNcTut8oo=;
+ b=Sgd7kXKMoY4yVw9kGw2WkA85bCMWVDEGWx3kyrBbf84VUyZg8o0xkMpmzko0SxheVQ
+ mAm3i2awbinwZOWiJtQntSi/4jz2B/isMB6t2HaoSWruUB+KY9j996Km29iKsxcskqKf
+ K4mdbw4uwGjHc7Z1FsdRGJV96T1zVmhj9iSptOIGa+Py2zHngI39IBFqAQCVDZgd1Wod
+ VfGgvym3FGJEwIGH++yEcyNCXXF8lsBEkXntbgzqqEfGY2W6ODOzcQByA4KEuEBrDMD9
+ 9jbPWyoG3gmlMuqj7PZZq8UNqWCxNiebCldeoyNne0J9Di/F2Y53t2SruTd8WaYbA2Ki
+ su0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784080611; x=1784685411;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=j1NEzi3ll4gdZ52BqXNdruNPx4sABY2QC7pNcTut8oo=;
+ b=TLep4ImvCgC9kOMfGfr+axrAeGIk0ViDUwRoMzuohJF+2eDd/Y8KZNxb2So4sTUJ/O
+ mNsXUVnyRHXkPRRYFHBdFAX1BFoYiHDqZlYYIWq+R3pEWo46M1IdPbgjKHV9aus75WOW
+ aCJ4VRNmGcdn4IYZkIq9fJ6N7v7WApijezAO7estpxdRDdQaAf7vnylBdFPEHusYyNNi
+ 70Va3x3k+q05m4XkoEqlctsf4cUbo+sDxITx+Qkl+p92bRVXQ+gq2nvq3GU+6qF4YK06
+ 6arR1BK3V20Ag9w4XmNdkvXss2Y4s61kKFfp4tzjgqUsTlQmIjGRvBZLPQPZ/t05ot2D
+ VtPA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqNQxLJ8vYbSCmeCzaQ8kzfEuTScrTsgHR7GckKqNRO/f8g9Gl5d+sudMHgFAX31bCB9ThDVVD9oJo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyq3ty28ZkdP/8uWQcdmjiXKhpzyH6xTgwv2WIZVILeDpgYuURh
+ QxOrNsrLI3Lhy9J4cE34itzo67LdbrQtC9m/b39U5Yqg39w8YlBj9nzTvfsZ1ox1cxzrtIj5nNq
+ g/0a5B9LDkxhNhnhcxabB4p6yx/CzmTmuGaAnNihK/mB5REHIGHZRmq0fyIYxf5DMsK+f+RZHP8
+ WaHt41RA==
+X-Gm-Gg: AfdE7ck4475ZTfNTuaecPucGtm2bUTqMMawXxm4SBFTOPXv8O+H4ishkL9eH2p6yjyC
+ 2ucVtBS3pgyMvgbMWJ4CK/PaFydr6b9OX6wMs6hS343xHraWqgWnD2kcDG1HZ0RCneH1elUjfma
+ gXR/HAw2Xc2MGzcxEsC3PSfkOfygpnMBdOKrA/zaQXyeGWHgyFLycSXcQpTA6sjiCgGVrbrRR7g
+ MkgWZBOTxG76DWZTzdvwK24qhrbUmZYeLLjPo12gJ2VHV/3llA2mULXq8S60Wcz7G+pTldnjKFQ
+ Wym9iOcBKuDVuuIIDccQblgHfNttZ2XzCWZGnTGHAwUoV80TQTIx3uunTpcpUj3FOybV/dOGaw3
+ CkftMjJSInH2g7TdMTh39KL4jCPybpZWQchNX6ECig1eb346I+Jkz79CaRT+3ncXB1fP99DiAH6
+ f+KjAU
+X-Received: by 2002:a17:90b:4a04:b0:387:e0bb:5802 with SMTP id
+ 98e67ed59e1d1-38e2a12332amr946857a91.41.1784080610902; 
+ Tue, 14 Jul 2026 18:56:50 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a04:b0:387:e0bb:5802 with SMTP id
+ 98e67ed59e1d1-38e2a12332amr946835a91.41.1784080610432; 
+ Tue, 14 Jul 2026 18:56:50 -0700 (PDT)
+Received: from [10.133.33.197] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-38e1745a5acsm2245808a91.14.2026.07.14.18.56.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Jul 2026 18:56:50 -0700 (PDT)
+Message-ID: <e3cd4067-8c30-487d-a68b-b4cf625059e5@oss.qualcomm.com>
+Date: Wed, 15 Jul 2026 09:56:46 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: misc: qcom,fastrpc: Add Maili FastRPC
+ compatible
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260602-fastrpc-v2-1-67a55e22427b@oss.qualcomm.com>
+Content-Language: en-US
+From: Yijie Yang <yijie.yang@oss.qualcomm.com>
+In-Reply-To: <20260602-fastrpc-v2-1-67a55e22427b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Yc6NIQRf c=1 sm=1 tr=0 ts=6a56e8e4 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=XtIZyzpYV7b62ySdhoYA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: sFliAz6Ep8YUTa6rxa6wwIclntbsFmuk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE1MDAxNiBTYWx0ZWRfXyelfbf18NjaO
+ 4SGzp/STeiQrwTKOfEEKJyEZ+56rjjbobuwIkLj7gLq1loyCS9jTZFBkreVc1QfgMzwZo6ZUYsM
+ QxWT3lg/YfDJgq/LtZ0hfI9RLFdeQyQTonoHqQWKO9JLbeUy5ZDQva7KLBYFm09aCBYGMKsQ354
+ qWLm1nuHe39nNWFdDyFoH0grDgneJwVm1N2dPO6q6yP7E7ZQDNBGQmkS8v65Gkopj589a4B70O8
+ 6UPH20RjTWJGwdWeo+inGtEqX0y8OjAyhneGIm2xnnTCWLjOWOWmMLAYh8Xc3HVJebnxJFSPwPG
+ ZrrtnnwoLa4M55kXFBZqJsMxiCjXMrgrUc5IFgCHHKaIqhy74spj34yuSjfsQdtEz8Ye2yPcoIL
+ n6m9eRtalcP/Lg7raNhQPjSj/7wW55kUG2TwZTsFQVmT267TtosRLBXMZJc53cexnS2sclXbCfu
+ 7t0/aTp9a9e1i59UtLw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE1MDAxNiBTYWx0ZWRfX+7BA67bdWcRz
+ 0WVERUvOBngoMoSaCDL4x2dD1OLSf/uK8uqF4IVBQKp7c2AmjGh2bIRUlF8RjYDsLelXImmaOUH
+ F6FEjvu9cxj3nyLchwG5eWkLTu0GJCo=
+X-Proofpoint-GUID: sFliAz6Ep8YUTa6rxa6wwIclntbsFmuk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-15_01,2026-07-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0
+ impostorscore=0 adultscore=0 clxscore=1015 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607150016
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,240 +149,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sunyun Yang <syyang@lontium.com>
 
-The LT7911EXC is an I2C-controlled bridge that receives eDP1.4
-and output mipi dsi. This series introduces:
 
-- A device tree binding YAML file describing the hardware
-- A new DRM bridge driver implementing the basic functionality
+On 6/2/2026 2:51 PM, Yijie Yang wrote:
+> Document compatible string for the FastRPC interface on the Qualcomm Maili
+> SoC, which is compatible with the Qualcomm Kaanapali FastRPC and can
+> fallback to Kaanapali.
+> 
+> Signed-off-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Drop Assisted-by tag; no functional change.
+> - Link to v1: https://patch.msgid.link/20260525-fastrpc-v1-1-ae9add881952@oss.qualcomm.com
+> ---
+>   Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+> index 2876fdd7c6e6..afe52296bf1d 100644
+> --- a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+> +++ b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+> @@ -26,6 +26,7 @@ properties:
+>             - enum:
+>                 - qcom,glymur-fastrpc
+>                 - qcom,hawi-fastrpc
+> +              - qcom,maili-fastrpc
+>             - const: qcom,kaanapali-fastrpc
+>   
+>     label:
+> 
+> ---
+> base-commit: 550604d6c9b9efc8d068aff94dc301694a7afdee
+> change-id: 20260512-fastrpc-9f3b691f8e2d
+> 
+> Best regards,
+> --
+> Yijie Yang <yijie.yang@oss.qualcomm.com>
+> 
+Gentle ping: could you please applying this patch?
 
-Signed-off-by: Sunyun Yang<syyang@lontium.com>
----
-Change in v17:
-- dt-binding:
-- drm/bridge:
- 1. [High] devm leak and list corruption on panel rebind                                                  [sashiko-bot]
-           False positive. The -EBUSY guard at the top of host_attach() (line 527) rejects re-attach
-           when output_bridge is already set, so neither devm_drm_of_get_bridge() nor drm_bridge_add()
-           is reached on panel rebind.
- 2. [High] Dangling bridge.dev pointer                                                                     [sashiko-bot]
-           DRM bridge framework limitation. drm_bridge_remove() does not clear bridge.dev. All bridge
-           drivers using drm_kms_helper_hotplug_event() share this risk. Requires framework-level fix.
-           Triggering needs root sysfs access plus DRM driver unload simultaneously.
- 3. [Medium] output_bridge not cleared prevents re-attach                                                   [sashiko-bot]
-           Intentional. Same as cdns-dsi-core.c cdns_dsi_detach(). Clearing would
-           cause devm_drm_of_get_bridge() to leak on re-attach. DRM bridge framework does not support
-           dynamic chain reconfiguration. Panel rebind requires host driver reload.
- 4. [Low] Mutating downstream bridge's pre_enable_prev_first                                                [sashiko-bot]
-          Hardware constraint. DSI stream (0xe0b0) must be enabled after panel power-on. Safe because
-          transfer() is a stub — DCS commands are discarded, panel init is done by chip firmware.
-          Comment documents the rationale.
- 5. [Low] Unsynchronized removed read                                                                    [sashiko-bot]
-          Fixed. Now protected by ocm_lock (lines 372-375).
-- Link to v16: https://lore.kernel.org/all/20260714105828.2763677-1-syyang@lontium.com/
-
-Change in v16:
-- dt-binding:
- 1. [Low] Use standard generic DT node name
-          Renamed mipi-bridge@41 to bridge@41 per Devicetree spec for standard generic names.                 [sashiko-bot]
-- drm/bridge:
- 1. [High] Prevent devm_drm_of_get_bridge() devres leak in host_attach
-           Added -EBUSY guard to reject re-attach, preventing devm memory leak and use-after-free on          [sashiko-bot]
-           panel unbind/rebind.
- 2. [High] Fix double drm_bridge_remove() in lt7911exc_remove()                                               [sashiko-bot]
-           Removed the flawed list_empty() check that caused a second drm_bridge_remove() call,
-           leading to double mutex_destroy() and use-after-free.
- 3. [High] Clear upgrade flag before hotplug event                                                            [sashiko-bot]
-           Reordered to clear upgrade = false before drm_kms_helper_hotplug_event(), preventing modesets from
-           silently skipping hardware enable (0xe0b0) and causing black screen.
- 4. [Medium] Document pre_enable_prev_first override                                                           [sashiko-bot]
-             Added comment explaining the hardware constraint: DSI stream must be enabled after panel power-on.
-             The override is safe because transfer() is a stub — DCS commands are discarded and panel init is
-             handled by chip firmware.
- 5. [Medium] Guard hotplug with removed flag                                                                    [sashiko-bot]
-             Added !lt7911exc->removed check to prevent hotplug events during device removal.
- 6. [High] Use local variable for error handling                                                                [sashiko-bot]
-           Introduced local bridge variable for IS_ERR()/PTR_ERR() checks, ensuring output_bridge stays NULL on
-           failure so -EPROBE_DEFER retries are not blocked by the -EBUSY guard.
-- Link to v15: https://lore.kernel.org/all/20260714064822.2753289-1-syyang@lontium.com/
-
-Change in v15:
-- dt-binding:
-- drm/bridge:
- 1. Remove the Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> tag.
- 2. Adjust the design architecture of the chip's MIPI host and bridge.
- 3. remove devm_drm_panel_bridge_add_typed and drm_of_find_panel_or_bridge
- 4. Use REGCACHE_NONE to avoid cache inconsistency due to internal MCU modifying registers asynchronously
-- Link to v14: https://lore.kernel.org/all/20260529112928.873766-1-syyang@lontium.com/
-
-Change in v14:
-- dt-binding:
-- drm/bridge:
- 1. [High] AB-BA / self-deadlock between the bridge's ocm_lock and DRM modeset                             [sashiko-bot]
-    locks during hotplug notification. - fixed
- 2. [High] Freeing the panel bridge in lt7911exc_dsi_host_detach while it is still
-    attached to the DRM bridge chain causes a Use-After-Free. - fixed
-- Link to v13: https://lore.kernel.org/lkml/20260529094547.869919-1-syyang@lontium.com/
-
-Change in v13:
-- dt-binding:
-- drm/bridge:
- 1. [High] Dangling pointer created during MIPI DSI host detach if the downstream                           [sashiko-bot]
-           device is a bridge rather than a panel. - fixed
- 2. [High] Firmware upgrade CRC mismatch due to unpadded partial page writes.
-           - hardware erases the entire flash area into a default state of 0xff. When doing
-             a partial page short write，the total unwritten residual bytes on the physical
-             flash sector inherently retain their 0xff state. Therefore, no modification is required.
- 3. [High] Firmware upgrade workqueue accesses `bridge.dev` without ensuring the DRM device is alive,
-           leading to a Use-After-Free. - fixed
- 4. [High] Regmap page selector cache desynchronization after device reset causes firmware upgrade
-           commands to be routed to the wrong register page. - fixed
-- Link to v12: https://lore.kernel.org/lkml/20260525010545.9470-1-syyang@lontium.com/
-
-Change in v12:
-- dt-binding:
-- drm/bridge:
- 1. Move the cleanup work of drm_panel_bridge_remove() forward into lt7911exc_dsi_host_detach().                        [sashiko-bot]
- 2. Do not hold any lock during lt7911exc_reset().
-- Link to v11: https://lore.kernel.org/lkml/20260522015735.2833-1-syyang@lontium.com/
-
-Change in v11:
-- dt-binding:
-- drm/bridge:
- 1. Removed Reviewed-by, we would appreciate it if the maintainer could help review this.
- 2. Use devm_gpiod_get(,, GPIOD_OUT_HIGH) to fix the reset GPIO backpowering issue.                                       [sashiko-bot]
- 3. Fixed Use-After-Free vulnerability due to dynamic DRM bridge removal in DSI detach callback.
- 4. Fixed Use-After-Free of regmap during DRM teardown because firmware upgrade worker defeats removal safeguard.
- 5. Fixed firmware upgrade performs a hardware reset, causing silent loss of DRM state and a blank screen.
- 6. Use of kmalloc for a 64KB software buffer is susceptible to memory fragmentation failures - Fix by using kvmalloc
- 7. Use the 'lt7911exc->ocm_lock' mutex and the 'lt7911exc->upgrade' flag to resolve the race condition between
-    DRM atomic modeset and firmware upgrade.
- 8. Use the 'lt7911exc->upgrade_lock' mutex to prevent redundant upgrades.
- 9. Use the 'lt7911exc->removed' flag to prevent the driver from being triggered to upgrade during the unload process.
-- Link to v10: https://lore.kernel.org/lkml/20260519135816.26996-1-syyang@lontium.com/
-
-Change in v10:
-- dt-binding:
-- drm/bridge:
- 1. Fixed the firmware upgrade error paths to always clear the upgrade
-    flag before returning, including firmware size validation failures
-    and allocation failures.                                                                [sashiko-bot]
- 2. Added proper locking in lt7911exc_atomic_pre_enable() and
-    lt7911exc_atomic_post_disable() to serialize register accesses with the
-    firmware upgrade flow and avoid concurrent I2C transactions.
- 3. Added an exclusivity check in lt7911exc_dsi_host_attach() to reject multiple
-    downstream attachments and prevent repeated drm_bridge_add() calls and panel bridge leaks.
- 4. Reworked lt7911exc_firmware_store() to use mutex_trylock() so concurrent sysfs writers
-    immediately return -EBUSY instead of blocking behind an active firmware upgrade.
- 5. Updated the remove path to prevent new firmware upgrade work from being queued after
-    device removal by setting the upgrade state before cancelling the worker.
-- Link to v9: https://lore.kernel.org/lkml/20260519105019.22622-1-syyang@lontium.com/
-
-Change in v9:
-- dt-binding:
-- drm/bridge:
- 1. DSI transfer callback returns success for reads without populating                        [sashiko-bot]
-    the receive buffer, leaking uninitialized memory. - fixed it by
-    implementing  a strict whitelist mechanism.
- 2. DSI transfer callback polls for eDP video readiness before the
-    upstream encoder is enabled, guaranteeing a timeout. - removed
- 3. The driver attempts I2C transfers while the hardware is held in
-    physical reset. - fixed
- 4. Missing DRM_MIPI_DSI Kconfig dependency causes linker errors. - fixed
- 5. request_firmware is called while holding the hardware lock and
-    halting the MCU, risking a system pipeline stall. - fixed
- 6. Sleeping functions are called from atomic context in the DRM bridge callbacks. - fixed
- 7. lt7911exc_dsi_host_transfer bypasses the required MCU hardware halt sequence. - fixed by
-    internal firmware controls the panel initialization sequence and handles all MIPI
-    DSI command transmission.
-- Link to v8: https://lore.kernel.org/lkml/20260515080934.9870-1-syyang@lontium.com/
-
-Change in v8:
-- dt-binding:
-- drm/bridge:
- 1. Protect firmware upgrade and DRM bridge callback paths with ocm_lock.          [sashiko-bot]
- 2. Remove the hardware reset from the remove callback, and ensure that
-    all hardware reset operations are protected by ocm_lock.
- 3. crc reconstruction explicitly casts each byte to u32 before shifting
- 4. The display configuration is handled by the firmware, and the MIPI
-    DSI host registration issue has been fixed.
- 5. The batch register read/write operations have already been updated
-    to include return value checking.
- 6. The dev_err_probe() used outside of probe context has been fixed.
-- Link to v7: https://lore.kernel.org/lkml/20260512064013.40066-1-syyang@lontium.com/
-
-Change in v7:
-- dt-binding:
- 1. fix commit message typos(Receiver、signal)                            [sashiko-bot]
- 2. remove the ambiguity caused by "signal/dual".
-- drm/bridge:
- 1. using devm_regulator_get_enable avoids power leaks.                   [sashiko-bot]
- 2. set reset gpio is low after cutting off power in lt7911exc_remove function, avoid backpowering.
- 3. synchronous request_firmware() call cause a permanent probe failure if the driver is built-in,
-    probe executes before the root filesystem is mounted, which would cause this to fail with -ENOENT,
-    we have removed this functionality. Use trigger to upgrade.
- 4. add `depends on I2C` and `select REGMAP_I2C` in Kconfig.
- 5. add return value of `devm_drm_bridge_add()` in `probe()`.
- 6. add directly header files (linux/slab.h, linux/delay.h, linux/regulator/consumer.h)
-- Link to v6: https://lore.kernel.org/lkml/20260508134702.4713-1-syyang@lontium.com/
-
-Change in v6:
-- dt-binding:
-- drm/bridge:
- 1. use #define FW_FILE  "Lontium/lt7911exc_fw.bin" to match linux-firmware
-- Link to v5: https://lore.kernel.org/lkml/20260506013153.2240-1-syyang@lontium.com/
-
-Change in v5:
-- dt-binding:
-- drm/bridge:
- 1. Change "mipi" to "mipi dsi" in the commit message.     [Dmitry]
- 2. Change "eDP/MIPI" to "eDP/MIPI DSI" in Kconfig.
-- Link to v4: https://lore.kernel.org/lkml/20260430094612.3408174-1-syyang@lontium.com/
-
-Change in v4:
-- dt-binding:
- 1. Fix the missing spaces on the "subject".             [Krzysztof]
- 2. Fix the error descriptions for port@0 and port@1.
-- drm/bridge:
-- Link to v3: https://lore.kernel.org/lkml/20260429040541.3404116-1-syyang@lontium.com/
-
-Change in v3:
-- dt-binding:
-- drm/bridge:
- 1. already submit lt7911exc_fw.bin to linux-firmware.  [Dmitry]
- 2. remove lt7911exc_remove function.
- 3. drop  the "lontium, "  in lt7911exc_i2c_table.
-- Link to v2: https://lore.kernel.org/lkml/20260428063224.3316655-1-syyang@lontium.com/
-
-Change in v2:
-- dt-binding:
- 1. reset pins use active low.                        [Dmitry]
-- drm/bridge:
- 1. use atomic_* callbacks.                           [Quentin]
- 2. fix the incorrect formatting and spaces.
- 3. add the required header files.                    [Dmitry]
- 4. remove "enabled" flag.
- 5. remove *fw from the lt7911exc struct.
- 6. .max_register and .range_max use actual range.
- 7. regulator use bulk interface.
- 8. use dev_err_probe, devm_mutex_init and devm_drm_bridge_add.
- 9. Replace GPL v2 with GPL.
-- Link to v1: https://lore.kernel.org/lkml/20260420023354.1192642-1-syyang@lontium.com/
-
----
-Sunyun Yang (2):
-  dt-bindings: bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
-  drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
-
- .../display/bridge/lontium,lt7911exc.yaml     |  89 ++
- drivers/gpu/drm/bridge/Kconfig                |  17 +
- drivers/gpu/drm/bridge/Makefile               |   1 +
- drivers/gpu/drm/bridge/lontium-lt7911exc.c    | 787 ++++++++++++++++++
- 4 files changed, 894 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
- create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
-
---
-2.34.1
+-- 
+Best Regards,
+Yijie
 
