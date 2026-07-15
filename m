@@ -4,94 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91283C44501
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 19:13:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3720C44507
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 19:16:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5C5810F11C;
-	Wed, 15 Jul 2026 19:13:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5E5710F144;
+	Wed, 15 Jul 2026 19:16:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="U6ip6KVW";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="kYjS8uHy";
 	dkim-atps=neutral
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com
- [209.85.217.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8531410F11C
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 19:13:49 +0000 (UTC)
-Received: by mail-vs1-f50.google.com with SMTP id
- ada2fe7eead31-74019ed06aeso4504033137.3
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 12:13:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1784142828; x=1784747628;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=lquTBM9em4PBZzG4uURb4zgz590xHyH1vRdFq1gXwQU=;
- b=U6ip6KVWXHQbc413fi23UNnOKTiQQkC100SvFOcK/hKFCbZXW1pieLAcyzz4DriG10
- GgasxM07BwsAoZ4x6yLzHlPL89ss0eYqDBWFfseF+z9O71Yhq5RTkTTdR2DAox0Nvjpt
- Q05JmD9V3P7sb6qy4E/WXHWau/VrJL5XRZ3eE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784142828; x=1784747628;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=lquTBM9em4PBZzG4uURb4zgz590xHyH1vRdFq1gXwQU=;
- b=hpePrKeuz+qP9bu8ffkDlqzwVCQ71ujp3rEPRmZ4OtTUsyTAKU4inT70Zc7d/6QVxq
- hZ6sEW8l8H9RviPHmYKYHYJAdW9jyXHtiZMkib/4BVH0IwBWAISIcxQ0jMd6mE8Ivkvt
- dtq1afh//coD8Yg/JQzT7bfuKVkbjgcWB82m8HWIRh12SBGU0xylOIcC/T3bH86wcIlx
- /6lF3DQq5+xhploPaedUqFGixhuEjlSuEXTVMWYdXOCLF8RGO5Po8Zsh1Iw1imF5vtGk
- TQ1agTV0Ml6VPrL05dKkzGLvckFIhgS6WXT4OBG6hnt81A35VGnT+U60EYRNpoSe4m/O
- 0wJQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqDr0vTLFaMqoTvgxCVk//gDfokvNpsXmH4375ZbOGhNweYvrM4a5kjcQWF3MBF82hCoDKI4vB4Yfo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyPdmWPzslWpC5cBCNPzd4MgVK9ai/6L+OPKx5URzd5aqk52Oom
- nkL8BvnwUh9CYJ7I+yTyQuvIdX/bpbAhqQrGkTZlYxi6Q58y2h60qs9+mH1QF1a9ym5KtPc2ZxB
- QVl0=
-X-Gm-Gg: AfdE7ckGZVw+7+lhi2PmCA+yDVqwsjrWDnurVqP4hjrRwo8lddkB7tiKa0G30b8241B
- 7Ev29GqelLfQlluHaxGD8utstfhVbL6Zx6q35/evaOsheQLLMwjaxZOC3RVWntpj7mSoK/H7YFv
- pvsOGMOBQgYM8rFBbMRLhw+dJH5sh/Co2JMoK4n0Yke8C7u1AufjLrWQLIPpaG7Y1g7Me+Jcgps
- QUcTW1py1/jdHzvN1t/S3xfAYweCb+vesCttxU2zSpQAtTH1H5sOtB1xWoko0NeCjo1mjaQLTgm
- mK2qWzlyaF4kaKqDhpUp0T1Mhe6GusxsAmd9wpJxmery8rUt+MlCjjPMU6tFMlXwt/7Ffsh9Waj
- 04cb45qiCn0rgC1ztnVsT38ca+pp5kfEOlC8yXkm7WGGBvQAgezcBOWGDKolG/Wld2q9vcBgFRv
- XcfX5beI277i0EXi1E/T9vuT/Kc18SqzJH/+mckj1doqtcmAl0g7E=
-X-Received: by 2002:a05:6102:4425:b0:738:2a8c:736b with SMTP id
- ada2fe7eead31-7459a045858mr2636570137.20.1784142828195; 
- Wed, 15 Jul 2026 12:13:48 -0700 (PDT)
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com.
- [209.85.217.43]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-744d6a90d0csm12923656137.4.2026.07.15.12.13.46
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jul 2026 12:13:46 -0700 (PDT)
-Received: by mail-vs1-f43.google.com with SMTP id
- ada2fe7eead31-725cf9a923aso4722578137.0
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 12:13:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+Roa8B7kCzJkM2IMEShd6gCJirlBDfhTYEZvT2JcK1nKr6qVq1wwPqK8TMSNGkT4b9krM8Bn1IqXxIE=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:50a1:b0:740:4fd:1c40 with SMTP id
- ada2fe7eead31-7459a0d794dmr2852605137.25.1784142824330; Wed, 15 Jul 2026
- 12:13:44 -0700 (PDT)
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27F8C10F120
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 19:16:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784142993; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=LYcr0N8qbpdREd0byDKZ3MBm+lLW9I0Y9sk4UJyNU6hrgKqxD6dc96GZBh/zmhyMrhLhYs0lds4fo/RVR4DESodjeia2fOivhsi74WoKjl25INVLtk7Jcc915N9b+rDLG1T9pZJQJjInr5Zk0juvIDn/ZUcVpW1Tf1JdDfa86yE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1784142993;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=09JIm2bYrw4hSvnoipMr6olQgKBUeyKwwBq6wlZYhsg=; 
+ b=LCy4+XqYQbv511aYJOdVy6qU9FEkHnpwBJD60ExMUy94CrLPTW7jQdtGVhFwHnPEURtXajTxVpQGEBlLhY4zU0nzbB9JZggwhfCgsVsfsNM4KnLUDiCxIbIfx8AHAtGbUMi4gSU8obDlfHXLHRmAL69XjtWJuoDHQEcSXJGUZBU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+ dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784142993; 
+ s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=09JIm2bYrw4hSvnoipMr6olQgKBUeyKwwBq6wlZYhsg=;
+ b=kYjS8uHyB9w2WWbGcHw0EBAtbE+h+cUbFLCS9pyg/ddfz987xPANA7b2J2EGXeMG
+ XMi4oAKUWHtyoRXNW0h8ckyHkaw+al4s0TcarRkjfeIieHp+dbqeKwTKx5/HMmhW4Ld
+ l9DazjDh3mOWR8GbYA72dB9jbV1STjTOiO7drwKM=
+Received: by mx.zohomail.com with SMTPS id 1784142990210370.495977626671;
+ Wed, 15 Jul 2026 12:16:30 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+ id 0C8A6180820; Wed, 15 Jul 2026 21:16:27 +0200 (CEST)
+Date: Wed, 15 Jul 2026 21:16:27 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ kernel@collabora.com
+Subject: Re: [PATCH RFC v3 09/10] dt-bindings: display: rockchip: dw-dp: fix
+ sound DAI cells
+Message-ID: <alfYxIkbJMA36qdt@venus>
+References: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
+ <20260612-synopsys-dw-dp-improvements-v3-9-dc61e6352508@collabora.com>
 MIME-Version: 1.0
-References: <20260701064440.1541418-1-maoyixie.tju@gmail.com>
- <CAD=FV=UQwqoUyzWLBEYgXErwtAy8MRVX97yj1_nfiWptg0rCrg@mail.gmail.com>
-In-Reply-To: <CAD=FV=UQwqoUyzWLBEYgXErwtAy8MRVX97yj1_nfiWptg0rCrg@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 15 Jul 2026 12:13:33 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VgvjtMXNdG9E-tzmv8C4hp8uoGFrYqZEfot3J6rgWZDw@mail.gmail.com>
-X-Gm-Features: AUfX_mw411R4SnolYgbqmhc2SYASeIM-xHu0nH1m9eWdVG9QlAdP7VcXmqTjTKs
-Message-ID: <CAD=FV=VgvjtMXNdG9E-tzmv8C4hp8uoGFrYqZEfot3J6rgWZDw@mail.gmail.com>
-Subject: Re: [PATCH] drm/bridge: tc358767: clamp the reported AUX read size to
- the request
-To: Maoyi Xie <maoyixie.tju@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>, Kaixuan Li <kaixuan.li@ntu.edu.sg>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="wmlwreimakep7qlw"
+Content-Disposition: inline
+In-Reply-To: <20260612-synopsys-dw-dp-improvements-v3-9-dc61e6352508@collabora.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.121.97
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,82 +75,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Thu, Jul 9, 2026 at 3:42=E2=80=AFPM Doug Anderson <dianders@chromium.org=
-> wrote:
->
-> Hi,
->
-> On Tue, Jun 30, 2026 at 11:44=E2=80=AFPM Maoyi Xie <maoyixie.tju@gmail.co=
-m> wrote:
-> >
-> > tc_aux_transfer() clamps an AUX read to the payload limit:
-> >
-> >         size_t size =3D min_t(size_t, DP_AUX_MAX_PAYLOAD_BYTES - 1, msg=
-->size);
-> >
-> > After the transfer it replaces size with the byte count the controller
-> > reports in AUX_BYTES:
-> >
-> >         if (size)
-> >                 size =3D FIELD_GET(AUX_BYTES, auxstatus);
-> >
-> > AUX_BYTES is GENMASK(15, 8), so it can be up to 255. Nothing clamps it
-> > back to the request. tc_aux_read_data() reads that many bytes into the
-> > 16-byte auxrdata stack buffer, then copies them into the caller buffer.=
- A
-> > reported count of 255 makes the read run to 256 bytes and overruns both=
-.
-> >
-> > The controller should never report more than it was asked to transfer, =
-so
-> > this is defense in depth rather than a live hole. The reported count is
-> > only lightly trusted, and the check is cheap. Clamp it back to the requ=
-est,
-> > the same way ti-sn65dsi86 does in commit aca58eac52b8 ("drm/bridge:
-> > ti-sn65dsi86: Never store more than msg->size bytes in AUX xfer").
-> >
-> > Fixes: 12dfe7c4d9c5 ("drm/bridge: tc358767: Use reported AUX transfer s=
-ize")
-> > Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-> > Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-> > Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-> > ---
-> >  drivers/gpu/drm/bridge/tc358767.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge=
-/tc358767.c
-> > index 4097fef4b8..26ba5a6c1b 100644
-> > --- a/drivers/gpu/drm/bridge/tc358767.c
-> > +++ b/drivers/gpu/drm/bridge/tc358767.c
-> > @@ -527,7 +527,7 @@ static ssize_t tc_aux_transfer(struct drm_dp_aux *a=
-ux,
-> >          * address-only transfer
-> >          */
-> >         if (size)
-> > -               size =3D FIELD_GET(AUX_BYTES, auxstatus);
-> > +               size =3D min_t(size_t, size, FIELD_GET(AUX_BYTES, auxst=
-atus));
->
-> Being super nitty: we don't technically need the "if (size)" above
-> anymore since it will be handled by the "min". Then again, if we
-> remove it then we also ahve to rework the comment about the "if"
-> test... :-P
->
-> ...so I'm going to say this is fine the way it is.
->
-> Reviewed-by: Douglas Anderson <dianders@chromium.org>
->
-> I'll try to land next week unless someone else objects. Another
-> committer is free to land before that if they feel like it.
+--wmlwreimakep7qlw
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC v3 09/10] dt-bindings: display: rockchip: dw-dp: fix
+ sound DAI cells
+MIME-Version: 1.0
 
-Even though this is a "Fix", it's a defense-in-depth fix and not
-urgent IMO. I'm going to land it in -next instead of -fixes since bake
-time is more important than urgency.
+Hi DT binding maintainers (& Dmitry for his DP background),
 
-Pushed to drm-misc-next:
+Can you have a look at this please? It has been a month, since I
+send this and multiple months since I send RFCv1. Would be good
+to have your preference here, so that I can implement it accordingly
+in the next version.
 
-[1/1] drm/bridge: tc358767: clamp the reported AUX read size to the request
-      commit: ec6444a00c49e6c2b5e9a507272a28126677f9ee
+On Fri, Jun 12, 2026 at 08:00:55PM +0200, Sebastian Reichel wrote:
+> The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
+> possible DAI interfaces: I2S and S/PDIF. Thus it is needed to have an
+> argument to select the right interface.
+>=20
+> In case of RK3576 this is not enough though. The RK3576 has the same IP
+> as RK3588, but configured with Multi Stream Transport (MST) enabled for
+> up to 3 displays and thus has a total of 6 DAI interfaces (I2S and
+> S/PDIF for each possible stream. Meanwhile the RK3588 does not support
+> MST and thus has only 2 DAI interfaces.
+>=20
+> The binding update right now only supports the simple single stream
+> transport (SST) setup. To avoid further DT ABI breakage (or complicated
+> bindings supporting different number of arguments), it's probably a good
+> idea to take MST into account now even though the upstream Linux driver
+> does not yet support it.
+>=20
+> I see two options:
+>=20
+> 1. Adding yet another cell, so that we have the following:
+>    <&dp_ctrl [display_stream] [i2s_or_spdif]>; potentially append
+>    extra input ports for MST video data to existing ports node
+>    (e.g. port@2). I would only handle the sound DAI part in my
+>    patch and basically use '0' for the display stream and just
+>    leave the option of using '1' or '2' once MST support is added.
+
+My guess is, that this is preferred.
+
+> 2. The vendor kernel creates a sub-node for each supported display
+>    stream and puts the ports mapping as well as the DAI reference
+>    into that. This bundles all information for one display stream
+>    together, which creates a clean look but the subnode does not
+>    really describe any real thing in the hardware.
+
+FWIW that looks like this:
+
+dp@<address> {
+    props-from-this-binding;
+
+    /* SST or MST stream 0 */
+    dp0 {
+        #sound-dai-cells =3D <1>;
+        ports { ... };
+    };
+
+    /* MST stream 1 */
+    dp1 {
+        #sound-dai-cells =3D <1>;
+        ports { ... };
+    };
+
+    /* MST stream 2 */
+    dp2 {
+        #sound-dai-cells =3D <1>;
+        ports { ... };
+    };
+};
+
+While the grouping looks nice to me from the audio/video controller
+to DP controller point of view, it's less sensible for the
+connection from the DP controller to the DP/USB-C connector as all
+streams are bundled at that point.
+
+Thanks and greetings,
+
+-- Sebastian
+
+> As upstream MST support seems to be quite limited, I wish for some
+> feedback about the preferred way to handle this.
+>=20
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> ---
+>  .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml         | 5=
+ +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
+dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw=
+-dp.yaml
+> index 2b0d9e23e943..1303d0e2145a 100644
+> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.y=
+aml
+> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.y=
+aml
+> @@ -83,7 +83,8 @@ properties:
+>      maxItems: 1
+> =20
+>    "#sound-dai-cells":
+> -    const: 0
+> +    const: 1
+> +    description: 0 for I2S, 1 for SPDIF
+> =20
+>  required:
+>    - compatible
+> @@ -144,7 +145,7 @@ examples:
+>          resets =3D <&cru SRST_DP0>;
+>          phys =3D <&usbdp_phy0 PHY_TYPE_DP>;
+>          power-domains =3D <&power RK3588_PD_VO0>;
+> -        #sound-dai-cells =3D <0>;
+> +        #sound-dai-cells =3D <1>;
+> =20
+>          ports {
+>            #address-cells =3D <1>;
+>=20
+> --=20
+> 2.53.0
+>=20
+
+--wmlwreimakep7qlw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpX3H8ACgkQ2O7X88g7
++prDaA/+J+o4Ka0pqiKFsl6B5vJAD6vsP+iiE/zqMIa1Q6zE29IVyt3DySRofwBL
+99yNQ+3ufn9nTFDyBr1qMAv4LegIqgrM+EucnxPvOD159SS9d+7bFngcVeUh7P47
+fUfbjxLqw9QkzK0nQotCc9EyYjQV2a/5JUSqThcIGPPAx3uYdQqlS0hfCdR1GVCe
+Loa64cD3EOyZ79O1lsDYJ4xEsAtUm+ztHd0t1RMSLUmaq68aNSus/Muh5eHuvzUH
+AAAQELgud9U/TbtGEBR6AjM2KdthxBJZcnH6bkx8vs4KKAar8KGz9DuEF8na4Nmi
+IM+k0YIyo2ESWsZGnjK7DmgmtnVk4j8J8LDmHUaTpA+Eg0/fUpW331+I+hLNXjF2
+FzObpZ9JkumAZuPnczA2lfBctftuQ9voDHg5PbBfemgK7bdOy+PvgEle4H512bxm
+nbg3H6BexThWQW7A3WnxvxifoATFhidzN/Awj3oXTjY4Yfemwb3X5jRPZ713TgkG
+U9kky7/B3NPi19uunkJoDtM2HhA7PqjGUnKw4j06AhzPs433bdD4DVBL6FJRIrO+
+UQ4JBJQW8t8JtDYRkvp3mFyBbQTqw8EjeIKxMAPdv2JHEEEOQz1/lyaHNSEdwIoy
+AdualjvMfi6DKwBpBTfUUDHjMsiDtsiUxeVelpU8KbZeTRafk68=
+=dfEW
+-----END PGP SIGNATURE-----
+
+--wmlwreimakep7qlw--
