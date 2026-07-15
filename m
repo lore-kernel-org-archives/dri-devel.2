@@ -4,88 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66782C44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 16:01:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C15AC44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 16:03:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD38F10E84B;
-	Wed, 15 Jul 2026 16:01:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A369F10EB30;
+	Wed, 15 Jul 2026 16:03:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jh+VI423";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="ebxGTyq2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4E9110E69C
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 16:01:34 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3DD2942AC2;
- Wed, 15 Jul 2026 16:01:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E6F11F000E9;
- Wed, 15 Jul 2026 16:01:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784131294;
- bh=xwAMLt7rpcE8P63yyzqTVOXxB1AEal3a0nfL4+SyquM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=jh+VI423rvA4pEB662vSG9nIdPacb3Hf4rr+qxFjQlFT2516JBKgnOQrQOb3QVvXb
- ev2S5PMWLjQVETNU6ShzBjGduyOwtIokDYSYfY/6kvAxhyGuFyNwMZQdafK1argN6E
- pU5azVYJ3QAVTUMUyakUa+abCdngPasAiLzco9AoNouJykJ8c/RJvW9GzGIe02Vzwa
- hsUl54ctY/2tHS9kX9NTvUA5G82kBc0EbGH6wC17zifB2gfx9q/vXgh2zm5ICUGi+v
- UPbrHHg5ciLkRC5pQ2KC9SK+xkZtNNBC6J6Hm6pTzs/VVQ/rcKICPZVcgzXg5qsPeA
- M8JKoPlwQm5IQ==
-Date: Wed, 15 Jul 2026 18:01:31 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Will Deacon <will@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>, 
- Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, 
- iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
- Chun Ng <chunn@nvidia.com>
-Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
- set_memory_normal()
-Message-ID: <alesre0ZfNV7vgco@orome>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
- <akYs91INHMXMTI-t@willie-the-truck> <akZkuwktaXFTrASP@orome>
- <akaSJ5D98w2cHqb6@orome> <akftuw9NyRy36fXA@willie-the-truck>
- <akuvyu1Pq0ZVMZV0@orome> <akzikTrmhMsvkNVY@willie-the-truck>
- <ak_8Po3NxgAU7k0T@orome>
+Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com
+ [91.218.175.186])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6FC110E69C
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 16:03:13 +0000 (UTC)
+Message-ID: <949473de-f402-44d7-9fd5-125270bdfbd9@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1784131391;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+Ck34E3lhSUh8+bWUUwUiJkI7coiNXr3vgN0tG8fesE=;
+ b=ebxGTyq2nwHn2PaxH1J5Wug2Lh0vArYxnHlfDdgPCUPz+xE1gRf0YQlw80Aj/mh3yZ3J+i
+ +AseuqHWbfCQARFoG/zMxx63yNzF6YEERcodeLrDZmwGshq0g03c8verq84S7LkrlK8ezQ
+ DyN9/JVC9dRYCJwrrmmLk3TM+kDkFqw=
+Date: Wed, 15 Jul 2026 18:02:59 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="nbqkpw722zqmsvzm"
-Content-Disposition: inline
-In-Reply-To: <ak_8Po3NxgAU7k0T@orome>
+Subject: Re: [RFC PATCH] drm/sched/tests: Let the DRM scheduler manage job
+ lifetimes
+To: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Matthew Brost <matthew.brost@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260707114807.154572-1-marco.pagani@linux.dev>
+ <46ffa75c-83e2-4f4b-9d5b-e43fdfa12176@ursulin.net>
+ <f36c7c87-38c5-41f9-bd14-efc9918a4b61@linux.dev>
+ <f524ee2d-c15f-4b7f-ae42-2c28b06e58b6@ursulin.net>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Marco Pagani <marco.pagani@linux.dev>
+In-Reply-To: <f524ee2d-c15f-4b7f-ae42-2c28b06e58b6@ursulin.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,173 +67,372 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---nbqkpw722zqmsvzm
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
- set_memory_normal()
-MIME-Version: 1.0
 
-On Thu, Jul 09, 2026 at 09:58:01PM +0200, Thierry Reding wrote:
-> On Tue, Jul 07, 2026 at 12:27:13PM +0100, Will Deacon wrote:
-> > On Mon, Jul 06, 2026 at 03:49:24PM +0200, Thierry Reding wrote:
-> > > On Fri, Jul 03, 2026 at 06:13:31PM +0100, Will Deacon wrote:
-> > > > On Thu, Jul 02, 2026 at 06:41:23PM +0200, Thierry Reding wrote:
-> > > > > On Thu, Jul 02, 2026 at 03:46:44PM +0200, Thierry Reding wrote:
-> > > > > > On Thu, Jul 02, 2026 at 10:18:47AM +0100, Will Deacon wrote:
-> > > > > > > On Wed, Jul 01, 2026 at 06:08:15PM +0200, Thierry Reding wrot=
-e:
-> > > > > > > > From: Chun Ng <chunn@nvidia.com>
-> > > > > > > >=20
-> > > > > > > > Add helpers to swap PROT_NORMAL and PROT_DEVICE_nGnRnE prot=
-ection bits
-> > > > > > > > on a kernel-linear-map range.
-> > > > > > >=20
-> > > > > > > That sounds like a really terrible idea. Why is this necessar=
-y and how
-> > > > > > > does it interact with things like load_unaligned_zeropad()?
-> > > > > >=20
-> > > > > > This is necessary because once the memory controller has walled=
- off the
-> > > > > > new memory region the CPU must not access it under any circumst=
-ances or
-> > > > > > it'll cause the CPU to lock up (I think technically it'll hit a=
-n SError
-> > > > > > but in practice that just means it'll freeze, as far as I can t=
-ell).
-> > > > > >=20
-> > > > > > Probably doesn't interact well at all with load_unaligned_zerop=
-ad().
-> > > > > >=20
-> > > > > > > I think you should unmap the memory from the linear map and m=
-emremap()
-> > > > > > > it instead.
-> > > > > >=20
-> > > > > > Given that the memory can never be accessed by the CPU after th=
-e memory
-> > > > > > controller locks it down, I don't think we'll even need memrema=
-p(). The
-> > > > > > only thing we really need is the sg_table we hand out via the D=
-MA BUFs
-> > > > > > so that they can be used by device drivers to program their DMA=
- engines
-> > > > > > internally.
-> > > > > >=20
-> > > > > > Looking through some of the architecture code around this, shou=
-ldn't we
-> > > > > > simply be using set_memory_encrypted() and set_memory_decrypted=
-() for
-> > > > > > this? While they might've been created for slightly other use-c=
-ases,
-> > > > > > they seem to be doing exactly what we want (i.e. remove the pag=
-e range
-> > > > > > from the linear mapping and flushing it, or restoring the valid=
- bit and
-> > > > > > standard permissions, respectively).
-> > > > >=20
-> > > > > Ah... I guess we can't do it because we're not in a realm world a=
-nd so
-> > > > > the early checks in __set_memory_enc_dec() would return early and=
- turn
-> > > > > it into a no-op.
-> > > > >=20
-> > > > > How about if I extract a common helper and provide set_memory_p()=
- and
-> > > > > set_memory_np() in terms of those. Those are available on x86 and
-> > > > > PowerPC as well, so fairly standard. I suppose at that point we're
-> > > > > closer to set_memory_valid().
-> > > >=20
-> > > > Why not just call set_direct_map_invalid_noflush() +
-> > > > flush_tlb_kernel_range() for each page? We already have APIs for th=
-is.
-> > >=20
-> > > Having a "standard" helper with a fixed and documented purposed seemed
-> > > like a preferable approach for this particular case. We also may want=
- to
-> > > make the driver that uses this buildable as a module, in which case w=
-e'd
-> > > need to export these rather low-level APIs. And then there's also the
-> > > fact that we typically call this on a rather large region of memory
-> > > (usually something like 512 MiB), so doing it page-by-page is rather
-> > > suboptimal.
-> > >=20
-> > > > The big challenge I see with any linear map manipulation, however, =
-is
-> > > > that it will rely on can_set_direct_map() which likely means you ne=
-ed to
-> > > > give up some performance and/or security to make this work. Does me=
-mory
-> > > > become inaccesible dynamically at runtime? If not, the best bet wou=
-ld
-> > > > be to describe it as a carveout in the DT and mark it as "no-map" so
-> > > > we avoid mapping it in the first place.
-> > >=20
-> > > VPR exists in two modes: static and resizable. For static VPR we do
-> > > exactly that: describe it as carveout in DT with no-map and deal with=
- it
-> > > accordingly in the driver. Resizable VPR is for device that have small
-> > > amounts of RAM. Content-protected video playback will in the worst ca=
-se
-> > > consume around 1.8 GiB of RAM, so we want to be able to reuse for oth=
-er
-> > > purposes when VPR is unused on those devices. In that case, the memory
-> > > is also described as a reserved-memory region in DT, but it is marked=
- as
-> > > reusable so that it can be managed by CMA.
-> > >=20
-> > > The resize operation is fairly slow to begin with because we need to
-> > > stall the GPU and put it into reset before the operation, then take it
-> > > out of reset and resume it afterwards.
-> > >=20
-> > > What kind of performance impact do you expect?
-> >=20
-> > You'll need to measure it, but we've seen reports of double-digit
-> > percentage regressions in performance and power. As I said, the problem
-> > is that you need to split the linear map to 4k page at runtime to unmap
-> > the dynamic carveout, but that isn't something that can be done on most
-> > CPUs. Therefore you end up having to use page-granular mappings for the
-> > entire thing, similarly to how 'rodata_full' drives can_set_direct_map()
-> > and the perf/power hit affects everything.
->=20
-> The VPR has fairly large alignment restrictions (1 MiB) and we do unmap
-> in fairly large chunks (512 MiB currently, but we can change that if it
-> is helpful) because we really want to avoid resizing operations, so the
-> tradeoff is between frequency of resize vs. potential memory wasted.
->=20
-> Does that change anything with regards to performance?
+On 10/07/2026 15:20, Tvrtko Ursulin wrote:
+> 
+> On 09/07/2026 22:53, Marco Pagani wrote:
+>> On 08/07/2026 11:20, Tvrtko Ursulin wrote:
+>>>
+>>> On 07/07/2026 12:48, Marco Pagani wrote:
+>>>> Currently, the mock scheduler uses KUnit-managed memory for jobs. This ties
+>>>> the job's memory lifetime to the test suite rather than the DRM scheduler's
+>>>> callbacks. This does not represent real driver behavior and can lead to
+>>>> potential Use-After-Free bugs in the tests.
+>>>
+>>> Since you say use-after-free, that means something belonging to a test
+>>> wasn't properly cleaned up, right? Could you help me out review by
+>>> describing one example?
+>>
+>> Sure, I experienced a UAF myself while writing the sched_parallel test
+>> suite (v3->v4). The UAF happened in v3 because of a reference that the
+>> scheduler backend keeps to the fence of the last scheduled job (in
+>> drm_sched_run_job_work()->drm_sched_entity_pop_job()). If the job is
+>> released before its entity, the pointer becomes dangling.
+>>
+>> On a NR_CPUS > 20 system, this caused a UAF during the teardown phase
+>> because jobs were freed before their entities by the KUnit actions
+>> implicitly registered by drm_mock_sched_job_new() when allocating the
+>> memory. To solve this in v4, I had to move KUnit release action for the
+>> entities to ensure that entities are freed before jobs.
+> 
+> Why wouldn't it work to idle the entities and the scheduler before the 
+> test exits? There is even kunit_suite.exit which some other tests use.
 
-Turns out that the system we need this for is very likely going to end
-up using 4 KiB pages anyway because it doesn't have a whole lot of RAM
-(which is the whole reason we want the VPR to be resizable in the first
-place). So it sounds like set_direct_map_*() is a good way forward.
+Centralizing all teardown in kunit_suite.exit would require moving all
+dynamically-allocated test objects (jobs, entities, etc.) into a
+test-global struct pointed by test->priv. This would require a complex
+and brittle teardown function that must handle all possible partial
+initialization and test assert failures. I don't think this is the way
+to go. In my understanding, KUnit actions have been introduced exactly
+to handle this problem in an idiomatic and uncomplicated way.
 
-Still, wouldn't it potentially be much faster to unmap entire 2 MiB
-blocks at a time if we know the driver guarantees the alignment? Maybe
-the changes to add num_pages as an argument to set_direct_map_*() that
-Mike mentioned would already be an improvement because it avoids those
-gratuitous calls to can_set_direct_map().
+More importantly, it wouldn't solve the teardown order problem since
+KUnit executes all test-registered actions before the kunit_suite.exit
+function is called. Since drm_mock_sched_job_new() always registers a
+KUnit action to free the job, it will always cause jobs to be freed
+before entities and the scheduler are released in kunit_suite.exit,
+effectively resuscitating the (v3) UAF.
 
-Thierry
+On a conceptual level, I think we have two different paradigms clashing
+here: the asynchronous action-based KUnit paradigm for handling assert
+failures without leaking vs. the synchronous driver teardown expected by
+the scheduler backend. To be fair, I'm not 100% sure that using krefs
+is the best possible approach ever to bridge these two paradigms
+together, but I think it's still better than the current design.
 
---nbqkpw722zqmsvzm
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+> 
+>> I also have another UAF reported by our internal CI that I haven't yet
+>> fully investigated in drm_sched_basic:
+>>
+>> KUNIT: drm_sched: BUG: KASAN: null-ptr-deref in drm_sched_basic_test+0x3b4/0x7c0 [drm_sched_tests]
+> 
+> This one is interesting. Is it maybe the dep_chain case? Perhaps prev 
+> fence reference needs to be taken before submit and carrier over to next 
+> iteration.
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpXrtgACgkQ3SOs138+
-s6GDnRAAnq3U1zVlgJ4c+zt8KmTjZpRAfBuPML2LU9g5YIqK3pDsrt+qXaG6SRGG
-svsBD63S7cpqMvuQsnlWdZ7jiTXeY72XEv12xXNALGKWXwlUkodB4zvNDPgwqmki
-hh+Fg4/TmFGkLNEI1ot2FgQFbS61E+T4RPZtN+3pJID5m8vdpBIj++eDDvSoYPS4
-ctd+RBvk9cSTXkEFLQ6QGJ0v91ZO82pEtkXwqpAtzO01vkSaTehQIxIaBa+T3pvj
-eRM3YV5qc8L0MnKg2Exd+Q1IcnDCpYyJsnWp7UVlgxVTXm2kSDqxnd7Q+cRsgBN3
-CqF7Q2DpeCMb+FCwtXICttjt2uGn10K6359IFPZUQ+tgC3Dlur+TUBKSdhEqVu78
-mgq83v6eU4Z2NhAsM9j3FeOe7vm8ccCWNZsOr3+jxD8zS+xnuKojA37A4ZSykw0x
-KWhCpLnOUt/SF7BoanBSvPz0kGR2M0M57haMXp7bbwwYOVdtE8y6LDfHHmZy8NgX
-h06Kiu7I9kB4yAw1uzVlKQOI5fF+5AQJlg7OYGijHG3XCC4kW4WV9XI3Eiq04vYr
-imNiSb1018jeBaGTtLCPtgGEYNcwO4N/6IQBCDhAAs9sqY//cKD0WArBqb+dgIDo
-wQnLmnG3Y4YfZt3XuuKCr+/aTbO/rKspuVXslgkCOS81J4nhNdQ=
-=/smH
------END PGP SIGNATURE-----
+Honestly, I haven't yet had time to look into it.
 
---nbqkpw722zqmsvzm--
+
+>>> Idea was that tests are self contained, ie. when a tests exits it is
+>>> guaranteed all resources belonging to it are gone. Everything else
+>>> should be a test bug which IMO means it is fine to crash if a new tests
+>>> gets that wrong. Just idle at the end of the test and everything should
+>>> work.
+>>
+>> I fully agree that test should be self-contained. However, my point is
+>> that KUnit infrastructure should serve as a sandbox to avoid leaking
+>> resources and not force or perturb the lifetime of test items (jobs in
+>> this case) within the boundaries of the test.
+>>
+>> I think the problem with the current design of the mock scheduler is
+>> that drm_mock_sched_job_new() implicitly registers a cleanup action to
+>> free the job's memory independently of the job's state. Even more subtly,
+>> this approach implicitly defines a LIFO teardown order depending on when
+>> drm_mock_sched_job_new() is called in the test.
+>>
+>> This may confuse test developers who might be unaware of this behavior,
+>> as they are likely to assume that the lifetime of the job will be always
+>> guaranteed during the entire test, as I've experienced myself.
+> 
+> Are you saying the unexpected thing is that job can be safely 
+> dereferenced for the duration of the test? Or that it cannot? Latter 
+> would be a bug somewhere AFAICT.
+
+I'm saying that relying on KUnit's implicit action queue LIFO ordering
+to manage object lifetime is inherently fragile. Test writers might be
+unaware of this, and even if aware, they shouldn't have to memorize the
+exact allocation order of entities and jobs to avoid triggering UAF(s).
+
+
+>>>> Update the mock scheduler to let the lifetime of jobs be managed by the DRM
+>>>> scheduler's asynchronous callbacks instead of KUnit managed memory. Add a
+>>>> kref reference counter to track the job's lifetime between test suites and
+>>>> the scheduler.
+>>>>
+>>>> Finally, to avoid memory leaks in the event of an early test abortion,
+>>>> register a cleanup KUnit action that automatically puts the reference to
+>>>> the job.
+>>>
+>>> So kunit managed memory, freed on test exit, is replaced by kunit
+>>> managed actions, which also free on test exit?
+>>
+>> The idea is to use KUnit actions to guarantee tests against resource
+>> leaks by dropping a reference, and let the same callback used by the
+>> scheduler to free the memory, instead of abruptly free the memory from
+>> right under the scheduler's nose.
+> 
+> I first want to understand exactly what the issue is. The current design 
+> exactly cannot free the memory under the scheduler nose unless there is 
+> a test bug where test exited and has left the scheduler with unprocessed 
+> jobs. I am not saying we cannot have reference counted jobs but, again, 
+> at the moment I don't understand the problem.
+
+I think that the current design of the mock scheduler can indeed free
+test objects' memory under the scheduler backend's nose. Consider the
+example discussed above: the mock scheduler is instantiated and released
+in the .init and .exit functions respectively, while jobs are allocated
+in the test body using drm_mock_sched_job_new(). In this rather basic
+use case, jobs' memory is freed before the entities and the scheduler
+are released in the .exit function.
+
+
+Thanks,
+Marco
+
+
+> Regards,
+> 
+> Tvrtko
+> 
+>>> Some random thoughts below while I wait to understand the motivation and
+>>> problem statement better:
+>>>
+>>>> Signed-off-by: Marco Pagani <marco.pagani@linux.dev>
+>>>> ---
+>>>>    .../gpu/drm/scheduler/tests/mock_scheduler.c  | 68 ++++++++++++++-----
+>>>>    drivers/gpu/drm/scheduler/tests/sched_tests.h |  6 ++
+>>>>    2 files changed, 57 insertions(+), 17 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+>>>> index 14403a762335..51f81082f37a 100644
+>>>> --- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+>>>> +++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+>>>> @@ -96,6 +96,14 @@ drm_mock_sched_job_signal_timer(struct hrtimer *hrtimer)
+>>>>    	return HRTIMER_NORESTART;
+>>>>    }
+>>>>    
+>>>> +static void drm_mock_sched_job_cleanup_action(void *ptr)
+>>>> +{
+>>>> +	struct drm_mock_sched_job *job = ptr;
+>>>> +
+>>>> +	job->test = NULL;
+>>>> +	drm_mock_sched_job_put(job);
+>>>> +}
+>>>> +
+>>>>    /**
+>>>>     * drm_mock_sched_job_new - Create a new mock scheduler job
+>>>>     *
+>>>> @@ -111,23 +119,34 @@ drm_mock_sched_job_new(struct kunit *test,
+>>>>    	struct drm_mock_sched_job *job;
+>>>>    	int ret;
+>>>>    
+>>>> -	job = kunit_kzalloc(test, sizeof(*job), GFP_KERNEL);
+>>>> +	/* Let the DRM Scheduler manage the lifetime of the job */
+>>>
+>>> However that does not match real driver behaviour either (circling back
+>>> to the justification from the commit message). It is the drivers which
+>>> own this memory, not the DRM scheduler. So in this case mock scheduler,
+>>> which is a kunit test client, etc.
+>>
+>> I'm not entirely following on this. Sure, it is the driver that
+>> allocates and owns the job's memory, but it is the the scheduler backend
+>> that manage the job's lifecycle and decides when a it is finished and
+>> the underlying memory can be freed. To be more precise, I think it is
+>> fair to say that when a job is submitted, the ownership is transferred
+>> from the driver the to scheduler backend until the job is finished.
+>>
+>>
+>>>> +	job = kzalloc_obj(*job, GFP_KERNEL);
+>>>>    	KUNIT_ASSERT_NOT_NULL(test, job);
+>>>>    
+>>>> +	kref_init(&job->refcount);
+>>>> +	job->test = test;
+>>>> +
+>>>>    	ret = drm_sched_job_init(&job->base,
+>>>>    				 &entity->base,
+>>>>    				 1,
+>>>>    				 NULL,
+>>>>    				 1);
+>>>> -	KUNIT_ASSERT_EQ(test, ret, 0);
+>>>> -
+>>>> -	job->test = test;
+>>>> +	if (ret) {
+>>>> +		kfree(job);
+>>>> +		KUNIT_ASSERT_EQ_MSG(test, ret, 0, "drm_sched_job_init failed");
+>>>> +	}
+>>>>    
+>>>>    	init_completion(&job->done);
+>>>>    	INIT_LIST_HEAD(&job->link);
+>>>>    	hrtimer_setup(&job->timer, drm_mock_sched_job_signal_timer,
+>>>>    		      CLOCK_MONOTONIC, HRTIMER_MODE_ABS);
+>>>>    
+>>>> +	ret = kunit_add_action(test, drm_mock_sched_job_cleanup_action, job);
+>>>> +	if (ret) {
+>>>> +		drm_mock_sched_job_put(job);
+>>>> +		KUNIT_ASSERT_EQ_MSG(test, ret, 0, "kunit_add_action failed");
+>>>> +	}
+>>>> +
+>>>>    	return job;
+>>>>    }
+>>>>    
+>>>> @@ -152,7 +171,7 @@ static void drm_mock_sched_hw_fence_release(struct dma_fence *fence)
+>>>>    
+>>>>    	hrtimer_cancel(&job->timer);
+>>>>    
+>>>> -	/* Containing job is freed by the kunit framework */
+>>>> +	drm_mock_sched_job_put(job);
+>>>>    }
+>>>>    
+>>>>    static const struct dma_fence_ops drm_mock_sched_hw_fence_ops = {
+>>>> @@ -173,6 +192,8 @@ static struct dma_fence *mock_sched_run_job(struct drm_sched_job *sched_job)
+>>>>    		       sched->hw_timeline.context,
+>>>>    		       atomic_inc_return(&sched->hw_timeline.next_seqno));
+>>>>    
+>>>> +	kref_get(&job->refcount);
+>>>> +
+>>>>    	dma_fence_get(&job->hw_fence); /* Reference for the job_list */
+>>>>    
+>>>>    	spin_lock_irq(&sched->lock);
+>>>> @@ -200,6 +221,17 @@ static struct dma_fence *mock_sched_run_job(struct drm_sched_job *sched_job)
+>>>>    	return &job->hw_fence;
+>>>>    }
+>>>>    
+>>>> +static void mock_sched_free_job(struct drm_sched_job *sched_job)
+>>>> +{
+>>>
+>>> Free which is actually a reference put is non-obvious API.
+>>
+>> Uhm, this is not an API but the implementation of the .free_job method
+>> of drm_mock_scheduler_ops. I've kept the function name since it matches
+>> the name of backend op.
+>>
+>>
+>>>> +	struct drm_mock_sched_job *job = drm_sched_job_to_mock_job(sched_job);
+>>>> +
+>>>> +	/* Only if the fence has been successfully initialized */
+>>>> +	if (job->hw_fence.ops)
+>>>> +		dma_fence_put(&job->hw_fence);
+>>>> +
+>>>> +	drm_mock_sched_job_put(job);
+>>>> +}
+>>>> +
+>>>>    /*
+>>>>     * Normally, drivers would take appropriate measures in this callback, such as
+>>>>     * killing the entity the faulty job is associated with, resetting the hardware
+>>>> @@ -232,21 +264,26 @@ mock_sched_timedout_job(struct drm_sched_job *sched_job)
+>>>>    	}
+>>>>    	spin_unlock_irqrestore(&sched->lock, flags);
+>>>>    
+>>>> -	dma_fence_put(&job->hw_fence);
+>>>> -	drm_sched_job_cleanup(sched_job);
+>>>> -	/* Mock job itself is freed by the kunit framework. */
+>>>> +	mock_sched_free_job(sched_job);
+>>>>    
+>>>>    	return DRM_GPU_SCHED_STAT_RESET;
+>>>>    }
+>>>>    
+>>>> -static void mock_sched_free_job(struct drm_sched_job *sched_job)
+>>>> +static void drm_mock_sched_job_release(struct kref *ref)
+>>>>    {
+>>>> -	struct drm_mock_sched_job *job = drm_sched_job_to_mock_job(sched_job);
+>>>> +	struct drm_mock_sched_job *job;
+>>>> +
+>>>> +	job = container_of(ref, struct drm_mock_sched_job, refcount);
+>>>>    
+>>>> -	dma_fence_put(&job->hw_fence);
+>>>> -	drm_sched_job_cleanup(sched_job);
+>>>> +	drm_sched_job_cleanup(&job->base);
+>>>>    
+>>>> -	/* Mock job itself is freed by the kunit framework. */
+>>>> +	kfree(job);
+>>>> +}
+>>>> +
+>>>> +void drm_mock_sched_job_put(struct drm_mock_sched_job *job)
+>>>> +{
+>>>> +	if (job)
+>>>> +		kref_put(&job->refcount, drm_mock_sched_job_release);
+>>>>    }
+>>>>    
+>>>>    static void mock_sched_cancel_job(struct drm_sched_job *sched_job)
+>>>> @@ -265,10 +302,7 @@ static void mock_sched_cancel_job(struct drm_sched_job *sched_job)
+>>>>    	}
+>>>>    	spin_unlock_irqrestore(&sched->lock, flags);
+>>>>    
+>>>> -	/*
+>>>> -	 * The GPU Scheduler will call drm_sched_backend_ops.free_job(), still.
+>>>> -	 * Mock job itself is freed by the kunit framework.
+>>>> -	 */
+>>>> +	/* The GPU Scheduler will call drm_sched_backend_ops.free_job() */
+>>>>    }
+>>>>    
+>>>>    static const struct drm_sched_backend_ops drm_mock_scheduler_ops = {
+>>>> diff --git a/drivers/gpu/drm/scheduler/tests/sched_tests.h b/drivers/gpu/drm/scheduler/tests/sched_tests.h
+>>>> index 553d45abd057..e4d33f0bf935 100644
+>>>> --- a/drivers/gpu/drm/scheduler/tests/sched_tests.h
+>>>> +++ b/drivers/gpu/drm/scheduler/tests/sched_tests.h
+>>>> @@ -13,6 +13,7 @@
+>>>>    #include <linux/list.h>
+>>>>    #include <linux/mutex.h>
+>>>>    #include <linux/types.h>
+>>>> +#include <linux/kref.h>
+>>>>    
+>>>>    #include <drm/gpu_scheduler.h>
+>>>>    
+>>>> @@ -90,6 +91,7 @@ struct drm_mock_sched_entity {
+>>>>     */
+>>>>    struct drm_mock_sched_job {
+>>>>    	struct drm_sched_job	base;
+>>>> +	struct kref		refcount;
+>>>>    
+>>>>    	struct completion	done;
+>>>>    
+>>>> @@ -144,6 +146,8 @@ struct drm_mock_sched_job *
+>>>>    drm_mock_sched_job_new(struct kunit *test,
+>>>>    		       struct drm_mock_sched_entity *entity);
+>>>>    
+>>>> +void drm_mock_sched_job_put(struct drm_mock_sched_job *job);
+>>>> +
+>>>>    /**
+>>>>     * drm_mock_sched_job_submit - Arm and submit a job in one go
+>>>>     *
+>>>> @@ -151,6 +155,8 @@ drm_mock_sched_job_new(struct kunit *test,
+>>>>     */
+>>>>    static inline void drm_mock_sched_job_submit(struct drm_mock_sched_job *job)
+>>>>    {
+>>>> +	kref_get(&job->refcount);
+>>>> +
+>>>
+>>> This feels fragile because if someone writes a test which uses arm+push
+>>> directly bad things will happen. What is this extra reference for versus
+>>> the one obtained by creating a job?
+>>
+>> Fair point. I've consider taking the reference also before run in
+>> mock_sched_run_job() or directly in drm_mock_sched_job_new(), but both
+>> approaches felt suboptimal. I have to think about this. I'll come up
+>> with a better approach for v2.
+>>
+>>
+>>> Regards,
+>>>
+>>> Tvrtko
+>>>
+>>>>    	drm_sched_job_arm(&job->base);
+>>>>    	drm_sched_entity_push_job(&job->base);
+>>>>    }
+>>>
+>>
+>> Thanks,
+>> Marco
+> 
+
