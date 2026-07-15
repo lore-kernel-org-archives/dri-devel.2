@@ -4,58 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1FB0C44501
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 21:07:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F344C44507
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 21:16:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D89310E4AC;
-	Wed, 15 Jul 2026 21:07:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA53210E264;
+	Wed, 15 Jul 2026 21:16:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=grimler.se header.i=@grimler.se header.b="C2qcyZGA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BI03toNw";
 	dkim-atps=neutral
-X-Greylist: delayed 360 seconds by postgrey-1.36 at gabe;
- Wed, 15 Jul 2026 21:07:02 UTC
-Received: from out-187.mta1.migadu.com (out-187.mta1.migadu.com
- [95.215.58.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF45410E4AC
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 21:07:02 +0000 (UTC)
-Date: Wed, 15 Jul 2026 23:00:52 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grimler.se; s=key1;
- t=1784149259;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=DI98beaWzJsxWR4025nuO00Osx1NSq0imL9gfHXYr5w=;
- b=C2qcyZGAQCYWYHaphCqFN45Un9ibt4AF6XgSMc3hIenYmOoCXGVmfYH3SSpOIGA5zadykM
- maEAZvYOy9eknDsKb78vUdvIwrSut6n1Zn21J7voa91c43d1RjvX94lZ1wj43Z1nUv6mY2
- i/TiQ+HYEXTWs+wbSmpEG6M62zkWwLo=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Henrik Grimler <henrik@grimler.se>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, replicant@osuosl.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND v4 3/3] drm/bridge: sii9234: use extcon cable
- detection logic to detect MHL
-Message-ID: <20260715210052.GA32576@l14.localdomain>
-References: <20260602-exynos4-sii9234-driver-v4-0-9b2fc38e104a@grimler.se>
- <20260602-exynos4-sii9234-driver-v4-3-9b2fc38e104a@grimler.se>
- <178404686056.173179.5143201359152396886.b4-review@b4>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178404686056.173179.5143201359152396886.b4-review@b4>
-X-Migadu-Flow: FLOW_OUT
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B989210E264
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 21:16:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 54FA142B7B;
+ Wed, 15 Jul 2026 21:16:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 013001F000E9;
+ Wed, 15 Jul 2026 21:16:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784150165;
+ bh=QCHzCYSx6rkkGhOZYkoDAz6zF4WeNw8S5J3i9l6X/KA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=BI03toNwOfUHtvIcGkP6G6a1Ysgnq9O58YVFJiDrHwVmGol5FybMpb2+QIF/8DLRz
+ cjZURMj4bdxmjwQMqU0GTFD2XqHACf++05slC/Rl9AVYLTc2Yzb0ToyEYcNAGfIkaV
+ fNg238gc0ne2L8WySyDPwA9usLMTwj99rFnzL62tqGkEF7Eb/xo3cHMh33jgmJx7tW
+ fBnnXK342X4Dr/wLvgHS2BMpSdmiq5MfzO065UaFl52XtwHHXOYe/9yCJne3JJr/zB
+ lXvHPcbsTcthgdDUZFYZly3WKbf3ZX1TtvPCX4rvOaLrRLtBxNc4mYx87Jl3U31hp2
+ wq7IWucE4Cn/w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 1/3] rust: add basic serial device bus abstractions
+To: "Markus Probst" <markus.probst@posteo.de>
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260715-rust_serdev-v14-1-b4ed5c93606f@posteo.de>
+References: <20260715-rust_serdev-v14-0-b4ed5c93606f@posteo.de>
+ <20260715-rust_serdev-v14-1-b4ed5c93606f@posteo.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 21:16:04 +0000
+Message-Id: <20260715211605.013001F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,190 +53,75 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Luca,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Drivers cannot synchronously wait for data during `probe` without =
+causing a deadlock, because `receive_buf_callback` blocks on a mutex held b=
+y `probe_callback`.
+- [High] Concurrent device callbacks during unbind or probe failure lead to=
+ Use-After-Free (UAF) or NULL pointer dereference because driver data is cl=
+eared before the device is closed.
+- [High] `Device::set_baudrate` incorrectly treats approximate baudrates as=
+ errors, which will fail driver initialization on many hardware platforms.
+--
 
-Thanks for reviewing!
+--- Patch [1]: [PATCH v14 1/3] rust: add basic serial device bus abstractio=
+ns ---
+Note: The format of this review is altered to provide a free-form summary of
+the findings, rather than inline diff comments, due to system recitation
+restrictions.
 
-On Tue, Jul 14, 2026 at 06:34:20PM +0200, Luca Ceresoli wrote:
-> On Tue, 02 Jun 2026 20:36:50 +0200, Henrik Grimler <henrik@grimler.se> wrote:
-> 
-> Hello Henrik,
-> 
-> > To use MHL we currently need the MHL chip to be permanently on, which
-> > consumes unnecessary power. Let's use extcon attached to MUIC to enable
-> > the MHL chip only if it detects an MHL cable.
-> > 
-> > Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> > Signed-off-by: Henrik Grimler <henrik@grimler.se>
-> 
-> I have several minor comments, but overall looks OK to me.
-> 
-> >
-> >
-> > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-> > index 4a57d49b4c6d..11171b4054b5 100644
-> > --- a/drivers/gpu/drm/bridge/Kconfig
-> > +++ b/drivers/gpu/drm/bridge/Kconfig
-> > @@ -333,6 +333,7 @@ config DRM_SII902X
-> >  config DRM_SII9234
-> >  	tristate "Silicon Image SII9234 HDMI/MHL bridge"
-> >  	depends on OF
-> > +	depends on EXTCON || !EXTCON
-> 
-> IMO the other syntax is more readable:
-> 
->           depends on EXTCON if EXTCON
-> 
-> See https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html
+commit c091dc3bf08c045ff86b0afe5e41d3fd0a94bb83
+Author: Markus Probst <markus.probst@posteo.de>
+Subject: rust: add basic serial device bus abstractions
 
-Thanks for the link. I was not even aware of the other recommended
-variant, seems it is rarely used:
+Implement the basic serial device bus abstractions required to write a
+serial device bus device driver.
 
-$ find -name Kconfig -exec grep -P '\b(\w+)\b if \1\b' {} +|wc -l
-7
+[Severity: High]
+In Adapter<T>::probe_callback(), the code acquires the active mutex and
+holds it across serdev_device_open() and data.__pinned_init(). If a driver
+needs to send a command to the device and synchronously wait for a response
+during its probe routine, won't this cause a deadlock?
 
-Will change in next version that I aim at sending within a week.
+When the device responds, Adapter<T>::receive_buf_callback() is invoked in
+the RX workqueue and attempts to lock the exact same active mutex. Since
+probe_callback() is blocked waiting for the response, and
+receive_buf_callback() is blocked waiting for the mutex, the system seems
+like it will deadlock. Is it possible to unlock before waiting, or use a
+different synchronization strategy?
 
-> >
-> > diff --git a/drivers/gpu/drm/bridge/sii9234.c b/drivers/gpu/drm/bridge/sii9234.c
-> > index e43248e515b3..72c6aeed6e12 100644
-> > --- a/drivers/gpu/drm/bridge/sii9234.c
-> > +++ b/drivers/gpu/drm/bridge/sii9234.c
-> > @@ -170,8 +172,12 @@ struct sii9234 {
-> >  	struct drm_bridge bridge;
-> >  	struct device *dev;
-> >  	struct gpio_desc *gpio_reset;
-> > -	int i2c_error;
-> >  	struct regulator_bulk_data supplies[4];
-> > +	struct extcon_dev *extcon;
-> > +	struct notifier_block extcon_nb;
-> > +	struct work_struct extcon_wq;
-> > +	int cable_state;
-> > +	int i2c_error;
-> 
-> Moving i2c_error is unrelated, and apparently unneeded unless I'm missing
-> something.
+[Severity: High]
+Looking at Adapter<T>::remove_callback(), it appears that T::unbind() is
+called, but PrivateData is never explicitly dropped or obtained from the
+device data, which might leave the device open and leak memory.
 
-Yes, it is unneeded, will drop the change in next version.
+When remove_callback() returns, the C driver core sets drvdata to NULL. If
+data arrives immediately after, receive_buf_callback() might read a NULL
+pointer from drvdata_borrow() and dereference it.
 
-> > @@ -863,6 +869,70 @@ static int sii9234_init_resources(struct sii9234 *ctx,
-> >  	return 0;
-> >  }
-> >  
-> > +static void sii9234_extcon_work(struct work_struct *work)
-> > +{
-> > +	struct sii9234 *ctx =
-> > +		container_of(work, struct sii9234, extcon_wq);
-> 
-> Can fit on a single line.
+Similarly, on a probe error in Adapter<T>::probe_callback(), ScopeGuard
+clears drvdata before PrivateData's PinnedDrop implementation closes the
+device. Does this create a race window where the device is still open and
+receiving data while drvdata is NULL or in the process of being destroyed?
 
-Will fix.
+[Severity: High]
+In Device::set_baudrate(), the success condition is checked using strict
+equality (ret =3D=3D speed).
 
-> > +	int state = extcon_get_state(ctx->extcon, EXTCON_DISP_MHL);
-> > +
-> > +	if (state == ctx->cable_state)
-> > +		return;
-> > +
-> > +	ctx->cable_state = state;
-> > +
-> > +	if (state > 0)
-> > +		sii9234_cable_in(ctx);
-> > +	else
-> > +		sii9234_cable_out(ctx);
-> > +}
-> > +
-> > +static int sii9234_extcon_notifier(struct notifier_block *self,
-> 
-> "self" is not a very descriptive name. What about "nb", being a notifier
-> block?
+Since serdev_device_set_baudrate() configures the hardware and returns the
+actual achieved baudrate (or 0 on failure), hardware clock divider
+limitations often result in a baudrate that is close but not exactly equal
+to the requested speed (for example, returning 115198 when 115200 is
+requested).
 
-Sure, will fix.
+Will this strict equality check cause valid driver initializations to fail
+on platforms that can only approximate the requested baudrate?
 
-> > +			unsigned long event, void *ptr)
-> > +{
-> > +	struct sii9234 *ctx =
-> > +		container_of(self, struct sii9234, extcon_nb);
-> 
-> Single line here too.
-
-Will fix.
-
-> > [ ... skip 14 lines ... ]
-> > +	/* Then get micro-USB Interface Controller node */
-> > +	muic = of_get_next_parent(musb);
-> > +
-> > +	if (!muic) {
-> > +		dev_info(ctx->dev,
-> > +			 "no extcon found, switching to 'always on' mode\n");
-> 
-> Can fit in a line.
-
-The rest of the file uses 80 char line limit, but seems sensible to
-exceed it here. Will fix.
-
-> > +		return 0;
-> > +	}
-> > +
-> > +	edev = extcon_find_edev_by_node(muic);
-> > +	of_node_put(muic);
-> > +	if (IS_ERR(edev)) {
-> > +		return dev_err_probe(ctx->dev, PTR_ERR(edev),
-> > +			      "invalid or missing extcon\n");
-> > +	}
-> 
-> You can drop the curly braces, and perhaps the dev_err_probe() can fit in a
-> 100-chars line.
-
-Will fix.
-
-> > +
-> > +	ctx->extcon = edev;
-> > +	ctx->extcon_nb.notifier_call = sii9234_extcon_notifier;
-> > +	INIT_WORK(&ctx->extcon_wq, sii9234_extcon_work);
-> > +	ret = extcon_register_notifier(edev, EXTCON_DISP_MHL, &ctx->extcon_nb);
-> > +	if (ret) {
-> > +		dev_err(ctx->dev, "failed to register notifier for MHL\n");
-> > +		return ret;
-> > +	}
-> 
-> Use dev_err_probe(), and so remove the {}.
-
-Will fix.
-
-> > @@ -929,7 +1004,15 @@ static void sii9234_remove(struct i2c_client *client)
-> >  {
-> >  	struct sii9234 *ctx = i2c_get_clientdata(client);
-> >  
-> > -	sii9234_cable_out(ctx);
-> > +	if (ctx->extcon) {
-> > +		extcon_unregister_notifier(ctx->extcon, EXTCON_DISP_MHL,
-> > +					   &ctx->extcon_nb);
-> 
-> I guess you can use devm_extcon_register_notifier() to simplify a bit the
-> code.
-
-Will look into it, thanks!
-
-Best regards,
-Henrik Grimler
-
-> > +		flush_work(&ctx->extcon_wq);
-> > +		if (ctx->cable_state > 0)
-> > +			sii9234_cable_out(ctx);
-> > +	} else {
-> > +		sii9234_cable_out(ctx);
-> > +	}
-> >  	drm_bridge_remove(&ctx->bridge);
-> >  }
-> >  
-> 
-> Luca
-> 
-> -- 
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
-> 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-rust_serde=
+v-v14-0-b4ed5c93606f@posteo.de?part=3D1
