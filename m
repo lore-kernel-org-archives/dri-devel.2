@@ -4,53 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06F5FC44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 06:43:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 110D9C44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 06:47:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CE0110E156;
-	Wed, 15 Jul 2026 06:43:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63B8B10E131;
+	Wed, 15 Jul 2026 06:47:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="lJ04fou+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rxe5BH0x";
 	dkim-atps=neutral
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3623210E131
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 06:42:59 +0000 (UTC)
-Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net
- [178.82.120.96])
- by mail11.truemail.it (Postfix) with ESMTPA id 9CE091F8DA;
- Wed, 15 Jul 2026 08:42:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
- s=default; t=1784097777;
- bh=VhX27eVj94wZ4TbZOZmAuCcKPqJuNV5Qaj379iRya4w=; h=From:To:Subject;
- b=lJ04fou+1i84Pq+5wBTGnkKE/X1Ope/n2XS+7mkCpy4DNnun6qaKWw2taEXi8gc1Z
- lemFntMKwk0+I5RDNDO0Z58ge+VfTWND2NRG0Nppczt35SiKjdHPP94flzvVQNb0Ut
- TrWwY+rraEFGqIyVkmXj85eIOhsm0mUXopISmKCJGwTe5bXKbGcd3mXAs2A39pDW9j
- LD59esS7nJ4R8fFdZYx4v78Zp+Xo8IQRGWQPSZEHu6GLwLR5DvPSCQY22g/L8o0yM8
- A9a5Xd91lAhQvv8buhnDS8dCoWADwHtRaunSV9WIyQC78jGwbzfenZIpNBa/KlenE5
- GeeNsy+1YlS+A==
-Date: Wed, 15 Jul 2026 08:42:52 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Colin Ian King <colin.i.king@gmail.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH][next] drm/bridge: lontium-lt8912b: make read-only const
- array supply_names static
-Message-ID: <20260715064252.GA40623@francesco-nb>
-References: <20260714190400.194605-1-colin.i.king@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 071B710E131
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 06:47:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 01B0343046;
+ Wed, 15 Jul 2026 06:47:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B7291F000E9;
+ Wed, 15 Jul 2026 06:47:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784098068;
+ bh=Kspjd676zvs0DkYjbeRjHFL+eRleqOy5TmzjeLfcgxg=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date;
+ b=Rxe5BH0xxS8Vh4oYbl/NJWNcYGvgJM17Umbc51sM7xu1SMeV4cV515HpEvcKV4FMP
+ TGJ8PNvDRgCYG01V10/2gn5Q6f5ZuvzRtp9u8pLjXDAxuYDZUmjxg0UxhJR2UstyQm
+ QQk0Exe4Ex7DMTCVrb5jDz0CQlyGwXtccd3Fv5EUvYKRyPrOtJ7wl03qR7SDDiSixz
+ Vvx+lW4UtYvtbN14sNTyGLAY454TSkUZoEZ8NdAShabcq7GngGNDKCIne4gq9uY0XD
+ W8mnw/OD5Qm36U8Ti0gXvCupfR0ODtgPQgMa4APmfNia4h6YM6yxGVLzQBjGW5yoyE
+ ryb4o97GKAkIg==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Alvin Sun <alvin.sun@linux.dev>, Miguel Ojeda <ojeda@kernel.org>, Boqun
+ Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6r?=
+ =?utf-8?Q?n?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
+ <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu
+ <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen
+ <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Daniel Almeida <daniel.almeida@collabora.com>, Arnd
+ Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, Breno
+ Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, Dave Ertman
+ <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, Igor
+ Korotin <igor.korotin@linux.dev>, FUJITA Tomonori
+ <fujita.tomonori@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Arve
+ =?utf-8?B?SGrDuG5uZXbDpWc=?=
+ <arve@android.com>, Todd Kjos <tkjos@android.com>, Christian Brauner
+ <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
+Subject: Re: [PATCH v8 07/10] rust: configfs: use `LocalModule` for
+ `THIS_MODULE`
+In-Reply-To: <20260713-fix-fops-owner-v8-7-2495cfa82d47@linux.dev>
+References: <20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev>
+ <20260713-fix-fops-owner-v8-7-2495cfa82d47@linux.dev>
+Date: Wed, 15 Jul 2026 08:46:42 +0200
+Message-ID: <87ldbchhrh.fsf@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714190400.194605-1-colin.i.king@gmail.com>
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,10 +82,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 14, 2026 at 08:03:59PM +0100, Colin Ian King wrote:
-> Don't populate the read-only const array supply_names on the stack
-> at run time, instead make it static
-> 
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+Alvin Sun <alvin.sun@linux.dev> writes:
 
-Acked-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> Replace the `THIS_MODULE` static reference in the `configfs_attrs!`
+> macro with `this_module::<LocalModule>()`, and update
+> rnull to import `LocalModule` instead of `THIS_MODULE`, consistent
+> with the move of `THIS_MODULE` into the `ModuleMetadata` trait.
+>
+> Assisted-by: opencode:glm-5.2
+> Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Acked-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+
+
+Acked-by: Andreas Hindborg <a.hindborg@kernel.org>
+
+Best regards,
+Andreas Hindborg
+
+
