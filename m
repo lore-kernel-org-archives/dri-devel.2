@@ -4,121 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56EDDC44511
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6EDDC4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2E4410F204;
-	Thu, 16 Jul 2026 08:19:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C8AB10F207;
+	Thu, 16 Jul 2026 08:19:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="G9Ads1/5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ClBLgFqb";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4755510F152;
- Wed, 15 Jul 2026 19:54:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=u1xTcKNYwdOUdwgNpbyIzAcPowaOLgUaHPOaAeLqzfg=; b=G9Ads1/50L6jZQcaHXYJq/Psc7
- AryEJZcuGxV76jnQvR75aByyQN2+s4KISlfDdk2TV92ezj8Mb4OV3LQF0ZVYbq4Bwq7lXV48A3koM
- 4dW7xh0EelhZHZsLKX5Terjo3G/wY4H4bI5wxUs6ArdrtWB1DCY3d3mbi6Xxwegu+cmC0ufKyHXMu
- AqLncMI+gSugHyCRPWyTnaJ8K+c0jt3rkv99sJlwJf7PJ+dQ563sPdXLBXOHRlyBfZi2YB6bdEe6v
- /P14vLsGTAZrR7gY0vy5J00O3llg1vnu5Lm0yJTpk8XtVFADXa9x0/iPQC2akptOn3wrnWTNwWmxS
- CaBTrBPw==;
-Received: from [38.23.173.23] (helo=localhost)
- by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wk5fh-0000000FpH0-1NIX; Wed, 15 Jul 2026 19:53:33 +0000
-Date: Wed, 15 Jul 2026 15:53:23 -0400
-From: "Liam R. Howlett" <liam@infradead.org>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, 
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
- Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>, 
- Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>,
- Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
- SJ Park <sj@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
- Peter Xu <peterx@redhat.com>, 
- Kees Cook <kees@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
- Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>,
- Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
- x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, 
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>, 
- Shameer Kolothum <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
- Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev,
- iommu@lists.linux.dev, 
- kasan-dev@googlegroups.com, linux-sgx@vger.kernel.org,
- etnaviv@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, kvm@vger.kernel.org, 
- Russell King <linux+etnaviv@armlinux.org.uk>
-Subject: Re: [PATCH v2 03/33] tools/testing/vma: use vma_start_pgoff() in
- merge tests
-Message-ID: <p6bhkbzvrdz6bb4a6cdmd6bmlwuwxfjd3lx5opq334o7nwjhwa@ctqdd3i2daon>
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
- <20260710-b4-pre-scalable-cow-v2-3-2a5aa403d977@kernel.org>
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8470E10F10C
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 18:15:53 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2ce7d2adef4so34906205ad.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 11:15:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784139353; x=1784744153; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:user-agent
+ :message-id:date:cc:to:from:subject:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=o8cXs1v6rCZCT506ix1H6vuS6eKjBp0nDmZrJvk5ap0=;
+ b=ClBLgFqbEfTe/wA960uuF9GmdfRjLt8aZSdP3S3KQckPKbeM5XxcktGb2lmjnNurU1
+ JvArYu/o/cdhXNBAOUwVMD/fixDiHzDaelf68QbOWXIg9DY88v8r69uMeR2UWcsnqMDU
+ vJ5mLg1/dcpKoAgNmxMHSYtYyRCaOXQetSWI68cuqjBeQxBPlkO7/JhsMrYXcgCBTccW
+ /5kocoSYgH4PnUfXZ097KlyJHdk5QcSgsQnsMBKSl8GmRHoxxbInfevtexj8t3lB2dto
+ IMq8G79WDQGn165YVibIaKLLf+9fxGtpdHrEopy0HrNe203PdoHzg2+Q852HY6048jQR
+ sqpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784139353; x=1784744153;
+ h=content-transfer-encoding:content-type:mime-version:user-agent
+ :message-id:date:cc:to:from:subject:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=o8cXs1v6rCZCT506ix1H6vuS6eKjBp0nDmZrJvk5ap0=;
+ b=TC1f2txIa92UBHMArotjDJBCmrXKqEbvgeuxUqDjhdFeS2gihRW/S5vsoK9vMdQ+Rg
+ +XSg/WDowsIJXwFknKgJLXVty4t1T8y7RDJXgOPk2tvx79KMyYH+GqK8aWueLk7+/Hk6
+ TOonif9egwHZBPno+x+auhWtS9c7v+QNgXw981/0pYMT82RDSWV6D0+hoexYyCJ+pF8Q
+ kuz45veoclonqZkwGIxLtF6t8ICbaAA2FFopMJzpnWGgMDhNyN2aAMPsJ136bqg9dc5D
+ fqtE4VJIk6pQkID/V1gz9DHdkqFHtnSRlC/h5N7l5lFzZ2epeRQDee5C3i0txdxyeHkZ
+ iNEg==
+X-Gm-Message-State: AOJu0YxInlD0K11bBMvG51FQ8PA5N7qZ9ROTvH2v6pkH0uOZQDf508pa
+ 8URQpZ5eJcNh5pcx7JgcTY5zeWo0NyskIArGI6cC8l6KkhzRpf1myzDT
+X-Gm-Gg: AfdE7cmT+4B5qIRGaw7+J+/incub6WbDK3BSet0TDbahWDXrVcloj5oDS9jswayMpDB
+ rhV4CRhj+tOx1Wa2bITZDl7tixEtSqpyhSNOI04AbsNUVlzws2x27rDA9ZuLjB25vSoM9Y9CrJb
+ 6htVvbmuLxfxw+td7fQ4asLI0wrXXQv0491utYhcl+DQzUYmvRuKEWIv6nns6i+q6UYnF36LmjS
+ nSYc/aexI/jIErM/RUPR8wHXW9Md2NfeHpifx9obHsK8cungmGkqimmpi54HtiqIVAHFdHA1hcM
+ TY65fg2vDxcuCpormBhcPEgWcbvmHeks9LpzPMvhcZAsZu8tTl3eIOGUZZllBNammpkiF66teFV
+ wkhcmI8/Blc2u6Ti1SgtMYxud0vqTJP/1DX/m73VM4Y47SqeOeOHdh7c/MANLffRqUeTL/INVgY
+ EeSjhaWce00lKCJVmLwxc94EtVLjDb3RHDz5FpZhvki8stzx8WRHtANnFRmdAMD+YCxwKNEg==
+X-Received: by 2002:a17:903:19c3:b0:2c9:97a9:2096 with SMTP id
+ d9443c01a7336-2ce9f05981emr195144115ad.42.1784139352792; 
+ Wed, 15 Jul 2026 11:15:52 -0700 (PDT)
+Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net.
+ [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2cf1055cde6sm6969345ad.52.2026.07.15.11.15.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jul 2026 11:15:51 -0700 (PDT)
+Subject: [PATCH v9 0/8] mm/hmm: Add mmap lock-drop support for
+ userfaultfd-backed mappings
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+To: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
+ corbet@lwn.net, dakr@kernel.org, david@kernel.org, decui@microsoft.com,
+ haiyangz@microsoft.com, jgg@ziepe.ca, kees@kernel.org, kys@microsoft.com,
+ leon@kernel.org, liam@infradead.org, lizhi.hou@amd.com, ljs@kernel.org,
+ longli@microsoft.com, lyude@redhat.com, maarten.lankhorst@linux.intel.com,
+ mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
+ nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
+ rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
+ skhan@linuxfoundation.org, skinsburskii@gmail.com, surenb@google.com,
+ tzimmermann@suse.de, vbabka@kernel.org, wei.liu@kernel.org,
+ skinsburskii@gmail.com
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rdma@vger.kernel.org
+Date: Wed, 15 Jul 2026 11:15:50 -0700
+Message-ID: <178413903133.1155966.3904063656020521607.stgit@skinsburskii>
+User-Agent: StGit/0.19
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260710-b4-pre-scalable-cow-v2-3-2a5aa403d977@kernel.org>
-X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:21 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,199 +100,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 26/07/10 09:16PM, Lorenzo Stoakes wrote:
-> Now we have the vma_start_pgoff() helper, update the merge tests to make
-> use of it for consistency.
-> 
-> No functional change intended.
-> 
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> Reviewed-by: Gregory Price <gourry@gourry.net>
-> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+This series extends the HMM framework to support userfaultfd-backed memory
+by allowing the mmap read lock to be dropped during hmm_range_fault().
 
-Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
+Some page fault handlers — most notably userfaultfd — require the mmap lock
+to be released so that userspace can resolve the fault. The current HMM
+interface never sets FAULT_FLAG_ALLOW_RETRY, making it impossible to fault
+in pages from userfaultfd-registered regions.
 
-> ---
->  tools/testing/vma/tests/merge.c | 38 +++++++++++++++++++-------------------
->  1 file changed, 19 insertions(+), 19 deletions(-)
-> 
-> diff --git a/tools/testing/vma/tests/merge.c b/tools/testing/vma/tests/merge.c
-> index 03b6f9820e0a..f8666a755749 100644
-> --- a/tools/testing/vma/tests/merge.c
-> +++ b/tools/testing/vma/tests/merge.c
-> @@ -118,7 +118,7 @@ static bool test_simple_merge(void)
->  
->  	ASSERT_EQ(vma->vm_start, 0);
->  	ASSERT_EQ(vma->vm_end, 0x3000);
-> -	ASSERT_EQ(vma->vm_pgoff, 0);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 0);
->  	ASSERT_FLAGS_SAME_MASK(&vma->flags, vma_flags);
->  
->  	detach_free_vma(vma);
-> @@ -150,7 +150,7 @@ static bool test_simple_modify(void)
->  
->  	ASSERT_EQ(vma->vm_start, 0x1000);
->  	ASSERT_EQ(vma->vm_end, 0x2000);
-> -	ASSERT_EQ(vma->vm_pgoff, 1);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 1);
->  
->  	/*
->  	 * Now walk through the three split VMAs and make sure they are as
-> @@ -162,7 +162,7 @@ static bool test_simple_modify(void)
->  
->  	ASSERT_EQ(vma->vm_start, 0);
->  	ASSERT_EQ(vma->vm_end, 0x1000);
-> -	ASSERT_EQ(vma->vm_pgoff, 0);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 0);
->  
->  	detach_free_vma(vma);
->  	vma_iter_clear(&vmi);
-> @@ -171,7 +171,7 @@ static bool test_simple_modify(void)
->  
->  	ASSERT_EQ(vma->vm_start, 0x1000);
->  	ASSERT_EQ(vma->vm_end, 0x2000);
-> -	ASSERT_EQ(vma->vm_pgoff, 1);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 1);
->  
->  	detach_free_vma(vma);
->  	vma_iter_clear(&vmi);
-> @@ -180,7 +180,7 @@ static bool test_simple_modify(void)
->  
->  	ASSERT_EQ(vma->vm_start, 0x2000);
->  	ASSERT_EQ(vma->vm_end, 0x3000);
-> -	ASSERT_EQ(vma->vm_pgoff, 2);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 2);
->  
->  	detach_free_vma(vma);
->  	mtree_destroy(&mm.mm_mt);
-> @@ -209,7 +209,7 @@ static bool test_simple_expand(void)
->  
->  	ASSERT_EQ(vma->vm_start, 0);
->  	ASSERT_EQ(vma->vm_end, 0x3000);
-> -	ASSERT_EQ(vma->vm_pgoff, 0);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 0);
->  
->  	detach_free_vma(vma);
->  	mtree_destroy(&mm.mm_mt);
-> @@ -231,7 +231,7 @@ static bool test_simple_shrink(void)
->  
->  	ASSERT_EQ(vma->vm_start, 0);
->  	ASSERT_EQ(vma->vm_end, 0x1000);
-> -	ASSERT_EQ(vma->vm_pgoff, 0);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 0);
->  
->  	detach_free_vma(vma);
->  	mtree_destroy(&mm.mm_mt);
-> @@ -324,7 +324,7 @@ static bool __test_merge_new(bool is_sticky, bool a_is_sticky, bool b_is_sticky,
->  	ASSERT_TRUE(merged);
->  	ASSERT_EQ(vma->vm_start, 0);
->  	ASSERT_EQ(vma->vm_end, 0x4000);
-> -	ASSERT_EQ(vma->vm_pgoff, 0);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 0);
->  	ASSERT_EQ(vma->anon_vma, &dummy_anon_vma);
->  	ASSERT_TRUE(vma_write_started(vma));
->  	ASSERT_EQ(mm.map_count, 3);
-> @@ -343,7 +343,7 @@ static bool __test_merge_new(bool is_sticky, bool a_is_sticky, bool b_is_sticky,
->  	ASSERT_TRUE(merged);
->  	ASSERT_EQ(vma->vm_start, 0);
->  	ASSERT_EQ(vma->vm_end, 0x5000);
-> -	ASSERT_EQ(vma->vm_pgoff, 0);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 0);
->  	ASSERT_EQ(vma->anon_vma, &dummy_anon_vma);
->  	ASSERT_TRUE(vma_write_started(vma));
->  	ASSERT_EQ(mm.map_count, 3);
-> @@ -364,7 +364,7 @@ static bool __test_merge_new(bool is_sticky, bool a_is_sticky, bool b_is_sticky,
->  	ASSERT_TRUE(merged);
->  	ASSERT_EQ(vma->vm_start, 0x6000);
->  	ASSERT_EQ(vma->vm_end, 0x9000);
-> -	ASSERT_EQ(vma->vm_pgoff, 6);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 6);
->  	ASSERT_EQ(vma->anon_vma, &dummy_anon_vma);
->  	ASSERT_TRUE(vma_write_started(vma));
->  	ASSERT_EQ(mm.map_count, 3);
-> @@ -384,7 +384,7 @@ static bool __test_merge_new(bool is_sticky, bool a_is_sticky, bool b_is_sticky,
->  	ASSERT_TRUE(merged);
->  	ASSERT_EQ(vma->vm_start, 0);
->  	ASSERT_EQ(vma->vm_end, 0x9000);
-> -	ASSERT_EQ(vma->vm_pgoff, 0);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 0);
->  	ASSERT_EQ(vma->anon_vma, &dummy_anon_vma);
->  	ASSERT_TRUE(vma_write_started(vma));
->  	ASSERT_EQ(mm.map_count, 2);
-> @@ -404,7 +404,7 @@ static bool __test_merge_new(bool is_sticky, bool a_is_sticky, bool b_is_sticky,
->  	ASSERT_TRUE(merged);
->  	ASSERT_EQ(vma->vm_start, 0xa000);
->  	ASSERT_EQ(vma->vm_end, 0xc000);
-> -	ASSERT_EQ(vma->vm_pgoff, 0xa);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 0xa);
->  	ASSERT_EQ(vma->anon_vma, &dummy_anon_vma);
->  	ASSERT_TRUE(vma_write_started(vma));
->  	ASSERT_EQ(mm.map_count, 2);
-> @@ -423,7 +423,7 @@ static bool __test_merge_new(bool is_sticky, bool a_is_sticky, bool b_is_sticky,
->  	ASSERT_TRUE(merged);
->  	ASSERT_EQ(vma->vm_start, 0);
->  	ASSERT_EQ(vma->vm_end, 0xc000);
-> -	ASSERT_EQ(vma->vm_pgoff, 0);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 0);
->  	ASSERT_EQ(vma->anon_vma, &dummy_anon_vma);
->  	ASSERT_TRUE(vma_write_started(vma));
->  	ASSERT_EQ(mm.map_count, 1);
-> @@ -443,7 +443,7 @@ static bool __test_merge_new(bool is_sticky, bool a_is_sticky, bool b_is_sticky,
->  		ASSERT_NE(vma, NULL);
->  		ASSERT_EQ(vma->vm_start, 0);
->  		ASSERT_EQ(vma->vm_end, 0xc000);
-> -		ASSERT_EQ(vma->vm_pgoff, 0);
-> +		ASSERT_EQ(vma_start_pgoff(vma), 0);
->  		ASSERT_EQ(vma->anon_vma, &dummy_anon_vma);
->  
->  		detach_free_vma(vma);
-> @@ -805,7 +805,7 @@ static bool test_vma_merge_new_with_close(void)
->  	ASSERT_EQ(vmg.state, VMA_MERGE_SUCCESS);
->  	ASSERT_EQ(vma->vm_start, 0);
->  	ASSERT_EQ(vma->vm_end, 0x5000);
-> -	ASSERT_EQ(vma->vm_pgoff, 0);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 0);
->  	ASSERT_EQ(vma->vm_ops, &vm_ops);
->  	ASSERT_TRUE(vma_write_started(vma));
->  	ASSERT_EQ(mm.map_count, 2);
-> @@ -865,7 +865,7 @@ static bool __test_merge_existing(bool prev_is_sticky, bool middle_is_sticky, bo
->  	ASSERT_EQ(vma_next->anon_vma, &dummy_anon_vma);
->  	ASSERT_EQ(vma->vm_start, 0x2000);
->  	ASSERT_EQ(vma->vm_end, 0x3000);
-> -	ASSERT_EQ(vma->vm_pgoff, 2);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 2);
->  	ASSERT_TRUE(vma_write_started(vma));
->  	ASSERT_TRUE(vma_write_started(vma_next));
->  	ASSERT_EQ(mm.map_count, 2);
-> @@ -931,7 +931,7 @@ static bool __test_merge_existing(bool prev_is_sticky, bool middle_is_sticky, bo
->  	ASSERT_EQ(vma_prev->anon_vma, &dummy_anon_vma);
->  	ASSERT_EQ(vma->vm_start, 0x6000);
->  	ASSERT_EQ(vma->vm_end, 0x7000);
-> -	ASSERT_EQ(vma->vm_pgoff, 6);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 6);
->  	ASSERT_TRUE(vma_write_started(vma_prev));
->  	ASSERT_TRUE(vma_write_started(vma));
->  	ASSERT_EQ(mm.map_count, 2);
-> @@ -1416,7 +1416,7 @@ static bool test_merge_extend(void)
->  	ASSERT_EQ(vma_merge_extend(&vmi, vma, 0x2000), vma);
->  	ASSERT_EQ(vma->vm_start, 0);
->  	ASSERT_EQ(vma->vm_end, 0x4000);
-> -	ASSERT_EQ(vma->vm_pgoff, 0);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 0);
->  	ASSERT_TRUE(vma_write_started(vma));
->  	ASSERT_EQ(mm.map_count, 1);
->  
-> @@ -1456,7 +1456,7 @@ static bool test_expand_only_mode(void)
->  	ASSERT_EQ(vmg.state, VMA_MERGE_SUCCESS);
->  	ASSERT_EQ(vma->vm_start, 0x3000);
->  	ASSERT_EQ(vma->vm_end, 0x9000);
-> -	ASSERT_EQ(vma->vm_pgoff, 3);
-> +	ASSERT_EQ(vma_start_pgoff(vma), 3);
->  	ASSERT_TRUE(vma_write_started(vma));
->  	ASSERT_EQ(vma_iter_addr(&vmi), 0x3000);
->  	vma_assert_attached(vma);
-> 
-> -- 
-> 2.55.0
-> 
+This series follows the established int *locked pattern from
+get_user_pages_remote() in mm/gup.c. A new helper function,
+hmm_range_fault_locked(), accepts an int *locked parameter. When the
+mmap lock is dropped during fault resolution (VM_FAULT_RETRY or
+VM_FAULT_COMPLETED), the function returns 0 with *locked = 0, signalling
+the caller to restart its walk. The existing hmm_range_fault() is
+refactored into a thin wrapper that passes NULL, preserving current
+behavior for all existing callers.
+
+Possible approaches to lift this limitation are documented in
+Documentation/mm/hmm.rst.
+
+Changes in v9:
+
+  - Folded the fixups into the full 8-patch series instead of sending a
+    separate fixup series.
+  - Clarified that the HMM timeout bounds repeated HMM/mmu-notifier retry
+    attempts, with the helper refreshing range->notifier_seq internally.
+  - Kept nouveau’s explicit outer deadline because its retry loop runs in a GPU
+    fault worker and cannot rely on fatal signals from the faulting process.
+  - Converted amdxdna, and GPU SVM callers to pass the shole timeout budget to
+    hmm_range_fault_unlocked_timeout().
+
+Changes in v8:
+
+  - Make hmm_range_fault_unlocked_timeout() the primary documented HMM
+    range-fault API, and move hmm_range_fault() into the “use only if the
+    caller really must hold mmap_lock” category.
+  - Clarify that the timeout is a retry budget for repeated mmu-notifier
+    invalidation retries. HMM does not interrupt an in-progress page fault
+    when the timeout expires.
+  - Restart the retry timeout only when handle_mm_fault() dropped
+    mmap_lock, because that indicates a lock-dropping fault handler such as
+    userfaultfd made progress. Ordinary -EBUSY retries keep the existing
+    deadline.
+  - Remove the attempted timeout selftest. The remaining selftest covers the
+    intended userfaultfd path by resolving missing-page faults through
+    HMM_DMIRROR_READ_UNLOCKED and hmm_range_fault_unlocked_timeout(..., 0).
+
+Changes in v7:
+  - Replaced the unlocked HMM API with
+    hmm_range_fault_unlocked_timeout(). The helper now takes a timeout in
+    jiffies, with 0 meaning retry indefinitely.
+  - Moved -EBUSY retry handling into the HMM helper for the unlocked path.
+    The helper refreshes range->notifier_seq internally before each retry.
+  - Switched the unlocked path to mmap_read_lock_killable() and return
+    -EINTR if mmap lock acquisition is interrupted or a fatal signal is
+    pending during retry handling.
+  - Removed the redundant non-timeout hmm_range_fault_unlocked() interface.
+  - Updated Documentation/mm/hmm.rst and kernel-doc to describe the timeout API
+    and the intended caller pattern.
+  - Updated the HMM selftests to use hmm_range_fault_unlocked_timeout()
+    only, including coverage for the finite-timeout path.
+  - Added in-tree users of the new helper:
+      - mshv
+      - nouveau
+      - RDMA/umem
+      - amdxdna
+      - drm/gpusvm
+  - Preserved each converted driver’s existing timeout convention:
+      - unbounded retry where the old code retried indefinitely,
+      - HMM_RANGE_DEFAULT_TIMEOUT where the old code used that budget,
+      - existing driver-specific timeout return values such as -ETIME.
+  - Used max_t(long, timeout - jiffies, 1) when passing remaining time from
+    absolute jiffies deadlines to avoid unsigned underflow while keeping a
+    minimum one-jiffy retry window.
+  - Left callers on hmm_range_fault() when they already need to hold
+    mmap_lock across surrounding work, such as drm_gpusvm_check_pages().
+
+Changes in v6:
+  - Reworked the new API from the external int *locked pattern to
+    hmm_range_fault_unlocked(), which owns mmap_read_lock() internally.
+  - Changed the dropped-lock contract: hmm_range_fault_unlocked() now returns
+    -EBUSY when the mmap lock is dropped, and callers restart with a fresh
+    mmu_interval_read_begin() sequence.
+  - Kept hmm_range_fault() as the locked variant for existing users, preserving
+    its caller-held mmap lock contract.
+  - Added an in-tree user by converting the MSHV region fault path to
+    hmm_range_fault_unlocked().
+  - Updated Documentation/mm/hmm.rst and kernel-doc to describe the unlocked
+    helper and retry pattern.
+  - Updated commit messages to match the new API and return semantics.
+  - Kept the userfaultfd HMM selftest using the test_hmm unlocked read ioctl
+    path.
+
+Changes in v5:
+ - Rework hmm_range_fault_unlockable() retry handling to retry
+   VM_FAULT_RETRY internally with FAULT_FLAG_TRIED set, matching the
+   fixup_user_fault() pattern and avoiding repeated first-retry lock drops.
+ - Distinguish VM_FAULT_RETRY from VM_FAULT_COMPLETED: retry faults now
+   reacquire the mmap lock internally, while completed faults return to the
+   caller with *locked = 0 so the caller can restart with a fresh notifier
+   sequence.
+ - Document the two *locked return states, including the -EINTR case when a
+   fatal signal is pending after the mmap lock has already been dropped.
+ - Update comments around HMM_FAULT_UNLOCKED and the HMM fault loop to match
+   the current hmm_range_fault_unlockable() implementation.
+
+Changes in v4:
+ - Rebased on 7.2-rc1
+
+Changes in v3:
+ - Return -EFAULT from dmirror_fault_unlockable() when the mirrored mm can
+   no longer be pinned.
+ - Add an eventfd stop signal for the userfaultfd handler thread to avoid
+   waiting for the poll timeout on successful test completion.
+
+Changes in v2:
+
+ - Split into a preparatory refactor (new patch 1) that moves
+   handle_mm_fault() out of the walk callbacks, plus a smaller feature
+   patch on top.  Suggested by David Hildenbrand.
+ - Hugetlb regions are now supported on the unlockable path; the v1
+   -EFAULT short-circuit and the hugetlb_vma_lock_read drop/retake
+   dance are gone.
+ - Distinct internal sentinels for "needs fault" (HMM_FAULT_PENDING)
+   and "lock dropped" (HMM_FAULT_UNLOCKED).
+ - Outer loop now re-walks after a successful internal fault so the
+   faulted pfns end up in range->hmm_pfns.
+ - Kernel-doc on hmm_range_fault_unlockable() and the
+   Documentation/mm/hmm.rst example match the implementation.
+ - Dropped the mshv driver conversion (v1 patch 2); will post
+   separately.
+ - Selftest converted to drive the path through test_hmm with a
+   userfaultfd handler (new HMM_DMIRROR_READ_UNLOCKABLE ioctl).
+
+---
+
+Stanislav Kinsburskii (8):
+      mm/hmm: move page fault handling out of walk callbacks
+      mm/hmm: add hmm_range_fault_unlocked_timeout() for mmap lock-drop support
+      selftests/mm: add HMM test for mmap lock-dropping faults
+      mshv: Use hmm_range_fault_unlocked_timeout() for region faults
+      drm/nouveau: Use hmm_range_fault_unlocked_timeout() for SVM faults
+      RDMA/umem: Use hmm_range_fault_unlocked_timeout() for ODP faults
+      accel/amdxdna: Use hmm_range_fault_unlocked_timeout() for range population
+      drm/gpusvm: Use hmm_range_fault_unlocked_timeout() for range faults
+
+
+ Documentation/mm/hmm.rst               |   79 +++++++---
+ drivers/accel/amdxdna/aie2_ctx.c       |   23 ---
+ drivers/gpu/drm/drm_gpusvm.c           |   61 +-------
+ drivers/gpu/drm/nouveau/nouveau_svm.c  |   20 +-
+ drivers/hv/mshv_regions.c              |   54 +------
+ drivers/infiniband/core/umem_odp.c     |   18 +-
+ include/linux/hmm.h                    |    2 
+ lib/test_hmm.c                         |  107 +++++++++++++
+ lib/test_hmm_uapi.h                    |    1 
+ mm/hmm.c                               |  259 +++++++++++++++++++++++++-------
+ tools/testing/selftests/mm/hmm-tests.c |  150 +++++++++++++++++++
+ 11 files changed, 551 insertions(+), 223 deletions(-)
+
