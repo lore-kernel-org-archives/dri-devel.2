@@ -4,80 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 748F8C44501
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 18:31:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D101EC44508
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 18:35:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D142210E209;
-	Wed, 15 Jul 2026 18:31:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FBE810EF62;
+	Wed, 15 Jul 2026 18:35:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="i/YH6zzu";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="kIE1Rj5Q";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B170B10E207
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 18:31:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1784140269; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=mF+82Ak2xmHGgbVpn39yFo1ujKBHtUruIeLUq0wT0hxE/5VO0yqPQx/X2vQZsW2pXD5c+hXeTXHqnqG49GgFapriRA//Ut8ZOikB+NbBQ6WKuXTatdXVJ0Zv8tsFSfuekO7RFRhpR+6uiCi+nCXHhfkM+LLRtVuGnyq4++lnCn0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1784140269;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=N/wiBLYHdGXZJkCg3oiCX/MSyspe/eiXGex9ftDaZcE=; 
- b=Wq86dZDfxwLzEPjzbpEFWxu+0Bn/IBHdVt7Gplx3r/tgpwmMlScib11AeXnv4lbmBAqoprAeOviGj964g1je+zrhI3eRtNf7MS0wNXDcRtUMtLkCrmNsEvueR9Ld9Udx4yHoSX3UpeGlk8KfxYNE/GLS8rqlBb0jl5lsOfMTGbQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
- dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784140269; 
- s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=N/wiBLYHdGXZJkCg3oiCX/MSyspe/eiXGex9ftDaZcE=;
- b=i/YH6zzu7szwG3X/T7xICxR7uKdgqUMZmCHJ1dMCpLh9NfGt+npTLJuO8Z0qTLeZ
- d0X+UpC7bvzAlaaAEyagubKAqouLSvOlYtfzI3FamtSP7oc8x7SH6Mb6FM1gg0K40Dr
- UpT6qfSnFS2y4v5ji2KXDYD1NCIpVdcdEXZjtX18=
-Received: by mx.zohomail.com with SMTPS id 1784140267504649.5715776031727;
- Wed, 15 Jul 2026 11:31:07 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
- id 1F034180820; Wed, 15 Jul 2026 20:31:00 +0200 (CEST)
-Date: Wed, 15 Jul 2026 20:31:00 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Andy Yan <andyshrk@gmail.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013000.outbound.protection.outlook.com
+ [52.101.83.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC6C810EF62
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 18:35:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gj/AHM6gia39qaCw5B4wAqnOR+pqu4dSMbGoKZulxwBVWH3lpy9PyBlCMRW8Hn0KnWlgFjpjxfzdKGAIS/PrAZumjYBGCYqlk11Ro8SFED5Ny9hDPcubDhLo6GWloyYIns4STxU/zAI6jj2XIuo5e/43B/ncQQlrUCh93V0rurTOqNZTzbgp2IhCRjbuP7pMYcYBvWO6mGWbKyu4iMeOE+vObbTn4eaUiHyrKytSrAt5ftN0dLg3felt7G3IHLSXECyxlkb0bNzHPG32nN8z+ecY/Wkk4UH/GegTRWK2nZu5dE9nqK/pIIkr6euVyE5u/3RJu/nE1jRsy4t5/pnBdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zYppSXENci0udx0qB+ey/PVs/tDC4pjQsQ/7wmuKP1Q=;
+ b=TmSktdY/1NfnXo0dBcrBvCyoZJVbWD439vuZeEDyCOCHUzQgsw1Z9mEPDRgd1yOrFh/RptmgVAw69WcwXzfUIUW21GLvAGFm6mSGluJ//khSkSJNGM5jY2Au+w5824tSgFZF2NSaGxjyAb4lUP2nhkFQVhGzTD5RkjQjFuHBhvFEu+OfZhx8UUsCeCtEmDhUXqLMBjh9XvWaDwwTKLXK7qp+FDEyUrD6KXPeuNbV4gjYXEHRoMEC+llbx5H/TlV0vukLpt5T2srvBpI9KEUHzH3BB497b5NB80smAuS65OLtCnNxnIsZ7jsK7wWa2ExfE5nn6r8pRde5QDa9vFP4ug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zYppSXENci0udx0qB+ey/PVs/tDC4pjQsQ/7wmuKP1Q=;
+ b=kIE1Rj5QfdlAPFJZPVtCp6gtn/C68CBpRCaEIbjtXz49uUhGP8MIc/mFmIUDIdJn6X8gUxCTKsui3mfb3RhNF9pfWKfMMLAgSenxXpdSeBHQSrhAc6Vj0KYtTjzebpqvn6OllHpAueNX11aSVLJT/tF+VIe0cBf28DW2zEl3fjOGA6cHeq4oGsFpgwqYCIQtLCiqHqRoJhhY2z6cSr3VjYhUhmC2BZ/t1+mLThWThXXutgX9iOT6HU16+b6v3/s1Mtsa4imfN/PITi16gw+TmW9Yj6Z8ZhMNoHPCnteaQaGpWbTgzftXYkFYGP1I7xX316JACNLhrpoYkzGB6S0Buw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DU4PR04MB11791.eurprd04.prod.outlook.com (2603:10a6:10:623::11)
+ by AS8PR04MB8359.eurprd04.prod.outlook.com (2603:10a6:20b:3b3::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Wed, 15 Jul
+ 2026 18:34:57 +0000
+Received: from DU4PR04MB11791.eurprd04.prod.outlook.com
+ ([fe80::11ca:6b74:3234:d7de]) by DU4PR04MB11791.eurprd04.prod.outlook.com
+ ([fe80::11ca:6b74:3234:d7de%5]) with mapi id 15.21.0202.018; Wed, 15 Jul 2026
+ 18:34:57 +0000
+From: Frank.Li@oss.nxp.com
+Subject: [PATCH v2 0/7] display: lcdif: imx: add display support for
+ imx8dxl and imx8qxp
+Date: Wed, 15 Jul 2026 14:34:45 -0400
+Message-Id: <20260715-dxl_lcdif-v2-0-da797562636e@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMXSV2oC/02NSwrCMBQAr1Le2kgSNLWuvIcUydc+qUlJaqiU3
+ N22unA5MMzMkGxEm+BczRBtxoTBL8B3FehO+rslaBYGTrmgNW2Imfpbrw06YoRWRkndcKdg8Yd
+ oHU5b69p+Ob3Uw+pxDaxGh2kM8b3NMlu9X5cd/rqZEUpELZg8SXFsuLr4adjr8IS2lPIBjBF8R
+ bIAAAA=
+X-Change-ID: 20260709-dxl_lcdif-d6cbdbac92fb
+To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Damon Ding <damon.ding@rock-chips.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Alexey Charkov <alchark@gmail.com>, 
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org, yubing.zhang@rock-chips.com
-Subject: Re: [PATCH v3 07/10] drm/bridge: synopsys: dw-dp: Add Runtime PM
- support
-Message-ID: <alfQl182eZjaDwgZ@venus>
-References: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
- <20260612-synopsys-dw-dp-improvements-v3-7-dc61e6352508@collabora.com>
- <CANbgqAQLROuf9wvZZWRufZg6iqubKnC4fW5Bh+DkQ7RP1x5KKQ@mail.gmail.com>
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, Robert Chiras <robert.chiras@nxp.com>, 
+ Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784140492; l=2027;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=C52/GGxRXQhNJ9zFB2eQ9xfh9U3coodwYTO1XiU+TWw=;
+ b=6KxQ5gx9VHK2y+mXwx97oc/PNUti0zgpz+erQ6mgq/Id3GH7AMykCDK6hGjh3kvv5ZOG7mTur
+ y3EprdcJypeBrEA+I8RPAyYNKmDZPikk1enXPOuHw7c2YFLsJtvujoA
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: SA0PR11CA0028.namprd11.prod.outlook.com
+ (2603:10b6:806:d3::33) To DU4PR04MB11791.eurprd04.prod.outlook.com
+ (2603:10a6:10:623::11)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="k4oubbgopkkrgoq4"
-Content-Disposition: inline
-In-Reply-To: <CANbgqAQLROuf9wvZZWRufZg6iqubKnC4fW5Bh+DkQ7RP1x5KKQ@mail.gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.121.97
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU4PR04MB11791:EE_|AS8PR04MB8359:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3ab03c6-c35c-4f78-d4ee-08dee29fc516
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|19092799006|1800799024|23010399003|366016|56012099006|11063799006|3023799007|18002099003|10067099003|921020;
+X-Microsoft-Antispam-Message-Info: jnEOnNCpr8lsjdN69nGS1/mijHxMXFeXbiNkkbTK5Nwjf0fKy5kTqvFzngnxHEJQJVZqHzEzGf/2f+vHLh7xNrP2DORyMK0hj+bn3fENJKmDBZthH3JxOQMzkggFrOAul7iGdPO72kieUy3TnSuaFZSqmFfLfN1F6WSbDGfQzktQIAcJitxo0YdHhulamPw8sOvuu71rkO4mpG4dGPUBfATC1r6ujYi1TmLQR7uFFBbDHcv1GlmOwdsjqiwoe52rBCReF47Q/Bry1H2NXVv7BobRgOEmBmE5K9QVec0fbGKzkomaRYOkkl7XodcPxKpXme6GV2KSZOWmcF0Jf5Imi+3Gpl0ORZVLwicmM7Mptd/88I//OiZ0SuDS8d75Ww/UcaGkG4elF3wtnsmG62VLWEuORvv3z/4dLLryEhxkpYOSOhtUWg7nB2O9CB9wBqn99ZJxM1MAxUgDL8wyn8RrrTjVAmNVxNotyma4za9VKcbbpPf23oKcQ34by2vo51YePMQtVHZQHi0AQNMzdVp5lLwmMsOHLSyl+iL4PYXwiKQadOnC/vwhDSWdqLlYIEX67yL4mml/FAhFSMH9n7Cnxpsg+vG5NojP/ooh8DLsShKH4t4v6Yb6gMOysltwa2f//MkoH3DOptNB3OarKz03ULKsxtVHi/yppGVBx69pgZE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DU4PR04MB11791.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(19092799006)(1800799024)(23010399003)(366016)(56012099006)(11063799006)(3023799007)(18002099003)(10067099003)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?amJmWjgrUEFyWnpVNkhMVEthNmQ3eGdNeXRLeE15TEl5WUZWdkpPcHlhNTgx?=
+ =?utf-8?B?MkZqeWFuUmRsN2p1SWRMeFdXOHJSVXAvZE5oNEsrb3B2WUJYZEVmOWhWL0U1?=
+ =?utf-8?B?QTNXTzBybTNWWkRtMHpWbXY1em00czg4RFJ0cmE4aG5VMUtPK2M4WFd6RW0w?=
+ =?utf-8?B?THhCUFYwU3pCdk5tUEpSb0cvbnRTeFE0TXZ4TFJzN1pZbkUwbVIvU3Y1RjB0?=
+ =?utf-8?B?R3E1MWtsSmdLenlpRlJYYkFRZ1VYNnRPSFJqcC9YWDhEWUtKM3ljVGJreXBN?=
+ =?utf-8?B?OHBWMXlGVkZoZ25wcmtlNzZyWXdaUTJLS3puQlRHWFBmK3UyYjRodk45enps?=
+ =?utf-8?B?NFRZUkJyS0FnY1NnSzczbTl1eVFzck1hYXN6NXVSanB2TWljMC9IeVEzWGtN?=
+ =?utf-8?B?S0VVL1RIcWRVVnhOVTkrQnVIVmlVTTlzZWNralJGc1FiaEtyMlFRdTZZNGhi?=
+ =?utf-8?B?OFcwY0I1b1luSHRxM3pQT05lWUZYZXQrQkZqbDBVUS9wNHJGaGJjNUVuYWRt?=
+ =?utf-8?B?T2dXSVMrY3lCZ21qMlJ6aGtZQzdXeE0zN0ZCUTc3TFhDQzQvSGZMNGNQbFgw?=
+ =?utf-8?B?czVlV0pSMEdRY1lSQkFKSDJQcFkvd1o4OVBYNEF4SDYzOUl0eUZEK0dqZmpT?=
+ =?utf-8?B?ZTkzQ3FKKzBMMSthN0VNQS95bGhDZUNwalVUZUlrL1crSWViVFN6TmEvSTUx?=
+ =?utf-8?B?dnNBYkZ1aFJUbWtOZGE1ekIwV2RhQVhwQXdCYTJmL3VDYkN0dWhGK2VjK3ZX?=
+ =?utf-8?B?Y2t5Z3V6Q3NRVnVlTkkvYkszTFFDMExKT0xvVm9VQ2RpUFJDeHVvdk52anQ4?=
+ =?utf-8?B?U2tZTVlRVHl4Q0tFZTFaQ2NNN1BCMjNWaGpFenI1cjBtV0dYMm92TkJscjJD?=
+ =?utf-8?B?WHdSMVNZRlpHc0lVbDRjV1hpSmRzdUd6VFpsYy9JeTBNSW9VekF2L0FBSGFE?=
+ =?utf-8?B?eFFmWEtGa2NGVFNRQktkaHZHdTY1UndqMmJXdWUvcDVUR2ZOazd4T3pmeGpM?=
+ =?utf-8?B?NHEvWVVPOEtFbmFYS2lWc0JzSjhBdzhDZXJ0TUxhOGJMYXFsTkE5UG9MTGJM?=
+ =?utf-8?B?aVNtL1FEcUQyWExhaHFuc21hQ0lMazlyU1NDNjJBazdYMGlKcStJTGVicVE4?=
+ =?utf-8?B?em1aTURGOWsydDE5c3E1V2gxem03V2FhQlh5K05ZYXVHSHRUb0JDeXI0Qmwy?=
+ =?utf-8?B?ZGxOSnNOcjZqbit1R0YrSG8xRm9rRWc3LzRTQnJMbmhqNTlWRnRWQ0I2aHU5?=
+ =?utf-8?B?TUhNb21SVWMzUXFaZW5DRTgzdFk5T21uOGhyTGF4WHpFdkRJZXNCU1NPU2lE?=
+ =?utf-8?B?ZS9KU1hZSkZCVDd1Y3F0QmRCOU5CeXBCbCs3YlVlQzNhNCtHYXU2TmtrcFo4?=
+ =?utf-8?B?c2FOWFpZTGpnKzFkTUJCdGxQZkdrZXY2ZGJlWVJwb0pNU1c3SjgraEkyMUlj?=
+ =?utf-8?B?MStsOVE2R3BYVFlFQXlHTU9xQW5HR1hqTU9KVGpZL3dkN3NYQ1RnU3RydFZK?=
+ =?utf-8?B?VnJ5UFhwZVVVSnhBSWtURlhMZi9JUW54ay82MlpVcitJRXh6cmVTekx4Y3d2?=
+ =?utf-8?B?R3MycUdiL1ZUZGNGSmVjN21reGRGZHZHYWNlV3FVRmtRMWpmNDY4TnFkakhU?=
+ =?utf-8?B?NWFNbDNWN29vL2FRVzN2RU90L3VjeU8xRzNOZVJDZ0Y2QVdFSjVrRFgwZVNY?=
+ =?utf-8?B?UExtUzhOYkhiYXdpbmxBdU9ZL1lHUzNtZUUyUnZXMVdxaHgrWXFIVTZKdnp1?=
+ =?utf-8?B?OUUrbStwUmRGa2lndVpQZWE5NnpuVEJhOTR2UUZjYS90bit5MUd0ckYvNklN?=
+ =?utf-8?B?d1hTaXZGWkFkU2FyRWI1ZmpNTVZVcmhGbXNoMmxBa2syZElSa3ltYWx6emlr?=
+ =?utf-8?B?QUpMQkhERWFmZ2VqSHBWQTVhaHhvazZjaDBWR2ZWSjd0VnJZdWJoMVlJSThr?=
+ =?utf-8?B?dTUrNm1iUHJNWnV4eG5XQ2U0aktLVEZQOFBUcGx0cUd6YWswY2FYQytFS2kr?=
+ =?utf-8?B?NHM1UjhTdkQ4ZEMrS2tYSmVhMkFmOXhxR2FQU1NHTVVhK0xQKzBRVjRKSVJi?=
+ =?utf-8?B?eHRtSG4rZjk1L09TZUlCOUxyRHJnYWsrRVRBVEdrTnd4dTJueG56NHU0cEhQ?=
+ =?utf-8?B?NXlBOVQ0MGllY21Ca2p4QXFSaHVvc0Y5RTZHczJ0Q0JwSXdkQmRZeUV0RVpV?=
+ =?utf-8?B?eUw1dmU1amUyalEyR3BTZnVGdmxnRld0M2FpL1Z3dHlXRHVyYTU1WGc4bm02?=
+ =?utf-8?B?R0d6MjVCeDhuMThGemw0MXdpY2Z0N3ErNzlrMnA0Mi9sbVNLQm9qMndiNkxB?=
+ =?utf-8?B?anVyVXNWcnVQZDgyY05hMHB3cGwxSkU0T29aSGwxL2h3N0lRVDV6ZlcyN3lV?=
+ =?utf-8?Q?IODLG+WxMRFSeMsojdcTGd8UEOKBpGQNlMHNO?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3ab03c6-c35c-4f78-d4ee-08dee29fc516
+X-MS-Exchange-CrossTenant-AuthSource: DU4PR04MB11791.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 18:34:57.1037 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MAKZQI6FcaDmyOUlSplkmb+6f7ip1cxr5kU0VpUoneuHzkAIHIJNP9UlM0fHmdlo84IMdFQ6P7e2qMi8H2NaOa0GecZ52b0Y2DsNLn65iVwBFb/X7XfDBCproCfS7FC6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8359
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,204 +161,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+i.MX8DXL and i.MX8QX support LCDIF, which is compatible with i.MX6SX.
 
---k4oubbgopkkrgoq4
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 07/10] drm/bridge: synopsys: dw-dp: Add Runtime PM
- support
-MIME-Version: 1.0
+- Update lcdif binding doc to support front compatible string:
+fsl,imxqxp-lcdif and fsl,imx8dxl-lcdif
+- Update simple pannel binding doc and driver to support waiken,101wx001
+- update chip dts to support lcdif ip
+- add overlay file to enable lcd panel waiken,101wx001 and lcdif
+- use onboard pinmux "pinctrl-multiplexer" for on board signal switch
 
-Hello Andy,
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+Changes in v2 (fix sashiko reported problem):
+- add power domain required for binding
+- fix 136 height
+- add acm patch to cleam MCL clock output pin
+- remove iomux hog in overlay file
+- Link to v1: https://patch.msgid.link/20260714-dxl_lcdif-v1-0-6761a8a6592b@nxp.com
 
-On Tue, Jul 14, 2026 at 05:01:14PM +0800, Andy Yan wrote:
-> Hello Sebastian,
->=20
-> Sebastian Reichel <sebastian.reichel@collabora.com> =E4=BA=8E2026=E5=B9=
-=B46=E6=9C=8813=E6=97=A5=E5=91=A8=E5=85=AD 02:01=E5=86=99=E9=81=93=EF=BC=9A
->=20
-> > Add runtime PM stubs to the Synopsys DesignWare DisplayPort bridge
-> > driver. Support is not enabled automatically and must be hooked up
-> > in the vendor specific glue code.
-> >
-> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> > ---
-> >  drivers/gpu/drm/bridge/synopsys/dw-dp.c | 27 +++++++++++++++++++++++++=
-++
-> >  include/drm/bridge/dw_dp.h              |  3 +++
-> >  2 files changed, 30 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> > b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> > index 7fa38145e35c..7f4f36c61484 100644
-> > --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> > @@ -1465,6 +1465,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_a=
-ux
-> > *aux,
-> >         if (WARN_ON(msg->size > 16))
-> >                 return -E2BIG;
-> >
-> > +       ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
-> > +
-> >         switch (msg->request & ~DP_AUX_I2C_MOT) {
-> >         case DP_AUX_NATIVE_WRITE:
-> >         case DP_AUX_I2C_WRITE:
-> > @@ -1655,6 +1657,8 @@ static void dw_dp_bridge_atomic_enable(struct
-> > drm_bridge *bridge,
-> >         struct drm_connector_state *conn_state;
-> >         int ret;
-> >
-> > +       pm_runtime_get_sync(dp->dev);
-> > +
-> >         connector =3D drm_atomic_get_new_connector_for_encoder(state,
-> > bridge->encoder);
-> >         if (!connector) {
-> >                 dev_err(dp->dev, "failed to get connector\n");
-> > @@ -1709,6 +1713,7 @@ static void dw_dp_bridge_atomic_disable(struct
-> > drm_bridge *bridge,
-> >         dw_dp_link_disable(dp);
-> >         bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-> >         dw_dp_reset(dp);
-> > +       pm_runtime_put_autosuspend(dp->dev);
-> >  }
-> >
-> >  static bool dw_dp_hpd_detect_link(struct dw_dp *dp, struct drm_connect=
-or
-> > *connector)
-> > @@ -1729,6 +1734,8 @@ static enum drm_connector_status
-> > dw_dp_bridge_detect(struct drm_bridge *bridge,
-> >  {
-> >         struct dw_dp *dp =3D bridge_to_dp(bridge);
-> >
-> > +       ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
-> >
->=20
-> This may not work correctly. Per the DW-DP TRM, the " HPD_HOT_PLUG
-> bit is asserted only after the sink is attached and holds HPD high
-> for at least 100ms". Consequently, reading this bit within 100ms
-> after resuming runtime_pm may fail to detect the status. I've
-> verified this behavior on a Rock 5B board=E2=80=94the HPD bit remains
-> unreadable at this point.
->=20
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -1761,12 +1761,17 @@ static enum drm_connector_status
-> dw_dp_bridge_detect(struct drm_bridge *bridge,
->=20
->         ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
->=20
-> -       if (!dw_dp_hpd_detect(dp))
-> +       if (!dw_dp_hpd_detect(dp)) {
-> +               printk(KERN_DEBUG "%s no hpd\n", __func__);
->                 return connector_status_disconnected;
-> +       }
->=20
-> -       if (!dw_dp_hpd_detect_link(dp, connector))
-> +       if (!dw_dp_hpd_detect_link(dp, connector)) {
-> +               printk(KERN_DEBUG "%s no link\n", __func__);
->                 return connector_status_disconnected;
-> +       }
->=20
-> +       printk(KERN_DEBUG "%s connected\n", __func__);
->         return connector_status_connected;
->  }
->=20
-> @@ -2149,6 +2154,7 @@ static irqreturn_t dw_dp_irq(int irq, void *data)
->         u32 value;
->=20
->         regmap_read(dp->regmap, DW_DP_GENERAL_INTERRUPT, &value);
-> +       printk(KERN_DEBUG "%s value: %d\n", __func__, value);
->         if (!value)
->                 return IRQ_NONE;
->=20
-> bootup
-> [    5.218035] panthor fb000000.gpu: [drm] Using Transparent Hugepage
-> [    5.219073] [drm] Initialized panthor 1.9.0 for fb000000.gpu on minor 1
-> [    7.953973] r8169 0004:41:00.0 enP4p65s0: Link is Up - 1Gbps/Full - fl=
-ow
-> control off
-> [    8.601273] dw_dp_rockchip_runtime_resume ret: 0
-> [    8.702748] dw_dp_irq value: 1        // (HPD irq 100 100ms  after
-> runtime_resume)
-> [    8.714236] dw_dp_irq value: 2
-> [    8.714775] dw_dp_irq value: 2
-> [    8.715201] dw_dp_irq value: 2
-> [    8.715710] dw_dp_irq value: 2
-> [    8.715744] dw_dp_bridge_detect connected
-> [    9.226752] dw_dp_rockchip_runtime_suspend
->=20
->=20
-> Then run modetest:
->=20
-> # modetest
-> trying to open device '/dev/dri/card1'... is not a KMS device
-> trying to open device '/dev/dri/card0'... done
-> opened device `RockChip Soc DRM` on driver `rockchip` (version 1.0.0 at 0)
-> Encoders:
-> id      crtc    type    possible crtcs  possible clones
-> 86      0       TMDS    0x00000004      0x00000001
-> 88      0       TMDS    0x00000001      0x00000002
-> 92      0       TMDS    0x00000002      0x00000004
->=20
-> Connectors:
-> id      encoder status          name            size (mm)       modes
-> encoders
-> 87      0       disconnected    DP-1            0x0             0       86
->   props:
->         1 EDID:
->=20
-> [   13.809398] rockchip-pm-domain
-> fd8d8000.power-management:power-controller: sync_state() pending due to
-> fdee0000.hdmi_receiver
-> [   29.225506] dw_dp_rockchip_runtime_resume ret: 0
-> [   29.225940] dw_dp_bridge_detect no hpd         // no HPD read here
-> [   29.326986] dw_dp_irq value: 1                         // HPD irq ater
-> 100ms
-> [   29.346609] dw_dp_irq value: 2
-> [   29.347150] dw_dp_irq value: 2
-> [   29.347578] dw_dp_irq value: 2
-> [   29.348092] dw_dp_irq value: 2
->=20
->=20
-> if I add a mdelay(110) after  ACQUIRE pm_runtime,  the hdp can be read.
-> index 02ca7fe725876..5959e79eb3e2b 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -1760,7 +1760,7 @@ static enum drm_connector_status
-> dw_dp_bridge_detect(struct drm_bridge *bridge,
->         struct dw_dp *dp =3D bridge_to_dp(bridge);
->=20
->         ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
-> -
-> +       mdelay(110);
+---
+Frank Li (7):
+      dt-bindings: lcdif: add compatible string for i.MX8QXP and i.MX8DXL
+      dt-bindings: display: simple: Add waiken,101wx001
+      drm/panel: simple: Add waiken WKS101WX001-WCT support
+      arm64: dts: imx8-ss-dma: Add lcdif support for i.MX8QXP and i.MX8DXL
+      arm64: dts: imx8dxl-evk: Add onboard GPIO mux controller
+      arm64: dts: imx8dxl-evk: Move ACM MCLK pin to ACM pinctrl
+      arm64: dts: imx8dxl-evk: add lcdif overlay
 
-Interesting, I did not notice this issue with the Sige 5 (RK3576).
-Thanks for not just reporting it to not work, but also figuring out
-what is going on :) I will add an msleep(110); in the next version.
+ .../devicetree/bindings/display/fsl,lcdif.yaml     |   4 +
+ .../bindings/display/panel/panel-simple.yaml       |   2 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ arch/arm64/boot/dts/freescale/Makefile             |   3 +
+ arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi     |  29 +++++
+ .../boot/dts/freescale/imx8dxl-evk-lcdif.dtso      | 118 +++++++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx8dxl-evk.dts      |  88 ++++++++++++---
+ arch/arm64/boot/dts/freescale/imx8dxl-ss-adma.dtsi |  11 ++
+ drivers/gpu/drm/panel/panel-simple.c               |  31 ++++++
+ 9 files changed, 276 insertions(+), 12 deletions(-)
+---
+base-commit: 31bd73273b9bf03a3fe32227b417f00d4a94c6ac
+change-id: 20260709-dxl_lcdif-d6cbdbac92fb
 
-Greetings,
+Best regards,
+--  
+Frank Li <Frank.Li@nxp.com>
 
--- Sebastian
-
---k4oubbgopkkrgoq4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpX0eMACgkQ2O7X88g7
-+proiw//TpC4KRIooalLSV6qAZujhx/NZeM1RZgdMyLHA8A5+uvrO4uhjIrPPivv
-zUqwAU90nbdoVNt8zyKhjwpabHHXtrh2wxwMjesYOYO1SLNDgLvF7IrUYdOfXzJA
-00hzJglxvIB5aJllxCzSkrP2WpNEqjrBpL3QfuzObOc/qd9yq/Z/OmNh6HTWsmFi
-6lASNypyehhXPwwgyP8brI7Nb+w7IaemGTEAbOMkbxDZ1VnBOLde0BKCsLyKwZV0
-jtSEozTs8Hzh6Wfpu66oklAsxZhp64lbYDNpOtYb5YsBeyoy56D4mR1++hYXcIxf
-tr0TaiVMSEwa32cX1YEg2ZaDGz+odB+nGdiPffg3+2UhNQoae/qxrpmRpgvTWijW
-Wz5YqfGmFs/s/iR10Osxwy3YBY/mKScp81F6S4Lv191vDCfs+9j5wYArv/52m7zf
-hPUbiy0k2SRTgt0VSmHly81fQRTzM1VUamYBTzdy0Gik5EsYwRZSggLip8aWHlct
-tQHNgpu8iOhaDP9aEu19HMQtKF1ppHBPJPIREBT19JOyr4Shv18IzGbBNjrZuQU5
-nO94Xviw9otQpWfWGdvHgXSgsWIkgNLGuHrgOQK3YZF0V9N9/C4cCqSf3N6vFqUu
-rqHu9882Hg7u63fDL0KVTrVGzfg+FH6MNF1N5mHwKthNiCkbPHM=
-=fomM
------END PGP SIGNATURE-----
-
---k4oubbgopkkrgoq4--
