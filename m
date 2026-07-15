@@ -4,63 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E90B5C44501
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 14:18:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50F67C44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 14:19:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17E8210E19D;
-	Wed, 15 Jul 2026 14:18:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB84010F0EF;
+	Wed, 15 Jul 2026 14:19:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NSqFZan9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SXj8+Iox";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C495410E19D
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 14:18:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784125134; x=1815661134;
- h=message-id:date:mime-version:subject:from:to:cc:
- references:in-reply-to:content-transfer-encoding;
- bh=4pQVkM9WBlO2vZEiiX+bLHbTyBfnEvBkqXZimCFqLzk=;
- b=NSqFZan9XJqhoENFsVTZA2tgDZidK7Ba05PGOXtxbO0avRt/9xajxUxS
- N+hZfZB/M5D5E+cAO62F1f5p2/DeRLnd3j+6D2HqLI0i9XCLT7VVW3FQO
- lKS4M2/X1XS0q8dN6rpBZNJJLlLW5YFCtZEmMleuNzcAddcziJF5e9AGz
- POgppNc9viV14ovRl0POSZgfiyZi1szw8FnwrL/t9H2o+kaFKfWYqoGKM
- bjtWRAnBoymnsLIOiX5VqK4cxubWrlGYxMDLeA0tyV1uizWtR0qtmfNGw
- CZmlCNkU7LSlYSfCXZiuNsDuj3p6E3n3ioNNzw2mNNVWpgqANiDK7L8lN A==;
-X-CSE-ConnectionGUID: L5unHJzxRzqwK32daUXCLA==
-X-CSE-MsgGUID: Oqr3udusRVqyj0TzDklA/A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="95364455"
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="95364455"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2026 07:18:53 -0700
-X-CSE-ConnectionGUID: +mB4D5dkQ8+P3dLhZmOkfQ==
-X-CSE-MsgGUID: g4UT7WH3Tm2EgfctWuLglw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="259783028"
-Received: from jakomppa-mobl.ger.corp.intel.com (HELO [10.246.16.242])
- ([10.246.16.242])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2026 07:18:51 -0700
-Message-ID: <a4713578-1490-4b33-927f-57160d5f7c20@linux.intel.com>
-Date: Wed, 15 Jul 2026 16:18:49 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/ivpu: Reject firmware log with size smaller than
- header
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-To: Jhonraushan <raushan.jhon@gmail.com>,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>
-Cc: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>,
- Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260715074206.867712-1-raushan.jhon@gmail.com>
- <68d6db92-5e48-477f-ba97-d116480e0636@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <68d6db92-5e48-477f-ba97-d116480e0636@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C0DB10F0D9
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 14:19:52 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D0BAD42A72;
+ Wed, 15 Jul 2026 14:19:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963351F000E9;
+ Wed, 15 Jul 2026 14:19:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784125191;
+ bh=lD2HksaOGQ3OpsivQGGXrTjZQHP/i3gax1OXplAHeFE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=SXj8+Iox7/HDKoPv44gzrmr71RpxIijYUFA90QfKe9pH5knC2I1fjC10s+Jq2MX/h
+ MgITlvgAImBnN9t7HllWnzVWVgq9dnwk/WPgcrnJTXavCgUiAXsiOw24puZJxzDr5i
+ Rzn+UpV9owB0Fgh0gj2szpEQhkuuBtxfde+iC0BBwWpSy5nKAqeTmBWy7GLFR369X4
+ AxKiGK97NsfJXzpV6tJ3Pjokh5GKoVYM98B0TxIzHfK//mcyxbuN9cd+7+G+FzTPat
+ ob/Q5romi0DIPAvDt7NxgGug2pTaRAQGj4a77Rrz/ZfyynhR1bnvm35dXyB2djrPa0
+ p4D6VPsZ+VI6A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] mtd: mtd_intel_dg: add survivability partition
+To: "Alexander Usyskin" <alexander.usyskin@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260715-cri_surviv-v1-1-61763a6f1076@intel.com>
+References: <20260715-cri_surviv-v1-0-61763a6f1076@intel.com>
+ <20260715-cri_surviv-v1-1-61763a6f1076@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 14:19:51 +0000
+Message-Id: <20260715141951.963351F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,60 +53,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 15-Jul-26 10:21, Wachowski, Karol wrote:
-> On 15-Jul-26 9:42, Jhonraushan wrote:
->> fw_log_from_bo() validates the tracing buffer header_size and that the
->> log fits within the BO, but never checks that log->size is at least
->> log->header_size. fw_log_print_buffer() then computes:
->>
->>    u32 data_size = log->size - log->header_size;
->>
->> which underflows to a near-U32_MAX value when firmware reports a log 
->> whose
->> size is smaller than its header. That huge data_size defeats the
->> log_start/log_end bounds clamps added by commit dd1311bcf0e6 ("accel/ 
->> ivpu:
->> Add bounds checks for firmware log indices"), so fw_log_print_lines() 
->> reads
->> far past the small real data region of the BO. A size of 0 also makes
->> fw_log_from_bo() advance the offset by 0, causing the callers to loop
->> forever on the same header.
->>
->> Reject logs whose size is smaller than the header (which also rejects
->> size == 0).
->>
->> Fixes: d4e4257afa6e ("accel/ivpu: Add firmware tracing support")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Jhonraushan <raushan.jhon@gmail.com>
->> ---
->>   drivers/accel/ivpu/ivpu_fw_log.c | 4 ++++
->>   1 file changed, 4 insertions(+)
->>
->> diff --git a/drivers/accel/ivpu/ivpu_fw_log.c b/drivers/accel/ivpu/ 
->> ivpu_fw_log.c
->> index 275baf844b56..716467aa3156 100644
->> --- a/drivers/accel/ivpu/ivpu_fw_log.c
->> +++ b/drivers/accel/ivpu/ivpu_fw_log.c
->> @@ -43,6 +43,10 @@ static int fw_log_from_bo(struct ivpu_device *vdev, 
->> struct ivpu_bo *bo, u32 *off
->>           ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", log- 
->> >header_size);
->>           return -EINVAL;
->>       }
->> +    if (log->size < log->header_size) {
->> +        ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
->> +        return -EINVAL;
->> +    }
->>       if ((char *)log + log->size > (char *)ivpu_bo_vaddr(bo) + 
->> ivpu_bo_size(bo)) {
->>           ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
->>           return -EINVAL;
-> 
-> Thanks for submission.
-> 
-> Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Unsigned integer underflow in bounds checks allows out-of-bounds h=
+ardware memory accesses when survivability mode is enabled.
+--
 
-Applied to drm-misc-fixes.
+--- Patch [1]: [PATCH 1/2] mtd: mtd_intel_dg: add survivability partition -=
+--
+commit 9f27e4e8d4c741d1106f13ea61bac2daf3838cad
+Author: Alexander Usyskin <alexander.usyskin@intel.com>
+
+mtd: mtd_intel_dg: add survivability partition
+
+This commit adds an option to expose a fixed-sized survivability partition
+starting from the beginning of storage. This can be used when the firmware
+or hardware detects a failure involving a corrupted partition table,
+allowing a full storage re-write.
+
+> diff --git a/drivers/mtd/devices/mtd_intel_dg.c b/drivers/mtd/devices/mtd=
+_intel_dg.c
+> index f2fa8f68d1905..d11ddc687c4ac 100644
+> --- a/drivers/mtd/devices/mtd_intel_dg.c
+> +++ b/drivers/mtd/devices/mtd_intel_dg.c
+[ ... ]
+> @@ -205,6 +206,13 @@ static unsigned int idg_nvm_get_region(const struct =
+intel_dg_nvm *nvm, loff_t fr
+>  {
+>  	unsigned int i;
+> =20
+> +	/*
+> +	 * When survivability region is enabled it positioned on index 0 and ha=
+s region_id =3D 0
+> +	 * Region 0 is special, via this region whole device memory can be acce=
+ssed.
+> +	 */
+> +	if (nvm->survivability_enabled)
+> +		return 0;
+> +
+
+[Severity: High]
+Does this unconditional return of 0 create an underflow risk in the read,
+write, and erase paths?
+
+When survivability is enabled, idg_nvm_get_region() will always return
+index 0. If nvm->size was inflated during initialization by parsing limits
+from a corrupted partition table, a request could arrive with an offset
+larger than nvm->regions[0].size.
+
+In drivers/mtd/devices/mtd_intel_dg.c:intel_dg_mtd_read(), the bounds check
+subtracts the offset from the region size:
+
+    idx =3D idg_nvm_get_region(nvm, from);
+   =20
+    if (len > nvm->regions[idx].size - from)
+        len =3D nvm->regions[idx].size - from;
+
+If the from offset exceeds nvm->regions[0].size, the unsigned subtraction
+will underflow, resulting in a very large value. This bypasses the length
+truncation and allows out-of-bounds hardware memory accesses.
+
+Could the same underflow occur in the bounds checks in intel_dg_mtd_write()
+and intel_dg_mtd_erase()?
+
+>  	for (i =3D 0; i < nvm->nregions; i++) {
+>  		if ((nvm->regions[i].offset + nvm->regions[i].size - 1) >=3D from &&
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-cri_surviv=
+-v1-0-61763a6f1076@intel.com?part=3D1
