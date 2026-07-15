@@ -4,130 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 982F2C44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 16:09:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FCF9C44508
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 16:13:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C91D310E8ED;
-	Wed, 15 Jul 2026 16:09:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F73F10E1EA;
+	Wed, 15 Jul 2026 16:13:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="XyYRN6vv";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="P2dV1mBn";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="XyYRN6vv";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="P2dV1mBn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Mh1USqDf";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4105E10E8ED
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 16:09:11 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 26F1E7848F;
- Wed, 15 Jul 2026 16:09:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1784131749; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Dq671rgXYsuJbZZhBcFVohcPqqyzSkvUaycHZXRuyRU=;
- b=XyYRN6vvYZZ/OXL4oDPTMVGAzZkLXDl7OyvTWkjViDBZjzXELFzG3ctALUuj5OqriWjNoK
- Pgawh31hwMS3QMo/mB7TTdPRXKErLaDX6m1xE3Rz7HTQXHVIGr22+aNt9GXjmbm6QxFjz4
- Jl5PMYEfo9sVU9EHTZctlDJdMvsK/RE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1784131749;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Dq671rgXYsuJbZZhBcFVohcPqqyzSkvUaycHZXRuyRU=;
- b=P2dV1mBn6y7xEbjl2HvnIQYyuAvjV462e+XHiLFmf9TkP7xDXtiRDteJtrdhNgDP8dg9mE
- Hxb5XFjr8KdzJWAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1784131749; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Dq671rgXYsuJbZZhBcFVohcPqqyzSkvUaycHZXRuyRU=;
- b=XyYRN6vvYZZ/OXL4oDPTMVGAzZkLXDl7OyvTWkjViDBZjzXELFzG3ctALUuj5OqriWjNoK
- Pgawh31hwMS3QMo/mB7TTdPRXKErLaDX6m1xE3Rz7HTQXHVIGr22+aNt9GXjmbm6QxFjz4
- Jl5PMYEfo9sVU9EHTZctlDJdMvsK/RE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1784131749;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Dq671rgXYsuJbZZhBcFVohcPqqyzSkvUaycHZXRuyRU=;
- b=P2dV1mBn6y7xEbjl2HvnIQYyuAvjV462e+XHiLFmf9TkP7xDXtiRDteJtrdhNgDP8dg9mE
- Hxb5XFjr8KdzJWAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D19F4779AD;
- Wed, 15 Jul 2026 16:09:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4mjJMaSwV2qONQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 15 Jul 2026 16:09:08 +0000
-Message-ID: <d817d031-6ef2-4909-81cb-a9d417550dd8@suse.de>
-Date: Wed, 15 Jul 2026 18:09:08 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E11C10E1EA;
+ Wed, 15 Jul 2026 16:13:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784132037; x=1815668037;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=rMmW2Pbr8nq4dSfDbUDPA5DWhKEqY/N6ExqKZSyESiU=;
+ b=Mh1USqDfKVP4Wt1VDZinFJObauW71H6k4iThyhVBtpQNggxmynvRr/vw
+ PKjJRNCfvFFkmmTXllS14MdoYqJMiwPH5s0QVtUctP41ahqETpMSb7GQg
+ wfJJm4I0yoRSCR98zxqMiKQZnBqLrLzQnoCtZaP9ECgDHeXkogGlG+sTL
+ P48u99rIbdEftwu6CdfZv4k2O/LMEouLHITZoHNRpu1SfL559QPQRB+bx
+ I4Z6V8XRgQQFghoN2Zfhk578gZvDh7o7waWvtzM7vn4U7dqyEDeJDl7eP
+ ssQqCNKo0AuVKJe1EXFyEtr2FYf2bP3DhFM1/z/V1qAFKR0QkQO1rVgzS w==;
+X-CSE-ConnectionGUID: 6DQH4g0OSJm/QfJjcpnGPA==
+X-CSE-MsgGUID: EwhIkgnZRH6lRAdsQNqQag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="88678502"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="88678502"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2026 09:13:56 -0700
+X-CSE-ConnectionGUID: FjU4OgWGQ7CHzTc6h+YRRA==
+X-CSE-MsgGUID: Pj8VY7+xQ1yPu38HLo5C3g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="252263313"
+Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.244.212])
+ ([10.245.244.212])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2026 09:13:52 -0700
+Message-ID: <f58b1d99-6485-4ef7-8a5f-c63e6fad9ba8@linux.intel.com>
+Date: Wed, 15 Jul 2026 18:13:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/3] drm/glanda: Add initial DRM driver for GlandaGPU
-To: Leander Kieweg <kieweg.leander@gmail.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Cc: airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-References: <20260714101146.200416-1-kieweg.leander@gmail.com>
- <20260714101146.200416-3-kieweg.leander@gmail.com>
+Subject: Re: [PATCH v7] drm/ttm/pool: back up at native page order
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260715080058.3794385-1-matthew.brost@intel.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260714101146.200416-3-kieweg.leander@gmail.com>
+From: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+In-Reply-To: <20260715080058.3794385-1-matthew.brost@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[dt]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[gmail.com,lists.freedesktop.org,vger.kernel.org];
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,linux.intel.com,kernel.org];
- RCPT_COUNT_SEVEN(0.00)[10]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
- suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,946 +76,480 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
 
-you can find a quick review below.
-
-
-Am 14.07.26 um 12:11 schrieb Leander Kieweg:
-> Introduce the core DRM/KMS driver for GlandaGPU. This driver
-> supports basic modesetting, atomic updates, and custom 2D hardware
-> acceleration IOCTLs.
+On 7/15/26 10:00, Matthew Brost wrote:
+> ttm_pool_split_for_swap() unconditionally splits high-order pool pages
+> into order-0 pages before backup, so every compound the shrinker
+> touches is shattered even when the rest of the system would prefer it
+> stay intact. Under sustained kswapd pressure this fragments memory
+> enough to drive other parts of MM into recovery loops.
 >
-> Signed-off-by: Leander Kieweg <kieweg.leander@gmail.com>
+> Back up each compound at its native order instead. In
+> ttm_pool_backup(), hand the full compound to the new
+> ttm_backup_backup_folio(), which backs up subpages to a contiguous
+> range of shmem indices and returns the base handle plus the number of
+> subpages actually backed up (@nr_backed). On full success, free the
+> compound once at its native order -- no split_page(), no per-4K
+> refcount juggling.
+>
+> A per-folio backup can't be made fully atomic under memory pressure:
+> ttm_backup_backup_folio() must allocate shmem folios before source
+> subpages can be released, so under true OOM any subpage may fail
+> while the rest of the compound is still live. Two mechanisms handle
+> this without regressing reclaim behaviour:
+>
+>    - alloc_gfp gets __GFP_NOMEMALLOC whenever order > 0 (cleared again
+>      for order-0), so a high-order backup fails fast with -ENOMEM
+>      instead of draining kernel reserves, leaving them for other
+>      allocations under the same pressure.
+>
+>    - If ttm_backup_backup_folio() still returns a short @nr_backed with
+>      a valid handle for the successfully-backed prefix, split the
+>      source compound with ttm_pool_split_for_swap(), free the prefix as
+>      order-0 pages (already safely in shmem), and retry the remaining
+>      subpages at order 0, where __GFP_NOMEMALLOC is cleared and
+>      reserves may be used as a last resort.
+>
+> This preserves the original split-on-OOM fallback while keeping the
+> common case fragmentation-free, and preserves the "partial backup is
+> allowed" contract (shrunken is incremented per subpage backed up).
+>
+> The restore-side leftover-page split in ttm_pool_restore_commit() is
+> left as-is: it's unreachable in practice and not worth complicating
+> the restore state machine to avoid.
+>
+> Testing: the existing backup_fault_inject point only truncated
+> tt->num_pages, which never exercised the reactive split path above
+> since it never left a compound partially backed up. Wire fault
+> injection into ttm_backup_backup_folio() itself: past the first
+> subpage of a compound, synthesize a -ENOMEM in place of
+> shmem_read_folio_gfp() when should_fail() trips, producing the same
+> short @nr_pages_backed a real failure would and forcing
+> ttm_pool_backup() through the split-and-retry path. The fault_attr
+> stays private to ttm_pool.c; ttm_backup.c reaches it through
+> ttm_backup_fault_inject_folio(), declared in ttm_pool_internal.h.
+>
+> While converting the writeback branch to operate on the whole folio,
+> the unlock condition after shmem_writeout() also changed from `if
+> (ret)` to `if (ret == AOP_WRITEPAGE_ACTIVATE)`, matching the actual
+> contract: shmem_writeout()/swap_writeout() only leave the folio locked
+> when returning AOP_WRITEPAGE_ACTIVATE; any other return (including a
+> hard error from arch_prepare_to_swap()) means the folio was already
+> unlocked internally. The old `if (ret)` check would have double-
+> unlocked in that hard-error case.
+>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Cc: Huang Rui <ray.huang@amd.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: stable@vger.kernel.org
+> Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
+> Suggested-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Assisted-by: Claude:claude-opus-4.6
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 > ---
->   MAINTAINERS                      |   7 +
->   drivers/gpu/drm/tiny/Kconfig     |  11 +
->   drivers/gpu/drm/tiny/Makefile    |   1 +
->   drivers/gpu/drm/tiny/glandagpu.c | 769 +++++++++++++++++++++++++++++++
->   include/uapi/drm/glanda_drm.h    |  40 ++
->   5 files changed, 828 insertions(+)
->   create mode 100644 drivers/gpu/drm/tiny/glandagpu.c
->   create mode 100644 include/uapi/drm/glanda_drm.h
+>   drivers/gpu/drm/ttm/ttm_backup.c        | 138 +++++++++++++++---------
+>   drivers/gpu/drm/ttm/ttm_pool.c          |  89 ++++++++++++---
+>   drivers/gpu/drm/ttm/ttm_pool_internal.h |   8 ++
+>   include/drm/ttm/ttm_backup.h            |  12 +--
+>   4 files changed, 178 insertions(+), 69 deletions(-)
 >
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 6dea93a41..49bbb5c43 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8076,6 +8076,13 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
->   F:	drivers/gpu/drm/gud/
->   F:	include/drm/gud.h
+> diff --git a/drivers/gpu/drm/ttm/ttm_backup.c b/drivers/gpu/drm/ttm/ttm_backup.c
+> index 81df4cb5606b..a8f0b12c86d2 100644
+> --- a/drivers/gpu/drm/ttm/ttm_backup.c
+> +++ b/drivers/gpu/drm/ttm/ttm_backup.c
+> @@ -6,23 +6,25 @@
+>   #include <drm/ttm/ttm_backup.h>
 >   
-> +DRM DRIVER FOR GLANDAGPU
-> +M:	Leander Kieweg <kieweg.leander@gmail.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/display/glanda,gpu.yaml
-> +F:	drivers/gpu/drm/tiny/glandagpu.c
-> +F:	include/uapi/drm/glanda_drm.h
-> +
->   DRM DRIVER FOR GRAIN MEDIA GM12U320 PROJECTORS
->   M:	Hans de Goede <hansg@kernel.org>
->   S:	Maintained
-> diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
-> index f0e72d4b6..7a15bf95a 100644
-> --- a/drivers/gpu/drm/tiny/Kconfig
-> +++ b/drivers/gpu/drm/tiny/Kconfig
-> @@ -56,6 +56,17 @@ config DRM_CIRRUS_QEMU
->   	   - qxl (DRM_QXL, qemu -vga qxl, works best with spice)
->   	   - virtio (DRM_VIRTIO_GPU), qemu -vga virtio)
+>   #include <linux/export.h>
+> -#include <linux/page-flags.h>
+>   #include <linux/swap.h>
 >   
-> +config DRM_GLANDA
-> +    tristate "GlandaGPU DRM driver"
-> +    depends on DRM
-> +    select DRM_KMS_HELPER
-> +    select DRM_GEM_SHMEM_HELPER
-> +	help
-> +	  DRM/KMS driver for the GlandaGPU hardware-accelerated 2D
-> +	  display controller (FPGA soft IP). This driver supports
-> +	  basic modesetting, dumb buffers, and simple 2D drawing
-> +	  acceleration via custom hardware IOCTLs.
+> +#include "ttm_pool_internal.h"
 > +
->   config DRM_GM12U320
->   	tristate "GM12U320 driver for USB projectors"
->   	depends on DRM && USB && MMU
-> diff --git a/drivers/gpu/drm/tiny/Makefile b/drivers/gpu/drm/tiny/Makefile
-> index 48d30bf61..b4fa1554a 100644
-> --- a/drivers/gpu/drm/tiny/Makefile
-> +++ b/drivers/gpu/drm/tiny/Makefile
-> @@ -4,6 +4,7 @@ obj-$(CONFIG_DRM_APPLETBDRM)		+= appletbdrm.o
->   obj-$(CONFIG_DRM_ARCPGU)		+= arcpgu.o
->   obj-$(CONFIG_DRM_BOCHS)			+= bochs.o
->   obj-$(CONFIG_DRM_CIRRUS_QEMU)		+= cirrus-qemu.o
-> +obj-$(CONFIG_DRM_GLANDA) 			+= glandagpu.o
->   obj-$(CONFIG_DRM_GM12U320)		+= gm12u320.o
->   obj-$(CONFIG_DRM_PANEL_MIPI_DBI)	+= panel-mipi-dbi.o
->   obj-$(CONFIG_DRM_PIXPAPER)              += pixpaper.o
-> diff --git a/drivers/gpu/drm/tiny/glandagpu.c b/drivers/gpu/drm/tiny/glandagpu.c
-> new file mode 100644
-> index 000000000..8f87ae096
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tiny/glandagpu.c
-> @@ -0,0 +1,769 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
+>   /*
+>    * Need to map shmem indices to handle since a handle value
+>    * of 0 means error, following the swp_entry_t convention.
+>    */
+> -static unsigned long ttm_backup_shmem_idx_to_handle(pgoff_t idx)
+> -{
+> -	return (unsigned long)idx + 1;
+> -}
+>   
+>   static pgoff_t ttm_backup_handle_to_shmem_idx(pgoff_t handle)
+>   {
+>   	return handle - 1;
+>   }
+>   
+> +static unsigned long ttm_backup_shmem_idx_to_handle(pgoff_t idx)
+> +{
+> +	return (unsigned long)idx + 1;
+> +}
 > +
-> +#include <linux/module.h>
-> +#include <linux/kernel.h>
-> +#include <linux/init.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/io.h>
-> +#include <linux/delay.h>	/* udelay (polling) */
-> +#include <linux/mod_devicetable.h>	/* Device Tree parsing */
-> +#include <linux/of.h>
-> +#include <linux/slab.h>		/* GFP_KERNEL */
-> +#include <linux/fs.h>
-> +#include <linux/cdev.h>
-> +#include <linux/uaccess.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/wait.h>
-> +#include <linux/mm.h>
-> +#include <linux/mutex.h>
-> +#include <linux/iosys-map.h>
-> +
-> +#include <drm/drm_drv.h>
-> +#include <drm/drm_device.h>
-> +#include <drm/drm_file.h>
-> +#include <drm/drm_gem.h>
-> +#include <drm/drm_ioctl.h>
-> +#include <drm/drm_gem_shmem_helper.h>
-> +#include <drm/drm_framebuffer.h>
-> +#include <drm/drm_vblank.h>
-> +
-> +#include <drm/drm_connector.h>
-> +#include <drm/drm_encoder.h>
-> +#include <drm/drm_modeset_helper.h>
-> +#include <drm/drm_probe_helper.h>
-> +#include <drm/drm_simple_kms_helper.h>
-> +#include <drm/drm_gem_framebuffer_helper.h>
-> +#include <drm/drm_crtc.h>
-> +#include <drm/drm_crtc_helper.h>
-> +#include <drm/drm_modeset_helper_vtables.h>
-> +#include <drm/drm_plane.h>
-> +#include <drm/drm_fourcc.h>
-> +#include <drm/drm_atomic.h>
-> +#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_damage_helper.h>
-> +#include <drm/drm_print.h>
-> +
-> +#include <uapi/drm/glanda_drm.h>
-> +
-> +/* Hardware Constants */
-> +#define GLANDA_WIDTH      640
-> +#define GLANDA_HEIGHT     480
-> +#define GLANDA_VRAM_SIZE  (GLANDA_WIDTH * GLANDA_HEIGHT * 4)
-> +#define GLANDA_MMIO_SIZE  32
-> +#define GLANDA_MMIO_OFFSET 0x00200000
-> +
-> +/* Base addresses used by the x86 test device. */
-> +#define BRIDGE_BASE       0xC0000000
-> +#define GLANDA_VRAM_BASE  (BRIDGE_BASE + 0x00000000)
-> +#define GLANDA_MMIO_BASE  (BRIDGE_BASE + GLANDA_MMIO_OFFSET)
-> +#define GLANDA_BASE_SIZE  (BRIDGE_BASE + 0x01000000 - 1)
-> +
-> +/* Register Offsets */
-> +#define REG_STATUS  0x00
-> +#define REG_CTRL    0x04
-> +#define REG_COORD0  0x08
-> +#define REG_COORD1  0x0C
-> +#define REG_COLOR   0x10
-> +#define REG_ISR     0x14
-> +#define REG_IER     0x18
-> +
-> +/* Bit Masks */
-> +#define INT_DONE    BIT(0)
-> +#define INT_VSYNC   BIT(1)
-> +
-> +#define STATUS_BUSY BIT(0)
-> +#define CMD_CLEAR   (0x1)
-> +#define CMD_RECT    (0x2)
-> +#define CMD_LINE    (0x3)
-> +#define CTRL_START  BIT(4)
-> +
-> +struct glanda_device {
-> +	struct drm_device drm;
-> +
-> +	/* hw */
-> +	void __iomem *mmio_base;
-> +	void __iomem *vram_base;
-> +	struct device *dev;
 
-Please use drm_device.dev instead.
-
-> +	phys_addr_t vram_phys;
-> +
-> +	int irq;
-> +	wait_queue_head_t cmd_wq;
-> +	bool cmd_done;
-> +
-> +	struct mutex lock; /* for every ineration with the hardware */
-> +
-> +	/* drm */
-> +	struct drm_plane primary_plane;
-> +	struct drm_crtc crtc;
-> +	struct drm_encoder encoder;
-> +	struct drm_connector connector;
-> +};
-> +
-> +#define to_glanda(dev) container_of(dev, struct glanda_device, drm)
-> +
-> +static const u32 glanda_plane_formats[] = {
-> +	DRM_FORMAT_XRGB8888,
-> +};
-> +
-> +static int glanda_wait_idle(struct glanda_device *gdev)
-> +{
-> +	int ret;
-> +	unsigned int status;
-> +
-> +	status = readl(gdev->mmio_base + REG_STATUS);
-> +	if (!(status & STATUS_BUSY))
-> +		return 0;
-> +
-> +	if (gdev->irq < 0) {
-> +		int timeout = 10000;
-> +
-> +		do {
-> +			status = readl(gdev->mmio_base + REG_STATUS);
-> +			if (!(status & STATUS_BUSY))
-> +				return 0;
-> +			udelay(1);
-> +		} while (--timeout > 0);
-> +
-> +		dev_err(gdev->dev, "GlandaGPU: polling wait_idle timeout\n");
-> +		return -ETIMEDOUT;
-> +	}
-> +
-> +	gdev->cmd_done = false;
-> +
-> +	ret = wait_event_interruptible_timeout(gdev->cmd_wq, gdev->cmd_done ||
-> +					       !(readl(gdev->mmio_base + REG_STATUS) & STATUS_BUSY),
-> +					       msecs_to_jiffies(500));
-> +
-> +	if (ret == 0) {
-> +		dev_err(gdev->dev, "GlandaGPU: IRQ wait_idle timeout\n");
-> +		return -ETIMEDOUT;
-> +	} else if (ret < 0) {
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int glanda_hw_clear(struct glanda_device *gdev, int color)
-> +{
-> +	u32 ctrl;
-> +	int ret;
-> +
-> +	if (mutex_lock_interruptible(&gdev->lock))
-> +		return -ERESTARTSYS;
-> +
-> +	ret = glanda_wait_idle(gdev);
-> +	if (ret) {
-> +		mutex_unlock(&gdev->lock);
-> +		return ret;
-> +	}
-> +
-> +	writel(color, gdev->mmio_base + REG_COLOR);
-> +	ctrl = CTRL_START | CMD_CLEAR;
-> +	writel(ctrl, gdev->mmio_base + REG_CTRL);
-> +
-> +	mutex_unlock(&gdev->lock);
-> +	return 0;
-> +}
-> +
-> +static int glanda_hw_draw_rect(struct glanda_device *gdev,
-> +			       int x, int y, int w, int h, int color)
-> +{
-> +	u32 coord0, coord1, ctrl;
-> +	int ret;
-> +
-> +	if (mutex_lock_interruptible(&gdev->lock))
-> +		return -ERESTARTSYS;
-> +
-> +	ret = glanda_wait_idle(gdev);
-> +	if (ret) {
-> +		mutex_unlock(&gdev->lock);
-> +		return ret;
-> +	}
-> +
-> +	coord0 = (y << 16) | (x & 0x3FF);
-> +	coord1 = (h << 16) | (w & 0x3FF);
-> +
-> +	writel(coord0, gdev->mmio_base + REG_COORD0);
-> +	writel(coord1, gdev->mmio_base + REG_COORD1);
-> +	writel(color, gdev->mmio_base + REG_COLOR);
-> +
-> +	ctrl = CTRL_START | CMD_RECT;
-> +	writel(ctrl, gdev->mmio_base + REG_CTRL);
-> +
-> +	mutex_unlock(&gdev->lock);
-> +	return 0;
-> +}
-> +
-> +static int glanda_hw_draw_line(struct glanda_device *gdev,
-> +			       int x1, int y1, int x2, int y2, int color)
-> +{
-> +	u32 coord0, coord1, ctrl;
-> +	int ret;
-> +
-> +	if (mutex_lock_interruptible(&gdev->lock))
-> +		return -ERESTARTSYS;
-> +
-> +	ret = glanda_wait_idle(gdev);
-> +	if (ret) {
-> +		mutex_unlock(&gdev->lock);
-> +		return ret;
-> +	}
-> +
-> +	coord0 = (y1 << 16) | (x1 & 0x3FF);
-> +	coord1 = (y2 << 16) | (x2 & 0x3FF);
-> +
-> +	writel(coord0, gdev->mmio_base + REG_COORD0);
-> +	writel(coord1, gdev->mmio_base + REG_COORD1);
-> +	writel(color, gdev->mmio_base + REG_COLOR);
-> +
-> +	ctrl = CTRL_START | CMD_LINE;
-> +	writel(ctrl, gdev->mmio_base + REG_CTRL);
-> +
-> +	mutex_unlock(&gdev->lock);
-> +	return 0;
-> +}
-> +
-> +static int glanda_drm_ioctl_clear(struct drm_device *dev, void *data,
-> +				  struct drm_file *file_priv)
-> +{
-> +	struct glanda_device *gdev = to_glanda(dev);
-> +	struct glanda_clear_cmd *cmd = data;
-> +
-> +	return glanda_hw_clear(gdev, cmd->color);
-> +}
-> +
-> +static bool glanda_rect_cmd_is_valid(const struct glanda_draw_rect_cmd *cmd)
-> +{
-> +	if (cmd->x >= GLANDA_WIDTH || cmd->y >= GLANDA_HEIGHT)
-> +		return false;
-> +	if (cmd->w > GLANDA_WIDTH || cmd->h > GLANDA_HEIGHT)
-> +		return false;
-> +	if (cmd->x + cmd->w > GLANDA_WIDTH)
-> +		return false;
-> +	if (cmd->y + cmd->h > GLANDA_HEIGHT)
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
-> +static int glanda_drm_ioctl_draw_rect(struct drm_device *dev, void *data,
-> +				      struct drm_file *file_priv)
-> +{
-> +	struct glanda_device *gdev = to_glanda(dev);
-> +	struct glanda_draw_rect_cmd *cmd = data;
-> +
-> +	if (!glanda_rect_cmd_is_valid(cmd))
-> +		return -EINVAL;
-> +
-> +	return glanda_hw_draw_rect(gdev, cmd->x, cmd->y, cmd->w, cmd->h,
-> +				   cmd->color);
-> +}
-> +
-> +static bool glanda_line_cmd_is_valid(const struct glanda_draw_line_cmd *cmd)
-> +{
-> +	if (cmd->x0 >= GLANDA_WIDTH || cmd->y0 >= GLANDA_HEIGHT)
-> +		return false;
-> +	if (cmd->x1 >= GLANDA_WIDTH || cmd->y1 >= GLANDA_HEIGHT)
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
-> +static int glanda_drm_ioctl_draw_line(struct drm_device *dev, void *data,
-> +				      struct drm_file *file_priv)
-> +{
-> +	struct glanda_device *gdev = to_glanda(dev);
-> +	struct glanda_draw_line_cmd *cmd = data;
-> +
-> +	if (!glanda_line_cmd_is_valid(cmd))
-> +		return -EINVAL;
-> +
-> +	return glanda_hw_draw_line(gdev, cmd->x0, cmd->y0, cmd->x1, cmd->y1,
-> +				   cmd->color);
-> +}
-> +
-> +static void glanda_plane_atomic_update(struct drm_plane *plane,
-> +				       struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_framebuffer *fb = new_state->fb;
-> +	struct glanda_device *gdev = to_glanda(plane->dev);
-> +	struct drm_gem_shmem_object *shmem;
-> +	struct iosys_map map;
-> +	u32 src_pitch;
-> +	u32 width;
-> +	u32 height;
-> +	int ret;
-> +
-> +	if (!fb)
-> +		return;
-> +
-> +	shmem = to_drm_gem_shmem_obj(fb->obj[0]);
-> +	if (!shmem)  {
-> +		drm_err(&gdev->drm, "GlandaGPU: framebuffer is not a shmem GEM object\n");
-> +		return;
-> +	}
-> +
-> +	dma_resv_lock(shmem->base.resv, NULL);
-
-Synchronization happens with drm_gem_fb_begin_cpu_access(). No need to 
-take the lock here.
-
-> +	ret = drm_gem_shmem_vmap_locked(shmem, &map);
-
-This vmap should not happen here, but in begin_fb_access.  We have 
-helpers that set up the mapping for your driver. Take a look at 
-DRM_GEM_SHADOW_PLANE_HELPER_FUNCS and DRM_GEM_SHADOW_PLANE_FUNCS and the 
-drivers that use them.
-
-> +	if (ret) {
-> +		dma_resv_unlock(shmem->base.resv);
-> +		drm_err(&gdev->drm,
-> +			"GlandaGPU: failed to vmap GEM shmem object\n");
-> +		return;
-> +	}
-> +
-> +	mutex_lock(&gdev->lock);
-> +
-> +	ret = glanda_wait_idle(gdev);
-> +	if (ret) {
-> +		drm_err(&gdev->drm, "GlandaGPU: timed out waiting for idle\n");
-> +		mutex_unlock(&gdev->lock);
-> +		drm_gem_shmem_vunmap_locked(shmem, &map);
-> +	dma_resv_unlock(shmem->base.resv);
-> +		return;
-> +	}
-> +
-> +	src_pitch = fb->pitches[0];
-> +	width = min_t(u32, fb->width, GLANDA_WIDTH);
-> +	height = min_t(u32, fb->height, GLANDA_HEIGHT);
-> +
-> +	u8 __iomem *dst_base = gdev->vram_base;
-> +	u8 *src_base = map.vaddr;
-> +	u32 y;
-> +
-> +	for (y = 0; y < height; y++) {
-> +		u32 *src = (u32 *)(src_base + y * src_pitch);
-> +		u32 __iomem *dst = (u32 __iomem *)(dst_base + y * GLANDA_WIDTH * sizeof(u32));
-> +		u32 x;
-> +
-> +		for (x = 0; x < width; x++) {
-> +			u32 pixel = src[x];
-> +			u32 packed = ((pixel >> 12) & 0x0F00) |
-> +				((pixel >> 8) & 0x00F0) |
-> +				((pixel >> 4) & 0x000F);
-> +
-> +			writel_relaxed(packed, &dst[x]);
-
-That's confusing. Each pixel is 32 bit. But each color channel is only 4 
-bit. So there's a 20-bit hole in each pixel, right?   Why don't you use 
-16 bit per pixel?
-
-> +		}
-> +	}
-> +
-> +	mutex_unlock(&gdev->lock);
-> +	drm_gem_shmem_vunmap_locked(shmem, &map);
-> +	dma_resv_unlock(shmem->base.resv);
-> +}
-> +
-> +static int glanda_plane_atomic_check(struct drm_plane *plane,
-> +				     struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_crtc_state *crtc_state;
-> +
-> +	if (!new_plane_state->crtc)
-> +		return 0;
-> +
-> +	crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
-> +
-> +	return drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
-> +		DRM_PLANE_NO_SCALING, DRM_PLANE_NO_SCALING,
-> +		false,	/* can_position */
-> +		false	/* can_update_disabled */);
-> +}
-> +
-> +static const struct drm_plane_helper_funcs glanda_plane_helper_funcs = {
-> +	.atomic_update = glanda_plane_atomic_update,
-> +	.atomic_check = glanda_plane_atomic_check,
-> +};
-> +
-> +static const struct drm_plane_funcs glanda_plane_funcs = {
-> +	.update_plane = drm_atomic_helper_update_plane,
-> +	.disable_plane = drm_atomic_helper_disable_plane,
-> +	.destroy = drm_plane_cleanup,
-> +	.reset = drm_atomic_helper_plane_reset,
-> +	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
-> +	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
-> +};
-> +
-> +static int glanda_connector_get_modes(struct drm_connector *connector)
-> +{
-> +	struct drm_display_mode *mode;
-> +
-> +	mode = drm_mode_create(connector->dev);
-> +	if (!mode) {
-> +		dev_err(connector->dev->dev, "GlandaGPU: failed to create display mode\n");
-> +		return 0;
-> +	}
-> +
-> +	/* Standard VGA timing: 640x480 @ 60 Hz. */
-> +	mode->hdisplay = 640;
-> +	mode->hsync_start = 656;
-> +	mode->hsync_end = 752;
-> +	mode->htotal = 800;
-> +
-> +	mode->vdisplay = 480;
-> +	mode->vsync_start = 490;
-> +	mode->vsync_end = 492;
-> +	mode->vtotal = 525;
-> +
-> +	mode->clock = 25175;	/* 25.175 MHz pixel clock */
-> +
-> +	mode->flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC;
-> +	mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
-> +
-> +	drm_mode_set_name(mode);
-> +	drm_mode_probed_add(connector, mode);
-> +
-> +	return 1;
-> +}
-> +
-> +static enum drm_connector_status glanda_connector_detect(struct drm_connector
-> +							 *connector, bool force)
-> +{
-> +	return connector_status_connected;
-> +}
-> +
-> +static int glanda_crtc_enable_vblank(struct drm_crtc *crtc)
-> +{
-> +	struct glanda_device *gdev = to_glanda(crtc->dev);
-> +	u32 ier;
-> +
-> +	ier = readl(gdev->mmio_base + REG_IER);
-> +	writel(ier | INT_VSYNC, gdev->mmio_base + REG_IER);
-> +
-> +	return 0;
-> +}
-> +
-> +static void glanda_crtc_disable_vblank(struct drm_crtc *crtc)
-> +{
-> +	struct glanda_device *gdev = to_glanda(crtc->dev);
-> +	u32 ier = readl(gdev->mmio_base + REG_IER);
-> +
-> +	writel(ier & ~INT_VSYNC, gdev->mmio_base + REG_IER);
-> +}
-> +
-> +static void glanda_crtc_atomic_enable(struct drm_crtc *crtc,
-> +				      struct drm_atomic_commit *state)
-> +{
-> +	drm_crtc_vblank_on(crtc);
-> +}
-> +
-> +static void glanda_crtc_atomic_disable(struct drm_crtc *crtc,
-> +				       struct drm_atomic_commit *state)
-> +{
-> +	drm_crtc_vblank_off(crtc);
-> +}
-> +
-> +static void glanda_crtc_atomic_flush(struct drm_crtc *crtc,
-> +				     struct drm_atomic_commit *state)
-> +{
-> +	struct drm_crtc_state *new_state = drm_atomic_get_new_crtc_state(state, crtc);
-> +	struct drm_pending_vblank_event *event;
-> +
-> +	if (new_state && new_state->event) {
-
-I don't think it is possible that new_state is NULL.
+This seems like an unrelated change?
 
 
-> +		event = new_state->event;
+>   /**
+>    * ttm_backup_drop() - release memory associated with a handle
+>    * @backup: The struct backup pointer used to obtain the handle
+> @@ -68,17 +70,23 @@ int ttm_backup_copy_page(struct file *backup, struct page *dst,
+>   }
+>   
+>   /**
+> - * ttm_backup_backup_page() - Backup a page
+> + * ttm_backup_backup_folio() - Backup a folio
+>    * @backup: The struct backup pointer to use.
+> - * @page: The page to back up.
+> - * @writeback: Whether to perform immediate writeback of the page.
+> + * @folio: The folio to back up.
+> + * @order: The allocation order of @folio.  Since TTM allocates higher-order
+> + *         pages without __GFP_COMP, folio_nr_pages(@folio) would always
+> + *         return 1; the caller must pass the true order explicitly.
+> + * @writeback: Whether to perform immediate writeback of the folio's pages.
+>    * This may have performance implications.
+> - * @idx: A unique integer for each page and each struct backup.
+> + * @idx: A unique integer for the first page of the folio and each struct backup.
+>    * This allows the backup implementation to avoid managing
+>    * its address space separately.
+> - * @page_gfp: The gfp value used when the page was allocated.
+> - * This is used for accounting purposes.
+> + * @folio_gfp: The gfp value used when the folio was allocated.
+> + * Currently unused.
+>    * @alloc_gfp: The gfp to be used when allocating memory.
+> + * @nr_pages_backed: Output. On a successful return, set to the number of
+> + * pages actually backed up, which may be less than (1 << @order)
+> + * if an -ENOMEM was encountered mid-folio.
+>    *
+>    * Context: If called from reclaim context, the caller needs to
+>    * assert that the shrinker gfp has __GFP_FS set, to avoid
+> @@ -87,53 +95,87 @@ int ttm_backup_copy_page(struct file *backup, struct page *dst,
+>    * that the shrinker gfp has __GFP_IO set, since without it,
+>    * we're not allowed to start backup IO.
+>    *
+> - * Return: A handle on success. Negative error code on failure.
+> - *
+> - * Note: This function could be extended to back up a folio and
+> - * implementations would then split the folio internally if needed.
+> - * Drawback is that the caller would then have to keep track of
+> - * the folio size- and usage.
+> + * Return: A handle for the first backed-up page on success (handles for
+> + * subsequent pages follow sequentially). -ENOMEM if no pages could be backed
+> + * up. Any other negative error code if a non-ENOMEM failure occurred; in that
+> + * case any pages backed up so far are truncated before returning.
+>    */
+>   s64
+> -ttm_backup_backup_page(struct file *backup, struct page *page,
+> -		       bool writeback, pgoff_t idx, gfp_t page_gfp,
+> -		       gfp_t alloc_gfp)
+> +ttm_backup_backup_folio(struct file *backup, struct folio *folio,
+> +			unsigned int order, bool writeback, pgoff_t idx,
+> +			gfp_t folio_gfp, gfp_t alloc_gfp,
+> +			pgoff_t *nr_pages_backed)
+>   {
+>   	struct address_space *mapping = backup->f_mapping;
+> -	unsigned long handle = 0;
+> +	int nr_pages = 1 << order;
+>   	struct folio *to_folio;
+> -	int ret;
+> -
+> -	to_folio = shmem_read_folio_gfp(mapping, idx, alloc_gfp);
+> -	if (IS_ERR(to_folio))
+> -		return PTR_ERR(to_folio);
+> -
+> -	folio_mark_accessed(to_folio);
+> -	folio_lock(to_folio);
+> -	folio_mark_dirty(to_folio);
+> -	copy_highpage(folio_file_page(to_folio, idx), page);
+> -	handle = ttm_backup_shmem_idx_to_handle(idx);
+> -
+> -	if (writeback && !folio_mapped(to_folio) &&
+> -	    folio_clear_dirty_for_io(to_folio)) {
+> -		folio_set_reclaim(to_folio);
+> -		ret = shmem_writeout(to_folio, NULL, NULL);
+> -		if (!folio_test_writeback(to_folio))
+> -			folio_clear_reclaim(to_folio);
+> +	int ret, i;
 > +
-> +		new_state->event = NULL;
+> +	*nr_pages_backed = 0;
 > +
-> +		spin_lock_irq(&crtc->dev->event_lock);
+> +	for (i = 0; i < nr_pages; ) {
+> +		int to_nr, j;
 > +
-> +		if (drm_crtc_vblank_get(crtc) == 0)
-> +			drm_crtc_arm_vblank_event(crtc, event);
+>   		/*
+> -		 * If writeout succeeds, it unlocks the folio.	errors
+> -		 * are otherwise dropped, since writeout is only best
+> -		 * effort here.
+> +		 * Only inject past the first subpage so *nr_pages_backed is
+> +		 * always > 0 here, matching a genuine mid-compound -ENOMEM
+> +		 * and driving the caller's reactive split fallback instead
+> +		 * of an early, no-progress failure.
+>   		 */
+> -		if (ret)
+> +		if (IS_ENABLED(CONFIG_FAULT_INJECTION) && i &&
+> +		    ttm_backup_fault_inject_folio())
+> +			to_folio = ERR_PTR(-ENOMEM);
 > +		else
-> +			drm_crtc_send_vblank_event(crtc, event);
+> +			to_folio = shmem_read_folio_gfp(mapping, idx + i, alloc_gfp);
+> +		if (IS_ERR(to_folio)) {
+> +			int err = PTR_ERR(to_folio);
 > +
-> +		spin_unlock_irq(&crtc->dev->event_lock);
+> +			if (err == -ENOMEM && *nr_pages_backed)
+> +				return ttm_backup_shmem_idx_to_handle(idx);
+> +
+> +			if (*nr_pages_backed) {
+> +				shmem_truncate_range(file_inode(backup),
+> +						     (loff_t)idx << PAGE_SHIFT,
+> +						     ((loff_t)(idx + i) << PAGE_SHIFT) - 1);
+> +				/*
+> +				 * The pages just truncated are no longer
+> +				 * backed up; don't let the caller mistake
+> +				 * them for valid handles.
+> +				 */
+> +				*nr_pages_backed = 0;
+> +			}
+> +			return err;
+> +		}
+> +
+> +		to_nr = min_t(int, nr_pages - i,
+> +			      folio_next_index(to_folio) - (idx + i));
+> +
+> +		folio_mark_accessed(to_folio);
+> +		folio_lock(to_folio);
+> +		folio_mark_dirty(to_folio);
+> +
+> +		for (j = 0; j < to_nr; j++)
+> +			copy_highpage(folio_file_page(to_folio, idx + i + j),
+> +				      folio_page(folio, i + j));
+> +
+> +		if (writeback && !folio_mapped(to_folio) &&
+> +		    folio_clear_dirty_for_io(to_folio)) {
+> +			folio_set_reclaim(to_folio);
+> +			ret = shmem_writeout(to_folio, NULL, NULL);
+> +			if (!folio_test_writeback(to_folio))
+> +				folio_clear_reclaim(to_folio);
+> +			if (ret == AOP_WRITEPAGE_ACTIVATE)
+> +				folio_unlock(to_folio);
+Actually, it may be that the whole above block (setting reclaim etc) is 
+duplicating what shmem_writeout already does and that got missed in the 
+conversion to shmem_writeout. In any case, that might belong in a 
+separate patch. Note also that if shmem happened to allocate a 2M page, 
+and we call shmem_writeout on it, it might be split on further copies to 
+it, like if we're trying to back up a 4K-populated bo to a 2M shmem 
+page. Also pre-existing.
+
+
+> +		} else {
+>   			folio_unlock(to_folio);
+> -	} else {
+> -		folio_unlock(to_folio);
+> -	}
+> +		}
+>   
+> -	folio_put(to_folio);
+> +		folio_put(to_folio);
+> +		i += to_nr;
+> +		*nr_pages_backed = i;
 > +	}
-> +}
-> +
-> +static const struct drm_crtc_funcs glanda_crtc_funcs = {
-> +	.destroy = drm_crtc_cleanup,
-> +	.set_config = drm_atomic_helper_set_config,
-> +	.page_flip = drm_atomic_helper_page_flip,
-> +	.reset = drm_atomic_helper_crtc_reset,
-> +	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
-> +	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
-> +	.enable_vblank = glanda_crtc_enable_vblank,
-> +	.disable_vblank = glanda_crtc_disable_vblank,
-> +};
-> +
-> +static const struct drm_crtc_helper_funcs glanda_crtc_helper_funcs = {
-> +	.atomic_enable = glanda_crtc_atomic_enable,
-> +	.atomic_disable = glanda_crtc_atomic_disable,
-> +	.atomic_flush = glanda_crtc_atomic_flush,
-> +};
-> +
-> +static const struct drm_connector_helper_funcs glanda_connector_helper_funcs = {
-> +	.get_modes = glanda_connector_get_modes,
-> +};
-> +
-> +static const struct drm_connector_funcs glanda_connector_funcs = {
-> +	.fill_modes = drm_helper_probe_single_connector_modes,
-> +	.destroy = drm_connector_cleanup,
-> +	.detect = glanda_connector_detect,
-> +	.reset = drm_atomic_helper_connector_reset,
-> +	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-> +	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-> +};
-> +
-> +static const struct drm_framebuffer_funcs glanda_fb_funcs = {
-> +	.destroy = drm_gem_fb_destroy,
-> +	.create_handle = drm_gem_fb_create_handle,
-> +	.dirty = drm_atomic_helper_dirtyfb,
-> +};
-> +
-> +static struct drm_framebuffer *glanda_fb_create(struct drm_device *dev,
-> +						struct drm_file *file,
-> +						const struct drm_format_info *info,
-> +						const struct drm_mode_fb_cmd2 *mode_cmd)
-
-No need for this function. drm_gem_fb_create_with_dirty() is exactly 
-what you're looking for.
-
-> +{
-> +	return drm_gem_fb_create_with_funcs(dev, file, info, mode_cmd, &glanda_fb_funcs);
-> +}
-> +
-> +static const struct drm_mode_config_funcs glanda_mode_config_funcs = {
-> +	.fb_create = glanda_fb_create,
-> +	.atomic_check = drm_atomic_helper_check,
-> +	.atomic_commit = drm_atomic_helper_commit,
-> +};
+>   
+> -	return handle;
+> +	return ttm_backup_shmem_idx_to_handle(idx);
+>   }
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+> index 80d0ad41456a..1bf37023fed6 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -53,8 +53,23 @@
+>   #ifdef CONFIG_FAULT_INJECTION
+>   #include <linux/fault-inject.h>
+>   static DECLARE_FAULT_ATTR(backup_fault_inject);
 > +
 > +/*
-> + * RFC NOTE: These three fixed-function ioctls (clear/rect/line) are a
-> + * minimal placeholder UAPI to demonstrate the hardware's 2D drawing
-> + * capability end-to-end. Given plans to add polygon/3D rendering support
-> + * in the future, feedback is explicitly requested on whether a generic
-> + * command-buffer submission ioctl (similar to virtio_gpu) would
-> + * be a better long-term UAPI direction before this is treated as stable.
+> + * Exposed to ttm_backup.c so a mid-compound subpage can be made to fail
+> + * with -ENOMEM, exercising the reactive split-and-retry fallback in
+> + * ttm_pool_backup() for high-order backups.
 > + */
-> +static const struct drm_ioctl_desc glanda_ioctls[] = {
-> +	DRM_IOCTL_DEF_DRV(GLANDA_CLEAR, glanda_drm_ioctl_clear,
-> +			  DRM_AUTH | DRM_RENDER_ALLOW),
-> +	DRM_IOCTL_DEF_DRV(GLANDA_DRAW_RECT, glanda_drm_ioctl_draw_rect,
-> +			  DRM_AUTH | DRM_RENDER_ALLOW),
-> +	DRM_IOCTL_DEF_DRV(GLANDA_DRAW_LINE, glanda_drm_ioctl_draw_line,
-> +			  DRM_AUTH | DRM_RENDER_ALLOW),
-> +};
-
-Drop these ioctls entirely. As I outlined in my reply to the cover 
-letter, these will not work with DRM as they are now. Especially since 
-you're using gem-shmem as a shadow buffer. All your rendering happens in 
-system memory in user space in software.
-
-
-> +
-> +DEFINE_DRM_GEM_FOPS(glanda_drm_fops);
-> +
-> +static const struct drm_driver glanda_drm_driver = {
-> +	.driver_features =
-> +	    DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC | DRIVER_RENDER,
-> +	.name = "glandagpu",
-> +	.desc = "GlandaGPU Hardware Accelerated DRM Driver",
-> +	.major = 1,
-> +	.minor = 0,
-> +	.fops = &glanda_drm_fops,
-> +	.dumb_create = drm_gem_shmem_dumb_create,
-> +	.ioctls = glanda_ioctls,
-> +	.num_ioctls = ARRAY_SIZE(glanda_ioctls),
-> +};
-> +
-> +static irqreturn_t glanda_irq_handler(int irq, void *dev_id)
+> +bool ttm_backup_fault_inject_folio(void)
 > +{
-> +	struct glanda_device *gdev = dev_id;
-> +
-> +	if (!gdev || !gdev->mmio_base)
-> +		return IRQ_NONE;
-> +
-> +	u32 isr = readl(gdev->mmio_base + REG_ISR);
-> +
-> +	if (!isr)
-> +		return IRQ_NONE;
-> +
-> +	if (isr & INT_DONE) {
-> +		gdev->cmd_done = true;
-> +		wake_up_interruptible(&gdev->cmd_wq);
-> +	}
-> +
-> +	if (isr & INT_VSYNC)
-> +		drm_crtc_handle_vblank(&gdev->crtc);
-> +
-> +	/* Clear interrupt(W1C) */
-> +	writel(isr, gdev->mmio_base + REG_ISR);
-> +	return IRQ_HANDLED;
+> +	return should_fail(&backup_fault_inject, 1);
 > +}
+>   #else
+>   #define should_fail(...) false
 > +
-> +static int glandagpu_probe(struct platform_device *pdev)
+> +bool ttm_backup_fault_inject_folio(void)
 > +{
-> +	struct resource *res;
-> +	struct glanda_device *gdev;
-> +	int ret;
+> +	return false;
+> +}
+>   #endif
+>   
+>   /**
+> @@ -492,7 +507,7 @@ static void ttm_pool_split_for_swap(struct ttm_pool *pool, struct page *p)
+>   /**
+>    * DOC: Partial backup and restoration of a struct ttm_tt.
+>    *
+> - * Swapout using ttm_backup_backup_page() and swapin using
+> + * Swapout using ttm_backup_backup_folio() and swapin using
+>    * ttm_backup_copy_page() may fail.
+>    * The former most likely due to lack of swap-space or memory, the latter due
+>    * to lack of memory or because of signal interruption during waits.
+> @@ -1050,12 +1065,12 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
+>   {
+>   	struct file *backup = tt->backup;
+>   	struct page *page;
+> -	unsigned long handle;
+>   	gfp_t alloc_gfp;
+>   	gfp_t gfp;
+>   	int ret = 0;
+>   	pgoff_t shrunken = 0;
+> -	pgoff_t i, num_pages;
+> +	pgoff_t i, j, num_pages, npages;
+> +	pgoff_t nr_backed;
+>   
+>   	if (WARN_ON(ttm_tt_is_backed_up(tt)))
+>   		return -EINVAL;
+> @@ -1133,9 +1148,11 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
+>   	if (IS_ENABLED(CONFIG_FAULT_INJECTION) && should_fail(&backup_fault_inject, 1))
+>   		num_pages = DIV_ROUND_UP(num_pages, 2);
+>   
+> -	for (i = 0; i < num_pages; ++i) {
+> -		s64 shandle;
+> +	for (i = 0; i < num_pages; i += npages) {
+> +		unsigned int order;
+> +		s64 handle;
+>   
+> +		npages = 1;
+>   		page = tt->pages[i];
+>   		if (unlikely(!page))
+>   			continue;
+> @@ -1144,19 +1161,61 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
+>   		if (unlikely(ttm_backup_page_ptr_is_handle(page)))
+>   			continue;
+>   
+> -		ttm_pool_split_for_swap(pool, page);
+> +		order = ttm_pool_page_order(pool, page);
+> +		npages = 1UL << order;
 > +
-> +	dev_info(&pdev->dev, "GlandaGPU Probe started\n");
+> +		/*
+> +		 * We don't allow dipping kernel reserves for high order backup
+> +		 */
+> +		if (order)
+> +			alloc_gfp |= __GFP_NOMEMALLOC;
+> +		else
+> +			alloc_gfp &= ~__GFP_NOMEMALLOC;
 > +
-> +	gdev = devm_drm_dev_alloc(&pdev->dev, &glanda_drm_driver, struct glanda_device, drm);
-> +	if (IS_ERR(gdev))
-> +		return PTR_ERR(gdev);
+> +		/*
+> +		 * Back up the compound atomically at its native order. If
+> +		 * fault injection truncated num_pages mid-compound, skip
+> +		 * the partial tail rather than splitting.
+> +		 */
+> +		if (unlikely(i + npages > num_pages))
+> +			break;
+>   
+> -		shandle = ttm_backup_backup_page(backup, page, flags->writeback, i,
+> -						 gfp, alloc_gfp);
+> -		if (shandle < 0) {
+> -			/* We allow partially shrunken tts */
+> -			ret = shandle;
+> +		handle = ttm_backup_backup_folio(backup, page_folio(page),
+> +						 order, flags->writeback, i,
+> +						 gfp, alloc_gfp,
+> +						 &nr_backed);
+> +		/*
+> +		 * Zero progress on this compound (whether order 0 or a
+> +		 * high-order compound that failed before backing up even
+> +		 * its first subpage) is unrecoverable: bail out rather than
+> +		 * looping forever with npages == nr_backed == 0 below.
+> +		 */
+> +		if (unlikely(handle < 0 && !nr_backed)) {
+> +			ret = handle;
+>   			break;
+>   		}
+> -		handle = shandle;
+> -		tt->pages[i] = ttm_backup_handle_to_page_ptr(handle);
+> -		__free_pages_gpu_account(page, 0, false);
+> -		shrunken++;
 > +
-> +	gdev->dev = &pdev->dev;
-> +	platform_set_drvdata(pdev, gdev);
+> +		for (j = 0; j < nr_backed; j++)
+> +			tt->pages[i + j] = ttm_backup_handle_to_page_ptr(handle + j);
 > +
-> +	mutex_init(&gdev->lock);
-> +	/* Interrupt setup */
-> +	init_waitqueue_head(&gdev->cmd_wq);
-> +	gdev->irq = -1;
-> +	/* Map VRAM */
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!res)
-> +		return -ENODEV;
+> +		shrunken += nr_backed;
 > +
-> +	gdev->vram_phys = res->start;
-> +	gdev->vram_base = devm_ioremap(&pdev->dev, res->start, GLANDA_VRAM_SIZE);
-> +	gdev->mmio_base = devm_ioremap(&pdev->dev, res->start + GLANDA_MMIO_OFFSET,
-> +				       GLANDA_MMIO_SIZE);
-> +
-> +	if (!gdev->vram_base || !gdev->mmio_base) {
-> +		drm_err(&gdev->drm, "failed to ioremap\n");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	writel(0, gdev->mmio_base + REG_IER);
-> +	writel(0xFFFFFFFF, gdev->mmio_base + REG_ISR);	/* clear flags */
-> +
-> +	ret = platform_get_irq(pdev, 0);
-> +	if (ret > 0) {
-> +		gdev->irq = ret;
-> +		ret = devm_request_irq(&pdev->dev, gdev->irq, glanda_irq_handler,
-> +				       IRQF_SHARED, "glandagpu", gdev);
-> +		if (ret) {
-> +			drm_err(&gdev->drm, "Failed to request IRQ %d\n",
-> +				gdev->irq);
-> +			return ret;
+> +		if (unlikely(nr_backed < npages)) {
+> +			/*
+> +			 * Partial OOM backup: split the compound and free the
+> +			 * subpages whose content is now in shmem. Continue the
+> +			 * loop from the first un-backed order-0 page.
+> +			 */
+> +			ttm_pool_split_for_swap(pool, page);
+> +			for (j = 0; j < nr_backed; j++)
+> +				__free_pages_gpu_account(page + j, 0, false);
+> +			npages = nr_backed;
+> +			continue;
 > +		}
 > +
-> +		writel(INT_DONE, gdev->mmio_base + REG_IER);
-> +		drm_info(&gdev->drm, "IRQ %d requested and enabled\n", gdev->irq);
-> +	} else {
-> +		drm_warn(&gdev->drm, "No IRQ found, falling back to polling\n");
-> +	}
+> +		/* Fully backed up: free at native order. */
+> +		page->private = 0;
+> +		__free_pages_gpu_account(page, order, false);
+>   	}
+>   
+>   	return shrunken ? shrunken : ret;
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool_internal.h b/drivers/gpu/drm/ttm/ttm_pool_internal.h
+> index 24c179fd69d1..cbb17a2129fe 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
+> +++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
+> @@ -22,4 +22,12 @@ static inline unsigned int ttm_pool_beneficial_order(struct ttm_pool *pool)
+>   	return pool->alloc_flags & 0xff;
+>   }
+>   
+> +/*
+> + * Implemented in ttm_pool.c, used by ttm_backup.c. Returns true if a fault
+> + * should be injected mid-compound to test the reactive split-and-retry
+> + * fallback in ttm_pool_backup(). Always returns false when
+> + * CONFIG_FAULT_INJECTION is disabled.
+> + */
+> +bool ttm_backup_fault_inject_folio(void);
 > +
-> +	/* DRM mode config */
-> +	drm_mode_config_init(&gdev->drm);
-> +	gdev->drm.mode_config.min_width = 640;
-> +	gdev->drm.mode_config.min_height = 480;
-> +	gdev->drm.mode_config.max_width = 640;
-> +	gdev->drm.mode_config.max_height = 480;
-> +	gdev->drm.mode_config.funcs = &glanda_mode_config_funcs;
-> +
-> +	ret = drm_universal_plane_init(&gdev->drm, &gdev->primary_plane, 1 << 0,
-> +				       &glanda_plane_funcs,
-> +				       glanda_plane_formats,
-> +				       ARRAY_SIZE(glanda_plane_formats), NULL,
-> +				       DRM_PLANE_TYPE_PRIMARY, NULL);
-> +	if (ret) {
-> +		drm_err(&gdev->drm, "Failed to initialize primary plane\n");
-> +		goto err_mode_cleanup;
-> +	}
-> +	drm_plane_helper_add(&gdev->primary_plane, &glanda_plane_helper_funcs);
-> +
-> +	/* VBlank init */
-> +	ret = drm_vblank_init(&gdev->drm, 1);
-> +	if (ret) {
-> +		drm_err(&gdev->drm, "Failed to initialize vblank\n");
-> +		goto err_mode_cleanup;
-> +	}
-> +
-> +	/* CRTC init */
-> +	ret = drm_crtc_init_with_planes(&gdev->drm, &gdev->crtc,
-> +					&gdev->primary_plane, NULL,
-> +					&glanda_crtc_funcs, NULL);
-> +	if (ret) {
-> +		drm_err(&gdev->drm, "Failed to initialize CRTC with planes\n");
-> +		goto err_mode_cleanup;
-> +	}
-> +	drm_crtc_helper_add(&gdev->crtc, &glanda_crtc_helper_funcs);
-> +
-> +	ret = drm_simple_encoder_init(&gdev->drm, &gdev->encoder, DRM_MODE_ENCODER_DAC);
+>   #endif
+> diff --git a/include/drm/ttm/ttm_backup.h b/include/drm/ttm/ttm_backup.h
+> index 29b9c855af77..49efa713e87c 100644
+> --- a/include/drm/ttm/ttm_backup.h
+> +++ b/include/drm/ttm/ttm_backup.h
+> @@ -13,9 +13,8 @@
+>    * ttm_backup_handle_to_page_ptr() - Convert handle to struct page pointer
+>    * @handle: The handle to convert.
+>    *
+> - * Converts an opaque handle received from the
+> - * ttm_backup_backup_page() function to an (invalid)
+> - * struct page pointer suitable for a struct page array.
+> + * Converts an opaque handle received from a ttm_backup_backup_*()
+> + * function to an (invalid) struct page pointer suitable for a struct page array.
+>    *
+>    * Return: An (invalid) struct page pointer.
+>    */
+> @@ -59,9 +58,10 @@ int ttm_backup_copy_page(struct file *backup, struct page *dst,
+>   			 pgoff_t handle, bool intr, gfp_t additional_gfp);
+>   
+>   s64
+> -ttm_backup_backup_page(struct file *backup, struct page *page,
+> -		       bool writeback, pgoff_t idx, gfp_t page_gfp,
+> -		       gfp_t alloc_gfp);
+> +ttm_backup_backup_folio(struct file *backup, struct folio *folio,
+> +			unsigned int order, bool writeback, pgoff_t idx,
+> +			gfp_t folio_gfp, gfp_t alloc_gfp,
+> +			pgoff_t *nr_pages_backed);
+>   
+>   void ttm_backup_fini(struct file *backup);
+>   
+Otherwise LGTM.
 
-This function is going away. You can open-code it instead.
-
-Best regards
-Thomas
-
-> +	if (ret) {
-> +		drm_err(&gdev->drm, "Failed to initialize encoder\n");
-> +		goto err_mode_cleanup;
-> +	}
-> +	gdev->encoder.possible_crtcs = 1;
-> +
-> +	ret = drm_connector_init(&gdev->drm, &gdev->connector,
-> +				 &glanda_connector_funcs, DRM_MODE_CONNECTOR_VGA);
-> +	if (ret) {
-> +		drm_err(&gdev->drm, "Failed to initialize connector\n");
-> +		goto err_mode_cleanup;
-> +	}
-> +	drm_connector_helper_add(&gdev->connector, &glanda_connector_helper_funcs);
-> +
-> +	drm_connector_attach_encoder(&gdev->connector, &gdev->encoder);
-> +
-> +	/* Populate connector state early so userspace can enumerate modes. */
-> +	mutex_lock(&gdev->drm.mode_config.mutex);
-> +	drm_helper_probe_single_connector_modes(&gdev->connector, 1024, 768);
-> +	mutex_unlock(&gdev->drm.mode_config.mutex);
-> +
-> +	drm_mode_config_reset(&gdev->drm);
-> +
-> +	ret = drm_dev_register(&gdev->drm, 0);
-> +	if (ret)
-> +		goto err_mode_cleanup;
-> +
-> +	drm_info(&gdev->drm, "GlandaGPU DRM Initialized (/dev/dri/cardX created)\n");
-> +	return 0;
-> +
-> +err_mode_cleanup:
-> +	drm_mode_config_cleanup(&gdev->drm);
-> +	return ret;
-> +}
-> +
-> +static void glandagpu_remove(struct platform_device *pdev)
-> +{
-> +	struct glanda_device *gdev = platform_get_drvdata(pdev);
-> +
-> +	/* Disable interrupts first so no new IRQ work can race the teardown
-> +	 * below, and wake up anyone still blocked in glanda_wait_idle().
-> +	 */
-> +	writel(0, gdev->mmio_base + REG_IER);
-> +	gdev->cmd_done = true;
-> +	wake_up_interruptible(&gdev->cmd_wq);
-> +
-> +	drm_info(&gdev->drm, "GlandaGPU DRM Driver removed\n");
-> +	drm_dev_unregister(&gdev->drm);
-> +	drm_mode_config_cleanup(&gdev->drm);
-> +}
-> +
-> +/* Device Tree match table. */
-> +static const struct of_device_id glanda_of_match[] = {
-> +	{.compatible = "glanda,gpu-1.0", },
-> +	{ /* end of table */  }
-> +};
-> +
-> +MODULE_DEVICE_TABLE(of, glanda_of_match);
-> +
-> +static struct platform_driver glandagpu_driver = {
-> +	.driver = {
-> +		.name = "glandagpu",
-> +	   .of_match_table = glanda_of_match,
-> +	},
-> +	.probe = glandagpu_probe,
-> +	.remove = glandagpu_remove,
-> +};
-> +
-> +static int __init glandagpu_init(void)
-> +{
-> +	int ret;
-> +
-> +	ret = platform_driver_register(&glandagpu_driver);
-> +	if (ret) {
-> +		pr_err("GlandaGPU: Failed to register platform driver\n");
-> +		return ret;
-> +	}
-> +
-> +	pr_info("GlandaGPU: Module loaded successfully\n");
-> +	return 0;
-> +}
-> +
-> +static void __exit glandagpu_exit(void)
-> +{
-> +	platform_driver_unregister(&glandagpu_driver);
-> +	pr_info("GlandaGPU: Module unloaded\n");
-> +}
-> +
-> +module_init(glandagpu_init);
-> +module_exit(glandagpu_exit);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Leander Kieweg <kieweg.leander@gmail.com>");
-> +MODULE_DESCRIPTION("DRM driver for GlandaGPU, an FPGA-based 2D GPU with VGA output");
-> diff --git a/include/uapi/drm/glanda_drm.h b/include/uapi/drm/glanda_drm.h
-> new file mode 100644
-> index 000000000..35d25ba83
-> --- /dev/null
-> +++ b/include/uapi/drm/glanda_drm.h
-> @@ -0,0 +1,40 @@
-> +/* SPDX-License-Identifier: MIT */
-> +
-> +#ifndef _GLANDA_DRM_H_
-> +#define _GLANDA_DRM_H_
-> +
-> +#include <linux/types.h>
-> +#include <drm/drm.h>
-> +
-> +struct glanda_clear_cmd {
-> +	__u32 color;
-> +};
-> +
-> +struct glanda_draw_rect_cmd {
-> +	__u16 x;
-> +	__u16 y;
-> +	__u16 w;
-> +	__u16 h;
-> +	__u32 color;
-> +};
-> +
-> +struct glanda_draw_line_cmd {
-> +	__u16 x0;
-> +	__u16 y0;
-> +	__u16 x1;
-> +	__u16 y1;
-> +	__u32 color;
-> +};
-> +
-> +#define DRM_GLANDA_CLEAR     0x00
-> +#define DRM_GLANDA_DRAW_RECT 0x01
-> +#define DRM_GLANDA_DRAW_LINE 0x02
-> +
-> +#define DRM_IOCTL_GLANDA_CLEAR \
-> +	DRM_IOW(DRM_COMMAND_BASE + DRM_GLANDA_CLEAR, struct glanda_clear_cmd)
-> +#define DRM_IOCTL_GLANDA_DRAW_RECT \
-> +	DRM_IOW(DRM_COMMAND_BASE + DRM_GLANDA_DRAW_RECT, struct glanda_draw_rect_cmd)
-> +#define DRM_IOCTL_GLANDA_DRAW_LINE \
-> +	DRM_IOW(DRM_COMMAND_BASE + DRM_GLANDA_DRAW_LINE, struct glanda_draw_line_cmd)
-> +
-> +#endif
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+/Thomas
 
 
