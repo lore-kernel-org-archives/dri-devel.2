@@ -4,58 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C7E3C44507
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 08:52:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C1C0C44508
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 08:55:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B837110EF6C;
-	Wed, 15 Jul 2026 08:52:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95D8510E163;
+	Wed, 15 Jul 2026 08:55:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="UktgJmLN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cECXb+VJ";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F42310EF66
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 08:52:31 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 975A5C2B9CC;
- Wed, 15 Jul 2026 08:52:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id BC0826035C;
- Wed, 15 Jul 2026 08:52:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 035F611BD3AD3; 
- Wed, 15 Jul 2026 10:52:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1784105548; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=mAxNHnURgECiVgbbdE4OlSzC0AXpBOq2TdlBOOqCMVw=;
- b=UktgJmLN1DSChEyr77+mRDqvR4VKDfZLyYQrRu/z+86zqysEZiCgL3BeDKTCimSjQKYQSs
- 3bNwF3D6vjxkFAT22q+sVtw5HQ0KQTvxpUPjNEzcK5lY9/nBwe0h/9XIRShmjtMF8yKehG
- +9lf2y8T4YNXth34t9snppDtrVxN3ZEnLiycLKJS17A7alr5FSEanPJopBuyLsJvCVzkyX
- 2Uzw7pJaZ/Y+IkP+v53UgcBU+v70X0oIYwphU8FVfh5EN3zezqVb7WTlNuVyIUspUXJAXy
- 8CWabKPlmVtaKrgiXMrvtnnEy2xEZVUwtNazsyKm0McW9PbkkT9uoZEqtavhJQ==
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/2] drm/bridge: ti-sn65dsi83: Fix problem with
- premature PLL locking
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 834C210E163
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 08:55:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 566EC438B0;
+ Wed, 15 Jul 2026 08:55:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99241F00A3E;
+ Wed, 15 Jul 2026 08:55:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784105721;
+ bh=Z3wUKrGG21PQMUu0kd7DBV0yHXAtkX/rwuwlWXDYxKw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=cECXb+VJoR+yj3jVqoQiYsUTp85S/mZ6iPkKHA8qdyfmKip6k0znsuyxCKjKXsCb1
+ hd8NEEs5A95KQ9zDQLBjmeugvDL5UuAgA9xIJD+iqFprTldJArH0l40sDaDMdCilrg
+ 7UvTr0OkibOLlZebpv3bD9Kg6fwSB3u8Rc3RoEgPrD5EqyT2IYe7ytrGbWVgyhJQjq
+ r6MxKuA3O65/qCzoleLgSwBnPk0RoqFUswD91pwLj5vP0yJ97ausjdWaF+TEOInrA8
+ 6MQRitPOK6vDPdMG9Ni4k3YqIvTL2b1wFpFYYai//3KEfTfwzNfl8Z0oksLG6Xz1gO
+ PAIE76Ets/1ag==
+Date: Wed, 15 Jul 2026 10:55:19 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Esben Haabendal <esben@geanix.com>, Gary Bisson <bisson.gary@gmail.com>
-In-Reply-To: <20260711-ti-sn65dsi83-fixes-v1-2-d85eb5342b98@geanix.com>
-References: <20260711-ti-sn65dsi83-fixes-v1-0-d85eb5342b98@geanix.com>
- <20260711-ti-sn65dsi83-fixes-v1-2-d85eb5342b98@geanix.com>
-Date: Wed, 15 Jul 2026 10:52:18 +0200
-Message-Id: <178410553814.253594.6153852459811911516.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH v8 04/39] drm/connector: Add HDMI 2.0 scrambler
+ infrastructure
+Message-ID: <20260715-ancient-zealous-eagle-b13e94@houat>
+References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
+ <20260702-dw-hdmi-qp-scramb-v8-4-d79890d00b6a@collabora.com>
+ <tjsidlnvswo2rdhqa6jybxrnb47lxgmxdlfrfbasuh67wjbqoy@3a45n3zawvnf>
+ <17753a1c-824a-4835-ac2d-8b2796bba1eb@collabora.com>
+ <534b921c-638c-4fc3-b89e-5dfc1f269f96@collabora.com>
+ <20260713-statuesque-nonchalant-seagull-b9c39d@houat>
+ <91c3a825-3344-4ff5-8ea0-f8f057665b3f@collabora.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="r5otlnmsebefwt2i"
+Content-Disposition: inline
+In-Reply-To: <91c3a825-3344-4ff5-8ea0-f8f057665b3f@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,37 +81,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 11 Jul 2026 13:51:15 +0200, Esben Haabendal <esben@geanix.com> wrote:
 
-Hi Esben,
+--r5otlnmsebefwt2i
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v8 04/39] drm/connector: Add HDMI 2.0 scrambler
+ infrastructure
+MIME-Version: 1.0
 
-+Cc Gary
+On Mon, Jul 13, 2026 at 01:23:00PM +0300, Cristian Ciocaltea wrote:
+> On 7/13/26 11:50 AM, Maxime Ripard wrote:
+> > On Thu, Jul 09, 2026 at 10:25:54PM +0300, Cristian Ciocaltea wrote:
+> >> On 7/3/26 11:54 PM, Cristian Ciocaltea wrote:
+> >>> On 7/3/26 5:34 PM, Dmitry Baryshkov wrote:
+> >>>> On Thu, Jul 02, 2026 at 05:46:17PM +0300, Cristian Ciocaltea wrote:
+> >>>>> Add the connector-level infrastructure to support HDMI 2.0 scrambli=
+ng:
+> >>>>>
+> >>>>> - A scrambler_supported flag to indicate whether the source support=
+s the
+> >>>>>   scrambling capability, in which case the newly introduced
+> >>>>>   .scrambler_{enable|disable}() callbacks in drm_connector_hdmi_fun=
+cs
+> >>>>>   are mandatory
+> >>>>
+> >>>> Do we need a flag? What would it mean if the flag is set, but the
+> >>>> callbacks are not? Can we drop the flag and use the presence of the
+> >>>> callbacks as a way to identify that scrambler is enabled?
+> >>>
+> >>> The flag is intended to be set only within drmm_connector_hdmi_init_w=
+ith_caps()
+> >>> when drivers advertise HDMI 2.x capability, in which case it also ens=
+ures the
+> >>> callbacks are provided. =20
+> >>>
+> >>> We could drop the flag and instead have the init helper clear the cal=
+lbacks if
+> >>> they were provided for HDMI 1.x.  This might slightly reduce code rea=
+dability,
+> >>> as it relies on checking the presence of individual callbacks - espec=
+ially since
+> >>> we plan to extend this further with HDMI 2.1 support, providing four =
+or five
+> >>> additional FRL-specific callbacks.
+> >>
+> >> I tried to replace the flag with a helper that checks the presence of =
+(one of)
+> >> the callbacks, but it's not straightforward to unset those for non-HDM=
+I 2.x
+> >> cases since the hdmi_funcs argument is immutable.
+> >=20
+> > I'm not sure why we would need to unset them. If the driver states that
+> > it support HDMI 2.0, then it needs to be there, if it doesn't, then who
+> > cares? it's not going to be used. We can log a warning that it's
+> > inconsistent I guess, but there's no need to actively remove it.
+>=20
+> I was trying to address the use case where drivers provide the scrambler
+> callbacks despite not supporting HDMI 2.0.
 
-> [...]
-> 
-> This is the same issue as addressed in the patch by Gary Bisson [1],
-> but changing the ti-sn65dsi83 driver instead, so we don't have to change
-> all other drivers that could potentially be used with this chip.
-> 
-> [1] https://lore.kernel.org/all/20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com/
+Scrambling got introduced with HDMI 2.0. That doesn't make sense, but
+it's not a total deal breaker, it's just going to be here unused. Hence
+why I was suggesting to put a warning there if you wanted to.
 
-AFAICU your patch would replace Gary's one. Also Gary's patch has been
-reported to introduce regressions but it hasn't been reverted yet. Can you
-reply to that thread mentioning your patch, so everybody in the discussion
-is aware of your alternative proposal?
+> If we replace the scrambler_supported flag with a helper checking the
+> presence of the scrambler callbacks, then we would need to ensure the
+> callbacks do not exist in this case.
 
-> 
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
+Keep it simple:
 
-If it's a fix it should have a 'Fixes:' tag and a 'Cc: stable' line
-(https://docs.kernel.org/process/submitting-patches.html) and it should be
-the first patch in the series, to facilitate cherry-picking on stable
-branches.
+if (hdmi_version >=3D HDMI_VERSION_2_0)
+   if (funcs->scrambler_enable)
+      hdmi->scramblers_supported =3D true
+   else
+      return -EINVAL
+else
+    drm_warn(warn, "Inconsistent HDMI version");
 
-Luca
+We don't need anything more than that.
 
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Maxime
 
+--r5otlnmsebefwt2i
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaldK9gAKCRAnX84Zoj2+
+dtiSAYCQu9KcWvuZmn9ga9LZdgJaVIDPuT7TU896zIyMgZrU9Y4Z7K/BVp+ja2wo
+PJPHb/MBgNa/bcF9LTNuobtKeO7OjWhTX9TRuccydJYn14FFBYI4MSwo9wgXvaoZ
+w3E2VgsTMA==
+=cc5C
+-----END PGP SIGNATURE-----
+
+--r5otlnmsebefwt2i--
