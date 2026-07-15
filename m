@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4705C44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 14:40:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C29BAC44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 14:51:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2417710E02D;
-	Wed, 15 Jul 2026 14:40:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A1CA10E07F;
+	Wed, 15 Jul 2026 14:51:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nUrf3TSw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZbklglZH";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 307CA10E02D
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 14:40:14 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BBFA10E07F
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 14:51:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4765E61383;
- Wed, 15 Jul 2026 14:40:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17D21F000E9;
- Wed, 15 Jul 2026 14:40:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 00F24414DD;
+ Wed, 15 Jul 2026 14:51:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959071F00A3A;
+ Wed, 15 Jul 2026 14:51:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784126413;
- bh=lR+T/rQBD6+zk+GpDWTTxfo3z3x+tQqgCFa8kcOzAN0=;
+ s=k20260515; t=1784127083;
+ bh=7czwNP/DC26y02anai799/yhnVFywZAVI7k7Oh6SLZg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nUrf3TSwhXMpM/hq2g6Qp+XBjS0TVR343OQBs5U9ltVAgh/6Vd+xajHM1h9HGepl4
- uj+viL41/3unFtNL9nLDYeo9uSt/Br80IR0XXxdzKUnbEwaD5AZ3DvZ0CRDddNRoye
- qpYUTC/vsrqL959hw8ZtrOMuA3stCQRunR083dUvTY6zhajy3WmRDjAQaXIq51sszE
- 0B2pG8VSRkZqJ+HGzIqFq4YdzjL6jithZCmJrVaMm5dVlQJv4qzaLUAehNQJnoe3r/
- GpvTFMDyn10tOhWjOGYbxfF4wYuOXkb7YGKsdGoUXUPCkQgqQmNtbWELnp/cB90F2/
- vMY06uHI5k+2w==
+ b=ZbklglZHPBeEbgAStDBei6Z45ldnrN/MkHCYtIbX8HVJbjWOX1DDpFkv7m1kMf1Rw
+ zpipAtgIl+95aMNjxmwtDNGySWg/+hojKVc/S8fH+o8fYdbgGH6PKVws64BRsMREQN
+ T26LCC9z2OMB5VMTk072106atvC+zsQrwg1Q7MLR7E+pO/cm6OYghMUQRSsd2OQ+D4
+ 91PuSEbhzeIYueoZdHUvR+QzSGKg8Hr8MLRCSP6GuS2Vmg6GDXBb9UvzyZfFZgxrHe
+ +yQgw6kIQU9BIdDZM5PK25rv86kdMWohpm2YT1ChFoDmvrj0eteYvwuyqBBISzLKNe
+ DIMz9gqBxU06g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 07/11] drm/mediatek: mtk_dsi: Add support for MT8189
+Subject: Re: [PATCH v6 08/11] drm/mediatek: mtk_dsi: Add support for MT8196
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20260715135703.46540-8-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260715135703.46540-9-angelogioacchino.delregno@collabora.com>
 References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
- <20260715135703.46540-8-angelogioacchino.delregno@collabora.com>
+ <20260715135703.46540-9-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 14:40:11 +0000
-Message-Id: <20260715144012.A17D21F000E9@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 14:51:23 +0000
+Message-Id: <20260715145123.959071F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,87 +58,114 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Calculation of QoS `rw_times` uses vertical active lines (`vactive=
+`) instead of horizontal active pixels (`hactive`).
+
 Pre-existing issues:
-- [High] DSI link rate calculations ignore DSC compression, breaking high-r=
-esolution support.
+- [High] Data race between hardirq and process contexts on the `dsi->irq_da=
+ta` state variable can result in lost interrupts.
+- [High] Lack of serialization in MIPI DSI host transfer operations (`mtk_d=
+si_host_transfer`), allowing concurrent transfers to corrupt the command qu=
+eue and state.
 --
 
---- Patch [7]: [PATCH v6 07/11] drm/mediatek: mtk_dsi: Add support for MT81=
-89 ---
-commit d3eecfadd8fa60f56b5a609d3b36986202e453a5
+--- Patch [8]: [PATCH v6 08/11] drm/mediatek: mtk_dsi: Add support for MT81=
+96 ---
+commit a997b4c68ea4198553bbed678f80fe423d11793b
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-drm/mediatek: mtk_dsi: Add support for MT8189
+drm/mediatek: mtk_dsi: Add support for MT8196
 
-This commit adds support for the DSI IP in the MT8189 SoC, which supports a
-higher link rate of 2.5Gbps. It introduces a max_link_rate_mbps parameter to
-the driver data and updates the mode_valid callback to use this value
-instead of a hardcoded 1.5Gbps limit.
+Add support for the new DSI IP found in the Kompanio Ultra MT8196
+SoC and its Dimensity and Genio variants.
+
+Differently from the older DSI IPs, the one from MT8196 requires
+the initialization of all of the QoS parameters and can make use
+of a DSI SRAM reserved buffer (present also on older SoCs but not
+mandatory on those).
 
 > diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
 k/mtk_dsi.c
-> index e1803f1b9c587..95f7d94bdad3b 100644
+> index 95f7d94bdad3b..d2fdeaeb97bea 100644
 > --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
 > +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
 
 [ ... ]
 
-> @@ -926,7 +928,7 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
->  	}
->  	bit_per_pixel =3D ret;
+> @@ -776,6 +873,102 @@ static int mtk_dsi_set_dsc_params(struct mtk_dsi *d=
+si)
+>  	return drm_dsc_compute_rc_parameters(dsc);
+>  }
 > =20
-> -	dsi->data_rate =3D DIV_ROUND_UP_ULL(dsi->vm.pixelclock * bit_per_pixel,
-> +	dsi->data_rate =3D DIV_ROUND_UP_ULL((u64)dsi->vm.pixelclock * bit_per_p=
-ixel,
->  					  dsi->lanes);
-
-[Severity: High]
-This is a pre-existing issue, but does this calculation break DSC-enabled
-panels? When DSC is used, bit_per_pixel appears to be the uncompressed
-bpp. Using the uncompressed bpp instead of the compressed bpp for the
-link rate calculation will configure the hs_clk much higher than intended,
-which might exceed hardware limits or cause FIFO underflows.
-
->  	ret =3D clk_set_rate(dsi->hs_clk, dsi->data_rate);
+> +static void mtk_dsi_config_hw_buffers(struct mtk_dsi *dsi)
+> +{
 
 [ ... ]
 
-> @@ -1101,13 +1103,21 @@ mtk_dsi_bridge_mode_valid(struct drm_bridge *brid=
-ge,
->  			  const struct drm_display_mode *mode)
->  {
->  	struct mtk_dsi *dsi =3D bridge_to_dsi(bridge);
-> +	const struct mtk_dsi_driver_data *data =3D dsi->driver_data;
-> +	u64 wanted_link_rate, max_link_rate;
->  	int bpp;
-> =20
->  	bpp =3D mipi_dsi_pixel_format_to_bpp(dsi->format);
->  	if (bpp < 0)
->  		return MODE_ERROR;
-> =20
-> -	if (mode->clock * bpp / dsi->lanes > 1500000)
-> +	wanted_link_rate =3D mode->clock;
-> +	wanted_link_rate *=3D bpp;
-> +	max_link_rate =3D data->max_link_rate_mbps;
-> +	max_link_rate *=3D dsi->lanes;
-> +	max_link_rate *=3D KILO;
-> +
-> +	if (wanted_link_rate > max_link_rate)
+> +	/* Calculate QoS Anti-Latency parameters */
+> +	sodi_hi =3D MTK_DSI_MAX_FIFO_BYTES * num_hw_buffers;
+> +	sodi_hi -=3D (fill_rate - data_rate_per_buf) * 12 / 10;
+> +	sodi_lo =3D MTK_DSI_DEFAULT_QOS_SODI_LO_OVERHEAD * data_rate_per_buf;
+> +	preultra_hi =3D MTK_DSI_DEFAULT_QOS_PREULTRA_HI_US * data_rate_per_buf;
+> +	preultra_lo =3D MTK_DSI_DEFAULT_QOS_PREULTRA_LO_US * data_rate_per_buf;
+> +	ultra_hi =3D MTK_DSI_DEFAULT_QOS_ULTRA_HI_US * data_rate_per_buf;
+> +	ultra_lo =3D MTK_DSI_DEFAULT_QOS_ULTRA_LO_US * data_rate_per_buf;
+> +	urgent_hi =3D MTK_DSI_DEFAULT_QOS_URGENT_HI_US * data_rate_per_buf;
+> +	urgent_lo =3D MTK_DSI_DEFAULT_QOS_URGENT_LO_US * data_rate_per_buf;
+> +	rw_times =3D dsi->vm.vactive * dsi_buf_bpp;
+> +	rw_times /=3D data->num_burst_lines * data->pixels_per_iter;
 
 [Severity: High]
-This is a pre-existing issue, but will wanted_link_rate incorrectly reject
-high-resolution compressed modes here? Since wanted_link_rate uses the
-uncompressed bpp rather than the compressed bpp, it looks like high
-resolution modes that require DSC to fit within the max_link_rate_mbps
-will be erroneously rejected as MODE_CLOCK_HIGH.
+Does this calculation incorrectly use the vertical active lines (vactive)
+instead of horizontal active pixels (hactive)?
 
->  		return MODE_CLOCK_HIGH;
-> =20
->  	if (dsi->dsc) {
+Since DSI line buffers operate on horizontal lines, their size and bandwidth
+depend on the line width. Using vactive here seems dimensionally incorrect =
+and
+might be a typo. Could this result in incorrect QoS parameters for
+anti-latency buffers and cause display corruption or underflow?
+
+> +
+> +	/* Write all QoS parameters: Screen On Deep Idle, (pre)Ultra, Urgent, R=
+W times */
+> +	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_SODI_HIGH], BUF_THRESHOLD_PARAM, sodi=
+_hi);
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but can mtk_dsi_irq_data_clear() and
+mtk_dsi_irq_data_set() drop interrupts due to a data race?
+
+In mtk_dsi_irq_data_clear() (process context):
+
+    dsi->irq_data &=3D ~irq_bit;
+
+And mtk_dsi_irq_data_set() (hardirq context):
+
+    dsi->irq_data |=3D irq_bit;
+
+If the hardirq fires while process context is executing the non-atomic bit
+clear, could an interrupt completion flag (like VM_DONE_INT_FLAG) be silent=
+ly
+erased? This could cause wait_event_interruptible_timeout() to fail and log=
+ a
+timeout, potentially hanging the display pipeline.
+
+
+[Severity: High]
+This is a pre-existing issue, but does mtk_dsi_host_transfer() lack required
+serialization?
+
+Unlike many DSI host drivers, mtk_dsi_host_transfer() does not take a mutex.
+Can concurrent transfers from userspace via sysfs, modeset threads, or
+backlights corrupt the command queue or DSI state by concurrently calling
+mtk_dsi_host_send_cmd()?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715135703.4654=
-0-1-angelogioacchino.delregno@collabora.com?part=3D7
+0-1-angelogioacchino.delregno@collabora.com?part=3D8
