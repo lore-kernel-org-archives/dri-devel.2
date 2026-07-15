@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A319AC44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 02:33:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1B56C44508
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 03:25:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0D5110EE99;
-	Wed, 15 Jul 2026 02:33:46 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DFD110E111;
- Wed, 15 Jul 2026 02:33:44 +0000 (UTC)
-X-UUID: 956190067ff511f1aa26b74ffac11d73-20260715
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:566fa146-affc-4dfc-ab6b-de3f66f77791, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:25
-X-CID-META: VersionHash:e7bac3a, CLOUDID:d5487ac373028724d8ab18d1e797cf1b,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:102|136|850|865|898,TC:nil,Content:0|15|
- 50,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,
- OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 956190067ff511f1aa26b74ffac11d73-20260715
-X-User: lilinmao@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <lilinmao@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 361048287; Wed, 15 Jul 2026 10:33:37 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: Ashutosh Dixit <ashutosh.dixit@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
- Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Linmao Li <lilinmao@kylinos.cn>
-Subject: [PATCH] drm/xe/oa: Fix sync entry leak on OA config emit failure
-Date: Wed, 15 Jul 2026 10:33:32 +0800
-Message-Id: <20260715023332.391298-1-lilinmao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1758E10E11C;
+	Wed, 15 Jul 2026 03:25:04 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a9nFnHOA";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2546510E11B;
+ Wed, 15 Jul 2026 03:25:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2D7DB600BB;
+ Wed, 15 Jul 2026 03:25:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731DB1F000E9;
+ Wed, 15 Jul 2026 03:24:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784085900;
+ bh=jxiltSPYUvPydryUh4Z+BA9e7i6Gd73pT+TO6aqS/jc=;
+ h=Date:Subject:To:References:Cc:From:In-Reply-To;
+ b=a9nFnHOAWAL/IfU/rO/iwkNtCVDlL/kYUGawZyf7RsGv1A7Xe4QGsvHGtlpCfEYy2
+ XQOWuYRpmy/hlUe9pDDiKJvl3cKKm8Kc3fwOcbUNjeawi8PvWfNGSrTbiNlmG+71Ft
+ wz9+UEJCklZoO0SHoVREaJNdMd2SyqxvT6nL6YlBq7koXgoYzEOvbaJJzQHdAvXXcV
+ 2tzumr5fA0Uvn2bIwlHp9AZlK9oFiMFOyl1e5bX9TFsUFLH/kR6VTBFCpwm1www3uW
+ ojFgTLvPsFHtC+6FWkYG9Qg/4DrcGUsWVHZwt35iiC1DAmeZoJ0SDZ7TkTErTgF2c6
+ YKxW68ozYN37w==
+Message-ID: <a72d0fca-b938-4e6a-b994-6c84d315a6ed@kernel.org>
+Date: Tue, 14 Jul 2026 22:24:58 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Fix writeback completion timing
+Content-Language: en-US
+To: Alex Hung <alex.hung@amd.com>
+References: <20260711033159.3096477-1-alex.hung@amd.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, harry.wentland@amd.com, sunpeng.li@amd.com,
+ siqueira@igalia.com, mwen@igalia.com, tzimmermann@suse.de, ray.wu@amd.com,
+ jpeisach@ubuntu.com, cristian.ciocaltea@collabora.com,
+ timur.kristof@gmail.com, ivan.lipski@amd.com, chen-yu.chen@amd.com,
+ srinivasan.shanmugam@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260711033159.3096477-1-alex.hung@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,44 +64,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-xe_oa_emit_oa_config() releases the sync entries and the syncs array
-only on its success path. When it fails before the point of no return
-(fence allocation, config buffer allocation or batch submission), it
-returns without touching stream->syncs.
 
-The stream open path handles such failures in the caller, but
-xe_oa_config_locked() propagates the error without any cleanup, so the
-syncs array and the fence references held by the parsed entries are
-leaked. The next config ioctl overwrites stream->syncs, making the
-memory unreachable for good.
 
-Clean up the parsed syncs when xe_oa_emit_oa_config() fails, matching
-the cleanup done by the stream open error path, and reset the stream
-sync state so it does not point at freed entries.
-
-Fixes: 9920c8b88c5c ("drm/xe/oa: Add syncs support to OA config ioctl")
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
----
- drivers/gpu/drm/xe/xe_oa.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
-index 2dce6a47202c..b1ce312ea97a 100644
---- a/drivers/gpu/drm/xe/xe_oa.c
-+++ b/drivers/gpu/drm/xe/xe_oa.c
-@@ -1594,6 +1594,12 @@ static long xe_oa_config_locked(struct xe_oa_stream *stream, u64 arg)
- 		config = xchg(&stream->oa_config, config);
- 		drm_dbg(&stream->oa->xe->drm, "changed to oa config uuid=%s\n",
- 			stream->oa_config->uuid);
-+	} else {
-+		while (param.num_syncs--)
-+			xe_sync_entry_cleanup(&param.syncs[param.num_syncs]);
-+		kfree(param.syncs);
-+		stream->num_syncs = 0;
-+		stream->syncs = NULL;
- 	}
- 
- err_config_put:
--- 
-2.25.1
+On 7/10/26 22:31, Alex Hung wrote:
+> [WHY]
+> The out fence was signalled on the first vblank after arming, before the
+> DMA finished copying, and the old code worked around this with an
+> mdelay() in the IRQ handler.
+> 
+> [HOW]
+> Hold a vblank reference while writeback is pending and signal the out
+> fence on the second vblank instead of using mdelay(). Add
+> amdgpu_dm_crtc_complete_writeback() to finish and clean up writeback
+> from both the IRQ and teardown paths.
+> 
+> This can be verified by running IGT's kms_writeback 20 times without
+> timeout errors.
+> 
+> Assisted-by: Copilot:Claude-Opus-4.8
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  1 +
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 ++
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 33 ++++++++++---------
+>   3 files changed, 21 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> index 8069fc41cc7f..7c784277396a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> @@ -509,6 +509,7 @@ struct amdgpu_crtc {
+>   	struct drm_pending_vblank_event *event;
+> 
+>   	bool wb_pending;
+> +	bool wb_frame_done;
+>   	bool wb_enabled;
+>   	struct drm_writeback_connector *wb_conn;
+>   };
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index d67dcaa3fa8f..0f5453649200 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4521,6 +4521,7 @@ bool amdgpu_dm_crtc_complete_writeback(struct amdgpu_crtc *acrtc)
+>   	spin_lock_irqsave(&acrtc->wb_conn->job_lock, flags);
+>   	pending = acrtc->wb_pending;
+>   	acrtc->wb_pending = false;
+> +	acrtc->wb_frame_done = false;
+>   	spin_unlock_irqrestore(&acrtc->wb_conn->job_lock, flags);
+> 
+>   	if (!pending)
+> @@ -4988,6 +4989,7 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
+>   	 * cannot run its matching vblank_put before this get.
+>   	 */
+>   	WARN_ON(drm_crtc_vblank_get(&acrtc->base));
+> +	acrtc->wb_frame_done = false;
+>   	acrtc->wb_pending = true;
+>   }
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> index c5467f34c51f..4de7fb264cb2 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> @@ -1974,23 +1974,26 @@ static void dm_crtc_high_irq(void *interrupt_params)
+>   		return;
+> 
+>   	if (acrtc->wb_conn && acrtc->wb_pending) {
+> -		struct dc_stream_state *stream = acrtc->dm_irq_params.stream;
+> -		unsigned int v_total, refresh_hz;
+> -
+> -		v_total = stream->adjust.v_total_max ?
+> -			  stream->adjust.v_total_max : stream->timing.v_total;
+> -		refresh_hz = div_u64((uint64_t) stream->timing.pix_clk_100hz *
+> -			     100LL, (v_total * stream->timing.h_total));
+> -		mdelay(1000 / refresh_hz);
+> -
+> -		/*
+> -		 * Completion (signalling the out fence and releasing the vblank
+> -		 * reference taken in dm_set_writeback()) is handled by the shared
+> -		 * helper, which is also used by the teardown path.
+> -		 */
+> -		if (amdgpu_dm_crtc_complete_writeback(acrtc))
+> +		if (acrtc->wb_frame_done) {
+> +			/*
+> +			 * Second vblank: the DMA for the captured frame has
+> +			 * had a full frame period to flush to memory. Signal
+> +			 * the out fence now.
+> +			 */
+> +			amdgpu_dm_crtc_complete_writeback(acrtc);
+> +		} else {
+> +			/*
+> +			 * First vblank after arming: the frame has been
+> +			 * scanned out and the DMA is finishing. Disable
+> +			 * writeback immediately to prevent the hardware from
+> +			 * starting a new capture that would overwrite the
+> +			 * buffer. Signal completion on the next vblank to
+> +			 * ensure the DMA is fully flushed to memory.
+> +			 */
+>   			dc_stream_fc_disable_writeback(adev->dm.dc,
+>   						       acrtc->dm_irq_params.stream, 0);
+> +			acrtc->wb_frame_done = true;
+> +		}
+>   	}
+> 
+>   	vrr_active = amdgpu_dm_crtc_vrr_active_irq(acrtc);
+> --
+> 2.43.0
+> 
 
