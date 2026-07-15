@@ -4,87 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4912AC44501
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12859C44513
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92DB610F1F7;
-	Thu, 16 Jul 2026 08:19:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D32D410F206;
+	Thu, 16 Jul 2026 08:19:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oQ2otNgb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Aoq0Mas4";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACE2810E0F5
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 22:21:52 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2cea3004256so48377205ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Jul 2026 15:21:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784067712; x=1784672512; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:user-agent
- :references:in-reply-to:message-id:date:cc:to:from:subject:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=EUZJ2b06rpE59kyPt/lRc7T/ATHNB4Peeih6JEYSOE8=;
- b=oQ2otNgb7Og9cmM/XwueUjUQB69tT3PfCt4o3ayFXLcQivyjjqwxDIQG96fgxpaN7y
- Lr8FrR6O/DXXuDvg5Wo6c2njIOUDo4eN9OrMvslLQeC6kaZmgqS54Q17lEKUfZemRcxV
- Mp6+CHRHJ97WD3Npj0vnM62gkg0BJa0Z8LBwPmBpOgAAH7ed3fimZ5A7b61DL+NkPmvb
- XbsTmSVumDYHJPyQTy76nSXo7zdgK6PTIP6A7iAFH4tf1S8FIkpdlZsqgwvd0pKUGs6c
- KXFRvcwfn+yeC5+q23UDaJ4ffwNj/8q7W9D4X7dF/8yD8CCQKeOletw2qOe7tiPd8kKe
- ln2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784067712; x=1784672512;
- h=content-transfer-encoding:content-type:mime-version:user-agent
- :references:in-reply-to:message-id:date:cc:to:from:subject:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=EUZJ2b06rpE59kyPt/lRc7T/ATHNB4Peeih6JEYSOE8=;
- b=T2s6IF+UVIXlqqu7O6auAL2w2oCrgtVAUunz04qA3TMueH6GA8DmB0x/k/0XgRceoJ
- FF8yE2nJNZcoiLPtBhia6OqOkWSod6/4Cf/rv5jNi2fq9iu1aBx8dhfD3qazTPD6SDC2
- rqJhg7ADzwketAGzk+ZgHsM7ikxWZjfvRTY+jGX/1suKwFg6Zj2ARJkwT5db6K4hVoX/
- 0LAfwenXtcf3kcCY9uKOYrUkPCMzIrR08X7DCCzWadU55N4LlPx/JYDoSvw717zlTSdg
- cHz4cmUWsrMZ+dE5lWESIHpX9T7Nb4/8hai8OSrlUfmWOSNwqts7ls/MbdCTXsHL7noA
- grXQ==
-X-Gm-Message-State: AOJu0YxqtMwOJITtg2x6xtfBBGtX55tGobHSJRLqa/zT8CKnm+7OMSil
- /gOWNSrkPYohq27MmkIxcRqmdmJ/bLbUsiPJALv69EDq57vVkUilaypm
-X-Gm-Gg: AfdE7cm2heY5RF++PEn89+gKC8EI8uu8v9NZNnn6a0Lpuz5PMV7YQpG49IaaCOwXvFa
- pbGcETHNFi4doTDZ+52yrnQ4Vj/WQyqb5/iGjL57qbqHf2jEYdlZeCadl6aRfzBZI2Ux6kyzC9w
- 1rcu8fTKuEYLwTTQnXllpQ8PJrQ07FJZXfNzxQMLsQiTbgJXAhd3FolCAV3lw8Y1ddHf6PLmw1M
- dgRY9wi4bVmhxjdpRZwwf7ehBfn/zCdlhwl2HmNHisPNFUI/3JvSrFb3HFm/o3jBAwYnhPpD9CQ
- RflE6vj3wg/T+TajYFKNY6O8nSaCTxn4CQsoGvrU5DiMBTEzIUcwcfNU4XO6QhbY7Wujr7suUuc
- Q+w40qITyQeMPrFY3nRvqS5aRwFaSHutBaX0Nt5Vuu7i+MjKRnbdeAWORfQQodNmEPubDiPKch7
- ZWw5taykLH4nFwTo1QzSqM5284Dw16Ck+2Gz1uRiuatenQlYpTn1P0cboCdU0=
-X-Received: by 2002:a17:902:e751:b0:2cc:307c:51f2 with SMTP id
- d9443c01a7336-2cef143aec1mr42102315ad.22.1784067712200; 
- Tue, 14 Jul 2026 15:21:52 -0700 (PDT)
-Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net.
- [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ccc9d1f030sm122554955ad.51.2026.07.14.15.21.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jul 2026 15:21:51 -0700 (PDT)
-Subject: [PATCH v2 4/4] fixup! drm/gpusvm: use
- hmm_range_fault_unlocked_timeout() for range faults
-From: Stanislav Kinsburskii <skinsburskii@gmail.com>
-To: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
- corbet@lwn.net, dakr@kernel.org, david@kernel.org, jgg@ziepe.ca,
- kees@kernel.org, leon@kernel.org, liam@infradead.org, lizhi.hou@amd.com,
- ljs@kernel.org, lyude@redhat.com, maarten.lankhorst@linux.intel.com,
- mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
- nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
- rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
- skhan@linuxfoundation.org, skinsburskii@gmail.com, surenb@google.com,
- tzimmermann@suse.de, vbabka@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-rdma@vger.kernel.org
-Date: Tue, 14 Jul 2026 15:21:49 -0700
-Message-ID: <178406770964.1106335.10099816010446253543.stgit@skinsburskii>
-In-Reply-To: <178406760622.1106335.2379450382728057793.stgit@skinsburskii>
-References: <178406760622.1106335.2379450382728057793.stgit@skinsburskii>
-User-Agent: StGit/0.19
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D978210E1BF;
+ Wed, 15 Jul 2026 14:54:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9680561372;
+ Wed, 15 Jul 2026 14:54:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC92F1F000E9;
+ Wed, 15 Jul 2026 14:53:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784127261;
+ bh=/OB/1yoUb/yshfvo5DGxrFMwSBU/fSVGv+sn/IUJmK4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=Aoq0Mas4msa+C0vU61Lw93LC+D9qX3vgvHr2tfhvIyH8kjExPwNqepzNwJ10uvio8
+ daLUV6JzNrdmXK1c2z3C2mkPoeQwtgHPDMoborLbq43909STfZwNoXcBGDlKCWbPAv
+ lqqUyV5jUpvPfPDhGXWHsK56IWXxhactLULK6YLE8eVEtCN8NYsv9JVyQ9UITFuQiO
+ XkKYVWHi+BMtChwXOTFsUV9blydWksfgPF0FO7H1SjBJZUp+fQvbqFJx4meLR+x3n/
+ +dVkkZ85QU65d/BIsvSB1iyhkFUeN1/GR2/b9PIrjbwzdceAyLaqy1rWWz9i1PNkXX
+ ENe6M+nOnapKg==
+Message-ID: <31887d81-659f-4eec-b423-005364263a58@kernel.org>
+Date: Wed, 15 Jul 2026 16:53:57 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 16/33] mm/vma: minor cleanup of expand_[upwards,
+ downwards]()
+Content-Language: en-US
+To: Lorenzo Stoakes <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+ Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>,
+ Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>,
+ Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
+ Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov
+ <andreyknvl@gmail.com>, Alexander Potapenko <glider@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner
+ <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Yishai Hadas <yishaih@nvidia.com>, Shameer Kolothum
+ <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev,
+ linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ damon@lists.linux.dev, iommu@lists.linux.dev, kasan-dev@googlegroups.com,
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-16-2a5aa403d977@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
+ KxRWDHX0R2tgpFDXHnzZcQywawu8eSq0LxzxFNYMvtB7sV1pxYwej2qx9B75qW2plBs+7+YB
+ 87tMFA+u+L4Z5xAzIimfLD5EKC56kJ1CsXlM8S/LHcmdD9Ctkn3trYDNnat0eoAcfPIP2OZ+
+ 9oe9IF/R28zmh0ifLXyJQQz5ofdj4bPf8ecEW0rhcqHfTD8k4yK0xxt3xW+6Exqp9n9bydiy
+ tcSAw/TahjW6yrA+6JhSBv1v2tIm+itQc073zjSX8OFL51qQVzRFr7H2UQG33lw2QrvHRXqD
+ Ot7ViKam7v0Ho9wEWiQOOZlHItOOXFphWb2yq3nzrKe45oWoSgkxKb97MVsQ+q2SYjJRBBH4
+ 8qKhphADYxkIP6yut/eaj9ImvRUZZRi0DTc8xfnvHGTjKbJzC2xpFcY0DQbZzuwsIZ8OPJCc
+ LM4S7mT25NE5kUTG/TKQCk922vRdGVMoLA7dIQrgXnRXtyT61sg8PG4wcfOnuWf8577aXP1x
+ 6mzw3/jh3F+oSBHb/GcLC7mvWreJifUL2gEdssGfXhGWBo6zLS3qhgtwjay0Jl+kza1lo+Cv
+ BB2T79D4WGdDuVa4eOrQ02TxqGN7G0Biz5ZLRSFzQSQwLn8fbwARAQABzSNWbGFzdGltaWwg
+ QmFia2EgPHZiYWJrYUBrZXJuZWwub3JnPsLBsAQTAQoAWhYhBKlA1DSZLC6OmRA9UCJPp+fM
+ gqZkBQJqFFy6GxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDIsMgIbAwUJGtCBUAULCQgHAwUV
+ CgkICwUWAgMBAAIeBQIXgAAKCRAiT6fnzIKmZJIUEADFx/tREzUImHrEwVHeSvDFmA7tJysI
+ UVrlvrM09E7GIuzphzv7jYmo8n3ANpCczLEVr4G0syYQdTigaZgv3+FQDIIzhKih1IHhu1Ei
+ XHlywNWKnQxxQEUNi5Mwx43wQz5XVw9F1A7gtKBKNtfogO511hAbrzagrYajyQacEJ/+sfhZ
+ 9Da8ltHIXD8pcYaHUfQgEusCgmEd9+KrUwrTbckFKmYq5chuE6yJ4J0EmWknL096jIE6CnzF
+ FRslQ3B1UKDjxVsm1ZHfir5NeWszLkTvGFsddFaWTgh8UycESG6VQzKXjjewXu2pG7YQYRpj
+ QKm1W5X2TkwWkXRBZTmfmbhxIUMh3+zf5wQ463rSmDN/8v81tdqBtAW6rH/kzg1GvkaTHXn0
+ 507yEHFzBksk2viAuIxxr7km8+/KARYLIdGtx30EG8cKzAUZOK6WqxtNCsXUJNrVE8CWrCaD
+ icoNu7Fs1c5hmPHdSTnU48ce67449DdnO4neLSNhRiGlMHJgfJUmgrxu/hcYeOZ3haWmEQ2w
+ uW1Mh01OHi8QZHCEyAbABrPs9GUgccc/4eYXX9hIgxfSkYzn8f+8NuIFPWl/0uTvjgqU29FQ
+ SbzOLxHq9439Ox40G5mS5eZXRGxITYR+6TXvRGI6P/264jvflnr/pDGUttaikU+0W+1uxgKH
+ cmYbEc7ATQRbGTU1AQgAn0H6UrFiWcovkh6EXVcl+SeqyO6JHOPm+e9Wu0Vw+VIUvXZVUVVQ
+ La1PQDUi6j00ChlcR66g9/V0sPIcSutacPKfdKYOBvzd4rlhL8rfrdEsQw5ApZxrA8kYZVMh
+ FmBRKAa6wos25moTlMKpCWzTH84+WO5+ziCTsTUZASAToz3RdunTD+vQcHj0GqNTPAHK63sf
+ bAB2I0BslZkXkY1RLb/YhuA6E7JyEd2pilZOrIuBGl/5q2qSakgnAVFWFBR/DO27JuAksYnq
+ +aH8vI0xGvwn75KqSk4UzAkDzWSmO4ZHuahKtQgZNsMYV+PGayRBX9b9zbldzopoLBdqHc4n
+ jQARAQABwsF8BBgBCgAmAhsMFiEEqUDUNJksLo6ZED1QIk+n58yCpmQFAmfIHFQFCRYU6J8A
+ CgkQIk+n58yCpmS2PA//bqN1LfcotmArgElsa+0EGZSQlYgK48pm8WAeTXTngudP9IJ4SuKY
+ HR5RNjHcBeqN+Me0zxRqYzRb8nGanHEkDyf4Im8DQM8d6vbyU+FcPmG4skud4kgS1zMHnlVd
+ SXfSIwKC/hKgdHG8aBV7545Lz9X6Iohea+94wneD0aw/hqF+QWewGZhWJriWAZtvEkzNjQOi
+ 4U9F/trLten/x7bpphDSnDMKJtITbtzATT1Dq7o7VpIUK1nCTQALMuMjKCdi8OdU/+V+R3O4
+ 0PXWvX8qrvqYapVbZ+9KqT74FsuB0Ya9uXwgBF2Q6cRuETZk5vqaqKxzqoQZCO8AOz/58j6O
+ 2RHNy/mZEN+7tJ5Tsq42zVJ4jxsT8b9YplavCMsnBgDeRWhcbYhCyttoL7nYISyWg4kQYZ/P
+ wIV3OuNv2f8iKYsxNsRuClOAF82+gvqOy1/1pprFjy8uo2pkoOrb63aOP3vO5VHnRKgra6dq
+ NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
+ OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
+ jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-16-2a5aa403d977@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:22 +0000
+X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,98 +172,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The timeout passed to hmm_range_fault_unlocked_timeout() is a relative
-retry budget for HMM's internal mmu-notifier retry loop. drm_gpusvm was
-still keeping an absolute deadline around the outer driver retry logic
-and passing the remaining time into HMM.
+On 7/10/26 22:16, Lorenzo Stoakes wrote:
+> Adjust the stack expansion functions expand_upwards() and
+> expand_downwards() such that they are expressed in terms of named constant
+> values, and make use of vma_start_pgoff().
+> 
+> This clearly documents that we are referencing the page offset of the start
+> of the VMA.
+> 
+> Additionally this cleans up the overflow check in expand_upwards().
+> 
+> No functional change intended.
+> 
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Reviewed-by: Gregory Price <gourry@gourry.net>
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-Pass HMM_RANGE_DEFAULT_TIMEOUT directly to
-hmm_range_fault_unlocked_timeout() on each HMM fault attempt instead.
-If HMM succeeds but the later drm_gpusvm-side mmu_interval_read_retry()
-check observes an invalidation, retry with a fresh HMM retry budget.
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-This keeps the timeout focused on repeated notifier retries inside HMM,
-while avoiding an outer deadline that also accounts unrelated driver-side
-work after HMM has made progress.
-
-Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
----
- drivers/gpu/drm/drm_gpusvm.c |   21 ++++++---------------
- 1 file changed, 6 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-index b8f2dd9982f5..76e8a0028c7f 100644
---- a/drivers/gpu/drm/drm_gpusvm.c
-+++ b/drivers/gpu/drm/drm_gpusvm.c
-@@ -852,8 +852,7 @@ enum drm_gpusvm_scan_result drm_gpusvm_scan_mm(struct drm_gpusvm_range *range,
- 		.end = end,
- 		.dev_private_owner = dev_private_owner,
- 	};
--	unsigned long timeout =
--		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-+	unsigned long timeout = msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
- 	enum drm_gpusvm_scan_result state = DRM_GPUSVM_SCAN_UNPOPULATED, new_state;
- 	unsigned long *pfns;
- 	unsigned long npages = npages_in_range(start, end);
-@@ -867,8 +866,7 @@ enum drm_gpusvm_scan_result drm_gpusvm_scan_mm(struct drm_gpusvm_range *range,
- 	hmm_range.hmm_pfns = pfns;
- 
- retry:
--	err = hmm_range_fault_unlocked_timeout(&hmm_range,
--					       max(timeout - jiffies, 1L));
-+	err = hmm_range_fault_unlocked_timeout(&hmm_range, timeout);
- 	if (err)
- 		goto err_free;
- 
-@@ -1459,8 +1457,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
- 		.dev_private_owner = ctx->device_private_page_owner,
- 	};
- 	void *zdd;
--	unsigned long timeout =
--		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-+	unsigned long timeout = msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
- 	unsigned long i, j;
- 	unsigned long npages = npages_in_range(pages_start, pages_end);
- 	unsigned long num_dma_mapped;
-@@ -1478,9 +1475,6 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
- 		return -EINVAL;
- 
- retry:
--	if (time_after(jiffies, timeout))
--		return -EBUSY;
--
- 	hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
- 	if (drm_gpusvm_pages_valid_unlocked(gpusvm, svm_pages))
- 		goto set_seqno;
-@@ -1495,8 +1489,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
- 	}
- 
- 	hmm_range.hmm_pfns = pfns;
--	err = hmm_range_fault_unlocked_timeout(&hmm_range,
--				max_t(long, timeout - jiffies, 1));
-+	err = hmm_range_fault_unlocked_timeout(&hmm_range, timeout);
- 	mmput(mm);
- 	if (err)
- 		goto err_free;
-@@ -1718,8 +1711,7 @@ int drm_gpusvm_range_evict(struct drm_gpusvm *gpusvm,
- 		.end = drm_gpusvm_range_end(range),
- 		.dev_private_owner = NULL,
- 	};
--	unsigned long timeout =
--		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-+	unsigned long timeout = msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
- 	unsigned long *pfns;
- 	unsigned long npages = npages_in_range(drm_gpusvm_range_start(range),
- 					       drm_gpusvm_range_end(range));
-@@ -1734,8 +1726,7 @@ int drm_gpusvm_range_evict(struct drm_gpusvm *gpusvm,
- 		return -ENOMEM;
- 
- 	hmm_range.hmm_pfns = pfns;
--	err = hmm_range_fault_unlocked_timeout(&hmm_range,
--				max_t(long, timeout - jiffies, 1));
-+	err = hmm_range_fault_unlocked_timeout(&hmm_range, timeout);
- 
- 	kvfree(pfns);
- 	mmput(mm);
-
+> ---
+>  mm/vma.c | 17 +++++++----------
+>  1 file changed, 7 insertions(+), 10 deletions(-)
+> 
+> diff --git a/mm/vma.c b/mm/vma.c
+> index 7265a054cfa3..5d5e60ea8a25 100644
+> --- a/mm/vma.c
+> +++ b/mm/vma.c
+> @@ -3216,13 +3216,12 @@ int expand_upwards(struct vm_area_struct *vma, unsigned long address)
+>  
+>  	/* Somebody else might have raced and expanded it already */
+>  	if (address > vma->vm_end) {
+> -		unsigned long size, grow;
+> -
+> -		size = address - vma->vm_start;
+> -		grow = (address - vma->vm_end) >> PAGE_SHIFT;
+> +		const unsigned long size = address - vma->vm_start;
+> +		const unsigned long grow = (address - vma->vm_end) >> PAGE_SHIFT;
+> +		const pgoff_t pgoff = vma_start_pgoff(vma);
+>  
+>  		error = -ENOMEM;
+> -		if (vma->vm_pgoff + (size >> PAGE_SHIFT) >= vma->vm_pgoff) {
+> +		if (pgoff + (size >> PAGE_SHIFT) >= pgoff) {
+>  			error = acct_stack_growth(vma, size, grow);
+>  			if (!error) {
+>  				if (vma_test(vma, VMA_LOCKED_BIT))
+> @@ -3295,13 +3294,11 @@ int expand_downwards(struct vm_area_struct *vma, unsigned long address)
+>  
+>  	/* Somebody else might have raced and expanded it already */
+>  	if (address < vma->vm_start) {
+> -		unsigned long size, grow;
+> -
+> -		size = vma->vm_end - address;
+> -		grow = (vma->vm_start - address) >> PAGE_SHIFT;
+> +		const unsigned long size = vma->vm_end - address;
+> +		const unsigned long grow = (vma->vm_start - address) >> PAGE_SHIFT;
+>  
+>  		error = -ENOMEM;
+> -		if (grow <= vma->vm_pgoff) {
+> +		if (grow <= vma_start_pgoff(vma)) {
+>  			error = acct_stack_growth(vma, size, grow);
+>  			if (!error) {
+>  				if (vma_test(vma, VMA_LOCKED_BIT))
+> 
 
