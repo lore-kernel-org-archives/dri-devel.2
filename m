@@ -4,47 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36ED1C44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 06:16:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06F5FC44508
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 06:43:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9248510EED0;
-	Wed, 15 Jul 2026 06:16:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CE0110E156;
+	Wed, 15 Jul 2026 06:43:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Ml0hrBmX";
+	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="lJ04fou+";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D952010EED0
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 06:16:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
- From:Subject:Message-ID:From:Reply-To;
- bh=QzPGCwr7V9AVee7yhQ+nczZfLMVvubjLDbugo6vaKzk=; b=Ml0hrBmXrzXwzw1PXzlS0wKa8D
- hUmPS3lKyyBkZEE+Mc5eGEdeXxINH9p2DMEjZq5kzBwgloxAbumyui8o3FA9tqFcgotZYTSagcpZ3
- BtbQb126EwgoT71DcmNutNEik725D+2+dqW+s4x5Q8gFHXU7rkYV0ax2BZG94jk827+hfvI2bdRY/
- lNbN1oYuevU4JGcQ6NrOIVwDmFmJToXHMINI+zeqWhMU5CT8sXqPppj0n2xFqHCAQe7qK1fe9cjI1
- zF1oPDfKU13FKH2D+UWgsTDr07UixnNgb85ajopIHItiDoU71uiuusmRbMFvHsIY3kttGrzHrl4iu
- PcUXsllQ==;
-Received: from [159.147.19.205] (helo=[192.168.0.17])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wjsuz-00FJvv-74; Wed, 15 Jul 2026 08:16:29 +0200
-Message-ID: <e65137e19a8773a2f760531034481e0df60071d4.camel@igalia.com>
-Subject: Re: [PATCH] drm/v3d: Widen cache_clean_lock over the whole L2TCACTL
- sequence
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
- <mwen@igalia.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com, 
- stable@vger.kernel.org
-Date: Wed, 15 Jul 2026 08:16:18 +0200
-In-Reply-To: <20260707200738.659002-2-mcanal@igalia.com>
-References: <20260707200738.659002-2-mcanal@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3623210E131
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 06:42:59 +0000 (UTC)
+Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net
+ [178.82.120.96])
+ by mail11.truemail.it (Postfix) with ESMTPA id 9CE091F8DA;
+ Wed, 15 Jul 2026 08:42:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+ s=default; t=1784097777;
+ bh=VhX27eVj94wZ4TbZOZmAuCcKPqJuNV5Qaj379iRya4w=; h=From:To:Subject;
+ b=lJ04fou+1i84Pq+5wBTGnkKE/X1Ope/n2XS+7mkCpy4DNnun6qaKWw2taEXi8gc1Z
+ lemFntMKwk0+I5RDNDO0Z58ge+VfTWND2NRG0Nppczt35SiKjdHPP94flzvVQNb0Ut
+ TrWwY+rraEFGqIyVkmXj85eIOhsm0mUXopISmKCJGwTe5bXKbGcd3mXAs2A39pDW9j
+ LD59esS7nJ4R8fFdZYx4v78Zp+Xo8IQRGWQPSZEHu6GLwLR5DvPSCQY22g/L8o0yM8
+ A9a5Xd91lAhQvv8buhnDS8dCoWADwHtRaunSV9WIyQC78jGwbzfenZIpNBa/KlenE5
+ GeeNsy+1YlS+A==
+Date: Wed, 15 Jul 2026 08:42:52 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Colin Ian King <colin.i.king@gmail.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH][next] drm/bridge: lontium-lt8912b: make read-only const
+ array supply_names static
+Message-ID: <20260715064252.GA40623@francesco-nb>
+References: <20260714190400.194605-1-colin.i.king@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714190400.194605-1-colin.i.king@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,86 +66,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Ma=C3=ADra,
+On Tue, Jul 14, 2026 at 08:03:59PM +0100, Colin Ian King wrote:
+> Don't populate the read-only const array supply_names on the stack
+> at run time, instead make it static
+> 
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 
-has this change fixed anything?
-
-Also, I believe that GFXH-1897 is exclusive to Pi4. Have you tested if
-this change has any visible performance impact on Pi5?
-
-Iago
-
-
-El mar, 07-07-2026 a las 17:05 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> v3d_clean_caches() and v3d_flush_l2t() both write the single L2TCACTL
-> register and poll its status bits. The mutex cache_clean_lock exists
-> to
-> serialize them, but v3d_clean_caches() only took the lock around its
-> final
-> FLM_CLEAN write.
->=20
-> These functions run concurrently: v3d_flush_l2t() is issued from the
-> BIN/RENDER/CSD invalidate path while v3d_clean_caches() runs from the
-> CACHE_CLEAN queue, and each queue's scheduler uses its own ordered
-> workqueue, so their run_job callbacks execute in parallel.
->=20
-> Because clean locked only its final write, a concurrent flush can
-> write
-> L2TCACTL during clean's unlocked phase. Both use non read-modify-
-> write
-> writes to the one register, so whichever lands last wins: clean's
-> TMUWCF
-> write can land on the flush's in-flight L2TFLS invalidate, triggering
-> the
-> GFXH-1897 hazard of writing L2TCACTL while a flush is pending.
->=20
-> Hold cache_clean_lock across the entire L2TCACTL access sequence so
-> it
-> is fully mutually exclusive with v3d_flush_l2t(), which already takes
-> the
-> lock around its own write.
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: abf888b03a98 ("drm/v3d: Wait for pending L2T flush before
-> cleaning caches")
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> ---
-> =C2=A0drivers/gpu/drm/v3d/v3d_gem.c | 5 ++---
-> =C2=A01 file changed, 2 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/v3d/v3d_gem.c
-> b/drivers/gpu/drm/v3d/v3d_gem.c
-> index c43d9af41374..e597b6fd47c4 100644
-> --- a/drivers/gpu/drm/v3d/v3d_gem.c
-> +++ b/drivers/gpu/drm/v3d/v3d_gem.c
-> @@ -204,6 +204,8 @@ v3d_clean_caches(struct v3d_dev *v3d)
-> =C2=A0	struct drm_device *dev =3D &v3d->drm;
-> =C2=A0	int core =3D 0;
-> =C2=A0
-> +	guard(mutex)(&v3d->cache_clean_lock);
-> +
-> =C2=A0	trace_v3d_cache_clean_begin(dev);
-> =C2=A0
-> =C2=A0	/* GFXH-1897: Ensure pending flushes complete before writing
-> L2TCACTL */
-> @@ -220,7 +222,6 @@ v3d_clean_caches(struct v3d_dev *v3d)
-> =C2=A0		drm_err(dev, "Timeout waiting for TMU write combiner
-> flush\n");
-> =C2=A0	}
-> =C2=A0
-> -	mutex_lock(&v3d->cache_clean_lock);
-> =C2=A0	V3D_CORE_WRITE(core, V3D_CTL_L2TCACTL,
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 V3D_L2TCACTL_L2TFLS |
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 V3D_SET_FIELD(V3D_L2TCACTL_F=
-LM_CLEAN,
-> V3D_L2TCACTL_FLM));
-> @@ -230,8 +231,6 @@ v3d_clean_caches(struct v3d_dev *v3d)
-> =C2=A0		drm_err(dev, "Timeout waiting for L2T clean\n");
-> =C2=A0	}
-> =C2=A0
-> -	mutex_unlock(&v3d->cache_clean_lock);
-> -
-> =C2=A0	trace_v3d_cache_clean_end(dev);
-> =C2=A0}
-> =C2=A0
-
+Acked-by: Francesco Dolcini <francesco.dolcini@toradex.com>
