@@ -4,93 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9F2EC44508
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 17:20:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23F1CC44508
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 17:47:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4306210E1DA;
-	Wed, 15 Jul 2026 17:20:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C5F610E1F9;
+	Wed, 15 Jul 2026 17:47:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="FB92mAJ6";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="NMLzoZdn";
 	dkim-atps=neutral
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DD4010E1DA
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 17:20:31 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout02.posteo.de (Postfix) with ESMTPS id 60569240101
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 19:20:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
- s=1984.8680eb; t=1784136029;
- bh=ASC46HuKd+AFbjl8HVU8HORwEbJMos/+UqAA9xDMBBM=;
- h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
- MIME-Version:OpenPGP:From;
- b=FB92mAJ6kzUbmL5ubIjX7EQdJMJp/DpTpZiraUpe+nL83x/HWEfVONYu45M1hhVUH
- fnVsFeLt/w+4wzypiQUw2fpNMM7isHlqHgq/Nl478NUS9IIR2p0w3TF4/HEnywOmJV
- MbmqcQ30cFCizUqw890TpKi+wD6dStaP+ZEFqU/mwymNBtl4dkrPRiqVNQQyKfyKmn
- OAGfnD+Z0zaJBHsHoyNQZFVSVGZMLx+c5o89vsRGXhbfRHHudNvLb3dyAdyMAo1iPZ
- q7E3gpIWFh3fxIYUl4dH4fqPjC3v8I7WRxN9ODUeq4TCa8IDmCry5j3lIHRiMjhA2B
- +c8mt0DYmeBNA==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4h0jcC6vcwz9rxF;
- Wed, 15 Jul 2026 19:20:27 +0200 (CEST)
-Message-ID: <acd14fdd28746d37803decf664dae6b57198ea43.camel@posteo.de>
-Subject: Re: [PATCH v13 1/3] rust: add basic serial device bus abstractions
-From: Markus Probst <markus.probst@posteo.de>
-To: sashiko-reviews@lists.linux.dev
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
-Date: Wed, 15 Jul 2026 17:20:29 +0000
-In-Reply-To: <20260712171525.A5E3F1F000E9@smtp.kernel.org>
-References: <20260712-rust_serdev-v13-0-2c4060bc8e30@posteo.de>
- <20260712-rust_serdev-v13-1-2c4060bc8e30@posteo.de>
- <20260712171525.A5E3F1F000E9@smtp.kernel.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-pKXgMmoHPBXy2RAR3719"
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 575BE10E1F9
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 17:47:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1784137672;
+ bh=Ag64aC6A30cZLTDoIogox6cPsztZDfKJp3k1bxsmacI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=NMLzoZdn0RrMMUBfebmKeU0Z/zMSaPCohWoTHC3bvS1zGbABkLXJWn0D6xs8JTqNO
+ kT/nRIXKPJCDRFlYPmg3w25uJaOLWEBVVyPKxduB8b7zOJN0CSv/uHWeaJazN0Xksu
+ 44/WgyfinEqafQNcz1K9KnRl4/H1MJDW/9MRzQ695ILWkO3SDiKMrkM3V8sw2YYFO1
+ h1iZY+KvT/GWfXjJUWzd9p0xXsREcF+KVSYUPZljy0Omgo7AGWh8596rc9EIuMJ5A5
+ p3wc5O+gbugYweCx7WxWAmr/Eai025s3wSmK7JKLU/S1cGwlD85xA12aq9zLIdzFTZ
+ ak/cAbzibAR8A==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4h0kCn5xR5z4wBD;
+ Thu, 16 Jul 2026 03:47:49 +1000 (AEST)
+From: Matt Evans <matt@ozlabs.org>
+To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
+ Longfang Liu <liulongfang@huawei.com>
+Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+Subject: [PATCH v5 0/9] vfio/pci: Add mmap() for DMABUFs
+Date: Wed, 15 Jul 2026 18:47:23 +0100
+Message-ID: <20260715174737.15287-1-matt@ozlabs.org>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,265 +67,293 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi all,
 
---=-pKXgMmoHPBXy2RAR3719
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, 2026-07-12 at 17:15 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential issu=
-e(s) to consider:
-> - [High] `serdev::Driver::Data` is missing a `Sync` trait bound, allowing=
- safe code to trigger Undefined Behavior via data races.
-> - [High] The framework defers `serdev_device_close()` to `PrivateData::dr=
-op` and fails to close the device synchronously in `remove_callback`, creat=
-ing a race window that leads to NULL pointer dereferences, Use-After-Free, =
-and deadlocks.
-> - [High] Holding the `active` mutex across `T::probe` introduces a cyclic=
- AB-BA deadlock if a driver synchronously awaits receive data during initia=
-lization.
-> - [Medium] `write_all` improperly casts the `ssize_t` return value of `se=
-rdev_device_write` to `i32`, which causes successful writes larger than 2GB=
- to be incorrectly treated as negative error codes.
-> --
->=20
-> --- Patch [1]: [PATCH v13 1/3] rust: add basic serial device bus abstract=
-ions ---
-> commit d3271c073101a0f9ce803c8c5d6de6e1b8618c41
-> Author: Markus Probst <markus.probst@posteo.de>
->=20
-> rust: add basic serial device bus abstractions
->    =20
-> This commit introduces the Rust abstractions for the serial device bus AP=
-I.
-> It adds the serdev::Driver trait, the serdev::Device abstraction represen=
-ting
-> a struct serdev_device, and adapter mechanisms to register drivers with t=
-he
-> generic driver core.
->=20
-> > diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-> > new file mode 100644
-> > index 0000000000000..ab5d6446b091e
-> > --- /dev/null
-> > +++ b/rust/kernel/serdev.rs
-> [ ... ]
-> > +#[pinned_drop]
-> > +impl<T: Driver> PinnedDrop for PrivateData<'_, T> {
-> > +    fn drop(self: Pin<&mut Self>) {
-> > +        let mut active =3D self.active.lock();
-> > +        if *active {
-> > +            // SAFETY:
-> > +            // - We have exclusive access to `self.driver`.
-> > +            // - `self.driver` is guaranteed to be initialized.
-> > +            unsafe { (*self.driver.get()).assume_init_drop() };
-> > +            *active =3D false;
-> > +        }
-> > +
-> > +        // SAFETY: We have exclusive access to `self.open`.
-> > +        if unsafe { *self.open.get() } {
-> > +            // SAFETY: `self.sdev.as_raw()` is guaranteed to be a poin=
-ter to a valid
-> > +            // `struct serdev_device`.
-> > +            unsafe { bindings::serdev_device_close(self.sdev.as_raw())=
- };
-> > +        }
-> > +    }
-> > +}
->=20
-> [Severity: High]
-> Does deferring serdev_device_close() to drop() introduce an AB-BA deadloc=
-k?
->=20
-> If receive_buf_callback() executes on the receive workqueue while Private=
-Data
-> is being dropped, the receive thread will block waiting for the 'active'
-> mutex. Meanwhile, this drop() method holds the 'active' mutex and calls
-> serdev_device_close(), which synchronously flushes the workqueue. This
-> seems like it would cause the two threads to deadlock.
-That is an issue.
+The goal of this series is to enable userspace driver designs that use
+VFIO to export DMABUFs representing subsets of PCI device BARs, and
+"vend" those buffers from a primary process to other subordinate
+processes by fd.  These processes then mmap() the buffers and their
+access to the device is isolated to the exported ranges.  This is an
+improvement on sharing the VFIO device fd to subordinate processes,
+which would allow unfettered access.
 
->=20
-> [ ... ]
-> > +    extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -=
-> kernel::ffi::c_int {
-> [ ... ]
-> > +            let mut active =3D private_data.active.lock();
-> > +
-> > +            // SAFETY: `sdev.as_raw()` is guaranteed to be a valid poi=
-nter to `serdev_device`.
-> > +            unsafe { bindings::serdev_device_set_client_ops(sdev.as_ra=
-w(), Self::OPS) };
-> > +
-> > +            // SAFETY: The serial device bus only ever calls the probe=
- callback with a valid pointer
-> > +            // to a `serdev_device`.
-> > +            to_result(unsafe { bindings::serdev_device_open(sdev.as_ra=
-w()) })?;
-> > +
-> > +            // SAFETY: We have exclusive access to `private_data.open`=
-.
-> > +            unsafe { *private_data.open.get() =3D true };
-> > +
-> > +            let data =3D T::probe(sdev, info);
->=20
-> [Severity: High]
-> Can holding the 'active' mutex across T::probe() cause a cyclic deadlock
-> during device initialization?
->=20
-> If a driver sends a hardware identification command in its probe() routin=
-e
-> and synchronously waits for the response, the incoming data will trigger
-> receive_buf_callback() on a separate thread. Because receive_buf_callback=
-()
-> unconditionally attempts to acquire the 'active' mutex, it will block
-> forever while probe_callback() holds the mutex and waits for the receive
-> data.
-False positive, kinda.
+This is achieved by enabling mmap() of vfio-pci DMABUFs, passed by fd
+to subordinate processes.  Second, a new revocation mechanism is added
+to allow the primary process to forcibly revoke access to
+previously-shared BAR spans, even if the subordinate processes haven't
+cleanly exited.
 
-It is not possbile yet, to retrieve initial device data.
+(The related topic of safe delegation of iommufd control to the
+subordinate processes is not addressed here, and is follow-up work.)
 
->=20
-> [ ... ]
-> > +    extern "C" fn remove_callback(sdev: *mut bindings::serdev_device) =
-{
-> > +        // SAFETY: The serial device bus only ever calls the remove ca=
-llback with a valid pointer
-> > +        // to a `struct serdev_device`.
-> > +        //
-> > +        // INVARIANT: `sdev` is valid for the duration of `remove_call=
-back()`.
-> > +        let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInterna=
-l<'_>>>() };
-> > +
-> > +        // SAFETY: `remove_callback` is only ever called after a succe=
-ssful call to
-> > +        // `probe_callback`, hence it's guaranteed that `Device::set_d=
-rvdata()` has been called
-> > +        // and stored a `Pin<KBox<PrivateData<'_, T>>>`.
-> > +        let private_data =3D unsafe { sdev.as_ref().drvdata_borrow::<P=
-rivateData<'_, T>>() };
-> > +
-> > +        // SAFETY: No one has exclusive access to `private_data.driver=
-`.
-> > +        let data =3D unsafe { &*private_data.driver.get() };
-> > +        // SAFETY:
-> > +        // - `private_data.driver` is pinned.
-> > +        // - `remove_callback` is only ever called after a successful =
-call to `probe_callback`,
-> > +        //   hence it's guaranteed that `private_data.driver` was init=
-ialized.
-> > +        let data_pinned =3D unsafe { Pin::new_unchecked(data.assume_in=
-it_ref()) };
-> > +
-> > +        T::unbind(sdev, data_pinned);
-> > +    }
->=20
-> [Severity: High]
-> Should serdev_device_close() be called synchronously in remove_callback()
-> rather than waiting for PrivateData::drop?
->=20
-> By not closing the device synchronously here, the device remains active
-> and the receive layer can asynchronously trigger receive_buf_callback() o=
-n a
-> workqueue. In the unbind path, the device core subsequently invokes
-> post_unbind_rust(), which clears the device's drvdata pointer.=20
->=20
-> If receive_buf_callback() executes right after drvdata is cleared, it
-> blindly dereferences a null pointer via drvdata_borrow().
-False positive.
+The background/rationale is covered in more detail in the RFC cover
+letters.
 
-impl Drop for PrivateData locks the active mutex and sets its value to
-false.
-receive_buf_callback trys to acquire this mutex and if the value is
-false, it never accesses the driver data. serdev_device_close gets
-called before private data gets deallocated.
+Feedback from the RFCs requested that, instead of creating
+DMABUF-specific vm_ops and .fault paths, to go the whole way and
+migrate the existing VFIO PCI BAR mmap() to be backed by a DMABUF too,
+resulting in a common vm_ops and fault handler for mmap()s of both the
+VFIO device and explicitly-exported DMABUFs.  This will help future
+iommufd emulation of VFIO Type1 peer-to-peer, making it easier to get
+a DMABUF for a VFIO BAR as a DMA target.
 
->=20
-> [ ... ]
-> > +pub trait Driver {
-> > +    /// The type holding driver private data about each device id supp=
-orted by the driver.
-> > +    // TODO: Use associated_type_defaults once stabilized:
-> > +    //
-> > +    // ```
-> > +    // type IdInfo: 'static =3D ();
-> > +    // ```
-> > +    type IdInfo: 'static;
-> > +
-> > +    /// The type of the driver's bus device private data.
-> > +    type Data<'bound>: Send + 'bound;
->=20
-> [Severity: High]
-> Is serdev::Driver::Data missing a Sync trait bound?
->=20
-> The serdev framework invokes receive_buf_callback() from the receive
-> workqueue and remove_callback() from the driver core unbind context. Both
-> callbacks synthesize a shared reference Pin<&T::Data> from the raw driver
-> pointer without any mutual exclusion.
->=20
-> Because T::Data does not require Sync, safe Rust code could use
-> non-thread-safe types (e.g., core::cell::Cell) in the driver state,
-> leading to data races and undefined behavior.
-I suppose thats an issue too.
->=20
-> [ ... ]
-> > +    pub fn write_all(&self, data: &[u8], timeout: Timeout) -> Result<u=
-size> {
-> > +        // SAFETY:
-> > +        // - `self.as_raw()` is guaranteed to be a pointer to a valid =
-`serdev_device`.
-> > +        // - `data.as_ptr()` is guaranteed to be a valid array pointer=
- with the size of
-> > +        //   `data.len()`.
-> > +        let ret =3D unsafe {
-> > +            bindings::serdev_device_write(
-> > +                self.as_raw(),
-> > +                data.as_ptr(),
-> > +                data.len(),
-> > +                timeout.into_jiffies(),
-> > +            )
-> > +        };
-> > +        // CAST: negative return values are guaranteed to be between `=
--MAX_ERRNO` and `-1`,
-> > +        // which always fit into a `i32`.
-> > +        to_result(ret as i32).map(|()| ret.unsigned_abs())
-> > +    }
->=20
-> [Severity: Medium]
-> Does casting the ssize_t return value of serdev_device_write() to i32
-> incorrectly treat large successful writes as errors?
-Yes, but thats more an issue with the input not being checked than the
-return type.
+mmap() conversion to use DMABUF underneath has been done for vfio-pci,
+but not sub-drivers:
 
->=20
-> If a caller passes a slice larger than 2GB (e.g., on a 64-bit architectur=
-e)
-> and the write succeeds, the positive isize return value will overflow
-> during the 'as i32' cast, resulting in a negative number. to_result()
-> will then erroneously interpret this successful return as a kernel error
-> code.
+  nvgrace-gpu's mmap() override path is unchanged; I kept this out of
+  scope for now not least because I don't have a thorough test setup
+  for this system.  I would prefer to help the nvgrace-gpu maintainers
+  enable BAR mmap() DMABUFs themselves.
 
---=-pKXgMmoHPBXy2RAR3719
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
 
------BEGIN PGP SIGNATURE-----
+Notes on patches
+================
 
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmpXwU4bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPS0MMP/AmC12M4xf31dHprDstM
-NKyRGB+i0MevOoT+9l44ZZp8j7yw3WUZl37USNsBeQTbhXDgT7shtCNEeN3ASa6u
-FD/Y5U0lMaDvZNLp2Ttrok7pBkkWPQ/hgbwnTwLh5JxvhCmar8fdm7IC9fHvdnnT
-yTVkie9M8uCkb4q682x21CLqZDDjz15rutyh5I+plAfsEa3i9GOUQUpOLlbJ1iWP
-l4uDgR29+AnviPSLC1pmt0ne9q2AKjO8rTyPtUduHezfEelHnZcsvYZYyCtHtkyD
-XJpR2zRMfauexzgKzG4kaqjjOQzza0wOxU0wx+OIPq3hNY+lXlyKpS+/pmVbRymd
-haXbuloenWJv6OgoFnYhtiVC91ipmLjOIKoqR4THwqZgnazGrtux7ruqQgRouoeT
-UXtmyHD64qwkEbRWXspu68c9CqGF1TwHoLqvzRykWHZeeWR7UOTPkIkIgHgRGVQw
-FOPZkL/l04xXid/VjyvCbGuZ8nWnW/6+95xyUr9ZuaW0A8WoKqAlOqxNBCrD0QUj
-8zNa0/3IN9mwdTZ2EIQ0siJHfVAEqp7HW3w9g1k6/pvPzc6FvrFxVL0um6xO7eLi
-6kKlciAUKMjcceJsGWTLDJvGjJzLuuoCNxkmd8rtpdEJSzmJVhFt1sYuAIbiLsQf
-v/mhYnuOU8/0nOuaNo5RQ6Nj
-=ChbG
------END PGP SIGNATURE-----
+ PCI/P2PDMA: Split pool-related cleanup out of pci_p2pdma_release()
+ PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
 
---=-pKXgMmoHPBXy2RAR3719--
+   Later in the series, vfio-pci's mmap() is going to depend on
+   pcim_p2pdma_provider() which depended on CONFIG_PCI_P2PDMA, which
+   in turn depended on ZONE_DEVICE.  That isn't available on 32-bit
+   and some archs, because they lack MEMORY_HOTPLUG and friends.
+   VFIO does _not_ require actual P2P to be present for basic mmap()
+   functionality, only for the optional CONFIG_DMA_SHARED_BUFFER
+   feature.
+
+   These split out p2pdma_core.c under CONFIG_PCI_P2PDMA_CORE (which
+   currently contains pcim_p2pdma_provider()), and an optional
+   CONFIG_PCI_P2PDMA which depends on ZONE_DEVICE etc. providing
+   P2P functionality in the existing p2pdma.c.  The first splits
+   out pool cleanup from the release path, and the second does the
+   refactor/code move to the new file.
+
+
+ vfio/pci: Add a helper to look up PFNs for DMABUFs
+ vfio/pci: Add a helper to create a DMABUF for a BAR-map VMA
+
+   The first adds a DMABUF VMA fault handler helper to determine
+   arbitrary-sized PFNs from ranges in DMABUF.  The second refactors
+   DMABUF export for use by the existing export feature, and adds a
+   helper that creates a DMABUF corresponding to a VFIO BAR mmap()
+   request.
+
+
+ vfio/pci: Convert BAR mmap() to use a DMABUF
+
+   The vfio-pci core mmap() creates a DMABUF with the helper above,
+   and the vm_ops fault handler uses the other helper to resolve the
+   fault.  Because this depends on DMABUF structs/code,
+   CONFIG_VFIO_PCI_CORE needs to depend on CONFIG_DMA_SHARED_BUFFER.
+   The CONFIG_VFIO_PCI_DMABUF still conditionally enables the export
+   support code.
+
+   NOTE: The user mmap()s a device fd, but the resulting VMA's vm_file
+   becomes that of the DMABUF.  The DMABUF takes ownership of the
+   device file and put()s it on release, which maintains the existing
+   behaviour of a VMA keeping the VFIO device open.
+
+   BAR zapping then happens via the existing vfio_pci_dma_buf_move()
+   path, which now needs to unmap PTEs in the DMABUF's address_space.
+
+
+ vfio/pci: Provide a user-facing name for BAR mappings
+
+   There was a request for decent debug naming in /proc/<pid>/maps
+   etc.  comparable to the existing VFIO names: since the VMAs are
+   DMABUFs, they have a "dmabuf:" prefix and can't be 100% identical
+   to before.  This is a user-visible change, but this patch at least
+   now gives us extra info on the BDF & BAR being mapped.
+
+
+ vfio/pci: Clean up BAR zap and revocation
+
+   In general (see NOTE!) the vfio_pci_zap_bars() is now obsolete,
+   since it unmaps PTEs in the VFIO device address_space which is now
+   unused.  This consolidates all calls (e.g. around reset) with the
+   neighbouring vfio_pci_dma_buf_move()s into new functions, to
+   revoke/unrevoke (making the steps clearer).
+
+   NOTE: Because drivers can use their own vm_ops and override .mmap,
+   the core must conservatively assume an overridden .mmap might still
+   add PTEs to the VFIO device address_space and therefore still does
+   the zap.  A new flag, zap_bars_on_revoke, enables the zap when
+   .mmap is overridden.  A driver that does not need the zap can clear
+   this to opt-out, e.g. if the driver calls down to the common mmap
+   (and so uses DMABUFs).  hisi-acc-vfio-pci does just this, and thus
+   sets the opt-out flag.
+
+
+ vfio/pci: Support mmap() of a VFIO DMABUF
+
+   Adds mmap() for a DMABUF fd exported from vfio-pci.
+
+   It was a goal to keep the VFIO device fd lifetime behaviour
+   unchanged with respect to the DMABUFs.  An application can close
+   all device fds, and this will revoke/clean up all DMABUFs; then, no
+   mappings or other access can be performed.  When enabling mmap() of
+   the DMABUFs, this means access through the VMA is also revoked.
+   This complicates the fault handler because whilst the DMABUF
+   exists, it has no guarantee that the corresponding VFIO device is
+   still alive.  Adds synchronisation ensuring the vdev is available
+   before vdev->memory_lock is touched; this holds the device
+   registration so that even if the buffer has been cleaned up, vdev
+   hasn't been freed and so the lock can be safely taken.
+
+
+ vfio/pci: Permanently revoke a DMABUF on request
+
+   This is mostly a rename of `revoked` to an enum, `status`, and
+   adding a third state for a buffer: usable, revoked temporary,
+   revoked permanent.  A new VFIO feature is added,
+   VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE, which takes a DMABUF (exported
+   from the same device) and permanently revokes it.  Thus a userspace
+   driver can guarantee any downstream consumers of a shared fd are
+   prevented from accessing a BAR range, and that range can be reused.
+   NOTE: This might block userspace, waiting on importers to detach.
+
+   The code doing revocation in vfio_pci_dma_buf_move() is moved, to a
+   common function for use by ..._move() and this new feature.
+
+   NOTE: See changelog, by request v4 added a condition to the
+   existing code to elide the unnecessary invalidation/sync on the
+   un-revoke path.)
+
+
+NOTE: Previous versions contained an additional feature patch,
+"vfio/pci: Add mmap() attributes to DMABUF feature".  This has been
+dropped in v5 because:
+
+ - The mechanism simply set vma->vm_page_prot.  This would be
+   sufficient for arm64 and other architectures.
+
+ - However, (locally-run claude-opus-4-8) Sashiko flagged that, on
+   x86, additional memtype handling is required to set up the PAT.
+   Without this, the memtype is returned back to UC- by
+   pfnmap_setup_cachemode() upon PTE creation.
+
+Most other sources of userspace WC mappings create PTEs eagerly with
+e.g. io_remap_pfn_range() which memtype_reserve() WC for the range.
+Getting them with lazy-fault used by vfio-pci is more complicated
+(e.g. perhaps registering WC for BARs with PAT/MTRRs, and deciding how
+to deal with aliasing...).  Since this feature is not critical for
+this series to be useful, I've decided for now to drop it in favour of
+a simpler series now and revisiting this separ*ately.
+
+
+Testing
+=======
+
+(The [RFC ONLY] userspace test program, for QEMU edu-plus, can be
+found in the GitHub branch below.  It at least illustrates how the
+export, map, revoke, and close semantics interoperate.)
+
+This code has been tested in mapping DMABUFs of single/multiple ranges
+from multiple BARs, aliasing mmap()s, aliasing ranges across DMABUFs,
+vm_pgoff > 0, revocation, shutdown/cleanup scenarios, and hugepage
+mappings.  No regressions observed on the VFIO selftests, or on our
+internal vfio-pci applications.  VFIO on i386 has been build-tested.
+
+
+Dear Reviewers,
+===============
+
+I was grateful for the reviews and Reviewed-Bys on previous versions.
+Thanks; I've added some Reviewed-Bys/Acks.  I have NOT included your
+tags where the patch has materially changed after your review (or
+where requested changes ended up more than super-trivial).  I hope
+that's okay.
+
+
+End
+===
+
+This is based on v7.2-rc3.
+
+These commits are on GitHub for easier browsing, along with
+"[RFC ONLY] selftests: vfio: Add standalone vfio_dmabuf_mmap_test":
+
+https://github.com/metamev/linux/compare/v7.2-rc3...dev/mev/vfio-dmabuf-mmap-v5
+
+
+Thanks for reading,
+
+
+Matt
+
+
+================================================================================
+Changelog:
+
+v5:
+
+ - Rebased on 7.2-rc3
+
+ - Dropped the memattr/WC feature (see explanation above).
+
+ - "vfio/pci: Convert BAR mmap() to use a DMABUF": Fixed a
+   potentially-nasty bug (which (locally-run) Sashiko found!)  whereby
+   the unmap_mapping_range() performed in cleanup was passed a range
+   up from offset zero for the DMABUF size.  Initially this was how
+   all DMABUFs were created and an appropriate zap, but a new version
+   kept the VFIO region index encoded in the offset -- for BAR > 0 the
+   unmap span would then mismatch.  Instead, pass size 0 to mean an
+   "all" range.  Because the goal is to shoot down everything relating
+   to one DMABUF and the address_space can only contain things
+   relating to that DMABUF, this is equivalent and has the bonus of
+   never failing to match mappings...
+
+   Praan, Kevin, I kept your R-Bs on this fix.
+
+ - The revoke patch converts vfio_pci_dma_buf_cleanup()'s priv->vdev =
+   NULL to a WRITE_ONCE, corresponding to the revoke function's
+   READ_ONCE (performed to test that the VFIO and DMABUF are related).
+
+ - Clarified the VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE UAPI comments,
+   documenting previously-missing error cases and their reasons.
+
+
+v4:	https://lore.kernel.org/all/20260701171245.90111-1-matt@ozlabs.org/
+v3: 	https://lore.kernel.org/all/20260610154327.37758-1-matt@ozlabs.org/
+v2: 	https://lore.kernel.org/all/20260527102319.100128-1-mattev@meta.com/
+v1: 	https://lore.kernel.org/kvm/20260416131815.2729131-1-mattev@meta.com/
+RFCv2:	https://lore.kernel.org/kvm/20260312184613.3710705-1-mattev@meta.com/
+RFCv1:	https://lore.kernel.org/all/20260226202211.929005-1-mattev@meta.com/
+Tech topic: https://lore.kernel.org/linux-iommu/20250918214425.2677057-1-amastro@fb.com/
+
+
+Matt Evans (9):
+  PCI/P2PDMA: Split pool-related cleanup out of pci_p2pdma_release()
+  PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+  vfio/pci: Add a helper to look up PFNs for DMABUFs
+  vfio/pci: Add a helper to create a DMABUF for a BAR-map VMA
+  vfio/pci: Convert BAR mmap() to use a DMABUF
+  vfio/pci: Provide a user-facing name for BAR mappings
+  vfio/pci: Clean up BAR zap and revocation
+  vfio/pci: Support mmap() of a VFIO DMABUF
+  vfio/pci: Permanently revoke a DMABUF on request
+
+ MAINTAINERS                                   |   2 +-
+ drivers/pci/Kconfig                           |   5 +
+ drivers/pci/Makefile                          |   1 +
+ drivers/pci/p2pdma.c                          | 113 +---
+ drivers/pci/p2pdma.h                          |  29 +
+ drivers/pci/p2pdma_core.c                     | 122 +++++
+ drivers/vfio/pci/Kconfig                      |   5 +-
+ drivers/vfio/pci/Makefile                     |   3 +-
+ .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    |   8 +
+ drivers/vfio/pci/vfio_pci_config.c            |  30 +-
+ drivers/vfio/pci/vfio_pci_core.c              | 210 +++++--
+ drivers/vfio/pci/vfio_pci_dmabuf.c            | 515 +++++++++++++++---
+ drivers/vfio/pci/vfio_pci_priv.h              |  53 +-
+ include/linux/pci-p2pdma.h                    |  24 +-
+ include/linux/pci.h                           |   2 +-
+ include/linux/vfio_pci_core.h                 |   1 +
+ include/uapi/linux/vfio.h                     |  25 +
+ 17 files changed, 875 insertions(+), 273 deletions(-)
+ create mode 100644 drivers/pci/p2pdma.h
+ create mode 100644 drivers/pci/p2pdma_core.c
+
+-- 
+2.50.1 (Apple Git-155)
+
