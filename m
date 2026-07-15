@@ -4,170 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D0E5C44501
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 07:14:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57BF3C44501
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 07:25:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E0E210E649;
-	Wed, 15 Jul 2026 07:14:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A27C710E139;
+	Wed, 15 Jul 2026 07:25:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="hM/TunoM";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="tWjF7Gml";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012047.outbound.protection.outlook.com [40.107.209.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1539210E649
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 07:14:48 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012034.outbound.protection.outlook.com
+ [40.93.195.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6135B10E139
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 07:25:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q6mXb8EYkmWuAq2t5DVU3XPeZH3irMYx/mRaQU1A0gEW3oMiLbdXa1KrTAx7DpN1A/QLNKWAgnmknkcO2cv/ROol+GaayuiDFi3W/NOvz17TDf6tSY9ZjFiQdGgEPxBYNIM3FJDXngQZ1E4yYBB2/cVV15joe9MjjjuxSxPeMRyFu7qafqeGp3RotvbcjLZcIEB9NtDZ6YesB2z/01SUMyk2O7BAZ02m+XVF3pjja8/2qWWzo2bH4E7gNIQJ4c1c+mC0qFoAKWn97RjUhkp+ipQcXosGRV7UXzdeBezS3NgLpJNXjsNY0UwyuaIjFAcJpeWWfO8Y3jTSR7VzDOtSbw==
+ b=qZsvCNhnsBL2GZtyGxs0REWDZkWlnJsw83vpq+Sg+QRHO058ll1Gs1HsJaWyXEfjRCV/mIYLbpupFh/A3eQflDhwfMavKJJByK/KiMdx85bq0vR0q0stkyCxSc4KzuhY3C4HECIm8Ebg3yGIR7Kske+xIhow6vqu8nyG6ShqaRmFjz+lyIbiyDY9Cw37qDS1LBlj8xnKUf9S5gxiNUwLdj6KEXXSsVYV5/d1XqcgQ7oM7KcFyo845Fn2dkuabXO+KHq4YOsNklhmUnHUkPXwwOxDuBT1YHLMF87tDMMsAPsf2Ki/bIVlWhHPBOun5KkJmxmh//Mid9UAdfKN7kFdfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2umTuA0uDsjmo29/9k/4nXaVg8rS/NVfTkTK6+Zhvik=;
- b=HiOWL1827OIpMro1bQshFvgTZ8oO7Dff6hOOGagxPm01ecpnBgl7pZpVJ+c+muf111ZXms+Qb72rohi2tpW7fgGTZj3P4pl07X+elQEfeutWm9G99KlfcUV/sa/QmohKW2v6+zvdreCAk0k+DrcrCpXolcTdVbTUWFFmN37NppSWj3K/lRMGuLe8k93GCFFmUC3SPmoT1je0QOEWdrwG7SBCrR348zNFSr98XqXVyNjPezpFCnj66KRYCt8DlHPGpnq6N8rmjua9Zsm6aHYLJUntR8VZY34CRx1rnuQcTFfaQs1P16RUOKR13Gwuz4lTqqGuD5ZoJtA07JB8z5X4NQ==
+ bh=pM2ucVcZ9kL6Iu4licbeT4SbZWd5HlQZ3suQAhXHjHU=;
+ b=faVLR5IjB97juoJZ58+6ta/tsF0f7A4HvW+3gYnrXA/n0f/e1VNaX2+uUsOcz701ai+OfH+8czo4C/VEy+sGgMQziuofsNiddtXuCwn24q+KHGoH5DfaGAJxUtZOgXRyV7ChEaiNgSz1Txi+CIqsK3vBdBd4KH92VjCYQSmFb3mpjphGOQpUTizjZCrXiFv0jc3YII/1ewkcWWeiSNxDjrX+3CVrA54oJAwAQzSevqkb5WOBxp4dwJOU1MsiMm0ZazZ3ce/7zKkNirZey5groKB07+51ow0GTkEuIpsZ/3g1OLlYdc7NuK6owFjqzemihI8AknIRprlzlKqYzsL7MA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2umTuA0uDsjmo29/9k/4nXaVg8rS/NVfTkTK6+Zhvik=;
- b=hM/TunoMFMHARErnDN9aI63BRN/NRduQtWUohbyPk1K0jWF7zjm+GyJsRt4t+kQ2HtjyYA7ILg/gzWKo1OXhuaJtg2Lr2yaeQnZat8F3gEWl2YSSUGpwbi+TbMm11tH3pr2ed/qcJnl3dHiRSFkXuSzgHQ9wedTPDPoNGwhmwYbIxl5WofHeZ0g0Hn7b1JVqTf5Tfj41egGO+czH29anV9JfM57ZONQRQ/TyQ/hzebh1RElRWp8lkgX9uOkLs3ZKO/t7c/RQNI0Kh7fZsNy0Nkd9t/v0p+4GwsuN72Edxx/6HCG4KLwhuMI1GhqHH8JkFk2d9l7d+ig8MuIM0JwLFw==
+ bh=pM2ucVcZ9kL6Iu4licbeT4SbZWd5HlQZ3suQAhXHjHU=;
+ b=tWjF7GmlKUdap1Y0uszQRkT+zyz8IM07GYDDfxnUJBgLRKeyvgnOZnKepTMdbMXKsPbFzX6narTC4VrVRcsyme4eh2r2TP6aynpCv0HDOMwR9+oUz87oeAR9R79rsQFmvATl6YXw+2jPyttyTPW/JbwMcidlAQDmVOz3IhQQT3t6Stpe6jrP5/M0B8URJO4LahdkT89cUI9mkbx6AGRNfH3xRN9OZMPDLKkx86nmFWWpKakCZ9ENdMd7eUYf5U+RhmE/TnlukbtHgKngd/HKvL/1fph7bRcg1JywogPEIhnWoOQU0BXBjb8AJ//FsOfgvS7kwZyabFzWkgrXIuiiOA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
  by DS3PR12MB999216.namprd12.prod.outlook.com (2603:10b6:8:38d::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Wed, 15 Jul
- 2026 07:14:39 +0000
+ 2026 07:25:51 +0000
 Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
  ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
  ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0181.019; Wed, 15 Jul 2026
- 07:14:39 +0000
+ 07:25:51 +0000
 From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Inki Dae <inki.dae@samsung.com>,
- Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
- Linus Walleij <linusw@kernel.org>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Jyri Sarha <jyri.sarha@iki.fi>, Jingoo Han <jingoohan1@gmail.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>,
- Paul Kocialkowski <paulk@sys-base.io>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, Albert Esteve <aesteve@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-sunxi@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org, Albert Esteve <aesteve@redhat.com>
-Subject: Re: [PATCH v2 3/5] drm/panel: of_drm_find_panel() return a counted
- reference
-Date: Wed, 15 Jul 2026 16:14:35 +0900
-Message-ID: <hm3gW14-QtmZmT6DKePecw@nvidia.com>
-In-Reply-To: <20260713-drm_refcount_wiring-v2-3-d3bb61f4bd4d@redhat.com>
-References: <20260713-drm_refcount_wiring-v2-0-d3bb61f4bd4d@redhat.com>
- <20260713-drm_refcount_wiring-v2-3-d3bb61f4bd4d@redhat.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
+ jonathanh@nvidia.com, linux-tegra@vger.kernel.org, thierry.reding@kernel.org
+Subject: Re: [PATCH 59/60] drm/tegra: Convert to atomic_create_state
+Date: Wed, 15 Jul 2026 16:25:48 +0900
+Message-ID: <Y7bDDzPZSAm-SByysuBRXw@nvidia.com>
+In-Reply-To: <20260709-drm-no-more-plane-reset-v1-59-302d986fe5f0@kernel.org>
+References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
+ <20260709-drm-no-more-plane-reset-v1-59-302d986fe5f0@kernel.org>
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TY4P286CA0104.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:380::17) To SJ2PR12MB9161.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY6P301CA0037.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:3ba::13) To SJ2PR12MB9161.namprd12.prod.outlook.com
  (2603:10b6:a03:566::20)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS3PR12MB999216:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2b9157d9-5405-4c83-71e9-08dee240bb9f
+X-MS-Office365-Filtering-Correlation-Id: e2cfdd22-4a97-4630-19e0-08dee2424ca5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|7416014|376014|10070799003|23010399003|921020|3023799007|4143699003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: j0TIiVA1SFyow06vbq3b6RKxS/uco1dXBHP+i15V2Pjn8oQgeD4WHW8t8sFKCJdly1H4bm9owAY85MfhsVmndiSUuc0d47BRsPH6lGYHYhwcaf5owlgz+YXvtNcTlEGgjFKSlSSkwUVe+ScIEjQz3dSbQQnXL6Er4Mp7M20XU2cVRD6832jW3WQZyaVk6gH4INthU4mtDfU0vA8YhArRZlrjOYRAuxu0tBe65BX9X5zJ7TG5mO/pxhjX8a9BZznEJl2pWTqTDg5n5GKu2xy8h/bdh54kSztjNemFC+MRib7lCs7pg115OCx1fJp111YkSl+qwhDA76KhLWFk83bH7E7PPcbXCoYWVTyrzvFHsIMmtpUPAtLWGUHeamA525sLIgRXYj8/zmj3AkpjLVYoAdHjv7N9di3F5zx4MxLxPxe5DHlAPOraAfNcACpgtxMZUJt94U75SUI4a1yYvVbaMMn+cfKBcVdWq8o6TPUAkX2trSu8e7ie0b/quMUV0GXdguT4htm9r/NWK3XYbyM6iihK/v6Ah0YSNUzpYEMuLbg1p+AfhaFX6EEE3Qomy7P4cBgrjdhhcaGbS8StvGm7hN5oE8d2LS2P3rXkWBYzFN++4hCYMWrRUF20sZHlpOfvdrmRyc6KPPXGNefyXLZFKZmnXHw1aT/77ITSUNJ1+9ZbJ6VYU+G2PYnAGe0dQzmCsw46Ue2Y1sf1CxUO9pNJFA==
+ ARA:13230040|1800799024|366016|376014|10070799003|23010399003|4143699003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 29vx4iZu6XQpF3+gAYeGt6n6d2uLWFYR7dWjh/bYHKSDrxcO+vVNTP7ow+0V2nsL6mW0giMAvbRBvgCG+YHM7MIJs4zBeuk1bHh+BzNyN9LcqkG52BlzmQsFMxMtuiaub5yYgus77jDk3uSmhYaCHiOPmyVQKTlBv+0xA7AYVpjgBi3PMlPjqeI17FT5SnqRyBX2lI6JW41+xzWE+gGyrrwh/HRT2jeOXHKgQhiq6KXKa53ltkinz/P0mOoMZuzy016TmS2KcaHDQkggeD4T24UBCXAMDjdZbhQEKRdOuJcB42Dpr00mgZAD6L30y8LfLHkDRLGJLJ/jRx127RoASvA5oED+ARgKTo9DzvttM/j6Evkqa3bqdHQw6UbvKjUic4zk3Hqit8P/tg80XnQa6YhY/+kLmmr8+TiNqx6HjGvZ7UdfbJEI8lyNiYIriE/AZuXwAu+3Qeb/UzXwrfHDqARqT05hn70DSJOCaoW8EilK4dEAC5Z/lckTCpBWO/KN0FddWYSFdP0TvmBAVL6DH8rz96enuzjvovdAhC7Rs6e7qzApMzQts9QwgyWmOgAFwuEosbUJuTD7uOO+SHuriDCAgG0mTsLZ0bFvUKRbWepoJqXyMMFCyFgn5Tu9wFK0rZoFHZ89Nz+OLPE96eiPA/qCMzYGwCEVBeEqDyP+2yc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(376014)(10070799003)(23010399003)(921020)(3023799007)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(366016)(376014)(10070799003)(23010399003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bEFTY1pSbHE3RUhZek5pamR2RjAvcmtaL0s5RzFLcE9lTStrUXI4ZlA0Qm9H?=
- =?utf-8?B?eUlHYWlyTDhqSERjSnhqRTB5eGJMd3k2eU1haFlleG5PVk81ZHRIWElzWHVW?=
- =?utf-8?B?dTAyc0FURHlaSlIwYXVUek1tWTk2ckRvd0RQUmdjenlCQk5qektWRDk2Y3Uv?=
- =?utf-8?B?Nm1aRG5HNXF1ZUU4aGdrQmpYYlE3aVJTZjV0ZWM1U0RTeThFbVBqWWs5ekF5?=
- =?utf-8?B?Zk1oYndoTTJySjVwYzRITnI3QmxUYTJodGVwT0xWWmZaRmhLRmxaQ3M4akdu?=
- =?utf-8?B?RCtJSlI2aW5jOWV5NzdCWnZUdFNkYlQvdS84bmhNY1dEMERZRUhIR215YWRr?=
- =?utf-8?B?M2VXdVpnTmdESDlRYzdZL0tOcXZ2SVUxWi83aUdXaUZiZkVKaWRaN1hzbEZw?=
- =?utf-8?B?bjB4UVdGUG4ybDZKU2ZOTmJWVHZNbFZJdmM0SEgzTTRkanpwVTRtUXdqenNy?=
- =?utf-8?B?UWo3eTZwenBrRHNkUVV4aVQwdlF2V053VmZvcGY1NWhBNzhONlAzNnp5WWZ4?=
- =?utf-8?B?Z3JISDZFMVZTRWlmbitvSWVBemMzcGJ3YWpadTZOVmlURXBLalQydENtc0tW?=
- =?utf-8?B?Y3VXL1MwV0x0Mldla0xQbDI0a2V1YWVUNWZXcTExZkw3ckJtTHJOOTVpaWp3?=
- =?utf-8?B?ZzVjWWcxYTIyVEJ6bmp3MFo2Y080YVZYNEhWcnpRVFBaRitqQlo1djBNcmxs?=
- =?utf-8?B?a0MrbWluTWV0UnJiWllaTG42cDVwY2xmNCtGN0F6bm1YamwxL01rRzF6Y281?=
- =?utf-8?B?VXpDVGFiVzU0SnJ5YWttaDVVcUNpcGpWM3c5ZjZhVlYvWUhFMXlhb2NvWkdU?=
- =?utf-8?B?eGdGdlh6Z0d6QUtkWVJZVEVTd096MVhQZ1JTc3ZyczU2OURZSE5MSVM2endW?=
- =?utf-8?B?aW05cXd2T2ZITVJOaWttUVJpbUNkZlZ5TlN2N2twNXhoS0gwbVhsanU0bGFa?=
- =?utf-8?B?bWxWOTdqVk85cHEwQk0rYzc3eUR0UUpia3NPV21GcEt4aU9ienFxcWhYNVBJ?=
- =?utf-8?B?S2FLTVRsYjA1MGYwemtnOHZRaUc3R3NzUUdtM3huQk0vTisrQ21OZ2ZVK3hm?=
- =?utf-8?B?UG5mUUtvRmMxdytFWlRjbVZrYzdZaGVLc3p5RUM2YktvUDNrUTREY0ZCOUMz?=
- =?utf-8?B?TlFFb0ZrVG03RXFWaXlhN29CY0p3NzBacWdlN1lyT0c4SmhxWGZDZjVMU0la?=
- =?utf-8?B?RmlSOW1sV0VKVzh1TFhpZXhKWVdyTVlYYkZYbVU1R0VsUGI2MStua2pBd2RS?=
- =?utf-8?B?MHdub1RPZ1A1NmlhdWJjUmhqUUFtNXlXV0lvZFNydjdXS2cyUEs2YWhuc3VJ?=
- =?utf-8?B?YzVvQ3FUWWZvVlZRM3NXMExsbktlbXVCNzlLOUl4QnhWRzBEcnZJQUVkalFw?=
- =?utf-8?B?WC96dVZxemw3cGo3MnRiQUtUczE4dXFwbGhFdUszaFRjQktsRDgyZmdmT1hv?=
- =?utf-8?B?UWpiOXVzeWFNSWRNYlh6YitjZEpUMlZRS0ZENWpsR2k3OGxqbWZHWlozUjFY?=
- =?utf-8?B?U3dWdHRkZWpJVjlFOUxCdy8rOXIra3FRK0Z3NHFyR0tDTVhhV3d1L204K2kr?=
- =?utf-8?B?MFkwajdMNkw3SFNBWm9DWm9sOW8xWi9oTXBWTmR1b0toOWxUeFdWYkdMclZx?=
- =?utf-8?B?UXRjNEs3ejJFOFYxc3gxbUMydHdTbXUrU1dKMmdDZjA3QzVwWjZDRXFiN1pz?=
- =?utf-8?B?R21GTURnTElESW1kUVNyOVc2bjNjMVVLS0prYm85b0lkbjg5YUdXTUg3dGVQ?=
- =?utf-8?B?a3k4SThXYkQzTTF2SXVLRjBhWTZmc2p2bkhrTUNKQjFuTUNad3laQUVtaHVj?=
- =?utf-8?B?dHpOK0xYNnh3UzB5Z1hlVWl0c1VVSGlMZ0RzcHZEZm9wekl2bmlMdjJMRjk2?=
- =?utf-8?B?UnkyczNWWFJBazJzRGhqNlQxUEF3V2Myemo4YW9PNlFYZ2hvWjBST2J4czd0?=
- =?utf-8?B?VGpzbkZNSU9hMkJmTkpUblBDZnlIL2RjMVhaMVpnOFVuK0l0WVNNSWV4c2pn?=
- =?utf-8?B?OHRqck9GNEFlYlBLd1daSUNlMEcvdThHZUhublVBcTBOMDVuMGxTaXZNOUxM?=
- =?utf-8?B?RW5VK1Z3QmZsQUFxQmFvbFFXeFQ5WEtYcHd1cVVFbUVyV3VBNTJJVlExL1pW?=
- =?utf-8?B?RFZjTmYvQ1ZDRVZNeG9rd0JtK2xLSVZxRUdhTHFLK3Rtc2loVW9Vc3AwQzZq?=
- =?utf-8?B?eVZ4ZnQ5cWFXWXVST1FCN053dTJramg2Y0g0dHBBSE53WkJFa1BkaHBMaWxj?=
- =?utf-8?B?OUVBYnhqYStYK2doTGJjTllaZTNmYnNBc0IxTFpVVW1aT3hLK1hFdU9PN1NE?=
- =?utf-8?B?UWZZdC93M21mRzJxV0NMZVhlZWdWNTI5bWRBZXhoVzhDazc4ckE4S2g4R2s3?=
- =?utf-8?Q?gJL5+7aOZNAwVPHLW2hxpLOmGjqOoZaW6ZrpavQow4ggR?=
-X-MS-Exchange-AntiSpam-MessageData-1: AZ8BNAgkWPxYCw==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eWxvcFNsd1RZQjJxSEI1KzJySkRNcHpBRUtPV1IrcGt0Wk5RWG9jd1IyWkJP?=
+ =?utf-8?B?Ujhnd0FacWRrWVE1UXBUaFZ6bVE4bVVaZUpNYnZBZUxZOS9tUnYrZ2NZT0gv?=
+ =?utf-8?B?RVcrRE4vWHRPdU9WQ3ZFbFM2WjUvcnB4dWJqR2l6L2RaYU1WalA5TVFWckhB?=
+ =?utf-8?B?ejJDZFBBZVg1R2JJaVVLUGdiWGc5SGxZYjVHdjVDcFZOT3ljT3BzNGxUendV?=
+ =?utf-8?B?cVo3dWU3SU1NOG15ZktxY29XVllBTHphQzVnU0VWN0RobG5GZE5PLzZGdmFv?=
+ =?utf-8?B?bDlxOERhS0t1VlN1OENERGliM1hJbERhNXZyc243WDZWekhTdUR3alNmTjVu?=
+ =?utf-8?B?cysrbHRkSVY0SGtFNFJxY040UmpuWDFRSTBlSFFwcFZyNkdBaHVVaFdHZUg0?=
+ =?utf-8?B?WU1SS1A1dDBSTnBZUmx1aE8yQ0VXazFUeVRJc2JHWXlmOEdJWWxmaXNPM3p4?=
+ =?utf-8?B?dnhlRjNSSE96ZmU4TFRreTJYc3Q4ZXAycVNzR0RlMkVBa3Z1ZVd0TXJmZU82?=
+ =?utf-8?B?Rm5UNHdHRU5aL2pTTXczb1RJTGFpYXNlOHc1cXVMdEcrVzYvNGkvTDZTaDdD?=
+ =?utf-8?B?Z1BBaVhRcHVDQWNGZHk3SFowTS8rVFZ2Ujh3d29PaFJBdDdJdkt2QzI0OHFN?=
+ =?utf-8?B?TmprY0FMb0pCdVBuVjlISXEvaXUza3hvbGNkcldML0NOQys2dkVaSWJGekc4?=
+ =?utf-8?B?SmJNdmZnRUpmbC82dzhXeS9kV2w2V1ZUNWROZmhkeVNNZEZKZk9pT3BZLzR5?=
+ =?utf-8?B?TUh5OTF2VjFjOFUrWTNyQWc5RVpXQ2JmbWlWeGxwTUhTOWdaVUUveUpVcEpm?=
+ =?utf-8?B?MTVOZkcvQUYrazJHY3l3dkVISEo5RTIzb1daUXhkb3lqVEZNZFhjL0VvWkJm?=
+ =?utf-8?B?Y045QU03aXpuSmh3R3RDMG9FYUxQRXp4LzBaZUpTeXRxa1VxNTdiNzZCcVhL?=
+ =?utf-8?B?L1FmNHorcnUvaFBlUDE5cERqUlhSZ3dqY1NZNFZtNy95WHFWOEVHTDYwa2Rm?=
+ =?utf-8?B?bjJ6ZkpzK2l2ZkJJeFpkNkxWNXB2QTdFNnROdEhEa2lYOXg2eVo0TkFSUncz?=
+ =?utf-8?B?MzBrSXNuTEk5ckdUYkNMTTQwRlIya2JLR3ZjeWhFNXBGQkhXQ211THYvd0k4?=
+ =?utf-8?B?NTNSZTlZaXZoWlFsdnJUNExFVTNOWmVtWFlGM2l5bEVOUkFudDJGZzZBL0dC?=
+ =?utf-8?B?WExreEgwanBUbVVFZ1hsYjFPbzhKUkpTUlQvRGcvTWlpZ0NVYVVJYURhZ2Fw?=
+ =?utf-8?B?Ny82dlBxVUVkdHk5dWJOdGliMnFXQms1czRWa1JCTUd5cVZxY3dEOGhVM3dy?=
+ =?utf-8?B?TFpaSS9IOHU2YVMra2dIRUtuMVFCZjE5Mld0NjF5T3V6ZllwZ3krdk5rUDhF?=
+ =?utf-8?B?NTdWL29IUVJJNFJCamE4STR1NXI5QlRYOGhTY1YxKzhQUnFWR0lKSlNiTFRF?=
+ =?utf-8?B?ZkVUZmROME1ENnZGa0pkbVVGRm85aUx6cDUxUVFTWUIweFU0dUVyZ2lBUFJq?=
+ =?utf-8?B?aDEwdE5WNy9QaU9rMnRoRlFmK1VOSldIc2VkWFd1bGZWNzJCZkRmcHBJY3lC?=
+ =?utf-8?B?bVg5QkNhaDZSSk1CSnkraWMwSm5WRTk2MmZDTkxHdmkweC9tY2loRFdWbXhT?=
+ =?utf-8?B?TkhOWUkwTlRiWlV4bTcrMW1mbkVPcTI3SElzWVQ3YlhJaExtR3dwdTVPQXND?=
+ =?utf-8?B?eG1LTEFPeFNsUDFFVWt1YjJERFJjNzVEWXNUMFB0aHFTeFFBUVltZFQyN2s2?=
+ =?utf-8?B?WTVEUmpGSHE1VFB0cWh6N2NhRTByamNod0x6SFpYRjh1dit5M1JxUnUyTHBY?=
+ =?utf-8?B?WGVrWFFwMGpXR1p4UnhLeFJRdHprbzhUNGFXejdrU2ZEWndPUUtteDcyMFM5?=
+ =?utf-8?B?b21ZNWs5Yy9OMlZuV3NUaytOd1pQODdiVFNXbjQwU0Fsd2NsN1hjZHVtSVFI?=
+ =?utf-8?B?S0pwMVZtMGxnQlFaVGVzY1dvWHZldDhOdm8xSHBpZ3pWYjc0R08yWUtMK09I?=
+ =?utf-8?B?T1ZRS2VCV2Y3L0diNG5oYXFidkFRdlhkaGEwWno1N3p2Z1JmS2JjaUlRTDFN?=
+ =?utf-8?B?eUdHcEQ5b1ErZzRnMXUxZkY3bkdoWHd0WHRsby8yMVI4UDRKQ0tGMXBuN0hD?=
+ =?utf-8?B?WGFpbm9CRXNXWUphMjM3cGhCQUgwOWd3UGJVc290VUYvNVFxZ3JRdVc1TXBB?=
+ =?utf-8?B?OUF4V0F2anA3V0pTODJrYkd2THVlMTNXUm5TNjBla3lWYkVtMllyd1R3ZDZ5?=
+ =?utf-8?B?eVl4WithSDFxMWZndmVUeFdxVEErSjM3K3BpUysveTRVdmdpY1RxZkl0VVc4?=
+ =?utf-8?B?UWp1eDc0WEJJeUdIYnF6RXQzTThQOXNyRFpuRVVTZzE0UzNHV1cwNmdsOTRu?=
+ =?utf-8?Q?81Fe60tlugGP/W1mzvABhp679DQHOjlD/A5jiQJzI6tfB?=
+X-MS-Exchange-AntiSpam-MessageData-1: fpbUvOOcEwTU3Q==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b9157d9-5405-4c83-71e9-08dee240bb9f
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2cfdd22-4a97-4630-19e0-08dee2424ca5
 X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 07:14:38.9754 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 07:25:51.7016 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eJT5D9VRPiS9SGgTaqPLFKd1fU1l/N0yiMMDbcnVp6MOm7VOHx2ufHVnGSXx2YmP3RFRtXRRiHQXwkJgrKLNSA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: ykAdcGC6a6M1bH4owx5whPyPt6+mHR38BJV4VeQmdF94kLbvcdOAyYdp2ZSWLMkeAecDxwbaDub3F/lTAYFRiw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR12MB999216
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -184,107 +140,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Monday, July 13, 2026 8:53=E2=80=AFPM Albert Esteve wrote:
-> Callers of of_drm_find_panel() receive a pointer with no reference
-> held, creating a window where the panel device can be unregistered
-> and freed between the lookup and first use (e.g., drm_panel_prepare()).
+On Thursday, July 9, 2026 8:51=E2=80=AFPM Maxime Ripard wrote:
+> The plane reset implementation creates a custom state subclass, but
+> only initializes a pristine state without resetting any hardware. This
+> is equivalent to what atomic_create_state expects. Convert to it.
 >=20
-> Fix the lookup function by acquiring a reference with drm_panel_get()
-> before returning, under panel_lock. Callers are now responsible for
-> calling drm_panel_put() when they no longer need the pointer.
->=20
-> For bridge drivers that immediately wrap the panel in a panel_bridge
-> (which acquires its own reference), release the lookup reference right
-> after the bridge creation call.
->=20
-> For analogix-anx6345, which stores the panel for direct use, release
-> the reference in the i2c remove path.
->=20
-> For platform drivers using analogix_dp_core with a component lifecycle
-> (exynos_dp, rockchip analogix_dp), release the lookup reference in the
-> platform remove() function. The panel_bridge created during bind() holds
-> a separate reference that devm cleanup releases after remove() returns.
->=20
-> Also fix devm_drm_of_get_bridge() and drmm_of_get_bridge() in
-> bridge/panel.c itself: both call drm_of_find_panel_or_bridge() and
-> then pass the panel to devm/drmm_panel_bridge_add(), which acquires
-> its own reference via drm_panel_bridge_add_typed(). The lookup
-> reference was never released; add drm_panel_put() after each bridge
-> creation call.
->=20
-> Assisted-by: Claude:claude-opus-4-6
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 > ---
->  drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |  3 +++
->  drivers/gpu/drm/bridge/panel.c                     |  8 ++++++--
->  drivers/gpu/drm/drm_of.c                           |  3 ++-
->  drivers/gpu/drm/drm_panel.c                        | 12 ++++++++----
->  drivers/gpu/drm/exynos/exynos_dp.c                 | 10 ++++++++++
->  drivers/gpu/drm/exynos/exynos_drm_dpi.c            |  3 +++
->  drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c          | 18 ++++++++++++++++=
-++
->  drivers/gpu/drm/logicvc/logicvc_interface.c        | 12 ++++++++++++
->  drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    | 11 +++++++++++
->  drivers/gpu/drm/sti/sti_dvo.c                      |  3 +++
->  drivers/gpu/drm/stm/lvds.c                         |  3 +++
->  drivers/gpu/drm/sun4i/sun4i_lvds.c                 | 13 +++++++++++++
->  drivers/gpu/drm/sun4i/sun4i_rgb.c                  | 13 +++++++++++++
->  drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c             |  2 ++
->  drivers/gpu/drm/tegra/dsi.c                        |  1 +
->  drivers/gpu/drm/tegra/output.c                     |  3 +++
->  16 files changed, 111 insertions(+), 7 deletions(-)
+> Cc: jonathanh@nvidia.com
+> Cc: linux-tegra@vger.kernel.org
+> Cc: mperttunen@nvidia.com
+> Cc: thierry.reding@kernel.org
+> ---
+>  drivers/gpu/drm/tegra/plane.c | 28 ++++++++++++----------------
+>  1 file changed, 12 insertions(+), 16 deletions(-)
 >=20
-> ...
-> diff --git a/drivers/gpu/drm/tegra/dsi.c b/drivers/gpu/drm/tegra/dsi.c
-> index 7f25c50621c94..57a016f47434d 100644
-> --- a/drivers/gpu/drm/tegra/dsi.c
-> +++ b/drivers/gpu/drm/tegra/dsi.c
-> @@ -1516,6 +1516,7 @@ static int tegra_dsi_host_detach(struct mipi_dsi_ho=
-st *host,
->  	struct tegra_output *output =3D &dsi->output;
+> diff --git a/drivers/gpu/drm/tegra/plane.c b/drivers/gpu/drm/tegra/plane.=
+c
+> index 0cb30910773f..2148b0c59815 100644
+> --- a/drivers/gpu/drm/tegra/plane.c
+> +++ b/drivers/gpu/drm/tegra/plane.c
+> @@ -22,32 +22,28 @@ static void tegra_plane_destroy(struct drm_plane *pla=
+ne)
 > =20
->  	if (output->panel && &device->dev =3D=3D output->panel->dev) {
-> +		drm_panel_put(output->panel);
->  		output->panel =3D NULL;
+>  	drm_plane_cleanup(plane);
+>  	kfree(p);
+>  }
 > =20
->  		if (output->connector.dev)
-> diff --git a/drivers/gpu/drm/tegra/output.c b/drivers/gpu/drm/tegra/outpu=
-t.c
-> index 49e4f63a5550d..90db39dbdd332 100644
-> --- a/drivers/gpu/drm/tegra/output.c
-> +++ b/drivers/gpu/drm/tegra/output.c
-> @@ -195,6 +195,9 @@ int tegra_output_probe(struct tegra_output *output)
-> =20
->  void tegra_output_remove(struct tegra_output *output)
+> -static void tegra_plane_reset(struct drm_plane *plane)
+> +static struct drm_plane_state *tegra_plane_atomic_create_state(struct dr=
+m_plane *plane)
 >  {
-> +	if (output->panel)
-> +		drm_panel_put(output->panel);
+>  	struct tegra_plane *p =3D to_tegra_plane(plane);
+>  	struct tegra_plane_state *state;
+>  	unsigned int i;
+> =20
+> -	if (plane->state)
+> -		__drm_atomic_helper_plane_destroy_state(plane->state);
+> -
+> -	kfree(plane->state);
+> -	plane->state =3D NULL;
+> -
+>  	state =3D kzalloc_obj(*state);
+> -	if (state) {
+> -		plane->state =3D &state->base;
+> -		plane->state->plane =3D plane;
+> -		plane->state->zpos =3D p->index;
+> -		plane->state->normalized_zpos =3D p->index;
+> +	if (!state)
+> +		return ERR_PTR(-ENOMEM);
+> =20
+> -		for (i =3D 0; i < 3; i++)
+> -			state->iova[i] =3D DMA_MAPPING_ERROR;
+> -	}
+> +	state->base.plane =3D plane;
+> +	state->base.zpos =3D p->index;
+> +	state->base.normalized_zpos =3D p->index;
 > +
->  	if (output->hpd_gpio)
->  		free_irq(output->hpd_irq, output);
+> +	for (i =3D 0; i < 3; i++)
+> +		state->iova[i] =3D DMA_MAPPING_ERROR;
+> +
+> +	return &state->base;
+>  }
+> =20
+>  static struct drm_plane_state *
+>  tegra_plane_atomic_duplicate_state(struct drm_plane *plane)
+>  {
+> @@ -129,11 +125,11 @@ static bool tegra_plane_format_mod_supported(struct=
+ drm_plane *plane,
+> =20
+>  const struct drm_plane_funcs tegra_plane_funcs =3D {
+>  	.update_plane =3D drm_atomic_helper_update_plane,
+>  	.disable_plane =3D drm_atomic_helper_disable_plane,
+>  	.destroy =3D tegra_plane_destroy,
+> -	.reset =3D tegra_plane_reset,
+> +	.atomic_create_state =3D tegra_plane_atomic_create_state,
+>  	.atomic_duplicate_state =3D tegra_plane_atomic_duplicate_state,
+>  	.atomic_destroy_state =3D tegra_plane_atomic_destroy_state,
+>  	.format_mod_supported =3D tegra_plane_format_mod_supported,
+>  };
 > =20
 >=20
-
-tegra_output_probe's error cleanup paths need to be updated to clean up
-the refcount. Also, it can technically call drm_of_find_panel_or_bridge
-and then overwrite that value with of_drm_find_panel. While there's
-already a WARN_ON for that case, I think it would be good to fix the
-refcounting there as well for consistency.
-
-As a note, the tegra-dsi code also uses tegra_output and can overwrite
-the panel field with its own -- but in those cases tegra_output should
-never populate the panel and we've been talking about removing that
-code path anyway, so the dsi code can continue to assume that
-tegra_output_probe doesn't populate a panel.
-
-Cheers
-Mikko
-
 > --=20
 > 2.54.0
 >=20
 >=20
 
+Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
 
 
 
