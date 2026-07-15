@@ -4,61 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7DC3C44507
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 23:17:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4507C44507
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 23:34:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09B3810E24E;
-	Wed, 15 Jul 2026 23:17:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0505D10E1A5;
+	Wed, 15 Jul 2026 23:34:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="Mpcp/MIl";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="QLrBYXml";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF95510E24E
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 23:17:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1784157441; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Bmm7F3VRsW3WPG1PirQ27wZ9qrI4boKVgP7ebP36Y2jloa/fFTn5+iCcPiGiMNg1Po5FQrZ3DeUDmhSosnDhnerTT89tNBivv9kSS+ON9PBVuQLAhrmnYn2Jij630g2ePH+zD0d3Oeji3XkbHaqmYKdT5ms1rf4js9CsH9gLqXg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1784157441;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=toTzPTSrExSOJV+tv8XiAz+9wu77Jfj2cu4BzZcT4UI=; 
- b=ZR0tChEA8K+tm8U3wmY0E7mMcgjLL8XxAAWPuMgYs7y7N6THAa/tm6LoJN2N2ezaMo7whNuD7/pW77S5xpocKBgN7eiWe9KX/16opaV/p4dZsV2o+LLd+rGbbpyXv2H1GPtfbg2HQU4OSOWoFtuoqsOvB6myt/HXwWdSV69BVjs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784157441; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
- bh=toTzPTSrExSOJV+tv8XiAz+9wu77Jfj2cu4BzZcT4UI=;
- b=Mpcp/MIllA2wHcfbu8vTbbT+VZjkKGihBbBIItQTeZJ7NcTXQuODrUxOBnzvdHQ2
- gNSy7pbc2iHj/P9TcaBjKCNi4SH8ct0El7QdUjhvbHzdYSdKMBbCFetaKk9SKNO0NsR
- dt8gUE3ElrFVKZ6Oa3oBUfyHerD5BaZHiV3mVFEg=
-Received: by mx.zohomail.com with SMTPS id 1784157439654931.4461996631151;
- Wed, 15 Jul 2026 16:17:19 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v6 2/7] drm/tyr: add a generic slot manager
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260709-fw-boot-b4-v6-2-ca391e1a4108@collabora.com>
-Date: Wed, 15 Jul 2026 20:17:02 -0300
-Cc: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, boris.brezillon@collabora.com,
- samitolvanen@google.com, acourbot@nvidia.com, alvin.sun@linux.dev,
- laura.nao@collabora.com, work@onurozkan.dev, beata.michalska@arm.com,
- steven.price@arm.com, lyude@redhat.com
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <41798711-8EFA-409B-9BA2-F718181AEB67@collabora.com>
-References: <20260709-fw-boot-b4-v6-0-ca391e1a4108@collabora.com>
- <20260709-fw-boot-b4-v6-2-ca391e1a4108@collabora.com>
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Received: from mail-yw1-f228.google.com (mail-yw1-f228.google.com
+ [209.85.128.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1C9E10E1A5
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 23:34:41 +0000 (UTC)
+Received: by mail-yw1-f228.google.com with SMTP id
+ 00721157ae682-81e69a2db34so107971987b3.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 16:34:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784158480; x=1784763280;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=GXieirGK731dKnqo4Q/8RQmfvuOGtB9/de8gOedyZqE=;
+ b=JiEWihAK76HbdXJiYvr+lpE3B8bhnLhv2WhLD8NaFOED5nidFZtrkuQfpkMuObdvKn
+ eAvPNPYUoVnMBH/Zz3xx6UPihcVyv6UXkwJ6pierB5oWNx606iUjvjmZ1wkkmxPM7GQE
+ nt0qJ5xDpYl415Pv8ZaosEbfcPOTVjQLXDTSWt5saaCsSob9QLA3z+43O6kSLQzOzMaJ
+ IZUvSU3iO3LJh7+UI9s/HTh69lvc8Vg4y3N1aPrnMRkh4CDI9xtS8xuSNKbWa8agmsrK
+ sxwD1BD3UEs1ypfrCqAAdqd+Lds3fE3D5kD+dPdPZLg2gbM3BDIk3y7LO2cXRi9EI57y
+ m/uw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RokkUYG5qr2NWqEr4Zyf8iiE1HS72BFt3CwdIwvZjVLdkILNak7heCQxHB9rnMKr0LB8zcOy+gbNC0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyqmD+RjKqTGAkQZNoc6xRiHjGZH4ZfDyxbwn5xtER6cgD8No2C
+ a7PgeYiB5GcBxSVbv9VRgvWzSs5iCpSKt8oKIvsA5T0KEOCTlE1vtCJF9pE3HBNMm/BjpvlqS6F
+ DMtZ97lmIpjADabkAH1BF11814RDE2mVFXGI1x9JQbOG2Vn1UHUH0uo3ACGo5wungzJ8ZHDDMrJ
+ iQA0Cy2O8NWM1PO4Jw/JaVveyN2fJWhcgDOCl9/klp0FbMuzmXsZJvjIhrmla9P7ffGCMSzISbT
+ fqgKpMwA6eIP4jPwMX6NI0v0nuT
+X-Gm-Gg: AfdE7clZ4fXrsdFTBr73tbHZ+KMgd5BM/a0ZwnMBnPO1qxW1lmNmx/9OmBxlPR+PRx/
+ WrIrMjoFdKou3bFNMZAPaMm5BKoUv/x7tFwwEgi9He10s7QbohsgSWsVvZ+ZFQOQyevZWXyWsJW
+ gCRnKowp3O2yT0BwOnShKNTrEZVmfLxDeHn0umYGI96Ghss/+h6Qcs9WV7er9hotuwlVXKRE2id
+ 5a1DCmzbjeATjHPnXyzBRX+91CXrSr3q7YVeC1DtO0nkv1sg2zLU253/k5NTNVLCHLcWAiiOs9U
+ /QeqQfb6cBoNVsDfUg0kxzyhg0vy3LcGr/gcINjjZWJtIWtz7GLogpGsU/83++aKWxQYLsE1CFd
+ uMazqUkEe6BIhI7mbzzZKuzz0Y6zXzm7E/LUKjfHYko38lpH4wT+YR3Qm00IfrOwBICensDwJSJ
+ C7BjQ7WC0FRse1GPUd4pa0cXUi6S/Pyh+RzJD01SkC
+X-Received: by 2002:a05:690c:4b13:b0:81d:6eec:fe22 with SMTP id
+ 00721157ae682-81ecfa0f945mr37173717b3.44.1784158480106; 
+ Wed, 15 Jul 2026 16:34:40 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+ by smtp-relay.gmail.com with ESMTPS id
+ 00721157ae682-81ed2b15584sm1359207b3.21.2026.07.15.16.34.39
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 15 Jul 2026 16:34:40 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-517e054fe07so124470341cf.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 16:34:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1784158479; x=1784763279;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=GXieirGK731dKnqo4Q/8RQmfvuOGtB9/de8gOedyZqE=;
+ b=QLrBYXml5KelNfln/9cRNtNOU2UtMBc7yIHhKR6NvZSyL7/O9UBvRcnWu7zAvN4TKp
+ NNRXSwsg+2zgrnWlHWsc0huNIozL8fqtTnd8Xm0pmZILSe73DFKouWR7w244TpHoJ3iq
+ oGY4ds482V4apTJV7gV+9G9WElJcnJr1+A/nY=
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoAh9XmLXGJtzGVOYf1dd7uU2VdUeEaFRlZ0k592Uqygv91r2Op5ip3leGTXTDIs++E32uO5j+4cY4=@lists.freedesktop.org
+X-Received: by 2002:ac8:5d50:0:b0:51c:bc76:dae0 with SMTP id
+ d75a77b69052e-51e4f0bb49dmr50595701cf.57.1784158479411; 
+ Wed, 15 Jul 2026 16:34:39 -0700 (PDT)
+X-Received: by 2002:ac8:5d50:0:b0:51c:bc76:dae0 with SMTP id
+ d75a77b69052e-51e4f0bb49dmr50595521cf.57.1784158478967; 
+ Wed, 15 Jul 2026 16:34:38 -0700 (PDT)
+Received: from [10.211.247.235] ([192.19.50.250])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-904116650b7sm183978416d6.8.2026.07.15.16.34.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jul 2026 16:34:38 -0700 (PDT)
+Message-ID: <2df4713f-bf61-40de-a43f-5079e3b5d5fa@broadcom.com>
+Date: Wed, 15 Jul 2026 16:39:22 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vmwgfx: uninstall the IRQ before freeing the command
+ buffer manager on unload
+To: Fan Wu <fanwu01@zju.edu.cn>, Zack Rusin <zack.rusin@broadcom.com>
+Cc: bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260714094511.2960308-1-fanwu01@zju.edu.cn>
+From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Content-Language: en-US
+In-Reply-To: <20260714094511.2960308-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,526 +115,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-> On 9 Jul 2026, at 18:36, Deborah Brouwer =
-<deborah.brouwer@collabora.com> wrote:
->=20
-> From: Boris Brezillon <boris.brezillon@collabora.com>
->=20
-> Introduce a generic slot manager to dynamically allocate limited =
-hardware
-> slots to software "seats". It can be used for both address space (AS) =
-and
-> command stream group (CSG) slots.
->=20
-> The slot manager initially assigns seats to its free slots. It will
-> continue to reuse the same slot for a seat, as long as another seat =
-does
-> not start to use the slot in the interim.
->=20
-> When contention arises because all of the slots are allocated, the =
-slot
-> manager will lazily evict and reuse slots that have become idle (if =
-any).
->=20
-> The seat state is protected using the LockedBy pattern with the same =
-lock
-> that guards the SlotManager. This ensures the seat state stays =
-consistent
-> across slot operations.
->=20
-> Hardware specific behaviour is controlled through the SlotManager's
-> specific manager type that implements the `SlotOperations` trait.
->=20
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+On 7/14/26 2:45 AM, Fan Wu wrote:
+> vmw_driver_unload() frees the command buffer manager before uninstalling
+> the device IRQ. vmw_release_device_late() -> vmw_cmdbuf_man_destroy()
+> frees the manager, while the threaded handler vmw_thread_fn(), released
+> only later by vmw_irq_uninstall() -> free_irq(), dereferences
+> dev_priv->cman without a NULL guard and is the sole producer of
+> schedule_work(&man->work), whose worker vmw_cmdbuf_work_func() recovers
+> the manager via container_of(). dev_priv->cman is never NULLed on the
+> unload path, so a handler woken in the window between kfree(man) and
+> free_irq() runs against freed memory and can re-arm man->work after the
+> manager's cancel_work_sync() has already returned.
+> 
+> Reorder the unload path to drain pending fences, then uninstall the IRQ,
+> and only then free the manager: free_irq() guarantees the threaded
+> handler has exited before kfree(man). vmw_fence_fifo_down() is called
+> explicitly before the IRQ uninstall so its dma_fence waits are signalled
+> by the still-live threaded handler (vmw_fences_update() in
+> vmw_thread_fn()); uninstalling the IRQ first could force pending fence
+> waits to time out at VMW_FENCE_WAIT_TIMEOUT. vmw_release_device_late()
+> is left unchanged because it is shared with the hibernation path; its
+> existing call to vmw_fence_fifo_down() runs against an empty fence list
+> after the explicit drain above.
+> 
+> Fixes: ef369904aaf7 ("drm/vmwgfx: Move irq bottom half processing to threads")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.5
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 > ---
-> drivers/gpu/drm/tyr/slot.rs | 385 =
-++++++++++++++++++++++++++++++++++++++++++++
-> drivers/gpu/drm/tyr/tyr.rs  |   1 +
-> 2 files changed, 386 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/tyr/slot.rs b/drivers/gpu/drm/tyr/slot.rs
-> new file mode 100644
-> index 000000000000..3f58b23238ef
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/slot.rs
-> @@ -0,0 +1,385 @@
-> +// SPDX-License-Identifier: GPL-2.0 or MIT
-> +
-> +//! Slot management abstraction for limited hardware resources.
-> +//!
-> +//! This module provides a generic [`SlotManager`] that assigns =
-limited hardware
-> +//! slots to logical "seats". A seat represents an entity (such as a =
-virtual memory
-> +//! (VM) address space) that needs access to a hardware slot.
-> +//!
-> +//! The [`SlotManager`] tracks slot allocation using sequence numbers =
-(seqno) to detect
-> +//! when a seat's binding has been invalidated. When a seat requests =
-activation,
-> +//! the manager will either reuse the seat's existing slot (if still =
-valid),
-> +//! allocate a free slot (if any are available), or evict the oldest =
-idle slot if any
-> +//! slots are idle.
-> +//!
-> +//! Hardware-specific behavior is customized by implementing the =
-[`SlotOperations`]
-> +//! trait, which allows callbacks when slots are activated or =
-evicted.
-> +//!
-> +//! This is currently used for managing address space slots in the =
-GPU, and it will
-> +//! also be used to manage Command Stream Group (CSG) interface slots =
-in the future.
-> +//!
-> +//! [SlotOperations]: crate::slot::SlotOperations
-> +//! [SlotManager]: crate::slot::SlotManager
-> +#![allow(dead_code)]
-> +
-> +use core::{
-> +    mem::take,
-> +    ops::{
-> +        Deref,
-> +        DerefMut, //
-> +    }, //
-> +};
-> +
-> +use kernel::{
-> +    prelude::*,
-> +    sync::LockedBy, //
-> +};
-> +
-> +/// Seat information.
-> +///
-> +/// This can't be accessed directly by the element embedding a =
-`Seat`,
-> +/// but is used by the generic slot manager logic to control =
-residency
-> +/// of a certain object on a hardware slot.
-> +pub(crate) struct SeatInfo {
-> +    /// Slot used by this seat.
-> +    ///
-> +    /// This index is only valid if the slot pointed to by this index
-> +    /// has its `SlotInfo::seqno` match `SeatInfo::seqno`. Otherwise,
-> +    /// it means the object has been evicted from the hardware slot,
-> +    /// and a new slot needs to be acquired to make this object
-> +    /// resident again.
-> +    slot: u8,
-> +
-> +    /// Sequence number encoding the last time this seat was active.
-> +    /// We also use it to check if a slot is still bound to a seat.
-> +    seqno: u64,
-> +}
-> +
-> +/// Seat state.
-> +///
-> +/// This is meant to be embedded in the object that wants to acquire
-> +/// hardware slots. It also starts in the `Seat::NoSeat` state, and
-> +/// the slot manager will change the object value when an =
-active/evict
-> +/// request is issued.
-> +#[derive(Default)]
-> +pub(crate) enum Seat {
-> +    #[expect(clippy::enum_variant_names)]
-> +    /// Resource is not resident.
-> +    ///
-> +    /// All objects start with a seat in the `Seat::NoSeat` state. =
-The seat also
-> +    /// gets back to that state if the user requests eviction. It
-> +    /// can also end up in that state next time an operation is done
-> +    /// on a `Seat::Idle` seat and the slot manager finds out this
-> +    /// object has been evicted from the slot.
-> +    #[default]
-> +    NoSeat,
-> +
-> +    /// Resource is actively used and resident.
-> +    ///
-> +    /// When a seat is in the `Seat::Active` state, it can't be =
-evicted, and the
-> +    /// slot pointed to by `SeatInfo::slot` is guaranteed to be =
-reserved
-> +    /// for this object as long as the seat stays active.
-> +    Active(SeatInfo),
-> +
-> +    /// Resource is idle and might or might not be resident.
-> +    ///
-> +    /// When a seat is in the`Seat::Idle` state, we can't know for =
-sure if the
-> +    /// object is resident or evicted until the next request we issue
-> +    /// to the slot manager. This tells the slot manager it can
-> +    /// reclaim the underlying slot if needed.
-> +    /// In order for the hardware to use this object again, the seat
-> +    /// needs to be turned into an `Seat::Active` state again
-> +    /// with a `SlotManager::activate()` call.
-> +    Idle(SeatInfo),
-> +}
-> +
-> +impl Seat {
-> +    /// Get the slot index this seat is pointing to.
-> +    ///
-> +    /// If the seat is not `Seat::Active` we can't trust the
-> +    /// `SeatInfo`. In that case `None` is returned, otherwise
-> +    /// `Some(SeatInfo::slot)` is returned.
-> +    pub(super) fn slot(&self) -> Option<u8> {
+>  drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+> index 599052d07ae88af2f5775f968fe1e7046a3efe4e..dbe02fe8d8571587733d6f002436bf18dac1887a 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+> @@ -1181,10 +1181,11 @@
+>  	vmw_devcaps_destroy(dev_priv);
+>  	vmw_vram_manager_fini(dev_priv);
+>  	ttm_device_fini(&dev_priv->bdev);
+> -	vmw_release_device_late(dev_priv);
+> -	vmw_fence_manager_takedown(dev_priv->fman);
+> +	vmw_fence_fifo_down(dev_priv->fman);
+>  	if (dev_priv->capabilities & SVGA_CAP_IRQMASK)
+>  		vmw_irq_uninstall(&dev_priv->drm);
+> +	vmw_release_device_late(dev_priv);
+> +	vmw_fence_manager_takedown(dev_priv->fman);
+> 
+>  	ttm_object_device_release(&dev_priv->tdev);
+> 
+> --
+> 2.39.5
+> 
 
-Can we use on pub(crate) instead of pub(super)?
+With this patch we would miss any command buffer processing done on the svga
+device in the window between irq_uninstall and vmw_cmdbuf_man_destroy(), so it's
+better to leave the takedown order as is.
+If you want to address the case where a thread_fn awoken by an earlier irq is
+scheduled before irq_uinstall but after vmw_cmdbuf_man_destroy(), then just add checks
+to vmw_thread_fn(), though I'm not sure if that case is even possible since the
+command buffer contexts should already be taken down at that point.
 
-> +        match self {
-> +            Self::Active(info) =3D> Some(info.slot),
-> +            _ =3D> None,
-> +        }
-> +    }
-> +}
-> +
-> +/// Information related to a slot.
-> +struct SlotInfo<T> {
-> +    /// Type specific data attached to a slot.
-> +    slot_data: T,
-> +
-> +    /// Sequence number from when this slot was last activated.
-> +    seqno: u64,
-> +}
-> +
-> +/// Slot state.
-> +#[derive(Default)]
-> +enum SlotState<T> {
-> +    /// Slot is free.
-> +    #[default]
-> +    Free,
-> +
-> +    /// Slot is active.
-> +    Active(SlotInfo<T>),
-> +
-> +    /// Slot is idle.
-> +    Idle(SlotInfo<T>),
-> +}
-> +
-> +/// Trait describing the slot-related operations.
-> +pub(crate) trait SlotOperations {
-> +    /// Implementation-specific data associated with each slot.
-> +    type SlotData;
-> +
-> +    /// Called when a slot is being activated for a seat.
-> +    fn activate(&mut self, _slot_idx: usize, _slot_data: =
-&Self::SlotData) -> Result {
-> +        Ok(())
-> +    }
-> +
-> +    /// Called when a slot is being evicted and freed.
-> +    fn evict(&mut self, _slot_idx: usize, _slot_data: =
-&Self::SlotData) -> Result {
-> +        Ok(())
-> +    }
-> +}
-> +
-> +/// A generic slot manager that provides access to a limited number =
-of hardware slots.
-> +pub(crate) struct SlotManager<T: SlotOperations, const MAX_SLOTS: =
-usize> {
-> +    /// A specific implementation of the generic slot manager.
-> +    manager: T,
-> +
-> +    /// Number of slots actually available.
-> +    slot_count: usize,
-> +
-> +    /// Slot array used to track the state of each slot.
-> +    slots: [SlotState<T::SlotData>; MAX_SLOTS],
-> +
-> +    /// Sequence number incremented each time a Seat is successfully =
-activated
-> +    use_seqno: u64,
-> +}
-> +
-> +/// A `Seat` that can only be accessed when holding a `SlotManager` =
-lock guard.
-> +type LockedSeat<T, const MAX_SLOTS: usize> =3D LockedBy<Seat, =
-SlotManager<T, MAX_SLOTS>>;
-> +
-> +impl<T: SlotOperations, const MAX_SLOTS: usize> SlotManager<T, =
-MAX_SLOTS> {
-> +    /// Creates a specific instance of a slot manager.
-> +    pub(crate) fn new(manager: T, slot_count: usize) -> Result<Self> =
-{
-> +        if slot_count =3D=3D 0 {
-> +            pr_err!("Invalid slot count: 0");
-> +            return Err(EINVAL);
-> +        }
-> +        if slot_count > MAX_SLOTS {
-> +            pr_err!(
-> +                "Slot count: {} cannot exceed MAX_SLOTS: {}",
-> +                slot_count,
-> +                MAX_SLOTS
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +        Ok(Self {
-> +            manager,
-> +            slot_count,
-> +            slots: [const { SlotState::Free }; MAX_SLOTS],
-> +            use_seqno: 1,
-> +        })
-> +    }
-> +
-> +    /// Records a slot as active for the given seat.
-> +    fn record_active_slot(
-> +        &mut self,
-> +        slot_idx: usize,
-> +        locked_seat: &LockedSeat<T, MAX_SLOTS>,
-> +        slot_data: T::SlotData,
-> +    ) -> Result {
 
-This looks infallible?
-
-> +        let cur_seqno =3D self.use_seqno;
-> +
-> +        *locked_seat.access_mut(self) =3D Seat::Active(SeatInfo {
-> +            slot: slot_idx as u8,
-> +            seqno: cur_seqno,
-> +        });
-> +
-> +        self.slots[slot_idx] =3D SlotState::Active(SlotInfo {
-> +            slot_data,
-> +            seqno: cur_seqno,
-> +        });
-> +
-> +        self.use_seqno +=3D 1;
-> +        Ok(())
-> +    }
-> +
-> +    /// Activates a slot for the given seat.
-> +    fn activate_slot(
-> +        &mut self,
-> +        slot_idx: usize,
-> +        locked_seat: &LockedSeat<T, MAX_SLOTS>,
-> +        slot_data: T::SlotData,
-> +    ) -> Result {
-> +        self.manager.activate(slot_idx, &slot_data)?;
-> +        self.record_active_slot(slot_idx, locked_seat, slot_data)
-> +    }
-> +
-> +    /// Finds a slot for the given seat. A free slot is preferred, =
-but if none
-> +    /// are available, the oldest idle slot is evicted and reused. =
-Otherwise, if
-> +    /// there are no free or idle slots, return [`EBUSY`].
-> +    fn allocate_slot(
-> +        &mut self,
-> +        locked_seat: &LockedSeat<T, MAX_SLOTS>,
-> +        slot_data: T::SlotData,
-> +    ) -> Result {
-> +        let slots =3D &self.slots[..self.slot_count];
-> +
-> +        let mut idle_slot_idx =3D None;
-> +        let mut idle_slot_seqno: u64 =3D 0;
-> +
-> +        for (slot_idx, slot) in slots.iter().enumerate() {
-> +            match slot {
-> +                SlotState::Free =3D> {
-> +                    return self.activate_slot(slot_idx, locked_seat, =
-slot_data);
-> +                }
-> +                SlotState::Idle(slot_info) =3D> {
-> +                    if idle_slot_idx.is_none() || slot_info.seqno < =
-idle_slot_seqno {
-> +                        idle_slot_idx =3D Some(slot_idx);
-> +                        idle_slot_seqno =3D slot_info.seqno;
-> +                    }
-> +                }
-> +                SlotState::Active(_) =3D> (),
-> +            }
-> +        }
-> +
-> +        match idle_slot_idx {
-> +            Some(slot_idx) =3D> {
-> +                // Lazily evict idle slot just before it is reused.
-> +                if let SlotState::Idle(slot_info) =3D =
-&self.slots[slot_idx] {
-> +                    self.manager.evict(slot_idx, =
-&slot_info.slot_data)?;
-> +                }
-> +                self.activate_slot(slot_idx, locked_seat, slot_data)
-> +            }
-> +            None =3D> {
-> +                pr_err!(
-> +                    "Slot allocation failed: all {} slots in use\n",
-> +                    self.slot_count
-> +                );
-> +                Err(EBUSY)
-> +            }
-> +        }
-> +    }
-> +
-> +    /// Converts an active slot and its seat to idle state.
-> +    fn idle_slot(&mut self, slot_idx: usize, locked_seat: =
-&LockedSeat<T, MAX_SLOTS>) -> Result {
-> +        let slot =3D take(&mut self.slots[slot_idx]);
-
-I think it=E2=80=99d be clearer to have mem::take here instead of take.
-
-> +
-> +        // If the slot was active, make it idle.
-> +        if let SlotState::Active(slot_info) =3D slot {
-> +            self.slots[slot_idx] =3D SlotState::Idle(slot_info);
-
-Is it me or we don=E2=80=99t place the slot back in the array if the =
-slot is
-already idle? Looking at the caller, it seems like this can=E2=80=99t =
-happen today,
-but still, perhaps we should use a match here as future-proofing
-
-I think that would fit better, specially given the fact that the code =
-below
-does use a match.
-
-> +        }
-> +
-> +        // If the seat was active, make it idle, or keep it idle if =
-it was already idle.
-> +        *locked_seat.access_mut(self) =3D match =
-locked_seat.access(self) {
-> +            Seat::Active(seat_info) | Seat::Idle(seat_info) =3D> =
-Seat::Idle(SeatInfo {
-> +                slot: seat_info.slot,
-> +                seqno: seat_info.seqno,
-> +            }),
-> +            Seat::NoSeat =3D> Seat::NoSeat,
-> +        };
-
-> +        Ok(())
-> +    }
-> +
-> +    /// Evicts an active or idle slot: calls the eviction callback =
-and marks the slot as free
-> +    /// and the seat as NoSeat.
-> +    fn evict_slot(&mut self, slot_idx: usize, locked_seat: =
-&LockedSeat<T, MAX_SLOTS>) -> Result {
-> +        match &self.slots[slot_idx] {
-> +            SlotState::Active(slot_info) | SlotState::Idle(slot_info) =
-=3D> {
-> +                self.manager.evict(slot_idx, &slot_info.slot_data)?;
-> +                take(&mut self.slots[slot_idx]);
-> +            }
-> +            _ =3D> (),
-> +        }
-> +
-> +        *locked_seat.access_mut(self) =3D Seat::NoSeat;
-> +        Ok(())
-> +    }
-> +
-> +    /// Checks that the seat state matches the slot's state.
-> +    /// If they don't match, the seat is stale and is reset to =
-`NoSeat`.
-> +    fn check_seat(&mut self, locked_seat: &LockedSeat<T, MAX_SLOTS>) =
-{
-> +        let (slot_idx, seat_seqno, is_active) =3D match =
-locked_seat.access(self) {
-> +            Seat::Active(seat_info) =3D> (seat_info.slot as usize, =
-seat_info.seqno, true),
-> +            Seat::Idle(seat_info) =3D> (seat_info.slot as usize, =
-seat_info.seqno, false),
-> +            _ =3D> return,
-> +        };
-> +
-> +        let valid =3D if is_active {
-> +            !kernel::warn_on!(!matches!(
-> +                &self.slots[slot_idx],
-> +                SlotState::Active(slot_info) if slot_info.seqno =3D=3D =
-seat_seqno
-> +            ))
-> +        } else {
-> +            matches!(
-> +                &self.slots[slot_idx],
-> +                SlotState::Idle(slot_info) if slot_info.seqno =3D=3D =
-seat_seqno
-> +            )
-> +        };
-> +
-> +        if !valid {
-> +            *locked_seat.access_mut(self) =3D Seat::NoSeat;
-> +        }
-> +    }
-> +
-> +    /// Activate a resource on any available/reclaimable slot.
-> +    pub(crate) fn activate(
-> +        &mut self,
-> +        locked_seat: &LockedSeat<T, MAX_SLOTS>,
-> +        slot_data: T::SlotData,
-> +    ) -> Result {
-> +        self.check_seat(locked_seat);
-> +        match locked_seat.access(self) {
-> +            // If a seat still has a valid slot, just reuse the slot =
-and refresh the bookkeeping.
-> +            Seat::Active(seat_info) | Seat::Idle(seat_info) =3D> {
-> +                self.record_active_slot(seat_info.slot as usize, =
-locked_seat, slot_data)
-> +            }
-> +            _ =3D> self.allocate_slot(locked_seat, slot_data),
-> +        }
-> +    }
-> +
-> +    /// Flag a resource as idle. This method will be used for user VM =
-support.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn idle(&mut self, locked_seat: &LockedSeat<T, =
-MAX_SLOTS>) -> Result {
-> +        self.check_seat(locked_seat);
-> +        if let Seat::Active(seat_info) =3D locked_seat.access(self) {
-> +            self.idle_slot(seat_info.slot as usize, locked_seat)?;
-> +        }
-> +        Ok(())
-> +    }
-> +
-> +    /// Evict a resource from its slot.
-> +    pub(crate) fn evict(&mut self, locked_seat: &LockedSeat<T, =
-MAX_SLOTS>) -> Result {
-> +        self.check_seat(locked_seat);
-> +
-> +        match locked_seat.access(self) {
-> +            Seat::Active(seat_info) | Seat::Idle(seat_info) =3D> {
-> +                let slot_idx =3D seat_info.slot as usize;
-> +                self.evict_slot(slot_idx, locked_seat)?;
-> +            }
-> +            _ =3D> (),
-> +        }
-> +
-> +        Ok(())
-> +    }
-> +}
-> +
-> +impl<T: SlotOperations, const MAX_SLOTS: usize> Deref for =
-SlotManager<T, MAX_SLOTS> {
-> +    type Target =3D T;
-> +
-> +    fn deref(&self) -> &Self::Target {
-> +        &self.manager
-> +    }
-> +}
-> +
-> +impl<T: SlotOperations, const MAX_SLOTS: usize> DerefMut for =
-SlotManager<T, MAX_SLOTS> {
-> +    fn deref_mut(&mut self) -> &mut Self::Target {
-> +        &mut self.manager
-> +    }
-> +}
-> diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
-> index 95cda7b0962f..7c9a8063b3b9 100644
-> --- a/drivers/gpu/drm/tyr/tyr.rs
-> +++ b/drivers/gpu/drm/tyr/tyr.rs
-> @@ -12,6 +12,7 @@
-> mod gem;
-> mod gpu;
-> mod regs;
-> +mod slot;
->=20
-> kernel::module_platform_driver! {
->     type: TyrPlatformDriver,
->=20
-> --=20
-> 2.54.0
->=20
-
+-- 
+Maaz Mombasawala <maaz.mombasawala@broadcom.com>
