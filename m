@@ -4,53 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5251C44501
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 10:29:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AF48C44507
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 10:32:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C56210E191;
-	Wed, 15 Jul 2026 10:29:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D1EF10EFB0;
+	Wed, 15 Jul 2026 10:32:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="njsWkz2u";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g7heWBPC";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9521010EF91
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 10:29:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784111366;
- bh=AX9ADKwhGNIejnHdgFTOEpMoelGADDU7g5rb4mpm7eA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=njsWkz2uS1gOp/dA0tZU/1k3/3eRmfVMITIvSDTNlKwG/trgoT5scu1qflAw7kvoN
- DLhKBrLL/DDASRzQQcujS8xAIdPe/bTOqe948ZK3a4b4ZIBfPdlPLobO0Y5Vv/YlG0
- 84T3f3W58yN5UM6e73a6TUSbBM4UsUa/OPa/ZDhCPpkz5oRU0RBO7n461JjULsYMQv
- 9Q5cKLkxShpIdZk2FpmZzLReCeKSbQRgdZnyUbIQYCCZJcuAwL75EDSRaTMF/SgT9E
- H1xFER++rQ2Mpipx+zcwvxmwmBblBW2s2wAnnxaH9rGfpiVPQTkU/AjQ7QsEmMOfDq
- 0xKbLDIWL7Hbg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B602A17E07AA;
- Wed, 15 Jul 2026 12:29:25 +0200 (CEST)
-Message-ID: <e8d3efc2-bc93-438a-a45d-6ae0b303ad02@collabora.com>
-Date: Wed, 15 Jul 2026 12:29:25 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 09/10] dt-bindings: display: mediatek: wdma: Add
- compatibles for more SoCs
-To: Rob Herring <robh@kernel.org>, sashiko-reviews@lists.linux.dev,
- CK Hu <ck.hu@mediatek.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
- <20260713142746.40259-10-angelogioacchino.delregno@collabora.com>
- <20260713144221.2C4F91F00A3A@smtp.kernel.org>
- <20260714143433.GA1476641-robh@kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260714143433.GA1476641-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B72B10EFA4
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 10:32:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4D32643342;
+ Wed, 15 Jul 2026 10:32:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9971F000E9;
+ Wed, 15 Jul 2026 10:32:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784111534;
+ bh=IEaTMro6D5oiVHLyiUTdBwefd7VHswLt6gRFU/gRM/Q=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=g7heWBPCobjk0aIIm4KIZIah0SeRYMrYduI2G6d004bdHCTZYOesqljZRfrhFaJIg
+ GcNkYu8FHiPXXbPBSKzC7Cp/bsWv8/gKfQbzxSzQNT0cioO4o+0jWk/TmtxRo4mp/u
+ tBrEruUiulbo5EjKC1UhqN8SM+ql/7z6IiJoHtSFFg2ynr4LedYxrZRNZXxrjyPQi0
+ TQNylkL4ksm+VSK9W2IaqWw973Ma+a7+PhUro0Ev6iQbzxiZ1ilkeI7P+CqTLB2nW/
+ 4602cMmU1oKXWjOc69NdmFVlWngYSvxhpqaa3xhBVqFYz1MN1OT/B/A9Q+7lsYztUY
+ ksi1Md6jP1afw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V5] i2c: qcom-geni: Add dynamic transfer timeout based
+ on transfer length and frequency
+To: "Aniket Randive" <aniket.randive@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260715101805.3615166-1-aniket.randive@oss.qualcomm.com>
+References: <20260715101805.3615166-1-aniket.randive@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 10:32:13 +0000
+Message-Id: <20260715103214.0F9971F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,60 +53,126 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/14/26 16:34, Rob Herring wrote:
-> On Mon, Jul 13, 2026 at 02:42:20PM +0000, sashiko-bot@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
->> - [Medium] The compatible string `mediatek,mt6893-disp-wdma` is incorrectly added to the standalone enum instead of the fallback items list.
->> --
->>
->> --- Patch [9]: [PATCH v4 09/10] dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs ---
->> commit 8001f83833ae9c684be67bc719c7aaa056f90763
->> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->>
->> dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
->>
->> Multiple MediaTek SoCs have the Write DMA hardware in their Display
->> Controller. This commit adds the missing compatibles for Dimensity 1200
->> (MT6893) and for Kompanio 500/520/820/1200.
->>
->>> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
->>> index 97d052b0fb614..c3ed867d058d9 100644
->>> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
->>> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
->>> @@ -22,11 +22,16 @@ properties:
->>>     compatible:
->>>       oneOf:
->>>         - enum:
->>> +          - mediatek,mt6893-disp-wdma
->>
->> [Severity: Medium]
->> Does this incorrectly place mediatek,mt6893-disp-wdma as a standalone
->> compatible string rather than in the items list requiring a fallback?
->>
->> If a device tree uses compatible = "mediatek,mt6893-disp-wdma" to satisfy
->> this schema, the DRM driver will not probe the device since it only matches
->> mediatek,mt8173-disp-wdma. If the developer instead provides the fallback
->> compatible = "mediatek,mt6893-disp-wdma", "mediatek,mt8173-disp-wdma" so the
->> driver can probe it, won't the device tree fail schema validation here?
-> 
-> Sashiko fails to look at patch 10. However, the commit message gives no
-> clue whether mt6893 is or is not compatible with something else. If not
-> compatible, explain why it isn't. What's different?
-> 
-Eh, MT6893 supports 64-bits image data destination address (has two registers,
-lower 32 bits and upper 32 bits), while MT8173 and others supports 32-bits only.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] A 32-bit integer overflow in `mult_frac()` causes the calculated t=
+imeout to be severely truncated on 32-bit targets for moderately large I2C =
+transfers, leading to premature aborts.
+- [High] For multi-descriptor transfers, the timeout is incorrectly calcula=
+ted based solely on the maximum single message length rather than the sum o=
+f all message lengths in the batch.
+- [Low] The kernel-doc block for `geni_i2c_gpi_multi_xfer_timeout_handler` =
+has an outdated parameter name, causing a kernel-doc warning.
+--
 
-Should I resend with an improved commit message, or would it be fine to change
-that while applying?
+--- Patch [1]: [PATCH V5] i2c: qcom-geni: Add dynamic transfer timeout base=
+d on transfer length and frequency ---
+commit 99a3ffd517ce0554f8d902961d8c4336195d5457
+Author: Aniket Randive <aniket.randive@oss.qualcomm.com>
 
-Multiple MediaTek SoCs have the Write DMA hardware in their Display
-Controller. This commit adds the missing compatibles for Dimensity 1200
-(MT6893), supporting image destination address of up to 64 bits, and for
-Kompanio 500/520/820/1200, fully compatible with MT8173, supporting only
-32 bits.
+i2c: qcom-geni: Add dynamic transfer timeout based on transfer length and f=
+requency
 
-Cheers,
-Angelo
+This patch replaces the static 1-second transfer timeout with a dynamic=20
+timeout calculated from the message length and bus frequency. It adds a=20
+300 ms floor for clock stretching and updates the GPI multi-descriptor=20
+transfer to use a maximum message length timeout.
+
+> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-=
+qcom-geni.c
+> index 96dbf04138bee..f011d2564cd20 100644
+> --- a/drivers/i2c/busses/i2c-qcom-geni.c
+> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
+> @@ -204,6 +209,16 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev =
+*gi2c)
+>  	return -EINVAL;
+>  }
+> =20
+> +static unsigned long geni_i2c_xfer_timeout(struct geni_i2c_dev *gi2c, si=
+ze_t len)
+> +{
+> +	size_t bit_cnt =3D len * 9;
+> +	size_t bit_usec =3D mult_frac(bit_cnt, USEC_PER_SEC, gi2c->clk_freq_out=
+);
+
+[Severity: High]
+Can this cause an integer overflow on 32-bit architectures?
+
+Looking at mult_frac(x, n, d), it calculates r * n_ / d_ where r is the
+remainder of bit_cnt % gi2c->clk_freq_out and n_ is USEC_PER_SEC (1,000,000=
+).
+
+If size_t is 32-bit, r * USEC_PER_SEC will exceed U32_MAX for remainders
+larger than 4294. This wraps around and results in a truncated timeout
+that might prematurely abort valid large I2C transfers.
+
+[ ... ]
+
+> @@ -591,7 +608,7 @@ static void geni_i2c_gpi_multi_desc_unmap(struct geni=
+_i2c_dev *gi2c, struct i2c_
+>   * geni_i2c_gpi_multi_xfer_timeout_handler() - Handles multi message tra=
+nsfer timeout
+>   * @dev: Pointer to the corresponding dev node
+>   * @multi_xfer: Pointer to the geni_i2c_gpi_multi_desc_xfer
+> - * @transfer_timeout_msecs: Timeout value in milliseconds
+> + * @transfer_timeout_msecs: Per-message completion timeout in jiffies
+
+[Severity: Low]
+This isn't a bug, but the kernel-doc parameter name @transfer_timeout_msecs
+was not updated to match the new function argument timeout_jiffies below,
+which will cause a kernel-doc warning during compilation.
+
+>   * @transfer_comp: Completion object of the transfer
+>   *
+>   * This function waits for the completion of each processed transfer mes=
+sages
+> @@ -601,7 +618,7 @@ static void geni_i2c_gpi_multi_desc_unmap(struct geni=
+_i2c_dev *gi2c, struct i2c_
+>   */
+>  static int geni_i2c_gpi_multi_xfer_timeout_handler(struct device *dev,
+>  						   struct geni_i2c_gpi_multi_desc_xfer *multi_xfer,
+> -						   u32 transfer_timeout_msecs,
+> +						   unsigned long timeout_jiffies,
+>  						   struct completion *transfer_comp)
+
+[ ... ]
+
+> @@ -736,8 +753,16 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, s=
+truct i2c_msg msgs[],
+>  		dma_async_issue_pending(gi2c->tx_c);
+> =20
+>  		if ((msg_idx =3D=3D (gi2c->num_msgs - 1)) || flags & DMA_PREP_INTERRUP=
+T) {
+> +			unsigned long timeout;
+> +			size_t max_len =3D 0;
+> +			int j;
+> +
+> +			for (j =3D 0; j < gi2c->num_msgs; j++)
+> +				max_len =3D max_t(size_t, max_len, msgs[j].len);
+> +
+> +			timeout =3D geni_i2c_xfer_timeout(gi2c, max_len);
+
+[Severity: High]
+Will computing the timeout based on max_len cause multi-descriptor batches
+to time out prematurely?
+
+Since this is a Block Event Interrupt (BEI) DMA transfer, intermediate
+interrupts are suppressed and the hardware will take time proportional to
+the total sum of all message lengths in the batch.=20
+
+Calculating the timeout using only the maximum single message length rather
+than the cumulative length might result in a wait timeout that is shorter
+than the physical wire time needed to transmit the entire batch.
+
+>  			ret =3D geni_i2c_gpi_multi_xfer_timeout_handler(gi2c->se.dev, gi2c_gp=
+i_xfer,
+> -								      XFER_TIMEOUT, &gi2c->done);
+> +								      timeout, &gi2c->done);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715101805.3615=
+166-1-aniket.randive@oss.qualcomm.com?part=3D1
