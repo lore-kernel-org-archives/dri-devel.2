@@ -4,61 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94E87C44507
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 20:03:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FDA5C44507
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Jul 2026 20:12:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3B6110E220;
-	Wed, 15 Jul 2026 20:03:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1707210F11E;
+	Wed, 15 Jul 2026 20:12:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="KCwhOvWG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PA8YgNSn";
 	dkim-atps=neutral
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch
- [79.135.106.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E1EA10E220
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 20:03:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=protonmail; t=1784145832; x=1784405032;
- bh=g/CYReVUA7tKjrfK+oP2QeLP0DLtyYHy63HTvErRdJA=;
- h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=KCwhOvWGo6dhXDD2UPNVTg2rQaoSm39Eto8DhZs+HS50cQps1VxPvT0m7qdYQlfob
- 92RH+UlI8o8N9Ujz9otNa1AaOgQA9K7I2Nw6wxv2ktvEkfb2m+ipy5gToJ08f9twK/
- Xn1EdEjO7PsNUAukQhnsml33AFS9PUgAehMsUEL+AkBgyUoad5O9zpDdcFXyzCWipB
- h96svYyLG9wUam1r0Tyc6QgxU21pA2rkvaDsPdBq9fbN+X7t5+TnhmBbM5tLph3Et3
- bXgusswrwnznkkx4/pj9UyBX1I4w6IP61LZts6f886wZCK6+s+1FkJWBeKrvcdsw6+
- VqWqw0SjWEKdQ==
-X-Pm-Submission-Id: 4h0nDf3yrbz2ScdL
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Krishna Ketan Rai <prafulrai522@gmail.com>,
- Tamir Duberstein <tamird@kernel.org>, Mirko Adzic <adzicmirko97@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Shankari Anand <shankari.ak0208@gmail.com>, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: Re: [PATCH v5 2/5] rust: error: Add ECANCELED error code
-Date: Wed, 15 Jul 2026 23:03:37 +0300
-Message-ID: <20260715200340.48270-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260703073141.3962604-4-phasta@kernel.org>
-References: <20260703073141.3962604-2-phasta@kernel.org>
- <20260703073141.3962604-4-phasta@kernel.org>
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1C3110E1AA
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 20:12:09 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-47df6a5202bso3831648f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 13:12:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784146328; x=1784751128; darn=lists.freedesktop.org;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=LINappzTtqOvEOGJ2/VoPfdVWpHlvhISScXV6/Tgz94=;
+ b=PA8YgNSnAcIwpTCduPWLbEHMIRdIhRxS+exBOdHc8Nk1cLYhuh+W3RmtsLRevbSGwh
+ qSaVc2HnaMyp1b08xlG6BcwO2neoRj0p5ijZIxdDGXIKd1TWBPwXjyuJZSsqUwK/fi9e
+ U8F6VGna9tJsd1477sQzuaqE2Iv4/N7y53c6dhE+/zn2DNyNk0C56kBml23xvhy0D42Y
+ +fsbO6ADNfi/nmxk21279tQiov3jTDZVxy9jJ6URnk8xguGaNqdqXIOog6sWRpHtH4XX
+ gPWX82aCpldVvrMcvIZUk4iBHf0A0AGq6dxQA3DeDe8oiKlkJrlKK0SAEIFsgnDvViNn
+ GLLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784146328; x=1784751128;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=LINappzTtqOvEOGJ2/VoPfdVWpHlvhISScXV6/Tgz94=;
+ b=M3hAI2owkqsM41d31w1v0VDdE0xrObSGYDNqHfX5Zm5tFhia2/kHpbckVWxZzHgx+b
+ n7aCtBFrk11PApzBT7nqU+960GmzDQwfatUlX+zoIQuEu3iHDGaRMXSZb1jt892gPXKt
+ 6MimzuKkYk8OftNjRiHQ8Fb0/KT9tdJCALc81OryaCoECHmYq9ocO6MyNb9CQTCFfHZ1
+ WcaBe+E3jCVXMZuFf+F/6/h9800g3kXqM7A+Smwp4dCLnMWVjteMNpCFigm+z78EF1lt
+ RoowAF4O3t9LXhqWm4ohIP93U1obKh/PNk2EsbR8PKuQNblO18thMt2oMr7bbvTgnU9c
+ gAPg==
+X-Gm-Message-State: AOJu0Yys2tmyYCTWs1Chxzf9dQpdgKpLhGbV8ZsT6JAr45Q7g8zcKBDN
+ Qs7eJAD+ODxirNKxQpBHeg+VDHZB9hoWziEjsy7VMQ9eny/2+dZMxTa9DiyPmcOg
+X-Gm-Gg: AfdE7clyHfYm7T8HqtCCLdShrNTpZV2yNiM9AJgbn9nMSFV6aRhxFEg8B2vVPvt2E+I
+ w1qHYRxHcfk+eHuT3BEcKZ6bZu+Zvguyz7NL7QqCWARB1FdYgMzln3O3wDby1FluI4tbV6skGRh
+ 9/d7MuyjUPVxxpzSuM1aXYbtwcPIU1sPKwpq4idUA/zfRDTQpboANTttWYdorsqcsDLNAsw7REj
+ AnLU1kegkpE5IJqFx0GUAlmitNLm7C7WMwxLqBcvPC0DgeSJz6Q/iZi8y5k7sTha+BgURTuoY/3
+ sDYfksa6B7RNj/9ug6gNhcmOMKbXtbR7DOLXJ5AX1oN3nnXrdBRh505d95FYpWB6btkTqy0hx8d
+ AlgBBRpvPWCMGYLjgw1HRcD184YXZX/o6w7SNfgl0gUuROyfPm5En1lVoRz5350IVo3qPu4Bsje
+ v2Pb2sKWCpZOcK9zecrRTPjeIxROlW1pdGEFnalb9durA39lSPmrZ83Q2Hm3IHuBGLnISXd68tO
+ Zw3uIGuzfQtOdyDonmuBPTEc5kCDw==
+X-Received: by 2002:a05:6000:4a0a:b0:47d:f43b:fd63 with SMTP id
+ ffacd0b85a97d-47f4fcc1527mr5056710f8f.26.1784146328035; 
+ Wed, 15 Jul 2026 13:12:08 -0700 (PDT)
+Received: from timur-max.localnet
+ (20014C4E24CD7200F6BBA872344E1A32.dsl.pool.telekom.hu.
+ [2001:4c4e:24cd:7200:f6bb:a872:344e:1a32])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47f4634e5b8sm17552158f8f.6.2026.07.15.13.12.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jul 2026 13:12:07 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 4/4] drm/amd/display: Don't use tiling flags anymore
+Date: Wed, 15 Jul 2026 22:12:06 +0200
+Message-ID: <31315640.VsfAaAtOVx@timur-max>
+In-Reply-To: <20260715114238.856321F000E9@smtp.kernel.org>
+References: <20260715105757.13125-1-timur.kristof@gmail.com>
+ <20260715105757.13125-5-timur.kristof@gmail.com>
+ <20260715114238.856321F000E9@smtp.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,33 +92,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 03 Jul 2026 09:31:38 +0200=0D
-Philipp Stanner <phasta@kernel.org> wrote:=0D
-=0D
-> The Rust dma_fence abstractions need the ECANCELED error code.=0D
-> =0D
-> Add ECANCELED error code.=0D
-> =0D
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>=0D
-> ---=0D
->  rust/kernel/error.rs | 1 +=0D
->  1 file changed, 1 insertion(+)=0D
-> =0D
-> diff --git a/rust/kernel/error.rs b/rust/kernel/error.rs=0D
-> index a56ba6309594..cb666f0d42ee 100644=0D
-> --- a/rust/kernel/error.rs=0D
-> +++ b/rust/kernel/error.rs=0D
-> @@ -67,6 +67,7 @@ macro_rules! declare_err {=0D
->      declare_err!(EOVERFLOW, "Value too large for defined data type.");=0D
->      declare_err!(EMSGSIZE, "Message too long.");=0D
->      declare_err!(ETIMEDOUT, "Connection timed out.");=0D
-> +    declare_err!(ECANCELED, "Request has been canceled.");=0D
->      declare_err!(ERESTARTSYS, "Restart the system call.");=0D
->      declare_err!(ERESTARTNOINTR, "System call was interrupted by a signa=
-l and will be restarted.");=0D
->      declare_err!(ERESTARTNOHAND, "Restart if no handler.");=0D
-> -- =0D
-> 2.54.0=0D
-> =0D
-=0D
-Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
+On 2026. j=C3=BAlius 15., szerda 13:42:38 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=
+=C3=A1ri id=C5=91 sashiko-
+bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider: - [High] Removing the `tiling_flags` check in
+> `should_reset_plane` allows framebuffers with different DCC pitches or
+> dimensions (but identical modifiers) to bypass DRM atomic check validatio=
+n,
+> leading to hardware corruption and stale DML calculations during commit. =
+=2D-
+
+This is not an issue. DCC is not supported at all on GFX6-7 and is not=20
+supported by the display engine on GFX8. The code does not advertise any=20
+modifiers with DCC on GFX6-8 either.
+
+>=20
+> --- Patch [4]: [PATCH 4/4] drm/amd/display: Don't use tiling flags anymore
+> --- commit b71fc193d0b1254508d4ef4e5b1e90decbcba27a
+> Author: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+>=20
+> drm/amd/display: Don't use tiling flags anymore
+>=20
+> This commit removes all code from amdgpu_dm that dealt with tiling flags,
+> as all supported GPU generations now support DRM format modifiers. The
+> legacy non-DC display code still relies on tiling flags.
+>=20
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c index
+> > c643cc5428577..2f7388c47d02a 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>=20
+> [ ... ]
+>=20
+> > @@ -4279,7 +4277,6 @@ static void amdgpu_dm_commit_planes(struct
+> > drm_atomic_state *state,>=20
+> >  		fill_dc_plane_info_and_addr(
+> >  	=09
+> >  			dm->adev, new_plane_state,
+> >=20
+> > -			afb->tiling_flags,
+> >=20
+> >  			&bundle->plane_infos[planes_count],
+> >  			&bundle->flip_addrs[planes_count].address,
+> >  			afb->tmz_surface);
+>=20
+> [Severity: High]
+> Since the return value of fill_dc_plane_info_and_addr() is ignored here,
+> what happens if DCC validation fails due to missed dimension or pitch
+> changes?
+
+DCC is not supported by the display engine on GFX6-8 so there is no DCC=20
+validation.
+
+>=20
+> Could this result in a zero-filled plane_info structure being sent to the
+> hardware (for example, setting global_alpha to 0) and causing a black
+> screen?
+
+No, it couldn't.
+
+>=20
+> [ ... ]
+>=20
+> > @@ -6248,8 +6245,7 @@ static bool should_reset_plane(struct
+> > drm_atomic_state *state,>=20
+> >  		new_afb =3D (struct amdgpu_framebuffer *)new_other_state-
+>fb;
+> >  	=09
+> >  		/* Tiling and DCC changes also require bandwidth=20
+updates. */
+> >=20
+> > -		if (old_afb->tiling_flags !=3D new_afb->tiling_flags ||
+> > -		    old_afb->base.modifier !=3D new_afb->base.modifier)
+> > +		if (old_afb->base.modifier !=3D new_afb->base.modifier)
+> >=20
+> >  			return true;
+> >  =09
+> >  	}
+>=20
+> [Severity: High]
+> By removing the tiling_flags check here in should_reset_plane(), how do we
+> ensure that framebuffers with identical modifiers but different DCC pitch=
+es
+> or dimensions still trigger a validation reset?
+
+The tiling flags are no longer used because they are converted to modifiers=
+=2E=20
+Therefore, removing the tiling flag check is not changing the behavior of t=
+he=20
+code.
+
+As I explained above, DCC is not supported by this HW.
+
+Additionally, "identical modifiers but with different DCC pitches" would be=
+=20
+illegal for DRM format modifiers.
+
+
+>=20
+> If a user-space client flips between two framebuffers with the same format
+> and source rectangle, but different backing buffer dimensions, it seems
+> this might bypass DRM atomic check validation.
+
+How?
+
+>=20
+> Could this lead to DC hardware being programmed using stale Display Mode
+> Logger (DML) calculations and watermarks, resulting in display corruption?
+
+How?
+
+
+
+
+
