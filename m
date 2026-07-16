@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23F68C44511
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 16:04:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E21AC44511
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 16:06:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A3C810E0F7;
-	Thu, 16 Jul 2026 16:04:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0615810E214;
+	Thu, 16 Jul 2026 16:06:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="w2jaaP8L";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="M+NvjTm6";
 	dkim-atps=neutral
-Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A4D310E303
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 16:03:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail3; t=1784217835; x=1784477035;
- bh=/YRB1L/AuOqVWGx1DDUcS5pWizMxt/oyDC51hnogQgg=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=w2jaaP8LYwYHiGkyrLMhdz7gldUws3K2xMX34Qj5WZ0OJ2/6oun8jF3tde9qyhnf8
- JOwJaZ2Zxm42bHUoSgwKPvLOuH6k4UWRIlxx7vh+2dC3y42HsyCCFYx4U5aQ1uFwAI
- Yncc9rs5mQvwrnEkFhkd/gKFs1bN76WVkDsOI6bOSWLAtsc2KhAsVAby8apD6p//AY
- Na4V7OMEtRs4eLEqebePhW61gZwmE4uKRTFrvf6EAQptKTsxe+9xs3NuJ02Krf8c94
- TsdTS8/YsoNHn9icZsCuoLxJXLnqn+9tBUrWI4JTZHYlPR0zEi5tGK3Mka1d3zvYlX
- jtnKx68KZGogw==
-Date: Thu, 16 Jul 2026 16:03:49 +0000
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-From: Esben Haabendal <esben@geanix.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Linus Walleij <linusw@kernel.org>,
- Frieder Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] drm/bridge: ti-sn65dsi83: Support LVDS Channel B
- on SN65DSI84
-Message-ID: <8SgSn8BXZAxJ8Pj2MJVVpzkmvK0_xII-D_cs86jsXDPC0LxlvGuDXozzxKLQC58S48HUCD4MkrAP_trxtZNRIk9fOoyMeQEEiW9yfkTB4bo=@geanix.com>
-In-Reply-To: <178421534409.28815.14030419996947306239.b4-review@b4>
-References: <20260715-ti-sn65dsi83-fixes-v2-0-ebc4c3fe29b6@geanix.com>
- <20260715-ti-sn65dsi83-fixes-v2-3-ebc4c3fe29b6@geanix.com>
- <178421534409.28815.14030419996947306239.b4-review@b4>
-Feedback-ID: 133791852:user:proton
-X-Pm-Message-ID: 71927c117d3272524a1014b6bdfe834fd294a696
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91EF610E030;
+ Thu, 16 Jul 2026 16:06:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=g2gFe0ryYdUdJRocri9LN2xg4yLKDgHAX0vgmCaHB0I=; b=M+NvjTm6WRdrMjUImAuyqxTmjK
+ y7Z9VbkQb10N37kE+Do+1bcv7898jOQkxzUQq0L2vM0gkJMIeSZ3rPkiMkjb2jZSgTUhcJodtkHcq
+ FFMjTH7zPBIhD0AIZXKnlXbCbaijp0ku/NMt9hegx271VuIH9JJjR9eUU9MuCzvOMrx2eOwdQX4xQ
+ aZlpg2p+OK9A1tZcTEXvQ2AOCWgrCocGCioVANJDFh0qukuCDsjWanW4C35BuooMdc7vN/o+B9MOz
+ 14NvRcp21BcpzpmtgUj2j9GmgWycX6XsNXAYoTjqVp4DdzUexKOY0js1FlTxLWrJW/G+5bIm8Qjy4
+ 19UwiHOA==;
+Received: from [178.139.170.72] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wkObH-00G01i-Ol; Thu, 16 Jul 2026 18:06:15 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
+ "Nicolas F . R . A . Prado" <nfraprado@collabora.com>,
+ Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Robert Mader <robert.mader@collabora.com>, Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ John Harrison <John.Harrison@Igalia.com>, kernel-dev@igalia.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [RFC PATCH v2 04/20] drm/crtc: Add COLOR_PIPELINE property
+Date: Thu, 16 Jul 2026 18:03:01 +0200
+Message-ID: <20260716160556.227556-5-mwen@igalia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260716160556.227556-1-mwen@igalia.com>
+References: <20260716160556.227556-1-mwen@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,38 +67,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thursday, 16 July 2026 at 17:22, Luca Ceresoli <luca.ceresoli@bootlin.co=
-m> wrote:
-> On Wed, 15 Jul 2026 15:10:33 +0200, Esben Haabendal <esben@geanix.com> wr=
-ote:
->=20
-> > diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/br=
-idge/ti-sn65dsi83.c
-> > index 7e73035d7798..02ae2b8179b0 100644
-> > --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> > +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> > @@ -893,6 +895,7 @@ static int sn65dsi83_parse_dt(struct sn65dsi83 *ctx=
-, enum sn65dsi83_model model)
-> >  {
-> >  =09struct drm_bridge *panel_bridge;
-> >  =09struct device *dev =3D ctx->dev;
-> > +=09u32 panel_port =3D 2;
->=20
-> Thanks for having applied the changes I had suggested.
->=20
-> I'm afraid I realized right now the "panel_port" name is not ideal becaus=
-e
-> there could be another bridge at the output port and not directly a
-> panel. Should you have a reason to send a v3 I'd rename to output_port (a=
-nd
-> keep my R-by if that's the only change). Otherwise I can do it while
-> applying the patch.
+From: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-What about the panel_bridge member of struct sn65dsi83? We use
-panel_port/output_port as argument to devm_drm_of_get_bridge() and assign t=
-he
-bridge we get from that to ctx->panel_bridge. So are you sure that it makes
-sense to rename panel_port to output_port? Or do you want to rename the
-panel_bridge member also?
+Add a COLOR_PIPELINE property to the CRTC to allow userspace to set a
+post-blend color pipeline analogously to how pre-blend color pipelines
+are set on planes.
 
-/Esben
+Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+Co-developed-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+Signed-off-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+---
+ drivers/gpu/drm/drm_atomic_uapi.c | 50 ++++++++++++++++++++++++++++---
+ drivers/gpu/drm/drm_crtc.c        | 31 +++++++++++++++++++
+ include/drm/drm_atomic_uapi.h     |  2 ++
+ include/drm/drm_crtc.h            | 11 +++++++
+ 4 files changed, 90 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index d52504d823bc..9b4a32f1b694 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -294,6 +294,34 @@ drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
+ }
+ EXPORT_SYMBOL(drm_atomic_set_colorop_for_plane);
+ 
++/**
++ * drm_atomic_set_colorop_for_crtc - set colorop for crtc
++ * @crtc_state: atomic state object for the crtc
++ * @colorop: colorop to use for the crtc
++ *
++ * Helper function to select the color pipeline on a crtc by setting
++ * it to the first drm_colorop element of the pipeline.
++ */
++void
++drm_atomic_set_colorop_for_crtc(struct drm_crtc_state *crtc_state,
++				 struct drm_colorop *colorop)
++{
++	struct drm_crtc *crtc = crtc_state->crtc;
++
++	if (colorop)
++		drm_dbg_atomic(crtc->dev,
++			       "Set [COLOROP:%d] for [CRTC:%d:%s] state %p\n",
++			       colorop->base.id, crtc->base.id, crtc->name,
++			       crtc_state);
++	else
++		drm_dbg_atomic(crtc->dev,
++			       "Set [NOCOLOROP] for [CRTC:%d:%s] state %p\n",
++			       crtc->base.id, crtc->name, crtc_state);
++
++	crtc_state->color_pipeline = colorop;
++}
++EXPORT_SYMBOL(drm_atomic_set_colorop_for_crtc);
++
+ /**
+  * drm_atomic_set_crtc_for_connector - set CRTC for connector
+  * @conn_state: atomic state object for the connector
+@@ -402,8 +430,8 @@ static s32 __user *get_out_fence_for_connector(struct drm_atomic_commit *state,
+ }
+ 
+ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+-		struct drm_crtc_state *state, struct drm_property *property,
+-		uint64_t val)
++		struct drm_crtc_state *state, struct drm_file *file_priv,
++		struct drm_property *property, uint64_t val)
+ {
+ 	struct drm_device *dev = crtc->dev;
+ 	struct drm_mode_config *config = &dev->mode_config;
+@@ -412,7 +440,17 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 
+ 	if (property == config->prop_active)
+ 		state->active = val;
+-	else if (property == config->prop_mode_id) {
++	else if (property == crtc->color_pipeline_property) {
++		/* find DRM colorop object */
++		struct drm_colorop *colorop = NULL;
++
++		colorop = drm_colorop_find(dev, file_priv, val);
++
++		if (val && !colorop)
++			return -EACCES;
++
++		drm_atomic_set_colorop_for_crtc(state, colorop);
++	} else if (property == config->prop_mode_id) {
+ 		struct drm_property_blob *mode =
+ 			drm_property_lookup_blob(dev, val);
+ 		ret = drm_atomic_set_mode_prop_for_crtc(state, mode);
+@@ -519,6 +557,8 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
+ 		*val = state->scaling_filter;
+ 	else if (property == crtc->sharpness_strength_property)
+ 		*val = state->sharpness_strength;
++	else if (property == crtc->color_pipeline_property)
++		*val = (state->color_pipeline) ? state->color_pipeline->base.id : 0;
+ 	else if (crtc->funcs->atomic_get_property)
+ 		return crtc->funcs->atomic_get_property(crtc, state, property, val);
+ 	else {
+@@ -1106,6 +1146,8 @@ int drm_atomic_get_property(struct drm_mode_object *obj,
+ 
+ 		if (colorop->plane)
+ 			WARN_ON(!drm_modeset_is_locked(&colorop->plane->mutex));
++		else if (colorop->crtc)
++			WARN_ON(!drm_modeset_is_locked(&colorop->crtc->mutex));
+ 
+ 		ret = drm_atomic_colorop_get_property(colorop, colorop->state, property, val);
+ 		break;
+@@ -1262,7 +1304,7 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 		}
+ 
+ 		ret = drm_atomic_crtc_set_property(crtc,
+-				crtc_state, prop, prop_value);
++				crtc_state, file_priv, prop, prop_value);
+ 		break;
+ 	}
+ 	case DRM_MODE_OBJECT_PLANE: {
+diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
+index 63ead8ba6756..a0d82ba92f6c 100644
+--- a/drivers/gpu/drm/drm_crtc.c
++++ b/drivers/gpu/drm/drm_crtc.c
+@@ -991,3 +991,34 @@ bool drm_crtc_in_clone_mode(struct drm_crtc_state *crtc_state)
+ 	return hweight32(crtc_state->encoder_mask) > 1;
+ }
+ EXPORT_SYMBOL(drm_crtc_in_clone_mode);
++
++/**
++ * drm_crtc_create_color_pipeline_property - create a new color pipeline
++ * property
++ *
++ * @crtc: drm CRTC
++ * @pipelines: list of pipelines
++ * @num_pipelines: number of pipelines
++ *
++ * Create the COLOR_PIPELINE CRTC property to specify color pipelines on
++ * the CRTC.
++ *
++ * RETURNS:
++ * Zero for success or -errno
++ */
++int drm_crtc_create_color_pipeline_property(struct drm_crtc *crtc,
++					    const struct drm_prop_enum_list *pipelines,
++					    int num_pipelines)
++{
++	struct drm_property *prop;
++
++	prop = drm_property_create_color_pipeline(crtc->dev, &crtc->base,
++						  pipelines, num_pipelines);
++	if (IS_ERR(prop))
++		return PTR_ERR(prop);
++
++	crtc->color_pipeline_property = prop;
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_crtc_create_color_pipeline_property);
+diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/drm_atomic_uapi.h
+index 4e7e78f711e2..90e5c207a53b 100644
+--- a/include/drm/drm_atomic_uapi.h
++++ b/include/drm/drm_atomic_uapi.h
+@@ -54,6 +54,8 @@ void drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
+ 				 struct drm_framebuffer *fb);
+ bool drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
+ 				      struct drm_colorop *colorop);
++void drm_atomic_set_colorop_for_crtc(struct drm_crtc_state *crtc_state,
++				     struct drm_colorop *colorop);
+ int __must_check
+ drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
+ 				  struct drm_crtc *crtc);
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index 30afa05b7c0f..5852b506c614 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -1141,6 +1141,14 @@ struct drm_crtc {
+ 	 */
+ 	struct drm_property *sharpness_strength_property;
+ 
++	/**
++	 * @color_pipeline_property:
++	 *
++	 * Optional "COLOR_PIPELINE" enum property for specifying
++	 * a color pipeline to use on the CRTC.
++	 */
++	struct drm_property *color_pipeline_property;
++
+ 	/**
+ 	 * @state:
+ 	 *
+@@ -1376,6 +1384,9 @@ static inline struct drm_crtc *drm_crtc_find(struct drm_device *dev,
+ 
+ int drm_crtc_create_scaling_filter_property(struct drm_crtc *crtc,
+ 					    unsigned int supported_filters);
++int drm_crtc_create_color_pipeline_property(struct drm_crtc *crtc,
++					     const struct drm_prop_enum_list *pipelines,
++					     int num_pipelines);
+ bool drm_crtc_in_clone_mode(struct drm_crtc_state *crtc_state);
+ int drm_crtc_create_sharpness_strength_property(struct drm_crtc *crtc);
+ #endif /* __DRM_CRTC_H__ */
+-- 
+2.53.0
+
