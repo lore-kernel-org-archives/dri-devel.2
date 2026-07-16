@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2692EC44517
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 15:17:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2A60C44512
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 15:17:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9DB110F33E;
-	Thu, 16 Jul 2026 15:17:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03F8110E390;
+	Thu, 16 Jul 2026 15:17:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="cc1TtiAQ";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="XsXsYOZ/";
 	dkim-atps=neutral
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89EC010E37D
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 15:17:12 +0000 (UTC)
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9106D10F337
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 15:17:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
- Reply-To:Content-Type:Content-ID:Content-Description;
- bh=iLMkXQPoO9bJTen1/DML3UcjON7B/Jg/kBSza579AWA=; b=cc1TtiAQFQ8DOZRUX6MuTqORxo
- 3ArYsOwxxvOD/iW2RtooPUh6L79VtTHcclwoLE8wFqC2jU0zr4pLMWD47YDQx7LiEI/oU2OddxTIL
- 345PQewaiOjESgY5996NoB0YdB/vaEzdYBV/vmaxgc3HqyyUNxHztPPc87SKB7EiPigeKBCgKBBGa
- fhmdPYmN69FijEmwHI1b25K3ZNnGS65fhdcyZDM3J1OvImZRL6Pw/9w717ok/BqAe8DVrpWkakfij
- zX7U2VO/Cu+7KEHVeKwuqskTKjlvQoSjNeXnatCABHjczvS8y5ipVAr1nawllh2wxMxYsAjbTPvyb
- narHY3Zw==;
+ d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+ Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=H5JZBL4uxCbxe0SE5uQe2ASNO8RCuyJLMxN8Jb1Qq/4=; b=XsXsYOZ/Ct32ecd0lk/FZbxGbv
+ TIQrrOLYBa7MgiU56uoUOrFzihJC/YPUvUxRSht2CpUS/WX/zb3RZffmNmCbWhprGw7Ksom/8fpmi
+ GqXx8FLQ3VaRl6VdV2U9hNfDpBmAOfzJAKP2/mDua4QaFq5q+YsfeymwiSus3dMdzqLjhCdkPQybh
+ LoZey4Bu0xpTZAFSJKeiVnmZeD8rTcyU0x8kg/HkKhEWh+eT21Ffm7w4eJnEtfEV70/Rw9Jz0c+vK
+ n6rld3BPFeuSNBwzxx6vqDK+E4qx6Fyz7edutiVLmBUvsgaNYFYp1Hh1HMh9ISqjwdGVKD+kYacbF
+ eZw2rVbw==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wkNpj-00000002l0U-37sL; Thu, 16 Jul 2026 15:17:08 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+ id 1wkNpl-0000000E9ND-49SG; Thu, 16 Jul 2026 15:17:10 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.2 #2 (Red
- Hat Linux)) id 1wkNpj-000000012tE-24AB;
- Thu, 16 Jul 2026 16:17:07 +0100
+ Hat Linux)) id 1wkNpi-000000012sn-3yZ3;
+ Thu, 16 Jul 2026 16:17:06 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: Sean Christopherson <seanjc@google.com>,
  Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org
@@ -52,17 +52,17 @@ Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
  Zhou Yuhang <zhouyuhang@kylinos.cn>, Zi Li <zi.li@linux.dev>,
  Dan Williams <djbw@kernel.org>, Eric Biggers <ebiggers@kernel.org>,
  Colin Ian King <colin.i.king@gmail.com>, connordw@amazon.co.uk,
- graf@amazon.de, fgriffo@amazon.co.uk, David Woodhouse <dwmw@amazon.co.uk>
-Subject: [RFC PATCH 07/11] KVM: guest_memfd: Add ops-driven page revocation
-Date: Thu, 16 Jul 2026 10:31:27 +0100
-Message-ID: <05c8944cb77fa68163303cefe1c922ff142ceb07.1784194290.git.dwmw@amazon.co.uk>
+ graf@amazon.de, fgriffo@amazon.co.uk
+Subject: [RFC PATCH 00/11] KVM: Allow alternative providers of guest_memfd
+ backed by PFNMAP memory
+Date: Thu, 16 Jul 2026 10:31:20 +0100
+Message-ID: <20260716151706.244987-1-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <f09647f427565c1789a6979470045aab78661563.1784194290.git.dwmw@amazon.co.uk>
-References: <f09647f427565c1789a6979470045aab78661563.1784194290.git.dwmw@amazon.co.uk>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
- casper.infradead.org. See http://www.infradead.org/rpr.html
+ desiato.infradead.org. See http://www.infradead.org/rpr.html
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,112 +78,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+For dedicated hosting environments, there are a few reasons to prefer
+using external PFNMAP memory for guests, rather than kernel-managed
+memory:
 
-Add kvm_gmem_invalidate_range(): a guest_memfd backing calls it to zap
-the guest secondary-MMU mapping for a gfn range so the next access
-re-faults through ops->get_pfn().  Mirrors the existing internal
-__kvm_gmem_invalidate_start() for a single bound slot, bracketing the
-unmap with the mmu_invalidate window so a racing vCPU fault retries
-rather than installing a stale mapping.
+ • No struct page overheads
 
-The existing ops->invalidate callback is KVM -> implementation
-(cleanup); this new symbol is the implementation -> KVM path, useful
-for an overcommit manager or any subsystem that reclaims pages from a
-running guest.  Export it for module use and add it to the KVM
-external-export allowlist.
+ • Easily managed in 1GiB pages (or larger chunks); no fragmentation/THP
 
-Signed-off-by: David Woodhouse (Kiro) <dwmw@amazon.co.uk>
----
- arch/x86/kvm/Makefile    |  3 ++-
- include/linux/kvm_host.h |  9 +++++++++
- virt/kvm/guest_memfd.c   | 39 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 50 insertions(+), 1 deletion(-)
+ • Faster kexec/KHO live update (every millisecond spend faffing around
+   with memory management is an extra millisecond of steal time taken
+   from guests)
 
-diff --git a/arch/x86/kvm/Makefile b/arch/x86/kvm/Makefile
-index 77337c37324b..cb963d6ecaab 100644
---- a/arch/x86/kvm/Makefile
-+++ b/arch/x86/kvm/Makefile
-@@ -63,7 +63,8 @@ exports_grep_trailer := --include='*.[ch]' -nrw $(srctree)/virt/kvm $(srctree)/a
- 				-e kvm_write_track_remove_gfn \
- 				-e kvm_get_kvm \
- 				-e kvm_get_kvm_safe \
--				-e kvm_put_kvm
-+				-e kvm_put_kvm \
-+				-e kvm_gmem_invalidate_range
- 
- # Force grep to emit a goofy group separator that can in turn be replaced with
- # the above newline macro (newlines in Make are a nightmare).  Note, grep only
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index b33d2f475042..04fa0cb126f6 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -701,6 +701,15 @@ static inline bool is_kvm_gmem_file(struct file *file)
- 	return file && file->f_op == &kvm_gmem_fops;
- }
- 
-+/*
-+ * Outbound (implementation -> KVM) revocation: zap the guest's secondary MMU
-+ * (NPT/EPT) mapping for a gfn range so the next guest access re-faults
-+ * through the ops' get_pfn().  This is the reverse of ->invalidate (which is
-+ * KVM -> implementation) and is what a backing that manages its own memory
-+ * (e.g. an overcommit manager) uses to reclaim a page from a running guest.
-+ */
-+void kvm_gmem_invalidate_range(struct kvm *kvm, gfn_t start, gfn_t end);
-+
- #endif /* CONFIG_KVM_GUEST_MEMFD */
- 
- static inline bool kvm_slot_dirty_track_enabled(const struct kvm_memory_slot *slot)
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index 2b277468a12f..6c13742de068 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -738,6 +738,45 @@ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args)
- 	return __kvm_gmem_create(kvm, size, flags);
- }
- 
-+/*
-+ * Outbound (implementation -> KVM) revocation: an implementation zaps the
-+ * guest's secondary MMU mapping for a gfn range so the next guest access
-+ * re-faults through ops->get_pfn().  Mirrors __kvm_gmem_invalidate_start()
-+ * for a single bound slot, bracketing the unmap with the mmu_invalidate
-+ * window so a racing vCPU fault retries rather than installing a stale
-+ * mapping.
-+ */
-+void kvm_gmem_invalidate_range(struct kvm *kvm, gfn_t start, gfn_t end)
-+{
-+	struct kvm_memory_slot *slot;
-+	bool flush = false;
-+	int idx;
-+
-+	idx = srcu_read_lock(&kvm->srcu);
-+
-+	slot = gfn_to_memslot(kvm, start);
-+	if (slot) {
-+		struct kvm_gfn_range gfn_range = {
-+			.slot		= slot,
-+			.start		= start,
-+			.end		= min(end, slot->base_gfn + slot->npages),
-+			.may_block	= true,
-+			.attr_filter	= KVM_FILTER_SHARED | KVM_FILTER_PRIVATE,
-+		};
-+
-+		KVM_MMU_LOCK(kvm);
-+		kvm_mmu_invalidate_start(kvm);
-+		flush = kvm_mmu_unmap_gfn_range(kvm, &gfn_range);
-+		if (flush)
-+			kvm_flush_remote_tlbs(kvm);
-+		kvm_mmu_invalidate_end(kvm);
-+		KVM_MMU_UNLOCK(kvm);
-+	}
-+
-+	srcu_read_unlock(&kvm->srcu, idx);
-+}
-+EXPORT_SYMBOL_GPL(kvm_gmem_invalidate_range);
-+
- static const struct kvm_gmem_ops *kvm_gmem_get_ops(struct file *file)
- {
- 	if (!is_kvm_gmem_file(file))
--- 
-2.54.0
+Today, there is only one implementation of guest_memfd: the internal
+shmem-based page cache in virt/kvm/guest_memfd.c. This series allows
+for other code to provide "a guest_memfd". This is an early path-
+finding proof of concept tested with AMD SEV-SNP as well as non-CoCo
+guests on x86 and arm64. I'm planning to build a memory-based file
+system which gives files for both guest_memfd as well as memory-based
+storage to allow things like userspace VM and orchestrator stateallows
+to be passed over KHO/kexec.
+
+This series lifts guest_memfd's operations into a small ops struct and
+converts KVM's own gmem to use it, so it becomes one implementation
+among peers rather than the only game in town.  It also adapts the
+SEV-SNP fast paths to page-less operation, plumbs iommufd to map a
+guest_memfd-backing dma-buf as CPU RAM (not MMIO), and adds the
+provider->KVM revocation primitive that makes overcommit-style reclaim
+possible.
+
+It's largely AI-built at the moment. My main design concerns are around
+that we tell that a given file is "a guest_memfd", and how we plug into
+IOMMUFD. Presenting a dma-buf was the less intrusive choice because that
+path already has support for taking pages away, but I'm less convinced
+that it's the cleaner choice in the long term.
+
+I'll continue to bikeshed it myself, but this is at least functional
+enough to show the direction and solicit further opinions...
+
+https://git.infradead.org/?p=users/dwmw2/linux.git;a=shortlog;h=gmem-provider
+
+Connor Williamson (1):
+      KVM: SEV: Remove struct page dependency from SNP gmem paths
+
+David Woodhouse (10):
+      KVM: selftests: sev_smoke_test: Only run VM types the host offers
+      KVM: selftests: sev_init2_tests: Derive SEV availability from KVM
+      KVM: guest_memfd: Introduce guest memory ops and route native gmem through them
+      iommufd: Look up private-interconnect phys via exporter symbols
+      iommufd: Plumb dma-buf memory-type (RAM vs MMIO) through the phys map
+      KVM: guest_memfd: Add ops-driven page revocation
+      samples/kvm: Add guest_memfd backing sample
+      selftests/kvm: gmem_provider KVM-only tests
+      selftests/kvm: gmem_provider iommufd tests
+      samples/kvm, selftests/kvm: Allow the gmem_provider NVMe DMA test on arm64
+
+
+ arch/x86/kvm/Makefile                              |   4 +-
+ arch/x86/kvm/svm/sev.c                             |  83 ++-
+ arch/x86/virt/svm/sev.c                            |  27 +-
+ drivers/iommu/iommufd/io_pagetable.h               |   7 +
+ drivers/iommu/iommufd/pages.c                      |  49 +-
+ include/linux/kvm_host.h                           |  91 +++
+ samples/Kconfig                                    |  18 +
+ samples/Makefile                                   |   1 +
+ samples/kvm/Makefile                               |   2 +
+ samples/kvm/gmem_provider.c                        | 651 +++++++++++++++++++++
+ samples/kvm/gmem_provider.h                        |  53 ++
+ tools/testing/selftests/kvm/Makefile.kvm           |   6 +
+ .../selftests/kvm/gmem_provider_nvme_dma_test.c    | 365 ++++++++++++
+ .../kvm/x86/gmem_provider_hugepage_test.c          | 130 ++++
+ .../selftests/kvm/x86/gmem_provider_iommufd_test.c | 150 +++++
+ .../selftests/kvm/x86/gmem_provider_revoke_test.c  | 134 +++++
+ .../testing/selftests/kvm/x86/gmem_provider_test.c | 195 ++++++
+ .../selftests/kvm/x86/gmem_provider_vfio_test.c    | 134 +++++
+ tools/testing/selftests/kvm/x86/sev_init2_tests.c  |  16 +-
+ tools/testing/selftests/kvm/x86/sev_smoke_test.c   |   9 +-
+ virt/kvm/guest_memfd.c                             | 377 +++++++++---
+ virt/kvm/kvm_main.c                                |   6 +-
+ virt/kvm/kvm_mm.h                                  |   4 +-
+ 23 files changed, 2410 insertions(+), 102 deletions(-)
 
