@@ -4,125 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1C7AC44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:17:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C63BC44521
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:17:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 029DF10E7C9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C2E310E7CA;
 	Mon, 20 Jul 2026 07:17:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mt.com header.i=@mt.com header.b="MRaGlqAS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ouynuz9X";
 	dkim-atps=neutral
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazon11013003.outbound.protection.outlook.com
- [52.101.83.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FDB610E6B1
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:39:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zI/Jw+nHVWN0+3Vt4VR2HvswM5w1GuoPTEuV7Xgu0Ko2J8u2RPMF9lNpAO0IpF/+1MSbg/TNhceyq1nsQGisVzIgeqjoJ4JHFVwdd6akgWBmy5RptJ4kfEbtudJxFZCxLIC/4Y03K6n67fnQqJjHhSZEprYcItCfomIhg+uIGr5PbYARs8w2IrFfRZUha/RpG3PQTRvPKEHTOd2fXxbvh6UVGxoNx/zX64XR0xMVYb49dEKVbSm+vd3eB5gemF4UlUubRGWHAX7ePK0uwhYZVN/w4Ik5AKbUtuvpvEusCa/5fYeMAdbwQ9lmDKIa3VPbUITODCifBnrs+YT6syp9kQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=etE78zVh+atILNGaMszs7d90nTFsmdc8WwUTw3wpek8=;
- b=eKQPBzXbk39O2ezmEwvTP37JwdefXJWD/AbFaXpyzU3fN4OnqMsumR8Qfu8MtBuLAmjIfs2YrWK6uINzfSo5y7o5OP9Z2zROPpfIr/s0c5YWdMJOHEoSuQIPPIAlghNLmltwGKjoIKCYCyTC3/wf+GAjDokKN12oCa2dfI2lesBesOan5p9vEpVGPOkBdcP9D4xXsQ2zwhylopwzk/Cr8qfY3QWkAK7vQ2fUzFWji7Do4MnSyQDvIKeZ2c0wIzMFkjAE21NRC+eN9RTjrUUT/gcsfoSNCbMzzNvc3FzqB0rcTAj9E0j5KtHg9WBBaShiX4h52rhJbmQevWwwBwZGOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
- header.d=mt.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=etE78zVh+atILNGaMszs7d90nTFsmdc8WwUTw3wpek8=;
- b=MRaGlqAS9ZPYieobaSvgfnaJQsB3enLRtYRGId+lo2WrcoF5a2DDWDRGBAHzc2lpq1sJjff6TBOlP4Aj7KleYT97WlZRcitClsWLM7R6ST0U3L/VhWchMbSYosDGI6WNP/aA82g851dU7MizCBeicW46/ZA+d9Tp0JV0zlA9wgi3ReaCse/273a5uLJDy+Cu8aLzF2lCy7Znje2Q1yob5C2qn4pMpaUm2WvWDs9N9BZeOnzTCFO3FT8n7uXLp0d/V6yGcVw18yb9K84UVcOGI1g/44X76Z2qvpHh081I8zg4BLXFIMDM5R+AdXdlZuj2bbnvubON2Qq40y4DR0CIIA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mt.com;
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
- by DB9PR03MB7404.eurprd03.prod.outlook.com (2603:10a6:10:222::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.16; Mon, 20 Jul
- 2026 06:39:40 +0000
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0223.015; Mon, 20 Jul 2026
- 06:39:40 +0000
-Date: Mon, 20 Jul 2026 08:39:32 +0200
-From: Wojciech Dubowik <wojciech.dubowik@mt.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55A1D10F24C;
+ Thu, 16 Jul 2026 09:28:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CB346600B0;
+ Thu, 16 Jul 2026 09:28:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 385B31F000E9;
+ Thu, 16 Jul 2026 09:27:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784194089;
+ bh=/0foZKhiUwL8omqMEdPagooKRvaN2Pu32mvklzzR96U=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Ouynuz9X0lV2DAJDCejClm81hBPwIvqmcFzLkXPpDvO8UAzJ88Y5GFYWUGewLjfo4
+ HKvUXozG50KbI7M8oj9PZqHoNdM3EWsTOc5AoySLbeypeJa24AUH4AxU81qOxHVvw0
+ LWvKYpCHYG972J1MXh+h9WLhUWEBriCZ3WTWAqSriYpYKn4bXicTywz8/GNCucKdn8
+ R6LKviBKKQBuclZEJxtnFDDX5dD5VKnTRgP5qx8f/ILSXiidqRmj+frtMf0NdUMKLi
+ 5KUn6IrqcfVxM9r76RXMPOnT1CywejJXY9d/xN41f7ojz71LUqX+G/Fq0sdzs/NK2v
+ CrhSCYImgSEMA==
+Date: Thu, 16 Jul 2026 10:27:33 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
+ Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>, 
+ Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ SJ Park <sj@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
+ Peter Xu <peterx@redhat.com>, 
+ Kees Cook <kees@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 3/3] drm/bridge: ti-sn65dsi83: Add reversed lvds lanes
- support
-Message-ID: <al3CpOXMCzgxil0G@mt.com>
-References: <20260717115002.308035-1-wojciech.dubowik@mt.com>
- <20260717115002.308035-4-wojciech.dubowik@mt.com>
- <178432135989.269908.12890193389587995172.b4-review@b4>
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>, 
+ Shameer Kolothum <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev,
+ iommu@lists.linux.dev, 
+ kasan-dev@googlegroups.com, linux-sgx@vger.kernel.org,
+ etnaviv@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, 
+ linux-tegra@vger.kernel.org, kvm@vger.kernel.org, 
+ Russell King <linux+etnaviv@armlinux.org.uk>
+Subject: Re: [PATCH v2 18/33] mm/vma: use vma_start_pgoff(),
+ linear_page_index() in mm code
+Message-ID: <aligtF3WwRam1rMd@lucifer>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-18-2a5aa403d977@kernel.org>
+ <e98110da-f26a-46ca-8360-fc84fc159bd8@kernel.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178432135989.269908.12890193389587995172.b4-review@b4>
-X-ClientProxiedBy: MI2PEPF00000B7D.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::410) To DB9PR03MB7180.eurprd03.prod.outlook.com
- (2603:10a6:10:22d::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|DB9PR03MB7404:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff24fce7-3676-4eef-345d-08dee629ad30
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|52116014|376014|7416014|366016|1800799024|19092799006|4143699003|10067099003|56012099006|38350700014|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: EXg7Rkq4W7aL/rMX51Fr8JLHSCKWsWNJLZ1YJ+lRhTpfcsI10UAiaTUe8QxhcPPYSgR1JEhMAM35yXiweL4wpTn3TycYnuhoJswqKjAPJIVZTUFcCmdfffpKwe6ancdHkEz9H+Ce76NTYeY6mek5dTeNNnu3vkGwFVlIvH5dBfrNfaRaigB+BP6cR7+fcAvLavJK9jhLJYUo66MMi6+awf8U5DFyfkJ4OGFoYq/W+iIHcMYVknCOugK1RbKNMaRwUFahMiZtqoXUNWTIK9/sFdMagkDnFWJ+wzKAT3MPBtJSYc4fJ3I/V5Zx6Uhni7yorL/KUNHUIL9mZ1e8Nj/JD8NqqShZi7413Fw2K86hcugKoLgr713KzjARPeF9GDADb9w6cTO6PbCZ+Au9jS/Wk0ELgXCmBV+kFUyMQKA5lYyG0yAQxILb5rPQwa2Mp90OVGmRxyqH/jXtSvmFOcpbWYh/yA8hjmR1W8NLDO9J9UQ5VOIDO6FvZX9VG+xYCcgv4k7hp97XenwGlzxA6eQIDju4L4mwStgOndtJQc5oUq2Gxbp01qruRNvf6zJGTd6L5K42Xx/bOOgTfkIuolf27FKocneIPuVDPZLQ18/Fc/skxEk06P3RfGY8bF9y4c/GGEkSBWxlUjWLvIvWqseiWCBjAo+QRfLNxsJDk9jOVtc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DB9PR03MB7180.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(52116014)(376014)(7416014)(366016)(1800799024)(19092799006)(4143699003)(10067099003)(56012099006)(38350700014)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?/JWlZqr4FPITWlVMoX7/cnimgrpy9cQDCRgqhYOCc+SuMT25IUwUhY6MZplb?=
- =?us-ascii?Q?oEm1bgSV874JKWidfEiX5qIvM+wzsRq4ILhY1IubEqaYxtkMitNNMrPzN2p/?=
- =?us-ascii?Q?jf8lPRN/1Vx+30ldNNN+I9KiDbzO71vfqZ7hw3CucbSvyTbKG6a2p0biyTpN?=
- =?us-ascii?Q?g5uB2agepMYfWhYxbRwIsi9XkkCYDd9gZwm5uMU4RoJdnnSx2Rh2bPgisvBC?=
- =?us-ascii?Q?09cx7fB6Y7Yuuw8ucrLFaRPuaQY03O0X96YzZBOZYu+a0uvZZR5cqD8fZg10?=
- =?us-ascii?Q?inxAF5Uql85Gc8i1vn+AusDkyCQMbeT/uHS2liFGnkmpOKqvgpgXrsdP/QD9?=
- =?us-ascii?Q?KbC62YzUGYZsqQSxFN3Nu811KgwwHEQUZ4fYQlj7cvJ5OY8djVgl0ffMn4OX?=
- =?us-ascii?Q?eWgdvr5624xlScXTSZFNxnduJOVR/GKO5RHmhllUM9Ovf+Cr4jsOdbC3epJ+?=
- =?us-ascii?Q?AVgZ/xhdFt78k3yhDauuDsnzrBDgvylojw/2Owb/JQrVoKndZgtMK6KHyJvR?=
- =?us-ascii?Q?jBE7JQk5sUiHoV26JrYbgYYtdxf44xZ0TANyIFooJlUqJIU4Plfy3JmBxtHf?=
- =?us-ascii?Q?/EqNgAy0VJJXMm+PqlFjQmh5dkvQW5SjsIkpOQVnby3dMwlid7Th/jUhwXFn?=
- =?us-ascii?Q?53Y9OMDyr682y70zd4yvXVlLrR82BVXisjh235KYSUUh354lBxBii4ItMgrj?=
- =?us-ascii?Q?0N/fVSsemx4dC9+o9VK0etkW9kFnSFbtnRW2ghQ5cd/hpThM15vZ87pa47rH?=
- =?us-ascii?Q?IPaJewXTTRdP1SSeEoFtN7IF6XkUwKdzilms3AQDf6w4peeFAcKU8JfQTtGf?=
- =?us-ascii?Q?pCklF5Jy6Z8X1lESGGxtYC6uuq1DzvKcTmAgelrFAIoBsNfDgZBFJL82Fary?=
- =?us-ascii?Q?fT5x+9nZh4BZ/WNx6dyIE+hCeZn7Pzs5As+0xyzgoDyTVQy0wSGjPI5PAlhd?=
- =?us-ascii?Q?QUjBa2EpovG8lzEAcykL1gLBJyRuzf6LowVBLyyvvGs64tmVF2COVLLAxh5q?=
- =?us-ascii?Q?Slv2sKjZpj/615SIj9LARXgxHk5/jw0loyxdhtjnFdqcAcYUjj3xpqjz+Xkm?=
- =?us-ascii?Q?mPGAHg9WgtEK2kTTOXDYcENVCWX3i3BuctYS9lIUnGLGsm1absObKgfGODTE?=
- =?us-ascii?Q?uvANJANjaZ20+TmWVW+lirkxOujCBQhqDpAH1OSb5pGt3PsqiVVyPBRY3TlK?=
- =?us-ascii?Q?GxmZFZvNLiKRNs13VCkrAVIXaAsHi5FCKqqnvCwTvZcneJak4bUvL85B1qEy?=
- =?us-ascii?Q?WVR6KjSGyd2HiHmurbrjG7tWUehsctLriEIxAmBXVDtbmLIrmIb9XLTELK34?=
- =?us-ascii?Q?50n8QCi09HN2Ql/RytTP5oL7gh5IpbDdXyCG+R/0BlFmUirgQSXa7k76pfom?=
- =?us-ascii?Q?CcNGylonFzuV8la0QaN4onbQ1oBSu7HQPRcpV3kXNgUqqtdgLTtiKH7HMf9G?=
- =?us-ascii?Q?Nv3PF8FWd9udupvbAdZHDjLC/tHZo932R8OWl547kPRFo/dd1/RYQBKCwq0q?=
- =?us-ascii?Q?oSLKkYs189oqm9okJCCsIgpDJifh1GBGfyixdpwgRLUHvT0Q6jj12bnSYxfu?=
- =?us-ascii?Q?94ER6gBi4Gc6IGFB4eQxIlJ8fQTSUlV8wdn9iMP/fNm/3E/dUh0MvSZaMKOw?=
- =?us-ascii?Q?SJg05w8iYtIRkAGj/5lhHmQdCAYPxqf/7gq1fyr8VYCcMcjQqu2JfHPRujSe?=
- =?us-ascii?Q?X3qcfys2RAAutKDnRJ1vVvVqgSTtMKLBu7o4nORWLh8r8wAAPFGuR4YQpc1S?=
- =?us-ascii?Q?cEtTlrvgqQ=3D=3D?=
-X-OriginatorOrg: mt.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff24fce7-3676-4eef-345d-08dee629ad30
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 06:39:40.8237 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 97kZOMQZdaF+B2FcyfFyHPkbI+/BLyIn5Xlay1cWn2NsAiBaqy22Rm7umz1l4zfCxbN4gRrGunLqMvE67f/O2g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7404
-X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:04 +0000
+In-Reply-To: <e98110da-f26a-46ca-8360-fc84fc159bd8@kernel.org>
+X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,64 +136,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 17, 2026 at 10:49:19PM +0200, Luca Ceresoli wrote:
-> On Fri, 17 Jul 2026 13:50:01 +0200, Wojciech Dubowik <wojciech.dubowik@mt.com> wrote:
-
-Hello Luca,
-
-> 
-> Hello,
-> 
+On Wed, Jul 15, 2026 at 05:23:09PM +0200, Vlastimil Babka (SUSE) wrote:
+> On 7/10/26 22:16, Lorenzo Stoakes wrote:
+> > There are many instances in which linear_page_index() (as well as
+> > linear_page_delta()) is open-coded, which is confusing and inconsistent.
 > >
-> > diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> > index f8a786953526..df44df2e872a 100644
-> > --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> > +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> > @@ -845,6 +863,19 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
-> >  	else
-> >  		return -EINVAL;
-> >  
-> > +	ret_data = of_property_read_u32_array(endpoint, "data-lanes", data_lanes,
-> > +			ARRAY_SIZE(data_lanes));
-> > +	if (!ret_data) {
-> > +		if (memcmp(data_lanes,
-> > +				supported_data_lane_mapping[LANE_MAPPING_REVERSE],
-> > +				ARRAY_SIZE(data_lanes)) == 0)
-> 
-> Did you have a look at this sashiko report? It seems valid:
->  | sashiko-bot@kernel.org <sashiko-bot@kernel.org>:
->  |
->  | [Severity: Medium]
->  | Does this code compare the entire array? memcmp() expects the length in
->  | bytes, but ARRAY_SIZE(data_lanes) evaluates to 4 (the number of elements).
->  |
->  | Because data_lanes is an array of u32, checking only 4 bytes means only
->  | the first element is compared. Should this be using sizeof(data_lanes)
->  | instead?
->  |
->  | via: https://patch.msgid.link/20260717115630.C58A61F000E9@smtp.kernel.org
-> 
-> > +			ctx->lvds_reverse_lanes_conf[channel] = true;
-> > +		else if (memcmp(data_lanes,
-> > +			   supported_data_lane_mapping[LANE_MAPPING_NORMAL],
-> > +			   ARRAY_SIZE(data_lanes)) != 0)
-> 
+> > Additionally, vma->vm_pgoff doesn't necessarily make it clear that this is
+> > the page offset of the start of the VMA range.
+> >
+> > Doing so also aids greppability.
+> >
+> > So use vma_start_pgoff() in favour of directly accessing vma->vm_pgoff, and
+> > linear_page_index() where we can.
+> >
+> > This also lays the ground for future changes which will add an anonymous
+> > page offset in order to be able to index MAP_PRIVATE-file backed anon
+> > folios in terms of their virtual page offset.
+> >
+> > No functional change intended.
+> >
+> > Reviewed-by: Gregory Price <gourry@gourry.net>
+> > Reviewed-by: SJ Park <sj@kernel.org>
+> > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+>
+> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-My stupid copy/paste error. I don't know how I have missed it. It has passed
-my basic testing as it compares only firs lane. I will fix it in v6.
+Thanks!
 
-Regards,
-Wojtek
+>
+> Nit:
+>
+> > diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+> > index 2058db9c01d5..d10b8042adb5 100644
+> > --- a/mm/damon/vaddr.c
+> > +++ b/mm/damon/vaddr.c
+> > @@ -10,6 +10,7 @@
+> >  #include <linux/mman.h>
+> >  #include <linux/mmu_notifier.h>
+> >  #include <linux/page_idle.h>
+> > +#include <linux/pagemap.h>
+> >  #include <linux/pagewalk.h>
+> >  #include <linux/sched/mm.h>
+> >
+> > @@ -623,8 +624,8 @@ static void damos_va_migrate_dests_add(struct folio *folio,
+> >  	}
+> >
+> >  	order = folio_order(folio);
+> > -	ilx = vma->vm_pgoff >> order;
+> > -	ilx += (addr - vma->vm_start) >> (PAGE_SHIFT + order);
+> > +	ilx = vma_start_pgoff(vma) >> order;
+> > +	ilx += linear_page_delta(vma, addr) >> order;
+>
+> Could these be combined to linear_page_index(vma, addr) >> order?
 
+So this is:
 
-> Same here.
-> 
-> Otherwise looks good.
-> 
-> Luca
-> 
-> -- 
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
-> 
+	(x >> order) + (y >> order)
+
+And linear_page_index(vma, addr) >> order is:
+
+	(x + y) >> order
+
+Consider:
+
+	order = 1, x = 0b11, y = 0b01
+
+	(x    >> order) + (y    >> order) =
+	(0b11 >> 1    ) + (0b01 >> 1    ) =
+	0b1             + 0               =
+	1
+
+	(x    + y   ) >> order =
+	(0b11 + 0b01) >> 1     =
+	(0b100      ) >> 1     =
+	2
+
+They are not equivalent - the carry bit changes the result.
+
+>
+> >
+> >  	for (i = 0; i < dests->nr_dests; i++)
+> >  		weight_total += dests->weight_arr[i];
+>
+> > diff --git a/mm/filemap.c b/mm/filemap.c
+> > index b39111abdc4b..1dbb4c6f824e 100644
+> > --- a/mm/filemap.c
+> > +++ b/mm/filemap.c
+> > @@ -3411,8 +3411,8 @@ static struct file *do_sync_mmap_readahead(struct vm_fault *vmf)
+> >  		 * of memory.
+> >  		 */
+> >  		struct vm_area_struct *vma = vmf->vma;
+> > -		unsigned long start = vma->vm_pgoff;
+> > -		unsigned long end = start + vma_pages(vma);
+> > +		const unsigned long start = vma_start_pgoff(vma);
+> > +		const unsigned long end = vma_end_pgoff(vma);
+> >  		unsigned long ra_end;
+> >
+> >  		ra->order = exec_folio_order();
+> > @@ -3930,7 +3930,8 @@ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
+> >  		goto out;
+> >  	}
+> >
+> > -	addr = vma->vm_start + ((start_pgoff - vma->vm_pgoff) << PAGE_SHIFT);
+> > +	addr = vma->vm_start +
+> > +		((start_pgoff - vma_start_pgoff(vma)) << PAGE_SHIFT);
+>
+> This could be linear_page_index(vma, start_pgoff) <<
+>
+> >  	vmf->pte = pte_offset_map_lock(vma->vm_mm, vmf->pmd, addr, &vmf->ptl);
+> >  	if (!vmf->pte) {
+> >  		folio_unlock(folio);
+>
+> > --- a/mm/mempolicy.c
+> > +++ b/mm/mempolicy.c
+> > @@ -2049,8 +2049,8 @@ struct mempolicy *get_vma_policy(struct vm_area_struct *vma,
+> >  		pol = get_task_policy(current);
+> >  	if (pol->mode == MPOL_INTERLEAVE ||
+> >  	    pol->mode == MPOL_WEIGHTED_INTERLEAVE) {
+> > -		*ilx += vma->vm_pgoff >> order;
+> > -		*ilx += (addr - vma->vm_start) >> (PAGE_SHIFT + order);
+> > +		*ilx += vma_start_pgoff(vma) >> order;
+> > +		*ilx += linear_page_delta(vma, addr) >> order;
+>
+> Also?
+
+See above.
+
+>
+> >  	}
+> >  	return pol;
+> >  }
+>
+> > --- a/mm/nommu.c
+> > +++ b/mm/nommu.c
+> > @@ -975,7 +975,7 @@ static int do_mmap_private(struct vm_area_struct *vma,
+> >  		/* read the contents of a file into the copy */
+> >  		loff_t fpos;
+> >
+> > -		fpos = vma->vm_pgoff;
+> > +		fpos = vma_start_pgoff(vma);
+> >  		fpos <<= PAGE_SHIFT;
+> >
+> >  		ret = kernel_read(vma->vm_file, base, len, &fpos);
+> > @@ -1378,7 +1378,8 @@ static int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+> >  	delete_nommu_region(vma->vm_region);
+> >  	if (new_below) {
+> >  		vma->vm_region->vm_start = vma->vm_start = addr;
+> > -		vma->vm_region->vm_pgoff = vma->vm_pgoff += npages;
+>
+> yuck, good to remove that ugly construct
+> it's not the only occurence in this function
+> oh well
+
+Yup at least improved it here :)
+
+>
+> > +		vma->vm_pgoff += npages;
+> > +		vma->vm_region->vm_pgoff = vma_start_pgoff(vma);
+> >  	} else {
+> >  		vma->vm_region->vm_end = vma->vm_end = addr;
+> >  		vma->vm_region->vm_top = addr;
+
+Cheers, Lorenzo
