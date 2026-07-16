@@ -4,42 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEDDDC4450A
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 07:04:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F245FC44501
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 07:29:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F44710E2EE;
-	Thu, 16 Jul 2026 07:04:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40B0010E2F7;
+	Thu, 16 Jul 2026 07:29:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I0+RbUNf";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="A/O6gv2R";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/g4jUZz1";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="lwB2BVxZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="avDpyJLb";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7AA10E2EE
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 07:04:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 472BF43CD3;
- Thu, 16 Jul 2026 07:04:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 000F01F00A3A;
- Thu, 16 Jul 2026 07:04:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784185493;
- bh=UBXSLt9kxB5AWz0Q8FvBmxCxZqNiA87FyfDIW1p6w/E=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=I0+RbUNfrLd0F7TTGhL9vFCXHcOqATVdUdGjjYYmwhdj8cFilu+eH8hHi5JWfcbqq
- sSalgwmM+AuJmqF5FxrwnElYEikS59DbEktOKzLWaAUW3jlaybgm0tCc2VbjVy2/DQ
- zTQSOGqq5N/TcwCTBpP8YDBYsivapj0TpEJ3MS66RFJDc/dtt5OjG4CXifTuJerJUu
- jAfTH7CqDqwYKU5UB/hgTyUZ/ys7eO/Aa5ZNom/RkulbbQTbkfffvm85F6GMSl8AVy
- 2spzWHBZ/RYtW3gGiB8vi25vYUNouI++vv09VWCNQr6AGJnsYO5PDxMHBa4OvEnuIk
- hQ+kzSZVosJiA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] accel/ethosu: check MMIO mapping errors in probe
-To: zhaoguohan@kylinos.cn
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260716065219.931088-1-zhaoguohan@kylinos.cn>
-References: <20260716065219.931088-1-zhaoguohan@kylinos.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 07:04:52 +0000
-Message-Id: <20260716070453.000F01F00A3A@smtp.kernel.org>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCEB710E2F7
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 07:29:48 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 15C603E3B;
+ Thu, 16 Jul 2026 07:29:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784186987; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=g3LIyX3WKvKZKCDiNegcjdvV9KrE5GuZqI1LGl55y+k=;
+ b=A/O6gv2RvyfqNmGxk0Oy8S/zaZ2s9aPqEUGDtAfVgBtQxMp43nD7bgoYvzJfuoq6yxW5Zj
+ w3HLB/wCHiq7T7NJhCFqYp5XowEnxU/dWGpvqIEdiBOeVJk8THp7jJkzy4vZHVmN6jUobp
+ Hm/ewXdNrJR1rXul/R7U1XO9TMH+STg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784186987;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=g3LIyX3WKvKZKCDiNegcjdvV9KrE5GuZqI1LGl55y+k=;
+ b=/g4jUZz1Z9+NweA40yV+/qeyjxaf6sn/R06knr+Oke7O/UtDdVqP8Do2Y+slPio3DbhHNZ
+ ZcNvyli9PHX3eWCw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=lwB2BVxZ;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=avDpyJLb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784186986; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=g3LIyX3WKvKZKCDiNegcjdvV9KrE5GuZqI1LGl55y+k=;
+ b=lwB2BVxZRa0GrUlin+WmK61EopznlDzcm5bzidyRFH+3N902mujlYb0N5KLJRDVK2dMQ47
+ 2XFpLwCMUgAE/eoIYUqOE1NDCm4h+AdGlvHVL54NrpZOhz2Dtmjvg+UlwOFpQ52Pr4CwLM
+ nIFGB0OCUynHt3uEzr3ZcHNb8hpYlgY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784186986;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=g3LIyX3WKvKZKCDiNegcjdvV9KrE5GuZqI1LGl55y+k=;
+ b=avDpyJLbi45/FV0c1zvSK6pnKbEza7yevXJJn7a64VxHTQQxqPKzOg/3ARhOAFUn5O8fsw
+ nILGjPvmVD4ACPDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D844A779AD;
+ Thu, 16 Jul 2026 07:29:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id kTCbM2mIWGpsHAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 16 Jul 2026 07:29:45 +0000
+Message-ID: <1a10cacd-46da-44dd-822f-898966bd7c63@suse.de>
+Date: Thu, 16 Jul 2026 09:29:45 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/vboxvideo: Use damage iterator and plane damage
+ clips
+To: hansg@kernel.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev
+References: <20260703151841.375364-1-tzimmermann@suse.de>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260703151841.375364-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 15C603E3B
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+ ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ DKIM_TRACE(0.00)[suse.de:+]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MIME_TRACE(0.00)[0:+]; TO_DN_NONE(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[7];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, suse.de:dkim, suse.de:email, suse.de:mid,
+ suse.com:url]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,181 +148,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+gentle reminder to review this patch
 
-Pre-existing issues:
-- [Critical] Missing cleanup of job scheduler and SRAM pool on probe error =
-paths causes a Use-After-Free.
-- [Critical] Ignored return value from ethosu_sram_init() leads to potentia=
-l memory corruption.
-- [High] Registering a shared IRQ handler before enabling hardware clocks c=
-an cause a bus fault.
-- [High] User-triggerable memory leak of done_fence in ethosu_ioctl_submit_=
-job error paths.
-- [High] Refcount underflow caused by calling dma_fence_put() on an uniniti=
-alized done_fence.
+Am 03.07.26 um 17:18 schrieb Thomas Zimmermann:
+> Use damage iterator to handle updates without damage clips correctly.
+> If no damage clips have been given, drivers should update the entire
+> display area.
+>
+> Also enable damage clips for the plane to minimize the area of each
+> display update.
+>
+> v2:
+> - fix plane-state order when calling _damage_iter_init() (Sashiko)
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>   drivers/gpu/drm/vboxvideo/vbox_mode.c | 24 +++++++++++-------------
+>   1 file changed, 11 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/vboxvideo/vbox_mode.c b/drivers/gpu/drm/vboxvideo/vbox_mode.c
+> index 8e4e5fc9d3c5..cd78071b6cbb 100644
+> --- a/drivers/gpu/drm/vboxvideo/vbox_mode.c
+> +++ b/drivers/gpu/drm/vboxvideo/vbox_mode.c
+> @@ -15,6 +15,7 @@
+>   
+>   #include <drm/drm_atomic.h>
+>   #include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_damage_helper.h>
+>   #include <drm/drm_edid.h>
+>   #include <drm/drm_fb_helper.h>
+>   #include <drm/drm_fourcc.h>
+> @@ -282,9 +283,10 @@ static void vbox_primary_atomic_update(struct drm_plane *plane,
+>   									   plane);
+>   	struct drm_crtc *crtc = new_state->crtc;
+>   	struct drm_framebuffer *fb = new_state->fb;
+> +	struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state, plane);
+>   	struct vbox_private *vbox = to_vbox_dev(fb->dev);
+> -	struct drm_mode_rect *clips;
+> -	uint32_t num_clips, i;
+> +	struct drm_rect damage;
+> +	struct drm_atomic_helper_damage_iter iter;
+>   
+>   	vbox_crtc_set_base_and_mode(crtc, fb,
+>   				    new_state->src_x >> 16,
+> @@ -292,22 +294,17 @@ static void vbox_primary_atomic_update(struct drm_plane *plane,
+>   
+>   	/* Send information about dirty rectangles to VBVA. */
+>   
+> -	clips = drm_plane_get_damage_clips(new_state);
+> -	num_clips = drm_plane_get_damage_clips_count(new_state);
+> -
+> -	if (!num_clips)
+> -		return;
+> -
+>   	mutex_lock(&vbox->hw_mutex);
+>   
+> -	for (i = 0; i < num_clips; ++i, ++clips) {
+> +	drm_atomic_helper_damage_iter_init(&iter, old_plane_state, new_state);
+> +	drm_atomic_for_each_plane_damage(&iter, &damage) {
+>   		struct vbva_cmd_hdr cmd_hdr;
+>   		unsigned int crtc_id = to_vbox_crtc(crtc)->crtc_id;
+>   
+> -		cmd_hdr.x = (s16)clips->x1;
+> -		cmd_hdr.y = (s16)clips->y1;
+> -		cmd_hdr.w = (u16)clips->x2 - clips->x1;
+> -		cmd_hdr.h = (u16)clips->y2 - clips->y1;
+> +		cmd_hdr.x = (s16)damage.x1;
+> +		cmd_hdr.y = (s16)damage.y1;
+> +		cmd_hdr.w = (u16)drm_rect_width(&damage);
+> +		cmd_hdr.h = (u16)drm_rect_height(&damage);
+>   
+>   		if (!vbva_buffer_begin_update(&vbox->vbva_info[crtc_id],
+>   					      vbox->guest_pool))
+> @@ -539,6 +536,7 @@ static struct drm_plane *vbox_create_plane(struct vbox_private *vbox,
+>   		goto free_plane;
+>   
+>   	drm_plane_helper_add(plane, helper_funcs);
+> +	drm_plane_enable_fb_damage_clips(plane);
+>   
+>   	return plane;
+>   
+>
+> base-commit: a2d82f27ac35c691c1c65b40c72b13d8b2a7f91f
+> prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+> prerequisite-patch-id: a5a973e527c88a5b47053d7a72aefe0b550197cb
+> prerequisite-patch-id: b9adc9622920a3e70168e672c2c92795b3e3a106
+> prerequisite-patch-id: 5030de433a01c2e99056cadb676a8e2ba35f055a
+
+-- 
 --
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
---- Patch [1]: [PATCH] accel/ethosu: check MMIO mapping errors in probe ---
-commit 211e95fc7f28959e17e3b5a23f5f4f5aaf071bdd
-Author: GuoHan Zhao <zhaoguohan@kylinos.cn>
-accel/ethosu: check MMIO mapping errors in probe
 
-devm_platform_ioremap_resource() returns an error pointer when the register
-resource cannot be mapped. ethosu_probe() stores it and continues until
-initialization dereferences it through MMIO accessors. This patch returns
-the mapping error before initializing the device.
-
-> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/eth=
-osu_drv.c
-> index ed9c748a54ad5..b2901eb8a7a03 100644
-> --- a/drivers/accel/ethosu/ethosu_drv.c
-> +++ b/drivers/accel/ethosu/ethosu_drv.c
-> @@ -342,6 +342,8 @@ static int ethosu_probe(struct platform_device *pdev)
->  	dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(40));
-> =20
->  	ethosudev->regs =3D devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(ethosudev->regs))
-> +		return PTR_ERR(ethosudev->regs);
-> =20
->  	ethosudev->num_clks =3D devm_clk_bulk_get_all(&pdev->dev, &ethosudev->c=
-lks);
->  	if (ethosudev->num_clks < 0)
-
-I noticed some additional pre-existing issues in this driver.
-
-drivers/accel/ethosu/ethosu_drv.c:ethosu_probe() {
-    ...
-        ret =3D ethosu_init(ethosudev);
-        if (ret)
-                return ret;
-
-        ret =3D drm_dev_register(&ethosudev->base, 0);
-        if (ret)
-                pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
-
-        pm_runtime_put_autosuspend(ethosudev->base.dev);
-        return ret;
-}
-
-[Severity: Critical]
-This is a pre-existing issue, but was not introduced by this patch.
-
-If ethosu_init() or drm_dev_register() fail, the function returns directly
-without calling ethosu_job_fini() or freeing the sram pool.
-
-Because the job scheduler is embedded in the devm-allocated ethosu_device, =
-it
-will be freed when devm cleans up. However, the drm scheduler kthreads and
-timers remain active and will access the freed memory.
-
-Can this cause a use-after-free regression leading to a kernel panic?
-
-drivers/accel/ethosu/ethosu_drv.c:ethosu_probe() {
-    ...
-        ret =3D ethosu_job_init(ethosudev);
-        if (ret)
-                return ret;
-
-        ret =3D ethosu_init(ethosudev);
-    ...
-}
-
-[Severity: High]
-This is a pre-existing issue, but was not introduced by this patch.
-
-ethosu_job_init() registers the interrupt handler with IRQF_SHARED before
-ethosu_init() resumes PM runtime and enables the clocks.
-
-If another device on the same IRQ line triggers an interrupt in this window,
-the handler will execute and read NPU_REG_STATUS:
-
-drivers/accel/ethosu/ethosu_job.c:ethosu_job_irq_handler() {
-    ...
-        u32 status =3D readl_relaxed(dev->regs + NPU_REG_STATUS);
-    ...
-}
-
-Will reading from an unclocked NPU peripheral crash the system?
-
-drivers/accel/ethosu/ethosu_drv.c:ethosu_init() {
-    ...
-        ethosu_sram_init(ethosudev);
-    ...
-}
-
-[Severity: Critical]
-This is a pre-existing issue, but was not introduced by this patch.
-
-In ethosu_sram_init(), if gen_pool_dma_alloc() fails, it returns an error.
-However, ethosu_init() ignores this return value.
-
-Because npu_info.sram_size was already set to gen_pool_size(), it remains
-non-zero while sramphys remains 0.
-
-When a user submits a job requesting sram, the size check passes, and
-ethosu_job_hw_submit() configures the hardware to use physical sram
-address 0x0.
-
-Could this result in a memory corruption regression or an IOMMU fault?
-
-drivers/accel/ethosu/ethosu_job.c:ethosu_job_err_cleanup() {
-        unsigned int i;
-
-        for (i =3D 0; i < job->region_cnt; i++)
-                drm_gem_object_put(job->region_bo[i]);
-
-        drm_gem_object_put(job->cmd_bo);
-
-        kfree(job);
-}
-
-[Severity: High]
-This is a pre-existing issue, but was not introduced by this patch.
-
-ethosu_ioctl_submit_job() allocates done_fence. If a subsequent validation
-fails, the error path calls ethosu_job_err_cleanup().
-
-This function frees the job structure but misses freeing job->done_fence.
-
-Can an unprivileged user repeatedly call the submit ioctl with invalid hand=
-les
-to trigger a done_fence leak?
-
-drivers/accel/ethosu/ethosu_job.c:ethosu_job_run() {
-    ...
-        if (unlikely(job->base.s_fence->finished.error))
-                return NULL;
-
-        dma_fence_init(fence, &ethosu_fence_ops, &dev->fence_lock,
-                       dev->fence_context, ++dev->emit_seqno);
-    ...
-}
-
-[Severity: High]
-This is a pre-existing issue, but was not introduced by this patch.
-
-If job->base.s_fence->finished.error is true, the function returns early
-without calling dma_fence_init() on job->done_fence.
-
-When the job is later destroyed, ethosu_job_cleanup() unconditionally calls
-dma_fence_put() on the fence:
-
-drivers/accel/ethosu/ethosu_job.c:ethosu_job_cleanup() {
-    ...
-        dma_fence_put(job->done_fence);
-    ...
-}
-
-Since the fence is zero-initialized, will calling kref_put() on it violate =
-the
-API and cause a refcount underflow?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716065219.9310=
-88-1-zhaoguohan@kylinos.cn?part=3D1
