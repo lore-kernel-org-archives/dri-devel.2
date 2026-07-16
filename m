@@ -4,43 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6061C44501
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:41:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E493CC4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:42:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4659310F221;
-	Thu, 16 Jul 2026 08:41:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4466A10F236;
+	Thu, 16 Jul 2026 08:42:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ioc95cn6";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="bpTwbyiL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3480C10F221
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 08:41:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E36F840DC0;
- Thu, 16 Jul 2026 08:41:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5331F00A3D;
- Thu, 16 Jul 2026 08:41:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784191277;
- bh=qJvG6jf7qAkUuW3esHmQdAKgHHkK+ajwURbJP/Hgw/c=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ioc95cn6CYoQ1c3u34h5HZQuzvQtKK8TY0IfOKNH4siKREhDConFP22It7OwTRFos
- eIToA90mAU2ITitSD+EpZU4Dp31m2SuRohwRsaEuFq9MJ5KcXBggY4uvhIrElaNR9S
- 8NBIvK/l61fiTF0ooU+Ag+KYe5D1ImSxPXo5TMsEAt0oUvCjSkP9f1Tt7n7jxa8VU8
- XsHw8VhW0wtfrRXvedJhqfQkw4HOujaNWg7RGgEmfXBnd9jaiQNxOaqg1fEmWVBNfh
- 5mTI9TRjQ36umQxW2orLLXt/HyDPAakaCYjmZxTSorrdUMfczsGYrf48zpM1Bzrb/q
- kSEy+/63VY+ew==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] accel/ethosu: propagate SRAM initialization errors
-To: zhaoguohan@kylinos.cn
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260716082530.1023538-3-zhaoguohan@kylinos.cn>
-References: <20260716082530.1023538-1-zhaoguohan@kylinos.cn>
- <20260716082530.1023538-3-zhaoguohan@kylinos.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 08:41:17 +0000
-Message-Id: <20260716084117.9C5331F00A3D@smtp.kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D22D10F22A;
+ Thu, 16 Jul 2026 08:42:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
+ From:Reply-To; bh=iyWME1/Wlefybyl0ByxBWGf+Dl3rG+5VnCsnj9UCLrY=; b=bpTwbyiLiQ2
+ eQhqbmepEoAgm+cFssiafkvLT+rYtsezCjb7ku7Ra0/yAbvUakaMGylnV4wHBhhi3q0luGTU5ROhh
+ AmsQ5iDcYQTK9pxmvE9Cwvm2Fx69oB7t2DJPti5eO4aktgH7bgbMo2/1gtMlDZO/kEDP8xRdOcLYU
+ cAwjnVqUmigPo/lFlFyK4GMoeU1zeBmSKLadY2wjjPK9tl65g095mEh4PdAXFUcDDiWZJOENNnOwy
+ hV0ySqTxsBXrpHvbipEvt1zh6gBt9hvwNcWt+7kBU2qnXdgXdG0+57uN6XZKIKU1QvxfOKoEI003I
+ 8oo6thGPcMguP48TtBjFLnQ==;
+Received: from [90.240.106.137] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wkHfT-00FosS-GO; Thu, 16 Jul 2026 10:42:07 +0200
+Date: Thu, 16 Jul 2026 09:42:06 +0100
+From: Tvrtko Ursulin <tursulin@igalia.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-intel-gt-next
+Message-ID: <aliZXnfbOV-Mh8gZ@linux>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,176 +60,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [Critical] Missing hardware stop and wait for active jobs in the device r=
-emoval path leads to DMA Use-After-Free.
-- [High] The driver registers a shared interrupt handler but fails to check=
- the device PM status before accessing hardware, and its suspend callback l=
-acks IRQ synchronization.
-- [High] Prematurely calling `drm_sched_fini()` during device removal leads=
- to a Use-After-Free when userspace closes open DRM file entities.
-- [High] Missing `drm_dev_enter()` and `drm_dev_exit()` protection in `etho=
-su_ioctl_submit` allows a TOCTOU race with device removal.
-- [High] Calling `drm_sched_fini()` on `drm_sched_init()` failure causes a =
-crash on uninitialized work items.
-- [Medium] The device is not synchronously suspended during driver unbind/r=
-emoval, leaving its hardware clocks permanently enabled.
---
+Hi Dave, Sima,
 
---- Patch [2]: [PATCH 2/3] accel/ethosu: propagate SRAM initialization erro=
-rs ---
-commit d63b5342071ce711d48106e8b0fded82dbcf48e8
-Author: GuoHan Zhao <zhaoguohan@kylinos.cn>
+Here is the first pull request for 7.3. There isn't much to mention
+though. Apart from the stream of AI-induced fixes, all of which have been
+sent via fixes already, the only other changes are some misc stylistic
+cleanups.
 
-accel/ethosu: propagate SRAM initialization errors
+I will be away for the next two weeks so might send a late follow up in
+the rc6 week if something interesting will land in the meantime.
 
-This patch fixes a bug where ethosu_sram_init() errors were ignored in
-ethosu_init(), leading to jobs programming physical address zero for SRAM. =
-It
-adds proper error propagation and synchronous suspension in the probe path.
+Tvrtko
 
-Link: https://sashiko.dev/#/patchset/20260716065219.931088-1-zhaoguohan@kyl=
-inos.cn?part=3D1
+drm-intel-gt-next-2026-07-16:
+Driver Changes:
 
-> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/eth=
-osu_drv.c
-> index d1153b15ca3ee..479156f79bc18 100644
-> --- a/drivers/accel/ethosu/ethosu_drv.c
-> +++ b/drivers/accel/ethosu/ethosu_drv.c
-> @@ -320,7 +320,9 @@ static int ethosu_init(struct ethosu_device *ethosude=
-v)
->  	ethosudev->npu_info.id =3D id =3D readl_relaxed(ethosudev->regs + NPU_R=
-EG_ID);
->  	ethosudev->npu_info.config =3D config =3D readl_relaxed(ethosudev->regs=
- + NPU_REG_CONFIG);
-> =20
-> -	ethosu_sram_init(ethosudev);
-> +	ret =3D ethosu_sram_init(ethosudev);
-> +	if (ret)
-> +		goto err_runtime_suspend;
-> =20
->  	dev_info(ethosudev->base.dev,
+Fixes/improvements/new stuff:
 
-[ ... ]
+- Fix phys BO pread/pwrite with offset [gem] (Joonas Lahtinen)
+- Add missing nospec on parallel submit slot [gem] (Joonas Lahtinen)
+- Return NULL on error in active_instance (Joonas Lahtinen)
+- Fix NULL deref in I915_CONTEXT_PARAM_SSEU [gem] (Joonas Lahtinen)
+- Fix NULL deref on sched_engine alloc failure [gt] (Joonas Lahtinen)
+- Do not leak siblings[] on proto context error [gem] (Joonas Lahtinen)
 
-> @@ -389,7 +391,7 @@ static void ethosu_remove(struct platform_device *pde=
-v)
->  {
->  	struct ethosu_device *ethosudev =3D dev_get_drvdata(&pdev->dev);
-> =20
->  	drm_dev_unregister(&ethosudev->base);
->  	ethosu_job_fini(ethosudev);
+Miscellaneous:
 
-[Severity: Medium]
-This is a pre-existing issue, but does this removal path lack a synchronous
-suspend of the device?
+- Return bool values from a boolean helper [gt] (Andi Shyti)
+- Use correct selftest config symbol [gt] (Pengpeng Hou)
+- Fix GT PM sort comparators [selftests] (Emre Cecanpunar)
+- Return NULL for missing multi-lrc parent [guc] (Linmao Li)
+The following changes since commit 6c064db893f548d57036fce17c6493808396e620:
 
-Since devres cleanup will eventually call pm_runtime_disable() which clears
-the state but leaves hardware powered on if it was active, will failing to
-call pm_runtime_put_sync_suspend() here lead to the clocks and power domains
-leaking and remaining active indefinitely?
+  Revert "i915: don't use a vma that didn't match the context VM" (2026-05-20 10:46:41 +0300)
 
-[Severity: High]
-This isn't a bug introduced by this patch, but doesn't ethosu_job_fini()
-destroy the DRM scheduler via drm_sched_fini() prematurely?
+are available in the Git repository at:
 
-If userspace still holds a DRM file descriptor open after the device is
-unbound, closing the file descriptor will call ethosu_job_close() which
-invokes drm_sched_entity_destroy() on the already finalized scheduler.
+  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-gt-next-2026-07-16
 
-Can this cause a use-after-free accessing destroyed DRM scheduler structure=
-s?
+for you to fetch changes up to 682ea2d28d18bb06f9fc663cb5ab7e80dc0e606a:
 
->  	ethosu_sram_fini(ethosudev);
->  }
+  drm/i915/selftests: Fix GT PM sort comparators (2026-07-15 13:06:07 +0100)
 
-[Severity: Critical]
-This is a pre-existing issue, but is the SRAM freed while the hardware might
-still be active?
+----------------------------------------------------------------
+Driver Changes:
 
-If ethosu_remove() is executed while the NPU is actively executing a job,
-ethosu_sram_fini() will immediately free the SRAM pool via gen_pool_free().
+Fixes/improvements/new stuff:
 
-Since there is no halt of the hardware or wait for the in-flight job to
-finish, could the hardware continue performing DMA read/writes to the freed
-SRAM pool, leading to a DMA use-after-free?
+- Fix phys BO pread/pwrite with offset [gem] (Joonas Lahtinen)
+- Add missing nospec on parallel submit slot [gem] (Joonas Lahtinen)
+- Return NULL on error in active_instance (Joonas Lahtinen)
+- Fix NULL deref in I915_CONTEXT_PARAM_SSEU [gem] (Joonas Lahtinen)
+- Fix NULL deref on sched_engine alloc failure [gt] (Joonas Lahtinen)
+- Do not leak siblings[] on proto context error [gem] (Joonas Lahtinen)
 
-> diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/eth=
-osu_job.c
-> --- a/drivers/accel/ethosu/ethosu_job.c
-> +++ b/drivers/accel/ethosu/ethosu_job.c
-> @@ -230,8 +230,8 @@ static irqreturn_t ethosu_job_irq_handler(int irq, vo=
-id *data)
->  {
->  	struct ethosu_device *dev =3D data;
->  	u32 status =3D readl_relaxed(dev->regs + NPU_REG_STATUS);
+Miscellaneous:
 
-[Severity: High]
-This is a pre-existing issue, but this interrupt is requested with IRQF_SHA=
-RED
-in ethosu_job_init(). If the device enters autosuspend and turns off its
-clocks, could this unconditionally read NPU_REG_STATUS and cause a synchron=
-ous
-external abort or spurious interrupt logic?
+- Return bool values from a boolean helper [gt] (Andi Shyti)
+- Use correct selftest config symbol [gt] (Pengpeng Hou)
+- Fix GT PM sort comparators [selftests] (Emre Cecanpunar)
+- Return NULL for missing multi-lrc parent [guc] (Linmao Li)
 
-Should ethosu_job_irq_handler() use pm_runtime_get_if_active() before check=
-ing
-the hardware registers?
+----------------------------------------------------------------
+Andi Shyti (1):
+      drm/i915/gt: Return bool values from a boolean helper
 
-Additionally, shouldn't ethosu_device_suspend() call synchronize_irq() to
-ensure no handler is mid-flight before disabling clocks?
+Emre Cecanpunar (1):
+      drm/i915/selftests: Fix GT PM sort comparators
 
-[ ... ]
+Joonas Lahtinen (6):
+      drm/i915/gem: Fix phys BO pread/pwrite with offset
+      drm/i915/gem: Add missing nospec on parallel submit slot
+      drm/i915: Return NULL on error in active_instance
+      drm/i915/gem: Fix NULL deref in I915_CONTEXT_PARAM_SSEU
+      drm/i915/gt: Fix NULL deref on sched_engine alloc failure
+      drm/i915/gem: Do not leak siblings[] on proto context error
 
-> @@ -337,9 +337,7 @@ int ethosu_job_init(struct ethosu_device *edev)
->  	ret =3D drm_sched_init(&edev->sched, &args);
->  	if (ret) {
->  		dev_err(dev, "Failed to create scheduler: %d\n", ret);
->  		goto err_sched;
->  	}
-> =20
->  	return 0;
-> =20
->  err_sched:
->  	drm_sched_fini(&edev->sched);
+Linmao Li (1):
+      drm/i915/guc: Return NULL for missing multi-lrc parent
 
-[Severity: High]
-This isn't a bug introduced by this patch, but should drm_sched_fini() be
-called if drm_sched_init() fails?
+Pengpeng Hou (1):
+      drm/i915/gt: use correct selftest config symbol
 
-If drm_sched_init() cleans up its internal resources upon returning an erro=
-r,
-would unconditionally calling drm_sched_fini() here attempt to destroy
-workqueues and free resources that were never successfully initialized,
-potentially leading to a panic?
-
-[ ... ]
-
-> @@ -485,9 +483,8 @@ int ethosu_ioctl_submit(struct drm_device *dev, void =
-*data, struct drm_file *file
->  {
->  	struct drm_ethosu_submit *args =3D data;
->  	int ret =3D 0;
-
-[Severity: High]
-This is a pre-existing issue, but doesn't this ioctl lack drm_dev_enter() a=
-nd
-drm_dev_exit() unplug protection?
-
-If userspace aggressively calls the DRM_ETHOSU_SUBMIT ioctl while the device
-is being unbound, can it race with ethosu_remove()?
-
-Without drm_dev_enter(), this could push a job onto the scheduler via
-drm_sched_entity_push_job() while the removal thread is simultaneously
-tearing it down with drm_sched_fini(), causing a kernel panic.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716082530.1023=
-538-1-zhaoguohan@kylinos.cn?part=3D2
+ drivers/gpu/drm/i915/gem/i915_gem_context.c        | 25 ++++++++++++++--------
+ drivers/gpu/drm/i915/gem/i915_gem_phys.c           | 19 ++++++++++++----
+ drivers/gpu/drm/i915/gt/intel_engine_user.c        |  2 +-
+ .../gpu/drm/i915/gt/intel_execlists_submission.c   | 19 ++++++++--------
+ drivers/gpu/drm/i915/gt/intel_reset.c              |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_gt_pm.c           |  8 +++----
+ .../gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c    |  2 +-
+ drivers/gpu/drm/i915/i915_active.c                 |  7 +++++-
+ 8 files changed, 54 insertions(+), 30 deletions(-)
