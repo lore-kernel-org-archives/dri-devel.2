@@ -4,169 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F6AFC44507
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 02:07:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E6F4C44501
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 02:09:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB70110E1BA;
-	Thu, 16 Jul 2026 02:07:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41C0D10E27E;
+	Thu, 16 Jul 2026 02:09:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="sIMwjHuO";
-	dkim=pass (1024-bit key; unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="nsKnDLTp";
+	dkim=pass (2048-bit key; unprotected) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="C5luYaQI";
 	dkim-atps=neutral
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52E4910E1BA
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 02:07:09 +0000 (UTC)
-X-UUID: 0a19718280bb11f18dc8c9802ae25ab1-20260716
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=whNCmdXAsvwQjby32Q8fwxwX859R5RSKkNLOpgqdrRg=; 
- b=sIMwjHuO9i0JpGyHYm3YIFKEqaJPU2r3qlAMSlvYd3tXNj8FAuyJ/WwYcEl9QBzUE13WAuLzc9UUu5EbvFs5d2RewWtvm5Tl7N+1TlHnrxo7B/6J/oaMFYsGIXGUOUSUQ1/fCKNaeOtFrKr8akp76DsILUeQQE1r/SIN4tWNiBw=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.17, REQID:1e939a7e-c492-48cd-9396-e728db0db706, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:d497b38, CLOUDID:d752a7c6-b6d1-4d54-8526-d85a67206e4b,
- B
- ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
- Content:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-
- 1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 0a19718280bb11f18dc8c9802ae25ab1-20260716
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
- mailgw02.mediatek.com (envelope-from <ck.hu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1824096838; Thu, 16 Jul 2026 10:07:04 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Thu, 16 Jul 2026 10:07:02 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Thu, 16 Jul 2026 10:07:02 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u9qN+ZXDcEVxr4OwLrfXar9wIah5yf04wR7NpDEzEcnYWTEjt4Mvh/Qd1Fbx3Hgm9gyplxu6mk0x7gdwSsXEdC1SVjHnk3R+gFUA837ftV9+6Nm+Se6pfVzeLHCeKAJLHv+UUIWhKe7iW3795txQ2YmasFdR5jJ8Wrg2QFS90TJdDUpFRHGTffHYeTzhKIPxouItgw+eT/wzCRdQUR1e5eKoadhlOaZAS5VQ8arha5CM4FSEfdxtKjwmAnhNOKVVLxEBCpFyoj/oIes/ZgaW8AEJEE9Bhk+ZbCkvj35S0IBkShAroiFz2ykpFQtCcjrc225ZjKyCW/weBKDs5oLI1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=whNCmdXAsvwQjby32Q8fwxwX859R5RSKkNLOpgqdrRg=;
- b=leJyYNo6ZFdpFqPWfbAEm4BX/uJGr2q/4EnI2DGYV+2BxWbeiH8Sc1GPYcy+qP6vVpzEXIx7TozpiH3Wl2pAXLK/Dq9JMzbDYKydQlmIdHv9R+ArQXXaOg07hMQDhxCfTJnQaEuBmOXv3v+pKoma2MI+gNnf2NIKK+LxUOGyblagr+5e9ErgGw3ufBgjw7nVUszef+eqoN4U7sRB/+KyOjryli8QYCLM1zunjwRmLRzF7p5G6p/oajEP5XZLZF7y7llZh7cRsTm6lXq3RIKT2BlRdFIbVbPXzG6Xpomx62cMbHJb7TlKXzUB6O66zAGWXVIEPiROtbpl14GniXDGRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com
+ [74.125.224.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B592810E27A
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 02:09:00 +0000 (UTC)
+Received: by mail-yx1-f44.google.com with SMTP id
+ 956f58d0204a3-664c6304683so2620405d50.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 19:09:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784167739; cv=none;
+ d=google.com; s=arc-20260327;
+ b=b6VG2T2UYxcdEHjhFAHpqgmbgnmCRNM4DQxtOp+aBfvlwgyhPa7ys0OePzQikalSBe
+ cvlRLA7VjvHGtwLZTqgJAJ5YRal0cjzstkLDcrpJElBPOVhWsqdfGA0VmKjJQxcSWuqJ
+ TYbmmaNbBJLjYIaxnciT1UspExs/0bNweG/6lt1qIm8M4mFFF1lkMggLws9n5ron7YLT
+ 2puiAglSyT2LK90+9OomOy5Ko3sajMoNJJ6VFv2eQqek3CSht3aJrra92j+TwqL5Ytv8
+ FQGKAhVyGLaQankaR47PUYHsPmDkBaSILPuz9X9WesCGv+sgPdYZZY9mLSC4S26AqGyI
+ zuiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=tII59+nJn0Y7yFeQ2yo7nNurb6NAgKIZTZuMeMT6aYU=;
+ fh=MA7Bfw+oA7CBotW02vZfVlaqv8xRb90ZGtTpER9M3Zk=;
+ b=olumrO8oZ8Ku7D2ROMMx6FO9yCvnYEgjY9GE8dHU4LWU6gFCQiBYbrlEhWvYcZSghI
+ vF7NVO5HB0oZ5+j3X7ywT3XE4G7sgGTyExpDalBCe8KsCdH4T/EGiEt4hrOO9nZ3n9XZ
+ vWo7UU4iH3XMUdu+P1X1j2GdL9NeZc8Zm62p5Pb+cnsYXxt4SeuYxP/lP/FtxSvdst1C
+ ODA5vR/TL/ojKMqMxk3jIljRlVL2g5yhvhliBGIiyuDZQE7tgvYNzaEHAM9B2IOUM9U9
+ XXzprnxwcR4zDKojjD08OT+AQguZejX+Frk2E19jlsbzYHLWvVlp+C/QuCpEZJh+rMOt
+ bSmA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=whNCmdXAsvwQjby32Q8fwxwX859R5RSKkNLOpgqdrRg=;
- b=nsKnDLTpdjZBtfdtb2XrYttek0+ecUXZiVmAc2R+7sSzWTgVH+l7dZ1ToipnXV2l29ZchW8Xt4hmQsJ3uGhoCaPMLd7azwtbMarnSG3trhTQJvVthiy+RW39UbcmWxfzhwk165Gs4KvC31suzdiTIsHdJkofE7qUu340TRqLgh4=
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
- by TY2PPF2525F04F7.apcprd03.prod.outlook.com (2603:1096:408::9c8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Thu, 16 Jul
- 2026 02:06:59 +0000
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
- 02:06:59 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>, "AngeloGioacchino Del
- Regno" <angelogioacchino.delregno@collabora.com>, "vulab@iscas.ac.cn"
- <vulab@iscas.ac.cn>, "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
- "airlied@gmail.com" <airlied@gmail.com>, "matthias.bgg@gmail.com"
- <matthias.bgg@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>
-Subject: Re: [PATCH v2] drm/mediatek: fix of_node leak in mtk_drm_probe loop
-Thread-Topic: [PATCH v2] drm/mediatek: fix of_node leak in mtk_drm_probe loop
-Thread-Index: AQHdBwmsc1xiYzegy0+FYUp8k+PbtbZvgXwA
-Date: Thu, 16 Jul 2026 02:06:59 +0000
-Message-ID: <eb2062305868dca02d34d8f09caddbc8a91e5cd5.camel@mediatek.com>
-References: <20260628141751.47090-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260628141751.47090-1-vulab@iscas.ac.cn>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.52.3-0ubuntu1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|TY2PPF2525F04F7:EE_
-x-ms-office365-filtering-correlation-id: cef087d5-df17-49a7-e32f-08dee2deeb98
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|42112799006|1800799024|7416014|376014|366016|38070700021|10067099003|56012099006|18002099003|22082099003|11063799006;
-x-microsoft-antispam-message-info: 8TcliIzK8V4v71nOClZdiDn3/uKdQwh2DhmVwYJVkCLl55bjufsNxGmxJrTYtuOEwNHVeWf+m4KY4DEbBAnfadjwcGqIQsbE3v7QUizrxwFDbBlOt8qBbpCjEQ/kIhKemW5eP6m7TlCPZ+/RvvACIwl04C9QK6GHQ7A7GSV3pPdWxW4qWkNWqFEX67x6fCN7qI7Ez41wvmE0vRMruCU5rXw+Z5+kdXs7ny2mwz++wHwo6Lawvebxvh4gAi+NXi96+yp8sQblCwDCPa694ZOOWBbWZZscJb1GnMiY6Es8fyDDr6Mp6sLjJMiLuGOYQoZvrxGSp9+PQiqJAuBKlIv08aM+c7z038s5GZ2UT7HLQwtVciO997NqZLxAZACrGzaMPN8auXOmcZdPz0HobIXMyzXByYdjiBRTIqdIEI5lZoN+ncVoWa8vaEC9JjF2GZSKpKP2pBqvBWHc6K3QPX8a91acBsGgHgudoA56WlWQSVyUBH3ejxLo7CCnKqBMZMiKWTWkyrrDdOC4KWsFCQZkhhO/v0cUYDuuVS38D0eUaQ9nUBOOGbO4LwjCu2IgYRhj+Rj9Ut+8CBGm92OIzIedKdWA9vV1w89mJiLoG8qTJvVFddQhqzOaSD3lwF+PuxOQuJpqb/TM4TtPxu+Jdo1F6Pd4gtCEifRP+GS15fpYofHFFgY+leSOyFWaXIcWutXUHfvTqf9RiBjU3cQiy8zIMXcdm5rl9oOPL7vSWXvyqo0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYZPR03MB6624.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(42112799006)(1800799024)(7416014)(376014)(366016)(38070700021)(10067099003)(56012099006)(18002099003)(22082099003)(11063799006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Sk8xL3hPOUV5TGVsQXBsdTg0M2EwcTdWZ1ZjeERBYXpnZ09WWForNnVCWmY2?=
- =?utf-8?B?UVU1Uy9nTEhpSW56d3l3dEJEQm16Wjg1dGx6SEsyVmJEdGdzNmpJN29GSjJY?=
- =?utf-8?B?V3lrREk5VFdtVllqQzBiM0FOckNqMXNra0F5OWVOaG5LaDZCUXFnZW5BODlK?=
- =?utf-8?B?bXhRQkVvMWV2L3J1a2dtTUd6MEI0aDJmVEovUEVRMS92dlZvSGV5aUdkOXRa?=
- =?utf-8?B?aEhMSkl0Rk8xdFk5WGx1Tk1hYVd6OEpDZEdnQlFuK0V0TCtEWFovVGZkVi9R?=
- =?utf-8?B?RjlwQVc0MHhHZGpaOHB5T05QbkJOVjJ5dGJxS2dEK2ZmT0l6aXVzMGJqcEI5?=
- =?utf-8?B?d2JuK3pxdGFNNDY2aUJwa2hXZEtOTlEzajAwSzIwdHNjZ3FGZU0vWVpFQ3dj?=
- =?utf-8?B?N1g0R2NpeWthOXVkRkliQ2xzaXNRS0F5M05neG1Xb2I2QW4rQlNZelVlaTBH?=
- =?utf-8?B?NXJVYzlyb0lBSHZ0RVFJeW9nZDAvclk5enRRc3JYWUhQeld4YnVwUVRDZ2J1?=
- =?utf-8?B?UDJXaVJ0ZDBTUVJwd3BOejBBdnhwWFdNMXFYRHhSeWRFRnQrVk1sQVdnVzEw?=
- =?utf-8?B?N0VmWFdnbE9Nd3RjMWsyYmxzSnVVVk8wcGI4NW9iUTYybDA2b3ZYWng0TlYy?=
- =?utf-8?B?VjJDVVFqTXN6V0taSW85M0F1aEk1OWpMQ0RBZnlOUWVKLzRreGJRaTBJYlky?=
- =?utf-8?B?dzdXaUxUM0ExanVLQk5Hb3IzVW00UXAzVGFUQXNuRFhDeDNTbUZRSHE1Vkho?=
- =?utf-8?B?QmpXSDZ1TFZKWlZVR1psM0hjemx6Zmt0amdLbDErOTBhaW1jcGo0OHJiSmF5?=
- =?utf-8?B?UXdnZDNCZWVMMlduZnVyRmQ0L0lxYW9Hd3RNSEg5NFI3d3IxcHh5amFheFd1?=
- =?utf-8?B?bk1IQi9oeWdhUGhITElJTVpkc1dJUUVHL3BhQ3g1YTNZK2pVZVNHTlUyVlM0?=
- =?utf-8?B?MzNCc3NyM3lmUXFNZ09HdzBHd2FMUFJSdy9rZ1RYeTR6cEw0NVpCUEdrMDl6?=
- =?utf-8?B?TStOMFE3c0wydGxtRkJicDVUczRtNkg4dlFaenkzeTgyWm9NZmZ3TGNxWmVx?=
- =?utf-8?B?by9qSjYySmpjWWVXb0VYamdsd2pmdXJkYVRXRVZSTWFJVHhUTjhxc2x1NkVs?=
- =?utf-8?B?YnB5QnJVakxHRW03SExQUm5QMkFmcHNoUnQvYzgvR3RkOHFYTkpPOWVFZXFJ?=
- =?utf-8?B?a2htcVF2QS9xVjBoOTFhZDM5RU5MM2E1dmMya1FlSExSRGxROW9kazN1UHZp?=
- =?utf-8?B?TFdLUnBRVmRpNFJUTjBXTmZ1RHNxTURXSEVubml4bTBUYnpaNW1talpOQzhV?=
- =?utf-8?B?TnIyL3NsQ2ZHckE4N1A1bFQ4TkZ0MTNkbmM0UURrWmhQbExicFJWS0twbTZM?=
- =?utf-8?B?aTRHZTVoYitCMnJUemF0NE0vNmdyTEdERHY2UE5XNjJYVTI4dUd2TGwxSCtv?=
- =?utf-8?B?c1oyQ3NuWXVkcTJJa2xSK3AvQU1lb2xYRndyclFudHEzVzY3MjJZZXY4akpt?=
- =?utf-8?B?WkNUOFp1bm11NVVScjdwL2ZmOFVYZDFqaHcwNXNXbFczNGNXWW55akhWUzAy?=
- =?utf-8?B?T01qV0V4dXNmays5Zko3L3ZFUjh0TVpkUU9Md0Fxc3cyNEpTbzJHK1pNdUVu?=
- =?utf-8?B?YUtTcGs1U1ZPN3RSenFaWEpmWGhQTHJVK2xJOFRyYmg4Ykoxc2xINmJ1U3I3?=
- =?utf-8?B?c3c3QldWanlGNU1xV3l6bXUvdFA2SmpScHhreUFrWFE0UUtmdkhjYUQwaWxk?=
- =?utf-8?B?Q0x3bmFqMFl4YkNuanYzeDlic0IvbjcwU0x5ZWt1bHczTThDNkZ5dlJiaThH?=
- =?utf-8?B?K3RBcG9EbURoMmdON1NRR1R0M2IrZGVuQTJ6Sm1YdjI3d2tGRDZJYlRYakxY?=
- =?utf-8?B?dUVVWnNlQVFLc3dZeEl3NGFxRitRZkJ3MnY2WWJYRmVVZytZekdaZytLKzcw?=
- =?utf-8?B?RXNSdW9MSnY1MTgrRTgxdXMveTc4azhGOVhXei94WWRFbjQreFR5MkRrQkRB?=
- =?utf-8?B?TUhNaWdGbnNaME5NbTJWOXFYK2NmaWtEYytWa3Qwdm9IOE04YU1nREJEWmND?=
- =?utf-8?B?NFlwSC92WDEyT2RoVkdVU0FtaldjekJpVEN1b2FvNU1QelEvUHc3MWFvYWE1?=
- =?utf-8?B?ZHVjTWRBUnc5SEhwWjdLOWREbVNuRGd3NHJWdTk3VXdMeDNYQTY4MWZiREk2?=
- =?utf-8?B?bWFEZ3FKek1jcWxROUhUSm1zUFhxdEUyRjVYbzk4VGN1SEY1dFRBcXF3RXlX?=
- =?utf-8?B?SjR5Vkw2aUo1VGpIYjJJUU5wT1I5dHdYdlEzbDBMR2ExUy9oRlJ6YVVUVlhj?=
- =?utf-8?B?b1h1TXB1MzlOaTRrcjNOdG5KSHZSTG1Idk1KYnFueThQc0pWK2ZFQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <66566AD5C22B954D9DD352035319F721@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ d=tenstorrent.com; s=google; t=1784167739; x=1784772539;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=tII59+nJn0Y7yFeQ2yo7nNurb6NAgKIZTZuMeMT6aYU=;
+ b=C5luYaQI3Py/qg1086ez3H7xctygQUadKJw5drsRb6MLsLn5BFy7geell/Snp3xJFa
+ liDXUPnX28dEnF9f6DOReKL0LmIQXwOer9GEclVxqBBQ9X1fHIkIQb3acXf7H4O75AgU
+ ijra68S/E6IbyszvR2GCtwRDSZminTNayXMSr6O5kpl4B/T+pk/XJ/fnMu48sXdVhgp2
+ h52FOsKu/8z2kkZSdBKm09L3aO6zMFjigYIxpIKZ1J193mn2IvFPxvaEF/O+fVG89HKr
+ TRiT2tEwwzlb5YanHWTcXuN0aY4IR7jTCcrWJ7Sy73oJCbiFyDsRj5ABgBlbagyso3p9
+ +u9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784167739; x=1784772539;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=tII59+nJn0Y7yFeQ2yo7nNurb6NAgKIZTZuMeMT6aYU=;
+ b=X2vN5zJTHcn8fTsqCjQzaMdvy8g0UfOiFW3euQ8Bdcwl9ctPBQTpfoLOkBALF6ipVL
+ YeefiQNGeC0bXrmZVTrw7M6dVwKSbkXmU504r72tTEv4KykaViBP6N5CJTeAFEULNir5
+ 1T20pGot2Vj8VsTwElW+r1tdijTv8u27qz5EJm/dDXDEl68rpp92mSR2q8tamjuk59v2
+ fByWcRRiDkXYt4jMj3q21MIJNZ8s+4zQC4dcg18SJIhgGtELAifESbyZi06PQXCyRuYr
+ O6lA85enZN+m0nfjSoDC/M0rBpGxB8SoXD5OVMf9snVtHwghemHFPmfCNqkZST+ivJT2
+ 2+aA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpfc6s8NqzB/sPCusmWSgPyXXMWNUdMFNPtrJEBop1waUDpJxEEPudd9OdI0vix6HdL4uA/Ri6Z2Sw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy1ncpD4UdkltaytpLNz/feU8TY6R/9+AD0QWrbj4kVTuYr41C9
+ RM6Frt42QCccAepcjw2TFdVKz8x/Bu//QOYtNhzRTDQUIX8Pe/PZ3U8QvZE5rZRxIxPEqSrKTWi
+ vIg2BW/muiTFoNzSg8sUldc+LmUU63U36k9wsdW+YAg==
+X-Gm-Gg: AfdE7ckL5TmirznJoQm/FZehVWQ7Z+/nn3lJBlBSye50OHPXU19h+ynjoY4etKXGe+T
+ +ZLDSBskV69hzulFc1kuXAz6jFxb2WRNXPVHg9sayr9q+VFt839wvdpOoOd9/yCMJY3ebcVRmNv
+ O/AmMoSo4W68303sd1F6hW7sNyLXKu7sr9lL6KsJ0TuU31BPsbxEepa3bc/9vYAnu2G1K4hHr9n
+ sCXTK667+tDX88+bF/7LNAPBhzTtTseG7tI7iFbs3Wr+qTXduUOhTIIX0+EBDXDBvbu3s+7VFMK
+ LpMYmI2qy9XZQaiWPR0nMDPD2f1kJtwt9WBag28=
+X-Received: by 2002:a05:690e:1507:b0:664:e3ed:52c3 with SMTP id
+ 956f58d0204a3-667d7ccc0c9mr12122195d50.73.1784167739455; Wed, 15 Jul 2026
+ 19:08:59 -0700 (PDT)
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: jTbohME+EB7wc9F9kB6hNnMEiIGcSpYjA2lDS/XMPr0gtzzHPmO/Vp6nsbtCsIx+DxMr3gZvSVPSaB8Uzgg1Pt5ClYgBZxXN9+15p8A7Poq3k98JKZpUS644CU++o16sxR8d7dN/1reFtMc963Z5kEAjy3rMQ+a5QQKeLnTR0QKM5MqXeOu8AeK8keIDFgS3+R8nbm9ykCz1ocYDeFBBwrnWopn2gWWZSQ+fV8f3mqGuFraKIobnli4afLG/UJrcb+e+gYl5d5vHTi+WuenOZ7B577xp+Z/d4jnddCXKoxvcqbSKk/YHW774Q7jlcYPnpqpoXMrerX7TNdx/4ffadw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cef087d5-df17-49a7-e32f-08dee2deeb98
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jul 2026 02:06:59.6187 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rVpdFo2y3LFpVGiciuHCnuumNQspLG7fA0Q3XbEbjH5IDbAliWJUQqxOOK4j/d53rSIeloeR54k1QX77LI0AfQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PPF2525F04F7
-X-MTK: N
+References: <20260714-radeon_32bit_fix-v1-1-42a99945f6e0@oss.tenstorrent.com>
+ <11218edd-ae58-4966-8172-27b2435eaa1f@amd.com>
+In-Reply-To: <11218edd-ae58-4966-8172-27b2435eaa1f@amd.com>
+From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Date: Wed, 15 Jul 2026 21:08:48 -0500
+X-Gm-Features: AUfX_mysHJnJfe86rmMYRqwDkQW-fetcdx0Rb9SLA2is7B-buYGz3xeLKn1HoLU
+Message-ID: <CAEev2e_gnmhYw_mV8zt2AnkY6Hj_F165veoAPaXhA_ej-5RUUg@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: allocate dummy_page without DMA32 on fail
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -182,47 +109,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-T24gU3VuLCAyMDI2LTA2LTI4IGF0IDIyOjE3ICswODAwLCBXZW5UYW8gTGlhbmcgd3JvdGU6DQo+
-IEV4dGVybmFsIGVtYWlsIDogUGxlYXNlIGRvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFj
-aG1lbnRzIHVudGlsIHlvdSBoYXZlIHZlcmlmaWVkIHRoZSBzZW5kZXIgb3IgdGhlIGNvbnRlbnQu
-DQo+IA0KPiANCj4gSW4gdGhlIGZvcl9lYWNoX2NoaWxkX29mX25vZGUgbG9vcCwgcHJpdmF0ZS0+
-Y29tcF9ub2RlW2NvbXBfaWRdIGFuZA0KPiBwcml2YXRlLT5tdXRleF9ub2RlIGFyZSBhc3NpZ25l
-ZCB2aWEgb2Zfbm9kZV9nZXQgd2l0aG91dCBmaXJzdCByZWxlYXNpbmcNCj4gYW55IHByZXZpb3Vz
-bHkgc3RvcmVkIHJlZmVyZW5jZSBmb3IgdGhlIHNhbWUgaW5kZXguIFdoZW4gdGhlIHNhbWUgY29t
-cF9pZA0KPiBvciBtbXN5c19pZCBtYXRjaGVzIG11bHRpcGxlIG5vZGVzLCBlYXJsaWVyIG5vZGUg
-cmVmZXJlbmNlcyBhcmUNCj4gb3ZlcndyaXR0ZW4gYW5kIHBlcm1hbmVudGx5IGxlYWtlZC4NCj4g
-DQo+IFN1Z2dlc3RlZC1ieTogR3JlZyBLSCA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+DQo+
-IEZpeGVzOiAxZWY3ZWQ0ODM1NmMgKCJkcm0vbWVkaWF0ZWs6IE1vZGlmeSBtZWRpYXRlay1kcm0g
-Zm9yIG10ODE5NSBtdWx0aSBtbXN5cyBzdXBwb3J0IikNCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5l
-bC5vcmcNCj4gU2lnbmVkLW9mZi1ieTogV2VuVGFvIExpYW5nIDx2dWxhYkBpc2Nhcy5hYy5jbj4N
-Cj4gLS0tDQo+IENoYW5nZXMgaW4gdjI6DQo+IC0gRml4IHBhdGNoIGZvcm1hdCBiYXNlZCBvbiBy
-ZXZpZXdlciBmZWVkYmFjaw0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtf
-ZHJtX2Rydi5jIHwgMiArKw0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQ0KPiAN
-Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHJtX2Rydi5jIGIv
-ZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kcm1fZHJ2LmMNCj4gaW5kZXggYzg2YTNmNTRm
-MzViLi41ODg2MGY3MDcxYTkgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRl
-ay9tdGtfZHJtX2Rydi5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHJt
-X2Rydi5jDQo+IEBAIC0xMTM4LDYgKzExMzgsNyBAQCBzdGF0aWMgaW50IG10a19kcm1fcHJvYmUo
-c3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikNCj4gDQo+ICAgICAgICAgICAgICAgICAgICAg
-ICAgIGlkID0gb2ZfYWxpYXNfZ2V0X2lkKG5vZGUsICJtdXRleCIpOw0KPiAgICAgICAgICAgICAg
-ICAgICAgICAgICBpZiAoaWQgPCAwIHx8IGlkID09IHByaXZhdGUtPmRhdGEtPm1tc3lzX2lkKSB7
-DQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb2Zfbm9kZV9wdXQocHJpdmF0ZS0+
-bXV0ZXhfbm9kZSk7DQoNClRoaXMgZHJpdmVyIGhhcyBhbiBhc3N1bXB0aW9uIHRoYXQgb25lIG11
-dGV4X25vZGUgaW4gb25lIG1tc3lzIHBpcGVsaW5lLg0KSWYgbW9yZSB0aGFuIG9uZSwgdGhlcmUg
-c2hvdWxkIGJlIHNvbWUgZXJyb3IgaGFwcGVuLg0KSXQncyBub3QgbmVjZXNzYXJ5IHRvIGtlZXAg
-Z29pbmcuDQpTaW1wbHkgcHJpbnQgZXJyb3IgbWVzc2FnZSBhbmQgcmV0dXJuIGVycm9yIGNvZGUu
-DQoNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwcml2YXRlLT5tdXRleF9ub2Rl
-ID0gb2Zfbm9kZV9nZXQobm9kZSk7DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ZGV2X2RiZyhkZXYsICJnZXQgbXV0ZXggZm9yIG1tc3lzICVkIiwgcHJpdmF0ZS0+ZGF0YS0+bW1z
-eXNfaWQpOw0KPiAgICAgICAgICAgICAgICAgICAgICAgICB9DQo+IEBAIC0xMTU0LDYgKzExNTUs
-NyBAQCBzdGF0aWMgaW50IG10a19kcm1fcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRl
-dikNCj4gICAgICAgICAgICAgICAgIGlmICghbXRrX2RybV9maW5kX21tc3lzX2NvbXAocHJpdmF0
-ZSwgY29tcF9pZCkpDQo+ICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlOw0KPiANCj4g
-KyAgICAgICAgICAgICAgIG9mX25vZGVfcHV0KHByaXZhdGUtPmNvbXBfbm9kZVtjb21wX2lkXSk7
-DQoNClRoaXMgZHJpdmVyIGhhcyBhbiBhc3N1bXB0aW9uIHRoYXQgZXZlcnkgY29tcF9pZCBvbmx5
-IGV4aXN0IG9uY2UgaW4gZGV2aWNlIHRyZWUuDQpJZiBtb3JlIHRoYW4gb25lLCB0aGVyZSBzaG91
-bGQgYmUgc29tZSBlcnJvciBoYXBwZW4uDQpJdCdzIG5vdCBuZWNlc3NhcnkgdG8ga2VlcCBnb2lu
-Zy4NClNpbXBseSBwcmludCBlcnJvciBtZXNzYWdlIGFuZCByZXR1cm4gZXJyb3IgY29kZS4NCg0K
-UmVnYXJkcywNCkNLDQoNCj4gICAgICAgICAgICAgICAgIHByaXZhdGUtPmNvbXBfbm9kZVtjb21w
-X2lkXSA9IG9mX25vZGVfZ2V0KG5vZGUpOw0KPiANCj4gICAgICAgICAgICAgICAgIC8qDQo+IC0t
-DQo+IDIuMzkuNSAoQXBwbGUgR2l0LTE1NCkNCj4gDQoNCg==
+Hi Christian,
+
+On Wed, Jul 15, 2026 at 4:15=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 7/14/26 18:03, Anirudh Srinivasan wrote:
+> > radeon fails to probe on platforms that have all their memory above the
+> > 32-bit range with an -ENOMEM because dummy_page_init calls
+> > alloc_page(GFP_DMA32), which would fail.
+>
+> Unfortunately I clearly have to reject this.
+>
+> The DMA32 allocation is mandatory for radeon to work correctly on some pl=
+atforms.
+>
+> > Allow this driver to work on such platforms by falling back to
+> > ZONE_NORMAL regions. dma_map_page called subsequently would catch any
+> > issues with the device being unable to DMA into the mapped page.
+>
+> No, it doesn't.
+>
+> It's just your special case that dma_map_page() is able to use some IOMMU=
+ to remap the page below 32bits so that the driver can access it.
+>
+> The problem is that we have quite a bunch of cases where this doesn't wor=
+k correctly and eventually result in all kinds of trouble, including random=
+ memory corruptions.
+>
+> In those cases it's better to not load the driver at all than to later de=
+al with corrupted data.
+
+So this platform has an IOMMU, but it isn't enabled in the upstream
+kernel at the moment. I am able to boot up to framebuffer console. Is
+there anything that isn't expected to work in this setup? Is there
+some test I can run to verify this?
+
+I should look into whether the IOMMU on this cihp can be enabled and
+then try this out too.
+
+>
+> What could be possible is to add a special quirk for your platform to not=
+ allocate the dummy page as DMA32 in the first place.
+
+So some kind of a whitelisted set of PCIE vendor/ID combos (with
+working IOMMUS?) where we fallback to non DMA32 ranges?
+
+Regards
+Anirudh Srinivasan
