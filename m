@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C49D5C44512
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 16:07:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0A33C44515
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 16:11:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11A3610F38D;
-	Thu, 16 Jul 2026 16:07:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33E4410F38E;
+	Thu, 16 Jul 2026 16:11:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dR1HC8Bk";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="m3nD08oj";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3F8A10F37A;
- Thu, 16 Jul 2026 16:07:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=yjOzPKf4tTupL5uL1Exy/NeYuxc4gUxpV6ogSWPeNT0=; b=
- dR1HC8BkckY18O0vDibaJN1BasFavqpKwG72KsHyH6sfRGKCPlX5b/1/zbpr3bW5qAzFLKnTysZmR
- Q/lIHabNTkCC+821G66sBOrFjyQbG6GBAeRqAvoFMBTYZNNJBiVYsDl3bCji1jL/PVn8FyiJAhkfZ
- CW2b1Hw36NF/U2WoNz/JD7YeERO5JlAdhiY+wRfX233vb6nDHGmiXmxnFn4ee0D+1KiAygQYWOnUH
- tWzKkQkdPfIUrrDfc9yDAc/piBVqDNa07Zf4xv4Uj+Kp90TxOpqmpIO3KDug3N2sLITCC3rudwHO5
- QU+YMsbmYwM5qhBY3UKhOe+FKkqCUkcHrg==;
-Received: from [178.139.170.72] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wkOc2-00G01i-3C; Thu, 16 Jul 2026 18:07:02 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
- "Nicolas F . R . A . Prado" <nfraprado@collabora.com>,
- Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
- Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Robert Mader <robert.mader@collabora.com>, Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- John Harrison <John.Harrison@Igalia.com>, kernel-dev@igalia.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH v2 20/20] drm/amd/display: enable post-blend colorop
- properties
-Date: Thu, 16 Jul 2026 18:03:17 +0200
-Message-ID: <20260716160556.227556-21-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260716160556.227556-1-mwen@igalia.com>
-References: <20260716160556.227556-1-mwen@igalia.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2D3D10F38E
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 16:11:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1784218303;
+ bh=EeJG6i8FQ9x+3Q+k+4Wemjp63iHAulxRHU2HGhD3XYg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=m3nD08ojnKwsVuhEI7u4R3vDJpaOjCA42FKDAx82px7QkjTjEL/viE0rAK1ww1QxI
+ UsvwTQbo7JzBcabWvzCqj52r6SpUw/3g+KdxgzdOu20bqheUJDIGImC7X2HVxFRuaD
+ j8sI+FTsWVi30n1TTVZlw/cu9boLwo6iQOMEyHH/MWsrEOtkIXrVDttI09JlQA9QIk
+ PZQtBmSGHwQRPaSqOUp9hiriT7PcLh34cHZI6WA8bJY7wU2Oj6o18wb7xqBkNJw9lP
+ PXDXFYsBxCRCRj2nsxclfvvcC926QrKIxzLFkCsPipDMwkWvIw5WC5jj/L5DePO63B
+ RcGccIYV/RbMA==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id BF17C17E0177;
+ Thu, 16 Jul 2026 18:11:42 +0200 (CEST)
+Date: Thu, 16 Jul 2026 18:11:37 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Osama Abdelkader <osama.abdelkader@gmail.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Heiko Stuebner
+ <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/panthor: reject firmware sections with oversized data
+Message-ID: <20260716181137.5005eb02@fedora-2.home>
+In-Reply-To: <20260716143939.21903-1-osama.abdelkader@gmail.com>
+References: <20260716143939.21903-1-osama.abdelkader@gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,47 +66,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Only enable post-blend colorop properties if there is no AMD private
-color prop. Prioritize color mgmt via colorop pipeline instead CRTC
-color mgmt properties.
+On Thu, 16 Jul 2026 16:39:38 +0200
+Osama Abdelkader <osama.abdelkader@gmail.com> wrote:
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 5 +++++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c  | 4 ++++
- 2 files changed, 9 insertions(+)
+> In panthor_fw_load_section_entry(), the data size to copy is calculated
+> without validating it against the allocated section_size:
+> 
+>     section->data.size = hdr.data.end - hdr.data.start;
+> 
+> If a crafted firmware sets data.size larger than the allocated memory,
+> this could cause a heap buffer overflow in panthor_fw_init_section_mem()
+> 
+>     memcpy(section->mem->kmap, section->data.buf, section->data.size);
+> 
+> Additionally, if the section->data.size exceeds the BO size, could this
+> memset underflow the size calculation, leading to a massive out-of-bounds
+> zeroing of kernel memory?
+> 
+>     memset(section->mem->kmap + section->data.size, 0,
+>            panthor_kernel_bo_size(section->mem) - section->data.size);
+> 
+> Reject section entries whose initial data is larger than the section size.
+> 
+> Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 9e5da58f26f8..cb4e3e5652bd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1389,6 +1389,11 @@ int amdgpu_dm_check_crtc_color_mgmt(struct dm_crtc_state *crtc,
- 	bool is_legacy;
- 	int r;
- 
-+	if (crtc->base.color_pipeline_enabled) {
-+		r = amdgpu_dm_crtc_set_colorop_properties(&crtc->base, stream, check_only);
-+		return r;
-+	}
-+
- 	tf = amdgpu_tf_to_dc_tf(crtc->regamma_tf);
- 
- 	r = amdgpu_dm_verify_lut_sizes(&crtc->base);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 6226c9ba5fce..33b3e66f6941 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -804,6 +804,10 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
- 
- #ifdef AMD_PRIVATE_COLOR
- 	dm_crtc_additional_color_mgmt(&acrtc->base);
-+#else
-+	res = dm_crtc_init_colorops(&acrtc->base);
-+	if (res)
-+		return res;
- #endif
- 	return 0;
- 
--- 
-2.53.0
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+
+> ---
+>  drivers/gpu/drm/panthor/panthor_fw.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index 986151681b24..a338c4f0a7f5 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -545,6 +545,7 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  	struct panthor_fw_binary_section_entry_hdr hdr;
+>  	struct panthor_fw_section *section;
+>  	u32 section_size;
+> +	u32 data_size;
+>  	u32 name_len;
+>  	int ret;
+>  
+> @@ -595,6 +596,13 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  		return -EINVAL;
+>  	}
+>  
+> +	section_size = hdr.va.end - hdr.va.start;
+> +	data_size = hdr.data.end - hdr.data.start;
+> +	if (data_size > section_size) {
+> +		drm_err(&ptdev->base, "Firmware corrupted, section data exceeds section size\n");
+> +		return -EINVAL;
+> +	}
+> +
+>  	name_len = iter->size - iter->offset;
+>  
+>  	section = drmm_kzalloc(&ptdev->base, sizeof(*section), GFP_KERNEL);
+> @@ -603,7 +611,7 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  
+>  	list_add_tail(&section->node, &ptdev->fw->sections);
+>  	section->flags = hdr.flags;
+> -	section->data.size = hdr.data.end - hdr.data.start;
+> +	section->data.size = data_size;
+>  
+>  	if (section->data.size > 0) {
+>  		void *data = drmm_kmalloc(&ptdev->base, section->data.size, GFP_KERNEL);
+> @@ -626,7 +634,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  		section->name = name;
+>  	}
+>  
+> -	section_size = hdr.va.end - hdr.va.start;
+>  	if (section_size) {
+>  		u32 cache_mode = hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_CACHE_MODE_MASK;
+>  		struct panthor_gem_object *bo;
 
