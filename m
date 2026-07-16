@@ -4,89 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C04EC4450A
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 23:32:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63FD5C44512
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 23:57:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B21410E27C;
-	Thu, 16 Jul 2026 23:32:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 945C210E3D4;
+	Thu, 16 Jul 2026 23:57:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="YTnZOuWL";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="AV2fAsDQ";
 	dkim-atps=neutral
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com
- [209.85.222.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 278C210E27C
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 23:32:08 +0000 (UTC)
-Received: by mail-ua1-f43.google.com with SMTP id
- a1e0cc1a2514c-976ea28c65fso928149241.1
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 16:32:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1784244727; x=1784849527;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=zLPcGROx6r4Ql2LZvjT2uthnM8rQT31Fs1fwJJQsahA=;
- b=YTnZOuWLtSnWBRcM10eTid+FNXQl28jTKt6vdD2ot8HWbohO7N1fJ/9sxVBkFnrqcC
- SnGkWS3uKQgnk81OuuDW/pC/jhcf6LrnDrTSXpLvnaF4Vy4iHpeaGFP98VEPxdCm/w1+
- pRU/SSJwqDFqakqMs4QsqoJLLZUqHnPiSNfD0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784244727; x=1784849527;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=zLPcGROx6r4Ql2LZvjT2uthnM8rQT31Fs1fwJJQsahA=;
- b=MNjTq0YagQdu+vg+jTryr2nJ0mAcmti75tnDIO6OtxAYfmmVxWp0JutqytnZbs6pom
- Apt2/VsLqCagbFu2LkiPGd8Zw4W0rYwWIGn4wsTsZNU5rr+p+j7ii66JdcJQSRk4TUW2
- 1GetE2Tv3bb5i8YybqGrjf1hF7re/Mf6XO+FM0hNtc9zaA+wtz91js/ed/J2Js/WD+Eu
- ay/Xm3MLE2MkQuL76uGWC6l5vA1UVqAleYcfaI2yG2GJre/uV+pxdOD7HDFoLRVZVYnb
- lbz+meAazGl+1x5zyunv6EzlpXN/mbC7Opl5TrjtdxkPZcNZmYUTthbIzUz7bMD2Q4Z/
- 02Dw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqCEJfbZ5DXIzIvChqh8hRx0srzipZGquqk3v8Pf1AOrNDP9s4Kqci63xsGe3jCGg5H0U19ek6qTeM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwPrtmazFyyYfTHyljW/ik0jOAeWA/4jpKBeHH2BE+f+cn6ZB6b
- ncUAHxQkLHjC30rxN8ziONiJQFoG6Ii7SUYTBRtww1xzbTxAMvdl2KayYShyb0SMo3tYRS0Oqs8
- 63Io=
-X-Gm-Gg: AfdE7ckEiF1IBto7/EvTxqfZJ42QQgLQd95/XSpg7NCiSICMOXjB56VQ6uYXAkUTPT4
- K9JdLIOKIO5DipLU0DS2QJCXytRx+sdlwLH5R/lwKrA1WtJBSvA4/1v4+3hYlD2Vi5mRFJSCGop
- hbZKZ6HCg1hcchYWOhb2bwb9u+pb1Haix12awPUdxuL7dBn8qGifjT/9oNwNkyZg3uZ5NRxm/70
- AZoN5eUtu4+PT3n9ZWqYnBKcwWH91d5HPtga+7LsA8jbdpg0QcyXb/XkUuRtke3ci8MxAIwrAY0
- CgrVcohxR+eihHPunsCbCojW252KzfXYuEt8bMdOFiBJYhSoRX/4okLNKqzOWYabqLJvGb6hyCK
- sLtAe9aA2bfvS3EqLnnnTOXq98+p7zP80gmENtnbgivIXBiQCbPUKT5759cIdI62evityn/NZDZ
- S2CikDMKGoe49BrF5byMtlZv2UZfX1xo07lQ695GT3
-X-Received: by 2002:a05:6102:3f44:b0:745:4d20:6b1a with SMTP id
- ada2fe7eead31-747534366a9mr85680137.6.1784244726559; 
- Thu, 16 Jul 2026 16:32:06 -0700 (PDT)
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com.
- [209.85.222.47]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-744d6e38b3bsm14333936137.10.2026.07.16.16.32.05
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Jul 2026 16:32:06 -0700 (PDT)
-Received: by mail-ua1-f47.google.com with SMTP id
- a1e0cc1a2514c-97622cc1f40so3310598241.3
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 16:32:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RoajY/YmLjtmWfrzU2I6MT9tXkEPbndBsWRHT1WLGl+p949E3OU3EYGyqTgjH1o/0i2aM5bXthwFMY=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:f97:b0:726:8813:2078 with SMTP id
- ada2fe7eead31-747534c957bmr77108137.11.1784244724359; Thu, 16 Jul 2026
- 16:32:04 -0700 (PDT)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010041.outbound.protection.outlook.com
+ [40.93.198.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32B7210E3D4
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 23:57:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TJMLXfYhVzsAbKYiTLR8jKanUFwxJ9VyW11YOxBGdPZpcpBZIoxT4BdUBzRxsVL9vLfpL10y+wPs6FQdgXX6wFHFcONFDOobp+7rrJVh24T97s2ls0uBS22jSSPEW5nkfmj2EFSpQ96hefmpDQZfjlcS/tc4bsYx6MVYZZND7hV8FN52WtQX3jyL/177cKAmcU/YgAhGWK6CfEPD/nF6H+QwzLGmEThCWqyFX0LIocEzFaOoMNYSe0pvmOX74nAkxFBWt7vBKzQI81TIAPaMXOGQuGosTrpKQOBjtA7GDAFw7xDAVn+PITJv+E/xR8pw3XaV5wiIEmk0MDscSM8Lew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RVr3ytK8NMRykB9upMN+wey9639tVHNwD10T//b4i8I=;
+ b=zGtraYFEKKhgLJ1oYyzWJxK5H9r+JIlTDWhPrTNMkh7ectShjXRtHBwz/8g0wZhLaB3lwUSb0TmlN9xhxTI6l0gIyj9zg3FO63nKEBZN2Pmj+CetOAm8pCY6/NSMQP+1H6xuTEa8zzqbY0eaeWQijItXBpUIQhtBm5lVFJOmbvIRM5SnEq773o4YT/nVfoS4Mny8uV7ZDePUYmiZEoPa9Qpc41xHiYQXQD0bGK6FtqBO7wiTouKpWRpFKaFLn4j0RS3vawWu/m0Zp1O4rnc/Uc7pWKPK8M3U8nhp1kknCK/EzkEXVcWhIh75/XBFnUz4Totqi/bbn8J/Ol++B/BiZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RVr3ytK8NMRykB9upMN+wey9639tVHNwD10T//b4i8I=;
+ b=AV2fAsDQk0taVrCsMkag/S5LKuHcgj5f0z24e8D3z6U1hopW5uhuBc2IOmmWhn/lDGpl6it8XKf1qjGlqlQ/UWi/o1c9FaTziQWAFjX5BErVgBfL2b45NjRNT0/yib74MjBGEqANGFGyUzWfpC4ZA4o1SrKmUawhL2ckdP7NretnHp+EjuhCrB+j1AK9oDrfzFsrJ28cRe9VwRbPMXSHmgLHU2ViJieFhUkJQTa0wXXpAHRB5SeUCdo3sKLNchmTGXZ1anXeSWAW+yRKDIrrJuB0FIglQOnNPxx4fl1lXWOB0xvoZ4YlVoRapACgF75+OwVzN1aN2DpoFW1wOiCRbg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by CY3PR12MB9678.namprd12.prod.outlook.com (2603:10b6:930:101::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Thu, 16 Jul
+ 2026 23:57:08 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0223.011; Thu, 16 Jul 2026
+ 23:57:08 +0000
+Date: Thu, 16 Jul 2026 19:57:06 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pfalcato@suse.de>, Eliot Courtney <ecourtney@nvidia.com>,
+ Greg KH <gregkh@linuxfoundation.org>, Burak Emir <bqe@google.com>,
+ John Hubbard <jhubbard@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Andrew Ballance <andrewjballance@gmail.com>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Boqun Feng <boqun@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ David Airlie <airlied@gmail.com>, Gary Guo <gary@garyguo.net>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ Simona Vetter <simona@ffwll.ch>,
+ Tamir Duberstein <tamird@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
+ Trevor Gross <tmgross@umich.edu>, Yury Norov <yury.norov@gmail.com>,
+ Zhi Wang <zhiw@nvidia.com>, maple-tree@lists.infradead.org,
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance for
+ region allocations
+Message-ID: <allv0n0_xgE_IpyP@yury>
+References: <20260711063602.426311-1-ynorov@nvidia.com>
+ <alf1lUH0EDf3CRMl@pedro-suse.lan> <algrZLHyYcR2mwzX@yury>
+ <aljkXMNLkciazVVi@casper.infradead.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aljkXMNLkciazVVi@casper.infradead.org>
+X-ClientProxiedBy: SJ0PR03CA0070.namprd03.prod.outlook.com
+ (2603:10b6:a03:331::15) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 MIME-Version: 1.0
-References: <allWpYxgHfpKughy@michalis-linux>
-In-Reply-To: <allWpYxgHfpKughy@michalis-linux>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 16 Jul 2026 16:31:53 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Wez4s5gUPXN=DuHvHAk4esBMGfh4Rj=ww72UK7VUbOzw@mail.gmail.com>
-X-Gm-Features: AUfX_mxxxJXk5I8m-ZZQr9cRqWgMjtpJT8Kb5OTIhT3xwiokl-qk5Z3zwYYvf7s
-Message-ID: <CAD=FV=Wez4s5gUPXN=DuHvHAk4esBMGfh4Rj=ww72UK7VUbOzw@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel: ilitek-ili9805: Use _multi variants
-To: Michail Tatas <michail.tatas@gmail.com>
-Cc: michael@amarulasolutions.com, neil.armstrong@linaro.org, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
- airlied@gmail.com, simona@ffwll.ch, jesszhan0024@gmail.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CY3PR12MB9678:EE_
+X-MS-Office365-Filtering-Correlation-Id: 919ea4fc-a1c6-40d4-fbb0-08dee395f21e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|23010399003|1800799024|22082099003|18002099003|56012099006|4143699003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: L81XMNLFIptm5ESn8EIGx7ALwvwN+XXSgwnaB09UiQSzgZvfVJ7TBY2gJ7ne8+D3g1mLGZyXcWlQQs1YpQe2Cgmn3HvEeiOez/VXMwpgJ2r1wq2HNEvR0C97B04wkVnHz55dtRDe1MBlQFfALKhXE17tkQO2dWybknWMfUZwZg+R3QjLFmKwkUEAKCAgzkx47mRFUUcIE/BSl8CLY+KjBYVCHhJIsCuWQPQZkPn3PuDr9EWq2s6fHcHhHjFs4SE+klmgz22o+pX44p4gEA7AOFX1bpz0zHF86XqHXXgDMQXjVTWXvmC0rgmg9sNIzvDASAi8DdH3GJy1Mjeus56cFmJbJXFWpTYLKtmDKCFqlLcV44wRp63a1AVB7hvCoFRv7MrSPMO8a17JM6xmuiuL9ZLZEOQldWc+ss1jNhfewPir6q5domWPdEYc6vCFkDfY0uo9rhrdzOPvN77bo34/V72w+hFcsllvOCYsHEp7D0lCBsJcgA6/kLK8MB2HziMDEbLhab2RMnCutubTW8x7Q+gKNclzmK6QxiANtnsscH+zwQ/cP+O015vCKHPNTqoBMjeZnsaEecUDugpyyEYVV7D9ktWVPp5BCtWlAZ0WiX/2VbyTW3jArG9d54eI6waN59WtFtpTO5jSaRVs9y0a6iwYOPdIxqG0oEAjVyS/dYA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV3PR12MB9356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Nl+Zh4DbHCd7ABreXsE3kLykSdHSLIDIMOae+4g5Glah3nDjv20s8xtUKyt+?=
+ =?us-ascii?Q?2cn/D5mYm35BiQZhdvrKBMI+6BCqUKN/zW0TlZPmCy0ToRJuL57vYtMMcQcj?=
+ =?us-ascii?Q?156M25qDK5mgQQtFpNwqcMeu9GQImLzfdpuSZGLvx+fX2zQNcz9fULwtJBtg?=
+ =?us-ascii?Q?nkmkPk5Nrj7EZEv7m8JYzeijac0Qgfs7bJ0UVNfsaqXH42F7wyHZKwtczgbV?=
+ =?us-ascii?Q?w7/wT5CddxRqkQZIB4HAgEgwI1KTIEjlnrB/1Y4wdA73P8Hhgkv0HcbRZ1PJ?=
+ =?us-ascii?Q?1bZR98kpISqUuUI2iwo74XJd+2uHdmvY6f98c6V3di/nTvg5x92i9Uiiuonz?=
+ =?us-ascii?Q?Z7GvM1qJ62sihtYoJ03HLA/xMs/kVkdVkiEMsoYpmYD7jieCMrIgo0SVwSGv?=
+ =?us-ascii?Q?jdVoRl1x4NaGiVkPWetppPDoHJbhipJ0VLAdkR4JzgrtsuJYOf+xZJra2pw1?=
+ =?us-ascii?Q?CfURZ9e/NT94dTg2ssdVN9Jsrc01hJxAmMHLBLAugsehF5egabHP3XrYzfIM?=
+ =?us-ascii?Q?VFCHshJUtJI9cj0yBIUMqAotZRtsbvjxEwtRM70zdZ+1EZkqtIRWe04Hsn3d?=
+ =?us-ascii?Q?nC9if5F03rnANfRd/c7ks1VeE3cR2XL1nUm711javMvvRf2JrSEETbWbkFsa?=
+ =?us-ascii?Q?bNUzpP/imwxkxrelZ9vkVKaPSGLUn6IwT2HPJ63N5ZiSY8Ao6vJae6kN89WG?=
+ =?us-ascii?Q?855HUmdRAR7wLpAVZ1/W1mfgqUvFmnkmke4GOwWNGXE5yj05TG2QAYsKU5JS?=
+ =?us-ascii?Q?eLvt2kS/3/YQdEHJG3pyd68AL995zHor9/rPeGvuHvDzt2fUM2tmyWc6b9cU?=
+ =?us-ascii?Q?jznb9n3OWY6DwbwEELSdszsl7Tp3LsMhJI/e1eo8+/zW9F1e9+ywz9zvfOq+?=
+ =?us-ascii?Q?DKateklj2g4a4++hjBNvP/ZAEJUKhM5Yili29gi2L762l6DnCPS2q9eK6aOD?=
+ =?us-ascii?Q?A7M20X9Pn0ciWMx4LFEOhRW7aX/54T9yBSgJGVSEiMU78Y4ZyEM+RZEBVgTF?=
+ =?us-ascii?Q?ATMJ6tLGqxALZ5jtYGEnJ1NL9Bqxqhr16o76gwVQURCyto8Ryysc9VAHX0aI?=
+ =?us-ascii?Q?QuxB14lo6ndutbxydOSr4xU/YOmveDaMdkoQowK/ljsi0itAvB1TmwgLzn0C?=
+ =?us-ascii?Q?d1H8/IQzZ6/pwZswgFq8tnmgJSrDRyXl7xc4TLz9R0A1cjCkmcRr4dKU+AJs?=
+ =?us-ascii?Q?Hu4P7En+Sy+Px65RiRF93YCQ9Ck/XpF0dFdhPQRHcoplsPL6GTwn3SW8Xyj0?=
+ =?us-ascii?Q?YgqSmyL2gm4dbm1dKrETxA4wxjYqt67TLBBT0APJFjuBdzuglWY1Pm04MDpp?=
+ =?us-ascii?Q?PbJWJVziHV4RkvDdQXAh+Q7+lSi2qol2zCWz7HhC6gshaFFVvMdNlNqL7B9x?=
+ =?us-ascii?Q?xPhWZVzBLN0jBh5Vp9f8y/rp2XPK/EPU18VZFnexhPrTOYzIRIPFWPlZ9II5?=
+ =?us-ascii?Q?lqCtZ2XfGN6/77feMb+3/CU7K+ETTlPvpTmkmoXYtu2pqq8yDvbiLzX8Y2pq?=
+ =?us-ascii?Q?j/PovmPziJESAWT10pS0WCohVNDsatjyigZ9uOT99/w1ATWaZ5tdiin+jUOo?=
+ =?us-ascii?Q?qrXVMTxlu14h0L/5m07wAWbW11ZQhMj4fiwS2WruZyLxHaaNA8TRGteoZ5Xm?=
+ =?us-ascii?Q?uNZfol/pPcWrqxUB5s3cZnfHpwAxbbwLMOl2NXjhhIfqzImiwKpTaZqNWgFq?=
+ =?us-ascii?Q?HqpLGUVmvGdKg/ORqeFWuAxLROOCAjKrVeu5N+5jgl9FQqT0/2R051YLcYW8?=
+ =?us-ascii?Q?8CEFY/DfTA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 919ea4fc-a1c6-40d4-fbb0-08dee395f21e
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 23:57:08.6732 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QV+zjUYow39jxaa0c73yhiQI7PU2zZcVYfXgIhCgAUCT39BYK4yMyeVE2U3wDH478/fXJJWMESE62sTlIzqr2A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9678
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,89 +148,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Thu, Jul 16, 2026 at 03:02:04PM +0100, Matthew Wilcox wrote:
+> On Wed, Jul 15, 2026 at 08:52:52PM -0400, Yury Norov wrote:
+> > The test is very well motivated by that discussion. I'm not saying
+> > it compares apples to apples. I'm trying to quantify the answer to a
+> > very specific question: what is better for NOVA ID allocator. Or more
+> > broadly: what's the best data structure for range ID allocators of a
+> > given capacity.
+> 
+> From my work with the IDA, there are definitely ID allocators which
+> allocate only a single ID, less than ten or less than a hundred.  Could
+> you scale the benchmark down to 10 and 100 rather than starting at 1000?
 
-On Thu, Jul 16, 2026 at 3:09=E2=80=AFPM Michail Tatas <michail.tatas@gmail.=
-com> wrote:
->
-> @@ -159,36 +159,23 @@ static int ili9805_power_off(struct ili9805 *ctx)
->
->  static int ili9805_activate(struct ili9805 *ctx)
->  {
-> -       struct mipi_dsi_device *dsi =3D ctx->dsi;
-> -       struct device *dev =3D &dsi->dev;
-> -       int i, ret;
-> +       struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-> +       int i;
->
->         for (i =3D 0; i < ctx->desc->init_length; i++) {
->                 const struct ili9805_instr *instr =3D &ctx->desc->init[i]=
-;
->
-> -               ret =3D mipi_dsi_dcs_write_buffer(ctx->dsi, instr->data, =
-instr->len);
-> -               if (ret < 0)
-> -                       return ret;
-> +               mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, instr->data, in=
-str->len);
->
->                 if (instr->delay > 0)
-> -                       msleep(instr->delay);
-> -       }
-
-What you've done is an improvement, but it's not all the way there.
-Specifically, we'd really want to get rid of the whole "struct
-ili9805_instr" type and instead each panel should have an init
-function. The "struct ili9805_desc" should have a pointer to the init
-function instead of a pointer to the init data.
-
-For details, you can see a preivous email about this [1], which then
-has further links if you want to dig into details. You can see that
-Chintan eventually implemented this in commit a89d9a327d06
-("drm/panel: novatek-nt36672a: Inline panel init sequences").
-
-If landing this patch without cleaning up the init sequences is really
-important to you, I could be convinced. However, the init sequences
-aren't all that big and it would be nice if you could clean it up all
-at once. It could be one patch or two.
-
-[1] http://lore.kernel.org/r/CAD=3DFV=3DUCyfjiqcpYCM5ePz-auX4g=3Di_+i78ivvv=
-yA8R1XtAKzg@mail.gmail.com
-
-
-> @@ -211,25 +198,13 @@ static int ili9805_prepare(struct drm_panel *panel)
->
->  static int ili9805_deactivate(struct ili9805 *ctx)
->  {
-> -       struct mipi_dsi_device *dsi =3D ctx->dsi;
-> -       struct device *dev =3D &dsi->dev;
-> -       int ret;
-> -
-> -       ret =3D mipi_dsi_dcs_set_display_off(ctx->dsi);
-> -       if (ret < 0) {
-> -               dev_err(dev, "Failed to set display OFF (%d)\n", ret);
-> -               return ret;
-> -       }
-> +       struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
->
-> -       usleep_range(5000, 10000);
-> -
-> -       ret =3D mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
-> -       if (ret < 0) {
-> -               dev_err(dev, "Failed to enter sleep mode (%d)\n", ret);
-> -               return ret;
-> -       }
-> +       mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +       mipi_dsi_usleep_range(&dsi_ctx, 5000, 10000);
-> +       mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
->
-> -       return 0;
-> +       return dsi_ctx.accum_err;
-
-Nobody looks at the return code of this function. Since you're
-touching it anyway, can you change ili9805_deactivate() to return
-"void"? I wouldn't object if you made ili9805_power_off() return
-"void" in the same patch too, even though it's a bit unrelated to the
-rest of the patch.
-
--Doug
+OK.
