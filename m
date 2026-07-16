@@ -4,165 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD634C44501
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 09:58:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CB74C44501
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 09:58:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4256310E335;
-	Thu, 16 Jul 2026 09:58:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE9910F282;
+	Thu, 16 Jul 2026 09:58:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RykWmbhT";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mn1mPHle";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="inZHN4Vd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF0DC10E335;
- Thu, 16 Jul 2026 09:58:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784195896; x=1815731896;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=1pCRsvuLYey+3oGj+x00R1J3Nk+vx27EqzNKOkrclww=;
- b=RykWmbhTg5j03KSXM4ZXRAPblhWJwikZffgh0wtk3SbbRoKHY7OmrX99
- 6scrydjoTg2uX1AOYP+qAeO/OckpHJY+gvuViMhF9Sa3LXwv3un6kKdiC
- s0KlaCBlcRpmtrVvYwAR/t912o53z3yHqsf9ZMcfWOJQBq21bPQx/eP+I
- p2adCo+/lvw/TPbIYPsaRyZyQO+hHDPbpJaLEj20hfPtZNhR/tHEUMWnM
- 9lBlfgzwS0iINzZGwqyVdYbYOD+1wUMwNJi53fgiP8RyAxTNdfE0KCe4C
- xDkjiZRsmLT/kzaynsm1tEljPCeTjuaMHSpoauEkw0QpWxuIxDcGpDDar g==;
-X-CSE-ConnectionGUID: iTw9pqmcQFyetOvzmjfpcA==
-X-CSE-MsgGUID: tsj1HapQS1SOLR6biaHvhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="96215714"
-X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; d="scan'208";a="96215714"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2026 02:58:16 -0700
-X-CSE-ConnectionGUID: 2EJmKU1nQu6jpZCpDPo9TQ==
-X-CSE-MsgGUID: 2ARI0SHwQ6yzqbi+2WlFSg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; d="scan'208";a="252029108"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2026 02:58:16 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 16 Jul 2026 02:58:15 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Thu, 16 Jul 2026 02:58:15 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.18) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 16 Jul 2026 02:58:14 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CSoWlrzCVEBtlfKOqsncXv6LYHf9CW8YpzMEV4OTJhhWfE5NJXySdgLW5RDlZTqBvnImci7UQx123/8X1oab1XCMClR1Fx9bVN3/JHsvy8w8aCXbCCoemIAIF0dGucVhHUGyr7xD85g/uCPMkeCKoCpby04frb1S+51dRHpvZqy3MkjRn9+WquLLGUZePn3RfwYou4ZqAy/SQ30xO+ES7usvFyR0ZutvS1WPrZErpjAHMxFFkG7rBPeBC+NFgVTTrZG2HFEmx9irNAFWVg4yVY/0mkOGPACtp93mRSJtN1HvdH6t8DIWt9rywW7g/6wyi0mNX+0+eh6ps0xiUDVbIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zb3pC+iIO5JGABYOh5qvEfnviqHivWC3NLkzbKC4zGI=;
- b=BbQfn32nleg2GdSUwdiHKxRHGI/QbAZ3B6yzbMLfe1RrgZqr45k2tPJ1Cjh4UxLLVfwWdY6P1gTuP1AWKJ51qMXIHfa1ameD7TXbwVpAWufBznHD6DkjFDPBmu3tjtxnVePuo0MBtAEu1tmW45D3mYhijwmXr1NqYUEGpj30u3kRC2we4hkalpcCPtsaKx8t31cf4MdnwO/ISWbrl7Rq6JgsKbM2ZrFAwXON2/5zybUL7KGSQhr85f1nfF/PIDmhp8l0OhpkJ0nar/HKUX94PPjxVoZXi5zwiBcTQfafocQ3QHCfGQCe3Bw6NCOqVy8yOZvqhXzXTrf5/cRMRju5DQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
- DM4PR11MB8160.namprd11.prod.outlook.com (2603:10b6:8:189::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.11; Thu, 16 Jul 2026 09:58:11 +0000
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99%4]) with mapi id 15.21.0223.011; Thu, 16 Jul 2026
- 09:58:11 +0000
-Message-ID: <918f2fc4-2aec-43a4-b52a-028011aa91b4@intel.com>
-Date: Thu, 16 Jul 2026 15:27:59 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] drm/xe/xe_ras: Add error-event support for CRI
-To: Raag Jadav <raag.jadav@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <netdev@vger.kernel.org>, <aravind.iddamsetty@linux.intel.com>,
- <anshuman.gupta@intel.com>, <rodrigo.vivi@intel.com>,
- <joonas.lahtinen@linux.intel.com>, <kuba@kernel.org>,
- <simona.vetter@ffwll.ch>, <airlied@gmail.com>, <pratik.bari@intel.com>,
- <joshua.santosh.ranjan@intel.com>, <ashwin.kumar.kulkarni@intel.com>,
- <shubham.kumar@intel.com>, <ravi.kishore.koppuravuri@intel.com>,
- <maarten.lankhorst@linux.intel.com>, <mallesh.koujalagi@intel.com>,
- <soham.purkait@intel.com>, Michal Wajdeczko <michal.wajdeczko@intel.com>
-References: <20260701094409.129131-5-riana.tauro@intel.com>
- <20260701094409.129131-8-riana.tauro@intel.com>
- <ak9yEyDF_tlJe-Rx@black.igk.intel.com>
-Content-Language: en-US
-From: "Tauro, Riana" <riana.tauro@intel.com>
-In-Reply-To: <ak9yEyDF_tlJe-Rx@black.igk.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0068.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b7::7) To DS0PR11MB7958.namprd11.prod.outlook.com
- (2603:10b6:8:f9::19)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95BCF10F287
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:58:56 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66G9rAZP3489434
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:58:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=JpsEaLu0rCn/373mwwPv0+tBDrJYa0gBUv7
+ uufH8JPg=; b=Mn1mPHleX9Hw7rD+D5QvPF6SsK7uarwmjRavhwEOsQ3TkeiWkBH
+ 9jt/rxINC+Z/hQEboic21wqhS1gOamod0cDTdbNmYxdrblK4mkek7iOlywJRzCKU
+ 8xsQXWvwBUgrkxoWri7F7TxX7t2P5XeRC9sTlKFt2WBLIoV+Yry8aMSzf5Qm7IIL
+ 8VqGoMTBUzk29OhkD7hMqs4QpPuvV0S8OsSx6s754jjDBpzTqY0fyfiHQlQNCxjH
+ 7nUfbej3dnsxEHyQBj+Z6z/WTT0S+KE150Ji97MM8uxJUEnXoQ2qKomV5Smarg/z
+ 0CoPDDhyAMnPg+HO3JQHIASLHUCfbGNrRMQ==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feq3phe4g-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:58:55 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2ce7dff6253so703035ad.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 02:58:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1784195935; x=1784800735;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=JpsEaLu0rCn/373mwwPv0+tBDrJYa0gBUv7uufH8JPg=;
+ b=inZHN4VdCYqRO0vjkXBA3rgx0Kk/8GlQkgAT1L0THTCuvGxSsCeecuwAiB26e0e3tA
+ F441OiLWALQGKVEYohSCKAmPAvuwzGK8uNs13R65C8CqZ+/jbnSJ0vsDmfGANc6fvlC3
+ J1/Wrn1t9vz5YlD4U3bnMydKDJQtBnymttDz7J6xRNRGpdHyDP1e5q77n8jiHvyUGI2p
+ Upd8J3cE9Bo5hjn30KOFOTXb3+7auzY3DFe7Tzh3cyWXErLfzv9KVStsO+JjvUV4JTp/
+ BslSCDytO61YNYTxeieM6U4quZrDOOnoKl+LUusOsMQ/m04zCAHEnhOXUyi359PmUOy3
+ pnmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784195935; x=1784800735;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=JpsEaLu0rCn/373mwwPv0+tBDrJYa0gBUv7uufH8JPg=;
+ b=Iz3FuZkzV+UFa2puoSsuLB4Be+rbHj+VHe02DOPCY2a0j8dc+3aZvrIgTEumOtZJyG
+ f6SrkMd58ZWz02jgk792kUiXpm/fO6MiaAtXoQXj0RjEBqZ7BZgbPHwo5Gqt6KgXEt6z
+ p5aRc2ypdtgULk61Vgjoex74ifvu8em5YHgexQWrqUQTaK6sNcbGhc0svcklk1ySbDir
+ T3SAvIxA2mKcc2yuyBENr4d17lSTQmiYDr7xn5i1tCWPAghSfP4LxoVHQ4/pYt6wViVQ
+ 0g+bRJ5Qzk1sBnKKTAJO47EqBVSQZfP7QqxADs9AmXLIttXp2IWvYvtCFAjB55/k139c
+ nOyw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro0JT/7SjNBCeFeYAzz4CTVIhQ7ZnpAyjAdDWJfrZ0xk878JauvotzrDuPkpY+L5HPfFlnOjcJdoQE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwzMjlDpmeR+1tAxiqi+Ty42O/9NVtaDKXRtDlkiBGJSFjldPcr
+ Pag05YhKgYGoqt+5VSJborVKMVPgIydRrNJPuGf28AANw16Y2AlZGPvgFoBjOo9rrHW1i+Wkmgp
+ NvxQ4uBku+MWRof4Zbmwvsn2qzZP29Ev45O0kIVpwLkXEmkmJnOktjlUsxEi651f1XARMXIc=
+X-Gm-Gg: AfdE7clV8A1cWLkNNfdB2UsW+dCaVHov1lEoJM9OjXvMuP2oDZOgzg+iFVeM7wP/b5i
+ un8245eC+QUbejhHGUXnNXmxfSXEWirqUH3cZ4BiAodpKjZLsfc5n52+pAI2aYYFx8FnKiZQKD8
+ ZHC3KYN2cjQP0TVATB/KoJEKEGJgCMA/1BX60fL8mcm2hY3/CTggvZ8EPACULnrjPeVlyI8RnZE
+ oWfBfmNZBi4UUmpEntV3MjYQTi4nf7GoHxKr5K+Ip8nncYF3NABmUXZ6+PR5cU3/EJZwVpGIGNV
+ JlD52wKWVk8ty3Tt6RfhEYLAdbmX8qqj6yu7lyDMRxFaK71XS0xmFYO/xkBIzOm7qxmGJ/qd4kq
+ HhoY4YOmXp7arZjuie1gtVw73gCnQt85AgPezXPJCiMTfX0vI/k+cYpiFKZqFknmUNK6cwOLhdA
+ ==
+X-Received: by 2002:a17:903:1aa3:b0:2cc:89ce:2f07 with SMTP id
+ d9443c01a7336-2cf1f27ef69mr19283295ad.1.1784195935179; 
+ Thu, 16 Jul 2026 02:58:55 -0700 (PDT)
+X-Received: by 2002:a17:903:1aa3:b0:2cc:89ce:2f07 with SMTP id
+ d9443c01a7336-2cf1f27ef69mr19283035ad.1.1784195934598; 
+ Thu, 16 Jul 2026 02:58:54 -0700 (PDT)
+Received: from QCOM-SocCW5bzXR.qualcomm.com
+ (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2cf1015e45bsm17581045ad.33.2026.07.16.02.58.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Jul 2026 02:58:54 -0700 (PDT)
+From: Jianping Li <jianping.li@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Jianping Li <jianping.li@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ quic_chennak@quicinc.com, stable@kernel.org
+Subject: [PATCH v10] misc: fastrpc: Allocate entire reserved memory for Audio
+ PD in probe
+Date: Thu, 16 Jul 2026 17:58:47 +0800
+Message-Id: <20260716095847.479-1-jianping.li@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|DM4PR11MB8160:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c8ec468-4575-448a-db4b-08dee320bee1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|4143699003|3023799007|10067099003|56012099006|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: 1teGZ8e9hhnZ5UenCjq6y1q5H1/w0Q7RefcH6bMHwdtTBP5tcN5/oQk7FAjrCsEfGAqDB6bGvFRuR/IPoTyfx3lbsZ4Gm/MNZ+YjXokiU8kF3LurkNkmMZHewiUa902OBIBAPTjNckeWaZn4olULdijje8woPnf516ZGALGRQFZqZIr7bX/d+Ej2vt1Hd2K9NDXW4SgAsBnIy5nTPQBjwlJHA3LCXf/uJGRquxhM3UsviCfj0ANSSIFimi3KQKcHx16l5hXztVWprHWxq1lvxnHL3ceigH7NrnYobjWimkJ/lBYl/RSC+vZOxpvAAAjAFUdiqfpMzsxVPVXY73Y9ySKTCLIUrR5RezFy5qHMJqtugoeMVjSklSoGE/k0NdJ4rna5B7I72SeIb2V/8HdW/idsHMswuWlbadq1EYGekLD28Jhebg3gziy/f6O7NSE5u9RXBag55dPdKjN06rbhETeeSqc1g9xQYVkSCuA2QyslCPI97rOIu6HgKTrD5k6nNuqIsWEsZbgSUEVCY3tbeQIN2infu03DcQDdPrnA44Rep0CAdCp8FUPnx6dXWfbQWQluPizmAwxHyeliN9kAs8zB3ZQlqvcL9q+8bk/6S9ID3TZi3CAccQwRP1J2WFSAf3R6BJlW0ZBW8I0r5+T6EXlR18iW5VYm7FFTHRnl/t0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(4143699003)(3023799007)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y1NGSDdST1FKMFo3UnVnem9kSVNBVnp6OUNkVElBN3Z5RVJYZU5ZUzRDTlhG?=
- =?utf-8?B?S2IxSFhrSEJuMjVtd2RUeWswY3Y5OFRkV05sZ2MyMTFzVGM2V3U5Si94eFl4?=
- =?utf-8?B?TDFQbEQ1OWhjSUtTcXlLbVp3cXowRVRRUjNMdUlrd3NvQXN3U1ZuM2JlY20w?=
- =?utf-8?B?VTNtQkduNGtCQ2p3OHh3T0I4bnFUV2NWK2RGYWFPN1FuenNVay8ydkk4VXNr?=
- =?utf-8?B?aVJVeTJORTV0NmRFNVRJS1lWSTh0ZmtFNXY0ZkFESEZhbHl3c2Z1bEUwQkRn?=
- =?utf-8?B?Tzk2MlNXODU5SkpaQzY2eXNVM2ExUGNOUTk0Z2VuNnlMVVZqc1hSaUIwMm5v?=
- =?utf-8?B?TkFTVlp6MktPOFhVNWJFa3oyL1EwaU1Iay91eGhzVXF5Y3lXeVF6YVEzL0Zo?=
- =?utf-8?B?UTJzRUs0T1lueExtRTdMZis5cGFPWEI2aHBwbTNoM29ZTysySU1qQjNWMmor?=
- =?utf-8?B?NzJVSkdDNU5IT0EwZEpCQTZIdzkrNlFvYnZocmlqMVBhWVlmQjFXWGc2a3hU?=
- =?utf-8?B?cXlLVEtJeDZZK1R5UEpyOCtkN0tudGIvM3VkZ2JsdXpMWENJdjlmdS81cWZH?=
- =?utf-8?B?T3dsd0luekNyL3hLSkcxT2Q2bUN1cUhsR2pKRHBEdVA5M3NEOFdHK3lYTWFI?=
- =?utf-8?B?ZHl0aTV4TVF3clZaUXJDOWw0Lzg3YXQ3UGszZTZFQktjcElJaElKQm1xSjlh?=
- =?utf-8?B?cGxReGZ5NklFSndDZFRqTlNxdVM1d1F5SU9SSVJqQ1pkQStGU3NqdjBVMXVH?=
- =?utf-8?B?UXI0T3ZsSUhlTDFBL3I5ZjZzSlVjWTNsK0dTbzRIQUk1bE9sbkp0bVB6QzFY?=
- =?utf-8?B?UU9nSWNXY1o3SS91aEd4VlBXdG1Mc2xwdXVLeEJEdVVla3ZrenhvRW5ZWHRG?=
- =?utf-8?B?Yll2RUdnVUpFVGF2bGErNkhDNkx0dUg3QTJRaXpJbzQ2TFlGZ09VcnBBeTdt?=
- =?utf-8?B?d3hNaXpwQ1hwNmgrM3B2Ni9hanVOMHJ0VkxKK3RNREwyYXNCRlkyNENpOENi?=
- =?utf-8?B?NXNBZ3AyQWxiaHlERUpiWXhpTnduRG9qeit2UFhyM0QvMzN3M0VHNS9yeGJq?=
- =?utf-8?B?YXBodjQ1WDNjUDM4aytINmU5cTY3NE90V3RPeG0yV3ZCT2Y1dUtIV0FwZFhV?=
- =?utf-8?B?L1IrMkR0S01LdWsxc2pBTStyL0JlL0NLZ2haUHpRbVpNUUtuZDErTTdkdjJn?=
- =?utf-8?B?a3JWaUhrbHVNUzRzUmhaZGlXZ3NRNGxNdXVVMU1SK3VxQ3FhYTdaazIxWTdU?=
- =?utf-8?B?bVhQMmVucEpOQ0VsOVZhYUJjY3ZzZGVLNkNLQkJIRXRGTnN3akhGWWR5R2hE?=
- =?utf-8?B?bHc4Z1dFeW5sM0NMMk1YM05zM0RuMzdtbUVwazFsajdCRXozVXhVb29SMisx?=
- =?utf-8?B?Qmd4c09SRlgxMEZHQ3hHdjdyLytkSkpZNlZhT2ExRlk5VTQzM0NvazF3cndw?=
- =?utf-8?B?WldNbDNFM05UeFZoN29NTW10VlJXYXpXR1dXam1zY0VGSG9WbjFrRkZnRzlH?=
- =?utf-8?B?dDg2T0F1a255Sy91U0xtL3dWTWZqKzlwVmpFZkFFajdSbEZGbU14Nm85STBS?=
- =?utf-8?B?cXh5Vi9TMjgwY2RQeEk0QkhOeFFZck5sM201blpaenNnQ0ozVHlFZWZ3R3N5?=
- =?utf-8?B?ek01MlpQa0JXemJlZEdSZDFSZFpudEQ1U1BMSTZDbnBaMUpDbkVPeGpvZVE4?=
- =?utf-8?B?c1RZdUs5clZLVkhIZFpON05pcklubFZhc3FvSWw1cVZBL1NxWGVlSDNnVFYr?=
- =?utf-8?B?WGw3UFh2dC9WV2FQd3FseTBFaE5lNEtBZ0VtSk1CWkxuV2Nnbk5sOGt2Q0w0?=
- =?utf-8?B?Y1JHVklHb3V0ZGRvbE12djE3bnpORHpYOTZmdmNrdHkzSjZsNTlqejFRT012?=
- =?utf-8?B?ZGJ1WkV6RkhqOW1hcDlESm5ET1ErSVJFbkhlYXhOUnMxc2p3M0xacHdmd01r?=
- =?utf-8?B?YTlDNTM4WDdKeWRpa3JSa1hRRXh1dWY2SjY4OGpEY1Y0WmF5dVU1OEEzNlpq?=
- =?utf-8?B?L2tUQnd2R20zYVVOUDZBSTZYckNSL1NyZWhPK0dvZVVyNFU1N2MxKzJiMUJW?=
- =?utf-8?B?SVQ2TnREdVNWbjBSamlTbEhpc1FVVkk0a0FXc2lhbWo2TGMwV0xaNzE5Q0Rn?=
- =?utf-8?B?YmRhRWFsd3MxWFIwR3JXbFVLLzZrejRKYnVMOWNZd0tTSTFvSFNnVkZIeGdq?=
- =?utf-8?B?MGs0WnBUek9vY0NySlN0aUtFd2FOVHZKQVVxSkZOQjBqVmZSKzZLV2ZzeWds?=
- =?utf-8?B?Wm9qQlYrVUo4T2JVYlVrRlNVQlUreGVZdFFwa0U0RmxXVVhzaERmV3FzWHJa?=
- =?utf-8?B?dFIwM3VnV2FObXBQQ1ljb3ZoTE9sMEtJR0FpbGczOFEyQ1ZpMnhZUT09?=
-X-Exchange-RoutingPolicyChecked: bxnrQ/WpGK+xopMdP8nPg4LEKNiEYrbqO0R+u71q7o/Vo5bT97/zvf8Ml/nc2iMFN07VgKfs36uO22jnHiSayh/hyDIADnRhjwWtjQx+259Zy4QH3nAqrZKd6ojbdkZP7iGZN/GKy8zj1X/kS2Oy+tcv2xVtDek+wXD5drknAxPhFq/454hyy1l3bulK0e3C6Gz+asCveVI2SviATFpZAdCLTaBBNbk2pLlE9jIbYYcwyfhAD3PzdNcjZf8QgwtEcBRJAuDnCVC+uMLdfju+nc7CbEjY7wxI9EB7CPlinyTNzYP53aH80E1gZFxCur/gdoAl2K1fzogvpa34Xmvqiw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c8ec468-4575-448a-db4b-08dee320bee1
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 09:58:11.5924 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6GUB6vd2MUAgFNvyc7KYOJ1Ej49fxSrdq0RARbgQ5SQsw/PTJli0qnBjf/AwblcXMlvK0sDqMPFzbjgp7yT9vA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB8160
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: nGBfP1GGIdISdUX2hyTtRMP2Efeb7M2W
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDEwMiBTYWx0ZWRfX9TVSLOQFqMFJ
+ eZRKVO2MAXABREioUDbLb4eu5tzjMFU8ErXdUtFh8ZB6doZgrhJzeGdKGH8THA158KXPFAEIwjV
+ x25l6wl0fv1Xw3iBuKGi6182XrRqOUE=
+X-Proofpoint-GUID: nGBfP1GGIdISdUX2hyTtRMP2Efeb7M2W
+X-Authority-Analysis: v=2.4 cv=PN8/P/qC c=1 sm=1 tr=0 ts=6a58ab5f cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=0G0rfPxOs2MEFri9fakA:9 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDEwMiBTYWx0ZWRfX9YkEG5N5kBdj
+ m6mbsXMHGFibhXLeViRruyTxdCX9l5bGUHIAEi8GdsfdS2EUWDuRtjOHXysVnAYqJR4+2LQGD//
+ yc/mLjbBhs9tBu6UJYy0N3efH8FQxOS13vqVhQrzfwU0g83QCTe4qKoCyPLySIaAvOC1YzYsBl8
+ Eodk+ljmUURXe9f/Tuo6lSAQ4lHGV03WdZemghaLHkTqA8koH8N0cDWpwvUeevQ9V80fMyi9tAi
+ DgSqrrxzw1hGTX1F6iU1EnTyWfz+pGk+QwDQn7c9SXEuo0YIlH342535I1M3T9HWvgwAhsvEOoK
+ BGnrGHHsCxDmvg1oiWiLe9Vg6W+VC0l40xvVKdy5tBSbAr7yRuJtIOao5Kujmo0jdk9Fe0bSrn9
+ JBDRhWJTkqmzmY0TKr+9iB4018qylLpdcfTQD5DHwEvAJXcF/OT+RSw1izsn+T9fv938j2INtJs
+ nptTqeooHX7iZTF705Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-16_04,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 clxscore=1015 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160102
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,119 +142,255 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Allocating and freeing Audio PD memory from userspace is unsafe because
+the kernel cannot reliably determine when the DSP has finished using the
+memory. Userspace may free buffers while they are still in use by the DSP,
+and remote free requests cannot be safely trusted.
 
-On 09-07-2026 15:34, Raag Jadav wrote:
-> On Wed, Jul 01, 2026 at 03:14:13PM +0530, Riana Tauro wrote:
->> Add error-event support for Correctable errors in CRI. Report an error
->> event to userspace for every component that has crossed the threshold on
->> receiving an interrupt.
-> ...
->
->> +static void ras_send_error_event(struct xe_device *xe, u8 severity, u8 component)
->> +{
->> +	u8 drm_severity, drm_component;
->> +	u32 value;
->> +	int ret;
->> +
->> +	drm_severity = xe_to_drm_ras_severity(severity);
->> +	if (drm_severity == DRM_XE_RAS_ERR_SEV_MAX) {
->> +		xe_warn(xe, "sysctrl: unexpected severity %u\n", severity);
-> This is uapi and not coming from sysctrl, so the message is a bit
-> misleading. But if at all it needs validation, it should be done in
-> drm_ras layer.
+Additionally, the current implementation allows userspace to repeatedly
+grow the Audio PD heap, but does not support shrinking it. This can lead
+to unbounded memory usage over time, effectively causing a memory leak.
 
-You mean in the ras_event function?  The parameters to this function are 
-coming from sysctrl.
-So added sysctrl flag
+Fix this by allocating the entire Audio PD reserved-memory region during
+rpmsg probe and tying its lifetime to the rpmsg channel. This removes
+userspace-controlled alloc/free and ensures that memory is reclaimed only
+when the DSP process is torn down.
 
+Add explicit validation for remote_heap presence and size before sending
+the memory to DSP, and fail early if the reserved-memory region is
+missing or incomplete.
 
->
->> +		return;
->> +	}
->> +
->> +	drm_component = xe_to_drm_ras_component(component);
->> +	if (drm_component == DRM_XE_RAS_ERR_COMP_MAX) {
->> +		xe_warn(xe, "sysctrl: unexpected component %u\n", component);
-> Ditto.
->
->> +		return;
->> +	}
->> +
->> +	ret = xe_ras_get_counter(xe, drm_severity, drm_component, &value);
-> No, instead of converting back and forth just do get_counter() using
-> sysctrl values and send_event() afterwards.
+Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+Cc: stable@kernel.org
+Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
 
-The reason for using this is to avoid unnecessary churn of moving the 
-get counter above or use forward declaration.
-Yeah i can use that too directly.
+Patch [v9]: https://lore.kernel.org/all/20260707061733.495-1-jianping.li@oss.qualcomm.com/
 
->> +	if (ret)
->> +		return;
->> +
->> +	xe_drm_ras_event(xe, drm_component, drm_severity, value, GFP_KERNEL);
->> +}
->> +
->>   void xe_ras_counter_threshold_crossed(struct xe_device *xe,
->>   				      struct xe_sysctrl_event_response *response)
->>   {
->>   	struct xe_ras_threshold_crossed *pending = (void *)&response->data;
->>   	struct xe_ras_error_class *errors = pending->counters;
->>   	u32 id, ncounters = pending->ncounters;
->> +	u8 sent = 0;
->>   
->>   	BUILD_BUG_ON(sizeof(response->data) < sizeof(*pending));
->> +	BUILD_BUG_ON(XE_RAS_COMP_MAX > (BITS_PER_BYTE * sizeof(sent)));
-> I prefer it the other way around. Also, have you tried using BITS_PER_TYPE()?
->
-> 	BUILD_BUG_ON(BITS_PER_TYPE(sent) < XE_RAS_COMP_MAX));
+Changes in v10:
+ - Move Audio PD remote heap validation into
+   fastrpc_rpmsg_probe().
 
-Will try this
+ - Treat Audio PD remote heap as a mandatory
+   resource and fail probe if the reserved
+   memory region is missing.
 
->
->>   	xe_device_assert_mem_access(xe);
->>   
->>   	if (!ncounters || ncounters > XE_RAS_NUM_COUNTERS)
->> @@ -154,6 +211,24 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
->>   
->>   		xe_warn(xe, "[RAS]: %s %s detected\n",
->>   			comp_to_str(component), sev_to_str(severity));
->> +
->> +		if (severity != XE_RAS_SEV_CORRECTABLE) {
->> +			xe_warn(xe, "sysctrl: unexpected severity %s (%u)\n", sev_to_str(severity),
->> +				severity);
-> This should be before "detected" log above.
+Changes in v9:
+ - Make sure fastrpc_init_create_static_process()
+   only sets audio_init_mem to false when the sent
+   address is actually invalid.
+---
+ drivers/misc/fastrpc.c | 121 +++++++++++++++++++++++------------------
+ 1 file changed, 69 insertions(+), 52 deletions(-)
 
-okay
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index d86e79134c68..03f633028c00 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -276,6 +276,8 @@ struct fastrpc_channel_ctx {
+ 	struct kref refcount;
+ 	/* Flag if dsp attributes are cached */
+ 	bool valid_attributes;
++	/* Flag if audio PD init mem was allocated */
++	bool audio_init_mem;
+ 	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
+ 	struct fastrpc_device *secure_fdevice;
+ 	struct fastrpc_device *fdevice;
+@@ -1344,15 +1346,17 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 	struct fastrpc_init_create_static init;
+ 	struct fastrpc_invoke_args *args;
+ 	struct fastrpc_phy_page pages[1];
++	struct fastrpc_channel_ctx *cctx = fl->cctx;
+ 	char *name;
+ 	int err;
+-	bool scm_done = false;
+ 	struct {
+ 		int client_id;
+ 		u32 namelen;
+ 		u32 pageslen;
+ 	} inbuf;
+ 	u32 sc;
++	unsigned long flags;
++	bool sent_heap = false;
+ 
+ 	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
+ 	if (!args)
+@@ -1376,31 +1380,6 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 	inbuf.client_id = fl->client_id;
+ 	inbuf.namelen = init.namelen;
+ 	inbuf.pageslen = 0;
+-	if (!fl->cctx->remote_heap) {
+-		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
+-						&fl->cctx->remote_heap);
+-		if (err)
+-			goto err_name;
+-
+-		/* Map if we have any heap VMIDs associated with this ADSP Static Process. */
+-		if (fl->cctx->vmcount) {
+-			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
+-
+-			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+-							(u64)fl->cctx->remote_heap->size,
+-							&src_perms,
+-							fl->cctx->vmperms, fl->cctx->vmcount);
+-			if (err) {
+-				dev_err(fl->sctx->dev,
+-					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
+-					&fl->cctx->remote_heap->dma_addr,
+-					fl->cctx->remote_heap->size, err);
+-				goto err_map;
+-			}
+-			scm_done = true;
+-			inbuf.pageslen = 1;
+-		}
+-	}
+ 
+ 	fl->pd = USER_PD;
+ 
+@@ -1412,8 +1391,25 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 	args[1].length = inbuf.namelen;
+ 	args[1].fd = -1;
+ 
+-	pages[0].addr = fl->cctx->remote_heap->dma_addr;
+-	pages[0].size = fl->cctx->remote_heap->size;
++	/*
++	 * Audio PD is a static PD and retains the remote heap
++	 * information across daemon restarts. Therefore only
++	 * the first attach should provide heap information to
++	 * DSP. Subsequent attaches reuse the previously
++	 * initialized memory pool.
++	 */
++	spin_lock_irqsave(&cctx->lock, flags);
++	if (!cctx->audio_init_mem) {
++		pages[0].addr = cctx->remote_heap->dma_addr;
++		pages[0].size = cctx->remote_heap->size;
++		cctx->audio_init_mem = true;
++		inbuf.pageslen = 1;
++		sent_heap = true;
++	} else {
++		pages[0].addr = 0;
++		pages[0].size = 0;
++	}
++	spin_unlock_irqrestore(&cctx->lock, flags);
+ 
+ 	args[2].ptr = (u64)(uintptr_t) pages;
+ 	args[2].length = sizeof(*pages);
+@@ -1431,27 +1427,11 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 
+ 	return 0;
+ err_invoke:
+-	if (fl->cctx->vmcount && scm_done) {
+-		u64 src_perms = 0;
+-		struct qcom_scm_vmperm dst_perms;
+-		u32 i;
+-
+-		for (i = 0; i < fl->cctx->vmcount; i++)
+-			src_perms |= BIT(fl->cctx->vmperms[i].vmid);
+-
+-		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
+-		dst_perms.perm = QCOM_SCM_PERM_RWX;
+-		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+-						(u64)fl->cctx->remote_heap->size,
+-						&src_perms, &dst_perms, 1);
+-		if (err)
+-			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
+-				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
++	if (sent_heap) {
++		spin_lock_irqsave(&cctx->lock, flags);
++		cctx->audio_init_mem = false;
++		spin_unlock_irqrestore(&cctx->lock, flags);
+ 	}
+-err_map:
+-	fastrpc_buf_free(fl->cctx->remote_heap);
+-	fl->cctx->remote_heap = NULL;
+-err_name:
+ 	kfree(name);
+ err:
+ 	kfree(args);
+@@ -2418,12 +2398,29 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 		}
+ 	}
+ 
+-	if (domain_id == SDSP_DOMAIN_ID) {
++	if (domain_id == SDSP_DOMAIN_ID || domain_id == ADSP_DOMAIN_ID) {
+ 		struct resource res;
+ 		u64 src_perms;
+ 
+ 		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
++
++		if (err && domain_id == ADSP_DOMAIN_ID) {
++			dev_err(rdev, "missing mandatory remote heap memory-region\n");
++			goto err_free_data;
++		}
++
+ 		if (!err) {
++			if (domain_id == ADSP_DOMAIN_ID) {
++				data->remote_heap =
++					kzalloc_obj(*data->remote_heap);
++				if (!data->remote_heap) {
++					err = -ENOMEM;
++					goto err_free_data;
++				}
++
++				data->remote_heap->dma_addr = res.start;
++				data->remote_heap->size = resource_size(&res);
++			}
+ 			src_perms = BIT(QCOM_SCM_VMID_HLOS);
+ 
+ 			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
+@@ -2431,7 +2428,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 			if (err)
+ 				goto err_free_data;
+ 		}
+-
+ 	}
+ 
+ 	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
+@@ -2490,6 +2486,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 		misc_deregister(&data->secure_fdevice->miscdev);
+ 
+ err_free_data:
++	kfree(data->remote_heap);
+ 	kfree(data);
+ 	return err;
+ }
+@@ -2512,6 +2509,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 	struct fastrpc_buf *buf, *b;
+ 	struct fastrpc_user *user;
+ 	unsigned long flags;
++	int err, i;
+ 
+ 	/* No invocations past this point */
+ 	spin_lock_irqsave(&cctx->lock, flags);
+@@ -2529,8 +2527,27 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+ 		list_del(&buf->node);
+ 
+-	if (cctx->remote_heap)
+-		fastrpc_buf_free(cctx->remote_heap);
++	if (cctx->remote_heap && cctx->vmcount) {
++		u64 src_perms = 0;
++		struct qcom_scm_vmperm dst_perms;
++
++		for (i = 0; i < cctx->vmcount; i++)
++			src_perms |= BIT(cctx->vmperms[i].vmid);
++
++		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
++		dst_perms.perm = QCOM_SCM_PERM_RWX;
++
++		err = qcom_scm_assign_mem(cctx->remote_heap->dma_addr,
++					  cctx->remote_heap->size, &src_perms,
++					  &dst_perms, 1);
++		if (err)
++			dev_err(&rpdev->dev,
++				"Failed to assign memory back to HLOS: dma_addr %pad size %#llx err %d\n",
++				&cctx->remote_heap->dma_addr, cctx->remote_heap->size, err);
++	}
++
++	kfree(cctx->remote_heap);
++	cctx->remote_heap = NULL;
+ 
+ 	of_platform_depopulate(&rpdev->dev);
+ 
+-- 
+2.43.0
 
->
->> +			continue;
->> +		}
->> +
->> +		if (component >= XE_RAS_COMP_MAX) {
->> +			xe_warn(xe, "sysctrl: unexpected component %u\n", component);
-> Ditto. Also, use xx_to_str() in both cases or don't but be consistent.
->
-
-It will only display not supported. Will remove the string in both.
-
-Thanks
-Riana
-
->
-> Raag
->
->> +			continue;
->> +		}
->> +
->> +		/* Send event once per component */
->> +		if (sent & BIT(component))
->> +			continue;
->> +		sent |= BIT(component);
->> +
->> +		ras_send_error_event(xe, severity, component);
->>   	}
->>   }
->>   
->> -- 
->> 2.47.1
->>
