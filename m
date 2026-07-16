@@ -4,64 +4,169 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1126C44507
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 01:07:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F6AFC44507
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 02:07:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3D1F10E26A;
-	Thu, 16 Jul 2026 01:07:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB70110E1BA;
+	Thu, 16 Jul 2026 02:07:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="yR6iu4+m";
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="yR6iu4+m";
+	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="sIMwjHuO";
+	dkim=pass (1024-bit key; unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="nsKnDLTp";
 	dkim-atps=neutral
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC1F210E26A
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 01:07:43 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=u3hQkWIKM9rLk74FG4EzV/OU5cfjkjl4u73zLaFEaew=;
- b=yR6iu4+m0jMMxlXtzIE64e3SQGhOy7b0OXPc3EROVeSAetdOJW1Ez4f1Yky9iTxCpPHDn3jMy
- MYc/BTrazH8jDTO5q7Ch0H7/mqR1HiC929kYLr0AvvmMxcFl9J5Gws2ihLLpJSZ/PifIi6VfS8J
- LjcGst1AhoMzV6H1djNFEuA=
-Received: from canpmsgout05.his.huawei.com (unknown [172.19.92.145])
- by szxga04-in.huawei.com (SkyGuard) with ESMTPS id 4h0vyc6Hhzz126Lvk
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:07:04 +0800 (CST)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=u3hQkWIKM9rLk74FG4EzV/OU5cfjkjl4u73zLaFEaew=;
- b=yR6iu4+m0jMMxlXtzIE64e3SQGhOy7b0OXPc3EROVeSAetdOJW1Ez4f1Yky9iTxCpPHDn3jMy
- MYc/BTrazH8jDTO5q7Ch0H7/mqR1HiC929kYLr0AvvmMxcFl9J5Gws2ihLLpJSZ/PifIi6VfS8J
- LjcGst1AhoMzV6H1djNFEuA=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
- by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4h0vm74C2kz12LCc;
- Thu, 16 Jul 2026 08:57:59 +0800 (CST)
-Received: from kwepemo500009.china.huawei.com (unknown [7.202.194.199])
- by mail.maildlp.com (Postfix) with ESMTPS id EBA3440575;
- Thu, 16 Jul 2026 09:07:36 +0800 (CST)
-Received: from [10.67.121.161] (10.67.121.161) by
- kwepemo500009.china.huawei.com (7.202.194.199) with Microsoft SMTP Server
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52E4910E1BA
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 02:07:09 +0000 (UTC)
+X-UUID: 0a19718280bb11f18dc8c9802ae25ab1-20260716
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
+ bh=whNCmdXAsvwQjby32Q8fwxwX859R5RSKkNLOpgqdrRg=; 
+ b=sIMwjHuO9i0JpGyHYm3YIFKEqaJPU2r3qlAMSlvYd3tXNj8FAuyJ/WwYcEl9QBzUE13WAuLzc9UUu5EbvFs5d2RewWtvm5Tl7N+1TlHnrxo7B/6J/oaMFYsGIXGUOUSUQ1/fCKNaeOtFrKr8akp76DsILUeQQE1r/SIN4tWNiBw=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.17, REQID:1e939a7e-c492-48cd-9396-e728db0db706, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:d497b38, CLOUDID:d752a7c6-b6d1-4d54-8526-d85a67206e4b,
+ B
+ ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
+ Content:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-
+ 1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0a19718280bb11f18dc8c9802ae25ab1-20260716
+Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
+ mailgw02.mediatek.com (envelope-from <ck.hu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1824096838; Thu, 16 Jul 2026 10:07:04 +0800
+Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.36; Thu, 16 Jul 2026 09:07:36 +0800
-Message-ID: <7dd5c995-a23c-4d3a-9ba0-7fc77972339f@huawei.com>
-Date: Thu, 16 Jul 2026 09:07:35 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 0/4] vfio/dma-buf: add TPH support for peer-to-peer
- access
-To: Zhiping Zhang <zhipingz@meta.com>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
- Romanovsky <leon@kernel.org>, Michael Guralnik <michaelgur@nvidia.com>, Sumit
- Semwal <sumit.semwal@linaro.org>, Christian Konig <christian.koenig@amd.com>, 
- Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>
-CC: <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <dri-devel@lists.freedesktop.org>
-References: <20260715204008.3911275-1-zhipingz@meta.com>
+ 15.2.2562.29; Thu, 16 Jul 2026 10:07:02 +0800
+Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Thu, 16 Jul 2026 10:07:02 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u9qN+ZXDcEVxr4OwLrfXar9wIah5yf04wR7NpDEzEcnYWTEjt4Mvh/Qd1Fbx3Hgm9gyplxu6mk0x7gdwSsXEdC1SVjHnk3R+gFUA837ftV9+6Nm+Se6pfVzeLHCeKAJLHv+UUIWhKe7iW3795txQ2YmasFdR5jJ8Wrg2QFS90TJdDUpFRHGTffHYeTzhKIPxouItgw+eT/wzCRdQUR1e5eKoadhlOaZAS5VQ8arha5CM4FSEfdxtKjwmAnhNOKVVLxEBCpFyoj/oIes/ZgaW8AEJEE9Bhk+ZbCkvj35S0IBkShAroiFz2ykpFQtCcjrc225ZjKyCW/weBKDs5oLI1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=whNCmdXAsvwQjby32Q8fwxwX859R5RSKkNLOpgqdrRg=;
+ b=leJyYNo6ZFdpFqPWfbAEm4BX/uJGr2q/4EnI2DGYV+2BxWbeiH8Sc1GPYcy+qP6vVpzEXIx7TozpiH3Wl2pAXLK/Dq9JMzbDYKydQlmIdHv9R+ArQXXaOg07hMQDhxCfTJnQaEuBmOXv3v+pKoma2MI+gNnf2NIKK+LxUOGyblagr+5e9ErgGw3ufBgjw7nVUszef+eqoN4U7sRB/+KyOjryli8QYCLM1zunjwRmLRzF7p5G6p/oajEP5XZLZF7y7llZh7cRsTm6lXq3RIKT2BlRdFIbVbPXzG6Xpomx62cMbHJb7TlKXzUB6O66zAGWXVIEPiROtbpl14GniXDGRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=whNCmdXAsvwQjby32Q8fwxwX859R5RSKkNLOpgqdrRg=;
+ b=nsKnDLTpdjZBtfdtb2XrYttek0+ecUXZiVmAc2R+7sSzWTgVH+l7dZ1ToipnXV2l29ZchW8Xt4hmQsJ3uGhoCaPMLd7azwtbMarnSG3trhTQJvVthiy+RW39UbcmWxfzhwk165Gs4KvC31suzdiTIsHdJkofE7qUu340TRqLgh4=
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
+ by TY2PPF2525F04F7.apcprd03.prod.outlook.com (2603:1096:408::9c8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Thu, 16 Jul
+ 2026 02:06:59 +0000
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
+ 02:06:59 +0000
+From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
+To: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>, "AngeloGioacchino Del
+ Regno" <angelogioacchino.delregno@collabora.com>, "vulab@iscas.ac.cn"
+ <vulab@iscas.ac.cn>, "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
+ "airlied@gmail.com" <airlied@gmail.com>, "matthias.bgg@gmail.com"
+ <matthias.bgg@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH v2] drm/mediatek: fix of_node leak in mtk_drm_probe loop
+Thread-Topic: [PATCH v2] drm/mediatek: fix of_node leak in mtk_drm_probe loop
+Thread-Index: AQHdBwmsc1xiYzegy0+FYUp8k+PbtbZvgXwA
+Date: Thu, 16 Jul 2026 02:06:59 +0000
+Message-ID: <eb2062305868dca02d34d8f09caddbc8a91e5cd5.camel@mediatek.com>
+References: <20260628141751.47090-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260628141751.47090-1-vulab@iscas.ac.cn>
+Accept-Language: zh-TW, en-US
 Content-Language: en-US
-From: fengchengwen <fengchengwen@huawei.com>
-In-Reply-To: <20260715204008.3911275-1-zhipingz@meta.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.67.121.161]
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemo500009.china.huawei.com (7.202.194.199)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.52.3-0ubuntu1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|TY2PPF2525F04F7:EE_
+x-ms-office365-filtering-correlation-id: cef087d5-df17-49a7-e32f-08dee2deeb98
+x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|42112799006|1800799024|7416014|376014|366016|38070700021|10067099003|56012099006|18002099003|22082099003|11063799006;
+x-microsoft-antispam-message-info: 8TcliIzK8V4v71nOClZdiDn3/uKdQwh2DhmVwYJVkCLl55bjufsNxGmxJrTYtuOEwNHVeWf+m4KY4DEbBAnfadjwcGqIQsbE3v7QUizrxwFDbBlOt8qBbpCjEQ/kIhKemW5eP6m7TlCPZ+/RvvACIwl04C9QK6GHQ7A7GSV3pPdWxW4qWkNWqFEX67x6fCN7qI7Ez41wvmE0vRMruCU5rXw+Z5+kdXs7ny2mwz++wHwo6Lawvebxvh4gAi+NXi96+yp8sQblCwDCPa694ZOOWBbWZZscJb1GnMiY6Es8fyDDr6Mp6sLjJMiLuGOYQoZvrxGSp9+PQiqJAuBKlIv08aM+c7z038s5GZ2UT7HLQwtVciO997NqZLxAZACrGzaMPN8auXOmcZdPz0HobIXMyzXByYdjiBRTIqdIEI5lZoN+ncVoWa8vaEC9JjF2GZSKpKP2pBqvBWHc6K3QPX8a91acBsGgHgudoA56WlWQSVyUBH3ejxLo7CCnKqBMZMiKWTWkyrrDdOC4KWsFCQZkhhO/v0cUYDuuVS38D0eUaQ9nUBOOGbO4LwjCu2IgYRhj+Rj9Ut+8CBGm92OIzIedKdWA9vV1w89mJiLoG8qTJvVFddQhqzOaSD3lwF+PuxOQuJpqb/TM4TtPxu+Jdo1F6Pd4gtCEifRP+GS15fpYofHFFgY+leSOyFWaXIcWutXUHfvTqf9RiBjU3cQiy8zIMXcdm5rl9oOPL7vSWXvyqo0=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYZPR03MB6624.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(42112799006)(1800799024)(7416014)(376014)(366016)(38070700021)(10067099003)(56012099006)(18002099003)(22082099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Sk8xL3hPOUV5TGVsQXBsdTg0M2EwcTdWZ1ZjeERBYXpnZ09WWForNnVCWmY2?=
+ =?utf-8?B?UVU1Uy9nTEhpSW56d3l3dEJEQm16Wjg1dGx6SEsyVmJEdGdzNmpJN29GSjJY?=
+ =?utf-8?B?V3lrREk5VFdtVllqQzBiM0FOckNqMXNra0F5OWVOaG5LaDZCUXFnZW5BODlK?=
+ =?utf-8?B?bXhRQkVvMWV2L3J1a2dtTUd6MEI0aDJmVEovUEVRMS92dlZvSGV5aUdkOXRa?=
+ =?utf-8?B?aEhMSkl0Rk8xdFk5WGx1Tk1hYVd6OEpDZEdnQlFuK0V0TCtEWFovVGZkVi9R?=
+ =?utf-8?B?RjlwQVc0MHhHZGpaOHB5T05QbkJOVjJ5dGJxS2dEK2ZmT0l6aXVzMGJqcEI5?=
+ =?utf-8?B?d2JuK3pxdGFNNDY2aUJwa2hXZEtOTlEzajAwSzIwdHNjZ3FGZU0vWVpFQ3dj?=
+ =?utf-8?B?N1g0R2NpeWthOXVkRkliQ2xzaXNRS0F5M05neG1Xb2I2QW4rQlNZelVlaTBH?=
+ =?utf-8?B?NXJVYzlyb0lBSHZ0RVFJeW9nZDAvclk5enRRc3JYWUhQeld4YnVwUVRDZ2J1?=
+ =?utf-8?B?UDJXaVJ0ZDBTUVJwd3BOejBBdnhwWFdNMXFYRHhSeWRFRnQrVk1sQVdnVzEw?=
+ =?utf-8?B?N0VmWFdnbE9Nd3RjMWsyYmxzSnVVVk8wcGI4NW9iUTYybDA2b3ZYWng0TlYy?=
+ =?utf-8?B?VjJDVVFqTXN6V0taSW85M0F1aEk1OWpMQ0RBZnlOUWVKLzRreGJRaTBJYlky?=
+ =?utf-8?B?dzdXaUxUM0ExanVLQk5Hb3IzVW00UXAzVGFUQXNuRFhDeDNTbUZRSHE1Vkho?=
+ =?utf-8?B?QmpXSDZ1TFZKWlZVR1psM0hjemx6Zmt0amdLbDErOTBhaW1jcGo0OHJiSmF5?=
+ =?utf-8?B?UXdnZDNCZWVMMlduZnVyRmQ0L0lxYW9Hd3RNSEg5NFI3d3IxcHh5amFheFd1?=
+ =?utf-8?B?bk1IQi9oeWdhUGhITElJTVpkc1dJUUVHL3BhQ3g1YTNZK2pVZVNHTlUyVlM0?=
+ =?utf-8?B?MzNCc3NyM3lmUXFNZ09HdzBHd2FMUFJSdy9rZ1RYeTR6cEw0NVpCUEdrMDl6?=
+ =?utf-8?B?TStOMFE3c0wydGxtRkJicDVUczRtNkg4dlFaenkzeTgyWm9NZmZ3TGNxWmVx?=
+ =?utf-8?B?by9qSjYySmpjWWVXb0VYamdsd2pmdXJkYVRXRVZSTWFJVHhUTjhxc2x1NkVs?=
+ =?utf-8?B?YnB5QnJVakxHRW03SExQUm5QMkFmcHNoUnQvYzgvR3RkOHFYTkpPOWVFZXFJ?=
+ =?utf-8?B?a2htcVF2QS9xVjBoOTFhZDM5RU5MM2E1dmMya1FlSExSRGxROW9kazN1UHZp?=
+ =?utf-8?B?TFdLUnBRVmRpNFJUTjBXTmZ1RHNxTURXSEVubml4bTBUYnpaNW1talpOQzhV?=
+ =?utf-8?B?TnIyL3NsQ2ZHckE4N1A1bFQ4TkZ0MTNkbmM0UURrWmhQbExicFJWS0twbTZM?=
+ =?utf-8?B?aTRHZTVoYitCMnJUemF0NE0vNmdyTEdERHY2UE5XNjJYVTI4dUd2TGwxSCtv?=
+ =?utf-8?B?c1oyQ3NuWXVkcTJJa2xSK3AvQU1lb2xYRndyclFudHEzVzY3MjJZZXY4akpt?=
+ =?utf-8?B?WkNUOFp1bm11NVVScjdwL2ZmOFVYZDFqaHcwNXNXbFczNGNXWW55akhWUzAy?=
+ =?utf-8?B?T01qV0V4dXNmays5Zko3L3ZFUjh0TVpkUU9Md0Fxc3cyNEpTbzJHK1pNdUVu?=
+ =?utf-8?B?YUtTcGs1U1ZPN3RSenFaWEpmWGhQTHJVK2xJOFRyYmg4Ykoxc2xINmJ1U3I3?=
+ =?utf-8?B?c3c3QldWanlGNU1xV3l6bXUvdFA2SmpScHhreUFrWFE0UUtmdkhjYUQwaWxk?=
+ =?utf-8?B?Q0x3bmFqMFl4YkNuanYzeDlic0IvbjcwU0x5ZWt1bHczTThDNkZ5dlJiaThH?=
+ =?utf-8?B?K3RBcG9EbURoMmdON1NRR1R0M2IrZGVuQTJ6Sm1YdjI3d2tGRDZJYlRYakxY?=
+ =?utf-8?B?dUVVWnNlQVFLc3dZeEl3NGFxRitRZkJ3MnY2WWJYRmVVZytZekdaZytLKzcw?=
+ =?utf-8?B?RXNSdW9MSnY1MTgrRTgxdXMveTc4azhGOVhXei94WWRFbjQreFR5MkRrQkRB?=
+ =?utf-8?B?TUhNaWdGbnNaME5NbTJWOXFYK2NmaWtEYytWa3Qwdm9IOE04YU1nREJEWmND?=
+ =?utf-8?B?NFlwSC92WDEyT2RoVkdVU0FtaldjekJpVEN1b2FvNU1QelEvUHc3MWFvYWE1?=
+ =?utf-8?B?ZHVjTWRBUnc5SEhwWjdLOWREbVNuRGd3NHJWdTk3VXdMeDNYQTY4MWZiREk2?=
+ =?utf-8?B?bWFEZ3FKek1jcWxROUhUSm1zUFhxdEUyRjVYbzk4VGN1SEY1dFRBcXF3RXlX?=
+ =?utf-8?B?SjR5Vkw2aUo1VGpIYjJJUU5wT1I5dHdYdlEzbDBMR2ExUy9oRlJ6YVVUVlhj?=
+ =?utf-8?B?b1h1TXB1MzlOaTRrcjNOdG5KSHZSTG1Idk1KYnFueThQc0pWK2ZFQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <66566AD5C22B954D9DD352035319F721@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: jTbohME+EB7wc9F9kB6hNnMEiIGcSpYjA2lDS/XMPr0gtzzHPmO/Vp6nsbtCsIx+DxMr3gZvSVPSaB8Uzgg1Pt5ClYgBZxXN9+15p8A7Poq3k98JKZpUS644CU++o16sxR8d7dN/1reFtMc963Z5kEAjy3rMQ+a5QQKeLnTR0QKM5MqXeOu8AeK8keIDFgS3+R8nbm9ykCz1ocYDeFBBwrnWopn2gWWZSQ+fV8f3mqGuFraKIobnli4afLG/UJrcb+e+gYl5d5vHTi+WuenOZ7B577xp+Z/d4jnddCXKoxvcqbSKk/YHW774Q7jlcYPnpqpoXMrerX7TNdx/4ffadw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cef087d5-df17-49a7-e32f-08dee2deeb98
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jul 2026 02:06:59.6187 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rVpdFo2y3LFpVGiciuHCnuumNQspLG7fA0Q3XbEbjH5IDbAliWJUQqxOOK4j/d53rSIeloeR54k1QX77LI0AfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PPF2525F04F7
+X-MTK: N
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,185 +182,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Zhiping,
-
-One concern I'd like to raise is the implicit topology constraint of the
-TPH P2P path. TPH Steering Tag only works reliably when both importer and
-exporter devices sit under the same Root Port (or same TPH-aware switch).
-
-For cross-Root-Port P2P traffic (e.g. P2P devices located in different
-RC or even socket), most server-grade Root Complexes do not forward TPH
-prefixes through their internal routing. The ST field gets silently
-stripped before reaching the target device, so all TPH setup becomes
-ineffective with no error reported to user.
-
-Because cross-Root-Port P2P traffic with ST does not affect the host, but
-merely the completer may experience some performance degradation because
-it lacks the TPH hint. In this case, I suggest adding restrictions in the
-uAPI.
-
-A further step is to check whether the importer and exporter are under
-the same root port. However, this verification will cause the P2P TPH
-to be unsupported in the case of multi-host or multi-root PCIe switch.
-
-Thanks
-
-On 7/16/2026 4:39 AM, Zhiping Zhang wrote:
-> This series adds TLP Processing Hints (TPH) support to the VFIO dma-buf
-> export path, allowing importing drivers (e.g. mlx5) to use the
-> exporter's steering tag when performing peer-to-peer DMA into a
-> VFIO-owned device.
-> 
-> There is no separate in-tree vendor kernel driver for the target device:
-> vfio-pci is the in-tree driver and the targeted device is managed
-> from userspace via VFIO passthrough. That is why the ST has to flow
-> through a uAPI: userspace owns the device and its ST table, so it is the
-> entity that can configure a meaningful value for a given dma-buf. The
-> kernel-visible participants are still in-tree: vfio-pci exports the
-> dma-buf and mlx5 imports it.
-> 
-> On the effect: the endpoint's PCIe ingress block uses the ST as
-> an in-band instruction for the incoming P2P TLP -- selecting a target
-> cache partition and, on writes, an in-flight operation on the data
-> before it lands. The dma-buf callback keeps this opaque to the
-> framework -- only the producer (userspace owner of the VFIO device)
-> and the consumer (endpoint block) need to interpret the value. The
-> dma-buf get_pci_tph callback itself is optional, but workloads that
-> depend on the endpoint's in-flight operation need it because fallback
-> does not produce the same result.
-> 
-> The dma-buf hook is intentionally generic and discoverable rather than
-> a private side channel. The exporter owns the completing address
-> space for the dma-buf and decides whether it can provide a meaningful
-> ST/PH tuple for that completer; the dma-buf core keeps the tuple opaque,
-> and importers merely request the namespace they support and place the
-> returned value on generated TLPs. Exporters that cannot derive a
-> meaningful tuple simply return -EOPNOTSUPP.
-> 
-> Patch 1 adds small PCI/TPH type helpers so drivers can query the enabled
-> TPH requester mode and the device's TPH Completer Supported field
-> without reaching into pci_dev internals (and so callers in
-> CONFIG_PCIE_TPH=n builds get a clean fallback). pcie_tph_completer_type()
-> reuses the reserved-encoding fold introduced by the separately-submitted
-> folding patch rather than duplicating the completer decode.
-> Patch 2 adds the optional dma_buf_ops::get_pci_tph callback plus the
-> dma_buf_get_pci_tph() importer wrapper so importers can fetch TPH
-> metadata from an exporter under dmabuf->resv.
-> Patch 3 implements get_pci_tph in vfio-pci and adds the new uAPI
-> (VFIO_DEVICE_FEATURE_DMA_BUF_TPH) for userspace to attach the metadata.
-> Patch 4 wires up the mlx5 RDMA driver as a consumer. It also enforces the
-> dma_buf_get_pci_tph() steering-tag lifetime: the tag is only valid for the
-> mapping it was queried against, and the mkey's TPH fields cannot be
-> reprogrammed in place. mlx5 therefore records the registration-time tuple
-> and re-queries after each dma-buf mapping is established under dmabuf->resv;
-> unchanged tuples continue with the existing mkey, while changed or missing
-> tuples fail the remap rather than continue with a stale hint. For vfio-pci
-> BAR dma-bufs this is expected to be a no-op because invalidation is
-> revoke/quiesce, not movement to a new backing placement, and the
-> userspace-provided tuple is not changed by the revoke/un-revoke path.
-> 
-> Build-tested with both CONFIG_PCIE_TPH=y and CONFIG_PCIE_TPH=n.
-> Functional validation on the target topology: PCIe analyzer captures
-> on the P2P TLPs confirm the ST emitted by mlx5 matches the value
-> configured through VFIO_DEVICE_FEATURE_DMA_BUF_TPH, and the end-to-end
-> P2P workload only produces results consistent with the endpoint's
-> ST-selected in-flight operation. For example, with userspace
-> configuring 8-bit ST=0xf0 and PH=2, an analyzer capture of a peer-to-
-> peer MWr64 shows "STP MWr64 TC=0 OHC=2 ..." followed by "OHC-B
-> ST=F0h PH=2 HV=1":
-> (TLP Captures)
-> 08000260 -> STP MWr64 TC=0 OHC=2 TS=0 Attr=0 L=8
-> F0000004 -> RID=4h:0h.0h EP- Tag=F0h
-> E0200000 -> AddrH=000020E0h
-> 00080006 -> AddrL=06000800h
-> 90F00000 -> OHC-B ST=F0h PH=2 HV=1 AMA=0 AV-
-> 
-> The dma-buf get_pci_tph interface has also been exercised by a second,
-> independent importer: a different vendor's NIC whose driver is not yet
-> upstream, locally taught to call dma_buf_get_pci_tph(). A PCIe analyzer
-> confirmed the ST it placed on outbound P2P TLPs matches the value
-> configured through VFIO_DEVICE_FEATURE_DMA_BUF_TPH, the same result as
-> with mlx5. Two unrelated importer drivers exercising the callback
-> end-to-end shows the interface is not tied to a single consumer. That
-> importer change is out-of-tree and not part of this series. For that
-> second importer, with userspace configuring 8-bit ST=0xe0 and PH=0,
-> an analyzer capture shows:
-> (TLP Captures)
-> 08200260 -> STP MWr64 TC=0 OHC=2 TS=1 Attr=0 L=8
-> 4E00004C -> RID=4Ch:0h.0h EP- Tag=4Eh
-> 00170000 -> AddrH=00001700h
-> 00200006 -> AddrL=06002000h
-> 10E00000 -> OHC-B ST=E0h PH=0 HV=1 AMA=0 AV-
-> 
-> Depends on (submitted separately):
->   net/mlx5: free mlx5_st_idx_data on final dealloc
->     https://lore.kernel.org/linux-rdma/20260612170406.3339093-1-zhipingz@meta.com
->   PCI/TPH: fold reserved completer encoding in get_rp_completer_type()
->     https://lore.kernel.org/linux-pci/20260715202409.3767494-1-zhipingz@meta.com
-> 
-> Changes since v11:
->   Patch 1 (PCI/TPH): add pcie_tph_completer_type() and
->   pcie_tph_enabled_req_type(); pcie_tph_completer_type() reuses the
->   reserved-encoding fold from the separately-submitted folding patch
->   rather than duplicating the completer decode.
-> 
->   Patch 2 (dma-buf): fix the kernel-doc to reference
->   &dma_buf_attach_ops.invalidate_mappings instead of the non-existent
->   move_notify callback (reported by Sashiko and Alex Williamson).
-> 
->   Patch 3 (vfio/pci): hold memory_lock while validating dma-buf ownership
->   and publishing TPH metadata, so cleanup cannot disassociate the dma-buf
->   from the VFIO device under the SET path. Also use WRITE_ONCE() for
->   revoked-state writers to pair with the lockless attach-path READ_ONCE().
-> 
->   Patch 4 (mlx5): enforce the steering-tag lifetime documented in patch 2
->   (addresses the lifecycle gap Sashiko and Alex noted on v11). mlx5 now
->   stores the registration-time TPH tuple and re-queries the exporter after
->   each dma-buf mapping is established under dmabuf->resv. If the tuple is
->   unchanged, the existing mkey continues to be used. If it changed or
->   disappeared, mlx5 unmaps the pages and returns -EFAULT because the
->   existing mkey cannot be updated in place (no UMR update mask for TPH
->   fields, and rebuilding the mkey would change the rkey/lkey). The exporter
->   query runs under dmabuf->resv, but the ST-index allocation is done
->   outside it so no GFP_KERNEL allocation is held under dmabuf->resv. For
->   vfio-pci BAR dma-bufs this validation is expected to be a no-op because
->   the tuple is stable across revoke/un-revoke.
-> 
-> Previous link:
-> v11: https://lore.kernel.org/linux-pci/20260702181025.2694961-1-zhipingz@meta.com/
-> v10: https://lore.kernel.org/linux-pci/20260630224328.3218796-1-zhipingz@meta.com/
-> v9: https://lore.kernel.org/dri-devel/20260622184211.2229399-1-zhipingz@meta.com/
-> v8: https://lore.kernel.org/dri-devel/20260615065912.2177918-1-zhipingz@meta.com/
-> v7: https://lore.kernel.org/dri-devel/20260611161546.4075580-1-zhipingz@meta.com/
-> v6: https://lore.kernel.org/dri-devel/20260608185646.4085127-1-zhipingz@meta.com/
-> v5: https://lore.kernel.org/dri-devel/20260526144401.1485788-1-zhipingz@meta.com/
-> v4: https://lore.kernel.org/linux-pci/20260519201401.1558410-1-zhipingz@meta.com/
-> v3: https://lore.kernel.org/linux-pci/20260512184755.4137227-1-zhipingz@meta.com/
-> v2: https://lore.kernel.org/linux-pci/20260430200704.352228-1-zhipingz@meta.com/
-> 
-> Zhiping Zhang (4):
->   PCI/TPH: Add requester/completer type helpers
->   dma-buf: add optional get_pci_tph() callback
->   vfio/pci: implement get_pci_tph and DMA_BUF_TPH feature
->   RDMA/mlx5: get tph for p2p access when registering dma-buf mr
-> 
->  drivers/dma-buf/dma-buf.c                     |  32 ++++
->  drivers/infiniband/hw/mlx5/main.c             |   1 +
->  drivers/infiniband/hw/mlx5/mlx5_ib.h          |  11 ++
->  drivers/infiniband/hw/mlx5/mr.c               | 151 +++++++++++++++++--
->  drivers/infiniband/hw/mlx5/odp.c              |   7 +
->  .../net/ethernet/mellanox/mlx5/core/lib/st.c  |  49 +++++-
->  drivers/pci/tph.c                             |  39 ++++++
->  drivers/vfio/pci/vfio_pci_core.c              |   3 +
->  drivers/vfio/pci/vfio_pci_dmabuf.c            | 117 ++++++++++++-
->  drivers/vfio/pci/vfio_pci_priv.h              |  13 ++
->  include/linux/dma-buf.h                       |  25 +++
->  include/linux/mlx5/driver.h                   |  15 ++
->  include/linux/pci-tph.h                       |   8 +
->  include/uapi/linux/vfio.h                     |  43 +++++
->  14 files changed, 496 insertions(+), 18 deletions(-)
-> 
-> --
-> 2.53.0-Meta
-> 
-
+T24gU3VuLCAyMDI2LTA2LTI4IGF0IDIyOjE3ICswODAwLCBXZW5UYW8gTGlhbmcgd3JvdGU6DQo+
+IEV4dGVybmFsIGVtYWlsIDogUGxlYXNlIGRvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFj
+aG1lbnRzIHVudGlsIHlvdSBoYXZlIHZlcmlmaWVkIHRoZSBzZW5kZXIgb3IgdGhlIGNvbnRlbnQu
+DQo+IA0KPiANCj4gSW4gdGhlIGZvcl9lYWNoX2NoaWxkX29mX25vZGUgbG9vcCwgcHJpdmF0ZS0+
+Y29tcF9ub2RlW2NvbXBfaWRdIGFuZA0KPiBwcml2YXRlLT5tdXRleF9ub2RlIGFyZSBhc3NpZ25l
+ZCB2aWEgb2Zfbm9kZV9nZXQgd2l0aG91dCBmaXJzdCByZWxlYXNpbmcNCj4gYW55IHByZXZpb3Vz
+bHkgc3RvcmVkIHJlZmVyZW5jZSBmb3IgdGhlIHNhbWUgaW5kZXguIFdoZW4gdGhlIHNhbWUgY29t
+cF9pZA0KPiBvciBtbXN5c19pZCBtYXRjaGVzIG11bHRpcGxlIG5vZGVzLCBlYXJsaWVyIG5vZGUg
+cmVmZXJlbmNlcyBhcmUNCj4gb3ZlcndyaXR0ZW4gYW5kIHBlcm1hbmVudGx5IGxlYWtlZC4NCj4g
+DQo+IFN1Z2dlc3RlZC1ieTogR3JlZyBLSCA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+DQo+
+IEZpeGVzOiAxZWY3ZWQ0ODM1NmMgKCJkcm0vbWVkaWF0ZWs6IE1vZGlmeSBtZWRpYXRlay1kcm0g
+Zm9yIG10ODE5NSBtdWx0aSBtbXN5cyBzdXBwb3J0IikNCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5l
+bC5vcmcNCj4gU2lnbmVkLW9mZi1ieTogV2VuVGFvIExpYW5nIDx2dWxhYkBpc2Nhcy5hYy5jbj4N
+Cj4gLS0tDQo+IENoYW5nZXMgaW4gdjI6DQo+IC0gRml4IHBhdGNoIGZvcm1hdCBiYXNlZCBvbiBy
+ZXZpZXdlciBmZWVkYmFjaw0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtf
+ZHJtX2Rydi5jIHwgMiArKw0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQ0KPiAN
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHJtX2Rydi5jIGIv
+ZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kcm1fZHJ2LmMNCj4gaW5kZXggYzg2YTNmNTRm
+MzViLi41ODg2MGY3MDcxYTkgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRl
+ay9tdGtfZHJtX2Rydi5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHJt
+X2Rydi5jDQo+IEBAIC0xMTM4LDYgKzExMzgsNyBAQCBzdGF0aWMgaW50IG10a19kcm1fcHJvYmUo
+c3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikNCj4gDQo+ICAgICAgICAgICAgICAgICAgICAg
+ICAgIGlkID0gb2ZfYWxpYXNfZ2V0X2lkKG5vZGUsICJtdXRleCIpOw0KPiAgICAgICAgICAgICAg
+ICAgICAgICAgICBpZiAoaWQgPCAwIHx8IGlkID09IHByaXZhdGUtPmRhdGEtPm1tc3lzX2lkKSB7
+DQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb2Zfbm9kZV9wdXQocHJpdmF0ZS0+
+bXV0ZXhfbm9kZSk7DQoNClRoaXMgZHJpdmVyIGhhcyBhbiBhc3N1bXB0aW9uIHRoYXQgb25lIG11
+dGV4X25vZGUgaW4gb25lIG1tc3lzIHBpcGVsaW5lLg0KSWYgbW9yZSB0aGFuIG9uZSwgdGhlcmUg
+c2hvdWxkIGJlIHNvbWUgZXJyb3IgaGFwcGVuLg0KSXQncyBub3QgbmVjZXNzYXJ5IHRvIGtlZXAg
+Z29pbmcuDQpTaW1wbHkgcHJpbnQgZXJyb3IgbWVzc2FnZSBhbmQgcmV0dXJuIGVycm9yIGNvZGUu
+DQoNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwcml2YXRlLT5tdXRleF9ub2Rl
+ID0gb2Zfbm9kZV9nZXQobm9kZSk7DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ZGV2X2RiZyhkZXYsICJnZXQgbXV0ZXggZm9yIG1tc3lzICVkIiwgcHJpdmF0ZS0+ZGF0YS0+bW1z
+eXNfaWQpOw0KPiAgICAgICAgICAgICAgICAgICAgICAgICB9DQo+IEBAIC0xMTU0LDYgKzExNTUs
+NyBAQCBzdGF0aWMgaW50IG10a19kcm1fcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRl
+dikNCj4gICAgICAgICAgICAgICAgIGlmICghbXRrX2RybV9maW5kX21tc3lzX2NvbXAocHJpdmF0
+ZSwgY29tcF9pZCkpDQo+ICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlOw0KPiANCj4g
+KyAgICAgICAgICAgICAgIG9mX25vZGVfcHV0KHByaXZhdGUtPmNvbXBfbm9kZVtjb21wX2lkXSk7
+DQoNClRoaXMgZHJpdmVyIGhhcyBhbiBhc3N1bXB0aW9uIHRoYXQgZXZlcnkgY29tcF9pZCBvbmx5
+IGV4aXN0IG9uY2UgaW4gZGV2aWNlIHRyZWUuDQpJZiBtb3JlIHRoYW4gb25lLCB0aGVyZSBzaG91
+bGQgYmUgc29tZSBlcnJvciBoYXBwZW4uDQpJdCdzIG5vdCBuZWNlc3NhcnkgdG8ga2VlcCBnb2lu
+Zy4NClNpbXBseSBwcmludCBlcnJvciBtZXNzYWdlIGFuZCByZXR1cm4gZXJyb3IgY29kZS4NCg0K
+UmVnYXJkcywNCkNLDQoNCj4gICAgICAgICAgICAgICAgIHByaXZhdGUtPmNvbXBfbm9kZVtjb21w
+X2lkXSA9IG9mX25vZGVfZ2V0KG5vZGUpOw0KPiANCj4gICAgICAgICAgICAgICAgIC8qDQo+IC0t
+DQo+IDIuMzkuNSAoQXBwbGUgR2l0LTE1NCkNCj4gDQoNCg==
