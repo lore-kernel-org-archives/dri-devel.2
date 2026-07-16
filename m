@@ -4,49 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBC34C44515
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 18:27:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B66AC44515
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 18:37:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F2ED10E1DD;
-	Thu, 16 Jul 2026 18:27:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F5F910E3AA;
+	Thu, 16 Jul 2026 18:37:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EOBqEywD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mJkPuEof";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 241BF10E1DD
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 18:27:15 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BDAE7418EE;
- Thu, 16 Jul 2026 18:27:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B4B21F000E9;
- Thu, 16 Jul 2026 18:27:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784226434;
- bh=aOGfx3jN2e0VB6SUEbEV3vWjHXwPPAQYU/krkLGSw4U=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=EOBqEywDz4quZuG6Y6jfzFTxgRWaMv3CbtoxPKwzRN4ZJP/yrLYqzoM1zI0dk0Azg
- CqfZkiG0YevCIUwvN2Hy+Z6vHG+7I529nwvwOq2oZYHhSj1T1idJq4HAuIrpvxzPGN
- IfoWr9QPDbFZhanLT+V3Rp8/n6sUAa+FuXkbTkU0VdjKZZzIBjrKdaiRUZ6aBrPttt
- ReRR3fvSpmrGaR7NMro9GV1s3Vix4hwdd0vhMO6JrAMWh+vEB3zWcpJWyrZ1OHnDdm
- KwZMqth19IQr1Fb6LY5ovrAVMpQPKCsTDscEqhi8Os3B2pvR9Dt2mBC03a1HS6sYyf
- O1Z1FqfkGH4TA==
-Date: Thu, 16 Jul 2026 20:27:12 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- Dan Carpenter <error27@gmail.com>
-Subject: Re: [PATCH] gpu: host1x: Fix use-after-free in
- host1x_bo_clear_cached_mappings
-Message-ID: <alkidFSX2nTsQviG@orome>
-References: <20260603-host1x-bocache-leak-fix-v1-1-494101dbfd30@nvidia.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AB3A10E3AA
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 18:37:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784227049; x=1815763049;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Gp+OUefwokWpgHwdunzLQJOrzjxr3nWteQh1SnYFjOs=;
+ b=mJkPuEofFfsm+D9IWB3jcSOKZCtN2gSRGEDHQ8OrFGtnUhJfSxQfyNdn
+ eDR15A+qb+45aUrk+FY9ApNpsTTfMFuCf75Dr1BMI1B19Wwfvvmjy+rAy
+ vtQ/chJe6PA5yypg1hcBmWVyHNMFdwI3uUSsWg6agtU5Ue+9k+vuZ8hOP
+ nqscsqfzEZBf/nnyQwy1NMK6LHQ8o+D4xNMkeIsMyUd5y+IeGAnniWcBa
+ OC3Y5FdNv88uVYUsDH4ENskP1EzhrOkTejj7EAqwS/rmneGiBsZfpKoAp
+ yaz9sJ5o0ObsN31Kdquasf2UNFhkGRoF1mFdXKFg1dWveaotaTQBPq6FW g==;
+X-CSE-ConnectionGUID: vspjUYsPS4udeLZiDNTDcQ==
+X-CSE-MsgGUID: 3l6dQgNVS3Onqu3s6Rsv5Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="72432333"
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; d="scan'208";a="72432333"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2026 11:37:29 -0700
+X-CSE-ConnectionGUID: +TT9WKXMRIuIU+56AVkQqg==
+X-CSE-MsgGUID: iYAGxyBWSnKSCN9dwhK/Tg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; d="scan'208";a="294795210"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.26])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2026 11:37:28 -0700
+Date: Thu, 16 Jul 2026 21:37:24 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: mashikiselby@gmail.com
+Cc: Andy Shevchenko <andy@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: fbtft: fb_ra8875: replace udelay with
+ usleep_range
+Message-ID: <alkk5CVmeEY6org0@ashevche-desk.local>
+References: <20260716-staging-testing-v1-1-2ebc0c6bb27a@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="kzuhp2nzgyamkdap"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260603-host1x-bocache-leak-fix-v1-1-494101dbfd30@nvidia.com>
+In-Reply-To: <20260716-staging-testing-v1-1-2ebc0c6bb27a@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,56 +74,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, Jul 16, 2026 at 01:08:33PM +0200, Selby Mashiki via B4 Relay wrote:
 
---kzuhp2nzgyamkdap
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] gpu: host1x: Fix use-after-free in
- host1x_bo_clear_cached_mappings
-MIME-Version: 1.0
+> udelay() busy-waits for the specified duration, consuming CPU cycles
+> unnecessarily. usleep_range() is preferred for delays that can sleep,
+> as it allows the scheduler to run other tasks during the wait.
+> 
+> Replace two instances of udelay(100) with usleep_range(100, 200) to
+> use the preferred sleeping delay function.
 
-On Wed, Jun 03, 2026 at 05:37:49PM +0900, Mikko Perttunen wrote:
-> __host1x_bo_unpin() drops the last reference to the mapping and frees
-> it, so we can't dereference mapping afterwards. The cache itself
-> outlives the mapping, so use the cache local variable instead.
->=20
-> Reported-by: Dan Carpenter <error27@gmail.com>
-> Closes: https://lore.kernel.org/linux-tegra/ah6ErK6f4kVudVIA@stanley.moun=
-tain/T/#u
-> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
-> ---
-> This is a fix for the commit
->=20
-> 	'gpu: host1x: Allow entries in BO caches to be freed'
->=20
-> that has already been applied by Thierry.
-> ---
->  drivers/gpu/host1x/bus.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+NAK. Read mailing list archives why.
 
-Applied to drm-misc-fixes, thanks.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Thierry
 
---kzuhp2nzgyamkdap
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpZIn8ACgkQ3SOs138+
-s6Eyhg//SENKmW1oTotuZfGqg+SpbhWkuzHr4s2hnvMk4AczIg2XDiehR3WyQHh3
-azsMGK8VlfY6ASIYsDNVL93MXrpNNZCzx9REBy/M5gXPLu+ilGVHO/7AavEsXJyF
-qsZsz0LBKJCoNomOu8hN6w77M8dJxdM8fgkt4+8KfEL/hOhthSew56QRLBLDxXuW
-VfIjzIESdsxp7ZuHycU7RDFkoFBROYGvMW11eFeKynhbgOWjkwU7dmIEhck/Jy5R
-DxI4FcIMCTOL9PxmyClTzEqy81rG3hbQlP4/RHSdxKLBY/fszPG5sGx7FBN+/sxE
-JgHI0d+FL5+/i4BcX/9zjpgFs9fVoL8TPX3L5KivkYsWkfupyqUko83cMURCNjxZ
-ri3kCpvlGpqjfpJId+B+fKJGNnl/JkNnOOkEdK1070uBtnavADV18rlozcR+/oD8
-4RSB2k++HXTkdlJD/whudv7Nt/36jy7BDLfvOzChmG05iI0XPmmp9WXUQ042dX7m
-y3i6i5oSrrHIwhIENileVGMh4Y/xAtlFZrgUu4Au7HvmjS3gUNGtWjCK3yS0v4Rg
-PftHtA53jTnyLTS+Yg/XJMuMOS0YUAR8YTIITWyhVeaOppvrbiUWX4RINPU3SQpM
-Q4sSniHL7w2MCELinhNmUyeuk96cImZb8RdQmW8ACefVW+cDYss=
-=TEkN
------END PGP SIGNATURE-----
-
---kzuhp2nzgyamkdap--
