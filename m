@@ -4,70 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E04F4C44501
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 13:50:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F291C4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 14:01:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49D7A10E388;
-	Thu, 16 Jul 2026 13:50:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEB5F10F322;
+	Thu, 16 Jul 2026 14:01:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gND08iiP";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="iHB/t/6f";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56F3E10E388
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 13:50:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 79BD161380;
- Thu, 16 Jul 2026 13:50:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2F691F000E9;
- Thu, 16 Jul 2026 13:50:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784209832;
- bh=ucTI3ctwz7P4bafmOQoOoow7pk9pdyLWWyIglYkCCtE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=gND08iiPLrzULmDx5dMtcLqIrljf7N/ye9aV2+ow7d2CxVZdsL2cVYoEZZvAzBCCA
- ZQFibTZyt3zJ3gM6hbZW0Y7CS4it4S2tImxc+eP+uVlXrh1T9mtWPNmaEvt0FYUd7W
- sxxhNRYxj3OY9js0G675biSI3NFAG5FXRjM60oM/hVBAQxlsjgo/X45V3qeVQM2+ZR
- BlVqs2dd8QBAD5vWRm2eKVASKM8ZPBDurwUkVHjceXVIkhu/1iX5YBZVAaMGj9gC3Y
- 3fyqVJqoOD6RZEDCKZsi485qbxbPu+l5shK7kwztDdxdxqMKdTGDpR7k9kmgf9/NGn
- yDGrlVSks6rLg==
-Date: Thu, 16 Jul 2026 15:50:29 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v8 04/39] drm/connector: Add HDMI 2.0 scrambler
- infrastructure
-Message-ID: <20260716-astute-nippy-moose-bd22b5@houat>
-References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
- <20260702-dw-hdmi-qp-scramb-v8-4-d79890d00b6a@collabora.com>
- <tjsidlnvswo2rdhqa6jybxrnb47lxgmxdlfrfbasuh67wjbqoy@3a45n3zawvnf>
- <17753a1c-824a-4835-ac2d-8b2796bba1eb@collabora.com>
- <534b921c-638c-4fc3-b89e-5dfc1f269f96@collabora.com>
- <20260713-statuesque-nonchalant-seagull-b9c39d@houat>
- <91c3a825-3344-4ff5-8ea0-f8f057665b3f@collabora.com>
- <20260715-ancient-zealous-eagle-b13e94@houat>
- <dfca9032-98ca-4c61-b1b1-85fd05283d77@collabora.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="e64try3cwjwjk5gn"
-Content-Disposition: inline
-In-Reply-To: <dfca9032-98ca-4c61-b1b1-85fd05283d77@collabora.com>
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87CB210F323
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 14:01:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784210495; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=DqrX0QCVhhcHKSAHdoeahzKeUmohOTDkxQwdy4b4U5CQ6/9w5QHqDiVoIhqrWsmI89mwFe67g1dy8qNbi5XmGjxR+pXNaJq5CzFQ8bHCsIYhzZUA1tbmQkTKl3XeJxwRciDCRbcscZx6ow+proXu/xbuRpbp4ivQts9Jokc3tx4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1784210495;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=YkCswN9vU9klZCbaHmjobgXuhJ9kv2i+jhOyWtNZ/gU=; 
+ b=AVvnwQwUJIRzJqU0K4yFQ1ts22OjjzvdrO9I0pKO+j9KP8UF4SNWX+J4ARFcWL6CQQwJTF7fizXxrhZMtaGJKjtnTz7VC7QzswwuRCSwEz+UjLXN72XZPqMJQywSPf34rGNPAP5mafXs9yDSItCBJAl1rW/40uH5YMamAIwR0g4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784210495; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+ bh=YkCswN9vU9klZCbaHmjobgXuhJ9kv2i+jhOyWtNZ/gU=;
+ b=iHB/t/6f8THx8oP3hx/xsCnbqejJwdbqld2us2HWG/dkLDiAtcEa4Dqwn1KSpWpG
+ 5QqOlb5RRrVVcp3yKbkj+4eYewmyIZKezdvgYZ2oNhCAQH8lp5O7fUBwUKqtxO9G0RQ
+ Er3mWUHUzAXjc65l7SKCF/vzIQAvWb8YH1HPFJoU=
+Received: by mx.zohomail.com with SMTPS id 1784210492755133.6375897949889;
+ Thu, 16 Jul 2026 07:01:32 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v5 4/5] rust: Add dma_fence abstractions
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <7a2cf5494824b8451824ebe82e0391df05a7cb5a.camel@mailbox.org>
+Date: Thu, 16 Jul 2026 11:01:12 -0300
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Krishna Ketan Rai <prafulrai522@gmail.com>,
+ Tamir Duberstein <tamird@kernel.org>, Mirko Adzic <adzicmirko97@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Shankari Anand <shankari.ak0208@gmail.com>, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <B393F982-3746-4AE8-81DB-00D07232C681@collabora.com>
+References: <20260703073141.3962604-2-phasta@kernel.org>
+ <20260703073141.3962604-6-phasta@kernel.org>
+ <046C4D44-1966-4EE9-AE86-A8F83A136771@collabora.com>
+ <7a2cf5494824b8451824ebe82e0391df05a7cb5a.camel@mailbox.org>
+To: phasta@kernel.org
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,145 +87,93 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---e64try3cwjwjk5gn
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v8 04/39] drm/connector: Add HDMI 2.0 scrambler
- infrastructure
-MIME-Version: 1.0
-
-On Wed, Jul 15, 2026 at 01:46:12PM +0300, Cristian Ciocaltea wrote:
-> On 7/15/26 11:55 AM, Maxime Ripard wrote:
-> > On Mon, Jul 13, 2026 at 01:23:00PM +0300, Cristian Ciocaltea wrote:
-> >> On 7/13/26 11:50 AM, Maxime Ripard wrote:
-> >>> On Thu, Jul 09, 2026 at 10:25:54PM +0300, Cristian Ciocaltea wrote:
-> >>>> On 7/3/26 11:54 PM, Cristian Ciocaltea wrote:
-> >>>>> On 7/3/26 5:34 PM, Dmitry Baryshkov wrote:
-> >>>>>> On Thu, Jul 02, 2026 at 05:46:17PM +0300, Cristian Ciocaltea wrote:
-> >>>>>>> Add the connector-level infrastructure to support HDMI 2.0 scramb=
-ling:
-> >>>>>>>
-> >>>>>>> - A scrambler_supported flag to indicate whether the source suppo=
-rts the
-> >>>>>>>   scrambling capability, in which case the newly introduced
-> >>>>>>>   .scrambler_{enable|disable}() callbacks in drm_connector_hdmi_f=
-uncs
-> >>>>>>>   are mandatory
-> >>>>>>
-> >>>>>> Do we need a flag? What would it mean if the flag is set, but the
-> >>>>>> callbacks are not? Can we drop the flag and use the presence of the
-> >>>>>> callbacks as a way to identify that scrambler is enabled?
-> >>>>>
-> >>>>> The flag is intended to be set only within drmm_connector_hdmi_init=
-_with_caps()
-> >>>>> when drivers advertise HDMI 2.x capability, in which case it also e=
-nsures the
-> >>>>> callbacks are provided. =20
-> >>>>>
-> >>>>> We could drop the flag and instead have the init helper clear the c=
-allbacks if
-> >>>>> they were provided for HDMI 1.x.  This might slightly reduce code r=
-eadability,
-> >>>>> as it relies on checking the presence of individual callbacks - esp=
-ecially since
-> >>>>> we plan to extend this further with HDMI 2.1 support, providing fou=
-r or five
-> >>>>> additional FRL-specific callbacks.
-> >>>>
-> >>>> I tried to replace the flag with a helper that checks the presence o=
-f (one of)
-> >>>> the callbacks, but it's not straightforward to unset those for non-H=
-DMI 2.x
-> >>>> cases since the hdmi_funcs argument is immutable.
-> >>>
-> >>> I'm not sure why we would need to unset them. If the driver states th=
-at
-> >>> it support HDMI 2.0, then it needs to be there, if it doesn't, then w=
-ho
-> >>> cares? it's not going to be used. We can log a warning that it's
-> >>> inconsistent I guess, but there's no need to actively remove it.
-> >>
-> >> I was trying to address the use case where drivers provide the scrambl=
-er
-> >> callbacks despite not supporting HDMI 2.0.
-> >=20
-> > Scrambling got introduced with HDMI 2.0. That doesn't make sense, but
-> > it's not a total deal breaker, it's just going to be here unused. Hence
-> > why I was suggesting to put a warning there if you wanted to.
-> >=20
-> >> If we replace the scrambler_supported flag with a helper checking the
-> >> presence of the scrambler callbacks, then we would need to ensure the
-> >> callbacks do not exist in this case.
-> >=20
-> > Keep it simple:
-> >=20
-> > if (hdmi_version >=3D HDMI_VERSION_2_0)
-> >    if (funcs->scrambler_enable)
-> >       hdmi->scramblers_supported =3D true
-> >    else
-> >       return -EINVAL
-> > else
-> >     drm_warn(warn, "Inconsistent HDMI version");
-> >=20
-> > We don't need anything more than that.
 >=20
-> I dropped the scrambler_supported flag and introduced a helper:
+>>> +}
+>>> +// Necessary to guarantee that `inner` always comes first and can =
+be freed by C.
+>>> +// Also useful for using casts instead of container_of().
+>>> +#[repr(C)]
+>>> +#[pin_data]
+>>> +struct DriverFenceData<'a, T: Send + Sync + FenceCtxOps> {
+>>> +    #[pin]
+>>> +    /// The inner fence.
+>>> +    // Must always be the first member so that unsafe casting =
+works; but also
+>>> +    // necessary so that the C backend can free the allocation =
+(coming from our
+>>> +    // Rust code) with kfree_rcu().
+>>> +    inner: Fence,
+>>> +    /// Callback head for dropping this in a deferred manner =
+through RCU.
+>>> +    rcu_head: bindings::callback_head,
+>>> +    /// Reference to access the FenceCtx. Useful for obtaining name =
+parameters.
+>>> +    fctx: &'a FenceCtx<T>,
+>>=20
+>> This creates a self-referential borrow in the JobQueue, since it =
+holds both (a) the
+>> context to mint new seqnos from and (b) the xarray with fences which =
+borrow from
+>> that same context. This issue does not exist with the Arc and we =
+should really
+>> fix it before moving with this series.
 >=20
-> static inline bool
-> drm_connector_hdmi_scrambler_supported(struct drm_connector *connector)
-> {
-> 	return connector->hdmi.funcs && connector->hdmi.funcs->scrambler_enable;
-
-I'd add disable to that test
-
-> }
+> Can you detail that a bit more. So your JobQueue version has a `data:
+> T` where T holds both the xarray and a jobqueue. The xarray contains
+> fences that hold references to the FenceCtx. But shouldn't that be =
+fine
+> since the life time ensures that the drop order is correct?
 >=20
-> Therefore we need to ensure the callbacks are not set in the HDMI 1.x cas=
-es:
 >=20
-> int drmm_connector_hdmi_init_with_caps()
-> {
-> 	...
-> 	if (caps->supported_hdmi_ver >=3D HDMI_VERSION_2_0) {
-> 		if (!hdmi_funcs->scrambler_enable ||
-> 		    !hdmi_funcs->scrambler_disable)
-> 			return -EINVAL;
+> btw we are recently coming up with a proposal on how JobQueue could
+> store DriverFences for the driver. I want to present some RFC for that
+> soonish.
 >=20
-> 		connector->hdmi.max_tmds_char_rate =3D HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ;
-> 	} else {
-> 		/*
-> 		 * Scrambler callbacks are only valid for connectors advertising
-> 		 * HDMI 2.0 capability. drm_connector_hdmi_scrambler_supported()
-> 		 * relies on their presence to report scrambling support.
-> 		 */
-> 		if (hdmi_funcs->scrambler_enable ||
-> 		    hdmi_funcs->scrambler_disable)
-> 			return -EINVAL;
->=20
-> 		if (caps->supported_hdmi_ver >=3D HDMI_VERSION_1_3) {
-> 			connector->hdmi.max_tmds_char_rate =3D HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
-> 		} else if (caps->supported_hdmi_ver >=3D HDMI_VERSION_1_0) {
-> 			connector->hdmi.max_tmds_char_rate =3D HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
-> 		}
-> 	}
 
-Drivers might have a lower limit than the max allowed by the spec. It
-should be provided by the driver, possibly optionally with a fallback to
-what the spec states?
+Let me address this first, I will reply to your other points later today =
+:)
 
-Maxime
+So about =E2=80=9Cyour JobQueue version has a data: T where T holds both =
+the xarray
+and a jobqueue=E2=80=9D: no. The JobQueue has an xarray backing all the =
+stages and
+a context to mint new seqnos from:
 
---e64try3cwjwjk5gn
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+struct JobQueueInner {
+  fifo: XArray<XaEntry>
+  fctx: FenceContext
+  // other fields..
+}
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaljhpQAKCRAnX84Zoj2+
-dtmfAX4hb36DjoE4VEr38K1RxVvH6fMaYc4tGgZ5azN7kKXkf+xx8ruXvL0qAOFh
-VBxEz9IBfiL9+MgYvxA576doURHAq97OCDOVjqmqFBKmaZ51qcWE/LJhjrzU/1JC
-BSNPP7oopA==
-=Y9rm
------END PGP SIGNATURE-----
+This fifo backs all the stages in the queue, and we track stages by =
+tracking
+indices pointing to the XArray.
 
---e64try3cwjwjk5gn--
+XaEntry is split between a fallible prepare() and a infallible commit():
+
+// prepare() stores this:
+XaEntry::Reserved {
+    job: Arc<T::Job>,
+    uninit_fence: DriverFenceAllocation<???, ...>,
+    deps: KVec<ARef<Fence>>,
+    // other fields
+}
+
+XaEntry::Live is similar, except that the allocation is initialized and =
+there's
+the whole DriverFence/Fence split and etc.
+
+Under your proposed design, fences must borrow their context from =
+somewhere,
+and this somewhere is a sibling field in the JobQueue. This relationship =
+is
+unrepresentable in Rust. It only works if you don't store these two =
+things
+together.
+
+There are probably a few different ways of fixing this, but I recommend =
+going
+back to refcounting.
+
+=E2=80=94 Daniel=
