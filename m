@@ -4,135 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43562C4450A
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 09:39:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD634C44501
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 09:58:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C0DA10E30B;
-	Thu, 16 Jul 2026 09:39:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4256310E335;
+	Thu, 16 Jul 2026 09:58:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kontron.de header.i=@kontron.de header.b="qCQNgE9A";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RykWmbhT";
 	dkim-atps=neutral
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11020118.outbound.protection.outlook.com [52.101.69.118])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7570D10E30B
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:39:04 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF0DC10E335;
+ Thu, 16 Jul 2026 09:58:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784195896; x=1815731896;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=1pCRsvuLYey+3oGj+x00R1J3Nk+vx27EqzNKOkrclww=;
+ b=RykWmbhTg5j03KSXM4ZXRAPblhWJwikZffgh0wtk3SbbRoKHY7OmrX99
+ 6scrydjoTg2uX1AOYP+qAeO/OckpHJY+gvuViMhF9Sa3LXwv3un6kKdiC
+ s0KlaCBlcRpmtrVvYwAR/t912o53z3yHqsf9ZMcfWOJQBq21bPQx/eP+I
+ p2adCo+/lvw/TPbIYPsaRyZyQO+hHDPbpJaLEj20hfPtZNhR/tHEUMWnM
+ 9lBlfgzwS0iINzZGwqyVdYbYOD+1wUMwNJi53fgiP8RyAxTNdfE0KCe4C
+ xDkjiZRsmLT/kzaynsm1tEljPCeTjuaMHSpoauEkw0QpWxuIxDcGpDDar g==;
+X-CSE-ConnectionGUID: iTw9pqmcQFyetOvzmjfpcA==
+X-CSE-MsgGUID: tsj1HapQS1SOLR6biaHvhQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="96215714"
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; d="scan'208";a="96215714"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2026 02:58:16 -0700
+X-CSE-ConnectionGUID: 2EJmKU1nQu6jpZCpDPo9TQ==
+X-CSE-MsgGUID: 2ARI0SHwQ6yzqbi+2WlFSg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; d="scan'208";a="252029108"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2026 02:58:16 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 16 Jul 2026 02:58:15 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Thu, 16 Jul 2026 02:58:15 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.18) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 16 Jul 2026 02:58:14 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jFyFkTAcWPsg9UyjiF7nJv32muoUT1aJr3kRh94Q2S5QNk75wKkSpmU3SnNXkSfXC3bFKJ1IJbaoayRn7ASi1gYtW9eTqhk7CcvS3RFP6c5YGf5n3IXYVDYFRjMukeVf52ihT2ed0GYbWDFDY2+fpYKeuRKdPpsFe9smxeQ+qoP+kaSmcFP1/0RripGZdVfaeRY3FIEzsuK3wKoWQ4a4o20s2haLl79USyuLvzhLSB9tuKR8igN6X6q/sKpTLUP4igUFz88q1efHp8EhAcQz48e2L1rdp1hPkA/Vx8Y/HooCK35+XH7ZNg6lqwNX8jWBzYp679mMJNMMZqthyJ7dQw==
+ b=CSoWlrzCVEBtlfKOqsncXv6LYHf9CW8YpzMEV4OTJhhWfE5NJXySdgLW5RDlZTqBvnImci7UQx123/8X1oab1XCMClR1Fx9bVN3/JHsvy8w8aCXbCCoemIAIF0dGucVhHUGyr7xD85g/uCPMkeCKoCpby04frb1S+51dRHpvZqy3MkjRn9+WquLLGUZePn3RfwYou4ZqAy/SQ30xO+ES7usvFyR0ZutvS1WPrZErpjAHMxFFkG7rBPeBC+NFgVTTrZG2HFEmx9irNAFWVg4yVY/0mkOGPACtp93mRSJtN1HvdH6t8DIWt9rywW7g/6wyi0mNX+0+eh6ps0xiUDVbIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W47LesqVzF8iZLPJmiAuoXOv8msFtSDADJ7TmWa+6PI=;
- b=GIr/+ZUB7oUOBwIlNCwRdaOF7k8VCHFdPLykX66lDfN4Y63qqjOYd345slJW96n6LNZAbPf8ZtVxw1cweIGVDRSJBkH3tEgbSRG/5zOQUYRpvD1XCtUjVU+PghbfyBReTalUKCHx9yoqUXwzZmtlqomvSN2Zhwr54c+URAhBAgfAp4Wr7oztxWcQa1dNjpmum6vOjBAMNQ+SwXbJhmo+ok9Wq89399Uykq3p5i7yn+GBVB/Az9siBOBtr7cNSLOM1ezzqV4634JY5xOhFzB1PkrmoYnDIISS5udYX8RWkWrLqag15ysftFVsI7dXRUdN1nrS6nVfe81U///IWD4/Xw==
+ bh=Zb3pC+iIO5JGABYOh5qvEfnviqHivWC3NLkzbKC4zGI=;
+ b=BbQfn32nleg2GdSUwdiHKxRHGI/QbAZ3B6yzbMLfe1RrgZqr45k2tPJ1Cjh4UxLLVfwWdY6P1gTuP1AWKJ51qMXIHfa1ameD7TXbwVpAWufBznHD6DkjFDPBmu3tjtxnVePuo0MBtAEu1tmW45D3mYhijwmXr1NqYUEGpj30u3kRC2we4hkalpcCPtsaKx8t31cf4MdnwO/ISWbrl7Rq6JgsKbM2ZrFAwXON2/5zybUL7KGSQhr85f1nfF/PIDmhp8l0OhpkJ0nar/HKUX94PPjxVoZXi5zwiBcTQfafocQ3QHCfGQCe3Bw6NCOqVy8yOZvqhXzXTrf5/cRMRju5DQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
- dkim=pass header.d=kontron.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W47LesqVzF8iZLPJmiAuoXOv8msFtSDADJ7TmWa+6PI=;
- b=qCQNgE9ANRz8K6dIddx0qZnl/TP6y2ROF/AEagvUAV8TRtE5h55aSLkuMGeSoLUy28bjHsYC3Hkc2PDm6175nFMxOOSliogVEmrMTyp3GkH6iK/SIbbhuX+pPkhniuCGIKDFjKzQqCWssSNOegT6k0pHDdWYRYQUfvuYYif3X8ox8yp7jz1OtOk6lZFFsV84vYfUwtqCKGXVuN2yvbk21rG4U4lxUCzDh8xho+yxB72fc2fiFXCqoode9izEDoHbtvlXLTM6Gpr2Q65UzZgYyi7gRfKzwsEBYNwi0Za6VNE95DSpJdxeLZXdXdZHT35E2N/CuM9Bo6nS1HupZ9WNZQ==
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=kontron.de;
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
- by GV1PR10MB6730.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:86::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Thu, 16 Jul
- 2026 09:38:57 +0000
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22%6]) with mapi id 15.21.0223.011; Thu, 16 Jul 2026
- 09:38:56 +0000
-Message-ID: <1d696494-3bd2-48a3-9c8d-e7991b33109d@kontron.de>
-Date: Thu, 16 Jul 2026 11:38:55 +0200
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
+ DM4PR11MB8160.namprd11.prod.outlook.com (2603:10b6:8:189::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.11; Thu, 16 Jul 2026 09:58:11 +0000
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99%4]) with mapi id 15.21.0223.011; Thu, 16 Jul 2026
+ 09:58:11 +0000
+Message-ID: <918f2fc4-2aec-43a4-b52a-028011aa91b4@intel.com>
+Date: Thu, 16 Jul 2026 15:27:59 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/bridge: ti-sn65dsi83: Fix problem with premature
- PLL locking
-To: Alexander Stein <alexander.stein@ew.tq-group.com>,
- Gary Bisson <bisson.gary@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, Esben Haabendal <esben@geanix.com>
-References: <20260711-ti-sn65dsi83-fixes-v1-0-d85eb5342b98@geanix.com>
- <aleQlpx73a5R8QgR@owl5> <48f6f55f-43fd-4355-88b9-d2e2d0e26d07@kontron.de>
- <3962826.kQq0lBPeGt@steina-w>
-Content-Language: en-US, de-DE
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
-In-Reply-To: <3962826.kQq0lBPeGt@steina-w>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0050.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::13) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:1fb::23)
+Subject: Re: [PATCH v4 3/3] drm/xe/xe_ras: Add error-event support for CRI
+To: Raag Jadav <raag.jadav@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <netdev@vger.kernel.org>, <aravind.iddamsetty@linux.intel.com>,
+ <anshuman.gupta@intel.com>, <rodrigo.vivi@intel.com>,
+ <joonas.lahtinen@linux.intel.com>, <kuba@kernel.org>,
+ <simona.vetter@ffwll.ch>, <airlied@gmail.com>, <pratik.bari@intel.com>,
+ <joshua.santosh.ranjan@intel.com>, <ashwin.kumar.kulkarni@intel.com>,
+ <shubham.kumar@intel.com>, <ravi.kishore.koppuravuri@intel.com>,
+ <maarten.lankhorst@linux.intel.com>, <mallesh.koujalagi@intel.com>,
+ <soham.purkait@intel.com>, Michal Wajdeczko <michal.wajdeczko@intel.com>
+References: <20260701094409.129131-5-riana.tauro@intel.com>
+ <20260701094409.129131-8-riana.tauro@intel.com>
+ <ak9yEyDF_tlJe-Rx@black.igk.intel.com>
+Content-Language: en-US
+From: "Tauro, Riana" <riana.tauro@intel.com>
+In-Reply-To: <ak9yEyDF_tlJe-Rx@black.igk.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0068.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b7::7) To DS0PR11MB7958.namprd11.prod.outlook.com
+ (2603:10b6:8:f9::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|GV1PR10MB6730:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a413acf-1400-4f59-d498-08dee31e0ea5
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|DM4PR11MB8160:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0c8ec468-4575-448a-db4b-08dee320bee1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|366016|1800799024|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: aZxeRdAyDf0DBnXJWI81uxw6iIo0E9ZRy1wWHu7SGpJUGFTpn7y1CJW5706PIwGaNXBXOhU+MVSpkTssYgTb4Kld93E3Bn++1GPBZooacSkHY5JIYeRfRbjRypPrGenmBOrojIblR2gXUT4gECx+iNEGiXdV7xeZZAqfyYlutFXUdC0EYsZS0it5gm5q7fSs0YQKc4KMt+BlM9h9pb2EjWQ6erkIJQ+FaYrDXW2RZIDe+fRCCkDj/XontOQtm3Cxr0lx5xk1a0tgK8J0P3oZy/oaXegpVMFYvUy9CpFM2rd7lmZNZzsjLKUgMYqpL1ZMXPRJYez9aSigo0HO859yflwH2M+J7R2CYqT5/TDjkwWDZndLkq9PAclokDomqqANNFO7iR5xN9kUYTfpOnWZYvVEylMiMAfLsp4xDojaqc9xo9LJZlfHNRvwqt8n7Z6snhGoJrfknlHXqhOmxreTEUK151gkhftf0fmEQuVjNd6w07dzXkiORqGcwQH5+1Y2dc/7fYEARpv0k6kibCTWHt5krp8DH0rqTwtg2aQpwDnnrNgHP/MdJ2f6LRNEVHoRwDjPmDA/qSQNtWwF+F1GfMfenUnxuPFmoXXM3G8KqXHz46bJUoAdXV9KzZHL5VXV
+ ARA:13230040|23010399003|376014|1800799024|366016|4143699003|3023799007|10067099003|56012099006|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: 1teGZ8e9hhnZ5UenCjq6y1q5H1/w0Q7RefcH6bMHwdtTBP5tcN5/oQk7FAjrCsEfGAqDB6bGvFRuR/IPoTyfx3lbsZ4Gm/MNZ+YjXokiU8kF3LurkNkmMZHewiUa902OBIBAPTjNckeWaZn4olULdijje8woPnf516ZGALGRQFZqZIr7bX/d+Ej2vt1Hd2K9NDXW4SgAsBnIy5nTPQBjwlJHA3LCXf/uJGRquxhM3UsviCfj0ANSSIFimi3KQKcHx16l5hXztVWprHWxq1lvxnHL3ceigH7NrnYobjWimkJ/lBYl/RSC+vZOxpvAAAjAFUdiqfpMzsxVPVXY73Y9ySKTCLIUrR5RezFy5qHMJqtugoeMVjSklSoGE/k0NdJ4rna5B7I72SeIb2V/8HdW/idsHMswuWlbadq1EYGekLD28Jhebg3gziy/f6O7NSE5u9RXBag55dPdKjN06rbhETeeSqc1g9xQYVkSCuA2QyslCPI97rOIu6HgKTrD5k6nNuqIsWEsZbgSUEVCY3tbeQIN2infu03DcQDdPrnA44Rep0CAdCp8FUPnx6dXWfbQWQluPizmAwxHyeliN9kAs8zB3ZQlqvcL9q+8bk/6S9ID3TZi3CAccQwRP1J2WFSAf3R6BJlW0ZBW8I0r5+T6EXlR18iW5VYm7FFTHRnl/t0=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(4143699003)(3023799007)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUVrQzlsU2FIa2tidjdrKy9wSXZ0ekNQK3dFaGNZd1JSZktJWU50aUE4UGVl?=
- =?utf-8?B?YVY5SHc0Vkg4dWVCYlVWckI1L1BtbU4rRExLQ0k3cm82QWM5dHFrdzJHck1R?=
- =?utf-8?B?OXFpUG91b2lPL2VncG1DWkNSVDZjYjNCdWJwL1Bucmd0bXhMTmE5TFpWNkND?=
- =?utf-8?B?VnNIMlBBQmZNMjBRU3JHT2I0aXY1VXAvZEZKcUlCM2tQWFFLNVBuTksvMGFD?=
- =?utf-8?B?V3dvMXUyQnZjTmV6TU1wN0hoTVVwUmpaWDFqQVhvdTl4Y3g0SEM0NnBRODlm?=
- =?utf-8?B?TjczcjVqYWlHMUpnSnVYd0xJNDAvNEJlRTN2RXdYS3FoM2syY2tyK1lIZVd4?=
- =?utf-8?B?d2NtTEpnU0hsSFMrbTdoVDBpcnhUUU5WUVlnbm5WdVRmK3h3YWREQis2bW1t?=
- =?utf-8?B?RGRwQXpuSWVzVjRna1EwYWhraEN1YUlHM0xVTEdzWWVMZ25KSkkrZ2h4NTNN?=
- =?utf-8?B?WFVERzJiRVlTNnU3dkxxY3I3eVpnazByeklmcjI2V2tmQ1RNMlJHM2ptMVZu?=
- =?utf-8?B?cmtiNDFhcFlXTWtVTDlLeVVBeG9MRERkNElZcThxR0IrbWZ3bjA1MHJTaCt6?=
- =?utf-8?B?UkpuOFY4MXRZMHlFU3BsNmVhUE5VTU95K3J0YWgvZEhETjBOY2E5cndXUy8z?=
- =?utf-8?B?UWY3eUtVWGEwUjdueHB0dVNzemlZdHVCMEhiSU9iSk03cTRnQUw5U1JEeklm?=
- =?utf-8?B?VVFJN20xTGJzaDJTOW5CTXFKWHNRYWVVQ2FrSWxDU0JodnAxMGJlM1NwRi9L?=
- =?utf-8?B?YXJ0bVBlT3NHUEozRlhNR0ZwcU9EaWpsT2lGV2xuK1lEZ2kxdUZHdGJVYjJZ?=
- =?utf-8?B?akFJY05EUUZKN2ZTWHM2dytHUXl0VU10U0QzUkxidEhJRFVKMTVTdU9Nbk84?=
- =?utf-8?B?dDlkMzR1VmR3WW8wOFl0OGNIVWVBMVBWcXQzUEllbXAyT055WVNQY21ZU2R3?=
- =?utf-8?B?RjRlRUhSRFRXdFowbUwxS2pRWDZ6T1cyYjlkNll2RUZOa1NQYWlhRmxySW1K?=
- =?utf-8?B?UElXR3BXN1hWSE1Qa01nZWZJem10eTNxWWEvTDNjSndhYXVnbWdCYSsrdGhJ?=
- =?utf-8?B?TEVJOHRvaDEzMHBmckhWZGlqd3RuWFd2cDBnWGo5aXRqdnFnZUpvdVdidVJp?=
- =?utf-8?B?cWtlSDVJR1RGUnJHdG96eFA3NWJZN05ZZjltNGRoNUV3cm9HK2hPanB3dEJp?=
- =?utf-8?B?QVJTZi9uSlpwMmdZKy9XMWhLaUl1NGltN09HSDRmNDJ1aGt0ZUI5Z1RucTBa?=
- =?utf-8?B?Vk9RT0dRMEZkaEFVOG43T1FXdzZHMWlwWU9sanlQeEJXSGZQQXJ5V054bExU?=
- =?utf-8?B?Sy9NZGd3VFVCYW02dUo4M0RkazRIdXJ6RldvQlRvNEdMS3FZWVpGWjI3SXNt?=
- =?utf-8?B?UDgyclU5cFpoTU50M1ZPaG1jMjV6amFzQTNjN3dWTk1wSVZMTTYyUTQwWXhW?=
- =?utf-8?B?cmI2cVVRRnVudUkza2t5M0lwaXA0cVIzakRyRTFIRllXd3AybkI2M0ZsQjFz?=
- =?utf-8?B?VEllY2k1L01LSU52Y2lqUEY0em9ZL21tRWNDWXpVOEJRMG5FWThWWjNqTWVu?=
- =?utf-8?B?U1hSK29ZNTV1eWpNNU9LaXhBc25XWHc5dFhVdlBTUUN2UDJ2bFZZN1p1WDZt?=
- =?utf-8?B?L2JiYnhGNzAzWnZHWDBJczRFcDJQZDY0NDNrNTR0T29FWWoxWUpQbmdydTlF?=
- =?utf-8?B?ZGRia0tsZEcvUkFtelFwOFhRQmdMbG9wYjVHanVmbnhhUGJkeXpGV293YkhY?=
- =?utf-8?B?MXdKQ1pweXhhYlMyRnByNW1yWGNvSlRneW1TeWx3OXdwUFdjQmFiWnFXclB4?=
- =?utf-8?B?TjdrNStsT1ZFU3A4NzBid3RzQjFBQWtRMVQxUm03aGd1d3lEMjNkSEpsMm9h?=
- =?utf-8?B?Y1l5U3ZQZlEwbTVIQTdENVpsSi96NGxzZ0xuR1phS3FMNm01eHZDZ3J6QTRI?=
- =?utf-8?B?bTFDczNiNlJ5am93MnZuTGErVHhRNHo4WXF5SDRDZThaeTF0TTd1bHBSVDlE?=
- =?utf-8?B?dDE1dGZGM01pWUs1NUhZTElSNVVDYkRNOEwrcU5nazdncFhnUmVHSHlJSldv?=
- =?utf-8?B?QkdBd2dIbm9TT1dzNVZFZ3lyVllXK1NDdkYwWWdqTW9JSDl4WjVhNHdBL0R1?=
- =?utf-8?B?b2doQ29jZVA0aEN6clJROS93Z3ArbU14eUZVSENoaEFPZUd0SGhySmpQcHAx?=
- =?utf-8?B?ekNrdkJRd0xvdW9HT1hoYUZTZXNGbGlWYkYzQWZCSUtxWXVNREJ0N2RZMlJq?=
- =?utf-8?B?TXJhZUFoWUlDbzJzWkd1Ly93bmVmK3VyT0dsQmt1dVBqWG9CRHZsL1UycmFK?=
- =?utf-8?B?QTAvb1ZKR1FYaWUzVnFhTFROOExnVTNnNDE3Q3dTNzM3V3pKMjlRMklvTmd2?=
- =?utf-8?Q?pPGG+ImKXYpEGzDI=3D?=
-X-OriginatorOrg: kontron.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a413acf-1400-4f59-d498-08dee31e0ea5
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y1NGSDdST1FKMFo3UnVnem9kSVNBVnp6OUNkVElBN3Z5RVJYZU5ZUzRDTlhG?=
+ =?utf-8?B?S2IxSFhrSEJuMjVtd2RUeWswY3Y5OFRkV05sZ2MyMTFzVGM2V3U5Si94eFl4?=
+ =?utf-8?B?TDFQbEQ1OWhjSUtTcXlLbVp3cXowRVRRUjNMdUlrd3NvQXN3U1ZuM2JlY20w?=
+ =?utf-8?B?VTNtQkduNGtCQ2p3OHh3T0I4bnFUV2NWK2RGYWFPN1FuenNVay8ydkk4VXNr?=
+ =?utf-8?B?aVJVeTJORTV0NmRFNVRJS1lWSTh0ZmtFNXY0ZkFESEZhbHl3c2Z1bEUwQkRn?=
+ =?utf-8?B?Tzk2MlNXODU5SkpaQzY2eXNVM2ExUGNOUTk0Z2VuNnlMVVZqc1hSaUIwMm5v?=
+ =?utf-8?B?TkFTVlp6MktPOFhVNWJFa3oyL1EwaU1Iay91eGhzVXF5Y3lXeVF6YVEzL0Zo?=
+ =?utf-8?B?UTJzRUs0T1lueExtRTdMZis5cGFPWEI2aHBwbTNoM29ZTysySU1qQjNWMmor?=
+ =?utf-8?B?NzJVSkdDNU5IT0EwZEpCQTZIdzkrNlFvYnZocmlqMVBhWVlmQjFXWGc2a3hU?=
+ =?utf-8?B?cXlLVEtJeDZZK1R5UEpyOCtkN0tudGIvM3VkZ2JsdXpMWENJdjlmdS81cWZH?=
+ =?utf-8?B?T3dsd0luekNyL3hLSkcxT2Q2bUN1cUhsR2pKRHBEdVA5M3NEOFdHK3lYTWFI?=
+ =?utf-8?B?ZHl0aTV4TVF3clZaUXJDOWw0Lzg3YXQ3UGszZTZFQktjcElJaElKQm1xSjlh?=
+ =?utf-8?B?cGxReGZ5NklFSndDZFRqTlNxdVM1d1F5SU9SSVJqQ1pkQStGU3NqdjBVMXVH?=
+ =?utf-8?B?UXI0T3ZsSUhlTDFBL3I5ZjZzSlVjWTNsK0dTbzRIQUk1bE9sbkp0bVB6QzFY?=
+ =?utf-8?B?UU9nSWNXY1o3SS91aEd4VlBXdG1Mc2xwdXVLeEJEdVVla3ZrenhvRW5ZWHRG?=
+ =?utf-8?B?Yll2RUdnVUpFVGF2bGErNkhDNkx0dUg3QTJRaXpJbzQ2TFlGZ09VcnBBeTdt?=
+ =?utf-8?B?d3hNaXpwQ1hwNmgrM3B2Ni9hanVOMHJ0VkxKK3RNREwyYXNCRlkyNENpOENi?=
+ =?utf-8?B?NXNBZ3AyQWxiaHlERUpiWXhpTnduRG9qeit2UFhyM0QvMzN3M0VHNS9yeGJq?=
+ =?utf-8?B?YXBodjQ1WDNjUDM4aytINmU5cTY3NE90V3RPeG0yV3ZCT2Y1dUtIV0FwZFhV?=
+ =?utf-8?B?L1IrMkR0S01LdWsxc2pBTStyL0JlL0NLZ2haUHpRbVpNUUtuZDErTTdkdjJn?=
+ =?utf-8?B?a3JWaUhrbHVNUzRzUmhaZGlXZ3NRNGxNdXVVMU1SK3VxQ3FhYTdaazIxWTdU?=
+ =?utf-8?B?bVhQMmVucEpOQ0VsOVZhYUJjY3ZzZGVLNkNLQkJIRXRGTnN3akhGWWR5R2hE?=
+ =?utf-8?B?bHc4Z1dFeW5sM0NMMk1YM05zM0RuMzdtbUVwazFsajdCRXozVXhVb29SMisx?=
+ =?utf-8?B?Qmd4c09SRlgxMEZHQ3hHdjdyLytkSkpZNlZhT2ExRlk5VTQzM0NvazF3cndw?=
+ =?utf-8?B?WldNbDNFM05UeFZoN29NTW10VlJXYXpXR1dXam1zY0VGSG9WbjFrRkZnRzlH?=
+ =?utf-8?B?dDg2T0F1a255Sy91U0xtL3dWTWZqKzlwVmpFZkFFajdSbEZGbU14Nm85STBS?=
+ =?utf-8?B?cXh5Vi9TMjgwY2RQeEk0QkhOeFFZck5sM201blpaenNnQ0ozVHlFZWZ3R3N5?=
+ =?utf-8?B?ek01MlpQa0JXemJlZEdSZDFSZFpudEQ1U1BMSTZDbnBaMUpDbkVPeGpvZVE4?=
+ =?utf-8?B?c1RZdUs5clZLVkhIZFpON05pcklubFZhc3FvSWw1cVZBL1NxWGVlSDNnVFYr?=
+ =?utf-8?B?WGw3UFh2dC9WV2FQd3FseTBFaE5lNEtBZ0VtSk1CWkxuV2Nnbk5sOGt2Q0w0?=
+ =?utf-8?B?Y1JHVklHb3V0ZGRvbE12djE3bnpORHpYOTZmdmNrdHkzSjZsNTlqejFRT012?=
+ =?utf-8?B?ZGJ1WkV6RkhqOW1hcDlESm5ET1ErSVJFbkhlYXhOUnMxc2p3M0xacHdmd01r?=
+ =?utf-8?B?YTlDNTM4WDdKeWRpa3JSa1hRRXh1dWY2SjY4OGpEY1Y0WmF5dVU1OEEzNlpq?=
+ =?utf-8?B?L2tUQnd2R20zYVVOUDZBSTZYckNSL1NyZWhPK0dvZVVyNFU1N2MxKzJiMUJW?=
+ =?utf-8?B?SVQ2TnREdVNWbjBSamlTbEhpc1FVVkk0a0FXc2lhbWo2TGMwV0xaNzE5Q0Rn?=
+ =?utf-8?B?YmRhRWFsd3MxWFIwR3JXbFVLLzZrejRKYnVMOWNZd0tTSTFvSFNnVkZIeGdq?=
+ =?utf-8?B?MGs0WnBUek9vY0NySlN0aUtFd2FOVHZKQVVxSkZOQjBqVmZSKzZLV2ZzeWds?=
+ =?utf-8?B?Wm9qQlYrVUo4T2JVYlVrRlNVQlUreGVZdFFwa0U0RmxXVVhzaERmV3FzWHJa?=
+ =?utf-8?B?dFIwM3VnV2FObXBQQ1ljb3ZoTE9sMEtJR0FpbGczOFEyQ1ZpMnhZUT09?=
+X-Exchange-RoutingPolicyChecked: bxnrQ/WpGK+xopMdP8nPg4LEKNiEYrbqO0R+u71q7o/Vo5bT97/zvf8Ml/nc2iMFN07VgKfs36uO22jnHiSayh/hyDIADnRhjwWtjQx+259Zy4QH3nAqrZKd6ojbdkZP7iGZN/GKy8zj1X/kS2Oy+tcv2xVtDek+wXD5drknAxPhFq/454hyy1l3bulK0e3C6Gz+asCveVI2SviATFpZAdCLTaBBNbk2pLlE9jIbYYcwyfhAD3PzdNcjZf8QgwtEcBRJAuDnCVC+uMLdfju+nc7CbEjY7wxI9EB7CPlinyTNzYP53aH80E1gZFxCur/gdoAl2K1fzogvpa34Xmvqiw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c8ec468-4575-448a-db4b-08dee320bee1
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 09:38:56.8844 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 09:58:11.5924 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f0eVQzpMKHhXM26+BnAEZu6uxda5ebnFbweMnhvmxASIijcguleB05vzLtXyXDxXn/JVT7w88Df1yji0D2wqwHray1cECdWAHlz2lxH2SCs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR10MB6730
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6GUB6vd2MUAgFNvyc7KYOJ1Ej49fxSrdq0RARbgQ5SQsw/PTJli0qnBjf/AwblcXMlvK0sDqMPFzbjgp7yT9vA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB8160
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,70 +178,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 16.07.26 11:32, Alexander Stein wrote:
-> Hi,
-> 
-> Am Mittwoch, 15. Juli 2026, 16:14:42 CEST schrieb Frieder Schrempf:
->> On 15.07.26 15:52, Gary Bisson wrote:
->>> Hi Esben and Luca,
->>>
->>> On Wed, Jul 15, 2026 at 10:52:18AM +0200, Luca Ceresoli wrote:
->>>> On Sat, 11 Jul 2026 13:51:15 +0200, Esben Haabendal <esben@geanix.com> wrote:
->>>>
->>>> Hi Esben,
->>>>
->>>> +Cc Gary
->>>>
->>>>> [...]
->>>>>
->>>>> This is the same issue as addressed in the patch by Gary Bisson [1],
->>>>> but changing the ti-sn65dsi83 driver instead, so we don't have to change
->>>>> all other drivers that could potentially be used with this chip.
->>>>>
->>>>> [1] https://lore.kernel.org/all/20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com/
->>>>
->>>> AFAICU your patch would replace Gary's one. Also Gary's patch has been
->>>> reported to introduce regressions but it hasn't been reverted yet. Can you
->>>> reply to that thread mentioning your patch, so everybody in the discussion
->>>> is aware of your alternative proposal?
->>>
->>> Thanks for including me. I just tested this change and reverted my other
->>> one (mtk_dsi) and confirm that it works on my Tungsten510 + SN65DSI83 +
->>> tm070jdhg30 panel.
->>>
->>> Tested-by: Gary Bisson <bisson.gary@gmail.com>
->>>
->>> Note that the sn65dsi83 driver wasn't changed as I thought the PLL lock
->>> in pre-enable was on purpose. It was introduced by Frieder with this
->>> commit. Adding him to the thread to weigh in.
->>> dd9e329af723 drm/bridge: ti-sn65dsi83: Fix enable/disable flow to meet spec
+
+On 09-07-2026 15:34, Raag Jadav wrote:
+> On Wed, Jul 01, 2026 at 03:14:13PM +0530, Riana Tauro wrote:
+>> Add error-event support for Correctable errors in CRI. Report an error
+>> event to userspace for every component that has crossed the threshold on
+>> receiving an interrupt.
+> ...
+>
+>> +static void ras_send_error_event(struct xe_device *xe, u8 severity, u8 component)
+>> +{
+>> +	u8 drm_severity, drm_component;
+>> +	u32 value;
+>> +	int ret;
+>> +
+>> +	drm_severity = xe_to_drm_ras_severity(severity);
+>> +	if (drm_severity == DRM_XE_RAS_ERR_SEV_MAX) {
+>> +		xe_warn(xe, "sysctrl: unexpected severity %u\n", severity);
+> This is uapi and not coming from sysctrl, so the message is a bit
+> misleading. But if at all it needs validation, it should be done in
+> drm_ras layer.
+
+You mean in the ras_event function?  The parameters to this function are 
+coming from sysctrl.
+So added sysctrl flag
+
+
+>
+>> +		return;
+>> +	}
+>> +
+>> +	drm_component = xe_to_drm_ras_component(component);
+>> +	if (drm_component == DRM_XE_RAS_ERR_COMP_MAX) {
+>> +		xe_warn(xe, "sysctrl: unexpected component %u\n", component);
+> Ditto.
+>
+>> +		return;
+>> +	}
+>> +
+>> +	ret = xe_ras_get_counter(xe, drm_severity, drm_component, &value);
+> No, instead of converting back and forth just do get_counter() using
+> sysctrl values and send_event() afterwards.
+
+The reason for using this is to avoid unnecessary churn of moving the 
+get counter above or use forward declaration.
+Yeah i can use that too directly.
+
+>> +	if (ret)
+>> +		return;
+>> +
+>> +	xe_drm_ras_event(xe, drm_component, drm_severity, value, GFP_KERNEL);
+>> +}
+>> +
+>>   void xe_ras_counter_threshold_crossed(struct xe_device *xe,
+>>   				      struct xe_sysctrl_event_response *response)
+>>   {
+>>   	struct xe_ras_threshold_crossed *pending = (void *)&response->data;
+>>   	struct xe_ras_error_class *errors = pending->counters;
+>>   	u32 id, ncounters = pending->ncounters;
+>> +	u8 sent = 0;
+>>   
+>>   	BUILD_BUG_ON(sizeof(response->data) < sizeof(*pending));
+>> +	BUILD_BUG_ON(XE_RAS_COMP_MAX > (BITS_PER_BYTE * sizeof(sent)));
+> I prefer it the other way around. Also, have you tried using BITS_PER_TYPE()?
+>
+> 	BUILD_BUG_ON(BITS_PER_TYPE(sent) < XE_RAS_COMP_MAX));
+
+Will try this
+
+>
+>>   	xe_device_assert_mem_access(xe);
+>>   
+>>   	if (!ncounters || ncounters > XE_RAS_NUM_COUNTERS)
+>> @@ -154,6 +211,24 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
+>>   
+>>   		xe_warn(xe, "[RAS]: %s %s detected\n",
+>>   			comp_to_str(component), sev_to_str(severity));
+>> +
+>> +		if (severity != XE_RAS_SEV_CORRECTABLE) {
+>> +			xe_warn(xe, "sysctrl: unexpected severity %s (%u)\n", sev_to_str(severity),
+>> +				severity);
+> This should be before "detected" log above.
+
+okay
+
+>
+>> +			continue;
+>> +		}
+>> +
+>> +		if (component >= XE_RAS_COMP_MAX) {
+>> +			xe_warn(xe, "sysctrl: unexpected component %u\n", component);
+> Ditto. Also, use xx_to_str() in both cases or don't but be consistent.
+>
+
+It will only display not supported. Will remove the string in both.
+
+Thanks
+Riana
+
+>
+> Raag
+>
+>> +			continue;
+>> +		}
+>> +
+>> +		/* Send event once per component */
+>> +		if (sent & BIT(component))
+>> +			continue;
+>> +		sent |= BIT(component);
+>> +
+>> +		ras_send_error_event(xe, severity, component);
+>>   	}
+>>   }
+>>   
+>> -- 
+>> 2.47.1
 >>
->> Thanks for the mention. This was introduced to keep the init order
->> according to the datasheet. The DSI host first needs to put the DSI
->> lanes into the correct state in its pre_enable(). Then the bridge needs
->> to be enabled (including the PLL) in the pre_enable() of the bridge
->> driver. Only after that the DSI host is allowed to stream data.
->>
->> Moving the PLL init from pre_enable() to enable() probably violates this
->> order. In the past this lead to sporadic issues with some hardware
->> setups (depending on the display and the DSI host). Some of this is also
->> described in the docs: [1]
->>
->> So from the first glance, I would assume this issue needs to be fixed in
->> the DSI host driver.
->>
->> [1]
->> https://docs.kernel.org/gpu/drm-kms-helpers.html#mipi-dsi-bridge-operation
-> 
-> This link says
->> Ordinarily the downstream bridge DSI peripheral pre_enable will have been
->> called before the DSI host. If the DSI peripheral requires LP-11 and/or the
->> clock lane to be in HS mode prior to pre_enable, then it can set the
->> pre_enable_prev_first flag to request the pre_enable (and post_disable)
->> order to be altered to enable the DSI host first.
-> 
-> So IIRC if pre_enable() already requires LP-11 on data and HS on clock,
-> pre_enable_prev_first should be true then.
-> 
-Yes, and it is true:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/bridge/ti-sn65dsi83.c?h=v7.2-rc3#n1051
