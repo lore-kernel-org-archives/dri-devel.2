@@ -4,146 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44F07C44513
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24136C44511
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49A5710F20D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC4510F20E;
 	Thu, 16 Jul 2026 08:19:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=advantech.de header.i=@advantech.de header.b="BIHt5hp2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rWVNYQ/n";
 	dkim-atps=neutral
-Received: from SEYPR02CU001.outbound.protection.outlook.com
- (mail-koreacentralazon11023142.outbound.protection.outlook.com
- [40.107.44.142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CBF910F1C7
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 08:10:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QkMxy0SFCt2rQD51Dg7fqu31BYK+EY8EeS2tIDwrI+LPt2FVqgWxNOAL/qN/ziZKxtCjCnmxBTRsBfuf3esNAJO2lxVxQSUqFsLob0AdfkITk4jDa8LRZv88CiQaNkbvdQsdiwiesaSaGKhvx/UktRIJxADSu/YGQSjFyGN9lTYk0g8hEgKlr6Sacn13+5U24ifyd4f5TcskXaqwsqrV+azjRPOnEB4c4jNy+0/qcdgsMq5N+us+AgWYT2aRD/VHrSSlfKbBy0jefsv+tmMcqTVKY+it6s50BavheLcNVL5s71KdholTJjqC+kRw0jaiVICRklspkVLBr7mNeEmrtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8ryW3edDUWvoUr90NEO/Bo8eBOkCt3ee4FAqHcBXJ6o=;
- b=WxGNRQwv+WMryxTJCWeOr3IHT2NV0a4OlegH0YPyNjvyDdOn8uwwW7IGEscNNKJg3iKaNMwjoaMRqbB88aDyp7eEC4CtsuRqr2C2tO/vQqNNS2Z/Vqq8m9GTXYihbWqkX7xTDsG1BK5Qd5xnzprufCQe5pSdhOqMRnMGKM8mNYkxzjzfkHcjtOia7edRWjGmAF7x7eh21uCj9ckMvfgqzTV7Gyipj9SuHgyab/f91Q/PeNsIXZ5FibK2UzuM709oLQj20M9XVrp9HVaq8YTrJK7ZFRrStkKmWHMtU2R+UXD6w3NGR9hYszoScfe3kpa+5Z9w46dRIytwdn2TbK6xmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=advantech.de; dmarc=pass action=none header.from=advantech.de;
- dkim=pass header.d=advantech.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=advantech.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8ryW3edDUWvoUr90NEO/Bo8eBOkCt3ee4FAqHcBXJ6o=;
- b=BIHt5hp22YLwWipueY+Gp2CTOjAoSGGykKqN8ZKwixskfbxSdOFOkZVteEbI21fWg8uMzPr/icJhTn3ZtJnKqjFzmWu4kgm5mh2Zo2wtmd9xAy9YTJD+PkLuYbhqwq/8CxqW8O5di7BNF4WeFnOcd6gaAR5QzSpo3ZTl2XauV53NzjouUm+HKoJf6nSVKivmF/c0Ui8n5cja/y2kJrSSwXQtBWuk+HoeIbQBmgjvH+/XqGVGdc62btsQLisCzLcyF4Bf8sQ3nTbo29HuSgcR08T8WavBDxR3YY9kndesFuheCcrkInVxgEOKW+XOJ6Pld2yJPWlWmy+FQHWeZ+0KQw==
-Received: from PSAPR02MB4502.apcprd02.prod.outlook.com (2603:1096:301:21::6)
- by KUZPR02MB8851.apcprd02.prod.outlook.com (2603:1096:d10:4b::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Thu, 16 Jul
- 2026 08:10:08 +0000
-Received: from PSAPR02MB4502.apcprd02.prod.outlook.com
- ([fe80::44e6:6433:8000:35aa]) by PSAPR02MB4502.apcprd02.prod.outlook.com
- ([fe80::44e6:6433:8000:35aa%3]) with mapi id 15.21.0223.011; Thu, 16 Jul 2026
- 08:10:08 +0000
-From: Ramiro Manuel Silva Oliveira <Ramiro.Oliveira@advantech.de>
-To: Guenter Roeck <linux@roeck-us.net>, Lee Jones <lee@kernel.org>, Linus
- Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Andi
- Shyti <andi.shyti@kernel.org>, Daniel Thompson <danielt@kernel.org>, Jingoo
- Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, Wim Van Sebroeck
- <wim@linux-watchdog.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Daniel
- Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, Lukasz
- Luba <lukasz.luba@arm.com>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "mfd@lists.linux.dev" <mfd@lists.linux.dev>, "linux-gpio@vger.kernel.org"
- <linux-gpio@vger.kernel.org>, "linux-hwmon@vger.kernel.org"
- <linux-hwmon@vger.kernel.org>, "linux-i2c@vger.kernel.org"
- <linux-i2c@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-fbdev@vger.kernel.org"
- <linux-fbdev@vger.kernel.org>, "linux-watchdog@vger.kernel.org"
- <linux-watchdog@vger.kernel.org>, "linux-pm@vger.kernel.org"
- <linux-pm@vger.kernel.org>, Wenkai.Chung <Wenkai.Chung@advantech.com.tw>,
- Francisco Aragon-Trivino <Francisco.Aragon@advantech.de>, Hongzhi Wang
- <hongzhi.wang@advantech.de>, Mikhail Tsukerman
- <Mikhail.Tsukerman@advantech.de>, Thomas.Kastner
- <Thomas.Kastner@advantech.eu>
-Subject: RE: [PATCH v2 3/8] Add Advantech EIO Hardware Monitor driver
-Thread-Topic: [PATCH v2 3/8] Add Advantech EIO Hardware Monitor driver
-Thread-Index: AQHdE6khkMz7/hggY0W6Zx06CTHzCrZvTOCAgAB3y4A=
-Date: Thu, 16 Jul 2026 08:10:08 +0000
-Message-ID: <PSAPR02MB4502BBD659D7C4FCDDCABB6294C72@PSAPR02MB4502.apcprd02.prod.outlook.com>
-References: <20260714-upstream-v2-v2-0-76e5e41026db@advantech.com>
- <20260714-upstream-v2-v2-3-76e5e41026db@advantech.com>
- <b7171173-aa64-4393-b9cf-77d92f2ec932@roeck-us.net>
-In-Reply-To: <b7171173-aa64-4393-b9cf-77d92f2ec932@roeck-us.net>
-Accept-Language: en-DE, en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=advantech.de;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PSAPR02MB4502:EE_|KUZPR02MB8851:EE_
-x-ms-office365-filtering-correlation-id: 77824c9d-6ed8-479c-8c2e-08dee311a6d1
-x-ms-exchange-atpmessageproperties: SA
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|23010399003|1800799024|921020|10067099003|38070700021|22082099003|18002099003|55112099003|4143699003|56012099006|11063799006;
-x-microsoft-antispam-message-info: 78KstKS+ZLlaMOMLF3s1fZwICc3Db5HRARxflmnPpYKYRsWk7apqkt/uWeQ4jhJbqYuvKtfIYxLBoOc7CeJQ9tSYkRgU8E/ldx/rKUDg2/GTBRH/Jp4Sv0g2njXmNrG6vmny6+rq58ibK+/RywWgwIcV0Acs4dDeN5C8P9VMQ3zaf48+JxSGAgg4DSFwaq7uLg5gIAQzeh96Jtzxcyi+puJu1RujA7FWvZPDalAyxd0LlS6BHUF7NeQUuCRO3h9phGrcptpl1bgh+mnn4nHfl4RDI4UdcG0E7VKcv2niymrD6nmtifC+HikyZ92eFXjo5EgsDCluvc+682gVtyTTKsLoqj6TRSOcSdjC2slhNzjw4tOd6W75IvfF/9AvtxNdgopS6BS/dwR1xqfA0Xxh3x5iA0BpEmAQl4Y1MEEhS+YcwntiXu+wOWRH1g4OLgXNpXN6b/fgLiz6RDec0UBPOe4yCPc5c/8iSlIERDlIMSoolNfHnffXC68sgMPWbBZPgRXGeL6B2g9+Zqrys2PQ2V59+hpVp/iNBzfW/aT/9a3Z4q6km6TiUxrFafMUC2LDRWrZP+barYeu4Njzbg5ANjV0bYOrUDAWK23OZNsV1TPxn4omE6cTnVSALjGTMa6plLJGPiLYEWQJEneS9lXcPq1swu9ygrtuLPqxIgZhcuLM5IxObn3D+hQEkcxBUwCDlmSK7J+8HqM6J7kT3anAkEvGVpO/rBqOwpyjnrqCC3x8LCCaq7/3+7Au/eHL2JS+
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PSAPR02MB4502.apcprd02.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(921020)(10067099003)(38070700021)(22082099003)(18002099003)(55112099003)(4143699003)(56012099006)(11063799006);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dkxaUmFScHJTaXNSUDZHVWo2NlVERnVIRGpLeDNRUi8zK3JlOWFiczQzWHEz?=
- =?utf-8?B?NS96UVhFRWNNVXlZRSs1M3BycDFPb1AxZmJWSTVQRFBpUUF4NmlMS2VaRnJL?=
- =?utf-8?B?eTZxU09LWHowRnF4b0FlYlFQd09kYjMyRE5EeXoybDAxMHRaSGNjSGN0Y3B2?=
- =?utf-8?B?MTZyc2h4WUZrS2RpdGdvd3VVWDZtTEM0R1htYU1HMnA1Sm1PeCtxKy9XRDZ3?=
- =?utf-8?B?M0Qwdjd3ZVFMWmp6ZHJ1U1F3UjVHa2JPRXpDSGltenB2SkJuSkxjenk1MEov?=
- =?utf-8?B?N1lGSUdka005dFJkcDRybTBFMExNYkRnSUc4aENDdVMwNnZZb3ZQZU1PZnpC?=
- =?utf-8?B?dUNVc3lFNm04RWdCM0FyQjh0czhRa0xzRUNrSlVOZ0ZKUWQzT0c5VUVyR0FQ?=
- =?utf-8?B?WTNlaWxsZDRXczRKbW9pMzJCYStLZU1Lc2FVMGhzMllWdm1aWk9DL2IwM0xY?=
- =?utf-8?B?QXhMQXlScEp5Rkc4emRwUmJoaWVJQjVQTHNkTm1ZWXJwREtmaTl4dlJ6ZXpn?=
- =?utf-8?B?K09TcTdTQ29JSVFTRXFTUGIrbUE0cCtqOEdzanM0c0hPUDhxQXRXeTZQYmJS?=
- =?utf-8?B?TUdsR1V4V0g3UEFsNm5JNVRVbWJldmN2OG5ob2NKc3N1U0w1dndUV2RMYVRH?=
- =?utf-8?B?VDZMNm41amtpUGdXWVkvMEMvQ0xrc2NwZHcrL0QvdjhyQ1RJa1dwajlyOU1z?=
- =?utf-8?B?ekIzQTRGMXgwL3pUWnZFcktBN0ZSaVoxanByMmdsV1hVT0hKUnpjU09PaGFK?=
- =?utf-8?B?YldvbjFRR2oxRjhSRTA5SDQ5NkJiY28zK09maVJQeDgvaFdEVGR3MXJRVUN5?=
- =?utf-8?B?My9wSUsyMmM4djJIMkRYVnhLSytYRnBOS1htdGtXdUY1RE5mLzZnaHpscUVC?=
- =?utf-8?B?bVpuVS9IbmtnWHBUMXJuSGpkZ29VVW5wMnpGdzVVdjJLQ01HN3N4QUJLSnQ1?=
- =?utf-8?B?N3NqTE5HNXF2NXhPelRXdWMzUlhoNWFlQWdWRnI0ZlF5dDVBdGNsamQ4R2F1?=
- =?utf-8?B?VzdUV3ExR0lHQldVZUlLMlJ6dGZxcGM5MWFjQkRvUVc2dVMwZTJZTzRTMjNP?=
- =?utf-8?B?VDM0a0g4L3dnem1lU1RTS0s5Mmp6VHlFWDlEN2FSNXF3aU5zQXNDZzZmcmhI?=
- =?utf-8?B?Smlqckp4MkI5Y1ozT3ZIb3lMd1c1ZHJ6TmgvU1c3bFFsNlYyQTFhZGRyUEZB?=
- =?utf-8?B?YStVN1UxMXJFSkxqQ2R6cEdSaVV6SEdDMEt1ZEZTaXNLZEJGM3lablRZa0ZN?=
- =?utf-8?B?VHJSdURxeWp2SjI0aXh3OVpmYkpxbTVDQVhMK2EzU2hScFFSZ2pZSWF1Skp5?=
- =?utf-8?B?cXV4TjdOZ2NUMHdlY2htdThYQUY3ZGFWR2t2RGNWcHhsQlV3b0tZTkJCc1hS?=
- =?utf-8?B?aXF1R041elVmbEJibjdNWmgyK21meTJzTzdiL2hsZUJ4VEE2OXNobnFmZC9Q?=
- =?utf-8?B?YTlEejZDNUc1cjRJcTVLU2NUL3RTWUFseFhPblhJRDBVWWwvWFZUZlQwWGla?=
- =?utf-8?B?WnJYM2VucGl3Si9rMHF0WHNmeGo0SUFBeDRkbjFZaWd2Q2pyK05TZE14Tzdp?=
- =?utf-8?B?NDRGbFFDZmFUS3hiMmYycFlGRkFoRFp2TmhmQTBCK2V1eU1yWm9hQjFRLzJH?=
- =?utf-8?B?L3QyTURSaXYxUlJUQndLV0lBZU1ZMjY0T0xDR2JyckJVQkw2ZnRqczVIUVIv?=
- =?utf-8?B?RVFZT3FQdEc0YnVLbWc0dUwrRWxJbXpiblQzTGtyZG9GQjQ4MjZxZXhWN1Ja?=
- =?utf-8?B?ZTJsOTNyS24vNUl1eVdvRm4xNDFqQ051RjlzSFJyTkNVZ2xueGI0M1llNjQ1?=
- =?utf-8?B?Y2prbmtHS3JDc1IveDA0Z1dOSEk2YTRhdytYK1VqMEN3Z0dqOEFreTc2WjFV?=
- =?utf-8?B?eUcwSDczbkpQM0s3TEpKMGExY3NXdVBLZlZaV0ZIcStFWTkramIzdFk3MVFO?=
- =?utf-8?B?d3FqMUlKZllkWjVUMlRYcVd0YWNJbGd5T1VZNkIxcTdKdmRwSkp2YUZBYmJC?=
- =?utf-8?B?K3FiZE94YmVHUDFydDFHaXcyYnQ2UXVkZDQwQ0NTN3BqQjkvY3hITFJVODkx?=
- =?utf-8?B?U2hIRCtuRGEvV0Y5cTU1WWNFUUhqQVpxcEl1UEhNQzd3V2xsQmp3L09CZU9P?=
- =?utf-8?B?cGR3K1FqbTluV1o2cW1oYWg2ZGZuVVVxb1R5eVBVK3NjZk1BNzBwOTd6MkJJ?=
- =?utf-8?B?K3VUdUpHb2x3RUoxNUkxUWVyL0hMNXMzTldLa29xSTFuWXFlOThBSjU2V2kz?=
- =?utf-8?B?MUpRS0dMVUNSMUhBSFhIZVdHTkVPaUtDTmtpckhYREZUcEdvR1BiaFdDbW5Q?=
- =?utf-8?B?UDRWLyt1MzZFditYUW45U25iM3FNQ3gySXU1R1Q5eU14K0o5LzVsUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF35D10E2A6
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 03:39:08 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-47dec32798aso6315018f8f.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 20:39:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784173147; cv=none;
+ d=google.com; s=arc-20260327;
+ b=iZC2O2hqCU86kLZxV3tKy35cG9wf8E44EMAmNLjZzwFkHmXGHHwWn13oGoCxUtAwdL
+ Y+nJ71OF4QTH/eItTXqVOXROgC3ZeY2nu2qWdjQ/7Ls8ny8I2BrrXNVV7gaaRxlIMbVF
+ rQks4mjvc5FjOAGPbJin4l/FGdY/BwNV9BaSKxJb7cNCvlW+dU3Gif6OPZ+qFz3UkTiu
+ TyQZsha+EtBDTPsR1tgvY1RFzfvy5C3HwDSv+8XEsNLB+qBmnBgn3BfWF1T35eRH3wVx
+ Wvehg+jtq803vNEJ/5zThJRu1QTddKFxVksO6V1qQQbMROu1IiMERRYvz4/uRsdelKOJ
+ II2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=HaAi6r0o04lXEAunGEp84mPQVwuTB4awISro/owjdbQ=;
+ fh=BE2s/nSmpctq6M0USULiFaeu+AZjFDzTR0808BiExQU=;
+ b=TU5jr1S67vC68hHYUphg9Z/ORxBnLOMhltgh47Zdw/KCGULHL0WLgUyKILx7PiXdJN
+ nCAF0F6cH8PuQuFpE7S+09LOmrEtk9M/4TNuzW28Ef8kRl9HkF3R+utWMmaza3K+hy3F
+ pbwotuDNPvji/3c/zx/HjgzA/lMlPL4Hjo2sBYCkxdGeKOFOKx/E2QCcZ8sewVeNi7F2
+ xL3nggMc6Efq1m3XUEBrIwd51L1vH8q+v1rnvOjhCl279r2QtKClVg7/3cU8Bqs5bUGJ
+ iZZA+vL/8ScD+kgtfb4kc/G+IxT3LT0LyzRVtHlvSSz+2P1PPO5mmZ3U8lM5BGeMSfI3
+ Ezgw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784173147; x=1784777947; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=HaAi6r0o04lXEAunGEp84mPQVwuTB4awISro/owjdbQ=;
+ b=rWVNYQ/nHAUqeJ8ym38AEDIdqyJN7fEX66taCp+eK1bc6s0qOpyGGfUU58uY0c3c2A
+ Beqip1JMaM4zfuPH8fuAvJ3bkWwvHLm8Woc2Wpf5urb2EB19dFN37RKGurAPw2ooeGCu
+ 61xghoYCM9RPy/lNSkH/BTo+/fvxyZf8D/DzbW3zQSvF1OTSPEqSl7dYPU5mCvXtVuh2
+ gHe6lH+hSnjqAHEYGgyvZsFvp4+b+cBj8iTRYf3/aIffZF3BxgZGDsJEmuqVd0h8Vql+
+ fnA9qiGfMD1cRCig6YEYwdzN9yaHSWSYqO0Vcd2GOnd2nOelQmG/yBpice2Ipua9CBew
+ 8MmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784173147; x=1784777947;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=HaAi6r0o04lXEAunGEp84mPQVwuTB4awISro/owjdbQ=;
+ b=ogHHeoElTnuSYytl+59R4nIV0hjCwg/ychdPbL6zv7V9op9hoI30ydEvlITSaFmvxR
+ MPQj4e+wvVs5h9HcrbUII36htx/3H7uhmc2sO1wsgR3/4SCgy7XgSHHYMcOqBCghD/I9
+ YxSnEPP5eX29ybDSqm5Zmr69sqVMJRfn37QiGhvEqsaxeMs5PIjHe+k9mp46YuJln8jn
+ qBRahl3qyQcoA6YKt7tOvK7rmmbHaWIPyML23uNkZnAJduYAuGooAdr6CbRqLw54c0NG
+ I8DWq8sSu8fhM7mDFTOGgeYzPCPQYX8eYKX9CXdJEhgfl9AmG2RgMBDze8NNfv8TQ6Z+
+ va9Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpqti3jvkTayUxLJFupyprQC/sY1xvN4q4hly9m/6TH/9VcmNu8G4xsyvTzCk4+zxiYNM3eER+CuaM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwsAKDu8XXdGeaiGeBptPp5fkvioOW9RPwVwi96b289gLecb/I7
+ JUsXiuh7n/YIz6vgnI4r2GMigLWTah2LaHsKWxnqJMQvmgrHGXMFzTkEjg9UPGqvZStM+4jFlfS
+ AJmtYvqmMahwqGX1T26pddCrH+yIbDcI=
+X-Gm-Gg: AfdE7ckvlVhVSXDOAUYfU7Q2cSZf7pOm8C6tXb23PVe8xYtNy2Z46pl3kcNmE6dTUxy
+ +6aC02ooohV8P39HKcy+zCJEMt7xQ5oclrlrsFPi2yMWNqwWpEAB25nXl6Jw0rHZpXcbhCK7Vy8
+ H0O777Q8avaKb7zyAkS2SwsjqM0aH6zVjk2nxkzqC6CCz4L9E7m6An1Lx/sfqqSfPCp+O+rpdvv
+ zEgg750g1SwpIlZJr47gNm/++ev35ppRpG8VboWsKNncbJi/DPgHZx9X4EH8K3daMW5rIj4
+X-Received: by 2002:a05:6000:461c:b0:473:506a:e47c with SMTP id
+ ffacd0b85a97d-47f4886399amr11638724f8f.26.1784173146909; Wed, 15 Jul 2026
+ 20:39:06 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: advantech.de
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PSAPR02MB4502.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77824c9d-6ed8-479c-8c2e-08dee311a6d1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jul 2026 08:10:08.5292 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a77d40d9-dcba-4dda-b571-5f18e6da853f
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TW+O6j8VTcitXVv/o/0TE94cbZwA3edD42MDyYW0D9LkTq1VGU6oyqjSjSOvGmRUg1wMQtYZ1KLsXa6dziyf/cIGbaWQYcDZPIl8B3/LvhY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUZPR02MB8851
-X-Mailman-Approved-At: Thu, 16 Jul 2026 08:19:15 +0000
+References: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
+ <CANbgqATR-V0rRGfzj0hdJ2hsJex-iWzHMwD1L4vavTi2Jd79Kw@mail.gmail.com>
+ <alfV1691ZgZ6KylX@venus> <2301403.NgBsaNRSFp@phil>
+In-Reply-To: <2301403.NgBsaNRSFp@phil>
+From: Andy Yan <andyshrk@gmail.com>
+Date: Thu, 16 Jul 2026 11:38:53 +0800
+X-Gm-Features: AUfX_myr_sOq7hYE4m85iq51mdLC4kRmODLTYq7q95ypFNA8vqcVX-4llt0DR9M
+Message-ID: <CANbgqASSwGjnUsqmpyPgYQ8Qy_6++krbVMQQywB8oJv8Jziz-g@mail.gmail.com>
+Subject: Re: [PATCH v3 08/10] drm/rockchip: dw_dp: Add runtime PM support
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Damon Ding <damon.ding@rock-chips.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Alexey Charkov <alchark@gmail.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org, yubing.zhang@rock-chips.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 16 Jul 2026 08:18:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,27 +127,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-PiBPbiA3LzE0LzI2IDA4OjU0LCBSYW1pcm8gT2xpdmVpcmEgd3JvdGU6DQo+ID4gVGhpcyBkcml2
-ZXIgY29udHJvbHMgdGhlIEhhcmR3YXJlIE1vbml0b3IgYmxvY2sgb2YgdGhlIEFkdmFudGVjaCBF
-SU8gY2hpcC4NCj4gPg0KPiA+IFRoZXJlIGlzIGEgc2VwYXJhdGUgZHJpdmVyIGZvciB0aGUgdGhl
-cm1hbCBkZXZpY2UgZHJpdmVyIHNpbmNlIGl0J3MgYQ0KPiA+IHVzZSBjYXNlIHdlIHN1cHBvcnQg
-Y3VycmVudGx5LCBidXQgaWYgaXQncyByZWFsbHkgbmVjZXNzYXJ5IHdlIGNhbg0KPiA+IG1vdmUg
-aXQgdG8gdGhlIHNhbWUgZHJpdmVyLg0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogUmFtaXJvIE9s
-aXZlaXJhIDxyYW1pcm8ub2xpdmVpcmFAYWR2YW50ZWNoLmNvbT4NCj4gDQo+IE5vcm1hbGx5IHRo
-ZXJlIHdvdWxkIGJlIGEgaHdtb24gZHJpdmVyIGluc3RhbnRpYXRpbmcgdGhlIHRoZXJtYWwgem9u
-ZShzKQ0KPiB1c2luZyBIV01PTl9DX1JFR0lTVEVSX1RaLiBJZiB0aGUgZHJpdmVyIGFjdGl2ZWx5
-IGNvbnRyb2xzIHRoZXJtYWwgem9uZXMNCj4gc2luY2UgaXQgYWxzbyBoYW5kbGVzIGZhbnMsIHRo
-YXQgd291bGQgYmUgaW5zdGFudGlhdGVkIGZyb20gdGhlIGh3bW9uIGRyaXZlci4NCj4gDQo+IFNp
-bmNlIHlvdSBoYXZlIGJvdGggdGhlcm1hbCB0ZW1wZXJhdHVyZSBhbmQgdGhlcm1hbCBmYW4gZHJp
-dmVycywgSSBhbSB2ZXJ5DQo+IGNvbmNlcm5lZCB0aGF0IHRoZXJlIGlzIGZ1bmN0aW9uYWxpdHkg
-b3ZlcmxhcCBhbmRvciBldmVuIGNvbmZsaWN0cy4gWW91IHNob3VsZA0KPiBkcm9wIHRoaXMgZHJp
-dmVyIGFuZCBjb25maWd1cmUgdGhlIHRoZXJtYWwgdGVtcGVyYXR1cmUgZHJpdmVyIHRvIGluc3Rh
-bnRpYXRlIGENCj4gaHdtb24gZGV2aWNlIGZyb20gaXQgaWYgc28gZGVzaXJlZC4NCg0KQnV0IHRo
-aXMgaHdtb24gZHJpdmVyIGRvZXNuJ3QgY29udHJvbCBhbnkgc2V0dGluZywgaXQganVzdCBkaXNw
-bGF5cyB2YWx1ZXMuIEZhbg0KYW5kIFRoZXJtYWwgWm9uZSBjb250cm9sIGlzIGhhbmRsZWQgaW4g
-dGhlIHRoZXJtYWwgZmFuIGFuZCB0aGVybWFsIA0KdGVtcGVyYXR1cmUgZHJpdmVycy4NCg0KQWxz
-byB0aGlzIGh3bW9uIHNob3dzIHZhbHVlcyBub3QgcmVsYXRlZCB0byB0ZW1wZXJhdHVyZSwgbGlr
-ZSB2b2x0YWdlLA0KY3VycmVudCBhbmQgaW50cnVzaW9uLg0KDQpXb3VsZCBpdCBiZSBvayBpZiBJ
-IGtlcHQgdGhlIEhXIE1vbml0b3Igc2luY2UgaXQgb25seSBkaXNwbGF5cyB2YWx1ZXMsIGFuZCBp
-Zg0Kbm90IGNhbiBJIGtlZXAgaXQgdG8gc2hvdyB0aGUgb3RoZXIgbm9uLXRlbXBlcmF0dXJlIHZh
-bHVlcz8NCg0KPiANCj4gVGhhbmtzLA0KPiBHdWVudGVyDQoNCg==
+Hello =EF=BC=8C
+
+Heiko Stuebner <heiko@sntech.de> =E4=BA=8E2026=E5=B9=B47=E6=9C=8816=E6=97=
+=A5=E5=91=A8=E5=9B=9B 03:30=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Am Mittwoch, 15. Juli 2026, 21:00:12 Mitteleurop=C3=A4ische Sommerzeit sc=
+hrieb Sebastian Reichel:
+> > Hello Andy,
+> >
+> > On Tue, Jul 14, 2026 at 06:08:06PM +0800, Andy Yan wrote:
+> > > > @@ -58,6 +59,8 @@ static void dw_dp_rockchip_hpd_sw_sel(void *data,=
+ bool
+> > > > force_hpd_from_sw)
+> > > >
+> > > >         dp->hpd_sel =3D force_hpd_from_sw;
+> > > >
+> > > > +       ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
+> > >
+> > > This can triger  HPD irq for USB-C DP AltMode, but for a standard
+> > > DP port, this is no way to acquire runtime, so there will no irq
+> > > when plug in.
+> >
+> > Right. I don't have any RK3588 or RK3576 system exposing a DP
+> > connector directly. This this is non-trivial to test for me :/
+> >
+> > I see the following options:
+> >
+> > 1. Only enable runtime PM when running in USB-C mode
+> > 2. Mux the HPD pin as GPIO to support waking up with the controller
+> >    being suspended; either remux when the controller is awake or use
+> >    the same mechanism as USB-C to do software based HPD on top of the
+> >    GPIO (which would allow using any GPIO as HPD).
+> > 3. Have a poll function, which wakes up the controller regularly to
+> >    check the status
+> >
+> > I consider going for option 1 for now, which allows option 2 to be
+> > implemented as a follow up. Mostly to avoid that the series becomes
+> > as big and messy as the USBDP PHY series became.
+>
+> I'd agree with that solution.
+> I think we can all agree that option 3 is baaaad :-) .
+
+  I'm also in favor of moving ahead with 1.
+
+  About Option 2: we've got a GPIO-based HPD workaround in our  BSP
+tree, but it's a bit flaky in some use-cases=EF=BC=9A
+  According to the DP spec, there are two types of interrupts:
+  1.  HOTPLUG_IRQ: A level-transition pulse that must be sustained for
+at least 2=E2=80=AFms.
+  2. HPD_IRQ:  A low-level pulse with a duration between 0.25=E2=80=AFms ~ =
+2=E2=80=AFms.
+ With the GPIO-based solution, it is difficult to reliably detect such
+short pulses.
+
+
+>
+> So with 1, functionality keeps working, and then someone can put the
+> special HPD handling on top later - the Rock-5-ITX does expose the DP1
+> (on a hdmi port)
+>
+>
+> Heiko
+>
+>
