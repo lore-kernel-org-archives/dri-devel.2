@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5394FC44512
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 16:07:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BC85C44511
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 16:07:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6023310F393;
-	Thu, 16 Jul 2026 16:07:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1445B10F384;
+	Thu, 16 Jul 2026 16:07:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MD3OjAY8";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TkT0SrEq";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9644210F36B;
- Thu, 16 Jul 2026 16:07:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B93F210F390;
+ Thu, 16 Jul 2026 16:07:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=Z7nNq9lLK+w9Z+e1sxK+eA5MYoTrZRPzvFVVcsZGLaE=; b=
- MD3OjAY8a3w0bF7eF/5dBzK622IdFY9HF1qec69RLyYvVbY4cefsG18CUmDnWscHckeYwF7oRfLHV
- 4evY8IIPB6e49qMu6AtLVQL8QN9cRdq261D1UQpNOSIIrDkJ4QHK+XiARwEOPmVCrM1t7z9wOZ2xu
- onSFtwU78wMKAl3SUgVfTmgRZZ6D0zFoWUHN4ZY/vqj0FTSs2EKp527HBkOXJqPTdXUxLch+uCgfu
- ZIQJ3kRFqtK8hTjzhPgMXQPU4VhD45sv8rcq+TSgypmCrFlkmBj6s/VHSsHiZUYx7nEsvOtDdPm6K
- 9651vm73QYrGBB94j5PZ2MJM04TCZ439nA==;
+ Cc:To:From:From:Reply-To; bh=Hv3wmL7ypIqw04FS5X4dARu+I4jYPp3ZeAa9B0ydbFY=; b=
+ TkT0SrEqz6FUbdybT1LtX/1OfPzuCtBFOn2flljIJK0ywENRy1so4UVF/cVHMcSY/SJVyH7ItZACO
+ kqaTB+0mpgJ5Tl/4Ex03HJ9t4Jetn+qoVC6u8l3c7HojRk+RILRqWJ5XK1NnE/BCtqU+PMMBStlCu
+ gGpv40E0zQtrJjinT0Vh+BlnsoQTXXiQ/vAsTCEtzABhPjHnqvQkE4ZjZAk+YPrPsosTEJaVsHWPv
+ +SIvsypGEThzqs8lJ0qVzZn+cCpcfgFEUZMzOLTcwrO7JWaYFktUibc2mqwbObQyYdp0Sa0lc6wLi
+ GQCFNymudRPFP37brwwx8pvzaQ4le8KO0Q==;
 Received: from [178.139.170.72] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wkObk-00G01i-Bb; Thu, 16 Jul 2026 18:06:44 +0200
+ id 1wkObt-00G01i-Mv; Thu, 16 Jul 2026 18:06:53 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -42,10 +42,10 @@ Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
  Pekka Paalanen <pekka.paalanen@collabora.com>,
  John Harrison <John.Harrison@Igalia.com>, kernel-dev@igalia.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH v2 12/20] drm: Add helper to extract a 3x4 matrix from any
- CTM matrix dimensions
-Date: Thu, 16 Jul 2026 18:03:09 +0200
-Message-ID: <20260716160556.227556-13-mwen@igalia.com>
+Subject: [RFC PATCH v2 16/20] drm/amd/display: add support to post-blend CTM
+ colorop
+Date: Thu, 16 Jul 2026 18:03:13 +0200
+Message-ID: <20260716160556.227556-17-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260716160556.227556-1-mwen@igalia.com>
 References: <20260716160556.227556-1-mwen@igalia.com>
@@ -66,62 +66,240 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+Initialize the AMD post-blend color pipeline with CTM as the first color
+operation in the AMD post-blend color pipeline. AMD post-blend color
+pipeline for DCN3 is described in `DCN 3.0 family color caps and
+mapping` of the kernel doc.
 
-Add a common helper to ease the conversion from both 3x3 or 3x4 matrices
-to a CTM 3x4 matrix. This is handy for code that needs to handle both
-dimensions.
-
-Signed-off-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+Link: https://dri.freedesktop.org/docs/drm/gpu/amdgpu/display/display-manager.html#dc-color-capabilities-between-dcn-generations
+Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- include/drm/drm_color_mgmt.h | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  3 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 81 +++++++++++++++++++
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 38 +++++++++
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |  2 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 38 +++++++++
+ 5 files changed, 162 insertions(+)
 
-diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
-index 5140691f476a..51279267ed3f 100644
---- a/include/drm/drm_color_mgmt.h
-+++ b/include/drm/drm_color_mgmt.h
-@@ -66,6 +66,40 @@ static inline u32 drm_color_lut32_extract(u32 user_input, int bit_precision)
- 				     (1ULL << 32) - 1);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 74f700fbeb6f..1c890ded8f9b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1100,6 +1100,9 @@ int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
+ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
+ int amdgpu_dm_check_crtc_color_mgmt(struct dm_crtc_state *crtc,
+ 				    bool check_only);
++int amdgpu_dm_crtc_set_colorop_properties(struct drm_crtc_state *crtc_state,
++					  struct dc_stream_state *dc_stream_state,
++					  bool check_only);
+ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+ 				      struct drm_plane_state *plane_state,
+ 				      struct dc_plane_state *dc_plane_state);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 54b3c163a36c..20996af68f04 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -1176,6 +1176,87 @@ int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
+ 	return 0;
  }
  
-+/**
-+ * drm_color_ctm_to_ctm_3x4 - Copy CTM matrix contents to 3x4 dimensions matrix
-+ *
-+ * @dest: The destination CTM 3x4 dimensions matrix
-+ * @src: The source CTM matrix (3x3 or 3x4 dimensions depending on @ctm_3x4)
-+ * @ctm_3x4: Boolean indicating the source CTM matrix dimensions
-+ *
-+ * Copy the contents of a CTM matrix from @src, to a CTM 3x4 dimensions matrix.
-+ * The source matrix can be 3x3 or 3x4 dimensions depending on the @ctm_3x4
-+ * boolean argument.
-+ */
-+static inline void drm_color_ctm_to_ctm_3x4(struct drm_color_ctm_3x4 *dest,
-+					    void *src, bool ctm_3x4)
++static int
++__set_dm_crtc_colorop_3x4_matrix(struct drm_crtc_state *crtc_state,
++				 struct dc_stream_state *dc_stream_state,
++				 struct drm_colorop *colorop,
++				 bool check_only)
 +{
-+	if (ctm_3x4) {
-+		*dest = *(struct drm_color_ctm_3x4 *)src;
-+	} else {
-+		struct drm_color_ctm *ctm = (struct drm_color_ctm *)src;
++	struct drm_colorop_state *colorop_state = NULL;
++	struct drm_atomic_commit *state = crtc_state->state;
++	const struct drm_property_blob *blob;
++	struct drm_color_ctm_3x4 *ctm = NULL;
 +
-+		dest->matrix[0] = ctm->matrix[0];
-+		dest->matrix[1] = ctm->matrix[1];
-+		dest->matrix[2] = ctm->matrix[2];
-+		dest->matrix[3] = 0;
-+		dest->matrix[4] = ctm->matrix[3];
-+		dest->matrix[5] = ctm->matrix[4];
-+		dest->matrix[6] = ctm->matrix[5];
-+		dest->matrix[7] = 0;
-+		dest->matrix[8] = ctm->matrix[6];
-+		dest->matrix[9] = ctm->matrix[7];
-+		dest->matrix[10] = ctm->matrix[8];
-+		dest->matrix[11] = 0;
++	/* If CRTC COLOR_PIPELINE property == Bypass */
++	if (!colorop) {
++		if (!check_only) {
++			dc_stream_state->gamut_remap_matrix.enable_remap = false;
++			dc_stream_state->csc_color_matrix.enable_adjustment = false;
++		}
++		return 0;
 +	}
++
++	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
++
++	if (colorop_state && colorop->type == DRM_COLOROP_CTM_3X4) {
++		if (colorop_state->bypass) {
++			if (!check_only) {
++				dc_stream_state->gamut_remap_matrix.enable_remap = false;
++				dc_stream_state->csc_color_matrix.enable_adjustment = false;
++			}
++		} else {
++			drm_dbg(state->dev, "3x4 matrix colorop with ID: %d\n", colorop->base.id);
++			blob = colorop_state->data;
++			if (blob->length != sizeof(struct drm_color_ctm_3x4)) {
++				drm_warn(state->dev, "blob->length (%zu) isn't equal to drm_color_ctm_3x4 (%zu)\n",
++					 blob->length, sizeof(struct drm_color_ctm_3x4));
++				return -EINVAL;
++			}
++			if (!check_only) {
++				ctm = (struct drm_color_ctm_3x4 *) blob->data;
++				__drm_ctm_3x4_to_dc_matrix(ctm, dc_stream_state->gamut_remap_matrix.matrix);
++				dc_stream_state->gamut_remap_matrix.enable_remap = true;
++				dc_stream_state->csc_color_matrix.enable_adjustment = false;
++			}
++		}
++	}
++
++	return 0;
 +}
 +
- u64 drm_color_ctm_s31_32_to_qm_n(u64 user_input, u32 m, u32 n);
++/**
++ * amdgpu_dm_crtc_set_colorop_properties: Set colorop props if programmable by DC.
++ * @crtc_state: DRM crtc state
++ * @dc_stream_state: AMDGPU DC stream state
++ * @check_only: only check color state without update dc stream
++ *
++ * This function verifies post-blend CTM and LUT sizes: if there is enough space, and for
++ * output transfer function, if its parameters can be calculated by AMD
++ * color module. The main difference with CRTC color mgmt properties is that
++ * post-blend degamma is not part of the color pipeline since it's actually
++ * supported pre-blend only.
++ *
++ * If it's not an atomic check, DC resources are checked and updated
++ * accordingly.
++ *
++ * Returns:
++ * 0 on success. Error code if validation fails.
++ */
++
++int
++amdgpu_dm_crtc_set_colorop_properties(struct drm_crtc_state *crtc_state,
++				      struct dc_stream_state *dc_stream_state,
++				      bool check_only)
++{
++	struct drm_colorop *colorop = crtc_state->color_pipeline;
++	int ret;
++
++	/* 3x4 matrix */
++	ret = __set_dm_crtc_colorop_3x4_matrix(crtc_state, dc_stream_state, colorop, check_only);
++
++	return ret;
++}
++
+ /**
+  * amdgpu_dm_check_crtc_color_mgmt: Check if DRM color props are programmable by DC.
+  * @crtc: amdgpu_dm crtc state
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+index 1c3e7ccb9eda..0abe8ab9184b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+@@ -252,3 +252,41 @@ int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_pr
  
- void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
+ 	return ret;
+ }
++
++int amdgpu_dm_initialize_crtc_default_pipeline(struct drm_crtc *crtc,
++					       struct drm_prop_enum_list *list)
++{
++	struct drm_colorop *ops[MAX_COLOR_PIPELINE_OPS];
++	struct drm_device *dev = crtc->dev;
++	int ret;
++	int i = 0;
++
++	memset(ops, 0, sizeof(ops));
++
++	/* 3x4 matrix */
++	ops[i] = kzalloc_obj(struct drm_colorop);
++	if (!ops[i]) {
++		ret = -ENOMEM;
++		goto cleanup;
++	}
++
++	ret = drm_crtc_colorop_ctm_3x4_init(dev, ops[i], crtc, NULL,
++					    DRM_COLOROP_FLAG_ALLOW_BYPASS);
++	if (ret)
++		goto cleanup;
++
++	list->type = ops[i]->base.id;
++
++	i++;
++
++	list->name = kasprintf(GFP_KERNEL, "Color Pipeline %d", ops[0]->base.id);
++
++	return 0;
++cleanup:
++	if (ret == -ENOMEM)
++		drm_err(crtc->dev, "KMS: Failed to allocate colorop\n");
++
++	drm_colorop_pipeline_destroy(dev);
++
++	return ret;
++}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
+index 7b71d3144391..85c21669bf78 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
+@@ -34,4 +34,6 @@ extern const u64 amdgpu_dm_supported_fm;
+ 
+ int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list);
+ 
++int amdgpu_dm_initialize_crtc_default_pipeline(struct drm_crtc *crtc, struct drm_prop_enum_list *list);
++
+ #endif /* __AMDGPU_DM_COLOROP_H__*/
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 3dcedaa67ed8..6226c9ba5fce 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -32,6 +32,7 @@
+ #include "amdgpu_dm_replay.h"
+ #include "amdgpu_dm_crtc.h"
+ #include "amdgpu_dm_plane.h"
++#include "amdgpu_dm_colorop.h"
+ #include "amdgpu_dm_trace.h"
+ #include "amdgpu_dm_debugfs.h"
+ #include "modules/inc/mod_power.h"
+@@ -518,6 +519,43 @@ amdgpu_dm_atomic_crtc_get_property(struct drm_crtc *crtc,
+ 
+ 	return 0;
+ }
++#else
++
++#define MAX_CRTC_COLOR_PIPELINES 5
++
++static int
++dm_crtc_init_colorops(struct drm_crtc *crtc)
++{
++	struct drm_prop_enum_list pipelines[MAX_CRTC_COLOR_PIPELINES] = {};
++	struct drm_device *dev = crtc->dev;
++	struct amdgpu_device *adev = drm_to_adev(dev);
++	struct dc *dc = adev->dm.dc;
++	int len = 0;
++	int ret = 0;
++	int i;
++
++	/* initialize pipeline */
++	if (dc->ctx->dce_version >= DCN_VERSION_3_0) {
++		ret = amdgpu_dm_initialize_crtc_default_pipeline(crtc, &pipelines[len]);
++		if (ret) {
++			drm_err(dev, "Failed to create color pipeline for CRTC %d: %d\n",
++				crtc->base.id, ret);
++			goto out;
++		}
++		len++;
++
++		/* Create COLOR_PIPELINE property and attach */
++		ret = drm_crtc_create_color_pipeline_property(crtc, pipelines, len);
++	}
++
++out:
++	for (i = 0; i < len; i++)
++		kfree(pipelines[i].name);
++
++	return ret;
++}
++
++
+ #endif
+ 
+ /* Implemented only the options currently available for the driver */
 -- 
 2.53.0
 
