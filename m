@@ -4,91 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58934C4452A
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47613C44525
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE80D10E750;
-	Mon, 20 Jul 2026 07:15:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A66A10E78D;
+	Mon, 20 Jul 2026 07:15:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="KisL0cry";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pAtRK2eA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P6J+5xgM";
 	dkim-atps=neutral
-X-Greylist: delayed 571 seconds by postgrey-1.36 at gabe;
- Sat, 18 Jul 2026 03:21:33 UTC
-Received: from flow-a2-smtp.messagingengine.com
- (flow-a2-smtp.messagingengine.com [103.168.172.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDF7610E41E
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 03:21:33 +0000 (UTC)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailflow.phl.internal (Postfix) with ESMTP id DB5F91380324;
- Fri, 17 Jul 2026 23:12:22 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-05.internal (MEProxy); Fri, 17 Jul 2026 23:12:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1784344342; x=
- 1784347942; bh=wXvq1c4qizRzzY1hTlhX58r8EY1LF4K2+vKFMFHqhy0=; b=K
- isL0cryIGZUG2o0BJQoSP+6F1qram42RST1EX9LCVWUr+6WyltiiVAx2sA8yxkXr
- efqu9kwy8rJ7DT09AIXRxtCUIG3Jnh38byCO/kgmn9iZ39GPRECkWtoaJ/F3OExq
- 9g0mfQde7bE15b+BHIH4DPag0L/s25Hl/uLYP2EZpwcWNjfA3qwSXE8BYCw7kC/k
- BV2B+nH6fVx0EgJBb7I5HNa7QoJUqLt2SCqnHk3TVu72R9gAqaS2dM+XE0QXvNz5
- 0jT9PD4pk5KYKZOs1zLJzYHle6gqI2Ex6g9gfnLid5TB3Z9D4Wao62HPdZ4cGErN
- leEYBcrYeh3audaBNpJ4A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; t=1784344342; x=1784347942; bh=w
- Xvq1c4qizRzzY1hTlhX58r8EY1LF4K2+vKFMFHqhy0=; b=pAtRK2eAtWYWGxKOO
- MzfGIZ+5bb6mFU7sYm7oNM5nb8IIxT9SCRFCA7f9liAOmjYqkZksQEPQeOF5SBqT
- 6YOJcQiNSo1LEKMEsoJbgIBcW5cowJUcAOR6PLb/knegcnE6fYsNM+B4vGdIed2S
- sjgEw7B8UIxKt3ME/Smc12YXz3WLvg9q8en+2E8YirF9M4fGwmjDivh869gAjHYW
- 2H8aD3jm7Wb37rkTtTBQZ6YFt4jq/vuJ76zLNl0/0Zes3h0du24wh2Mekl8N7F8n
- xegkIy9C3LfOhvxflk3KBkFK99y8QIMBQFlHLZ52vgj2WrvWc6hzfs8WBGI6enhQ
- TCKWQ==
-X-ME-Sender: <xms:Fu9aamPUhUWUVaX06r_A_pnGm7xiB9dIn0u6B3UKimNabNhzX2jGug>
- <xme:Fu9aalUUH0aEX3pM9pG1u3MzUk_hrksPMYQwnnIOitPPJv1UXsot8Rk56UnHJA9ws
- TcTPybgQdx_8ra5TZ5EM_zsaxjyXrW8IsChVZeoid-qc48qMhHfBQs>
-X-ME-Received: <xmr:Fu9aauYTlrrbM3lnSxywYftCxWDFolcFpGpzCbNl_PHD1N2CNi-KgZfHCZW6Z_KpkNob8DBPdHzMx-vkhIo>
-X-ME-Proxy-Cause: dmFkZTGdKxYqml70filiwpZAyk9xzZJVUlqXITOq/+pve3XDBYV5qFz8ckWzdQnjGAsfQy
- L94g1S87pSC5A9PqOBmMyyQxvTemSxjsbxCMpV/UkyIw4k85IPMDo4giJDv9meY8W+3ZGJ
- 7rs8txKC3pJCgGY8R/cZ16F7AaqWitLXNMydDLsiRhcPuepjcDlKsNyGTcEuNL/NTe46O5
- sbfF0mBd8sxOQr9Axpf/T6uMsL4/0TWxsZd5HtKP2wSMtsouDi5D48PHZsJKTSrN97AFgX
- YyfukrwTjiOyNncXeK6X1bkSY9feAEdBHftqOdE8w0ekw432MGokFfhFE0xgjYmONoZjin
- a+kHlDTSFT5aoAlKXEFvaoTApnxll2T/cMjWi6lx5mplMsZG8x2yGbJucTRJHNJKoXdm6/
- 8PbCal1stX7stfKqYDVhOL1EK2VUDTi/E/D/QVuSqFE5NE60qw4Q/YDP54EZ93q/Iyh2lG
- ibrFwrTKGZveR3sDzFOG4A3najJGt7j6Qk+ToxGmqOz4leQisD33E+CX4zlNlGpONqnXWZ
- +GfzHRhV/a8IcbmZ5PtS2a9tKpdYzmqrWByu/PzzJpJegpO9HtdP+VU3jO41VvYHNhRVMj
- /hYbxrA4yuT4EmbE65+3d7MPD8WP3E7fdkX56KdTlDTjURcSA44lqcsWclpw
-X-ME-Proxy: <xmx:Fu9aaivOoLEQVr9XTSuJzmpQVZeVotb1ZGYAH-0IsIrTyi5j8K9nDg>
- <xmx:Fu9aatluhQ9mm0O3JR8T31B-SqX18T9kwhOsl4DKu9UMjc840SCVTg>
- <xmx:Fu9aajXQLoYeV28E6-mLRvSg7stB7pjKLwqX8sibFv1t59vABBKULw>
- <xmx:Fu9aagni_11MlSGeEAx96onP3KyQBldg_yIMr0dFyay6MOLmCuBUtA>
- <xmx:Fu9aasDUC-3WKaoPvFOutZH8cptEd0MAPaQGMP3bsDz3b6zJvtZF0W8u>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 17 Jul 2026 23:12:15 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org
-Cc: chaoyi.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [RFC PATCH v2 2/8] pmdomain/rockchip: add optional per-domain
- power-on settle delay
-Date: Sat, 18 Jul 2026 15:11:40 +1200
-Message-ID: <20260718031146.3368811-3-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260718031146.3368811-1-gahing@gahingwoo.com>
-References: <20260718031146.3368811-1-gahing@gahingwoo.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FA0E10F25B;
+ Thu, 16 Jul 2026 09:44:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 727DB600AF;
+ Thu, 16 Jul 2026 09:44:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D761F000E9;
+ Thu, 16 Jul 2026 09:44:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784195088;
+ bh=dmYCCccZvFya5IfQO9umLSlG7KA9XHfnAyi29IizQrE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=P6J+5xgMjqQhZg4SZJraBPZaPv2e6+jOxcujMrUEOUgldmEur9LTBYnzHRap/ieCI
+ 9NOwwquOSB20wUe0GRV8tW2roBWIsNqhxmJlQvBzZFSaMKY1QF2JQIvNmCCPrUM7iV
+ LfHSG1T9SdIpLgfUbTSAD88RrIfs70n11jj+F4BvKYlS/wW4aravTdaDp5gV8A5yh2
+ pcFKQy+Kz7kscIo+8APeLjADhi+Y3RDAqou8RidssxxD5lL1lwrEXrJXISKpcjUNrm
+ S6bs3AZyFeqOKgkXC/0feAjqhK7saLvCqjsUGDSJrRLKonf3Wtvl8C7U/JCrc7ZB6N
+ BHR3yn+DYVx+Q==
+Date: Thu, 16 Jul 2026 10:44:14 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Liam R. Howlett" <liam@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
+ Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>, 
+ Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ SJ Park <sj@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
+ Peter Xu <peterx@redhat.com>, 
+ Kees Cook <kees@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>, 
+ Shameer Kolothum <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev,
+ iommu@lists.linux.dev, 
+ kasan-dev@googlegroups.com, linux-sgx@vger.kernel.org,
+ etnaviv@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, 
+ linux-tegra@vger.kernel.org, kvm@vger.kernel.org, 
+ Russell King <linux+etnaviv@armlinux.org.uk>
+Subject: Re: [PATCH v2 01/33] mm: move vma_start_pgoff() into mm.h and clean up
+Message-ID: <alinrz930GoBuEdM@lucifer>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-1-2a5aa403d977@kernel.org>
+ <uqfnbb7knn5gs2symluouczdbxehpwuubek3ypziavv776jncb@l7r4zlatslxd>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <uqfnbb7knn5gs2symluouczdbxehpwuubek3ypziavv776jncb@l7r4zlatslxd>
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,131 +135,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The RK3576 NPU domains need a short settle time after the idle
-request is released before the QoS registers behind the domain are
-written: restoring QoS immediately after de-idle can raise an SError
-on the register access while the NoC is still settling (observed on
-ROCK 4D as a panic inside rockchip_pd_power() during NPU runtime-PM
-cycling).
+On Wed, Jul 15, 2026 at 02:05:42PM -0400, Liam R. Howlett wrote:
+> On 26/07/10 09:16PM, Lorenzo Stoakes wrote:
+> > vma_last_pgoff() already lives there, so it's a bit odd to keep
+> > vma_start_pgoff() in mm/interval_tree.c. Move them together.
+> >
+> > These each return unsigned long, which pgoff_t is typedef'd to. Make this
+> > consistent and have these functions return pgoff_t instead.
+> >
+> > Additionally, express vma_last_pgoff() in terms of vma_start_pgoff(), since
+> > we wrap the vma->vm_pgoff access, we may as well use it here.
+> >
+> > Also while we're here, const-ify the VMA and cleanup a bit.
+> >
+> > Also update the VMA userland tests to reflect the change.
+>
+> This patch could have been 01/35?  Disappointing, but I will try to get
+> over it.
 
-The vendor kernel handles this with a per-domain delay_us field
-applied between the de-idle request and the QoS restore, carrying
-15us for the RK3576 NPUTOP domain.  Mirror that: add delay_us to
-rockchip_domain_info, honor it in rockchip_pd_power() right before
-rockchip_pmu_restore_qos(), and set 15us for NPUTOP, NPU0 and NPU1
-(the two core domains power-cycle constantly under runtime PM and
-showed the same symptom during bring-up).  All other domains keep 0,
-so nothing changes for them.
+;) well I have a series I've not sent yet that maybe could grow a bit to achieve
+ these aims? :>)
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
----
- drivers/pmdomain/rockchip/pm-domains.c | 51 ++++++++++++++------------
- 1 file changed, 28 insertions(+), 23 deletions(-)
+>
+> >
+> > No functional change intended.
+> >
+> > Reviewed-by: Gregory Price <gourry@gourry.net>
+> > Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> > Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+>
+> Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
 
-diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
-index 490bbb1d1..1787f62ba 100644
---- a/drivers/pmdomain/rockchip/pm-domains.c
-+++ b/drivers/pmdomain/rockchip/pm-domains.c
-@@ -59,6 +59,7 @@ struct rockchip_domain_info {
- 	u32 pwr_offset;
- 	u32 mem_offset;
- 	u32 req_offset;
-+	u32 delay_us;
- };
- 
- struct rockchip_pmu_info {
-@@ -185,7 +186,7 @@ struct rockchip_pmu {
- 	.need_regulator = regulator,			\
- }
- 
--#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status, r_status, r_offset, req, idle, ack, g_mask, wakeup)	\
-+#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status, r_status, r_offset, req, idle, ack, g_mask, delay, wakeup)	\
- {							\
- 	.name = _name,					\
- 	.pwr_offset = p_offset,				\
-@@ -200,6 +201,7 @@ struct rockchip_pmu {
- 	.req_mask = (req),				\
- 	.idle_mask = (idle),				\
- 	.clk_ungate_mask = (g_mask),			\
-+	.delay_us = (delay),				\
- 	.ack_mask = (ack),				\
- 	.active_wakeup = wakeup,			\
- }
-@@ -244,8 +246,8 @@ struct rockchip_pmu {
- #define DOMAIN_RK3568(name, pwr, req, wakeup)		\
- 	DOMAIN_M(name, pwr, pwr, req, req, req, wakeup)
- 
--#define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, wakeup)	\
--	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, wakeup)
-+#define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, delay, wakeup)	\
-+	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, delay, wakeup)
- 
- /*
-  * Dynamic Memory Controller may need to coordinate with us -- see
-@@ -612,7 +614,6 @@ static int rockchip_do_pmu_set_power_domain(struct rockchip_pm_domain *pd,
- 			return ret;
- 	}
- 
--
- 	ret = readx_poll_timeout_atomic(rockchip_pmu_domain_is_on, pd, is_on,
- 					is_on == on, 0, 10000);
- 	if (ret) {
-@@ -667,6 +668,9 @@ static int rockchip_pd_power(struct rockchip_pm_domain *pd, bool power_on)
- 		if (ret < 0)
- 			goto out;
- 
-+		if (pd->info->delay_us)
-+			udelay(pd->info->delay_us);
-+
- 		rockchip_pmu_restore_qos(pd);
- 	}
- 
-@@ -1286,25 +1290,26 @@ static const struct rockchip_domain_info rk3568_pm_domains[] = {
- };
- 
- static const struct rockchip_domain_info rk3576_pm_domains[] = {
--	[RK3576_PD_NPU]		= DOMAIN_RK3576("npu",    0x0, BIT(0),  BIT(0), 0,       0x0, 0,       0,       0,       false),
--	[RK3576_PD_NVM]		= DOMAIN_RK3576("nvm",    0x0, BIT(6),  0,      BIT(6),  0x4, BIT(2),  BIT(18), BIT(2),  false),
--	[RK3576_PD_SDGMAC]	= DOMAIN_RK3576("sdgmac", 0x0, BIT(7),  0,      BIT(7),  0x4, BIT(1),  BIT(17), 0x6,     false),
--	[RK3576_PD_AUDIO]	= DOMAIN_RK3576("audio",  0x0, BIT(8),  0,      BIT(8),  0x4, BIT(0),  BIT(16), BIT(0),  false),
--	[RK3576_PD_PHP]		= DOMAIN_RK3576("php",    0x0, BIT(9),  0,      BIT(9),  0x0, BIT(15), BIT(15), BIT(15), false),
--	[RK3576_PD_SUBPHP]	= DOMAIN_RK3576("subphp", 0x0, BIT(10), 0,      BIT(10), 0x0, 0,       0,       0,       false),
--	[RK3576_PD_VOP]		= DOMAIN_RK3576("vop",    0x0, BIT(11), 0,      BIT(11), 0x0, 0x6000,  0x6000,  0x6000,  false),
--	[RK3576_PD_VO1]		= DOMAIN_RK3576("vo1",    0x0, BIT(14), 0,      BIT(14), 0x0, BIT(12), BIT(12), 0x7000,  false),
--	[RK3576_PD_VO0]		= DOMAIN_RK3576("vo0",    0x0, BIT(15), 0,      BIT(15), 0x0, BIT(11), BIT(11), 0x6800,  false),
--	[RK3576_PD_USB]		= DOMAIN_RK3576("usb",    0x4, BIT(0),  0,      BIT(16), 0x0, BIT(10), BIT(10), 0x6400,  true),
--	[RK3576_PD_VI]		= DOMAIN_RK3576("vi",     0x4, BIT(1),  0,      BIT(17), 0x0, BIT(9),  BIT(9),  BIT(9),  false),
--	[RK3576_PD_VEPU0]	= DOMAIN_RK3576("vepu0",  0x4, BIT(2),  0,      BIT(18), 0x0, BIT(7),  BIT(7),  0x280,   false),
--	[RK3576_PD_VEPU1]	= DOMAIN_RK3576("vepu1",  0x4, BIT(3),  0,      BIT(19), 0x0, BIT(8),  BIT(8),  BIT(8),  false),
--	[RK3576_PD_VDEC]	= DOMAIN_RK3576("vdec",   0x4, BIT(4),  0,      BIT(20), 0x0, BIT(6),  BIT(6),  BIT(6),  false),
--	[RK3576_PD_VPU]		= DOMAIN_RK3576("vpu",    0x4, BIT(5),  0,      BIT(21), 0x0, BIT(5),  BIT(5),  BIT(5),  false),
--	[RK3576_PD_NPUTOP]	= DOMAIN_RK3576("nputop", 0x4, BIT(6),  0,      BIT(22), 0x0, 0x18,    0x18,    0x18,    false),
--	[RK3576_PD_NPU0]	= DOMAIN_RK3576("npu0",   0x4, BIT(7),  0,      BIT(23), 0x0, BIT(1),  BIT(1),  0x1a,    false),
--	[RK3576_PD_NPU1]	= DOMAIN_RK3576("npu1",   0x4, BIT(8),  0,      BIT(24), 0x0, BIT(2),  BIT(2),  0x1c,    false),
--	[RK3576_PD_GPU]		= DOMAIN_RK3576("gpu",    0x4, BIT(9),  0,      BIT(25), 0x0, BIT(0),  BIT(0),  BIT(0),  false),
-+	/*                                               name    p_offset pwr      status  r_status r_offset req      idle     g_mask   delay wakeup */
-+	[RK3576_PD_NPU]		= DOMAIN_RK3576("npu",    0x0, BIT(0),  BIT(0), 0,       0x0, 0,       0,       0,       0,    false),
-+	[RK3576_PD_NVM]		= DOMAIN_RK3576("nvm",    0x0, BIT(6),  0,      BIT(6),  0x4, BIT(2),  BIT(18), BIT(2),  0,    false),
-+	[RK3576_PD_SDGMAC]	= DOMAIN_RK3576("sdgmac", 0x0, BIT(7),  0,      BIT(7),  0x4, BIT(1),  BIT(17), 0x6,     0,    false),
-+	[RK3576_PD_AUDIO]	= DOMAIN_RK3576("audio",  0x0, BIT(8),  0,      BIT(8),  0x4, BIT(0),  BIT(16), BIT(0),  0,    false),
-+	[RK3576_PD_PHP]		= DOMAIN_RK3576("php",    0x0, BIT(9),  0,      BIT(9),  0x0, BIT(15), BIT(15), BIT(15), 0,    false),
-+	[RK3576_PD_SUBPHP]	= DOMAIN_RK3576("subphp", 0x0, BIT(10), 0,      BIT(10), 0x0, 0,       0,       0,       0,    false),
-+	[RK3576_PD_VOP]		= DOMAIN_RK3576("vop",    0x0, BIT(11), 0,      BIT(11), 0x0, 0x6000,  0x6000,  0x6000,  0,    false),
-+	[RK3576_PD_VO1]		= DOMAIN_RK3576("vo1",    0x0, BIT(14), 0,      BIT(14), 0x0, BIT(12), BIT(12), 0x7000,  0,    false),
-+	[RK3576_PD_VO0]		= DOMAIN_RK3576("vo0",    0x0, BIT(15), 0,      BIT(15), 0x0, BIT(11), BIT(11), 0x6800,  0,    false),
-+	[RK3576_PD_USB]		= DOMAIN_RK3576("usb",    0x4, BIT(0),  0,      BIT(16), 0x0, BIT(10), BIT(10), 0x6400,  0,    true),
-+	[RK3576_PD_VI]		= DOMAIN_RK3576("vi",     0x4, BIT(1),  0,      BIT(17), 0x0, BIT(9),  BIT(9),  BIT(9),  0,    false),
-+	[RK3576_PD_VEPU0]	= DOMAIN_RK3576("vepu0",  0x4, BIT(2),  0,      BIT(18), 0x0, BIT(7),  BIT(7),  0x280,   0,    false),
-+	[RK3576_PD_VEPU1]	= DOMAIN_RK3576("vepu1",  0x4, BIT(3),  0,      BIT(19), 0x0, BIT(8),  BIT(8),  BIT(8),  0,    false),
-+	[RK3576_PD_VDEC]	= DOMAIN_RK3576("vdec",   0x4, BIT(4),  0,      BIT(20), 0x0, BIT(6),  BIT(6),  BIT(6),  0,    false),
-+	[RK3576_PD_VPU]		= DOMAIN_RK3576("vpu",    0x4, BIT(5),  0,      BIT(21), 0x0, BIT(5),  BIT(5),  BIT(5),  0,    false),
-+	[RK3576_PD_NPUTOP]	= DOMAIN_RK3576("nputop", 0x4, BIT(6),  0,      BIT(22), 0x0, 0x18,    0x18,    0x18,    15,   false),
-+	[RK3576_PD_NPU0]	= DOMAIN_RK3576("npu0",   0x4, BIT(7),  0,      BIT(23), 0x0, BIT(1),  BIT(1),  0x1a,    15,   false),
-+	[RK3576_PD_NPU1]	= DOMAIN_RK3576("npu1",   0x4, BIT(8),  0,      BIT(24), 0x0, BIT(2),  BIT(2),  0x1c,    15,   false),
-+	[RK3576_PD_GPU]		= DOMAIN_RK3576("gpu",    0x4, BIT(9),  0,      BIT(25), 0x0, BIT(0),  BIT(0),  BIT(0),  0,    false),
- };
- 
- static const struct rockchip_domain_info rk3588_pm_domains[] = {
--- 
-2.43.0
+Thanks!
 
+>
+> > ---
+> >  include/linux/mm.h              | 9 +++++++--
+> >  mm/interval_tree.c              | 5 -----
+> >  tools/testing/vma/include/dup.h | 5 +++++
+> >  3 files changed, 12 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/include/linux/mm.h b/include/linux/mm.h
+> > index 25e669632d2c..09b06d8fea74 100644
+> > --- a/include/linux/mm.h
+> > +++ b/include/linux/mm.h
+> > @@ -4307,9 +4307,14 @@ static inline unsigned long vma_pages(const struct vm_area_struct *vma)
+> >  	return (vma->vm_end - vma->vm_start) >> PAGE_SHIFT;
+> >  }
+> >
+> > -static inline unsigned long vma_last_pgoff(struct vm_area_struct *vma)
+> > +static inline pgoff_t vma_start_pgoff(const struct vm_area_struct *vma)
+> >  {
+> > -	return vma->vm_pgoff + vma_pages(vma) - 1;
+> > +	return vma->vm_pgoff;
+> > +}
+> > +
+> > +static inline pgoff_t vma_last_pgoff(const struct vm_area_struct *vma)
+> > +{
+> > +	return vma_start_pgoff(vma) + vma_pages(vma) - 1;
+> >  }
+> >
+> >  static inline unsigned long vma_desc_size(const struct vm_area_desc *desc)
+> > diff --git a/mm/interval_tree.c b/mm/interval_tree.c
+> > index 32bcfbfcf15f..344d1f5946c7 100644
+> > --- a/mm/interval_tree.c
+> > +++ b/mm/interval_tree.c
+> > @@ -10,11 +10,6 @@
+> >  #include <linux/rmap.h>
+> >  #include <linux/interval_tree_generic.h>
+> >
+> > -static inline unsigned long vma_start_pgoff(struct vm_area_struct *v)
+> > -{
+> > -	return v->vm_pgoff;
+> > -}
+> > -
+> >  INTERVAL_TREE_DEFINE(struct vm_area_struct, shared.rb,
+> >  		     unsigned long, shared.rb_subtree_last,
+> >  		     vma_start_pgoff, vma_last_pgoff, /* empty */, vma_interval_tree)
+> > diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+> > index bf26b3f48d3a..668650067c7c 100644
+> > --- a/tools/testing/vma/include/dup.h
+> > +++ b/tools/testing/vma/include/dup.h
+> > @@ -1301,6 +1301,11 @@ static inline unsigned long vma_pages(const struct vm_area_struct *vma)
+> >  	return (vma->vm_end - vma->vm_start) >> PAGE_SHIFT;
+> >  }
+> >
+> > +static inline pgoff_t vma_start_pgoff(const struct vm_area_struct *vma)
+> > +{
+> > +	return vma->vm_pgoff;
+> > +}
+> > +
+> >  static inline int vfs_mmap_prepare(struct file *file, struct vm_area_desc *desc)
+> >  {
+> >  	return file->f_op->mmap_prepare(desc);
+> >
+> > --
+> > 2.55.0
+> >
+
+Cheers, Lorenzo
