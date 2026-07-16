@@ -4,91 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 078BDC4452A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4D6CC44515
 	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25E9B10E6F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15FD710E6EF;
 	Mon, 20 Jul 2026 07:15:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kanardia.eu header.i=@kanardia.eu header.b="IJIC5mEr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EcJ1ZExC";
 	dkim-atps=neutral
-Received: from th8-a.mail-neoserv.si (th8-a.mail-neoserv.si [152.89.234.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51D1D10F53F
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:26:31 +0000 (UTC)
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=th8.neoserv.si; s=default;
- b=bTTWRJf+XMhOqPKQ7BPD4xAkaVeF8baFGXkdpiMxs75/34gUYAKfh03vX9CL3DEmfsjXehAfWr
- zaayOr9GBxhx4Fayht12yBKve3RxgQPlLZcMCgAMXHAztf6oV02fCwtTDkvLvdpLUA224Wd3eG
- 63y9BNDmplM3ilfl7CB2zJWdY78J24IzGehTjppXqo+j+0bcp5aY4JUOJXqwe2DaNggQ+S6Esj
- 072cET5NZavK23LnL/9+Y8NpYIgEGAmcJsV558Gwpsbt/J4cGnRe/CS/Lr3vvcNJqF7jdTsAn3
- x3gZvUkilwwqBeB95SK3611o4o/bdz1X8lpZYEIS2Tl0/w==;
-ARC-Authentication-Results: i=1; th8.neoserv.si; smtp.remote-ip=193.77.36.193; 
- auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=th8.neoserv.si;
- s=default; 
- bh=HJEE6D52PzAAraSZp2z43G1ocPYu02jSX6QRhRsFPig=;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:
- Date:Subject:Cc:To:From:DKIM-Signature;
- b=hs2AAiHOATnFkggiiGMrk/eFJkEktsvH5I237eWWRtZ0ZLW1Ub69acfEbghxLWVStNlnH6vBWT
- 4LMkaCVkpHzE8kDSvYimkGxvwqcd+jiL6FPDpRmVUQAHDmmYvq4Xa/wCEMF6v3NhsAUJcJl4NF
- /3hx+TEZ/f7PrbAwBqcftcCT1x+PQKd8XlSd/7tKGFv/Tpqe05Rgw/fJraC+wp0/nSQVTQwIsU
- kcgpJ9yD5wkxakYpJiZPgwhC+ric5UlWmB1wLePP28OKXZ/KEw85E1j8nnANjpD/iRlTEFlr8C
- fs3ghQJNmsniBk714Vew1BxybQ0PPITO4OGlgECshiSAFw==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kanardia.eu
- ; s=default;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=KkN4fPntNghDZyQYOm91IR8364WzNb2R09AK1tRR9bk=; b=IJIC5mEr2K667BtITzqIgDJJh0
- a+7EUWX1nJx2Kstr1TMD/KGJoFy38FedT3BfpIebboW+xsT9IG09AcpotSYrNIRIpOUYz+EpfjEo0
- NEX9PukBFnwKU/tIvzVundaaHSMwEuOIMALxb+AlaV8DBkkxo4i3cHjdugPsAxzBP7RaWSi/Vh6v4
- nKXzwekAyiL6nCj5xR6+F58YJKVA3VxdrjXgSPY0HrNVAKHxkZRwU9NQgQa8u2ZgulZs3q5j/KnbX
- K+JRTk5UOiosYABHrsY64xFiIkeNgOfUZlhXPZekDovYISspt+NY1QmWONJOvmjQoB13OBlG75tcy
- vYAw1oig==;
-Received: from [193.77.36.193] (port=54788 helo=rok-trip.kanardia.eu)
- by th8.neoserv.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.99.4) (envelope-from <rok@kanardia.eu>)
- id 1wkhHJ-00000001fP1-23GD; Fri, 17 Jul 2026 14:02:53 +0200
-From: Rok Markovic <rok@kanardia.eu>
-To: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Alibek Omarov <a1ba.omarov@gmail.com>,
- Rok Markovic <rok@kanardia.eu>
-Subject: [PATCH 3/4] drm/rockchip: lvds: add RK3568 support
-Date: Fri, 17 Jul 2026 14:00:04 +0200
-Message-ID: <20260717120005.2087386-4-rok@kanardia.eu>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260717120005.2087386-1-rok@kanardia.eu>
-References: <20260717120005.2087386-1-rok@kanardia.eu>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E04410F214;
+ Thu, 16 Jul 2026 08:21:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id F1EF042A6D;
+ Thu, 16 Jul 2026 08:21:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 014761F000E9;
+ Thu, 16 Jul 2026 08:20:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784190073;
+ bh=KnjMIDCod9I0T4C//k43rf+YCepYxv+BR7uQHADw3nM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=EcJ1ZExC6m6pFPSJ/GG3vVVPZ64xO+OlYabJaaQKG5S7lh3gT1vt+DUvJUebMwTfi
+ iHpC+PV0e0pfdrrfUF3G9pCCswqwpgHRVQuAVi0JkD6UZo2SqC2Ms9C0eVz34EtCMp
+ l2gmisCD6iG4u9cyvaQN1mt+rL+u1760LL/z7akRpfIMhF7/rfw/kGHExaQdHrzwMH
+ 3aR5vubkjamQnnYJfaoIugUobtSLRf9txOSM8HCufOU7LtSEwwRWCwath3cEHrdus3
+ j+oI9yNAqjQUR4Bi3BCRHSWAruUUs/RVWo/iRiLiZb8Y80NukuB6o/l1w8TaNIruHC
+ Raqet4KRSwOfQ==
+Message-ID: <8c7240a2-59c6-4c56-8a29-14be272fc1d9@kernel.org>
+Date: Thu, 16 Jul 2026 10:20:50 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Authentication-Results: th8.neoserv.si;
- auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
-X-NEOSERV-MailScanner-Information: Please contact the ISP for more information
-X-NEOSERV-MailScanner-ID: 1wkhHJ-00000001fP1-23GD
-X-NEOSERV-MailScanner: Found to be clean
-X-NEOSERV-MailScanner-SpamCheck: not spam, SpamAssassin (not cached,
- score=1.31, required 7, ALL_TRUSTED -1.00, BAYES_50 0.80,
- KAM_DMARC_QUARANTINE 1.50, KAM_DMARC_STATUS 0.01)
-X-NEOSERV-MailScanner-SpamScore: s
-X-NEOSERV-MailScanner-From: rok@kanardia.eu
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - th8.neoserv.si
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - kanardia.eu
-X-Get-Message-Sender-Via: th8.neoserv.si: authenticated_id: rok@kanardia.eu
-X-Authenticated-Sender: th8.neoserv.si: rok@kanardia.eu
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 27/33] mm/vma: update vmg_adjust_set_range() to offset
+ pgoff instead
+Content-Language: en-US
+To: Lorenzo Stoakes <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+ Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>,
+ Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>,
+ Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
+ Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov
+ <andreyknvl@gmail.com>, Alexander Potapenko <glider@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner
+ <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Yishai Hadas <yishaih@nvidia.com>, Shameer Kolothum
+ <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev,
+ iommu@lists.linux.dev, kasan-dev@googlegroups.com,
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-27-2a5aa403d977@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-27-2a5aa403d977@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,282 +172,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The RK3568 LVDS transmitter has no register block of its own. It is
-driven entirely through the GRF and re-uses the MIPI DSI0 D-PHY in
-PHY_MODE_LVDS, which phy-rockchip-inno-dsidphy already supports.
+On 7/10/26 22:17, Lorenzo Stoakes wrote:
+> We are calculating the pgoff as an offset, since we have vma_add_pgoff()
+> and vma_sub_pgoff() available, just offset this value directly and use
+> __vma_set_range() for vma->vm_[start, end] values.
+> 
+> We take care to update the range before offsetting the page offset, so the
+> adjusted VMA's vm_start and vm_pgoff are mutually consistent at the point
+> the page offset helpers operate - this matters once vma_set_pgoff() comes
+> to assert invariants which relate the two.
+> 
+> Doing so lays the foundation for future work which allows for use of
+> virtual page offsets for MAP_PRIVATE-file backed mappings.
+> 
+> No functional change intended.
+> 
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Reviewed-by: Gregory Price <gourry@gourry.net>
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-Based on Alibek Omarov's earlier posting [1], with the changes below.
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Power the D-PHY from the encoder enable path rather than from probe.
-phy_power_on() runs the phy driver's whole LVDS bring-up: PLL and
-bandgap power-on, a settle, PLL mode select, then a reset pulse of the
-serializer and the lane enables. None of that is safe at probe time -
-the GRF has not yet switched the block to LVDS mode (LVDS0_MODE_EN is
-set from rk3568_lvds_poweron(), i.e. the enable path) and the VOP is
-not driving dclk. The serializer is clocked from dclk and latches its
-state coming out of that reset, so it comes up dead and stays dead.
-The failure is silent: every register in the phy, the GRF and the VOP
-reads back exactly as on a working system while the lanes sit at
-common mode and never toggle.
-
-Program RK3568_LVDS0_DCLK_INV_SEL from the CRTC state's bus_flags so
-the panel's declared pixelclk-active is honoured on the LVDS block as
-well as on the VOP pin polarity. Both have to agree with the edge the
-panel samples on.
-
-Re-assert RK3568_LVDS0_P2S_EN in rk3568_lvds_poweron().
-rk3568_lvds_poweroff() clears MODE_EN and P2S_EN together, so setting
-P2S_EN once at probe would leave the parallel-to-serial converter off
-after the first disable/enable cycle.
-
-Use regmap_write() rather than regmap_update_bits() for the GRF. These
-registers are write-masked - the upper 16 bits select which of the
-lower 16 a write may change - so there is nothing to preserve and no
-reason to read first. Passing a FIELD_PREP_WM16() value as both the
-mask and the value of an update_bits() applies the masking twice and
-only works by accident.
-
-Between the two, nothing needs programming at probe at all: the GRF is
-written entirely from the enable path, so px30_lvds_probe() is left
-alone rather than being refactored into a shared phy helper.
-
-[1] https://lore.kernel.org/all/20230119184807.171132-1-a1ba.omarov@gmail.com/
-
-Co-developed-by: Alibek Omarov <a1ba.omarov@gmail.com>
-Signed-off-by: Alibek Omarov <a1ba.omarov@gmail.com>
-Signed-off-by: Rok Markovic <rok@kanardia.eu>
-Assisted-by: Claude:claude-opus-4-8
----
- drivers/gpu/drm/rockchip/rockchip_lvds.c | 161 +++++++++++++++++++++++
- drivers/gpu/drm/rockchip/rockchip_lvds.h |  10 ++
- 2 files changed, 171 insertions(+)
-
-diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-index 95fa0a9..f45d04a 100644
---- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-@@ -435,6 +435,133 @@ static void px30_lvds_encoder_disable(struct drm_encoder *encoder)
- 	drm_panel_unprepare(lvds->panel);
- }
- 
-+static int rk3568_lvds_poweron(struct rockchip_lvds *lvds)
-+{
-+	int ret;
-+
-+	ret = clk_enable(lvds->pclk);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(lvds->dev, "failed to enable lvds pclk %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = pm_runtime_get_sync(lvds->dev);
-+	if (ret < 0) {
-+		DRM_DEV_ERROR(lvds->dev, "failed to get pm runtime: %d\n", ret);
-+		clk_disable(lvds->pclk);
-+		return ret;
-+	}
-+
-+	/*
-+	 * Enable LVDS mode and the parallel-to-serial converter. These are
-+	 * write-masked registers, so a plain write only touches the bits named
-+	 * here; there is nothing to preserve and no need to read first.
-+	 */
-+	return regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-+			    RK3568_LVDS0_MODE_EN(1) |
-+			    RK3568_LVDS0_P2S_EN(1));
-+}
-+
-+static void rk3568_lvds_poweroff(struct rockchip_lvds *lvds)
-+{
-+	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-+		     RK3568_LVDS0_MODE_EN(0) | RK3568_LVDS0_P2S_EN(0));
-+
-+	pm_runtime_put(lvds->dev);
-+	clk_disable(lvds->pclk);
-+}
-+
-+static int rk3568_lvds_grf_config(struct drm_encoder *encoder,
-+				  struct drm_display_mode *mode)
-+{
-+	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-+	struct rockchip_crtc_state *s =
-+		to_rockchip_crtc_state(encoder->crtc->state);
-+	bool negedge = !!(s->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE);
-+
-+	if (lvds->output != DISPLAY_OUTPUT_LVDS) {
-+		DRM_DEV_ERROR(lvds->dev, "Unsupported display output %d\n",
-+			      lvds->output);
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * The LVDS block has its own dclk inversion select, separate from the
-+	 * VOP's pin polarity. Both have to agree with what the panel samples on.
-+	 */
-+	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-+		     RK3568_LVDS0_DCLK_INV_SEL(negedge));
-+
-+	/* Set format */
-+	return regmap_write(lvds->grf, RK3568_GRF_VO_CON0,
-+			    RK3568_LVDS0_SELECT(lvds->format) |
-+			    RK3568_LVDS0_MSBSEL(1));
-+}
-+
-+static void rk3568_lvds_encoder_enable(struct drm_encoder *encoder)
-+{
-+	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-+	struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
-+	int ret;
-+
-+	drm_panel_prepare(lvds->panel);
-+
-+	ret = rk3568_lvds_poweron(lvds);
-+	if (ret) {
-+		DRM_DEV_ERROR(lvds->dev, "failed to power on LVDS: %d\n", ret);
-+		drm_panel_unprepare(lvds->panel);
-+		return;
-+	}
-+
-+	ret = rk3568_lvds_grf_config(encoder, mode);
-+	if (ret) {
-+		DRM_DEV_ERROR(lvds->dev, "failed to configure LVDS: %d\n", ret);
-+		drm_panel_unprepare(lvds->panel);
-+		return;
-+	}
-+
-+	/*
-+	 * Only now bring the D-PHY up. phy_power_on() runs the whole
-+	 * inno_dsidphy_lvds_mode_enable() sequence - PLL and bandgap power-on,
-+	 * a settle, PLL mode select, then a reset pulse of the serializer and
-+	 * the lane enables. All of that has to happen with the block already
-+	 * switched to LVDS mode in the GRF (above) and with the VOP's dclk
-+	 * running, because the serializer is clocked from dclk and latches its
-+	 * state out of that reset.
-+	 *
-+	 * Doing it at probe instead - as this driver used to - resets and
-+	 * enables the serializer against a block that is not in LVDS mode yet
-+	 * and has no input clock. Every register then reads back correct while
-+	 * the lanes sit at common mode forever. Rockchip's BSP orders it this
-+	 * way (GRF writes, then phy_set_mode + phy_power_on).
-+	 */
-+	ret = phy_set_mode(lvds->dphy, PHY_MODE_LVDS);
-+	if (ret) {
-+		DRM_DEV_ERROR(lvds->dev, "failed to set phy mode: %d\n", ret);
-+		drm_panel_unprepare(lvds->panel);
-+		return;
-+	}
-+
-+	ret = phy_power_on(lvds->dphy);
-+	if (ret) {
-+		DRM_DEV_ERROR(lvds->dev, "failed to power on phy: %d\n", ret);
-+		drm_panel_unprepare(lvds->panel);
-+		return;
-+	}
-+
-+	drm_panel_enable(lvds->panel);
-+}
-+
-+static void rk3568_lvds_encoder_disable(struct drm_encoder *encoder)
-+{
-+	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-+
-+	drm_panel_disable(lvds->panel);
-+	phy_power_off(lvds->dphy);
-+	rk3568_lvds_poweroff(lvds);
-+	drm_panel_unprepare(lvds->panel);
-+}
-+
- static const
- struct drm_encoder_helper_funcs rk3288_lvds_encoder_helper_funcs = {
- 	.enable = rk3288_lvds_encoder_enable,
-@@ -449,6 +576,13 @@ struct drm_encoder_helper_funcs px30_lvds_encoder_helper_funcs = {
- 	.atomic_check = rockchip_lvds_encoder_atomic_check,
- };
- 
-+static const
-+struct drm_encoder_helper_funcs rk3568_lvds_encoder_helper_funcs = {
-+	.enable = rk3568_lvds_encoder_enable,
-+	.disable = rk3568_lvds_encoder_disable,
-+	.atomic_check = rockchip_lvds_encoder_atomic_check,
-+};
-+
- static int rk3288_lvds_probe(struct platform_device *pdev,
- 			     struct rockchip_lvds *lvds)
- {
-@@ -512,6 +646,22 @@ static int px30_lvds_probe(struct platform_device *pdev,
- 	return phy_power_on(lvds->dphy);
- }
- 
-+static int rk3568_lvds_probe(struct platform_device *pdev,
-+			     struct rockchip_lvds *lvds)
-+{
-+	/*
-+	 * Grab and init the phy, but do NOT power it on here - that is done in
-+	 * rk3568_lvds_encoder_enable() once the GRF is in LVDS mode and dclk is
-+	 * running. See the comment there. The GRF is not touched at probe
-+	 * either: every bit of it is programmed from the enable path.
-+	 */
-+	lvds->dphy = devm_phy_get(&pdev->dev, "dphy");
-+	if (IS_ERR(lvds->dphy))
-+		return PTR_ERR(lvds->dphy);
-+
-+	return phy_init(lvds->dphy);
-+}
-+
- static const struct rockchip_lvds_soc_data rk3288_lvds_data = {
- 	.probe = rk3288_lvds_probe,
- 	.helper_funcs = &rk3288_lvds_encoder_helper_funcs,
-@@ -522,6 +672,11 @@ static const struct rockchip_lvds_soc_data px30_lvds_data = {
- 	.helper_funcs = &px30_lvds_encoder_helper_funcs,
- };
- 
-+static const struct rockchip_lvds_soc_data rk3568_lvds_data = {
-+	.probe = rk3568_lvds_probe,
-+	.helper_funcs = &rk3568_lvds_encoder_helper_funcs,
-+};
-+
- static const struct of_device_id rockchip_lvds_dt_ids[] = {
- 	{
- 		.compatible = "rockchip,rk3288-lvds",
-@@ -531,6 +686,10 @@ static const struct of_device_id rockchip_lvds_dt_ids[] = {
- 		.compatible = "rockchip,px30-lvds",
- 		.data = &px30_lvds_data
- 	},
-+	{
-+		.compatible = "rockchip,rk3568-lvds",
-+		.data = &rk3568_lvds_data
-+	},
- 	{}
- };
- MODULE_DEVICE_TABLE(of, rockchip_lvds_dt_ids);
-@@ -601,6 +760,8 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
- 	encoder = &lvds->encoder.encoder;
- 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
- 							     dev->of_node);
-+	rockchip_drm_encoder_set_crtc_endpoint_id(&lvds->encoder,
-+						  dev->of_node, 0, 0);
- 
- 	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_LVDS);
- 	if (ret < 0) {
-diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.h b/drivers/gpu/drm/rockchip/rockchip_lvds.h
-index 2d92447..93d3415 100644
---- a/drivers/gpu/drm/rockchip/rockchip_lvds.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_lvds.h
-@@ -121,4 +121,14 @@
- #define   PX30_LVDS_P2S_EN(val)			FIELD_PREP_WM16(BIT(6), (val))
- #define   PX30_LVDS_VOP_SEL(val)		FIELD_PREP_WM16(BIT(1), (val))
- 
-+#define RK3568_GRF_VO_CON0			0x0360
-+#define   RK3568_LVDS0_SELECT(val)		FIELD_PREP_WM16(GENMASK(5, 4), (val))
-+#define   RK3568_LVDS0_MSBSEL(val)		FIELD_PREP_WM16(BIT(3), (val))
-+
-+#define RK3568_GRF_VO_CON2			0x0368
-+#define   RK3568_LVDS0_DCLK_INV_SEL(val)	FIELD_PREP_WM16(BIT(9), (val))
-+#define   RK3568_LVDS0_DCLK_DIV2_SEL(val)	FIELD_PREP_WM16(BIT(8), (val))
-+#define   RK3568_LVDS0_MODE_EN(val)		FIELD_PREP_WM16(BIT(1), (val))
-+#define   RK3568_LVDS0_P2S_EN(val)		FIELD_PREP_WM16(BIT(0), (val))
-+
- #endif /* _ROCKCHIP_LVDS_ */
--- 
-2.43.0
+> ---
+>  mm/vma.c | 15 ++++-----------
+>  1 file changed, 4 insertions(+), 11 deletions(-)
+> 
+> diff --git a/mm/vma.c b/mm/vma.c
+> index a474920a25b3..0699fa07c40f 100644
+> --- a/mm/vma.c
+> +++ b/mm/vma.c
+> @@ -714,9 +714,6 @@ void validate_mm(struct mm_struct *mm)
+>   */
+>  static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
+>  {
+> -	struct vm_area_struct *adjust;
+> -	pgoff_t pgoff;
+> -
+>  	if (vmg->__adjust_middle_start) {
+>  		/*
+>  		 * vmg->start    vmg->end
+> @@ -735,8 +732,8 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
+>  		struct vm_area_struct *middle = vmg->middle;
+>  		const unsigned long delta = vmg->end - middle->vm_start;
+>  
+> -		pgoff = vma_start_pgoff(middle) + (delta >> PAGE_SHIFT);
+> -		adjust = middle;
+> +		__vma_set_range(middle, vmg->end, middle->vm_end);
+> +		vma_add_pgoff(middle, delta >> PAGE_SHIFT);
+>  	} else if (vmg->__adjust_next_start) {
+>  		/*
+>  		 *                Originally:
+> @@ -764,13 +761,9 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
+>  		struct vm_area_struct *next = vmg->next;
+>  		const unsigned long delta = next->vm_start - vmg->end;
+>  
+> -		pgoff = vma_start_pgoff(next) - (delta >> PAGE_SHIFT);
+> -		adjust = next;
+> -	} else {
+> -		return;
+> +		__vma_set_range(next, vmg->end, next->vm_end);
+> +		vma_sub_pgoff(next, delta >> PAGE_SHIFT);
+>  	}
+> -
+> -	vma_set_range(adjust, vmg->end, adjust->vm_end, pgoff);
+>  }
+>  
+>  /*
+> 
 
