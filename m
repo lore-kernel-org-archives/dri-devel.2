@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9161C44516
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 16:06:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69FF0C44512
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 16:06:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D97C10F36F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F36C910F372;
 	Thu, 16 Jul 2026 16:06:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Hs15/DyP";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MYSpywLK";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEAEB10E214;
- Thu, 16 Jul 2026 16:06:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 519F910F371;
+ Thu, 16 Jul 2026 16:06:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=GVD3QuxPKbkGkO53IS/B1k+DGc87J1V6sl8ZleGyY7E=; b=Hs15/DyPLqTQXL7E1CuHaMvN34
- TMO9PvblvvnOKP15YGCTAYUIXrEjdNNEDMx4ldfEgqrTdKCCh01wNhtMPMjyFYh841azeYrwoUEvV
- d9K/NXKbk8DkQ4U0fq/bAMXeM6z/pqVeueGhALstW3Cajy/DEtux+jb17Endcr09t+Mai/spnr7/J
- aGz8JEJ74HucNjYojkjNgdNIbd+SjflkZApcyQ6Yh2UJ3BQEMhped8yZDpGZTcuYywTuO6Jy0suoO
- h5SNUGtf0UD2Qa6W4K9wOTtucqeO0BAg8qtSIzNO4yiYYlwE7PVDwpwCHBiONxzADULCwjH8B0t/6
- xtCW9H+g==;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=/5TUAQInGqaXeVxQvXE079kMYarVwTzwiA95N8KWQaE=; b=
+ MYSpywLK8Z4qFZAlt8NDJLW0rtoEvS5ayf05vaW5BCbuLrTlifnvAm74444S0iiMWxSMZIdlIjQiB
+ 7w7seUXUSawbLGnY+6f3cMkLlPDsKa1bAZ13VtN9hxtYZpx/PL+M2Jn+unBR0+za/fFqFdpNbDOzn
+ j8uDJUwPy2J2qhnWm14E9ejQP/OzElApyrcEXEnh9yUQOAd0eEYGHayrEfkxMyJA4394v/0yqQUs3
+ nkGq7S44a05HCbfPLVnbK3777RuCxRtskntLrNLapmxGKUwZX5CihKij5ju2agNC0jq3q2Lycm/3C
+ CPG+0Bc4ZjuOfFe9//X7UUIzJcA55aXl8Q==;
 Received: from [178.139.170.72] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wkOb8-00G01i-T3; Thu, 16 Jul 2026 18:06:07 +0200
+ id 1wkObW-00G01i-BN; Thu, 16 Jul 2026 18:06:30 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -43,13 +42,14 @@ Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
  Pekka Paalanen <pekka.paalanen@collabora.com>,
  John Harrison <John.Harrison@Igalia.com>, kernel-dev@igalia.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH v2 00/20] drm/drm_colorop: add post-blend colorop support
- to AMD display driver
-Date: Thu, 16 Jul 2026 18:02:57 +0200
-Message-ID: <20260716160556.227556-1-mwen@igalia.com>
+Subject: [RFC PATCH v2 10/20] drm/colorop: distinguish whether a colorop
+ belongs to a plane or a CRTC
+Date: Thu, 16 Jul 2026 18:03:07 +0200
+Message-ID: <20260716160556.227556-11-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260716160556.227556-1-mwen@igalia.com>
+References: <20260716160556.227556-1-mwen@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,237 +66,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey,
+To correctly track states and color management changes.
 
-I have been working on gamescope migration from AMD driver-specific
-color props to KMS colorop API [1] and, with the fixed-matrix
-replacement for COLOR_ENCODING and COLOR_RANGE[2], the only missing
-color prop was the CRTC AMD REGAMMA TF (the 1D Curve). So I worked on top
-of Ariel&Nícolas proposal for post-blend colorop API [3], discarded
-patches for DRM_CAP_CRTC_COLOR_PIPELINE driver cap flag (as commented in
-this year Linux Display Hackfest), fixed some issues based on plane
-colorop recent changes and exposed AMD post-blend colorop pipeline with
-CTM -> 1D Curve -> 1D LUT, since post-blend Degamma is not actually
-supported by AMD (even though there is a workaround for enable it in
-CRTC color mgmt properties).
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ drivers/gpu/drm/drm_atomic_uapi.c | 25 +++++++++++++++++++------
+ 1 file changed, 19 insertions(+), 6 deletions(-)
 
-I have a gamescope implementation that fully migrates its color pipeline
-from AMD private plane/CRTC color props to pre- and post-blend colorops
-running on a custom kernel with the required colorop support for AMD.
-
-- Gamescope draft:
-https://github.com/ValveSoftware/gamescope/pull/2113/commits
-
-- Kernel branch with all necessary patches:
-https://gitlab.freedesktop.org/mwen/drm-misc/-/commits/gamescope_pipeline_w_colorop
-
-This series doesn't take into account the inactive color pipeline work
-I've been doing for plane color pipeline. My plan is to apply a similar
-approach post-blend when we agree that the plane series is correct.
-
-- Patch 1-13 are essentially Ariel&Nicolas work for DRM post-blend
-  colorop support where I added patch 10 for tracking plane vs CRTC
-  colorop changes.
-- Patch 14 completes deprecation of CRTC color mgmt properties if
-  post-blend color pipeline is enabled by hiding them;
-- Patch 15 applies the same bug fix logic as Robert did to guard plane
-  client cap[4];
-- Patch 16-20 add support to post-blend colorop API on AMD driver based
-  on plane colorop work.
-
-This is one example of `drm_info` output on Steam Deck with
-SteamOS/gamescope implementation and this kernel work:
-
-├───CRTCs
-│   ├───CRTC 0
-│   │   ├───Object ID: 399
-[...]
-│   │       └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 400} = Color Pipeline 400
-│   │           ├───Bypass
-│   │           └───Color Pipeline 400
-│   │               ├───Color Operation 400
-│   │               │   └───Properties
-│   │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 3x4 Matrix
-│   │               │       ├───"BYPASS" (atomic): range [0, 1] = 1
-│   │               │       ├───"NEXT" (atomic, immutable): object colorop = 405
-│   │               │       └───"DATA" (atomic): blob = 0
-│   │               ├───Color Operation 405
-│   │               │   └───Properties
-│   │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-│   │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
-│   │               │       ├───"NEXT" (atomic, immutable): object colorop = 410
-│   │               │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB Inverse EOTF, PQ 125 Inverse EOTF, BT.2020 OETF, Gamma 2.2 Inverse, Gamma 2.4 Inverse, Gamma 2.6 Inverse} = PQ 125 Inverse EOTF
-│   │               └───Color Operation 410
-│   │                   └───Properties
-│   │                       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D LUT
-│   │                       ├───"BYPASS" (atomic): range [0, 1] = 1
-│   │                       ├───"NEXT" (atomic, immutable): object colorop = 0
-│   │                       ├───"SIZE" (atomic, immutable): range [0, UINT32_MAX] = 4096
-│   │                       ├───"LUT1D_INTERPOLATION": enum {Linear} = Linear
-│   │                       └───"DATA" (atomic): blob = 0
-
-[...]
-
-    ├───Plane 3
-    │   ├───Object ID: 218
-[...]
-    │   └───Properties
-    │       ├───"type" (immutable): enum {Overlay, Primary, Cursor} = Primary
-    │       ├───"FB_ID" (atomic): object framebuffer = 513
-    │       │   ├───Object ID: 513
-[...]
-    │       └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 224} = Color Pipeline 224
-    │           ├───Bypass
-    │           └───Color Pipeline 224
-    │               ├───Color Operation 224
-    │               │   └───Properties
-    │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-    │               │       ├───"BYPASS" (atomic): range [0, 1] = 1
-    │               │       ├───"NEXT" (atomic, immutable): object colorop = 229
-    │               │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 601 Limited to RGB, YCbCr 709 Full to RGB, YCbCr 709 Limited to RGB, YCbCr 2020 NC Full to RGB, YCbCr 2020 NC Limited to RGB} = YCbCr 601 Full to RGB
-    │               ├───Color Operation 229
-    │               │   └───Properties
-    │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-    │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
-    │               │       ├───"NEXT" (atomic, immutable): object colorop = 234
-    │               │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, PQ 125 EOTF, BT.2020 Inverse OETF, Gamma 2.2, Gamma 2.4, Gamma 2.6} = sRGB EOTF
-    │               ├───Color Operation 234
-    │               │   └───Properties
-    │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Multiplier
-    │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
-    │               │       ├───"NEXT" (atomic, immutable): object colorop = 239
-    │               │       └───"MULTIPLIER" (atomic): range [0, UINT64_MAX] = 4294967296
-    │               ├───Color Operation 239
-    │               │   └───Properties
-    │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 3x4 Matrix
-    │               │       ├───"BYPASS" (atomic): range [0, 1] = 1
-    │               │       ├───"NEXT" (atomic, immutable): object colorop = 244
-    │               │       └───"DATA" (atomic): blob = 0
-    │               ├───Color Operation 244
-    │               │   └───Properties
-    │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-    │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
-    │               │       ├───"NEXT" (atomic, immutable): object colorop = 249
-    │               │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB Inverse EOTF, PQ 125 Inverse EOTF, BT.2020 OETF, Gamma 2.2 Inverse, Gamma 2.4 Inverse, Gamma 2.6 Inverse} = sRGB Inverse EOTF
-    │               ├───Color Operation 249
-    │               │   └───Properties
-    │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D LUT
-    │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
-    │               │       ├───"NEXT" (atomic, immutable): object colorop = 256
-    │               │       ├───"SIZE" (atomic, immutable): range [0, UINT32_MAX] = 4096
-    │               │       ├───"LUT1D_INTERPOLATION": enum {Linear} = Linear
-    │               │       └───"DATA" (atomic): blob = 528
-    │               ├───Color Operation 256
-    │               │   └───Properties
-    │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 3D LUT
-    │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
-    │               │       ├───"NEXT" (atomic, immutable): object colorop = 263
-    │               │       ├───"SIZE" (atomic, immutable): range [0, UINT32_MAX] = 17
-    │               │       ├───"LUT3D_INTERPOLATION": enum {Tetrahedral} = Tetrahedral
-    │               │       └───"DATA" (atomic): blob = 529
-    │               ├───Color Operation 263
-    │               │   └───Properties
-    │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-    │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
-    │               │       ├───"NEXT" (atomic, immutable): object colorop = 268
-    │               │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, PQ 125 EOTF, BT.2020 Inverse OETF, Gamma 2.2, Gamma 2.4, Gamma 2.6} = PQ 125 EOTF
-    │               └───Color Operation 268
-    │                   └───Properties
-    │                       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D LUT
-    │                       ├───"BYPASS" (atomic): range [0, 1] = 1
-    │                       ├───"NEXT" (atomic, immutable): object colorop = 0
-    │                       ├───"SIZE" (atomic, immutable): range [0, UINT32_MAX] = 4096
-    │                       ├───"LUT1D_INTERPOLATION": enum {Linear} = Linear
-    │                       └───"DATA" (atomic): blob = 0
-
-FWIW, here is the `drm_info` diff:
-
-diff --git a/drm_info.h b/drm_info.h
-index e61fda7..f7f2017 100644
---- a/drm_info.h
-+++ b/drm_info.h
-@@ -21,5 +21,6 @@ enum {
- /* Remove after updating libdrm */
- #define DRM_MODE_OBJECT_COLOROP 0xfafafafa
- #define DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE    7
-+#define DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE     8
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 0ee44976031e..5cb860cb7da4 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1374,7 +1374,6 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 		break;
+ 	}
+ 	case DRM_MODE_OBJECT_COLOROP: {
+-		struct drm_plane_state *plane_state;
+ 		struct drm_colorop *colorop = obj_to_colorop(obj);
+ 		struct drm_colorop_state *colorop_state;
+ 		bool replaced = false;
+@@ -1391,12 +1390,26 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 		if (ret || !replaced)
+ 			break;
  
- #endif
-diff --git a/json.c b/json.c
-index c9f8c72..b2c306b 100644
---- a/json.c
-+++ b/json.c
-@@ -29,6 +29,7 @@ static const struct {
-        { "WRITEBACK_CONNECTORS", DRM_CLIENT_CAP_WRITEBACK_CONNECTORS },
-        { "CURSOR_PLANE_HOTSPOT", DRM_CLIENT_CAP_CURSOR_PLANE_HOTSPOT },
-        { "PLANE_COLOR_PIPELINE", DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE },
-+       { "CRTC_COLOR_PIPELINE", DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE },
- };
-
-
-[1] https://github.com/ValveSoftware/gamescope/pull/2113
-[2] https://lore.kernel.org/dri-devel/20260623164812.81110-2-harry.wentland@amd.com/
-[3] https://lore.kernel.org/dri-devel/20251223-mtk-post-blend-color-pipeline-v3-0-7d969f9a37a0@collabora.com/
-[4] https://lore.kernel.org/dri-devel/20260703073230.19982-1-robert.mader@collabora.com/
-
-Let me know your thoughts!
-
-Melissa
-
-Ariel D'Alessandro (2):
-  drm: Add helper to extract a 3x4 matrix from any CTM matrix dimensions
-  drm: Add helper to extract a LUT entry from either 16-bit or 32-bit
-    LUT
-
-Melissa Wen (8):
-  drm/colorop: distinguish whether a colorop belongs to a plane or a
-    CRTC
-  drm/drm_mode_object: hide deprecated CRTC color mgmt props if colorop
-    is set
-  drm/drm_ioctl: guard DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE
-  drm/amd/display: add support to post-blend CTM colorop
-  drm/amd/display: add support to post-blend 1D-Curve colorop
-  drm/amd/display: add support to post-blend 1D-LUT colorop
-  drm/amd/display: move CRTC CTM color mgmt prop to check helper
-  drm/amd/display: enable post-blend colorop properties
-
-Nícolas F. R. A. Prado (10):
-  drm/crtc: Add color pipeline to CRTC state
-  drm/colorop: Allow parenting colorop to CRTC
-  drm: Factor out common color_pipeline property initialization code
-  drm/crtc: Add COLOR_PIPELINE property
-  drm: Introduce DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE
-  drm/atomic: Pass crtc_color_pipeline client cap to atomic check
-  drm/atomic: Print the color pipeline as part of the CRTC state print
-  drm/colorop: Factor out common paths from colorops helpers
-  drm/colorop: Introduce colorop helpers for crtc
-  drm/crtc: Track crtc color pipeline client cap in drm_crtc_state
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 250 +++++++++++++---
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  76 +++++
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   2 +
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  42 +++
- drivers/gpu/drm/drm_atomic.c                  |   9 +-
- drivers/gpu/drm/drm_atomic_uapi.c             |  97 +++++-
- drivers/gpu/drm/drm_colorop.c                 | 282 ++++++++++++++----
- drivers/gpu/drm/drm_connector.c               |   1 +
- drivers/gpu/drm/drm_crtc.c                    |  31 ++
- drivers/gpu/drm/drm_crtc_internal.h           |   1 +
- drivers/gpu/drm/drm_ioctl.c                   |  20 ++
- drivers/gpu/drm/drm_mode_object.c             |  18 ++
- drivers/gpu/drm/drm_plane.c                   |  34 +--
- drivers/gpu/drm/drm_property.c                |  44 +++
- include/drm/drm_atomic.h                      |  20 ++
- include/drm/drm_atomic_uapi.h                 |   2 +
- include/drm/drm_color_mgmt.h                  |  61 ++++
- include/drm/drm_colorop.h                     |  32 +-
- include/drm/drm_crtc.h                        |  27 ++
- include/drm/drm_file.h                        |   7 +
- include/drm/drm_property.h                    |   5 +
- include/uapi/drm/drm.h                        |  19 ++
- 23 files changed, 939 insertions(+), 144 deletions(-)
-
+-		plane_state = drm_atomic_get_plane_state(state, colorop->plane);
+-		if (IS_ERR(plane_state)) {
+-			ret = PTR_ERR(plane_state);
+-			break;
++		if (colorop->plane) {
++			struct drm_plane_state *plane_state;
++
++			plane_state = drm_atomic_get_plane_state(state, colorop->plane);
++			if (IS_ERR(plane_state)) {
++				ret = PTR_ERR(plane_state);
++				break;
++			}
++			plane_state->color_mgmt_changed |= replaced;
++		} else if (colorop->crtc) {
++			struct drm_crtc_state *crtc_state;
++
++			crtc_state = drm_atomic_get_crtc_state(state, colorop->crtc);
++			if (IS_ERR(crtc_state)) {
++				ret = PTR_ERR(crtc_state);
++				break;
++			}
++			crtc_state->color_mgmt_changed |= replaced;
++
+ 		}
+-		plane_state->color_mgmt_changed |= replaced;
+ 
+ 		break;
+ 	}
 -- 
 2.53.0
 
