@@ -4,122 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EADABC44525
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:15:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 779DAC44529
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA2BC10E6E3;
-	Mon, 20 Jul 2026 07:15:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C34C10E6ED;
+	Mon, 20 Jul 2026 07:15:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mt.com header.i=@mt.com header.b="XTqhmXdk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UbqoaKug";
 	dkim-atps=neutral
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011011.outbound.protection.outlook.com [52.101.70.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDA8510E3E4
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 11:50:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sG2lSoixnD08BpHhRL1XQVddrLSv4k6jWqZ+qb+ExL4zpiOyL3OnvNMzMo0AEhdSliyHI0lG2iZpvNuP0goc6hlSK5cOXqJThsvZ75K8oY9IjvgUqXWYSh6Fs6Y9NemNiZcErl+EbImSnysZ1hkgDMcYD/gJQlkTtw76XyoWYvJ1bGLTkga4LH9JrWz+SodY94jXT5YMw1vFDAhYFOW1tmVBgb3Fx+WOUujCpZ5xDNLl0h82cRwR29ehzCHrcqOI5st/Su0Bv1+ggY+b9pwhcMMRF5uztjZX5ma/fibLqvsVEyNPVglAGOsrdwR7oaPK39dnbEl5aWC2lbx8ToXnNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=blwlh6ADyGrLrZzSCqjIWjNH2D+SuOi1DRaojMZIU/E=;
- b=svNImTxrrYIaTUrazsv+J7pOSr9pr/aCMEYlVAzdzBrudJjQV8Yrfd+pujD2GaxPs43QiX0oLiHjXUJ4yuE79qUFMECk1ur1e1CnpLFTRM4YtBRW5iMseCXlxiZ8kSAWbYP9JSyNfVTW7ozZ6wK6x9Vff++4IhT5Ky5svJ9j4ACMjBs/AQ8HjA3jN9UiHcBY0dx5frGpWUqgdG18YkRg4Vy0TazqMFz43UHorUZ1c7+A4csa0FBh3Uqqn0bd/aGfy5jaC79M78eeP6hiiR5RnLUjqJEXOp6qUT5nTGJhtG3jzCse8eU6+Q4YWXBoOHzTRpDbWWVShuogZmszTGNTIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
- header.d=mt.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=blwlh6ADyGrLrZzSCqjIWjNH2D+SuOi1DRaojMZIU/E=;
- b=XTqhmXdkCAGkxEyZXbIz1Z7uxRcj1NX6CsTwYDNY+cARxHrHpUEWVj03duyscifZlaKL8aGrfRYi1cKOzEnq4aTH4vVQPNDpb3unUiLueRdrIKZNgeqoR1FlaEuP1jY9hHUlSa6dtJ3Bcdhfzg+GrMczCqPV1ncnENsDaYSsX2IIu3jt88HBSERRRscAj3o0EAxPya2sP0AhGW4s7GuSaoDO44Cy1qR2jyBFTlHpCZxBSFST6CdY9vkdcNPRjCTLhq5z2iyfVWNdcawOEaU3YrxzKhPsxr5lqOhzaJVWktyLS6cav/J1iXLtBcs3/3AHoY9GZlnR+8dUnk39olMM5g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mt.com;
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
- by GVXPR03MB8308.eurprd03.prod.outlook.com (2603:10a6:150:6e::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
- 2026 11:50:11 +0000
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
- 11:50:11 +0000
-From: Wojciech Dubowik <wojciech.dubowik@mt.com>
-To: linux-kernel@vger.kernel.org
-Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4E5D10F25D;
+ Thu, 16 Jul 2026 09:42:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 643A6437F0;
+ Thu, 16 Jul 2026 09:42:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67341F00A3F;
+ Thu, 16 Jul 2026 09:42:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784194967;
+ bh=7JChzyPx9x6gEu4NPAGqzUtqrZl0/gc9rPBKKPo6c0U=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=UbqoaKugtwtE/wDtLrJxAq1xy+ElsA1g+mbgtfCD/5OvxdjKHTTRYZ5WnYQZMraZA
+ s/qXgxaWfSdXO9TYDTQ8V5c+CSQtCmeQD1D3DJ+8BVJcY5zY7RJ0RmJmCm0eZZ1Apv
+ mQiBmOU1yyDPMd/S9GbJ27QKXbDCGyLzgmvbEndiHmIeJHb5Th7QoviGbQ1X2ltPxu
+ Pb+9DafqsJAKJhM6IR5VnRB4i5dJiGSaPoRzgh+2Ozrm6HeSwUnJy+qkFvAA2fn4xT
+ h+X+MW8bHAp8Adnk1lscXc7/h92BcL1poIw+CmARj5GUyYNB21u2bjEtTKBp1jHtrH
+ eJYCIO11YTewg==
+Date: Thu, 16 Jul 2026 10:42:12 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
+ Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>, 
+ Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ SJ Park <sj@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
+ Peter Xu <peterx@redhat.com>, 
+ Kees Cook <kees@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Subject: [PATCH v5 0/3] drm/bridge: ti-sn65dsi83: Add reverse lvds lanes
- support
-Date: Fri, 17 Jul 2026 13:49:58 +0200
-Message-ID: <20260717115002.308035-1-wojciech.dubowik@mt.com>
-X-Mailer: git-send-email 2.47.3
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR0P278CA0063.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:21::14) To DB9PR03MB7180.eurprd03.prod.outlook.com
- (2603:10a6:10:22d::13)
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>, 
+ Shameer Kolothum <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, 
+ linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ damon@lists.linux.dev, 
+ iommu@lists.linux.dev, kasan-dev@googlegroups.com, linux-sgx@vger.kernel.org, 
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
+Subject: Re: [PATCH v2 30/33] mm/vma: correct incorrect vma.h inclusion
+Message-ID: <alimfeUEoGdnEd9W@lucifer>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-30-2a5aa403d977@kernel.org>
+ <a273faf8-452d-499a-90e1-b3c9dc2395d0@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|GVXPR03MB8308:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32993455-5894-44fb-e25b-08dee3f98eb7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|19092799006|1800799024|23010399003|56012099006|10067099003|6133799003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: l+TxvAlhqN/cWu83e7NNzK0mdN4Q1dqL3jX/dY5tO9rhZwx6FDnGK8FXA2geFxPplxe+tu914XUX8OGrZNbtXzJodOEJqD80+lWPzE0tXkB0PR5N4DJ+cP6mAGd51MDdowZnbQf+Rzr7lzBdJoqXOAnyzG3c0jXSFyUCCAq0pbZEp3fz5KRD7zqxWpJMuIkIm/EuRzUsTkLKd2MF01VReTe8jPg2oYo/AkPplQdFSFWPnqx3FT15S7T9GXcoxlnubWLGjkEvScc7rfcovQumJihoV4OGkHJhTt7JHOLXVxQiNBjWd1vMdSifnAA4xEwxyWYddjvPnjhJQ8LrPdeTnQnVDai7XDcLnrP09au/FoOeoJUMHZ+DMV9352ZxU1qQ3JrMe0MfJZKGzMKmbPy8aq6wX9xiXQaZcOJkyqFpP7mY+KL1iZHouwojoJkHEZqeDMlR8LBjf1e19MPeK7sVfPUDg5jSarWGKdkPn00VAOI2amjyQKs6Z/yHHUYvKmZzuEjs0ExeWNckLfROkOnrwZ7T/AyK2GOd8DssDyk7drgK9jHzKrl/N1DWqWt8j5K5fkpcdNDKqt597ISKbVrfi9N8Omc/zsqyEve8L/Lx+d0P+3j41XcaPaC27JFnEIIBuQW4HqXRHZ1qYJsmILJDQ3ngsymRjbER971T4hZGDJ8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DB9PR03MB7180.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(19092799006)(1800799024)(23010399003)(56012099006)(10067099003)(6133799003)(18002099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?M+MHLuf7Q5uYtZdMR9zXcl1qj0iBFL/bToxzGozEWyVLFGcBnGwYG4jkGzBb?=
- =?us-ascii?Q?4B9GXy6HfNpGUZDBmEnFklvs0aRFTxijzdn61zR2qVhFMlU2gg13PHasDejx?=
- =?us-ascii?Q?H9dftMzmX/XRYDK2joqNahUQqsb+hRGxE0zV4hiNBFVTiGpBOPWjhu8WiQzH?=
- =?us-ascii?Q?7krVJGSfcClTiO4qsBwJKVzVuoKTgH9q2UssyBZSUO7YMYFljctU516G+PcD?=
- =?us-ascii?Q?K0ROrlkaZ24Bl9/jI6TtxfdfY8sFBwBavjyuoC9yVGXTwwXtbzNl24ZyGIER?=
- =?us-ascii?Q?GdcWMXIJQ+NuZVY8wvULyUqJuV/f4FaYst5uXsg6R9+zvlSCWlQ+E6Ak/ltc?=
- =?us-ascii?Q?9y612CNrItEow7eq5RsEqOTv80khCkV9ZylDDPXJtiYDeQwAejnIt6aNea/5?=
- =?us-ascii?Q?MvjmIkmF1e4VBMJ80z8HSfS5PrZnbOlMwoDQ6jwxH75oaVSTQXKIUgenkHHO?=
- =?us-ascii?Q?NRdDTiOXsyz8/toqWoTOb/8iqXoPifcgjEMFo/fftZfB2HdDFBh4bdzUP+8O?=
- =?us-ascii?Q?2Kn+Ayq4Mkm4K5akq7rc2fLavVJTTiThq0x4ipZhD7BdPHzXlvElcMYu0nz/?=
- =?us-ascii?Q?e0l6bcawEkGgHEwpnWzRdr8x3XkNv3vDW9Juhh4DhqYaG84haN/5On/EyTVm?=
- =?us-ascii?Q?svK3/P0dS2OwQ4mPP2MbGbOZ0MGs4Nh/IysLQVzMCiXE1nh7HJN49ZnsPIqE?=
- =?us-ascii?Q?CRb+QXlUvyO0EgqBpKtFBB3oD7iVwp8vNIISrdAY/lEE332hy7C2Ol9nY4UW?=
- =?us-ascii?Q?QTUdLomHzTiuQtajfiwn6sD8grYaldUWeS/0YhATdl+82Js/YbauIQYL1r9b?=
- =?us-ascii?Q?w1SiK/H8XjMcpLv03r8JfKrzwIcY1fr7Ei4H67c9HBGTVNIV+XyZ1V25Xh1J?=
- =?us-ascii?Q?RZq4bSXz+YvVtgtJTC91Ype/sJHtGBhPo0kP3SbsilHmWHJ3G5S+HsnVI3pV?=
- =?us-ascii?Q?ejfzTUedmJzbIS0AHm8rviyK/nDGP22g+qNJKdRpVSPmrdMFEeet5xuzHYUE?=
- =?us-ascii?Q?XqsxnMYCQxZMaqfoS47mB4zKSRusn44ewqF+92NTAGjao/ZEZZFz5yBcqKQW?=
- =?us-ascii?Q?d8YzV0gt5JfFNlHLS7+a9sY/4T2ZoTthCDh5DJtMyo+9fRA2ppApWYG/pefL?=
- =?us-ascii?Q?rV5Vcr3Px5Ooq+DaWqClFwaKJ1iV/Ibuhep0aH0to32PNjeuQEcObRlbkaXK?=
- =?us-ascii?Q?kuPeCmSQwNshq0cukHMwDuCZWa4kd2InWL4d0t9rqAJoM1bJN+n+n0I3v7FY?=
- =?us-ascii?Q?LuddSxqwmPDHCOHox5rF4UQx7HHzWQ6oGLINv+CMjPLdfk560lfIdy9Rb+Mh?=
- =?us-ascii?Q?hwtXg9CVdUeqfNUm6m1DONrPvzN9kTc5Gu4N8ZyHMaB1weZQaqk/cYvg4hVV?=
- =?us-ascii?Q?RCRnha82Z8Rif1xgeXA98BGee0cQbqSwh5PXh0wUzWT770nZJHSH6yJz1i6P?=
- =?us-ascii?Q?mKG4x5frALgJDOyZB1iVJmVpIEvbVOrla4Fkw56BVtMVZEkKbc/UBlLm0EY/?=
- =?us-ascii?Q?aRWxmadhkDlgdeToN9cG0uyLJVG/UDG1oDOJCwk1xv6/dQ2vGyzNDya5Ynhq?=
- =?us-ascii?Q?dwdpZG9jnWp1xeWmVFQ7t7bqkaifc/h1sXCvY864bUUY6vz7LfVPcITJK8Ry?=
- =?us-ascii?Q?DoQ4cEF44fo1OfrckzKTXQI6fLe8FPlte6I+7ckzY1PbVOLMzXCLBudkftju?=
- =?us-ascii?Q?qAUR3gCHbuMPFJOgXoVEBfaRV06EJ/qnaxcNzgqZoHvbmXhAP6E56ln2W9gi?=
- =?us-ascii?Q?q4E8iqI5MQ=3D=3D?=
-X-OriginatorOrg: mt.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32993455-5894-44fb-e25b-08dee3f98eb7
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 11:50:11.5529 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lsbX3WsRpF/XDk50OyEBiPVnUwFP7yy88wS2AedIfMQoYFr2OrpHTAnXsMqp0rRseCx/DD0Q2YHIT1mKfe2PLg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR03MB8308
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a273faf8-452d-499a-90e1-b3c9dc2395d0@kernel.org>
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,39 +133,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+On Thu, Jul 16, 2026 at 10:38:00AM +0200, Vlastimil Babka (SUSE) wrote:
+> On 7/10/26 22:17, Lorenzo Stoakes wrote:
+> > The only files which should be including vma.h are the implementation files
+> > for the core VMA logic - vma.c, vma_init.c, and vma_exec.c.
+> >
+> > This is in order to allow for userland testing of core VMA logic. In this
+> > cases, vma_internal.h and vma.h are included, providing both the
+> > dependencies upon which the core VMA logic requires and its declarations.
+> >
+> > Userland testable VMA logic is achieved by having separate vma_internal.h
+> > implementations for userland and kernel.
+> >
+> > Callers other than the core VMA implementation should include internal.h
+> > instead. This header does not need to include vma_internal.h as it only
+> > contains the vma.h declarations, for which the includes already present
+> > suffice.
+> >
+> > Update code to reflect this, update comments to reflect the fact there are
+> > 3 VMA implementation files and document things more clearly.
+> >
+> > While we're here, slightly improve the language of the comment describing
+> > vma_exec.c.
+> >
+> > No functional change intended.
+> >
+> > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> > Reviewed-by: Gregory Price <gourry@gourry.net>
+> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+>
+> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Add support for reversed lvds output lanes. With an optional
-data-lanes property one can support default layout <1 2 3 4>
-or reversed layout <4 3 2 1>. The property is optional and when
-not set it keeps the default output layout.
+Thanks!
 
-Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
----
-Changes in v5:
-- Add an extra patch to simplify error handling in lvds DT parsing
-  suggested by Luca
-- Fix formatting and description in dt-bindings
-- Make naming consistent for lane mappings constants
-- Simplify parsing of data-lanes
-Changes in v4:
-- Fix data-lanes bindings to be under endpoint subnode and not in
-  the node itself, discovered by shashiko-reviews
-Changes in v3:
-- Add optional data-lanes bindings for output nodes
-Changes in v2:
-- Parse existing data-lanes property instead of ading new DT
-  bindings
----
-Wojciech Dubowik (3):
-  drm/bridge: ti-sn65dsi83: Simplify error condition logic
-  dt-bindings: display: sn65dsi83: Add output data-lanes property
-  drm/bridge: ti-sn65dsi83: Add reversed lvds lanes support
+>
+> But given Mike's efforts [1] I wonder if there's a way to change the vma
+> header system in the future to stop requiring users of vma functions to
+> include the whole internal.h, while of course still allow the userland
+> testability.
+>
+> [1]
+> https://lore.kernel.org/all/20260709-internal-h-v1-0-956d5092782d@kernel.org/
 
- .../bindings/display/bridge/ti,sn65dsi83.yaml | 44 ++++++++++++
- drivers/gpu/drm/bridge/ti-sn65dsi83.c         | 72 +++++++++++--------
- 2 files changed, 87 insertions(+), 29 deletions(-)
+Yeah we can always put a (correctly formed) vma.h include in any split off headers.
 
--- 
-2.47.3
+There's also Pedro's suggestion (my reply to that at [0]) which I plan to do as
+a follow up :)
 
+[0]:https://lore.kernel.org/all/akzWq08xwXKqwwtq@lucifer/
+
+>
+>
+
+Cheers, Lorenzo
