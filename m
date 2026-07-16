@@ -4,138 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4704EC44501
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 00:29:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A64DC44501
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 00:53:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58BE810E262;
-	Thu, 16 Jul 2026 00:29:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70BAF10E0F6;
+	Thu, 16 Jul 2026 00:53:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XtCXeni4";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="nW0p2Pln";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E7BB10E262
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 00:29:04 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2cedda2ce6fso27335795ad.1
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 17:29:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784161744; x=1784766544; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=OGQ6x2eWb0kXOAnv/GgXof7PDNge2C09gVvctRHhkCQ=;
- b=XtCXeni4ErLeUIrLPbBJtiznmkomTLxlYYgkcsGmfEV7cVnd8C8XCvaYIb2LcIsWnd
- qk1VwSZTYrkJQBVsnGNIAMgH755sPRQYGFLakvMc5qeU5AKaCE+ZndgnnGQR0M3Wx/tO
- ayjSe/FP6r755pgHS8VqaX8JxVsl/JPxuP64vGXR2bhoadx998PA+JS8/KUcvOsH4uD6
- OdBhjhqcDsLIXexgnO0v2KbqxWBFqnjtZo9oOG2C9Mok5Dy/niH+G2q+cCRMlpRqqqGu
- 8eZpr0GTAJMiM/qsJue5QpraHts7SbkL4884FUVM1m3ZiWybjim2mxUDI+wQDWyjdgzK
- kt9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784161744; x=1784766544;
- h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=OGQ6x2eWb0kXOAnv/GgXof7PDNge2C09gVvctRHhkCQ=;
- b=mmzel8Ko7tCXexhyiGJB+ZjnPnUKv+SWfI+FzNVWxgPggyh3rzzhMC2CEtUwCm2wGb
- KvzVZ0B68zFZH6T3du3Cq2hUQyetuzyfKjUKWkDgNFQNXeQzPPPtXjJsLMK/f/coEvpo
- Rcm9FxJltF35KBo0mb6cpRYipPuETfeOeiCqEiAklCnnAGenZJooOo2zu0z9sO8cSRR2
- 4TAJ6CybGeNEDt+jvqxBD2O/353jwEm0qFGhEmlzWTYAbUgmSquCvjfzNgjAQB5d8zd2
- GDqchoy6yI1KIOY1Kq4c3KA+xYLWU+DzL7+v26m2YUu2Ryuj/WmMqMNJKzOJLxIhuUnn
- KDlw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoEDdIMQMf0FspOkOCx9msmGVeh4tx2NaF+3U7cqesM9VYe1rTdH6VAG+Dg9ua0lFBhM4w2lXJUaRo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywal+tn5Ldxy0TU+ICUED3yrA02VwO5YuxcWnM1QAZECP3z8phB
- YldDyxScSYo/nNudglNE++x4v2fBue/i9A560rco4BrlgetjUw0/Rxrq
-X-Gm-Gg: AfdE7cld7X/44rhEBjEM+LhXWOv8jpUScxTSHnb0Dz1BV57Chws35tJNEkWjiDWT7c/
- zGy2I+M1KKTZQ7/9s35meKPQJjb9O4O5Q7vW5q7gH7bkpyUpV547yVrSNGjRmrVeN/F6+UDdpvs
- hwnBCYU7Bi6LpoWvV+v1D1xWsvze2Av3Zv5jKX9HQq3W5ibaHFq8jbywMaMvQje4Wzu3Jm3hzuL
- q3mI+fn3ANM62fjtEmfkcNVaVtLYydQdeuxASXdZAmYHR+qoisTSaB2mh5kx1oH0vvTLvwfzCf4
- TSClVoFzeOACVfjdDsXqU4FQ3QJsU2DdSqbc5Tt+mSjn0a9DS+D2lDp/SehxZGs0HYqryIB8Op4
- jG/nX+GNCpexiZGAEY2zXKkNoT2NcnYSQ0zMujLpi+95rIaS8C09gCt0SfV16aiLBcGo8LfejMw
- JVkS2m0JuAkg1UvPI1dO66d9uQy5ZR6kg66bP31jF0QlfuP79EX+w=
-X-Received: by 2002:a17:902:f683:b0:2ca:1479:d9dc with SMTP id
- d9443c01a7336-2cef1326596mr78291255ad.12.1784161744012; 
- Wed, 15 Jul 2026 17:29:04 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5?
- ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2cf10591d3dsm10278195ad.56.2026.07.15.17.29.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jul 2026 17:29:03 -0700 (PDT)
-Message-ID: <b7171173-aa64-4393-b9cf-77d92f2ec932@roeck-us.net>
-Date: Wed, 15 Jul 2026 17:29:01 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013020.outbound.protection.outlook.com
+ [40.93.196.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA72310E0F6
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 00:53:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dNCIpOLpKfwC5CtazBTjhuN1CqCvhv+bdZmiyNL9zpSmiVm2exdk3LgzQo1qSxkeHZ1ELzUEJksdObzTCKCsUaio6nWkBlCXbPMTia/syoQNPR+AOgv9Bx3e4cTlVaHKZb6ab/7iBSiQTadHVM1R3Jzs8QUnHx3LKihfH+YPWd4ud0iaTkWJpJ2/uyfPPdFFmPBIumpfUGvXoLWMrEbZAs5fxq/6SD0enyxbS+yqFHeujdhSOYvyx5sP6ASWat9H0oEYhKEpdn6cjDjPnmFH+lrorkoyBPJdeCI/kz0pCis8uEn+w/G2BVNkvuqsRDiL/R6NNbElRUDBf3LxESixxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lMsMaVHEsbz1VEVS3LHfC0mtRJIHPXSGzTnTouu5QaU=;
+ b=foQzL+1tqDh9sHEkZpLirQz91ca09BFRlSVN7MMOowsDn70eavfZ5f0RwuHHsiIw1dtCjJomzSaHaBiWOAWgRpxPZshSMtAppVNbRFX4ORmU3bYuKOwhT6CEumNsWzV3xn7frp2KNqAJyNNlLL5xqUfHExSYztLCGB8ixTsrxRTyu7Q8MoSfMiyywKbChcg1DMOaV4cz7dI+3vw4puIct0U2gqI8TNJPrk0n1895Ym/3cyfSfac3pgfepo1P8e3qJxBaxSdi/DJt1S3JX/dULyMjZMoclw8bmf58IcxcUVCDqwUP+nLKpkDUF45/D4GxttnUrbHShqFcoFh+Cpg21w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lMsMaVHEsbz1VEVS3LHfC0mtRJIHPXSGzTnTouu5QaU=;
+ b=nW0p2Plnqc+QEqnLr1Jvubd8FtWFXdEqV7IOXqFU4wOKZkX2dkulnqLL7uy6EeltrmlEvnLy2mvgeWpy+zKzhlrM6guchDYR+RxtCuRU8jP4OSi2Eqep2f+czlfxfklmLOKJFEgD3Ae4XvrUzz9Rg+i2/hqyRk2hecHp6BsoX0skc+jnkLubIjEOiUSm1mUTRDKje3zjCpYOxDkXAk7TTTJQHgLkdtFLa/4W1EUQGbJRfLMMwDxXvjG2+L8q2gVn8zyq1fEjCPM/2896CvaYKXCk3mL80MiHQm0QF5U38n5u7xleBF6F0vMrssD3ggmEz9jGaWzLtv7af+h6v+Okbg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by MN0PR12MB5932.namprd12.prod.outlook.com (2603:10b6:208:37f::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Thu, 16 Jul
+ 2026 00:52:55 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
+ 00:52:55 +0000
+Date: Wed, 15 Jul 2026 20:52:52 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Eliot Courtney <ecourtney@nvidia.com>,
+ Greg KH <gregkh@linuxfoundation.org>, Burak Emir <bqe@google.com>,
+ John Hubbard <jhubbard@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Andrew Ballance <andrewjballance@gmail.com>,
+ Matthew Wilcox <willy@infradead.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Boqun Feng <boqun@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ David Airlie <airlied@gmail.com>, Gary Guo <gary@garyguo.net>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ Simona Vetter <simona@ffwll.ch>,
+ Tamir Duberstein <tamird@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
+ Trevor Gross <tmgross@umich.edu>, Yury Norov <yury.norov@gmail.com>,
+ Zhi Wang <zhiw@nvidia.com>, maple-tree@lists.infradead.org,
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance for
+ region allocations
+Message-ID: <algrZLHyYcR2mwzX@yury>
+References: <20260711063602.426311-1-ynorov@nvidia.com>
+ <alf1lUH0EDf3CRMl@pedro-suse.lan>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alf1lUH0EDf3CRMl@pedro-suse.lan>
+X-ClientProxiedBy: SJ0PR03CA0171.namprd03.prod.outlook.com
+ (2603:10b6:a03:338::26) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/8] Add Advantech EIO Hardware Monitor driver
-To: Ramiro Oliveira <ramiro.oliveira@advantech.com>,
- Lee Jones <lee@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Helge Deller <deller@gmx.de>, Wim Van Sebroeck <wim@linux-watchdog.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>
-Cc: linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
- linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-i2c@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-pm@vger.kernel.org, Wenkai Chung <wenkai.chung@advantech.com.tw>,
- Francisco Aragon-Trivino <francisco.aragon-trivino@advantech.com>,
- Hongzhi Wang <hongzhi.wang@advantech.com>,
- Mikhail Tsukerman <mikhail.tsukerman@advantech.com>,
- Thomas Kastner <thomas.kastner@advantech.com>
-References: <20260714-upstream-v2-v2-0-76e5e41026db@advantech.com>
- <20260714-upstream-v2-v2-3-76e5e41026db@advantech.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260714-upstream-v2-v2-3-76e5e41026db@advantech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|MN0PR12MB5932:EE_
+X-MS-Office365-Filtering-Correlation-Id: a1a45843-54c0-4acb-d12f-08dee2d4923d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|7416014|366016|23010399003|22082099003|18002099003|3023799007|10067099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: vWDP1F4x8FHd0qIlaV6sPBFQU6c/p6WkaH2IsRRE0/RymcyCSWVy0SZKkeq4GZ9z152x/frU86s4wMkX4Fv31z7uziRkPgGJBSsQWoMU0NCDG5f5IN5dNcuRrR1EtH9Msvl1MM8OCNCbLh/l11oFJnSMQjmnZYY5yAkCX4oJsuJSeKHR13xLhgA4mQsYHFC9A/noz2KiDl68Nt4fQf9JKu1/XgMRFORr74E+waCQYhEexW6fkR+Glz7fUc+U/GrnfVp0P7UZGTWfKQVbLfQp7IZt3R6Bs+YrPnXReto0GxUIUTZQ5pCemGIopxG/AaTf7i/ksHIugPuMv9dLL65ocDcwar7IbaGFbVyGjGZTdIIjsZeJPznHSHqJ4dAqgCnIe1IRTQks32Av6908z/SRx4xd+ghWqMV/HeTEOCgldxKiCO4/5AZoAIbyi/m3+TISHv64FBfDwNVC3X9k4gHUp6aa987RvVTqR08lMS6WJKcn9Vvhu7QyPdLyXD8T6ML3PTp09lN3DhASQBItf1Z27o2ufrFjATg++Ns/mBDZWjQ0gQViPBHufifF2MxFlxlLR12+QQJtmo9n4L87JSuIO8sqoHj20nnI1ALILOEBO/IgQVuiKjhPYq1nKh3ZJxBFHcPB2/woYe9TT87kyLYP2VFPG6Z+zrUFq4eS8ESLkEk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV3PR12MB9356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(7416014)(366016)(23010399003)(22082099003)(18002099003)(3023799007)(10067099003)(11063799006)(4143699003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?kUFKHJA/urU2DXYy7WEIuWIPY+Kci01kqiRwYaRkEP6FSmXXiPFcE8nXJtkb?=
+ =?us-ascii?Q?Lt3vldFhZ5RdWK8aV/sU6QW9WeiqRnCtMhRAOzsNILTM0LS5sCF3wYBP2uLB?=
+ =?us-ascii?Q?EdgtMGgpkh1cmEg1e9I5OLOHCP8CRIpU+2NoJTwtJfWfC+t7p7bcb/wwjiue?=
+ =?us-ascii?Q?ZMMS9GI5O70x864GJ1Dxnao/LqucjPJdSCLi1Tf0k7KfHo4pOeg5YDc6aN5j?=
+ =?us-ascii?Q?A70rfhFOkO0b0gPamWkjsZ2GSgPHZZAdkkS7PN8V5b8VSfIDvItRmwR8dahP?=
+ =?us-ascii?Q?BvDK9hEJB8sAVjqTJZK74H2ocSZtMP08azBg29Nzc4cC/CpHtIaQqLDg2r+2?=
+ =?us-ascii?Q?1r0wX41/Upics6wFwRng4UBBZWV6f7eP04nnXp27bSlevqV9rYQCFO7Xz2zB?=
+ =?us-ascii?Q?SkNyuL7nTJBlYBS2IVoEX9U1F9Xd2aO6NnjyZyHVTEnwjqEK+83n+vXwtDN1?=
+ =?us-ascii?Q?js9kVUMCcyMcWfIx5jeHNvQJysLjJsWsyqBj6CETI0L2xBVdvEVkSVpHndH9?=
+ =?us-ascii?Q?1aj8xkIfYv0Fmgzi147fCyypmcnL06CqDSbxvQUCh/3sV+N1mDyFddVgNkI3?=
+ =?us-ascii?Q?HQVCYzulPdTDPWAfHqFDm3oi+Z/ZgAxWQ1DxShvf0AhcNYjx69+Ywvkn72Sr?=
+ =?us-ascii?Q?hCXryFiomEFTMbakajVLGpwm0er2TQ03GjD4/lSOKLBSl1rnihr+D6r9gqEN?=
+ =?us-ascii?Q?Z9AzvjejYvXyp+dgsJlPOX0vo0Rn4LOWOtnqAg1XDcdGKARWSXTWfSLokXPB?=
+ =?us-ascii?Q?TvSTSZ2uvUiC+znnPgUlUDmF1jMIZ/6IJ/RUXkeFEj3APi46SMG9s/mEi1xB?=
+ =?us-ascii?Q?j8YKnI47e5brNow8lt/cJ9pO2YAse2R/cEhaIrzbhAfN5Iql6Cn9TcGbGUeK?=
+ =?us-ascii?Q?+BKlvykeHORyoFfC4IX0STlHKf4QZsuF+49sQG3g8EEXWmVpb7kyIAXB/YVF?=
+ =?us-ascii?Q?JU9v4alAzwViNncmk2PRtkZ+91swTu+nJD+hUIQp9i870yslbNx6V76DJXZT?=
+ =?us-ascii?Q?0NUnVFfJN0G+pBiqrq1JVvBp3nbWPhq7ey6q1eT0sYmHzyKRaYYEXSFz/ilK?=
+ =?us-ascii?Q?W+BQxDxc5V+MX1feqxZgrvop808o98/tlXcstELcaEN0b1Dcl7t+HN44UPkm?=
+ =?us-ascii?Q?qI1GNgEjhJ4vPPa1YUPNNiplhRuSDTATftQF9Kpw8M703rMJFXEA87j3iJhF?=
+ =?us-ascii?Q?tht4lZN5x5bSp28mMTMJB4u3nArJkMVRaHXZP7rscgfv7b2/MyDLBlj7BkCf?=
+ =?us-ascii?Q?BJCEsF3Xnd3U76yKKkvJTVbb+ChfVM/Nq4HOPisNKWTcTPUc83wMwyjCsiLq?=
+ =?us-ascii?Q?ef1Rqtgd2sOK07uRFGxqfqv+S4OD+UcfAfNQlFqtoRQrpv2+YHC8CkQdDMhf?=
+ =?us-ascii?Q?cN1RH+1Nl6M1h80Cwwsn0fW/kNaGox0tFzdgl/gtTl/+o39n9VNm9F/tvxkl?=
+ =?us-ascii?Q?ukOjaxMg3y76tN8SJA9GKPwj9jLWPAGNgE0snfe40GDMdnOJBgzL0ivbsB+J?=
+ =?us-ascii?Q?h3jl0e1SlsdK+pwfazKB+3nFuNbAjksk4loIURoRH37dYbZo5D0ZJ0MQ3Kzo?=
+ =?us-ascii?Q?ZEkZ4/BNjNgt43MJA3QMI+Ol/aAzcmPcYcajQUD8GRTwSwz+rwRyAsBcwHGL?=
+ =?us-ascii?Q?ulvYhOoYKVF6TMqgP2daMhYUKfoaiYbdrXu+EhVP4mzp2+QNNlDHuPbkW94k?=
+ =?us-ascii?Q?RZ0uJoyfWgcmsfoSJ3LU9bi9QMRJNqJiGrVKx2Pejv3zK4QzrZvwNpymRE5v?=
+ =?us-ascii?Q?mnzKcUNkqA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1a45843-54c0-4acb-d12f-08dee2d4923d
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 00:52:55.0126 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Z7Qvr+ZcTvyix5mZNzIi/w3YmDvmrNjnGISuZgElRrf3hLhj+FqWFSqXwnSzMfMKNb6OHYhS7QfvMLIVWzywqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5932
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,24 +148,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/14/26 08:54, Ramiro Oliveira wrote:
-> This driver controls the Hardware Monitor block of the Advantech EIO chip.
+On Wed, Jul 15, 2026 at 10:41:01PM +0100, Pedro Falcato wrote:
+> On Sat, Jul 11, 2026 at 02:36:01AM -0400, Yury Norov wrote:
+> > Compare the cost of allocating and freeing variable-sized regions using
+> > a bitmap, IDA and a Maple Tree. All implementations process the same
+> > randomly generated sequence of region sizes, ranging from 1 to 32 entries,
+> > until the configured capacity is exhausted.
+> > 
+> > Run the benchmark at several capacities to show how the approaches
+> > scale. Report allocation and free times separately because bitmap,
+> > IDA and Maple Tree removal have substantially different costs.
+> > 
+> > On x86/kvm, the output example is:
+> > 
+> > type       alloc (ns)      free (ns)   capacity   memory (B)
+> > bitmap      179573071         342105    1000000       125000
+> > IDA          46555636       33931498    1000000       134864
+> > maple        18629665       19741396    1000000      1548304
+> > bitmap        1630912          30933     100000        12504
+> > IDA           6144785        3354590     100000        14288
+> > maple         1745026        1825032     100000       155408
+> > bitmap          28448           3374      10000         1256
+> > IDA            418978         333641      10000         1872
+> > maple          185398         211138      10000        15632
+> > bitmap           2253            610       1000          128
+> > IDA             42755          36432       1000          144
+> > maple           19728          23474       1000         1552
+> > 
 > 
-> There is a separate driver for the thermal device driver
-> since it's a use case we support currently, but if it's
-> really necessary we can move it to the same driver.
-> 
-> Signed-off-by: Ramiro Oliveira <ramiro.oliveira@advantech.com>
+> I don't understand the comparison. bitmap, IDA and maple are
+> completely different data structures for completely different purposes.
 
-Normally there would be a hwmon driver instantiating the thermal zone(s)
-using HWMON_C_REGISTER_TZ. If the driver actively controls thermal zones
-since it also handles fans, that would be instantiated from the hwmon driver.
+Sure. Please check this link from the patch description:
 
-Since you have both thermal temperature and thermal fan drivers, I am very
-concerned that there is functionality overlap andor even conflicts. You
-should drop this driver and configure the thermal temperature driver
-to instantiate a hwmon device from it if so desired.
+https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvidia.com/
+
+The test is very well motivated by that discussion. I'm not saying
+it compares apples to apples. I'm trying to quantify the answer to a
+very specific question: what is better for NOVA ID allocator. Or more
+broadly: what's the best data structure for range ID allocators of a
+given capacity.
+ 
+> 1) IDA is 16 bytes when empty, maple is 16 bytes when empty, bitmap
+> is $size bytes
+> 2) bitmap is statically sized, IDA and maple have to deal with actual
+> allocation and freeing of memory
+> 3) xarray and maple (especially maple) are optimized for RCU usage and
+> have different tradeoffs
+> 4) IDA does not support ranges
+> 5) xarray (the underlying data structure for IDA) does not support ranges
+> in any optimal way
+> 6) maple is not optimized for 1-sized ranges, nor ID allocation; it
+> actually stores data, so instead of 1 bit per index you get 8 whole
+> bytes.
+> 7) maple and IDA both handle locking implicitly
+
+Yes, this to some extent follows John's arguments why bitmaps are
+preferred for NOVA Id allocator. I'd also add serializeability, if
+it's needed.
+ 
+> There are also other pressing questions about the benchmark itself:
+> it's pretty much the ideal scenario for bitmap.
+
+It's pretty much the worst scenario for bitmaps, because the test
+starts searching for a region from the beginning of the bitmap on
+every iteration, making it "Shlemiel the Painter" algorithm with
+O(N^2) complexity.
+
+If I wanted to cheat, I'd carry the last allocated ID over the loop.
+It would make the complexity O(N). I could choose to start searching
+from a random ID, saying it's 'more realistic'. It makes the complexity
+converging to O(N*logN). This is how cpumask_*_distribute() works, btw.
+
+So no, this is far from being the ideal scenario.
+
+> doing the find in
+> bitmap is essentially testing how far the CPU can speculate, and how
+> large the cache is. It's pretty darn large on modern hardware.
+
+Yes, it's a very effective data structure. That's why it's the 2nd
+most popular in the kernel, after spinlocks.
+
+> Since you
+> never actually free the ranges in any way, every bitmap branch should predict
+> extremely well. Fragmentation in the bitmap can very quickly turn into a
+> nightmare, while maple will eat it up just fine.
+
+Assuming "fragmentation" is the uniform distribution of free areas, it
+wouldn't "turn to nightmare", it would asymptotically turn to O(N*logN).
+
+> These are very different data structures and picking between them requires
+> understanding all the tradeoffs. I don't think this benchmark helps with
+> that.
+
+OK, I see. You seemingly think that I want to throw all and every data
+structure away from the kernel in favor of the bitmaps.
+
+No, I don't.
 
 Thanks,
-Guenter
-
+Yury
