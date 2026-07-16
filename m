@@ -4,69 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B879CC44514
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 19:18:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EE7CC44512
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 20:00:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E575010E195;
-	Thu, 16 Jul 2026 19:18:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AE7010E1B4;
+	Thu, 16 Jul 2026 20:00:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I3GQPr0k";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a5qGtpAk";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43CF310E195
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 19:18:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7643B10E686
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 20:00:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 55A8A60A6D;
- Thu, 16 Jul 2026 19:18:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190FA1F000E9;
- Thu, 16 Jul 2026 19:18:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8C69460A5E;
+ Thu, 16 Jul 2026 20:00:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B5241F000E9;
+ Thu, 16 Jul 2026 20:00:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784229496;
- bh=mm3gd88M8vHvfDbkay5kKqa4Pt+DlNaxfY+bDClihtg=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=I3GQPr0kiybSyrJWe6zFu1hn/2Oi7ybH+Xllp0AZgCxCxtguf99L5TtUBCO7GqeGC
- oPQow+GJffWyt0RQ3HflSGICSMR/H6eSgmfxcTLBFGV2wH3Z4WKK3FuLIbwImGvV/l
- 567+2xoZleLdCeeErvz7topxq9fo+m2NFlp+moZK8Qz1sKQVlxnOIuQtezVSdQvJs8
- QBgtsZcgmOXEfkPpllJ0h+62qI61Vn0tzV5bGj2Vt6nmD0+dxOdKB6zYVOf/vl24Co
- VhoGT5cKW/TorfHex+N4kkyQTcShb+vZibcozlgaxBBTdFsSlxoQ52xkgrqCfRuexM
- mkXK6GvaHXY4A==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 16 Jul 2026 21:18:05 +0200
-Message-Id: <DK08KE2A3M7K.3OQDFZB94SMFC@kernel.org>
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "FUJITA Tomonori"
- <fujita.tomonori@gmail.com>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Abdiel
- Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
- <robin.murphy@arm.com>, "Dave Ertman" <david.m.ertman@intel.com>, "Ira
- Weiny" <iweiny@kernel.org>, "Leon Romanovsky" <leon@kernel.org>, "Len
- Brown" <lenb@kernel.org>, "Saravana Kannan" <saravanak@kernel.org>, "Drew
- Fustini" <fustini@kernel.org>, "Guo Ren" <guoren@kernel.org>, "Fu Wei"
- <wefu@redhat.com>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <netdev@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-pci@vger.kernel.org>,
- <linux-acpi@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-usb@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Viresh Kumar" <viresh.kumar@linaro.org>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, "Michal Wilczynski" <m.wilczynski@samsung.com>,
- "Igor Korotin" <igor.korotin@linux.dev>, "Rob Herring" <robh@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v2 00/11] rust: driver: use pointers instead of indices
- for ID info
-References: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
-In-Reply-To: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
+ s=k20260515; t=1784232049;
+ bh=SkbdCLvPFiAZcCyqV3OjTuTi5o9qsDoHdIygT4AGL4s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=a5qGtpAkwNEV9jsxYeN/Q7n89zdNsN11G1zMfSI/etA7Yi8LAH8wgTwX8UoL8G6L3
+ QtafStp+dmSt5fFR0M7Ai+HhZRfgGrSBdmRSVU1fjHDIuAp1dKdasuz9jt0aJrxD3/
+ m0tYK1IMkzPighZh3SmtIb3LTdl0mWbQQGJdURYx9sNiNa31kAqFcPx603ZWrA8Z5J
+ JfUlu+YJIGtuoeaFb2374D//LRjheitSmsxEZ9JXEZaPg3WYZES56yqM6EQ9jdxYlv
+ mgAQgo5RIr1XNkCB+v1k0eQV6pruyKIOj7Rs+S8wE73+oNZNKsm6QaBr6/beqAO5pH
+ tJpkEALlcnrlg==
+Date: Thu, 16 Jul 2026 15:00:48 -0500
+From: Rob Herring <robh@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Paul Kocialkowski <paulk@sys-base.io>,
+ Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Eddie James <eajames@linux.ibm.com>,
+ Tiffany Lin <tiffany.lin@mediatek.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Yunfei Dong <yunfei.dong@mediatek.com>,
+ Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+ Houlong Wei <houlong.wei@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Ge Gordon <gordon.ge@bst.ai>, Adrian Hunter <adrian.hunter@intel.com>,
+ Ulf Hansson <ulfh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Peter Chen <peter.chen@cixtech.com>, Fugang Duan <fugang.duan@cixtech.com>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
+ kernel@collabora.com, linux-tegra@vger.kernel.org,
+ linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ imx@lists.linux.dev, sound-open-firmware@alsa-project.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH 01/42] of: reserved_mem: Introduce devres-managed
+ initialization functions
+Message-ID: <20260716200048.GA1183026-robh@kernel.org>
+References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+ <20260703193855.110619-2-mukesh.ojha@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260703193855.110619-2-mukesh.ojha@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,42 +126,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 29, 2026 at 2:39 PM CEST, Gary Guo wrote:
->  MAINTAINERS                           |   1 -
->  drivers/acpi/bus.c                    |   6 +-
->  drivers/cpufreq/rcpufreq_dt.rs        |   1 -
->  drivers/gpu/drm/nova/driver.rs        |   1 -
->  drivers/gpu/drm/tyr/driver.rs         |   1 -
->  drivers/gpu/nova-core/driver.rs       |   3 +-
->  drivers/pwm/pwm_th1520.rs             |   1 -
->  include/acpi/acpi_bus.h               |  11 --
->  rust/helpers/acpi.c                   |  16 ---
->  rust/helpers/helpers.c                |   1 -
->  rust/kernel/acpi.rs                   |  14 +--
->  rust/kernel/auxiliary.rs              |  18 +--
->  rust/kernel/device_id.rs              | 207 +++++++++++++++++++---------=
-------
->  rust/kernel/driver.rs                 | 137 ++--------------------
->  rust/kernel/i2c.rs                    |  26 ++---
->  rust/kernel/net/phy.rs                |  66 +----------
->  rust/kernel/of.rs                     |  14 +--
->  rust/kernel/pci.rs                    |  25 ++--
->  rust/kernel/platform.rs               |   5 +-
->  rust/kernel/usb.rs                    |  24 ++--
->  samples/rust/rust_debugfs.rs          |   1 -
->  samples/rust/rust_dma.rs              |   3 +-
->  samples/rust/rust_driver_auxiliary.rs |   4 +-
->  samples/rust/rust_driver_i2c.rs       |   3 -
->  samples/rust/rust_driver_pci.rs       |  11 +-
->  samples/rust/rust_driver_platform.rs  |   2 -
->  samples/rust/rust_driver_usb.rs       |   3 +-
->  samples/rust/rust_i2c_client.rs       |   2 -
->  samples/rust/rust_soc.rs              |   2 -
->  29 files changed, 178 insertions(+), 431 deletions(-)
+On Sat, Jul 04, 2026 at 01:08:14AM +0530, Mukesh Ojha wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Introduce devres-based helpers for of_reserved_mem_device_init(_by_idx)
+> to help fight dangling references and ever so slightly reduce the
+> number of boilerplate deinitialization calls.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  drivers/of/of_reserved_mem.c    | 41 +++++++++++++++++++++++++++++++++
+>  include/linux/of_reserved_mem.h | 25 ++++++++++++++++++++
+>  2 files changed, 66 insertions(+)
+> 
+> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> index 82222bd45ac6..b35541e9fbe8 100644
+> --- a/drivers/of/of_reserved_mem.c
+> +++ b/drivers/of/of_reserved_mem.c
+> @@ -787,6 +787,47 @@ void of_reserved_mem_device_release(struct device *dev)
+>  }
+>  EXPORT_SYMBOL_GPL(of_reserved_mem_device_release);
+>  
+> +static void devm_of_reserved_mem_device_release(struct device *dev, void *res)
+> +{
+> +	of_reserved_mem_device_release(*(struct device **)res);
+> +}
+> +
+> +/**
+> + * devm_of_reserved_mem_device_init_by_idx() - Resource managed of_reserved_mem_device_init_by_idx()
+> + * @dev: Pointer to the device to configure
+> + * @np: Pointer to the device node with 'memory-region' property
+> + * @idx: Index of selected region
+> + *
+> + * This is a resource managed version of of_reserved_mem_device_init_by_idx().
+> + * The reserved memory region will be released automatically when the device
+> + * is unbound.
+> + *
+> + * Returns: Negative errno on failure or zero on success.
+> + */
+> +int devm_of_reserved_mem_device_init_by_idx(struct device *dev,
+> +					    struct device_node *np, int idx)
 
-I plan to pick this up soon. Please let me know in case there are any conce=
-rns
-from the acpi, i2c, of, net or usb side of things.
+It looks to me like the only 2? users of this could be converted to 
+devm_of_reserved_mem_device_init() instead. The mmc one obviously can. 
+The imx one depends if np is dev->of_node. I'm not a fan of APIs with 
+only a few users.
 
-Thanks,
-Danilo
+Rob
