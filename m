@@ -4,86 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09095C44512
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 14:47:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0109C4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 14:52:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 114BA10E32C;
-	Thu, 16 Jul 2026 14:47:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C54E410E38A;
+	Thu, 16 Jul 2026 14:52:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="ZuALOWyR";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="VCkdAHd/";
 	dkim-atps=neutral
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
- [209.85.222.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5FE210E32C
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 14:47:10 +0000 (UTC)
-Received: by mail-qk1-f171.google.com with SMTP id
- af79cd13be357-92e50979c71so655412085a.3
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 07:47:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1784213230; x=1784818030; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=qeHYNuBQJ85xO4pHC/1GrXrbttQdCZhEoDnW/IVqBNU=;
- b=ZuALOWyR7pB593A3v0TpJeokpHEXTslYM13XNVJLJGxPULttujvO66r7IpjVBEXk2w
- BMqLxkUB5zS1DoxcPlQlb9YfFtwdTyA+oBvaQ90k/7trHKl7RegxJtrp7dIJnlbyeCH1
- PfNPuepic+xeGvF7OHN01RmynIkXeAlfVgHIit5im/o6uJiStuIMP84hSGjPcyNEFbak
- ek2Se/lr9P9k3gq/3/wwjLAf0k7wG+2j8d0tFBdr2Ms0c8H6GFjYFqQAcMHliCzAEGJC
- tkQU/wL/WOTkB6P5UlOP+oYHeIX2MLMg+Etyc6CLMmpvogmeaCtA1Lk7KUjRshd6HGj4
- YnOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784213230; x=1784818030;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=qeHYNuBQJ85xO4pHC/1GrXrbttQdCZhEoDnW/IVqBNU=;
- b=Sx8r43TSapCmFWtO6Bla4/G0XyJLAEgA3elQAELvCmrNJV/+4hi86CCZeUU0q86Svk
- x/3M0QT45XaGBsk/FMaNkHqpQWkmB9eDviVAZ3VsP4InTPWHlNJhfG4doXcQIAJo6neN
- y7jvH8+igH8Q67lW2JcuGg3yYycLkgE3uzey0rOQHT+jY0NYTvdTB75E0OaCKzkvztQr
- VayWdHmMPhRfMyC0mnuZ7LSFyxGMQvOh3XAmvmJctH0KHohtDfhtYpScUFU3f/RBWpj5
- sHaqmITpqzDZG6kAj64EOyu4Emf5ZLkZqVtq2MwJSnOedxaxmQyyypNcv+3qtFEmF22L
- nd0g==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq6+MjKnjQ8PhONdNoByH50QIL3FFMhKZ7hX68OQWgr5EMM7+5clEj5+bQb4epguFIWLCtbFzZG4U8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwcVtiWjtRKAMamD4bB7CCSFqCtvAUEW3KdL7cPfiXnDMSkwHAg
- Ba4FHOBeMFsXmyOBIq9W3QlDm5LYeWgngBU/e64gzk0EL6ekraRYlikdTbdC1cPMqEI=
-X-Gm-Gg: AfdE7cmoPGvzTxb7X53B4QLyyJSSxXZItNpggNjSitx42X7LhfutbnxozPDCHmAChhU
- 0pNPtiykzzmEo9bKOxEzuI0arLKhqwB8d8MOgMZHWPADHkF8tMK2TsI3YEa1TQ5DQdKIMZa9iAT
- CBfFPzvqyqJlgaVS2HU7BSyPzECwAayDep1QUbRV6SSHHEkQUg2P4D6tKvbaUngBAhLGJIFy+Nj
- 7HMwU3JPcbhVkau1SYxUgUSvKMlqIVKqQX/Hafvw8nN6qznsj+xeWv7viayCUoKLaxgrhwbvwxr
- bh0yejkdSKItmkQTlERxYqGG6IZa4zHvYcswAdhSLQ6Vx++bLjCTfIDWLo6AyIOp9GoFyEJiPlc
- +i7dA2ty03w4bQgzZaiz6mCkxjJWf8FoJIL0ndDuIPQT5ftn9BMsgdO4fW94n/nzC5d2pF4M=
-X-Received: by 2002:a05:620a:3952:b0:92e:ee51:e9d5 with SMTP id
- af79cd13be357-9309627ac1bmr854483285a.43.1784213229539; 
- Thu, 16 Jul 2026 07:47:09 -0700 (PDT)
-Received: from ziepe.ca ([159.2.72.92]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-930ada3a1c3sm36671085a.20.2026.07.16.07.47.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jul 2026 07:47:08 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wkNMi-00000002Yhx-0bks;
- Thu, 16 Jul 2026 11:47:08 -0300
-Date: Thu, 16 Jul 2026 11:47:08 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: fengchengwen <fengchengwen@huawei.com>
-Cc: Zhiping Zhang <zhipingz@meta.com>, Leon Romanovsky <leon@kernel.org>,
- Michael Guralnik <michaelgur@nvidia.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian Konig <christian.koenig@amd.com>,
- Alex Williamson <alex@shazbot.org>,
- Bjorn Helgaas <bhelgaas@google.com>, kvm@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v12 0/4] vfio/dma-buf: add TPH support for peer-to-peer
- access
-Message-ID: <20260716144708.GD210048@ziepe.ca>
-References: <20260715204008.3911275-1-zhipingz@meta.com>
- <7dd5c995-a23c-4d3a-9ba0-7fc77972339f@huawei.com>
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D48FE10E38A
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 14:52:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1784213526;
+ bh=7ZOJgefRM+KEbe4ZB1Q8iqDP2JY0QDQGCT3PXzWU564=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=VCkdAHd//w7wW7x5Ce9IH1CrZjj405bCnWx9Rk4XZpJdqj7MGvcHMZQ7u5nzwXH7+
+ k0Q7lL0a1tQGWqZ1smwin8CkwTGaev6Ee7uMVmEgfp42wQvzQyfUKF6nDdsLKn+QRZ
+ wcSjLHk+VeV4+xMMxd1SvI44hvxKx8KG2ZvahSFY8HjOuFQnlsSId7BCsxkc2lP+GH
+ hKqf74vRVv43f+lI45LGNpJZeaIPXXrNfZxA1c+Zi9n8ZW9E2M9s+D+0UC0CKgB6o+
+ LHiE8HcGD1OZAO0re5ZzQn66TgMSLRLVBKRTsM4E0BJmpglmQjNUls6kcS8LS4YLe9
+ 5NXLKI7Ay9GCw==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4h1GGN6Cy8z4wCH;
+ Fri, 17 Jul 2026 00:51:56 +1000 (AEST)
+Message-ID: <65ba06e7-4c54-437d-9fbd-632c0468f66d@ozlabs.org>
+Date: Thu, 16 Jul 2026 15:51:52 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7dd5c995-a23c-4d3a-9ba0-7fc77972339f@huawei.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/9] vfio/pci: Add mmap() for DMABUFs
+Content-Language: en-GB
+To: David Matlack <dmatlack@google.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
+ Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <CALzav=fH7N+ionUnELqw5ZaGrPmgp_w6kxoCtoY8fMmZY_S4zw@mail.gmail.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <CALzav=fH7N+ionUnELqw5ZaGrPmgp_w6kxoCtoY8fMmZY_S4zw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,16 +72,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 16, 2026 at 09:07:35AM +0800, fengchengwen wrote:
-> Because cross-Root-Port P2P traffic with ST does not affect the host, but
-> merely the completer may experience some performance degradation because
-> it lacks the TPH hint. In this case, I suggest adding restrictions in the
-> uAPI.
+Hi David,
 
-I don't think this is complexity is worth doing for something that has
-no functional impact.
+On 15/07/2026 19:12, David Matlack wrote:
+> On Wed, Jul 15, 2026 at 10:47 AM Matt Evans <matt@ozlabs.org> wrote:
+> 
+>> This is based on v7.2-rc3.
+>>
+>> These commits are on GitHub for easier browsing, along with
+>> "[RFC ONLY] selftests: vfio: Add standalone vfio_dmabuf_mmap_test":
+>>
+>> https://github.com/metamev/linux/compare/v7.2-rc3...dev/mev/vfio-dmabuf-mmap-v5
+> 
+> It'd be great to have this test upstream. I'm happy to review it when
+> you're ready. Looks like it just needs to be redone to use the VFIO
+> selftests library and kselftests harness. AI could probably do the
+> conversion pretty quick :)
 
-There is no difference between supplying the TPH and not supplying it,
-so may as well supply it.
+For sure, I'd intended to catch up with you on best approach here. :)
 
-Jason
+Aside from the organic structure of the test (the open-coded VFIO
+device/group setup/init needs to go), the main issue is that it relies
+on a hacked/out of tree QEMU "EDU++" device with a second larger BAR
+(containing freely read-writable memory).  A subset of tests run with
+the in-tree EDU device, but coverage is too low.
+
+The desirable properties are:
+
+ - Having a BAR that is pure memory (all locations present, writable
+without disruptive side-effects) so that mapping aliases can be
+constructed and detected.  This is good to test things like non-zero
+vm_pgoffs and VA space presentation of physically-discontiguous DMABUFs.
+
+ - BAR >> hugepage size so we can eyeball huge mappings work (or better,
+ mechanically test for them).  At least 32MB would tick this box for 4K,
+16K page systems.
+
+ - Something QEMU supports*, so one can run the test in a VM/TCG system.
+
+There were some real device models in QEMU that could be used this way,
+but needed a fair bit of setup;  I didn't want to rathole
+vfio_dmabuf_mmap_test on including a ton of device-specific code for
+some video card or similar.
+
+I'll dig more for a simple target that provides these properties --
+obviously it would be better to point this test at an off-the-shelf
+device (including silicon!).  And, proposing EDU extensions to the QEMU
+folks may be useful (there're uses for a better EDU in other contexts too).
+
+Since this test uses MMIO for a specific [class of] function, my first
+thought is it should be another VFIO driver-type test sibling of
+vfio_pci_driver_test.  For example, we could extend the driver-type
+tests' backend struct vfio_pci_driver_ops for functions capable of
+providing a Big Memory BAR, like QEMU EDU++.  EDU can also memcpy, so
+could also support vfio_pci_driver_test.
+
+The spirit of the device backends hiding setup of a complex device is
+handy, and it's plausible that several backends could provide this "big
+memory BAR" service.  What do you think, any concerns with extending
+vfio_pci_driver_ops like that?
+
+
+Thanks,
+
+
+Matt
