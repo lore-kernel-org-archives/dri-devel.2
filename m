@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2A60C44512
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 15:17:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBEEBC44516
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 15:17:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03F8110E390;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 762E910E555;
 	Thu, 16 Jul 2026 15:17:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="XsXsYOZ/";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="HeswyIgW";
 	dkim-atps=neutral
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9106D10F337
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9101F10E555
  for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 15:17:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
- Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=H5JZBL4uxCbxe0SE5uQe2ASNO8RCuyJLMxN8Jb1Qq/4=; b=XsXsYOZ/Ct32ecd0lk/FZbxGbv
- TIQrrOLYBa7MgiU56uoUOrFzihJC/YPUvUxRSht2CpUS/WX/zb3RZffmNmCbWhprGw7Ksom/8fpmi
- GqXx8FLQ3VaRl6VdV2U9hNfDpBmAOfzJAKP2/mDua4QaFq5q+YsfeymwiSus3dMdzqLjhCdkPQybh
- LoZey4Bu0xpTZAFSJKeiVnmZeD8rTcyU0x8kg/HkKhEWh+eT21Ffm7w4eJnEtfEV70/Rw9Jz0c+vK
- n6rld3BPFeuSNBwzxx6vqDK+E4qx6Fyz7edutiVLmBUvsgaNYFYp1Hh1HMh9ISqjwdGVKD+kYacbF
- eZw2rVbw==;
+ MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+ Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=0SSD2jTdjluoD4H11IL6fJE3i8NqZQs6MmZU6s4AAGM=; b=HeswyIgWxcWk3HLki60+i+mJMR
+ xVeZdt9PerXQmLDhJNxf3wI+5PN7RW1lX4hYNKYQFFlJcAZr9L40E4/B/WohvVv+gLHDet3FBMQnb
+ x9puGd+w337X00nkmjPKHC/I/gn8BDkTjRlqjnba3u7GqvvNz9f9VCo6T935/gPZa2+E0DtvaIqMT
+ GcMABesJz1rgiR1Gqk82W9FxA0w3urqQ08Cok4aitaP4Asr8G7jA0r6yRT4K6/gubmoGdl0/cojgB
+ HDopq0+UIry4xF6uHub+ZNAt8N85oyAOrMOrGq2rwmPPoyrHPPAcsxXdM4NKr2mYgin2sdPHyUx+y
+ MdApCiRQ==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
  by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
- id 1wkNpl-0000000E9ND-49SG; Thu, 16 Jul 2026 15:17:10 +0000
+ id 1wkNpl-0000000E9NJ-49y3; Thu, 16 Jul 2026 15:17:10 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.2 #2 (Red
- Hat Linux)) id 1wkNpi-000000012sn-3yZ3;
- Thu, 16 Jul 2026 16:17:06 +0100
+ Hat Linux)) id 1wkNpj-000000012tU-2zsh;
+ Thu, 16 Jul 2026 16:17:07 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: Sean Christopherson <seanjc@google.com>,
  Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org
@@ -52,14 +52,15 @@ Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
  Zhou Yuhang <zhouyuhang@kylinos.cn>, Zi Li <zi.li@linux.dev>,
  Dan Williams <djbw@kernel.org>, Eric Biggers <ebiggers@kernel.org>,
  Colin Ian King <colin.i.king@gmail.com>, connordw@amazon.co.uk,
- graf@amazon.de, fgriffo@amazon.co.uk
-Subject: [RFC PATCH 00/11] KVM: Allow alternative providers of guest_memfd
- backed by PFNMAP memory
-Date: Thu, 16 Jul 2026 10:31:20 +0100
-Message-ID: <20260716151706.244987-1-dwmw2@infradead.org>
+ graf@amazon.de, fgriffo@amazon.co.uk, David Woodhouse <dwmw@amazon.co.uk>
+Subject: [RFC PATCH 11/11] samples/kvm,
+ selftests/kvm: Allow the gmem_provider NVMe DMA test on arm64
+Date: Thu, 16 Jul 2026 10:31:31 +0100
+Message-ID: <a8a919d0b2884e4169a6951ba11152b3c8b1d07d.1784194290.git.dwmw@amazon.co.uk>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <f09647f427565c1789a6979470045aab78661563.1784194290.git.dwmw@amazon.co.uk>
+References: <f09647f427565c1789a6979470045aab78661563.1784194290.git.dwmw@amazon.co.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
  desiato.infradead.org. See http://www.infradead.org/rpr.html
@@ -78,84 +79,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For dedicated hosting environments, there are a few reasons to prefer
-using external PFNMAP memory for guests, rather than kernel-managed
-memory:
+From: David Woodhouse <dwmw@amazon.co.uk>
 
- • No struct page overheads
+The sample provider and the NVMe DMA selftest have no x86 specifics.
+Drop the X86_64 gate on the sample's Kconfig (arm64 also has
+KVM_GUEST_MEMFD; the SEV RMP reset is already guarded by
+CONFIG_AMD_MEM_ENCRYPT) and move the NVMe DMA selftest from
+TEST_GEN_PROGS_x86 to TEST_GEN_PROGS_COMMON so it also builds on
+architectures with an IOMMU (arm64 SMMU-v3, ...).
 
- • Easily managed in 1GiB pages (or larger chunks); no fragmentation/THP
+The test itself does not need to change: it uses KVM_CREATE_VM(0) as
+a client for the sample provider's SETUP ioctl and then exercises
+the iommufd + dma-buf + provider revoke path with direct NVMe MMIO,
+none of which is x86-specific.  On arm64 it validates the same flow
+through the ARM SMMU.
 
- • Faster kexec/KHO live update (every millisecond spend faffing around
-   with memory management is an extra millisecond of steal time taken
-   from guests)
+Signed-off-by: David Woodhouse (Kiro) <dwmw@amazon.co.uk>
+---
+ samples/Kconfig                                                 | 2 +-
+ tools/testing/selftests/kvm/Makefile.kvm                        | 2 +-
+ .../selftests/kvm/{x86 => }/gmem_provider_nvme_dma_test.c       | 0
+ 3 files changed, 2 insertions(+), 2 deletions(-)
+ rename tools/testing/selftests/kvm/{x86 => }/gmem_provider_nvme_dma_test.c (100%)
 
-Today, there is only one implementation of guest_memfd: the internal
-shmem-based page cache in virt/kvm/guest_memfd.c. This series allows
-for other code to provide "a guest_memfd". This is an early path-
-finding proof of concept tested with AMD SEV-SNP as well as non-CoCo
-guests on x86 and arm64. I'm planning to build a memory-based file
-system which gives files for both guest_memfd as well as memory-based
-storage to allow things like userspace VM and orchestrator stateallows
-to be passed over KHO/kexec.
-
-This series lifts guest_memfd's operations into a small ops struct and
-converts KVM's own gmem to use it, so it becomes one implementation
-among peers rather than the only game in town.  It also adapts the
-SEV-SNP fast paths to page-less operation, plumbs iommufd to map a
-guest_memfd-backing dma-buf as CPU RAM (not MMIO), and adds the
-provider->KVM revocation primitive that makes overcommit-style reclaim
-possible.
-
-It's largely AI-built at the moment. My main design concerns are around
-that we tell that a given file is "a guest_memfd", and how we plug into
-IOMMUFD. Presenting a dma-buf was the less intrusive choice because that
-path already has support for taking pages away, but I'm less convinced
-that it's the cleaner choice in the long term.
-
-I'll continue to bikeshed it myself, but this is at least functional
-enough to show the direction and solicit further opinions...
-
-https://git.infradead.org/?p=users/dwmw2/linux.git;a=shortlog;h=gmem-provider
-
-Connor Williamson (1):
-      KVM: SEV: Remove struct page dependency from SNP gmem paths
-
-David Woodhouse (10):
-      KVM: selftests: sev_smoke_test: Only run VM types the host offers
-      KVM: selftests: sev_init2_tests: Derive SEV availability from KVM
-      KVM: guest_memfd: Introduce guest memory ops and route native gmem through them
-      iommufd: Look up private-interconnect phys via exporter symbols
-      iommufd: Plumb dma-buf memory-type (RAM vs MMIO) through the phys map
-      KVM: guest_memfd: Add ops-driven page revocation
-      samples/kvm: Add guest_memfd backing sample
-      selftests/kvm: gmem_provider KVM-only tests
-      selftests/kvm: gmem_provider iommufd tests
-      samples/kvm, selftests/kvm: Allow the gmem_provider NVMe DMA test on arm64
-
-
- arch/x86/kvm/Makefile                              |   4 +-
- arch/x86/kvm/svm/sev.c                             |  83 ++-
- arch/x86/virt/svm/sev.c                            |  27 +-
- drivers/iommu/iommufd/io_pagetable.h               |   7 +
- drivers/iommu/iommufd/pages.c                      |  49 +-
- include/linux/kvm_host.h                           |  91 +++
- samples/Kconfig                                    |  18 +
- samples/Makefile                                   |   1 +
- samples/kvm/Makefile                               |   2 +
- samples/kvm/gmem_provider.c                        | 651 +++++++++++++++++++++
- samples/kvm/gmem_provider.h                        |  53 ++
- tools/testing/selftests/kvm/Makefile.kvm           |   6 +
- .../selftests/kvm/gmem_provider_nvme_dma_test.c    | 365 ++++++++++++
- .../kvm/x86/gmem_provider_hugepage_test.c          | 130 ++++
- .../selftests/kvm/x86/gmem_provider_iommufd_test.c | 150 +++++
- .../selftests/kvm/x86/gmem_provider_revoke_test.c  | 134 +++++
- .../testing/selftests/kvm/x86/gmem_provider_test.c | 195 ++++++
- .../selftests/kvm/x86/gmem_provider_vfio_test.c    | 134 +++++
- tools/testing/selftests/kvm/x86/sev_init2_tests.c  |  16 +-
- tools/testing/selftests/kvm/x86/sev_smoke_test.c   |   9 +-
- virt/kvm/guest_memfd.c                             | 377 +++++++++---
- virt/kvm/kvm_main.c                                |   6 +-
- virt/kvm/kvm_mm.h                                  |   4 +-
- 23 files changed, 2410 insertions(+), 102 deletions(-)
+diff --git a/samples/Kconfig b/samples/Kconfig
+index 3482659638b5..d26a03dea072 100644
+--- a/samples/Kconfig
++++ b/samples/Kconfig
+@@ -328,7 +328,7 @@ source "samples/damon/Kconfig"
+ 
+ config SAMPLE_KVM_GMEM_PROVIDER
+ 	tristate "Build sample guest_memfd provider -- loadable module only"
+-	depends on KVM_GUEST_MEMFD && X86_64 && m
++	depends on KVM_GUEST_MEMFD && (X86_64 || ARM64) && m
+ 	help
+ 	  This builds a sample external guest_memfd provider module with two
+ 	  backing modes.  Loaded with addr=/len= it backs guest memory with a
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 7f46843e7428..12004a487c32 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -58,6 +58,7 @@ TEST_PROGS_x86 += x86/nx_huge_pages_test.sh
+ # Compiled test targets valid on all architectures with libkvm support
+ TEST_GEN_PROGS_COMMON = demand_paging_test
+ TEST_GEN_PROGS_COMMON += dirty_log_test
++TEST_GEN_PROGS_COMMON += gmem_provider_nvme_dma_test
+ TEST_GEN_PROGS_COMMON += guest_print_test
+ TEST_GEN_PROGS_COMMON += irqfd_test
+ TEST_GEN_PROGS_COMMON += kvm_binary_stats_test
+@@ -82,7 +83,6 @@ TEST_GEN_PROGS_x86 += x86/gmem_provider_hugepage_test
+ TEST_GEN_PROGS_x86 += x86/gmem_provider_revoke_test
+ TEST_GEN_PROGS_x86 += x86/gmem_provider_iommufd_test
+ TEST_GEN_PROGS_x86 += x86/gmem_provider_vfio_test
+-TEST_GEN_PROGS_x86 += x86/gmem_provider_nvme_dma_test
+ TEST_GEN_PROGS_x86 += x86/hwcr_msr_test
+ TEST_GEN_PROGS_x86 += x86/hyperv_clock
+ TEST_GEN_PROGS_x86 += x86/hyperv_cpuid
+diff --git a/tools/testing/selftests/kvm/x86/gmem_provider_nvme_dma_test.c b/tools/testing/selftests/kvm/gmem_provider_nvme_dma_test.c
+similarity index 100%
+rename from tools/testing/selftests/kvm/x86/gmem_provider_nvme_dma_test.c
+rename to tools/testing/selftests/kvm/gmem_provider_nvme_dma_test.c
+-- 
+2.54.0
 
