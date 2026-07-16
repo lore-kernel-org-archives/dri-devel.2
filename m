@@ -4,95 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67649C4450E
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 09:03:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10D38C44501
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 09:03:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE76510F237;
-	Thu, 16 Jul 2026 09:03:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6599D10E768;
+	Thu, 16 Jul 2026 09:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FXVHZpAG";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WZ6kI9yj";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jmdPtyHr";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L1dxtEEO";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DB5D10F237
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:03:25 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A20910E768
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:03:32 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66G7DW063122403
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:03:25 GMT
+ 66G7DNKE2193263
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:03:32 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- MeSqLazRYgr33B487FeWpWmBWUCKqNkEYXob2j87zRQ=; b=FXVHZpAGJedoRTh8
- n3RpC40OMzwvSPs0hVWwrGEzYyj8qIUe/ElinbQoYVKUsjih/3bJr0JspEfwiHkT
- Hv/bd0/PKRu0B/lwGk43bnVxZ/sfaN/AkKfYjGhdDh+NH6EgBvQXIjRt/ihZNyEW
- CwM7Yw1OwPFp7rmw44bTwGXrmfddtvT/X6D+PRlQHfbk8X18hGykq59dMxKQjHif
- PVH8MGdgMNItGElve/sqSJW2uUH7S6OEIcwfZfDvhvtGQAf2JJynU6mT4tiMyb1U
- /kl3+u71Qlb7J5NdtCaWqSVRb5DG0q0y07ik4skRubojZqf8kd5kJd51wT3oVoKL
- yNwKmQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feq3ph747-1
+ 9iNA4KkLXptEcrV9SWqVHRxO4EssLZecMFzgSPlpRjI=; b=jmdPtyHrCF2ywVB5
+ hrIupyUZanurfxmEAAZZ9jT2a9GiC7DNBF9beXbCihI0oOgPiHl6BO02ffL65YC3
+ Ml8DHtUml5SlEAFpiJH/Dtb/oMSdbQmCltUTV0UCcBQzR6i2nSupZUHzgs53gvpf
+ 0CuwKKNG6m/2oUZwVF1Fxj0qGjRKn+D5sauSFkjNF3N0YaT04xnKd2NO1uwOBkIi
+ 7jGDbMssRNsnFvcksJU8BVY0/XvgQQMlH4mgG3CboAdbQk/WVYgn+vnXsWdCZfnv
+ 1lr0LgmPqqPkzSGIBnWZL8F3BCDLwKEn+Jq16zrFVDveUw8Rq0C7x0JhFggTEvZv
+ UBiZwQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fetcf0fsr-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:03:24 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2cd01a14e81so94454855ad.1
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 02:03:24 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:03:31 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2ccd1958e8fso43046705ad.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 02:03:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784192604; x=1784797404;
+ d=oss.qualcomm.com; s=google; t=1784192611; x=1784797411;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=MeSqLazRYgr33B487FeWpWmBWUCKqNkEYXob2j87zRQ=;
- b=WZ6kI9yjdDepE1KyPMZaDftHHoRvZ5hLLSu4njwAf0JwtuNU7Q4S/9RX7HJOPQ0fYj
- kNOrLw6UkON1J5MiosdR2Ea6FaMVQ6esP5ncVeX3nDez/madB6n+KEDBSG2rR9cXOIzm
- y6u9WHuMSVfU0ltXaFqGnfGlb/c7NYeGe9hAbXFNqH+2y+z6YY44B+u+VpEz6v6njKfE
- seS5sCnhlobRV30c7nyMp1vwDK/npiGNWgHVj1hqFqKaPXYBfe7hD4wAVUv4RxmgbPvy
- 0uCdAAdNqLIFO7gZd5st4io1hgRKd7mqW7e/gqY+r4MRe2ddoPM6nOhQ1AWEX4UcuG85
- F3JQ==
+ bh=9iNA4KkLXptEcrV9SWqVHRxO4EssLZecMFzgSPlpRjI=;
+ b=L1dxtEEOGs+es25ZJwQRmfFOPR/F08RiOkpbXCY7a86rLd/MifArD57QQuFzOe3WVl
+ pHzzEZEoX2OFY/DjsejGXQm81OcNjzD8EOP3Cch5/sSE82Uy/p8nEsTIkbVnkKifEfa3
+ 4x0J86CgOMIJTm3wMQncDcsV7MRiAEV7PNmgOFUek6FacczseseLDM0cp9XdL5r/Bwgh
+ eTryrW7lrgSO0pff0NFFLLab+RtRQe+3PDftX32js9hcA3tZCJBexLaCOW9Egfx1RskK
+ ApHvMvThyFKk+hQivudmXS5PQg2A0a9i/wwqj1yhSKAbuSo6criL6YkOW0WxHTuy1OU6
+ pNRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784192604; x=1784797404;
+ d=1e100.net; s=20251104; t=1784192611; x=1784797411;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=MeSqLazRYgr33B487FeWpWmBWUCKqNkEYXob2j87zRQ=;
- b=LnI4hsgYDPNTYxV8WBxgSKSZqyeh17Eegt5MHwYH8Gf0rdxNwsxPSUeStIoi3D8GDT
- M1S2GPeSM6bXk10OUbIQNDmB1mz7Z7hLIXObrJ182RJhv4S82wNVOkQ6OyFYdhY2KoPy
- X7IeF0fEIOB+4DW5A4M0XtvDcXgF8uKDZRd3M6SsqwjfO5hGDyVhmqVp+yzMvWxYdRcs
- zVP2LxhBhxQye16gYEMLSc9FltB8Uq44oCd4hqPuuz+B49O5Bp7T+1c/dnhTtW4UFBDi
- GtsUVrIdcKGP7jw92rieeUte731sCUycM91KrEJxuf8wPMFFid4SptWUH4VvSZpCUwG8
- cWBg==
-X-Gm-Message-State: AOJu0YwyqNp5ZjxUb4w+CEThbTFiPMNyQhlfcN6xwbmWCvSM+2WHOlYu
- zo9fhfMgM9zusie0XFJkO9PR+TPK+qfBcnKiT3Ri5a2S2nw0gE4kJBbYuiGCcllwcZal6m1Vazq
- yBINRYsQVHR3NbB66VsOVb17svLaS7HB/+JRRpWwTwKTHd/amdjw2z9dud213ISiBhyLcGa0=
-X-Gm-Gg: AfdE7cnVagZQSxq4Sn4iZh4rDr8Ra2Dpq6PCGIWn4LicqexehOn0wfHnZjMdN10nF8o
- sE0sGKTULPwV1NPOPizr+V+jFtz/Xt2CcT2Ycn7GcIXIsBvCZXKqoGHIUqmJK4iPlkMrgSM8OnD
- FEfs4AGL1Ktu1fq35NDuMB5shGfnzRMiVjOwooIxRkLgS9dUiEU0dxiV4vOBf1ufCOsb/RMjF87
- O4TCCIcUCVDbqanNawvw8poBAbTzZU348ACoEV0cbCg0NXHF1DBWFVOajc32XZbQM+/6vaIfM8Q
- uWnI3nTWlc/rIqZFCCXYkuXfHua4C4z8qxE137/FfruvW0hwtarBdMjAhPwEHNxNbaGra9BVuQx
- Z6Jm+KT/E4HLbN+KNmIyk
-X-Received: by 2002:a17:902:ecc4:b0:2ca:b8d:e65e with SMTP id
- d9443c01a7336-2cf03dc62b5mr62673305ad.37.1784192604116; 
- Thu, 16 Jul 2026 02:03:24 -0700 (PDT)
-X-Received: by 2002:a17:902:ecc4:b0:2ca:b8d:e65e with SMTP id
- d9443c01a7336-2cf03dc62b5mr62672665ad.37.1784192603523; 
- Thu, 16 Jul 2026 02:03:23 -0700 (PDT)
+ bh=9iNA4KkLXptEcrV9SWqVHRxO4EssLZecMFzgSPlpRjI=;
+ b=ILsqpiIL7VYa25uLj/5SNAie74ELHmHHIPozCnwjV6TpdJ0OEbXUVNCDnXiQIdRpPE
+ Ajlyq7Mx3X5QTNhHA7NSJ3kWagAkmMdQZYZ3+h6zT8hzYI0UTcJvhVum4JKmPX/H0Vgp
+ wuenJjC7x/MNtlYXr9GbJmwRsFtWN1DOYDv4BZB0C8n9kYC6HbCS1ngabI4YMzlMA/CL
+ /GjeEL6M7CeWfqofIjzXTZerbPuR6fXnjL/8mIs+zY3qOEdexfsMF3BTQlb26Dv16T6Z
+ elqkKuk7nu4IDjama6LUhxZQyVRbDHgtdHMrECQUyYRcoDL0+VkI8YKztF4L3jzZoQeV
+ MkBQ==
+X-Gm-Message-State: AOJu0YxaLoLhUwUYQT94pqc6wwA3eVZ7hpdkf1zBy1QJTusE8vy5QTnw
+ WvY4XjjDzDRGRF+aPjdwVIdYl6uI5f25HOMOIM15GqUSW3Y5VWwLG/YsXKEcpWgidujphxaEa83
+ CdDXWMcHPpSNP0Kvy2RVknttXHQrTXqt9Ana6h47tuSPbggzaX7F3+zMI5TV7ERE91JslWZ0=
+X-Gm-Gg: AfdE7ck9/usg8IkmBQMBvQvzmma2cjLnE6eLpDAeVgQC+0nbdh/tzYrjTTRoowGgbdd
+ TlZsRVEyjsV05yqARhqzB43Era3oRuF1p47B0ASxpUupsQoMU1BIQ60r9GhEEmUtpwe/btftLa4
+ dCfH689afqhdEb1hlyvnB7yTOmdEqp4KGuJV8kqxQqHZ2jqpxHxXfzGPjPrXKkjBrUbH6jE9kiL
+ Db1GRwOEgMUdjfoBUutswAZqSKvRtdZ6jxX0bpQTZuixWdeTtVKUDtEysVITMFDvZ86wvI+mjiz
+ PEIl1cLBkeij7E3aJ82CgiX+7BNkrSueIR+O+YTcuVylYkticNW2d8kHp5ZbU2pJmERwvoWnxUp
+ KsBUIIVBrH8rUHbV8M4hK
+X-Received: by 2002:a17:902:fda3:b0:2ca:b4b9:4586 with SMTP id
+ d9443c01a7336-2ce9e9ada87mr215357785ad.19.1784192610936; 
+ Thu, 16 Jul 2026 02:03:30 -0700 (PDT)
+X-Received: by 2002:a17:902:fda3:b0:2ca:b4b9:4586 with SMTP id
+ d9443c01a7336-2ce9e9ada87mr215357475ad.19.1784192610502; 
+ Thu, 16 Jul 2026 02:03:30 -0700 (PDT)
 Received: from le-cd01-lnx.qualcomm.com ([114.94.8.21])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2cf106b271asm16592555ad.64.2026.07.16.02.03.16
+ d9443c01a7336-2cf106b271asm16592555ad.64.2026.07.16.02.03.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jul 2026 02:03:23 -0700 (PDT)
+ Thu, 16 Jul 2026 02:03:30 -0700 (PDT)
 From: Ze Huang <ze.huang@oss.qualcomm.com>
-Date: Thu, 16 Jul 2026 17:01:57 +0800
-Subject: [PATCH v2 5/8] drm/gm12u320: replace struct
- drm_simple_display_pipe with regular atomic helpers
+Date: Thu, 16 Jul 2026 17:01:58 +0800
+Subject: [PATCH v2 6/8] drm/repaper: replace struct drm_simple_display_pipe
+ with regular atomic helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260716-drm-simple-kms-removal-v2-5-1133a8fc3785@oss.qualcomm.com>
+Message-Id: <20260716-drm-simple-kms-removal-v2-6-1133a8fc3785@oss.qualcomm.com>
 References: <20260716-drm-simple-kms-removal-v2-0-1133a8fc3785@oss.qualcomm.com>
 In-Reply-To: <20260716-drm-simple-kms-removal-v2-0-1133a8fc3785@oss.qualcomm.com>
 To: Alexey Brodkin <abrodkin@synopsys.com>,
@@ -112,38 +112,38 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  imx@lists.linux.dev, xen-devel@lists.xenproject.org,
  Ze Huang <ze.huang@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784192560; l=7964;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784192560; l=7829;
  i=ze.huang@oss.qualcomm.com; s=20260716; h=from:subject:message-id;
- bh=clrd2wPCUImRmnt9dUsqbH/TK0mbxMgUhxeWagkxE+4=;
- b=0oRyaLEkb6eanKq6iqSl6wa+hGMmW3tOf5ZzNUvdnQ1H3jNsbTzi9cLXyJD2dE3oAeyIW6luo
- TPO40xg3wNsAgnlI+cgNB4ljxIOqwV95/AiRUDhwKVkGVCOsCip/o0W
+ bh=ERhc4h2BzyHq4SLA1KLZmwEBYZNamx9DmYFgd02zfJM=;
+ b=BatRP4ZlOB9sgvvfbYOlQ/D1wW3PwwrZ6A1gMipy1O2m71Q4YyK+bKZTb/u3/NYEQiEn6Dhv6
+ uZCR4AWmSRVD/lNWPgDwsLkctZsl2PnzSt6mINbJ4PIs6X8p3eiyZg+
 X-Developer-Key: i=ze.huang@oss.qualcomm.com; a=ed25519;
  pk=8uGhlZHInA8NXq7G6u/g59qEcwXwuMRI7nBSnT/ijtY=
-X-Proofpoint-ORIG-GUID: 3B2dygolFjA2yXsTClrEowY7cD5yn851
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDA5MSBTYWx0ZWRfX9q0D/tQQlMY/
- H/2OCINPD/3MRBcCCEKiLiBRQWp+TrF5e/3f+F97wa+eKsF1gooedBNDeBpsIF4+W5+qpxwEN4a
- RNd+Gzeow2aLUTSLIqCFM02uAwtDHd4=
-X-Proofpoint-GUID: 3B2dygolFjA2yXsTClrEowY7cD5yn851
-X-Authority-Analysis: v=2.4 cv=PN8/P/qC c=1 sm=1 tr=0 ts=6a589e5c cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+X-Proofpoint-ORIG-GUID: Q8geJ80WToNCG5LAWhJuF_r9V9IVYB__
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDA5MSBTYWx0ZWRfX7vNsnLfjrZ9t
+ 0XTe87Qj0oykt8CdIEzGC6P7P7qsrxX1QrKIFb263mndeAhdoPDsXlT+0VVHSoasej3OSqtwG8h
+ ROdEHOvcmJF/0DlWP9tjPub/dTu1LkEJm34RMamlqrQNF0is3C9TM6ittPlZQgwyrTcdEdmz3Mu
+ bNSp4hXod2NkuZO+XllW/ZTEl2s7Y5Ys3Hhu8t28GfV0mMO1DmptSMVwiR77JJF8q1SPsXCFymC
+ j+/BTdSgMfMI2INWVtWsLkS+tZR9v+uWr7sIqqGz/sLRw3KHR4fXMVFb29rMQRomOcB6gBMtTna
+ cTjpVCzp/rT89Zr9ZcdqvY25skyZKvqu0ZDUFkewBTJ7Ich+0wqTZLcin4cLhBGN7fZHR0D2T0/
+ RE/Gz8Oa3YYa6D3Q2GoJg7xYnRtb6A5mAeo0/5bXb1AaSf+eocmXimJS2P9nAkuITxZXHbR3OZ7
+ PMZ7LY7CCP8zFwgOqxQ==
+X-Authority-Analysis: v=2.4 cv=f8R4wuyM c=1 sm=1 tr=0 ts=6a589e63 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=g95SU4BBbiomblFqym4A:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDA5MSBTYWx0ZWRfX2KKFQfP2G4sj
- kFi63uzHJzp2rLjMZUImwZZQB566YNNP+lum2c5r1TK0o5PDgso1UtamJvJTJcj7s9pE7ZIMNyt
- /6zPdjgVK27BGaogxH8YQ2KZcTxnqlbJ0Oaer7Xj8cPCjLF9w6CFd30I7MrE2CiBR0rKIcEk0BX
- XZ0fPXkiI6Sz44b8RI8UR5NbIfJgIXZAnRaS+y20IcVAcHTaQjAlqDgMcEhKloCHetaS4amT7eL
- ZQ97t3rSpfbHiXnaGBmHGCtE0p4ToJt6CE1Nw3UGUK99dNe8qfoo1AJsRinT6ukEWaKjoFfchpD
- jEyyyKSWmA/o3DWfaIKoAqsGL3M0rC9jP31HBXbMieaT6sTocaS90kJHs43CX6uu5kf/5LCxoa7
- 8ipHaEv2lMW+AJDfx2v22A2D6ajBcqiu/+sg3hy1EY0X8TZIX82rZknRuBVx5DopVDg4umTCtXe
- ycAn5oxdNacCWW+OMNg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=rSXZLFMjQQqjKu18WoMA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: Q8geJ80WToNCG5LAWhJuF_r9V9IVYB__
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDA5MSBTYWx0ZWRfX7ISmpJk4qd2E
+ vmRpRw4lVG5cIDhARuecl/qdQD5tSLPR38mjw3DZLq84dVty4AAzJrs7Fu3+4JOsDKpehWaJfG/
+ vLZEw/DiEL4AEk/PjVYudbwE2DDXo1k=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-16_03,2026-07-15_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 clxscore=1015 suspectscore=0 spamscore=0
+ spamscore=0 clxscore=1015 impostorscore=0 priorityscore=1501 bulkscore=0
+ phishscore=0 suspectscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160091
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -161,133 +161,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert gm12u320 to direct primary plane, CRTC and encoder setup.
+Convert repaper to explicit primary plane, CRTC and encoder objects.
 
-Keep shadow-plane helper state, framebuffer access helpers and
-no-scaling plane-state check from simple-KMS path.
+Keep shadow-plane helpers, framebuffer access handling and no-scaling
+plane-state validation from simple-KMS path.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
 ---
- drivers/gpu/drm/tiny/gm12u320.c | 132 ++++++++++++++++++++++++++++++++--------
- 1 file changed, 107 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/tiny/repaper.c | 132 ++++++++++++++++++++++++++++++++---------
+ 1 file changed, 104 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/tiny/gm12u320.c b/drivers/gpu/drm/tiny/gm12u320.c
-index d73dfebb4353..df60968856e5 100644
---- a/drivers/gpu/drm/tiny/gm12u320.c
-+++ b/drivers/gpu/drm/tiny/gm12u320.c
-@@ -8,6 +8,7 @@
- #include <linux/usb.h>
+diff --git a/drivers/gpu/drm/tiny/repaper.c b/drivers/gpu/drm/tiny/repaper.c
+index c8270591afc7..7057075161c4 100644
+--- a/drivers/gpu/drm/tiny/repaper.c
++++ b/drivers/gpu/drm/tiny/repaper.c
+@@ -22,6 +22,7 @@
+ #include <linux/thermal.h>
  
  #include <drm/clients/drm_client_setup.h>
 +#include <drm/drm_atomic.h>
  #include <drm/drm_atomic_helper.h>
- #include <drm/drm_atomic_state_helper.h>
  #include <drm/drm_connector.h>
-@@ -27,7 +28,6 @@
- #include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_damage_helper.h>
+@@ -38,7 +39,6 @@
+ #include <drm/drm_rect.h>
  #include <drm/drm_print.h>
  #include <drm/drm_probe_helper.h>
 -#include <drm/drm_simple_kms_helper.h>
  
- static bool eco_mode;
- module_param(eco_mode, bool, 0644);
-@@ -87,7 +87,9 @@ MODULE_PARM_DESC(eco_mode, "Turn on Eco mode (less bright, more silent)");
+ #define REPAPER_RID_G2_COG_ID	0x12
  
- struct gm12u320_device {
- 	struct drm_device	         dev;
--	struct drm_simple_display_pipe   pipe;
-+	struct drm_plane	         plane;
-+	struct drm_crtc		         crtc;
-+	struct drm_encoder	         encoder;
- 	struct drm_connector	         conn;
- 	unsigned char                   *cmd_buf;
- 	unsigned char                   *data_buf[GM12U320_BLOCK_COUNT];
-@@ -102,7 +104,10 @@ struct gm12u320_device {
- 	} fb_update;
- };
+@@ -65,7 +65,9 @@ enum repaper_epd_border_byte {
  
--#define to_gm12u320(__dev) container_of(__dev, struct gm12u320_device, dev)
-+static struct gm12u320_device *to_gm12u320(struct drm_device *__dev)
-+{
-+	return container_of(__dev, struct gm12u320_device, dev);
-+}
- 
- static const char cmd_data[CMD_SIZE] = {
- 	0x55, 0x53, 0x42, 0x43, 0x00, 0x00, 0x00, 0x00,
-@@ -554,43 +559,104 @@ static int gm12u320_conn_init(struct gm12u320_device *gm12u320)
+ struct repaper_epd {
+ 	struct drm_device drm;
+-	struct drm_simple_display_pipe pipe;
++	struct drm_plane plane;
++	struct drm_crtc crtc;
++	struct drm_encoder encoder;
+ 	const struct drm_display_mode *mode;
+ 	struct drm_connector connector;
+ 	struct spi_device *spi;
+@@ -622,26 +624,24 @@ static void power_off(struct repaper_epd *epd)
+ 	gpiod_set_value_cansleep(epd->discharge, 0);
  }
  
- /* ------------------------------------------------------------------ */
--/* gm12u320 (simple) display pipe				      */
-+/* gm12u320 display pipe					      */
+-static enum drm_mode_status repaper_pipe_mode_valid(struct drm_simple_display_pipe *pipe,
+-						    const struct drm_display_mode *mode)
++static enum drm_mode_status repaper_crtc_helper_mode_valid(struct drm_crtc *crtc,
++							   const struct drm_display_mode *mode)
+ {
+-	struct drm_crtc *crtc = &pipe->crtc;
+ 	struct repaper_epd *epd = drm_to_epd(crtc->dev);
  
--static void gm12u320_pipe_enable(struct drm_simple_display_pipe *pipe,
--				 struct drm_crtc_state *crtc_state,
--				 struct drm_plane_state *plane_state)
-+static void gm12u320_crtc_helper_atomic_enable(struct drm_crtc *crtc,
+ 	return drm_crtc_helper_mode_valid_fixed(crtc, mode, epd->mode);
+ }
+ 
+-static void repaper_pipe_enable(struct drm_simple_display_pipe *pipe,
+-				struct drm_crtc_state *crtc_state,
+-				struct drm_plane_state *plane_state)
++static void repaper_crtc_helper_atomic_enable(struct drm_crtc *crtc,
++					      struct drm_atomic_commit *commit)
+ {
+-	struct repaper_epd *epd = drm_to_epd(pipe->crtc.dev);
++	struct repaper_epd *epd = drm_to_epd(crtc->dev);
+ 	struct spi_device *spi = epd->spi;
+ 	struct device *dev = &spi->dev;
+ 	bool dc_ok = false;
+ 	int i, ret, idx;
+ 
+-	if (!drm_dev_enter(pipe->crtc.dev, &idx))
++	if (!drm_dev_enter(crtc->dev, &idx))
+ 		return;
+ 
+ 	DRM_DEBUG_DRIVER("\n");
+@@ -771,9 +771,10 @@ static void repaper_pipe_enable(struct drm_simple_display_pipe *pipe,
+ 	drm_dev_exit(idx);
+ }
+ 
+-static void repaper_pipe_disable(struct drm_simple_display_pipe *pipe)
++static void repaper_crtc_helper_atomic_disable(struct drm_crtc *crtc,
 +					       struct drm_atomic_commit *commit)
  {
- 	struct drm_rect rect = { 0, 0, GM12U320_USER_WIDTH, GM12U320_HEIGHT };
--	struct gm12u320_device *gm12u320 = to_gm12u320(pipe->crtc.dev);
-+	struct gm12u320_device *gm12u320 = to_gm12u320(crtc->dev);
-+	struct drm_plane_state *plane_state = gm12u320->plane.state;
- 	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
+-	struct repaper_epd *epd = drm_to_epd(pipe->crtc.dev);
++	struct repaper_epd *epd = drm_to_epd(crtc->dev);
+ 	struct spi_device *spi = epd->spi;
+ 	unsigned int line;
  
- 	gm12u320->fb_update.draw_status_timeout = FIRST_FRAME_TIMEOUT;
- 	gm12u320_fb_mark_dirty(plane_state->fb, &shadow_plane_state->data[0], &rect);
+@@ -827,27 +828,84 @@ static void repaper_pipe_disable(struct drm_simple_display_pipe *pipe)
+ 	power_off(epd);
  }
  
--static void gm12u320_pipe_disable(struct drm_simple_display_pipe *pipe)
-+static void gm12u320_crtc_helper_atomic_disable(struct drm_crtc *crtc,
-+						struct drm_atomic_commit *commit)
- {
--	struct gm12u320_device *gm12u320 = to_gm12u320(pipe->crtc.dev);
-+	struct gm12u320_device *gm12u320 = to_gm12u320(crtc->dev);
- 
- 	gm12u320_stop_fb_update(gm12u320);
- }
- 
--static void gm12u320_pipe_update(struct drm_simple_display_pipe *pipe,
--				 struct drm_plane_state *old_state)
-+static void gm12u320_plane_helper_atomic_update(struct drm_plane *plane,
-+						struct drm_atomic_commit *commit)
+-static void repaper_pipe_update(struct drm_simple_display_pipe *pipe,
+-				struct drm_plane_state *old_state)
++static void repaper_plane_helper_atomic_update(struct drm_plane *plane,
++					       struct drm_atomic_commit *commit)
  {
 -	struct drm_plane_state *state = pipe->plane.state;
-+	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(commit, plane);
-+	struct drm_plane_state *state = drm_atomic_get_new_plane_state(commit, plane);
- 	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(state);
+-	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(state);
++	struct drm_plane_state *old_pstate = drm_atomic_get_old_plane_state(commit, plane);
++	struct drm_plane_state *pstate = drm_atomic_get_new_plane_state(commit, plane);
++	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(pstate);
  	struct drm_rect rect;
  
-+	if (!state->fb)
-+		return;
-+
- 	if (drm_atomic_helper_damage_merged(old_state, state, &rect))
- 		gm12u320_fb_mark_dirty(state->fb, &shadow_plane_state->data[0], &rect);
+-	if (!pipe->crtc.state->active)
++	if (!pstate->fb)
+ 		return;
+ 
+-	if (drm_atomic_helper_damage_merged(old_state, state, &rect))
+-		repaper_fb_dirty(state->fb, shadow_plane_state->data,
++	if (drm_atomic_helper_damage_merged(old_pstate, pstate, &rect))
++		repaper_fb_dirty(pstate->fb, shadow_plane_state->data,
+ 				 &shadow_plane_state->fmtcnv_state);
  }
  
--static const struct drm_simple_display_pipe_funcs gm12u320_pipe_funcs = {
--	.enable	    = gm12u320_pipe_enable,
--	.disable    = gm12u320_pipe_disable,
--	.update	    = gm12u320_pipe_update,
+-static const struct drm_simple_display_pipe_funcs repaper_pipe_funcs = {
+-	.mode_valid = repaper_pipe_mode_valid,
+-	.enable = repaper_pipe_enable,
+-	.disable = repaper_pipe_disable,
+-	.update = repaper_pipe_update,
 -	DRM_GEM_SIMPLE_DISPLAY_PIPE_SHADOW_PLANE_FUNCS,
-+static const struct drm_plane_funcs gm12u320_plane_funcs = {
++static const struct drm_plane_funcs repaper_plane_funcs = {
 +	.update_plane	= drm_atomic_helper_update_plane,
 +	.disable_plane	= drm_atomic_helper_disable_plane,
 +	.destroy	= drm_plane_cleanup,
 +	DRM_GEM_SHADOW_PLANE_FUNCS,
 +};
 +
-+static int gm12u320_plane_helper_atomic_check(struct drm_plane *plane,
-+					      struct drm_atomic_commit *commit)
++static int repaper_plane_helper_atomic_check(struct drm_plane *plane,
++					     struct drm_atomic_commit *state)
 +{
-+	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(commit, plane);
++	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
 +	struct drm_crtc *crtc = plane_state->crtc;
 +	struct drm_crtc_state *crtc_state = NULL;
 +
 +	if (crtc)
-+		crtc_state = drm_atomic_get_new_crtc_state(commit, crtc);
++		crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
 +
 +	return drm_atomic_helper_check_plane_state(plane_state, crtc_state,
 +						   DRM_PLANE_NO_SCALING,
@@ -295,16 +304,16 @@ index d73dfebb4353..df60968856e5 100644
 +						   false, false);
 +}
 +
-+static const struct drm_plane_helper_funcs gm12u320_plane_helper_funcs = {
++static const struct drm_plane_helper_funcs repaper_plane_helper_funcs = {
 +	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
-+	.atomic_check	= gm12u320_plane_helper_atomic_check,
-+	.atomic_update	= gm12u320_plane_helper_atomic_update,
++	.atomic_check	= repaper_plane_helper_atomic_check,
++	.atomic_update	= repaper_plane_helper_atomic_update,
 +};
 +
-+static int gm12u320_crtc_helper_atomic_check(struct drm_crtc *crtc,
-+					     struct drm_atomic_commit *commit)
++static int repaper_crtc_helper_atomic_check(struct drm_crtc *crtc,
++					    struct drm_atomic_commit *state)
 +{
-+	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(commit, crtc);
++	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
 +	int ret;
 +
 +	if (crtc_state->enable) {
@@ -313,16 +322,17 @@ index d73dfebb4353..df60968856e5 100644
 +			return ret;
 +	}
 +
-+	return drm_atomic_add_affected_planes(commit, crtc);
++	return drm_atomic_add_affected_planes(state, crtc);
 +}
 +
-+static const struct drm_crtc_helper_funcs gm12u320_crtc_helper_funcs = {
-+	.atomic_check	= gm12u320_crtc_helper_atomic_check,
-+	.atomic_enable	= gm12u320_crtc_helper_atomic_enable,
-+	.atomic_disable	= gm12u320_crtc_helper_atomic_disable,
++static const struct drm_crtc_helper_funcs repaper_crtc_helper_funcs = {
++	.mode_valid	= repaper_crtc_helper_mode_valid,
++	.atomic_check	= repaper_crtc_helper_atomic_check,
++	.atomic_enable	= repaper_crtc_helper_atomic_enable,
++	.atomic_disable	= repaper_crtc_helper_atomic_disable,
 +};
 +
-+static const struct drm_crtc_funcs gm12u320_crtc_funcs = {
++static const struct drm_crtc_funcs repaper_crtc_funcs = {
 +	.set_config		= drm_atomic_helper_set_config,
 +	.page_flip		= drm_atomic_helper_page_flip,
 +	.reset			= drm_atomic_helper_crtc_reset,
@@ -331,45 +341,39 @@ index d73dfebb4353..df60968856e5 100644
 +	.atomic_destroy_state	= drm_atomic_helper_crtc_destroy_state,
 +};
 +
-+static const struct drm_encoder_funcs gm12u320_encoder_funcs = {
++static const struct drm_encoder_funcs repaper_encoder_funcs = {
 +	.destroy = drm_encoder_cleanup,
  };
  
- static const uint32_t gm12u320_pipe_formats[] = {
-@@ -677,13 +743,29 @@ static int gm12u320_usb_probe(struct usb_interface *interface,
+ static int repaper_connector_get_modes(struct drm_connector *connector)
+@@ -1102,9 +1160,27 @@ static int repaper_probe(struct spi_device *spi)
  	if (ret)
  		return ret;
  
--	ret = drm_simple_display_pipe_init(&gm12u320->dev,
--					   &gm12u320->pipe,
--					   &gm12u320_pipe_funcs,
--					   gm12u320_pipe_formats,
--					   ARRAY_SIZE(gm12u320_pipe_formats),
--					   gm12u320_pipe_modifiers,
--					   &gm12u320->conn);
-+	ret = drm_universal_plane_init(dev, &gm12u320->plane, 0,
-+				       &gm12u320_plane_funcs,
-+				       gm12u320_pipe_formats,
-+				       ARRAY_SIZE(gm12u320_pipe_formats),
-+				       gm12u320_pipe_modifiers,
-+				       DRM_PLANE_TYPE_PRIMARY, NULL);
+-	ret = drm_simple_display_pipe_init(drm, &epd->pipe, &repaper_pipe_funcs,
+-					   repaper_formats, ARRAY_SIZE(repaper_formats),
+-					   NULL, &epd->connector);
++	ret = drm_universal_plane_init(drm, &epd->plane, 0,
++				       &repaper_plane_funcs,
++				       repaper_formats, ARRAY_SIZE(repaper_formats),
++				       NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
 +	if (ret)
 +		return ret;
-+	drm_plane_helper_add(&gm12u320->plane, &gm12u320_plane_helper_funcs);
++	drm_plane_helper_add(&epd->plane, &repaper_plane_helper_funcs);
 +
-+	ret = drm_crtc_init_with_planes(dev, &gm12u320->crtc, &gm12u320->plane, NULL,
-+					&gm12u320_crtc_funcs, NULL);
++	ret = drm_crtc_init_with_planes(drm, &epd->crtc, &epd->plane, NULL,
++					&repaper_crtc_funcs, NULL);
 +	if (ret)
 +		return ret;
-+	drm_crtc_helper_add(&gm12u320->crtc, &gm12u320_crtc_helper_funcs);
++	drm_crtc_helper_add(&epd->crtc, &repaper_crtc_helper_funcs);
 +
-+	ret = drm_encoder_init(dev, &gm12u320->encoder, &gm12u320_encoder_funcs,
++	ret = drm_encoder_init(drm, &epd->encoder, &repaper_encoder_funcs,
 +			       DRM_MODE_ENCODER_NONE, NULL);
 +	if (ret)
 +		return ret;
-+	gm12u320->encoder.possible_crtcs = drm_crtc_mask(&gm12u320->crtc);
++	epd->encoder.possible_crtcs = drm_crtc_mask(&epd->crtc);
 +
-+	ret = drm_connector_attach_encoder(&gm12u320->conn, &gm12u320->encoder);
++	ret = drm_connector_attach_encoder(&epd->connector, &epd->encoder);
  	if (ret)
  		return ret;
  
