@@ -4,59 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2616C44501
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 10:40:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9F50C4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 10:44:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3682510E75E;
-	Thu, 16 Jul 2026 10:40:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17EDE10F289;
+	Thu, 16 Jul 2026 10:44:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kBBW043+";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="MSTbwqnb";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9A5010E34B;
- Thu, 16 Jul 2026 10:40:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784198408; x=1815734408;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=w1b7MPyQwYUv0BfP8b+DcSsNdYvPfcNImRvtNECFHbE=;
- b=kBBW043+ehZQTDUn+ZVMoB9O07K6+YhXCCxWTv/wR00YQPBQo+5b4VIW
- EO4VUUjaw0VLwP89b2Kk6N1BPCUFD+IvViaeZimtqxokmUNwPKME7adDO
- CibZaDUMRKoDU2NWrGTw1gfQzEcyi2oc/3+mkmEgCbJppe7Cgn7XkX/Go
- 5GyvRIwrcpPYtR7Qj5dPo1f0xgQlqX4rWbQgYVfzsiuRocKdLZ/0NRg+5
- dXX6mpznTlq39fls2XN8S9MQ7mhM6/bzLwuT3THGXrp+saoucHGtZmZoz
- 3vbBeIoY0uEn1aMbM+FtuUpuw3ML8y6ydytXzVl/1NutpwSHeS0Ru67sX Q==;
-X-CSE-ConnectionGUID: Ie1fEM/mSJiMpTeZawPi5w==
-X-CSE-MsgGUID: TNX32/IWT3yFFaybo/iCiw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84813471"
-X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; d="scan'208";a="84813471"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2026 03:40:08 -0700
-X-CSE-ConnectionGUID: nnfUCU7yQHSqVX3qQSaD8w==
-X-CSE-MsgGUID: 963NwzOdTA6xyaWcp0zS/Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; d="scan'208";a="253053856"
-Received: from tejasupa-desk.iind.intel.com (HELO tejasupa-desk)
- ([10.190.239.37])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2026 03:40:06 -0700
-From: Tejas Upadhyay <tejas.upadhyay@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>,
- Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- dri-devel@lists.freedesktop.org,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Subject: [PATCH V13 02/11] drm/gpu: Add gpu_buddy_allocated_addr_to_block
- helper
-Date: Thu, 16 Jul 2026 16:09:50 +0530
-Message-ID: <20260716103949.1554216-15-tejas.upadhyay@intel.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260716103949.1554216-13-tejas.upadhyay@intel.com>
-References: <20260716103949.1554216-13-tejas.upadhyay@intel.com>
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7629B10F289
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 10:44:04 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260716104401euoutp0162896187b46659a20abee1581481c5cc~CvzYh7gBq1199711997euoutp01Z;
+ Thu, 16 Jul 2026 10:44:01 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20260716104401euoutp0162896187b46659a20abee1581481c5cc~CvzYh7gBq1199711997euoutp01Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1784198641;
+ bh=4NOe5ksl2vlSwjo56KjbWsmML1a42hyFiwBD/c9eZDU=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=MSTbwqnbrDKyLKGraNwvsA+y4j51U4MbSsUqWrLD7zYBuseQk2jHYvQzKWIBHlqF3
+ POTrMf4g8ZRPRjBC3B//DjIkSnL2hCqPkA9P1ECuexq2YdaXf+5B3xWtrCF/91gL8O
+ xIohKEswRPMt4SaVihbMOLSt8JqgZ1C22LyTuDUo=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260716104401eucas1p1f2c155f5f3a4655c82e831bffdeeece7~CvzYOfJRQ0283202832eucas1p1K;
+ Thu, 16 Jul 2026 10:44:01 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260716104357eusmtip2cc624be619bcd0856727825883ac67e0~CvzVIUrCg2851928519eusmtip2d;
+ Thu, 16 Jul 2026 10:43:57 +0000 (GMT)
+Message-ID: <1eec88e6-1ea8-4525-bb17-e41444d715dc@samsung.com>
+Date: Thu, 16 Jul 2026 12:43:56 +0200
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Mikko
+ Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, Rasmus
+ Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer
+ <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily
+ Gorbik <gor@linux.ibm.com>, Christian Borntraeger
+ <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Andrew
+ Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam
+ R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike
+ Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
+ Hocko <mhocko@suse.com>, Robin Murphy <robin.murphy@arm.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Steven Rostedt
+ <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-s390@vger.kernel.org, linux-mm@kvack.org, iommu@lists.linux.dev,
+ linaro-mm-sig@lists.linaro.org, linux-trace-kernel@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <ak_E4UxfnFJywJa7@orome>
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260716104401eucas1p1f2c155f5f3a4655c82e831bffdeeece7
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
+X-EPHeader: CA
+X-CMS-RootMailID: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <CGME20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c@eucas1p1.samsung.com>
+ <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
+ <3f47aeab-33b1-4966-a5ce-5d6d5261e0e2@samsung.com>
+ <e212caac-6c30-448a-9e10-32fff8b842f6@kernel.org>
+ <83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com> <ak_E4UxfnFJywJa7@orome>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,102 +99,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add helper with primary purpose is to efficiently trace a specific
-physical memory address back to its corresponding TTM buffer object.
+On 09.07.2026 17:59, Thierry Reding wrote:
+> On Thu, Jul 09, 2026 at 07:56:45AM +0200, Marek Szyprowski wrote:
+>> On 08.07.2026 10:35, David Hildenbrand (Arm) wrote:
+>>> On 7/7/26 12:02, Marek Szyprowski wrote:
+>>>> On 01.07.2026 18:08, Thierry Reding wrote:
+>>>>> From: Thierry Reding <treding@nvidia.com>
+>>>>>
+>>>>> There is no technical reason why there should be a limited number of CMA
+>>>>> regions, so extract some code into helpers and use them to create extra
+>>>>> functions (cma_create() and cma_free()) that allow creating and freeing,
+>>>>> respectively, CMA regions dynamically at runtime.
+>>>> Well, the technical reason for not creating cma regions dynamically at
+>>>> runtime is that on some architectures (like 32bit ARM) the early fixup
+>>>> for the region is needed to make it functional for DMA.
+>>> Can you point me at the code that does that? Thanks!
+>> Check dma_contiguous_early_fixup() and dma_contiguous_remap() in 
+>> arch/arm/mm/dma-mapping.c. Those functions ensures that the CPU mappings for
+>> the CMA reserved region in linear map are remapped with 4k pages instead
+>> of the 1M sections, so later, it will be possible to alter the mappings and
+>> change them to coherent when needed (altering 1M sections is not possible,
+>> because each process has it's own level-1 array even for the kernel linear
+>> mapping).
+>>
+>>
+>>
+>> However, in the use case in this patchset the reserved region is only shared
+>> with buddy allocator by using the CMA infrastructure, not registered to the
+>> regular DMA-mapping API, so it would work fine. I'm not convinced that this
+>> is the right API to use for this though.
+> Are you saying you're not convinced that CMA is the right API to use for
+> this? Or something else?
+I read this again and indeed CMA seems to be right solution. I only wonder
+why do You want to create the CMA areas dynamically? Imho it would work if
+You just create large enough CMA area on boot, what would automatically
+share the memory with buddy allocator and then allocate dynamic VPR regions
+with cma_alloc(), potentially unmapping or marking the allocated region as
+reserved in linear kernel mapping to avoid any potential speculative access
+to the protected memory.
 
-v3:
-- use mm->chunk_size minimum allocation granularity (Arun)
-v2:
-- %s/gpu_buddy_addr_to_block/gpu_buddy_allocated_addr_to_block(MattA)
-- remove clear->avail and split nodes check(MattA)
-- Adapt lockdep(MattB)
+In both cases You will probably won't need the DMA-mapping API on top of
+it, although it might be even possible to partially use with by
+registering custom dma_ops for the devices using the protected region
+(assuming that it would support only DMA_ATTR_NO_KERNEL_MAPPING
+allocations).
 
-Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
-Cc: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
----
- drivers/gpu/buddy.c       | 53 +++++++++++++++++++++++++++++++++++++++
- include/linux/gpu_buddy.h |  2 ++
- 2 files changed, 55 insertions(+)
 
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index dc81fe0301ce..4d5ac375a538 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -630,6 +630,59 @@ void gpu_buddy_free_block(struct gpu_buddy *mm,
- }
- EXPORT_SYMBOL(gpu_buddy_free_block);
- 
-+/**
-+ * gpu_buddy_allocated_addr_to_block - given relative address find the allocated block
-+ *
-+ * @mm: GPU buddy manager
-+ * @addr: Relative address
-+ *
-+ * Returns:
-+ * gpu_buddy_block on success, NULL or error code on failure
-+ */
-+struct gpu_buddy_block *gpu_buddy_allocated_addr_to_block(struct gpu_buddy *mm, u64 addr)
-+{
-+	struct gpu_buddy_block *block;
-+	LIST_HEAD(dfs);
-+	u64 end;
-+	int i;
-+
-+	gpu_buddy_driver_lock_held(mm);
-+
-+	end = addr + mm->chunk_size - 1;
-+	for (i = 0; i < mm->n_roots; ++i)
-+		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
-+
-+	do {
-+		u64 block_start;
-+		u64 block_end;
-+
-+		block = list_first_entry_or_null(&dfs,
-+						 struct gpu_buddy_block,
-+						 tmp_link);
-+		if (!block)
-+			break;
-+
-+		list_del(&block->tmp_link);
-+
-+		block_start = gpu_buddy_block_offset(block);
-+		block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
-+
-+		if (!overlaps(addr, end, block_start, block_end))
-+			continue;
-+
-+		if (gpu_buddy_block_is_allocated(block))
-+			return block;
-+		else if (gpu_buddy_block_is_free(block))
-+			return NULL;
-+
-+		list_add(&block->right->tmp_link, &dfs);
-+		list_add(&block->left->tmp_link, &dfs);
-+	} while (1);
-+
-+	return ERR_PTR(-ENXIO);
-+}
-+EXPORT_SYMBOL(gpu_buddy_allocated_addr_to_block);
-+
- static void __gpu_buddy_free_list(struct gpu_buddy *mm,
- 				  struct list_head *objects,
- 				  bool mark_clear,
-diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
-index e037714563d8..2c36124bb696 100644
---- a/include/linux/gpu_buddy.h
-+++ b/include/linux/gpu_buddy.h
-@@ -287,6 +287,8 @@ void gpu_buddy_reset_clear(struct gpu_buddy *mm, bool is_clear);
- 
- void gpu_buddy_free_block(struct gpu_buddy *mm, struct gpu_buddy_block *block);
- 
-+struct gpu_buddy_block *gpu_buddy_allocated_addr_to_block(struct gpu_buddy *mm, u64 addr);
-+
- void gpu_buddy_free_list(struct gpu_buddy *mm,
- 			 struct list_head *objects,
- 			 unsigned int flags);
+> I certainly don't think we want to get the DMA-mapping API involved for
+> this because that always implies that we perform cache operations, which
+> we specifically don't want for this memory.
+>
+> Thierry
+
+Best regards
 -- 
-2.52.0
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
