@@ -4,64 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BF25C4450A
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 09:20:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A7B5C4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 09:21:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CBFA10E30A;
-	Thu, 16 Jul 2026 09:20:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BA6610F24A;
+	Thu, 16 Jul 2026 09:21:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="UcrWEp+b";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DjLLtH8Q";
 	dkim-atps=neutral
-Received: from smtpout3.mo534.mail-out.ovh.net
- (smtpout3.mo534.mail-out.ovh.net [51.210.94.142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 517AA10E30A
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:20:45 +0000 (UTC)
-Received: from director1.derp.mail-out.ovh.net
- (director1.derp.mail-out.ovh.net [51.210.158.128])
- by mo534.mail-out.ovh.net (Postfix) with ESMTPS id 4h16k24ld5z6MQd;
- Thu, 16 Jul 2026 09:11:54 +0000 (UTC)
-Received: from director1.derp.mail-out.ovh.net
- (director1.derp.mail-out.ovh.net. [127.0.0.1])
- by director1.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <mripard@kernel.org>; Thu, 16 Jul 2026 09:11:54 +0000 (UTC)
-Received: from mta11.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.109.231.223])
- by director1.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4h16k2256Xz60Mk;
- Thu, 16 Jul 2026 09:11:54 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.10])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta11.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id AC6E99A1971;
- Thu, 16 Jul 2026 09:11:53 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-112S00613639789-d330-4999-8471-5f091945c17d,
- FC3020C1E9D06427965D18C7378DB59FA321AF64) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-Message-ID: <12fc7d69-f415-4988-9ae8-2764e83e0125@pixelcluster.dev>
-Date: Thu, 16 Jul 2026 11:11:53 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Update Natalie Vock's email
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org
-References: <20260705175305.5589-1-nat@pixelcluster.dev>
- <de118156-3125-404e-8ddf-2326747df303@linux.intel.com>
-Content-Language: en-US
-From: Natalie Vock <nat@pixelcluster.dev>
-In-Reply-To: <de118156-3125-404e-8ddf-2326747df303@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-x-ovh-tracer-id: 11554547797630083336
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTESDCHV13IZsUhXxpFn0Qi15koqHPEs5CALjFS6wz1hg6L4iBAPCtxEYD3Oe7a+lnbG9d+hPrVImm2a8hJGrHWT66xEh+mDfNc4nOwDVzmoTrfVy9fCzPP/EIJzClp/c7e1pM8W18qd3EbLCyH37LhHZZKqTtYZQKgLTO99HCvc+2lqkGkT6SKv46IDsqp0KDKQljY3kkbiri7ACVCXVPaNNT1YGY09JWVbvOVXcfDhKJeg03nwZse7EcVo9qupmcqcSFhfvxJL+k32r/Kvjc+hgiNlJR1c/c6yRWzGhxrlextGvzzmq+RzsV0ewgEKyQ16nsUKuZudBscq+mc8rPbNohrj/PlFrVViRUm855BiODYHrdR8nXL3bvnzdIUMnHhHJysu5b86cOYqfltuSTtkAXgXitSNbn44VypDgChjVOQt0m2ChyUAFE1i391HiRHxP5e0KiVOj4aY56JmMNyjLUsZ9EXie3NwOf4PjODig8Y6YmFAzZ7MYdWWuVqyt2mvjW/vm4HoiLJmMwKfkRAVffM+qz+bY8STW91WiT76UTj0VbpAFZ7rdZfVi38CyMSa6ROmcAuSxrGfcawFJVC+jWvLXsyTsFw63k1JJu1XBS7jwr32ix57WAp8gmm6ZIiM8zzY1+HtSjP52MRm3h+IucArHiAJ/8OiuFQHDWGMOQ
-DKIM-Signature: a=rsa-sha256; bh=YEDCo224DpxEsSjCe2n500S4K5UGTcUVeBpLqihXGxQ=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1784193115; v=1;
- b=UcrWEp+bH0QC7cBN/bVYpeSm/zrdP2F4kbKkDUQqw4rHWBdPUjBaHDw8EJTE3f2u66/jPxt1
- TP7gI93E3zdTvbN0Wotnh6WybCBWXZrG4wI/Qk3R6bF2FHCUsP8HIedAScgG2B/D0yX4RlPK6WE
- 5jcLJ/EZQ9M93xP6TyxNoMSBsDc5eLvae4u8rXwj2KU40s6bJLhxAVgXUypKL7iE7MvXpraZcxR
- Y880zKh040bRb/O3hfIQ/Y7hpvwAAwdKrPN2w6IUy+JviQDI610W/wCxlWe7W4iOjju/HP3Abp7
- UIT3JJzIR+K+UpskNwxM6+10S/lph9hRxcMcNiz1yyETQ==
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF63910F24A
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:21:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 25F92600BB;
+ Thu, 16 Jul 2026 09:21:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A755F1F00A3A;
+ Thu, 16 Jul 2026 09:21:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784193670;
+ bh=B58Km/DKdFbZCCahpnlAGIeIC6FNei/VJUvEQJSabnY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DjLLtH8QsivXomVKqQ9naBL1H9/XJ8lTfls07i0Bg/nu2dz+gwejiqolUCGIlD5cR
+ iCk5pqpTQgzazZhO4ZyqPcei0nUE3Pw4QmGYWiWXBJ4U/A+iIVNo4aaXhODZfxN+lp
+ +xNkW2dVi40iCBQwR/DVbPcAoMcVjrliUViAXSk3+e4R7NxNWk7HsKKwjVmTqB+agQ
+ XEhDxSiOCST8m1vFJ0FvBFHVODuORPip/2vQN56rCom35QjkfK/wSIbMJQrkOjd+zf
+ F09RGk10JKSEKVBZhswGhowe93gLkecZu7N6mB3GwsKrAs48CBY07Dgqs7qR8Rw37q
+ I4Ffv2SY7iJRg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/8] drm/mcde: replace struct drm_simple_display_pipe
+ with regular atomic helpers
+To: "Ze Huang" <ze.huang@oss.qualcomm.com>
+Cc: imx@lists.linux.dev, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org
+In-Reply-To: <20260716-drm-simple-kms-removal-v2-3-1133a8fc3785@oss.qualcomm.com>
+References: <20260716-drm-simple-kms-removal-v2-0-1133a8fc3785@oss.qualcomm.com>
+ <20260716-drm-simple-kms-removal-v2-3-1133a8fc3785@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 16 Jul 2026 09:21:09 +0000
+Message-Id: <20260716092109.A755F1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,57 +54,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Race condition in atomic commit causing display hang in oneshot mo=
+de due to premature hardware start.
+--
 
-thanks for the ack! Any chance you could also pick the patch into 
-drm-misc-next? I don't think I have commit rights on drm-misc-next as of 
-now.
+--- Patch [3]: [PATCH v2 3/8] drm/mcde: replace struct drm_simple_display_p=
+ipe with regular atomic helpers ---
+commit 24a767bb6a2c4adfefe9e0a5de7e9c8bbe7b2a64
+Author: Ze Huang <ze.huang@oss.qualcomm.com>
 
-Thanks,
-Natalie
+drm/mcde: replace struct drm_simple_display_pipe with regular atomic helpers
 
-On 7/6/26 14:55, Maarten Lankhorst wrote:
-> Acked-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> 
-> On 7/5/26 19:53, Natalie Vock wrote:
->>  From now on I'll use my own domain for development work, reflect that in
->> MAINTAINERS and mailmap.
->>
->> Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
->> ---
->>   .mailmap    | 3 ++-
->>   MAINTAINERS | 2 +-
->>   2 files changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/.mailmap b/.mailmap
->> index d0d1367a261b8..3050ab1b97ea2 100644
->> --- a/.mailmap
->> +++ b/.mailmap
->> @@ -627,7 +627,8 @@ Nadav Amit <nadav.amit@gmail.com> <namit@cs.technion.ac.il>
->>   Nadia Yvette Chambers <nyc@holomorphy.com> William Lee Irwin III <wli@holomorphy.com>
->>   Naoya Horiguchi <nao.horiguchi@gmail.com> <n-horiguchi@ah.jp.nec.com>
->>   Naoya Horiguchi <nao.horiguchi@gmail.com> <naoya.horiguchi@nec.com>
->> -Natalie Vock <natalie.vock@gmx.de> <friedrich.vock@gmx.de>
->> +Natalie Vock <nat@pixelcluster.dev> <friedrich.vock@gmx.de>
->> +Natalie Vock <nat@pixelcluster.dev> <natalie.vock@gmx.de>
->>   Nathan Chancellor <nathan@kernel.org> <natechancellor@gmail.com>
->>   Naveen N Rao <naveen@kernel.org> <naveen.n.rao@linux.ibm.com>
->>   Naveen N Rao <naveen@kernel.org> <naveen.n.rao@linux.vnet.ibm.com>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 377d224c5f76d..0caa9ea58db04 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -6636,7 +6636,7 @@ F:	tools/testing/selftests/cgroup/test_cpuset_v1_base.sh
->>   CONTROL GROUP - DEVICE MEMORY CONTROLLER (DMEM)
->>   M:	Maarten Lankhorst <dev@lankhorst.se>
->>   M:	Maxime Ripard <mripard@kernel.org>
->> -M:	Natalie Vock <natalie.vock@gmx.de>
->> +M:	Natalie Vock <nat@pixelcluster.dev>
->>   L:	cgroups@vger.kernel.org
->>   L:	dri-devel@lists.freedesktop.org
->>   S:	Maintained
-> 
+Convert MCDE to explicit plane, CRTC and encoder objects. Handle pending
+page-flip events from the CRTC atomic flush path using the commit-local
+CRTC state.
 
+> diff --git a/drivers/gpu/drm/mcde/mcde_display.c b/drivers/gpu/drm/mcde/m=
+cde_display.c
+> index 257a6e84dd583..86edf94c52372 100644
+> --- a/drivers/gpu/drm/mcde/mcde_display.c
+> +++ b/drivers/gpu/drm/mcde/mcde_display.c
+[ ... ]
+> @@ -1381,44 +1398,13 @@ static void mcde_set_extsrc(struct mcde *mcde, u3=
+2 buffer_address)
+> -static void mcde_display_update(struct drm_simple_display_pipe *pipe,
+> -				struct drm_plane_state *old_pstate)
+> +static void mcde_plane_helper_atomic_update(struct drm_plane *plane,
+> +					    struct drm_atomic_commit *commit)
+>  {
+> -	struct drm_crtc *crtc =3D &pipe->crtc;
+> -	struct drm_device *drm =3D crtc->dev;
+> -	struct mcde *mcde =3D to_mcde(drm);
+> -	struct drm_pending_vblank_event *event =3D crtc->state->event;
+> -	struct drm_plane *plane =3D &pipe->plane;
+> -	struct drm_plane_state *pstate =3D plane->state;
+> +	struct drm_plane_state *pstate =3D drm_atomic_get_new_plane_state(commi=
+t, plane);
+> +	struct mcde *mcde =3D to_mcde(plane->dev);
+>  	struct drm_framebuffer *fb =3D pstate->fb;
+> =20
+> -	/*
+> -	 * Handle any pending event first, we need to arm the vblank
+> -	 * interrupt before sending any update to the display so we don't
+> -	 * miss the interrupt.
+> -	 */
+> -	if (event) {
+[ ... ]
+> -		spin_unlock_irq(&crtc->dev->event_lock);
+> -	}
+> -
+>  	/*
+>  	 * We do not start sending framebuffer updates before the
+>  	 * display is enabled. Update events will however be dispatched
+[ ... ]
+> -static int mcde_display_enable_vblank(struct drm_simple_display_pipe *pi=
+pe)
+> +static void mcde_crtc_helper_atomic_flush(struct drm_crtc *crtc,
+> +					  struct drm_atomic_commit *commit)
+> +{
+> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(com=
+mit, crtc);
+> +	struct drm_pending_vblank_event *event =3D crtc_state->event;
+> +
+> +	/*
+> +	 * Handle any pending event first, we need to arm the vblank
+> +	 * interrupt before sending any update to the display so we don't
+> +	 * miss the interrupt.
+> +	 */
+> +	if (!event)
+> +		return;
+
+[Severity: High]
+Does this split introduce a race condition that could hang the pipeline in
+oneshot mode?
+
+Because the DRM core executes the plane's atomic_update callback before the
+CRTC's atomic_flush callback, the hardware flow is now started before the
+vblank event is armed.
+
+If mcde_start_flow() is triggered during mcde_plane_helper_atomic_update()
+(which happens just below the quoted block), it could complete the hardware
+transfer and fire its interrupt before the vblank event gets armed later in
+mcde_crtc_helper_atomic_flush().
+
+The relocated comment in atomic_flush still notes this exact requirement:
+"we need to arm the vblank interrupt before sending any update to the
+display so we don't miss the interrupt."
+
+If the interrupt fires early in oneshot mode, it will be missed, and the
+atomic commit could wait indefinitely for an event that will never complete.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-drm-simple=
+-kms-removal-v2-0-1133a8fc3785@oss.qualcomm.com?part=3D3
