@@ -4,135 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A64DC44501
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 00:53:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1126C44507
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 01:07:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70BAF10E0F6;
-	Thu, 16 Jul 2026 00:53:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3D1F10E26A;
+	Thu, 16 Jul 2026 01:07:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="nW0p2Pln";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="yR6iu4+m";
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="yR6iu4+m";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013020.outbound.protection.outlook.com
- [40.93.196.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA72310E0F6
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 00:53:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dNCIpOLpKfwC5CtazBTjhuN1CqCvhv+bdZmiyNL9zpSmiVm2exdk3LgzQo1qSxkeHZ1ELzUEJksdObzTCKCsUaio6nWkBlCXbPMTia/syoQNPR+AOgv9Bx3e4cTlVaHKZb6ab/7iBSiQTadHVM1R3Jzs8QUnHx3LKihfH+YPWd4ud0iaTkWJpJ2/uyfPPdFFmPBIumpfUGvXoLWMrEbZAs5fxq/6SD0enyxbS+yqFHeujdhSOYvyx5sP6ASWat9H0oEYhKEpdn6cjDjPnmFH+lrorkoyBPJdeCI/kz0pCis8uEn+w/G2BVNkvuqsRDiL/R6NNbElRUDBf3LxESixxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lMsMaVHEsbz1VEVS3LHfC0mtRJIHPXSGzTnTouu5QaU=;
- b=foQzL+1tqDh9sHEkZpLirQz91ca09BFRlSVN7MMOowsDn70eavfZ5f0RwuHHsiIw1dtCjJomzSaHaBiWOAWgRpxPZshSMtAppVNbRFX4ORmU3bYuKOwhT6CEumNsWzV3xn7frp2KNqAJyNNlLL5xqUfHExSYztLCGB8ixTsrxRTyu7Q8MoSfMiyywKbChcg1DMOaV4cz7dI+3vw4puIct0U2gqI8TNJPrk0n1895Ym/3cyfSfac3pgfepo1P8e3qJxBaxSdi/DJt1S3JX/dULyMjZMoclw8bmf58IcxcUVCDqwUP+nLKpkDUF45/D4GxttnUrbHShqFcoFh+Cpg21w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lMsMaVHEsbz1VEVS3LHfC0mtRJIHPXSGzTnTouu5QaU=;
- b=nW0p2Plnqc+QEqnLr1Jvubd8FtWFXdEqV7IOXqFU4wOKZkX2dkulnqLL7uy6EeltrmlEvnLy2mvgeWpy+zKzhlrM6guchDYR+RxtCuRU8jP4OSi2Eqep2f+czlfxfklmLOKJFEgD3Ae4XvrUzz9Rg+i2/hqyRk2hecHp6BsoX0skc+jnkLubIjEOiUSm1mUTRDKje3zjCpYOxDkXAk7TTTJQHgLkdtFLa/4W1EUQGbJRfLMMwDxXvjG2+L8q2gVn8zyq1fEjCPM/2896CvaYKXCk3mL80MiHQm0QF5U38n5u7xleBF6F0vMrssD3ggmEz9jGaWzLtv7af+h6v+Okbg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by MN0PR12MB5932.namprd12.prod.outlook.com (2603:10b6:208:37f::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Thu, 16 Jul
- 2026 00:52:55 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
- 00:52:55 +0000
-Date: Wed, 15 Jul 2026 20:52:52 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Eliot Courtney <ecourtney@nvidia.com>,
- Greg KH <gregkh@linuxfoundation.org>, Burak Emir <bqe@google.com>,
- John Hubbard <jhubbard@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Andrew Ballance <andrewjballance@gmail.com>,
- Matthew Wilcox <willy@infradead.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Boqun Feng <boqun@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>,
- David Airlie <airlied@gmail.com>, Gary Guo <gary@garyguo.net>,
- Miguel Ojeda <ojeda@kernel.org>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- Simona Vetter <simona@ffwll.ch>,
- Tamir Duberstein <tamird@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
- Trevor Gross <tmgross@umich.edu>, Yury Norov <yury.norov@gmail.com>,
- Zhi Wang <zhiw@nvidia.com>, maple-tree@lists.infradead.org,
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance for
- region allocations
-Message-ID: <algrZLHyYcR2mwzX@yury>
-References: <20260711063602.426311-1-ynorov@nvidia.com>
- <alf1lUH0EDf3CRMl@pedro-suse.lan>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alf1lUH0EDf3CRMl@pedro-suse.lan>
-X-ClientProxiedBy: SJ0PR03CA0171.namprd03.prod.outlook.com
- (2603:10b6:a03:338::26) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC1F210E26A
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 01:07:43 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=u3hQkWIKM9rLk74FG4EzV/OU5cfjkjl4u73zLaFEaew=;
+ b=yR6iu4+m0jMMxlXtzIE64e3SQGhOy7b0OXPc3EROVeSAetdOJW1Ez4f1Yky9iTxCpPHDn3jMy
+ MYc/BTrazH8jDTO5q7Ch0H7/mqR1HiC929kYLr0AvvmMxcFl9J5Gws2ihLLpJSZ/PifIi6VfS8J
+ LjcGst1AhoMzV6H1djNFEuA=
+Received: from canpmsgout05.his.huawei.com (unknown [172.19.92.145])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTPS id 4h0vyc6Hhzz126Lvk
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 09:07:04 +0800 (CST)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=u3hQkWIKM9rLk74FG4EzV/OU5cfjkjl4u73zLaFEaew=;
+ b=yR6iu4+m0jMMxlXtzIE64e3SQGhOy7b0OXPc3EROVeSAetdOJW1Ez4f1Yky9iTxCpPHDn3jMy
+ MYc/BTrazH8jDTO5q7Ch0H7/mqR1HiC929kYLr0AvvmMxcFl9J5Gws2ihLLpJSZ/PifIi6VfS8J
+ LjcGst1AhoMzV6H1djNFEuA=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+ by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4h0vm74C2kz12LCc;
+ Thu, 16 Jul 2026 08:57:59 +0800 (CST)
+Received: from kwepemo500009.china.huawei.com (unknown [7.202.194.199])
+ by mail.maildlp.com (Postfix) with ESMTPS id EBA3440575;
+ Thu, 16 Jul 2026 09:07:36 +0800 (CST)
+Received: from [10.67.121.161] (10.67.121.161) by
+ kwepemo500009.china.huawei.com (7.202.194.199) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.36; Thu, 16 Jul 2026 09:07:36 +0800
+Message-ID: <7dd5c995-a23c-4d3a-9ba0-7fc77972339f@huawei.com>
+Date: Thu, 16 Jul 2026 09:07:35 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|MN0PR12MB5932:EE_
-X-MS-Office365-Filtering-Correlation-Id: a1a45843-54c0-4acb-d12f-08dee2d4923d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|7416014|366016|23010399003|22082099003|18002099003|3023799007|10067099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: vWDP1F4x8FHd0qIlaV6sPBFQU6c/p6WkaH2IsRRE0/RymcyCSWVy0SZKkeq4GZ9z152x/frU86s4wMkX4Fv31z7uziRkPgGJBSsQWoMU0NCDG5f5IN5dNcuRrR1EtH9Msvl1MM8OCNCbLh/l11oFJnSMQjmnZYY5yAkCX4oJsuJSeKHR13xLhgA4mQsYHFC9A/noz2KiDl68Nt4fQf9JKu1/XgMRFORr74E+waCQYhEexW6fkR+Glz7fUc+U/GrnfVp0P7UZGTWfKQVbLfQp7IZt3R6Bs+YrPnXReto0GxUIUTZQ5pCemGIopxG/AaTf7i/ksHIugPuMv9dLL65ocDcwar7IbaGFbVyGjGZTdIIjsZeJPznHSHqJ4dAqgCnIe1IRTQks32Av6908z/SRx4xd+ghWqMV/HeTEOCgldxKiCO4/5AZoAIbyi/m3+TISHv64FBfDwNVC3X9k4gHUp6aa987RvVTqR08lMS6WJKcn9Vvhu7QyPdLyXD8T6ML3PTp09lN3DhASQBItf1Z27o2ufrFjATg++Ns/mBDZWjQ0gQViPBHufifF2MxFlxlLR12+QQJtmo9n4L87JSuIO8sqoHj20nnI1ALILOEBO/IgQVuiKjhPYq1nKh3ZJxBFHcPB2/woYe9TT87kyLYP2VFPG6Z+zrUFq4eS8ESLkEk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV3PR12MB9356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(7416014)(366016)(23010399003)(22082099003)(18002099003)(3023799007)(10067099003)(11063799006)(4143699003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?kUFKHJA/urU2DXYy7WEIuWIPY+Kci01kqiRwYaRkEP6FSmXXiPFcE8nXJtkb?=
- =?us-ascii?Q?Lt3vldFhZ5RdWK8aV/sU6QW9WeiqRnCtMhRAOzsNILTM0LS5sCF3wYBP2uLB?=
- =?us-ascii?Q?EdgtMGgpkh1cmEg1e9I5OLOHCP8CRIpU+2NoJTwtJfWfC+t7p7bcb/wwjiue?=
- =?us-ascii?Q?ZMMS9GI5O70x864GJ1Dxnao/LqucjPJdSCLi1Tf0k7KfHo4pOeg5YDc6aN5j?=
- =?us-ascii?Q?A70rfhFOkO0b0gPamWkjsZ2GSgPHZZAdkkS7PN8V5b8VSfIDvItRmwR8dahP?=
- =?us-ascii?Q?BvDK9hEJB8sAVjqTJZK74H2ocSZtMP08azBg29Nzc4cC/CpHtIaQqLDg2r+2?=
- =?us-ascii?Q?1r0wX41/Upics6wFwRng4UBBZWV6f7eP04nnXp27bSlevqV9rYQCFO7Xz2zB?=
- =?us-ascii?Q?SkNyuL7nTJBlYBS2IVoEX9U1F9Xd2aO6NnjyZyHVTEnwjqEK+83n+vXwtDN1?=
- =?us-ascii?Q?js9kVUMCcyMcWfIx5jeHNvQJysLjJsWsyqBj6CETI0L2xBVdvEVkSVpHndH9?=
- =?us-ascii?Q?1aj8xkIfYv0Fmgzi147fCyypmcnL06CqDSbxvQUCh/3sV+N1mDyFddVgNkI3?=
- =?us-ascii?Q?HQVCYzulPdTDPWAfHqFDm3oi+Z/ZgAxWQ1DxShvf0AhcNYjx69+Ywvkn72Sr?=
- =?us-ascii?Q?hCXryFiomEFTMbakajVLGpwm0er2TQ03GjD4/lSOKLBSl1rnihr+D6r9gqEN?=
- =?us-ascii?Q?Z9AzvjejYvXyp+dgsJlPOX0vo0Rn4LOWOtnqAg1XDcdGKARWSXTWfSLokXPB?=
- =?us-ascii?Q?TvSTSZ2uvUiC+znnPgUlUDmF1jMIZ/6IJ/RUXkeFEj3APi46SMG9s/mEi1xB?=
- =?us-ascii?Q?j8YKnI47e5brNow8lt/cJ9pO2YAse2R/cEhaIrzbhAfN5Iql6Cn9TcGbGUeK?=
- =?us-ascii?Q?+BKlvykeHORyoFfC4IX0STlHKf4QZsuF+49sQG3g8EEXWmVpb7kyIAXB/YVF?=
- =?us-ascii?Q?JU9v4alAzwViNncmk2PRtkZ+91swTu+nJD+hUIQp9i870yslbNx6V76DJXZT?=
- =?us-ascii?Q?0NUnVFfJN0G+pBiqrq1JVvBp3nbWPhq7ey6q1eT0sYmHzyKRaYYEXSFz/ilK?=
- =?us-ascii?Q?W+BQxDxc5V+MX1feqxZgrvop808o98/tlXcstELcaEN0b1Dcl7t+HN44UPkm?=
- =?us-ascii?Q?qI1GNgEjhJ4vPPa1YUPNNiplhRuSDTATftQF9Kpw8M703rMJFXEA87j3iJhF?=
- =?us-ascii?Q?tht4lZN5x5bSp28mMTMJB4u3nArJkMVRaHXZP7rscgfv7b2/MyDLBlj7BkCf?=
- =?us-ascii?Q?BJCEsF3Xnd3U76yKKkvJTVbb+ChfVM/Nq4HOPisNKWTcTPUc83wMwyjCsiLq?=
- =?us-ascii?Q?ef1Rqtgd2sOK07uRFGxqfqv+S4OD+UcfAfNQlFqtoRQrpv2+YHC8CkQdDMhf?=
- =?us-ascii?Q?cN1RH+1Nl6M1h80Cwwsn0fW/kNaGox0tFzdgl/gtTl/+o39n9VNm9F/tvxkl?=
- =?us-ascii?Q?ukOjaxMg3y76tN8SJA9GKPwj9jLWPAGNgE0snfe40GDMdnOJBgzL0ivbsB+J?=
- =?us-ascii?Q?h3jl0e1SlsdK+pwfazKB+3nFuNbAjksk4loIURoRH37dYbZo5D0ZJ0MQ3Kzo?=
- =?us-ascii?Q?ZEkZ4/BNjNgt43MJA3QMI+Ol/aAzcmPcYcajQUD8GRTwSwz+rwRyAsBcwHGL?=
- =?us-ascii?Q?ulvYhOoYKVF6TMqgP2daMhYUKfoaiYbdrXu+EhVP4mzp2+QNNlDHuPbkW94k?=
- =?us-ascii?Q?RZ0uJoyfWgcmsfoSJ3LU9bi9QMRJNqJiGrVKx2Pejv3zK4QzrZvwNpymRE5v?=
- =?us-ascii?Q?mnzKcUNkqA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1a45843-54c0-4acb-d12f-08dee2d4923d
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 00:52:55.0126 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z7Qvr+ZcTvyix5mZNzIi/w3YmDvmrNjnGISuZgElRrf3hLhj+FqWFSqXwnSzMfMKNb6OHYhS7QfvMLIVWzywqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5932
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 0/4] vfio/dma-buf: add TPH support for peer-to-peer
+ access
+To: Zhiping Zhang <zhipingz@meta.com>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
+ Romanovsky <leon@kernel.org>, Michael Guralnik <michaelgur@nvidia.com>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Christian Konig <christian.koenig@amd.com>, 
+ Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>
+CC: <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <dri-devel@lists.freedesktop.org>
+References: <20260715204008.3911275-1-zhipingz@meta.com>
+Content-Language: en-US
+From: fengchengwen <fengchengwen@huawei.com>
+In-Reply-To: <20260715204008.3911275-1-zhipingz@meta.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.67.121.161]
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemo500009.china.huawei.com (7.202.194.199)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,103 +77,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 15, 2026 at 10:41:01PM +0100, Pedro Falcato wrote:
-> On Sat, Jul 11, 2026 at 02:36:01AM -0400, Yury Norov wrote:
-> > Compare the cost of allocating and freeing variable-sized regions using
-> > a bitmap, IDA and a Maple Tree. All implementations process the same
-> > randomly generated sequence of region sizes, ranging from 1 to 32 entries,
-> > until the configured capacity is exhausted.
-> > 
-> > Run the benchmark at several capacities to show how the approaches
-> > scale. Report allocation and free times separately because bitmap,
-> > IDA and Maple Tree removal have substantially different costs.
-> > 
-> > On x86/kvm, the output example is:
-> > 
-> > type       alloc (ns)      free (ns)   capacity   memory (B)
-> > bitmap      179573071         342105    1000000       125000
-> > IDA          46555636       33931498    1000000       134864
-> > maple        18629665       19741396    1000000      1548304
-> > bitmap        1630912          30933     100000        12504
-> > IDA           6144785        3354590     100000        14288
-> > maple         1745026        1825032     100000       155408
-> > bitmap          28448           3374      10000         1256
-> > IDA            418978         333641      10000         1872
-> > maple          185398         211138      10000        15632
-> > bitmap           2253            610       1000          128
-> > IDA             42755          36432       1000          144
-> > maple           19728          23474       1000         1552
-> > 
+Hi Zhiping,
+
+One concern I'd like to raise is the implicit topology constraint of the
+TPH P2P path. TPH Steering Tag only works reliably when both importer and
+exporter devices sit under the same Root Port (or same TPH-aware switch).
+
+For cross-Root-Port P2P traffic (e.g. P2P devices located in different
+RC or even socket), most server-grade Root Complexes do not forward TPH
+prefixes through their internal routing. The ST field gets silently
+stripped before reaching the target device, so all TPH setup becomes
+ineffective with no error reported to user.
+
+Because cross-Root-Port P2P traffic with ST does not affect the host, but
+merely the completer may experience some performance degradation because
+it lacks the TPH hint. In this case, I suggest adding restrictions in the
+uAPI.
+
+A further step is to check whether the importer and exporter are under
+the same root port. However, this verification will cause the P2P TPH
+to be unsupported in the case of multi-host or multi-root PCIe switch.
+
+Thanks
+
+On 7/16/2026 4:39 AM, Zhiping Zhang wrote:
+> This series adds TLP Processing Hints (TPH) support to the VFIO dma-buf
+> export path, allowing importing drivers (e.g. mlx5) to use the
+> exporter's steering tag when performing peer-to-peer DMA into a
+> VFIO-owned device.
 > 
-> I don't understand the comparison. bitmap, IDA and maple are
-> completely different data structures for completely different purposes.
+> There is no separate in-tree vendor kernel driver for the target device:
+> vfio-pci is the in-tree driver and the targeted device is managed
+> from userspace via VFIO passthrough. That is why the ST has to flow
+> through a uAPI: userspace owns the device and its ST table, so it is the
+> entity that can configure a meaningful value for a given dma-buf. The
+> kernel-visible participants are still in-tree: vfio-pci exports the
+> dma-buf and mlx5 imports it.
+> 
+> On the effect: the endpoint's PCIe ingress block uses the ST as
+> an in-band instruction for the incoming P2P TLP -- selecting a target
+> cache partition and, on writes, an in-flight operation on the data
+> before it lands. The dma-buf callback keeps this opaque to the
+> framework -- only the producer (userspace owner of the VFIO device)
+> and the consumer (endpoint block) need to interpret the value. The
+> dma-buf get_pci_tph callback itself is optional, but workloads that
+> depend on the endpoint's in-flight operation need it because fallback
+> does not produce the same result.
+> 
+> The dma-buf hook is intentionally generic and discoverable rather than
+> a private side channel. The exporter owns the completing address
+> space for the dma-buf and decides whether it can provide a meaningful
+> ST/PH tuple for that completer; the dma-buf core keeps the tuple opaque,
+> and importers merely request the namespace they support and place the
+> returned value on generated TLPs. Exporters that cannot derive a
+> meaningful tuple simply return -EOPNOTSUPP.
+> 
+> Patch 1 adds small PCI/TPH type helpers so drivers can query the enabled
+> TPH requester mode and the device's TPH Completer Supported field
+> without reaching into pci_dev internals (and so callers in
+> CONFIG_PCIE_TPH=n builds get a clean fallback). pcie_tph_completer_type()
+> reuses the reserved-encoding fold introduced by the separately-submitted
+> folding patch rather than duplicating the completer decode.
+> Patch 2 adds the optional dma_buf_ops::get_pci_tph callback plus the
+> dma_buf_get_pci_tph() importer wrapper so importers can fetch TPH
+> metadata from an exporter under dmabuf->resv.
+> Patch 3 implements get_pci_tph in vfio-pci and adds the new uAPI
+> (VFIO_DEVICE_FEATURE_DMA_BUF_TPH) for userspace to attach the metadata.
+> Patch 4 wires up the mlx5 RDMA driver as a consumer. It also enforces the
+> dma_buf_get_pci_tph() steering-tag lifetime: the tag is only valid for the
+> mapping it was queried against, and the mkey's TPH fields cannot be
+> reprogrammed in place. mlx5 therefore records the registration-time tuple
+> and re-queries after each dma-buf mapping is established under dmabuf->resv;
+> unchanged tuples continue with the existing mkey, while changed or missing
+> tuples fail the remap rather than continue with a stale hint. For vfio-pci
+> BAR dma-bufs this is expected to be a no-op because invalidation is
+> revoke/quiesce, not movement to a new backing placement, and the
+> userspace-provided tuple is not changed by the revoke/un-revoke path.
+> 
+> Build-tested with both CONFIG_PCIE_TPH=y and CONFIG_PCIE_TPH=n.
+> Functional validation on the target topology: PCIe analyzer captures
+> on the P2P TLPs confirm the ST emitted by mlx5 matches the value
+> configured through VFIO_DEVICE_FEATURE_DMA_BUF_TPH, and the end-to-end
+> P2P workload only produces results consistent with the endpoint's
+> ST-selected in-flight operation. For example, with userspace
+> configuring 8-bit ST=0xf0 and PH=2, an analyzer capture of a peer-to-
+> peer MWr64 shows "STP MWr64 TC=0 OHC=2 ..." followed by "OHC-B
+> ST=F0h PH=2 HV=1":
+> (TLP Captures)
+> 08000260 -> STP MWr64 TC=0 OHC=2 TS=0 Attr=0 L=8
+> F0000004 -> RID=4h:0h.0h EP- Tag=F0h
+> E0200000 -> AddrH=000020E0h
+> 00080006 -> AddrL=06000800h
+> 90F00000 -> OHC-B ST=F0h PH=2 HV=1 AMA=0 AV-
+> 
+> The dma-buf get_pci_tph interface has also been exercised by a second,
+> independent importer: a different vendor's NIC whose driver is not yet
+> upstream, locally taught to call dma_buf_get_pci_tph(). A PCIe analyzer
+> confirmed the ST it placed on outbound P2P TLPs matches the value
+> configured through VFIO_DEVICE_FEATURE_DMA_BUF_TPH, the same result as
+> with mlx5. Two unrelated importer drivers exercising the callback
+> end-to-end shows the interface is not tied to a single consumer. That
+> importer change is out-of-tree and not part of this series. For that
+> second importer, with userspace configuring 8-bit ST=0xe0 and PH=0,
+> an analyzer capture shows:
+> (TLP Captures)
+> 08200260 -> STP MWr64 TC=0 OHC=2 TS=1 Attr=0 L=8
+> 4E00004C -> RID=4Ch:0h.0h EP- Tag=4Eh
+> 00170000 -> AddrH=00001700h
+> 00200006 -> AddrL=06002000h
+> 10E00000 -> OHC-B ST=E0h PH=0 HV=1 AMA=0 AV-
+> 
+> Depends on (submitted separately):
+>   net/mlx5: free mlx5_st_idx_data on final dealloc
+>     https://lore.kernel.org/linux-rdma/20260612170406.3339093-1-zhipingz@meta.com
+>   PCI/TPH: fold reserved completer encoding in get_rp_completer_type()
+>     https://lore.kernel.org/linux-pci/20260715202409.3767494-1-zhipingz@meta.com
+> 
+> Changes since v11:
+>   Patch 1 (PCI/TPH): add pcie_tph_completer_type() and
+>   pcie_tph_enabled_req_type(); pcie_tph_completer_type() reuses the
+>   reserved-encoding fold from the separately-submitted folding patch
+>   rather than duplicating the completer decode.
+> 
+>   Patch 2 (dma-buf): fix the kernel-doc to reference
+>   &dma_buf_attach_ops.invalidate_mappings instead of the non-existent
+>   move_notify callback (reported by Sashiko and Alex Williamson).
+> 
+>   Patch 3 (vfio/pci): hold memory_lock while validating dma-buf ownership
+>   and publishing TPH metadata, so cleanup cannot disassociate the dma-buf
+>   from the VFIO device under the SET path. Also use WRITE_ONCE() for
+>   revoked-state writers to pair with the lockless attach-path READ_ONCE().
+> 
+>   Patch 4 (mlx5): enforce the steering-tag lifetime documented in patch 2
+>   (addresses the lifecycle gap Sashiko and Alex noted on v11). mlx5 now
+>   stores the registration-time TPH tuple and re-queries the exporter after
+>   each dma-buf mapping is established under dmabuf->resv. If the tuple is
+>   unchanged, the existing mkey continues to be used. If it changed or
+>   disappeared, mlx5 unmaps the pages and returns -EFAULT because the
+>   existing mkey cannot be updated in place (no UMR update mask for TPH
+>   fields, and rebuilding the mkey would change the rkey/lkey). The exporter
+>   query runs under dmabuf->resv, but the ST-index allocation is done
+>   outside it so no GFP_KERNEL allocation is held under dmabuf->resv. For
+>   vfio-pci BAR dma-bufs this validation is expected to be a no-op because
+>   the tuple is stable across revoke/un-revoke.
+> 
+> Previous link:
+> v11: https://lore.kernel.org/linux-pci/20260702181025.2694961-1-zhipingz@meta.com/
+> v10: https://lore.kernel.org/linux-pci/20260630224328.3218796-1-zhipingz@meta.com/
+> v9: https://lore.kernel.org/dri-devel/20260622184211.2229399-1-zhipingz@meta.com/
+> v8: https://lore.kernel.org/dri-devel/20260615065912.2177918-1-zhipingz@meta.com/
+> v7: https://lore.kernel.org/dri-devel/20260611161546.4075580-1-zhipingz@meta.com/
+> v6: https://lore.kernel.org/dri-devel/20260608185646.4085127-1-zhipingz@meta.com/
+> v5: https://lore.kernel.org/dri-devel/20260526144401.1485788-1-zhipingz@meta.com/
+> v4: https://lore.kernel.org/linux-pci/20260519201401.1558410-1-zhipingz@meta.com/
+> v3: https://lore.kernel.org/linux-pci/20260512184755.4137227-1-zhipingz@meta.com/
+> v2: https://lore.kernel.org/linux-pci/20260430200704.352228-1-zhipingz@meta.com/
+> 
+> Zhiping Zhang (4):
+>   PCI/TPH: Add requester/completer type helpers
+>   dma-buf: add optional get_pci_tph() callback
+>   vfio/pci: implement get_pci_tph and DMA_BUF_TPH feature
+>   RDMA/mlx5: get tph for p2p access when registering dma-buf mr
+> 
+>  drivers/dma-buf/dma-buf.c                     |  32 ++++
+>  drivers/infiniband/hw/mlx5/main.c             |   1 +
+>  drivers/infiniband/hw/mlx5/mlx5_ib.h          |  11 ++
+>  drivers/infiniband/hw/mlx5/mr.c               | 151 +++++++++++++++++--
+>  drivers/infiniband/hw/mlx5/odp.c              |   7 +
+>  .../net/ethernet/mellanox/mlx5/core/lib/st.c  |  49 +++++-
+>  drivers/pci/tph.c                             |  39 ++++++
+>  drivers/vfio/pci/vfio_pci_core.c              |   3 +
+>  drivers/vfio/pci/vfio_pci_dmabuf.c            | 117 ++++++++++++-
+>  drivers/vfio/pci/vfio_pci_priv.h              |  13 ++
+>  include/linux/dma-buf.h                       |  25 +++
+>  include/linux/mlx5/driver.h                   |  15 ++
+>  include/linux/pci-tph.h                       |   8 +
+>  include/uapi/linux/vfio.h                     |  43 +++++
+>  14 files changed, 496 insertions(+), 18 deletions(-)
+> 
+> --
+> 2.53.0-Meta
+> 
 
-Sure. Please check this link from the patch description:
-
-https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvidia.com/
-
-The test is very well motivated by that discussion. I'm not saying
-it compares apples to apples. I'm trying to quantify the answer to a
-very specific question: what is better for NOVA ID allocator. Or more
-broadly: what's the best data structure for range ID allocators of a
-given capacity.
- 
-> 1) IDA is 16 bytes when empty, maple is 16 bytes when empty, bitmap
-> is $size bytes
-> 2) bitmap is statically sized, IDA and maple have to deal with actual
-> allocation and freeing of memory
-> 3) xarray and maple (especially maple) are optimized for RCU usage and
-> have different tradeoffs
-> 4) IDA does not support ranges
-> 5) xarray (the underlying data structure for IDA) does not support ranges
-> in any optimal way
-> 6) maple is not optimized for 1-sized ranges, nor ID allocation; it
-> actually stores data, so instead of 1 bit per index you get 8 whole
-> bytes.
-> 7) maple and IDA both handle locking implicitly
-
-Yes, this to some extent follows John's arguments why bitmaps are
-preferred for NOVA Id allocator. I'd also add serializeability, if
-it's needed.
- 
-> There are also other pressing questions about the benchmark itself:
-> it's pretty much the ideal scenario for bitmap.
-
-It's pretty much the worst scenario for bitmaps, because the test
-starts searching for a region from the beginning of the bitmap on
-every iteration, making it "Shlemiel the Painter" algorithm with
-O(N^2) complexity.
-
-If I wanted to cheat, I'd carry the last allocated ID over the loop.
-It would make the complexity O(N). I could choose to start searching
-from a random ID, saying it's 'more realistic'. It makes the complexity
-converging to O(N*logN). This is how cpumask_*_distribute() works, btw.
-
-So no, this is far from being the ideal scenario.
-
-> doing the find in
-> bitmap is essentially testing how far the CPU can speculate, and how
-> large the cache is. It's pretty darn large on modern hardware.
-
-Yes, it's a very effective data structure. That's why it's the 2nd
-most popular in the kernel, after spinlocks.
-
-> Since you
-> never actually free the ranges in any way, every bitmap branch should predict
-> extremely well. Fragmentation in the bitmap can very quickly turn into a
-> nightmare, while maple will eat it up just fine.
-
-Assuming "fragmentation" is the uniform distribution of free areas, it
-wouldn't "turn to nightmare", it would asymptotically turn to O(N*logN).
-
-> These are very different data structures and picking between them requires
-> understanding all the tradeoffs. I don't think this benchmark helps with
-> that.
-
-OK, I see. You seemingly think that I want to throw all and every data
-structure away from the kernel in favor of the bitmaps.
-
-No, I don't.
-
-Thanks,
-Yury
