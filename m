@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFD5CC4450A
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:26:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF59DC44501
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:26:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E78010E300;
-	Thu, 16 Jul 2026 08:26:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4465B10F220;
+	Thu, 16 Jul 2026 08:26:11 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E45C10F220
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 08:26:01 +0000 (UTC)
-X-UUID: f73253ec80ef11f1aa26b74ffac11d73-20260716
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 455C510E300
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 08:26:00 +0000 (UTC)
+X-UUID: f67a4e1480ef11f1aa26b74ffac11d73-20260716
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:b14128e5-a760-4486-9e89-827271766f0e, IP:15,
+X-CID-O-INFO: VERSION:1.3.12, REQID:4720123a-3270-455f-a2f5-a911758aafe1, IP:15,
  URL:25,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
  ON:release,TS:35
-X-CID-INFO: VERSION:1.3.12, REQID:b14128e5-a760-4486-9e89-827271766f0e, IP:15,
+X-CID-INFO: VERSION:1.3.12, REQID:4720123a-3270-455f-a2f5-a911758aafe1, IP:15,
  UR
  L:25,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
  :release,TS:35
-X-CID-META: VersionHash:e7bac3a, CLOUDID:a4d5be2708a8940dd70dc61d4d17da1b,
+X-CID-META: VersionHash:e7bac3a, CLOUDID:11420e8b4e8d9b46fd85191da5cc35db,
  BulkI
- D:260716162558JML0MJ9C,BulkQuantity:0,Recheck:0,SF:10|38|57|66|78|80|81|82
+ D:260716162555F716U1XW,BulkQuantity:0,Recheck:0,SF:10|38|57|66|78|80|81|82
  |102|123|127|136|841|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:11|93
  |82|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1
  ,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -31,21 +31,21 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f73253ec80ef11f1aa26b74ffac11d73-20260716
+X-UUID: f67a4e1480ef11f1aa26b74ffac11d73-20260716
 X-User: zhaoguohan@kylinos.cn
 Received: from zgh-vmware-virtual-platform.localdomain [(116.128.244.171)] by
  mailgw.kylinos.cn (envelope-from <zhaoguohan@kylinos.cn>)
  (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 894374176; Thu, 16 Jul 2026 16:25:55 +0800
+ with ESMTP id 943019971; Thu, 16 Jul 2026 16:25:54 +0800
 From: zhaoguohan@kylinos.cn
 To: "Rob Herring (Arm)" <robh@kernel.org>,
  Tomeu Vizoso <tomeu@tomeuvizoso.net>, dri-devel@lists.freedesktop.org
 Cc: Oded Gabbay <ogabbay@kernel.org>, Frank Li <Frank.Li@nxp.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-Subject: [PATCH 3/3] accel/ethosu: fix job completion fence cleanup
-Date: Thu, 16 Jul 2026 16:25:30 +0800
-Message-ID: <20260716082530.1023538-4-zhaoguohan@kylinos.cn>
+Subject: [PATCH 1/3] accel/ethosu: clean up resources on probe failure
+Date: Thu, 16 Jul 2026 16:25:28 +0800
+Message-ID: <20260716082530.1023538-2-zhaoguohan@kylinos.cn>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260716082530.1023538-1-zhaoguohan@kylinos.cn>
 References: <20260716082530.1023538-1-zhaoguohan@kylinos.cn>
@@ -68,17 +68,13 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: GuoHan Zhao <zhaoguohan@kylinos.cn>
 
-ethosu_ioctl_submit_job() allocates done_fence before validating buffer
-handles. Errors after allocation call ethosu_job_err_cleanup(), which frees
-the job but leaks the uninitialized fence.
+ethosu_job_init() creates a scheduler before ethosu_init() and
+drm_dev_register(). Errors from either later step return directly, leaving
+the scheduler workqueue allocated. A drm_dev_register() failure also leaves
+the optional SRAM allocation behind.
 
-A scheduler dependency error also lets ethosu_job_run() return before
-dma_fence_init(). Normal cleanup then passes a zeroed refcount to
-dma_fence_put().
-
-Release done_fence in the common cleanup path and use
-dma_fence_was_initialized() to distinguish initialized fences from raw
-allocations.
+Unwind runtime PM, SRAM, and scheduler state in reverse order on probe
+failure. Disable the clocks when runtime PM setup fails as well.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
@@ -86,84 +82,97 @@ Reported-by: Sashiko <sashiko-bot@kernel.org>
 Link: https://sashiko.dev/#/patchset/20260716065219.931088-1-zhaoguohan@kylinos.cn?part=1
 Signed-off-by: GuoHan Zhao <zhaoguohan@kylinos.cn>
 ---
-Sashiko reports:
+Sashiko report:
 
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_err_cleanup() {
->         unsigned int i;
->
->         for (i = 0; i < job->region_cnt; i++)
->                 drm_gem_object_put(job->region_bo[i]);
->
->         drm_gem_object_put(job->cmd_bo);
->
->         kfree(job);
-> }
->
 > This is a pre-existing issue, but was not introduced by this patch.
 >
-> ethosu_ioctl_submit_job() allocates done_fence. If a subsequent
-> validation fails, the error path calls ethosu_job_err_cleanup().
+> If ethosu_init() or drm_dev_register() fail, the function returns
+> directly without calling ethosu_job_fini() or freeing the sram pool.
 >
-> This function frees the job structure but misses freeing job->done_fence.
+> Because the job scheduler is embedded in the devm-allocated
+> ethosu_device, it will be freed when devm cleans up. However, the drm
+> scheduler kthreads and timers remain active and will access the freed
+> memory.
 >
-> Can an unprivileged user repeatedly call the submit ioctl with invalid
-> handles to trigger a done_fence leak?
+> Can this cause a use-after-free regression leading to a kernel panic?
 
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_run() {
->     ...
->         if (unlikely(job->base.s_fence->finished.error))
->                 return NULL;
->
->         dma_fence_init(fence, &ethosu_fence_ops, &dev->fence_lock,
->                        dev->fence_context, ++dev->emit_seqno);
->     ...
-> }
->
-> This is a pre-existing issue, but was not introduced by this patch.
->
-> If job->base.s_fence->finished.error is true, the function returns early
-> without calling dma_fence_init() on job->done_fence.
->
-> When the job is later destroyed, ethosu_job_cleanup() unconditionally
-> calls dma_fence_put() on the fence:
->
-> drivers/accel/ethosu/ethosu_job.c:ethosu_job_cleanup() {
->     ...
->         dma_fence_put(job->done_fence);
->     ...
-> }
->
-> Since the fence is zero-initialized, will calling kref_put() on it
-> violate the API and cause a refcount underflow?
+ drivers/accel/ethosu/ethosu_drv.c | 31 +++++++++++++++++++++++++------
+ 1 file changed, 25 insertions(+), 6 deletions(-)
 
- drivers/accel/ethosu/ethosu_job.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-index b76924645aaa..be745e36f1fa 100644
---- a/drivers/accel/ethosu/ethosu_job.c
-+++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -152,6 +152,13 @@ static void ethosu_job_err_cleanup(struct ethosu_job *job)
- 
- 	drm_gem_object_put(job->cmd_bo);
- 
-+	if (job->done_fence) {
-+		if (dma_fence_was_initialized(job->done_fence))
-+			dma_fence_put(job->done_fence);
-+		else
-+			dma_fence_free(job->done_fence);
-+	}
-+
- 	kfree(job);
+diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
+index ed9c748a54ad..d1153b15ca3e 100644
+--- a/drivers/accel/ethosu/ethosu_drv.c
++++ b/drivers/accel/ethosu/ethosu_drv.c
+@@ -293,6 +293,14 @@ static int ethosu_sram_init(struct ethosu_device *ethosudev)
+ 	return 0;
  }
  
-@@ -162,7 +169,6 @@ static void ethosu_job_cleanup(struct kref *ref)
++static void ethosu_sram_fini(struct ethosu_device *ethosudev)
++{
++	if (ethosudev->sram)
++		gen_pool_free(ethosudev->srampool,
++			      (unsigned long)ethosudev->sram,
++			      ethosudev->npu_info.sram_size);
++}
++
+ static int ethosu_init(struct ethosu_device *ethosudev)
+ {
+ 	int ret;
+@@ -306,7 +314,7 @@ static int ethosu_init(struct ethosu_device *ethosudev)
+ 	pm_runtime_use_autosuspend(ethosudev->base.dev);
+ 	ret = devm_pm_runtime_set_active_enabled(ethosudev->base.dev);
+ 	if (ret)
+-		return ret;
++		goto err_suspend;
+ 	pm_runtime_get_noresume(ethosudev->base.dev);
  
- 	pm_runtime_put_autosuspend(job->dev->base.dev);
+ 	ethosudev->npu_info.id = id = readl_relaxed(ethosudev->regs + NPU_REG_ID);
+@@ -326,6 +334,11 @@ static int ethosu_init(struct ethosu_device *ethosudev)
+ 		 ethosudev->npu_info.sram_size / 1024);
  
--	dma_fence_put(job->done_fence);
- 	dma_fence_put(job->inference_done_fence);
+ 	return 0;
++
++err_suspend:
++	pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
++	ethosu_device_suspend(ethosudev->base.dev);
++	return ret;
+ }
  
- 	ethosu_job_err_cleanup(job);
+ static int ethosu_probe(struct platform_device *pdev)
+@@ -353,13 +366,21 @@ static int ethosu_probe(struct platform_device *pdev)
+ 
+ 	ret = ethosu_init(ethosudev);
+ 	if (ret)
+-		return ret;
++		goto err_job_fini;
+ 
+ 	ret = drm_dev_register(&ethosudev->base, 0);
+ 	if (ret)
+-		pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
++		goto err_runtime_suspend;
+ 
+ 	pm_runtime_put_autosuspend(ethosudev->base.dev);
++	return 0;
++
++err_runtime_suspend:
++	pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
++	pm_runtime_put_sync_suspend(ethosudev->base.dev);
++	ethosu_sram_fini(ethosudev);
++err_job_fini:
++	ethosu_job_fini(ethosudev);
+ 	return ret;
+ }
+ 
+@@ -369,9 +390,7 @@ static void ethosu_remove(struct platform_device *pdev)
+ 
+ 	drm_dev_unregister(&ethosudev->base);
+ 	ethosu_job_fini(ethosudev);
+-	if (ethosudev->sram)
+-		gen_pool_free(ethosudev->srampool, (unsigned long)ethosudev->sram,
+-			      ethosudev->npu_info.sram_size);
++	ethosu_sram_fini(ethosudev);
+ }
+ 
+ static const struct of_device_id dt_match[] = {
 -- 
 2.43.0
