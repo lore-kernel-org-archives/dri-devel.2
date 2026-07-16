@@ -4,56 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 341EBC44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:15:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDAD9C44521
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:15:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71C9410E6CD;
-	Mon, 20 Jul 2026 07:15:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC5D10E6D0;
+	Mon, 20 Jul 2026 07:15:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=xs4all.nl header.i=@xs4all.nl header.b="Bwqbjtjq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YHRhRgI1";
 	dkim-atps=neutral
-X-Greylist: delayed 664 seconds by postgrey-1.36 at gabe;
- Thu, 16 Jul 2026 15:06:29 UTC
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AEF510E351
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 15:06:28 +0000 (UTC)
-X-KPN-MessageId: 5f222859-8126-11f1-83b1-005056ab378f
-Received: from smtp.kpnmail.nl (unknown [10.31.155.40])
- by ewsoutbound.so.kpn.org (Halon) with ESMTPS
- id 5f222859-8126-11f1-83b1-005056ab378f;
- Thu, 16 Jul 2026 16:55:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xs4all.nl; s=xs4all01;
- h=to:date:message-id:subject:mime-version:content-type:from;
- bh=b48V2mjHWtO3DRxcg0I7El8TeH9sLhSUkfEF2Fih+nA=;
- b=BwqbjtjqEyBz0gxGSu6vGGH+++GN8cgttZEmiHIPMBaMbWrcDDhzQTRL6cKpfUx3aROj/iz+ZXSvk
- dckN2oOdxgTSsicdXvOuP7V1QLU9QO6ryNii8CqBmyBEDMVUf+1ksdAM9O1peLbp5fbQvyJmXtnrZf
- y11fNMu8iXwgrpkSGzsd8ZHOpZ/8UAn9nvWApSrMAWi5/haD7CLuaQHY5tagjyV0GzTPPYlkSUG/XY
- 4TxmbZcIj9hriwhpNZ1IBoHC6Idla/jdguZPhfn03tUb/8WWuZkpicJSMXux7hoE3rbFsdHcHKKe/L
- bUf9LpyGqbWJlT/q+WuQbPfVC5k21yw==
-X-KPN-MID: 33|vTbzhwvOSD9S7gcWt1KykwtGfEO35dmAd1JvMErXoRE7cph1uocz8/1RW0YvnUM
- ffOfpZWk/72n5EUSvZvefarOw6jAepHmdDZ3DGOXVSXM=
-X-KPN-VerifiedSender: Yes
-X-CMASSUN: 33|XMBJ2ekhgyqFVkwC43UGX6ffaHluPDwmwQ41akygCRQ+hDBgO2LQqn/GLUGy7SU
- gHFK6pWNZHEgOlfXikkPzCg==
-X-Originating-IP: 80.60.70.196
-Received: from smtpclient.apple (80-60-70-196.fixed.kpn.net [80.60.70.196])
- by smtp.xs4all.nl (Halon) with ESMTPSA
- id 5ec8a675-8126-11f1-86b1-005056ab7584;
- Thu, 16 Jul 2026 16:55:22 +0200 (CEST)
-From: Arjan Filius <iafilius@xs4all.nl>
-Content-Type: text/plain;
-	charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: [PATCH] drm/nouveau/disp: Prevent division-by-zero during DisplayPort
- link training transitions
-Message-Id: <69D67A9F-1A56-4814-AE68-50559DED42AF@xs4all.nl>
-Date: Thu, 16 Jul 2026 16:55:10 +0200
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5681B10E30B;
+ Thu, 16 Jul 2026 09:36:42 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id AD505600B0;
+ Thu, 16 Jul 2026 09:36:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D029A1F000E9;
+ Thu, 16 Jul 2026 09:36:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784194601;
+ bh=Mw498kcdRvtwf0TpnGBwleBL9K3C9jrPcH99BicHGcY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=YHRhRgI1niM3PlrZwisO9rOxfS9iIj2SYZEGwL3nW9xTChS885ATXnOpZrMbCmfcO
+ TEfa1QQhY3PrSN+0+QhLp18PfrTV/Vbj6oj1ihy3kDX5+yLPpiLN7IqJIXodmXMTxA
+ oeuc8fvAK3hIiP354563i84BomUHhL9TK1MpwY9jIW5Q9akTwY3BjKHgxm/xB0scRP
+ CjozPQeYUlzQgbZcJcn3/ZlAoQ4/7QzR/d6WwcwX3rQBBAiyttlcUrcNx6eCqL3EsE
+ VoVo3toLwNuiCOlGj3wlj1VmkF8ZUmOJMRu5lq+kk0xKz6iw5plXK5qO3T06uw8h73
+ wwA2M2VwCazzg==
+Date: Thu, 16 Jul 2026 10:36:05 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
+ Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>, 
+ Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ SJ Park <sj@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
+ Peter Xu <peterx@redhat.com>, 
+ Kees Cook <kees@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>, 
+ Shameer Kolothum <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev,
+ iommu@lists.linux.dev, 
+ kasan-dev@googlegroups.com, linux-sgx@vger.kernel.org,
+ etnaviv@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, 
+ linux-tegra@vger.kernel.org, kvm@vger.kernel.org, 
+ Russell King <linux+etnaviv@armlinux.org.uk>
+Subject: Re: [PATCH v2 25/33] mm/vma: make vma_set_range() static, drop
+ insert_vm_struct() decl
+Message-ID: <alilxy8lRdNIbtS-@lucifer>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-25-2a5aa403d977@kernel.org>
+ <b470eb19-d59c-4dd6-bf57-648b51281691@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b470eb19-d59c-4dd6-bf57-648b51281691@kernel.org>
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,172 +136,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dear Nouveau Maintainers,
-=20
-Please find below a proposed patch to prevent a division-by-zero kernel =
-oops and subsequent lockup in the Nouveau display supervisor engine when =
-DisplayPort links transition to 0 active lanes. This bug was observed =
-and patched/tested against the mainline kernel version **7.1.3**, but is =
-present in all current upstream code.
-=20
----
-=20
-### BRIEF EXPLANATION
-=20
-During screen sleep transitions or multi-input display switches (KVM =
-switching), the active lane count of a DisplayPort link can temporarily =
-drop to 0 (`ior->dp.nr =3D=3D 0`).=20
-=20
-When this occurs, the DisplayPort supervisor function =
-`nv50_disp_super_2_2_dp` is invoked via modeset interrupts. Without an =
-early-exit guard, the function attempts to perform symbols/hblank and =
-link rate calculations that divide by `ior->dp.nr`, resulting in a =
-kernel division-by-zero math exception, lockup, and system freeze.
-=20
-This patch adds an early-exit check at the beginning of =
-`nv50_disp_super_2_2_dp` to abort display configuration when the link =
-training lanes count is zero.
+On Wed, Jul 15, 2026 at 07:45:59PM +0200, Vlastimil Babka (SUSE) wrote:
+> On 7/10/26 22:17, Lorenzo Stoakes wrote:
+> > With __install_special_mapping() moved to vma.c, vma_set_range() can be
+> > made into a static function there and is now completely isolated from the
+> > rest of mm.
+>
+> Pedantic nit: it was already "static", but in a .h file
+> Yeah it was also "inline" but that's not the important part of this change.
+>
+> So I'd say it was rather moved to vma.c, but you can ignore this nit if you
+> want.
 
-*   **Tested Kernel Version:** `7.1.3` (mainline stable branch)
+That is pretty pedantic ;) I mean to say bare 'static' here obvs. I can fix if
+any respin but I think ok as-is for now.
 
----
+>
+> > While we're here, we can also remove the insert_vm_struct() declaration
+> > from mm.h - the function is implemented in vma.c and already declared in
+> > vma.h, and has no users outside of mm.
+> >
+> > Also update the VMA userland tests to reflect this change.
+> >
+> > No functional change intended.
+> >
+> > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> > Reviewed-by: Gregory Price <gourry@gourry.net>
+> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+>
+> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-### EXTREMELY DETAILED TECHNICAL BREAKDOWN
+Thanks! :)
 
-#### 1. Hardware Context
-This bug has been consistently reproduced on a Lenovo ThinkPad T430 =
-(Intel HD 4000 + discrete NVIDIA NVS 5400M / GF108 chipset) connected to =
-a Lenovo ThinkPad Mini Dock Plus Series 3 (Model 4338) with dual =
-external monitors on dock DisplayPorts (`DP-2` and `DP-3`).=20
+>
+> > ---
+> >  include/linux/mm.h         | 1 -
+> >  mm/internal.h              | 9 ---------
+> >  mm/vma.c                   | 8 ++++++++
+> >  tools/testing/vma/shared.c | 9 ---------
+> >  tools/testing/vma/shared.h | 5 -----
+> >  5 files changed, 8 insertions(+), 24 deletions(-)
+> >
+> > diff --git a/include/linux/mm.h b/include/linux/mm.h
+> > index 3d69b597b9b1..762313b47301 100644
+> > --- a/include/linux/mm.h
+> > +++ b/include/linux/mm.h
+> > @@ -4130,7 +4130,6 @@ void anon_rmap_tree_verify(struct anon_vma_chain *avc);
+> >
+> >  /* mmap.c */
+> >  extern int __vm_enough_memory(const struct mm_struct *mm, long pages, int cap_sys_admin);
+> > -extern int insert_vm_struct(struct mm_struct *, struct vm_area_struct *);
+> >  extern void exit_mmap(struct mm_struct *);
+> >  bool mmap_read_lock_maybe_expand(struct mm_struct *mm, struct vm_area_struct *vma,
+> >  				 unsigned long addr, bool write);
+> > diff --git a/mm/internal.h b/mm/internal.h
+> > index 01a762bcc2b2..2c650d280e90 100644
+> > --- a/mm/internal.h
+> > +++ b/mm/internal.h
+> > @@ -1540,15 +1540,6 @@ extern bool mirrored_kernelcore;
+> >  bool memblock_has_mirror(void);
+> >  void memblock_free_all(void);
+> >
+> > -static __always_inline void vma_set_range(struct vm_area_struct *vma,
+> > -					  unsigned long start, unsigned long end,
+> > -					  pgoff_t pgoff)
+> > -{
+> > -	vma->vm_start = start;
+> > -	vma->vm_end = end;
+> > -	vma->vm_pgoff = pgoff;
+> > -}
+> > -
+> >  static inline bool vma_soft_dirty_enabled(struct vm_area_struct *vma)
+> >  {
+> >  	/*
+> > diff --git a/mm/vma.c b/mm/vma.c
+> > index 5308aa5a8c91..cc0e449ad0be 100644
+> > --- a/mm/vma.c
+> > +++ b/mm/vma.c
+> > @@ -70,6 +70,14 @@ struct mmap_state {
+> >  		.state = VMA_MERGE_START,				\
+> >  	}
+> >
+> > +static void vma_set_range(struct vm_area_struct *vma, unsigned long start,
+> > +			  unsigned long end, pgoff_t pgoff)
+> > +{
+> > +	vma->vm_start = start;
+> > +	vma->vm_end = end;
+> > +	vma->vm_pgoff = pgoff;
+> > +}
+> > +
+> >  /* Was this VMA ever forked from a parent, i.e. maybe contains CoW mappings? */
+> >  static bool vma_is_fork_child(struct vm_area_struct *vma)
+> >  {
+> > diff --git a/tools/testing/vma/shared.c b/tools/testing/vma/shared.c
+> > index 2565a5aecb80..bea9ea6db02a 100644
+> > --- a/tools/testing/vma/shared.c
+> > +++ b/tools/testing/vma/shared.c
+> > @@ -120,12 +120,3 @@ unsigned long rlimit(unsigned int limit)
+> >  {
+> >  	return (unsigned long)-1;
+> >  }
+> > -
+> > -void vma_set_range(struct vm_area_struct *vma,
+> > -		   unsigned long start, unsigned long end,
+> > -		   pgoff_t pgoff)
+> > -{
+> > -	vma->vm_start = start;
+> > -	vma->vm_end = end;
+> > -	vma->vm_pgoff = pgoff;
+> > -}
+> > diff --git a/tools/testing/vma/shared.h b/tools/testing/vma/shared.h
+> > index 8b9e3b11c3cb..ca4f1238f1c7 100644
+> > --- a/tools/testing/vma/shared.h
+> > +++ b/tools/testing/vma/shared.h
+> > @@ -125,8 +125,3 @@ void __vma_set_dummy_anon_vma(struct vm_area_struct *vma,
+> >  /* Provide a simple dummy VMA/anon_vma dummy setup for testing. */
+> >  void vma_set_dummy_anon_vma(struct vm_area_struct *vma,
+> >  			    struct anon_vma_chain *avc);
+> > -
+> > -/* Helper function to specify a VMA's range. */
+> > -void vma_set_range(struct vm_area_struct *vma,
+> > -		   unsigned long start, unsigned long end,
+> > -		   pgoff_t pgoff);
+> >
+>
 
-#### 2. Root Cause Analysis (Code Level)
-Inside `drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c`, when =
-`ior->dp.nr =3D=3D 0`, the driver executes the following lines in =
-`nv50_disp_super_2_2_dp()`:
-
-*   **Line 1179:** Calculations for horizontal blank symbols:
-    ```c
-    h =3D h - (3 * ior->dp.ef) - (12 / ior->dp.nr);
-    ```
-*   **Line 1185:** Calculations for vertical blank symbols:
-    ```c
-    v =3D v - ((36 / ior->dp.nr) + 3) - 1;
-    ```
-*   **Line 1190:** Calculations for active link data rate:
-    ```c
-    link_data_rate =3D (khz * head->asy.or.depth / 8) / ior->dp.nr;
-    ```
-
-In all three instances, the denominator `ior->dp.nr` is `0`, causing an =
-immediate kernel math exception in the display workqueue =
-(`nouveau_display_hpd_work` or `nv50_disp_super`), locking up the =
-graphics pipeline, freezing the screen, and hanging any reboot attempts =
-(requiring a physical hard reset).
-
-#### 3. Daily Workday Trigger Scenario
-1.  The T430 (via dock) and a secondary workstation are both connected =
-to different inputs on the same external monitors.
-2.  The monitors' input sources are switched to the secondary =
-workstation.
-3.  At the end of the day, the secondary workstation goes to sleep or is =
-shut down.
-4.  With no active inputs, the external monitors enter power-saving =
-standby mode.
-5.  When the user subsequently wakes up or interacts with the T430, the =
-driver attempts a modeset refresh. Since the monitors are asleep and =
-inputs are switched away, the lanes count is read as `0`, triggering the =
-division-by-zero oops.
-
-#### 4. Stack Trace (Oops Log)
-```text
-[di jul 23 10:28:25 2024] nouveau 0000:01:00.0: DRM: DDC responded, but =
-no EDID for DP-2
-[di jul 23 10:28:25 2024] nouveau 0000:01:00.0: DRM: DDC responded, but =
-no EDID for DP-3
-[di jul 23 10:28:26 2024] Workqueue: nvkm-disp nv50_disp_super [nouveau]
-[di jul 23 10:28:26 2024] RIP: 0010:nv50_disp_super_2_2_dp+0xa7/0x320 =
-[nouveau]
-[di jul 23 10:28:26 2024]  ? nv50_disp_super_2_2_dp+0xa7/0x320 [nouveau]
-[di jul 23 10:28:26 2024]  nv50_disp_super_2_2+0xf2/0x160 [nouveau]
-[di jul 23 10:28:26 2024]  nv50_disp_super+0x139/0x280 [nouveau]
-```
-
-#### 5. Verification Proof (Bypass Log)
-With the patch applied and running on kernel `7.1.3-custom #2`, the =
-screen standby transition was bypassed cleanly. The driver caught the =
-lane count of 0, bypassed display configuration, and proceeded to put =
-the graphics chip into its low-power runtime suspend state (`suspended`) =
-without locking up the OS:
-```text
-[45162.232371] nouveau 0000:01:00.0: disp: DP link is inactive (lanes =3D =
-0), skipping display configuration.
-[45162.232402] nouveau 0000:01:00.0: disp: DP link is inactive (lanes =3D =
-0), skipping display configuration.
-[45178.605627] nouveau 0000:01:00.0: timeout
-[45178.605629] WARNING: nv50_disp_dmac_fini+0x168/0x1c0 [nouveau]
-[45180.608524] nouveau 0000:01:00.0: disp: ch 1 fini timeout, 8e061008
-[45182.608521] nouveau 0000:01:00.0: timeout
-[45182.608523] WARNING: nv50_disp_core_fini+0x143/0x190 [nouveau]
-```
-
----
-
-Signed-off-by: Arjan Filius <iafilius@xs4all.nl>
----
-
-### CHOOSE ONE OF THE PATCH OPTIONS BELOW TO APPEND:
-
-#### OPTION A: The Silent Production Patch (RECOMMENDED FOR UPSTREAM)
-*Note: Kernel maintainers generally reject warnings or print spam for =
-expected hardware sleep/disconnect transitions. A silent return is the =
-preferred upstream pattern.*
-
-```diff
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c =
-b/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-index 51c045bdfcbb..ab1bc0898def 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-@@ -1157,6 +1157,10 @@ nv50_disp_super_2_2_dp(struct nvkm_head *head, =
-struct nvkm_ior *ior)
- {
- 	struct nvkm_subdev *subdev =3D &head->disp->engine.subdev;
-=20
-+	/* If the DisplayPort link is inactive (0 lanes), skip =
-configuration */
-+	if (ior->dp.nr =3D=3D 0)
-+		return;
-+
- 	const u32 khz =3D head->asy.hz / 1000;
- 	const u32 linkKBps =3D ior->dp.bw * 27000;
- 	const u32 symbol =3D 100000;
-```
-
-#### OPTION B: The Warning/Verbose Patch (What was tested locally)
-*Note: Prints warning logs to the kernel buffer for validation and =
-troubleshooting.*
-
-```diff
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c =
-b/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-index 51c045bdfcbb..ab1bc0898def 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-@@ -1157,6 +1157,12 @@ nv50_disp_super_2_2_dp(struct nvkm_head *head, =
-struct nvkm_ior *ior)
- {
- 	struct nvkm_subdev *subdev =3D &head->disp->engine.subdev;
-=20
-+	/* If the DisplayPort link is inactive (0 lanes), skip =
-configuration */
-+	if (ior->dp.nr =3D=3D 0) {
-+		nvkm_warn(subdev, "DP link is inactive (lanes =3D 0), =
-skipping display configuration.\n");
-+		return;
-+	}
-+
- 	const u32 khz =3D head->asy.hz / 1000;
- 	const u32 linkKBps =3D ior->dp.bw * 27000;
- 	const u32 symbol =3D 100000;
-```
-
+Cheers, Lorenzo
