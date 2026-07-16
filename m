@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A79EC44514
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFF2AC44512
 	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 20:16:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25D9E10F3DD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E5AB10F3DF;
 	Thu, 16 Jul 2026 20:16:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mxhsdYpU";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eyULhHLl";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Z1jx/h6E";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XWeg3Uxi";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DABC10F3DA
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 20:16:07 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C83D010F3D2
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 20:16:02 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66GJoOQt3753225
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 20:16:06 GMT
+ 66GJoY4d3728722
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 20:16:01 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=R5rQRmby/aI
- qaDxi3lDE9FH/pFFSKzh2fmPcewxXgX4=; b=mxhsdYpUIkz1c0vF+NQrAtW2Q+h
- eXErsuuxIrCsGdLYDqKAfC9GgLmNQcKKmQFwU5gZC5qiDflCtp6elpKFDz3fPFNG
- N2oSRhGUDongA+fwF4RF9GGuX4FlN9jnGU3MnuWj+/lku9+1g5Wg/+rXUn0GDknr
- F7ffst7sZvWyAWAkUONO++fYNvogB+dnm3LfecRSjLItQ1Y5eCOAm21Za35qHVDH
- 3YlpynzIxgXv0KtYxSWwq0n8gvB+ZPmuT3L1seui86mhscc0HpokoejTjPEjie6f
- 9C20+X+jxYiN+EEHeXBiy1uobPSPT27XB1z3G/A+xIy504IGs6JSU9HWMHg==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feuex35pn-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=lVmTyponL2t
+ d2Vgd9VyadgypYllVDsYovlktjbjmFb4=; b=Z1jx/h6ECaP+0UGsopfv3e3DiHm
+ kZaweQRbd1+x3BgyE/UNPXYUEQT0MHEjj7zmL5Q/Jt1gBWwjFZkjGvnlj1DXY8Hf
+ GvTHW9XVhzW2jDiwV1fEC/txUDFbG2li6kGYBkWxgjUEvMOCImV8TQris7CYLxzf
+ p43BHp9QCHSqwdGMkM/szJKvPr1TZn2fo8iHJFbGqSJpQKpmNxH9Yr1slKi7zIS+
+ 4bJ3CLC+rOIcHBcCSPhBhHYHofxyKBDzkxOPpqAL8jfWLlbVr3+fRTAYts5yJxZG
+ Eg08bXAyzUzn3YQrsjdwINJWbxuNPs8cu8J/LRe0dhHUsE3/Ipa02xdH3IA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ff2f2s2xb-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 20:16:06 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-8484b57b98bso13321121b3a.0
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 13:16:06 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 20:16:01 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2cc6dd43737so133732685ad.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 13:16:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784232965; x=1784837765;
+ d=oss.qualcomm.com; s=google; t=1784232961; x=1784837761;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=R5rQRmby/aIqaDxi3lDE9FH/pFFSKzh2fmPcewxXgX4=;
- b=eyULhHLlLo/GqOAhGLnrd0SOGD7ExW8v2p0CR0sWpGxZHZdR6Jm9KieuiG+ZkcfH9b
- jPfZ7xTMZ6vCQovOxKr29s6dpbaySL0dPNh7ZNpFEati8wwaHVLu7oETW/sCD4i2GPCL
- tzU4IbW3U+Ww/aXmrCPiHFgr8GZ6AFvQQh3yIaVRX1Sn9GdFZ5GzVhKRoKOvgCwlyj44
- W6PybAyxQJjd5GWiKOh6KxpFZlzcvbrxHzaQYSyjMl7ZBmC8Iatr0QnC4Gybez4t3URy
- hwDXGAxXZdkGOthWwg7vhtMQBQKZby22lxtcb2aD1CcNU0MG1ZNkeypnS7KDoF1tA05g
- bKng==
+ bh=lVmTyponL2td2Vgd9VyadgypYllVDsYovlktjbjmFb4=;
+ b=XWeg3UxiNG9y20zJdqYPTjHvfyjxOwDo1F9WiaukI0fkYX3QFsUoiydUeZpa0VMMaQ
+ P03C3b35HDD57zCkgD2C1Rhj6nCZH02Ejh1+yiOn1BsP6yZWz7bElRH7RJow2EDUnJ6e
+ W9IkqDxcAQj3GwW6MiyjyBQ0/Qbq4dONMAz3lzlqcaci4Z5N04AMEOJav590My0tgKai
+ 4Xpb5eHxTkzvxTJWvOAm8uPu1QaVg1sMNNUbD81RcDI3PAci1B7oqdvn9nxj7kS5+LgX
+ yT2a3UTW8CT45dMXJAQAlxeIDR2tOXSvq+1JS2MvRqQ9LuPvx3Zp+3Nx64XQFma0M3Zn
+ 6Q7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784232965; x=1784837765;
+ d=1e100.net; s=20251104; t=1784232961; x=1784837761;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=R5rQRmby/aIqaDxi3lDE9FH/pFFSKzh2fmPcewxXgX4=;
- b=S/s1zs7A+kFy7wLvCpLgbhpsvVRgXC7E8ivpAQA+8N5cYxOVVjNgtgYmIB21yURhg3
- 2uBateeex5gt/1XTToOv9j+zW7Siw//7jvf06FN0qIreVsssN1ixXfrtmJXWklezzvby
- WQIHgTEF11IN1dd29FeOeliwNDfuckMmGUGQYR9LbOu98RgFP06rENiBXDGCGGPoTqdm
- n+MnAyx+drsOuWvINL+KtT9amMtZ3CBpUYICmcgm9AnSvuvw6u7fx/Py76ByES1pabKX
- ALvC8U490+NBPIYCDg34ZzhhyCuFJ5ew8tJtekkDiSNgwJWjiAXfgpUceVw9ceLiU/SD
- FaWg==
-X-Gm-Message-State: AOJu0YwBnzFPKSPaWcwHeM+Id3wa3vURcWGAJh/5VWDEZUGOLQKtVNYt
- 3rDffkCVsgCsaLuURou9i85K2MMAigQ7dDo23DT8Etd/xNniKzkbP5Z5z2vCq265bik9aHvgcp4
- kBPhSCTMQODy20NGzMP/PBWW+BXX4mEXWKXdE4kmA7O1axJDG47ZpQhorZ9mUkgBYnVkNExQftf
- JUxfY=
-X-Gm-Gg: AfdE7ckUWYlEKYsQ4BrfhRk5ds16GTzTUoEx2RsbeExFPkVgfSyXunMnCGIwz/dfMv3
- oLx6UYrgXZhlP/puFwhV0joixt4n1RE0Kwq92x3ym+9WoTUH2Vy6ff5FbMUlVViNcse4EJUSfKu
- 4dLR3IAnkocnBM5F7FTZZQO5i9Nk//bll/aElEXSMwcu5KvpvKL8+yh8nPCcDhV01R5bVd/8q9p
- AS7TC9l7j2061Cz5v/jbccRvBZ/4Wde6qf3ITGlwXPGSTFxYN0tr6aRr9hDG/Jm8b/YvOAVNiWb
- iinizRqLGJIxTLW448CsOkOchSJqn37HyiJkxosymxuaKKORuHzbjEVSMXYM6490tjziKzK56Vt
- 8ZLA3g5kT8+/1zI8Xti4aWySP6+czbB8S0SPAu77GeXTJzI0=
-X-Received: by 2002:a05:6a00:4484:b0:847:9367:e054 with SMTP id
- d2e1a72fcca58-84a5162fac2mr11522948b3a.57.1784232965216; 
- Thu, 16 Jul 2026 13:16:05 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4484:b0:847:9367:e054 with SMTP id
- d2e1a72fcca58-84a5162fac2mr11522902b3a.57.1784232964749; 
- Thu, 16 Jul 2026 13:16:04 -0700 (PDT)
+ bh=lVmTyponL2td2Vgd9VyadgypYllVDsYovlktjbjmFb4=;
+ b=nVRUx75Lng2dM+6tPiZWHQlPvVkHUERGhwffdN2RtF5tlMairYZikjCA6dz4E2lsBB
+ ULyAR6ufjI39pwIKxI0m+J5aY6/r0C4TGxtJTiH2H3z0xvwP9xeIEXu8EK8FovkztroR
+ D0FzYH3VS3FTPWalX7c8RozFlI17PX0hetuy21Vhv2uj0ZdCpDHl5VwsKTbqKWHzLqvo
+ LVNl+dr3ntUMe+r08YA+sBI8ryi3GVc5DieEcDvdfOYcqKOmkJONqm37cgEiL0RoRlfs
+ zKcDLclfUHTsAzq3xctfqbLDaNJnfGx3Dpd/I7AKrwdxp5qHAoU9OB9YQ8RIbEDi8RdI
+ gZhw==
+X-Gm-Message-State: AOJu0YxwsjKS/wByjFfHJhgWOmb7c2VmBy4j9/iEE2a/SCfGmvMrjz2P
+ vO38QSLG4f+YfSBhbN/MXYu7zvnizhUp1gfWJPJKKHPS+VE5X/iv1IE6hZgzFoDzSevD19QMueW
+ HFaO/ZYzr+wPku8RT6TkIZN/GhiX3VChIREx8ZUr4vwDp2L9+fvXZNotUVAypF8Y03uPKmd2uCI
+ TDmFg=
+X-Gm-Gg: AfdE7cmabgRlyxpZfLddKwnh54VwaEHi3STH/DFl4CH/8yapH1+supKhNa+JfBKsgs4
+ l9FEWCgzsuFvhfyCpTFKwUpU354AahuuqGpXspIehCugpeeEtltFnARU7UTRFYHJKWlLFBU5V3h
+ zNkYSGaFUvO7J78qdrCqfz2JRdT6/E+21c4IrHG6nJwRJrYs12CoYNk0cDSj02whbAuZ/2+A736
+ +3/fUY2uV+kPx3je76e/hOrX6FCnFGJatbzNlXJPIl14IkCiKkKX8r19hh+0cRO08POYo/BLRrN
+ NSYHwXGyJtQipNov8x194DcFA5x3BG4ziDLc8QBJAvGf3PqdWRAwYNNR7I4AcJU2LizNk4DgT5N
+ SEFPJA9XtJhSiRXTFi6gCXGabYF/6hzhdmHkc3ABQXwNJxKA=
+X-Received: by 2002:a17:90b:4c45:b0:38d:56aa:6f32 with SMTP id
+ 98e67ed59e1d1-38e17f9e673mr12368740a91.38.1784232960547; 
+ Thu, 16 Jul 2026 13:16:00 -0700 (PDT)
+X-Received: by 2002:a17:90b:4c45:b0:38d:56aa:6f32 with SMTP id
+ 98e67ed59e1d1-38e17f9e673mr12368705a91.38.1784232960145; 
+ Thu, 16 Jul 2026 13:16:00 -0700 (PDT)
 Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84a4f2389f8sm5296283b3a.4.2026.07.16.13.16.02
+ 98e67ed59e1d1-38e39e1b8c4sm1804137a91.6.2026.07.16.13.15.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jul 2026 13:16:03 -0700 (PDT)
+ Thu, 16 Jul 2026 13:15:59 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -94,40 +94,41 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v5 10/10] drm/msm: Remove invalid overflow check
-Date: Thu, 16 Jul 2026 13:15:33 -0700
-Message-ID: <20260716201538.365824-11-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v5 08/10] drm/msm: Validate lazy VM in GEM_NEW
+Date: Thu, 16 Jul 2026 13:15:31 -0700
+Message-ID: <20260716201538.365824-9-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260716201538.365824-1-robin.clark@oss.qualcomm.com>
 References: <20260716201538.365824-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=JeeMa0KV c=1 sm=1 tr=0 ts=6a593c06 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=19Wyn7e3V/0aNffMjNCMQw==:17
+X-Proofpoint-ORIG-GUID: L2mzRo8Y9QLNOI48QFDjoO29QiZyb4Zp
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDIwNiBTYWx0ZWRfXxmDMRlgO7zAQ
+ tLX8qW89jmMPE3t80oZDXZmDGqRbJ4bdQZYds45gIJK0Hdfljp7ktH2pNuvbfXak0Okd5SYbkPY
+ I74cwPttQMCh2gKx/b/18wBP6goXqGk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDIwNiBTYWx0ZWRfX98L/LCLxsUcQ
+ m169mt5Hf9bkp4ammiYxFZl7s6mG56AfMwXio2M0/JtjSJa1Y2MDZuLV9ONZ5j/ptyQF3n2n3v/
+ DB+x6v3k3DNWgfvRZqwPLSQoaDwUbFfkqhCfFDvCRNh7PoaXDQjZFa+Hm4vreGg9HEqBlg8Y/cr
+ UqTRhVIUQKt/HTwKav3304DLkclfrxsGrqmJiSA3TeMfiUE9oefJJi3WYREAIm9ym1RUsMXJ/UA
+ rx1NNQ29Cm+2BmXtlHCW2xNgFqnEDJN+0zgSz12LNl+RvwYuUfpnwj4eyq7e3LlyMSmnlFqCUg+
+ ThpJT7j2qzVv4HjxaXgSD+RLRXuJbymra9hCInysybERahIuHGPihD3Hu4LMPjYUZH/f8YK8PYf
+ uFW6n1EBz3T0WcVfh3YxEClbxC4o4ydmAGD82AaoBTeC772nneQfeKW8MaS9Cwm+4O2nQppgcp6
+ UJDPW+Ousu+Fqkr5gHA==
+X-Authority-Analysis: v=2.4 cv=NcTWEWD4 c=1 sm=1 tr=0 ts=6a593c01 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=19Wyn7e3V/0aNffMjNCMQw==:17
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=0g9OVxrcTuodNeR8YWUA:9 a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-ORIG-GUID: G3rMjdIeHY5wxualO_csoQ4UoX2C82EU
-X-Proofpoint-GUID: G3rMjdIeHY5wxualO_csoQ4UoX2C82EU
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDIwNiBTYWx0ZWRfX8Sq3z4l5eu4O
- Q75xSFCSRxM7V+kbf8RpQU498b8RJqBaJxVG8m8M8jy1nPV9Abxyw7xjwL0tdyF+/vMQCEIhK/U
- WQkUIwthQh/4jhzmhmTVzTQuKzQPVRc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDIwNiBTYWx0ZWRfX4hKwby9MUmAo
- cmAxXzTDpcB1YFYNSoRmRbJCNVf4PWm/SugV44p+CW1JEaR/gPjoUWI2b63215it/2NgrbYj7xe
- MdBFX26JA0gcxWWP2KPAgRUwqsJGvszMTvOMvXqH8+au4p2oPZTedtSjteDeN0HmJehFECcNSpt
- idZC9BX0ir6M2iQzKdpnnqAabbj63l9a2GUzc1nna4WA9vd2+mEskspxUwWxjSyDjvh+eTbZBL2
- Uv6jM1DxnGMus2i1+5QOH0NbN+K6cai9WbvytIrf1IkAKci/aDrIxWOi2pj/BtYqqvvh/3UrVnl
- GUkBGXF+nFMlCke6qHFUEBqJfhQIpQcxHdFpRTc4FLb66arSXA9MiFdCkOxFyjRDeA86FJ4O7Bt
- OaAUGHkG3G3Uekxbz03S18RQG0FVriGbTX2T/9vCQ0O4R0QY6Wy+3MTOzCmdrwuZpZkU7AEclA/
- M+fXE/7IpLYu6qyOkgA==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=mcLY6QNbnPi337aWdgEA:9 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: L2mzRo8Y9QLNOI48QFDjoO29QiZyb4Zp
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-16_07,2026-07-15_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160206
+ suspectscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ clxscore=1015 phishscore=0 bulkscore=0 spamscore=0 adultscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607160206
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,36 +144,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On overflow struct_size() would return SIZE_MAX.  But kzalloc() (and
-friends) check this already, so we can just remove the check.
+Otherwise creating a _NO_SHARE BO before any BOs are mapped could cause
+a NPE.
 
 Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: b58e12a66e47 ("drm/msm: Add _NO_SHARE flag")
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/msm_gem_submit.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ drivers/gpu/drm/msm/msm_gem.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index ab33d499a0e8..ddd52142c1cf 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -36,15 +36,11 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
- {
- 	static atomic_t ident = ATOMIC_INIT(0);
- 	struct msm_gem_submit *submit;
--	uint64_t sz;
-+	size_t sz;
- 	int ret;
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index efd3d3c9a449..afe0373f693a 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -1146,8 +1146,16 @@ int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
+ 		msm_gem_object_set_name(obj, "%s", name);
  
- 	sz = struct_size(submit, bos, nr_bos) +
- 			((u64)nr_cmds * sizeof(submit->cmd[0]));
--
--	if (sz > SIZE_MAX)
--		return ERR_PTR(-ENOMEM);
--
- 	submit = kzalloc(sz, GFP_KERNEL | __GFP_NOWARN);
- 	if (!submit)
- 		return ERR_PTR(-ENOMEM);
+ 	if (flags & MSM_BO_NO_SHARE) {
++		struct msm_drm_private *priv = dev->dev_private;
+ 		struct msm_context *ctx = file->driver_priv;
+-		struct drm_gem_object *r_obj = drm_gpuvm_resv_obj(ctx->vm);
++		struct drm_gpuvm *vm = msm_context_vm(dev, ctx);
++
++		if (!priv->gpu || !vm) {
++			ret = UERR(EINVAL, dev, "not supported with shared VM");
++			goto out_put;
++		}
++
++		struct drm_gem_object *r_obj = drm_gpuvm_resv_obj(vm);
+ 
+ 		drm_gem_object_get(r_obj);
+ 
+@@ -1157,6 +1165,7 @@ int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
+ 	ret = drm_gem_handle_create(file, obj, handle);
+ 
+ 	/* drop reference from allocate - handle holds it now */
++out_put:
+ 	drm_gem_object_put(obj);
+ 
+ 	return ret;
 -- 
 2.55.0
 
