@@ -4,44 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83AC7C44512
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 15:30:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BEB4C44512
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 15:30:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D377E10E3A2;
-	Thu, 16 Jul 2026 15:30:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5905C10F36E;
+	Thu, 16 Jul 2026 15:30:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EGBTPv7N";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VGj1zHpZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7B7F10E3A6
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 15:30:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5903560A6E;
- Thu, 16 Jul 2026 15:30:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBC3B1F000E9;
- Thu, 16 Jul 2026 15:30:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784215805;
- bh=3BGn5puD2EBaMaIf/11InBqC7iJBnOjjLNUdkyXw58Q=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EGBTPv7Nyj0afMbPmfFNoDJCyWvebybMPZmQuUa0VwIhj/Sn/dJBEQBSJFds2IlOM
- ShygCPaxSdFw/etLPazoy3IZ5l96kaQW3fJFLd5Dg8eR53/oL9eHKj/QtEVkoDBs0o
- tY2AUMqC+0RhtMxBY+fO9rWDHUmXdgKcClcxHK30a0QbKyZwvZn64obFApPk/wle1b
- K7EmxZv9UtDHUs+SPKcRyVN29Cam2F3dal56Wk9yaHkOiYm0YAzhcO7OSXSuJiKBrI
- cQDJyE8YR7LpCfRuuxZfsNIfrPdNzmCppgsPxO4ySSvvGKs8mWk5XcjJPdIw+kUqEe
- kk2faIsvQK3qw==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 04/11] KVM: guest_memfd: Introduce guest memory ops
- and route native gmem through them
-To: "David Woodhouse" <dwmw2@infradead.org>
-Cc: kvm@vger.kernel.org, media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <1256966e1b1b112ad92bf1b248c439ac23d61535.1784194290.git.dwmw@amazon.co.uk>
-References: <f09647f427565c1789a6979470045aab78661563.1784194290.git.dwmw@amazon.co.uk>
- <1256966e1b1b112ad92bf1b248c439ac23d61535.1784194290.git.dwmw@amazon.co.uk>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 15:30:04 +0000
-Message-Id: <20260716153004.CBC3B1F000E9@smtp.kernel.org>
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011052.outbound.protection.outlook.com
+ [40.93.194.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A00C510F354;
+ Thu, 16 Jul 2026 15:30:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WhKYp9+f9WqTOqbKxvXquaFPE3UXLdxYCasVbKc4kuOOntYOPa3chNG6f2AhGyp4lqSHu1tB6SQlU7z9OvmK/txYPy6ZeQCAYWt6YFsMDuKm5Z97TYZ3yWO48C6jlKj6k9/ZDwgZyw1dsLr+gPpuDp276Kli/i2PmlkGpo2ib1eze6kfvhLEaDztMJO5yisalX/R6sg0n6vmz5WrhLiIOdDteoGUPNT6gsbOF/h9XAZvG97gCb8BuF/4PIKAspkdZgbtjvKSZJKtRy/6J2CKwh/ZZUeTzG58SAdKtMImFp2XBj3fzzaJtejntwVDkz4MxQt2zMrkgLU3hYX0o6cH/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kxeP5CO0HC+vWl4X/SfL5/wzwLCwq2cgPg3AW/SdRDo=;
+ b=m6yWW3kjZwmlvRBJvJqblQOUxqT7g4lqj24n5+WnOCCafWKKJMH0on62KcEkV2lfWhEQJBxRwMUXJJXSO/O61Gj0uLWQCAVOUSyctaT+J2azcI8MvPJBrKPdhct51YM3MOwTxzSkDsNpjD6NFXykPlTWNvowy5Xjac34aRcN1fKP4GOWJSh+ItaS00G+wS5u1etd1+zDhYV7rKGQ3EQ7R8i7RwAXOINek+sGJ7d6CKB/GN3S5bKj/m04KfqL+9D2a6L4oHgtXYNvps6y+J7mPwmyF8al3mbOfDpD7sM48B3JNeN4FOA7sevsci+OyS0xcAC7mJCALLuccyhexaiQfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kxeP5CO0HC+vWl4X/SfL5/wzwLCwq2cgPg3AW/SdRDo=;
+ b=VGj1zHpZbm/jXN0dTgAuwq6/HY2vrskMu9VuzHeU1SbjbGczkQ4z8gy0e6cVG2e2Me7Gm8lhB9xDVHbZdlS2bz3APunAm5hobuO2ruNbT7r+NhZvVdiRo7v8DXwt7SQK2gYPJxZlrU3zJw3IbXxnf1eDBq0ztdH7JRjsiUzvmW4=
+Received: from BN9PR03CA0052.namprd03.prod.outlook.com (2603:10b6:408:fb::27)
+ by MW3PR12MB4409.namprd12.prod.outlook.com (2603:10b6:303:2d::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Thu, 16 Jul
+ 2026 15:30:29 +0000
+Received: from BN2PEPF000055E1.namprd21.prod.outlook.com
+ (2603:10b6:408:fb:cafe::2b) by BN9PR03CA0052.outlook.office365.com
+ (2603:10b6:408:fb::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.12 via Frontend Transport; Thu,
+ 16 Jul 2026 15:30:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000055E1.mail.protection.outlook.com (10.167.245.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.3 via Frontend Transport; Thu, 16 Jul 2026 15:30:28 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 16 Jul
+ 2026 10:30:27 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 16 Jul 2026 10:30:27 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-7.2
+Date: Thu, 16 Jul 2026 11:30:19 -0400
+Message-ID: <20260716153020.3171253-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055E1:EE_|MW3PR12MB4409:EE_
+X-MS-Office365-Filtering-Correlation-Id: ebd568eb-8b71-4a86-86ed-08dee34f2a27
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|13003099007|6133799003|56012099006|11063799006|10067099003|18002099003|18092099006|3023799007;
+X-Microsoft-Antispam-Message-Info: zhmnGctNouLEBoWpY08Z2H+74TWrUjuN/Hi7P4aoTGNZgpxomFP6OkhS7NSQNW+DbUQQg5ztfsDb9nqXKbbv4HdGTkIQjG8ZUjDO2vnnQaEj2V92ORSpeZ6UfQK23eI/Ukv3l7cpaq7SgTLI1/DsXKbOOBzy/dK8eV4xN5P8cpoZxK00c6J5s2hRD25aIrC3/qNgrHlGujTi/4KPbovcKuXT3FKDP1M4J4Up42xQpFLKRIMdDey+ZLqWDWpcOCNlQAQskTRF0Py/XKdb38wRwNy9l4loKIyuDgqVTXy2IoBeDvNTyRvGXX4pb57z6ovZt8sVP3t4kIhxv1FYI0qdYHaI5XqnS8KwAIqXUvzMlWtafuhOw/snaszRfAMKYO4+VMz16mwCpY5CaswSLEylt/uZsDMCtEmwCTZIT/1AsM/hhRhmkBPgXNhmWG0UJbou5/DEL9hHdOGLoHLkv1U/Cg5p47TxwjS7Dr060tSYUiJvzT0mOL379QAZcB6TguV8R7w6HfVGGUNhQdOVe3i3/hsaSPYCvKrYlLIwjxZp4Zo77vRztaaNG6aomvvo6EIKzGiG/4W1r1rSYlQox7A/OSLgDOwh3lPccYL0qMdGOx9+a2kbdkbE/0cI4F0aNEle
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(13003099007)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003)(18092099006)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: nc/adqvC/+k4HIsI9spUqSg/qyRlsBF/RwYG8rA1ejhC6+fEho/FzYTV4EEEIQ5uAvWiRlil4y8c/CyXJZfmMDneYqBg5Oa7oSMuCje+Y3KqAJfz0eQ8GQKKh+vM4i4eFoo2T2QA/ggk5PLnh3loGYdefQfRgMApgxszzmtOn8sV1AYc77Re3/f/yS4x/kHW8aKYSGVOVYn2fHNW13C5SL2kr4jMuVr0kfPxtxZuTi9Zr8QcObxjQ/F3LeTqNrCBPFXkiiNHAq/CWcPwxg+1o6NRIm0qQFcZAstfQj2TipHbdUuW2uBChyHvN0+W6I14h1uKz7zKktJgKcuXbDfLYDdFDv8PbXbrU+OriecoLxbJgWKm1qpHJGSgCfEAeh0L+KsfiOaI9EiUZA4QgmWwW2JbusPry1JeXvDqiFahJz0yB2NWShdhIavRzdYL9J6q
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 15:30:28.1825 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebd568eb-8b71-4a86-86ed-08dee34f2a27
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055E1.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4409
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,264 +107,146 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Critical] Dropped page reference in `kvm_gmem_populate_one` causes a TOC=
-TOU Use-After-Free on physical pages.
-- [High] Use-After-Free (UAF) in `kvm_gmem_unbind` due to lockless derefere=
-nce of unrefcounted `slot->gmem.file`.
-- [High] Missing module reference count in `kvm_gmem_ops` allows foreign ba=
-ckend unload, causing kernel panic.
-- [High] `kvm_gmem_bind` API contract fails to initialize `slot->gmem.file`=
-, breaking KVM core state tracking.
---
+Hi Dave, Simona,
 
---- Patch [4]: [RFC PATCH 04/11] KVM: guest_memfd: Introduce guest memory o=
-ps and route native gmem through them ---
-commit 4ae3212093e20a291a948708162e27b1bb7009da
-Author: David Woodhouse <dwmw@amazon.co.uk>
+Fixes for 7.2.
 
-KVM: guest_memfd: Introduce guest memory ops and route native gmem through =
-them
+The following changes since commit a13c140cc289c0b7b3770bce5b3ad42ab35074aa:
 
-This commit introduces a kvm_gmem_ops vtable to allow other subsystems to
-supply guest memory backing. It routes the built-in guest_memfd operations
-through this vtable and refactors the generic bind, unbind, and populate
-flows.
+  Linux 7.2-rc3 (2026-07-12 14:16:39 -0700)
 
-> diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-> index ab8cfaec82d31..b33d2f4750426 100644
-> --- a/include/linux/kvm_host.h
-> +++ b/include/linux/kvm_host.h
-[ ... ]
-> @@ -621,6 +621,88 @@ static inline bool kvm_slot_has_gmem(const struct kv=
-m_memory_slot *slot)
->  	return slot && (slot->flags & KVM_MEM_GUEST_MEMFD);
->  }
-> =20
-> +#ifdef CONFIG_KVM_GUEST_MEMFD
-> +/*
-> + * struct kvm_gmem_ops - vtable a guest_memfd backing implementation exp=
-oses.
-> + *
-> + * Every file that can back KVM guest memory -- KVM's own guest_memfd (s=
-ee
-> + * kvm_gmem_create()) and any other subsystem opting in -- is created wi=
-th
-> + * the shared kvm_gmem_fops (see is_kvm_gmem_file()).  file->private_dat=
-a on
-> + * such a file points at a struct kvm_gmem_backing whose ->ops field is =
-the
-> + * per-instance vtable below.  KVM never looks any further; the rest of =
-the
-> + * per-file state (allocator, refcount, private xarray, ...) is up to the
-> + * implementation and is reached via container_of() from the backing.
-> + *
-> + * The memory-side callbacks (bind, unbind, get_pfn, populate, invalidat=
-e)
-> + * are the reason the interface exists.  The file-level callbacks (relea=
-se,
-> + * mmap, fallocate, ...) are dispatched by kvm_gmem_fops so that every
-> + * implementation gets a private hook -- see the dispatchers in
-> + * virt/kvm/guest_memfd.c.
-> + *
-> + * get_pfn() contract:
-> + *  - *pfn is the host PFN backing @gfn.  It need not have a struct page.
-> + *  - *max_order is the largest order KVM may use to map starting at @gf=
-n.
-> + *    The implementation MUST clamp it to the physical contiguity and the
-> + *    HPA/GPA alignment of the backing, so KVM never builds a huge SPTE =
-that
-> + *    spans discontiguous physical memory.
-> + *  - If *page is non-NULL on return the caller owns that page reference=
- and
-> + *    is responsible for put_page() after use.  If *page is left NULL th=
-e PFN
-> + *    is treated as non-refcounted, and its lifetime is owned by the
-> + *    implementation across bind()/unbind().
-> + *
-> + * Memory intended to back guest RAM MUST be reported as E820_TYPE_RAM b=
-y the
-> + * host so KVM maps it write-back (and applies the memory-encryption bit=
- on
-> + * encrypted hosts) rather than treating it as MMIO.
-> + */
-> +struct kvm_gmem_ops {
-> +	/* Memory operations. */
+are available in the Git repository at:
 
-[Severity: High]
-Is there a missing module reference count in struct kvm_gmem_ops?=20
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.2-2026-07-16
 
-The operations table lacks an owner field (like struct module *owner) to pin
-the backend module.
+for you to fetch changes up to c9ab9622f5b2799fe624a4a134e60112149271dd:
 
-Since the shared kvm_gmem_fops routes file operations to a foreign backend's
-vtable, could a user open the guest_memfd, unload the backend module, and
-then close the file? The release dispatcher would then call into the unload=
-ed
-module's release hook, potentially causing a kernel panic.
+  Revert "drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs" (2026-07-15 09:55:55 -0400)
 
-> +	int (*bind)(struct file *file, struct kvm *kvm,
-> +		    struct kvm_memory_slot *slot, loff_t offset);
-[ ... ]
-> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> index db57c5766ab60..2b277468a12f0 100644
-> --- a/virt/kvm/guest_memfd.c
-> +++ b/virt/kvm/guest_memfd.c
-[ ... ]
-> @@ -692,15 +782,51 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memor=
-y_slot *slot,
-[ ... ]
-> +int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
-> +		  unsigned int fd, uoff_t offset)
-> +{
-> +	const struct kvm_gmem_ops *ops;
-> +	struct file *file;
-> +	int r;
-> +
-> +	BUILD_BUG_ON(sizeof(gpa_t) !=3D sizeof(offset));
-> +	BUILD_BUG_ON(sizeof(gfn_t) !=3D sizeof(slot->gmem.pgoff));
-> +
-> +	file =3D fget(fd);
-> +	if (!file)
-> +		return -EBADF;
-> +
-> +	ops =3D kvm_gmem_get_ops(file);
-> +	if (!ops || !ops->bind || !ops->get_pfn) {
-> +		r =3D -EINVAL;
-> +		goto out;
-> +	}
-> +
-> +	if (!PAGE_ALIGNED(offset)) {
-> +		r =3D -EINVAL;
-> +		goto out;
-> +	}
-> =20
->  	/*
-> -	 * Drop the reference to the file, even on success.  The file pins KVM,
-> -	 * not the other way 'round.  Active bindings are invalidated if the
-> -	 * file is closed before memslots are destroyed.
-> +	 * On success .bind() associates the fd with @kvm and (if the
-> +	 * implementation needs it) records the reference that makes the fd
-> +	 * pin the VM.  A .bind() that returns success is trusted to have
-> +	 * done so; there is no separate ownership check here.
-> +	 */
-> +	r =3D ops->bind(file, kvm, slot, offset);
-> +out:
-> +	/*
-> +	 * Drop the reference to the file even on success.  The file pins
-> +	 * KVM, not the other way 'round: it is the implementation's job to
-> +	 * invalidate its bindings if the fd is closed before the memslots
-> +	 * are destroyed.
->  	 */
-> -	r =3D 0;
-> -err:
->  	fput(file);
->  	return r;
->  }
+----------------------------------------------------------------
+amd-drm-fixes-7.2-2026-07-16:
 
-[Severity: High]
-Does this function miss initializing slot->gmem.file on a successful bind?
+amdgpu:
+- DCN 4.2 fixes
+- NUTMEG fixes
+- 8K panel fix
+- Backlight fixes
+- UserQ fix
+- Fix bo->pin leaking in amdgpu_bo_create_reserved()
+- VFCT fixes
+- devcoredump fixes
+- Display fixes
+- SMU7 DPM fix
+- AC/DC fixes for SMU7 and SI
+- Queue reset fix
+- PCIe DPM fix
+- XHCI/GPU resume ordering fix
+- Pageflip timeout fix
 
-KVM core code relies heavily on slot->gmem.file being populated to later ca=
-ll
-unbind. If a foreign backend succeeds in ops->bind but doesn't intentionally
-mutate KVM's internal slot->gmem.file state, KVM might never call unbind
-when the memslot is subsequently freed.
+amdkfd:
+- Fix potential overflow in CWSR size calculation
+- DQM error clean up fixes
 
-Could this leak backend resources or leave dangling memslot pointers in the
-backend?
+----------------------------------------------------------------
+Alessandro Rinaldi (1):
+      drm/amd/display: Force PWM backlight on Lenovo Legion 5 15ARH05
 
-> @@ -741,15 +861,41 @@ void kvm_gmem_unbind(struct kvm_memory_slot *slot)
-[ ... ]
-> +void kvm_gmem_unbind(struct kvm *kvm, struct kvm_memory_slot *slot)
-> +{
-> +	const struct kvm_gmem_ops *ops;
-> +	struct file *file;
-> +
-> +	/*
-> +	 * Nothing to do if the underlying file was _already_ closed, as
-> +	 * kvm_gmem_release() invalidates and nullifies all bindings.
-> +	 */
-> +	file =3D READ_ONCE(slot->gmem.file);
-> +	if (!file)
-> +		return;
-> +
-> +	ops =3D kvm_gmem_get_ops(file);
+Alex Deucher (1):
+      drm/amdgpu: always emit the job vm fence
 
-[Severity: High]
-Is it safe to dereference the file locklessly here?
+Andriy Korud (1):
+      drm/amd/display: dce100: skip non-DP stream encoders for DP MST
 
-The generic code previously used get_file_active() to safely obtain a
-reference. Because kvm_gmem_bind() intentionally drops its reference to the
-file on success (via fput(file)), userspace can close the guest_memfd
-concurrently while the memslot is being destroyed.
+Dmytro Laktyushkin (2):
+      drm/amd/display: fix dcn42 det allocation order
+      drm/amd/display: fix dcn42b det allocation order
 
-Could this result in a use-after-free when kvm_gmem_get_ops() attempts to
-dereference the unrefcounted file pointer?
+Fangzhi Zuo (1):
+      drm/amd/display: Fix 8K Mode Not Parsed by EDID
 
-> +	if (ops && ops->unbind)
-> +		ops->unbind(file, kvm, slot);
-[ ... ]
-> @@ -860,11 +1020,50 @@ static long __kvm_gmem_populate(struct kvm *kvm, s=
-truct kvm_memory_slot *slot,
->  	return ret;
->  }
-> =20
-> +static int kvm_gmem_populate_one(const struct kvm_gmem_ops *ops,
-> +				      struct file *file, struct kvm *kvm,
-> +				      struct kvm_memory_slot *slot, gfn_t gfn,
-> +				      struct page *src_page,
-> +				      kvm_gmem_populate_cb post_populate,
-> +				      void *opaque)
-> +{
-> +	kvm_pfn_t pfn;
-> +	int ret;
-> +
-> +	/*
-> +	 * Resolve the PFN via the ops.  A populate() op may also copy
-> +	 * @src_page into the backing before the arch post_populate() step
-> +	 * (e.g. SNP LAUNCH_UPDATE); otherwise fall back to get_pfn().
-> +	 */
-> +	if (ops->populate)
-> +		ret =3D ops->populate(file, kvm, slot, gfn, &pfn,
-> +				    src_page, 0);
-> +	else {
-> +		struct page *ignored_page =3D NULL;
-> +
-> +		ret =3D ops->get_pfn(file, kvm, slot, gfn, &pfn,
-> +				   &ignored_page, NULL);
-> +		/*
-> +		 * Populate does not consume a refcount on the destination page.
-> +		 * If get_pfn() handed a refcount back through @page, drop it.
-> +		 * Implementations whose PFNs aren't refcounted per-call leave
-> +		 * @page NULL and this is a no-op.
-> +		 */
-> +		if (!ret && ignored_page)
-> +			put_page(ignored_page);
-> +	}
-> +	if (ret)
-> +		return ret;
-> +
-> +	return post_populate(kvm, gfn, pfn, src_page, opaque);
-> +}
+Guangshuo Li (1):
+      drm/amdkfd: free MQD managers on DQM init failures
 
-[Severity: Critical]
-Does dropping the page reference before calling post_populate() introduce a
-time-of-check to time-of-use race?
+Jesse Zhang (1):
+      drm/amdgpu/userq: fix indefinite fence wait during GPU reset
 
-If the backend provides a physical page via get_pfn() and we drop the pin
-with put_page(ignored_page) early, the page could be concurrently freed and
-reallocated to another process.
+Leo Li (3):
+      drm/amd/display: consolidate DCN vblank/flip handling onto vupdate_no_lock
+      drm/amd/display: check GRPH_FLIP status before sending event
+      Revert "drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs"
 
-Could this cause the hardware post_populate callback (such as SNP RMPUPDATE)
-to operate on a physical page that now belongs to an innocent host process,
-corrupting host memory?
+Mario Limonciello (5):
+      drm/amd/display: Fix backlight max_brightness to match exported range
+      drm/amdgpu: Fix VFCT bus number matching with soft filter
+      drm/amdgpu: Release VFCT ACPI table reference
+      drm/amdgpu: Disable PCIe dynamic speed switching on Ryzen Pinnacle Ridge
+      drm/amd: Create a device link between APU display and XHCI devices
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/f09647f427565c1789a=
-6979470045aab78661563.1784194290.git.dwmw@amazon.co.uk?part=3D4
+Matthew Stewart (1):
+      drm/amd/display: Fix DCN42B null registers & register masks
+
+Pengpeng Hou (1):
+      drm/amd/display: wire DCN42B mcache programming callback
+
+Roman Li (1):
+      drm/amdgpu/discovery: Fix device family for DCN42
+
+Timur Kristóf (10):
+      drm/amd/display: Fix preferred link rate for NUTMEG
+      drm/amd/display: Add dp_skip_rbr flag for NUTMEG
+      drm/amdgpu: Print vmid, pasid and more task info in devcoredump
+      drm/amdgpu: Reserve space for IB contents in devcoredumps
+      drm/amd/pm/ci: Don't disable MCLK DPM on Bonaire 0x6658 (R7 260X)
+      drm/amd/display: Set native cursor mode for disabled CRTCs
+      drm/amd/pm/si: Don't schedule thermal work when queue isn't initialized
+      drm/amd/pm/si: Fix AC/DC switch notification
+      drm/amd/pm/smu7: Fix AC/DC switch notification
+      drm/amdgpu/ttm: Consider concurrent VM flushes for buffer entities
+
+WenTao Liang (1):
+      drm/amd/display: set new_stream to NULL after release
+
+Yongqiang Sun (1):
+      drm/amdkfd: fix 32-bit overflow in CWSR total size calculation
+
+Zhu Lingshan (1):
+      drm/amdgpu: fix bo->pin leaking in amdgpu_bo_create_reserved
+
+yanglinlin (1):
+      drm/amd/display: fix __udivdi3 link error
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c           |  62 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   |  10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h   |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   9 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |  13 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  20 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  21 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  10 +-
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   4 +
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c             |  23 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 551 +++++++++++++--------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  70 +--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  20 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  45 ++
+ drivers/gpu/drm/amd/display/dc/dc.h                |   3 +
+ .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |  11 +-
+ .../gpu/drm/amd/display/dc/link/link_detection.c   |   2 +-
+ .../display/dc/link/protocols/link_dp_capability.c |   6 +-
+ .../display/dc/resource/dce100/dce100_resource.c   |   7 +-
+ .../amd/display/dc/resource/dcn42/dcn42_resource.c |   1 +
+ .../display/dc/resource/dcn42b/dcn42b_resource.c   |  23 +-
+ .../display/dc/resource/dcn42b/dcn42b_resource.h   | 116 +----
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         |  17 +-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c     |   7 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |  16 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  12 +
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |  12 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   |  45 ++
+ drivers/gpu/drm/drm_panel_backlight_quirks.c       |   9 +
+ include/drm/drm_utils.h                            |   1 +
+ 31 files changed, 720 insertions(+), 431 deletions(-)
