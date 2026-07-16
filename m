@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB7CDC44512
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 20:30:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66533C44512
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 20:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D4A410E3C2;
-	Thu, 16 Jul 2026 20:30:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACF7210E3E5;
+	Thu, 16 Jul 2026 20:31:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="obyLqcTt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HwYrdElh";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41B2910E3C2
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 20:29:59 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56DC910E3E5
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 20:31:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 285564375E;
- Thu, 16 Jul 2026 20:29:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29FD11F000E9;
- Thu, 16 Jul 2026 20:29:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 663DF60A5E;
+ Thu, 16 Jul 2026 20:31:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E559D1F000E9;
+ Thu, 16 Jul 2026 20:31:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784233799;
- bh=aSRGQiJitm8S9zsWThbxaqQ9pGpaxi1RAsoQHRoTV2Y=;
+ s=k20260515; t=1784233871;
+ bh=v2MjMfPLTrFGg6XvjdkhMC0lptHmvwtkp+iQ3rXdUWY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=obyLqcTtazVlPziGnn6PaF4W+cIN8viIaZywAjKZrL3/2ZHtij/s8HbhhggfsDG2l
- 1zX27dYI4Kwe0jvpoOwtBqe/0Sg5Tt/V7OG0YqpVqJsHVzMTUScJb/QNNG4umIgtsE
- xoJ5IEDcLDMBzM6t0Sao7X4wd70FNwRPOZq9xrEP+eoBjI/RG72jDG2M+GxQDECp0b
- 1NWL2459CTSARve0LHXPU8dZztrr0H0Z4Caxdxwh5D9w57F4wVnv3F2NKyI5TjN+9Q
- Pz7U6MoYD/czrfXTm/8/kHYGwXzzVKudYRVajxgy+y94pIFNIn2lfgzfLmdjisS+5Q
- vEYzA4rljXSVA==
+ b=HwYrdElh9oEnXBac/IMP8S+S/rE3HO2E9auluK4DnQB3OCWBoKd+OKTo5Ir7CNu8u
+ v5mn8QwNNWnCqHCQ3Kkqio9SgFlI330XkrCY5m+w7xTwxcpJbnR0fErXGhQVd5DsNB
+ b7ays5/MWQ3HeLPKNMk6dlfz2jYijOn7GkHSQBmgvnWaOwLSuhwWTUUisYHqGRJEtR
+ dJ+hCx7hY+kyw0u3x5dz97HhlUwU1XCFO5fYfJtzYKz09OEbSwhMfl/IO6yHQzPacK
+ FEFJY0ev0YS+xT0yljD2Cz5B3Cervl5fn90cEs0eYM9deG8ktpNyd97X/7l8fVpgag
+ Cw55i3pWTNKVA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 08/10] drm/msm: Validate lazy VM in GEM_NEW
+Subject: Re: [PATCH v5 01/10] drm/msm: Fix barriers accessing ctx vm
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260716201538.365824-9-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20260716201538.365824-2-robin.clark@oss.qualcomm.com>
 References: <20260716201538.365824-1-robin.clark@oss.qualcomm.com>
- <20260716201538.365824-9-robin.clark@oss.qualcomm.com>
+ <20260716201538.365824-2-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 20:29:57 +0000
-Message-Id: <20260716202958.29FD11F000E9@smtp.kernel.org>
+Date: Thu, 16 Jul 2026 20:31:10 +0000
+Message-Id: <20260716203110.E559D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,98 +60,99 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [High] The fallback logic for shared VMs in `msm_gpu_create_private_vm()`=
- is inverted, causing VM_BIND contexts to incorrectly fall back to the shar=
-ed VM while legacy contexts fail to do so.
-
 Pre-existing issues:
-- [High] Concurrent modification of `obj->resv` after publishing the GEM ob=
-ject to `priv->objects` causes a mismatched lock/unlock sequence if accesse=
-d via debugfs.
+- [High] MSM VM Lazy Initialization Violation / NULL Pointer Dereference in=
+ `msm_ioctl_gem_submit` and `msm_gem_new_handle`
+- [High] Incomplete barrier fix: `msm_gem_close()` performs a lockless plai=
+n read of `ctx->vm` leading to a data race
 --
 
---- Patch [8]: [PATCH v5 08/10] drm/msm: Validate lazy VM in GEM_NEW ---
-commit b2a817e93a22417a9189cd5ad2d48b886f18f14d
+--- Patch [1]: [PATCH v5 01/10] drm/msm: Fix barriers accessing ctx vm ---
+commit fdc4f5db0f02ec8c94395cb949b516d777a3923b
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-drm/msm: Validate lazy VM in GEM_NEW
+drm/msm: Fix barriers accessing ctx vm
 
-Otherwise creating a _NO_SHARE BO before any BOs are mapped could cause
-a NPE.
+This patch fixes a race condition by using smp_load_acquire and
+smp_store_release when accessing ctx->vm. This prevents callers from
+seeing a partially initialized vm.
 
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index 2cb3ab04f1250..9bdbcf1279b00 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -1147,8 +1147,16 @@ int msm_gem_new_handle(struct drm_device *dev, str=
-uct drm_file *file,
->  		msm_gem_object_set_name(obj, "%s", name);
-> =20
->  	if (flags & MSM_BO_NO_SHARE) {
-> +		struct msm_drm_private *priv =3D dev->dev_private;
->  		struct msm_context *ctx =3D file->driver_priv;
-> -		struct drm_gem_object *r_obj =3D drm_gpuvm_resv_obj(ctx->vm);
-> +		struct drm_gpuvm *vm =3D msm_context_vm(dev, ctx);
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 79f78e7e16e9d..3c8b5083a1fbe 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -225,18 +225,19 @@ struct drm_gpuvm *msm_context_vm(struct drm_device =
+*dev, struct msm_context *ctx
+>  {
+>  	static DEFINE_MUTEX(init_lock);
+>  	struct msm_drm_private *priv =3D dev->dev_private;
+> +	struct drm_gpuvm *vm =3D smp_load_acquire(&ctx->vm);
 
 [Severity: High]
-Does this call to msm_context_vm() trigger inverted fallback logic for shar=
-ed
-VMs in drivers/gpu/drm/msm/msm_gpu.c?
+This isn't a bug introduced by this patch, but since we are fixing the
+barriers for ctx->vm here, do we also need to update msm_gem_close()?
 
-When msm_context_vm() evaluates !ctx->userspace_managed_vm, it passes this =
-as
-the kernel_managed parameter to msm_gpu_create_private_vm().
+It appears to perform a lockless plain read of ctx->vm:
 
-In msm_gpu_create_private_vm(), the fallback condition is:
+drivers/gpu/drm/msm/msm_gem.c:msm_gem_close() {
+	...
+	if (!ctx->vm)
+		return;
 
-    if (IS_ERR_OR_NULL(vm) && !kernel_managed)
-        vm =3D drm_gpuvm_get(gpu->vm);
+	/* ... */
+	msm_gem_lock_vm_and_obj(&exec, obj, ctx->vm);
+	...
+}
 
-This causes VM_BIND contexts (where kernel_managed is false) to silently fa=
-ll
-back to the shared VM, directly violating the intent described in the commit
-'drm/msm: Don't fallback to shared VM for VM_BIND'.
-
-Conversely, for legacy contexts (where kernel_managed is true), the fallback
-is skipped. This leaves vm as NULL on legacy targets that lack private VM
-support, which would break context initialization completely.
-
-> +
-> +		if (!priv->gpu || !vm) {
-> +			ret =3D UERR(EINVAL, dev, "not supported with shared VM");
-> +			goto out_put;
-> +		}
-> +
-> +		struct drm_gem_object *r_obj =3D drm_gpuvm_resv_obj(vm);
-> =20
->  		drm_gem_object_get(r_obj);
-> =20
->  		obj->resv =3D r_obj->resv;
+Could this race with the smp_store_release() during VM creation and
+observe a partially initialized VM object?
 
 [Severity: High]
-This is a pre-existing issue, but can this concurrent modification of
-obj->resv cause a mismatched lock/unlock sequence if accessed via debugfs?
+This is a pre-existing issue, but I noticed there are still direct accesses
+to ctx->vm instead of using msm_context_vm() for lazy initialization.
 
-In drivers/gpu/drm/msm/msm_gem.c:msm_gem_new(), the BO is allocated,
-obj->resv is initialized to &obj->_resv, and it is added to the global
-priv->objects list under priv->obj_lock. This makes the object globally
-visible.
+For example, in msm_ioctl_gem_submit():
 
-If debugfs iterates over priv->objects concurrently via msm_gem_show(), it
-calls msm_gem_describe(obj) which evaluates msm_gem_trylock(obj) and locks
-the original &obj->_resv.
+drivers/gpu/drm/msm/msm_gem_submit.c:msm_ioctl_gem_submit() {
+	...
+	if (to_msm_vm(ctx->vm)->unusable)
+	...
+}
 
-If the ioctl thread executing msm_gem_new_handle() then overwrites obj->resv
-here without holding any locks, the subsequent msm_gem_unlock(obj) in debug=
-fs
-will unlock the new r_obj->resv (which it never locked).
+And also in msm_gem_new_handle():
 
-This mismatched sequence would cause a kernel BUG in ww_mutex_unlock or a
-lockdep splat.
+drivers/gpu/drm/msm/msm_gem.c:msm_gem_new_handle() {
+	...
+	struct drm_gem_object *r_obj =3D drm_gpuvm_resv_obj(ctx->vm);
+	...
+}
 
-[ ... ]
+If ctx->vm is NULL before initialization, could these direct accesses
+result in a NULL pointer dereference?
+
+> =20
+>  	/* Once ctx->vm is created it is valid for the lifetime of the context:=
+ */
+> -	if (ctx->vm)
+> -		return ctx->vm;
+> +	if (vm)
+> +		return vm;
+> +
+> +	guard(mutex)(&init_lock);
+> =20
+> -	mutex_lock(&init_lock);
+>  	if (!ctx->vm) {
+> -		ctx->vm =3D msm_gpu_create_private_vm(
+> +		vm =3D msm_gpu_create_private_vm(
+>  			priv->gpu, current, !ctx->userspace_managed_vm);
+> -
+> +		smp_store_release(&ctx->vm, vm);
+>  	}
+> -	mutex_unlock(&init_lock);
+> =20
+>  	return ctx->vm;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716201538.3658=
-24-1-robin.clark@oss.qualcomm.com?part=3D8
+24-1-robin.clark@oss.qualcomm.com?part=3D1
