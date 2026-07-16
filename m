@@ -4,51 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93574C44501
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82673C44511
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 08:19:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2981010F201;
-	Thu, 16 Jul 2026 08:19:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B50E10F208;
+	Thu, 16 Jul 2026 08:19:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=comitia.dev header.i=@comitia.dev header.b="KvqjsRda";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OfZ4ymHA";
 	dkim-atps=neutral
-X-Greylist: delayed 596 seconds by postgrey-1.36 at gabe;
- Wed, 15 Jul 2026 11:12:01 UTC
-Received: from smtp-8fac.mail.infomaniak.ch (smtp-8fac.mail.infomaniak.ch
- [83.166.143.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6EB010EFD7
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Jul 2026 11:12:01 +0000 (UTC)
-Received: from smtp-4-0000.mail.infomaniak.ch (unknown
- [IPv6:2001:1600:7:10::a6b])
- by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4h0YCb3l83zHhP;
- Wed, 15 Jul 2026 13:02:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=comitia.dev;
- s=20240118; t=1784113323;
- bh=yQHU5F9jk4BFtLjb2XsjC0JTJgJA+5AXT0o85gVvJUo=;
- h=Date:To:References:Subject:Reply-To:From:In-Reply-To:From;
- b=KvqjsRdaw9lsoE/rVhe+c9neAGyCBZUorb9k6amuv6tI4GHvBvS9aKTqQpmrf0lRo
- h9m4BS5CAhQnpNbM7YK1RR3jj2Vjj2/24iLChpxxYxja8MuDDCwp9SBiK1fbsQTlrh
- HbVOaaxWyw1z+4zNLcEi7ELjsgyVS39pFvYzpiK/TVdL8wUZg4mEATyCQXL4lSDEaX
- obInGaytu2N4Grv5P54fXe0M3+a+j/Gycb/wBN9tT5KHpStQZ+nruHpAfwXo2r0zur
- eWFFSxSskfS5mUcaq3pGrB3BeyHoAYDglQLDO3sLo0zEyXye6A1SWLk3uB68WugFEp
- A+sCUK2El0sVg==
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA
- id 4h0YCR2ZcTzlTn; Wed, 15 Jul 2026 13:01:55 +0200 (CEST)
-Message-ID: <f6062704-60dd-40c8-bb72-8ba9b0f8ba85@comitia.dev>
-Date: Wed, 15 Jul 2026 12:01:54 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9964510F1E9
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 08:19:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id BF1BE6001A;
+ Thu, 16 Jul 2026 08:19:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F10CA1F000E9;
+ Thu, 16 Jul 2026 08:19:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784189942;
+ bh=CQcSJu7ir1ZxyU06FWPT4r5MnZcOUIDMyXGHVCWBTk0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=OfZ4ymHAWUb0RMyBLZH/IBDPQl0rkzOG8Fe1FsYTDnOoflWlpEF9Wt3igBepiqVcP
+ qg1d66d4FFxj1YLKpP2ySujFBL+Xs42E1ctWY7nnpAf6AHblDFmL9r4gArj/PGt/C7
+ MPs+cjhYP/xTsw1fbX+c4Be8FhfKe9kWvRQAFR3dR8J7j0U8Ke81f+UfK+BR4Qvf2L
+ u3NI2aWNsom+kdy+WhdzYwebYkO5whtECElmpKk52AcBrXmWSOXkjPzpHW82dtptsK
+ WVS9zZxOPDSSuD8kV2q3lPgRA1eW0N2G3kj+UphnHtCuqqYalBXHL2uWGDhJqpu9hw
+ 5J8O+sj33b1mw==
+Date: Thu, 16 Jul 2026 10:18:59 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Xaver Hugl <xaver.hugl@kde.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>,
+ Jonas =?utf-8?B?w4VkYWhs?= <jadahl@redhat.com>, 
+ Michel =?utf-8?Q?D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/8] drm: Add DRM_MODE_ATOMIC_RESET flag
+Message-ID: <20260716-expert-crouching-bonobo-ffd0b6@houat>
+References: <20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org>
+ <CAFZQkGzw2MZGivy=oyYgZE3_dmxu-z-NbDgzh9uyqSsj=MG=2w@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: linux-kernel@vger.kernel.org, mripard@kernel.org, airlied@gmail.com,
- dri-devel@lists.freedesktop.org
-References: <20260216204547.293291-1-lkml@antheas.dev>
-Subject: Re: [PATCH v2 00/14] drm: panel-orientation-quirks: Add various
- handheld quirks
-Content-Language: en-US
-From: Luca Frondoni <office@comitia.dev>
-In-Reply-To: <20260216204547.293291-1-lkml@antheas.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 16 Jul 2026 08:19:15 +0000
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="synlwefppugk5zgo"
+Content-Disposition: inline
+In-Reply-To: <CAFZQkGzw2MZGivy=oyYgZE3_dmxu-z-NbDgzh9uyqSsj=MG=2w@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,23 +64,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: 20260216204547.293291-1-lkml@antheas.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi all,
 
-I’m writing to express support for this patch series and to ask
-whether it can be queued for merging. The handheld panel-orientation
-quirks here match the behavior I’ve tested on my devices.
+--synlwefppugk5zgo
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC 0/8] drm: Add DRM_MODE_ATOMIC_RESET flag
+MIME-Version: 1.0
 
- From my testing, the changes behave as expected, and I haven’t seen
-any regressions.
+Hi Xaver,
 
-If there are remaining concerns blocking merge, I’d be grateful for
-a quick summary so I can help address them.
+On Wed, Jul 08, 2026 at 08:25:36PM +0200, Xaver Hugl wrote:
+> Hi,
+>=20
+> Thanks for working on this, it'll be great to finally have this solved pr=
+operly.
+>=20
+> > Open question: should DRM_MODE_ATOMIC_RESET require
+> > DRM_MODE_ATOMIC_ALLOW_MODESET? A full state reset will change CRTC
+> > active states, which is effectively a modeset. Without requiring it,
+> > a reset could pass flag validation but fail later at atomic_check in
+> > a confusing way.
+>
+> The compositor may use the same CRTC states, modes etc; whether or not
+> the commit actually ends up requiring a modeset depends entirely on
+> the exact contents of the commit. So I definitely wouldn't require
+> ALLOW_MODESET.
 
-Best regards,
+Just to make sure we're on the same page, you're saying that when using
+the reset flag, the compositor is expected to fill the state with enough
+that a modeset is unlikely to happen anyway?
 
-LF
+Maxime
 
+--synlwefppugk5zgo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaliT8wAKCRAnX84Zoj2+
+dtj5AYDBzhLK638oLf5/0o6aTZv6zoEZ5aJivXx7/5FW/eanaFacq+6rnM810xbP
+VNDA50EBgLW2bz5DIlh7gyE5yibQif6lGrNqW9lEiXoI7WO9GRg/DXDsDylo5gZy
+lp8k8LZ8xg==
+=xvJ5
+-----END PGP SIGNATURE-----
+
+--synlwefppugk5zgo--
