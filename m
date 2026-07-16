@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0655C44511
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 15:46:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12526C44511
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 15:48:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF11B10E02F;
-	Thu, 16 Jul 2026 15:46:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56B1F10E1C1;
+	Thu, 16 Jul 2026 15:48:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FSvu2mcB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QLmxGVgK";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E6FD10E02F
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 15:46:28 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22E5C10E314
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 15:48:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4AB7142BA1;
- Thu, 16 Jul 2026 15:46:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC1151F000E9;
- Thu, 16 Jul 2026 15:46:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 69EDC60A5E;
+ Thu, 16 Jul 2026 15:48:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB1101F000E9;
+ Thu, 16 Jul 2026 15:48:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784216788;
- bh=aDaQrJ9mCaIviF1qG7a4/qV1rgG8vMyEjhK4HreSyIc=;
+ s=k20260515; t=1784216926;
+ bh=Hj00xazchf74wznbm8jgr6pdOJxxKzHAZP1EkoqJcLc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FSvu2mcB93gTRS7H+LHcsGR/3IoEIKKcOWPA9dzq3MBdhpbOqLR59+XB42S7vaCM0
- TPYj2SfAiYS1+SkuCvDLy2G5VQ2ZWUX0WH8jRjTmhPqLYyIGeLhzIiB+BmWz6TZmsK
- Z9UT5Q3T8De2vJs2Sx+3uzPMVn3Rf65+XWzw/1UVmUeCIrQnM19jbFnvyXQluTCTq3
- DfOKVsNlRt5Ti7A+1KqOth6jGfcyvJDmG7JU/U9LHO+Nr5dXkfsD5zu1z2Ruj03RwE
- 6rhG870wv/kltogEsVbNdLZFHH+gA7Wtz7bEr0oMzoWMXouua2mFbyECIyq22CopAb
- 3lI1gkiqx+nLw==
+ b=QLmxGVgKPpWn5JoDq7lf0Y6VZRelEbHm5CKusCYsm/0vuX5YdQhRlymH3k1cEMITC
+ G7b4jlq+1lkedwb/982bPojDtCI3bArmWsbcT3PMGVGpcMdeNk+tiYvS+yOY3Oso7U
+ K6Q7br96HRfov8DN2iToQbXi+RcvPDCJuv9ni48PjLR9co8xinpbPtTzUp1FhhSUOa
+ 8LrQpivOlblLVzE58WfxaGI4bYatPw6C+NwtW5Rqh0oUaeaYqZWB+1AmQ9zuDPWosH
+ fWDA/0NpfttzTC06kS5c+JICx57GNDQnsC58Dt8WQZ9R4kqBtqzhRdh0uIWZ128R/Q
+ YOvdqajyvq1kw==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 09/11] selftests/kvm: gmem_provider KVM-only tests
+Subject: Re: [RFC PATCH 10/11] selftests/kvm: gmem_provider iommufd tests
 To: "David Woodhouse" <dwmw2@infradead.org>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org, kvm@vger.kernel.org
-In-Reply-To: <7022c98bc66214bf02334d648ec0fd4d296c6c14.1784194290.git.dwmw@amazon.co.uk>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org, kvm@vger.kernel.org
+In-Reply-To: <6c112e6062cf0cf4478b599fbc7e561a7035a32e.1784194290.git.dwmw@amazon.co.uk>
 References: <f09647f427565c1789a6979470045aab78661563.1784194290.git.dwmw@amazon.co.uk>
- <7022c98bc66214bf02334d648ec0fd4d296c6c14.1784194290.git.dwmw@amazon.co.uk>
+ <6c112e6062cf0cf4478b599fbc7e561a7035a32e.1784194290.git.dwmw@amazon.co.uk>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 15:46:27 +0000
-Message-Id: <20260716154627.CC1151F000E9@smtp.kernel.org>
+Date: Thu, 16 Jul 2026 15:48:45 +0000
+Message-Id: <20260716154845.DB1101F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,120 +57,186 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Medium] The test does not check for partial completion of KVM_SEV_SNP_LA=
-UNCH_UPDATE, leading to potentially silent incomplete memory initialization.
-- [Medium] The test fails to assert KVM_EXIT_MEMORY_FAULT on the revoke pat=
-h because the validation is placed in an unreachable 'else' branch.
+- [Medium] The NVMe DMA test hardcodes the Amazon PCI Vendor ID (0x1d0f), c=
+ausing false failures on generic hardware.
+- [Medium] Missing compiler memory barrier before ringing the NVMe Submissi=
+on Queue doorbell allows dangerous compiler reordering.
+- [Medium] gmem_provider_iommufd_test fails to exercise the KVM guest_memfd=
+ private memory path because it does not set the KVM_MEMORY_ATTRIBUTE_PRIVA=
+TE attribute.
+- [Medium] The test claims to confirm a fresh IOMMU_IOAS_MAP_FILE succeeds =
+after restoring the page, but does not actually issue the ioctl.
+- [Low] Comment incorrectly claims the NVMe completion phase bit is inverte=
+d, contradicting the code and the NVMe specification.
 --
 
---- Patch [9]: [RFC PATCH 09/11] selftests/kvm: gmem_provider KVM-only test=
+--- Patch [10]: [RFC PATCH 10/11] selftests/kvm: gmem_provider iommufd test=
 s ---
-commit 93ae3986a0340a4d14084b20d7839ed583b0c01b
+commit 104877080caa9ea2c6214f716d67d2b54448bb37
 Author: David Woodhouse <dwmw@amazon.co.uk>
+Date:   Thu Jul 16 09:31:30 2026 +0000
 
-selftests/kvm: gmem_provider KVM-only tests
+    selftests/kvm: gmem_provider iommufd tests
+   =20
+    Three selftests that exercise the guest_memfd provider ABI from the
+    iommufd side, going progressively closer to a real assigned-device
+    setup.
 
-Three selftests that exercise the guest_memfd provider ABI purely from
-the KVM side (no iommufd, no assigned devices). These tests verify the
-live-update survivability, hugepage mappings, and memory revocation.
-
-> diff --git a/tools/testing/selftests/kvm/x86/gmem_provider_revoke_test.c =
-b/tools/testing/selftests/kvm/x86/gmem_provider_revoke_test.c
-> index 0000000000000..7e711ea526748 100644
+> diff --git a/tools/testing/selftests/kvm/x86/gmem_provider_iommufd_test.c=
+ b/tools/testing/selftests/kvm/x86/gmem_provider_iommufd_test.c
+> new file mode 100644
+> index 0000000000000..0b2fc097b5a91
 > --- /dev/null
-> +++ b/tools/testing/selftests/kvm/x86/gmem_provider_revoke_test.c
+> +++ b/tools/testing/selftests/kvm/x86/gmem_provider_iommufd_test.c
+
 [ ... ]
-> +	/* 2) Revoke: mark absent and zap the guest NPT (provider->KVM). */
-> +	req =3D (struct gmem_provider_present){ .offset =3D 0, .len =3D 4096, .=
-present =3D 0 };
-> +	r =3D ioctl(gmem_fd, GMEM_PROVIDER_SET_PRESENT, &req);
-> +	TEST_ASSERT(!r, "revoke ioctl failed, errno %d", errno);
+
+> +	hva =3D mmap(NULL, DATA_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, gmem_=
+fd, 0);
+> +	TEST_ASSERT(hva !=3D MAP_FAILED,
+> +		    "provider mmap failed errno=3D%d", errno);
+> +	r =3D __vm_set_user_memory_region2(vm, DATA_SLOT, KVM_MEM_GUEST_MEMFD,
+> +					 DATA_GPA, DATA_SIZE, hva, gmem_fd, 0);
+> +	TEST_ASSERT(!r, "KVM_SET_USER_MEMORY_REGION2 failed r=3D%d errno=3D%d",=
+ r, errno);
+> +	virt_map(vm, DATA_GPA, DATA_GPA, 1);
 > +
-> +	/* 3) Guest re-reads -> re-fault into absent get_pfn -> must NOT see MA=
-GIC. */
-> +	r =3D _vcpu_run(vcpu);
-> +	if (r) {
-> +		pr_info("revoked: vcpu_run failed (errno %d) -- guest faulted, as expe=
-cted\n",
-> +			errno);
-> +	} else {
-> +		TEST_ASSERT(vcpu->run->exit_reason =3D=3D KVM_EXIT_MEMORY_FAULT,
-> +			    "revoked: expected fault or KVM_EXIT_MEMORY_FAULT, got %u (%s)",
-> +			    vcpu->run->exit_reason,
-> +			    exit_reason_str(vcpu->run->exit_reason));
-> +		pr_info("revoked: KVM_EXIT_MEMORY_FAULT as expected\n");
+> +	/*
+> +	 * 3) iommufd side: allocate IOAS
+
+[Severity: Medium]
+Does main() actually exercise the KVM guest_memfd private memory path?
+
+Because the KVM_MEMORY_ATTRIBUTE_PRIVATE attribute is never set on this
+GPA via vm_mem_set_private(), KVM will fault on the shared memory HVA.
+
+Does this completely bypass the KVM guest_memfd logic, with the guest write
+reaching the provider fd via the HVA mmap path instead?
+
+[ ... ]
+
+> diff --git a/tools/testing/selftests/kvm/x86/gmem_provider_nvme_dma_test.=
+c b/tools/testing/selftests/kvm/x86/gmem_provider_nvme_dma_test.c
+> new file mode 100644
+> index 0000000000000..8c8a4b2e8ac96
+> --- /dev/null
+> +++ b/tools/testing/selftests/kvm/x86/gmem_provider_nvme_dma_test.c
+
+[ ... ]
+
+> +	/* Identify Controller SQE at slot 0. */
+> +	{
+> +		uint32_t *s =3D (uint32_t *)sq_buf;
+> +		memset(s, 0, 64);
+> +		s[0]  =3D 0x00010006;	/* CID=3D1 << 16 | OPC=3DIdentify */
+> +		s[1]  =3D 0;		/* NSID */
+> +		/* PRP1 (offset 24 in SQE =3D dword 6) */
+> +		s[6]  =3D (uint32_t)IOVA_DST;
+> +		s[7]  =3D (uint32_t)(IOVA_DST >> 32);
+> +		s[8]  =3D 0;
+> +		s[9]  =3D 0;		/* PRP2 */
+> +		s[10] =3D 0x01;		/* CDW10: CNS =3D Identify Controller */
+> +	}
+> +
+> +	/* Ring SQ0 tail doorbell. */
+> +	wr32(bar, NVME_SQ0TDBL, 1);
+
+[Severity: Medium]
+Is there a risk of the compiler reordering the SQE initialization after
+the doorbell ring in main()?
+
+Since the SQE is prepared via non-volatile stores and the doorbell is
+written via a volatile cast, the C standard permits reordering
+non-volatile stores after volatile stores. Could this result in the NVMe
+controller processing an incomplete or zeroed command?
+
+Would it be safer to add a compiler barrier before writing the doorbell?
+
+[ ... ]
+
+> +	/* Provider region now holds Identify Controller data.  VID/SSVID at by=
+tes 0..3
+> +	 * must equal the device's PCI vendor + subsystem vendor (both are Amaz=
+on here). */
+> +	{
+> +		uint16_t vid  =3D ((uint16_t *)provider_hva)[0];
+> +		uint16_t ssvid =3D ((uint16_t *)provider_hva)[1];
+> +		uint8_t first =3D ((uint8_t *)provider_hva)[0];
+> +		uint8_t poison_still =3D ((uint8_t *)provider_hva)[8];
+> +		char mn[41] =3D {};
+> +		memcpy(mn, (char *)provider_hva + 24, 40);
+> +		fprintf(stderr, "MARKER: read done; byte0=3D0x%02x byte8=3D0x%02x\n",
+> +			first, poison_still);
+> +		fflush(stderr);
+> +		pr_info("Identify Controller in provider: VID=3D0x%04x SSVID=3D0x%04x =
+MN=3D'%s'\n",
+> +			vid, ssvid, mn);
+> +		fflush(stdout);
+> +		TEST_ASSERT(vid =3D=3D 0x1d0f,
+> +			    "unexpected VID 0x%04x in provider region -- Identify DMA landed =
+elsewhere?\n"
+> +			    "  poison=3D0x%02x byte0=3D0x%02x (poison intact=3DDMA didn't lan=
+d here)",
+> +			    vid, poison_still, first);
+
+[Severity: Medium]
+Does main() hardcode the Amazon PCI Vendor ID here?
+
+If this test is run on a non-Amazon NVMe drive, won't this assertion
+cause it to fail on generic hardware?
+
+Should we fetch the PCI Vendor ID from the config space instead of
+hardcoding it to 0x1d0f?
+
+[ ... ]
+
+> +		/* Issue a second Identify Controller aimed at the revoked IOVA.
+> +		 * Use a new CID and place the SQE in slot 1; the SQ ring will
+> +		 * wrap for larger runs but we only ever use slots 0 and 1.
+> +		 */
+> +		memset(&s[16], 0, 64);
+> +		s[16] =3D 0x00020006;			/* CID=3D2 << 16 | OPC=3DIdentify */
+> +		s[16 + 6] =3D (uint32_t)IOVA_DST;
+> +		s[16 + 7] =3D (uint32_t)(IOVA_DST >> 32);
+> +		s[16 + 10] =3D 0x01;			/* CNS =3D Identify Controller */
+> +
+> +		wr32(bar, NVME_SQ0TDBL, 2);
+
+[Severity: Medium]
+Similar to the first command submission in main(), does this need a
+compiler barrier before the doorbell ring to prevent the compiler from
+sinking the SQE initialization?
+
+> +		pr_info("Identify Controller (revoked target) submitted (SQ0 tail=3D2)=
+\n");
+> +
+> +		/* Poll for CQE at slot 1 with phase bit inverted from first pass. */
+> +		for (i =3D 0; i < 5000; i++) {
+> +			if ((c[4 + 3] & 0x10000))	/* CQE 1 P bit */
+
+[Severity: Low]
+Is this comment accurate?
+
+Since this is only the second command in a 64-entry queue, the controller
+is still on its first pass. The phase bit remains 1 and does not invert,
+which matches the code's correct check for a 1 bit.
+
+[ ... ]
+
+> +		/* Restore and confirm a fresh IOMMU_IOAS_MAP_FILE succeeds. */
+> +		rev.present =3D 1;
+> +		ret =3D ioctl(gmem_fd, GMEM_PROVIDER_SET_PRESENT, &rev);
+> +		TEST_ASSERT(ret =3D=3D 0, "SET_PRESENT(restore) errno=3D%d", errno);
+> +		pr_info("Restore + revoke round trip complete\n");
 > +	}
 
 [Severity: Medium]
-Since KVM_EXIT_MEMORY_FAULT always causes the KVM_RUN ioctl to return -1
-with errno EFAULT, won't _vcpu_run(vcpu) return a non-zero value here?
-
-If so, this execution path would take the if (r) branch, completely bypassi=
-ng
-the exit reason validation in the else block. Should this check be moved or
-adjusted to properly assert that the exit reason is indeed
-KVM_EXIT_MEMORY_FAULT?
-
-> +
-> +	/* 4) Restore: mark present again. */
-> +	req.present =3D 1;
-> +	r =3D ioctl(gmem_fd, GMEM_PROVIDER_SET_PRESENT, &req);
-> +	TEST_ASSERT(!r, "restore ioctl failed, errno %d", errno);
-> +
-
-[ ... ]
-> diff --git a/tools/testing/selftests/kvm/x86/gmem_provider_test.c b/tools=
-/testing/selftests/kvm/x86/gmem_provider_test.c
-> index 0000000000000..d7caa11616dfe 100644
-> --- /dev/null
-> +++ b/tools/testing/selftests/kvm/x86/gmem_provider_test.c
-[ ... ]
-> +	struct kvm_sev_snp_launch_start start =3D { .policy =3D 0x30000 };
-> +	ret =3D sev_ioctl(vm_fd, sev_fd, KVM_SEV_SNP_LAUNCH_START, &start);
-> +	if (ret) { perror("SNP_LAUNCH_START"); goto out; }
-> +
-> +	printf("[VM%d] SNP_LAUNCH_UPDATE (code + zero, %luMB)\n",
-> +	       vm_num, GUEST_MEM_SIZE >> 20);
-> +	struct kvm_sev_snp_launch_update update =3D {
-> +		.gfn_start =3D 0,
-> +		.uaddr =3D (uint64_t)(unsigned long)src,
-> +		.len =3D PAGE_SIZE_4K,
-> +		.type =3D KVM_SEV_SNP_PAGE_TYPE_NORMAL,
-> +	};
-> +	ret =3D sev_ioctl(vm_fd, sev_fd, KVM_SEV_SNP_LAUNCH_UPDATE, &update);
-> +	if (ret) { perror("SNP_LAUNCH_UPDATE code"); goto out; }
-
-[Severity: Medium]
-If a signal interrupts the KVM_SEV_SNP_LAUNCH_UPDATE ioctl, KVM might
-return 0 but leave update.len > 0 indicating a partial completion.
-
-Does this code need a loop to check update.len and retry the remaining
-length to prevent silent partial initialization?
-
-> +
-> +	struct kvm_sev_snp_launch_update update_zero =3D {
-> +		.gfn_start =3D 1,
-> +		.uaddr =3D (uint64_t)(unsigned long)(src + PAGE_SIZE_4K),
-> +		.len =3D GUEST_MEM_SIZE - PAGE_SIZE_4K,
-> +		.type =3D KVM_SEV_SNP_PAGE_TYPE_ZERO,
-> +	};
-> +	ret =3D sev_ioctl(vm_fd, sev_fd, KVM_SEV_SNP_LAUNCH_UPDATE, &update_zer=
-o);
-> +	if (ret) { perror("SNP_LAUNCH_UPDATE zero"); goto out; }
-
-[Severity: Medium]
-Similarly, could a signal interrupting this update_zero ioctl cause a parti=
-al
-completion here as well? If the return value is 0 but update_zero.len is
-still greater than 0, the rest of the 16MB guest memory would be left
-uninitialized, potentially causing flaky test failures later.
-
-> +
-> +	struct kvm_sev_snp_launch_finish finish =3D { 0 };
-> +	ret =3D sev_ioctl(vm_fd, sev_fd, KVM_SEV_SNP_LAUNCH_FINISH, &finish);
+The comment in main() mentions confirming a fresh IOMMU_IOAS_MAP_FILE
+succeeds, but does the test actually attempt to issue this ioctl after
+restoring the page?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/f09647f427565c1789a=
-6979470045aab78661563.1784194290.git.dwmw@amazon.co.uk?part=3D9
+6979470045aab78661563.1784194290.git.dwmw@amazon.co.uk?part=3D10
