@@ -4,85 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BF8CC44501
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 10:29:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B36CC4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 10:33:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E5D710E323;
-	Thu, 16 Jul 2026 10:29:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A378010E324;
+	Thu, 16 Jul 2026 10:33:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="MdFqDd6x";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HW6OBAGx";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B654110E323
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 10:29:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1784197789;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ofRORFIvXf2fpwqJcpHvsjRV8rnnHpN0JGyGgGcZ0Og=;
- b=MdFqDd6x7eyUv5GnbtMFznfhmWLY5jMZT7ijMMle0+cKHFlX3FqXvdYt8o+rmSpr3J2iyU
- OqR8eVhSI3yNtn9dY5xcfqGweRlsiCXEdNx2v3LTExnuesRCEx11vRCZ0wMmMsCkqS059K
- 10bHe3ANqKawfKUznHv96OGWq6yGoo0=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-460-myq3hskPPE2vzZDP4cTZeg-1; Thu, 16 Jul 2026 06:29:48 -0400
-X-MC-Unique: myq3hskPPE2vzZDP4cTZeg-1
-X-Mimecast-MFC-AGG-ID: myq3hskPPE2vzZDP4cTZeg_1784197787
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-493dc8408fdso24752375e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 03:29:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784197787; x=1784802587;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ofRORFIvXf2fpwqJcpHvsjRV8rnnHpN0JGyGgGcZ0Og=;
- b=OEu/P5BW2zCU/Os/AeXbyRoKfoqOEl/crUPi/shxUNIx8ej8UrqRvxTDOiVfj8y+Oj
- LP+HwDSBBemNMryiPaVarF9d8orRnST2EPFiU5FDwLkNr/2bODXuXtiyDHzTn7kZpGWr
- 6VMHniDWVq4KKmZ7EPEKR/FO/4v5m0RD/m0+IXNUmAnsATzj5GsV7UfzlHcFn3D51a5s
- T9rfRJcJIONGC6AmUVL35l6Q2LxwQ0exG+72K1i4gG3iG3CV9dgN1fueApYK2uQEMxQp
- wslDMVaEie1xv7dS69cj8TvAo3tVsDISSuqpE4gvM+g8gNnxWGrcDX08F5JVuD4BfGqO
- fIXQ==
-X-Gm-Message-State: AOJu0YxkRaKeEoK3m+Ij9UnXx1qfmFSRjBBrnt2W4qd21fUq1Qio0YO6
- +NLJir7zULFx1NeePTjnmeNP5Xhq1v8sE8aDTeT400Jw0eV+xQYcQpAfe21L4W5PjL8ysVW4Hov
- yvCTCX2fBP6KND3GubUTd4CFzf0fqCPSvg2c5t+P5UbymSE0bxKcDSzZufmOgAdxQ4SUthA==
-X-Gm-Gg: AfdE7cl97UbfjfcA+Z6JHDa7skLTmLOmVRTOXvHGyBwJK+SfedHi1GkjgiuqXBPV5uj
- nU92ai6rpsKsiu+UqgX688QEuRDeVXi8tI9vKwuq9Gf4xctIcM63tNy2e6PmZTsV7xxAYBSW5LC
- CwZ+9vzgI2co9EBOTrwLwti6KdBxbqqUhgVcHm8hiMLJ79cXxSYE/evnXxLeWTLQD6/I4hyMu4a
- MASQKmo5puvA9SbOGL8oAOQ2DBJNP5J+TWPwfsF223DvU2zXrJ9/d+NH2zU+XUxUre4GPrg9imt
- 7M3CFRRY6nv3kclvoV0jmZEe0wnatBTcq3ndSontsCrwtouVzNqkiUp3Cr6wJ2HFrFp5amkrKFx
- mDRfPedSdj8YqJaV35ZcAlPA0knITnYDYHurv8SeMz/LH0X8e2lXorGE8NYg=
-X-Received: by 2002:a05:600c:354e:b0:493:e38b:182d with SMTP id
- 5b1f17b1804b1-493f881800dmr235751595e9.22.1784197786932; 
- Thu, 16 Jul 2026 03:29:46 -0700 (PDT)
-X-Received: by 2002:a05:600c:354e:b0:493:e38b:182d with SMTP id
- 5b1f17b1804b1-493f881800dmr235751215e9.22.1784197786451; 
- Thu, 16 Jul 2026 03:29:46 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49541e9a7bbsm48296375e9.13.2026.07.16.03.29.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jul 2026 03:29:45 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
-Subject: Re: [PATCH 08/60] drm/ssd130x: Convert to atomic_create_state
-In-Reply-To: <20260709-drm-no-more-plane-reset-v1-8-302d986fe5f0@kernel.org>
-References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
- <20260709-drm-no-more-plane-reset-v1-8-302d986fe5f0@kernel.org>
-Date: Thu, 16 Jul 2026 12:29:44 +0200
-Message-ID: <87v7afrzvr.fsf@ocarina.mail-host-address-is-not-set>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: TqmxtYUnRkvd3ob60y_yL6wQNO8_v68KEBnBxzXDM3I_1784197787
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6856710E324
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 10:33:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 89B626001A;
+ Thu, 16 Jul 2026 10:33:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 149CA1F000E9;
+ Thu, 16 Jul 2026 10:33:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784197993;
+ bh=/vBCPI9P7f641JiD814RqqbbMgEE3Uq0E6yzftESq0I=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=HW6OBAGxxoPFtgTdkxX7Km3je9v04yszcmdvsl/ZVOJxXQ6SXkHuh/XO+zd8PEJ1t
+ owZRX/4iXbfaXv3KzRv2SeB5p2n7zBlYkU0LjE1NFJMm8ud7sn10MYJWAq9BD0bF/q
+ 4Sv0TkkHpc6PVVkEjLYETmvAVPiOooi7M1BWmBwIiUr4+unaPBCHumLaLVkjNlwK8a
+ 2F1JlSKl4qoU3X0EKQHoDsRAsfPHfInwYjiW7Mb9zE1YsePRO8Xo0KXwyIMFCX2a/y
+ MADd5MQxvaNVsqSUifFogWExNIcaBDZWMUXHGGkLeP7E871nT5xCxHSrt3zrDx1KbM
+ 1gef30Ip7IAQQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/fb-helper: guard against NULL fb_helper->funcs in
+ restore path
+To: "Sebastian Brzezinka" <sebastian.brzezinka@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <e1957da52fcdd1d88a285553d36e12a0362a8258.1784196681.git.sebastian.brzezinka@intel.com>
+References: <e1957da52fcdd1d88a285553d36e12a0362a8258.1784196681.git.sebastian.brzezinka@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 16 Jul 2026 10:33:12 +0000
+Message-Id: <20260716103313.149CA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,27 +53,141 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Maxime Ripard <mripard@kernel.org> writes:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Hello Maxime,
+Pre-existing issues:
+- [High] __drm_fb_helper_restore_fbdev_mode_unlocked() attempts to commit m=
+odesets even when the fbdev probe failed, triggering a WARN_ON(!set->fb).
+- [High] Framebuffer and GEM object memory leak in intel_fbdev_driver_fbdev=
+_probe() error paths.
+- [High] The patch's fix is incomplete because intel_fbdev_driver_fbdev_pro=
+be() can fail after assigning helper->funcs, leading to a NULL pointer dere=
+ference in intelfb_restore().
+--
 
-Thanks for your patch.
+--- Patch [1]: [PATCH] drm/fb-helper: guard against NULL fb_helper->funcs i=
+n restore path ---
+commit 388e602c24e24848a47714842dc175e61eefb458
+Author: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
 
-> The plane reset implementation creates a custom state subclass, but
-> only initializes a pristine state without resetting any hardware. This
-> is equivalent to what atomic_create_state expects. Convert to it.
->
-> The conversion was done using the following Coccinelle semantic patch:
+drm/fb-helper: guard against NULL fb_helper->funcs in restore path
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+When a driver's fbdev probe callback fails before assigning fb_helper->func=
+s,
+any later restore reaches __drm_fb_helper_restore_fbdev_mode_unlocked() and
+unconditionally dereferences fb_helper->funcs->fb_restore, causing a NULL
+pointer dereference. This patch adds a NULL check on fb_helper->funcs.
 
--- 
-Best regards,
+> When a driver's fbdev probe callback fails before assigning
+> fb_helper->funcs (e.g. i915's intel_fbdev_driver_fbdev_probe() bailing
+> out early on a DMA/GGTT pin failure),
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+[Severity: High]
+This isn't a bug introduced by this patch, but does
+intel_fbdev_driver_fbdev_probe() leak the framebuffer if it fails during
+the DMA/GGTT pin step?
 
+If a new framebuffer is allocated via __intel_fbdev_fb_alloc() (with a
+refcount of 1), and a subsequent step fails, the code jumps to out_unlock:
+
+drivers/gpu/drm/i915/display/intel_fbdev.c:intel_fbdev_driver_fbdev_probe()=
+ {
+    ...
+    if (ret)
+        goto out_unlock;
+    ...
+out_unlock:
+    intel_fbdev_hpd_set_fault(ifbdev);
+    return ret;
+}
+
+Does this exit without calling drm_framebuffer_put(&fb->base), permanently
+leaking the framebuffer and its backing GEM object, potentially leading to
+an OOM condition upon repeated hotplug retries?
+
+[Severity: High]
+This is also a pre-existing issue, but does
+__drm_fb_helper_restore_fbdev_mode_unlocked() need an early exit if the
+fbdev probe failed?
+
+When the probe fails (e.g., fb_helper->info is NULL), the client remains
+registered. Later, when an unprivileged user closes the DRM fd,
+drm_client_dev_restore() calls this function, which unconditionally
+executes:
+
+__drm_fb_helper_restore_fbdev_mode_unlocked() {
+    ...
+    ret =3D drm_client_modeset_commit(&fb_helper->client);
+    ...
+}
+
+Since drm_client_modeset_probe() populated set->mode but set->fb was never
+allocated due to the probe failure, this eventually reaches
+__drm_atomic_helper_set_config() and triggers a WARN_ON(!set->fb). Could
+userspace repeatedly trigger this warning as a denial of service?
+
+> the fbdev client stays registered
+> with fb_helper->funcs =3D=3D NULL. Any later restore, such as on drm fd c=
+lose
+> via drm_client_dev_restore() -> drm_fbdev_client_restore(), reaches
+> __drm_fb_helper_restore_fbdev_mode_unlocked() and unconditionally
+> dereferences fb_helper->funcs->fb_restore, causing a NULL pointer
+> dereference.
+>=20
+> Guard the fb_restore call with a NULL check on fb_helper->funcs.
+
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_hel=
+per.c
+> index 3316bb00a662b..5621cc19b47ce 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -146,7 +146,7 @@ __drm_fb_helper_restore_fbdev_mode_unlocked(struct dr=
+m_fb_helper *fb_helper,
+>  	if (do_delayed)
+>  		drm_fb_helper_hotplug_event(fb_helper);
+> =20
+> -	if (fb_helper->funcs->fb_restore)
+> +	if (fb_helper->funcs && fb_helper->funcs->fb_restore)
+
+[Severity: High]
+This is a pre-existing issue, but is this fix incomplete if the probe fails
+after assigning helper->funcs?
+
+In intel_fbdev_driver_fbdev_probe(), helper->funcs is assigned before some
+potential error paths:
+
+drivers/gpu/drm/i915/display/intel_fbdev.c:intel_fbdev_driver_fbdev_probe()=
+ {
+    ...
+    helper->funcs =3D &intel_fb_helper_funcs;
+    helper->fb =3D &fb->base;
+    ...
+    ret =3D intel_bo_fbdev_fill_info(ifbdev->fb->obj, ifbdev->helper.info);
+    if (ret)
+        goto out_unlock;
+    ...
+}
+
+If intel_bo_fbdev_fill_info() or another late step fails, helper->funcs
+remains set, but ifbdev->fb is left as NULL because it is not assigned until
+later in the function.
+
+If an unprivileged user triggers a restore by closing the DRM fd,
+__drm_fb_helper_restore_fbdev_mode_unlocked() will see a non-NULL
+helper->funcs and call intelfb_restore().
+
+Will this still lead to a NULL pointer dereference when intelfb_restore()
+calls to_frontbuffer() and accesses ifbdev->fb->frontbuffer?
+
+>  		fb_helper->funcs->fb_restore(fb_helper);
+> =20
+>  	return ret;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/e1957da52fcdd1d88a2=
+85553d36e12a0362a8258.1784196681.git.sebastian.brzezinka@intel.com?part=3D1
