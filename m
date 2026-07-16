@@ -4,123 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D89FDC44501
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 06:47:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B123CC44511
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 06:59:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAF1910E2D4;
-	Thu, 16 Jul 2026 06:47:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0126210E2EC;
+	Thu, 16 Jul 2026 06:59:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="JAHj2y0j";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="cIYSrIbC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RotCm/dR";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cIYSrIbC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RotCm/dR";
 	dkim-atps=neutral
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013048.outbound.protection.outlook.com
- [40.107.162.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3213810E2D4
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 06:47:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u108f1N/8HqliQ9rXwVjG5bvW85K+B6Huxi0hQ3/LIm0a+EqnymcJ96HAnoG3hnRo/Wk5M5JpeetLpFJ4VsIqCfn3lzMiuz99fYuSSIEuiplPtCO//tYeAEGAzJLP9knOjDDm3SMxfj6Utrwom9WkYIZG4PDMlRXH+ciL/rne+lne5C02ixkJWtjHPajmrkTqfNMn8nmaTJTn+tInzcxeSfkkAVgCXPZ1ozPr9LYCwSVeLZgNPJt051TjEJ06j+KSkr1675feaipLAe/8ZlDzW08H6c1DuzBoPYU5gEkhBbBPiWYERxA/0mpe9WsnludOHq1b3BHVl2gzAplMwdP4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hb8ujkKNmLMS6DUcb8LWEka1QX1Hu4x7yARFIs8nkQ0=;
- b=eLdoa8YjJ7dm+6aaEhZq2hLCbKrMKhhNl0DPVAXUOjPkOPuOGqJu42+hwtTSL0r+9Du6vbLZH2zYzYmojwuWkx/IOrPdaeZNDOTaZE5OXaAS8wkpdEO9bKGSj9rDGvMTVzSIhYvFxgK/DpEejvAvcceVZ5QrpU/2px6MEOanTAjwbgxJfevacL+Z9LidwMNPW1VizWKbH38zhOuSr03k19JJBtqTWhqaJQfUDpTWdG0HjOPbuV1+kT2jjiRy0AgVco2Hr6BoozQYiTUXamG4/i3f6191Ux1neIBoUPFbipa4mdI/1fbWxkjVin+Wl4MPu6oe6PeLij5CPfnx+yiyUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hb8ujkKNmLMS6DUcb8LWEka1QX1Hu4x7yARFIs8nkQ0=;
- b=JAHj2y0jLgyLMnSJQ9QKWMkZqd1z2AoK++kB2rX9eWAAx19im8vXY1Gt3vcVt0LO7Cwtl0rjTxtmJzJ6C6XaFm1ozKhkq3oUjRGL1jXvW2WrqkV9YJ1n1lYkegSkgeQZkcMG6VaqpPfNfh7tsvkknYzqUvI/+xGS1uvY8kfnv7r8TZCTXX/1YiC5KK0LQWqc1B0LsvsxUWZGKg/Z9gzngafr/qq1VHk1X4bfoqjjKHukqXBArF2ksO0dkr0oj9VHqV6cQcgI3JSmdAqpcBRS6+sYLKaa+GkbQIsMgg5PzVV61lvsVXkU5B7ZGjbIH0pzbBOaqEyuDSYJeLXD0HuDcQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
- by PA4PR04MB9568.eurprd04.prod.outlook.com (2603:10a6:102:26e::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Thu, 16 Jul
- 2026 06:47:46 +0000
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
- 06:47:46 +0000
-Date: Thu, 16 Jul 2026 14:49:14 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, shawnguo@kernel.org, s.hauer@pengutronix.de,
- kernel@pengutronix.de, festevam@gmail.com, tglx@linutronix.de,
- vkoul@kernel.org, kishon@kernel.org, Frank.Li@nxp.com,
- lumag@kernel.org, aisheng.dong@nxp.com, agx@sigxcpu.org,
- u.kleine-koenig@baylibre.com, marek.vasut@mailbox.org
-Subject: Re: [PATCH v9 00/19] Add Freescale i.MX8qxp Display Controller support
-Message-ID: <alh-6sI4J7vq2drz@raspi>
-References: <20250414035028.1561475-1-victor.liu@nxp.com>
- <20260714193627.GA9616@francesco-nb> <alh4a66fEro05ShA@raspi>
- <20260716062612.GC9973@francesco-nb>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260716062612.GC9973@francesco-nb>
-X-ClientProxiedBy: SI1PR02CA0015.apcprd02.prod.outlook.com
- (2603:1096:4:1f7::18) To AS1PR04MB9287.eurprd04.prod.outlook.com
- (2603:10a6:20b:4dd::8)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAED110E2A1
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 06:59:41 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4CD6C3E2F;
+ Thu, 16 Jul 2026 06:59:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784185180; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Q1Sttv12LM5ZFZtfZAvp/tl8h/l27/XJeBYQK86qDiI=;
+ b=cIYSrIbCUduGY3EjUg90J9G3UC0BYUuCjzVkIcfrWU8iZlvcW5Iu9UHdFKr+KaXkJ4f0bs
+ MPfPPpnxDBbWBa1rK9L7VvZ3byu+G/efByfjorVk/sAV2DEyIG3sXQsmLs/nqwcmVRPzWw
+ Ku64UflloBaoMkE5pPc/RBAZrSJyrXo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784185180;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Q1Sttv12LM5ZFZtfZAvp/tl8h/l27/XJeBYQK86qDiI=;
+ b=RotCm/dRVAuJZXZ1+5A3Y0v0/p/apXcKPfJJfvZwH/7OyTAKd2wgM4iWSbFnB0QXKtEgVD
+ wKK1oZYEzEcrBXBw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=cIYSrIbC;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="RotCm/dR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784185180; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Q1Sttv12LM5ZFZtfZAvp/tl8h/l27/XJeBYQK86qDiI=;
+ b=cIYSrIbCUduGY3EjUg90J9G3UC0BYUuCjzVkIcfrWU8iZlvcW5Iu9UHdFKr+KaXkJ4f0bs
+ MPfPPpnxDBbWBa1rK9L7VvZ3byu+G/efByfjorVk/sAV2DEyIG3sXQsmLs/nqwcmVRPzWw
+ Ku64UflloBaoMkE5pPc/RBAZrSJyrXo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784185180;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Q1Sttv12LM5ZFZtfZAvp/tl8h/l27/XJeBYQK86qDiI=;
+ b=RotCm/dRVAuJZXZ1+5A3Y0v0/p/apXcKPfJJfvZwH/7OyTAKd2wgM4iWSbFnB0QXKtEgVD
+ wKK1oZYEzEcrBXBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1569C779AD;
+ Thu, 16 Jul 2026 06:59:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id uuLAA1yBWGoRfQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 16 Jul 2026 06:59:40 +0000
+Message-ID: <ba82ad37-5d51-40e6-92cb-56b9a12f5ecd@suse.de>
+Date: Thu, 16 Jul 2026 08:59:39 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|PA4PR04MB9568:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45a124c8-2533-461d-c887-08dee30624ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|1800799024|366016|376014|23010399003|7416014|22082099003|18002099003|11063799006|56012099006|4143699003|3023799007|10067099003;
-X-Microsoft-Antispam-Message-Info: gQbzj12p5cIWd+YECzJY6KA1dl1gz24aGk8mw8GtVT0hkOYAaKi6Xu6/0oHs3QdIE1NLz9IPAYIQ4930kVB7RNB6oTEhbpZJMdsTnHbMS3bcmjtUXcjpJB2ZECj7rGuuoPz6KtYeEJrQSBcvehkUuGTIKd8PQG67TVM3ytadJw/l6pSOi6RJkh0wIpvWMtqL6j4HYzd9xRLvO/56BFzHNrw2k2d+bXhOsJmzRC6XgCkg+HIt+xiUlQKCwmA1MD7tdi4f2kQixf86jTPiZJuRv4lmvm47MtwfG3n6emC0A04eqL7QvOtbniQfYS/RZO+7ryAibN4nL2S+Lp8Tmp8hNU+Psrz2qBihTmf8o8ylbPNbYxj4SKPPcyh9QQLf6whsHyCV4n9LtkgSWrKiI6Bl5hpmO3vgLlD4sc6aJXjtE9H9HNAv/E17BunMoHmTQv3B9LTcbOhjBdmxADFMSIU7rWC/1GvoLrKtxojtsi7Y0jhqHBp/5Vt0dJQKqnlFoCk19VSeRaz48c04x28s7R5PAjQHuPdCx+gFGgJ45ozLGxZrBoNWBo5KdtcDuIGWow/SXvRpzPF8LoRnCqZFfSJarTupcLbknghv/phHta1SufHXtdJdbAV5WYyU7VwEQFlU+kJ5so4kCopUNcoO3iHsORms+gfmn3BkwNdVm5WDl84=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(1800799024)(366016)(376014)(23010399003)(7416014)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(3023799007)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ikUGTUMfr4+Nu51LQcYrm3TobJyOHPjx3LPNHrKO/n6KHKdWzvx57qiMBNlg?=
- =?us-ascii?Q?yMqhPSnVKUmgojEuvPGMatOq1aLiiV22rMyvuGTbO6o4ZmKsDXd+isUkH+fB?=
- =?us-ascii?Q?qZtFv1LeVCysYTWQcuElpLaA0uVXTrT6uadjQF59pV1Rn/An1GWXracODe9J?=
- =?us-ascii?Q?5LQBPZ/18W7oul60gQEQ3eJr+OeELvKXVP1YSiwWwWA3IWdDxqoapQjAyMR1?=
- =?us-ascii?Q?aOLzZlsJiv9ilR8kHSZNtsOV+bUMUB4hX2rYlnJ5qVqaqqPUVeA3UhjfLsHg?=
- =?us-ascii?Q?ZfBfH9zx+EIIY1OWlgTkAxa9aZjnIAUqRJmZKiF23Y4Cy8qR2EsEb888H6/e?=
- =?us-ascii?Q?HEKNyoNJUjC+XQNcAPqmTTGJMu8ucTElTbWSd093dHDj6vVG8fBv9NXYlyVs?=
- =?us-ascii?Q?hGl8GH3QIh9xCdt5degOEka9OBtRYWsVnOJ5SEYFHnzS6xP9gPprSgd32yeY?=
- =?us-ascii?Q?zueBduif4QeR/5BdbBN14RhuRWMQf3CrqUfc/A66nNf38u4lu7gOvCeXmci7?=
- =?us-ascii?Q?4URgTmMO6z7qGeINFlG9I18xAyVadlj5kTkUqVUt5x8zQnOSkXS40ul0F3R6?=
- =?us-ascii?Q?Ty4eZhAAwqdzvHEbFDDQLajr0+pNod9FR1eQ/mVH9IukisoCLAGfCAHZw4b8?=
- =?us-ascii?Q?72Hhwojfm2Ezpdit4/ImDVR9WjbRBcW1+vBFGlhawg1aSmSyS5FDV/QG+oMQ?=
- =?us-ascii?Q?YTPBf9nsNciV+AWJvHo3cfDvH+T8mjVnuLTv8zAPHvn0prYC/tHTKhOmlmzd?=
- =?us-ascii?Q?ULMWZFRYPAx02mAtypDy+7z/HaG1cxaR6YMGOF3xtqeOEQ7oDxbqfFE8S0uQ?=
- =?us-ascii?Q?ujUetJ2YZcyaHsDkEP+kNnhv4oiXISfbxi6Iv5vqAQ5B3O6DtZnGpScg8Iui?=
- =?us-ascii?Q?U6q5eo2UXJVfG8tq4r8dBthH4WEsv/+pbiKAu4dH5RwKxwmhVLXQ0oiNDSmy?=
- =?us-ascii?Q?QnBNqt3f0/zhhwW98+aztnUoFDaiJqO+pYjUslw1sTO6krqP0syyPNxX0A7V?=
- =?us-ascii?Q?RFD1m5fhnO2keWw6Wtz02V4ex2Hqje2qmeATKVRa4F++hHqw9qcXmrMqa8PM?=
- =?us-ascii?Q?nsyUqwUzqfnf77LVMnlc6j3laOsVrU+Y4Rxm1XPJdfylpJNK3l4fUx9dGos7?=
- =?us-ascii?Q?UtdR6FgzHvCC5HfUFxUmWOK7NoVfESjVM7o77n/pVbgiMXih6ik6A8zV2H/b?=
- =?us-ascii?Q?aBWyjL3bPgfX8o7FEva+Qg0peSBsum77P9wb3exOmu3wz70F8elpgYrP9Kxj?=
- =?us-ascii?Q?QQ02PMJnzezm5cYISTjRocQqcluFJzE6nAc9G4hRoriNuQgfjgRd2zeQ5tLw?=
- =?us-ascii?Q?irXex1dtNKrbBVdcQCVBxAqkhFwREI85QQirq3iZJWnD1eUVgBqbDqq5kx7u?=
- =?us-ascii?Q?365kgbvkxK5u3ZoVzqDprg/3HkwlwGVOauQU9bnZKFwERg3P7ScpV1O4134P?=
- =?us-ascii?Q?TBqaU43EMAU+sSGGLG1aP95udwILB9OE9Ofy3ziEUV2kfMOUVa5U3GEJLBfC?=
- =?us-ascii?Q?qU8CqTB+G6rkdtNp6P3dyirkwOkHbz4UCCXK+e671nfG19+JBSGO0zliBWH0?=
- =?us-ascii?Q?ZFqqs9PUtf1BnfeyeyALDCFEY6aWmDGOY0jwHsAxST1U9H6ylSC5LfMuluuY?=
- =?us-ascii?Q?Qhutp9V9KK3ytmQRsogc8CYxIKdVxBI3QZqiu6350kuXw23SRmCfZUhKIBSB?=
- =?us-ascii?Q?NfaFQ0cX57lh+ruC11ctrzhR8XiQPT3OO9C2DZqMVrS8WlvZ7vBF/h0/o72K?=
- =?us-ascii?Q?0pe3PHMTOA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45a124c8-2533-461d-c887-08dee30624ab
-X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 06:47:46.0902 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: j6FCEcHSnDPH60GDtz9mLwo9HmvVO9K2+I6hxZ/II1QcmsxwkI8kyrXkaij2zdQH9owrZ9sdKtxmkv+2pnIb1A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9568
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm: make panel orientation quirks optional
+To: Andrew Zhou <zhoulol888@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
+ simona@ffwll.ch, linux-kernel@vger.kernel.org
+References: <20260716065106.150760-1-zhoulol888@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260716065106.150760-1-zhoulol888@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_TO(0.00)[gmail.com,lists.freedesktop.org];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org];
+ RCPT_COUNT_SEVEN(0.00)[7]; FROM_EQ_ENVFROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,suse.com:url];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 4CD6C3E2F
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,65 +146,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 16, 2026 at 08:26:12AM +0200, Francesco Dolcini wrote:
-> On Thu, Jul 16, 2026 at 02:21:31PM +0800, Liu Ying wrote:
-> > On Tue, Jul 14, 2026 at 09:36:27PM +0200, Francesco Dolcini wrote:
-> > > On Mon, Apr 14, 2025 at 11:50:09AM +0800, Liu Ying wrote:
-> > > > Hi,
-> > > > 
-> > > > This patch series aims to add Freescale i.MX8qxp Display Controller support.
-> > > > 
-> > > > The controller is comprised of three main components that include a blit
-> > > > engine for 2D graphics accelerations, display controller for display output
-> > > > processing, as well as a command sequencer.
-> > > 
-> > > ...
-> > > 
-> > > > 
-> > > > To follow up i.MX8qxp TRM, I changed the controller name to "Display Controller"
-> > > > instead of the previous "DPU".  "DPU" is only mentioned in the SoC block
-> > > > diagram and represents the whole display subsystem which includes the display
-> > > > controller and prefech engines, etc.
-> > > > 
-> > > > With an additional patch[1] for simple-pm-bus.c, this series facilitates
-> > > > testing a LVDS panel on i.MX8qxp MEK.
-> > > > 
-> > > > Please do NOT merge patch 14-19.  They are only used to facilitate testing
-> > > > the LVDS panel.
-> > > 
-> > > What's the plan to conclude this work? What's the latest status?
-> > > I am looking forward to have a way to use the i.MX8QXP display with
-> > > mainline, but to my understanding some required changes on the SOC dtsi
-> > > are not merged.
-> > > 
-> > > Can you help?
-> > 
-> > I planned to add display controller DT node after prefetch engine support [1]
-> > is picked up so that the prefetch engine could be enabled together with the
-> > display controller.  Just want to avoid a DT that only enables the display
-> > controller or bypasses the prefetch engine.  It makes the display controller
-> > driver simpler.
-> > 
-> > [1] https://lore.kernel.org/all/20251027-imx8-dc-prefetch-v5-0-4ecb6c6d4941@nxp.com/
-> 
-> That series is from October 2025, is there anything blocking to move it
-> forward?
+Hi
 
-It lacks a Reviewed-by tag(at least a Acked-by tag) from a drm-misc committer
-for every driver patch in that series.  Also, it seems that Marek(Cc'ed) is
-not a big fan of [1](See i.MX95 display support discussion[2]).
+Am 16.07.26 um 08:51 schrieb Andrew Zhou:
+> DRM currently selects DRM_PANEL_ORIENTATION_QUIRKS unconditionally,
+> forcing all DRM users to compile embedded LCD panel quirk detection.
+> This is unnecessary on desktop and server systems with external
+> monitors.
+>
+> Add a static inline stub in drm_utils.h that returns
+> DRM_MODE_PANEL_ORIENTATION_UNKNOWN when the option is disabled,
+> and make the Kconfig option user-visible with a description.
+>
+> Compile-tested with CONFIG_DRM_PANEL_ORIENTATION_QUIRKS=y and =n.
+> Boot-tested in QEMU with TinyCorePure64.
 
-[2] https://lore.kernel.org/dri-devel/aiZzxhljfyYQ68Gl@raspi/
+NAK. We also need these quirks on desktops, and disabling error 
+workarounds makes little sense IMHO.
 
-> 
-> Francesco
-> 
-> 
-> -- 
-> linux-phy mailing list
-> linux-phy@lists.infradead.org
-> https://lists.infradead.org/mailman/listinfo/linux-phy
+Best regards
+Thomas
+
+>
+> Signed-off-by: Andrew Zhou <zhoulol888@gmail.com>
+> ---
+>   drivers/gpu/drm/Kconfig                        | 14 ++++++++++++--
+>   drivers/gpu/drm/drm_panel_orientation_quirks.c |  6 ++++--
+>   include/drm/drm_utils.h                        |  8 ++++++++
+>   3 files changed, 24 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 323422861e8f..da4ac94bbf61 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -8,7 +8,6 @@
+>   menuconfig DRM
+>   	tristate "Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)"
+>   	depends on (AGP || AGP=n) && !EMULATED_CMPXCHG && HAS_DMA
+> -	select DRM_PANEL_ORIENTATION_QUIRKS
+>   	select HDMI
+>   	select I2C
+>   	select DMA_SHARED_BUFFER
+> @@ -369,4 +368,15 @@ endif
+>   
+>   # Separate option because drm_panel_orientation_quirks.c is shared with fbdev
+>   config DRM_PANEL_ORIENTATION_QUIRKS
+> -	tristate
+> +	tristate "Panel orientation quirks for DMI-based detection"
+> +	depends on DRM
+> +	help
+> +	  Enable DMI-based quirk detection for devices where the
+> +	  built-in LCD panel is mounted in a non-standard orientation
+> +	  relative to the casing (e.g., handheld PCs, tablets).
+> +
+> +	  This allows userspace to automatically rotate the display
+> +	  to match the physical orientation of the device.
+> +
+> +	  Desktop and server systems with external monitors do not
+> +	  need this. If unsure, say N.
+> diff --git a/drivers/gpu/drm/drm_panel_orientation_quirks.c b/drivers/gpu/drm/drm_panel_orientation_quirks.c
+> index 3a218fb592ce..fb09078a831a 100644
+> --- a/drivers/gpu/drm/drm_panel_orientation_quirks.c
+> +++ b/drivers/gpu/drm/drm_panel_orientation_quirks.c
+> @@ -14,7 +14,7 @@
+>   #include <drm/drm_connector.h>
+>   #include <drm/drm_utils.h>
+>   
+> -#ifdef CONFIG_DMI
+> +#if defined(CONFIG_DMI) && defined(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS)
+>   
+>   /*
+>    * Some x86 clamshell design devices use portrait tablet screens and a display
+> @@ -589,7 +589,7 @@ EXPORT_SYMBOL(drm_get_panel_orientation_quirk);
+>   
+>   #else
+>   
+> -/* There are no quirks for non x86 devices yet */
+> +/* Fallback stub when DMI or the entire quirk module is disabled. */
+>   int drm_get_panel_orientation_quirk(int width, int height)
+>   {
+>   	return DRM_MODE_PANEL_ORIENTATION_UNKNOWN;
+> @@ -598,5 +598,7 @@ EXPORT_SYMBOL(drm_get_panel_orientation_quirk);
+>   
+>   #endif
+>   
+> +#ifdef CONFIG_DRM_PANEL_ORIENTATION_QUIRKS
+>   MODULE_DESCRIPTION("Quirks for non-normal panel orientation");
+>   MODULE_LICENSE("Dual MIT/GPL");
+> +#endif
+> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
+> index 6a46f755daba..947b8e71260e 100644
+> --- a/include/drm/drm_utils.h
+> +++ b/include/drm/drm_utils.h
+> @@ -11,10 +11,18 @@
+>   #define __DRM_UTILS_H__
+>   
+>   #include <linux/types.h>
+> +#include <drm/drm_connector.h>
+>   
+>   struct drm_edid;
+>   
+> +#ifdef CONFIG_DRM_PANEL_ORIENTATION_QUIRKS
+>   int drm_get_panel_orientation_quirk(int width, int height);
+> +#else
+> +static inline int drm_get_panel_orientation_quirk(int width, int height)
+> +{
+> +	return DRM_MODE_PANEL_ORIENTATION_UNKNOWN;
+> +}
+> +#endif
+>   
+>   struct drm_panel_backlight_quirk {
+>   	u16 min_brightness;
 
 -- 
-Regards,
-Liu Ying
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
