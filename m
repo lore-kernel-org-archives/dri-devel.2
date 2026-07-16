@@ -4,43 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3909AC44501
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 10:11:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0176DC44501
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 10:13:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F8CD10E762;
-	Thu, 16 Jul 2026 10:11:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1DA810E777;
+	Thu, 16 Jul 2026 10:13:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dytyv42U";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QE94x3L7";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9858F10E762
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 10:11:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DC1636001A;
- Thu, 16 Jul 2026 10:11:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70B9A1F000E9;
- Thu, 16 Jul 2026 10:11:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784196694;
- bh=35OsHtqv4vUsAMsKep20Tt6rdgZDUPGbCnuG2pt//N8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dytyv42Uly3/rHyWnDX+eNf2eM/8cjDEsSBzwpqn/C2DzRYd38cExaRVBSaPuAYwH
- 1Mh3T2MYVetyvT64BhucLzGx5N6uZBfI0um/AaedDgH9OxfteV8eQAeQ28WK9wi5le
- xae7D4/YzF62ZBr/0+8OlkCKj3Wo8t8Js91T+AnmmRhfSYHokEs5ty2dslcx5vFueV
- LOA6U3Tapk1gxzUHC43doAFI0z8ESV9/ry0dgl90XP37FRcZT2QLGm2aQW1mhtT1Ce
- Lgtp9lWLgm4wwSLy9Vfl7a0XNxtqVpPVebY7XEpfWtKv65jgB0UPVOLh7vGmRmxGzb
- pKsq3F6iXsKzA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10] misc: fastrpc: Allocate entire reserved memory for
- Audio PD in probe
-To: "Jianping Li" <jianping.li@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260716095847.479-1-jianping.li@oss.qualcomm.com>
-References: <20260716095847.479-1-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 10:11:33 +0000
-Message-Id: <20260716101134.70B9A1F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C32F010E777;
+ Thu, 16 Jul 2026 10:13:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784196827; x=1815732827;
+ h=from:to:cc:subject:date:message-id:
+ content-transfer-encoding:mime-version;
+ bh=4syZO/DIFeAH5karKslxieAhaQuHyFcbkJRPcdOro94=;
+ b=QE94x3L7KTcYRyiR5Mb2LvWgGyc4JcFYmwHrZ0OqkxvN0ElTZWDVLXvH
+ P2p8f/FPwGBphDstweZNiXtPWXDrnPf5jzcu2o34idq5tGQ1PCPyksXla
+ toZJvwOH/k2xTYkuVsWKDmHtyDapL0Nnye0QpUJtsJeSBJA2SJ+ZkH6BY
+ ep2HQbFRabDFZAdPpoqzTaHRJidh4PbX7QdjOZbcRepQirfTx+oSe6l0z
+ Aq5ZpAx1ktZINrjriWsosAb0HfbNRu4t4tnm5QvSZBMlJgi1qTZEjczQE
+ TaDlMhFNjTb6lOYaaS8r0tBtH2UhEpK2y9gC6mthAtpGfjWnUo2MEs60X Q==;
+X-CSE-ConnectionGUID: RxF5COFzSiabCvU+D0wpcw==
+X-CSE-MsgGUID: h3QAvgoUSZCQleILPI2u9w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="95204482"
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; d="scan'208";a="95204482"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2026 03:13:47 -0700
+X-CSE-ConnectionGUID: Sx+hfvIRSi+ws6o0vPP4lg==
+X-CSE-MsgGUID: dqW34S7DRV6qUjN4gVUrBw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; d="scan'208";a="280905645"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2026 03:13:47 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 16 Jul 2026 03:13:46 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Thu, 16 Jul 2026 03:13:46 -0700
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.9) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 16 Jul 2026 03:13:46 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NOxRgckvuPLTIURHvUF4h9hXjqcvWb+iQNjDkoLcBFw3PusonL1tDZBDOQroEibCPNcK2pf6ZhecsQVJlbAHTuRDIGVmC7HSO2oyTEXTxKXcbPCwwbFIccJ0iH1C9Z3VQKxXZu1pByx5jOEtfSa0b85SGf7Ez9LedF9JEnzT5v0bxlY32R6J50uladoszPr0E3rYi04dHd4UtLd7+YLB3RC0tLF/An+ohfryxjAsfF1t0JIdzs4WFd7jIza3rseLrYndZmkVmTm4lqozxy3On0ggeLALxlLPeCqQG2na/DVBVUPuYVKoyfQVGIO6HjdHgdH2qMSciQnpilxCWaQs2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FvVLJHGTT8+PxzKU8Oqa+we4mX3D2/E3t0POUI2U0oE=;
+ b=rtuYoI5wzgbEkg/ezVjImv+dIIHbB+XQ+Jc7U6q+OVKkX0UlQFXd2FbDW43zCqzbgEMvsCxz0ef3Q+F4URdqTFvokpdDrk3ueSSwIcAyQFtcJjDb2b6PY/Sfmhk1DnG7WLZlpy9UZm6Nt8neTxJrhYT/Jtjxd/SNJsgJNycSB1YOyO4F4ezULZWN2QI4xafjYLFUGol1+/iH/mzfLkfAzdK5nNpTZXM+CcAwX7WtNpacvwkD4D0JioLan2Tw+WoPA3QZa3WahVJOJ8RLGgtF/tQayhq28KFnDGUiF/Yc7sWL5oCzS1gcKjAKWyMdlns0WAtiLHqJtODJEq0nxdln9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW4PR11MB6909.namprd11.prod.outlook.com (2603:10b6:303:224::12)
+ by CY2PR11MB637721.namprd11.prod.outlook.com (2603:10b6:930:110::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Thu, 16 Jul
+ 2026 10:13:44 +0000
+Received: from MW4PR11MB6909.namprd11.prod.outlook.com
+ ([fe80::9eab:962:806:3794]) by MW4PR11MB6909.namprd11.prod.outlook.com
+ ([fe80::9eab:962:806:3794%4]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
+ 10:13:44 +0000
+From: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+To: <dri-devel@lists.freedesktop.org>
+CC: <maarten.lankhorst@linux.intel.com>, <andi.shyti@linux.intel.com>,
+ <krzysztof.karas@intel.com>, <krzysztof.niemiec@intel.com>,
+ <intel-gfx@lists.freedesktop.org>, Sebastian Brzezinka
+ <sebastian.brzezinka@intel.com>
+Subject: [PATCH] drm/fb-helper: guard against NULL fb_helper->funcs in restore
+ path
+Date: Thu, 16 Jul 2026 12:14:33 +0200
+Message-ID: <e1957da52fcdd1d88a285553d36e12a0362a8258.1784196681.git.sebastian.brzezinka@intel.com>
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: DU7P190CA0024.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:10:550::20) To MW4PR11MB6909.namprd11.prod.outlook.com
+ (2603:10b6:303:224::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR11MB6909:EE_|CY2PR11MB637721:EE_
+X-MS-Office365-Filtering-Correlation-Id: 196f64fd-64b8-42d9-5817-08dee322eab8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: NarGmylqMuDt5x6Q1EYaDaGnphmkWqZSrPRwlI0PXIaXfEyVovSKKxBUiaNuo2QXQv6tK1kfSzy5zBIn8XDc/B0kTBJCJt3ye8nfrc0CsBvW5PjQTsRlm5ktWib6WQyPYQ7sI+4O73QVH1u3Ks8dDxToHa2qLPKuRlNnhB1ZTPfH/2iKqWnLynlDIXT3WtkZvXiDgPpQGULQgFnp/lW+Fb9SMooPNc2eVBEeFkv/Crypu/XxgnW559PfBtwk8z5SHUDGjl+RHoYUGtyMeVa2xzXk5LnD4FDWFvSSClT3sDcQNMXY21EZ7WqyG7qYT1ItcxEtuRC76GnHfkJlJEVdOlyuLi74cYsY4/gZBody8WY9s8Xu4G1AZL28WP33AOmjoTfFNgq3apty4KB+nmk8qKPf1nlTeacrAzKZ5XQ9PP3kJbLb7s0CmlY3trEaP6pQbA0y6vyRu7inq/cSi6mtY7EKPBdGiDz6V0jV6lk8UOO/sRIJOkeFPrCQi/yLaj9re9aw0esATy9JWQfCc51J5LJITElOiqNN4bNeLPEIhXzGUCIu1TsmIAAdC6toQwxQ+RoHNYYS+9XqhNyFWWy+OUlwyvLVXgfUjXsoxvTG/INqIQArOzIdieuuA7lndxCaJbpJXThCtF6vont24X+WLPfaLUG98K4iITdEJ+RZtYM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR11MB6909.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+M7DYGzf7+kTsJwZPR6a4jB3yq8Cp0u9QVFmBkFeu3cZsCUqlDoY2/JmyghJ?=
+ =?us-ascii?Q?DxLC5kNdoXV21BXOTkGkOFyFMrEayhWjZdtF1XCwGpP78+HvseD2l5zz9D9q?=
+ =?us-ascii?Q?vnOS4euFEoF2rcKuUR9idg8xJN3cHXNMxybzQ4siG6MlXjnjXTVtGx8KOvvt?=
+ =?us-ascii?Q?ky+ZJhKNErFF0DB1BspCZu0x6AF1CfG2V5EVpmcw3EYHI0oMhDpNHWtDjWDH?=
+ =?us-ascii?Q?lFYjor9AQf+aDHPErldRc8q6wtB0aZShvBxk9r6xbJ3OPn176K5FcmxE+5RP?=
+ =?us-ascii?Q?HjK7GGM64WWVsn7fS2s/yjtERACHKKlu/Vp3eLIA752sdmmsl0gbMX3xXtUl?=
+ =?us-ascii?Q?BwiE/EG3sgMfh4p0sdCK2uAi38x3N03ogsrWIKhWXieTgBQos+xMAxHahYFX?=
+ =?us-ascii?Q?JLlgkoTXx0ZUf7PPoe1P2wQtuWGPbph+o44EzlfP0wEuCT0ZzWpPcWy4BAgV?=
+ =?us-ascii?Q?+SGK+zRYoV9u+FneUKfNuv+1Ziyw+tP3Fh6UpYia35QZYnQG91h0QaU+9I6h?=
+ =?us-ascii?Q?2/H8uWhHIuTmrqPHXpiB1lCgLBH4oMy5kc3iDaEJsp/SmZvMBTmTQfox4+6y?=
+ =?us-ascii?Q?vnklIS/IvRqlat2N6E6FkM1XM2eApZU7NTK/ttqBGxLEju111V9q47/msLhm?=
+ =?us-ascii?Q?KqMDkDZHdqhirnoUnXG53JhTAtCavPQgySHGEtEeX+Cl6/26sGTp7OD8st//?=
+ =?us-ascii?Q?YVIiq5MMqZaoK+ihbw7bde9F10uf453CqpAIeolquo3FCONwqwTgN6NI1d+f?=
+ =?us-ascii?Q?IJAM+AQweqlpuf/rnUA9AIk4+pavq5QcTy2oW69YnP2GZnaXOV/H7qMvwPn7?=
+ =?us-ascii?Q?Al/nbS745yLhkezdzwR+GS5oWzw/nBbKNO4EAO2m6eioFssBeWmwgRdcXV9C?=
+ =?us-ascii?Q?3eidiUevGRG0tWLPvJxQELQRt0fkwrsRIP4TVZiIKQem0pyHb3s6RmTHIMA2?=
+ =?us-ascii?Q?1ITZfs8j+9gocMhoPRX+dw8pNxhPQxLHYRGZVt8s8BvoPSLir7CqlH+DZT0/?=
+ =?us-ascii?Q?Mzszcipq9ejeS2ZI3zSdPJx1ah/O/ddrD5bwzXkh1wdE7wP8kTIsuGnOaI7u?=
+ =?us-ascii?Q?piWzd0TgdYr/YX2ZRcRIWW8uCI60bf+W9yh2+BXSodfSxmzLl+XciVaRg0L1?=
+ =?us-ascii?Q?uSEe1EqjmxI8z1cZwGbzH2Lr6npGYzDvV55XeSw8kqr+kem9nMVSGfPpTRzk?=
+ =?us-ascii?Q?EHxW0LRLiHsOzSkMIAfu2FnGqkUaJ39x/ETVQybxlBGIPpMgIvsobQZCGXdc?=
+ =?us-ascii?Q?/LLSH6t6ypHBNUtxBOhczpG4Ke/UtUtIJgZOhQOY3v3iIgG7a719lQoTEACc?=
+ =?us-ascii?Q?DQVwoLf7c70AL+benUXCrtvLm+3t+KGQM6P7M/9XBGfxPulLX+pD4iLTfg9a?=
+ =?us-ascii?Q?fPpaDMQ7XN50za2uRfcTW3YGQhmCdEWxdNDJUwOiqwO0bGxI8O/ccGWohUHZ?=
+ =?us-ascii?Q?Y1P20tMfbivz4vBTAOpFnjhgUBEvln6DRNkMZ8HCJdQS27/sS8X32TnTxM5i?=
+ =?us-ascii?Q?tJWlX3YjLl0alacTdrTCvc+FJjnlRyEFQ9AiAT1LPIj9qtRtzYWds/4HK/+X?=
+ =?us-ascii?Q?jdTg/4YQA/vyn8BGLwF17o1TtupY2oiVo1HLOoo4u+3F8ek17ktbHJjdv2Pk?=
+ =?us-ascii?Q?BPgmjczNRLEppH6Pj+QDvGs1iDesYd5SOoTG85w5VnL6wezvmVKdeEzbm/Wm?=
+ =?us-ascii?Q?2CKyOA3IgKRrvOo34u90B9WYOWJ0EkZaY2jymU5EeU1/zcMY46xGAf7CLtL5?=
+ =?us-ascii?Q?e7tZ/W60LbihxNfh693fbI7EOXRZrAQ=3D?=
+X-Exchange-RoutingPolicyChecked: eniPyRavltW9pn8c87PxnQ4ncV4gEjeZcxNADcOboc4zVLgaRuDZz0RbzANisgjnR9+nRY3FXN19MWc+NLrQek49GC3oYGP5q325ikLeyD8XF0Njorv8sH4/3VS6ceUbAl/5xwFb/Owh4ucZnmos+00kkJFAUwzif8J7IQRUY12LGZGyycTYgz6i6z7lZWuERYEcyZlmrbhhCDPzJ01YtaRbHE5xtDucgJLaH3A9jBT2V72ONj/S/2LZakPG2+NdfElX4Ls2TjoALpaPcG3AuoFb8Gjwz3lOdhmmXgouGOrCjiC1tIaSked+ppcz2BxS3mbaPsrkZDHig7OFCWTdZg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 196f64fd-64b8-42d9-5817-08dee322eab8
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6909.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 10:13:44.3082 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3M8tYfKJgqhMVuMXIjiTB2PneIn5rH5JvMxrHW2/nmejOJa0xlHWUHXe+LE3OGJj0S/a28aTi8djOkvskzSqvil21uP5AwOqUmDfcm0Da/I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY2PR11MB637721
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,268 +157,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+When a driver's fbdev probe callback fails before assigning
+fb_helper->funcs (e.g. i915's intel_fbdev_driver_fbdev_probe() bailing
+out early on a DMA/GGTT pin failure), the fbdev client stays registered
+with fb_helper->funcs == NULL. Any later restore, such as on drm fd close
+via drm_client_dev_restore() -> drm_fbdev_client_restore(), reaches
+__drm_fb_helper_restore_fbdev_mode_unlocked() and unconditionally
+dereferences fb_helper->funcs->fb_restore, causing a NULL pointer
+dereference.
 
-New issues:
-- [Critical] Unconditional dereference of `cctx->remote_heap` causes a kern=
-el panic when `FASTRPC_IOCTL_INIT_CREATE_STATIC` is invoked on non-ADSP dom=
-ains or concurrently with device removal.
-- [High] Missing rollback of hypervisor SCM memory assignment in the `fastr=
-pc_rpmsg_probe` error path permanently leaks HLOS memory access permissions.
-- [High] Mandating the `memory-region` property for the ADSP domain breaks =
-backward compatibility with older Device Trees.
-- [High] Probe unconditionally calls qcom_scm_assign_mem with a potentially=
- zero vmcount, which may cause probe failures or unrecoverable permission d=
-rops.
-- [High] Concurrent static process creations can leave the DSP process init=
-ialized without a remote heap due to a race condition.
+Guard the fb_restore call with a NULL check on fb_helper->funcs.
 
-Pre-existing issues:
-- [High] Memory access permissions assigned away from HLOS for the SDSP dom=
-ain are never restored during teardown.
---
+Fixes: 2ef5754c9649 ("drm/i915/display: fbdev: Move custom restore code to new callback")
+Signed-off-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+---
+ drivers/gpu/drm/drm_fb_helper.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- Patch [1]: [PATCH v10] misc: fastrpc: Allocate entire reserved memory f=
-or Audio PD in probe ---
-commit d3151c13cc6203a8d9909ed1502893583ed1fe94
-Author: Jianping Li <jianping.li@oss.qualcomm.com>
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 7b11a582f8ec..77ae9bd5ef3d 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -146,7 +146,7 @@ __drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper,
+ 	if (do_delayed)
+ 		drm_fb_helper_hotplug_event(fb_helper);
+ 
+-	if (fb_helper->funcs->fb_restore)
++	if (fb_helper->funcs && fb_helper->funcs->fb_restore)
+ 		fb_helper->funcs->fb_restore(fb_helper);
+ 
+ 	return ret;
+-- 
+2.53.0
 
-misc: fastrpc: Allocate entire reserved memory for Audio PD in probe
-   =20
-This commit shifts the allocation of the entire Audio PD reserved-memory
-region to the rpmsg probe phase and ties its lifetime to the rpmsg channel.
-This aims to prevent memory leaks from unbounded userspace heap requests and
-ensures proper memory reclamation.
-   =20
-Link: https://lore.kernel.org/all/20260707061733.495-1-jianping.li@oss.qual=
-comm.com/
-
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index d86e79134c681..03f633028c007 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-
-[ ... ]
-
-> @@ -1391,8 +1391,25 @@ static int fastrpc_init_create_static_process(stru=
-ct fastrpc_user *fl,
->  	args[1].length =3D inbuf.namelen;
->  	args[1].fd =3D -1;
-> =20
-> -	pages[0].addr =3D fl->cctx->remote_heap->dma_addr;
-> -	pages[0].size =3D fl->cctx->remote_heap->size;
-> +	/*
-> +	 * Audio PD is a static PD and retains the remote heap
-> +	 * information across daemon restarts. Therefore only
-> +	 * the first attach should provide heap information to
-> +	 * DSP. Subsequent attaches reuse the previously
-> +	 * initialized memory pool.
-> +	 */
-> +	spin_lock_irqsave(&cctx->lock, flags);
-> +	if (!cctx->audio_init_mem) {
-> +		pages[0].addr =3D cctx->remote_heap->dma_addr;
-> +		pages[0].size =3D cctx->remote_heap->size;
-> +		cctx->audio_init_mem =3D true;
-> +		inbuf.pageslen =3D 1;
-> +		sent_heap =3D true;
-
-[Severity: Critical]
-Does this unconditional dereference of cctx->remote_heap cause a NULL point=
-er
-dereference for non-ADSP domains?
-
-Looking at fastrpc_rpmsg_probe(), remote_heap is only allocated for the
-ADSP_DOMAIN_ID. If a user with access to a non-ADSP fastrpc device node
-(like /dev/fastrpc-cdsp) invokes the FASTRPC_IOCTL_INIT_CREATE_STATIC ioctl,
-cctx->remote_heap will be NULL.
-
-Additionally, could a concurrent device removal free cctx->remote_heap and
-set it to NULL while this ioctl is executing, leading to a use-after-free
-or NULL pointer dereference?
-
-[Severity: High]
-Can concurrent static process creations leave the DSP process initialized
-without a remote heap due to a race condition?
-
-If two threads call this ioctl concurrently, Thread A might set
-cctx->audio_init_mem to true and proceed with the heap address. Thread B
-would see the flag as true and proceed with a zeroed address.
-
-If Thread A's remote invocation fails and it rolls back cctx->audio_init_mem
-to false in the err_invoke path below, Thread B's invocation may have alrea=
-dy
-succeeded on the DSP without providing the required heap memory.
-
-> +	} else {
-> +		pages[0].addr =3D 0;
-> +		pages[0].size =3D 0;
-> +	}
-> +	spin_unlock_irqrestore(&cctx->lock, flags);
-> =20
->  	args[2].ptr =3D (u64)(uintptr_t) pages;
->  	args[2].length =3D sizeof(*pages);
-
-[ ... ]
-
-> @@ -1427,27 +1427,11 @@ static int fastrpc_init_create_static_process(str=
-uct fastrpc_user *fl,
-> =20
->  	return 0;
->  err_invoke:
-> -	if (fl->cctx->vmcount && scm_done) {
-
-[ ... ]
-
-> +	if (sent_heap) {
-> +		spin_lock_irqsave(&cctx->lock, flags);
-> +		cctx->audio_init_mem =3D false;
-> +		spin_unlock_irqrestore(&cctx->lock, flags);
->  	}
-> -err_map:
-> -	fastrpc_buf_free(fl->cctx->remote_heap);
-> -	fl->cctx->remote_heap =3D NULL;
-> -err_name:
->  	kfree(name);
->  err:
->  	kfree(args);
-
-[ ... ]
-
-> @@ -2418,12 +2398,29 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
-e *rpdev)
->  		}
->  	}
-> =20
-> -	if (domain_id =3D=3D SDSP_DOMAIN_ID) {
-> +	if (domain_id =3D=3D SDSP_DOMAIN_ID || domain_id =3D=3D ADSP_DOMAIN_ID)=
- {
->  		struct resource res;
->  		u64 src_perms;
-> =20
->  		err =3D of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
-> +
-> +		if (err && domain_id =3D=3D ADSP_DOMAIN_ID) {
-> +			dev_err(rdev, "missing mandatory remote heap memory-region\n");
-> +			goto err_free_data;
-> +		}
-> +
-
-[Severity: High]
-Does mandating the memory-region property for the ADSP domain break
-backward compatibility with older device trees?
-
-Previously, if a device tree did not specify a reserved memory region for
-ADSP, the driver dynamically allocated the remote heap. By explicitly faili=
-ng
-the probe when of_reserved_mem_region_to_resource() fails for ADSP_DOMAIN_I=
-D,
-older device trees might now fail to probe.
-
->  		if (!err) {
-> +			if (domain_id =3D=3D ADSP_DOMAIN_ID) {
-> +				data->remote_heap =3D
-> +					kzalloc_obj(*data->remote_heap);
-> +				if (!data->remote_heap) {
-> +					err =3D -ENOMEM;
-> +					goto err_free_data;
-> +				}
-> +
-> +				data->remote_heap->dma_addr =3D res.start;
-> +				data->remote_heap->size =3D resource_size(&res);
-> +			}
->  			src_perms =3D BIT(QCOM_SCM_VMID_HLOS);
-> =20
->  			err =3D qcom_scm_assign_mem(res.start, resource_size(&res), &src_perm=
-s,
->  				    data->vmperms, data->vmcount);
-
-[Severity: High]
-Is it safe to call qcom_scm_assign_mem() unconditionally here without
-verifying if data->vmcount is greater than zero?
-
-If the qcom,vmids property is omitted in the device tree, vmcount will be 0.
-Calling qcom_scm_assign_mem() with 0 destinations might cause a hypervisor
-error or silently drop permissions. In the previous implementation, this
-was guarded by checking if fl->cctx->vmcount was non-zero.
-
->  			if (err)
->  				goto err_free_data;
->  		}
-
-[ ... ]
-
-> @@ -2490,6 +2486,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
-*rpdev)
->  		misc_deregister(&data->secure_fdevice->miscdev);
-> =20
->  err_free_data:
-> +	kfree(data->remote_heap);
->  	kfree(data);
->  	return err;
->  }
-
-[Severity: High]
-Does the err_free_data path leak HLOS memory access permissions?
-
-If qcom_scm_assign_mem() successfully transfers memory permissions to the D=
-SP
-during fastrpc_rpmsg_probe(), but a subsequent step fails, the code jumps
-to err_free_data. The error path frees the allocated memory structures but
-appears to miss calling qcom_scm_assign_mem() to revert the permissions back
-to HLOS.
-
-[ ... ]
-
-> @@ -2529,8 +2527,27 @@ static void fastrpc_rpmsg_remove(struct rpmsg_devi=
-ce *rpdev)
->  	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
->  		list_del(&buf->node);
-> =20
-> -	if (cctx->remote_heap)
-> -		fastrpc_buf_free(cctx->remote_heap);
-> +	if (cctx->remote_heap && cctx->vmcount) {
-> +		u64 src_perms =3D 0;
-> +		struct qcom_scm_vmperm dst_perms;
-
-[Severity: High]
-This is a pre-existing issue, but does the cleanup path skip restoring
-memory access permissions for the SDSP domain?
-
-During fastrpc_rpmsg_probe(), memory access permissions are transferred to
-the DSP for both SDSP_DOMAIN_ID and ADSP_DOMAIN_ID.
-
-However, during teardown here, the permission restoration is explicitly
-guarded by checking if cctx->remote_heap is populated. Since remote_heap
-is only allocated for ADSP, it remains NULL for SDSP, skipping the
-restoration logic entirely and potentially leaking the permissions.
-
-> +
-> +		for (i =3D 0; i < cctx->vmcount; i++)
-> +			src_perms |=3D BIT(cctx->vmperms[i].vmid);
-> +
-> +		dst_perms.vmid =3D QCOM_SCM_VMID_HLOS;
-> +		dst_perms.perm =3D QCOM_SCM_PERM_RWX;
-> +
-> +		err =3D qcom_scm_assign_mem(cctx->remote_heap->dma_addr,
-> +					  cctx->remote_heap->size, &src_perms,
-> +					  &dst_perms, 1);
-> +		if (err)
-> +			dev_err(&rpdev->dev,
-> +				"Failed to assign memory back to HLOS: dma_addr %pad size %#llx err =
-%d\n",
-> +				&cctx->remote_heap->dma_addr, cctx->remote_heap->size, err);
-> +	}
-> +
-> +	kfree(cctx->remote_heap);
-> +	cctx->remote_heap =3D NULL;
-> =20
->  	of_platform_depopulate(&rpdev->dev);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716095847.479-=
-1-jianping.li@oss.qualcomm.com?part=3D1
