@@ -4,53 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 759F4C4450A
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 14:26:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66FABC4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 14:27:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A0B810F33A;
-	Thu, 16 Jul 2026 14:26:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6BA310E372;
+	Thu, 16 Jul 2026 14:27:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PCJhQFE/";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="B90xVPcP";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D41A310F32D
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 14:26:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 80CD142DBA;
- Thu, 16 Jul 2026 14:26:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE3A1F00A3D;
- Thu, 16 Jul 2026 14:26:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784211971;
- bh=dmMpkIr0sbIJVy9wvQ7Wf9oRTb2hJTI9MXcBUx5k8Tg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:Reply-To;
- b=PCJhQFE/DV7ADE1bcScyLgjJwZxfJG3ka0INRryAWNnkVsuTxNuAqvNB+AUxUUKJv
- S05XNoZuc0j6suam3Jb/vU6WKPIZMXZNbYdDXpSe/ZDezpsep6QU5WFyMDc5YMdU9+
- UpJA8+JxSXjt7tJ9lyq5Lq+4Vi3CqvB64fXXyj/p0cKcQFAuBqRibIOKOEi9hDk9zY
- VZTKCZChX7Ntu+KyPdrXeLrYBolKQQ16iHKLeINr9cwa7C6ZS6tzM6J3/HHSl/Vy6L
- zefNWDxZ3M6o38J3NYqqfU2Bt7ZXlogNvdW+ujb4Xu2Ay5CmXZTJOhNs2VgbIzKQKe
- kUdwkLv1PZ2kg==
-From: Gary Guo <gary@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/2] rust: drm: fix non-const `read8` in unit test
-Date: Thu, 16 Jul 2026 15:25:44 +0100
-Message-ID: <20260716142545.3622278-2-gary@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260716142545.3622278-1-gary@kernel.org>
-References: <20260716142545.3622278-1-gary@kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1EAB10E372
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 14:27:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1784212033;
+ bh=uBIk09xBbnHw14aNehfnGLINBkgGT0M+ApnJKNl4TE0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=B90xVPcPxOpZCfBS0lJfINdFlIfxyDxXfV5D+E3f1GOHbUhdHIPNVT0o8KP2fVxwi
+ GOYs0VcdhVmMv9oZd70Oqv+ZSkHtZD3zd/kxJqVd/UMGTvkEkSJMCzA6vIpVoY6kLc
+ +fifVvix/WFSiNItdH1gdxMbRy1VqYtcKdfg/mNnBdUvp5pHNnzHVlQ8LEGH2MPE6d
+ poUlW5mRlddrD4cH0psPMucSKgujFTZbk5hoPwOofQQjoSmwDd7DbGl1AJl+XjcXUQ
+ 10F4QkjFzxk21v5Ab5TtQ5M9nYabbwDSNXfWy5tuE9fz6tpdYDq0oVGIJK5d98bnob
+ Y9Ghzyr33bS8Q==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 66F8017E023C;
+ Thu, 16 Jul 2026 16:27:12 +0200 (CEST)
+Message-ID: <fb2c3414-f011-4ea0-af9d-1e3c65d769e3@collabora.com>
+Date: Thu, 16 Jul 2026 17:27:11 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 02/39] drm/connector: Add caps-based HDMI connector
+ init helper
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
+ <20260702-dw-hdmi-qp-scramb-v8-2-d79890d00b6a@collabora.com>
+ <i4tjtsf5rsckfcayo5nuhlger5wqxn3ujeaubm4g2fgrwvhzb2@hf4uhgq3ja5p>
+ <ad75cf26-9437-47d0-864d-d71263401615@collabora.com>
+ <20260707-illegal-tuna-of-force-1c06e3@houat>
+ <737678ab-f082-4a0e-b453-f403ba141437@collabora.com>
+ <80374deb-3246-413f-a043-66bcdb438ab1@collabora.com>
+ <20260715-fair-opalescent-rhino-c6407b@houat>
+ <45113534-94ad-4a0f-8014-c04e9ab67a26@collabora.com>
+ <20260716-mega-ocelot-of-foundation-e3bcf6@houat>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260716-mega-ocelot-of-foundation-e3bcf6@houat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,33 +82,114 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Gary Guo <gary@garyguo.net>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Gary Guo <gary@garyguo.net>
+On 7/16/26 4:44 PM, Maxime Ripard wrote:
+> On Wed, Jul 15, 2026 at 01:34:19PM +0300, Cristian Ciocaltea wrote:
+>> On 7/15/26 11:50 AM, Maxime Ripard wrote:
+>>> On Fri, Jul 10, 2026 at 01:27:37PM +0300, Cristian Ciocaltea wrote:
+>>>> On 7/8/26 1:11 PM, Cristian Ciocaltea wrote:
+>>>>> Hi Maxime,
+>>>>>
+>>>>> On 7/7/26 7:10 PM, Maxime Ripard wrote:
+>>>>>> On Fri, Jul 03, 2026 at 10:31:55PM +0300, Cristian Ciocaltea wrote:
+>>>>>>> Hi Dmitry,
+>>>>>>>
+>>>>>>> Thanks for your quick review!
+>>>>>>>
+>>>>>>> On 7/3/26 5:05 PM, Dmitry Baryshkov wrote:
+>>>>>>>> On Thu, Jul 02, 2026 at 05:46:15PM +0300, Cristian Ciocaltea wrote:
+>>>>>>>>> In preparation for adding HDMI 2.x source capabilities, introduce struct
+>>>>>>>>> drm_connector_hdmi_caps and a new drmm_connector_hdmi_init_with_caps()
+>>>>>>>>> helper.
+>>>>>>>>>
+>>>>>>>>> The existing drmm_connector_hdmi_init() helper currently takes
+>>>>>>>>> individual capability arguments such as supported_formats and max_bpc.
+>>>>>>>>> Adding more HDMI-specific arguments to that function would not scale
+>>>>>>>>> well, so move those values into a dedicated capabilities structure and
+>>>>>>>>> implement the existing helper as a wrapper around the new caps-based
+>>>>>>>>> interface.
+>>>>>>>>
+>>>>>>>> I think, it was an intention of Maxime: make sure that every driver is
+>>>>>>>> forced to provide some values here. With the struct-based init it is
+>>>>>>>> easy to overlook or to ommit a value.
+>>>>>>>
+>>>>>>> Agreed that the struct-based init loses the compile-time guarantee that every
+>>>>>>> argument is explicitly provided - that's a real downside.  
+>>>>>>>
+>>>>>>> I'd argue it's recoverable, though: the init helper validates the mandatory
+>>>>>>> fields, so a driver that omits a required value gets rejected at init time
+>>>>>>> rather than silently misconfigured.  The "you must provide sane values" property
+>>>>>>> is expected to be preserved, just enforced at runtime instead of by the
+>>>>>>> compiler. 
+>>>>>>
+>>>>>> Yeah, I don't think we can win with C here. Rust might, but we're
+>>>>>> probably a long way from that.
+>>>>>>
+>>>>>>> The main motivation for the struct is scalability/maintainability as we add HDMI
+>>>>>>> 2.x capabilities: new fields go into the struct rather than growing the helper's
+>>>>>>> argument list, so existing callers don't need churny signature updates on every
+>>>>>>> extension.
+>>>>>>>
+>>>>>>> FWIW, in the previous revision we discussed addressing the concern with a
+>>>>>>> callback instead.  Sadly, I had to discard that approach, as it proved not
+>>>>>>> flexible enough, e.g. drm_bridge_connector_init() computes caps dynamically, and
+>>>>>>> would have required either stateful callbacks, or storing redundant/temporary
+>>>>>>> cap data in driver-private structures just to satisfy the callback.
+>>>>>>
+>>>>>> I just realized something reviewing your patch: we don't necessarily
+>>>>>> need an extra argument or a callback, we can just put these fields into
+>>>>>> drm_hdmi_connector_funcs directly, and then validate them in init.
+>>>>>
+>>>>> If I understand correctly, we should drop the drm_connector_hdmi_caps struct
+>>>>> introduced by this patch and move all its fields into drm_hdmi_connector_funcs.
+>>>>>
+>>>>> In that case, how should we proceed with drmm_connector_hdmi_init()? 
+>>>>
+>>>> Actually, this brings us to the callback issue: we cannot compute caps
+>>>> dynamically, as it only works with static data, since funcs is supposed to be
+>>>> immutable.
+>>>
+>>> Does it? The core and helpers must consider it immutable but it doesn't
+>>> have to. drm_bridge_connector for example could totally allocate it and
+>>> dynamically create it based on the bridge capabilities.
+>>
+>> If we take the VC4 case, is it fine to drop the const from the static
+>> drm_connector_hdmi_funcs to allow dynamically setting up supported_hdmi_ver and
+>> max_bpc in vc4_hdmi_connector_init()?
+>>
+>> static struct drm_connector_hdmi_funcs vc4_hdmi_hdmi_connector_funcs = {
+>> 	.tmds_char_rate_valid	 = vc4_hdmi_connector_clock_valid,
+>> 	...
+>> }
+>>
+>> static int vc4_hdmi_connector_init() 
+>> {
+>> 	...
+>>     
+>> 	if (vc4_hdmi->variant->supports_hdr)
+>> 		vc4_hdmi_hdmi_connector_funcs.max_bpc = 12;
+>>
+>> 	if (vc4_hdmi->variant->max_pixel_clock >= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ)
+>> 		vc4_hdmi_hdmi_connector_funcs.supported_hdmi_ver = HDMI_VERSION_2_0;
+>> 	else if (vc4_hdmi->variant->max_pixel_clock >= HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
+>> 		vc4_hdmi_hdmi_connector_funcs.supported_hdmi_ver = HDMI_VERSION_1_3;
+>> 	...
+>> }
+> 
+> No, but you don't have to do that either.
+> 
+> You have three cases:
+>  - Rpi < 4 has max_bpc = 8, HDMI 1.4
+>  - RPI 4 HDMI 0 and RPI 5 has max_bpc = 12, HDMI 2.0
+>  - RPI 4 HDMI 1 has max_bpc = 12, HDMI 1.4
+> 
+> Just create three different structures, and put a pointer to the right
+> one in the vc4_hdmi_variant structure. There's no need to be dynamic
+> there.
 
-With CONFIG_CC_OPTIMIZE_FOR_SIZE, the address validity check in non-const
-`read8` invocaction is not optimized away, leading to build failure.
+Ack, will do!
 
-Signed-off-by: Gary Guo <gary@garyguo.net>
----
- rust/kernel/drm/gem/shmem.rs | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-index 580e0808d6c0..a687d46d170d 100644
---- a/rust/kernel/drm/gem/shmem.rs
-+++ b/rust/kernel/drm/gem/shmem.rs
-@@ -688,7 +688,7 @@ fn vmap_io() -> Result {
-         // Ensure the ordering in memory is correct
-         let expected = 0xFEDCBA98_u32.to_ne_bytes().into_iter();
-         for (offset, expected) in (0x20..=0x23).zip(expected) {
--            assert_eq!(vmap.read8(offset), expected);
-+            assert_eq!(vmap.try_read8(offset).unwrap(), expected);
-         }
- 
-         Ok(())
--- 
-2.54.0
-
+Thanks,
+Cristian
