@@ -4,64 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB0EAC4450E
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 11:08:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4573DC4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 11:19:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 247A710E32B;
-	Thu, 16 Jul 2026 11:08:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CF6C10E31F;
+	Thu, 16 Jul 2026 11:19:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bTj/OcXl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nps7qwPZ";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA25010E32B
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 11:08:36 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id CEBE36001A;
- Thu, 16 Jul 2026 11:08:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 79F0CC19425;
- Thu, 16 Jul 2026 11:08:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1784200115;
- bh=x1ZIyVKdr7A/SeoU6wb+U8BSxH8pNQF4hiJSDCyNV7s=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=bTj/OcXlfSg8X2KjsC7qjq3xzuquWV99Vf7k838VMGZnX2GdEhuYe1F7LXZ1apuAo
- In3mQ/la8gi6ijCfs5Uh6ZMzIr34WEmACOua/HCps8O+7hrHivIVIJb7+W/ViQGrC0
- 7rZDqZ36fHqsEs3KVKbSvMwDp5gM13o3J4K7XXCuLnEEUJWQCkZyTcoNx11xhF5VEJ
- h0Cx6mTpwqLMU6Smz//kfFcyj5iAdXHnlfZKKBn8pvBaWazqIo4IA99jbk2jEr+KDh
- uLZwkQxX4iC9gZdWdSaeo+KJ19g7RvScZLQALc7kEhLXsE5h9rfmFld/wDgRQxe6+t
- 3yy24k6hbGL2Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 69F41C4450E;
- Thu, 16 Jul 2026 11:08:35 +0000 (UTC)
-From: Selby Mashiki via B4 Relay <devnull+mashikiselby.gmail.com@kernel.org>
-Date: Thu, 16 Jul 2026 13:08:33 +0200
-Subject: [PATCH] staging: fbtft: fb_ra8875: replace udelay with
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0302010E31F
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 11:19:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 215446001A;
+ Thu, 16 Jul 2026 11:19:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99DE81F000E9;
+ Thu, 16 Jul 2026 11:19:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784200751;
+ bh=B8vTsHnMG9AtvG2/FXXHSyKB6YWqrYZZG9Bv4/xFZ3s=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=nps7qwPZgVMbO/pVVVs3qTDAcKSdm2s1dyS++Nwnxb7rsSNbCEtVSLUy/boNefVQ8
+ 8vgjlCthlvFYDVC6Lx4gkawcf26RtMc4xReOPrnJb/R0S+9kZ2mWc/p1nqUZFltkve
+ 9lYG0ktpKoIrg6HnzS+AKTYqd1H+gOFci5Dm9plvKooD2lRx7NRnHNULhHEWXmJP0b
+ 2xNDIJ4xaXpl2zQ7KCUHmeu412NUMWD33JhrZgu6BfuQKAI31mMBP1inTaaaStViyh
+ PqpTKZplOxQHf5KZrxcEx2sqhrH6BykbmwKGfbv/EFsTeYMbvTqs+JsNvhC0zfjRAZ
+ DHcYGwaRq+rJA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] staging: fbtft: fb_ra8875: replace udelay with
  usleep_range
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260716-staging-testing-v1-1-2ebc0c6bb27a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMzQqCIRCF4VuRWX+CY2DRrUQLfyabFhaORSDee
- 9q3OjyL83YQqkwCZ9Wh0oeFn2UCNwXx7ksmzWkarLHOHNFpaT5zybqRtLUBwwmTOySTEObrVen
- G33/xct0t7/Cg2FYGxvgB5ulh2HMAAAA=
-X-Change-ID: 20260716-staging-testing-b1b81d63d0d1
-To: Andy Shevchenko <andy@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Selby Mashiki <mashikiselby@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784200113; l=1339;
- i=mashikiselby@gmail.com; s=20260716; h=from:subject:message-id;
- bh=Kw+oD1A3+MZuZjRR0K6KD78XW22TnMscyBb1Nk+0T4w=;
- b=+XPtQJi1tekVKGVbfuhRY+B22fbiiusYW8TIqcCqQ4iPZ2931p+OWTAgL0WeT9DfelBFQd/9T
- PeId6DNZnE7BgpJEDPyRCWLDoFaoaVkKJyNgYYFevuEBf03PbzXTZ28
-X-Developer-Key: i=mashikiselby@gmail.com; a=ed25519;
- pk=pdu1PfyliHcDzX9YL6q+8PseyTQ5vDHYAsHmrqMp/BQ=
-X-Endpoint-Received: by B4 Relay for mashikiselby@gmail.com/20260716 with
- auth_id=875
-X-Original-From: Selby Mashiki <mashikiselby@gmail.com>
+To: "Selby Mashiki" <mashikiselby@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260716-staging-testing-v1-1-2ebc0c6bb27a@gmail.com>
+References: <20260716-staging-testing-v1-1-2ebc0c6bb27a@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 16 Jul 2026 11:19:11 +0000
+Message-Id: <20260716111911.99DE81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,53 +53,112 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: mashikiselby@gmail.com
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Selby Mashiki <mashikiselby@gmail.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+
+Pre-existing issues:
+- [Critical] Unconditional NULL Pointer Dereference on Big Endian Architect=
+ures
+- [High] Missing State Restoration on Error Path
+- [High] Unaligned Memory Access causing alignment faults
+--
+
+--- Patch [1]: [PATCH] staging: fbtft: fb_ra8875: replace udelay with uslee=
+p_range ---
+commit 0b662df2d1169732bcf1a8f82e3c8a0905497245
+Author: Selby Mashiki <mashikiselby@gmail.com>
+
+staging: fbtft: fb_ra8875: replace udelay with usleep_range
 
 udelay() busy-waits for the specified duration, consuming CPU cycles
 unnecessarily. usleep_range() is preferred for delays that can sleep,
 as it allows the scheduler to run other tasks during the wait.
 
-Replace two instances of udelay(100) with usleep_range(100, 200) to
-use the preferred sleeping delay function.
+> diff --git a/drivers/staging/fbtft/fb_ra8875.c b/drivers/staging/fbtft/fb=
+_ra8875.c
+> index 0ab1de6647d07..d2400bb44f1c6 100644
+> --- a/drivers/staging/fbtft/fb_ra8875.c
+> +++ b/drivers/staging/fbtft/fb_ra8875.c
+> @@ -210,7 +210,7 @@ static void write_reg8_bus8(struct fbtft_par *par, in=
+t len, ...)
+>  	}
+>  	len--;
+> =20
+> -	udelay(100);
+> +	usleep_range(100, 200);
+> =20
+>  	if (len) {
+>  		buf =3D (u8 *)par->buf;
+[ ... ]
+> @@ -231,7 +231,7 @@ static void write_reg8_bus8(struct fbtft_par *par, in=
+t len, ...)
+> =20
+>  	/* restore user spi-speed */
+>  	par->fbtftops.write =3D fbtft_write_spi;
+> -	udelay(100);
+> +	usleep_range(100, 200);
+>  }
 
-Signed-off-by: Selby Mashiki <mashikiselby@gmail.com>
----
- drivers/staging/fbtft/fb_ra8875.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed the error paths
+in write_reg8_bus8() return early:
 
-diff --git a/drivers/staging/fbtft/fb_ra8875.c b/drivers/staging/fbtft/fb_ra8875.c
-index 0ab1de664..d2400bb44 100644
---- a/drivers/staging/fbtft/fb_ra8875.c
-+++ b/drivers/staging/fbtft/fb_ra8875.c
-@@ -210,7 +210,7 @@ static void write_reg8_bus8(struct fbtft_par *par, int len, ...)
- 	}
- 	len--;
- 
--	udelay(100);
-+	usleep_range(100, 200);
- 
- 	if (len) {
- 		buf = (u8 *)par->buf;
-@@ -231,7 +231,7 @@ static void write_reg8_bus8(struct fbtft_par *par, int len, ...)
- 
- 	/* restore user spi-speed */
- 	par->fbtftops.write = fbtft_write_spi;
--	udelay(100);
-+	usleep_range(100, 200);
- }
- 
- static int write_vmem16_bus8(struct fbtft_par *par, size_t offset, size_t len)
+write_reg8_bus8() {
+    ...
+    ret =3D par->fbtftops.write(par, par->buf, len + 1);
+    if (ret < 0) {
+        va_end(args);
+        dev_err(par->info->device,
+            "write() failed and returned %dn", ret);
+        return;
+    }
+    ...
+}
 
----
-base-commit: 64276d9bfe4d1fdd5cf2636f1065f7ea55c2defb
-change-id: 20260716-staging-testing-b1b81d63d0d1
+Does this early return leave par->fbtftops.write pointing to the slower
+write_spi function, permanently degrading SPI performance? Should it restore
+fbtft_write_spi before returning?
 
-Best regards,
---  
-Selby Mashiki <mashikiselby@gmail.com>
+> =20
+>  static int write_vmem16_bus8(struct fbtft_par *par, size_t offset, size_=
+t len)
 
+[Severity: Critical]
+This is a pre-existing issue, but does write_vmem16_bus8() unconditionally
+dereference par->txbuf.buf?
 
+write_vmem16_bus8() {
+    ...
+    *(u8 *)(par->txbuf.buf) =3D 0x00;
+    ...
+}
+
+If par->txbuf.buf is only dynamically allocated on Little Endian architectu=
+res
+or when txbuflen > 0, could this cause a kernel panic on Big Endian systems
+where it might be NULL?
+
+[Severity: High]
+Also a pre-existing issue in write_vmem16_bus8(): is there a risk of alignm=
+ent
+faults on architectures that do not support unaligned memory access?
+
+write_vmem16_bus8() {
+    ...
+    txbuf16 =3D par->txbuf.buf + 1;
+    ...
+    for (i =3D 0; i < to_copy; i++)
+        txbuf16[i] =3D cpu_to_be16(vmem16[i]);
+    ...
+}
+
+Since txbuf16 is cast from an odd byte offset (par->txbuf.buf + 1), does the
+16-bit assignment in the loop cause an unaligned access?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-staging-te=
+sting-v1-1-2ebc0c6bb27a@gmail.com?part=3D1
