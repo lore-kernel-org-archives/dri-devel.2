@@ -4,88 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52FE7C44521
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:15:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C49EC44528
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:15:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77DD510E6D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E05010E6D6;
 	Mon, 20 Jul 2026 07:15:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="EV3Uv/Za";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="e0rPuvGY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mFTdKJBv";
 	dkim-atps=neutral
-Received: from flow-b8-smtp.messagingengine.com
- (flow-b8-smtp.messagingengine.com [202.12.124.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37B4510F4A2
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:01:04 +0000 (UTC)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailflow.stl.internal (Postfix) with ESMTP id E7F6D13002AA;
- Fri, 17 Jul 2026 04:52:55 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Fri, 17 Jul 2026 04:52:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1784278375; x=
- 1784281975; bh=LFrLmXfIbuifi2fq9urlAuWTT2eNH/ystm/PsWX4Rsw=; b=E
- V3Uv/ZaXaDIR0evVbL2ZKAAyiBWjjBDsEks1MC/sAcg31yvfdW84P+aIHVpKvLE2
- 5WQgOiPBVBAW8MVXndJlSy+QFbf9TvQGSyY0z4CnEw1s1p94TJer+Yv6sVvRkdOz
- R/OkzU3SvuJW8+RtF4sU1miYzRjyEMN5rptyTTvcrSBq7Ike+1QXy5Iocflxrqq0
- nD7dYD3ofv2tlaIglX48Mkq+tZMrMlzsr5IXVwprnNzZ/thnQ+u3YTGK0JdjoMsW
- 8iqjiWZs7Bbl3ZIpipI0j7IJf2QBLiL25zgO0P9bUDQoI/fCjznHVB17WoGLI85q
- 5MWf6+uK5gg90MrXkCSrg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; t=1784278375; x=1784281975; bh=L
- FrLmXfIbuifi2fq9urlAuWTT2eNH/ystm/PsWX4Rsw=; b=e0rPuvGYlrksLwfdl
- jy/96FW8ma3v8AHKR1eXHmnAIZEKt6Vk9OAYOkfbblwUugQw0urxlHVNXwTSutlu
- anGPIckB+OFzpjA9qOAR3IYwx9ddkvY3oCV67mCNXtqSSFBNLDsrBLOwj/gOmIMy
- oO5s2m1Txoife8SnCq03c8MsKBOGeHiEo4Yw73DXAjYcXWfIfmGIbxleyhdhoidW
- RMqF6G6ODTrLyrmXAJHmARnTpm0GNPwbCudXcW4vzDdsCxLje/mkyQz+Q6SyTQXS
- iqXR8HKmpxTkH+/vBKPu8dL03WQJ9zig1y9ZTAW2dSO83RxMkgJc5nLP6z5J2piF
- xATxA==
-X-ME-Sender: <xms:Z-1Zamtq2qF1Me7NmEHs-HGNm41gdD1g3GPZ-FQO6NhDCIMAy2cZGg>
- <xme:Z-1ZanXAQuaNPaI2DcWwHMlB1j0qSJPukF7jl88htiPmtP6MkdKNIxnKQPRj4K_ri
- ahxfW9KctefMuM6u9J5uFwCtLO2HEOmwjD0qWlYn3GayJyj0xnwy5s>
-X-ME-Received: <xmr:Z-1ZatT2RO4lstf4QMMx9hfNIc0KLNeYOvHIMXzt5hoy4bKK6oRjKi2xTTK6bDkq06zdxbDcEnZf6X-DEQg>
-X-ME-Proxy-Cause: dmFkZTFKgLZg3eiKsItrAZog+DFhH3PPGLnzSnarCUeNKzO8IlnkZCjNB3sgT8GthLC1Xg
- IvJQkADwqDptr+dTHsfASZ9bA9wWe6sAoTiHGLBbDiihg2eC/DPK2ZHSML9NDLc2O58opm
- CO6H5WnAZOuDssEHAPojH8O3zZqDBaVxFzE2kFvvabx5f4bBwDbLFpZQczL6I/+mzdU8bo
- ZVSoTIA7NlZXOmB47dpGcyMee9KDWKTuVBnimx6RlmicnM3hpX6uzk/z/B24Lcj1RBpaDS
- l4u9/GT6IMgnzHKW4PFFlEOcllaPmqnYFWQrwgvgk5NV8FQsar8tOlZDrFX/HzosSN71Zw
- gquTW+mRuJCPCb/HoYnfYc+lVw5vZjOMFsVkf2QGtzOtzkP0kW3N7kInZudhFok6gvvyu7
- G6bWB9XjeBc9lWnGDGoFPxRFkzCZnipvlchYNzXCQk/HJ0zsbbchLCU1FPs0/xJ/Uj3emd
- tbSfvW59LNC64zEVg49ugpPqJdowz1RFoiQljUecHEUzKTTiNXiq6xsDIJ7MDDLkKDR+69
- vcNOBgAvo43QhGaaJ7DrJmKAONAONCw7PvTw52/I3+usBUzAekrmHMSvEabvdC/keNyUEW
- 3abDD63U9qULL85uK8uaedmXJBaLR5WA4P8uyCydn4HP7/SpAnHA2RKaVtcA
-X-ME-Proxy: <xmx:Z-1ZalJ6AiBU-BhPku12Cb8cCyaW3gWQyM2WrSO36cGWIYJcjmJ82w>
- <xmx:Z-1Zau159zX1OqHCFe8wq3J9OpzHU5eCOmN2HTqPRGVckZGZIOgkPg>
- <xmx:Z-1ZaoJuwf5p7TLOZ_kCEADGJbZRy7B9UIq0njGg9XEV3SMiTohyYw>
- <xmx:Z-1Zaun6Ruf_IPN9D6K25bMkLZUHotzqguPZC0XClIiIr_xvnVdB5w>
- <xmx:Z-1Zaid9ohDTQzSzikebSUhGGwlPCtMb4I03ZO-uCHCulL9Jm9DEaSbs>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 17 Jul 2026 04:52:49 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [RFC PATCH 1/9] dt-bindings: npu: rockchip: add rockchip,
- rk3576-rknn-core
-Date: Fri, 17 Jul 2026 20:50:39 +1200
-Message-ID: <20260717085220.3212274-2-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260717085220.3212274-1-gahing@gahingwoo.com>
-References: <20260717085220.3212274-1-gahing@gahingwoo.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F4F810F221;
+ Thu, 16 Jul 2026 08:40:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 108DC419B8;
+ Thu, 16 Jul 2026 08:40:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592CC1F000E9;
+ Thu, 16 Jul 2026 08:39:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784191217;
+ bh=BwEiU6teZIE3flR9vElc+4yj0i8+JAFfTjNxsGNdNcI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=mFTdKJBvFjlR0fJPqcox865iCgzD3SqVt1ekSBxJwXUCAe40Yjcs2Fcj/mdEY9ZO0
+ uv/zu+Oi9pQHZauwCE+hu2Jk9XJ8vzl990ylL3HlbjoOt5SnC5BdBK7goJE6+B/QtK
+ 8fOlS0ofrTIrKqeKev9zI2/bPrSMIW6+CtG/cS5ypXB+4kLi32O+r7PZXQkutzqs7J
+ lUJYHuF+YQ4AE1nU97nlky3lhy7KKC3TRuE3282XbLOydNZNtuGqrKkfY1KEZtpYSg
+ lfpDMZYDnPvrjfuQTMIMxAy1w+FstOikPijx3fqV+Kz6EFMFcgiVZ4waFiHhwnz8bI
+ gLMDgglX0qAcg==
+Message-ID: <ff9d266a-b037-4b40-a94e-3f059c6e0459@kernel.org>
+Date: Thu, 16 Jul 2026 10:39:54 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 31/33] mm/vma: use guard clauses in
+ can_vma_merge_[before, after]()
+Content-Language: en-US
+To: Lorenzo Stoakes <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+ Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>,
+ Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>,
+ Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
+ Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov
+ <andreyknvl@gmail.com>, Alexander Potapenko <glider@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner
+ <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Yishai Hadas <yishaih@nvidia.com>, Shameer Kolothum
+ <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev,
+ iommu@lists.linux.dev, kasan-dev@googlegroups.com,
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-31-2a5aa403d977@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-31-2a5aa403d977@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,35 +172,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Document the RK3576 NPU core: add rockchip,rk3576-rknn-core to the
-compatible enum and drop sram-supply from required (RK3576 has no NPU
-SRAM supply).
+On 7/10/26 22:17, Lorenzo Stoakes wrote:
+> Rather than combining a bunch of conditionals in a single expression,
+> simplify by inverting the mergeability requirements into guard clauses.
+> 
+> that is - instead of checking what must be true for the conditions to be
+> met, instead check the inverse of the requirements and return false if any
+> are true, defaulting to true.
+> 
+> No functional change intended.
+> 
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Reviewed-by: Gregory Price <gourry@gourry.net>
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
----
- .../devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml      | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-index caca2a490..d904db3bf 100644
---- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-+++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-@@ -21,6 +21,7 @@ properties:
- 
-   compatible:
-     enum:
-+      - rockchip,rk3576-rknn-core
-       - rockchip,rk3588-rknn-core
- 
-   reg:
-@@ -75,7 +76,6 @@ required:
-   - resets
-   - reset-names
-   - npu-supply
--  - sram-supply
- 
- additionalProperties: false
- 
--- 
-2.43.0
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
