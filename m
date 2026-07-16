@@ -4,91 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8BA5C44521
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7528C4452D
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCB9510E782;
-	Mon, 20 Jul 2026 07:15:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E071110E76B;
+	Mon, 20 Jul 2026 07:15:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kanardia.eu header.i=@kanardia.eu header.b="fIA0Q6bF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NHnt8pNF";
 	dkim-atps=neutral
-Received: from th8-a.mail-neoserv.si (th8-a.mail-neoserv.si [152.89.234.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7E1D10E2DC
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:52:50 +0000 (UTC)
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=th8.neoserv.si; s=default;
- b=e4wr1RIKGAKwFb7CvuoGhMJksMeo2X6/du0d44Wq3M86JsufEJ01y5xkiTjZ+cmiJQgGjB4QO1
- 1TbbpN3L7Tbdqym2X2awQ3EQrGWIZxh+U7wwbBTSvimGkQoC94d8eVA0DqAAuQwkHOGcVrBL1K
- cvOVaE3NHoR2kaR6CNmVirZJOTTPwbNg5l+SUhhXWkyW6jcDkmqj4hvmkTTPb8Q168+VBdnHDD
- qUfOr85z7MBLDvI1+BxnohyGqqboNAJ/q0ZT56ka3y01nF1t1xbQb+YTfVR/wKt20NhYNGk4eu
- 93Bc+VOsl1zz7+CgS36w/ayT2Wxm0DdaKVHPHxpa8WO1Mg==;
-ARC-Authentication-Results: i=1; th8.neoserv.si; smtp.remote-ip=193.77.36.193; 
- auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=th8.neoserv.si;
- s=default; 
- bh=7o4gkyWUm5NRKXjCtq4QFPNOZqVGYX0NqrC25z6iTAQ=;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:
- Date:Subject:Cc:To:From:DKIM-Signature;
- b=Fzw+J56PO1j78a7aA8LdOOs2v7ZvPZR2V0ma8jd8Fbjf1F4mmLuzSMOee751na36an2fjPpJUU
- fk2RIDactnsZRThjMxmp8+ywjglcpvcpiuNNhWzzKR0lgcgyf/VwUfIvEDypMa1c3v978ZQBnv
- XCVrhObnvq+dGtiQx8kRIuAKOVZ4sKvSSv9uXbjQNRDNyS7JXVmZuomzxAAwbPpdGsRgEQCKxK
- h8wpZWA9kkM8n3W937gUXg6wXD3EuDI8hmZ3S5ZgeoZ1GhhFcHCU231b14VB7cXniltvAVT9tX
- GfA/xaXrxsxBDIxy2H+BpC+eQ1S00NkzIUVoai08+TNkQA==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kanardia.eu
- ; s=default;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=rhqQocmDn1ZVyttVBuCGSQaZNCEQDuZfGNQteeSIaWI=; b=fIA0Q6bFjuSYbA8c5wvLsqNuEU
- ggOi2blAwuHhpFw5QDqdoC7VaajtNA6OqXiB4DDkd6VqvIFZ82T6FeP1AmsfDCwBg+V4sCgmAaK0j
- mvKvRAb4MC0TfDp0rHyX0gT+oNHSz4wOR1JTC2X56T6Ujq0nOhbKYGcPbc8Ex7rLO2SgxCB7InYz9
- pv7Jx+WQnhQCsp/R/zBZLR5p+QMoxaO/pq/mxIXly9dkbJxdLKifLeauNPUtrCQj65oEcdoepCivc
- A+XaKBFNTpTc+OY+W5lwplzzMva2JT4/QMHQfm23NvsutXeftWWiazEqOTejZMth+aQty/7uoDHtg
- p4kD/n0Q==;
-Received: from [193.77.36.193] (port=54788 helo=rok-trip.kanardia.eu)
- by th8.neoserv.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.99.4) (envelope-from <rok@kanardia.eu>)
- id 1wkhHh-00000001fP1-22Ww; Fri, 17 Jul 2026 14:03:17 +0200
-From: Rok Markovic <rok@kanardia.eu>
-To: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Alibek Omarov <a1ba.omarov@gmail.com>,
- Rok Markovic <rok@kanardia.eu>
-Subject: [PATCH 4/4] arm64: dts: rockchip: rk356x: add LVDS node
-Date: Fri, 17 Jul 2026 14:00:05 +0200
-Message-ID: <20260717120005.2087386-5-rok@kanardia.eu>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260717120005.2087386-1-rok@kanardia.eu>
-References: <20260717120005.2087386-1-rok@kanardia.eu>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69EAD10F221;
+ Thu, 16 Jul 2026 08:29:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 00B2242A63;
+ Thu, 16 Jul 2026 08:29:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BF2F1F000E9;
+ Thu, 16 Jul 2026 08:28:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784190540;
+ bh=LBMzZungojnJJzsOyamokZKaxeJBCdcl1wVHPQtN5pg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=NHnt8pNF/luhx1IUKLfNB43r0drBog4E0VUSo065z+H/o7vU8pNlpSzXKE1MwYXoV
+ MRO4KHZBs2UlMYfdxAHyqxLxFmtj93jA3MpRZ8npBboI89TpGXJDVRL0FOJjwzqG38
+ bb/T0Qf0FMmi7lFhdlyYBPZa/Po1IStCw4ASZJSrz9iTzuige8SbKSqhotDOoawCom
+ UyQT6MbGtwmGXmQcfWpT59QXcumpjvtqPz21P6+CTGPjMDZeivEoZEhQFwPB9f5Z/E
+ fCWhUK6cXIQdyRypfOZG+EyjS6oJgfOelF/hgARxUd/mWyySEGAb2pwcWRayxgP4MK
+ ebaFUAbeiMxmQ==
+Message-ID: <acd03aae-9d41-44d5-974b-5deb751b48b3@kernel.org>
+Date: Thu, 16 Jul 2026 10:28:37 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Authentication-Results: th8.neoserv.si;
- auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
-X-NEOSERV-MailScanner-Information: Please contact the ISP for more information
-X-NEOSERV-MailScanner-ID: 1wkhHh-00000001fP1-22Ww
-X-NEOSERV-MailScanner: Found to be clean
-X-NEOSERV-MailScanner-SpamCheck: not spam, SpamAssassin (not cached,
- score=1.31, required 7, ALL_TRUSTED -1.00, BAYES_50 0.80,
- KAM_DMARC_QUARANTINE 1.50, KAM_DMARC_STATUS 0.01)
-X-NEOSERV-MailScanner-SpamScore: s
-X-NEOSERV-MailScanner-From: rok@kanardia.eu
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - th8.neoserv.si
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - kanardia.eu
-X-Get-Message-Sender-Via: th8.neoserv.si: authenticated_id: rok@kanardia.eu
-X-Authenticated-Sender: th8.neoserv.si: rok@kanardia.eu
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 29/33] mm/vma: introduce and use vma_set_pgoff()
+Content-Language: en-US
+To: Lorenzo Stoakes <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+ Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>,
+ Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>,
+ Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
+ Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov
+ <andreyknvl@gmail.com>, Alexander Potapenko <glider@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner
+ <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Yishai Hadas <yishaih@nvidia.com>, Shameer Kolothum
+ <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev,
+ iommu@lists.linux.dev, kasan-dev@googlegroups.com,
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-29-2a5aa403d977@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-29-2a5aa403d977@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,56 +171,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the LVDS transmitter node. It has no register block of its own -
-it is programmed through the GRF and borrows the MIPI DSI0 D-PHY - so
-it carries no reg, only the DSITX_0 pclk, the phy and the VO power
-domain.
+On 7/10/26 22:17, Lorenzo Stoakes wrote:
+> In order to lay the foundation for work that permits us to track the
+> virtual page offset of MAP_PRIVATE file-backed mappings, we abstract the
+> assignment of vma->vm_pgoff to vma_set_pgoff().
+> 
+> We additionally add a lock check here using the newly introduced
+> vma_assert_can_modify(). This asserts the VMA write lock if the VMA is
+> attached.
+> 
+> We also assert that, if this is an anonymous VMA and unfaulted, that its
+> (virtual) page offset is equal to the page offset of the VMA's address.
+> 
+> We must be careful about MAP_PRIVATE-/dev/zero which violates fundamental
+> assumptions about anonymous memory, so we check for !vma->vm_file after
+> using vma_is_anonymous() which these mappings satisfy.
+> 
+> Additionally, we only perform the assert if CONFIG_MMU is defined, as nommu
+> does not set vma->vm_pgoff = addr >> PAGE_SHIFT. This isn't really relevant
+> to rmap as it has no anon rmap (nor needs it), but we must avoid it
+> asserting falsely.
+> 
+> All of this logic is kept in assert_sane_pgoff() to keep things clear.
+> 
+> In order to maintain correctness given this assert, we also update
+> __install_special_mapping() to invoke vma_set_range() after it's set
+> vma->vm_ops (which determine whether the VMA is anonymous or not).
+> 
+> We do not use vma_set_pgoff() in vm_area_init_from(), as at the point of
+> forking, we don't necessarily have correct locking state.
+> 
+> Updating vma_set_range() covers most cases, but in addition to this we also
+> update insert_vm_struct(), compat_set_vma_from_desc() and nommu callers.
+> 
+> We also update vma_add_pgoff() and vma_sub_pgoff() to use vma_set_pgoff().
+> 
+> While we're here, we drop a BUG_ON() and update insert_vm_struct()'s
+> comment to reflect the fact anonymous mappings can be added here.
+> 
+> Finally, we update the CONFIG_MMU, CONFIG_PER_VMA_LOCK defines in the VMA
+> userland tests so IS_ENABLED() will work correctly with them.
+> 
+> No functional change intended.
+> 
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-Disabled by default; boards that route LVDS enable it along with
-dsi_dphy0 and wire lvds_in to a VOP2 video port.
-
-Signed-off-by: Rok Markovic <rok@kanardia.eu>
-Assisted-by: Claude:claude-opus-4-8
----
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 25 +++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index 64bdd8b..9244b55 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -878,6 +878,31 @@
- 		};
- 	};
- 
-+	lvds: lvds {
-+		compatible = "rockchip,rk3568-lvds";
-+		clocks = <&cru PCLK_DSITX_0>;
-+		clock-names = "pclk_lvds";
-+		phys = <&dsi_dphy0>;
-+		phy-names = "dphy";
-+		power-domains = <&power RK3568_PD_VO>;
-+		rockchip,grf = <&grf>;
-+		rockchip,output = "lvds";
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			lvds_in: port@0 {
-+				reg = <0>;
-+			};
-+
-+			lvds_out: port@1 {
-+				reg = <1>;
-+			};
-+		};
-+	};
-+
- 	qos_gpu: qos@fe128000 {
- 		compatible = "rockchip,rk3568-qos", "syscon";
- 		reg = <0x0 0xfe128000 0x0 0x20>;
--- 
-2.43.0
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
