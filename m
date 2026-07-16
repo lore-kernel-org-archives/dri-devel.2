@@ -4,43 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC172C4450E
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 11:46:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAA37C4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 11:47:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44AC710E771;
-	Thu, 16 Jul 2026 11:46:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4467510F2BB;
+	Thu, 16 Jul 2026 11:47:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SolPE8l1";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="FpUz4L+o";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20C6910E771
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 11:46:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id ADE0F43B5E;
- Thu, 16 Jul 2026 11:46:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64BC81F00A3A;
- Thu, 16 Jul 2026 11:46:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784202368;
- bh=QepbY5hYliYSH01Bzmzaw8qajKJGyeNfz1usQypRCyc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SolPE8l1EUR+U0AEErwVtl5z280y31TFBzOgRTiY7T7qq/xsDKBQgxYrWU+g+cOxW
- DOV2CnZmFBRmF935vb0deiUKXoquKIZUD3iUZsuiiSHslvt011urrDOoQVqyO/hvOC
- 879r3ABTImk8vAzIFo/xQ+ftE9H1EdgHQ8WM2VRiOKLYD65Cr0u0VcDBG18II/pWfn
- M9hgoVI/93sxxK36MTinUdfdYHUlcj8jfWdLrE5lTfJkzhieFohR9W7bPBz7kxrPHn
- qahrQlBXHq2gyVbCGP6UlvJAUcSQ8vTwyUXdZU2+XO1tR8+8Hrug5+gUDgYRBEgxbQ
- bumVWvqoU3VZA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] misc: fastrpc: avoid duplicate DMA mappings in
- fastrpc_create_maps()
-To: "Jianping Li" <jianping.li@oss.qualcomm.com>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260716113254.570-1-jianping.li@oss.qualcomm.com>
-References: <20260716113254.570-1-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EAE510F2BB
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 11:47:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1784202472;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=UAIX8vflpEyEoElDzYTggPPmyd+hUNgJkFp1xG3W/a0=;
+ b=FpUz4L+ofRnmCKbWTj/bpK7Aq3hMpeIF/EwEDe2FKCddcXBMhAJ0+bHNazVGWGddXD4WNQ
+ asliUihUH1aqB4oIBmLpasx0jQjhMauq2L+819feYWm67sFkMmOW1ilzLR0eRSAY2W6g4v
+ 0itZqzkZws9Ubka7NRaSRhc0EFxeMg4=
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
+ [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-596-n8oyUhshOrqBoHgl8LX5nw-1; Thu, 16 Jul 2026 07:47:49 -0400
+X-MC-Unique: n8oyUhshOrqBoHgl8LX5nw-1
+X-Mimecast-MFC-AGG-ID: n8oyUhshOrqBoHgl8LX5nw_1784202469
+Received: by mail-yw1-f198.google.com with SMTP id
+ 00721157ae682-81e6bb29581so32483687b3.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 04:47:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784202468; x=1784807268;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=UAIX8vflpEyEoElDzYTggPPmyd+hUNgJkFp1xG3W/a0=;
+ b=g8wDh0u5Og2katTTSQr1PXrouN932Jt26sKTXbF9uju9s37n8ZsmD9l/I1zQvpzNW0
+ 4EwgWPq0w7VRPbA71t7kr0WBxaFWv/ryo2KAYbfJyErYIbZE5lKkpPV6Ll/0mtgIBRzM
+ JVc/Gw3wrZxsYIYv4cIhik6m6Ov3T+nYD4ydUWDuKPhZdFFxV3M43nraYA9M2KgOgx82
+ VU056jtKc2u43fAvJZVMTrPNA4unAoa9slLghpIOONl/4AHv/SjmE91dWjw/BDoKlKZf
+ UuuSkd6F23ur6pc6drUtN3XtuN1FqN7GZFM4hr3Ek7hx/GbEjBVhFla+iUHrqWcKIuZh
+ lpEg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro2IjSi0RQW431n82kkFn2Vgrx0L/dmO2kVzKUyNQRk2ivgW37ndBuevJG+xWQ4IIHpAvCm6KjvpIs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxUBKCYyVccCFtvDlwSTQMHFEZE6AM830Q0O5HSZbskocxMDvs2
+ qg4dW04a9C4IO1bt65/SKAnFyzw0/6WRnX6VkGHT8xFjote/641okd+qmRWXSk6iF717zB5nRtz
+ WlhQ2qw4kf78JBfBeTB9br1gZxzowPadBPFJ72ZN1n5CIMnnERTQ/F27YS9VLbobJK6hA0R94ps
+ 2udtbbubJNh419qh0quzUzASvwbb0Am4i19wG76VGHOPYF
+X-Gm-Gg: AfdE7cki6oz0GfLQsaai4RjaJsxIn9uBd7tKUlVy2q9RzYgpNtiJFKGYc9dxr0pcMYu
+ bvIhInKich5o+ZobcachI92CgUivJFocf0I6xFF7FUq1Jx16kFnw+pk+UL848vbu2WUEyv/HyYX
+ CcDGYEAgT3qZjxaYlAnYTIA9mVV6R9Ao7HeemnUabRHVBufRg4b3/FcfJI
+X-Received: by 2002:a05:690c:6a89:b0:81e:c898:bc51 with SMTP id
+ 00721157ae682-81ecfb77678mr53197667b3.70.1784202468629; 
+ Thu, 16 Jul 2026 04:47:48 -0700 (PDT)
+X-Received: by 2002:a05:690c:6a89:b0:81e:c898:bc51 with SMTP id
+ 00721157ae682-81ecfb77678mr53196867b3.70.1784202468141; Thu, 16 Jul 2026
+ 04:47:48 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260713-drm_refcount_wiring-v2-0-d3bb61f4bd4d@redhat.com>
+ <20260713-drm_refcount_wiring-v2-3-d3bb61f4bd4d@redhat.com>
+ <hm3gW14-QtmZmT6DKePecw@nvidia.com>
+In-Reply-To: <hm3gW14-QtmZmT6DKePecw@nvidia.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Thu, 16 Jul 2026 13:47:37 +0200
+X-Gm-Features: AUfX_mzB2JkO-VIACloxhbX7HbPpRRw8TGetupyA1jCWwziSfKUaXthnbS4hOYU
+Message-ID: <CADSE00Lsr9gsW6HEFrrc6Aq+ecN5mN9Kev_mf5XKjKjAk44-GA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] drm/panel: of_drm_find_panel() return a counted
+ reference
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
+ Linus Walleij <linusw@kernel.org>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Biju Das <biju.das.jz@bp.renesas.com>, Sandy Huang <hjc@rock-chips.com>, 
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Jyri Sarha <jyri.sarha@iki.fi>, 
+ Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Alison Wang <alison.wang@nxp.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-sunxi@lists.linux.dev, linux-samsung-soc@vger.kernel.org, 
+ linux-tegra@vger.kernel.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: lg8xa1xYiuythI2oO_McQTI8e-IxbhtkMKMOgjC6XOU_1784202469
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 11:46:07 +0000
-Message-Id: <20260716114608.64BC81F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,210 +140,126 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+On Wed, Jul 15, 2026 at 9:14=E2=80=AFAM Mikko Perttunen <mperttunen@nvidia.=
+com> wrote:
+>
+> On Monday, July 13, 2026 8:53=E2=80=AFPM Albert Esteve wrote:
+> > Callers of of_drm_find_panel() receive a pointer with no reference
+> > held, creating a window where the panel device can be unregistered
+> > and freed between the lookup and first use (e.g., drm_panel_prepare()).
+> >
+> > Fix the lookup function by acquiring a reference with drm_panel_get()
+> > before returning, under panel_lock. Callers are now responsible for
+> > calling drm_panel_put() when they no longer need the pointer.
+> >
+> > For bridge drivers that immediately wrap the panel in a panel_bridge
+> > (which acquires its own reference), release the lookup reference right
+> > after the bridge creation call.
+> >
+> > For analogix-anx6345, which stores the panel for direct use, release
+> > the reference in the i2c remove path.
+> >
+> > For platform drivers using analogix_dp_core with a component lifecycle
+> > (exynos_dp, rockchip analogix_dp), release the lookup reference in the
+> > platform remove() function. The panel_bridge created during bind() hold=
+s
+> > a separate reference that devm cleanup releases after remove() returns.
+> >
+> > Also fix devm_drm_of_get_bridge() and drmm_of_get_bridge() in
+> > bridge/panel.c itself: both call drm_of_find_panel_or_bridge() and
+> > then pass the panel to devm/drmm_panel_bridge_add(), which acquires
+> > its own reference via drm_panel_bridge_add_typed(). The lookup
+> > reference was never released; add drm_panel_put() after each bridge
+> > creation call.
+> >
+> > Assisted-by: Claude:claude-opus-4-6
+> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> > ---
+> >  drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |  3 +++
+> >  drivers/gpu/drm/bridge/panel.c                     |  8 ++++++--
+> >  drivers/gpu/drm/drm_of.c                           |  3 ++-
+> >  drivers/gpu/drm/drm_panel.c                        | 12 ++++++++----
+> >  drivers/gpu/drm/exynos/exynos_dp.c                 | 10 ++++++++++
+> >  drivers/gpu/drm/exynos/exynos_drm_dpi.c            |  3 +++
+> >  drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c          | 18 ++++++++++++++=
+++++
+> >  drivers/gpu/drm/logicvc/logicvc_interface.c        | 12 ++++++++++++
+> >  drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    | 11 +++++++++++
+> >  drivers/gpu/drm/sti/sti_dvo.c                      |  3 +++
+> >  drivers/gpu/drm/stm/lvds.c                         |  3 +++
+> >  drivers/gpu/drm/sun4i/sun4i_lvds.c                 | 13 +++++++++++++
+> >  drivers/gpu/drm/sun4i/sun4i_rgb.c                  | 13 +++++++++++++
+> >  drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c             |  2 ++
+> >  drivers/gpu/drm/tegra/dsi.c                        |  1 +
+> >  drivers/gpu/drm/tegra/output.c                     |  3 +++
+> >  16 files changed, 111 insertions(+), 7 deletions(-)
+> >
+> > ...
+> > diff --git a/drivers/gpu/drm/tegra/dsi.c b/drivers/gpu/drm/tegra/dsi.c
+> > index 7f25c50621c94..57a016f47434d 100644
+> > --- a/drivers/gpu/drm/tegra/dsi.c
+> > +++ b/drivers/gpu/drm/tegra/dsi.c
+> > @@ -1516,6 +1516,7 @@ static int tegra_dsi_host_detach(struct mipi_dsi_=
+host *host,
+> >       struct tegra_output *output =3D &dsi->output;
+> >
+> >       if (output->panel && &device->dev =3D=3D output->panel->dev) {
+> > +             drm_panel_put(output->panel);
+> >               output->panel =3D NULL;
+> >
+> >               if (output->connector.dev)
+> > diff --git a/drivers/gpu/drm/tegra/output.c b/drivers/gpu/drm/tegra/out=
+put.c
+> > index 49e4f63a5550d..90db39dbdd332 100644
+> > --- a/drivers/gpu/drm/tegra/output.c
+> > +++ b/drivers/gpu/drm/tegra/output.c
+> > @@ -195,6 +195,9 @@ int tegra_output_probe(struct tegra_output *output)
+> >
+> >  void tegra_output_remove(struct tegra_output *output)
+> >  {
+> > +     if (output->panel)
+> > +             drm_panel_put(output->panel);
+> > +
+> >       if (output->hpd_gpio)
+> >               free_irq(output->hpd_irq, output);
+> >
+> >
+>
+> tegra_output_probe's error cleanup paths need to be updated to clean up
+> the refcount. Also, it can technically call drm_of_find_panel_or_bridge
+> and then overwrite that value with of_drm_find_panel. While there's
+> already a WARN_ON for that case, I think it would be good to fix the
+> refcounting there as well for consistency.
 
-New issues:
-- [Critical] A data race when clearing `mmap->flags` in `fastrpc_put_args()=
-` allows multiple concurrent threads to double-free a shared DMA handle map.
-- [High] A time-of-check to time-of-use (TOCTOU) race condition in `fastrpc=
-_get_args()` leads to a Use-After-Free read of a `fastrpc_map` object.
-- [High] Bypassing reference counting for shared DMA handles leads to prema=
-ture destruction of IOMMU mappings and DSP SMMU faults.
+Agreed. I really missed those. I am doing another general check in
+case I missed similar cases.
 
-Pre-existing issues:
-- [Critical] `fastrpc_req_mem_unmap_impl()` accesses and frees a map withou=
-t holding a reference or lock, leading to Use-After-Free and Double-Free on=
- concurrent unmap requests.
-- [Critical] A compromised or malicious DSP can force the host kernel to co=
-py arbitrary kernel memory to userspace by modifying the shared `rpra` buff=
-er.
---
+>
+> As a note, the tegra-dsi code also uses tegra_output and can overwrite
+> the panel field with its own -- but in those cases tegra_output should
+> never populate the panel and we've been talking about removing that
+> code path anyway, so the dsi code can continue to assume that
+> tegra_output_probe doesn't populate a panel.
 
---- Patch [1]: [PATCH v2] misc: fastrpc: avoid duplicate DMA mappings in fa=
-strpc_create_maps() ---
-commit e27fd6a362ab035d376548e127d0d378dd957590
-Author: Jianping Li <jianping.li@oss.qualcomm.com>
+Thanks. I will add a note before of_drm_find_panel() in tegra/dsi.c to clar=
+ify.
 
-misc: fastrpc: avoid duplicate DMA mappings in fastrpc_create_maps()
+BR,
+Albert
 
-This patch attempts to prevent duplicate DMA mappings by skipping extra
-references for DMA handles and tagging them with FASTRPC_MAP_DMA_HANDLE.
-It adds re-validation of borrowed maps in fastrpc_get_args() and modifies
-fastrpc_put_args() to only release maps tagged with this new flag.
+>
+> Cheers
+> Mikko
+>
+> > --
+> > 2.54.0
+> >
+> >
+>
+>
+>
+>
 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index f3a49384586d1..12c82072236b2 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-
-[ ... ]
-
-> @@ -999,23 +1001,25 @@ static int fastrpc_create_maps(struct fastrpc_invo=
-ke_ctx *ctx)
->  	int i, err;
-> =20
->  	for (i =3D 0; i < ctx->nscalars; ++i) {
-> +		bool take_ref =3D i < ctx->nbufs;
-> +		int mflags =3D 0;
-> =20
->  		if (ctx->args[i].fd =3D=3D 0 || ctx->args[i].fd =3D=3D -1 ||
->  		    ctx->args[i].length =3D=3D 0)
->  			continue;
-> =20
-> -		if (i < ctx->nbufs)
-> -			err =3D fastrpc_map_create(ctx->fl, ctx->args[i].fd,
-> -				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
-> -		else
-> -			err =3D fastrpc_map_attach(ctx->fl, ctx->args[i].fd,
-> -				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
-> +		/* Set the DMA handle mapping flag for DMA handles */
-> +		if (i >=3D ctx->nbufs)
-> +			mflags =3D FASTRPC_MAP_DMA_HANDLE;
-> +
-> +		err =3D fastrpc_map_create(ctx->fl, ctx->args[i].fd, ctx->args[i].leng=
-th,
-> +					 ctx->args[i].attr, &ctx->maps[i], take_ref, mflags);
-
-[Severity: High]
-Does bypassing reference counting (take_ref =3D false) for shared DMA handl=
-es
-lead to premature destruction of IOMMU mappings in
-drivers/misc/fastrpc.c:fastrpc_create_maps()?
-
-If two concurrent threads pass the same fd to the DSP, they share the map w=
-ith
-a single reference count. When the first thread finishes and frees the map,
-could this destroy the IOMMU mapping while the DSP is still actively using =
-it
-for the second thread, causing an SMMU fault?
-
->  		if (err) {
->  			dev_err(dev, "Error Creating map %d\n", err);
->  			return -EINVAL;
->  		}
->  	}
-
-[ ... ]
-
-> @@ -1143,6 +1147,16 @@ static int fastrpc_get_args(u32 kernel, struct fas=
-trpc_invoke_ctx *ctx)
->  		list[i].num =3D ctx->args[i].length ? 1 : 0;
->  		list[i].pgidx =3D i;
->  		if (ctx->maps[i]) {
-> +			/* It is possible that map is created with
-> +			 * mflags FASTRPC_MAP_DMA_HANDLE and take_ref
-> +			 * is false. Check if map still exists or is
-> +			 * being freed as take_ref is false
-> +			 */
-> +			if (fastrpc_map_lookup(ctx->fl, ctx->args[i].fd,
-> +					       &ctx->maps[i], false)) {
-> +				ctx->maps[i] =3D NULL;
-> +				return -EINVAL;
-> +			}
->  			pages[i].addr =3D ctx->maps[i]->dma_addr;
-
-[Severity: High]
-Is there a time-of-check to time-of-use race condition here in
-drivers/misc/fastrpc.c:fastrpc_get_args()?
-
-Because fastrpc_map_lookup() is called with take_ref =3D false, it sets
-ctx->maps[i] inside a spinlock but returns without incrementing the referen=
-ce
-count. If a concurrent thread drops the final reference and frees the map
-immediately after the lock is released, does the subsequent dereference of
-ctx->maps[i]->dma_addr result in a use-after-free read?
-
->  			pages[i].size =3D ctx->maps[i]->size;
->  		}
-
-[ ... ]
-
-In drivers/misc/fastrpc.c:fastrpc_put_args(), earlier in the function:
-
-	for (i =3D inbufs; i < ctx->nbufs; ++i) {
-		if (!ctx->maps[i]) {
-			void *src =3D (void *)(uintptr_t)rpra[i].buf.pv;
-			void *dst =3D (void *)(uintptr_t)ctx->args[i].ptr;
-			u64 len =3D rpra[i].buf.len;
-
-			if (!kernel) {
-				if (copy_to_user((void __user *)dst, src, len)) {
-
-[Severity: Critical]
-This is a pre-existing issue, but can a compromised DSP force the host kern=
-el
-to copy arbitrary kernel memory to userspace here?
-
-The src pointer (rpra[i].buf.pv) and len are read directly from DSP-modifia=
-ble
-shared memory without validation. If the kernel does not verify that these
-values match the original bounds allocated for the RPC, could the DSP overw=
-rite
-them to point to arbitrary kernel memory addresses and leak sensitive data?
-
-> @@ -1199,8 +1213,13 @@ static int fastrpc_put_args(struct fastrpc_invoke_=
-ctx *ctx,
->  	for (i =3D 0; i < FASTRPC_MAX_FDLIST; i++) {
->  		if (!fdlist[i])
->  			break;
-> -		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
-> +		/* Validate the map flags for DMA handles and skip freeing map if inva=
-lid */
-> +		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false) &&
-> +		    mmap->flags =3D=3D FASTRPC_MAP_DMA_HANDLE) {
-> +			/* Allow DMA handle maps to free only once */
-> +			mmap->flags =3D 0;
-
-[Severity: Critical]
-Does clearing mmap->flags here introduce a data race in
-drivers/misc/fastrpc.c:fastrpc_put_args()?
-
-The test and subsequent modification of mmap->flags are performed completely
-locklessly. If two concurrent threads process the same file descriptor retu=
-rned
-by the DSP, could both threads evaluate the flag check as true simultaneous=
-ly,
-clear the flag, and call fastrpc_map_put(mmap), resulting in a double-free?
-
->  			fastrpc_map_put(mmap);
-> +		}
->  	}
-> =20
->  	return ret;
-
-[ ... ]
-
-In drivers/misc/fastrpc.c:fastrpc_req_mem_unmap_impl():
-
-	spin_lock(&fl->lock);
-	list_for_each_entry_safe(iter, m, &fl->maps, node) {
-		if ((req->fd < 0 || iter->fd =3D=3D req->fd) && (iter->raddr =3D=3D req->=
-vaddr)) {
-			map =3D iter;
-			break;
-		}
-	}
-	spin_unlock(&fl->lock);
-	...
-	fastrpc_map_put(map);
-
-[Severity: Critical]
-This is a pre-existing issue, but does fastrpc_req_mem_unmap_impl() access =
-and
-free a map without holding a reference or lock?
-
-When searching for a map under fl->lock, the function breaks out of the loop
-and drops the lock without incrementing the reference count via fastrpc_map=
-_get().
-If two concurrent threads call the unmap ioctl for the same virtual address,
-could both threads find the map, drop the lock, and subsequently call
-fastrpc_map_put() causing a double-free and use-after-free?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716113254.570-=
-1-jianping.li@oss.qualcomm.com?part=3D1
