@@ -4,127 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54D69C44501
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 07:34:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36789C4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 07:40:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B59910E718;
-	Thu, 16 Jul 2026 07:34:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A5FD10E726;
+	Thu, 16 Jul 2026 07:40:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="19sG7xwl";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="O6XBA1J2";
+	dkim=pass (2048-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hqNkAaIe";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012068.outbound.protection.outlook.com
- [40.93.195.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0AD110E70D;
- Thu, 16 Jul 2026 07:34:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S8UmSJJhvXZmAmb8+mk2UCB94WigKJEG58cfWvvdDnVJTNI1msdqfzIG07Eexfnyh+HKRKPxIvSWMng5OE5nIWxPdlKm0kVn04MpfzZPWswaAZlfUD7wnFXtU1usc++eHSTDuqdJLwl3DWfyShgYR0PUVl+HftL4VGljF4V8g5W+3IpACqSinQbZ7md0h6y+hc7jXZ+6HNXmxxkFAcQe/dYkbTHgIiBu1JgU//5XMWdrcsRR8z9J6AxSFKP5v/dDi+2Qi2vcvS2nE/ljWuj28qrjKvtDTRukwHbpwNEh3qQMFG+nQl+DR9Iu3JbKaCIF6z278KWA6PZ7BEsjIKLzWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fi2clKDzpKiAznS/JTCtfM/Q6qodJzmDG8q+LTqyFeI=;
- b=tOAucph7TNwg4wTQfe5qtSZbeFMK2AMxQtavMqwvlmlhKNGMTniwSaokO3k/nbXFkvTimLIt6Hm4VE8zPGWIiX9HBYGavyBHTwcIy9Quc+JYV3vedQx6YKHjPTk0bYWPIrpxiMEP8a5O4t36qav8FOypjglvY8Y+00lpZdcjp7/+p+VRG4H30UwLvtNxiAcS/qxsC5TFgZwJ+8oPtrvU+YlHFv+r9Yp39Vo1042zgEwGjdvPqBmfVcPphUTl1t5f9c5eZwqHy+nMbsmjtXlPMyOmDD93X0rXkvKSQKvN6kKNqXCmgi2tyFS23O3Lr5JfVoYD+VhVUb4nzMkjbKZ0+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fi2clKDzpKiAznS/JTCtfM/Q6qodJzmDG8q+LTqyFeI=;
- b=19sG7xwlhcZHAx7sZ5CVnVBQUTxs91y5QUqu1zcI4t8Z+mM0/RIE6K3ADj3FHP0Z3iiZDpvAbPg//2Vq23xk5BsWqO1GgfU05ArgnqwmV+YXk2GCph3dvXlbnAC+Y95TArtlQdXuwg3k8FH0P4XHzM1Fx+/gjvVHeUPbVMZ9PBI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SAWPR12MB999165.namprd12.prod.outlook.com (2603:10b6:806:4e1::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Thu, 16 Jul
- 2026 07:34:16 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
- 07:34:16 +0000
-Message-ID: <7619ffd0-a77b-4596-a9ab-8e5172c929e2@amd.com>
-Date: Thu, 16 Jul 2026 09:34:12 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/radeon: allocate dummy_page without DMA32 on fail
-To: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260714-radeon_32bit_fix-v1-1-42a99945f6e0@oss.tenstorrent.com>
- <11218edd-ae58-4966-8172-27b2435eaa1f@amd.com>
- <CAEev2e_gnmhYw_mV8zt2AnkY6Hj_F165veoAPaXhA_ej-5RUUg@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAEev2e_gnmhYw_mV8zt2AnkY6Hj_F165veoAPaXhA_ej-5RUUg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0159.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::19) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11C4210E724
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 07:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1784187607;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=cXLXS6MpfQQz5wlKDJUyL4Gpupar2PP12LAqPDcnxkQ=;
+ b=O6XBA1J2X/o3VGGHd5hpEqPN+CbKku4iLyjF/xy5ttlRLAw8WsESPOgNoAmsAMzHwTOLZi
+ L31X2oIvNApCAOND96lAEA1OgrQap6rGkV23xpRvm1hWKaODsJUEZXxMD4M69BXF4GRIGT
+ O7AA86qNlayz1G6abT8Am2z7/feZUuI=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-612-6S3jt9fHOSuNWwvhJ6mzpQ-1; Thu, 16 Jul 2026 03:40:05 -0400
+X-MC-Unique: 6S3jt9fHOSuNWwvhJ6mzpQ-1
+X-Mimecast-MFC-AGG-ID: 6S3jt9fHOSuNWwvhJ6mzpQ_1784187604
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-493fa6e28a7so38911635e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 00:40:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=redhat.com; s=google; t=1784187604; x=1784792404; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=cXLXS6MpfQQz5wlKDJUyL4Gpupar2PP12LAqPDcnxkQ=;
+ b=hqNkAaIeqIveHXZMFtDUVnzSKmWc1jGd7UgMFbpt4VDFlcoV8ySaRqh5sQaUPDoJIk
+ pVlueIU1xyHkNVqO1bq4iLkHqpIhT+x274X7amh3cRlHVCP5LkfLGsjaV3jy28H/MsVY
+ lTB9p1WU3pipx4pv71LndqVTdJ4mmNOYHHmgAd0ecw3KWiaVog3Biqe9sqvQvTOGFBu3
+ l6YdG24PYiUFhl4L8qh5dz/NhRvyDJL7q8Ijm852D9ry0ZXlQgGddEXDBrEEOKwB4oaX
+ VSgbEuBVe0EraNfvJEkGjX/450XFlFgJnizpxlCXNKabII9Iue7tMGdrnmKylGqFVrwU
+ FprQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784187604; x=1784792404;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=cXLXS6MpfQQz5wlKDJUyL4Gpupar2PP12LAqPDcnxkQ=;
+ b=ePs77KCTaPBJ4kIQvKno4rqxADIc5vgJ7pD53vK/2vBtkKHIqJqls7nwEq/IsRkvzr
+ XBPTYNcR7+VntRzblg6v+E9sUXyyjrLaG9l5VJ31OLJCPIzt1dmXqOQLcPcMYTFDDmnc
+ DYHTV4MPTqDBJPWZukR5eRH5AsYfycFRSZFfYFL6UyJ4aUd8ntsf94fSEtSrQmmKhuN4
+ ijMVp8ssvo2NQRAx0/bVcvBTMeT5TYKVn6frLwn5bUvA9P0L+nZudxS0Gl9AnzFQFyB+
+ 4T8vi5LtREoZJOS5GXNiMex8EnF2mUvp9Xush1CUOhHmCj8QKSGeyNnCp1BvuU9xxxNB
+ eb1g==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp6oi14bnt21wlJ5MTj0bWUTadqmqOHZSw/T/shUTNUPvgT+j3pMKVEGJUm7fE7fuQQvi2WXMEKV/s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzdlEwt2SO+2nQKsWNW9UtFsMIA1RO9IxFwjp/79v1le4toaviu
+ gIaaX3WgTju+0xJtyZlP0uUY/wLHUJ/KTI7jQj6Rabl0MmAAwdoa7edXwSqKIIifNb3b58oYdB0
+ wziebzW8oFhlmMmmSINAQVao7zc/8NTMNowOGpkEC10tp2rwUvS9u8ZFIwgB76KBgw2wp1w==
+X-Gm-Gg: AfdE7ckffyxzGbBnafoELG57+E0b+GNk5OSiPG1NmX43zZ8irnP1d5HKSvPzUf1TJET
+ 97UFutcq/45yZyjeGNFsbDupeyd+23tdPnrNoRP9ZK9Ir14GZcG1UjMVUSTYmp0gKE5yd3a6MFg
+ JZijHGXjTQEu61Xgm9lPA4EI4ZYhLl7BCWH4LIAC+zDmjV2xAKS7YEscuYoWAJFkySajETv7PJX
+ R91Shkb7zspk2cqnekSXh8n91AAopN4OdZp2fB3Xs6trfQkKxOMaM4KJje2dTxri/gEzUc0q6wQ
+ ErkNjUXplZtDfpK+JiTFAaS6cbjZa+xQdm9OeyiSPYS7eYwjbr2/gmXrzDtnQ++n6TqM78avDg=
+ =
+X-Received: by 2002:a05:600c:8483:b0:493:d078:796 with SMTP id
+ 5b1f17b1804b1-4953c16a713mr67061785e9.17.1784187603525; 
+ Thu, 16 Jul 2026 00:40:03 -0700 (PDT)
+X-Received: by 2002:a05:600c:8483:b0:493:d078:796 with SMTP id
+ 5b1f17b1804b1-4953c16a713mr67061355e9.17.1784187602961; 
+ Thu, 16 Jul 2026 00:40:02 -0700 (PDT)
+Received: from localhost ([2a01:e0a:a99:9822:ca7f:54ff:fe01:374c])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49541e9ee07sm42127855e9.15.2026.07.16.00.40.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Jul 2026 00:40:02 -0700 (PDT)
+Date: Thu, 16 Jul 2026 09:40:01 +0200
+From: Maxime Ripard <mripard@redhat.com>
+To: Dave Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-misc-next
+Message-ID: <20260716-famous-pastel-ostrich-a1aaef@houat>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SAWPR12MB999165:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4fac12fb-5483-4ede-7608-08dee30ca40e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|56012099006|18002099003|22082099003|3023799007|10067099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: vwFllCJcMGCYD/0ObP27i74JbfSRA5M8DKqhAAuLwfd+L5vusTKruy0k1Ld/x/KFdlrvdgwpevtoxBWwa4jJT6XgRWq1wQg+lCStd0xCz8EO1xBS4xtTIHcQz3OKF1MtIbfhvrS01Rb07S9OvWtcuTpaaxudRRM3Bud8+o3O6fE8xMpECPMqdUfqAnGRu0z9mp2pZVP5ujdE++uPdKe27Udy+ibAatiPinL5WjkuzbVe+iorn3cvypu6vsENINVhgu2UQ17oioQGslrgfheUrjs0UaaVDh/DSNFL5Cj8gqLju1K3EvDkQ7FM/s7iIZBeJpCMdy01AKyEeISFWX37lSgihKLU1NrhCpJB9XFNcKBw9gcRuNluzLeozKLOi0qcW4COxeeKPcr9bfSl+3Leg8BYAGxGzUxvTM3wI5jqD9P6IqTbNUTbNfwqv3QUYAw0lWBivgXn+/fs049HX6KHenkdTGAGPo9OZ5NIhvctVjr0t3tvhWslwWYPD/cgUTvQk1cFtWnP+RXzSGel8GR1U/2VdjzS+nQp56deRTODu8cLofLsNL2Axb/bvv/u3t6amrpGC5bOVYmJ2bmk0QMTktURoyIfg7orOaFxhKzlA4c7aOM5+6nntQnK7vbQgM1DiKehi3nLGWrLAXD5tUWmHk8UaVn5jCl+PIaArb9tXtw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(56012099006)(18002099003)(22082099003)(3023799007)(10067099003)(4143699003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z2h1aXZyWVc2ZDduZkFld2VtL3prR3Q4amt5ejg4RUdXZlB2VEQySVBma21I?=
- =?utf-8?B?WllkODRMVVNlcE00bitKTlVnOVNneFNwdFJkcHhJTGcyM1p1M0NrTnM4R04w?=
- =?utf-8?B?VmZDbmlNc0pLdlZReGtwOGFPSDVWNTl0L1ZTWnNlUmsxQ0o2YThsZ0hlMytI?=
- =?utf-8?B?eGhVdENoTXFxOGNDcHhCd2xHK0x0eE1iUDR6Q3ZzaHdNWXo1Ty9Zd2Q1T0Ey?=
- =?utf-8?B?UHdjTTErTE1LZElaY1V0UzJQZm5iWm11NUVNaExuSVcyMkNOVEEwOWFZRW9Z?=
- =?utf-8?B?YlZ6RldwYyt5VXZyc3d4bUtONG4wU3RmSXh0Y1FqTkl6UHRkbVRsUFpzVGxu?=
- =?utf-8?B?OUNTZFRDZXp2Q3NFQlRXTXNoemt0RS85WFZoRDdScmJoeUEvcFlOWmxDSEpG?=
- =?utf-8?B?VDBVU3pWQmRlRnF0NHhiRmhiZUFDcHFlYmxqSzVieG5vOC9BT1hOdzRiUzE4?=
- =?utf-8?B?Mm5pZFl1T011b21CWWp2MzM1cGY3MUxEV1ZwZVBPcjhsTzR4TjVJUmYxNVFw?=
- =?utf-8?B?OWxLbThXcnFLQ3dSS1lGVjNXZFBIS21NMWtKZ3FkRmV1SlNzaEVCTmtOSTlh?=
- =?utf-8?B?SERVN3FhUFNESVAzK2dKd2cyMGZvM1VwZURvRDZUc2ttUWozQW0vTnZ5WGJl?=
- =?utf-8?B?dnRRNURsYy9ES0ZUY1E0OG90QmptV2Y5ZTFwUk94TFBWM0dpNm1HTnRVY1dY?=
- =?utf-8?B?MUxocml4VG5RODhKdk5hRmhvRURzUW0xaGtTai9maW55K2t3czdmNEg1R1Jl?=
- =?utf-8?B?UGNhaFhSQXlNME5GZitWYm5vZnBQVkoyRHFjUHZsMzFKTElxTHZ0Y3psTHZM?=
- =?utf-8?B?K0t5ZU9jOSsvQ0hZb0x1YmhtL0FCN1JCL2gvMUVGNlNnNmVxajFCYWJQSyt3?=
- =?utf-8?B?WTZ6RTViZDFpbUJxRWhLR0k1L1BVN1FtaWtDRmh4a2Y1eEhDSE1qYXhLV2VC?=
- =?utf-8?B?L0RJTE8rdXlZZFJ3VmJIaCtINzJrR2U2L09IdU5La21mYTg2dEFudlA2SCtT?=
- =?utf-8?B?M2grSXYxaFQyVHpIRzUvRVJHeVo5blBoUmwzNU9YVmdpK0pHdTZhNEFWUHRw?=
- =?utf-8?B?TVhVUGtzalRmaE5zaTVuQW5xbzFub2J5UkVzcXM4Smk5Y0F1MngvYVRUY0cz?=
- =?utf-8?B?MEd5V05zams3blE5Y0haVUw0WG1Qdy9mUGxkV0RNQ2ttTnNuZTcrRVpMNm1F?=
- =?utf-8?B?WTlDYzVzYzQreXlYeS9HTWNCbGF2L0NFOVhQNjFaeC9FT1dzdWNaVHd3OXZu?=
- =?utf-8?B?MENtcVZTQjBTSlo5bGgxekFDNVhmUmpQSG4ySjlBNlNJQ1R3OExnbVJMTnZP?=
- =?utf-8?B?NEt3azk4bnF5MmZQTWtsNS9uWjFPQWRCcjRHczFTNGNvb200MGtuTXBPUFBs?=
- =?utf-8?B?a3RXRWVsVisvN2xFbXFpbnhVUGJ3cXNMTUltbUkvTWFZUS9XbFUwQjNZT0cr?=
- =?utf-8?B?Z2NWak5kZHdUSlpkaGhYWlAra1NhaFlqVkVOSDk2akQxWFRvTmwxanlpcVpM?=
- =?utf-8?B?bXREbEVPN2NydVNyekxSR2RoSFRXMzJ2d3lENmlKV3VNOFoyM1FkNGlLeWFF?=
- =?utf-8?B?cVQxdlhIZ2lkYUhmYXBrYXBnb3ZWWC9SeGpEZmJCcFpuRHpXTXFSWUR3SWpI?=
- =?utf-8?B?d2hnM1hMZGhsM1ZOejhGME1raDN1bjVhNFBKcllFbDR2L1pFcjRjbXY5aGNP?=
- =?utf-8?B?Z0FOOURGTUhKZlc0cnpvT0Joa3dOUXMrcmtNTkpZU1Yxa3pMQ092TWp4VDd5?=
- =?utf-8?B?Y2tLMGdXLzNzTWpJekhiT1F1L3RJVGtiWUptSGZjMmxZNkN1Q3N1QlRmbHBk?=
- =?utf-8?B?OUlOMHczM2JKS21pZFBSTGJzYXNBSFVXWTlMN0tnWngwcGt1Sm1FbUgvT0Zp?=
- =?utf-8?B?ZUlkeUU5OXA3bDZmVFdicWpXb21SN3dLSjUzSWFWUkhRb3BSd0ZpZmVUNVdt?=
- =?utf-8?B?elovUjhSMk03bG5pUDNLUWJReDBwK1I1bnM4UXA0OGxobVdXaEdWMjcvTmdV?=
- =?utf-8?B?MHBtLzFLV05MNlYyUjcrWFVXOStsTlNiNDM5Q1JWeVY2VjBaa3VwU1p2Q2lY?=
- =?utf-8?B?L2E5TC8xaUprTE9ubjNvZUh6a2NOTTZVanhTaU90K2VCbFN0VWZPR1NtSmda?=
- =?utf-8?B?a3o5MDBKOE5mWm9PMmw2eGxvNExlZWN1ay9LSlZlRElabGlsNmQzWlVnUlZC?=
- =?utf-8?B?T09SQ0hVRDZVbUszR0V5ZkZDOHFUNTNnOTRYc0g4MXhhOVg5WWRTK2FFWXhD?=
- =?utf-8?B?ZWdrSUtlRTE4MEpNNU92TUpzSWlzcjVTanAzV1N4YkVxQmdQNXc0UGZwNUpC?=
- =?utf-8?Q?+Np87WDIuH2XQjZ66v?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4fac12fb-5483-4ede-7608-08dee30ca40e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 07:34:16.6004 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3oBB8HlQb+9rLIeDQS2c44/1+QM8EeHMsBgP2Tvr6H7VuPyXrJETNYM40MsUEhSd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999165
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="xgbvgquebhi7dsp5"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,70 +115,266 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Anirudh,
 
-On 7/16/26 04:08, Anirudh Srinivasan wrote:
-> Hi Christian,
-> 
-> On Wed, Jul 15, 2026 at 4:15 AM Christian König
-> <christian.koenig@amd.com> wrote:
->>
->> On 7/14/26 18:03, Anirudh Srinivasan wrote:
->>> radeon fails to probe on platforms that have all their memory above the
->>> 32-bit range with an -ENOMEM because dummy_page_init calls
->>> alloc_page(GFP_DMA32), which would fail.
->>
->> Unfortunately I clearly have to reject this.
->>
->> The DMA32 allocation is mandatory for radeon to work correctly on some platforms.
->>
->>> Allow this driver to work on such platforms by falling back to
->>> ZONE_NORMAL regions. dma_map_page called subsequently would catch any
->>> issues with the device being unable to DMA into the mapped page.
->>
->> No, it doesn't.
->>
->> It's just your special case that dma_map_page() is able to use some IOMMU to remap the page below 32bits so that the driver can access it.
->>
->> The problem is that we have quite a bunch of cases where this doesn't work correctly and eventually result in all kinds of trouble, including random memory corruptions.
->>
->> In those cases it's better to not load the driver at all than to later deal with corrupted data.
-> 
-> So this platform has an IOMMU, but it isn't enabled in the upstream
-> kernel at the moment. I am able to boot up to framebuffer console.
+--xgbvgquebhi7dsp5
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: [PULL] drm-misc-next
+MIME-Version: 1.0
 
-That is not even remotely enough to actually test the driver.
+Hi Sima, Dave,
 
-What happens is that you allocation succeeds, but you simply doesn't exercise the functionality which would need the dummy page.
+Here's this week drm-misc-next PR.
 
-> Is there anything that isn't expected to work in this setup? Is there
-> some test I can run to verify this?
+Thanks!
+Maxime
 
-For the technical background, the dummy page is there to prevent buggy applications/driver code to crash the system.
+drm-misc-next-2026-07-16:
+drm-misc-next for 7.3:
 
-The general idea is that a reads/writes which otherwise would go into nirvana are redirected to the dummy page and so prevented from harming the system as a whole.
+UAPI Changes:
 
-The problem is that while some HW generations can handle 40bit of PCI addresses the dummy page register is only 32bit wide in some cases (I would need to double check your specific HW generation, maybe that would help).
+Cross-subsystem Changes:
 
-To actually make sure everything works as expected you need to enable some desktop system and run OpenGL tests. If then an error occurs and IOMMU confirms that the right address is used for the dummy write then we could be save that this actually works.
+Core Changes:
+- blend: allow blend mode property without PREMULTI
+- bridges:
+  - Rename drm_for_each_bridge_in_chain_scoped to
+    drm_for_each_bridge_in_chain
+  - Drop legacy bridges support
 
-> I should look into whether the IOMMU on this cihp can be enabled and
-> then try this out too.
+- gpusvm: Code reorganization to give drivers more flexibility
 
-Well enabling IOMMU could eventually help, but the code in the current form would still fail. You need to use something like dma_alloc_coherent() and I think that this won't work because of the HW restrictions.
+Driver Changes:
+- etnaviv: Check if a reset has been successful
+- nouveau: Create instmem iomapping at first use
+- panthor: Remove redundant cleanup
+- qxl: Convert to a simple encoder to a regular one
 
->>
->> What could be possible is to add a special quirk for your platform to not allocate the dummy page as DMA32 in the first place.
-> 
-> So some kind of a whitelisted set of PCIE vendor/ID combos (with
-> working IOMMUS?) where we fallback to non DMA32 ranges?
+- bridges:
+  - Convert all remaining legacy bridges to atomic
+  - tc358767: clamp the reported AUX read size to the request
 
-No, what you are testing here is basically that display is functional and not anything else.
+- panels:
+  - novatek-nt37801: Use mipi_dsi_*_multi() functions
+  - samsung-s6d16d0: Fix prepare error handling
+The following changes since commit 671b7825dbfe9ea6e3ad3001003aeee0df48d1b5:
 
-Regards,
-Christian.
+  drm/v3d: bound CPU-job query writes to their destination BO (2026-07-08 0=
+9:15:42 -0300)
 
-> 
-> Regards
-> Anirudh Srinivasan
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-next-202=
+6-07-16
+
+for you to fetch changes up to ec6444a00c49e6c2b5e9a507272a28126677f9ee:
+
+  drm/bridge: tc358767: clamp the reported AUX read size to the request (20=
+26-07-15 11:38:01 -0700)
+
+----------------------------------------------------------------
+drm-misc-next for 7.3:
+
+UAPI Changes:
+
+Cross-subsystem Changes:
+
+Core Changes:
+- blend: allow blend mode property without PREMULTI
+- bridges:
+  - Rename drm_for_each_bridge_in_chain_scoped to
+    drm_for_each_bridge_in_chain
+  - Drop legacy bridges support
+
+- gpusvm: Code reorganization to give drivers more flexibility
+
+Driver Changes:
+- etnaviv: Check if a reset has been successful
+- nouveau: Create instmem iomapping at first use
+- panthor: Remove redundant cleanup
+- qxl: Convert to a simple encoder to a regular one
+
+- bridges:
+  - Convert all remaining legacy bridges to atomic
+  - tc358767: clamp the reported AUX read size to the request
+
+- panels:
+  - novatek-nt37801: Use mipi_dsi_*_multi() functions
+  - samsung-s6d16d0: Fix prepare error handling
+
+----------------------------------------------------------------
+Ben Dooks (1):
+      drm/panfrost: include panfrost_drv.h for panfrost_transparent_hugepage
+
+Dave Airlie (1):
+      nouveau/instmem: use iomapping interface for instmem handling
+
+Diogo Silva (1):
+      drm/qxl: remove dependency on DRM simple helpers
+
+Henrik Grimler (2):
+      drm/bridge: sii9234: fix some typos in comments and messages
+      drm/bridge: sii9234: use dev_err_probe where applicable
+
+Honglei Huang (5):
+      drm/gpusvm: split MM state flags out of drm_gpusvm_pages_flags
+      drm/gpusvm: embed struct drm_device into drm_gpusvm_pages
+      drm/xe: have xe_svm_range embed one drm_gpusvm_pages
+      drm/gpusvm: move struct drm_gpusvm_pages out of struct drm_gpusvm_ran=
+ge
+      drm/gpusvm: let the drm_gpusvm core context purely MM level
+
+Jiri Slaby (SUSE) (2):
+      drm/imx: Switch to irq_domain_create_linear()
+      drm/imx: include dc-drv.h to avoid sparse warning
+
+Laxman Acharya Padhya (1):
+      drm/panel: samsung-s6d16d0: Power off on prepare failure
+
+Leandro Ribeiro (2):
+      drm/drm_blend: allow blend mode property without PREMULTI
+      drm: ensure blend mode supported if pixel format with alpha exposed
+
+Luca Ceresoli (4):
+      drm: of: fix wording in comment
+      drm/bridge: samsung-dsim: fix wording in comment
+      drm/bridge: fix wording in comment
+      drm/bridge: rename drm_for_each_bridge_in_chain_scoped() to drm_for_e=
+ach_bridge_in_chain()
+
+Lucas Stach (2):
+      drm/etnaviv: check all modules for idle after reset
+      drm/etnaviv: check MMUv2 status after reset
+
+Maoyi Xie (1):
+      drm/bridge: tc358767: clamp the reported AUX read size to the request
+
+Maxime Ripard (37):
+      drm/adp: mipi: Add atomic bridge state handlers
+      drm/bridge: analogix-anx6345: Switch to atomic bridge callbacks
+      drm/bridge: analogix-anx78xx: Switch to atomic bridge callbacks
+      drm/bridge: aux-bridge: Add atomic bridge state handlers
+      drm/bridge: aux-hpd-bridge: Add atomic bridge state handlers
+      drm/bridge: chrontel-ch7033: Switch to atomic bridge callbacks
+      drm/bridge: cros-ec-anx7688: Add atomic bridge state handlers
+      drm/bridge: lontium-lt8713sx: Add atomic bridge state handlers
+      drm/bridge: lontium-lt8912b: Switch to atomic bridge callbacks
+      drm/bridge: lontium-lt9611uxc: Add atomic bridge state handlers
+      drm/bridge: lvds-codec: Switch to atomic bridge callbacks
+      drm/bridge: megachips-stdpxxxx-ge-b850v3-fw: Add atomic bridge state =
+handlers
+      drm/bridge: microchip-lvds: Add atomic bridge state handlers
+      drm/bridge: nxp-ptn3460: Switch to atomic bridge callbacks
+      drm/bridge: of-display-mode-bridge: Add atomic bridge state handlers
+      drm/bridge: parade-ps8622: Switch to atomic bridge callbacks
+      drm/bridge: sii9234: Add atomic bridge state handlers
+      drm/bridge: sil-sii8620: Add atomic bridge state handlers
+      drm/bridge: simple-bridge: Switch to atomic bridge callbacks
+      drm/bridge: tc358764: Switch to atomic bridge callbacks
+      drm/bridge: tda998x: Switch to atomic bridge callbacks
+      drm/bridge: ti-tfp410: Switch to atomic bridge callbacks
+      drm/bridge: ti-tpd12s015: Add atomic bridge state handlers
+      drm/bridge: thc63lvd1024: Switch to atomic bridge callbacks
+      drm/bridge: waveshare-dsi: Switch to atomic bridge callbacks
+      drm/exynos: mic: Switch to atomic bridge callbacks
+      drm/mcde: dsi: Add atomic bridge state handlers
+      drm/mediatek: dpi: Switch to atomic bridge callbacks
+      drm/msm: dsi: Switch to atomic bridge callbacks
+      drm/omap: dpi: Switch to atomic bridge callbacks
+      drm/omap: dsi: Switch to atomic bridge callbacks
+      drm/omap: sdi: Switch to atomic bridge callbacks
+      drm/omap: venc: Switch to atomic bridge callbacks
+      drm/sti: dvo: Switch to atomic bridge callbacks
+      drm/sti: hda: Switch to atomic bridge callbacks
+      drm/sti: hdmi: Switch to atomic bridge callbacks
+      drm/bridge: Remove legacy bridge callback support
+
+Nicol=E1s Antinori (1):
+      drm/panel: novatek-nt37801: Use mipi_dsi_*_multi() functions
+
+Tvrtko Ursulin (1):
+      drm/panthor: Remove redundant drm_sched_job_cleanup() from the .free_=
+job callback
+
+ .clang-format                                      |   2 +-
+ drivers/gpu/drm/adp/adp-mipi.c                     |   4 +
+ drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |  13 +-
+ drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c |  13 +-
+ drivers/gpu/drm/bridge/aux-bridge.c                |   4 +
+ drivers/gpu/drm/bridge/aux-hpd-bridge.c            |   4 +
+ drivers/gpu/drm/bridge/chrontel-ch7033.c           |  13 +-
+ drivers/gpu/drm/bridge/cros-ec-anx7688.c           |   4 +
+ drivers/gpu/drm/bridge/lontium-lt8713sx.c          |   4 +
+ drivers/gpu/drm/bridge/lontium-lt8912b.c           |   8 +-
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c         |   3 +
+ drivers/gpu/drm/bridge/lvds-codec.c                |  10 +-
+ .../drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c   |   3 +
+ drivers/gpu/drm/bridge/microchip-lvds.c            |   3 +
+ drivers/gpu/drm/bridge/nxp-ptn3460.c               |  17 +-
+ drivers/gpu/drm/bridge/of-display-mode-bridge.c    |   4 +
+ drivers/gpu/drm/bridge/parade-ps8622.c             |  18 +-
+ drivers/gpu/drm/bridge/samsung-dsim.c              |   2 +-
+ drivers/gpu/drm/bridge/sii9234.c                   |  39 ++--
+ drivers/gpu/drm/bridge/sil-sii8620.c               |   4 +
+ drivers/gpu/drm/bridge/simple-bridge.c             |  13 +-
+ drivers/gpu/drm/bridge/tc358764.c                  |  13 +-
+ drivers/gpu/drm/bridge/tc358767.c                  |   2 +-
+ drivers/gpu/drm/bridge/tda998x_drv.c               |  13 +-
+ drivers/gpu/drm/bridge/thc63lvd1024.c              |  14 +-
+ drivers/gpu/drm/bridge/ti-tfp410.c                 |  10 +-
+ drivers/gpu/drm/bridge/ti-tpd12s015.c              |   4 +
+ drivers/gpu/drm/bridge/waveshare-dsi.c             |  14 +-
+ drivers/gpu/drm/display/drm_bridge_connector.c     |   4 +-
+ drivers/gpu/drm/drm_atomic.c                       |   2 +-
+ drivers/gpu/drm/drm_blend.c                        |  20 +-
+ drivers/gpu/drm/drm_bridge.c                       |  65 ++----
+ drivers/gpu/drm/drm_gpusvm.c                       | 243 ++++++++++++-----=
+----
+ drivers/gpu/drm/drm_mode_config.c                  |  21 ++
+ drivers/gpu/drm/drm_of.c                           |   2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c              |  23 +-
+ drivers/gpu/drm/exynos/exynos_drm_mic.c            |  14 +-
+ drivers/gpu/drm/imx/dc/dc-ic.c                     |   6 +-
+ drivers/gpu/drm/mcde/mcde_dsi.c                    |   3 +
+ drivers/gpu/drm/mediatek/mtk_dpi.c                 |  10 +-
+ drivers/gpu/drm/msm/dsi/dsi_manager.c              |  13 +-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c |   1 +
+ drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c |  39 +++-
+ drivers/gpu/drm/nouveau/nvkm/subdev/instmem/priv.h |   1 +
+ drivers/gpu/drm/omapdrm/dss/dpi.c                  |  14 +-
+ drivers/gpu/drm/omapdrm/dss/dsi.c                  |  14 +-
+ drivers/gpu/drm/omapdrm/dss/sdi.c                  |  14 +-
+ drivers/gpu/drm/omapdrm/dss/venc.c                 |  14 +-
+ drivers/gpu/drm/panel/panel-novatek-nt37801.c      | 106 ++++-----
+ drivers/gpu/drm/panel/panel-samsung-s6d16d0.c      |  10 +-
+ drivers/gpu/drm/panfrost/panfrost_drv.c            |   1 +
+ drivers/gpu/drm/panthor/panthor_sched.c            |   1 -
+ drivers/gpu/drm/qxl/qxl_display.c                  |  12 +-
+ drivers/gpu/drm/sti/sti_dvo.c                      |  20 +-
+ drivers/gpu/drm/sti/sti_hda.c                      |  20 +-
+ drivers/gpu/drm/sti/sti_hdmi.c                     |  20 +-
+ drivers/gpu/drm/tests/drm_bridge_test.c            | 106 +--------
+ drivers/gpu/drm/xe/xe_pt.c                         |   2 +-
+ drivers/gpu/drm/xe/xe_svm.c                        |  66 ++++--
+ drivers/gpu/drm/xe/xe_svm.h                        |  14 +-
+ drivers/gpu/drm/xe/xe_userptr.c                    |   5 +-
+ include/drm/drm_bridge.h                           | 114 +---------
+ include/drm/drm_gpusvm.h                           |  67 ++++--
+ 63 files changed, 726 insertions(+), 616 deletions(-)
+
+--xgbvgquebhi7dsp5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaliK0AAKCRAnX84Zoj2+
+dlGlAYCxmbUnS1ujvf+N9Fh5uxx5vSyItFNKCRvR5C1vabfMYHox6Ry5ay66iTVk
+8rqH5ccBgJHZii5DHfyyWdM/IPUefYaNx0wJmsgUha8lax/h+VWJqmF0kU4EI7Bm
+j2BZpgXaFw==
+=eEnH
+-----END PGP SIGNATURE-----
+
+--xgbvgquebhi7dsp5--
 
