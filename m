@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5939EC44512
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 17:19:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3AD5C44512
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 17:24:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B490A10E380;
-	Thu, 16 Jul 2026 17:19:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEA4510E389;
+	Thu, 16 Jul 2026 17:24:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m6p+UC14";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g9t/Ctlw";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B38F710E380
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 17:19:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB16810E389
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 17:24:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F2E1A60A5E;
- Thu, 16 Jul 2026 17:19:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71AFB1F000E9;
- Thu, 16 Jul 2026 17:19:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8DAA440B8F;
+ Thu, 16 Jul 2026 17:24:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E611F000E9;
+ Thu, 16 Jul 2026 17:24:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784222393;
- bh=SOknVJHD+yEFYoHGxcNe2g/ZLnUXpIjvhWPkghhD2KQ=;
+ s=k20260515; t=1784222658;
+ bh=f8vvUrBsPbpWspxf7LTimq8/Zv2qDAlb9d+T2fHatwY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=m6p+UC14O0mnPEIrOapuldldq4q0Fbo4FZtJQssu8Wfv9xr+7ncs+oYydvCd6ODn8
- xeMmscsRIQfs5Ah7Bavi4vzg5n8MWOz+hUp9mxeigf3SPPUM8TUE+RmRiIESG23eTZ
- OBXRCrZGipoucOdgORw62vm+G/MYnUhVs8ltI4WV/KXJqIhkx1ktlbF53Twsv3BNZW
- C2qzjjDCyXrl3qt0sKVT6AKsO0WoOO7osBRTz9YfQue1o4xTCRWeRwBvN1a/Ffw6+S
- TRZyaSd3VicALiypQgCRF2+HcusdK6lJianSuwoFEJ742EQW5pOcxndm2hORqd8u9H
- LaItgywIsYq4A==
+ b=g9t/Ctlwo2e85yAawXGoWRS5Lkia2rw8j/GDJn/yoPWrEyzL2KH/vNXbTGkkfmZkL
+ it1jaRIzql1sIQTcFzH/nOvpLSQD1V0AiFSK30J0WfKyuGDGWyHAPFydVQ+HGQ2jLC
+ w9lB4GohZGLElH5eTV8GZF3/Lo5TcI95zuSPSQJ3HQHA51WAk6yKKULK9wGMPnByKD
+ xZD/AAf/FBmkvYAiPEIloP2HSpcZpBb5cjKqC2OolEW+mRJIebGrhjb4loAwm/6I5T
+ mS7k4MEazA7xwxAUQFnvLCUNKeFt01CEy1gCm7UhZxo3xRMBjOMostnxx4KuDn7Cmb
+ HONRiAyVIupqA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/6] configfs: Treat attribute structures as const
- internally
+Subject: Re: [PATCH 4/6] configfs: Constify configfs_bin_attribute
 To: =?utf-8?b?VGhvbWFzIFdlacOfc2NodWg=?= <linux@weissschuh.net>
 Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260716-configfs-const-base-v1-3-c545a4053cb5@weissschuh.net>
+In-Reply-To: <20260716-configfs-const-base-v1-4-c545a4053cb5@weissschuh.net>
 References: <20260716-configfs-const-base-v1-0-c545a4053cb5@weissschuh.net>
- <20260716-configfs-const-base-v1-3-c545a4053cb5@weissschuh.net>
+ <20260716-configfs-const-base-v1-4-c545a4053cb5@weissschuh.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 17:19:53 +0000
-Message-Id: <20260716171953.71AFB1F000E9@smtp.kernel.org>
+Date: Thu, 16 Jul 2026 17:24:17 +0000
+Message-Id: <20260716172418.43E611F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,109 +57,134 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [Low] The configfs documentation was not updated to reflect the new `cons=
+t` signature of `ct_bin_attrs` in `struct config_item_type`.
+
 Pre-existing issues:
-- [High] configfs_create_file() and configfs_create_bin_file() use I_MUTEX_=
-NORMAL instead of I_MUTEX_PARENT when locking the parent directory.
-- [High] Incorrect subclass used when re-acquiring parent directory lock du=
-ring symlink creation.
+- [High] acpi_table_aml_write lacks validation for minimum payload size and=
+ NULL data, leading to a NULL pointer dereference or heap out-of-bounds rea=
+d.
+- [High] tsm_report_inblob_write passes a NULL pointer to memcpy when handl=
+ing a zero-length write.
 --
 
---- Patch [3]: [PATCH 3/6] configfs: Treat attribute structures as const in=
-ternally ---
-commit 02ad2fb78e37ee44180095f15441af685e40f465
+--- Patch [4]: [PATCH 4/6] configfs: Constify configfs_bin_attribute ---
+commit 8e0989136bf4a701a307f8ac9e6579f1dbe58c67
 Author: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
 
-configfs: Treat attribute structures as const internally
+configfs: Constify configfs_bin_attribute
 
-The configfs core never modifies the attribute structures defined in
-driver core. This commit reflects this by updating the types used
-internally in the configfs core.
+The configfs_bin_attribute structures defined by driver are never
+modified. Make them const.
 
-> diff --git a/fs/configfs/file.c b/fs/configfs/file.c
-> index a48cece775a39..6460b000c5938 100644
-> --- a/fs/configfs/file.c
-> +++ b/fs/configfs/file.c
+As there are only two users of these attributes, adapt them in the same
+commit to avoid a phased transition.
+
+> diff --git a/drivers/acpi/acpi_configfs.c b/drivers/acpi/acpi_configfs.c
+> index 12ffec7958031..6071699c71655 100644
+> --- a/drivers/acpi/acpi_configfs.c
+> +++ b/drivers/acpi/acpi_configfs.c
+> @@ -91,7 +91,7 @@ static ssize_t acpi_table_aml_read(struct config_item *=
+cfg,
+> =20
+>  CONFIGFS_BIN_ATTR(acpi_table_, aml, NULL, MAX_ACPI_TABLE_SIZE);
+> =20
+> -static struct configfs_bin_attribute *acpi_table_bin_attrs[] =3D {
+> +static const struct configfs_bin_attribute *const acpi_table_bin_attrs[]=
+ =3D {
+>  	&acpi_table_attr_aml,
+
+[Severity: High]
+This isn't a bug introduced by this patch, but there is a pre-existing issue
+in acpi_table_aml_write() which is associated with this attribute.
+
+If a user with write access to the configfs aml attribute performs a 0-byte
+write (e.g., write(fd, buf, 0)), configfs_bin_write_iter() sets
+write_in_progress but leaves bin_buffer as NULL. On file close,
+acpi_table_aml_write() is invoked with data =3D NULL and size =3D 0.
+
+The function then immediately dereferences header->length:
+
+	struct acpi_table_header *header =3D data;
+	...
+	if (header->length !=3D size) {
+
+This causes a NULL pointer dereference. Additionally, writing a crafted 8-b=
+yte
+payload can bypass the header->length !=3D size check (if the payload's len=
+gth
+field is 8), leading to an undersized allocation and out-of-bounds read.
+
+Does acpi_table_aml_write() need validation for minimum payload size and NU=
+LL
+data?
+
+>  	NULL,
+>  };
 
 [ ... ]
 
-This is a pre-existing issue, but looking at configfs_create_file() in
-fs/configfs/file.c:
-
-int configfs_create_file(struct config_item * item, const struct configfs_a=
-ttribute * attr)
-{
-	struct dentry *dir =3D item->ci_dentry;
-	struct configfs_dirent *parent_sd =3D dir->d_fsdata;
-	umode_t mode =3D (attr->ca_mode & S_IALLUGO) | S_IFREG;
-	int error =3D 0;
-
-	inode_lock_nested(d_inode(dir), I_MUTEX_NORMAL);
-	error =3D configfs_make_dirent(parent_sd, NULL, (void *) attr, mode,
-				     CONFIGFS_ITEM_ATTR, parent_sd->s_frag);
-	inode_unlock(d_inode(dir));
-
-	return error;
-}
+> diff --git a/drivers/virt/coco/guest/report.c b/drivers/virt/coco/guest/r=
+eport.c
+> index 96e89ddf49896..ad400fbe53f01 100644
+> --- a/drivers/virt/coco/guest/report.c
+> +++ b/drivers/virt/coco/guest/report.c
+> @@ -356,7 +356,7 @@ static struct configfs_attribute *tsm_report_attrs[] =
+=3D {
+>  	NULL,
+>  };
+> =20
+> -static struct configfs_bin_attribute *tsm_report_bin_attrs[] =3D {
+> +static const struct configfs_bin_attribute *const tsm_report_bin_attrs[]=
+ =3D {
+>  	[TSM_REPORT_INBLOB] =3D &tsm_report_attr_inblob,
 
 [Severity: High]
-This isn't a bug introduced by this patch, but should this use I_MUTEX_PARE=
-NT
-instead of I_MUTEX_NORMAL when locking the parent directory?
+This isn't a bug introduced by this patch, but there is a pre-existing issue
+in tsm_report_inblob_write() which is associated with this attribute.
 
-Using the wrong lockdep subclass (I_MUTEX_NORMAL instead of I_MUTEX_PARENT)
-for a parent directory violates core VFS locking rules.
+A zero-length write to the inblob attribute sets write_in_progress in
+configfs without allocating bin_buffer. Upon file release,
+tsm_report_inblob_write() is called with buf =3D NULL and count =3D 0.
 
-This defeats lockdep's ability to detect parent-child ordering violations a=
-nd
-can hide real deadlocks until production.
+The function then executes:
 
+	memcpy(report->desc.inblob, buf, count);
 
-This exact pattern also occurs in configfs_create_bin_file() in the same fi=
-le:
+which resolves to memcpy(..., NULL, 0). This is strictly undefined behavior
+in C and can trigger a UBSAN trap, panicking the kernel if panic_on_warn is
+enabled.
 
-int configfs_create_bin_file(struct config_item *item,
-		const struct configfs_bin_attribute *bin_attr)
-{
-	struct dentry *dir =3D item->ci_dentry;
-	struct configfs_dirent *parent_sd =3D dir->d_fsdata;
-	umode_t mode =3D (bin_attr->cb_attr.ca_mode & S_IALLUGO) | S_IFREG;
-	int error =3D 0;
+Does tsm_report_inblob_write() need to check for a zero-length write and NU=
+LL
+buffer before calling memcpy()?
 
-	inode_lock_nested(dir->d_inode, I_MUTEX_NORMAL);
-	error =3D configfs_make_dirent(parent_sd, NULL, (void *) bin_attr, mode,
-				     CONFIGFS_ITEM_BIN_ATTR, parent_sd->s_frag);
-	inode_unlock(dir->d_inode);
+>  	[TSM_REPORT_OUTBLOB] =3D &tsm_report_attr_outblob,
+>  	[TSM_REPORT_AUXBLOB] =3D &tsm_report_attr_auxblob,
 
-	return error;
-}
+[ ... ]
 
-[Severity: High]
-This is a pre-existing issue, but should this also be updated to use
-I_MUTEX_PARENT for the same reasons?
+> diff --git a/include/linux/configfs.h b/include/linux/configfs.h
+> index 5d3fc8822a1d3..eff2fb22ab700 100644
+> --- a/include/linux/configfs.h
+> +++ b/include/linux/configfs.h
+> @@ -67,7 +67,7 @@ struct config_item_type {
+>  	const struct configfs_item_operations	*ct_item_ops;
+>  	const struct configfs_group_operations	*ct_group_ops;
+>  	struct configfs_attribute		**ct_attrs;
+> -	struct configfs_bin_attribute		**ct_bin_attrs;
+> +	const struct configfs_bin_attribute	*const *ct_bin_attrs;
+>  };
 
-
-Additionally, looking at configfs_symlink() in fs/configfs/symlink.c:
-
-	inode_unlock(dir);
-	ret =3D get_target(symname, &target_item, dentry->d_sb);
-	inode_lock(dir);
-	if (ret)
-		goto out_put;
-
-[Severity: High]
-This is a pre-existing issue, but when re-acquiring the parent directory
-lock, should this use inode_lock_nested(dir, I_MUTEX_PARENT)?
-
-Calling inode_lock(dir) re-acquires the lock using the default I_MUTEX_NORM=
-AL
-lockdep subclass.
-
-As with the file creation paths, using the wrong subclass for a parent
-directory defeats lockdep's checks and hides real deadlocks.
+[Severity: Low]
+Does Documentation/filesystems/configfs.rst need to be updated to reflect
+the new const signature of ct_bin_attrs in struct config_item_type? It
+currently documents the old non-const pointer array type.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716-configfs-c=
-onst-base-v1-0-c545a4053cb5@weissschuh.net?part=3D3
+onst-base-v1-0-c545a4053cb5@weissschuh.net?part=3D4
