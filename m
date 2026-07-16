@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EDC6C44518
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 16:06:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16015C44512
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 16:06:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B99C710F356;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E77A410F369;
 	Thu, 16 Jul 2026 16:06:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ORJH/E3V";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lRWLu1Ec";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F53710F353;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9267310F356;
  Thu, 16 Jul 2026 16:06:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=D3WVSl0cn+GOIKUPYVB3+ziUrywvK4pXRs/fw6orwj8=; b=ORJH/E3VFX9KVugAOCwJ3F3WYK
- OzqSs/aYA1vBHq0hjMJuQ6MjnR0ftWx9k0Rt30w9nhblHldhVUh/sa5OIz1MaUOkL1pvWT4VOLGok
- 9VfOlg9l2zdtqPDa0xzqfo35T+f2jfM/9GvcWTMNa/ymTNEZLsl7y+0T1lcV4vR9ZhgkvOeBLewSi
- tdZ4Q202oDuSLk6cslz8nVKc0zEf2HVyMlIgWMmCqkQ3kJ4eIkogN3Ti4GBiTdNIMDcftVxhpm7a0
- Lvbf/rB3Gqlf2Za5SLZj5Gsw3LIr7HHn4JWnsUa64R6Q1tYVLQwsFm9t5+Zm3OvZpnqKnpegBlV9W
- FriMX8ig==;
+ bh=9G3kQItU6v4A1JLe7MM4sPnTCAQ8PtusRLOSDDlkytc=; b=lRWLu1EcH8XUHa8r7+K1lR+tq8
+ XPOgXXAZa6mdUrfc4lbVfuAuHr4ai5qwi34tVD7V0ee/DTKT+GXMFKlT1RMz69Sv1NdEQ2cDDlU9+
+ ArUhqnuHkg71lMdMXTHI6Ou+W0MdW64WQoQbkNMXFxnkuC3Oh9YQzMZBl6pxV6IeRoMqt498P11jh
+ JcRej1OUIp242Rx1C/V5RhFh2+lLK4wzm95voCxrKSogrtU4c43EdZCr8KXtUOj0ngOV0VmS6usez
+ lr3RagWLQ+oGEaVl3POPg9ckSU/6+xLboGVN8m0dT9ikqGo2DcaC90gGhMj08G68V+rVlNPPS0B86
+ kzmJivsg==;
 Received: from [178.139.170.72] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wkObO-00G01i-BS; Thu, 16 Jul 2026 18:06:22 +0200
+ id 1wkObL-00G01i-PV; Thu, 16 Jul 2026 18:06:19 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -44,10 +44,10 @@ Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
  John Harrison <John.Harrison@Igalia.com>, kernel-dev@igalia.com,
  Louis Chauvet <louis.chauvet@bootlin.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH v2 07/20] drm/atomic: Print the color pipeline as part of
- the CRTC state print
-Date: Thu, 16 Jul 2026 18:03:04 +0200
-Message-ID: <20260716160556.227556-8-mwen@igalia.com>
+Subject: [RFC PATCH v2 06/20] drm/atomic: Pass crtc_color_pipeline client cap
+ to atomic check
+Date: Thu, 16 Jul 2026 18:03:03 +0200
+Message-ID: <20260716160556.227556-7-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260716160556.227556-1-mwen@igalia.com>
 References: <20260716160556.227556-1-mwen@igalia.com>
@@ -71,31 +71,63 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-Print the value of the color pipeline in the CRTC state as part of the
-CRTC state print.
+Pass the state of the CRTC (post-blend) color pipeline client cap to the
+atomic state so that drivers can rely on it to enable color pipeline
+functionality and ignore the deprecated color management CRTC
+properties.
 
 Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 Co-developed-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
 Signed-off-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/drm_atomic.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/drm_atomic_uapi.c |  1 +
+ include/drm/drm_atomic.h          | 20 ++++++++++++++++++++
+ 2 files changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index c41759aedc6f..76c7665b3c4c 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -554,6 +554,8 @@ static void drm_atomic_crtc_print_state(struct drm_printer *p,
- 	drm_printf_indent(p, 1, "plane_mask=%x\n", state->plane_mask);
- 	drm_printf_indent(p, 1, "connector_mask=%x\n", state->connector_mask);
- 	drm_printf_indent(p, 1, "encoder_mask=%x\n", state->encoder_mask);
-+	drm_printf_indent(p, 1, "color-pipeline=%d\n",
-+			  state->color_pipeline ? state->color_pipeline->base.id : 0);
- 	drm_printf_indent(p, 1, "mode: " DRM_MODE_FMT "\n", DRM_MODE_ARG(&state->mode));
- 	drm_printf_indent(p, 1, "background_color=%llx\n", state->background_color);
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 8f9c11bd94c6..0ee44976031e 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1738,6 +1738,7 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 	state->acquire_ctx = &ctx;
+ 	state->allow_modeset = !!(arg->flags & DRM_MODE_ATOMIC_ALLOW_MODESET);
+ 	state->plane_color_pipeline = file_priv->plane_color_pipeline;
++	state->crtc_color_pipeline = file_priv->crtc_color_pipeline;
  
+ retry:
+ 	copied_objs = 0;
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 88087910ab1a..a28701704e01 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -575,6 +575,26 @@ struct drm_atomic_commit {
+ 	 */
+ 	bool plane_color_pipeline : 1;
+ 
++	/**
++	 * @crtc_color_pipeline:
++	 *
++	 * Indicates whether this atomic state originated with a client that
++	 * set the DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE.
++	 *
++	 * Drivers and helper functions should use this to ignore legacy
++	 * properties that are incompatible with the drm_crtc COLOR_PIPELINE
++	 * behavior, such as:
++	 *
++	 *  - GAMMA_LUT
++	 *  - DEGAMMA_LUT
++	 *  - GAMMA_LUT_SIZE
++	 *  - CTM
++	 *
++	 * or any other driver-specific properties that might affect pixel
++	 * values.
++	 */
++	bool crtc_color_pipeline : 1;
++
+ 	/**
+ 	 * @colorops:
+ 	 *
 -- 
 2.53.0
 
