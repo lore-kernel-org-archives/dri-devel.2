@@ -4,79 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1A5EC4450A
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 14:40:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B97B9C4450A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 14:41:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3959910E35B;
-	Thu, 16 Jul 2026 14:40:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E870110F334;
+	Thu, 16 Jul 2026 14:41:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XUAyU1kI";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="sfekNBj6";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7121F10E35B
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 14:40:34 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-493b1710405so37304455e9.2
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 07:40:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784212833; x=1784817633; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=mpcBzLLGhgmpRm2ChWHisnZOSJCjUEDvDGQ4AxFAGiU=;
- b=XUAyU1kIOk+8je8hPxLz8CWaX6ZtKUPlspo8TAv3cQNxnSPFw7G7UrEwjLXpzAmwuf
- 0RHfhXf8sI6IzwSTvdLhBqMoXYDFKMJQnSEb1r0LV1EXl7+TXZDesFe7w6pyHW01pjtg
- VpSQXU5IKbw0iA4QiiK/1cNOVDelzkJraHXPvBl7gGwkavb15P4Cd/bbn+gh6o5gRdiU
- hfrnGMsdb2UalIYbNDscnZwf0a6J7mnkbJMuo5YqBbffRcV+Wn83g7WcjgrlTdNBlgau
- WU+PS3ggWxP53LMYXZF0Cvk46ljmTSuq7NP/LaALvRw+T9zNLUmzFDbtCYdWRT+C5Vl8
- C8cA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784212833; x=1784817633;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=mpcBzLLGhgmpRm2ChWHisnZOSJCjUEDvDGQ4AxFAGiU=;
- b=ZlQ0e3j0oi22u2GbTzXnUZtjiGfWwspQD9XWehHJ+b9PEy5eaJxIXh4zNTWwZ3Gpii
- ZuhTZiM35stXbyZidPm7KKebQyrA29/ajbv0bZfriwvSk+p2Ab+XegD3VDeV16duAsQx
- lQ9MPHEXceE0KwfV5BE2Jt9rDg/2KomzD3aImdeC//0fbXKzs9H5F/+xvT5lFyiyITVV
- M6+nCinUywFP/3VddWbI12EJB94T9HO5UArV+vAPOYAJ5BQsPvLkAHmiFJnsz8wdoCUX
- 6yC7WVkE2Q701riI2t6nLJMAQwobix1my7yNTeXdjsqd/y0jFvR5IlhQ5RR3BttfXUIK
- pPRw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrOoF5t4AW1asEu+NkFVsWB3z1tJWyAjmIqsiZ9TIDHosVbzGBSbwf0sy+C21mPvTkR0B2JsUg/2GA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx8XwfM7joVEz5Y08fH8ubbTjQXLGukdeBp6GtD4D3XsGM0m5Hh
- wHTKHRMedO4er1BK6+PYG3tybsMwQ6wzQTAbsaDtfLhrlhfDIZwnNQfE
-X-Gm-Gg: AfdE7cnF+Uo2ralcrn28bYfd66WLaiw4xPuSF30oE1JhXIUgWQ3AtY6ab26Bdtr4gH+
- 06AwlJTBM1dly3VkVHvTOf39QAdbDaSSh1fBXjByJYNeAfys3EaKdsdZ7Q3sBEBc+dCT2qpN9yk
- Bu1Qkg0h3TDDEX0aDkoXjFinrq8epTyf2gI5o9FtBXWIqMCYR9zWE5lKQmnt/DynEH/DxLFcJxq
- s6UA6TPFsq1wzCkFWwNNMZZPF3RopvP8iKm1woMcqfop6er9DTZMlsXojAlIQz7Qe7VP7nCti3Q
- B80rAokfcIEETgLeQopjvEgexJSea/SUd4MJ6zaAG0XMRS2HaTgM7/RzayAwLtIgeII3ipYtxRf
- NnqIal6WeNWNI4qIjEqBnjwaIa2lsp3Kj+jB/UFBMVDXBHAlLn4pMmEIDmuTEmXzvHm/jcw402s
- ItbD9JoRItIUbS5xgb17ForbpyvTff5VjRwrHb
-X-Received: by 2002:a05:600d:6443:10b0:493:f762:45d4 with SMTP id
- 5b1f17b1804b1-495158c693bmr120308635e9.2.1784212832541; 
- Thu, 16 Jul 2026 07:40:32 -0700 (PDT)
-Received: from osama.. ([2a02:908:185:7e40:8529:198:eaf9:708])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49541eb7372sm85145815e9.13.2026.07.16.07.40.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jul 2026 07:40:32 -0700 (PDT)
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/panthor: reject firmware sections with oversized data
-Date: Thu, 16 Jul 2026 16:39:38 +0200
-Message-ID: <20260716143939.21903-1-osama.abdelkader@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013015.outbound.protection.outlook.com
+ [40.93.201.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 107D110F32E
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 14:41:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yTilAOV5mWk/Dov7Cafi9FRneueEw6wVcYCBrHFgA5R8eP2Ri1DM7PnsnjfmrQH6G/1Y6s4OKWk8nRde21Vh/XT7zI5Q/eo/yqOC2muoCLuFPPQhMVu2yAMgyjA5qtyCy+wIgs/3Q0CfmxyaTtuWc2GpxgNebb9l76OK2EPgWpkx9mPi/UsfYMVOYeKRTLP3G05Mck2QLy/q0zMgtI4/QKMxA8A/q/o4hKAQvEGGTHJc9QI5Jkjgj0G6nEEaJ7V11edHeSKrJEl310FK2gnuvmrE65m+5AKi2Z39sUmy3T22onmHE0eA/cxOsnSUpxz/poNq2qOVx0r8W7/hsjV/dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bH1J2I524d2tNe5CN3b6KCw/MottnMUZ61p/ADrbNf8=;
+ b=rIF2t2CzZ9Q/hOQyDT8ptHwd2iaeLGzP0ec84lRbmhTL3xkVnPSyjNd3As+/jUTt5B36a1lIVCy1PWTapJQ6hitzvhRl/77c+BjtiJ2mDALxs+AGLKlvz5lH5RgSX/ZCoNi/iM7MYqVbCz9AoBGlAGIu28cAz01lgmcj0nXGmDUbjzDC+L/duGLUe/8a1qsX72+L/YfRSddESbEkVlWo/KqkJ/el1me+QigRJ9HtRXXcagcxqVHPOYJW5PTWEWD/o5YsFNGwtPBGlNZ/WjqL9hGZO5ZvXuHrI6flktWn7ML6xHS5wPZ0EiOqS6aV/9rCaKXmM2595M9/ncZzfWgK+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bH1J2I524d2tNe5CN3b6KCw/MottnMUZ61p/ADrbNf8=;
+ b=sfekNBj60dMF2Zq5BQ7U7r5wcv66oj/t5bdJsxzs74bgHps0gIHCIs8aRsnzUL70ppI6RiyIQyOMb9LBqpCoaaqu+Kf6Bdb4SkTqRVpwpXyhHgRS5F0U8o3tJdhAXG6bKglwcqJ874gbUhLspUvJNzhBV9vAqYy1rXmYsPI9PnolReeQXHHGwb1t7BSANtDR1F36yMsDQI/pqyaCwG0QdLpGHsyT952lIHP5yJQf68VE0qMsN1JLnCxFvLi9Ci6NcY13SCpd3Mq/624E8jVZCUNksEf6lHNJ2OyvHK3BYbxhqXbiH2SfC1kO8aN9JpdurnDOPZD5U7Tr8ePlJLelKQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by SA1PR12MB9516.namprd12.prod.outlook.com (2603:10b6:806:45b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Thu, 16 Jul
+ 2026 14:41:30 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
+ 14:41:29 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 16 Jul 2026 07:41:27 -0700
+Message-Id: <DK02OL2V85GC.3RA06XWW10NL5@nvidia.com>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>
+Subject: Re: [PATCH v6 00/13] gpu: nova-core: consolidate and streamline GSP
+ boot process
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>
+References: <20260709-nova-bootcontext-v6-0-520cbf8b9b50@nvidia.com>
+In-Reply-To: <20260709-nova-bootcontext-v6-0-520cbf8b9b50@nvidia.com>
+X-ClientProxiedBy: SJ0PR03CA0112.namprd03.prod.outlook.com
+ (2603:10b6:a03:333::27) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SA1PR12MB9516:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ce8d2d6-86ce-4541-2942-08dee3485265
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|23010399003|1800799024|11063799006|10067099003|18002099003|22082099003|56012099006|921020;
+X-Microsoft-Antispam-Message-Info: 3a90fOtG51cSWTbYUqKrzG7XW/ehusq40oA6mrx7h8jzJlCSsOmKiS0gibwteU+v4pkOsE5Neh8UKwofB5xRLBQJj/kA0cxYvcGvWLDC9vKAiIDrujE8f+UTjKu6QqJRVRcN8y/UrVH0sXFO4hhXnBdjW0Rnun/vo6hNHrW3V4HS0biqvqzqAMY0rwny14LU5WejY4H6hcm6Ibh2lvqZXkaGSHumhbNoGqhHzEQzcEKF3PbthRGfcImJp/T/e0kiaGmlBJfcqhgPLRIEjMOdekfFaanNm4tQgtx9V/srP4yt6ks4XBYYku66thLqlz+oZNyf1Ec3OVErxeFYLv6aWLwZDXv+DMwFugSexxcYIhds6ukikC8oHO71r3IaDODbsJueLKsnQG213T4wBjJS5oaOKQKGAnBi09513i4c1ZdgNf8eUqfh1iQOt5DxFToAAmtyQj7c4rhHPzlp71OZcNYOreUDxANO/OVoYvbp1RgXczzbkvYpkSCCeJ3KTLpKYa8VBvgFsjWOwv4FlMW19GkajOBJRRgvvhrTd5cznd1zQZri/crWgOffUia7N3YtcIrseIAt8YCnDJ1P99QCdyc3ZsrrcPLdd4a8TgFhTS5w+gluW7PVwQIPg5dB8Nu6TpmojXTkG5jTQVCXXPbQcG/ME14hPDZX9jLwjJrNknl/LkErrgZe4nkDAPg102koDHCqC3GOC0z/432m+kSPRw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(10067099003)(18002099003)(22082099003)(56012099006)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TCtkLzg2dHhVbzRFYU1KcHhnTy80UzFmLzFOUkMzbnJBOXNFK0pIcFVnZUhL?=
+ =?utf-8?B?SjZMV3BGOG9PYXlrWjdWWFBRd3RiYmRZaUEzWnFBNnNKbm54ZW5rTGc2Y0hU?=
+ =?utf-8?B?ck5rV1ZEdWZGYTRoQjl6a2x0YlZlcU84TGR2TVVodUd3RHkwa3NyWVZvRTRI?=
+ =?utf-8?B?N1ZtTWJrZ3Z5QjlnMmpYcDdLVUtCdHdUTHJJSk83bjNYY0N0ZmpKSnZxdXN2?=
+ =?utf-8?B?UEpVemdqUDlLVE9yNExFNXdiMW96bU5zRHJhdEcrVWtxcUFBYjdaM3Q1SU83?=
+ =?utf-8?B?aHhWYVk1RmQ2ckg0RVdTYmZlUW5xb1NrZEpVWUg2QnNPSjBuY09aRGhvYjBG?=
+ =?utf-8?B?OFg3dnFranJvL2pLV0p2ZzBmZXRQVnZPOEZ5K3AwNjhmS3h0WURIZ0Rud2VB?=
+ =?utf-8?B?Ny9XcW1qZHcwTER6VjBiaWhtcXdEWWtwU1lOZEIrNWRzQjJ2alpFdDNMR1lo?=
+ =?utf-8?B?U1hDRVIva2FIWHNsblFPRmxTMFovbEtGdVlkVDQ4ZWg4bmZaR3F1aVZidmxH?=
+ =?utf-8?B?dm1hVHJHSkdFM3R2Ni9mbGpiWXVjN2hqUUc3dVM5L25vMnRNbTZwMTF0OGhz?=
+ =?utf-8?B?RXhGM0MzVjlQY2JwYkY3bjRkZ1Q3Q0lrYXZqV0RVeWdMUW1tUzZQN2hwZUh5?=
+ =?utf-8?B?R08zVk9xMzBhaU42dlY1WW5OSjNkZHFVYmpaTk81MTlOMFNlU05qMVZma09L?=
+ =?utf-8?B?ak9uRkdDd0FkUjBqaGc2Y2dwSk9vMUR4UXQvNmFWS1BWZEpHTkVYWVFjeWgx?=
+ =?utf-8?B?eHFmVlFuSWdmSklnTUt6dHdJYnY1SkNoSG5tUHU4cDZPYVZtdXV0c01qZnR2?=
+ =?utf-8?B?SkdsMFhKVi94MlcvY3Zzbm1pY2tpdFEreDh5cTRYdEVHcCtmZW11M2Rub2p5?=
+ =?utf-8?B?Zkg2b0QvQUUyY054T01GSlpqZXRoc1hrNnJBbkJHQnVJdFl4Wm44R1FHK2VR?=
+ =?utf-8?B?T05QemR1MWRxaDc4WkV0RFQwdDZ6Ym84cGUySmJpeDg2WTAzanEwU1hqclBj?=
+ =?utf-8?B?ODN3WVZ0VW12OHVWUUNLRzFOUGE3WFJZOGh1clBBc0hpVGlJMmJ0dDVhdEFp?=
+ =?utf-8?B?S2Z6eVhWRkVMQlYyb2pKWENLQU1TRHlGTGdwc1FoR1ZOOFRSR1pndCtsU1hR?=
+ =?utf-8?B?K1lLbW5UREMwVDl4ajVsYUZhQUxSL2huSTg0TW5MM0VIczVXTUR0S2M2OUNp?=
+ =?utf-8?B?ak5kMldMa0RGVlBRckVzcTRrc2RYVG9QWngyOUtoRGRSUCtsOXlYcS8zUDZR?=
+ =?utf-8?B?M2RoUVB1WmQ4S3lGS2J4RGxsQXcwZUk0SjBTMm41elc1RTY3bmxLSGIyVkJE?=
+ =?utf-8?B?SVhDeHNEbGhOL2U0UzltUmxlWlZvbG8zUGtxdGYxSFJmK2IxdHBaMS9yU05m?=
+ =?utf-8?B?b0YyMjBzL3JkYldka3FJVU55eUszT04xODVQaFRhRituQTgrUGx6Zm9kRlNl?=
+ =?utf-8?B?TnJuTTF6VHQ0QloyNzFqRnM1bnNRb3FhR2J2OVJOUzkvVVFrZEdXcVV6Mm04?=
+ =?utf-8?B?VFd3QnJMUUJBNDMrN0RSUXluVHJ0S3NEbkM2UDdjU204dEtsN1AxVVpIY2RE?=
+ =?utf-8?B?WEpmbWd2TUFRZzJPazhIMVlLVDZNejE4akxLZDE5SlkzOWtPSEMyNjRQT0VL?=
+ =?utf-8?B?eEs5WkExWEt3ejBTbS9XTmVaNFViN1ZDTWFIaDAxTTBSeENOMUlFRnBoQnpr?=
+ =?utf-8?B?MEZTUEYveDNDanNPWGl1Z2pQLzVLeFFQN3hrdkFxZ0NsM3lSS1FaQXFVWU92?=
+ =?utf-8?B?MXVlMERuL1hpUlhhdmcrUVdnTHlabEpDMzQvWml3NzVZdktrcXh5SDZPUHRO?=
+ =?utf-8?B?QU5NWUVqdCtCK1FBWGhFVXhpRG5wVXVvS256dmdsUXdDMW5JRmcvQ1g1VXAw?=
+ =?utf-8?B?M2M3SU44akxueDMzM0Jya3dIOERrSEpwL0dOTERqODVtUnViYkVISnlqQmpJ?=
+ =?utf-8?B?QjVoMzRGVmdCZWpsVGhaZmpOTUl2UEFHUENLQjRkNXJlaGo0bjhSTVVQQ1Y0?=
+ =?utf-8?B?eGczU0I4T1hhZkR6YnBvWEE3cGZ1SEhHdXczWDUyS0hZOGw3SjhnUHAzclRa?=
+ =?utf-8?B?elRxb1Uwb1BDWFJCTFF4K3Y3TTdtcU5ZLzdjazJGR2RFNktTVHF5OVB3Myt0?=
+ =?utf-8?B?akFrVlNnZGpNc0pJejB6cXVwRWVuZ1pKRUJaSjZkNlhwdjVLZndJTjZub0pB?=
+ =?utf-8?B?Z2lRQ3k1TjZsd2ZGdXVzc1kvN1p4Wk9lS1hjSjEreEFlM2JPNkFzN0NlcGZz?=
+ =?utf-8?B?VGJ2ckt4c08xMU5zRXZUaTF5U3p3Z0lGWGcxdlpMTEZRRVZyQ3hucDhxVEFW?=
+ =?utf-8?B?MXhJaEFxek50a3RLQVNvQUtHN3ZlM1Q2VytlNHNJaHhkZ0dyT3RKdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ce8d2d6-86ce-4541-2942-08dee3485265
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 14:41:29.5590 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YhcqrtO1UUyobkTs9vRYraMeKnxIdiX2/aDVRctDSr9DkErHHy69CLKFysRaS+/AydRrmq1evXJx6r2Lc9t9Eg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9516
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,75 +142,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In panthor_fw_load_section_entry(), the data size to copy is calculated
-without validating it against the allocated section_size:
+On Wed Jul 8, 2026 at 11:52 PM PDT, Alexandre Courbot wrote:
+> The recently introduced `GspBootContext` is useful in at least two
+> other places:
+>
+> - As a replacement for the sequencer's `GspSequencerParams`,
+> - As the main parameter of `Gsp::unload`, for symmetry with `Gsp::boot`.
+>
+> This symmetry can be further exploited to make `Gsp::boot` and
+> `Gsp::unload` generic over the exact boot context required for the
+> current chip. Doing so requires some more preliminary work that goes
+> beyond this series, but this groundwork is needed regardless.
+>
+> Another cleanup that can be performed as a consequence is the removal of
+> the `BootUnloadGuard`. This type is cumbersome as it holds extra
+> references to the boot context, making it difficult to make some of
+> these references mutable (as we want to do with the `Falcon`s that
+> should require exclusive access to load and run firmware). Furthermore,
+> it is only needed a single time in `Gsp::boot`, and is inadequate for
+> handling errors occurring in HALs.
+>
+> Based on Eliot's feedback on v4, the series then removes the last
+> remnants of the boot procedure leaking outside of the HALs, and
+> consolidates everything within the GSP and FSP HALs.
+>
+> This series applies on the latest `drm-rust-next`.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
-    section->data.size = hdr.data.end - hdr.data.start;
-
-If a crafted firmware sets data.size larger than the allocated memory,
-this could cause a heap buffer overflow in panthor_fw_init_section_mem()
-
-    memcpy(section->mem->kmap, section->data.buf, section->data.size);
-
-Additionally, if the section->data.size exceeds the BO size, could this
-memset underflow the size calculation, leading to a massive out-of-bounds
-zeroing of kernel memory?
-
-    memset(section->mem->kmap + section->data.size, 0,
-           panthor_kernel_bo_size(section->mem) - section->data.size);
-
-Reject section entries whose initial data is larger than the section size.
-
-Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
-Cc: stable@vger.kernel.org
-Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
----
- drivers/gpu/drm/panthor/panthor_fw.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index 986151681b24..a338c4f0a7f5 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -545,6 +545,7 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
- 	struct panthor_fw_binary_section_entry_hdr hdr;
- 	struct panthor_fw_section *section;
- 	u32 section_size;
-+	u32 data_size;
- 	u32 name_len;
- 	int ret;
- 
-@@ -595,6 +596,13 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
- 		return -EINVAL;
- 	}
- 
-+	section_size = hdr.va.end - hdr.va.start;
-+	data_size = hdr.data.end - hdr.data.start;
-+	if (data_size > section_size) {
-+		drm_err(&ptdev->base, "Firmware corrupted, section data exceeds section size\n");
-+		return -EINVAL;
-+	}
-+
- 	name_len = iter->size - iter->offset;
- 
- 	section = drmm_kzalloc(&ptdev->base, sizeof(*section), GFP_KERNEL);
-@@ -603,7 +611,7 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
- 
- 	list_add_tail(&section->node, &ptdev->fw->sections);
- 	section->flags = hdr.flags;
--	section->data.size = hdr.data.end - hdr.data.start;
-+	section->data.size = data_size;
- 
- 	if (section->data.size > 0) {
- 		void *data = drmm_kmalloc(&ptdev->base, section->data.size, GFP_KERNEL);
-@@ -626,7 +634,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
- 		section->name = name;
- 	}
- 
--	section_size = hdr.va.end - hdr.va.start;
- 	if (section_size) {
- 		u32 cache_mode = hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_CACHE_MODE_MASK;
- 		struct panthor_gem_object *bo;
--- 
-2.43.0
-
+Pushed to drm-rust-next! Thanks all.
