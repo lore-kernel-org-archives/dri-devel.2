@@ -4,42 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84347C44501
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 07:00:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E60EC44501
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Jul 2026 07:00:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D742510E2A1;
-	Thu, 16 Jul 2026 07:00:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1A6110E2ED;
+	Thu, 16 Jul 2026 07:00:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EkfKr06F";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Wtk+3yoC";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41B9110E2A1
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 07:00:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B53F241652;
- Thu, 16 Jul 2026 07:00:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780BE1F000E9;
- Thu, 16 Jul 2026 07:00:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784185207;
- bh=DNtpx61iGVY3zpNxddX53nIaRdyFLi22BRGM6Zoi+II=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EkfKr06F7TO/1qNHAnXmyPPYchFZwqXyJtwgwOsszhFZyUdEofBJ5pKF69iMOFG6C
- NtETPt6/hP5hpEezBTXbVKjYc4Se5GEAGkMWBjyQl1/E7ODXongONM4dTfSAYdZ28/
- LuQ91VAiSD7nr33Z4MU84vBoF22ZVUqUnKcemAvA1za8+1wiSszWTP2gJ7wDkecFfs
- UI2faxWDnTdC44rRtbU+Yy6tzhzycDJiCn93GEJ38WqsnJGGMmubci7wJmpKBoSmff
- cIAPuLwaUCHrix8SvpUB9j/ms1LdlAnsi01LFHhZ4jKjx3Qm1A6fbB5dDNL/dE40t9
- O6p2SYORLgJxw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm: make panel orientation quirks optional
-To: "Andrew Zhou" <zhoulol888@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260716065106.150760-1-zhoulol888@gmail.com>
-References: <20260716065106.150760-1-zhoulol888@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CEFA10E2ED
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 07:00:37 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4h13pV5sr4zMlFm;
+ Thu, 16 Jul 2026 09:00:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1784185234; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=y1xQ7+H8jCxVMgR3DzOqWh/rhmWTnisPBf7Ii4iYwyk=;
+ b=Wtk+3yoC+pP5dW9/kQwriOudsuK5RaOGT0paxpM7/qbeYtjsWw1o4IT5oz5s17CfB2VmQP
+ y9CvAz00vx+hFFXAFzuy3f+D/q3t8nPSx4MsX6FASpG676RlB4y2h+CqlyFC3VXwVjBla9
+ 6apFlJLMcXHx1hSGX2ds8/V9ZhRfvT7P8rwn4imJaq3e++BQ4/+sioEZYKmYjPBJgVmg7P
+ XaICzjyVtAqUW7kR97UaGbrkzlABqvysBUBuJeS7QkMqpcmcKUfTYytl2tcBfwMc6TqmCL
+ SspXzOz8VJ3yMatzTPuIptMAkwKh4NqtLlmT9NECZGHD2G3GN8SmfZ+/dZKqRg==
+Message-ID: <d75e18a4bccd53ec0e2853923374eb5cde3b1a5b.camel@mailbox.org>
+Subject: Re: [PATCH v5 4/5] rust: Add dma_fence abstractions
+From: Philipp Stanner <phasta@mailbox.org>
+To: Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Philipp Stanner
+ <phasta@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Sumit Semwal	 <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Asahi Lina
+ <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,  Lorenzo Stoakes	
+ <ljs@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Alexandre Courbot
+ <acourbot@nvidia.com>, Krishna Ketan Rai <prafulrai522@gmail.com>, Tamir
+ Duberstein <tamird@kernel.org>, Mirko Adzic <adzicmirko97@gmail.com>,
+ Alistair Francis	 <alistair.francis@wdc.com>, Shankari Anand
+ <shankari.ak0208@gmail.com>, 	linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, 	linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org
+Date: Thu, 16 Jul 2026 09:00:21 +0200
+In-Reply-To: <20260715200036.46182-1-work@onurozkan.dev>
+References: <20260703073141.3962604-2-phasta@kernel.org>
+ <20260703073141.3962604-6-phasta@kernel.org>
+ <20260715200036.46182-1-work@onurozkan.dev>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Jul 2026 07:00:06 +0000
-Message-Id: <20260716070007.780BE1F000E9@smtp.kernel.org>
+MIME-Version: 1.0
+X-MBO-RS-ID: 6d4420cebe1a82b94ce
+X-MBO-RS-META: wzu5jussqj8sw67xadr3ykcz4xgy6b6i
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,129 +77,26 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Decoupling the module state from the core DRM subsystem causes sil=
-ent feature loss when DRM is built-in and the quirk is a module.
-- [Medium] Adding `depends on DRM` to `DRM_PANEL_ORIENTATION_QUIRKS` causes=
- Kconfig unmet direct dependency warnings when selected by fbdev drivers.
-- [Low] Using `#ifdef` for a tristate config causes compiler redefinition e=
-rrors and strips module metadata for loadable module (`=3Dm`) builds.
---
+On Wed, 2026-07-15 at 23:00 +0300, Onur =C3=96zkan wrote:
+> On Fri, 03 Jul 2026 09:31:40 +0200
+> Philipp Stanner <phasta@kernel.org> wrote:
+>=20
+> > +}
+> > +
+> > +#[allow(unused_unsafe)]
+>=20
+> Why is this needed?
 
---- Patch [1]: [PATCH] drm: make panel orientation quirks optional ---
-commit babf1234e204a4c51ca97865c82a0c78512e71b2
-Author: Andrew Zhou <zhoulol888@gmail.com>
+Relic from copy pasting around and sorting. Will remove.
 
-drm: make panel orientation quirks optional
+P.
 
-This commit removes the unconditional selection of DRM_PANEL_ORIENTATION_QU=
-IRKS
-from the DRM subsystem. It makes the option user-visible, adds a dependency
-on DRM, and provides fallback stubs for when the option is disabled.
-
-> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> index 323422861e8f6..da4ac94bbf615 100644
-> --- a/drivers/gpu/drm/Kconfig
-> +++ b/drivers/gpu/drm/Kconfig
-> @@ -8,7 +8,6 @@
->  menuconfig DRM
->  	tristate "Direct Rendering Manager (XFree86 4.1.0 and higher DRI suppor=
-t)"
->  	depends on (AGP || AGP=3Dn) && !EMULATED_CMPXCHG && HAS_DMA
-> -	select DRM_PANEL_ORIENTATION_QUIRKS
-
-[Severity: High]
-Does removing this select statement allow the core DRM subsystem to be buil=
-t-in
-while DRM_PANEL_ORIENTATION_QUIRKS is configured as a module?
-
-If this configuration happens, the built-in DRM core code might evaluate the
-preprocessor checks for the quirk module as false, which could cause the pa=
-nel
-orientation functionality to be silently dropped even though the module is =
-built.
-
->  	select HDMI
-> [ ... ]
-> @@ -369,4 +368,15 @@ endif
-> =20
->  # Separate option because drm_panel_orientation_quirks.c is shared with =
-fbdev
->  config DRM_PANEL_ORIENTATION_QUIRKS
-> -	tristate
-> +	tristate "Panel orientation quirks for DMI-based detection"
-> +	depends on DRM
-
-[Severity: Medium]
-Can this new dependency cause Kconfig unmet direct dependency warnings?
-
-The FB_EFI config option unconditionally selects DRM_PANEL_ORIENTATION_QUIR=
-KS
-since it shares this code. If a system is configured with CONFIG_FB_EFI=3Dy=
- and
-CONFIG_DRM=3Dn, the selection from the EFI framebuffer could violate this n=
-ew
-dependency on DRM, causing a Kconfig unmet dependency warning.
-
-> +	help
-> [ ... ]
-> diff --git a/drivers/gpu/drm/drm_panel_orientation_quirks.c b/drivers/gpu=
-/drm/drm_panel_orientation_quirks.c
-> index 3a218fb592cef..fb09078a831af 100644
-> --- a/drivers/gpu/drm/drm_panel_orientation_quirks.c
-> +++ b/drivers/gpu/drm/drm_panel_orientation_quirks.c
-> @@ -589,7 +589,7 @@ EXPORT_SYMBOL(drm_get_panel_orientation_quirk);
-> =20
->  #else
-> =20
-> -/* There are no quirks for non x86 devices yet */
-> +/* Fallback stub when DMI or the entire quirk module is disabled. */
->  int drm_get_panel_orientation_quirk(int width, int height)
->  {
->  	return DRM_MODE_PANEL_ORIENTATION_UNKNOWN;
-> @@ -598,5 +598,7 @@ EXPORT_SYMBOL(drm_get_panel_orientation_quirk);
-> =20
->  #endif
-> [ ... ]
-> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
-> index 6a46f755daba0..947b8e71260e3 100644
-> --- a/include/drm/drm_utils.h
-> +++ b/include/drm/drm_utils.h
-> @@ -11,10 +11,18 @@
->  #define __DRM_UTILS_H__
-> =20
->  #include <linux/types.h>
-> +#include <drm/drm_connector.h>
-> =20
->  struct drm_edid;
-> =20
-> +#ifdef CONFIG_DRM_PANEL_ORIENTATION_QUIRKS
->  int drm_get_panel_orientation_quirk(int width, int height);
-> +#else
-> +static inline int drm_get_panel_orientation_quirk(int width, int height)
-> +{
-> +	return DRM_MODE_PANEL_ORIENTATION_UNKNOWN;
-> +}
-> +#endif
-
-[Severity: Low]
-Does this preprocessor check properly handle tristate module builds?
-
-If CONFIG_DRM_PANEL_ORIENTATION_QUIRKS=3Dm is configured, kbuild defines
-CONFIG_DRM_PANEL_ORIENTATION_QUIRKS_MODULE instead. This causes the check
-above to evaluate as false, providing the static inline stub in the header.
-
-Meanwhile, drm_panel_orientation_quirks.c evaluates its own matching check =
-as
-false and defines a non-static fallback stub for the exact same function.
-Including this header in that source file could result in a compiler
-redefinition error.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260716065106.1507=
-60-1-zhoulol888@gmail.com?part=3D1
+>=20
+> > +impl<'a, T: Send + Sync + FenceCtxOps> FenceCtx<T> {
+> > +=C2=A0=C2=A0=C2=A0 // This can later be extended as a vtable in case o=
+ther parties need support
+> > +=C2=A0=C2=A0=C2=A0 // for the more "exotic" callbacks.
