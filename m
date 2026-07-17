@@ -4,61 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BA90C44515
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 17:12:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4B70C4451B
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 17:13:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 907A810F5BD;
-	Fri, 17 Jul 2026 17:12:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E22A10F5CB;
+	Fri, 17 Jul 2026 17:13:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="grMfq6z5";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="faTpka9w";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D9A210F5CB
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 17:12:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1784308357;
- bh=nyQdVDt2H7mP+A7V2At5qUwCiDU5WOHl96LejnRVOxc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=grMfq6z5BYS50WBYtl+dz/vvrBLXOBxSXV+F4f/DrXEUpHr8WGgc7jUDHqI3f8P2C
- 4G1so0MlfCytQcKSy8ChQG3ba6hIDYyhmfCHK95mUS/vXauDvOwMZL12DAW3T9BeRs
- obatIMcVKW92Dz+aiJSCAQa+iaYqjIUZ0C3hvtORC5YObf+jvaG8WSbrKSYzoVq53p
- KGw4vABqDVjuLwO+VgGrtWPaT+2Y6HY+rjUDyfhZV8Bk42IuGNOErRfYOPLfR3O2wo
- B7OozPpY0To3P3I4NUzVRG8NkWKu/f5/6JCPq3+WFF5VC/v/V7EkYyRht//Zlu0Wax
- R1uvk0dGQ3z7Q==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4h1xL415l5z4wB7;
- Sat, 18 Jul 2026 03:12:27 +1000 (AEST)
-Message-ID: <cc59a80f-afcc-4b2d-8e78-20f74c6b6871@ozlabs.org>
-Date: Fri, 17 Jul 2026 18:12:22 +0100
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com
+ [209.85.221.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 220B910F5CB
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 17:13:38 +0000 (UTC)
+Received: by mail-vk1-f176.google.com with SMTP id
+ 71dfb90a1353d-5bfb3347ce0so1848993e0c.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 10:13:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1784308417; x=1784913217;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Tro9IEkWE0wA0iLOLH23/hNQbNrW7zpGA5T7R3foEiE=;
+ b=faTpka9wqGM7QUV2AcvvmRBl3ndEKPxHrA0JE/Mp22U2p7iS+bfiwExl89ghj9QsUA
+ vgJn6edvQcKDcnE+JBKy890PCqrfo7SJPB+RWwe74AshBH+dcDXkvTEBlzhKzm/QzfGW
+ Ld8Fadu+EKKkFYIysLTe77GO6LwqIM+jLEONg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784308417; x=1784913217;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Tro9IEkWE0wA0iLOLH23/hNQbNrW7zpGA5T7R3foEiE=;
+ b=s03e8uCaz82scNtsFPACzAaekCe4aOUtjgDcaKCV8YtUKXZvidOgE5RmPInlLXMEpE
+ SNhuA7/kwHk6Ev1cBoklWmolkdJPUBOLLKIF56xpL5Z5EOoY0fQjpHbURqGqVNEd3vXO
+ dfPeM07xLovAk5HTTNe5NAk7nlxUVqyXElH6yIiYMWpbIoblxp1lA33a6QSgrBpHNcg1
+ dTQ7xPkKguyb+mW3cGQ0QXyRoORC25Cd1J6y8mV+gwB7mvLXw7PGsXfCx/clAbRWOeLV
+ NrQBHuoteErWtymOSghiEwZHfnijcY5b2OEcx2/QDHTkmxVb+wkXrFhsGoynnmGPWPwg
+ 3Axw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro6B7UT0PwtrmB30XtiTEtlYHtTzoWxHueMRActiowGC821eH9MYZ9vwiwEGeWuZU3w2WC55W/B6sY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwsiA++9IpLkZu73/4zmWLjI7buVv330rXjVQ/b1eHw83D7eaIu
+ 40GqA9LGf8otzbv/fIdtiTDKa8ibwumZmMajnZ57Q4lWoxuG/BU3TCD6MN2aVMNliqVmYKbdYVK
+ 49lw=
+X-Gm-Gg: AfdE7cn/fZknCwO6abz2lAoSL1C6XKSwUTWncEIi3QO+j9mhG/U5d/N5hjXKBb0LWEn
+ P5odW0PFhYdK4C2/mYan9nBzvpPiHMJkpc4csrMVH5qiJHqrKdCRG4K8KVlsv3WapnOOnVO/zKF
+ KnMhyVITACxsa4tzXRf8tGfC26mBiJ1eZ8LdB/uXR3bxbfHN1Uw4GqL2HhCdDMIWTesoZ4VIqyS
+ 9n0n7ehbBEF5VaCsmLiDAOb+nVa1PCjm1bf6ou5laCZDb+U7J/jQskRB0UPCzxEYUnmfDz44uJb
+ PdQU1jiQyHsPAoTotZwXbuytjero6rVLSI1erVatusKVZ2KrIwD31w3QJO+36akknsJYLGnwmmQ
+ olRC6NYgsmonqZI/uJFz4THVV3O9OlMmkaNDOpJHmZV0xvUF8k/fBnzLKoCKMpxtGM4Qgyqty8h
+ PK6KmL/1OWIimoRZMFRX8NV1G+MpkXjPoqk7VOkiKaiNpx
+X-Received: by 2002:a05:6122:7c9:b0:5c1:706d:aec3 with SMTP id
+ 71dfb90a1353d-5c1bf8d7704mr612032e0c.11.1784308416923; 
+ Fri, 17 Jul 2026 10:13:36 -0700 (PDT)
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com.
+ [209.85.221.182]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c1eefe46b9sm970271e0c.12.2026.07.17.10.13.35
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Jul 2026 10:13:35 -0700 (PDT)
+Received: by mail-vk1-f182.google.com with SMTP id
+ 71dfb90a1353d-5bfaa014978so2666898e0c.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 10:13:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoxJo7wplak2NfMwo+5tPkLHeFsaBLUOKvSgbBSwkZC8mpjTK+BHuDgQmyVBNaolovYHf7Qz0yYTmg=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:3f54:b0:728:53be:7c87 with SMTP id
+ ada2fe7eead31-747534fef2emr706637137.7.1784308414717; Fri, 17 Jul 2026
+ 10:13:34 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/9] vfio/pci: Add mmap() for DMABUFs
-Content-Language: en-GB
-To: David Matlack <dmatlack@google.com>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
- Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <CALzav=fH7N+ionUnELqw5ZaGrPmgp_w6kxoCtoY8fMmZY_S4zw@mail.gmail.com>
- <65ba06e7-4c54-437d-9fbd-632c0468f66d@ozlabs.org>
- <allLypOmtbnPrgbw@google.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <allLypOmtbnPrgbw@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260717025946.2751081-1-dioyc_zhang@compal.corp-partner.google.com>
+In-Reply-To: <20260717025946.2751081-1-dioyc_zhang@compal.corp-partner.google.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 17 Jul 2026 10:13:23 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VJ+xycNUZCuoipVOueu5R=WhCSjQLqWDxa9r4T-a9p4g@mail.gmail.com>
+X-Gm-Features: AUfX_mxfaacOyxhSfaX6Z6BIBsDh0ia2n38BHY2wGWyxHBmixo_1sniFkfApgG8
+Message-ID: <CAD=FV=VJ+xycNUZCuoipVOueu5R=WhCSjQLqWDxa9r4T-a9p4g@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/panel: panel-edp: Adjust T8 timing for AUO
+ B116XAK01.6 and B140XTK02.4
+To: dioyc_zhang <dioyc_zhang@compal.corp-partner.google.com>
+Cc: neil.armstrong@linaro.org, airlied@gmail.com, daniel@ffwll.ch, 
+ sam@ravnborg.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,123 +102,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi David,
+Hi,
 
-On 16/07/2026 22:23, David Matlack wrote:
-> On 2026-07-16 03:51 PM, Matt Evans wrote:
->> Hi David,
->>
->> On 15/07/2026 19:12, David Matlack wrote:
->>> On Wed, Jul 15, 2026 at 10:47 AM Matt Evans <matt@ozlabs.org> wrote:
->>>
->>>> This is based on v7.2-rc3.
->>>>
->>>> These commits are on GitHub for easier browsing, along with
->>>> "[RFC ONLY] selftests: vfio: Add standalone vfio_dmabuf_mmap_test":
->>>>
->>>> https://github.com/metamev/linux/compare/v7.2-rc3...dev/mev/vfio-dmabuf-mmap-v5
->>>
->>> It'd be great to have this test upstream. I'm happy to review it when
->>> you're ready. Looks like it just needs to be redone to use the VFIO
->>> selftests library and kselftests harness. AI could probably do the
->>> conversion pretty quick :)
->>
->> For sure, I'd intended to catch up with you on best approach here. :)
->>
->> Aside from the organic structure of the test (the open-coded VFIO
->> device/group setup/init needs to go), the main issue is that it relies
->> on a hacked/out of tree QEMU "EDU++" device with a second larger BAR
->> (containing freely read-writable memory).  A subset of tests run with
->> the in-tree EDU device, but coverage is too low.
->>
->> The desirable properties are:
->>
->>  - Having a BAR that is pure memory (all locations present, writable
->> without disruptive side-effects) so that mapping aliases can be
->> constructed and detected.  This is good to test things like non-zero
->> vm_pgoffs and VA space presentation of physically-discontiguous DMABUFs.
->>
->>  - BAR >> hugepage size so we can eyeball huge mappings work (or better,
->>  mechanically test for them).  At least 32MB would tick this box for 4K,
->> 16K page systems.
->>
->>  - Something QEMU supports*, so one can run the test in a VM/TCG system.
->>
->> There were some real device models in QEMU that could be used this way,
->> but needed a fair bit of setup;  I didn't want to rathole
->> vfio_dmabuf_mmap_test on including a ton of device-specific code for
->> some video card or similar.
->>
->> I'll dig more for a simple target that provides these properties --
->> obviously it would be better to point this test at an off-the-shelf
->> device (including silicon!).  And, proposing EDU extensions to the QEMU
->> folks may be useful (there're uses for a better EDU in other contexts too).
->>
->> Since this test uses MMIO for a specific [class of] function, my first
->> thought is it should be another VFIO driver-type test sibling of
->> vfio_pci_driver_test.  For example, we could extend the driver-type
->> tests' backend struct vfio_pci_driver_ops for functions capable of
->> providing a Big Memory BAR, like QEMU EDU++.  EDU can also memcpy, so
->> could also support vfio_pci_driver_test.
->>
->> The spirit of the device backends hiding setup of a complex device is
->> handy, and it's plausible that several backends could provide this "big
->> memory BAR" service.  What do you think, any concerns with extending
->> vfio_pci_driver_ops like that?
-> 
-> I wouldn't recommend leveraging the driver framework unless absolutely
-> necessary. It makes the test harder to run.
-> 
-> The biggest issue I see with the proposed properties is being able to
-> treat the BAR as memory. That obviously will depend on the device and
-> may require device-specific setup. If we decide that treating the BAR as
-> memory is truly required then using the driver framework is the way to
-> go. But I'm hoping we can avoid that requirement.
-> 
-> Instead, I think you can get pretty far by inspecting /proc/pid/pagemap
-> to determine if the mmap() set things up correctly, without actually
-> accessing the BAR. You can use /proc/pid/pagemap to look up the PFN and
-> PAGEMAP_SCAN to detect huge pages.
+On Thu, Jul 16, 2026 at 8:00=E2=80=AFPM dioyc_zhang
+<dioyc_zhang@compal.corp-partner.google.com> wrote:
+>
+> Screen garbage or flickering can be observed during mode changes (such
+> as VT switches) on systems using the AUO B116XAK01.6 and B140XTK02.4 pane=
+ls.
+> This occurs because the backlight is enabled before the video signal
+> stabilizes. Waveform measurements show that the panel signal takes around
+> 140ms to stabilize after a mode change, meaning the previous 50ms T8
+> timing was insufficient.
+>
+> To resolve this issue, adjust the eDP panel delay entry from
+> delay_200_500_e50 to delay_200_500_e200 (increasing T8 from 50ms to 200ms=
+).
+> This matches the updated panel specifications from AUO, which now formall=
+y
+> define T8 as 200ms to mask any display abnormalities during mode changes.
 
-Hmm, possible, although that's quite a different test at that point.  I
-agree never touching the device has advantages, but it's harder to test
-certain things if we _never_ do MMIO.  The mitigation effort to get
-coverage may not be the right tradeoff vs easier running.  I can think
-of some "easy" VFIO bugs that would be challenging to properly verify in
-userspace (e.g. PFNs all having some undesired offset).  The current
-test method is harder to fool per unit effort in writing it.
-
-Though, I will have a think about this no-touch flavour of test.
-
-What were you picturing regarding populating the VMA PTEs in order to
-inspect the result via /proc/pid/pagemap, whilst still upholding the
-principle of not touching the device?  For example,
-madvise(MADV_POPULATE_WRITE) won't work on the VFIO BAR regions because
-they're VM_PFNMAP/VM_IO.
-
-> With that requirement gone, then all you really need is a device with a
-> large enough BAR. And even that it not a hard requirement. I'm sure
-> there are plenty of test cases that could work with smaller BARs. The
-> few tests that want to exercise huge mappings can inspect the device BAR
-> sizes first, and if they're all too small, SKIP() the test.
-> 
-> If you structure the test this way, then it's easy for the test to be
-> used. It can be run against any device for the basic functional
-> coverage, and can be run against a device with a larger BAR for full
-> coverage of huge mappings.
-> 
-> Does QEMU emulate any devices that have 32MB or larger BARs?
-
-Yep, looks like `-device pci-testdev,membar=64M,membar-backed=on` or
-even `-device bochs-display,vgamem=64M` would be suitable.
-
-So I'll also try moving the existing test over to one of these to at
-least remove the EDU++ device dependency.  (bochs-display has >1 BAR,
-and some MMIO regs which are nice for a quick kick-the-tyres access test.)
+Great description / justification. Increasing delays always stinks,
+but sometimes is unavoidable.
 
 
-Cheers,
+> Signed-off-by: dioyc_zhang <dioyc_zhang@compal.corp-partner.google.com>
 
+Any chance you could improve the "Name" part of your Signed-off-by
+(and patch authorship, too)? Is "dioyc_zhang" really a name that you
+usually use to identify yourself? It seems like it was just git
+automatically assigning something since you typed in an email address
+but not a name...
 
-Matt
-
+-Doug
