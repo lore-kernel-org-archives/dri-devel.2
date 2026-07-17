@@ -4,57 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51BBBC44515
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 07:26:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1335C44517
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 07:26:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE0410F46D;
-	Fri, 17 Jul 2026 07:26:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F5B610F471;
+	Fri, 17 Jul 2026 07:26:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TpwQT8xZ";
+	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="OsCyxxBo";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3A2110F46D;
- Fri, 17 Jul 2026 07:26:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 988DA43D10;
- Fri, 17 Jul 2026 07:26:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17B91F000E9;
- Fri, 17 Jul 2026 07:26:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784273182;
- bh=Rtmrjy1XM2eI2QUHDorJnuTSC4NyenPnYLnBGTLi//w=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=TpwQT8xZ60u7kgvS/+KEGOVaxnME2jKRo6ECe+cziU/pvy/XOqgX9FerRi1YIgsxY
- CGxurGd1kzb/w5who+0KPzdPHSguPN8bVGdFIeV1wbCKuJ4AV/E4aTKHMpLSvRhit8
- AKa5x8KulMpVTnHzHe66900M4weLVjX3qHLMtkK6DZ6l+/EoSF62xEthv/V1VwLRnD
- bbbh6gd0QqMNhYgpZvUnV2Se6n1d+zjU41IYMDJKsdi0OOrN3mCRRDSsx8Og4d2E3C
- TvYLgGrH5vHEGvgclq81QwII+mIUSkLi+IB6z3UOXopR3YxVvGH7gkE0L/Sju62tgO
- BAeyl7ih+BDxQ==
-Message-ID: <b5c0de1f-75e3-443e-9e29-a70fbdbf4441@kernel.org>
-Date: Fri, 17 Jul 2026 08:26:18 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drm/msm/dp: return 0 from audio_prepare when cable is
- disconnected
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- sashiko-reviews@lists.linux.dev, Kumar Anurag
- <kumar.singh@oss.qualcomm.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Mark Brown <broonie@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-sound@vger.kernel.org
-References: <20260616151252.3599089-2-kumar.singh@oss.qualcomm.com>
- <20260616152536.D81FB1F000E9@smtp.kernel.org>
- <5ixuxbgngzobl5c5fsyahdsouohwuykoat7s4hy6sczrye7vwf@rj7nmn7x3c56>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <5ixuxbgngzobl5c5fsyahdsouohwuykoat7s4hy6sczrye7vwf@rj7nmn7x3c56>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B10F10F46E
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 07:26:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+ s=altu2504; t=1784273027;
+ bh=E2l8SC5Yz3l3RQ8kfLiWXU6wvt0RqrCjSGXwLiFhpCg=;
+ h=From:To:Subject:Date:Message-Id;
+ b=OsCyxxBo8/is5WFmzs280ZyS3PKB1If6TwSQ7fNAd1xFIwm1keiHuZfCsYo0vMvCm
+ z8rvmVRkdKkW/yu09DlTsKU8kMQlkFxqrnf+R+KBOmhSlqb7vLotw8RmIRWqaM2TE9
+ XsMKxo3RfxGgz2nsNF81Xvjfbxr1SGzOh3AuAgHc=
+X-QQ-mid: esmtpsz21t1784273025t3c480ea3
+X-QQ-Originating-IP: NunsL3AmaX5/YohLrjzcmQgzMxqBfZtsaBbae5D+VuY=
+Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Fri, 17 Jul 2026 15:23:41 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13698718535468355926
+From: Chaoyi Chen <kernel@airkyi.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Vinod Koul <vkoul@kernel.org>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-phy@lists.infradead.org
+Subject: [PATCH v3 3/5] phy: rockchip: phy-rockchip-typec: Add DRM AUX bridge
+Date: Fri, 17 Jul 2026 15:23:21 +0800
+Message-Id: <20260717072323.96-4-kernel@airkyi.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20260717072323.96-1-kernel@airkyi.com>
+References: <20260717072323.96-1-kernel@airkyi.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MB78LT3tbKTe20unaeEpA7bJ2qdDKCKD901Y4i5OgIl90Q8sVdUpGscb
+ KTn8rVYIwJTwvYh2zKsPIBpoXTH/PCLNjSpb72jRH7wZ55wr84Ncd3lt+fA4VA1eOo4rdJ/
+ IN1zc7Y8XunKsfePJKqlxfu0ApeBH9CCrJ5wR6rcgCHiD3gnoJTHdvF2sz/OwZuT3nC/X+P
+ 6ZDndd697scH/Cq+U8s05etGYIEvk65p5QgwbeU3TDWB5Zr3l++owD3lQmshWlLoRKJFt08
+ oWlIxfEfp3zCe/IUT0lR1EDcG5/Q067q4UMGtgvy4qV3iOlnzRmCXHmrDhYPq6Nt5fs3Aih
+ dPAbeNIynNR0elLnvoCj5My5EvfIe9vLu9ZTgSQ7gw146s96s0LZ/sutAoN6rpPo3Nc0aiB
+ Py6oLzbtVcTY0wwum5B/zm6mMmO03CZMyrpln5MRHuwjefBzvkkpvUtzPmNV9GgGgE4Cgyu
+ LtGMYIz3VLOMdNJ/RfL2TG0xrei2YmIHIqU6bw497niDp5OKMMVYV6y52o/5O8JDbV6by9k
+ Fmo278Lpb6JZgm2emEAp5fX59EqwZ14IZ8AqC4x+2BD3hazqeoahsIRALzzBlRVrXByP2tq
+ 2Xyrb6WHBN5WyUs5m3dpivA3OjfAJBeHw/NH6O31Ldbonkb1Qy2iEKCMDRf3IYEDD3jDLpO
+ HGIETrnYO8DgGHCZtVKJGNt3WiA+SyLR4lBxiZnDmEO6+TCIMH8+txIXEgIg0MVyE0MaXUa
+ p1xTtCZ57Zsz7CqDCbiZfFCrvPl8wuCyDFndcQ/tFqNOckIxxrwKedmm4kbBh7Af3JvFsLB
+ sAZpDKEQWGyXUOI2144y+x7Ci7RgBPgTp3eiyxvGmCwVaL8TebMaVhl7FiAvId2gFKfYWIG
+ lfWdzlb/Zj2BUbrLDP7M1AqmwKbjpS75q0ZffZLdvHfTYNDC7ZpYw2H5FVzhLGImEgBDOsi
+ QrExCp8HT01K7fsVlUiptYWvaS6tW69HK4MZ0UCT3go6oEMvzOUW+Ahd+WOP8jO2YZKijRG
+ TZf4tD1qiMiQohPn0K
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,113 +89,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/12/26 11:16 AM, Dmitry Baryshkov wrote:
-> On Tue, Jun 16, 2026 at 03:25:36PM +0000, sashiko-bot@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->>
->> New issues:
->> - [High] Returning success (0) from `msm_dp_audio_prepare` when the display is disconnected causes silent audio failures upon hotplug and NoC errors due to unclocked DSP hardware access.
->>
->> Pre-existing issues:
->> - [High] Race condition between `msm_dp_audio_prepare` and `msm_dp_display_disable` causes unclocked MMIO accesses.
->> --
->>
->> commit bfb65364e66313dc1385a42e09172f44a1e1fbd1
->> Author: Kumar Anurag <kumar.singh@oss.qualcomm.com>
->>
->> drm/msm/dp: return 0 from audio_prepare when cable is disconnected
->>
->> PipeWire treats a non-zero return from prepare as fatal, marking the
->> DP audio device as a dummy sink when the cable is unplugged.
->>
->>> The active_stream_cnt guard already prevents any unclocked hardware access,
->>> so return success instead of -EINVAL when the link is not active.
->>
->> [Severity: High]
->> Is this commit message accurate for the upstream tree? There doesn't appear
->> to be an active_stream_cnt guard in the mainline driver. Without this guard,
->> will the DSP push data to powered-off, unclocked DP hardware and cause NoC
->> errors?
-> 
-> $ git describe
-> v7.2-rc2-4669-gb9810cd75b9f
-> $ git grep active_stream_cnt
-> $
-> 
-> Which tree has this commit message been based on?
-> 
->>
->>> diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
->>> index 41018e82efa10..df222943ae57f 100644
->>> --- a/drivers/gpu/drm/msm/dp/dp_audio.c
->>> +++ b/drivers/gpu/drm/msm/dp/dp_audio.c
->>> @@ -284,10 +284,8 @@ int msm_dp_audio_prepare(struct drm_bridge *bridge,
->>>  	 * such cases check for connection status and bail out if not
->>>  	 * connected.
->>>  	 */
->>> -	if (!msm_dp_display->power_on) {
->>> -		rc = -EINVAL;
->>> +	if (!msm_dp_display->power_on)
->>>  		goto end;
->>
->> [Severity: High]
->> Does returning 0 here trick the ALSA/ASoC framework into marking the stream
->> as successfully prepared?
->>
->> If the stream is marked RUNNING, ALSA won't re-invoke prepare() when the
->> display is later connected. Could this regression result in silent playback
->> because the DP hardware is never actually configured?
->>
->> [Severity: High]
->> This is a pre-existing issue, but does this lockless check of power_on
->> race with msm_dp_display_disable()?
->>
->> If msm_dp_display_disable() runs concurrently (e.g., from a hotplug interrupt)
->> immediately after this check but before audio_enabled is set to true, it will
->> skip waiting and disable the DP link and clocks.
->>
->> When msm_dp_audio_prepare() resumes, it will call msm_dp_audio_setup_sdp() and
->> attempt MMIO operations on unclocked DP audio registers. Could this lead to a
->> synchronous external abort?
-> 
-> I'd agree with Sashiko here. Do we guard against the unlocked access? Or
-> how do we ensure that the stream will be prepared later?
-> 
-> I think this needs to be fixed on the other side of the pipe. Do we need
-> to define a special prepare error code, which means "working, but not
-> available now" and make PulseAudio / PipeWire handle those errors
-> specially? How is it solved for other platforms? I don't think that
-> msm/dp is unique here.
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-AFAIU,There is no special error code for prepare to flag that cable is
-not connected, the standard way is to read Jack events. Wireplumber is
-is one which deals with Jack event, even before getting to there
-pipewire will fail to probe the devices on the card if prepare fails.
+Using the DRM_AUX_BRIDGE helper to create the transparent DRM bridge
+device.
 
-Once we are at Wireplumber level we are good, and stream will never sent
-to the sinks which are in disconnected state (via Jack).
+Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
 
-This has been a known issue for very long time, most of the codecs like
+(no changes since v1)
 
-Its also interesting to note that same Qualcomm SoC drivers deal with
-this situation by returning zero, so why dp has to be different?
+---
+ drivers/phy/rockchip/Kconfig              |  2 ++
+ drivers/phy/rockchip/phy-rockchip-typec.c | 13 +++++++++++--
+ 2 files changed, 13 insertions(+), 2 deletions(-)
 
-drivers/gpu/drm/msm/hdmi/hdmi_audio.c
-
-Other drivers that do not care about plug state in prepare are.
-sound/x86/intel_hdmi_audio.c
-drivers/gpu/drm/mediatek/mtk_hdmi.c
-sound/hda/codecs/hdmi/hdmi.c
-drivers/gpu/drm/xlnx/zynqmp_dp_audio.c
-
-
-I think there is enough evidence how this is handled in the codec
-drivers, we should consider this patch.
-
---srini
-
-
-> 
-> Mark, would you have any particular recommendations?
-> 
+diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
+index 14698571b607..9173d3b4fef4 100644
+--- a/drivers/phy/rockchip/Kconfig
++++ b/drivers/phy/rockchip/Kconfig
+@@ -119,6 +119,8 @@ config PHY_ROCKCHIP_SNPS_PCIE3
+ config PHY_ROCKCHIP_TYPEC
+ 	tristate "Rockchip TYPEC PHY Driver"
+ 	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
++	depends on DRM || DRM=n
++	select DRM_AUX_BRIDGE if DRM_BRIDGE
+ 	select EXTCON
+ 	select GENERIC_PHY
+ 	select RESET_CONTROLLER
+diff --git a/drivers/phy/rockchip/phy-rockchip-typec.c b/drivers/phy/rockchip/phy-rockchip-typec.c
+index d9701b6106d5..48070b50416e 100644
+--- a/drivers/phy/rockchip/phy-rockchip-typec.c
++++ b/drivers/phy/rockchip/phy-rockchip-typec.c
+@@ -54,6 +54,7 @@
+ 
+ #include <linux/mfd/syscon.h>
+ #include <linux/phy/phy.h>
++#include <drm/bridge/aux-bridge.h>
+ 
+ #define CMN_SSM_BANDGAP			(0x21 << 2)
+ #define CMN_SSM_BIAS			(0x22 << 2)
+@@ -1162,16 +1163,24 @@ static int rockchip_typec_phy_probe(struct platform_device *pdev)
+ 
+ 	for_each_available_child_of_node(np, child_np) {
+ 		struct phy *phy;
++		ret = 0;
+ 
+-		if (of_node_name_eq(child_np, "dp-port"))
++		if (of_node_name_eq(child_np, "dp-port")) {
+ 			phy = devm_phy_create(dev, child_np,
+ 					      &rockchip_dp_phy_ops);
+-		else if (of_node_name_eq(child_np, "usb3-port"))
++			ret = drm_aux_bridge_register_from_node(dev, child_np);
++		} else if (of_node_name_eq(child_np, "usb3-port"))
+ 			phy = devm_phy_create(dev, child_np,
+ 					      &rockchip_usb3_phy_ops);
+ 		else
+ 			continue;
+ 
++		if (ret) {
++			pm_runtime_disable(dev);
++			of_node_put(child_np);
++			return ret;
++		}
++
+ 		if (IS_ERR(phy)) {
+ 			dev_err(dev, "failed to create phy: %pOFn\n",
+ 				child_np);
+-- 
+2.53.0
 
