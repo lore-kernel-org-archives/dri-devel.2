@@ -4,86 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1357C44507
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 10:04:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16221C44516
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 10:07:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0904610E1BC;
-	Fri, 17 Jul 2026 10:04:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39B9310F4D3;
+	Fri, 17 Jul 2026 10:07:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="b8Qam9Oz";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TcyjGF9S";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C14110F4D3
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 10:04:52 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-493f6de72faso10149165e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 03:04:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1784282690; x=1784887490;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=0Yhw0dInsGeTj4F3fnFaxZZDS+mO0VoDjtgnr4yzlww=;
- b=b8Qam9OzvZRL8/A6hdIhNo33J6lBnvji46nq01dv9qrMdlr2NeiaQmqsMXWQzyM0Bq
- ZFmDZi4DkDx7Qq6m263v5FK4ekphU38FIco4CtNzdjFuSJaeKSQqLz+wWNW97w1tFZsK
- 1T0mlgKQpBgaP68/KrYauQGT/7mccn8i6cYFbiGgUg2daFv3HMB/KkSMpD2XSX5/qAY8
- cIhN36LGNfNV9RufUygFlwhTozlfPCavhqWZh77OU3uOPNDC4RScUzsrDTXwMDc+S0mF
- Z3W2ODnBEqZ0UpBLV0ozZE6xPUUhn6RB47vSi3umNBUHf+wL/6GxBUxnl2YGRT3OgENU
- SPRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784282690; x=1784887490;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=0Yhw0dInsGeTj4F3fnFaxZZDS+mO0VoDjtgnr4yzlww=;
- b=iSCMA02fxNcwiTblL+Mzn2Wr5OdtdS/fo4EEfJwjZw1HIrrhQ1c7WbIqjeynp/LrZD
- sMXu/MbiY4L3GwYj1pUYuII0coPCVt1iUBA2as0uHCqIY6JWEemYgZt2df/OCwox8+E9
- ptI7HkklFLjeXF0mhn68ClTU8+Z9AJ9ejMr2hgpm3G18GQn/s2+cPMVbRurCTQrT1Hh+
- 22h0WXYgr+RWgWYTQJPzr7JjAXZe1N0kpC9ldpGj9FU9Dg07E8++znNDuggngQ0bpYhA
- q/SLWMCnOiHBGNbqAfg5tmJ+5p7F7e7c87kbzEdYe92O17gdgEw9kx9HS9Jfhh+Urbsu
- ItAg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp/jCGgTcrH4IeU289pqyRUG78ihFUZm+60e+UknLo8EBxxj2rtTUyujXoGIXnouY50aboq5L1k3Jo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx1bNMiWncrcemdRHsMisJOgsdvmhVNI1Oa4v2DFlU9F/ZrVXPv
- 2sztdSzfHHMi3pRzTqr14OPvwClaB3lcubrPcOeyvtyBPUIZr+KX9IILHWK4bCLAhow=
-X-Gm-Gg: AfdE7cn9xNquGLPvbLBERLWMH8xjhCiIllJh0qLIMiLBiEK+AF7Nf87RdJt7weT3mOY
- VaOkZ0+zzwtgoR60yA5hdQMEjIR87ylm3XdZ4SNvYu2q3VGVBxELOaMdPBSDi1EaUnII183SlUx
- k3OHZOZyb9sj3oRm7YOltw98V5UkrbDdyY3LQWtmMcrmr9KUKfCXEGpGQNYR8AIanELDGqcqjLf
- eiz4rJ92ZChUsKrtka+QApUv8jd1uw9kGyhoYFacp84+p1Mi4Wqvahx5LJB1d8SsWAlAxcLGP/j
- csMP3grbw1h2EWwiMdNevyZJClVEU4/cvgUMcj4EPjYyvncRlMhB7Elt99YXf9IKMhfv1aDEaLd
- 5+vLzwwIeCvD5hxyV6pXq4el8aqWVSupou5ca0IluyL7Mn8DASFkixjaHMOQCvR0TakuLT9lMJx
- z1Xqbtot6iw6+C5Q8ikSjihJkDwIiT+UcyQ+ZlW2KbcAyL2xeg4jcGOIhwXKtlgQe/mA==
-X-Received: by 2002:a7b:ca51:0:b0:493:e686:6134 with SMTP id
- 5b1f17b1804b1-4954288e0ffmr54427165e9.7.1784282690333; 
- Fri, 17 Jul 2026 03:04:50 -0700 (PDT)
-Received: from localhost
- (p200300f65f47db047d2d8b161e35ab77.dip0.t-ipconnect.de.
- [2003:f6:5f47:db04:7d2d:8b16:1e35:ab77])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-47f63eea8afsm2585028f8f.33.2026.07.17.03.04.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jul 2026 03:04:49 -0700 (PDT)
-Date: Fri, 17 Jul 2026 12:04:48 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Markus Schneider-Pargmann <msp@baylibre.com>
-Subject: Re: [PATCH v1 1/3] drm/amdgpu: Drop unused include of
- <drm/drm_pciids.h>
-Message-ID: <aln9i5jDFwq-5mP2@monoceros>
-References: <cover.1777545446.git.u.kleine-koenig@baylibre.com>
- <3205129f75aba48bd1ad8fc810cf6a18e718206d.1777545446.git.u.kleine-koenig@baylibre.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 798C710F4D3
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 10:06:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=Ncm7805R67BIqpqR+cmLnB9VTMO3M7wqEiDrC7VOOug=; b=TcyjGF9SX+dGkW0JVd+LrzGIgY
+ Zlkay6harNTPMwf3Ko/JxsgHwRVu2pp3CZNZ10g+U4p0rg7yDWTCgVKiIKyEsJouWBfsR3I4e5RMu
+ uQXNzA+hBUqGrqU7Gkz5w5cKI2QIojPcNdggbSUnXZXzIMA+5x2lOt/xlm2TRm/XJXW57vAKlcKkv
+ MU+mxgYBis2i4Jg6QADPSTJ0UgVb0MqnhcEJ4HOI4bRm35G9jnB2+hPzR5bJvFlqZVZuLChuJCRlO
+ r6zxIyZR1PPq/IOIMIYkybLingaRfHPQTUp59W285dxCgMmITptt/iWpFT2bWhAMQdnsTSZeGRtUn
+ GwSJyNvA==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wkfT6-00GKuu-Jf; Fri, 17 Jul 2026 12:06:56 +0200
+Message-ID: <8dffe078-ca2e-4d01-96b3-f1709472ef1b@igalia.com>
+Date: Fri, 17 Jul 2026 11:06:55 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="omrg542u6n5yvpy2"
-Content-Disposition: inline
-In-Reply-To: <3205129f75aba48bd1ad8fc810cf6a18e718206d.1777545446.git.u.kleine-koenig@baylibre.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC v3 1/2] workqueue: Add support for real-time workers
+To: Tvrtko Ursulin via Kernel-dev <kernel-dev@igalia.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ linux-kernel@vger.kernel.org, Chia-I Wu <olv@google.com>,
+ Tejun Heo <tj@kernel.org>
+References: <20260717090209.26931-1-tvrtko.ursulin@igalia.com>
+ <20260717090209.26931-2-tvrtko.ursulin@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260717090209.26931-2-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,60 +64,527 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---omrg542u6n5yvpy2
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 1/3] drm/amdgpu: Drop unused include of
- <drm/drm_pciids.h>
-MIME-Version: 1.0
-
-Hello,
-
-On Thu, Apr 30, 2026 at 12:45:13PM +0200, Uwe Kleine-K=F6nig (The Capable H=
-ub) wrote:
-> The <drm/drm_pciids.h> header only defines radeon_PCI_IDS which isn't
-> used in the amdgpu driver. So drop the useless include statement.
->=20
-> Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@bayl=
-ibre.com>
+On 17/07/2026 10:02, Tvrtko Ursulin via Kernel-dev wrote:
+> For use cases such as the DRM scheduler submitting work to the GPU on
+> behalf of low latency userspace applications, where latter have sufficient
+> privileges to have had successfully obtained realtime Vulkan global
+> priority, competing with random background CPU load can create large
+> latency spikes which gets in the way of a smooth user experience.
+> 
+> For these situations the existing WQ_HIGHPRI does not bring a noticeable
+> improvement and a stronger hint is needed.
+> 
+> Lets add WQ_RTPRI which creates workers with a SCHED_FIFO scheduling class
+> to improve this.
+> 
+> We use a minimum priority level since we only care about winning the
+> contest against normal background CPU load. We also limit the number of
+> instantiated threads, both per workqueue to a maximum of two, or one on a
+> dual processor machine, and system-wide to one less than the number of
+> CPUs. The idea of that is to prevent system wide starvation caused by
+> potentially misbehaving work items.
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Boris Brezillon <boris.brezillon@collabora.com>
+> Cc: Chia-I Wu <olv@google.com>
+> Cc: Liviu Dudau <liviu.dudau@arm.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Steven Price <steven.price@arm.com>
+> Cc: Tejun Heo <tj@kernel.org>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 -
->  1 file changed, 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 8b71834a73df..1239fb32311f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -28,7 +28,6 @@
->  #include <drm/drm_fbdev_ttm.h>
->  #include <drm/drm_gem.h>
->  #include <drm/drm_managed.h>
-> -#include <drm/drm_pciids.h>
->  #include <drm/drm_probe_helper.h>
->  #include <drm/drm_vblank.h>
+> v2:
+>   * Limit WQ_RTPRI to unbound workqueues and make it have strict CPU
+>     affinitity. (Tejun)
+>   * Fixed commit message typos. (AI)
+>   * Fixed sysfs handling, max_active setting and user modified nice
+>     application. (AI)
+> 
+> v3:
+>   * Fix worker->pool null pointer dereference race by moving the
+>     global decrement to detach_dying_workers().
+>   * Rebase for upstream changes.
+> ---
+>   include/linux/workqueue.h |  23 ++++--
+>   kernel/workqueue.c        | 152 +++++++++++++++++++++++++++++---------
+>   2 files changed, 135 insertions(+), 40 deletions(-)
+> 
+> diff --git a/include/linux/workqueue.h b/include/linux/workqueue.h
+> index a283766a192a..e9ab53568e0c 100644
+> --- a/include/linux/workqueue.h
+> +++ b/include/linux/workqueue.h
+> @@ -140,6 +140,13 @@ enum wq_affn_scope {
+>   	WQ_AFFN_NR_TYPES,
+>   };
+>   
+> +enum wq_priority {
+> +	WQ_PRIO_NORMAL = 0,
+> +	WQ_PRIO_HIGH = 1,
+> +	WQ_PRIO_RT = 2,
+> +	NUM_WQ_PRIO, /* Keep last */
+> +};
+> +
+>   /**
+>    * struct workqueue_attrs - A struct for workqueue attributes.
+>    *
+> @@ -147,7 +154,12 @@ enum wq_affn_scope {
+>    */
+>   struct workqueue_attrs {
+>   	/**
+> -	 * @nice: nice level
+> +	 * @prio: priority level
+> +	 */
+> +	enum wq_priority prio;
+> +
+> +	/**
+> +	 * @nice: nice level for WQ_PRIO_HIGH
+>   	 */
+>   	int nice;
+>   
+> @@ -374,8 +386,9 @@ enum wq_flags {
+>   	WQ_FREEZABLE		= 1 << 2, /* freeze during suspend */
+>   	WQ_MEM_RECLAIM		= 1 << 3, /* may be used for memory reclaim */
+>   	WQ_HIGHPRI		= 1 << 4, /* high priority */
+> -	WQ_CPU_INTENSIVE	= 1 << 5, /* cpu intensive workqueue */
+> -	WQ_SYSFS		= 1 << 6, /* visible in sysfs, see workqueue_sysfs_register() */
+> +	WQ_RTPRI		= 1 << 5, /* real-time priority, valid only with WQ_UNBOUND */
+> +	WQ_CPU_INTENSIVE	= 1 << 6, /* cpu intensive workqueue */
+> +	WQ_SYSFS		= 1 << 7, /* visible in sysfs, see workqueue_sysfs_register() */
+>   
+>   	/*
+>   	 * Per-cpu workqueues are generally preferred because they tend to
+> @@ -402,8 +415,8 @@ enum wq_flags {
+>   	 *
+>   	 * http://thread.gmane.org/gmane.linux.kernel/1480396
+>   	 */
+> -	WQ_POWER_EFFICIENT	= 1 << 7,
+> -	WQ_PERCPU		= 1 << 8, /* bound to a specific cpu */
+> +	WQ_POWER_EFFICIENT	= 1 << 8,
+> +	WQ_PERCPU		= 1 << 9, /* bound to a specific cpu */
+>   
+>   	__WQ_DESTROYING		= 1 << 15, /* internal: workqueue is destroying */
+>   	__WQ_DRAINING		= 1 << 16, /* internal: workqueue is draining */
+> diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+> index 78068ae8f28a..30fed46a3164 100644
+> --- a/kernel/workqueue.c
+> +++ b/kernel/workqueue.c
+> @@ -509,10 +509,10 @@ static DEFINE_IDR(worker_pool_idr);	/* PR: idr of all pools */
+>   static DEFINE_HASHTABLE(unbound_pool_hash, UNBOUND_POOL_HASH_ORDER);
+>   
+>   /* I: attributes used when instantiating standard unbound pools on demand */
+> -static struct workqueue_attrs *unbound_std_wq_attrs[NR_STD_WORKER_POOLS];
+> +static struct workqueue_attrs *unbound_std_wq_attrs[NR_STD_WORKER_POOLS + 1];
+>   
+>   /* I: attributes used when instantiating ordered pools on demand */
+> -static struct workqueue_attrs *ordered_wq_attrs[NR_STD_WORKER_POOLS];
+> +static struct workqueue_attrs *ordered_wq_attrs[NR_STD_WORKER_POOLS + 1];
+>   
+>   /*
+>    * I: kthread_worker to release pwq's. pwq release needs to be bounced to a
+> @@ -546,6 +546,8 @@ EXPORT_SYMBOL_GPL(system_bh_highpri_wq);
+>   struct workqueue_struct *system_dfl_long_wq __ro_after_init;
+>   EXPORT_SYMBOL_GPL(system_dfl_long_wq);
+>   
+> +static atomic_t total_rtpri_workers = ATOMIC_INIT(0);
+> +
+>   static int worker_thread(void *__worker);
+>   static void workqueue_sysfs_unregister(struct workqueue_struct *wq);
+>   static void show_pwq(struct pool_workqueue *pwq);
+> @@ -1236,9 +1238,7 @@ static bool assign_work(struct work_struct *work, struct worker *worker,
+>   
+>   static struct irq_work *bh_pool_irq_work(struct worker_pool *pool)
+>   {
+> -	int high = pool->attrs->nice == HIGHPRI_NICE_LEVEL ? 1 : 0;
+> -
+> -	return &per_cpu(bh_pool_irq_works, pool->cpu)[high];
+> +	return &per_cpu(bh_pool_irq_works, pool->cpu)[pool->attrs->prio];
+>   }
+>   
+>   static void kick_bh_pool(struct worker_pool *pool)
+> @@ -1251,7 +1251,7 @@ static void kick_bh_pool(struct worker_pool *pool)
+>   		return;
+>   	}
+>   #endif
+> -	if (pool->attrs->nice == HIGHPRI_NICE_LEVEL)
+> +	if (pool->attrs->prio >= WQ_PRIO_HIGH)
+>   		raise_softirq_irqoff(HI_SOFTIRQ);
+>   	else
+>   		raise_softirq_irqoff(TASKLET_SOFTIRQ);
+> @@ -2809,13 +2809,16 @@ static int format_worker_id(char *buf, size_t size, struct worker *worker,
+>   				 worker->rescue_wq->name);
+>   
+>   	if (pool) {
+> -		if (pool->cpu >= 0)
+> +		if (pool->cpu >= 0) {
+> +			const char *suffix[NUM_WQ_PRIO] = { "", "H", "R" };
+> +
+>   			return scnprintf(buf, size, "kworker/%d:%d%s",
+>   					 pool->cpu, worker->id,
+> -					 pool->attrs->nice < 0  ? "H" : "");
+> -		else
+> +					 suffix[pool->attrs->prio]);
+> +		} else {
+>   			return scnprintf(buf, size, "kworker/u%d:%d",
+>   					 pool->id, worker->id);
+> +		}
+>   	} else {
+>   		return scnprintf(buf, size, "kworker/dying");
+>   	}
+> @@ -2838,12 +2841,30 @@ static struct worker *create_worker(struct worker_pool *pool)
+>   	struct worker *worker;
+>   	int id;
+>   
+> +	/*
+> +	 * Do not consume all CPUs with RT workers to avoid scheduler
+> +	 * starvation.
+> +	 */
+> +	if (pool->attrs->prio == WQ_PRIO_RT) {
+> +		unsigned int max = num_online_cpus();
+> +
+> +		if (max > 2)
+> +			max = max - 1;
+> +		else
+> +			max = 1;
+> +
+> +		if (atomic_inc_return(&total_rtpri_workers) > max) {
+> +			atomic_dec(&total_rtpri_workers);
+> +			return NULL;
 
-Patches #2 and #3 of this series was applied, but this one wasn't.
+Sashiko is warning me here this can create a deadlock when called from 
+maybe_create_worker(). My apparently naive idea was that this would make 
+it wait for a bit, until the load on the currently instantiated workers 
+subsides, at which point need_to_create_worker() would say "not any 
+more" and allow it to exit.
 
-Is this still on someone's radar?
+But even more importantly, it is also warning me that strict CPU 
+affinity creates per CPU threads.
 
-Best regards
-Uwe
+So my idea of global limit will just not work.
 
---omrg542u6n5yvpy2
-Content-Type: application/pgp-signature; name="signature.asc"
+Tejun, how does this sound to you? Are you okay without having the 
+global limit of RT threads?
 
------BEGIN PGP SIGNATURE-----
+I will await sending v4 with other fixes until we can close on this one. 
+I also have some vacation pending so there may be a delay in my replies.
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpZ/j0ACgkQj4D7WH0S
-/k6UOAgAuvDRmjFRe/c+Yvwalkgkm1V2bTFEO+Y68kvArSjs3tPu91nAVku6dRh3
-k9/kieLXUO8zqnxoGUNzrBt2NvgJiXqs2O18wbCBSuvgHzGS75GnIiqNaa0cC3a/
-Ruf1D5hgtNG/yzx0EhTq9v7xbjnAs5exnJB+mCQtlmIevG+B6NXkyy7Edv/OBkI/
-meLpqDk6cipFwid4f1ENTQ7p9vYirpHKYiFgsQIh2FMsfAw8QfPmOVY2G129eNDO
-WoEIzwQqZgeEp/YrpvL7pEC+l8Ar6NgP+HXetR7Qw6WGYAAGxmXDNhPQ8CI+uYbL
-Lcl/XrLFa8Th1GDQ8vdlul1ohKLb/g==
-=wMWV
------END PGP SIGNATURE-----
+> +		}
+> +	}
+> +
+>   	/* ID is needed to determine kthread name */
+>   	id = ida_alloc(&pool->worker_ida, GFP_KERNEL);
+>   	if (id < 0) {
+>   		pr_err_once("workqueue: Failed to allocate a worker ID: %pe\n",
+>   			    ERR_PTR(id));
+> -		return NULL;
+> +		goto fail_ida;
+>   	}
+>   
+>   	worker = alloc_worker(pool->node);
+> @@ -2871,7 +2892,11 @@ static struct worker *create_worker(struct worker_pool *pool)
+>   			goto fail;
+>   		}
+>   
+> -		set_user_nice(worker->task, pool->attrs->nice);
+> +		if (pool->attrs->prio == WQ_PRIO_RT)
+> +			sched_set_fifo_low(worker->task);
+> +		else
+> +			set_user_nice(worker->task, pool->attrs->nice);
+> +
+>   		kthread_bind_mask(worker->task, pool_allowed_cpus(pool));
+>   	}
+>   
+> @@ -2896,6 +2921,9 @@ static struct worker *create_worker(struct worker_pool *pool)
+>   
+>   	return worker;
+>   
+> +fail_ida:
+> +	if (pool->attrs->prio == WQ_PRIO_RT)
+> +		atomic_dec(&total_rtpri_workers);
+>   fail:
+>   	ida_free(&pool->worker_ida, id);
+>   	kfree(worker);
 
---omrg542u6n5yvpy2--
+I failed on onion unwind here by not reversing the order. Fixed locally.
+
+> @@ -2906,8 +2934,11 @@ static void detach_dying_workers(struct list_head *cull_list)
+>   {
+>   	struct worker *worker;
+>   
+> -	list_for_each_entry(worker, cull_list, entry)
+> +	list_for_each_entry(worker, cull_list, entry) {
+> +		if (worker->pool->attrs->prio == WQ_PRIO_RT)
+> +			atomic_dec(&total_rtpri_workers);
+>   		detach_worker(worker);
+> +	}
+>   }
+>   
+>   static void reap_dying_workers(struct list_head *cull_list)
+> @@ -3773,7 +3804,7 @@ static void drain_dead_softirq_workfn(struct work_struct *work)
+>   	 * don't hog this CPU's BH.
+>   	 */
+>   	if (repeat) {
+> -		if (pool->attrs->nice == HIGHPRI_NICE_LEVEL)
+> +		if (pool->attrs->prio >= WQ_PRIO_HIGH)
+>   			queue_work(system_bh_highpri_wq, work);
+>   		else
+>   			queue_work(system_bh_wq, work);
+> @@ -3805,7 +3836,7 @@ void workqueue_softirq_dead(unsigned int cpu)
+>   		dead_work.pool = pool;
+>   		init_completion(&dead_work.done);
+>   
+> -		if (pool->attrs->nice == HIGHPRI_NICE_LEVEL)
+> +		if (pool->attrs->prio >= WQ_PRIO_HIGH)
+>   			queue_work(system_bh_highpri_wq, &dead_work.work);
+>   		else
+>   			queue_work(system_bh_wq, &dead_work.work);
+> @@ -4780,6 +4811,7 @@ struct workqueue_attrs *alloc_workqueue_attrs_noprof(void)
+>   static void copy_workqueue_attrs(struct workqueue_attrs *to,
+>   				 const struct workqueue_attrs *from)
+>   {
+> +	to->prio = from->prio;
+>   	to->nice = from->nice;
+>   	cpumask_copy(to->cpumask, from->cpumask);
+>   	cpumask_copy(to->__pod_cpumask, from->__pod_cpumask);
+> @@ -4811,6 +4843,7 @@ static u32 wqattrs_hash(const struct workqueue_attrs *attrs)
+>   {
+>   	u32 hash = 0;
+>   
+> +	hash = jhash_1word(attrs->prio, hash);
+>   	hash = jhash_1word(attrs->nice, hash);
+>   	hash = jhash_1word(attrs->affn_strict, hash);
+>   	hash = jhash(cpumask_bits(attrs->__pod_cpumask),
+> @@ -4825,6 +4858,8 @@ static u32 wqattrs_hash(const struct workqueue_attrs *attrs)
+>   static bool wqattrs_equal(const struct workqueue_attrs *a,
+>   			  const struct workqueue_attrs *b)
+>   {
+> +	if (a->prio != b->prio)
+> +		return false;
+>   	if (a->nice != b->nice)
+>   		return false;
+>   	if (a->affn_strict != b->affn_strict)
+> @@ -5601,11 +5636,17 @@ static void unbound_wq_update_pwq(struct workqueue_struct *wq, int cpu)
+>   
+>   static int alloc_and_link_pwqs(struct workqueue_struct *wq)
+>   {
+> -	bool highpri = wq->flags & WQ_HIGHPRI;
+> -	int cpu, ret;
+> +	int prio, cpu, ret;
+>   
+>   	lockdep_assert_held(&wq_pool_mutex);
+>   
+> +	if (wq->flags & WQ_RTPRI)
+> +		prio = WQ_PRIO_RT;
+> +	else if (wq->flags & WQ_HIGHPRI)
+> +		prio = WQ_PRIO_HIGH;
+> +	else
+> +		prio = WQ_PRIO_NORMAL;
+> +
+>   	wq->cpu_pwq = alloc_percpu(struct pool_workqueue *);
+>   	if (!wq->cpu_pwq)
+>   		goto enomem;
+> @@ -5622,7 +5663,7 @@ static int alloc_and_link_pwqs(struct workqueue_struct *wq)
+>   			struct pool_workqueue **pwq_p;
+>   			struct worker_pool *pool;
+>   
+> -			pool = &(per_cpu_ptr(pools, cpu)[highpri]);
+> +			pool = &(per_cpu_ptr(pools, cpu)[prio]);
+>   			pwq_p = per_cpu_ptr(wq->cpu_pwq, cpu);
+>   
+>   			*pwq_p = kmem_cache_alloc_node(pwq_cache, GFP_KERNEL,
+> @@ -5642,14 +5683,14 @@ static int alloc_and_link_pwqs(struct workqueue_struct *wq)
+>   	if (wq->flags & __WQ_ORDERED) {
+>   		struct pool_workqueue *dfl_pwq;
+>   
+> -		ret = apply_workqueue_attrs_locked(wq, ordered_wq_attrs[highpri]);
+> +		ret = apply_workqueue_attrs_locked(wq, ordered_wq_attrs[prio]);
+>   		/* there should only be single pwq for ordering guarantee */
+>   		dfl_pwq = rcu_access_pointer(wq->dfl_pwq);
+>   		WARN(!ret && (wq->pwqs.next != &dfl_pwq->pwqs_node ||
+>   			      wq->pwqs.prev != &dfl_pwq->pwqs_node),
+>   		     "ordering guarantee broken for workqueue %s\n", wq->name);
+>   	} else {
+> -		ret = apply_workqueue_attrs_locked(wq, unbound_std_wq_attrs[highpri]);
+> +		ret = apply_workqueue_attrs_locked(wq, unbound_std_wq_attrs[prio]);
+>   	}
+>   
+>   	if (ret)
+> @@ -5814,6 +5855,12 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+>   			return NULL;
+>   	}
+>   
+> +	if (flags & WQ_RTPRI) {
+> +		if (WARN_ON_ONCE((flags & (WQ_HIGHPRI | WQ_UNBOUND)) !=
+> +			         WQ_UNBOUND))
+> +			return NULL;
+> +	}
+> +
+>   	/* see the comment above the definition of WQ_POWER_EFFICIENT */
+>   	if ((flags & WQ_POWER_EFFICIENT) && wq_power_efficient)
+>   		flags = (flags & ~WQ_PERCPU) | WQ_UNBOUND;
+> @@ -5857,7 +5904,17 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+>   		flags &= ~WQ_PERCPU;
+>   	}
+>   
+> -	if (flags & WQ_BH) {
+> +	if (flags & WQ_RTPRI) {
+> +		/*
+> +		 * RT workqueues are limited to max half of possible CPUs to
+> +		 * avoid scheduling starvation and have strict CPU affinity for
+> +		 * low latency execution.
+> +		 */
+> +		max_active = min_t(int, max_active,
+> +				   DIV_ROUND_UP(num_possible_cpus(), 2));
+> +		wq->unbound_attrs->affn_scope = WQ_AFFN_CPU;
+> +		wq->unbound_attrs->affn_strict = true;
+
+Sashiko let me know this will get overwritten by default attributes so I 
+have moved it to where latter are initialized in workqueue_init_early().
+
+Regards,
+
+Tvrtko
+
+> +	} else if (flags & WQ_BH) {
+>   		/*
+>   		 * BH workqueues always share a single execution context per CPU
+>   		 * and don't impose any max_active limit.
+> @@ -6359,17 +6416,26 @@ void print_worker_info(const char *log_lvl, struct task_struct *task)
+>   	}
+>   }
+>   
+> +static void pr_cont_bh_suffix(enum wq_priority prio)
+> +{
+> +	if (prio == WQ_PRIO_RT)
+> +		pr_cont("bh-rt");
+> +	else if (prio == WQ_PRIO_HIGH)
+> +		pr_cont("bh-hi");
+> +	else
+> +		pr_cont("bh");
+> +}
+> +
+>   static void pr_cont_pool_info(struct worker_pool *pool)
+>   {
+>   	pr_cont(" cpus=%*pbl", nr_cpumask_bits, pool->attrs->cpumask);
+>   	if (pool->node != NUMA_NO_NODE)
+>   		pr_cont(" node=%d", pool->node);
+> -	pr_cont(" flags=0x%x", pool->flags);
+> +	pr_cont(" flags=0x%x ", pool->flags);
+>   	if (pool->flags & POOL_BH)
+> -		pr_cont(" bh%s",
+> -			pool->attrs->nice == HIGHPRI_NICE_LEVEL ? "-hi" : "");
+> +		pr_cont_bh_suffix(pool->attrs->prio);
+>   	else
+> -		pr_cont(" nice=%d", pool->attrs->nice);
+> +		pr_cont("prio=%d", pool->attrs->prio);
+>   }
+>   
+>   static void pr_cont_worker_id(struct worker *worker)
+> @@ -6377,8 +6443,7 @@ static void pr_cont_worker_id(struct worker *worker)
+>   	struct worker_pool *pool = worker->pool;
+>   
+>   	if (pool->flags & POOL_BH)
+> -		pr_cont("bh%s",
+> -			pool->attrs->nice == HIGHPRI_NICE_LEVEL ? "-hi" : "");
+> +		pr_cont_bh_suffix(pool->attrs->prio);
+>   	else
+>   		pr_cont("%d%s", task_pid_nr(worker->task),
+>   			worker->rescue_wq ? "(RESCUER)" : "");
+> @@ -7302,7 +7367,11 @@ static ssize_t wq_nice_show(struct device *dev, struct device_attribute *attr,
+>   	int written;
+>   
+>   	mutex_lock(&wq->mutex);
+> -	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->unbound_attrs->nice);
+> +	if (wq->unbound_attrs->prio != WQ_PRIO_RT)
+> +		written = scnprintf(buf, PAGE_SIZE, "%d\n",
+> +				    wq->unbound_attrs->nice);
+> +	else
+> +		written = -EINVAL;
+>   	mutex_unlock(&wq->mutex);
+>   
+>   	return written;
+> @@ -7328,13 +7397,20 @@ static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
+>   {
+>   	struct workqueue_struct *wq = dev_to_wq(dev);
+>   	struct workqueue_attrs *attrs;
+> -	int ret = -ENOMEM;
+> +	int ret;
+>   
+>   	mutex_lock(&wq_pool_mutex);
+>   
+>   	attrs = wq_sysfs_prep_attrs(wq);
+> -	if (!attrs)
+> +	if (!attrs) {
+> +		ret = -ENOMEM;
+>   		goto out_unlock;
+> +	}
+> +
+> +	if (attrs->prio == WQ_PRIO_RT) {
+> +		ret = -EINVAL;
+> +		goto out_unlock;
+> +	}
+>   
+>   	if (sscanf(buf, "%d", &attrs->nice) == 1 &&
+>   	    attrs->nice >= MIN_NICE && attrs->nice <= MAX_NICE)
+> @@ -7942,12 +8018,13 @@ static void __init restrict_unbound_cpumask(const char *name, const struct cpuma
+>   	cpumask_and(wq_unbound_cpumask, wq_unbound_cpumask, mask);
+>   }
+>   
+> -static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int nice)
+> +static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, enum wq_priority prio, int nice)
+>   {
+>   	BUG_ON(init_worker_pool(pool));
+>   	pool->cpu = cpu;
+>   	cpumask_copy(pool->attrs->cpumask, cpumask_of(cpu));
+>   	cpumask_copy(pool->attrs->__pod_cpumask, cpumask_of(cpu));
+> +	pool->attrs->prio = prio;
+>   	pool->attrs->nice = nice;
+>   	pool->attrs->affn_strict = true;
+>   	pool->node = cpu_to_node(cpu);
+> @@ -7971,7 +8048,8 @@ static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int n
+>   void __init workqueue_init_early(void)
+>   {
+>   	struct wq_pod_type *pt = &wq_pod_types[WQ_AFFN_SYSTEM];
+> -	int std_nice[NR_STD_WORKER_POOLS] = { 0, HIGHPRI_NICE_LEVEL };
+> +	int std_prio[NR_STD_WORKER_POOLS + 1] = { 0, WQ_PRIO_HIGH, WQ_PRIO_RT };
+> +	int std_nice[NR_STD_WORKER_POOLS + 1] = { 0, HIGHPRI_NICE_LEVEL, 0 };
+>   	void (*irq_work_fns[NR_STD_WORKER_POOLS])(struct irq_work *) =
+>   		{ bh_pool_kick_normal, bh_pool_kick_highpri };
+>   	int i, cpu;
+> @@ -8023,22 +8101,25 @@ void __init workqueue_init_early(void)
+>   
+>   		i = 0;
+>   		for_each_bh_worker_pool(pool, cpu) {
+> -			init_cpu_worker_pool(pool, cpu, std_nice[i]);
+> +			init_cpu_worker_pool(pool, cpu, std_prio[i], std_nice[i]);
+>   			pool->flags |= POOL_BH;
+>   			init_irq_work(bh_pool_irq_work(pool), irq_work_fns[i]);
+>   			i++;
+>   		}
+>   
+>   		i = 0;
+> -		for_each_cpu_worker_pool(pool, cpu)
+> -			init_cpu_worker_pool(pool, cpu, std_nice[i++]);
+> +		for_each_cpu_worker_pool(pool, cpu) {
+> +			init_cpu_worker_pool(pool, cpu, std_prio[i], std_nice[i]);
+> +			i++;
+> +		}
+>   	}
+>   
+>   	/* create default unbound and ordered wq attrs */
+> -	for (i = 0; i < NR_STD_WORKER_POOLS; i++) {
+> +	for (i = 0; i < NR_STD_WORKER_POOLS + 1; i++) {
+>   		struct workqueue_attrs *attrs;
+>   
+>   		BUG_ON(!(attrs = alloc_workqueue_attrs()));
+> +		attrs->prio = std_prio[i];
+>   		attrs->nice = std_nice[i];
+>   		unbound_std_wq_attrs[i] = attrs;
+>   
+> @@ -8047,6 +8128,7 @@ void __init workqueue_init_early(void)
+>   		 * guaranteed by max_active which is enforced by pwqs.
+>   		 */
+>   		BUG_ON(!(attrs = alloc_workqueue_attrs()));
+> +		attrs->prio = std_prio[i];
+>   		attrs->nice = std_nice[i];
+>   		attrs->ordered = true;
+>   		ordered_wq_attrs[i] = attrs;
+
