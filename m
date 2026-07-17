@@ -4,45 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35DB4C44520
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:00:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19607C4451C
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:03:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8963710E439;
-	Fri, 17 Jul 2026 12:00:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73F8410E435;
+	Fri, 17 Jul 2026 12:03:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dA+muxMG";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ThVR7oy/";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF50210E43D
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:00:48 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93E3210E435
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:03:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2655460204;
- Fri, 17 Jul 2026 12:00:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 823961F000E9;
- Fri, 17 Jul 2026 12:00:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784289647;
- bh=6OjQfTP33hkSylU6VMkvni+3HFCnjPx+AlTJM2kSMOI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dA+muxMGtODJNMR7FnKgzkgYkxrbTL0uPbVaJ70PYtRjSsH8vltU6v0PLRz2oZ4uv
- FglsNXti5FotO0mLH/g7kt79PbuhCmV8wlN8/TYSbxhudROasnGTb5b7HI3YjC0Otq
- IPIpqSr6bu8UVmTq/aQv25re7BlgSZzGik5eAxDkr6229qwHGtbVt9ZNk6sCBUPOxb
- BHXReC2dmv77L+rxlV19MRipPXjpLwJ44gEwL9o/JOBQ9omZq3exctgUYu6ZR22Nom
- KSMNEwTTQRtBiOy1mThxQPgjU292xJa5k1LAkFbo3gQOv9Uo8vdbAOa41BWtUeFOQQ
- RsAo4270gBh5Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/3] dt-bindings: display: sn65dsi83: Add output
- data-lanes property
-To: "Wojciech Dubowik" <wojciech.dubowik@mt.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260717115002.308035-3-wojciech.dubowik@mt.com>
-References: <20260717115002.308035-1-wojciech.dubowik@mt.com>
- <20260717115002.308035-3-wojciech.dubowik@mt.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 12:00:46 +0000
-Message-Id: <20260717120047.823961F000E9@smtp.kernel.org>
+ by sea.source.kernel.org (Postfix) with ESMTP id 1016B43EEB;
+ Fri, 17 Jul 2026 12:03:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7066A1F000E9;
+ Fri, 17 Jul 2026 12:03:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1784289828;
+ bh=VSLA+rT8tjPVQ6J1CMEUPfkyicD10Zp1i6IB9Ga5VNA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=ThVR7oy/crZOE04QMjSmxOX/FDDGsDWp6ffjeMqsTZ8W31GV8SJ9QDwSC9IteQTAl
+ /hgjWi0Ld3mIJvLccOfhi+zRP0rQVIi+yz0scxJ4//V/HNRfrPz1Fzj8vbCu/o8WOD
+ Kbs49bKOY+8SncbhCPtZSvjIqlhmBDGXy/gkcCgU=
+Date: Fri, 17 Jul 2026 14:03:41 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Markus Probst <markus.probst@posteo.de>, Rob Herring <robh@kernel.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Kari Argillander <kari.argillander@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Boqun Feng <boqun@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org,
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v14 0/3] rust: add basic serial device bus abstractions
+Message-ID: <2026071719-afflicted-eleven-1be9@gregkh>
+References: <20260715-rust_serdev-v14-0-b4ed5c93606f@posteo.de>
+ <2026071747-android-overhead-c927@gregkh>
+ <6aafea3fdb0847766787dbe5c7c7dbaad606d649.camel@posteo.de>
+ <74213297-d3da-4637-8f31-8fecebd65f60@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <74213297-d3da-4637-8f31-8fecebd65f60@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,77 +70,46 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Redefining `endpoint` with `unevaluatedProperties: false` locall=
-y masks properties evaluated by the sibling `$ref: '#/$defs/lvds-port'`, ca=
-using valid TI-specific LVDS properties to be improperly rejected.
---
+On Fri, Jul 17, 2026 at 01:22:40PM +0200, Danilo Krummrich wrote:
+> On 7/17/26 1:14 PM, Markus Probst wrote:
+> > On Fri, 2026-07-17 at 12:55 +0200, Greg Kroah-Hartman wrote:
+> >> On Wed, Jul 15, 2026 at 09:00:14PM +0000, Markus Probst wrote:
+> >>> This patch series adds the serdev device bus rust abstraction into the
+> >>> kernel.
+> >>>
+> >>> This abstraction will be used by a driver,
+> >>> which targets the MCU devices in Synology devices.
+> >>>
+> >>> Kari Argillander also messaged me, stating that he wants to write a
+> >>> watchdog driver with this abstraction (needing initial device data).
+> >>>
+> >>> This series depends on [1].
+> >>>
+> >>> [1] https://lore.kernel.org/rust-for-linux/20260530132736.3298549-1-dakr@kernel.org/
+> >>>
+> >>> Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> >>
+> >> Given there are no objections, I'll go queue this up now, thanks.
+> > Thanks for merging, but I haven't seen the dependency
+> > 
+> > https://lore.kernel.org/rust-for-linux/20260530132736.3298549-1-dakr@kernel.org/
+> > 
+> > getting picked yet (its at least not in linux-next), so it might not
+> > even compile. Not sure whats holding the patch back though.
+> (Ah, saw this just after I replied to the other thread.)
+> 
+> Nothing is holding them back other than requiring a user (which is your work),
+> so I did not pick them up.
+> 
+> Also note that tty and driver-core are different trees, so picking it up in
+> driver-core would not have helped tty.
 
---- Patch [2]: [PATCH v5 2/3] dt-bindings: display: sn65dsi83: Add output d=
-ata-lanes property ---
-commit c64bd236e14a70bf7062c9fee49e33ef3475908b
-Author: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+Should I drop this from the tty tree and take it through driver-core
+instead?  If so, no problem for me, just let me know.
 
-dt-bindings: display: sn65dsi83: Add output data-lanes property
+thanks,
 
-Add an optional output LVDS data lanes property with two allowed values
-for standard and reversed layouts. The reversed layout informs the driver
-that the reverse LVDS config option must be set for the respective output
-channel.
-
-> diff --git a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi8=
-3.yaml b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-> index e69b6343a8ebb..4000bf0b13709 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-> @@ -86,10 +86,54 @@ properties:
->          description: Video port for LVDS Channel-A output (panel or brid=
-ge).
->          $ref: '#/$defs/lvds-port'
-> =20
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-
-[Severity: Medium]
-Will this unevaluatedProperties constraint cause valid properties inherited
-from the sibling '$ref: '#/$defs/lvds-port'' reference to be improperly
-rejected?
-
-Since unevaluatedProperties is scoped only to this inline schema, it cannot
-see annotations from the lvds-port definition. If a device tree file defines
-port@2 with both data-lanes and properties like ti,lvds-termination-ohms,
-could this result in a validation failure when running make dtbs_check?
-
-[ ... ]
-
->        port@3:
->          description: Video port for LVDS Channel-B output (panel or brid=
-ge).
->          $ref: '#/$defs/lvds-port'
-> =20
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-
-[Severity: Medium]
-Similar to port@2 above, could this locally scoped unevaluatedProperties: f=
-alse
-block reject valid properties inherited from the lvds-port definition on
-port@3?
-
-> +
-> +            properties:
-> +              data-lanes:
-> +                $ref: /schemas/types.yaml#/definitions/uint32-array
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717115002.3080=
-35-1-wojciech.dubowik@mt.com?part=3D2
+greg k-h
