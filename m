@@ -4,43 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 972F2C44507
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 06:27:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F242EC44507
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 06:40:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0440E10F44B;
-	Fri, 17 Jul 2026 06:27:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50C948920D;
+	Fri, 17 Jul 2026 06:40:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K3aFmMin";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ItmessVj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72F3010F44B
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 06:27:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0920941310;
- Fri, 17 Jul 2026 06:27:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF85B1F00A3D;
- Fri, 17 Jul 2026 06:27:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784269647;
- bh=8ALi+EKVKm7efzMjXoP+jUbj+c+nS5S/IuBqW9fYy6w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=K3aFmMinbcIxENaZIfrdFFPjYMnu5QZoeGVB2GMkyp2Bnm/sVpyUUH54JFhg0nEyV
- dus++i3CgmI/knCu43uUJcnAzIJF9P7FA6sHs2TLvic5IyUL9I/FMzIjmnMFvTPHIP
- rvjFZbamDjVvZEfsAMdLrJQpt/ELkXtuzRpELvOtkZlhxs0R3Vad3oBqzXWZLxcH7e
- pYY1/EaSpzVm+lidNVCZS2wzioDDxx3EWrQleW5vDHcFDDTaEZdYat0bVSj/M03SZM
- nX+G7y6kpGBnT/rPd0/HbMqTrcfa5P3hnkombXp/CXrjASXqMDyTtzLFp84tp2CXs2
- PWidIWhTKsl9w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/5] accel/ethosu: clean up resources on probe failure
-To: "GuoHan Zhao" <zhaoguohan@kylinos.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260717061145.1478139-4-zhaoguohan@kylinos.cn>
-References: <20260717061145.1478139-1-zhaoguohan@kylinos.cn>
- <20260717061145.1478139-4-zhaoguohan@kylinos.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 06:27:27 +0000
-Message-Id: <20260717062727.BF85B1F00A3D@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20AEC8920D;
+ Fri, 17 Jul 2026 06:40:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784270453; x=1815806453;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=vulebB9C8nuEp8cKObMoDXnbn4yRAgWEntVwrmSpMRM=;
+ b=ItmessVjYRS9wprEw73U63CSS2O4vz98fRyI7sPkGaP4Fm5vAi1sMGJu
+ Mmz80kUqem91eTNBMBoNRKq0wCiCaEU+l3PdCFRcGbz2wGT011VPzIOia
+ UNUUvzBz3g/t5hO5z01sm3kqjTlljI1cOW0VMQn+cuJhROep/Rxic3Ynz
+ NXaGOL1gTRapvy9c+DHo5v66ezrrFXRy58RnPx6z3cbQV7ABGgzA2aSfE
+ g/CxGnAKq1mCx2w+6GoI0imI6ZSNJylVi4MQzfXkB61erDit+Cane313Y
+ YYZpj4ORbCAy68ZZQBukSsNfCS0GAmb/KGWcF7Uxn1LCptec8S4eIc0MU Q==;
+X-CSE-ConnectionGUID: utMZu0QhQ16DDDd38YDX5Q==
+X-CSE-MsgGUID: FZ3bZOdeQTuey0ItkznBhw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="96073424"
+X-IronPort-AV: E=Sophos;i="6.25,168,1779174000"; d="scan'208";a="96073424"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2026 23:40:53 -0700
+X-CSE-ConnectionGUID: e5E06XyOS2GvPc7NvW7vhQ==
+X-CSE-MsgGUID: AEJHUp6ZSnKxRrcRC3FlQQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,168,1779174000"; d="scan'208";a="258701243"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2026 23:40:49 -0700
+Date: Fri, 17 Jul 2026 08:40:45 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: "Tauro, Riana" <riana.tauro@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ netdev@vger.kernel.org, aravind.iddamsetty@linux.intel.com,
+ anshuman.gupta@intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, kuba@kernel.org,
+ simona.vetter@ffwll.ch, airlied@gmail.com, pratik.bari@intel.com,
+ joshua.santosh.ranjan@intel.com, ashwin.kumar.kulkarni@intel.com,
+ shubham.kumar@intel.com, ravi.kishore.koppuravuri@intel.com,
+ maarten.lankhorst@linux.intel.com, mallesh.koujalagi@intel.com,
+ soham.purkait@intel.com, Michal Wajdeczko <michal.wajdeczko@intel.com>
+Subject: Re: [PATCH v4 3/3] drm/xe/xe_ras: Add error-event support for CRI
+Message-ID: <alnObRca4xNQMgi7@black.igk.intel.com>
+References: <20260701094409.129131-5-riana.tauro@intel.com>
+ <20260701094409.129131-8-riana.tauro@intel.com>
+ <ak9yEyDF_tlJe-Rx@black.igk.intel.com>
+ <918f2fc4-2aec-43a4-b52a-028011aa91b4@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <918f2fc4-2aec-43a4-b52a-028011aa91b4@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,212 +76,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+On Thu, Jul 16, 2026 at 03:27:59PM +0530, Tauro, Riana wrote:
+> On 09-07-2026 15:34, Raag Jadav wrote:
+> > On Wed, Jul 01, 2026 at 03:14:13PM +0530, Riana Tauro wrote:
+> > > Add error-event support for Correctable errors in CRI. Report an error
+> > > event to userspace for every component that has crossed the threshold on
+> > > receiving an interrupt.
+> > ...
+> > 
+> > > +static void ras_send_error_event(struct xe_device *xe, u8 severity, u8 component)
+> > > +{
+> > > +	u8 drm_severity, drm_component;
+> > > +	u32 value;
+> > > +	int ret;
+> > > +
+> > > +	drm_severity = xe_to_drm_ras_severity(severity);
+> > > +	if (drm_severity == DRM_XE_RAS_ERR_SEV_MAX) {
+> > > +		xe_warn(xe, "sysctrl: unexpected severity %u\n", severity);
+> > This is uapi and not coming from sysctrl, so the message is a bit
+> > misleading. But if at all it needs validation, it should be done in
+> > drm_ras layer.
+> 
+> You mean in the ras_event function?  The parameters to this function are
+> coming from sysctrl.
+> So added sysctrl flag
 
-Pre-existing issues:
-- [High] The shared interrupt handler accesses hardware registers without v=
-erifying if the device is active, risking a synchronous external abort.
-- [High] Runtime suspend disables hardware clocks without calling synchroni=
-ze_irq() for the shared interrupt.
-- [High] Missing IS_ERR() check on the return value of devm_platform_iorema=
-p_resource() causes an error pointer dereference.
-- [High] The shared IRQ is requested before the hardware is powered on, ris=
-king a crash if a shared interrupt fires early.
-- [High] Destroying the DRM scheduler in ethosu_remove() creates a Use-Afte=
-r-Free risk for open file descriptors.
-- [High] An untrusted hardware register value is used as an array index wit=
-hout bounds checking, potentially leaking kernel memory to the log.
---
+We shouldn't be at this point without valid severity and component, and
+this also contradicts the if condition which is for uapi.
 
---- Patch [3]: [PATCH v2 3/5] accel/ethosu: clean up resources on probe fai=
-lure ---
-commit 596a2469c9dadb88b1da94803fdbc80b578983ef
-Author: GuoHan Zhao <zhaoguohan@kylinos.cn>
+> > > +		return;
+> > > +	}
+> > > +
+> > > +	drm_component = xe_to_drm_ras_component(component);
+> > > +	if (drm_component == DRM_XE_RAS_ERR_COMP_MAX) {
+> > > +		xe_warn(xe, "sysctrl: unexpected component %u\n", component);
+> > Ditto.
+> > 
+> > > +		return;
+> > > +	}
+> > > +
+> > > +	ret = xe_ras_get_counter(xe, drm_severity, drm_component, &value);
+> > No, instead of converting back and forth just do get_counter() using
+> > sysctrl values and send_event() afterwards.
+> 
+> The reason for using this is to avoid unnecessary churn of moving the get
+> counter above or use forward declaration.
+> Yeah i can use that too directly.
 
-accel/ethosu: clean up resources on probe failure
+You already get a counter as part of threshold crossed event, which you
+can directly pass to get_counter() instead of dealing with severity and
+component individually.
 
-ethosu_job_init() creates a scheduler before ethosu_init() and
-drm_dev_register(). Errors from either later step return directly, leaving
-the scheduler workqueue allocated. A drm_dev_register() failure also leaves
-the optional SRAM allocation behind.
-
-Unwind runtime PM, SRAM, and scheduler state in reverse order on probe
-failure. Disable the clocks directly when runtime PM is unavailable or its
-setup fails.
-
-Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260716065219.931088-1-zhaoguohan@kyl=
-inos.cn?part=3D1
-Signed-off-by: GuoHan Zhao <zhaoguohan@kylinos.cn>
-
-> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/eth=
-osu_drv.c
-> index f3920185389de..6b97d22444a7c 100644
-> --- a/drivers/accel/ethosu/ethosu_drv.c
-> +++ b/drivers/accel/ethosu/ethosu_drv.c
-> @@ -272,6 +272,17 @@ static int ethosu_device_suspend(struct device *dev)
-
-[Severity: High]
-This is a pre-existing issue, but ethosu_device_suspend() disables hardware
-clocks without calling synchronize_irq() for the shared interrupt:
-
-drivers/accel/ethosu/ethosu_drv.c:ethosu_device_suspend() {
-	struct ethosu_device *ethosudev =3D dev_get_drvdata(dev);
-
-	clk_bulk_disable_unprepare(ethosudev->num_clks, ethosudev->clks);
-	return 0;
-}
-
-Could this cause a synchronous external abort if the device enters runtime
-suspend while the interrupt handler is actively executing on another CPU?
-
->  	return 0;
->  }
-> =20
-> +static void ethosu_runtime_suspend(struct ethosu_device *ethosudev)
-> +{
-> +	struct device *dev =3D ethosudev->base.dev;
-> +
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	if (pm_runtime_enabled(dev))
-> +		pm_runtime_put_sync_suspend(dev);
-> +	else
-> +		ethosu_device_suspend(dev);
-> +}
-> +
->  static int ethosu_sram_init(struct ethosu_device *ethosudev)
-
-[ ... ]
-
-> @@ -355,13 +379,20 @@ static int ethosu_probe(struct platform_device *pde=
-v)
-
-[Severity: High]
-This is a pre-existing issue, but devm_platform_ioremap_resource() returns =
-an
-ERR_PTR on failure, not NULL.
-
-In ethosu_probe(), its return value is assigned directly without an IS_ERR
-check:
-
-drivers/accel/ethosu/ethosu_drv.c:ethosu_probe() {
-	...
-	ethosudev->regs =3D devm_platform_ioremap_resource(pdev, 0);
-
-	ethosudev->num_clks =3D devm_clk_bulk_get_all(&pdev->dev, &ethosudev->clks=
-);
-	...
-}
-
-If the resource mapping fails, would a subsequent call to readl_relaxed() in
-ethosu_init() dereference the error pointer?
-
-[Severity: High]
-This is a pre-existing issue, but the shared IRQ is requested before the
-hardware is powered on in ethosu_probe():
-
-drivers/accel/ethosu/ethosu_drv.c:ethosu_probe() {
-	...
-	ret =3D ethosu_job_init(ethosudev);
-	if (ret)
-		return ret;
-
-	ret =3D ethosu_init(ethosudev);
-	...
-}
-
-If another device on the same shared IRQ line triggers an interrupt between
-ethosu_job_init() and ethosu_init(), could the interrupt handler attempt to
-access MMIO registers while the clocks are still disabled, causing a crash?
-
-> =20
->  	ret =3D ethosu_init(ethosudev);
->  	if (ret)
-> -		return ret;
-> +		goto err_job_fini;
-> =20
->  	ret =3D drm_dev_register(&ethosudev->base, 0);
->  	if (ret)
-> -		pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
-> +		goto err_runtime_suspend;
-> =20
->  	pm_runtime_put_autosuspend(ethosudev->base.dev);
-> +	return 0;
-> +
-> +err_runtime_suspend:
-> +	ethosu_runtime_suspend(ethosudev);
-> +	ethosu_sram_fini(ethosudev);
-> +err_job_fini:
-> +	ethosu_job_fini(ethosudev);
->  	return ret;
->  }
-> =20
-> @@ -371,9 +402,7 @@ static void ethosu_remove(struct platform_device *pde=
-v)
-> =20
->  	drm_dev_unregister(&ethosudev->base);
->  	ethosu_job_fini(ethosudev);
-
-[Severity: High]
-This is a pre-existing issue, but destroying the DRM scheduler here in
-ethosu_remove() might create a use-after-free risk.
-
-drm_dev_unregister() hides the device node but doesn't revoke existing open
-file descriptors.=20
-
-If a userspace process still holds an open file descriptor when the driver =
-is
-unbound, and subsequently submits an ioctl, will it access the destroyed
-scheduler kthreads and freed SRAM?
-
-> -	if (ethosudev->sram)
-> -		gen_pool_free(ethosudev->srampool, (unsigned long)ethosudev->sram,
-> -			      ethosudev->npu_info.sram_size);
-> +	ethosu_sram_fini(ethosudev);
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but I found a pre-existing issue
-in ethosu_job_irq_handler().
-
-The shared interrupt handler accesses hardware registers without verifying
-if the device is active:
-
-drivers/accel/ethosu/ethosu_job.c:ethosu_job_irq_handler() {
-	...
-	u32 status =3D readl_relaxed(dev->regs + NPU_REG_STATUS);
-	...
-}
-
-Because the handler is registered with IRQF_SHARED, couldn't another device
-on the same IRQ line trigger an interrupt while the NPU is runtime-suspende=
-d?
-Accessing clock-gated MMIO here could trigger a synchronous external abort.
-
-[Severity: High]
-This is a pre-existing issue, but I found a potential out-of-bounds read
-in ethosu_job_timedout().
-
-An untrusted hardware register value is used as an array index without
-bounds checking:
-
-drivers/accel/ethosu/ethosu_job.c:ethosu_job_timedout() {
-	...
-	cmdaddr, bocmds[cmdaddr / 4]);
-	...
-}
-
-If a malformed job forces a timeout and leaves a large offset in the
-NPU_REG_QREAD register, could cmdaddr exceed the bounds of the cmd_bo
-buffer and leak kernel memory to the log?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717061145.1478=
-139-1-zhaoguohan@kylinos.cn?part=3D3
+Raag
