@@ -4,43 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D8D0C44514
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 11:10:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9CA9C44514
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 11:14:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D8C210F505;
-	Fri, 17 Jul 2026 11:10:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45DF310E248;
+	Fri, 17 Jul 2026 11:14:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NLX/SoMR";
+	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="oOGdhIRY";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E647710F505
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 11:10:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 96113403F8;
- Fri, 17 Jul 2026 11:10:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B15D1F000E9;
- Fri, 17 Jul 2026 11:10:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784286616;
- bh=RsPVVzvwALAhxVqUmrQebA8Ami6YPcWDsOVfFHHKbNs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NLX/SoMR/TbHxUDdfpEHfRlVgxmpVmxCv9hUpC7kQbiSI8kaleRhOQPZ4PhvSfugH
- x4/Zzup5uST/Ouxk+SHz7DvK1rBLp99cO1iYfzookX3tl40umR6fgUc5ephUEKPyqN
- xxLz6z2FNdCtcBjx5oS+suBdU4EB0JsAtFzjkHk+Y/yVeU6LSK3wPykhao5yCs3JPv
- jk5xAwkIeffgaPSfjx3ArSpdXFCWgQMX+osFE7u7J5qAsUHweOi/0mSD2wFWytX5va
- MJpRajQ//gON+JywDadUPHhW3HVNzTnQD3Xkc51w8C/Gpajiopec5PnMQ10ZtFj4Mn
- 7apj3PJ7fKY9g==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v1 8/8] misc/arm-cla: Add userspace interface
-To: "Ryan Roberts" <ryan.roberts@arm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260717104759.123203-9-ryan.roberts@arm.com>
-References: <20260717104759.123203-1-ryan.roberts@arm.com>
- <20260717104759.123203-9-ryan.roberts@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 11:10:15 +0000
-Message-Id: <20260717111016.4B15D1F000E9@smtp.kernel.org>
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 130D310E248
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 11:14:28 +0000 (UTC)
+Received: from submission (posteo.de [185.67.36.169]) 
+ by mout01.posteo.de (Postfix) with ESMTPS id 20CC7240028
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 13:14:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+ s=1984.8680eb; t=1784286866;
+ bh=5EoX2qRLOhPwz+xiO+Xx4HWq3PlYEgHEN20wtnt2znI=;
+ h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+ MIME-Version:OpenPGP:From;
+ b=oOGdhIRYIb3H+55vr9EEztrNOGQQoAN0hV1crCd0odZnjKWmk41BOvgzmOI9cYa1U
+ 9kRvJcGrpKCBrdvyBYlFovIP3Ttrm8vIERO5GQXs2hYT3jIRNNsrQEoM6gxWZc/1yO
+ hOgs3VBDK1IoZaEzQ1fAVppYhBhyO5Aew9iHqUylrIUe06eNV000ERpOheBjmWB7sa
+ R4DqW9w9Jvx/MCN/GuN2Ep3hWANUqsiI8hx6qHhaFnqb6V1tk7f0Vsild5w80JSOtq
+ xhj9UXOS47HaFxbxj3BSflUcXtmop2Ze4/KQfJirSeOsTjEdc2+X2stnZ+mVGt5BrO
+ TL7AKJ4UJFesg==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4h1nNt2M9pz6twB;
+ Fri, 17 Jul 2026 13:14:22 +0200 (CEST)
+Message-ID: <6aafea3fdb0847766787dbe5c7c7dbaad606d649.camel@posteo.de>
+Subject: Re: [PATCH v14 0/3] rust: add basic serial device bus abstractions
+From: Markus Probst <markus.probst@posteo.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Rob Herring <robh@kernel.org>, Jiri Slaby <jirislaby@kernel.org>, Miguel
+ Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Kari Argillander	
+ <kari.argillander@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>,
+ David Airlie <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>, Daniel
+ Almeida <daniel.almeida@collabora.com>, Tamir Duberstein	
+ <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Onur
+ =?ISO-8859-1?Q?=D6zkan?=	 <work@onurozkan.dev>,
+ linux-serial@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, 	linux-pm@vger.kernel.org,
+ driver-core@lists.linux.dev, 	dri-devel@lists.freedesktop.org
+Date: Fri, 17 Jul 2026 11:14:25 +0000
+In-Reply-To: <2026071747-android-overhead-c927@gregkh>
+References: <20260715-rust_serdev-v14-0-b4ed5c93606f@posteo.de>
+ <2026071747-android-overhead-c927@gregkh>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-/wrSw0tCa4IHnTtGtE6C"
+MIME-Version: 1.0
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
+ preference=encrypt
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,147 +116,68 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] cla_vma_fault() unconditionally assumes FAULT_FLAG_ALLOW_RETRY is =
-set, triggering a WARN_ON and SIGBUS during normal per-VMA lock faults.
-- [High] cla_vma_open() silently ignores errors from cla_ctx_map(), leading=
- to a context refcount imbalance and a deterministic NULL pointer dereferen=
-ce.
-- [Medium] Concurrent ioctl queries race with CPU hotplug device setup, lea=
-king uninitialized or partially updated accelerator descriptors to userspac=
-e.
---
 
---- Patch [8]: [RFC PATCH v1 8/8] misc/arm-cla: Add userspace interface ---
-commit 5559b4038bdef30d19e3f3c9904b6bfa29dc03ab
-Author: Ryan Roberts <ryan.roberts@arm.com>
-Subject: misc/arm-cla: Add userspace interface
+--=-/wrSw0tCa4IHnTtGtE6C
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This commit adds a character device interface for the Arm CLA driver,
-allowing userspace to enumerate hardware and map accelerator register frame=
-s.
-It defines version 1 of the UAPI with a GET_PARAM ioctl for querying device
-telemetry. Additionally, it implements shared read-write mmap support for
-CLA register pages, utilizing a domain scheduler to resolve faults.
+On Fri, 2026-07-17 at 12:55 +0200, Greg Kroah-Hartman wrote:
+> On Wed, Jul 15, 2026 at 09:00:14PM +0000, Markus Probst wrote:
+> > This patch series adds the serdev device bus rust abstraction into the
+> > kernel.
+> >=20
+> > This abstraction will be used by a driver,
+> > which targets the MCU devices in Synology devices.
+> >=20
+> > Kari Argillander also messaged me, stating that he wants to write a
+> > watchdog driver with this abstraction (needing initial device data).
+> >=20
+> > This series depends on [1].
+> >=20
+> > [1] https://lore.kernel.org/rust-for-linux/20260530132736.3298549-1-dak=
+r@kernel.org/
+> >=20
+> > Signed-off-by: Markus Probst <markus.probst@posteo.de>
+>=20
+> Given there are no objections, I'll go queue this up now, thanks.
+Thanks for merging, but I haven't seen the dependency
 
-> diff --git a/drivers/misc/arm-cla/cla-user.c b/drivers/misc/arm-cla/cla-u=
-ser.c
-> new file mode 100644
-> index 0000000000000..415328a653b7f
-> --- /dev/null
-> +++ b/drivers/misc/arm-cla/cla-user.c
-[ ... ]
-> @@ -0,0 +1,351 @@
-[ ... ]
-> +static long cla_ioctl_get_param(unsigned long arg)
-> +{
-[ ... ]
-> +	case ARM_CLA_PARAM_DEV_ACCELS:
-> +		param.value =3D cla_lut_pg[dev_id]->accelerators;
-> +		break;
-> +	case ARM_CLA_PARAM_ACCEL_IIDR:
-> +		param.value =3D cla_lut_pg[dev_id]->accel_descs[accel_id].iidr;
+https://lore.kernel.org/rust-for-linux/20260530132736.3298549-1-dakr@kernel=
+.org/
 
-[Severity: Medium]
-Can concurrent ioctl queries race with CPU hotplug device setup here?
+getting picked yet (its at least not in linux-next), so it might not
+even compile. Not sure whats holding the patch back though.
 
-During CPU hotplug, cla_dev_setup() calls cla_dev_setup_accel() which
-modifies accel_descs fields without holding dev->lock.=20
+Thanks
+- Markus Probst
 
-Concurrently, userspace can invoke this ioctl and read these fields without
-any locks or memory barriers.
 
-Because there is no synchronization, could an out-of-order read see the
-dev->accelerators bit set before the corresponding accel_descs fields are
-visible, returning uninitialized or stale telemetry data to userspace?
+>=20
+> greg k-h
 
-> +		break;
-> +	case ARM_CLA_PARAM_ACCEL_DEVARCH:
-> +		param.value =3D cla_lut_pg[dev_id]->accel_descs[accel_id].devarch;
-> +		break;
-[ ... ]
-> +static void cla_vma_open(struct vm_area_struct *vma)
-> +{
-> +	/*
-> +	 * A vma previously created with cla_file_mmap() has been duplicated
-> +	 * within the same mm (most likely due to mremap). While this could also
-> +	 * be called for duplication into a new mm (via fork), we set
-> +	 * VM_DONTCOPY on the original mmap, so this will never happen. So the
-> +	 * contexts covered by this new vma already exist.
-> +	 */
-> +	struct cla_domain *domain;
-> +
-> +	cla_for_each_mapped_domain(vma, domain)
-> +		cla_ctx_map(domain, vma->vm_mm, vma->vm_file);
+--=-/wrSw0tCa4IHnTtGtE6C
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-[Severity: High]
-Does this code need to check the return value of cla_ctx_map()?
+-----BEGIN PGP SIGNATURE-----
 
-If a VMA is duplicated (e.g., via mremap with MREMAP_MAYMOVE) and the
-domain is in a broken state, cla_ctx_map() will return ERR_PTR(-EIO)
-without incrementing the context refcount.
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmpaDogbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPS5qQQAJtMpRGF8IHOVOvETzHs
+x19H3q3MrvCtV+RY6GMeiByLOMjBn1V4TXN+xiq2nHNvKPNkCjpuQytfGkWOr0OB
+GIrW/q4GofuedrrGE2wZnT0iK4mnUbU5pDtupTPVXjJ/jefZqkH3T60eefGya64q
+UmcvNfPFLt7AVJ5Jv9r1tvOpD7Z7oqwca32tqGrYJNSDtP9EYTtf6axqilaSEo8I
+uwjq9MFbvqeMY7vz7dYsuoKdzpY7pAhH24Nf5vtykSfqllJ84atRT+iNCk/ikaz9
+u+ebPpzCDRu7Pgh8/tLq26XM4hYRyZ9L6kMrJnp8uYDxQjXb1IqUtz9lVTbxuAmo
+v6SbfixfhaNlTar/yDo3v0iU1Of0WNHj7ka0X5eXoT2Q1GS4o5Axa4wofgL5Y8Fo
+mbGLNj5ZuiqPbYZvnV3jiJQsctywcnHCXsr7Vggtp6YaGA8DpGxSfpOOpwpXcM+a
+U0LObSWWzRYwV/w72Vc58rNvB9Fk0437WMQgIXPWCsArX9ScjQL2TSJJY+/Umd1+
+f1LB3/WilFyi9N1WT0Ji9NAlcWN7lhZW0XdAgyrgZmAS6vKMSL9haLukYL0SjNdI
+w6kgIjdoKCOOIapgTGQEWpTSj8q2kCh3HASW0JRo+jqgSOO76i4bUi/y5uOfwVqP
++n2ju8HhTIXLkw4BTAhcZ4Dz
+=YH/g
+-----END PGP SIGNATURE-----
 
-Because cla_vma_open() silently ignores this error, the refcount remains
-unbalanced. When the old VMA is subsequently closed, cla_ctx_unmap() drops
-the refcount to zero and frees the context.
-
-When the new VMA is closed, cla_ctx_unmap() will fail to find the context:
-
-drivers/misc/arm-cla/cla-ctx.c:cla_ctx_unmap() {
-    ...
-    ctx =3D cla_domain_lookup_ctx(domain, mm, file);
-    WARN_ON(!ctx);
-
-    if (!refcount_dec_and_test(&ctx->mapped)) {
-    ...
-}
-
-Could this lead to an unconditional NULL pointer dereference of ctx?
-
-> +}
-> +
-> +static void cla_vma_close(struct vm_area_struct *vma)
-[ ... ]
-> +static vm_fault_t cla_vma_fault(struct vm_fault *vmf)
-> +{
-> +	struct vm_area_struct *vma =3D vmf->vma;
-> +	struct cla_domain *domain;
-> +	struct cla_dev *dev;
-> +	struct cla_ctx *ctx;
-> +	unsigned long pg;
-> +
-> +	/*
-> +	 * Reassignment needs mmap_lock, so we cannot wait while holding it.
-> +	 * Luckily, this flag is only missing in some exotic cases which do not
-> +	 * apply for this VM_IO | VM_PFNMAP vma. i.e. GUP without
-> +	 * FOLL_UNLOCKABLE or FOLL_NOWAIT or fixup_user_fault(unlocked=3DNULL),
-> +	 * used by futex fault-in path.
-> +	 */
-> +	if (WARN_ON(!(vmf->flags & FAULT_FLAG_ALLOW_RETRY)))
-> +		return VM_FAULT_SIGBUS;
-
-[Severity: High]
-Is it safe to unconditionally assume FAULT_FLAG_ALLOW_RETRY is set here?
-
-Under the per-VMA lock fault path (which is the default for modern kernels),
-FAULT_FLAG_VMA_LOCK is set but FAULT_FLAG_ALLOW_RETRY is explicitly absent.
-
-Consequently, any normal page fault handled under the VMA lock will hit this
-branch, returning VM_FAULT_SIGBUS and breaking normal memory access.
-
-Additionally, because this is user-controllable, could the WARN_ON allow an
-unprivileged local attacker to spam the kernel log or crash the system if
-panic_on_warn is enabled?
-
-> +
-> +	pg =3D vma->vm_pgoff + ((vmf->address - vma->vm_start) >> PAGE_SHIFT);
-> +	dev =3D cla_lut_pg[pg];
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717104759.1232=
-03-1-ryan.roberts@arm.com?part=3D8
+--=-/wrSw0tCa4IHnTtGtE6C--
