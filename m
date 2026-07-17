@@ -4,85 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC40AC4451B
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 21:32:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8C0FC44516
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 21:50:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B96910E4F8;
-	Fri, 17 Jul 2026 21:32:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82DAE10F611;
+	Fri, 17 Jul 2026 21:50:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fWXyD/z7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NrsU/bId";
 	dkim-atps=neutral
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4231510E4F8
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 21:32:07 +0000 (UTC)
-Received: by mail-qt1-f178.google.com with SMTP id
- d75a77b69052e-51c8e2e39easo76507501cf.0
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 14:32:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784323926; cv=none;
- d=google.com; s=arc-20260327;
- b=iZOxC8r6mNAQU0KG9UnI0CLpDaA/2aqql61QFS5Z63M1nVJcWMylxLELUoIO5l0HLm
- eEJEi+/qwAWGDsMGJT+8p1X1mUA6z8ZSwIdHiMXCLfMFUHqut5bgvKyxm1PovrFtTnqR
- yu/rZT7IwH0d4nF2B1ePv405H8OHyN/SgVoUh/9Lk7S949S7qd3UL9gGm/QWb+dhDPIk
- lViDwSMqIkllwpPdRcbqHGITEFEOzqrta1qeIbEvXfSlqZoF1+w7bPIcZSljdHU0d9cB
- TCOXGYSsMK3i8aCkeBK0k7Gi6+IDEu9ToXFG1frpkx6kOl4IYQ9QLH1Ho+xcbMlU372z
- F0FQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=XHWWsOCo0jsnIc0Xw63Pi9KWoWBdP/h2lvOQrAlxPrk=;
- fh=HQwGS/tgfrjuEQ8NZOhWLiLZo088fJVbEezIgNGsHOo=;
- b=PE8IMVVlUJpUldNB8WvKONglaLVHYEEtu/qq1oduK3ndVqAPrIyRhfZ250eZ7x7VQ2
- FpPvqlgyqDvqMvP9h9Nc7qPEXTAhFYgMDt8r2zVy+/6euVxT1D0obg6G9bgE943DMvjz
- e9PV8Cit+kY2GFxTqOUf8Bvvdf8omMDSq68mxXfwIkvcIjIodOrr2q1Dt5bIprPuWPFm
- PZsaSuS4Qx/Ismm/njwZR23vNF/JIYMJ1WkComR5kOk2d2oHh3mZ8KIV4q5eF1mIieyN
- qT4KbXdqSLYvNsPKvgBm5gs5DAyx6yAK4ew/oBtbqPGkroUa5rKii/MY3G25k3c+aH0o
- ckeg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784323926; x=1784928726; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=XHWWsOCo0jsnIc0Xw63Pi9KWoWBdP/h2lvOQrAlxPrk=;
- b=fWXyD/z7Ed1mTBw6reU7O75f3PIED3D/yU31mcur04cXhvJKUtBQvsMF7rKZmhPW3V
- SlyLQYqeH7OBnDERE8qTHgyjGQ8CH/6Edi0LjFPmcj1D6J9kGoJ7HDiKKME/hYLNQwTz
- MF9qF9ws1SpJbXLwl6k7kfOqpeGEcapJduzGAUljHaSHxZnGT8xSo6azKGNZ3j3u41SH
- AyCZn0k/k0j1oC0W0rGz/TLuElQnW5AQ3u1qO07RX8Bw5efO9tnWOxcOG2R7QQvoQbWz
- sI5Z4lom1ZKvX+6Xga+On8R8bhNXy1Wtc746BrkR5bH+UhZzY7eT6b3yzzmc+3dfAmeu
- 8CUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784323926; x=1784928726;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=XHWWsOCo0jsnIc0Xw63Pi9KWoWBdP/h2lvOQrAlxPrk=;
- b=eu38yEGljJPNs49tvRgA98B6m9aQbk2QzMUgVzK6Fmzh1bfwGQPOhls9ntWPcnLGgY
- cXgNhClkfJTMVO6tjQg8vRmDvO2mDLARO7l/mrYFxcs02Ttt7W2FWWsWrspAasg4eSK9
- Oo2aUdhXeDCSb42i97+55tgOnHMCp/QvPruK69AUSyK7ppwUI1NVeyabS4r52ReLTe+e
- wzvoYobbAfq8zN3A+y/KkVQcF3OrZekg0tor+gaDLgsFRea3G5mKPZXd/G9jWUziZ0s6
- x+dCqdd9hF5GNgn4xpWgXLAAElLrvg0d/wmp4MnUXw1kKXIJOQuV0KbXvuKYWG0QGbYS
- zJTw==
-X-Gm-Message-State: AOJu0Yx3PcG44oCcd/jomHpv/x3iKQFPJ3xBeGXLsnu/yBBurMog9BG9
- M3GMhhk+oIDk9AnQ+lz8ZhD7+1A1dXQZPK6WJKEyjEREgmel+cxmR0YTWYbx7prLQKNgk38SL00
- OCpWup38k+yDwQRGQajYbKC9Y6AP4Gdw8zXtg7G2hug==
-X-Gm-Gg: AfdE7clQu4WS6pkUP0EvDJoq/sTDtUxt6A6YD6c+C54nz6GdXV0nCh2UaCVHlu5Ckxo
- fFWTrI4Xw/txjgSUfw/IGPL+iu0+04tMe5JWNXCdBP3Wz7XO2DbyHjMmWIL9WJa5NhC0YnlMx7b
- GoyCO5HoZsxZF/3v3ShlE7M3pQ/QWLizKfoH9DSS1KJRTIV7nfcfp2F0YIv0rYB8ICB9et1j4Da
- tUdKmDVVCjBkztvLACdILPwleyf4cokQ088cKPd2UF8S4jmF9NnTtveMu1iVODi4q015ho/xgnW
- T2uxT32uMtboDrldJBJt0iFiHo6Mkqj6nuyX62zmAXNxMzQ=
-X-Received: by 2002:a05:620a:1b97:b0:92e:6cd4:5892 with SMTP id
- af79cd13be357-930b417c645mr520049685a.40.1784323926075; Fri, 17 Jul 2026
- 14:32:06 -0700 (PDT)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013002.outbound.protection.outlook.com
+ [40.93.196.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A93DB10E358;
+ Fri, 17 Jul 2026 21:50:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oR1m2vob94A6WX4im28SEx36Ym3BTTvYtDzwGcEv/p5b6OPaWkTZTwxa9YWEhlnkubHo0VfS6nDcieS5krd0H+OoPobClDWtXU2YCAY/tMA+z7tQOM/t5wjGb5P8e11hX2gE6JfOh61ckSegY99V9CVagyY8ioLunUC5QNY6DG/GCiyK+XkJp2lF+SapC/qToIQ8f5Q2u0agykzjFo+3FKxv7gYb9ftsDLmD4vdhy+ApQGCpmbtIjQZ0Kn3I8bL4ALS9Rbw/uG5ZE0S/9fUQhzNV1rfMtky8tbEZ7gM3GN9RBIvvf9lW6uz0PGQAbDh6UQGiRfNsFpXTB6otLFtI7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NROzCh/fW+ME8HLafElqPy0Gcm89Zr/3D4BVIs9Hx80=;
+ b=ttG8q236yIJ0V0+tx/EYU2cag7LIQtLvxyS8x6YnqdN2m1FTNaaI58ND/usRAtJk2BrRnP41hSRe1+54J5qGGYEK7B4r5L3zyOnvg3qEMWnHQeuFqJ83nDL3bQLONckKHmMqaNQr3kdp6J91wBEu91RVKic9KVua4FToRX3yx3zezw9HP8pRCJCSX+ovS88ZaJf888AjzwVSVKmg0mZBFzaWmjQirSTEy1B5/SqLSRIhrRALAa7iwsp72Kk/JiRSlWldfVHnUBWGnXE9DS+nR/gHfmsHsRyc/A+9QiHM66Fgp/Jr7wVCiHVEUaj6Se7u9uoXPyPIctZQRtkzORpYfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NROzCh/fW+ME8HLafElqPy0Gcm89Zr/3D4BVIs9Hx80=;
+ b=NrsU/bIdp3W1M7NCW8K+RMKddU7f6ADVuTuHaN1/iVaJMwdr5IvCI16+2u/7Q2pLRRiaRxB9L+uHTp3zYNSQDxOmYQQX8l2iihJ0k+lAx1wiheHJpPDo++Jfg23iEWsKS4J8Lp359gKba97lQxjgROhDu4+wKzooPiB0d4ySIOA=
+Received: from DS7PR03CA0304.namprd03.prod.outlook.com (2603:10b6:8:2b::16) by
+ PH8PR12MB6817.namprd12.prod.outlook.com (2603:10b6:510:1c8::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.12; Fri, 17 Jul 2026 21:50:19 +0000
+Received: from DS2PEPF000061C8.namprd02.prod.outlook.com
+ (2603:10b6:8:2b:cafe::44) by DS7PR03CA0304.outlook.office365.com
+ (2603:10b6:8:2b::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.13 via Frontend Transport; Fri,
+ 17 Jul 2026 21:50:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DS2PEPF000061C8.mail.protection.outlook.com (10.167.23.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Fri, 17 Jul 2026 21:50:18 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 17 Jul
+ 2026 16:50:18 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 17 Jul
+ 2026 16:50:18 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 17 Jul 2026 16:50:17 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-7.2
+Date: Fri, 17 Jul 2026 17:50:05 -0400
+Message-ID: <20260717215008.998399-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 18 Jul 2026 07:31:54 +1000
-X-Gm-Features: AUfX_mwmruPuXcaVdnOuKR73v8Vop2g036tUwUYheC9DPzDqt9COjpK4FljvrQM
-Message-ID: <CAPM=9tw1j=WYsQjs8Empd1G0CorM-YHFDD87coJSBSXfxOOoXA@mail.gmail.com>
-Subject: [git pull] drm fixes for 7.2-rc4
-To: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C8:EE_|PH8PR12MB6817:EE_
+X-MS-Office365-Filtering-Correlation-Id: 78cefb4f-f9b9-4750-aad2-08dee44d64e0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|23010399003|36860700016|1800799024|13003099007|3023799007|11063799006|10067099003|56012099006|6133799003|18092099006|18002099003;
+X-Microsoft-Antispam-Message-Info: nK+Ovrfz3v/OrtIbLxjlvGNbEG9GO1tnWrazcopxlLJwcFvEcBatYmlZx361N2RupnUSg+tzkNuQ1qz3webh1whjfIYAmKDYQ2jiONW6aPBXoVQCjK9YFIiz9rwhca0aLPx/Ocfv/N8i9BOLbkd6sxOOsc3MCyY2CmuxthvB3FsbSo9PhlR+oFZ7BKjYRK/zZfE/1zFmN3BAKxT7Yc6/C6y0CIRNbDhfB7Rzaa8LgSS7kvNeNoc1yiD361zbvGG/a6IB7sHIYjcbj+Q9ptzyYSg4AtWPpey3ebfh8f3+Almfgyto23NrQrJkyqubB5e7DEsuCRy711csCe3CF4LZs94y+p92UEKW+Dxd1Yz6nQzSWS4XwpI0FRYlUG8dBiM9FxjBVe221jRZsOIjSbJ7lBvCZL+uMqff2tlhfOWFLc+VmHh8H7oIyIZrP/LVmHWJNpG2sRCVlWdc2ciq11DgCxVY0e/Yoyp1G/pQaB0pW4upQ0yO0unHfZk6F/Bf7xo415b6lRKqw4wt1R/u9gvDz3P/rln/eoYNRKtO6Nj6kIToTuDArrFRBOtBlB/RYUju9jyCxNkRZQ5cyNJQDNpb/H2tBarcDiAbgwaT0iWQDLZmFwsJcacghDnUf6ogNBmslTxGjcg96byb9s8JByBm3A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(23010399003)(36860700016)(1800799024)(13003099007)(3023799007)(11063799006)(10067099003)(56012099006)(6133799003)(18092099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: w6oohhmNNtIB6+7cCqR8zb/03w+/YS4Bah0rIzOlljwP7zLvtKhRYdcvwmzQsJRJigE+5EQqi4YUNvWlhJKu+DB/DMdMqWE03XP0UMiAsWo44YdCWbQJKw9DwAp/Bq9IWe25l8tlSzowM2MHx9Y5wh1pDDkjDK0CqBAVRLu57CtkXRlQqjlcgrzjh4PN28J22+rViiYfnxZNRnUwfKiMHiy1JAWEKIPF7SGCA60fq21vZaKci0bhak1Y5zSnCKWBS6aM62WBfA8JkiZ9oF9d906atOQZbh4+FcNLY4Xy4k/g/CptByRowIRjUu+hZhlBIChn3d8lyFCnYkIgL6czk9CVGH2AeXVB/sFYycuFfOTb8UmfadE+0V+fDRw4L1esEGNEWoHhP2YHc326AdxANGRIXJQ8JtQRVLOd3NB+ArVB5vgu6HJYTnIScTzpg5fA
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 21:50:18.8450 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78cefb4f-f9b9-4750-aad2-08dee44d64e0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF000061C8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6817
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,241 +114,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Linus,
+Hi Dave, Simona,
 
-Weekly drm fixes, this is xe and i915 and then a lot of scattered
-fixes, there should be a bunch of amdpgu fixes in here, but there was
-some missing Signoffs so I dropped the whole pull request until Alex
-fixes it up, so that might arrive later or might not.
+Fixes for 7.2.  Fixed missing s-o-b.
 
-Dave.
-
-drm-fixes-2026-07-18:
-drm fixes for 7.2-rc4
-
-ttm:
-- Handle NULL pages and backup handles in ttm_pool_backup() correctly.
-
-gpusvm:
-- Improve unmap and error handling on gpusvm.
-
-udmabuf:
-- Always synchronize for CPU in begin_cpu_udmabuf.
-
-xe:
-- Fix BO prefetch with CONSULT_MEM_ADVISE_PREF_LOCK
-- Hold a dma-buf reference for imported BOs
-- Fix writable override for CRI
-- Fix VF CCS attach/detach race with in-flight BO moves
-- Fix WOPCM size for LNL+
-- Reset current_op in xe_pt_update_ops_init
-- Keep scheduler timeline name alive
-- Hold device ref until queue teardown completes
-- Disable display in admin only PF mode
-
-i915:
-- NV12 display fix for bigjoiner
-- clear watermark on plane disable
-- GT selftest fixes
-
-host1x:
-- Fix UAF
-
-amdxdna
-- Fix UAF
-- Reject more invalid amdxdna command submissions.
-
-ivpu:
-- Fix wrong read
-- Handle invalid firmware log in ivpu.
-
-panthor:
-- Fix error handling
-
-virtio:
-- Fix virtio deadlock
-- Fix invalid gem detach.
 The following changes since commit a13c140cc289c0b7b3770bce5b3ad42ab35074aa:
 
   Linux 7.2-rc3 (2026-07-12 14:16:39 -0700)
 
 are available in the Git repository at:
 
-  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-07-18
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.2-2026-07-17
 
-for you to fetch changes up to 5554e0599c960a2b320a78ef1429ddb1a1d94aec:
+for you to fetch changes up to f39283eab44fb7e304677b2aa1d8c38f151b6566:
 
-  Merge tag 'drm-intel-fixes-2026-07-17' of
-https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
-(2026-07-18 07:18:18 +1000)
+  Revert "drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs" (2026-07-17 17:43:13 -0400)
 
 ----------------------------------------------------------------
-drm fixes for 7.2-rc4
+amd-drm-fixes-7.2-2026-07-17:
 
-ttm:
-- Handle NULL pages and backup handles in ttm_pool_backup() correctly.
+amdgpu:
+- DCN 4.2 fixes
+- NUTMEG fixes
+- 8K panel fix
+- Backlight fixes
+- UserQ fix
+- Fix bo->pin leaking in amdgpu_bo_create_reserved()
+- VFCT fixes
+- devcoredump fixes
+- Display fixes
+- SMU7 DPM fix
+- AC/DC fixes for SMU7 and SI
+- Queue reset fix
+- PCIe DPM fix
+- XHCI/GPU resume ordering fix
+- Pageflip timeout fix
 
-gpusvm:
-- Improve unmap and error handling on gpusvm.
-
-udmabuf:
-- Always synchronize for CPU in begin_cpu_udmabuf.
-
-xe:
-- Fix BO prefetch with CONSULT_MEM_ADVISE_PREF_LOCK
-- Hold a dma-buf reference for imported BOs
-- Fix writable override for CRI
-- Fix VF CCS attach/detach race with in-flight BO moves
-- Fix WOPCM size for LNL+
-- Reset current_op in xe_pt_update_ops_init
-- Keep scheduler timeline name alive
-- Hold device ref until queue teardown completes
-- Disable display in admin only PF mode
-
-i915:
-- NV12 display fix for bigjoiner
-- clear watermark on plane disable
-- GT selftest fixes
-
-host1x:
-- Fix UAF
-
-amdxdna
-- Fix UAF
-- Reject more invalid amdxdna command submissions.
-
-ivpu:
-- Fix wrong read
-- Handle invalid firmware log in ivpu.
-
-panthor:
-- Fix error handling
-
-virtio:
-- Fix virtio deadlock
-- Fix invalid gem detach.
+amdkfd:
+- Fix potential overflow in CWSR size calculation
+- DQM error clean up fixes
 
 ----------------------------------------------------------------
-Alexander Usyskin (1):
-      drm/xe/nvm: fix writable override for CRI
+Alessandro Rinaldi (1):
+      drm/amd/display: Force PWM backlight on Lenovo Legion 5 15ARH05
 
-Arvind Yadav (2):
-      drm/xe/guc: Keep scheduler timeline name alive
-      drm/xe/guc: Hold device ref until queue teardown completes
+Alex Deucher (1):
+      drm/amdgpu: always emit the job vm fence
 
-Daniele Ceraolo Spurio (1):
-      drm/xe/wopcm: fix WOPCM size for LNL+
+Andriy Korud (1):
+      drm/amd/display: dce100: skip non-DP stream encoders for DP MST
 
-Dave Airlie (3):
-      Merge tag 'drm-misc-fixes-2026-07-17' of
-https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
-      Merge tag 'drm-xe-fixes-2026-07-17' of
-https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
-      Merge tag 'drm-intel-fixes-2026-07-17' of
-https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
+Dmytro Laktyushkin (2):
+      drm/amd/display: fix dcn42 det allocation order
+      drm/amd/display: fix dcn42b det allocation order
 
-Doruk Tan Ozturk (2):
-      accel/amdxdna: reject user command submission without a command BO
-      accel/amdxdna: reject command submission on devices without a submit op
+Fangzhi Zuo (1):
+      drm/amd/display: Fix 8K Mode Not Parsed by EDID
 
-Emre Cecanpunar (1):
-      drm/i915/selftests: Fix GT PM sort comparators
+Guangshuo Li (1):
+      drm/amdkfd: free MQD managers on DQM init failures
 
-Himal Prasad Ghimiray (1):
-      drm/xe/vm: Fix BO prefetch with CONSULT_MEM_ADVISE_PREF_LOC
+Jesse Zhang (1):
+      drm/amdgpu/userq: fix indefinite fence wait during GPU reset
 
-Honglei Huang (3):
-      drm/gpusvm: free the whole IOVA reservation on unmap
-      drm/gpusvm: do not route system pages to device_unmap() on IOVA unmap
-      drm/gpusvm: publish dpagemap early to avoid device mapping leak on error
+Leo Li (3):
+      drm/amd/display: consolidate DCN vblank/flip handling onto vupdate_no_lock
+      drm/amd/display: check GRPH_FLIP status before sending event
+      Revert "drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs"
 
-Jason Macnak (1):
-      drm/virtio: Don't detach GEM from a non-created context
+Mario Limonciello (5):
+      drm/amd/display: Fix backlight max_brightness to match exported range
+      drm/amdgpu: Fix VFCT bus number matching with soft filter
+      drm/amdgpu: Release VFCT ACPI table reference
+      drm/amdgpu: Disable PCIe dynamic speed switching on Ryzen Pinnacle Ridge
+      drm/amd: Create a device link between APU display and XHCI devices
 
-Jhonraushan (1):
-      accel/ivpu: Reject firmware log with size smaller than header
-
-Karol Wachowski (1):
-      accel/ivpu: Fix wrong register read in LNL failure diagnostics
-
-Linmao Li (1):
-      drm/panthor: Check debugfs GEM lock initialization
-
-Lizhi Hou (1):
-      accel/amdxdna: Fix use-after-free of mm_struct in job scheduler
-
-Maarten Lankhorst (1):
-      Merge v7.2-rc3 into drm-misc-fixes
-
-Matthew Brost (2):
-      drm/ttm: Account for NULL and handle pages in ttm_pool_backup
-      drm/xe/vf: Fix VF CCS attach/detach race with in-flight BO moves
-
-Mikko Perttunen (1):
-      gpu: host1x: Fix use-after-free in host1x_bo_clear_cached_mappings
-
-Nitin Gote (1):
-      drm/xe: Hold a dma-buf reference for imported BOs
-
-Osama Abdelkader (1):
-      drm/panthor: return error on truncated firmware
+Matthew Stewart (1):
+      drm/amd/display: Fix DCN42B null registers & register masks
 
 Pengpeng Hou (1):
-      drm/i915/gt: use correct selftest config symbol
+      drm/amd/display: wire DCN42B mcache programming callback
 
-Robert Mader (1):
-      udmabuf: Ensure to perform cache synchronisation in begin_cpu_udmabuf()
+Roman Li (1):
+      drm/amdgpu/discovery: Fix device family for DCN42
 
-Ryosuke Yasuoka (1):
-      drm/virtio: fix deadlock in display_info_cb by removing hotplug
-from dequeue worker
+Timur Kristóf (10):
+      drm/amd/display: Fix preferred link rate for NUTMEG
+      drm/amd/display: Add dp_skip_rbr flag for NUTMEG
+      drm/amdgpu: Print vmid, pasid and more task info in devcoredump
+      drm/amdgpu: Reserve space for IB contents in devcoredumps
+      drm/amd/pm/ci: Don't disable MCLK DPM on Bonaire 0x6658 (R7 260X)
+      drm/amd/display: Set native cursor mode for disabled CRTCs
+      drm/amd/pm/si: Don't schedule thermal work when queue isn't initialized
+      drm/amd/pm/si: Fix AC/DC switch notification
+      drm/amd/pm/smu7: Fix AC/DC switch notification
+      drm/amdgpu/ttm: Consider concurrent VM flushes for buffer entities
 
-Satyanarayana K V P (1):
-      drm/xe/pf: Disable display in admin only PF mode
+WenTao Liang (1):
+      drm/amd/display: set new_stream to NULL after release
 
-Vidya Srinivas (1):
-      drm/i915/display: Fix NV12 ceiling division for bigjoiner case
+Yongqiang Sun (1):
+      drm/amdkfd: fix 32-bit overflow in CWSR total size calculation
 
-Vinod Govindapillai (1):
-      drm/i915/wm: clear the plane ddb_y entries on plane disable
+Zhu Lingshan (1):
+      drm/amdgpu: fix bo->pin leaking in amdgpu_bo_create_reserved
 
-Zongyao Bai (1):
-      drm/xe/pt: Reset current_op in xe_pt_update_ops_init()
+yanglinlin (1):
+      drm/amd/display: fix __udivdi3 link error
 
- drivers/accel/amdxdna/amdxdna_ctx.c                | 18 ++++++
- drivers/accel/ivpu/ivpu_fw_log.c                   |  4 ++
- drivers/accel/ivpu/ivpu_hw_btrs.c                  |  2 +-
- drivers/dma-buf/udmabuf.c                          |  9 +--
- drivers/gpu/drm/drm_gpusvm.c                       | 53 +++++++++++-----
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 33 ++++------
- drivers/gpu/drm/i915/display/skl_watermark.c       |  2 +-
- drivers/gpu/drm/i915/gt/intel_engine_user.c        |  2 +-
- drivers/gpu/drm/i915/gt/selftest_gt_pm.c           |  8 +--
- drivers/gpu/drm/panthor/panthor_device.c           |  5 +-
- drivers/gpu/drm/panthor/panthor_fw.c               |  1 +
- drivers/gpu/drm/ttm/ttm_pool.c                     | 34 +++++++++--
- drivers/gpu/drm/virtio/virtgpu_gem.c               | 14 +++--
- drivers/gpu/drm/virtio/virtgpu_kms.c               |  5 +-
- drivers/gpu/drm/virtio/virtgpu_vq.c                |  3 -
- drivers/gpu/drm/xe/xe_bo.c                         | 58 +++++++++++++-----
- drivers/gpu/drm/xe/xe_bo.h                         |  3 +-
- drivers/gpu/drm/xe/xe_bo_types.h                   |  2 +
- drivers/gpu/drm/xe/xe_device.c                     |  4 +-
- drivers/gpu/drm/xe/xe_device_types.h               |  2 +-
- drivers/gpu/drm/xe/xe_dma_buf.c                    |  2 +-
- drivers/gpu/drm/xe/xe_guc_exec_queue_types.h       |  5 ++
- drivers/gpu/drm/xe/xe_guc_submit.c                 | 70 +++++++++++++---------
- drivers/gpu/drm/xe/xe_guc_types.h                  |  2 -
- drivers/gpu/drm/xe/xe_migrate.c                    |  5 +-
- drivers/gpu/drm/xe/xe_migrate.h                    |  1 +
- drivers/gpu/drm/xe/xe_module.c                     | 49 +++++++++++++++
- drivers/gpu/drm/xe/xe_module.h                     |  5 ++
- drivers/gpu/drm/xe/xe_nvm.c                        |  9 ++-
- drivers/gpu/drm/xe/xe_pci.c                        |  9 ++-
- drivers/gpu/drm/xe/xe_pt.c                         |  3 +
- drivers/gpu/drm/xe/xe_sriov_vf_ccs.c               | 20 ++++++-
- drivers/gpu/drm/xe/xe_sriov_vf_ccs.h               |  3 +-
- drivers/gpu/drm/xe/xe_vm.c                         | 25 ++++++--
- drivers/gpu/drm/xe/xe_wopcm.c                      | 15 +++--
- drivers/gpu/host1x/bus.c                           |  4 +-
- 36 files changed, 356 insertions(+), 133 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c           |  62 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   |  10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h   |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   9 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |  13 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  20 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  21 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  10 +-
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   4 +
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c             |  23 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 551 +++++++++++++--------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  70 +--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  20 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  45 ++
+ drivers/gpu/drm/amd/display/dc/dc.h                |   3 +
+ .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |  11 +-
+ .../gpu/drm/amd/display/dc/link/link_detection.c   |   2 +-
+ .../display/dc/link/protocols/link_dp_capability.c |   6 +-
+ .../display/dc/resource/dce100/dce100_resource.c   |   7 +-
+ .../amd/display/dc/resource/dcn42/dcn42_resource.c |   1 +
+ .../display/dc/resource/dcn42b/dcn42b_resource.c   |  23 +-
+ .../display/dc/resource/dcn42b/dcn42b_resource.h   | 116 +----
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         |  17 +-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c     |   7 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |  16 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  12 +
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |  12 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   |  45 ++
+ drivers/gpu/drm/drm_panel_backlight_quirks.c       |   9 +
+ include/drm/drm_utils.h                            |   1 +
+ 31 files changed, 720 insertions(+), 431 deletions(-)
