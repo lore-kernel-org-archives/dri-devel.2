@@ -4,63 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCD1CC4451C
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 15:21:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5020C4451B
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 15:22:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DD9710F5BB;
-	Fri, 17 Jul 2026 15:21:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2602A10E474;
+	Fri, 17 Jul 2026 15:22:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="jcSYDkA2";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="RgCwYOJ1";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8924410F5AC
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 15:21:23 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 039171A1067;
- Fri, 17 Jul 2026 15:21:22 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id BDFC360361;
- Fri, 17 Jul 2026 15:21:21 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E796F11BD0007; 
- Fri, 17 Jul 2026 17:21:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1784301679; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=nalHUOdm7VQVimzU6YnOC1j2OEES9BvqlJ7ozQWcY3c=;
- b=jcSYDkA25yOnOGUnVeJf8gDepP8BEEtaSQXvujl53JXFhhiH52FBqxKzswsczT2ieY4lYw
- 2Oz0o+BgQOHqRLR/s/3JAG1638E3jqVOHRr3SwCMk2dMbiqNsL2AxNDJtM/5gRT9nIdwWJ
- 5sd/oOUgSVYDk5Q6SD3uuhNBwY16uhSTT89BklfIEBrkNLolcr8fZqioxBg4fDD/a3VDMq
- mMrmu8LFIPT0Oe8GYbytbC6YjPMubjRBY57jyFZewflgSUo/ApdEm8upq5GfeBu86UmjGL
- XBQzMfIvqIXOskEO9cyttWNCJj+sVZwGViYCQ62RuLdJ8u9TE4S++lzsg0BVWg==
-Mime-Version: 1.0
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
+ [209.85.221.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 472BF10E474
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 15:22:41 +0000 (UTC)
+Received: by mail-vk1-f179.google.com with SMTP id
+ 71dfb90a1353d-5c11f9015d8so1121141e0c.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 08:22:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1784301760; x=1784906560;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=a28753WcgegEYJFy065d8dQeBpvP5gHkenWNb8iKN30=;
+ b=RgCwYOJ1PGIW1GNZ8lA5B9vRWmMCpJhVj0SBVK66EJxowTIfQxQZy3kPwRp9z7LgF5
+ AQ/hKF7P+Dlu/EcB3/krAN0IKfrNqV7HdoG5qYCsZsa4pARSwcStO6Cjv417KRtTPiW8
+ r7WNqRH94mhQSHUf6YTelDmQWExO3TOEpV4N4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784301760; x=1784906560;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=a28753WcgegEYJFy065d8dQeBpvP5gHkenWNb8iKN30=;
+ b=q7GpmBMCBcDv9seU5uzOe6/JWxkzrjlqRutPhSjHRRVdLcCL13PaxHrpIa/aPBwrwu
+ U5N7Hh2Dsbartjic9abIDB+H3uDjbwneaD6D57PlOqfu0N2qVTdBhLWUwHzRbcXOjWkJ
+ H3vIWLIE+CEYCMbqr9c4dhdU6/lpNdyfBF8K+y2Zb4mQLsH32MKB2lHNgpTdpV4Z1sPP
+ kJt6MzX1ORFNv44TL10KmYj93P/4B10+RUWs1G7snradX8snroPpv4LNBMK/DfKGJpfj
+ lxOkShTQeF4d4OEh2i4YOervHAYcBBnugRKzp/JJMaVVbI5WBX56XZKfXADSuAQ7vI2o
+ GV4g==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoAjsqT+RQn7EjtjgZ30j9hfe41hDoNxiiiZNVyOWHMJQ0bAiGKnIeRl7ixoiY8yRvG5ZhiDEP7img=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxJC9NXI7QsGGmJAABE++kwYOQwekDygF186Dk1vsA7gPfWrBN6
+ 06PerclzBZyYWpCq613Z99M0cbgE1r3nspkI7yVwM6AHDCu96FPb1OosX+MoWoEyc85hk+tHCfu
+ BHNQ=
+X-Gm-Gg: AfdE7cmjf/0YVKVaaPd67pvexEDvzcCbrqPaiF47rRXz6hgzlK6V2O7+UWj/4H0QDjy
+ cx7oa3XMk2WQnNThEQNXbTShQPTKz2N2wbyIQPC0N5vbL8Mm85ZwXBy1IL2SEa9cmXEuPEG/dZT
+ OgwDFqRk8VQdtufC2MZJrTSUJe1X3+vMDiGUMBch/IZFerGxVfJM2cUSwJGBIIxuffiYEt18ms1
+ SgHwoZJ+mvujNHap40CqY2IQr/7+OaPPrRRJlko3XnU0macSyJKxcY8OODuuk4g5I2HBTxjFajV
+ uNf/mY5iiBMGizEKU+jtALCBg3Q+7YO7ceZK8q7mS0Ec0tDOggTVXJpFpHLTY01tof6pxY+nOU2
+ BoULcblvySW0QcrYEJ4TXx/gQrE5hEceiyTdEb+gww/j/zNj2pVbGPpI1GILAVGWIMWuL8SxFPg
+ xoGUgLPA1eQtymjheYrDtW0lijcH9oSeSst01DH2tAn4xY
+X-Received: by 2002:a05:6123:2e7:b0:5c1:1965:6243 with SMTP id
+ 71dfb90a1353d-5c1bf9379d8mr465920e0c.13.1784301759860; 
+ Fri, 17 Jul 2026 08:22:39 -0700 (PDT)
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com.
+ [209.85.221.179]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c1eecca4f7sm811832e0c.3.2026.07.17.08.22.38
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Jul 2026 08:22:38 -0700 (PDT)
+Received: by mail-vk1-f179.google.com with SMTP id
+ 71dfb90a1353d-5bfd4795097so1480424e0c.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 08:22:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rqkm6rBqY8CG1r1L6UNkFJA2wb/A2oBj5n8ixjwBMpiiDblKXYizg2ibvFE1P6lLpSaOcIxfVUcNqA=@lists.freedesktop.org
+X-Received: by 2002:a05:6122:1822:b0:5c1:781:7122 with SMTP id
+ 71dfb90a1353d-5c1b64e8f86mr470005e0c.3.1784301757640; Fri, 17 Jul 2026
+ 08:22:37 -0700 (PDT)
+MIME-Version: 1.0
+References: <allWpYxgHfpKughy@michalis-linux>
+ <CAD=FV=Wez4s5gUPXN=DuHvHAk4esBMGfh4Rj=ww72UK7VUbOzw@mail.gmail.com>
+ <aloAAaC1FuDqT8Rd@michalis-linux>
+In-Reply-To: <aloAAaC1FuDqT8Rd@michalis-linux>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 17 Jul 2026 08:22:26 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X6FwYMKfCRaGrJtnVpuk1V0OsTg4MdMVNpikt2UVzFNQ@mail.gmail.com>
+X-Gm-Features: AUfX_mwEPh-VCFFUvNOfjb3MXM8YUOa4GHuNrEouu3mhJpBfiW-ZoeHeXe1Wowo
+Message-ID: <CAD=FV=X6FwYMKfCRaGrJtnVpuk1V0OsTg4MdMVNpikt2UVzFNQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel: ilitek-ili9805: Use _multi variants
+To: Michail Tatas <michail.tatas@gmail.com>
+Cc: michael@amarulasolutions.com, neil.armstrong@linaro.org, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch, jesszhan0024@gmail.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 17 Jul 2026 17:21:11 +0200
-Message-Id: <DK0Y5JTE66EA.111RUXTL6W8FA@bootlin.com>
-Subject: Re: [PATCH 2/4] drm/bridge: display-connector: Fix I2C adapter
- resource leak
-Cc: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>, "Thuan
- Nguyen" <thuan.nguyen-hong@banvien.com.vn>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Geert Uytterhoeven" <geert+renesas@glider.be>,
- "Magnus Damm" <magnus.damm@gmail.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, <linux-renesas-soc@vger.kernel.org>,
- <stable@vger.kernel.org>
-To: "Johan Hovold" <johan@kernel.org>, "Laurent Pinchart"
- <laurent.pinchart+renesas@ideasonboard.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.21.0
-References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com>
- <alpEVeVmH5oiqmaj@hovoldconsulting.com>
-In-Reply-To: <alpEVeVmH5oiqmaj@hovoldconsulting.com>
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,45 +104,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 17, 2026 at 5:03 PM CEST, Johan Hovold wrote:
-> On Mon, Jul 06, 2026 at 12:35:40AM +0300, Laurent Pinchart wrote:
->> If the probe function returns an error after getting the I2C adapter for
->> DDC, the reference to the adapter is never released. Fix it by releasing
->> it in the bridge .destroy() handler.
->>
->> There is no need to test the ddc pointer with !IS_ERR(), as
->> of_get_i2c_adapter_by_node() returns NULL on error.
->
-> I stumbled over this this morning as well and posted a fix here (which
-> releases the adapter on driver unbind as is currently done):
->
-> 	https://lore.kernel.org/lkml/20260717085716.1619275-1-johan@kernel.org/
->
->> Fixes: 6de79dd3a920 ("drm/bridge: display-connector: add ddc-en gpio sup=
-port")
->
-> I believe this issue was first introduced by commit 2e2bf3a5584d
-> ("drm/bridge: display-connector: add DP support") a few releases
-> earlier.
->
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.c=
-om>
->
-> Reviewed-by: Johan Hovold <johan@kernel.org>
+Hi,
 
-While Johan's patch has the benefit of putting the i2c adapter at remove
-time (as opposed to destroy time, which is potentially a long time later),
-it is also more complex. So I'd say this patch is fine.
+On Fri, Jul 17, 2026 at 3:12=E2=80=AFAM Michail Tatas <michail.tatas@gmail.=
+com> wrote:
+>
+> On Thu, Jul 16, 2026 at 04:31:53PM -0700, Doug Anderson wrote:
+>
+> Hello Doug, thanks a lot for the review!
+>
+> > Hi,
+> >
+> > On Thu, Jul 16, 2026 at 3:09=E2=80=AFPM Michail Tatas <michail.tatas@gm=
+ail.com> wrote:
+> > >
+> > > @@ -159,36 +159,23 @@ static int ili9805_power_off(struct ili9805 *ct=
+x)
+> > >
+> > >  static int ili9805_activate(struct ili9805 *ctx)
+> > >  {
+> > > -       struct mipi_dsi_device *dsi =3D ctx->dsi;
+> > > -       struct device *dev =3D &dsi->dev;
+> > > -       int i, ret;
+> > > +       struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi=
+ };
+> > > +       int i;
+> > >
+> > >         for (i =3D 0; i < ctx->desc->init_length; i++) {
+> > >                 const struct ili9805_instr *instr =3D &ctx->desc->ini=
+t[i];
+> > >
+> > > -               ret =3D mipi_dsi_dcs_write_buffer(ctx->dsi, instr->da=
+ta, instr->len);
+> > > -               if (ret < 0)
+> > > -                       return ret;
+> > > +               mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, instr->data=
+, instr->len);
+> > >
+> > >                 if (instr->delay > 0)
+> > > -                       msleep(instr->delay);
+> > > -       }
+> >
+> > What you've done is an improvement, but it's not all the way there.
+> > Specifically, we'd really want to get rid of the whole "struct
+> > ili9805_instr" type and instead each panel should have an init
+> > function. The "struct ili9805_desc" should have a pointer to the init
+> > function instead of a pointer to the init data.
+>
+> I am more than happy to do these changes as well. My only concern is
+> that I do not have hardware to test the panel. Are compiling and static
+> analysis sufficient tests for these changes ?
 
-Maybe we should have a devm version of of_get_i2c_adapter_by_node() to make
-it all simpler.
+That is inevitable with these cleanups. We're doing our best with
+static analysis and code review. If someone comes along later and
+finds that something broke, we'll fix it.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+-Doug
