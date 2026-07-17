@@ -4,47 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03550C4451B
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 20:58:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A9B8C44515
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 20:59:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DACB10F5FF;
-	Fri, 17 Jul 2026 20:58:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6763510F603;
+	Fri, 17 Jul 2026 20:58:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="vIEmv3bW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CJ9UIDkh";
 	dkim-atps=neutral
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6012A10F5FF
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 20:57:59 +0000 (UTC)
-Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net
- [178.82.120.96])
- by mail11.truemail.it (Postfix) with ESMTPA id 15D15214F2;
- Fri, 17 Jul 2026 22:57:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
- s=default; t=1784321877;
- bh=ZY59QmJoDS4x6XunqiqFX794Y6AFTfjbSPkMaoden4M=; h=From:To:Subject;
- b=vIEmv3bWCu7GGACJsv1Rx3V4ix/1xckRb5NWI5csFIidmxE1WxpymWfbmEEZUSgnA
- fjPg7sNX5PD3skxSqKofdWO95LvZr8lQL7dcYleUFM9Eh7RmSIcKOoJbQDJw73NZ75
- Yeq+HIt5BQozcysJqoZeQp0i71qrNtnL9RUuSJlmVzL7jGEtZ7cttsHVM+ALtt4di/
- /CUSRnA5jTwqOqhDlKdqJgHBltk+ZiRQetndLo00rmkhX8CUKlPhknrz1PUwAqPIt6
- DpqFYyR1WYjl+L5PNCgU7puPtV5LwgVvenzUkCA1Mv/gmP1D8f4D3zv4Cows/HqLz9
- OH8ZUemSQ/v3g==
-Date: Fri, 17 Jul 2026 22:57:54 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: sashiko-reviews@lists.linux.dev, Francesco Dolcini <francesco@dolcini.it>,
- devicetree@vger.kernel.org, robh@kernel.org,
- dri-devel@lists.freedesktop.org, Frank.Li@kernel.org,
- conor+dt@kernel.org, imx@lists.linux.dev
-Subject: Re: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format
-Message-ID: <20260717205754.GB512678@francesco-nb>
-References: <20260717121847.488148-1-francesco@dolcini.it>
- <20260717121847.488148-2-francesco@dolcini.it>
- <20260717122808.693211F000E9@smtp.kernel.org>
- <alpQh0ASY1HgdNqE@SMW015318>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpQh0ASY1HgdNqE@SMW015318>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6EB910F603
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 20:58:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E77B260051;
+ Fri, 17 Jul 2026 20:58:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C9841F000E9;
+ Fri, 17 Jul 2026 20:58:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784321936;
+ bh=Bkk+NgR+lYxBDFAjXlAgQY08fhvV7ZFde5bMUI9Mo30=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=CJ9UIDkhwcm2JE5ovPmenFTgYctG7LGATnf5grSTJCAKvEszRPK2OAeBGLPsdp78h
+ C3HaVgifvpFN0+nz70pIo9FjAofCKllb+YolyJOMHvwzLp7dLsRnmgd2SvRa3yZBMN
+ C6Wmvu9dez0yRD/MUi08dswUVX02ADOtVQcUpDmBU8KwZyB9Na+pMM7iN/Kk2WZbry
+ 14scHe7ufIpx5RCouHEnzB/8cUnYz3c031XkuBqcgzQ/cQuHzy8e8ALuKxy9nldx5p
+ an9uwn0ti/SjGuEZq01wiyIYGbLvO616c/E2zt0gOpVhBOiSsAz2XCtESIewzOl6JA
+ GVfWdpS23oh9g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 06/16] drm/msm: Remove redundant SIZE_MAX check
+To: "Rob Clark" <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260717204841.26120-7-robin.clark@oss.qualcomm.com>
+References: <20260717204841.26120-1-robin.clark@oss.qualcomm.com>
+ <20260717204841.26120-7-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 20:58:55 +0000
+Message-Id: <20260717205856.7C9841F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,52 +53,67 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 17, 2026 at 10:55:51AM -0500, Frank Li wrote:
-> On Fri, Jul 17, 2026 at 12:28:07PM +0000, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > - [Low] Introduction of the legacy, non-standard `interface-pix-fmt` property for a standard hardware concept (parallel bus width), violating modern DT principles.
-> > --
-> >
-> > --- Patch [1]: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format ---
-> > commit 7225ea545d2ff50540972dd75d375b8ecea4f315
-> > Author: Francesco Dolcini <francesco.dolcini@toradex.com>
-> >
-> > dt-bindings: lcdif: Add interface pixel format
-> >
-> > This commit updates the fsl,lcdif device tree binding to support the
-> > interface-pix-fmt property. The property is used to describe the hardware's
-> > parallel data bus transfer width to match board wiring and prevent shifted
-> > colors.
-> >
-> > > diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> > > index 2dd0411ec6516..209ee5a96e393 100644
-> > > --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> > > +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> > > @@ -58,6 +58,13 @@ properties:
-> > >      items:
-> > >        - const: rx
-> > >
-> > > +  interface-pix-fmt:
-> > > +    $ref: /schemas/types.yaml#/definitions/string
-> > > +    enum:
-> > > +      - rgb24
-> > > +      - rgb565
-> > > +      - rgb666
-> >
-> > [Severity: Low]
-> > Is this introducing a legacy, non-standard property into the new schema ABI?
-> >
-> > Standard devicetree guidelines usually prefer endpoint properties like
-> > bus-width (defined in video-interfaces.yaml) to describe physical parallel
-> > data line configurations, such as setting bus-width = <18> for RGB666.
-> 
-> Make sense, can we use standard property?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-video-interfaces.yaml is for video capture interfaces (cameras and the
-media/v4l subsystem). It does not apply here for DPI display interfaces.
+Pre-existing issues:
+- [Critical] Direct access to ctx->vm before VM lazy initialization in ioct=
+l entry point.
+--
 
-Francesco
+--- Patch [6]: [PATCH v6 06/16] drm/msm: Remove redundant SIZE_MAX check ---
+commit f2972a9fd99ad8ac26829ed01da6279a307ca6e7
+Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
+    drm/msm: Remove redundant SIZE_MAX check
+
+    kmalloc() will already fail and return NULL if passed SIZE_MAX.
+
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/m=
+sm_gem_submit.c
+> index d55897c358371..62acee148bf2b 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -250,11 +250,6 @@ static int submit_lookup_cmds(struct msm_gem_submit =
+*submit,
+> =20
+>  		sz =3D array_size(submit_cmd.nr_relocs,
+>  				sizeof(struct drm_msm_gem_submit_reloc));
+> -		/* check for overflow: */
+> -		if (sz =3D=3D SIZE_MAX) {
+> -			ret =3D -ENOMEM;
+> -			goto out;
+> -		}
+>  		submit->cmd[i].relocs =3D kmalloc(sz, GFP_KERNEL | __GFP_NOWARN);
+>  		if (!submit->cmd[i].relocs) {
+>  			ret =3D -ENOMEM;
+
+[Severity: Critical]
+This is a pre-existing issue, but looking at the same file in
+msm_ioctl_gem_submit(), there appears to be a direct access to ctx->vm
+before it is lazily initialized:
+
+drivers/gpu/drm/msm/msm_gem_submit.c:msm_ioctl_gem_submit() {
+	...
+	if (to_msm_vm(ctx->vm)->unusable)
+		return UERR(EPIPE, dev, "context is unusable");
+	...
+}
+
+If a userspace process opens the DRM device and immediately calls the
+DRM_IOCTL_MSM_GEM_SUBMIT ioctl before calling any other ioctls that would
+initialize the VM (using the msm_context_vm() accessor), won't ctx->vm be
+NULL?
+
+Since to_msm_vm() is a container_of macro wrapping the first struct member,
+passing a NULL pointer yields a NULL pointer. Could dereferencing ->unusable
+here allow an unprivileged local user to trigger a kernel panic by calling
+this ioctl before the VM is initialized?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717204841.2612=
+0-1-robin.clark@oss.qualcomm.com?part=3D6
