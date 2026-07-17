@@ -4,59 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B58AC4451C
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 17:06:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BA90C44515
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 17:12:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9942210F4AD;
-	Fri, 17 Jul 2026 17:06:42 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03BB210F4AD
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 17:06:39 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.100])
- by APP-05 (Coremail) with SMTP id zQCowABXiEIWYVpqwLcMAA--.14167S2;
- Sat, 18 Jul 2026 01:06:31 +0800 (CST)
-Message-ID: <9a55a96b53c5f88bc1e079945b710ee854471ee3.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2] drm/imagination: acquire vm_ctx->lock before mapping
- memory to GPU VM
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Alessio Belle <Alessio.Belle@imgtec.com>
-Cc: "airlied@gmail.com" <airlied@gmail.com>, "tzimmermann@suse.de"	
- <tzimmermann@suse.de>, "matt.coster@imgtec.com" <matt.coster@imgtec.com>, 
- "simona@ffwll.ch"	 <simona@ffwll.ch>, "dri-devel@lists.freedesktop.org"	
- <dri-devel@lists.freedesktop.org>, Brendan King <Brendan.King@imgtec.com>, 
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>, Frank Binns
- <Frank.Binns@imgtec.com>,  Brajesh Gupta <Brajesh.Gupta@imgtec.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,  "dakr@kernel.org"	
- <dakr@kernel.org>, "maarten.lankhorst@linux.intel.com"	
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>
-Date: Sat, 18 Jul 2026 01:06:30 +0800
-In-Reply-To: <164ad51d357350cde4e9e84cbe1ebc970c871af7.camel@imgtec.com>
-References: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
- <164ad51d357350cde4e9e84cbe1ebc970c871af7.camel@imgtec.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 907A810F5BD;
+	Fri, 17 Jul 2026 17:12:42 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="grMfq6z5";
+	dkim-atps=neutral
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D9A210F5CB
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 17:12:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1784308357;
+ bh=nyQdVDt2H7mP+A7V2At5qUwCiDU5WOHl96LejnRVOxc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=grMfq6z5BYS50WBYtl+dz/vvrBLXOBxSXV+F4f/DrXEUpHr8WGgc7jUDHqI3f8P2C
+ 4G1so0MlfCytQcKSy8ChQG3ba6hIDYyhmfCHK95mUS/vXauDvOwMZL12DAW3T9BeRs
+ obatIMcVKW92Dz+aiJSCAQa+iaYqjIUZ0C3hvtORC5YObf+jvaG8WSbrKSYzoVq53p
+ KGw4vABqDVjuLwO+VgGrtWPaT+2Y6HY+rjUDyfhZV8Bk42IuGNOErRfYOPLfR3O2wo
+ B7OozPpY0To3P3I4NUzVRG8NkWKu/f5/6JCPq3+WFF5VC/v/V7EkYyRht//Zlu0Wax
+ R1uvk0dGQ3z7Q==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4h1xL415l5z4wB7;
+ Sat, 18 Jul 2026 03:12:27 +1000 (AEST)
+Message-ID: <cc59a80f-afcc-4b2d-8e78-20f74c6b6871@ozlabs.org>
+Date: Fri, 17 Jul 2026 18:12:22 +0100
 MIME-Version: 1.0
-X-CM-TRANSID: zQCowABXiEIWYVpqwLcMAA--.14167S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGw15ArykCrW8CF43tFy8AFb_yoW5trWkp3
- yfKa4Ykw40krWqy3W7t3yYkry3Aw4F9a1fGFyktas5Zr15Wrnrtr1Fqry5uFyDArs7Gw47
- tF4qva9ag34jyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
- A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
- 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
- 14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
- IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
- 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
- IFyTuYvjxUqiFxDUUUU
-X-Originating-IP: [112.94.101.100]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/9] vfio/pci: Add mmap() for DMABUFs
+Content-Language: en-GB
+To: David Matlack <dmatlack@google.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
+ Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <CALzav=fH7N+ionUnELqw5ZaGrPmgp_w6kxoCtoY8fMmZY_S4zw@mail.gmail.com>
+ <65ba06e7-4c54-437d-9fbd-632c0468f66d@ozlabs.org>
+ <allLypOmtbnPrgbw@google.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <allLypOmtbnPrgbw@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,106 +74,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-07-17=E4=BA=94=E7=9A=84 11:14 +0000=EF=BC=8CAlessio Belle=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Tue, 2026-07-14 at 15:36 +0800, Icenowy Zheng wrote:
-> > The drm gpuvm code doesn't protect find operation against map
-> > operation,
-> > and the driver needs to ensure a map operation shouldn't happen
-> > when a
-> > find operation is in progress.
-> >=20
-> > In some cases a find operation will be in progress when doing
-> > map/unmap
-> > operations, and the find operation will do a NULL pointer
-> > deference.
-> >=20
-> > An example of the stack trace of such NULL deference is shown
-> > below:
-> >=20
-> > ```
-> > Unable to handle kernel access to user memory without uaccess
-> > routines at
-> > virtual address 0000000000000010
-> >=20
-> > [<ffffffff01e989d4>] drm_gpuva_find+0x28/0x6c [drm_gpuvm]
-> > [<ffffffff01ed3a40>] pvr_vm_unmap+0x34/0x68 [powervr]
-> > [<ffffffff01ec69da>] pvr_ioctl_vm_unmap+0x2e/0x50 [powervr]
-> > [<ffffffff8080ce0a>] drm_ioctl_kernel+0x8e/0xdc
-> > [<ffffffff8080d016>] drm_ioctl+0x1be/0x3e0
-> > [<ffffffff802bec3e>] __riscv_sys_ioctl+0xba/0xc4
-> > [<ffffffff80d858b2>] do_trap_ecall_u+0x23e/0x3f4
-> > [<ffffffff80d92288>] handle_exception+0x168/0x174
-> > ```
-> >=20
-> > As all occurences of drm_gpuva_find*() are already guarded by
-> > vm_ctx->lock, make pvr_vm_map() to acquire this lock to prevent
-> > disturbing any find operation. This fixes the NULL deference
-> > problem in
-> > drm_gpuva_find*().
-> >=20
-> > Cc: stable@vger.kernel.org
-> > Fixes: ff5f643de0bf ("drm/imagination: Add GEM and VM related
-> > code")
-> > Fixes: 4bc736f890ce ("drm/imagination: vm: make use of GPUVM's
-> > drm_exec helper")
-> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
->=20
-> Reviewed-by: Alessio Belle <alessio.belle@imgtec.com>
->=20
-> p.s. there's a double typo deference -> dereference that I can fix
-> before
-> applying this early next week.
+Hi David,
 
-Oops I made the same mistake again when rephrasing the message...
+On 16/07/2026 22:23, David Matlack wrote:
+> On 2026-07-16 03:51 PM, Matt Evans wrote:
+>> Hi David,
+>>
+>> On 15/07/2026 19:12, David Matlack wrote:
+>>> On Wed, Jul 15, 2026 at 10:47 AM Matt Evans <matt@ozlabs.org> wrote:
+>>>
+>>>> This is based on v7.2-rc3.
+>>>>
+>>>> These commits are on GitHub for easier browsing, along with
+>>>> "[RFC ONLY] selftests: vfio: Add standalone vfio_dmabuf_mmap_test":
+>>>>
+>>>> https://github.com/metamev/linux/compare/v7.2-rc3...dev/mev/vfio-dmabuf-mmap-v5
+>>>
+>>> It'd be great to have this test upstream. I'm happy to review it when
+>>> you're ready. Looks like it just needs to be redone to use the VFIO
+>>> selftests library and kselftests harness. AI could probably do the
+>>> conversion pretty quick :)
+>>
+>> For sure, I'd intended to catch up with you on best approach here. :)
+>>
+>> Aside from the organic structure of the test (the open-coded VFIO
+>> device/group setup/init needs to go), the main issue is that it relies
+>> on a hacked/out of tree QEMU "EDU++" device with a second larger BAR
+>> (containing freely read-writable memory).  A subset of tests run with
+>> the in-tree EDU device, but coverage is too low.
+>>
+>> The desirable properties are:
+>>
+>>  - Having a BAR that is pure memory (all locations present, writable
+>> without disruptive side-effects) so that mapping aliases can be
+>> constructed and detected.  This is good to test things like non-zero
+>> vm_pgoffs and VA space presentation of physically-discontiguous DMABUFs.
+>>
+>>  - BAR >> hugepage size so we can eyeball huge mappings work (or better,
+>>  mechanically test for them).  At least 32MB would tick this box for 4K,
+>> 16K page systems.
+>>
+>>  - Something QEMU supports*, so one can run the test in a VM/TCG system.
+>>
+>> There were some real device models in QEMU that could be used this way,
+>> but needed a fair bit of setup;  I didn't want to rathole
+>> vfio_dmabuf_mmap_test on including a ton of device-specific code for
+>> some video card or similar.
+>>
+>> I'll dig more for a simple target that provides these properties --
+>> obviously it would be better to point this test at an off-the-shelf
+>> device (including silicon!).  And, proposing EDU extensions to the QEMU
+>> folks may be useful (there're uses for a better EDU in other contexts too).
+>>
+>> Since this test uses MMIO for a specific [class of] function, my first
+>> thought is it should be another VFIO driver-type test sibling of
+>> vfio_pci_driver_test.  For example, we could extend the driver-type
+>> tests' backend struct vfio_pci_driver_ops for functions capable of
+>> providing a Big Memory BAR, like QEMU EDU++.  EDU can also memcpy, so
+>> could also support vfio_pci_driver_test.
+>>
+>> The spirit of the device backends hiding setup of a complex device is
+>> handy, and it's plausible that several backends could provide this "big
+>> memory BAR" service.  What do you think, any concerns with extending
+>> vfio_pci_driver_ops like that?
+> 
+> I wouldn't recommend leveraging the driver framework unless absolutely
+> necessary. It makes the test harder to run.
+> 
+> The biggest issue I see with the proposed properties is being able to
+> treat the BAR as memory. That obviously will depend on the device and
+> may require device-specific setup. If we decide that treating the BAR as
+> memory is truly required then using the driver framework is the way to
+> go. But I'm hoping we can avoid that requirement.
+> 
+> Instead, I think you can get pretty far by inspecting /proc/pid/pagemap
+> to determine if the mmap() set things up correctly, without actually
+> accessing the BAR. You can use /proc/pid/pagemap to look up the PFN and
+> PAGEMAP_SCAN to detect huge pages.
 
-Maybe I need some reinforced learning.
+Hmm, possible, although that's quite a different test at that point.  I
+agree never touching the device has advantages, but it's harder to test
+certain things if we _never_ do MMIO.  The mitigation effort to get
+coverage may not be the right tradeoff vs easier running.  I can think
+of some "easy" VFIO bugs that would be challenging to properly verify in
+userspace (e.g. PFNs all having some undesired offset).  The current
+test method is harder to fool per unit effort in writing it.
 
-Thanks,
-Icenowy
+Though, I will have a think about this no-touch flavour of test.
 
->=20
-> Thanks,
-> Alessio
->=20
-> > ---
-> > Changes in v2:
-> > - Dropped wrongly duplicated mutex_unlock() call and reordered it
-> > to
-> > =C2=A0 before pvr_vm_bind_op_fini() (the lock is acquired after
-> > =C2=A0 pvr_vm_bind_op_map_init() call). (Thanks to Brajesh)
-> > - Added a extra Fixes pointing to the original broken code that was
-> > =C2=A0 refactored by the original Fixes (but still broken). (Thanks to
-> > =C2=A0 Alessio)
-> > - Fixed some typos in commit message. (Thanks to Alessio)
-> > - Added a stacktrace of the oops that occured on my board. (As
-> > suggested
-> > =C2=A0 by Alessio)
-> >=20
-> > =C2=A0drivers/gpu/drm/imagination/pvr_vm.c | 2 ++
-> > =C2=A01 file changed, 2 insertions(+)
-> >=20
-> > diff --git a/drivers/gpu/drm/imagination/pvr_vm.c
-> > b/drivers/gpu/drm/imagination/pvr_vm.c
-> > index 396d349fb6ce4..ceb78694cd987 100644
-> > --- a/drivers/gpu/drm/imagination/pvr_vm.c
-> > +++ b/drivers/gpu/drm/imagination/pvr_vm.c
-> > @@ -747,6 +747,7 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx,
-> > struct pvr_gem_object *pvr_obj,
-> > =C2=A0
-> > =C2=A0	pvr_gem_object_get(pvr_obj);
-> > =C2=A0
-> > +	mutex_lock(&vm_ctx->lock);
-> > =C2=A0	err =3D drm_gpuvm_exec_lock(&vm_exec);
-> > =C2=A0	if (err)
-> > =C2=A0		goto err_cleanup;
-> > @@ -756,6 +757,7 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx,
-> > struct pvr_gem_object *pvr_obj,
-> > =C2=A0	drm_gpuvm_exec_unlock(&vm_exec);
-> > =C2=A0
-> > =C2=A0err_cleanup:
-> > +	mutex_unlock(&vm_ctx->lock);
-> > =C2=A0	pvr_vm_bind_op_fini(&bind_op);
-> > =C2=A0
-> > =C2=A0	return err;
+What were you picturing regarding populating the VMA PTEs in order to
+inspect the result via /proc/pid/pagemap, whilst still upholding the
+principle of not touching the device?  For example,
+madvise(MADV_POPULATE_WRITE) won't work on the VFIO BAR regions because
+they're VM_PFNMAP/VM_IO.
+
+> With that requirement gone, then all you really need is a device with a
+> large enough BAR. And even that it not a hard requirement. I'm sure
+> there are plenty of test cases that could work with smaller BARs. The
+> few tests that want to exercise huge mappings can inspect the device BAR
+> sizes first, and if they're all too small, SKIP() the test.
+> 
+> If you structure the test this way, then it's easy for the test to be
+> used. It can be run against any device for the basic functional
+> coverage, and can be run against a device with a larger BAR for full
+> coverage of huge mappings.
+> 
+> Does QEMU emulate any devices that have 32MB or larger BARs?
+
+Yep, looks like `-device pci-testdev,membar=64M,membar-backed=on` or
+even `-device bochs-display,vgamem=64M` would be suitable.
+
+So I'll also try moving the existing test over to one of these to at
+least remove the EDU++ device dependency.  (bochs-display has >1 BAR,
+and some MMIO regs which are nice for a quick kick-the-tyres access test.)
+
+
+Cheers,
+
+
+Matt
 
