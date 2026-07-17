@@ -4,45 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89148C44514
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 09:07:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C71D4C44514
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 09:08:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4743E10F4AF;
-	Fri, 17 Jul 2026 09:07:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 314E810F4B0;
+	Fri, 17 Jul 2026 09:08:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Usvv+n48";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NZdv50Dl";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2201D10F4AF
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:07:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 711F510F4B0
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:08:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 620B660A5E;
- Fri, 17 Jul 2026 09:07:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6D241F000E9;
- Fri, 17 Jul 2026 09:07:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5535B4063B;
+ Fri, 17 Jul 2026 09:08:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35EEA1F00A3A;
+ Fri, 17 Jul 2026 09:08:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784279230;
- bh=oBMCb6cwhG/GD5Jmkyey8UDgC8ZiKAjZNgzQFhyTWvE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Usvv+n48+OkZtkIhCopg3x4z+VIIVsUN7gKh7utTLUhYbv6ST4goBMnA0MGB2chgO
- F/8QCTm3W5lSifmt64dg+LBx9ZcDoKcP+LZTNyryAmw0yjRQPiWNr3nsYBBpVYRDHV
- f4ucFj007nEWrrRDsNxe59mxCtHUZIx9IgTBYfsVP0+fBHYqmVPEGums1VRPbKPzdh
- VWfxqbjd0UjKUvRREakIciCIBzjExID3BCUH2ijq0UJXby2u4SflGrwAqo4omC2tqQ
- C94kaz/2pV4KDt4L58ItY+9DxNfb4liMxRZCnMDV3DcXvYgNMT4LH/rORwNhzTUlnJ
- 9GE23vZ4M362g==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 2/9] pmdomain/rockchip: add optional per-domain
- power-on settle delay
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260717085220.3212274-3-gahing@gahingwoo.com>
-References: <20260717085220.3212274-1-gahing@gahingwoo.com>
- <20260717085220.3212274-3-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 09:07:08 +0000
-Message-Id: <20260717090708.E6D241F000E9@smtp.kernel.org>
+ s=k20260515; t=1784279319;
+ bh=bKfzN4EqpiMbnxR9DAJnBuN7lXi1koJJ0p28NYfMO3o=;
+ h=From:To:Cc:Subject:Date;
+ b=NZdv50DlbHZyuy6BjoPlyaM99G6qYR29gTIr9Gq20rgr6deIlatrV58vnUSN3W1QZ
+ UGuOG1KAl5a/dL8TCkmixyuGLiH6uFaZQTKJBK6N9khEI5HE+tOnh/0vkB96YdQS3l
+ dXzePX/2RfsxvdbAZ/1kEbzjZeolPUEkpi+1dXHDXILtQDe7kFeLg+puo5XL30CcDX
+ E+cPXTAQlmVBDQpXA21RUUPBftOLC9foG+HITCnd0WAT+56DpKVvi7HJ/7mFGf7s6g
+ HYCOlnggoBbJI5aMVjIu1QG4wzlzb4GC493S8JkFTcOKmWJedMS7G1yt+nzLZUcli5
+ JwrodjBjsp9Rw==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+ (envelope-from <johan@kernel.org>) id 1wkeYe-00000006qIU-1aMZ;
+ Fri, 17 Jul 2026 11:08:36 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/bridge: dw-hdmi: fix i2c adapter leak on probe failure
+Date: Fri, 17 Jul 2026 11:08:19 +0200
+Message-ID: <20260717090819.1630965-1-johan@kernel.org>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,72 +63,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Make sure to drop the i2c adapter device and module references before
+returning when detecting a malformed devicetree during probe.
 
-Pre-existing issues:
-- [High] Uninitialized State Overwrite in QoS registers on first power-on
---
+Fixes: 80e2f97968b5 ("drm: bridge: dw-hdmi: Switch to regmap for register access")
+Cc: stable@vger.kernel.org	# 4.12
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---- Patch [2]: [RFC PATCH 2/9] pmdomain/rockchip: add optional per-domain p=
-ower-on settle delay ---
-commit a8d7f648552a5a45a8073245f6be06268bc14e7d
-Author: Jiaxing Hu <gahing@gahingwoo.com>
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 17d5caedb32e..9eb6cf8a321f 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -3389,7 +3389,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
+ 			break;
+ 		default:
+ 			dev_err(dev, "reg-io-width must be 1 or 4\n");
+-			return ERR_PTR(-EINVAL);
++			ret = -EINVAL;
++			goto err_res;
+ 		}
+ 
+ 		iores = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-- 
+2.54.0
 
-pmdomain/rockchip: add optional per-domain power-on settle delay
-
-This commit introduces a per-domain settle delay for the RK3576 NPU domains.
-The delay is applied between releasing the idle request and writing to the
-QoS registers to prevent an SError while the NoC is settling.
-
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
-ckchip/pm-domains.c
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-
-[ ... ]
-
-> @@ -667,6 +668,9 @@ static int rockchip_pd_power(struct rockchip_pm_domai=
-n *pd, bool power_on)
->  		if (ret < 0)
->  			goto out;
-> =20
-> +		if (pd->info->delay_us)
-> +			udelay(pd->info->delay_us);
-> +
->  		rockchip_pmu_restore_qos(pd);
-
-[Severity: High]
-This is a pre-existing issue, but does this unconditional restore overwrite
-QoS registers with uninitialized state on the very first power-on?
-
-If a power domain is initially OFF at boot, qos_save_regs remains
-zero-initialized by devm_kcalloc(). On the first power-on request,
-rockchip_pd_power() unconditionally calls rockchip_pmu_restore_qos(),
-which writes these zeros directly to the hardware:
-
-drivers/pmdomain/rockchip/pm-domains.c:rockchip_pmu_restore_qos() {
-    ...
-    regmap_write(pd->qos_regmap[i], QOS_PRIORITY, pd->qos_save_regs[0][i]);
-    ...
-}
-
-If the hardware reset defaults for QoS bandwidth or priority are non-zero,
-writing zeros could throttle or block interconnect traffic, potentially cau=
-sing
-the associated IP block to hang when accessing memory.
-
-Is there a mechanism to ensure the QoS state is actually populated before it
-is restored, or should the driver avoid restoring QoS state if a prior state
-was never saved?
-
->  	}
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717085220.3212=
-274-1-gahing@gahingwoo.com?part=3D2
