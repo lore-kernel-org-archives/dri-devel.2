@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C10E8C44520
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:05:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28111C44521
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:05:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 330AE10E440;
-	Fri, 17 Jul 2026 12:05:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8938F10E59B;
+	Fri, 17 Jul 2026 12:05:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TBVn0Tmx";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ffLZuGli";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 374A010E440;
- Fri, 17 Jul 2026 12:05:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9E4210E59B;
+ Fri, 17 Jul 2026 12:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=P5yi/++H+/mkB+oL7Qp4nrKnZTq3rE++51nXeOlT1Ew=; b=TBVn0Tmxk0nh06DX36Ev9f9KDv
- 2VNCd5Cmc8V+kl6dRhsaK9JTOETWbW6tSJaEOoQ8Ag0vS+qetnO/Np/FtNRK4ktU9LjPRU17Pu18W
- qAalQW1aiub/FfFL7tZEige7yiaahG6MDLfVD+LkKyY0GNSDEcGTQfWH4kZZhyBBa0gnjz1omGvPX
- eocBDUoff5WSvj0br9TU7nk9AK9qwZtV+1ObIam13Hv7SefnDNLXOxeU8lfgICsSJtDJRQQmBecYq
- Ms/HQG/EnoeSqk8xyerk7SGYh1vCw1IIvdbCNgTv61kx47yhfbE5YCoeJHoVj1DVd3/h/saZE6hDC
- kv0D4Tbw==;
+ bh=UZZZIyK2AovRwfjZ0N/6ajWt/Sn0YJbtCsW3Hgfz5Kw=; b=ffLZuGlifFHz9ix2FmdwQi7+o0
+ BiMzeQ/ZrZwgDfkDvpRBDE9s8lYUIgv3z3WYLxU7Cpz2Otk7EW8GROMsyZ8hQyG04Hfr5Uah2MatN
+ YU8srfUkJwOZvhOwMEMfi/F5N6HrF0P8nkMkfrwCprbLt/pC7nx/2GuAuO31+C0BGr4UlplvqNJdC
+ cb2G1vqXYm2kFyIWIC6DksesnzrLCL3gYf/p7+vTyXpyRjYv/qVxVvy+QCSMZn3/4Nvo/35pqvUBb
+ dfglIy+z51+H6P4CUu6nUk4uA5wUF9IYDmw3kBqTvsFEAkHMFtMJm5BduyyPmn/4fK2SzV0SToxWZ
+ Avjz6Ojw==;
 Received: from 179-125-86-98-dinamico.pombonet.net.br ([179.125.86.98]
  helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wkhJQ-00GPAm-1R; Fri, 17 Jul 2026 14:05:04 +0200
+ id 1wkhJe-00GPAm-Ir; Fri, 17 Jul 2026 14:05:18 +0200
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 To: igt-dev@lists.freedesktop.org
 Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
@@ -42,10 +42,13 @@ Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
  Vitaly Prosyak <vitaly.prosyak@amd.com>,
  Natalie Vock <natalie.vock@gmx.de>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-Subject: [PATCH i-g-t v4 0/7] add cgroup_dmem test
-Date: Fri, 17 Jul 2026 09:04:40 -0300
-Message-ID: <20260717120447.1837818-1-cascardo@igalia.com>
+Subject: [PATCH i-g-t v4 2/7] tests/cgroup_dmem: add dmem cgroup controller
+ test
+Date: Fri, 17 Jul 2026 09:04:42 -0300
+Message-ID: <20260717120447.1837818-3-cascardo@igalia.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260717120447.1837818-1-cascardo@igalia.com>
+References: <20260717120447.1837818-1-cascardo@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -64,139 +67,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-v4 TLDR:
-Merging the dmem_cgroups tests into cgroup_dmem.
+From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-This patchset is based on the work of Thomas Hellström at [1] and a
-followup I have submitted at [2]. This is now a v3, since I submitted [6].
+Add a test that exercises the cgroup v2 dmem controller interface using
+the new igt_cgroup library.
 
-With this version, I reverted the order in which to apply the patchsets, as
-this one adds the infrastructure and the drivers mechanisms, and a test for
-dmem.current and its behavior around dmem.max that is currently supported
-in the kernel.
+The test uses igt_simple_main and:
+  - Skips if no dmem regions are registered (no cgroup v2 or no
+   dmem-capable device).
+  - Creates a sub-cgroup and moves the test process into it.
+  - Enumerates all registered device memory regions and prints their
+   capacity, system-wide current usage, per-cgroup current usage, and
+   configured min, low and max limits.
+  - Destroys the cgroup on completion.
 
-As for the new dmem.max eviction behavior, introduced by [3], it has been
-pushed to a branch at [4]. If preferred, I can submit the two patches
-independently.
-
-I have run the tests, including the ones that test dmem.max eviction
-behavior on a system with a 1GiB VRAM amdgpu card. Rodrigo Siqueira helped
-me run it on a Xe system. We have applied the patchset at [3] on top of
-current linux origin/master [5], with a fixup for the amdgpu driver.
-
-Now, for the changes since v1 [2]:
-- Changed the test name from drv_dmem_cgroups to dmem_cgroups.
-- Have system includes before igt ones.
-- Documented the current SUBTEST.
-- Changed free_vram driver hook to only release a given BO. This allows for
-  the eviction trigger by a new allocation added by write_eviction_nonblock
-  subtest.
-- Changed allocate_vram to keep more state necessary for releasing a single BO.
-- Added a global free_vram helper to free all allocated VRAM.
-
-Compared to v3 of [1]:
-- I have kept wait_for_usage_drop as release can be lazy and we test for it
-  on test_current SUBTEST, but had USAGE_DROP_TIMEOUT_MS be a little
-  longer.
-- Changed BO_SIZE and EVICT_STEP to allow for more than two eviction steps
-  on a 1GiB VRAM system.
-- Reduced USAGE_SLACK to avoid false positives, but still allow for some
-  page table accounting.
-
-Compared to v2 of this one [6]:
-
-- Ignore -ENOMEM and -ENOSPC when trying to fill VRAM.
-- When limiting max memory, allow for some slack, as there might be some
-  overhead.
-- On Xe, allocate GEM object with no deferred backing, and skip binding.
-
-Compared to v3 of this one [7]:
-
-- Merge dmem_cgroups tests into cgroup_dmem and making cgroup_dmem original
-  test a subtest.
-- Remove assertion when trying to verify allocations have failed as amdgpu
-  will fallback to GTT.
-
-[1] https://patchwork.freedesktop.org/series/163935/#rev3
-[2] https://patchwork.freedesktop.org/series/166496/
-[3] https://lore.kernel.org/dri-devel/20260611173301.17473-1-thomas.hellstrom@linux.intel.com/
-[4] https://gitlab.freedesktop.org/cascardo/igt-gpu-tools/-/commits/dmem_max?ref_type=heads
-[5] 502d801f0ab0 ("Merge tag 'erofs-for-7.2-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs")
-[6] https://lore.kernel.org/dri-devel/20260623174319.4138648-1-cascardo@igalia.com/
-[7] https://lore.kernel.org/dri-devel/20260702130108.1397444-1-cascardo@igalia.com/
-
-
-Thadeu Lima de Souza Cascardo (4):
-  lib/xe: Introduce dmem driver and implement Xe support
-  lib/amdgpu: add amdgpu_cgroup_region_name
-  lib/amdgpu: add amdgpu support to igt_dmem_driver
-  tests/dmem_cgroups: add test for dmem.current
-
-Thomas Hellström (3):
-  lib/igt_cgroup: add cgroup v2 and dmem controller helpers
-  tests/cgroup_dmem: add dmem cgroup controller test
-  lib/xe: add xe_cgroup_region_name() helper
-
- lib/amdgpu/amd_dmem.c   |  99 +++++++
- lib/amdgpu/amd_memory.c |  25 ++
- lib/amdgpu/amd_memory.h |   2 +
- lib/igt.h               |   1 +
- lib/igt_cgroup.c        | 638 ++++++++++++++++++++++++++++++++++++++++
- lib/igt_cgroup.h        |  56 ++++
- lib/igt_dmem_driver.h   |  25 ++
- lib/meson.build         |   3 +
- lib/xe/xe_dmem.c        | 143 +++++++++
- lib/xe/xe_query.c       |  32 ++
- lib/xe/xe_query.h       |   2 +
- tests/cgroup_dmem.c     |  92 ++++++
- tests/dmem_cgroups.c    | 245 +++++++++++++++
- tests/meson.build       |   2 +
- 14 files changed, 1365 insertions(+)
- create mode 100644 lib/amdgpu/amd_dmem.c
- create mode 100644 lib/igt_cgroup.c
- create mode 100644 lib/igt_cgroup.h
- create mode 100644 lib/igt_dmem_driver.h
- create mode 100644 lib/xe/xe_dmem.c
- create mode 100644 tests/cgroup_dmem.c
- create mode 100644 tests/dmem_cgroups.c
-
--- 
-2.47.3
-
-*** BLURB HERE ***
-
-Thadeu Lima de Souza Cascardo (4):
-  lib/xe: Introduce dmem driver and implement Xe support
-  lib/amdgpu: add amdgpu_cgroup_region_name
-  lib/amdgpu: add amdgpu support to igt_dmem_driver
-  tests/dmem_cgroups: add test for dmem.current
-
-Thomas Hellström (3):
-  lib/igt_cgroup: add cgroup v2 and dmem controller helpers
-  tests/cgroup_dmem: add dmem cgroup controller test
-  lib/xe: add xe_cgroup_region_name() helper
-
- lib/amdgpu/amd_dmem.c   |  99 +++++++
- lib/amdgpu/amd_memory.c |  25 ++
- lib/amdgpu/amd_memory.h |   2 +
- lib/igt.h               |   1 +
- lib/igt_cgroup.c        | 638 ++++++++++++++++++++++++++++++++++++++++
- lib/igt_cgroup.h        |  56 ++++
- lib/igt_dmem_driver.h   |  25 ++
- lib/meson.build         |   3 +
- lib/xe/xe_dmem.c        | 143 +++++++++
- lib/xe/xe_query.c       |  32 ++
- lib/xe/xe_query.h       |   2 +
- tests/cgroup_dmem.c     | 333 +++++++++++++++++++++
- tests/meson.build       |   1 +
- 13 files changed, 1360 insertions(+)
- create mode 100644 lib/amdgpu/amd_dmem.c
- create mode 100644 lib/igt_cgroup.c
- create mode 100644 lib/igt_cgroup.h
- create mode 100644 lib/igt_dmem_driver.h
- create mode 100644 lib/xe/xe_dmem.c
+Assisted-by: GitHub Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+---
+ tests/cgroup_dmem.c | 92 +++++++++++++++++++++++++++++++++++++++++++++
+ tests/meson.build   |  1 +
+ 2 files changed, 93 insertions(+)
  create mode 100644 tests/cgroup_dmem.c
 
+diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+new file mode 100644
+index 000000000000..442c965f9bbf
+--- /dev/null
++++ b/tests/cgroup_dmem.c
+@@ -0,0 +1,92 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2025 Intel Corporation
++ */
++
++/**
++ * TEST: cgroup dmem
++ * Description: Exercises the cgroup v2 dmem controller interface.  Creates a
++ *              cgroup, moves the process into it, enumerates all dmem regions,
++ *              prints their capacity, system-wide current usage, per-cgroup
++ *              current usage and configured limits, then destroys the cgroup.
++ * Category: Core
++ * Mega feature: General Core features
++ * Sub-category: uapi
++ * Functionality: cgroup
++ * Feature: dmem
++ * Test category: uapi
++ */
++
++#include <inttypes.h>
++
++#include "igt.h"
++#include "igt_cgroup.h"
++
++IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
++
++static void fmt_bytes(uint64_t v, char *buf, size_t len)
++{
++	if (v == IGT_CGROUP_DMEM_MAX)
++		snprintf(buf, len, "max");
++	else
++		snprintf(buf, len, "%" PRIu64, v);
++}
++
++int igt_simple_main()
++{
++	struct igt_cgroup *cg;
++	const char *region;
++	char **regions;
++	uint64_t capacity, sys_current, cg_current, min, low, max;
++	char cap_s[32], sys_s[32], cg_s[32];
++	char min_s[32], low_s[32], max_s[32];
++	int i;
++
++	igt_require_f(igt_cgroup_dmem_available(),
++		      "No dmem regions found; is cgroup v2 with the "
++		      "dmem controller available?\n");
++
++	cg = igt_cgroup_new("igt-cgroup-dmem-test");
++	igt_assert_f(cg, "Failed to create cgroup\n");
++
++	igt_cgroup_move_current(cg);
++
++	regions = igt_cgroup_dmem_regions();
++	igt_assert_f(regions, "Failed to enumerate dmem regions\n");
++
++	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
++		 "region", "capacity", "system-current",
++		 "cgroup-current", "min", "low", "max");
++	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
++		 "------", "--------", "--------------",
++		 "--------------", "---", "---", "---");
++
++	for (i = 0; regions[i]; i++) {
++		region = regions[i];
++
++		igt_cgroup_dmem_get_capacity(region, &capacity);
++		fmt_bytes(capacity, cap_s, sizeof(cap_s));
++
++		igt_cgroup_dmem_get_system_current(region, &sys_current);
++		fmt_bytes(sys_current, sys_s, sizeof(sys_s));
++
++		igt_cgroup_dmem_get_current(cg, region, &cg_current);
++		fmt_bytes(cg_current, cg_s, sizeof(cg_s));
++
++		igt_cgroup_dmem_get_min(cg, region, &min);
++		fmt_bytes(min, min_s, sizeof(min_s));
++
++		igt_cgroup_dmem_get_low(cg, region, &low);
++		fmt_bytes(low, low_s, sizeof(low_s));
++
++		igt_cgroup_dmem_get_max(cg, region, &max);
++		fmt_bytes(max, max_s, sizeof(max_s));
++
++		igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
++			 region, cap_s, sys_s, cg_s,
++			 min_s, low_s, max_s);
++	}
++
++	igt_cgroup_dmem_regions_free(regions);
++	igt_cgroup_free(cg);
++}
+diff --git a/tests/meson.build b/tests/meson.build
+index 9c266569df25..880f6f5410ba 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -1,4 +1,5 @@
+ test_progs = [
++	'cgroup_dmem',
+ 	'core_auth',
+ 	'core_debugfs',
+ 	'core_getclient',
 -- 
 2.47.3
 
