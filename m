@@ -4,51 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47504C44515
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 16:22:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DA59C44515
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 16:30:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 844EE10E4A4;
-	Fri, 17 Jul 2026 16:22:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEB7710E4C3;
+	Fri, 17 Jul 2026 16:30:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="VlgZ9a78";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="ouz9BMCE";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0DE1A10E4A4
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 16:21:59 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 43EDF1476;
- Fri, 17 Jul 2026 09:21:55 -0700 (PDT)
-Received: from [10.57.84.220] (unknown [10.57.84.220])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 39F433F905;
- Fri, 17 Jul 2026 09:21:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1784305319; bh=hqfa31j4hSJa20+FMnSDUATuVb9eBd2KhkgMACds/Oo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=VlgZ9a78GvkZ7lavTCirJuDJLrPrt03w/0mzJdpTa5xE8VjV8ZWKBblqwenjG78Yt
- xNcUCzWv6Kh+XXiUXczUYJjgHPvQR7se/lrJGoVmxfiUDF+F+r6HawLvsttaU3KUoO
- WbzW1Y4ad/ZsIjJJp8xZh4cBSWxby7bBauSjFnKQ=
-Message-ID: <2a69d96e-d37e-4e3d-8eaa-3ea31caf3893@arm.com>
-Date: Fri, 17 Jul 2026 17:21:55 +0100
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 351A210E4C3
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 16:30:55 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2ceb096e675so75618655ad.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:30:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784305855; cv=none;
+ d=google.com; s=arc-20260327;
+ b=U4nbKILc7ZpGCgJ/S4m3RyhNS+xjcRvicnA0quGcaR+6z64UcxfKUzNEBzarfb8Z9U
+ f1S0yIANhqyfngTm1pZnERKoZ9rq6nfj/JyLRFqxnjSTJz2t6B5aVhzaLAzI7/knT3Xs
+ mBK5y1FAnVPWrnur7QPp1mdLKA8UF8Ku9Goz+pXqTo/0A+oetdeiBi3ia3YfBXNXVfh/
+ 55ogM6zFbDSwCINDrnIOCOk3lTVPAyQxkWBb5q3mFL73HWmSR+nlQZKeeuRvkecCxE6v
+ H6kBoM0UQ4kOozzMgK4H15KxDksKXQ8FxiLeVPG3uHMbZOPTEu0rz89P1y9Kwf7piM3S
+ os/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=mEFacLIneOp/QmtLUJi4Z80V3TBrQh57oZzZOS5MMp4=;
+ fh=50Ba64BhvxlXKbuXYiPnPOqjucn5xBo7qUNhPwKnj2A=;
+ b=Cw8yymZ/1fJ+Hmn2BC/ceSP9DkPBSFSOO2uPf6gdsfIAmJc3jEubJP2t8nep1cFl/U
+ sm4T8DXiRzwl1u/T0yl9uNAY/W/gDYX/tMEaiwJoyYJ9p6Lftdzs+ZrtbAgP26m7GJGO
+ NwLCJu1AMmArC9rdXMir9Vi+fMiEZrE4DTVe5Zit18gn5xWy1iboloXrWOiybWg+2reF
+ TNSh/M8dfJ5VNIcAmb6cKLlX5+S9KWP8ak4dDxOvh+s94mcOXzMqW/au/Ne299e5c7Xg
+ nZHu/VPXfSC6J8fKEUxQ7dS40zs2nqT75YtcDa/bEu9yxl50wfFXcVfdbM11fYbVOLHC
+ 4rQw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1784305855; x=1784910655;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=mEFacLIneOp/QmtLUJi4Z80V3TBrQh57oZzZOS5MMp4=;
+ b=ouz9BMCE+z6/EpgknfHGCEB9bjCTiqzH0ulSMg0tkle4duS8BFCWNyUbjeVcldWKkP
+ 6icxid2/TxI18eDbsPva6NFVkmzzzwQ6GZduKp3aOLiJFvO8Urq/1U/tvNumD4WRr7BB
+ Mo3msc1+IE63gGhetg+HBu9kaoWIobW081TMHvqVj9AQpFjvNdwiGFdtVRlk8oc/Xdsm
+ 8a9kTZQkEDmzi/hA1zKyAbWIG1xEuaPm5YUES9FLizImrnoORdmbkZoEx6dzXXoN7u+f
+ euoHVdW9U2o5DvUekUNZ1uFBCp+prP9rL7NnZj6Byt/8nqesgPefBQJn5ZSU8hKwr6/N
+ 6IIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784305855; x=1784910655;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=mEFacLIneOp/QmtLUJi4Z80V3TBrQh57oZzZOS5MMp4=;
+ b=L6GRbmA4VlFZhz1l9fx3/6j8+tczJvJRooFwtXsDJwNpv+37Sf0qaExAYTQ2l+k61f
+ dKAfNkHaXZMEVBhcEdqGDviCcDsFh7/wAapmUNf8Goo6vnhPvWav+1ZLu2lsLeWvDeSE
+ zPW1gsEXFQYC9rZxVP4DHwZM7ZtupfySnpzabiA66T2b7dRRZPKHhFHKXPcKbCXCsMoO
+ qAlpPhPKL837E6tH7e74E6/xnULeuyfB9E/chGKlm/QsoeNLNN1GXviqaEZ7CbIHxFZS
+ Ohcopr1dnHESi4YV+pcQEyNHaiFVI73t2we01Kw8UmQRY9MYaOq3tmDVRJ0hJDHOmWLe
+ suNA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq8ReJN8ln6Qk0uCE/Sv5dS2qcepADZbhJETc+mSN0ow7rT0GAkvIofuSpY6T8LK0ENBUD183DIQcU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyBu2Cl7/vKqfa4D8VjpVjmkgOCF9+H+Y9E88AkqpKznxj+cOTw
+ e3DcPT42i3s639aWXnyhiU+Sx/TKlYQ3hyxIaBCCLtdu30Psuy9Yjn8y50eGngmwpyUvfZ9l75J
+ vl/n5OuESoUjw2Ubmplh51v8rZDct7dVnBIKPv/MX
+X-Gm-Gg: AfdE7cl3qanoVD9+1BwqT3JfQjumrqFjYpJi89kWIb2OmAdnlFnViG0c8CQwvBKHmzV
+ tQ8NOzNwR282849brdk64o4PFH4ppsbEY/6CSzIrH1FgvfojzYwFgDDbhq2xYPq/bI58jQed+gY
+ o0R3s54tQ+My+Blfsshi1qjiXH7uQjQ1upLr5JOZ6rRAYLHljhBjtkgPkpUdv9Yhx9GaGkKZ+Bs
+ aMjXRDbbobYrvKHucWmktSDCrFuLTbMni77Ra8edMbi0togop7JMxLlgfWpTA==
+X-Received: by 2002:a17:903:19cc:b0:2cc:db71:4db5 with SMTP id
+ d9443c01a7336-2cf349d3ee3mr39097735ad.37.1784305853798; Fri, 17 Jul 2026
+ 09:30:53 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 8/8] misc/arm-cla: Add userspace interface
-Content-Language: en-GB
-To: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Jean-Philippe Brucker <jpb@kernel.org>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-References: <20260717104759.123203-1-ryan.roberts@arm.com>
- <20260717104759.123203-9-ryan.roberts@arm.com>
- <404d2c6d-4a18-40c2-9da9-fb030c39536f@app.fastmail.com>
- <5012970d-a0f0-461c-b0b6-61823e0aab2d@arm.com>
- <59d0c4d5-af53-410d-9bf8-8dd2ba17f697@app.fastmail.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-In-Reply-To: <59d0c4d5-af53-410d-9bf8-8dd2ba17f697@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <CALzav=fH7N+ionUnELqw5ZaGrPmgp_w6kxoCtoY8fMmZY_S4zw@mail.gmail.com>
+ <65ba06e7-4c54-437d-9fbd-632c0468f66d@ozlabs.org>
+ <allLypOmtbnPrgbw@google.com> <20260717094230.21829508@pumpkin>
+In-Reply-To: <20260717094230.21829508@pumpkin>
+From: David Matlack <dmatlack@google.com>
+Date: Fri, 17 Jul 2026 09:30:25 -0700
+X-Gm-Features: AUfX_mwhrL8yyMXeQp2wwPQntVuYsbostLm0_QgQevpUJ-QTbHpefGc5UhWYaLU
+Message-ID: <CALzav=fx2i1ONLjBTheHpdOQqQJJ05OP9b4-D3HkK6NumKi=pg@mail.gmail.com>
+Subject: Re: [PATCH v5 0/9] vfio/pci: Add mmap() for DMABUFs
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>,
+ Leon Romanovsky <leon@kernel.org>, 
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>, 
+ Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>, 
+ Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>, 
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,207 +121,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 17/07/2026 16:31, Arnd Bergmann wrote:
-> On Fri, Jul 17, 2026, at 16:35, Ryan Roberts wrote:
->> On 17/07/2026 13:54, Arnd Bergmann wrote:
->>> On Fri, Jul 17, 2026, at 12:47, Ryan Roberts wrote:
->>>> Expose CLA devices through a character device so userspace can enumerate
->>>> the available hardware and map accelerator register frames.
->>>>
->>>> Define version 1 of the CLA UAPI with a GET_PARAM ioctl. Report device
->>>> topology, CPU affinity, domain membership, mmap offsets, architecture
->>>> version and attached accelerator masks, together with the IIDR, DEVARCH
->>>> and REVIDR of each accelerator.
->>>>
->>>> CLA registers can only be read from the CPU local to the device, while
->>>> enumeration may occur on any CPU. Validate the supported CLA
->>>> architecture version during device setup and cache the CLA and
->>>> accelerator identification registers for later ioctl queries.
->>>
->>> This interface looks very raw at the moment, I expect this will have
->>> one or more larger redesigns.
->>
->> Are you referring to the overall UABI or specifically to the ioctl interface
->> here? I could imagine the ioctl interface evolving before we get this merged
->> (although it is based on similar patterns used by some DRM and accel drivers -
->> it's intended to be easily extensible while existing params remain stable).
->>
->> The aspect where the CLA MMIO is directly mapped into user space is an aspect we
->> are keen to keep though since it has significant performance implications if we
->> need to redirect through the kernel.
-> 
-> I see no problem with having a per-accelerator VM area for MMIO
-> operations mapped to userspace, this is obviously part of all
-> designs like this one that sneak custom coprocessor instructions
-> in by disguising them as MMIO.
-> 
-> My concern is about how userspace gets to that mapping, both
-> the chardev itself, but also the ioctls.
+On Fri, Jul 17, 2026 at 1:42=E2=80=AFAM David Laight
+<david.laight.linux@gmail.com> wrote:
+>
+> On Thu, 16 Jul 2026 21:23:22 +0000
+> David Matlack <dmatlack@google.com> wrote:
+>
+> > On 2026-07-16 03:51 PM, Matt Evans wrote:
+> > > Hi David,
+> > >
+> > > On 15/07/2026 19:12, David Matlack wrote:
+> > > > On Wed, Jul 15, 2026 at 10:47=E2=80=AFAM Matt Evans <matt@ozlabs.or=
+g> wrote:
+> > > >
+> > > >> This is based on v7.2-rc3.
+> > > >>
+> > > >> These commits are on GitHub for easier browsing, along with
+> > > >> "[RFC ONLY] selftests: vfio: Add standalone vfio_dmabuf_mmap_test"=
+:
+> > > >>
+> > > >> https://github.com/metamev/linux/compare/v7.2-rc3...dev/mev/vfio-d=
+mabuf-mmap-v5
+> > > >
+> > > > It'd be great to have this test upstream. I'm happy to review it wh=
+en
+> > > > you're ready. Looks like it just needs to be redone to use the VFIO
+> > > > selftests library and kselftests harness. AI could probably do the
+> > > > conversion pretty quick :)
+> > >
+> > > For sure, I'd intended to catch up with you on best approach here. :)
+> > >
+> > > Aside from the organic structure of the test (the open-coded VFIO
+> > > device/group setup/init needs to go), the main issue is that it relie=
+s
+> > > on a hacked/out of tree QEMU "EDU++" device with a second larger BAR
+> > > (containing freely read-writable memory).  A subset of tests run with
+> > > the in-tree EDU device, but coverage is too low.
+> > >
+> > > The desirable properties are:
+> > >
+> > >  - Having a BAR that is pure memory (all locations present, writable
+> > > without disruptive side-effects) so that mapping aliases can be
+> > > constructed and detected.  This is good to test things like non-zero
+> > > vm_pgoffs and VA space presentation of physically-discontiguous DMABU=
+Fs.
+> > >
+> > >  - BAR >> hugepage size so we can eyeball huge mappings work (or bett=
+er,
+> > >  mechanically test for them).  At least 32MB would tick this box for =
+4K,
+> > > 16K page systems.
+> > >
+> > >  - Something QEMU supports*, so one can run the test in a VM/TCG syst=
+em.
+> > >
+> > > There were some real device models in QEMU that could be used this wa=
+y,
+> > > but needed a fair bit of setup;  I didn't want to rathole
+> > > vfio_dmabuf_mmap_test on including a ton of device-specific code for
+> > > some video card or similar.
+> > >
+> > > I'll dig more for a simple target that provides these properties --
+> > > obviously it would be better to point this test at an off-the-shelf
+> > > device (including silicon!).  And, proposing EDU extensions to the QE=
+MU
+> > > folks may be useful (there're uses for a better EDU in other contexts=
+ too).
+> > >
+> > > Since this test uses MMIO for a specific [class of] function, my firs=
+t
+> > > thought is it should be another VFIO driver-type test sibling of
+> > > vfio_pci_driver_test.  For example, we could extend the driver-type
+> > > tests' backend struct vfio_pci_driver_ops for functions capable of
+> > > providing a Big Memory BAR, like QEMU EDU++.  EDU can also memcpy, so
+> > > could also support vfio_pci_driver_test.
+> > >
+> > > The spirit of the device backends hiding setup of a complex device is
+> > > handy, and it's plausible that several backends could provide this "b=
+ig
+> > > memory BAR" service.  What do you think, any concerns with extending
+> > > vfio_pci_driver_ops like that?
+> >
+> > I wouldn't recommend leveraging the driver framework unless absolutely
+> > necessary. It makes the test harder to run.
+> >
+> > The biggest issue I see with the proposed properties is being able to
+> > treat the BAR as memory. That obviously will depend on the device and
+> > may require device-specific setup. If we decide that treating the BAR a=
+s
+> > memory is truly required then using the driver framework is the way to
+> > go. But I'm hoping we can avoid that requirement.
+>
+> Could you run a test where only a known part of the BAR can be treated
+> as memory?
+> A large BAR is likely to have some areas that can be accessed as memory.
 
-OK thanks for the clarification.
+Yeah. But then the test can only run against devices the test knows
+about. So we have to update the test every time someone needs to use a
+new device.
 
-> 
->>> Most importantly, a single character device to expose an arbitrary
->>> number of underlying hardware features is an inherently flawed security
->>> model. If any specific accelerator is ever found to have a
->>> major vulnerability, that would mean administrators will have to
->>> disable all of them by default.
->>
->> Note that we are exposing MMIO per CLA, not per accelerator. So preventing
->> access to a single CLA would prevent access to all accelerators attached to it.
->> There is a per-accelerator availability masking control that the kernel can use
->> to disable access to selected accelerators though, which might help with the
->> vulnerability example.
->>
->> The rationale for choosing a single device file was driven by performance: At
->> domain reassignment time, we need to unmap and invalidate the TLB entries for
->> all the devices in the domain from the out-going process's address space. By
->> having all the devices in a single file and all devices within the same domain
->> adjacent, they can all be mapped to a single VMA, meaning the driver can use a
->> single call to the existing zap_special_vma_range(), which will result in a
->> single TLBI-by-range instruction, which is faster than a TLBI-by-va for every
->> device.
->>
->> If you think it is important for security to have each CLA exposed by an
->> independent device file, I'll take another look.
-> 
-> Without concrete implementation examples, I find it hard to imagine
-> how granular the CLA and accelerator blocks are. What I'm interested
-> in is separating things into special character devices when they
-> refer to units that you want to manage separately in userspace.
-> 
-> If you have e.g. one accelerator for tensor operations and one for
-> handling gzip, I would very much want to see those have a separate
-> chardev nodes so a local administrator can give permissions to each
-> one separately, and have device names that are sensible to the
-> functionality underneath.
+We could support a command line option to specify the BAR subregion.
+But then the user has to figure out what to pass there.
 
-Unfortunately this doesn't map well to the HW: the MMIO is for the CLA interface
-(each CPU has 1 CLA). Once you have access to that interface, you can
-communicate with all of the accelerators that are connected to the CLA. We could
-potentially use the availability masking control to only expose a single
-accelerator for a given context (which would be chosen based on which file you
-opened), but it wouldn't be possible for (e.g.) 2 different processes to access
-the different accelerators concurrently - they would have to be subject to the
-time slice model.
+So if we can find a way to get equivalent test coverage with "any
+device with a large enough BAR", that would be ideal. Then it's just
+matter of the user picking a device, and it's easy enough to look at
+BAR sizes via lspci.
 
-I'll think harder about what we might be able to do though.
-
-> 
-> If you have separate accelerators for AES encryption and decryption,
-> or a large set of identical accelerators that can run concurrently,
-> those would of course get managed as a single device file.
-> 
-> Most importantly, I don't think a global /dev/cla device node
-> is a sensible interface from a management perspective as that
-> would give unprivileged userspace direct control to something
-> that is essentially arbitrary (or buggy) vendor firmware
-> with DMA permissions.
-
-OK I see your point.
-
-While the interface supports up to 8 connected accelerators, we anticpate there
-only being a single compute accelerator in practice. We decided to keep the
-driver interface generic given the CLA spec, but perhaps it would be more
-straightforward to limit the driver implementation to only permitting a single
-accelerator?
-
-> 
->>>> Support shared read-write mmap of one or more CLA register pages. Create
->>>> a context for every domain covered by the mapping and resolve faults
->>>> only while that context owns the domain. Queue unassigned contexts with
->>>> the domain scheduler, drop mmap_lock while waiting for assignment and
->>>> retry the fault after the context is woken.
->>>
->>> I still need some time to better understand what this means.
->>
->> I can probably do a better job of explaining this: The kernel keeps a cla_ctx
->> object which represents a single {file description, mm_struct} context that
->> wants to use the cla_domain (collection of 1 or more cla_dev). Initially the VMA
->> is not populated so when user space tries to access, it will fault to the
->> driver. If the cla_domain is assigned to a different cla_ctx, the faulting
->> thread is put to sleep until the driver determines that it's the turn of that
->> cla_ctx to be assigned the domain. At that point the waiting thread(s) are woken
->> and map the devices from the domain to the VMA and return to user space. The
->> out-going cla_ctx had it's mappings removed during the reassignment process so
->> any user space access will now fault and sleep waiting for assignment.
-> 
-> Got it, thanks
-> 
->>> Does a CPU have multiple concurrently running contexts? 
->>
->> The HW only has a single HW context, hence the timesliced assignment approach
->> described above (assuming there is more than 1 concurrent user).
-> 
-> Sorry, I think we have a clash of terminology. I meant whether
-> a CPU can start multiple operations on one or more accelerator
-> in a single cla_domain, and have each of those operate at the
-> same time while the hardware is asynchronously processing them
-> in parallel.
-> 
-> It sounds like a single accelerator has one register to wait for
-> completion and can only have single operation in progress at any
-> time, but if multiple accelerators are in the same cla_ctx,
-> can a single thread start an operation in each one before waiting
-> for the first to complete?
-
-CLAs can only be accessed/controlled from their local CPU. The expected model is
-that you have a thread per CLA (pinned to the CPU) to submit operations only for
-it's local CLA.
-
-> 
->>> Is a
->>> user process able to starve the allocation of other processes
->>> by just requesting a lot of them?
->>
->> In the current code, a process can theoretically create the same number of
->> cla_ctx as the number of file descriptors it can open(). It would then need to
->> mmap and access to get into the queue to be assigned the domain. I see it as
->> similar to threads; if process A creates 10 threads and process B creates 1
->> thread, then in the long run (ignoring cgroups et al) you'd expect A to get
->> 10/11th of the CPU time (IIUC?).
->>
->> Do you think this consitutes a DoS?
-> 
-> I need to think about it more. Probably not a DoS, but if the resource
-> is managed like CPU timeslices, I wonder whether you'd have to also
-> consider things like realtime tasks or priority inversion.
-
-Yes... we are considering realtime. I was trying not to dump too much into the
-initial RFC though :)
-
-Thanks,
-Ryan
-
-
->  
->>>> +	wait_event_interruptible(ctx->waitq,
->>>> +				 READ_ONCE(domain->assigned_ctx) == ctx ||
->>>> +				 cla_ctx_is_dying(ctx) ||
->>>> +				 READ_ONCE(domain->broken));
->>>
->>> If you call wait_event_interruptible(), you have to check the return
->>> code and deal with it being interrupted.
->>
->> I believe this is already correct - I'm reeturning VM_FAULT_RETRY
->> unconditionally at this point, which is also the correct return code if we get
->> interrupted. This unwinds to arm64's do_page_fault() which then notices and
->> handles the fault:
->>
->> 	/* Quick path to respond to signals */
->> 	if (fault_signal_pending(fault, regs)) {
->> 		if (!user_mode(regs))
->> 			goto no_context;
->> 		return 0;
->> 	}
-> 
-> Ok, makes sense.
-> 
->> I believe GUP and other handle_mm_fault() callers have similar logic.
->>
->> I'll add a comment to make that clear.
-> 
-> Thanks
-> 
->    Arnd
-
+> >
+> > Instead, I think you can get pretty far by inspecting /proc/pid/pagemap
+> > to determine if the mmap() set things up correctly, without actually
+> > accessing the BAR. You can use /proc/pid/pagemap to look up the PFN and
+> > PAGEMAP_SCAN to detect huge pages.
+> >
+> > With that requirement gone, then all you really need is a device with a
+> > large enough BAR. And even that it not a hard requirement. I'm sure
+> > there are plenty of test cases that could work with smaller BARs. The
+> > few tests that want to exercise huge mappings can inspect the device BA=
+R
+> > sizes first, and if they're all too small, SKIP() the test.
+> >
+> > If you structure the test this way, then it's easy for the test to be
+> > used. It can be run against any device for the basic functional
+> > coverage, and can be run against a device with a larger BAR for full
+> > coverage of huge mappings.
+> >
+> > Does QEMU emulate any devices that have 32MB or larger BARs?
+> >
+>
