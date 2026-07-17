@@ -4,56 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFA51C44515
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 18:45:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26F84C44515
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 18:48:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E61310E2F5;
-	Fri, 17 Jul 2026 18:45:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50C2810E16C;
+	Fri, 17 Jul 2026 18:48:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B1fKXYJh";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="fzJfn2kH";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3547010E2F5
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 18:45:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1CC0943FEB;
- Fri, 17 Jul 2026 18:45:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7D1B1F00A3A;
- Fri, 17 Jul 2026 18:45:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784313937;
- bh=7e5kgtc2YZSO5D03srWrdyaym5Iq/tfMaY+RIMQ8Ask=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=B1fKXYJh2h7Ct2/5ML0oO16NwxLPg/4YRE4YHOue1OIZylWuNWnUszWCEoEOaAXoP
- 4HlIqSo5hETN9YBZY48ZcnmuXi5WVyQrJp7jFO+tL7UAmpw/i4mFysLaQXsW8zif1x
- +RqtsbyH5fy9gDDKfVDNokAXATV+aMfYebYpIkZ7XXKawQ1AXjmmF3jRniGLIs3cOf
- vf8Ybp/wUvDhMxANd9b42G9fuLAjLXd+fxy4N9PQBcvZR5uGRGkVTe7CnUbCo8ZgT+
- xoqv+kcYqWru71TvPJPdAJEi6TK12MO/1+2nD0MLv7FRpF4cgufm6hQbSDH1ChnnHF
- Pc/KIgt9oxttg==
-Date: Fri, 17 Jul 2026 13:45:36 -0500
-From: Rob Herring <robh@kernel.org>
-To: Frank.Li@oss.nxp.com
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH 2/4] dt-bindings: soc: imx-iomuxc-gpr: allow bridge@18 as
- child node
-Message-ID: <20260717184536.GA1805255-robh@kernel.org>
-References: <20260708-arm_dts_ldb-v1-0-4f5579b85797@nxp.com>
- <20260708-arm_dts_ldb-v1-2-4f5579b85797@nxp.com>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEBA210E16C
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 18:48:38 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 15CF8664;
+ Fri, 17 Jul 2026 20:47:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1784314061;
+ bh=jJ7R+wwz8w6ZuFFtfjFEaGPZs98mzCpVLOeIWTgQUho=;
+ h=From:To:Cc:Subject:Date:From;
+ b=fzJfn2kHq5tRR+It5NYrawcu5D1V/KEeaBjEjXWCWjVbsZTP0v/DyBhiBEhD2xeEZ
+ 7siUfgsNZIi4xTg6d28rO+ukLVurJfSUfN3DNBq5wQoQrmkrdl1U4tBCvNoJ+lzsm+
+ vjBhaFQvqqeHFVHKzYRvQAkttfV+a08XPDurx7eE=
+From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-renesas-soc@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Johan Hovold <johan@kernel.org>,
+ Jonas Karlman <jonas@kwiboo.se>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, stable@vger.kernel.org
+Subject: [PATCH v2] drm/bridge: display-connector: Fix I2C adapter resource
+ leak
+Date: Fri, 17 Jul 2026 21:48:36 +0300
+Message-ID: <20260717184836.2017386-1-laurent.pinchart+renesas@ideasonboard.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708-arm_dts_ldb-v1-2-4f5579b85797@nxp.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,111 +56,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 08, 2026 at 04:29:03PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> The legacy i.MX6SX (>15 year) SoC imx-iomuxc-gpr contains one LDB_CTRL
-> register. Allow the LVDS Display Bridge(LDB) child node under
-> imx-iomuxc-gpr.
-> 
-> Fix below CHECK_DTBS warnings:
->   arch/arm/boot/dts/nxp/imx/imx6sx-nitrogen6sx.dtb: syscon@20e4000 (fsl,imx6sx-iomuxc-gpr): '#address-cells', '#size-cells', 'bridge@18' do not match any of the regexes: '^ipu[12]_csi[01]_mux$', '^pinctrl-[0-9]+$
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  .../bindings/soc/imx/fsl,imx-iomuxc-gpr.yaml       | 59 ++++++++++++++++++++++
->  1 file changed, 59 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/imx/fsl,imx-iomuxc-gpr.yaml b/Documentation/devicetree/bindings/soc/imx/fsl,imx-iomuxc-gpr.yaml
-> index 721a67e84c137..c3b942bbcd6da 100644
-> --- a/Documentation/devicetree/bindings/soc/imx/fsl,imx-iomuxc-gpr.yaml
-> +++ b/Documentation/devicetree/bindings/soc/imx/fsl,imx-iomuxc-gpr.yaml
-> @@ -47,10 +47,21 @@ properties:
->    reg:
->      maxItems: 1
->  
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 1
-> +
->    mux-controller:
->      type: object
->      $ref: /schemas/mux/reg-mux.yaml
->  
-> +  bridge@18:
-> +    type: object
-> +    $ref: /schemas/display/bridge/fsl,ldb.yaml#
-> +    unevaluatedProperties: false
-> +
->  patternProperties:
->    "^ipu[12]_csi[01]_mux$":
->      type: object
-> @@ -67,6 +78,18 @@ allOf:
->        patternProperties:
->          '^ipu[12]_csi[01]_mux$': false
->  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          not:
-> +            contains:
-> +              const: fsl,imx6sx-iomuxc-gpr
-> +    then:
-> +      properties:
-> +        bridge@18: false
-> +        '#address-cells': false
-> +        '#size-cells': false
-> +
->  additionalProperties: false
->  
->  required:
-> @@ -87,4 +110,40 @@ examples:
->          };
->      };
->  
-> +  - |
-> +    #include <dt-bindings/clock/imx6sx-clock.h>
-> +
-> +    syscon@20e4000 {
-> +        compatible = "fsl,imx6sx-iomuxc-gpr", "fsl,imx6q-iomuxc-gpr", "syscon", "simple-mfd";
-> +        reg = <0x020e4000 0x4000>;
-> +        #address-cells = <1>;
-> +        #size-cells = <1>;
-> +
-> +        bridge@18 {
-> +            compatible = "fsl,imx6sx-ldb";
-> +            reg = <0x18 0x4>;
-> +            clocks = <&clks IMX6SX_CLK_LDB_DI0>;
-> +            clock-names = "ldb";
-> +            status = "disabled";
+If the probe function returns an error after getting the I2C adapter for
+DDC, the reference to the adapter is never released. Fix it by releasing
+it in the bridge .destroy() handler.
 
-Examples should be enabled. Drop.
+There is no need to test the ddc pointer with !IS_ERR(), as
+of_get_i2c_adapter_by_node() returns NULL on error.
 
-> +
-> +            ports {
-> +                #address-cells = <1>;
-> +                #size-cells = <0>;
-> +
-> +                port@0 {
-> +                    reg = <0>;
-> +
-> +                    endpoint {
-> +                    };
-> +                };
-> +
-> +                port@1 {
-> +                    reg = <1>;
-> +
-> +                    endpoint {
-> +                    };
-> +                };
-> +            };
-> +        };
-> +    };
->  ...
-> 
-> -- 
-> 2.43.0
-> 
+Fixes: 2e2bf3a5584d ("drm/bridge: display-connector: add DP support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Reviewed-by: Johan Hovold <johan@kernel.org>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+ drivers/gpu/drm/bridge/display-connector.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+index d1e74dd2e051..eb3412ec30a0 100644
+--- a/drivers/gpu/drm/bridge/display-connector.c
++++ b/drivers/gpu/drm/bridge/display-connector.c
+@@ -43,6 +43,13 @@ static int display_connector_attach(struct drm_bridge *bridge,
+ 	return flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR ? 0 : -EINVAL;
+ }
+ 
++static void display_connector_destroy(struct drm_bridge *bridge)
++{
++	struct display_connector *conn = to_display_connector(bridge);
++
++	i2c_put_adapter(conn->bridge.ddc);
++}
++
+ static enum drm_connector_status display_connector_detect(struct drm_bridge *bridge)
+ {
+ 	struct display_connector *conn = to_display_connector(bridge);
+@@ -208,6 +215,7 @@ static u32 *display_connector_get_input_bus_fmts(struct drm_bridge *bridge,
+ 
+ static const struct drm_bridge_funcs display_connector_bridge_funcs = {
+ 	.attach = display_connector_attach,
++	.destroy = display_connector_destroy,
+ 	.detect = display_connector_bridge_detect,
+ 	.hpd_enable = display_connector_hpd_enable,
+ 	.hpd_disable = display_connector_hpd_disable,
+@@ -439,9 +447,6 @@ static void display_connector_remove(struct platform_device *pdev)
+ 		regulator_disable(conn->supply);
+ 
+ 	drm_bridge_remove(&conn->bridge);
+-
+-	if (!IS_ERR(conn->bridge.ddc))
+-		i2c_put_adapter(conn->bridge.ddc);
+ }
+ 
+ static const struct of_device_id display_connector_match[] = {
+
+base-commit: 5b9af25f2d0b574b4058c9f8c84486a597168116
+-- 
+Regards,
+
+Laurent Pinchart
+
