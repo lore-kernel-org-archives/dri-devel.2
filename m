@@ -4,44 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8372C44520
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:30:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 789A8C44520
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:33:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1616D10F545;
-	Fri, 17 Jul 2026 12:30:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA16B10F546;
+	Fri, 17 Jul 2026 12:33:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jDuNfiXx";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="hMWp8GwJ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BCE810F548
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:30:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1B02C60A5E;
- Fri, 17 Jul 2026 12:30:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B1F91F000E9;
- Fri, 17 Jul 2026 12:30:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784291431;
- bh=1ycxZC2wtNKQ+x4yH6H19ifoAwp4Ht+9QQRRfMv/9cA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jDuNfiXxdU5RGxPNgAiyQ5iZk95BXrK97EtOXeJKZjrq4D94wXzsos90UBYoZy0ts
- RCT48wG3acwQ4HNumc1fPprNXj5i2NCxJOOdswcT0gUW/RVX11i0/8OdnikXPEqFrz
- ep9aSkB88V8EHrh1DKApN0Ra7ptHpg4okIytOt1bMKIMPSKgw8MKYwRQkcO75pkCr6
- NAOzUL4YYbOMs4lM4wtoMz1478j2JWi1SbeDSpV5n2Bc05x9mmdP91swiRI4xy8Qrv
- +zLNUUh1LTOU2zSGjOEpLQQWOs7p3axqPKNInRaI86EWI/q3sYm+/FtKKEaTsp3OWQ
- NTM+GIFJsYmlg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 4/4] ARM: dts: imx7-colibri: Set LCDIF format
-To: "Francesco Dolcini" <francesco@dolcini.it>
-Cc: imx@lists.linux.dev, robh@kernel.org, dri-devel@lists.freedesktop.org,
- Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260717121847.488148-5-francesco@dolcini.it>
-References: <20260717121847.488148-1-francesco@dolcini.it>
- <20260717121847.488148-5-francesco@dolcini.it>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 12:30:30 +0000
-Message-Id: <20260717123031.6B1F91F000E9@smtp.kernel.org>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4678910F542
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:33:12 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A85021476;
+ Fri, 17 Jul 2026 05:33:07 -0700 (PDT)
+Received: from [10.57.84.220] (unknown [10.57.84.220])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 467C23F7B4;
+ Fri, 17 Jul 2026 05:33:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1784291591; bh=RDpVVg8kFR8tLzOuRdIhEL58jET3NKRROOt/Z0gxSao=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=hMWp8GwJzRF5UZIO7llWHBXTN/HLu31bPfKJMWbDqFPVX/ABCDP7Uv8E3nfr/pgz6
+ mz93o+2LPGP9NgzF7GOkgmnMKpHPVuOlv83VrSes5m+va/CFG+etb0rtKfkR6zbW0B
+ a1EOO8mqxjWKsUm2Nf3s27A0ZKvy/CA6wT5MW1T8=
+Message-ID: <a39b2bef-8fb5-444d-8ab8-3882224a3311@arm.com>
+Date: Fri, 17 Jul 2026 13:33:07 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 0/8] Arm Core Local Accelerator Driver
+Content-Language: en-GB
+To: Marc Zyngier <maz@kernel.org>, Will Deacon <will@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Mark Rutland <mark.rutland@arm.com>, Jean-Philippe Brucker <jpb@kernel.org>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ oupton@kernel.org, hch@infradead.org, jgg@nvidia.com
+References: <20260717104759.123203-1-ryan.roberts@arm.com>
+ <aloS_T3LQvpHeZUV@willie-the-truck> <87ech1rf6n.wl-maz@kernel.org>
+From: Ryan Roberts <ryan.roberts@arm.com>
+In-Reply-To: <87ech1rf6n.wl-maz@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,34 +59,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The commit message body incorrectly refers to `colibri imx6ull` =
-instead of `colibri imx7`.
---
+On 17/07/2026 13:09, Marc Zyngier wrote:
+> Thanks Will for roping me in.
 
---- Patch [4]: [PATCH v1 4/4] ARM: dts: imx7-colibri: Set LCDIF format ---
-commit 9c45712860f8ad12db4bc3a18c8c4e7039c7f51b
-Author: Francesco Dolcini <francesco.dolcini@toradex.com>
+Sorry - I intentionally didn't include you because last time we spoke you said
+you were only really interested in discussions on the virt side of things and I
+didn't want to spam your inbox. Perhaps the wrong decision...
 
-ARM: dts: imx7-colibri: Set LCDIF format
+> 
+> On Fri, 17 Jul 2026 12:33:17 +0100,
+> Will Deacon <will@kernel.org> wrote:
+>>
+>>> I'm deliberately constraining the scope to bare-metal support for now.
+>>> Virtualization is something we are considering (and have prototyped), but plan
+>>> to post a separate RFC for that as follow-up, once we have agreement on
+>>> direction for the bare-metal driver.
+>>
+>> I'd actually like to see what the virtualisation part looks like first
+>> because doing it as a bolt-on later feels like the wrong approach. The
+>> structure you have at the moment is remarkably clean, given the
+>> architectural/CPU interactions (this thing even apparently builds as a
+>> module, nice!), but I'm unsure how far you can push the separation once
+>> you need to start hacking at KVM. Maybe the MMU notifiers are enough,
+>> but I can't tell.
+> 
+> +1.
+> 
+> Virtualisation cannot be a "bolt on the side" exercise. It is an
+> integral part of the arm64 tree, particularly for memory management
+> and scheduling, all of which have a direct impact on KVM.
+> 
+> I don't think we can really evaluate anything here without looking at
+> the full picture.
 
-This commit updates the device tree for the Colibri i.MX7 to explicitly set
-the LCDIF pixel format to rgb666 for its 18-bit width bus.
+OK understood - as per reply to Will, we'll prioritise doing a version with virt
+support.
 
-> The lcd DPI interface on colibri imx6ull uses a 18-bit width bus, set
-> the interface-pix-fmt accordingly.
+Thanks,
+Ryan
 
-[Severity: Medium]
-Is this description accurate for this patch? The subject and the modified=20
-file (imx7-colibri.dtsi) both target the i.MX7 hardware, but the commit=20
-message body mentions the colibri imx6ull. Should this text be updated to=20
-refer to the i.MX7?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717121847.4881=
-48-1-francesco@dolcini.it?part=3D4
+> 
+> Thanks,
+> 
+> 	M.
+> 
+
