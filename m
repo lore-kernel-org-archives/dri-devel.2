@@ -4,121 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47613C44525
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10CE0C44529
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A66A10E78D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F28E010E790;
 	Mon, 20 Jul 2026 07:15:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P6J+5xgM";
+	dkim=pass (2048-bit key; secure) header.d=debian.org header.i=@debian.org header.b="uRnCV7WO";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FA0E10F25B;
- Thu, 16 Jul 2026 09:44:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 727DB600AF;
- Thu, 16 Jul 2026 09:44:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D761F000E9;
- Thu, 16 Jul 2026 09:44:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784195088;
- bh=dmYCCccZvFya5IfQO9umLSlG7KA9XHfnAyi29IizQrE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=P6J+5xgMjqQhZg4SZJraBPZaPv2e6+jOxcujMrUEOUgldmEur9LTBYnzHRap/ieCI
- 9NOwwquOSB20wUe0GRV8tW2roBWIsNqhxmJlQvBzZFSaMKY1QF2JQIvNmCCPrUM7iV
- LfHSG1T9SdIpLgfUbTSAD88RrIfs70n11jj+F4BvKYlS/wW4aravTdaDp5gV8A5yh2
- pcFKQy+Kz7kscIo+8APeLjADhi+Y3RDAqou8RidssxxD5lL1lwrEXrJXISKpcjUNrm
- S6bs3AZyFeqOKgkXC/0feAjqhK7saLvCqjsUGDSJrRLKonf3Wtvl8C7U/JCrc7ZB6N
- BHR3yn+DYVx+Q==
-Date: Thu, 16 Jul 2026 10:44:14 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Liam R. Howlett" <liam@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, 
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
- Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>, 
- Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>,
- Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
- SJ Park <sj@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
- Peter Xu <peterx@redhat.com>, 
- Kees Cook <kees@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
- Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>,
- Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
- x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>,
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EDAA10F49C;
+ Fri, 17 Jul 2026 08:13:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org; 
+ s=smtpauto.stravinsky;
+ h=X-Debian-User:In-Reply-To:Content-Transfer-Encoding:
+ Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+ Reply-To:Content-ID:Content-Description;
+ bh=8MTwBqQy4fwBi+1HxOFe11MYEhXTYtV/dEi31TU+oa4=; b=uRnCV7WO7QwXl/+Ybie6otp3yT
+ UDYu2LJzTLZL/TcAO/+HvnXGSc7baE98N7qWYDrn8tmVEtLf2iLuCpUf2V9uLZG8A6Z5txMg7SsbO
+ aJ3Vr0JGIH25KLRF8MT4s3OLDDU4Cf4t3AbBjxDV1j8+V/plugcZZNHME3RS71YGpei6npLL3LUGZ
+ xbH2w35MIG9MxA4rGpX+aHhSfopcdxbqWTTCrIjKslFyGqPOYNjzlwqgXCxqc+KfAhnGL9/MwjiHv
+ 6YEQnSMQphTH5fh0tmf2PgwhPgw7N6P4uCOFaOzt999el6kARiFuts5VPvyQx52jawA1gfHp72PRm
+ zfbTp4Yw==;
+Received: from authenticated-user by stravinsky.debian.org with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.96) (envelope-from <leitao@debian.org>) id 1wkdgd-004SOc-0Y;
+ Fri, 17 Jul 2026 08:12:47 +0000
+Date: Fri, 17 Jul 2026 01:12:40 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Cc: Andreas Hindborg <a.hindborg@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+ Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
+ Matthew Brost <matthew.brost@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, 
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>, 
- Shameer Kolothum <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
- Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev,
- iommu@lists.linux.dev, 
- kasan-dev@googlegroups.com, linux-sgx@vger.kernel.org,
- etnaviv@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, kvm@vger.kernel.org, 
- Russell King <linux+etnaviv@armlinux.org.uk>
-Subject: Re: [PATCH v2 01/33] mm: move vma_start_pgoff() into mm.h and clean up
-Message-ID: <alinrz930GoBuEdM@lucifer>
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
- <20260710-b4-pre-scalable-cow-v2-1-2a5aa403d977@kernel.org>
- <uqfnbb7knn5gs2symluouczdbxehpwuubek3ypziavv776jncb@l7r4zlatslxd>
+ Dan Williams <djbw@kernel.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-coco@lists.linux.dev, linux-acpi@vger.kernel.org
+Subject: Re: [PATCH 2/6] configfs: Constify is_visible/is_visible_bin in
+ configfs_group_operations
+Message-ID: <alnj6zcuMWR74If4@gmail.com>
+References: <20260716-configfs-const-base-v1-0-c545a4053cb5@weissschuh.net>
+ <20260716-configfs-const-base-v1-2-c545a4053cb5@weissschuh.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <uqfnbb7knn5gs2symluouczdbxehpwuubek3ypziavv776jncb@l7r4zlatslxd>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260716-configfs-const-base-v1-2-c545a4053cb5@weissschuh.net>
+X-Debian-User: leitao
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -135,104 +80,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 15, 2026 at 02:05:42PM -0400, Liam R. Howlett wrote:
-> On 26/07/10 09:16PM, Lorenzo Stoakes wrote:
-> > vma_last_pgoff() already lives there, so it's a bit odd to keep
-> > vma_start_pgoff() in mm/interval_tree.c. Move them together.
-> >
-> > These each return unsigned long, which pgoff_t is typedef'd to. Make this
-> > consistent and have these functions return pgoff_t instead.
-> >
-> > Additionally, express vma_last_pgoff() in terms of vma_start_pgoff(), since
-> > we wrap the vma->vm_pgoff access, we may as well use it here.
-> >
-> > Also while we're here, const-ify the VMA and cleanup a bit.
-> >
-> > Also update the VMA userland tests to reflect the change.
->
-> This patch could have been 01/35?  Disappointing, but I will try to get
-> over it.
+On Thu, Jul 16, 2026 at 07:09:27PM +0200, Thomas Weiﬂschuh wrote:
+> These callbacks are never meant to modify their configfs_attribute
+> structure. Enforce this in the type system.
+> 
+> As there are only two implementers of these callbacks, adapt them right
+> away, avoiding a phased transition.
+> 
+> Signed-off-by: Thomas Weiﬂschuh <linux@weissschuh.net>
 
-;) well I have a series I've not sent yet that maybe could grow a bit to achieve
- these aims? :>)
-
->
-> >
-> > No functional change intended.
-> >
-> > Reviewed-by: Gregory Price <gourry@gourry.net>
-> > Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> > Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
->
-> Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
-
-Thanks!
-
->
-> > ---
-> >  include/linux/mm.h              | 9 +++++++--
-> >  mm/interval_tree.c              | 5 -----
-> >  tools/testing/vma/include/dup.h | 5 +++++
-> >  3 files changed, 12 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/include/linux/mm.h b/include/linux/mm.h
-> > index 25e669632d2c..09b06d8fea74 100644
-> > --- a/include/linux/mm.h
-> > +++ b/include/linux/mm.h
-> > @@ -4307,9 +4307,14 @@ static inline unsigned long vma_pages(const struct vm_area_struct *vma)
-> >  	return (vma->vm_end - vma->vm_start) >> PAGE_SHIFT;
-> >  }
-> >
-> > -static inline unsigned long vma_last_pgoff(struct vm_area_struct *vma)
-> > +static inline pgoff_t vma_start_pgoff(const struct vm_area_struct *vma)
-> >  {
-> > -	return vma->vm_pgoff + vma_pages(vma) - 1;
-> > +	return vma->vm_pgoff;
-> > +}
-> > +
-> > +static inline pgoff_t vma_last_pgoff(const struct vm_area_struct *vma)
-> > +{
-> > +	return vma_start_pgoff(vma) + vma_pages(vma) - 1;
-> >  }
-> >
-> >  static inline unsigned long vma_desc_size(const struct vm_area_desc *desc)
-> > diff --git a/mm/interval_tree.c b/mm/interval_tree.c
-> > index 32bcfbfcf15f..344d1f5946c7 100644
-> > --- a/mm/interval_tree.c
-> > +++ b/mm/interval_tree.c
-> > @@ -10,11 +10,6 @@
-> >  #include <linux/rmap.h>
-> >  #include <linux/interval_tree_generic.h>
-> >
-> > -static inline unsigned long vma_start_pgoff(struct vm_area_struct *v)
-> > -{
-> > -	return v->vm_pgoff;
-> > -}
-> > -
-> >  INTERVAL_TREE_DEFINE(struct vm_area_struct, shared.rb,
-> >  		     unsigned long, shared.rb_subtree_last,
-> >  		     vma_start_pgoff, vma_last_pgoff, /* empty */, vma_interval_tree)
-> > diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-> > index bf26b3f48d3a..668650067c7c 100644
-> > --- a/tools/testing/vma/include/dup.h
-> > +++ b/tools/testing/vma/include/dup.h
-> > @@ -1301,6 +1301,11 @@ static inline unsigned long vma_pages(const struct vm_area_struct *vma)
-> >  	return (vma->vm_end - vma->vm_start) >> PAGE_SHIFT;
-> >  }
-> >
-> > +static inline pgoff_t vma_start_pgoff(const struct vm_area_struct *vma)
-> > +{
-> > +	return vma->vm_pgoff;
-> > +}
-> > +
-> >  static inline int vfs_mmap_prepare(struct file *file, struct vm_area_desc *desc)
-> >  {
-> >  	return file->f_op->mmap_prepare(desc);
-> >
-> > --
-> > 2.55.0
-> >
-
-Cheers, Lorenzo
+Reviewed-by: Breno Leitao <leitao@debian.org>
