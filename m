@@ -4,192 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29D50C44521
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 078BDC4452A
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E820A10E6E7;
-	Mon, 20 Jul 2026 07:15:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25E9B10E6F1;
+	Mon, 20 Jul 2026 07:15:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ck/x6pgA";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kanardia.eu header.i=@kanardia.eu header.b="IJIC5mEr";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012036.outbound.protection.outlook.com [52.101.53.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 199BE10E05D;
- Sat, 18 Jul 2026 02:59:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P6rAouNL8/mpVkO55GtL7NJbVoNKz/XEWmC8WGy3CZo8nhnU6UkqLE//KH+xfVOmiORtr7/SFKPQ5LKUMfTEjhEw43kgrDee1YkmcU7uy9IyNyqNZcZvkb5YGerA90/dgV9EfoxS1xGa+n+o/bTcJVLXkZL73XxTGZRdr/cbljI7yQRiKuLbPnz+c2qfKvPJokpm3jTr8Rc+yPv5WmUPo1IjKW23dr+jQfKFn4SLgojLSfx6vEv+nsI98PSxSf6jZruQTfHovho0YffdaGgMqFdV/+XmT5hm0SW1Ta44yZODcAZoL9pS0YF3r4YFTwSz+jv1CXqK43Peu9+3M9tv9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PCptvaLlxbm7FcYPJfke/0xXk8q1AOLpmJSEJVJOJeA=;
- b=e9SgWoCCMHkTHHDmeg0UVc9KBwJxGXlGy+1XRbjQdktFJSx8v172tLSkMmzxbM8KeBus0R8uT4jN3KUApiexkRxf1/FNc44B4wbSu+A6FyCqnDrhmj2oRR6wLDm633bxFmvtFGMYebcTFuup/S0+DIMa4z1X0E9QtioAuMERPTFn8EknEV690aix1otEq81DqPtddW13o2JA5nzZPzBmG4f6F9Op2qGY1i/ovuBmR52NKN9RwL1XPH1H+AKfmP2IYNemIsLqfIIuq21ewA/+ncrjmfDxBxYLw+/tbOc1/TG7OBMAAFDRzcq+7DUe1G2B+O1AtIaWzE3GzJeq61TyiA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PCptvaLlxbm7FcYPJfke/0xXk8q1AOLpmJSEJVJOJeA=;
- b=Ck/x6pgAU3koGDqcQ7RDLX0FX2tfWTA2KJ9niKnpIaaaHhf0T6IQEOL0KF3oX5sGwMUuTARnzmj2EYhik9g4ys9ak320NpYm4V65qZXNo4WpcNEQ2RkhtC+miiI5tl8hIKNMvJanCwQoKtHG+uWk3wI8jQ8xZ0GRYnSaAICZHd8E4T9C5+ktKYbf3+663ekP1xfmKMVEvXWmzPVLCsnV9GmtErG9gWnhlZloOGHYNX819UTU6TB8+K+4nxvHMac23u6jkxZHDDhJ0rDmOLiQ5j803tC6hrlEQ1JP1jMRhAI2aNN51IbkPI1dVWw41DdrfuDowIgtyILZS+Ru7cHi9w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DM6PR12MB4483.namprd12.prod.outlook.com (2603:10b6:5:2a2::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Sat, 18 Jul
- 2026 02:58:55 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0223.012; Sat, 18 Jul 2026
- 02:58:55 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 17 Jul 2026 22:58:49 -0400
-Message-Id: <DK1CZPAXCD7O.26RPEAG1YS7I9@nvidia.com>
-Subject: Re: [PATCH v2 11/33] mm/rmap: rename anon_vma_interval_tree_*() to
- anon_rmap_tree_*()
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-parisc@vger.kernel.org>,
- <linux-fsdevel@vger.kernel.org>, <nvdimm@lists.linux.dev>,
- <linux-perf-users@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
- <damon@lists.linux.dev>, <iommu@lists.linux.dev>,
- <kasan-dev@googlegroups.com>, <linux-sgx@vger.kernel.org>,
- <etnaviv@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-tegra@vger.kernel.org>, <kvm@vger.kernel.org>, "Russell King"
- <linux+etnaviv@armlinux.org.uk>
-To: "Lorenzo Stoakes" <ljs@kernel.org>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>, "Liam
- R. Howlett" <liam@infradead.org>, "Vlastimil Babka" <vbabka@kernel.org>,
- "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
- <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Rik van Riel"
- <riel@surriel.com>, "Harry Yoo" <harry@kernel.org>, "Jann Horn"
- <jannh@google.com>, "Lance Yang" <lance.yang@linux.dev>, "Pedro Falcato"
- <pfalcato@suse.de>, "Russell King" <linux@armlinux.org.uk>, "Dinh Nguyen"
- <dinguyen@kernel.org>, "Simon Schuster"
- <schuster.simon@siemens-energy.com>, "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>, "Helge Deller" <deller@gmx.de>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner"
- <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>, "Dan Williams"
- <djbw@kernel.org>, "Matthew Wilcox" <willy@infradead.org>, "Muchun Song"
- <muchun.song@linux.dev>, "Oscar Salvador" <osalvador@suse.de>, "Masami
- Hiramatsu" <mhiramat@kernel.org>, "Oleg Nesterov" <oleg@redhat.com>, "Peter
- Zijlstra" <peterz@infradead.org>, "Ingo Molnar" <mingo@redhat.com>,
- "Arnaldo Carvalho de Melo" <acme@kernel.org>, "Namhyung Kim"
- <namhyung@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, "Jiri Olsa"
- <jolsa@kernel.org>, "Ian Rogers" <irogers@google.com>, "Adrian Hunter"
- <adrian.hunter@intel.com>, "James Clark" <james.clark@linaro.org>, "Baolin
- Wang" <baolin.wang@linux.alibaba.com>, "Nico Pache" <npache@redhat.com>,
- "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>,
- "Barry Song" <baohua@kernel.org>, "Miaohe Lin" <linmiaohe@huawei.com>,
- "Naoya Horiguchi" <nao.horiguchi@gmail.com>, "Xu Xin"
- <xu.xin16@zte.com.cn>, "Chengming Zhou" <chengming.zhou@linux.dev>, "SJ
- Park" <sj@kernel.org>, "Matthew Brost" <matthew.brost@intel.com>, "Joshua
- Hahn" <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Byungchul
- Park" <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>, "Ying Huang"
- <ying.huang@linux.alibaba.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Hugh Dickins" <hughd@google.com>, "Peter Xu" <peterx@redhat.com>, "Kees
- Cook" <kees@kernel.org>, "Marek Szyprowski" <m.szyprowski@samsung.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "Andrey Konovalov"
- <andreyknvl@gmail.com>, "Alexander Potapenko" <glider@google.com>, "Dmitry
- Vyukov" <dvyukov@google.com>, "Steven Rostedt" <rostedt@goodmis.org>,
- "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>, "Jarkko Sakkinen"
- <jarkko@kernel.org>, "Dave Hansen" <dave.hansen@linux.intel.com>, "Thomas
- Gleixner" <tglx@kernel.org>, "Borislav Petkov" <bp@alien8.de>,
- <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, "Ian Abbott"
- <abbotti@mev.co.uk>, "H Hartley Sweeten" <hsweeten@visionengravers.com>,
- "Lucas Stach" <l.stach@pengutronix.de>, "Christian Gmeiner"
- <christian.gmeiner@gmail.com>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Patrik Jakobsson"
- <patrik.r.jakobsson@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
- <marijn.suijten@somainline.org>, "Tomi Valkeinen"
- <tomi.valkeinen@ideasonboard.com>, "Thierry Reding"
- <thierry.reding@kernel.org>, "Mikko Perttunen" <mperttunen@nvidia.com>,
- "Jonathan Hunter" <jonathanh@nvidia.com>, "Christian Koenig"
- <christian.koenig@amd.com>, "Huang Rui" <ray.huang@amd.com>, "Matthew Auld"
- <matthew.auld@intel.com>, "Jason Gunthorpe" <jgg@ziepe.ca>, "Yishai Hadas"
- <yishaih@nvidia.com>, "Shameer Kolothum" <skolothumtho@nvidia.com>, "Kevin
- Tian" <kevin.tian@intel.com>, "Ankit Agrawal" <ankita@nvidia.com>, "Alex
- Williamson" <alex@shazbot.org>, "Paolo Bonzini" <pbonzini@redhat.com>,
- "Shakeel Butt" <shakeel.butt@linux.dev>, "Usama Arif"
- <usama.arif@linux.dev>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.21.0
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
- <20260710-b4-pre-scalable-cow-v2-11-2a5aa403d977@kernel.org>
-In-Reply-To: <20260710-b4-pre-scalable-cow-v2-11-2a5aa403d977@kernel.org>
-X-ClientProxiedBy: YQZPR01CA0156.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8c::28) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+Received: from th8-a.mail-neoserv.si (th8-a.mail-neoserv.si [152.89.234.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51D1D10F53F
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:26:31 +0000 (UTC)
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=th8.neoserv.si; s=default;
+ b=bTTWRJf+XMhOqPKQ7BPD4xAkaVeF8baFGXkdpiMxs75/34gUYAKfh03vX9CL3DEmfsjXehAfWr
+ zaayOr9GBxhx4Fayht12yBKve3RxgQPlLZcMCgAMXHAztf6oV02fCwtTDkvLvdpLUA224Wd3eG
+ 63y9BNDmplM3ilfl7CB2zJWdY78J24IzGehTjppXqo+j+0bcp5aY4JUOJXqwe2DaNggQ+S6Esj
+ 072cET5NZavK23LnL/9+Y8NpYIgEGAmcJsV558Gwpsbt/J4cGnRe/CS/Lr3vvcNJqF7jdTsAn3
+ x3gZvUkilwwqBeB95SK3611o4o/bdz1X8lpZYEIS2Tl0/w==;
+ARC-Authentication-Results: i=1; th8.neoserv.si; smtp.remote-ip=193.77.36.193; 
+ auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=th8.neoserv.si;
+ s=default; 
+ bh=HJEE6D52PzAAraSZp2z43G1ocPYu02jSX6QRhRsFPig=;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:
+ Date:Subject:Cc:To:From:DKIM-Signature;
+ b=hs2AAiHOATnFkggiiGMrk/eFJkEktsvH5I237eWWRtZ0ZLW1Ub69acfEbghxLWVStNlnH6vBWT
+ 4LMkaCVkpHzE8kDSvYimkGxvwqcd+jiL6FPDpRmVUQAHDmmYvq4Xa/wCEMF6v3NhsAUJcJl4NF
+ /3hx+TEZ/f7PrbAwBqcftcCT1x+PQKd8XlSd/7tKGFv/Tpqe05Rgw/fJraC+wp0/nSQVTQwIsU
+ kcgpJ9yD5wkxakYpJiZPgwhC+ric5UlWmB1wLePP28OKXZ/KEw85E1j8nnANjpD/iRlTEFlr8C
+ fs3ghQJNmsniBk714Vew1BxybQ0PPITO4OGlgECshiSAFw==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kanardia.eu
+ ; s=default;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=KkN4fPntNghDZyQYOm91IR8364WzNb2R09AK1tRR9bk=; b=IJIC5mEr2K667BtITzqIgDJJh0
+ a+7EUWX1nJx2Kstr1TMD/KGJoFy38FedT3BfpIebboW+xsT9IG09AcpotSYrNIRIpOUYz+EpfjEo0
+ NEX9PukBFnwKU/tIvzVundaaHSMwEuOIMALxb+AlaV8DBkkxo4i3cHjdugPsAxzBP7RaWSi/Vh6v4
+ nKXzwekAyiL6nCj5xR6+F58YJKVA3VxdrjXgSPY0HrNVAKHxkZRwU9NQgQa8u2ZgulZs3q5j/KnbX
+ K+JRTk5UOiosYABHrsY64xFiIkeNgOfUZlhXPZekDovYISspt+NY1QmWONJOvmjQoB13OBlG75tcy
+ vYAw1oig==;
+Received: from [193.77.36.193] (port=54788 helo=rok-trip.kanardia.eu)
+ by th8.neoserv.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.99.4) (envelope-from <rok@kanardia.eu>)
+ id 1wkhHJ-00000001fP1-23GD; Fri, 17 Jul 2026 14:02:53 +0200
+From: Rok Markovic <rok@kanardia.eu>
+To: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Alibek Omarov <a1ba.omarov@gmail.com>,
+ Rok Markovic <rok@kanardia.eu>
+Subject: [PATCH 3/4] drm/rockchip: lvds: add RK3568 support
+Date: Fri, 17 Jul 2026 14:00:04 +0200
+Message-ID: <20260717120005.2087386-4-rok@kanardia.eu>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260717120005.2087386-1-rok@kanardia.eu>
+References: <20260717120005.2087386-1-rok@kanardia.eu>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM6PR12MB4483:EE_
-X-MS-Office365-Filtering-Correlation-Id: a1c767f8-0849-4c36-2a67-08dee478816a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|23010399003|366016|1800799024|22082099003|18002099003|4143699003|10067099003|11063799006|56012099006|921020|6133799003;
-X-Microsoft-Antispam-Message-Info: xVthCd7tmfCIWBgNqNImnsdWMArXsCHkwPNweQQHCzb8Tdxk3nQ14969FxsAO/ep5eE8MZGYIx7FNX40Wd15zMqsLDKbMm+srUTRX/4UPif/mZXVT3rBE6rxMNU2/Ka4qiHGYnLIzI8uQ2w0SzGWGi7L1mdpbOLxJVHmTYwJarEr38wjTF8sY/34ikoSRG75AXtA6JbCdF3gTUHlx4kEqPT+Ki33e+c+HhSKqJictp3wVV9ilVpr+67oG/Em5fe1x0o3y2nkvk2ZTvHM6Q450k5B8aodVkvDTxPuaqIZsJQjqiTALi0Ineyn+leOtGw1VMO+nl2CsHGi02Znq2wTOK/O3Jg6qoEyRnXTfk46lStbA7H6ABMTUG7RlpsTrvP58Px0bOff1XqlRfJfdXl+A9hr1vg4LsLInNfwtkuRCUD4YpqTynor6zxAaKAMiIMhcQFbn/KKkBrVreeEovezsmZd2ohLcszP9Ozl6rnNG/A4HxkVYvu9g6D/d1HtqYpskm0zSiTg0hcWwIKe3qPqnAjd+W0a+dp2xWxcv86AanSqEbJnlDz3FQr5OgMguBG0m/ubQHKFgFl1AXiCiACQB9NbS6fsoFfL1Lz4CZl91UuKHORq+f41hJDPXlfjILooThtUZT/WAZBIlxlymTDYQFvTlJIh2Kv/Jx77rf6vlrJXQnvxLsU9UJF/OCfGLiMmtsETbqp/+hixJQJqLfwL4Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(4143699003)(10067099003)(11063799006)(56012099006)(921020)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0J5Q25QS1NzcENEbnZlUllNU3lsREpYV2h3QjRhazU1M1ptekxaMzhERksv?=
- =?utf-8?B?c0R3VlJtREdGeENoNlZsWnNSZzdHOE1RV1Y5cWZINzYvd3pQWW0vRUNWUFkv?=
- =?utf-8?B?V3o0dDU3YjZxNlB4QmxhV3ZtNStad3V1ckJsdzhiUFJoeFJlYU9WYWRaaUtJ?=
- =?utf-8?B?Smh2Y1ArTFlmSDloM3RBd2FUMXZESkltU2k1OUdTMzA3a3cxN0swSFFVekZk?=
- =?utf-8?B?Z3d6ZURsYlBrK0FhOGJTanpEdGhPVVV1SWc5dC9BMENWWGVGbWFkempPbFpP?=
- =?utf-8?B?WTZGWG1mN05vMXhmT3dzVzhGWWJPcUUwTVN4ZzhPRWNrbDZHMVBCcGpNK0d0?=
- =?utf-8?B?RU10S0k0SGpnVGsvcUZTbjdHS3ZIRENIT1RDN1IxZC9OYXZiSDZ0K0xUMlNk?=
- =?utf-8?B?K0lGWmNVN2xKdWNUY3ZHdGNlUW1USU5nSlJGdEYrckg1cEhhU2tpSFFqL1Rm?=
- =?utf-8?B?M0xkVXFKcGFaTndvWEV1OHgvQU5HVFl4ZWNzRXVIa2xOdmxBOHpEU3VhekEy?=
- =?utf-8?B?d01SdlBJM3k4Z2sxRnRzOFhhQmQ3TjAvQnFicWJPeFVZZHl3Mmd5WTdTZGMv?=
- =?utf-8?B?U3l4RGJzdnJ5a0U4eXM0SnFNK0FiejlIU09NbWJGT3VGRHI5ZS9UL2w3cnBK?=
- =?utf-8?B?ZEhyc0p1d3hBRysxTTFPaHBGTTVQSDY4c1FBRG1yNzl6amc0WUtWR2E2MUdF?=
- =?utf-8?B?by9mMGV6U3U4dittUUd3WkhWRVJjWXFsU1FTM2R5eTVFYTh5TE9zeTlQakt2?=
- =?utf-8?B?OXlmaDRZbmduWjJGUWlLNW45Y0c1ZW1KUkNyZnRwUUM0Uk02YjEzUHBuSjBD?=
- =?utf-8?B?YjVLcmdhU0hVMkNzUzkyR0xqWTJ0Ni9RdlJzcks1MG8zaElFVXo4RWplNG5O?=
- =?utf-8?B?S1BPbkVKOFJLZ2kxQklkYmtkOTdCVElPQWFTNisyN0dNeHZyZHN2ZkQrYitK?=
- =?utf-8?B?Qnk2TWs1MVloVndNZ2UyMUNvTFMwWXNEOS8wdXAxR3VTTC9RUjFJUWNxdmVO?=
- =?utf-8?B?dnBNMzI2VVI2dVhOR0tweC9EclZEelVKRHp0K2N1cHk4ZG5vc1dDRjd4bDRR?=
- =?utf-8?B?dlJFbmlyaHdIdFZ3SUhqQktXMExQWWVLVGpLeWppK2krZGRBTEM1Mmw5RHd4?=
- =?utf-8?B?ZmxlcGVMcThkTnpDUDdVM1B3QTJKYzk2UkZyZGFtYmUyaHBoUkNsY2p2SnhK?=
- =?utf-8?B?YTMyRkt0OEgyd3oxSERzTm1Fd0NSTGVwYU9rLzg3MDNPOVUvNXpLMGRCN29F?=
- =?utf-8?B?NnRISW94WGV0M0ZZS0dWNy9GMm5XYnRqWUREeXdGRmRwRmRrdjU3Tkg1REV1?=
- =?utf-8?B?Szh1V3E3NDM0dVU3YkJUM1IyME82TFByOHdicm5jRFNZMkliZTlVMXY4WExB?=
- =?utf-8?B?TkxZTHNmczdiNm92dHNPMTRjNW14SzYyb2w2aktEMDFKeDFBOTZuMXUzcXRj?=
- =?utf-8?B?TjgzTTZjSVpQbDVIQm5kMnlIbjY4ejlJQVA5bTQ2TlFMS1Yxbnl0d3praUZq?=
- =?utf-8?B?cHNEWlN4V2dlV3ZPT3JWVlRCWlpUUjZ5Y1VqM1pGOXNvcVVudGkvamt4MVNp?=
- =?utf-8?B?TWpLaEMwcTlvMVQrVUtXWk9kU2ZOaG9zdXNnUlBvRDkwOGJ1b3ROWC9YL0NH?=
- =?utf-8?B?aXJZZ1dlWWY5dzZhM2xHVWJXYmJReEF6b2FrbVlGQnRJUDFsWXVrRTJ5SDla?=
- =?utf-8?B?VmNRN0R3cUJQdkJwcEorNC91UXlvQU1qeFhkQmJzeTRQSEt3RktJMG5kQ3k4?=
- =?utf-8?B?c3BuNU9NUEJ6bFBCNmpxZzhkNXB1NEZsZW9pa1FoRUgzWEo2aWJsYktsY0F4?=
- =?utf-8?B?UUNyKy9rdlRBU2NsRTJlQVVJcVlWdEp6aVNxVHByMjVidWxacFljS21tWWl1?=
- =?utf-8?B?RWNISWNYOEZ2VEZJQTBtOU9zKzJsN2xEQ1B5SGNrSTlIZVN3NGw2V3o5VTVl?=
- =?utf-8?B?MlhRZTNhc2F2YVZ0TmdScWxjS3VGem1sL1VBUzY0SlMrSjh0Qm1LYk1sVlBE?=
- =?utf-8?B?UENERlVMSVRlRG9VL3I3RytGaVlIaldtNllRWVlSMWJNUEtMMUhRUGx5L004?=
- =?utf-8?B?YkhpR1NyZ1lmeGwvMUQzM1N3N1JRMTcydmNVTjdMMmhqOVJ1QmtYOUtOK1BE?=
- =?utf-8?B?YWIvTkkwTmN0OXJMMThIaG8xbGVCMmFrelVST2pGV2V5WHFmd2M4NmVKVldL?=
- =?utf-8?B?M0FTSEttMTlHbEMxbjBKaWdUdUt4R3Q1NzRNb1llbXhFL2NEemJiOU5nMElP?=
- =?utf-8?B?bW9SeGZ5bVAxYU9laHFySmZSV1p0SkNHQ012UHI0N0pSWDlzdnhoZWh0N0NB?=
- =?utf-8?Q?FwMwHllI9oPZe3wgbs?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1c767f8-0849-4c36-2a67-08dee478816a
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2026 02:58:55.3135 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bABKuGnGC2qW71JMbSbHGvzijuagt2Ebz7zz0Qr9JjD5FQhZs0XzlbnV30PvPiBU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4483
+Content-Transfer-Encoding: 8bit
+Authentication-Results: th8.neoserv.si;
+ auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
+X-NEOSERV-MailScanner-Information: Please contact the ISP for more information
+X-NEOSERV-MailScanner-ID: 1wkhHJ-00000001fP1-23GD
+X-NEOSERV-MailScanner: Found to be clean
+X-NEOSERV-MailScanner-SpamCheck: not spam, SpamAssassin (not cached,
+ score=1.31, required 7, ALL_TRUSTED -1.00, BAYES_50 0.80,
+ KAM_DMARC_QUARANTINE 1.50, KAM_DMARC_STATUS 0.01)
+X-NEOSERV-MailScanner-SpamScore: s
+X-NEOSERV-MailScanner-From: rok@kanardia.eu
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - th8.neoserv.si
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - kanardia.eu
+X-Get-Message-Sender-Via: th8.neoserv.si: authenticated_id: rok@kanardia.eu
+X-Authenticated-Sender: th8.neoserv.si: rok@kanardia.eu
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -206,29 +105,282 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 10, 2026 at 4:16 PM EDT, Lorenzo Stoakes wrote:
-> To be consistent with the newly renamed mapping_rmap_tree_*(), rename the
-> anon_vma_interval_tree_*() helpers to anon_rmap_tree_*().
->
-> No functional change intended.
->
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> ---
->  include/linux/mm.h                | 27 ++++++++++++---------------
->  mm/interval_tree.c                | 30 +++++++++++++++---------------
->  mm/ksm.c                          |  4 ++--
->  mm/memory-failure.c               |  2 +-
->  mm/rmap.c                         | 10 +++++-----
->  mm/vma.c                          | 30 +++++++++++++++---------------
->  tools/testing/vma/include/stubs.h |  8 ++++----
->  7 files changed, 54 insertions(+), 57 deletions(-)
->
-LGTM.
+The RK3568 LVDS transmitter has no register block of its own. It is
+driven entirely through the GRF and re-uses the MIPI DSI0 D-PHY in
+PHY_MODE_LVDS, which phy-rockchip-inno-dsidphy already supports.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+Based on Alibek Omarov's earlier posting [1], with the changes below.
 
+Power the D-PHY from the encoder enable path rather than from probe.
+phy_power_on() runs the phy driver's whole LVDS bring-up: PLL and
+bandgap power-on, a settle, PLL mode select, then a reset pulse of the
+serializer and the lane enables. None of that is safe at probe time -
+the GRF has not yet switched the block to LVDS mode (LVDS0_MODE_EN is
+set from rk3568_lvds_poweron(), i.e. the enable path) and the VOP is
+not driving dclk. The serializer is clocked from dclk and latches its
+state coming out of that reset, so it comes up dead and stays dead.
+The failure is silent: every register in the phy, the GRF and the VOP
+reads back exactly as on a working system while the lanes sit at
+common mode and never toggle.
 
---=20
-Best Regards,
-Yan, Zi
+Program RK3568_LVDS0_DCLK_INV_SEL from the CRTC state's bus_flags so
+the panel's declared pixelclk-active is honoured on the LVDS block as
+well as on the VOP pin polarity. Both have to agree with the edge the
+panel samples on.
+
+Re-assert RK3568_LVDS0_P2S_EN in rk3568_lvds_poweron().
+rk3568_lvds_poweroff() clears MODE_EN and P2S_EN together, so setting
+P2S_EN once at probe would leave the parallel-to-serial converter off
+after the first disable/enable cycle.
+
+Use regmap_write() rather than regmap_update_bits() for the GRF. These
+registers are write-masked - the upper 16 bits select which of the
+lower 16 a write may change - so there is nothing to preserve and no
+reason to read first. Passing a FIELD_PREP_WM16() value as both the
+mask and the value of an update_bits() applies the masking twice and
+only works by accident.
+
+Between the two, nothing needs programming at probe at all: the GRF is
+written entirely from the enable path, so px30_lvds_probe() is left
+alone rather than being refactored into a shared phy helper.
+
+[1] https://lore.kernel.org/all/20230119184807.171132-1-a1ba.omarov@gmail.com/
+
+Co-developed-by: Alibek Omarov <a1ba.omarov@gmail.com>
+Signed-off-by: Alibek Omarov <a1ba.omarov@gmail.com>
+Signed-off-by: Rok Markovic <rok@kanardia.eu>
+Assisted-by: Claude:claude-opus-4-8
+---
+ drivers/gpu/drm/rockchip/rockchip_lvds.c | 161 +++++++++++++++++++++++
+ drivers/gpu/drm/rockchip/rockchip_lvds.h |  10 ++
+ 2 files changed, 171 insertions(+)
+
+diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+index 95fa0a9..f45d04a 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
++++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+@@ -435,6 +435,133 @@ static void px30_lvds_encoder_disable(struct drm_encoder *encoder)
+ 	drm_panel_unprepare(lvds->panel);
+ }
+ 
++static int rk3568_lvds_poweron(struct rockchip_lvds *lvds)
++{
++	int ret;
++
++	ret = clk_enable(lvds->pclk);
++	if (ret < 0) {
++		DRM_DEV_ERROR(lvds->dev, "failed to enable lvds pclk %d\n", ret);
++		return ret;
++	}
++
++	ret = pm_runtime_get_sync(lvds->dev);
++	if (ret < 0) {
++		DRM_DEV_ERROR(lvds->dev, "failed to get pm runtime: %d\n", ret);
++		clk_disable(lvds->pclk);
++		return ret;
++	}
++
++	/*
++	 * Enable LVDS mode and the parallel-to-serial converter. These are
++	 * write-masked registers, so a plain write only touches the bits named
++	 * here; there is nothing to preserve and no need to read first.
++	 */
++	return regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
++			    RK3568_LVDS0_MODE_EN(1) |
++			    RK3568_LVDS0_P2S_EN(1));
++}
++
++static void rk3568_lvds_poweroff(struct rockchip_lvds *lvds)
++{
++	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
++		     RK3568_LVDS0_MODE_EN(0) | RK3568_LVDS0_P2S_EN(0));
++
++	pm_runtime_put(lvds->dev);
++	clk_disable(lvds->pclk);
++}
++
++static int rk3568_lvds_grf_config(struct drm_encoder *encoder,
++				  struct drm_display_mode *mode)
++{
++	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
++	struct rockchip_crtc_state *s =
++		to_rockchip_crtc_state(encoder->crtc->state);
++	bool negedge = !!(s->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE);
++
++	if (lvds->output != DISPLAY_OUTPUT_LVDS) {
++		DRM_DEV_ERROR(lvds->dev, "Unsupported display output %d\n",
++			      lvds->output);
++		return -EINVAL;
++	}
++
++	/*
++	 * The LVDS block has its own dclk inversion select, separate from the
++	 * VOP's pin polarity. Both have to agree with what the panel samples on.
++	 */
++	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
++		     RK3568_LVDS0_DCLK_INV_SEL(negedge));
++
++	/* Set format */
++	return regmap_write(lvds->grf, RK3568_GRF_VO_CON0,
++			    RK3568_LVDS0_SELECT(lvds->format) |
++			    RK3568_LVDS0_MSBSEL(1));
++}
++
++static void rk3568_lvds_encoder_enable(struct drm_encoder *encoder)
++{
++	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
++	struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
++	int ret;
++
++	drm_panel_prepare(lvds->panel);
++
++	ret = rk3568_lvds_poweron(lvds);
++	if (ret) {
++		DRM_DEV_ERROR(lvds->dev, "failed to power on LVDS: %d\n", ret);
++		drm_panel_unprepare(lvds->panel);
++		return;
++	}
++
++	ret = rk3568_lvds_grf_config(encoder, mode);
++	if (ret) {
++		DRM_DEV_ERROR(lvds->dev, "failed to configure LVDS: %d\n", ret);
++		drm_panel_unprepare(lvds->panel);
++		return;
++	}
++
++	/*
++	 * Only now bring the D-PHY up. phy_power_on() runs the whole
++	 * inno_dsidphy_lvds_mode_enable() sequence - PLL and bandgap power-on,
++	 * a settle, PLL mode select, then a reset pulse of the serializer and
++	 * the lane enables. All of that has to happen with the block already
++	 * switched to LVDS mode in the GRF (above) and with the VOP's dclk
++	 * running, because the serializer is clocked from dclk and latches its
++	 * state out of that reset.
++	 *
++	 * Doing it at probe instead - as this driver used to - resets and
++	 * enables the serializer against a block that is not in LVDS mode yet
++	 * and has no input clock. Every register then reads back correct while
++	 * the lanes sit at common mode forever. Rockchip's BSP orders it this
++	 * way (GRF writes, then phy_set_mode + phy_power_on).
++	 */
++	ret = phy_set_mode(lvds->dphy, PHY_MODE_LVDS);
++	if (ret) {
++		DRM_DEV_ERROR(lvds->dev, "failed to set phy mode: %d\n", ret);
++		drm_panel_unprepare(lvds->panel);
++		return;
++	}
++
++	ret = phy_power_on(lvds->dphy);
++	if (ret) {
++		DRM_DEV_ERROR(lvds->dev, "failed to power on phy: %d\n", ret);
++		drm_panel_unprepare(lvds->panel);
++		return;
++	}
++
++	drm_panel_enable(lvds->panel);
++}
++
++static void rk3568_lvds_encoder_disable(struct drm_encoder *encoder)
++{
++	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
++
++	drm_panel_disable(lvds->panel);
++	phy_power_off(lvds->dphy);
++	rk3568_lvds_poweroff(lvds);
++	drm_panel_unprepare(lvds->panel);
++}
++
+ static const
+ struct drm_encoder_helper_funcs rk3288_lvds_encoder_helper_funcs = {
+ 	.enable = rk3288_lvds_encoder_enable,
+@@ -449,6 +576,13 @@ struct drm_encoder_helper_funcs px30_lvds_encoder_helper_funcs = {
+ 	.atomic_check = rockchip_lvds_encoder_atomic_check,
+ };
+ 
++static const
++struct drm_encoder_helper_funcs rk3568_lvds_encoder_helper_funcs = {
++	.enable = rk3568_lvds_encoder_enable,
++	.disable = rk3568_lvds_encoder_disable,
++	.atomic_check = rockchip_lvds_encoder_atomic_check,
++};
++
+ static int rk3288_lvds_probe(struct platform_device *pdev,
+ 			     struct rockchip_lvds *lvds)
+ {
+@@ -512,6 +646,22 @@ static int px30_lvds_probe(struct platform_device *pdev,
+ 	return phy_power_on(lvds->dphy);
+ }
+ 
++static int rk3568_lvds_probe(struct platform_device *pdev,
++			     struct rockchip_lvds *lvds)
++{
++	/*
++	 * Grab and init the phy, but do NOT power it on here - that is done in
++	 * rk3568_lvds_encoder_enable() once the GRF is in LVDS mode and dclk is
++	 * running. See the comment there. The GRF is not touched at probe
++	 * either: every bit of it is programmed from the enable path.
++	 */
++	lvds->dphy = devm_phy_get(&pdev->dev, "dphy");
++	if (IS_ERR(lvds->dphy))
++		return PTR_ERR(lvds->dphy);
++
++	return phy_init(lvds->dphy);
++}
++
+ static const struct rockchip_lvds_soc_data rk3288_lvds_data = {
+ 	.probe = rk3288_lvds_probe,
+ 	.helper_funcs = &rk3288_lvds_encoder_helper_funcs,
+@@ -522,6 +672,11 @@ static const struct rockchip_lvds_soc_data px30_lvds_data = {
+ 	.helper_funcs = &px30_lvds_encoder_helper_funcs,
+ };
+ 
++static const struct rockchip_lvds_soc_data rk3568_lvds_data = {
++	.probe = rk3568_lvds_probe,
++	.helper_funcs = &rk3568_lvds_encoder_helper_funcs,
++};
++
+ static const struct of_device_id rockchip_lvds_dt_ids[] = {
+ 	{
+ 		.compatible = "rockchip,rk3288-lvds",
+@@ -531,6 +686,10 @@ static const struct of_device_id rockchip_lvds_dt_ids[] = {
+ 		.compatible = "rockchip,px30-lvds",
+ 		.data = &px30_lvds_data
+ 	},
++	{
++		.compatible = "rockchip,rk3568-lvds",
++		.data = &rk3568_lvds_data
++	},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(of, rockchip_lvds_dt_ids);
+@@ -601,6 +760,8 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
+ 	encoder = &lvds->encoder.encoder;
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
+ 							     dev->of_node);
++	rockchip_drm_encoder_set_crtc_endpoint_id(&lvds->encoder,
++						  dev->of_node, 0, 0);
+ 
+ 	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_LVDS);
+ 	if (ret < 0) {
+diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.h b/drivers/gpu/drm/rockchip/rockchip_lvds.h
+index 2d92447..93d3415 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_lvds.h
++++ b/drivers/gpu/drm/rockchip/rockchip_lvds.h
+@@ -121,4 +121,14 @@
+ #define   PX30_LVDS_P2S_EN(val)			FIELD_PREP_WM16(BIT(6), (val))
+ #define   PX30_LVDS_VOP_SEL(val)		FIELD_PREP_WM16(BIT(1), (val))
+ 
++#define RK3568_GRF_VO_CON0			0x0360
++#define   RK3568_LVDS0_SELECT(val)		FIELD_PREP_WM16(GENMASK(5, 4), (val))
++#define   RK3568_LVDS0_MSBSEL(val)		FIELD_PREP_WM16(BIT(3), (val))
++
++#define RK3568_GRF_VO_CON2			0x0368
++#define   RK3568_LVDS0_DCLK_INV_SEL(val)	FIELD_PREP_WM16(BIT(9), (val))
++#define   RK3568_LVDS0_DCLK_DIV2_SEL(val)	FIELD_PREP_WM16(BIT(8), (val))
++#define   RK3568_LVDS0_MODE_EN(val)		FIELD_PREP_WM16(BIT(1), (val))
++#define   RK3568_LVDS0_P2S_EN(val)		FIELD_PREP_WM16(BIT(0), (val))
++
+ #endif /* _ROCKCHIP_LVDS_ */
+-- 
+2.43.0
 
