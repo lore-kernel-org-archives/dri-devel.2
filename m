@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5162C44507
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 08:49:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 509AFC44507
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 08:54:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 572B010E097;
-	Fri, 17 Jul 2026 08:49:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A377410E42E;
+	Fri, 17 Jul 2026 08:54:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DgFeC5GL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ncGz03oZ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ABAE10E097
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 08:49:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8919210E42E
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 08:54:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C7E8543342;
- Fri, 17 Jul 2026 08:49:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114FB1F000E9;
- Fri, 17 Jul 2026 08:49:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5E47540732;
+ Fri, 17 Jul 2026 08:54:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A82D1F000E9;
+ Fri, 17 Jul 2026 08:54:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784278189;
- bh=cYuZ+CRFk03hiWJ0HC3KigHuxua0YjUKs+2Dja/OrBg=;
+ s=k20260515; t=1784278471;
+ bh=6csmYI19hiSya7Sts1kiN+uRFS2fgNQzCnN1S8iT0wc=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=DgFeC5GLqSzOP+GCjhyeXf5hR/vY/98UPz4EyHLu+56RxHNeDjfoHFTij4I7lYsu+
- a6JlhCp2Q5K0vqIDiJ87VcMZqSobvY1akK3ZofSCKuk8Pi680uGfRIO9r2GtHepbn4
- KlTySY//ivAWf8NMV0pVuEWNG4M1GOTk3L+WEo9JaJ3k26eDKyUY3vl2uTk0L0PnIR
- CZvJjJXDCJjqHRtvo5pJPug5oG+hgcNp2R7Oww0gcS5n0etHt2gvNuAxHvrbBw1GOv
- p7FjL7idnh/4PoMwLgvJ+TOJ/+5fblnzGrSw2UXOgaM1hS2L5Rs5x2aaU8ODu5yMbU
- cKwvVjEbSxgpA==
-Message-ID: <505844fbd2c5c8ab07153348d20b708c@kernel.org>
-Date: Fri, 17 Jul 2026 08:49:45 +0000
+ b=ncGz03oZP8oe3VMVZx1V+iz8cg02xKQcCfQRSMDNRr7tDEIjBcm4LLS/PdSF2Do61
+ Leq1alJYiygsmQW4bhK8UzZ6s+cHkRvo3TAVJfm4ztCatSZCi+bmy8CXRAX9kID5/k
+ tG4m/i0I0TYhjd7aGySO9EI5SXCHQ6O659dIPuZRQhlig+7Mg0DHBK7JYXCNIPfOoN
+ GVFzV8vGgX1EwBBBemuF4B/gWLMgowlo+0qgqCI/waF8OCTQB37ImoEkRLIgj/RmWS
+ If0cjrB3nQPdrnnegzQUj91Veirsu5COrpJf8MDmE00sXU7LIbXVeduCKFao9VrF9K
+ /KBQJhQJqX2TA==
+Message-ID: <6a107326b65320208c7eaa14a3192433@kernel.org>
+Date: Fri, 17 Jul 2026 08:54:29 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Albert Esteve" <aesteve@redhat.com>
-Subject: Re: [PATCH v2 3/5] drm/panel: of_drm_find_panel() return a counted
- reference
-In-Reply-To: <20260713-drm_refcount_wiring-v2-3-d3bb61f4bd4d@redhat.com>
-References: <20260713-drm_refcount_wiring-v2-3-d3bb61f4bd4d@redhat.com>
+Subject: Re: [PATCH v2 4/5] drm/panel: find_panel_by_fwnode() return a
+ counted reference
+In-Reply-To: <20260713-drm_refcount_wiring-v2-4-d3bb61f4bd4d@redhat.com>
+References: <20260713-drm_refcount_wiring-v2-4-d3bb61f4bd4d@redhat.com>
 Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
@@ -100,12 +100,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 13 Jul 2026 13:53:06 +0200, Albert Esteve wrote:
-> Callers of of_drm_find_panel() receive a pointer with no reference
-> held, creating a window where the panel device can be unregistered
-> and freed between the lookup and first use (e.g., drm_panel_prepare()).
-> 
-> Fix the lookup function by acquiring a reference with drm_panel_get()
+On Mon, 13 Jul 2026 13:53:07 +0200, Albert Esteve wrote:
+> find_panel_by_fwnode() is the fwnode-based counterpart to
+> of_drm_find_panel(), used internally by drm_panel_add_follower().
+> Like of_drm_find_panel(), it returned an unrefcounted pointer,
+> leaving a window where the panel could be freed between the lookup
+> and first use.
 > 
 > [ ... ]
 
