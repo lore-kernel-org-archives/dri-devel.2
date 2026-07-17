@@ -4,91 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5020C4451B
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 15:22:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D0CCC44515
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 15:32:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2602A10E474;
-	Fri, 17 Jul 2026 15:22:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 101F210E20B;
+	Fri, 17 Jul 2026 15:32:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="RgCwYOJ1";
+	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="ayR+2bnK";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="SXe87VyP";
 	dkim-atps=neutral
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
- [209.85.221.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 472BF10E474
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 15:22:41 +0000 (UTC)
-Received: by mail-vk1-f179.google.com with SMTP id
- 71dfb90a1353d-5c11f9015d8so1121141e0c.1
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 08:22:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1784301760; x=1784906560;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=a28753WcgegEYJFy065d8dQeBpvP5gHkenWNb8iKN30=;
- b=RgCwYOJ1PGIW1GNZ8lA5B9vRWmMCpJhVj0SBVK66EJxowTIfQxQZy3kPwRp9z7LgF5
- AQ/hKF7P+Dlu/EcB3/krAN0IKfrNqV7HdoG5qYCsZsa4pARSwcStO6Cjv417KRtTPiW8
- r7WNqRH94mhQSHUf6YTelDmQWExO3TOEpV4N4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784301760; x=1784906560;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=a28753WcgegEYJFy065d8dQeBpvP5gHkenWNb8iKN30=;
- b=q7GpmBMCBcDv9seU5uzOe6/JWxkzrjlqRutPhSjHRRVdLcCL13PaxHrpIa/aPBwrwu
- U5N7Hh2Dsbartjic9abIDB+H3uDjbwneaD6D57PlOqfu0N2qVTdBhLWUwHzRbcXOjWkJ
- H3vIWLIE+CEYCMbqr9c4dhdU6/lpNdyfBF8K+y2Zb4mQLsH32MKB2lHNgpTdpV4Z1sPP
- kJt6MzX1ORFNv44TL10KmYj93P/4B10+RUWs1G7snradX8snroPpv4LNBMK/DfKGJpfj
- lxOkShTQeF4d4OEh2i4YOervHAYcBBnugRKzp/JJMaVVbI5WBX56XZKfXADSuAQ7vI2o
- GV4g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoAjsqT+RQn7EjtjgZ30j9hfe41hDoNxiiiZNVyOWHMJQ0bAiGKnIeRl7ixoiY8yRvG5ZhiDEP7img=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxJC9NXI7QsGGmJAABE++kwYOQwekDygF186Dk1vsA7gPfWrBN6
- 06PerclzBZyYWpCq613Z99M0cbgE1r3nspkI7yVwM6AHDCu96FPb1OosX+MoWoEyc85hk+tHCfu
- BHNQ=
-X-Gm-Gg: AfdE7cmjf/0YVKVaaPd67pvexEDvzcCbrqPaiF47rRXz6hgzlK6V2O7+UWj/4H0QDjy
- cx7oa3XMk2WQnNThEQNXbTShQPTKz2N2wbyIQPC0N5vbL8Mm85ZwXBy1IL2SEa9cmXEuPEG/dZT
- OgwDFqRk8VQdtufC2MZJrTSUJe1X3+vMDiGUMBch/IZFerGxVfJM2cUSwJGBIIxuffiYEt18ms1
- SgHwoZJ+mvujNHap40CqY2IQr/7+OaPPrRRJlko3XnU0macSyJKxcY8OODuuk4g5I2HBTxjFajV
- uNf/mY5iiBMGizEKU+jtALCBg3Q+7YO7ceZK8q7mS0Ec0tDOggTVXJpFpHLTY01tof6pxY+nOU2
- BoULcblvySW0QcrYEJ4TXx/gQrE5hEceiyTdEb+gww/j/zNj2pVbGPpI1GILAVGWIMWuL8SxFPg
- xoGUgLPA1eQtymjheYrDtW0lijcH9oSeSst01DH2tAn4xY
-X-Received: by 2002:a05:6123:2e7:b0:5c1:1965:6243 with SMTP id
- 71dfb90a1353d-5c1bf9379d8mr465920e0c.13.1784301759860; 
- Fri, 17 Jul 2026 08:22:39 -0700 (PDT)
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com.
- [209.85.221.179]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c1eecca4f7sm811832e0c.3.2026.07.17.08.22.38
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Jul 2026 08:22:38 -0700 (PDT)
-Received: by mail-vk1-f179.google.com with SMTP id
- 71dfb90a1353d-5bfd4795097so1480424e0c.0
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 08:22:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+Rqkm6rBqY8CG1r1L6UNkFJA2wb/A2oBj5n8ixjwBMpiiDblKXYizg2ibvFE1P6lLpSaOcIxfVUcNqA=@lists.freedesktop.org
-X-Received: by 2002:a05:6122:1822:b0:5c1:781:7122 with SMTP id
- 71dfb90a1353d-5c1b64e8f86mr470005e0c.3.1784301757640; Fri, 17 Jul 2026
- 08:22:37 -0700 (PDT)
+Received: from fhigh-a2-smtp.messagingengine.com
+ (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85DAB10E20B
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 15:32:29 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id BC88114000F9;
+ Fri, 17 Jul 2026 11:32:28 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+ by phl-compute-04.internal (MEProxy); Fri, 17 Jul 2026 11:32:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1784302348;
+ x=1784388748; bh=TkO/aox8uFR+z4c46jXuQspWe37T9Xp9ua6dPWUt5B0=; b=
+ ayR+2bnKzFwvDyTUkUXUA979lsMANjW/+lwEeFTUJF1kwbd+pXadR6zr3UQP7kgl
+ +LVQITK9EMoWvEUlygss8KzHmmKXxJiKniJtaVFPcL5sTY4GDbJ8aKonlPHfs8h7
+ yXY2XCKrJGcC3yY9Pc1lpxJuVhqeoCt44hVaApZNtOUaF3Fi78jyb1RbR2rSpObn
+ ZtfhsVB+26HHOon5j5DShK6vu6JC7tu06YtRCUhfxjHo1pPLY8V9rkMB1xoCSF8J
+ zqOL+a4UMNaxhw66aR6pz3r2vFXNA+jEoRuqtuBjVlSXyav01EC/m052vJ+sTl43
+ DWU6SnYFJIQVTyNrB5gEww==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784302348; x=
+ 1784388748; bh=TkO/aox8uFR+z4c46jXuQspWe37T9Xp9ua6dPWUt5B0=; b=S
+ Xe87VyPEv/2DJzyKlyw5fB2PGa8js3f/YlDjapl3VKy6CJnheQfBSQZUkQJ12aoe
+ Ilz8zVbPd4EA8oIe+zkXPKOYWqQ/o2ECh4sjB7PrGh12t/Oo9iw4/Iezcg8O2HFB
+ Qs6OMezjrAtpbSnqshXeWAdbcl3oLyJwVMddP15p//3I4sqEAEsSlENg5LCf8Lzf
+ RHSZHdD+g9J6ol4Uz9GyEvXvXQB86PPR2CvjfRyxcjTaGT8a/vaNG6QNrF35esqk
+ QBjApT0BTMxxMb/mtdHa0hB3nHdjrkP6TF42tceAO3MzlcTxaXGX759fE0hYz+pI
+ iD9zNirJTC6x0Co8Fxaww==
+X-ME-Sender: <xms:DEtaagiZsl80jOKIBdGOIeSWLQOub8F126JMVwb0c25XIGS0sH2f7g>
+ <xme:DEtaaj0sdxOu-K2w2FjH6yz4ZeKFKotFovyiMVV5wTlp42HUK70YhViKbDswgz5PG
+ VwKXtE4pssPZIOt4soBSj1hja-AoXxsI5jNyxNNGwa-5XvMDh3HvE4>
+X-ME-Proxy-Cause: dmFkZTEOevtZFY/N4PT4evPVa9WBEY+aygc2JfMQCkxFVSNKBsO5+I4PeBsINq3meJu7/G
+ EwKIJp6jep73C9Lg6TyThhm9QLgivUW/0UAjEB5I2cWY2q8kU7EIcGwc03IYcUTHS+W9gx
+ 2j30v3NGklUs1fXTgk5HLFvc3ewcSlzHi6L/YLZQPiJeuRJtzw2TBcto2ZRKnEopszbf/o
+ WeQWBIpMzh2FEUF8x1qWVMuoL7J3On9XKvhH9IhsTPPzRtB1/lQMyAANufRnotgZwn3kdY
+ 0vMwDtthsPcTStHdQ3ECNfOLVNIBAa0pgSCiXV1k3H7rMH6cYLI4nQW7tDABfN21UghWFb
+ uphLS3bKCxAijp6ftlcdh/tLn3EclsxZwskR3paLVNrpgKP+MrphbjIzhIzsWKJllt+GIn
+ S6Z2E5HnD4C1JJrrbFlNKS6jYNnf4pqsJyn6Frf8ko5g7LgTvELh+QPGcfzAKhuKR2/vwC
+ 8xmOyo8F1GSlq+7rfK58L3qmzIVBDUy4PL9FEjB7Br0+BKUo2oOONQBQTS/mKCOKzcSIdI
+ i2nTkknlFo9JbqumCgJA9zsLgvYl57HvrEsJVzihUu+nVfCAmDBp4fUHTBz0/9EI0jUYbo
+ fVqgrDZDAw3WFnmsCw9Z3soJhBlZUSCNtO6onndkgn0NcFXBE8dl1pV+6csw
+X-ME-Proxy: <xmx:DEtaanymUTF3WkBFIEQiRjCD4LA34CD_Qj62Xihkit-dfZDU9KfpPA>
+ <xmx:DEtaapVVkfYHAILIrUMIn6qCpmm39vTFYfyd7j2aOcCjpRHwxu1Uow>
+ <xmx:DEtaamSay7fEFEkKLBFAoBHQVlAQKFuNGx6Pxe4mzkOiJ6EqPb70Jg>
+ <xmx:DEtaapR3hLQQbwsodyleJ3q-eiPyqkQ96EUoq611YgsgdXU-OlA7QQ>
+ <xmx:DEtaasHfi2dgKtolHB0fCJfXlRYTE9m8p2aoQn6hmcN4tusG4O-AJ49O>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id 273BC182007E; Fri, 17 Jul 2026 11:32:28 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-References: <allWpYxgHfpKughy@michalis-linux>
- <CAD=FV=Wez4s5gUPXN=DuHvHAk4esBMGfh4Rj=ww72UK7VUbOzw@mail.gmail.com>
- <aloAAaC1FuDqT8Rd@michalis-linux>
-In-Reply-To: <aloAAaC1FuDqT8Rd@michalis-linux>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 17 Jul 2026 08:22:26 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=X6FwYMKfCRaGrJtnVpuk1V0OsTg4MdMVNpikt2UVzFNQ@mail.gmail.com>
-X-Gm-Features: AUfX_mwEPh-VCFFUvNOfjb3MXM8YUOa4GHuNrEouu3mhJpBfiW-ZoeHeXe1Wowo
-Message-ID: <CAD=FV=X6FwYMKfCRaGrJtnVpuk1V0OsTg4MdMVNpikt2UVzFNQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel: ilitek-ili9805: Use _multi variants
-To: Michail Tatas <michail.tatas@gmail.com>
-Cc: michael@amarulasolutions.com, neil.armstrong@linaro.org, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
- airlied@gmail.com, simona@ffwll.ch, jesszhan0024@gmail.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: AVTSZ6OHPQ6F
+Date: Fri, 17 Jul 2026 17:31:46 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Ryan Roberts" <ryan.roberts@arm.com>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, 
+ "Mark Rutland" <mark.rutland@arm.com>,
+ "Jean-Philippe Brucker" <jpb@kernel.org>, "Oded Gabbay" <ogabbay@kernel.org>, 
+ "Jonathan Corbet" <corbet@lwn.net>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+Message-Id: <59d0c4d5-af53-410d-9bf8-8dd2ba17f697@app.fastmail.com>
+In-Reply-To: <5012970d-a0f0-461c-b0b6-61823e0aab2d@arm.com>
+References: <20260717104759.123203-1-ryan.roberts@arm.com>
+ <20260717104759.123203-9-ryan.roberts@arm.com>
+ <404d2c6d-4a18-40c2-9da9-fb030c39536f@app.fastmail.com>
+ <5012970d-a0f0-461c-b0b6-61823e0aab2d@arm.com>
+Subject: Re: [RFC PATCH v1 8/8] misc/arm-cla: Add userspace interface
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,59 +104,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Fri, Jul 17, 2026, at 16:35, Ryan Roberts wrote:
+> On 17/07/2026 13:54, Arnd Bergmann wrote:
+>> On Fri, Jul 17, 2026, at 12:47, Ryan Roberts wrote:
+>>> Expose CLA devices through a character device so userspace can enumerate
+>>> the available hardware and map accelerator register frames.
+>>>
+>>> Define version 1 of the CLA UAPI with a GET_PARAM ioctl. Report device
+>>> topology, CPU affinity, domain membership, mmap offsets, architecture
+>>> version and attached accelerator masks, together with the IIDR, DEVARCH
+>>> and REVIDR of each accelerator.
+>>>
+>>> CLA registers can only be read from the CPU local to the device, while
+>>> enumeration may occur on any CPU. Validate the supported CLA
+>>> architecture version during device setup and cache the CLA and
+>>> accelerator identification registers for later ioctl queries.
+>> 
+>> This interface looks very raw at the moment, I expect this will have
+>> one or more larger redesigns.
+>
+> Are you referring to the overall UABI or specifically to the ioctl interface
+> here? I could imagine the ioctl interface evolving before we get this merged
+> (although it is based on similar patterns used by some DRM and accel drivers -
+> it's intended to be easily extensible while existing params remain stable).
+>
+> The aspect where the CLA MMIO is directly mapped into user space is an aspect we
+> are keen to keep though since it has significant performance implications if we
+> need to redirect through the kernel.
 
-On Fri, Jul 17, 2026 at 3:12=E2=80=AFAM Michail Tatas <michail.tatas@gmail.=
-com> wrote:
->
-> On Thu, Jul 16, 2026 at 04:31:53PM -0700, Doug Anderson wrote:
->
-> Hello Doug, thanks a lot for the review!
->
-> > Hi,
-> >
-> > On Thu, Jul 16, 2026 at 3:09=E2=80=AFPM Michail Tatas <michail.tatas@gm=
-ail.com> wrote:
-> > >
-> > > @@ -159,36 +159,23 @@ static int ili9805_power_off(struct ili9805 *ct=
-x)
-> > >
-> > >  static int ili9805_activate(struct ili9805 *ctx)
-> > >  {
-> > > -       struct mipi_dsi_device *dsi =3D ctx->dsi;
-> > > -       struct device *dev =3D &dsi->dev;
-> > > -       int i, ret;
-> > > +       struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi=
- };
-> > > +       int i;
-> > >
-> > >         for (i =3D 0; i < ctx->desc->init_length; i++) {
-> > >                 const struct ili9805_instr *instr =3D &ctx->desc->ini=
-t[i];
-> > >
-> > > -               ret =3D mipi_dsi_dcs_write_buffer(ctx->dsi, instr->da=
-ta, instr->len);
-> > > -               if (ret < 0)
-> > > -                       return ret;
-> > > +               mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, instr->data=
-, instr->len);
-> > >
-> > >                 if (instr->delay > 0)
-> > > -                       msleep(instr->delay);
-> > > -       }
-> >
-> > What you've done is an improvement, but it's not all the way there.
-> > Specifically, we'd really want to get rid of the whole "struct
-> > ili9805_instr" type and instead each panel should have an init
-> > function. The "struct ili9805_desc" should have a pointer to the init
-> > function instead of a pointer to the init data.
->
-> I am more than happy to do these changes as well. My only concern is
-> that I do not have hardware to test the panel. Are compiling and static
-> analysis sufficient tests for these changes ?
+I see no problem with having a per-accelerator VM area for MMIO
+operations mapped to userspace, this is obviously part of all
+designs like this one that sneak custom coprocessor instructions
+in by disguising them as MMIO.
 
-That is inevitable with these cleanups. We're doing our best with
-static analysis and code review. If someone comes along later and
-finds that something broke, we'll fix it.
+My concern is about how userspace gets to that mapping, both
+the chardev itself, but also the ioctls.
 
--Doug
+>> Most importantly, a single character device to expose an arbitrary
+>> number of underlying hardware features is an inherently flawed security
+>> model. If any specific accelerator is ever found to have a
+>> major vulnerability, that would mean administrators will have to
+>> disable all of them by default.
+>
+> Note that we are exposing MMIO per CLA, not per accelerator. So preventing
+> access to a single CLA would prevent access to all accelerators attached to it.
+> There is a per-accelerator availability masking control that the kernel can use
+> to disable access to selected accelerators though, which might help with the
+> vulnerability example.
+>
+> The rationale for choosing a single device file was driven by performance: At
+> domain reassignment time, we need to unmap and invalidate the TLB entries for
+> all the devices in the domain from the out-going process's address space. By
+> having all the devices in a single file and all devices within the same domain
+> adjacent, they can all be mapped to a single VMA, meaning the driver can use a
+> single call to the existing zap_special_vma_range(), which will result in a
+> single TLBI-by-range instruction, which is faster than a TLBI-by-va for every
+> device.
+>
+> If you think it is important for security to have each CLA exposed by an
+> independent device file, I'll take another look.
+
+Without concrete implementation examples, I find it hard to imagine
+how granular the CLA and accelerator blocks are. What I'm interested
+in is separating things into special character devices when they
+refer to units that you want to manage separately in userspace.
+
+If you have e.g. one accelerator for tensor operations and one for
+handling gzip, I would very much want to see those have a separate
+chardev nodes so a local administrator can give permissions to each
+one separately, and have device names that are sensible to the
+functionality underneath.
+
+If you have separate accelerators for AES encryption and decryption,
+or a large set of identical accelerators that can run concurrently,
+those would of course get managed as a single device file.
+
+Most importantly, I don't think a global /dev/cla device node
+is a sensible interface from a management perspective as that
+would give unprivileged userspace direct control to something
+that is essentially arbitrary (or buggy) vendor firmware
+with DMA permissions.
+
+>>> Support shared read-write mmap of one or more CLA register pages. Create
+>>> a context for every domain covered by the mapping and resolve faults
+>>> only while that context owns the domain. Queue unassigned contexts with
+>>> the domain scheduler, drop mmap_lock while waiting for assignment and
+>>> retry the fault after the context is woken.
+>> 
+>> I still need some time to better understand what this means.
+>
+> I can probably do a better job of explaining this: The kernel keeps a cla_ctx
+> object which represents a single {file description, mm_struct} context that
+> wants to use the cla_domain (collection of 1 or more cla_dev). Initially the VMA
+> is not populated so when user space tries to access, it will fault to the
+> driver. If the cla_domain is assigned to a different cla_ctx, the faulting
+> thread is put to sleep until the driver determines that it's the turn of that
+> cla_ctx to be assigned the domain. At that point the waiting thread(s) are woken
+> and map the devices from the domain to the VMA and return to user space. The
+> out-going cla_ctx had it's mappings removed during the reassignment process so
+> any user space access will now fault and sleep waiting for assignment.
+
+Got it, thanks
+
+>> Does a CPU have multiple concurrently running contexts? 
+>
+> The HW only has a single HW context, hence the timesliced assignment approach
+> described above (assuming there is more than 1 concurrent user).
+
+Sorry, I think we have a clash of terminology. I meant whether
+a CPU can start multiple operations on one or more accelerator
+in a single cla_domain, and have each of those operate at the
+same time while the hardware is asynchronously processing them
+in parallel.
+
+It sounds like a single accelerator has one register to wait for
+completion and can only have single operation in progress at any
+time, but if multiple accelerators are in the same cla_ctx,
+can a single thread start an operation in each one before waiting
+for the first to complete?
+
+>> Is a
+>> user process able to starve the allocation of other processes
+>> by just requesting a lot of them?
+>
+> In the current code, a process can theoretically create the same number of
+> cla_ctx as the number of file descriptors it can open(). It would then need to
+> mmap and access to get into the queue to be assigned the domain. I see it as
+> similar to threads; if process A creates 10 threads and process B creates 1
+> thread, then in the long run (ignoring cgroups et al) you'd expect A to get
+> 10/11th of the CPU time (IIUC?).
+>
+> Do you think this consitutes a DoS?
+
+I need to think about it more. Probably not a DoS, but if the resource
+is managed like CPU timeslices, I wonder whether you'd have to also
+consider things like realtime tasks or priority inversion.
+ 
+>>> +	wait_event_interruptible(ctx->waitq,
+>>> +				 READ_ONCE(domain->assigned_ctx) == ctx ||
+>>> +				 cla_ctx_is_dying(ctx) ||
+>>> +				 READ_ONCE(domain->broken));
+>> 
+>> If you call wait_event_interruptible(), you have to check the return
+>> code and deal with it being interrupted.
+>
+> I believe this is already correct - I'm reeturning VM_FAULT_RETRY
+> unconditionally at this point, which is also the correct return code if we get
+> interrupted. This unwinds to arm64's do_page_fault() which then notices and
+> handles the fault:
+>
+> 	/* Quick path to respond to signals */
+> 	if (fault_signal_pending(fault, regs)) {
+> 		if (!user_mode(regs))
+> 			goto no_context;
+> 		return 0;
+> 	}
+
+Ok, makes sense.
+
+> I believe GUP and other handle_mm_fault() callers have similar logic.
+>
+> I'll add a comment to make that clear.
+
+Thanks
+
+   Arnd
