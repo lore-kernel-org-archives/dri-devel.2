@@ -4,122 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14B95C44525
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7281DC44529
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0DBB10E788;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A821010E780;
 	Mon, 20 Jul 2026 07:15:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VVZute3A";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PUmpPVPw";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F6E910E31E;
- Thu, 16 Jul 2026 09:47:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6319043C59;
- Thu, 16 Jul 2026 09:47:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F911F000E9;
- Thu, 16 Jul 2026 09:46:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784195228;
- bh=pvyju2uSObish5k8L0bIZVWBDfraOY408PSxNPnf71s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=VVZute3AX7giYVngkfw7rRVDOUFCkUeehA7gHuqxbodMqI3KudJmc65mfSpIfBov6
- kXSAk16pNUacGy5D2Eqik2xc88uYve6l8ka8j2PMpSUaZgUEhZKIY7z041kujjV3gv
- rGAzJUxhhyV9xtmlIz4NzxfzOFiC4fRz/PvrPQenkFYNHGCFErGddvvT9O1t6EWywO
- 9UZ0RSpECerLbC/CPCidoVDZp71WikjEdlVt1g+7lzgsBQgSkLAvh8ELx5JuHO9dAi
- 1y1rYfaoMGsHEnEOpdyzFhFPgW7TnwxSAIncPhTH0YlYChmvl/dlc/qoIWECec5GG7
- d4Zcal/KBoKSg==
-Date: Thu, 16 Jul 2026 10:46:34 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, 
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
- Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>, 
- Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>,
- Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
- SJ Park <sj@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
- Peter Xu <peterx@redhat.com>, 
- Kees Cook <kees@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
- Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>,
- Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
- x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, 
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>, 
- Shameer Kolothum <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
- Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, 
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- damon@lists.linux.dev, 
- iommu@lists.linux.dev, kasan-dev@googlegroups.com, linux-sgx@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
-Subject: Re: [PATCH v2 18/33] mm/vma: use vma_start_pgoff(),
- linear_page_index() in mm code
-Message-ID: <alioLIH0DqZz04-_@lucifer>
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
- <20260710-b4-pre-scalable-cow-v2-18-2a5aa403d977@kernel.org>
- <e98110da-f26a-46ca-8360-fc84fc159bd8@kernel.org>
- <aligtF3WwRam1rMd@lucifer>
- <9469d484-f736-4a2d-b1e9-a7ba1c381d18@kernel.org>
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB1BC10F4DA
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 10:12:20 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4954c0833b4so1688225e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 03:12:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784283139; x=1784887939; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=3RJV9UC3pnAaTAcgCOuWlBvuu7N+6toEb+Gnb0umxzY=;
+ b=PUmpPVPwdraTOFSkACpudkOLV107LWXgcmK++RnjSJy3M7Tocpl5OkbWXTUQfjIxH/
+ aWDxvgbLmGJIvro4pNzrS8bzRno9K1Zlcc5r/+bPNNmxiH7rTlwmfN9cHmSpa519q+Zd
+ sR/dQ7iPKfqz+JmlQ72wDCSJPchA/83re2u/ZyiewN040H5Q1qJ3nWARnYET/Kf4AdHt
+ l0GosNB948/WdRfPskAf4K68jLJz1GgBdDYcQOdcy+gKWV/yDLpZ7Kshu7pGLUBFDpgJ
+ cYNdnTshnnjcK5hnAG3pSL3Fo6EQB7sbeaTI6kQPdzGgCALzIOo0HXXAJeKJsmY6nXF3
+ ftgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784283139; x=1784887939;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=3RJV9UC3pnAaTAcgCOuWlBvuu7N+6toEb+Gnb0umxzY=;
+ b=Dwd70SVmJIHipvOhysBldnY5sL86eo/3Uq6ThoRbwOc2WgP7B5cZwZpIFqrpa8RuGO
+ npGvRWyngjYW24QwWV2O8ImnKbDtRkmcJmG0S+EuipG5d/HX8GbCqS8DDMBNdZGEdy6A
+ uhsRdJrrrBGMawSg512bRvzXkGmXGnsgdn+SVGi7t4953/bwGbANdbXbAVzlkVDzhWwc
+ /pz0qSBrZXQvU1svBZDgqvoTLumAZhpepyaoD6Atmnct/TMUMsVsHkL3NP25xiyfgO0V
+ /e9iFbfqh0MsJNG8jUGjfGzvOd69DE89/JmnjYnHQbwiI01v68p+hVoPIEwQk6fpRxbS
+ 1LWw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro6qez1YCjzNub6BIxq+PuUysclpHhxMsLOcl2NMtkYWJv837z7u5ZmmCKFuaVFWz7cSlfHsEhrUOw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw+vMo64cK5DmfLmfkrAN9aNCicJtvEjwu4oqsaVd0Jebwfqokb
+ u3vJjxZmITN3c4NA4iJaaU39Ug4aXcEIf3FXWKUGQU7JvF+bTLrQZ0KQHOk0Chmd
+X-Gm-Gg: AfdE7clqcEYDQH3yEqSDjKa8uPAykOlhHnQOcm0OIj8IGgmfAgpb4nNESWsTdtomy5G
+ GosJdbGP6bh1ipbEFdq5q4szQbBW7QUAVGrk0GPkwe6nJKmqb4MHgRfcDg1tvnJ8BSTguJwHqWw
+ WYsXblUbscJzcOHP2O2XX9Jnkhc2Hhuf1wbSx/xRhkhc6RrGlFF1kMS4tblkYR83DyNAJw0S2F7
+ 3+yPYs62aBDHLa46Y/g0FfVoiUDP0zoc+WoF0k5HmkT5+vMLheFpt6rckKrfQQ5h/e9ShPtvEem
+ JxybjfQahWicUCUTxFarBGOcFaFaRySHuDmTpkH2q1RrxglCJUpVcNaVKiuPkvAqyjpOT6eDH6f
+ x1ks9leR0MIdcvswUQ4zhmjEmrq0rTQEVLyqHVbu3tXz4F/bD+pSUXcC6PoXpxvcu9v9dUyTPEU
+ JGnH0TaADsBnaoD30e4ODq8diRkjHrJ0UA/eHQEg==
+X-Received: by 2002:a05:600d:10c:b0:495:409e:bc80 with SMTP id
+ 5b1f17b1804b1-4954a51b852mr13770135e9.37.1784283138775; 
+ Fri, 17 Jul 2026 03:12:18 -0700 (PDT)
+Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47f63e51986sm2846908f8f.11.2026.07.17.03.12.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Jul 2026 03:12:18 -0700 (PDT)
+Date: Fri, 17 Jul 2026 13:12:17 +0300
+From: Michail Tatas <michail.tatas@gmail.com>
+To: Doug Anderson <dianders@chromium.org>
+Cc: michael@amarulasolutions.com, neil.armstrong@linaro.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ jesszhan0024@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/panel: ilitek-ili9805: Use _multi variants
+Message-ID: <aloAAaC1FuDqT8Rd@michalis-linux>
+References: <allWpYxgHfpKughy@michalis-linux>
+ <CAD=FV=Wez4s5gUPXN=DuHvHAk4esBMGfh4Rj=ww72UK7VUbOzw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <9469d484-f736-4a2d-b1e9-a7ba1c381d18@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD=FV=Wez4s5gUPXN=DuHvHAk4esBMGfh4Rj=ww72UK7VUbOzw@mail.gmail.com>
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,188 +96,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 16, 2026 at 11:43:35AM +0200, Vlastimil Babka (SUSE) wrote:
-> On 7/16/26 11:27, Lorenzo Stoakes (ARM) wrote:
-> > On Wed, Jul 15, 2026 at 05:23:09PM +0200, Vlastimil Babka (SUSE) wrote:
-> >> On 7/10/26 22:16, Lorenzo Stoakes wrote:
-> >> > There are many instances in which linear_page_index() (as well as
-> >> > linear_page_delta()) is open-coded, which is confusing and inconsistent.
-> >> >
-> >> > Additionally, vma->vm_pgoff doesn't necessarily make it clear that this is
-> >> > the page offset of the start of the VMA range.
-> >> >
-> >> > Doing so also aids greppability.
-> >> >
-> >> > So use vma_start_pgoff() in favour of directly accessing vma->vm_pgoff, and
-> >> > linear_page_index() where we can.
-> >> >
-> >> > This also lays the ground for future changes which will add an anonymous
-> >> > page offset in order to be able to index MAP_PRIVATE-file backed anon
-> >> > folios in terms of their virtual page offset.
-> >> >
-> >> > No functional change intended.
-> >> >
-> >> > Reviewed-by: Gregory Price <gourry@gourry.net>
-> >> > Reviewed-by: SJ Park <sj@kernel.org>
-> >> > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> >> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> >>
-> >> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> >
-> > Thanks!
-> >
-> >>
-> >> Nit:
-> >>
-> >> > diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-> >> > index 2058db9c01d5..d10b8042adb5 100644
-> >> > --- a/mm/damon/vaddr.c
-> >> > +++ b/mm/damon/vaddr.c
-> >> > @@ -10,6 +10,7 @@
-> >> >  #include <linux/mman.h>
-> >> >  #include <linux/mmu_notifier.h>
-> >> >  #include <linux/page_idle.h>
-> >> > +#include <linux/pagemap.h>
-> >> >  #include <linux/pagewalk.h>
-> >> >  #include <linux/sched/mm.h>
-> >> >
-> >> > @@ -623,8 +624,8 @@ static void damos_va_migrate_dests_add(struct folio *folio,
-> >> >  	}
-> >> >
-> >> >  	order = folio_order(folio);
-> >> > -	ilx = vma->vm_pgoff >> order;
-> >> > -	ilx += (addr - vma->vm_start) >> (PAGE_SHIFT + order);
-> >> > +	ilx = vma_start_pgoff(vma) >> order;
-> >> > +	ilx += linear_page_delta(vma, addr) >> order;
-> >>
-> >> Could these be combined to linear_page_index(vma, addr) >> order?
-> >
-> > So this is:
-> >
-> > 	(x >> order) + (y >> order)
-> >
-> > And linear_page_index(vma, addr) >> order is:
-> >
-> > 	(x + y) >> order
-> >
-> > Consider:
-> >
-> > 	order = 1, x = 0b11, y = 0b01
-> >
-> > 	(x    >> order) + (y    >> order) =
-> > 	(0b11 >> 1    ) + (0b01 >> 1    ) =
-> > 	0b1             + 0               =
-> > 	1
-> >
-> > 	(x    + y   ) >> order =
-> > 	(0b11 + 0b01) >> 1     =
-> > 	(0b100      ) >> 1     =
-> > 	2
-> >
-> > They are not equivalent - the carry bit changes the result.
->
-> Right, thanks. Didn't consider it would be actually working with unaligned
-> addresses but seems like it can.
+On Thu, Jul 16, 2026 at 04:31:53PM -0700, Doug Anderson wrote:
 
-Yeah, I initially did it the way you suggested then ran it by AI review and it
-moaned at me so ;)
+Hello Doug, thanks a lot for the review!
 
->
-> >>
-> >> >
-> >> >  	for (i = 0; i < dests->nr_dests; i++)
-> >> >  		weight_total += dests->weight_arr[i];
-> >>
-> >> > diff --git a/mm/filemap.c b/mm/filemap.c
-> >> > index b39111abdc4b..1dbb4c6f824e 100644
-> >> > --- a/mm/filemap.c
-> >> > +++ b/mm/filemap.c
-> >> > @@ -3411,8 +3411,8 @@ static struct file *do_sync_mmap_readahead(struct vm_fault *vmf)
-> >> >  		 * of memory.
-> >> >  		 */
-> >> >  		struct vm_area_struct *vma = vmf->vma;
-> >> > -		unsigned long start = vma->vm_pgoff;
-> >> > -		unsigned long end = start + vma_pages(vma);
-> >> > +		const unsigned long start = vma_start_pgoff(vma);
-> >> > +		const unsigned long end = vma_end_pgoff(vma);
-> >> >  		unsigned long ra_end;
-> >> >
-> >> >  		ra->order = exec_folio_order();
-> >> > @@ -3930,7 +3930,8 @@ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
-> >> >  		goto out;
-> >> >  	}
-> >> >
-> >> > -	addr = vma->vm_start + ((start_pgoff - vma->vm_pgoff) << PAGE_SHIFT);
-> >> > +	addr = vma->vm_start +
-> >> > +		((start_pgoff - vma_start_pgoff(vma)) << PAGE_SHIFT);
-> >>
-> >> This could be linear_page_index(vma, start_pgoff) <<
->
-> Thanks for pretending you didn't notice this one, which was even more
-> obviously incorrect :)
-
-Again I screwed this up when I first did it so was far more terribly wrong
-myself :P All hail AI review I suppose?
-
->
-> >> >  	vmf->pte = pte_offset_map_lock(vma->vm_mm, vmf->pmd, addr, &vmf->ptl);
-> >> >  	if (!vmf->pte) {
-> >> >  		folio_unlock(folio);
-> >>
-> >> > --- a/mm/mempolicy.c
-> >> > +++ b/mm/mempolicy.c
-> >> > @@ -2049,8 +2049,8 @@ struct mempolicy *get_vma_policy(struct vm_area_struct *vma,
-> >> >  		pol = get_task_policy(current);
-> >> >  	if (pol->mode == MPOL_INTERLEAVE ||
-> >> >  	    pol->mode == MPOL_WEIGHTED_INTERLEAVE) {
-> >> > -		*ilx += vma->vm_pgoff >> order;
-> >> > -		*ilx += (addr - vma->vm_start) >> (PAGE_SHIFT + order);
-> >> > +		*ilx += vma_start_pgoff(vma) >> order;
-> >> > +		*ilx += linear_page_delta(vma, addr) >> order;
-> >>
-> >> Also?
+> Hi,
+> 
+> On Thu, Jul 16, 2026 at 3:09 PM Michail Tatas <michail.tatas@gmail.com> wrote:
 > >
-> > See above.
+> > @@ -159,36 +159,23 @@ static int ili9805_power_off(struct ili9805 *ctx)
 > >
-> >>
-> >> >  	}
-> >> >  	return pol;
-> >> >  }
-> >>
-> >> > --- a/mm/nommu.c
-> >> > +++ b/mm/nommu.c
-> >> > @@ -975,7 +975,7 @@ static int do_mmap_private(struct vm_area_struct *vma,
-> >> >  		/* read the contents of a file into the copy */
-> >> >  		loff_t fpos;
-> >> >
-> >> > -		fpos = vma->vm_pgoff;
-> >> > +		fpos = vma_start_pgoff(vma);
-> >> >  		fpos <<= PAGE_SHIFT;
-> >> >
-> >> >  		ret = kernel_read(vma->vm_file, base, len, &fpos);
-> >> > @@ -1378,7 +1378,8 @@ static int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
-> >> >  	delete_nommu_region(vma->vm_region);
-> >> >  	if (new_below) {
-> >> >  		vma->vm_region->vm_start = vma->vm_start = addr;
-> >> > -		vma->vm_region->vm_pgoff = vma->vm_pgoff += npages;
-> >>
-> >> yuck, good to remove that ugly construct
-> >> it's not the only occurence in this function
-> >> oh well
+> >  static int ili9805_activate(struct ili9805 *ctx)
+> >  {
+> > -       struct mipi_dsi_device *dsi = ctx->dsi;
+> > -       struct device *dev = &dsi->dev;
+> > -       int i, ret;
+> > +       struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> > +       int i;
 > >
-> > Yup at least improved it here :)
->
-> And a later patch removes the other occurence.
+> >         for (i = 0; i < ctx->desc->init_length; i++) {
+> >                 const struct ili9805_instr *instr = &ctx->desc->init[i];
+> >
+> > -               ret = mipi_dsi_dcs_write_buffer(ctx->dsi, instr->data, instr->len);
+> > -               if (ret < 0)
+> > -                       return ret;
+> > +               mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, instr->data, instr->len);
+> >
+> >                 if (instr->delay > 0)
+> > -                       msleep(instr->delay);
+> > -       }
+> 
+> What you've done is an improvement, but it's not all the way there.
+> Specifically, we'd really want to get rid of the whole "struct
+> ili9805_instr" type and instead each panel should have an init
+> function. The "struct ili9805_desc" should have a pointer to the init
+> function instead of a pointer to the init data.
 
-A game of 2 halves!
+I am more than happy to do these changes as well. My only concern is
+that I do not have hardware to test the panel. Are compiling and static
+analysis sufficient tests for these changes ?
 
->
-> >>
-> >> > +		vma->vm_pgoff += npages;
-> >> > +		vma->vm_region->vm_pgoff = vma_start_pgoff(vma);
-> >> >  	} else {
-> >> >  		vma->vm_region->vm_end = vma->vm_end = addr;
-> >> >  		vma->vm_region->vm_top = addr;
+> For details, you can see a preivous email about this [1], which then
+> has further links if you want to dig into details. You can see that
+> Chintan eventually implemented this in commit a89d9a327d06
+> ("drm/panel: novatek-nt36672a: Inline panel init sequences").
+> 
+> If landing this patch without cleaning up the init sequences is really
+> important to you, I could be convinced. However, the init sequences
+> aren't all that big and it would be nice if you could clean it up all
+> at once. It could be one patch or two.
+> 
+
+It is not all that important, I can clean up the init sequences and
+send it as part of the v2
+
+> [1] http://lore.kernel.org/r/CAD=FV=UCyfjiqcpYCM5ePz-auX4g=i_+i78ivvvyA8R1XtAKzg@mail.gmail.com
+> 
+> 
+> > @@ -211,25 +198,13 @@ static int ili9805_prepare(struct drm_panel *panel)
 > >
-> > Cheers, Lorenzo
->
+> >  static int ili9805_deactivate(struct ili9805 *ctx)
+> >  {
+> > -       struct mipi_dsi_device *dsi = ctx->dsi;
+> > -       struct device *dev = &dsi->dev;
+> > -       int ret;
+> > -
+> > -       ret = mipi_dsi_dcs_set_display_off(ctx->dsi);
+> > -       if (ret < 0) {
+> > -               dev_err(dev, "Failed to set display OFF (%d)\n", ret);
+> > -               return ret;
+> > -       }
+> > +       struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> >
+> > -       usleep_range(5000, 10000);
+> > -
+> > -       ret = mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
+> > -       if (ret < 0) {
+> > -               dev_err(dev, "Failed to enter sleep mode (%d)\n", ret);
+> > -               return ret;
+> > -       }
+> > +       mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> > +       mipi_dsi_usleep_range(&dsi_ctx, 5000, 10000);
+> > +       mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> >
+> > -       return 0;
+> > +       return dsi_ctx.accum_err;
+> 
+> Nobody looks at the return code of this function. Since you're
+> touching it anyway, can you change ili9805_deactivate() to return
+> "void"? I wouldn't object if you made ili9805_power_off() return
+> "void" in the same patch too, even though it's a bit unrelated to the
+> rest of the patch.
+> 
+
+Good point regarding the return types, I will change them to
+return void.
+
+I will send a v2 with the requested changes.
+
+Regards,
+Michail
