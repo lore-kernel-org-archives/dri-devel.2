@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9D2FC4450F
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 06:12:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C517FC44515
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 06:12:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56C8910F42F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A8D610F43D;
 	Fri, 17 Jul 2026 06:12:23 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E6EE10E433
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 06:12:17 +0000 (UTC)
-X-UUID: 71a0e32681a611f1aa26b74ffac11d73-20260717
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 355A110E433
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 06:12:19 +0000 (UTC)
+X-UUID: 71e6346281a611f1aa26b74ffac11d73-20260717
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:526f1c60-46cd-46c1-bcb0-b6d959c130e0, IP:15,
+X-CID-O-INFO: VERSION:1.3.12, REQID:21e6262b-738c-4412-882e-908740ffd1d9, IP:15,
  URL:25,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
  ON:release,TS:35
-X-CID-INFO: VERSION:1.3.12, REQID:526f1c60-46cd-46c1-bcb0-b6d959c130e0, IP:15,
+X-CID-INFO: VERSION:1.3.12, REQID:21e6262b-738c-4412-882e-908740ffd1d9, IP:15,
  UR
  L:25,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
  :release,TS:35
-X-CID-META: VersionHash:e7bac3a, CLOUDID:ccb4b48d63988cb69eafd1c593126874,
+X-CID-META: VersionHash:e7bac3a, CLOUDID:b1582cd2a51d8064705cd1feac8d09da,
  BulkI
- D:26071714121162HUFXCY,BulkQuantity:0,Recheck:0,SF:10|38|57|66|78|80|81|82
+ D:260717141211R4RHUH7V,BulkQuantity:0,Recheck:0,SF:10|38|57|66|78|80|81|82
  |102|127|841|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:11|93|82|1,Fi
  le:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,
  DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -31,20 +31,20 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 71a0e32681a611f1aa26b74ffac11d73-20260717
+X-UUID: 71e6346281a611f1aa26b74ffac11d73-20260717
 X-User: zhaoguohan@kylinos.cn
 Received: from zgh-vmware-virtual-platform.localdomain [(116.128.244.171)] by
  mailgw.kylinos.cn (envelope-from <zhaoguohan@kylinos.cn>)
  (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 848065994; Fri, 17 Jul 2026 14:12:09 +0800
+ with ESMTP id 387292993; Fri, 17 Jul 2026 14:12:10 +0800
 From: GuoHan Zhao <zhaoguohan@kylinos.cn>
 To: "Rob Herring (Arm)" <robh@kernel.org>,
  Tomeu Vizoso <tomeu@tomeuvizoso.net>, dri-devel@lists.freedesktop.org
 Cc: Oded Gabbay <ogabbay@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH v2 1/5] accel/ethosu: check DMA mask setup
-Date: Fri, 17 Jul 2026 14:11:41 +0800
-Message-ID: <20260717061145.1478139-2-zhaoguohan@kylinos.cn>
+Subject: [PATCH v2 2/5] accel/ethosu: fix scheduler and IRQ lifetime
+Date: Fri, 17 Jul 2026 14:11:42 +0800
+Message-ID: <20260717061145.1478139-3-zhaoguohan@kylinos.cn>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260717061145.1478139-1-zhaoguohan@kylinos.cn>
 References: <20260717061145.1478139-1-zhaoguohan@kylinos.cn>
@@ -65,13 +65,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dma_set_mask_and_coherent() can fail when platform DMA operations do not
-support the requested 40-bit address mask. Ignoring the error leaves the
-previous DMA configuration in place. Probe then continues without ensuring
-that DMA addresses are suitable for the NPU.
+ethosu_job_init() requests the managed IRQ before initializing the DRM
+scheduler. If drm_sched_init() fails, the error path calls drm_sched_fini()
+on a partially initialized scheduler. The IRQ also remains registered until
+devres cleanup after normal or probe-error paths destroy the scheduler.
 
-Return the error so the driver does not bind with an unsupported DMA
-configuration.
+Initialize the scheduler before requesting the IRQ. Scheduler setup failure
+then needs no teardown, while IRQ setup failure can tear down a valid
+scheduler. Free the IRQ explicitly before drm_sched_fini() to prevent
+interrupt handlers from accessing scheduler state during teardown.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
@@ -81,33 +83,89 @@ Signed-off-by: GuoHan Zhao <zhaoguohan@kylinos.cn>
 ---
 New in v2.
 
-Sashiko report:
+Sashiko reports:
 
-> This is a pre-existing issue, but does this code ignore the return value of
-> dma_set_mask_and_coherent() which is called earlier in ethosu_probe()?
+> This is a pre-existing issue, but does the error handling path for
+> drm_sched_init() cause a panic if it fails?
 >
-> If the platform only supports 32-bit DMA and the call fails, the default
-> 32-bit mask is retained. The DRM core and driver might proceed assuming
-> 40-bit DMA is active, handing the NPU physical addresses greater than 4 GB,
-> which could lead to silent DMA address truncation and memory corruption.
+> drivers/accel/ethosu/ethosu_job.c:ethosu_job_init() {
+>     ...
+>     ret = drm_sched_init(&edev->sched, &args);
+>     if (ret) {
+>         dev_err(dev, "Failed to create scheduler: %d\n", ret);
+>         goto err_sched;
+>     }
+>     return 0;
+>
+> err_sched:
+>     drm_sched_fini(&edev->sched);
+>     return ret;
+> }
+>
+> If drm_sched_init() fails, it cleans up its own state. The error path
+> then branches to err_sched and calls drm_sched_fini() on the partially
+> initialized scheduler.
+>
+> Because the waitqueue head was either destroyed or never initialized,
+> its list pointers are NULL. Will drm_sched_fini() invoking
+> wake_up_all(&sched->job_scheduled) cause an immediate crash?
 
- drivers/accel/ethosu/ethosu_drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> This is a pre-existing issue, but can the devm-managed shared IRQ handler
+> outlive the DRM scheduler here?
+>
+> The IRQ is requested using devm_request_threaded_irq(). During
+> ethosu_remove() (and on probe failure), the driver explicitly calls
+> ethosu_job_fini(), which destroys the DRM scheduler.
+>
+> Because the IRQ is managed by devm, it remains fully active until the
+> remove function completes. If an interrupt fires in this window, could
+> ethosu_job_irq_handler() execute and access the destroyed dev->sched or
+> dev->in_flight_job structures, leading to a use-after-free?
 
-diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-index ed9c748a54ad..f3920185389d 100644
---- a/drivers/accel/ethosu/ethosu_drv.c
-+++ b/drivers/accel/ethosu/ethosu_drv.c
-@@ -339,7 +339,9 @@ static int ethosu_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 	platform_set_drvdata(pdev, ethosudev);
+ drivers/accel/ethosu/ethosu_job.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
+index b76924645aaa..5847433e87e7 100644
+--- a/drivers/accel/ethosu/ethosu_job.c
++++ b/drivers/accel/ethosu/ethosu_job.c
+@@ -315,6 +315,14 @@ int ethosu_job_init(struct ethosu_device *edev)
+ 	if (edev->irq < 0)
+ 		return edev->irq;
  
--	dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(40));
-+	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(40));
-+	if (ret)
++	edev->fence_context = dma_fence_context_alloc(1);
++
++	ret = drm_sched_init(&edev->sched, &args);
++	if (ret) {
++		dev_err(dev, "Failed to create scheduler: %d\n", ret);
 +		return ret;
++	}
++
+ 	ret = devm_request_threaded_irq(dev, edev->irq,
+ 					ethosu_job_irq_handler,
+ 					ethosu_job_irq_handler_thread,
+@@ -322,14 +330,6 @@ int ethosu_job_init(struct ethosu_device *edev)
+ 					edev);
+ 	if (ret) {
+ 		dev_err(dev, "failed to request irq\n");
+-		return ret;
+-	}
+-
+-	edev->fence_context = dma_fence_context_alloc(1);
+-
+-	ret = drm_sched_init(&edev->sched, &args);
+-	if (ret) {
+-		dev_err(dev, "Failed to create scheduler: %d\n", ret);
+ 		goto err_sched;
+ 	}
  
- 	ethosudev->regs = devm_platform_ioremap_resource(pdev, 0);
+@@ -342,6 +342,7 @@ int ethosu_job_init(struct ethosu_device *edev)
+ 
+ void ethosu_job_fini(struct ethosu_device *dev)
+ {
++	devm_free_irq(dev->base.dev, dev->irq, dev);
+ 	drm_sched_fini(&dev->sched);
+ }
  
 -- 
 2.43.0
