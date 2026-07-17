@@ -4,44 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D032EC4451C
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 14:43:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4CB9C4451B
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 14:49:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A07F10E48C;
-	Fri, 17 Jul 2026 14:43:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2087C10E464;
+	Fri, 17 Jul 2026 14:49:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WI0ltmdL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d4a2x4gI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1D1810E48C
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 14:43:53 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC44710E464
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 14:49:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0904260A59
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 14:43:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 922591F00A3A;
- Fri, 17 Jul 2026 14:43:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C6CC6405D7;
+ Fri, 17 Jul 2026 14:49:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B84E1F000E9;
+ Fri, 17 Jul 2026 14:49:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784299432;
- bh=Nc02zz+yEkWR9vzpJYBHA7+8LKOx7YR6rQbfN7UhYFQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WI0ltmdLvHY7qqMAvKRAkDImoC/8dImgY6g8/urqsOCTPFIq1nTzfdECJFtSN/IH7
- lniO0t/CqWdwU//Dhbf/UPIuqAALW5YbuzQq9ArzGsNh4oH3Evh2Gdi9y6kfmRJ9Ri
- sH4toFNFB/s5XRrdi4bOYC1IGXrDKno35gRlTQSU9IWYWB3WyeuV5Bk3PcPTHTPCT1
- Vgrp2h3LlITtoi0YKyKPin3DLkjnfJbep8PiKL/4FAeTVZlI0fTSnceRqTlsgDfezr
- fe4oTUjXcMAouH7PT0aZDNbjMiKrqZ3ROtesVWKj5DsJwDCndUYPoenSTohwNq4fTh
- 6EsQGOp7RVK6Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] drm/panel-edp: fix i2c adapter leak on probe
- failure
-To: "Johan Hovold" <johan@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260717143119.1815106-2-johan@kernel.org>
-References: <20260717143119.1815106-1-johan@kernel.org>
- <20260717143119.1815106-2-johan@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 14:43:52 +0000
-Message-Id: <20260717144352.922591F00A3A@smtp.kernel.org>
+ s=k20260515; t=1784299770;
+ bh=+q8YiWXqmTGRkRi0w5HPuLZXGyFgeLZWZr5ZctekBP0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=d4a2x4gIkZTEk1CE5Hsyf2XDeER920GZ6ahZHtyGapAoOhoKiNOivRAi6YlPVNH0t
+ XgKt3Qirf0rU3OAZQl4n3mCv4VH3dgm8EJ8xXCdaCet3iKwxxRXpcVBnEcxdOQdo+k
+ Y6DyVb0KqVQuZ9ELZYaWC3x2PGk1SZ0VIvHPnXXaOpIN6j3/m72psCVSpa5XYuGKoi
+ cOg9HJ29PuK9ouPW/9885t08Z+JZgcUI+xOeJdr14jq9HgD0pk2/UlgQj4oSEE4AUN
+ Ehs/91MSiTBfa6TDC6k6QP0fAZPaHMoCOWkKPPaNd56uRJTVJtbCxm4+coGu33ZR5J
+ 6MYtS4kKEwIyg==
+Date: Fri, 17 Jul 2026 08:49:25 -0600
+From: Tycho Andersen <tycho@kernel.org>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: Sean Christopherson <seanjc@google.com>, 
+ Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ iommu@lists.linux.dev, linux-kselftest@vger.kernel.org,
+ linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>,
+ x86@kernel.org, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, 
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Shuah Khan <shuah@kernel.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Tom Lendacky <thomas.lendacky@amd.com>, Kees Cook <kees@kernel.org>,
+ Ashish Kalra <ashish.kalra@amd.com>, 
+ Connor Williamson <connordw@amazon.com>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Zhou Yuhang <zhouyuhang@kylinos.cn>, Zi Li <zi.li@linux.dev>,
+ Dan Williams <djbw@kernel.org>, 
+ Eric Biggers <ebiggers@kernel.org>, Colin Ian King <colin.i.king@gmail.com>,
+ connordw@amazon.co.uk, 
+ graf@amazon.de, fgriffo@amazon.co.uk, David Woodhouse <dwmw@amazon.co.uk>
+Subject: Re: [RFC PATCH 01/11] KVM: selftests: sev_smoke_test: Only run VM
+ types the host offers
+Message-ID: <alpAqex9iHS2rk8b@tycho.pizza>
+References: <20260716151706.244987-1-dwmw2@infradead.org>
+ <f09647f427565c1789a6979470045aab78661563.1784194290.git.dwmw@amazon.co.uk>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f09647f427565c1789a6979470045aab78661563.1784194290.git.dwmw@amazon.co.uk>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,66 +78,22 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Thu, Jul 16, 2026 at 10:31:21AM +0100, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+> 
+> sev_smoke_test ran the plain SEV subtest unconditionally, gated only on
+> the X86_FEATURE_SEV CPUID bit, while gating SEV-ES and SNP on the
+> KVM_CAP_VM_TYPES bits.  CPUID reporting SEV does not mean KVM offers the
+> SEV VM type: when all SEV ASIDs are assigned to SEV-SNP, KVM_X86_SEV_VM
+> is unavailable even though X86_FEATURE_SEV is set.  On such a host the
+> test aborts in KVM_CREATE_VM instead of exercising the available modes.
+> 
+> Gate the SEV subtest on KVM_CAP_VM_TYPES like the others, so the test
+> runs the VM types the host actually offers.
+> 
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 
-Pre-existing issues:
-- [High] The device can be left permanently powered on if the driver is unb=
-ound while an asynchronous autosuspend is pending.
---
-
---- Patch [1]: [PATCH v2 1/2] drm/panel-edp: fix i2c adapter leak on probe =
-failure ---
-commit 471fbc83c1856bd9eec16a225d0ec84f3032c113
-Author: Johan Hovold <johan@kernel.org>
-
-drm/panel-edp: fix i2c adapter leak on probe failure
-
-This commit fixes a reference leak on an i2c adapter during probe failure
-or driver unbind. It introduces a devres action to automatically drop the
-adapter reference, streamlining the cleanup path and removing manual puts.
-
-Link: https://lore.kernel.org/r/CAD=3DFV=3DVZPhzHU+Pet2m3L+Pqc7mOPfZC-f5p0O=
-uNL79wNZPxRg@mail.gmail.com
-
-> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/pa=
-nel-edp.c
-> index f66474d3ef65e..775bd6af31ae7 100644
-> --- a/drivers/gpu/drm/panel/panel-edp.c
-> +++ b/drivers/gpu/drm/panel/panel-edp.c
-
-[ ... ]
-
-> @@ -983,8 +992,6 @@ static void panel_edp_remove(struct device *dev)
-> =20
->  	pm_runtime_dont_use_autosuspend(dev);
->  	pm_runtime_disable(dev);
-
-[Severity: High]
-This is a pre-existing issue, but does this sequence leave the device
-permanently powered on if unbound while an autosuspend is pending?
-
-During probe, pm_runtime_get_sync() is followed by
-pm_runtime_put_autosuspend() (e.g., in generic_edp_panel_probe()), leaving
-the device in RPM_ACTIVE for 1000ms. If the driver is unbound before this
-timer fires, pm_runtime_disable() cancels the pending autosuspend work
-without suspending the device.
-
-This can leave the panel regulators and GPIOs permanently enabled, and
-trigger a kernel WARN_ON from devres during regulator_put() due to an
-unbalanced enable count. Should there be a synchronous suspend call prior
-to disabling runtime PM in the removal path?
-
-> -	if (panel->ddc && (!panel->aux || panel->ddc !=3D &panel->aux->ddc))
-> -		put_device(&panel->ddc->dev);
-> =20
->  	drm_edid_free(panel->drm_edid);
->  	panel->drm_edid =3D NULL;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717143119.1815=
-106-1-johan@kernel.org?part=3D1
+Reviewed-by: Tycho Andersen (AMD) <tycho@kernel.org>
