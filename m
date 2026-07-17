@@ -4,77 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77ACFC44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:15:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8B20C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:15:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87D3B10E6DD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1E9210E6E1;
 	Mon, 20 Jul 2026 07:15:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LmqSYfnT";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kanardia.eu header.i=@kanardia.eu header.b="H1Ra45U+";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82EC910E0A1
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Jul 2026 19:04:06 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-495437bb891so22995785e9.1
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Jul 2026 12:04:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784487845; x=1785092645; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=bDZJF2FHgZ0pc0vw2vaEItundHS+IICtSs7RbOX6+08=;
- b=LmqSYfnTryHwNKEMELYqXK8IPHZSSLmHLSH7kBjZ5QTb9E92pe/8rqW0C20POd+7zA
- PW3gEs9Z4jRRSWyHY6sEBSxYYRh977ls7mr7hRwlH7JcoDuJ/vRZVFGqGp5FFW1fildO
- uy1JUCSbBdgWL1xCrjOlK3bKwMXfsVR1iZQe7EA5w/BWS9S8RtB8Vu13RSqd9+Cv9CkF
- m3k0c6apH+6cNSzC338bchoPlJkDZcTg8PX8EjyK9wvWhfnqcBA0KjhGVLjoawe3gk+c
- NIl9u0OP388Z0nUOuS4J37INkdMB2new1qI8my3asUDpLy9LH39iUyRIncxlG6S5qWk5
- WnLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784487845; x=1785092645;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=bDZJF2FHgZ0pc0vw2vaEItundHS+IICtSs7RbOX6+08=;
- b=NbqOpP+ddQ4m7LadwDR3y+bVY6eJlMhvEgKrd8ZDbR6BsggxY774wsKsmuZfX0CwX6
- 3mIh/ThAZbJ2WKBbqp0kCouCvqtZJe1O8K/VgG1IUy2yQru7n1hZYmEZk7nQWGmmJ9zF
- gSKpcz5YVB1pUPNJ/lJCfwIsiCs0gQd4WYrZQJYR+aZ7jvWmFxqZNntHnBKAmRcyeoqv
- atPsHZYqi94JyWop0Lv2lSshNp4RapDP8G09fq4+wUiE/2Q2NxTLMFLWzOStoT+1mztY
- EdCq5heWtQyjKee+Qt0rOzThaY7tTQl+I1J0v0gTKmaXq9lHgQErbSYTmGChEtgX634+
- elbQ==
-X-Gm-Message-State: AOJu0YzeHLjQjpwPXNiiDuzONkOjC1HC9CFkQ0hm1J3mbmoN45GDPXrm
- dpfCfN2HptVvThlSBuRGIFaOV0I1rLQVQXk7TMIUmi1WDTh+kMrdS6i1
-X-Gm-Gg: AfdE7cnW9+SdJkQ7St8qIhgNqPT9TnCaUEONZ19SaX2sd9eme2vzKtkZKobyas/JHIa
- URbu5QtFXcbJjP8gnKHvZ1Ipjk2YrehNvghX6pMSCIE8khEnVKtnwgHmSE6uALYzfdg2Rkjmjod
- 7YV/4f3y6yFGhXwHyybVzHens7IIMZQsbP+U+h6w+VRObJleHJOBQ6LyshXVkB9QtJ7BhlVnOdH
- KO/joqRd0t7djycaEd5RHd+k/mXKXEofjxakPKq2lzyy/h70LFe/LlXI2RXzG07dZMQ5fFbJWPn
- GchaU8H41oy+q5aItQ2FIwxDAXnOc5+DhUX2Zi4E1gksFpMlcPbcHxY5v7i9k5kQlQZno0MwTJj
- NqA0ZSp5IejWnKZ1s+2EUvm4wm7lAqtP8eOsXtUkvBDNZbJN6nAkWl5UwXUkajVCOmarY8oYkxr
- /Fhbd1ZtXbNP937Rpt97OMv0e0Zol2u/1bux85zA==
-X-Received: by 2002:a05:600c:3b88:b0:495:495f:bc30 with SMTP id
- 5b1f17b1804b1-4954a3391femr121619125e9.12.1784487844829; 
- Sun, 19 Jul 2026 12:04:04 -0700 (PDT)
-Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4954a2a2504sm241425285e9.2.2026.07.19.12.04.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Jul 2026 12:04:04 -0700 (PDT)
-From: Michail Tatas <michail.tatas@gmail.com>
-To: michael@amarulasolutions.com, neil.armstrong@linaro.org,
- jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dianders@chromium.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Michail Tatas <michail.tatas@gmail.com>
-Subject: [PATCH v2 1/3] drm/panel: ilitek-ili9805: Use _multi variants
-Date: Sun, 19 Jul 2026 22:03:55 +0300
-Message-ID: <20260719190358.438699-2-michail.tatas@gmail.com>
+Received: from th8-a.mail-neoserv.si (th8-a.mail-neoserv.si [152.89.234.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94BCB10E2DC
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:52:53 +0000 (UTC)
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=th8.neoserv.si; s=default;
+ b=RQZQFsFTuaENy+b64YWG98CGAz/AOTIn/cFAsb9lKZYOcSeGIHvDuddGXMLrTMNv6VQqCeY78R
+ 2zEOiatf0Neidu3hSBuvNZJu8gSHdX72/9IH/UObuD78+pXe8CTR1aVoI1yoDyNp44HylMevrs
+ 8wmUULwN4rSgvK7TbP5Kx9wjo5r+CUeemrJrmvK/V688ByMdlyNn1p3bXM9H+XjEWtneT/yFnf
+ c4q8h74zRtKNrId+Ye7XrUw8M6s7mWLUQAivV4/XxfwbhBbzpq3a7MkQ9h0jkvvPoCi6wHva9g
+ 3Dw3CPTu7O5db4SsDWL4XCRdRd4b+PbKNqlcKYdmz/u93g==;
+ARC-Authentication-Results: i=1; th8.neoserv.si; smtp.remote-ip=193.77.36.193; 
+ auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=th8.neoserv.si;
+ s=default; 
+ bh=QUsbUbN2uJ14EC3NitGndSP4UKklyfCcit+hJS7Mnfs=;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:
+ Date:Subject:Cc:To:From:DKIM-Signature;
+ b=DAWeOkWDYlaOqsJNagG/IvxSoxrwTcIObCVBB3XaIP2DPbmGSF4W38Rpq0PCgdtOkccF5wcleR
+ xqcBv+7HYt+YB07sa6aYtoKsqbmXdJjHUhUIsZrqZwbUkNPbtER7Y2olsdbyg9gASBBvJXZcYG
+ DOaUmIdrbsYeXcwC1gJ8jDGVaAq/dwm1oYHxv6fpyM2pfx3eLw8ehhRX0zh200x0F/pl2iyecd
+ Sm9TqaAWAWNjvaIdPYoLnsWYNvUJtKEVug1ihiT9Mv5t7GsVUN4oAB68TMQFFlppchvzvtGTA8
+ TB7xNZIbiNb0yzgxXaLi36r5EooXMF2WFUh+wUjoMyJN7g==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kanardia.eu
+ ; s=default;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=RBJ3oWAx1e/a//9kxC1kTkea2ayAvAwMRn9rFZJTNNk=; b=H1Ra45U+5i5qAegxYtcNZUh6Nx
+ qe0nsgRm5Wk7qQH8WM0SCGKZ0b3ToPqOBTkCMrZYuzGO0LAURMsd8r1byYybcHM9a9372c+EuVvuj
+ hlHNPbpwsARu+8D/kkzYfnRlI5E+B0fwt/iZcLYbS5q96vs+hVO9Q1skmLYqu2VlVbcScd4vF6lsb
+ RVNJU0M3KjXUIeMKjhYCJK1+CVGejPjIglqgiAfA2+9Ukw9n4jSNVodyH6dIfP6G8EqsOzCj/iGcY
+ 0pYMulpJPUPPJ3Bk2eB2liizebflwxS5X4kghO93dLoQlndgwYFc6oEO+i0jqcCnBhF9+puS5bNzz
+ iqJzqM3w==;
+Received: from [193.77.36.193] (port=54788 helo=rok-trip.kanardia.eu)
+ by th8.neoserv.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.99.4) (envelope-from <rok@kanardia.eu>)
+ id 1wkhHH-00000001fP1-2qlb; Fri, 17 Jul 2026 14:02:51 +0200
+From: Rok Markovic <rok@kanardia.eu>
+To: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Alibek Omarov <a1ba.omarov@gmail.com>,
+ Rok Markovic <rok@kanardia.eu>
+Subject: [PATCH 2/4] dt-bindings: display: rockchip,lvds: add RK3568
+Date: Fri, 17 Jul 2026 14:00:03 +0200
+Message-ID: <20260717120005.2087386-3-rok@kanardia.eu>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260719190358.438699-1-michail.tatas@gmail.com>
-References: <20260719190358.438699-1-michail.tatas@gmail.com>
+In-Reply-To: <20260717120005.2087386-1-rok@kanardia.eu>
+References: <20260717120005.2087386-1-rok@kanardia.eu>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Authentication-Results: th8.neoserv.si;
+ auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
+X-NEOSERV-MailScanner-Information: Please contact the ISP for more information
+X-NEOSERV-MailScanner-ID: 1wkhHH-00000001fP1-2qlb
+X-NEOSERV-MailScanner: Found to be clean
+X-NEOSERV-MailScanner-SpamCheck: not spam, SpamAssassin (not cached,
+ score=1.31, required 7, ALL_TRUSTED -1.00, BAYES_50 0.80,
+ KAM_DMARC_QUARANTINE 1.50, KAM_DMARC_STATUS 0.01)
+X-NEOSERV-MailScanner-SpamScore: s
+X-NEOSERV-MailScanner-From: rok@kanardia.eu
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - th8.neoserv.si
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - kanardia.eu
+X-Get-Message-Sender-Via: th8.neoserv.si: authenticated_id: rok@kanardia.eu
+X-Authenticated-Sender: th8.neoserv.si: rok@kanardia.eu
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,96 +105,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert functions mipi_dsi_* to mipi_dsi_*_multi as per the
-gpu/todo file.
-The multi variant of these functions include improved error
-handling.
+The RK3568 LVDS transmitter has no register block of its own: it is
+programmed entirely through the GRF and re-uses the MIPI DSI0 D-PHY
+(rockchip,rk3568-dsi-dphy) in LVDS mode. It therefore needs
+phys/phy-names like px30, but unlike px30 it does take a pclk
+(PCLK_DSITX_0, shared with the DSI controller the D-PHY belongs to).
 
-Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
+It has no analog supplies of its own and no pinctrl: the lanes are
+dedicated D-PHY pins, not muxable GPIOs.
+
+Signed-off-by: Rok Markovic <rok@kanardia.eu>
+Assisted-by: Claude:claude-opus-4-8
 ---
- drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 51 +++++---------------
- 1 file changed, 13 insertions(+), 38 deletions(-)
+ .../display/rockchip/rockchip,lvds.yaml       | 22 +++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
-index e6c483851f1f..7e9587afebbe 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
-@@ -159,36 +159,23 @@ static int ili9805_power_off(struct ili9805 *ctx)
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,lvds.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,lvds.yaml
+index 03b002a..6280f7e 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,lvds.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,lvds.yaml
+@@ -15,6 +15,7 @@ properties:
+     enum:
+       - rockchip,px30-lvds
+       - rockchip,rk3288-lvds
++      - rockchip,rk3568-lvds
  
- static int ili9805_activate(struct ili9805 *ctx)
- {
--	struct mipi_dsi_device *dsi = ctx->dsi;
--	struct device *dev = &dsi->dev;
--	int i, ret;
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+	int i;
+   reg:
+     maxItems: 1
+@@ -121,6 +122,27 @@ allOf:
+         - avdd1v8-supply
+         - avdd3v3-supply
  
- 	for (i = 0; i < ctx->desc->init_length; i++) {
- 		const struct ili9805_instr *instr = &ctx->desc->init[i];
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: rockchip,rk3568-lvds
++
++    then:
++      properties:
++        reg: false
++        avdd1v0-supply: false
++        avdd1v8-supply: false
++        avdd3v3-supply: false
++        pinctrl-names: false
++        pinctrl-0: false
++
++      required:
++        - clocks
++        - clock-names
++        - phys
++        - phy-names
++
+ additionalProperties: false
  
--		ret = mipi_dsi_dcs_write_buffer(ctx->dsi, instr->data, instr->len);
--		if (ret < 0)
--			return ret;
-+		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, instr->data, instr->len);
- 
- 		if (instr->delay > 0)
--			msleep(instr->delay);
--	}
--
--	ret = mipi_dsi_dcs_exit_sleep_mode(ctx->dsi);
--	if (ret) {
--		dev_err(dev, "Failed to exit sleep mode (%d)\n", ret);
--		return ret;
-+			mipi_dsi_msleep(&dsi_ctx, instr->delay);
- 	}
- 
--	usleep_range(5000, 6000);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
- 
--	ret = mipi_dsi_dcs_set_display_on(ctx->dsi);
--	if (ret) {
--		dev_err(dev, "Failed to set display ON (%d)\n", ret);
--		return ret;
--	}
--
--	return 0;
-+	return dsi_ctx.accum_err;
- }
- 
- static int ili9805_prepare(struct drm_panel *panel)
-@@ -211,25 +198,13 @@ static int ili9805_prepare(struct drm_panel *panel)
- 
- static int ili9805_deactivate(struct ili9805 *ctx)
- {
--	struct mipi_dsi_device *dsi = ctx->dsi;
--	struct device *dev = &dsi->dev;
--	int ret;
--
--	ret = mipi_dsi_dcs_set_display_off(ctx->dsi);
--	if (ret < 0) {
--		dev_err(dev, "Failed to set display OFF (%d)\n", ret);
--		return ret;
--	}
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
- 
--	usleep_range(5000, 10000);
--
--	ret = mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
--	if (ret < 0) {
--		dev_err(dev, "Failed to enter sleep mode (%d)\n", ret);
--		return ret;
--	}
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_usleep_range(&dsi_ctx, 5000, 10000);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
- 
--	return 0;
-+	return dsi_ctx.accum_err;
- }
- 
- static int ili9805_unprepare(struct drm_panel *panel)
+ examples:
 -- 
 2.43.0
 
