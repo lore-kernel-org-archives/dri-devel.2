@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4515C44517
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 07:29:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FAEBC44515
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 07:33:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0548210F47A;
-	Fri, 17 Jul 2026 07:29:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4103B10E401;
+	Fri, 17 Jul 2026 07:33:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="S4d6bSVY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K41Fx4v9";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E5AB10F477
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 07:28:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=xSsOV9ELGlFEkjL8SIaZB75YzEavqeAgKboWv3oTa4c=; b=
- S4d6bSVYU3QgxKmnZb5xyptPTZ7xRjCexN6ztgT/baBY0Yjj60YoCgCWjO+fnKuLX2+9yfNXJi2uJ
- atDkav5TLkHDP1DtgJETc0KtTlJaQmWVMGIX8aERlZlgTIv5PFW+5TM+XxygRJZDB9dJUmxFQICsQ
- 0MrmaFXChUTlEqm7rT67RXVX174XlynXrVprsehsNQuGoPC7JLheywW3TqdtUdgc/YlFgpquceOsc
- zMvORUB6IEqs30HfyknPg+4Jp9+w/hJ5Qeib5nDZejMgA56QmEaOdPXZVVwnfL4pH75VEdDbkWh19
- IkTl98oYWlQtXcXjwuPA+x6rrlqKaskimw==;
-Received: from [90.240.106.137] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wkd07-00GHmC-5x; Fri, 17 Jul 2026 09:28:51 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Chia-I Wu <olv@google.com>,
- Tejun Heo <tj@kernel.org>
-Subject: [RFC v2 0/2] Realtime workqueues and panthor realtime submission
-Date: Fri, 17 Jul 2026 08:28:44 +0100
-Message-ID: <20260717072846.19954-1-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.54.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DF3D10E401
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 07:33:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2316F43935;
+ Fri, 17 Jul 2026 07:33:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADB331F00A3A;
+ Fri, 17 Jul 2026 07:33:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784273593;
+ bh=mdIEkZeC84PdXzOvpRfi+ovbwMjSaaPCZZFU6v1KpG8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=K41Fx4v90rb/3ei7KVNAqSIiqvElhlSDsDEX5yvOGSfSRP9739es2B73N0Ea1uNhC
+ 39CBRR2JOTRCMYcRLYA29Vkr1ltV1gd7HRUOeAXCly9lqINZ++KvxJeRFPu3W3tP8u
+ lK97tvyjePyk8ymk+bH1YrFjMDdf0C1MSrPNcgcUCU4hfiIGk8m4tf4j62cYVfUpet
+ IM3ukhMgPhnRj44dowxuDRMYYChf9VBx6tNcNpanryC67Qexv9kdv50Iwn/rOwlDX7
+ YR6ydCZgITi2O8arwPNKepeoWPROvuFl9iQWV4EyqS5+y1keMw6WHxV+iIvjOEBhBJ
+ HJbHujV8mtYTQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/5] drm/bridge: aux: Add
+ drm_aux_bridge_register_from_node()
+To: "Chaoyi Chen" <kernel@airkyi.com>
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org,
+ dri-devel@lists.freedesktop.org, linux-phy@lists.infradead.org,
+ olteanv@gmail.com
+In-Reply-To: <20260717072323.96-3-kernel@airkyi.com>
+References: <20260717072323.96-1-kernel@airkyi.com>
+ <20260717072323.96-3-kernel@airkyi.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 07:33:12 +0000
+Message-Id: <20260717073312.ADB331F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,72 +56,64 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a continuation of the previous discussion which was here:
-https://lore.kernel.org/dri-devel/20260702143745.79293-1-tvrtko.ursulin@igalia.com/
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Unbalanced `of_node_put()` in `drm_aux_bridge_register_from_node()=
+` and `drm_aux_bridge_release()` causes a reference count underflow for the=
+ provided `device_node`.
+--
 
-Work is now converted to a much simpler approach by adding real-time scheduling
-workqueues based on Tejun's feedback
+--- Patch [2]: [PATCH v3 2/5] drm/bridge: aux: Add drm_aux_bridge_register_=
+from_node() ---
+commit b2b66972200bdc4b6541ca41f8ae44c08d81a964
+Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-To re-cap, when an userspace thread submits GPU work, due how the DRM scheduler
-uses workqueues to feed the GPU, and regardless of the GPU rendering context
-priority, or the CPU scheduling priority of the userspace thread itself, the
-use of workqueues adds (a lot of) latency to the submit path.
+drm/bridge: aux: Add drm_aux_bridge_register_from_node()
 
-When CPU is busy with enough backround load this translates to severe latency
-spikes measured as time between userspace submitting work and GPU actually being
-given that work to execute.
+The drm_aux_bridge_register() uses the device->of_node as the bridge->of_no=
+de.
+This patch adds drm_aux_bridge_register_from_node() to allow specifying the
+of_node corresponding to the bridge.
 
-With the panthor workqueue upgraded to use WQ_HIGHPRI and varying the CPU
-priority of the submit thread, the test program from
-https://gitlab.freedesktop.org/panfrost/linux/-/work_items/49 reproduces these
-kind of latencies:
+> diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge=
+/aux-bridge.c
+> index 1ed21a8713bfd..06a1466f49bd2 100644
+> --- a/drivers/gpu/drm/bridge/aux-bridge.c
+> +++ b/drivers/gpu/drm/bridge/aux-bridge.c
+[ ... ]
+> @@ -62,7 +63,10 @@ int drm_aux_bridge_register(struct device *parent)
+>  	adev->dev.parent =3D parent;
+>  	adev->dev.release =3D drm_aux_bridge_release;
+> =20
+> -	device_set_of_node_from_dev(&adev->dev, parent);
+> +	if (np)
+> +		device_set_node(&adev->dev, of_fwnode_handle(np));
 
-         .    N    RT
-    M   27   28    32
-  95%  163  246   809
-  98%  924  991  1882
+[Severity: High]
+Does this cause a reference count underflow for the device node?
 
-Legend:
+Unlike device_set_of_node_from_dev() which safely acquires a reference to t=
+he
+of_node, device_set_node() just assigns the pointer without calling
+of_node_get().
 
-   M = Median submit latency in us
- 95% = Percentile latency in us
+If auxiliary_device_init() fails, the error path below unconditionally calls
+of_node_put(adev->dev.of_node). Similarly, the pre-existing
+drm_aux_bridge_release() callback drops a reference when the device is
+destroyed.
 
-   . = Userspace submit thread SCHED_OTHER
-   N = -||= nice -1
-  RT = -||- FIFO 1
+Could this cause of_node_put() to drop a reference that was never acquired?
 
-Upgrading the panthor workqueues so that the realtime GPU priority queue uses
-WQ_RTPRI, submit latency becomes completely controlled with the median of 14us
-and 95 and 98-th percentiles at 23us and 25us respectively.
+> +	else
+> +		device_set_of_node_from_dev(&adev->dev, parent);
+> =20
+>  	ret =3D auxiliary_device_init(adev);
+>  	if (ret) {
 
-Important to note is that VK_QUEUE_GLOBAL_PRIORITY_REALTIME already required
-the userspace to have CAP_SYS_NICE, meaning access to real-time workqueues is
-effectively also guared behind this capability. The implementation of WQ_RTPRI
-itself also adds some limites on the maximum number of worker threads in order
-to prevent scheduling starvation.
-
-v2:
- * See patch 1 changelog.
-
-Cc: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Chia-I Wu <olv@google.com>
-Cc: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Steven Price <steven.price@arm.com>
-Cc: Tejun Heo <tj@kernel.org>
-
-Tvrtko Ursulin (2):
-  workqueue: Add support for real-time workers
-  drm/panthor: Create per queue priority workqueues
-
- drivers/gpu/drm/panthor/panthor_sched.c |  38 +++++-
- include/linux/workqueue.h               |  23 +++-
- kernel/workqueue.c                      | 149 ++++++++++++++++++------
- 3 files changed, 166 insertions(+), 44 deletions(-)
-
--- 
-2.54.0
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717072323.96-1=
+-kernel@airkyi.com?part=3D2
