@@ -4,92 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 936AFC44514
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 10:46:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D878DC44507
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 10:48:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 047FB10E427;
-	Fri, 17 Jul 2026 10:46:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AD5510E454;
+	Fri, 17 Jul 2026 10:48:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SxwyDjuM";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="mYi+SYJT";
 	dkim-atps=neutral
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6DEF10E427
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 10:46:24 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-5b01146b205so5567784e87.2
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 03:46:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784285183; cv=none;
- d=google.com; s=arc-20260327;
- b=lvFe8aHDnD4cFK0T3Dy6HV+sn+X+mXJz2p6KAjmSVDSpLEEfb5AUals7HdDmZAVYRx
- QlCsrbhqwNHOEx/MUpN0xGVAqtnDKC4I4knWnFy1HlwrA2cDW8WUaFRImO7o4DxUv5sR
- 7ekDz3lPGd2i6JZ6Q59LIQAyrbFhoU4p3I0BWcBDA3lDRWG2n3Rsn+Y03sco9tEDVisV
- wNoxDqIn3Rv+7chmrVCR54ETCwZTyGJRQ3ZOJMaaBtAcpD0gNmpD2M0cE9Ba8enaebL+
- Hi9CUHTRIpgOMUqhcuVInx4U5zGzDygyj+cyERuqetR5I+pHYyB6JiaaNMvAhNf1jaj6
- zAGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=YHbZnUgfhySQwLZmZxFG4/4tCoDafXP3bzmxOBvVJ8o=;
- fh=WPdTBFEKs0vFjbrFegYXS1FuS3VesTcjYiSpkHYhSsM=;
- b=seBL/Xctk1ZAHCdP92jjBBP4iiesR5GUZWC1nP/t5UbnB4lNA2kzbTZyesB4KEPd0e
- mvMMYSsWYFVkvTQNBfQR4GmlgQOhZFJDAm165PLULSvqsBu8JcK0b/ge8sbAWOwo8JJN
- YsRnCD55xZ0f4+MFlJ8pTcDlEuHd+TRbf3Umw3f5sLZ/cxBRCjGCiY9pKtXRyDjrWo+e
- bdyezTn0JLTxgS6NJy27knAyZxB+g/5vQGxxMk/UjVp5eJZdlRd8AcdFtRo9Anz7DHR1
- zWdjPgPgS7WDa4ebGpuZeOm1aJA9Fg+NkeMiXctRbtOLpOQGBuU7u/CLUAl1a6arYwCp
- +3kg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784285183; x=1784889983; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=YHbZnUgfhySQwLZmZxFG4/4tCoDafXP3bzmxOBvVJ8o=;
- b=SxwyDjuMfDxkb4GmmafBISECHGjC28UeeidivOv/POvMEQo1xRNvYL+K7T4l3nQ1W8
- F+oGaGvfvxs+W45F31JkbkV/pd8FQdE5bcn+wdr8HfxX1oygYc5Xw4dlDID/9kawTZVV
- ERBNvt+FTa4zS8KDKj1pJZtgdhOxKRDIphcVptKBIZQXLcdXx1RvqfZXnoOc0JSRzOgJ
- +jQQbOZlgs72/Y/B5WPEIwNBPm7RsGrHBdQ1HEhdkFbeOfKt44MzrM3vS69NHJ2QqNDs
- sChyHTyEyFLxIVi6D4XeQQRK1JmYCLpA2mDHfuwhcmKs3xYWG+C9U/wSbBmdNQDTCI+S
- AGEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784285183; x=1784889983;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=YHbZnUgfhySQwLZmZxFG4/4tCoDafXP3bzmxOBvVJ8o=;
- b=T2m2MunlFxrMTH0HctC1df9oACxM3SCKv0Foor1/raH2ePU7FjyVNocJeo2SS4QiHb
- LR1S6hUN6763YULtiBGpY0LceZ7zgXSA/mcHXjES5nqh/gcN7FqoE1YZPnB1wt3zc/e7
- XNSqlgNAUdcZSjss/3URBBDOAarIev6jKOabAcit5TLRUdtENbk3qKsLzgbOQXEKpyvo
- qMXjwSghFGfZxntLS2V9CKeSVydW+VVlcZZI+xSbhHF5Btb3/Tvh3NL37KB0OVybRrOO
- iGNE8r1cBG4lyeZItTYigPaQhovgS6xE6/75RbGmy87P20WE0CszJAQXlG4R2M9PzGat
- xNIA==
-X-Gm-Message-State: AOJu0YxFQtDK8KdVc4dCDZLGw1fwP85eydJcM+bUWTuHCP/RF2O/b1wM
- D3QE/f1h6YmvYKTYzUscP+9I7NBuFXsvlGIj+bW5ojmBpky+w96Yc/dFS2C3qbvbKEdqVbor09n
- O/9zoqAS0fYEZCcqZSsatX6FQLprfVH4=
-X-Gm-Gg: AfdE7clhAVnUIkie9i1kSZWQJ/aJLVkDUMZ9vNANaVRJNIfyte4+XOchK9JpT/uR4Xp
- OoaKbyqGirqDRe8kgAjLu1BrCJ8xCM1RT0uVBi34sVY2c3WUcg3xrknwcMQgXLM9F1AyjlxzEUP
- GW1o3BAKpEA21g+oxfDkvQNPKOtPquE/pe4vPdMbwWmv+p6+mSt3iHcCPLQtNUWxPEV6XWwxVim
- 3VgYULYOPM6VzVbtXg/l71g/d13nqYEV/Jp/nQ25tKF8yfMaL8c7u9/2jIQWkIqidpzNr2J8m/I
- voZb1i7LsozzDU2zziwIFyTZ8Ib6hBrz3jh1nEG/N2bqUDvefv3N/hkAiQKYB55l5bOnpLYBLvj
- Y9S4p
-X-Received: by 2002:ac2:51cf:0:b0:5ae:b136:acdc with SMTP id
- 2adb3069b0e04-5b28f9a589emr536086e87.35.1784285182682; Fri, 17 Jul 2026
- 03:46:22 -0700 (PDT)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 26CEA10E454
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 10:48:20 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3AB851476;
+ Fri, 17 Jul 2026 03:48:15 -0700 (PDT)
+Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com
+ [10.2.198.107])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9B3893F7D8;
+ Fri, 17 Jul 2026 03:48:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1784285299; bh=0bo60OYleFw4VVrqObP8ApRUIOYI6RLqGrqNR2tMODE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=mYi+SYJTdBEMMnkc3FtM0+BHldq32tyWavXaEQUxQs3O4tpZfaOLtaQBru5O+7ceD
+ rStsHlQ6Jj30YrQrIVjSsiwzQ1mAjhT/e2UKXEt6LsITLXOBuv6/AzcSKloDp8dndC
+ vCjWtLTZjUicPg9qJdirqwRHbb3EiXRvY8S26Xz8=
+From: Ryan Roberts <ryan.roberts@arm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: Ryan Roberts <ryan.roberts@arm.com>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org
+Subject: [RFC PATCH v1 0/8] Arm Core Local Accelerator Driver
+Date: Fri, 17 Jul 2026 11:47:44 +0100
+Message-ID: <20260717104759.123203-1-ryan.roberts@arm.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260714101146.200416-1-kieweg.leander@gmail.com>
- <20260714101146.200416-3-kieweg.leander@gmail.com>
- <d817d031-6ef2-4909-81cb-a9d417550dd8@suse.de>
-In-Reply-To: <d817d031-6ef2-4909-81cb-a9d417550dd8@suse.de>
-From: Leander Kieweg <kieweg.leander@gmail.com>
-Date: Fri, 17 Jul 2026 12:46:09 +0200
-X-Gm-Features: AUfX_mw8ch0ZGElQgNP-r5TJUFlhtJZKGB1M8n9Xm63PvlrnxX6RSRURqwTyDwk
-Message-ID: <CAMwcS0h--iZtjVZUeeHmoV4MngfW_f9auAseBDhqXMGc_zqVqg@mail.gmail.com>
-Subject: Re: [RFC PATCH 2/3] drm/glanda: Add initial DRM driver for GlandaGPU
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,74 +58,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+Hi All,
 
-Thanks for the detailed review, going through each point:
+This RFC introduces a driver for the Arm Core Local Accelerator (CLA), a
+CPU-local interface for programming attached accelerators. While the interface
+is agnostic to the accelerator type, the initial (and currently only) target is
+a compute engine.
 
-> Please use drm_device.dev instead.
+The RFC aims to engage the community and get feedback on some key aspects. This
+will help plan our approach for eventual upstreaming. The patches implement a
+bare bones driver to aid discussion. Arm plans to publish the CLA spec in
+future, but for now I hope the documentation included with patch 1 suffices.
+Note that the CLA is not part of the Arm Architecture.
 
-Will drop this field and use gdev->drm.dev everywhere instead.
+Patch 1 documents the hardware and driver design, and adds a driver skeleton.
+Patches 2-4 initialize and probe the device. Patches 5-8 add context management
+for switching the device between different users.
 
-> Synchronization happens with drm_gem_fb_begin_cpu_access(). No need to
-> take the lock here.
->
-> > +     ret = drm_gem_shmem_vmap_locked(shmem, &map);
->
-> This vmap should not happen here, but in begin_fb_access.  We have
-> helpers that set up the mapping for your driver. Take a look at
-> DRM_GEM_SHADOW_PLANE_HELPER_FUNCS and DRM_GEM_SHADOW_PLANE_FUNCS and the
-> drivers that use them.
+Aspects I'm seeking feedback for:
 
-I wasn't aware these helpers existed, this looks like exactly the
-right fit for what I'm doing (software render into shmem, blit into
-hardware VRAM on flip). I'll switch to
-DRM_GEM_SHADOW_PLANE_HELPER_FUNCS/DRM_GEM_SHADOW_PLANE_FUNCS and drop
-the manual dma_resv_lock/vmap_locked handling entirely for v2.
+* The general structure of the driver: The current shape addresses the
+  performance requirements we have for the use cases, and is therefore our
+  preferred approach. But there are some unusual aspects due to the HW design.
 
-> That's confusing. Each pixel is 32 bit. But each color channel is only 4
-> bit. So there's a 20-bit hole in each pixel, right?   Why don't you use
-> 16 bit per pixel?
+* Driver interaction with architectural support: I've opted to treat the CLA as
+  a device rather than a CPU extension, so it's implemented as a (mostly)
+  self-contained driver. It has some unavoidable coupling to the arch code since
+  it needs to share page tables and ASIDs (arm64_mm_context_[put|get]()).
 
-You're right that it's wasteful as-is. One thing worth mentioning
-though, my VRAM write port on the hardware side is a fixed 32-bit
-Avalon-MM slave without byteenable support. The hardware itself
-always reads the lower 12 bits and ignores the rest, so that part is
-fine regardless of write width, but I'm not certain the interconnect
-would reliably place a 16-bit write into the lower half of the
-32-bit word rather than, say, the upper half depending on address
-alignment, without byteenable support to make that explicit.
+* The location of the driver: although most accelerators will likely be compute
+  ones, CLA is a generic MMIO interface that could handle any kind of
+  accelerator. It's currently implemented as a misc driver. accel is another
+  potential option, but given the current SVA approach, we would not use any of
+  the services (memory-management or otherwise) that accel provides.
 
-I'm already planning to update the hardware to accept XRGB8888
-natively, which will need the full 32-bit width regardless and
-removes the CPU-side pixel conversion entirely, so I'll leave this
-as a 32-bit write for now and address it as part of that hardware
-change rather than adding byteenable support for what would only be
-a temporary fix.
+* User space availability: The kernel driver exposes the capabilities of the
+  hardware to user space. Arm plans to open source a user space driver, but does
+  not yet have any committed date. I'd like to understand if the availability of
+  this component will be a prerequisite for upstream acceptance of the kernel
+  driver; either way, I'm hoping we can at least progress with some discussion
+  in its absence.
 
-> I don't think it is possible that new_state is NULL.
+I'm deliberately constraining the scope to bare-metal support for now.
+Virtualization is something we are considering (and have prototyped), but plan
+to post a separate RFC for that as follow-up, once we have agreement on
+direction for the bare-metal driver.
 
-I'll drop the redundant check.
+Source, along with some tests, is available at [1]. Patches based on v7.2-rc3.
 
-> No need for this function. drm_gem_fb_create_with_dirty() is exactly
-> what you're looking for.
+[1] https://gitlab.arm.com/linux-arm/linux-rr/-/tree/features/cla-driver-v1-rfc-tests
 
-Thanks, I'll drop glanda_fb_create()/glanda_fb_funcs and just assign
-drm_gem_fb_create_with_dirty directly.
+Thanks,
+Ryan
 
-> Drop these ioctls entirely. As I outlined in my reply to the cover
-> letter, these will not work with DRM as they are now. Especially since
-> you're using gem-shmem as a shadow buffer. All your rendering happens in
-> system memory in user space in software.
 
-Agreed, as mentioned in my reply to the cover letter, these are gone
-in v2.
+Jean-Philippe Brucker (5):
+  misc/arm-cla: Add driver skeleton and documentation
+  misc/arm-cla: Add launch operation helpers
+  misc/arm-cla: Probe firmware-described devices
+  misc/arm-cla: Initialize devices on CPU bringup
+  misc/arm-cla: Accelerator context save and restore
 
-> This function is going away. You can open-code it instead.
+Ryan Roberts (3):
+  misc/arm-cla: Set up memory translation context
+  misc/arm-cla: Manage domain contexts
+  misc/arm-cla: Add userspace interface
 
-Will do, thanks for the heads up.
+ Documentation/misc-devices/arm-cla.rst | 206 ++++++++++
+ drivers/misc/Kconfig                   |   1 +
+ drivers/misc/Makefile                  |   1 +
+ drivers/misc/arm-cla/Kconfig           |  10 +
+ drivers/misc/arm-cla/Makefile          |  13 +
+ drivers/misc/arm-cla/arm-cla-regs.h    | 179 +++++++++
+ drivers/misc/arm-cla/arm-cla.h         | 296 +++++++++++++++
+ drivers/misc/arm-cla/cla-ctx.c         | 142 +++++++
+ drivers/misc/arm-cla/cla-init.c        | 503 +++++++++++++++++++++++++
+ drivers/misc/arm-cla/cla-mtc.c         | 139 +++++++
+ drivers/misc/arm-cla/cla-ops.c         | 342 +++++++++++++++++
+ drivers/misc/arm-cla/cla-regs.c        | 263 +++++++++++++
+ drivers/misc/arm-cla/cla-sched.c       | 474 +++++++++++++++++++++++
+ drivers/misc/arm-cla/cla-topology.c    | 187 +++++++++
+ drivers/misc/arm-cla/cla-user.c        | 351 +++++++++++++++++
+ include/uapi/linux/arm-cla.h           | 207 ++++++++++
+ 16 files changed, 3314 insertions(+)
+ create mode 100644 Documentation/misc-devices/arm-cla.rst
+ create mode 100644 drivers/misc/arm-cla/Kconfig
+ create mode 100644 drivers/misc/arm-cla/Makefile
+ create mode 100644 drivers/misc/arm-cla/arm-cla-regs.h
+ create mode 100644 drivers/misc/arm-cla/arm-cla.h
+ create mode 100644 drivers/misc/arm-cla/cla-ctx.c
+ create mode 100644 drivers/misc/arm-cla/cla-init.c
+ create mode 100644 drivers/misc/arm-cla/cla-mtc.c
+ create mode 100644 drivers/misc/arm-cla/cla-ops.c
+ create mode 100644 drivers/misc/arm-cla/cla-regs.c
+ create mode 100644 drivers/misc/arm-cla/cla-sched.c
+ create mode 100644 drivers/misc/arm-cla/cla-topology.c
+ create mode 100644 drivers/misc/arm-cla/cla-user.c
+ create mode 100644 include/uapi/linux/arm-cla.h
 
-I'll include all of this in v2 along with what we discussed on the
-cover letter thread. Thanks again for the thorough review.
+--
+2.43.0
 
-Best regards,
-Leander
