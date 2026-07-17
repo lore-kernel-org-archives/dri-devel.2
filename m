@@ -4,76 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB4F7C44514
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 11:25:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82034C44514
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 11:26:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CE4A10E3F6;
-	Fri, 17 Jul 2026 11:25:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD8F210E44E;
+	Fri, 17 Jul 2026 11:26:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=riseup.net header.i=@riseup.net header.b="RWQpko0Y";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hbuaHMNf";
 	dkim-atps=neutral
-X-Greylist: delayed 353 seconds by postgrey-1.36 at gabe;
- Fri, 17 Jul 2026 11:25:23 UTC
-Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CF1610E3F6
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 11:25:23 +0000 (UTC)
-Received: from fews04-sea.riseup.net (fews04-sea-pn.riseup.net [10.0.1.154])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx1.riseup.net (Postfix) with ESMTPS id 4h1nVp0v8kzDqP1;
- Fri, 17 Jul 2026 11:19:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=riseup.net; s=squak;
- t=1784287170; bh=0X369mwyOMIFk/r3d3PQY6CeGGMZAcaEUO1xF8171Hs=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=RWQpko0YA8oIPk3GMWsjjLkGa4P4A1qlvlu80hoW3k9haS9kM27AWCKQISOJLRkeo
- vhG1eCVONDyUkZ6cQifYVaDpwezhlkzXw+j0rnNgPVw4CBxH2jWO2rGVxd9aL15fOk
- Qzm/SdYID3jDMY6wICmBGhWP8EYCwdJ2hdFiFCUQ=
-X-Riseup-User-ID: F2AEC4D09809E501C7F2D29DBA705E7DEACF772D6DC14CD920A7E0B6F392FFFA
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- by fews04-sea.riseup.net (Postfix) with ESMTPSA id 4h1nVl146bz5vNQ;
- Fri, 17 Jul 2026 11:19:26 +0000 (UTC)
-Message-ID: <9fbd796b-d87f-4ad0-923d-3f8fcd0baa77@riseup.net>
-Date: Fri, 17 Jul 2026 08:19:24 -0300
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9242010E44E
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 11:26:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1784287579;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vXe76W/8pIhJ+QV+npP2Pr4GqXg7ylW2+hZyFUAZkxo=;
+ b=hbuaHMNfVh/BTlEUtqw2qc88EQ5YrQJttUseyY/ZW5fbk68bM7/2J47/ytW8GSVyPUZu+F
+ utec4FzXZOTpv9YvNnvpNMNs41+i7FmLqC4iNgxM2JMow75DMd0/6Zsji/ErK4zVNYS+sw
+ LlikvaofhxxezrDsxgYQkKZPYSY57v0=
+Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com
+ [74.125.224.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-557-wqjS7WmFM2i_Jd9SmtXopQ-1; Fri, 17 Jul 2026 07:26:18 -0400
+X-MC-Unique: wqjS7WmFM2i_Jd9SmtXopQ-1
+X-Mimecast-MFC-AGG-ID: wqjS7WmFM2i_Jd9SmtXopQ_1784287578
+Received: by mail-yx1-f71.google.com with SMTP id
+ 956f58d0204a3-668432d53c5so97639d50.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 04:26:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784287578; x=1784892378;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=vXe76W/8pIhJ+QV+npP2Pr4GqXg7ylW2+hZyFUAZkxo=;
+ b=stqBEYurb5jXi2lLFK4DnKgKQi0oJGf9PsW/rO+8OZxq5CdB9oC1/EhzhYkh/RZmPq
+ mC30uDCxlKjSxB84y9aA6xsEiz8NWPwfNQmWfFs0BQpH2YSAhqaaa8N9H8Sspp8Dqos2
+ q5nP8LEMRcv8a8zvWCubkgYWVdm4D/W2LjPvlQBmy++dIEAAmyPFDcwPKV7ukEeNRxuz
+ 1vgFsgjr59Nf8V6Boiqh5BcLMeMTFvja4ZM8n6NjLsuWepmMH3i2O2+sYZm0EiipYwRT
+ cXKCveF7EKij2jQiPCghD2jT7a6gm7/BFOxzsZc5ABiHzRGb0NbGEzOyxaK4nzXElZNj
+ zrug==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqgmasYvYDAZ7TLsCuxQcrjqO7USxCxMLpi/Yx838magZR4Ke6FCCu8K94+0FKpkAQhE6zo8albk9U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/ebaP6gODpwR7mgADj5K1SXS8NjfpOwdPyi30uSqX5pCQjbtv
+ 7vRpLzZx3Uj2UfD7GgybQocWmwPlcU6IUnF/w59Va7FM4V1h9qOySKgLEhXJWFhcXhbTYxK4gjs
+ ZThX2pbeXk8CZLexVXEJp7ai0wJzq5lBQNRf59yIJUIk6+fSQpGD45o5RK0Stl8sznYVPiu9eKd
+ 5iGxx/qwZ0pl4GWy29E83Jamhrb4RMaByzLrAW+ISmUpoR
+X-Gm-Gg: AfdE7cnzmexP4yg7yDlKoBvSkB8+nL9IBGBm3jKCau03gDZTqMIaeBt1Rcr7yF0peCC
+ LLohXfdQ9i2UMEKKRG9zs/gxvo56hjtKJFF1CMYcdYptXrTYwEIUt3G7C+wudYSbqVLIUsT4QHv
+ jux/WAmiRP9glDnOHX/bn2/6eBLYyhpoWCNZ7j6oMh82Chl/RoSnjI8XcJ
+X-Received: by 2002:a05:690e:43cb:b0:668:43ce:50e4 with SMTP id
+ 956f58d0204a3-66843ce511emr36174d50.53.1784287577984; 
+ Fri, 17 Jul 2026 04:26:17 -0700 (PDT)
+X-Received: by 2002:a05:690e:43cb:b0:668:43ce:50e4 with SMTP id
+ 956f58d0204a3-66843ce511emr36162d50.53.1784287577611; Fri, 17 Jul 2026
+ 04:26:17 -0700 (PDT)
 MIME-Version: 1.0
-Subject: =?UTF-8?Q?Re=3A_=5BPATCH=5D_mailmap=3A_Update_Ma=C3=ADra_Canal=27s_?=
- =?UTF-8?Q?email_address?=
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <maira.canal@usp.br>,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- Melissa Wen <mwen@igalia.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-References: <20260717111559.2759217-1-maira.canal@usp.br>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mairacanal@riseup.net>
-Content-Language: en-US
-Autocrypt: addr=mairacanal@riseup.net; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNJE1hw61yYSBDYW5hbCA8bWFpcmFjYW5hbEByaXNldXAubmV0PsLAkQQTAQgAOxYhBPjk
- XX0BFncHKaZ30T/zDop2iPqqBQJnAsxsAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheA
- AAoJED/zDop2iPqqIMIH/imTDQNi2FQpXG9z6fA6Kg5jOZQfBgYMUmzxA3y+5s7I6Ily0rci
- vdRwki89noYtjXB/P+9rSnhRq4KsXh+E3k0AHYt1VQgczMlnHADcXdr2XZopTqqCkNMH4MPd
- JoT2rx63uGBDhgX530ohZKOM3FN609+5SlBrUBEHC3ynZAH+CBbr4CnD1Z44RUWldDRJjxuF
- I+mm7lMYR0Ybb3eYqkBw3f8h1rhwhVYouc1Iiynlrykf0BKsmOTxA56Fyuc4LxkjHoVC5/pr
- 4uwMD0Oz4GQpX1d0S6C59hvMyXwXUkID+cVMhvNdEeR2DV05aUmUrAS+8BsgxrK0Y//oR3PS
- irrOwE0EZwLDLAEIAMU1PHZ6syur4Dg0wltgOkgM3Lys7cWnuGI0cDdUrhoSUdorCYEB6Dh+
- qAiLVl3NQhgFp3IunaIdQyb22we7r5EJW3jcXiM9Dsx0ogfqW9bLLk99R8+kGRW1+KvnK63o
- DyIa/tMXg4ujLbvqWmKayO1EhhRYw1LyVH9+pCtMrhdl1DgZRdG3gkOyYXPlKCPQJJr5eLB1
- K2Sc1yzHmowEZ0gV03IoOoevzRVZK9ZotbrmXyETQpMQhPEEWHm2S0lsQVa94e3bTlJKtgsy
- 9pEQik9qypJmK7wSU6kr3ytwWu0Kw4N7MxHvnxDaS94B7R+of10BfdhDrpZuUuaNCPnHkRMA
- EQEAAcLAdgQYAQgAIBYhBPjkXX0BFncHKaZ30T/zDop2iPqqBQJnAsMsAhsMAAoJED/zDop2
- iPqqSM0H/jQHDQwV1hxgN5YL2LzlN9fopPW299MWeyKivTCIuk6Wai+3MTcGfhQCthm1Focv
- v4D5F4rdoAgCbI6P0BCiYu2YfCIBzfo34pveNkGTpFPqf2BHL6gb12tM6ltLGH8gMZK3/zmX
- 05zTRE6/rgSjWkBjtr5J+QF+ZfMzJfSwh9/yHmm6J4t+ahIaA/2jNCqX/dz4QryRmw+J9Q50
- Ya8ZtbhHUOh1I1oIRIwviYfcVLyXKNrVE3qcODsLj8Tr7bj01GtZIIsWMhtSXJP+u63iczIo
- HrmBba2ldz/Lf+nJrWsFY7q4Zwg7lEcoVK46UYYBafpVvDhq+qXqR6Jf1hSDkBI=
-In-Reply-To: <20260717111559.2759217-1-maira.canal@usp.br>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260713-drm_refcount_wiring-v2-0-d3bb61f4bd4d@redhat.com>
+ <20260713-drm_refcount_wiring-v2-5-d3bb61f4bd4d@redhat.com>
+ <20260717-heavenly-peach-guan-82f0f1@houat>
+In-Reply-To: <20260717-heavenly-peach-guan-82f0f1@houat>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Fri, 17 Jul 2026 13:26:06 +0200
+X-Gm-Features: AUfX_my0X2LQ6M_jKeRcxy0r6pG-sYFIFgqEmiZmXcdV57T8jjudIQuMMnSFyJg
+Message-ID: <CADSE00+7=2ph4kRQLc7_MFbp_SSt3eYz-bBxWcfCj6_oFPjwFA@mail.gmail.com>
+Subject: Re: [PATCH v2 5/5] drm: release panel reference after panel bridge
+ creation
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
+ Linus Walleij <linusw@kernel.org>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Biju Das <biju.das.jz@bp.renesas.com>, Sandy Huang <hjc@rock-chips.com>, 
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Jyri Sarha <jyri.sarha@iki.fi>, 
+ Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Alison Wang <alison.wang@nxp.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
+ linux-samsung-soc@vger.kernel.org, linux-tegra@vger.kernel.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: RB7clPF2HyCdqchUBUaEnx_FOHdtjTJ_uS-TvzYkjUk_1784287578
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,28 +142,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 17/07/26 08:14, Maíra Canal wrote:
-> My university email will cease to exist in the next few days, so map it
-> to a personal email address.
-> 
-> Signed-off-by: Maíra Canal <maira.canal@usp.br>
+On Fri, Jul 17, 2026 at 10:56=E2=80=AFAM Maxime Ripard <mripard@kernel.org>=
+ wrote:
+>
+> On Mon, Jul 13, 2026 at 01:53:08PM +0200, Albert Esteve wrote:
+> > Update a second batch of drivers calling of_drm_find_panel() or
+> > drm_of_find_panel_or_bridge() to release the lookup reference after
+> > wrapping the panel in a bridge.
+>
+> I would have expected this to be squashed of patch 3, any reason it's in
+> a separate patch?
 
-Acked-by: Maíra Canal <mairacanal@riseup.net>
+My intention was to make the series easier to review. Patch 3
+contained the initial set of callers mostly found via the Coccinelle
+script (simpler to address generally), and patch 5 includes the rest.
+Including all the changes plus the core API update in a single commit
+felt like too much.
 
-> ---
->   .mailmap | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/.mailmap b/.mailmap
-> index f4f18b06f2f1..6fe93913a910 100644
-> --- a/.mailmap
-> +++ b/.mailmap
-> @@ -539,6 +539,7 @@ Maciej W. Rozycki <macro@mips.com> <macro@imgtec.com>
->   Maciej W. Rozycki <macro@orcam.me.uk> <macro@linux-mips.org>
->   Maharaja Kennadyrajan <quic_mkenna@quicinc.com> <mkenna@codeaurora.org>
->   Maheshwar Ajja <quic_majja@quicinc.com> <majja@codeaurora.org>
-> +Maíra Canal <mairacanal@riseup.net> <maira.canal@usp.br>
->   Malathi Gottam <quic_mgottam@quicinc.com> <mgottam@codeaurora.org>
->   Manikanta Pubbisetty <quic_mpubbise@quicinc.com> <mpubbise@codeaurora.org>
->   Manivannan Sadhasivam <mani@kernel.org> <manivannanece23@gmail.com>
+That said, I am happy to squash this for the next version (fewer
+patches to track).
+
+
+
+
+>
+> > Also handle the cases where a panel is found but cannot be used,
+> > dropping the reference immediately in those paths.
 
