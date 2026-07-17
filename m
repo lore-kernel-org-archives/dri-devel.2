@@ -4,52 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5D79C44507
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 06:12:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 160AAC4450F
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 06:22:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52AC610F43E;
-	Fri, 17 Jul 2026 06:12:24 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76F2310F42F
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 06:12:20 +0000 (UTC)
-X-UUID: 726c7e3c81a611f1aa26b74ffac11d73-20260717
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:297323c2-6272-4574-af84-c1ede24fea76, IP:15,
- URL:25,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:35
-X-CID-INFO: VERSION:1.3.12, REQID:297323c2-6272-4574-af84-c1ede24fea76, IP:15,
- UR
- L:25,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:35
-X-CID-META: VersionHash:e7bac3a, CLOUDID:db0ab945797d408d5fc488bb22c75658,
- BulkI
- D:2607171412117TOSCHEE,BulkQuantity:0,Recheck:0,SF:10|38|57|66|78|80|81|82
- |102|127|136|841|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:11|93|82|
- 1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR
- :NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 726c7e3c81a611f1aa26b74ffac11d73-20260717
-X-User: zhaoguohan@kylinos.cn
-Received: from zgh-vmware-virtual-platform.localdomain [(116.128.244.171)] by
- mailgw.kylinos.cn (envelope-from <zhaoguohan@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 2129712011; Fri, 17 Jul 2026 14:12:10 +0800
-From: GuoHan Zhao <zhaoguohan@kylinos.cn>
-To: "Rob Herring (Arm)" <robh@kernel.org>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, dri-devel@lists.freedesktop.org
-Cc: Oded Gabbay <ogabbay@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH v2 4/5] accel/ethosu: propagate SRAM initialization errors
-Date: Fri, 17 Jul 2026 14:11:44 +0800
-Message-ID: <20260717061145.1478139-5-zhaoguohan@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260717061145.1478139-1-zhaoguohan@kylinos.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1526310E404;
+	Fri, 17 Jul 2026 06:22:21 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FhEwV69N";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A3B010E404
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 06:22:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 666EA41269;
+ Fri, 17 Jul 2026 06:22:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B071F000E9;
+ Fri, 17 Jul 2026 06:22:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784269338;
+ bh=oMVno41LvXRD5++P549nOqCWyNKr94cNQeOAmwz6QKs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=FhEwV69NcHLOyURvYlN3OgnP91xVnnQs4pagc0+1kR/VZxBllCHo+Yy0kmXdqEgwT
+ LWge1tbtLqMJLcwqt4T49s8Mi26IOB6d7XvqgT9qbRSER3dtDNnWoIJyTk5RfoehxG
+ gfMt9F5mdRGEttM5dZadxWmhrnuB5rYu9bcs12LKQy4P7sd2nsu5fUKncJPsMdfxfR
+ Heyqs8dYLuM7YTpbmeOosLu/dBPC2+vJpt/8RMQHXtcN5xewr3+RSIN1T5DMjwc2wB
+ ySLVZA9vln/K/Z+CBNJ6Rb1VYfdUbFD2iSjbSA1/gEalBOosbUsjeCuakHdI6ilXpu
+ w79+Z/TNtumxw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 5/5] accel/ethosu: fix job completion fence cleanup
+To: "GuoHan Zhao" <zhaoguohan@kylinos.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260717061145.1478139-6-zhaoguohan@kylinos.cn>
 References: <20260717061145.1478139-1-zhaoguohan@kylinos.cn>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260717061145.1478139-6-zhaoguohan@kylinos.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 06:22:17 +0000
+Message-Id: <20260717062218.29B071F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,70 +53,145 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ethosu_sram_init() returns -ENOMEM if allocation from a declared SRAM
-pool fails. ethosu_init() ignores the error after recording the pool size.
-Probe then registers a device with a nonzero SRAM size and a zero sramphys
-address, allowing jobs to program address zero for SRAM.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Propagate the error and synchronously suspend the device before the probe
-path releases the scheduler.
+Pre-existing issues:
+- [High] Calling drm_sched_job_cleanup() on an uninitialized struct drm_sch=
+ed_job causes a NULL pointer dereference in the ethosu_ioctl_submit_job() e=
+rror path.
+- [High] The shared IRQ handler accesses hardware registers without ensurin=
+g the device is active via Runtime PM, and the suspend callback fails to sy=
+nchronize IRQs, risking fatal bus faults.
+--
 
-Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260716065219.931088-1-zhaoguohan@kylinos.cn?part=1
-Signed-off-by: GuoHan Zhao <zhaoguohan@kylinos.cn>
----
-Changes in v2:
-- Renumber from patch 2/3 to 4/5.
-- Use the common runtime suspend helper when SRAM setup fails.
+--- Patch [5]: [PATCH v2 5/5] accel/ethosu: fix job completion fence cleanu=
+p ---
+commit b390c1806154d7460d3ff212d56c250283785f11
+Author: GuoHan Zhao <zhaoguohan@kylinos.cn>
+Subject: accel/ethosu: fix job completion fence cleanup
 
-Sashiko report:
+This commit addresses memory leaks and refcount underflows in the Ethos-U N=
+PU
+driver's job cleanup path. It ensures that the done_fence is properly relea=
+sed
+during error cleanup and uses dma_fence_was_initialized() to handle raw
+allocations gracefully.
 
-> This is a pre-existing issue, but was not introduced by this patch.
->
-> In ethosu_sram_init(), if gen_pool_dma_alloc() fails, it returns an
-> error. However, ethosu_init() ignores this return value.
->
-> Because npu_info.sram_size was already set to gen_pool_size(), it remains
-> non-zero while sramphys remains 0.
->
-> When a user submits a job requesting sram, the size check passes, and
-> ethosu_job_hw_submit() configures the hardware to use physical sram
-> address 0x0.
->
-> Could this result in a memory corruption regression or an IOMMU fault?
+Link: https://sashiko.dev/#/patchset/20260716065219.931088-1-zhaoguohan@kyl=
+inos.cn?part=3D1
 
- drivers/accel/ethosu/ethosu_drv.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+> diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/eth=
+osu_job.c
+> index 5847433e87e7e..b68a905d22f83 100644
+> --- a/drivers/accel/ethosu/ethosu_job.c
+> +++ b/drivers/accel/ethosu/ethosu_job.c
+> @@ -152,6 +152,13 @@ static void ethosu_job_err_cleanup(struct ethosu_job=
+ *job)
+> =20
+>  	drm_gem_object_put(job->cmd_bo);
+> =20
+> +	if (job->done_fence) {
+> +		if (dma_fence_was_initialized(job->done_fence))
+> +			dma_fence_put(job->done_fence);
+> +		else
+> +			dma_fence_free(job->done_fence);
+> +	}
+> +
+>  	kfree(job);
+>  }
+> =20
 
-diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-index 6b97d22444a7..c825b67e9cba 100644
---- a/drivers/accel/ethosu/ethosu_drv.c
-+++ b/drivers/accel/ethosu/ethosu_drv.c
-@@ -331,7 +331,9 @@ static int ethosu_init(struct ethosu_device *ethosudev)
- 	ethosudev->npu_info.id = id = readl_relaxed(ethosudev->regs + NPU_REG_ID);
- 	ethosudev->npu_info.config = config = readl_relaxed(ethosudev->regs + NPU_REG_CONFIG);
- 
--	ethosu_sram_init(ethosudev);
-+	ret = ethosu_sram_init(ethosudev);
-+	if (ret)
-+		goto err_runtime_suspend;
- 
- 	dev_info(ethosudev->base.dev,
- 		 "Ethos-U NPU, arch v%ld.%ld.%ld, rev r%ldp%ld, cmd stream ver%ld, %d MACs, %dKB SRAM\n",
-@@ -346,6 +348,9 @@ static int ethosu_init(struct ethosu_device *ethosudev)
- 
- 	return 0;
- 
-+err_runtime_suspend:
-+	ethosu_runtime_suspend(ethosudev);
-+	return ret;
- err_suspend:
- 	pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
- 	ethosu_device_suspend(ethosudev->base.dev);
--- 
-2.43.0
+[Severity: High]
+This is a pre-existing issue, but was not introduced by this patch.
+
+When the done_fence allocation fails in ethosu_ioctl_submit_job(), it jumps
+to out_cleanup_job:
+
+drivers/accel/ethosu/ethosu_job.c:ethosu_ioctl_submit_job() {
+    ...
+	if (!ejob->done_fence) {
+		ret =3D -ENOMEM;
+		goto out_cleanup_job;
+	}
+    ...
+out_cleanup_job:
+	if (ret)
+		drm_sched_job_cleanup(&ejob->base);
+}
+
+Because drm_sched_job_init() was not called yet, ejob->base is completely
+zero-initialized, meaning ejob->base.s_fence is NULL.
+
+When drm_sched_job_cleanup() attempts to read the refcount:
+
+drivers/gpu/drm/scheduler/sched_main.c:drm_sched_job_cleanup() {
+    ...
+	if (kref_read(&job->s_fence->finished.refcount)) {
+    ...
+}
+
+Will this result in a NULL pointer dereference because the function assumes
+job->s_fence is a valid pointer?
+
+
+[Severity: High]
+This isn't a bug introduced by this patch, but there appears to be an issue
+with how shared interrupts interact with runtime PM.
+
+The NPU interrupt is registered with the IRQF_SHARED flag:
+
+drivers/accel/ethosu/ethosu_job.c:ethosu_job_init() {
+    ...
+	ret =3D devm_request_threaded_irq(dev, edev->irq,
+				ethosu_job_irq_handler,
+				ethosu_job_irq_handler_thread,
+				IRQF_SHARED, KBUILD_MODNAME,
+				edev);
+    ...
+}
+
+If another device sharing the IRQ line triggers an interrupt while the NPU =
+is
+runtime-suspended, the handler executes and reads MMIO registers:
+
+drivers/accel/ethosu/ethosu_job.c:ethosu_job_irq_handler() {
+    ...
+	u32 status =3D readl_relaxed(dev->regs + NPU_REG_STATUS);
+
+	if (!(status & STATUS_IRQ_RAISED))
+		return IRQ_NONE;
+    ...
+}
+
+Could this unconditionally read registers without verifying the device's PM
+state via pm_runtime_get_if_active()?
+
+Furthermore, the runtime suspend callback disables clocks:
+
+drivers/accel/ethosu/ethosu_drv.c:ethosu_device_suspend() {
+    ...
+	clk_bulk_disable_unprepare(ethosudev->num_clks, ethosudev->clks);
+	return 0;
+}
+
+Since this doesn't call synchronize_irq() to wait for executing handlers,
+could concurrent IRQ execution cause invalid hardware writes or a bus fault
+when accessing powered-off MMIO registers?
+
+> @@ -162,7 +169,6 @@ static void ethosu_job_cleanup(struct kref *ref)
+> =20
+>  	pm_runtime_put_autosuspend(job->dev->base.dev);
+> =20
+> -	dma_fence_put(job->done_fence);
+>  	dma_fence_put(job->inference_done_fence);
+> =20
+>  	ethosu_job_err_cleanup(job);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717061145.1478=
+139-1-zhaoguohan@kylinos.cn?part=3D5
