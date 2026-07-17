@@ -4,62 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B814BC44507
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 11:22:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB4F7C44514
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 11:25:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED74710F510;
-	Fri, 17 Jul 2026 11:22:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CE4A10E3F6;
+	Fri, 17 Jul 2026 11:25:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BORoqmaj";
+	dkim=pass (1024-bit key; secure) header.d=riseup.net header.i=@riseup.net header.b="RWQpko0Y";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CECEA10F510
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 11:22:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 39A2060A61;
- Fri, 17 Jul 2026 11:22:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA3071F000E9;
- Fri, 17 Jul 2026 11:22:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784287366;
- bh=9LCzGkAn0s99Wu4b5pEqOhCS6H/n/ifw9YI1PjIZdJY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=BORoqmajZ01WbaNHqJJnfAcCS1YoZfgYjWT/b4P8r8Z756BlgJAnP0gNzRV68hDtn
- O1iq8KOes7AqTmiD9sn9COBZZrxOCzrCTB4EKiUiNSjfXXbrDEGurwR0OSfZxQKPQR
- 0tqG3qWcPIbxqvm8ieVpq+YSR0ELomLtmegB3j5e5LxfnZoTYEvwg91BFpN0ACHtmy
- K602ooOp7yGKdnAl/ReGLTL88RB6fcCMZ9Ia8+uBv08Yw+MjhIlAv012jrYpJW4/pP
- pEHs5tnUWYHaHke8kGd7PoTQnzg+ptnamb1HJm0wuT3CbsPCA5oUcUQNgxhxqlgIdl
- RRRs4pNCx/2qw==
-Message-ID: <74213297-d3da-4637-8f31-8fecebd65f60@kernel.org>
-Date: Fri, 17 Jul 2026 13:22:40 +0200
+X-Greylist: delayed 353 seconds by postgrey-1.36 at gabe;
+ Fri, 17 Jul 2026 11:25:23 UTC
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CF1610E3F6
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 11:25:23 +0000 (UTC)
+Received: from fews04-sea.riseup.net (fews04-sea-pn.riseup.net [10.0.1.154])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx1.riseup.net (Postfix) with ESMTPS id 4h1nVp0v8kzDqP1;
+ Fri, 17 Jul 2026 11:19:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=riseup.net; s=squak;
+ t=1784287170; bh=0X369mwyOMIFk/r3d3PQY6CeGGMZAcaEUO1xF8171Hs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=RWQpko0YA8oIPk3GMWsjjLkGa4P4A1qlvlu80hoW3k9haS9kM27AWCKQISOJLRkeo
+ vhG1eCVONDyUkZ6cQifYVaDpwezhlkzXw+j0rnNgPVw4CBxH2jWO2rGVxd9aL15fOk
+ Qzm/SdYID3jDMY6wICmBGhWP8EYCwdJ2hdFiFCUQ=
+X-Riseup-User-ID: F2AEC4D09809E501C7F2D29DBA705E7DEACF772D6DC14CD920A7E0B6F392FFFA
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ by fews04-sea.riseup.net (Postfix) with ESMTPSA id 4h1nVl146bz5vNQ;
+ Fri, 17 Jul 2026 11:19:26 +0000 (UTC)
+Message-ID: <9fbd796b-d87f-4ad0-923d-3f8fcd0baa77@riseup.net>
+Date: Fri, 17 Jul 2026 08:19:24 -0300
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 0/3] rust: add basic serial device bus abstractions
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Kari Argillander <kari.argillander@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org
-References: <20260715-rust_serdev-v14-0-b4ed5c93606f@posteo.de>
- <2026071747-android-overhead-c927@gregkh>
- <6aafea3fdb0847766787dbe5c7c7dbaad606d649.camel@posteo.de>
-From: Danilo Krummrich <dakr@kernel.org>
+Subject: =?UTF-8?Q?Re=3A_=5BPATCH=5D_mailmap=3A_Update_Ma=C3=ADra_Canal=27s_?=
+ =?UTF-8?Q?email_address?=
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <maira.canal@usp.br>,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ Melissa Wen <mwen@igalia.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+References: <20260717111559.2759217-1-maira.canal@usp.br>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mairacanal@riseup.net>
 Content-Language: en-US
-In-Reply-To: <6aafea3fdb0847766787dbe5c7c7dbaad606d649.camel@posteo.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Autocrypt: addr=mairacanal@riseup.net; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNJE1hw61yYSBDYW5hbCA8bWFpcmFjYW5hbEByaXNldXAubmV0PsLAkQQTAQgAOxYhBPjk
+ XX0BFncHKaZ30T/zDop2iPqqBQJnAsxsAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheA
+ AAoJED/zDop2iPqqIMIH/imTDQNi2FQpXG9z6fA6Kg5jOZQfBgYMUmzxA3y+5s7I6Ily0rci
+ vdRwki89noYtjXB/P+9rSnhRq4KsXh+E3k0AHYt1VQgczMlnHADcXdr2XZopTqqCkNMH4MPd
+ JoT2rx63uGBDhgX530ohZKOM3FN609+5SlBrUBEHC3ynZAH+CBbr4CnD1Z44RUWldDRJjxuF
+ I+mm7lMYR0Ybb3eYqkBw3f8h1rhwhVYouc1Iiynlrykf0BKsmOTxA56Fyuc4LxkjHoVC5/pr
+ 4uwMD0Oz4GQpX1d0S6C59hvMyXwXUkID+cVMhvNdEeR2DV05aUmUrAS+8BsgxrK0Y//oR3PS
+ irrOwE0EZwLDLAEIAMU1PHZ6syur4Dg0wltgOkgM3Lys7cWnuGI0cDdUrhoSUdorCYEB6Dh+
+ qAiLVl3NQhgFp3IunaIdQyb22we7r5EJW3jcXiM9Dsx0ogfqW9bLLk99R8+kGRW1+KvnK63o
+ DyIa/tMXg4ujLbvqWmKayO1EhhRYw1LyVH9+pCtMrhdl1DgZRdG3gkOyYXPlKCPQJJr5eLB1
+ K2Sc1yzHmowEZ0gV03IoOoevzRVZK9ZotbrmXyETQpMQhPEEWHm2S0lsQVa94e3bTlJKtgsy
+ 9pEQik9qypJmK7wSU6kr3ytwWu0Kw4N7MxHvnxDaS94B7R+of10BfdhDrpZuUuaNCPnHkRMA
+ EQEAAcLAdgQYAQgAIBYhBPjkXX0BFncHKaZ30T/zDop2iPqqBQJnAsMsAhsMAAoJED/zDop2
+ iPqqSM0H/jQHDQwV1hxgN5YL2LzlN9fopPW299MWeyKivTCIuk6Wai+3MTcGfhQCthm1Focv
+ v4D5F4rdoAgCbI6P0BCiYu2YfCIBzfo34pveNkGTpFPqf2BHL6gb12tM6ltLGH8gMZK3/zmX
+ 05zTRE6/rgSjWkBjtr5J+QF+ZfMzJfSwh9/yHmm6J4t+ahIaA/2jNCqX/dz4QryRmw+J9Q50
+ Ya8ZtbhHUOh1I1oIRIwviYfcVLyXKNrVE3qcODsLj8Tr7bj01GtZIIsWMhtSXJP+u63iczIo
+ HrmBba2ldz/Lf+nJrWsFY7q4Zwg7lEcoVK46UYYBafpVvDhq+qXqR6Jf1hSDkBI=
+In-Reply-To: <20260717111559.2759217-1-maira.canal@usp.br>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,38 +89,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/17/26 1:14 PM, Markus Probst wrote:
-> On Fri, 2026-07-17 at 12:55 +0200, Greg Kroah-Hartman wrote:
->> On Wed, Jul 15, 2026 at 09:00:14PM +0000, Markus Probst wrote:
->>> This patch series adds the serdev device bus rust abstraction into the
->>> kernel.
->>>
->>> This abstraction will be used by a driver,
->>> which targets the MCU devices in Synology devices.
->>>
->>> Kari Argillander also messaged me, stating that he wants to write a
->>> watchdog driver with this abstraction (needing initial device data).
->>>
->>> This series depends on [1].
->>>
->>> [1] https://lore.kernel.org/rust-for-linux/20260530132736.3298549-1-dakr@kernel.org/
->>>
->>> Signed-off-by: Markus Probst <markus.probst@posteo.de>
->>
->> Given there are no objections, I'll go queue this up now, thanks.
-> Thanks for merging, but I haven't seen the dependency
+On 17/07/26 08:14, Maíra Canal wrote:
+> My university email will cease to exist in the next few days, so map it
+> to a personal email address.
 > 
-> https://lore.kernel.org/rust-for-linux/20260530132736.3298549-1-dakr@kernel.org/
+> Signed-off-by: Maíra Canal <maira.canal@usp.br>
+
+Acked-by: Maíra Canal <mairacanal@riseup.net>
+
+> ---
+>   .mailmap | 1 +
+>   1 file changed, 1 insertion(+)
 > 
-> getting picked yet (its at least not in linux-next), so it might not
-> even compile. Not sure whats holding the patch back though.
-(Ah, saw this just after I replied to the other thread.)
+> diff --git a/.mailmap b/.mailmap
+> index f4f18b06f2f1..6fe93913a910 100644
+> --- a/.mailmap
+> +++ b/.mailmap
+> @@ -539,6 +539,7 @@ Maciej W. Rozycki <macro@mips.com> <macro@imgtec.com>
+>   Maciej W. Rozycki <macro@orcam.me.uk> <macro@linux-mips.org>
+>   Maharaja Kennadyrajan <quic_mkenna@quicinc.com> <mkenna@codeaurora.org>
+>   Maheshwar Ajja <quic_majja@quicinc.com> <majja@codeaurora.org>
+> +Maíra Canal <mairacanal@riseup.net> <maira.canal@usp.br>
+>   Malathi Gottam <quic_mgottam@quicinc.com> <mgottam@codeaurora.org>
+>   Manikanta Pubbisetty <quic_mpubbise@quicinc.com> <mpubbise@codeaurora.org>
+>   Manivannan Sadhasivam <mani@kernel.org> <manivannanece23@gmail.com>
 
-Nothing is holding them back other than requiring a user (which is your work),
-so I did not pick them up.
-
-Also note that tty and driver-core are different trees, so picking it up in
-driver-core would not have helped tty.
-
-Thanks,
-Danilo
