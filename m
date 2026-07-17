@@ -4,136 +4,174 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEC48C44507
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 11:15:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22A22C44507
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 11:15:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EE3D10E08E;
-	Fri, 17 Jul 2026 11:15:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8181610F50C;
+	Fri, 17 Jul 2026 11:15:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="EVqyHZ1v";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="nutso9iY";
+	dkim=pass (1024-bit key; unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.b="kZVHzMQV";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021092.outbound.protection.outlook.com [52.101.95.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A071810E08E
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 11:15:09 +0000 (UTC)
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CC7E10E28C
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 11:15:15 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66HAR3eW3253664; Fri, 17 Jul 2026 12:14:55 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-id:content-transfer-encoding:content-type:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to; s=
+ dk201812; bh=SilItjuY2QQpC22pZBdzphQeQh9DgL7Q7tHsUBPaeoI=; b=nut
+ so9iYr4B2wK/h9ujBfhF4XVBRubfx0fGUax9YZW6aUK4JsRWGB+i4qTL+Sdnz/7u
+ ULKf4AlV6AIUe28Lu6NGbl8Jdwa0z5B+krHY44eZSfLqJ93vnUN8FS8kKib3KZ6A
+ XXMJufhyxOL8fY6Azt6dShYX8qibv3jK/JLUECGf4bAIthcVkYZbRwIfphDxzpMQ
+ z1r0CuuuxC8GFfQaKcgGgm9H7FzBXw07xJFwT0u7jdPcimyXx0NQ/IUE0r5pYNxu
+ TmPkM/COzfMWRgCI7KGzMxSPlsq8xNqT4A/aWB9DcCfzUDA/e6OzVJXlZmS93sP7
+ Ss1CgLzAFNHPBfn1rGQ==
+Received: from lo3p265cu004.outbound.protection.outlook.com
+ (mail-uksouthazon11020097.outbound.protection.outlook.com [52.101.196.97])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4fbdwsnnf5-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Fri, 17 Jul 2026 12:14:55 +0100 (BST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c4QRQ+kCG7lmu2MN90fN9EjHb3oPWBAGPV/cp7nurEjJDntUeI9Pcr/25nmYTqZGlrnNqQEUDesK1+Vv5iI49lXwZpWE3Om7O9XeqqrlYPnOJaKcdmEgJGecVcWncTMLbsUx+NnRglwDx9tlAo+5R9iVIEg7X8Pbuo11Mm20/CcdJKS3qUi3fB9YMMuykVvnyRJMJE6Jo/AUgh8/0DXgvni2uBNxKcJnsRmFJMIbo2N+Y7djt12yO7n7l1zlJ4sC/hyfP6K+SfnakhyjyoMsRAjUmG2Hrh6/Enop9tcLRVtIVBcDg+aXkHQJVumYIFGvh/eTbNkqgAiKVS4Zr1jsyw==
+ b=HeQ/uPHDhl9/5oW5jzSH6zK9e+xIKhfXRW25+WUDnAB8rD2gBPBG+p08zFuJMlg6BV4nrmriGKFx6+00s2AhR4m7oD+mcj8IYiIqEWIryGYSgnSyEkNW14T+aHsRyr6jX3goJSaqHorknaku9OyzhBYTRv1Io7wTP1l736SRvUWYslVvD7GMqia90Ci/dA0Oy8HuLyVdvRe8UrCFDqFTXh1ktb3uqEPMgSUDhp0p4v2BA57jIfwRcOI3RPab2Ugkb6L8FvLSClOUkJ/sP+0c8KhIHuYYBmzxrBldB89gJoDj46ln9tnoTC/D9SpLzdsAJiZf2dOuqs2goSwyxkonGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uW/uBqik7yhgkvCIFIJULQMXhSJDUH7izW5lCUk4LLc=;
- b=NnQUtykS+Wknbw4n187am6orEyae06AEjwO6xMg0OSJl8K9a6oeTIdyfQ0SPrKK9Mds6HWCvuI7JDNtkOXzB8Zhwtz1YtAs8g2b4OHJf/Q89kFixF4GpgZEqGO99bscXjnJ2XIPToZBdkEvgJIsyVxe9sWpbw/6VwsiX63uwu2HG9OX9EWayLBTDrcGu1JSMbAV6DRVhEcYT06v9u2lhAdcoJmx718J3CJGjASL1xUhTEEgm0tqordFH2VD876zxtFM590B5IhQngkiKx6q7AifpaI0iJATH2F228BEYwhB6ywkOOgHyJmCvueNAWqFcxEVRPerxcWGu9vCH9yTGpg==
+ bh=SilItjuY2QQpC22pZBdzphQeQh9DgL7Q7tHsUBPaeoI=;
+ b=UhZK50Po2IXMvejFe1Eg8NvdM9qcWP/vdzTQ3s37iuXKR5DT69qT2GIHPjbtCbHgZzQIs9pmlHg4RShAuUKDK/RCdt+zYAFsaxMlqah/6/M5D4JJuyCDyjKaF2s4K0HN5SHujySTgrBaSjXok4FrmZsNyZj+ysRsU6bqUXmf37+buh9Fcndefnh4lqMMNj1OgkvnRaeP6/i70nGHwmZPKF6jYCSa2M4199f1jZ6/eUKP4A75JBQNNGg2GJMDY52z8n9XsHstVPzKl2K3QIlfg8BDwqolePgZdgT3p6HPkRSWdO1T1Gkd66od8KQQgnNSAp7+cnWrFJoNkvOnRNrsDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
+ smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
+ dkim=pass header.d=imgtec.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uW/uBqik7yhgkvCIFIJULQMXhSJDUH7izW5lCUk4LLc=;
- b=EVqyHZ1vxyl+4rLFlCbOu7aeKFD21Se/npby8MNfrMucLpFkkdPdCnOL20QbMrMgS2QAl6tP+5XJFjA5vDIFME/DJ4ZLL7yEXZBGR+G2k7p9dSbUmPbcs+U/Y4No+TZBuggUey0H7dPxpemvCQ7u7vs/GNspqCAp0qe0VM9iAac=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CWXP265MB2869.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:c5::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
- 2026 11:15:05 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
- 11:15:04 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 17 Jul 2026 12:15:03 +0100
-Message-Id: <DK0SX3P5K1J6.1OV4ETJMXW83R@garyguo.net>
-To: "Markus Probst" <markus.probst@posteo.de>, "Rob Herring"
- <robh@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Jiri
- Slaby" <jirislaby@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Gary
- Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Kari Argillander" <kari.argillander@gmail.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "Viresh Kumar" <viresh.kumar@linaro.org>, "Boqun Feng"
- <boqun@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir
- Duberstein" <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v14 1/3] rust: add basic serial device bus abstractions
-From: "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260715-rust_serdev-v14-0-b4ed5c93606f@posteo.de>
- <20260715-rust_serdev-v14-1-b4ed5c93606f@posteo.de>
-In-Reply-To: <20260715-rust_serdev-v14-1-b4ed5c93606f@posteo.de>
-X-ClientProxiedBy: LO4P265CA0157.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c7::14) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWXP265MB2869:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae4f53d7-f5c7-49bd-5dc3-08dee3f4a6f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|7416014|23010399003|376014|366016|1800799024|921020|6133799003|4143699003|5023799004|56012099006|10067099003|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: /WyorO+tdf4IQYfwLgl0il0+xwLIkSXrP7pNyvRzpRDtmIfS3qfxIWosbmONGrSNWxZL2fIiQ5JGWFrv2IknuYAwwCP2isoj7eYpXnw543rNZP6/77qiQPJJYg761aHAi7jNG9AiZ+z285PPWodjOQDkI3WEmPhHJ/R3kqLyrHHB3PqYqaZnLVWJvj46vJ2y7+AVmcPLE0ysckcqDFUs0k4cYScoRyNWL71RkngWf5i71Pj5oMGPpBFwaW1XBuUpzQoxmWoAFntPxa9s6Hc7T5rIx6gXFSiyyNA3mQlh36M5PZ1+pN+oFPo2LOfpeJCN7+fMUdbAte69t3onv+oZElD/csxO7TTvraGzmwsRYJXFCakejlRfpPUjoUqxwps+fQwBnKPX9rKvmN3mlOtVdyUHdPkGJm6cxzTyucvtRE8f/Hglvz4UVT5vGFHUN+Ti/KNqqGWmMVzKDAF9xeRFZmmRAhVYLjpuO2Es7TOb8BNt58Z8VNl2QA6YKHH+IeBlyWkXhWfIlkgdujMbqJh+GhTo6/RTRiqhOMNfwtBEc2MQcNLfXZNGCxFjoRjMkYYRmZjEHPTG7hurD2qzaFmJwYa6CxfivepcL5KwP/sXpF5s6T362saOAEIkVWxPtLZQsoLJzWvBVY3+KUgGWQYksTx3NW59DWFNZ38WtpCrnwLTe6iiqF7DcM6qk8f4bF0LrqJzxNf/PurK/0jFMMfStg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(7416014)(23010399003)(376014)(366016)(1800799024)(921020)(6133799003)(4143699003)(5023799004)(56012099006)(10067099003)(3023799007)(18002099003)(22082099003);
+ bh=SilItjuY2QQpC22pZBdzphQeQh9DgL7Q7tHsUBPaeoI=;
+ b=kZVHzMQVxGAvO6dPCLrXl7BZc8i1Giy7pnwQYkdiUrjunIgKBvrlBE67EjFmgX2/JiTVaHNbFLoV2KnKO3mG8k3j1g5N9q0XvUmXhHTWdm0tO3ymuHUwZnNS0t9Y2m9twzNiaWh30kafy+4HB9LcsGAKw8Tmx8p6KLugSwh8gvY=
+Received: from LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM (2603:10a6:600:449::15)
+ by LO0P302MB1110.GBRP302.PROD.OUTLOOK.COM (2603:10a6:600:428::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.13; Fri, 17 Jul
+ 2026 11:14:53 +0000
+Received: from LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM
+ ([fe80::3585:13b4:3133:1e3e]) by LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM
+ ([fe80::3585:13b4:3133:1e3e%6]) with mapi id 15.21.0223.012; Fri, 17 Jul 2026
+ 11:14:53 +0000
+From: Alessio Belle <Alessio.Belle@imgtec.com>
+To: "zhengxingda@iscas.ac.cn" <zhengxingda@iscas.ac.cn>
+CC: "airlied@gmail.com" <airlied@gmail.com>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "matt.coster@imgtec.com" <matt.coster@imgtec.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "uwu@icenowy.me" <uwu@icenowy.me>,
+ Brendan King <Brendan.King@imgtec.com>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, Frank Binns <Frank.Binns@imgtec.com>,
+ Brajesh Gupta <Brajesh.Gupta@imgtec.com>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>, "dakr@kernel.org" <dakr@kernel.org>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>
+Subject: Re: [PATCH v2] drm/imagination: acquire vm_ctx->lock before mapping
+ memory to GPU VM
+Thread-Topic: [PATCH v2] drm/imagination: acquire vm_ctx->lock before mapping
+ memory to GPU VM
+Thread-Index: AQHdFd19mNJ7VUcYJkG1BIlpX5pejw==
+Date: Fri, 17 Jul 2026 11:14:52 +0000
+Message-ID: <164ad51d357350cde4e9e84cbe1ebc970c871af7.camel@imgtec.com>
+References: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
+In-Reply-To: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LO7P302MB2107:EE_|LO0P302MB1110:EE_
+x-ms-office365-filtering-correlation-id: 7c94d714-8e57-415e-25c1-08dee3f49ffc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|7416014|23010399003|366016|1800799024|18002099003|22082099003|38070700021|10067099003|56012099006;
+x-microsoft-antispam-message-info: U09TMoPNqo8Y5NrO3h7ItTxVzlENMHWdSvCPsSFGxjO2cWykFuFOXsmj5JsX1sJPR7wKP7hF9+eA7KDyAMnu4z/+EdNnvVaNNSz3Ke/xQcI9sSlioo5A8s0VI2BB08iog+ZOPu8BbKJr4szEalBTJpoTfcsi/9wl30suuQ2x0vzHVzhFoaeYkAaq2eHXZw9Wv89KoXMaPUnzAcnHkdMznou/EtNT/84g7bG4GsWpubLcx1WgOuStvU4e5xa6p2u8qVMTUdb+woZS9z7WdVYpp5X5vKJAlwQh+uICcZHBMLgaj8nS10ab8pZYpb2x3WhuhTjKvfBRa+dP/5//hgTW43moIDvrNL6pVMlULO1q1lNz0xU55SkS9KpRZ6C4B5wd9IT6e0UtalzACykaGHa+LWlUGQr6CudNBslrnB/uTQtw3jig/17hvfx2ATZrYjZ/gXuYKFqrTkYVkf6/2LROdZU0mAJTHsMnEHoutGWQsX5uXSkYIqCvXco4weo7xuAFYSQUzWv/Q1Xie4eQrbQiZ4mzNeL6BBNQCa8LRA0MU4qNKePdOh1FUPOHZFnNLu64oOS3tXLuJ39GQXr2q7qm2PL8sm82PN0FW+IbxV8RToQHbacjlWUre6dyFSy3YNDm3XSg8AG3a5cy8cdLLuhJVNAivKTtXpSyJ4UXcAUUIek74yiuhIzv9kKIqrhim87/rLiifxPFSTngCsizt7DCl62XsmWm/ryf6p8kIKgK/JE=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(18002099003)(22082099003)(38070700021)(10067099003)(56012099006);
  DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bmR1Yks3L0pqSkltalZ4Y0Z3MGVzSU5PdzRyWVl0amw4QlUrcTBpNG1xRlBI?=
- =?utf-8?B?NU45dlhqWW9Jc29XMThkNVNabE10NVJmOUlNZlU4a2FTY0g0RXFjTThmUGV4?=
- =?utf-8?B?N2pQd1dxRUVMZ0c1bFBXOU8xdFJYTTJPTEd0QS81UG5PZ3FidCttYXhCTENR?=
- =?utf-8?B?T0NZalVUTFNLdWRGbUJ3OVFzVjE4NTFxblhnWkVQL0k4QXA4N0xOQXlHQTlH?=
- =?utf-8?B?TE0wYkMrb2l6ZXBGbzVzRDFYUXpObUtzRlVuRWNSdjZyN1p4Mk9wWDY2RVdU?=
- =?utf-8?B?VjZOYWMvUUU5Y252TlhETGd1aCt1RXp1bFNvZzZETTYxd242UGhMVmszMlpj?=
- =?utf-8?B?cXZuaFFmMGhFY0s5YTRYaFdMUkdJN0RVUU1BMUxjbmhDSWh1bElZL3EzZ204?=
- =?utf-8?B?eXpmT2IzbkplOENJK2xLSEMvdmIrZGRJeC9neCt6eDNVT3o3ay9jdUpRRUFl?=
- =?utf-8?B?Q1luOHlsa2N6QXNCOUpic1JRS0xFZmR1RTBMTDhSeFBsVkcyVjdycE1ZN2R3?=
- =?utf-8?B?VGtuWTdXYjQzRjhnWWtJcHhUMnlUTU45MjQ2dFp3VzI0OW00d05MeVNRVVky?=
- =?utf-8?B?b1Y5MjlBdW5iZm00djd5b1J1V04yc1NnUUVnbnhucXpQYk85dG42elVlaWFl?=
- =?utf-8?B?MWZHK0Mrem5XeHJ5UFg0SDY5MlRjc3E0YTBwTmdiR1pBaG9URmpkNE5udHo2?=
- =?utf-8?B?N0lBcDBUNmhyZk5ueHJSRWtySDZhQWoyNHNhUW9ReUczem92UFdnd0VyeHBH?=
- =?utf-8?B?ZEZWZjUrcVNWODBERnNPQ1FmK0ZkcnRmc24rNGZjVHZXcnNlK3gxS05NSTlD?=
- =?utf-8?B?RWkrTEFHcDNsVjBDL2FjV1l1YlFpeVhoejF3SVNETEJnYXlYNDZYUzlsUkVa?=
- =?utf-8?B?WWtOaVc3OEcrbUh6MUdIZk5BNmVMY3pqV1RBTVV3cXVCTkpJcnlzak9IcXha?=
- =?utf-8?B?L0JKZ0k4akNlM2d0T1IyYnF6QU1sODA0Z3orVkR1akREZ245SlIzUU5OSk5H?=
- =?utf-8?B?UjU4dXlCc3lBV1RGWm16L05PbjhRbXJkUFZrQjM4SUtGS3gyQ1FPQnhSYVZk?=
- =?utf-8?B?MzBPbDZ2NHIvT2ZVbXdwWHoraDc1ZEdDL3l0V0YzTG56NUFza3FVZDNkVUow?=
- =?utf-8?B?OWtOclJPem5kNmVGb1NtWGFKMlN5K3FwMmc4bXk4UnozMGQ5aVdlVzMrTHFW?=
- =?utf-8?B?TS80UzNONVVVNHRlZE9qWWxJb2VuQ0tpK1N2SkRXZElZMUF2TDdmclJWeGtq?=
- =?utf-8?B?ZGxyM21PMlc0VlMwOG80QVNYS0x3MFRJWm9nemhxLzloWHp0M3VBZEU5V3Fi?=
- =?utf-8?B?bjZWVlJTVVdJazRCRllBZXpGV1MvNHZUYmJKVkYvTmpRbllXZWNQNWtmZ3FG?=
- =?utf-8?B?V3FBVnJzOFZoWkJ2eXdjUGg0K3c2azJqZHZnRjRSWGhZVWhDUm9meFlnL1pi?=
- =?utf-8?B?ODBYU2RoNnE4aHNCMmh0NkEvcWxjczRRRWNvdTk4WUxPVVh0NlZ4L2ZKMUhx?=
- =?utf-8?B?d0xMU3A5VG9DcWlqKzBKQWM0dVFGdkk1STM1RXlHazRwRkNXaUVabWgwNi9O?=
- =?utf-8?B?bG1JWW1UcGMwR216N205S3plR1gxS3FQSExZZ21QOFNCY2tqRFArMzJEWVlV?=
- =?utf-8?B?UjRHVHJDY3ViRDNGa3lXS3l2Vm5aOUVJVzhFZ2tRSmFkTVJQUkpaMnowNWxp?=
- =?utf-8?B?Q21aTWUxOTJSVkVZTG1ZaEF3dG16bHZ2SnU4VEs0bndTaGozbFRRNldtRWRn?=
- =?utf-8?B?a3VXL2xCcjhIMkRxNHB1NUZuU1kxUWdPWVdPZEczZ21zbnExenFhbXFTRDI4?=
- =?utf-8?B?dzBuUnNoUDd5U1BxYk15N3h3Y2tKY3JHTnZYNmsrVnAvdVhZbHJleThZVGt2?=
- =?utf-8?B?ZG1EcEpsN2cvUW5GdFU1d3ViL1NOdW9zZWxXY0Jhcit6VEV1eXhFWld6QXZh?=
- =?utf-8?B?ejlSdXZqSXlDNVI4NGo5cEI0MXgxN21DTWJ5TzYvc2VhR1BtK3pQU1AzaUlx?=
- =?utf-8?B?R3VHaDhOYTQvd2MvOTRwZ0wrcmVpVEJUMzNYNi9TRFZURmk1RUZzTVgrOTRw?=
- =?utf-8?B?cE01V0NTZlJ2WjNGbmRVSmhOWjJRazQrUlp0cHBlVmJET1U2QUZlN1g5ZFRw?=
- =?utf-8?B?MU50L21BQWJycXlkeEwxQmFUdmxOTXZnQzRNLy81S0JlbWxvSmhHWHM5azVE?=
- =?utf-8?B?bW0rU254eGJXUWUzWFJteFZXNFQ1MGpIczB1d2hlVUhqQit3UmJ2WEluMTVH?=
- =?utf-8?B?Uy85U1ZtMzNPTzVvZ1JFSlhuaXBlYTNwUC9LUGZWQVFRSHVXUC9iZ09XOXlF?=
- =?utf-8?B?SVBMa0Jnd294NXkxMWJ1bkdMZ21QZ3pzNVZIMW5iZjFNem9jUmdOZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae4f53d7-f5c7-49bd-5dc3-08dee3f4a6f5
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dk9oWXoxd2RQNWhDS1hDazZwVUlGUEJoWkZOQnJYb1ZZSFR3MW1XcU5qdXAx?=
+ =?utf-8?B?Q094ZG1wQTJFR2RlcTJXQWpDTk8yY0piSEwxUWQ2THlySzc2b0NzbWdUa2Yz?=
+ =?utf-8?B?OUpJb0xZQng3U09VTjhiUW9NUCtlY0dMeFN2RVVmRVlRcHJ4N2FmNWJnWndB?=
+ =?utf-8?B?ZVMyYmFGZGFlUHYwT2FmUytsQU1ySUdJTG8xZWpmNTQ5bVY2bE1UNUoySUpw?=
+ =?utf-8?B?UTZwaGkxQU0wcXJ3aUN3THVSQ05iQ3lHTFlnQmo2cVBENC9hUkRvRDhVL05N?=
+ =?utf-8?B?THEvQUhndEJOL1NxT2R6STRONjAzZmtXV0tSaWd5M0ovZHZ3eEZLU1dNNlE2?=
+ =?utf-8?B?M2s3NjMycjh3d294SGpvSU5Va3ZHWjBKZjJQdDNHd3U2VzdsQlFPUk16K1FP?=
+ =?utf-8?B?YnBpZko2c0k0ZXd2K2d2QmpkbDNSRlN6U2dlSHo3aGZ0dEdJNHNaTXNRKzkx?=
+ =?utf-8?B?SU95c2dKdFVhNDQvSGhpRG5QbGl4S3VDblZDTDJSZkdXM0hLM0RFRGVXSTYw?=
+ =?utf-8?B?K0RCdG9CRWxUY2Z4bGdkM0w5T0xRSmVNUXgxM3Faak5SNVQrVndKcVBva1V2?=
+ =?utf-8?B?Nllxbzh3YTVYd3haYXY5N1JIZm9ZU1BhL0VDQzVOakljSDRjaVJTTXdxQVpx?=
+ =?utf-8?B?ZHNqOTE3YWF4TEdlbDRYWHdaSndhTWM0eTRmaW5KWDN0YmtVUmZOa1hDNmZT?=
+ =?utf-8?B?OVBRVllZRWVJZ3Z2TlpmSVhRNk5EU0JFVGdnMC9ORnFiVUtsdm9Jekw0cmlF?=
+ =?utf-8?B?ZnBib2w1Tkt0aFplaFJieFJOZjl1cExtOW5rcnRpSW5PK2N0NnpHNjhwVjI5?=
+ =?utf-8?B?eTFQbzJGb0xOMWowemVaaTJ2WmNPT0NOdEtjYWsyak42U3JxdThteXJycVdp?=
+ =?utf-8?B?RkdKbFVJM3NMdEVQKzd0bThvaXlYeFFsWkN3dXppNXVlblV5bTErM1ZKNlho?=
+ =?utf-8?B?OTM3d0krN1l4c0lwS3ArZ3k2MURCUTh3K0Ewcys5UGZCQTY0eW5FM0lDdWta?=
+ =?utf-8?B?enU2NzBia1p2YXkwY0ZHVmNXK0w5NFplUFc0aGtRazJuMkVUcEZMVXVuTU9V?=
+ =?utf-8?B?Q3NHYjc5V2dWelJGSTVwS0J0MHVrWUJpNXdWK1M0K2xJaDJ3OTlHc0w5NHdX?=
+ =?utf-8?B?eEc5a3pJY1hrMU9DS24vMEhDYVFweERkTjQ3Ni9Mays5aTROZzgxQ0RPZ2pv?=
+ =?utf-8?B?MVdic1N5MGt6UitWOW1EOEhNSkZNMjNZeloycXlINENhbWg1dEtTZjZjd0R0?=
+ =?utf-8?B?MHpNVE5qS3FFVnJMZHVwVjZrRnhpS2dpblNBVEw4YmJhN1dqa2FNbTlTRXpu?=
+ =?utf-8?B?eFhuQUx6ZXJGeDRxdGlVcjBHMGEzRzRpaDE4TmQxWVVNNXFaU1I4KzhPSURO?=
+ =?utf-8?B?RFZ4cjQ3SmRLWGxzUzdCV2RpT2p1eEI5ZHpaUE04MFF3TW1GZ2lwaXJnS1Jj?=
+ =?utf-8?B?WjVWREVjU3NkSkJSQS84YjJ2cWlsTkhKakMvRG5GZ0Y4Rk4wTnRZdWhoV3Jx?=
+ =?utf-8?B?dVBESGhHOVRjQUZ4Ry9reHZBMlM4SkxReW5SN2NtQTJ1L0g5TmFEeWdMam1l?=
+ =?utf-8?B?bEwxYmdydHZFNE9icVIyQlNxNG5lNzlEbkFXNkVrUE1IaHVscDFDRWpnOGVn?=
+ =?utf-8?B?UGp0eGRTOW1IYVQ3L09SaDM1VFhINzhvOXFLWFp1cDhCaGliUUxEYUJjdXBp?=
+ =?utf-8?B?YWwyMEJLci9vZnVkNVRuQlVFYW5rMTJRcVhBdmw2MVZ6ZDJGTEgvV0s2UTY1?=
+ =?utf-8?B?NVdRUzFzbUxYOE16bTZuYzFyZEVuN2c0NmQyMGRYQWNpRGF5UHFvYUdPSlB5?=
+ =?utf-8?B?NjFmWitzR1NDaDJzUXJOQW0yc2FGcDVMQUtPUDYzV0FDRHlRQUtKbGp1Sk9x?=
+ =?utf-8?B?YVF5R3Y3SHNqNTFzU2ppdENRempQU1J5eWxOenRjN2dlVzZpMW10Q0IwSHBz?=
+ =?utf-8?B?bWRHVlZTbitFSEpOcnVqelpEc01nMGJ3QmM4NW1QTFM3QmVYamtDbzBCaGZT?=
+ =?utf-8?B?TFVYdGwrZkdGd0tPV3hqd2cveTM4VjZRcDdCL1VlNW5ncG1seWJIaWJwTm1J?=
+ =?utf-8?B?ck1nNHJCQW5SRDBndHZLcmlSOU5EajJmQzc3NHNVajNvNld1N3hNZWw4ajJa?=
+ =?utf-8?B?QUZmdTJFQW12cUpCVUo5Wk1Jbm5RL2ZwSnpIMUNVTzFwekVtMlhGN0VGZ1lm?=
+ =?utf-8?B?eTA2Znh1NnVReWYwSFJsbkFuc3ZnbG15WGNpNmNEcC9PRDlNNmFZdjZFeC9z?=
+ =?utf-8?B?bFIvYTlpdC90ZjQ0SlU0cHFQMzkzd3puYU5YQnZRZmlRZkNPN1dZbER5bDJO?=
+ =?utf-8?B?TWd4aVBtVTFYbXRRMUc2ano2dmNsNlhjdWtoeUN2MktJbWk3TVRUUE1heity?=
+ =?utf-8?Q?yTFyMwAbHBCajlSs=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <B13B6B64F15F7B47B7F500B1B9296226@GBRP302.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: PGMXcDjCy1pvgaQ2x8jew0HkU7GYo1ia9MQIdxa6OoOqfA5B90Y9ACPLqu0aJsrC6pXHMiRYP+rxZ9I/nzJvaN7LQL5TRWk9VWvaipdy/TqzoPAOpl6LSVSENrkF15XkfOzxT3u+3vngok8t+GcGB1x51gIkd8It4enkbfpQ81MxwvYKQolKee4qL1Wz5/7mXPZuRcufAWC4xmnuODIGrdpAQw0aSOsaRZ9ZlZMJNJb5ewPt8lhWxAqWqOZWFv5TQ7WtOm1FaDkgIT1B+U+UnTGR2or8h0NZ1ysAoV5EeUC2uIgndU0g533grRErGsf2sDoDXYnZg1cTw/pGf1D57g==
+X-OriginatorOrg: imgtec.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 11:15:04.6926 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DOs3nRuLzyZYNm3pY9plil69lFbpCSxKwP8LPAR41aqzc5QbIPq0zBSQj7Seo/seMVtAE4WIlAe953+Ug/kEwg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2869
+X-MS-Exchange-CrossTenant-AuthSource: LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c94d714-8e57-415e-25c1-08dee3f49ffc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jul 2026 11:14:52.8608 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 4IzsE+VGzhggZr+pQPxdD+GgIoGUbos4+IqS5HHuW2a5oorI7H9ITmNF1Gfjr/1013FsYyXPVzz+zAd/OVOEuwAT01GJtN9zEhlsNtCf5no=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P302MB1110
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDExMyBTYWx0ZWRfX12aZ5yALp0VP
+ UV+aR1kEJfgXb5bToA14pRkN8LskEELU15UU8kv3Yq/BP1LiSrfVjtTwYVTVQb658RqUu0YpEdi
+ JtOb9jSBiivVlY+5ZErZ43bsUkFvDUdNiv+QwYWbRWJUbIEefgb+0i2Xih1IfGWO7lRkOfIyS6B
+ 4XPlrBLxUiD7sM+E2/27Jk/s0EahXhOEiN21QKndn5iQYOxCqsDCDDzk1bk8CwQnvJQnOIIwvuY
+ WSXI7GPOALNLFdwl8EBcuB7fy5aj5hZm8lkqWAohD2nIDbdvYxHvwwUbpMRqYxNrwnQnyWC40ql
+ eX7zZa6aIQ1wQliXcxLT9ocJUR0RRuRxSdObpBDyZwxkhbyytsXAgdpp71rsJO37l4iI28RmCuY
+ lQypu9USCwQ/4lJQtDd/zLiX4WmYRP5LHkL3+b10P1cQ5q4QG2LKDoGSKpMfnIBJjcSFcIc6Dqs
+ IpKXnswX65fKOWCxlew==
+X-Proofpoint-ORIG-GUID: irVPaPqBG8ZDrj92X3l9_jYkzzxW0D0Q
+X-Proofpoint-GUID: irVPaPqBG8ZDrj92X3l9_jYkzzxW0D0Q
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDExMyBTYWx0ZWRfXxVUBcAk0ppX8
+ pIwo1aq1TeaUVb47ARpaAStfR6ZNIaCADICZDnqs064Qqv2RYOshBgAtVDD3eNg521TTEos0+oZ
+ B8hUuxSmr6wHm/u8Oz5uE3vF/dXlLxw=
+X-Authority-Analysis: v=2.4 cv=QbVWeMbv c=1 sm=1 tr=0 ts=6a5a0eaf cx=c_pps
+ a=zaz7LV2gsAqesGY8YBE9ng==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22 a=VwQbUJbxAAAA:8
+ a=r_1tXGB3AAAA:8 a=NXQmOgsqWFUszKTETD8A:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,661 +187,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Jul 15, 2026 at 10:00 PM BST, Markus Probst wrote:
-> Implement the basic serial device bus abstractions required to write a
-> serial device bus device driver with or without the need for initial devi=
-ce
-> data. This includes the following data structures:
->
-> The `serdev::Driver` trait represents the interface to the driver.
->
-> The `serdev::Device` abstraction represents a `struct serdev_device`.
->
-> In order to provide the Serdev specific parts to a generic
-> `driver::Registration` the `driver::RegistrationOps` trait is
-> implemented by `serdev::Adapter`.
->
-> Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> ---
->  MAINTAINERS                     |   2 +
->  drivers/tty/serdev/Kconfig      |   7 +
->  rust/bindings/bindings_helper.h |   1 +
->  rust/helpers/helpers.c          |   1 +
->  rust/helpers/serdev.c           |  22 ++
->  rust/kernel/lib.rs              |   2 +
->  rust/kernel/serdev.rs           | 599 ++++++++++++++++++++++++++++++++++=
-++++++
->  7 files changed, 634 insertions(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 806bd2d80d15..cd735d227892 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -24568,6 +24568,8 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/serial/serial.yaml
->  F:	drivers/tty/serdev/
->  F:	include/linux/serdev.h
-> +F:	rust/helpers/serdev.c
-> +F:	rust/kernel/serdev.rs
-> =20
->  SERIAL IR RECEIVER
->  M:	Sean Young <sean@mess.org>
-> diff --git a/drivers/tty/serdev/Kconfig b/drivers/tty/serdev/Kconfig
-> index 46ae732bfc68..e6dfe949ad01 100644
-> --- a/drivers/tty/serdev/Kconfig
-> +++ b/drivers/tty/serdev/Kconfig
-> @@ -9,6 +9,13 @@ menuconfig SERIAL_DEV_BUS
-> =20
->  	  Note that you typically also want to enable TTY port controller suppo=
-rt.
-> =20
-> +config RUST_SERIAL_DEV_BUS_ABSTRACTIONS
-> +	bool "Rust Serial device bus abstractions"
-> +	depends on RUST
-> +	select SERIAL_DEV_BUS
-> +	help
-> +	  This enables the Rust abstraction for the serial device bus API.
-> +
->  if SERIAL_DEV_BUS
-> =20
->  config SERIAL_DEV_CTRL_TTYPORT
-> diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_hel=
-per.h
-> index 1124785e210b..fe7c505da236 100644
-> --- a/rust/bindings/bindings_helper.h
-> +++ b/rust/bindings/bindings_helper.h
-> @@ -85,6 +85,7 @@
->  #include <linux/regulator/consumer.h>
->  #include <linux/sched.h>
->  #include <linux/security.h>
-> +#include <linux/serdev.h>
->  #include <linux/slab.h>
->  #include <linux/sys_soc.h>
->  #include <linux/task_work.h>
-> diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
-> index 998e31052e66..6921a5ecb78a 100644
-> --- a/rust/helpers/helpers.c
-> +++ b/rust/helpers/helpers.c
-> @@ -87,6 +87,7 @@
->  #include "regulator.c"
->  #include "scatterlist.c"
->  #include "security.c"
-> +#include "serdev.c"
->  #include "signal.c"
->  #include "slab.c"
->  #include "spinlock.c"
-> diff --git a/rust/helpers/serdev.c b/rust/helpers/serdev.c
-> new file mode 100644
-> index 000000000000..c52b78ca3fc7
-> --- /dev/null
-> +++ b/rust/helpers/serdev.c
-> @@ -0,0 +1,22 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +#include <linux/serdev.h>
-> +
-> +__rust_helper
-> +void rust_helper_serdev_device_driver_unregister(struct serdev_device_dr=
-iver *sdrv)
-> +{
-> +	serdev_device_driver_unregister(sdrv);
-> +}
-> +
-> +__rust_helper
-> +void rust_helper_serdev_device_put(struct serdev_device *serdev)
-> +{
-> +	serdev_device_put(serdev);
-> +}
-> +
-> +__rust_helper
-> +void rust_helper_serdev_device_set_client_ops(struct serdev_device *serd=
-ev,
-> +					      const struct serdev_device_ops *ops)
-> +{
-> +	serdev_device_set_client_ops(serdev, ops);
-> +}
-> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-> index 9512af7156df..d5ca17336739 100644
-> --- a/rust/kernel/lib.rs
-> +++ b/rust/kernel/lib.rs
-> @@ -119,6 +119,8 @@
->  pub mod scatterlist;
->  pub mod security;
->  pub mod seq_file;
-> +#[cfg(CONFIG_RUST_SERIAL_DEV_BUS_ABSTRACTIONS)]
-> +pub mod serdev;
->  pub mod sizes;
->  #[cfg(CONFIG_SOC_BUS)]
->  pub mod soc;
-> diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-> new file mode 100644
-> index 000000000000..0ffcef1849d2
-> --- /dev/null
-> +++ b/rust/kernel/serdev.rs
-> @@ -0,0 +1,599 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! Abstractions for the serial device bus.
-> +//!
-> +//! C header: [`include/linux/serdev.h`](srctree/include/linux/serdev.h)
-> +
-> +use crate::{
-> +    acpi,
-> +    device,
-> +    driver,
-> +    error::{
-> +        from_result,
-> +        to_result,
-> +        VTABLE_DEFAULT_ERROR, //
-> +    },
-> +    new_mutex,
-> +    of,
-> +    prelude::*,
-> +    sync::{
-> +        aref::AlwaysRefCounted,
-> +        Mutex, //
-> +    },
-> +    time::{
-> +        msecs_to_jiffies,
-> +        Jiffies,
-> +        Msecs, //
-> +    },
-> +    types::{
-> +        Opaque,
-> +        ScopeGuard, //
-> +    }, //
-> +};
-> +
-> +use core::{
-> +    cell::UnsafeCell,
-> +    marker::PhantomData,
-> +    mem::{offset_of, MaybeUninit},
-> +    num::NonZero,
-> +    ptr::NonNull, //
-> +};
-> +
-> +/// Parity bit to use with a serial device.
-> +#[repr(u32)]
-> +pub enum Parity {
-> +    /// No parity bit.
-> +    None =3D bindings::serdev_parity_SERDEV_PARITY_NONE,
-> +    /// Even partiy.
-> +    Even =3D bindings::serdev_parity_SERDEV_PARITY_EVEN,
-> +    /// Odd parity.
-> +    Odd =3D bindings::serdev_parity_SERDEV_PARITY_ODD,
-> +}
-> +
-> +/// Timeout in Jiffies.
-> +pub enum Timeout {
-> +    /// Wait for a specific amount of [`Jiffies`].
-> +    Jiffies(NonZero<Jiffies>),
-> +    /// Wait for a specific amount of [`Msecs`].
-> +    Milliseconds(NonZero<Msecs>),
-> +    /// Wait as long as possible.
-> +    ///
-> +    /// This is equivalent to [`kernel::task::MAX_SCHEDULE_TIMEOUT`].
-> +    Max,
-> +}
-> +
-> +impl Timeout {
-> +    fn into_jiffies(self) -> isize {
-> +        match self {
-> +            Self::Jiffies(value) =3D> value.get().try_into().unwrap_or_d=
-efault(),
-> +            Self::Milliseconds(value) =3D> {
-> +                msecs_to_jiffies(value.get()).try_into().unwrap_or_defau=
-lt()
-> +            }
-> +            Self::Max =3D> 0,
-> +        }
-> +    }
-> +}
-
-FWIW this shouldn't be part of serdev abstraction. See
-https://lore.kernel.org/rust-for-linux/20260717042247.3634961-1-tomo@flappi=
-ng.org
-
-> +
-> +/// An adapter for the registration of serial device bus device drivers.
-> +pub struct Adapter<T: Driver>(T);
-> +
-> +// SAFETY:
-> +// - `bindings::serdev_device_driver` is a C type declared as `repr(C)`.
-> +// - `PrivateData<'bound, T>` is the type of the driver's device private=
- data.
-> +// - `struct serdev_device_driver` embeds a `struct device_driver`.
-> +// - `DEVICE_DRIVER_OFFSET` is the correct byte offset to the embedded `=
-struct device_driver`.
-> +unsafe impl<T: Driver> driver::DriverLayout for Adapter<T> {
-> +    type DriverType =3D bindings::serdev_device_driver;
-> +    type DriverData<'bound> =3D PrivateData<'bound, T>;
-> +    const DEVICE_DRIVER_OFFSET: usize =3D core::mem::offset_of!(Self::Dr=
-iverType, driver);
-> +}
-> +
-> +// SAFETY: A call to `unregister` for a given instance of `DriverType` i=
-s guaranteed to be valid if
-> +// a preceding call to `register` has been successful.
-> +unsafe impl<T: Driver> driver::RegistrationOps for Adapter<T> {
-> +    unsafe fn register(
-> +        sdrv: &Opaque<Self::DriverType>,
-> +        name: &'static CStr,
-> +        module: &'static ThisModule,
-> +    ) -> Result {
-> +        let of_table =3D match T::OF_ID_TABLE {
-> +            Some(table) =3D> table.as_ptr(),
-> +            None =3D> core::ptr::null(),
-> +        };
-> +
-> +        let acpi_table =3D match T::ACPI_ID_TABLE {
-> +            Some(table) =3D> table.as_ptr(),
-> +            None =3D> core::ptr::null(),
-> +        };
-> +
-> +        // SAFETY: It's safe to set the fields of `struct serdev_device_=
-driver` on initialization.
-> +        unsafe {
-> +            (*sdrv.get()).driver.name =3D name.as_char_ptr();
-> +            (*sdrv.get()).probe =3D Some(Self::probe_callback);
-> +            (*sdrv.get()).remove =3D Some(Self::remove_callback);
-> +            (*sdrv.get()).driver.of_match_table =3D of_table;
-> +            (*sdrv.get()).driver.acpi_match_table =3D acpi_table;
-> +        }
-> +
-> +        // SAFETY: `sdrv` is guaranteed to be a valid `DriverType`.
-> +        to_result(unsafe { bindings::__serdev_device_driver_register(sdr=
-v.get(), module.0) })
-> +    }
-> +
-> +    unsafe fn unregister(sdrv: &Opaque<Self::DriverType>) {
-> +        // SAFETY: `sdrv` is guaranteed to be a valid `DriverType`.
-> +        unsafe { bindings::serdev_device_driver_unregister(sdrv.get()) }=
-;
-> +    }
-> +}
-> +
-> +#[doc(hidden)]
-> +#[pin_data(PinnedDrop)]
-> +pub struct PrivateData<'bound, T: Driver> {
-> +    sdev: &'bound Device<device::Bound>,
-> +    #[pin]
-> +    driver: UnsafeCell<MaybeUninit<T::Data<'bound>>>,
-> +    open: UnsafeCell<bool>,
-> +    #[pin]
-> +    active: Mutex<bool>,
-> +}
-> +
-> +#[pinned_drop]
-> +impl<T: Driver> PinnedDrop for PrivateData<'_, T> {
-> +    fn drop(self: Pin<&mut Self>) {
-> +        let mut active =3D self.active.lock();
-> +        if *active {
-> +            // SAFETY:
-> +            // - We have exclusive access to `self.driver`.
-> +            // - `self.driver` is guaranteed to be initialized.
-> +            unsafe { (*self.driver.get()).assume_init_drop() };
-> +            *active =3D false;
-> +        }
-> +        drop(active);
-> +
-> +        // SAFETY: We have exclusive access to `self.open`.
-> +        if unsafe { *self.open.get() } {
-> +            // SAFETY: `self.sdev.as_raw()` is guaranteed to be a pointe=
-r to a valid
-> +            // `struct serdev_device`.
-> +            unsafe { bindings::serdev_device_close(self.sdev.as_raw()) }=
-;
-> +        }
-> +    }
-> +}
-> +
-> +impl<T: Driver> Adapter<T> {
-> +    const OPS: &'static bindings::serdev_device_ops =3D &bindings::serde=
-v_device_ops {
-> +        receive_buf: if T::HAS_RECEIVE {
-> +            Some(Self::receive_buf_callback)
-> +        } else {
-> +            None
-> +        },
-> +        write_wakeup: Some(bindings::serdev_device_write_wakeup),
-> +    };
-> +
-> +    extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -> =
-kernel::ffi::c_int {
-> +        // SAFETY: The serial device bus only ever calls the probe callb=
-ack with a valid pointer to
-> +        // a `struct serdev_device`.
-> +        //
-> +        // INVARIANT: `sdev` is valid for the duration of `probe_callbac=
-k()`.
-> +        let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInternal<=
-'_>>>() };
-> +        let info =3D <Self as driver::Adapter>::id_info(sdev.as_ref());
-> +
-> +        from_result(|| {
-> +            sdev.as_ref().set_drvdata(try_pin_init!(PrivateData::<T> {
-> +                sdev: &**sdev,
-> +                driver: MaybeUninit::<T::Data<'_>>::zeroed().into(),
-> +                open: false.into(),
-> +                active <- new_mutex!(false),
-> +            }))?;
-> +            // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
-> +            let private_data =3D unsafe { sdev.as_ref().drvdata_borrow::=
-<PrivateData<'_, T>>() };
-> +            let private_data =3D ScopeGuard::new_with_data(private_data,=
- |_| {
-> +                // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
-> +                drop(unsafe { sdev.as_ref().drvdata_obtain::<PrivateData=
-<'_, T>>() });
-> +            });
-> +            let mut active =3D private_data.active.lock();
-
-What's this for? This gives me a strong vibe that something is off. Either =
-the
-serdev subsystem is not having sufficient synchronization or there is an
-abstraction issue.
-
-Either way, you really should have more comments about what this active mut=
-ex is
-for and why it is needed.
-
-> +
-> +            // SAFETY: `sdev.as_raw()` is guaranteed to be a valid point=
-er to `serdev_device`.
-> +            unsafe { bindings::serdev_device_set_client_ops(sdev.as_raw(=
-), Self::OPS) };
-> +
-> +            // SAFETY: The serial device bus only ever calls the probe c=
-allback with a valid pointer
-> +            // to a `serdev_device`.
-> +            to_result(unsafe { bindings::serdev_device_open(sdev.as_raw(=
-)) })?;
-> +
-> +            // SAFETY: We have exclusive access to `private_data.open`.
-> +            unsafe { *private_data.open.get() =3D true };
-> +
-> +            let data =3D T::probe(sdev, info);
-> +
-> +            // SAFETY: We have exclusive access to `private_data.driver`=
-.
-> +            let driver =3D unsafe { &mut *private_data.driver.get() };
-> +            // SAFETY:
-> +            // - `driver.as_mut_ptr()` is a valid pointer to uninitializ=
-ed data.
-> +            // - `private_data.driver` is pinned.
-> +            let result =3D unsafe { data.__pinned_init(driver.as_mut_ptr=
-()) };
-> +
-> +            *active =3D result.is_ok();
-> +
-> +            drop(active);
-> +
-> +            result.map(|()| {
-> +                private_data.dismiss();
-> +                0
-> +            })
-> +        })
-> +    }
-> +
-> +    extern "C" fn remove_callback(sdev: *mut bindings::serdev_device) {
-> +        // SAFETY: The serial device bus only ever calls the remove call=
-back with a valid pointer
-> +        // to a `struct serdev_device`.
-> +        //
-> +        // INVARIANT: `sdev` is valid for the duration of `remove_callba=
-ck()`.
-> +        let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInternal<=
-'_>>>() };
-> +
-> +        // SAFETY: `remove_callback` is only ever called after a success=
-ful call to
-> +        // `probe_callback`, hence it's guaranteed that `Device::set_drv=
-data()` has been called
-> +        // and stored a `Pin<KBox<PrivateData<'_, T>>>`.
-> +        let private_data =3D unsafe { sdev.as_ref().drvdata_borrow::<Pri=
-vateData<'_, T>>() };
-> +
-> +        // SAFETY: No one has exclusive access to `private_data.driver`.
-> +        let data =3D unsafe { &*private_data.driver.get() };
-> +        // SAFETY:
-> +        // - `private_data.driver` is pinned.
-> +        // - `remove_callback` is only ever called after a successful ca=
-ll to `probe_callback`,
-> +        //   hence it's guaranteed that `private_data.driver` was initia=
-lized.
-> +        let data_pinned =3D unsafe { Pin::new_unchecked(data.assume_init=
-_ref()) };
-> +
-> +        T::unbind(sdev, data_pinned);
-> +    }
-> +
-> +    extern "C" fn receive_buf_callback(
-> +        sdev: *mut bindings::serdev_device,
-> +        buf: *const u8,
-> +        length: usize,
-> +    ) -> usize {
-> +        // SAFETY: The serial device bus only ever calls the receive buf=
- callback with a valid
-> +        // pointer to a `struct serdev_device`.
-> +        //
-> +        // INVARIANT: `sdev` is valid for the duration of `receive_buf_c=
-allback()`.
-> +        let sdev =3D unsafe { &*sdev.cast::<Device<device::BoundInternal=
->>() };
-> +
-> +        // SAFETY: `receive_buf_callback` is only ever called after a su=
-ccessful call to
-> +        // `probe_callback`, hence it's guaranteed that `Device::set_drv=
-data()` has been called
-> +        // and stored a `Pin<KBox<PrivateData<'_, T>>>`.
-> +        let private_data =3D unsafe { sdev.as_ref().drvdata_borrow::<Pri=
-vateData<'_, T>>() };
-> +        let active =3D private_data.active.lock();
-> +
-> +        if !*active {
-> +            return length;
-> +        }
-> +
-> +        // SAFETY: No one has exclusive access to `private_data.driver`.
-> +        let data =3D unsafe { &*private_data.driver.get() };
-> +        // SAFETY:
-> +        // - `private_data.driver` is pinned.
-> +        // - `receive_buf_callback` is only ever called after a successf=
-ul call to `probe_callback`,
-> +        //   hence it's guaranteed that `private_data.driver` was initia=
-lized.
-> +        let data_pinned =3D unsafe { Pin::new_unchecked(data.assume_init=
-_ref()) };
-> +
-> +        // SAFETY: `buf` is guaranteed to be non-null and has the size o=
-f `length`.
-> +        let buf =3D unsafe { core::slice::from_raw_parts(buf, length) };
-> +
-> +        T::receive(sdev, data_pinned, buf)
-> +    }
-> +}
-> +
-> +impl<T: Driver> driver::Adapter for Adapter<T> {
-> +    type IdInfo =3D T::IdInfo;
-> +
-> +    fn of_id_table() -> Option<of::IdTable<Self::IdInfo>> {
-> +        T::OF_ID_TABLE
-> +    }
-> +
-> +    fn acpi_id_table() -> Option<acpi::IdTable<Self::IdInfo>> {
-> +        T::ACPI_ID_TABLE
-> +    }
-> +}
-> +
-> +/// Declares a kernel module that exposes a single serial device bus dev=
-ice driver.
-> +///
-> +/// # Examples
-> +///
-> +/// ```ignore
-> +/// kernel::module_serdev_device_driver! {
-> +///     type: MyDriver,
-> +///     name: "Module name",
-> +///     authors: ["Author name"],
-> +///     description: "Description",
-> +///     license: "GPL v2",
-> +/// }
-> +/// ```
-> +#[macro_export]
-> +macro_rules! module_serdev_device_driver {
-> +    ($($f:tt)*) =3D> {
-> +        $crate::module_driver!(<T>, $crate::serdev::Adapter<T>, { $($f)*=
- });
-> +    };
-> +}
-> +
-> +/// The serial device bus device driver trait.
-> +///
-> +/// Drivers must implement this trait in order to get a serial device bu=
-s device driver registered.
-> +///
-> +/// # Examples
-> +///
-> +///```
-> +/// # use kernel::{
-> +///     acpi,
-> +///     bindings,
-> +///     device::{
-> +///         Bound,
-> +///         Core, //
-> +///     },
-> +///     of,
-> +///     serdev, //
-> +/// };
-> +///
-> +/// struct MyDriver;
-> +///
-> +/// kernel::of_device_table!(
-> +///     OF_TABLE,
-> +///     MODULE_OF_TABLE,
-> +///     <MyDriver as serdev::Driver>::IdInfo,
-> +///     [
-> +///         (of::DeviceId::new(c"test,device"), ())
-> +///     ]
-> +/// );
-> +///
-> +/// kernel::acpi_device_table!(
-> +///     ACPI_TABLE,
-> +///     MODULE_ACPI_TABLE,
-> +///     <MyDriver as serdev::Driver>::IdInfo,
-> +///     [
-> +///         (acpi::DeviceId::new(c"LNUXBEEF"), ())
-> +///     ]
-> +/// );
-> +///
-> +/// #[vtable]
-> +/// impl serdev::Driver for MyDriver {
-> +///     type IdInfo =3D ();
-> +///     type Data<'bound> =3D Self;
-> +///     const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> =3D Some(&O=
-F_TABLE);
-> +///     const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> =3D Som=
-e(&ACPI_TABLE);
-> +///
-> +///     fn probe<'bound>(
-> +///         sdev: &'bound serdev::Device<Core<'_>>,
-> +///         _id_info: Option<&'bound Self::IdInfo>,
-> +///     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-> +///         sdev.set_baudrate(115200);
-> +///         sdev.write_all(b"Hello\n", serdev::Timeout::Max)?;
-> +///         Ok(MyDriver)
-> +///     }
-> +/// }
-> +///```
-> +#[vtable]
-> +pub trait Driver {
-> +    /// The type holding driver private data about each device id suppor=
-ted by the driver.
-> +    // TODO: Use associated_type_defaults once stabilized:
-> +    //
-> +    // ```
-> +    // type IdInfo: 'static =3D ();
-> +    // ```
-> +    type IdInfo: 'static;
-> +
-> +    /// The type of the driver's bus device private data.
-> +    type Data<'bound>: Send + Sync + 'bound;
-> +
-> +    /// The table of OF device ids supported by the driver.
-> +    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> =3D None;
-> +
-> +    /// The table of ACPI device ids supported by the driver.
-> +    const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> =3D None;
-> +
-> +    /// Serial device bus device driver probe.
-> +    ///
-> +    /// Called when a new serial device bus device is added or discovere=
-d.
-> +    /// Implementers should attempt to initialize the device here.
-> +    fn probe<'bound>(
-> +        sdev: &'bound Device<device::Core<'_>>,
-> +        id_info: Option<&'bound Self::IdInfo>,
-> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
-> +
-> +    /// Serial device bus device driver unbind.
-> +    ///
-> +    /// Called when a [`Device`] is unbound from its bound [`Driver`]. I=
-mplementing this callback
-> +    /// is optional.
-> +    ///
-> +    /// This callback serves as a place for drivers to perform teardown =
-operations that require a
-> +    /// `&Device<Core>` or `&Device<Bound>` reference. For instance.
-> +    ///
-> +    /// Otherwise, release operations for driver resources should be per=
-formed in `Drop`.
-> +    fn unbind<'bound>(sdev: &'bound Device<device::Core<'_>>, this: Pin<=
-&Self::Data<'bound>>) {
-> +        let _ =3D (sdev, this);
-> +    }
-> +
-> +    /// Serial device bus device data receive callback.
-> +    ///
-> +    /// Called when data got received from device.
-> +    ///
-> +    /// Returns the number of bytes accepted.
-> +    fn receive<'bound>(
-> +        sdev: &'bound Device<device::Bound>,
-> +        this: Pin<&Self::Data<'bound>>,
-> +        data: &[u8],
-> +    ) -> usize {
-> +        let _ =3D (sdev, this, data);
-> +        build_error!(VTABLE_DEFAULT_ERROR)
-> +    }
-> +}
-> +
-> +/// The serial device bus device representation.
-> +///
-> +/// This structure represents the Rust abstraction for a C `struct serde=
-v_device`. The
-> +/// implementation abstracts the usage of an already existing C `struct =
-serdev_device` within Rust
-> +/// code that we get passed from the C side.
-> +///
-> +/// # Invariants
-> +///
-> +/// A [`Device`] instance represents a valid `struct serdev_device` crea=
-ted by the C portion of
-> +/// the kernel.
-> +#[repr(transparent)]
-> +pub struct Device<Ctx: device::DeviceContext =3D device::Normal>(
-> +    Opaque<bindings::serdev_device>,
-> +    PhantomData<Ctx>,
-> +);
-> +
-> +impl<Ctx: device::DeviceContext> Device<Ctx> {
-> +    fn as_raw(&self) -> *mut bindings::serdev_device {
-> +        self.0.get()
-> +    }
-
-This and many other functions should be `#[inline]`. I am surprised that Sa=
-shiko
-didn't point out.
-
-Best,
-Gary
+T24gVHVlLCAyMDI2LTA3LTE0IGF0IDE1OjM2ICswODAwLCBJY2Vub3d5IFpoZW5nIHdyb3RlOg0K
+PiBUaGUgZHJtIGdwdXZtIGNvZGUgZG9lc24ndCBwcm90ZWN0IGZpbmQgb3BlcmF0aW9uIGFnYWlu
+c3QgbWFwIG9wZXJhdGlvbiwNCj4gYW5kIHRoZSBkcml2ZXIgbmVlZHMgdG8gZW5zdXJlIGEgbWFw
+IG9wZXJhdGlvbiBzaG91bGRuJ3QgaGFwcGVuIHdoZW4gYQ0KPiBmaW5kIG9wZXJhdGlvbiBpcyBp
+biBwcm9ncmVzcy4NCj4gDQo+IEluIHNvbWUgY2FzZXMgYSBmaW5kIG9wZXJhdGlvbiB3aWxsIGJl
+IGluIHByb2dyZXNzIHdoZW4gZG9pbmcgbWFwL3VubWFwDQo+IG9wZXJhdGlvbnMsIGFuZCB0aGUg
+ZmluZCBvcGVyYXRpb24gd2lsbCBkbyBhIE5VTEwgcG9pbnRlciBkZWZlcmVuY2UuDQo+IA0KPiBB
+biBleGFtcGxlIG9mIHRoZSBzdGFjayB0cmFjZSBvZiBzdWNoIE5VTEwgZGVmZXJlbmNlIGlzIHNo
+b3duIGJlbG93Og0KPiANCj4gYGBgDQo+IFVuYWJsZSB0byBoYW5kbGUga2VybmVsIGFjY2VzcyB0
+byB1c2VyIG1lbW9yeSB3aXRob3V0IHVhY2Nlc3Mgcm91dGluZXMgYXQNCj4gdmlydHVhbCBhZGRy
+ZXNzIDAwMDAwMDAwMDAwMDAwMTANCj4gDQo+IFs8ZmZmZmZmZmYwMWU5ODlkND5dIGRybV9ncHV2
+YV9maW5kKzB4MjgvMHg2YyBbZHJtX2dwdXZtXQ0KPiBbPGZmZmZmZmZmMDFlZDNhNDA+XSBwdnJf
+dm1fdW5tYXArMHgzNC8weDY4IFtwb3dlcnZyXQ0KPiBbPGZmZmZmZmZmMDFlYzY5ZGE+XSBwdnJf
+aW9jdGxfdm1fdW5tYXArMHgyZS8weDUwIFtwb3dlcnZyXQ0KPiBbPGZmZmZmZmZmODA4MGNlMGE+
+XSBkcm1faW9jdGxfa2VybmVsKzB4OGUvMHhkYw0KPiBbPGZmZmZmZmZmODA4MGQwMTY+XSBkcm1f
+aW9jdGwrMHgxYmUvMHgzZTANCj4gWzxmZmZmZmZmZjgwMmJlYzNlPl0gX19yaXNjdl9zeXNfaW9j
+dGwrMHhiYS8weGM0DQo+IFs8ZmZmZmZmZmY4MGQ4NThiMj5dIGRvX3RyYXBfZWNhbGxfdSsweDIz
+ZS8weDNmNA0KPiBbPGZmZmZmZmZmODBkOTIyODg+XSBoYW5kbGVfZXhjZXB0aW9uKzB4MTY4LzB4
+MTc0DQo+IGBgYA0KPiANCj4gQXMgYWxsIG9jY3VyZW5jZXMgb2YgZHJtX2dwdXZhX2ZpbmQqKCkg
+YXJlIGFscmVhZHkgZ3VhcmRlZCBieQ0KPiB2bV9jdHgtPmxvY2ssIG1ha2UgcHZyX3ZtX21hcCgp
+IHRvIGFjcXVpcmUgdGhpcyBsb2NrIHRvIHByZXZlbnQNCj4gZGlzdHVyYmluZyBhbnkgZmluZCBv
+cGVyYXRpb24uIFRoaXMgZml4ZXMgdGhlIE5VTEwgZGVmZXJlbmNlIHByb2JsZW0gaW4NCj4gZHJt
+X2dwdXZhX2ZpbmQqKCkuDQo+IA0KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZw0KPiBGaXhl
+czogZmY1ZjY0M2RlMGJmICgiZHJtL2ltYWdpbmF0aW9uOiBBZGQgR0VNIGFuZCBWTSByZWxhdGVk
+IGNvZGUiKQ0KPiBGaXhlczogNGJjNzM2Zjg5MGNlICgiZHJtL2ltYWdpbmF0aW9uOiB2bTogbWFr
+ZSB1c2Ugb2YgR1BVVk0ncyBkcm1fZXhlYyBoZWxwZXIiKQ0KPiBTaWduZWQtb2ZmLWJ5OiBJY2Vu
+b3d5IFpoZW5nIDx6aGVuZ3hpbmdkYUBpc2Nhcy5hYy5jbj4NCg0KUmV2aWV3ZWQtYnk6IEFsZXNz
+aW8gQmVsbGUgPGFsZXNzaW8uYmVsbGVAaW1ndGVjLmNvbT4NCg0KcC5zLiB0aGVyZSdzIGEgZG91
+YmxlIHR5cG8gZGVmZXJlbmNlIC0+IGRlcmVmZXJlbmNlIHRoYXQgSSBjYW4gZml4IGJlZm9yZQ0K
+YXBwbHlpbmcgdGhpcyBlYXJseSBuZXh0IHdlZWsuDQoNClRoYW5rcywNCkFsZXNzaW8NCg0KPiAt
+LS0NCj4gQ2hhbmdlcyBpbiB2MjoNCj4gLSBEcm9wcGVkIHdyb25nbHkgZHVwbGljYXRlZCBtdXRl
+eF91bmxvY2soKSBjYWxsIGFuZCByZW9yZGVyZWQgaXQgdG8NCj4gICBiZWZvcmUgcHZyX3ZtX2Jp
+bmRfb3BfZmluaSgpICh0aGUgbG9jayBpcyBhY3F1aXJlZCBhZnRlcg0KPiAgIHB2cl92bV9iaW5k
+X29wX21hcF9pbml0KCkgY2FsbCkuIChUaGFua3MgdG8gQnJhamVzaCkNCj4gLSBBZGRlZCBhIGV4
+dHJhIEZpeGVzIHBvaW50aW5nIHRvIHRoZSBvcmlnaW5hbCBicm9rZW4gY29kZSB0aGF0IHdhcw0K
+PiAgIHJlZmFjdG9yZWQgYnkgdGhlIG9yaWdpbmFsIEZpeGVzIChidXQgc3RpbGwgYnJva2VuKS4g
+KFRoYW5rcyB0bw0KPiAgIEFsZXNzaW8pDQo+IC0gRml4ZWQgc29tZSB0eXBvcyBpbiBjb21taXQg
+bWVzc2FnZS4gKFRoYW5rcyB0byBBbGVzc2lvKQ0KPiAtIEFkZGVkIGEgc3RhY2t0cmFjZSBvZiB0
+aGUgb29wcyB0aGF0IG9jY3VyZWQgb24gbXkgYm9hcmQuIChBcyBzdWdnZXN0ZWQNCj4gICBieSBB
+bGVzc2lvKQ0KPiANCj4gIGRyaXZlcnMvZ3B1L2RybS9pbWFnaW5hdGlvbi9wdnJfdm0uYyB8IDIg
+KysNCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykNCj4gDQo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+aW1hZ2luYXRpb24vcHZyX3ZtLmMNCj4gaW5kZXggMzk2ZDM0OWZiNmNlNC4uY2ViNzg2OTRjZDk4
+NyAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2ltYWdpbmF0aW9uL3B2cl92bS5jDQo+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pbWFnaW5hdGlvbi9wdnJfdm0uYw0KPiBAQCAtNzQ3LDYg
+Kzc0Nyw3IEBAIHB2cl92bV9tYXAoc3RydWN0IHB2cl92bV9jb250ZXh0ICp2bV9jdHgsIHN0cnVj
+dCBwdnJfZ2VtX29iamVjdCAqcHZyX29iaiwNCj4gIA0KPiAgCXB2cl9nZW1fb2JqZWN0X2dldChw
+dnJfb2JqKTsNCj4gIA0KPiArCW11dGV4X2xvY2soJnZtX2N0eC0+bG9jayk7DQo+ICAJZXJyID0g
+ZHJtX2dwdXZtX2V4ZWNfbG9jaygmdm1fZXhlYyk7DQo+ICAJaWYgKGVycikNCj4gIAkJZ290byBl
+cnJfY2xlYW51cDsNCj4gQEAgLTc1Niw2ICs3NTcsNyBAQCBwdnJfdm1fbWFwKHN0cnVjdCBwdnJf
+dm1fY29udGV4dCAqdm1fY3R4LCBzdHJ1Y3QgcHZyX2dlbV9vYmplY3QgKnB2cl9vYmosDQo+ICAJ
+ZHJtX2dwdXZtX2V4ZWNfdW5sb2NrKCZ2bV9leGVjKTsNCj4gIA0KPiAgZXJyX2NsZWFudXA6DQo+
+ICsJbXV0ZXhfdW5sb2NrKCZ2bV9jdHgtPmxvY2spOw0KPiAgCXB2cl92bV9iaW5kX29wX2Zpbmko
+JmJpbmRfb3ApOw0KPiAgDQo+ICAJcmV0dXJuIGVycjsNCg0K
