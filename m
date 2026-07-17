@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B838C4451C
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:19:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8A21C44521
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A61D810F533;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA38510F535;
 	Fri, 17 Jul 2026 12:19:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="SvW03pgf";
+	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="APwKamzG";
 	dkim-atps=neutral
 Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3DDB10F533
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:19:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33AB910F539
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:19:02 +0000 (UTC)
 Received: from francesco-nb.. (unknown [178.82.120.96])
- by mail11.truemail.it (Postfix) with ESMTPA id 8559B22734;
- Fri, 17 Jul 2026 14:18:58 +0200 (CEST)
+ by mail11.truemail.it (Postfix) with ESMTPA id 2CC44228C9;
+ Fri, 17 Jul 2026 14:19:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
- s=default; t=1784290739;
- bh=tjucR87tClkz1l16S+aKThSWLFGeiCovQUE3GWKhawk=; h=From:To:Subject;
- b=SvW03pgfGHbcvlEjpleane2zkSv47jHysVnJ90Evye158m0l8ExpCNDEVu1VT94fd
- LtEAmovQ7bafUBcJ9Z3655theSQ7+Q5qaD6NDlIhY37/HzrpOmKOVMB8x1ukBMGXxa
- aRa/sAlNYI/VhFtVdFWFz/HGZY7gADbzQQZ7gAF2JTLo2bDpMTv/gWLTdOKBWO5HKL
- 11u4eb4Oz9XgAM3gLYM5ulNg8ufRhKCIKzQucqCqU41584bnhddYQ8TQVNLtcu6M4g
- 1SYa0yOTuYLJ/na8xJhY3A9V0TIEkvrl+x4S/Up2d0FKpyJS2WdvuOoR8xi330po9d
- VG9Is131dc91Q==
+ s=default; t=1784290740;
+ bh=MhJPiBOn7qoBvAbf8Au6wuw+Yg8j8KZ2eCw0H8HfrZc=; h=From:To:Subject;
+ b=APwKamzGhTxH89PZZJMs3OKR8EHU6NE/1uaK2jb0GSO5SInwHyKlvzrBiXuw0dsTl
+ xKC5yH3MjY1dvjqoF4sPT9duWOx3fNwRRiBh9OagOWEyhePyZJXE1yJ4lZ6wOE6WoM
+ 8hCTavJ5O/Y9BUoDN5ott6LFfdVs2Yfj/bDrLU259HFAAlZC/KiSqsnDhNjoyhE4pX
+ 1j9IQJSNmoW2K9uWf9VLuwnpBxz25pCm8yCta7SYo+Tg8tU25Nhjd7H0Epw8TeNqO4
+ cAUr2pyrIfGjgrBI4ZJyCNjPRFn2gHnMQDrvbwYqfF20MeEQvSsHXT7YYkTBZIgXuN
+ 2kre9RHrlT+iw==
 From: Francesco Dolcini <francesco@dolcini.it>
 To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -42,9 +42,9 @@ Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format
-Date: Fri, 17 Jul 2026 14:18:43 +0200
-Message-ID: <20260717121847.488148-2-francesco@dolcini.it>
+Subject: [PATCH v1 3/4] ARM: dts: imx6ull-colibri: Set LCDIF format
+Date: Fri, 17 Jul 2026 14:18:45 +0200
+Message-ID: <20260717121847.488148-4-francesco@dolcini.it>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260717121847.488148-1-francesco@dolcini.it>
 References: <20260717121847.488148-1-francesco@dolcini.it>
@@ -67,43 +67,26 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-LCDIF has a hardware-configurable LCD_DATABUS_WIDTH field which selects
-the parallel data bus transfer width. The selected mode changes how color
-component bits are assigned to the LCD_DATA pins.
-
-This must match the board wiring. On Colibri iMX6ULL, for example, only
-18 LCD data lines are routed. A 24-bit panel can still be connected by
-wiring the available LCD_DATA signals to the appropriate panel inputs.
-Without describing the resulting interface format, LCDIF may assign the
-color components to different data lines, causing shifted colors.
-
-Add interface-pix-fmt so the binding can describe the configured LCDIF
-bus format. The same property is already used by
-display/imx/fsl,imx-parallel-display.yaml.
+The lcd DPI interface on colibri imx6ull uses a 18-bit width bus, set
+the interface-pix-fmt accordingly.
 
 Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
- Documentation/devicetree/bindings/display/fsl,lcdif.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
+ arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-index 2dd0411ec651..209ee5a96e39 100644
---- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-+++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-@@ -58,6 +58,13 @@ properties:
-     items:
-       - const: rx
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
+index ec3c1e7301f4..e126fade2304 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
+@@ -225,6 +225,7 @@ &lcdif {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_lcdif_dat
+ 		     &pinctrl_lcdif_ctrl>;
++	interface-pix-fmt = "rgb666";
+ 	status = "disabled";
  
-+  interface-pix-fmt:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    enum:
-+      - rgb24
-+      - rgb565
-+      - rgb666
-+
-   interrupts:
-     items:
-       - description: LCDIF DMA interrupt
+ 	port {
 -- 
 2.47.3
 
