@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 858D7C44515
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 17:14:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC984C4451B
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 17:19:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E75B710E430;
-	Fri, 17 Jul 2026 17:14:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 287F110E24D;
+	Fri, 17 Jul 2026 17:19:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="ON/y666p";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Kt6hXTUP";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 653A510E430
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 17:14:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1784308474; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ECE510E4DA
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 17:19:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784308778; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=eHSXv93a+kLpfBPuV4XMN8saZzYgi7LA9SX9dc4napdLK7TOM75b0ikWgjSdhFjMxf8T6NHIrl4jUk3Nbed9reiUA59QGvqJN4qvpYUCux9jRk0zf4ttQdEtXL6S/oetUReuLjVZPSSNkMtJgaJ1fgrSKQ+ZlA32Sf/iJjls8xo=
+ b=H4pcaiyWw5sNUEJZbm9eM14QxzQ3Fs5J/zfbyV0gtqk2u2v4xJDuHRHpJrMW4yt/U89AweWnlDnKJVWJ9EJh2HDtzg3qoDhYlz9QeCZgEupMPqCn8FsN5Fef2I9+RNV5PQvDSgZagf80bsYu6HdpvxEIL+5lpEckH+axrSLiKFA=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1784308474;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Obi2JLsftJUNdtXpRvd5RDFm/4pvc5YPTAdtbeGx+vk=; 
- b=i0+Namg8tF78Le2WotK25lOY2P8X0lSJW/H5/ZmF3DJlbKkk/dAVi+gU19zjbJ1hcSDwNMiayT6NwRmiOn8bxSM6fhXwth5lbwJ94pA1DhrGL3kiI3Eal3D82XlB/KcxNebb/ZLbKSdm5zV83d5RdRNDcDpGs987uSgcmws7Y1s=
+ s=zohoarc; t=1784308778;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=ogRVHXmQ7ZTJHboM5CyugXRM1/jtS4o3Av3SvfnT0jM=; 
+ b=Rb7JV/PRuKjmFm0CH5WxKJ4Mj6i1P7r5AKeRg2rN3MsSwrNkfq/sXt5U/JHt16WU2YBz6hxJpwguBbEqDQceav8DUK63eoyiRWGOR1BPn45vOY2wFBfpyDLrt0KTqUcoNkWwn9bjiskzT/ZRZ/FonO9dcLRF4H245+ZSLIgc1tc=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784308474; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=Obi2JLsftJUNdtXpRvd5RDFm/4pvc5YPTAdtbeGx+vk=;
- b=ON/y666pE9jZgsoD56Zvsw63/zP4PdKAAGcKl5v0e5J44MOe+wE8Dq9rEXJ+G7+e
- BNMPMW+cM/7MeIxN/Ze8XYP3UJGclhKjVhdy9/9wEP+XU6fw8xcVcNfgjOId/2V9hH8
- M6jGT8qP8b8uO4toAivQCLeu+/How3SbepeOm42I=
-Received: by mx.zohomail.com with SMTPS id 1784308473066294.55527821713736;
- Fri, 17 Jul 2026 10:14:33 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v5 4/5] rust: Add dma_fence abstractions
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <7a2cf5494824b8451824ebe82e0391df05a7cb5a.camel@mailbox.org>
-Date: Fri, 17 Jul 2026 14:14:12 -0300
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Krishna Ketan Rai <prafulrai522@gmail.com>,
- Tamir Duberstein <tamird@kernel.org>, Mirko Adzic <adzicmirko97@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Shankari Anand <shankari.ak0208@gmail.com>, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <F72EFF33-E4F8-4E9B-B966-58BCCBA495C4@collabora.com>
-References: <20260703073141.3962604-2-phasta@kernel.org>
- <20260703073141.3962604-6-phasta@kernel.org>
- <046C4D44-1966-4EE9-AE86-A8F83A136771@collabora.com>
- <7a2cf5494824b8451824ebe82e0391df05a7cb5a.camel@mailbox.org>
-To: phasta@kernel.org
-X-Mailer: Apple Mail (2.3826.700.81)
+ spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+ dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784308777; 
+ s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=ogRVHXmQ7ZTJHboM5CyugXRM1/jtS4o3Av3SvfnT0jM=;
+ b=Kt6hXTUPPH6CFVs5HGy+sK42o+r4NCkzV6Q9KDzVFjAQW/qbb1HX75xBc8USxQgx
+ RexIGKLGYtbvejBVzCeDDvxU/hevu/BjXDIhBq48yYc0cn0fZjxN7Wjiv0+aYjBEVgt
+ YAda0f9SiK99bk32KBOvI3qSvslKA4kIskVrC6RI=
+Received: by mx.zohomail.com with SMTPS id 178430877525932.612933366387324;
+ Fri, 17 Jul 2026 10:19:35 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+ id 1F724181CD9; Fri, 17 Jul 2026 19:19:29 +0200 (CEST)
+Date: Fri, 17 Jul 2026 19:19:29 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Chaoyi Chen <kernel@airkyi.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Vinod Koul <vkoul@kernel.org>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-phy@lists.infradead.org
+Subject: Re: [PATCH v3 1/5] drm/bridge: Implement generic USB Type-C DP HPD
+ bridge
+Message-ID: <alpeAqKo72pwOEnX@venus>
+References: <20260717072323.96-1-kernel@airkyi.com>
+ <20260717072323.96-2-kernel@airkyi.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="jbdw5cv6ljemwd7w"
+Content-Disposition: inline
+In-Reply-To: <20260717072323.96-2-kernel@airkyi.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.287.57
 X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,444 +87,211 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
->=20
->>> +        try_pin_init!(Self {
->>> +            // SAFETY: `dma_fence_context_alloc()` merely works on =
-a global atomic.
->>> +            // Parameter `1` is the number of contexts we want to =
-allocate.
->>> +            nr: unsafe { bindings::dma_fence_context_alloc(1) },
->>> +            seqno: AtomicU64::new(0),
->>=20
->> Do we really need to force a 0 here? i.e.: can=E2=80=99t we take the =
-initial seqno
->> as an argument?
->=20
-> We could. What would that be useful for?
 
+--jbdw5cv6ljemwd7w
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 1/5] drm/bridge: Implement generic USB Type-C DP HPD
+ bridge
+MIME-Version: 1.0
 
-On Mali, the hardware syncobj starts at 0. If you see a 0, is this the =
-default
-state, or should you signal seqno 0?
+Hello,
 
-This problem goes away if we can have seqnos starting at a custom value, =
-like
-1. It seems like the C machinery also special-cases 0 in a few other =
-places too.
+On Fri, Jul 17, 2026 at 03:23:19PM +0800, Chaoyi Chen wrote:
+> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+>=20
+> The HPD function of Type-C DP is implemented through
+> drm_connector_oob_hotplug_event(). For embedded DP, it is required
+> that the DRM connector fwnode corresponds to the Type-C port fwnode.
+>=20
+> To describe the relationship between the DP controller and the Type-C
+> port device, we usually using drm_bridge to build a bridge chain.
+>=20
+> Now several USB-C controller drivers have already implemented the DP
+> HPD bridge function provided by aux-hpd-bridge.c, it will build a DP
+> HPD bridge on USB-C connector port device.
+>=20
+> But this requires the USB-C controller driver to manually register the
+> HPD bridge. If the driver does not implement this feature, the bridge
+> will not be create.
+>=20
+> So this patch implements a generic DP HPD bridge based on
+> aux-hpd-bridge.c. It will monitor Type-C bus events, and when a
+> Type-C port device containing the DP svid is registered, it will
+> create an HPD bridge for it without the need for the USB-C controller
+> driver to implement it.
+>=20
+> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
 
->=20
->>=20
->>> +            driver_name,
->>> +            timeline_name,
->>> +            data <- data,
->>> +        })
->>> +    }
->>> +
->>>=20
->=20
-> [=E2=80=A6]
->=20
->>> +    /// Create a new fence, consuming `data`.
->>> +    ///
->>> +    /// The fence will increment the refcount of the fence context =
-associated with this
->>> +    /// [`FenceCtx`].
->>> +    pub fn new_fence(&self, memory: DriverFenceAllocation<'a, T>) =
--> DriverFence<'a, T> {
->>=20
->> Do we ever check if the allocation was really made by =E2=80=9Cself=E2=80=
-=9D ? Apparently not :/
->=20
-> Hm, no, we don't.
->=20
-> For the most part that's irrelevant, since all critical components =
-then
-> only get set in new_fence(). Correct typization is enforced through T.
->=20
-> The notable exception is the fence_ctx reference itself.
->=20
-> What should we do about it?
->=20
-> We could keep the fctx field as a MaybeUninit and set it later. Or we
-> check through the fctx identifier number whether it's the correct one
-> in new_fence(), but then new_fence() could fail with some error, and
-> it's probably better to have it be completely fail-free.
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Tested-by: Sebastian Reichel <sebastian.reichel@collabora.com> # ArmSom Sig=
+e5
 
-Agree about the fail-free part.
+I gave this a test together with the RK3588/RK3576 USB-C DP AltMode
+patches I'm working on. As the fusb302 does a manual registration
+for the DRM bridge in its probe function, the bridge is registered
+twice:
 
-The problem I see here is that new_fence() will use "seqno" and "nr" =
-from
-whatever context called new_fence(), but DriverFenceAllocation has some =
-other
-(possibly unrelated) context as its DriverFenceData::fctx.
+root@sige5 # cat /sys/kernel/debug/dri/bridges
+=2E..
+bridge[1]: drm_aux_hpd_bridge_funcs
+	refcount: 4
+	type: [10] DP
+	OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
+	ops: [0x4] hpd
+bridge[2]: drm_aux_hpd_bridge_funcs
+	refcount: 2
+	type: [10] DP
+	OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
+	ops: [0x4] hpd
+=2E..
 
-The lifetimes are apparently broken too, because 'a is the lifetime of =
-the
-context where new_fence_allocation was called, meaning that the context =
-that
-actually called new_fence() can drop, even though it provided the state =
-for
-dma_fence_init().
+Apparently the USB-C DP AltMode keeps working, so this just wastes
+a few CPU cycles and some memory. So this can land and then we can
+remove the manual code from the driver as a follow-up step. I also
+gave that a try and things keep working. I won't send the fusb302
+patch for now to ensure its not applied before this patch lands.
 
-I guess this can be solved by moving new_fence() to impl =
-DriverFenceAllocation?
-That already has a context, and most importantly, the right context.
+Greetings,
 
->=20
->>=20
->>>=20
->=20
-> [=E2=80=A6]
->=20
->>> +pub trait FenceCb: Send + 'static {
->>=20
->> IMHO these acronyms make the code harder to read for no gain. I =
-don=E2=80=99t think
->> we have to carry that over from C.
->>=20
->> FenceCb -> FenceCallback
->=20
-> No principle objections from me. But do you believe *all* of them are
-> bad? I really like `let fctx =3D =E2=80=A6` for instance.
+-- Sebastian
 
-No, variable names are fine IMHO. It=E2=80=99s only types where I think =
-we should be a bit
-more verbose.
+> (no changes since v3)
+>=20
+> Changes in v2:
+> - Add copyright text.
+> - Remove useless goto.
+>=20
+> ---
+>  drivers/gpu/drm/bridge/Kconfig                | 10 ++++
+>  drivers/gpu/drm/bridge/Makefile               |  1 +
+>  .../gpu/drm/bridge/aux-hpd-typec-dp-bridge.c  | 54 +++++++++++++++++++
+>  3 files changed, 65 insertions(+)
+>  create mode 100644 drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
+>=20
+> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kcon=
+fig
+> index 4a57d49b4c6d..9739b2a19758 100644
+> --- a/drivers/gpu/drm/bridge/Kconfig
+> +++ b/drivers/gpu/drm/bridge/Kconfig
+> @@ -30,6 +30,16 @@ config DRM_AUX_HPD_BRIDGE
+>  	  Simple bridge that terminates the bridge chain and provides HPD
+>  	  support.
+> =20
+> +if DRM_AUX_HPD_BRIDGE
+> +config DRM_AUX_HPD_TYPEC_BRIDGE
+> +	tristate
+> +	depends on TYPEC || !TYPEC
+> +	default TYPEC
+> +	help
+> +	  Simple bridge that terminates the bridge chain and provides HPD
+> +	  support. It build bridge on each USB-C connector device node.
+> +endif
+> +
+>  menu "Display Interface Bridges"
+>  	depends on DRM && DRM_BRIDGE
+> =20
+> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Mak=
+efile
+> index 15cc821d85b7..d88a9e1ccc9a 100644
+> --- a/drivers/gpu/drm/bridge/Makefile
+> +++ b/drivers/gpu/drm/bridge/Makefile
+> @@ -1,6 +1,7 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  obj-$(CONFIG_DRM_AUX_BRIDGE) +=3D aux-bridge.o
+>  obj-$(CONFIG_DRM_AUX_HPD_BRIDGE) +=3D aux-hpd-bridge.o
+> +obj-$(CONFIG_DRM_AUX_HPD_TYPEC_BRIDGE) +=3D aux-hpd-typec-dp-bridge.o
+>  obj-$(CONFIG_DRM_CHIPONE_ICN6211) +=3D chipone-icn6211.o
+>  obj-$(CONFIG_DRM_CHRONTEL_CH7033) +=3D chrontel-ch7033.o
+>  obj-$(CONFIG_DRM_CROS_EC_ANX7688) +=3D cros-ec-anx7688.o
+> diff --git a/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c b/drivers/g=
+pu/drm/bridge/aux-hpd-typec-dp-bridge.c
+> new file mode 100644
+> index 000000000000..c09579ff7ab9
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
+> @@ -0,0 +1,54 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Copyright (C) 2026 Rockchip Electronics Co., Ltd.
+> + *
+> + * Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> + */
+> +#include <linux/of.h>
+> +#include <linux/usb/typec_altmode.h>
+> +#include <linux/usb/typec_dp.h>
+> +
+> +#include <drm/bridge/aux-bridge.h>
+> +
+> +static int drm_typec_bus_event(struct notifier_block *nb,
+> +			       unsigned long action, void *data)
+> +{
+> +	struct device *dev =3D (struct device *)data;
+> +	struct typec_altmode *alt =3D to_typec_altmode(dev);
+> +
+> +	if (action !=3D BUS_NOTIFY_ADD_DEVICE)
+> +		return NOTIFY_OK;
+> +
+> +	/*
+> +	 * alt->dev.parent->parent : USB-C controller device
+> +	 * alt->dev.parent         : USB-C connector device
+> +	 */
+> +	if (is_typec_port_altmode(&alt->dev) && alt->svid =3D=3D USB_TYPEC_DP_S=
+ID)
+> +		drm_dp_hpd_bridge_register(alt->dev.parent->parent,
+> +					   to_of_node(alt->dev.parent->fwnode));
+> +
+> +	return NOTIFY_OK;
+> +}
+> +
+> +static struct notifier_block drm_typec_event_nb =3D {
+> +	.notifier_call =3D drm_typec_bus_event,
+> +};
+> +
+> +static void drm_aux_hpd_typec_dp_bridge_module_exit(void)
+> +{
+> +	bus_unregister_notifier(&typec_bus, &drm_typec_event_nb);
+> +}
+> +
+> +static int __init drm_aux_hpd_typec_dp_bridge_module_init(void)
+> +{
+> +	bus_register_notifier(&typec_bus, &drm_typec_event_nb);
+> +
+> +	return 0;
+> +}
+> +
+> +module_init(drm_aux_hpd_typec_dp_bridge_module_init);
+> +module_exit(drm_aux_hpd_typec_dp_bridge_module_exit);
+> +
+> +MODULE_AUTHOR("Chaoyi Chen <chaoyi.chen@rock-chips.com>");
+> +MODULE_DESCRIPTION("DRM TYPEC DP HPD BRIDGE");
+> +MODULE_LICENSE("GPL");
+> --=20
+> 2.53.0
+>=20
 
->=20
->=20
->>=20
->>> +    /// Called when the fence is signaled.
->>> +    ///
->>> +    /// This is called from the fence signaling path, which may be =
-in interrupt
->>> +    /// context or with locks held, which is why `self` is only =
-borrowed, so that
->>> +    /// it cannot drop. Implementations must not sleep or perform
->>> +    /// long-running operations.
->>> +    ///
->>> +    /// An implementation likely wants to inform itself (e.g., =
-through a work item)
->>> +    /// within this callback that the associated =
-[`FenceCbRegistration`] can now be
->>> +    /// dropped.
->>> +    fn called(&mut self);
->>=20
->> I think =E2=80=9Csignaled=E2=80=9D is more descriptive than =
-=E2=80=9Ccalled=E2=80=9D.
->=20
-> Here I disagree. A callback does not get signaled. It gets called once
-> the fence gets signaled.
+--jbdw5cv6ljemwd7w
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Is the information that a callback was called more important than the =
-fact that
-it was called because a fence was signaled? I think that a driver author =
-would
-rather implement =E2=80=9Cwhat happens when the fence is signaled=E2=80=9D=
- versus
-=E2=80=9Cwhat happens when the callback is called=E2=80=9D. But this is =
-pretty minor.
-If you still think that called is better, I don=E2=80=99t object either =
-:)
+-----BEGIN PGP SIGNATURE-----
 
->=20
->>=20
->>> +}
->>> +
->>>=20
->=20
-> [=E2=80=A6]
->=20
->>> +
->>> +/// The receiving counterpart of a [`DriverFence`], designed to =
-register callbacks
->>> +/// on, check the signalled state etc. A [`Fence`] cannot be =
-signalled.
->>> +/// A [`Fence`] is always refcounted.
->>=20
->> I would explain this a tad better.
->=20
-> What exactly? The refcounting? The dualism between DriverFence and
-> Fence? :)
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpaZBQACgkQ2O7X88g7
++po4qA/+IBHGDueFgcm82WUb8KlcPZXHjJIodD4gCNh2En34PfHdv2tgAZk8FNoa
+130uQsjBUVejRARr4hgsqrKrisG/t/JfzHqg1DZpeok3j+sqCCDjuOYg3HBRrpjx
+WgTnxT7RWYqUjKE1bNX957wGBqggHx53///8/q2wwk4lCg99GEkoEqbbCgL4nQtb
+qwaQxOzI012LR46Q1c7lfSYYtjIAJEP2ojNbQUyUSuP58zZs2LsgdR0x8QVHx8h+
+PdwS92uTNQ5iMEWZh/jkB3xUaS3Rr9avZSwdaRgL0nGYnsuC5gBDBuVQtgFztnJl
+gK80/W5U61uXnj4IY1i61+V5jwNvBbqnSG0VXaN85zbMEhH6IwWPFb4SFm2NduwN
+ba93B+wOyFXoTZ+xPy1PLjQ3jwaHG91tw2gQLurisvb9+eAbGdFKbG2t6pkvCuD2
+LcwFHTSTD/gpsWMRiz4Lbz0I49jSRgW5x0wB4HOsOMDrFVDR8+MqNKMKHdErPqRp
+ZUeligeDaPclFpvT/ea7ChBipXN6/T6DvnwWe+Rsrn663mE3Y+GgOHiCYyfZZcRc
+SZk1gwoEskqaR6tguKoHT5hJwH30MVTmQDLL5I8AFij9LVl7MehM+DPjS+kRTE35
+FnmtXnvKOa19o/QDH4N/zq1C+ayxbN+IQKCaJ2g3irXGVpl4q38=
+=wii+
+-----END PGP SIGNATURE-----
 
-For example, you say =E2=80=9Ca Fence cannot be signaled=E2=80=9D. A =
-person seeing this
-code for the first time might ask why. Specially if they start by =
-reading the
-docs for Fence first.
-
-I think explaining a bit more about the DriverFence/Fence/refcounting as =
-you
-said is already enough to settle it.
-
-
->=20
->>=20
->>> +#[repr(transparent)]
->>> +pub struct Fence {
->>> +    /// The actual dma_fence passed to C.
->>> +    inner: Opaque<bindings::dma_fence>,
->>> +}
->>> +
->>> +// SAFETY: Fences are literally designed to be shared between =
-threads.
->>> +unsafe impl Send for Fence {}
->>> +// SAFETY: Fences are literally designed to be shared between =
-threads.
->>> +unsafe impl Sync for Fence {}
->>> +
->>> +impl Fence {
->>> +    /// Check whether the fence was signalled at the moment of the =
-function call.
->>> +    ///
->>> +    /// Note that this can return `true` for a [`Fence`] whose =
-[`DriverFence`]
->>> +    /// has not yet been dropped. The reason is that the fence ops =
-callbacks can
->>> +    /// cause the fence to get signaled by the C backend.
->>> +    pub fn is_signaled(&self) -> bool {
->>> +        let fence =3D self.as_raw();
->>> +        let mut fence_flags: usize =3D 0;
->>> +        let flag_ptr =3D &raw mut fence_flags;
->>> +
->>> +        // We shouuld not use `dma_fence_is_signaled_locked()` =
-here, because
->>=20
->> typo
->=20
-> ACK.
->=20
->>=20
->>> +        // according to the C backend's recommendations, that =
-function is problematic
->>> +        // and we should avoid calling that function with a lock =
-held.
->>> +
->>> +        // SAFETY: `self` is valid by definition. We take the =
-spinlock above.
->>=20
->> Where?
->=20
-> The safety comment is wrong / outdated. See below.
->=20
->>=20
->>> +        let ret =3D unsafe { bindings::dma_fence_is_signaled(fence) =
-};
->>> +
->>> +        // To guarantee that an API caller can 100% rely on the =
-signalling being
->>> +        // completed (i.e., all fence callbacks ran), we have to =
-take the lock.
->>> +        //
->>> +        // The reason is that the C dma_fence backend currently =
-does not carefully
->>> +        // synchronize the `dma_fence_is_signaled()` function with =
-the proper
->>> +        // spinlock. This can lead to the function returning `true` =
-while fence
->>> +        // callbacks are still being executed. This can be =
-mitigated by guarding
->>> +        // the entire function with the spinlock.
->>> +        //
->>> +        // See commit c8a5d5ea3ba6a.
->>> +
->>> +        // SAFETY: `fence` is valid because `self` is valid. =
-`flag_ptr` is
->>> +        // merely a pointer to an integer, which lives as long as =
-this function.
->>> +        unsafe { bindings::dma_fence_lock_irqsave(fence, flag_ptr) =
-};
->>=20
->> Shouldn=E2=80=99t this be before the =E2=80=9Cis_signaled=E2=80=9D =
-ffi call? Or is this
->> only about ensuring all callbacks have run? i.e.: is =E2=80=9Cret=E2=80=
-=9D valid even
->> though it was computed before taking the lock?
->=20
-> OK, this is where it gets ugly.
->=20
-> So during the last weeks I've been struggling to get the C backend =
-into
-> better shape. One issue from my POV is that the C dma_fence spinlock
-> does not protect the fence state; there is insistence that the lock
-> shall only protect the callback list.
->=20
-> The function dma_fence_is_signaled() has an unlocked fast path check:
->=20
-> =
-https://elixir.bootlin.com/linux/v7.2-rc3/source/include/linux/dma-fence.h=
-#L551
->=20
-> whereas setting of that bit is done under lock-protection:
->=20
-> =
-https://elixir.bootlin.com/linux/v7.2-rc3/source/drivers/dma-buf/dma-fence=
-.c#L362
->=20
->=20
-> This can lead to funny races like in the commit mentioned in the
-> comment block above (c8a5d5ea3ba6a).
->=20
-> And it also leads to weird hacks like this:
->=20
-> =
-https://elixir.bootlin.com/linux/v7.2-rc3/source/drivers/gpu/drm/amd/amdgp=
-u/amdgpu_vm.c#L2775
->=20
->=20
-> Now, in principle I agree with you that a pattern like this:
->=20
-> dma_fence_lock_irqsave(=E2=80=A6);
-> let signaled =3D dma_fence_is_signaled_locked(=E2=80=A6);
-> dma_fence_unlock_irqrestore(=E2=80=A6);
->=20
-> would be better.
->=20
-> However, lengthy discussions with Christian seem to settle at the =
-point
-> where Christian sees the very strict requirement of never calling =
-fence
-> callbacks under lock protection, and where he views
-> dma_fence_is_signaled_locked() as a broken function that should be
-> removed.
->=20
-> He's currently working on removing all bits where fence callbacks are
-> invoked under lock protection:
->=20
-> =
-https://lore.kernel.org/dri-devel/20260624122917.2483-1-christian.koenig@a=
-md.com/
->=20
-> There's been a ton of discussions and proposals about that in recent
-> weeks
->=20
-> =
-https://lore.kernel.org/dri-devel/20260608142436.265820-2-phasta@kernel.or=
-g/
-> =
-https://lore.kernel.org/dri-devel/20260612104251.2264707-2-phasta@kernel.o=
-rg/
->=20
->=20
-> So tl;dr: The weird code you're commenting on above ensures that
->=20
-> a) the fence->ops->is_signaled() callback is not called under lock
-> protection and
-> b) taking and releasing the lock guarantees that all callbacks are
-> really finished, i.e. they have run.
->=20
->=20
-> (I continue to believe that setting the bit under lock protection and
-> reading it without lock is fundamentally broken and needs to be fixed,
-> but fixes are being rejected because of claimed performance =
-regressions
-> years ago when this was tried, because checking the bit is some sort =
-of
-> fast path check for.. parties that spin on dma_fence_is_signaled() ??)
-
-I see, there is a lot more context on this then. Can you merely add a =
-comment
-saying it=E2=80=99s ok to call dma_fence_is_signaled() without the =
-locks? Otherwise
-people might try to =E2=80=9Cfix=E2=80=9D this down the line...
-
->=20
->>=20
->>>=20
->=20
-> [=E2=80=A6]
->>=20
->>=20
->>> +    /// The API user's data. This must either not need drop, or =
-must delay its
->>> +    /// drop by a grace period. It is essential that the data only =
-performs
->>> +    /// operations legal in atomic context in its [`Drop`] =
-implementation.
->>> +    #[pin]
->>> +    data: T::FenceDataType,
->>> +}
->>> +
->>>=20
->=20
-> [=E2=80=A6]
->=20
->>> +
->>> +        // DriverFenceData is repr(C) and a Fence is its first =
-member.
->>=20
->>> +        let fence_data_ptr =3D fence_ptr as *mut =
-DriverFenceData<'a, T>;
->>=20
->> Without a =E2=80=9CCAST:=E2=80=9D keyword, I think this will trigger =
-the linter?
->>=20
->=20
-> Didn't see a complaint from clippy nor compiler.
-
-I recommend the CAST thing anyways. It=E2=80=99s being adopted in other =
-parts of the kernel
-crate.
-
->=20
->>=20
->>> +
->>>=20
->=20
-> [=E2=80=A6]
->=20
->>=20
->> lifetime is a single word.
->=20
-> ACK.
->=20
->>=20
->>> +}
->>> +
->>> +impl<'a, T: Send + Sync + FenceCtxOps> Deref for =
-DriverFenceBorrow<'a, T> {
->>> +    type Target =3D DriverFence<'a, T>;
->>> +
->>> +    fn deref(&self) -> &Self::Target {
->>> +        self.driver_fence.deref()
->>> +    }
->>> +}
->>> +
->>> +// SAFETY: The Rust dma_fence abstractions are already designed =
-around the inner
->>> +// C `dma_fence`, which can serve safely as the identification =
-point when being
->>> +// owned by C. Moreover, safety is ensured by not dropping =
-`DriverFence` and by
->>> +// only allowing operations without side effects on the Borrowed =
-type.
->>> +unsafe impl<'b, T: Send + Sync + FenceCtxOps + 'static> =
-ForeignOwnable for DriverFence<'b, T> {
->>> +    type Borrowed<'a>
->>> +        =3D DriverFenceBorrow<'a, T>
->>> +    where
->>> +        Self: 'a;
->>> +    type BorrowedMut<'a>
->>> +        =3D DriverFenceBorrow<'a, T>
->>=20
->> We should have a separate type for mutable borrows, IMHO.
->=20
-> No hard objections. But because it's convention, or because you see
-> other advantages?
-
-Actually, when I first made this comment, I think pointers were being =
-used.
-Back then I wanted one type to deref to *const and the other one to =
-deref to
-*mut. This does not seem to be the case anymore, so please forget what I =
-just
-said :)
-
->=20
->=20
->=20
-> Thanks
->=20
-> P.
->>=20
-
+--jbdw5cv6ljemwd7w--
