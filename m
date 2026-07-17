@@ -4,56 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55D16C44515
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 19:59:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6160C44515
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 20:07:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8E3610E4D1;
-	Fri, 17 Jul 2026 19:59:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2007E10E4DE;
+	Fri, 17 Jul 2026 20:07:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GgnSTNEZ";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="xNB33+mz";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B12E10E4D1
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 19:59:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2011960051;
- Fri, 17 Jul 2026 19:59:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD7CD1F000E9;
- Fri, 17 Jul 2026 19:59:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784318392;
- bh=bV/Io+zsnPmqBhppNdxP8U+BiGfJ4lrDJ7eHx6qQ8P4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=GgnSTNEZNvEYOezdPmowldxslh+zdS3dJjoAQoftgqAibn5fyvzxsTxA0bM8RYQqb
- 9WGXB10xn+2S41PO/LWbs3EbFoBxZB6wfpB+fMwL3/j8eyXfPhHnxZneAka0tmnqPO
- zHyACXlKtvq9eJQz71iDZFr9WXlA3nJxx46jBNYB9954MOtWpYhfpYXDXIUVn5n1n5
- +L0RVJKA5IM2B0NMHzfjSRjjxdirdh3AHqiqHzea8Xa0vJrx6gosYcqRcVlEAv866+
- CvL9HaYKlSiHx7zV2Cf9YNKNpvYo6SH8w0K3PIfFiT4hCFU7/8Ox8JkitJHihz6wL0
- aeUdtAt6iKQrg==
-Date: Fri, 17 Jul 2026 14:59:52 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Hugo Villeneuve <hvilleneuve@dimonoff.com>,
- David Airlie <airlied@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Felix Boucher <felix.boucher@savoirfairelinux.com>,
- dri-devel@lists.freedesktop.org, Simona Vetter <simona@ffwll.ch>,
- Jagan Teki <jagan@edgeble.ai>, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
- Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH 4/5] dt-bindings: display: panel: add compatible for
- DCLTek 300250 9.35in panel
-Message-ID: <178431839160.2208367.2195697663410310276.robh@kernel.org>
-References: <20260708213500.1867092-1-marc-olivier.champagne@savoirfairelinux.com>
- <20260708213500.1867092-5-marc-olivier.champagne@savoirfairelinux.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708213500.1867092-5-marc-olivier.champagne@savoirfairelinux.com>
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2C9410E4DE
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 20:07:02 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 04BEF1A1077;
+ Fri, 17 Jul 2026 20:07:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id CAB6160361;
+ Fri, 17 Jul 2026 20:07:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id F35BF11BD013E; 
+ Fri, 17 Jul 2026 22:06:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1784318819; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=Wi6BQXLKQhiTifAq9gxYfAkWMFRwEzXZVKdz6vQCO6g=;
+ b=xNB33+mzXBMshQjizeo3TN2jPxVuCW1lwKEfonhroQzwgjcCtDDv7/UuW2b8jugzJ7uOWP
+ FzSwAUYWASfPIZMpSVfd1cvemr5Nh6YKswabLkTNhweI7+JXBN+417vk3IfTs1zeT6GUxV
+ E1mmsmgi0vbm3YxX3lXHWSGufVZEjC5QWO9tOmBW1zkWls9mOcRMJT5+gFiiWjleACZF3S
+ 5gniqFIMkuMg+Xh6kEETLedAEZOomBXxcfwsSXg9ZJ2/3mRIrRzn9Cu4GQl5XOMk7zw819
+ NAg3aKj9k1ZBa8+zwm0BW/yJTJKtQ/NwHm70Ns+Wger32LngZJhaC4EC+yXNIw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 17 Jul 2026 22:06:51 +0200
+Message-Id: <DK148A1HSGJ4.1GZXWYTWPOZ6F@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 2/4] drm/bridge: display-connector: Fix I2C adapter
+ resource leak
+Cc: "Johan Hovold" <johan@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <devicetree@vger.kernel.org>, "Thuan Nguyen"
+ <thuan.nguyen-hong@banvien.com.vn>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Geert Uytterhoeven" <geert+renesas@glider.be>,
+ "Magnus Damm" <magnus.damm@gmail.com>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>,
+ <linux-renesas-soc@vger.kernel.org>, <stable@vger.kernel.org>
+To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.21.0
+References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com>
+ <alpEVeVmH5oiqmaj@hovoldconsulting.com>
+ <DK0Y5JTE66EA.111RUXTL6W8FA@bootlin.com>
+ <20260717182802.GD1889304@killaraus.ideasonboard.com>
+In-Reply-To: <20260717182802.GD1889304@killaraus.ideasonboard.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,17 +78,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Laurent,
 
-On Wed, 08 Jul 2026 17:34:59 -0400, Marc-Olivier Champagne wrote:
-> The DCLTek dt300250 is a panel using the jadard-jd9365da controller.
-> Add a new compatible for it.
-> 
-> Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-> Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
-> ---
->  .../devicetree/bindings/display/panel/jadard,jd9365da-h3.yaml    | 1 +
->  1 file changed, 1 insertion(+)
-> 
+On Fri Jul 17, 2026 at 8:28 PM CEST, Laurent Pinchart wrote:
+> On Fri, Jul 17, 2026 at 05:21:11PM +0200, Luca Ceresoli wrote:
+>> On Fri Jul 17, 2026 at 5:03 PM CEST, Johan Hovold wrote:
+>> > On Mon, Jul 06, 2026 at 12:35:40AM +0300, Laurent Pinchart wrote:
+>> >> If the probe function returns an error after getting the I2C adapter =
+for
+>> >> DDC, the reference to the adapter is never released. Fix it by releas=
+ing
+>> >> it in the bridge .destroy() handler.
+>> >>
+>> >> There is no need to test the ddc pointer with !IS_ERR(), as
+>> >> of_get_i2c_adapter_by_node() returns NULL on error.
+>> >
+>> > I stumbled over this this morning as well and posted a fix here (which
+>> > releases the adapter on driver unbind as is currently done):
+>> >
+>> > 	https://lore.kernel.org/lkml/20260717085716.1619275-1-johan@kernel.or=
+g/
+>> >
+>> >> Fixes: 6de79dd3a920 ("drm/bridge: display-connector: add ddc-en gpio =
+support")
+>> >
+>> > I believe this issue was first introduced by commit 2e2bf3a5584d
+>> > ("drm/bridge: display-connector: add DP support") a few releases
+>> > earlier.
+>> >
+>> >> Cc: stable@vger.kernel.org
+>> >> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboar=
+d.com>
+>> >
+>> > Reviewed-by: Johan Hovold <johan@kernel.org>
+>>
+>> While Johan's patch has the benefit of putting the i2c adapter at remove
+>> time (as opposed to destroy time, which is potentially a long time later=
+),
+>> it is also more complex. So I'd say this patch is fine.
+>
+> In this case putting the I2C adapter early is probably fine, but in
+> general I really prefer reference-counting and releasing references at
+> destroy time. This ensures that the resources stay available if they
+> need to be accessed between .remove() and destruction (for instance in a
+> .release() handler following a close() or munmap() from userspace). I
+> think late release should be the default, as it's safer, and early
+> release should be carefully reviewed when it's required.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Makes sense indeed.
 
+Thanks for the clarification.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
