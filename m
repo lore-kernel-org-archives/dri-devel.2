@@ -4,60 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19607C4451C
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:03:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C10E8C44520
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:05:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73F8410E435;
-	Fri, 17 Jul 2026 12:03:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 330AE10E440;
+	Fri, 17 Jul 2026 12:05:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ThVR7oy/";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TBVn0Tmx";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93E3210E435
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:03:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1016B43EEB;
- Fri, 17 Jul 2026 12:03:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7066A1F000E9;
- Fri, 17 Jul 2026 12:03:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1784289828;
- bh=VSLA+rT8tjPVQ6J1CMEUPfkyicD10Zp1i6IB9Ga5VNA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ThVR7oy/crZOE04QMjSmxOX/FDDGsDWp6ffjeMqsTZ8W31GV8SJ9QDwSC9IteQTAl
- /hgjWi0Ld3mIJvLccOfhi+zRP0rQVIi+yz0scxJ4//V/HNRfrPz1Fzj8vbCu/o8WOD
- Kbs49bKOY+8SncbhCPtZSvjIqlhmBDGXy/gkcCgU=
-Date: Fri, 17 Jul 2026 14:03:41 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Markus Probst <markus.probst@posteo.de>, Rob Herring <robh@kernel.org>,
- Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Kari Argillander <kari.argillander@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Boqun Feng <boqun@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v14 0/3] rust: add basic serial device bus abstractions
-Message-ID: <2026071719-afflicted-eleven-1be9@gregkh>
-References: <20260715-rust_serdev-v14-0-b4ed5c93606f@posteo.de>
- <2026071747-android-overhead-c927@gregkh>
- <6aafea3fdb0847766787dbe5c7c7dbaad606d649.camel@posteo.de>
- <74213297-d3da-4637-8f31-8fecebd65f60@kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 374A010E440;
+ Fri, 17 Jul 2026 12:05:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=P5yi/++H+/mkB+oL7Qp4nrKnZTq3rE++51nXeOlT1Ew=; b=TBVn0Tmxk0nh06DX36Ev9f9KDv
+ 2VNCd5Cmc8V+kl6dRhsaK9JTOETWbW6tSJaEOoQ8Ag0vS+qetnO/Np/FtNRK4ktU9LjPRU17Pu18W
+ qAalQW1aiub/FfFL7tZEige7yiaahG6MDLfVD+LkKyY0GNSDEcGTQfWH4kZZhyBBa0gnjz1omGvPX
+ eocBDUoff5WSvj0br9TU7nk9AK9qwZtV+1ObIam13Hv7SefnDNLXOxeU8lfgICsSJtDJRQQmBecYq
+ Ms/HQG/EnoeSqk8xyerk7SGYh1vCw1IIvdbCNgTv61kx47yhfbE5YCoeJHoVj1DVd3/h/saZE6hDC
+ kv0D4Tbw==;
+Received: from 179-125-86-98-dinamico.pombonet.net.br ([179.125.86.98]
+ helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wkhJQ-00GPAm-1R; Fri, 17 Jul 2026 14:05:04 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: [PATCH i-g-t v4 0/7] add cgroup_dmem test
+Date: Fri, 17 Jul 2026 09:04:40 -0300
+Message-ID: <20260717120447.1837818-1-cascardo@igalia.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <74213297-d3da-4637-8f31-8fecebd65f60@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,43 +64,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 17, 2026 at 01:22:40PM +0200, Danilo Krummrich wrote:
-> On 7/17/26 1:14 PM, Markus Probst wrote:
-> > On Fri, 2026-07-17 at 12:55 +0200, Greg Kroah-Hartman wrote:
-> >> On Wed, Jul 15, 2026 at 09:00:14PM +0000, Markus Probst wrote:
-> >>> This patch series adds the serdev device bus rust abstraction into the
-> >>> kernel.
-> >>>
-> >>> This abstraction will be used by a driver,
-> >>> which targets the MCU devices in Synology devices.
-> >>>
-> >>> Kari Argillander also messaged me, stating that he wants to write a
-> >>> watchdog driver with this abstraction (needing initial device data).
-> >>>
-> >>> This series depends on [1].
-> >>>
-> >>> [1] https://lore.kernel.org/rust-for-linux/20260530132736.3298549-1-dakr@kernel.org/
-> >>>
-> >>> Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> >>
-> >> Given there are no objections, I'll go queue this up now, thanks.
-> > Thanks for merging, but I haven't seen the dependency
-> > 
-> > https://lore.kernel.org/rust-for-linux/20260530132736.3298549-1-dakr@kernel.org/
-> > 
-> > getting picked yet (its at least not in linux-next), so it might not
-> > even compile. Not sure whats holding the patch back though.
-> (Ah, saw this just after I replied to the other thread.)
-> 
-> Nothing is holding them back other than requiring a user (which is your work),
-> so I did not pick them up.
-> 
-> Also note that tty and driver-core are different trees, so picking it up in
-> driver-core would not have helped tty.
+v4 TLDR:
+Merging the dmem_cgroups tests into cgroup_dmem.
 
-Should I drop this from the tty tree and take it through driver-core
-instead?  If so, no problem for me, just let me know.
+This patchset is based on the work of Thomas Hellström at [1] and a
+followup I have submitted at [2]. This is now a v3, since I submitted [6].
 
-thanks,
+With this version, I reverted the order in which to apply the patchsets, as
+this one adds the infrastructure and the drivers mechanisms, and a test for
+dmem.current and its behavior around dmem.max that is currently supported
+in the kernel.
 
-greg k-h
+As for the new dmem.max eviction behavior, introduced by [3], it has been
+pushed to a branch at [4]. If preferred, I can submit the two patches
+independently.
+
+I have run the tests, including the ones that test dmem.max eviction
+behavior on a system with a 1GiB VRAM amdgpu card. Rodrigo Siqueira helped
+me run it on a Xe system. We have applied the patchset at [3] on top of
+current linux origin/master [5], with a fixup for the amdgpu driver.
+
+Now, for the changes since v1 [2]:
+- Changed the test name from drv_dmem_cgroups to dmem_cgroups.
+- Have system includes before igt ones.
+- Documented the current SUBTEST.
+- Changed free_vram driver hook to only release a given BO. This allows for
+  the eviction trigger by a new allocation added by write_eviction_nonblock
+  subtest.
+- Changed allocate_vram to keep more state necessary for releasing a single BO.
+- Added a global free_vram helper to free all allocated VRAM.
+
+Compared to v3 of [1]:
+- I have kept wait_for_usage_drop as release can be lazy and we test for it
+  on test_current SUBTEST, but had USAGE_DROP_TIMEOUT_MS be a little
+  longer.
+- Changed BO_SIZE and EVICT_STEP to allow for more than two eviction steps
+  on a 1GiB VRAM system.
+- Reduced USAGE_SLACK to avoid false positives, but still allow for some
+  page table accounting.
+
+Compared to v2 of this one [6]:
+
+- Ignore -ENOMEM and -ENOSPC when trying to fill VRAM.
+- When limiting max memory, allow for some slack, as there might be some
+  overhead.
+- On Xe, allocate GEM object with no deferred backing, and skip binding.
+
+Compared to v3 of this one [7]:
+
+- Merge dmem_cgroups tests into cgroup_dmem and making cgroup_dmem original
+  test a subtest.
+- Remove assertion when trying to verify allocations have failed as amdgpu
+  will fallback to GTT.
+
+[1] https://patchwork.freedesktop.org/series/163935/#rev3
+[2] https://patchwork.freedesktop.org/series/166496/
+[3] https://lore.kernel.org/dri-devel/20260611173301.17473-1-thomas.hellstrom@linux.intel.com/
+[4] https://gitlab.freedesktop.org/cascardo/igt-gpu-tools/-/commits/dmem_max?ref_type=heads
+[5] 502d801f0ab0 ("Merge tag 'erofs-for-7.2-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs")
+[6] https://lore.kernel.org/dri-devel/20260623174319.4138648-1-cascardo@igalia.com/
+[7] https://lore.kernel.org/dri-devel/20260702130108.1397444-1-cascardo@igalia.com/
+
+
+Thadeu Lima de Souza Cascardo (4):
+  lib/xe: Introduce dmem driver and implement Xe support
+  lib/amdgpu: add amdgpu_cgroup_region_name
+  lib/amdgpu: add amdgpu support to igt_dmem_driver
+  tests/dmem_cgroups: add test for dmem.current
+
+Thomas Hellström (3):
+  lib/igt_cgroup: add cgroup v2 and dmem controller helpers
+  tests/cgroup_dmem: add dmem cgroup controller test
+  lib/xe: add xe_cgroup_region_name() helper
+
+ lib/amdgpu/amd_dmem.c   |  99 +++++++
+ lib/amdgpu/amd_memory.c |  25 ++
+ lib/amdgpu/amd_memory.h |   2 +
+ lib/igt.h               |   1 +
+ lib/igt_cgroup.c        | 638 ++++++++++++++++++++++++++++++++++++++++
+ lib/igt_cgroup.h        |  56 ++++
+ lib/igt_dmem_driver.h   |  25 ++
+ lib/meson.build         |   3 +
+ lib/xe/xe_dmem.c        | 143 +++++++++
+ lib/xe/xe_query.c       |  32 ++
+ lib/xe/xe_query.h       |   2 +
+ tests/cgroup_dmem.c     |  92 ++++++
+ tests/dmem_cgroups.c    | 245 +++++++++++++++
+ tests/meson.build       |   2 +
+ 14 files changed, 1365 insertions(+)
+ create mode 100644 lib/amdgpu/amd_dmem.c
+ create mode 100644 lib/igt_cgroup.c
+ create mode 100644 lib/igt_cgroup.h
+ create mode 100644 lib/igt_dmem_driver.h
+ create mode 100644 lib/xe/xe_dmem.c
+ create mode 100644 tests/cgroup_dmem.c
+ create mode 100644 tests/dmem_cgroups.c
+
+-- 
+2.47.3
+
+*** BLURB HERE ***
+
+Thadeu Lima de Souza Cascardo (4):
+  lib/xe: Introduce dmem driver and implement Xe support
+  lib/amdgpu: add amdgpu_cgroup_region_name
+  lib/amdgpu: add amdgpu support to igt_dmem_driver
+  tests/dmem_cgroups: add test for dmem.current
+
+Thomas Hellström (3):
+  lib/igt_cgroup: add cgroup v2 and dmem controller helpers
+  tests/cgroup_dmem: add dmem cgroup controller test
+  lib/xe: add xe_cgroup_region_name() helper
+
+ lib/amdgpu/amd_dmem.c   |  99 +++++++
+ lib/amdgpu/amd_memory.c |  25 ++
+ lib/amdgpu/amd_memory.h |   2 +
+ lib/igt.h               |   1 +
+ lib/igt_cgroup.c        | 638 ++++++++++++++++++++++++++++++++++++++++
+ lib/igt_cgroup.h        |  56 ++++
+ lib/igt_dmem_driver.h   |  25 ++
+ lib/meson.build         |   3 +
+ lib/xe/xe_dmem.c        | 143 +++++++++
+ lib/xe/xe_query.c       |  32 ++
+ lib/xe/xe_query.h       |   2 +
+ tests/cgroup_dmem.c     | 333 +++++++++++++++++++++
+ tests/meson.build       |   1 +
+ 13 files changed, 1360 insertions(+)
+ create mode 100644 lib/amdgpu/amd_dmem.c
+ create mode 100644 lib/igt_cgroup.c
+ create mode 100644 lib/igt_cgroup.h
+ create mode 100644 lib/igt_dmem_driver.h
+ create mode 100644 lib/xe/xe_dmem.c
+ create mode 100644 tests/cgroup_dmem.c
+
+-- 
+2.47.3
+
