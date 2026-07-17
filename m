@@ -4,57 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12734C44514
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 08:58:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C138C44507
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 08:59:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64A9D10E43B;
-	Fri, 17 Jul 2026 08:58:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E738E10E43F;
+	Fri, 17 Jul 2026 08:59:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ENkUMMN+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UnpzyVlY";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D232A10E43B
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 08:58:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36E6210E43F
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 08:59:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AEC184338D;
- Fri, 17 Jul 2026 08:58:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7651F000E9;
- Fri, 17 Jul 2026 08:58:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4626260A63;
+ Fri, 17 Jul 2026 08:59:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A96B41F000E9;
+ Fri, 17 Jul 2026 08:59:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784278699;
- bh=iv4uXxn+GKJb3u9fgDa2VmuoPL5Se5Dx66tyxt7nYps=;
- h=From:To:Cc:Subject:Date;
- b=ENkUMMN+Xz2YTZ748nkH3PnWLGGPbD9CFI+c3wqdLecWnhQEOmrD1woNldQuYGFsc
- q++5ZJ6dsbp8wQKF1mLltocvVIWNqNY60iLVWxutW9xtQWmFG1qSID6DWciVRzyFnx
- k5Gg8KnCF1TfTkC14ThkNiskgi+RMrZElqBQQE92hI6bvz31PsNNmJfxMZJ7Ks3xPM
- nH/0bWu5DymvXMM2aZZi2Kx8uihj5lHom89IPJLZq3Z1sTHV2/Ayb5VEsbjyUJEOb9
- 9a0+tutH01GTphtAfNOsE97umLV6qDP0tDgp5vhMDeeJsBoDmbwCJKJPJ2P44ky1rT
- nFIMSAEOnuthA==
-Received: from johan by xi.lan with local (Exim 4.99.4)
- (envelope-from <johan@kernel.org>) id 1wkeOe-00000006nGP-2uPl;
- Fri, 17 Jul 2026 10:58:16 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Cc: Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
- stable@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- "H. Nikolaus Schaller" <hns@goldelico.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: [PATCH] drm/bridge: display-connector: fix i2c adapter leak on probe
- failure
-Date: Fri, 17 Jul 2026 10:57:16 +0200
-Message-ID: <20260717085716.1619275-1-johan@kernel.org>
-X-Mailer: git-send-email 2.54.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1784278747;
+ bh=yCccH1sP9kHlyJzjFraPq2Rr2KbVK6Uk4HI9sVzHJ9E=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=UnpzyVlY6ZxBFNTNullwtqpOdBhFXSZX4GGXMy4Wq/F+bS4gzcyJVUMv2c66orqJm
+ 8CMqd+bhKl6DnRXf9kEIFbfF18+j7lEyck+uHm4SPHYZ4XC/ENmbJz+35+JVp5E7pn
+ 0qVoV297Ku84xEmiIz9Pa6xiqkuBbJ3idBX3UZOGtyQ2VlQbUFnpB5FKq/dBMFqCXf
+ JKr+s1I1HfURJ4sDBBxabIx19Yj/rNaD7DVpY4ALrctb++gnpbC60RA9sQRDWDxho0
+ XkPzytwZQCScuNKlSztlgeJqzEnhZpNlrZCUsLdUPd3h99Fu1wTANcWQ4GHz+7nrDx
+ wXClRj2TkSGFA==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 1/9] dt-bindings: npu: rockchip: add
+ rockchip,rk3576-rknn-core
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260717085220.3212274-2-gahing@gahingwoo.com>
+References: <20260717085220.3212274-1-gahing@gahingwoo.com>
+ <20260717085220.3212274-2-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 08:59:06 +0000
+Message-Id: <20260717085906.A96B41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,71 +55,56 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Make sure to drop the i2c adapter device and module references on failed
-regulator and enable gpio lookup (and regulator enable) during probe
-(e.g. on probe deferral).
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Removing `sram-supply` from the global `required` list makes it =
+optional for `rockchip,rk3588-rknn-core`, incorrectly weakening schema vali=
+dation for existing RK3588 hardware.
+--
 
-Note that of_get_i2c_adapter_by_node() does not return error pointers,
-but i2c_put_adapter() can handle a NULL argument so the error pointer
-check at remove works even if it is misleading.
+--- Patch [1]: [RFC PATCH 1/9] dt-bindings: npu: rockchip: add rockchip,rk3=
+576-rknn-core ---
+commit 9a2dabf1434398eb090f8e36b12d42467c86de03
+Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-Fixes: 2e2bf3a5584d ("drm/bridge: display-connector: add DP support")
-Fixes: 6de79dd3a920 ("drm/bridge: display-connector: add ddc-en gpio support")
-Fixes: 6eb6b6f0a012 ("drm/bridge: display-connector: handle hdmi-pwr supply")
-Cc: stable@vger.kernel.org	# 5.12
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: H. Nikolaus Schaller <hns@goldelico.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/gpu/drm/bridge/display-connector.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
 
-diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
-index 16c0631adeb1..c38de5518211 100644
---- a/drivers/gpu/drm/bridge/display-connector.c
-+++ b/drivers/gpu/drm/bridge/display-connector.c
-@@ -208,6 +208,13 @@ static int display_connector_get_supply(struct platform_device *pdev,
- 	return PTR_ERR_OR_ZERO(conn->supply);
- }
- 
-+static void display_connector_put_ddc(void *_ddc)
-+{
-+	struct i2c_adapter *ddc = _ddc;
-+
-+	i2c_put_adapter(ddc);
-+}
-+
- static int display_connector_probe(struct platform_device *pdev)
- {
- 	struct display_connector *conn;
-@@ -328,6 +335,12 @@ static int display_connector_probe(struct platform_device *pdev)
- 			of_node_put(phandle);
- 			if (!conn->bridge.ddc)
- 				return -EPROBE_DEFER;
-+
-+			ret = devm_add_action_or_reset(&pdev->dev,
-+						       display_connector_put_ddc,
-+						       conn->bridge.ddc);
-+			if (ret)
-+				return ret;
- 		} else {
- 			dev_dbg(&pdev->dev,
- 				"No I2C bus specified, disabling EDID readout\n");
-@@ -403,9 +416,6 @@ static void display_connector_remove(struct platform_device *pdev)
- 		regulator_disable(conn->supply);
- 
- 	drm_bridge_remove(&conn->bridge);
--
--	if (!IS_ERR(conn->bridge.ddc))
--		i2c_put_adapter(conn->bridge.ddc);
- }
- 
- static const struct of_device_id display_connector_match[] = {
--- 
-2.54.0
+This commit documents the RK3576 NPU core by adding the new compatible
+string rockchip,rk3576-rknn-core. It also drops sram-supply from the global
+required list since the RK3576 has no NPU SRAM supply.
 
+> diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-c=
+ore.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.=
+yaml
+> index caca2a4903cd1..d904db3bf9281 100644
+> --- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+> +++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+[ ... ]
+> @@ -75,7 +76,6 @@ required:
+>    - resets
+>    - reset-names
+>    - npu-supply
+> -  - sram-supply
+
+[Severity: Medium]
+By dropping sram-supply from the global required list to accommodate the
+RK3576, does this incorrectly weaken schema validation for existing
+RK3588 hardware?
+
+If an RK3588 device tree node is missing the sram-supply property, it
+appears it will now silently pass make dtbs_check validation.
+
+Could this instead use an allOf block with an if-then conditional to
+enforce the sram-supply requirement specifically when the compatible string
+is rockchip,rk3588-rknn-core?
+
+> =20
+>  additionalProperties: false
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717085220.3212=
+274-1-gahing@gahingwoo.com?part=3D1
