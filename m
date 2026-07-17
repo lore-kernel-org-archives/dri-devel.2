@@ -4,122 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF32DC4450A
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 02:40:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44B25C4450A
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 02:41:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B02610E3A7;
-	Fri, 17 Jul 2026 02:40:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99CB610E3F1;
+	Fri, 17 Jul 2026 02:41:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="J6jmmr8L";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c7LRMQYN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dnaJ6nlR";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Aaod3XdW";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0E3710E3A7
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 02:40:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 380AD10E3F1
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 02:41:06 +0000 (UTC)
 Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66GNIhJH010543
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 02:40:55 GMT
+ 66GNIZ6E010484
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 02:41:05 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- TZVeb1FG1OCtjsr9mqY6kcodNvD8xgUw/91muIII8Fk=; b=J6jmmr8LRoSk0uU8
- oA+FIgoUfE7Vo40VCu14xNBIqhiEZZZ5czkhoZG9UdctBdsvQ2wiuuQ/lAq+1kpH
- puWlcSyvAxUyOqiNn30v835tCbi1ov697dmeAR/onl5bZGl1Cg5+DxbYvzYZA+D6
- uDG+8JQLe+HFoYegL6Tpd5KGSPVbVMSbnJYGDispOoWQmXiQ97wMhdwamc8auaBD
- 4nxk5fuLDwVpapKDnD/MZKqtOg85vpDESZkNN1cdtc6mxAOXclPtkotfc5aSo8YU
- fVuhVP/4qSY3fZHGcCITPy7/0YPa4HyTzSW+mJK2kOC3u0OR1RYre3QQswOjacWs
- rFz6GQ==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feuex47s7-1
+ N7rCpjkWjlTwa6LsILuSxuuEsyS7uwwCqw43dM9nNM4=; b=dnaJ6nlRIKpYPq5N
+ ivwszUVgsaPCbrvwIP+PMBAioomdOiDsanBXB1et8cyxI8ZosPTt/d4DuZnl2ifw
+ pUU+3gGz3OSQAaz8MkzCb0hIYY3K3xXaXX09H6IL51RxqoRzn+cNKeQ1COltbXPH
+ dm85nvHXKXriVnTP1Z9SU92JS8AByvNp3sRbe3NUdeS2+KFECqNp5GjVIqzopHFb
+ TaKT5G+lDRy+8QTbevs2VdYXHWE2gQM+a6x5afdq8q55mJ6w2OIp4+ShhfmnzCPT
+ TJ+YbPEkxRu0IKZapxpr87Mh8OMaK+qCJqWCri5duv0XMveKZyZgzVfR5oTrmS/I
+ ev5Gaw==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feuex47st-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 02:40:55 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-8488ac68185so13110672b3a.2
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 19:40:55 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 02:41:04 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id
+ 41be03b00d2f7-c88fc985a65so14210966a12.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 19:41:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784256054; x=1784860854;
+ d=oss.qualcomm.com; s=google; t=1784256064; x=1784860864;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:content-language
  :references:cc:to:subject:from:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=TZVeb1FG1OCtjsr9mqY6kcodNvD8xgUw/91muIII8Fk=;
- b=c7LRMQYNdSz1VTr9DwzFBhYENtvEfDuRwj/YhzyRXKEKNfLr6zbf4PfXGQ2KDp2Eio
- szIMUS7gXsecrpdiQJWpmZQw3lhIRaoknW1Eg06nQCvfbELKoyB79JfEtWz//9bGX4EL
- 6mL7S4/hNwgDm4HOaK/aF+04RuVQSVPJYEhfNioa/+79rZJj6DIyUtKN8euNKfhiGS6f
- /OpCZEtkdkGJ+JgOCWHskrzdreAOSt4aKye1JtA5U1Bhlx52zJh2CUhcELvhQmKK7c1G
- AJHnCo5atTePdJt9gHQsbSMSRQdd6JAS4yAAgFf43uMjYgbaFbfu3DeADsu/UCydmvY/
- VZTw==
+ bh=N7rCpjkWjlTwa6LsILuSxuuEsyS7uwwCqw43dM9nNM4=;
+ b=Aaod3XdWvWrEXECO90RUMAsFdzzBb4BX10ckoIzrMWpUW47uj6VsDv2mhqNB9vl7CR
+ oOcQy2yP5e50mwKZ37p8B16BT0mEFI3jHj/iXjmrh57fIhu9hnJCsh2okcTG/K+KUhrI
+ GInQJq14mPCrDwuXzoEd9s/jnzLi+rWBm3y8D9ufSsRV6SRZmbgP0RB/dshZgNyI8EeB
+ grBBlnjzPboeHpW9l4M07AGwk8FMICvSYnwyhNeiGEEddgrK7S3W30YgVErnBwlgz/9+
+ v3fUe0NT/kRoxG2S8bORpeRCjKys6nJCoedxnsmAhpUtMPsYL7tn68lb71CBTPE0Prwn
+ yKEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784256054; x=1784860854;
+ d=1e100.net; s=20251104; t=1784256064; x=1784860864;
  h=content-transfer-encoding:content-type:in-reply-to:content-language
  :references:cc:to:subject:from:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=TZVeb1FG1OCtjsr9mqY6kcodNvD8xgUw/91muIII8Fk=;
- b=aU2HUJL0At724MAKKKR81oVJbnS2Biga7NofAOwOc0gf+5nCn4RhdHVZPpgdZyV2em
- NhZM3XosNeOHiq5cOzBbXj94Io39hyU+QS+LwxsS+teupN7YaEPD5ypGEJ8slONA/58i
- Sx6xLerlOXHxW/9s3x+FJuC1XVOgTvqhFXwAyYBu2staNY0LCrPV2OBt3SkGScS8xoxO
- o7O4tq8j3NGtSxBX1qH0CWRluKC6kb51bExmtt9odhxr4OijxeFtxNE8uYn6L0ZbZtcx
- fX7PSu2ni+TdUHoklYaymRM/jACnRKAVtRzNOn92gtECyjuwftDhRZiUlvNF3ABifPGl
- CUpA==
-X-Gm-Message-State: AOJu0Yy+QAQPVjX2OxbtIk+BtGr4L1SL9TZyoI9lFjGd1nGG6E6Q6OzK
- zF/D0nAF+VXJ7yCASQKog4kH36KF33weuprcBnkxi/qZ+9uBufFdY1naCjcojhrV9D3z/8Q79uz
- 0ZiVA687M1w6Yr++c1mFWfTdin0V+WspHjbu7atCiDSDejAZVBw+PULm+4cB3+cQMx6Yns54=
-X-Gm-Gg: AfdE7ckoy8Vrf6msLyIiKXExV0Dh7euMLKnLpMIGmwoc8zC/7Q3gKUYEmhGxbjJ1SEG
- YoDAbhFWfSJKS6W8KeIMo6es/bfn2r+frudRilFzrr9fZp4/WoHC5G6oR4I4Vmgfdy8PCed8a+f
- VGzw2cC63cxL8de2Lv/lKSrCBYcftNf3HdcPa0KK77aPm2v2PEjPyPFeoqaf4EKWixvJKR8RcJk
- Cl8Z8usklNXzzkAG7F75hLeiQNpCLv+HqGXFDEdEK/d9ygHfv6eKvvn0lNPjDU1hWK+x9qVA2Kr
- GU4s3t2rnM2hTPpiy52DAbyVxGwxZV+QaLlWbEHVoX9z8NX0kE4g7JRdpLVT2lJhH4y9mmeC5c9
- ARqtT21hcsEGigx2Xr5k+PzOoadbE7E1gm9TA4TOpBcFlKrV2j6uuYj0Jhj5UxZ9y8rZ76CX3
-X-Received: by 2002:a05:6a00:278a:b0:848:2f84:f42e with SMTP id
- d2e1a72fcca58-84c294d4dd5mr547733b3a.71.1784256053880; 
- Thu, 16 Jul 2026 19:40:53 -0700 (PDT)
-X-Received: by 2002:a05:6a00:278a:b0:848:2f84:f42e with SMTP id
- d2e1a72fcca58-84c294d4dd5mr547719b3a.71.1784256053348; 
- Thu, 16 Jul 2026 19:40:53 -0700 (PDT)
+ bh=N7rCpjkWjlTwa6LsILuSxuuEsyS7uwwCqw43dM9nNM4=;
+ b=dpGWmOHI40HRV+VuR0EA83SIGT1m1G3/aocQcCUKPSwMc4lvSJAekPXXlXl0RbMCnJ
+ SePN+KXbruedPA+Y/T3gSQjH5kg2fWamS84AL/IGXqp8p+DgPc6pTUUHdNzECI6LVS3i
+ /tQsTy/3rZOng9G/tAirqDsO8GfrnCCBVlcNWDT9vJauYuL8zSfn947nCFRWUMmO2xuL
+ Tj3ZotVP3nIM7BdbaBZJkF4q0MgppmckTNqIPtT2TCY7mHSPMKB0n+uZ8veqcNBNObJp
+ 8/qMc7OyQl9lmVXuK0mIeiVAb9YgfyDA8rPJu9hfSjDN068385OkuRZLaMpW4PLiwKIy
+ ztNw==
+X-Gm-Message-State: AOJu0Yxqzc1a1kgIMzjU4wtvLAjVVm0NpkmYiKcMJSBUzun6tGvqI1UR
+ hMSDVd+G1nZqGr+FgQnG3UaJ8Iu97MoSg91yXpNiWNW81DSU70N3Na/Be/f1Qt58S+RISmRy1wi
+ M8h5cbMQ+Q6kc83Ci14RUenr6CU2gYSUylJPxf2BSUN+MkVIGfWugkuMjW0wBt3c9lDHpv2XLiA
+ BqOjs=
+X-Gm-Gg: AfdE7cmlySjVadZDLcborjt6t02zkEwGPvbQeNIGkkEL7SWVIUlikHz0OLly8RXexWE
+ Wmm1S8g/fPq3TCjyb0ikSHK4ZU8G+TjQWsy4c1JW3pbWV5+rz/gpja8vwjhWZnqlVbjOGvGStcw
+ LOvED8JxY6kak8oIgJwY49nlu+gxYtrQZH8O5p2qvoXrXJ8XHQWgON4S5pB1EW5pu7iYjwV5Cm8
+ VwdXAedDi6dsCWc4A1IMivN9HsvW0UnOlZkiKLu1bUwXeO4EvA2P9pXKtYPhd1I4qtTs/RF2re7
+ sxApPXW6uTkRwt0OFCo9Geg8eQE328TwvSCiAJEuFxyEU6XAubm8mbloC3s3G/hM2+1dH3AoHgp
+ Fs5PO4LcdUTSezjXkFvJEhdgWgNWfZLZK6r1MIzJcHdXSDpax120oL8XzB41g5YXuNRZmdESE
+X-Received: by 2002:a05:6a00:32c7:b0:847:8250:2b2a with SMTP id
+ d2e1a72fcca58-84c294dc10bmr573280b3a.60.1784256063923; 
+ Thu, 16 Jul 2026 19:41:03 -0700 (PDT)
+X-Received: by 2002:a05:6a00:32c7:b0:847:8250:2b2a with SMTP id
+ d2e1a72fcca58-84c294dc10bmr573261b3a.60.1784256063428; 
+ Thu, 16 Jul 2026 19:41:03 -0700 (PDT)
 Received: from [10.133.33.101] (tpe-colo-wan-fw-bordernet.qualcomm.com.
  [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cb51a2c1b0dsm146689a12.30.2026.07.16.19.40.51
+ 41be03b00d2f7-cb519ae8690sm150093a12.16.2026.07.16.19.41.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Jul 2026 19:40:52 -0700 (PDT)
-Message-ID: <ab9b496e-9329-480a-ac4a-46d468d4fe9b@oss.qualcomm.com>
-Date: Fri, 17 Jul 2026 10:40:49 +0800
+ Thu, 16 Jul 2026 19:41:03 -0700 (PDT)
+Message-ID: <996db256-91fa-4ace-bc1e-b43e45bbc9a2@oss.qualcomm.com>
+Date: Fri, 17 Jul 2026 10:41:00 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Subject: Re: [PATCH v7 02/15] drm/msm/dp: drop deprecated .mode_set() and use
- .atomic_enable
+Subject: Re: [PATCH v7 04/15] drm/msm/dp: split msm_dp_ctrl_config_ctrl() into
+ link parts and stream parts
 To: sashiko-reviews@lists.linux.dev
 Cc: dri-devel@lists.freedesktop.org
-References: <20260609-dp_mstclean-v7-2-ea04113e8233@oss.qualcomm.com>
- <20260609100657.8935F1F00893@smtp.kernel.org>
+References: <20260609-dp_mstclean-v7-4-ea04113e8233@oss.qualcomm.com>
+ <20260609100433.E45DF1F00893@smtp.kernel.org>
 Content-Language: en-US
-In-Reply-To: <20260609100657.8935F1F00893@smtp.kernel.org>
+In-Reply-To: <20260609100433.E45DF1F00893@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=JeeMa0KV c=1 sm=1 tr=0 ts=6a599637 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=JeeMa0KV c=1 sm=1 tr=0 ts=6a599640 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=UyEoFrDdOu127hDhB3kA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
- a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: SHSCIewzh_ZjDcO3IyHAsy_4xuQB5Yjt
-X-Proofpoint-GUID: SHSCIewzh_ZjDcO3IyHAsy_4xuQB5Yjt
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDAyMyBTYWx0ZWRfX3qWP1H6XabeK
- O3p3aYxsnhErc08egMDE57O8TTyvJrlNCYKCAQgC5ZDNhBrIoKOvNuC8p34adDLGklEXW33+scY
- rKVocep3ddgdO9JFnKN/fkGRrSoKBJo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDAyMyBTYWx0ZWRfXxkbdw03Lf3aa
- FQxQvRxHSJjnNoj+Mc8erBW6B1IUuFsVfBk2Qs4D0EV4nSthdTYcfahVsbXsjgkygDqg9500/TU
- KQwOhsbXM59rOSk3fa9Upjmxzl6y80Yt6PPphyP51/+W32roYukTQ02uMpVjiNr1x675DYVOy0A
- J+B9tAzAFdc//zKQ5l/4x6+/2TJTW7Gn6Whs5Sj8Tk4KuhA4dED6RlTtXz/ZpIGO3tGLFPsky01
- a0D7VoiThSww3FgSw3tN0IAE/SsjBmI6fkdCWeP6seq3Go4D2iQt7oUeksnXxGcR7iESLyhYH67
- Qk9opK2kMC/qlmHtEerum7vINA1Ob5ucEzbeZWgVU38rjgXsKh+4B5hU4cCqw01JWR0wsirBX5M
- gLG3XGmVPDNsR1K8gOuTza9sbCY77XFGF3GMrJKMU1QTVAIUWqhdtN0I6j5syKt4M4gXie7nY0Z
- A6eK5+SF6l0/BGQcp+w==
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=1nfiX9nEXZiYykqwV9AA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-ORIG-GUID: 1jZm4-TxxwnWpQf2beHlK89tmzO2epux
+X-Proofpoint-GUID: 1jZm4-TxxwnWpQf2beHlK89tmzO2epux
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDAyMyBTYWx0ZWRfX6N3l5Q15P2Qb
+ Fa+6Kol+/R+Nfi72U7F3zqGio+HOdxQLpYkrq3VfwWTopTz8mC6u5EmqaWBLvUm+EsQOimGO50e
+ q99YlwSouspEOiH16pirlc1O7dON7cc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDAyMyBTYWx0ZWRfX+fJfc5Qa4uPd
+ bvLgW0MQ+wn3vx8fK1IcIoxpG+aiK3NOBAj1hnJpMTnm+7eiwYD9o7aDynM6gry047qS4G/h1Ub
+ bMyVX6ULmCNNx+IReJn8O/U6QqjZUJSrJvi0UdXCqVIMRY3btDw37T2ZD+W7jRNqrfZTsrHwqdx
+ FagdvslY3UMEF1zN6ykLN/7h1NtrCMMly1r3NNu2emIe6yxN9wI/CFUmOd0P2S8b9RsymzhjlbE
+ oobVQGqpb50br1owovpGGteAZqQTWTPso0RRugIxDTbFWABLpLvDPMT1deyhCZBM3FFS9IGMDdr
+ SzOQwAXOrZoU2D9jgXgzQEI1gXSG0gfI7WRVLqIG2uNOaBfV7NuJfgbbrk7dtpPPq/QAHXLoza2
+ x/YHni6jsRQBz1zOS/uvybnr9XfpcwjRJsdbi89jrrE8pI639XmBgULgTIi0jUXVLERfoHuX4Fm
+ ogEOBImKEYico32BGBQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-16_08,2026-07-15_02,2025-10-01_01
@@ -145,98 +145,71 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 6/9/2026 6:06 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> 
-> New issues:
-> - [High] Moving mode setup to `.atomic_enable` causes the upstream DPU encoder to read stale wide-bus configuration data during its own enablement.
-> 
-> Pre-existing issues:
-> - [High] Mode validation callback incorrectly evaluates wide bus availability based on the state of the currently active mode rather than the candidate mode.
+On 6/9/2026 6:04 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Splitting `msm_dp_ctrl_config_ctrl()` causes stream configuration state to be permanently lost during dynamic link maintenance, leading to display corruption.
 > --
 > 
-> commit 1b0de5b490fbc6b7e19b00f71948fa7d36954fe7
-> Author: Yongxing Mou<yongxing.mou@oss.qualcomm.com>
+> commit 83fda55d30fe1cd098ad8cc76e151a0398a09b6a
+> Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 > 
-> drm/msm/dp: drop deprecated .mode_set() and use .atomic_enable
+> drm/msm/dp: split msm_dp_ctrl_config_ctrl() into link parts and stream parts
+>      
+> The DP_CONFIGURATION_CTRL register contains both link-level and
+> stream-specific fields. Currently, msm_dp_ctrl_config_ctrl() configures
+> all of them together. Separate the configuration into link parts and
+> stream parts to support MST.
 > 
-> The bridge .mode_set() callback is deprecated. Remove it and move all
-> mode setup logic to .atomic_enable(), where the adjusted_mode is
-> available from the atomic CRTC state.
-> 
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->> index bce165bac106b..57eafd4724627 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> index 86ef8c89ad443..ed2ba47881fd0 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
 > [ ... ]
-> 
->> @@ -1309,7 +1325,7 @@ bool msm_dp_wide_bus_available(const struct msm_dp *msm_dp_display)
->>   
->>   	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
->>   
->> -	if (dp->msm_dp_mode.out_fmt_is_yuv_420)
->> +	if (dp->panel->msm_dp_mode.out_fmt_is_yuv_420)
-> [Severity: High]
-> This isn't a bug introduced by this patch, but doesn't this function
-> check the currently active mode's format rather than the candidate mode's
-> format?
-> 
-> During mode validation in msm_dp_display_mode_valid(), the driver calls
-> msm_dp_wide_bus_available() to adjust pixel clock limits. Since this reads
-> the active mode's YUV420 state, wouldn't it incorrectly assume wide bus is
-> unavailable for a candidate RGB mode if the currently active mode happens
-> to be YUV420?
-> 
-> This might cause valid high-resolution RGB modes to be rejected because
-> their clock exceeds DP_MAX_PIXEL_CLK_KHZ. Additionally, isn't this reading
-> a state field that could be locklessly mutated by concurrent atomic commits?
-> 
->>   		return false;
->>   
->>   	return dp->wide_bus_supported;
+>> +static void msm_dp_ctrl_config_ctrl_link(struct msm_dp_ctrl_private *ctrl)
+>> +{
+>> +	u32 config = 0;
 > [ ... ]
-> 
->> @@ -1386,7 +1406,7 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
->>   	if (msm_dp_display->link->sink_count == 0)
->>   		return;
+>> -	if (ctrl->panel->psr_cap.version)
+>> -		config |= DP_CONFIGURATION_CTRL_SEND_VSC;
+>> -
+>> -	drm_dbg_dp(ctrl->drm_dev, "DP_CONFIGURATION_CTRL=0x%x\n", config);
+>> +	drm_dbg_dp(ctrl->drm_dev, "link DP_CONFIGURATION_CTRL=0x%x\n", config);
 >>   
->> -	rc = msm_dp_display_set_mode(dp, &msm_dp_display->msm_dp_mode);
->> +	rc = msm_dp_display_set_mode(dp, &crtc_state->adjusted_mode, msm_dp_display->panel);
+>>   	msm_dp_write_link(ctrl, REG_DP_CONFIGURATION_CTRL, config);
+>>   }
+> [ ... ]
+>> @@ -1628,7 +1644,7 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
+>>   	u8 assr;
+>>   	struct msm_dp_link_info link_info = {0};
+>>   
+>> -	msm_dp_ctrl_config_ctrl(ctrl);
+>> +	msm_dp_ctrl_config_ctrl_link(ctrl);
+> 
 > [Severity: High]
-> By moving the mode setup here into the bridge's .atomic_enable callback,
-> could this cause the upstream DPU encoder to read stale wide-bus
-> configuration data?
+> Does splitting this configuration cause the stream state to be permanently lost
+> during dynamic link maintenance?
 > 
-> The DRM atomic helper sequence executes the encoder's .atomic_enable hook
-> before the bridge's .atomic_enable hook. In the encoder's enable sequence:
+> Before this patch, msm_dp_ctrl_config_ctrl() programmed both link and stream
+> parameters. Now, msm_dp_ctrl_config_ctrl_link() initializes config = 0 and
+> overwrites REG_DP_CONFIGURATION_CTRL, which erases any existing stream
+> configuration.
 > 
-> drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:dpu_encoder_virt_atomic_enable()
->      dpu_enc->wide_bus_en = dpu_encoder_is_widebus_enabled(drm_enc);
+> While normal initialization restores stream parameters by calling
+> msm_dp_ctrl_configure_source_params() after link training, dynamic link
+> maintenance paths (like msm_dp_ctrl_link_maintenance() calling
+> msm_dp_ctrl_setup_main_link()) perform link training and then transition
+> directly to DP_STATE_CTRL_SEND_VIDEO without re-applying the stream
+> parameters:
 > 
-> This calls down to msm_dp_wide_bus_available(), which checks the
-> out_fmt_is_yuv_420 flag.
+> msm_dp_ctrl_link_maintenance()
+>      ...
+>      ret = msm_dp_ctrl_setup_main_link(ctrl, &training_step);
+>      ...
+>      msm_dp_write_link(ctrl, REG_DP_STATE_CTRL, DP_STATE_CTRL_SEND_VIDEO);
 > 
-> Since the bridge hasn't updated its mode state yet via
-> msm_dp_display_set_mode(), won't the encoder read the stale value from the
-> previous modeset?
+> Since msm_dp_ctrl_setup_main_link() eventually triggers
+> msm_dp_ctrl_link_train() which calls msm_dp_ctrl_config_ctrl_link(), will this
+> result in the DP stream coming back up with critical parameters cleared (e.g.,
+> 0 BPC, no VSC, incorrect color format), breaking the display output?
 > 
-> This seems like it could incorrectly enable or disable wide bus support
-> when switching between RGB and YUV420 modes, potentially leading to a
-> hardware configuration mismatch and display corruption.
-> 
-The two reported issues are essentially the same underlying issue. A 
-proper fix would require moving the YUV420 format selection into 
-.atomic_check(), similar to how other DRM drivers handle output format 
-selection. However, the MSM DP bridge currently lacks an .atomic_check() 
-implementation, and introducing one would be a larger change outside the 
-scope of this series.
-
-Furthermore, the affected scenario is limited to rare YUV420-only mode 
-configurations, so I don't think it should block this patch series.
->>   	if (rc) {
->>   		DRM_ERROR("Failed to perform a mode set, rc=%d\n", rc);
->>   		return;
-> -- Sashiko AI review · https://sashiko.dev/#/patchset/20260609- 
-> dp_mstclean-v7-0-ea04113e8233@oss.qualcomm.com?part=2
-> 
-
+Will fix it.
