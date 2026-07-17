@@ -4,52 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF588C44523
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:19:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 177C3C4451C
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:20:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47EED10F53A;
-	Fri, 17 Jul 2026 12:19:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AFD910E2CF;
+	Fri, 17 Jul 2026 12:20:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="Cs0qV0Zy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PJUj1kIZ";
 	dkim-atps=neutral
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DF0110F533
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:19:03 +0000 (UTC)
-Received: from francesco-nb.. (unknown [178.82.120.96])
- by mail11.truemail.it (Postfix) with ESMTPA id F0DE4228CB;
- Fri, 17 Jul 2026 14:19:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
- s=default; t=1784290741;
- bh=hI+gYh3/TRT6FFcKJZ0XasSEEdmxHbnk71spIov2KOs=; h=From:To:Subject;
- b=Cs0qV0ZyWBc8who59FcP+pRQEY7jRK39z+biHbA6BwPqkBxFHqLipsa/nxacukSmu
- CiNbzozUCxp8zHowxMtWry8aa5Or6WoIm62YOfq0ha42cDaToUjtMsU7YuoEFXio7x
- oRl4Rrk34wpY1/xUoxPCv35aIKgwqkpDMuT00WFzNheQHpdPdTb5A7qdkD6bDrNFsu
- nQjAj/zQFt/CcWa4OgFG1U1Qx9qiZUfQCxeO61Ig+TSdd9LjA/jm1FLqmmUW+xB9sj
- +rfoEqbYmmjBWcqra5b/s57mXBIxDChHgwzJhbFi4IY+cXGxJ70JHrgXaYsS3kRGyE
- U9EQ2D7CmCHrw==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 4/4] ARM: dts: imx7-colibri: Set LCDIF format
-Date: Fri, 17 Jul 2026 14:18:46 +0200
-Message-ID: <20260717121847.488148-5-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260717121847.488148-1-francesco@dolcini.it>
-References: <20260717121847.488148-1-francesco@dolcini.it>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50AD310E2CF
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:20:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E55EC402B8;
+ Fri, 17 Jul 2026 12:20:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9D131F000E9;
+ Fri, 17 Jul 2026 12:20:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784290829;
+ bh=3zZRRumE1bYiKKWD7igY43RWBksfZ312lkH+RvumdzU=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=PJUj1kIZgI7tHJLjsSEFXzZe/B6PsC7PZR8Yl3AinHSLs97AgiIO0zCSmAg3d5nYY
+ LSmWQ7xlpT7892vVtBtQgMVilrYkSdYhTlVrcGFpSZukSQ3EgytGbe5N0hl5xxXUJl
+ evCftt4IH4VmHcsvajxttGCsd6SNWIkl0lfTzjrZcpx//KjjfQoTWjt3EF6p9G+qdF
+ y5tNygDHk0nNP6x7Yq2yDGfV3INf2XYEpMeJmrY51EuTEEDhex7ZWzYTi3+PyMAPoN
+ V70mrE1jdZk55I33VTXze402Qz49QR1CTXMvvZKWeZmpEW3hChZNI78o1AijdVyvUE
+ foX1m9US/waJQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 17 Jul 2026 14:20:23 +0200
+Message-Id: <DK0UB4AMYUM9.4T90577F6VAI@kernel.org>
+Subject: Re: [PATCH v14 0/3] rust: add basic serial device bus abstractions
+Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Markus Probst"
+ <markus.probst@posteo.de>, "Rob Herring" <robh@kernel.org>, "Jiri Slaby"
+ <jirislaby@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Kari
+ Argillander" <kari.argillander@gmail.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, "Viresh Kumar" <viresh.kumar@linaro.org>, "Boqun Feng"
+ <boqun@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir
+ Duberstein" <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260715-rust_serdev-v14-0-b4ed5c93606f@posteo.de>
+ <2026071747-android-overhead-c927@gregkh>
+ <6aafea3fdb0847766787dbe5c7c7dbaad606d649.camel@posteo.de>
+ <74213297-d3da-4637-8f31-8fecebd65f60@kernel.org>
+ <2026071719-afflicted-eleven-1be9@gregkh>
+ <DK0U1G9NCIS9.228MIUKBL4KEL@garyguo.net>
+In-Reply-To: <DK0U1G9NCIS9.228MIUKBL4KEL@garyguo.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,28 +75,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Fri Jul 17, 2026 at 2:07 PM CEST, Gary Guo wrote:
+> FWIW this series will also conflict quite significantly with
+> https://lore.kernel.org/driver-core/20260629-id_info-v2-0-56fccbe9c5ef@ga=
+ryguo.net/
+> which is routed via driver-core tree.
 
-The lcd DPI interface on colibri imx6ull uses a 18-bit width bus, set
-the interface-pix-fmt accordingly.
+Yeah, but I think it should be trivial (see below)? However, routing serdev
+through driver-core does indeed avoid this.
 
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+Thanks,
+Danilo
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi b/arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi
-index 8666dcd7fe97..f820a613109a 100644
---- a/arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi
-@@ -533,6 +533,7 @@ &lcdif {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_lcdif_dat
- 		     &pinctrl_lcdif_ctrl>;
-+	interface-pix-fmt = "rgb666";
- 	status = "disabled";
- 
- 	port {
--- 
-2.47.3
+diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
+index 0ffcef1849d2..a1161dd9f37f 100644
+--- a/rust/kernel/serdev.rs
++++ b/rust/kernel/serdev.rs
+@@ -174,7 +174,8 @@ extern "C" fn probe_callback(sdev: *mut bindings::serde=
+v_device) -> kernel::ffi:
+         //
+         // INVARIANT: `sdev` is valid for the duration of `probe_callback(=
+)`.
+         let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInternal<'_=
+>>>() };
+-        let info =3D <Self as driver::Adapter>::id_info(sdev.as_ref());
++        // SAFETY: `sdev` has been matched by the serial device bus via it=
+s device ID table.
++        let info =3D unsafe { <Self as driver::Adapter>::id_info(sdev.as_r=
+ef()) };
 
+         from_result(|| {
+             sdev.as_ref().set_drvdata(try_pin_init!(PrivateData::<T> {
+@@ -334,7 +335,6 @@ macro_rules! module_serdev_device_driver {
+ ///
+ /// kernel::of_device_table!(
+ ///     OF_TABLE,
+-///     MODULE_OF_TABLE,
+ ///     <MyDriver as serdev::Driver>::IdInfo,
+ ///     [
+ ///         (of::DeviceId::new(c"test,device"), ())
+@@ -343,7 +343,6 @@ macro_rules! module_serdev_device_driver {
+ ///
+ /// kernel::acpi_device_table!(
+ ///     ACPI_TABLE,
+-///     MODULE_ACPI_TABLE,
+ ///     <MyDriver as serdev::Driver>::IdInfo,
+ ///     [
+ ///         (acpi::DeviceId::new(c"LNUXBEEF"), ())
+diff --git a/samples/rust/rust_driver_serdev.rs b/samples/rust/rust_driver_=
+serdev.rs
+index a12b1412db30..51b4898cd855 100644
+--- a/samples/rust/rust_driver_serdev.rs
++++ b/samples/rust/rust_driver_serdev.rs
+@@ -20,14 +20,12 @@ struct SampleDriver {
+
+ kernel::of_device_table!(
+     OF_TABLE,
+-    MODULE_OF_TABLE,
+     <SampleDriver as serdev::Driver>::IdInfo,
+     [(of::DeviceId::new(c"test,rust_driver_serdev"), ())]
+ );
+
+ kernel::acpi_device_table!(
+     ACPI_TABLE,
+-    MODULE_ACPI_TABLE,
+     <SampleDriver as serdev::Driver>::IdInfo,
+     [(acpi::DeviceId::new(c"LNUXBEEF"), ())]
+ );
