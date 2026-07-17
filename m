@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E560C44507
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 10:58:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6B06C44514
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 10:58:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CA6010F50B;
-	Fri, 17 Jul 2026 10:58:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E283510F50A;
+	Fri, 17 Jul 2026 10:58:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J8mW7SXT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VURfqRi8";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5475B10F530
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 10:58:12 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 056F610F50A
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 10:58:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B5B9560204;
- Fri, 17 Jul 2026 10:58:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B1F71F000E9;
- Fri, 17 Jul 2026 10:58:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DAC7B41202;
+ Fri, 17 Jul 2026 10:58:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93A7E1F000E9;
+ Fri, 17 Jul 2026 10:58:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784285891;
- bh=c5cdSPUwBUN1XT+MhtslSAwnw0YVT4o5P8GH42rUT5Y=;
+ s=k20260515; t=1784285927;
+ bh=MKABku1f0dh9Pj9SmQJy2UaCucJRjrhtiFRewHHWm6Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=J8mW7SXTbRBmTIs3G5trCj3PJJu8J7jhdB2A+QNULAqhldOsG+I2TQMEhSqHNkXA5
- eJBTJBwfzo+ELPsKD5uw+dO10TpOS450H6D/QQIoqsVIqwvBPoPEAmlSgW5gOolwik
- 7YkJ9bloR5H4zLNd/4WExiZt1OHcR7nV8YVgEF2uehihgDS+RBAVKcjuPNMxUVzjEC
- 0Iu0+tg6Kr7O3RH9X3fn2KYYQeC7vmDYdP/se0ftOMzrDYat8ETmULl0Wpssis78aU
- PjXJoJ0+v72ZfXfkuY4zBXlX3brf3yutbVHJCe6N0TfTOwO1Zr5NO5Acjm60ETGn5r
- jQfCdZDgjHQ4A==
+ b=VURfqRi8NrdMsTcHJfBdqZ+/AdlTwXoZ5kF+CCT4a0zHwXzkqosHmFSBG88YkrJcx
+ PO8uAMMd+UjJ/bLpTFFgaf93w0rIblBAk0hp1FisJ5rZ/M59Qr/bkz11Sli6TdYQ8C
+ 2VV3srWXWeEAVCq+Yyj4083fpwR8CYN5PDD1tyDbP7KwFos5nDJs2018J/ZRRxAkzy
+ 0cUmPLhtQtm0whJtrUhRSADYdhR9raOnoB8/wS0AvZLNLZIMxlpADz6xfu7oLSooVo
+ ayaI6LYcDfwF2uLvu+yYWb5sLz+lkh4GO+xGfcv45BSUcl/HudBJzoxTEfdeZsnlkU
+ FwA3oEhJgTeBg==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v1 5/8] misc/arm-cla: Accelerator context save and
- restore
+Subject: Re: [RFC PATCH v1 4/8] misc/arm-cla: Initialize devices on CPU bringup
 To: "Ryan Roberts" <ryan.roberts@arm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260717104759.123203-6-ryan.roberts@arm.com>
+In-Reply-To: <20260717104759.123203-5-ryan.roberts@arm.com>
 References: <20260717104759.123203-1-ryan.roberts@arm.com>
- <20260717104759.123203-6-ryan.roberts@arm.com>
+ <20260717104759.123203-5-ryan.roberts@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 10:58:10 +0000
-Message-Id: <20260717105811.4B1F71F000E9@smtp.kernel.org>
+Date: Fri, 17 Jul 2026 10:58:47 +0000
+Message-Id: <20260717105847.93A7E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,140 +57,163 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Heap buffer overflow due to unit mismatch in internal accelerator =
-state (IAS) memory allocation and bounds checking.
-- [Medium] Incomplete context save leaves `regs->accel_valid` as true, lead=
-ing to corrupted hardware state on subsequent restore.
+
+New issues:
+- [High] Incomplete hardware reset in cla_op_reset_all() aborts on the firs=
+t failure, leaving remaining accelerators running during teardown.
+- [Medium] cla_reset_ts() incorrectly uses cla_op_regread() to configure th=
+e TSOFFOWNER register, clobbering the setup value.
+- [Medium] dev->accelerators mask accumulates stale state across CPU hotplu=
+g events, causing false device failures.
+- [Medium] Missing explicit clearing of the LRESP register in cla_dev_setup=
+() despite the code comment.
+
+Pre-existing issues:
+- [High] Integer overflow in cla_op_access_reg() near the 32-bit boundary c=
+auses catastrophic underflow of nregs and out-of-bounds memory access.
 --
 
---- Patch [5]: [RFC PATCH v1 5/8] misc/arm-cla: Accelerator context save an=
-d restore ---
-commit 96459db186d7c9fdaf43a3521dada1e5846d6b74
+--- Patch [4]: [RFC PATCH v1 4/8] misc/arm-cla: Initialize devices on CPU b=
+ringup ---
+commit 9a23e1cd42d86f5042ad1e97cc30851dba6b1e3e
 Author: Jean-Philippe Brucker <jpb@kernel.org>
 
-misc/arm-cla: Accelerator context save and restore
+misc/arm-cla: Initialize devices on CPU bringup
 
-This commit adds helpers to save and restore CLA context for later domain
-switching. The saved state includes DATA registers, LRESP, per-accelerator
-SRSTATE, and internal accelerator state exposed through the IAS register
-window.
+CLA registers are only accessible from the CPU local to the CLA, so perform
+device initialization from the CPU hotplug online callback. Clear the DATA
+registers, reset each attached accelerator and verify that it returns to the
+expected idle state.
 
-> diff --git a/drivers/misc/arm-cla/cla-regs.c b/drivers/misc/arm-cla/cla-r=
-egs.c
-> new file mode 100644
-> index 0000000000000..7507796cd551f
-> --- /dev/null
-> +++ b/drivers/misc/arm-cla/cla-regs.c
-> @@ -0,0 +1,263 @@
+> diff --git a/drivers/misc/arm-cla/cla-init.c b/drivers/misc/arm-cla/cla-i=
+nit.c
+> --- a/drivers/misc/arm-cla/cla-init.c
+> +++ b/drivers/misc/arm-cla/cla-init.c
 [ ... ]
-> +static int cla_regs_save_accel(struct cla_dev *dev, unsigned int accid,
-> +			       struct cla_regs *regs, off_t *regstate_off)
+> +static int cla_reset_ts(struct cla_dev *dev, unsigned int accid)
 > +{
 [ ... ]
-> +	regstate_size =3D FIELD_GET(CLA_SRSTATE_0_REGSTATE, srstate[0]);
-> +	if (WARN_ON(*regstate_off + regstate_size * 8 > dev->iassizes))
-> +		return -ENOSPC;
-
-[Severity: High]
-Does this bounds check correctly handle the units for *regstate_off?
-
-*regstate_off is incremented by regstate_size (which is a register count),
-so it is also a register count.
-
-If dev->iassizes is in bytes, this check improperly adds a register count
-(*regstate_off) to a byte count (regstate_size * 8) and compares it against
-a byte count.
-
-Because regs->regstate + *regstate_off scales the offset by 8 during the
-memory access, this check can pass even when the access goes out of bounds.
-
-For example, if dev->iassizes =3D 160 bytes, *regstate_off =3D 20, and
-regstate_size =3D 10, the check evaluates to 20 + 80 <=3D 160 (passes). How=
-ever,
-the accessed memory is at byte offset (20 + 10) * 8 =3D 240, overflowing the
-buffer.
-
-> +
-> +	if (regstate_size) {
-> +		ret =3D cla_op_regread(dev, accid, CLA_REG_IASn, regstate_size,
-> +				     regs->regstate + *regstate_off);
-[ ... ]
-> +static int cla_regs_restore_accel(struct cla_dev *dev, unsigned int acci=
-d,
-> +				  struct cla_regs *regs, off_t *regstate_off)
-> +{
-[ ... ]
-> +	regstate_size =3D FIELD_GET(CLA_SRSTATE_0_REGSTATE, srstate[0]);
-> +	if (WARN_ON(*regstate_off + regstate_size * 8 > dev->iassizes))
-> +		return -ENOSPC;
-
-[Severity: High]
-This appears to have the exact same unit mismatch issue as
-cla_regs_save_accel(), which could lead to out-of-bounds memory reads when
-restoring accelerator state.
-
-> +
-> +	if (regstate_size) {
-> +		ret =3D cla_op_regwrite(dev, accid, CLA_REG_IASn, regstate_size,
-> +				      regs->regstate + *regstate_off);
-[ ... ]
-> +int cla_regs_switch_out(struct cla_dev *dev, struct cla_regs *regs,
-> +			bool save_regs)
-> +{
-[ ... ]
-> +	if (save_regs) {
-> +		for (i =3D 0; i < CLA_NUM_DATA_REGS; i++)
-> +			regs->data[i] =3D cla_reg_read(dev, CLA_REG_DATA(i));
-> +
-> +		cla_for_each_accid(dev, accid) {
-> +			ret =3D cla_regs_save_accel(dev, accid, regs, &regstate_off);
-> +			if (ret)
-> +				return ret;
+> +	reg =3D FIELD_PREP(CLA_TSOFFOWNER_PL, cla_kernel_pl);
+> +	ret =3D cla_op_regread(dev, accid, CLA_REG_TSOFFOWNER, 1, &reg);
 
 [Severity: Medium]
-If cla_regs_save_accel() fails here, the function returns without clearing
-regs->accel_valid.
+Does this code mistakenly call cla_op_regread() instead of cla_op_regwrite()
+here in cla_reset_ts()? Doing so will clobber the newly prepared configurat=
+ion
+value with the current hardware state, meaning the kernel fails to claim
+ownership of the TSOFFOWNER register. This could cause the subsequent writes
+to CLA_REG_TSVOFF and CLA_REG_TSPOFF to be ignored.
 
-Since regs is allocated once per domain and reused, accel_valid might
-already be true from a previous successful save. Returning an error here
-leaves the structure partially overwritten (a mix of old and new accelerator
-states) but still marked as valid.
-
-If the caller handles this switch-out failure non-fatally and retries the
-context later, will cla_regs_switch_in() restore this corrupted state to
-the hardware?
-
-> +		}
-> +
-> +		regs->accel_valid =3D true;
-> +	}
+> +	if (!ret) {
+> +		reg =3D 0;
+> +		ret =3D cla_op_regwrite(dev, accid, CLA_REG_TSVOFF, 1, &reg);
 [ ... ]
-> +struct cla_regs **cla_regs_alloc_domain(struct cla_domain *domain)
+> +static int cla_dev_setup(unsigned int cpu)
 > +{
 [ ... ]
-> +	for (i =3D 0; i < domain->nr_devs; i++) {
-> +		struct cla_regs *regs;
-> +		struct cla_dev *dev =3D domain->devs[i];
+> +	/* Clear DATA and LRESP_DATANZ */
+> +	for (i =3D 0; i < CLA_NUM_DATA_REGS; i++)
+> +		cla_reg_write(dev, CLA_REG_DATA(i), 0);
+
+[Severity: Medium]
+The comment above indicates this should clear DATA and LRESP_DATANZ, but is
+there a missing cla_reg_write() for CLA_REG_LRESP here in cla_dev_setup()? =
+If
+left uncleared, stale response data from before the CPU was offlined might
+remain and confuse userspace or the driver later.
+
 > +
-> +		/*
-> +		 * The regs structures are only ever accessed from the CLA
-> +		 * device's CPU, so try to allocate them on the right NUMA node
-> +		 */
-> +		size =3D sizeof(*regs) + dev->iassizes;
+> +	/*
+> +	 * Reset all accelerators. We restrict PLxCTRL to the accelerators that
+> +	 * are attached and well behaved.
+> +	 */
+> +	for (accid =3D 0; accid < CLA_NUM_ACC; accid++) {
+> +		ret =3D cla_dev_setup_accel(dev, accid);
+> +		if (ret > 0)
+> +			continue;
+> +		else if (ret < 0)
+> +			goto err;
+> +
+> +		dev->accelerators |=3D (1 << accid);
+
+[Severity: Medium]
+Could this accumulate stale state across CPU hotplug events?
+
+Because dev->accelerators is never explicitly cleared to 0 at the start of
+cla_dev_setup() or during teardown, if a CPU is offlined and an accelerator
+subsequently fails to probe on the next online event, it will incorrectly
+remain in the dev->accelerators mask.
+
+During teardown, cla_op_reset_all() might then attempt to reset a non-exist=
+ent
+accelerator, fail, and mark the entire device as broken.
+
+> +		plxctrl_val |=3D CLA_PLxCTRL_PREP(accid,
+> +						FIELD_PREP(CLA_PLxCTRL_AVAIL, 1));
+> +	}
+[ ... ]
+> diff --git a/drivers/misc/arm-cla/cla-ops.c b/drivers/misc/arm-cla/cla-op=
+s.c
+> --- a/drivers/misc/arm-cla/cla-ops.c
+> +++ b/drivers/misc/arm-cla/cla-ops.c
+[ ... ]
+> +int cla_op_reset_all(struct cla_dev *dev)
+> +{
+> +	int ret;
+> +	unsigned int accid;
+> +
+> +	cla_for_each_accid(dev, accid) {
+> +		ret =3D cla_op_reset(dev, accid);
+> +		if (ret)
+> +			return ret < 0 ? ret : -ENODEV;
 
 [Severity: High]
-If dev->iassizes represents a register count rather than a byte count,
-should it be scaled by sizeof(u64) here?
+Does returning immediately on the first error leave the remaining attached
+accelerators running?
 
-If it is unscaled, the allocation for the flexible array regs->regstate
-will be 8 times too small, leading to heap buffer overflows during save and
-restore operations.
+When cla_op_reset_all() is called during CPU teardown, an early abort means
+subsequent accelerators are never quiesced. As the CPU goes offline, these
+active hardware accelerators could continue issuing DMA transactions or rai=
+sing
+interrupts, posing a risk of memory corruption.
 
-> +		regs =3D kvzalloc_node(size, GFP_KERNEL_ACCOUNT,
-> +				     cpu_to_node(dev->cpu));
+> +	}
+> +	return 0;
+> +}
+[ ... ]
+>  static int cla_op_access_reg(struct cla_dev *dev, u8 op,
+>  			     enum cla_launch_data_mode data_mode,
+>  			     unsigned int accid, unsigned int regidx,
+>  			     size_t nregs, u64 *regs)
+>  {
+[ ... ]
+>  	/* 1 to 8 registers accessed at a time, within the same 8-reg group */
+>  	while (nregs > 0) {
+>  		unsigned int reg_group =3D ALIGN_DOWN(regidx, 8);
+>  		unsigned int max_reg =3D min(regidx + nregs, reg_group + 8);
+>  		unsigned int ndata =3D max_reg - regidx;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can the 32-bit addition of
+reg_group + 8 wrap around to 0 in cla_op_access_reg()?
+
+If a read is requested near the 32-bit boundary (e.g., regidx =3D 0xFFFFFFFC
+and nregs =3D 2), reg_group becomes 0xFFFFFFF8. The calculation reg_group +=
+ 8
+then wraps around to 0 due to 32-bit unsigned arithmetic.
+
+The call to min(regidx + nregs, reg_group + 8) would evaluate to
+min(0xFFFFFFFE, 0), returning 0. This causes ndata to become 0 - 0xFFFFFFFC,
+which is 4. Subtracting this from the 64-bit size_t nregs causes it to
+underflow to a huge value, leading to a massive out-of-bounds loop and kern=
+el
+memory corruption.
+
+> =20
+>  		launch.ndata_m1 =3D ndata - 1;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717104759.1232=
-03-1-ryan.roberts@arm.com?part=3D5
+03-1-ryan.roberts@arm.com?part=3D4
