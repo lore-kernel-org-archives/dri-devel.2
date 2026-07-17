@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8A21C44521
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:19:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA241C4451C
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:19:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA38510F535;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7D6F10F539;
 	Fri, 17 Jul 2026 12:19:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="APwKamzG";
+	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="KLuku6X9";
 	dkim-atps=neutral
 Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33AB910F539
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:19:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D40CD10F534
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:19:00 +0000 (UTC)
 Received: from francesco-nb.. (unknown [178.82.120.96])
- by mail11.truemail.it (Postfix) with ESMTPA id 2CC44228C9;
- Fri, 17 Jul 2026 14:19:00 +0200 (CEST)
+ by mail11.truemail.it (Postfix) with ESMTPA id A4E592272A;
+ Fri, 17 Jul 2026 14:18:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
- s=default; t=1784290740;
- bh=MhJPiBOn7qoBvAbf8Au6wuw+Yg8j8KZ2eCw0H8HfrZc=; h=From:To:Subject;
- b=APwKamzGhTxH89PZZJMs3OKR8EHU6NE/1uaK2jb0GSO5SInwHyKlvzrBiXuw0dsTl
- xKC5yH3MjY1dvjqoF4sPT9duWOx3fNwRRiBh9OagOWEyhePyZJXE1yJ4lZ6wOE6WoM
- 8hCTavJ5O/Y9BUoDN5ott6LFfdVs2Yfj/bDrLU259HFAAlZC/KiSqsnDhNjoyhE4pX
- 1j9IQJSNmoW2K9uWf9VLuwnpBxz25pCm8yCta7SYo+Tg8tU25Nhjd7H0Epw8TeNqO4
- cAUr2pyrIfGjgrBI4ZJyCNjPRFn2gHnMQDrvbwYqfF20MeEQvSsHXT7YYkTBZIgXuN
- 2kre9RHrlT+iw==
+ s=default; t=1784290738;
+ bh=EFuCLGYMCnbLRMYIZ0CTwCE+ic9FazVUGAB/i7iYseA=; h=From:To:Subject;
+ b=KLuku6X91PrAs0AOGADuKz5arzfCbtAJqY5ng9vV0eawIWYzYGb3JlG482A5xiNMq
+ b6dq/rqrNa0J0i60ifq1FN/uk50KAQ0mK5tL3/5kQxfpFqmCtkfFVa7XeZ4rrY3clH
+ GR4+CaOY2p4OKugbynGzNcgEYbQClsWRoUcbxvMlV/faqkVEbBWgpgPc9IWq2baY9C
+ IEJbL8elGkMNbCyRLJROMUC6UMdY47othoDhkUWLOB/mBU4uTPwFwibjplp2/vxOrN
+ oki7t6a9U2w/renqrbI4QRBsd2zFD+u/JO9mR+n9E9VEpfHsrVw5RUZWg01gbDdS83
+ UawJFAodslSVA==
 From: Francesco Dolcini <francesco@dolcini.it>
 To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
  Sascha Hauer <s.hauer@pengutronix.de>,
@@ -42,12 +42,10 @@ Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 3/4] ARM: dts: imx6ull-colibri: Set LCDIF format
-Date: Fri, 17 Jul 2026 14:18:45 +0200
-Message-ID: <20260717121847.488148-4-francesco@dolcini.it>
+Subject: [PATCH v1 0/4] drm: mxsfb: Support LCDIF interface pixel format
+Date: Fri, 17 Jul 2026 14:18:42 +0200
+Message-ID: <20260717121847.488148-1-francesco@dolcini.it>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260717121847.488148-1-francesco@dolcini.it>
-References: <20260717121847.488148-1-francesco@dolcini.it>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -67,26 +65,44 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-The lcd DPI interface on colibri imx6ull uses a 18-bit width bus, set
-the interface-pix-fmt accordingly.
+The LCDIF data bus format describes how color component bits are assigned
+to the physical LCD_DATA pins. This is a property of the LCDIF-to-display
+wiring and can differ from the input format advertised by the downstream
+panel or bridge.
 
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+Such a distinction is required when a narrower LCDIF bus is connected to
+a wider display interface. For example, an 18-bit or 16-bit LCDIF bus can
+drive a 24-bit display by wiring the available color bits to the
+appropriate display inputs. Configuring LCDIF from the display's 24-bit
+format in this case selects the wrong LCD_DATABUS_WIDTH mode, changing the
+color-bit assignment on the LCD_DATA pins and resulting in incorrect
+colors.
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
-index ec3c1e7301f4..e126fade2304 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
-@@ -225,6 +225,7 @@ &lcdif {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_lcdif_dat
- 		     &pinctrl_lcdif_ctrl>;
-+	interface-pix-fmt = "rgb666";
- 	status = "disabled";
- 
- 	port {
+Add the optional interface-pix-fmt property to the LCDIF binding and make
+the mxsfb driver use it in preference to the format reported by the
+downstream display. When the property is absent, the existing behavior is
+preserved.
+
+This follows the approach already used by the i.MX IPUv3 parallel display
+driver in drivers/gpu/drm/imx/ipuv3/parallel-display.c.
+
+Set the interface format for the Colibri iMX6ULL and Colibri iMX7 boards,
+which route an 18-bit LCD interface.
+
+Francesco Dolcini (4):
+  dt-bindings: lcdif: Add interface pixel format
+  drm: mxsfb: Allow optional LCDIF interface format override
+  ARM: dts: imx6ull-colibri: Set LCDIF format
+  ARM: dts: imx7-colibri: Set LCDIF format
+
+ .../devicetree/bindings/display/fsl,lcdif.yaml   |  7 +++++++
+ arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi   |  1 +
+ arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi      |  1 +
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c                | 16 ++++++++++++++++
+ drivers/gpu/drm/mxsfb/mxsfb_drv.h                |  2 ++
+ drivers/gpu/drm/mxsfb/mxsfb_kms.c                |  8 ++++++++
+ 6 files changed, 35 insertions(+)
+
 -- 
 2.47.3
 
