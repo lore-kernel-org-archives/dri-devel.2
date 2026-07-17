@@ -4,84 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B09D8C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8BA5C44521
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C392010E78F;
-	Mon, 20 Jul 2026 07:15:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCB9510E782;
+	Mon, 20 Jul 2026 07:15:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="FLEygAnJ";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="J1Psw1t4";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kanardia.eu header.i=@kanardia.eu header.b="fIA0Q6bF";
 	dkim-atps=neutral
-Received: from flow-a2-smtp.messagingengine.com
- (flow-a2-smtp.messagingengine.com [103.168.172.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC5E810E516
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 03:21:33 +0000 (UTC)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailflow.phl.internal (Postfix) with ESMTP id A557113800A8;
- Fri, 17 Jul 2026 23:12:01 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-05.internal (MEProxy); Fri, 17 Jul 2026 23:12:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:message-id:mime-version:reply-to:subject
- :subject:to:to; s=fm1; t=1784344321; x=1784347921; bh=O5UO+r1tw5
- O/LBbUfpvJPgD+I1aOB3b1e+3aqw181G0=; b=FLEygAnJSZ3WKCo+W2zSHa5WC9
- P3tF7eyq4PE1kVv72cFBOQs3xcA43b/mG17NC/dORUNIIrRlt4nBvXh8aTOL8jyJ
- DJxVduoydwdPsmwc3x0bk+RijrPJTz9xgYi2Bd00ttiIO95Xgh1k1Kj+/S1am6hX
- 1WiuKjr+P63CugKP14CpC4TrBcy9qe4wmWJRxdCAzyG0JG0aZar2bdv5IDzstUzc
- dvPvQWP+ArjC18GfUM7MF/kuzPXRw5tMvxqu1Wxdm7i7K8/9q4GnvQtjirufig7t
- 3De8usGMdzvW27iNziDdDZ7ysCGd4+DrfIBU9dkndGTDwt3hW7rmdMsCSIhw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
- 1784344321; x=1784347921; bh=O5UO+r1tw5O/LBbUfpvJPgD+I1aOB3b1e+3
- aqw181G0=; b=J1Psw1t4l+cybF3KE5R7M4Ld8/2R1bibfnmmW0Kdxi1bLjDprRe
- kYps09OCCqOchCrSTwWm/FXy1Ix+7nM7AcwoDUsZ6LDdI/mm1LY8zVnrHRYNYIqE
- 0fkCephN6PdwTesWu4e96up7UJKQG30KGeideMor/fQNv/uM8bewZXtToWKtIKnu
- DDy1zV8ZE3FubV1tLWuW9EkYTrSht+1oohaJN88QBNBamxsOgx0ek1Y+Xt7BGg0p
- lynYW5LKxDuGo/vlNeBcMbM8PGtndQpDN7Myu5/oLZwQtiKLyipktqUl2i1Zjak8
- zOYRNjy1rfLYoJpJObGV9HRnd2RM3uz12+g==
-X-ME-Sender: <xms:_u5aavsk84VuFybQ6CtJeID3M4Qo3aUfXIV0s6Qm6ThuodbFxIGuBg>
- <xme:_u5aag31Mgcwz1Qhw5JvBpOhPYi9gwmDDeooX9ymSntr9350r2aF0rG0EU1A8MQiO
- b3IDZX9XqAWrG0D-XO214P8a7nRgcsxVEGHSZKN1UEhcTU2bUcJJnk>
-X-ME-Received: <xmr:_u5aaj4SkoUNdd-1i2J9z7jlGLSYQ2xjUvjrFCdSorZT7ZA3GEimZrwL14YTpc6f-Vib_v_JKCPwiREkgyU>
-X-ME-Proxy-Cause: dmFkZTG1BKwpOrUet1Yz3ReM3q8b+SU1Y0/3E/GtpuUDrj0RW7aZrRz1EkrdLfowjHCTZn
- KHQtKMuWZlkEuvq3c/1uYeHLYKalGUaqALOTDnvMzn1+EaIkreHdEflsbm9CI/YFbSTVhF
- XZ3FYbXkynNIH0cYbzyCZN+Fu0EU4C0Ecx1u/0LycRsT5wthraRx/8kne0EIYOAZY321KB
- /7+UzOh7OlqviMCxy8sehh+ffZzbA1ZloX0T1ZphHs2gfKgTZgme9j+DaFkr7jrXNK2+Da
- UZ1kFcX0GytWLrOKSYk85Ql6OoEElRCk/ag+HIAS5ZZ8BTmO4ki0zhNsB4g1D4h0/1B2An
- xugJgGOblZ4hY9pLc88dgop7V5XtaCBez0UGJPls1sN+bAqnhrwv0xEoeG3mynqSvbubZP
- Gt/B7ZzYsY8Qp5LlS5JG8sXLiXxCX+G+WraFcWBsnyYdRBX8qJp+bDFG7vtjsCnNxd7K32
- /Oh9+RsSGqJvsn24ccbcmCAxG43kZcj7UN/SkYjt7wXAaffBTHAMpJEEV6lMJDi/PDsNoH
- oyFhbM5ddf9t86LtqhLqMiZ5c0OmILw0JN2hfFoqcoqLI1ER8az2XYaANF0Bma+rFXs6EM
- KlLzr3ppO4Tkvar4RQngMJfo9zGQ3AMUJyhDDesMyyFG/d+TZPzmD4FpuU8g
-X-ME-Proxy: <xmx:_u5aaqMpj0699XrR4t-KqyhEru8d4RSd6nXieDHJUVfNg17lPeTofg>
- <xmx:_u5aavEw0Gm4vgwZIKI0pXWgbFSj8B0T-fkXdF5Oue7NPHKf0ZpstA>
- <xmx:_u5aam0EheD3UUHBEENMgsmzU2NjPkKHrQuR1W4ERWcv7LV09IhBsg>
- <xmx:_u5aauFtPvtzpIJMb1u9qHUIkJLWqmkuYrIf2bSoLtIVH__oSRGu1Q>
- <xmx:Ae9aagQsgx-EbfkkoZbbHdDdzvcnAkc9r36ecnN5C2FBl1Js3xTLx8az>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 17 Jul 2026 23:11:51 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org
-Cc: chaoyi.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [RFC PATCH v2 0/8] accel/rocket: RK3576 NPU (RKNN) enablement
-Date: Sat, 18 Jul 2026 15:11:38 +1200
-Message-ID: <20260718031146.3368811-1-gahing@gahingwoo.com>
+Received: from th8-a.mail-neoserv.si (th8-a.mail-neoserv.si [152.89.234.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7E1D10E2DC
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:52:50 +0000 (UTC)
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=th8.neoserv.si; s=default;
+ b=e4wr1RIKGAKwFb7CvuoGhMJksMeo2X6/du0d44Wq3M86JsufEJ01y5xkiTjZ+cmiJQgGjB4QO1
+ 1TbbpN3L7Tbdqym2X2awQ3EQrGWIZxh+U7wwbBTSvimGkQoC94d8eVA0DqAAuQwkHOGcVrBL1K
+ cvOVaE3NHoR2kaR6CNmVirZJOTTPwbNg5l+SUhhXWkyW6jcDkmqj4hvmkTTPb8Q168+VBdnHDD
+ qUfOr85z7MBLDvI1+BxnohyGqqboNAJ/q0ZT56ka3y01nF1t1xbQb+YTfVR/wKt20NhYNGk4eu
+ 93Bc+VOsl1zz7+CgS36w/ayT2Wxm0DdaKVHPHxpa8WO1Mg==;
+ARC-Authentication-Results: i=1; th8.neoserv.si; smtp.remote-ip=193.77.36.193; 
+ auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=th8.neoserv.si;
+ s=default; 
+ bh=7o4gkyWUm5NRKXjCtq4QFPNOZqVGYX0NqrC25z6iTAQ=;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:
+ Date:Subject:Cc:To:From:DKIM-Signature;
+ b=Fzw+J56PO1j78a7aA8LdOOs2v7ZvPZR2V0ma8jd8Fbjf1F4mmLuzSMOee751na36an2fjPpJUU
+ fk2RIDactnsZRThjMxmp8+ywjglcpvcpiuNNhWzzKR0lgcgyf/VwUfIvEDypMa1c3v978ZQBnv
+ XCVrhObnvq+dGtiQx8kRIuAKOVZ4sKvSSv9uXbjQNRDNyS7JXVmZuomzxAAwbPpdGsRgEQCKxK
+ h8wpZWA9kkM8n3W937gUXg6wXD3EuDI8hmZ3S5ZgeoZ1GhhFcHCU231b14VB7cXniltvAVT9tX
+ GfA/xaXrxsxBDIxy2H+BpC+eQ1S00NkzIUVoai08+TNkQA==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kanardia.eu
+ ; s=default;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=rhqQocmDn1ZVyttVBuCGSQaZNCEQDuZfGNQteeSIaWI=; b=fIA0Q6bFjuSYbA8c5wvLsqNuEU
+ ggOi2blAwuHhpFw5QDqdoC7VaajtNA6OqXiB4DDkd6VqvIFZ82T6FeP1AmsfDCwBg+V4sCgmAaK0j
+ mvKvRAb4MC0TfDp0rHyX0gT+oNHSz4wOR1JTC2X56T6Ujq0nOhbKYGcPbc8Ex7rLO2SgxCB7InYz9
+ pv7Jx+WQnhQCsp/R/zBZLR5p+QMoxaO/pq/mxIXly9dkbJxdLKifLeauNPUtrCQj65oEcdoepCivc
+ A+XaKBFNTpTc+OY+W5lwplzzMva2JT4/QMHQfm23NvsutXeftWWiazEqOTejZMth+aQty/7uoDHtg
+ p4kD/n0Q==;
+Received: from [193.77.36.193] (port=54788 helo=rok-trip.kanardia.eu)
+ by th8.neoserv.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.99.4) (envelope-from <rok@kanardia.eu>)
+ id 1wkhHh-00000001fP1-22Ww; Fri, 17 Jul 2026 14:03:17 +0200
+From: Rok Markovic <rok@kanardia.eu>
+To: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Alibek Omarov <a1ba.omarov@gmail.com>,
+ Rok Markovic <rok@kanardia.eu>
+Subject: [PATCH 4/4] arm64: dts: rockchip: rk356x: add LVDS node
+Date: Fri, 17 Jul 2026 14:00:05 +0200
+Message-ID: <20260717120005.2087386-5-rok@kanardia.eu>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260717120005.2087386-1-rok@kanardia.eu>
+References: <20260717120005.2087386-1-rok@kanardia.eu>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Authentication-Results: th8.neoserv.si;
+ auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
+X-NEOSERV-MailScanner-Information: Please contact the ISP for more information
+X-NEOSERV-MailScanner-ID: 1wkhHh-00000001fP1-22Ww
+X-NEOSERV-MailScanner: Found to be clean
+X-NEOSERV-MailScanner-SpamCheck: not spam, SpamAssassin (not cached,
+ score=1.31, required 7, ALL_TRUSTED -1.00, BAYES_50 0.80,
+ KAM_DMARC_QUARANTINE 1.50, KAM_DMARC_STATUS 0.01)
+X-NEOSERV-MailScanner-SpamScore: s
+X-NEOSERV-MailScanner-From: rok@kanardia.eu
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - th8.neoserv.si
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - kanardia.eu
+X-Get-Message-Sender-Via: th8.neoserv.si: authenticated_id: rok@kanardia.eu
+X-Authenticated-Sender: th8.neoserv.si: rok@kanardia.eu
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,73 +105,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This adds RK3576 NPU support to accel/rocket.  RFC: the NPU brings up and
-runs, but full inference is not correct yet, and I would rather get
-feedback now than sit on it.
+Add the LVDS transmitter node. It has no register block of its own -
+it is programmed through the GRF and borrows the MIPI DSI0 D-PHY - so
+it carries no reg, only the DSITX_0 pclk, the phy and the VO power
+domain.
 
-Tested on a Radxa ROCK 4D.  The NPU probes, powers on, brings up its
-IOMMUs, and runs jobs to completion (rocket + Mesa Teflon).  Getting there
-took a few fixes outside the driver too: a power-domain settle delay and
-reset cycling (else a cold power-on throws an async SError), the full
-clock set on the MMU nodes, clearing a stale firmware page fault, and both
-NPU power domains on the core.
+Disabled by default; boards that route LVDS enable it along with
+dsi_dphy0 and wire lvds_in to a VOP2 video port.
 
-Not solved: only the first operation in a power session gives the right
-answer.  Every later one engages and DMAs its input, but the compute
-output never lands, so the readback is the zero-point.  I chased it
-through the whole software surface (registers, IOMMU/TLB, cache,
-power/clock/reset, dispatch) and it reproduces even with the driver
-environment matched to the vendor's on the same kernel, so it looks to be
-below software, in the fixed-function block.  Traces available.
+Signed-off-by: Rok Markovic <rok@kanardia.eu>
+Assisted-by: Claude:claude-opus-4-8
+---
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-Two asks: review of the bring-up and the shared pmdomain/iommu changes;
-and if anyone knows the RK3576 NPU internals, whether that
-per-power-session arm can be driven from software at all.
-
-The series is split by subsystem (binding, pmdomain, iommu, driver, DT).
-The board DT keeps vdd_npu_s0 always-on for now; happy to switch to
-proper runtime control if preferred.
-
-Changes in v2 (thanks to Chaoyi Chen and the Sashiko review bot):
-  - dt-bindings: keep sram-supply required for rk3588 via allOf/if-then
-    instead of dropping it from the shared required list
-  - pmdomain: release the resets in rockchip_pm_remove_one_domain()
-  - iommu: drop the redundant "err == 0" check in the clock probe
-  - iommu: replace the two "skip orphaned-fault banks" patches with one
-    that clears the stale firmware page fault (CMD_PAGE_FAULT_DONE) before
-    enabling stall, so no bank needs special-casing -- Chaoyi asked
-    whether dealing with the fault avoids the skip, and it does
-  - accel/rocket: gate every RK3576-specific difference (extra clocks,
-    single reset, multi power-domain attach, polled completion) behind
-    of_device_id match data so the RK3588 path is byte-for-byte unchanged;
-    drop the unused DPU register mapping (the driver did no pre-arm)
-  - series is now 8 patches (was 9)
-
-I used Claude Opus 4.8 to help trim this series out of my debugging tree
-and generate the diffs.
-
-Jiaxing Hu (8):
-  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
-  pmdomain/rockchip: add optional per-domain power-on settle delay
-  pmdomain/rockchip: cycle optional power-domain resets on power-on
-  iommu/rockchip: take all DT clocks
-  iommu/rockchip: clear stale page faults before enabling stall
-  accel/rocket: add RK3576 NPU (RKNN) support
-  arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
-  arm64: dts: rockchip: rk3576-rock-4d: enable NPU
-
- .../npu/rockchip,rk3588-rknn-core.yaml        |  12 +-
- .../boot/dts/rockchip/rk3576-rock-4d.dts      |  16 +++
- arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  78 ++++++++++-
- drivers/accel/rocket/rocket_core.c            |  39 +++++-
- drivers/accel/rocket/rocket_core.h            |  22 ++-
- drivers/accel/rocket/rocket_device.c          |   4 +
- drivers/accel/rocket/rocket_drv.c             |  22 ++-
- drivers/accel/rocket/rocket_job.c             | 127 ++++++++++++++++--
- drivers/iommu/rockchip-iommu.c                |  41 +++---
- drivers/pmdomain/rockchip/pm-domains.c        |  69 ++++++----
- 10 files changed, 371 insertions(+), 59 deletions(-)
-
+diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+index 64bdd8b..9244b55 100644
+--- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+@@ -878,6 +878,31 @@
+ 		};
+ 	};
+ 
++	lvds: lvds {
++		compatible = "rockchip,rk3568-lvds";
++		clocks = <&cru PCLK_DSITX_0>;
++		clock-names = "pclk_lvds";
++		phys = <&dsi_dphy0>;
++		phy-names = "dphy";
++		power-domains = <&power RK3568_PD_VO>;
++		rockchip,grf = <&grf>;
++		rockchip,output = "lvds";
++		status = "disabled";
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			lvds_in: port@0 {
++				reg = <0>;
++			};
++
++			lvds_out: port@1 {
++				reg = <1>;
++			};
++		};
++	};
++
+ 	qos_gpu: qos@fe128000 {
+ 		compatible = "rockchip,rk3568-qos", "syscon";
+ 		reg = <0x0 0xfe128000 0x0 0x20>;
 -- 
 2.43.0
 
