@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 406CDC44515
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 21:08:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCDE7C44515
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 21:13:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B30810F62A;
-	Fri, 17 Jul 2026 21:07:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A00810F633;
+	Fri, 17 Jul 2026 21:13:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KYN1UjQK";
+	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="Qa8WNCTN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9F1B10F62A
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 21:07:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A44A34075F;
- Fri, 17 Jul 2026 21:07:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CF171F000E9;
- Fri, 17 Jul 2026 21:07:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784322477;
- bh=WmqWSsG7oEYyKjYgxw66SFCZbhfaUdsYmCiw4GL3Zbg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KYN1UjQKi9SJRnadS5GPpUFR9vqybhzaCOUnbClkgTCeY8JmUcVhWtmFGrgn6+gkn
- nurRcXmZlXtq4tSxZ4HWRTQHKqKUAcvqj4e07s5iPMh3HWS0xpElDBjier5kExvH6V
- qfpAjlmIdGIku2zQ4RGWojqCmJFvUiPgb3Cr9vMAsqv2n5+KEekUOsSXqiw9cbxbX+
- E0VrwziJTmRV9kYUpnDN20SXY43O7JsqOaK/NVpjA/PLyccgxhNNfApHQYA4LBMOMq
- Hc3RbZYPotg5AQ5BdX20jFGJFHyI15i/IhiraxVr2/aE8MC2SfpOwzJqhwrC7+44OJ
- I0KyDtexm0Vew==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 14/16] drm/msm: Don't fallback to shared VM for VM_BIND
-To: "Rob Clark" <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260717204841.26120-15-robin.clark@oss.qualcomm.com>
-References: <20260717204841.26120-1-robin.clark@oss.qualcomm.com>
- <20260717204841.26120-15-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 21:07:56 +0000
-Message-Id: <20260717210757.5CF171F000E9@smtp.kernel.org>
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CB7310F633
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 21:13:48 +0000 (UTC)
+Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net
+ [178.82.120.96])
+ by mail11.truemail.it (Postfix) with ESMTPA id 00E771F9FE;
+ Fri, 17 Jul 2026 23:13:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+ s=default; t=1784322827;
+ bh=yMr4YvPSGTUuTkpmhzKNy6bqQMBEMI+em96DebwBIU4=; h=From:To:Subject;
+ b=Qa8WNCTNZQoAWiX+O4hlDcq7TKa5qf37Ez5FtotARqbMVnyVjyATdvE5ao5Jqqnqw
+ 3GuLyDRJ3XOkIAxbUWj6i3qzRhAYgkScI2QOPk2s2zXrh/lNaafOrt0NlneDRnfKJg
+ XWG4nmNOSHJMQJLUrZ7jpAUi8hOsuWsQtCv0cBSZaN3Y1UdrHZgNGWD5cnTRPU9Gr3
+ 7c1vSn4gJLc2Tvcpaa7ejBJrXMmUHyvl18nSfxlFvFf6UgsdnXwXA1A3KFFi7fWMo1
+ Ji9bohztIvHjTG8VOd4nSkY8mHP+vTpz7ytj3HXeYRXVIsm2phq3kxgAAjEA5moJSH
+ j3XI+HZRUbeLg==
+Date: Fri, 17 Jul 2026 23:13:44 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank Li <Frank.li@oss.nxp.com>, Francesco Dolcini <francesco@dolcini.it>
+Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
+ robh@kernel.org, dri-devel@lists.freedesktop.org,
+ Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
+Subject: Re: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format
+Message-ID: <20260717211344.GC512678@francesco-nb>
+References: <20260717121847.488148-1-francesco@dolcini.it>
+ <20260717121847.488148-2-francesco@dolcini.it>
+ <20260717122808.693211F000E9@smtp.kernel.org>
+ <alpQh0ASY1HgdNqE@SMW015318> <20260717205754.GB512678@francesco-nb>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717205754.GB512678@francesco-nb>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,66 +56,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Fri, Jul 17, 2026 at 10:57:54PM +0200, Francesco Dolcini wrote:
+> On Fri, Jul 17, 2026 at 10:55:51AM -0500, Frank Li wrote:
+> > On Fri, Jul 17, 2026 at 12:28:07PM +0000, sashiko-bot@kernel.org wrote:
+> > > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > > - [Low] Introduction of the legacy, non-standard `interface-pix-fmt` property for a standard hardware concept (parallel bus width), violating modern DT principles.
+> > > --
+> > >
+> > > --- Patch [1]: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format ---
+> > > commit 7225ea545d2ff50540972dd75d375b8ecea4f315
+> > > Author: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > >
+> > > dt-bindings: lcdif: Add interface pixel format
+> > >
+> > > This commit updates the fsl,lcdif device tree binding to support the
+> > > interface-pix-fmt property. The property is used to describe the hardware's
+> > > parallel data bus transfer width to match board wiring and prevent shifted
+> > > colors.
+> > >
+> > > > diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > > index 2dd0411ec6516..209ee5a96e393 100644
+> > > > --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > > +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > > @@ -58,6 +58,13 @@ properties:
+> > > >      items:
+> > > >        - const: rx
+> > > >
+> > > > +  interface-pix-fmt:
+> > > > +    $ref: /schemas/types.yaml#/definitions/string
+> > > > +    enum:
+> > > > +      - rgb24
+> > > > +      - rgb565
+> > > > +      - rgb666
+> > >
+> > > [Severity: Low]
+> > > Is this introducing a legacy, non-standard property into the new schema ABI?
+> > >
+> > > Standard devicetree guidelines usually prefer endpoint properties like
+> > > bus-width (defined in video-interfaces.yaml) to describe physical parallel
+> > > data line configurations, such as setting bus-width = <18> for RGB666.
+> > 
+> > Make sense, can we use standard property?
+> 
+> video-interfaces.yaml is for video capture interfaces (cameras and the
+> media/v4l subsystem). It does not apply here for DPI display interfaces.
 
-Pre-existing issues:
-- [High] The patch exposes a tight-loop, unbounded memory leak of MMU paget=
-ables by failing to cache error states during lazy VM initialization.
---
+ok, looking at this closer, it seems this is a used property also in the
+DRM subsystem. I'll appreciate a feedback from some DT maintainer before
+reworking this patch accordingly.
 
---- Patch [14]: [PATCH v6 14/16] drm/msm: Don't fallback to shared VM for V=
-M_BIND ---
-commit 4383cea99723fe11a1653c676500fab3a15f1fda
-Author: Rob Clark <robin.clark@oss.qualcomm.com>
-
-drm/msm: Don't fallback to shared VM for VM_BIND
-
-If the user wants a userspace managed VM (EN_VM_BIND) don't silently
-fall back to shared VM.
-
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 3bd9a13837be3..50cc32184bb9d 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -235,7 +235,8 @@ struct drm_gpuvm *msm_context_vm(struct drm_device *d=
-ev, struct msm_context *ctx
->  	if (!ctx->vm) {
->  		vm =3D msm_gpu_create_private_vm(
->  			priv->gpu, current, !ctx->userspace_managed_vm);
-> -		smp_store_release(&ctx->vm, vm);
-> +		if (!IS_ERR_OR_NULL(vm))
-> +			smp_store_release(&ctx->vm, vm);
-
-[Severity: High]
-This is a pre-existing issue, but does discarding the error pointer here
-expose a tight loop memory leak of the mmu pagetables?
-
-If msm_gpu_create_private_vm() returns an error pointer, ctx->vm stays NULL.
-This allows userspace to repeatedly trigger vm creation on the same context
-by calling the submit ioctl in a tight loop.
-
-When msm_gpu_create_private_vm() fails (for example, if drm_sched_init()
-fails inside msm_gem_vm_create()), the underlying mmu object allocated in
-a6xx_create_private_vm() is leaked.
-
-Previously, msm_gpu_create_private_vm() replaced this error pointer with a
-fallback to gpu->vm. This bounded the leak to once per context. Because this
-patch restricts the fallback to kernel managed vms, userspace managed vms
-now return the error pointer directly.
-
-Could we cache the error state in ctx->vm so we don't continually retry
-failing vm creations, or fix the underlying leak by freeing the mmu object
-on error?
-
->  	}
-> =20
->  	return ctx->vm;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717204841.2612=
-0-1-robin.clark@oss.qualcomm.com?part=3D14
