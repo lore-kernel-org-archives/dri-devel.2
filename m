@@ -4,93 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAD70C44515
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 17:04:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B58AC4451C
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 17:06:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 372AA10E4E1;
-	Fri, 17 Jul 2026 17:04:23 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="H2VR126h";
-	dkim-atps=neutral
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com
- [209.85.222.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B671D10E4E1
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 17:04:21 +0000 (UTC)
-Received: by mail-ua1-f49.google.com with SMTP id
- a1e0cc1a2514c-963a722ed59so1594781241.1
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 10:04:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1784307860; x=1784912660;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=WPadNULOiYvQJVxvZ4y/qdA1/ZyRN8lpZEuwDw/lLZM=;
- b=H2VR126h6iezK+zkp4Tdy5FCAsCd0zIXL7cxNlq4wwuC1S5eglE2tzvBMa8qEBp5C/
- CYt69NtGdpk654vWMi3zT604N2+MrpK9/0mdq11R6ymDWUGaeWB1N05OJt7+Knu3ZNct
- LGVWFLdOfZvtopVCoRKXXhQbUigJyIf/rvrqg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784307860; x=1784912660;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=WPadNULOiYvQJVxvZ4y/qdA1/ZyRN8lpZEuwDw/lLZM=;
- b=r1wA/6oZHICpk4poZHeLDZ/DG+fGdOrj4NOICNO3eXXAnoDCZ8xQddmUJRbvm8I9JH
- QoO1/zUUNnv9FuwDQ6s5qOeR0iLL3CbIZu4OKfEe6Q2+uYsODz0JW2Je9Szw0RIc1vqh
- 6PCasN/uVRR/uql5z+OOabUQKh+Kg2sgV/fpKDq4E2ExBW/c565XEleIKgh6tIWPA2Hf
- 8ma3AJuElH6cCbbql2m6L78NkbCNeECkM9ejc0Ej8maFRKB0GkQMB2wNrimOjsLKVywm
- FgPScplIBHWNfKHw+skANbsLKjI6mhsBB+fnZcxkN+sGcDblatiinwVObNsrI7R241pU
- e1SQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrV8enxycfj2QgKiocUNnGNB7A475N59aGnF94Mk6P7kx3UP9PyvLy+/gK4Rq0cDyMCrVGy6ZIpC40=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy8J4ppKir/ElIhqZiN/QmU6pD8Few6IYnLu5Bx3EjZpwoFma+f
- dGoHOYgiLpk9B8QNshSoQBa1dk9if+6H6u69gMT0GJj7cBZOEzNYJaqwNOlP83rtbVwT5KOdpbL
- 22rQ=
-X-Gm-Gg: AfdE7cmwjQbtPZbfY/Fn4uAK2J9LBhsL3kLMnAeEgHNttzVuiP7vCVwT9yEIdcO94I5
- /zx2ohtaQVArhTvNiMko0InH79QSueN0k0IbxHkgXvPUvONnd5NJpgv+yjm8Bty1jDzB6oUCcgo
- +ub19v0vOo8YpXyqzCaG6tuhQklZXugpb/XHF0m2VlibE5ZqR6O38Bpknb1fqG4md0fGr/aTh+c
- yARd6hXYrs49ib3vZSZvq0FPFpKzFvq31+lNV0XLiZNt+B/2qS0Mywg2o0Jse0d3RxmQnXCldf9
- 8yqFzFXaxrGXKG+oYhmr7Ag5s/gMVd7ypQ2B1PQ7wADONc4bJqZsObAAhUQDHr6ypKV06ms6BoP
- ztNRcgiAlYYTBJRyA0QiQSQJHVrqdeIIt8/uXIeyh0OE5rd5tl9SIqJ7QGcewD4KejE2lMgdnM0
- fHKiaUD+aL4EwORhzmBZn/GrUVVaDNk9O61mclR2TKg+XXNkxQFJ/8U90=
-X-Received: by 2002:a05:6122:3b8a:b0:5bf:6cfa:7743 with SMTP id
- 71dfb90a1353d-5c1bf942107mr584017e0c.13.1784307860501; 
- Fri, 17 Jul 2026 10:04:20 -0700 (PDT)
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com.
- [209.85.221.170]) by smtp.gmail.com with ESMTPSA id
- a1e0cc1a2514c-976fc60ca1asm867748241.10.2026.07.17.10.04.16
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Jul 2026 10:04:16 -0700 (PDT)
-Received: by mail-vk1-f170.google.com with SMTP id
- 71dfb90a1353d-5c0627c302eso1698420e0c.2
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 10:04:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RrLWTzeJA1J3hCVs1yXbsoxAwL1wrxVlm7H8Xuqyq1lgUI5Dq/Kvw9LhDj03FqIMl7OAF33jxuTre8=@lists.freedesktop.org
-X-Received: by 2002:a05:6122:45a8:b0:5bd:af82:fd9e with SMTP id
- 71dfb90a1353d-5c1bf825fa1mr570513e0c.8.1784307854860; Fri, 17 Jul 2026
- 10:04:14 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260717143119.1815106-1-johan@kernel.org>
- <20260717143119.1815106-3-johan@kernel.org>
-In-Reply-To: <20260717143119.1815106-3-johan@kernel.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 17 Jul 2026 10:04:03 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UNm2Lku-cfS9GMS7U4z6v6c3Ng-e9HGF1E_Ddvzc-q-g@mail.gmail.com>
-X-Gm-Features: AUfX_mwU-m96pt8Zw611apwflgb7trdkOx8hUQcP2w8qxbFzz7l5pjYLutLF4q8
-Message-ID: <CAD=FV=UNm2Lku-cfS9GMS7U4z6v6c3Ng-e9HGF1E_Ddvzc-q-g@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] drm/panel-edp: take i2c adapter module reference
-To: Johan Hovold <johan@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9942210F4AD;
+	Fri, 17 Jul 2026 17:06:42 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03BB210F4AD
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 17:06:39 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.100])
+ by APP-05 (Coremail) with SMTP id zQCowABXiEIWYVpqwLcMAA--.14167S2;
+ Sat, 18 Jul 2026 01:06:31 +0800 (CST)
+Message-ID: <9a55a96b53c5f88bc1e079945b710ee854471ee3.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2] drm/imagination: acquire vm_ctx->lock before mapping
+ memory to GPU VM
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Alessio Belle <Alessio.Belle@imgtec.com>
+Cc: "airlied@gmail.com" <airlied@gmail.com>, "tzimmermann@suse.de"	
+ <tzimmermann@suse.de>, "matt.coster@imgtec.com" <matt.coster@imgtec.com>, 
+ "simona@ffwll.ch"	 <simona@ffwll.ch>, "dri-devel@lists.freedesktop.org"	
+ <dri-devel@lists.freedesktop.org>, Brendan King <Brendan.King@imgtec.com>, 
+ "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>, Frank Binns
+ <Frank.Binns@imgtec.com>,  Brajesh Gupta <Brajesh.Gupta@imgtec.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,  "dakr@kernel.org"	
+ <dakr@kernel.org>, "maarten.lankhorst@linux.intel.com"	
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>
+Date: Sat, 18 Jul 2026 01:06:30 +0800
+In-Reply-To: <164ad51d357350cde4e9e84cbe1ebc970c871af7.camel@imgtec.com>
+References: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
+ <164ad51d357350cde4e9e84cbe1ebc970c871af7.camel@imgtec.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: zQCowABXiEIWYVpqwLcMAA--.14167S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGw15ArykCrW8CF43tFy8AFb_yoW5trWkp3
+ yfKa4Ykw40krWqy3W7t3yYkry3Aw4F9a1fGFyktas5Zr15Wrnrtr1Fqry5uFyDArs7Gw47
+ tF4qva9ag34jyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+ c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+ 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+ 14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+ IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+ 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+ IFyTuYvjxUqiFxDUUUU
+X-Originating-IP: [112.94.101.100]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,21 +72,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+=E5=9C=A8 2026-07-17=E4=BA=94=E7=9A=84 11:14 +0000=EF=BC=8CAlessio Belle=E5=
+=86=99=E9=81=93=EF=BC=9A
+> On Tue, 2026-07-14 at 15:36 +0800, Icenowy Zheng wrote:
+> > The drm gpuvm code doesn't protect find operation against map
+> > operation,
+> > and the driver needs to ensure a map operation shouldn't happen
+> > when a
+> > find operation is in progress.
+> >=20
+> > In some cases a find operation will be in progress when doing
+> > map/unmap
+> > operations, and the find operation will do a NULL pointer
+> > deference.
+> >=20
+> > An example of the stack trace of such NULL deference is shown
+> > below:
+> >=20
+> > ```
+> > Unable to handle kernel access to user memory without uaccess
+> > routines at
+> > virtual address 0000000000000010
+> >=20
+> > [<ffffffff01e989d4>] drm_gpuva_find+0x28/0x6c [drm_gpuvm]
+> > [<ffffffff01ed3a40>] pvr_vm_unmap+0x34/0x68 [powervr]
+> > [<ffffffff01ec69da>] pvr_ioctl_vm_unmap+0x2e/0x50 [powervr]
+> > [<ffffffff8080ce0a>] drm_ioctl_kernel+0x8e/0xdc
+> > [<ffffffff8080d016>] drm_ioctl+0x1be/0x3e0
+> > [<ffffffff802bec3e>] __riscv_sys_ioctl+0xba/0xc4
+> > [<ffffffff80d858b2>] do_trap_ecall_u+0x23e/0x3f4
+> > [<ffffffff80d92288>] handle_exception+0x168/0x174
+> > ```
+> >=20
+> > As all occurences of drm_gpuva_find*() are already guarded by
+> > vm_ctx->lock, make pvr_vm_map() to acquire this lock to prevent
+> > disturbing any find operation. This fixes the NULL deference
+> > problem in
+> > drm_gpuva_find*().
+> >=20
+> > Cc: stable@vger.kernel.org
+> > Fixes: ff5f643de0bf ("drm/imagination: Add GEM and VM related
+> > code")
+> > Fixes: 4bc736f890ce ("drm/imagination: vm: make use of GPUVM's
+> > drm_exec helper")
+> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+>=20
+> Reviewed-by: Alessio Belle <alessio.belle@imgtec.com>
+>=20
+> p.s. there's a double typo deference -> dereference that I can fix
+> before
+> applying this early next week.
 
-On Fri, Jul 17, 2026 at 7:32=E2=80=AFAM Johan Hovold <johan@kernel.org> wro=
-te:
->
-> The i2c subsystem currently blocks during adapter deregistration
-> whenever there are consumers holding a reference.
->
-> Switch to using of_get_i2c_adapter_by_node() which also takes a
-> reference to the adapter module so that an attempt to unload the module
-> while in use fails gracefully instead of blocking uninterruptibly.
->
-> Signed-off-by: Johan Hovold <johan@kernel.org>
-> ---
->  drivers/gpu/drm/panel/panel-edp.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+Oops I made the same mistake again when rephrasing the message...
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Maybe I need some reinforced learning.
+
+Thanks,
+Icenowy
+
+>=20
+> Thanks,
+> Alessio
+>=20
+> > ---
+> > Changes in v2:
+> > - Dropped wrongly duplicated mutex_unlock() call and reordered it
+> > to
+> > =C2=A0 before pvr_vm_bind_op_fini() (the lock is acquired after
+> > =C2=A0 pvr_vm_bind_op_map_init() call). (Thanks to Brajesh)
+> > - Added a extra Fixes pointing to the original broken code that was
+> > =C2=A0 refactored by the original Fixes (but still broken). (Thanks to
+> > =C2=A0 Alessio)
+> > - Fixed some typos in commit message. (Thanks to Alessio)
+> > - Added a stacktrace of the oops that occured on my board. (As
+> > suggested
+> > =C2=A0 by Alessio)
+> >=20
+> > =C2=A0drivers/gpu/drm/imagination/pvr_vm.c | 2 ++
+> > =C2=A01 file changed, 2 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/imagination/pvr_vm.c
+> > b/drivers/gpu/drm/imagination/pvr_vm.c
+> > index 396d349fb6ce4..ceb78694cd987 100644
+> > --- a/drivers/gpu/drm/imagination/pvr_vm.c
+> > +++ b/drivers/gpu/drm/imagination/pvr_vm.c
+> > @@ -747,6 +747,7 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx,
+> > struct pvr_gem_object *pvr_obj,
+> > =C2=A0
+> > =C2=A0	pvr_gem_object_get(pvr_obj);
+> > =C2=A0
+> > +	mutex_lock(&vm_ctx->lock);
+> > =C2=A0	err =3D drm_gpuvm_exec_lock(&vm_exec);
+> > =C2=A0	if (err)
+> > =C2=A0		goto err_cleanup;
+> > @@ -756,6 +757,7 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx,
+> > struct pvr_gem_object *pvr_obj,
+> > =C2=A0	drm_gpuvm_exec_unlock(&vm_exec);
+> > =C2=A0
+> > =C2=A0err_cleanup:
+> > +	mutex_unlock(&vm_ctx->lock);
+> > =C2=A0	pvr_vm_bind_op_fini(&bind_op);
+> > =C2=A0
+> > =C2=A0	return err;
+
