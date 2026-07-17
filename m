@@ -4,62 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 177C3C4451C
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:20:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD26C44520
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:20:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AFD910E2CF;
-	Fri, 17 Jul 2026 12:20:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11ABC10F53C;
+	Fri, 17 Jul 2026 12:20:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PJUj1kIZ";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="kLTaWeiT";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50AD310E2CF
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:20:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E55EC402B8;
- Fri, 17 Jul 2026 12:20:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9D131F000E9;
- Fri, 17 Jul 2026 12:20:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784290829;
- bh=3zZRRumE1bYiKKWD7igY43RWBksfZ312lkH+RvumdzU=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=PJUj1kIZgI7tHJLjsSEFXzZe/B6PsC7PZR8Yl3AinHSLs97AgiIO0zCSmAg3d5nYY
- LSmWQ7xlpT7892vVtBtQgMVilrYkSdYhTlVrcGFpSZukSQ3EgytGbe5N0hl5xxXUJl
- evCftt4IH4VmHcsvajxttGCsd6SNWIkl0lfTzjrZcpx//KjjfQoTWjt3EF6p9G+qdF
- y5tNygDHk0nNP6x7Yq2yDGfV3INf2XYEpMeJmrY51EuTEEDhex7ZWzYTi3+PyMAPoN
- V70mrE1jdZk55I33VTXze402Qz49QR1CTXMvvZKWeZmpEW3hChZNI78o1AijdVyvUE
- foX1m9US/waJQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 17 Jul 2026 14:20:23 +0200
-Message-Id: <DK0UB4AMYUM9.4T90577F6VAI@kernel.org>
-Subject: Re: [PATCH v14 0/3] rust: add basic serial device bus abstractions
-Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Markus Probst"
- <markus.probst@posteo.de>, "Rob Herring" <robh@kernel.org>, "Jiri Slaby"
- <jirislaby@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Kari
- Argillander" <kari.argillander@gmail.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "Viresh Kumar" <viresh.kumar@linaro.org>, "Boqun Feng"
- <boqun@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir
- Duberstein" <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260715-rust_serdev-v14-0-b4ed5c93606f@posteo.de>
- <2026071747-android-overhead-c927@gregkh>
- <6aafea3fdb0847766787dbe5c7c7dbaad606d649.camel@posteo.de>
- <74213297-d3da-4637-8f31-8fecebd65f60@kernel.org>
- <2026071719-afflicted-eleven-1be9@gregkh>
- <DK0U1G9NCIS9.228MIUKBL4KEL@garyguo.net>
-In-Reply-To: <DK0U1G9NCIS9.228MIUKBL4KEL@garyguo.net>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAA6510F53C
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:20:38 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id D3800664;
+ Fri, 17 Jul 2026 14:19:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1784290781;
+ bh=YOVxSWiQL0aN807/SUl2kDGbkC7l6+xHHkmC1CBtUV0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=kLTaWeiTH4uB2CjLg6ezM596tR2YuHRKYCqXnFBGwJE1amk6D1hhUCEQ3NIDLjRXz
+ +Lumt58oVlS9OrxmA6SDszT2OwrMPROIS0BMSLBxB59wWHPQXXjv8EwTuLYbQur7BA
+ rvhgxM2BJpfjMwPWBcJ6mqWorPte3iDzb9Zw2sBI=
+Date: Fri, 17 Jul 2026 15:20:35 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ "H. Nikolaus Schaller" <hns@goldelico.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Subject: Re: [PATCH] drm/bridge: display-connector: fix i2c adapter leak on
+ probe failure
+Message-ID: <20260717122035.GB1926197@killaraus.ideasonboard.com>
+References: <20260717085716.1619275-1-johan@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260717085716.1619275-1-johan@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,70 +66,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 17, 2026 at 2:07 PM CEST, Gary Guo wrote:
-> FWIW this series will also conflict quite significantly with
-> https://lore.kernel.org/driver-core/20260629-id_info-v2-0-56fccbe9c5ef@ga=
-ryguo.net/
-> which is routed via driver-core tree.
+Hi Johan,
 
-Yeah, but I think it should be trivial (see below)? However, routing serdev
-through driver-core does indeed avoid this.
+Thank you for the patch.
 
-Thanks,
-Danilo
+On Fri, Jul 17, 2026 at 10:57:16AM +0200, Johan Hovold wrote:
+> Make sure to drop the i2c adapter device and module references on failed
+> regulator and enable gpio lookup (and regulator enable) during probe
+> (e.g. on probe deferral).
+> 
+> Note that of_get_i2c_adapter_by_node() does not return error pointers,
+> but i2c_put_adapter() can handle a NULL argument so the error pointer
+> check at remove works even if it is misleading.
 
-diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-index 0ffcef1849d2..a1161dd9f37f 100644
---- a/rust/kernel/serdev.rs
-+++ b/rust/kernel/serdev.rs
-@@ -174,7 +174,8 @@ extern "C" fn probe_callback(sdev: *mut bindings::serde=
-v_device) -> kernel::ffi:
-         //
-         // INVARIANT: `sdev` is valid for the duration of `probe_callback(=
-)`.
-         let sdev =3D unsafe { &*sdev.cast::<Device<device::CoreInternal<'_=
->>>() };
--        let info =3D <Self as driver::Adapter>::id_info(sdev.as_ref());
-+        // SAFETY: `sdev` has been matched by the serial device bus via it=
-s device ID table.
-+        let info =3D unsafe { <Self as driver::Adapter>::id_info(sdev.as_r=
-ef()) };
+I've already sent a fix for this, see
 
-         from_result(|| {
-             sdev.as_ref().set_drvdata(try_pin_init!(PrivateData::<T> {
-@@ -334,7 +335,6 @@ macro_rules! module_serdev_device_driver {
- ///
- /// kernel::of_device_table!(
- ///     OF_TABLE,
--///     MODULE_OF_TABLE,
- ///     <MyDriver as serdev::Driver>::IdInfo,
- ///     [
- ///         (of::DeviceId::new(c"test,device"), ())
-@@ -343,7 +343,6 @@ macro_rules! module_serdev_device_driver {
- ///
- /// kernel::acpi_device_table!(
- ///     ACPI_TABLE,
--///     MODULE_ACPI_TABLE,
- ///     <MyDriver as serdev::Driver>::IdInfo,
- ///     [
- ///         (acpi::DeviceId::new(c"LNUXBEEF"), ())
-diff --git a/samples/rust/rust_driver_serdev.rs b/samples/rust/rust_driver_=
-serdev.rs
-index a12b1412db30..51b4898cd855 100644
---- a/samples/rust/rust_driver_serdev.rs
-+++ b/samples/rust/rust_driver_serdev.rs
-@@ -20,14 +20,12 @@ struct SampleDriver {
+https://lore.kernel.org/dri-devel/20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com/
 
- kernel::of_device_table!(
-     OF_TABLE,
--    MODULE_OF_TABLE,
-     <SampleDriver as serdev::Driver>::IdInfo,
-     [(of::DeviceId::new(c"test,rust_driver_serdev"), ())]
- );
+> Fixes: 2e2bf3a5584d ("drm/bridge: display-connector: add DP support")
+> Fixes: 6de79dd3a920 ("drm/bridge: display-connector: add ddc-en gpio support")
+> Fixes: 6eb6b6f0a012 ("drm/bridge: display-connector: handle hdmi-pwr supply")
+> Cc: stable@vger.kernel.org	# 5.12
+> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> Cc: H. Nikolaus Schaller <hns@goldelico.com>
+> Cc: Dmitry Baryshkov <lumag@kernel.org>
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+> ---
+>  drivers/gpu/drm/bridge/display-connector.c | 16 +++++++++++++---
+>  1 file changed, 13 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+> index 16c0631adeb1..c38de5518211 100644
+> --- a/drivers/gpu/drm/bridge/display-connector.c
+> +++ b/drivers/gpu/drm/bridge/display-connector.c
+> @@ -208,6 +208,13 @@ static int display_connector_get_supply(struct platform_device *pdev,
+>  	return PTR_ERR_OR_ZERO(conn->supply);
+>  }
+>  
+> +static void display_connector_put_ddc(void *_ddc)
+> +{
+> +	struct i2c_adapter *ddc = _ddc;
+> +
+> +	i2c_put_adapter(ddc);
+> +}
+> +
+>  static int display_connector_probe(struct platform_device *pdev)
+>  {
+>  	struct display_connector *conn;
+> @@ -328,6 +335,12 @@ static int display_connector_probe(struct platform_device *pdev)
+>  			of_node_put(phandle);
+>  			if (!conn->bridge.ddc)
+>  				return -EPROBE_DEFER;
+> +
+> +			ret = devm_add_action_or_reset(&pdev->dev,
+> +						       display_connector_put_ddc,
+> +						       conn->bridge.ddc);
+> +			if (ret)
+> +				return ret;
+>  		} else {
+>  			dev_dbg(&pdev->dev,
+>  				"No I2C bus specified, disabling EDID readout\n");
+> @@ -403,9 +416,6 @@ static void display_connector_remove(struct platform_device *pdev)
+>  		regulator_disable(conn->supply);
+>  
+>  	drm_bridge_remove(&conn->bridge);
+> -
+> -	if (!IS_ERR(conn->bridge.ddc))
+> -		i2c_put_adapter(conn->bridge.ddc);
+>  }
+>  
+>  static const struct of_device_id display_connector_match[] = {
 
- kernel::acpi_device_table!(
-     ACPI_TABLE,
--    MODULE_ACPI_TABLE,
-     <SampleDriver as serdev::Driver>::IdInfo,
-     [(acpi::DeviceId::new(c"LNUXBEEF"), ())]
- );
+-- 
+Regards,
+
+Laurent Pinchart
