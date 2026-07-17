@@ -4,93 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5407DC44515
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 21:20:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1D9BC4451B
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 21:22:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB62A10E09A;
-	Fri, 17 Jul 2026 21:20:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B11510E514;
+	Fri, 17 Jul 2026 21:22:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TmVo8kL4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WWDYNlqu";
 	dkim-atps=neutral
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
- [209.85.222.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF36F10E09A
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 21:20:19 +0000 (UTC)
-Received: by mail-qk1-f178.google.com with SMTP id
- af79cd13be357-9309d4ea213so304784285a.1
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 14:20:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784323219; cv=none;
- d=google.com; s=arc-20260327;
- b=gCFSOiXGuUWdFa+q6rf33mFj6VYsSU82i9CZ5aAosYyvrKTGJc00ktLjfEjeH2dMPj
- YewvZ3MIEWFw06do/LDgNqiNzmy5S6j8X0iX0XtPIV5xCBmymzq1DCqC1gYD1J1OfjVe
- FfaPGeURI7O0O37wMD0NJndOoL8P7q+DeOjKBpTFPvkKm62mOvNtM4Dqx+e/buqKytTk
- UEtKNmSv8WaVURoyuH/44C7DI6jYhWUiLP52pvAynJlmmrUqnRi5D0MlcSavQNtxYQQa
- +C04elFObc1NSEKW2XsPlTJWu3t1q0PPjnZDzsq5VrIunLunoxS/6w7jXEogOJikqME7
- BOsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=LVO9oFcqHAfiXoC8yBmRh7SOK0Mm4H1Q9jwyseAbOfg=;
- fh=Wrc4TWBEF32Ry3+JZsY+wr5OUBsB2/QT7d/V5hLXhtI=;
- b=qr8U6w6N4hKqoKSflKY8iSXzgmpCf654c/lT5SpkzqpiQ5cLk0DChI538UN6vS1sYB
- r5a/IWhk97evaVEfdTxa2sWyTQx0Pf1tYQcv8YrCL8+QOrGc2TQOXEP69uVoyvHu7oml
- CUKC5yMxhCgmuN8zeQCKM52aPqsJqlTEC9CxgK1wU+x8DF9KovqycYPO7CMSIDkkLz4i
- ZMf1aHSm2FJNI38C2N1qKiJ0unUTWhzT8Ti0yBC5Mt/EeeQrjwGGTaOAkYdC3faDn1+J
- DBKe7fxNVn0E/KYD9S53wKj4TP9N2H39+jUxpRFqjLIHXztriKgfBqXyJb6ao4XfqSjE
- NyrA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784323219; x=1784928019; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=LVO9oFcqHAfiXoC8yBmRh7SOK0Mm4H1Q9jwyseAbOfg=;
- b=TmVo8kL4nVFKuAL9JL5J/y1BKi6NlaccepKSR3Ui4wjOplwP7vu9cehIx3s47c2Ypq
- Mw9imSwpAIrvRA1j+XXi17uOtp/z5If2A3gZ6OKJUPVAUAzlRRNpeudvrB8cn6xYkhoU
- PSz/rcMSTccqrX/k7RssIJ+M0Q8XDcbTjNlYJQtM/GrpdyLlV5QBGHO59KeiZSenfP68
- UB7BglcehkVqVyyfeynCHnkOcnezF3BaG8THxF58SKAeLnTR2DJefOMuxOw9l3v8Saic
- HWtc/7kTef76fxEj5nS5xvLxpwxX2A0i4CiRTLlfXEOLAarUvf/Qrw7RTCgOAzXUpVGX
- 3ANA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784323219; x=1784928019;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=LVO9oFcqHAfiXoC8yBmRh7SOK0Mm4H1Q9jwyseAbOfg=;
- b=BKkbxwlFlKkfpVRGLf5TWZGPOoOXtt23MkZ2o14gliXajh0jULYZ2EAA29PUaMzGFp
- tKmVOikS8O1T6POqcfWu6eIE/XGa2a36Qxh8irOWcSo/82odsNer29/rUKm8NO0iPV5q
- GEMFsirbWkRUc9GfY1vm6qcuvh7BLeh5c13wgK72Y5G0NcVQW43cWrY6z2waNCNbMIak
- OjjAT+2ZkcNwmHFhCKpSPMaK3iaiU5ZCvEngoN8UBMFgVPAbua/DABEELsGuQAU5WXnW
- JbYH2YpMEWnk5HrblGs2hLtf4S9zw1ejnxahhE6oneAI1MklONx/aBfKBagNoYHK94vv
- YhYQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq+8g9VHTcCHGppWVGyLxVNi6Go7PQobfqGL2sMUMYIdDBsXkjceIl2aS9ystsmOWpZwSd3m1NG8cI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxA9zM9gUiovYAXuE04fq7sSnlyuZmiFpEvw+I4SMJEkXMdXNXe
- bv/UG/V07y+DE7Vsfyiv1jvumr1wQYOLdlXQgJKG7fDKoLwg0G+CrCEVfbLXjSk+YIrTijnrTzm
- tlEKDq5Ah644fNvAYZS1u3yHVXsv6Gf4=
-X-Gm-Gg: AfdE7ckGaZFateb+/Taerl1zPPoNJ3AXtHACWyoN09C+xI+hgapcwgFA8ZDp6rn36D1
- /YMvlBYssl0lTDS8YoYmQneUBzEjhHYurRVOM7/E/3sqwjIuYTEvIWXv/nyw3ZYVawLee5ri2oT
- aspW2Y7WVUEdVn+17+RO41v+h/Y+oQn7gds6WG+Y0Ua3pHkVJPEjxWhRAN86o+SHqSI3oV6FfVQ
- nzTYG3oMYcX8Tzmbo0qtWersCtdUgK31u1eJymFfAuGN1WfrCZzfmRCDZp/WQSs8HG7zoVS02pV
- u3Lalmvlk6y3a29Shj7rLdRrQTMO0koX4qEpR33NgxJh2iE=
-X-Received: by 2002:a05:620a:290e:b0:92e:ecbd:3445 with SMTP id
- af79cd13be357-930b41d057amr496262485a.48.1784323217761; Fri, 17 Jul 2026
- 14:20:17 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260716153020.3171253-1-alexander.deucher@amd.com>
-In-Reply-To: <20260716153020.3171253-1-alexander.deucher@amd.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 18 Jul 2026 07:20:06 +1000
-X-Gm-Features: AUfX_mynCTXnSZVwHW70F9swYp9kKUCZes0m8B3CGbf_52ZPwccd1uaV1RPjgaE
-Message-ID: <CAPM=9tw3H_vuNJdNtMw+3=G8PXGydjxAEHHk9syG3cf7XYHx3Q@mail.gmail.com>
-Subject: Re: [pull] amdgpu, amdkfd drm-fixes-7.2
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- simona.vetter@ffwll.ch
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 476B510E514
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 21:22:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id ED468439BE;
+ Fri, 17 Jul 2026 21:22:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A653C1F000E9;
+ Fri, 17 Jul 2026 21:22:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784323357;
+ bh=laJaH1NuH0RX4UCkI/n5R/SPfCQJcwbDvRc/5m8dfqo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=WWDYNlqu4PY1/6ItpV3/aNpqZfUZog5CbqDcQnrZrGCNkEfy2uy1qdBkmBxlo/I6G
+ opJfIuoBO9A2xneP1SKeamPd5SPf5Z6EkUEV/uqEVwjVP7FDPism6d7a7yEsP/2Zd5
+ k6slmhwnEhq73PsBbXx8+RTvrzK2h12MPt5XpBk/MjvriyHuAfqq7gQgbZ3Bq1/99R
+ p3cFy4BnmIZ7H6hxgcCdWGSjxuJCJZfIaI4Gzm9vUzQnVTHi3Ojfu1vcjxY4biZttq
+ 3Tts9yN0ZjuMYyaTPGdNpemdTiKiw/Qf2w8DiS/mglWB6nhu5vPoXF4+q74GWsHF/n
+ 3gs/uy7q5BHpQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 10/16] drm/msm/gem: Extract bookkeeping init helper
+To: "Rob Clark" <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260717204841.26120-11-robin.clark@oss.qualcomm.com>
+References: <20260717204841.26120-1-robin.clark@oss.qualcomm.com>
+ <20260717204841.26120-11-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 21:22:37 +0000
+Message-Id: <20260717212237.A653C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,166 +53,111 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 17 Jul 2026 at 01:30, Alex Deucher <alexander.deucher@amd.com> wrot=
-e:
->
-> Hi Dave, Simona,
->
-> Fixes for 7.2.
->
-> The following changes since commit a13c140cc289c0b7b3770bce5b3ad42ab35074=
-aa:
->
->   Linux 7.2-rc3 (2026-07-12 14:16:39 -0700)
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-I pulled this then I jumped through hoops to unpull it.
+New issues:
+- [Low] Imported dma-buf objects are incorrectly placed into the unbacked L=
+RU list instead of the pinned LRU list.
 
-Alex, there are missing signoffs on at least 4 commits in here from
-you, it's probably not massively severe but I think it's good to make
-sure it's done.
+Pre-existing issues:
+- [Critical] Failure path in `msm_gem_import` incorrectly treats the import=
+ed object as a native object, erroneously freeing the exporter's `sg_table`=
+ and dropping page references, leading to a NULL pointer dereference.
+--
 
-Dave.
+--- Patch [10]: [PATCH v6 10/16] drm/msm/gem: Extract bookkeeping init help=
+er ---
+commit e9867494af3de09952793735c8d5be5dc88c19a0
+Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
->
-> are available in the Git repository at:
->
->   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.2-2=
-026-07-16
->
-> for you to fetch changes up to c9ab9622f5b2799fe624a4a134e60112149271dd:
->
->   Revert "drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs" (2026=
--07-15 09:55:55 -0400)
->
-> ----------------------------------------------------------------
-> amd-drm-fixes-7.2-2026-07-16:
->
-> amdgpu:
-> - DCN 4.2 fixes
-> - NUTMEG fixes
-> - 8K panel fix
-> - Backlight fixes
-> - UserQ fix
-> - Fix bo->pin leaking in amdgpu_bo_create_reserved()
-> - VFCT fixes
-> - devcoredump fixes
-> - Display fixes
-> - SMU7 DPM fix
-> - AC/DC fixes for SMU7 and SI
-> - Queue reset fix
-> - PCIe DPM fix
-> - XHCI/GPU resume ordering fix
-> - Pageflip timeout fix
->
-> amdkfd:
-> - Fix potential overflow in CWSR size calculation
-> - DQM error clean up fixes
->
-> ----------------------------------------------------------------
-> Alessandro Rinaldi (1):
->       drm/amd/display: Force PWM backlight on Lenovo Legion 5 15ARH05
->
-> Alex Deucher (1):
->       drm/amdgpu: always emit the job vm fence
->
-> Andriy Korud (1):
->       drm/amd/display: dce100: skip non-DP stream encoders for DP MST
->
-> Dmytro Laktyushkin (2):
->       drm/amd/display: fix dcn42 det allocation order
->       drm/amd/display: fix dcn42b det allocation order
->
-> Fangzhi Zuo (1):
->       drm/amd/display: Fix 8K Mode Not Parsed by EDID
->
-> Guangshuo Li (1):
->       drm/amdkfd: free MQD managers on DQM init failures
->
-> Jesse Zhang (1):
->       drm/amdgpu/userq: fix indefinite fence wait during GPU reset
->
-> Leo Li (3):
->       drm/amd/display: consolidate DCN vblank/flip handling onto vupdate_=
-no_lock
->       drm/amd/display: check GRPH_FLIP status before sending event
->       Revert "drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs"
->
-> Mario Limonciello (5):
->       drm/amd/display: Fix backlight max_brightness to match exported ran=
-ge
->       drm/amdgpu: Fix VFCT bus number matching with soft filter
->       drm/amdgpu: Release VFCT ACPI table reference
->       drm/amdgpu: Disable PCIe dynamic speed switching on Ryzen Pinnacle =
-Ridge
->       drm/amd: Create a device link between APU display and XHCI devices
->
-> Matthew Stewart (1):
->       drm/amd/display: Fix DCN42B null registers & register masks
->
-> Pengpeng Hou (1):
->       drm/amd/display: wire DCN42B mcache programming callback
->
-> Roman Li (1):
->       drm/amdgpu/discovery: Fix device family for DCN42
->
-> Timur Krist=C3=B3f (10):
->       drm/amd/display: Fix preferred link rate for NUTMEG
->       drm/amd/display: Add dp_skip_rbr flag for NUTMEG
->       drm/amdgpu: Print vmid, pasid and more task info in devcoredump
->       drm/amdgpu: Reserve space for IB contents in devcoredumps
->       drm/amd/pm/ci: Don't disable MCLK DPM on Bonaire 0x6658 (R7 260X)
->       drm/amd/display: Set native cursor mode for disabled CRTCs
->       drm/amd/pm/si: Don't schedule thermal work when queue isn't initial=
-ized
->       drm/amd/pm/si: Fix AC/DC switch notification
->       drm/amd/pm/smu7: Fix AC/DC switch notification
->       drm/amdgpu/ttm: Consider concurrent VM flushes for buffer entities
->
-> WenTao Liang (1):
->       drm/amd/display: set new_stream to NULL after release
->
-> Yongqiang Sun (1):
->       drm/amdkfd: fix 32-bit overflow in CWSR total size calculation
->
-> Zhu Lingshan (1):
->       drm/amdgpu: fix bo->pin leaking in amdgpu_bo_create_reserved
->
-> yanglinlin (1):
->       drm/amd/display: fix __udivdi3 link error
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c           |  62 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   |  10 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h   |   1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   9 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |   4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |  13 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  20 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  21 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  10 +-
->  .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   4 +
->  drivers/gpu/drm/amd/amdkfd/kfd_queue.c             |  23 +-
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 551 +++++++++++++--=
-------
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  70 +--
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  20 +-
->  drivers/gpu/drm/amd/display/dc/core/dc.c           |  45 ++
->  drivers/gpu/drm/amd/display/dc/dc.h                |   3 +
->  .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |  11 +-
->  .../gpu/drm/amd/display/dc/link/link_detection.c   |   2 +-
->  .../display/dc/link/protocols/link_dp_capability.c |   6 +-
->  .../display/dc/resource/dce100/dce100_resource.c   |   7 +-
->  .../amd/display/dc/resource/dcn42/dcn42_resource.c |   1 +
->  .../display/dc/resource/dcn42b/dcn42b_resource.c   |  23 +-
->  .../display/dc/resource/dcn42b/dcn42b_resource.h   | 116 +----
->  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         |  17 +-
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c     |   7 +-
->  .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |  16 +-
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  12 +
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |  12 +-
->  .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   |  45 ++
->  drivers/gpu/drm/drm_panel_backlight_quirks.c       |   9 +
->  include/drm/drm_utils.h                            |   1 +
->  31 files changed, 720 insertions(+), 431 deletions(-)
+drm/msm/gem: Extract bookkeeping init helper
+
+Clean up duplicated logic between import and new paths.
+
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index a358fb5ca6d73..961e22d3c7292 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -1233,10 +1233,21 @@ static int msm_gem_new_impl(struct drm_device *de=
+v, uint32_t flags,
+>  	return 0;
+>  }
+> =20
+> +static int msm_gem_init_bookkeeping(struct drm_gem_object *obj)
+> +{
+> +	struct msm_drm_private *priv =3D obj->dev->dev_private;
+> +
+> +	drm_gem_lru_move_tail(&priv->lru.unbacked, obj);
+
+[Severity: Low]
+Does this hardcode the unbacked LRU list for all callers?  The previous
+code for imported objects placed them in the pinned LRU.  Will this now
+route an imported, page-backed object into the unbacked LRU?
+
+> +
+> +	mutex_lock(&priv->obj_lock);
+> +	list_add_tail(&to_msm_bo(obj)->node, &priv->objects);
+> +	mutex_unlock(&priv->obj_lock);
+> +
+> +	return drm_gem_create_mmap_offset(obj);
+> +}
+
+[ ... ]
+
+> @@ -1314,13 +1316,7 @@ struct drm_gem_object *msm_gem_import(struct drm_d=
+evice *dev,
+>  		goto fail;
+>  	}
+> =20
+> -	drm_gem_lru_move_tail(&priv->lru.pinned, obj);
+> -
+> -	mutex_lock(&priv->obj_lock);
+> -	list_add_tail(&msm_obj->node, &priv->objects);
+> -	mutex_unlock(&priv->obj_lock);
+> -
+> -	ret =3D drm_gem_create_mmap_offset(obj);
+> +	ret =3D msm_gem_init_bookkeeping(obj);
+>  	if (ret)
+>  		goto fail;
+
+[Severity: Critical]
+This is a pre-existing issue, but can this failure path lead to a NULL
+pointer dereference and double-free?
+
+If msm_gem_init_bookkeeping() fails (e.g. from -ENOSPC) and we take this
+goto fail path, drm_gem_object_put(obj) will be called.
+
+Because import_attach is still NULL at this point, msm_gem_free_object()
+will see drm_gem_is_imported(obj) as false and treat it as a native
+object:
+
+drivers/gpu/drm/msm/msm_gem.c:msm_gem_free_object() {
+    if (drm_gem_is_imported(obj)) {
+    ...
+    } else {
+        msm_gem_vunmap(obj);
+        put_pages(obj);
+    }
+}
+
+This would free the exporter's sgt using sg_free_table() and kfree().
+
+It would also call drm_gem_put_pages() which unconditionally dereferences
+obj->filp:
+
+drivers/gpu/drm/drm_gem.c:drm_gem_put_pages() {
+    mapping =3D file_inode(obj->filp)->i_mapping;
+    ...
+}
+
+Since this object was initialized with drm_gem_private_object_init(),
+obj->filp is NULL, causing a panic.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717204841.2612=
+0-1-robin.clark@oss.qualcomm.com?part=3D10
