@@ -4,124 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 345EAC44524
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECFA2C44529
 	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CAFC10E6FD;
-	Mon, 20 Jul 2026 07:15:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0261B10E6EA;
+	Mon, 20 Jul 2026 07:15:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mt.com header.i=@mt.com header.b="i4t0wjwi";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kanardia.eu header.i=@kanardia.eu header.b="eiGP9vZk";
 	dkim-atps=neutral
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011011.outbound.protection.outlook.com [52.101.70.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4789F10E3E4
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 11:50:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XH9iyG4WoJjuwMC6y77uAIh3xPBZ9aTEP1Tj4ImEb0FPuRV+PWzAJEp48eOcTzjOSyzuBVh7oj+JJtqmMo/SPhPBhiCk+tFDr0bAt9fmq/4gynHqzhbWUJHqXhm6o7yV6A0noOxK19fbDpLDnBNdYfIRkx3IGJXJiVOWygvZ2iNsVC8tyCehWBu/WRmSX8ay7r798tPxCLPprMiycsStOYsBEQkC6BUBFxI9nPogyHO5oO1phN1528e6o/mO6tg1j8qKmW13+R+ZftuRajtu0MnVjbYt5TuAPZiPigNBZ0SOj9bsqObKa/fjxb2ON9EM19gm9aMlWYMu3CCCDVcr5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tpjxbHLpoalhaZKi3JVYsKJaD0E8a/dXC5RUcAI2KyY=;
- b=L08mR67LxGh0WdoXJICdvpHJ223aFW8funA/4X2LaWNOFjOFytkSqoN/QNLNAWpmzVAHjIeRSpRCGqGt0SXONf4OcXpzOBwjeDNfepwuBb+Hhzam23kvUvThWxRUdKK8YXcJHklcl1lCBXsdG93iox7O6WKVW58LWlCgwj0HPyZv7RosT92mSvcM+i372h9I7bwKpzDRXYsAsaDzn805xx3i+lvgX3n6gXpXwqqA7YSESQ0SDbT7h8Sv0gQRHiOXMiWQxO7ZMhgw9JSS7LHegbVULGDpj2z+H1URYdnmUMMnSvUQLpUE3phyQqhTuIIqkgZcULhZWXa0n8o/G5OoGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
- header.d=mt.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tpjxbHLpoalhaZKi3JVYsKJaD0E8a/dXC5RUcAI2KyY=;
- b=i4t0wjwi6F6IM+1Kh6O3oKsgf9V90Hlwm8Ikqjxvg0Fvq6LuAFMD9l3QiBnjofqBdoqxiiUG/d+Z5YLUu9acHCDhFtLuqYZR3x0OR2ncTGNwDcC4ffD33RmHasosmRb0jniFOlJPA3gbvVHgKVBV8ZBWFC8aRQT+C9U+2L+BG4GBnaPSyM+kClL/f/TfYPOCFKibv4JlIzumGptOZ2lpjHWg/+MGZ5OQRAhOcDOzNNUdT+zVl755tVZrgS3JBdmahUM4tsqnFiST6wjqeZVPrdZjWZO/742MZ9kH2tJJSK9iEA28GX/iWZhBulHHQbRjx2XzuvMgO50h7jl1YHdc/A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mt.com;
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
- by GVXPR03MB8308.eurprd03.prod.outlook.com (2603:10a6:150:6e::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
- 2026 11:50:13 +0000
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
- 11:50:13 +0000
-From: Wojciech Dubowik <wojciech.dubowik@mt.com>
-To: linux-kernel@vger.kernel.org
-Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
+X-Greylist: delayed 1295 seconds by postgrey-1.36 at gabe;
+ Fri, 17 Jul 2026 12:24:01 UTC
+Received: from th8-a.mail-neoserv.si (th8-a.mail-neoserv.si [152.89.234.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E03210F53F
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:24:01 +0000 (UTC)
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=th8.neoserv.si; s=default;
+ b=lXgj+1ffX/jTBrSObabQuY6OKjOjtXn9e47ECWEvr0lQoSBVO8bBDxI9KPS6Kd2vFdpFmkNPIM
+ 1223Uhs+S5MIKyuf1JiQUF9/wI3Xk/R28/S0Dm3/V/j8R4J1MiEI6ZSfVc1KdWsfxeL0qRhxLD
+ mF7E8UoaB6V9Pjd1t/E9D7e1ygYfubMC+RVLLIFU4HnHp/jcfVZHSqi6HXv5uPl+2LcZhiYPh7
+ KXkhWfU2hSOdv3TIfhfzZOsOcRuDrfnOW5xq8qG0md3EhoDEWrx9LF8RuHKX8jYa0I6MuqcVp8
+ +yXDImeQU9ULbqwKhfr+sS9oxn07FYuP+PFBDmag815HUQ==;
+ARC-Authentication-Results: i=1; th8.neoserv.si; smtp.remote-ip=193.77.36.193; 
+ auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=th8.neoserv.si;
+ s=default; 
+ bh=PHP7QiIbT0+ZzX++1crhTY5wkWTq6BCV5utX6ace2e8=;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:
+ Date:Subject:Cc:To:From:DKIM-Signature;
+ b=MiYMT1f/pbj9dTD0yOEwy+BqzSRkrZrrmIS+qIOI4oa++IRhX7cqC3hhQlOiEuxCn6wt0C90/r
+ 5rbbMJ6er0OFMnxhEGkPVrEXixylFUox+736+S/FKDpy7GWMP+feI0wzHE8MxBAthMmDMKpxky
+ CuLX9dME3QDVdG7JYSdl28+R7E/QBIvVv+hDqt6vEYvDVxnei5+DHUHH8QvkSufatrx1qOtkUB
+ 5GwijCewAGM38Mjy/TtPWXaBEGI3GKv5LKTOJ0bncDORSvCFRJ//FLFcivpIMKS9Pu/17m+Lk0
+ H2Nz2IeEiL3EItTcrSz5BDbmRs3ElIJluNfreorcSe3e3A==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kanardia.eu
+ ; s=default;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=gA+LgbDDmWtKcLIZGrCT2OufglfLr6cc3fRTD6cDRVQ=; b=eiGP9vZkQ/Zf+r72xzXfnBvZR0
+ Ue5EWPbdbJ52mOIoxIeiHFlM2UCYm+1j4xmbidFNqeu/xLZnI02i3kRf7R6/HD+GJSytjURvozPfy
+ Tzbq7R1RUT3SDthXXTYK2uVF5R3CcDUJ0togWkoF+ZdcV1+sAuG5MzfNWFHum1RncjPurB2lXR1KJ
+ GvJRmZd1AmWpWp//vTJEDFTC5Mc+5fcSEqNNM4QlxSv9xiRa7oNMd5+1mLlaaPQx3iNlP/3e7DGry
+ jGYVFPVeNw2dM5062u0cxU5EhkPemtLhEvZBz2KuvSBCc3lLmGbzsVMR0VP668bZzZ8nJ+N4i2CGF
+ Q35XdC3Q==;
+Received: from [193.77.36.193] (port=54788 helo=rok-trip.kanardia.eu)
+ by th8.neoserv.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.99.4) (envelope-from <rok@kanardia.eu>)
+ id 1wkhH0-00000001fP1-1pwy; Fri, 17 Jul 2026 14:02:34 +0200
+From: Rok Markovic <rok@kanardia.eu>
+To: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Subject: [PATCH v5 2/3] dt-bindings: display: sn65dsi83: Add output data-lanes
- property
-Date: Fri, 17 Jul 2026 13:50:00 +0200
-Message-ID: <20260717115002.308035-3-wojciech.dubowik@mt.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260717115002.308035-1-wojciech.dubowik@mt.com>
-References: <20260717115002.308035-1-wojciech.dubowik@mt.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR0P278CA0063.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:21::14) To DB9PR03MB7180.eurprd03.prod.outlook.com
- (2603:10a6:10:22d::13)
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Alibek Omarov <a1ba.omarov@gmail.com>,
+ Rok Markovic <rok@kanardia.eu>
+Subject: [PATCH 1/4] drm/rockchip: lvds: propagate bus_flags to the CRTC state
+Date: Fri, 17 Jul 2026 14:00:02 +0200
+Message-ID: <20260717120005.2087386-2-rok@kanardia.eu>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260717120005.2087386-1-rok@kanardia.eu>
+References: <20260717120005.2087386-1-rok@kanardia.eu>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|GVXPR03MB8308:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8da4b9bc-9b0f-452a-4f8c-08dee3f98fec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|19092799006|1800799024|23010399003|56012099006|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: WZE+GWufplV5XdKwkPuZuutBzQBllgv7ntWFRIqcqsB8gHTjCQBe9TNZMCumqR3YLz2Q8NQ4902ScjZdNq2aPyw7QNaRWXEmzvgV7egln2JWY/dELBvoJ9tWGhQhOUCODf2HlSBqRP4ra4UiiDkqBFrYZhHOY88LiCKIaRyi1lLzqY9/rrKzbI4tZ6FPqDVXLwsnwLX11DI+VPV6fGA25MaL4EarBQOWzri8ScToKTNa19oKRal0EO97XisNuKnlxcTnkhx1kOCcmU1WGGlxZUSRf43vc+aYY4bVSr8bTd4cAgIerYDKX0aXyFY6sB4RIeETzJqKTzGIstMwhodWvazNDia8DSAcNXMgG8LotjZZc6GJWGYenJn0DVNyJepDW1Vxa2E4/1LQJ+i1CfjxQViON2SG4VFVMLAaYjKLTJzI16WWqqtsDpzuyGcHLckWdu1FTrAWl8CyZ0w5Q1qGVxLA4KqccTgqTKWlgESoEhglqA7JFQv3v3z6PSdUQnWEWk5alInao0TE3DJYaLXQaK5CuC896e1CCVTpz130+F2Jm8ppfo5+R25c5lDiCQNdPgaWnEfDpqU7eNo/b50pxywcL6weQ+zLsPdMDDwTOlBqBzKUtCfg1isp+p+4sjI1DxkTf1vvxTOp+PHObLkrEfYZqHtfESzwlaNuBnNWCTw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DB9PR03MB7180.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(19092799006)(1800799024)(23010399003)(56012099006)(10067099003)(22082099003)(18002099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?zhuo62VBBSQvDhCny8+u3R9Ev1LyYS9V7y/nGCZvCRGprIqPKvW0tML86pP+?=
- =?us-ascii?Q?DUk81RjKJphXXBqH1UvRtrxcieZJutRPyTLj2J3drsc3BWmgt3IcaKWqgbzV?=
- =?us-ascii?Q?aaKpc0SVxmhGDSfs181hEzACPtHw7m+AxNGIzqADlkj21hdr7crtmYdVQd1a?=
- =?us-ascii?Q?RFmCVatesUgE+8OeBOKL47ycNg+nYd2GxMxLF215Qu+VCGzH6EcMKF1KvjUJ?=
- =?us-ascii?Q?JM3mLFddKBU4z1FuyqYvOksUhmDxmPzooPWR/TxZOdD8lI2airg5iT2xFOV9?=
- =?us-ascii?Q?5ij2KZJ3UpZF3aphbyb0hMj+Y95E364OE05EqA12ZVNyLDm8eDfLc5hiyZ+S?=
- =?us-ascii?Q?bXHvI1ST+m6CCVNwhqZVceJtssutmj1eL6K07F2AvFmZ+hAQ2pNmra0QVvxV?=
- =?us-ascii?Q?P0JmvwN7CmCRAb+AGs6pZVnOUeinGlROisMwOepVr6j9Rmh6xGjqTO3mC6vK?=
- =?us-ascii?Q?fbzWENFQvMElgV2fGZAAVB3xzZrOnaGieG1yxiJpSefYyb0XnJQIVYOtK/WW?=
- =?us-ascii?Q?9lSqZOJ0s3u5pOVisuepViujLr7cmkVScOwCOBbCxF9R0QVIgIgAFIq5j2Ym?=
- =?us-ascii?Q?5xSOzjWFRwC1t+1/+jNck9+dnnvGhoEmAkhmv4rdPXejkm4KvItsPlGmM7b0?=
- =?us-ascii?Q?RCkoDy0BoBchwH5zRGl8bHt5MEpVfsW6k5MOcb1BmkS1VX7ifC+EGavv9Rde?=
- =?us-ascii?Q?+xu7tZO5PtewPiv2VYywsa0NmAGglICBy4GJKPsQTnfkspknbWjxWKHNSTnr?=
- =?us-ascii?Q?smkbHAnEqhbB9Srp6GEaWSW9IqBut8Bq7vdr6J4qiwzIyeSMwAGI5ViESFcw?=
- =?us-ascii?Q?nZdyTOviS4eF9TBEAaGladHLomVUYCNFKSOAnsM3FVwsWa8jnZ+rUdiIJHyC?=
- =?us-ascii?Q?ffgYRtrZsyhWZaxPm2hptpbfY7tjTVYfqfa4uwLvQtLBMB7xIVESwZfg8L9o?=
- =?us-ascii?Q?UcopvF3wp9Ct2plIgQ4Sx/xIq+0Vov4ZtDRT4rOy9ryIKRuB0WDxqMSklzU/?=
- =?us-ascii?Q?GyF9qcVDsGzlDxajwT5CQNnAE/vJZdF57j0TEDKZ6Wlg4aHTuNCkgFyuPAjz?=
- =?us-ascii?Q?d59g7YdfUwH34fvN5StO1DKtJKIKEdZy16r2tqoJC9r9/KOr85NtuIJUCuO0?=
- =?us-ascii?Q?5uJOD7P1/2fjj7HX9vlOmbA6jReBwomQMp4KlQ/y2sOCxiE0Pa1L7BGtYkCN?=
- =?us-ascii?Q?TvkeBlUQng42M31bTzqsF4RR+IOQ6W/SsjNM9+PdJBJ8BerREWtIQHyirxGx?=
- =?us-ascii?Q?3LHydZF2vrny/jyyUF+9lZVDur3QxpvTReOQbetFI1IrB9GqMIfGuWu22CsF?=
- =?us-ascii?Q?jzJKIMp88DKYXFzGk1Ls3gmlnKbQED99ydTc+333XvYD+C43KZ2dIaZKRmKK?=
- =?us-ascii?Q?5AkQrFgLsd1GdoF+8KQL7DPvZ7OMp3uBbam9RTDNAICXlWzDozuXqqvYgYYd?=
- =?us-ascii?Q?zMA+59/rZADjoejM9WtjlSBei693E/I6ivS0eBz2TRpiEfnn39zmmULzuSSQ?=
- =?us-ascii?Q?eowPpMebLJjXMHImTOfpLebn6YuGXJvmLdMCEdVkLVfnumW8ABx3iBO3uw1e?=
- =?us-ascii?Q?/kYpPUWbuer41b6aF1uanmwwBwFOfMJXwY1IctCVPcLTz+p3xj5AdLhmCEZf?=
- =?us-ascii?Q?vbg8t7Pz3LwDZU1lSobhf+NAIbxwqtIEuUJ3YHuHVL16IfFpC6HImGkzciYK?=
- =?us-ascii?Q?apHxZY4PIjd6Y8DfjEp52D5M9r0u6XuRQnGMkysxSnBjeW6TLGS1q7CUatGX?=
- =?us-ascii?Q?83caLED6fg=3D=3D?=
-X-OriginatorOrg: mt.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8da4b9bc-9b0f-452a-4f8c-08dee3f98fec
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 11:50:13.4957 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JP8ChCtjW9e6P1jts9r97tTZvH9MIxgrFcijqfqijlKa0B3pkT12Mi4+vdmguDI+nwSLkSrcpFXJyMmBB17kLA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR03MB8308
+Content-Transfer-Encoding: 8bit
+Authentication-Results: th8.neoserv.si;
+ auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
+X-NEOSERV-MailScanner-Information: Please contact the ISP for more information
+X-NEOSERV-MailScanner-ID: 1wkhH0-00000001fP1-1pwy
+X-NEOSERV-MailScanner: Found to be clean
+X-NEOSERV-MailScanner-SpamCheck: not spam, SpamAssassin (not cached,
+ score=1.31, required 7, ALL_TRUSTED -1.00, BAYES_50 0.80,
+ KAM_DMARC_QUARANTINE 1.50, KAM_DMARC_STATUS 0.01)
+X-NEOSERV-MailScanner-SpamScore: s
+X-NEOSERV-MailScanner-From: rok@kanardia.eu
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - th8.neoserv.si
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - kanardia.eu
+X-Get-Message-Sender-Via: th8.neoserv.si: authenticated_id: rok@kanardia.eu
+X-Authenticated-Sender: th8.neoserv.si: rok@kanardia.eu
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,77 +107,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+rockchip_lvds_encoder_atomic_check() sets output_mode and output_type
+but never copies the connector's bus_flags into the Rockchip CRTC
+state, unlike dw_dp-rockchip.c and dw-mipi-dsi2-rockchip.c which both
+do.
 
-Add an optional output lvds data lanes property with two allowed values.
-The array <1 2 3 4> for standard layout and <4 3 2 1> for reversed lvds
-output lanes. The latter informs the driver that reverse lvds config
-option has to be set in config register for the respective output channel.
+panel-lvds parses pixelclk-active from the DT display timing and
+publishes it on the connector as DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE.
+VOP2 reads that flag back out of the CRTC state to decide
+POLFLAG_DCLK_INV. With the flag dropped here, vcstate->bus_flags is
+always zero, so a panel that asks to be clocked on the falling edge is
+driven on the rising one, and there is no way to express the panel's
+requirement from DT at all.
 
-Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+No functional change for the SoCs currently supported by this driver:
+rk3288 and px30 pair with the VOP1 driver (rockchip_drm_vop.c), which
+never reads bus_flags - only VOP2 consumes it. The flag becomes live
+with the RK3568 support added later in this series.
+
+Signed-off-by: Rok Markovic <rok@kanardia.eu>
+Assisted-by: Claude:claude-opus-4-8
 ---
- .../bindings/display/bridge/ti,sn65dsi83.yaml | 44 +++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ drivers/gpu/drm/rockchip/rockchip_lvds.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-index e69b6343a8eb..4000bf0b1370 100644
---- a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-+++ b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-@@ -86,10 +86,54 @@ properties:
-         description: Video port for LVDS Channel-A output (panel or bridge).
-         $ref: '#/$defs/lvds-port'
+diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+index 75f898a..95fa0a9 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
++++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+@@ -129,7 +129,15 @@ rockchip_lvds_encoder_atomic_check(struct drm_encoder *encoder,
+ 				   struct drm_connector_state *conn_state)
+ {
+ 	struct rockchip_crtc_state *s = to_rockchip_crtc_state(crtc_state);
+-
++	struct drm_connector *connector = conn_state->connector;
++
++	/*
++	 * The VOP derives the pixel clock polarity from this. Without it a
++	 * panel that declares pixelclk-active = <0> is clocked on the wrong
++	 * edge. panel-lvds fills the connector's bus_flags in from the DT
++	 * display timing.
++	 */
++	s->bus_flags = connector->display_info.bus_flags;
+ 	s->output_mode = ROCKCHIP_OUT_MODE_P888;
+ 	s->output_type = DRM_MODE_CONNECTOR_LVDS;
  
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                $ref: /schemas/types.yaml#/definitions/uint32-array
-+                description:
-+                  Array of physical LVDS data lane indexes
-+                oneOf:
-+                  - items:
-+                      - const: 1
-+                      - const: 2
-+                      - const: 3
-+                      - const: 4
-+                  - items:
-+                      - const: 4
-+                      - const: 3
-+                      - const: 2
-+                      - const: 1
-+
-       port@3:
-         description: Video port for LVDS Channel-B output (panel or bridge).
-         $ref: '#/$defs/lvds-port'
- 
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                $ref: /schemas/types.yaml#/definitions/uint32-array
-+                description:
-+                  Array of physical LVDS data lane indexes
-+                oneOf:
-+                  - items:
-+                      - const: 1
-+                      - const: 2
-+                      - const: 3
-+                      - const: 4
-+                  - items:
-+                      - const: 4
-+                      - const: 3
-+                      - const: 2
-+                      - const: 1
-+
-     required:
-       - port@0
-       - port@2
 -- 
-2.47.3
+2.43.0
 
