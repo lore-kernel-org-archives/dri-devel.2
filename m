@@ -4,102 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 649E1C4451B
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 15:40:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DD48C4451B
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 15:44:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC71010E489;
-	Fri, 17 Jul 2026 15:40:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 989D410E4B4;
+	Fri, 17 Jul 2026 15:44:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="KadJ4PEr";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="jliRQOkE";
 	dkim-atps=neutral
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com
- [209.85.217.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A463110E489
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 15:40:33 +0000 (UTC)
-Received: by mail-vs1-f43.google.com with SMTP id
- ada2fe7eead31-7383cdb7800so3179436137.1
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 08:40:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1784302832; x=1784907632;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=1LTRCgSFoxKqoO+f0vjNmVxCnjcCSEY4MiefjXT7rIM=;
- b=KadJ4PEr3fyCEoPpGNt8eD9mcNtTOqpUGPK4q/VUxIOr5SNxPnXnirYHxHo+Pty8Fr
- SULdH9c2Ib8utcA0olmDcVrFwO+STLl8R8WVn/a8EVwOsLMQdLyrZhy8+74Xmci5HM1W
- YJV7IV4PjdTK29UmfsHvVEJO4vZsoEGbBLp3w=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784302832; x=1784907632;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=1LTRCgSFoxKqoO+f0vjNmVxCnjcCSEY4MiefjXT7rIM=;
- b=EkrhxA92NPKs0bH7CNDPgPh9APWqkc1oHQwSVTVJfeMU0bn+MFrQ8hZg9RoQhckCwg
- QdvAiG0XZHUxGpCmsW6+xmSDNqGP+OkcPFxEwEiLSocGa9/Ctx/AdWFFrskWQF8sOv+H
- M6xBbDP6n54zQ2MTNCV4DlZmqLPiMbM+ilm/Xmveh6U6tTf9MtmLct+yb8RaGzIpvaiX
- hA0EkrFlELPh9+lPFvhev0274pym/O26NBYxJzTIleQufgHT/Df34B2rY1TsLunW7oOH
- yG92UEhGgZWsa0irkSkwiTWrq3bV3R1riHRIN9bjsEgsIxqkLB3epAQje4FmN4gSgpia
- H+/w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpMh7jIlUFhTN0vVoucY8z99SEIDsyqXhsRb9RB/KM0Gf84jNM9SGY+tUustbH+ydaOGxkS46kELmM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxyyxcndGTKbJzSS3zwvPP0dQ2FwQugdVmURwjgW/p1Gow3AGMw
- T8qXVLbfjK1+cyWb44ZnZlFpfu7jvCFU+Bkq8t8eZcbpU9+OFjXdcJEOvg2fXqgOC8UGv7tQez7
- RYP0=
-X-Gm-Gg: AfdE7ckPSRRJWIDOvLEfbDMMFkRSnP1JKBfxmI/oLKsDiRMFlBhOe/J4P3lpcK1QU0+
- IEZWI4QnUIUM0YE2wDo7VM3k6oPWq1gD63PUgV2TwTHX4j2Qf3VHRSJCIIJz6jF7hRUtt/Nn7IX
- PZ5DLbuaJ8stCHbWV+LuJHKlKS98g0ANXyhx6uMB7dus+/ywSH0Atiw0/WObGqSSSUET4XEzT1l
- IqX64Os3rqoPVsLOuW9SyaMVgRPYMis0xgmIIIl30rBMnAhbKsQU1gDfUIgU5FkKPlHe+4Kpt5N
- OQOXBtJAsiVpfzwQPGXSlM9iNC0ZSFECXFMgt0xDNjH0dgP3XdldPJGgmg19VQYNztrhihq2wbs
- iw9HYstxRZGKyl4mMUxDAlIOBDag6tmfb76kXgKHQQ5wft5Tg46DNYfPPNmgZU6qCNPg7f7ax8q
- M1v8K5NCMaOtz5vV6JtSLTlOcQ5YUlhOcfcmMnvTMo
-X-Received: by 2002:a05:6102:41ac:b0:739:77a7:90bc with SMTP id
- ada2fe7eead31-74753727549mr823191137.23.1784302832474; 
- Fri, 17 Jul 2026 08:40:32 -0700 (PDT)
-Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com.
- [209.85.222.50]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-747581e8f0esm684909137.10.2026.07.17.08.40.31
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Jul 2026 08:40:31 -0700 (PDT)
-Received: by mail-ua1-f50.google.com with SMTP id
- a1e0cc1a2514c-9725084c547so2544881241.1
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 08:40:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+Rpa82vPu1nrgLC5a2NYYydxeZl2IjNzzcaeTGEM/eTDEPxNGfw1plgYx3M4dsd9wHvHviU+yzE9b7s=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:5810:b0:737:5c42:858b with SMTP id
- ada2fe7eead31-747534cdf79mr792514137.11.1784302830399; Fri, 17 Jul 2026
- 08:40:30 -0700 (PDT)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id AEAA010E4C3
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 15:44:54 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D6FC01477;
+ Fri, 17 Jul 2026 08:44:49 -0700 (PDT)
+Received: from [10.57.84.220] (unknown [10.57.84.220])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CB6F63F905;
+ Fri, 17 Jul 2026 08:44:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1784303094; bh=1xqYa/5eSWO7i3QP0dwUy73LBcyWjTX2AK0R00/T4tk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=jliRQOkE9YYIg7mEmb5ahS59eMTSsRkz6QjEO32DvIEzQMBMVYPxak1GlBzdkb8qR
+ eywBRrswngVRf/LANCYJsWVyMvysXWsNScQ681mRFptJT62NK8A+xG7j1er6nSWfFw
+ h+uqLfwxw0zrCyFg+pZRyxUTmZ75YoAF5xFwUQXc=
+Message-ID: <5f82ee6b-d106-4ae1-9b2c-5a817e3e43b9@arm.com>
+Date: Fri, 17 Jul 2026 16:44:49 +0100
 MIME-Version: 1.0
-References: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
- <20260604-topic-yoga_submission-v1-1-57c70c23d0d6@oss.qualcomm.com>
- <CAD=FV=UaPKiGSL6mhVdywp67skSr2B7977f3kZ23FFHaD=95RQ@mail.gmail.com>
- <20260605152825.GA3740391-robh@kernel.org>
- <CAD=FV=U7jz-xwA+-Fic2thZaK6eCDhc-PZ1fqpCMAUmy3V3Y+Q@mail.gmail.com>
- <CAL_JsqK6u=x=ScTnW1jJCPZpCUb3mT0NZpsKqe6PqZmrNEKZiQ@mail.gmail.com>
- <CAD=FV=XBn78eOC_zG0S2U-W3whrVYEpghKF_WgX+3zpUJ82-5g@mail.gmail.com>
- <6e7ae036-e63b-4f83-947c-992f3199dbab@oss.qualcomm.com>
-In-Reply-To: <6e7ae036-e63b-4f83-947c-992f3199dbab@oss.qualcomm.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 17 Jul 2026 08:40:19 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VSgE5z71HzZwCiVKhYjt2CPesPD_HNejFZg4xMpV1bTQ@mail.gmail.com>
-X-Gm-Features: AUfX_mwKjGGKjxDAeqITUG5KUm08CfVu1NRr1wpnrdcgFny_h3p0H-VAhH4pTdQ
-Message-ID: <CAD=FV=VSgE5z71HzZwCiVKhYjt2CPesPD_HNejFZg4xMpV1bTQ@mail.gmail.com>
-Subject: Re: [PATCH 1/4] dt-bindings: display: panel: samsung,
- atna33xc20: Add ATNA40HQ08-0
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 1/8] misc/arm-cla: Add driver skeleton and
+ documentation
+Content-Language: en-GB
+To: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Jean-Philippe Brucker <jpb@kernel.org>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+References: <20260717104759.123203-1-ryan.roberts@arm.com>
+ <20260717104759.123203-2-ryan.roberts@arm.com>
+ <1e561b1a-2c87-4a23-b4da-126b333de8ba@app.fastmail.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+In-Reply-To: <1e561b1a-2c87-4a23-b4da-126b333de8ba@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,39 +63,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Arnd,
 
-On Fri, Jul 17, 2026 at 6:06=E2=80=AFAM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 6/6/26 12:41 AM, Doug Anderson wrote:
-> > Hi,
-> >
-> > On Fri, Jun 5, 2026 at 10:14=E2=80=AFAM Rob Herring <robh@kernel.org> w=
-rote:
->
-> [...]
->
-> >> Well yes, people have a hard time using compatible strings that don't
-> >> sound generic. That's too bad for them.
-> >
-> > OK, so sounds like going forward I should NAK changes to this file and
-> > tell people to just use:
-> >
-> > compatible =3D "samsung,atna33xc20";
-> >
-> > ...to mean "Generic Samsung AMOLED panel with power sequencing that
-> > matches atna33xc20"
-> >
-> > Yes, it means that if we find quirks with a specific panel later, it
-> > could possibly be harder to work around them. However, since we have
-> > several ways to identify the panel (via EDID and via DDC) this seems
-> > fairly low risk. You can't perfectly predict the future anyway.
->
-> Are we going forward with this guidance? I have another laptop with
-> another ATNAxxx panel (ATNA60HR07-0) that I intend to submit a DT for
-> soon
+Thanks for all your fast feedback!...
 
-That would be my preference.
 
--Doug
+On 17/07/2026 14:49, Arnd Bergmann wrote:
+> On Fri, Jul 17, 2026, at 12:47, Ryan Roberts wrote:
+>> From: Jean-Philippe Brucker <jpb@kernel.org>
+>>
+>> Add the initial Kconfig and build-system plumbing for the Arm Core Local
+>> Accelerator driver.
+>>
+>> Introduce the common driver header and register definitions used by
+>> later CLA support. The definitions cover the CLA MMIO frame, launch
+>> response and status fields, standard accelerator registers, launch
+>> opcodes, error codes and memory translation context state.
+>>
+>> Add documentation describing the CLA programming model, its CPU-local
+>> MMIO access rules, userspace assignment model, domain grouping and
+>> expected boot state.
+> 
+> I have a few more questions here. Most of the description and
+> the design decisions make perfect sense to me, but there are
+> a few things I don't understand from your current document.
+> 
+>> +The CLA supports up to 8 attached accelerators, which are accessed by
+>> +programming the CLA's MMIO registers. Operations are launched to an 
+>> accelerator
+>> +and are polled for completion. CLA does not raise interrupts.
+>> +
+>> +            CPU                     CLA              Accel
+>> +             |--- write DATA[7:0] -->|                 |
+>> +             |--- write LAUNCH ----->|---- launch ---->|
+>> +             |<--- poll LRESP -------|                 |
+>> +             |                       |                 |
+>> +             |<--- poll STATUS ------|<--- complete ---|
+>> +
+>> +Each operation can take a 512-bit payload in the DATA registers. After handling
+>> +a LAUNCH write, CLA indicates the launch status in the LRESP register. A further
+>> +operation can only be launched after LRESP indicates completion of the previous
+>> +launch.
+> 
+> This sounds a lot like st64bv or st64bv0, passing an 8-word payload and returning
+> a single word per accelerator operation with shared addressing.
+
+We're actually passing 9 words here; 8 DATA words plus the LAUNCH word. CLA
+supports only 64 bit aligned and sized accesses (other accesses are RAZ/WI) so
+they have to be written as 9x64bit stores. Then poll using 64bit loads.
+
+> 
+> Why are there now two interfaces to do the same thing?
+
+Good question. This is how the HW operates.
+
+> 
+> Can a user process use st64bv to do the four steps in a
+> single instruction?
+
+No, unfortunately not.
+
+> 
+>> +Some operations continue to run asynchronously on the accelerator after launch
+>> +completion. In this case progress is tracked by polling the STATUS register.
+>> +When the CLA updates the STATUS register, it also raises an event which will
+>> +wake an in-progress WFE (wait for event) instruction on the local CPU.
+> 
+> The asynchronous interface seems very confusing.
+> 
+> How are page faults from the SVA master resolved during an
+> asynchronous operation?
+
+The STATUS register has a fault bit; the poller notices, reads fault info from
+accelerator registers and takes actions to resolve the fault (which in practice
+means access from user space on CPU and fault into the kernel to handle).
+
+> 
+> Can a CPU start multiple asynchronous operations concurrently?
+
+Yes; STATUS indicates READY while it can accept more asynchronous operations
+("comamnds").
+
+> 
+> Do these continue to run if the starting process is scheduled out
+> and another process also tries to use CLA?
+
+Yes; the driver manages assignment of a CLA to a process context completely
+separately from the thread scheduler's decisions about which threads run on
+which CPUs and when. If another process is scheduled onto the CPU and it
+attempts to access it's VA for the CLA, it will fault into the driver's handler
+and be put to sleep until the driver decides to reassign the CLA.
+
+> 
+>> +Faults during address translation are reported by the accelerator in its
+>> +registers and in STATUS. While polling for work completion, software fixes up
+>> +the faults and notifies the accelerator with RESOLVE operations.
+> 
+> I would like to understand the faulting part better. Which instruction
+> specifically causes the fault, is that the poll STATUS read?
+
+I'm not sure what you mean by "Which instruction specifically causes the fault".
+A fault occurs within the accelerator if it tries to access a virtual address
+that is not mapped by the page table or if the permissions of the mapping are
+not sufficient, etc... The fact that the accelerator has faulted is reported to
+the SW that is polling the accelerator's STATUS register within user space. That
+SW is expected to trigger fault handling by the usual kernel mechanisms by
+accessing the VA. Then it issues a RESOLVE operation to tell the accelerator it
+can continue.
+
+> 
+>> +Inter-Accelerator Communication
+>> +-------------------------------
+>> +
+>> +On some platforms, multiple accelerators, each attached to a separate CLA within
+>> +a cluster, are also directly connected to each other via a shared bus to
+>> +accelerate cooperation between accelerators. The accelerators sharing a bus
+>> +cannot be isolated from each other. When collaborative operations are launched
+>> +on each of the participating accelerators, they synchronize over the bus,
+>> +stalling until all are ready.
+> 
+> Could you give an example what this model might be good for?
+
+I can't currently share that information. I expect you might be able to have a
+good guess though :)
+
+> 
+> Does this mean a user may have to start one operation on each CPU
+> from a thread of the same process in order to get a result efficiently
+> across a shared accelerator?
+
+Yes, correct. User space threads don't need to be precisesly synchronized
+because multiple operations can be queued.
+
+> 
+> I assume this will become clearer once you can show an example userspace
+> application that uses this type of accelerator.
+
+Yes indeed. As I said, Arm plans to open source a user space driver, but there
+is no commitment on dates yet.
+
+> 
+>> +Intended SW Usage Model
+>> +=======================
+>> +
+>> +CLA is designed for its PL0 MMIO frame to be mapped into user space  and for user
+>> +space to directly launch accelerator operations and poll for completion. It has
+>> +been observed that for some use cases, the operation execution time is small and
+>> +a trip through the kernel would consume a significant amount of the CPU budget
+>> +for preparing the next operation leading to a significant reduction in bandwidth
+>> +through the accelerator.
+> 
+> Do you have any plans for in-kernel usage of the accelerators?
+> I would assume that for things like cryptographic features, these
+> make sense to be exposed to the kernel itself.
+
+As per cover letter: "the initial (and currently only) target is a compute
+engine". There are not any plans for crypto accelerators (or other things like
+that). So haven't been considering this as something the kernel would want to
+use directly.
+
+(Sorry I'm being vague - I'm sure you appreciate I'm limited on what I can say
+around the use cases for now).
+
+> 
+>> +User space software is expected to create a thread to drive each CLA it is
+>> +using, and for each thread to be pinned to the CLA's local CPU.
+> 
+> What happens if multiple processes have the same chardev open and
+> each mmap() that, e.g. after a fork()? Does each process see its
+> own virtual instance of the accelerator and interact with it through
+> the same physical MMIO register range but its own process address space,
+> or do you have to rely on the registers being mapped only into a
+> single mm_struct to prevent a process from messing with another process
+> data?
+
+The driver maintains a cla_ctx for each {file description, mm_struct} pair. So
+in this case, even though the file description is shared between the parent and
+child processes, they still have distinct mm_structs so still have separate
+contexts allowing the driver to virtualize access correctly.
+
+> 
+>> +Saving and restoring the internal state of the accelerator is an optional
+>> +feature. Current platforms only support it when the accelerator is idle, so
+>> +preempting an accelerator causes work cancellation. Software must carefully
+>> +consider how to balance forward-progress guarantees with preemption 
+>> latency.
+> 
+> I'm not sure I understand this point. Do you mean any async operation
+> that was started on an accelerator may fail due to preemption, so user
+> space must be able to restart it?
+
+Yes, at it's simplest. But it gets a bit complicated if you introduce the idea
+of a priority to each cla_ctx. If a high priority context needs the HW
+periodically and preempts a low priority context, if we just abort the low
+priority work on preemption, it may never make forward progress. We've been
+considering a grace period where the kernel will wait for the accelerators to
+complete their current work (up to a certain timeout) before reassigning them to
+the incomming context. But none of that is part of this RFC - I think that's
+discussion that can come later once we have the basic shape of everything agreed.
+
+Thanks,
+Ryan
+
+> 
+>      Arnd
+
