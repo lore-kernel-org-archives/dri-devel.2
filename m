@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15A10C44507
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 11:01:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F342C44514
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 11:01:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36C9010F455;
-	Fri, 17 Jul 2026 11:01:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 561F510F4EE;
+	Fri, 17 Jul 2026 11:01:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LENUAe9m";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A4ud/hQL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0149F10F455
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 11:01:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 080A010F4EE
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 11:01:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3A06260A69;
- Fri, 17 Jul 2026 11:01:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6F881F00A3E;
- Fri, 17 Jul 2026 11:01:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BE6AA41348;
+ Fri, 17 Jul 2026 11:01:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780F01F00A3D;
+ Fri, 17 Jul 2026 11:01:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784286068;
- bh=JLHRlVzmvlLRyYTQT+JZ8ndqefv8hSoQwp02vebbZHE=;
+ s=k20260515; t=1784286074;
+ bh=W4UybwNSII4IhLhoZkmMZHlHRpCzNqNhvUoBY4RCHI0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LENUAe9miE0JsZQbyGfFS/xrwUKXdPlqOX5n8EDNFlucA24dE64pOdJZHddUsr6gS
- 48oH4iH5HBtcUePpICBHj5ke6/g9Mywb46BiSVvnb8xgMWAefmc7piWMnoWDR/UHR6
- VXzGLr/IhdOqtDnhC/m/CQpF4K/p90teGjfS+CcvC7VC9FaJ9opnxaHSJDleM1tWuX
- q7Q47jgRDsqAhF+5yrTBjZEYnm1P9mXtsRVDSVXNBRsmBjyBapYDbA0+Sp7X3NMNev
- 3IwQVFGWI5yC1OpCFLppth9soP70w1xDc8CXdsw8kDqbLN3RlNk8FA06yn1QoSpdUa
- wIr6dy2KhJZkQ==
+ b=A4ud/hQL0GMiXr7RzR80gyp0YMP2+PMLtfJ8avKIDL9lU2Xiadx1LHS7LdN0GUfrk
+ U+0PtghzpXqAZVvYpkbqpnhTbLCO/kFQxEfj5wfzXSpVnZydw5UZk+NRoHveTT7cCK
+ ergn0ylncxd80R/Whbm5ZtrIMcyej53JGyauPjVniqIXvzGeDSIDZs3Gm2Zvgv7vVX
+ U+JFADaP/NY4EC6h+Fl/9GtjzINucdxNeAIYDvSN5XQoyGsnnGG2ceIeusciM7ikr1
+ 5KVSOEE3vuwwmvdCfP1DDyGuAt7xwa+c/GL8Evv90+u/f5bIsMUv2ABgN/JOHNk69L
+ kpfbUGSLPwigQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v1 2/8] misc/arm-cla: Add launch operation helpers
+Subject: Re: [RFC PATCH v1 7/8] misc/arm-cla: Manage domain contexts
 To: "Ryan Roberts" <ryan.roberts@arm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260717104759.123203-3-ryan.roberts@arm.com>
+In-Reply-To: <20260717104759.123203-8-ryan.roberts@arm.com>
 References: <20260717104759.123203-1-ryan.roberts@arm.com>
- <20260717104759.123203-3-ryan.roberts@arm.com>
+ <20260717104759.123203-8-ryan.roberts@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 11:01:07 +0000
-Message-Id: <20260717110108.B6F881F00A3E@smtp.kernel.org>
+Date: Fri, 17 Jul 2026 11:01:14 +0000
+Message-Id: <20260717110114.780F01F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,111 +57,182 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] A 32-bit integer overflow when calculating `reg_group + 8` causes =
-out-of-bounds memory access on the `regs` buffer and an infinite loop for h=
-igh register indices.
-- [High] The safety bounds check `regidx + nregs > max_regidx` is vulnerabl=
-e to a 64-bit integer overflow, allowing massive `nregs` values to bypass t=
-he limit check.
+- [Critical] Active hardware context and registers are freed when a domain =
+is broken, allowing hardware to DMA into freed memory.
+- [High] Unsafe VMA iteration in `cla_domain_zap()` without holding an acti=
+ve mm reference, leading to use-after-free.
+- [High] Domain context switch silently skips devices with offline CPUs ins=
+tead of failing, leading to broken context isolation.
+- [High] A CLA device coming online via CPU hotplug fails to restore the do=
+main's currently assigned context.
+- [Medium] Missing format string argument for `%u` when creating the per-de=
+vice kthread worker.
 --
 
---- Patch [2]: [RFC PATCH v1 2/8] misc/arm-cla: Add launch operation helper=
-s ---
-commit dc6365dd6ad591fc5563520a7266898c01430558
-Author: Jean-Philippe Brucker <jpb@kernel.org>
+--- Patch [7]: [RFC PATCH v1 7/8] misc/arm-cla: Manage domain contexts ---
+commit 62c539a6d69f0f095ec0d6a00c78d57199599362
+Author: Ryan Roberts <ryan.roberts@arm.com>
+Subject: misc/arm-cla: Manage domain contexts
 
-misc/arm-cla: Add launch operation helpers
+A CLA domain cannot be used by multiple address spaces concurrently. This
+commit introduces context tracking and scheduling for CLA domains, running
+hardware operations via kthread workers.
 
-CLA commands are issued by programming the LAUNCH register and polling LRES=
-P.
-This patch adds a common launch helper to perform this sequence and transla=
-tes
-response codes into Linux errors, along with register read and write suppor=
-t.
-
-> diff --git a/drivers/misc/arm-cla/cla-ops.c b/drivers/misc/arm-cla/cla-op=
-s.c
-> new file mode 100644
-> index 0000000000000..d594344a2eb45
-> --- /dev/null
-> +++ b/drivers/misc/arm-cla/cla-ops.c
+> diff --git a/drivers/misc/arm-cla/cla-init.c b/drivers/misc/arm-cla/cla-i=
+nit.c
+> index 0451d97bc95b3..5335c55568add 100644
+> --- a/drivers/misc/arm-cla/cla-init.c
+> +++ b/drivers/misc/arm-cla/cla-init.c
 [ ... ]
-> +static int cla_op_access_reg(struct cla_dev *dev, u8 op,
-> +			     enum cla_launch_data_mode data_mode,
-> +			     unsigned int accid, unsigned int regidx,
-> +			     size_t nregs, u64 *regs)
+> @@ -171,6 +172,46 @@ static void cla_dev_reinit(struct cla_dev *dev)
+>  	cla_reg_write(dev, CLA_REG_LRESP, 0);
+>  }
+> =20
+> +static int cla_dev_worker_init(struct cla_dev *dev, int cpu)
 > +{
-> +	int ret =3D -EINVAL;
-> +	unsigned long max_regidx;
-> +	struct cla_launch launch =3D {
-> +		.op =3D op,
-> +		.accid =3D accid,
-> +		.data_mode =3D data_mode,
-> +	};
+> +	struct kthread_worker *worker;
 > +
-> +	switch (op) {
-> +	case CLA_LAUNCH_OP_REGREAD:
-> +	case CLA_LAUNCH_OP_REGWRITE:
-> +		max_regidx =3D 0x100000000;
-> +		break;
-> +	default:
-> +		WARN_ON(1);
-> +		return -EINVAL;
-> +	}
+> +	worker =3D kthread_run_worker_on_cpu(cpu, 0, "cla-dev-worker/%u");
+
+[Severity: Medium]
+Is it possible this leaks uninitialized memory to user-space? The string
+"cla-dev-worker/%u" expects an integer argument, but the wrapper macro
+kthread_run_worker_on_cpu() only takes the name format and does not forward
+arguments to the underlying kthread_create_worker_on_cpu() function. Will=20
+this cause vsnprintf() to consume a random stack slot or register for the
+thread name?
+
+> +	if (IS_ERR(worker))
+> +		return PTR_ERR(worker);
 > +
-> +	if (WARN_ON(regidx + nregs > max_regidx))
+[ ... ]
+> @@ -227,6 +268,10 @@ static int cla_dev_setup(unsigned int cpu)
+>  			 dev->accelerators);
+>  	}
+> =20
+> +	ret =3D cla_dev_worker_init(dev, cpu);
+> +	if (ret)
+> +		goto err;
+> +
+> +	return 0;
 
 [Severity: High]
-Does this check adequately protect against integer overflow? If nregs is ve=
-ry
-large (for example, (size_t)-1), the addition of regidx and nregs can overf=
-low
-size_t. This would result in a small positive value that bypasses the
-max_regidx limit.
+When a CPU is hotplugged back online, will this setup path leave the hardwa=
+re
+out of sync with the domain?
 
-Could this be rewritten to avoid wrap-around, perhaps by checking if nregs
-is greater than max_regidx - regidx?
+It initializes the worker but does not appear to check domain->assigned_ctx
+or queue work to restore the active context to the hardware. If the domain
+only has one active context, a subsequent reassignment will abort in
+cla_domain_reassign() because next_ctx and prev_ctx evaluate to NULL. Can
+this permanently bypass context restoration and cause memory faults?
 
-> +		return -EINVAL;
+>  err:
+>  	cla_dev_reinit(dev);
+> diff --git a/drivers/misc/arm-cla/cla-sched.c b/drivers/misc/arm-cla/cla-=
+sched.c
+> new file mode 100644
+> index 0000000000000..18b54cc386b7c
+> --- /dev/null
+> +++ b/drivers/misc/arm-cla/cla-sched.c
+[ ... ]
+> +static int __cla_domain_switch_ctx(struct cla_domain *domain,
+> +				   struct cla_ctx *prev_ctx,
+> +				   struct cla_ctx *next_ctx)
+> +{
+[ ... ]
+> +	for (i =3D 0; i < domain->nr_devs; i++) {
+> +		dev =3D domain->devs[i];
+> +		call =3D &dev->call;
 > +
-> +	/* 1 to 8 registers accessed at a time, within the same 8-reg group */
-> +	while (nregs > 0) {
-> +		unsigned int reg_group =3D ALIGN_DOWN(regidx, 8);
-> +		unsigned int max_reg =3D min(regidx + nregs, reg_group + 8);
+> +		call->sched.prev_ctx =3D prev_ctx;
+> +		call->sched.next_ctx =3D next_ctx;
+> +		call->sched.ctx_id =3D i;
+> +		call->ret =3D 0;
+> +
+> +		mutex_lock(&dev->lock);
+> +		if (dev->worker && !dev->broken)
+> +			kthread_queue_work(dev->worker, &call->switch_ctx);
+> +		mutex_unlock(&dev->lock);
 
 [Severity: High]
-Can reg_group + 8 overflow? Since regidx and reg_group are 32-bit unsigned
-integers, if a caller passes a register index near the 32-bit maximum
-(for example, 0xFFFFFFF8) and a small nregs value, reg_group + 8 will wrap
-around to 0.
+If dev->worker is NULL because the CPU is offline, does this silently bypass
+the context switch for that device?=20
 
-If max_reg evaluates to 0, ndata becomes 0 - regidx, which can yield a value
-larger than the original nregs. Will this cause out-of-bounds memory access=
+Since call->ret is initialized to 0 and there is no else branch to return an
+error, the domain switch will complete and report success. When the CPU com=
 es
-on the regs buffer when passed to cla_op_launch(), and an infinite loop due=
- to
-underflowing nregs?
+back online, could the device retain a stale context and break isolation?
 
-> +		unsigned int ndata =3D max_reg - regidx;
-> +
-> +		launch.ndata_m1 =3D ndata - 1;
-> +		launch.regidx =3D regidx;
-> +		launch.data =3D regs;
-> +
-> +		ret =3D cla_op_launch(dev, &launch);
-> +		if (ret)
-> +			break;
-> +
-> +		regidx +=3D ndata;
-> +		regs +=3D ndata;
-> +		nregs -=3D ndata;
 > +	}
+[ ... ]
+> +static void cla_domain_zap(struct cla_domain *domain, struct cla_ctx *ct=
+x)
+> +{
+> +	struct vm_area_struct *vma;
+> +	struct vma_iterator vmi;
 > +
-> +	return ret;
+> +	/*
+> +	 * If the context is dying it has already been unmapped, no need to zap
+> +	 * it here.
+> +	 */
+> +	if (!ctx || cla_ctx_is_dying(ctx))
+> +		return;
+> +
+> +	/*
+> +	 * Iterate over vmas in prev_ctx's mm, looking for vmas that map
+> +	 * prev_ctx's file. Zap any portions of those vmas that map the domain.
+> +	 */
+> +	mmap_read_lock(ctx->key.mm);
+> +	vma_iter_init(&vmi, ctx->key.mm, 0);
+> +	for_each_vma(vmi, vma) {
+
+[Severity: High]
+Is it safe to acquire the mmap_read_lock() and iterate the maple tree here
+without an active mm reference?
+
+The context only holds a passive mmgrab() reference. If a concurrent
+unprivileged userspace process exits, mm_users could drop to 0, and
+exit_mmap() might tear down the VMA maple tree. Should this code use
+mmget_not_zero() to prevent a use-after-free while walking the tree?
+
+> +		if (vma->vm_file !=3D ctx->key.file)
+> +			continue;
+[ ... ]
+> +static void cla_domain_reclaim(struct kthread_work *work)
+> +{
+> +	struct cla_domain *domain;
+> +	struct cla_ctx *ctx, *next;
+> +
+> +	domain =3D container_of(work, struct cla_domain, reclaim.work);
+> +
+> +	mutex_lock(&domain->lock);
+> +	list_for_each_entry_safe(ctx, next, &domain->dying_ctxs, queue_node) {
+> +		list_del_init(&ctx->queue_node);
+> +		WARN_ON(domain->assigned_ctx =3D=3D ctx);
+> +		cla_ctx_put(ctx);
+
+[Severity: Critical]
+If a domain becomes broken, is it possible for the active hardware context =
+to
+be freed while still programmed in the device?
+
+In cla_domain_schedule_reassignment(), the reassign work is skipped if the
+domain is broken, meaning the context is never uninstalled from the hardwar=
+e.
+Then here in cla_domain_reclaim(), the dying context is unconditionally fre=
+ed
+by calling cla_ctx_put(), which drops the PGD and software state.
+
+Will this allow the broken hardware to perform page walks into freed and
+reallocated memory?
+
+> +	}
+> +	mutex_unlock(&domain->lock);
 > +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717104759.1232=
-03-1-ryan.roberts@arm.com?part=3D2
+03-1-ryan.roberts@arm.com?part=3D7
