@@ -4,61 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86225C44520
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:07:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1535C44520
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:10:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D485A10F530;
-	Fri, 17 Jul 2026 12:07:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E86AD10E43D;
+	Fri, 17 Jul 2026 12:10:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dksEjUek";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mhRPrpJM";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1C0410F530
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:07:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F15E510F533
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:09:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B9B8A41AD8;
- Fri, 17 Jul 2026 12:07:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A341F000E9;
- Fri, 17 Jul 2026 12:07:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CF76D41FB3;
+ Fri, 17 Jul 2026 12:09:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9D71F000E9;
+ Fri, 17 Jul 2026 12:09:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784290074;
- bh=pIiPYKYAZ5yqfaYtBU1aN9NCnjIXiX7eVRmLeeGSChM=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=dksEjUekMBQC6JJgGmvGEUwBMZSSoafNV4Vd0wrDczC1aj1O0d8FRB0pJ/ESq4UtR
- IlFpEKBSAKL18Kpic50Lu5oz2OuYEIoMnkB7Eit6TDm5QT3IjODj3Q/1YLSexsPIRT
- hTvYY2QYXwPLRPW3NSomonlMT4La1+3ofHsrvhns9p335J7dYGxhkQnF0xjVboThje
- yc+V2PQbFuNaT/jmQH4B+D1RaElWFKG9hAs3SvUgh4LFyG2I1V8cWBSMr5l6L4tD0q
- 8Msio+iaeI5BRZ9bmHxe2j5lo7Hc5cAAK89LKyIcDIk5/6HDhJMvP/WcybrneHz95Z
- 6/eN/9PcOlhoQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 17 Jul 2026 14:07:48 +0200
-Message-Id: <DK0U1HB4RVRG.3S824JZSFIF1@kernel.org>
-Subject: Re: [PATCH v14 0/3] rust: add basic serial device bus abstractions
-Cc: "Markus Probst" <markus.probst@posteo.de>, "Rob Herring"
- <robh@kernel.org>, "Jiri Slaby" <jirislaby@kernel.org>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Kari
- Argillander" <kari.argillander@gmail.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "Viresh Kumar" <viresh.kumar@linaro.org>, "Boqun Feng"
- <boqun@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir
- Duberstein" <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260715-rust_serdev-v14-0-b4ed5c93606f@posteo.de>
- <2026071747-android-overhead-c927@gregkh>
- <6aafea3fdb0847766787dbe5c7c7dbaad606d649.camel@posteo.de>
- <74213297-d3da-4637-8f31-8fecebd65f60@kernel.org>
- <2026071719-afflicted-eleven-1be9@gregkh>
-In-Reply-To: <2026071719-afflicted-eleven-1be9@gregkh>
+ s=k20260515; t=1784290148;
+ bh=4rm4TVNxeMX719ukVGcBp97E106HiBaS44S5d6OARlw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=mhRPrpJMmd8MkXxWkYZ7k1BdtqFNLcNPQp69RvvRo881MOXC8CzN2rv7LpigjWzzY
+ YvUv5KKqeO1j29IBde6wJeRh0cYohfv00EAkkfURCrVVQJAdmOckFdxVD6cR7aC9Ya
+ PdanYlh7AAJmOmT7MtTKsyczNU0Se4FSGkwyZfUo2sHp+u3EmFpLm5fbiUpj1TP8EK
+ hZ3RNkpAOkBaRUgL2uT2tmVmpwPVL/T2aAFF2sK3ueRS9o/BBF5dl/GYo7r2yUiJGv
+ WAhl/i/LWMJMS2+cu/7WTVLmdu/cp8If/P5tZfGQ0kE3cCOR8RkTYg0+5UOh0k+xCc
+ PLTwvxx/0Uu0w==
+Received: from sofa.misterjones.org ([185.219.108.64]
+ helo=lobster-girl.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <maz@kernel.org>) id 1wkhNJ-0000000644A-3sQ5;
+ Fri, 17 Jul 2026 12:09:06 +0000
+Date: Fri, 17 Jul 2026 13:09:04 +0100
+Message-ID: <87ech1rf6n.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Ryan Roberts <ryan.roberts@arm.com>, Will Deacon <will@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, oupton@kernel.org, hch@infradead.org,
+ jgg@nvidia.com
+Subject: Re: [RFC PATCH v1 0/8] Arm Core Local Accelerator Driver
+In-Reply-To: <aloS_T3LQvpHeZUV@willie-the-truck>
+References: <20260717104759.123203-1-ryan.roberts@arm.com>
+ <aloS_T3LQvpHeZUV@willie-the-truck>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: ryan.roberts@arm.com, will@kernel.org,
+ gregkh@linuxfoundation.org, arnd@arndb.de, catalin.marinas@arm.com,
+ mark.rutland@arm.com, jpb@kernel.org, ogabbay@kernel.org, corbet@lwn.net,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, oupton@kernel.org,
+ hch@infradead.org, jgg@nvidia.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,13 +82,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 17, 2026 at 2:03 PM CEST, Greg Kroah-Hartman wrote:
-> Should I drop this from the tty tree and take it through driver-core
-> instead?  If so, no problem for me, just let me know.
+Thanks Will for roping me in.
 
-Either should work, you can also take [1] through the tty tree, I don't thi=
-nk
-there will be any conflicts.
+On Fri, 17 Jul 2026 12:33:17 +0100,
+Will Deacon <will@kernel.org> wrote:
+> 
+> > I'm deliberately constraining the scope to bare-metal support for now.
+> > Virtualization is something we are considering (and have prototyped), but plan
+> > to post a separate RFC for that as follow-up, once we have agreement on
+> > direction for the bare-metal driver.
+> 
+> I'd actually like to see what the virtualisation part looks like first
+> because doing it as a bolt-on later feels like the wrong approach. The
+> structure you have at the moment is remarkably clean, given the
+> architectural/CPU interactions (this thing even apparently builds as a
+> module, nice!), but I'm unsure how far you can push the separation once
+> you need to start hacking at KVM. Maybe the MMU notifiers are enough,
+> but I can't tell.
 
-[1] https://lore.kernel.org/rust-for-linux/20260530132736.3298549-1-dakr@ke=
-rnel.org/
++1.
+
+Virtualisation cannot be a "bolt on the side" exercise. It is an
+integral part of the arm64 tree, particularly for memory management
+and scheduling, all of which have a direct impact on KVM.
+
+I don't think we can really evaluate anything here without looking at
+the full picture.
+
+Thanks,
+
+	M.
+
+-- 
+Jazz isn't dead. It just smells funny.
