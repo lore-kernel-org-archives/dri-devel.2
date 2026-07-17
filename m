@@ -4,41 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 768D5C44507
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 09:02:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E28EC44514
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 09:02:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2E0610E451;
-	Fri, 17 Jul 2026 09:02:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7564A10F454;
+	Fri, 17 Jul 2026 09:02:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="VeCeHrRG";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nB5TXsZ3";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0BF610F454
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:02:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F9F910F4A2
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:02:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=DYlPrnKi0sDIL3GeMzXnsfDizLG1u+Q1VI1Qhp75mAQ=; b=
- VeCeHrRGx93QECFAk4ok9s6q80wc24E5AaUmmabqSor3ek9T3LGMRQNTB1Y08P4Q84bx0zuaciufy
- iAFg52RgAvQyVb6V4bNs49y0vBXh/skNZM7JDOgQHPnkw7ikGc8j0ga/pFjMNZiQJnfJj5Nh/Ww8X
- pb3hXA9/RS67iOkoX5/8tnuDscWhkuf2IVLrJBLA2fHAkwbMm5GTj7NaPQkFsYH9GDk6iS8Ksyrpq
- b1mt2NPlaUT77c+lWCti2z+k7cQrpQObYHMswCCfVjXg+GYc9ou7G8S4L55plGPt3OJGszTsm6lWN
- SKaglsnkrNp4+tMq6/vihDZPIr12F/oI+g==;
+ Cc:To:From:From:Reply-To; bh=Dr07AZPFq9i5ZADmfRFGp2kFen4Vgevol2vCzyBZcb8=; b=
+ nB5TXsZ3jBYgi8/epPWL+5Ps7YfvePP/oEmvRT92FAMRnRHn+EkX4YuOjiFGeVyhqT01EqGDP+56k
+ zcrA/l3K7tP0skuDPMJ5CCUaFjCLXmNNaPn7KbikQMTe5dp+BdxO7tasHZQt0tKthCyBzpJWOpV2e
+ mh6UQ8iJWHtWStVTR9W4gWk0dhAsVcmHFf+qaaPZmwqFuP0xva3SoxW8tQnq91XsFh0cwZGZj+PZ9
+ dZBKGuKHUvoK1nP4k5pJvKcnJLzqzFxLXIY1LmZ8LpiclOcS+8iemaWxamWstM+fFAk5ix7XCFmM0
+ HMgCgs2LN2w4jtvB/okmamYz86LU0MWi4w==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wkeSR-00GJcQ-Ov; Fri, 17 Jul 2026 11:02:11 +0200
+ id 1wkeST-00GJcU-8v; Fri, 17 Jul 2026 11:02:13 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Boris Brezillon <boris.brezillon@collabora.com>,
  Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
  Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
  kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC v3 0/2] Realtime workqueues and panthor realtime submission
-Date: Fri, 17 Jul 2026 10:02:07 +0100
-Message-ID: <20260717090209.26931-1-tvrtko.ursulin@igalia.com>
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Chia-I Wu <olv@google.com>,
+ Tejun Heo <tj@kernel.org>
+Subject: [RFC v3 2/2] drm/panthor: Create per queue priority workqueues
+Date: Fri, 17 Jul 2026 10:02:09 +0100
+Message-ID: <20260717090209.26931-3-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260717090209.26931-1-tvrtko.ursulin@igalia.com>
+References: <20260717090209.26931-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -56,66 +59,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a continuation of the previous discussion which was here:
-https://lore.kernel.org/dri-devel/20260702143745.79293-1-tvrtko.ursulin@igalia.com/
+Split the single workqueue shared between the driver internal logic and
+DRM scheduler use into separate ones, where the DRM scheduler one is
+created per GPU priority level using the appropriate mapping to
+workqueue priorities.
 
-Work is now converted to a much simpler approach by adding real-time scheduling
-workqueues based on Tejun's feedback
+Low and medium GPU priority are served by a normal workqueue,
+high is server by a WQ_HIGHPRI instance, while realtime GPU priority is
+using the newly added WQ_RTPRI flag for lowest possible latency.
 
-To re-cap, when an userspace thread submits GPU work, due how the DRM scheduler
-uses workqueues to feed the GPU, and regardless of the GPU rendering context
-priority, or the CPU scheduling priority of the userspace thread itself, the
-use of workqueues adds (a lot of) latency to the submit path.
+These workqueues are device global and for all three we set the maximum
+concurrency to two in order to keep the GPU optimally fed with work.
 
-When CPU is busy with enough backround load this translates to severe latency
-spikes measured as time between userspace submitting work and GPU actually being
-given that work to execute.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Chia-I Wu <olv@google.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Steven Price <steven.price@arm.com>
+Cc: Tejun Heo <tj@kernel.org>
+---
+ drivers/gpu/drm/panthor/panthor_sched.c | 38 +++++++++++++++++++++----
+ 1 file changed, 33 insertions(+), 5 deletions(-)
 
-With the panthor workqueue upgraded to use WQ_HIGHPRI and varying the CPU
-priority of the submit thread, the test program from
-https://gitlab.freedesktop.org/panfrost/linux/-/work_items/49 reproduces these
-kind of latencies:
-
-         .    N    RT
-    M   27   28    32
-  95%  163  246   809
-  98%  924  991  1882
-
-Legend:
-
-   M = Median submit latency in us
- 95% = Percentile latency in us
-
-   . = Userspace submit thread SCHED_OTHER
-   N = -||= nice -1
-  RT = -||- FIFO 1
-
-Upgrading the panthor workqueues so that the realtime GPU priority queue uses
-WQ_RTPRI, submit latency becomes completely controlled with the median of 14us
-and 95 and 98-th percentiles at 23us and 25us respectively.
-
-Important to note is that VK_QUEUE_GLOBAL_PRIORITY_REALTIME already required
-the userspace to have CAP_SYS_NICE, meaning access to real-time workqueues is
-effectively also guared behind this capability. The implementation of WQ_RTPRI
-itself also adds some limites on the maximum number of worker threads in order
-to prevent scheduling starvation.
-
-v2:
- * See patch 1 changelog.
-
-v3:
- * See patch 1 changelog + apologies for v3 following so quickly after v2.
-   I have found a race condition as I expanded the testing to a second platform.
-
-Tvrtko Ursulin (2):
-  workqueue: Add support for real-time workers
-  drm/panthor: Create per queue priority workqueues
-
- drivers/gpu/drm/panthor/panthor_sched.c |  38 +++++-
- include/linux/workqueue.h               |  23 +++-
- kernel/workqueue.c                      | 152 ++++++++++++++++++------
- 3 files changed, 168 insertions(+), 45 deletions(-)
-
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 5832dccfc093..70e84ebb6c66 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -152,11 +152,18 @@ struct panthor_scheduler {
+ 	 *
+ 	 * Used for the scheduler tick, group update or other kind of FW
+ 	 * event processing that can't be handled in the threaded interrupt
+-	 * path. Also passed to the drm_gpu_scheduler instances embedded
+-	 * in panthor_queue.
++	 * path.
+ 	 */
+ 	struct workqueue_struct *wq;
+ 
++	/**
++	 * @submit_wq: Per priority workqueues for the DRM scheduler
++	 *
++	 * Passed to the drm_gpu_scheduler instances embedded
++	 * in panthor_queue based on the queue priority.
++	 */
++	struct workqueue_struct *submit_wq[PANTHOR_CSG_PRIORITY_COUNT];
++
+ 	/**
+ 	 * @heap_alloc_wq: Workqueue used to schedule tiler_oom works.
+ 	 *
+@@ -3500,7 +3507,6 @@ group_create_queue(struct panthor_group *group,
+ {
+ 	struct drm_sched_init_args sched_args = {
+ 		.ops = &panthor_queue_sched_ops,
+-		.submit_wq = group->ptdev->scheduler->wq,
+ 		/*
+ 		 * The credit limit argument tells us the total number of
+ 		 * instructions across all CS slots in the ringbuffer, with
+@@ -3593,8 +3599,14 @@ group_create_queue(struct panthor_group *group,
+ 		goto err_free_queue;
+ 	}
+ 
++	if (group->priority >= ARRAY_SIZE(group->ptdev->scheduler->submit_wq) ||
++	    !group->ptdev->scheduler->submit_wq[group->priority]) {
++		ret = -EINVAL;
++		goto err_free_queue;
++	}
++
+ 	sched_args.name = queue->name;
+-
++	sched_args.submit_wq = group->ptdev->scheduler->submit_wq[group->priority];
+ 	ret = drm_sched_init(&queue->scheduler, &sched_args);
+ 	if (ret)
+ 		goto err_free_queue;
+@@ -4084,6 +4096,15 @@ static void panthor_sched_fini(struct drm_device *ddev, void *res)
+ 	if (!sched || !sched->csg_slot_count)
+ 		return;
+ 
++	if (sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM])
++		destroy_workqueue(sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM]);
++
++	if (sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH])
++		destroy_workqueue(sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH]);
++
++	if (sched->submit_wq[PANTHOR_CSG_PRIORITY_RT])
++		destroy_workqueue(sched->submit_wq[PANTHOR_CSG_PRIORITY_RT]);
++
+ 	if (sched->wq)
+ 		destroy_workqueue(sched->wq);
+ 
+@@ -4185,7 +4206,14 @@ int panthor_sched_init(struct panthor_device *ptdev)
+ 	 */
+ 	sched->heap_alloc_wq = alloc_workqueue("panthor-heap-alloc", WQ_UNBOUND, 0);
+ 	sched->wq = alloc_workqueue("panthor-csf-sched", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
+-	if (!sched->wq || !sched->heap_alloc_wq) {
++	sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM] = alloc_workqueue("panthor-drm", WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
++	sched->submit_wq[PANTHOR_CSG_PRIORITY_LOW] = sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM];
++	sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH] = alloc_workqueue("panthor-drm-high", WQ_HIGHPRI | WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
++	sched->submit_wq[PANTHOR_CSG_PRIORITY_RT] = alloc_workqueue("panthor-drm-rt", WQ_RTPRI | WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
++	if (!sched->wq || !sched->heap_alloc_wq ||
++	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM] ||
++	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH] ||
++	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_RT]) {
+ 		panthor_sched_fini(&ptdev->base, sched);
+ 		drm_err(&ptdev->base, "Failed to allocate the workqueues");
+ 		return -ENOMEM;
 -- 
 2.54.0
 
