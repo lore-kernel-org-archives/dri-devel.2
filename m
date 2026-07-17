@@ -4,124 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D57CEC4452D
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD41AC44531
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8E2810E79F;
-	Mon, 20 Jul 2026 07:15:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 784B310E7A1;
+	Mon, 20 Jul 2026 07:15:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mt.com header.i=@mt.com header.b="Vm9y1MnT";
+	dkim=pass (2048-bit key; unprotected) header.d=icloud.com header.i=@icloud.com header.b="ZxD8ifEN";
 	dkim-atps=neutral
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011011.outbound.protection.outlook.com [52.101.70.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A55C310E3E4
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 11:50:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kauJfSoQA27/f63sKv8zG1NInOWUDTNQSq78by/sDjhLjWZLh/OtlE8KemjkchBfaj/R9vVEkxA2thEDbPtsBuimrKVpJUtdfry/PEcAaZjulaSB8Co0wKMKhxBpsKIqUUQ1FxdTY610drgAmHcYlus5tUnUSNxh5UAcCUjixpIfMx9tNqFtOomorhxYKvVEDKFd2jg0UdOCKKU8m8Esq5Mi/e7gHnrskyk01dD8wgif3JUVvIDTApURWhjwBUPi3VzzpptBEBbC3wyWx4e4IaDqp0AnQE4ON2SZ6tBKXaQZ973T7PR9iBnAPTrG+j79b/EmMDPZp8azg8NqI30ZKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5Ht0c7p1+lFoEgb1uX4Ax5xZ6nMI7hzflHMWLAI3D2U=;
- b=n/Nb1vk///23qJcnChS9ux4vv7dhYwbleLQsV6d16iWpioKzrPsxULCxXAMcZCJkdQo/qAfS7R5ANHzuNFEgBDwCX11Sj2woa+2Bqlr2kzRJuBiWxAZZ+Ea0xJMgtfFiSWgbZ4Y24AVd/E79jQJJWTnG9Zy8sODfckidlwLPcK4/f8MQ2DhRM+2bgzV/xIPJZxheGWS6i7WgSFnHKGAeGRfxj+8CLR87a+stcLkmL+DnB6LqJxWzaocZVM1mEua8Nwzd13X4Y//bOkSn6FQuYhSjj9iUCipiqOy1ajWEGLRy4/8xQMi5zI/qL785PoIW2BJkA8Ec1atmwJtkCykn6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
- header.d=mt.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5Ht0c7p1+lFoEgb1uX4Ax5xZ6nMI7hzflHMWLAI3D2U=;
- b=Vm9y1MnTKMYek4D59geOShlO5Cf9a/wRm5HRHkDtdueAhPJ009XTzPDIiFlnHrhN/qPhk5LslqeSAIjHZ32A+y6Pja3KtcwCP3eR1GE2udaSyY6dvkDh7cG6AVyel8IlxmM60+KQ9zGdrEVn/83rKHkRmvyKiMk+59eyK9FBkl9CclVy1T4Nsm1qITYx63/AdOClOPVt3zEcjaCbGzonZ4tRS7wN3P1Yh5J/SE/ezCCVSc3ykUSZHx1tbos4FCV+pYSS6fm0UsEudV2szimhbeWS/tI1Z5SliCl8ZGSRPCcwscP/BHcmWAr8flf60lhG7vmSxJZi+EnK913n0R8x8A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mt.com;
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
- by GVXPR03MB8308.eurprd03.prod.outlook.com (2603:10a6:150:6e::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
- 2026 11:50:14 +0000
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
- 11:50:14 +0000
-From: Wojciech Dubowik <wojciech.dubowik@mt.com>
-To: linux-kernel@vger.kernel.org
-Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Subject: [PATCH v5 3/3] drm/bridge: ti-sn65dsi83: Add reversed lvds lanes
- support
-Date: Fri, 17 Jul 2026 13:50:01 +0200
-Message-ID: <20260717115002.308035-4-wojciech.dubowik@mt.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260717115002.308035-1-wojciech.dubowik@mt.com>
-References: <20260717115002.308035-1-wojciech.dubowik@mt.com>
+X-Greylist: delayed 934 seconds by postgrey-1.36 at gabe;
+ Fri, 17 Jul 2026 16:59:58 UTC
+Received: from outbound.st.icloud.com (st-2004b-snip4-5.eps.apple.com
+ [57.103.78.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0C9B10F5B7
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 16:59:58 +0000 (UTC)
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+ by p00-icloudmta-asmtp-us-east-1a-60-percent-10 (Postfix) with ESMTPS id
+ 085271800162; Fri, 17 Jul 2026 16:44:20 +0000 (UTC)
+X-ICL-RepId: 019f70f6-f646-78c2-a5a8-9dc1ab044d36
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhICkMGWQJeCE0HQwZcAFBcHA4EVANbQgtICi1eCF4fTBwdDlgGEhZdRVoOWwRHFBcbXAAXGVFNDlhbCFsEDx9MDFECQgVWXkoMHQRUB10FXVZQAlpLQgRLRWhcBVwcQBdIHV9qS1YUBBFQAVgeVl5aF15NWgJWTQVJBFUDWAJGD00FXwVFCkEOTABeGVkGQQpOAV8FUwVGAEoLXANTA0IXH1UVXx5QXUoMUg9bDh8WVhRfAkAeQjBQG18CQg8cE1YVDU1DEkIVBBFQAVgeVg==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai;
+ t=1784306663; x=1786898663; bh=IcoWptpMMKJfRvm1yIVnGLPBbqqPSHCKZlMZVkgirlQ=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme;
+ b=ZxD8ifEN7b8aRl1NYfGicJmcE6DYELUf0Qd10WubY7eLMn/y6DIo+WNmCSdoxTnsh3VRct9wWITtyyGIbWABPQ0nUvSKsScX302ALMZeeo+uLDur3D70GwQZcM81qm3Cucc0N/5FvuBmhR2cx3mJiadTSPUZs0TdkTlvSTyPHhdBEUm7sMLcZQ74YebDT9HZR1QKJiTYKjAPI1o0wyQJDnn83Dr1lIDbSxwpTc/SYCagrlGwatZ0Y0IYGAELX2dVi0ajTSPBsQ/Qvp4eei0oh4nCtcgN3Yx1j9xqWRxrDDsCF8MBz6vviFTEea+63TifE/HEX0/HjRLGhANz7YO2wQ==
+Received: from [192.168.1.7] (unknown [17.42.251.67])
+ by p00-icloudmta-asmtp-us-east-1a-60-percent-10 (Postfix) with ESMTPSA id
+ B734718004DC; Fri, 17 Jul 2026 16:44:18 +0000 (UTC)
+From: LetsDank <ichi2209@icloud.com>
+To: Hamza Mahfooz <someguy@effective-light.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Mario Limonciello <superm1@kernel.org>, 
+ Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/2] drm/amd/display: add DMU timeout recovery support
+In-Reply-To: <178429570497.694276.1089609041510474786.dmub-recovery-v6-test@icloud.com>
+References: <20260505182105.420525-1-someguy@effective-light.com>
+ <20260505182105.420525-2-someguy@effective-light.com>
+ <178429570497.694276.1089609041510474786.dmub-recovery-v6-test@icloud.com>
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR0P278CA0063.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:21::14) To DB9PR03MB7180.eurprd03.prod.outlook.com
- (2603:10a6:10:22d::13)
+Date: Fri, 17 Jul 2026 19:44:16 +0300
+Message-ID: <178430665622.817433.2413622287692814812.gfxhub-stable-followup@icloud.com>
+X-Mailer: b4 0.14.3
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|GVXPR03MB8308:EE_
-X-MS-Office365-Filtering-Correlation-Id: 91333213-1875-476a-9f9c-08dee3f99078
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|19092799006|1800799024|23010399003|56012099006|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: Xu3SB+CCyrV1kNfVEibiB5LkOwtURn6Y34bqyz+NMxIUXcnxXPa7s/LI41fzadG8Dcbgk4iw6XopB8CvUxHhBHGI84l/J7fVJ9oZ3iP5ptisefT5cjKEu9DLi03iaSfd86yw3djBbRVQlQBYRhp0c0SBIUv4jtKF4y7HyXL2bWabL4skvb6NbUtrZwM3Cdi3sKlQye37tgknNSPSiUOkUKiwUtgocZ3Zr3Gfe5Zu0Ta+Ew13ZjimYvNRCQOrML5Ki8Wz3CylDwJqnZm3dOdGEKCZJvX1KbOR+8ApA3IbINpAelA4mI718eV7jeyJ1GZIP2CRdT0/spnSQ24+yZF218mFwcSUGt50HVVViPJNSObtIyxEZ6IsIlQPRCmbH0xmaJwFKN23w0YMgtKBF94ut6jR2oMnxCnW1IaqyXQtYGiC3S6+4a5cVg+FxbRqgV4ibaMasuiHc6sL2UKVWqEmnFgU9Lxbjat4WvhMe5yNpO/E4hYpB7N6m29LjcYpjRaB2xziqmL+XwthEfkAnEUN7TnRU6DeKmyFGSmSXByuOQZ+musAD/II8CSxYU3TMBVIEkpLOzHjXCUmHPDqimlHNgkhAAm29iTwi1Sk4jb1lnZiOM4QvBZB8QsDmpohTbC2UZlyeM+f6HKQu20/U36ux166Q6M8dMmwaABIVJvm4Fw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DB9PR03MB7180.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(19092799006)(1800799024)(23010399003)(56012099006)(10067099003)(22082099003)(18002099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?q1IvAvHID7kN39t8lrPF0+TxlmQ5X7MbspYvyUXoXkzeufTOzFtuti1h6aW7?=
- =?us-ascii?Q?VtmkgaCQWq809vtZK0R9lW7Bi+dm8LEmxmT/wypsD9UgIn4OEt0mzqXlWNse?=
- =?us-ascii?Q?fC26wgwlQghLHBkL7AZbMqhscRJp6HXm0MvW2pycMYtoruCbxYUE7+3O5b1B?=
- =?us-ascii?Q?HJuFaRQ49jjTv7zIJSI+wl+55HSljbHEJor3y1lT3DaX0WV5DRqAjwCGxjp6?=
- =?us-ascii?Q?RFshl2dG0Msgl3OHY7SDlhLb9PtP4DM/qkzphjBIOa/a9eyYvcLxs4oS273H?=
- =?us-ascii?Q?FUMznTi+kj0aujIzw+KT152iGbE8ELrMOVRuTlNaHwSPNoM3lTXPchIphDjV?=
- =?us-ascii?Q?SM4o9zg8X6T7obhnCZDrheHmMgVc4KYnXzCfbChAXSeHl/wAtLI2EuMtwoax?=
- =?us-ascii?Q?xy/ZbhDdmFSH+HRr8nN8VU0S+zRVt3JwqwJIvXmMasDeb0p8oB+Y7Avqu8Tz?=
- =?us-ascii?Q?AWnTuYbjMMVXagkeDBLTjDAEH44xMnN8xTzxaCeL9cnjB9+1ZHJ+lne8eYUD?=
- =?us-ascii?Q?ol4gRwBcm8SDEJY5l5gz5iHwQfMPvhwxUsR46XwqDvleDywLuDFRBu5WciGh?=
- =?us-ascii?Q?jqkm8WrJyuoaXVVkrzFBqo+0qNiD+JraBsxVj517kMAtoXQQT4us0tNtyKZd?=
- =?us-ascii?Q?ehQiVkwCg/zDD3+jAqzbpWnhJrMN/CQe+jhkQ7LA0OrMZsVXB9ACyOBhfcvt?=
- =?us-ascii?Q?3AikEwkEknlbW+ygeH+KMxeoW9vopIJji1tzGOv+RAACjZ2B9YCXrRWNgru9?=
- =?us-ascii?Q?u23x7jKn7g4QKBfx3ROBZ5Y4/i4GY/lRkFMC9XczAJB094lOMnevPzRc+Owy?=
- =?us-ascii?Q?M67K/0dKFhzzw27npo1O++6dW6cuvISpS3GlWWWqHKFy2OV8AUJ4RV3nuf12?=
- =?us-ascii?Q?QvOjUL+pqDtwIcREHAqu/BnioDYx2iCAulp5H+hqzjWPmMjvKz1HuozUGEve?=
- =?us-ascii?Q?5bipQ6DBtl1l+Xl/CKEdsyqGTzgGhpN0snxXXmGs6TRc7PkSANHpvPDXuGx/?=
- =?us-ascii?Q?Sy9tsyIOp1dYIiBPV2E6RPGHGjaoGRzHq16zjbPrut1snobPWoIUlQkz4XjQ?=
- =?us-ascii?Q?tBaNsm3eAdEwkCVqSW4et3nszCgvwb20Ao+5mh5OveNfCw8FovVd2KthyPtc?=
- =?us-ascii?Q?83VU/v/80/40vrmg8vR5x/PHYvU1ueNoNhls/P4KjWyiBcTaaVLYAVg1m9oi?=
- =?us-ascii?Q?IfcdkSPJtu31R/AD2wYdnqDj9EFFdmhHUliFOkbXkxLdQQAU9tRyvbSJ7YdT?=
- =?us-ascii?Q?rRvL+fSrdwrGj7CwcGwL8Y6s2nNHjS5bVWYJUc9F0ydWmt58rJWfS3soT4p8?=
- =?us-ascii?Q?XcWYWsJ43jTT8BkzAsJ6lpytaTHgNwJTyDMfVVmVOnbR+NJBJ0D07mz+N+3M?=
- =?us-ascii?Q?RLXFkC4RvWv1VGmhR9qpEipJ2WsVmpOK3RZot/iIaHqkEvROCrWDFCZaw6Lw?=
- =?us-ascii?Q?l7OjbK2quz21ru2W6yqhhXgHRuKoCNb4QAKwIDB4xlYHt44379Cwq9RUc9w7?=
- =?us-ascii?Q?sHZl5MZdmy2HK4tgi3wdVHD5ptWSkNqx0IcaEULW7VcPy1GC8VAYiwXoME9B?=
- =?us-ascii?Q?XHU68VhUQdgS/1rOgESA0TmEjSIvaG5fhbIhonSbnl8BuqeVxq5PjYu2F2+n?=
- =?us-ascii?Q?Wt5MtEZSrnXvCvje1RU0YA0psbUwsJCSJOo2/arqE79EwGFY8TSrojrNa37W?=
- =?us-ascii?Q?OhegBPNDzNBtNI5C1UIUdDETG70yepbCEuk3kF9ZIiGLIRHFYdXsAcop3Nmw?=
- =?us-ascii?Q?yb+vJiOYfw=3D=3D?=
-X-OriginatorOrg: mt.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91333213-1875-476a-9f9c-08dee3f99078
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 11:50:14.3992 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5bpM2MJpbRJM/UW9vP7uGzfYLb0a0AF7FAJxM7QG5e88vTDxYDNIysWQWXFp4j/lNz+3syC8Sv+zA94WDIb3yA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR03MB8308
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784306658; l=1310;
+ i=ichi2209@icloud.com; s=default; h=from:subject:message-id;
+ bh=ArBkVRRAB5Hvap9lCuY6dcFa5nG0SOuaadtHLVMS3oI=;
+ b=CWUuXgg1PEAiHyqq03uqN3F0jdvYWw8zJjJAdYXq4drRPjbbmuk028yQ0z0xM8qEcEWq7yUAg
+ 3vSnsWflprABSOoMGhLfQQfN3hqiAN9iDqcn45y+T2xgPGqy3ILlKGQ
+X-Developer-Key: i=ichi2209@icloud.com; a=ed25519;
+ pk=XxjWf2lZjzshfIjDjk9y0WzmUwfl3qazBLI51WfnrWs=
+X-Proofpoint-GUID: w3bjnjs-y5_2ErSwc5aNum-ipELnllOs
+X-Proofpoint-ORIG-GUID: w3bjnjs-y5_2ErSwc5aNum-ipELnllOs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDE3MSBTYWx0ZWRfXykUdY01ZPP1+
+ tSy8A/Cqq6jmZjHJ2XutCumk0L/k/c6nW/UFrWF9I04vAqfoNUaoqcGXce2ThCsslOjG2WE1FJb
+ r28dQolaQ7ZUzwSXBqNinf5so0+EBJHlaukZJAAImijXm+4mFfwur2vDptj+pl5dUe3l5U9Qnrm
+ xfm8QrklycqVB+MfTtR8znQ8dgovmhEzhT2QyhIGPAZI/WYQ3erTdVTMrNW+22Pby19Jz4ROwb0
+ hQVkusegqcahpuyhWCBq9m+uKZOngCnbVULpsJ2gX3Jnm4MVTHscwQJ3l/C+3stHxCtA+KxnC4S
+ gRRVyVahnuFJh3wSyVd
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,87 +77,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+Hi,
 
-The chip supports output lvds lanes in two orders, the default <1 2 3 4>
-and <4 3 2 1>. Add parsing of an optional output lvds data-lanes property
-so we can inform chip that the lanes have been reversed.
+An important follow-up arrived shortly after my previous message.
 
-Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
----
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 31 +++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+The same separate gfxhub failure has now reproduced on the Fedora
+7.1.3-200 kernel with amdgpu.dcdebugmask=0x810, after about 30.5 hours of
+uptime. The sequence was:
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index f8a786953526..df44df2e872a 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -148,6 +148,18 @@ enum sn65dsi83_lvds_term {
- 	OHM_200
- };
- 
-+enum {
-+	LANE_MAPPING_NORMAL,
-+	LANE_MAPPING_REVERSE,
-+};
-+
-+#define DATA_LANES_COUNT	4
-+
-+static const u32 supported_data_lane_mapping[][DATA_LANES_COUNT] = {
-+	[LANE_MAPPING_NORMAL] = { 1, 2, 3, 4 },
-+	[LANE_MAPPING_REVERSE] = { 4, 3, 2, 1},
-+};
-+
- enum sn65dsi83_model {
- 	MODEL_SN65DSI83,
- 	MODEL_SN65DSI84,
-@@ -163,6 +175,7 @@ struct sn65dsi83 {
- 	struct regulator		*vcc;
- 	bool				lvds_dual_link;
- 	bool				lvds_dual_link_even_odd_swap;
-+	bool				lvds_reverse_lanes_conf[2];
- 	int				lvds_vod_swing_conf[2];
- 	int				lvds_term_conf[2];
- 	int				irq;
-@@ -644,6 +657,10 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
- 	regmap_write(ctx->regmap, REG_LVDS_LANE,
- 		     (ctx->lvds_dual_link_even_odd_swap ?
- 		      REG_LVDS_LANE_EVEN_ODD_SWAP : 0) |
-+		     (ctx->lvds_reverse_lanes_conf[CHANNEL_A] ?
-+		      REG_LVDS_LANE_CHA_REVERSE_LVDS : 0) |
-+		     (ctx->lvds_reverse_lanes_conf[CHANNEL_B] ?
-+		      REG_LVDS_LANE_CHB_REVERSE_LVDS : 0) |
- 		     (ctx->lvds_term_conf[CHANNEL_A] ?
- 			  REG_LVDS_LANE_CHA_LVDS_TERM : 0) |
- 		     (ctx->lvds_term_conf[CHANNEL_B] ?
-@@ -833,6 +850,7 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
- 	u32 lvds_vod_swing_clk[2] = { 0, 1000000 };
- 	/* Set default near end terminataion to 200 Ohm */
- 	u32 lvds_term = 200;
-+	u32 data_lanes[DATA_LANES_COUNT];
- 	int lvds_vod_swing_conf;
- 	int ret_data;
- 	int ret_clock;
-@@ -845,6 +863,19 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
- 	else
- 		return -EINVAL;
- 
-+	ret_data = of_property_read_u32_array(endpoint, "data-lanes", data_lanes,
-+			ARRAY_SIZE(data_lanes));
-+	if (!ret_data) {
-+		if (memcmp(data_lanes,
-+				supported_data_lane_mapping[LANE_MAPPING_REVERSE],
-+				ARRAY_SIZE(data_lanes)) == 0)
-+			ctx->lvds_reverse_lanes_conf[channel] = true;
-+		else if (memcmp(data_lanes,
-+			   supported_data_lane_mapping[LANE_MAPPING_NORMAL],
-+			   ARRAY_SIZE(data_lanes)) != 0)
-+			return dev_err_probe(dev, -EINVAL, "invalid data lanes mapping\n");
-+	}
-+
- 	ret_data = of_property_read_u32_array(endpoint, "ti,lvds-vod-swing-data-microvolt",
- 					lvds_vod_swing_data, ARRAY_SIZE(lvds_vod_swing_data));
- 	if (ret_data != 0 && ret_data != -EINVAL)
--- 
-2.47.3
+  [gfxhub] page fault, process Xorg, ring 24, vmid 5
+  GCVM_L2_PROTECTION_FAULT_STATUS: 0x00501031
+  Faulty UTCL2 client ID: TCP
+  PERMISSION_FAULTS: 0x3
+  ring gfx_0.0.0 timeout
+  Ring gfx_0.0.0 reset succeeded
+
+Mesa then aborted Xorg in amdgpu_ctx_set_sw_reset_status(), ending the
+X11 session and returning to SDDM. As in the v7.2-rc3 incident, there
+were no DMUB, DMCUB, flip_done, or commit-wait timeout messages.
+
+I captured a second complete 5.4 MB AMDGPU devcoredump. The fault status,
+client, Xorg context, Mesa abort path, and ring-reset sequence match the
+v7.2-rc3 incident.
+
+This corrects any impression that the machine is stable against all GPU
+faults with dcdebugmask=0x810. The workaround still appears to avoid the
+original DMCUB/page-flip timeout signature, but it does not prevent this
+separate gfxhub VM fault. The reproduction on both kernels also makes it
+unlikely that the gfxhub fault was introduced by this patch series.
+
+Both devcoredumps and the matching kernel logs are available if useful.
+
+Regards,
+LetsDank
 
