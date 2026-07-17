@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 993E8C4451B
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 21:02:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FE8EC44515
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 21:04:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 067AC10F609;
-	Fri, 17 Jul 2026 21:02:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91E8A10F608;
+	Fri, 17 Jul 2026 21:04:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gZxV2A/o";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZOIz/DZh";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 593B310F609
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 21:02:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A59FB10F608
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 21:03:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A9EA860051;
- Fri, 17 Jul 2026 21:02:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278A71F00A3A;
- Fri, 17 Jul 2026 21:02:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E158C60051;
+ Fri, 17 Jul 2026 21:03:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D0DE1F000E9;
+ Fri, 17 Jul 2026 21:03:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784322148;
- bh=fBRV6Xu0oMd169LICk7wRNzW+HqAbss6lOzThgHmGkg=;
+ s=k20260515; t=1784322237;
+ bh=eVdLTA+AjRVyiOHKoWClusW2vmQUFpZhrZsRwdr3/FQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gZxV2A/oY7ChjLbSjB3Kzy+Txxltjz/YdHMk1G4nAjFtYl9hSXh7XvIHrdVxi9ODI
- VtFK0Je4uoxpvmsvo/x6v806DNCpnk8Tj2rT6C+no803ypKIPHd1V5yXiick5hMYJX
- W+yJtQloBFlflcozi5u+rK5rGedr9BA42z9ETVZXbtQ1tW0tNRMkGNX4IHCrVhMMBB
- o5o4QJqQVr6S0z7cwv5fPChexR7v0jWKp2Me61ysGyFLy7D5KXkSS1rPV9d1ps7uVe
- h9RQSkDOj4znDgJjNKsBR4R3uJqoYMucPxQ9uGXfSVPMk117Yo1H6jk6pkdqnAcoQr
- asl6O0snR2vFA==
+ b=ZOIz/DZhdWz/NkwRbr1av8dJr8uFTazi/uVFPg4c1msZrAbvI+awW9Z8bKKYYHpBF
+ 2kuaI7StIscibAQURlUXDopQhSDAkJ6UAG9PmHyljdZUfUQRoZ51bI5mCO9GUu1Ths
+ 8nesN8S1KIde/I5Ausy63BnHDcYHIdhzG/Kcg+cIrG/Kha9ySqgBvWlATJ4cb+CVsM
+ XZOC1GFpR9ioglEkJBBza9EhjquCAPcMhoE7dfJFgt9Rsb83wEXL2q/BideKgGuMGU
+ bLdbDmPIXG/Mw5sGNkPtHrJICiaPeJFAH/qPf1hhjEhhSHuitYV17fzXDUry/8wGXv
+ mFlLBHtl+V2JA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 09/16] drm/msm/gem: Remove useless locking in GEM import
+Subject: Re: [PATCH v6 07/16] drm/msm/a6xx: Access VM directly in submit path
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260717204841.26120-10-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20260717204841.26120-8-robin.clark@oss.qualcomm.com>
 References: <20260717204841.26120-1-robin.clark@oss.qualcomm.com>
- <20260717204841.26120-10-robin.clark@oss.qualcomm.com>
+ <20260717204841.26120-8-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 21:02:27 +0000
-Message-Id: <20260717210228.278A71F00A3A@smtp.kernel.org>
+Date: Fri, 17 Jul 2026 21:03:56 +0000
+Message-Id: <20260717210357.6D0DE1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,78 +57,95 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Pre-existing error path vulnerability in `msm_gem_import` causes a=
- double-free of the exporter's `sgt`, NULL pointer dereference, and wild po=
-inter dereferences during cleanup.
+- [Critical] The size calculation for the `msm_gem_submit` structure wraps =
+around on 64-bit architectures, bypassing the `sz > SIZE_MAX` check and lea=
+ding to a heap buffer overflow.
+- [High] Direct access to `ctx->vm` in `msm_ioctl_gem_submit` before the VM=
+ is guaranteed to be created causes a NULL pointer dereference.
 --
 
---- Patch [9]: [PATCH v6 09/16] drm/msm/gem: Remove useless locking in GEM =
-import ---
-commit 19246e79feb40c4e0066b56b3385fea83fcc3d75
+--- Patch [7]: [PATCH v6 07/16] drm/msm/a6xx: Access VM directly in submit =
+path ---
+commit e716d49994df650aa89eca4941226567c71dbab5
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-drm/msm/gem: Remove useless locking in GEM import
-   =20
-This patch removes unnecessary locking during the GEM object import process
-in msm_gem_import().
+drm/msm/a6xx: Access VM directly in submit path
 
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index 2cb3ab04f1250..a358fb5ca6d73 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -1302,23 +1302,18 @@ struct drm_gem_object *msm_gem_import(struct drm_=
-device *dev,
->  	npages =3D size / PAGE_SIZE;
-> =20
->  	msm_obj =3D to_msm_bo(obj);
-> -	msm_gem_lock(obj);
->  	msm_obj->sgt =3D sgt;
->  	msm_obj->pages =3D kvmalloc_objs(struct page *, npages);
->  	if (!msm_obj->pages) {
-> -		msm_gem_unlock(obj);
->  		ret =3D -ENOMEM;
->  		goto fail;
->  	}
-> =20
->  	ret =3D drm_prime_sg_to_page_array(sgt, msm_obj->pages, npages);
->  	if (ret) {
-> -		msm_gem_unlock(obj);
->  		goto fail;
+This patch changes the submit path to access the VM directly from the conte=
+xt
+rather than calling msm_context_vm() to lazily create it. It relies on the
+assumption that the ioctl has already ensured the VM is created prior to th=
+is
+point in the execution flow.
+
+> The GEM_SUBMIT ioctl has already ensured that the VM is created, so we
+> aren't expecting to lazily create the VM this deep into the ioctl.
 
 [Severity: High]
-This is a pre-existing issue, but does this error path lead to a NULL
-pointer dereference and a double-free?
+This isn't a bug introduced by this patch, but does this assumption hold tr=
+ue?
 
-When msm_gem_import() jumps to fail, it calls drm_gem_object_put(obj).
-At this point, obj->import_attach has not yet been set (it is assigned
-later by the caller drm_gem_prime_import_dev() on success).
+Looking at the ioctl entry point in msm_ioctl_gem_submit(), if userspace
+triggers this ioctl before any operation that creates the VM, the VM pointer
+is initially null:
 
-During cleanup, msm_gem_free_object() checks drm_gem_is_imported(obj).
-Since import_attach is NULL, this evaluates to false, causing the cleanup
-to fall through to the native path:
+drivers/gpu/drm/msm/msm_gem_submit.c:msm_ioctl_gem_submit() {
+    ...
+	if (to_msm_vm(ctx->vm)->unusable)
+		return UERR(EPIPE, dev, "context is unusable");
+    ...
+}
 
-msm_gem_free_object() ->
-    put_pages(obj)
+Can this direct access to ctx->vm cause a null pointer dereference, since a
+preceding call to msm_context_vm() hasn't guaranteed its existence yet?
 
-In put_pages(), the code incorrectly frees the exporter-owned sgt (leading
-to a double-free) and then calls drm_gem_put_pages().
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index e293b4ca808a4..9240c4af687c9 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -229,7 +229,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_=
+gpu,
+>  {
+>  	bool sysprof =3D msm_gpu_sysprof_no_perfcntr_zap(&a6xx_gpu->base.base);
+>  	struct msm_context *ctx =3D submit->queue->ctx;
+> -	struct drm_gpuvm *vm =3D msm_context_vm(submit->dev, ctx);
+> +	struct drm_gpuvm *vm =3D ctx->vm;
+>  	struct adreno_gpu *adreno_gpu =3D &a6xx_gpu->base;
+>  	phys_addr_t ttbr;
+>  	u32 asid;
 
-Finally, drm_gem_put_pages() unconditionally accesses
-file_inode(obj->filp)->i_mapping. Because obj->filp is NULL for imported
-objects, this causes a NULL pointer dereference.
+While reviewing the submit path related to this change, I noticed another
+pre-existing issue in the submission creation logic:
 
->  	}
-> =20
-> -	msm_gem_unlock(obj);
-> -
->  	drm_gem_lru_move_tail(&priv->lru.pinned, obj);
-> =20
->  	mutex_lock(&priv->obj_lock);
+drivers/gpu/drm/msm/msm_gem_submit.c:submit_create() {
+    ...
+	sz =3D struct_size(submit, bos, nr_bos) +
+			((u64)nr_cmds * sizeof(submit->cmd[0]));
+
+	if (sz > SIZE_MAX)
+		return ERR_PTR(-ENOMEM);
+    ...
+}
+
+[Severity: Critical]
+This is a pre-existing issue, but does this check protect against integer
+overflows effectively?
+
+Since sz is a 64-bit unsigned integer, the check sz > SIZE_MAX is
+mathematically impossible and acts as dead code.
+
+If a user provides a sufficiently large nr_bos, struct_size() saturates to
+SIZE_MAX. Adding a non-zero value for nr_cmds then causes sz to wrap around
+to a small value.
+
+Could this lead to an undersized buffer allocation from kzalloc() and a
+subsequent out-of-bounds heap write during initialization?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717204841.2612=
-0-1-robin.clark@oss.qualcomm.com?part=3D9
+0-1-robin.clark@oss.qualcomm.com?part=3D7
