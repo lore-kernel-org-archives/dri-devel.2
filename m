@@ -4,48 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 122CBC4450F
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 03:35:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD174C4450F
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 05:00:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5945710E51E;
-	Fri, 17 Jul 2026 03:35:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E918410E40F;
+	Fri, 17 Jul 2026 05:00:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="K+IteHO9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QkCa06tM";
 	dkim-atps=neutral
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
- [45.254.49.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1436B10E4C1;
- Fri, 17 Jul 2026 03:35:37 +0000 (UTC)
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
- by smtp.qiye.163.com (Hmail) with ESMTP id 46879f816;
- Fri, 17 Jul 2026 11:30:31 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: christian.koenig@amd.com,
-	alexander.deucher@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, kevinyang.wang@amd.com,
- kenneth.feng@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jianhao.xu@seu.edu.cn, runyu.xiao@seu.edu.cn
-Subject: [RFC PATCH v2 4/5] drm/amdgpu: make ring rptr_cpu_addr and
- wptr_cpu_addr typeless
-Date: Fri, 17 Jul 2026 11:30:08 +0800
-Message-Id: <20260717033009.649538-5-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260717033009.649538-1-runyu.xiao@seu.edu.cn>
-References: <20260717033009.649538-1-runyu.xiao@seu.edu.cn>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B870710E408;
+ Fri, 17 Jul 2026 05:00:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784264400; x=1815800400;
+ h=message-id:date:mime-version:from:to:cc:subject:
+ content-transfer-encoding;
+ bh=fHfaG4jHyMWC4dW3wcdi8xAK4ORm9jzAvGD7PqDtIiM=;
+ b=QkCa06tMov4T/D1Iqw+7lCaom8DqQsyAXtXu4W0w3UU9a3qrFhSHcM3u
+ EmsJoa7yklygYjOybf/nj2x17Cb7EkRI3KGZRz/51NrWVDTGCd5vWh999
+ /T8YUciv9PmjXvrpiGEGUR5KGbBSMQHCVcMDfHk/rqGBt1qaDyd0YKtBI
+ e5sOjNl9vprFIfVp6/QiOrP2SHTWLQdii6ru5W+dIIRvZ+VHVZCaReWcs
+ mzHSHSUdng1VhnyBaVAbocrTRnCG4C7lzBRRTLClsLtqqKRXMitVoO4la
+ u8LyQYIrYHIl9c9n4HAQhHpxEEItCaDD06lDyRwsSwc33TRoa90AKOPlV g==;
+X-CSE-ConnectionGUID: kAK+AP7ORjuqeT/1nkRXDQ==
+X-CSE-MsgGUID: +mz3RMwJS46KjSW5fK0/Kw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="102485884"
+X-IronPort-AV: E=Sophos;i="6.25,168,1779174000"; d="scan'208";a="102485884"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2026 21:59:58 -0700
+X-CSE-ConnectionGUID: iYmAnj9/S0ulPozS6bXlIg==
+X-CSE-MsgGUID: CpLxq+2+SyaLYbKGHh38NA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,168,1779174000"; d="scan'208";a="254915336"
+Received: from abityuts-desk.ger.corp.intel.com (HELO [10.245.245.124])
+ ([10.245.245.124])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2026 21:59:55 -0700
+Message-ID: <7f10281e-88f5-4be5-8b42-367e7ce7c547@linux.intel.com>
+Date: Fri, 17 Jul 2026 07:00:45 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f6e20300a03a1kunm4f30d13722115
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSUtJVk4ZQkJNTR1KQkNDSFYeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=K+IteHO96TA/jtzLRGHfWj7JFafaFXa+P4/HLZ9TrsQqAkLaWY1LyDzQihj37V6yS/EcCagp1I+h6x2d770gZbWagylk8muK032A4sQGesOP1oYOECFM96R9qEwLVdk8thnhmeKFHYbzrImLT/fbifPfJsx+5APd9qDNIXIlvnU=;
- s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1; 
- bh=r/Sx2cj8IHzv2nslld9rwfz/flY291ew0h6CMjs3lkc=;
- h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
+Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Oded Gabbay <ogabbay@kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Subject: [PULL] drm-misc-fixes
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,46 +77,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that all ring writeback slot accesses go through typed helper
-wrappers, the stored CPU pointers no longer need to pretend that every
-slot is a u32-based carrier.
+Hi Dave, Simona,
 
-Change rptr_cpu_addr and wptr_cpu_addr in struct amdgpu_ring from u32 *
-to void *. The actual access width is now chosen at the call sites
-through the typed 32-bit and 64-bit helpers, which better matches how
-the writeback slots are used across different ring implementations.
+New pull-request for drm-misc-fixes, slightly late!
 
-This patch just removes the misleading static type from struct
-amdgpu_ring after the call site conversions. No functional change is
-intended.
+Kind regards,
+~Maarten Lankhorst
 
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+drm-misc-fixes-2026-07-17:
+drm-misc-fixes for v7.2-rc4:
+- Fix UAF in host1x, amdxdna.
+- Handle invalid firmware log in ivpu.
+- Fix error handling in panthor.
+- Handle NULL pages and backup handles in ttm_pool_backup() correctly.
+- Reject more invalid amdxdna command submissions.
+- Improve unmap and error handling on gpusvm.
+- Fix virtio deadlock and invalid gem detach.
+- Fix wrong read in ivpu.
+- Always synchronize for CPU in begin_cpu_udmabuf.
+The following changes since commit a13c140cc289c0b7b3770bce5b3ad42ab35074aa:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 82c6bc782..ced27dd11 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -316,7 +316,7 @@ struct amdgpu_ring {
- 	bool			reemit;
- 	unsigned		rptr_offs;
- 	u64			rptr_gpu_addr;
--	u32			*rptr_cpu_addr;
-+	void			*rptr_cpu_addr;
- 
- 	/**
- 	 * @wptr:
-@@ -396,7 +396,7 @@ struct amdgpu_ring {
- 	 * This is the CPU address pointer in the writeback slot. This is used
- 	 * to commit changes to the GPU.
- 	 */
--	u32			*wptr_cpu_addr;
-+	void			*wptr_cpu_addr;
- 	unsigned		fence_offs;
- 	u64			fence_gpu_addr;
- 	u32			*fence_cpu_addr;
--- 
-2.34.1
+  Linux 7.2-rc3 (2026-07-12 14:16:39 -0700)
 
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-07-17
+
+for you to fetch changes up to faebb7ba1ac65fa5810b640df02ce04e509fdc11:
+
+  accel/amdxdna: Fix use-after-free of mm_struct in job scheduler (2026-07-16 20:05:28 -0700)
+
+----------------------------------------------------------------
+drm-misc-fixes for v7.2-rc4:
+- Fix UAF in host1x, amdxdna.
+- Handle invalid firmware log in ivpu.
+- Fix error handling in panthor.
+- Handle NULL pages and backup handles in ttm_pool_backup() correctly.
+- Reject more invalid amdxdna command submissions.
+- Improve unmap and error handling on gpusvm.
+- Fix virtio deadlock and invalid gem detach.
+- Fix wrong read in ivpu.
+- Always synchronize for CPU in begin_cpu_udmabuf.
+
+----------------------------------------------------------------
+Doruk Tan Ozturk (2):
+      accel/amdxdna: reject user command submission without a command BO
+      accel/amdxdna: reject command submission on devices without a submit op
+
+Honglei Huang (3):
+      drm/gpusvm: free the whole IOVA reservation on unmap
+      drm/gpusvm: do not route system pages to device_unmap() on IOVA unmap
+      drm/gpusvm: publish dpagemap early to avoid device mapping leak on error
+
+Jason Macnak (1):
+      drm/virtio: Don't detach GEM from a non-created context
+
+Jhonraushan (1):
+      accel/ivpu: Reject firmware log with size smaller than header
+
+Karol Wachowski (1):
+      accel/ivpu: Fix wrong register read in LNL failure diagnostics
+
+Linmao Li (1):
+      drm/panthor: Check debugfs GEM lock initialization
+
+Lizhi Hou (1):
+      accel/amdxdna: Fix use-after-free of mm_struct in job scheduler
+
+Maarten Lankhorst (1):
+      Merge v7.2-rc3 into drm-misc-fixes
+
+Matthew Brost (1):
+      drm/ttm: Account for NULL and handle pages in ttm_pool_backup
+
+Mikko Perttunen (1):
+      gpu: host1x: Fix use-after-free in host1x_bo_clear_cached_mappings
+
+Osama Abdelkader (1):
+      drm/panthor: return error on truncated firmware
+
+Robert Mader (1):
+      udmabuf: Ensure to perform cache synchronisation in begin_cpu_udmabuf()
+
+Ryosuke Yasuoka (1):
+      drm/virtio: fix deadlock in display_info_cb by removing hotplug from dequeue worker
+
+ drivers/accel/amdxdna/amdxdna_ctx.c      | 18 +++++++++++
+ drivers/accel/ivpu/ivpu_fw_log.c         |  4 +++
+ drivers/accel/ivpu/ivpu_hw_btrs.c        |  2 +-
+ drivers/dma-buf/udmabuf.c                |  9 +++---
+ drivers/gpu/drm/drm_gpusvm.c             | 53 ++++++++++++++++++++++----------
+ drivers/gpu/drm/panthor/panthor_device.c |  5 ++-
+ drivers/gpu/drm/panthor/panthor_fw.c     |  1 +
+ drivers/gpu/drm/ttm/ttm_pool.c           | 34 +++++++++++++++++---
+ drivers/gpu/drm/virtio/virtgpu_gem.c     | 14 +++++----
+ drivers/gpu/drm/virtio/virtgpu_kms.c     |  5 ++-
+ drivers/gpu/drm/virtio/virtgpu_vq.c      |  3 --
+ drivers/gpu/host1x/bus.c                 |  4 +--
+ 12 files changed, 114 insertions(+), 38 deletions(-)
