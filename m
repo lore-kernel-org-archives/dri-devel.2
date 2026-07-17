@@ -4,192 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23529C44528
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 028C1C44529
 	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4A3110E789;
-	Mon, 20 Jul 2026 07:15:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37FF210E78B;
+	Mon, 20 Jul 2026 07:15:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="iVkZ02R+";
+	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="Q8I9FTk/";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="aDYxsq8t";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012058.outbound.protection.outlook.com [40.107.209.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8644810E513;
- Sat, 18 Jul 2026 02:32:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kWTZ7gm0Pig9U5ns9wDpvX282M+QRRXuXqYRP2HANiGMefsJQ4+8sGz2pFAsWM/zP6ehLQau+PYHUgGCsmc+U08LFeAZgwrB7guDQee9YYL9DM/s87IFu8AgYMF4HVm/98DnXmSP55p/6A4XTJDbx8YDTHQnzRaYS4fr5iVZ+XafHWJvGYzPmEp4/iKHLJr+kvpcLgtv1FVcWkGoXlCRW8ndzubScsdEeG4Ci/NA1FCX+C4akPvxXIAl69y6CfNGGwoCuD0oOhbYraZoCP2fci6aW+OS2r/rx0jJk3GnWn++NE1NaU1KPSHvrCK96HIObZe52AuvpncJ9NvjYEavRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bS+RTRAUJWEhSEBz9wSgFRO611zQJ1yvU2JKV3L5v9o=;
- b=tCgT08YKV/GiKtm2jmHBIGV77r3YjsjBOTxy7OPKK5rHvrGHM4iwhqVaIvUUDrqm7mnceXoALhe9NI1qtd9LMl8RSfqK+adej/hJnA7QnWDANk0DEnx1VmCmzReX3fMaqHmPiH6tNJ17SUfKwPyQgbNxQcp0ouQNo1xoHQHJVWhVdooYffS/czIrPIAB3bVIlqhs4z6xcIaKi1tisQjWJRCBl5gIKcSA4beMGTNY1dXnCjg9UuutzxsxPZQmc0g6y3Y4zmYBv6/aRTWSi4UeyT/B6brznz57XjEYatb/BRgIRRrZpYI9IvaSr5gSZBZYDmN396NTvkibM55iDPIrGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bS+RTRAUJWEhSEBz9wSgFRO611zQJ1yvU2JKV3L5v9o=;
- b=iVkZ02R+DDELjbAdYxecF/T2rTr/nbB6CX4dl05yyi8ATeCTUF067CAGfy6P9ZQ01+VKIOPDYSCfs3ngDjDlWTAl0bCBKftOYqW1nhj6z5gp252Wqdnf6oDk71sFSJt8gJQfNrGHywk99MsqU40UMPRozJmRwlWIqwQc9Qk40zdEoWilU6z3USbuRtcrnN1XxxbqGERiNwBIMz0xvrMjMD6muNxpav85EIaBzxKuzy4wUtg13GMiaMS9YOEzgiJjT7xbMWYD7Wegv08YfKWaMdzaHoMeXz+zeO3013qNMvCcCUecb3AI9sEZ+3Y3VvMoP7GkcqTWLzLEP/lkMXCIjQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by LV9PR12MB9782.namprd12.prod.outlook.com (2603:10b6:408:2f2::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.13; Sat, 18 Jul
- 2026 02:32:50 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0223.012; Sat, 18 Jul 2026
- 02:32:50 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 17 Jul 2026 22:32:47 -0400
-Message-Id: <DK1CFRK7F8IT.13JN4XI36R8W6@nvidia.com>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH v2 03/33] tools/testing/vma: use vma_start_pgoff() in
- merge tests
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-parisc@vger.kernel.org>,
- <linux-fsdevel@vger.kernel.org>, <nvdimm@lists.linux.dev>,
- <linux-perf-users@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
- <damon@lists.linux.dev>, <iommu@lists.linux.dev>,
- <kasan-dev@googlegroups.com>, <linux-sgx@vger.kernel.org>,
- <etnaviv@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-tegra@vger.kernel.org>, <kvm@vger.kernel.org>, "Russell King"
- <linux+etnaviv@armlinux.org.uk>
-To: "Lorenzo Stoakes" <ljs@kernel.org>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>, "Liam
- R. Howlett" <liam@infradead.org>, "Vlastimil Babka" <vbabka@kernel.org>,
- "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
- <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Rik van Riel"
- <riel@surriel.com>, "Harry Yoo" <harry@kernel.org>, "Jann Horn"
- <jannh@google.com>, "Lance Yang" <lance.yang@linux.dev>, "Pedro Falcato"
- <pfalcato@suse.de>, "Russell King" <linux@armlinux.org.uk>, "Dinh Nguyen"
- <dinguyen@kernel.org>, "Simon Schuster"
- <schuster.simon@siemens-energy.com>, "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>, "Helge Deller" <deller@gmx.de>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner"
- <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>, "Dan Williams"
- <djbw@kernel.org>, "Matthew Wilcox" <willy@infradead.org>, "Muchun Song"
- <muchun.song@linux.dev>, "Oscar Salvador" <osalvador@suse.de>, "Masami
- Hiramatsu" <mhiramat@kernel.org>, "Oleg Nesterov" <oleg@redhat.com>, "Peter
- Zijlstra" <peterz@infradead.org>, "Ingo Molnar" <mingo@redhat.com>,
- "Arnaldo Carvalho de Melo" <acme@kernel.org>, "Namhyung Kim"
- <namhyung@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, "Jiri Olsa"
- <jolsa@kernel.org>, "Ian Rogers" <irogers@google.com>, "Adrian Hunter"
- <adrian.hunter@intel.com>, "James Clark" <james.clark@linaro.org>, "Baolin
- Wang" <baolin.wang@linux.alibaba.com>, "Nico Pache" <npache@redhat.com>,
- "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>,
- "Barry Song" <baohua@kernel.org>, "Miaohe Lin" <linmiaohe@huawei.com>,
- "Naoya Horiguchi" <nao.horiguchi@gmail.com>, "Xu Xin"
- <xu.xin16@zte.com.cn>, "Chengming Zhou" <chengming.zhou@linux.dev>, "SJ
- Park" <sj@kernel.org>, "Matthew Brost" <matthew.brost@intel.com>, "Joshua
- Hahn" <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Byungchul
- Park" <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>, "Ying Huang"
- <ying.huang@linux.alibaba.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Hugh Dickins" <hughd@google.com>, "Peter Xu" <peterx@redhat.com>, "Kees
- Cook" <kees@kernel.org>, "Marek Szyprowski" <m.szyprowski@samsung.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "Andrey Konovalov"
- <andreyknvl@gmail.com>, "Alexander Potapenko" <glider@google.com>, "Dmitry
- Vyukov" <dvyukov@google.com>, "Steven Rostedt" <rostedt@goodmis.org>,
- "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>, "Jarkko Sakkinen"
- <jarkko@kernel.org>, "Dave Hansen" <dave.hansen@linux.intel.com>, "Thomas
- Gleixner" <tglx@kernel.org>, "Borislav Petkov" <bp@alien8.de>,
- <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, "Ian Abbott"
- <abbotti@mev.co.uk>, "H Hartley Sweeten" <hsweeten@visionengravers.com>,
- "Lucas Stach" <l.stach@pengutronix.de>, "Christian Gmeiner"
- <christian.gmeiner@gmail.com>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Patrik Jakobsson"
- <patrik.r.jakobsson@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
- <marijn.suijten@somainline.org>, "Tomi Valkeinen"
- <tomi.valkeinen@ideasonboard.com>, "Thierry Reding"
- <thierry.reding@kernel.org>, "Mikko Perttunen" <mperttunen@nvidia.com>,
- "Jonathan Hunter" <jonathanh@nvidia.com>, "Christian Koenig"
- <christian.koenig@amd.com>, "Huang Rui" <ray.huang@amd.com>, "Matthew Auld"
- <matthew.auld@intel.com>, "Jason Gunthorpe" <jgg@ziepe.ca>, "Yishai Hadas"
- <yishaih@nvidia.com>, "Shameer Kolothum" <skolothumtho@nvidia.com>, "Kevin
- Tian" <kevin.tian@intel.com>, "Ankit Agrawal" <ankita@nvidia.com>, "Alex
- Williamson" <alex@shazbot.org>, "Paolo Bonzini" <pbonzini@redhat.com>,
- "Shakeel Butt" <shakeel.butt@linux.dev>, "Usama Arif"
- <usama.arif@linux.dev>
-X-Mailer: aerc 0.21.0
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
- <20260710-b4-pre-scalable-cow-v2-3-2a5aa403d977@kernel.org>
-In-Reply-To: <20260710-b4-pre-scalable-cow-v2-3-2a5aa403d977@kernel.org>
-X-ClientProxiedBy: MN2PR06CA0017.namprd06.prod.outlook.com
- (2603:10b6:208:23d::22) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+Received: from flow-b8-smtp.messagingengine.com
+ (flow-b8-smtp.messagingengine.com [202.12.124.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8CFA10F4AC
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:01:04 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailflow.stl.internal (Postfix) with ESMTP id AB8BB13002E3;
+ Fri, 17 Jul 2026 04:55:01 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-04.internal (MEProxy); Fri, 17 Jul 2026 04:55:02 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=fm1; t=1784278501; x=
+ 1784282101; bh=RGge6AXelYw4CHxTjY9ZAudHE/paAHJpZ+SOWdc+8nE=; b=Q
+ 8I9FTk/YSI557MXnaI3wellQZxcA7TFXnEyTBnvAA0O62HEtytKGJY18Pa6QDzeP
+ 4QWMMIKUa8+ZsUO8hgk2npNjtLEzRIbKOBAGjXkHgSAAuUzVAbPaKDukGSC/a7+x
+ EqvBbhuHTzgIg+lGVbCIZNPl1W5cyP4m+437QKvbHAcPck1ylMRnPaX3vEQsD/oY
+ Y6SqpoEzWWSb/6uWmUXCF5GMGeczfJpjuIxUibKqGt9uB5WmRbPhaUTnuR/zGgfB
+ zj5uVO1EbsbIGqLcv4Wlqku5iM3zAbRjbp6ceXFFdae8FSRHHT0O0nTmg+j3yGPl
+ pW5IDLIX6DBpl6V26WZng==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; t=1784278501; x=1784282101; bh=R
+ Gge6AXelYw4CHxTjY9ZAudHE/paAHJpZ+SOWdc+8nE=; b=aDYxsq8tbe8PRw2WR
+ dH8FI+FnghlkI/goafbeHb/wj83s/04JuqApB5WAL6UFfmqQW2fG3jUI7awwuaKQ
+ 5K735JsL5Kb8MDWrmfW50F7yiBrjrKtscK44nO3lBwtDan7g6/6093PgJiqaLFId
+ qLxqbw0Pz2bdLCWkNm8qQ4Evyq56NGEVT3dVDvHskq8Qr9ihJ3MZVgXpUjOwL6am
+ gXFXAW+Jd07xsXA/uhNu3PkQt7ifQUSKMZyhKI8wya787EUfRZWXpXNKMZPl6jzI
+ zsvJ7eYb1+ndqT08XikyxTxRnwJLm6JijYgGLb7oz/YppxqV609tyi7pQoQqZTSb
+ Q2P4A==
+X-ME-Sender: <xms:5e1ZajVqVn3GMcN1FSvvC-RGaHMfuSOOkTBu0r8JN7vmgUHNQNtvkg>
+ <xme:5e1ZanclFrzhd_tz-WrNZ2An1vxjuvA8A_XWIQPXcF8IuP5MYbyPJ-rFhRXjbW8H6
+ vPeq4K6OqKQNPC_aRfNO04VwP3Bur-8zE-lypHkbGvmKvY7CpyDGx_k>
+X-ME-Received: <xmr:5e1Zaq7E3r9ZzTEHcERURJSiLZZop8ZKSa6zHaawRQBji6zEXvIS3SweBGcPsdeIzdBgJRTcpOIf5bDvG3A>
+X-ME-Proxy-Cause: dmFkZTFS7GW/vS+PGg3aNaRtXNWwH13wr4t6a3PsYvzLEfoa0d1tCLQMk4kuPOyqJxWYg8
+ zWRgYifu3Q3qEvL/I6D+A7sONbehMF6Fzv0Jx15W8Bp0zPI2L6EoHnTvsn7KCzlmdcjq5Z
+ AMiUX8pm/4UU/5q2rly/ctUYuGrpfv6aggolOMe4+7cw+YQgQv04wJ8otXu77hR4cT4fFc
+ rauulgYGXJAH/ttinZ2FdpHwYOQghdgc8wZDZhtrydZHcBfVIkqxRabCZivPsjLLb49//R
+ HUixI1q1RTZqMytwufV0grN2inkZxcvjyE8RnYSpDV3z9U1hNPWgMeNXqfzcYN3TNROTO3
+ m2XgDeRL8h/bOgSUAAZ2VtgJ4DeG3rEfL6GsQJybJ1AFKI2GRQdxSQSwiVJhthZHSptJyZ
+ BQvWLmIrmOq8N6mDQ6gyKaBMsJ9dYxxwlFNCP7T4KFOsjTr2ACESPR4nDDZOxM/whFn9Sn
+ 3PFxQdr1+3IDjohIXLZlXCKNwqORzJaP3UR18PanRRk+mVXMAr3Xp1TlEhl8ZWSUYbF9QL
+ fx89mNcd8gYaO2N2IuBr5sF4dNqVOgM+PCDei2f7An6h1m1UGRA/giV+VV3keAHiujraiP
+ syJS/ZjtPZehGqF6eVFNlCw6u2RqORzsz79OKqO65fj3pHM81dE6xK8Mkf0A
+X-ME-Proxy: <xmx:5e1ZaiT8aF5AELOpFgjVsvFeUT-JR0fh2Ybhwpd96i8RgPDNSMZk1g>
+ <xmx:5e1Zalds16kngpYJKqCARhnOWxv25MO81fZGuIl-rbdQklHAaxO0aQ>
+ <xmx:5e1ZaqThnu6vwXbBh8QfntqiFPma7k_0UhkD4PGOIHx853_31p9bdg>
+ <xmx:5e1ZamOMWZ0YVAiJb6U2pNzDvvIkLQaFF2PFMqxqkFuWRtJAFxg6tA>
+ <xmx:5e1ZanGkvU78fPW8aleH6nnO192MLrq37sxOAz21_KnuC-OOWG3NzcOX>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 17 Jul 2026 04:54:55 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
+ ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [RFC PATCH 8/9] arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+Date: Fri, 17 Jul 2026 20:50:46 +1200
+Message-ID: <20260717085220.3212274-9-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260717085220.3212274-1-gahing@gahingwoo.com>
+References: <20260717085220.3212274-1-gahing@gahingwoo.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|LV9PR12MB9782:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25c3ba29-a11d-4679-3e6e-08dee474dcd5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|7416014|1800799024|22082099003|18002099003|10067099003|11063799006|56012099006|4143699003|921020|6133799003;
-X-Microsoft-Antispam-Message-Info: wY6Fa/LVjbXuXpWrKIN7lTFm5yPdHAe/J+o1Uv0BmPCye5WzzEEve+C2NXUWC6VdryCyS/xcYOsbPwlyBBxF93Syto6ZsFty//T0sWs7cCH6jbHu/Ws7kUjUSWMLfhzLsfC3qDDdBOmuPlZMI3FyZ5H9TC6XJ7Sk8lX0l0k6hImklQjwUvz2JlTlBJncDEwKgG0h/TfNUT+MjkUutI1jk37dkHpp7lx9iXp29r161+FZZaPt8rZvjF9VLWg4fS7Duxe+oP3jNQIPnd9zLvfsIfEBmbYx4fnAE+ZO0i4Zom10zFBXUSIbxKSIa+oUzVnA/OMi7ICS1pNuk45yWC/WV1q2+Q3J6QVbYpOMNyFlVeVEV8mX6IPlVLxgMTKm0pYvDAXMlKlrRFJvDxmeqytqQlGDIVtV3oO4IalHz6/UlCKwN2yoo/a1FSTKTDIKf86bR8T9EDx6eOzEUZUBl5nKbkwpe4/fJDpI2DgvNBT9s+1SnLGpQxhEYNs8TISKTYl8fPtbngb6k8Zyy2McJGlh6HZ/OwvRYRuxBPQaVTd4I7vMQRPRFbc12FI6QRhKUQ32y8xuP2REA+qzsiJUY4ao3am02nrBXfkOfnYDtfejxYaZNK9HqTQgEkKEHi2xBAkBRL5Ereqiwubfy0nyexnY04bJ8d4rD7tsm0E9UegwFUWz8gl76aBTD3AMbc+sWTHPrO5YJIVnsYGc0mrbcfa8Eg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(4143699003)(921020)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dmRqQ01XcjhycE1QYTkyZzF2elpUOHA4ekdvWERhckpjakwyZXlSQWZlbkFo?=
- =?utf-8?B?M3RrMG5RT2UzeUFCY0VFYUNjOXVheUZWSmJyV2s3ZlJBNzQ1aFRaUjNncWlk?=
- =?utf-8?B?R2hNREg0Sm9ybVpCa1FZc0ZTUUpIdExWZ01nY255cVhOZEo3a255MzB2cTln?=
- =?utf-8?B?enB2ODQ4dFpIbHQ2OTFUUjhxMmlRRFROMmY5Rnp6VlhQM28wSFZjR0FGcEFh?=
- =?utf-8?B?Mitra1lSaVcxR09wOGRMdE9haFFZZ2duMEx6SHpNTEEvVStRbU9hL3V6c21t?=
- =?utf-8?B?TTRrZTdiaElwRGdCQmNKTDRiM20xckVJd2szNTNhejEvRlZiMHpoWDRhbzZo?=
- =?utf-8?B?UENGVUhJSTU0N0hKZEg4aFVuMGZubHJhdXVWVzhGZy9LNVY3ZmdxMFlWNnBm?=
- =?utf-8?B?T1VkSTB0MnVRYkM4d2JFZzJCcUJHalhsbWhWZm5aUzh5Mml0b1ZDSnZXZlVp?=
- =?utf-8?B?STRTQ0p5ZVBhNDU4cXpSd2JkVmFaUU9IeENlRk9qZHQ5bUZDS1o1djEzUVNO?=
- =?utf-8?B?R0lWM1Z6Z1hxTkRzc0tGcGkxakRZVU1zRGtGT1VCM3FiSFZaUWNOUWVKekkr?=
- =?utf-8?B?L05rUFhPT1MvTTBudStrcEJ5NHlwNU9yaWRsd0grcXVrYXVqc25Yc2VvVEw4?=
- =?utf-8?B?Y2s2cUs1NjZDbUt6Ylo3aDM3OWl5Sm84V0h4bWh2c1llN3NteXBtWlpiVk5o?=
- =?utf-8?B?QlBtWjJXL1pTV1d6clYreDcwWXdxbDR1NFI4ZmExY0NPWklCUzkrOTA2U3Jh?=
- =?utf-8?B?akl2T002Q3BBdFN1R1RXY0VyZ1dxNm9GOEJZZWE3bWI2T0VJbGQ2b25yQ0Nw?=
- =?utf-8?B?NlQ4ci9mOUlsZmpmRGhZbHdpQUdmYVl5UTFBcS9sekZFbEtWY0VFVEZVUWZI?=
- =?utf-8?B?MHB5Q2gxVkhHTnhYVy90WFB4d3NncFQ1M1VjaS9wR3ZDb1BHRVNqdEhNN0do?=
- =?utf-8?B?R21JVEx5eXhOYVloNzlCSmtYcHFPSmxsMG9uTzM4Smx0Y2R5TUt4aVMvK1lN?=
- =?utf-8?B?Mm42KzlieExMN0dkSk9XSnowMzNHNnhLU0duRzBqdllKL0V5VFdRdlNhMi9s?=
- =?utf-8?B?ekU3WkkwWThpTW1qendpMXQ2a3l2a3pZaVVXTWFmUzRVbUp2a1IvdVVDM1BI?=
- =?utf-8?B?VzRMTnNIejIyY1pwd04vc2lpYThhcXl2ZG96N2Z5S0Jta2FVY2VhOGtmVFNl?=
- =?utf-8?B?M2JQVGtKRkVzcE5BRWVnb1VsUlpKendHME53aDFoZnBrUWdQRUxRcFBZRURP?=
- =?utf-8?B?RzE4bVdPN3Y4M2JZQVVjbSs1WXppVVRZMzNOREZXTGtHQ2VZUllPWmhLa3pp?=
- =?utf-8?B?cHJrY2NSVlFSbGxEdlpuOTBWSzlSQmlFaVRFZXl5T2xwOXJZMWZZdVUvMm42?=
- =?utf-8?B?RGRoNkszMmVhRGlEL2QvUjY0d0paVVhsM3llcnBmSnRiM0xNR25PbGFJVGgz?=
- =?utf-8?B?SVgyaEJ0dU1PTFhCemZRemtZWHVKdkFIWlRCcnBER1NnRlY3R3VoZGd2MWdE?=
- =?utf-8?B?alJ2TEN5anVrcVFzcXBQeE5zTVFkMU02cXkvL2lmMHdpUFFjNTArSlNqMElt?=
- =?utf-8?B?UUFUUnEyVjJBb3NPZFJ3YnlsYjc3Wk5jcTVhSEhYRy9CV0lIRzJjZEpOWGFl?=
- =?utf-8?B?WTBBR3dCMExUVnROQWJ5TUVTbThwbXh1T2FESUZyOURNa2JUMFBGb2FiNGp6?=
- =?utf-8?B?K2JJU3ZiKzVMZHVEM0haUHJyK2ZQb09EQzBBN0VoTXhTVTJ6eWJEbnNYS1h5?=
- =?utf-8?B?SHVRZ0lQYlU3b1dQL1V5WUNXbU5KZU9WL1VrSzBrS1l3VmFzTmZaMVdLdlV6?=
- =?utf-8?B?czZGY1F3cmt0UWRTT3d1VGROQzNnbU9uTW1oVzBUcStoZkZSNnZCWjFLL0dV?=
- =?utf-8?B?dVk5QUtBRUd2bzgzUXZCZlNYclFGem5lRnFuc3VSVnpkQiswaitCMy9weWl3?=
- =?utf-8?B?NFhyVDRiYlNvem9uS2NqK3FFMlpmQlp0R1ZDNEhLdldMQXJlU2QvNU1BeVlH?=
- =?utf-8?B?NE9uY0lVNmFSbnB3eDRLaXBaMGN2d0tmbE00bk5ncmk5SUtVZ3lrdCtqQlFF?=
- =?utf-8?B?N1lQNVZuN0hyVzZ1MzR5dmx3NDIzdFhiZVMxYlZtV2xzMWRwbXphMFQ3Y2wz?=
- =?utf-8?B?NTUxNGlYQnZUNUpRZFU2dC9xd0UyVVhUc3pzcnJHQmVaeXpLcHRUdU80Y0Nk?=
- =?utf-8?B?WktteDM0MFFPN3hETDBzSEtjN0s3dXQzdE5kK3kzN3BEMUVOQ0NxRVlpMmQv?=
- =?utf-8?B?eldjdExVU0dkOHk1dDRqcEdRUTkzNFpUR3ZTaTFUaGxoS0hLaXZlaEgzcGNL?=
- =?utf-8?Q?ZuoxosBMZWBwuO+5ZF?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25c3ba29-a11d-4679-3e6e-08dee474dcd5
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2026 02:32:50.6679 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rF2+NUGWv6M28UDWYwtV7QMq3x74/UGPxrrlgvJmlSOQQ6U4f3CgqmD0LeGuxwst
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9782
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -206,27 +101,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 10, 2026 at 4:16 PM EDT, Lorenzo Stoakes wrote:
-> Now we have the vma_start_pgoff() helper, update the merge tests to make
-> use of it for consistency.
->
-> No functional change intended.
->
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> Reviewed-by: Gregory Price <gourry@gourry.net>
-> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> ---
->  tools/testing/vma/tests/merge.c | 38 +++++++++++++++++++----------------=
+Add the RK3576 NPU: rknn_core_0/1 and rknn_mmu_0/1, with register
+addresses, GIC_SPI 247/248 interrupts, clocks, resets and power-domains.
+
+Run the full RKNN clock set (CLK_RKNN_DSU0, ACLK_RKNN0/1, HCLK_RKNN_ROOT,
+ACLK/HCLK_RKNN_CBUF) during the NPU0/NPU1 power transitions and on the
+MMU nodes; without the functional and CBUF clocks the block powers on but
+its registers (including the IOMMU banks) read back dead. Drive the RKNN
+BIU reset (SRST_A_RKNN0/1_BIU) from the power domain so it fires before
+the IOMMU resumes.
+
+Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
 ---
->  1 file changed, 19 insertions(+), 19 deletions(-)
->
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi | 78 +++++++++++++++++++++++-
+ 1 file changed, 76 insertions(+), 2 deletions(-)
 
-LGTM.
-
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-
---=20
-Best Regards,
-Yan, Zi
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+index e12a2a0cf..5033f7628 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+@@ -1070,14 +1070,22 @@ power-domain@RK3576_PD_NPUTOP {
+ 						power-domain@RK3576_PD_NPU0 {
+ 							reg = <RK3576_PD_NPU0>;
+ 							clocks = <&cru HCLK_RKNN_ROOT>,
+-								 <&cru ACLK_RKNN0>;
++								 <&cru ACLK_RKNN0>,
++								 <&cru CLK_RKNN_DSU0>,
++								 <&cru ACLK_RKNN_CBUF>,
++								 <&cru HCLK_RKNN_CBUF>;
++							resets = <&cru SRST_A_RKNN0_BIU>;
+ 							pm_qos = <&qos_npu_m0>;
+ 							#power-domain-cells = <0>;
+ 						};
+ 						power-domain@RK3576_PD_NPU1 {
+ 							reg = <RK3576_PD_NPU1>;
+ 							clocks = <&cru HCLK_RKNN_ROOT>,
+-								 <&cru ACLK_RKNN1>;
++								 <&cru ACLK_RKNN1>,
++								 <&cru CLK_RKNN_DSU0>,
++								 <&cru ACLK_RKNN_CBUF>,
++								 <&cru HCLK_RKNN_CBUF>;
++							resets = <&cru SRST_A_RKNN1_BIU>;
+ 							pm_qos = <&qos_npu_m1>;
+ 							#power-domain-cells = <0>;
+ 						};
+@@ -1804,6 +1812,72 @@ qos_npu_m1ro: qos@27f22100 {
+ 			reg = <0x0 0x27f22100 0x0 0x20>;
+ 		};
+ 
++		rknn_core_0: npu@27700000 {
++			compatible = "rockchip,rk3576-rknn-core";
++			reg = <0x0 0x27700000 0x0 0x1000>,
++			      <0x0 0x27701000 0x0 0x1000>,
++			      <0x0 0x27703000 0x0 0x1000>,
++			      <0x0 0x27704000 0x0 0x1000>,
++			      <0x0 0x27705000 0x0 0x1000>;
++			reg-names = "pc", "cna", "core", "dpu", "dpu_rdma";
++			interrupts = <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
++				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>,
++				 <&cru ACLK_RKNN_CBUF>, <&cru HCLK_RKNN_CBUF>;
++			clock-names = "aclk", "hclk", "npu", "pclk",
++				      "aclk_cbuf", "hclk_cbuf";
++			resets = <&cru SRST_A_RKNN0>;
++			reset-names = "srst_a";
++			power-domains = <&power RK3576_PD_NPU0>;
++			iommus = <&rknn_mmu_0>;
++			status = "disabled";
++		};
++
++		rknn_mmu_0: iommu@27702000 {
++			compatible = "rockchip,rk3576-iommu", "rockchip,rk3568-iommu";
++			reg = <0x0 0x27702000 0x0 0x100>,
++			      <0x0 0x27702100 0x0 0x100>;
++			interrupts = <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
++				 <&cru CLK_RKNN_DSU0>, <&cru ACLK_RKNN_CBUF>,
++				 <&cru HCLK_RKNN_CBUF>;
++			#iommu-cells = <0>;
++			power-domains = <&power RK3576_PD_NPU0>;
++			status = "disabled";
++		};
++
++		rknn_core_1: npu@27710000 {
++			compatible = "rockchip,rk3576-rknn-core";
++			reg = <0x0 0x27710000 0x0 0x1000>,
++			      <0x0 0x27711000 0x0 0x1000>,
++			      <0x0 0x27713000 0x0 0x1000>,
++			      <0x0 0x27714000 0x0 0x1000>,
++			      <0x0 0x27715000 0x0 0x1000>;
++			reg-names = "pc", "cna", "core", "dpu", "dpu_rdma";
++			interrupts = <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru ACLK_RKNN1>, <&cru HCLK_RKNN_ROOT>,
++				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>;
++			clock-names = "aclk", "hclk", "npu", "pclk";
++			resets = <&cru SRST_A_RKNN1>;
++			reset-names = "srst_a";
++			power-domains = <&power RK3576_PD_NPU1>;
++			iommus = <&rknn_mmu_1>;
++			status = "disabled";
++		};
++
++		rknn_mmu_1: iommu@2770a000 {
++			compatible = "rockchip,rk3576-iommu", "rockchip,rk3568-iommu";
++			reg = <0x0 0x2770a000 0x0 0x100>,
++			      <0x0 0x2770a100 0x0 0x100>;
++			interrupts = <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru ACLK_RKNN1>, <&cru HCLK_RKNN_ROOT>,
++				 <&cru CLK_RKNN_DSU0>, <&cru ACLK_RKNN_CBUF>,
++				 <&cru HCLK_RKNN_CBUF>;
++			#iommu-cells = <0>;
++			power-domains = <&power RK3576_PD_NPU1>;
++			status = "disabled";
++		};
++
+ 		gmac0: ethernet@2a220000 {
+ 			compatible = "rockchip,rk3576-gmac", "snps,dwmac-4.20a";
+ 			reg = <0x0 0x2a220000 0x0 0x10000>;
+-- 
+2.43.0
 
