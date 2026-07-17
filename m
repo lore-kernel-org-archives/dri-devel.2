@@ -4,118 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2291C44515
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 15:56:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20F7AC44515
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 16:06:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04D6110E301;
-	Fri, 17 Jul 2026 15:56:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6158B10E483;
+	Fri, 17 Jul 2026 16:06:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="a4nAFonr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h6FqF5Ug";
 	dkim-atps=neutral
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013023.outbound.protection.outlook.com
- [40.107.162.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5483610E0EA
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 15:56:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lYgjldY85noakJBAuQdmN5sTSsTdkI+RueCEp2iCh80p+wNMbHJHRu4PGStdyoHSi6BVYhKzSTmYEwvm5aPRz4FKWnBDl9fEQYlDY2KujY0bj0PJtcPEM6qg6Q5BwU/wAhB65vPwW3OVzn3dT4vX7wxAUQ9jIbKbDH0RX1m8iuvX1jRBATYJBMd3fEUZlHfcSmhrJIZDVljuzxz3Es/jgGe1oWjqDvKD493pby0ytXYaXxsHqS75TwnigTWHfQNxMc0Q6zUHrbkyjcmCxqijZifqB3JCCqEfZCASjj/GNjZZKlMYd4KhGp9RE40nbw0jDY8SEsNyMIXDciVRUVvt9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dkG9sYeqXWkUZgOQYxB8nKv5ivTwkbVjaalqaDLMVmI=;
- b=sD+va9ExOByQNmWGS/3gH3+IuCBFzTZcy7jG6tJHPFRGeM9r+sLqcMsP1qaNALBEZxhJtBVmsZ2rd7djUwY4gdQDe1w7nLSWlNICduterDah4s377TWKO7SJAc+L8AQYe2ywKsM3XlheAnI72aBz3b3DmUgmN578fVf9pJLQpHFe5PmoxLpCyhyEzGWwY1WmA5GbFC4/W+sHvdH5JslXMbv2Rs4SLL4e4I5qb/NSRG58OBIlYKwIKluEX9nGBz+le/I2ssV3rmfutcQncwA4aO8rDdibYaxEYFooJTcvd1aenv/UPAGquToy+3o5/wY8SO15TG9uaUU6c3MuiOLeSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dkG9sYeqXWkUZgOQYxB8nKv5ivTwkbVjaalqaDLMVmI=;
- b=a4nAFonr7km61fXtKarhNVPNz60/fnghq/GW6nfDLz5aJTZ5PVzn1t+avPnyi0bUFyZwcyMR6U99aYvIUTeqDHatPZasGymwhOJJ7bO0yfoGPCYp+DQltywTm+5MJZPYfkqWBqno0d0NKV+P5b3qytFKupRmlJwTFg0g94elmeFA5RC5I9bvEgM3+NQtxlxg/yxBqprGrIGSmAkqRqvHMSOc9hIf0rhQAxb82oiIJlfHePbgl5IFekt15dYsqQSgt9cZdR0KYDdo7h000yNLX3B4r+oRUNhB2HwYBeOYzJ2OUP4yuhTH/6+nbviBnLKxu/xiWG6Vqw3d4Peh+hjXGQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI2PR04MB10192.eurprd04.prod.outlook.com (2603:10a6:800:229::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
- 2026 15:56:00 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
- 15:56:00 +0000
-Date: Fri, 17 Jul 2026 10:55:51 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Francesco Dolcini <francesco@dolcini.it>, devicetree@vger.kernel.org,
- robh@kernel.org, dri-devel@lists.freedesktop.org,
- Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
-Subject: Re: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format
-Message-ID: <alpQh0ASY1HgdNqE@SMW015318>
-References: <20260717121847.488148-1-francesco@dolcini.it>
- <20260717121847.488148-2-francesco@dolcini.it>
- <20260717122808.693211F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260717122808.693211F000E9@smtp.kernel.org>
-X-ClientProxiedBy: PH7PR17CA0053.namprd17.prod.outlook.com
- (2603:10b6:510:325::8) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED12910E483
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 16:06:44 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-47640541585so4029536f8f.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:06:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784304403; x=1784909203; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=BTNiDs+YQP5gErq+/6PIKAwZFcni80aDhJBtKwTwBbg=;
+ b=h6FqF5UgiIpJjhC4xJeXEH/WYFZ7IrGinSKP2iVVv4Jc9sFhZd/DEGgj9qes1x6zwy
+ 6NOWTwDpwU+3EUXcEwV7ZztwkyvUXljoZuQvT51WkSvEpOcVvjEq76zeHqsDyxHwQLzy
+ kpC5ub0dAMrZ8k42DHI5/5Mzz0Bk1KLhhZ+inQtlvagSuQt0fWiK0FyyLtCayLuPiGBY
+ 8cBDGtUVhL/k/gVyREFOv+CWheMFBV+g3FjGBVPGJvwbLncfKDD1dYNaDggyxuEm9tRN
+ xn7y0i0XrGDeWMM5/BrAgI+C+cTS4B7QlqBCulgzuih5Dmn2HWB0Y44qCzr4WEoeZWy5
+ GfbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784304403; x=1784909203;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=BTNiDs+YQP5gErq+/6PIKAwZFcni80aDhJBtKwTwBbg=;
+ b=Q524ggqmXzig62fuZQkG1YZiCfh56HYWeJh18KTtiVnyWBKS2nQS2fWX9+BMejDPgj
+ GNfhlf65df79CWDpTmKnTfih1U+IXHVk5FUprLvquaZKGckMfZO7E96KuiLBJiM9dbjK
+ uMQsSGKqnRcrjAQadvZvzYXdNpdGoOvjjHeVH0OzmjdWliY6qhVxgicj/htyZKew8NnX
+ loddye83PbAXLLYlCFMfoK4twDgyKIhj1dDpuMLFcLnp2DBa+kB4xyJyiHvXuCdNBUDQ
+ TKzRxZLfI0ZbbwyHuwb/l92fShyhleLNHmT8QLBCXuMAIabOtGB4v3vFW2Me0Y2XVh6i
+ I4Hw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq1iDTZ2+heICLVPB2FoZRURUaAx21dmY9JIhvs87D38QmE9ng1yVz9/kDE4P2dNxUNAkhka8vaNfE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwNFtAHJtTNdrUqrYkD+uOwG9zynh3tGB255hVeja07NymFqcKU
+ RiF5gzm7SxtuQYsk2uPPsBJZqnMwwLDCxlw68gMEqvaMnhFNm06llxcl
+X-Gm-Gg: AfdE7cm0oIyfDimip4baCUtN0/Qs5iqKsAih0fqiWWvjtp8LBaaBEKYD9Rw49XbMfMa
+ hlT/5qOQed5cGdJ6Mbu51YXVmTmYVtthG8oaZAovZzGXmOOMAlj/MVGsbxGy0VZFb/13tCqqtOP
+ s6UClKK0kB9DQhmtWZ8pcnl6joUfcPOs/wwN45sxvhfc6S9q6vCxjU4p8DxGDKrIeZrE304QOLV
+ CuZ+VafSFmWh78KwwW/tDWJfNReEb+Tu6CsKfYxGeGqlMt5f01BYHhw8UpPgOXkXx5T71zo2o1b
+ 49UeYSrsz29JQy1dEXwiYl2MVr3OcE9Rimc2zLsELE0i040AdcCdtxL5T+6eAm0U/HGovS/QabG
+ 4A2h+bbNnWHWF213CAIt6cir0GkBaOV/8BEsppfbdw2h4zWnOKbOjExofFGAbgeCPKGmdqctlRA
+ ==
+X-Received: by 2002:a05:600c:4453:b0:495:4f62:1ff7 with SMTP id
+ 5b1f17b1804b1-4954f622066mr5214955e9.17.1784304402908; 
+ Fri, 17 Jul 2026 09:06:42 -0700 (PDT)
+Received: from owl5 ([2001:861:3201:3d10:d4b8:8874:bdef:21b2])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4954ba2abd0sm37795105e9.15.2026.07.17.09.06.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Jul 2026 09:06:41 -0700 (PDT)
+Date: Fri, 17 Jul 2026 18:06:40 +0200
+From: Gary Bisson <bisson.gary@gmail.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Adam Thiede <me@adamthiede.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>
+Subject: Re: [PATCH] drm/mediatek: mtk_dsi: enable hs clock during pre-enable
+Message-ID: <alpTEPsy-SIQv_Oc@owl5>
+References: <20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com>
+ <8733xko1ms.fsf@geanix.com>
+ <0f719c00-3cf5-4403-afbf-713b07255981@collabora.com>
+ <aleM9Wy9otpd6Je3@owl5>
+ <aRN3_2FHX8XmTcwduTAPwz4UFde4B0tbB09ajyeUg5qZxiIYMmbvMkG7CPoNTl4iySYMZawbLMWijO47R22gkg==@protonmail.internalid>
+ <65558ccc-4f2c-492d-8c74-627d27dce864@collabora.com>
+ <87h5m0mkca.fsf@geanix.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI2PR04MB10192:EE_
-X-MS-Office365-Filtering-Correlation-Id: 316639dc-c310-468d-4122-08dee41be565
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|19092799006|56012099006|4143699003|11063799006|5023799004|3023799007|10067099003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: jTRwSPPbWxolW/BTy83WaOJ/Lq5JsFaHKPIBcncDbW2PAFqdMay/4GHR7KpGQ80euNQlG/1xEf2k60TIVLCFpMkh2XmKe3nQqkIilY4L/AaiduGbSze9igvC7AhW8fzNZvv+In10Ynb1hbortVqHuFx0Jqg8KM2O9xhoP0QDxG3Evdj3oM9LB5iFzskLhKIuM824h8qeqMNGijxVARThXsAdAhRhrM6daXAqHHMlCbSvToqDUfGwqrxPM7ssJ9Kf2BeAtELYzZXgUj0aoypG9Qfy8zFNDV+3IpXRfEL2QBPRWSTrMHdNIx2SmHhtL13pLcvK/6DiyzLnL+i0MsZpB8chPDep6deDWWrOfOvyjCbF3PBkQUbo3VXBvPWCPVo0ovAPkhbnwunYO5Khw+5gVLr8HJY+pVAIuUhYSnJhjFZIOkn6GKewK6SAaqjJf/rdLKX/lQQhElGE77figFXPc8qzhvIGlIbfTpiMaTIh/6IXBJjk7HGyg1QLM5t+HX6bm5wFSE5ytAn3cJI/Uj7UHieBljhyqAgSB/l6aYgaxTHmBnncfLtN20S7dYku8uTcjon0we5ssoJp/DD0/TveCdghZD+on8Wkhhc0mjwgQm0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(19092799006)(56012099006)(4143699003)(11063799006)(5023799004)(3023799007)(10067099003)(6133799003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?ZkPJDFqiZygnr1O19YSg4aaHzo2a0ikSC80VRGq1A2VnY39SGlyuHpQz71?=
- =?iso-8859-1?Q?oFhPDtoTmXrigiB46HbhZYHdAqphMsDajoMBd888BgI84BYeTCH8HNUD3C?=
- =?iso-8859-1?Q?YaU586MAsU1GVt/zL7omyEk/48zeBxp2LM/vhwU+96h9JDcU4PaU5uOngn?=
- =?iso-8859-1?Q?HIkMIMIKDp2v2n3e8BZZGlPsqo2ymhNSxhIp27RkYuZJNpBTo4yz+bG7qq?=
- =?iso-8859-1?Q?L0e0fVUF1t8YTpPoAF74+W10dNF7RNppOlr+ubytoV8N8CGTTH12xRyIWp?=
- =?iso-8859-1?Q?iswmm1AeXVt7QMLEWFB16UytpJPsQhGO4zmiC9ARqInFuBus9wLaEtJGfP?=
- =?iso-8859-1?Q?ZpQ8JX4hSpGpnJAvNOnbwv5lZmJu8e1jcx90ZopfHBA9g8mAs/AqKAGGw1?=
- =?iso-8859-1?Q?982+yn+pncpxtXyqfgbgBxqwtZe56lGvae/8yeLeSH5crTjqkHxXsy8wr9?=
- =?iso-8859-1?Q?/hWF9lY7IeTWTayWBT0RpaiUJFgQhVOki8K1remNtBIMjqLHKpY9R8w8w0?=
- =?iso-8859-1?Q?misS083vq9nMaUCXhrAHBRqp5+402J6ksSDjNPLYsDLTexcvSUs6mQ0eGi?=
- =?iso-8859-1?Q?cgynG0bur4Ruv8+9gbK3wlL1D9cVge7hb/e49LUPRgoz61xIZVgDmUMK9Z?=
- =?iso-8859-1?Q?JfocyMT4lQFWH+ymqA5VvN1Aa+AwgCdOFz+klCeDapzkhtBpw/qAwU/2TM?=
- =?iso-8859-1?Q?zq3H2sy3UD+i6sG4M//BR2Hnxi3dYY4a4wK8Dpe6vXPXy33gzY4fKwPk8e?=
- =?iso-8859-1?Q?bUF5xAsl0HOaRnlHWr/OOVNybW/ak6oewUa9vw+ZIWkYztotBgC420lkrl?=
- =?iso-8859-1?Q?ZEuD5+jmmg7kCm7kgjlYgBz5B9lCkpyehfeU7YPIJ50tLKy45xkXydJL7I?=
- =?iso-8859-1?Q?rJdIESlaKIs3G60O9LbagMaKB7hYufxyJJl4gUOSDSe+cWXU4M+W1yDyn3?=
- =?iso-8859-1?Q?tm5ULEzv04lS0Odm5LueumC0rIcHdrlu/MGUBJ5j+tntzS/IUtTQuLdpZA?=
- =?iso-8859-1?Q?oS5VhV+aj3rgktVF9z8KOFSvjvLQcjV4D1JkgqO63xfEJiq8JauDjUXYaJ?=
- =?iso-8859-1?Q?SNPcGGdNEOO9R0j1njZwhAsR/cLUR/yD1QR3oSPeTo2tPnm1YRkyhQ3rUw?=
- =?iso-8859-1?Q?LeFpPdBD3tlldcwooDNlYK8RGqhe3d45u1diIB8XymY2Y9f9oUcjRMn1lX?=
- =?iso-8859-1?Q?sst1dzwFqJOuycWRq70asPZeR9SJzNw6TWkBosLQ6Ot/r9M5h0X0829f2e?=
- =?iso-8859-1?Q?BppQJSHGEnbj5r51VzJWDNGJus7bYfEP2Wpuv35tGbfC9dYDtS7A4Aq03V?=
- =?iso-8859-1?Q?yH7fv6/78P5depwL+CvGtr4OCi3WUTc3+iUiT+43kQneGGGGM2dx+vDIF+?=
- =?iso-8859-1?Q?Ndx/B+HpONv9ICwW7UBCZJ6M99IQwtgukyqXKQa7QDsXc/8hln7u3Ahicm?=
- =?iso-8859-1?Q?125CXmYUwU2+WFryckBg1udfQtrTHJQ5sG4WF50BjttSwM9spS4de6tMIS?=
- =?iso-8859-1?Q?J1sSkxggp7XZWXjzBeJHg2+Z5ED+DEAnhLEvQoi+vhY5tBdVHuPL8sHdCY?=
- =?iso-8859-1?Q?9bsOTz1lvZzy8WAsddjWTh2f3YZ08UE16BBfpAmwMWXS2pgGbk0hYd2k8P?=
- =?iso-8859-1?Q?urN1jWfjTjy964UIeXv8DorE4/VDvqDSNw6stRChoNOiRBrNjGnBtZMeLh?=
- =?iso-8859-1?Q?NEFgeyIVdvs5DV0xMb9ed+jYO/g/xpdPFTbHCnBznsWYq8wWFIoSRIfgsM?=
- =?iso-8859-1?Q?G2xpv1NhX8z4WvgIbXm0eTmlz1y0LWVqHEp2BQwT7Mfsc5WgRzfxG/CwC8?=
- =?iso-8859-1?Q?0c3OhFwxmOYcrKsB4mbRnKfFdNSQ3n5Wu56Ho1evzD34AscLhohq?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 316639dc-c310-468d-4122-08dee41be565
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 15:56:00.0227 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /Dfix/R2K72wyh9S3bdJzylIjxKQr2jri0djjMXjy6od3ihYe6WqJdIg+DRlzlT7Ajb131C2L6HNLrKNQegXs8HbGxEoYzRVGGyrPYLViNYanuiiGHPhCLazg/NQL814
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10192
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87h5m0mkca.fsf@geanix.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,57 +103,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 17, 2026 at 12:28:07PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] Introduction of the legacy, non-standard `interface-pix-fmt` property for a standard hardware concept (parallel bus width), violating modern DT principles.
-> --
->
-> --- Patch [1]: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format ---
-> commit 7225ea545d2ff50540972dd75d375b8ecea4f315
-> Author: Francesco Dolcini <francesco.dolcini@toradex.com>
->
-> dt-bindings: lcdif: Add interface pixel format
->
-> This commit updates the fsl,lcdif device tree binding to support the
-> interface-pix-fmt property. The property is used to describe the hardware's
-> parallel data bus transfer width to match board wiring and prevent shifted
-> colors.
->
-> > diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> > index 2dd0411ec6516..209ee5a96e393 100644
-> > --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> > +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> > @@ -58,6 +58,13 @@ properties:
-> >      items:
-> >        - const: rx
+Hi Angelo & Esteban,
+
+On Wed, Jul 15, 2026 at 03:52:05PM +0200, Esben Haabendal wrote:
+> "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+> writes:
+> 
+> > On 7/15/26 15:36, Gary Bisson wrote:
+> >> Hi,
+> >>
+> >> On Wed, Jul 15, 2026 at 03:25:11PM +0200, AngeloGioacchino Del Regno wrote:
+> >>> On 7/15/26 14:53, Esben Haabendal wrote:
+> >>>> Gary Bisson <bisson.gary@gmail.com> writes:
+> >>>>
+> >>>>> Some bridges, such as the TI SN65DSI83, require the HS clock to be
+> >>>>> running in order to lock its PLL during its own pre-enable function.
+> >>>>>
+> >>>>> Without this change, the bridge gives the following error:
+> >>>>> sn65dsi83 14-002c: failed to lock PLL, ret=-110
+> >>>>> sn65dsi83 14-002c: Unexpected link status 0x01
+> >>>>> sn65dsi83 14-002c: reset the pipe
+> >>>>>
+> >>>>> Move the necessary functions from enable to pre-enable.
+> >>>>>
+> >>>>> Signed-off-by: Gary Bisson <bisson.gary@gmail.com>
+> >>>>
+> >>>> Hi
+> >>>>
+> >>>> I have run into the same problem, but in combination with another
+> >>>> pipeline. I am seeing same problem with an i.MX8 using the nwl-dsi
+> >>>> bridge and the dcss driver.
+> >>>>
+> >>>> I have submitted a fix that adresses the problem in the ti-sn65dsi83
+> >>>> driver instead. With a bit of luck, it can replace the fix proposed in
+> >>>> this thread.
+> >>>>
+> >>>> See https://lore.kernel.org/all/20260711-ti-sn65dsi83-fixes-v1-2-d85eb5342b98@geanix.com/
+> >>
+> >> Thanks, just tried it on 7.2-rc3 with my patch reverted and confirm that
+> >> it works too. My assumption was that the SN65DSI83 was locking the PLL
+> >> earlier for some specific reason and therefore was reluctant to change
+> >> it.
+> >>
+> >>>> /Esben
+> >>>
+> >>> That clarifies a lot of things.
+> >>>
+> >>> The patch on mtk_dsi shall be reverted then.
+> >>
+> >> Angelo, do you want me to offer the revert patch? Should I wait to see
+> >> how the other thread goes?
+> >>
 > >
-> > +  interface-pix-fmt:
-> > +    $ref: /schemas/types.yaml#/definitions/string
-> > +    enum:
-> > +      - rgb24
-> > +      - rgb565
-> > +      - rgb666
->
-> [Severity: Low]
-> Is this introducing a legacy, non-standard property into the new schema ABI?
->
-> Standard devicetree guidelines usually prefer endpoint properties like
-> bus-width (defined in video-interfaces.yaml) to describe physical parallel
-> data line configurations, such as setting bus-width = <18> for RGB666.
+> > Gary, yes please, send a revert and make sure to explain the reason why
+> > we're reverting this in the commit description :-)
+> 
+> Maybe test if my fix actually solves the problem with the mtk_dsi driver
+> also ;)
 
-Make sense, can we use standard property?
+As mentioned in the other thread, your patch works but it might break
+the init sequence recommended by the bridge datasheet.
 
-Frank
+Moreover, the drm_bridge.c doc [1] does mention that the clock lane
+should be initialized during pre_enable. If we agree on this assumption
+I believe my patch should not be reverted.
 
->
-> If a custom property is strictly necessary here rather than using the standard
-> endpoint properties, does this require a vendor prefix like
-> fsl,interface-pix-fmt to comply with modern devicetree naming conventions?
->
-> > +
-> >    interrupts:
-> >      items:
-> >        - description: LCDIF DMA interrupt
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260717121847.488148-1-francesco@dolcini.it?part=1
+Maybe Adam's bridge driver must be patched instead, just like the
+nwl-dsi driver should be updated to follow the drm recommendation.
+
+Let me know your thoughts.
+
+Regards,
+Gary
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/drm_bridge.c#n169
