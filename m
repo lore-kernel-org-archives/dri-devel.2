@@ -4,87 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 794ECC44529
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D86AC44521
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45F2010E79C;
-	Mon, 20 Jul 2026 07:15:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91EBC10E75B;
+	Mon, 20 Jul 2026 07:15:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="k1AVjW4C";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Epa7J8WQ";
+	dkim=pass (2048-bit key; unprotected) header.d=compal-corp-partner-google-com.20251104.gappssmtp.com header.i=@compal-corp-partner-google-com.20251104.gappssmtp.com header.b="VmjwMqoF";
 	dkim-atps=neutral
-Received: from flow-a2-smtp.messagingengine.com
- (flow-a2-smtp.messagingengine.com [103.168.172.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C686B10E516
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 03:21:34 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailflow.phl.internal (Postfix) with ESMTP id 683CE1380328;
- Fri, 17 Jul 2026 23:12:54 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-02.internal (MEProxy); Fri, 17 Jul 2026 23:12:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1784344374; x=
- 1784347974; bh=Ifoyain0O5tFEPV0Svn5oBE7BX1cAxLlXYL5Dnbq7b8=; b=k
- 1AVjW4CVfGhQ5uD6qlFmevlrff9gyfvdbUIrTBlBcVrga14KMnt+fsyU9K0xXORm
- KAtfFg08LKIuyDWvEOXlOWVHk0+mbr+Ucw0yG3Y7J4tORn2P7ak9qSP30LqNW9nK
- tWOSHeDFBCuA1Q5+Xi/Qsp8qbBJ0T63KZ6dGD1mnZ6r1S+QD7xVa8kIou+I4/Ybe
- GVuXxE9R4Eus4oOiNcRbAyBKNy+wmnHtiNp7N6nrPdObo+ithQW3TKia5/ZZ58t4
- KlT5lzHVFc8H3L9K4o1V93CvzZJu/egFTIfAAk1NbrOITHn0F+wlNWSYGTciIJX8
- 2QP2HRs9GDraG8Hrab4NQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; t=1784344374; x=1784347974; bh=I
- foyain0O5tFEPV0Svn5oBE7BX1cAxLlXYL5Dnbq7b8=; b=Epa7J8WQeQ/41tjsF
- FDe7KnXEAUZW0wB+g/C4zLn8fr2tjAfIkYNMKIyA3kOrSVDJWwuXbuuGKb8NnM1/
- WvXSOxg+jP1hx6LswHjzd+QSHgEgbg67s7ufUGIDxzaDqht5dr+a7pildv6RDrGw
- hCWoNcBUtooE7n4rwPnTWQCBSPw3aM8PhGRm1XbbP4hV138HEW1TXU7dgt/1+7/1
- mfbWbWJbiUb8NkrZ1dosmZvR1tfUEkwImho8w8rAMDFCSzPa0awSFIZj4R+LPQss
- 4j46KRaxnxm8c14v8fB0KZ0qo76lwz0oBz3Z54Rf9gxHbjO+wNH3ryejncC5DPMy
- hpIUw==
-X-ME-Sender: <xms:Nu9aaiIOdicFtdvGVW2KIJEuqOF1pF94QJeuoxk9xjdmqCrnfDHNeQ>
- <xme:Nu9aaqhEXSslR3GiJfldsxArqmAscoJrCgTCaKt4cdE5bydkrvU2u5jfx_jryDHwp
- QSzTeb3eXjY7THtuawUISj2bIvRl2URYa4-4WDMD-WfI9FWTSm73oU>
-X-ME-Received: <xmr:Nu9aaj05_7ui1_YZPEaAkRsjD4sQYyluP6xUM0ppLFk8d90e8ra3tz8E7wV-VpHxx3eSq3BqA9wKFH6IJbU>
-X-ME-Proxy-Cause: dmFkZTEMX89gCC44dqObrbulQ/I2vRcOyTSU2dL37a8Nf+rFxjy5PE8WS5gpE9RXw7+0PS
- yxUIuQ6gupe5zEJJchZQE4bKfFbHmQL7INM15u9ExRdXgkO57kNGwURGa++uDEBsULgTHI
- t0ZbzRzarKEWrP6K0r8ac4f1j9EfeJOBqZIOuHi65D2zEb8+Hr9A3pyCOeN8z68LWwn2cR
- nBEqlZGvm1NlJl0MtKgrU7cphGYeMLoNKly7LudZuf9EOf4mYb3xk/iIY0lHGtBrmlZsu6
- 7UYsbLPlBovD5Ne0jETTe/ihY/4xpQnFOtQR8dx/YbbAYNmrYk14/xo0JBShoHg0ykTlCu
- UH1/8J40WwwUfVCylVd0CgaZ5fom8Ci+xBFReSOhGgGwYinXEnURs1R8InSumbCTKV352C
- GSqSbGdpiU76yiHCuAw/npfwHy8qb6YdWX+6+bBhRHf71Ko0e7Eukdm1XvXguC2vi4JgiC
- D7A84GkDGYBqdzkR6uHOIAA81Sf6fBoxqSUxSuT9gkkKuOCPy+5wB2ao/cofhEZ/8SBRWY
- oI3Gtl1aHg11gxI27IrwBgIb2NrKk5HgT+R5SitX9RfX7aIMzn13Ddx+6oCaDJ6Qv5h7M6
- gQ/b00ATM204LOaVLq0sPC6P1ZVWTjC7wGrQLF1SwThKWRWtlIht0hYP6lFg
-X-ME-Proxy: <xmx:Nu9aajbeJaGzSD60-74suvwW1XXDEmmowKza9LLCXwYtnDlgyOxLTQ>
- <xmx:Nu9aaoglu-soqMcEVGLlhZCbIyvroZPz6l869cmuKSCTDhnb_HN6wA>
- <xmx:Nu9aarjSgrbRtrjMlHfwR77O8Q6Lq5yLooP0DEadlRzKFKTSzF0EVA>
- <xmx:Nu9aatClylaCtxPJSkLHzXyaexB5Yxg_OA8zt5YN2TEbMEHuoqBR3A>
- <xmx:Nu9aap80YAArHCHuW8myt3IGv0hf-Vux5BrrvqvBE4a2fZa-hmfnVAYV>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 17 Jul 2026 23:12:46 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org
-Cc: chaoyi.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [RFC PATCH v2 5/8] iommu/rockchip: clear stale page faults before
- enabling stall
-Date: Sat, 18 Jul 2026 15:11:43 +1200
-Message-ID: <20260718031146.3368811-6-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260718031146.3368811-1-gahing@gahingwoo.com>
-References: <20260718031146.3368811-1-gahing@gahingwoo.com>
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEC2810E407
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 03:00:08 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-2cac59f8b64so85975265ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 20:00:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=compal-corp-partner-google-com.20251104.gappssmtp.com; s=20251104;
+ t=1784257208; x=1784862008; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=xOzVSHNBDNSOB4E81Je7FXFIT8+VyQrxsrlI2kqyQ0U=;
+ b=VmjwMqoF7QUIISZHoQpddYPZF+5f2DyiOYVUh9AwL1C8B3VElqPJDEZuuKsfogEKCP
+ ErOH4wa7bttTv+Zoy32t7r8niHy8fGr51nOaTVNYVyrpHNEN2DJbw3/l3i9rLOvZr9Ee
+ +JtDenmW945T1O0vY5tHwzUjD9rbkhISamXwbZn4r9vQuivad+K5aFbVDNeFh65JQWRy
+ JujNzrOyx1FB2JTrgsPXZ2Lrpa8DriO4LQCpQ2kGY9g3q5p4BTO+N65BKG5Zc1ZVCYPS
+ xHkVvnnf9MH06pqMm8r5V4xVAQ6G9iN8l7d6zahYm+Ors7AKHAxN3cqbgd+NyzSglt1e
+ +Tbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784257208; x=1784862008;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=xOzVSHNBDNSOB4E81Je7FXFIT8+VyQrxsrlI2kqyQ0U=;
+ b=fW22jMCccIDgTm2NAS8/R7IDZUwa3k0O2zEJ48VhHBVOzqvznNdWQoVRG7U9Ze9DFA
+ lMWp4iTfn1gDcjTZv1pWzgqgD8xM+EBHq3CVdtIlK4DvdydQtXBx+px1NBX5JTrN/9gB
+ h3LuuUBN2k1c51BoO6slsSfRo+jmBDjrsiB1s7ThmC8gMvgUnOo0ARpAiruyu3hBR2r8
+ //VlwS0iA7rXsaXL/p7qLMTX2Fe0n1MDVSQzxyJqTkcK9S5lXPpZ8dVzWj+BiVb21Svi
+ dDknXH5BgAhrJXBG8oqzeIX+lHvrYT04VL7MnY/0drMwzud0SXPcqhqGb/Wuw//gho/B
+ 8Yew==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RphMPhsse8MhxYwf3UrjDvpZkM1EEzZCJnyvJc3woxplVtzH/6eF4He0OeMByYrjk4VxIHk5Qxn9Xs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxc7ncrpGx+GoOHuLIaJj9D8bA+n5fGKTH4IEfiPqhs8IU8mfxm
+ W74udqaVGz6lcEW1TF4fZlz3OnyjK6ABoIRzwrYYo5kuQV9mmaxt77bqoCprmpDwYhk=
+X-Gm-Gg: AfdE7clwloPY4J4xUqNexCXFehT6RMqLXH3h50JT8hqQaRD3ShJM6xi81HZ5nFafnQF
+ t3nCohPPzpqGF/3lHTTSka3lZlKWw7tlbx6yHefaoZIhnSRoSWnZPhVRXBpuxVFkbTAauBYetS9
+ RYsjZmAZKgRpTIAcS6dJl4658IflwK0/9sWsQM79BbVk8B9A6dMKU099twrBU4kfDRxhWSd16mH
+ 73SnkBsPzAnTyAUeS9z1Bw4ES2oHEiYwBk4FKa0O0tGPTPY22w1ARY5SRhhpYhR+EpDGF9hVz+P
+ g5Y64R3QtzBznrnVnnxAY7IyUh90UKOO8lQZ38m/7X3K+5T5jwF9f12KfS12kpy3C+Fol0N2JGk
+ sfQGnhrd0nio1kMNW+zSllABo/K7TGGbsJfjh3LI2ZHV8alKr/VQUlXIG72t0gd3r5ZSY9xM7uy
+ esw6iv2mkc400AlYz2WvJ6OYdkw+Ri0cQwOOo1slwm1zaPtrDH4zzT3aAWZ6rMDdZGR60wdE3Sj
+ xKa5B8=
+X-Received: by 2002:a17:903:228b:b0:2c9:df1b:e948 with SMTP id
+ d9443c01a7336-2cf3484be35mr7946935ad.4.1784257208283; 
+ Thu, 16 Jul 2026 20:00:08 -0700 (PDT)
+Received: from dio-Nitro-AN517-55.. (61-219-175-100.hinet-ip.hinet.net.
+ [61.219.175.100]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2cf3471f42csm2444205ad.61.2026.07.16.20.00.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Jul 2026 20:00:07 -0700 (PDT)
+From: dioyc_zhang <dioyc_zhang@compal.corp-partner.google.com>
+To: neil.armstrong@linaro.org,
+	airlied@gmail.com,
+	daniel@ffwll.ch
+Cc: dianders@chromium.org, sam@ravnborg.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ dioyc_zhang <dioyc_zhang@compal.corp-partner.google.com>
+Subject: [PATCH v1] drm/panel: panel-edp: Adjust T8 timing for AUO B116XAK01.6
+ and B140XTK02.4
+Date: Fri, 17 Jul 2026 10:59:46 +0800
+Message-Id: <20260717025946.2751081-1-dioyc_zhang@compal.corp-partner.google.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
@@ -103,49 +93,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Boot firmware can leave an IOMMU bank in PAGE_FAULT_ACTIVE before the
-driver has configured paging:
+Screen garbage or flickering can be observed during mode changes (such
+as VT switches) on systems using the AUO B116XAK01.6 and B140XTK02.4 panels.
+This occurs because the backlight is enabled before the video signal
+stabilizes. Waveform measurements show that the panel signal takes around
+140ms to stabilize after a mode change, meaning the previous 50ms T8
+timing was insufficient.
 
-  PAGE_FAULT_ACTIVE=1  STALL_ACTIVE=0  IDLE=1
+To resolve this issue, adjust the eDP panel delay entry from
+delay_200_500_e50 to delay_200_500_e200 (increasing T8 from 50ms to 200ms).
+This matches the updated panel specifications from AUO, which now formally
+define T8 as 200ms to mask any display abnormalities during mode changes.
 
-Such a bank ignores CMD_ENABLE_STALL and never reaches STALL_ACTIVE, so
-rk_iommu_enable_stall()'s readx_poll_timeout() spins until it times out
-(seen on the RK3576 NPU, whose MMUs share this poll across banks).
-
-Rather than special-casing these banks in the stall path, acknowledge the
-stale fault with CMD_PAGE_FAULT_DONE before enabling stall, so every bank
-starts from a clean state and the normal stall sequence applies to all of
-them.  Banks without a pending fault are untouched.
-
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Signed-off-by: dioyc_zhang <dioyc_zhang@compal.corp-partner.google.com>
 ---
- drivers/iommu/rockchip-iommu.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/gpu/drm/panel/panel-edp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
-index 62cd6b022..68bd55433 100644
---- a/drivers/iommu/rockchip-iommu.c
-+++ b/drivers/iommu/rockchip-iommu.c
-@@ -415,6 +415,19 @@ static int rk_iommu_enable_stall(struct rk_iommu *iommu)
- 	if (!rk_iommu_is_paging_enabled(iommu))
- 		return 0;
- 
-+	/*
-+	 * Boot firmware can leave a bank in PAGE_FAULT_ACTIVE with no handler
-+	 * (PAGE_FAULT_ACTIVE & !STALL_ACTIVE & IDLE).  Such a bank ignores
-+	 * CMD_ENABLE_STALL and never reaches STALL_ACTIVE, timing out the poll
-+	 * below.  Acknowledge any stale fault first so every bank starts clean.
-+	 */
-+	for (i = 0; i < iommu->num_mmu; i++) {
-+		if (rk_iommu_read(iommu->bases[i], RK_MMU_STATUS) &
-+		    RK_MMU_STATUS_PAGE_FAULT_ACTIVE)
-+			writel(RK_MMU_CMD_PAGE_FAULT_DONE,
-+			       iommu->bases[i] + RK_MMU_COMMAND);
-+	}
-+
- 	rk_iommu_command(iommu, RK_MMU_CMD_ENABLE_STALL);
- 
- 	ret = readx_poll_timeout(rk_iommu_is_stall_active, iommu, val,
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index 8d3859cd3ddc..3a168bfffd4e 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -2055,7 +2055,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x145c, &delay_200_500_e50, "B116XAB01.4"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x1999, &delay_200_500_e50, "Unknown"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x1e9b, &delay_200_500_e50, "B133UAN02.1"),
+-	EDP_PANEL_ENTRY('A', 'U', 'O', 0x1ea5, &delay_200_500_e50, "B116XAK01.6"),
++	EDP_PANEL_ENTRY('A', 'U', 'O', 0x1ea5, &delay_200_500_e200, "B116XAK01.6"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x203d, &delay_200_500_e50, "B140HTN02.0"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x208d, &delay_200_500_e50, "B140HTN02.1"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x235c, &delay_200_500_e50, "B116XTN02.3"),
+@@ -2074,7 +2074,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x615c, &delay_200_500_e50, "B116XAN06.1"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x635c, &delay_200_500_e50, "B116XAN06.3"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x639c, &delay_200_500_e50, "B140HAK02.7"),
+-	EDP_PANEL_ENTRY('A', 'U', 'O', 0x67a8, &delay_200_500_e50, "B140XTK02.4"),
++	EDP_PANEL_ENTRY('A', 'U', 'O', 0x67a8, &delay_200_500_e200, "B140XTK02.4"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x723c, &delay_200_500_e50, "B140XTN07.2"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x73aa, &delay_200_500_e50, "B116XTN02.3"),
+ 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x8594, &delay_200_500_e50, "B133UAN01.0"),
 -- 
-2.43.0
+2.34.1
 
