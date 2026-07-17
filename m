@@ -4,73 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B4A5C44524
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:15:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58124C44525
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:15:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6087510E6D2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 723F510E150;
 	Mon, 20 Jul 2026 07:15:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FzcKif+C";
+	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="x5AlX3nc";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="NcF8RDet";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16FE410F3E6
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 22:09:45 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-493f75f7172so52823045e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Jul 2026 15:09:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784239783; x=1784844583; darn=lists.freedesktop.org;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=bDZJF2FHgZ0pc0vw2vaEItundHS+IICtSs7RbOX6+08=;
- b=FzcKif+CMv2enzdPsFIPLQVTBYdr5KqQ3RiezHUubXqoCivwShF+RK2KfcjFti5KPP
- /HRICc3zeXBlEiHWyM+IFmnp48TrzU7BSniXqz68gW8QINKa3tnq7cg9f79bfW3Xo1vm
- SAGC8Wa5i7DnV39JWInS/lI7oBdFDH+mqjH3+h5EYg5XCwG/lbkxotWY3j0acr5bEa8F
- Icfjct/hwXI3P66GZuWlApWdlddSMvnDxpkNADMbYzt0FmRdZknpmNL5dJzeNSwqK3HW
- z5eJzYHEFR3gLj8t2hDEJmnDaUZH9QWA5EscwhzQgCjh6xmWMMthSWnJ8Bu5biNpkO4Q
- 4DJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784239783; x=1784844583;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=bDZJF2FHgZ0pc0vw2vaEItundHS+IICtSs7RbOX6+08=;
- b=RdMqvmjNGJRKrGUUuKOcPMKn3VouDBn258iEgJrhKE4lOVvdsewpYpgq8fu4LkMxP/
- AeUNqZ+6YjndQ5ZUMJvloNF7KY3K6IqyhLTAT2cSwi7oRg4j5hDGUycaTRCPO2sSQosT
- jddbafOcMeEEE/fmVVkGl4Tu5ZkQdh+1D96l2BJQSa30BVKe9jYKcu8JIYqbMJvOr70G
- NCcSYfv1L3kM8ziXJGUFZ5ySYdM9adpBbpZ2XQXK3fu+ODl3zxhZLbcIQHAkAp0ByU4i
- bo4y5XdMRKQvEAeCMpSDUGA7M/sfRtRIj0iDugBiARnwLasZorfRUsul7byYLq6svbkP
- vcUg==
-X-Gm-Message-State: AOJu0YwVPtvvq+DRw743QP0kHyIU/Bl9CPmJkM4KpDGsLtURLl+vjrMc
- zJNGFtX1NQYrS6Ks1c51pe64X5mVro8hfjpPzbMqkEKlx1JW3TRPqG64
-X-Gm-Gg: AfdE7ckbPWFPc8fkeIlE+Yx/uiGsBpWKJIuJGzOH2QRNUCW/65fTt+3Ynhi6ly8bQI6
- tyl1IdP1+5b7yitUbRLESAGr7UYBtcWwTGoVUiFEsdvjqVjAWgTtJvMp7ZucPdSm7DhnCFiFdXm
- sx71uov+AXg4YrAAmgJVZH8vwx7jRckYWUQfqDMygg8Xy+HEXZG5mkoxIJCXTQGNWL7WPBnFVK8
- Oi1DlX1oXF0zdEru5ktkgPN9dR66UCwobx/GtvUsE76ZVYbqNUD3s8Qx24HpafgayBsp07mX5jE
- XgWBZU96HNMiGAA7np/8cwj7gesTf7z1ySb8bf/+X+KPkOzkE6/WVNgDjL3MbyeZqrWBjN1uy+q
- j0Sb7K7bCRmsO3kQIp+7l5zL+TUintB7Vvc7kRlKbBmyu2UQ6kV10xqvOYcDhyJR3OPdAjipPKF
- 9Wj4LAZB1R6jvFIL6AePjqeiTRBzYgQJYGdMVGAg==
-X-Received: by 2002:a05:600c:6dda:b0:495:3aac:1098 with SMTP id
- 5b1f17b1804b1-49540bdfaa6mr45166035e9.32.1784239783219; 
- Thu, 16 Jul 2026 15:09:43 -0700 (PDT)
-Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f4634e5c3sm26705895f8f.1.2026.07.16.15.09.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jul 2026 15:09:42 -0700 (PDT)
-Date: Fri, 17 Jul 2026 01:09:41 +0300
-From: Michail Tatas <michail.tatas@gmail.com>
-To: michael@amarulasolutions.com, neil.armstrong@linaro.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dianders@chromium.org, jesszhan0024@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/panel: ilitek-ili9805: Use _multi variants
-Message-ID: <allWpYxgHfpKughy@michalis-linux>
+Received: from flow-b8-smtp.messagingengine.com
+ (flow-b8-smtp.messagingengine.com [202.12.124.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5ADF10F454
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:01:04 +0000 (UTC)
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+ by mailflow.stl.internal (Postfix) with ESMTP id 350891300278;
+ Fri, 17 Jul 2026 04:52:33 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-09.internal (MEProxy); Fri, 17 Jul 2026 04:52:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:content-type
+ :date:date:from:from:in-reply-to:message-id:mime-version
+ :reply-to:subject:subject:to:to; s=fm1; t=1784278353; x=
+ 1784281953; bh=+9eMGt1+53CE3PhB4AIL89VGOcvh7qJ9QlK1Ab9++kU=; b=x
+ 5AlX3ncFjkAxw7W/XlmKlDcCCnAA9R2aEkk3hvhCNywMTGPgNvgc6QIdh+3PrZuj
+ pmlxdOhYgI5bbd2toHRh6pqNk4x9v0/WnB2bysgpWxgUsaEmZsCsNKpXHlyDHdqT
+ 26ORmpta6AKRZMs25WmyhvNlkMOjJ+C7aYW/+9TZBhkei65cFQgMr0dPQxq+gRGv
+ KS6JUo6gnJ3oHnrkBWSoHfUJbntFwa21t9H/V9ZMnrQb6QPKVEaL5ShVr7efPZLi
+ WzTQjoH7h2fhwMrt1PDLxCevix050bxaZ8VHP3jLS4y1hUOcQLT9x5Igpr4kIWX5
+ 5FiOY6MgMU7iD0+adNnZA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:message-id:mime-version:reply-to:subject
+ :subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; t=1784278353; x=1784281953; bh=+9eMGt1+53CE3PhB4AIL89VGOcvh
+ 7qJ9QlK1Ab9++kU=; b=NcF8RDetvmAiLjJ3baWiSY5MG/8P20S8MyA7Z7d9Su49
+ I9y58dW15p+c38WAuAdbST7bBF+ZmiUgwdiDkbJAQkqZT+zzRHEO47ldGk7zjrl8
+ ReyxQILAIz+XMV42A9Eax+Sui6AEgwEy24yWqOuQwJUXOduZ7Ue8TWLnF9mz9VfS
+ mAObinqU9jru3fIbE6hYtaxDjI66IvUmuWLaEF8Pck6nxoYcMKCNCqekzPxCA6o2
+ nl4Rx/IXtCFhWiUdLFa1uhCl+sl+8bHAsv2e/c7/EGq7oiAFwInbddf9GBn77gGj
+ Zm8z/s8rwVzGa+FPhTP7Ju0jraif8msxJVCjOSBzYw==
+X-ME-Sender: <xms:T-1Zape-R9_WgaOa5lpFKTDSApTOc-NGwTcRcgW36cs55yy3-xe8tg>
+ <xme:T-1ZajEf_wdzPizB3sZJvHewnfe5WGbpgE81sklr5JMFbte717YufTaeJJm_YgHKc
+ i7zNwoXnVSZtFmomeF_-fzBjkosKwjrKgSWv6y1aFCNjKXCJFueouU>
+X-ME-Received: <xmr:T-1ZauA05uXAxTf5nz7jyXEaHbQgG4gIJirf9aYh5W9dOnyGNmEr6i_Y29qnZGzf3g5ZeUzQdzh5bPfy7Tk>
+X-ME-Proxy-Cause: dmFkZTEV7KuzTcNcLactwUMRBuXXlaKWPyUvy02wJFAij4FmALZ7XghVw1H/+GtDAfNlwD
+ GzRVL4qOJ6mHaQO7vkVMPTIgFBQFKNu63S9n2cVtGwmq3WZrXNcN7nmoa2wofvSM5kS5Xg
+ rM5Y/9XOI0OX6bOiV5CmjHp+eMZ0IgJrNuGXbV8MKmiov9F+wGBf1hiVtlMejS6Oo5OFc/
+ RSganAfg1NOoPcPTCiAZ8QOhP8AUcjlui7qYLzKBk4RQJFLi01ZcLw2n6+rONGwLr1eDnA
+ qUKKq17gJOQ5U7AQtS5VOr/bQsIagPW559gj4JOBmPZpO7PCZdccqnjqxTjupch+Zn6dsK
+ LgsEeHjmKU5ONptLpnTFMTODIa0qM8KDo5ToHC1PB67KytIgDiFxY1mNTnqmQ7aDd1Q1C4
+ JKLNf6guQX+f4M94q0cN0lWqXwuS11Df56hrUrxlhFSLdq2bgc2FE+4JNcm3n2UlmwvEBY
+ v9eA63hRQAOYQptd0UTKE17Y0ULDAOJxBP8yLy6zR/+kPI5W3B49294DmMRK6yw/9BPMw/
+ Wm2vEoIhEDjmo2umu6p4Okov3cBrHuBGjPEDp0HwHo6/pjM7efjtkuaMwsEqowHjT5+ZHo
+ R+SUToeJn9PAoJrwJUlCj1HoQsvXUySiOssw/L8lWX7Q9jUxg3avTRkVaNhA
+X-ME-Proxy: <xmx:T-1Zam6teAi6wo-cIh9FrlOdlp4dE-bM-y4aI-cI8BWv7F1qEerOAw>
+ <xmx:T-1ZatlkBsgWYxK5mprkrbn8MrWgMRUOqmqtcXAfiKMu-MJUX0Ef9Q>
+ <xmx:T-1Zav58u89nPJJnHSA_n19Z7JGtz8Wmng4NuKGqziit9_teZG3yew>
+ <xmx:T-1ZarWNEm0ws1xDq2e-zcNlwfpO-3RRn0UECS2p8XNhIuBeNspDvg>
+ <xmx:UO1ZalNSzj_SPzf-jx_zw0DWm3acLdYivKeEqONvdd1xxCGa5gy8vuzO>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 17 Jul 2026 04:52:25 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
+ ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [RFC PATCH 0/9] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Fri, 17 Jul 2026 20:50:38 +1200
+Message-ID: <20260717085220.3212274-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,96 +99,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert functions mipi_dsi_* to mipi_dsi_*_multi as per the
-gpu/todo file.
-The multi variant of these functions include improved error 
-handling.
+This adds RK3576 NPU support to accel/rocket. RFC: the NPU brings up and
+runs, but full inference is not correct yet, and I would rather get
+feedback now than sit on it.
 
-Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
----
- drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 51 +++++---------------
- 1 file changed, 13 insertions(+), 38 deletions(-)
+Tested on a Radxa ROCK 4D. The NPU probes, powers on, brings up its
+IOMMUs, and runs jobs to completion (rocket + Mesa Teflon). Getting there
+took a few fixes outside the driver too: a power-domain settle delay and
+reset cycling (else a cold power-on throws an async SError), two rk_iommu
+fixes for banks firmware leaves faulted, taking the full clock set on the
+MMU nodes, and both NPU power domains on the core.
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
-index e6c483851f1f..7e9587afebbe 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
-@@ -159,36 +159,23 @@ static int ili9805_power_off(struct ili9805 *ctx)
- 
- static int ili9805_activate(struct ili9805 *ctx)
- {
--	struct mipi_dsi_device *dsi = ctx->dsi;
--	struct device *dev = &dsi->dev;
--	int i, ret;
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+	int i;
- 
- 	for (i = 0; i < ctx->desc->init_length; i++) {
- 		const struct ili9805_instr *instr = &ctx->desc->init[i];
- 
--		ret = mipi_dsi_dcs_write_buffer(ctx->dsi, instr->data, instr->len);
--		if (ret < 0)
--			return ret;
-+		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, instr->data, instr->len);
- 
- 		if (instr->delay > 0)
--			msleep(instr->delay);
--	}
--
--	ret = mipi_dsi_dcs_exit_sleep_mode(ctx->dsi);
--	if (ret) {
--		dev_err(dev, "Failed to exit sleep mode (%d)\n", ret);
--		return ret;
-+			mipi_dsi_msleep(&dsi_ctx, instr->delay);
- 	}
- 
--	usleep_range(5000, 6000);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
- 
--	ret = mipi_dsi_dcs_set_display_on(ctx->dsi);
--	if (ret) {
--		dev_err(dev, "Failed to set display ON (%d)\n", ret);
--		return ret;
--	}
--
--	return 0;
-+	return dsi_ctx.accum_err;
- }
- 
- static int ili9805_prepare(struct drm_panel *panel)
-@@ -211,25 +198,13 @@ static int ili9805_prepare(struct drm_panel *panel)
- 
- static int ili9805_deactivate(struct ili9805 *ctx)
- {
--	struct mipi_dsi_device *dsi = ctx->dsi;
--	struct device *dev = &dsi->dev;
--	int ret;
--
--	ret = mipi_dsi_dcs_set_display_off(ctx->dsi);
--	if (ret < 0) {
--		dev_err(dev, "Failed to set display OFF (%d)\n", ret);
--		return ret;
--	}
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
- 
--	usleep_range(5000, 10000);
--
--	ret = mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
--	if (ret < 0) {
--		dev_err(dev, "Failed to enter sleep mode (%d)\n", ret);
--		return ret;
--	}
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_usleep_range(&dsi_ctx, 5000, 10000);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
- 
--	return 0;
-+	return dsi_ctx.accum_err;
- }
- 
- static int ili9805_unprepare(struct drm_panel *panel)
+Not solved: only the first operation in a power session gives the right
+answer. Every later one engages and DMAs its input, but the compute
+output never lands, so the readback is the zero-point. I chased it
+through the whole software surface (registers, IOMMU/TLB, cache,
+power/clock/reset, dispatch) and it reproduces even with the driver
+environment matched to the vendor's on the same kernel, so it looks to be
+below software, in the fixed-function block. Traces available.
+
+Two asks: review of the bring-up and the shared pmdomain/iommu changes;
+and if anyone knows the RK3576 NPU internals, whether that
+per-power-session arm can be driven from software at all.
+
+The series is split by subsystem (binding, pmdomain, iommu, driver, DT).
+The board DT keeps vdd_npu_s0 always-on for now; happy to switch to
+proper runtime control if preferred.
+
+I used Claude Opus 4.8 to help trim this series out of my debugging tree
+and generate the diffs.
+
+Jiaxing Hu (9):
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  pmdomain/rockchip: add optional per-domain power-on settle delay
+  pmdomain/rockchip: cycle optional power-domain resets on power-on
+  iommu/rockchip: skip orphaned-fault banks in rk_iommu_is_stall_active
+  iommu/rockchip: skip orphaned-fault banks in CMD_ENABLE_STALL dispatch
+  iommu/rockchip: take all DT clocks
+  accel/rocket: add RK3576 NPU (RKNN) support
+  arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+  arm64: dts: rockchip: rk3576-rock-4d: enable NPU
+
+ .../npu/rockchip,rk3588-rknn-core.yaml        |   2 +-
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      |  16 ++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  78 ++++++++-
+ drivers/accel/rocket/rocket_core.c            |  43 ++++-
+ drivers/accel/rocket/rocket_core.h            |  22 ++-
+ drivers/accel/rocket/rocket_device.c          |   4 +
+ drivers/accel/rocket/rocket_drv.c             |   1 +
+ drivers/accel/rocket/rocket_job.c             | 154 ++++++++++++++----
+ drivers/iommu/rockchip-iommu.c                |  66 +++++---
+ drivers/pmdomain/rockchip/pm-domains.c        |  68 +++++---
+ 10 files changed, 367 insertions(+), 87 deletions(-)
+
 -- 
 2.43.0
 
