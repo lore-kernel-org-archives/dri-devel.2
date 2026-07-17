@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DBB4C4451B
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 21:05:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C661C44515
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 21:06:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05AEE10E4DF;
-	Fri, 17 Jul 2026 21:05:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28B8510F624;
+	Fri, 17 Jul 2026 21:06:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m+GYGM3s";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fI5wceFA";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 418EC10E4DF
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 21:05:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4CED10F626
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 21:06:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 957D860051;
- Fri, 17 Jul 2026 21:05:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B18B1F000E9;
- Fri, 17 Jul 2026 21:05:49 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 48C1F60051;
+ Fri, 17 Jul 2026 21:06:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C84F61F000E9;
+ Fri, 17 Jul 2026 21:06:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784322349;
- bh=KFf4z1TyjREm7WpCwZ9s0rqHdPdCeu5swj5eiPnNQe0=;
+ s=k20260515; t=1784322361;
+ bh=2EvCGMwl8Wy6kd16GoNLUKOx67Gcj22P6xondvQAUPo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=m+GYGM3s6MJtFV77qdt34oYbQu7GzD43GLF0Pf8INWMJtTdWGLe7eyxZreZbdopeA
- fz9pYIX2mgUEH8tSfFQABJKtxfR7IENGg/BgKJrwEa/vZzRHGJYfTfUATaFPAMnucz
- EQ0nAN2tAvuDg0V3dp/0CahDWCEXE7/6yQ9Hd5rvgNVM9ZbKOqihnvWTgjEslCeGEo
- xwYRVOKpcUeA45HWwLC/7jbhKP+OJLVbptbKuvqF0ei2LMmjbni95T+UusC2kMaMPr
- nsLNApqCT8WezDJNYxoh8v2mw0oXGvK5WChzQ5ZD9KzXPE5P5DP+Q3b6YnIKga3sAq
- gQTFVYAJL9VGQ==
+ b=fI5wceFAA1V2GJ5i0mhOyzeZDNM6yFXY3dyLxkjAqjsQmGBgjAqov+CrQfc4wcweg
+ sdxN3aylZyVV0NkqsPU98JQp5SlBvxFVLs6OJ4y1M0dTFxpeOSZYQqfYViw37YGaKQ
+ /mKQQp4emrMLUVVW9YUptiwjGYXQVYxPieWLd5gOu4OWXyUrs8f2FiX6j/xjr4r0ff
+ FDcS9TkhjwwqcePf86Et8b5YdqED1rmk4qgvlRu2EpWUgOjKFKG64U6FOCsERP+/fQ
+ oGbdqgFUGPP5KZOfOtYfo886jn4SvyVGZrZt16b2uH8NFHMNboU39ieH4DyQ/3HgfJ
+ RwJzshg6Ksm9w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 03/16] drm/msm: Synchronize VM creation on ctxlock
+Subject: Re: [PATCH v6 11/16] drm/msm/gem: Set resv before exposing obj
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260717204841.26120-4-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20260717204841.26120-12-robin.clark@oss.qualcomm.com>
 References: <20260717204841.26120-1-robin.clark@oss.qualcomm.com>
- <20260717204841.26120-4-robin.clark@oss.qualcomm.com>
+ <20260717204841.26120-12-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 21:05:48 +0000
-Message-Id: <20260717210549.2B18B1F000E9@smtp.kernel.org>
+Date: Fri, 17 Jul 2026 21:06:00 +0000
+Message-Id: <20260717210600.C84F61F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,120 +57,95 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Low] The patch modifies the signature of msm_gem_new() from 3 to 4 argum=
+ents but fails to update the caller in drivers/gpu/drm/msm/disp/mdp4/mdp4_k=
+ms.c. This results in a compiler error ('too few arguments to function').
+
 Pre-existing issues:
-- [Critical] `msm_context_vm()` propagates errors as `ERR_PTR` or `NULL` wi=
-thout callers checking, leading to wild pointer dereferences.
-- [Critical] Direct access to uninitialized `ctx->vm` in `msm_ioctl_gem_sub=
-mit()` causes a guaranteed NULL pointer dereference.
-- [High] Hardware capability check in `adreno_set_param()` fails due to laz=
-y VM initialization, bypassing restrictions.
+- [Critical] Missing NULL check for the return value of msm_context_vm() le=
+ads to a kernel panic when dereferenced by drm_gpuvm_resv_obj(). This probl=
+em wasn't introduced by this patch, but remains a critical vulnerability.
 --
 
---- Patch [3]: [PATCH v6 03/16] drm/msm: Synchronize VM creation on ctxlock=
- ---
-commit 78d3ed784b530d2c180edb9b49939bea521dccd3
+--- Patch [11]: [PATCH v6 11/16] drm/msm/gem: Set resv before exposing obj =
+---
+commit 96533966332980b8f99abb5ba08db109f97b565b
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-drm/msm: Synchronize VM creation on ctxlock
-   =20
-This commit serializes the setting of EN_VM_BIND against VM creation
-by synchronizing it on ctxlock.
+drm/msm/gem: Set resv before exposing obj
 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
-m/adreno/adreno_gpu.c
-> index c62c45bb0ddbb..0d54141ff089c 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -503,7 +503,9 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_=
-context *ctx,
->  		if (!perfmon_capable())
->  			return UERR(EPERM, drm, "invalid permissions");
->  		return msm_context_set_sysprof(ctx, gpu, value);
-> -	case MSM_PARAM_EN_VM_BIND:
-> +	case MSM_PARAM_EN_VM_BIND: {
-> +		guard(rwsem_read)(&ctx->ctxlock);
-> +
->  		/* We can only support VM_BIND with per-process pgtables: */
->  		if (ctx->vm =3D=3D gpu->vm)
+Don't swap the resv object _after_ exposing the newly created obj in LRU
+or global objects list, as that creates a race condition where another
+thread could lock the object using the original (per-obj) resv, but then
+unlock after the resv is replaced.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this hardware capability
-check properly account for lazy VM initialization?
-
-Since VMs are lazily initialized, ctx->vm will be NULL at this stage. This
-means the check evaluates NULL =3D=3D gpu->vm, which is always false. Does =
-this
-allow all hardware, even those without per-process pagetables, to bypass th=
-is=20
-restriction?
-
->  			return UERR(EINVAL, drm, "requires per-process pgtables");
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index 961e22d3c7292..12d9b8a9c360a 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
 
 [ ... ]
 
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 380b3e2bf734e..20c5a6cc82019 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -223,7 +223,6 @@ static void load_gpu(struct drm_device *dev)
->   */
->  struct drm_gpuvm *msm_context_vm(struct drm_device *dev, struct msm_cont=
-ext *ctx)
+> @@ -1135,10 +1135,17 @@ int msm_gem_new_handle(struct drm_device *dev, st=
+ruct drm_file *file,
+>  		size_t size, uint32_t flags, uint32_t *handle,
+>  		char *name)
 >  {
-> -	static DEFINE_MUTEX(init_lock);
->  	struct msm_drm_private *priv =3D dev->dev_private;
->  	struct drm_gpuvm *vm =3D smp_load_acquire(&ctx->vm);
+> -	struct drm_gem_object *obj;
+> +	struct drm_gem_object *obj, *r_obj =3D NULL;
+>  	int ret;
 > =20
-> @@ -231,7 +230,7 @@ struct drm_gpuvm *msm_context_vm(struct drm_device *d=
-ev, struct msm_context *ctx
->  	if (vm)
->  		return vm;
-> =20
-> -	guard(mutex)(&init_lock);
-> +	guard(rwsem_write)(&ctx->ctxlock);
-> =20
->  	if (!ctx->vm) {
->  		vm =3D msm_gpu_create_private_vm(
+> -	obj =3D msm_gem_new(dev, size, flags);
+> +	if (flags & MSM_BO_NO_SHARE) {
+> +		struct msm_context *ctx =3D file->driver_priv;
+> +		struct drm_gpuvm *vm =3D msm_context_vm(dev, ctx);
+> +
+> +		r_obj =3D drm_gpuvm_resv_obj(vm);
 
 [Severity: Critical]
-This is a pre-existing issue, but does msm_context_vm() propagate an
-unhandled error pointer or NULL on failure?
+This is a pre-existing issue, but can msm_context_vm() return NULL here?
 
-If msm_gpu_create_private_vm() returns ERR_PTR or NULL (e.g., during an OOM
-condition or on platforms without per-process pagetables), it appears
-msm_context_vm() stores and returns this directly.=20
+If this runs on a KMS-only configuration where no GPU is bound,=20
+msm_context_vm() can return NULL. When passed to drm_gpuvm_resv_obj(vm),
+would this cause a NULL pointer dereference since the macro expands to
+((vm)->r_obj)?
 
-Callers like msm_submitqueue_create() in msm_submitqueue.c blindly assume
-success:
+Since unprivileged userspace can trigger this path via the MSM_GEM_NEW
+ioctl with the MSM_BO_NO_SHARE flag, should a NULL check be added before
+accessing vm?
 
-    struct drm_gpu_scheduler *sched =3D &to_msm_vm(msm_context_vm(drm, ctx)=
-)->sched;
+> +	}
+> +
+> +	obj =3D msm_gem_new(dev, size, flags, r_obj);
 
-If an error pointer or NULL is returned, to_msm_vm() yields an invalid
-address. Could this lead to an immediate kernel crash when it is
-dereferenced in drm_sched_entity_init()?
+[ ... ]
 
+> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+> index 762e546d25ef3..47ff2bbc19150 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.h
+> +++ b/drivers/gpu/drm/msm/msm_gem.h
+> @@ -296,7 +296,7 @@ int msm_gem_cpu_fini(struct drm_gem_object *obj);
+>  int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
+>  		size_t size, uint32_t flags, uint32_t *handle, char *name);
+>  struct drm_gem_object *msm_gem_new(struct drm_device *dev,
+> -		size_t size, uint32_t flags);
+> +		size_t size, uint32_t flags, struct drm_gem_object *r_obj);
 
-[Severity: Critical]
-This is another pre-existing issue, but does direct access to ctx->vm cause=
- a
-NULL pointer dereference?
+[Severity: Low]
+Does this change miss updating some callers? Looking at mdp4_kms_init() in
+drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c, it still calls msm_gem_new() with
+only 3 arguments:
 
-If a user issues a DRM_IOCTL_MSM_GEM_SUBMIT ioctl before executing any
-commands that lazily initialize the VM, ctx->vm is still NULL.
+mdp4_kms->blank_cursor_bo =3D msm_gem_new(dev, SZ_16K, MSM_BO_WC | MSM_BO_S=
+CANOUT);
 
-In msm_ioctl_gem_submit():
-
-    if (to_msm_vm(ctx->vm)->unusable)
-        return UERR(EPIPE, dev, "context is unusable");
-
-Because ctx->vm is NULL, the to_msm_vm() macro returns a negative offset
-pointer. Does dereferencing ->unusable here immediately crash the kernel
-instead of calling msm_context_vm() to lazily initialize it?
+Could this cause a build failure when CONFIG_DRM_MSM_MDP4 is enabled due to
+too few arguments?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717204841.2612=
-0-1-robin.clark@oss.qualcomm.com?part=3D3
+0-1-robin.clark@oss.qualcomm.com?part=3D11
