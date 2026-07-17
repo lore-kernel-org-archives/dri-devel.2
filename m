@@ -4,44 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72B08C44522
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEE75C44520
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:17:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0DA710E43E;
-	Fri, 17 Jul 2026 12:16:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DE8B10E445;
+	Fri, 17 Jul 2026 12:17:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oa+kvuRy";
+	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="CkEEHK7/";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="gA8I+JsX";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3296B10E43E
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:16:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DB004400AE;
- Fri, 17 Jul 2026 12:16:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ABD01F000E9;
- Fri, 17 Jul 2026 12:16:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784290599;
- bh=0CftLDCVFEwpWJdAXq3mFHKdS0h8TSzDqMCvz+NyiHo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oa+kvuRyaEfRLcOvGMNpgLKc8v42jwajiu7LI7sMASnrteJviC465KDtlDx9xVSFo
- //O2XRetcw+aZtWPAmAvToG4cLvtnMeuiWOtdWQJNxjbQxIXAvitJ6N993YqGqwRNc
- fuWtyZWk3I6D0dDdjNL2yuK+5sjmIXvArjKzdPCw5tZVhjBiSAMjrDtVI+f6bpra7S
- zxRZjxUeQQVrjJpHsYKGqcfnbBhCZbkYYDUhF+Gpq2I5tk8UJQ+RTQ/5LveFTHV4kk
- EsrcsC90dQTHJRbV2XZc6BunoAkNi9Voz5Z+dh59j7fvZ3SSvFdsSE1XRW5F2jTP6p
- jrS2EoMKHBDFQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] drm/rockchip: lvds: add RK3568 support
-To: "Rok Markovic" <rok@kanardia.eu>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260717120005.2087386-4-rok@kanardia.eu>
-References: <20260717120005.2087386-1-rok@kanardia.eu>
- <20260717120005.2087386-4-rok@kanardia.eu>
+Received: from fout-a8-smtp.messagingengine.com
+ (fout-a8-smtp.messagingengine.com [103.168.172.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67DA710E445
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:17:18 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfout.phl.internal (Postfix) with ESMTP id 6CA04EC016D;
+ Fri, 17 Jul 2026 08:17:17 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+ by phl-compute-04.internal (MEProxy); Fri, 17 Jul 2026 08:17:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1784290637;
+ x=1784377037; bh=qwffd+MK4v483+LcaFb6T74cP0UlMdAs+/sPit+FeJg=; b=
+ CkEEHK7/KRIW2r3ZYNZx/CS6/X4GxmPFA90cPBJlDvb01bHYpjCQ0QQ/SF04lBjM
+ DpkRhrBWzdn0GVP/59Xgh5KiCYLTj/adksJ9D+YublAzHiXKqydCVz5F2MHqKTNm
+ Y/YntNbmSaGOmZ3UkAnmfRsriVVl2J4fITYyxB1P64Zzl8ePe1y0yB+BKAY2vECW
+ G2rGhhxqGojiCrZhX6m+DVR9mSgUziAKdnAqcux7UAjdEeDpHqWCrFJf1o/bVhPZ
+ 372S8VOtD3WgdEs4HsknmguJpIldB1BbwbSh95UwqTRs02qPWeTw0TMVSwkY+B+u
+ YStt008MHHpRPc1nbKJUeQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784290637; x=
+ 1784377037; bh=qwffd+MK4v483+LcaFb6T74cP0UlMdAs+/sPit+FeJg=; b=g
+ A8I+JsXLlJE2XJgz7nfW9MKgN0RxDW4HvBL7TGLlPlGGUfezGjRybepzB76bIS4d
+ DRuCzT/MqP3+xpyB/CChnqq/1s8JUm0c+G5eCU13gjrH0UD9d/EpXOdQSJZctV+/
+ FppK5GPt1P4TualkrLJ4h+Au/V9TVM88hepfDpjHixayMVRqyiihITGJPW9Kso43
+ +ou0iubCJGTbMN2Fd58B0tdblpOs/oc666GDCZz0Y0Q+sAJqUFcNIlPsp1DG+jj0
+ o2XcFj7wEJa6JkHW9Z7FcIKeOJVBJ95AxTH/4SlfFvEftl0tCFTLAUoKkRZbcmP7
+ fFcDEIftqfBlBbA03yZfg==
+X-ME-Sender: <xms:TR1aalFvKlcaERW_GkQ2wUMN0F-g3FI1VTPgyBywRwrv0iWIOaElcg>
+ <xme:TR1aalL_TvVM5jxQiK6hwr08OO4jSvjr3YoEx4j2yUbUqjrovtrnfdDZQ2Z8FgJsV
+ _qxfZ2USH15vwhxl7WKCVwXy_4DfNMsI7UQTkmj2pH6GtYfRzyD_f0>
+X-ME-Proxy-Cause: dmFkZTGZYN2MueblxAGDt1BtTf+5AWiWQBKayHhh9hPnnR/CTpcYP+VyeqU8xamWs0xUUr
+ 30icLZzf2xcnlPupU1aMcgK2oeMMOTE4d1oeXnPTwKPy9zzFlUNOp1tXHHsxoPEKK8gt3i
+ i9FRqHqG0ujD2olFXKmdrxJTMtz/v0vw+rpCxVhYh6UODdqiXNzJKA+4Pc89XKa+17dlqp
+ VVELzkDE+1J4X0oH55DuIUetvVVor+TYOQLdqXOwHXJJEBQgf7TSWMpIlMfAYyQDyzkYq5
+ gNpdHIo/34zpBHodGZ+sjVmxNclc6JzUlWFCjwpJWsrbnF7xuD6ktqe142QTVOwOpSqEgX
+ Bzs6bICjk+sETAZAF3+rxL66tuRwu/VAUSxbqOISOsdg+gKEY1tBuUQsPpdiEzcKZzPKA7
+ ZRNymw2DVCcQHTQ/Uv9IJNexYbDRL7JDcZ2PlvzRtX0Q1uKVhl1u7hP2iXtjE85t9vmAc6
+ ykgIoFpn5bthGxWnVMvnh6g7Hx1B+zciNgH76MZFoC7bp0l+wCzcdMfbjaog58TjRZD63x
+ jow6AIWiJgSjwW2FXeiE1lCiB8p6zDxy738KB19JScpQe5GA47THc0PpIY+2BvQI9GOJ5Z
+ vpVmczjbzp22d1kpMveky64WroJfQgN7wq1A5w4M06EZ9lKkQdrg/c7pcn7g
+X-ME-Proxy: <xmx:TR1aak10URcDeLFeSlwiCSJBHJb62rJqKaejbt6DxFWnfdzxJPLfgQ>
+ <xmx:TR1aallSlX6lpRbAQuxuH8sUjj-l7Pw5deup2c-s2tLiqPpq1fX2DQ>
+ <xmx:TR1aaq4Qhr6WMG5ZCZ2vc1pslCLthllJ_Yok_GZge9ch4YrkRnCdjg>
+ <xmx:TR1aagm6I-Rg2J4sXytv2WLfrAvCTKTzd0CzW3tEhYG6grVgRW2uHA>
+ <xmx:TR1aamrLsFxz-9CqXGjPUdxEWWSkcul0RF7PnPtM69e5hRKmkP3MIkZe>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id 1D22B182007E; Fri, 17 Jul 2026 08:17:17 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+MIME-Version: 1.0
+X-ThreadId: A5D9awIj4ZLo
+Date: Fri, 17 Jul 2026 14:16:36 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Ryan Roberts" <ryan.roberts@arm.com>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, 
+ "Mark Rutland" <mark.rutland@arm.com>,
+ "Jean-Philippe Brucker" <jpb@kernel.org>, "Oded Gabbay" <ogabbay@kernel.org>, 
+ "Jonathan Corbet" <corbet@lwn.net>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+Message-Id: <5049af19-47c4-4ab5-bb4d-6b3cd54ad75c@app.fastmail.com>
+In-Reply-To: <20260717104759.123203-3-ryan.roberts@arm.com>
+References: <20260717104759.123203-1-ryan.roberts@arm.com>
+ <20260717104759.123203-3-ryan.roberts@arm.com>
+Subject: Re: [RFC PATCH v1 2/8] misc/arm-cla: Add launch operation helpers
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jul 2026 12:16:39 +0000
-Message-Id: <20260717121639.7ABD01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,130 +99,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Unbalanced phy_power_off() in disable path permanently corrupts PH=
-Y state after a transient enable error.
-- [Low] Silently ignored regmap_write() error in rk3568_lvds_grf_config().
---
+On Fri, Jul 17, 2026, at 12:47, Ryan Roberts wrote:
+> From: Jean-Philippe Brucker <jpb@kernel.org>
+>
+> CLA commands are issued by writing optional payload registers,
+> programming the LAUNCH register and polling LRESP until the hardware
+> accepts or rejects the operation.
+>
+> Add a common launch helper that performs this sequence on the CLA's
+> local CPU, waits for LRESP completion and translates launch response
+> codes into Linux errors.
+>
+> Build accelerator reset and register read and write support on top of
+> it. The register read and write helpers split larger accesses into
+> multiple launch operations when an access crosses an eight-register
+> window.
 
---- Patch [3]: [PATCH 3/4] drm/rockchip: lvds: add RK3568 support ---
-commit 42ee5aa3ee6adfe018b6f3294b12a2e7ab2076e3
-Author: Rok Markovic <rok@kanardia.eu>
-Date:   Fri Jul 17 12:00:04 2026 +0000
+I'm a bit confused by the MMIO register access ordering, if this is
+not a normal AXI attached device with a DMA master, I think it
+would make sense to better document what it is.
 
-    drm/rockchip: lvds: add RK3568 support
-
-This commit adds support for the RK3568 LVDS transmitter to the rockchip_lv=
-ds
-driver. It configures the MIPI DSI0 D-PHY in PHY_MODE_LVDS and powers the
-D-PHY from the encoder enable path instead of probe.
-
-Link: https://lore.kernel.org/all/20230119184807.171132-1-a1ba.omarov@gmail=
-.com/
-
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/r=
-ockchip/rockchip_lvds.c
-> index 150299c12298a..cc56ca2580a66 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-[ ... ]
-> @@ -435,6 +435,133 @@ static void px30_lvds_encoder_disable(struct drm_en=
-coder *encoder)
-> +static int rk3568_lvds_grf_config(struct drm_encoder *encoder,
-> +				  struct drm_display_mode *mode)
+> +static inline u64 cla_reg_read(struct cla_dev *dev, off_t reg)
 > +{
-[ ... ]
+> +	return readq_relaxed(dev->regs + reg);
+> +}
+> +
+> +static inline void cla_reg_write(struct cla_dev *dev, off_t reg, u64=20
+> val)
+> +{
+> +	return writeq_relaxed(val, dev->regs + reg);
+> +}
+
+For regular devices that have a DMA master, you cannot use
+the relaxed operations by default since they do not serialize
+against DMA transfers.
+
+To do this properly, you'd have to define separate cla_reg_read()
+and cla_reg_read_relaxed() helpers and then use them as needed,
+ideally with a comment for each relaxed instance to explain why
+that one is both performance critical and safe.
+
+If for some reason this accelerator is not a DMA master (e.g.
+because it is implemented through CPU microcode and accesses
+the memory through the CPU's own load/store unit), that should
+be documented here to explain that you are relying on
+implementation defined behavior outside of the normal driver
+and memory model.
+
 > +	/*
-> +	 * The LVDS block has its own dclk inversion select, separate from the
-> +	 * VOP's pin polarity. Both have to agree with what the panel samples o=
-n.
+> +	 * No barrier needed because accesses use Device-nGnRE, within the=20
+> same
+> +	 * memory-mapped peripheral, so accesses arrive at the endpoint in
+> +	 * program order.
 > +	 */
-> +	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-> +		     RK3568_LVDS0_DCLK_INV_SEL(negedge));
+
+This comment in turn looks completely useless, as that is true
+for any MMIO device. The only barriers that you'd normally need
+here on sane architectures (not Alpha) are to serialize MMIO
+against DMA.
+
 > +
+> +	if (launch->data_mode =3D=3D CLA_DATA_OUT)
+> +		for (i =3D 0; i < launch->ndata_m1 + 1; i++)
+> +			launch->data[i] =3D cla_reg_read(dev, CLA_REG_DATA(i));
 
-[Severity: Low]
-Does this code silently ignore a potential error from regmap_write()?
+Instead of the open-coded loop, maybe this can be built
+on top of __iowrite32_copy()
 
-If this first regmap_write() to RK3568_GRF_VO_CON2 fails, the DCLK inversion
-configuration is not applied, but the function proceeds and only returns the
-result of the second regmap_write() below.
-
-> +	/* Set format */
-> +	return regmap_write(lvds->grf, RK3568_GRF_VO_CON0,
-> +			    RK3568_LVDS0_SELECT(lvds->format) |
-> +			    RK3568_LVDS0_MSBSEL(1));
-> +}
-> +
-> +static void rk3568_lvds_encoder_enable(struct drm_encoder *encoder)
+> +/**
+> + * cla_op_wait_lresp - Wait for any LAUNCH op to complete.
+> +int cla_op_wait_lresp(struct cla_dev *dev, u64 *lresp)
 > +{
-[ ... ]
-> +	ret =3D rk3568_lvds_poweron(lvds);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to power on LVDS: %d\n", ret);
-> +		drm_panel_unprepare(lvds->panel);
-> +		return;
-> +	}
-> +
-> +	ret =3D rk3568_lvds_grf_config(encoder, mode);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to configure LVDS: %d\n", ret);
-> +		drm_panel_unprepare(lvds->panel);
-> +		return;
-> +	}
-> +
-> +	/*
-> +	 * Only now bring the D-PHY up. phy_power_on() runs the whole
-> +	 * inno_dsidphy_lvds_mode_enable() sequence - PLL and bandgap power-on,
-[ ... ]
-> +	ret =3D phy_set_mode(lvds->dphy, PHY_MODE_LVDS);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to set phy mode: %d\n", ret);
-> +		drm_panel_unprepare(lvds->panel);
-> +		return;
-> +	}
-> +
+> +	return readq_relaxed_poll_timeout_atomic(dev->regs + CLA_REG_LRESP,
+> +			*lresp, FIELD_GET(CLA_LRESP_PENDING, *lresp) =3D=3D 0,
+> +			CLA_LRESP_DELAY_US, CLA_LRESP_TIMEOUT_US);
 
-[Severity: High]
-Can an early return here lead to an unbalanced phy_power_off() later?
+Similarly, the readq_relaxed_poll_timeout_atomic() specifically
+does not wait for DMA, so you may need separate helpers for
+devices that can do DMA and readq_poll_timeout_atomic() vs devices
+that never access memory and can use the relaxed version.
 
-If rk3568_lvds_encoder_enable() encounters an error and returns early before
-calling phy_power_on(), the DRM core still treats the encoder as active sin=
-ce
-the enable callback returns void.
+You may also need a non-atomic version, as blocking the CPU
+for 100=C2=B5s is not great for realtime workloads.
 
-When the display pipeline is subsequently disabled, the DRM core unconditio=
-nally
-calls rk3568_lvds_encoder_disable(), which does this:
-
-static void rk3568_lvds_encoder_disable(...)
-{
-    ...
-    phy_power_off(lvds->dphy);
-    ...
-}
-
-This would decrement the PHY's power_count from 0 to -1. Future calls to
-phy_power_on() will see a negative count, skip the actual hardware power-on
-routine, and just increment the counter to 0, which leaves the PHY permanen=
-tly
-broken until reboot.
-
-> +	ret =3D phy_power_on(lvds->dphy);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to power on phy: %d\n", ret);
-> +		drm_panel_unprepare(lvds->panel);
-> +		return;
-> +	}
-> +
-> +	drm_panel_enable(lvds->panel);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717120005.2087=
-386-1-rok@kanardia.eu?part=3D3
+    Arnd
