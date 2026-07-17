@@ -4,53 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C71D4C44514
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 09:08:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC1B2C44507
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 09:10:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 314E810F4B0;
-	Fri, 17 Jul 2026 09:08:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3088110F4B3;
+	Fri, 17 Jul 2026 09:10:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NZdv50Dl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jbYp7DIa";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 711F510F4B0
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:08:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9322A10F4B3
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:10:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5535B4063B;
- Fri, 17 Jul 2026 09:08:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35EEA1F00A3A;
- Fri, 17 Jul 2026 09:08:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E9EFF60A5E
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:10:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BBDE1F000E9;
+ Fri, 17 Jul 2026 09:10:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784279319;
- bh=bKfzN4EqpiMbnxR9DAJnBuN7lXi1koJJ0p28NYfMO3o=;
- h=From:To:Cc:Subject:Date;
- b=NZdv50DlbHZyuy6BjoPlyaM99G6qYR29gTIr9Gq20rgr6deIlatrV58vnUSN3W1QZ
- UGuOG1KAl5a/dL8TCkmixyuGLiH6uFaZQTKJBK6N9khEI5HE+tOnh/0vkB96YdQS3l
- dXzePX/2RfsxvdbAZ/1kEbzjZeolPUEkpi+1dXHDXILtQDe7kFeLg+puo5XL30CcDX
- E+cPXTAQlmVBDQpXA21RUUPBftOLC9foG+HITCnd0WAT+56DpKVvi7HJ/7mFGf7s6g
- HYCOlnggoBbJI5aMVjIu1QG4wzlzb4GC493S8JkFTcOKmWJedMS7G1yt+nzLZUcli5
- JwrodjBjsp9Rw==
-Received: from johan by xi.lan with local (Exim 4.99.4)
- (envelope-from <johan@kernel.org>) id 1wkeYe-00000006qIU-1aMZ;
- Fri, 17 Jul 2026 11:08:36 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Cc: Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/bridge: dw-hdmi: fix i2c adapter leak on probe failure
-Date: Fri, 17 Jul 2026 11:08:19 +0200
-Message-ID: <20260717090819.1630965-1-johan@kernel.org>
-X-Mailer: git-send-email 2.54.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1784279413;
+ bh=yZTaE4Ml28Zkl17CGVxhIiqXlWqO9xRuqUkTnOGC1Dw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=jbYp7DIaJnoNfciGtuPLtG4Ds1jBCZa6HSd4e+Jb0UqKvL8BcGtVPgow5TUYYAG7s
+ ovYY/zFAAEep6izmoIuo6ZewOsBfDCtzvyb0vWAOeY9JN7opVtSAMqVtEnY8/wZJx8
+ rn8rS87apAP7Z2+T9b1yBND8XTVOjfsyOZ1Ydn4rZ933liVG24jAqTHKXTILwRRxU2
+ bO/o5tRjkx/clLj/r/r+6lfxQkM8U/swdoHCZpmDqjjZpDZBbGjBiYG2aE3K0TsCZG
+ SJaU09VE1cGFfPy6dcEP9rhPbHhrYq3AHHIAxWL5Ir7jRFSDhM+lJvHpphliZldueT
+ RAgPl2mnc92GA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/bridge: display-connector: fix i2c adapter leak on
+ probe failure
+To: "Johan Hovold" <johan@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260717085716.1619275-1-johan@kernel.org>
+References: <20260717085716.1619275-1-johan@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 09:10:13 +0000
+Message-Id: <20260717091013.8BBDE1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,34 +53,59 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Make sure to drop the i2c adapter device and module references before
-returning when detecting a malformed devicetree during probe.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Fixes: 80e2f97968b5 ("drm: bridge: dw-hdmi: Switch to regmap for register access")
-Cc: stable@vger.kernel.org	# 4.12
-Cc: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Pre-existing issues:
+- [High] Missing cancellation of scheduled work (`conn->hpd_work`) in the d=
+river's remove path.
+--
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 17d5caedb32e..9eb6cf8a321f 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -3389,7 +3389,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
- 			break;
- 		default:
- 			dev_err(dev, "reg-io-width must be 1 or 4\n");
--			return ERR_PTR(-EINVAL);
-+			ret = -EINVAL;
-+			goto err_res;
- 		}
- 
- 		iores = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--- 
-2.54.0
+--- Patch [1]: [PATCH] drm/bridge: display-connector: fix i2c adapter leak =
+on probe failure ---
+commit 4febab97b0e18e24c294244f2f96e39bc66cf4b3
+Author: Johan Hovold <johan@kernel.org>
 
+drm/bridge: display-connector: fix i2c adapter leak on probe failure
+
+This commit ensures the i2c adapter device and module references are dropped
+on failed regulator and enable gpio lookup during probe by adding a devres
+action.
+
+> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm=
+/bridge/display-connector.c
+> index d1e74dd2e0518..8415992fcb106 100644
+> --- a/drivers/gpu/drm/bridge/display-connector.c
+> +++ b/drivers/gpu/drm/bridge/display-connector.c
+[ ... ]
+> @@ -439,9 +452,6 @@ static void display_connector_remove(struct platform_=
+device *pdev)
+>  		regulator_disable(conn->supply);
+> =20
+>  	drm_bridge_remove(&conn->bridge);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does display_connector_remov=
+e()
+need to cancel conn->hpd_work before returning?
+
+If the display-connector module is unbound concurrently with the DRM master
+calling display_connector_hpd_enable(), the hpd_work work item is scheduled.
+Without an explicit cancel_work_sync(&conn->hpd_work) here in the remove
+path, could the work item execute after the devres subsystem has freed the
+conn structure? This would result in a use-after-free when the work item
+accesses the freed memory and calls drm_bridge_hpd_notify() on a removed
+bridge.
+
+> -
+> -	if (!IS_ERR(conn->bridge.ddc))
+> -		i2c_put_adapter(conn->bridge.ddc);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717085716.1619=
+275-1-johan@kernel.org?part=3D1
