@@ -4,89 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DB8BC4451C
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:26:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E1BAC4451C
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Jul 2026 12:28:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D8C210E448;
-	Fri, 17 Jul 2026 12:26:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93C3410F53F;
+	Fri, 17 Jul 2026 12:28:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="MEIJF4Qx";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="PguwGIHW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BAAstyqs";
 	dkim-atps=neutral
-Received: from fhigh-a8-smtp.messagingengine.com
- (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 100E910E448
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:26:02 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 4E1EE14000FF;
- Fri, 17 Jul 2026 08:26:01 -0400 (EDT)
-Received: from phl-imap-05 ([10.202.2.95])
- by phl-compute-04.internal (MEProxy); Fri, 17 Jul 2026 08:26:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1784291161;
- x=1784377561; bh=LlIvT5HVnRIYn4/t+E8XZ0B2vCQAJ0CtxWj3Ne8SfsQ=; b=
- MEIJF4Qx3j3Au4p7A61C/3znO/lkfCSRnF7G7XI32sYDZv89RyX2aw1eKPC7kv1A
- azKXjDhxucjf8LBCN9aMJjQWYXyHonAuocNZxE9VNhsUGoFRAofZz67Y7Icvwk9j
- hkB6R+dcaa5XIURJCMbjOG+CywtWoga/ufGYbP9YXbCSHg9zVJBGcKXOvTfDu9Mm
- ePm1mMdUnKcbXLGxoC4aJ2W5/dxc8vKfMgIOIAY8FiK8nxLrFIchSJvN0XptWwKR
- vw9zY+i6/GyaOCg+IZTTMay0WznTCQ0Bqr1S4QvcrF7dkKG0KV82VYtRWgZxZTgQ
- c8UZiVNl2Kj+Hs9dqLIdwA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784291161; x=
- 1784377561; bh=LlIvT5HVnRIYn4/t+E8XZ0B2vCQAJ0CtxWj3Ne8SfsQ=; b=P
- guwGIHWNgZ8QOUFY/hFZyzdstLoSjAeU0+gkQ2EXSoLc1ZJ68bkgb/bS32/OcFHq
- BB+XKUFCS4ivi6jnuJdLkl5+F6AVX1JxDx1s/lY0Wsibt3oqZ7deFnbFhLzixGlN
- YhVT3/z+E1eGfIeNCUTLDP7c8ihuxwYdEJC8BgfI3NZVh+/6STrmNc7MZRsn7Ojc
- y5UXi5zrwfh7OfP8/u1t/0Co1BXi6Lnd+S3Nmv5PCxJgHCuXBgWUODLXRVq8MNqf
- 23cA7wKXMRE9cfL9/axde1BOgiIuU5viYI01KMCkpnuWUYRPQIFyBdXpjET4T642
- 3fO90exEAIGWzu4111NeA==
-X-ME-Sender: <xms:WR9aasY0SR1H3vxCePN4sWvtap0-a_F1NnN9EE2X-jAE397u61iogQ>
- <xme:WR9aaiMwrHO5Jb0C-yLZriVnCoFWijzzg6Hls8AfOBtPgYG_J_6edGbAR1InJ8RpZ
- NQ_TRWrVwON1YQAkrnKVXXEpq_VztWpOVq0z06Dqil6Rb4PeJ0ITac>
-X-ME-Proxy-Cause: dmFkZTGRM8jFItkZCb1OBLwF4zCtBCdR74KKXPw8FxCpuL66Au3L2aLw/M7kjNhXMfuqeB
- Y/sQB6wWkpNu0Dtqe7+W4FtMhLx7Ve69S9yQDwx6m4yXJ8vfq45gJdmnA1Lm+dyheKhp5g
- byFVJRbpGI5TfsDN1e8khFoRX7cwjcle6LZrfzUOGSOkab4DarlLUvqYys1GnTGZqCkHu2
- krZbK9Xs3Ska8nqc7uDNtE6B4+HQH0on6dvcVbouC104prSGsrB/DH+CcssNv0/fQrxvh0
- 8ySSbwDnwUQ4EAgjr3g89RXji2NCC70qn0ReYRGjp6bDFFrqKAj6iHmbWWJe+h7ApKKgKa
- 49fXAv+WpvZvHp7/HXruG1W52LJ4jNMyRcFb4JTzNqdpu+mko6Qrp07TiHSXJRHkoyVh4s
- qZJepAyP56+P+lFG30q9SHLC/8mUMOhPt/C+ioSWwUhWKyqdLitqulGfQYmnorXUXWP3Ds
- OP7Qc3Y6SFRn56jUyQnYsu+r+HitXTDBFjV6J7FGaPp3lwusIzhhxiHMJQC/wsvWuc1y/t
- nRPik26tHRF7eEnMPpU95m9xoeMdUKqBdOoPLdWwWgWT3utsnt18hsr1PV+gJcfJJliFW4
- pjpNSUcz1nnbTECXEXOtJUrIvGN9VYOSg7SpTTsWIypg8HQyLfs69qTPjnhA
-X-ME-Proxy: <xmx:WR9aaorBU9sMbw1024DlamQ5Eb2n_Af55McOcc0gptyFCm3MMMjRhA>
- <xmx:WR9aalIDMR_ZfRCm77Xn93SqPAzZ5q2PSlWJuBMLRNWA_avbUDYZdg>
- <xmx:WR9aarMgXBVfsqliAeYzE6IPLbfcEuLkh5TrqUv1tyQq3Mmu2TLIgQ>
- <xmx:WR9aaioKSUriPIfJCaBe7M8DgAC76Xwuc0pTWEcdJ4Be8a7R1U48pA>
- <xmx:WR9aauvZOGI-IDcA0AWfKFNh0qSVMQBzRfTWy8axJpivpFb-QsC6xb-6>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id EEEAF182007E; Fri, 17 Jul 2026 08:26:00 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-MIME-Version: 1.0
-X-ThreadId: Asac4qraI3UJ
-Date: Fri, 17 Jul 2026 14:25:30 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Ryan Roberts" <ryan.roberts@arm.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, 
- "Mark Rutland" <mark.rutland@arm.com>,
- "Jean-Philippe Brucker" <jpb@kernel.org>, "Oded Gabbay" <ogabbay@kernel.org>, 
- "Jonathan Corbet" <corbet@lwn.net>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-Message-Id: <7927c483-57ed-4253-a7df-40104ff2b192@app.fastmail.com>
-In-Reply-To: <20260717104759.123203-4-ryan.roberts@arm.com>
-References: <20260717104759.123203-1-ryan.roberts@arm.com>
- <20260717104759.123203-4-ryan.roberts@arm.com>
-Subject: Re: [RFC PATCH v1 3/8] misc/arm-cla: Probe firmware-described devices
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4348D10F53F
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:28:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id DF68F4128A;
+ Fri, 17 Jul 2026 12:28:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 693211F000E9;
+ Fri, 17 Jul 2026 12:28:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784291288;
+ bh=mLUhEODnpqoOCbWwLaXeT4x8ON01RupU/xxbO4MV1LE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=BAAstyqs33CZc4v/2JHllCtggkNKz0uQSvIGuZJanBZn+0vmKqrDXWjKJF3yEARNe
+ AXMEWG3oh0lDGEL6gjnlvpXe0HSTlr4MrTYj5jdmuEK1k0sIAxVwVAnQGCNsfzcjq0
+ 4I3FIjvosJmfP1+LCDlWqWwN9pOGR2k/KKA5grcBHPiTP64CgROYpBibVcB8T+zhOM
+ YIiyqdQwmMO3NpWwAHaade4fQIyq83ONCUOWYv16MkvTaHW5jh81BdQ7DxOIVpGJTk
+ ykhnklu5JuJ8wDeOr1viPrgv9LXHg9kTAqI5SNP+8V7SqTqd1JvRTK7WIs4QWXpT8R
+ 1oI1fDDZ8eqBQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format
+To: "Francesco Dolcini" <francesco@dolcini.it>
+Cc: devicetree@vger.kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, conor+dt@kernel.org,
+ imx@lists.linux.dev
+In-Reply-To: <20260717121847.488148-2-francesco@dolcini.it>
+References: <20260717121847.488148-1-francesco@dolcini.it>
+ <20260717121847.488148-2-francesco@dolcini.it>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jul 2026 12:28:07 +0000
+Message-Id: <20260717122808.693211F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,18 +55,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 17, 2026, at 12:47, Ryan Roberts wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Introduction of the legacy, non-standard `interface-pix-fmt` proper=
+ty for a standard hardware concept (parallel bus width), violating modern D=
+T principles.
+--
+
+--- Patch [1]: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel forma=
+t ---
+commit 7225ea545d2ff50540972dd75d375b8ecea4f315
+Author: Francesco Dolcini <francesco.dolcini@toradex.com>
+
+dt-bindings: lcdif: Add interface pixel format
+
+This commit updates the fsl,lcdif device tree binding to support the
+interface-pix-fmt property. The property is used to describe the hardware's
+parallel data bus transfer width to match board wiring and prevent shifted
+colors.
+
+> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/D=
+ocumentation/devicetree/bindings/display/fsl,lcdif.yaml
+> index 2dd0411ec6516..209ee5a96e393 100644
+> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> @@ -58,6 +58,13 @@ properties:
+>      items:
+>        - const: rx
+> =20
+> +  interface-pix-fmt:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum:
+> +      - rgb24
+> +      - rgb565
+> +      - rgb666
+
+[Severity: Low]
+Is this introducing a legacy, non-standard property into the new schema ABI=
+?=20
+
+Standard devicetree guidelines usually prefer endpoint properties like
+bus-width (defined in video-interfaces.yaml) to describe physical parallel
+data line configurations, such as setting bus-width =3D <18> for RGB666.
+
+If a custom property is strictly necessary here rather than using the stand=
+ard
+endpoint properties, does this require a vendor prefix like
+fsl,interface-pix-fmt to comply with modern devicetree naming conventions?
+
 > +
-> +static const struct of_device_id cla_of_match[] = {
-> +	{.compatible = "arm,cla",},
-> +	{},
-> +};
-> +MODULE_DEVICE_TABLE(of, cla_of_match);
+>    interrupts:
+>      items:
+>        - description: LCDIF DMA interrupt
 
-This is missing a device tree binding, and probably needs to versioned
-in some form.
-
-      Arnd
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260717121847.4881=
+48-1-francesco@dolcini.it?part=3D1
