@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E65DCC4450A
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 23:36:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41B07C4450A
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 23:36:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45E7C10E54C;
-	Sat, 18 Jul 2026 23:36:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8581210E577;
+	Sat, 18 Jul 2026 23:36:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m1Bt+GWn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AI57KZ6g";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9926A10E54C
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 23:36:06 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-495590dde14so1120435e9.0
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 16:36:06 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C30DE10E577
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 23:36:10 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4954d383e64so7921115e9.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 16:36:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784417765; x=1785022565; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784417769; x=1785022569; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=oxJhJqOvpAaSiQeGabxE955gR5KY+0a4asEx/JWs7Lo=;
- b=m1Bt+GWn6APQcyyyMf9gyYwIpQIOOWwD3/XiOMufE4MLcsw2R++dOaPkbfKeVSlGHA
- SlsiFPI+1G1Yn8O4+E2itftNmNgMlwQznzrH8ucyr2FIIM6YNRVyt7PO3JWHoGoZSfOJ
- cU3de1z4ikdqLsON9rgpzbe8SbYFThelcVym23WrETnp5aNudCwuOVsFoADn+Kb+feMK
- t+8KWLnpPrKqSbvFZgFuyS0ZVNfGygz2CP3hD4z3HY3OTDcGhii97HdY7PGBSXGG7fx3
- KGUkHNM6ah9nQBSm5MW8X5adQcmTxQy5jm3OVyHD8f8WSwwrYT0PdBEcsv+yHWkc2Yof
- F1Aw==
+ bh=3FjNP86ptWMOuru/pKfvMOeLrB2j6SXLcAuojoL3wm4=;
+ b=AI57KZ6gHUeiiL1+kJj2/P0ZKRYQA/ygx1lIsZRnO1HpNZqorYengfhm0EB6A+oR47
+ DE5gQwrMyrxi6pIJRNiqET2GXl1dfIYGK4kgcjX0CybE7ESiivsTlTN7lgfYQWVldIJF
+ hiawXbtJj3PMEMqlj5J09Shy2etz5eTSf5X6ZdOR83zij7/bJ5KXoaPnGyznmp26orgs
+ D3ThWsvdXegcoWzJExIWpybcVZuajGa7yA9MafSS7Oy9TjvRUWNrl432YRg2XBdB2lYp
+ ufry3N7SEvCS7pvlRG7xQmE+ediP3R0I1Pn9DGb9r5RtIDQMRowoxQ21b7EywHAn4UTe
+ hPng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784417765; x=1785022565;
+ d=1e100.net; s=20251104; t=1784417769; x=1785022569;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=oxJhJqOvpAaSiQeGabxE955gR5KY+0a4asEx/JWs7Lo=;
- b=XQKn1QI3WPU5Jz32QYuYH0rPipb7k7y8WlB5A4ZAASnaRdIoBI9MW2KtOQd+TryvUG
- G5TFGbKj4xMDDHsnHWMFR2o0GcxZPqCApx0p+rJ4b24eGy25FJpU3uPpODSDOuaVV8E0
- 6kLiEr3VeO4syzLhIiOdoAmUThdXD+jTDo/9Hh2uspRk1y3qSzmKcGN3JHBaA3nRxYdU
- c1RjHqefN3fr53K6nINHmeXeLafysabONqQSzBnvtyElYjPbnrMlaJN8zJcyIGx6kay/
- 2N7AETq4j8CoAwFodOHy2ZsyiSucrN5TKyiKCVp1q5enXG0/Kd8t9bqHLEUEYDuhiYSK
- aHFw==
-X-Gm-Message-State: AOJu0YxBoKWeuXVDNghNAlsQe4uxprig+BGmkWUUuvdy4SokQZzj/8rS
- +AJyT/E7miuGgRI5ijW1gncGfYg3UEivkjXoB+M1bGu9wc7wZZ4ZbNj1
-X-Gm-Gg: AfdE7cmpjQMnUfi7T52ito/hnE96L3D2LYESD7CQxmO5YjIH9Ix76hbkCZh8GRd5X1Q
- AiVk+seGiSIAkRuA9sXlnAiwKE0rd7kOZXk9Pt1IxCdYnwXq9cb+T+qaTdYtbBwRGHL1Bb2di28
- ixRBYsVSReKU9/+1wJ6vGKu824BE2WRCcf/HznUmBEYQZqjY1VoiRa6duMmfs5mBYFJack1vyog
- iS2p2eFnZo/orFP0BrJ0FoFEJdg6AjpSczT2QiL0vUfVpx00QZt11+EDx14iTTMIFFN7DPgZ0Nf
- zAegm5SLXwLnEhwhhLMhUsRaN6dDRxcY8M6/G0PYoDvQB2GnnGXu2Iu9MpF/ZxUF46v4Vo2mxGv
- GXdUje0OE7FmH7V8uVar1CGxCxlc03o/r4HAO7hUmDCEEfZBbp0l6OYU1P8uV6lGHUCcPsiYAj4
- YNkyEZJiTBnw==
-X-Received: by 2002:a05:600c:4ec6:b0:495:4d5c:903e with SMTP id
- 5b1f17b1804b1-4954d5c913dmr76289525e9.7.1784417764814; 
- Sat, 18 Jul 2026 16:36:04 -0700 (PDT)
+ bh=3FjNP86ptWMOuru/pKfvMOeLrB2j6SXLcAuojoL3wm4=;
+ b=ODG6Q8Z6D18e6d9CVJe7iM5wfwC/51TzDcdPHss9/a0I19Mt+iYKwNC19ooPLEn5cS
+ 56XpzEnE74ULDhzwcZpkBw38QaxHexkbabooLgbfhf0VYYXwvQZosmyw0t4gh3YUOOR2
+ ocN2rCItXi17cC4qIaw9uDu4PR5E01hS7q0cQE/85Ngc3n4u88StLJ77DrW9+qqyixKQ
+ TmzkTR3JREUkXnW8qU2R1N2r0twY2OKO+5YPvIbijPjkCPKwNMYq12O6eSd/5iHEZazQ
+ EWkXpB2DCOIl/f/86E+MLKLdPU00YLs0RV1qFREkltH6+E8CLmCUJcQThYnZFwMsy8EH
+ PLeg==
+X-Gm-Message-State: AOJu0YyOd3GUOLfcujK0DBk+MGrniAel03eu746cNBZgD3YE1ApTyBdO
+ cq+GH5nZ9Jdec3/cRSePO21o3WkBFz6BuLUbfrNZ59JStRiQ/BZfh8eX
+X-Gm-Gg: AfdE7cnvaJmu2Q74LslqrbjPY69y7AkymvvAmROa1jAT3O9Y5jBfsP7MnL1pzR1M543
+ /01kCUH2LUsrI7naqqPgnHy8owQf/3FxmHeAzf8x2zmzAaUKVrjYNaWjwko02fj9iiD6rpuoOAd
+ Yr45fc8EeBb5VjUWmKxjSuYAMSs2YL97zZmSWwjMc2Hsyw/vkzQAb6mVZnQ3nXL92qGHpSL8l15
+ CMKx0MmI7a6BsZCjxD8sfZ6IgHHikXkU3bEtyC/mGVB9tULdDlkdOx+bMJN0ANXl4PqHQjIoSsl
+ 6WgN8SzndsySeQKta5c16k/L+es05p/o3AY0KN94cFCA7zCjzVU5FDDwqVyLnji+JWVQuBwPNWE
+ Y3MGDm0TEQCcTr6VTN09MhHLn65PhqY3TJSLrK6uqFGd9THzSQ35QH7c4zJo4cLRwkbirutRosN
+ Vw6VIO9LKz43xEmV5auYXY
+X-Received: by 2002:a7b:ce84:0:b0:495:4487:61af with SMTP id
+ 5b1f17b1804b1-4954a51659emr61464735e9.36.1784417768965; 
+ Sat, 18 Jul 2026 16:36:08 -0700 (PDT)
 Received: from [127.0.0.2] ([2a01:14:111:ccf0:645b:9e5c:7fe3:c09f])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4954a2a24b6sm160964675e9.3.2026.07.18.16.36.00
+ 5b1f17b1804b1-4954a2a24b6sm160964675e9.3.2026.07.18.16.36.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 18 Jul 2026 16:36:04 -0700 (PDT)
+ Sat, 18 Jul 2026 16:36:07 -0700 (PDT)
 From: Diogo Silva <diogompaissilva@gmail.com>
-Date: Sun, 19 Jul 2026 01:35:33 +0200
-Subject: [PATCH 02/15] drm/xlnx/zynqmp_dpsub: remove dependency on DRM
- simple helpers
+Date: Sun, 19 Jul 2026 01:35:34 +0200
+Subject: [PATCH 03/15] drm/tegra: remove dependency on DRM simple helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260719-drm_simple_encoder_init-v1-2-a78c509e3062@gmail.com>
+Message-Id: <20260719-drm_simple_encoder_init-v1-3-a78c509e3062@gmail.com>
 References: <20260719-drm_simple_encoder_init-v1-0-a78c509e3062@gmail.com>
 In-Reply-To: <20260719-drm_simple_encoder_init-v1-0-a78c509e3062@gmail.com>
 To: Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
@@ -139,47 +138,95 @@ failures.
 
 Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
 ---
- drivers/gpu/drm/xlnx/zynqmp_kms.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/tegra/dsi.c | 17 ++++++++++++++---
+ drivers/gpu/drm/tegra/rgb.c | 14 ++++++++++++--
+ 2 files changed, 26 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/xlnx/zynqmp_kms.c b/drivers/gpu/drm/xlnx/zynqmp_kms.c
-index d5f922450565..1d194c2824e3 100644
---- a/drivers/gpu/drm/xlnx/zynqmp_kms.c
-+++ b/drivers/gpu/drm/xlnx/zynqmp_kms.c
-@@ -30,7 +30,6 @@
- #include <drm/drm_mode_config.h>
- #include <drm/drm_plane.h>
- #include <drm/drm_probe_helper.h>
+diff --git a/drivers/gpu/drm/tegra/dsi.c b/drivers/gpu/drm/tegra/dsi.c
+index e7fdd8c7ac12..840e118716b2 100644
+--- a/drivers/gpu/drm/tegra/dsi.c
++++ b/drivers/gpu/drm/tegra/dsi.c
+@@ -20,11 +20,11 @@
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_debugfs.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
 -#include <drm/drm_simple_kms_helper.h>
- #include <drm/drm_vblank.h>
  
- #include <linux/clk.h>
-@@ -417,6 +416,10 @@ static const struct drm_driver zynqmp_dpsub_drm_driver = {
- 	.minor				= 0,
- };
+ #include "dc.h"
+ #include "drm.h"
+@@ -1055,6 +1055,10 @@ tegra_dsi_encoder_atomic_check(struct drm_encoder *encoder,
+ 	return err;
+ }
  
-+static const struct drm_encoder_funcs zynqmp_dpsub_encoder_funcs = {
++static const struct drm_encoder_funcs tegra_dsi_encoder_funcs = {
 +	.destroy = drm_encoder_cleanup,
 +};
 +
- static int zynqmp_dpsub_kms_init(struct zynqmp_dpsub *dpsub)
- {
- 	struct drm_encoder *encoder = &dpsub->drm->encoder;
-@@ -436,7 +439,13 @@ static int zynqmp_dpsub_kms_init(struct zynqmp_dpsub *dpsub)
+ static const struct drm_encoder_helper_funcs tegra_dsi_encoder_helper_funcs = {
+ 	.disable = tegra_dsi_encoder_disable,
+ 	.enable = tegra_dsi_encoder_enable,
+@@ -1078,8 +1082,15 @@ static int tegra_dsi_init(struct host1x_client *client)
+ 					 &tegra_dsi_connector_helper_funcs);
+ 		dsi->output.connector.dpms = DRM_MODE_DPMS_OFF;
  
- 	/* Create the encoder and attach the bridge. */
- 	encoder->possible_crtcs |= drm_crtc_mask(&dpsub->drm->crtc);
--	drm_simple_encoder_init(&dpsub->drm->dev, encoder, DRM_MODE_ENCODER_NONE);
-+	ret = drm_encoder_init(&dpsub->drm->dev, encoder,
-+			       &zynqmp_dpsub_encoder_funcs,
-+			       DRM_MODE_ENCODER_NONE, NULL);
-+	if (ret) {
-+		dev_err(dpsub->dev, "failed to initialize encoder\n");
-+		return ret;
+-		drm_simple_encoder_init(drm, &dsi->output.encoder,
+-					DRM_MODE_ENCODER_DSI);
++		err = drm_encoder_init(drm, &dsi->output.encoder,
++				       &tegra_dsi_encoder_funcs,
++				       DRM_MODE_ENCODER_DSI, NULL);
++		if (err) {
++			dev_err(dsi->dev, "failed to initialize encoder: %d\n",
++				err);
++			return err;
++		}
++
+ 		drm_encoder_helper_add(&dsi->output.encoder,
+ 				       &tegra_dsi_encoder_helper_funcs);
+ 
+diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/rgb.c
+index e67fbb2362e6..337925c30d67 100644
+--- a/drivers/gpu/drm/tegra/rgb.c
++++ b/drivers/gpu/drm/tegra/rgb.c
+@@ -9,7 +9,7 @@
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge_connector.h>
+-#include <drm/drm_simple_kms_helper.h>
++#include <drm/drm_encoder.h>
+ 
+ #include "drm.h"
+ #include "dc.h"
+@@ -194,6 +194,10 @@ tegra_rgb_encoder_atomic_check(struct drm_encoder *encoder,
+ 	return err;
+ }
+ 
++static const struct drm_encoder_funcs tegra_rgb_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs tegra_rgb_encoder_helper_funcs = {
+ 	.disable = tegra_rgb_encoder_disable,
+ 	.enable = tegra_rgb_encoder_enable,
+@@ -305,7 +309,13 @@ int tegra_dc_rgb_init(struct drm_device *drm, struct tegra_dc *dc)
+ 	if (!dc->rgb)
+ 		return -ENODEV;
+ 
+-	drm_simple_encoder_init(drm, &output->encoder, DRM_MODE_ENCODER_LVDS);
++	err = drm_encoder_init(drm, &output->encoder, &tegra_rgb_encoder_funcs,
++			       DRM_MODE_ENCODER_LVDS, NULL);
++	if (err) {
++		dev_err(output->dev, "failed to initialize encoder: %d\n", err);
++		return err;
 +	}
++
+ 	drm_encoder_helper_add(&output->encoder,
+ 			       &tegra_rgb_encoder_helper_funcs);
  
- 	ret = drm_bridge_attach(encoder, dpsub->bridge, NULL,
- 				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
 
 -- 
 2.54.0
