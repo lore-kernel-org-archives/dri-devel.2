@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59479C4450A
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 03:24:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01A49C4450A
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 03:26:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8E7110E50E;
-	Sat, 18 Jul 2026 03:24:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5E2510E513;
+	Sat, 18 Jul 2026 03:26:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xf625NNl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kKcUNjNo";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33DA510E50E
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 03:24:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4E3810E513
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 03:26:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 878A460DC0;
- Sat, 18 Jul 2026 03:24:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E2B1F000E9;
- Sat, 18 Jul 2026 03:24:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 32CD042EA3;
+ Sat, 18 Jul 2026 03:26:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47901F000E9;
+ Sat, 18 Jul 2026 03:26:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784345048;
- bh=QWDpKk/hHyhDckxWfZbQsXEEtAAbLv7oRw2rKvFpN0Q=;
+ s=k20260515; t=1784345177;
+ bh=LSx28TOuVNe8SUcOcXDT1YcouPryj+VLbg8krEMi+qk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Xf625NNl/59kDNKKlv94EopljDSO0Z3/WUz1evqTT3xfztOi4zpPVIvQ+c2/3S6J5
- 3RMuSBnfpFog5hKUfUj3rXgYU7AmHAVgkeGmL7zTjZmsTqd9qZIMUnHIAxqI2v7F4M
- LLZPHxpBH3mjFlzk84IBtCD2k0hWC7gPjDnVxfR+kfnKcNw4dEH/1WlGH8k12pI0IP
- bgBdEpUEjz4V00g9ekLMpZfo0xlAPuguWr76xNQC1xgfyqNntiXU+Q7svcyNy8a0Qz
- twnQy4pZw238XMvmwf1USErdyVt/HIKJRhtkwnumB+sJRXT+Rx8KgBx2QsIVrF/hwF
- Wgma5bspW/5BQ==
+ b=kKcUNjNo33m1EinqMFmBAOty9ySMsAX0sec/Pr2ibcSmCUbBCg+hj98Ygk8Hh0Kca
+ N7cjRpuAwNNjOEbof3lJI3IVkBXD90SjUatVFAdkMZYq8iRvKA9Q9sNf4rfpZbe3k0
+ rkYfVYJsN4vwBXhE+AadeSQHG4/Rp4ygBQ2sojljXZ38AjtKwSxH8UUoKinApw2b/T
+ Z/VbruYH7IfCpaUnl0/NepW8FYLa1uotMGXUPsg8EujqPxgNtfNcSd6whDjCG9tvxc
+ JtIyf0gwK1tozHHjmOQJt7XSp9Ld4lyY/fyzjF/vMQaMoydtkVPSd7LNfZTTdPeLcp
+ UBbYm6fIKjLiQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 8/8] arm64: dts: rockchip: rk3576-rock-4d: enable
- NPU
+Subject: Re: [RFC PATCH v2 5/8] iommu/rockchip: clear stale page faults
+ before enabling stall
 To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260718031146.3368811-9-gahing@gahingwoo.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260718031146.3368811-6-gahing@gahingwoo.com>
 References: <20260718031146.3368811-1-gahing@gahingwoo.com>
- <20260718031146.3368811-9-gahing@gahingwoo.com>
+ <20260718031146.3368811-6-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 03:24:07 +0000
-Message-Id: <20260718032408.01E2B1F000E9@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 03:26:16 +0000
+Message-Id: <20260718032616.B47901F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,96 +59,66 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] An SoC-level power domain dependency is improperly implemented as =
-a board-level override in `rk3576-rock-4d.dts`.
-- [Medium] The device tree assigns two power domains to `rknn_core_0`, whic=
-h violates the DT binding schema's `maxItems: 1` constraint.
-- [Medium] The NPU regulator is forced permanently on via `regulator-always=
--on`, circumventing proper power management, and the `npu-supply` property =
-is functionally dead code.
+- [High] Clearing the stale page fault state without clearing the associate=
+d interrupt status leads to a spurious IOMMU interrupt upon unmasking if th=
+e MMU reset is disabled.
 --
 
---- Patch [8]: [RFC PATCH v2 8/8] arm64: dts: rockchip: rk3576-rock-4d: ena=
-ble NPU ---
-commit 1ea2a06c9849a71ed6c8698699f42f0e551d0d72
+--- Patch [5]: [RFC PATCH v2 5/8] iommu/rockchip: clear stale page faults b=
+efore enabling stall ---
+commit 6445c2bf287495e424096d491a8245a58e126724
 Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-arm64: dts: rockchip: rk3576-rock-4d: enable NPU
-   =20
-Enable rknn_core_0 and rknn_mmu_0 on the Radxa ROCK 4D and supply the
-NPU rail (vdd_npu_s0) via npu-supply.
+iommu/rockchip: clear stale page faults before enabling stall
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64=
-/boot/dts/rockchip/rk3576-rock-4d.dts
-> index 272af1012ab03..09d2fc98bb4c1 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-> @@ -442,6 +442,7 @@ regulator-state-mem {
->  			};
+Boot firmware can leave an IOMMU bank in PAGE_FAULT_ACTIVE before the
+driver has configured paging. This commit acknowledges these stale faults
+with CMD_PAGE_FAULT_DONE before enabling stall so all banks start clean
+and avoid timing out.
+
+> diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iomm=
+u.c
+> index 2ac65c0c5c0b4..e477fe79ca4a3 100644
+> --- a/drivers/iommu/rockchip-iommu.c
+> +++ b/drivers/iommu/rockchip-iommu.c
+> @@ -417,6 +417,19 @@ static int rk_iommu_enable_stall(struct rk_iommu *io=
+mmu)
+>  	if (!rk_iommu_is_paging_enabled(iommu))
+>  		return 0;
 > =20
->  			vdd_npu_s0: dcdc-reg2 {
-> +				regulator-always-on;
+> +	/*
+> +	 * Boot firmware can leave a bank in PAGE_FAULT_ACTIVE with no handler
+> +	 * (PAGE_FAULT_ACTIVE & !STALL_ACTIVE & IDLE).  Such a bank ignores
+> +	 * CMD_ENABLE_STALL and never reaches STALL_ACTIVE, timing out the poll
+> +	 * below.  Acknowledge any stale fault first so every bank starts clean.
+> +	 */
+> +	for (i =3D 0; i < iommu->num_mmu; i++) {
+> +		if (rk_iommu_read(iommu->bases[i], RK_MMU_STATUS) &
+> +		    RK_MMU_STATUS_PAGE_FAULT_ACTIVE)
+> +			writel(RK_MMU_CMD_PAGE_FAULT_DONE,
+> +			       iommu->bases[i] + RK_MMU_COMMAND);
 
-[Severity: Medium]
-Does this unconditionally force the regulator on, completely defeating runt=
-ime
-power management and causing a permanent power leak when the NPU is idle?
+[Severity: High]
+Does clearing the page fault state here also require clearing the associate=
+d=20
+interrupt status in RK_MMU_INT_CLEAR?
 
->  				regulator-boot-on;
->  				regulator-enable-ramp-delay =3D <400>;
->  				regulator-min-microvolt =3D <550000>;
+If a device uses rockchip,disable-mmu-reset, the hardware reset during
+rk_iommu_enable() is skipped. When interrupts are subsequently unmasked
+by writing to RK_MMU_INT_MASK, an uncleared raw interrupt bit would
+immediately trigger a spurious interrupt.
+
+Could this spurious interrupt lead to report_iommu_fault() being called
+prematurely, potentially panicking the system or failing device attachment?
+
+> +	}
+> +
+>  	rk_iommu_command(iommu, RK_MMU_CMD_ENABLE_STALL);
 
 [ ... ]
 
-> +
-> +&rknn_core_0 {
-> +	npu-supply =3D <&vdd_npu_s0>;
-
-[Severity: Medium]
-The commit message mentions supplying the NPU rail via npu-supply, but is t=
-his
-property functionally dead code here?
-
-The rocket driver does not appear to make any regulator API calls, and there
-is no OPP table present to trigger generic devfreq parsing.
-
-> +	/*
-> +	 * Power BOTH NPU domains (NPU0 + NPU1) like the vendor's single NPU no=
-de,
-> +	 * even though rocket computes only on core 0: the CBUF->CMAC read path=
- is
-> +	 * only fully powered with NPU1 up. rocket attaches the multi-PD list.
-> +	 */
-> +	power-domains =3D <&power RK3576_PD_NPU0>, <&power RK3576_PD_NPU1>;
-
-[Severity: Medium]
-Will this assignment of two power domains fail dtbs_check validation?
-
-Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-explicitly enforces maxItems: 1 for power-domains.
-
-[Severity: High]
-Should this power domain dependency be placed in the SoC's .dtsi file inste=
-ad
-of a board-specific override?
-
-Since the CBUF->CMAC read path hardware dependency is a property of the RK3=
-576
-silicon rather than board wiring, keeping it in the board DTS means any oth=
-er
-RK3576 board enabling rknn_core_0 via the base rk3576.dtsi might silently l=
-ack
-this dependency, leading to hardware hangs or corrupted reads.
-
-> +	status =3D "okay";
-> +};
-> +
-> +&rknn_mmu_0 {
-> +	status =3D "okay";
-> +};
-
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718031146.3368=
-811-1-gahing@gahingwoo.com?part=3D8
+811-1-gahing@gahingwoo.com?part=3D5
