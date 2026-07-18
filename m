@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B7A9C4450A
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 17:32:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C110C4450A
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 17:42:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B416110E4D9;
-	Sat, 18 Jul 2026 17:32:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 392E110E076;
+	Sat, 18 Jul 2026 17:42:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CUAM55eL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Oge4pb+0";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB83D10E4D9
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 17:32:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EBA410E076
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 17:42:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B7DB960018;
- Sat, 18 Jul 2026 17:32:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C8081F000E9;
- Sat, 18 Jul 2026 17:32:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 860C240217;
+ Sat, 18 Jul 2026 17:42:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 487661F000E9;
+ Sat, 18 Jul 2026 17:42:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784395934;
- bh=2woI8UlJ/agzS+TZ9JB/DztVoJJwsqjhtQ7cir/nOKc=;
+ s=k20260515; t=1784396546;
+ bh=zd5DNpxubEKCeNqwMWJvDYs7HAs2wsRMQdgdb2HiRxg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CUAM55eLIwXYqjev9IbRZJSmqt92Pd+ceBZm2SO7ujhkzH/YeikFPBqtlpPoiPtie
- N9Ka8FnW5Nj1MVCHkPNgL53KfXKctxb//peqsdI/uHA8qYc26tLPGhu7hIKOMsNu1U
- TrfCun6DbHtrRIhQKaplZBUC1UutSTXFJ12MNu8aBoo3ejcIwHy1oTlo2BAKQ+jYwy
- 9ZWBBtSeLlmKyYW8xTVRMlyBQ7Fnmu7eBD8JEqYOSC84tfoGrQrK3Nqfk76IHR8DRr
- FrnvTZbgGmzwLpUSijJgSSGI+lHSkoOLszyvLcav7pXeQXs9CFlINxkwrcc2pa86kw
- 7sTFU6Rwi6BeQ==
+ b=Oge4pb+0Et/MizdeN6ba63QFFl8Dsc0/aiiPQcn0il4zIC5XUNpGVfSSVrlRrha8W
+ /hFMlDlzmSkbw4Ji+vwjhyxtBSoMKxVkkDWLsBLH3dFc6O6LRMg1snELj+8yGlcjMo
+ kgsHwmSUK3DQIFWHlUa1Hp5TE3/V8D+6icsifupNUNi8sObOEwEkm0sal3l0949Tji
+ Wcxc5itEvLvxjTcdxXKoapw6cWeDNEkm6kDYXM7pFjbbZfPTN3RNOc1TWcuq0nzdr3
+ 8LQf+29ZHNxBAWVV0rSvMtsWpuqg8zI9qMVHQ8fNdje/5uet3zXvZbguWlWCnFCb3L
+ VjIEcoJHBLLiw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/bridge: it6505: Don't reject audio hw_params
- without an encoder
-To: "Daniel Golle" <daniel@makrotopia.org>
+Subject: Re: [PATCH 2/3] drm/vc4: Reset the binner overflow allocator on GPU
+ reset
+To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <4efccd2179cadef2209ef6ecc0c898025276117d.1784393979.git.daniel@makrotopia.org>
-References: <cover.1784393979.git.daniel@makrotopia.org>
- <4efccd2179cadef2209ef6ecc0c898025276117d.1784393979.git.daniel@makrotopia.org>
+In-Reply-To: <20260718-vc4-bin-oom-fixes-v1-2-8cba09558c33@igalia.com>
+References: <20260718-vc4-bin-oom-fixes-v1-0-8cba09558c33@igalia.com>
+ <20260718-vc4-bin-oom-fixes-v1-2-8cba09558c33@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 17:32:13 +0000
-Message-Id: <20260718173214.4C8081F000E9@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 17:42:25 +0000
+Message-Id: <20260718174226.487661F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,81 +58,71 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Uninitialized `channel_count` due to the early return can lead to =
-an out-of-bounds stack array access in `it6505_enable_audio_infoframe()` if=
- a hotplug race condition occurs.
-- [Medium] Returning early when `bridge.encoder` is NULL bypasses audio par=
-ameter caching, causing DP audio to use stale or incorrect hardware paramet=
-ers when a display is later hotplugged.
+- [High] Blindly freeing `vc4->bin_alloc_overflow` during GPU reset causes =
+a Use-After-Free for queued render jobs that still depend on the binner ove=
+rflow memory.
 --
 
---- Patch [2]: [PATCH 2/2] drm/bridge: it6505: Don't reject audio hw_params=
- without an encoder ---
-commit 716c566c9be6893ad8cd2b80d06ce9aa0a5b67df
-Author: Daniel Golle <daniel@makrotopia.org>
+--- Patch [2]: [PATCH 2/3] drm/vc4: Reset the binner overflow allocator on =
+GPU reset ---
+commit 74342beb01de4148c8046f07cd05468691648692
+Author: Ma=C3=ADra Canal <mcanal@igalia.com>
 
-drm/bridge: it6505: Don't reject audio hw_params without an encoder
+drm/vc4: Reset the binner overflow allocator on GPU reset
 
-it6505_audio_setup_hw_params() returns -ENODEV when the bridge is not
-attached to a DRM encoder. Now that it6505 registers an hdmi-audio-codec,
-this callback runs whenever a stream is configured on the I2S DAI it is
-wired to, including when that DAI is shared with another codec.
+This commit resets the binner overflow allocator during a GPU reset to
+prevent leaking overflow slots. It frees the pending overflow slot and
+clears the hardware overflow registers so the re-queued bin job starts
+from a clean state.
 
-> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
-/ite-it6505.c
-> index 698ae01b3a474..e88960c82a239 100644
-> --- a/drivers/gpu/drm/bridge/ite-it6505.c
-> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
+> diff --git a/drivers/gpu/drm/vc4/vc4_irq.c b/drivers/gpu/drm/vc4/vc4_irq.c
+> index 7877d493d80e6..9fac1b39e8b98 100644
+> --- a/drivers/gpu/drm/vc4/vc4_irq.c
+> +++ b/drivers/gpu/drm/vc4/vc4_irq.c
 
 [ ... ]
 
-> @@ -2979,7 +2979,7 @@ static int it6505_audio_setup_hw_params(struct it65=
-05 *it6505,
->  			     params->cea.channels);
+> @@ -344,6 +344,18 @@ void vc4_irq_reset(struct drm_device *dev)
+>  	V3D_WRITE(V3D_INTENA, V3D_DRIVER_IRQS);
 > =20
->  	if (!it6505->bridge.encoder)
-> -		return -ENODEV;
-> +		return 0;
+>  	spin_lock_irqsave(&vc4->job_lock, irqflags);
+> +
+> +	/*
+> +	 * The reset wiped the binner's hardware state, and the job that may
+> +	 * have been reading overflow memory is torn down just below. Free the
+> +	 * current overflow slot and clear the overflow registers so the
+> +	 * re-queued BIN job restarts from a clean OOM state.
+> +	 */
+> +	vc4->bin_alloc_used &=3D ~vc4->bin_alloc_overflow;
+> +	vc4->bin_alloc_overflow =3D 0;
 
 [Severity: High]
-Can this early return lead to an out-of-bounds stack array access during a
-hotplug race condition?
+Does clearing the overflow slot here create a use-after-free for render jobs
+that have already completed binning and are waiting in the render queue?
 
-If the early return prevents it6505->audio.channel_count from being
-initialized, it will remain 0. If the stream is unmuted and delayed_audio is
-queued, a subsequent DP hotplug within 180ms could unblock it6505_irq_hpd().
+If we have the following sequence:
+1. Job A is executing on the render thread.
+2. Job B finishes binning, using an overflow slot (tracked in
+   vc4->bin_alloc_overflow), and is placed in the render queue.
+3. Job C starts binning, hangs, and triggers a GPU reset.
 
-If delayed_audio fires before it6505_irq_hpd() executes
-it6505_variable_config() to set channel_count to 2, it will call
-it6505_enable_audio_infoframe() with channel_count=3D0:
+When vc4_irq_reset() runs, it frees the overflow slot used by Job B. Then
+vc4_irq_finish_render_job() completes the active render job (Job A) and
+submits Job B to the hardware.
 
-it6505_enable_audio_infoframe() {
-        ...
-        it6505_write(it6505, REG_AUD_INFOFRAM_DB3,
-                     audio_info_ca[it6505->audio.channel_count - 1]);
-        ...
-}
+Since Job B's overflow memory was just freed, could a subsequent binning job
+encounter an out-of-memory condition, allocate this exact same slot, and
+overwrite it while Job B is actively reading from it?
 
-Would this result in reading audio_info_ca[-1] from the stack?
-
-
-[Severity: Medium]
-Will returning early here bypass the audio parameter caching?
-
-If an ALSA stream on a shared DAI is played with non-default parameters
-while DP is disconnected, it6505_audio_setup_hw_params() will return 0 and
-skip updating the it6505->audio state.
-
-When a DP display is later hotplugged, could it6505_irq_audio_fifo_error()
-auto-enable audio using stale or default parameters instead of the active
-stream's parameters?
-
-> =20
->  	if (params->cea.channels <=3D 1 || params->cea.channels > 8) {
->  		DRM_DEV_DEBUG_DRIVER(dev, "channel number: %d not support",
+> +	V3D_WRITE(V3D_BPOA, 0);
+> +	V3D_WRITE(V3D_BPOS, 0);
+> +
+>  	vc4_cancel_bin_job(dev);
+>  	vc4_irq_finish_render_job(dev);
+>  	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784393979.gi=
-t.daniel@makrotopia.org?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718-vc4-bin-oo=
+m-fixes-v1-0-8cba09558c33@igalia.com?part=3D2
