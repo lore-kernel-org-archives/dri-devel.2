@@ -4,75 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 745F5C4452A
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6D17C44533
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 173CD10E7A3;
-	Mon, 20 Jul 2026 07:15:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 779AF10E7A6;
+	Mon, 20 Jul 2026 07:15:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ad4se4sk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tIGUhax8";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 698CC10E0A1
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Jul 2026 19:04:09 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-49557167508so8689415e9.1
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Jul 2026 12:04:09 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A119810E604
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 21:56:56 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-49557167508so2295195e9.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 14:56:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784487848; x=1785092648; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784411815; x=1785016615; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=9WaGTj0odz/Z3DfCnGwj2JafcVngJK7ESYUU6M/9CpI=;
- b=Ad4se4skTl0BDtLTpHhceBnR+kAxbxJtdeKk5cqrz4jO1uLfxGl9bKQPAzcO07mXLT
- BTknMhlGFaF92tuhv01vl2U3AFX+CPzmFpdAImF8cQCJulYnA2/vRLaVbgwa+/wHXhxs
- 5s+fPkZE/HIA5kkQZdfentNDTkZdmTWh4qyptRGMWWfKHeZ3s1izzsdVKuJTLD5tHCV8
- Uv8Um+FGQf3tuzXKrcZ1rg/m/oZrCtgmzvUsEJoWwvO9T8QqRfsnw6/X8id/XIDPUKkp
- eNNNkxZp/IMblT0GcL6sfsDs15XyD5TzfD+PvsxoGqguqZrCVsoCZtcujQx+k9G227rE
- /Cmg==
+ bh=Ix301uMLUVdMn58C2UIAphmLJhOXCWVoJrX02MWxSZA=;
+ b=tIGUhax8KG8E3l1vhCz07Eyjw8RTwmwUIa73pdr9s9PweaROK047tuvcwgx20oyvVL
+ y1LbrGLV7yUlsUHTy7QrJ+B7zkvI1K53Ps7eDe7ldUfsUTXj2GvcvrTeiFOMaGrxrVam
+ 30IuBOfeUynDJQzTdRRJ71SICF3YRI8VT79UP1/1AgyPycGaGSWRGxGBrxf+l2Mr4AUD
+ fgMVsmXqTHmXl+2cejcXMleA8Pgtr5aYHd9/1lghtan25HgoH5apamHiESf54CcgyGF6
+ PxfMYny/f8M5i/lFbZFiQWSldQBvCYpBfucglLt8WU+Of3hYw/XBOFHQfoca9cufl7/c
+ 9ZEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784487848; x=1785092648;
+ d=1e100.net; s=20251104; t=1784411815; x=1785016615;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=9WaGTj0odz/Z3DfCnGwj2JafcVngJK7ESYUU6M/9CpI=;
- b=E/lfBW1lmNc9Y0Kt8lXIB9HVdC+oM1UzeV933zSZlzRdPBc6qTAM6xZIMFVg1a50MO
- p3AHV4heeaMIQa+LqllWVmLYw5BkL5Rdtgq9C+F7cEgqyfOJFgQpYsfjsKcmBNE3zTPi
- OtM+j8vft/GyeLZYNDx/EzLGMk7AbiC9QN5nqN1W3QOpAhvqx+pJnUfdPOnS2uzcyA86
- LUKZwLKeGCmntuv7fQ0BCxYETUdmkx/AsU40FmQv9EoYR4h64sCITmLefCXujl5U7RTB
- SmHv8MWRMkub1B7EN/WsoWCkaGBqI530l37mDbfpRw8KELzqWeYyJQ4sBbQMN0GX9fv0
- +tjA==
-X-Gm-Message-State: AOJu0YyN4P5QdQwMhg1BltZA/4eSPfWT5p8k57l1NQGHNYuBFqt19jo1
- 3S2b7yIdq20Z4aU4/FyibKmQdHRStZK9+AdMzmMjNz4vpfIFh+3RmNVg
-X-Gm-Gg: AfdE7cmdExUf1luJlWRR59e1mBoQaI+1C1gAN9GIzxNT4GEvXez+cZPgKxAtEZuBlaY
- 8PHI7lj2kO6EFnKnCgFPQ8nYUgkDgjSXFrvZx9RcUMIwSLs5JEczTeTBA6nUUUGmGDgimiRex4R
- WUAO47fC0sd/3lwQEJomAanmfmg63XnLsSJzi1KqDqbnKRnj02WduHLVmDpXrvPzJnYCTVReKPo
- TGxNPu/Zmryb/IXnoojgQXyg/I4asqtywo/GjH5M/Oy363GU6TRUaO6PNMmbBN1IkSoB4zfvumK
- 1/omGICyBVhOAi9rZYNX29vma4hoeJEh98GKVVsI3NG18RdBt7KOfRtIOIdniKrbT1HYwluDG4H
- vxin3KI4sXjNLFt7r4Z7Oe4FbtiUI2d3fjuGneK49DTYx4Cs1ASwz5+Tt2mpS/8tUQXW4/q52UL
- opf+aYpaO+aUpFG7aFanYAlDgsUi3L3Nxx0Okw1w==
-X-Received: by 2002:a05:600c:b85:b0:495:5365:c0d1 with SMTP id
- 5b1f17b1804b1-49553d85ea0mr68678755e9.14.1784487847665; 
- Sun, 19 Jul 2026 12:04:07 -0700 (PDT)
-Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f63e499c2sm21523046f8f.4.2026.07.19.12.04.07
+ bh=Ix301uMLUVdMn58C2UIAphmLJhOXCWVoJrX02MWxSZA=;
+ b=ifGoR7rkRlWoS1DUbF9mxE2oVIwi7+XiOHokHndbqvLlyTMdf7VG27rrJFJHhsvq6q
+ 4Li4u1QcBFIO9NAGVWcDD1fdHSqOkyhqabuS15OIEuA8w8EirGF46xTI2w0jiM1J3lU6
+ Sp8c90Dx7wBK/3kiTr5wx1P/Ds36QN7v4sI7ObnLpcMRL0K17Z0q9OMaMl4c80xqLdwh
+ wyNCbF7W2PPH2M67yzdUSdaxu/L9aXXT4MaCjkINXXxrCs7HP0GX+AsVtEYJvkneZvDV
+ UIclpocNoPullb4DSvjyCgiq5F5xH07mZjnO6+3pGtDBkOTFK+MA6Zu6mZP1KdXABwt6
+ LiIw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpFKB0InFod7k7xac+ssqieYx5oK/4TwjgZa7BtdBD3Jzv3+/F8ByvtoONSNKkAWvzUEqwG51Xuws0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxRQ5FlknTvnR9Fr8t7+710aaU91uoGYbB42MVRLAXMoi9yoXEh
+ dItObWifVSjrI+FhfB3KE+TOIvArLDWCpkwTdIVMP9/UgOopHoI3EMc1
+X-Gm-Gg: AfdE7clM/CbYBlxSA7488uFtcAYh0uUH740rMWwYvgtDs6C5PbuvrgaqxjtWtPGEw2T
+ WgLzcLKFKk7+CfwfyLnv0wcemFO9he3W0QgOKdXXk+Lc5Ge9uQ/upvGk1n//vbxyEd8vbmt4BEM
+ aKyhe2CBGeJq6oZT1qchMu8b0a4vwhmN91K8F10XEH7kw8P0mt1oRCub7VmM+cNVjvtFGiF7P9O
+ MvSrSFn+LjFK7e3eEd1OtDZZI83dZowPKQK/Fm41Xp9+rHQqjoFNquSje67+P4RwtpKj4OBX6s4
+ vD8h1WL4UHaDNSQoS+9+XmMUmTxb0W5RvfoUUlvRZDoE4xWHVK9/RDU6Th9jV9zIpo08CCQ5t6A
+ dozy0nwz4Q7qlmxdSDk1Mo04gn5V0bTg7zHAYeZYIyIloUsihH2HCucHYvnFoC03liVBbSg3DWn
+ jcjKzhlhNA7xobInAQtCkF7hyMQF1F/g6ThnunXXa5Kt7g
+X-Received: by 2002:a05:600c:4e86:b0:495:3b8a:5e17 with SMTP id
+ 5b1f17b1804b1-4954a3e41d5mr90987515e9.16.1784411815010; 
+ Sat, 18 Jul 2026 14:56:55 -0700 (PDT)
+Received: from localhost.localdomain ([188.26.50.240])
+ by smtp.googlemail.com with ESMTPSA id
+ 5b1f17b1804b1-4954c0a81f7sm101199835e9.1.2026.07.18.14.56.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Jul 2026 12:04:07 -0700 (PDT)
-From: Michail Tatas <michail.tatas@gmail.com>
-To: michael@amarulasolutions.com, neil.armstrong@linaro.org,
- jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dianders@chromium.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Michail Tatas <michail.tatas@gmail.com>
-Subject: [PATCH v2 2/3] drm/panel: ilitek-ili9805: Use dsi_multi in init
-Date: Sun, 19 Jul 2026 22:03:56 +0300
-Message-ID: <20260719190358.438699-3-michail.tatas@gmail.com>
+ Sat, 18 Jul 2026 14:56:54 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>, Conor Dooley <conor+dt@kernel.org>,
+ Daniel Thompson <danielt@kernel.org>, devicetree@vger.kernel.org,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ dri-devel@lists.freedesktop.org, Eduard Bostina <egbostina@gmail.com>,
+ Jingoo Han <jingoohan1@gmail.com>, Kevin Hilman <khilman@baylibre.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-omap@vger.kernel.org,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>
+Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com,
+ m-chawdhry@ti.com
+Subject: [PATCH v2 1/3] ARM: dts: ti: am335x-guardian: Drop unused isink-en
+ property
+Date: Sat, 18 Jul 2026 21:56:30 +0000
+Message-ID: <20260718215632.3295049-2-egbostina@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260719190358.438699-1-michail.tatas@gmail.com>
-References: <20260719190358.438699-1-michail.tatas@gmail.com>
+In-Reply-To: <20260718215632.3295049-1-egbostina@gmail.com>
+References: <20260718215632.3295049-1-egbostina@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
@@ -91,213 +101,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Drop the struct ili9805_instr and the init table
-and use init functions.
+The 'isink-en' property is not read by any driver, so remove it from the
+TPS65217 backlight node.
 
-Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
 ---
- drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 156 +++++++++----------
- 1 file changed, 73 insertions(+), 83 deletions(-)
+ arch/arm/boot/dts/ti/omap/am335x-guardian.dts | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
-index 7e9587afebbe..a70b9512746a 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
-@@ -25,22 +25,9 @@
- #define ILI9805_SETEXTC_PARAMETER2		(0x98)
- #define ILI9805_SETEXTC_PARAMETER3		(0x05)
+diff --git a/arch/arm/boot/dts/ti/omap/am335x-guardian.dts b/arch/arm/boot/dts/ti/omap/am335x-guardian.dts
+index 6ce3a2d029ee..d595e79d6b05 100644
+--- a/arch/arm/boot/dts/ti/omap/am335x-guardian.dts
++++ b/arch/arm/boot/dts/ti/omap/am335x-guardian.dts
+@@ -320,9 +320,6 @@ backlight {
+ 		isel = <1>;  /* 1 - ISET1, 2 ISET2 */
+ 		fdim = <500>; /* TPS65217_BL_FDIM_500HZ */
+ 		default-brightness = <50>;
+-		/* 1(on) - enable current sink, while initialization */
+-		/* 0(off) - disable current sink, while initialization */
+-		isink-en = <1>;
+ 	};
  
--#define ILI9805_INSTR(_delay, ...) { \
--		.delay = (_delay), \
--		.len = sizeof((u8[]) {__VA_ARGS__}), \
--		.data = (u8[]){__VA_ARGS__} \
--	}
--
--struct ili9805_instr {
--	size_t len;
--	const u8 *data;
--	u32 delay;
--};
--
- struct ili9805_desc {
- 	const char *name;
--	const struct ili9805_instr *init;
--	const size_t init_length;
-+	void (*init)(struct mipi_dsi_multi_context *ctx);
- 	const struct drm_display_mode *mode;
- 	u32 width_mm;
- 	u32 height_mm;
-@@ -56,65 +43,78 @@ struct ili9805 {
- 	struct gpio_desc	*reset_gpio;
- };
- 
--static const struct ili9805_instr gpm1780a0_init[] = {
--	ILI9805_INSTR(100, ILI9805_EXTCMD_CMD_SET_ENABLE_REG, ILI9805_SETEXTC_PARAMETER1,
--		      ILI9805_SETEXTC_PARAMETER2, ILI9805_SETEXTC_PARAMETER3),
--	ILI9805_INSTR(100, 0xFD, 0x0F, 0x10, 0x44, 0x00),
--	ILI9805_INSTR(0, 0xf8, 0x18, 0x02, 0x02, 0x18, 0x02, 0x02, 0x30, 0x00,
--		      0x00, 0x30, 0x00, 0x00, 0x30, 0x00, 0x00),
--	ILI9805_INSTR(0, 0xB8, 0x62),
--	ILI9805_INSTR(0, 0xF1, 0x00),
--	ILI9805_INSTR(0, 0xF2, 0x00, 0x58, 0x40),
--	ILI9805_INSTR(0, 0xF3, 0x60, 0x83, 0x04),
--	ILI9805_INSTR(0, 0xFC, 0x04, 0x0F, 0x01),
--	ILI9805_INSTR(0, 0xEB, 0x08, 0x0F),
--	ILI9805_INSTR(0, 0xe0, 0x00, 0x08, 0x0d, 0x0e, 0x0e, 0x0d, 0x0a, 0x08, 0x04,
--		      0x08, 0x0d, 0x0f, 0x0b, 0x1c, 0x14, 0x0a),
--	ILI9805_INSTR(0, 0xe1, 0x00, 0x08, 0x0d, 0x0e, 0x0e, 0x0d, 0x0a, 0x08, 0x04,
--		      0x08, 0x0d, 0x0f, 0x0b, 0x1c, 0x14, 0x0a),
--	ILI9805_INSTR(10, 0xc1, 0x13, 0x39, 0x19, 0x06),
--	ILI9805_INSTR(10, 0xc7, 0xe5),
--	ILI9805_INSTR(10, 0xB1, 0x00, 0x12, 0x14),
--	ILI9805_INSTR(10, 0xB4, 0x02),
--	ILI9805_INSTR(0, 0xBB, 0x14, 0x55),
--	ILI9805_INSTR(0, MIPI_DCS_SET_ADDRESS_MODE, 0x08),
--	ILI9805_INSTR(0, MIPI_DCS_SET_PIXEL_FORMAT, 0x77),
--	ILI9805_INSTR(0, 0x20),
--	ILI9805_INSTR(0, 0xB0, 0x01),
--	ILI9805_INSTR(0, 0xB6, 0x31, 0x00, 0xef),
--	ILI9805_INSTR(0, 0xDF, 0x23),
--	ILI9805_INSTR(0, 0xB9, 0x02, 0x00),
--};
-+static void gpm1780a0_init(struct mipi_dsi_multi_context *ctx)
-+{
-+	mipi_dsi_dcs_write_seq_multi(ctx, ILI9805_EXTCMD_CMD_SET_ENABLE_REG, ILI9805_SETEXTC_PARAMETER1,
-+							ILI9805_SETEXTC_PARAMETER2, ILI9805_SETEXTC_PARAMETER3);
-+	mipi_dsi_msleep(ctx, 100);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xFD, 0x0F, 0x10, 0x44, 0x00);
-+	mipi_dsi_msleep(ctx, 100);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xf8, 0x18, 0x02, 0x02, 0x18, 0x02, 0x02, 0x30, 0x00,
-+							0x00, 0x30, 0x00, 0x00, 0x30, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB8, 0x62);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xF1, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xF2, 0x00, 0x58, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xF3, 0x60, 0x83, 0x04);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xFC, 0x04, 0x0F, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xEB, 0x08, 0x0F);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xe0, 0x00, 0x08, 0x0d, 0x0e, 0x0e, 0x0d, 0x0a, 0x08, 0x04,
-+							0x08, 0x0d, 0x0f, 0x0b, 0x1c, 0x14, 0x0a);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xe1, 0x00, 0x08, 0x0d, 0x0e, 0x0e, 0x0d, 0x0a, 0x08, 0x04,
-+							0x08, 0x0d, 0x0f, 0x0b, 0x1c, 0x14, 0x0a);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc1, 0x13, 0x39, 0x19, 0x06);
-+	mipi_dsi_msleep(ctx, 10);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc7, 0xe5);
-+	mipi_dsi_msleep(ctx, 10);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB1, 0x00, 0x12, 0x14);
-+	mipi_dsi_msleep(ctx, 10);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB4, 0x02);
-+	mipi_dsi_msleep(ctx, 10);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xBB, 0x14, 0x55);
-+	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_ADDRESS_MODE, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_PIXEL_FORMAT, 0x77);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB0, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB6, 0x31, 0x00, 0xef);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xDF, 0x23);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB9, 0x02, 0x00);
-+}
- 
--static const struct ili9805_instr tm041xdhg01_init[] = {
--	ILI9805_INSTR(100, ILI9805_EXTCMD_CMD_SET_ENABLE_REG, ILI9805_SETEXTC_PARAMETER1,
--		      ILI9805_SETEXTC_PARAMETER2, ILI9805_SETEXTC_PARAMETER3),
--	ILI9805_INSTR(100, 0xFD, 0x0F, 0x13, 0x44, 0x00),
--	ILI9805_INSTR(0, 0xf8, 0x18, 0x02, 0x02, 0x18, 0x02, 0x02, 0x30, 0x01,
--		      0x01, 0x30, 0x01, 0x01, 0x30, 0x01, 0x01),
--	ILI9805_INSTR(0, 0xB8, 0x74),
--	ILI9805_INSTR(0, 0xF1, 0x00),
--	ILI9805_INSTR(0, 0xF2, 0x00, 0x58, 0x40),
--	ILI9805_INSTR(0, 0xFC, 0x04, 0x0F, 0x01),
--	ILI9805_INSTR(0, 0xEB, 0x08, 0x0F),
--	ILI9805_INSTR(0, 0xe0, 0x01, 0x0d, 0x15, 0x0e, 0x0f, 0x0f, 0x0b, 0x08, 0x04,
--		      0x07, 0x0a, 0x0d, 0x0c, 0x15, 0x0f, 0x08),
--	ILI9805_INSTR(0, 0xe1, 0x01, 0x0d, 0x15, 0x0e, 0x0f, 0x0f, 0x0b, 0x08, 0x04,
--		      0x07, 0x0a, 0x0d, 0x0c, 0x15, 0x0f, 0x08),
--	ILI9805_INSTR(10, 0xc1, 0x15, 0x03, 0x03, 0x31),
--	ILI9805_INSTR(10, 0xB1, 0x00, 0x12, 0x14),
--	ILI9805_INSTR(10, 0xB4, 0x02),
--	ILI9805_INSTR(0, 0xBB, 0x14, 0x55),
--	ILI9805_INSTR(0, MIPI_DCS_SET_ADDRESS_MODE, 0x0a),
--	ILI9805_INSTR(0, MIPI_DCS_SET_PIXEL_FORMAT, 0x77),
--	ILI9805_INSTR(0, 0x20),
--	ILI9805_INSTR(0, 0xB0, 0x00),
--	ILI9805_INSTR(0, 0xB6, 0x01),
--	ILI9805_INSTR(0, 0xc2, 0x11),
--	ILI9805_INSTR(0, 0x51, 0xFF),
--	ILI9805_INSTR(0, 0x53, 0x24),
--	ILI9805_INSTR(0, 0x55, 0x00),
--};
-+static void tm041xdhg01_init(struct mipi_dsi_multi_context *ctx)
-+{
-+	mipi_dsi_dcs_write_seq_multi(ctx, ILI9805_EXTCMD_CMD_SET_ENABLE_REG, ILI9805_SETEXTC_PARAMETER1,
-+							ILI9805_SETEXTC_PARAMETER2, ILI9805_SETEXTC_PARAMETER3);
-+	mipi_dsi_msleep(ctx, 100);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xFD, 0x0F, 0x13, 0x44, 0x00);
-+	mipi_dsi_msleep(ctx, 100);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xf8, 0x18, 0x02, 0x02, 0x18, 0x02, 0x02, 0x30, 0x01,
-+							0x01, 0x30, 0x01, 0x01, 0x30, 0x01, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB8, 0x74);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xF1, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xF2, 0x00, 0x58, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xFC, 0x04, 0x0F, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xEB, 0x08, 0x0F);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xe0, 0x01, 0x0d, 0x15, 0x0e, 0x0f, 0x0f, 0x0b, 0x08, 0x04,
-+							0x07, 0x0a, 0x0d, 0x0c, 0x15, 0x0f, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xe1, 0x01, 0x0d, 0x15, 0x0e, 0x0f, 0x0f, 0x0b, 0x08, 0x04,
-+							0x07, 0x0a, 0x0d, 0x0c, 0x15, 0x0f, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc1, 0x15, 0x03, 0x03, 0x31);
-+	mipi_dsi_msleep(ctx, 10);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB1, 0x00, 0x12, 0x14);
-+	mipi_dsi_msleep(ctx, 10);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB4, 0x02);
-+	mipi_dsi_msleep(ctx, 10);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xBB, 0x14, 0x55);
-+	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_ADDRESS_MODE, 0x0a);
-+	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_PIXEL_FORMAT, 0x77);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB0, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB6, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc2, 0x11);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x51, 0xFF);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x53, 0x24);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x55, 0x00);
-+}
- 
- static inline struct ili9805 *panel_to_ili9805(struct drm_panel *panel)
- {
-@@ -160,16 +160,8 @@ static int ili9805_power_off(struct ili9805 *ctx)
- static int ili9805_activate(struct ili9805 *ctx)
- {
- 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
--	int i;
- 
--	for (i = 0; i < ctx->desc->init_length; i++) {
--		const struct ili9805_instr *instr = &ctx->desc->init[i];
--
--		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, instr->data, instr->len);
--
--		if (instr->delay > 0)
--			mipi_dsi_msleep(&dsi_ctx, instr->delay);
--	}
-+	ctx->desc->init(&dsi_ctx);
- 
- 	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
- 	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
-@@ -343,7 +335,6 @@ static void ili9805_dsi_remove(struct mipi_dsi_device *dsi)
- 
- static const struct ili9805_desc gpm1780a0_desc = {
- 	.init = gpm1780a0_init,
--	.init_length = ARRAY_SIZE(gpm1780a0_init),
- 	.mode = &gpm1780a0_timing,
- 	.width_mm = 65,
- 	.height_mm = 65,
-@@ -351,7 +342,6 @@ static const struct ili9805_desc gpm1780a0_desc = {
- 
- static const struct ili9805_desc tm041xdhg01_desc = {
- 	.init = tm041xdhg01_init,
--	.init_length = ARRAY_SIZE(tm041xdhg01_init),
- 	.mode = &tm041xdhg01_timing,
- 	.width_mm = 42,
- 	.height_mm = 96,
+ 	regulators {
 -- 
 2.43.0
 
