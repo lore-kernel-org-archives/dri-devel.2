@@ -4,46 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A33CC4450A
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 22:04:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36502C44521
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 23:36:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0940892C1;
-	Sat, 18 Jul 2026 22:04:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FC9F10E179;
+	Sat, 18 Jul 2026 23:36:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SzSanViu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qSL3IYkw";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 301C5892C1
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 22:04:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8B97660008;
- Sat, 18 Jul 2026 22:04:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B91301F000E9;
- Sat, 18 Jul 2026 22:04:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784412269;
- bh=t9fJdyKtbTjoZvZ4Qaab9SXbJza23w5VJsqQLQ/nc8U=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SzSanViuseiziUGZFLn3q3TofU500fXUMvp9n4U1XzcTh1yZzBpPHQvndhAwY11Dq
- 2DS8rWvhNRuwzwIc5h92Agq6VrxCXNDzX3/c0GYxaUy0qHhuYj+zpwnvPicxagWNzr
- +n72LZ1fXCyO4Vn63M8bBOUPPlg+mYwWKS9AdtcE5O6OrNWtAjbe8AN19+7j8h0esE
- AuDWOGN/RKZoteYvdsOFooC+xz+ILQxjVpqBpsvV77A+PwgWcYB7IZwSJZyflADfKs
- s15oaGYHo6FuTPG4zha1AkhOZGh4a77O0pkw8VkHxfyJ45v6wCsL6+dhe/iTsupWMe
- faizFYsp7mQyA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] dt-bindings: leds: backlight: Convert TPS65217
- to DT schema
-To: "Eduard Bostina" <egbostina@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, lee@kernel.org,
- linux-leds@vger.kernel.org, robh@kernel.org, linux-input@vger.kernel.org,
- dmitry.torokhov@gmail.com, conor+dt@kernel.org
-In-Reply-To: <20260718215632.3295049-4-egbostina@gmail.com>
-References: <20260718215632.3295049-1-egbostina@gmail.com>
- <20260718215632.3295049-4-egbostina@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 22:04:28 +0000
-Message-Id: <20260718220428.B91301F000E9@smtp.kernel.org>
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D78810E179
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 23:35:59 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-493c19bad03so66211525e9.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 16:35:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784417758; x=1785022558; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=fbveywkXEOoKA5l+wqrU0DqqoG4NoX/G8iLvkPe8hb4=;
+ b=qSL3IYkw/VYVKzLdPLYvRA6iyjg4HL7gakXyHb40n1gDFVW+49XWNMgrReVXHFBboj
+ AMBijoEYj0X3Z5y3W4HkBvICUMd9JKOd8MtOr5xY3BiiMiDhS6VBiD4jY0zmeAlUehG2
+ fcIP2BAPrb+DgUnN6jFt71yZHJijvJYmQqFOrQH+RkAcVL+5SZBF/1thKrvSLhvnkCtr
+ UFTuFxLvyAvI4QdD6rxokMXWILJO5NZfHDm7XpLAEil3dQfJU4JmC1EMhJFxjBJzIEfu
+ 4o9lFPFe8sWZjN+B0+ZEXwXEvnQml18HgaaytcHHWdYdTF0GTdwkULTD81CobMBOs/MM
+ f1tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784417758; x=1785022558;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=fbveywkXEOoKA5l+wqrU0DqqoG4NoX/G8iLvkPe8hb4=;
+ b=FbS7t6Mu8pycO3MYvYfEk2bhR3LobONLwUVRZ8b/QROVQ93TvfycWGOgwxm07MJ/rx
+ Zrjjpaw2vlOtsoQBriwYphAPhloT2FHn0taBggub9Qs57aILJxMB8OOqlOLnQrgkqrAq
+ Ulqkq/nAF+EU50e5O8BVMhqas/Z759aJqaHsMz8QVh7B1mjiqWZ2lsYhQJldGjNqFrfX
+ A18uiiAetOCrWSoBv3rWQAv5FiYULOWo762HMcxsXZj3/+6qSWFr71NV5jes9DOdTFBf
+ 9xA+tk6HbDii9L4hT0f04SM2Wzaf5iECqnSDlgGrLwxfjZ+HXeWv6j7r5DV0KQUYEYON
+ IsEw==
+X-Gm-Message-State: AOJu0YwAeTEDj2+WeucmFh4mGKi+hhcGi7imgMZxbWN4SjT1JnnkbSVp
+ S8SY1Gy7x+/l2imH7DQ057n7xAt4HYXjaEVgX1UPHax0tA3nGGR6zSOoMC2dq4Zs
+X-Gm-Gg: AfdE7ckT4lfC9PHujHOFcL1Z2P4fo14EgCqgCUskN3gIdzCHQ6M51GZQgO3eeUPdTVp
+ u6mmPb2znVlMHjA+NVX6yl6tR1eK4ZE8QkRe2aGat6zgsCikqf3bbR9hxOtIj4Ajoj9WCha349t
+ gNV+kuQYfApTI7nfiblpwacecnQ708ZiWRIdJgkv1fDlNOU9GwGyf6JdFzPz2DxtoGf1sOvlLk5
+ ungzDc6BVEDh03+yXUAUy9U/UWFXHRil57XfYbS+97WAlurfdEe/+2ak3/sTywBgdMTxsUe2tj3
+ FijRQkS75hR1reaBVzoDhIaxQMyfjrXiqB+SWAZkBacoiYyZ9u+JQOQb+VTAMEGOUCEYDUOCzpr
+ 8c/1hC3jASv81BTVGd1LhSxwuL5dhh6tEoBE4xQBzskk0bBYMat7qQ+xaeQt7fQg8geZm4Wi8Ao
+ Dbtt6jXVaVTg==
+X-Received: by 2002:a05:600c:1989:b0:495:699:84ca with SMTP id
+ 5b1f17b1804b1-4954a798f17mr83663665e9.28.1784417757432; 
+ Sat, 18 Jul 2026 16:35:57 -0700 (PDT)
+Received: from [127.0.0.2] ([2a01:14:111:ccf0:645b:9e5c:7fe3:c09f])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4954a2a24b6sm160964675e9.3.2026.07.18.16.35.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 18 Jul 2026 16:35:56 -0700 (PDT)
+From: Diogo Silva <diogompaissilva@gmail.com>
+Subject: [PATCH 00/15] drm/drm_simple: remove drm_simple_encoder_init
+Date: Sun, 19 Jul 2026 01:35:31 +0200
+Message-Id: <20260719-drm_simple_encoder_init-v1-0-a78c509e3062@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMQNXGoC/yXM0QqCQBBG4VeRuW5hlVDrVSIWnf2tiVxlRiMQ3
+ 72tLr+LczYyqMDoXGykeInJlDLKQ0F879INTmI2Vb6qfVO2LuoYTMb5iYDEU4QGSbK46OtTd2R
+ uhranXM+KQd6/8+X6t639A7x8d7TvHyUPD1h7AAAA
+X-Change-ID: 20260718-drm_simple_encoder_init-d069a4cc7f8b
+To: Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Michal Simek <michal.simek@amd.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Stefan Agner <stefan@agner.ch>, 
+ Alison Wang <alison.wang@nxp.com>, 
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
+ David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>, 
+ Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Xinliang Liu <xinliang.liu@linaro.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev, 
+ imx@lists.linux.dev, linux-mediatek@lists.infradead.org, 
+ linux-renesas-soc@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ linux-doc@vger.kernel.org, Diogo Silva <diogompaissilva@gmail.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,77 +126,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Stale and conflicting regulator text binding not deleted during =
-schema conversion.
-- [Low] Missing `required` constraint for `reg` property in regulator child=
- nodes.
---
+The simple KMS helpers are deprecated because they only add an
+intermediate layer between drivers and atomic modesetting.
 
---- Patch [3]: [PATCH v2 3/3] dt-bindings: leds: backlight: Convert TPS6521=
-7 to DT schema ---
-commit 0671f0f93114029deaa2c3fee6b27ad8abd2cb2d
-Author: Eduard Bostina <egbostina@gmail.com>
+This series open-codes all remaining drm_simple_encoder_init() users by
+calling drm_encoder_init() directly and providing driver-local
+drm_encoder_funcs where needed. After the driver conversions, the helper
+is removed and the completed DRM todo item is dropped.
 
-dt-bindings: leds: backlight: Convert TPS65217 to DT schema
+Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
+---
+Diogo Silva (15):
+      drm/exynos: remove dependency on DRM simple helpers
+      drm/xlnx/zynqmp_dpsub: remove dependency on DRM simple helpers
+      drm/tegra: remove dependency on DRM simple helpers
+      drm/fsl-dcu: remove dependency on DRM simple helpers
+      drm/kmb: remove dependency on DRM simple helpers
+      drm/virtio: remove dependency on DRM simple helpers
+      drm/tidss: remove dependency on DRM simple helpers
+      drm/imx: remove dependency on DRM simple helpers
+      drm/mediatek: remove dependency on DRM simple helpers
+      drm/renesas/shmobile: remove dependency on DRM simple helpers
+      drm/hisilicon/kirin: remove dependency on DRM simple helpers
+      drm/arm/komeda: remove dependency on DRM simple helpers
+      drm/meson: remove dependency on DRM simple helpers
+      drm/drm_simple: remove deprecated drm_simple_encoder_init function
+      Documentation/gpu: remove completed drm_simple_encoder_init() todo
 
-This commit converts the Texas Instruments TPS65217 backlight binding to YA=
-ML
-schema. It also documents missing child nodes, interrupt properties, and
-updates regulator names to match what the boards use.
+ Documentation/gpu/todo.rst                        | 15 ---------------
+ drivers/gpu/drm/arm/display/komeda/komeda_crtc.c  |  9 +++++++--
+ drivers/gpu/drm/drm_simple_kms_helper.c           | 13 ++-----------
+ drivers/gpu/drm/exynos/exynos_dp.c                | 13 +++++++++++--
+ drivers/gpu/drm/exynos/exynos_drm_dpi.c           | 14 ++++++++++++--
+ drivers/gpu/drm/exynos/exynos_drm_dsi.c           | 11 +++++++++--
+ drivers/gpu/drm/exynos/exynos_drm_vidi.c          | 14 ++++++++++++--
+ drivers/gpu/drm/exynos/exynos_hdmi.c              | 15 +++++++++++++--
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c         | 10 +++++++---
+ drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c      |  9 +++++++--
+ drivers/gpu/drm/imx/dc/dc-kms.c                   |  8 ++++++--
+ drivers/gpu/drm/kmb/kmb_dsi.c                     |  9 +++++++--
+ drivers/gpu/drm/mediatek/mtk_dsi.c                | 10 +++++++---
+ drivers/gpu/drm/meson/meson_encoder_cvbs.c        | 11 ++++++++---
+ drivers/gpu/drm/meson/meson_encoder_dsi.c         | 11 ++++++++---
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c        | 11 ++++++++---
+ drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c | 10 +++++++---
+ drivers/gpu/drm/tegra/dsi.c                       | 17 ++++++++++++++---
+ drivers/gpu/drm/tegra/rgb.c                       | 14 ++++++++++++--
+ drivers/gpu/drm/tidss/tidss_encoder.c             | 10 +++++++---
+ drivers/gpu/drm/virtio/virtgpu_display.c          | 12 ++++++++++--
+ drivers/gpu/drm/xlnx/zynqmp_kms.c                 | 13 +++++++++++--
+ include/drm/drm_simple_kms_helper.h               |  4 ----
+ 23 files changed, 185 insertions(+), 78 deletions(-)
+---
+base-commit: e55c6b9a3522aaf1441a0662d534c1c7bfa9b860
+change-id: 20260718-drm_simple_encoder_init-d069a4cc7f8b
 
-> diff --git a/Documentation/devicetree/bindings/leds/backlight/ti,tps65217=
-.yaml b/Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
-> new file mode 100644
-> index 0000000000000..9586e08f1b1fc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
-> @@ -0,0 +1,123 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/leds/backlight/ti,tps65217.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TPS65217 family of regulators
+Best regards,
+--  
+Diogo Silva <diogompaissilva@gmail.com>
 
-[Severity: Medium]
-Should Documentation/devicetree/bindings/regulator/tps65217.txt also be
-deleted in this patch?
-
-The new YAML schema defines the full MFD device, but conflicts with the
-undeleted regulator text binding. The old regulator text binding expects
-regulator nodes to be named dcdc[1-3] and ldo[1-4], while the new schema
-expects regulator@[0-6], which could cause validation inconsistencies.
-
-[ ... ]
-
-> +    patternProperties:
-> +      "^regulator@[0-6]$":
-> +        type: object
-> +        $ref: /schemas/regulator/regulator.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          reg:
-> +            maxItems: 1
-> +
-> +          regulator-compatible:
-> +            $ref: /schemas/types.yaml#/definitions/string
-
-[Severity: Low]
-Does this schema need to specify the reg property as required?
-
-Since these regulator child nodes have a unit address in the pattern
-(^regulator@[0-6]$), DT validation could incorrectly pass nodes that contai=
-n a
-unit address but lack the mandatory reg property without a required block.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718215632.3295=
-049-1-egbostina@gmail.com?part=3D3
