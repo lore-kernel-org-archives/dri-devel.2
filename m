@@ -4,177 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A363C4450A
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 19:39:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37786C4450A
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 19:53:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EA9E10E5F5;
-	Sat, 18 Jul 2026 19:39:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F30C10E5FC;
+	Sat, 18 Jul 2026 19:53:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="auN3lntt";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="WWObqVrr";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="WI2x8e0I";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6664810E5F5
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 19:39:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1784403566; x=1785008366; i=deller@gmx.de;
- bh=yBzTB/Hv9POxqvF0HU/7TUrVaj+BrAMU6Oq/0aE3f8U=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=auN3lnttLSom0jkxGIbDmX/MtO3eaJ00B10zd0i0PwdlV+WObZ4T2RtH3abInREH
- gA/o+vX+6M7dvGe+DlEIJZlErOhXypLTYzCFqfJ9MNelTMVsk5nzX/7hz67t0TWDf
- aO7UdN88zY/bwq3MbHGTkz0OB0B0zgup/8JakFjEKHr10y38tH3/yP65JDbobuxE6
- HNS+hSUrxMYKxbobwdeqzNzj6gUkbr0Sa+hz39e1NgBpuY2T3NZrYZRqg+VbnasS3
- DboQfEDp5rr9KskZif0GKRmO35CLD9ZgvcT4I9koVIndlWnjsXBddqOWI+4dcCxVU
- oJ1JAIGusY4NG9AiuQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1ML9yc-1wSxEy2fVi-00Nix2; Sat, 18
- Jul 2026 21:39:26 +0200
-Message-ID: <87e98cba-247d-41d9-9d67-e00b69e91c39@gmx.de>
-Date: Sat, 18 Jul 2026 21:39:24 +0200
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23FCF10E5FC
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 19:53:37 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4h2csW1lyMz8txp;
+ Sat, 18 Jul 2026 21:53:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1784404415;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Q9fGxwUp7I/1j3y/cSl5ogqwUUkW66zHyf7/sZoHXyU=;
+ b=WWObqVrrmhIG0kM1hCCcfPtwlJk0WDTsc+ejv2vdUGt4I1Csnjja/KgBAghVkRpM5wBiuY
+ hMSph4Udg693I0UsRWv903xpcocmysD4VLqkBEDEEOa5xb7FUS0iJBMVZGxmi0X3Tm+ObE
+ tLQna2JlA3uRQvskvjQUHDJxtdhs/5DNRWp3Zgmsfw7H3jA/0h11MlOCdYDaZmrBwlhTLu
+ 4IRdnLDNH8nJFHUFj695VOQlvRY4QSLhPmCDNCZagNLnRyWDHovZng/O2jojaE+s/1D1hI
+ Q4w2OHcGsmFjlN+KMdqqNB/BjIk1qiLAgOZCQuS/heJBcINzSjna9pzYb0qDUw==
+Authentication-Results: outgoing_mbo_mout;
+ dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=WI2x8e0I;
+ spf=pass (outgoing_mbo_mout: domain of mhi@mailbox.org designates
+ 2001:67c:2050:b231:465::202 as permitted sender)
+ smtp.mailfrom=mhi@mailbox.org
+From: Maurice Hieronymus <mhi@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1784404413;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Q9fGxwUp7I/1j3y/cSl5ogqwUUkW66zHyf7/sZoHXyU=;
+ b=WI2x8e0I3zpOG9B8EMvnjDgrENRjt48r45b+ab0qrr4N1B9dMdjGpKxD/cBCIx+qIvJLf9
+ wrh/C+DxX906XWI4SCPOkDSkj3SMAeZ7Oa3sQcZE/9Z3rnJH3+rQt31UVWTXMV+mV5cqv+
+ 92CKAyeG5/eCqGvOazgiCWzq8q2mYk3i/nWcQE4eCAjntTxG9UWKbLsAphjOGmTswoPMUh
+ Cg6zRkvez2mWvjoscVxg/2LJsMmlPXqX4QrodAAIJqYnHleQoBD9BGwMbwgr0aq8lC3nrZ
+ 5eNJTfSAApjTP2CxEaPqJuDHBQO/ArGMVD8ofd59yaFfjUgdo6Qu4uW8wQQ7zA==
+Date: Sat, 18 Jul 2026 21:53:19 +0200
+Subject: [PATCH] rust: drm: gem: shmem: drop stale dma_resv locking TODO
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fonts: fixup font.h kernel-doc warnings
-To: Randy Dunlap <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org
-References: <20260718191326.1907423-1-rdunlap@infradead.org>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- xsFNBF3Ia3MBEAD3nmWzMgQByYAWnb9cNqspnkb2GLVKzhoH2QD4eRpyDLA/3smlClbeKkWT
- HLnjgkbPFDmcmCz5V0Wv1mKYRClAHPCIBIJgyICqqUZo2qGmKstUx3pFAiztlXBANpRECgwJ
- r+8w6mkccOM9GhoPU0vMaD/UVJcJQzvrxVHO8EHS36aUkjKd6cOpdVbCt3qx8cEhCmaFEO6u
- CL+k5AZQoABbFQEBocZE1/lSYzaHkcHrjn4cQjc3CffXnUVYwlo8EYOtAHgMDC39s9a7S90L
- 69l6G73lYBD/Br5lnDPlG6dKfGFZZpQ1h8/x+Qz366Ojfq9MuuRJg7ZQpe6foiOtqwKym/zV
- dVvSdOOc5sHSpfwu5+BVAAyBd6hw4NddlAQUjHSRs3zJ9OfrEx2d3mIfXZ7+pMhZ7qX0Axlq
- Lq+B5cfLpzkPAgKn11tfXFxP+hcPHIts0bnDz4EEp+HraW+oRCH2m57Y9zhcJTOJaLw4YpTY
- GRUlF076vZ2Hz/xMEvIJddRGId7UXZgH9a32NDf+BUjWEZvFt1wFSW1r7zb7oGCwZMy2LI/G
- aHQv/N0NeFMd28z+deyxd0k1CGefHJuJcOJDVtcE1rGQ43aDhWSpXvXKDj42vFD2We6uIo9D
- 1VNre2+uAxFzqqf026H6cH8hin9Vnx7p3uq3Dka/Y/qmRFnKVQARAQABzRxIZWxnZSBEZWxs
- ZXIgPGRlbGxlckBnbXguZGU+wsGRBBMBCAA7AhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheA
- FiEERUSCKCzZENvvPSX4Pl89BKeiRgMFAl3J1zsCGQEACgkQPl89BKeiRgNK7xAAg6kJTPje
- uBm9PJTUxXaoaLJFXbYdSPfXhqX/BI9Xi2VzhwC2nSmizdFbeobQBTtRIz5LPhjk95t11q0s
- uP5htzNISPpwxiYZGKrNnXfcPlziI2bUtlz4ke34cLK6MIl1kbS0/kJBxhiXyvyTWk2JmkMi
- REjR84lCMAoJd1OM9XGFOg94BT5aLlEKFcld9qj7B4UFpma8RbRUpUWdo0omAEgrnhaKJwV8
- qt0ULaF/kyP5qbI8iA2PAvIjq73dA4LNKdMFPG7Rw8yITQ1Vi0DlDgDT2RLvKxEQC0o3C6O4
- iQq7qamsThLK0JSDRdLDnq6Phv+Yahd7sDMYuk3gIdoyczRkXzncWAYq7XTWl7nZYBVXG1D8
- gkdclsnHzEKpTQIzn/rGyZshsjL4pxVUIpw/vdfx8oNRLKj7iduf11g2kFP71e9v2PP94ik3
- Xi9oszP+fP770J0B8QM8w745BrcQm41SsILjArK+5mMHrYhM4ZFN7aipK3UXDNs3vjN+t0zi
- qErzlrxXtsX4J6nqjs/mF9frVkpv7OTAzj7pjFHv0Bu8pRm4AyW6Y5/H6jOup6nkJdP/AFDu
- 5ImdlA0jhr3iLk9s9WnjBUHyMYu+HD7qR3yhX6uWxg2oB2FWVMRLXbPEt2hRGq09rVQS7DBy
- dbZgPwou7pD8MTfQhGmDJFKm2jvOwU0EXchrcwEQAOsDQjdtPeaRt8EP2pc8tG+g9eiiX9Sh
- rX87SLSeKF6uHpEJ3VbhafIU6A7hy7RcIJnQz0hEUdXjH774B8YD3JKnAtfAyuIU2/rOGa/v
- UN4BY6U6TVIOv9piVQByBthGQh4YHhePSKtPzK9Pv/6rd8H3IWnJK/dXiUDQllkedrENXrZp
- eLUjhyp94ooo9XqRl44YqlsrSUh+BzW7wqwfmu26UjmAzIZYVCPCq5IjD96QrhLf6naY6En3
- ++tqCAWPkqKvWfRdXPOz4GK08uhcBp3jZHTVkcbo5qahVpv8Y8mzOvSIAxnIjb+cklVxjyY9
- dVlrhfKiK5L+zA2fWUreVBqLs1SjfHm5OGuQ2qqzVcMYJGH/uisJn22VXB1c48yYyGv2HUN5
- lC1JHQUV9734I5cczA2Gfo27nTHy3zANj4hy+s/q1adzvn7hMokU7OehwKrNXafFfwWVK3OG
- 1dSjWtgIv5KJi1XZk5TV6JlPZSqj4D8pUwIx3KSp0cD7xTEZATRfc47Yc+cyKcXG034tNEAc
- xZNTR1kMi9njdxc1wzM9T6pspTtA0vuD3ee94Dg+nDrH1As24uwfFLguiILPzpl0kLaPYYgB
- wumlL2nGcB6RVRRFMiAS5uOTEk+sJ/tRiQwO3K8vmaECaNJRfJC7weH+jww1Dzo0f1TP6rUa
- fTBRABEBAAHCwXYEGAEIACAWIQRFRIIoLNkQ2+89Jfg+Xz0Ep6JGAwUCXchrcwIbDAAKCRA+
- Xz0Ep6JGAxtdEAC54NQMBwjUNqBNCMsh6WrwQwbg9tkJw718QHPw43gKFSxFIYzdBzD/YMPH
- l+2fFiefvmI4uNDjlyCITGSM+T6b8cA7YAKvZhzJyJSS7pRzsIKGjhk7zADL1+PJei9p9idy
- RbmFKo0dAL+ac0t/EZULHGPuIiavWLgwYLVoUEBwz86ZtEtVmDmEsj8ryWw75ZIarNDhV74s
- BdM2ffUJk3+vWe25BPcJiaZkTuFt+xt2CdbvpZv3IPrEkp9GAKof2hHdFCRKMtgxBo8Kao6p
- Ws/Vv68FusAi94ySuZT3fp1xGWWf5+1jX4ylC//w0Rj85QihTpA2MylORUNFvH0MRJx4mlFk
- XN6G+5jIIJhG46LUucQ28+VyEDNcGL3tarnkw8ngEhAbnvMJ2RTx8vGh7PssKaGzAUmNNZiG
- MB4mPKqvDZ02j1wp7vthQcOEg08z1+XHXb8ZZKST7yTVa5P89JymGE8CBGdQaAXnqYK3/yWf
- FwRDcGV6nxanxZGKEkSHHOm8jHwvQWvPP73pvuPBEPtKGLzbgd7OOcGZWtq2hNC6cRtsRdDx
- 4TAGMCz4j238m+2mdbdhRh3iBnWT5yPFfnv/2IjFAk+sdix1Mrr+LIDF++kiekeq0yUpDdc4
- ExBy2xf6dd+tuFFBp3/VDN4U0UfG4QJ2fg19zE5Z8dS4jGIbLg==
-In-Reply-To: <20260718191326.1907423-1-rdunlap@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:nfh0HH5Bwiu8n/nls3OR+r8e29ju1Xr8LgSrI2xqmakXDiE5MHU
- qwO8t1dz4tfy152KzLwovhzy0kUJ6Dz5oIDJ7rhs4LHWYUgwMsIIjbGIWAWjPg8lnvw2iUm
- zeydCJi7AIl4WSe14AAFdqoXGaXSh+Tx3UdvEUfJJxjOZA8dJWn3Gmw86r3YWtKhQihPhbM
- sB65gVFI0KPf0HoHGTziQ==
-UI-OutboundReport: notjunk:1;M01:P0:JULGCjfLKxQ=;hOjTGahiV3sJE26l+00SVN/v4b8
- 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
- =
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260718-rust-drm-shmem-stale-todo-v1-1-b81ff0663f49@mailbox.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQqDMBCE4VeRPXchClXpq5QeTDKtW6opu1EK4
+ rubtpeB7zD/RgYVGF2qjRSrmKS5oD5VFMZhfoAlFlPjmtZ1dc+6WOaoE9s4oWweXuCcYuLQeZy
+ B3sM7Kv+34i6fX/t6+9sW/0TI3yDt+wEqn1yJfQAAAA==
+X-Change-ID: 20260718-rust-drm-shmem-stale-todo-c7be5ee8beb0
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, Maurice Hieronymus <mhi@mailbox.org>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784404408; l=1485;
+ i=mhi@mailbox.org; s=20260525; h=from:subject:message-id;
+ bh=lMq/EhsOacgV0jgXVNu8dJ4WMrAAI5hxCgiwsBgvYRE=;
+ b=JBehnO1NTKxdJ5KkSMWWWjPdtBFyqOhxO+e9LgPYs3ZQq3o+PH7TGk1JjQ32HvA6Hvv2r6pdM
+ Wij3c6bYMccCTaXlTYWogZ3LHlH19mXKS5uLohUeY4PID1dRkgmT1a0
+X-Developer-Key: i=mhi@mailbox.org; a=ed25519;
+ pk=AHlEkGG3hpXZHntlEzF42Ip/LFyXWOgsNUvaHqAnV80=
+X-MBO-RS-ID: c76ce972a1cfbbd5e12
+X-MBO-RS-META: qce7o56o34skw5fb7kcro4pnkgg95fnu
+X-Rspamd-Queue-Id: 4h2csW1lyMz8txp
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -190,25 +102,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/18/26 21:13, Randy Dunlap wrote:
-> Use the typedef keyword when describing a typedef.
-> Add the missing function return value for font_glyph_size().
->=20
-> Warning: include/linux/font.h:84 cannot understand function prototype:
->    'typedef const unsigned char font_data_t;'
-> Warning: include/linux/font.h:53 No description found for return value
->    of 'font_glyph_size'
->=20
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> ---
-> Cc: Helge Deller <deller@gmx.de>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: linux-fbdev@vger.kernel.org
->=20
->   include/linux/font.h |    4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-applied to fb-dev git tree.
+The TODO describes "a number of spots here that manually acquire/release
+the DMA reservation lock using dma_resv_(un)lock()", but no such spots
+exist in this file.
 
-Thanks for fixing, Randy!
+The only `dma_resv` reference left is the `base.resv` assignment in
+`Object::new()`, which takes no lock.
 
-Helge
+The manual locking the comment refers to does exist in
+`GpuVmBoAlloc::obtain()` in rust/kernel/drm/gpuvm/vm_bo.rs, which already
+carries its own equivalent note, so nothing is lost by removing this one.
+
+Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
+---
+ rust/kernel/drm/gem/shmem.rs | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+index 34af402899a0..3c1d75b54c2c 100644
+--- a/rust/kernel/drm/gem/shmem.rs
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -4,11 +4,6 @@
+ //!
+ //! C header: [`include/linux/drm/drm_gem_shmem_helper.h`](srctree/include/drm/drm_gem_shmem_helper.h)
+ 
+-// TODO:
+-// - There are a number of spots here that manually acquire/release the DMA reservation lock using
+-//   dma_resv_(un)lock(). In the future we should add support for ww mutex, expose a method to
+-//   acquire a reference to the WwMutex, and then use that directly instead of the C functions here.
+-
+ use crate::{
+     container_of,
+     drm::{
+
+---
+base-commit: 7059bdf4f04a3e14f4fafb3ac35fdca913e3e21a
+change-id: 20260718-rust-drm-shmem-stale-todo-c7be5ee8beb0
+
+Best regards,
+-- 
+Maurice Hieronymus <mhi@mailbox.org>
+
