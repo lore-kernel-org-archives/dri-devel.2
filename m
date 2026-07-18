@@ -4,157 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CD55C4452B
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A255C44530
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14FD810E758;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D43110E7AE;
 	Mon, 20 Jul 2026 07:16:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fA4Y9VVh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F39uY6FL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A13410E749;
- Thu, 16 Jul 2026 08:38:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8B1D060054;
- Thu, 16 Jul 2026 08:38:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 634C91F000E9;
- Thu, 16 Jul 2026 08:38:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784191104;
- bh=5qNmGNNZ7rXMiTLdGIwGLI4axhYJB8sxe9+qeijUFfE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=fA4Y9VVhygo22VrQ71Kx1Ydf2nKzDi3f4g23ItRPNEFW02EkNpQI/jVt6S+DOwv6Y
- oeplQ3wbglQ82W1+EWG3byrukvp2wCkByXq20aD7vSEGLnfv3Y8XTifKazh7DTnR5N
- tHxNvg7ZYqwT/PeEXBFOOkmgdC6bdLweTNnlSgSRCEEvHkqbtvZSIj1iMzZZVRLUBm
- sSL69YnxCCQokLlq47jNOu61mXHZ8I4veQXpMpD3h9mVIju3d3XWDbn1ccxTWLaDAx
- BjnEQIp/nD7OafLXOWHhzCroAWXeqxfHNxdXe7QARLuYvbpniVP4MQNay6A+Fde1i+
- vZbbF+cVSlJlQ==
-Message-ID: <a273faf8-452d-499a-90e1-b3c9dc2395d0@kernel.org>
-Date: Thu, 16 Jul 2026 10:38:00 +0200
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85DB010E5E2
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 18:23:36 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-38cfcb507a3so925264a91.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 11:23:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784399016; x=1785003816; darn=lists.freedesktop.org;
+ h=subject:cc:to:from:mime-version:content-type:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=5bmlimQrWEZJP9wXnBlZyV/J+SO0CL4FeYe6T+B47Hc=;
+ b=F39uY6FLgMin1umDP1SPYuduP+H0a0y0lEs6QwZiImqLZmwdZ5tSKdbeRHPBonq5ce
+ O+t3BSSlTq6O8bMgOiP0T5yb46mWKYTp9CAa1eHt4lVT5tYpf7e0/8X3fbJpy3BV82q3
+ yuOgB0DnXu1AKa0AS3eZ5oK49ZAgVNyagp5UT4Ol2ayTC+dboskLGSRX7ci/8X+k0qGP
+ ccKOkv7BKj3j6jbuFvPxld9b60EtHR5sjiXHZ6pbQznT4nIOEwSU514AeozH1eQfhfbJ
+ 6zq90zkoo8tR5MVG0mm4DIkmT9ksF2fis0/1PlO4Pr8x6KczwLxYgLO2TGs0K3nBZkxb
+ cNZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784399016; x=1785003816;
+ h=subject:cc:to:from:mime-version:content-type:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=5bmlimQrWEZJP9wXnBlZyV/J+SO0CL4FeYe6T+B47Hc=;
+ b=LqUnJcmZYAAgV00tJuBahMdKHjrIIASdFkcvdFSrpf3gn91YADE4F4gVWtzfZiZQb0
+ uTgCXX3cGOwBpn7ZgXS9S5MMo5eQKG6poik1tZ9FZxjgN0lHB273aPoSVSZlpErHRHI5
+ tUaV1BhNChYaspDUy4XXCRhG/7LHs/j+wG5G3s9Udn0szJMA2KrHIHWcNtKOJKPd2xY/
+ yA75eZjy2W017dfKoUDSosjzn2bTdqW1whVU0zq9YdclI+6n6vtIclr3WoupTwLlKcdy
+ 3TaByX1MDltsdV89/7sTmJ1eFZmYFGyVA3KnM0NC8rDtI3dbMsLfByRvL9NEoYVuX4km
+ LBhA==
+X-Gm-Message-State: AOJu0YzttrMEZc+xTPT+QVBYop+EPHBr7kyI1RxBrQnqhK8UR0ItMLuO
+ JNtIXGSThFWu/4QbO80YEHtFD6jvoVyUlX8BnPR3AX8g8x24aAHQN5FF
+X-Gm-Gg: AfdE7cm8uUvWZwjOkwelsHfzDLYpcyAgOnQZBmtOLnKLM9mBQKxvdtpGX428Ht0pF8j
+ QwfgitcyHGOfyODEmHo8S8aILmLowlacLA5mGd808KpxirwIPSZLXyzYUQoHDgHTliK7sgt7KVT
+ fpouUhBXICN+DaZQKxkpGzQ4d8lcavH7HFSSnhebDjTqj0x1kZqm7G71vmofm7WLYYUuYqwcrvf
+ qykbmkNRF9k+34wCZ73hJZ0tR1Is/kV18kvgDF+RfJ+uyoYyrQlPPA+op3UmKrVoDclfjBh5zXt
+ uhGbunCYCQqj+l4WPatH+Ph+OL0+cb6sg2Wgl9vfdthltI7fI5mHQvzBsFwaRFrt8OkCcBorZ5T
+ jthfthx13wBaytr9kJ4EtZaPdZtaSSX4Z+kzUvLd4zHPoRQwapu5AlUP4VK8mmuTbI0m2OBxzIx
+ qrJwexuCiGvMbxqwkg1iby9oeo
+X-Received: by 2002:a17:90b:53c3:b0:38d:90c1:2485 with SMTP id
+ 98e67ed59e1d1-38e4b5d6aebmr6068293a91.5.1784399015906; 
+ Sat, 18 Jul 2026 11:23:35 -0700 (PDT)
+Received: from Potato.localdomain ([171.76.83.76])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3142a1bbda9sm19113650eec.19.2026.07.18.11.23.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 18 Jul 2026 11:23:35 -0700 (PDT)
+Message-ID: <6a5bc4a7.f1c1923d.2d2b59.05d9@mx.google.com>
+Date: Sat, 18 Jul 2026 11:23:35 -0700 (PDT)
+Content-Type: multipart/mixed; boundary="===============5043740731053490976=="
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 30/33] mm/vma: correct incorrect vma.h inclusion
-Content-Language: en-US
-To: Lorenzo Stoakes <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
- Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>,
- Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>,
- Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
- Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov
- <andreyknvl@gmail.com>, Alexander Potapenko <glider@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Jarkko Sakkinen <jarkko@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner
- <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Yishai Hadas <yishaih@nvidia.com>, Shameer Kolothum
- <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>,
- Usama Arif <usama.arif@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev,
- iommu@lists.linux.dev, kasan-dev@googlegroups.com,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
- <20260710-b4-pre-scalable-cow-v2-30-2a5aa403d977@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260710-b4-pre-scalable-cow-v2-30-2a5aa403d977@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Shivesh <chanelshivesh@gmail.com>
+To: andy@kernel.org, gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: [PATCH] staging: fbtft: fix checkpatch errors in fbtft-bus.c
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -171,42 +84,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/10/26 22:17, Lorenzo Stoakes wrote:
-> The only files which should be including vma.h are the implementation files
-> for the core VMA logic - vma.c, vma_init.c, and vma_exec.c.
-> 
-> This is in order to allow for userland testing of core VMA logic. In this
-> cases, vma_internal.h and vma.h are included, providing both the
-> dependencies upon which the core VMA logic requires and its declarations.
-> 
-> Userland testable VMA logic is achieved by having separate vma_internal.h
-> implementations for userland and kernel.
-> 
-> Callers other than the core VMA implementation should include internal.h
-> instead. This header does not need to include vma_internal.h as it only
-> contains the vma.h declarations, for which the includes already present
-> suffice.
-> 
-> Update code to reflect this, update comments to reflect the fact there are
-> 3 VMA implementation files and document things more clearly.
-> 
-> While we're here, slightly improve the language of the comment describing
-> vma_exec.c.
-> 
-> No functional change intended.
-> 
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> Reviewed-by: Gregory Price <gourry@gourry.net>
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+--===============5043740731053490976==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+From 7e9684b26176644bc92c2285acc7444f3f7ddb4d Mon Sep 17 00:00:00 2001
+From: Shivesh <chanelshivesh@gmail.com>
+Date: Sat, 18 Jul 2026 18:08:04 +0000
+Subject: [PATCH] staging: fbtft: fix checkpatch errors in fbtft-bus.c
 
-But given Mike's efforts [1] I wonder if there's a way to change the vma
-header system in the future to stop requiring users of vma functions to
-include the whole internal.h, while of course still allow the userland
-testability.
+Fix space-related checkpatch errors in macro invocations. When the
+modifier argument is empty, remove the trailing comma to avoid
+'space required after comma' and 'space prohibited before close
+parenthesis' conflicting errors.
 
-[1]
-https://lore.kernel.org/all/20260709-internal-h-v1-0-956d5092782d@kernel.org/
+Signed-off-by: Shivesh <chanelshivesh@gmail.com>
+---
+ drivers/staging/fbtft/fbtft-bus.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
+index 30e436ff19e4..409770891c54 100644
+--- a/drivers/staging/fbtft/fbtft-bus.c
++++ b/drivers/staging/fbtft/fbtft-bus.c
+@@ -62,9 +62,9 @@ out:									      \
+ }                                                                             \
+ EXPORT_SYMBOL(func);
+ 
+-define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
++define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8)
+ define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
+-define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
++define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16)
+ 
+ void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
+ {
+-- 
+2.53.0
 
 
+--===============5043740731053490976==
+Content-Type: application/octet-stream
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="0001-staging-fbtft-fix-checkpatch-errors-in-fbtft-bus.c.patch"
+
+RnJvbSA3ZTk2ODRiMjYxNzY2NDRiYzkyYzIyODVhY2M3NDQ0ZjNmN2RkYjRkIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBTaGl2ZXNoIDxjaGFuZWxzaGl2ZXNoQGdtYWlsLmNvbT4KRGF0
+ZTogU2F0LCAxOCBKdWwgMjAyNiAxODowODowNCArMDAwMApTdWJqZWN0OiBbUEFUQ0hdIHN0YWdp
+bmc6IGZidGZ0OiBmaXggY2hlY2twYXRjaCBlcnJvcnMgaW4gZmJ0ZnQtYnVzLmMKCkZpeCBzcGFj
+ZS1yZWxhdGVkIGNoZWNrcGF0Y2ggZXJyb3JzIGluIG1hY3JvIGludm9jYXRpb25zLiBXaGVuIHRo
+ZQptb2RpZmllciBhcmd1bWVudCBpcyBlbXB0eSwgcmVtb3ZlIHRoZSB0cmFpbGluZyBjb21tYSB0
+byBhdm9pZAonc3BhY2UgcmVxdWlyZWQgYWZ0ZXIgY29tbWEnIGFuZCAnc3BhY2UgcHJvaGliaXRl
+ZCBiZWZvcmUgY2xvc2UKcGFyZW50aGVzaXMnIGNvbmZsaWN0aW5nIGVycm9ycy4KClNpZ25lZC1v
+ZmYtYnk6IFNoaXZlc2ggPGNoYW5lbHNoaXZlc2hAZ21haWwuY29tPgotLS0KIGRyaXZlcnMvc3Rh
+Z2luZy9mYnRmdC9mYnRmdC1idXMuYyB8IDQgKystLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0
+aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL3N0YWdpbmcvZmJ0
+ZnQvZmJ0ZnQtYnVzLmMgYi9kcml2ZXJzL3N0YWdpbmcvZmJ0ZnQvZmJ0ZnQtYnVzLmMKaW5kZXgg
+MzBlNDM2ZmYxOWU0Li40MDk3NzA4OTFjNTQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvc3RhZ2luZy9m
+YnRmdC9mYnRmdC1idXMuYworKysgYi9kcml2ZXJzL3N0YWdpbmcvZmJ0ZnQvZmJ0ZnQtYnVzLmMK
+QEAgLTYyLDkgKzYyLDkgQEAgb3V0OgkJCQkJCQkJCSAgICAgIFwKIH0gICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIFwKIEVYUE9SVF9TWU1CT0woZnVuYyk7CiAKLWRlZmluZV9mYnRmdF93cml0ZV9yZWcoZmJ0
+ZnRfd3JpdGVfcmVnOF9idXM4LCB1OCwgdTgsICkKK2RlZmluZV9mYnRmdF93cml0ZV9yZWcoZmJ0
+ZnRfd3JpdGVfcmVnOF9idXM4LCB1OCwgdTgpCiBkZWZpbmVfZmJ0ZnRfd3JpdGVfcmVnKGZidGZ0
+X3dyaXRlX3JlZzE2X2J1czgsIF9fYmUxNiwgdTE2LCBjcHVfdG9fYmUxNikKLWRlZmluZV9mYnRm
+dF93cml0ZV9yZWcoZmJ0ZnRfd3JpdGVfcmVnMTZfYnVzMTYsIHUxNiwgdTE2LCApCitkZWZpbmVf
+ZmJ0ZnRfd3JpdGVfcmVnKGZidGZ0X3dyaXRlX3JlZzE2X2J1czE2LCB1MTYsIHUxNikKIAogdm9p
+ZCBmYnRmdF93cml0ZV9yZWc4X2J1czkoc3RydWN0IGZidGZ0X3BhciAqcGFyLCBpbnQgbGVuLCAu
+Li4pCiB7Ci0tIAoyLjUzLjAKCg==
+
+--===============5043740731053490976==--
