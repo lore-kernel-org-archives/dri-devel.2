@@ -4,97 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 184F2C4450A
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 05:58:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4144BC4450A
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 06:00:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B78D10E537;
-	Sat, 18 Jul 2026 05:58:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A884410E538;
+	Sat, 18 Jul 2026 06:00:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TuAMKhqI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MXfADJtX";
 	dkim-atps=neutral
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
- [209.85.128.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55A3C10E537
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 05:58:06 +0000 (UTC)
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-80dc4a68e4aso69279837b3.0
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 22:58:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784354285; cv=none;
- d=google.com; s=arc-20260327;
- b=dbItJ7qtxkoxB75Pe66WREiSRUpeV+SNOGa98jRN+tRnQNy27W2HSzmk7UOvksFKUe
- xffcgJkiBdg7TKhZ0ZaotqnZDdIcxZX3xLxj6zWlvQ9UiiMC9ucqhtLejNM/2gkGSY+X
- Oww/4JbDmHlI4q8p+NRYVqXrlQFuy3/oUwJm2I8jyli6Ag5PVl22WrbRntlTItX9iT0W
- M2Z4+dBr8Q50LKynmZ75wuKIlVQd2w9/gCaNGUn0gfEFiQqx4rmU/iAdaBh221pyk825
- 3i7K6krVrXPLiiZoD3IgdLdXnSPv4lN1CynDjam7WjWB2D4QzWeASa5aQ5ZNF096qRll
- D/4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=4fTSbd1hQzwSiKsFWedqRNWkzxWybiWf8eD0dZAiX2c=;
- fh=OF4/T1bLG0usyy/6DD2sZEshjeB8g6PCQ2PEgMkcTfI=;
- b=foS6eOzzNZ6B3JF2wQyfWb19HVo+tEx7HfcNKkS9yhKKIOmxBKcCXjo87HJXVchOj8
- Yx6CRqYE44BnHh0XZGXy/UhEZNoDckHegjOCxPOAkXUshy05HeTJ4vJ2Fi6j5DHyVSvR
- ZLT+FSL6g0t6z9fgpu3cP5m4PFewMt9mE96PpyrblpnmokDxzThS2xIDKFiQVcYs3P6F
- DLpJTvlkoIiCiHi645CST98hLlQeWyu+Zht0MrBVAb+cFRG8jm3Zdc/GvBH10R7QhG4x
- AezPLUuJKAU5uxUshhHmGw5InDHmmet+8Yg8KANZCSZ0ni7nlyTeSTWu1/ZkNfNq+dSs
- 77xA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784354285; x=1784959085; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=4fTSbd1hQzwSiKsFWedqRNWkzxWybiWf8eD0dZAiX2c=;
- b=TuAMKhqIeqCmy03U4jzvAO5xxq4xrsrbg7/6SgYBYKmo0fCl+QzNIwC/T++w+vH0km
- voNOZG0mtIF3/EWXMArF/i+f2Lyw2sot9kiOwOBm0a50uSVfdWntCh4Q+2l+OQhmC0Qj
- n+TCv5abT2PqAyOo3Tpyj4T7k3oZO+VoY5Ytu1koZ8b4zOO/tTdA9jCD0A/GbZyPvjLx
- KGlAAZ0i1ju+4CHPCpp48SWm4TeOBTyeY/uC1hmWMES5zv9w2QG4mM3A1ogBgT3uHy6F
- 8tVKlVbl/eZ6hY87pKHGRMAABEnQaNHpYTwtRNHKzp7kmNNI6IrTu7q//wGMsHhSg7zD
- 08cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784354285; x=1784959085;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=4fTSbd1hQzwSiKsFWedqRNWkzxWybiWf8eD0dZAiX2c=;
- b=HXCMwDmMyRBi5eX4sLVR5uT18qMu0zDs1atsyp06icSIs8FbrW5uSr7UedJbbbsm7U
- qrdbwxhLp9ZviR4GdfgMkjRsaLkfLTLyUYxuqaov4s8hHhbiY9APad7Xzut7vEB2Mdin
- h1PjHNfg0VyqHGS4iYtsRf49abPsvbq8iikrrI7/zHkamj7Yt2Lxtom7ASij4LjLv+sB
- wHyhH3vJf8M+c39hpy3O8VZ1xxZshNoPglJPeyjVwzbBJOqvaJ6uEhKgpkjfOD7UVTzP
- b5bU3gWsTRb21xDEa3bvYBEsdzSOVTwA1jQSMvyzLPXqM61p50HbKirJfgOqA/hHBfvI
- MOFQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrpHt2jTbLF+Ms4p73iVQL+4LK9vMhlsFoKceape2i9C4ro3123G0m4Fdn7Ql32tgQXAaRDXEh1Ruw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwWx3x7VnI3nHEV15wpKht3Ta+Z+gAG9FFEmVth0e4m8eYWgB5x
- 43LzVzSt0Lor1kFcbjHYJeS7jX0OfekxwHZ52LFb+0/A4CoxYKuNVARwjCGc79zQGcs34TQ7ngt
- xaO+LRUtg3gbDfdeUDCT6qVhbxzoCAE0=
-X-Gm-Gg: AfdE7cl29jBywQjtSHysuy9Ad0AnTnuzKjUXwzTWxxWf9zH/+UdIjIYXGfLbWWmNLEG
- 5ZzcF2F++B4CdXFJU5jtBIu+4+ZSh6BaKbJ5/f67oWYkE1n3i20IR8x9LuxCqM9dQzE8zKgVaCx
- 3w79b7ToOnhO4FCrPEl2A3Aow80Wg8tbAdJ7FWPrhNNeldaNLvYMP94mwnHm/4Jgwh7IxKysW/z
- isD1e1ZSwtYrt54T4XgULMwk3zHUrhhr/QiJ6Fko8mC4vswsMq4AH0AIRGskU7/
-X-Received: by 2002:a05:690c:c4cd:b0:81d:2537:1e76 with SMTP id
- 00721157ae682-81ef2662199mr20418937b3.53.1784354285107; Fri, 17 Jul 2026
- 22:58:05 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260713160630.1362131-1-lgs201920130244@gmail.com>
- <9e5ff763-b51c-4161-b56d-8e3575daea77@igalia.com>
-In-Reply-To: <9e5ff763-b51c-4161-b56d-8e3575daea77@igalia.com>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Sat, 18 Jul 2026 13:57:53 +0800
-X-Gm-Features: AUfX_mwlejmZV2urG6HirUinPfQVMz1V0GQFM2BeydczlyOcQ51A78CCtszAK5c
-Message-ID: <CANUHTR-i9UvFgR68SQ9qR_KKD8o3PsJZianH873NUa4DhW-Yiw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/v3d: release CPU job resources on pre-init failures
-To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
-Cc: Melissa Wen <mwen@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Iago Toral Quiroga <itoral@igalia.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48B0810E538
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 06:00:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B5F22433D7;
+ Sat, 18 Jul 2026 06:00:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 545631F000E9;
+ Sat, 18 Jul 2026 06:00:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784354422;
+ bh=Fi3mB6314gmGwmTOUwOcuLHMY2UGgoza6zEQ8FZJlfc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MXfADJtXdPlb4vN1FgjhtIcDGURjsPr44MXMKE1r33s2jfgoJ1dW5+z3ajcqcfQEp
+ YVI0zuqsDJc4y6TZILv7O+HqzKTgofnm45cU2aYelEHerUi6bOl2Q3wWCXftPzkO5W
+ kGL51vBUO7353nAkA1xmovga6zqX0TVHFpciDAeVKuveePPlC8nZeXh8OKyKw5YH2r
+ Kgh/ETlPsQbJ8weXdp7PTJHVIdHQKxxKmTpZ6KefwUcQrCZXVYc6IJJLhhfPkAQQei
+ e7J12fgpoVhx4QJFyHuhejjpUc9cdpuTRctN5nExexHoNZwfz+90uegbKynSxyzC8S
+ Qcbq/eU+PlROw==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v2 2/4] rust: maple_tree: Add load_rcu()
+To: "Boqun Feng" <boqun@kernel.org>
+Cc: ojeda@kernel.org, media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260718053247.25154-3-boqun@kernel.org>
+References: <20260718053247.25154-1-boqun@kernel.org>
+ <20260718053247.25154-3-boqun@kernel.org>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Sat, 18 Jul 2026 06:00:21 +0000
+Message-Id: <20260718060022.545631F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,101 +53,171 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Ma=C3=ADra,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Critical] Lockless `load_rcu()` leads to use-after-free on maple tree in=
+ternal nodes because the tree is not initialized with `MT_FLAGS_USE_RCU`.
+- [High] The `ForeignOwnableRcu` trait is missing the `unsafe` keyword, all=
+owing safe code to violate RCU memory safety guarantees.
+- [High] `RcuBox`'s `Drop` implementation bypasses the custom `Allocator` p=
+arameter when dropping types that do not require drop logic.
+--
 
-On Wed, 15 Jul 2026 at 21:37, Ma=C3=ADra Canal <mcanal@igalia.com> wrote:
->
-> Hi Guangshuo,
->
-> On 13/07/26 13:05, Guangshuo Li wrote:
-> > The changes referenced by the Fixes tags moved CPU job resource cleanup
-> > to v3d_cpu_job_free(), the CPU job kref destructor.
-> >
-> > However, CPU job extensions are parsed before v3d_job_init() has
-> > successfully installed that destructor. Timestamp and performance query
-> > arrays, their syncobj references, and the indirect CSD GEM reference ca=
-n
-> > therefore be acquired before the CPU job is managed by the kref cleanup
-> > path.
-> >
-> > If a later pre-init validation fails, or if v3d_job_init() itself fails=
-,
-> > the CPU job can be cleaned up or deallocated without running
-> > v3d_cpu_job_free(). Those extension resources are then leaked.
-> >
-> > Move the CPU-job-owned resource release into a helper and call it both
-> > from the normal CPU job destructor and from the pre-init error paths.
-> >
-> > Fixes: b0fe80c0b925 ("drm/v3d: Fix use-after-free of CPU job query arra=
-ys on error path")
-> > Fixes: 6eb6e5acafa4 ("drm/v3d: Release indirect CSD GEM reference on CP=
-U job free")
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
-> > v2:
-> >    - Rebase onto drm-misc-fixes.
-> >    - Fold the indirect CSD GEM pre-init failure fix into this patch.
-> >    - Drop unnecessary pointer and count resets after releasing resource=
-s,
-> >      as suggested by Ma=C3=ADra Canal.
-> >
-> >   drivers/gpu/drm/v3d/v3d_submit.c | 17 +++++++++++++----
-> >   1 file changed, 13 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d=
-_submit.c
-> > index 7682b24f13ec..2b1dc92d4709 100644
-> > --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> > +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-> > @@ -127,11 +127,8 @@ v3d_render_job_free(struct kref *ref)
-> >   }
-> >
-> >   static void
-> > -v3d_cpu_job_free(struct kref *ref)
-> > +v3d_cpu_job_free_resources(struct v3d_cpu_job *job)
-> >   {
-> > -     struct v3d_cpu_job *job =3D container_of(ref, struct v3d_cpu_job,
-> > -                                            base.refcount);
-> > -
-> >       v3d_timestamp_query_info_free(&job->timestamp_query,
-> >                                     job->timestamp_query.count);
-> >
-> > @@ -140,7 +137,15 @@ v3d_cpu_job_free(struct kref *ref)
-> >
-> >       if (job->indirect_csd.indirect)
-> >               drm_gem_object_put(job->indirect_csd.indirect);
-> > +}
-> > +
-> > +static void
-> > +v3d_cpu_job_free(struct kref *ref)
-> > +{
-> > +     struct v3d_cpu_job *job =3D container_of(ref, struct v3d_cpu_job,
-> > +                                            base.refcount);
-> >
-> > +     v3d_cpu_job_free_resources(job);
-> >       v3d_job_free(ref);
-> >   }
-> >
-> > @@ -1313,6 +1318,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void=
- *data,
-> >               ret =3D v3d_get_extensions(file_priv, args->extensions, &=
-se, cpu_job);
-> >               if (ret) {
-> >                       drm_dbg(dev, "Failed to get extensions.\n");
-> > +                     v3d_cpu_job_free_resources(cpu_job);
->
-> You shouldn't call v3d_cpu_job_free_resources() if v3d_get_extensions()
-> failed, as it handles the cleaning path internally.
->
-> Best regards,
-> - Ma=C3=ADra
+--- Patch [2]: [RFC PATCH v2 2/4] rust: maple_tree: Add load_rcu() ---
+commit fcc71907e345f6a007c4675e0956efaca9ebf22c
+Author: Alice Ryhl <aliceryhl@google.com>
 
-Thank you for the review. You are right that v3d_get_extensions() already
-handles the cleanup internally. I will remove the extra
-v3d_cpu_job_free_resources() call and send a v3.
+rust: maple_tree: Add load_rcu()
 
-Best regards,
-Guangshuo
+This patch introduces a lockless load_rcu() method to the MapleTree,
+assuming RCU-safe containers are used. The patch series also adds an
+RcuBox type and a ForeignOwnableRcu trait to support RCU-based freeing
+of box contents.
+
+> diff --git a/rust/kernel/maple_tree.rs b/rust/kernel/maple_tree.rs
+> index 265d6396a78a1..1499191b8935a 100644
+> --- a/rust/kernel/maple_tree.rs
+> +++ b/rust/kernel/maple_tree.rs
+[ ... ]
+> @@ -233,6 +237,54 @@ pub fn erase(&self, index: usize) -> Option<T> {
+>          unsafe { T::try_from_foreign(ret) }
+>      }
+> =20
+> +    /// Load the value at the given index with rcu.
+[ ... ]
+> +    #[inline]
+> +    pub fn load_rcu<'rcu>(
+> +        &self,
+> +        index: usize,
+> +        _rcu: &'rcu rcu::Guard,
+> +    ) -> Option<T::RcuBorrowed<'rcu>>
+> +    where
+> +        T: ForeignOwnableRcu,
+> +    {
+> +        // SAFETY: `self.tree` contains a valid maple tree.
+> +        let ret =3D unsafe { bindings::mtree_load(self.tree.get(), index=
+) };
+
+[Severity: Critical]
+Does this code cause a use-after-free on maple tree internal nodes?
+
+Because load_rcu() executes bindings::mtree_load() without acquiring the
+tree's spinlock, the tree must be initialized with bindings::MT_FLAGS_USE_R=
+CU
+to be safe against concurrent writers.
+
+However, MapleTree::new() initializes the tree without this flag:
+
+rust/kernel/maple_tree.rs:MapleTree::new() {
+    ...
+    tree <- Opaque::ffi_init(|slot| unsafe { bindings::mt_init_flags(slot, =
+0) }),
+    ...
+}
+
+Because the tree is in non-RCU mode, writers will synchronously free intern=
+al
+nodes via kfree(), causing load_rcu() to dereference freed memory during its
+lockless traversal.
+
+> +        if ret.is_null() {
+> +            return None;
+> +        }
+> +
+> +        // SAFETY: If the pointer is not null, then it references a vali=
+d instance of `T`. It is
+> +        // safe to borrow the instance for 'rcu because the signature of=
+ this function enforces that
+> +        // the borrow does not outlive an rcu grace period.
+> +        Some(unsafe { T::rcu_borrow(ret) })
+> +    }
+> +
+>      /// Lock the internal spinlock.
+>      #[inline]
+>      pub fn lock(&self) -> MapleGuard<'_, T> {
+> diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs
+> index 2bae76d229f09..42f6bbc83f71f 100644
+> --- a/rust/kernel/sync/rcu.rs
+> +++ b/rust/kernel/sync/rcu.rs
+[ ... ]
+> @@ -66,3 +78,25 @@ pub fn synchronize_rcu() {
+>      // SAFETY: `synchronize_rcu()` is always safe to be called from proc=
+ess context.
+>      unsafe { bindings::synchronize_rcu() };
+>  }
+> +
+> +/// Declares that a pointer type is rcu safe.
+> +pub trait ForeignOwnableRcu: ForeignOwnable {
+
+[Severity: High]
+Should this trait be marked unsafe to enforce the RCU deferral contract?
+
+The ForeignOwnableRcu trait promises that removing the node will not
+invalidate the object until an RCU grace period elapses, allowing load_rcu()
+to safely borrow it.
+
+Because ForeignOwnableRcu is a safe trait, developers can implement it for
+types that drop synchronously (like Box<T>, which already implements the
+unsafe trait ForeignOwnable).
+
+Doing so violates the safety assumptions of load_rcu(), causing a
+use-after-free without any unsafe block in the user's code.
+
+> +    /// Type used to immutably borrow an rcu-safe value that is currentl=
+y foreign-owned.
+> +    type RcuBorrowed<'a>
+> +    where
+> +        Self: 'a;
+> +
+[ ... ]
+> diff --git a/rust/kernel/sync/rcu/rcu_box.rs b/rust/kernel/sync/rcu/rcu_b=
+ox.rs
+> new file mode 100644
+> index 0000000000000..cb1fd422480a8
+> --- /dev/null
+> +++ b/rust/kernel/sync/rcu/rcu_box.rs
+[ ... ]
+> +impl<T: Send, A: Allocator> Drop for RcuBox<T, A> {
+> +    fn drop(&mut self) {
+> +        // SAFETY: The `rcu_head` field is in-bounds of a valid allocati=
+on.
+> +        let rcu_head =3D unsafe { &raw mut (*self.0.as_ptr()).rcu_head };
+> +        if core::mem::needs_drop::<T>() {
+> +            // SAFETY: `rcu_head` is the `rcu_head` field of `RcuBoxInne=
+r<T>`. All users will be
+> +            // gone in an rcu grace period. This is the destructor, so w=
+e may pass ownership of the
+> +            // allocation.
+> +            unsafe { bindings::call_rcu(rcu_head, Some(drop_rcu_box::<T,=
+ A>)) };
+> +        } else {
+> +            // SAFETY: All users will be gone in an rcu grace period.
+> +            // TODO: We are luckily since `kvfree_call_rcu()` works on b=
+oth kmalloc and vmalloc,
+> +            // maybe a new `Allocator` method is needed.
+> +            unsafe { bindings::kvfree_call_rcu(rcu_head, self.0.as_ptr()=
+.cast()) };
+
+[Severity: High]
+Does this bypass the custom Allocator parameter when dropping types that do
+not require drop logic?
+
+If an RcuBox<T, A> is created with a custom allocator A (e.g., a DMA or
+memory pool allocator) where T does not implement Drop, the code directly
+branches to kvfree_call_rcu().
+
+This hardcodes the assumption that the memory belongs to kmalloc or vmalloc.
+When the RcuBox is freed, kvfree_call_rcu() will attempt to free memory it
+does not own, resulting in allocator corruption.
+
+> +        }
+> +    }
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718053247.2515=
+4-1-boqun@kernel.org?part=3D2
