@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D476C44521
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 23:53:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 178F9C44521
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 23:54:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B61310E61A;
-	Sat, 18 Jul 2026 23:53:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A28110E61D;
+	Sat, 18 Jul 2026 23:54:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SqjJU6OM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TU2/0IaU";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D66110E61A
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 23:53:14 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A529510E61D
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 23:54:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C192C40D7B;
- Sat, 18 Jul 2026 23:53:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C31F1F000E9;
- Sat, 18 Jul 2026 23:53:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0EF4760008;
+ Sat, 18 Jul 2026 23:54:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5664F1F000E9;
+ Sat, 18 Jul 2026 23:54:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784418793;
- bh=RRB0k3IsUMHH6EVNPRN7+g/nJgeU96S9NUOTSJiwryU=;
+ s=k20260515; t=1784418880;
+ bh=nHUy++hDRX3zDmfeKYf9s2cnoNqoIu2sJqwOijvW2f4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SqjJU6OMQ41W0h0XmXYOFpLumZsplwHLdfAuJOQ4DRWVse5JlwS6EtZhnmd3RmpHI
- 5AXMrmfdopkkqD193v5uIy7EQNpuauOM+tmFohwzecMK1S7deAIuvg+zjYgdWKYnLo
- p1+68MUcVdkyZ4PK2R0PGbp5DblGLuWT+UelWnVDbwn+UYWv4MSqP9tnltgEvv4EON
- stGK5dOXpjDARDxejikaFgQplFiG/n5zPNJX/tQnThbbYX54yaiqp5XXgcQPjuTrka
- q+UoqPfHIweYLuCur7cj9RbGylmDDZ5do9/tdMXn7ajlq784UlonVR8iCWOIcB1psd
- JROTRZAKtVuSA==
+ b=TU2/0IaU8zD0v85PljVEtfywQY4KiZ1DQDKVaQBmTPPKH7JnlKNg9dVti5XcizzRE
+ ATUVK4n59C1hrUqp7okt0VDtvKMAIxfjprkkdrp0CjYJqA/waON5y8zpWlu3b4sASf
+ tsa96v1wORx8aVOv8UM242iQ5juDZ87YdoCCeZWpWkLT+0dZJh3B/bGUNWgljlKFNB
+ 2ExPbKn8ezpakLXBZp1ZiujKKrPNHm/KOrapof4Iy7Rjbw4tkHh20R/gPWsgDX4zeA
+ iPKMkyMSR0VS6md2HjRGFIYqqZrmuvJblDjvmJgubxRhiY8ePcujv9QTBN11kySZfK
+ QB7Hl+ebbJqfQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 13/15] drm/meson: remove dependency on DRM simple helpers
+Subject: Re: [PATCH 07/15] drm/tidss: remove dependency on DRM simple helpers
 To: "Diogo Silva" <diogompaissilva@gmail.com>
-Cc: wsa+renesas@sang-engineering.com, linux-amlogic@lists.infradead.org,
- imx@lists.linux.dev, neil.armstrong@linaro.org,
- dri-devel@lists.freedesktop.org, Frank.Li@kernel.org
-In-Reply-To: <20260719-drm_simple_encoder_init-v1-13-a78c509e3062@gmail.com>
+Cc: linux-amlogic@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ wsa+renesas@sang-engineering.com, imx@lists.linux.dev, Frank.Li@kernel.org,
+ neil.armstrong@linaro.org
+In-Reply-To: <20260719-drm_simple_encoder_init-v1-7-a78c509e3062@gmail.com>
 References: <20260719-drm_simple_encoder_init-v1-0-a78c509e3062@gmail.com>
- <20260719-drm_simple_encoder_init-v1-13-a78c509e3062@gmail.com>
+ <20260719-drm_simple_encoder_init-v1-7-a78c509e3062@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 23:53:13 +0000
-Message-Id: <20260718235313.5C31F1F000E9@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 23:54:39 +0000
+Message-Id: <20260718235440.5664F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,61 +63,76 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Devm lifecycle mismatch with DRM device leads to a Use-After-Free =
-of the encoder structure if userspace holds the DRM file descriptor open af=
-ter the device unbinds.
+- [High] Use-After-Free during teardown due to object lifetime mismatch bet=
+ween `drm_bridge` and `drm_encoder`.
 --
 
---- Patch [13]: [PATCH 13/15] drm/meson: remove dependency on DRM simple he=
-lpers ---
-commit 2b596eefd506c3e256e80a53bf84b95edfa9824a
+--- Patch [7]: [PATCH 07/15] drm/tidss: remove dependency on DRM simple hel=
+pers ---
+commit e6abfa8d59d485697fcfe2a3a199e7f378a7e23a
 Author: Diogo Silva <diogompaissilva@gmail.com>
 
-drm/meson: remove dependency on DRM simple helpers
+drm/tidss: remove dependency on DRM simple helpers
 
-The simple KMS helpers are deprecated because they only add an intermediate
-layer between drivers and atomic modesetting. Open-code
-drm_simple_encoder_init() by calling drm_encoder_init() directly and
-providing driver-local drm_encoder_funcs.
+The patch removes the deprecated simple KMS helpers from the tidss driver.
+It replaces drm_simple_encoder_init() with a direct call to
+drm_encoder_init(), providing driver-local drm_encoder_funcs to handle
+cleanup.
 
-> diff --git a/drivers/gpu/drm/meson/meson_encoder_cvbs.c b/drivers/gpu/drm=
-/meson/meson_encoder_cvbs.c
-> index 22cacb1660c4f..cdb84d2283f83 100644
-> --- a/drivers/gpu/drm/meson/meson_encoder_cvbs.c
-> +++ b/drivers/gpu/drm/meson/meson_encoder_cvbs.c
+> diff --git a/drivers/gpu/drm/tidss/tidss_encoder.c b/drivers/gpu/drm/tids=
+s/tidss_encoder.c
+> index 698f8d964ca00..10dbcc6cdf6a8 100644
+> --- a/drivers/gpu/drm/tidss/tidss_encoder.c
+> +++ b/drivers/gpu/drm/tidss/tidss_encoder.c
 [ ... ]
-> @@ -257,8 +261,9 @@ int meson_encoder_cvbs_probe(struct meson_drm *priv)
->  	meson_encoder_cvbs->priv =3D priv;
+> @@ -81,6 +81,10 @@ static const struct drm_bridge_funcs tidss_bridge_func=
+s =3D {
+>  	.atomic_destroy_state		=3D drm_atomic_helper_bridge_destroy_state,
+>  };
 > =20
->  	/* Encoder */
-> -	ret =3D drm_simple_encoder_init(priv->drm, &meson_encoder_cvbs->encoder,
-> -				      DRM_MODE_ENCODER_TVDAC);
-> +	ret =3D drm_encoder_init(priv->drm, &meson_encoder_cvbs->encoder,
-> +			       &meson_encoder_cvbs_funcs,
-> +			       DRM_MODE_ENCODER_TVDAC, NULL);
+> +static const struct drm_encoder_funcs tidss_encoder_funcs =3D {
+> +	.destroy =3D drm_encoder_cleanup,
+> +};
+> +
+>  int tidss_encoder_create(struct tidss_device *tidss,
+>  			 struct drm_bridge *next_bridge,
+>  			 u32 encoder_type, u32 possible_crtcs)
+> @@ -95,8 +99,8 @@ int tidss_encoder_create(struct tidss_device *tidss,
+>  	if (IS_ERR(t_enc))
+>  		return PTR_ERR(t_enc);
+> =20
+> -	ret =3D drm_simple_encoder_init(&tidss->ddev, &t_enc->encoder,
+> -				      encoder_type);
+> +	ret =3D drm_encoder_init(&tidss->ddev, &t_enc->encoder,
+> +			       &tidss_encoder_funcs, encoder_type, NULL);
 
 [Severity: High]
-This is a pre-existing issue, but does this create a use-after-free risk
-during device unbind?
+This is a pre-existing issue, but can this lead to a use-after-free during
+teardown due to mismatched object lifetimes?
 
-In meson_encoder_cvbs_probe(), the encoder is embedded within
-meson_encoder_cvbs, which is allocated via devm_drm_bridge_alloc() and tied
-to the device lifetime. However, by using drm_encoder_init(), the encoder
-is registered with the DRM device's lifecycle.
+In tidss_encoder_create(), the t_enc structure is allocated via
+devm_drm_bridge_alloc(), which ties the memory's lifetime to the bridge's
+kref.
 
-If a driver unbind occurs (e.g., via sysfs) while userspace holds an open
-DRM file descriptor, devres will execute and free the bridge memory along
-with the embedded encoder. Later, when the file descriptor is closed,
-drm_mode_config_cleanup() iterates over the encoder_list and attempts to
-call the encoder's destroy function on the already freed memory.
+Then the embedded encoder is initialized here and its destroy callback is s=
+et
+to drm_encoder_cleanup() in tidss_encoder_funcs.
 
-Could we use drmm_encoder_init() instead to safely tie the encoder's
-lifetime to the DRM device?
+If the driver unbinds while a userspace application holds a DRM file
+descriptor, devm drops the initial bridge references. Later, when the final
+DRM reference is dropped, drm_mode_config_cleanup() calls the encoder's
+destroy callback.
 
-This same devm vs DRM lifecycle mismatch is also present in
-meson_encoder_dsi_probe() in drivers/gpu/drm/meson/meson_encoder_dsi.c and
-meson_encoder_hdmi_probe() in drivers/gpu/drm/meson/meson_encoder_hdmi.c.
+Inside drm_encoder_cleanup(), it detaches the bridge. This drops the final
+kref and frees the t_enc container. However, drm_encoder_cleanup() then
+continues to access the freed encoder memory, causing a use-after-free.
+
+Does this sequence cause memory corruption during teardown?
+
+>  	if (ret)
+>  		return ret;
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260719-drm_simple=
-_encoder_init-v1-0-a78c509e3062@gmail.com?part=3D13
+_encoder_init-v1-0-a78c509e3062@gmail.com?part=3D7
