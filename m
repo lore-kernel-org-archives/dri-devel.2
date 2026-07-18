@@ -4,42 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC9DDC4451C
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 07:27:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41EE7C4451B
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 07:50:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC1E910E543;
-	Sat, 18 Jul 2026 07:27:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A87C10E54A;
+	Sat, 18 Jul 2026 07:50:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jBLBwgSr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y93DPKIV";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3AE510E543
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 07:27:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF3810E54A
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 07:50:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 968FC6001A;
- Sat, 18 Jul 2026 07:27:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A5911F000E9;
- Sat, 18 Jul 2026 07:27:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 82C6B6001A;
+ Sat, 18 Jul 2026 07:50:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60C661F000E9;
+ Sat, 18 Jul 2026 07:49:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784359640;
- bh=VmJRJWP8ytBBxcxwmjQ5RL2CcvcS4FQK9hmZwjN5pPw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jBLBwgSrjP7dRGk1qioi+rqT9efm/ImSCIkx41vsZnHxLCYJm5vMXvlts5GP6vkES
- +c876+muLERI35O44LuaJljjBwMppXssgze+KnuvPLGeQCBf//OfCm+HcywZIV4bl+
- jtGjaIBvBrRJhCJ4s0HvU394RHEBPQQPDlhnrV0A5/N4fjIgpD9Zd5iGK6Pck+LZDj
- 9zj56riHilm/XMadTCBPd8UGWnSah3KvY3spiRGt7cHDIVntUzto7iSAt/0t4mpLzA
- p2R5GBN65b7PK1DGqnMCVUsvW20bc4nJo8KsKqTC4f52hh0eqDUlDymLwYQ9qOSZ1c
- QwrxIIwzGuvMg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] drm/v3d: release CPU job resources on pre-init failures
-To: "Guangshuo Li" <lgs201920130244@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260718071047.3037514-1-lgs201920130244@gmail.com>
-References: <20260718071047.3037514-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 07:27:19 +0000
-Message-Id: <20260718072720.2A5911F000E9@smtp.kernel.org>
+ s=k20260515; t=1784361000;
+ bh=AHie92NtWc9kV2QZnhQ58NiM0LWOumFCPzL2zEinWuk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=Y93DPKIVRYXCXxAkmwRIJC2IUhY2mAcyPq8Za6LHZxBZLu9q0Xj8FbSCjVuIl81+P
+ RXq+HjGlfIJnQiHVqi0WtISYManHrK4U65hv0M8rP+CAsZzpUU7lESMFlF+rlIfplk
+ AXbONeccwOxJCHnRlAzJdJvbZyXKSkt7ngxRfU8Fbcr9ysWE9XA+3Q/qfxHuQilI6s
+ o5lHXFRlRZMwtW8SEsKdr1MoD25CDm4AhVeM1aMicvFu2Lme9wbvSBd6t2vIiCMlpj
+ CWO5k/2kKovAePuSWkKO3M+Vc1ZQjfw/1N7CIv3aWuC6b9NyXMzPJDG8JjVMS7xOA+
+ uNhZQRMaV3BDQ==
+Message-ID: <cfebdb15-38f1-470c-ae90-9ef06a612398@kernel.org>
+Date: Sat, 18 Jul 2026 09:49:49 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 1/8] dt-bindings: npu: rockchip: add
+ rockchip,rk3576-rknn-core
+To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
+ heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org,
+ p.zabel@pengutronix.de, ogabbay@kernel.org
+Cc: chaoyi.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260718031146.3368811-1-gahing@gahingwoo.com>
+ <20260718031146.3368811-2-gahing@gahingwoo.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260718031146.3368811-2-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,121 +106,42 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On 18/07/2026 05:11, Jiaxing Hu wrote:
+> Document the RK3576 NPU core: add rockchip,rk3576-rknn-core to the
+> compatible enum.  The RK3576 has no NPU SRAM supply, so make sram-supply
+> required only for rockchip,rk3588-rknn-core
 
-Pre-existing issues:
-- [High] Missing `v3d_job_deallocate()` on pre-init validation error paths =
-causes a kernel panic in `drm_sched_job_cleanup()`.
-- [High] Incomplete cleanup on `v3d_get_extensions()` failure causes resour=
-ce leaks and deadlocks for chained extensions.
-- [High] Early validation failures for INDIRECT_CSD CPU jobs bypass WW mute=
-x unreservation and leak nested jobs.
---
+Full stop here.
 
---- Patch [1]: [PATCH v3] drm/v3d: release CPU job resources on pre-init fa=
-ilures ---
-commit 0d9b615d1fa0aedf4a08be6bbd88de15b262217c
-Author: Guangshuo Li <lgs201920130244@gmail.com>
+ via an allOf/if-then instead
+> of dropping it from the shared required list (which would have weakened
+> validation for RK3588).
 
-drm/v3d: release CPU job resources on pre-init failures
+This is redundant.
 
-This commit extracts CPU job resource cleanup into a new helper function
-and calls it on pre-init failure paths in the drm/v3d driver. This helps
-prevent leaking extension resources if validation fails before the job
-destructor is installed.
+...
 
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
-ubmit.c
-> index 7682b24f13ec5..77e94c25b2afd 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+>    - npu-supply
+> -  - sram-supply
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: rockchip,rk3588-rknn-core
+> +    then:
+> +      required:
+> +        - sram-supply
+>  
 
-[ ... ]
+else:
+  properties:
+    sram-supply: false
 
-> @@ -1320,12 +1326,14 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void=
- *data,
 
-[Severity: High]
-This is a pre-existing issue, but since the v3 patch notes mention removing
-v3d_cpu_job_free_resources() from the v3d_get_extensions() error path,
-can an error during extension parsing leak resources?
-
-If v3d_get_extensions() loops through a chain of user extensions and a later
-extension fails to parse, it returns an error immediately. Are the resources
-and reservations acquired by previously parsed extensions in the chain unro=
-lled
-and freed?
-
-For example, if an INDIRECT_CSD extension parses successfully but a
-subsequent extension fails, it appears the BO reservations locked in
-v3d_setup_csd_jobs_and_bos() are never unlocked, which could lead to a WW
-mutex deadlock. Does v3d_get_extensions() handle chained extension failures
-fully?
-
->  	/* Every CPU job must have a CPU job user extension */
->  	if (!cpu_job->job_type) {
->  		drm_dbg(dev, "CPU job must have a CPU job user extension.\n");
-> +		v3d_cpu_job_free_resources(cpu_job);
->  		ret =3D -EINVAL;
->  		goto fail;
->  	}
-> =20
->  	if (args->bo_handle_count !=3D cpu_job_bo_handle_count[cpu_job->job_typ=
-e]) {
->  		drm_dbg(dev, "This CPU job was not submitted with the proper number of=
- BOs.\n");
-> +		v3d_cpu_job_free_resources(cpu_job);
->  		ret =3D -EINVAL;
->  		goto fail;
->  	}
-
-[Severity: High]
-This is a pre-existing issue, but does jumping to the fail label here leave
-cpu_job allocated and crash during cleanup?
-
-When jumping to the fail block, cpu_job is not set to NULL and
-v3d_job_deallocate() is not called. The fail block executes:
-
-fail:
-        v3d_job_cleanup((void *)cpu_job);
-
-This eventually calls drm_sched_job_cleanup(&job->base). Because
-v3d_job_init() has not been called yet, job->s_fence is NULL. Can this
-result in a NULL pointer dereference and kernel panic in
-drm_sched_job_cleanup()?
-
-[Severity: High]
-This is also a pre-existing issue, but can these early validation paths leak
-nested jobs and cause deadlocks for INDIRECT_CSD jobs?
-
-When an INDIRECT_CSD extension is parsed earlier, v3d_setup_csd_jobs_and_bo=
-s()
-allocates nested csd_job and clean_job structures and locks their GEM BO
-reservations. If validation fails here, the code jumps to fail, bypassing t=
-he
-fail_unreserve label.
-
-While v3d_cpu_job_free_resources() drops the indirect GEM reference, it
-does not free the nested jobs or unlock their context. At the fail block,
-the local csd_job and clean_job variables are still NULL (they are assigned
-later in the function), so v3d_job_cleanup() does nothing for them. Can
-this permanently leak the jobs and leave the BOs locked?
-
-> @@ -1335,6 +1343,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *=
-data,
->  	ret =3D v3d_job_init(v3d, file_priv, &cpu_job->base,
->  			   v3d_cpu_job_free, 0, &se, V3D_CPU);
->  	if (ret) {
-> +		v3d_cpu_job_free_resources(cpu_job);
->  		v3d_job_deallocate((void *)&cpu_job);
->  		goto fail;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718071047.3037=
-514-1-lgs201920130244@gmail.com?part=3D1
+Best regards,
+Krzysztof
