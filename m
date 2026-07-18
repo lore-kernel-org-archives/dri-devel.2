@@ -4,82 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7281DC44529
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B09D8C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A821010E780;
-	Mon, 20 Jul 2026 07:15:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C392010E78F;
+	Mon, 20 Jul 2026 07:15:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PUmpPVPw";
+	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="FLEygAnJ";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="J1Psw1t4";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB1BC10F4DA
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 10:12:20 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4954c0833b4so1688225e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 03:12:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784283139; x=1784887939; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=3RJV9UC3pnAaTAcgCOuWlBvuu7N+6toEb+Gnb0umxzY=;
- b=PUmpPVPwdraTOFSkACpudkOLV107LWXgcmK++RnjSJy3M7Tocpl5OkbWXTUQfjIxH/
- aWDxvgbLmGJIvro4pNzrS8bzRno9K1Zlcc5r/+bPNNmxiH7rTlwmfN9cHmSpa519q+Zd
- sR/dQ7iPKfqz+JmlQ72wDCSJPchA/83re2u/ZyiewN040H5Q1qJ3nWARnYET/Kf4AdHt
- l0GosNB948/WdRfPskAf4K68jLJz1GgBdDYcQOdcy+gKWV/yDLpZ7Kshu7pGLUBFDpgJ
- cYNdnTshnnjcK5hnAG3pSL3Fo6EQB7sbeaTI6kQPdzGgCALzIOo0HXXAJeKJsmY6nXF3
- ftgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784283139; x=1784887939;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=3RJV9UC3pnAaTAcgCOuWlBvuu7N+6toEb+Gnb0umxzY=;
- b=Dwd70SVmJIHipvOhysBldnY5sL86eo/3Uq6ThoRbwOc2WgP7B5cZwZpIFqrpa8RuGO
- npGvRWyngjYW24QwWV2O8ImnKbDtRkmcJmG0S+EuipG5d/HX8GbCqS8DDMBNdZGEdy6A
- uhsRdJrrrBGMawSg512bRvzXkGmXGnsgdn+SVGi7t4953/bwGbANdbXbAVzlkVDzhWwc
- /pz0qSBrZXQvU1svBZDgqvoTLumAZhpepyaoD6Atmnct/TMUMsVsHkL3NP25xiyfgO0V
- /e9iFbfqh0MsJNG8jUGjfGzvOd69DE89/JmnjYnHQbwiI01v68p+hVoPIEwQk6fpRxbS
- 1LWw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro6qez1YCjzNub6BIxq+PuUysclpHhxMsLOcl2NMtkYWJv837z7u5ZmmCKFuaVFWz7cSlfHsEhrUOw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw+vMo64cK5DmfLmfkrAN9aNCicJtvEjwu4oqsaVd0Jebwfqokb
- u3vJjxZmITN3c4NA4iJaaU39Ug4aXcEIf3FXWKUGQU7JvF+bTLrQZ0KQHOk0Chmd
-X-Gm-Gg: AfdE7clqcEYDQH3yEqSDjKa8uPAykOlhHnQOcm0OIj8IGgmfAgpb4nNESWsTdtomy5G
- GosJdbGP6bh1ipbEFdq5q4szQbBW7QUAVGrk0GPkwe6nJKmqb4MHgRfcDg1tvnJ8BSTguJwHqWw
- WYsXblUbscJzcOHP2O2XX9Jnkhc2Hhuf1wbSx/xRhkhc6RrGlFF1kMS4tblkYR83DyNAJw0S2F7
- 3+yPYs62aBDHLa46Y/g0FfVoiUDP0zoc+WoF0k5HmkT5+vMLheFpt6rckKrfQQ5h/e9ShPtvEem
- JxybjfQahWicUCUTxFarBGOcFaFaRySHuDmTpkH2q1RrxglCJUpVcNaVKiuPkvAqyjpOT6eDH6f
- x1ks9leR0MIdcvswUQ4zhmjEmrq0rTQEVLyqHVbu3tXz4F/bD+pSUXcC6PoXpxvcu9v9dUyTPEU
- JGnH0TaADsBnaoD30e4ODq8diRkjHrJ0UA/eHQEg==
-X-Received: by 2002:a05:600d:10c:b0:495:409e:bc80 with SMTP id
- 5b1f17b1804b1-4954a51b852mr13770135e9.37.1784283138775; 
- Fri, 17 Jul 2026 03:12:18 -0700 (PDT)
-Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f63e51986sm2846908f8f.11.2026.07.17.03.12.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jul 2026 03:12:18 -0700 (PDT)
-Date: Fri, 17 Jul 2026 13:12:17 +0300
-From: Michail Tatas <michail.tatas@gmail.com>
-To: Doug Anderson <dianders@chromium.org>
-Cc: michael@amarulasolutions.com, neil.armstrong@linaro.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- jesszhan0024@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/panel: ilitek-ili9805: Use _multi variants
-Message-ID: <aloAAaC1FuDqT8Rd@michalis-linux>
-References: <allWpYxgHfpKughy@michalis-linux>
- <CAD=FV=Wez4s5gUPXN=DuHvHAk4esBMGfh4Rj=ww72UK7VUbOzw@mail.gmail.com>
+Received: from flow-a2-smtp.messagingengine.com
+ (flow-a2-smtp.messagingengine.com [103.168.172.137])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC5E810E516
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 03:21:33 +0000 (UTC)
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailflow.phl.internal (Postfix) with ESMTP id A557113800A8;
+ Fri, 17 Jul 2026 23:12:01 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-05.internal (MEProxy); Fri, 17 Jul 2026 23:12:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:message-id:mime-version:reply-to:subject
+ :subject:to:to; s=fm1; t=1784344321; x=1784347921; bh=O5UO+r1tw5
+ O/LBbUfpvJPgD+I1aOB3b1e+3aqw181G0=; b=FLEygAnJSZ3WKCo+W2zSHa5WC9
+ P3tF7eyq4PE1kVv72cFBOQs3xcA43b/mG17NC/dORUNIIrRlt4nBvXh8aTOL8jyJ
+ DJxVduoydwdPsmwc3x0bk+RijrPJTz9xgYi2Bd00ttiIO95Xgh1k1Kj+/S1am6hX
+ 1WiuKjr+P63CugKP14CpC4TrBcy9qe4wmWJRxdCAzyG0JG0aZar2bdv5IDzstUzc
+ dvPvQWP+ArjC18GfUM7MF/kuzPXRw5tMvxqu1Wxdm7i7K8/9q4GnvQtjirufig7t
+ 3De8usGMdzvW27iNziDdDZ7ysCGd4+DrfIBU9dkndGTDwt3hW7rmdMsCSIhw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+ 1784344321; x=1784347921; bh=O5UO+r1tw5O/LBbUfpvJPgD+I1aOB3b1e+3
+ aqw181G0=; b=J1Psw1t4l+cybF3KE5R7M4Ld8/2R1bibfnmmW0Kdxi1bLjDprRe
+ kYps09OCCqOchCrSTwWm/FXy1Ix+7nM7AcwoDUsZ6LDdI/mm1LY8zVnrHRYNYIqE
+ 0fkCephN6PdwTesWu4e96up7UJKQG30KGeideMor/fQNv/uM8bewZXtToWKtIKnu
+ DDy1zV8ZE3FubV1tLWuW9EkYTrSht+1oohaJN88QBNBamxsOgx0ek1Y+Xt7BGg0p
+ lynYW5LKxDuGo/vlNeBcMbM8PGtndQpDN7Myu5/oLZwQtiKLyipktqUl2i1Zjak8
+ zOYRNjy1rfLYoJpJObGV9HRnd2RM3uz12+g==
+X-ME-Sender: <xms:_u5aavsk84VuFybQ6CtJeID3M4Qo3aUfXIV0s6Qm6ThuodbFxIGuBg>
+ <xme:_u5aag31Mgcwz1Qhw5JvBpOhPYi9gwmDDeooX9ymSntr9350r2aF0rG0EU1A8MQiO
+ b3IDZX9XqAWrG0D-XO214P8a7nRgcsxVEGHSZKN1UEhcTU2bUcJJnk>
+X-ME-Received: <xmr:_u5aaj4SkoUNdd-1i2J9z7jlGLSYQ2xjUvjrFCdSorZT7ZA3GEimZrwL14YTpc6f-Vib_v_JKCPwiREkgyU>
+X-ME-Proxy-Cause: dmFkZTG1BKwpOrUet1Yz3ReM3q8b+SU1Y0/3E/GtpuUDrj0RW7aZrRz1EkrdLfowjHCTZn
+ KHQtKMuWZlkEuvq3c/1uYeHLYKalGUaqALOTDnvMzn1+EaIkreHdEflsbm9CI/YFbSTVhF
+ XZ3FYbXkynNIH0cYbzyCZN+Fu0EU4C0Ecx1u/0LycRsT5wthraRx/8kne0EIYOAZY321KB
+ /7+UzOh7OlqviMCxy8sehh+ffZzbA1ZloX0T1ZphHs2gfKgTZgme9j+DaFkr7jrXNK2+Da
+ UZ1kFcX0GytWLrOKSYk85Ql6OoEElRCk/ag+HIAS5ZZ8BTmO4ki0zhNsB4g1D4h0/1B2An
+ xugJgGOblZ4hY9pLc88dgop7V5XtaCBez0UGJPls1sN+bAqnhrwv0xEoeG3mynqSvbubZP
+ Gt/B7ZzYsY8Qp5LlS5JG8sXLiXxCX+G+WraFcWBsnyYdRBX8qJp+bDFG7vtjsCnNxd7K32
+ /Oh9+RsSGqJvsn24ccbcmCAxG43kZcj7UN/SkYjt7wXAaffBTHAMpJEEV6lMJDi/PDsNoH
+ oyFhbM5ddf9t86LtqhLqMiZ5c0OmILw0JN2hfFoqcoqLI1ER8az2XYaANF0Bma+rFXs6EM
+ KlLzr3ppO4Tkvar4RQngMJfo9zGQ3AMUJyhDDesMyyFG/d+TZPzmD4FpuU8g
+X-ME-Proxy: <xmx:_u5aaqMpj0699XrR4t-KqyhEru8d4RSd6nXieDHJUVfNg17lPeTofg>
+ <xmx:_u5aavEw0Gm4vgwZIKI0pXWgbFSj8B0T-fkXdF5Oue7NPHKf0ZpstA>
+ <xmx:_u5aam0EheD3UUHBEENMgsmzU2NjPkKHrQuR1W4ERWcv7LV09IhBsg>
+ <xmx:_u5aauFtPvtzpIJMb1u9qHUIkJLWqmkuYrIf2bSoLtIVH__oSRGu1Q>
+ <xmx:Ae9aagQsgx-EbfkkoZbbHdDdzvcnAkc9r36ecnN5C2FBl1Js3xTLx8az>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 17 Jul 2026 23:11:51 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
+ ogabbay@kernel.org
+Cc: chaoyi.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [RFC PATCH v2 0/8] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Sat, 18 Jul 2026 15:11:38 +1200
+Message-ID: <20260718031146.3368811-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD=FV=Wez4s5gUPXN=DuHvHAk4esBMGfh4Rj=ww72UK7VUbOzw@mail.gmail.com>
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,103 +98,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 16, 2026 at 04:31:53PM -0700, Doug Anderson wrote:
+This adds RK3576 NPU support to accel/rocket.  RFC: the NPU brings up and
+runs, but full inference is not correct yet, and I would rather get
+feedback now than sit on it.
 
-Hello Doug, thanks a lot for the review!
+Tested on a Radxa ROCK 4D.  The NPU probes, powers on, brings up its
+IOMMUs, and runs jobs to completion (rocket + Mesa Teflon).  Getting there
+took a few fixes outside the driver too: a power-domain settle delay and
+reset cycling (else a cold power-on throws an async SError), the full
+clock set on the MMU nodes, clearing a stale firmware page fault, and both
+NPU power domains on the core.
 
-> Hi,
-> 
-> On Thu, Jul 16, 2026 at 3:09 PM Michail Tatas <michail.tatas@gmail.com> wrote:
-> >
-> > @@ -159,36 +159,23 @@ static int ili9805_power_off(struct ili9805 *ctx)
-> >
-> >  static int ili9805_activate(struct ili9805 *ctx)
-> >  {
-> > -       struct mipi_dsi_device *dsi = ctx->dsi;
-> > -       struct device *dev = &dsi->dev;
-> > -       int i, ret;
-> > +       struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> > +       int i;
-> >
-> >         for (i = 0; i < ctx->desc->init_length; i++) {
-> >                 const struct ili9805_instr *instr = &ctx->desc->init[i];
-> >
-> > -               ret = mipi_dsi_dcs_write_buffer(ctx->dsi, instr->data, instr->len);
-> > -               if (ret < 0)
-> > -                       return ret;
-> > +               mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, instr->data, instr->len);
-> >
-> >                 if (instr->delay > 0)
-> > -                       msleep(instr->delay);
-> > -       }
-> 
-> What you've done is an improvement, but it's not all the way there.
-> Specifically, we'd really want to get rid of the whole "struct
-> ili9805_instr" type and instead each panel should have an init
-> function. The "struct ili9805_desc" should have a pointer to the init
-> function instead of a pointer to the init data.
+Not solved: only the first operation in a power session gives the right
+answer.  Every later one engages and DMAs its input, but the compute
+output never lands, so the readback is the zero-point.  I chased it
+through the whole software surface (registers, IOMMU/TLB, cache,
+power/clock/reset, dispatch) and it reproduces even with the driver
+environment matched to the vendor's on the same kernel, so it looks to be
+below software, in the fixed-function block.  Traces available.
 
-I am more than happy to do these changes as well. My only concern is
-that I do not have hardware to test the panel. Are compiling and static
-analysis sufficient tests for these changes ?
+Two asks: review of the bring-up and the shared pmdomain/iommu changes;
+and if anyone knows the RK3576 NPU internals, whether that
+per-power-session arm can be driven from software at all.
 
-> For details, you can see a preivous email about this [1], which then
-> has further links if you want to dig into details. You can see that
-> Chintan eventually implemented this in commit a89d9a327d06
-> ("drm/panel: novatek-nt36672a: Inline panel init sequences").
-> 
-> If landing this patch without cleaning up the init sequences is really
-> important to you, I could be convinced. However, the init sequences
-> aren't all that big and it would be nice if you could clean it up all
-> at once. It could be one patch or two.
-> 
+The series is split by subsystem (binding, pmdomain, iommu, driver, DT).
+The board DT keeps vdd_npu_s0 always-on for now; happy to switch to
+proper runtime control if preferred.
 
-It is not all that important, I can clean up the init sequences and
-send it as part of the v2
+Changes in v2 (thanks to Chaoyi Chen and the Sashiko review bot):
+  - dt-bindings: keep sram-supply required for rk3588 via allOf/if-then
+    instead of dropping it from the shared required list
+  - pmdomain: release the resets in rockchip_pm_remove_one_domain()
+  - iommu: drop the redundant "err == 0" check in the clock probe
+  - iommu: replace the two "skip orphaned-fault banks" patches with one
+    that clears the stale firmware page fault (CMD_PAGE_FAULT_DONE) before
+    enabling stall, so no bank needs special-casing -- Chaoyi asked
+    whether dealing with the fault avoids the skip, and it does
+  - accel/rocket: gate every RK3576-specific difference (extra clocks,
+    single reset, multi power-domain attach, polled completion) behind
+    of_device_id match data so the RK3588 path is byte-for-byte unchanged;
+    drop the unused DPU register mapping (the driver did no pre-arm)
+  - series is now 8 patches (was 9)
 
-> [1] http://lore.kernel.org/r/CAD=FV=UCyfjiqcpYCM5ePz-auX4g=i_+i78ivvvyA8R1XtAKzg@mail.gmail.com
-> 
-> 
-> > @@ -211,25 +198,13 @@ static int ili9805_prepare(struct drm_panel *panel)
-> >
-> >  static int ili9805_deactivate(struct ili9805 *ctx)
-> >  {
-> > -       struct mipi_dsi_device *dsi = ctx->dsi;
-> > -       struct device *dev = &dsi->dev;
-> > -       int ret;
-> > -
-> > -       ret = mipi_dsi_dcs_set_display_off(ctx->dsi);
-> > -       if (ret < 0) {
-> > -               dev_err(dev, "Failed to set display OFF (%d)\n", ret);
-> > -               return ret;
-> > -       }
-> > +       struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> >
-> > -       usleep_range(5000, 10000);
-> > -
-> > -       ret = mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
-> > -       if (ret < 0) {
-> > -               dev_err(dev, "Failed to enter sleep mode (%d)\n", ret);
-> > -               return ret;
-> > -       }
-> > +       mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> > +       mipi_dsi_usleep_range(&dsi_ctx, 5000, 10000);
-> > +       mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> >
-> > -       return 0;
-> > +       return dsi_ctx.accum_err;
-> 
-> Nobody looks at the return code of this function. Since you're
-> touching it anyway, can you change ili9805_deactivate() to return
-> "void"? I wouldn't object if you made ili9805_power_off() return
-> "void" in the same patch too, even though it's a bit unrelated to the
-> rest of the patch.
-> 
+I used Claude Opus 4.8 to help trim this series out of my debugging tree
+and generate the diffs.
 
-Good point regarding the return types, I will change them to
-return void.
+Jiaxing Hu (8):
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  pmdomain/rockchip: add optional per-domain power-on settle delay
+  pmdomain/rockchip: cycle optional power-domain resets on power-on
+  iommu/rockchip: take all DT clocks
+  iommu/rockchip: clear stale page faults before enabling stall
+  accel/rocket: add RK3576 NPU (RKNN) support
+  arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+  arm64: dts: rockchip: rk3576-rock-4d: enable NPU
 
-I will send a v2 with the requested changes.
+ .../npu/rockchip,rk3588-rknn-core.yaml        |  12 +-
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      |  16 +++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  78 ++++++++++-
+ drivers/accel/rocket/rocket_core.c            |  39 +++++-
+ drivers/accel/rocket/rocket_core.h            |  22 ++-
+ drivers/accel/rocket/rocket_device.c          |   4 +
+ drivers/accel/rocket/rocket_drv.c             |  22 ++-
+ drivers/accel/rocket/rocket_job.c             | 127 ++++++++++++++++--
+ drivers/iommu/rockchip-iommu.c                |  41 +++---
+ drivers/pmdomain/rockchip/pm-domains.c        |  69 ++++++----
+ 10 files changed, 371 insertions(+), 59 deletions(-)
 
-Regards,
-Michail
+-- 
+2.43.0
+
