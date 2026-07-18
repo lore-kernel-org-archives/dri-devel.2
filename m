@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64B84C4451C
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 03:27:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A38EC4450A
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 03:28:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5A3D10E516;
-	Sat, 18 Jul 2026 03:26:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A85E10E51C;
+	Sat, 18 Jul 2026 03:28:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J4E/ce3B";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CExkVN77";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6221D10E516
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 03:26:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D401110E51A
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 03:28:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4AD5441FE2;
- Sat, 18 Jul 2026 03:26:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA651F000E9;
- Sat, 18 Jul 2026 03:26:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DF5E960DC0;
+ Sat, 18 Jul 2026 03:28:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9514E1F000E9;
+ Sat, 18 Jul 2026 03:27:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784345218;
- bh=zmq7e+3HvSLP3DTktMV/ZRVZx9CCfR8zg72mswHdqQY=;
+ s=k20260515; t=1784345280;
+ bh=/59ZmpMOZOu/U2hJkANuZv/zYxUgr0tvoErd4Rm9NB4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=J4E/ce3BDap9JphflxFFLRSSPrbHxpmvN4nwjTQKQhFxUMpjA7nXbZaPwEyBBDike
- iV5IQufBGa4GU27YViv+mxPAKvXJs6eARq7r9Irzlx/TFuvhAxvt07HnrmUikz9D9S
- /zh/uwKAMfsAEUs4lqh+o2JroAuIkdHYwOoswVCFQz2TzJkJzii9MUVQ4S0bcA9OLV
- ebOf7GAPqnPS64rYOpry2MvF2Y9uIta9diJZ5+Z+mWO6mg6mvIaK2YPG3JF9nOf72B
- eSsto+LC7ppPaLL4idypCgC6sSYyOobO19FTOHEFq6WJu2pPuaGMcOczzen1dlCzIn
- /D1YyTrUkov0A==
+ b=CExkVN77hOyySj6AVvu5FxSvt9zqF3KKfyApp0icMwPNDENm3bhdby4lGIMGmZKve
+ tvoXyl+xrrRimscWEJPUtmc9yeqnGz3oB1RXIphoHWJ8mFqJDEAzdnN/gY4n1u+tyr
+ TmxjvgnV8U9JXwT8HhW6XzqxdHipjweO0EJexD2d+TD9w2vsavEOvCY7oumbuWx7ZF
+ fjfx2SB0T3Sor3PpdnsQJD6i/TCM1S2NDhn+TBpClZ3VNO68XkGyN2hySFIa7LyOHb
+ 4/CDGwET3auYY4E/b0onzSLYNKdoftBiub5L/B2R2o98AljABl3t29TqNJQObi8DJl
+ Ax57msRWtU7TQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 7/8] arm64: dts: rockchip: rk3576: add NPU (RKNN)
- nodes
+Subject: Re: [RFC PATCH v2 6/8] accel/rocket: add RK3576 NPU (RKNN) support
 To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260718031146.3368811-8-gahing@gahingwoo.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260718031146.3368811-7-gahing@gahingwoo.com>
 References: <20260718031146.3368811-1-gahing@gahingwoo.com>
- <20260718031146.3368811-8-gahing@gahingwoo.com>
+ <20260718031146.3368811-7-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 03:26:57 +0000
-Message-Id: <20260718032657.DDA651F000E9@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 03:27:59 +0000
+Message-Id: <20260718032759.9514E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,175 +58,212 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
-- [High] `rknn_core_1` is missing the `aclk_cbuf` and `hclk_cbuf` clocks an=
-d their corresponding `clock-names`, which will cause the driver probe to f=
-ail unconditionally.
-- [High] The NPU core nodes specify only a single power domain each, which =
-causes the driver's explicit power domain attachment to fail with `-EEXIST`.
-- [High] The register address for `rknn_mmu_1` (`0x2770a000`) is highly lik=
-ely a typo for `0x27712000`.
-- [Medium] The new RK3576 NPU, IOMMU, and power domain nodes violate multip=
-le device tree binding schemas because the schemas were not properly update=
-d for the RK3576 variant properties.
+
+New issues:
+- [High] Resource leak on `devm_pm_domain_attach_list` failure.
+- [High] Teardown order race in `rocket_job_fini` allows the hrtimer to be =
+re-armed after cancellation.
+- [High] Race condition and hardware state corruption on RK3576 DMA errors =
+due to double-processing and unsynchronized MMIO writes.
+
+Pre-existing issues:
+- [High] Unconditional MMIO access in shared IRQ handler causes bus faults =
+while device is suspended.
+- [High] Leaked IOMMU group reference on job completion.
+- [High] The runtime suspend callback powers down the device without synchr=
+onizing the shared IRQ.
+- [High] Calling `drm_sched_fini` on a partially initialized scheduler caus=
+es a kernel panic.
 --
 
---- Patch [7]: [RFC PATCH v2 7/8] arm64: dts: rockchip: rk3576: add NPU (RK=
-NN) nodes ---
-commit fcbf6a103f04119fa8ae492b4bcf746be4890ddf
+--- Patch [6]: [RFC PATCH v2 6/8] accel/rocket: add RK3576 NPU (RKNN) suppo=
+rt ---
+commit 3624dfd3291e5171660b2a505645f90fa60606b8
 Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+accel/rocket: add RK3576 NPU (RKNN) support
 
-This commit adds the RK3576 NPU core and MMU nodes, configuring their
-register addresses, interrupts, clocks, resets, and power domains.
+This commit adds RK3576 support to the rocket DRM accelerator driver. It
+introduces new clocks, power domains, and a polled completion mechanism
+since the RK3576 has no maskable completion interrupt.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/d=
-ts/rockchip/rk3576.dtsi
-> index e12a2a0cfb891..5033f762840ae 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-
-[ ... ]
-
-> @@ -1070,14 +1070,22 @@ power-domain@RK3576_PD_NPUTOP {
->  						power-domain@RK3576_PD_NPU0 {
->  							reg =3D <RK3576_PD_NPU0>;
->  							clocks =3D <&cru HCLK_RKNN_ROOT>,
-> -								 <&cru ACLK_RKNN0>;
-> +								 <&cru ACLK_RKNN0>,
-> +								 <&cru CLK_RKNN_DSU0>,
-> +								 <&cru ACLK_RKNN_CBUF>,
-> +								 <&cru HCLK_RKNN_CBUF>;
-> +							resets =3D <&cru SRST_A_RKNN0_BIU>;
-
-[Severity: Medium]
-Will this fail device tree schema validation?
-
-The resets property appears to be completely undocumented in
-rockchip,power-controller.yaml's pd-node.
-
->  							pm_qos =3D <&qos_npu_m0>;
->  							#power-domain-cells =3D <0>;
->  						};
-
-[ ... ]
-
-> @@ -1804,6 +1812,72 @@ qos_npu_m1ro: qos@27f22100 {
->  			reg =3D <0x0 0x27f22100 0x0 0x20>;
->  		};
+> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
+cket_core.c
+> index b3b2fa9ba645a..140e37969a7b1 100644
+> --- a/drivers/accel/rocket/rocket_core.c
+> +++ b/drivers/accel/rocket/rocket_core.c
+> @@ -65,6 +83,23 @@ int rocket_core_init(struct rocket_core *core)
+>  		return err;
+>  	}
 > =20
-> +		rknn_core_0: npu@27700000 {
-> +			compatible =3D "rockchip,rk3576-rknn-core";
-> +			reg =3D <0x0 0x27700000 0x0 0x1000>,
-> +			      <0x0 0x27701000 0x0 0x1000>,
-> +			      <0x0 0x27703000 0x0 0x1000>,
-> +			      <0x0 0x27704000 0x0 0x1000>,
-> +			      <0x0 0x27705000 0x0 0x1000>;
-> +			reg-names =3D "pc", "cna", "core", "dpu", "dpu_rdma";
-> +			interrupts =3D <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
-> +				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>,
-> +				 <&cru ACLK_RKNN_CBUF>, <&cru HCLK_RKNN_CBUF>;
-
-[Severity: Medium]
-Does this node violate the rockchip,rk3588-rknn-core.yaml schema?
-
-The schema strictly limits reg to a maximum of 3 entries and clocks to a
-maximum of 4, but there are 5 and 6 here respectively.
-
-> +			clock-names =3D "aclk", "hclk", "npu", "pclk",
-> +				      "aclk_cbuf", "hclk_cbuf";
-> +			resets =3D <&cru SRST_A_RKNN0>;
-> +			reset-names =3D "srst_a";
-> +			power-domains =3D <&power RK3576_PD_NPU0>;
+> +	/*
+> +	 * RK3576: the NPU spans TWO power domains (PD_NPU0 + PD_NPU1).
+> [ ... ]
+> +	if (core->soc->multi_power_domain) {
+> +		struct dev_pm_domain_list *pd_list;
+> +
+> +		err =3D devm_pm_domain_attach_list(dev, NULL, &pd_list);
+> +		if (err < 0)
+> +			return dev_err_probe(dev, err,
+> +					     "failed to attach NPU power domains\n");
+> +	}
+> +
 
 [Severity: High]
-Does specifying a single power domain here cause the driver probe to fail?
+Does this early return leak resources?
 
-Because rk3576.dtsi lists only a single power domain for the core node, the
-Linux driver core (via genpd_dev_pm_attach) automatically attaches it during
-early probe and sets dev->pm_domain.
+In rocket_core_init(), rocket_job_init() is called earlier, which allocates
+non-devm resources such as an ordered workqueue and a DRM scheduler.
 
-When the driver's probe runs and calls devm_pm_domain_attach_list(), won't
-it see that dev->pm_domain is already set and abort with -EEXIST, rendering
-both NPU cores unusable?
+If devm_pm_domain_attach_list() fails, the function returns directly with
+dev_err_probe() and skips the necessary rocket_job_fini() and
+iommu_group_put() cleanup.
 
-> +			iommus =3D <&rknn_mmu_0>;
-> +			status =3D "disabled";
-> +		};
-> +
-> +		rknn_mmu_0: iommu@27702000 {
-> +			compatible =3D "rockchip,rk3576-iommu", "rockchip,rk3568-iommu";
-> +			reg =3D <0x0 0x27702000 0x0 0x100>,
-> +			      <0x0 0x27702100 0x0 0x100>;
-> +			interrupts =3D <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
-> +				 <&cru CLK_RKNN_DSU0>, <&cru ACLK_RKNN_CBUF>,
-> +				 <&cru HCLK_RKNN_CBUF>;
-
-[Severity: Medium]
-Will this fail device tree schema validation for rockchip,iommu.yaml?
-
-The schema limits clocks to 2 and requires clock-names, while 5 clocks are
-specified here without clock-names.
-
-> +			#iommu-cells =3D <0>;
-> +			power-domains =3D <&power RK3576_PD_NPU0>;
-> +			status =3D "disabled";
-> +		};
-> +
-> +		rknn_core_1: npu@27710000 {
-> +			compatible =3D "rockchip,rk3576-rknn-core";
-> +			reg =3D <0x0 0x27710000 0x0 0x1000>,
-> +			      <0x0 0x27711000 0x0 0x1000>,
-> +			      <0x0 0x27713000 0x0 0x1000>,
-> +			      <0x0 0x27714000 0x0 0x1000>,
-> +			      <0x0 0x27715000 0x0 0x1000>;
-> +			reg-names =3D "pc", "cna", "core", "dpu", "dpu_rdma";
-> +			interrupts =3D <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&cru ACLK_RKNN1>, <&cru HCLK_RKNN_ROOT>,
-> +				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>;
-> +			clock-names =3D "aclk", "hclk", "npu", "pclk";
+> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
+ket_drv.c
+> --- a/drivers/accel/rocket/rocket_drv.c
+> +++ b/drivers/accel/rocket/rocket_drv.c
+> @@ -260,7 +276,7 @@ static int rocket_device_runtime_suspend(struct devic=
+e *dev)
+>  	if (!rocket_job_is_idle(&rdev->cores[core]))
+>  		return -EBUSY;
+> =20
+> -	clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks), rdev->co=
+res[core].clks);
+> +	clk_bulk_disable_unprepare(rdev->cores[core].soc->num_clks, rdev->cores=
+[core].clks);
+> =20
 
 [Severity: High]
-Are the aclk_cbuf and hclk_cbuf clocks missing from this list?
+This is a pre-existing issue, but does this power down the device without
+synchronizing the shared IRQ?
 
-The rocket driver initializes with .num_clks =3D 6 for the RK3576 variant a=
-nd
-requests all 6 clocks by name using devm_clk_bulk_get().
+Since the driver uses IRQF_SHARED, another device sharing the IRQ line could
+trigger the interrupt handler just as the clocks are being disabled.
 
-Since rknn_core_1 only specifies 4 clocks, won't the bulk clock acquisition
-fail with -ENOENT during device probe, rendering the second NPU core unusab=
-le?
+Can this race condition cause the IRQ handler to execute on powered-down
+hardware, potentially leading to a kernel panic? Should we call
+synchronize_irq() before turning off the clocks?
 
-> +			resets =3D <&cru SRST_A_RKNN1>;
-> +			reset-names =3D "srst_a";
-> +			power-domains =3D <&power RK3576_PD_NPU1>;
-> +			iommus =3D <&rknn_mmu_1>;
-> +			status =3D "disabled";
-> +		};
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -326,12 +360,55 @@ static struct dma_fence *rocket_job_run(struct drm_=
+sched_job *sched_job)
+> [ ... ]
+> +static void rocket_job_handle_irq(struct rocket_core *core)
+> +{
+> +	u32 clear =3D 0x1ffff;
 > +
-> +		rknn_mmu_1: iommu@2770a000 {
-> +			compatible =3D "rockchip,rk3576-iommu", "rockchip,rk3568-iommu";
-> +			reg =3D <0x0 0x2770a000 0x0 0x100>,
-> +			      <0x0 0x2770a100 0x0 0x100>;
+> +	if (core->soc->poll_completion) {
+> +		/* Stop the completion poll -- we're handling it now. */
+> +		atomic_set(&core->poll_active, 0);
+> +		hrtimer_cancel(&core->poll_timer);
+> +		clear |=3D PC_INTERRUPT_MASK_RK3576_PC_DONE_0 |
+> +			 PC_INTERRUPT_MASK_RK3576_PC_DONE_1;
+> +	}
+> +
+>  	pm_runtime_mark_last_busy(core->dev);
+> =20
+>  	rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
+> -	rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
+> +	rocket_pc_writel(core, INTERRUPT_CLEAR, clear);
+> =20
 
 [Severity: High]
-Is the register address 0x2770a000 a typo for 0x27712000?
+Can a DMA error on RK3576 trigger a race condition that corrupts hardware
+state?
 
-Looking at rknn_core_0, it spans 0x27700000 with a gap at 0x27702000 for
-its MMU. rknn_core_1 spans 0x27710000 and has an identical gap at
-0x27712000.
+On RK3576, a DMA error drops OPERATION_ENABLE to 0 and raises a DMA error
+interrupt. This simultaneously triggers the threaded IRQ handler and the
+poll timer workqueue, which will both see OPERATION_ENABLE =3D=3D 0.
 
-Placing the MMU at 0x2770a000 could lead to mapping unassigned I/O space
-instead of the target IOMMU control registers, causing a synchronous extern=
-al
-abort when accessed.
+Both threads will concurrently invoke rocket_job_handle_irq(). Because this
+function clears OPERATION_ENABLE outside the job_lock, one thread can write
+0 to OPERATION_ENABLE right after the other thread has already submitted the
+next job and written 1.
 
-> +			interrupts =3D <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>;
+Does this permanently halt the hardware by leaving the newly submitted job
+disabled?
+
+>  	scoped_guard(mutex, &core->job_lock)
+>  		if (core->in_flight_job) {
+> [ ... ]
+>  			iommu_detach_group(NULL, iommu_group_get(core->dev));
+
+[Severity: High]
+This is a pre-existing issue, but does this leak the IOMMU group reference?
+
+The call to iommu_group_get() increments the reference count, but
+iommu_detach_group() does not consume or release it.
+
+Since job completion is a hot path, will this quickly overflow the refcount
+or leak memory? Should the driver just use the already cached
+core->iommu_group instead?
+
+> @@ -424,9 +514,22 @@ static irqreturn_t rocket_job_irq_handler(int irq, v=
+oid *data)
+>  {
+>  	struct rocket_core *core =3D data;
+>  	u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+
+[Severity: High]
+This is a pre-existing issue, but can this unconditional MMIO read cause a
+bus fault if the device is suspended?
+
+Because the driver uses IRQF_SHARED, another device could trigger
+rocket_job_irq_handler() while the NPU is runtime suspended and powered dow=
+n.
+Reading from a powered-down device typically returns garbage data or causes=
+ a
+synchronous external abort.
+
+Should we use pm_runtime_get_if_active() to verify the device is powered
+before touching MMIO registers?
+
+> @@ -486,6 +593,10 @@ int rocket_job_init(struct rocket_core *core)
+> [ ... ]
+>  err_sched:
+>  	drm_sched_fini(&core->sched);
+
+[Severity: High]
+This is a pre-existing issue, but can calling drm_sched_fini() here cause a
+kernel panic?
+
+If drm_sched_init() fails internally (e.g., due to memory allocation failur=
+e),
+the waitqueues and lists inside the scheduler structure are left uninitiali=
+zed.
+When we jump to the err_sched label, drm_sched_fini() will unconditionally
+try to wake up these uninitialized waitqueues.
+
+> @@ -486,6 +593,10 @@ int rocket_job_init(struct rocket_core *core)
+> =20
+>  void rocket_job_fini(struct rocket_core *core)
+>  {
+> +	atomic_set(&core->poll_active, 0);
+> +	hrtimer_cancel(&core->poll_timer);
+> +	cancel_work_sync(&core->poll_work);
+> +
+>  	drm_sched_fini(&core->sched);
+> =20
+
+[Severity: High]
+Is there a teardown order race that allows the hrtimer to be re-armed after
+cancellation?
+
+The poll timer and workqueue are cancelled before stopping the DRM schedule=
+r.
+If a concurrent scheduler thread pulls a pending job and calls
+rocket_job_hw_submit(), it will restart poll_timer.
+
+Can this lead to a use-after-free when the timer fires on freed memory after
+teardown completes? Should we stop the scheduler before cancelling the time=
+r?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718031146.3368=
-811-1-gahing@gahingwoo.com?part=3D7
+811-1-gahing@gahingwoo.com?part=3D6
