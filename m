@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40075C4451C
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 03:22:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE583C4450A
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 03:22:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CB1F10E41E;
-	Sat, 18 Jul 2026 03:22:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42FEA10E4C6;
+	Sat, 18 Jul 2026 03:22:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X6xznPjz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SLNFk26Y";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB9C410E41E
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 03:22:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDC1210E4C6
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 03:22:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8D31E40BE9;
- Sat, 18 Jul 2026 03:22:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 266CE1F000E9;
- Sat, 18 Jul 2026 03:22:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D198E41FBA;
+ Sat, 18 Jul 2026 03:22:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62A161F00A3A;
+ Sat, 18 Jul 2026 03:22:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784344949;
- bh=dwiwGKyPqy9MzIZpuFMrcKfYrPscbIfkR2JtX98D87Y=;
+ s=k20260515; t=1784344970;
+ bh=hZZaorNOsTjlLFz6817wQI6en3+FJJDqncHKkhcqc/4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X6xznPjzFpjynbmNf7KXbUFfO47OkceLSJ7KPnHlQSqCjHhQF7o0UqKLLQHuHHwoQ
- VDa0A+vBTxRJYNOz6CkXjn3W5DvS3hnBBrRoKsJrdB3LVXPqmf98MenJDwkvEIzUMp
- zAn8dQB0ULzNGgc2d7fb2xJi/uRqzqJBVjgySfzwiX9ml8MvXuPbsP+0x7VhVjBjWa
- K8DERMDkvgUKyXMdfuiJapKitPbpm25ymFhZSz2gBtkuFGBWVR6MTxhcw7rUwjpeh1
- BMVaz1tdpV0Axg1Slftb0bLxYfAPNBw4+wveMAugemYizAf5E5ymyMZ5aTILH4MqdQ
- QLa/ALWCxzL0w==
+ b=SLNFk26Y3xme+a2wn9ZAUg+hfgsZ5jFvfalkYp9tqqXDbqJWFqv404to03F6QymGH
+ sCfk9O8O/psdzVcGBnR6pf3xUgXDBKeOvtx2a53pQPXwVBVqXqrid1/9Zq6aM3L1tm
+ v7+fbs2s0HPzCENM/X2+543iOA9z3w22ZWr6OM/dZvjz9D2yCXH1nIn3Lohax7k849
+ YG0QuNgWpEeGdf9DD89lso4ZfAuxqBxUWWFRg1626Q1g131Qq0e8hU5wSYSTcyVV1g
+ jYRjPZQLhWjCgovRrBn25bofKva3WqR1e6I0oL2g5B8sJzQirubUl4e+yFzbBA/I8Y
+ vIoHq44bLBkrQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 4/8] iommu/rockchip: take all DT clocks
+Subject: Re: [RFC PATCH v2 3/8] pmdomain/rockchip: cycle optional
+ power-domain resets on power-on
 To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, conor+dt@kernel.org
-In-Reply-To: <20260718031146.3368811-5-gahing@gahingwoo.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260718031146.3368811-4-gahing@gahingwoo.com>
 References: <20260718031146.3368811-1-gahing@gahingwoo.com>
- <20260718031146.3368811-5-gahing@gahingwoo.com>
+ <20260718031146.3368811-4-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 18 Jul 2026 03:22:28 +0000
-Message-Id: <20260718032229.266CE1F000E9@smtp.kernel.org>
+Date: Sat, 18 Jul 2026 03:22:50 +0000
+Message-Id: <20260718032250.62A161F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,101 +63,62 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Resource mapping loop incorrectly indexes `iommu->bases` array, le=
-ading to gaps and invalid pointer dereferences
+- [Critical] Probe error path fails to remove parent power domains (due to =
+subdomain links), leaving freed memory linked in the global genpd list, lea=
+ding to a Use-After-Free.
 --
 
---- Patch [4]: [RFC PATCH v2 4/8] iommu/rockchip: take all DT clocks ---
-commit 77bcbb4eca287b3632f08a8528235d32ff400f72
+--- Patch [3]: [RFC PATCH v2 3/8] pmdomain/rockchip: cycle optional power-d=
+omain resets on power-on ---
+commit 6b47e7abcdceaeb541eb946e08c3911e47f8d51e
 Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-iommu/rockchip: take all DT clocks
-   =20
-rk_iommu only enabled a fixed {aclk,iface} pair.  On the RK3576 NPU the
-MMU sits behind the CBUF/DSU gates, so writes to DTE_ADDR are silently
-dropped until those clocks run too (reads work, writes need more clocks).
-Use devm_clk_bulk_get_all() to take every clock the devicetree provides
-instead of a fixed pair, so a platform can list the full set it needs.
-Clocks stay optional for the older clock-less devicetrees.
+pmdomain/rockchip: cycle optional power-domain resets on power-on
 
-> diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iomm=
-u.c
-> index 87ae036d64145..2ac65c0c5c0b4 100644
-> --- a/drivers/iommu/rockchip-iommu.c
-> +++ b/drivers/iommu/rockchip-iommu.c
+This commit adds support for an optional resets property to the rockchip
+power domain driver. Resets are now explicitly asserted and deasserted
+during the power-on sequence to ensure the hardware interfaces observe
+the necessary reset edge.
+
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
+ckchip/pm-domains.c
+> index 1787f62ba3a81..8ce0cc3de0bfb 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
 
 [ ... ]
 
-> @@ -1254,25 +1249,20 @@ static int rk_iommu_probe(struct platform_device =
-*pdev)
-
-[Severity: High]
-This is a pre-existing issue, but does the resource mapping loop in
-rk_iommu_probe() incorrectly index the iommu->bases array?
-
-If multiple memory resources are provided but one fails to map (for example,
-if num_res =3D 2 and mapping for index 0 fails), iommu->bases[0] holds an
-ERR_PTR while iommu->bases[1] holds the valid base. However, iommu->num_mmu
-becomes 1.
-
-Since subsequent driver loops iterate from 0 to num_mmu - 1 and
-unconditionally dereference iommu->bases, this would lead to a crash on
-iommu->bases[0].
-
-Also, if num_res =3D=3D 0, devm_kcalloc() returns ZERO_SIZE_PTR and reading
-iommu->bases[0] on the error path would panic:
-
-	for (i =3D 0; i < num_res; i++) {
-		res =3D platform_get_resource(pdev, IORESOURCE_MEM, i);
-		if (!res)
-			continue;
-		iommu->bases[i] =3D devm_ioremap_resource(&pdev->dev, res);
-		if (IS_ERR(iommu->bases[i]))
-			continue;
-		iommu->num_mmu++;
-	}
-	if (iommu->num_mmu =3D=3D 0)
-		return PTR_ERR(iommu->bases[0]);
-
-Could we assign to iommu->bases[iommu->num_mmu] instead of iommu->bases[i]
-to prevent gaps in the array, and handle the num_res =3D=3D 0 error path
-differently?
-
-> 	iommu->reset_disabled =3D device_property_read_bool(dev,
-> 					"rockchip,disable-mmu-reset");
+> @@ -928,6 +945,7 @@ static void rockchip_pm_remove_one_domain(struct rock=
+chip_pm_domain *pd)
 > =20
-> -	iommu->num_clocks =3D ARRAY_SIZE(rk_iommu_clocks);
-> -	iommu->clocks =3D devm_kcalloc(iommu->dev, iommu->num_clocks,
-> -				     sizeof(*iommu->clocks), GFP_KERNEL);
-> -	if (!iommu->clocks)
-> -		return -ENOMEM;
-> -
-> -	for (i =3D 0; i < iommu->num_clocks; ++i)
-> -		iommu->clocks[i].id =3D rk_iommu_clocks[i];
-> -
-> 	/*
-> -	 * iommu clocks should be present for all new devices and devicetrees
-> -	 * but there are older devicetrees without clocks out in the wild.
-> -	 * So clocks as optional for the time being.
-> +	 * Take every clock the devicetree provides.  Most IOMMU instances
-> +	 * need exactly "aclk" + "iface", but e.g. the RK3576 NPU IOMMUs sit
-> +	 * behind additional gates (CBUF/DSU) whose clocks must be running
-> +	 * for register writes to land.  Clocks stay optional because there
-> +	 * are older devicetrees without clocks out in the wild.
-> 	 */
-> -	err =3D devm_clk_bulk_get(iommu->dev, iommu->num_clocks, iommu->clocks);
-> +	err =3D devm_clk_bulk_get_all(iommu->dev, &iommu->clocks);
-> 	if (err =3D=3D -ENOENT)
-> 		iommu->num_clocks =3D 0;
-> -	else if (err)
-> +	else if (err < 0)
-> 		return err;
-> +	else
-> +		iommu->num_clocks =3D err;
+>  	clk_bulk_unprepare(pd->num_clks, pd->clks);
+>  	clk_bulk_put(pd->num_clks, pd->clks);
+> +	reset_control_put(pd->resets);
+
+[Severity: Critical]
+This is a pre-existing issue, but does this error path leave freed memory
+linked in the global genpd list?
+
+When a probe failure triggers cleanup via rockchip_pm_domain_cleanup(), it
+iterates over all domains and calls rockchip_pm_remove_one_domain().
+
+Since subdomain links are not explicitly removed first, pm_genpd_remove()
+fails with -EBUSY for parent domains and leaves them linked in the global
+gpd_list:
+
+rockchip_pm_remove_one_domain()
+    ret =3D pm_genpd_remove(&pd->genpd);
+    if (ret < 0)
+        dev_err(...) // -EBUSY is caught here but ignored
+
+Because devm will subsequently free the rockchip_pm_domain structure which
+embeds the genpd structure, could this lead to a use-after-free later when
+the genpd core iterates gpd_list, for instance in genpd_power_off_unused()?
+
 > =20
-> 	err =3D clk_bulk_prepare(iommu->num_clocks, iommu->clocks);
-> 	if (err)
+>  	/* protect the zeroing of pm->num_clks */
+>  	mutex_lock(&pd->pmu->mutex);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718031146.3368=
-811-1-gahing@gahingwoo.com?part=3D4
+811-1-gahing@gahingwoo.com?part=3D3
