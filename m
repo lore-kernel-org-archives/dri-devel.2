@@ -4,124 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28AF1C44524
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 14:28:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9A29C4451C
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 14:40:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92C6910E59E;
-	Sat, 18 Jul 2026 14:28:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 173D610E526;
+	Sat, 18 Jul 2026 14:40:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="lWQPBHuJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QGjMFasm";
 	dkim-atps=neutral
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3381310E597
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 14:28:23 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout02.posteo.de (Postfix) with ESMTPS id 63981240103
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 16:28:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
- s=1984.8680eb; t=1784384901;
- bh=/AgXW+UnQB7fSeYuKQh0PV4Eb/oe8ytZXjtjkC3mhq8=;
- h=From:Date:Subject:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
- b=lWQPBHuJzuyBExmvUo9KJCghohTd4fGdmmn8AQGwDzbTKnbmM7RzQTYaXA7Guv0R8
- qBfeSD1rV+z3Fmq+j2n3u3mcpVJloMbyhOpvrreLP3IYMzxoF3RQionq/yTf6ehmTg
- muxsBlIKt3TCfgs9yAf62hsW8YX2J9y4CxC2dvSkDr7mZlvchTVWx0bFr5jGtgty2V
- boH1CXUnVRB0X79saE+4FAdzWbiDwoDNVZNkX4XNNJ5/eBdE/L4GM9H7GAhFiLF449
- DfCNT/sI2FqDOVk3uNJayfMDyiqe9MkgQAaC4eUWX1PBiuaFagmC7AYzFnmU7LcInf
- qgxgfxd1L++7Q==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4h2TfB4p1mz6v07;
- Sat, 18 Jul 2026 16:28:18 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Sat, 18 Jul 2026 14:28:20 +0000
-Subject: [PATCH v15 3/3] MAINTAINERS: serdev: Add self for serdev
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260718-rust_serdev-v15-3-208ed2e6ec15@posteo.de>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6722810E526
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 14:40:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 16AA3413AB;
+ Sat, 18 Jul 2026 14:40:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCFF41F000E9;
+ Sat, 18 Jul 2026 14:40:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784385628;
+ bh=5CNf4wV7O4oCFsUcvnouEqLB/WDCMAkiKmXaJOE89Xc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QGjMFasmP/HNGsKyiVud7NPOKYbeuep3PVRZZGTdr+PZ/Ff8FdqaAUXDBocDil+5q
+ CaRn51FDRWhTGx4fQU6D+12gfluBUwO6vVUMroBHlz0/BwNa3zgXvzWI1uhRpWJzq0
+ AH4T1ezFZAYmS6TmgL/rXY8PKlg8ojz+IHTjauW2GAh3cglImHYusJPZvoNOMQu30L
+ eKMWNLbP4K3s72BS9c4RhrKfkSjbqvGBKERznG5wIge/WnP9gXVMjBVJTaKlp0P1UH
+ CNMFB8vyIJxbBjFs83x91ivI7MYOomHvgcRWt3uvx7wk3EjPnEsRZpjW80FR76yYLX
+ qiagoMTqXTfFw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v15 2/3] samples: rust: add Rust serial device bus
+ sample device driver
+To: "Markus Probst" <markus.probst@posteo.de>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
+In-Reply-To: <20260718-rust_serdev-v15-2-208ed2e6ec15@posteo.de>
 References: <20260718-rust_serdev-v15-0-208ed2e6ec15@posteo.de>
-In-Reply-To: <20260718-rust_serdev-v15-0-208ed2e6ec15@posteo.de>
-To: Rob Herring <robh@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Kari Argillander <kari.argillander@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Boqun Feng <boqun@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=885;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=DxSzaBqP43XW94Qp7LgDYVOU3VZcdc/fcMrcCLNmLR8=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqW4189M1N0dP/n52PaJ3svKDbGy9OdK++etpEm
- URdH2ZQZ9CJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCaluNfBsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9IgMg/+LWU72ITEz+MctaAPKt/eZFsmRFNBmuv
- kcnKy60kRmxj2sOtY2H1K/bveOMOSvDiD/8MKfSY3So4UcEgiFlajolF3/DVCZ+Tjrirv+SP7qp
- Ol57cHp9SKP16gWOw53r8b/3Psy5l1O77IeYJang0cjyQMY/2qdJqz7TAEjZD8G0J3lEX3iqIgi
- JQS1FCtMRjDsTmNS+IliUuGynJ26Qez2k7eQyM0tkL9OaRQKR0Z8iKXRRHCN6rI6Bo17VI2VvP4
- vRxGSFWCXBnCdCyd5UiNbRd1etmEWuZQIHC/JvVPfp9zudblhL5gwBvjQAoojy3LCK+6+dmvjkB
- uGgzht/R1n3wZnfspCK6gsPIvSXyBCSRypaoq09YmGpTa8lQNEUwYqG/fcnZwOi4EISMZDqv62V
- h/6t0RLKxCq0h9NEkrrakUJJYroSf6uzSdMam3+db/vPqbl6afQD6QXlV+wZNRBegQEy/xa+5j6
- WF0rz8YWQfHfhd9pmPrRNzd5F4GLxBrNBmRMNdqWPXlVa5rDN++LtnqF3ufpKwZ3nNFjoAgBxgN
- 21Vnd9LJIrMxt4fXIAyFsLVBym5A8xd5GMGFsoZSg7StKD1FuOgIvwCie1C6lndt8u2W+Rs1E7S
- Q601xNDhtQ4POwjffpuZsYpB+Do8HKzMxYvfdcGzEXuFI768DeWI=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+ <20260718-rust_serdev-v15-2-208ed2e6ec15@posteo.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 18 Jul 2026 14:40:27 +0000
+Message-Id: <20260718144027.BCFF41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,33 +54,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rob mentioned he needs to find someone else to maintain serdev.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Incorrect device tree property used for serial baud rate configu=
+ration.
+--
 
-Link: https://lore.kernel.org/rust-for-linux/20260430195858.GA1650658-robh@kernel.org/
-Link: https://lore.kernel.org/rust-for-linux/da85ceb81f51079d4a8248a1ffde6a27d2ef24ad.camel@posteo.de/
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--- Patch [2]: [PATCH v15 2/3] samples: rust: add Rust serial device bus sa=
+mple device driver ---
+commit 7885024c6abc3e1d37bf3499dc357753c532b4d5
+Author: Markus Probst <markus.probst@posteo.de>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7d32aa7f42a4..d092042fed31 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24562,7 +24562,7 @@ F:	drivers/iio/chemical/sps30_i2c.c
- F:	drivers/iio/chemical/sps30_serial.c
- 
- SERIAL DEVICE BUS
--M:	Rob Herring <robh@kernel.org>
-+M:	Markus Probst <markus.probst@posteo.de>
- L:	linux-serial@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/serial/serial.yaml
+samples: rust: add Rust serial device bus sample device driver
 
--- 
-2.54.0
+This commit adds a sample Rust serial device bus device driver illustrating
+the usage of the serial device bus abstractions. The driver probes through
+either a match of device or driver name, or a match within the OF ID table.
 
+> diff --git a/samples/rust/rust_driver_serdev.rs b/samples/rust/rust_drive=
+r_serdev.rs
+> new file mode 100644
+> index 0000000000000..a12b1412db30c
+> --- /dev/null
+> +++ b/samples/rust/rust_driver_serdev.rs
+> @@ -0,0 +1,90 @@
+
+[ ... ]
+
+> +    fn probe<'bound>(
+> +        sdev: &'bound serdev::Device<Core<'_>>,
+> +        _info: Option<&'bound Self::IdInfo>,
+> +    ) -> impl PinInit<Self, Error> + 'bound {
+> +        let dev =3D sdev.as_ref();
+> +
+> +        dev_dbg!(dev, "Probe Rust Serial device bus device driver sample=
+.\n");
+> +
+> +        if sdev
+> +            .set_baudrate(
+> +                dev.fwnode()
+> +                    .and_then(|fwnode| fwnode.property_read(c"baudrate")=
+.optional())
+
+[Severity: Medium]
+Does this use the correct device tree property for the serial baud rate?
+
+Standard serial device nodes typically use current-speed rather than
+baudrate. If baudrate is queried, will the driver fail to read the
+configured rate from standard nodes and silently fall back to the 115200
+default?=20
+
+Since this is a sample driver, would it be better to query current-speed so
+it serves as a correct template for new developers?
+
+> +                    .unwrap_or(115200),
+> +            )
+> +            .is_err()
+> +        {
+> +            return Err(EINVAL);
+> +        }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718-rust_serde=
+v-v15-0-208ed2e6ec15@posteo.de?part=3D2
