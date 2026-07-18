@@ -4,141 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E069CC4451B
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 15:42:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4546EC4451B
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 15:48:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF17010E5C6;
-	Sat, 18 Jul 2026 15:42:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BC3B10E1E5;
+	Sat, 18 Jul 2026 15:48:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="l9F6S0Gn";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TSdtssAq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RmtAxm7u";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F6E710E1E5
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 15:42:21 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66IDEBvY572102
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 15:42:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- B3Tozc6XvAyXDRXhNm08ssVPc4HklhucZjeYpfFjPmA=; b=l9F6S0Gnb2vjgD6a
- NBQfReSJBOyCIXwIUgjQE9ha1CjdNnqVi17UErZCTYSlBRo/TxMbCbjqKp2d0Yy8
- 2grbSegaeCpYWBsCtdZz1Mn3v8FEv1j5UcVICfCZoIiXa6CDvpkRuAbnTODcJZ/U
- B2BcXlqo9x1yKCfP3m63lMsLAwNF6umECQ3O2BYkakRH9Y3pltrWALui4/z2ZZDB
- Oohi70BkTEVI9LYX4Az4ZXFHWOAsSgFmcQVj/yBR+bc/KWRawPM7IARiYuzeczGl
- 2Z7prJm/hdBFhaSSwCdQjPyC6p/fQJ948P1wqkX9Tl6bHTlDilZ5bfpKV/jZ9sV8
- GzU+Jw==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2bvs24d-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 15:42:20 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-c96b4f58ddcso5240992a12.3
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 08:42:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784389339; x=1784994139;
- darn=lists.freedesktop.org; 
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-type:content-transfer-encoding:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=B3Tozc6XvAyXDRXhNm08ssVPc4HklhucZjeYpfFjPmA=;
- b=TSdtssAqAvdqW/wWDN3zwTZV8KsliIl2l4bLAOyGH4JEjDqp7OHvvxKoxD84c4SMD2
- xV/zgmZLX3ykNPmYla6VwFBaKYFattuem/Jocb0nscDUFjrYF3nFrWpeG+OsPCBIgZOW
- 509Ypr/sd0oanWq+XawazCXHaGNfed9uocaPKGUyCNxbleTLsXNCMAxjwVwIVD9zpMAB
- I+YX31vRa1lZeophE3++4xqFZdhyEIUSo58P+KayWv5dIHweOtrYgRixN+F9WeN+Vtar
- ksU7+6W4LiKJOTtOwTYxrxZT5VoFF8hV0AirgykWr/rmpNVOOC8ZXWqL+UKCax7Mabpp
- Q1OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784389339; x=1784994139;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-type:content-transfer-encoding:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=B3Tozc6XvAyXDRXhNm08ssVPc4HklhucZjeYpfFjPmA=;
- b=H2gY4/qztlyq4ej+/hELk1JrCBxEAYK/J0H09/jgUvhytvpq6Le9n2q09m5rX1p2Bx
- 6ylyYSkOKe2KaJR6ezaX61C6z7agJIKhQAQHPcHJnOzzzC6e8qup+/FgPXD+9UFRedEn
- li138xfDf8/X1aYbKE+gadNMQc4Qz2QZq1Ujwp6yANVlc7LEihub3VGMFVUQ1NHAyzlU
- CHdwCz69IG6SLBZwSbCCPoAv4DFb2gjyq1+rlbM1VRtI+BJcutXT6RHm+Xn/B7u6cTl1
- r9CP+gwqanD8UBbE+edDJ3bfFR/Z2OrVvA2EWRh19FnCAygH18Ns69dTA0VViNqSazep
- Lzlw==
-X-Gm-Message-State: AOJu0YwpyBW3OE/h/USx3bcvH3blQpS0RBq4aYViiA+GWtg+bkIPEyKQ
- Y+oTLGBZfnOj/KBTCCARVhsKRqGrGZ6o4S0T+l9wHdCcYXV0hMfQWYbB1RhvMwUYX70pCGxxGaI
- nitZWuH8RTDF2/yF2YEMAXP46q1qU+g3m2onaUeC5gZ1WTC/2MgssBd4yNREqqFl+QIlu8Do=
-X-Gm-Gg: AfdE7cnnPmkGJOPJDO9oWJYIZoW4WSDFTLwPaaV1uy5UHSjTepWtG0aHTGnOGokgEcE
- oneB1IIcCKELFC3kx6wHc/OSucFkI9/r2nMppKY1Fft4PH11hBrpj9TcGoSXWeyQ1ohGXNkURHp
- eBzSAuFJ03s29qvaeaBnNiLGCF+fE/VsGeXrwoN5n8PLaG1brP9PHVq/wy9611iZHtv1P8Untgl
- WPeZuYioA4aSP9qUNHhdvnDfqWwiIgoA5X75FwnKGsFOkS7FdyZv5np71dsWREfx4YnFSVNT0EI
- fLF2sVv6SbMQSSAEf6UG/wtVRn6oURYEvwcuR/NEIjr2lj7qLBghbZhd4Gsuoqy+tuYkX91Msp2
- QWlI37g==
-X-Received: by 2002:a05:6300:95:b0:3bf:e2f1:1b08 with SMTP id
- adf61e73a8af0-3c3ad9717d4mr7925880637.40.1784389339429; 
- Sat, 18 Jul 2026 08:42:19 -0700 (PDT)
-X-Received: by 2002:a05:6300:95:b0:3bf:e2f1:1b08 with SMTP id
- adf61e73a8af0-3c3ad9717d4mr7925851637.40.1784389338852; 
- Sat, 18 Jul 2026 08:42:18 -0700 (PDT)
-Received: from localhost ([188.253.117.185]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-31429f9d439sm22974922eec.5.2026.07.18.08.42.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 18 Jul 2026 08:42:18 -0700 (PDT)
-Mime-Version: 1.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 977AB10E1E5
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 15:48:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1BD77436A3;
+ Sat, 18 Jul 2026 15:48:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40EC1F000E9;
+ Sat, 18 Jul 2026 15:48:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784389711;
+ bh=6zcIrcBa5MxYBfWQUH/bEdc6hGtiSk+93tpHDQJjRYI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=RmtAxm7uqZxqjxSj2qEUMDOv99tgtJSbdOzW19XacE37kqdUFQ32RaoCXZPIxY0Lj
+ wCSGd9NnqI8WE2yNm/LJwlYLtFHarGxx0qyjgANb4DwtCDYevDmcD1T2Gv+4HvDV8i
+ coWFMes1czxl8jLCjfinNvdXUODVLOWFzj+CP7vdEbZvRKfkDl/GgklEIy8pbOsOt/
+ bCRzAfCL7mls2YNy9VC8ypOiDc+smO8bs83h2ZVQg+JwS7qJ8IDnhdDKRjoLrDfZTq
+ xCYKBpmCaJs5v1v6OZH0XsBhd7Eiv6MSmT6MQe9Ap8OKhK2/8U2EzaWSVid3ykPhHD
+ 2A0Xcg0RIGWeA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v16 1/3] rust: add basic serial device bus abstractions
+To: "Markus Probst" <markus.probst@posteo.de>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
+In-Reply-To: <20260718-rust_serdev-v16-1-5809384d2e1b@posteo.de>
+References: <20260718-rust_serdev-v16-0-5809384d2e1b@posteo.de>
+ <20260718-rust_serdev-v16-1-5809384d2e1b@posteo.de>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 18 Jul 2026 23:42:10 +0800
-Message-Id: <DK1T85P7OAAY.RXCY4AX71VRX@oss.qualcomm.com>
-Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-aspeed@lists.ozlabs.org>,
- <linux-arm-kernel@lists.infradead.org>, <imx@lists.linux.dev>,
- <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2 5/8] drm/gm12u320: replace struct
- drm_simple_display_pipe with regular atomic helpers
-From: "Ze Huang" <ze.huang@oss.qualcomm.com>
-To: "Thomas Zimmermann" <tzimmermann@suse.de>, "Ze Huang"
- <ze.huang@oss.qualcomm.com>, "Alexey Brodkin" <abrodkin@synopsys.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Joel Stanley" <joel@jms.id.au>, "Andrew Jeffery"
- <andrew@codeconstruct.com.au>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
- Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Linus
- Walleij" <linusw@kernel.org>, "Hans de Goede" <hansg@kernel.org>, "Alex
- Lanzano" <lanzano.alex@gmail.com>, "Oleksandr Andrushchenko"
- <oleksandr_andrushchenko@epam.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260716-drm-simple-kms-removal-v2-0-1133a8fc3785@oss.qualcomm.com>
- <20260716-drm-simple-kms-removal-v2-5-1133a8fc3785@oss.qualcomm.com>
- <26981ae1-4aef-4965-8600-f5e30a1b564a@suse.de>
-In-Reply-To: <26981ae1-4aef-4965-8600-f5e30a1b564a@suse.de>
-X-Proofpoint-GUID: okqdhAcYK0wWqBUMHANqN5ECR0rpXhLN
-X-Authority-Analysis: v=2.4 cv=EcH4hvmC c=1 sm=1 tr=0 ts=6a5b9edc cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=RQ3dwY0XcLBFaqRX7rIGyg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=ZBS7nKAnUslcPLfxFb0A:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE4MDE2MyBTYWx0ZWRfX2ohO/wm3Oj/n
- 1FVU7rEoncUxdSTLQlW+mTgZ6d/4nOFaZT9XbYf/kI2GWhDc/pSBBrPoejgrcb5sXvmAyRVOvF3
- srTDPFNAOnHahexwR38/LX9cAW0jxyxJDvdWeWnF/yT/YNX+PpNyRo6X1wscbhBnC1Gv98gIzJe
- g6waa/L0uaCD7xZuSULeYNgjc5/2wVrL7bfIEq/ueBEr8HE7W+x1336c5cWTu3+Eiu8hFF3TZJ0
- 9vidWqVZBw7iKYxPa1esc3iyViG9VN0USB0Rb+D0NoElosCk3u6azJT0MDeNAJrDbDDixhEspyI
- nOAuKeV8faaBLPTiU5bKgFd+asWEZYyX+WMzLEFO4yloNIYyc3aJFte22GAA3Sr+CaLyhePLWh4
- aePjSpJ5k8kl84Q//JCqJUQmYHlVpL/V66nuJzJG1VGIKZSg8emj6OJWwQ/kTrtAtLcv2jkxOgj
- 7OgOfSBwJYK81bWbYeQ==
-X-Proofpoint-ORIG-GUID: okqdhAcYK0wWqBUMHANqN5ECR0rpXhLN
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE4MDE2MyBTYWx0ZWRfX3WIu/megkuZO
- VkeV2VkF/Pw8lS+34UTdWv2n4El8af/3wdgqAI7JaMqmanQ+DJYsSXd8NcBa337X0dwj72BdPZq
- 0EzA1jYwwYaOWLaSVXUcc0eMSxlMVDs=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-18_04,2026-07-17_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 clxscore=1015 impostorscore=0
- phishscore=0 adultscore=0 malwarescore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607180163
+Date: Sat, 18 Jul 2026 15:48:30 +0000
+Message-Id: <20260718154830.C40EC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,76 +53,227 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 17, 2026 at 3:18 PM CST, Thomas Zimmermann wrote:
-> Hi
->
-> Am 16.07.26 um 11:01 schrieb Ze Huang:
->> Convert gm12u320 to direct primary plane, CRTC and encoder setup.
->>
->> Keep shadow-plane helper state, framebuffer access helpers and
->> no-scaling plane-state check from simple-KMS path.
->>
->> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/tiny/gm12u320.c | 132 ++++++++++++++++++++++++++++++++=
---------
->>   1 file changed, 107 insertions(+), 25 deletions(-)
->>
-> [...]
->>  =20
->> -static void gm12u320_pipe_enable(struct drm_simple_display_pipe *pipe,
->> -				 struct drm_crtc_state *crtc_state,
->> -				 struct drm_plane_state *plane_state)
->> +static void gm12u320_crtc_helper_atomic_enable(struct drm_crtc *crtc,
->> +					       struct drm_atomic_commit *commit)
->>   {
->>   	struct drm_rect rect =3D { 0, 0, GM12U320_USER_WIDTH, GM12U320_HEIGHT=
- };
->> -	struct gm12u320_device *gm12u320 =3D to_gm12u320(pipe->crtc.dev);
->> +	struct gm12u320_device *gm12u320 =3D to_gm12u320(crtc->dev);
->> +	struct drm_plane_state *plane_state =3D gm12u320->plane.state;
->
-> Did you see the reply from the Sashiko bot?
->
-> What happens is that user space can apply multiple atomic commits in a=20
-> row, but they are applied to hardware asynchronously. So if you take the=
-=20
-> plane state here directly from the plane, it could have been replaced by=
-=20
-> a later atomic commit already.=C2=A0 Rather get the correct plane state w=
-ith=20
-> the helper drm_atomic_get_new_plane_state().
->
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] Structural deadlock in `probe_callback` prevents synchronous bidir=
+ectional I/O during driver initialization.
+- [High] Race condition between `drvdata` unlinking and `serdev_device_clos=
+e` leads to Null Pointer Dereference in `receive_buf_callback`.
+- [High] `Device` communication methods are restricted to `Device<Bound>`, =
+breaking `probe` initialization.
+- [High] `core::slice::from_raw_parts` is called with a potentially NULL po=
+inter when `length` is 0.
+- [Medium] Incomplete `Send` and `Sync` implementations restrict `ARef<Devi=
+ce<Ctx>>` cross-thread usage.
+- [Low] Using `select` on a visible `menuconfig` symbol forces its value an=
+d violates Kconfig guidelines.
+--
 
-I think I misunderstood this point. I had assumed that
-drm_atomic_get_*_state() was only needed for the state object directly
-matching the helper callback, for example crtc_state in
-*_crtc_helper_atomic_enable() and plane_state in
-*_plane_helper_atomic_update(), while other state could be accessed via
-the device-private structure.
+--- Patch [1]: [PATCH v16 1/3] rust: add basic serial device bus abstractio=
+ns ---
+commit d5709e842e68663c0c3e7182a96d6618f31e84b5
+Author: Markus Probst <markus.probst@posteo.de>
+rust: add basic serial device bus abstractions
 
-From your explanation, I see that this is wrong. In the atomic commit
-path, any state associated with the current commit should be obtained
-through drm_atomic_get_*_state(), because the object=E2=80=99s ->state may
-already refer to a later commit.
+This commit implements the basic Rust abstractions for the serial device
+bus. It introduces the Driver trait and Device representation to allow
+writing serdev device drivers in Rust.
 
-> I did not look at all of the series' patches for this problem, but the ru=
-le
-> applies to all of the mode-setting code.
->
-> Best regards
-> Thomas
+> --- a/drivers/tty/serdev/Kconfig
+> +++ b/drivers/tty/serdev/Kconfig
+> @@ -9,6 +9,13 @@ menuconfig SERIAL_DEV_BUS
+> =20
+>  	  Note that you typically also want to enable TTY port controller suppo=
+rt.
+> =20
+> +config RUST_SERIAL_DEV_BUS_ABSTRACTIONS
+> +	bool "Rust Serial device bus abstractions"
+> +	depends on RUST
+> +	select SERIAL_DEV_BUS
 
-This affects other patches in the series as well, and some drivers may
-need additional fixes in internal helpers too, e.g. arc_pgu_set_pxl_fmt()
-in arcpgu.c [1].
+[Severity: Low]
+Is it intended to use select on a user-visible menuconfig symbol?
 
-I will audit the full series and fix such cases in the next version.
+SERIAL_DEV_BUS is a user-visible tristate. Using select here forcefully
+coerces SERIAL_DEV_BUS to y when the abstraction is enabled, which prevents
+building the serdev subsystem as a module. Kconfig guidelines generally
+recommend using depends on for visible symbols instead of select.
 
-Best regards
-Ze
+[ ... ]
+
+> --- /dev/null
+> +++ b/rust/kernel/serdev.rs
+> @@ -0,0 +1,605 @@
+[ ... ]
+> +/// #[vtable]
+> +/// impl serdev::Driver for MyDriver {
+> +///     type IdInfo =3D ();
+> +///     type Data<'bound> =3D Self;
+> +///     const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> =3D Some(&O=
+F_TABLE);
+> +///     const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> =3D Som=
+e(&ACPI_TABLE);
+> +///
+> +///     fn probe<'bound>(
+> +///         sdev: &'bound serdev::Device<Core<'_>>,
+> +///         _id_info: Option<&'bound Self::IdInfo>,
+> +///     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+> +///         sdev.set_baudrate(115200);
+
+[Severity: High]
+Will this documentation example compile?
+
+The Driver probe callback provides a Device parameter with the Core context,
+but serial communication methods like set_baudrate are exclusively
+implemented on Device with the Bound context.
+
+Because the types differ, calling set_baudrate on the Core device during
+probe will result in a compilation error.
+
+Furthermore, PrivateData expects the device reference to have the Bound
+context, but probe_callback casts it to CoreInternal, which causes an
+internal type mismatch during the PrivateData initialization.
+
+[ ... ]
+> +    extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -> =
+kernel::ffi::c_int {
+[ ... ]
+> +            // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
+> +            let private_data =3D unsafe { sdev.as_ref().drvdata_borrow::=
+<PrivateData<'_, T>>() };
+> +            let private_data =3D ScopeGuard::new_with_data(private_data,=
+ |_| {
+> +                // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
+> +                drop(unsafe { sdev.as_ref().drvdata_obtain::<PrivateData=
+<'_, T>>() });
+> +            });
+
+[Severity: High]
+Does this error cleanup path introduce a race condition leading to a null
+pointer dereference?
+
+If an error occurs in Adapter::probe_callback, the ScopeGuard runs and
+calls drvdata_obtain, which unlinks the driver data from the device by
+setting dev->driver_data to NULL.
+
+However, the device remains open until PrivateData::drop subsequently calls
+serdev_device_close. If serial data arrives in this window,
+receive_buf_callback executes:
+
+rust/kernel/serdev.rs:Adapter::receive_buf_callback() {
+    ...
+    let private_data =3D unsafe { sdev.as_ref().drvdata_borrow::<PrivateDat=
+a<'_, T>>() };
+    let active =3D private_data.active.lock();
+    ...
+}
+
+The callback will blindly read the now-NULL dev->driver_data and create a
+Rust reference to NULL. When private_data.active.lock() is called, the
+kernel will crash with a null pointer dereference.
+
+The device should probably be closed synchronously before unlinking the
+driver data.
+
+> +            let mut active =3D private_data.active.lock();
+> +
+> +            // SAFETY: `sdev.as_raw()` is guaranteed to be a valid point=
+er to `serdev_device`.
+> +            unsafe { bindings::serdev_device_set_client_ops(sdev.as_raw(=
+), Self::OPS) };
+> +
+> +            // SAFETY: The serial device bus only ever calls the probe c=
+allback with a valid pointer
+> +            // to a `serdev_device`.
+> +            to_result(unsafe { bindings::serdev_device_open(sdev.as_raw(=
+)) })?;
+> +
+> +            // SAFETY: We have exclusive access to `private_data.open`.
+> +            unsafe { *private_data.open.get() =3D true };
+> +
+> +            let data =3D T::probe(sdev, info);
+
+[Severity: High]
+Can this sequence cause a deadlock during driver initialization?
+
+In Adapter::probe_callback, the private_data.active mutex is locked and
+held across the entire execution of T::probe. If a driver attempts
+synchronous bidirectional I/O (like writing a query command and waiting
+for a response) during probe, the system might deadlock.
+
+When the hardware responds, the RX workqueue thread triggers
+Adapter::receive_buf_callback, which unconditionally attempts to lock
+the exact same private_data.active mutex before forwarding data. Because
+the mutex is held by the sleeping probe thread, receive_buf_callback blocks
+indefinitely, stalling the RX workqueue, and T::probe will wait forever
+for a response.
+
+[ ... ]
+> +    extern "C" fn receive_buf_callback(
+> +        sdev: *mut bindings::serdev_device,
+> +        buf: *const u8,
+> +        length: usize,
+> +    ) -> usize {
+[ ... ]
+> +        // SAFETY: No one has exclusive access to `private_data.driver`.
+> +        let data =3D unsafe { &*private_data.driver.get() };
+> +        // SAFETY:
+> +        // - `private_data.driver` is pinned.
+> +        // - `receive_buf_callback` is only ever called after a successf=
+ul call to `probe_callback`,
+> +        //   hence it's guaranteed that `private_data.driver` was initia=
+lized.
+> +        let data_pinned =3D unsafe { Pin::new_unchecked(data.assume_init=
+_ref()) };
+> +
+> +        // SAFETY: `buf` is guaranteed to be non-null and has the size o=
+f `length`.
+> +        let buf =3D unsafe { core::slice::from_raw_parts(buf, length) };
+
+[Severity: High]
+Can core::slice::from_raw_parts be called with a null pointer here?
+
+The C serdev core and underlying TTY layer might signal empty events or
+flushes by passing a NULL buffer with a length of 0. In Rust, calling
+core::slice::from_raw_parts with a NULL pointer is immediate undefined
+behavior, regardless of whether the length is zero, because the standard
+library requires the pointer to be non-NULL and aligned.
+
+Could a check like if buf.is_null() or if length =3D=3D 0 be added before
+creating the slice?
+
+[ ... ]
+> +// SAFETY: A `Device` is always reference-counted and can be released fr=
+om any thread.
+> +unsafe impl Send for Device {}
+> +
+> +// SAFETY: `Device` can be shared among threads because all methods of `=
+Device`
+> +// (i.e. `Device<Normal>) are thread safe.
+> +unsafe impl Sync for Device {}
+> +
+> +// SAFETY: Same as `Device<Normal>` -- the underlying `struct serdev_dev=
+ice` is the same;
+> +// `Bound` is a zero-sized type-state marker that does not affect thread=
+ safety.
+> +unsafe impl Sync for Device<device::Bound> {}
+
+[Severity: Medium]
+Does the Device type with the Bound context need a Send implementation?
+
+The trait implementations unsafe impl Send for Device {} and
+unsafe impl Sync for Device {} implicitly apply only to Device with the
+Normal context due to the default generic parameter.
+
+While unsafe impl Sync for Device with Bound context was explicitly added,
+Send is missing. This means a Device with the Bound context is not Send,
+so it cannot be moved across thread boundaries, stored in standard
+thread-safe driver state, or safely passed to workqueues.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260718-rust_serde=
+v-v16-0-5809384d2e1b@posteo.de?part=3D1
