@@ -4,132 +4,178 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B64FC4450A
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 18:22:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 572C6C4450A
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 18:26:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AC7310E5DC;
-	Sat, 18 Jul 2026 18:22:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47BD710E5E2;
+	Sat, 18 Jul 2026 18:26:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fGNZsNoC";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WXnQl07v";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="cxJ3VkvS";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4463510E5DC
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 18:22:11 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66IGOLgY1002807
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 18:22:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- HyBbYwp5p4Yke6LTJxxI12Zk78NEYeUMQXe2QXNyi9Q=; b=fGNZsNoCnta2l9tI
- FEPN5AaesMZTVVdySsoa1jZrc6/5uojsZCld5WXLUhoAFfZNfxYWG7j8782rW7z6
- ArsngHIB07mOYl/Rpum6JWK/cL2duwOcfyiYNdny1Qye9Zr+F8I7v937NIpg0TTo
- 7AhIkc2WgM68oMlSqqRrS3V7p9uh5LpnN1V7wTkOj4TCpQlT8PxeN0dXvYdXvHtl
- xO3JnFQz5rbRTnRhnJnJOPv1rX+l/P0qy0iXLlB9CkVsM8D2KqkrvaDSViJlhC9h
- qTyltTZNzIcarxtvEQKLAZOZgrloCuyZkpnt70irZj7lS/dnLiUCqUulhmui6nEn
- abiKew==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2chhaqx-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 18:22:09 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-38e22137fb3so6010790a91.0
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 11:22:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784398929; x=1785003729;
- darn=lists.freedesktop.org; 
- h=in-reply-to:references:subject:cc:to:from:message-id:date
- :content-type:content-transfer-encoding:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=HyBbYwp5p4Yke6LTJxxI12Zk78NEYeUMQXe2QXNyi9Q=;
- b=WXnQl07vYpYpkpldfK4j9l5oPyxVXfrD2GY++MqzIx7b+s9hVtkqCJSpSceXJjp5pZ
- szQNcOpIxSGnWz2z+9QMKDR4QAn9AOqmpyI2bXPj5/7AhMz36FKZRGzJOetYh8FY12s/
- ErPTXpa/bPg7r3A3Bv9a48338KBAUQwl2WpKZLYhCE7okp1geJOSC9F89QwfzOJjI0RO
- JkIIxKODxhAMlC9Yzdgr+JhO+iW8ddZ07gVshyqjRz4Y/7Y2rKSDUZo+p2dlm+e2l53J
- w5gv01Ij8FRDINoL2Wksm4jW8Yt3iwv0VCQ84Mp9SGp6scfNlBZCaJuGMtgf+T7ThRdb
- xLqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784398929; x=1785003729;
- h=in-reply-to:references:subject:cc:to:from:message-id:date
- :content-type:content-transfer-encoding:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=HyBbYwp5p4Yke6LTJxxI12Zk78NEYeUMQXe2QXNyi9Q=;
- b=ZjRKLwmx5KXU1UsC91UBx1I4ZYRwtSA8eRVW/Y+oZ2zp7/z0YWtk/AT7CvvxbFdMn6
- O21kMohyE8egxP1z8cI+5LTqKi94M9h+3/M/gXFgaJPXW248OsE3NJJHgKQBXJ0c+VIU
- AwB2BNxuGQDkpFOVKmU+iFRaBA+LLD6FSOJ9q6dGunHuBm0at5gm9o03zkgS+VVHOnyd
- hryA7W4PZ4m4HGk+wuF4gAVJ7oZ49wy810GQdjwlKtKWMYqO/XPim5XKsqzJa2rrq52Q
- XrnjddVAmmPTc4jj0ogsq3WjtlaSqNgEYqv+nZkqO66Abvq9EXSbo9i6gJprGoxhZ2Zz
- odkw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqJSkJxa5E07QoinipvX9Ipkpqio7axFUg9JT18RH9atKN4Zep1LxmEaCkE7IKlk+AQyA7EUGmOv3c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzBdKlYnY8ScL6hVa+PEnwoFu/YDZlJ2z3qrhNRagd6/atgUo2y
- EHOxHqACyhiU6R4WmrsigFBpNJ7K/TTTQjpeERKXU69jM07QSHRvrwG4eDMgf1a+kOXNLrackoS
- vjhBUY3llg+K11jkIaZZ8gf93tbCBVQ3eZWzUEWdePJ68uLwsXekDBDVkd0ZBCPO0g9w1eLQ=
-X-Gm-Gg: AfdE7ckiIkNE6J8GErzrQGhPAvpX3lX5yQM5WjBh7Cz76ga27vgifCOYODW9KAcrdB7
- iB9qXafsuDWaLyxP3l0sTxQKZR1SUhlon5WBmH1RFQdF/mn3SHCiEa3oNTL0B89RtV0tagWQ0k3
- 6YTZG4K/MeUKlc8RzZTV9p6FlfyuOOtJX0LZaG59EHZs08bAn5Mmlb3pfeu5oSFK4pSdH1qqVXr
- Wcni2Fuzad+J0oY6vHwiuZKEIgsC98r8/AHs00onAIdUcbhnaft64ypmx2V7Ex1KY1JF8qZzBW8
- Xmjh8bYvO6WeRfqD7j6xBuWnvFG/oXxa0mrOxLlzWCNvJLLSOokHJ+G2uyQ7GAzkUuG5+VHVEXN
- btyF/KQ==
-X-Received: by 2002:a17:90a:d605:b0:37f:9ce3:ca95 with SMTP id
- 98e67ed59e1d1-38e4b54436bmr8084706a91.30.1784398928609; 
- Sat, 18 Jul 2026 11:22:08 -0700 (PDT)
-X-Received: by 2002:a17:90a:d605:b0:37f:9ce3:ca95 with SMTP id
- 98e67ed59e1d1-38e4b54436bmr8084675a91.30.1784398928065; 
- Sat, 18 Jul 2026 11:22:08 -0700 (PDT)
-Received: from localhost ([188.253.117.185]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-13ce2de31a7sm16705718c88.15.2026.07.18.11.22.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 18 Jul 2026 11:22:07 -0700 (PDT)
-Mime-Version: 1.0
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C603010E5E2
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 18:26:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1784399172; x=1785003972; i=deller@gmx.de;
+ bh=d/3SGhTjSYU9tk1WGvfuJwokBsHRkWnu7IMZprK80EQ=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=cxJ3VkvScnOXXayBX0wkCq5Ccalba5Fh8A3kTjTQYCV+KnQTy7wpd/XWVPlJvwzP
+ IP9pfKK8vW73MpifTHfykEM5U1uivB/htkQ05oRLQshpjUUuSy+EfwYtqmNcKpmyo
+ kjcSRk+kY7aOUUHa4S/Uc6VEKpasZGHl3Y9H8Rztb5Kqtlbnju+jscyr8tET12HI/
+ WDAmEGU7AtOipAMpH4yIgL0M1n5SGuN+0zCQc2sKlovbsAtcFgfUlr+B6YGiXTOQ1
+ hmfHs6xygE8MhQEnSf5eOuNE5yDiBj7qVNsCiSejw5ieAgqlkoh8bZC97cUMUhD0w
+ FbLSdVeWR3SMVvgz8A==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MHXFx-1wpKc90DGT-00Gp6k; Sat, 18
+ Jul 2026 20:26:12 +0200
+Message-ID: <db0698e3-9f45-4123-8b6d-ff59bcdcf25f@gmx.de>
+Date: Sat, 18 Jul 2026 20:26:09 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fbdev: udlfb: validate vendor descriptor items
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>, Bernie Thompson <bernie@plugable.com>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260706093038.80131-1-pengpeng@iscas.ac.cn>
+Content-Language: en-US
+From: Helge Deller <deller@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+In-Reply-To: <20260706093038.80131-1-pengpeng@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 19 Jul 2026 02:22:03 +0800
-Message-Id: <DK1WMKS5DBMB.3O0SCPNN6ZSVV@oss.qualcomm.com>
-From: "Ze Huang" <ze.huang@oss.qualcomm.com>
-To: <sashiko-reviews@lists.linux.dev>, "Ze Huang" <ze.huang@oss.qualcomm.com>
-Cc: <imx@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <Frank.Li@kernel.org>
-Subject: Re: [PATCH v2 7/8] drm/tve200: replace struct
- drm_simple_display_pipe with regular atomic helpers
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260716-drm-simple-kms-removal-v2-0-1133a8fc3785@oss.qualcomm.com>
- <20260716-drm-simple-kms-removal-v2-7-1133a8fc3785@oss.qualcomm.com>
- <20260716092549.D4B5A1F000E9@smtp.kernel.org>
-In-Reply-To: <20260716092549.D4B5A1F000E9@smtp.kernel.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE4MDE5MiBTYWx0ZWRfXyjEzhvymnVc2
- unqKtJDu8EffIank8G1XIgKxAvNlSNHfS+3Duvp89Kwks96SjZcrBGTmGbrf1BupfTkpcrmRrxb
- YufR86Ki67xAmq7hFXnwn1QTEhPcfJo=
-X-Proofpoint-GUID: fHUfQKEsZFLHdCw9EcLsiDUOQHds76Y4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE4MDE5MiBTYWx0ZWRfX3UNH9XCzVTyS
- S9ksw0cxlLofrhvdpakd+qPSDO3tx873Lr2VNsp81kjw6W4Ugyn+3MLsYM3N+RwUVd8wdjRoPI5
- egaYfL2zlxNWnJjnrRlKzWhe0De+L6whXPW1PPR3YB+EkBW6bq9jrXb1ixF5LN037RQPr7OLvus
- lVL9W/S+uRNsG7Wqzw4ZtLUyGd06BGFqOCNpxbiHPnFGSmTbLdA27DMoDy90Lr+kUK0Hkynn4d6
- I2CaTGkBhZ8G6TQ9OsFrrSfv7MQ/aN7YsSywTWSeUPAYc/imDQ4bHGNE9dR3Q2mKjNGnELOUfPi
- zE/47I1NHwe/e0ae2GBGezp+tC927VhC7OqtNwZKq82qS0kIO8Uyhx+E1xIcNim3Y1VHoSqS1il
- 3fZ4b/AyGMkBj86jc2TAsPHJViWieg31UVe/2yL07KuB4dRoZ92hcAA0jfzRbEPJC5NWDleH7/n
- 0FwgJTr/UpCKskGOQZQ==
-X-Authority-Analysis: v=2.4 cv=T5K8ifKQ c=1 sm=1 tr=0 ts=6a5bc451 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=RQ3dwY0XcLBFaqRX7rIGyg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8 a=kdYVNXHMfqCZok_UY-oA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-ORIG-GUID: fHUfQKEsZFLHdCw9EcLsiDUOQHds76Y4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-18_05,2026-07-17_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 impostorscore=0 bulkscore=0 adultscore=0
- suspectscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607180192
+X-Provags-ID: V03:K1:yjifpOCBQEiPYa75as7Gdx+Zr9zp0Xe+Qx+wGb6k8lV3p6zUM/8
+ ufLm3eHXXM9DZeEJ7yPMflbTjooyWL1RUtXOfpXMlKhu2RGCFoYG1K4EBytGTAfNp/C2vW2
+ hky5BDVyp2OmJxdjuoXPyGc5ML7z5BnGEECS95shtkUxlCsJ7N0ya6n7UX9YE0oQtP1mkDe
+ cFl0dUGN2VE/9mNaxfkFA==
+UI-OutboundReport: notjunk:1;M01:P0:geUXMzuEfXQ=;QXodSzrWu5z9WoYHEdDVAsTSYPa
+ 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
+ hhJHQqbOlgpilAWsiuIuo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,105 +191,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Jul 16, 2026 at 5:25 PM CST, sashiko-bot wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
->
-> New issues:
-> - [High] Directly accessing `priv->plane.state` in the CRTC atomic enable=
- callback introduces a Time-of-Check to Time-of-Use (TOCTOU) race condition=
- with subsequent non-blocking commits.
-> - [High] Missing `.cleanup_fb` callback in `tve200_plane_helper_funcs` le=
-ads to memory and resource leaks of pinned GEM objects and DMA-buf mappings=
-.
->
-> Pre-existing issues:
-> - [High] The CRTC atomic enable and disable callbacks call functions that=
- can sleep (`clk_prepare_enable`, `usleep_range`), violating DRM atomic con=
-text guidelines.
-> --
->
-> --- Patch [7]: [PATCH v2 7/8] drm/tve200: replace struct drm_simple_displ=
-ay_pipe with regular atomic helpers ---
-> commit 30e007b0736d27ee72ba4a5f39e203c3808e470e
-> Author: Ze Huang <ze.huang@oss.qualcomm.com>
-> drm/tve200: replace struct drm_simple_display_pipe with regular atomic he=
-lpers
->
-> Convert TVE200 to explicit plane, CRTC and encoder objects. Keep generic
-> plane-state validation before TVE200-specific mode, alignment, pitch and
-> format-change checks, and install GEM framebuffer prepare helper explicit=
-ly.
->
->> diff --git a/drivers/gpu/drm/tve200/tve200_display.c b/drivers/gpu/drm/t=
-ve200/tve200_display.c
->> --- a/drivers/gpu/drm/tve200/tve200_display.c
->> +++ b/drivers/gpu/drm/tve200/tve200_display.c
-> [ ... ]
->> @@ -119,16 +140,72 @@ static int tve200_display_check(struct drm_simple_=
-display_pipe *pipe,
-> [ ... ]
->> +static const struct drm_plane_helper_funcs tve200_plane_helper_funcs =
-=3D {
->> +	.prepare_fb	=3D drm_gem_plane_helper_prepare_fb,
->> +	.atomic_check	=3D tve200_plane_helper_atomic_check,
->> +	.atomic_update	=3D tve200_plane_helper_atomic_update,
->> +};
->
-> [Severity: High]
-> Since .prepare_fb is assigned to drm_gem_plane_helper_prepare_fb, will th=
-e
-> lack of a corresponding .cleanup_fb callback lead to memory and resource
-> leaks of pinned GEM objects and DMA-buf mappings when the framebuffer is
-> swapped out?
+On 7/6/26 11:30, Pengpeng Hou wrote:
+> dlfb_parse_vendor_descriptor() walks key-length-value items inside the
+> DisplayLink vendor descriptor.
+>=20
+> Require each item to contain its key, length and declared value bytes
+> before reading item-specific fields such as max_area.
+>=20
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> ---
+>   drivers/video/fbdev/udlfb.c | 22 ++++++++++++++++------
+>   1 file changed, 16 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/video/fbdev/udlfb.c b/drivers/video/fbdev/udlfb.c
+> index fdbb8671a810..e78d6f95c9c5 100644
+> --- a/drivers/video/fbdev/udlfb.c
+> +++ b/drivers/video/fbdev/udlfb.c
+> @@ -1586,19 +1586,29 @@ static int dlfb_parse_vendor_descriptor(struct d=
+lfb_data *dlfb,
+>   		desc +=3D 5; /* the fixed header we've already parsed */
+>  =20
+>   		while (desc < desc_end) {
+> +			char *value;
+>   			u8 length;
+>   			u16 key;
+>  =20
+> -			key =3D *desc++;
+> -			key |=3D (u16)*desc++ << 8;
+> +			if (desc_end - desc < sizeof(key) + sizeof(length))
+> +				goto unrecognized;
+> +
+> +			key =3D get_unaligned_le16(desc);
 
-The documentation for drm_gem_plane_helper_prepare_fb() [1] explicitly says
-that simple GEM framebuffer drivers do not need a matching cleanup_fb hook.
+Is there a reason why you switch to unconditional little-endian reads?
+Is this "vendor descriptor" always little-endian?
+If yes, then your patch is probably correct.
+If not, I think your patch will most likely break big-endian machines.
 
-[1] https://elixir.bootlin.com/linux/v7.1.3/source/drivers/gpu/drm/drm_gem_=
-atomic_helper.c#L107
+Helge
 
->
-> [ ... ]
->> -static void tve200_display_enable(struct drm_simple_display_pipe *pipe,
->> -				 struct drm_crtc_state *cstate,
->> -				 struct drm_plane_state *plane_state)
->> +static void tve200_crtc_helper_atomic_enable(struct drm_crtc *crtc,
->> +					     struct drm_atomic_commit *commit)
->>  {
->> -	struct drm_crtc *crtc =3D &pipe->crtc;
->> -	struct drm_plane *plane =3D &pipe->plane;
->>  	struct drm_device *drm =3D crtc->dev;
->>  	struct tve200_drm_dev_private *priv =3D drm->dev_private;
->> +	struct drm_crtc_state *cstate =3D drm_atomic_get_new_crtc_state(commit=
-, crtc);
->>  	const struct drm_display_mode *mode =3D &cstate->mode;
->> -	struct drm_framebuffer *fb =3D plane->state->fb;
->> +	struct drm_plane_state *plane_state =3D priv->plane.state;
->> +	struct drm_framebuffer *fb =3D plane_state->fb;
->
-> [Severity: High]
-> Could this direct access to priv->plane.state introduce a race condition
-> with subsequent non-blocking commits? A fast sequence of commits might sw=
-ap
-> the global state before a previous commit's worker executes this function=
-.
->
-> Would it be safer to extract the current commit's plane state using
-> drm_atomic_get_new_plane_state(commit, &priv->plane) instead to guarantee
-> it reads the correct snapshot?
+> +			desc +=3D sizeof(key);
+>   			length =3D *desc++;
+>  =20
+> +			if (length > desc_end - desc)
+> +				goto unrecognized;
+> +
+> +			value =3D desc;
+>   			switch (key) {
+>   			case 0x0200: { /* max_area */
+> -				u32 max_area =3D *desc++;
+> -				max_area |=3D (u32)*desc++ << 8;
+> -				max_area |=3D (u32)*desc++ << 16;
+> -				max_area |=3D (u32)*desc++ << 24;
+> +				u32 max_area;
+> +
+> +				if (length < sizeof(max_area))
+> +					goto unrecognized;
+> +
+> +				max_area =3D get_unaligned_le32(value);
+>   				dev_warn(&intf->dev,
+>   					 "DL chip limited to %d pixel modes\n",
+>   					 max_area);
 
-Will do
-
->
-> [Severity: High]
-> This is a pre-existing issue, but does tve200_crtc_helper_atomic_enable()
-> call sleeping functions in an atomic context?
->
-> Looking further down in this function, it calls clk_prepare_enable() and
-> usleep_range(). Similarly, tve200_crtc_helper_atomic_disable() calls
-> clk_disable_unprepare(). Since atomic commit callbacks can run in an
-> atomic context where sleeping is forbidden, could this cause system
-> instability or deadlocks?
-
-It is a false positive.
