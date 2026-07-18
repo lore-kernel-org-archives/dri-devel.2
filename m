@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C720C44523
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54B59C44524
 	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 23:36:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51E3C10E620;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D2BA10E62A;
 	Sat, 18 Jul 2026 23:36:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e4FiyUT6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RCeJRjqJ";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A388710E60D
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 23:36:31 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-49558ce01afso913445e9.1
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 16:36:31 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3331410E60D
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 23:36:24 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4954c0833b4so9390265e9.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 16:36:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784417790; x=1785022590; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784417782; x=1785022582; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=o8dh5aQckfiP03vdZ5nRuu+LA2oP+sZO4zs8QLavR/M=;
- b=e4FiyUT6GwdIskQTJuo17zfaGajKMcFiixrOiYnaiEo6/VRo9vW36NKRITgJK8ZRQp
- zjuUF36DWxI9inK79+RZ2vjYCE1nAjHEDMs1pjw+tZPs2FgASV5sxud/PYQc/3gLwQUz
- kkCGMFX6oKv+SYxhbnzwi6kQN+NwmeRgH4et+xgD7L1WKrSj9XhsYMEl2A4Sazpk5tvc
- NYcUNvXWCdaqA/YsGAL3+VOFE1fdzR5kJx/P9DLtI/ZNFP56eAHqEk58pYQnj3BTzkba
- MLYd8ZNRzOpc+rDgxq1O7UUCislTiWsPeLxntPolJXCJAOTNR2SDIsqmOfRi/adAklZC
- jwjw==
+ bh=ATiv+bDbiK4r8/Ev/Mp3rnzRTm75IqK6z6i5srau5Es=;
+ b=RCeJRjqJSAUUVHxZhtF4sYy7H/FKhcP1j6xT8sdgc/guwcDWE6mrg/cTARWyX1jvV1
+ hDuoUrIbTF7pyeMdNZLAVguDszISqk/qweWjyLE7faRnTddY/jHaBRsybYGipMdYFRyK
+ ZdJgOFKSnx1cvWUJ3BP/+ItraiAsQVUFsEmLOn1s1quu7pCm0Ln19OzIgFWxsR1pr5sr
+ +pZfxsvov9zDxFd3F8CnhE7Y7FjQSkYxCly+JdToJN32vGy3/k5NCKjHEPUecXLXaovF
+ uWxUlEy+N7R8lfb/CXMO/vEMFafLvoF2B6XCvT49UtFpQRVdgZ9MguvO3VYhsVbW9CjP
+ 9Xwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784417790; x=1785022590;
+ d=1e100.net; s=20251104; t=1784417782; x=1785022582;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=o8dh5aQckfiP03vdZ5nRuu+LA2oP+sZO4zs8QLavR/M=;
- b=aZnBlDPAMCk7NlbFTctEZp7f3tu7b+1WbBBYgv7EqffZq5YwyuIwopanGKmIeqqufY
- BIJ5GKJ294EezQRlbRQ364ze0dwjFGz/kmcJ2CtuN54Yult37yWlaFtYvZfIUAV1vFFo
- jeL8qDE/F8t4oDkRhdoBVuRpx//pmcpfrb4ZmJE8ohNzIep9Pn2WD2+mNWhYDJ9hjphw
- 1n6bRGo0iODyjt9FwCT+IWQK1s6vRRsbMM/WClHYr2NFBU6F1o/Kjxqo5aJIEhm/j3Vg
- 18hUBsTjPZRbtFTT28wYsagkPaaorukkJQ8LTDEEhwI6t4Tytf4tnWnZwXqjEgdYAmeJ
- udUg==
-X-Gm-Message-State: AOJu0Yx5QRdB1cWUNW1KJg/y9S10j2FJINuJuWjVL9373bGW8DZdnfTW
- +cmrqgTUFRu+HHVKqFh59bjd/gM5SrU7YAxzZSRHzmNp7ruJdxxLKWbN
-X-Gm-Gg: AfdE7ckjhDwJU3ACrwSe0la+7dukscz0wT4XD/ugAOCMsAmINqoxrxJ3njLiFtzVXXM
- QD2XgSY8e/808VKvbzOdUlDVbALe+acdwTaed8ylmHXAMa+6KBATd3HqioxCDB7RBpe5LEv6nTS
- D834VPny+hyGUFkUAq9oO6i0W+mZDdCFeSN8OfdUkOKdjPhPko3nt/ttUdPRlxNi8Kln8apap2w
- PFreDjfgyeKIlwBipxcrqj8igC2wiD0Pj4QaLgmM9T1shZ/N8DhEpAq728Wbj+LpUMOy48egg1p
- SX4aqLn6K7ojQK/1UdbZwVxGG4v5aLrAXT0gju0YJGCTNC8XsgPa2/an642iqQv1bou37U3Mx6t
- UwJj970U/NvEGjNL0pPlObcG9kOlXm20pn7/VMOqVuu1p8igG6zDTGWA3RSIAHsKor4o8YCnp0w
- Uxw7ePO6datw==
-X-Received: by 2002:a05:600c:6dc9:b0:490:688b:f9f8 with SMTP id
- 5b1f17b1804b1-4954a5151e5mr67150965e9.27.1784417789982; 
- Sat, 18 Jul 2026 16:36:29 -0700 (PDT)
+ bh=ATiv+bDbiK4r8/Ev/Mp3rnzRTm75IqK6z6i5srau5Es=;
+ b=FumT/BJgu69nZV/EVr8iLcNmRX52DgGFRsivwxD+KAhcoyEubx5uyMPo6u2K2EO16Q
+ IHwduSNw1WT5BW3lHGK61C6haLXddBdKzEu942KkFDTJx3dSgBbDb0uOZhppcmexfbSS
+ Jgrj3YfTrkCdK6aKhL1gJFFH9LP8Kc1CDvRXQqO2pkOr2Y2xvICyWUhdrW2RN7rxsmrJ
+ dE36oRHdsPrCKDIpfckL3Y8ReaRAU8LEk3eAANuvd1ZOwz+g5gqILVmLAU5sT0QVndW4
+ KsB6tSh5gl0fVlz1WoWJeopWXLc4AG5fJT1ju4d3Wt0w1R1L9sssecyiIoLIQD/+tzLO
+ 2peg==
+X-Gm-Message-State: AOJu0Yx1hS/vJDci5bhc0qMg5xb4/ZbW6bKgKdETDL0O/hqyXVLFYME/
+ U+RbNaysfw4yP6B4giUKAkbe6pcSB6PnsFEacKUnnwZdZ2TOgeoSENMw
+X-Gm-Gg: AfdE7cmeieow02Tz3ri9eBFAxhjUT5yfncUfGMRMiRLOhfk2yQ7A2iKmSS61edCHEAE
+ +WOEv4ZRIgAbkEgKqEv0WF/O6olJVJ6JUd99CtHQC4IePwLi/ROoKtiqhZtFEeimc2bytE6Bpbt
+ t+sY68ysMlxI3klHXyTogvRnNKM/JdQv+1AsupVc42jEjDTX3tYksjmGjEO99zbMuvv73XKpLFY
+ ebog/UllSDRHNlDt9taXhaXYN5K3RmH9QJOHcALrPIBlpTwXDWrxqLPEtLGc4CFJvsTVi9QCUtL
+ LsQTQZvRhxTQXORnUzIzSHT552qVWo11cpL6VbuXayK0qYFL7rLltbtfaO2crwbqngwgfCQaBXT
+ wHSxTtONkY0aaoFtnBKVUdy/Y9PdD/6XthPbHhSW2luBBzy+Uo1Y+XFbDNRTRIKlcs5pF/FUspb
+ vQgG62QPi3DA==
+X-Received: by 2002:a05:600c:4746:b0:495:4d07:4fcb with SMTP id
+ 5b1f17b1804b1-4954d0784c6mr79013155e9.36.1784417782504; 
+ Sat, 18 Jul 2026 16:36:22 -0700 (PDT)
 Received: from [127.0.0.2] ([2a01:14:111:ccf0:645b:9e5c:7fe3:c09f])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4954a2a24b6sm160964675e9.3.2026.07.18.16.36.27
+ 5b1f17b1804b1-4954a2a24b6sm160964675e9.3.2026.07.18.16.36.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 18 Jul 2026 16:36:29 -0700 (PDT)
+ Sat, 18 Jul 2026 16:36:21 -0700 (PDT)
 From: Diogo Silva <diogompaissilva@gmail.com>
-Date: Sun, 19 Jul 2026 01:35:40 +0200
-Subject: [PATCH 09/15] drm/mediatek: remove dependency on DRM simple
- helpers
+Date: Sun, 19 Jul 2026 01:35:38 +0200
+Subject: [PATCH 07/15] drm/tidss: remove dependency on DRM simple helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260719-drm_simple_encoder_init-v1-9-a78c509e3062@gmail.com>
+Message-Id: <20260719-drm_simple_encoder_init-v1-7-a78c509e3062@gmail.com>
 References: <20260719-drm_simple_encoder_init-v1-0-a78c509e3062@gmail.com>
 In-Reply-To: <20260719-drm_simple_encoder_init-v1-0-a78c509e3062@gmail.com>
 To: Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
@@ -137,46 +136,48 @@ directly and providing driver-local drm_encoder_funcs.
 
 Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
 ---
- drivers/gpu/drm/mediatek/mtk_dsi.c | 10 +++++++---
+ drivers/gpu/drm/tidss/tidss_encoder.c | 10 +++++++---
  1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 3f3f56eed3f9..7cd136bd9605 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -21,12 +21,12 @@
+diff --git a/drivers/gpu/drm/tidss/tidss_encoder.c b/drivers/gpu/drm/tidss/tidss_encoder.c
+index 698f8d964ca0..10dbcc6cdf6a 100644
+--- a/drivers/gpu/drm/tidss/tidss_encoder.c
++++ b/drivers/gpu/drm/tidss/tidss_encoder.c
+@@ -9,11 +9,11 @@
  #include <drm/drm_atomic_helper.h>
  #include <drm/drm_bridge.h>
  #include <drm/drm_bridge_connector.h>
 +#include <drm/drm_encoder.h>
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_of.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_modeset_helper_vtables.h>
  #include <drm/drm_panel.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
+ #include <drm/drm_of.h>
 -#include <drm/drm_simple_kms_helper.h>
  
- #include "mtk_ddp_comp.h"
- #include "mtk_disp_drv.h"
-@@ -913,12 +913,16 @@ void mtk_dsi_ddp_stop(struct device *dev)
- 	mtk_dsi_poweroff(dsi);
- }
+ #include "tidss_crtc.h"
+ #include "tidss_drv.h"
+@@ -81,6 +81,10 @@ static const struct drm_bridge_funcs tidss_bridge_funcs = {
+ 	.atomic_destroy_state		= drm_atomic_helper_bridge_destroy_state,
+ };
  
-+static const struct drm_encoder_funcs mtk_dsi_encoder_funcs = {
++static const struct drm_encoder_funcs tidss_encoder_funcs = {
 +	.destroy = drm_encoder_cleanup,
 +};
 +
- static int mtk_dsi_encoder_init(struct drm_device *drm, struct mtk_dsi *dsi)
- {
- 	int ret;
+ int tidss_encoder_create(struct tidss_device *tidss,
+ 			 struct drm_bridge *next_bridge,
+ 			 u32 encoder_type, u32 possible_crtcs)
+@@ -95,8 +99,8 @@ int tidss_encoder_create(struct tidss_device *tidss,
+ 	if (IS_ERR(t_enc))
+ 		return PTR_ERR(t_enc);
  
--	ret = drm_simple_encoder_init(drm, &dsi->encoder,
--				      DRM_MODE_ENCODER_DSI);
-+	ret = drm_encoder_init(drm, &dsi->encoder, &mtk_dsi_encoder_funcs,
-+			       DRM_MODE_ENCODER_DSI, NULL);
- 	if (ret) {
- 		drm_err(drm, "Failed to encoder init to drm\n");
+-	ret = drm_simple_encoder_init(&tidss->ddev, &t_enc->encoder,
+-				      encoder_type);
++	ret = drm_encoder_init(&tidss->ddev, &t_enc->encoder,
++			       &tidss_encoder_funcs, encoder_type, NULL);
+ 	if (ret)
  		return ret;
+ 
 
 -- 
 2.54.0
