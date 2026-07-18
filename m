@@ -4,46 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A410EC4451B
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 14:51:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1D00C4451B
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 14:52:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A841A10E5B1;
-	Sat, 18 Jul 2026 14:51:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CB1610E5B5;
+	Sat, 18 Jul 2026 14:52:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="maWdL5OX";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="QAUNZ4+L";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 290AE10E5B1
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 14:51:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A574A10E5B5
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 14:52:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=tFG+MUX+cRNSZMBWDxcF7gV/h1B70zxD/kMldbvWjSE=; b=maWdL5OXJnoesTPBjSLefONW77
- Fx87ySPTRX6tuJiM2NFndnuUYSv6Ok/aGAbDw/kfciIiNLrLbP24lfQRdHXWMrbfY1ksRwNuIZok8
- JktFL+DLMsreESsG42zrE5PIWS469UpJQRoAX/PxHG0IxsN32vs5wUhUO9L6WUh+TyJhGyHt9dcB8
- gW8Fo257NQDQkfygMWoyk5M5AJqn8+4+nIkvvkXW6+t4SP68MPYVraBPHR5eY6bqX+rJ5YrdMUTHU
- aFzGmPxvAMSgYCw30mCHY3jH30Ftj4wZMx4oCqYuobBLhL1hdxmkxVQSU1uHN9+VKqVGvkb2bzu6W
- 9ZINmbeQ==;
+ bh=kI671y0iV0R8qextd7vEcyTOKp+Ug9QKlovCJmECPCU=; b=QAUNZ4+LqgfPamoPxMVsedI7Mn
+ T+/VDJw3xlGv1F5UtV0wWmyRi1TnUcnUyyg/TzHVyRx0SwluU45IHDv/B48McK85IjHDCt/CyJwwx
+ ERXuEjEX1s+rZuuFtP5orPFTsiXNiixj4fs2+e38B4RtOWn9Pv/AmNFTOLLGVQ8p4NMC5exJqdZLT
+ Cvm7D1d2y3v6tHV0gL6S/GhzwS3Oz/BJ/dfXgi57K8FLOaFn8FVuugvEWnMSuzxKNexay8KNOx0ZR
+ /NV/6bzGR8kImXZ0ZG41JmY3LbujPT2EZEoeqLmfHceiveBTq3qFocpfCm18KbuacR57IgarYM59+
+ I+m+BDnQ==;
 Received: from [189.7.87.67] (helo=prince) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wl6Ny-00HTMY-JS; Sat, 18 Jul 2026 16:51:27 +0200
+ id 1wl6Op-00HTNQ-4M; Sat, 18 Jul 2026 16:52:19 +0200
 From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Johan Hovold <johan@kernel.org>
-Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/vc4: hdmi: take i2c adapter module reference
-Date: Sat, 18 Jul 2026 11:51:03 -0300
-Message-ID: <178438625488.3077907.10437803537253623825.b4-ty@igalia.com>
+To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Cc: dri-devel@lists.freedesktop.org,
+	kernel-dev@igalia.com
+Subject: Re: [PATCH v4] drm/v3d: Associate BOs with every job that accesses
+ them
+Date: Sat, 18 Jul 2026 11:52:05 -0300
+Message-ID: <178438632259.3078338.5551896457904304245.b4-ty@igalia.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260716132448.1565278-1-johan@kernel.org>
-References: <20260716132448.1565278-1-johan@kernel.org>
+In-Reply-To: <20260710114734.2731000-1-mcanal@igalia.com>
+References: <20260710114734.2731000-1-mcanal@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -63,20 +60,22 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Thu, 16 Jul 2026 15:24:48 +0200, Johan Hovold wrote:
-> The i2c subsystem currently blocks during adapter deregistration
-> whenever there are consumers holding a reference.
-> 
-> Switch to using of_get_i2c_adapter_by_node() which also takes a
-> reference to the adapter module so that an attempt to unload the module
-> while in use fails gracefully instead of blocking uninterruptibly.
+On Fri, 10 Jul 2026 08:43:27 -0300, Maíra Canal wrote:
+> A submission can expand into a chain of jobs (e.g. bin + render + cache
+> clean). Implicit synchronization in v3d_submit_lock_reservations() is gated
+> on each job's bo[], but the BO list was only ever attached to the last job
+> of the chain. When that last job is a trailing CACHE_CLEAN job, the job
+> that actually consumes the BOs (that is, a RENDER or CSD job) was left with
+> bo_count == 0 and picked up no implicit dependencies. It could therefore
+> be dispatched to the hardware and read a BO while another context was still
+> writing it, leading to data corruption.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] drm/vc4: hdmi: take i2c adapter module reference
-      commit: 7a4b7122a623e3d57fc15cf843a9d45fbd72c6ab
+[1/1] drm/v3d: Associate BOs with every job that accesses them
+      commit: fa98563ab00dbe62fcedfef6bdd34ded7a860d9f
 
 Best regards,
 - Maíra
