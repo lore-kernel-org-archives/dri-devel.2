@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BFEDC4450A
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 23:36:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B03E4C4450A
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 23:36:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AEED10E612;
-	Sat, 18 Jul 2026 23:36:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10F7F10E60E;
+	Sat, 18 Jul 2026 23:36:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Lfg87Mg8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IQrUuJ95";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB17310E628
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 23:36:37 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-49547fc63a0so7752435e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 16:36:37 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24D4010E610
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 23:36:44 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4954d29264cso6770665e9.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 16:36:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784417796; x=1785022596; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784417802; x=1785022602; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=UCTzuFV7eFCGxIzO9ORcmzHtSM3Ggk/jrKBR0xDgYaA=;
- b=Lfg87Mg8ZyfUmDiZ765yGLtDfXE70Qzvf65K8g4vKU4wto0GtjFg18j497rvmh66qm
- WDWI6PduS04JQ2sKfBYCZQQFO6bPWxbv+VKcfSn0mLR9N72+rkbHmD9Ss7HVTcKlA6Tc
- C0KTY+47n1p3bbyC5mgnQBnJbCeTxgmOESuEjeUGvMUGiaOJwn9MMyeyT99XXNBmzCpW
- EdjGeCEEBTm7u7VJrlrZUJTwZgApmmo1wubWhHAx9+3RlOZuQm9/0wBrv+K9fUPqVZKl
- 6zz7Gv55n9cf4TpZx0TVS5gtn8TfxYeUMB/L3dr7c5IYgch0k4adiDvkEYcMVhZ6Knp3
- ImFg==
+ bh=ITwMWTyjPOpmiBS75ZF02CenxzeBHARaB0ED7f6Tp6A=;
+ b=IQrUuJ959s+84FAyJuRe5VkFS2rxlzpgjO/0Lm4y/SJ2TxPgxVquoT8+en8Zcx4h40
+ M1pGah31uUxoWD6E21brkGT0XPTu+yPsV6jfuOhDJGNC8/4t6WMQEEZGqpASZGqPihMa
+ 6iBh2SnbS7pGYNWGck66A+EwgIA6fdLqxvCbxKm9SsyVzw3KDI5ZoF2O8saZDPe3bOr7
+ SMpjxD6iaPope7lpjUm+B7nycrD3LDgQaJeBqCalt7ayz/NZ/wwVLY0DwkyBbOFhOjwv
+ GSs/yheX42LDbvru+1XuAeRtppdeoj3Z7iYtPkZ6VoQo/cdjF2IFidgklprUJ7sLgvAt
+ gwtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784417796; x=1785022596;
+ d=1e100.net; s=20251104; t=1784417802; x=1785022602;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=UCTzuFV7eFCGxIzO9ORcmzHtSM3Ggk/jrKBR0xDgYaA=;
- b=ldjKbP3zx+JmBvUQ89L/49viAArtOb36+WncP9GFbq3v0ljKUGCNP/heAb3qJWvoAT
- ghXU2Rp1w36hA1RUWz2PAPdnWHqC2Dnk9LaqUm7ey69nQHc32YB4CjVkFOgf0r3ilhve
- a2S4bi+nBU9ku8Em38J4j5qHKlGvZDRHsU5U/fy3LbeSL9BuZt0tzDaDimkO0h9LxDI+
- PrtQpy/4gp/yLCCeZJaZC7+Ql1t+KJUl+5lzrJwX+EWMSaVuzE2WOZ2gVjczWZPkLLR5
- v//Q2t7UexFbkz2Zoir491RvGLhOMRlUM0wSmKJahO6qbJFZJyjWWfzC7PR2lB2zgDsc
- apOw==
-X-Gm-Message-State: AOJu0Yzd3VwemAtTcuj+3GgKO8E0tU4a2q9JNPd9Zac+LVs8L05tS4MM
- PyA0vOMd+OQF2UvTN5RTMk/BChTyC+RLT0Gz4o1wsR8UmhOLYvN6bOta
-X-Gm-Gg: AfdE7ck9toBWXxBj+yWkrBhhPP2+k4PO7+ovqeJ7r/KGNs5QIYFUAKzUiI0UaC7ae25
- PI67XClxbPfANRhRkQio8Fg7xNyu7/uZEUTjWbbIijmLH29lycAnLfgMohbXFo32bR1pwj5NcWc
- /B1s4XgSYADug1m4dxefXhFpCnDC5ZOJtpJwj1FaqO2sO2Ve3EPsbn7cjPtAZevwE3Hf7weKJGB
- OspXwDSuIfsZ6G3nyeGiq2Oh0nu/jqqw189MZjeQWt+dOQhQwhv4noqBr0Ea4AIfp29dAZEV51F
- lO/nMSVzT1d/HBTVdl/vuU3eIGcz53jc+P+I3vr8P2/MOgkgU+QUFns4JK7lqiw6P7GTwr2Bnze
- BcA9EZmnXuqOvsmNW6L8O+prd6lu1vrp68QwRjU4v/Ipoq9ZgMcJ8Kx4WWG/VRrw86O+zUDJftF
- XmG7a0iNJSJQ==
-X-Received: by 2002:a05:600c:3b91:b0:495:4c62:9d43 with SMTP id
- 5b1f17b1804b1-4954c629e5emr98503215e9.34.1784417796224; 
- Sat, 18 Jul 2026 16:36:36 -0700 (PDT)
+ bh=ITwMWTyjPOpmiBS75ZF02CenxzeBHARaB0ED7f6Tp6A=;
+ b=tARVzoFYRR9y2lxbbTiMzv6fIVIcQC7qgcJ0BAf3xhnsT6HhJEOLCMYDHFoej5/fLR
+ EEFA/IMyXFqYWsktJ8zuQ+/B0BqNfWN6+joNiZIgnt38/J20HyxFabbAYJAsoNieR1H/
+ J3PyL3o6ui73uf4V0XVHdVHh42LbBoKAIB6X7wmt9Q35uVugIIAnKQZUM+gGc4WeQAvW
+ Hja2we11aRFy7XNYXBaxRLP3lJdIB5M3wKXc0eJEOEdCBh1ogZ91QuCyLxcAd8O5LrV7
+ PSuEe9PqNTbD33UJk8rcbf8kdnUeav/K9sNT9Cr9RZElyOELfUVFeIju+tTdMdkDXUEx
+ CVqA==
+X-Gm-Message-State: AOJu0YwE89AipFQ/Lb2wQ9LVO0immOm2l0bEowZB4hIr9GA0oi1T1mO/
+ PgDra9BywoVj1wpWV0712Al0Wi22BO/ReFsD/GvZraXIq/ANgnNes206
+X-Gm-Gg: AfdE7cm45PsEe3m8f9P/MAOCWpgIpNooHhEmrQ9w48xZ8xCchClO6On9eJj17sEPMtx
+ EJAHcvujftwps6nQK9wtYKF1iWloIvnHNWxHgp3LxiHqjPtVHHzhYQAaDmvWK0LP3qIdikeK0Jq
+ fDuABayfzkyClHnEnIvr68Yh5rpvh56Bx6lgbL6o00HeNBbsyTPDI3D1wAeJ++pXDnW7bUh1T0g
+ xVU4LlL4kb1/wJuF7yMVsBNChumYwY52Bxr1d1BSh8RoUKHT4zp8YBwPXMgVmlqQ8GBUoXCI5yq
+ D7djQGrWPjGMKBc5FnLjOcGHiautp8BL4y03bkmVhoR1OrRk5UU/zc0Tx2X6hgHDYaHTR6iMCP9
+ BE6y9bahSuBgAE9QTzJYOKR7kmkm+5G8bTEnOnrNPi8hk+3FEwgk1+rQqWixpFHAfxQqawElMD9
+ Yh+SL+w6d+Zg==
+X-Received: by 2002:a05:600c:1509:b0:495:3f5e:e7a with SMTP id
+ 5b1f17b1804b1-4954a51dee6mr63721895e9.34.1784417802374; 
+ Sat, 18 Jul 2026 16:36:42 -0700 (PDT)
 Received: from [127.0.0.2] ([2a01:14:111:ccf0:645b:9e5c:7fe3:c09f])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4954a2a24b6sm160964675e9.3.2026.07.18.16.36.33
+ 5b1f17b1804b1-4954a2a24b6sm160964675e9.3.2026.07.18.16.36.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 18 Jul 2026 16:36:35 -0700 (PDT)
+ Sat, 18 Jul 2026 16:36:41 -0700 (PDT)
 From: Diogo Silva <diogompaissilva@gmail.com>
-Date: Sun, 19 Jul 2026 01:35:42 +0200
-Subject: [PATCH 11/15] drm/hisilicon/kirin: remove dependency on DRM simple
- helpers
+Date: Sun, 19 Jul 2026 01:35:44 +0200
+Subject: [PATCH 13/15] drm/meson: remove dependency on DRM simple helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260719-drm_simple_encoder_init-v1-11-a78c509e3062@gmail.com>
+Message-Id: <20260719-drm_simple_encoder_init-v1-13-a78c509e3062@gmail.com>
 References: <20260719-drm_simple_encoder_init-v1-0-a78c509e3062@gmail.com>
 In-Reply-To: <20260719-drm_simple_encoder_init-v1-0-a78c509e3062@gmail.com>
 To: Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
@@ -137,47 +136,124 @@ directly and providing driver-local drm_encoder_funcs.
 
 Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
 ---
- drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/meson/meson_encoder_cvbs.c | 11 ++++++++---
+ drivers/gpu/drm/meson/meson_encoder_dsi.c  | 11 ++++++++---
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c | 11 ++++++++---
+ 3 files changed, 24 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
-index 15042365dec0..62c5bd3277da 100644
---- a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
-+++ b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
-@@ -20,11 +20,11 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
+diff --git a/drivers/gpu/drm/meson/meson_encoder_cvbs.c b/drivers/gpu/drm/meson/meson_encoder_cvbs.c
+index 22cacb1660c4..cdb84d2283f8 100644
+--- a/drivers/gpu/drm/meson/meson_encoder_cvbs.c
++++ b/drivers/gpu/drm/meson/meson_encoder_cvbs.c
+@@ -17,8 +17,8 @@
+ #include <drm/drm_bridge_connector.h>
  #include <drm/drm_device.h>
+ #include <drm/drm_edid.h>
 +#include <drm/drm_encoder.h>
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_of.h>
- #include <drm/drm_print.h>
  #include <drm/drm_probe_helper.h>
 -#include <drm/drm_simple_kms_helper.h>
  
- #include "dw_dsi_reg.h"
+ #include "meson_registers.h"
+ #include "meson_vclk.h"
+@@ -218,6 +218,10 @@ static const struct drm_bridge_funcs meson_encoder_cvbs_bridge_funcs = {
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ };
  
-@@ -687,6 +687,10 @@ static int dsi_encoder_atomic_check(struct drm_encoder *encoder,
- 	return 0;
- }
- 
-+static const struct drm_encoder_funcs dw_encoder_funcs = {
++static const struct drm_encoder_funcs meson_encoder_cvbs_funcs = {
 +	.destroy = drm_encoder_cleanup,
 +};
 +
- static const struct drm_encoder_helper_funcs dw_encoder_helper_funcs = {
- 	.atomic_check	= dsi_encoder_atomic_check,
- 	.mode_valid	= dsi_encoder_mode_valid,
-@@ -708,7 +712,8 @@ static int dw_drm_encoder_init(struct device *dev,
- 	}
+ int meson_encoder_cvbs_probe(struct meson_drm *priv)
+ {
+ 	struct drm_device *drm = priv->drm;
+@@ -257,8 +261,9 @@ int meson_encoder_cvbs_probe(struct meson_drm *priv)
+ 	meson_encoder_cvbs->priv = priv;
  
- 	encoder->possible_crtcs = crtc_mask;
--	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_DSI);
-+	ret = drm_encoder_init(drm_dev, encoder, &dw_encoder_funcs,
-+			       DRM_MODE_ENCODER_DSI, NULL);
+ 	/* Encoder */
+-	ret = drm_simple_encoder_init(priv->drm, &meson_encoder_cvbs->encoder,
+-				      DRM_MODE_ENCODER_TVDAC);
++	ret = drm_encoder_init(priv->drm, &meson_encoder_cvbs->encoder,
++			       &meson_encoder_cvbs_funcs,
++			       DRM_MODE_ENCODER_TVDAC, NULL);
+ 	if (ret)
+ 		return dev_err_probe(priv->dev, ret,
+ 				     "Failed to init CVBS encoder\n");
+diff --git a/drivers/gpu/drm/meson/meson_encoder_dsi.c b/drivers/gpu/drm/meson/meson_encoder_dsi.c
+index 3e422b612f74..faa309cb97a6 100644
+--- a/drivers/gpu/drm/meson/meson_encoder_dsi.c
++++ b/drivers/gpu/drm/meson/meson_encoder_dsi.c
+@@ -10,10 +10,10 @@
+ #include <linux/of_graph.h>
+ 
+ #include <drm/drm_atomic_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_device.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_probe_helper.h>
+ 
+ #include "meson_drv.h"
+@@ -99,6 +99,10 @@ static const struct drm_bridge_funcs meson_encoder_dsi_bridge_funcs = {
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ };
+ 
++static const struct drm_encoder_funcs meson_encoder_dsi_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ int meson_encoder_dsi_probe(struct meson_drm *priv)
+ {
+ 	struct meson_encoder_dsi *meson_encoder_dsi;
+@@ -133,8 +137,9 @@ int meson_encoder_dsi_probe(struct meson_drm *priv)
+ 	meson_encoder_dsi->priv = priv;
+ 
+ 	/* Encoder */
+-	ret = drm_simple_encoder_init(priv->drm, &meson_encoder_dsi->encoder,
+-				      DRM_MODE_ENCODER_DSI);
++	ret = drm_encoder_init(priv->drm, &meson_encoder_dsi->encoder,
++			       &meson_encoder_dsi_funcs, DRM_MODE_ENCODER_DSI,
++			       NULL);
+ 	if (ret)
+ 		return dev_err_probe(priv->dev, ret,
+ 				     "Failed to init DSI encoder\n");
+diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+index 0c7a72cb514a..c4355c5cc340 100644
+--- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
++++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+@@ -23,8 +23,8 @@
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_device.h>
+ #include <drm/drm_edid.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include <linux/media-bus-format.h>
+ #include <linux/videodev2.h>
+@@ -369,6 +369,10 @@ static const struct drm_bridge_funcs meson_encoder_hdmi_bridge_funcs = {
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ };
+ 
++static const struct drm_encoder_funcs meson_encoder_hdmi_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ int meson_encoder_hdmi_probe(struct meson_drm *priv)
+ {
+ 	struct meson_encoder_hdmi *meson_encoder_hdmi;
+@@ -407,8 +411,9 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
+ 	meson_encoder_hdmi->priv = priv;
+ 
+ 	/* Encoder */
+-	ret = drm_simple_encoder_init(priv->drm, &meson_encoder_hdmi->encoder,
+-				      DRM_MODE_ENCODER_TMDS);
++	ret = drm_encoder_init(priv->drm, &meson_encoder_hdmi->encoder,
++			       &meson_encoder_hdmi_funcs,
++			       DRM_MODE_ENCODER_TMDS, NULL);
  	if (ret) {
- 		DRM_ERROR("failed to init dsi encoder\n");
- 		return ret;
+ 		dev_err_probe(priv->dev, ret, "Failed to init HDMI encoder\n");
+ 		goto err_put_node;
 
 -- 
 2.54.0
