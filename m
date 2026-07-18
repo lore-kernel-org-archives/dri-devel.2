@@ -4,178 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93EC6C4450A
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 18:48:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B481C4450A
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 18:50:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A56AE10E0FF;
-	Sat, 18 Jul 2026 18:48:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA7DD10E243;
+	Sat, 18 Jul 2026 18:50:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="denuESjm";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mKXwf8Nk";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PA5AZzSF";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A55C610E0FF
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 18:48:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1784400503; x=1785005303; i=deller@gmx.de;
- bh=HfI0ldd//OJJ5Bjsd9XGSKtVMExzQ2xjINEDZ4GiW+A=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=denuESjmmqJ2EknTDX0aNKTBbyrjuw1RvrVb5794WKNGSRm0nYxFueXm23V5Cuw0
- GMW50w3wpyjEI9LhIZislQ6eKitA6/mK6jz3e8UXfBo0qwIQX9KLrS1Rvuwn2DHHP
- 9s1k4Zg283CPS4L0UhGkNrlG87QU8fFBea8oiXEmQqAU6ZN1rSDu8r5yNBxW1CR6Z
- jvzjz0y31SzgAj3ZJkmpiSAKf4PLhOMw8TFXDi+aBqYHxs05+fPNMg1uFAYtb4W0/
- YLun55k8ocyWS4T7BujxGW0pip37VIUjzj29iiv3AOONk9XPdEycIQpSWCJrswc6r
- HjL5Tbovf6CSX5uMWg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MpUUm-1xNZMI4ARg-00mZGC; Sat, 18
- Jul 2026 20:48:23 +0200
-Message-ID: <14b6916a-5fb6-4710-9ad7-401305873a49@gmx.de>
-Date: Sat, 18 Jul 2026 20:48:22 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fbdev: tdfxfb: fix PCI enable cleanup with
- pcim_enable_device()
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-References: <20260701112147.55048-1-mhun512@gmail.com>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <20260701112147.55048-1-mhun512@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13DB410E243
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 18:50:49 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66IGP9AK1130389
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 18:50:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ /gWE/9u3scX7ScXyAJclC+r8DI0Ef3P6oFbYgHHIYls=; b=mKXwf8NkU1im2WKa
+ jEQwtcVRi4W7XR96v6m6GEHgwMtRoBm4GvPICdJql7fuzZENJqhFuS/E3xRaZpj5
+ +4/S2QFS/Q1bZ1qM0VTTAS/qMpeW2KXgeztZfzyuk+J9ZAfl+dGK26Dd4jTGAzgI
+ PObONNXJpsPcJM3hAjkqgcD4uxf+NqufSeWaZ8cvhGCcokeVjSjihZQT7LknhZEF
+ qYcmJJe/uu5Tw98gXdEZX3MxSvrcakyPX8vS1Y5wgQUW+A6Po+TjO0JjMoRx4u1g
+ DZVmNOvqwcaa6j2DiKzBZuW+E1F2omo2t7LGfVWhSh/fer0K5oCIIoYbKyHIxxfJ
+ ZPsM3Q==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fgd04r8pp-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 18:50:48 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-38de0739ab6so6426101a91.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 11:50:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1784400648; x=1785005448;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=/gWE/9u3scX7ScXyAJclC+r8DI0Ef3P6oFbYgHHIYls=;
+ b=PA5AZzSFApEewi6tWbpOLm2J/srqwYBeCmRIHvYkO74Dk4UOM/UGUBgUGr95C/K6QA
+ VdChrsxJKmbwJl61UUZPggPtOvPBmEP7oZ7DYoYcwe6OkTcOJ7tOZIQ+YoCJbenvNSjD
+ hKPcP/UUwv2flZJxK7tnh8pjM1glW6vKVwR4Ew4wSlzI83FuquNxf9lWmh4tg9CUQMNC
+ y6JFafGcy3dQM1Z0qHlVLLjhfkGgS5V+nzmjU8jpKI8MK2XgZH73wuNHcNXjsdk632+N
+ GkMW7LUhRmNTFUnTHlRrCDGzb6vpcgyH5LQsaafVljJZy/GzC4CR4jld2ubyx+dkKsAK
+ mnEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784400648; x=1785005448;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=/gWE/9u3scX7ScXyAJclC+r8DI0Ef3P6oFbYgHHIYls=;
+ b=YW2YcSlszRWTrP31ZmYn4MvSAKDo8uReyp9tcQi/fctL8rvi8y56cqtZK/kfpwZjdA
+ 0hin8k9edP5hcAPFxsQQplwFXBZ6kv5tEAssB6/iCohPp/Splx8bhzwzpGnbG7+ffYfU
+ pMFsfBi+LkqqFK4NhOgR6FDL2othJIMvqFlGuDqvnr6nEiqm3ftgVYpP12BhsqkRpFni
+ 4nrmi2OjyeAhFhuf9YL6P2SmmV9CLRj73qRLI3OT41lzlpXTtfR2J56HU3V5xVZLaawF
+ QJdvSm5H/Yh2ojjpG0cg81kY8MIfbU6Yec+GyMfZhpHcGxAZK/UXWJrK/rymZqrtC6E4
+ rr+g==
+X-Gm-Message-State: AOJu0Yxm5KoWKnYt/TlFjMuOBeTzto5avrSPHSPmGwyyRwEpwR7JvVa+
+ TwdD5Gazfw/pcxBDv0OxlyHa5nlSDGjCEMrkqCyQu4fdW6bcTCtUwTN1gh0SYI27tjA3B5+XgBh
+ 1rzZZr8G8ItiJZP60jIlriZSo45O2rjkLi97+G9hfnlQGjrZxM26SsJHpT8Ic9pcrUAC4tEw=
+X-Gm-Gg: AfdE7cmV5glS3Mt+sJKrFLNULwJ/TgeoJZCamjLEtVs2BhAihlGCnX1L6eSsTu+c5aq
+ 6EwaOP2HTK/JrLb+G/U/Qk4DV2kYgzGMq0+KcxopYquWuNXSFdssl8Xwi/xtU02u3aQrmrQLYzN
+ dgh84Fi+ffXVmXgQyDc9gHVp0jRl4gSnpA+SlCrAdseegaT23vCPIqAN7KWpQRCyKuy+STStkgn
+ /a1ijsnlTQDeEZCZX8zZDKo1r32sx7qYPYx77DIrEyjJG+t4Fv4Ik80inKGnuoZpu9x4nGbzSFT
+ HtBebPaXHBilOWbSMGGfMwfx+DQEaBPMZ6H14EXQXNIk55hzLgjfL/OgbzIIABybxu6isntIs8Z
+ DaCDP6g==
+X-Received: by 2002:a17:90b:4a8c:b0:37f:be6c:f3f2 with SMTP id
+ 98e67ed59e1d1-38e4b43c580mr8900795a91.2.1784400647532; 
+ Sat, 18 Jul 2026 11:50:47 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a8c:b0:37f:be6c:f3f2 with SMTP id
+ 98e67ed59e1d1-38e4b43c580mr8900747a91.2.1784400647041; 
+ Sat, 18 Jul 2026 11:50:47 -0700 (PDT)
+Received: from localhost ([188.253.117.185]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-13ce2ddfb35sm16761689c88.14.2026.07.18.11.50.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 18 Jul 2026 11:50:46 -0700 (PDT)
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:ujdAyaW6N2C5Jzqm8foeYHbpGLXaI0Y0FKFZyr+PD0pDMm2yGqi
- 5Yb3pAHQF6YhICk0sCfswGVh/7PB/o+gMNvy+9Jmgl+7Ku8lbZgWJhJSJTM0SmWfzlsmvMd
- zXikc5LO6BKVQQpAeIq+0EmW++WNWbRfugMe9O3hvTJEnNSOCvM8e2/kyQY+2Bg0Oy0PNat
- YRKy34e2nT9+RJKahSCSQ==
-UI-OutboundReport: notjunk:1;M01:P0:FXn0SpLCO5s=;qUFqgX1aaF77121lUMUK3nyXxJb
- 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
- +7koNG1U1/L0xMUMRf/r+NZMfBPpxb
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 19 Jul 2026 02:50:41 +0800
+Message-Id: <DK1X8I3XU0ZV.35WU5KISIRV14@oss.qualcomm.com>
+Cc: <dri-devel@lists.freedesktop.org>, <Frank.Li@kernel.org>,
+ <imx@lists.linux.dev>
+Subject: Re: [PATCH v2 8/8] drm/xen: replace struct drm_simple_display_pipe
+ with regular atomic helpers
+From: "Ze Huang" <ze.huang@oss.qualcomm.com>
+To: <sashiko-reviews@lists.linux.dev>, "Ze Huang" <ze.huang@oss.qualcomm.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260716-drm-simple-kms-removal-v2-0-1133a8fc3785@oss.qualcomm.com>
+ <20260716-drm-simple-kms-removal-v2-8-1133a8fc3785@oss.qualcomm.com>
+ <20260716092822.8E0941F000E9@smtp.kernel.org>
+In-Reply-To: <20260716092822.8E0941F000E9@smtp.kernel.org>
+X-Authority-Analysis: v=2.4 cv=POs/P/qC c=1 sm=1 tr=0 ts=6a5bcb08 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=RQ3dwY0XcLBFaqRX7rIGyg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=2wNEMWLOeZIxy7tF4AQA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE4MDE5NyBTYWx0ZWRfXzsMgzncPyF9j
+ o5ldDyCAtY8RzTOKXIGvKIEpo6yerhe2n5h+LhGT51bshmVpfKXRhmtl5n2sYUg1ppAvbEmKwFr
+ 3u+NxynELsVB4V3xWztdbLZ+Uk4GIPOXtF0eaJPDPbkaYI4ZxlyMXLAGooxYwRlq43mrgyxXUa/
+ ejXnHOAq/UkBT8zbrJWRXtpSF8HXH3qMAdGLfxFqhUaOLgsp7nsy3FV0iCz5bk5riFzY83LiBrY
+ gvK/vTdbgEfb50NzTINXE2kE/FnBEo1WPJLjkexT9d4t7ek5UIAdmw5FwYD4156YZ2D1STsbsqX
+ 6ch4eHD6lJ9aTznJIvvGl1/0M2aBEVxF+GUq/hdMxQWRLdVIMYsKWaBG7E1Ewh5aRD1dj28r/RK
+ pVsW/2f36eYWiqhri5IgoviWzmGfvyOf+fdxeQngoAusFxqwWXwn7LL9LRP82E3xIwMB6uSdTO1
+ ZkP8ST7z2MBaqfuZ9ZQ==
+X-Proofpoint-ORIG-GUID: Fb2RU2uUvrXyUAg5flKI6RtIxadGxOR_
+X-Proofpoint-GUID: Fb2RU2uUvrXyUAg5flKI6RtIxadGxOR_
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE4MDE5NyBTYWx0ZWRfX1q3r2P5wFNoY
+ X4Zv7zfou3yUm6LJw0FJ158gWBexGpS3LusBka3a0LaOLXPTfccmWaa9BK2aT2XVgpCvFB0w/Nv
+ Qt1pz2epkouuo26bOmvjllLtcGzkkxY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-18_05,2026-07-17_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 spamscore=0 adultscore=0 clxscore=1015 suspectscore=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607180197
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -191,31 +142,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/1/26 13:21, Myeonghun Pak wrote:
-> tdfxfb_probe() enables the PCI device with pci_enable_device(), but
-> several failure paths after that point return without disabling it. The
-> framebuffer_alloc() failure path returns -ENOMEM directly, and the later
-> shared out_err path releases the framebuffer and returns -ENXIO without
-> balancing the PCI enable state.
->=20
-> The successful probe path has the same imbalance because tdfxfb_remove()
-> releases the framebuffer, mappings and regions, but never calls
-> pci_disable_device().
->=20
-> Use pcim_enable_device() so the PCI device is disabled automatically on
-> probe failure and driver detach.
->=20
-> This issue was identified during our ongoing static-analysis research wh=
-ile
-> reviewing kernel code.
->=20
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
->   drivers/video/fbdev/tdfxfb.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-applied.
-Thanks!
-Helge
+On Thu Jul 16, 2026 at 5:28 PM CST, sashiko-bot wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
+e(s) to consider:
+>
+> New issues:
+> - [Critical] Global state data race in `atomic_enable` leading to a NULL =
+pointer dereference.
+> - [High] Pending vblank events are leaked when the CRTC is disabled, caus=
+ing userspace to hang.
+>
+> Pre-existing issues:
+> - [High] Global state data race in `atomic_update` causing stolen events =
+and userspace hangs.
+> --
+>
+> --- Patch [8]: [PATCH v2 8/8] drm/xen: replace struct drm_simple_display_=
+pipe with regular atomic helpers ---
+> commit 545da3a98a8e32db9ed9bc44680620afafb3b601
+> Author: Ze Huang <ze.huang@oss.qualcomm.com>
+>
+> drm/xen: replace struct drm_simple_display_pipe with regular atomic helpe=
+rs
+>
+> Replace Xen frontend simple display pipe with explicit plane, CRTC and
+> encoder objects for each pipeline.
+>
+>> diff --git a/drivers/gpu/drm/xen/xen_drm_front_kms.c b/drivers/gpu/drm/x=
+en/xen_drm_front_kms.c
+>> --- a/drivers/gpu/drm/xen/xen_drm_front_kms.c
+>> +++ b/drivers/gpu/drm/xen/xen_drm_front_kms.c
+>> @@ -105,24 +111,21 @@ static void send_pending_event(struct xen_drm_fron=
+t_drm_pipeline *pipeline)
+>>  	spin_unlock_irqrestore(&dev->event_lock, flags);
+>>  }
+>> =20
+>> -static void display_enable(struct drm_simple_display_pipe *pipe,
+>> -			   struct drm_crtc_state *crtc_state,
+>> -			   struct drm_plane_state *plane_state)
+>> +static void xen_drm_crtc_helper_atomic_enable(struct drm_crtc *crtc,
+>> +					      struct drm_atomic_commit *commit)
+>>  {
+>> -	struct xen_drm_front_drm_pipeline *pipeline =3D
+>> -			to_xen_drm_pipeline(pipe);
+>> -	struct drm_crtc *crtc =3D &pipe->crtc;
+>> +	struct xen_drm_front_drm_pipeline *pipeline =3D xen_drm_pipeline_from_=
+crtc(crtc);
+>> +	struct drm_plane_state *plane_state =3D pipeline->plane.state;
+>> +	struct drm_framebuffer *fb =3D plane_state->fb;
+>>  	int ret, idx;
+>> =20
+>> -	if (!drm_dev_enter(pipe->crtc.dev, &idx))
+>> +	if (!drm_dev_enter(crtc->dev, &idx))
+>>  		return;
+>> =20
+>>  	ret =3D xen_drm_front_mode_set(pipeline, crtc->x, crtc->y,
+>>  				     fb->width, fb->height,
+>
+> [Severity: Critical]
+> Can this sequence cause a NULL pointer dereference?
+>
+> In xen_drm_crtc_helper_atomic_enable(), the global plane state is
+> read asynchronously and fb is dereferenced directly.
+>
+> If userspace submits two non-blocking atomic commits rapidly (the
+> first enabling the CRTC and plane, and the second disabling the plane),
+> the global state pointer (pipeline->plane.state) is swapped
+> synchronously during the ioctl.
+>
+> When the first commit's worker executes, it reads the newer state where
+> fb is NULL, and unconditionally dereferences fb->width.
+>
+> Would it be safer to extract the state from the commit object using
+> drm_atomic_get_new_plane_state(commit, &pipeline->plane)?
+
+As replied in patch 5, will do
+
+>
+>>  				     fb->format->cpp[0] * 8,
+>>  				     xen_drm_front_fb_to_cookie(fb));
+>> -
+>>  	if (ret) {
+>>  		DRM_ERROR("Failed to enable display: %d\n", ret);
+>
+> [ ... ]
+>
+>> @@ -131,13 +134,13 @@ static void display_enable(struct drm_simple_displ=
+ay_pipe *pipe,
+>>  	drm_dev_exit(idx);
+>>  }
+>> =20
+>> -static void display_disable(struct drm_simple_display_pipe *pipe)
+>> +static void xen_drm_crtc_helper_atomic_disable(struct drm_crtc *crtc,
+>> +					       struct drm_atomic_commit *commit)
+>>  {
+>> -	struct xen_drm_front_drm_pipeline *pipeline =3D
+>> -			to_xen_drm_pipeline(pipe);
+>> +	struct xen_drm_front_drm_pipeline *pipeline =3D xen_drm_pipeline_from_=
+crtc(crtc);
+>>  	int ret =3D 0, idx;
+>> =20
+>> -	if (drm_dev_enter(pipe->crtc.dev, &idx)) {
+>> +	if (drm_dev_enter(crtc->dev, &idx)) {
+>>  		ret =3D xen_drm_front_mode_set(pipeline, 0, 0, 0, 0, 0,
+>>  					     xen_drm_front_fb_to_cookie(NULL));
+>>  		drm_dev_exit(idx);
+>> @@ -147,6 +150,11 @@ static void display_disable(struct drm_simple_displ=
+ay_pipe *pipe)
+>> =20
+>>  	/* Make sure we can restart with enabled connector next time */
+>>  	pipeline->conn_connected =3D true;
+>> +
+>> +	/* release stalled event if any */
+>> +	send_pending_event(pipeline);
+>> +}
+>
+> [Severity: High]
+> Does this function leak the vblank event when the CRTC is disabled?
+>
+> When moving away from drm_simple_kms_helper, the driver loses the core
+> helper's automatic consumption of crtc_state->event during CRTC
+> disable.
+>
+> If userspace submits an atomic commit that disables the CRTC and
+> requests a vblank event (e.g., modeset to 0 or DPMS off),
+> xen_drm_crtc_helper_atomic_disable() completely omits the consumption and
+> signaling of the event.
+>
+> This leaves the event dangling, which causes a kernel warning in the
+> commit tail and hangs the userspace compositor indefinitely as it waits
+> for the pageflip event.
+>
+> Should this function pull and signal the event from
+> drm_atomic_get_new_crtc_state(commit, crtc)->event?
+>
+
+I would like to preserve the original xen frontend behavior here.
+
+> [ ... ]
+>
+>> @@ -242,12 +261,12 @@ static int display_check(struct drm_simple_display=
+_pipe *pipe,
+>>  	return 0;
+>>  }
+>> =20
+>> -static void display_update(struct drm_simple_display_pipe *pipe,
+>> -			   struct drm_plane_state *old_plane_state)
+>> +static void xen_drm_plane_helper_atomic_update(struct drm_plane *plane,
+>> +					       struct drm_atomic_commit *commit)
+>>  {
+>> -	struct xen_drm_front_drm_pipeline *pipeline =3D
+>> -			to_xen_drm_pipeline(pipe);
+>> -	struct drm_crtc *crtc =3D &pipe->crtc;
+>> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_s=
+tate(commit, plane);
+>> +	struct xen_drm_front_drm_pipeline *pipeline =3D xen_drm_pipeline_from_=
+plane(plane);
+>> +	struct drm_crtc *crtc =3D &pipeline->crtc;
+>>  	struct drm_pending_vblank_event *event;
+>>  	int idx;
+>
+> [Severity: High]
+> This is a pre-existing issue, but can this code steal events from
+> future commits?
+>
+> In xen_drm_plane_helper_atomic_update(), the global CRTC state's event
+> is accessed directly:
+>
+> event =3D crtc->state->event;
+>
+> Since crtc->state is swapped synchronously, it may reflect a future
+> commit's state by the time this worker runs. The worker would then steal
+> the future commit's event and clear it.
+>
+> When the future commit's worker runs, it finds no event, while the
+> current commit's original event is stranded on its old state object and
+> never signaled, resulting in userspace hangs.
+>
+> Should the event be fetched reliably from the specific commit object
+> using drm_atomic_get_new_crtc_state(commit, crtc)->event?
+
+Will access crtc state with drm_atomic_get_new_crtc_state(commit, crtc)
