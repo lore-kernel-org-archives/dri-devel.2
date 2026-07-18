@@ -4,93 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECFA2C44529
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1295C44525
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0261B10E6EA;
-	Mon, 20 Jul 2026 07:15:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 076CB10E6F7;
+	Mon, 20 Jul 2026 07:15:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kanardia.eu header.i=@kanardia.eu header.b="eiGP9vZk";
+	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="f13js8cM";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VETlfcUv";
 	dkim-atps=neutral
-X-Greylist: delayed 1295 seconds by postgrey-1.36 at gabe;
- Fri, 17 Jul 2026 12:24:01 UTC
-Received: from th8-a.mail-neoserv.si (th8-a.mail-neoserv.si [152.89.234.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E03210F53F
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:24:01 +0000 (UTC)
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=th8.neoserv.si; s=default;
- b=lXgj+1ffX/jTBrSObabQuY6OKjOjtXn9e47ECWEvr0lQoSBVO8bBDxI9KPS6Kd2vFdpFmkNPIM
- 1223Uhs+S5MIKyuf1JiQUF9/wI3Xk/R28/S0Dm3/V/j8R4J1MiEI6ZSfVc1KdWsfxeL0qRhxLD
- mF7E8UoaB6V9Pjd1t/E9D7e1ygYfubMC+RVLLIFU4HnHp/jcfVZHSqi6HXv5uPl+2LcZhiYPh7
- KXkhWfU2hSOdv3TIfhfzZOsOcRuDrfnOW5xq8qG0md3EhoDEWrx9LF8RuHKX8jYa0I6MuqcVp8
- +yXDImeQU9ULbqwKhfr+sS9oxn07FYuP+PFBDmag815HUQ==;
-ARC-Authentication-Results: i=1; th8.neoserv.si; smtp.remote-ip=193.77.36.193; 
- auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=th8.neoserv.si;
- s=default; 
- bh=PHP7QiIbT0+ZzX++1crhTY5wkWTq6BCV5utX6ace2e8=;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:
- Date:Subject:Cc:To:From:DKIM-Signature;
- b=MiYMT1f/pbj9dTD0yOEwy+BqzSRkrZrrmIS+qIOI4oa++IRhX7cqC3hhQlOiEuxCn6wt0C90/r
- 5rbbMJ6er0OFMnxhEGkPVrEXixylFUox+736+S/FKDpy7GWMP+feI0wzHE8MxBAthMmDMKpxky
- CuLX9dME3QDVdG7JYSdl28+R7E/QBIvVv+hDqt6vEYvDVxnei5+DHUHH8QvkSufatrx1qOtkUB
- 5GwijCewAGM38Mjy/TtPWXaBEGI3GKv5LKTOJ0bncDORSvCFRJ//FLFcivpIMKS9Pu/17m+Lk0
- H2Nz2IeEiL3EItTcrSz5BDbmRs3ElIJluNfreorcSe3e3A==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kanardia.eu
- ; s=default;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=gA+LgbDDmWtKcLIZGrCT2OufglfLr6cc3fRTD6cDRVQ=; b=eiGP9vZkQ/Zf+r72xzXfnBvZR0
- Ue5EWPbdbJ52mOIoxIeiHFlM2UCYm+1j4xmbidFNqeu/xLZnI02i3kRf7R6/HD+GJSytjURvozPfy
- Tzbq7R1RUT3SDthXXTYK2uVF5R3CcDUJ0togWkoF+ZdcV1+sAuG5MzfNWFHum1RncjPurB2lXR1KJ
- GvJRmZd1AmWpWp//vTJEDFTC5Mc+5fcSEqNNM4QlxSv9xiRa7oNMd5+1mLlaaPQx3iNlP/3e7DGry
- jGYVFPVeNw2dM5062u0cxU5EhkPemtLhEvZBz2KuvSBCc3lLmGbzsVMR0VP668bZzZ8nJ+N4i2CGF
- Q35XdC3Q==;
-Received: from [193.77.36.193] (port=54788 helo=rok-trip.kanardia.eu)
- by th8.neoserv.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.99.4) (envelope-from <rok@kanardia.eu>)
- id 1wkhH0-00000001fP1-1pwy; Fri, 17 Jul 2026 14:02:34 +0200
-From: Rok Markovic <rok@kanardia.eu>
-To: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Alibek Omarov <a1ba.omarov@gmail.com>,
- Rok Markovic <rok@kanardia.eu>
-Subject: [PATCH 1/4] drm/rockchip: lvds: propagate bus_flags to the CRTC state
-Date: Fri, 17 Jul 2026 14:00:02 +0200
-Message-ID: <20260717120005.2087386-2-rok@kanardia.eu>
+Received: from flow-a2-smtp.messagingengine.com
+ (flow-a2-smtp.messagingengine.com [103.168.172.137])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C596D10E41E
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 03:21:34 +0000 (UTC)
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailflow.phl.internal (Postfix) with ESMTP id 7E5011380327;
+ Fri, 17 Jul 2026 23:12:33 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-05.internal (MEProxy); Fri, 17 Jul 2026 23:12:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=fm1; t=1784344353; x=
+ 1784347953; bh=ReDEZNNVB6LR8TBo9n+GfIJ6P/foCnyQWElDcThh+I8=; b=f
+ 13js8cMotlSvz6w3J13kdWOflPNn7kaiGIZsJaYhhH8b2FtCbEmNvvxygoDdrvET
+ e7N6qZ23ubjHJCv2bqSyIYBhnA5v+mmk9yOLofAvxVQcZoDJ/FbFz6qvL5JVXL9e
+ E27MXQ4fe1UmFbZ/soOlokURSLp7oRPDzdG5fShpOJCN6w9yediqtZXr5YO/oeZM
+ Je9dTJ3pXexj5iTt6lS9hi94ASmE6tjluDu/3CTx0eszBR/EolYQSj5AWMRf5fW6
+ +aGlN4BTORQ8y+TaUXUWHns/7fluKuGCmYp5Op5KEkNrLSDIgxJPVTZ8RPb712p9
+ 72d+JQIOvP5H1NY5NB4GA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; t=1784344353; x=1784347953; bh=R
+ eDEZNNVB6LR8TBo9n+GfIJ6P/foCnyQWElDcThh+I8=; b=VETlfcUvMO2S0Z9Lj
+ vfIZcjBnGpONs76AZEqg0fpDbGt8K8kWWr0T8Zd6C8cWe/0iJ8SJJveVj8HvvXpQ
+ 6OOySbAQgSFvYnTlpzrnvx1mgIeIdRZ2SFIh0jApJfZCHJ/qA0Zvq5cLCX3hmz3f
+ j/fScdiANyseDva2SxJ/wIWHovDlkPsPcWB47WvsJqotdyt4qi7WVDDTe9diGMt7
+ neS9s3xk2bjf2g7tv45u5cn4SWC+qWzkzYdRYupd/2Rak7aFrb1dESiAB7rccA8l
+ n8L0RHg+Z0EGS+IiDeW3O7/hFM4xRkHK1nhbixv7YVNDSP2Q/4e/5h83uP+TIhoi
+ 4XKlA==
+X-ME-Sender: <xms:Ie9aatx-c8-TQvSTi5nxs6tLczDgbWL8CPzKm5FzaY7eAYoo_q_oGQ>
+ <xme:Ie9aatpfBZ1KQamgquxoBEpOZZC8bT7rsrKkGyMW1y5hvsddCfsdu3DcrI8zL0wUb
+ lPMDOXlNTNkmnNmbpI7CUytiXTArAL-TnZdqeWMNk0plNnA6NfZ4Ww4>
+X-ME-Received: <xmr:Ie9aaoe5GZct_2JFDzcZnNEXJSkjeCIkOsJrQsuckw5DY83jFygAaIJ7-p-R82zB2Q8Mk7C0AME5yOO-6BY>
+X-ME-Proxy-Cause: dmFkZTGiua8u0bNA9XH/1gRMOwAvIEaw+Xtz0KCuQKXabiOHwfxpZ5MZYByRWbR7Kp9nF6
+ qSe4oUPMRhjVDuO3uTQXqNB9rW/YS03mixI6iwJykTNKzlTWPLWtINW2pRnzFmGD/jHaBH
+ GW+Ck3GrggAvw64iMT6xDcUsunGB8iGvjpZn8uEGxdGVdwsgwFdZGN7ymS1icJndc4lt6e
+ zFZUrbtWEQG8UIpC7Nj6JLcyz0vHsWVRB3V4EGPAQFYmiIaqKn/E4qxv/cGIWyj+pw9l6Q
+ Qrz/KpDo+6BmEyRu9vKadFcnov/EnFsq7LCdBsST1Re0wCrcf9imh4FlvqjBTb6afFWNbI
+ CWDWTqgOw5anCxAJQ2RRzTsQ8FyQFlAOMjKAk1O4IqUMRqnLXv2OD6G3Fv6e85qDfB0ZbF
+ sIdOWBajTsziR7rZvXmNaBtj4QEY42I8c9LuNjFX6ElGDT938ucWOXXxQmwYhHRbt4LK14
+ VxDq2e/FsrRxp1EZJsSbePv8BVlyJl33MEzRk7kCtypm8qti2NVi1VYHnGtBUKHkBg7kyM
+ 9NiNRh5aQhUBpJ7rUKBpzR605Sj3g/nvWHh2gyFoxQFVsT+T3bQZbWRZ3EmHsbdJCE292S
+ hWNu/R6Pr1K5Qq+e5y9bmqhMfMdnWlcWIa0///qO2yJrTEqXdZxjkqWSv+FQ
+X-ME-Proxy: <xmx:Ie9aarj56CpV29TFAI_Qy85Z0IX_qjCVtXNevIzyb7BGnJjmX7AMsQ>
+ <xmx:Ie9aauKnXPbREXX_-2M_USNARksu0M2TFPoz7s4fjm5MVFWp1PpufQ>
+ <xmx:Ie9aagovXI_vn7jQuiHJmEP1HKUnktL5ZkYrXQ7N7fgBlQhTaKuFxg>
+ <xmx:Ie9aarqg4Cup2kkoMNCCxycW4P0xKwqfZk_eH07KbLea-rr11LtElw>
+ <xmx:Ie9aatHVSKIPwhrLAua9ytNS53utZn_B1mSLRuA0BEy4X9nmc3eAfsdJ>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 17 Jul 2026 23:12:25 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
+ ogabbay@kernel.org
+Cc: chaoyi.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [RFC PATCH v2 3/8] pmdomain/rockchip: cycle optional power-domain
+ resets on power-on
+Date: Sat, 18 Jul 2026 15:11:41 +1200
+Message-ID: <20260718031146.3368811-4-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260717120005.2087386-1-rok@kanardia.eu>
-References: <20260717120005.2087386-1-rok@kanardia.eu>
+In-Reply-To: <20260718031146.3368811-1-gahing@gahingwoo.com>
+References: <20260718031146.3368811-1-gahing@gahingwoo.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Authentication-Results: th8.neoserv.si;
- auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
-X-NEOSERV-MailScanner-Information: Please contact the ISP for more information
-X-NEOSERV-MailScanner-ID: 1wkhH0-00000001fP1-1pwy
-X-NEOSERV-MailScanner: Found to be clean
-X-NEOSERV-MailScanner-SpamCheck: not spam, SpamAssassin (not cached,
- score=1.31, required 7, ALL_TRUSTED -1.00, BAYES_50 0.80,
- KAM_DMARC_QUARANTINE 1.50, KAM_DMARC_STATUS 0.01)
-X-NEOSERV-MailScanner-SpamScore: s
-X-NEOSERV-MailScanner-From: rok@kanardia.eu
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - th8.neoserv.si
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - kanardia.eu
-X-Get-Message-Sender-Via: th8.neoserv.si: authenticated_id: rok@kanardia.eu
-X-Authenticated-Sender: th8.neoserv.si: rok@kanardia.eu
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,51 +103,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-rockchip_lvds_encoder_atomic_check() sets output_mode and output_type
-but never copies the connector's bus_flags into the Rockchip CRTC
-state, unlike dw_dp-rockchip.c and dw-mipi-dsi2-rockchip.c which both
-do.
+Some power domains contain hardware bus interfaces that require an
+explicit assert/deassert edge on their reset line after the domain is
+powered on.  The CRU preserves reset state across power cycles (stays
+deasserted), so the hardware never sees the edge it needs unless the
+driver pulses it explicitly.
 
-panel-lvds parses pixelclk-active from the DT display timing and
-publishes it on the connector as DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE.
-VOP2 reads that flag back out of the CRTC state to decide
-POLFLAG_DCLK_INV. With the flag dropped here, vcstate->bus_flags is
-always zero, so a panel that asks to be clocked on the falling edge is
-driven on the rising one, and there is no way to express the panel's
-requirement from DT at all.
+Add an optional resets property to rockchip_pm_domain.  When present,
+the resets are asserted and deasserted (with a 10 us hold) inside
+rockchip_pd_power() after the idle bits are cleared and the delay_us
+settling time has elapsed, but before any device in the domain resumes.
+The resets are released in rockchip_pm_remove_one_domain().
 
-No functional change for the SoCs currently supported by this driver:
-rk3288 and px30 pair with the VOP1 driver (rockchip_drm_vop.c), which
-never reads bus_flags - only VOP2 consumes it. The flag becomes live
-with the RK3568 support added later in this series.
-
-Signed-off-by: Rok Markovic <rok@kanardia.eu>
-Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_lvds.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/pmdomain/rockchip/pm-domains.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-index 75f898a..95fa0a9 100644
---- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-@@ -129,7 +129,15 @@ rockchip_lvds_encoder_atomic_check(struct drm_encoder *encoder,
- 				   struct drm_connector_state *conn_state)
- {
- 	struct rockchip_crtc_state *s = to_rockchip_crtc_state(crtc_state);
--
-+	struct drm_connector *connector = conn_state->connector;
-+
-+	/*
-+	 * The VOP derives the pixel clock polarity from this. Without it a
-+	 * panel that declares pixelclk-active = <0> is clocked on the wrong
-+	 * edge. panel-lvds fills the connector's bus_flags in from the DT
-+	 * display timing.
-+	 */
-+	s->bus_flags = connector->display_info.bus_flags;
- 	s->output_mode = ROCKCHIP_OUT_MODE_P888;
- 	s->output_type = DRM_MODE_CONNECTOR_LVDS;
+diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
+index 1787f62ba..8ce0cc3de 100644
+--- a/drivers/pmdomain/rockchip/pm-domains.c
++++ b/drivers/pmdomain/rockchip/pm-domains.c
+@@ -18,6 +18,7 @@
+ #include <linux/of_address.h>
+ #include <linux/of_clk.h>
+ #include <linux/clk.h>
++#include <linux/reset.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/mfd/syscon.h>
+@@ -102,6 +103,7 @@ struct rockchip_pm_domain {
+ 	struct clk_bulk_data *clks;
+ 	struct device_node *node;
+ 	struct regulator *supply;
++	struct reset_control *resets;
+ };
  
+ struct rockchip_pmu {
+@@ -671,6 +673,12 @@ static int rockchip_pd_power(struct rockchip_pm_domain *pd, bool power_on)
+ 		if (pd->info->delay_us)
+ 			udelay(pd->info->delay_us);
+ 
++		if (pd->resets) {
++			reset_control_assert(pd->resets);
++			udelay(10);
++			reset_control_deassert(pd->resets);
++		}
++
+ 		rockchip_pmu_restore_qos(pd);
+ 	}
+ 
+@@ -840,6 +848,14 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
+ 	if (error)
+ 		goto err_put_clocks;
+ 
++	pd->resets = of_reset_control_array_get_optional_exclusive(node);
++	if (IS_ERR(pd->resets)) {
++		error = PTR_ERR(pd->resets);
++		dev_err(pmu->dev, "%pOFn: failed to get resets: %d\n", node, error);
++		pd->resets = NULL;
++		goto err_unprepare_clocks;
++	}
++
+ 	pd->num_qos = of_count_phandle_with_args(node, "pm_qos",
+ 						 NULL);
+ 
+@@ -910,6 +926,7 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
+ 	clk_bulk_unprepare(pd->num_clks, pd->clks);
+ err_put_clocks:
+ 	clk_bulk_put(pd->num_clks, pd->clks);
++	reset_control_put(pd->resets);
+ 	return error;
+ }
+ 
+@@ -928,6 +945,7 @@ static void rockchip_pm_remove_one_domain(struct rockchip_pm_domain *pd)
+ 
+ 	clk_bulk_unprepare(pd->num_clks, pd->clks);
+ 	clk_bulk_put(pd->num_clks, pd->clks);
++	reset_control_put(pd->resets);
+ 
+ 	/* protect the zeroing of pm->num_clks */
+ 	mutex_lock(&pd->pmu->mutex);
 -- 
 2.43.0
 
