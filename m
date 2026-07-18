@@ -4,53 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67EA8C4451C
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 04:55:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D418C4450A
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 05:27:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80D0210E420;
-	Sat, 18 Jul 2026 04:55:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6898010E527;
+	Sat, 18 Jul 2026 05:27:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X5mJScx4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iNGyrNJS";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCBEE10E420
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 04:55:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C473C60A68;
- Sat, 18 Jul 2026 04:55:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6449C1F00A3A;
- Sat, 18 Jul 2026 04:55:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784350501;
- bh=e0hLHav3gzWrWz8CVEotWFoVD6khVop1zDvWSm2cn30=;
- h=Subject:From:In-Reply-To:References:Date:To:Cc;
- b=X5mJScx4G11i1xTkwoPKCcJR9tNvIXR1kS/99guh9MjOPWY//oqGKOJV/Td5K3/Fe
- wvWZ6XMIQNa87SHf/JdhJ0FZ0DrflhgXz2YCvIf4TPJGcguZ4HNS/5cxCRCfZnycwf
- lQ70TPJhxso2l9GRn6fA4QLFmLEt3y6J1LwWFD2xu+tusYIz8yp+tmdRTmq16LM2kd
- 8qMsd/ey/HpbHXhXMzXmRwJcLoJf3UW0T57XJajO2yPvCz8/iNHSn9xz+EmJGL5ARE
- +aHgsQAnoI7E/eK9oKOEEOuNPodi3hDsMNcnAel2q6/4g8L9osmo2LmhUkRslTjye0
- TU0YKTpIEDH/A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 938D53811955; Sat, 18 Jul 2026 04:54:34 +0000 (UTC)
-Subject: Re: [git pull] drm fixes for 7.2-rc4 (updated with amdgpu)
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAPM=9txvBdB0TSf8W5S4M=CPu=vPZ5F2gBQQ27y4FzkoxoCKew@mail.gmail.com>
-References: <CAPM=9txvBdB0TSf8W5S4M=CPu=vPZ5F2gBQQ27y4FzkoxoCKew@mail.gmail.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <CAPM=9txvBdB0TSf8W5S4M=CPu=vPZ5F2gBQQ27y4FzkoxoCKew@mail.gmail.com>
-X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
- tags/drm-fixes-2026-07-18-1
-X-PR-Tracked-Commit-Id: 973fd9493ec21f12e760fbbedeb7b0b2317c02f4
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 7d6ca51a444234ca436d7c19282825797507fe82
-Message-Id: <178435047324.2413748.16168542564300684388.pr-tracker-bot@kernel.org>
-Date: Sat, 18 Jul 2026 04:54:33 +0000
-To: Dave Airlie <airlied@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68E4C10E527;
+ Sat, 18 Jul 2026 05:27:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784352424; x=1815888424;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=nZV8SHUwGVzCabLmhH/NnI+MtPu5E7IO8adSdE4qMQY=;
+ b=iNGyrNJSW8br9eBGriy20Fm6IAqD2mSfoYVom4IToof9MRgcbfI/H+/z
+ cXo2eobFYNFFbCrbA19ytk9TycQNnmeOlCExYLC2QeRgsphYDmPIsqXBj
+ kM6m76OWqG7zhxmz6P428IJggxMzeIUfiV88dyy+5OsnoIWuHWvYlyDMM
+ 9yih2W/nlv8XiOcFJdUCtrhYaXfFQvujOGVZGKUT5Oqb0SA+hKOFuGnBj
+ fT2ichUDxpxFpW/zCALdD8QY2Nmz9mehsLJJ6BMacKctI7sUiUFKaZDvA
+ qmN0XcsjdrsxfROMqUtIpv6PllB/lHJE9TgCdcUsl+o53l8jqjuQ4Kkfp Q==;
+X-CSE-ConnectionGUID: nFyUrpbxTzeFpFpSulXm2A==
+X-CSE-MsgGUID: EZ8OhvlgTFKDwC9gq98TYw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11849"; a="85042289"
+X-IronPort-AV: E=Sophos;i="6.25,170,1779174000"; d="scan'208";a="85042289"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jul 2026 22:27:03 -0700
+X-CSE-ConnectionGUID: IcI6DVwbRj2M8hyENn9wSg==
+X-CSE-MsgGUID: K1lI7xygRZOz6lEKbOXWIA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,170,1779174000"; d="scan'208";a="261230655"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jul 2026 22:27:00 -0700
+Date: Sat, 18 Jul 2026 07:26:56 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: "Tauro, Riana" <riana.tauro@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ netdev@vger.kernel.org, simona.vetter@ffwll.ch, airlied@gmail.com,
+ kuba@kernel.org, lijo.lazar@amd.com, Hawking.Zhang@amd.com,
+ davem@davemloft.net, pabeni@redhat.com, edumazet@google.com,
+ dev@lankhorst.se, zachary.mckevitt@oss.qualcomm.com,
+ rodrigo.vivi@intel.com, michal.wajdeczko@intel.com,
+ matthew.d.roper@intel.com, mallesh.koujalagi@intel.com
+Subject: Re: [PATCH v4 2/5] drm/ras: Introduce error threshold
+Message-ID: <alsOoFEuSPSyCMTB@black.igk.intel.com>
+References: <20260623101043.255897-1-raag.jadav@intel.com>
+ <20260623101043.255897-3-raag.jadav@intel.com>
+ <0769389d-e73a-4dda-878c-2bc9e59deff3@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0769389d-e73a-4dda-878c-2bc9e59deff3@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,15 +76,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The pull request you sent on Sat, 18 Jul 2026 09:20:34 +1000:
+On Fri, Jul 03, 2026 at 10:43:06AM +0530, Tauro, Riana wrote:
+> On 23-06-2026 15:39, Raag Jadav wrote:
+> > Add get-error-threshold and set-error-threshold command support which
+> > allows querying/setting error threshold of the counter. Threshold in RAS
+> > context means the number of errors the hardware is expected to accumulate
+> > before it raises them to software. This is to have a fine grained control
+> > over error notifications that are raised by the hardware.
 
-> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-07-18-1
+...
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/7d6ca51a444234ca436d7c19282825797507fe82
+> >    *     + The error counters in the driver doesn't need to be contiguous, but the
+> >    *       driver must return -ENOENT to the query_error_counter as an indication
+> >    *       that the ID should be skipped and not listed in the netlink API.
+> > + *     + The driver can optionally implement query_error_threshold() and
+> > + *       set_error_threshold() callbacks to facilitate getting/setting error
+> > + *       threshold of the counter. Threshold in RAS context means the number of
+> > + *       errors the hardware is expected to accumulate before it raises them to
+> > + *       software. This is to have a fine grained control over error notifications
+> > + *       that are raised by the hardware.
+> > + *     + The driver is responsible for error threshold bounds checking.
+> > + *     + Threshold of 0 can mean invalid threshold or act as a disable notifications
+> > + *       toggle for that counter depending on usecase and the driver is responsible
+> > + *       for handling it as needed.
+> 
+> I know i asked you to add this in last rev. But after reading this,
+> error-threshold bounds checking at driver level
+> should be sufficient.  It's upto the driver on what behavior needs to be
+> implemented.
+> 
+> Some may notify on reaching threshold or crossing threshold.
+> I think we should drop this sentence here. Let me know your thoughts.
+> sorry for the confusion.
 
-Thank you!
+I think it adds more context and good to have in case someone comes up
+looking for the details.
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+...
+
+> > +	/**
+> > +	 * @query_error_threshold:
+> > +	 *
+> > +	 * This callback is used by drm-ras to query error threshold of a
+> > +	 * specific counter.
+> > +	 *
+> > +	 * Driver should expect query_error_threshold() to be called with
+> > +	 * error_id from `error_counter_range.first` to
+> > +	 * `error_counter_range.last`.
+> > +	 *
+> > +	 * Returns: 0 on success, negative error code on failure.
+> > +	 */
+> > +	int (*query_error_threshold)(struct drm_ras_node *node, u32 error_id, const char **name,
+> > +				     u32 *threshold);
+> 
+> Add a blank line
+
+Sure.
+
+> With these fixed
+> 
+> Reviewed-by: Riana Tauro <riana.tauro@intel.com>
+
+Awesome.
+
+Raag
