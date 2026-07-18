@@ -4,73 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36502C44521
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 23:36:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F82FC4450A
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 23:36:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FC9F10E179;
-	Sat, 18 Jul 2026 23:36:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F01A10E36C;
+	Sat, 18 Jul 2026 23:36:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qSL3IYkw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eHUiRiXF";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D78810E179
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 23:35:59 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-493c19bad03so66211525e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 16:35:59 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61F2F10E36C
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 23:36:02 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4955158f26aso4605665e9.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 16:36:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784417758; x=1785022558; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=fbveywkXEOoKA5l+wqrU0DqqoG4NoX/G8iLvkPe8hb4=;
- b=qSL3IYkw/VYVKzLdPLYvRA6iyjg4HL7gakXyHb40n1gDFVW+49XWNMgrReVXHFBboj
- AMBijoEYj0X3Z5y3W4HkBvICUMd9JKOd8MtOr5xY3BiiMiDhS6VBiD4jY0zmeAlUehG2
- fcIP2BAPrb+DgUnN6jFt71yZHJijvJYmQqFOrQH+RkAcVL+5SZBF/1thKrvSLhvnkCtr
- UFTuFxLvyAvI4QdD6rxokMXWILJO5NZfHDm7XpLAEil3dQfJU4JmC1EMhJFxjBJzIEfu
- 4o9lFPFe8sWZjN+B0+ZEXwXEvnQml18HgaaytcHHWdYdTF0GTdwkULTD81CobMBOs/MM
- f1tw==
+ d=gmail.com; s=20251104; t=1784417761; x=1785022561; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qVQM0So1MCL7ilj5LYZg6mzfa82XvkJyQz/kOpkAFIY=;
+ b=eHUiRiXFN3/IIHQsLXhi6ZfDp/VfWyJok2eUMUr416SXiE5ewPausSaanbqiZ3IMmF
+ 7adgylXuPr6dSZz8qAHZs2zKICeUJ1JFZNGhBDPG1teqewaksIQHGJ3oOgsTpeyXa849
+ FNRsA9rNDo53ot2zWifRnist57xdLevU2wHVFMqnXgFrUlzs1eO55/jnplNB2Zj3jJwb
+ RYjYfvMwPyS37y0SMAEqpjjhZH2I9gWJWHQXSy6X+LqPTK5a7YlLTvZfYJwHmQpQp7W7
+ p0mw7m/sNXf5cP7m3P9WQlyLjufmvhYr7Z2H1ynbU/52L+GWCvb4r55QRu7JAGfAba1/
+ g6LQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784417758; x=1785022558;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=fbveywkXEOoKA5l+wqrU0DqqoG4NoX/G8iLvkPe8hb4=;
- b=FbS7t6Mu8pycO3MYvYfEk2bhR3LobONLwUVRZ8b/QROVQ93TvfycWGOgwxm07MJ/rx
- Zrjjpaw2vlOtsoQBriwYphAPhloT2FHn0taBggub9Qs57aILJxMB8OOqlOLnQrgkqrAq
- Ulqkq/nAF+EU50e5O8BVMhqas/Z759aJqaHsMz8QVh7B1mjiqWZ2lsYhQJldGjNqFrfX
- A18uiiAetOCrWSoBv3rWQAv5FiYULOWo762HMcxsXZj3/+6qSWFr71NV5jes9DOdTFBf
- 9xA+tk6HbDii9L4hT0f04SM2Wzaf5iECqnSDlgGrLwxfjZ+HXeWv6j7r5DV0KQUYEYON
- IsEw==
-X-Gm-Message-State: AOJu0YwAeTEDj2+WeucmFh4mGKi+hhcGi7imgMZxbWN4SjT1JnnkbSVp
- S8SY1Gy7x+/l2imH7DQ057n7xAt4HYXjaEVgX1UPHax0tA3nGGR6zSOoMC2dq4Zs
-X-Gm-Gg: AfdE7ckT4lfC9PHujHOFcL1Z2P4fo14EgCqgCUskN3gIdzCHQ6M51GZQgO3eeUPdTVp
- u6mmPb2znVlMHjA+NVX6yl6tR1eK4ZE8QkRe2aGat6zgsCikqf3bbR9hxOtIj4Ajoj9WCha349t
- gNV+kuQYfApTI7nfiblpwacecnQ708ZiWRIdJgkv1fDlNOU9GwGyf6JdFzPz2DxtoGf1sOvlLk5
- ungzDc6BVEDh03+yXUAUy9U/UWFXHRil57XfYbS+97WAlurfdEe/+2ak3/sTywBgdMTxsUe2tj3
- FijRQkS75hR1reaBVzoDhIaxQMyfjrXiqB+SWAZkBacoiYyZ9u+JQOQb+VTAMEGOUCEYDUOCzpr
- 8c/1hC3jASv81BTVGd1LhSxwuL5dhh6tEoBE4xQBzskk0bBYMat7qQ+xaeQt7fQg8geZm4Wi8Ao
- Dbtt6jXVaVTg==
-X-Received: by 2002:a05:600c:1989:b0:495:699:84ca with SMTP id
- 5b1f17b1804b1-4954a798f17mr83663665e9.28.1784417757432; 
- Sat, 18 Jul 2026 16:35:57 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1784417761; x=1785022561;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=qVQM0So1MCL7ilj5LYZg6mzfa82XvkJyQz/kOpkAFIY=;
+ b=iTTybltjXT5NhNiMn4ADcI4c4kC7vSEfOxileSLrQt8DM9r+JIUjSx+bqFumxnGdFz
+ vP+eTGKzyX4zbgZkMkft8o9wDTeGdCOw6cuUMTZtcUQo45n7cAjzNzoqJLtqhDl2Axyk
+ cFHK1oG5noofkRkMkwOGasjemJ9uxPUrsIQnOixPgv8QYguO5PYHrei181Am0mCKn38K
+ NVOMD5LeNzh6XiQwQOO05eoBloMhIfLWmLIwEm2p/0y4Vw+FwRXx0N3nfbF0oPaDwVTK
+ IOSeNXgIfGJ4s1jrYq7n5gKN3SnJ5RGFCs3EkUvitzfMK5KV65LDE9a9cJ//75n2W8C1
+ 8qtA==
+X-Gm-Message-State: AOJu0Yy4nPlOkVRDO1cvDhIOJ1XXyIRRlHBtpTrvw9Idrm0Ez5nGCENY
+ 3xNl84T7TSBJwl6IcY+GHNNjyM6b5DtY8ji3OuvhUSYFhG2hA4kPaWvp
+X-Gm-Gg: AfdE7cl3H8VHHM9dq1Cty9ZjT7z3YrS6dCezF1qYfRvU50ZTtuAPKHlCmaxION4N4ug
+ bpC3srW0CcCfkupUFGhN705CjAGJVEWEBObB/uM2AepnYI5VOk7uNyGdM9gZ8gApspJ2+9spZBn
+ qDJnlnRf3b3zyjbWYJM11UrS/ziT/En1rFxA5bXsEZ7AfjpNJJmjRpLB4/Dv1cnZ40NTf/pWUSF
+ 1C8B8ksDElFT7s66ZLvpzOFYSzMN4kDQv0T1IqOtRIEyUK4HYxM8mGpHtpH6SMSN6pHUZxaDhGI
+ TSBsugcWEmwd1z4G516TzcpjD1oaWtRDqdHyhg0Q0uY20oOqY8G4oJ44pNceudXhOJdplt8IH5k
+ oNssX4mspeqvzQt7JilbOzVqw02xhnFu4dXsojcy9+CI1bBMa/QcnOsyadY7FqkSGe/9L5HEILs
+ gVM7rpB+DlKA==
+X-Received: by 2002:a05:600c:4e94:b0:495:571e:e5d3 with SMTP id
+ 5b1f17b1804b1-495571ee75fmr14134205e9.36.1784417760679; 
+ Sat, 18 Jul 2026 16:36:00 -0700 (PDT)
 Received: from [127.0.0.2] ([2a01:14:111:ccf0:645b:9e5c:7fe3:c09f])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4954a2a24b6sm160964675e9.3.2026.07.18.16.35.53
+ 5b1f17b1804b1-4954a2a24b6sm160964675e9.3.2026.07.18.16.35.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 18 Jul 2026 16:35:56 -0700 (PDT)
+ Sat, 18 Jul 2026 16:36:00 -0700 (PDT)
 From: Diogo Silva <diogompaissilva@gmail.com>
-Subject: [PATCH 00/15] drm/drm_simple: remove drm_simple_encoder_init
-Date: Sun, 19 Jul 2026 01:35:31 +0200
-Message-Id: <20260719-drm_simple_encoder_init-v1-0-a78c509e3062@gmail.com>
+Date: Sun, 19 Jul 2026 01:35:32 +0200
+Subject: [PATCH 01/15] drm/exynos: remove dependency on DRM simple helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAMQNXGoC/yXM0QqCQBBG4VeRuW5hlVDrVSIWnf2tiVxlRiMQ3
- 72tLr+LczYyqMDoXGykeInJlDLKQ0F879INTmI2Vb6qfVO2LuoYTMb5iYDEU4QGSbK46OtTd2R
- uhranXM+KQd6/8+X6t639A7x8d7TvHyUPD1h7AAAA
-X-Change-ID: 20260718-drm_simple_encoder_init-d069a4cc7f8b
+Message-Id: <20260719-drm_simple_encoder_init-v1-1-a78c509e3062@gmail.com>
+References: <20260719-drm_simple_encoder_init-v1-0-a78c509e3062@gmail.com>
+In-Reply-To: <20260719-drm_simple_encoder_init-v1-0-a78c509e3062@gmail.com>
 To: Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
  Seung-Woo Kim <sw0312.kim@samsung.com>, 
  Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>, 
@@ -132,59 +131,225 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 The simple KMS helpers are deprecated because they only add an
 intermediate layer between drivers and atomic modesetting.
 
-This series open-codes all remaining drm_simple_encoder_init() users by
-calling drm_encoder_init() directly and providing driver-local
-drm_encoder_funcs where needed. After the driver conversions, the helper
-is removed and the completed DRM todo item is dropped.
+Open-code drm_simple_encoder_init() by calling drm_encoder_init()
+directly and providing driver-local drm_encoder_funcs.
+Also check the return value from drm_encoder_init() to avoid silent
+failures.
 
 Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
 ---
-Diogo Silva (15):
-      drm/exynos: remove dependency on DRM simple helpers
-      drm/xlnx/zynqmp_dpsub: remove dependency on DRM simple helpers
-      drm/tegra: remove dependency on DRM simple helpers
-      drm/fsl-dcu: remove dependency on DRM simple helpers
-      drm/kmb: remove dependency on DRM simple helpers
-      drm/virtio: remove dependency on DRM simple helpers
-      drm/tidss: remove dependency on DRM simple helpers
-      drm/imx: remove dependency on DRM simple helpers
-      drm/mediatek: remove dependency on DRM simple helpers
-      drm/renesas/shmobile: remove dependency on DRM simple helpers
-      drm/hisilicon/kirin: remove dependency on DRM simple helpers
-      drm/arm/komeda: remove dependency on DRM simple helpers
-      drm/meson: remove dependency on DRM simple helpers
-      drm/drm_simple: remove deprecated drm_simple_encoder_init function
-      Documentation/gpu: remove completed drm_simple_encoder_init() todo
+ drivers/gpu/drm/exynos/exynos_dp.c       | 13 +++++++++++--
+ drivers/gpu/drm/exynos/exynos_drm_dpi.c  | 14 ++++++++++++--
+ drivers/gpu/drm/exynos/exynos_drm_dsi.c  | 11 +++++++++--
+ drivers/gpu/drm/exynos/exynos_drm_vidi.c | 14 ++++++++++++--
+ drivers/gpu/drm/exynos/exynos_hdmi.c     | 15 +++++++++++++--
+ 5 files changed, 57 insertions(+), 10 deletions(-)
 
- Documentation/gpu/todo.rst                        | 15 ---------------
- drivers/gpu/drm/arm/display/komeda/komeda_crtc.c  |  9 +++++++--
- drivers/gpu/drm/drm_simple_kms_helper.c           | 13 ++-----------
- drivers/gpu/drm/exynos/exynos_dp.c                | 13 +++++++++++--
- drivers/gpu/drm/exynos/exynos_drm_dpi.c           | 14 ++++++++++++--
- drivers/gpu/drm/exynos/exynos_drm_dsi.c           | 11 +++++++++--
- drivers/gpu/drm/exynos/exynos_drm_vidi.c          | 14 ++++++++++++--
- drivers/gpu/drm/exynos/exynos_hdmi.c              | 15 +++++++++++++--
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c         | 10 +++++++---
- drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c      |  9 +++++++--
- drivers/gpu/drm/imx/dc/dc-kms.c                   |  8 ++++++--
- drivers/gpu/drm/kmb/kmb_dsi.c                     |  9 +++++++--
- drivers/gpu/drm/mediatek/mtk_dsi.c                | 10 +++++++---
- drivers/gpu/drm/meson/meson_encoder_cvbs.c        | 11 ++++++++---
- drivers/gpu/drm/meson/meson_encoder_dsi.c         | 11 ++++++++---
- drivers/gpu/drm/meson/meson_encoder_hdmi.c        | 11 ++++++++---
- drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c | 10 +++++++---
- drivers/gpu/drm/tegra/dsi.c                       | 17 ++++++++++++++---
- drivers/gpu/drm/tegra/rgb.c                       | 14 ++++++++++++--
- drivers/gpu/drm/tidss/tidss_encoder.c             | 10 +++++++---
- drivers/gpu/drm/virtio/virtgpu_display.c          | 12 ++++++++++--
- drivers/gpu/drm/xlnx/zynqmp_kms.c                 | 13 +++++++++++--
- include/drm/drm_simple_kms_helper.h               |  4 ----
- 23 files changed, 185 insertions(+), 78 deletions(-)
----
-base-commit: e55c6b9a3522aaf1441a0662d534c1c7bfa9b860
-change-id: 20260718-drm_simple_encoder_init-d069a4cc7f8b
+diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/exynos_dp.c
+index b80540328150..1598892c602b 100644
+--- a/drivers/gpu/drm/exynos/exynos_dp.c
++++ b/drivers/gpu/drm/exynos/exynos_dp.c
+@@ -24,11 +24,11 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_crtc.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ #include <drm/exynos_drm.h>
+ 
+ #include "exynos_drm_crtc.h"
+@@ -79,6 +79,10 @@ static void exynos_dp_nop(struct drm_encoder *encoder)
+ 	/* do nothing */
+ }
+ 
++static const struct drm_encoder_funcs exynos_dp_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs exynos_dp_encoder_helper_funcs = {
+ 	.mode_set = exynos_dp_mode_set,
+ 	.enable = exynos_dp_nop,
+@@ -95,7 +99,12 @@ static int exynos_dp_bind(struct device *dev, struct device *master, void *data)
+ 
+ 	dp->drm_dev = drm_dev;
+ 
+-	drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_TMDS);
++	ret = drm_encoder_init(drm_dev, encoder, &exynos_dp_encoder_funcs,
++			       DRM_MODE_ENCODER_TMDS, NULL);
++	if (ret) {
++		dev_err(dp->dev, "Failed to initialize encoder\n");
++		return ret;
++	}
+ 
+ 	drm_encoder_helper_add(encoder, &exynos_dp_encoder_helper_funcs);
+ 
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_dpi.c b/drivers/gpu/drm/exynos/exynos_drm_dpi.c
+index 0dc36df6ada3..4e42a1da81d1 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_dpi.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_dpi.c
+@@ -12,10 +12,10 @@
+ #include <linux/regulator/consumer.h>
+ 
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include <video/of_videomode.h>
+ #include <video/videomode.h>
+@@ -140,6 +140,10 @@ static void exynos_dpi_disable(struct drm_encoder *encoder)
+ 	}
+ }
+ 
++static const struct drm_encoder_funcs exynos_dpi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs exynos_dpi_encoder_helper_funcs = {
+ 	.mode_set = exynos_dpi_mode_set,
+ 	.enable = exynos_dpi_enable,
+@@ -194,7 +198,13 @@ int exynos_dpi_bind(struct drm_device *dev, struct drm_encoder *encoder)
+ {
+ 	int ret;
+ 
+-	drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_TMDS);
++	ret = drm_encoder_init(dev, encoder, &exynos_dpi_encoder_funcs,
++			       DRM_MODE_ENCODER_TMDS, NULL);
++	if (ret) {
++		DRM_DEV_ERROR(encoder_to_dpi(encoder)->dev,
++			      "failed to create encoder ret = %d\n", ret);
++		return ret;
++	}
+ 
+ 	drm_encoder_helper_add(encoder, &exynos_dpi_encoder_helper_funcs);
+ 
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_dsi.c b/drivers/gpu/drm/exynos/exynos_drm_dsi.c
+index c4d098ab7863..6b7561ac9bb0 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_dsi.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_dsi.c
+@@ -13,7 +13,7 @@
+ 
+ #include <drm/bridge/samsung-dsim.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
++#include <drm/drm_encoder.h>
+ 
+ #include "exynos_drm_crtc.h"
+ #include "exynos_drm_drv.h"
+@@ -22,6 +22,10 @@ struct exynos_dsi {
+ 	struct drm_encoder encoder;
+ };
+ 
++static const struct drm_encoder_funcs exynos_drm_dsi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static irqreturn_t exynos_dsi_te_irq_handler(struct samsung_dsim *dsim)
+ {
+ 	struct exynos_dsi *dsi = dsim->priv;
+@@ -79,7 +83,10 @@ static int exynos_dsi_bind(struct device *dev, struct device *master, void *data
+ 	struct drm_device *drm_dev = data;
+ 	int ret;
+ 
+-	drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_TMDS);
++	ret = drm_encoder_init(drm_dev, encoder, &exynos_drm_dsi_encoder_funcs,
++			       DRM_MODE_ENCODER_TMDS, NULL);
++	if (ret)
++		return ret;
+ 
+ 	ret = exynos_drm_set_possible_crtcs(encoder, EXYNOS_DISPLAY_TYPE_LCD);
+ 	if (ret < 0)
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_vidi.c b/drivers/gpu/drm/exynos/exynos_drm_vidi.c
+index 67bbf9b8bc0e..59dea853d364 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_vidi.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_vidi.c
+@@ -13,10 +13,10 @@
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_edid.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ #include <drm/drm_vblank.h>
+ #include <drm/exynos_drm.h>
+ 
+@@ -403,6 +403,10 @@ static void exynos_vidi_disable(struct drm_encoder *encoder)
+ {
+ }
+ 
++static const struct drm_encoder_funcs exynos_vidi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs exynos_vidi_encoder_helper_funcs = {
+ 	.mode_set = exynos_vidi_mode_set,
+ 	.enable = exynos_vidi_enable,
+@@ -445,7 +449,13 @@ static int vidi_bind(struct device *dev, struct device *master, void *data)
+ 		return PTR_ERR(ctx->crtc);
+ 	}
+ 
+-	drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_TMDS);
++	ret = drm_encoder_init(drm_dev, encoder, &exynos_vidi_encoder_funcs,
++			       DRM_MODE_ENCODER_TMDS, NULL);
++	if (ret) {
++		DRM_DEV_ERROR(dev, "failed to initialize encoder ret = %d\n",
++			      ret);
++		return ret;
++	}
+ 
+ 	drm_encoder_helper_add(encoder, &exynos_vidi_encoder_helper_funcs);
+ 
+diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
+index 09b2cabb236f..f44586ce0fdf 100644
+--- a/drivers/gpu/drm/exynos/exynos_hdmi.c
++++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+@@ -36,9 +36,9 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_edid.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "exynos_drm_crtc.h"
+ #include "regs-hdmi.h"
+@@ -1575,6 +1575,11 @@ static void hdmi_disable(struct drm_encoder *encoder)
+ 	mutex_unlock(&hdata->mutex);
+ }
+ 
++static const struct drm_encoder_funcs exynos_hdmi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
++
+ static const struct drm_encoder_helper_funcs exynos_hdmi_encoder_helper_funcs = {
+ 	.mode_fixup	= hdmi_mode_fixup,
+ 	.enable		= hdmi_enable,
+@@ -1862,7 +1867,13 @@ static int hdmi_bind(struct device *dev, struct device *master, void *data)
+ 
+ 	hdata->phy_clk.enable = hdmiphy_clk_enable;
+ 
+-	drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_TMDS);
++	ret = drm_encoder_init(drm_dev, encoder, &exynos_hdmi_encoder_funcs,
++			       DRM_MODE_ENCODER_TMDS, NULL);
++	if (ret) {
++		DRM_DEV_ERROR(dev, "failed to initialize encoder ret = %d\n",
++			      ret);
++		return ret;
++	}
+ 
+ 	drm_encoder_helper_add(encoder, &exynos_hdmi_encoder_helper_funcs);
+ 
 
-Best regards,
---  
-Diogo Silva <diogompaissilva@gmail.com>
+-- 
+2.54.0
 
