@@ -4,178 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67F55C4450A
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 19:08:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68DC1C4451B
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Jul 2026 19:13:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7996410E5EF;
-	Sat, 18 Jul 2026 19:08:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3980810E5E8;
+	Sat, 18 Jul 2026 19:13:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="HkhQC06B";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="owp3YvJ3";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R4SxVCzk";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23DD110E5E8
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 19:08:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1784401710; x=1785006510; i=deller@gmx.de;
- bh=y4PU9fwto4NyG0GTrieub80l7mENqpXJjTT+cs1F0tM=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=HkhQC06BsYisLWWPVEU6h0Pwlqbvium9fykyOB0Xd3SEKG/zalcXLsRNoM6OkhSw
- 0VzhA2VSrEstxS1bKKHCC3qO1mtlpX7xTMqdgOrzvDO6yz6WMquIfVi48AXOOnMrc
- IAv3qOPQoPGhM2fC22YtUD+PTFrdWZpelnXK9AkuLrFQ1/NO0N2YzXVM1TRtDGrDh
- b+YVmiWPpR0c2wvv/3ZE25LmC2qbTgwdudly5E7xiDLkWQMwptb2Y44uYUX+asQQM
- 2BVq14OQvVQF5pE/zvFVIg1u7xm6i4LRtP8wuLehNaf2AMWRx8F8f0ixNh2dehmrD
- BVjk0XJlW6BSGgNodw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N9MpY-1x86h82bQa-016QUC; Sat, 18
- Jul 2026 21:08:30 +0200
-Message-ID: <88fa0f85-0960-464a-a602-f797785f0c2e@gmx.de>
-Date: Sat, 18 Jul 2026 21:08:30 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/7] vga_switcheroo, drm: Push fbcon handling into DRM
- clients
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-References: <20260709092215.168172-1-tzimmermann@suse.de>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <20260709092215.168172-1-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25BB010E5E8
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 19:13:06 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66IGP2Zv780850
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 19:13:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ css553ETwH3ipHar7HV+Vwy4upNKK/INFB2fJhyJi/Q=; b=owp3YvJ3u7KHLBln
+ 9PzWLL7aNJ8479neSeSX1m+sgSWp0e+ICvG2XPGs2u0rJiLGZb32VvuR4sPJYMh1
+ ZGzGLROi5mULK+b9sKS1Vr1NgrDUWfuyr3iSIcFz3NPf1K84y/0akNqXURr5ZvuW
+ B5SkY8oRJ/lm7KU8/DFhSJvaMHPhKB7Kc6+g0WE3ARG6lGLBfW2quOwH54IQ+IiA
+ RlXpwC7jkLmBRjoEiHsZzHNPzdgo3OdBTSiPvQFWmdP8P4R66dTx6X8M7mDkjqYy
+ SJSnkGnv4iW3hug+vtLE5nSBDZdwUES3XCeHQVMGASDQ9sB25/6tQdt2Aa2DRavz
+ bPkV9A==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2nhhcjy-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 19:13:05 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-388cfc4848dso10856065a91.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 12:13:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1784401985; x=1785006785;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=css553ETwH3ipHar7HV+Vwy4upNKK/INFB2fJhyJi/Q=;
+ b=R4SxVCzkfedpBIAUnTy73wNUSgqwE5I64L5HroRMu8kMT7jGMb0/bq1ycEWePn8FzV
+ K7yxL9BcDT1bl0KldsULYIC6FaQmV8EH17YtWYNssfUFq3ikO3ZjFIyzoA8yz6DnqbWr
+ nS+52KcuvQtD2Q66RIeuHF6fCGmyGetJFHVsJxgjGT/XsU5XYhzGYStD4+TL8lIwxqsq
+ u5iKmJISBdKeldj3xwmuGiYS7YatNxdszlxcUCrv2WhYUDOrPsJO26Sl6hHfhiib68iq
+ 5xRIQSi0zTocUCKGxuJPNtGngNPYrczWKBtnlC+aJtOM4dhJwqjRNj7xypxXZj0BeBn9
+ FiOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784401985; x=1785006785;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=css553ETwH3ipHar7HV+Vwy4upNKK/INFB2fJhyJi/Q=;
+ b=q+LKK13tKmWvzlEfJrXwYoQ6ElkvFnoC6JL9bue0ApufyFh4SGJtiRKv0PLBni94su
+ H+99hJCKJglBqJulzSD81HCu97lIMRYVb6jdoFv+oYBUVdVNK0k0cTfFMiOvqvIV0zec
+ bQbi+RcxNFqaXVV4ifdtR9aNPUvHYD5912+ER5l/6ZIEE6a99sF4qcakWRmRQaA5zKEp
+ jSNAaPnzC+89HBOTxjrTgfLEYb07xuHP7AmzmuKxCzn5TXGblWh5sz0qoU+Raoa9cTcO
+ Ad6M0sdQA6mkQL5uMPFalu+yUqXEQsZLQ0dLquhNif9FJb8U1NAoa02MIKnEuGce4Z5Z
+ Lwrg==
+X-Gm-Message-State: AOJu0YyVLYh/MJ+or73NMJQrlwPPcb+J0o3HytJqVamSoaP+hWer4BMs
+ PC4mTUZxjPRoOJX/SpaE4Poxs/22PsXdLznpeRdx8P9fJdkhM0ZCa3k48/vG4IhBe7Jm6orCUP4
+ IeFi/6bAd/ThBu4QjiayvYnh5CQZHijojSxj0RDZvRInv6VFAhuMJ6NMiKyRGio1svPMX3QQ=
+X-Gm-Gg: AfdE7ckuQTlDiH8dxvxjLvdYzDq/F0N1W8UF58lp2YNB+Z395xX0NzVqvxEpnyFzMwu
+ ncvcqPFrnL5yRby16jYtVWQvTEEszejYkac3lmP7IrMcUWpYgmYTf498ZakScv2IgEdnesMytyg
+ TFavQ3Jvc1FadxXDOuLjAIkooTiL6ExQVWLHMC8s4Ut+EcVF5NFO0uifGYauIS6ECkxhEhutVUf
+ t2WQZYzvPyNdWzyVtCRP4Ej2dOqtB0GHNuf6I6SvnKvU+5TlaTDezJe9aYf6eRE+5maVQKX27LP
+ CWVh0Yvu1s1Fru1mluJdDsElVZ4syHmC2S49sZUcvmC5i0voAlGOAMNP62xuSxEOQ7r/iP5Gv9j
+ zdgvV1Q==
+X-Received: by 2002:a17:90b:2244:b0:381:bc4c:da5b with SMTP id
+ 98e67ed59e1d1-38e4b43cb05mr8052628a91.18.1784401984523; 
+ Sat, 18 Jul 2026 12:13:04 -0700 (PDT)
+X-Received: by 2002:a17:90b:2244:b0:381:bc4c:da5b with SMTP id
+ 98e67ed59e1d1-38e4b43cb05mr8052596a91.18.1784401983929; 
+ Sat, 18 Jul 2026 12:13:03 -0700 (PDT)
+Received: from localhost ([188.253.117.185]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-13ce2900a37sm16169441c88.0.2026.07.18.12.13.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 18 Jul 2026 12:13:03 -0700 (PDT)
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:S615kaKGtHvAIvX1MLD8FaoYbeTIwzEgGOPwh9vdydqoHXirudj
- b0mrrgB41GGwFepfcF+QBUOVKIehuYJmUJArjXTQcSoV0/w4y/StDh2qxAf6Bk+i+1QYa1M
- x8fWPefk08P7Q17Ap1642RVRNda3VpN6oEXj2Igy3Nm8SmZnMNpHsN1C4qUQ7S8Jf2MowzB
- SpyeYaYkTHL+1gtqnwh2Q==
-UI-OutboundReport: notjunk:1;M01:P0:hZct43mhCvE=;qBO4ro/mry68eOt/Qff5hh3M2R8
- YhCNLgjFe2fLj8waO9vkc0wq/CNZtMJueTkQAjwAmIYLDOQgxvjLI7yP31dEoQfFr/JyTq1tj
- 8hW+MihyTqd8ISoIHm19gNsNvREKSS+B5sUlOZEeX5J42abXI1dIhJngs3M1oTQCk9AEClXI8
- m2cjk0zkraUQu3pCUIcbyPsJaD48R97HF1xvzIOO1eSK8S4yXgsuel/N2xfH2EtdhYMg2BW+x
- lWTDvcqJlJtMU1q8GzD8qGL3lr4y6FE1CZDdUA9fYasM3IDrll/av8S6aiU8PM9mIfTLgJ/CV
- 6758WvfZayjl6Hl0Gg+sFBd7HZ6AATYfeCSX5GXm7Prrjiy5go53qOvbOxhZWVCW6E5u7hOvy
- yBG/X5hO3qJrIQETDDrjGbM2GeTCw6qIBwQikgVhy9f7hU9T9/7LKcte6YDbnxhJataLUnWZm
- vrvCE9PR48TD6oslF6+DEP9snzqi3WbRoDGUAPH+CKXgSLpEMTYaxRNTO50FE+XF4mmv4Bw11
- hlQkTBjU3xzmmA7extpITY09JQUgVJv3yZf2BxpfADJhnJEzsY6Z3bxkFLip5WM/pBzoOl57z
- zz2WffdtWysqFjYsnhFj+W0fOM8YNmUqLsZdAW/2UOt++JzeltlSP1k/sXHAyhTvYNSPSI5Ma
- 3iQcRvlGMVjzfPvUiriU92A0puJXEDXNljePV5pJYmx9ZtkG6DYJIhtklcbdmeo5D5Sna5Dsz
- wu5yLXT1L+u7q/jb8W/zJFv/RvcOrHYw3IhEKajIcaSdf/2batY9I30FjGBOPcgtj7NyG853i
- BsfXHBtsggnOAklu9QmCpcG3vPBdY1cmt6UbQS5/Plv6lLwdJoJqcvyQoPPaj98ZhSYSPciN2
- iR4llXA/Tum66PeZ9maxDaIqXKEz3Ljkg0SDAMR4aL0s+BUAomY2daKNVhfWQGs+QBVyRnTvk
- SyBuX+J09NoCtzOMnIBipkL+/HerYBAvE+SolgLUQQiGhU+9jchn21uLhtZheQc6CEbDUlcY8
- XIx7uU4VE9YZzekDudH6zHqQweFHvfGoeSqSEeux+N71piay9evcZn0NkNJeHEmHtheNRNLf1
- apDs+XmnhCh+s1REei/ri6dbLVdvLK7iXj9R2BmCnQ9cj54vFNBN+mQsiKTybCryLlFIGW5PQ
- 1y9lRrP6mxMNVuKhYUzr5tomdoHbKRv6auETyb+PSwpeuAR0VuIF7ZwQSR8uGi8aQuTFzOxV8
- SOkVaHwZU5O+gEU7JBuHYYWjZUVsp4wmgf6HKWac2l+0xKmugodCJ6h8RvhSauBsLqV39rjRg
- CsH2dQNhgQ3UAx4bZRp+OJyF08tNYSTNUzv2RPOd6shKrTXIw4MK0jSn+TJLe+SEbpXLDWpNb
- ZQVyM0GqHzl1yF9g/ojBVzfHeNzdBustO3YaFm2Xgqfhd64YzhygwWVDnfHfuJOl5Th5bjusv
- /pkxyDD47lWVvsjds+YYESXMsnPIarG1i5R5Tao5mcr4GYf6raY4c0oU02SK8AD529tu77g1f
- QcAsBtzuybCISHlHnEYMWJsWw9yyAlFziRPBzfrm1oTdoAfqnX76sENlZ4JvNBB6ahuQQAzcH
- TWP4nBfpIxxdw6kOoZ+fyKgOHu3if43+Mny9tiSIPhFCFZ6q3++id5+HSJPkL0k4Q/km4pIZq
- pE3kucj4XXyKZzLY9qh0rpX+tB4UR1qtvsjDPUf/54ydgxQyKLc+9C12LSzx3lmMoCQW9DhW1
- f6hKZuQbIUTiGRWF46+GINR8QwsnmL5SXsSB+gg/NZcpNvXupbtWw2qAN6kGcL4/+gCcMYhXs
- AeTwRXPCuTzJOzOPdU5d7vbFgGkV9n7IXrM3nk55OobJjNYSkWMaJmzPR+9lA1P6r6ganagdv
- ThCU72HQokg2lJypM4tulQ8daHwNTxxHL+lEncHutZAE5/3hwlDlN9mrXKX8eQXXrq0HjVwH9
- 7KsM2LfwHOA/3pQP8ZyVOz9M4yMKuxa4vNZrZLeqt03Eka98ofEFAEYT1Z/OfEwjlMJaHk9Nk
- /coQX6JlT4ruZST3/Jcg8zxPi+59hLnor8RCZ867mcvOoA3czuO79rU4ELlEpF342O5+sxr9t
- r8MMcuxytfIP8WePHRgmch6Hlhn6zvNtYPZlfqZ0q7/cY7CUFQ8p1sXykBjU3jFP/Q+d+jtYF
- rtk1IVaZgRln8uwKsCX8nwSZdfeyH17O5sQLAbqr6g9LQCuQHJwF/HSMc8H7U9kRsR5ijmlpC
- Lwkmirg0/LqtQ1iw9hQTg9MOBQu5JOUIRLHEC22+qalLj1u+0ILW2b/z4VCrhVNrIht3xWo1w
- VqmpHgNngsbjgCDCXLqlap8D6s9ueHIp/r7AxqJt8loBkSer6MKItTKXjHNOkdrT8fGs13NM4
- wvafu2GsR/s2IVk03pDZmunLQvBhTE/DGxOzFy3V12f1nE9jGDae0FpK2rVhCIz687wEY8NS4
- oeBrbeuPBDVir786L2IBOkNMenfKEpOHdaZxSSQtUN8YjT4NndURQ5N1dGPegMIDNM3iW5lWD
- YfRCK0HBgAljg/10QpzU6c4BkfEYEdAhXmaBgpSc2cM04uyET0FIPFuctlQ0w63SGUf3zBcxs
- hrxyoGsCbKa/QsN/y+NGqZOALnX/d7+8lgUH4nm08oIiW80NCHWOlBdgLzZ2H5dOD8yrEX+rO
- VPXEO3DdSYGiKLSJHqnoz4mwCrwemYDJuosabOuyU4yXN4vLG2Vc1ZanHuRf333ZKseNOjHac
- KYDflnurLN5ANBe1jgA5iekWkM9DlC7QkZE1bZfpi/CbVOfF5iTmi6D4/j/SZfsL1N0Em1xOS
- fBqdt9NQN7vw7tjD2+xmRHby8I0OD7+DhbGqLtGTANc0EGAuR23V+Rw4zrF7ckRnyNZkAnfHQ
- b3xN6t8HrNFZI0x2/cYZq0cEO+UurrBA2DEj5ArDCIaXlFLqmYW84N5r9ZzZjMDSsVhNviqe3
- AKZtxMspb2ygFjtNKqkvxZRRTlCfG6ZqH+fDeieIn1UoqOanbPSiYCceFAoSpG0JtvsrXjZ5P
- aTLCP01hEAkTGJbNz/sMysTYHPvskWMGPpwTwyxCRc+EG53hBvJas/plFChpzgJ686sbVVtvi
- Awr/r05trm5YFBNAI+9fBvB3S+wLA3fN8uy87XIqQjMhPVy8MppQLcq0cK/19oVaMR2mmBTAg
- BGJDoByaxL53pm3I+1M3BT0DV+wVEq9jDXZKNIb/rraWOhJig26k4dP9wj4zIsYDZrh1Irzs2
- KA4cxM9LtfC/tCuKCIowBgdYdobRFtoB7s406rtiCsjPjx6Fw0R653zr41INpgnAAtCXGt4i5
- KrLUKEbIvUc4xQMFxYamEfxif355Raihq+P+dly49AzQVVDfOY7NQiLyCcp5l3Bz3oHyuX8XI
- 3nRVAlx3JBt6/OTqFjkJC4H82/YNpyadCFZsRn/ouWw9e9Ho+oHY3xu54bbpun3GoNlQOyL4n
- 6psrvY92TsBKrSOR2RA5xKPArM+bLO45z6WlYM3NLmkbGnXjGPTME1PT+sgyebdqFO551AyID
- N4zcNTNoAHWlo+/6mjxO6mefAQ67tlk6iDXcq84HqpJcXaqh6q0GpFmoc1mUsogbOQ3xmQTOg
- LqY5otDCwyQQ1UgQvX3SNNa5/g5iUIIxMUeRWDuJPj0qQ2mSRcw85EwVj2zn8RnyvBXoP0+Lc
- mMANClVTAKuyIJtQO0mP+c1SfKh+Gd9Rt3naUTmMccpTpLyThnp/MkBOqcsz5tmSMB6M2fj3S
- SyKCFUS7TyVcZgWdLJyNoKljkHkqhCn/yEAAFXNPT1CZPSH6v/8+aGDCu9CRQglAXjsZWII13
- 0RDLxP+FawpzDDZW7e7wlROsZztanjpHRb/FnCRS/nNjASnhZfZeoJC1btKDyooyEBXejbFZ5
- UiDeQG0DPNlUBffoMRqO4cc++P/uYkEnJwYG37Qlcmr/lkvceJO9N8tZdH3R/DJxKmtk9EFxo
- L4Mzjegb93+XIMGW+LIPCJnfr4IyI6y2jZPTVzhMc6E3DMjiBP6cvzQSY5uSNlR79S5Qr4Un0
- NoCSjDgfoi+bkiRKZ7jfYAwHgooSDJLDXIMjkGraEI8u0mxaLAdJ1kknDUMZPy0Gn/YHv7Ka1
- 9P0rYzB+Crd9Jb1FQCtWxFsAi5R9HR7SvN6KILmnHZtlS9eIRBPEL58yDYRneiWeHY7t4x5Zc
- Ho3fU8LiQe/+ztNlvS6QjQ1h9DXXFtDxgZY5qCn9rnPADXYvQ4Bge1nlFMbSyLCHslk0nDKmL
- yyMjy0DfCiQRez5/4ANYU1PRqBrUMhfdo4FFwAZ8o77NY7BhIwLH2qOxr4rDuaPradea+FUsF
- YAMcMuziMnQv2HWSq/W/8siyXzo94rYSj0A5vF2WU8feJx1kInxZ1CHMcFn0r8bUBDGgGi+2z
- dJQ8wKLYgcaPBMZYg5HMh5DOJyxcUKcKngU7nGAuzkZX9hSob/KyuwdastF9MhkPJA8yKUwJr
- +coJd0i9fIzCxRHFCYRcldr5cNS/gBfjetCzIYTPjspdRjHLNsViiocOJUyRjW0iniRHXxzAv
- LGpLY+BeWL5eAa5Jkp3FVLwG7+cWiAG4neCj7xJQ1UlVwdkmu7lMmy7letyDHlN57sXHqhcHR
- GQhtyLKrArJyrME6ke37F1PEERzUq0Ku+KzCCIv3jYzBC+XhCCjD5zsT54z9af2IxZcErM7Fu
- iuk7zK9I88jderX3PEZM3cE35/Y6LQ5Gd5mm100rWpt2SmW9P4QZ/RI5X/yGJLIXDVrl6gq2V
- YIeIp17RlcSVZNQwEKo7jIp+ZS+JL7qYw5eCLhjyFelH6oyo1f5TjvsXClUB2CwelgTt9ecyo
- WyrKe3881vy3oHDP10De8Y7PjqOsM94pfC6smZZkYN/zdW9h+RvtBLpJXhfKaCvY2FcRdjh4F
- 55L0M756TQ/RoaoM/ExnmFdtLG0WecDYFv4OKop6zbfLZyz3duQ7gqz57qNKSQG2HOKSy/CM3
- zta5acHcIgIs9mHSqafdCFHwAX+1l5P1Nu1y2O50qegczgpyuQIrrFKlNWjWuqSEtYRAtzP9E
- MNdWnAJF8U5akoM8bC/fsoQgWwwmWz0i0yf3qNxhrc8GuRHga9oAL2Q/dWBv5McVcNmKDV3My
- elk5PjAI9HePjDHz0Ri3SwCSn6WlcxAteaOZJ4O0Irl+kN8S4cDnn68EKZsI7UAXc8P4YbBfR
- MGpjQfdKIlpSXRRvVSsBV6RQXbRZn2Nfbg0RJMB1Xd7yvMXSxcejNftOrTsXEfiGpSassJQX2
- LUVTCm+xt2dj9/LFowXiwoXbVzT3tZvJcHaUgMcoK/thldFduTHYtN03eE0j3NT5aouAGFKWs
- Zjw5saJXsicoa9FS+0PgidMe/w8uoj2SFakJw9OMezq9woT98UxDsBA4AeTiokrhCrXwEwT/1
- nwuhsyAxmOvfXr3CXN1bGLUD2a/I9o7L3Y9fN+CuTYQgW68/icCV2nZYmYE+nWm2/L0DJzBbp
- w6lL0ocC7U9EK1ct6/c8PWLyWXI1g8P/g+c+GW46yilp+Y1GLodQZXUliyG/yg+yXw5IjgKyz
- 15X6nc4OXuqUuednQxKklNI3vxsis0/Wmv2tMpxI7GWHtKsMZgAC2KDBVosiFcZmlvMUifvMI
- a/Ty6+R/axd6HLooZsSgNs7ENPhjfs6cg9NbCklWUpduvCc39D3CnY9td0m0jdULU5OJdh5tc
- kg857nMIU7LNfmLVejngxzYoCRjD/8jw/onn2HoFuIUemj2D5H+AiTxSTjEP3bMmGQRoV5Fou
- orJgof70Paq++Ns3T/jNC
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 19 Jul 2026 03:12:58 +0800
+Message-Id: <DK1XPK73QJHC.JWFUMTTLOD1D@oss.qualcomm.com>
+Cc: <dri-devel@lists.freedesktop.org>, <Frank.Li@kernel.org>,
+ <imx@lists.linux.dev>
+Subject: Re: [PATCH v2] drm/imx: replace struct drm_simple_display_pipe with
+ regular atomic helpers
+From: "Ze Huang" <ze.huang@oss.qualcomm.com>
+To: <sashiko-reviews@lists.linux.dev>, "Ze Huang" <ze.huang@oss.qualcomm.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260716-drm-simple-kms-removal-v2-1-7e4a6b8528e6@oss.qualcomm.com>
+ <20260716091459.1D8101F000E9@smtp.kernel.org>
+In-Reply-To: <20260716091459.1D8101F000E9@smtp.kernel.org>
+X-Authority-Analysis: v=2.4 cv=Le0MLDfi c=1 sm=1 tr=0 ts=6a5bd041 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=RQ3dwY0XcLBFaqRX7rIGyg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=P-IC7800AAAA:8 a=U8GEcZiWL5moPHtnF8wA:9
+ a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22 a=FO4_E8m0qiDe52t0p3_H:22
+ a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-GUID: z9XHW1FaPKWy6g0W-A4iamZ-Go3mpnWh
+X-Proofpoint-ORIG-GUID: z9XHW1FaPKWy6g0W-A4iamZ-Go3mpnWh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE4MDIwMiBTYWx0ZWRfX/z+Ig70cG62C
+ 68phbJmSVLqk2I5BA7PkamgXIH/jnO9HcQQ/VK1q2HnLE2d6F10BdEoACb2jF3ockazE5HlQsRX
+ f+cE2zLoSdAT/c/AX35wKNsST9Sx4rSclHh0vv8v25bavFq+ukAKHD6o7f9gphwueb+1Ek+PEqH
+ cCQpSP6HQDNhuaUQiEbRnZLvSrZfwzV0mbT/nGdZ5s4qstTKl4AHp1+clEF6JufNnn8BYm+lpeR
+ LYdxHWlAUFciemvhylBQFuMYrn7257yXlw9UnNabLxfpxgf86P2DIzEKaeOWRcwntnVzQSBnj0E
+ vGhcj0CM9mvnVSxu9bMbDjEuK4hSW2/h7I4qj687m2gt5S5a7oS4oNNYHbXA0mgLvfItrFNA5Az
+ f36x7oAFc+PnQUn+v1Llg66Ku2Q4HG+rFF5N2TjVpzI98z+XhHI5ECekGdvU6jQ1D5N6E0MN/Zy
+ aSz8HfdBJXAc64X/PLQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE4MDIwMiBTYWx0ZWRfXyhtdSb6xVdHL
+ oGj8S3yE6sYQtQtYhqyLexJhDFePxiIRaRKG7buSIrvg3vuQSepWil8JSQ1WYBe9cDdAAZpd8Su
+ s7vaxWd8TyEBq5Be64LrnOpENF7fLJ0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-18_05,2026-07-17_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 phishscore=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607180202
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -191,66 +142,342 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+On Thu Jul 16, 2026 at 5:14 PM CST, sashiko-bot wrote:
+> Thank you for your contribution! Sashiko AI review found 6 potential issu=
+e(s) to consider:
+>
+> New issues:
+> - [High] Missing framebuffer validation in atomic paths leads to an uncon=
+ditional NULL pointer dereference when a plane is configured without a fram=
+ebuffer.
+> - [High] `imx_lcdc_plane_helper_atomic_check` fetches a potentially NULL =
+CRTC state, causing a kernel panic in core helpers.
+> - [High] Redundant clock enable calls cause a persistent reference count =
+leak for `clk_per` on every display modeset.
+>
+> Pre-existing issues:
+> - [Critical] The driver accesses peripheral MMIO registers and leaves int=
+errupts unmasked while the AHB and IPG bus clocks are disabled.
+> - [High] The CRTC atomic check unconditionally overwrites the `mode_chang=
+ed` flag, potentially discarding modeset requests initiated by the DRM core=
+.
+> - [High] VBLANK completion events are signaled prematurely during display=
+ disable/modeset sequences.
+> --
+>
+> --- Patch [1]: [PATCH v2] drm/imx: replace struct drm_simple_display_pipe=
+ with regular atomic helpers ---
+> commit 78bda5593353310f7405860b2b4d7ea3060e0afa
+> Author: Ze Huang <ze.huang@oss.qualcomm.com>
+> Subject: drm/imx: replace struct drm_simple_display_pipe with regular ato=
+mic helpers
+>
+> This commit converts the i.MX LCDC driver to explicit primary plane, CRTC=
+,=20
+> and encoder objects, removing the dependency on the simple-KMS framework.=
+=20
+> It preserves most of the previous callbacks by rewiring them into the=20
+> standard atomic helper paths.
+>
+> Link: https://patch.msgid.link/20260705-drm-simple-kms-removal-v1-0-b4e1c=
+a053623@oss.qualcomm.com
+>
+>> diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/l=
+cdc/imx-lcdc.c
+>> index c67fe80b8115e..5c858fc81a78c 100644
+>> --- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+>> +++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+>
+> [ ... ]
+>
+>> -static void imx_lcdc_pipe_enable(struct drm_simple_display_pipe *pipe,
+>> -				 struct drm_crtc_state *crtc_state,
+>> -				 struct drm_plane_state *plane_state)
+>> +static void imx_lcdc_crtc_helper_atomic_enable(struct drm_crtc *crtc,
+>> +					       struct drm_atomic_commit *commit)
+>>  {
+>>  	int ret;
+>>  	int clk_div;
+>>  	int bpp;
+>> -	struct imx_lcdc *lcdc =3D imx_lcdc_from_drmdev(pipe->crtc.dev);
+>> -	struct drm_display_mode *mode =3D &pipe->crtc.mode;
+>> +	struct imx_lcdc *lcdc =3D imx_lcdc_from_drmdev(crtc->dev);
+>> +	struct drm_crtc_state *cstate =3D drm_atomic_get_new_crtc_state(commit=
+, crtc);
+>> +	struct drm_plane_state *plane_state =3D lcdc->plane.state;
+>
+> [Severity: High]
+> Does this code result in a NULL pointer dereference when a primary plane =
+is
+> configured without a framebuffer?
+>
+> If userspace submits an atomic commit that enables the CRTC but sets the
+> primary plane's FB_ID to 0, plane_state->fb will be NULL.
+>
 
-On 7/9/26 11:15, Thomas Zimmermann wrote:
-> Vga_switcheroo currently invokes fb_switch_outputs() to inform fbcon
-> about switching of the physical outputs among framebuffer devices. But
-> new DRM clients to not use fbdev/fbcon and might require their own
-> vga_switcheroo support. Let's strictly separate them from each other.
->=20
-> Remove fbdev/fbcon from vga_switcheroo. Introduce a pre_switch callback
-> for vga_switcheroo clients to do the fbcon update. Allows for removing
-> all direct interactions between vga_switcheroo and fbdev/fbcon.
->=20
-> There are only four drivers that support vga_switcheroo: amdgpu,
-> radeon, i915 and nouveau. Update each of them with the new callback.
-> When vga_switcheroo now invokes pre_switch, each DRM driver forwards
-> to aquire_outputs and lets the DRM clients handle the new outputs.
->=20
-> At the same time, push the fbcon update into DRM's client for fbdev
-> emulation. Do this with the new DRM client callback acquire_outputs,
-> so that other clients can have their own handling of vga_switcheroo.
->=20
-> Also replace the existing reprobe hook with post_switch for symetry.
-> For nouveau, this is merely a rename of the helper function. The other
-> drivers dor not implement reprobe.
->=20
-> Tested with radeon on a notebook with Radeon HD 4225 and HD 5430.
->=20
-> v2:
-> - implement all of pre_switch in a single commit to avoid possible
->    deadlock in intermediate state (Sashiko)
-> - fix erroneous docs (Sashiko)
->=20
-> Thomas Zimmermann (7):
->    drm/edid: Include <linux/fb.h>
->    drm/client: Add acquire_outputs callback; implement for fbdev
->      emulation
->    vga_switcheroo: Add pre_switch callback to client ops
->    vga_switcheroo: Add post_switch callback to client ops
->    drm: Implement struct vga_switcheroo_client_ops.pre_switch
->    drm: Implement vga_switcheroo_client_ops.post_switch
->    vga-switcheroo: Remove unused interfaces
->=20
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  9 ++++-
->   drivers/gpu/drm/clients/drm_fbdev_client.c | 23 ++++++++----
->   drivers/gpu/drm/drm_client_event.c         | 18 ++++++++++
->   drivers/gpu/drm/drm_edid.c                 |  1 +
->   drivers/gpu/drm/i915/i915_switcheroo.c     | 11 +++++-
->   drivers/gpu/drm/nouveau/nouveau_vga.c      | 28 +++++++++------
->   drivers/gpu/drm/radeon/radeon_device.c     |  9 ++++-
->   drivers/gpu/vga/vga_switcheroo.c           | 41 +++++-----------------
->   drivers/video/fbdev/core/fbcon.c           |  8 -----
->   include/drm/drm_client.h                   | 14 ++++++++
->   include/drm/drm_client_event.h             |  3 ++
->   include/linux/vga_switcheroo.h             | 29 ++++++++-------
->   12 files changed, 121 insertions(+), 73 deletions(-)
-You may add a
-Acked-by: Helge Deller <deller@gmx.de>
-to the series.
+Will access plane_state with drm_atomic_get_new_plane_state()
 
-Just in case you want me to take the series through the fbdev git tree,
-please let me know.
+>
+> Since drm_atomic_helper_check_crtc_primary_plane only verifies that the
+> primary plane is present in the plane mask, it does not prevent a NULL
+> framebuffer. This causes an unconditional dereference shortly after this =
+line
+> when extracting the format via imx_lcdc_get_format(), as well as inside=
+=20
+> imx_lcdc_update_hw_registers() when calling drm_fb_dma_get_gem_addr().
+>
+>> +	struct drm_display_mode *mode =3D &cstate->mode;
+>>  	struct drm_display_info *disp_info =3D &lcdc->connector->display_info;
+>>  	const int hsync_pol =3D (mode->flags & DRM_MODE_FLAG_PHSYNC) ? 0 : 1;
+>>  	const int vsync_pol =3D (mode->flags & DRM_MODE_FLAG_PVSYNC) ? 0 : 1;
+>
+> [ ... ]
+>
+>> @@ -230,40 +232,46 @@ static void imx_lcdc_pipe_enable(struct drm_simple=
+_display_pipe *pipe,
+>> =20
+>>  	ret =3D clk_prepare_enable(lcdc->clk_ipg);
+>>  	if (ret) {
+>> -		dev_err(pipe->crtc.dev->dev, "Cannot enable ipg clock: %pe\n", ERR_PT=
+R(ret));
+>> +		dev_err(crtc->dev->dev, "Cannot enable ipg clock: %pe\n", ERR_PTR(ret=
+));
+>>  		return;
+>>  	}
+>
+> [Severity: Critical]
+> This is a pre-existing issue, but does this perform memory-mapped writes =
+to
+> peripheral registers before the IPG and AHB bus clocks are enabled?
+>
+> Just prior to enabling the IPG clock here, the driver performs multiple
+> writel() configuration writes to the LPCR and LCPR registers. Accessing
+> registers of an unclocked IP block on i.MX platforms can hang the bus and
+> trigger a synchronous external abort. Could we ensure the clocks are
+> prepared and enabled before doing configuration writes?
+>
+>>  	ret =3D clk_prepare_enable(lcdc->clk_ahb);
+>>  	if (ret) {
+>> -		dev_err(pipe->crtc.dev->dev, "Cannot enable ahb clock: %pe\n", ERR_PT=
+R(ret));
+>> +		dev_err(crtc->dev->dev, "Cannot enable ahb clock: %pe\n", ERR_PTR(ret=
+));
+>> =20
+>>  		clk_disable_unprepare(lcdc->clk_ipg);
+>> =20
+>>  		return;
+>>  	}
+>> =20
+>> -	imx_lcdc_update_hw_registers(pipe, NULL, true);
+>> +	imx_lcdc_update_hw_registers(crtc, NULL, true);
+>> =20
+>>  	/* Enable VBLANK Interrupt */
+>>  	writel(INTR_EOF, lcdc->base + IMX21LCDC_LIER);
+>> +
+>> +	drm_crtc_vblank_on(crtc);
+>>  }
+>> =20
+>> -static void imx_lcdc_pipe_disable(struct drm_simple_display_pipe *pipe)
+>> +static void imx_lcdc_crtc_helper_atomic_disable(struct drm_crtc *crtc,
+>> +						struct drm_atomic_commit *commit)
+>>  {
+>> -	struct imx_lcdc *lcdc =3D imx_lcdc_from_drmdev(pipe->crtc.dev);
+>> -	struct drm_crtc *crtc =3D &lcdc->pipe.crtc;
+>> +	struct drm_crtc_state *old_crtc_state =3D drm_atomic_get_old_crtc_stat=
+e(commit, crtc);
+>> +	struct drm_crtc_state *new_crtc_state =3D drm_atomic_get_new_crtc_stat=
+e(commit, crtc);
+>> +	struct imx_lcdc *lcdc =3D imx_lcdc_from_drmdev(crtc->dev);
+>>  	struct drm_pending_vblank_event *event;
+>> =20
+>> +	drm_crtc_vblank_off(crtc);
+>> +
+>>  	clk_disable_unprepare(lcdc->clk_ahb);
+>>  	clk_disable_unprepare(lcdc->clk_ipg);
+>> =20
+>> -	if (pipe->crtc.enabled)
+>> +	if (old_crtc_state->enable)
+>>  		clk_disable_unprepare(lcdc->clk_per);
+>> =20
+>>  	spin_lock_irq(&lcdc->drm.event_lock);
+>> -	event =3D crtc->state->event;
+>> +	event =3D new_crtc_state->event;
+>>  	if (event) {
+>> -		crtc->state->event =3D NULL;
+>> +		new_crtc_state->event =3D NULL;
+>>  		drm_crtc_send_vblank_event(crtc, event);
+>>  	}
+>
+> [Severity: High]
+> This isn't a bug introduced by this patch, but does consuming the event
+> during the disable phase signal completion to userspace prematurely?
+>
+> Sending the event here signals to the compositor that the modeset is comp=
+lete
+> before the new mode is programmed and flushed, which could lead to frame
+> submission races or compositor stalls.
+>
+>>  	spin_unlock_irq(&lcdc->drm.event_lock);
+>> @@ -272,17 +280,20 @@ static void imx_lcdc_pipe_disable(struct drm_simpl=
+e_display_pipe *pipe)
+>>  	writel(0, lcdc->base + IMX21LCDC_LIER);
+>
+> [Severity: Critical]
+> This is a pre-existing issue, but are the bus clocks disabled before clea=
+ring
+> the VBLANK interrupt?
+>
+> Similar to the enable path, writing to the LIER register while the IPG an=
+d
+> AHB clocks are disabled can trigger a bus fault. Furthermore, since the
+> interrupt is unmasked before the clocks are disabled, an incoming IRQ cou=
+ld
+> cause the handler to read the LISR register while clocks are off.
+>
+>>  }
+>> =20
+>> -static int imx_lcdc_pipe_check(struct drm_simple_display_pipe *pipe,
+>> -			       struct drm_plane_state *plane_state,
+>> -			       struct drm_crtc_state *crtc_state)
+>> +static int imx_lcdc_crtc_helper_atomic_check(struct drm_crtc *crtc,
+>> +					     struct drm_atomic_commit *commit)
+>>  {
+>> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(co=
+mmit, crtc);
+>> +	struct drm_crtc_state *old_crtc_state =3D drm_atomic_get_old_crtc_stat=
+e(commit, crtc);
+>>  	const struct drm_display_mode *mode =3D &crtc_state->mode;
+>> -	const struct drm_display_mode *old_mode =3D &pipe->crtc.state->mode;
+>> +	const struct drm_display_mode *old_mode =3D &old_crtc_state->mode;
+>> +	int ret;
+>> =20
+>> -	if (mode->hdisplay < LCDC_MIN_XRES || mode->hdisplay > LCDC_MAX_XRES |=
+|
+>> -	    mode->vdisplay < LCDC_MIN_YRES || mode->vdisplay > LCDC_MAX_YRES |=
+|
+>> -	    mode->hdisplay % 0x10) { /* must be multiple of 16 */
+>> -		drm_err(pipe->crtc.dev, "unsupported display mode (%u x %u)\n",
+>> +	if (crtc_state->enable &&
+>> +	    (mode->hdisplay < LCDC_MIN_XRES || mode->hdisplay > LCDC_MAX_XRES =
+||
+>> +	     mode->vdisplay < LCDC_MIN_YRES || mode->vdisplay > LCDC_MAX_YRES =
+||
+>> +	     mode->hdisplay % 0x10)) { /* must be multiple of 16 */
+>> +		drm_err(crtc->dev, "unsupported display mode (%u x %u)\n",
+>>  			mode->hdisplay, mode->vdisplay);
+>>  		return -EINVAL;
+>>  	}
+>> @@ -291,46 +302,116 @@ static int imx_lcdc_pipe_check(struct drm_simple_=
+display_pipe *pipe,
+>>  		old_mode->hdisplay !=3D mode->hdisplay ||
+>>  		old_mode->vdisplay !=3D mode->vdisplay;
+>
+> [Severity: High]
+> This is a pre-existing issue, but does this direct assignment to
+> mode_changed discard modeset requests initiated by the DRM core?
+>
+> The core drm_atomic_helper_check_modeset() function may have already set
+> mode_changed to true due to connector routing changes or userspace forcin=
+g a
+> modeset. Using a direct assignment instead of a bitwise OR (|=3D) silentl=
+y
+> clears that flag if the spatial dimensions haven't changed.
+>
+>> -	return 0;
+>> +	if (crtc_state->enable) {
+>> +		ret =3D drm_atomic_helper_check_crtc_primary_plane(crtc_state);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>> +	return drm_atomic_add_affected_planes(commit, crtc);
+>>  }
+>> =20
+>> -static void imx_lcdc_pipe_update(struct drm_simple_display_pipe *pipe,
+>> -				 struct drm_plane_state *old_state)
+>> +static void imx_lcdc_plane_helper_atomic_update(struct drm_plane *plane=
+,
+>> +						struct drm_atomic_commit *commit)
+>>  {
+>> -	struct drm_crtc *crtc =3D &pipe->crtc;
+>> -	struct drm_pending_vblank_event *event =3D crtc->state->event;
+>> -	struct drm_plane_state *new_state =3D pipe->plane.state;
+>> +	struct drm_plane_state *old_state =3D drm_atomic_get_old_plane_state(c=
+ommit, plane);
+>> +	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(c=
+ommit, plane);
+>> +	struct drm_crtc *crtc =3D new_state->crtc ?: old_state->crtc;
+>>  	struct drm_framebuffer *fb =3D new_state->fb;
+>>  	struct drm_framebuffer *old_fb =3D old_state->fb;
+>>  	struct drm_crtc *old_crtc =3D old_state->crtc;
+>>  	bool mode_changed =3D false;
+>> =20
+>> +	if (!fb)
+>> +		return;
+>> +
+>>  	if (old_fb && old_fb->format !=3D fb->format)
+>>  		mode_changed =3D true;
+>>  	else if (old_crtc !=3D crtc)
+>>  		mode_changed =3D true;
+>> =20
+>> -	imx_lcdc_update_hw_registers(pipe, old_state, mode_changed);
+>> +	imx_lcdc_update_hw_registers(crtc, old_state, mode_changed);
+>> +}
+>
+> [Severity: High]
+> Does calling imx_lcdc_update_hw_registers() here cause a persistent refer=
+ence
+> count leak for clk_per?
+>
+> During a modeset, imx_lcdc_crtc_helper_atomic_enable() already calls
+> imx_lcdc_update_hw_registers() which increments the clock reference count
+> when the CRTC is enabled.
+>
+> When the plane helper subsequently calls it again here, the clock prepare
+> enable block is hit a second time. However, during display disable, the
+> plane update returns early due to a NULL fb, meaning the clock is only
+> disabled once in the CRTC disable path.
+>
+>> =20
+>> -	if (event) {
+>> -		crtc->state->event =3D NULL;
+>> +static int imx_lcdc_plane_helper_atomic_check(struct drm_plane *plane,
+>> +					      struct drm_atomic_commit *commit)
+>> +{
+>> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state=
+(commit, plane);
+>> +	struct drm_crtc *crtc =3D plane_state->crtc;
+>> +	struct drm_crtc_state *crtc_state =3D NULL;
+>> =20
+>> -		spin_lock_irq(&crtc->dev->event_lock);
+>> +	if (crtc)
+>> +		crtc_state =3D drm_atomic_get_new_crtc_state(commit, crtc);
+>> =20
+>> -		if (crtc->state->active && drm_crtc_vblank_get(crtc) =3D=3D 0)
+>> -			drm_crtc_arm_vblank_event(crtc, event);
+>> -		else
+>> -			drm_crtc_send_vblank_event(crtc, event);
+>> +	return drm_atomic_helper_check_plane_state(plane_state, crtc_state,
+>
+> [Severity: High]
+> Can fetching the CRTC state this way cause a kernel panic in the core ato=
+mic
+> helpers?
+>
+> If userspace submits a commit that modifies only plane properties without
+> affecting the CRTC, the CRTC is not implicitly added to the atomic commit
+> state.
+>
+> In this scenario, drm_atomic_get_new_crtc_state() returns NULL. Passing t=
+his
+> NULL pointer directly to drm_atomic_helper_check_plane_state() causes a c=
+rash
+> when it dereferences crtc_state->enable.
+>
+> Could this use drm_atomic_get_crtc_state() instead to ensure the state is
+> brought into the commit if it is missing?
 
-Helge
+I think it is fine here; I'll just copy the pattern from [1].
+
+[1] https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/mgag200/=
+mgag200_mode.c#L487
