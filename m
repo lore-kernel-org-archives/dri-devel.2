@@ -4,87 +4,192 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48FF7C44524
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23529C44528
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE48110E785;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4A3110E789;
 	Mon, 20 Jul 2026 07:15:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RykApjf2";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="iVkZ02R+";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2045A10E604
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 21:56:59 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4954f5e8020so4313755e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 14:56:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784411817; x=1785016617; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=6hEJAtA2FmuGbMms2Cfe5VvNicgq5ngesjv9wLRLgDE=;
- b=RykApjf2aJi8wT2JE8EDZr6P5K4VDzTU9elz3Om5sG+vX4BFGTHFimWXU1EnwI2246
- Ka6W4Lz79K9CqSXLGwep8mgOQFXqDbNL3raK+7f7c949VZGm1dE0QsOdg2fhQK85rjNY
- gf00I9vtSImiLHI6dWrHzFsajdy9gOWpHf+q/qToH8t/t/b7MhAg0gP3dnichfcymBMk
- dxbnKckoexl17WdEXFSNLgOg2Rc4MQ6bGN7ATrXt8gzfjjqHB6ameWdDWky0tIwg/zn0
- ZaBeBOzh+IrMol4MxTATMkTNgA543XL14DhuUIz7xpGg5jXhvMKkvRrn01rL2YAWPvSM
- JmEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784411817; x=1785016617;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=6hEJAtA2FmuGbMms2Cfe5VvNicgq5ngesjv9wLRLgDE=;
- b=CEUczHp10ulOaoB8+WBogdq8V3/jdB5n7GkwwIJzOzW5y+JOGSgJPomtQKiX9Zd3LG
- 2Cgeg0QN5/u+3H/AvcuCOqNugQCW3vziLMReCZotRNbd5okNz0d/UQq5Yd6PvrNqTzoj
- 40U/4+UftHVvEM/1jLmZuPsQKuKpjwfw6mh1SLjSNfNiClG89cEnOGX92loFbb7zeR8e
- arysIGexCPq+NZcfAuovkQtQshO2zQMwp6wA6CtEEq7F1mitlHruQuJxcJ0wOo2i3ohh
- dzC9r1i/KMxip4paGZ2AEe3EufPi6f59h413URmRZG4MOlnHyIHLbpXv5xQ96Fnl73gM
- kaLw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rpscfx+BfEhtpJTgMrZfvEBLjQVYub1wAozuPFu1++Q5f5QzMI+3c22pdQOmRO30amsGXGoAq2du6c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGzxOiZUcP/6oHUdJx7+IpzH2eeun0qmuVpPhG74dUQY16mpqz
- EgCGQ7bi17GZ3jLoCpwmRCclsDg+iKyywmqYYSAk9rSZWnOHwycoRGV8
-X-Gm-Gg: AfdE7cmXrzMS1Ot1u5MKCMVo0OHhhu8D+Z3Pl3RWqwVWsrOBXxtlhqZuxhsbmoQLRCF
- EOk8gKJuf4Ar58n2Bc1XNLtIZpkBKTLV0zkmm4cUAAk5x9rq1FiNQ75WW0/eOTtDAWYxkNMVULv
- FG5fk9RLyDPTbBCUy/7rTV6DS0vUR6jNRIEynkRHHO1ZgWmwZ+yhD20JZ7JoX2yVW/VsnxBrmMe
- N1+EJVTgfiswzKp9kODv9Rf6BmTeX6AuyuzzJrBcugkI9p5kcGS37HDO9ZKgG1bl8zRMaVMBjmN
- aqFCWKteXgJdEDiDvp68gyjjY0wJNmtBKCKsINlCDXXc+BZ59tCB8UpjbDw/ILUT5ABD9HwAAxq
- 20Pze/CJoPdd9enK3htW5Vzr9oVPE7TINmW7fpHSQmOTVXve7nmOFy57XWEnpy/RzrJNixOuW6V
- EnpuwSao49iqXixn4UrEE2k0RI0x9xYUVXSXcguwlwRjwtOEzJNfCWDI8=
-X-Received: by 2002:a05:600c:1d18:b0:495:3e08:ad19 with SMTP id
- 5b1f17b1804b1-4954aa1a264mr86084215e9.9.1784411817252; 
- Sat, 18 Jul 2026 14:56:57 -0700 (PDT)
-Received: from localhost.localdomain ([188.26.50.240])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-4954c0a81f7sm101199835e9.1.2026.07.18.14.56.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 18 Jul 2026 14:56:56 -0700 (PDT)
-From: Eduard Bostina <egbostina@gmail.com>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>, Conor Dooley <conor+dt@kernel.org>,
- Daniel Thompson <danielt@kernel.org>, devicetree@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- dri-devel@lists.freedesktop.org, Eduard Bostina <egbostina@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Kevin Hilman <khilman@baylibre.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-omap@vger.kernel.org,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>
-Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com,
- m-chawdhry@ti.com
-Subject: [PATCH v2 2/3] dt-bindings: input: Convert TI TPS65217 power button
- to DT schema
-Date: Sat, 18 Jul 2026 21:56:31 +0000
-Message-ID: <20260718215632.3295049-3-egbostina@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260718215632.3295049-1-egbostina@gmail.com>
-References: <20260718215632.3295049-1-egbostina@gmail.com>
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012058.outbound.protection.outlook.com [40.107.209.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8644810E513;
+ Sat, 18 Jul 2026 02:32:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kWTZ7gm0Pig9U5ns9wDpvX282M+QRRXuXqYRP2HANiGMefsJQ4+8sGz2pFAsWM/zP6ehLQau+PYHUgGCsmc+U08LFeAZgwrB7guDQee9YYL9DM/s87IFu8AgYMF4HVm/98DnXmSP55p/6A4XTJDbx8YDTHQnzRaYS4fr5iVZ+XafHWJvGYzPmEp4/iKHLJr+kvpcLgtv1FVcWkGoXlCRW8ndzubScsdEeG4Ci/NA1FCX+C4akPvxXIAl69y6CfNGGwoCuD0oOhbYraZoCP2fci6aW+OS2r/rx0jJk3GnWn++NE1NaU1KPSHvrCK96HIObZe52AuvpncJ9NvjYEavRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bS+RTRAUJWEhSEBz9wSgFRO611zQJ1yvU2JKV3L5v9o=;
+ b=tCgT08YKV/GiKtm2jmHBIGV77r3YjsjBOTxy7OPKK5rHvrGHM4iwhqVaIvUUDrqm7mnceXoALhe9NI1qtd9LMl8RSfqK+adej/hJnA7QnWDANk0DEnx1VmCmzReX3fMaqHmPiH6tNJ17SUfKwPyQgbNxQcp0ouQNo1xoHQHJVWhVdooYffS/czIrPIAB3bVIlqhs4z6xcIaKi1tisQjWJRCBl5gIKcSA4beMGTNY1dXnCjg9UuutzxsxPZQmc0g6y3Y4zmYBv6/aRTWSi4UeyT/B6brznz57XjEYatb/BRgIRRrZpYI9IvaSr5gSZBZYDmN396NTvkibM55iDPIrGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bS+RTRAUJWEhSEBz9wSgFRO611zQJ1yvU2JKV3L5v9o=;
+ b=iVkZ02R+DDELjbAdYxecF/T2rTr/nbB6CX4dl05yyi8ATeCTUF067CAGfy6P9ZQ01+VKIOPDYSCfs3ngDjDlWTAl0bCBKftOYqW1nhj6z5gp252Wqdnf6oDk71sFSJt8gJQfNrGHywk99MsqU40UMPRozJmRwlWIqwQc9Qk40zdEoWilU6z3USbuRtcrnN1XxxbqGERiNwBIMz0xvrMjMD6muNxpav85EIaBzxKuzy4wUtg13GMiaMS9YOEzgiJjT7xbMWYD7Wegv08YfKWaMdzaHoMeXz+zeO3013qNMvCcCUecb3AI9sEZ+3Y3VvMoP7GkcqTWLzLEP/lkMXCIjQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by LV9PR12MB9782.namprd12.prod.outlook.com (2603:10b6:408:2f2::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.13; Sat, 18 Jul
+ 2026 02:32:50 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0223.012; Sat, 18 Jul 2026
+ 02:32:50 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 17 Jul 2026 22:32:47 -0400
+Message-Id: <DK1CFRK7F8IT.13JN4XI36R8W6@nvidia.com>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH v2 03/33] tools/testing/vma: use vma_start_pgoff() in
+ merge tests
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-parisc@vger.kernel.org>,
+ <linux-fsdevel@vger.kernel.org>, <nvdimm@lists.linux.dev>,
+ <linux-perf-users@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
+ <damon@lists.linux.dev>, <iommu@lists.linux.dev>,
+ <kasan-dev@googlegroups.com>, <linux-sgx@vger.kernel.org>,
+ <etnaviv@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-tegra@vger.kernel.org>, <kvm@vger.kernel.org>, "Russell King"
+ <linux+etnaviv@armlinux.org.uk>
+To: "Lorenzo Stoakes" <ljs@kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>, "Liam
+ R. Howlett" <liam@infradead.org>, "Vlastimil Babka" <vbabka@kernel.org>,
+ "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
+ <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Rik van Riel"
+ <riel@surriel.com>, "Harry Yoo" <harry@kernel.org>, "Jann Horn"
+ <jannh@google.com>, "Lance Yang" <lance.yang@linux.dev>, "Pedro Falcato"
+ <pfalcato@suse.de>, "Russell King" <linux@armlinux.org.uk>, "Dinh Nguyen"
+ <dinguyen@kernel.org>, "Simon Schuster"
+ <schuster.simon@siemens-energy.com>, "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>, "Helge Deller" <deller@gmx.de>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner"
+ <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>, "Dan Williams"
+ <djbw@kernel.org>, "Matthew Wilcox" <willy@infradead.org>, "Muchun Song"
+ <muchun.song@linux.dev>, "Oscar Salvador" <osalvador@suse.de>, "Masami
+ Hiramatsu" <mhiramat@kernel.org>, "Oleg Nesterov" <oleg@redhat.com>, "Peter
+ Zijlstra" <peterz@infradead.org>, "Ingo Molnar" <mingo@redhat.com>,
+ "Arnaldo Carvalho de Melo" <acme@kernel.org>, "Namhyung Kim"
+ <namhyung@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>, "Alexander
+ Shishkin" <alexander.shishkin@linux.intel.com>, "Jiri Olsa"
+ <jolsa@kernel.org>, "Ian Rogers" <irogers@google.com>, "Adrian Hunter"
+ <adrian.hunter@intel.com>, "James Clark" <james.clark@linaro.org>, "Baolin
+ Wang" <baolin.wang@linux.alibaba.com>, "Nico Pache" <npache@redhat.com>,
+ "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>,
+ "Barry Song" <baohua@kernel.org>, "Miaohe Lin" <linmiaohe@huawei.com>,
+ "Naoya Horiguchi" <nao.horiguchi@gmail.com>, "Xu Xin"
+ <xu.xin16@zte.com.cn>, "Chengming Zhou" <chengming.zhou@linux.dev>, "SJ
+ Park" <sj@kernel.org>, "Matthew Brost" <matthew.brost@intel.com>, "Joshua
+ Hahn" <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Byungchul
+ Park" <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>, "Ying Huang"
+ <ying.huang@linux.alibaba.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Hugh Dickins" <hughd@google.com>, "Peter Xu" <peterx@redhat.com>, "Kees
+ Cook" <kees@kernel.org>, "Marek Szyprowski" <m.szyprowski@samsung.com>,
+ "Robin Murphy" <robin.murphy@arm.com>, "Andrey Konovalov"
+ <andreyknvl@gmail.com>, "Alexander Potapenko" <glider@google.com>, "Dmitry
+ Vyukov" <dvyukov@google.com>, "Steven Rostedt" <rostedt@goodmis.org>,
+ "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>, "Jarkko Sakkinen"
+ <jarkko@kernel.org>, "Dave Hansen" <dave.hansen@linux.intel.com>, "Thomas
+ Gleixner" <tglx@kernel.org>, "Borislav Petkov" <bp@alien8.de>,
+ <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, "Ian Abbott"
+ <abbotti@mev.co.uk>, "H Hartley Sweeten" <hsweeten@visionengravers.com>,
+ "Lucas Stach" <l.stach@pengutronix.de>, "Christian Gmeiner"
+ <christian.gmeiner@gmail.com>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Patrik Jakobsson"
+ <patrik.r.jakobsson@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
+ <marijn.suijten@somainline.org>, "Tomi Valkeinen"
+ <tomi.valkeinen@ideasonboard.com>, "Thierry Reding"
+ <thierry.reding@kernel.org>, "Mikko Perttunen" <mperttunen@nvidia.com>,
+ "Jonathan Hunter" <jonathanh@nvidia.com>, "Christian Koenig"
+ <christian.koenig@amd.com>, "Huang Rui" <ray.huang@amd.com>, "Matthew Auld"
+ <matthew.auld@intel.com>, "Jason Gunthorpe" <jgg@ziepe.ca>, "Yishai Hadas"
+ <yishaih@nvidia.com>, "Shameer Kolothum" <skolothumtho@nvidia.com>, "Kevin
+ Tian" <kevin.tian@intel.com>, "Ankit Agrawal" <ankita@nvidia.com>, "Alex
+ Williamson" <alex@shazbot.org>, "Paolo Bonzini" <pbonzini@redhat.com>,
+ "Shakeel Butt" <shakeel.butt@linux.dev>, "Usama Arif"
+ <usama.arif@linux.dev>
+X-Mailer: aerc 0.21.0
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-3-2a5aa403d977@kernel.org>
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-3-2a5aa403d977@kernel.org>
+X-ClientProxiedBy: MN2PR06CA0017.namprd06.prod.outlook.com
+ (2603:10b6:208:23d::22) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|LV9PR12MB9782:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25c3ba29-a11d-4679-3e6e-08dee474dcd5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|7416014|1800799024|22082099003|18002099003|10067099003|11063799006|56012099006|4143699003|921020|6133799003;
+X-Microsoft-Antispam-Message-Info: wY6Fa/LVjbXuXpWrKIN7lTFm5yPdHAe/J+o1Uv0BmPCye5WzzEEve+C2NXUWC6VdryCyS/xcYOsbPwlyBBxF93Syto6ZsFty//T0sWs7cCH6jbHu/Ws7kUjUSWMLfhzLsfC3qDDdBOmuPlZMI3FyZ5H9TC6XJ7Sk8lX0l0k6hImklQjwUvz2JlTlBJncDEwKgG0h/TfNUT+MjkUutI1jk37dkHpp7lx9iXp29r161+FZZaPt8rZvjF9VLWg4fS7Duxe+oP3jNQIPnd9zLvfsIfEBmbYx4fnAE+ZO0i4Zom10zFBXUSIbxKSIa+oUzVnA/OMi7ICS1pNuk45yWC/WV1q2+Q3J6QVbYpOMNyFlVeVEV8mX6IPlVLxgMTKm0pYvDAXMlKlrRFJvDxmeqytqQlGDIVtV3oO4IalHz6/UlCKwN2yoo/a1FSTKTDIKf86bR8T9EDx6eOzEUZUBl5nKbkwpe4/fJDpI2DgvNBT9s+1SnLGpQxhEYNs8TISKTYl8fPtbngb6k8Zyy2McJGlh6HZ/OwvRYRuxBPQaVTd4I7vMQRPRFbc12FI6QRhKUQ32y8xuP2REA+qzsiJUY4ao3am02nrBXfkOfnYDtfejxYaZNK9HqTQgEkKEHi2xBAkBRL5Ereqiwubfy0nyexnY04bJ8d4rD7tsm0E9UegwFUWz8gl76aBTD3AMbc+sWTHPrO5YJIVnsYGc0mrbcfa8Eg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(4143699003)(921020)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dmRqQ01XcjhycE1QYTkyZzF2elpUOHA4ekdvWERhckpjakwyZXlSQWZlbkFo?=
+ =?utf-8?B?M3RrMG5RT2UzeUFCY0VFYUNjOXVheUZWSmJyV2s3ZlJBNzQ1aFRaUjNncWlk?=
+ =?utf-8?B?R2hNREg0Sm9ybVpCa1FZc0ZTUUpIdExWZ01nY255cVhOZEo3a255MzB2cTln?=
+ =?utf-8?B?enB2ODQ4dFpIbHQ2OTFUUjhxMmlRRFROMmY5Rnp6VlhQM28wSFZjR0FGcEFh?=
+ =?utf-8?B?Mitra1lSaVcxR09wOGRMdE9haFFZZ2duMEx6SHpNTEEvVStRbU9hL3V6c21t?=
+ =?utf-8?B?TTRrZTdiaElwRGdCQmNKTDRiM20xckVJd2szNTNhejEvRlZiMHpoWDRhbzZo?=
+ =?utf-8?B?UENGVUhJSTU0N0hKZEg4aFVuMGZubHJhdXVWVzhGZy9LNVY3ZmdxMFlWNnBm?=
+ =?utf-8?B?T1VkSTB0MnVRYkM4d2JFZzJCcUJHalhsbWhWZm5aUzh5Mml0b1ZDSnZXZlVp?=
+ =?utf-8?B?STRTQ0p5ZVBhNDU4cXpSd2JkVmFaUU9IeENlRk9qZHQ5bUZDS1o1djEzUVNO?=
+ =?utf-8?B?R0lWM1Z6Z1hxTkRzc0tGcGkxakRZVU1zRGtGT1VCM3FiSFZaUWNOUWVKekkr?=
+ =?utf-8?B?L05rUFhPT1MvTTBudStrcEJ5NHlwNU9yaWRsd0grcXVrYXVqc25Yc2VvVEw4?=
+ =?utf-8?B?Y2s2cUs1NjZDbUt6Ylo3aDM3OWl5Sm84V0h4bWh2c1llN3NteXBtWlpiVk5o?=
+ =?utf-8?B?QlBtWjJXL1pTV1d6clYreDcwWXdxbDR1NFI4ZmExY0NPWklCUzkrOTA2U3Jh?=
+ =?utf-8?B?akl2T002Q3BBdFN1R1RXY0VyZ1dxNm9GOEJZZWE3bWI2T0VJbGQ2b25yQ0Nw?=
+ =?utf-8?B?NlQ4ci9mOUlsZmpmRGhZbHdpQUdmYVl5UTFBcS9sekZFbEtWY0VFVEZVUWZI?=
+ =?utf-8?B?MHB5Q2gxVkhHTnhYVy90WFB4d3NncFQ1M1VjaS9wR3ZDb1BHRVNqdEhNN0do?=
+ =?utf-8?B?R21JVEx5eXhOYVloNzlCSmtYcHFPSmxsMG9uTzM4Smx0Y2R5TUt4aVMvK1lN?=
+ =?utf-8?B?Mm42KzlieExMN0dkSk9XSnowMzNHNnhLU0duRzBqdllKL0V5VFdRdlNhMi9s?=
+ =?utf-8?B?ekU3WkkwWThpTW1qendpMXQ2a3l2a3pZaVVXTWFmUzRVbUp2a1IvdVVDM1BI?=
+ =?utf-8?B?VzRMTnNIejIyY1pwd04vc2lpYThhcXl2ZG96N2Z5S0Jta2FVY2VhOGtmVFNl?=
+ =?utf-8?B?M2JQVGtKRkVzcE5BRWVnb1VsUlpKendHME53aDFoZnBrUWdQRUxRcFBZRURP?=
+ =?utf-8?B?RzE4bVdPN3Y4M2JZQVVjbSs1WXppVVRZMzNOREZXTGtHQ2VZUllPWmhLa3pp?=
+ =?utf-8?B?cHJrY2NSVlFSbGxEdlpuOTBWSzlSQmlFaVRFZXl5T2xwOXJZMWZZdVUvMm42?=
+ =?utf-8?B?RGRoNkszMmVhRGlEL2QvUjY0d0paVVhsM3llcnBmSnRiM0xNR25PbGFJVGgz?=
+ =?utf-8?B?SVgyaEJ0dU1PTFhCemZRemtZWHVKdkFIWlRCcnBER1NnRlY3R3VoZGd2MWdE?=
+ =?utf-8?B?alJ2TEN5anVrcVFzcXBQeE5zTVFkMU02cXkvL2lmMHdpUFFjNTArSlNqMElt?=
+ =?utf-8?B?UUFUUnEyVjJBb3NPZFJ3YnlsYjc3Wk5jcTVhSEhYRy9CV0lIRzJjZEpOWGFl?=
+ =?utf-8?B?WTBBR3dCMExUVnROQWJ5TUVTbThwbXh1T2FESUZyOURNa2JUMFBGb2FiNGp6?=
+ =?utf-8?B?K2JJU3ZiKzVMZHVEM0haUHJyK2ZQb09EQzBBN0VoTXhTVTJ6eWJEbnNYS1h5?=
+ =?utf-8?B?SHVRZ0lQYlU3b1dQL1V5WUNXbU5KZU9WL1VrSzBrS1l3VmFzTmZaMVdLdlV6?=
+ =?utf-8?B?czZGY1F3cmt0UWRTT3d1VGROQzNnbU9uTW1oVzBUcStoZkZSNnZCWjFLL0dV?=
+ =?utf-8?B?dVk5QUtBRUd2bzgzUXZCZlNYclFGem5lRnFuc3VSVnpkQiswaitCMy9weWl3?=
+ =?utf-8?B?NFhyVDRiYlNvem9uS2NqK3FFMlpmQlp0R1ZDNEhLdldMQXJlU2QvNU1BeVlH?=
+ =?utf-8?B?NE9uY0lVNmFSbnB3eDRLaXBaMGN2d0tmbE00bk5ncmk5SUtVZ3lrdCtqQlFF?=
+ =?utf-8?B?N1lQNVZuN0hyVzZ1MzR5dmx3NDIzdFhiZVMxYlZtV2xzMWRwbXphMFQ3Y2wz?=
+ =?utf-8?B?NTUxNGlYQnZUNUpRZFU2dC9xd0UyVVhUc3pzcnJHQmVaeXpLcHRUdU80Y0Nk?=
+ =?utf-8?B?WktteDM0MFFPN3hETDBzSEtjN0s3dXQzdE5kK3kzN3BEMUVOQ0NxRVlpMmQv?=
+ =?utf-8?B?eldjdExVU0dkOHk1dDRqcEdRUTkzNFpUR3ZTaTFUaGxoS0hLaXZlaEgzcGNL?=
+ =?utf-8?Q?ZuoxosBMZWBwuO+5ZF?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25c3ba29-a11d-4679-3e6e-08dee474dcd5
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2026 02:32:50.6679 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rF2+NUGWv6M28UDWYwtV7QMq3x74/UGPxrrlgvJmlSOQQ6U4f3CgqmD0LeGuxwst
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9782
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,101 +206,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert the Texas Instruments TPS65217 and TPS65218 Power Button
-bindings to DT schema.
-
-Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+On Fri Jul 10, 2026 at 4:16 PM EDT, Lorenzo Stoakes wrote:
+> Now we have the vma_start_pgoff() helper, update the merge tests to make
+> use of it for consistency.
+>
+> No functional change intended.
+>
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Reviewed-by: Gregory Price <gourry@gourry.net>
+> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+> ---
+>  tools/testing/vma/tests/merge.c | 38 +++++++++++++++++++----------------=
 ---
- .../bindings/input/ti,tps65217-pwrbutton.yaml | 42 +++++++++++++++++++
- .../bindings/input/tps65218-pwrbutton.txt     | 30 -------------
- 2 files changed, 42 insertions(+), 30 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/input/ti,tps65217-pwrbutton.yaml
- delete mode 100644 Documentation/devicetree/bindings/input/tps65218-pwrbutton.txt
+>  1 file changed, 19 insertions(+), 19 deletions(-)
+>
 
-diff --git a/Documentation/devicetree/bindings/input/ti,tps65217-pwrbutton.yaml b/Documentation/devicetree/bindings/input/ti,tps65217-pwrbutton.yaml
-new file mode 100644
-index 000000000000..3526d8b045fd
---- /dev/null
-+++ b/Documentation/devicetree/bindings/input/ti,tps65217-pwrbutton.yaml
-@@ -0,0 +1,42 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/input/ti,tps65217-pwrbutton.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments TPS65217 and TPS65218 Power Button
-+
-+maintainers:
-+  - Eduard Bostina <egbostina@gmail.com>
-+
-+description:
-+  This module is part of the TPS65217/TPS65218 PMIC. It provides a simple
-+  power button event via an interrupt.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,tps65217-pwrbutton
-+      - ti,tps65218-pwrbutton
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    pmic {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        power-button {
-+            compatible = "ti,tps65218-pwrbutton";
-+            interrupts = <3 IRQ_TYPE_EDGE_BOTH>;
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/input/tps65218-pwrbutton.txt b/Documentation/devicetree/bindings/input/tps65218-pwrbutton.txt
-deleted file mode 100644
-index 8682ab6d4a50..000000000000
---- a/Documentation/devicetree/bindings/input/tps65218-pwrbutton.txt
-+++ /dev/null
-@@ -1,30 +0,0 @@
--Texas Instruments TPS65217 and TPS65218 power button
--
--This module is part of the TPS65217/TPS65218. For more details about the whole
--TPS65217 chip see Documentation/devicetree/bindings/regulator/tps65217.txt.
--
--This driver provides a simple power button event via an Interrupt.
--
--Required properties:
--- compatible: should be "ti,tps65217-pwrbutton" or "ti,tps65218-pwrbutton"
--
--Required properties:
--- interrupts: should be one of the following
--   - <2>: For controllers compatible with tps65217
--   - <3 IRQ_TYPE_EDGE_BOTH>: For controllers compatible with tps65218
--
--Examples:
--
--&tps {
--	tps65217-pwrbutton {
--		compatible = "ti,tps65217-pwrbutton";
--		interrupts = <2>;
--	};
--};
--
--&tps {
--	power-button {
--		compatible = "ti,tps65218-pwrbutton";
--		interrupts = <3 IRQ_TYPE_EDGE_BOTH>;
--	};
--};
--- 
-2.43.0
+LGTM.
+
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+
+--=20
+Best Regards,
+Yan, Zi
 
