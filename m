@@ -4,48 +4,191 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59C62C4452B
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77CC0C4452A
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 006EA10E774;
-	Mon, 20 Jul 2026 07:15:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2A1310E786;
+	Mon, 20 Jul 2026 07:15:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=grrlz.net header.i=@grrlz.net header.b="B5+jzfS0";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="OyaCi7mF";
 	dkim-atps=neutral
-X-Greylist: delayed 414 seconds by postgrey-1.36 at gabe;
- Fri, 17 Jul 2026 12:02:05 UTC
-Received: from devianza.investici.org (devianza.investici.org
- [198.167.222.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E3B010E435
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 12:02:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
- s=stigmate; t=1784289309;
- bh=FYVdALvvF/Spz74EP+v9VtOIp0LI6K7x3MeLqwelrgM=;
- h=Date:From:To:CC:Subject:In-Reply-To:References:From;
- b=B5+jzfS09RPjWjGoBqCOATg/z7F4v5yQ49lD+IwcOwGlnG9YjzVDCxnblN05wVnsM
- cj5IRyXDT3/I3/ac5Lati1dCNcvBr2aEHmQho3lcDesAygMEJUHkDC4WuN90DMnMoO
- TfIFJFiWasQwfph7y8OjJXSH8JuFamH+XrYWLT/I=
-Received: from mx2.investici.org (unknown [127.0.0.1])
- by devianza.investici.org (Postfix) with ESMTP id 4h1pHx3rBdz6vdL;
- Fri, 17 Jul 2026 11:55:09 +0000 (UTC)
-Received: by mx2.investici.org (Postfix) id 4h1pHx0d35z4vyJ;
- Fri, 17 Jul 2026 11:55:09 +0000 (UTC)
-Date: Fri, 17 Jul 2026 12:55:10 +0100
-From: Bradley Morgan <include@grrlz.net>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-CC: boris.brezillon@collabora.com, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, linux-kernel@vger.kernel.org, liviu.dudau@arm.com,
- matthew.brost@intel.com, olv@google.com, olvaffe@gmail.com,
- steven.price@arm.com, tj@kernel.org
-Subject: Re: [RFC v2 1/2] workqueue: Add support for real-time workers
-In-Reply-To: <80afb75b-d2c2-451c-bbbb-d2c0e20d428e@igalia.com>
-References: <8AE254BA-D095-4952-A43B-79452280EEFD@grrlz.net>
- <80afb75b-d2c2-451c-bbbb-d2c0e20d428e@igalia.com>
-Message-ID: <67463FB3-20A8-4D2D-A4BB-0CEABCBEDA06@grrlz.net>
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010014.outbound.protection.outlook.com [52.101.56.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB4B210E513;
+ Sat, 18 Jul 2026 02:37:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WUhKJQcZimDYMFPzBTHLmnSDBWwJZRn12MTsszRnMb5HzFoG1bNtCJVDFRxIGyQOp+3ZV92IiOh2+CmFQOQZrJST20xcmIXfOak3cBAz3bUyxBRxEw9K7kVyUVNPGi3z4l7r139DhLojd+NPaoS4tbOKXKAPXUP8Ea8oCUfIGYpXM2JKj23eD8LV6yd5iLUiYJ3L9826t/x88+eMDmkspEyQ6rqyGtgwU9TCzClCRZb2dvAulxa3dcmwj0AcvytjIv2JQj2rXH7zdChQpcAs7QjA3bkk806g+se/GWJI9TpUyvcXCJIPTuZUY8WDeNUHYCmaW+m+wla0rdYiAp/DHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DR/oJFuRDPkSyVNyFpSraBTM8YaOoiPBBNNfaatksfk=;
+ b=CLJqB8GmAi6nHQEr+qVrADsXHNluxDQNDc63GNT+qzYPBnoWSXrCp1en738H/CheCfvkMVldrlVniRJjzuX0klRhlyaakF9Z0114g2F21Wz3rUtOse+pYhT3AmRI8GQnA35y46v41hNbsC6rxRUv/63YBmhWQY1ilBVtj0XL3cd90UqKiBuPemR9JXPReN6kbzzjejHCLj4ZN8pB2eDuUJx5x5J7b2swlXOIl1hzEpoXjMjsNmKjYFPWMq1JlDC3kWlfgtQNMFAydyuAR1HVswbK84ARUSeYSMZWeEjUmXiOH59roEd/11L9aEGw1oHLAUuNDMAXqaOuNlmoR46FcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DR/oJFuRDPkSyVNyFpSraBTM8YaOoiPBBNNfaatksfk=;
+ b=OyaCi7mFPqDuCy4YSozt/2Ps/zbxsdEfyjEgY0y9Y2Z5iqPqRvkrMC5qMBCFB0Y+JrtEKjV3SiICqBojYGensIOXzVj244O8pgnG3Z6+4VXjZrprTGz6oyXCRh3sb3w43MsAqTpgUuLcqQ5aUBhnFUw/yk6urwmGe4BuWiNQEwp+8qvM9IFoLLJwCG2sjCxukFJEt4agIdUwlUAbIbymJQa6Y3NJusvaTsJ8rzRr1tGF81VkpZYYKR/QQLYdnsuCA6+IigkGHfEtxkA5aBZJNMxo83DXCOES0hi6KJRlTRFD9b8BlK1VwoqwXC1wIPmW6R9JXYAsLnb0maWG7qQU+w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CH3PR12MB7571.namprd12.prod.outlook.com (2603:10b6:610:147::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Sat, 18 Jul
+ 2026 02:37:24 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0223.012; Sat, 18 Jul 2026
+ 02:37:24 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 17 Jul 2026 22:37:21 -0400
+Message-Id: <DK1CJ9GBQXI9.1EP8BKPIRK3PZ@nvidia.com>
+To: "Lorenzo Stoakes" <ljs@kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>, "Liam
+ R. Howlett" <liam@infradead.org>, "Vlastimil Babka" <vbabka@kernel.org>,
+ "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
+ <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Rik van Riel"
+ <riel@surriel.com>, "Harry Yoo" <harry@kernel.org>, "Jann Horn"
+ <jannh@google.com>, "Lance Yang" <lance.yang@linux.dev>, "Pedro Falcato"
+ <pfalcato@suse.de>, "Russell King" <linux@armlinux.org.uk>, "Dinh Nguyen"
+ <dinguyen@kernel.org>, "Simon Schuster"
+ <schuster.simon@siemens-energy.com>, "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>, "Helge Deller" <deller@gmx.de>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner"
+ <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>, "Dan Williams"
+ <djbw@kernel.org>, "Matthew Wilcox" <willy@infradead.org>, "Muchun Song"
+ <muchun.song@linux.dev>, "Oscar Salvador" <osalvador@suse.de>, "Masami
+ Hiramatsu" <mhiramat@kernel.org>, "Oleg Nesterov" <oleg@redhat.com>, "Peter
+ Zijlstra" <peterz@infradead.org>, "Ingo Molnar" <mingo@redhat.com>,
+ "Arnaldo Carvalho de Melo" <acme@kernel.org>, "Namhyung Kim"
+ <namhyung@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>, "Alexander
+ Shishkin" <alexander.shishkin@linux.intel.com>, "Jiri Olsa"
+ <jolsa@kernel.org>, "Ian Rogers" <irogers@google.com>, "Adrian Hunter"
+ <adrian.hunter@intel.com>, "James Clark" <james.clark@linaro.org>, "Baolin
+ Wang" <baolin.wang@linux.alibaba.com>, "Nico Pache" <npache@redhat.com>,
+ "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>,
+ "Barry Song" <baohua@kernel.org>, "Miaohe Lin" <linmiaohe@huawei.com>,
+ "Naoya Horiguchi" <nao.horiguchi@gmail.com>, "Xu Xin"
+ <xu.xin16@zte.com.cn>, "Chengming Zhou" <chengming.zhou@linux.dev>, "SJ
+ Park" <sj@kernel.org>, "Matthew Brost" <matthew.brost@intel.com>, "Joshua
+ Hahn" <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Byungchul
+ Park" <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>, "Ying Huang"
+ <ying.huang@linux.alibaba.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Hugh Dickins" <hughd@google.com>, "Peter Xu" <peterx@redhat.com>, "Kees
+ Cook" <kees@kernel.org>, "Marek Szyprowski" <m.szyprowski@samsung.com>,
+ "Robin Murphy" <robin.murphy@arm.com>, "Andrey Konovalov"
+ <andreyknvl@gmail.com>, "Alexander Potapenko" <glider@google.com>, "Dmitry
+ Vyukov" <dvyukov@google.com>, "Steven Rostedt" <rostedt@goodmis.org>,
+ "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>, "Jarkko Sakkinen"
+ <jarkko@kernel.org>, "Dave Hansen" <dave.hansen@linux.intel.com>, "Thomas
+ Gleixner" <tglx@kernel.org>, "Borislav Petkov" <bp@alien8.de>,
+ <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, "Ian Abbott"
+ <abbotti@mev.co.uk>, "H Hartley Sweeten" <hsweeten@visionengravers.com>,
+ "Lucas Stach" <l.stach@pengutronix.de>, "Christian Gmeiner"
+ <christian.gmeiner@gmail.com>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Patrik Jakobsson"
+ <patrik.r.jakobsson@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
+ <marijn.suijten@somainline.org>, "Tomi Valkeinen"
+ <tomi.valkeinen@ideasonboard.com>, "Thierry Reding"
+ <thierry.reding@kernel.org>, "Mikko Perttunen" <mperttunen@nvidia.com>,
+ "Jonathan Hunter" <jonathanh@nvidia.com>, "Christian Koenig"
+ <christian.koenig@amd.com>, "Huang Rui" <ray.huang@amd.com>, "Matthew Auld"
+ <matthew.auld@intel.com>, "Jason Gunthorpe" <jgg@ziepe.ca>, "Yishai Hadas"
+ <yishaih@nvidia.com>, "Shameer Kolothum" <skolothumtho@nvidia.com>, "Kevin
+ Tian" <kevin.tian@intel.com>, "Ankit Agrawal" <ankita@nvidia.com>, "Alex
+ Williamson" <alex@shazbot.org>, "Paolo Bonzini" <pbonzini@redhat.com>,
+ "Shakeel Butt" <shakeel.butt@linux.dev>, "Usama Arif"
+ <usama.arif@linux.dev>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH v2 05/33] mm/rmap: update mm/interval_tree.c comments
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-parisc@vger.kernel.org>,
+ <linux-fsdevel@vger.kernel.org>, <nvdimm@lists.linux.dev>,
+ <linux-perf-users@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
+ <damon@lists.linux.dev>, <iommu@lists.linux.dev>,
+ <kasan-dev@googlegroups.com>, <linux-sgx@vger.kernel.org>,
+ <etnaviv@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-tegra@vger.kernel.org>, <kvm@vger.kernel.org>, "Russell King"
+ <linux+etnaviv@armlinux.org.uk>
+X-Mailer: aerc 0.21.0
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-5-2a5aa403d977@kernel.org>
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-5-2a5aa403d977@kernel.org>
+X-ClientProxiedBy: BL0PR05CA0004.namprd05.prod.outlook.com
+ (2603:10b6:208:91::14) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH3PR12MB7571:EE_
+X-MS-Office365-Filtering-Correlation-Id: b20562c3-e7a8-43e3-7928-08dee4757fdc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|23010399003|1800799024|921020|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: z+Pj09Yayo7/DK/V0JZG+KZJzu1BY3joe60TJfq9mci2SjnBF9Gy9tKhV3VuAsaert1WFxkR/A1dvPdIqU92rGMv/RMjsZHTJJluAUlyaoPeMUlV6G9qq9olAKNldBotvyqp8T6Z0ToUbjNTs3ejLqcixwUwVBnj/zultYiGBjQMOnxE2+xnU/Yb5wRNvHSgbe/7Rx6mMCvSmvGCYY96zgfId/FHwuZ3lvrF6oFQ7/WJERmvHwR6dTF53QnENnBFeVdOg6QFc14Q0EGrEiLyjE2SaSFFruVnB4iiWv7vhmsfgjOVU34VRcMkuJ69JhNHsUKMEWpw7jsGt9y94ko64KVVdP4GyCXt7FPJ1N4QIcx9lPaig/hpUzGb6JNXqa1INicjKLZg9Kt/3MXX8NfOOBCpV6u6B8XxixqvzDCaELMh3Lvgm9CYwleJdYBgKrSRoHHwxss3LrW5MP1Ot1LbHw6P3gsGyH573ZK8Ovh7KI0BhtaR9kkPY0YqrDzr/2b31YLlxsteB7AoYtlg/d4tIl8qlCyPcyJX023ohVQUN6ySeL8/Dmq0asjHVDTFArIdZol7V58nnWdb0066HeKrwC8ZtMFVFPgLBywntTjLth6+3A7ra72V/KVLrzY+OM/6d6VAewqumEu3ElQ4/j9M+MzuGjMVhw1o6r3orf6e/eoxwZDMBWsQORdE+K4udmUOXNTssH33CusVUhY9v+dk2w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(921020)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b0RSd1V5Vm1KdzI0OWx2TUxiVnphb2NIcWFTYUdralBPaldWcjZuejBoMC90?=
+ =?utf-8?B?b1F0cnJ4cjM1QzlXZjc4L1hGSVR1bEtvM1RvamE4OXdZVzlNRHR5TTFkdEFh?=
+ =?utf-8?B?RzE2alZNSVQ2VWhKRlRTeWNBaGFrYjBwWUtFYVYxQ0dQRFhka2pTaXNBVzds?=
+ =?utf-8?B?ZUloTEVPZE0wTFdqM3lEL3FWNDU2bWJIaWUwblBuWnF4aDBkZzlTdXJTTmR5?=
+ =?utf-8?B?aUt6OHcyTFV3Q1VXelVDQi9NNWdnSUVZRXpXWEladG1iZG1OSzYxZUtrYWh6?=
+ =?utf-8?B?cjNOSUtqL2duWXBQVXZuNUR3bWZxazVtN3lKRDNPQ3hSRDlWWGMvNEtGRGh3?=
+ =?utf-8?B?YlFRclJPWnlRT3UwNFBGSTRXVlR5TTZYait2Z2wzTWJhbWpnSzhzaE1zbHFi?=
+ =?utf-8?B?aWwreG55UHVJY3REdS9HT1VtYTlSOXAxWFprWGlCTlFjeFViZVZyL1NXWUFQ?=
+ =?utf-8?B?N3VLekhmMzB4blMvVkwzelNESjl1empadVVJNERXQjRTOERPZHE2M21Va0lo?=
+ =?utf-8?B?a1dVNmRCM1BYT2U3QWZYS3VGV0VEemx6SW1QdkxGMmU4SC8xZW9uZ2E4ZXBI?=
+ =?utf-8?B?cndWdmtLV1ZFTUF4MVFaTlF4em1wVkxOSjIrY2dqa2VEVXFjZVRNT1FFd0VI?=
+ =?utf-8?B?d0NyS1QxSFhUSzA3b1BkVVE1QzJQYXRTSEcySFhwUWlZZVRKUUpWb3BsRTZ2?=
+ =?utf-8?B?NUk2YitYSmlKYnZZS2RGaEs5ZGxIRDZXU0l2dlZ2dFF6VE9wU0JRUnZ3SURB?=
+ =?utf-8?B?bDAvdFJzcDlmQTErTTlqN1ZPaERmRm9WdXpWeit3ZEl1dW0vZGtJR094TVBa?=
+ =?utf-8?B?THRzWXNES3A3M3lYUGszemNBTldhSWJrL0VaT2kxZW0rNld5bjRjZHk2L255?=
+ =?utf-8?B?VTMybjRhcUdHWUNBaXZnaDBTaWpNK1NmNTNWYWZ4YlpPa0dvMlJHbkROdi90?=
+ =?utf-8?B?RkRrYithdmh1R2o3bmU2SmlEdFV1L0JpaEoyalBTaHVvYzFwUnpPSUh6NFNC?=
+ =?utf-8?B?UWJRcS9XRlkrRjhWMzZPNlpmRXdUZk84ckJ3SkJ5SG4zQjlldGpVUnNsUE56?=
+ =?utf-8?B?bjBQbkQ1Uzg5VG1ITkdtN3RyMFk3STFnNDZoTWJiSEFtSGlmOHFUcjJTSWJv?=
+ =?utf-8?B?YmE5Ui9wWWFsVEFzekU4WFIrK2dEY2Q3bkVIQnFzR2xSY0JhMFNJaW01L01s?=
+ =?utf-8?B?QXppSng0R0IzY1QxcGFKUFFjWE0wVGNFTzU2c1kwT0FneVV3RWZieGgwSndY?=
+ =?utf-8?B?UUtDcmkzM3owTkUxT1VhbU9LeUVRUjdpaWFyeWZBZGM5ZVY4aGp4VnRvWU5I?=
+ =?utf-8?B?bytLanZkYUptM0hiR3Nhby8vQytpL2pwaFhnZFJDMTMrU3d1K2hDQXlVQUZE?=
+ =?utf-8?B?V1FGNVBGYUhtSDQxaWYzT3B0dC9UY3ZNc2RJdUxqbTF5NlkyRTBDQnlnV09i?=
+ =?utf-8?B?V1FNWmhIbHdNMjRKQXZaeERHV1ZKRWFVRHNkUHhFc3F3R1pSTktGUGh6ZkRm?=
+ =?utf-8?B?YXR6dlAvUFpXakdVOUVja01pOWUvbGFHTTF4a2RoVS84YTkxQXN3bUtxZnAy?=
+ =?utf-8?B?eXY3Y3VmTjB4ajlrWERKRGI1QkdJMEVrT3pzQWdoK210NG9Db0J6UlBnK0tU?=
+ =?utf-8?B?RHJWTmFnZ1o2czIxM2xSK1FDa1FpYVp3bUFhZWVQK1QzQWN3b2U5TUF0MnJu?=
+ =?utf-8?B?NE1hN28vR1ZYK3pvSFQ0aHphaGsvVVM2a213WHlUL1lLd3RuM215S3JoZ2hZ?=
+ =?utf-8?B?QWV2R2tBSEM4cldRRlVJUXVXVUI4S29RbktyN09McGt6RFJXeS9JYk5ob3pC?=
+ =?utf-8?B?V2gzUzVIZnp0QWd3b3VCMTJ0dk1KSmtxdlhsSkFsOUJwSEI5cHZLUjdYNkdr?=
+ =?utf-8?B?Ym45dk5mVzE5T09LRG84dytOZy91a0RQRUFBUWRNZnNRLzdEd2o1OHNNdnVY?=
+ =?utf-8?B?L0RKSnh6QjJ0WHJud2JzR1dybzQ1QUpaOFZnY0dCbjVuR3QzTkJjRlc3ampM?=
+ =?utf-8?B?N1RRbkNlQXZ1M000ZmFaNnFOc1p5UkFRUjNmSWZYWUhwVDFNQTVyd0laWkxM?=
+ =?utf-8?B?WmtaaWxPVGNjK3hsOFdIWDFBT2tvc2tBeU91UVViVEFRMkNNQi83NDhiSWJ1?=
+ =?utf-8?B?QnNQUXdTd1RFQXNCQ0s0NWU0TzJ1bEd1Z0JhVkxNRDhjcjQzcWUyZ3R5WGNT?=
+ =?utf-8?B?VGZPY054Tnd6Q1dDQXM3SmJSUXlzVXhjbkVGdThDVzY4U3hiVDdodnV6TVhB?=
+ =?utf-8?B?T2Yrbk01aHhRUGJPeG1WREVGclNEQkZhUndJSnRROXJ4Yzg2ZHFTbGFkZXE4?=
+ =?utf-8?Q?itarxlNkIGOHx31fvG?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b20562c3-e7a8-43e3-7928-08dee4757fdc
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2026 02:37:24.2323 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: d0Xh1Yp+bzp3TNzw48Us3ZZH5ieUrF2dIVRAgSNHD6x4oMJVkJVjReA7xNd1rUGg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7571
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,152 +205,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On July 17, 2026 12:51:06 PM GMT+01:00, Tvrtko Ursulin
-<tvrtko.ursulin@igalia.com> wrote:
+On Fri Jul 10, 2026 at 4:16 PM EDT, Lorenzo Stoakes wrote:
+> Update the file comment to clarify that both file-backed and anonymous
+> interval trees are provided, referencing the relevant data types for
+> clarity.
 >
->Hi,
+> Also add comments to indicate which parts of the file apply to each.
 >
->Is this a human review, or AI review, or combined?
-
-Human :)
-
-
->On 17/07/2026 12:25, Bradley Morgan wrote:
->> Hi Tvrtko,
->> 
->> Applies to master. On linux-next one hunk rejects, the WQ_RTPRI block
->> in __alloc_workqueue(), the rest is clean. Rebase v3 onto the wq tree,
->> please..
+> While we're here, convert the VM_BUG_ON_VMA() to VM_WARN_ON_ONCE_VMA().
 >
->Fixed in v3 already.
->
->> 
->> Things to fix:
->> 
->>> +fail_ida:
->>> +	if (pool->attrs->prio == WQ_PRIO_RT)
->>> +		atomic_dec(&total_rtpri_workers);
->>>   fail:
->>>   	ida_free(&pool->worker_ida, id);
->>>   	kfree(worker);
->> 
->> Labels swapped. The ida_alloc() failure falls into fail:, so ida_free()
->> gets a negative id and kfree() an uninitialized pointer, and the
->> later failure paths leak the counter. The fix is something like,
->> 
->> 	id = ida_alloc(&pool->worker_ida, GFP_KERNEL);
->> 	if (id < 0)
->> 		goto fail_dec;
->> 	...
->> fail:
->> 	ida_free(&pool->worker_ida, id);
->> 	kfree(worker);
->> fail_dec:
->> 	if (pool->attrs->prio == WQ_PRIO_RT)
->> 		atomic_dec(&total_rtpri_workers);
->> 	return NULL;
->
->Already fixed locally after Sashiko flagged the onion unwind fail.
-
-Thanks.
-
->> 
->>> +		if (worker->pool->attrs->prio == WQ_PRIO_RT)
->>> +			atomic_dec(&total_rtpri_workers);
->> 
->> worker->pool is NULL here, the WORKER_DIE path clears it before
->> kthread_stop_put() returns, so every cull oopses.
->> 
->> Flag the worker at creation, a bool rtpri in struct worker:
->> 
->> 	worker->rtpri = pool->attrs->prio == WQ_PRIO_RT;
->> 
->> and in reap_dying_workers():
->> 
->> -		if (worker->pool->attrs->prio == WQ_PRIO_RT)
->> +		if (worker->rtpri)
->>   			atomic_dec(&total_rtpri_workers);
->
->Ditto but differently.
-
-Thanks.
-
->>> +		wq->unbound_attrs->affn_scope = WQ_AFFN_CPU;
->>> +		wq->unbound_attrs->affn_strict = true;
->> 
->> Its a dead store, apply_wqattrs_commit() overwrites both, so the
->headline
->> v2
->> change never engages. Drop these two lines and mark the RT entries in
->> the workqueue_init_early() attrs loops instead, for both
->> unbound_std_wq_attrs and ordered_wq_attrs:
->> 
->> 		attrs->prio = std_prio[i];
->> 		attrs->nice = std_nice[i];
->> 
->> +		if (attrs->prio == WQ_PRIO_RT) {
->> +			attrs->affn_scope = WQ_AFFN_CPU;
->> +			attrs->affn_strict = true;
->> +		}
->
->Already done locally exactly like this.
-
-Thanks.
-
-
->> Questions: the changelog says two workers per workqueue, but the code
->clamps max_active, which caps work items, not threads. At the global cap
->create_worker() fails silently and maybe_create_worker() retries forever,
->so the pool stalls; with strict pods the last pod on an N CPU
->> box may never get a worker. pr_warn() or fall back to a normal worker?
->
->Yeah it's a design open. I will probably just drop the global limits if
->Tejun agrees.
-
-Ok.
-
->> Also the rescuer is not FIFO, so WQ_MEM_RECLAIM plus WQ_RTPRI loses
->> the latency claim exactly under memory pressure.
->
->Sashiko commented on this already. But I don't think latency is super
->relevant under memory pressure.
->
->> Nits: the "R" suffix branch is dead code, RT is unbound only. The
->
->Curiosly lkml Sashiko missed this but I am aware of it. It is leftover
->from v1. And it's not a branch but an extra array element.
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Reviewed-by: Gregory Price <gourry@gourry.net>
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+> ---
+>  mm/interval_tree.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
 >
 
-okay.
+Thanks for the comments.
 
->> affinity sysfs files can still undo the forced affinity.
->
->I am opting letting the admins shoot themselves in the foot.
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-Heh. Fair enough 
+--=20
+Best Regards,
+Yan, Zi
 
->> Id prefer NUM_WQ_PRIO over NR_STD_WORKER_POOLS + 1. workqueue.rst needs
->> WQ_RTPRI.
->
->I was on the fence. Either way is not ideal.
->
->RST noted.
-
-Yeah. Agreed.
-
->> With the rebase and fixes, please add:
->> 
->> Reviewed-by: Bradley Morgan <include@grrlz.net> # kernel/
->> 
->> Thanks for the patch!
->
->Thank you for reading through it!
->
->Regards,
->
->Tvrtko
->
->
->
-
-Thanks!
