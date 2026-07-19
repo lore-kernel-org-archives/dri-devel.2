@@ -4,102 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15A11C4451B
-	for <dri-devel@archiver.kernel.org>; Sun, 19 Jul 2026 18:02:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F5A4C44512
+	for <dri-devel@archiver.kernel.org>; Sun, 19 Jul 2026 18:49:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 677C310E091;
-	Sun, 19 Jul 2026 18:02:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2039910E085;
+	Sun, 19 Jul 2026 18:49:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FM2Ro0ib";
+	dkim=pass (2048-bit key; unprotected) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="g2VdAKwl";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7337410E091
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Jul 2026 18:02:05 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2cab973140bso115385605ad.3
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Jul 2026 11:02:05 -0700 (PDT)
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com
+ [74.125.224.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D55B10E085
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Jul 2026 18:49:00 +0000 (UTC)
+Received: by mail-yx1-f53.google.com with SMTP id
+ 956f58d0204a3-668432d50b0so1392395d50.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Jul 2026 11:49:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784486939; cv=none;
+ d=google.com; s=arc-20260327;
+ b=M6V8+y5TgPKsZlf8rLlwe0dnVPySusGE1sbfJr81l63PJu83vuQBrSXaYneN3c7rnS
+ jKRC+aA0yiKxE6By5TdE+9buUBH4coAAF5Tor5V55yZyqrnM5Ua3DSEv8SFKQKiCny4Q
+ 2UsA7yQSfW7BFyKUsTyrh6CrccGEmceMCE4K8rLXV+8jEx8uvUzj5nAQoF9N7qB5QuXS
+ UQMGaHPzflth/l0WQFUt91bLmYRp7xMrBNiZi7jRoGyV/H3DyQLC6cW3oOR+gAd00/qJ
+ bNTXeUBRWyuqFNjI5+BRBb4BEu13+tQC2H78t27QP3w1nF1U4d2LIgEkZquvwU4KNfDC
+ aNbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=DRic/h6jvKg5PWOIQ/kn7VXz1vdGbrm1xHGrkWFRxoQ=;
+ fh=U5UfUzYkOLAg4B7xEHr/AhECSWGIKvqsnvCkP5FPHlg=;
+ b=YN6txcBHbleGQRtkY/a/IgNoChksx4xGGBPbyClCPoSORIQNeTzjzCiwTNk8Y4oi3Q
+ c6qNE/kC99d3R0+jIE5FEMAPVzynSkU1Ou5kRXZpTeAGNhw1XphmiC9rb4iXNSH8r0XF
+ EKeV2y0jXDY2zKoNWShRFPa51q02fEniwg9/Z/JQaAGchAWxNyh9BLXS/dD4uAxkeUfm
+ EatD2kGbqltsqlXCv7JhKUYBHVm4KHY79Sh62jPnhzD99n/WE8FHeOXhzo4pwyG2Mwfr
+ /AkLH86utEEZVD1Ygt1cmFqWCaFI/wDgmuwwucMnmv5DzGR+hkGYmvmH60Vtmujr1WaV
+ MDbQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784484125; x=1785088925; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=FubUQWQXxGaLpagBZT9hiz5/sPKLgHImpVUa5N7oZFI=;
- b=FM2Ro0ibEKJaovx2qtHlPJz+u+pvdjHwWWj96ww15AkpBnDMkZW+8gTaSuuNXHr3CH
- +xfqUCv8MqRhRyYckTcUEXvgMeczJ52IexzdY+CgRoHM2nPW0VPMMkrnwp8TZs/4W2T7
- sFDqUz8njSA3zpza3EkQvHV2AgKn0YKsZnqKM15DZP0iLbkDTfP9L4RhkCdy7SHM0T5A
- cYkIguqjEbjNrclCf5qR21lRFwVT26obgR7hN5yTHiko7CfnNHvd4j5M40Y4qiDxhvr5
- CQVR2AkvtE2vus+UwqQrE461j7RPLIDjXwJIfEwbGnWnrRagnrClB88pZsj+MnX79WP/
- 27Mw==
+ d=tenstorrent.com; s=google; t=1784486939; x=1785091739;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=DRic/h6jvKg5PWOIQ/kn7VXz1vdGbrm1xHGrkWFRxoQ=;
+ b=g2VdAKwl09FKahCNER56Gave2Dnz01KjJtryyMISbD53OOzRWoYd0JCDA74Llr9XiY
+ w19XXz8q4Q3IJVWx6ljdwRJv4lhAFhTIlN0QXoqrTZOtyPVHFN8ykNvqqrjt5gd4iUAW
+ Fh2U1fTxynnKLPv1tNfj/JOUwG75BZwAGMKX8d2Jc97LRR+x3pDzr2ZZdgkmv64QBAlR
+ 6uIJeZSxHvvV07J1sOGQ0WrXkXZzjwKn/rHDpkDP2A7sVVK3KMXBw3rS9F9dN6JWix9R
+ 0/fWvVCZ4MnittJZNVi6Jo8gGWuzm6UiKZ19RmUT7uVWquX19VIjDp5yOEx+BzSCVip9
+ aYLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784484125; x=1785088925;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=FubUQWQXxGaLpagBZT9hiz5/sPKLgHImpVUa5N7oZFI=;
- b=oNLBykTT/CHoNWQOou/8L/x/hO3msuWSJaTwYqR9YvGq8/WA+QwLXy3w+BiH//ou/T
- oQcbMMQaFN/yUdb+KU3Llms8P8Ip7a6S0aHJBRKhe4w+iR6ncZcUjtGWo1Idh4K15lfY
- dGn9GgJRsyYHw4eYIAxUK3uwhOnYdj22xDjQlhbEgPpEKpqWw3tZzSo+fxz21fam1hga
- cKZbOBsxCis4BF+56DKudaLdSH2yepgNyDFAOMWBbp25qZOtJqw6yIXVkYqHbWRIXiZX
- rLIo8eL/bGr5ptoejFfPbfIvSLxFUN9ARIhNhD7JlG9orT78l4L6tcxdxcHecRVDhhtE
- lnSw==
+ d=1e100.net; s=20251104; t=1784486939; x=1785091739;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=DRic/h6jvKg5PWOIQ/kn7VXz1vdGbrm1xHGrkWFRxoQ=;
+ b=HlxGA6aLrTzoKGu5OveSoMnsrX/sXUEHYayJef1mWqKls1Q+uPtzOjuSnGWOnUKT98
+ 9+3tnILKegW7kG0Gy+sR3w/r7Jxzyck1xhPwRTahcFeAnhx+mXK3IkOS3FvvR9od7IN/
+ qfJhODWtIRD74Ih/AvLz+O9cqJ5hYzZplU6fADsEavoRE7LM+5EuwloEX48T/OsjtY40
+ V55lSOzlIChtavZP6a1pPU56PSupybUunURq2hIB/btnWSk/A6bX7wZQP9A5kf6vQIug
+ 0Zq22g2m+tm2nRi4a6XzVSCyUSXUd9tPHLZMwJoDkM+yKt/8BGItb6ytAKTw0OJnmNpd
+ lWJw==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq2h7EV+5CNv2vLC1Qz+NHdt40yXl1RzjcIt0alPDiHnU0Qkx6IDIc4yqIkbbC0pdeSe2/sVxViVdc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YybrIHDnCccXXlFSFii7iWedSs5CJ3bVX+83yjmFzcDygw8tZEa
- 4lmjvc+ziqz/W7SWtyw9aINeDsmezjp/w7ZblsCE3ILI6XrzjFBhyIMP
-X-Gm-Gg: AfdE7cm3MALKCR9o/RuhnHVx4IHFDfFBKTQrjn5SDAojQfte5Kj8DA+EYDgSP5VS+6p
- 7QFD9aeIpupUAglAVxpruS6NLOOdB9mF3vNAMpi8or9FrH5amHFn7xL8hgurD/SgZiGXl8Bi8ca
- ncEu/b8qNx+WzmA7DumMHjOxkwVWVtPvGVXWpfRcc7X5e4heKzj3/3BFuZ2s5F6Ea1SiJ9XUXEi
- j6S1vO1y783jNx5K+yoASqdZjQJL864MW9mmg2PiiiiIF+hQbU02JQiF+XRGO3kbZQIEhXbHQpV
- tcgkDRb+o6L/mALwo7VjxgAW9JO9WD+IuN8tCx+k2xUTDgHjaPwrBSLOS4sUzf6v0YRm7q9+uhR
- AT5qU04Uvfh8j5l+Qn/Zwj09Way8KjVkAjoEeKb/eKbVLoR61To+Ose4UIsnqlf86mA==
-X-Received: by 2002:a17:903:3510:b0:2cc:6817:d9bc with SMTP id
- d9443c01a7336-2cf349ea184mr118699745ad.38.1784484124796; 
- Sun, 19 Jul 2026 11:02:04 -0700 (PDT)
-Received: from ap.. ([182.213.254.91]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2cf34769bd6sm43511065ad.74.2026.07.19.11.01.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Jul 2026 11:02:03 -0700 (PDT)
-From: Taehee Yoo <ap420073@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Alexei Starovoitov <ast@kernel.org>, amd-gfx@lists.freedesktop.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Andrii Nakryiko <andrii@kernel.org>,
- Bill Wendling <morbo@google.com>, bpf@vger.kernel.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Borkmann <daniel@iogearbox.net>, David Airlie <airlied@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Donald Hunter <donald.hunter@gmail.com>, dri-devel@lists.freedesktop.org,
- Eduard Zingerman <eddyz87@gmail.com>,
- Emil Tsalapatis <emil@etsalapatis.com>, Eric Dumazet <edumazet@google.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Hoyeon Lee <hoyeon.rhee@gmail.com>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
- Jiri Olsa <jolsa@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
- Justin Stitt <justinstitt@google.com>, Kees Cook <kees@kernel.org>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Leon Romanovsky <leon@kernel.org>, linaro-mm-sig@lists.linaro.org,
- linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
- linux-rdma@vger.kernel.org, llvm@lists.linux.dev,
- Mark Bloch <mbloch@nvidia.com>, Martin KaFai Lau <martin.lau@linux.dev>,
- Michael Chan <michael.chan@broadcom.com>,
- Nathan Chancellor <nathan@kernel.org>, netdev@vger.kernel.org,
- Nick Desaulniers <ndesaulniers@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Pavan Chebbi <pavan.chebbi@broadcom.com>,
- Saeed Mahameed <saeedm@nvidia.com>, Shuah Khan <shuah@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Simon Horman <horms@kernel.org>,
- Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>,
- Sumit Semwal <sumit.semwal@linaro.org>, Taehee Yoo <ap420073@gmail.com>,
- Tariq Toukan <tariqt@nvidia.com>, Yonghong Song <yonghong.song@linux.dev>
-Subject: [RFC PATCH net-next 12/13] selftests: drivers/net: add knod tests
-Date: Sun, 19 Jul 2026 17:58:56 +0000
-Message-ID: <20260719175857.4071636-13-ap420073@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260719175857.4071636-1-ap420073@gmail.com>
-References: <20260719175857.4071636-1-ap420073@gmail.com>
+ AHgh+Ro2wH5nw8AjPat4X7JlGGiKY+QV6HyQFOT0C2XNP64R9b7cxTYCWf1HRUWz3MHdl6BNFzvFJm8aSIw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwlPzqifNOFlBLnMqyrLgimcWyCJba868scBsUMzJk/33iatwEu
+ JBuvoT9uo2xvQJnEJa+bXaBxM/hclbwkRmmBEdrberN6S1PEz0y7UR1BeAl+DpyZ5C93qx5gAJl
+ DzZJffqgnLK9bzcilaMX7y9y2ZP1HwFqXO4K9lVtJ3w==
+X-Gm-Gg: AfdE7clXTKGWG5W7GUWcNSvYkz7cTm6aetCYhc4SWhziu4ksVwY5mA07zdxokQsIN1b
+ nvtvtLEN4F0jE8IeL/5yPJA6nnvGCojvfmZ4+276RjwKepe8ahfp+al82Pkg854SxDBs6rSDIkg
+ pwtfY3rfwfo2StlFGdxFrmFJGqmoMXWHqOPjo5AJDhqInLwx6a6dLCxoGySH9Qzg/TUWVpHAUb7
+ i+Z27mwhc3glcjaIBIa17pebQg6sFWU+q52EDjoQ+xgKBV/4+owzFKP4OatDqkJuZ8/Ll3PEkRn
+ xNbtkBYIaPZ2JW8TNM6qJXeOeKXagFRewcCVMVvTrEV++gg=
+X-Received: by 2002:a05:690e:1586:10b0:667:8b91:2421 with SMTP id
+ 956f58d0204a3-6683bdf0897mr2543977d50.104.1784486939236; Sun, 19 Jul 2026
+ 11:48:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260714-radeon_32bit_fix-v1-1-42a99945f6e0@oss.tenstorrent.com>
+ <11218edd-ae58-4966-8172-27b2435eaa1f@amd.com>
+ <CAEev2e_gnmhYw_mV8zt2AnkY6Hj_F165veoAPaXhA_ej-5RUUg@mail.gmail.com>
+ <7619ffd0-a77b-4596-a9ab-8e5172c929e2@amd.com>
+ <CAEev2e8e4Q2zgQxkodBzNpXCDCFhE4femijQ_K8yQrKe7bXn=Q@mail.gmail.com>
+ <679e18a5-9402-41dc-bd7d-58bc7714ff62@amd.com>
+In-Reply-To: <679e18a5-9402-41dc-bd7d-58bc7714ff62@amd.com>
+From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Date: Sun, 19 Jul 2026 13:48:48 -0500
+X-Gm-Features: AUfX_myTyI1c07sHOlj_UviaIekPWxJEsUXexFve-I2x4sfOS9IQksI4qi2DPZg
+Message-ID: <CAEev2e8HfUEMCct6exgukAp+7eyj0E=J040UqmF8GsS7T4MBwg@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: allocate dummy_page without DMA32 on fail
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,794 +113,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add attach/detach and XDP offload selftests for knod, exercising the
-genetlink control plane and the BPF data path over a knod-capable NIC.
+Hi Christian,
 
-Signed-off-by: Taehee Yoo <ap420073@gmail.com>
-(cherry picked from commit 320315bfd9a324ab029c2fe9eee52997592e5d0c)
----
- .../selftests/drivers/net/knod/Makefile       |  17 ++
- .../testing/selftests/drivers/net/knod/config |   7 +
- .../selftests/drivers/net/knod/knod_attach.sh | 135 +++++++++++++
- .../drivers/net/knod/knod_xdp_ktime.sh        | 173 +++++++++++++++++
- .../drivers/net/knod/knod_xdp_loop.sh         | 129 +++++++++++++
- .../testing/selftests/drivers/net/knod/lib.sh | 181 ++++++++++++++++++
- .../drivers/net/knod/xdp_ktime.bpf.c          |  32 ++++
- .../selftests/drivers/net/knod/xdp_loop.bpf.c |  42 ++++
- 8 files changed, 716 insertions(+)
- create mode 100644 tools/testing/selftests/drivers/net/knod/Makefile
- create mode 100644 tools/testing/selftests/drivers/net/knod/config
- create mode 100755 tools/testing/selftests/drivers/net/knod/knod_attach.sh
- create mode 100755 tools/testing/selftests/drivers/net/knod/knod_xdp_ktime.sh
- create mode 100755 tools/testing/selftests/drivers/net/knod/knod_xdp_loop.sh
- create mode 100755 tools/testing/selftests/drivers/net/knod/lib.sh
- create mode 100644 tools/testing/selftests/drivers/net/knod/xdp_ktime.bpf.c
- create mode 100644 tools/testing/selftests/drivers/net/knod/xdp_loop.bpf.c
+On Fri, Jul 17, 2026 at 2:37=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 7/16/26 16:31, Anirudh Srinivasan wrote:
+> ...
+> >>>>
+> >>>> What could be possible is to add a special quirk for your platform t=
+o not allocate the dummy page as DMA32 in the first place.
+> >>>
+> >>> So some kind of a whitelisted set of PCIE vendor/ID combos (with
+> >>> working IOMMUS?) where we fallback to non DMA32 ranges?
+> >>
+> >> No, what you are testing here is basically that display is functional =
+and not anything else.
+> >
+> > I think I understand this now. You're suggesting that we skip
+> > allocating the dummy page in this specific case.
+>
+> Well that won't really work.
+>
+> We had some minimal fallback to enable only CRTCs in the radeon driver bu=
+t that was more or less only used to print error messages and not let peopl=
+e end up with a completely black desktop if HW initialization fails.
+>
+> As far as I can see you can't use the driver/HW combination on this platf=
+orm when DMA32 isn't available.
+>
+> You could give efifb or vesafb a try, that is pretty much the same functi=
+onality as radeon without acceleration.
+>
+> On the other hand what HW generation do you have? Maybe it's possible tha=
+t this is something newer like SI or CIK? In that case you could try the mo=
+re modern amdgpu driver, it should be able to better deal with the situatio=
+n.
 
-diff --git a/tools/testing/selftests/drivers/net/knod/Makefile b/tools/testing/selftests/drivers/net/knod/Makefile
-new file mode 100644
-index 000000000000..08138529b55e
---- /dev/null
-+++ b/tools/testing/selftests/drivers/net/knod/Makefile
-@@ -0,0 +1,17 @@
-+# SPDX-License-Identifier: GPL-2.0
-+
-+TEST_PROGS := \
-+	knod_xdp_ktime.sh \
-+	knod_xdp_loop.sh \
-+	knod_attach.sh \
-+# end of TEST_PROGS
-+
-+TEST_FILES := \
-+	lib.sh \
-+# end of TEST_FILES
-+
-+TEST_GEN_FILES += $(patsubst %.c,%.o,$(wildcard *.bpf.c))
-+
-+include ../../../lib.mk
-+
-+include ../../../net/bpf.mk
-diff --git a/tools/testing/selftests/drivers/net/knod/config b/tools/testing/selftests/drivers/net/knod/config
-new file mode 100644
-index 000000000000..a60ece9da112
---- /dev/null
-+++ b/tools/testing/selftests/drivers/net/knod/config
-@@ -0,0 +1,7 @@
-+CONFIG_BPF=y
-+CONFIG_BPF_SYSCALL=y
-+CONFIG_XDP_SOCKETS=y
-+CONFIG_KNOD=m
-+CONFIG_HSA_AMD=y
-+CONFIG_HSA_AMD_KNOD_BPF=m
-+CONFIG_DEBUG_FS=y
-diff --git a/tools/testing/selftests/drivers/net/knod/knod_attach.sh b/tools/testing/selftests/drivers/net/knod/knod_attach.sh
-new file mode 100755
-index 000000000000..7ee6aca33ad8
---- /dev/null
-+++ b/tools/testing/selftests/drivers/net/knod/knod_attach.sh
-@@ -0,0 +1,135 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# knod_attach.sh - exercise the knod attach/detach control plane.
-+#
-+# Checks the NIC<->accel binding lifecycle (attach makes the pair appear in the
-+# xdev list, detach removes it) and that malformed or impossible attach
-+# requests are rejected without taking the framework down.
-+#
-+# Requires:
-+#   - KNOD (knod + amdgpu) modules loaded
-+#   - AMD GPU with KNOD support
-+#   - a NIC registered with knod
-+#   - iproute2, root
-+#
-+# Environment:
-+#   NIC=<ifname>   (required) NIC to test on
-+#   ACCEL_ID=<id>  (optional) GPU accel ID, auto-detected if omitted
-+#
-+# Exit: 0=pass, 1=fail, 4=skip
-+
-+set -o pipefail
-+
-+SELFDIR=$(dirname "$(readlink -f "$0")")
-+source "$SELFDIR/lib.sh"
-+
-+: "${NIC:=}"
-+: "${ACCEL_ID:=}"
-+
-+PASS=0
-+FAIL=0
-+
-+cleanup() {
-+	if [ -n "$NIC" ]; then
-+		knod_detach "$NIC" 2>/dev/null
-+		ip link set dev "$NIC" down 2>/dev/null
-+	fi
-+}
-+trap cleanup EXIT
-+
-+check_result() {
-+	local desc=$1
-+	local ret=$2
-+
-+	if [ "$ret" -eq 0 ]; then
-+		knod_pass "$desc"
-+		PASS=$((PASS + 1))
-+	else
-+		knod_fail "$desc"
-+		FAIL=$((FAIL + 1))
-+	fi
-+}
-+
-+# reject == the ynl attach request fails (exit nonzero)
-+expect_reject() {
-+	local desc=$1
-+	local json=$2
-+
-+	if knod_ynl --do attach --json "$json" 2>/dev/null; then
-+		knod_detach "$NIC" 2>/dev/null	# undo an unexpected success
-+		check_result "$desc" 1
-+	else
-+		check_result "$desc" 0
-+	fi
-+}
-+
-+# -- prereq ------------------------------------------------------
-+knod_check_prereq
-+
-+if [ -z "$NIC" ]; then
-+	knod_skip "NIC env var not set"
-+fi
-+
-+if ! ip link show "$NIC" >/dev/null 2>&1; then
-+	knod_skip "NIC $NIC does not exist"
-+fi
-+
-+accel_id=$(knod_find_accel)
-+if [ -z "$accel_id" ]; then
-+	knod_skip "no KNOD accelerator found"
-+fi
-+[ -n "$ACCEL_ID" ] && accel_id="$ACCEL_ID"
-+
-+echo "=== KNOD attach/detach control-plane test ==="
-+echo "    NIC:      $NIC"
-+echo "    ACCEL_ID: $accel_id"
-+echo ""
-+
-+# attach requires the interface down; start from a known detached state
-+ip link set dev "$NIC" down 2>/dev/null
-+knod_detach "$NIC" 2>/dev/null
-+
-+# -- positive lifecycle ----------------------------------------
-+knod_attach "$NIC" "$accel_id"
-+check_result "attach $NIC -> accel $accel_id" $?
-+
-+knod_xdev_has "$NIC"
-+check_result "xdev lists $NIC after attach" $?
-+
-+knod_detach "$NIC"
-+check_result "detach $NIC" $?
-+
-+if knod_xdev_has "$NIC"; then
-+	check_result "xdev drops $NIC after detach" 1
-+else
-+	check_result "xdev drops $NIC after detach" 0
-+fi
-+
-+# -- negative requests must be rejected ------------------------
-+nic_ifindex=$(knod_ifindex "$NIC")
-+expect_reject "reject attach with no accel id"     "{\"nic-ifindex\":$nic_ifindex}"
-+expect_reject "reject attach to nonexistent accel" "{\"nic-ifindex\":$nic_ifindex,\"accel-id\":999999}"
-+expect_reject "reject attach of nonexistent NIC"   "{\"nic-ifindex\":999999,\"accel-id\":$accel_id}"
-+
-+ip link set dev "$NIC" up 2>/dev/null
-+expect_reject "reject attach while NIC is up"      "{\"nic-ifindex\":$nic_ifindex,\"accel-id\":$accel_id}"
-+ip link set dev "$NIC" down 2>/dev/null
-+
-+# -- framework survived the bad requests -----------------------
-+knod_kernel_alive
-+check_result "framework responsive after bad requests" $?
-+
-+# -- re-attach still works (state not corrupted) ---------------
-+knod_attach "$NIC" "$accel_id"
-+check_result "re-attach after errors" $?
-+knod_detach "$NIC" 2>/dev/null
-+
-+# -- summary --------------------------------------------------
-+echo ""
-+echo "=== Results: $PASS passed, $FAIL failed ==="
-+
-+if [ "$FAIL" -gt 0 ]; then
-+	exit 1
-+fi
-+exit 0
-diff --git a/tools/testing/selftests/drivers/net/knod/knod_xdp_ktime.sh b/tools/testing/selftests/drivers/net/knod/knod_xdp_ktime.sh
-new file mode 100755
-index 000000000000..8df003052cb7
---- /dev/null
-+++ b/tools/testing/selftests/drivers/net/knod/knod_xdp_ktime.sh
-@@ -0,0 +1,173 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# knod_xdp_ktime.sh - test bpf_ktime_get_ns() on GPU XDP offload
-+#
-+# Loads an XDP program that calls bpf_ktime_get_ns() and stores
-+# the result in an offloaded BPF_MAP_TYPE_ARRAY, then verifies
-+# the GPU-side timestamp is sane.
-+#
-+# Requires:
-+#   - KNOD (knod + amdgpu) modules loaded
-+#   - AMD GPU with KNOD support
-+#   - NIC with xdpoffload support (mlx5, bnxt)
-+#   - bpftool, iproute2
-+#   - root privileges
-+#   - xdp_ktime.bpf.o (built by make)
-+#
-+# Environment:
-+#   NIC=<ifname>       (required) NIC to test on
-+#   ACCEL_ID=<id>      (optional) GPU accel ID, auto-detected if omitted
-+#   REMOTE_IP=<ip>     (optional) ping target to generate traffic
-+#
-+# Exit: 0=pass, 1=fail, 4=skip
-+
-+set -o pipefail
-+
-+SELFDIR=$(dirname "$(readlink -f "$0")")
-+source "$SELFDIR/lib.sh"
-+
-+: "${NIC:=}"
-+: "${ACCEL_ID:=}"
-+: "${REMOTE_IP:=}"
-+
-+PASS=0
-+FAIL=0
-+BPF_OBJ="$SELFDIR/xdp_ktime.bpf.o"
-+
-+cleanup() {
-+	if [ -n "$NIC" ]; then
-+		knod_cleanup "$NIC"
-+	fi
-+}
-+trap cleanup EXIT
-+
-+check_result() {
-+	local desc=$1
-+	local ret=$2
-+
-+	if [ "$ret" -eq 0 ]; then
-+		knod_pass "$desc"
-+		PASS=$((PASS + 1))
-+	else
-+		knod_fail "$desc"
-+		FAIL=$((FAIL + 1))
-+	fi
-+}
-+
-+# -- prereq ------------------------------------------------------
-+knod_check_prereq
-+
-+if [ -z "$NIC" ]; then
-+	knod_skip "NIC env var not set"
-+fi
-+
-+if ! ip link show "$NIC" >/dev/null 2>&1; then
-+	knod_skip "NIC $NIC does not exist"
-+fi
-+
-+accel_id=$(knod_find_accel)
-+if [ -z "$accel_id" ]; then
-+	knod_skip "no KNOD accelerator found"
-+fi
-+[ -n "$ACCEL_ID" ] && accel_id="$ACCEL_ID"
-+
-+echo "=== KNOD XDP ktime_get_ns test ==="
-+echo "    NIC:      $NIC"
-+echo "    ACCEL_ID: $accel_id"
-+echo ""
-+
-+# -- check BPF object ------------------------------------------
-+if [ ! -f "$BPF_OBJ" ]; then
-+	echo "FAIL: $BPF_OBJ not found (run make first)"
-+	exit 1
-+fi
-+
-+# -- attach NIC to GPU, select bpf feature ---------------------
-+ip link set dev "$NIC" down 2>/dev/null
-+knod_attach "$NIC" "$accel_id"
-+if [ $? -ne 0 ]; then
-+	echo "FAIL: attach failed"
-+	exit 1
-+fi
-+
-+knod_feature_select "$accel_id" bpf
-+if [ $? -ne 0 ]; then
-+	knod_skip "cannot select bpf feature"
-+fi
-+
-+# -- load XDP offload program ----------------------------------
-+knod_xdp_load "$NIC" "$BPF_OBJ"
-+if [ $? -ne 0 ]; then
-+	echo "FAIL: xdpoffload load failed"
-+	exit 1
-+fi
-+
-+# -- find prog/map IDs -----------------------------------------
-+prog_id=$(bpftool prog show 2>/dev/null | \
-+	  awk '/xdp_ktime_test/ {sub(/:/, "", $1); print $1; exit}')
-+if [ -z "$prog_id" ]; then
-+	echo "FAIL: cannot find loaded BPF program"
-+	exit 1
-+fi
-+knod_log "prog_id=$prog_id"
-+
-+map_id=$(knod_get_map_id "$prog_id")
-+if [ -z "$map_id" ]; then
-+	echo "FAIL: cannot find BPF map"
-+	exit 1
-+fi
-+knod_log "map_id=$map_id"
-+
-+# -- bring up interface and generate traffic -------------------
-+ip link set dev "$NIC" up
-+
-+if [ -n "$REMOTE_IP" ]; then
-+	knod_log "ping $REMOTE_IP to generate traffic"
-+	ping -c 5 -W 1 "$REMOTE_IP" >/dev/null 2>&1 || true
-+else
-+	knod_log "waiting for ambient traffic (10s)"
-+	sleep 10
-+fi
-+
-+# -- bring down interface before reading map ------------------
-+ip link set dev "$NIC" down
-+
-+# -- read map and verify --------------------------------------
-+ktime_val=$(knod_map_lookup_u64 "$map_id" 0)
-+pkt_count=$(knod_map_lookup_u64 "$map_id" 1)
-+
-+knod_log "ktime_ns=$ktime_val  pkt_count=$pkt_count"
-+
-+# Test 1: packets were processed
-+rc=0
-+[ "$pkt_count" -gt 0 ] || rc=1
-+check_result "packets processed (count=$pkt_count)" $rc
-+
-+# Test 2: ktime is non-zero
-+rc=0
-+[ "$ktime_val" -gt 0 ] || rc=1
-+check_result "ktime non-zero ($ktime_val)" $rc
-+
-+# Test 3: ktime is within 30s of current time
-+if [ "$ktime_val" -gt 0 ]; then
-+	now_ns=$(awk '{printf "%.0f", $1 * 1000000000}' /proc/uptime)
-+	if [ -n "$now_ns" ]; then
-+		diff=$(( now_ns - ktime_val ))
-+		abs_diff=${diff#-}
-+		rc=0
-+		[ "$abs_diff" -lt 30000000000 ] || rc=1
-+		check_result "ktime within 30s of wall clock (diff=${diff}ns)" $rc
-+	else
-+		knod_log "skipping wall clock check (/proc/uptime unavailable)"
-+	fi
-+fi
-+
-+# -- summary --------------------------------------------------
-+echo ""
-+echo "=== Results: $PASS passed, $FAIL failed ==="
-+
-+if [ "$FAIL" -gt 0 ]; then
-+	exit 1
-+fi
-+exit 0
-diff --git a/tools/testing/selftests/drivers/net/knod/knod_xdp_loop.sh b/tools/testing/selftests/drivers/net/knod/knod_xdp_loop.sh
-new file mode 100755
-index 000000000000..d7cba1236968
---- /dev/null
-+++ b/tools/testing/selftests/drivers/net/knod/knod_xdp_loop.sh
-@@ -0,0 +1,129 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# knod_xdp_loop.sh - the KNOD JIT must reject a bounded-loop XDP program.
-+#
-+# Loop emission is not implemented yet, so a program with a real back-edge has
-+# to be rejected with -EOPNOTSUPP at JIT time rather than miscompiled.  This
-+# checks that the load fails, that the back-edge is reported to dmesg, and that
-+# nothing crashed or faulted in the reject path.
-+#
-+# Requires:
-+#   - KNOD (knod + amdgpu) modules loaded
-+#   - AMD GPU with KNOD support
-+#   - NIC with xdpoffload support (mlx5, bnxt)
-+#   - bpftool, iproute2, root
-+#   - xdp_loop.bpf.o (built by make)
-+#
-+# Environment:
-+#   NIC=<ifname>   (required) NIC to test on
-+#   ACCEL_ID=<id>  (optional) GPU accel ID, auto-detected if omitted
-+#
-+# Exit: 0=pass, 1=fail, 4=skip
-+
-+set -o pipefail
-+
-+SELFDIR=$(dirname "$(readlink -f "$0")")
-+source "$SELFDIR/lib.sh"
-+
-+: "${NIC:=}"
-+: "${ACCEL_ID:=}"
-+
-+PASS=0
-+FAIL=0
-+BPF_OBJ="$SELFDIR/xdp_loop.bpf.o"
-+
-+cleanup() {
-+	if [ -n "$NIC" ]; then
-+		knod_cleanup "$NIC"
-+	fi
-+}
-+trap cleanup EXIT
-+
-+check_result() {
-+	local desc=$1
-+	local ret=$2
-+
-+	if [ "$ret" -eq 0 ]; then
-+		knod_pass "$desc"
-+		PASS=$((PASS + 1))
-+	else
-+		knod_fail "$desc"
-+		FAIL=$((FAIL + 1))
-+	fi
-+}
-+
-+# -- prereq ------------------------------------------------------
-+knod_check_prereq
-+
-+if [ -z "$NIC" ]; then
-+	knod_skip "NIC env var not set"
-+fi
-+
-+if ! ip link show "$NIC" >/dev/null 2>&1; then
-+	knod_skip "NIC $NIC does not exist"
-+fi
-+
-+accel_id=$(knod_find_accel)
-+if [ -z "$accel_id" ]; then
-+	knod_skip "no KNOD accelerator found"
-+fi
-+[ -n "$ACCEL_ID" ] && accel_id="$ACCEL_ID"
-+
-+if [ ! -f "$BPF_OBJ" ]; then
-+	echo "FAIL: $BPF_OBJ not found (run make first)"
-+	exit 1
-+fi
-+
-+echo "=== KNOD XDP loop-rejection test ==="
-+echo "    NIC:      $NIC"
-+echo "    ACCEL_ID: $accel_id"
-+echo ""
-+
-+# -- setup: attach NIC to GPU, then select the bpf feature -----
-+# feature_select needs the accel already attached (it swaps the live
-+# worker), so attach first.
-+ip link set dev "$NIC" down 2>/dev/null
-+knod_attach "$NIC" "$accel_id"
-+if [ $? -ne 0 ]; then
-+	echo "FAIL: attach failed"
-+	exit 1
-+fi
-+
-+knod_feature_select "$accel_id" bpf
-+if [ $? -ne 0 ]; then
-+	knod_skip "cannot select bpf feature"
-+fi
-+
-+# remember where dmesg is now so we only scan messages from this load
-+dmesg_mark=$(dmesg | wc -l)
-+
-+# -- load must fail --------------------------------------------
-+knod_log "loading bounded-loop program (expecting rejection)"
-+if knod_xdp_load "$NIC" "$BPF_OBJ" 2>/dev/null; then
-+	# unexpectedly accepted - unload and fail
-+	knod_xdp_unload "$NIC"
-+	check_result "loop program rejected at load" 1
-+else
-+	check_result "loop program rejected at load" 0
-+fi
-+
-+new_dmesg=$(dmesg | tail -n +"$((dmesg_mark + 1))")
-+
-+# -- back-edge reported ----------------------------------------
-+rc=1
-+echo "$new_dmesg" | grep -q "knod_loop:.*back-edge" && rc=0
-+check_result "loop back-edge reported in dmesg" $rc
-+
-+# -- framework still alive -------------------------------------
-+knod_kernel_alive
-+check_result "system responsive after rejection" $?
-+
-+# -- summary --------------------------------------------------
-+echo ""
-+echo "=== Results: $PASS passed, $FAIL failed ==="
-+
-+if [ "$FAIL" -gt 0 ]; then
-+	exit 1
-+fi
-+exit 0
-diff --git a/tools/testing/selftests/drivers/net/knod/lib.sh b/tools/testing/selftests/drivers/net/knod/lib.sh
-new file mode 100755
-index 000000000000..d0d9b03f109d
---- /dev/null
-+++ b/tools/testing/selftests/drivers/net/knod/lib.sh
-@@ -0,0 +1,181 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# lib.sh - KNOD XDP offload test utilities
-+#
-+# The KNOD control plane is the "knod" generic-netlink family; it is driven
-+# here through the in-tree ynl CLI (tools/net/ynl/pyynl/cli.py) so the tests
-+# need no dedicated user-space tool.
-+
-+KSRC=$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../../.." && pwd)
-+readonly KNOD_YNL="$KSRC/tools/net/ynl/pyynl/cli.py"
-+readonly KNOD_SPEC="$KSRC/Documentation/netlink/specs/knod.yaml"
-+
-+KNOD_NIC=""
-+KNOD_ACCEL_ID=""
-+KNOD_CLEANUP_DONE=0
-+
-+knod_log()   { echo "  [INFO] $*"; }
-+knod_pass()  { echo "  [PASS] $*"; }
-+knod_fail()  { echo "  [FAIL] $*"; }
-+knod_skip()  { echo "  [SKIP] $*"; exit 4; }
-+
-+# Invoke the knod generic-netlink family via the ynl CLI.
-+knod_ynl() {
-+	python3 "$KNOD_YNL" --spec "$KNOD_SPEC" "$@"
-+}
-+
-+knod_ifindex() {
-+	cat "/sys/class/net/$1/ifindex" 2>/dev/null
-+}
-+
-+knod_check_prereq() {
-+	if [ "$(id -u)" -ne 0 ]; then
-+		knod_skip "must be root"
-+	fi
-+
-+	if ! command -v python3 >/dev/null 2>&1; then
-+		knod_skip "python3 not found (needed for the ynl CLI)"
-+	fi
-+
-+	if ! command -v jq >/dev/null 2>&1; then
-+		knod_skip "jq not found"
-+	fi
-+
-+	if ! knod_ynl --dump accel-get >/dev/null 2>&1; then
-+		knod_skip "knod genl family not available (module not loaded?)"
-+	fi
-+
-+	if ! command -v bpftool >/dev/null 2>&1; then
-+		knod_skip "bpftool not found"
-+	fi
-+
-+	if ! command -v ip >/dev/null 2>&1; then
-+		knod_skip "iproute2 (ip) not found"
-+	fi
-+}
-+
-+# Auto-detect the id of the first amdgpu accelerator.
-+knod_find_accel() {
-+	if [ -n "$KNOD_ACCEL_ID" ]; then
-+		echo "$KNOD_ACCEL_ID"
-+		return 0
-+	fi
-+
-+	knod_ynl --dump accel-get --output-json 2>/dev/null | \
-+		jq -r 'map(select(.name | startswith("amdgpu"))) | .[0].id // empty'
-+}
-+
-+# Locate the knod debugfs directory (the DRI minor number varies).
-+knod_debug_dir() {
-+	local d
-+
-+	for d in /sys/kernel/debug/dri/*/knod; do
-+		[ -d "$d" ] && { echo "$d"; return 0; }
-+	done
-+	return 1
-+}
-+
-+# Activate a KNOD offload feature ("none", "bpf", "ipsec") on <accel_id>.
-+knod_feature_select() {
-+	local accel_id=$1
-+	local feat=$2
-+
-+	knod_log "feature_select accel $accel_id -> $feat"
-+	knod_ynl --do accel-set \
-+		--json "{\"id\":$accel_id,\"feature-ena\":\"$feat\"}" >/dev/null
-+}
-+
-+# Confirm the framework is still responsive (used after an expected failure to
-+# catch an oops/hang in the reject path). The accel inventory is persistent
-+# (independent of attach), so a successful dump means the family is alive.
-+knod_kernel_alive() {
-+	knod_ynl --dump accel-get >/dev/null 2>&1
-+}
-+
-+# Is <nic> currently bound to an accel (present in the dev list)?
-+knod_xdev_has() {
-+	local nic=$1
-+	local ifindex
-+
-+	ifindex=$(knod_ifindex "$nic") || return 1
-+	knod_ynl --dump dev-get --output-json 2>/dev/null | \
-+		jq -e --argjson i "$ifindex" \
-+		   'any(.[]; .["nic-ifindex"] == $i)' >/dev/null
-+}
-+
-+knod_attach() {
-+	local nic=$1
-+	local accel_id=$2
-+	local ifindex
-+
-+	ifindex=$(knod_ifindex "$nic") || return 1
-+	knod_log "attach $nic (ifindex $ifindex) to accel $accel_id"
-+	knod_ynl --do attach \
-+		--json "{\"nic-ifindex\":$ifindex,\"accel-id\":$accel_id}" >/dev/null
-+}
-+
-+knod_detach() {
-+	local nic=$1
-+	local ifindex
-+
-+	ifindex=$(knod_ifindex "$nic") || return 1
-+	knod_log "detach $nic"
-+	knod_ynl --do detach \
-+		--json "{\"nic-ifindex\":$ifindex}" >/dev/null 2>&1
-+}
-+
-+knod_xdp_load() {
-+	local nic=$1
-+	local obj=$2
-+
-+	knod_log "xdpoffload load $obj on $nic"
-+	ip link set dev "$nic" xdpoffload obj "$obj" sec xdp
-+}
-+
-+knod_xdp_unload() {
-+	local nic=$1
-+
-+	knod_log "xdpoffload off on $nic"
-+	ip link set dev "$nic" xdpoffload off 2>/dev/null
-+}
-+
-+knod_cleanup() {
-+	local nic=$1
-+
-+	[ "$KNOD_CLEANUP_DONE" -eq 1 ] && return
-+	KNOD_CLEANUP_DONE=1
-+
-+	knod_log "cleanup $nic"
-+	knod_xdp_unload "$nic"
-+	ip link set dev "$nic" down 2>/dev/null
-+	knod_detach "$nic"
-+}
-+
-+knod_get_map_id() {
-+	local prog_id=$1
-+
-+	bpftool prog show id "$prog_id" 2>/dev/null | \
-+		grep -o 'map_ids [0-9]*' | awk '{print $2}'
-+}
-+
-+knod_map_lookup_u64() {
-+	local map_id=$1
-+	local key=$2
-+	local hex
-+
-+	hex=$(bpftool map lookup id "$map_id" \
-+	      key $key 0 0 0 2>/dev/null | \
-+	      grep -o 'value:.*' | sed 's/value: //')
-+	if [ -z "$hex" ]; then
-+		echo 0
-+		return
-+	fi
-+
-+	printf '%d' "$(echo "$hex" | awk '{
-+		v = 0;
-+		for (i = 8; i >= 1; i--)
-+			v = v * 256 + strtonum("0x" $i);
-+		printf "0x%x", v;
-+	}')"
-+}
-diff --git a/tools/testing/selftests/drivers/net/knod/xdp_ktime.bpf.c b/tools/testing/selftests/drivers/net/knod/xdp_ktime.bpf.c
-new file mode 100644
-index 000000000000..5025e41cf3e8
---- /dev/null
-+++ b/tools/testing/selftests/drivers/net/knod/xdp_ktime.bpf.c
-@@ -0,0 +1,32 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <linux/bpf.h>
-+#include <bpf/bpf_helpers.h>
-+
-+struct {
-+	__uint(type, BPF_MAP_TYPE_ARRAY);
-+	__uint(max_entries, 2);
-+	__type(key, __u32);
-+	__type(value, __u64);
-+} ktime_map SEC(".maps");
-+
-+SEC("xdp")
-+int xdp_ktime_test(struct xdp_md *ctx)
-+{
-+	__u32 key_ts = 0;
-+	__u32 key_cnt = 1;
-+	__u64 ts = bpf_ktime_get_ns();
-+	__u64 *cnt;
-+	__u64 new_cnt;
-+
-+	bpf_map_update_elem(&ktime_map, &key_ts, &ts, BPF_ANY);
-+
-+	cnt = bpf_map_lookup_elem(&ktime_map, &key_cnt);
-+	if (cnt) {
-+		new_cnt = *cnt + 1;
-+		bpf_map_update_elem(&ktime_map, &key_cnt, &new_cnt, BPF_ANY);
-+	}
-+
-+	return XDP_PASS;
-+}
-+
-+char LICENSE[] SEC("license") = "GPL";
-diff --git a/tools/testing/selftests/drivers/net/knod/xdp_loop.bpf.c b/tools/testing/selftests/drivers/net/knod/xdp_loop.bpf.c
-new file mode 100644
-index 000000000000..87c8251cc185
---- /dev/null
-+++ b/tools/testing/selftests/drivers/net/knod/xdp_loop.bpf.c
-@@ -0,0 +1,42 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <linux/bpf.h>
-+#include <bpf/bpf_helpers.h>
-+
-+/*
-+ * Minimal bounded-loop XDP program to exercise the KNOD JIT's loop detection.
-+ *
-+ * The trip count is read from the packet (runtime) and unrolling is disabled,
-+ * so the compiler keeps a real loop with a back-edge instead of folding it
-+ * into straight-line code.  The body is an xorshift step - a non-affine
-+ * recurrence the compiler cannot reduce to a closed form (a simple sum like
-+ * "sum += i" gets turned into n*(n-1)/2 and the loop disappears).  It touches
-+ * no memory inside the loop, so the verifier is happy, and it has the simplest
-+ * shape: one back-edge, a single exit (the loop condition), no break and no
-+ * early return.
-+ */
-+SEC("xdp")
-+int xdp_loop_test(struct xdp_md *ctx)
-+{
-+	void *data = (void *)(long)ctx->data;
-+	void *data_end = (void *)(long)ctx->data_end;
-+	__u8 *pkt = data;
-+	__u32 sum;
-+	int i, n;
-+
-+	if ((void *)(pkt + 1) > data_end)
-+		return XDP_DROP;
-+
-+	n = pkt[0] & 0x3f;		/* runtime bound, 0..63 */
-+	sum = pkt[0] | 1;		/* nonzero xorshift seed */
-+
-+#pragma clang loop unroll(disable)
-+	for (i = 0; i < n; i++) {
-+		sum ^= sum << 13;
-+		sum ^= sum >> 17;
-+		sum ^= sum << 5;
-+	}
-+
-+	return (sum & 1) ? XDP_PASS : XDP_DROP;
-+}
-+
-+char LICENSE[] SEC("license") = "GPL";
--- 
-2.43.0
+I haven't gotten the chance to test this yet. My chip is from SI, so
+I'll try out amdgpu too.
 
+>
+> Regards,
+> Christian.
+>
+> >
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >>>
+> >>> Regards
+> >>> Anirudh Srinivasan
+> >>
+>
