@@ -4,87 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48989C44521
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:15:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77ACFC44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:15:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40FC510E6DC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87D3B10E6DD;
 	Mon, 20 Jul 2026 07:15:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="sA2LY6St";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="gCC3gjV+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LmqSYfnT";
 	dkim-atps=neutral
-X-Greylist: delayed 510 seconds by postgrey-1.36 at gabe;
- Fri, 17 Jul 2026 09:01:04 UTC
-Received: from flow-b8-smtp.messagingengine.com
- (flow-b8-smtp.messagingengine.com [202.12.124.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15AE110E451
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:01:04 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailflow.stl.internal (Postfix) with ESMTP id 2EB5713002D8;
- Fri, 17 Jul 2026 04:54:23 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-02.internal (MEProxy); Fri, 17 Jul 2026 04:54:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1784278463; x=
- 1784282063; bh=seSFgE6LbXWJo7YCW4g2AAwmvQGJEAvcWH4KkhFCsJM=; b=s
- A2LY6StLVISCxwAPHXQfXhUiCfRml/tnFOSnuWFekpdGRECODNqylKed2UDPgpEQ
- R4u7uDgza8Ms/c4m06TJxTQhv6VenVyWeBBiGJ9iD6ZrdcWKi+3nh07Fylb8QakG
- wmz8FthpQTstXFd0h/FsSyUn8S25N6lmqkyV5vsZhPqQn9Bswrt9Y/2x4Xcq7c6p
- Tg5Gf7CqiQVFhDLAvReBTdxWz7EnR+hD0RviocZO2nJJTfX7FJXVm1gxw9qtKMoF
- T4ekSJQEx0mE1TJK2LT1myLeJcNGXF3TSx2B9tGyhj8s/BqUoF0mi/RhoFEk75xW
- oBRoTJ1u+AFfv1R60ohTQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; t=1784278463; x=1784282063; bh=s
- eSFgE6LbXWJo7YCW4g2AAwmvQGJEAvcWH4KkhFCsJM=; b=gCC3gjV+EdZTBq4bq
- DDafDwV+5Z3DwA4HaL8O9Etuph+yJ4/tEFfphuKZYoYXrLQIVVDyiQ+JAwq01upD
- IcCb0hkTe47tEUIDOo5xxdRAheM4HoMeeYv36/l/6Pc2bbUypWf8hz1vsl8CiTNj
- wSP818hJgF/MFIv1Lji6MnkbtTXzNe983BwI28BLwkeMYsGbUwVng+045QoK5kGc
- RsEiffiLD0B1SWQYn8L/Ei7MeprA0K2Q+cuZDRpDRrfzvZaMOchnABAmNbiW0dbS
- PPAINcY+cOYEY3j+AVOxqPDWZ1exB7iGP9VfZGpcs7Vk7wOM1zON+fZVX/GVMNEi
- PV+YQ==
-X-ME-Sender: <xms:vu1Zaq-4CViVdVAO5QfSylJY4jc5W-pxyVuypFHHXmF97tFXAJv5Xw>
- <xme:vu1ZamkraBfanLyKmnhnBOMWgGHOpgdB2No_ZTlm2UccstysCPMOl4W3xVOGUzCsI
- y5YMbXMYMl5oyEdMxc5R03QfwPECKrhfDXjSNl56SpwPPfcoxs9UrI>
-X-ME-Received: <xmr:vu1Zari4Oqr2WKeC0vR-sxpI5V9visCVgxwAielS3DREzawnU_mtmX03tiq0BQ3fDImIqYWZdQ1QT7cK6EY>
-X-ME-Proxy-Cause: dmFkZTFS7GW/vS+PGg3aNaRtXNWwH13wr4t6a3PsYvzLEfoa0d1tCLQMk4kuPOyqJxWYg8
- zWRgYifu3Q3qEvL/I6D+A7sONbehMF6Fzv0Jx15W8Bp0zPI2L6EoHnTvsn7KCzlmdcjq5Z
- AMiUX8pm/4UU/5q2rly/ctUYuGrpfv6aggolOMe4+7cw+YQgQv04wJ8otXu77hR4cT4fFc
- rauulgYGXJAH/ttinZ2FdpHwYOQghdgc8wZDZhtrydZHcBfVIkqxRabCZivPsjLLb49//R
- HUixI1q1RTZqMytwufV0grN2inkZxcvjyE8RnYSpDV3z9U1hNPWgMeNXqfzcYN3TNROTr7
- GhS8KrsazkGH+zkMmhFLe3IdUu0u3+BEObGJscKE+FletVLXmM3B/fQEURP4CTEW7qnPaE
- yjSppUj3XwD/XHmxEA3F2rZS06Vive3UE8t8mrDi1iTnX1qIGvYraTJNz9Hgo0d5QJJsCq
- 997OIktKiWGBO8CyF6vsT4A+xqrByJkBpQ3CTV51agGvPysSXOvVk+XDGi1rNMBS1y2nEH
- PQAV3ZZaEAAKBio9dilm37IvEKROB2cU2YyK9nPacFJS6VC3FLKmPxl49flgDLVkLJVRJn
- dMG0EOfIE2rbZimUmbckSkZcLeRA7uAupals/u0dwJhPkxNHV3uBzEpkvvQw
-X-ME-Proxy: <xmx:vu1ZambgCGrRKcqLU9HYY6IIOgDipJH64hAnShF0m2Y6uQzRCaFyYQ>
- <xmx:vu1ZanHo1uw2xaz4U4xCroXoJE1LDwG-XYuxkEp9sOEisft14ZP0-g>
- <xmx:vu1ZarYU3vI8exNxPTfv_2HHV6jkdeqSc27m_p8K0LsV8ESjrJyznQ>
- <xmx:vu1Zag13vOSGpedhDYw5-qAjs5fv5JppAq51RW0ho8h_t-D_eQIjaw>
- <xmx:vu1ZanPL4Q1vl4TXp1fX0FjBPQ7wUM1iB0gV_3waXRqJjBnaFOMcRTav>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 17 Jul 2026 04:54:17 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [RFC PATCH 6/9] iommu/rockchip: take all DT clocks
-Date: Fri, 17 Jul 2026 20:50:44 +1200
-Message-ID: <20260717085220.3212274-7-gahing@gahingwoo.com>
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82EC910E0A1
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Jul 2026 19:04:06 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-495437bb891so22995785e9.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Jul 2026 12:04:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784487845; x=1785092645; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=bDZJF2FHgZ0pc0vw2vaEItundHS+IICtSs7RbOX6+08=;
+ b=LmqSYfnTryHwNKEMELYqXK8IPHZSSLmHLSH7kBjZ5QTb9E92pe/8rqW0C20POd+7zA
+ PW3gEs9Z4jRRSWyHY6sEBSxYYRh977ls7mr7hRwlH7JcoDuJ/vRZVFGqGp5FFW1fildO
+ uy1JUCSbBdgWL1xCrjOlK3bKwMXfsVR1iZQe7EA5w/BWS9S8RtB8Vu13RSqd9+Cv9CkF
+ m3k0c6apH+6cNSzC338bchoPlJkDZcTg8PX8EjyK9wvWhfnqcBA0KjhGVLjoawe3gk+c
+ NIl9u0OP388Z0nUOuS4J37INkdMB2new1qI8my3asUDpLy9LH39iUyRIncxlG6S5qWk5
+ WnLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784487845; x=1785092645;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=bDZJF2FHgZ0pc0vw2vaEItundHS+IICtSs7RbOX6+08=;
+ b=NbqOpP+ddQ4m7LadwDR3y+bVY6eJlMhvEgKrd8ZDbR6BsggxY774wsKsmuZfX0CwX6
+ 3mIh/ThAZbJ2WKBbqp0kCouCvqtZJe1O8K/VgG1IUy2yQru7n1hZYmEZk7nQWGmmJ9zF
+ gSKpcz5YVB1pUPNJ/lJCfwIsiCs0gQd4WYrZQJYR+aZ7jvWmFxqZNntHnBKAmRcyeoqv
+ atPsHZYqi94JyWop0Lv2lSshNp4RapDP8G09fq4+wUiE/2Q2NxTLMFLWzOStoT+1mztY
+ EdCq5heWtQyjKee+Qt0rOzThaY7tTQl+I1J0v0gTKmaXq9lHgQErbSYTmGChEtgX634+
+ elbQ==
+X-Gm-Message-State: AOJu0YzeHLjQjpwPXNiiDuzONkOjC1HC9CFkQ0hm1J3mbmoN45GDPXrm
+ dpfCfN2HptVvThlSBuRGIFaOV0I1rLQVQXk7TMIUmi1WDTh+kMrdS6i1
+X-Gm-Gg: AfdE7cnW9+SdJkQ7St8qIhgNqPT9TnCaUEONZ19SaX2sd9eme2vzKtkZKobyas/JHIa
+ URbu5QtFXcbJjP8gnKHvZ1Ipjk2YrehNvghX6pMSCIE8khEnVKtnwgHmSE6uALYzfdg2Rkjmjod
+ 7YV/4f3y6yFGhXwHyybVzHens7IIMZQsbP+U+h6w+VRObJleHJOBQ6LyshXVkB9QtJ7BhlVnOdH
+ KO/joqRd0t7djycaEd5RHd+k/mXKXEofjxakPKq2lzyy/h70LFe/LlXI2RXzG07dZMQ5fFbJWPn
+ GchaU8H41oy+q5aItQ2FIwxDAXnOc5+DhUX2Zi4E1gksFpMlcPbcHxY5v7i9k5kQlQZno0MwTJj
+ NqA0ZSp5IejWnKZ1s+2EUvm4wm7lAqtP8eOsXtUkvBDNZbJN6nAkWl5UwXUkajVCOmarY8oYkxr
+ /Fhbd1ZtXbNP937Rpt97OMv0e0Zol2u/1bux85zA==
+X-Received: by 2002:a05:600c:3b88:b0:495:495f:bc30 with SMTP id
+ 5b1f17b1804b1-4954a3391femr121619125e9.12.1784487844829; 
+ Sun, 19 Jul 2026 12:04:04 -0700 (PDT)
+Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4954a2a2504sm241425285e9.2.2026.07.19.12.04.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 19 Jul 2026 12:04:04 -0700 (PDT)
+From: Michail Tatas <michail.tatas@gmail.com>
+To: michael@amarulasolutions.com, neil.armstrong@linaro.org,
+ jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dianders@chromium.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Michail Tatas <michail.tatas@gmail.com>
+Subject: [PATCH v2 1/3] drm/panel: ilitek-ili9805: Use _multi variants
+Date: Sun, 19 Jul 2026 22:03:55 +0300
+Message-ID: <20260719190358.438699-2-michail.tatas@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260717085220.3212274-1-gahing@gahingwoo.com>
-References: <20260717085220.3212274-1-gahing@gahingwoo.com>
+In-Reply-To: <20260719190358.438699-1-michail.tatas@gmail.com>
+References: <20260719190358.438699-1-michail.tatas@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
@@ -103,69 +91,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-rk_iommu only enabled a fixed {aclk,iface} pair. On the RK3576 NPU the
-MMU sits behind the CBUF/DSU gates, so writes to DTE_ADDR are silently
-dropped until those clocks run too (reads work, writes need more clocks).
-Take every clock described in the DT for the IOMMU instead of a fixed
-pair, so a platform can list the full set it needs.
+Convert functions mipi_dsi_* to mipi_dsi_*_multi as per the
+gpu/todo file.
+The multi variant of these functions include improved error
+handling.
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
 ---
- drivers/iommu/rockchip-iommu.c | 30 ++++++++++--------------------
- 1 file changed, 10 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 51 +++++---------------
+ 1 file changed, 13 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
-index ce586919b..49c841095 100644
---- a/drivers/iommu/rockchip-iommu.c
-+++ b/drivers/iommu/rockchip-iommu.c
-@@ -93,11 +93,6 @@ struct rk_iommu_domain {
- 	struct iommu_domain domain;
- };
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
+index e6c483851f1f..7e9587afebbe 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
+@@ -159,36 +159,23 @@ static int ili9805_power_off(struct ili9805 *ctx)
  
--/* list of clocks required by IOMMU */
--static const char * const rk_iommu_clocks[] = {
--	"aclk", "iface",
--};
--
- struct rk_iommu_ops {
- 	phys_addr_t (*pt_address)(u32 dte);
- 	u32 (*mk_dtentries)(dma_addr_t pt_dma);
-@@ -1274,25 +1269,20 @@ static int rk_iommu_probe(struct platform_device *pdev)
- 	iommu->reset_disabled = device_property_read_bool(dev,
- 					"rockchip,disable-mmu-reset");
+ static int ili9805_activate(struct ili9805 *ctx)
+ {
+-	struct mipi_dsi_device *dsi = ctx->dsi;
+-	struct device *dev = &dsi->dev;
+-	int i, ret;
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++	int i;
  
--	iommu->num_clocks = ARRAY_SIZE(rk_iommu_clocks);
--	iommu->clocks = devm_kcalloc(iommu->dev, iommu->num_clocks,
--				     sizeof(*iommu->clocks), GFP_KERNEL);
--	if (!iommu->clocks)
--		return -ENOMEM;
--
--	for (i = 0; i < iommu->num_clocks; ++i)
--		iommu->clocks[i].id = rk_iommu_clocks[i];
--
- 	/*
--	 * iommu clocks should be present for all new devices and devicetrees
--	 * but there are older devicetrees without clocks out in the wild.
--	 * So clocks as optional for the time being.
-+	 * Take every clock the devicetree provides.  Most IOMMU instances
-+	 * need exactly "aclk" + "iface", but e.g. the RK3576 NPU IOMMUs sit
-+	 * behind additional gates (CBUF/DSU) whose clocks must be running
-+	 * for register writes to land.  Clocks stay optional because there
-+	 * are older devicetrees without clocks out in the wild.
- 	 */
--	err = devm_clk_bulk_get(iommu->dev, iommu->num_clocks, iommu->clocks);
--	if (err == -ENOENT)
-+	err = devm_clk_bulk_get_all(iommu->dev, &iommu->clocks);
-+	if (err == -ENOENT || err == 0)
- 		iommu->num_clocks = 0;
--	else if (err)
-+	else if (err < 0)
- 		return err;
-+	else
-+		iommu->num_clocks = err;
+ 	for (i = 0; i < ctx->desc->init_length; i++) {
+ 		const struct ili9805_instr *instr = &ctx->desc->init[i];
  
- 	err = clk_bulk_prepare(iommu->num_clocks, iommu->clocks);
- 	if (err)
+-		ret = mipi_dsi_dcs_write_buffer(ctx->dsi, instr->data, instr->len);
+-		if (ret < 0)
+-			return ret;
++		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, instr->data, instr->len);
+ 
+ 		if (instr->delay > 0)
+-			msleep(instr->delay);
+-	}
+-
+-	ret = mipi_dsi_dcs_exit_sleep_mode(ctx->dsi);
+-	if (ret) {
+-		dev_err(dev, "Failed to exit sleep mode (%d)\n", ret);
+-		return ret;
++			mipi_dsi_msleep(&dsi_ctx, instr->delay);
+ 	}
+ 
+-	usleep_range(5000, 6000);
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+ 
+-	ret = mipi_dsi_dcs_set_display_on(ctx->dsi);
+-	if (ret) {
+-		dev_err(dev, "Failed to set display ON (%d)\n", ret);
+-		return ret;
+-	}
+-
+-	return 0;
++	return dsi_ctx.accum_err;
+ }
+ 
+ static int ili9805_prepare(struct drm_panel *panel)
+@@ -211,25 +198,13 @@ static int ili9805_prepare(struct drm_panel *panel)
+ 
+ static int ili9805_deactivate(struct ili9805 *ctx)
+ {
+-	struct mipi_dsi_device *dsi = ctx->dsi;
+-	struct device *dev = &dsi->dev;
+-	int ret;
+-
+-	ret = mipi_dsi_dcs_set_display_off(ctx->dsi);
+-	if (ret < 0) {
+-		dev_err(dev, "Failed to set display OFF (%d)\n", ret);
+-		return ret;
+-	}
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+ 
+-	usleep_range(5000, 10000);
+-
+-	ret = mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
+-	if (ret < 0) {
+-		dev_err(dev, "Failed to enter sleep mode (%d)\n", ret);
+-		return ret;
+-	}
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	mipi_dsi_usleep_range(&dsi_ctx, 5000, 10000);
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+ 
+-	return 0;
++	return dsi_ctx.accum_err;
+ }
+ 
+ static int ili9805_unprepare(struct drm_panel *panel)
 -- 
 2.43.0
 
