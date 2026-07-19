@@ -4,54 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6E03C4452F
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3313C44532
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02A7F10E791;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1CE10E797;
 	Mon, 20 Jul 2026 07:15:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mieulab.com header.i=@mieulab.com header.b="QPMlD6/O";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="M7RZagub";
 	dkim-atps=neutral
-Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com
- [95.215.58.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FD1210E450
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Jul 2026 11:25:22 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mieulab.com; s=key1;
- t=1784373487;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iX+mNcsLzoRlbFysdi2lELSN0lTLQ6Chr+xxoRDbP5k=;
- b=QPMlD6/O5/Lsvl23y5B4KKBWFZMRIMHic9yi0aOgL8KgoVFqgXC765fppxcTzX/tAlZUsr
- BWmeHq/uIjJkvjHNlG5xgqUxgd3zu2rdQTWLl2lf1zNyKnN0u/SiWuyif8GwCxVFXtKoHT
- MZe52lPofJxNEZXBlPHi3XNOH084F5Ypk64LgnlrFGH6icm/iT7OZ8CCBwihHJYoeXv6o1
- SlpEy/+K9RSVS9PVcvnkisHCpnMRoNvz0VilZU6fQeiIIg4dCNPIKm2mqYjWEsutAfRXVD
- FOAHNBF3fxg7NA4KcP094WBjg1jNl53PkRL7V/dmUYUXuQ9xsBLLOYMYX1XQ0w==
-From: Zinan Zhou <zinan@mieulab.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Zinan Zhou <zinan@mieulab.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 340AE10E05B;
+ Sun, 19 Jul 2026 23:28:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=cfmxZTRHizk/vTuU52QMn9mhqbO5m9+SAMKuRmAvyaA=; b=M7RZagubyQWneyf8CpO11T6zkH
+ oSEX2sg4tYx/HH+bDKBj2UwtwOIoy4Qcp5uZ6nYeyaoyXQrEH3V895vr6Au+G2qgO/l5eF2l7U3FP
+ /HcFv01XhCQqu4dxKCI9BQklKawGn1zJjFozWAp3kHOy0jiELXl/9/3sCrJOOAsVuXUqU/mU8h0+y
+ tIMU4RSp02Rrr/jnRMoh8E9A1nLnOw/ykVqRYP7ZG3wfp0woLPMwwX9EC2linQM6EQvkNisSHtB9x
+ ERx+rUXNT8fypC7kYytE99HPdXm/gE/9CaGr+ws6gYgC9JIuXcXrWKUClClmNzVJeFsVur36mWSCU
+ LrGYScvA==;
+Received: from [12.151.47.154] (helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1wlaur-00000005WHA-1D0p; Sun, 19 Jul 2026 23:27:25 +0000
+Date: Sun, 19 Jul 2026 19:27:23 -0400
+From: "Liam R. Howlett" <liam@infradead.org>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
+ Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>, 
+ Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ SJ Park <sj@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
+ Peter Xu <peterx@redhat.com>, 
+ Kees Cook <kees@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 2/2] drm/meson: add GXLX2 HDMI register support
-Date: Sat, 18 Jul 2026 20:15:27 +0900
-Message-ID: <20260718111527.119231-3-zinan@mieulab.com>
-In-Reply-To: <20260718111527.119231-1-zinan@mieulab.com>
-References: <20260718111527.119231-1-zinan@mieulab.com>
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>, 
+ Shameer Kolothum <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev,
+ iommu@lists.linux.dev, 
+ kasan-dev@googlegroups.com, linux-sgx@vger.kernel.org,
+ etnaviv@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, 
+ linux-tegra@vger.kernel.org, kvm@vger.kernel.org, 
+ Russell King <linux+etnaviv@armlinux.org.uk>
+Subject: Re: [PATCH v2 12/33] MAINTAINERS: Move mm/interval_tree.c to rmap
+ section
+Message-ID: <qkzthzitcsa3ckb2c75t374ceggewbdzmrzmuq75p4c5qugq3v@6jodi5cilthv>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+ <20260710-b4-pre-scalable-cow-v2-12-2a5aa403d977@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-12-2a5aa403d977@kernel.org>
 X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,141 +134,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-GXLX2 combines a GXL-like display pipeline and HDMI PHY with directly
-mapped DesignWare and TOP registers. Reusing the indirect GX callbacks
-returns an invalid HDMI controller ID and prevents the HDMI component from
-binding.
+On 26/07/10 09:16PM, Lorenzo Stoakes wrote:
+> This file implements code for the interval trees used by the file and anon
+> rmap implementation, so belongs in the rmap section.
+> 
+> Acked-by: Pedro Falcato <pfalcato@suse.de>
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-Add GXLX2 match data using the existing direct register callbacks, while
-retaining the GXL PHY initialization values. Do not enable APB3
-fail-on-error through the legacy indirect control-register offsets for a
-direct-register device. Add the compatible to the VPU component match list
-and use the GXLX2-specific HHI_HDMI_PHY_CNTL0 value for the 297 MHz
-pixel-clock bucket.
+Acked-by:  Liam R. Howlett (Oracle) <liam@infradead.org>
 
-The register layout and the 297 MHz value were determined by analysis of
-the HG680-LC vendor kernel. Public Amlogic-derived source independently
-documents the direct access mechanism and the ordinary GXL PHY values; no
-vendor code is copied by this change.
-
-An equivalent Linux 6.6 implementation was tested on an HG680-LC with 1080p
-HDMI video and two-channel HDMI audio. The Linux 6.12 port boots from eMMC
-with working Ethernet, 1080p and native 1440p video, and two-channel HDMI
-audio. This port has passed arm64 compilation; 4K30 physical validation of
-the 297 MHz branch remains pending.
-
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Zinan Zhou <zinan@mieulab.com>
----
- drivers/gpu/drm/meson/meson_drv.c     |  1 +
- drivers/gpu/drm/meson/meson_dw_hdmi.c | 33 +++++++++++++++++++++++----
- 2 files changed, 29 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/meson/meson_drv.c b/drivers/gpu/drm/meson/meson_drv.c
-index 49ff9f1f16d3..5c136743e60c 100644
---- a/drivers/gpu/drm/meson/meson_drv.c
-+++ b/drivers/gpu/drm/meson/meson_drv.c
-@@ -469,6 +469,7 @@ static void meson_drv_shutdown(struct platform_device *pdev)
- static const struct of_device_id components_dev_match[] = {
- 	{ .compatible = "amlogic,meson-gxbb-dw-hdmi" },
- 	{ .compatible = "amlogic,meson-gxl-dw-hdmi" },
-+	{ .compatible = "amlogic,meson-gxlx2-dw-hdmi" },
- 	{ .compatible = "amlogic,meson-gxm-dw-hdmi" },
- 	{ .compatible = "amlogic,meson-g12a-dw-hdmi" },
- 	{}
-diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-index 1004108fb7ca..f02d6a513dd3 100644
---- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
-+++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-@@ -136,6 +136,8 @@ struct meson_dw_hdmi_data {
- 				     unsigned int addr, unsigned int data);
- 	u32 cntl0_init;
- 	u32 cntl1_init;
-+	u32 phy_cntl0_3g;
-+	bool uses_direct_regs;
- };
- 
- struct meson_dw_hdmi {
-@@ -287,7 +289,9 @@ static void meson_hdmi_phy_setup_mode(struct meson_dw_hdmi *dw_hdmi,
- 	/* For 420, pixel clock is half unlike venc clock */
- 	if (mode_is_420) pixel_clock /= 2;
- 
--	if (dw_hdmi_is_compatible(dw_hdmi, "amlogic,meson-gxl-dw-hdmi") ||
-+	if (dw_hdmi_is_compatible(dw_hdmi,
-+				  "amlogic,meson-gxlx2-dw-hdmi") ||
-+	    dw_hdmi_is_compatible(dw_hdmi, "amlogic,meson-gxl-dw-hdmi") ||
- 	    dw_hdmi_is_compatible(dw_hdmi, "amlogic,meson-gxm-dw-hdmi")) {
- 		if (pixel_clock >= 371250) {
- 			/* 5.94Gbps, 3.7125Gbps */
-@@ -295,7 +299,8 @@ static void meson_hdmi_phy_setup_mode(struct meson_dw_hdmi *dw_hdmi,
- 			regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL3, 0x2136315b);
- 		} else if (pixel_clock >= 297000) {
- 			/* 2.97Gbps */
--			regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL0, 0x33303382);
-+			regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL0,
-+				     dw_hdmi->data->phy_cntl0_3g);
- 			regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL3, 0x2036315b);
- 		} else if (pixel_clock >= 148500) {
- 			/* 1.485Gbps */
-@@ -586,6 +591,7 @@ static const struct meson_dw_hdmi_data meson_dw_hdmi_gxl_data = {
- 	.dwc_write = dw_hdmi_dwc_write,
- 	.cntl0_init = 0x0,
- 	.cntl1_init = PHY_CNTL1_INIT,
-+	.phy_cntl0_3g = 0x33303382,
- };
- 
- static const struct meson_dw_hdmi_data meson_dw_hdmi_g12a_data = {
-@@ -595,6 +601,19 @@ static const struct meson_dw_hdmi_data meson_dw_hdmi_g12a_data = {
- 	.dwc_write = dw_hdmi_g12a_dwc_write,
- 	.cntl0_init = 0x000b4242, /* Bandgap */
- 	.cntl1_init = PHY_CNTL1_INIT,
-+	.uses_direct_regs = true,
-+};
-+
-+/* GXLX2 uses the direct register layout with the older GXL PHY setup. */
-+static const struct meson_dw_hdmi_data meson_dw_hdmi_gxlx2_data = {
-+	.top_read = dw_hdmi_g12a_top_read,
-+	.top_write = dw_hdmi_g12a_top_write,
-+	.dwc_read = dw_hdmi_g12a_dwc_read,
-+	.dwc_write = dw_hdmi_g12a_dwc_write,
-+	.cntl0_init = 0x0,
-+	.cntl1_init = PHY_CNTL1_INIT,
-+	.phy_cntl0_3g = 0x33353382,
-+	.uses_direct_regs = true,
- };
- 
- static void meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
-@@ -612,8 +631,8 @@ static void meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
- 	reset_control_reset(meson_dw_hdmi->hdmitx_ctrl);
- 	reset_control_reset(meson_dw_hdmi->hdmitx_phy);
- 
--	/* Enable APB3 fail on error */
--	if (!meson_vpu_is_compatible(priv, VPU_COMPATIBLE_G12A)) {
-+	/* The APB3 control registers exist only with the indirect interface. */
-+	if (!meson_dw_hdmi->data->uses_direct_regs) {
- 		writel_bits_relaxed(BIT(15), BIT(15),
- 				    meson_dw_hdmi->hdmitx + HDMITX_TOP_CTRL_REG);
- 		writel_bits_relaxed(BIT(15), BIT(15),
-@@ -769,7 +788,9 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
- 	dw_plat_data->disable_cec = true;
- 	dw_plat_data->output_port = 1;
- 
--	if (dw_hdmi_is_compatible(meson_dw_hdmi, "amlogic,meson-gxl-dw-hdmi") ||
-+	if (dw_hdmi_is_compatible(meson_dw_hdmi,
-+				  "amlogic,meson-gxlx2-dw-hdmi") ||
-+	    dw_hdmi_is_compatible(meson_dw_hdmi, "amlogic,meson-gxl-dw-hdmi") ||
- 	    dw_hdmi_is_compatible(meson_dw_hdmi, "amlogic,meson-gxm-dw-hdmi") ||
- 	    dw_hdmi_is_compatible(meson_dw_hdmi, "amlogic,meson-g12a-dw-hdmi"))
- 		dw_plat_data->use_drm_infoframe = true;
-@@ -854,6 +875,8 @@ static const struct of_device_id meson_dw_hdmi_of_table[] = {
- 	  .data = &meson_dw_hdmi_gxl_data },
- 	{ .compatible = "amlogic,meson-gxm-dw-hdmi",
- 	  .data = &meson_dw_hdmi_gxl_data },
-+	{ .compatible = "amlogic,meson-gxlx2-dw-hdmi",
-+	  .data = &meson_dw_hdmi_gxlx2_data },
- 	{ .compatible = "amlogic,meson-g12a-dw-hdmi",
- 	  .data = &meson_dw_hdmi_g12a_data },
- 	{ }
--- 
-2.43.0
-
+> ---
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c3e535ca4bef..ef168b583325 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17208,6 +17208,7 @@ R:	Lance Yang <lance.yang@linux.dev>
+>  L:	linux-mm@kvack.org
+>  S:	Maintained
+>  F:	include/linux/rmap.h
+> +F:	mm/interval_tree.c
+>  F:	mm/page_vma_mapped.c
+>  F:	mm/rmap.c
+>  F:	tools/testing/selftests/mm/rmap.c
+> @@ -17313,7 +17314,6 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+>  F:	include/trace/events/mmap.h
+>  F:	fs/proc/task_mmu.c
+>  F:	fs/proc/task_nommu.c
+> -F:	mm/interval_tree.c
+>  F:	mm/mincore.c
+>  F:	mm/mlock.c
+>  F:	mm/mmap.c
+> 
+> -- 
+> 2.55.0
+> 
