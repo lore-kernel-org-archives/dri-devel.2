@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8629BC44520
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 21:52:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 940CAC44520
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 21:52:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7A9310E208;
-	Mon, 20 Jul 2026 21:52:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEFEA10E1EB;
+	Mon, 20 Jul 2026 21:52:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="dwnBrBtH";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="WQv0UcCP";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5912010E20C
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 21:52:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9835610E1EB
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 21:52:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1784584326;
+ s=mimecast20190719; t=1784584336;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BAzHEt/JUKcSSo+NrPYMNWpznNd/HnyKFTRe4NDoHyE=;
- b=dwnBrBtHoSYUVrh2LHjoQEWMEKK/ANPY1ANLoMmnGRY+YS91Ov8uDTJqNVh7v3ePUBTi/o
- ghiSTVWKI/vxZ4OOeB9ApUvkvvZEXjyZVr5RyKtUjlMfOYCQwPqREt200ONt7pSMxam9XI
- I/njJ27HnfFhrkULr+5vhZvCpTiQ+0Y=
+ bh=4Abm8mO2p2VoBX8nFEzar8JO9CYwOTrVGq6n2nwojj8=;
+ b=WQv0UcCPho255cODJ7hdlkGXwJnXEmPxR/QgG2X83M/yPOnCd1mDo0kO9f6b3VMZbgeDS6
+ H8XsuY1DTfXPFWACKlORLJ0Edx64JTKr7G2H/bphn77LxZwFe/+gHEcYUCS1RzzTo1BzZB
+ yfYq5rHfYy7Eh6yy1WzABAQukTDK6Oo=
 Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-132-PGvBqEc6OX6dfgpXMwxmiQ-1; Mon,
- 20 Jul 2026 17:52:00 -0400
-X-MC-Unique: PGvBqEc6OX6dfgpXMwxmiQ-1
-X-Mimecast-MFC-AGG-ID: PGvBqEc6OX6dfgpXMwxmiQ_1784584318
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-82-WZdwZoT7NWSdinl9n9f_vA-1; Mon,
+ 20 Jul 2026 17:52:10 -0400
+X-MC-Unique: WZdwZoT7NWSdinl9n9f_vA-1
+X-Mimecast-MFC-AGG-ID: WZdwZoT7NWSdinl9n9f_vA_1784584328
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id DCF89195E924; Mon, 20 Jul 2026 21:51:57 +0000 (UTC)
+ id 4546C1964CD2; Mon, 20 Jul 2026 21:52:08 +0000 (UTC)
 Received: from GoldenWind.redhat.com (unknown [10.22.88.114])
  by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 6BEC51800764; Mon, 20 Jul 2026 21:51:55 +0000 (UTC)
+ id DA1F1180075F; Mon, 20 Jul 2026 21:52:05 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
@@ -56,17 +56,18 @@ Cc: "Faith Ekstrand" <faith.ekstrand@collabora.com>,
  "David Airlie" <airlied@gmail.com>,
  "Thomas Zimmermann" <tzimmermann@suse.de>,
  "Maxime Ripard" <mripard@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Jani Nikula" <jani.nikula@intel.com>,
  "Daniel Stone" <daniels@collabora.com>, "James Jones" <jajones@nvidia.com>,
  "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v3 1/3] drm/nouveau/kms/nv50-: Add .blend_modes to
- nv50_wndw_func
-Date: Mon, 20 Jul 2026 17:36:16 -0400
-Message-ID: <20260720215058.398210-2-lyude@redhat.com>
+Subject: [PATCH v3 2/3] drm/nouveau/kms/nv50-: Introduce
+ nv50_wndw_default_state()
+Date: Mon, 20 Jul 2026 17:36:17 -0400
+Message-ID: <20260720215058.398210-3-lyude@redhat.com>
 In-Reply-To: <20260720215058.398210-1-lyude@redhat.com>
 References: <20260720215058.398210-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-MFC-PROC-ID: 3iOVh7Z06dg-aE2k-WIQCsJFQ5X2vGY7QSYPbtfHrXo_1784584318
+X-Mimecast-MFC-PROC-ID: upzloxTdO0lX-3Qt65UDV8poVbvlLphE6KZ1M0pSOzg_1784584328
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -85,193 +86,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-At the moment, we currently (incorrectly) only expose a blend property on
-the plane if we have a nv50_wndw_func->blend_set function for the given
-wndw type. But we need to expose a blend property for all types of planes
-that can display color formats with an alpha channel.
+While we don't currently read-in the hardware state of planes, now that
+we're about to start exposing blend properties for all planes that can
+support alpha channels: We need to make sure that the initial atomic state
+for a wndw always starts off with a supported value in pixel_blend_mode.
 
-Prepare for doing this by introducing a way of looking up the supported
-blend modes for a type of wndw by introducing .blend_modes, which describes
-all possible blending modes nouveau currently supports for a type of wndw.
+The easiest way to do this is to introduce a nv50_wndw_default_state()
+function, and use it in nv50_display_read_hw_state() - and use that
+function to enforce a valid value for pixel_blend_mode during driver
+startup.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-
 ---
 V3:
-* Don't forget to specify .blend_modes for base.
+* Fix incorrect bitmask checking in nv50_wndw_default_state()
 
- drivers/gpu/drm/nouveau/dispnv50/base.h     |  6 ++++++
- drivers/gpu/drm/nouveau/dispnv50/base507c.c |  1 +
- drivers/gpu/drm/nouveau/dispnv50/base827c.c |  1 +
- drivers/gpu/drm/nouveau/dispnv50/base907c.c |  1 +
- drivers/gpu/drm/nouveau/dispnv50/curs507a.c |  3 +++
- drivers/gpu/drm/nouveau/dispnv50/wndw.h     | 10 ++++++++++
- drivers/gpu/drm/nouveau/dispnv50/wndwc37e.c |  1 +
- drivers/gpu/drm/nouveau/dispnv50/wndwc57e.c |  1 +
- drivers/gpu/drm/nouveau/dispnv50/wndwc67e.c |  1 +
- drivers/gpu/drm/nouveau/dispnv50/wndwca7e.c |  1 +
- 10 files changed, 26 insertions(+)
+ drivers/gpu/drm/nouveau/dispnv50/disp.c |  4 ++++
+ drivers/gpu/drm/nouveau/dispnv50/wndw.c | 22 ++++++++++++++++++++++
+ drivers/gpu/drm/nouveau/dispnv50/wndw.h |  1 +
+ 3 files changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/base.h b/drivers/gpu/drm/nouveau/dispnv50/base.h
-index 085bd3aeb40b6..fbfd62d8fc798 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/base.h
-+++ b/drivers/gpu/drm/nouveau/dispnv50/base.h
-@@ -1,5 +1,7 @@
- #ifndef __NV50_KMS_BASE_H__
- #define __NV50_KMS_BASE_H__
-+#include <drm/drm_blend.h>
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index 364227f5456f1..2c66e480b5116 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -2768,6 +2768,7 @@ nv50_display_read_hw_state(struct nouveau_drm *drm)
+ {
+ 	struct drm_device *dev = drm->dev;
+ 	struct drm_encoder *encoder;
++	struct drm_plane *plane;
+ 	struct drm_modeset_acquire_ctx ctx;
+ 	struct nv50_disp *disp = nv50_disp(dev);
+ 	int ret;
+@@ -2781,6 +2782,9 @@ nv50_display_read_hw_state(struct nouveau_drm *drm)
+ 		nv50_display_read_hw_or_state(dev, disp, nouveau_encoder(encoder));
+ 	}
+ 
++	drm_for_each_plane(plane, dev)
++		nv50_wndw_default_state(nv50_wndw(plane));
 +
- #include "wndw.h"
+ 	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ }
  
- int base507c_new(struct nouveau_drm *, int, s32, struct nv50_wndw **);
-@@ -24,4 +26,8 @@ extern const struct nv50_wndw_func base907c;
- int base917c_new(struct nouveau_drm *, int, s32, struct nv50_wndw **);
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.c b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+index 2635458d52acc..dfa1ba45acd99 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/wndw.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+@@ -848,6 +848,28 @@ static const u64 nv50_cursor_format_modifiers[] = {
+ 	DRM_FORMAT_MOD_INVALID,
+ };
  
- int nv50_base_new(struct nouveau_drm *, int head, struct nv50_wndw **);
++/*
++ * Setup defaults for the atomic wndw state
++ */
++void
++nv50_wndw_default_state(struct nv50_wndw *wndw)
++{
++	struct nv50_wndw_atom *armw = nv50_wndw_atom(wndw->plane.state);
++	const unsigned int blend_modes = wndw->func->blend_modes;
 +
-+/* The only blend mode supported by base channels */
-+#define BASE_BLEND_MODES BIT(DRM_MODE_BLEND_PIXEL_NONE)
++	drm_modeset_lock_assert_held(&wndw->plane.mutex);
 +
- #endif
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/base507c.c b/drivers/gpu/drm/nouveau/dispnv50/base507c.c
-index a431f6c5f6fa9..41b648ab3c5e5 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/base507c.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/base507c.c
-@@ -297,6 +297,7 @@ base507c = {
- 	.image_set = base507c_image_set,
- 	.image_clr = base507c_image_clr,
- 	.update = base507c_update,
-+	.blend_modes = BASE_BLEND_MODES,
- };
- 
++	/* Ensure the plane's atomic state didn't default to a pixel_blend_mode we don't support */
++	if (blend_modes && (!(BIT(armw->state.pixel_blend_mode) & blend_modes))) {
++		if (blend_modes & BIT(DRM_MODE_BLEND_COVERAGE))
++			armw->state.pixel_blend_mode = DRM_MODE_BLEND_COVERAGE;
++		else if (blend_modes & BIT(DRM_MODE_BLEND_PREMULTI))
++			armw->state.pixel_blend_mode = DRM_MODE_BLEND_PREMULTI;
++		else if (blend_modes & BIT(DRM_MODE_BLEND_PIXEL_NONE))
++			armw->state.pixel_blend_mode = DRM_MODE_BLEND_PIXEL_NONE;
++	}
++}
++
  int
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/base827c.c b/drivers/gpu/drm/nouveau/dispnv50/base827c.c
-index 4545cc5f3a14b..6c290324b4f3e 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/base827c.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/base827c.c
-@@ -93,6 +93,7 @@ base827c = {
- 	.image_set = base827c_image_set,
- 	.image_clr = base507c_image_clr,
- 	.update = base507c_update,
-+	.blend_modes = BASE_BLEND_MODES,
- };
- 
- int
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/base907c.c b/drivers/gpu/drm/nouveau/dispnv50/base907c.c
-index 4a2d5a259e15b..a94d8350224b6 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/base907c.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/base907c.c
-@@ -205,6 +205,7 @@ base907c = {
- 	.image_set = base907c_image_set,
- 	.image_clr = base507c_image_clr,
- 	.update = base507c_update,
-+	.blend_modes = BASE_BLEND_MODES,
- };
- 
- int
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/curs507a.c b/drivers/gpu/drm/nouveau/dispnv50/curs507a.c
-index 1a889139cb053..5f2ff40388e7f 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/curs507a.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/curs507a.c
-@@ -29,6 +29,7 @@
- #include <nvhw/class/cl507a.h>
- 
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_blend.h>
- #include <drm/drm_fourcc.h>
- 
- bool
-@@ -164,6 +165,8 @@ curs507a_wndw = {
- 	.acquire = curs507a_acquire,
- 	.release = curs507a_release,
- 	.prepare = curs507a_prepare,
-+	// TODO: Cursors also support premulti, but we haven't hooked it up anywhere yet.
-+	.blend_modes = BIT(DRM_MODE_BLEND_COVERAGE),
- };
- 
- int
+ nv50_wndw_new_(const struct nv50_wndw_func *func, struct drm_device *dev,
+ 	       enum drm_plane_type type, const char *name, int index,
 diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.h b/drivers/gpu/drm/nouveau/dispnv50/wndw.h
-index 90d100514bef2..81af5c3369d4c 100644
+index 81af5c3369d4c..13f06b7b67611 100644
 --- a/drivers/gpu/drm/nouveau/dispnv50/wndw.h
 +++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.h
-@@ -1,6 +1,8 @@
- #ifndef __NV50_KMS_WNDW_H__
- #define __NV50_KMS_WNDW_H__
- #define nv50_wndw(p) container_of((p), struct nv50_wndw, plane)
-+#include <drm/drm_blend.h>
-+
- #include "disp.h"
- #include "atom.h"
- #include "lut.h"
-@@ -74,6 +76,7 @@ struct nv50_wndw_func {
- 	int (*image_clr)(struct nv50_wndw *);
- 	int (*scale_set)(struct nv50_wndw *, struct nv50_wndw_atom *);
- 	int (*blend_set)(struct nv50_wndw *, struct nv50_wndw_atom *);
-+	unsigned int blend_modes;
+@@ -46,6 +46,7 @@ void nv50_wndw_flush_clr(struct nv50_wndw *, u32 *interlock, bool flush,
+ 			 struct nv50_wndw_atom *);
+ void nv50_wndw_ntfy_enable(struct nv50_wndw *, struct nv50_wndw_atom *);
+ int nv50_wndw_wait_armed(struct nv50_wndw *, struct nv50_wndw_atom *);
++void nv50_wndw_default_state(struct nv50_wndw *wndw);
  
- 	int (*update)(struct nv50_wndw *, u32 *interlock);
- };
-@@ -139,4 +142,11 @@ int wndwca7e_new(struct nouveau_drm *, enum drm_plane_type, int, s32,
- 
- int nv50_wndw_new(struct nouveau_drm *, enum drm_plane_type, int index,
- 		  struct nv50_wndw **);
-+
-+/* A set of blend modes supported by all wndws */
-+#define WNDW_BLEND_MODES               \
-+	  BIT(DRM_MODE_BLEND_COVERAGE) \
-+	| BIT(DRM_MODE_BLEND_PREMULTI) \
-+	| BIT(DRM_MODE_BLEND_PIXEL_NONE)
-+
- #endif
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndwc37e.c b/drivers/gpu/drm/nouveau/dispnv50/wndwc37e.c
-index 554c4f91f8bec..7ab4d532118ee 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/wndwc37e.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/wndwc37e.c
-@@ -343,6 +343,7 @@ wndwc37e = {
- 	.image_set = wndwc37e_image_set,
- 	.image_clr = wndwc37e_image_clr,
- 	.blend_set = wndwc37e_blend_set,
-+	.blend_modes = WNDW_BLEND_MODES,
- 	.update = wndwc37e_update,
- };
- 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndwc57e.c b/drivers/gpu/drm/nouveau/dispnv50/wndwc57e.c
-index d1ca51aae58cd..e220f43b5bca7 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/wndwc57e.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/wndwc57e.c
-@@ -231,6 +231,7 @@ wndwc57e = {
- 	.image_set = wndwc57e_image_set,
- 	.image_clr = wndwc37e_image_clr,
- 	.blend_set = wndwc37e_blend_set,
-+	.blend_modes = WNDW_BLEND_MODES,
- 	.update = wndwc37e_update,
- };
- 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndwc67e.c b/drivers/gpu/drm/nouveau/dispnv50/wndwc67e.c
-index 52af293c98f4a..580cf7abd8193 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/wndwc67e.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/wndwc67e.c
-@@ -95,6 +95,7 @@ wndwc67e = {
- 	.image_set = wndwc67e_image_set,
- 	.image_clr = wndwc37e_image_clr,
- 	.blend_set = wndwc37e_blend_set,
-+	.blend_modes = WNDW_BLEND_MODES,
- 	.update = wndwc37e_update,
- };
- 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndwca7e.c b/drivers/gpu/drm/nouveau/dispnv50/wndwca7e.c
-index 2cec8cfbd5461..d65ec438b434f 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/wndwca7e.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/wndwca7e.c
-@@ -231,6 +231,7 @@ wndwca7e = {
- 	.image_set = wndwca7e_image_set,
- 	.image_clr = wndwca7e_image_clr,
- 	.blend_set = wndwc37e_blend_set,
-+	.blend_modes = WNDW_BLEND_MODES,
- 	.update = wndwc37e_update,
- };
- 
+ struct nv50_wndw_func {
+ 	int (*acquire)(struct nv50_wndw *, struct nv50_wndw_atom *asyw,
 -- 
 2.55.0
 
