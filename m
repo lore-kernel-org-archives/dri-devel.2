@@ -4,87 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9CA8C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 13:50:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F1A4C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 13:55:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11AA810E965;
-	Mon, 20 Jul 2026 13:50:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9000410E942;
+	Mon, 20 Jul 2026 13:55:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="iMwl7Bfv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U2wUoyn/";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C480D10E943
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 13:50:46 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-493f75f7172so79758765e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:50:46 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 660FF10E942
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 13:55:43 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-495437bb891so30662795e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:55:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1784555445; x=1785160245;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=8DVbCeTyRtwdNp19NwSytzMSLYxtjLSi1mLI2nXn1O0=;
- b=iMwl7BfviMJ6GKlHdkmc5kJ/TRyUqDwOFcLX+gQLTJfNIDQgoynOSIQ1ZHtUWPICA2
- GksVzHKCi1SvjDSbm4cwbwtOdC4I+JT0oH0d91VqxszSiT5h0dEYH2llKLhFvINp4O9A
- jckFtwlVzRbrWEGLEYtTF8EXXiYvputvuoGQwSDQHDm1riizTh6NPMolLm70WLCLCXv9
- UvsDrb4d2/aleCZM7hlHeo+GdGdb/ZX9rsbMiNeCJnfc269nOzWfYBgZ90Nwy8lH6dRN
- MU7lfGiJxOKvtp4uSZnMbP9TbAuYNPbRILs27spCHRWBGVixiuY5Mk+TZQNPsnhyma4+
- BYGA==
+ d=gmail.com; s=20251104; t=1784555742; x=1785160542; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=N1G6MUTItawGdl9kT6xgYXezu1UMlR9b+KB/O0a8o3c=;
+ b=U2wUoyn/Z2tl01rXoyOAnmOLRwPIsNSX72szhE/QNxtLn/zmLYsj9arFZARPi1OUie
+ SEkJUyMMZ2JrvQYxWJ66KpzyR6K/sVcgHnoFpCfLvdDrcFRqTYd3CgY974jM6kVIooRT
+ lvLZj4vpwO/FMuS/SvE7eWvaMlQ/Df8xUaTd8mjxxHiQAtYRHzqDX1/m4u1ngur4jsPt
+ FW1mr2xsqzuqAdXBDtMT6n8PGbH+dNvW5gO+Xlpucz1g0rbl/cNDdIypiNoRkvvlr7jq
+ w9sVcMxQQd4YLa8/GOkoreYOiZpLHs6zI2zJEi5Oqe01vCBXZYPn2mnKXFusKKBtIGBr
+ lygw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784555445; x=1785160245;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=8DVbCeTyRtwdNp19NwSytzMSLYxtjLSi1mLI2nXn1O0=;
- b=cRxdLbe6hXyTV99lhKMMxY3F/I7ajP9qZtE5dPnnwntm0797lTDmvL3EXGNVYBoV92
- Z8crIC4QOjbBDJ2JHym58KixIHYnl3CUbwtEMVGs11y+D+pPjvCOX/xoqzIguI9cogul
- pIN4lOYvWZhm+2EjlPvRXsTqYMw9EmDSOyb3JuWqKuArJrukyOZmUrY39FvM8Vnkrb1f
- kYHKifnLAWsDAQf6V6ar8VqeQP0/p8pxDMOcEAvvVlFbKijjcegruDcjQrNanx2mQR7z
- Q5vKmMTP1vEXT/w1Hgttqq493pbqyymJ2870PVLA53YKhkyHCVWET2P2nRz83dnptKGf
- 5cIg==
+ d=1e100.net; s=20251104; t=1784555742; x=1785160542;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=N1G6MUTItawGdl9kT6xgYXezu1UMlR9b+KB/O0a8o3c=;
+ b=TnxJAmKlB3m8Ox6ooJoWTBwWbGDg9FQhbP+3FxZLh5S2fulrBpjmjIXoCcRcuIuv4U
+ 34CuOHj59ZZZHFYPQmtne9JL91nienC7mt/C/wEHcjWqLakqwoApj4w5oN3+UwSld3hy
+ ZTm08YicnnHE3rLsxOtqp+1G/ACf5ShMHhGyjDt56JfoM2D4fwhY4AYHWRgmquLMHSal
+ YZXBKV0ADHDvqElkGtTFCfjofpLd9HgCBGmMNHrIIFtOPBj9C5f6g27b+FejEAHZZfex
+ /Ewkb6rRSTotjx9TisK7Tpk7lfvamlz9QGYrs4Y7iAKaumSlqlARqzgnHuaoGr3xOlfR
+ 4Vcg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqpYjo1+/YOuX1+5jNXKoBujsGHsRWLe4d8n+Lc0an0kzgc4Ss88rKvfN3rvnmkH7t/5WxqcN5I5iM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwEsPJOexd8rtCfwHEr9XNWRNCN90/OLYuzOIDMjFSWZHH6rinh
- dHHmOvKJrdkZZxERv8xxhKU/vBjnFMTEq/HzuQnnWzZL3lSp1WGq8vH10DQ2PQobVmw=
-X-Gm-Gg: AfdE7cmOj6IT2KcoJ6fzokxYING6rpNMKm7pRMBySdAJ4PTue0sDLXqN0sODBfNA4oM
- wq2HBWfisxuqmeNBa3cJiwNFdEi5k+PaT6TbkNSAbAjGN890STDH8Xf+xgDY1NsdiRnQjF5CHPd
- ypnzc8VcztSzFa2j4PZ/R/N3n0BrNn3wsCwwtkDtphLP9lnVmU+brx3qH0TJp5n9F3Zg1hmYWC/
- +K0CVdVB5Rvz/S/SnyeMe46UC1UsAO5zK//KmNb10EZ87V9LabF06X8mf0zuCN1yMNK5PBxQW1Q
- 4nYu6KiPyZw8hNsYd6r9N8BeiEWDY+S7Vvn72IDDvN4CvXKEfiX2IOydmAOrA7yi84YN7eoAnDh
- 6xACQ8dc3cWg24fjIVlHbZwGH7YCeEUNzJ+v5GE5uM6mpsPwDsODDYFv9ezTnCd9aLbRAFDEvx4
- O8dqgSlQwPtq035gDvV2EYpfQubn2KOdbF8dixfsbsU6JzQH/yuG6kQ/kUvZ9j/g8sng==
-X-Received: by 2002:a05:600c:4714:b0:495:3f84:a792 with SMTP id
- 5b1f17b1804b1-4954a3ed494mr165288685e9.12.1784555444675; 
- Mon, 20 Jul 2026 06:50:44 -0700 (PDT)
-Received: from localhost
- (p200300f65f47db048587886ecb5b26b2.dip0.t-ipconnect.de.
- [2003:f6:5f47:db04:8587:886e:cb5b:26b2])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-49563e60fd9sm12792045e9.0.2026.07.20.06.50.43
+ AHgh+Rp4yOkV0NTZlVPdu36xQblw2Thgt58QtA62WJBeZDvdp6acOFnL5ZMZx1xXjJoFlVr4r4FVeXPwMjc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyo4fTaVgIdlZATXsINsm7JCJWCX++opYcKu9x3noP+nF1Q2TtY
+ a+gVJHbWYhnaDGuIICWiYBMa5SMdoQzoE43eeTj+kcentri1y11Kq4Tt
+X-Gm-Gg: AfdE7cnk3o+6kIIdFOiRqvos0sl3kP9dmlsyrWokGHWYtmZBbtLTc4g/JWnbCClcnjL
+ Y2K3VttinjawpB3WCjFRyIHNqYPC8iTsl9gHBLNgFN/4Z6m4dx9CyYWcHKiwtVu/KLDmfYTEoNn
+ AmUcCJfj+B3kyPXTjkhbvcNmQson7fxFfelLMDB2bPrja1+75tKKvMfzTiiT2uXtN+JnSvE4vIW
+ N9sewzi2VkGviLzR3PIE7UhBPVCWPDjMhRFwp1zb2CtrG/BF8A0mZXSayODg5q9YFzbHwEF6mnl
+ MoY0wi7gVzTp4tNGSfOaBfDFg305ydXnZmSWi44XWIi2bOf1RDYqJ5VSiI9EhBe88pWa0yWHprz
+ TysZvgUCP1Quel7Je8EBL2rszMIAAW60wQ3FrrXQnEX7ohqBnYN3naKJxfv5feDh5840N/mFxDX
+ 12qsuopc0Doxu5ueLipweRvH47Bykt1n6iqyAC+RfJTniVQdno/Q==
+X-Received: by 2002:a05:600c:6289:b0:493:b4a3:5ab0 with SMTP id
+ 5b1f17b1804b1-4954a33dc26mr146084685e9.13.1784555741410; 
+ Mon, 20 Jul 2026 06:55:41 -0700 (PDT)
+Received: from osama.. ([2a02:908:185:7e40:177b:1470:c99b:b6d9])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4954a2b87c6sm512521655e9.7.2026.07.20.06.55.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jul 2026 06:50:43 -0700 (PDT)
-Date: Mon, 20 Jul 2026 15:50:43 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
- Saurabh Sengar <ssengar@linux.microsoft.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Deepak Rawat <drawat.floss@gmail.com>
-Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/4] drm/hyperv: A fix and a few cleanups
-Message-ID: <al4ncjnbM58fyYoM@monoceros>
-References: <cover.1782925276.git.u.kleine-koenig@baylibre.com>
+ Mon, 20 Jul 2026 06:55:40 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/panthor: snapshot firmware interface counts before loops
+Date: Mon, 20 Jul 2026 15:55:18 +0200
+Message-ID: <20260720135518.17927-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="bnxhjx2ywetn23n3"
-Content-Disposition: inline
-In-Reply-To: <cover.1782925276.git.u.kleine-koenig@baylibre.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,44 +92,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The firmware exposes the global group count and per-group stream count in
+the shared control interface. These values are validated before being used
+as loop bounds, but the memory is shared with the MCU firmware and can be
+changed after validation.
 
---bnxhjx2ywetn23n3
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 0/4] drm/hyperv: A fix and a few cleanups
-MIME-Version: 1.0
+Read each count once with READ_ONCE() and use the validated snapshot as the
+loop bound. This keeps the loop bounds consistent with the validation and
+prevents the compiler from reloading a firmware-controlled count during
+iteration.
 
-Hello,
+Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
+Cc: stable@vger.kernel.org
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+ drivers/gpu/drm/panthor/panthor_fw.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-On Wed, Jul 01, 2026 at 07:05:18PM +0200, Uwe Kleine-K=F6nig (The Capable H=
-ub) wrote:
-> while working on a tree-wide cleanup I found a few issues in the
-> drm/hyperv driver that are addressed here.
->=20
-> While the first patch is a fix, the issue is so old (from 2021, included
-> in v5.14-rc1) that applying the series during the next merge window is
-> probably the right choice.
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+index e2fcbd639c3c..6e6da98d795e 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.c
++++ b/drivers/gpu/drm/panthor/panthor_fw.c
+@@ -959,6 +959,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+ 	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
+ 	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
+ 			   ((u64)csg_idx * glb_iface->control->group_stride);
++	u32 stream_num;
+ 	unsigned int i;
+ 
+ 	if (iface_offset > shared_section_sz ||
+@@ -972,8 +973,8 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+ 	csg_iface->output = iface_fw_to_cpu_addr(ptdev, csg_iface->control->output_va,
+ 						 sizeof(*csg_iface->output));
+ 
+-	if (csg_iface->control->stream_num < MIN_CS_PER_CSG ||
+-	    csg_iface->control->stream_num > MAX_CS_PER_CSG)
++	stream_num = READ_ONCE(csg_iface->control->stream_num);
++	if (stream_num < MIN_CS_PER_CSG || stream_num > MAX_CS_PER_CSG)
+ 		return -EINVAL;
+ 
+ 	if (!csg_iface->input || !csg_iface->output) {
+@@ -990,7 +991,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+ 		}
+ 	}
+ 
+-	for (i = 0; i < csg_iface->control->stream_num; i++) {
++	for (i = 0; i < stream_num; i++) {
+ 		int ret = panthor_init_cs_iface(ptdev, csg_idx, i);
+ 
+ 		if (ret)
+@@ -1015,6 +1016,7 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
+ {
+ 	struct panthor_fw_global_iface *glb_iface = &ptdev->fw->iface.global;
+ 	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
++	u32 group_num;
+ 	unsigned int i;
+ 
+ 	if (!ptdev->fw->shared_section->mem->kmap)
+@@ -1034,17 +1036,17 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
+ 		return -EINVAL;
+ 	}
+ 
+-	if (glb_iface->control->group_num > MAX_CSGS ||
+-	    glb_iface->control->group_num < MIN_CSGS) {
++	group_num = READ_ONCE(glb_iface->control->group_num);
++	if (group_num > MAX_CSGS || group_num < MIN_CSGS) {
+ 		drm_err(&ptdev->base, "Invalid number of control groups");
+ 		return -EINVAL;
+ 	}
+ 
+-	for (i = 0; i < glb_iface->control->group_num; i++) {
++	for (i = 0; i < group_num; i++) {
+ 		int ret = panthor_init_csg_iface(ptdev, i);
+ 
+ 		if (ret)
+ 			return ret;
+ 	}
+ 
+ 	drm_info(&ptdev->base, "CSF FW using interface v%d.%d.%d, Features %#x Instrumentation features %#x",
+-- 
+2.43.0
 
-I wonder who feels responsible to pick up this series (maybe without
-patch 3)?
-
-Best regards
-Uwe
-
---bnxhjx2ywetn23n3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpeJ68ACgkQj4D7WH0S
-/k4IVAf/UbF3ZUuZ0pOeIM1PofAbO0V+GVHAmpdZRUKVVB/dGoZNleA5QRj1tkhh
-iQY670n22CpAnQFeLr/V7T6tFirLKkbsq2gG1xBZSlLRHdVSH6VyCbyYq49RGl6w
-GemB8U83rR6YbhXeLRPFxYJvBgC0z8IO1K5ayIlHHaLVEhuDMsdUysIYKkRNBynd
-0UpQ910loOMxEVD1m52qL7r+59BTNDwHcz1M+AmJpSN2jmpSb+9B5YJmqUeptbLY
-hgKbGFkwD7Vio7+cGNY3RbaAfXEsyNj1Osc/bmJDjuV3W7iC2C58MVj6BeQGgs3v
-eCnbtwbUaP8y4VJSrBUk6grj6zVKag==
-=Ey1H
------END PGP SIGNATURE-----
-
---bnxhjx2ywetn23n3--
