@@ -4,82 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18E5AC44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 14:12:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 985B3C4452A
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 14:16:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D70810E1E4;
-	Mon, 20 Jul 2026 14:12:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C570710E198;
+	Mon, 20 Jul 2026 14:16:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="rBVPRbgy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WegsdEQD";
 	dkim-atps=neutral
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D995910E1E4
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 14:12:16 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66KDrFoi2987752; Mon, 20 Jul 2026 15:12:02 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=J
- bxx8hw4Eo4sD7QV5xyetGYbpf3+ILqg7Hfp4NhHhtQ=; b=rBVPRbgyvum21AU7g
- 5yenIrsDml/ISEyhWhGBcSyiwukNQKfbSqXlG2/YMZpSwoAbfq9Un3v9wM18lAri
- GWkXRTtrjLeIzqjhMGCBTgBSGBkvGJ6AbrW+6DD+wyzK831X3BP+dWU6+tvyYzHD
- JDv3XyGUsjM54vdazi8sMHp4DbKaKWh1T6aUBleaUsZUH8418xt0Us0Lr9j1JQRS
- Kq66xAnUGLyJc1E8NrrPogqWvxQDoSI1XONgnRLt/JC7bXhPltXIv1z/YwhTa36i
- 9knLx2tE7QqT3VsutkLndw1z1QxrA/9tY1HuTL4WlZeVlr/zX/aHmLa/a1oSZj7o
- 3xj4w==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4fhmy1g0dh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 20 Jul 2026 15:12:02 +0100 (BST)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.9) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 20 Jul
- 2026 15:12:00 +0100
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>
-CC: Alessio Belle <Alessio.Belle@imgtec.com>, Brajesh Gupta
- <Brajesh.Gupta@imgtec.com>, Brendan King <Brendan.King@imgtec.com>, "Danilo
- Krummrich" <dakr@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- Icenowy Zheng <uwu@icenowy.me>, <stable@vger.kernel.org>
-In-Reply-To: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
-References: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH v2] drm/imagination: acquire vm_ctx->lock before
- mapping memory to GPU VM
-Message-ID: <178455672087.464601.4204532217928591036.b4-ty@imgtec.com>
-Date: Mon, 20 Jul 2026 15:12:00 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
-X-Originating-IP: [172.25.4.9]
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDE1OCBTYWx0ZWRfX0OAw3oYPc5Rw
- 43IRIIoaT6rO9wms/dfXv+j2CX2pi/VVE+c5ClFU4T/1u/lEn0AxMVkE6bEhZkJbBc3PcLCC4H/
- z23cUH4xYsGBqHqiw9MGtGx4Zv5z3ow58Fil+HfxXqr37KbIjrl+hx065NVzI7bCtPh4X6rRVRo
- wjbaXzyRVuQqJ1oXaN8hBugC79xNqbFUWo/MJDvowj7arvAGf0HiIpx/Sh8cX6CZsSN+JI9Mgs0
- gIUxnAn0VQwVJMhTwNg1xNaCrxTkNtiTVDgkj9AKNWR2AzZdk/ghdXPeDcjZ9OLol4QkB/L57d+
- LbcwUDbZPowvu/mr198ywD+OU08kLPTHdpQaQRkPgJt5ELpGvvaoVeUAe08rn7DTserWol7Hu7l
- 9lM8JhU68DmPOS3bRWNxvIu8o4DuedyKjyFI1+86VvEYKiJs7F0vJ45JdRJ728GYwvIQHsYaqZb
- lNoIQzSX8UAmEi0V1SQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDE1OCBTYWx0ZWRfX0rAX/3VGIXfv
- gL8LFonlzDnneeTTA03+AeU7srtKmQh6AUbEnqxPzrsZiXFvU+CMxmOfzBVfgz/tglO/vBAbQPF
- 65IaaHpS4QPunKxgKlddsVhHo9RvTC0=
-X-Proofpoint-GUID: ExdzClEsO37VXwoQp_rL_7X6g2QWAxFv
-X-Authority-Analysis: v=2.4 cv=YIevDxGx c=1 sm=1 tr=0 ts=6a5e2cb2 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=rvaOABGgyOwA:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=CNkhBcH9ogg0Ut-P5gEA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: ExdzClEsO37VXwoQp_rL_7X6g2QWAxFv
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF10010E198
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 14:15:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 46D4A429DB;
+ Mon, 20 Jul 2026 14:15:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0912D1F00A3A;
+ Mon, 20 Jul 2026 14:15:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784556959;
+ bh=yJqUjZWhDoS4+1CK8rmP72NiO+UPfeeckHFKrFh57nA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=WegsdEQDU0k6p2/LEru2zXSfD3tX4mLoxz9JpdaylJoI0yBbk8cFplP9xfk+f3P91
+ lkzeaLfl0KCZipfWkUurCIaOjusENTB6xbRHcv2RNVwmhyCQG100Y+DRfXXz5anGIg
+ jhM/OMHEO2ZuxvitwVr1vkO48uSBt8UlW8SecnGix7/dHzVE2ln8jdJssjT7WtbOh+
+ NWOwtCr3leuC4Gsra67wfMrmNu5ORjL0+YcbRw53oLE5OCFAYZ686uBia0+07AGpmq
+ LoRQLGnUEVcaX1Z5gyDQjY+fsaCmP/njAvb73/WneNUrn7mTKQU8TqcT/3PHcZgLPc
+ D4B8wUHZqWc2A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] fbdev: core: Clamp total_size to smem_len in
+ fb_io_read/write
+To: "Mingyu Wang" <25181214217@stu.xidian.edu.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260720135534.103599-1-25181214217@stu.xidian.edu.cn>
+References: <20260720135534.103599-1-25181214217@stu.xidian.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Jul 2026 14:15:58 +0000
+Message-Id: <20260720141559.0912D1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,25 +53,110 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 14 Jul 2026 15:36:41 +0800, Icenowy Zheng wrote:
-> The drm gpuvm code doesn't protect find operation against map operation,
-> and the driver needs to ensure a map operation shouldn't happen when a
-> find operation is in progress.
-> 
-> In some cases a find operation will be in progress when doing map/unmap
-> operations, and the find operation will do a NULL pointer deference.
-> 
-> [...]
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Applied to drm-misc-fixes, thanks!
+Pre-existing issues:
+- [Critical] Incomplete Fix: Missing `total_size` clamp in `fb_sys_read` an=
+d `fb_sys_write` allows Out-Of-Bounds kernel memory access.
+- [High] Missing Locking in `fb_io_read` and `fb_io_write` leads to Use-Aft=
+er-Free during concurrent mode switches.
+- [High] Out-of-bounds IO Memory Read in `fb_io_read` caused by partial `co=
+py_to_user` failure.
+--
 
-[1/1] drm/imagination: acquire vm_ctx->lock before mapping memory to GPU VM
-      commit: 17e2030f37600994440f875dc410615d5c66ee6d
+--- Patch [1]: [PATCH] fbdev: core: Clamp total_size to smem_len in fb_io_r=
+ead/write ---
+commit 34ebcfca778c16b156ef4c2fa6a81b75c5b5adb4
+Author: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-Best regards,
--- 
-Alessio Belle <alessio.belle@imgtec.com>
+fbdev: core: Clamp total_size to smem_len in fb_io_read/write
 
+This patch prevents out-of-bounds I/O accesses in fb_io_read() and
+fb_io_write() by clamping total_size to smem_len during mode switches
+when legacy drivers incorrectly set screen_size. Virtual framebuffers
+remain unaffected.
+
+> diff --git a/drivers/video/fbdev/core/fb_io_fops.c b/drivers/video/fbdev/=
+core/fb_io_fops.c
+> index 6ab60fcd00501..335f16d2cc23b 100644
+> --- a/drivers/video/fbdev/core/fb_io_fops.c
+> +++ b/drivers/video/fbdev/core/fb_io_fops.c
+> @@ -24,6 +24,14 @@ ssize_t fb_io_read(struct fb_info *info, char __user *=
+buf, size_t count, loff_t
+>  	if (total_size =3D=3D 0)
+>  		total_size =3D info->fix.smem_len;
+> =20
+> +	/*
+> +	 * Security Hardening: Defend against buggy legacy drivers that may
+> +	 * calculate a malformed screen_size. Clamp total_size to the actual
+> +	 * hardware mapped memory limit (smem_len) to prevent OOB access.
+> +	 */
+> +	if (info->fix.smem_len && total_size > info->fix.smem_len)
+> +		total_size =3D info->fix.smem_len;
+> +
+
+[Severity: Critical]
+This is a pre-existing issue, but I noticed that fb_sys_read() and=20
+fb_sys_write() in drivers/video/fbdev/core/fb_sys_fops.c have the exact=20
+same trust boundary issue with info->screen_size.
+
+Because those sys functions access kernel system memory rather than I/O=20
+memory, an oversized screen_size without this clamp could allow userspace=20
+to perform out-of-bounds reads and writes directly to system RAM. Should=20
+this fix be applied to fb_sys_read() and fb_sys_write() as well to prevent=
+=20
+kernel memory corruption?
+
+[ ... ]
+> 	if (info->fbops->fb_sync)
+> 		info->fbops->fb_sync(info);
+>=20
+> 	while (count) {
+> 		c  =3D (count > PAGE_SIZE) ? PAGE_SIZE : count;
+> 		dst =3D buffer;
+> 		fb_memcpy_fromio(dst, src, c);
+
+[Severity: High]
+This is a pre-existing issue, but is it safe to access src (which is derive=
+d=20
+from info->screen_base) without holding info->lock during this loop?=20
+
+If another thread concurrently issues an ioctl(FBIOPUT_VSCREENINFO) to swit=
+ch=20
+modes, and the driver's fb_set_par() implementation unmaps or frees=20
+screen_base, could this lockless memory access in fb_io_read() and=20
+fb_io_write() result in a use-after-free or out-of-bounds crash?
+
+> 		dst +=3D c;
+> 		src +=3D c;
+>=20
+> 		trailing =3D copy_to_user(buf, buffer, c);
+> 		if (trailing =3D=3D c) {
+> 			err =3D -EFAULT;
+> 			break;
+> 		}
+> 		c -=3D trailing;
+
+[Severity: High]
+This is also a pre-existing issue, but what happens to the src pointer if=20
+copy_to_user() partially fails?
+
+If copy_to_user() returns a trailing value between 0 and c, the loop does n=
+ot=20
+break, and c is reduced by trailing. However, the src pointer was already=20
+unconditionally advanced by the original unreduced c.=20
+
+In the next loop iteration, src will be misaligned and advanced further tha=
+n=20
+accounted for by count. Could this cause subsequent fb_memcpy_fromio() call=
+s=20
+to read past the end of the hardware framebuffer?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720135534.1035=
+99-1-25181214217@stu.xidian.edu.cn?part=3D1
