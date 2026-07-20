@@ -4,89 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB975C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:41:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5398C4452A
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:42:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1594510E8FD;
-	Mon, 20 Jul 2026 12:41:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1594A10E8FE;
+	Mon, 20 Jul 2026 12:42:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZJycX4C/";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iTc2SbYZ";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C01F610E8FD
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:41:14 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-49554ebb87dso17060575e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:41:14 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77D4010E8EA
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:42:29 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4953e04ef16so42677125e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:42:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1784551273; x=1785156073; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1784551348; x=1785156148; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=02PeqF3rbp1hsOzW2e5ny6E3Yj+EmyQ/4DKajWJOxPY=;
- b=ZJycX4C/Sk1AtK/uEh8M0O0KdGTP1+BOQ0qay3tXf0fsXeTABMXHtxQCrBZFv8c5hJ
- 14Mv9G6jDkUFUExWGBExQWHeKmyPsALM6MPhgN45MDDfxX5hJM0cTDJSXiOReCSe1K9E
- 2JkAF4vbkqkNKGEMMUTCLzNSMLtISqIgaHYrlx74u84W+M8w3PXrx10o6k/MBpVbG8vX
- 78CTcJn9ArI8sgXlc3WYQsz1wLQjpRPFUHOPD8GzrxR7msTjMPlZBPO7dm7tt+OvVaPg
- 1WCFmjD1LZbHXQvkpY0fd70bH4/UljKtKHd6Hk73I7xkOg2IIhNq9lTZBft68FVYojd+
- +cbQ==
+ bh=ooN4hbOmEpkDX9Z1ak2r9GWUVz4HFV5LKddUy5dwh9w=;
+ b=iTc2SbYZXaCCXBQKwIA2TnfJBef7mL1Omssx7z1VKcr+SfCqfbiK2/NbBiDl1Prg4K
+ x8dR1RmPjc/MfbBzcDW3g9lrgQ2/oo0hOcH8Fte45GYmML0h9H8LopDV4SKIwM9VOt5N
+ jjqCIvMcp9eFLqSF1vmH4Vo1r8zMk/U1S7XSuV+VYY+2kqY6l1zzBFYV4J3sTzmfCLNk
+ AhkFbbvyVjOLXvvnivLE5mM2TuZZx+yoNvKOTSYzhT9Q8F/V3HRj70a9k6qxPGRauH2l
+ gpgXk+Cc4ixOb86ne4TanfWiAoHgRr6GMgH8Kx5dKV2fjpRZilzOaaWKEn50GHMoCp9s
+ oDtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784551273; x=1785156073;
+ d=1e100.net; s=20251104; t=1784551348; x=1785156148;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=02PeqF3rbp1hsOzW2e5ny6E3Yj+EmyQ/4DKajWJOxPY=;
- b=LcouIh6UX4nwbwIYG6JZX58pulUtv+ZoaxWEQN0N+ktn7EV9XnkLEffCiJh3afaArf
- tXgvDywgq+MGtU+9/4kRky3CBKxtDd+cE+d3hC/wxts5IHIvsMAwFLCD1AF6YKiyG27t
- mUewZWQYhB50CVkCw23izQtLxPXJC+BgKz4tGYneVhmKLXLZtf8WNxAr1HbzQG0nm8GW
- l9aOx2mHFeXrtBgQMqVBmzeoepmYikxV0Rn87xMJ+voMTbeWU8Q5BDLsFudjKDO0UVs8
- b2+Y8UfcU+Zi01+FGK3PfdhPPLNGrdOhOOLPA7Zgg75h3qd9+1QIjlV92OdAh5PBKOOC
- n+1A==
+ bh=ooN4hbOmEpkDX9Z1ak2r9GWUVz4HFV5LKddUy5dwh9w=;
+ b=DmhuClDJfiLGftWW9WzimPpdYAaquHpGtBbNAfHXDJWxBiDpWC+/iVTSClLzwizdKc
+ 3IoFxqMyc7SLu3dVsx6xHdJBODD3sufVJYNEYsyh1OKOO7RjPf7tczZYnOwnu9doZTbD
+ 1FAeFT1xAymnQYxneqz9YXMXiA7mloYxz7cGO6BeQSXlmG58pz5iUbmGrWL0HwHbN5mh
+ ZtUuTEPneft4wHlb3TlrzE7ecsyjAOYe7WokOYlCDmf6hRtFsI5PslktsPpDiyfZyZLf
+ sktXUUoW16SPgzLKtBhibC/F3hDUErXDEKYEZO21SqPccBMKT2kKI9jLA7t0VNrOCbA+
+ YGrw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoHXyvcJdtF7sJOdYwIQb8cluQ/r5miKIh+ebpv+O3ZUL3bf+r+w9NbVFJbZo52yZ5Gb6LJgs+8Ss8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzsMsAc0JCxUxUKa0nGB5Ue/zibFH+vmamryXIZnku0Fpuv3dj3
- 3aEcBtJS9mYLet4sAQ+Z5iH1X877PxOwD0X443Qb0NIGbJYkVrYhwXBMViAPo5y899Y=
-X-Gm-Gg: AfdE7cmQ1htH8Eo41KhmZ4zjAx5PsJKtPZEqZNLTs7ORZQ0K9rpuRe/JQLxnB8mnKRw
- cyW/w/jDgNVyVEGhhx9KZTHYfHHiONKDKzooDndRQG/C8KfgxgsIsrhnqGG8W0MLZi4RZW+qLxI
- qHxhCL6vFKxf4IEkXX5oiHvo6QYIccYJipdrh13b+YY2b+O24y5QLxyEFgr4ACju/OKA+qjZq1N
- QCQvySr+P6oM0AaPyAqFtmFx8FBny96iv5oIDK97RzyIFWgXz2ZgQDhVQTIVunHCA/lRQQ2ycnT
- 61zdiKf85n9iRK7wjuiKYADTqYDYHBYNvppsOtwCl69asPA3OT7j9ZTOQD+WIaH8gHQihJqFm+D
- IoPEgxVhLRLR/tVGMxDkaSMBVnV8eOoUaKjjbYbs/JN6drwDi7GmBR4kVm2jSMYTdYhVrP+Syiw
- hkGUQO+Nl9FZCC3g/0LH60qpHP+utd75qi8KgoRr3DTk56OjOgICGVPsidz/+xE9ml7gjr
-X-Received: by 2002:a05:600c:6a0b:b0:493:c453:6002 with SMTP id
- 5b1f17b1804b1-4954a516453mr90764735e9.35.1784551272978; 
- Mon, 20 Jul 2026 05:41:12 -0700 (PDT)
+ AHgh+RrAnUXc+mGwXHQJF21hYXBmnVzZHPrM4PoeLhbyB6iXem42fwJyAzD4QhcfBqExpbkzF29qjjhpjYk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyXPzxBZh0DiMlRdVMONjYtvp9RNQ3qUcSOsxREkLOu4Gcc1VWq
+ 2NJcK6znf7VOnHhU1sJh+ZALAYtSGhIYm9knv2xAiZnM96SSZ4IzhYz3+LX6zkSC7Ko=
+X-Gm-Gg: AfdE7cnf8bLyPZrZhNqxnN53EpE2ofO+4KFm/Q/B1crzbPf0d68mVU2WDZlIblGNXbo
+ tqfyjLhPwYHHf3buk5eEUAx1HLlqc6eM0pgJdQNZe/px+ZZVNht+LEdkFzCZGhw0HULyjHtjp0y
+ ZS4Rey/35Dg23MbLgYWEPaAOTSPbM/p45rO6wI9vFv/+0U45/Dol29BTs0XL6rcT7rwyX+20gT0
+ yWkdkDT4A0M8fE0j78nnKORCnziB5odZ7RZzXKSYg/FlQq3UxYSln1CsnlDmXcqxSW06k+0kiqr
+ FuKoZNEcZheqpBWLck9oY6b+zWRGcOQpMHBsaC4Ax1uY7DFifoonpwCgJ9xvq3vjD4YtxRKQdKM
+ bL6cpKbvZQ0NT0Wgw1KzFbG3o5Zp8hNT+Ml/ln7fWd/t3+RDX9N3KJKo/Z2zQSCxBbg2FcIZ/Ju
+ m8mJFrltONaL84FVo0HKk5WFWHVIB5B6HN49/EcOSrDok2alpdhWguAb3txg==
+X-Received: by 2002:a05:600c:3b19:b0:495:48d7:f178 with SMTP id
+ 5b1f17b1804b1-4954a3db76amr159529215e9.11.1784551347699; 
+ Mon, 20 Jul 2026 05:42:27 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:544a:2852:f257:ebc5?
  ([2a01:e0a:106d:1080:544a:2852:f257:ebc5])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49549a36312sm300850935e9.2.2026.07.20.05.41.11
+ 5b1f17b1804b1-4954a2edbe4sm301758205e9.12.2026.07.20.05.42.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Jul 2026 05:41:12 -0700 (PDT)
-Message-ID: <7b7e6b86-e14f-4d84-89b8-73e689c00ab6@linaro.org>
-Date: Mon, 20 Jul 2026 14:41:11 +0200
+ Mon, 20 Jul 2026 05:42:27 -0700 (PDT)
+Message-ID: <5693c8c6-cbff-44be-b5fd-0c7ed0b622ad@linaro.org>
+Date: Mon, 20 Jul 2026 14:42:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/5] drm: panel: jd9365da: Add prepare_prev_first flag to
- drm_panel
-To: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
- Jagan Teki <jagan@edgeble.ai>, Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
- Felix Boucher <felix.boucher@savoirfairelinux.com>,
- Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
-References: <20260708213500.1867092-1-marc-olivier.champagne@savoirfairelinux.com>
- <20260708213500.1867092-3-marc-olivier.champagne@savoirfairelinux.com>
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH] drm/panel: ilitek-ili9881c: do not fail probe if iovcc is
+ absent
+To: David Oberhollenzer <david.oberhollenzer@sigma-star.at>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linusw@kernel.org, dmitry.baryshkov@oss.qualcomm.com
+Cc: jesszhan0024@gmail.com, upstream+drm@sigma-star.at,
+ Julian.FRIEDRICH@frequentis.com
+References: <20260713082213.75759-1-david.oberhollenzer@sigma-star.at>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -113,7 +104,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260708213500.1867092-3-marc-olivier.champagne@savoirfairelinux.com>
+In-Reply-To: <20260713082213.75759-1-david.oberhollenzer@sigma-star.at>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -132,30 +123,46 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/8/26 23:34, Marc-Olivier Champagne wrote:
-> The DSI host must be enabled for the panel to be initialized in
-> prepare(). Set the prepare_prev_first flag to guarantee this.
-> This fixes the panel operation on Renesas RZ/G2LC SoC DSI host.
+On 7/13/26 10:22, David Oberhollenzer wrote:
+> Commit 4c95b2b7d49e ("drm/panel: ilitek-ili9881c: support Waveshare
+> 7.0" DSI panel") adds an additional iovcc regulator that other
+> Ilitek ili9881c based panels apparently do not have or need.
 > 
-> Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-> Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
+> The commit goes out of its way to make usage of this new regulator
+> optional, dutifully testing if the field in `struct ili9881c` is NULL
+> before touching the new regulator. However, in the probe function,
+> it unconditionally fails if devm_regulator_get_optional returns an
+> error.
+> 
+> devm_regulator_get_optional() returns -ENODEV if the regulator is
+> missing, causing probe to fail for other panels that do not have
+> an iovcc-supply set in the device tree.
+> 
+> Fixes: 4c95b2b7d49e ("drm/panel: ilitek-ili9881c: support Waveshare 7.0" DSI panel")
+> Signed-off-by: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
 > ---
->   drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c | 2 ++
->   1 file changed, 2 insertions(+)
+>   drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 7 +++++--
+>   1 file changed, 5 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> index 1ef0c937863a..a79dc8f8d5af 100644
-> --- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> +++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> @@ -2993,6 +2993,8 @@ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
->   		return dev_err_probe(&dsi->dev, PTR_ERR(jadard->vccio),
->   				"failed to get vccio regulator\n");
+> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> index 0652cdb57d11..6c8d02712566 100644
+> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> @@ -2562,9 +2562,12 @@ static int ili9881c_dsi_probe(struct mipi_dsi_device *dsi)
+>   				     "Couldn't get our power regulator\n");
 >   
-> +	jadard->panel.prepare_prev_first = true;
-> +
->   	ret = of_drm_get_panel_orientation(dev->of_node, &jadard->orientation);
->   	if (ret < 0)
->   		return dev_err_probe(dev, ret, "failed to get orientation\n");
+>   	ctx->iovcc = devm_regulator_get_optional(&dsi->dev, "iovcc");
+> -	if (IS_ERR(ctx->iovcc))
+> -		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->iovcc),
+> +	if (IS_ERR(ctx->iovcc)) {
+> +		if (PTR_ERR(ctx->iovcc) != -ENODEV)
+> +			return dev_err_probe(&dsi->dev, PTR_ERR(ctx->iovcc),
+>   				     "Couldn't get our iovcc regulator\n");
+> +		ctx->iovcc = NULL;
+> +	}
+>   
+>   	ctx->reset = devm_gpiod_get_optional(&dsi->dev, "reset", GPIOD_OUT_LOW);
+>   	if (IS_ERR(ctx->reset))
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
