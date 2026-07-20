@@ -4,164 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AC75C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:47:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16BE4C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:51:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9660710E7C0;
-	Mon, 20 Jul 2026 07:47:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 816CF10E7D6;
+	Mon, 20 Jul 2026 07:51:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P8y1O3OM";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="SD9h6Asn";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4326D10E7AF;
- Mon, 20 Jul 2026 07:47:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784533621; x=1816069621;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=/W7FzbT+hn+9wnLY4gqhxRsog29XEekZvm/eE08oV8E=;
- b=P8y1O3OMr3ipsTMVD+KeqksAA0ibZfHaGa1pLSF3e0ixJ+gE6k39vrkO
- 4ghKVU2Bzi6Zks414vIshTIQ3CzwN1xqixYFF6LEMB10oP4koRGWV1S3K
- BNhkE8fuMkRu6z2vRBKF9mtDCKP4Uk25jJi03IqDOGrbpVJOf2fvwblDU
- r/L6ejx62NXPPLgPQ1y6y/OlJI9Kseow32XpTT+kVm3ACFY+QmLXt+S8F
- NB8M8E1naXpnoOm3w/eVecOtSovUl7k2QVQMoEucIjjiXHOB3kIjMR+Bt
- /QvGkJnWEcaUkFmeoJdfmfGbB/iQelSiOH6SZ4/FKp0lr7mjyl8mjNJeR g==;
-X-CSE-ConnectionGUID: L6+B0h8NTe2g3SippQlpSw==
-X-CSE-MsgGUID: wBbc2OrDQOCepbsMIB1ABw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="84231502"
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="84231502"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2026 00:47:01 -0700
-X-CSE-ConnectionGUID: CQT796KvSuWLFju8qzaDSg==
-X-CSE-MsgGUID: WP1zSBVdQMSLhPS9kozQgg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="251040360"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2026 00:47:00 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 20 Jul 2026 00:47:00 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Mon, 20 Jul 2026 00:47:00 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.59) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 20 Jul 2026 00:46:59 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n0b3ywum7oKAeFPzZ1UyoGXLYciDsMeCNPWP4/30jOJCB4Ivoe07fQ1+gox09MBKQzyZlA7WlzvoHPQZBhZSSfElHu1Zg0haVzuZ6ij48Wlas1inDFfLtH5jbRsF84P5P9+sFf4lW/QcUd9J9J/cRXmkl8ZV3EgcTRGGy+bSGayQwVTqQOYvJc5z27mtAbXQRAczq1L+0l3kwdwDk1g/WLNQtdLljW1LfPqEAS0pmnNikE/IO1Ang28leZbl6YFi+g6Oj/K9qoPUhTLUVW264mBUPeyxUJ48EXz2NSeL+XFmDpVs8t5eds13a7gkIrTpfasJ7HP2+i94dVKARdUPmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8Mumfo8rmVo6zs+janiZK58QNNg9BvpbJufKlZicHs0=;
- b=fGA+aluwleHfYJRv/WLNEjY8YrOuWqRJZi7zKUV9aUKEMX/m/RuLmoat7ZH+4Im1IK0GeWpn2/xoMATCmiPJdUibeQhDLeCZxHq/FYXEoz3pWFHYR7khxSwM7XrdRPMA/3SoWOBn9Pc+JeUITPhwaCWOuizOOUpFe1pfB3nqxHK5jzCwfMszHb49j0HeSsgve2DWVNZrRhRvKseNDZVJsFSAiGMRHntFA/31eEeJib99sJFq5Sd90Sxs77BkenvG9d5YeKwVjVYm8LaG02ES5hdK2RNtYZ8OTFVu2wNf9MCBnEFDKA196u6z8ngIrFH9/SMx2obfFGg3R4qCyMD7Uw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by SJ5PPF57F27BA08.namprd11.prod.outlook.com
- (2603:10b6:a0f:fc02::82b) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.16; Mon, 20 Jul
- 2026 07:46:52 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0223.013; Mon, 20 Jul 2026
- 07:46:52 +0000
-Date: Mon, 20 Jul 2026 07:46:41 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: Robin Murphy <robin.murphy@arm.com>
-CC: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <iommu@lists.linux.dev>, Andi Shyti <andi.shyti@linux.intel.com>, "Jason
- Gunthorpe" <jgg@ziepe.ca>, =?utf-8?Q?Micha=C5=82?= Grzelak
- <michal.grzelak@intel.com>, Janusz Krzysztofik
- <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v3 2/5] iommu/dma: Catch scatterlist length overflows
-Message-ID: <4nqoxr2shgvpd6ury7ko5amnkap6nimds353ahho2jggdkk2f3@uniz2nufegkm>
-"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
-References: <20260713095812.1014365-1-krzysztof.karas@intel.com>
- <20260713095812.1014365-3-krzysztof.karas@intel.com>
- <0e5120ea-8851-41e2-b3b0-021fb35f61b7@arm.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <0e5120ea-8851-41e2-b3b0-021fb35f61b7@arm.com>
-X-ClientProxiedBy: TLZP290CA0013.ISRP290.PROD.OUTLOOK.COM (2603:1096:950:9::6)
- To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF5410E7C4
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 07:50:59 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 045F04E40E7D;
+ Mon, 20 Jul 2026 07:50:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id CB91460360;
+ Mon, 20 Jul 2026 07:50:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id EF47E11BD1242; 
+ Mon, 20 Jul 2026 09:50:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1784533856; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ in-reply-to:references; bh=ydvv0GJEFh8kqpKPQ9tLSbZDdHAlONu2QYbeL0hro3c=;
+ b=SD9h6AsnI3dv3EtNGQ8+98dzTFvdrMTsJgGUKjd+0gz66ahYx6WOP5GOpb21amTo6fi9jH
+ CtZ8W0J8QNdT5z6mn/876KhcSf6rRhbHrs0zqe54IwzBJ3NFjVTsn4hBmqgCTXpzYqIEc0
+ m107NOxsQ52/3Jp2Yl+kUbk8QueVoAdLB/1WpszTqZjAqA+q2gWHdsyIuQ4i52OfsdKJ+R
+ jhzyzszXJfIzMM+J8IddoNSdxXS54XQhFOPJUGEgv5tJoBYlBQJqE+DzTq/TexDg1fMoAx
+ KrdhVlRrZKwfeu7oSusjIY8jTOmQVc+t+IWJ87yDPhM+QXv+u8eoK8VzBxBfww==
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZyAoVGhlIENhcGFibGUgSHViKQ==?=
+ <u.kleine-koenig@baylibre.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ John Stultz <jstultz@google.com>, Eric Piel <eric.piel@tremplin-utc.net>,
+ Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 11/12] misc: Unify style of of_device_id arrays
+Date: Mon, 20 Jul 2026 09:50:48 +0200
+Message-ID: <Nl9yKsP2RmuG2RLCMfrvew@bootlin.com>
+In-Reply-To: <fbf51b8f413c516977e2c8a81896221795df77e4.1784299069.git.u.kleine-koenig@baylibre.com>
+References: <cover.1784299069.git.u.kleine-koenig@baylibre.com>
+ <fbf51b8f413c516977e2c8a81896221795df77e4.1784299069.git.u.kleine-koenig@baylibre.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|SJ5PPF57F27BA08:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80c2d150-7588-425b-f91b-08dee6331058
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|18002099003|22082099003|4143699003|10067099003|56012099006|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: 2KZgud6+C4EzhbgircElgPrDkfUKAPx8Je4Tml6uhQ2Jq1I7pAUjfoiANcKtlj6lWu4C/RgJU663R4L5kP1wVzJndNKMVvrES15nZ//DtQ4cusmQ6zSPbtUR0SPTabSwP3VaVxYEnAlSsFG8ob4ydNvi9h/0KfC5Y4WxyBCT899OeTP9AMb3d+5OhojZYGv8krAXwJmjHLLAGYB2eFDyxxW6VSKkYAMPrzbP2R5rVoEtg3L4LVpKpPj2hx8Zh0j/aSIH9e5xKlVWQubz7bqiT6I27SBpDdbPS6USBkKoVJbG2/d8Uu0lmidd773ScLkquW8FQ/KUuu56PpUi8GpibsYtAmTVSwcnIufwc3bP98EPtIFlggUr9Zr/K88OHESul/c0kyqrl4XH6KhufaJNVCOg35Ma0vux+fCBIGaSJTUUevqgbP+B4URxrmpt17NFA4txkiGq0J2HGsUABMobs7eKqEnbO0p9tNvGzgg9CDB3q657dWnGHKce9g6sfFvACgltffiTJZUcEcRxnjlAFVkWxdBC2gt1MdUchYmY/aF8o1gjrvcr2/sXm3AjD2AmIVMtkiZcVdXALIYVUnQ7mJmbfh7RuZfOYpUgs8gKcd5ToywI7VeT79zQoJz8HaK3uWwUfgJWZC3zakTN78/yQHB+O+v3b8EWmBWn6boRxxE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006)(11063799006)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q1VVRk5KQTFQeTgwSlRkd2xXMVB3bXhpZjFXQlh3MFdwSVcyTG5XWEE5dGV3?=
- =?utf-8?B?eTB6SkZ3QTRwbW9YUXJxRGNjdHMvRDhaZmYxWVowMjR4OTFCQ3c2WjE5TmhV?=
- =?utf-8?B?L0Z1eTBVSGQrbDFtU244QmVjUTBiYUFuR0tSdlp2dDI2L1NvZUR5MzlwcCty?=
- =?utf-8?B?RklOOW1DeWdZWjd6Y2UrengvNnJVRTlneXJCazllUHdsbXlFWTRQZXM1NGl4?=
- =?utf-8?B?dXhDbFYybE1NVG9SVmlRVXo3YUhTcXFsd0RIczZkVjB5SjZOSFl5eDlDUCt0?=
- =?utf-8?B?b2RMc09CK25MbEJyclJrZW93alduV29GeXpQNXY1blZRamNzZEZ0R0RES3Er?=
- =?utf-8?B?QUNpRWhaU3RlRE43ZkgrM1UyakVIcGEwZUpCVkpUeTQzeWFkNjFXZDVoV010?=
- =?utf-8?B?eG1ycFB5UndWZk5lMG1HWFhPc3ZYWGphUVkrUEowRE96YStyNVJrRWNUSFZt?=
- =?utf-8?B?U1RYRmtGR2pIQlJ4cjBJWDFTMzNrWVk0SjdoYit3S3RRSk1RTEhnbTVYZUFZ?=
- =?utf-8?B?bzVFdGg3TUFmM20vdWhudjUrMU9DcjcvQWFBMEVVUHJ4YVM4Y0cvbTRMbmw4?=
- =?utf-8?B?cXlXcm4rY2F2VThWT2lUWTRTVkVrZUE4ZURnZW85RHFQMnlDYUlqSkpvb2t4?=
- =?utf-8?B?TGdwZWV5S1Y5UHU2VmJGOWkrLzNNMHMzenVLRTVVRU9MenlTV3B6ZVlJdEhI?=
- =?utf-8?B?WDNiOWpaZXYwT2xDRnRsVEdrL0JhbDhHendQRzlxczZQVVBwWkZXMEFUQ1J0?=
- =?utf-8?B?cHNvN1MrKzBRaElEaVNPK1p3MldXVWhMNHBvdVd6S1JJRGcxdTZmQ1gyNkl2?=
- =?utf-8?B?M0g4TEdPdmdiMmJ3YWRsVktTcHFwUi9CUEoxUlpLZnlVZnpOVVFLaTFSQ0oy?=
- =?utf-8?B?aTE4V0tkRFQvZlIzazdlb3NKVWFQeng4dGdkeUJjMlJsMm1pYmFaNjdVeWYv?=
- =?utf-8?B?YXRyaHhOcU5HTFpYSEd6cXpndHU4T1JBMEZFT2o3a3BFT3pqYWhzNmkxbmlR?=
- =?utf-8?B?bFl0eEJiRVIwdTZzaW1iQ2RLckR2TzFoVjlRSjJiZU5ra2JhNU15NmxZbmxt?=
- =?utf-8?B?K3l3WmYwR21iVVpSTzIwVEcwRnE2QTJtR3lWUDEzYXFqNW13akNLYjhZYWRs?=
- =?utf-8?B?K0FPUW42RlNub3UrWDUvT3praTIvdkdOMDJVeXA3ak9vYndpS0hXTnVEQmJk?=
- =?utf-8?B?cVZIdWE0ZnZuQmNVY3phQXZDeVl6R0U0SzF2L0V3WHIxSDAzVnhTelRjSGNn?=
- =?utf-8?B?djNNWnFPdENEU3pJbTluTEFpbE8rYjlZM1VoelpaYkhpeWtoNVJsRm5BZE5P?=
- =?utf-8?B?b1VJVE9SU2Y4akVBM3lQeDY4SWszQ2hCb1YweFk0L1lSN2ZCdE9lOG9keTla?=
- =?utf-8?B?c1l3RW1ESDAvVCs5N3p5dm9IWWFmY0IzTE1zQjVrMHZOR2lHNkk0ZFdYYWhH?=
- =?utf-8?B?Q3BkK3I3VGpKekdWSVgzcTh3S0wrczhzbDhVRkdIV2pTWjVjRStPL0xKMVhP?=
- =?utf-8?B?WnhFa0dHVzJYQ3A4a2k3bkovbERIVkZiU3dVbFJpYXczNDdtVERSWUI3aWpC?=
- =?utf-8?B?OG5KbTNKRmFnQVYrYnBCUEJQb0NEelhucjRKOWpIMHV6cmJGNy8xc3FGaVJJ?=
- =?utf-8?B?cDlFOTdHZnRqOTd3M3JLWGYva05pay9QYTVTZVNoL3NFWW5VbWF1RWNIZStY?=
- =?utf-8?B?cTNqaWQwUDJ3dnJqaE8zUTdmOHlWVTAweUE0SXdZdTBSQmFTN0cwU244c2Vo?=
- =?utf-8?B?cld5Wm9XZmV4RUlrRnVaWHQ0SVBScjNON3E0NCtwSzQvNDdBMEpPVmRLc0hI?=
- =?utf-8?B?ZE8xNnNHZkRzTXZ0K0pHS2ZvaHpCY3Izd1JsZ2l1KzRaTTlkaEdzNjFMQ0oz?=
- =?utf-8?B?MGVKbGJkdHMreGtVcE9lT2c5R3dkSERPaDhjanU2WUhrdDN1UG52WjZ5LzhP?=
- =?utf-8?B?blR4V2trVE5KR25yQ1VQTUEvcEEycTMvTFRjUEFsSGZ2OVE3Y1Q0bXg3aGdy?=
- =?utf-8?B?ay9sV3JPM0RkV09XK3lNMk55N2cyNm93cGk0VVlWK3JCS1IyL1ZaZGUxL0pj?=
- =?utf-8?B?aWlkQUxlY0ZPTldNeDMwK3EvanNJbTVuUVdhUzh6WGtBSnZxaWhneWlRRjVy?=
- =?utf-8?B?NTBMMHY1YXJpaHlyTmZuRlo2cUtKSnZrOEZKN29uNlYwUmVuNE9DRFc5SWs1?=
- =?utf-8?B?SnJoc2VDMVlkcnp4SFhlNm1QOGo0NHVXSCtXeEdWU0V0M3BkOTI5ajIzbFVJ?=
- =?utf-8?B?cFRhSGRBY2pJcDlhajFZcm53cmxYVjBKdFlZMi9Mc1Y3dlRkUlh2OVZZU2Rs?=
- =?utf-8?B?L1hKSW5ZSVpUTG1yRVlXSXQzSlpvbXphb0UwaWkvNW5hRVBTeVBpUUhMeUNF?=
- =?utf-8?Q?zC1VuCCWv17GjV3w=3D?=
-X-Exchange-RoutingPolicyChecked: Mmn5yRn9tYScFzcy8V3/7CdIjL79Ubru5ilHbQHjNllnpRavBSD+h71r3TmkiVBhPwm0Wst9dj4V4Pq5NMJT/J8v7VQ8OeUb/+FsBHQuDbU2lQD07kZ5Dzpm6lYATCXKMb0eVasqCCgPLjrbvUC6QwPtvcZB++UCBYvMZaU08qF34afZprLKHnFT6X60MUuv9bTu16cU+qUz+82TgFSCST6k8FGj8tOE4HeI1EeiarNZqjf6tDGrOf0/bE3uYDCLdtyk7IG8RqVXeOvJqNqMCsoIcdg1Ph7pnvoU5qO733kJ5UECfwWbuS/PySwvbHsvedZdZ5JjOrblgyjIer5gAg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80c2d150-7588-425b-f91b-08dee6331058
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 07:46:52.7505 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AaVu9Dxo0VmKjlKeXy1KFWkZINL9BOOPmX8qHx79+wW9AOOwfs77RZPhKOkDaxssa901g+hQnjnEWmQFn/5hlhF8Dqsl1+twBjxdn4Aqj5s=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF57F27BA08
-X-OriginatorOrg: intel.com
+Content-Type: multipart/signed; boundary="nextPartDe8xp2AFRBWqMINRDKbRPw";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -177,71 +68,291 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Robin,
+--nextPartDe8xp2AFRBWqMINRDKbRPw
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Romain Gantois <romain.gantois@bootlin.com>
+Subject: Re: [PATCH v2 11/12] misc: Unify style of of_device_id arrays
+Date: Mon, 20 Jul 2026 09:50:48 +0200
+Message-ID: <Nl9yKsP2RmuG2RLCMfrvew@bootlin.com>
+MIME-Version: 1.0
 
-On 2026-07-16 at 14:48:25 +0100, Robin Murphy wrote:
-> On 13/07/2026 10:58 am, Krzysztof Karas wrote:
-> > It is possible, when a very large mapping uses only one
-> > scatterlist, that padding overflows scatterlist's length field.
-> > This results in:
-> >   1) silently wrapping the value
-> >   2) smaller than desired mappings produced by iommu_map_sg
-> >   3) leaving mapped bytes in memory (no iommu_unmap)
-> > 
-> > Address this issue by adding overflow detection for scatterlist
-> > length field.
-> > 
-> > Fixes: 809eac54cdd6 ("iommu/dma: Implement scatterlist segment merging")
-> > Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> > ---
-> > v3:
-> >   * Used check_add_overflow suggested by Jason.
-> > 
-> > I decided not to include previous r-bs due to the change in the
-> > core of this patch: overflows_type -> check_add_overflow and I
-> > obvserved some folks have heavy preference for one or the other.
-> > 
-> >   drivers/iommu/dma-iommu.c | 13 ++++++++++++-
-> >   1 file changed, 12 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> > index 381b60d9e7ce..1a36fd9bf10b 100644
-> > --- a/drivers/iommu/dma-iommu.c
-> > +++ b/drivers/iommu/dma-iommu.c
-> > @@ -1493,7 +1493,18 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
-> >   		 *   time through here (i.e. before it has a meaningful value).
-> >   		 */
-> 
-> Sorry to be a pain,
-Don't be! I'm glad you got some time to look at this again and
-being a pain is what gives us quality code.
+Hi Uwe,
 
-> but since we *have* now spent the time reasoning through
-> the details, for completeness I think it would be worth also explicitly
-> checking "s_length & UINT_MAX != 0" (or equivalent) after the the prior
-> iova_align() - since that's only rounding up an unsigned int value to a
-> power of 2 it can't arbitrarily overflow like the addition below, but it
-> could still wrap to zero in the assignment to s->length, or indeed in the
-> size_t itself on 32-bit.
-> 
-> >   		if (pad_len && pad_len < s_length - 1) {
-> > -			prev->length += pad_len;
-> > +			unsigned int new_pad_len;
-> 
-> Super-nit: "pad_len" is the amount of potential padding from the end of the
-> previous segment up to the next segment boundary; the value we're
-> calculating here is the updated *total* segment length, so "new_prev_len"
-> would be more accurate and a bit clearer - the logic here is fiddly enough
-> as it is, so every little helps :)
-Both suggestions sound reasonable, I'll include them in the next
-version then.
-> 
-> With those tweaks (since it sounds like there's still another respin or two
-> to go for the rest of the series anyway),
-> 
-> Reviewed-by: Robin Murphy <robin.murphy@arm.com>
-Thanks!
+On Friday, 17 July 2026 16:50:57 CEST Uwe Kleine-K=C3=B6nig (The Capable Hu=
+b) wrote:
+> Update the various of_device_id arrays to conform to the most used and
+>=20
+> generally recommended coding style. That is:
+>  - No comma after the list terminator;
+>  - A comma after an initializer if (and only if) the closing } is not
+> =20
+>    directly following;
+> =20
+>  - No explicit zeros in the list terminator;
+>  - A space after an opening { and before a closing }, a single space in
+> =20
+>    the list terminator;
+>=20
+> Adapt the few offenders accordingly.
+>=20
+> Signed-off-by: Uwe Kleine-K=C3=B6nig (The Capable Hub)
+> <u.kleine-koenig@baylibre.com> ---
+>=20
+>  drivers/misc/ds1682.c                  | 4 ++--
+>  drivers/misc/fastrpc.c                 | 6 +++---
+>  drivers/misc/hisi_hikey_usb.c          | 2 +-
+>  drivers/misc/lis3lv02d/lis3lv02d_i2c.c | 2 +-
+>  drivers/misc/lis3lv02d/lis3lv02d_spi.c | 2 +-
+>  drivers/misc/open-dice.c               | 2 +-
+>  drivers/misc/pvpanic/pvpanic-mmio.c    | 4 ++--
+>  drivers/misc/qcom-coincell.c           | 4 ++--
+>  drivers/misc/sram.c                    | 2 +-
+>  drivers/misc/ti_fpc202.c               | 2 +-
+>  drivers/misc/vcpu_stall_detector.c     | 4 ++--
+>  11 files changed, 17 insertions(+), 17 deletions(-)
+>=20
+> diff --git a/drivers/misc/ds1682.c b/drivers/misc/ds1682.c
+> index f073a5067fc8..4500d7d0ea77 100644
+> --- a/drivers/misc/ds1682.c
+> +++ b/drivers/misc/ds1682.c
+> @@ -277,8 +277,8 @@ static const struct i2c_device_id ds1682_id[] =3D {
+>=20
+>  MODULE_DEVICE_TABLE(i2c, ds1682_id);
+> =20
+>  static const struct of_device_id ds1682_of_match[] =3D {
+>=20
+> -	{ .compatible =3D "dallas,ds1682", },
+> -	{}
+> +	{ .compatible =3D "dallas,ds1682" },
+> +	{ }
+>=20
+>  };
+>  MODULE_DEVICE_TABLE(of, ds1682_of_match);
+>=20
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index d86e79134c68..f7b6aba8b71d 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -2299,8 +2299,8 @@ static void fastrpc_cb_remove(struct platform_device
+> *pdev) }
+>=20
+>  static const struct of_device_id fastrpc_match_table[] =3D {
+>=20
+> -	{ .compatible =3D "qcom,fastrpc-compute-cb", },
+> -	{}
+> +	{ .compatible =3D "qcom,fastrpc-compute-cb" },
+> +	{ }
+>=20
+>  };
+> =20
+>  static struct platform_driver fastrpc_cb_driver =3D {
+>=20
+> @@ -2579,7 +2579,7 @@ static int fastrpc_rpmsg_callback(struct rpmsg_devi=
+ce
+> *rpdev, void *data, static const struct of_device_id
+> fastrpc_rpmsg_of_match[] =3D {
+>=20
+>  	{ .compatible =3D "qcom,kaanapali-fastrpc", .data =3D &kaanapali_soc_da=
+ta },
+>  	{ .compatible =3D "qcom,fastrpc", .data =3D &default_soc_data },
+>=20
+> -	{ },
+> +	{ }
+>=20
+>  };
+>  MODULE_DEVICE_TABLE(of, fastrpc_rpmsg_of_match);
+>=20
+> diff --git a/drivers/misc/hisi_hikey_usb.c b/drivers/misc/hisi_hikey_usb.c
+> index 79f06001259b..e68bc6e384d5 100644
+> --- a/drivers/misc/hisi_hikey_usb.c
+> +++ b/drivers/misc/hisi_hikey_usb.c
+> @@ -254,7 +254,7 @@ static void hisi_hikey_usb_remove(struct platform_dev=
+ice
+> *pdev)
+>=20
+>  static const struct of_device_id id_table_hisi_hikey_usb[] =3D {
+> =20
+>  	{ .compatible =3D "hisilicon,usbhub" },
+>=20
+> -	{}
+> +	{ }
+>=20
+>  };
+>  MODULE_DEVICE_TABLE(of, id_table_hisi_hikey_usb);
+>=20
+> diff --git a/drivers/misc/lis3lv02d/lis3lv02d_i2c.c
+> b/drivers/misc/lis3lv02d/lis3lv02d_i2c.c index 36032fc125f3..7c3ca6d604d1
+> 100644
+> --- a/drivers/misc/lis3lv02d/lis3lv02d_i2c.c
+> +++ b/drivers/misc/lis3lv02d/lis3lv02d_i2c.c
+> @@ -95,7 +95,7 @@ static union axis_conversion lis3lv02d_axis_map =3D
+>=20
+>  #ifdef CONFIG_OF
+>  static const struct of_device_id lis3lv02d_i2c_dt_ids[] =3D {
+> =20
+>  	{ .compatible =3D "st,lis3lv02d" },
+>=20
+> -	{}
+> +	{ }
+>=20
+>  };
+>  MODULE_DEVICE_TABLE(of, lis3lv02d_i2c_dt_ids);
+>  #endif
+>=20
+> diff --git a/drivers/misc/lis3lv02d/lis3lv02d_spi.c
+> b/drivers/misc/lis3lv02d/lis3lv02d_spi.c index 203a108b8883..5bf95176a00e
+> 100644
+> --- a/drivers/misc/lis3lv02d/lis3lv02d_spi.c
+> +++ b/drivers/misc/lis3lv02d/lis3lv02d_spi.c
+> @@ -60,7 +60,7 @@ static union axis_conversion lis3lv02d_axis_normal =3D
+>=20
+>  #ifdef CONFIG_OF
+>  static const struct of_device_id lis302dl_spi_dt_ids[] =3D {
+> =20
+>  	{ .compatible =3D "st,lis302dl-spi" },
+>=20
+> -	{}
+> +	{ }
+>=20
+>  };
+>  MODULE_DEVICE_TABLE(of, lis302dl_spi_dt_ids);
+>  #endif
+>=20
+> diff --git a/drivers/misc/open-dice.c b/drivers/misc/open-dice.c
+> index 45060fb4ea27..77ab0c1e83d3 100644
+> --- a/drivers/misc/open-dice.c
+> +++ b/drivers/misc/open-dice.c
+> @@ -177,7 +177,7 @@ static void open_dice_remove(struct platform_device
+> *pdev)
+>=20
+>  static const struct of_device_id open_dice_of_match[] =3D {
+> =20
+>  	{ .compatible =3D "google,open-dice" },
+>=20
+> -	{},
+> +	{ }
+>=20
+>  };
+> =20
+>  static struct platform_driver open_dice_driver =3D {
+>=20
+> diff --git a/drivers/misc/pvpanic/pvpanic-mmio.c
+> b/drivers/misc/pvpanic/pvpanic-mmio.c index 43a094bfdaec..724dfddf69e4
+> 100644
+> --- a/drivers/misc/pvpanic/pvpanic-mmio.c
+> +++ b/drivers/misc/pvpanic/pvpanic-mmio.c
+> @@ -51,8 +51,8 @@ static int pvpanic_mmio_probe(struct platform_device
+> *pdev) }
+>=20
+>  static const struct of_device_id pvpanic_mmio_match[] =3D {
+>=20
+> -	{ .compatible =3D "qemu,pvpanic-mmio", },
+> -	{}
+> +	{ .compatible =3D "qemu,pvpanic-mmio" },
+> +	{ }
+>=20
+>  };
+>  MODULE_DEVICE_TABLE(of, pvpanic_mmio_match);
+>=20
+> diff --git a/drivers/misc/qcom-coincell.c b/drivers/misc/qcom-coincell.c
+> index 3c57f7429147..b58bd34fc471 100644
+> --- a/drivers/misc/qcom-coincell.c
+> +++ b/drivers/misc/qcom-coincell.c
+> @@ -124,8 +124,8 @@ static int qcom_coincell_probe(struct platform_device
+> *pdev) }
+>=20
+>  static const struct of_device_id qcom_coincell_match_table[] =3D {
+>=20
+> -	{ .compatible =3D "qcom,pm8941-coincell", },
+> -	{}
+> +	{ .compatible =3D "qcom,pm8941-coincell" },
+> +	{ }
+>=20
+>  };
+> =20
+>  MODULE_DEVICE_TABLE(of, qcom_coincell_match_table);
+>=20
+> diff --git a/drivers/misc/sram.c b/drivers/misc/sram.c
+> index 1919d24c8236..c8990e83a65a 100644
+> --- a/drivers/misc/sram.c
+> +++ b/drivers/misc/sram.c
+> @@ -370,7 +370,7 @@ static const struct of_device_id sram_dt_ids[] =3D {
+>=20
+>  	{ .compatible =3D "nvidia,tegra186-sysram", .data =3D &tegra_sysram_con=
+fig },
+>  	{ .compatible =3D "nvidia,tegra194-sysram", .data =3D &tegra_sysram_con=
+fig },
+>  	{ .compatible =3D "nvidia,tegra234-sysram", .data =3D &tegra_sysram_con=
+fig },
+>=20
+> -	{}
+> +	{ }
+>=20
+>  };
+> =20
+>  static int sram_probe(struct platform_device *pdev)
+>=20
+> diff --git a/drivers/misc/ti_fpc202.c b/drivers/misc/ti_fpc202.c
+> index 2aac83ec4a39..9e2d24f89457 100644
+> --- a/drivers/misc/ti_fpc202.c
+> +++ b/drivers/misc/ti_fpc202.c
+> @@ -718,7 +718,7 @@ static void fpc202_remove(struct i2c_client *client)
+>=20
+>  static const struct of_device_id fpc202_of_match[] =3D {
+> =20
+>  	{ .compatible =3D "ti,fpc202" },
+>=20
+> -	{}
+> +	{ }
+>=20
+>  };
+>  MODULE_DEVICE_TABLE(of, fpc202_of_match);
+>=20
+> diff --git a/drivers/misc/vcpu_stall_detector.c
+> b/drivers/misc/vcpu_stall_detector.c index 26166357b255..1306b2c1ef99
+> 100644
+> --- a/drivers/misc/vcpu_stall_detector.c
+> +++ b/drivers/misc/vcpu_stall_detector.c
+> @@ -224,8 +224,8 @@ static void vcpu_stall_detect_remove(struct
+> platform_device *pdev) }
+>=20
+>  static const struct of_device_id vcpu_stall_detect_of_match[] =3D {
+>=20
+> -	{ .compatible =3D "qemu,vcpu-stall-detector", },
+> -	{}
+> +	{ .compatible =3D "qemu,vcpu-stall-detector" },
+> +	{ }
+>=20
+>  };
+> =20
+>  MODULE_DEVICE_TABLE(of, vcpu_stall_detect_of_match);
 
--- 
-Best Regards,
-Krzysztof
+Reviewed-by: Romain Gantois <romain.gantois@bootlin.com>
+
+--nextPartDe8xp2AFRBWqMINRDKbRPw
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEIcCsAScRrtr7W0x0KCYAIARzeA4FAmpd01gACgkQKCYAIARz
+eA7sXRAAmNpC3oo5PQNgDztLrDx76qRbhKQuVjiPS2kwHQN9pstvtAOZ+CzM3ixi
+58dEMGMGRieZ7iFO1mSDHxXlrSR82mB/vN0VzSGsTFtPufb0n6mbNYCdg6EMGCcH
+Z6W6VMIlXjgvQ+ifEwqYsZiYZMYfvGuv63nyiWfKLtOou7kwalXxGjlRW85fCV0b
+tQ6fCdtTtSBhdWTIrxQ38PWRZwxACnL1CqbyWbGvvCTEYVDBov8NDlNas1m2z0lN
+R8sPoj4W2EfTsNoEeN2KT6o2c9QUxK9BhTIBAtP3FH5/YyA5wgg3j4+2IgBLIxGY
+Skj6daWpVNCtE7BS1iQY9kZS+uDPxBjAV98Skhil0Dim2Q4xd9ulqZa6yGXbb0Sx
+yfbDsMoL4wDe5lEN5h32DVIvNevGAwMvaCwiDuLFGYTy8DTdWf9pHFsavznJBt6q
+liIJKxst6X1ToedGMIBQu2QGai6DdPqDKEMwUx03npALDDPJv59ZxJE+0/Sa2K0X
+vZjLLmfQgYXsMOyQ2NVeACbUQ/nW4+mCSefDdP+Ihy0AJ7iWDcuBULyE3IthaX5G
+2rYtyhdYSzCu+XSxxUac+5c+dXjBADp3PZzMvKxUAHq88k84VCYzPZzwtrVP5l8I
+U0fmRfro8X86bSKY3zOJHACrwzcEUo0ptk3h1yrLhFBFtN9e3/0=
+=jqEB
+-----END PGP SIGNATURE-----
+
+--nextPartDe8xp2AFRBWqMINRDKbRPw--
+
+
+
