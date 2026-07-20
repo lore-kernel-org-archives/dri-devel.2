@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25ABEC4452A
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 14:42:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A872CC4452A
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 14:43:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12C4110E974;
-	Mon, 20 Jul 2026 14:42:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 104A310E976;
+	Mon, 20 Jul 2026 14:43:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R44qySa4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WgB8DITK";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4503F10E972
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 14:42:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D62310E976
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 14:43:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5E2D560A6A;
- Mon, 20 Jul 2026 14:42:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81121F00A3A;
- Mon, 20 Jul 2026 14:42:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8E529601DE;
+ Mon, 20 Jul 2026 14:43:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 251511F00A3D;
+ Mon, 20 Jul 2026 14:43:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784558529;
- bh=dQqlFFKFdf+Hw4jSHez4hjapKY4jCaxPPkGUzHiCo6Y=;
+ s=k20260515; t=1784558637;
+ bh=zC+DF0ddq6OpasCImTJTgGb27ZlmDPQY7I35orb/hGk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=R44qySa4/YBYJYZ2exhv9+1KgVzbBFSPLq2sZcQ8Nv9+aTTGafxZXd0KLJe4Qhahc
- Qh7OglBtRHJRv6gji18WwJPqSe0NLIpee32EA28pZIpumz3nGCCUmnDPM8F+3limKF
- ENCv3pLU0EDG+f58yiG1vwrzGmANLlDspyAQTw4R9WwW3mSgYjuuTG0ehW6rG1mzAK
- 2feMHtlEyafK7hHBodpGWdmL/2f0zx4sBRDXWvrqrwpXMwHcIv0YgyOxVrSaafNdYl
- Osdrdqonfq8fnA4RzYRg+JzO+CWuNstvY6zNm8nQo8GLrYg19ZKZA7N7/Sv/Jt5SsH
- Tyxw6a3NEWCfA==
+ b=WgB8DITKwz8lOdi4gUX7ihOv5V3D6D+KtvyCjjpXHmQNiN3c3P5KWg5M1jbnTfMzf
+ Au09jEXVHDKYV02F0PBYsae5T9PaxJ/oY9F8ICh2Xi5HbZ66QV5gs2Pqv1b5XALZuc
+ E4ZkrA17kFsEioE9Dwilc/0mMJrIzi06XkLphKMx6j3ihfwHC2kroszyyCIu1aKIKA
+ RVjTRmg1cASY5SOPMVCtipTryltK/q7uEejP7yx7i6kEZ81rMgBa0ndUD+EnuYYx2c
+ C955cz+5lkh2Z90mcvR8afayYYgMNCjuyXVSVZoWvXArlRk/DA51MjMqygCb7g/jJ4
+ 0DiLdw9ehKVdw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] drm/amd/display: Support DRM format modifiers on
+Subject: Re: [PATCH 2/4] drm/amdgpu: Convert tiling flags to modifiers on
  GFX6-8
 To: =?utf-8?b?VGltdXIgS3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720142440.22076-4-timur.kristof@gmail.com>
+In-Reply-To: <20260720142440.22076-3-timur.kristof@gmail.com>
 References: <20260720142440.22076-1-timur.kristof@gmail.com>
- <20260720142440.22076-4-timur.kristof@gmail.com>
+ <20260720142440.22076-3-timur.kristof@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 14:42:08 +0000
-Message-Id: <20260720144208.E81121F00A3A@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 14:43:55 +0000
+Message-Id: <20260720144357.251511F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,176 +60,119 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The calculation of `block_size_log2` for GFX6 modifiers computes t=
-he log2 of the block's pixel count rather than its byte size, allowing unde=
-rsized framebuffers to bypass validation.
-- [High] The new format modifier validation rigidly rejects `RENDER` micro-=
-tiling mode (value 3), breaking backward compatibility with existing usersp=
-ace buffers.
-- [Medium] Memory leak in KUnit test `dm_test_get_plane_modifiers` due to a=
-n overwritten pointer.
+- [High] Missing cpp factor in GFX6 block size calculation enables out-of-b=
+ounds VRAM read vulnerability.
+- [High] Strict rejection of RENDER microtiling introduces a functional reg=
+ression for legacy GFX6 compositors.
+- [Low] Usage of undefined/DC-specific ASSERT macro in generic AMDGPU code =
+causes build failures or macro misuse.
 --
 
---- Patch [3]: [PATCH 3/4] drm/amd/display: Support DRM format modifiers on=
+--- Patch [2]: [PATCH 2/4] drm/amdgpu: Convert tiling flags to modifiers on=
  GFX6-8 ---
-commit 4836999b9da380df8ff4cbe5d660f33f0b1bc33d
+commit 44a2b5305f951bc68d3e2665bc5db9defc35dd24
 Author: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+Subject: drm/amdgpu: Convert tiling flags to modifiers on GFX6-8
 
-drm/amd/display: Support DRM format modifiers on GFX6-8
+This commit converts tiling flags to DRM format modifiers for AMD GFX8 and
+older GPUs, ensuring consistency across generations and allowing the display
+driver to rely on them. It includes logic to map array modes to modifiers a=
+nd
+verify block sizes for GFX6 specifically.
 
-Expose displayable DRM format modifiers based on which
-tiling modes are supported by the GFX block. This patch calculates
-and exposes proper macro and micro tiling modes for GFX6-8 hardware.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_display.c
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index 26f35434a92f0..2706b2ea4eae2 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
 [ ... ]
-> @@ -468,6 +519,249 @@ static void amdgpu_dm_plane_add_gfx10_1_modifiers(c=
-onst struct amdgpu_device *ad
-[ ... ]
-> +/**
-> + * amdgpu_dm_plane_gfx6_format_mod_supported() - Check if a modifier is =
-supported on GFX6-8
-> + *
-> + * @adev: amdgpu_device pointer
-> + * @bpp: bits per pixel in the image
-> + * @modifier: the modifier whose support we check
-> + *
-> + * On GFX6-8, not all DRM format modifier can be used with all image for=
-mats.
-> + * Check whether the specified modifier is supported with the given bits=
- per pixel value.
-> + */
-> +static bool amdgpu_dm_plane_gfx6_format_mod_supported(const struct amdgp=
-u_device *adev,
-> +						      const u32 bpp,
-> +						      const u64 modifier)
-> +{
-> +	const u32 array_mode =3D AMD_FMT_MOD_GET(TILE, modifier);
-> +	const u32 micro_tile_mode =3D AMD_FMT_MOD_GET(MICROTILE, modifier);
-> +
-> +	if (!IS_AMD_FMT_MOD(modifier))
-> +		return false;
-> +
-> +	/* GFX9 and newer format modifiers are not supported on GFX6-8 yet. */
-> +	if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) !=3D AMD_FMT_MOD_TILE_VER_G=
-FX6)
-> +		return false;
-> +
-> +	/* GFX8 and older format modifiers are not supported on GFX9+ yet. */
-> +	if (adev->family >=3D AMDGPU_FAMILY_AI)
-> +		return false;
-> +
-> +	/* GFX6-7 doesn't have any DCC, GFX8 doesn't have displayable DCC. */
-> +	if (AMD_FMT_MOD_GET(DCC, modifier))
-> +		return false;
-> +
-> +	/*
-> +	 * For now, only expose 1D and 2D tiles THIN array modes.
-> +	 * Linear is already exposed through DRM_FORMAT_MOD_LINEAR.
-> +	 */
+
 > +	if (array_mode !=3D AMD_FMT_MOD_TILE_GFX6_1D_TILED_THIN1 &&
-> +	    array_mode !=3D AMD_FMT_MOD_TILE_GFX6_2D_TILED_THIN1)
-> +		return false;
-> +
-> +	/*
-> +	 * For now, only expose DISPLAY micro tile mode.
-> +	 * THIN, DEPTH and THICK modes are not displayable.
-> +	 * ROTATED has never been supported on Linux.
-> +	 */
-> +	if (micro_tile_mode !=3D AMD_FMT_MOD_MICROTILE_DISPLAY)
-> +		return false;
+> +	    array_mode !=3D AMD_FMT_MOD_TILE_GFX6_2D_TILED_THIN1) {
+> +		drm_dbg_kms(dev, "Array mode %u not supported by display driver\n", ar=
+ray_mode);
+> +		return -EINVAL;
+> +	}
+> +	if (micro_tile_mode !=3D AMD_FMT_MOD_MICROTILE_DISPLAY) {
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 [Severity: High]
-Does this strict micro tile mode check break backward compatibility with
-existing userspace?
+Does this break legacy userspace compositors?=20
 
-Prior to this patch, userspace could allocate a buffer with the RENDER
-micro-tiling mode (value 3) and it was explicitly allowed by the legacy che=
-ck
-for compatibility with Mesa's radeonsi driver.
+Looking at check_tiling_flags_gfx6(), it explicitly supports RENDER=20
+microtiling (mode 3):
 
-By exposing modifiers on GFX6-8 here, the legacy check is disabled, and the
-kernel converts the tiling flags to an implicit modifier. This modifier gets
-rejected by the strict AMD_FMT_MOD_MICROTILE_DISPLAY check in
-amdgpu_display_verify_sizes_gfx6(), which can cause compositors to fail to
-display scanout buffers.
+	micro_tile_mode =3D AMDGPU_TILING_GET(afb->tiling_flags, MICRO_TILE_MODE);
+	switch (micro_tile_mode) {
+	case 0: /* DISPLAY */
+	case 3: /* RENDER */
+		return 0;
 
-> +
-> +	/* Verify that the modifier is the same that we'd expose for this bpp */
-> +	return amdgpu_dm_plane_calc_gfx6_mod(adev, bpp, array_mode) =3D=3D modi=
-fier;
-> +}
+Could returning -EINVAL here for RENDER mode cause a regression for legacy=
+=20
+clients allocating display buffers for 3D performance?
+
+> +		drm_dbg_kms(dev, "Microtile mode %u not displayable\n", micro_tile_mod=
+e);
+> +		return -EINVAL;
+> +	}
+
 [ ... ]
-> @@ -749,12 +1043,6 @@ static void amdgpu_dm_plane_add_gfx12_modifiers(str=
-uct amdgpu_device *adev,
->  STATIC_IFN_KUNIT int amdgpu_dm_plane_get_plane_modifiers(struct amdgpu_d=
-evice *adev, unsigned int plane_type, uint64_t **mods)
->  {
->  	uint64_t size =3D 0, capacity =3D 128;
-> -	*mods =3D NULL;
-> -
-> -	/* We have not hooked up any pre-GFX9 modifiers. */
-> -	if (adev->family < AMDGPU_FAMILY_AI)
-> -		return 0;
-> -
 
-[Severity: Medium]
-Can this cause a KUnit test failure and memory leak?
-
-The test dm_test_get_plane_modifiers() in
-drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c asserts
-that amdgpu_dm_plane_get_plane_modifiers() leaves `mods` as NULL for
-AMDGPU_FAMILY_SI. Since this patch now allocates and populates `mods` for
-GFX6 hardware, the test expectation fails.
-
-Because the execution continues in the test, it passes the already-allocated
-pointer back into the function which overwrites the pointer, leaking the
-previous array allocation.
-
->  	*mods =3D kmalloc_array(capacity, sizeof(uint64_t), GFP_KERNEL);
+> @@ -1120,6 +1247,15 @@ static int amdgpu_display_verify_sizes(struct amdg=
+pu_framebuffer *rfb)
 > =20
->  	if (plane_type =3D=3D DRM_PLANE_TYPE_CURSOR) {
-> @@ -764,6 +1052,13 @@ STATIC_IFN_KUNIT int amdgpu_dm_plane_get_plane_modi=
-fiers(struct amdgpu_device *a
->  	}
-> =20
->  	switch (adev->family) {
-> +	case AMDGPU_FAMILY_SI:
-> +	case AMDGPU_FAMILY_CI:
-> +	case AMDGPU_FAMILY_KV:
-> +	case AMDGPU_FAMILY_VI:
-> +	case AMDGPU_FAMILY_CZ:
-> +		amdgpu_dm_plane_add_gfx6_modifiers(adev, mods, &size, &capacity);
-> +		break;
+>  			get_block_dimensions(block_size_log2, format_info->cpp[i],
+>  					     &block_width, &block_height);
+> +		} else if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) =3D=3D AMD_FMT_MOD_=
+TILE_VER_GFX6) {
+> +			ret =3D amdgpu_display_verify_sizes_gfx6(rfb->base.dev, modifier,
+> +							       &block_width, &block_height);
+> +			if (ret)
+> +				return ret;
+> +
+> +			ASSERT(is_power_of_2(block_width));
+                        ^^^^^^
+
+[Severity: Low]
+Are these ASSERT() macros defined in this context?=20
+
+ASSERT is typically a Display Core (DC) specific macro (from dc/os_types.h)=
+.=20
+Since amdgpu_display.c is part of the core driver, would WARN_ON() be more=
+=20
+appropriate here to avoid potential build failures?
+
+> +			ASSERT(is_power_of_2(block_height));
+> +			block_size_log2 =3D ilog2(block_width * block_height);
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 [Severity: High]
-Could exposing these modifiers allow undersized framebuffers to bypass vali=
-dation?
+Should this calculation include the bytes-per-pixel factor?=20
 
-By adding these modifiers, the code now allows userspace to create framebuf=
-fers
-with GFX6 modifiers via addfb2. In drivers/gpu/drm/amd/amdgpu/amdgpu_displa=
-y.c,
-amdgpu_display_verify_sizes() calculates block_size_log2 for GFX6:
+By omitting the format_info->cpp[i] multiplier, block_size_log2 appears to=
+=20
+underestimate the block size.=20
 
-    block_size_log2 =3D ilog2(block_width * block_height);
+When this is later passed into amdgpu_display_verify_plane(), it calculates:
 
-This calculates the log2 of the pixel count rather than the byte size, beca=
-use
-it is missing the format_info->cpp[i] multiplier. The missing multiplier
-causes the byte size validation to incorrectly pass for undersized buffers.
-This can lead to the display hardware reading beyond the allocated GEM obje=
-ct
-bounds during scanout.
+	unsigned int block_size =3D 1 << block_size_log2;
+        ...
+	size =3D rfb->base.offsets[plane] +
+		(uint64_t)rfb->base.pitches[plane] / block_pitch *
+		block_size * DIV_ROUND_UP(height, block_height);
 
->  	case AMDGPU_FAMILY_AI:
->  	case AMDGPU_FAMILY_RV:
->  		amdgpu_dm_plane_add_gfx9_modifiers(adev, mods, &size, &capacity);
+	if (rfb->base.obj[0]->size < size) {
+
+An underestimated block_size results in a vastly smaller size requirement,=
+=20
+which might allow an undersized Buffer Object to pass validation,=20
+potentially leading to out-of-bounds VRAM reads.
+
+>  		}
+> =20
+>  		ret =3D amdgpu_display_verify_plane(rfb, i, format_info,
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720142440.2207=
-6-1-timur.kristof@gmail.com?part=3D3
+6-1-timur.kristof@gmail.com?part=3D2
