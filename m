@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AC3BC44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 10:22:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 259D6C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 10:22:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CC0B10E863;
-	Mon, 20 Jul 2026 10:22:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 785CB10E879;
+	Mon, 20 Jul 2026 10:22:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WSEyutcF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="esWM+vVW";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC9CC10E161;
- Mon, 20 Jul 2026 10:22:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A2CB10E865;
+ Mon, 20 Jul 2026 10:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784542931; x=1816078931;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Nbe+7ueollokR2LMuvdixnDLwY1fCmunk+iwimAhyN4=;
- b=WSEyutcFgsfkg6fjy5jOmbhhnOun5hJQo3HLhqvS8t8HyUvWJmXne2Xu
- Cvyv4Cxt0j2az+pLN+S8m/jWZ+1uUIPmlH8Me2SBgV5pMaigQuqlYAteT
- w0NtRJgUYOycJGyIzHu0ymTTjy/5q1b2rWgqPRBjiiNDUcR4cIEzDjAyC
- sz3UzL1nQ+tQsO9OHS6wsU0Mc83Zivs41YnUODgdOQovRlZQeml1phSPb
- erVlKRXvu9y3AMBRr/BCOwyorWg/ATY51zi7BbuTCbBObTmv0L3H1bW1a
- Gdo3Xd5b2B44tirfRgqrbu2z+QJ3OSxnRGKSGWN8XusmXAsSJOVPKv6gJ A==;
-X-CSE-ConnectionGUID: JaGkPJmISyS1zM5+jsaeww==
-X-CSE-MsgGUID: NvO94CGqRXOYRavbvxEW4A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="85070508"
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="85070508"
+ t=1784542934; x=1816078934;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=jOz7uoTcrwD3wi0VtmMQCc3Fq0fktM3nR0yPctpU+3A=;
+ b=esWM+vVWUSdZPGokvgna1XNdyjPgUvfINk4h2QVKyX/7u+bocy/2/E97
+ Y77RkSQQCdzSBunDLRKEzbq4pBKPMLzeH968o4DQV1QLHUpvfEiJ9mIIx
+ NP4h2aLFxYLhXs2KIodX2Gcdq/Adsqp2wbBbW1QyhF8OOju4icX1Hwtyd
+ M3bCbd1Nc8Fx0MbNdzd9Whh+1XpCxgLi1AKe+reTK+7s0Wq34hGMDjgml
+ B3yb+U2S88IaGVtD+HUlmgvw7C6TDJSgh7ftH2jOJYEFWzATQyvzx5hD9
+ GZ0amefzXU/9bRHY96uQ5QROlPYqiEpxTMVQGvwjv7AZpUgOKUicJGWwh Q==;
+X-CSE-ConnectionGUID: qis4aqqGQn+tQV9iuqVaVg==
+X-CSE-MsgGUID: 5V9Qs5uLTda6p83R21vHRw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="85070521"
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="85070521"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2026 03:22:10 -0700
-X-CSE-ConnectionGUID: oxTh0wrFSYS3SfkQ88ZaXw==
-X-CSE-MsgGUID: hp4N8HuZRfC8dRRoX+7c8Q==
+ 20 Jul 2026 03:22:14 -0700
+X-CSE-ConnectionGUID: ZYMj3QinT7+2bRiyyh6YwA==
+X-CSE-MsgGUID: 1xqJPIMLSwurSInZx2okvw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="287475784"
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="287475790"
 Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by orviesa002.jf.intel.com with ESMTP; 20 Jul 2026 03:22:07 -0700
+ by orviesa002.jf.intel.com with ESMTP; 20 Jul 2026 03:22:11 -0700
 From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  rodrigo.vivi@intel.com
@@ -49,12 +49,13 @@ Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
  anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
  karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
  Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Subject: [PATCH v11 0/3] Introduce cold reset recovery method
-Date: Mon, 20 Jul 2026 15:48:16 +0530
-Message-ID: <20260720101815.526813-5-mallesh.koujalagi@intel.com>
+Subject: [PATCH v11 1/3] drm: Add DRM_WEDGE_RECOVERY_COLD_RESET recovery method
+Date: Mon, 20 Jul 2026 15:48:17 +0530
+Message-ID: <20260720101815.526813-6-mallesh.koujalagi@intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260720101815.526813-5-mallesh.koujalagi@intel.com>
+References: <20260720101815.526813-5-mallesh.koujalagi@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,108 +72,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for handling errors that require a complete
-device power cycle (cold reset) to recover.
+Introduce DRM_WEDGE_RECOVERY_COLD_RESET (BIT(4)) recovery method to handle
+scenarios requiring device power cycle.
 
-Certain error conditions leave the device in a persistent hardware
-error state that cannot be cleared through existing recovery mechanisms
-such as driver reload or PCIe reset. In these cases, functionality can
-only be restored by performing a cold reset.
+This method addresses cases where other recovery mechanisms
+(driver reload, PCIe reset, etc.) are insufficient to restore device
+functionality. When set, it indicates to userspace that only device power
+cycle can recover the device from its current error state.
 
-To support this, the series introduces a new DRM wedging recovery
-method, DRM_WEDGE_RECOVERY_COLD_RESET (BIT(4)). When a device is wedged
-with this method, the DRM core notifies userspace via a uevent that a cold
-reset is required. This allows userspace to take appropriate action to
-power-cycle the device.
-
-Example uevent received:
-  SUBSYSTEM=drm
-  WEDGED=cold-reset
-  DEVPATH=/devices/.../drm/card0
-
-v2:
-- Add use case: Handling errors from power management unit,
-  which requires a complete power cycle to
-  recover. (Christian)
-- Add several instead of number to avoid update. (Jani)
-
+Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+---
 v3:
 - Update any scenario that requires cold-reset. (Riana)
-- Update document with generic scenario. (Riana)
-- Consistent with terminology. (Raag)
-- Remove already covered information.
-- Use PUNIT instead of PMU. (Riana)
-- Use consistent wordingi.
-- Remove log. (Raag)
 
 v4:
-- Rename cold reset to power cyclce. (Raag)
-- Update doc. (Raag/Riana)
-- Change commit message. (Raag)
-- Make function static. (Raag)
+- Rename cold reset to power cycle. (Raag)
 
 v5:
 - Make it consistent with consumer expectations. (Raag)
-- Update commit message.
-- Remove unbind.
-- Simplify cold-reset script.
-- Remove kdoc for static function.
-- Remove xe_ prefix for static function.
 
 v6:
 - Drop "last resort" wording. (Riana)
-- Look up the hotplug slot in DEVPATH instead of scanning
-  every PCI slot on the system. (Raag)
-- Drop arbitrary sleep values from the example script.
-- Expand commit message to explain why SUR_DN is masked. (Raag/Riana)
-- Check Slot Implemented bit before reading Slot Capabilities, per
-  PCIe spec. (Riana)
-- Add debug log.
+---
+ drivers/gpu/drm/drm_drv.c | 2 ++
+ include/drm/drm_device.h  | 1 +
+ 2 files changed, 3 insertions(+)
 
-v7:
-- Update recovery script. (Raag)
-- Handle surprise link down event properly. (Aravind/Riana)
-- Update commit message. (Riana)
-- Correct log message.
-
-v8:
-- Add rescan instead of reset. (Raag)
-- Use find_usp_dev() in punit_error_handler() function.
-
-v9:
-- Remove unwanted header. (Sashiko)
-- Removed #ifdef CONFIG_PCIEAER. (Riana)
-- Used pci_find_ext_capability() instead of usp->aer_cap.
-- Clear the PCI_ERR_UNC_SURPDN status bit (W1C) after
-  reset complete. (Lukas Wunner)
-- Use pci_clear_and_set_config_dword() helper.
-
-v10:
-- Rebase.
-- Fix column width. (Sashiko)
-
-v11:
-- Make udev rules in single line. (Sashiko)
-
-Cc: André Almeida <andrealmeid@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-
-Mallesh Koujalagi (3):
-  drm: Add DRM_WEDGE_RECOVERY_COLD_RESET recovery method
-  drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET recovery method
-  drm/xe: Handle PUNIT errors by requesting cold-reset recovery
-
- Documentation/gpu/drm-uapi.rst | 93 ++++++++++++++++++++++++++++++++--
- drivers/gpu/drm/drm_drv.c      |  2 +
- drivers/gpu/drm/xe/xe_ras.c    |  8 ++-
- include/drm/drm_device.h       |  1 +
- 4 files changed, 98 insertions(+), 6 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index e51ed959da89..8519e97ef5d3 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -545,6 +545,8 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
+ 		return "bus-reset";
+ 	case DRM_WEDGE_RECOVERY_VENDOR:
+ 		return "vendor-specific";
++	case DRM_WEDGE_RECOVERY_COLD_RESET:
++		return "cold-reset";
+ 	default:
+ 		return NULL;
+ 	}
+diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+index 768a8dae83c5..75f030d027ee 100644
+--- a/include/drm/drm_device.h
++++ b/include/drm/drm_device.h
+@@ -37,6 +37,7 @@ struct pci_controller;
+ #define DRM_WEDGE_RECOVERY_REBIND	BIT(1)	/* unbind + bind driver */
+ #define DRM_WEDGE_RECOVERY_BUS_RESET	BIT(2)	/* unbind + reset bus device + bind */
+ #define DRM_WEDGE_RECOVERY_VENDOR	BIT(3)	/* vendor specific recovery method */
++#define DRM_WEDGE_RECOVERY_COLD_RESET	BIT(4)	/* remove device + slot power cycle + rescan */
+ 
+ /**
+  * struct drm_wedge_task_info - information about the guilty task of a wedge dev
 -- 
 2.48.1
 
