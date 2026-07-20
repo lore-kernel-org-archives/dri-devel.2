@@ -4,43 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88BF1C44520
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:26:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC8C6C44520
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:36:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6556890B2;
-	Mon, 20 Jul 2026 12:26:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C45310E8EF;
+	Mon, 20 Jul 2026 12:36:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SHBCebY4";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="fFR1VBHJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hyX256ub";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pTtsy8sL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O8QYjiFk";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9799E890B2
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:26:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D2D8660A6A;
- Mon, 20 Jul 2026 12:26:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CE951F000E9;
- Mon, 20 Jul 2026 12:26:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784550379;
- bh=3wX2n20ApLyFFwIPJ4KqwqgO9HuOLX8e/YNXZNe4B0o=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SHBCebY41q0IVXM0T4ZYqUbKExm+by8jgzjJGjHytkGyEpW8CtwdYeCFpoKZ7p4jx
- Q5FmZOjkYJ0KSux2NOBoSFPzUneQH9NUdJz95WOADlfY36TMqK0dc7hbeYp9KuaCx6
- AdyDfX6J8HgXs4fjLBBMTNBOGvlstE38wnrjI7W1nAWkdTl0jNQDnXWr74uYjyg68t
- uyhI5hkJatzrhCs0zRTLNt1rF7I6/usgGzSDW4ZN/w1bZ6w9QbtFOwSaxXLAr7cBXw
- A+GeDt71qkFQIG40CAnR0MjdLqwPPgdR8NBAxSkDSCfelxO4/jgC/0dIquRVQ2dB90
- fqeJ2etjzDvcw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/2] gpu/buddy: replace dual-tree/force_merge with
- decoupled dirty tracker
-To: "Arunpravin Paneer Selvam" <Arunpravin.PaneerSelvam@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720121041.339981-1-Arunpravin.PaneerSelvam@amd.com>
-References: <20260720121041.339981-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 12:26:18 +0000
-Message-Id: <20260720122619.5CE951F000E9@smtp.kernel.org>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A055D10E8E9
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:36:22 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EC5C23E09;
+ Mon, 20 Jul 2026 12:36:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784550981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=f8pLKE53MsMSJHxP6tUJaXAsP0fNPXLjKYgxqynHKRE=;
+ b=fFR1VBHJmAcu8jGbXAlibPGlPfI7cLx/3FgsEdHg5guy6rydO9dyl+RjcoTTyGoKFHqg4e
+ dNeBZfJ4q2+Yu+haQ2T17nizBw9X5Z6oUG37HwKJWqDoD4yI3jG0awsDizGZKq3mj5PNki
+ Uk3bb2YwB9YW256tBn1uigNwVFPLViI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784550981;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=f8pLKE53MsMSJHxP6tUJaXAsP0fNPXLjKYgxqynHKRE=;
+ b=hyX256ubhGpAPeB1jULKvqfQ/q7jtWXlaZ2IxBMFKzXdo1RmzXVHdQlythLgzMbmS8dqpb
+ 3g6V7XplZ3NgtPCA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784550979; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=f8pLKE53MsMSJHxP6tUJaXAsP0fNPXLjKYgxqynHKRE=;
+ b=pTtsy8sL4ovlj3iNTrmc9A1wlOkcnk8Hi668U7diBMT2+rwiknYWHs0CquEfiX+D99rWZZ
+ gkZv9oRmV4oF8Czm7iIywKlooZF8pwEPBkwUH/DwZvRfcc66JkqSLdLPLitfo7Sv0MbBHa
+ EXU1hN1m4/kjScY1OcO7HVNkr73CrL0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784550979;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=f8pLKE53MsMSJHxP6tUJaXAsP0fNPXLjKYgxqynHKRE=;
+ b=O8QYjiFkJMUEi2PPji9osqkX81ilMzc5mYnwhQqYmLpUFk7lRLB4rPF/6BqZlRHakt982B
+ 79it1bDxtBV7k/Bw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C3584779AA;
+ Mon, 20 Jul 2026 12:36:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Ndd2LkMWXmrrXAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 20 Jul 2026 12:36:19 +0000
+Message-ID: <63cca05a-ec83-430c-abcf-c2f0b508446f@suse.de>
+Date: Mon, 20 Jul 2026 14:36:19 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/imx: replace struct drm_simple_display_pipe with
+ regular atomic helpers
+To: Ze Huang <ze.huang@oss.qualcomm.com>, sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, imx@lists.linux.dev
+References: <20260716-drm-simple-kms-removal-v2-1-7e4a6b8528e6@oss.qualcomm.com>
+ <20260716091459.1D8101F000E9@smtp.kernel.org>
+ <DK1XPK73QJHC.JWFUMTTLOD1D@oss.qualcomm.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <DK1XPK73QJHC.JWFUMTTLOD1D@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_FIVE(0.00)[5];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ bootlin.com:url, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,173 +136,105 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Hi
 
-New issues:
-- [Critical] Mempool exhaustion and direct reclaim deadlock in dirty extent=
- allocation (`extent_alloc`).
-- [High] `__gpu_buddy_free` misclassifies MIXED blocks as purely DIRTY, per=
-manently losing track of clear pages.
+Am 18.07.26 um 21:12 schrieb Ze Huang:
+[...]
+>>>   
+>>> -	if (event) {
+>>> -		crtc->state->event = NULL;
+>>> +static int imx_lcdc_plane_helper_atomic_check(struct drm_plane *plane,
+>>> +					      struct drm_atomic_commit *commit)
+>>> +{
+>>> +	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(commit, plane);
+>>> +	struct drm_crtc *crtc = plane_state->crtc;
+>>> +	struct drm_crtc_state *crtc_state = NULL;
+>>>   
+>>> -		spin_lock_irq(&crtc->dev->event_lock);
+>>> +	if (crtc)
+>>> +		crtc_state = drm_atomic_get_new_crtc_state(commit, crtc);
+>>>   
+>>> -		if (crtc->state->active && drm_crtc_vblank_get(crtc) == 0)
+>>> -			drm_crtc_arm_vblank_event(crtc, event);
+>>> -		else
+>>> -			drm_crtc_send_vblank_event(crtc, event);
+>>> +	return drm_atomic_helper_check_plane_state(plane_state, crtc_state,
+>> [Severity: High]
+>> Can fetching the CRTC state this way cause a kernel panic in the core atomic
+>> helpers?
+>>
+>> If userspace submits a commit that modifies only plane properties without
+>> affecting the CRTC, the CRTC is not implicitly added to the atomic commit
+>> state.
+>>
+>> In this scenario, drm_atomic_get_new_crtc_state() returns NULL. Passing this
+>> NULL pointer directly to drm_atomic_helper_check_plane_state() causes a crash
+>> when it dereferences crtc_state->enable.
+>>
+>> Could this use drm_atomic_get_crtc_state() instead to ensure the state is
+>> brought into the commit if it is missing?
+> I think it is fine here; I'll just copy the pattern from [1].
+>
+> [1] https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/mgag200/mgag200_mode.c#L487
 
-Pre-existing issues:
-- [High] Reclaim deadlock during block splitting due to `GFP_KERNEL` in `gp=
-u_block_alloc`.
+It could be that there's a long standing problem in the overall logic. 
+Not having a CRTC (and hence crtc_state) should also mean !fb, so we'd 
+return at [1]. If we have a CRTC on the plane but pass a crtc_state of 
+NULL, we could get a panic at [2], where it does crtc_state->crtc.  I'm 
+not aware of any bug reports about this problem, but it's still an issue.
+
+A number of drivers get this wrong by using 
+drm_atomic_helper_get_new_crtc_state(). The bot suggests to use 
+drm_atomic_helper_get_crtc_state() instead.  This helper also returns 
+the new state. But  if there's no new state, it duplicates the CRTC's 
+existing state. That's a bit of an overhead, but probably not an issue.  
+Several drivers use this helper, but also get it wrong. They tend to 
+return early in the case of !crtc or !fb without calling 
+_check_plane_state(). See [3] and [4] for examples.
+
+I think, going with the bot's suggestion to use 
+drm_atomic_helper_get_crtc_state() might be the best resolution for now. 
+It still needs a crtc pointer, so the pattern is
+
+crtc_state = NULL
+if (plane_state->crtc)
+     crtc_state = drm_atomic_helper_get_crtc_state(plane_state->crtc)
+
+_check_plane_state(plane_state, crtc_state);
+
+And in this case, _check_plane_state() should work correctly. But you 
+can only use _get_crtc_state() in the atomic_check helpers! In the 
+atomic_update, atomic_enable, etc helpers, it's too late for the helper 
+to copy the CRTC state.
+
+I think some other DRM dev should look over this as well. It's one of 
+the trickier things in DRM to get right.
+
+Best regards
+Thomas
+
+
+[1] 
+https://elixir.bootlin.com/linux/v7.1.3/source/drivers/gpu/drm/drm_atomic_helper.c#L912
+[2] 
+https://elixir.bootlin.com/linux/v7.1.3/source/drivers/gpu/drm/drm_atomic_helper.c#L907
+
+[3] 
+https://elixir.bootlin.com/linux/v7.1.3/source/drivers/gpu/drm/mediatek/mtk_plane.c#L230
+[4] 
+https://elixir.bootlin.com/linux/v7.1.3/source/drivers/gpu/drm/tidss/tidss_plane.c#L31
+
+
+
+-- 
 --
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
---- Patch [1]: [PATCH v6 1/2] gpu/buddy: replace dual-tree/force_merge with=
- decoupled dirty tracker ---
-commit 8d70f22110bb225d8340a7718c3a49a77a89a42c
-Author: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-gpu/buddy: replace dual-tree/force_merge with decoupled dirty tracker
-   =20
-This commit replaces the dual-tree buddy allocator with a single free tree
-and a decoupled out-of-band dirty tracker. Fully cleared free blocks are
-tracked outside using an augmented interval rbtree to enable O(log E)
-lookup of the largest cleared extents.
-
-> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> index dc81fe0301ce8..755a0b9e47458 100644
-> --- a/drivers/gpu/buddy.c
-> +++ b/drivers/gpu/buddy.c
-
-[ ... ]
-
-> @@ -34,6 +35,418 @@
-> +static int gpu_dirty_tracker_init(struct gpu_dirty_tracker *dirty_tracke=
-r)
-> +{
-> +	dirty_tracker->root =3D RB_ROOT;
-> +	dirty_tracker->total_dirty =3D 0;
-> +
-> +	dirty_tracker->extent_pool =3D
-> +		mempool_create_slab_pool(GPU_DIRTY_EXTENT_POOL_MIN, slab_extents);
-
-[Severity: Critical]
-Can this mempool size of 1 lead to a starvation deadlock?
-
-Many operations (such as gpu_buddy_reset_clear() or gpu_buddy_free_list())
-might require multiple extent allocations in a single locked transaction.
-
-If the slab allocator fails, mempool_alloc() could exhaust the single
-reserve element and then loop indefinitely waiting for an element to be
-freed.
-
-Since the thread holding the lock is blocked, no elements can be freed,
-which could cause a permanent deadlock.
-
-> +	if (!dirty_tracker->extent_pool)
-> +		return -ENOMEM;
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static struct gpu_dirty_extent *extent_alloc(struct gpu_dirty_tracker *d=
-irty_tracker)
-> +{
-> +	struct gpu_dirty_extent *dirty_extent;
-> +
-> +	dirty_extent =3D mempool_alloc(dirty_tracker->extent_pool, GFP_KERNEL);
-
-[Severity: Critical]
-Is it safe to use GFP_KERNEL here while holding a driver lock?
-
-This allocation is performed while holding a driver lock. GFP_KERNEL sets
-__GFP_DIRECT_RECLAIM, which allows direct memory reclaim.
-
-If the shrinker attempts to acquire the same driver lock to evict memory,
-it could result in an AB-BA deadlock.
-
-> +
-> +	return dirty_extent;
-> +}
-
-[ ... ]
-
-> @@ -253,37 +770,37 @@ __get_buddy(struct gpu_buddy_block *block)
->  }
-> =20
->  static unsigned int __gpu_buddy_free(struct gpu_buddy *mm,
-> -				     struct gpu_buddy_block *block,
-> -				     bool force_merge)
-> +				     struct gpu_buddy_block *block)
->  {
-> +	enum gpu_block_state block_state;
->  	struct gpu_buddy_block *parent;
->  	unsigned int order;
-> =20
-> -	while ((parent =3D block->parent)) {
-> -		struct gpu_buddy_block *buddy;
-> +	block_state =3D gpu_buddy_block_is_clear(block) ? GPU_BLOCK_CLEAR :
-> +							GPU_BLOCK_DIRTY;
-
-[Severity: High]
-Does this misclassify mixed blocks as purely dirty?
-
-If a block is in the GPU_BLOCK_MIXED state (where has_clear is true but
-is_clear is false), this initialization sets it to GPU_BLOCK_DIRTY because
-it doesn't check the has_clear flag.
-
-If the block's buddy is also dirty, the parent block state evaluates to
-dirty and clears its has_clear flag.
-
-This could cause the clear memory tracked by the dirty tracker to become
-permanently inaccessible to GPU_BUDDY_CLEAR_ALLOCATION requests, as the
-free tree's augment flags will cause the allocator to skip the subtree,
-resulting in premature -ENOSPC allocation failures.
-
-> =20
-> -		buddy =3D __get_buddy(block);
-> +		if (!gpu_buddy_block_is_free(buddy))
-
-[ ... ]
-
-> @@ -696,7 +1139,7 @@ static void __gpu_buddy_undo_splits(struct gpu_buddy=
- *mm,
->  	     gpu_buddy_block_is_free(buddy))) {
->  		rbtree_remove(mm, block);
->  		mm->free_scoreboard[gpu_buddy_block_order(block)]--;
-> -		__gpu_buddy_free(mm, block, false);
-> +		__gpu_buddy_free(mm, block);
-
-[Severity: High]
-Does feeding free mixed blocks into __gpu_buddy_free() here lose track
-of clear pages?
-
-When split_block() succeeds but the subsequent allocation fails, this path
-merges the free child blocks. If the block is mixed, passing it to
-__gpu_buddy_free() without marking it fully dirty in the tracker will cause
-the misclassification issue mentioned above.
-
->  	}
->  }
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but is it safe to use GFP_KERNEL when
-allocating buddy blocks in gpu_block_alloc()?
-
-Looking at gpu_block_alloc() in drivers/gpu/buddy.c:
-
-	block =3D kmem_cache_zalloc(slab_blocks, GFP_KERNEL);
-	if (!block)
-		return NULL;
-
-This allocation can occur during block splitting in gpu_buddy_alloc_blocks()
-and gpu_buddy_block_trim(), which are executed while holding the driver's
-memory manager lock.
-
-Since GFP_KERNEL allows direct reclaim, the shrinker could attempt to evict
-VRAM blocks and acquire the same lock, causing an AB-BA deadlock.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720121041.3399=
-81-1-Arunpravin.PaneerSelvam@amd.com?part=3D1
