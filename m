@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA3DEC44529
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 05:15:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18410C4451B
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 05:15:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E368610E660;
-	Mon, 20 Jul 2026 05:15:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0257510E66A;
+	Mon, 20 Jul 2026 05:15:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="l+/CyhMo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JKtHiJkR";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D60B10E667;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 757B510E655;
  Mon, 20 Jul 2026 05:15:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1784524544; x=1816060544;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hXn9sO0CHEVW7IwzG4pfuTSibwzv/oHKAiytKYO1s+s=;
- b=l+/CyhMotYxAlhtvGMAB+3l2sKH+FbE8hlIjx5uD1QnRT5rwoMx6vtGP
- tdsTRYH0NrKWfI/70f1bkX4swQTGukoS2Z+IAQWZvbVPW1f9fGGifZxmh
- s+cqLCCaW9a3ZP4ROXvg44eeC7LXwmEOtocpk/qvH1iB5j9ymrl/+zzh7
- 4VsgEeovs3sjoVEQqIUtBM5lefndI0xkkgAWj7e4TPVX0VJCruBfL2N0v
- B2nFATpH77xKO2Ma9eeRPl1Yg9tP5ATgCrmlyoTlqe05hO6VuqezuePbi
- N5YvpLbgt9r/ieE+zOWzjW1Y8/eiolekQwCcss7qVuiftUqYeclCPGEQj Q==;
-X-CSE-ConnectionGUID: 8BCzxP25RX6L4XBpTi7hpQ==
-X-CSE-MsgGUID: oiElKgFeRV2GFxc2zlMv6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="85133405"
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="85133405"
+ bh=racVhI/5VPXfKnH9LiuFtXNJ5RaJAzmFp+eeGNCMTkY=;
+ b=JKtHiJkR1ra4rrnZJNCiw/M1F45SplzY/EqojckGkHhjde5Rv6KRBeeZ
+ 5cURJbP21UxEhloOUgdE6bXtPL13gRUWxhW2gCr8v0736kQ8opfhZ5eVj
+ kVf8kWIG6Pa7TtnavlXgrSeb3eMNZ5kQvsV3Zhuj5hZH9XKIXmtegwKyK
+ d00a1QnXOE+JZe77PYoviv3Vfa/PVG1mpR9X6Qj8GXdVvbvxdYJFTzy+x
+ QdbbxlyUJGZ8dPThfsfxw92W1PJCCpEOqNvM1PMwkEqirBKKRFrAWkB6q
+ nnik8d2Fa8U0WcpyK6MX8bbkyPyZ+LH+Pv06cAYlp+OUQTpRA/iemLx8Q Q==;
+X-CSE-ConnectionGUID: c43PbLRVQOyH1CIcm81TVg==
+X-CSE-MsgGUID: VKbbyMnISxigtvN30aroyw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="85133409"
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="85133409"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2026 22:15:39 -0700
-X-CSE-ConnectionGUID: 6XfmF7IRSU6Qcnox1mvDLA==
-X-CSE-MsgGUID: f1BOzauxRBqdWaSYgCiDjA==
+ 19 Jul 2026 22:15:42 -0700
+X-CSE-ConnectionGUID: I6mtTN0DR66rQJLtIBjuWw==
+X-CSE-MsgGUID: yYidtzC7QtW6oOWee20iMA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="257419781"
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="257419792"
 Received: from dut-2a59.iind.intel.com ([10.190.239.113])
- by orviesa007.jf.intel.com with ESMTP; 19 Jul 2026 22:15:38 -0700
+ by orviesa007.jf.intel.com with ESMTP; 19 Jul 2026 22:15:41 -0700
 From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
  Uma Shankar <uma.shankar@intel.com>
-Subject: [v5 03/14] drm/i915/display: extract glk_plane_color_ctl_input_csc
- helper
-Date: Mon, 20 Jul 2026 10:21:20 +0530
-Message-Id: <20260720045131.971650-4-chaitanya.kumar.borah@intel.com>
+Subject: [v5 05/14] drm/i915/display: Track CSC mode in intel plane state
+Date: Mon, 20 Jul 2026 10:21:22 +0530
+Message-Id: <20260720045131.971650-6-chaitanya.kumar.borah@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260720045131.971650-1-chaitanya.kumar.borah@intel.com>
 References: <20260720045131.971650-1-chaitanya.kumar.borah@intel.com>
@@ -69,77 +68,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Extract the input CSC and YUV range correction logic from
-glk_plane_color_ctl() into a dedicated glk_plane_color_ctl_input_csc()
-helper. No functional change.
+Add CSC mode to hw plane state to enable programming the fixed-function
+CSC block for SDR planes based on the DRM_COLOROP_FIXED_MATRIX state.
+
+Track the bypass state explicitly as a boolean since bypass is managed
+separately from the FIXED_MATRIX enum value in the colorop framework.
 
 Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- .../drm/i915/display/skl_universal_plane.c    | 32 +++++++++++--------
- 1 file changed, 19 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_types.h |  2 ++
+ drivers/gpu/drm/i915/display/intel_plane.c         | 12 ++++++++++--
+ 2 files changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index b246fc48558b..f831c1958ff4 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -1240,37 +1240,43 @@ static u32 glk_plane_color_ctl_crtc(const struct intel_crtc_state *crtc_state)
- 	return plane_color_ctl;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 17336ad6d5e9..ba295cbea0f2 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -683,6 +683,8 @@ struct intel_plane_state {
+ 		enum drm_color_range color_range;
+ 		enum drm_scaling_filter scaling_filter;
+ 		struct drm_property_blob *ctm, *degamma_lut, *gamma_lut, *lut_3d;
++		enum drm_colorop_fixed_matrix_type csc_ff_type; /* For SDR plane */
++		bool csc_ff_enable;
+ 	} hw;
  
--static u32 glk_plane_color_ctl(const struct intel_plane_state *plane_state)
-+static u32 glk_plane_color_ctl_input_csc(const struct intel_plane_state *plane_state)
- {
- 	struct intel_display *display = to_intel_display(plane_state);
- 	const struct drm_framebuffer *fb = plane_state->hw.fb;
- 	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
--	u32 plane_color_ctl = 0;
--
--	plane_color_ctl |= PLANE_COLOR_PLANE_GAMMA_DISABLE;
--	plane_color_ctl |= glk_plane_color_ctl_alpha(plane_state);
-+	u32 ctl = 0;
- 
- 	if (fb->format->is_yuv && !icl_is_hdr_plane(display, plane->id)) {
- 		switch (plane_state->hw.color_encoding) {
- 		case DRM_COLOR_YCBCR_BT709:
--			plane_color_ctl |= PLANE_COLOR_CSC_MODE_YUV709_TO_RGB709;
-+			ctl |= PLANE_COLOR_CSC_MODE_YUV709_TO_RGB709;
- 			break;
- 		case DRM_COLOR_YCBCR_BT2020:
--			plane_color_ctl |=
--				PLANE_COLOR_CSC_MODE_YUV2020_TO_RGB2020;
-+			ctl |= PLANE_COLOR_CSC_MODE_YUV2020_TO_RGB2020;
- 			break;
- 		default:
--			plane_color_ctl |=
--				PLANE_COLOR_CSC_MODE_YUV601_TO_RGB601;
-+			ctl |= PLANE_COLOR_CSC_MODE_YUV601_TO_RGB601;
+ 	struct i915_vma *ggtt_vma;
+diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
+index d0f99a87c42e..d9908b976ca1 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_plane.c
+@@ -485,11 +485,19 @@ intel_plane_color_copy_uapi_to_hw_state(struct intel_atomic_state *state,
+ 	while (iter_colorop) {
+ 		for_each_new_colorop_in_state(&state->base, colorop, new_colorop_state, i) {
+ 			if (new_colorop_state->colorop == iter_colorop) {
+-				blob = new_colorop_state->bypass ? NULL : new_colorop_state->data;
+ 				intel_colorop = to_intel_colorop(colorop);
+-				changed |= intel_plane_colorop_replace_blob(plane_state,
++				if (intel_colorop->id == INTEL_PLANE_CB_CSC_FF) {
++					plane_state->hw.csc_ff_enable =
++						!new_colorop_state->bypass;
++					plane_state->hw.csc_ff_type =
++						new_colorop_state->fixed_matrix_type;
++				} else {
++					blob = new_colorop_state->bypass ?
++						NULL : new_colorop_state->data;
++					changed |= intel_plane_colorop_replace_blob(plane_state,
+ 									    intel_colorop,
+ 									    blob);
++				}
+ 			}
  		}
- 		if (plane_state->hw.color_range == DRM_COLOR_YCBCR_FULL_RANGE)
--			plane_color_ctl |= PLANE_COLOR_YUV_RANGE_CORRECTION_DISABLE;
-+			ctl |= PLANE_COLOR_YUV_RANGE_CORRECTION_DISABLE;
- 	} else if (fb->format->is_yuv) {
--		plane_color_ctl |= PLANE_COLOR_INPUT_CSC_ENABLE;
-+		ctl |= PLANE_COLOR_INPUT_CSC_ENABLE;
- 		if (plane_state->hw.color_range == DRM_COLOR_YCBCR_FULL_RANGE)
--			plane_color_ctl |= PLANE_COLOR_YUV_RANGE_CORRECTION_DISABLE;
-+			ctl |= PLANE_COLOR_YUV_RANGE_CORRECTION_DISABLE;
- 	}
- 
-+	return ctl;
-+}
-+
-+static u32 glk_plane_color_ctl(const struct intel_plane_state *plane_state)
-+{
-+	u32 plane_color_ctl = 0;
-+
-+	plane_color_ctl |= PLANE_COLOR_PLANE_GAMMA_DISABLE;
-+	plane_color_ctl |= glk_plane_color_ctl_alpha(plane_state);
-+	plane_color_ctl |= glk_plane_color_ctl_input_csc(plane_state);
-+
- 	if (plane_state->force_black)
- 		plane_color_ctl |= PLANE_COLOR_PLANE_CSC_ENABLE;
- 
+ 		iter_colorop = iter_colorop->next;
 -- 
 2.25.1
 
