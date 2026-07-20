@@ -4,80 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5398C4452A
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:42:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4696C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:42:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1594A10E8FE;
-	Mon, 20 Jul 2026 12:42:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F72B10E8EA;
+	Mon, 20 Jul 2026 12:42:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iTc2SbYZ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rhtRAT2F";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77D4010E8EA
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:42:29 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4953e04ef16so42677125e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:42:29 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8523710E8EA
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:42:51 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-49548aebcd8so19006085e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:42:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1784551348; x=1785156148; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1784551370; x=1785156170; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=ooN4hbOmEpkDX9Z1ak2r9GWUVz4HFV5LKddUy5dwh9w=;
- b=iTc2SbYZXaCCXBQKwIA2TnfJBef7mL1Omssx7z1VKcr+SfCqfbiK2/NbBiDl1Prg4K
- x8dR1RmPjc/MfbBzcDW3g9lrgQ2/oo0hOcH8Fte45GYmML0h9H8LopDV4SKIwM9VOt5N
- jjqCIvMcp9eFLqSF1vmH4Vo1r8zMk/U1S7XSuV+VYY+2kqY6l1zzBFYV4J3sTzmfCLNk
- AhkFbbvyVjOLXvvnivLE5mM2TuZZx+yoNvKOTSYzhT9Q8F/V3HRj70a9k6qxPGRauH2l
- gpgXk+Cc4ixOb86ne4TanfWiAoHgRr6GMgH8Kx5dKV2fjpRZilzOaaWKEn50GHMoCp9s
- oDtg==
+ bh=dUJrbWnJ/YH4nNp6x4h2d5WcOCHjt0+QMYeRHAuv280=;
+ b=rhtRAT2FGmCtDVMliPGjaolYJ50knekTpV+nQXJtUxRmL/eqYcxcYhSHGcBxXYecBJ
+ 2/N4fOdJ0M/z1oJ1Q80hJ7y3u6SkWoTAcUljfOTbVnakYNawTcmmwZpWvZxf5bxrep86
+ 3N+Nu/5wRd3OAX+SU77p7lsE/xrR1Oej9vIsnDHhU67YuX1NeLepvCRA+WEd4ckXRxVM
+ jM0P92iL0JUdN519Tz5/2LkXBYjbzTqhhtzVWtW1AZwPupNC9UYRmWYPYWVb1Tzn8tZk
+ 2rNBaB2qxyq37glueZD5GU3X1gxUeIwm6HlAlKMJ8GclO1KXIGlNThCOHsrgDmRt7cbY
+ EjGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784551348; x=1785156148;
+ d=1e100.net; s=20251104; t=1784551370; x=1785156170;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=ooN4hbOmEpkDX9Z1ak2r9GWUVz4HFV5LKddUy5dwh9w=;
- b=DmhuClDJfiLGftWW9WzimPpdYAaquHpGtBbNAfHXDJWxBiDpWC+/iVTSClLzwizdKc
- 3IoFxqMyc7SLu3dVsx6xHdJBODD3sufVJYNEYsyh1OKOO7RjPf7tczZYnOwnu9doZTbD
- 1FAeFT1xAymnQYxneqz9YXMXiA7mloYxz7cGO6BeQSXlmG58pz5iUbmGrWL0HwHbN5mh
- ZtUuTEPneft4wHlb3TlrzE7ecsyjAOYe7WokOYlCDmf6hRtFsI5PslktsPpDiyfZyZLf
- sktXUUoW16SPgzLKtBhibC/F3hDUErXDEKYEZO21SqPccBMKT2kKI9jLA7t0VNrOCbA+
- YGrw==
+ bh=dUJrbWnJ/YH4nNp6x4h2d5WcOCHjt0+QMYeRHAuv280=;
+ b=HI2ajchPDQqLE4ujUIoA9NwiHNsl6LZamEJ94qImQuL0j7yRUsugEhga7uTJr3SbfW
+ rEcIOQ0sxi9uunvzDxbraBl6KZbDWd80oA/MKnDzpWskk96i25TIhCXmZbq0a48av7Lu
+ 8sKry3zturr9tZpkP/8m0kywNzr/0iiDObzMmeVErZu0gBlnmLir4w8Ux6cUwckucWN7
+ V1d47XAFqhglx6hv+JR5xQCtEQtlSP0WqxR/bAQRD6fmbAy9Pjn5ucVrbxWqxznSdKJM
+ oC/d7tEFd4d8LZjHrUyofhpUvNY8JT7BvEWE9UgxM2ZEmZMyPIXFlETzwZKAzftfzCSK
+ RzMQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrAnUXc+mGwXHQJF21hYXBmnVzZHPrM4PoeLhbyB6iXem42fwJyAzD4QhcfBqExpbkzF29qjjhpjYk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyXPzxBZh0DiMlRdVMONjYtvp9RNQ3qUcSOsxREkLOu4Gcc1VWq
- 2NJcK6znf7VOnHhU1sJh+ZALAYtSGhIYm9knv2xAiZnM96SSZ4IzhYz3+LX6zkSC7Ko=
-X-Gm-Gg: AfdE7cnf8bLyPZrZhNqxnN53EpE2ofO+4KFm/Q/B1crzbPf0d68mVU2WDZlIblGNXbo
- tqfyjLhPwYHHf3buk5eEUAx1HLlqc6eM0pgJdQNZe/px+ZZVNht+LEdkFzCZGhw0HULyjHtjp0y
- ZS4Rey/35Dg23MbLgYWEPaAOTSPbM/p45rO6wI9vFv/+0U45/Dol29BTs0XL6rcT7rwyX+20gT0
- yWkdkDT4A0M8fE0j78nnKORCnziB5odZ7RZzXKSYg/FlQq3UxYSln1CsnlDmXcqxSW06k+0kiqr
- FuKoZNEcZheqpBWLck9oY6b+zWRGcOQpMHBsaC4Ax1uY7DFifoonpwCgJ9xvq3vjD4YtxRKQdKM
- bL6cpKbvZQ0NT0Wgw1KzFbG3o5Zp8hNT+Ml/ln7fWd/t3+RDX9N3KJKo/Z2zQSCxBbg2FcIZ/Ju
- m8mJFrltONaL84FVo0HKk5WFWHVIB5B6HN49/EcOSrDok2alpdhWguAb3txg==
-X-Received: by 2002:a05:600c:3b19:b0:495:48d7:f178 with SMTP id
- 5b1f17b1804b1-4954a3db76amr159529215e9.11.1784551347699; 
- Mon, 20 Jul 2026 05:42:27 -0700 (PDT)
+ AHgh+RrnpbHsRN7++46EnqllhxpYMEyi39dykQmvwJ4F8CJ6n1NxmYIhx1hytsNCwvD+sQd7jh4E4eXAtxw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywp7XbeQfPl1+mvCnpQW7PxllZec1k2bse/3mTmQ6zloytGiIou
+ /MO191bkUAjopR1QfdasxgiO1Vi8MgBMj+8vnPEL6tmHukdBKsXx1DrEn1g7E77Ky/E=
+X-Gm-Gg: AfdE7ckbMRRB59WaFmKZ8TmFsjg1WnvDm96HUwVGl64cruZxJBawcXiD79HGMPWPtZg
+ cArI9VKb2dwVrmX3OAAxSLky5cCTp0udQLFzD9x84jnwjg66OTAInBkEf3tpJm5LDTwHYirANBu
+ JCnU8vHW8Luco85/AQXP2mzpo2VsW9bTj++fG+6FLEWWpJKjh+c3ebF0EqlRf+BMW+LhBJtDtOe
+ H28v/JnNTziwGUf8s4qB44fAcA497KtElcC8dPsI1cr+QPMlr3cnrSZ0YCjidaCWbCcx9vJ4CbG
+ LC0M4CngnY6K4lIVE93YK5T75GewU/3J2HmN3OfB/yCwxKUhMtO9r7MRpM2NOVWiqrb3fiJb5hW
+ Fk4e3xqFA0gJxiWmZGgjEbPve1WaucQfTEFzxvJYX1P9dE2WGfpSAMJRNWWdJDzXCaXJkKwJ1lC
+ 7p0A2wBqJUfQP0ESMs9Ik33J4kv102984/9UvtRMDygdfV8OWa++KFPBhN5Q==
+X-Received: by 2002:a05:600c:1382:b0:495:3f48:5df2 with SMTP id
+ 5b1f17b1804b1-4954a40bcf6mr144955205e9.29.1784551369766; 
+ Mon, 20 Jul 2026 05:42:49 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:544a:2852:f257:ebc5?
  ([2a01:e0a:106d:1080:544a:2852:f257:ebc5])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4954a2edbe4sm301758205e9.12.2026.07.20.05.42.27
+ 5b1f17b1804b1-4955fc42db7sm59736375e9.3.2026.07.20.05.42.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Jul 2026 05:42:27 -0700 (PDT)
-Message-ID: <5693c8c6-cbff-44be-b5fd-0c7ed0b622ad@linaro.org>
-Date: Mon, 20 Jul 2026 14:42:26 +0200
+ Mon, 20 Jul 2026 05:42:49 -0700 (PDT)
+Message-ID: <39985a2f-55b6-4caf-a24b-cf2d5e5e19e4@linaro.org>
+Date: Mon, 20 Jul 2026 14:42:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: neil.armstrong@linaro.org
-Subject: Re: [PATCH] drm/panel: ilitek-ili9881c: do not fail probe if iovcc is
- absent
-To: David Oberhollenzer <david.oberhollenzer@sigma-star.at>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linusw@kernel.org, dmitry.baryshkov@oss.qualcomm.com
-Cc: jesszhan0024@gmail.com, upstream+drm@sigma-star.at,
- Julian.FRIEDRICH@frequentis.com
-References: <20260713082213.75759-1-david.oberhollenzer@sigma-star.at>
+Subject: Re: [PATCH v2] drm/panel: ilitek-ili9882t: fix unmet dependency for
+ DRM_PANEL_ILITEK_ILI9882T
+To: Julian Braha <julianbraha@gmail.com>, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+Cc: jesszhan0024@gmail.com, mcanal@igalia.com, arnd@arndb.de,
+ nicolas.frattaroli@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260712002632.2323484-1-julianbraha@gmail.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -104,7 +104,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260713082213.75759-1-david.oberhollenzer@sigma-star.at>
+In-Reply-To: <20260712002632.2323484-1-julianbraha@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -123,46 +123,37 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/13/26 10:22, David Oberhollenzer wrote:
-> Commit 4c95b2b7d49e ("drm/panel: ilitek-ili9881c: support Waveshare
-> 7.0" DSI panel") adds an additional iovcc regulator that other
-> Ilitek ili9881c based panels apparently do not have or need.
+On 7/12/26 02:26, Julian Braha wrote:
+> Currently, DRM_PANEL_ILITEK_ILI9882T selects DRM_DISPLAY_DSC_HELPER
+> without ensuring DRM_DISPLAY_HELPER is also enabled, causing an unmet
+> dependency and build failure.
 > 
-> The commit goes out of its way to make usage of this new regulator
-> optional, dutifully testing if the field in `struct ili9881c` is NULL
-> before touching the new regulator. However, in the probe function,
-> it unconditionally fails if devm_regulator_get_optional returns an
-> error.
+> Other similar options select DRM_DISPLAY_HELPER, let's do the same here.
 > 
-> devm_regulator_get_optional() returns -ENODEV if the regulator is
-> missing, causing probe to fail for other panels that do not have
-> an iovcc-supply set in the device tree.
+> This unmet dependency bug was found by kconfirm, a static analysis tool
+> for Kconfig.
 > 
-> Fixes: 4c95b2b7d49e ("drm/panel: ilitek-ili9881c: support Waveshare 7.0" DSI panel")
-> Signed-off-by: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
+> Fixes: 68e28facbc8a ("drm/panel: ilitek-ili9882t: Select DRM_DISPLAY_DSC_HELPER")
+> Signed-off-by: Julian Braha <julianbraha@gmail.com>
 > ---
->   drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
+> Changes since v1: fixed commit blame and commit title
+> Link: https://lore.kernel.org/all/20260712001541.3AAC01F000E9@smtp.kernel.org/
+> ---
+>   drivers/gpu/drm/panel/Kconfig | 1 +
+>   1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-> index 0652cdb57d11..6c8d02712566 100644
-> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-> @@ -2562,9 +2562,12 @@ static int ili9881c_dsi_probe(struct mipi_dsi_device *dsi)
->   				     "Couldn't get our power regulator\n");
->   
->   	ctx->iovcc = devm_regulator_get_optional(&dsi->dev, "iovcc");
-> -	if (IS_ERR(ctx->iovcc))
-> -		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->iovcc),
-> +	if (IS_ERR(ctx->iovcc)) {
-> +		if (PTR_ERR(ctx->iovcc) != -ENODEV)
-> +			return dev_err_probe(&dsi->dev, PTR_ERR(ctx->iovcc),
->   				     "Couldn't get our iovcc regulator\n");
-> +		ctx->iovcc = NULL;
-> +	}
->   
->   	ctx->reset = devm_gpiod_get_optional(&dsi->dev, "reset", GPIOD_OUT_LOW);
->   	if (IS_ERR(ctx->reset))
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index 06bfcef35a72..103f1d09a989 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -375,6 +375,7 @@ config DRM_PANEL_ILITEK_ILI9882T
+>   	depends on OF
+>   	depends on DRM_MIPI_DSI
+>   	depends on BACKLIGHT_CLASS_DEVICE
+> +	select DRM_DISPLAY_HELPER
+>   	select DRM_DISPLAY_DSC_HELPER
+>   	help
+>   	  Say Y if you want to enable support for panels based on the
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
