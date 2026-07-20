@@ -4,42 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE343C4452B
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:03:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B8C9C44520
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:04:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11BF810E11F;
-	Mon, 20 Jul 2026 12:03:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0144F10E8CE;
+	Mon, 20 Jul 2026 12:04:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XcBFQJSg";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PTPjJNf2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0488F10E11F
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:03:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 26A2F60A6A;
- Mon, 20 Jul 2026 12:03:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47061F00A3E;
- Mon, 20 Jul 2026 12:03:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784548997;
- bh=c47JGbkJ9uNuY4YLwhBCSuk3Djn77kjsuXEzQJm9LnI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XcBFQJSgIE6pLOtG0ILx3GMj2AOwigQwPqTAnf3eoRTCVp1M+tIPcsC+LcFoIdoOd
- 11gmT3C8mCTNHpnVyhX+j5pmU9cPAFfEmb0Lw/ZIlExT65GqF2eSZwL/tyc4ua5j/h
- hZlEyQ+GuxhVeiyru7XoOH6mIbok/ZlGfYRYeyhv90dwDc3wihqGwlGl8caOOowqL3
- XU8QeekF3AvUwbx7zWqPyVFu8eUaZCC+qtp6cAAZE6kf6CXmq4+AWjVjmf8uFetlx5
- CJ1e2D7LMZCuyXCWAiFdbUpPHoQNryCbdYcUDvcAX/WPELfSaF97L1X6KjMXqbQiW3
- mSY0QOobNyykA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/panthor: validate firmware interface structure sizes
-To: "Osama Abdelkader" <osama.abdelkader@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720114918.15973-1-osama.abdelkader@gmail.com>
-References: <20260720114918.15973-1-osama.abdelkader@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C8F710E8CE
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:04:38 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-c15b509c323so1309541866b.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:04:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1784549077; x=1785153877; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=4ATboiu3c5KqTH0slwsg9MiwpKOYlAoPTTY7ipBfLRY=;
+ b=PTPjJNf2SL3ci7mG+m+W1aK1hjM+8w4zLYSh5M+G6N+QhEwpU7T0OFoKyp4K2dS2Ul
+ Sjy0peJX5ExPqF0F90ZvjSvNQCU7a7TOjTQIp7cUhVeOL22McDEb3oEm/8ciVd8U5VgY
+ 5h3acsvXdYqAsir/vmzJeGQ7J1CkWZabI6wW/Rs7GwbJBzXcfYneABp6qs55WX3NIeZ0
+ GafFg70EUPuzgULop6YmQl8yUZgza/ZDflKpHWjrGREVuwwnRcVAXLmjXKBdtZUhYW1O
+ hRm6yoiG+H6a/iN1cJzDIqZkQPuwDddOA3UK8P2B0H20H9+QUMNu054lIz1T1Zqprxs0
+ ahOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784549077; x=1785153877;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=4ATboiu3c5KqTH0slwsg9MiwpKOYlAoPTTY7ipBfLRY=;
+ b=MCrLdCs9hh4x5QccK3B658059dbunzG6X1TkdnYHF+ZgEKE3G69XhMhoDYaLay3i93
+ FR5NDJiiq3oaMB6sStoCUCaHPcTLTIWrZwtnqQpnZpWTFOepqQT6ZIc7jvnEBm5VthqO
+ 0RO6IwOEkigAL/O8hn6sAFf6V+He0SPC9FZBRVzbwfgfVaaAh0np1ZiMLB8/HzIglvOI
+ x2jOnrKYIPVvBK2AZ7HUdAKQhCyJSJES6tOnKRdQFIOE8Rn1qiHpaNZFqf+U3qqUzLD/
+ VerVlTR5p/arCva8b/2wzg8gGAO4GxDhybGhOL3+0dYW4MZQDCUS3/91Jpps4QkLqfAJ
+ zv2A==
+X-Gm-Message-State: AOJu0YwkbhpXbIBA5S51a2fgTb6Lrud1vbuRMfkneUWfOADMKkxPtWzI
+ G3wB8MEZZ+wtFqBZrMhqj22HU0yBr9jRZhbHpIQcm4z4RlEKFy3oQ6sBDHXVAH1wT6Y=
+X-Gm-Gg: AfdE7ckRGr6sErLP2yAusaH03YzIXqjRfFehDKEqDWjUKR0BH8cxoptQeiMZ9GZMuDh
+ BH4spGjC0npKe5JPx18NUlby3ID2J6N4O3oK0fCTwBsgXDD+uTA7DatbrFJStC1dOk/Wc2Bi01J
+ oWHcwJlfVdHRYDHeiZKB/T4RKKaOAwqHyI+RIVFHDt6J4r6AZOoDeIPQTM0afrFJ5IXihM4ZTHs
+ L+XCZMv1GC9YHnH7sgo4RcEqgFenPkMrk5HMGFX/A3rQdobbCngqyUdyAaJBnHNycoeFpUznLCA
+ sq1DXBsHyE4PWR0Dz33HVX8zHn/dXkJehRo4n/GFGXlJ6jxDj13jrMfPD37JZvwhEoQA5ASn0L8
+ 8yVZI8mHYZXEyz85iTnyxb3JG4AiW4FdUvn8KiprLOUwDI04tgk2KNtWkW6+C6OpAqCTXYCn0jt
+ HvdAGAyg==
+X-Received: by 2002:a17:907:d508:b0:c15:f4e0:72a7 with SMTP id
+ a640c23a62f3a-c16b4732c58mr541282766b.39.1784549076676; 
+ Mon, 20 Jul 2026 05:04:36 -0700 (PDT)
+Received: from draszik.lan ([109.255.181.4]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c17009ae10fsm458630066b.10.2026.07.20.05.04.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Jul 2026 05:04:36 -0700 (PDT)
+Message-ID: <e03eb40c07d8603592ca38e7538d6709891bf811.camel@linaro.org>
+Subject: Re: [PATCH v2 1/2] drm/drm_crtc: ensure dma_fence_ops remain valid
+ during device unbind
+From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+To: phasta@kernel.org, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Tvrtko
+ Ursulin <tvrtko.ursulin@igalia.com>,  Boris Brezillon
+ <boris.brezillon@collabora.com>, Danilo Krummrich <dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Peter Griffin
+ <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Juan
+ Yescas <jyescas@google.com>, kernel-team@android.com
+Date: Mon, 20 Jul 2026 13:04:43 +0100
+In-Reply-To: <b39f29efd4db9a2e10c6d1943a22b826cc5232f8.camel@mailbox.org>
+References: <20260708-linux-drm_crtc_fix2-v2-0-cf72be75d75a@linaro.org>
+ <20260708-linux-drm_crtc_fix2-v2-1-cf72be75d75a@linaro.org>
+ <1ccfc0b5d1696a8dec4756b675294e7fb41ab5ff.camel@mailbox.org>
+ <899942cc84af7a82a35b4ca34b486c40327fd543.camel@linaro.org>
+ <b39f29efd4db9a2e10c6d1943a22b826cc5232f8.camel@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 12:03:17 +0000
-Message-Id: <20260720120317.A47061F00A3E@smtp.kernel.org>
+User-Agent: Evolution 3.56.2-8+build1 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,174 +98,41 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Hi Philipp,
 
-Pre-existing issues:
-- [Critical] Time-of-Check to Time-of-Use (TOCTOU) vulnerability in firmwar=
-e interface initialization allows kernel memory corruption.
-- [High] Integer overflow and incorrect structure size in firmware bounds c=
-hecks on 32-bit architectures.
-- [High] NULL pointer dereference when firmware provides a 0-sized shared s=
-ection.
---
+(sorry for the slow reply).
 
---- Patch [1]: [PATCH] drm/panthor: validate firmware interface structure s=
-izes ---
-commit a126d5ded05975c89ebf69bcb6a208082b1f032d
-Author: Osama Abdelkader <osama.abdelkader@gmail.com>
+On Thu, 2026-07-09 at 16:40 +0200, Philipp Stanner wrote:
+> On Thu, 2026-07-09 at 15:19 +0100, Andr=C3=A9 Draszik wrote:
+> > Hi Philipp,
+> >=20
+> > On Thu, 2026-07-09 at 14:32 +0200, Philipp Stanner wrote:
+> > >=20
+> > > On Wed, 2026-07-08 at 16:22 +0100, Andr=C3=A9 Draszik wrote:
+> > >=20
+> >=20
 
-drm/panthor: validate firmware interface structure sizes
+[...]
 
-iface_fw_to_cpu_addr() only checks that the firmware-provided MCU virtual
-address points inside the shared section. The returned pointer is later
-used as a full firmware interface structure, so accepting an address near
-the end of the shared section can still lead to out-of-bounds accesses.
+> > >=20
+> The issue here seems to be that=20
+> a) the crtc is made invalid in drm_crtc_cleanup() (memset(0))
+> b) the drm_dev can disappear after drm_crtc_cleanup()
+>=20
+> Both issues stem from the fact that the fence callbacks can keep
+> running into the driver.
+>=20
+> It is true that the fence, being refcounted, can stay alive, but none
+> of the callbacks be invoked anymore, and your grace period wait
+> fullfill.
+>=20
+> It is a strict dma_fence requirement that a fence issuer / producer
+> signals all its fences before unload.
 
-Pass the expected object size to iface_fw_to_cpu_addr() and reject ranges
-that do not fit entirely in the shared section.
+OK, I missed that. In that case, the patch should indeed be fine as-is.
+I'll just do the (minor) updates as you had requested.
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panth=
-or/panthor_fw.c
-> index 90f59d782a809..1697305c7b0e9 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-
-[ ... ]
-
-> @@ -890,8 +896,10 @@ static int panthor_init_cs_iface(struct panthor_devi=
-ce *ptdev,
-> =20
->  	spin_lock_init(&cs_iface->lock);
-
-[Severity: High]
-This is a pre-existing issue, but could the bounds check earlier in
-panthor_init_cs_iface() be vulnerable to a 32-bit integer overflow?
-
-panthor_fw.c:panthor_init_cs_iface() {
-    ...
-    if (iface_offset + sizeof(*cs_iface) >=3D shared_section_sz)
-        return -EINVAL;
-    ...
-}
-
-If a malicious firmware provides crafted strides, could iface_offset wrap
-around near U32_MAX on 32-bit architectures, allowing it to bypass this
-check while still extending beyond shared_section_sz?
-
-Also, does this check incorrectly use the size of the host wrapper struct
-sizeof(*cs_iface) instead of the actual firmware struct size, allowing
-an invalid iface_offset to pass the check if the host struct is smaller?
-
->  	cs_iface->control =3D ptdev->fw->shared_section->mem->kmap + iface_offs=
-et;
-> -	cs_iface->input =3D iface_fw_to_cpu_addr(ptdev, cs_iface->control->inpu=
-t_va);
-> -	cs_iface->output =3D iface_fw_to_cpu_addr(ptdev, cs_iface->control->out=
-put_va);
-> +	cs_iface->input =3D iface_fw_to_cpu_addr(ptdev, cs_iface->control->inpu=
-t_va,
-> +					       sizeof(*cs_iface->input));
-> +	cs_iface->output =3D iface_fw_to_cpu_addr(ptdev, cs_iface->control->out=
-put_va,
-> +						sizeof(*cs_iface->output));
-
-[ ... ]
-
-> @@ -941,8 +949,10 @@ static int panthor_init_csg_iface(struct panthor_dev=
-ice *ptdev,
-> =20
->  	spin_lock_init(&csg_iface->lock);
->  	csg_iface->control =3D ptdev->fw->shared_section->mem->kmap + iface_off=
-set;
-> -	csg_iface->input =3D iface_fw_to_cpu_addr(ptdev, csg_iface->control->in=
-put_va);
-> -	csg_iface->output =3D iface_fw_to_cpu_addr(ptdev, csg_iface->control->o=
-utput_va);
-> +	csg_iface->input =3D iface_fw_to_cpu_addr(ptdev, csg_iface->control->in=
-put_va,
-> +						sizeof(*csg_iface->input));
-> +	csg_iface->output =3D iface_fw_to_cpu_addr(ptdev, csg_iface->control->o=
-utput_va,
-> +						 sizeof(*csg_iface->output));
-> =20
->  	if (csg_iface->control->stream_num < MIN_CS_PER_CSG ||
->  	    csg_iface->control->stream_num > MAX_CS_PER_CSG)
-
-[Severity: Critical]
-This is a pre-existing issue, but is there a Time-of-Check to Time-of-Use
-(TOCTOU) vulnerability here and in panthor_fw_init_ifaces()?
-
-Since panthor_fw_start() starts the GPU MCU before panthor_fw_init_ifaces()
-is called, could compromised GPU firmware mutate stream_num (or group_num)
-directly in shared memory after this bounds check?
-
-If the compiler reloads the limit from memory on each iteration of the
-subsequent loop:
-
-    for (i =3D 0; i < csg_iface->control->stream_num; i++) {
-        int ret =3D panthor_init_cs_iface(ptdev, csg_idx, i);
-        ...
-    }
-
-could the loop overrun and index out of bounds, overwriting adjacent kernel
-structures?
-
-[ ... ]
-
-> @@ -999,8 +1009,10 @@ static int panthor_fw_init_ifaces(struct panthor_de=
-vice *ptdev)
->  		return -EINVAL;
->  	}
-> =20
-> -	glb_iface->input =3D iface_fw_to_cpu_addr(ptdev, glb_iface->control->in=
-put_va);
-> -	glb_iface->output =3D iface_fw_to_cpu_addr(ptdev, glb_iface->control->o=
-utput_va);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but earlier in this function
-could we dereference a NULL pointer if the firmware provides a 0-sized
-shared section?
-
-In panthor_fw_load_section_entry(), if the firmware provides a
-CSF_MCU_SHARED_REGION_START section header where hdr.va.end =3D=3D hdr.va.s=
-tart,
-the memory allocation is skipped:
-
-panthor_fw.c:panthor_fw_load_section_entry() {
-    ...
-    section_size =3D hdr.va.end - hdr.va.start;
-    if (section_size) {
-        ...
-    }
-    ptdev->fw->shared_section =3D section;
-    ...
-}
-
-This leaves section->mem as NULL.  When panthor_fw_init_ifaces() runs,
-it checks:
-
-    if (!ptdev->fw->shared_section->mem->kmap)
-
-Will this unconditionally dereference mem when it is NULL, causing a
-kernel panic during device probe?
-
-> +	glb_iface->input =3D iface_fw_to_cpu_addr(ptdev, glb_iface->control->in=
-put_va,
-> +						sizeof(*glb_iface->input));
-> +	glb_iface->output =3D iface_fw_to_cpu_addr(ptdev, glb_iface->control->o=
-utput_va,
-> +						 sizeof(*glb_iface->output));
->  	if (!glb_iface->input || !glb_iface->output) {
->  		drm_err(&ptdev->base, "Invalid global control interface input/output V=
-A");
->  		return -EINVAL;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720114918.1597=
-3-1-osama.abdelkader@gmail.com?part=3D1
+Thanks Philipp
