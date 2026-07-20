@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E1B8C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 21:06:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7157C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 21:08:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD44810E184;
-	Mon, 20 Jul 2026 21:06:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E82E10E1E3;
+	Mon, 20 Jul 2026 21:08:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CBd7xwOI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eN3NeMjj";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90D3F10E184
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 21:06:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D545C10E1DC
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 21:08:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4BEB94022E;
- Mon, 20 Jul 2026 21:06:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 042F81F000E9;
- Mon, 20 Jul 2026 21:06:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BB457437AC;
+ Mon, 20 Jul 2026 21:08:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7467A1F000E9;
+ Mon, 20 Jul 2026 21:08:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784581570;
- bh=pEFwnVsL+Aph7QkIbeWkPLnwuLleApp3ck8PgeNS/H8=;
+ s=k20260515; t=1784581693;
+ bh=Jt3q5T3l2h6jdM81vA2uiwevEbavmOqfYgYsRHcPMEc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CBd7xwOIJCZX8lacsBHb1PqcyR2DLg7AYX56xdDmm2HpxmfKEVElvkDVRiEDPLo3i
- eM4kRqTppZQeeYTn28uQOJYnRc5+xvNYzlVi2cL6lh2+1ebnydF7dFDJ4eeZoYdwjj
- vwD0jP3D/qi0yvkBvnirsZEfnPN0LY55zOOJEsS+AOeoDB8MHZNkGU0Amt6/P89el0
- 8HLgRCVuGiu1mpI1qjMRyAjpS9CJ96f1/yu7IWrDZGPFrxvsaGLLnKgJVXdKRsPCOk
- IrFF6WOm++mHQ1k8QwFaV0JMUTPVVJqxz82biw36GJdrGCXePRuKED5ZTkdaFQIo6t
- /GlMWxHcVkOdw==
+ b=eN3NeMjjBLsFxxvAFmhqgIxCX+mD5ryCNb7Xx2/txcmU+dg4cmbgEVqI2W+oe4eOh
+ f6BRZ5eg4WM6U/85lRyGuM4DtaIjFrOjYqzaJHCVLU4/s9ELIxtpq3eHMmiQpJiBAS
+ emr/bo9aqw+pU8FLmUaSMt2Hj22QH0TPyCIAHunYqH21U3rlXr7xb6B7FqeSwNjhuU
+ qnyy9nn84D9e0d6mdZ7BJOUl3H4wAE2PdeekoigERYw6E7+H84FURX4V3nA7+IC/ei
+ fB1ZTPR0m2WMQkDE5ZpTEtBfwV8162ZFK8r3eYeL2f6T51p9CaIYprDt+hV11x+cEJ
+ +aIAmQY9VBBHw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] drm/nouveau/kms/nv50-: Add .blend_modes to
- nv50_wndw_func
+Subject: Re: [PATCH v2 2/3] drm/nouveau/kms/nv50-: Introduce
+ nv50_wndw_default_state()
 To: "Lyude Paul" <lyude@redhat.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720205541.257781-2-lyude@redhat.com>
+In-Reply-To: <20260720205541.257781-3-lyude@redhat.com>
 References: <20260720205541.257781-1-lyude@redhat.com>
- <20260720205541.257781-2-lyude@redhat.com>
+ <20260720205541.257781-3-lyude@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 21:06:09 +0000
-Message-Id: <20260720210610.042F81F000E9@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 21:08:12 +0000
+Message-Id: <20260720210813.7467A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,66 +60,73 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Pre-Volta primary planes (base507c, base827c, base907c) expose a=
-lpha formats but are missing `.blend_modes` assignments, leaving the DRM co=
-re warning unfixed for these architectures.
+- [High] Incorrect comparison between the enum value `pixel_blend_mode` and=
+ the bitmask `blend_modes` causes a valid default mode to be silently overw=
+ritten.
 --
 
---- Patch [1]: [PATCH v2 1/3] drm/nouveau/kms/nv50-: Add .blend_modes to nv=
-50_wndw_func ---
-commit 742edbbf0331352f33ff9e6b7929be21b191145a
+--- Patch [2]: [PATCH v2 2/3] drm/nouveau/kms/nv50-: Introduce nv50_wndw_de=
+fault_state() ---
+commit 43504d2c3aaff4f127ccc271e9439f3f380cd55b
 Author: Lyude Paul <lyude@redhat.com>
-Subject: drm/nouveau/kms/nv50-: Add .blend_modes to nv50_wndw_func
 
-At the moment, we currently (incorrectly) only expose a blend property on
-the plane if we have a nv50_wndw_func->blend_set function for the given
-wndw type. But we need to expose a blend property for all types of planes
-that can display color formats with an alpha channel.
+drm/nouveau/kms/nv50-: Introduce nv50_wndw_default_state()
 
-Prepare for doing this by introducing a way of looking up the supported
-blend modes for a type of wndw by introducing .blend_modes, which describes
-all possible blending modes nouveau currently supports for a type of wndw.
+This commit introduces nv50_wndw_default_state() to enforce a valid
+pixel_blend_mode for planes supporting alpha channels during driver startup.
 
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.h b/drivers/gpu/drm/no=
-uveau/dispnv50/wndw.h
-> index 90d100514bef2..81af5c3369d4c 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/wndw.h
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.h
+> diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.c b/drivers/gpu/drm/no=
+uveau/dispnv50/wndw.c
+> index 2635458d52acc..0f331f47bded8 100644
+> --- a/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+> +++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+
 [ ... ]
-> @@ -74,6 +76,7 @@ struct nv50_wndw_func {
->  	int (*image_clr)(struct nv50_wndw *);
->  	int (*scale_set)(struct nv50_wndw *, struct nv50_wndw_atom *);
->  	int (*blend_set)(struct nv50_wndw *, struct nv50_wndw_atom *);
-> +	unsigned int blend_modes;
 
-[Severity: Medium]
-Does this patch miss setting .blend_modes for pre-Volta primary planes?
-
-Looking at base507c, base827c, and base907c in the driver, they expose alpha
-formats but don't seem to have .blend_modes assignments added in this patch.
-
-For example, in drivers/gpu/drm/nouveau/dispnv50/base507c.c:
-
-static const struct nv50_wndw_func
-base507c =3D {
-	.acquire =3D base507c_acquire,
-	.release =3D base507c_release,
-	...
-	.image_clr =3D base507c_image_clr,
-	.update =3D base507c_update,
-};
-
-Without setting .blend_modes for these architectures, will they still trigg=
-er
-the DRM core warning "[PLANE:%d:%s] pixel format with alpha exposed but ble=
-nd
-mode not setup" during display initialization on Tesla through Pascal hardw=
-are?
-
-> =20
->  	int (*update)(struct nv50_wndw *, u32 *interlock);
+> @@ -848,6 +848,28 @@ static const u64 nv50_cursor_format_modifiers[] =3D {
+>  	DRM_FORMAT_MOD_INVALID,
 >  };
+> =20
+> +/*
+> + * Setup defaults for the atomic wndw state
+> + */
+> +void
+> +nv50_wndw_default_state(struct nv50_wndw *wndw)
+> +{
+> +	struct nv50_wndw_atom *armw =3D nv50_wndw_atom(wndw->plane.state);
+> +	const unsigned int blend_modes =3D wndw->func->blend_modes;
+> +
+> +	drm_modeset_lock_assert_held(&wndw->plane.mutex);
+> +
+> +	/* Ensure the plane's atomic state didn't default to a pixel_blend_mode=
+ we don't support */
+> +	if (blend_modes && (!(armw->state.pixel_blend_mode & blend_modes))) {
+
+[Severity: High]
+Does this incorrectly perform a bitwise AND between an enum value and a bit=
+mask?
+
+Since DRM_MODE_BLEND_PREMULTI is defined as 0, when pixel_blend_mode defaul=
+ts
+to PREMULTI, armw->state.pixel_blend_mode & blend_modes will evaluate to 0.
+
+This causes the negation !(0) to evaluate to true, unintentionally entering
+this block and overwriting the valid default mode with DRM_MODE_BLEND_COVER=
+AGE.
+
+Should this comparison be using BIT(armw->state.pixel_blend_mode) & blend_m=
+odes
+to properly check if the enum value is supported by the bitmask?
+
+> +		if (blend_modes & BIT(DRM_MODE_BLEND_COVERAGE))
+> +			armw->state.pixel_blend_mode =3D DRM_MODE_BLEND_COVERAGE;
+> +		else if (blend_modes & BIT(DRM_MODE_BLEND_PREMULTI))
+> +			armw->state.pixel_blend_mode =3D DRM_MODE_BLEND_PREMULTI;
+> +		else if (blend_modes & BIT(DRM_MODE_BLEND_PIXEL_NONE))
+> +			armw->state.pixel_blend_mode =3D DRM_MODE_BLEND_PIXEL_NONE;
+> +	}
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720205541.2577=
-81-1-lyude@redhat.com?part=3D1
+81-1-lyude@redhat.com?part=3D2
