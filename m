@@ -4,44 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56308C44520
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 10:48:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39627C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 10:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 930D710E885;
-	Mon, 20 Jul 2026 10:48:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 736D210E162;
+	Mon, 20 Jul 2026 10:51:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b4zUMSNC";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pX19tnTS";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B9EF10E885
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 10:48:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BB20860A8E;
- Mon, 20 Jul 2026 10:48:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51BD11F00A3A;
- Mon, 20 Jul 2026 10:48:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784544496;
- bh=cEIhehe1o2I/ETS88uejqY+0p9/hRes8BbOj9yeJNQ0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=b4zUMSNC+PiEhvbEYbGRX4M3tt8lCkWouI/Ys3QJwJfm6F7qYqYBTO8x2LF8ZoBc9
- FRGHz69h0gBJEq50yXCsoq0D3/fO2BLCK1t81KrGIobQ0j1uJvx69zkJCtPzv5GXwM
- I8jm0TCzQXKtNZlTOCKrf6yAHZBSsZbXlsCKQTdu6Mk5Pi/EvXEDMzw1mhFpqlu3p9
- 66pj8RbXtu5fIwAU5EDN55c57a+oDyBZv7nDa9OyGpeWupMmJKhybUQqtm0X7TYLxe
- LxVzrx1da6Yk/05+DMbJlaun7njk02EQnNJxGxbLPOxcNXd6hCXKNt4x3gcYcIwhSg
- oj4gTdH7U2Jtw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 3/3] drm/xe: Handle PUNIT errors by requesting
- cold-reset recovery
-To: "Mallesh Koujalagi" <mallesh.koujalagi@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720101815.526813-8-mallesh.koujalagi@intel.com>
-References: <20260720101815.526813-5-mallesh.koujalagi@intel.com>
- <20260720101815.526813-8-mallesh.koujalagi@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 10:48:15 +0000
-Message-Id: <20260720104816.51BD11F00A3A@smtp.kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E60B510E162
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 10:51:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=KJKAyQcsco6SBzscz84riJCl4l2UDg9GwNoMz1ewLeU=; b=pX19tnTSpwXH5LBEo+Bv8r51MV
+ nlQmozX6Td2Ukd2lUZLgAII/Lt51P0Aa4CcuQHEQ8YRAE4Bh8/xuw148t1pJJxR+z1qOl0zM8iBYG
+ waqPIL/bRXF17QqLLScwmLf1xk27V18JnbGHrcwC9VhcLmQsCy9V76hI55f7tK6E5rptgBW8MmaRS
+ JK2+M8VQd/Lq+DUI+Y2UB9swMfyRjtvkFuhqLMAvArScXjsP4nnaZmrzzvmFcMWqHgdm3tILtNhFl
+ d7T3J1gFooHFmmXcmM85Nlg+37ym+zizDvS57Bomsnc2PXuFKcCXrl28euF1nZ8PQsAqKSCXcmHkU
+ EmYak6vw==;
+Received: from [189.7.87.67] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wllaT-000yYM-Vy; Mon, 20 Jul 2026 12:51:06 +0200
+Message-ID: <4a933063-14da-4164-9422-3b110ddad675@igalia.com>
+Date: Mon, 20 Jul 2026 07:51:00 -0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/v3d: Idle AXI transactions before disabling the
+ clock on suspend
+To: Iago Toral <itoral@igalia.com>, Melissa Wen <mwen@igalia.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org
+References: <20260718-v3d-pm-axi-transactions-v1-0-4ecd7729ed70@igalia.com>
+ <20260718-v3d-pm-axi-transactions-v1-2-4ecd7729ed70@igalia.com>
+ <c4b5bfd3a5fe8d4ee1d283b77db3530158bb3a17.camel@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <c4b5bfd3a5fe8d4ee1d283b77db3530158bb3a17.camel@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,79 +83,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Calling `xe_device_declare_wedged()` during early driver probe fai=
-ls to notify userspace because the DRM device is not yet registered in sysf=
-s.
---
+Hi Iago,
 
---- Patch [3]: [PATCH v11 3/3] drm/xe: Handle PUNIT errors by requesting co=
-ld-reset recovery ---
-commit e4801339581daca0be0db10f90d94f25e72cfa52
-Author: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+On 20/07/26 04:38, Iago Toral wrote:
+> Hi Maíra,
+> 
+> I question below:
+> 
+> (...)
+> 
+> El sáb, 18-07-2026 a las 10:44 -0300, Maíra Canal escribió:
+>> diff --git a/drivers/gpu/drm/v3d/v3d_power.c
+>> b/drivers/gpu/drm/v3d/v3d_power.c
+>> index ade8e932fb9c..f608e6d5516a 100644
+>> --- a/drivers/gpu/drm/v3d/v3d_power.c
+>> +++ b/drivers/gpu/drm/v3d/v3d_power.c
+>> @@ -56,8 +56,15 @@ int v3d_power_suspend(struct device *dev)
+>>   
+>>   	v3d_clean_caches(v3d);
+>>   
+>> +	/* Wait until V3D has no active or pending AXI transactions.
+>> */
+>> +	v3d_idle_axi(v3d, 0);
+>> +	v3d_idle_gca(v3d);
+> 
+> Don't we need to do anything on the resume path for these?
 
-drm/xe: Handle PUNIT errors by requesting cold-reset recovery
+The documentation states that we don't need to re-enable the AXI
+transactions after a V3D reset/shutdown.
 
-When PUNIT (power management unit) errors are detected that persist across
-warm resets, mark the device as wedged with DRM_WEDGE_RECOVERY_COLD_RESET
-and notify userspace that a complete device power cycle is required to
-restore normal operation.
+Best regards,
+- Maíra
 
-> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-> index a31e06b8aa67a..92b4181026cbe 100644
-> --- a/drivers/gpu/drm/xe/xe_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_ras.c
-[ ... ]
-> @@ -236,6 +236,12 @@ static u8 handle_core_compute_errors(struct xe_ras_e=
-rror_array *arr)
->  	return XE_RAS_RECOVERY_ACTION_RECOVERED;
->  }
-> =20
-> +static void punit_error_handler(struct xe_device *xe)
-> +{
-> +	xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_COLD_RESET);
-> +	xe_device_declare_wedged(xe);
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 
+> Iago
+> 
+>> +
+>>   	ret = v3d_suspend_sms(v3d);
+>>   	if (ret) {
+>> +		/* Staying active: undo the GMP STOP_REQ from
+>> v3d_idle_axi(). */
+>> +		V3D_WRITE(V3D_GMP_CFG(v3d->ver),
+>> +			  V3D_READ(V3D_GMP_CFG(v3d->ver)) &
+>> ~V3D_GMP_CFG_STOP_REQ);
+>>   		v3d_irq_enable(v3d);
+>>   		return ret;
+>>   	}
+>>
+> 
 
-[Severity: High]
-Does calling xe_device_declare_wedged() here fail to notify userspace when
-triggered during early driver probe?
-
-If a PUNIT error is present at driver load, the call chain is:
-
-xe_device_probe()
-  xe_ras_init()
-    xe_ras_process_errors()
-      handle_soc_internal_errors()
-        punit_error_handler()
-          xe_device_declare_wedged()
-            drm_dev_wedged_event()
-
-Since drm_dev_register() has not yet been called at this stage of the probe
-path, the sysfs directory for the DRM device does not exist, and the KOBJ_A=
-DD
-event has not been emitted.
-
-Consequently, userspace (e.g., udev) will likely drop or ignore the KOBJ_CH=
-ANGE
-uevent emitted by drm_dev_wedged_event().
-
-Will this cause the device to finish probe successfully but leave userspace
-unaware of the wedged state, breaking the automated cold reset recovery
-mechanism?
-
-> +}
-> +
->  static u8 handle_soc_internal_errors(struct xe_device *xe, struct xe_ras=
-_error_array *arr)
->  {
->  	struct xe_ras_soc_error *info =3D (void *)arr->details;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720101815.5268=
-13-5-mallesh.koujalagi@intel.com?part=3D3
