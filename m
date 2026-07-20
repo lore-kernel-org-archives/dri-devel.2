@@ -4,79 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F22EAC44520
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 11:32:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65583C44520
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 11:34:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A83410E172;
-	Mon, 20 Jul 2026 11:32:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C523E10E18C;
+	Mon, 20 Jul 2026 11:34:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NhMnBEge";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="EWaeLO3n";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4CE410E172
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 11:32:23 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-49553515a8bso19083995e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 04:32:23 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13CDD10E191
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 11:34:56 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-47f703a9d05so802841f8f.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 04:34:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784547142; x=1785151942; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=dqbsg26ABj7eOdNonxG5QwFjKanK0ihJjv+Ud/fidP8=;
- b=NhMnBEgeK62IywLkevw0dJhpm17xYAuhi6seprDhxdJdLaecg08bunmZvd7haaTHv6
- Rag+khQ/07V+7MPnXNy2fOiV1J0Okgw0ihs8fJPDN9Vzxtldrz1yOr1P/yQb454yBynm
- zhielhJU8WYciKBqs3nnWAI7SSjFOw8Xn6nPla/3/anqouXFksQBLTJ0aBJMe9QAWT1F
- ks77d2Dfchbgn+7sx+JkFQk0HEPVX1UkQ3GyYmtU9BNd6nJApa64zWpy04rWKhYIN1kR
- yTb9S9sccQX51yWdRlSmbxGSnowZ6Km9VKE3agcN3WhZ+z4fBWcBNp1VqTWZtJxlxOYt
- nkgg==
+ d=baylibre.com; s=google; t=1784547294; x=1785152094;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=5MEo8NUpZhRQI5j1rCBJtgFOMjhyLVipMDpM+l3a/38=;
+ b=EWaeLO3nna+D5L9LsREjPOugThtVZrVwIVsTZHuzSzanTo/rVtcW7kKjN66rWnRPar
+ 1cBbd7YZoaicbQfmAx21upRLBlXJv4qZmCLzWGASDqSmC79kTB3HQcSrDaplkWdPmmBN
+ gDFoPfL87yic6lBBNMzN1Kh3/esxrqv1Vw8dcCNZBYH6PHgPhVRGuX8/+273IoR2Nr73
+ IoRkjvf/h+1r9Cki+UReG1eW0BjEXkK0x24zA9a0rYScZ5G64p9WGGdObLnBZTfyGS9T
+ AEVWkHKgXifTYu4lEa86EhlFwWJuygzWWHr0IFcpvf2zxrdTFRaw2KB53cqYCR9FI+DD
+ /h5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784547142; x=1785151942;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=dqbsg26ABj7eOdNonxG5QwFjKanK0ihJjv+Ud/fidP8=;
- b=lOTunC2gZgptOax+yF1NqLP6zsOtmvOipWP/sk2YQqOjKPu4nUylX72v6LBwgN9CBu
- pNNYydP2TDtk9YKBC2yys0HEPMiE+61NQ40+qzl1tOnLRJErkz3st+UTQRLHlrvFlS0V
- 8otIHUQlj6HQ7DlKLutkzNH+q9s2URd2fsjhYHFAudqsvM2mAR1jOAetEY8bTQj+/QI6
- M0J9KQrtyP8N9VscyohE06JZpVDIKL6seEjxHvJn+VWrpqbpOw2aGn8SGxwbaG41tS8Q
- DJn9YtDgsnXEATURX6cJWKxjkqQQ2PB3Top86EW8MV1+PxzaOjlxGnkvJykh4MxtXFj5
- Z7jw==
+ d=1e100.net; s=20251104; t=1784547294; x=1785152094;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=5MEo8NUpZhRQI5j1rCBJtgFOMjhyLVipMDpM+l3a/38=;
+ b=RdsWXKUGiXWAJfbSEzTwCFu3Neh0J0cCfdc/FBHoqWzULO35PzLzospANRQt+Kiri5
+ Tx2qMptmTXYYDYIgFQbL75dpPbXEn/Y2Ed1dOCNz9hj5BG6kwenxRn0OZ2BwX8eKYbva
+ /+LfUdmKexzyyOw59DFkeDBTrkHldk/vBVoMXRriRm7ybXf9bqFtNyfVV1tDt9UJH9rd
+ wThEYfa3gOYQ1nDbqgTbZm2HRe9drjhSijAYXGHRw0uUk4TI5GIcUIKR7HXdEpAtlDdK
+ AtBdoIuOqTFTIRVZbBXW9u508XwHzjaWxpWh8IwH5MhMd+M/HzvqnpEGMIAig+z+5uoU
+ yY0A==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqpoOKQfwDroKfyXW8YOaSkvNQoLmxFYCKcPKB9cBN8rFD9ZNiqiOd6Zh9oqCT0yV/x784356DrSVc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyGVesbY6Z1uE+/Pm91u3P3sGMU1A6Y/3E1Mwt/NthOVRIcAxtE
- P16xjBYWX9JpNNg6mO4+VSmTnrwbch3ZyD/uzQ5S4lKl0hdU1zDLBcMb
-X-Gm-Gg: AfdE7cl6g0gzkeFWiBDpm8L/OdOoOExo0JrMZgtfP2oHG8Nn231I23hXhc1694lC4Pz
- 6rQBQHZbrWAlm0pmTglFitUBXiGI8mRT+3s4E5eEAdLrpkUjU0VtdsujbSpn0RP5zWBI1bqCxvW
- SXTPikhStnvylgPjJu3cThTdYEGbmryr4z7BadBAT8DDDHvLl0pL2iF2+urImisQdQQ1QkJ6yAi
- Wqz+kD1dD7j/eCuJC1fwK+gtDB553+5uIIyHnUYIbz4n6q2lqtnHs74nbCvGNz3PvO/oIMbPzcq
- yhbDJ/5B1RXa6gG8irAc5w88izteipX44EbboKU4CH+FOTutLdMwm7lQVhVZLsaiLkoR4YAdYpc
- EtN26iwR4nK1Yzor4u7vvGAETW0zvoA2VzqpvcAYyvaasMHW/CsZIyqIPaWFOSJCwEMCUclKvdk
- /YxMhMvXubXlipW/SQH/L7iTbWLpeYRx/Nsjf61Q==
-X-Received: by 2002:a05:600c:630e:b0:495:4856:2659 with SMTP id
- 5b1f17b1804b1-4954a3db6b0mr153568145e9.9.1784547141812; 
- Mon, 20 Jul 2026 04:32:21 -0700 (PDT)
-Received: from osama.. ([2a02:908:185:7e40:a26b:a888:7408:fac])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f6980582csm21957014f8f.13.2026.07.20.04.32.21
+ AHgh+RqosOPPDbnajnrTBagVVfrevll39oK0H5cjVPo62onBCzC5Asy5HSlWIqVy4guDsMvVIyGseC6MgBE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy1SyHhGcZ9WtPaiDiJs1CPEpaEBm5yIOf1rVMtv8KfRRFujlbd
+ XOzuMzjwW7ZKJtv838JCPpkR3peSqFQiGAm7/PNXQ5hxJ4EyyFKkrYrg1+scSh1IPzE=
+X-Gm-Gg: AR+sD11hQrP7SmC/HTSddaRDdWU4vDdZOoqm+AkT1z3h1plmottzGL2SS7hLOkTALQ+
+ NJl5pR1ipjJMWJeZUuiKqUXoKPzURYWWBh+NFSoLwDS/4A7/Bv5ONiHrg1MhpK+z0O2rdpopS0S
+ RMoQHy3nhl8F9/THX1HNygWkc2MxYV4uuCcwBDYkpVoQ6dbt+rwyoAgl7V5zcz8SDY3ZD50XW4T
+ DCK6865xvsgZcreN9bBwi/5i07RTD82shxij7URpqHu9zJ3BzPdZcDLC65t4UcGVZBefNfvongl
+ oaxLtDtBoDlLlqon14MkHlDA8bznav13IY1hKkZK5miG5cZH1YnkumSVByHUQvdLHfU6Iq8lJoG
+ lLZ2bFqVLB3dF/6tb1bE2IaL39DPNeqecXFBi4gcHEaEqvRRBoH2b1QKklhWJCUL70P0Zsa9jNv
+ xez8oEAmXUcZUacYoaIdaHY8usPSZakneeW2Susu3J8meTxhBp6CWGEff65vXlIp0RWQ==
+X-Received: by 2002:a05:6000:4b14:b0:47e:aa3f:f822 with SMTP id
+ ffacd0b85a97d-47f6233be35mr16319068f8f.53.1784547294401; 
+ Mon, 20 Jul 2026 04:34:54 -0700 (PDT)
+Received: from localhost
+ (p200300f65f47db048587886ecb5b26b2.dip0.t-ipconnect.de.
+ [2003:f6:5f47:db04:8587:886e:cb5b:26b2])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-47f6fa848fcsm19241724f8f.0.2026.07.20.04.34.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jul 2026 04:32:21 -0700 (PDT)
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/panthor: harden firmware build-info bounds checks
-Date: Mon, 20 Jul 2026 13:32:11 +0200
-Message-ID: <20260720113212.11981-1-osama.abdelkader@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Mon, 20 Jul 2026 04:34:53 -0700 (PDT)
+Date: Mon, 20 Jul 2026 13:34:52 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Markus Schneider-Pargmann <msp@baylibre.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amdgpu: Consistently define pci_device_ids using
+ named initializers
+Message-ID: <al4HlJxVqCDae5yL@monoceros>
+References: <20260429171644.8406-2-u.kleine-koenig@baylibre.com>
+ <aimWvtBTQvd7O2F0@monoceros>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="rjr5ydhtag5cemwi"
+Content-Disposition: inline
+In-Reply-To: <aimWvtBTQvd7O2F0@monoceros>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,38 +99,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-panthor_fw_read_build_info() checks whether the metadata range fits in the
-firmware image with hdr.meta_start + hdr.meta_size. Both fields are u32, so
-the addition can wrap and let an out-of-bounds range pass validation.
 
-The function also reads the "git_sha: " prefix without first checking that
-the metadata is long enough, and meta_size == 0 can underflow the NULL
-terminator index.
+--rjr5ydhtag5cemwi
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] drm/amdgpu: Consistently define pci_device_ids using
+ named initializers
+MIME-Version: 1.0
 
-Use subtraction-based bounds checking and reject metadata that is too short
-to contain the expected prefix and trailing NULL byte.
+Hello,
 
-Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
-Cc: stable@vger.kernel.org
-Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
----
- drivers/gpu/drm/panthor/panthor_fw.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On Wed, Jun 10, 2026 at 06:55:09PM +0200, Uwe Kleine-K=F6nig (The Capable H=
+ub) wrote:
+> On Wed, Apr 29, 2026 at 07:16:44PM +0200, Uwe Kleine-K=F6nig (The Capable=
+ Hub) wrote:
+> > ... and PCI device helpers.
+> >=20
+> > The struct pci_device_id array of supported device was initialized
+> > by list expressions. This isn't easily readable if you're not into PCI.
+> >=20
+> > Use PCI_DEVICE* helper macros and named initializers which is more
+> > explicit and thus easier to parse. Also skip explicit assignments of 0
+> > (which the compiler then takes care of).
+> >=20
+> > The secret plan is to make struct pci_device_id::driver_data an
+> > anonymous union (similar to
+> > https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@baylib=
+re.com/)
+> > and that requires named initializers. But it's also a nice cleanup on
+> > its own.
+> >=20
+> > This change doesn't introduce changes to the compiled pci_device_id
+> > array. Tested on x86 and arm64.
+> >=20
+> > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@ba=
+ylibre.com>
+>=20
+> Gentil ping! I'd like to work on changing pci_device_id, but that
+> requires that this patch hits mainline first ...
 
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index 6335893d3f16..9d0e1fafdce2 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -709,7 +709,8 @@ static int panthor_fw_read_build_info(struct panthor_device *ptdev,
- 		return ret;
- 
- 	if (hdr.meta_start > fw->size ||
--	    hdr.meta_start + hdr.meta_size > fw->size) {
-+	    hdr.meta_size > fw->size - hdr.meta_start ||
-+	    hdr.meta_size <= header_len) {
- 		drm_err(&ptdev->base, "Firmware build info corrupt\n");
- 		/* We don't need the build info, so continue */
- 		return 0;
--- 
-2.43.0
+Would it help to resend? Did I fail to Cc: someone to get this patch
+into some tracking?
 
+Best regards
+Uwe
+
+--rjr5ydhtag5cemwi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpeB9kACgkQj4D7WH0S
+/k5Z6Af9Gq2QxbDClvePDJgb1S0Btc3vPaIme+YCro+lTIwcbZZ1CHZKRKdrSSda
+ajvSbtUH6ZT2Dj/grtQNq0MAgwRXNJjpEtNUVhuKa/g/O9G6HseGT/JLZ6gpbE3V
+FvjvZLvFYE0cC5UBxPsfpJZWSZ4b6HHG2yaqgGbKG01UIuW0bu2ElQXzN8z9FLqW
+QjR8PEoBgfPQZA2TUqtRQ0tjbMFA+FEpFWkuPSmdDFVR4OPZUbAIltzKfYnCcmch
+cEnAnx/m12gfxUS1cBy7m120C/Ko+q4UszZPzbPrivbFGby8/E52ee+rVAuzdcCE
+TPAmP3ysP/Olxv7n3XJ9LHGrkhVHuQ==
+=E0ji
+-----END PGP SIGNATURE-----
+
+--rjr5ydhtag5cemwi--
