@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 859A9C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 10:15:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E533BC44527
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 10:19:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D62310E160;
-	Mon, 20 Jul 2026 10:15:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0299710E85D;
+	Mon, 20 Jul 2026 10:19:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DzWJhGik";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="R/Vi7i0w";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B77310E148;
- Mon, 20 Jul 2026 10:15:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9F6E10E173;
+ Mon, 20 Jul 2026 10:19:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784542548; x=1816078548;
+ t=1784542797; x=1816078797;
  h=message-id:subject:from:to:cc:date:in-reply-to:
  references:content-transfer-encoding:mime-version;
- bh=dfyA02sKGaIMirLO3Wtz9psmT77KyIoI656f9ZGMcGA=;
- b=DzWJhGikHXaWG6tHaBY6aYnPCDeaxRzqBfx1jf+c7xnJXvJZBlU3AhYy
- LxscnnEj4BLHG0tQ/9lVK+Vu4dIdcXl4OM6HY7ihT+QB895j2rXv6sCzz
- KwAvnNpV3DK5TaQ9vNh675r2nQDWi9Vlqc6vO5pbTuouy8O8kF/nWMoCL
- Dh98Ux3mMqffMg2fbRr5iiuqeGpjRLuoQfytZJ1/+cquY4DT2/+bpVhPH
- E6KYylDJ/2vS5vbbGWi73I3ErZfL/IZx+0vrCqM79oosiOGltVqFsaBkZ
- 4OGK2eIa7h1BYWLmQsRbxJkUGI49pbKi4qKZk9reBDhydkQO8zaw/ItWz Q==;
-X-CSE-ConnectionGUID: JNfryugwQ86B49A9q0Rz8Q==
-X-CSE-MsgGUID: 9krs8lP2QvyUdTzQKCWfrg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="85069856"
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="85069856"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2026 03:15:48 -0700
-X-CSE-ConnectionGUID: Eqt8sR54RD6X9IYi/5rIDg==
-X-CSE-MsgGUID: gJe1YY5XSRah7RNMw1vaEg==
+ bh=Dp0fjG0t8rCEdB4jrHSNd8VTVbLUv/2+7jQ0Fb9t3iA=;
+ b=R/Vi7i0wQR9n6Fd7hyQPoLxVb+1EsXEsFcGbUhq7+IbRYiQlR/CA2Hjn
+ sh7qws42fMNpMpJvQ8W2vFaHGZbJNi2IQoq/bbAjCuzmHkKnJWx8IBJu3
+ eKHyE8pBIL+KFvn35Gij7sGaHWs5j25T39kW1avkgNy90FbZaNE1MWcdX
+ DD753GUx79Q525df8gLn/PWu6qcv2q72jZDRjTwGjAFfRPNJI8VtvdC2K
+ sJOPUK06FKDnMT5kmalaJ8HIRSdZvhQ9rN599HxGMfPWTVeX4P4oAYoP8
+ uGLwSRfE7Y+LNssSn27J0EXwwIOH1TsAziCrw2LXfmXKUk3FCrE7j3roa w==;
+X-CSE-ConnectionGUID: mIHHk/38S3OvE+ETWdghiw==
+X-CSE-MsgGUID: 6RlVYPvJQN+UI9T2wCAtuA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="84996914"
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="84996914"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2026 03:19:57 -0700
+X-CSE-ConnectionGUID: aHCr9372Rs2YDR6Rf3osFw==
+X-CSE-MsgGUID: 1fH5KnWHTBm2IvH2ntbCFw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="287474905"
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="253048567"
 Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.94])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2026 03:15:46 -0700
-Message-ID: <8154a1c3fedeb9b04df311ad92dc1db0de0a845e.camel@linux.intel.com>
-Subject: Re: [PATCH v3 4/5] drm/i915/gem: Read and shrink memory in a
- separate function
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2026 03:19:53 -0700
+Message-ID: <4aeb95b2eca04bc4972e2e88ac47f34ee6020a07.camel@linux.intel.com>
+Subject: Re: [PATCH v3 5/5] drm/i915/gem: Remove iterator and use while loop
 From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 To: Krzysztof Karas <krzysztof.karas@intel.com>
 Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
@@ -52,12 +51,12 @@ Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  =?UTF-8?Q?Micha=C5=82?= Grzelak	 <michal.grzelak@intel.com>, Sebastian
  Brzezinka <sebastian.brzezinka@intel.com>,  Krzysztof Niemiec
  <krzysztof.niemiec@intel.com>
-Date: Mon, 20 Jul 2026 12:15:43 +0200
-In-Reply-To: <fpdox6uyoqnjx7nat427miehqtmhermzcpdpqfeystrmuwsgoq@sxbrby7ofmma>
+Date: Mon, 20 Jul 2026 12:19:51 +0200
+In-Reply-To: <gjalgvm2zdtzz67lh7jvzopm4ba44w4eh2rpaaniqc2jyegpn2@edzadixxdexq>
 References: <20260713095812.1014365-1-krzysztof.karas@intel.com>
- <20260713095812.1014365-5-krzysztof.karas@intel.com>
- <8979872eac4f9eabb499f074b66583013f6f524c.camel@linux.intel.com>
- <fpdox6uyoqnjx7nat427miehqtmhermzcpdpqfeystrmuwsgoq@sxbrby7ofmma>
+ <20260713095812.1014365-6-krzysztof.karas@intel.com>
+ <a9b6b5c4165904ac474fb4a0d56341827b33e66b.camel@linux.intel.com>
+ <gjalgvm2zdtzz67lh7jvzopm4ba44w4eh2rpaaniqc2jyegpn2@edzadixxdexq>
 Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
  80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Type: text/plain; charset="UTF-8"
@@ -79,80 +78,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-07-20 at 08:18 +0000, Krzysztof Karas wrote:
+On Mon, 2026-07-20 at 08:25 +0000, Krzysztof Karas wrote:
 > Hi Janusz,
 >=20
-> On 2026-07-15 at 17:31:56 +0200, Janusz Krzysztofik wrote:
+> On 2026-07-15 at 19:04:42 +0200, Janusz Krzysztofik wrote:
+> > Hi Krzysztof,
+> >=20
 > > On Mon, 2026-07-13 at 09:58 +0000, Krzysztof Karas wrote:
-> > > Continue unloading shmem_sg_alloc_table by placing reading
-> > > folios and shrink call into a new helper.
-> > > Make the loop a bit more reader-friendly by removing iteration
-> > > over a structure and replacing it with a do-while loop.
+> > > Change the main "for" loop into "while" to get rid of obscure
+> > > iterator "i" and use more descriptive name to indicate how many
+> > > pages were already covered. Detect first loop with st->nents and
+> > > put instructions for that case in their own block for easier
+> > > reading.
 > > >=20
 > > > Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
 > > > ---
 > > > v3:
 > > >  * Split refactoring and put it after the fix in shmem folio
 > > >   counting suggested by Andi.
-> > >  * Use do-while loop suggested by Robin.=20
 > > >=20
-> > >  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 102 ++++++++++++--------=
+> > >  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 29 +++++++++++----------=
 --
-> > >  1 file changed, 55 insertions(+), 47 deletions(-)
+> > >  1 file changed, 14 insertions(+), 15 deletions(-)
 > > >=20
 > > > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/=
 drm/i915/gem/i915_gem_shmem.c
-> > > index 4a61b012fb6f..7c8de8fe0a22 100644
+> > > index 7c8de8fe0a22..66d0f8f6ffcc 100644
 > > > --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
 > > > +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> > > @@ -78,6 +78,55 @@ static int validate_size(size_t size, unsigned int=
- page_count,
-> > >  	return 0;
-> > >  }
+> > > @@ -135,11 +135,11 @@ int shmem_sg_alloc_table(struct drm_i915_privat=
+e *i915, struct sg_table *st,
+> > >  	unsigned int page_count; /* restricted by sg_alloc_table */
+> > >  	unsigned long next_pfn =3D 0; /* suppress gcc warning */
+> > >  	unsigned long folio_start =3D 0;
+> > > +	unsigned long pages_done =3D 0;
+> > >  	unsigned long folio_end =3D 0;
+> > >  	struct folio *folio =3D NULL;
+> > >  	struct scatterlist *sg;
+> > >  	gfp_t noreclaim;
+> > > -	unsigned long i;
+> > >  	int ret;
 > > > =20
-> > > +static struct folio *shmem_shrink_get_folio(struct address_space *ma=
-pping,
-> > > +					    unsigned long folio_index,
-> > > +					    gfp_t gfp, unsigned int page_count,
-> > > +					    struct drm_i915_private *i915)
-> > > +{
-> > > +	struct folio *folio =3D NULL;
-> > > +	unsigned int retries =3D 2;
-> > > +
-> > > +	do {
-> > > +		cond_resched();
-> > > +		folio =3D shmem_read_folio_gfp(mapping, folio_index, gfp);
-> > > +		if (IS_ERR(folio)) {
+> > >  	page_count =3D size / PAGE_SIZE;
+> > > @@ -163,15 +163,15 @@ int shmem_sg_alloc_table(struct drm_i915_privat=
+e *i915, struct sg_table *st,
+> > > =20
+> > >  	sg =3D st->sgl;
+> > >  	st->nents =3D 0;
+> > > -	for (i =3D 0; i < page_count; i++) {
+> > > +	while (pages_done < page_count) {
+> > >  		unsigned long folio_page_index =3D 0;
+> > >  		unsigned long nr_pages;
+> > >  		gfp_t gfp =3D noreclaim;
+> > > =20
+> > >  		/* Grab the next folio if we exhausted the current one. */
+> > > -		if (!i || i > folio_end) {
+> > > -			folio =3D shmem_shrink_get_folio(mapping, i, gfp,
+> > > -						       page_count, i915);
+> > > +		if (!pages_done || pages_done > folio_end) {
+> > > +			folio =3D shmem_shrink_get_folio(mapping, pages_done, gfp,
+> > > +						       page_count - pages_done, i915);
+> > >  			if (IS_ERR(folio)) {
+> > >  				ret =3D PTR_ERR(folio);
+> > >  				goto err_sg;
+> > > @@ -181,7 +181,7 @@ int shmem_sg_alloc_table(struct drm_i915_private =
+*i915, struct sg_table *st,
+> > >  			folio_end =3D folio_start + folio_nr_pages(folio) - 1;
+> > >  		}
+> > > =20
+> > > -		folio_page_index =3D i - folio_start;
+> > > +		folio_page_index =3D pages_done - folio_start;
+> > >  		if (WARN_ON_ONCE(folio_page_index >=3D folio_nr_pages(folio))) {
+> > >  			ret =3D -EINVAL;
+> > >  			folio_put(folio);
+> > > @@ -190,16 +190,15 @@ int shmem_sg_alloc_table(struct drm_i915_privat=
+e *i915, struct sg_table *st,
+> > > =20
+> > >  		nr_pages =3D min_array(((unsigned long[]) {
+> > >  					folio_nr_pages(folio) - folio_page_index,
+> > > -					page_count - i,
+> > > +					page_count - pages_done,
+> > >  					max_t(unsigned int, 1, max_segment / PAGE_SIZE),
+> > >  				      }), 3);
+> > > -
+> > > -		if (!i ||
+> > > -		    sg->length >=3D max_segment ||
+> > > -		    folio_pfn(folio) + folio_page_index !=3D next_pfn) {
+> > > -			if (i)
+> > > -				sg =3D sg_next(sg);
+> > > -
+> > > +		if (!st->nents) {
+> > > +			st->nents++;
+> > > +			sg_set_page(sg, folio_page(folio, 0), nr_pages * PAGE_SIZE, 0);
+> > > +		} else if (sg->length >=3D max_segment ||
+> > > +			   folio_pfn(folio) + folio_page_index !=3D next_pfn) {
+> > > +			sg =3D sg_next(sg);
 > >=20
-> > Going again through then unused shrinking and modification of gfp doesn=
-'t=C2=A0
-> > make sense, I believe.  Could be avoided based on retries value as an=
-=C2=A0
-> > additional condition.
-> If calling i915_gem_shrink again doesn't give us anything, then
-> looping doesn not really benefit us here. We could do something
-> like this instead:
+> > Repeating two or three lines of code to avoid calling another one=C2=A0
+> > conditionally doesn't look optimal to me.  Maybe you could invent a sim=
+ple=C2=A0
+> > replacement of that 'if (i)' conditional expression.
+> Perhaps it is not optimal. I do not feel comfortable having two
+> conditions that contradict each other in the same block, which
+> is why I wanted to take out the first iteration setup.
 >=20
-> folio =3D shmem_read_folio_gfp(...);
-> if (IS_ERR(folio)) {
-> 	i915_gem_shrink(...);
-> 	gfp =3D mapping_gfp_mask(mapping);
-> 	gfp |=3D __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-> 	/* again */
-> 	folio =3D shmem_read_folio_gfp(...);
-> }
->=20
-> return folio;
->=20
-> That way we'd be explicit about shrinking once and retrying
-> folio reading only once. Reduced indentation would be added
-> bonus.
->=20
-> What do you think?
+> It is more about aesthetics here, so I do not have a strong
+> argument here besides readability. If that is not enough, then
+> I'll revert to the previous code.
 
-Yes, that would be much more clear.  I would only keep the cond_resched(),=
+I think that also depends on how you address my comment to your patch 1/5=
 =C2=A0
-at least before retrying, unless you can justify its removal.
+on that if condition, so we'll see if this comment will be still=C2=A0
+applicable.
 
 Thanks,
 Janusz
