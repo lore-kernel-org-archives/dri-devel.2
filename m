@@ -4,56 +4,164 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A50D2C44512
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 01:59:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 390CDC4451B
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 04:29:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD2A410E07B;
-	Mon, 20 Jul 2026 01:59:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39CCE10E645;
+	Mon, 20 Jul 2026 04:29:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="fGaSFrmt";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="R53fgp00";
 	dkim-atps=neutral
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Mon, 20 Jul 2026 01:59:18 UTC
-Received: from mail-m103131191208.xmail.ntesmail.com
- (mail-m103131191208.xmail.ntesmail.com [103.131.191.208])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3309810E07B
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 01:59:17 +0000 (UTC)
-Received: from [172.16.12.90] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 46c36dd28;
- Mon, 20 Jul 2026 09:54:10 +0800 (GMT+08:00)
-Message-ID: <9219738d-c3f2-4034-b88f-84335f77fbad@rock-chips.com>
-Date: Mon, 20 Jul 2026 09:54:08 +0800
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87CCD10E11E;
+ Mon, 20 Jul 2026 04:29:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784521751; x=1816057751;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=0XyyaWFlLkSrAMWCU2grcixS6ze5w/elrG+soR2dQpM=;
+ b=R53fgp00ARUOBKFoIA+u8MTcjt+rSIxIwYN3LvZrYvODSnSjNgIzJV3r
+ Xcz2cpooHjIdUKHSOVGFrTljlsetGKg60mIx3Id9QGHPKMBhFVomFf3rV
+ OU69JJuehZ5wQMBbaVUEvfIzASdUG3tvZcZZHarLlvr2B6aalp0DW5KjV
+ aVnYJQLLNk+wXLDcQgpTfhdAkRVzwDJnXLtMTnwo07pGh/63FZ66cgKy0
+ NWYgr+j5HC+rPhDDLgkcl0kGzx2QFkQYjj7b4aNulgH9Wmk7pGa5MJjr+
+ 9q61aNqQUJ7sQapqYgMtLR2OSRT9Pcc7CXNtDMUaXDN4pUnCwthZaPDgy g==;
+X-CSE-ConnectionGUID: CU05Q8OwTdSPWTMNyyQzWg==
+X-CSE-MsgGUID: fckrK05DQlqwAQPjWxZiTQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="72631402"
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="72631402"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2026 21:29:11 -0700
+X-CSE-ConnectionGUID: 4g1y8W0rS1KxqN4wF4dY4A==
+X-CSE-MsgGUID: CENADFPRTeKhIBDY13v9FA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="281813110"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2026 21:29:10 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Sun, 19 Jul 2026 21:29:10 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Sun, 19 Jul 2026 21:29:10 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.67) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Sun, 19 Jul 2026 21:29:09 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dxNEEhinUvGV/0qKv7Mae/E6j1bxASFVkgQOfnis3jLb3nkEhFw8g6xlHMlRWG7K45G5i1hWQhGioOCzzwE4QOEzM/+Qb8+rrbXcTgdurPGU+ZFXnbMoHNHM2LEGA47DHOU8CRxjVvej3ffsm5D5T6nbBpNPcjC5GOCqguj4PFNKwyeJcrl1XNerdjxLn6sSafu3ppMgJSmd2Ww17XR6tVfyttNxSn0NiEe2AVr7s6xbsPD7UpP43e+e622tTu7+EDSg+LgXpAMRMnlRrfTsiaoICvwSyJmnFeMDTQLVXUJT5GZa9hW0MuZqawxl7uZjgh34MWV90464oQpLXBMjNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=peVEnjCErokcXDGAFdrcd/echxNVhqRIdHUL0ZtP+K0=;
+ b=XEPGpn22Jj2UkJ/jGHmkpgcHpqVCDGqzVlyRd1E74q878vBXuUxiKSjk6Ok0K1VmBvO5yWha30MpuK7sIgQaP48wuQow5BQuXRvRd6Jc4mSt/3yZ1Gd0raybp5VY7ciN5+Msi00+VzHQD0BirDXm5cnNqJ6/0ta7o4ICsSQMmO4GorIt4e8YFeGkqGF7NhDG6AB0uoBYl+LLhG34dIv3UljBiQJd7xtdpc3acMbs91QBr1Gz56Dw7jN4iS84rWe8o5vyMRFHjg9UO29SufHLrep1ZT2EbDmjI5IjB6Wd14cFrRLrwVTMAKA7ewBbTTe6CYfN5kySNcZhMm84qQpDag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by SA1PR11MB5802.namprd11.prod.outlook.com (2603:10b6:806:235::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.16; Mon, 20 Jul
+ 2026 04:29:07 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0223.015; Mon, 20 Jul 2026
+ 04:29:07 +0000
+Date: Sun, 19 Jul 2026 21:29:04 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+CC: <intel-xe@lists.freedesktop.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Michal Mrozek <michal.mrozek@intel.com>, 
+ John Falkowski <john.falkowski@intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Lahtinen Joonas <joonas.lahtinen@linux.intel.com>,
+ David Howells <dhowells@redhat.com>, Christian Brauner <brauner@kernel.org>,
+ Kees Cook <kees@kernel.org>, Davidlohr Bueso <dave@stgolabs.net>, Christian
+ =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Dave Airlie
+ <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
+ <dri-devel@lists.freedesktop.org>, LMKL <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 4/4] drm/xe: Add watch_queue-based device event
+ notification
+Message-ID: <al2kEOXTybHlMhuR@gsse-cloud1.jf.intel.com>
+References: <20260612135340.116100-1-thomas.hellstrom@linux.intel.com>
+ <20260612135340.116100-5-thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260612135340.116100-5-thomas.hellstrom@linux.intel.com>
+X-ClientProxiedBy: SJ0PR13CA0201.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c3::26) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/rockchip: lvds: add RK3568 support
-To: Rok Markovic <rok@kanardia.eu>, Heiko Stuebner <heiko@sntech.de>,
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Alibek Omarov <a1ba.omarov@gmail.com>
-References: <20260717120005.2087386-1-rok@kanardia.eu>
- <20260717120005.2087386-4-rok@kanardia.eu>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260717120005.2087386-4-rok@kanardia.eu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9f7d3b0eee03a7kunmae00338f1d2cb8
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHUxOVkxNTEpNQxhMTBpIH1YVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=fGaSFrmtAq9Zm9i+EivkmOIz/2NPZ3/XxwjUasJmYxVkitxTDhUlAixtqWleZGVJiu+YIMuz90INFCceAj/VK7GI8tjQS6V6JZwTA2CFwYE6SDD3oxGJ+jl0DAjwZ4gvGyBUiBm9tAkmidSLNru0eGF1yxpueblRJs1RyW9sBdQ=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=0ZU4UPHBu/3uY02SJQ9uBBNkmVWDmaewVSFdHdw5PBw=;
- h=date:mime-version:subject:message-id:from;
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|SA1PR11MB5802:EE_
+X-MS-Office365-Filtering-Correlation-Id: 943e72d6-593d-4c26-4b5a-08dee6176ff1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|376014|366016|23010399003|18002099003|22082099003|10067099003|4143699003|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info: LBQtHGtYbZh36o6C4z09QPp9tTWYVyUn7iT+F1wVNFzw6nQz2uhYqtHrTAGW3ANeTLq7/tAiG+5tehKcmQuNBzW0tbTHNugLaOke1pbskCUPxXRK33ql4L6Mh03B+CAVtw4FmzVJ4GBIN6xEswpGp/ukPhPa78dRIT4APPBIiLoFXOwFuHfNE15+ac3xsduJn9t5vIW9qsRDJ+D1XrHJJtXJunCqKLahAT+0RrMveB0AYb1BPf3kD4JGpqpVaaw+SAlM6vA2rXElncoXGpkv97xlGTiWcVeHaPPL+P021USXsQpgoW0dPMyj0tCPRZtK6ks5ohm1xquzzrDvDBG1d36yU56KCAbe7AOESilvRYHabmixhyQjr+ebPcCawubjKP7+L4tTtHnCA82+d8X+CNQ5sBx3vxFdpM1bKw7tH3lV8YDjxDkTTFHfbA7KRh8bz17l4+1b0NlZdRto+IUsTkaVK1lmB+gMyymXldEByF058s4bwaVjXfCHpQGgNLJSoVy/8kFljnPhdDG76eUr+yd9IB/cS0ISjC6C+PnJUgNNftiJR/1fREgEf81IRZOWEHaopE1g0eeiFsmTej20Lf8aiKrrzUbvo/SS2nqoPWRbscQggAXwkUmdPSLYedUhdYXT4xXKjLvOtTLzfbenrHy0Nu/lOsbu0Re7aWygIwA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(56012099006)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y3YzanlsYkNhQy9zTXJ2WVBna0EyVEh6MXhJTXpvTGJqY1ZoMW9SeWRENXV2?=
+ =?utf-8?B?WHNmTDkwNWd2QWRHeFVUTlgwZnFRRGtzc1hMSk9peW00c21xQXBlcHBUcldw?=
+ =?utf-8?B?QTV6RHUxbmZyWmRXMlRMOERoaWVpY25ueDU1TXk2Qzc5QnplclhQdExqTHY1?=
+ =?utf-8?B?R2xQTHRQZEFtZVREOG03SWlwYkFOYXRJWmIvYnZtMWJSTU16WVFyVXJsdVdl?=
+ =?utf-8?B?T0lTMmJCY3pQRkttTDNjVWQ5aTg0MkM4cjJuWng3OHNnYXBVNkxoNW5YSU1j?=
+ =?utf-8?B?ZHZ3Q1N4bmtYMU5ROWQrbWV0d0lrWnFVWkRXWmNzY2FVWkVuL0VOd3Q2THMv?=
+ =?utf-8?B?cTE0bXo4amwxVTFXN1lBcS9FNG9NSmxxQSs0eStDNHo0TEQ5R29DNUF6dm5N?=
+ =?utf-8?B?YnRwMi9vTzBNWkF1eG8yMjBKU3lMdStkcFd2ZGhFV0ZnZXZNb3Nna3dkUU1j?=
+ =?utf-8?B?Wk9jT2FHR2o0UXBSeXA2RzZuQk81ekk3QmFhbWNyN284dDdPelZuRUxEbHE0?=
+ =?utf-8?B?NG5Yc3dhQ1dBYXRuTVBiVENrNjVtNEUzdThFWlNhZnphNWxyczhUSC9wckdn?=
+ =?utf-8?B?ZnBPcHd4ZG5lTHZmZm9WSnlIWm1IZ1VjWERzdWxpNDVVME9Bcmc0NkxnWjRO?=
+ =?utf-8?B?d0cyMlBFVGd3QjkxNVl6OFJxV3daM01vb3NQdGJWa1V6TTl3S3A1K0tmejhH?=
+ =?utf-8?B?UE5PN0JYWTZXc3lOa2VMaWRRaXhVcUl3bXRXQ0ZIVGhVYzhOS0NnSUl4ZTNx?=
+ =?utf-8?B?Q3cvS2NyRStyTFd3dUNud0UzeWFxV0tRR1FsT1ErRmViRHVlbUNWVWltdTJH?=
+ =?utf-8?B?U1hlaUxURWJISHo5YUswMUpvU3dMQ0lKYjlkSDdQcWt4TW1wK0pnK29vSllS?=
+ =?utf-8?B?enJ4cTAwdSsvNlVCVGJkRG9lUnZDWFpzTDhOMnVEckZaajRGbHk3K3M4M3lP?=
+ =?utf-8?B?bS9nQ09BZFNOTTN5bXdPZ3ZzL2E1U3pKTkdtdnJDU1hFWmNrRm5RakxJWEdi?=
+ =?utf-8?B?Rjl3RHdVK0V2WEdwN3ZwbTBRV2JTaGRTTG9WY3Vrbk1NTmw3NEVVUWlPeWlS?=
+ =?utf-8?B?RVFUZkpaOXZnNTNmTEdmay9EcW5EdlFZMkRkZEVMR1duTTdpdEU5SFl1Yk5Q?=
+ =?utf-8?B?Rkd6VEpkcFlnZCtCUDRTVEljcndTRitJQ3U1RC84MGJmTjZMb0habXMvRC9z?=
+ =?utf-8?B?Q0V5SmRBWVdqSysybE14ZEZhR1ZmQ3lNL3ZMV3ZNaTRpMi9MczJOM3dyZTZ0?=
+ =?utf-8?B?aDlXY1VTcWZaK2hycHkwL2ZZQXZxMjM1Y2hzY1FmRHk3bWRwVkg4WlFvKzZs?=
+ =?utf-8?B?N3dxUmNiVmJERElNS0FRN2Q1QTYrZFFoV1VYWk1sVW5VSnNhc0JlY0xRSEtk?=
+ =?utf-8?B?TmpSUE1JdWV5TVh5ek5Eb3ZGQmNiSWVja2hySHRRdGg3ZERHZGx3SUJMNzls?=
+ =?utf-8?B?Mm4zbVZCTGxaRFJVWGN3d1hyZUdjS2dBUkd3M1RhVElWU3k1cVFEenAwaFlj?=
+ =?utf-8?B?S3JLdmZrMVJpTW5abXRPaXZFTmxLR0MxRjhZL1RrRjlLUGI2cVZVWG9QaHUx?=
+ =?utf-8?B?ZWplZGR3RkZLaURCdXFBZldHM1AyYzZYZ0JGT1A4ZTNOZnE0UGtoNVRMYTNr?=
+ =?utf-8?B?M1g3WUxJSnJXRjRUVUdIMnBVZzB4VThPQm4rWmtHcDZoRzZjUkJWNmdOaWtH?=
+ =?utf-8?B?NUFKUWJnOFBMWHkrRGFmL0JTRWd2YldxWlBKcjhRaVQ1Z0xTSSsrdDZNbG9E?=
+ =?utf-8?B?NGpOQWdtTWV6WkxybnlRZkVIdFlLUlVWYitBVUFLblpuZzdxVkhhc1VVd1dG?=
+ =?utf-8?B?VE51UjlrQk4zZEw0OEY5ZUNZRHROVnhUYmFpK0x4WjdGWDVEMjJDNDhwSXpW?=
+ =?utf-8?B?V3ZJYTh4RVFZWjRRMERsbW1QMkZnNWZXSXY0TU55VUJIMGFWb1ByWVFMNFNk?=
+ =?utf-8?B?KzUyMVJXbUx5c2k4ZENDTHF2WlZnemI5bnV5WGEzM2pMSjFUUWdPUEtKM3pF?=
+ =?utf-8?B?V0ZEdHhYeVI4cnFrN1Y0ZEVhUUtraDN4b3BmTkZBQUZYODV6SGxoWGs2NHNx?=
+ =?utf-8?B?dHVjOXl0RWw1R3k4cTdkampRZEF3R1N0bndvaGNSc0xSYlJRSSt2YXhjUFBR?=
+ =?utf-8?B?ZlZzb1Zaa0IzdVJxdEI0V0FaT3NwTHlzVEdjSjg1WjJhZ3ZGakIzdW96cnhK?=
+ =?utf-8?B?UW5iYVJ3UnVEME0vSU5HSTdTbXR3SGxTK25FT09Xbk5kUHAxU1UxV1Bzb082?=
+ =?utf-8?B?NkNKaWw0MWJwRGhpZFRhQXVnL3pYTnAxenNDUEhvZDlhS2tkTHVES1hXY2ZX?=
+ =?utf-8?B?OS9PalhxQ2x5YkZNUWlBa05LZ0FkUGszZkxOVnl5VkV6eFo3eTJ2QT09?=
+X-Exchange-RoutingPolicyChecked: Ejca6cesFAojiqNjU7GNP1OnWazdkwH8glJ0dy/5jLnqRFlEta1bN4F4yV1O7rXTiY3GQD9/nrF9LhrS64YkeZJ4p09Xhl91/BABEiXO+MyXncH2kF7a6FzNiBPMSg2EMYGLM/J0bw6dp4vQssbv4fTdHa+GvW6c2nwHgWAoNrZ0u4fuCAKs3rkT0RwSd/8XVX8UpAHKMAu1IlL6v6qajOujKRfMuwv6jVL5HNW2EG6vRuDYQB0lZVCNQ81ouLal4ABMWj16xPGT47EEdpNZT1yO7QlvLY3TygVdgfuTWIvzaCulEPOytNyHX96CIFPhrX+8I8alORMeabpLbWPnBA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 943e72d6-593d-4c26-4b5a-08dee6176ff1
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 04:29:07.2316 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7j+aYkG9v7EcVSXqZZ53PAK/Rx+sVNHlUiRpb+D6ZhaxdVGrUXcK+2UlH6clZKpFWdQ/IZTzkuvED3wR6yLT7g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB5802
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,310 +177,500 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Rok,
-
-Thank you for your patch. Please see the comment below:
-
-On 7/17/2026 8:00 PM, Rok Markovic wrote:
-> The RK3568 LVDS transmitter has no register block of its own. It is
-> driven entirely through the GRF and re-uses the MIPI DSI0 D-PHY in
-> PHY_MODE_LVDS, which phy-rockchip-inno-dsidphy already supports.
+On Fri, Jun 12, 2026 at 03:53:40PM +0200, Thomas Hellström wrote:
+> Add a watch_queue notification channel tied to struct xe_file so that
+> userspace can subscribe to asynchronous GPU device events via the
+> general kernel notification mechanism.
 > 
-> Based on Alibek Omarov's earlier posting [1], with the changes below.
+> Introduce DRM_IOCTL_XE_WATCH_QUEUE to let userspace subscribe a
+> notification pipe (opened with pipe2(O_NOTIFICATION_PIPE)) to the device
+> event stream.  Embed the watch_id field (0-255) in the WATCH_INFO_ID
+> field of every notification, allowing multiple watches to share a single
+> pipe and be told apart by the reader.
 > 
-> Power the D-PHY from the encoder enable path rather than from probe.
-> phy_power_on() runs the phy driver's whole LVDS bring-up: PLL and
-> bandgap power-on, a settle, PLL mode select, then a reset pulse of the
-> serializer and the lane enables. None of that is safe at probe time -
-> the GRF has not yet switched the block to LVDS mode (LVDS0_MODE_EN is
-> set from rk3568_lvds_poweron(), i.e. the enable path) and the VOP is
-> not driving dclk. The serializer is clocked from dclk and latches its
-> state coming out of that reset, so it comes up dead and stays dead.
-> The failure is silent: every register in the phy, the GRF and the VOP
-> reads back exactly as on a working system while the lanes sit at
-> common mode and never toggle.
->
-
-Could you please confirm this? Based on my earlier tests, after PHY
-poweron, re-disabling and re-enabling the GRF did not reproduce the
-issue you described.
-
-> Program RK3568_LVDS0_DCLK_INV_SEL from the CRTC state's bus_flags so
-> the panel's declared pixelclk-active is honoured on the LVDS block as
-> well as on the VOP pin polarity. Both have to agree with the edge the
-> panel samples on.
+> Deliver notifications as struct drm_xe_watch_notification records, with
+> type always set to WATCH_TYPE_DRM_XE_NOTIFY and subtype drawn from enum
+> drm_xe_watch_event.  Define DRM_XE_WATCH_EVENT_VM_ERR as the first
+> event, posted by the preempt-rebind worker when a VM encounters an
+> unrecoverable error.  Expose xe_watch_queue_post_vm_err_event() as the
+> in-kernel posting API.
 > 
-> Re-assert RK3568_LVDS0_P2S_EN in rk3568_lvds_poweron().
-> rk3568_lvds_poweroff() clears MODE_EN and P2S_EN together, so setting
-> P2S_EN once at probe would leave the parallel-to-serial converter off
-> after the first disable/enable cycle.
+> Add event definitions in a separate uapi header, <drm/xe_drm_events.h>.
+> The main reason is that the header needs to include <linux/watch_queue.h>
+> which in turn includes <linux/fcntl.h> which may conflict with the
+> system <fcntl.h>. Hence user-space must pay special attention when
+> including this file.
 > 
-> Use regmap_write() rather than regmap_update_bits() for the GRF. These
-> registers are write-masked - the upper 16 bits select which of the
-> lower 16 a write may change - so there is nothing to preserve and no
-> reason to read first. Passing a FIELD_PREP_WM16() value as both the
-> mask and the value of an update_bits() applies the masking twice and
-> only works by accident.
-> 
-> Between the two, nothing needs programming at probe at all: the GRF is
-> written entirely from the enable path, so px30_lvds_probe() is left
-> alone rather than being refactored into a shared phy helper.
-> 
-> [1] https://lore.kernel.org/all/20230119184807.171132-1-a1ba.omarov@gmail.com/
-> 
-> Co-developed-by: Alibek Omarov <a1ba.omarov@gmail.com>
-> Signed-off-by: Alibek Omarov <a1ba.omarov@gmail.com>
-> Signed-off-by: Rok Markovic <rok@kanardia.eu>
-> Assisted-by: Claude:claude-opus-4-8
+> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 > ---
->  drivers/gpu/drm/rockchip/rockchip_lvds.c | 161 +++++++++++++++++++++++
->  drivers/gpu/drm/rockchip/rockchip_lvds.h |  10 ++
->  2 files changed, 171 insertions(+)
+>  MAINTAINERS                          |   1 +
+>  drivers/gpu/drm/xe/Kconfig           |   1 +
+>  drivers/gpu/drm/xe/Makefile          |   1 +
+>  drivers/gpu/drm/xe/xe_device.c       |   7 ++
+>  drivers/gpu/drm/xe/xe_device_types.h |   6 ++
+>  drivers/gpu/drm/xe/xe_vm.c           |   4 +
+>  drivers/gpu/drm/xe/xe_vm_types.h     |   2 +
+>  drivers/gpu/drm/xe/xe_watch_queue.c  | 111 +++++++++++++++++++++++++++
+>  drivers/gpu/drm/xe/xe_watch_queue.h  |  20 +++++
+>  include/uapi/drm/xe_drm.h            |  45 +++++++++++
+>  include/uapi/drm/xe_drm_events.h     |  62 +++++++++++++++
+>  11 files changed, 260 insertions(+)
+>  create mode 100644 drivers/gpu/drm/xe/xe_watch_queue.c
+>  create mode 100644 drivers/gpu/drm/xe/xe_watch_queue.h
+>  create mode 100644 include/uapi/drm/xe_drm_events.h
 > 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-> index 95fa0a9..f45d04a 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-> @@ -435,6 +435,133 @@ static void px30_lvds_encoder_disable(struct drm_encoder *encoder)
->  	drm_panel_unprepare(lvds->panel);
->  }
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 8c0d9965c636..b7e02cfa692b 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -12900,6 +12900,7 @@ F:	Documentation/gpu/xe/
+>  F:	drivers/gpu/drm/xe/
+>  F:	include/drm/intel/
+>  F:	include/uapi/drm/xe_drm.h
+> +F:	include/uapi/drm/xe_drm_events.h
 >  
-> +static int rk3568_lvds_poweron(struct rockchip_lvds *lvds)
-> +{
-> +	int ret;
-> +
-> +	ret = clk_enable(lvds->pclk);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to enable lvds pclk %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = pm_runtime_get_sync(lvds->dev);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to get pm runtime: %d\n", ret);
-> +		clk_disable(lvds->pclk);
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * Enable LVDS mode and the parallel-to-serial converter. These are
-> +	 * write-masked registers, so a plain write only touches the bits named
-> +	 * here; there is nothing to preserve and no need to read first.
-> +	 */
-
-I think this comment is redundant. We all know this is a common design
-on Rockchip platform, right? :)
-
-> +	return regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-> +			    RK3568_LVDS0_MODE_EN(1) |
-> +			    RK3568_LVDS0_P2S_EN(1));
-> +}
-> +
-> +static void rk3568_lvds_poweroff(struct rockchip_lvds *lvds)
-> +{
-> +	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-> +		     RK3568_LVDS0_MODE_EN(0) | RK3568_LVDS0_P2S_EN(0));
-> +
-> +	pm_runtime_put(lvds->dev);
-> +	clk_disable(lvds->pclk);
-> +}
-> +
-> +static int rk3568_lvds_grf_config(struct drm_encoder *encoder,
-> +				  struct drm_display_mode *mode)
-> +{
-> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-> +	struct rockchip_crtc_state *s =
-> +		to_rockchip_crtc_state(encoder->crtc->state);
-> +	bool negedge = !!(s->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE);
-> +
-> +	if (lvds->output != DISPLAY_OUTPUT_LVDS) {
-> +		DRM_DEV_ERROR(lvds->dev, "Unsupported display output %d\n",
-> +			      lvds->output);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/*
-> +	 * The LVDS block has its own dclk inversion select, separate from the
-> +	 * VOP's pin polarity. Both have to agree with what the panel samples on.
-> +	 */
-> +	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-> +		     RK3568_LVDS0_DCLK_INV_SEL(negedge));
-> +
-> +	/* Set format */
-> +	return regmap_write(lvds->grf, RK3568_GRF_VO_CON0,
-> +			    RK3568_LVDS0_SELECT(lvds->format) |
-> +			    RK3568_LVDS0_MSBSEL(1));
-> +}
-
-I think rk3568_lvds_poweron() and rk3568_lvds_grf_config() can be merged
-to reduce extra register operations. 
-
-> +
-> +static void rk3568_lvds_encoder_enable(struct drm_encoder *encoder)
-> +{
-> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-> +	struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
-> +	int ret;
-> +
-> +	drm_panel_prepare(lvds->panel);
-> +
-> +	ret = rk3568_lvds_poweron(lvds);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to power on LVDS: %d\n", ret);
-> +		drm_panel_unprepare(lvds->panel);
-> +		return;
-> +	}
-> +
-> +	ret = rk3568_lvds_grf_config(encoder, mode);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to configure LVDS: %d\n", ret);
-> +		drm_panel_unprepare(lvds->panel);
-> +		return;
-> +	}
-> +
-> +	/*
-> +	 * Only now bring the D-PHY up. phy_power_on() runs the whole
-> +	 * inno_dsidphy_lvds_mode_enable() sequence - PLL and bandgap power-on,
-> +	 * a settle, PLL mode select, then a reset pulse of the serializer and
-> +	 * the lane enables. All of that has to happen with the block already
-> +	 * switched to LVDS mode in the GRF (above) and with the VOP's dclk
-> +	 * running, because the serializer is clocked from dclk and latches its
-> +	 * state out of that reset.
-> +	 *
-> +	 * Doing it at probe instead - as this driver used to - resets and
-> +	 * enables the serializer against a block that is not in LVDS mode yet
-> +	 * and has no input clock. Every register then reads back correct while
-> +	 * the lanes sit at common mode forever. Rockchip's BSP orders it this
-> +	 * way (GRF writes, then phy_set_mode + phy_power_on).
-> +	 */
-
-I think this comment is redundant. These are internal details of
-phy_set_mode() and don't need to be explained here. Also, the
-ordering requirements are quite common. You can describe them in the
-commit message.
-
-> +	ret = phy_set_mode(lvds->dphy, PHY_MODE_LVDS);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to set phy mode: %d\n", ret);
-> +		drm_panel_unprepare(lvds->panel);
-> +		return;
-> +	}
-> +
-> +	ret = phy_power_on(lvds->dphy);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to power on phy: %d\n", ret);
-> +		drm_panel_unprepare(lvds->panel);
-> +		return;
-> +	}
-> +
-> +	drm_panel_enable(lvds->panel);
-> +}
-> +
-> +static void rk3568_lvds_encoder_disable(struct drm_encoder *encoder)
-> +{
-> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-> +
-> +	drm_panel_disable(lvds->panel);
-> +	phy_power_off(lvds->dphy);
-> +	rk3568_lvds_poweroff(lvds);
-> +	drm_panel_unprepare(lvds->panel);
-> +}
-> +
->  static const
->  struct drm_encoder_helper_funcs rk3288_lvds_encoder_helper_funcs = {
->  	.enable = rk3288_lvds_encoder_enable,
-> @@ -449,6 +576,13 @@ struct drm_encoder_helper_funcs px30_lvds_encoder_helper_funcs = {
->  	.atomic_check = rockchip_lvds_encoder_atomic_check,
->  };
+>  INTEL ELKHART LAKE PSE I/O DRIVER
+>  M:	Raag Jadav <raag.jadav@intel.com>
+> diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
+> index 4d7dcaff2b91..dbdc2fb49c53 100644
+> --- a/drivers/gpu/drm/xe/Kconfig
+> +++ b/drivers/gpu/drm/xe/Kconfig
+> @@ -25,6 +25,7 @@ config DRM_XE
+>  	select DRM_MIPI_DSI
+>  	select RELAY
+>  	select IRQ_WORK
+> +	select WATCH_QUEUE
+>  	# xe depends on ACPI_VIDEO when ACPI is enabled
+>  	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
+>  	select BACKLIGHT_CLASS_DEVICE if ACPI
+> diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+> index 8e7b146880f4..fc8b4023a044 100644
+> --- a/drivers/gpu/drm/xe/Makefile
+> +++ b/drivers/gpu/drm/xe/Makefile
+> @@ -150,6 +150,7 @@ xe-y += xe_bb.o \
+>  	xe_vsec.o \
+>  	xe_wa.o \
+>  	xe_wait_user_fence.o \
+> +	xe_watch_queue.o \
+>  	xe_wopcm.o
 >  
-> +static const
-> +struct drm_encoder_helper_funcs rk3568_lvds_encoder_helper_funcs = {
-> +	.enable = rk3568_lvds_encoder_enable,
-> +	.disable = rk3568_lvds_encoder_disable,
-> +	.atomic_check = rockchip_lvds_encoder_atomic_check,
-> +};
+>  xe-$(CONFIG_I2C)	+= xe_i2c.o
+> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+> index 867d7c55dc03..788ef2fbd6e5 100644
+> --- a/drivers/gpu/drm/xe/xe_device.c
+> +++ b/drivers/gpu/drm/xe/xe_device.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/delay.h>
+>  #include <linux/fault-inject.h>
+>  #include <linux/units.h>
+> +#include <linux/watch_queue.h>
+>  
+>  #include <drm/drm_client.h>
+>  #include <drm/drm_gem_ttm_helper.h>
+> @@ -77,6 +78,7 @@
+>  #include "xe_vsec.h"
+>  #include "xe_wait_user_fence.h"
+>  #include "xe_wa.h"
+> +#include "xe_watch_queue.h"
+>  
+>  #include <generated/xe_device_wa_oob.h>
+>  #include <generated/xe_wa_oob.h>
+> @@ -112,6 +114,8 @@ static int xe_file_open(struct drm_device *dev, struct drm_file *file)
+>  	file->driver_priv = xef;
+>  	kref_init(&xef->refcount);
+>  
+> +	init_watch_list(&xef->watch_list, NULL);
 > +
->  static int rk3288_lvds_probe(struct platform_device *pdev,
->  			     struct rockchip_lvds *lvds)
+>  	task = get_pid_task(rcu_access_pointer(file->pid), PIDTYPE_PID);
+>  	if (task) {
+>  		xef->process_name = kstrdup(task->comm, GFP_KERNEL);
+> @@ -126,6 +130,8 @@ static void xe_file_destroy(struct kref *ref)
 >  {
-> @@ -512,6 +646,22 @@ static int px30_lvds_probe(struct platform_device *pdev,
->  	return phy_power_on(lvds->dphy);
->  }
+>  	struct xe_file *xef = container_of(ref, struct xe_file, refcount);
 >  
-> +static int rk3568_lvds_probe(struct platform_device *pdev,
-> +			     struct rockchip_lvds *lvds)
-> +{
-> +	/*
-> +	 * Grab and init the phy, but do NOT power it on here - that is done in
-> +	 * rk3568_lvds_encoder_enable() once the GRF is in LVDS mode and dclk is
-> +	 * running. See the comment there. The GRF is not touched at probe
-> +	 * either: every bit of it is programmed from the enable path.
-> +	 */
-
-Please see the comments above.
-
-> +	lvds->dphy = devm_phy_get(&pdev->dev, "dphy");
-> +	if (IS_ERR(lvds->dphy))
-> +		return PTR_ERR(lvds->dphy);
+> +	remove_watch_from_object(&xef->watch_list, NULL, 0, true);
 > +
-> +	return phy_init(lvds->dphy);
-> +}
-> +
->  static const struct rockchip_lvds_soc_data rk3288_lvds_data = {
->  	.probe = rk3288_lvds_probe,
->  	.helper_funcs = &rk3288_lvds_encoder_helper_funcs,
-> @@ -522,6 +672,11 @@ static const struct rockchip_lvds_soc_data px30_lvds_data = {
->  	.helper_funcs = &px30_lvds_encoder_helper_funcs,
+>  	xa_destroy(&xef->exec_queue.xa);
+>  	mutex_destroy(&xef->exec_queue.lock);
+>  	xa_destroy(&xef->vm.xa);
+> @@ -216,6 +222,7 @@ static const struct drm_ioctl_desc xe_ioctls[] = {
+>  	DRM_IOCTL_DEF_DRV(XE_VM_GET_PROPERTY, xe_vm_get_property_ioctl,
+>  			  DRM_RENDER_ALLOW),
+>  	DRM_IOCTL_DEF_DRV(XE_VM_RESTART, xe_vm_restart_ioctl, DRM_RENDER_ALLOW),
+> +	DRM_IOCTL_DEF_DRV(XE_WATCH_QUEUE, xe_watch_queue_ioctl, DRM_RENDER_ALLOW),
 >  };
 >  
-> +static const struct rockchip_lvds_soc_data rk3568_lvds_data = {
-> +	.probe = rk3568_lvds_probe,
-> +	.helper_funcs = &rk3568_lvds_encoder_helper_funcs,
+>  static long xe_drm_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+> diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
+> index 32dd2ffbc796..ca726ada30a7 100644
+> --- a/drivers/gpu/drm/xe/xe_device_types.h
+> +++ b/drivers/gpu/drm/xe/xe_device_types.h
+> @@ -11,6 +11,7 @@
+>  #include <drm/drm_device.h>
+>  #include <drm/drm_file.h>
+>  #include <drm/ttm/ttm_device.h>
+> +#include <linux/watch_queue.h>
+>  
+>  #include "xe_devcoredump_types.h"
+>  #include "xe_drm_ras_types.h"
+> @@ -632,6 +633,11 @@ struct xe_file {
+>  
+>  	/** @refcount: ref count of this xe file */
+>  	struct kref refcount;
+> +
+> +#ifdef CONFIG_WATCH_QUEUE
+> +	/** @watch_list: per-file notification source for device events */
+> +	struct watch_list watch_list;
+> +#endif
+>  };
+>  
+>  #endif
+> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+> index b69a2e5bd9c9..232de0d948d2 100644
+> --- a/drivers/gpu/drm/xe/xe_vm.c
+> +++ b/drivers/gpu/drm/xe/xe_vm.c
+> @@ -13,6 +13,7 @@
+>  #include <drm/drm_print.h>
+>  #include <drm/ttm/ttm_tt.h>
+>  #include <uapi/drm/xe_drm.h>
+> +#include <uapi/drm/xe_drm_events.h>
+>  #include <linux/ascii85.h>
+>  #include <linux/delay.h>
+>  #include <linux/kthread.h>
+> @@ -45,6 +46,7 @@
+>  #include "xe_trace_bo.h"
+>  #include "xe_vm_madvise.h"
+>  #include "xe_wa.h"
+> +#include "xe_watch_queue.h"
+>  
+>  #ifdef CONFIG_FAULT_INJECTION
+>  static DECLARE_FAULT_ATTR(rebind_enospc);
+> @@ -584,6 +586,7 @@ static void preempt_rebind_work_func(struct work_struct *w)
+>  	}
+>  
+>  	if (err) {
+> +		xe_watch_queue_post_vm_err_event(vm->xef, vm->id, err);
+>  		if ((err == -ENOMEM || err == -ENOSPC) && xe_vm_is_restartable(vm)) {
+>  			vm->preempt.rebind_deactivated = true;
+>  			drm_dbg(&vm->xe->drm, "Rebind deactivated VM on error %pe\n",
+> @@ -2229,6 +2232,7 @@ int xe_vm_create_ioctl(struct drm_device *dev, void *data,
+>  	if (err)
+>  		goto err_close_and_put;
+>  
+> +	vm->id = id;
+>  	args->vm_id = id;
+>  
+>  	return 0;
+> diff --git a/drivers/gpu/drm/xe/xe_vm_types.h b/drivers/gpu/drm/xe/xe_vm_types.h
+> index 7d295c3b8456..19a673099588 100644
+> --- a/drivers/gpu/drm/xe/xe_vm_types.h
+> +++ b/drivers/gpu/drm/xe/xe_vm_types.h
+> @@ -407,6 +407,8 @@ struct xe_vm {
+>  	bool batch_invalidate_tlb;
+>  	/** @xef: Xe file handle for tracking this VM's drm client */
+>  	struct xe_file *xef;
+> +	/** @id: The id of the VM in the VM table of @xef. */
+> +	u32 id;
+>  };
+>  
+>  /** struct xe_vma_op_map - VMA map operation */
+> diff --git a/drivers/gpu/drm/xe/xe_watch_queue.c b/drivers/gpu/drm/xe/xe_watch_queue.c
+> new file mode 100644
+> index 000000000000..32763591075b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/xe/xe_watch_queue.c
+> @@ -0,0 +1,111 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright © 2026 Intel Corporation
+> + */
+> +
+> +#include <linux/slab.h>
+> +#include <linux/timekeeping.h>
+> +#include <linux/watch_queue.h>
+> +
+> +#include <uapi/drm/xe_drm.h>
+> +#include <uapi/drm/xe_drm_events.h>
+> +
+> +#include "xe_device.h"
+> +#include "xe_device_types.h"
+> +#include "xe_macros.h"
+> +#include "xe_watch_queue.h"
+> +
+> +/**
+> + * struct xe_watch_notification_vm_err - kernel-side VM error event notification
+> + * @base: common watch notification header; type is %WATCH_TYPE_DRM_XE_NOTIFY,
+> + *        subtype is %DRM_XE_WATCH_EVENT_VM_ERR
+> + * @vm_id: ID of the VM that hit error
+> + * @error_code: error code describing the error condition (negative errno)
+> + * @timestamp_ns: CLOCK_MONOTONIC timestamp in nanoseconds at the point the
+> + *                error was detected
+> + *
+> + * Layout mirrors &struct drm_xe_watch_notification_vm_err.
+> + */
+> +struct xe_watch_notification_vm_err {
+> +	struct watch_notification base;
+> +	u32 vm_id;
+> +	s32 error_code;
+> +	u64 timestamp_ns;
 > +};
 > +
->  static const struct of_device_id rockchip_lvds_dt_ids[] = {
->  	{
->  		.compatible = "rockchip,rk3288-lvds",
-> @@ -531,6 +686,10 @@ static const struct of_device_id rockchip_lvds_dt_ids[] = {
->  		.compatible = "rockchip,px30-lvds",
->  		.data = &px30_lvds_data
->  	},
-> +	{
-> +		.compatible = "rockchip,rk3568-lvds",
-> +		.data = &rk3568_lvds_data
-> +	},
->  	{}
->  };
->  MODULE_DEVICE_TABLE(of, rockchip_lvds_dt_ids);
-> @@ -601,6 +760,8 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
->  	encoder = &lvds->encoder.encoder;
->  	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
->  							     dev->of_node);
-> +	rockchip_drm_encoder_set_crtc_endpoint_id(&lvds->encoder,
-> +						  dev->of_node, 0, 0);
->  
->  	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_LVDS);
->  	if (ret < 0) {
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.h b/drivers/gpu/drm/rockchip/rockchip_lvds.h
-> index 2d92447..93d3415 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.h
-> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.h
-> @@ -121,4 +121,14 @@
->  #define   PX30_LVDS_P2S_EN(val)			FIELD_PREP_WM16(BIT(6), (val))
->  #define   PX30_LVDS_VOP_SEL(val)		FIELD_PREP_WM16(BIT(1), (val))
->  
-> +#define RK3568_GRF_VO_CON0			0x0360
-> +#define   RK3568_LVDS0_SELECT(val)		FIELD_PREP_WM16(GENMASK(5, 4), (val))
-> +#define   RK3568_LVDS0_MSBSEL(val)		FIELD_PREP_WM16(BIT(3), (val))
+> +/**
+> + * xe_watch_queue_ioctl() - Subscribe a pipe to per-file device event notifications
+> + * @dev: DRM device
+> + * @data: pointer to &struct drm_xe_watch_queue from userspace
+> + * @file: DRM file handle of the subscribing process
+> + *
+> + * Subscribes a notification pipe to receive Xe device events for the calling
+> + * process's file handle.  Only events scoped to this file (e.g. VM error on a
+> + * VM owned by this file) are delivered.  The pipe must have been opened with
+> + * O_NOTIFICATION_PIPE and sized with %IOC_WATCH_QUEUE_SET_SIZE before calling
+> + * this IOCTL.
+> + *
+> + * Return: 0 on success, negative errno on failure.
+> + */
+> +int xe_watch_queue_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
+> +{
+> +	struct xe_file *xef = file->driver_priv;
+> +	struct xe_device *xe = to_xe_device(dev);
+> +	struct drm_xe_watch_queue *args = data;
+> +	struct watch_queue *wqueue;
+> +	struct watch *watch;
+> +	int ret;
 > +
-> +#define RK3568_GRF_VO_CON2			0x0368
-> +#define   RK3568_LVDS0_DCLK_INV_SEL(val)	FIELD_PREP_WM16(BIT(9), (val))
-> +#define   RK3568_LVDS0_DCLK_DIV2_SEL(val)	FIELD_PREP_WM16(BIT(8), (val))
-> +#define   RK3568_LVDS0_MODE_EN(val)		FIELD_PREP_WM16(BIT(1), (val))
-> +#define   RK3568_LVDS0_P2S_EN(val)		FIELD_PREP_WM16(BIT(0), (val))
+> +	if (XE_IOCTL_DBG(xe, args->flags || args->pad))
+> +		return -EINVAL;
+> +	if (XE_IOCTL_DBG(xe, args->watch_id > 0xff))
+> +		return -EINVAL;
 > +
->  #endif /* _ROCKCHIP_LVDS_ */
+> +	wqueue = get_watch_queue(args->fd);
+> +	if (XE_IOCTL_DBG(xe, IS_ERR(wqueue)))
+> +		return PTR_ERR(wqueue);
+> +
+> +	watch = kzalloc_obj(*watch, GFP_KERNEL | __GFP_ACCOUNT);
+> +	if (XE_IOCTL_DBG(xe, !watch)) {
+> +		ret = -ENOMEM;
+> +		goto out_put_queue;
+> +	}
+> +
+> +	init_watch(watch, wqueue);
+> +	watch->id = 0;
+> +	watch->info_id = (u32)args->watch_id << WATCH_INFO_ID__SHIFT;
+> +
+> +	ret = add_watch_to_object(watch, &xef->watch_list);
+> +	if (XE_IOCTL_DBG(xe, ret))
+> +		kfree(watch);
+> +
+> +out_put_queue:
+> +	put_watch_queue(wqueue);
+> +	return ret;
+> +}
+> +
+> +/**
+> + * xe_watch_queue_post_vm_err_event() - Post a VM error event
+> + * @xef: xe file handle that owns the VM
+> + * @vm_id: userspace ID of the VM that hit error
+> + * @error_code: error code describing the error condition (negative errno)
+> + *
+> + * Posts a %DRM_XE_WATCH_EVENT_VM_ERR notification carrying @vm_id and
+> + * @error_code to every pipe that @xef has subscribed via
+> + * %DRM_IOCTL_XE_WATCH_QUEUE.  Only the owning process is notified,
+> + * preventing information leaks to other clients.
+> + */
+> +void xe_watch_queue_post_vm_err_event(struct xe_file *xef, u32 vm_id,
+> +				      int error_code)
+> +{
+> +	struct xe_watch_notification_vm_err n = {};
+> +
+> +	n.base.type    = WATCH_TYPE_DRM_XE_NOTIFY;
+> +	n.base.subtype = DRM_XE_WATCH_EVENT_VM_ERR;
+> +	n.base.info    = watch_sizeof(struct xe_watch_notification_vm_err);
+> +	n.vm_id        = vm_id;
+> +	n.error_code   = error_code;
+> +	n.timestamp_ns = ktime_get_ns();
+> +
+> +	post_watch_notification(&xef->watch_list, &n.base, current_cred(), 0);
 
--- 
-Best, 
-Chaoyi
+Is this reclaim safe (i.e., could we post a watch notification in direct
+reclaim from our shrinker)? From my look, I think the answer is yes. I
+ask because whatever we land here, I think the answer must be KMD->UMD
+events are reclaim safe.
+
+Matt 
+
+> +}
+> diff --git a/drivers/gpu/drm/xe/xe_watch_queue.h b/drivers/gpu/drm/xe/xe_watch_queue.h
+> new file mode 100644
+> index 000000000000..ad199ee68205
+> --- /dev/null
+> +++ b/drivers/gpu/drm/xe/xe_watch_queue.h
+> @@ -0,0 +1,20 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/*
+> + * Copyright © 2026 Intel Corporation
+> + */
+> +
+> +#ifndef _XE_WATCH_QUEUE_H_
+> +#define _XE_WATCH_QUEUE_H_
+> +
+> +#include <linux/types.h>
+> +
+> +struct drm_device;
+> +struct drm_file;
+> +struct xe_file;
+> +
+> +int xe_watch_queue_ioctl(struct drm_device *dev, void *data,
+> +			 struct drm_file *file);
+> +void xe_watch_queue_post_vm_err_event(struct xe_file *xef, u32 vm_id,
+> +				      int error_code);
+> +
+> +#endif /* _XE_WATCH_QUEUE_H_ */
+> diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
+> index 8d5e3f06b8d4..0083dd712f7e 100644
+> --- a/include/uapi/drm/xe_drm.h
+> +++ b/include/uapi/drm/xe_drm.h
+> @@ -86,6 +86,7 @@ extern "C" {
+>   *  - &DRM_IOCTL_XE_EXEC_QUEUE_SET_PROPERTY
+>   *  - &DRM_IOCTL_XE_VM_GET_PROPERTY
+>   *  - &DRM_IOCTL_XE_VM_RESTART
+> + *  - &DRM_IOCTL_XE_WATCH_QUEUE
+>   */
+>  
+>  /*
+> @@ -112,6 +113,7 @@ extern "C" {
+>  #define DRM_XE_EXEC_QUEUE_SET_PROPERTY	0x0e
+>  #define DRM_XE_VM_GET_PROPERTY		0x0f
+>  #define DRM_XE_VM_RESTART		0x10
+> +#define DRM_XE_WATCH_QUEUE		0x11
+>  
+>  /* Must be kept compact -- no holes */
+>  
+> @@ -132,6 +134,7 @@ extern "C" {
+>  #define DRM_IOCTL_XE_EXEC_QUEUE_SET_PROPERTY	DRM_IOW(DRM_COMMAND_BASE + DRM_XE_EXEC_QUEUE_SET_PROPERTY, struct drm_xe_exec_queue_set_property)
+>  #define DRM_IOCTL_XE_VM_GET_PROPERTY		DRM_IOWR(DRM_COMMAND_BASE + DRM_XE_VM_GET_PROPERTY, struct drm_xe_vm_get_property)
+>  #define DRM_IOCTL_XE_VM_RESTART			DRM_IOW(DRM_COMMAND_BASE + DRM_XE_VM_RESTART, struct drm_xe_vm_restart)
+> +#define DRM_IOCTL_XE_WATCH_QUEUE		DRM_IOW(DRM_COMMAND_BASE + DRM_XE_WATCH_QUEUE, struct drm_xe_watch_queue)
+>  
+>  /**
+>   * DOC: Xe IOCTL Extensions
+> @@ -2653,6 +2656,48 @@ enum drm_xe_ras_error_component {
+>  	[DRM_XE_RAS_ERR_COMP_SOC_INTERNAL] = "soc-internal"		\
+>  }
+>  
+> +/**
+> + * DOC: DRM_XE_WATCH_QUEUE
+> + *
+> + * Subscribe a notification pipe to receive device events for the calling
+> + * process's DRM file handle.  Events are scoped to the subscribing file:
+> + * only events that belong to that file (for example, VM error on a VM created
+> + * through the same file) are delivered, preventing information leaks between
+> + * processes sharing the same GPU device.
+> + *
+> + * The pipe must first be opened with O_NOTIFICATION_PIPE (i.e. O_EXCL passed
+> + * to pipe2()) and sized via %IOC_WATCH_QUEUE_SET_SIZE before subscribing.
+> + *
+> + * Events are delivered as notification records read from the pipe.  The
+> + * @watch_id field is embedded in the notification info field and can be used
+> + * to distinguish multiple watches sharing a pipe.
+> + *
+> + * Currently defined event subtypes:
+> + *  - %DRM_XE_WATCH_EVENT_VM_ERR - a VM owned by this file has encountered an error
+> + */
+> +
+> +/**
+> + * struct drm_xe_watch_queue - subscribe to device event notifications
+> + *
+> + * Used with %DRM_IOCTL_XE_WATCH_QUEUE.  Notifications are scoped to the
+> + * DRM file handle used to issue this IOCTL.
+> + */
+> +struct drm_xe_watch_queue {
+> +	/** @fd: file descriptor of pipe opened with O_NOTIFICATION_PIPE */
+> +	__u32 fd;
+> +
+> +	/**
+> +	 * @watch_id: identifier (0–255) embedded in the watch notification
+> +	 * info field; allows multiplexing several watches on one pipe
+> +	 */
+> +	__u32 watch_id;
+> +
+> +	/** @flags: must be zero */
+> +	__u32 flags;
+> +
+> +	/** @pad: reserved, must be zero */
+> +	__u32 pad;
+> +};
+>  #if defined(__cplusplus)
+>  }
+>  #endif
+> diff --git a/include/uapi/drm/xe_drm_events.h b/include/uapi/drm/xe_drm_events.h
+> new file mode 100644
+> index 000000000000..6cc7528bfb9b
+> --- /dev/null
+> +++ b/include/uapi/drm/xe_drm_events.h
+> @@ -0,0 +1,62 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/*
+> + * Copyright © 2026 Intel Corporation
+> + */
+> +
+> +#ifndef _UAPI_XE_DRM_EVENTS_H_
+> +#define _UAPI_XE_DRM_EVENTS_H_
+> +
+> +#include <linux/types.h>
+> +#include <linux/watch_queue.h>
+> +
+> +#if defined(__cplusplus)
+> +extern "C" {
+> +#endif
+> +
+> +/**
+> + * enum drm_xe_watch_event - Xe device watch event subtypes
+> + *
+> + * Subtypes for notifications delivered via %WATCH_TYPE_DRM_XE_NOTIFY when
+> + * reading from a pipe subscribed with %DRM_IOCTL_XE_WATCH_QUEUE.
+> + */
+> +enum drm_xe_watch_event {
+> +	/**
+> +	 * @DRM_XE_WATCH_EVENT_VM_ERR: a VM has encountered an error.
+> +	 *
+> +	 * Indicates that a fatal or resource error occurred within the given
+> +	 * VM.  The vm_id of the affected VM is carried in the
+> +	 * @drm_xe_watch_notification_vm_err::vm_id field of the extended
+> +	 * notification record.
+> +	 */
+> +	DRM_XE_WATCH_EVENT_VM_ERR = 0,
+> +};
+> +
+> +/**
+> + * struct drm_xe_watch_notification_vm_err - VM error event notification
+> + *
+> + * Notification record delivered for %DRM_XE_WATCH_EVENT_VM_ERR.
+> + * The record type is always %WATCH_TYPE_DRM_XE_NOTIFY and the subtype is
+> + * %DRM_XE_WATCH_EVENT_VM_ERR.
+> + */
+> +struct drm_xe_watch_notification_vm_err {
+> +	/** @base: common watch notification header */
+> +	struct watch_notification base;
+> +
+> +	/** @vm_id: ID of the VM that encountered an error */
+> +	__u32 vm_id;
+> +
+> +	/** @error_code: error code describing the error condition (negative errno) */
+> +	__s32 error_code;
+> +
+> +	/**
+> +	 * @timestamp_ns: CLOCK_MONOTONIC timestamp in nanoseconds at the
+> +	 * point the error was detected
+> +	 */
+> +	__u64 timestamp_ns;
+> +};
+> +
+> +#if defined(__cplusplus)
+> +}
+> +#endif
+> +
+> +#endif /* _UAPI_XE_DRM_EVENTS_H_ */
+> -- 
+> 2.54.0
+> 
