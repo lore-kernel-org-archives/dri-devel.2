@@ -4,79 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F24EAC44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 11:49:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EABEBC44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 11:58:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59D3A10E8CA;
-	Mon, 20 Jul 2026 11:49:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51FD510E15F;
+	Mon, 20 Jul 2026 11:58:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J9iVctUv";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="jraAyO9l";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uxASTd7k";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jraAyO9l";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uxASTd7k";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FAFD10E8CA
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 11:49:23 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-472326ca506so7714798f8f.2
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 04:49:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784548161; x=1785152961; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=qNwj0cy3My+7S0Jfbfh0/9yw10VBWKnPBk+HsO2GxKY=;
- b=J9iVctUvGYSB2/XJuYbiFpF7+1cwBweo9FEX6eOhxzUp7lxo9TDhGV98tiunbrEi18
- ANcllBQAi55p45G2xCNiDXglnHhVO6bqM9y4PKK9VFrIWqVxKA1madBt23jbszgxAGz0
- m58O6/nXFXl6uuESppY+qNtaol4cidpYQqy5WdwUXquLi79JgrTo+yqmv29nEeUnjId6
- /T5d87pj6XYScjV8akFnE7hyeAwgOuNmULcMpfvQyzGXgAxkRItT9VZ66OzNM9Bbv0EY
- 0OcXBZnAM1DZs561gb4AM2l1S5KRb07Hh1sY4li0Ub921fQyxp6wUNwWGCO+oaba7JTn
- iD5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784548161; x=1785152961;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=qNwj0cy3My+7S0Jfbfh0/9yw10VBWKnPBk+HsO2GxKY=;
- b=RDUmD+3QdCT9t/24NFSCFoVAHzlhGHzBlQGOvmV7uDQEcd6sqH8FP7JL/CdkhRlSyh
- coTBCHxMa+OV6ffqU7hIaQXLJ3PPkKbNrAWe/enK3negM6SOfO1b3SdfHBRAvG+v0BPp
- aql46BQK19fIC7lEprwOIpSDqVpd0mKPDI8aO55wYKxq2kB/WUPcy9/+NQmuiaZEP6Ub
- +qkJNBkhjNUYt9Q6U6ulPTriuopS2wpnPt9RxnFRAxd8q0mi24JTvTOLaMie6IvmRrdZ
- 8gYvR8fKMim+WWefeOPGcmQSA0z+5Qs6vrnEv5JTHsE5XLI9aLQl+D13EnY37//DRWNX
- 6Tsg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoKxxh6qefTZlsJGQBDGv5hnkfO3/aziKoMv7QTc2JSRKNoKV1rDD2fdUUzYrGwaYL/Xg7TWCxkvDI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzjpaWxUyn7CHHLImtsWnsY3xI4KE/5k0zLMKshgGygSVkUy3Ff
- YrtVq1rd8OjlKULRRELUFwvBF17qsDRxA9r2blopIdmwJSn3q+DbSIvw
-X-Gm-Gg: AR+sD13gYuJZ9rMNX0BzwDdxVzq8mjtDzCsuXSb5f6Sacp0euLipFR4Eq77mxNUK2i2
- wXtiU+FUw8fmLvx2RJlUravRLLOcT78paPl0IA+ugGxxaKqxZZtY0lLncCGp/J5pDTRT1CRXnLn
- gwL7jerll98f7J1TkZsCe/G07UFoKf+EgaEJfwD9lSGob6vm8DGiJ+1TDrwkbdeVYvZnBqHZHtW
- nUIRU7XOhEGr309bMcwJM0T3ZlJeuzxMK3/hKS9LTS9mTP0j8ooClGi3HveSFo+k4tmDaSujht8
- 2kvOUbzV3q5EKDXPUZl9AuQDwYORoqIRip0lcPF0fdZEwcnZFJofmU7QYJEcMvodR1nIzy3q9zA
- vUXe3Wk/nN9AetsbjFHPipHBWU8TY6exULU5QrGI5T+P3RA3Blz+gr1mhPaOUJylKpfFvraNDnj
- xcxBCZ/v4YjBGXrYZ49a76s+HIoJe22gK/uHeIM8GHQJGjjjwZs5C9J/oQ2x4=
-X-Received: by 2002:adf:eb8d:0:b0:478:77c1:7876 with SMTP id
- ffacd0b85a97d-47f6233d208mr13018808f8f.57.1784548161324; 
- Mon, 20 Jul 2026 04:49:21 -0700 (PDT)
-Received: from osama.. ([2a02:908:185:7e40:a26b:a888:7408:fac])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f63e499c2sm27588500f8f.4.2026.07.20.04.49.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jul 2026 04:49:20 -0700 (PDT)
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/panthor: validate firmware interface structure sizes
-Date: Mon, 20 Jul 2026 13:49:17 +0200
-Message-ID: <20260720114918.15973-1-osama.abdelkader@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6A0D10E15F
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 11:58:31 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 52DA03DFC;
+ Mon, 20 Jul 2026 11:58:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784548710; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=akfTilc+0fib5FYWb+g/y+K8rkZXkEd403H7R21K+ew=;
+ b=jraAyO9lWN1hfhaw228+vTtrfCzYZLTFDOfFD+GUqZ4TiCiRFLQe42qsI+tIhGDDd9qeZd
+ Epx9fOPDxxn8qi745Un9z8WHDPybik2gthrhkiPFadiRUtlgYwveXev7eUebeHdddZldQK
+ gQdeFeMrGSNOFK+p1ijoAbvbhbBMqOQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784548710;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=akfTilc+0fib5FYWb+g/y+K8rkZXkEd403H7R21K+ew=;
+ b=uxASTd7kbKtoEhpHAHN4mM+LpXC3w6EL1+RUqwbVkngkoF4+erpVnaLDTjkt0kl9e3Uall
+ VAErmAfGxTCruXBw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784548710; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=akfTilc+0fib5FYWb+g/y+K8rkZXkEd403H7R21K+ew=;
+ b=jraAyO9lWN1hfhaw228+vTtrfCzYZLTFDOfFD+GUqZ4TiCiRFLQe42qsI+tIhGDDd9qeZd
+ Epx9fOPDxxn8qi745Un9z8WHDPybik2gthrhkiPFadiRUtlgYwveXev7eUebeHdddZldQK
+ gQdeFeMrGSNOFK+p1ijoAbvbhbBMqOQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784548710;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=akfTilc+0fib5FYWb+g/y+K8rkZXkEd403H7R21K+ew=;
+ b=uxASTd7kbKtoEhpHAHN4mM+LpXC3w6EL1+RUqwbVkngkoF4+erpVnaLDTjkt0kl9e3Uall
+ VAErmAfGxTCruXBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 36B45779AA;
+ Mon, 20 Jul 2026 11:58:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id QBciDGYNXmrTNwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 20 Jul 2026 11:58:30 +0000
+Message-ID: <345d7f81-e86e-48ef-af23-277dc0ae16d1@suse.de>
+Date: Mon, 20 Jul 2026 13:58:29 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/7] vga_switcheroo, drm: Push fbcon handling into DRM
+ clients
+To: Helge Deller <deller@gmx.de>
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+References: <20260709092215.168172-1-tzimmermann@suse.de>
+ <88fa0f85-0960-464a-a602-f797785f0c2e@gmx.de>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <88fa0f85-0960-464a-a602-f797785f0c2e@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.996]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
+ FREEMAIL_TO(0.00)[gmx.de]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmx.de];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[3]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
+ suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,95 +138,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-iface_fw_to_cpu_addr() only checks that the firmware-provided MCU virtual
-address points inside the shared section. The returned pointer is later
-used as a full firmware interface structure, so accepting an address near
-the end of the shared section can still lead to out-of-bounds accesses.
+Hi
 
-Pass the expected object size to iface_fw_to_cpu_addr() and reject ranges
-that do not fit entirely in the shared section.
+Am 18.07.26 um 21:08 schrieb Helge Deller:
+> Hi Thomas,
+>
+> On 7/9/26 11:15, Thomas Zimmermann wrote:
+>> Vga_switcheroo currently invokes fb_switch_outputs() to inform fbcon
+>> about switching of the physical outputs among framebuffer devices. But
+>> new DRM clients to not use fbdev/fbcon and might require their own
+>> vga_switcheroo support. Let's strictly separate them from each other.
+>>
+>> Remove fbdev/fbcon from vga_switcheroo. Introduce a pre_switch callback
+>> for vga_switcheroo clients to do the fbcon update. Allows for removing
+>> all direct interactions between vga_switcheroo and fbdev/fbcon.
+>>
+>> There are only four drivers that support vga_switcheroo: amdgpu,
+>> radeon, i915 and nouveau. Update each of them with the new callback.
+>> When vga_switcheroo now invokes pre_switch, each DRM driver forwards
+>> to aquire_outputs and lets the DRM clients handle the new outputs.
+>>
+>> At the same time, push the fbcon update into DRM's client for fbdev
+>> emulation. Do this with the new DRM client callback acquire_outputs,
+>> so that other clients can have their own handling of vga_switcheroo.
+>>
+>> Also replace the existing reprobe hook with post_switch for symetry.
+>> For nouveau, this is merely a rename of the helper function. The other
+>> drivers dor not implement reprobe.
+>>
+>> Tested with radeon on a notebook with Radeon HD 4225 and HD 5430.
+>>
+>> v2:
+>> - implement all of pre_switch in a single commit to avoid possible
+>>    deadlock in intermediate state (Sashiko)
+>> - fix erroneous docs (Sashiko)
+>>
+>> Thomas Zimmermann (7):
+>>    drm/edid: Include <linux/fb.h>
+>>    drm/client: Add acquire_outputs callback; implement for fbdev
+>>      emulation
+>>    vga_switcheroo: Add pre_switch callback to client ops
+>>    vga_switcheroo: Add post_switch callback to client ops
+>>    drm: Implement struct vga_switcheroo_client_ops.pre_switch
+>>    drm: Implement vga_switcheroo_client_ops.post_switch
+>>    vga-switcheroo: Remove unused interfaces
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  9 ++++-
+>>   drivers/gpu/drm/clients/drm_fbdev_client.c | 23 ++++++++----
+>>   drivers/gpu/drm/drm_client_event.c         | 18 ++++++++++
+>>   drivers/gpu/drm/drm_edid.c                 |  1 +
+>>   drivers/gpu/drm/i915/i915_switcheroo.c     | 11 +++++-
+>>   drivers/gpu/drm/nouveau/nouveau_vga.c      | 28 +++++++++------
+>>   drivers/gpu/drm/radeon/radeon_device.c     |  9 ++++-
+>>   drivers/gpu/vga/vga_switcheroo.c           | 41 +++++-----------------
+>>   drivers/video/fbdev/core/fbcon.c           |  8 -----
+>>   include/drm/drm_client.h                   | 14 ++++++++
+>>   include/drm/drm_client_event.h             |  3 ++
+>>   include/linux/vga_switcheroo.h             | 29 ++++++++-------
+>>   12 files changed, 121 insertions(+), 73 deletions(-)
+> You may add a
+> Acked-by: Helge Deller <deller@gmx.de>
+> to the series.
 
-Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
-Cc: stable@vger.kernel.org
-Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
----
- drivers/gpu/drm/panthor/panthor_fw.c | 30 ++++++++++++++++++---------
- 1 file changed, 20 insertions(+), 10 deletions(-)
+Thank you so much.
 
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index 9d0e1fafdce2..eee2bc7e8541 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -870,18 +870,24 @@ static int panthor_fw_load(struct panthor_device *ptdev)
-  * iface_fw_to_cpu_addr() - Turn an MCU address into a CPU address
-  * @ptdev: Device.
-  * @mcu_va: MCU address.
-+ * @size: Size of the object pointed to by @mcu_va.
-  *
-- * Return: NULL if the address is not part of the shared section, non-NULL otherwise.
-+ * Return: NULL if the object is not part of the shared section, non-NULL otherwise.
-  */
--static void *iface_fw_to_cpu_addr(struct panthor_device *ptdev, u32 mcu_va)
-+static void *iface_fw_to_cpu_addr(struct panthor_device *ptdev, u32 mcu_va, size_t size)
- {
- 	u64 shared_mem_start = panthor_kernel_bo_gpuva(ptdev->fw->shared_section->mem);
--	u64 shared_mem_end = shared_mem_start +
--			     panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
--	if (mcu_va < shared_mem_start || mcu_va >= shared_mem_end)
-+	size_t shared_mem_size = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-+	u64 offset;
-+
-+	if (mcu_va < shared_mem_start)
-+		return NULL;
-+
-+	offset = mcu_va - shared_mem_start;
-+	if (offset > shared_mem_size || size > shared_mem_size - offset)
- 		return NULL;
- 
--	return ptdev->fw->shared_section->mem->kmap + (mcu_va - shared_mem_start);
-+	return ptdev->fw->shared_section->mem->kmap + offset;
- }
- 
- static int panthor_init_cs_iface(struct panthor_device *ptdev,
-@@ -906,8 +912,10 @@ static int panthor_init_cs_iface(struct panthor_device *ptdev,
- 
- 	spin_lock_init(&cs_iface->lock);
- 	cs_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
--	cs_iface->input = iface_fw_to_cpu_addr(ptdev, cs_iface->control->input_va);
--	cs_iface->output = iface_fw_to_cpu_addr(ptdev, cs_iface->control->output_va);
-+	cs_iface->input = iface_fw_to_cpu_addr(ptdev, cs_iface->control->input_va,
-+					       sizeof(*cs_iface->input));
-+	cs_iface->output = iface_fw_to_cpu_addr(ptdev, cs_iface->control->output_va,
-+						sizeof(*cs_iface->output));
- 
- 	if (!cs_iface->input || !cs_iface->output) {
- 		drm_err(&ptdev->base, "Invalid stream control interface input/output VA");
-@@ -957,8 +965,10 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
- 
- 	spin_lock_init(&csg_iface->lock);
- 	csg_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
--	csg_iface->input = iface_fw_to_cpu_addr(ptdev, csg_iface->control->input_va);
--	csg_iface->output = iface_fw_to_cpu_addr(ptdev, csg_iface->control->output_va);
-+	csg_iface->input = iface_fw_to_cpu_addr(ptdev, csg_iface->control->input_va,
-+						sizeof(*csg_iface->input));
-+	csg_iface->output = iface_fw_to_cpu_addr(ptdev, csg_iface->control->output_va,
-+						 sizeof(*csg_iface->output));
- 
- 	if (csg_iface->control->stream_num < MIN_CS_PER_CSG ||
- 	    csg_iface->control->stream_num > MAX_CS_PER_CSG)
-@@ -1015,8 +1025,10 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
- 		return -EINVAL;
- 	}
- 
--	glb_iface->input = iface_fw_to_cpu_addr(ptdev, glb_iface->control->input_va);
--	glb_iface->output = iface_fw_to_cpu_addr(ptdev, glb_iface->control->output_va);
-+	glb_iface->input = iface_fw_to_cpu_addr(ptdev, glb_iface->control->input_va,
-+						sizeof(*glb_iface->input));
-+	glb_iface->output = iface_fw_to_cpu_addr(ptdev, glb_iface->control->output_va,
-+						 sizeof(*glb_iface->output));
- 	if (!glb_iface->input || !glb_iface->output) {
- 		drm_err(&ptdev->base, "Invalid global control interface input/output VA");
- 		return -EINVAL;
+>
+> Just in case you want me to take the series through the fbdev git tree,
+> please let me know.
+
+The series is supposed to go though DRM trees. I'm still waiting for 
+reviews from the rsp devs.
+
+Best regards
+Thomas
+
+
+>
+> Helge
+
 -- 
-2.43.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
