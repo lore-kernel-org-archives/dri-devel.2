@@ -4,43 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 985B3C4452A
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 14:16:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 458CDC44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 14:24:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C570710E198;
-	Mon, 20 Jul 2026 14:16:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BBAB10E4D5;
+	Mon, 20 Jul 2026 14:24:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WegsdEQD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JMBeSe+Z";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF10010E198
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 14:15:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 46D4A429DB;
- Mon, 20 Jul 2026 14:15:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0912D1F00A3A;
- Mon, 20 Jul 2026 14:15:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784556959;
- bh=yJqUjZWhDoS4+1CK8rmP72NiO+UPfeeckHFKrFh57nA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WegsdEQDU0k6p2/LEru2zXSfD3tX4mLoxz9JpdaylJoI0yBbk8cFplP9xfk+f3P91
- lkzeaLfl0KCZipfWkUurCIaOjusENTB6xbRHcv2RNVwmhyCQG100Y+DRfXXz5anGIg
- jhM/OMHEO2ZuxvitwVr1vkO48uSBt8UlW8SecnGix7/dHzVE2ln8jdJssjT7WtbOh+
- NWOwtCr3leuC4Gsra67wfMrmNu5ORjL0+YcbRw53oLE5OCFAYZ686uBia0+07AGpmq
- LoRQLGnUEVcaX1Z5gyDQjY+fsaCmP/njAvb73/WneNUrn7mTKQU8TqcT/3PHcZgLPc
- D4B8wUHZqWc2A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] fbdev: core: Clamp total_size to smem_len in
- fb_io_read/write
-To: "Mingyu Wang" <25181214217@stu.xidian.edu.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720135534.103599-1-25181214217@stu.xidian.edu.cn>
-References: <20260720135534.103599-1-25181214217@stu.xidian.edu.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 14:15:58 +0000
-Message-Id: <20260720141559.0912D1F00A3A@smtp.kernel.org>
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8302110E4D5
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 14:24:46 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-69e08ad526cso6892694a12.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 07:24:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784557485; x=1785162285; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=PmBvn+AX3Qnuwr/pMW67QihkJ9ghecGIp8Ygs9aw8VI=;
+ b=JMBeSe+ZASBQz7MCykF/jU2U3k1HHAawuPWh9aTDKVnqcDYvOirRkoGaFiHlvo2ikN
+ oXJVYL9HwszpyJzhhHK4lX7JtZKkdmgeIJleh0K4YuAsM1YaWEPpcY09lJsjI+qKc9z7
+ z/ZQQIUyHHcQVl58APqW4WYzHhjAacIIxTWA2SxjCZegZfrv/2dWxeNO1Z42VfFPJPCr
+ 31x84ruHFyKtmPVWJOGcW1z9i3IeiM1a/vPhnrHfxBUdRx+7eocjyeMdAY1u6/UfkDA+
+ rJvM7Z8zQn5x+1e37mViKrHsw5WUoRdQ5vuBO4RC5AFdf9/mOb1Ys5aBp2FDg1Pm0Zpb
+ VMvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784557485; x=1785162285;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=PmBvn+AX3Qnuwr/pMW67QihkJ9ghecGIp8Ygs9aw8VI=;
+ b=S+knpg8aaX5wsVAASK8Dbko3V5AUrFOPLw1BCug/iYH6LIeOqrcdy20tPfg/8xmsIQ
+ 3CLzKZ1uSBwj/XDL2siVKl0WAnisRJJClNGtA2mIcYgwxq+1jdVw/wFSUafoWQoW4xUb
+ 2FhuYC0Rf8SFO58uMlxP+7ERr2KeUqBQwAXkMe8e6is+qvVoJI8KfhGeyjd2Iw63Q8TK
+ L0I3QOf9dp1cIalHs8gxD3khCyeizbfAuyHI+371LrCf0nAQ4f76CAHfjrqEXhdoh4h9
+ qYYNRb9Cfx9zzIcC9Hu6/pI0Brj9zPFUlTggW02CiaEtI3NGnqBSYImoLmunRnZFRkPn
+ Vynw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RptqgWV0Wa6FzlBzYYMIFspsxYM5DiypYniAH+o/MFsC+CF1nxFZjQUh7LtfS0EdTzszDxg4ntJlSo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz/Gng5cDje3n9OX9D2gfhCj1va6bvUVD6Pd25ehAB/Y2Fg0Nfq
+ 7cO0OBfCOesmaWxvxNPRLcgZwnfCtjshnIYo8oYn0Y7YtU+a2gLGfrzu
+X-Gm-Gg: AfdE7cm5l5JHg3BfCE5driOAL4oOjjltkexiJCfQxoU72VFiFPG+rj/4dw/jS8Zaf+Z
+ ZW1q23/yu3TnvLzmrRX1b/r5lh12W9EMdVgKzlEswybyHPL2COJgZkMmlPuRdnyx1NKckDbO9Vc
+ wK4Z/WR3dFjFNl5KdXaXhGnp1vQPzpeTfx01CMtmHiJeU7e53QyTJMNpm4OMO7QExORHBMI9r7D
+ jeg9Iyouxa42ogoAkgnSUr9McrP3j2CRb/8ovWS79D70vWvww31D+k3w+VJ0qMKeR6P0Naln5BH
+ Q1vsHIU26zR3IdICYmEqLkxVhatxuPbbfvKMSJOXAF2pdTvdmex7N9327vSezIKRirCLaYcOJYs
+ 0fbGnZWuQtWIeeiVGQJNGJNfTTdLzO5tKBF9yCTzMDslqP/v3bHa4M18HgoIqA0xQzuqr4os11R
+ KsMqJheHN1f4NFeLK57usokn73ySmNucqs8gTlOMwpWx4=
+X-Received: by 2002:a05:6402:455a:b0:699:39c5:204b with SMTP id
+ 4fb4d7f45d1cf-69e6528aa2cmr4079154a12.18.1784557484524; 
+ Mon, 20 Jul 2026 07:24:44 -0700 (PDT)
+Received: from Timur-Hyperion.home (5401D94C.dsl.pool.telekom.hu.
+ [84.1.217.76]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-69e6fff5efasm4999534a12.26.2026.07.20.07.24.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Jul 2026 07:24:43 -0700 (PDT)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Link Mauve <linkmauve@linkmauve.fr>,
+ =?UTF-8?q?Nikola=20Medi=C4=87?= <nmedic89@gmail.com>,
+ =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Dieter=20N=C3=BCtzel?= <Dieter@nuetzel-hh.de>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, pierre-eric.pelloux-prayer@amd.com,
+ Natalie Vock <natalie.vock@gmx.de>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH 0/4] drm/amdgpu: Support DRM format modifiers on GFX6-8 (v3)
+Date: Mon, 20 Jul 2026 16:24:36 +0200
+Message-ID: <20260720142440.22076-1-timur.kristof@gmail.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,110 +92,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+GFX6-8 are the oldest GPUs supported by the amdgpu
+kernel driver, and the last ones that didn't support
+DRM format modifiers until now.
 
-Pre-existing issues:
-- [Critical] Incomplete Fix: Missing `total_size` clamp in `fb_sys_read` an=
-d `fb_sys_write` allows Out-Of-Bounds kernel memory access.
-- [High] Missing Locking in `fb_io_read` and `fb_io_write` leads to Use-Aft=
-er-Free during concurrent mode switches.
-- [High] Out-of-bounds IO Memory Read in `fb_io_read` caused by partial `co=
-py_to_user` failure.
---
+On GFX6-8, the GFX block can only use pre-determined tiling
+modes which are programmed by the kernel according to the
+tiling mode table. The new modifiers encode all the details
+needed for tiling on these GPUs.
 
---- Patch [1]: [PATCH] fbdev: core: Clamp total_size to smem_len in fb_io_r=
-ead/write ---
-commit 34ebcfca778c16b156ef4c2fa6a81b75c5b5adb4
-Author: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+For the exact details, see the commit message of:
+"drm/fourcc: Add modifiers for AMD GFX6-8"
 
-fbdev: core: Clamp total_size to smem_len in fb_io_read/write
+For a userspace implementation, see this Mesa MR:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/41557
+And for libdrm:
+https://gitlab.freedesktop.org/mesa/libdrm/-/merge_requests/481
 
-This patch prevents out-of-bounds I/O accesses in fb_io_read() and
-fb_io_write() by clamping total_size to smem_len during mode switches
-when legacy drivers incorrectly set screen_size. Virtual framebuffers
-remain unaffected.
+Supporting DRM format modifiers on GFX6-8 will
+unblock many things in the Linux graphics ecosystem
+that previously either didn't work on these GPUs
+or had to implement fallbacks.
+For example, compositors written in Vulkan or
+compositors running on Zink, interop between
+different APIs (eg. VAAPI / OpenGL / Vulkan) etc.
 
-> diff --git a/drivers/video/fbdev/core/fb_io_fops.c b/drivers/video/fbdev/=
-core/fb_io_fops.c
-> index 6ab60fcd00501..335f16d2cc23b 100644
-> --- a/drivers/video/fbdev/core/fb_io_fops.c
-> +++ b/drivers/video/fbdev/core/fb_io_fops.c
-> @@ -24,6 +24,14 @@ ssize_t fb_io_read(struct fb_info *info, char __user *=
-buf, size_t count, loff_t
->  	if (total_size =3D=3D 0)
->  		total_size =3D info->fix.smem_len;
-> =20
-> +	/*
-> +	 * Security Hardening: Defend against buggy legacy drivers that may
-> +	 * calculate a malformed screen_size. Clamp total_size to the actual
-> +	 * hardware mapped memory limit (smem_len) to prevent OOB access.
-> +	 */
-> +	if (info->fix.smem_len && total_size > info->fix.smem_len)
-> +		total_size =3D info->fix.smem_len;
-> +
+Changes from v1 to v2:
 
-[Severity: Critical]
-This is a pre-existing issue, but I noticed that fb_sys_read() and=20
-fb_sys_write() in drivers/video/fbdev/core/fb_sys_fops.c have the exact=20
-same trust boundary issue with info->screen_size.
+* Fix checking DRM_FORMAT_MOD_INVALID
 
-Because those sys functions access kernel system memory rather than I/O=20
-memory, an oversized screen_size without this clamp could allow userspace=20
-to perform out-of-bounds reads and writes directly to system RAM. Should=20
-this fix be applied to fb_sys_read() and fb_sys_write() as well to prevent=
-=20
-kernel memory corruption?
+Changes from v2 to v3:
 
-[ ... ]
-> 	if (info->fbops->fb_sync)
-> 		info->fbops->fb_sync(info);
->=20
-> 	while (count) {
-> 		c  =3D (count > PAGE_SIZE) ? PAGE_SIZE : count;
-> 		dst =3D buffer;
-> 		fb_memcpy_fromio(dst, src, c);
+* Return -EINVAL when pipe_config is invalid
+* Log unsupported array mode with drm_dbg_kms()
+* Fix block size calculation in amdgpu_display_verify_sizes()
+* Add NULL check to amdgpu_dm_plane_add_modifier_dedup()
+* Fix tile size calculation to bits not bytes
 
-[Severity: High]
-This is a pre-existing issue, but is it safe to access src (which is derive=
-d=20
-from info->screen_base) without holding info->lock during this loop?=20
+Timur Kristóf (4):
+  drm/fourcc: Add modifiers for AMD GFX6-8
+  drm/amdgpu: Convert tiling flags to modifiers on GFX6-8
+  drm/amd/display: Support DRM format modifiers on GFX6-8
+  drm/amd/display: Don't use tiling flags anymore
 
-If another thread concurrently issues an ioctl(FBIOPUT_VSCREENINFO) to swit=
-ch=20
-modes, and the driver's fb_set_par() implementation unmaps or frees=20
-screen_base, could this lockless memory access in fb_io_read() and=20
-fb_io_write() result in a use-after-free or out-of-bounds crash?
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 144 +++++++-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  29 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 343 ++++++++++++++++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.h   |   3 -
+ .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    |  84 -----
+ include/uapi/drm/drm_fourcc.h                 | 209 ++++++++++-
+ 6 files changed, 641 insertions(+), 171 deletions(-)
 
-> 		dst +=3D c;
-> 		src +=3D c;
->=20
-> 		trailing =3D copy_to_user(buf, buffer, c);
-> 		if (trailing =3D=3D c) {
-> 			err =3D -EFAULT;
-> 			break;
-> 		}
-> 		c -=3D trailing;
+-- 
+2.55.0
 
-[Severity: High]
-This is also a pre-existing issue, but what happens to the src pointer if=20
-copy_to_user() partially fails?
-
-If copy_to_user() returns a trailing value between 0 and c, the loop does n=
-ot=20
-break, and c is reduced by trailing. However, the src pointer was already=20
-unconditionally advanced by the original unreduced c.=20
-
-In the next loop iteration, src will be misaligned and advanced further tha=
-n=20
-accounted for by count. Could this cause subsequent fb_memcpy_fromio() call=
-s=20
-to read past the end of the hardware framebuffer?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720135534.1035=
-99-1-25181214217@stu.xidian.edu.cn?part=3D1
