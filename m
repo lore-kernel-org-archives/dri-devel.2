@@ -4,126 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC8C6C44520
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:36:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3968FC44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:37:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C45310E8EF;
-	Mon, 20 Jul 2026 12:36:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A40610E8F0;
+	Mon, 20 Jul 2026 12:37:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="fFR1VBHJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hyX256ub";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pTtsy8sL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O8QYjiFk";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Ubp7/ADg";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A055D10E8E9
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:36:22 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EC5C23E09;
- Mon, 20 Jul 2026 12:36:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1784550981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f8pLKE53MsMSJHxP6tUJaXAsP0fNPXLjKYgxqynHKRE=;
- b=fFR1VBHJmAcu8jGbXAlibPGlPfI7cLx/3FgsEdHg5guy6rydO9dyl+RjcoTTyGoKFHqg4e
- dNeBZfJ4q2+Yu+haQ2T17nizBw9X5Z6oUG37HwKJWqDoD4yI3jG0awsDizGZKq3mj5PNki
- Uk3bb2YwB9YW256tBn1uigNwVFPLViI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1784550981;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f8pLKE53MsMSJHxP6tUJaXAsP0fNPXLjKYgxqynHKRE=;
- b=hyX256ubhGpAPeB1jULKvqfQ/q7jtWXlaZ2IxBMFKzXdo1RmzXVHdQlythLgzMbmS8dqpb
- 3g6V7XplZ3NgtPCA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1784550979; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f8pLKE53MsMSJHxP6tUJaXAsP0fNPXLjKYgxqynHKRE=;
- b=pTtsy8sL4ovlj3iNTrmc9A1wlOkcnk8Hi668U7diBMT2+rwiknYWHs0CquEfiX+D99rWZZ
- gkZv9oRmV4oF8Czm7iIywKlooZF8pwEPBkwUH/DwZvRfcc66JkqSLdLPLitfo7Sv0MbBHa
- EXU1hN1m4/kjScY1OcO7HVNkr73CrL0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1784550979;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f8pLKE53MsMSJHxP6tUJaXAsP0fNPXLjKYgxqynHKRE=;
- b=O8QYjiFkJMUEi2PPji9osqkX81ilMzc5mYnwhQqYmLpUFk7lRLB4rPF/6BqZlRHakt982B
- 79it1bDxtBV7k/Bw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C3584779AA;
- Mon, 20 Jul 2026 12:36:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Ndd2LkMWXmrrXAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 20 Jul 2026 12:36:19 +0000
-Message-ID: <63cca05a-ec83-430c-abcf-c2f0b508446f@suse.de>
-Date: Mon, 20 Jul 2026 14:36:19 +0200
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD07510E8F0
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:37:06 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4954a32cf1eso11986105e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:37:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1784551025; x=1785155825; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=fQr+EMaeosf3EJse+8a7BrVBolL0lk1sXGCzF/fOxS8=;
+ b=Ubp7/ADgtvF6oZOPcJKJF1QuzVS6vr4b+HJkX8eSLcHlRtnNs5RDgr9JUCYGXo/Fbs
+ FIiNw0fWXwKRRbAxMqLYXNvhfCQJMfowaav+JIZdiB6+7lgNP+oYa+6ioEYm3LQVQtoA
+ SLsJpGCknCP5rK+OAuVxkl6mycZ+Y2EgtBSvZz6o+wjl4ZdgqDZlUKcurcnMY0YC4uzC
+ 7y7d+bxyRPNsregvUmCElLItiSD43HXp8h3fplSVd+hhS2MpyqAG6FAvxC0up/5vOG5T
+ mgLQlGKTCt0r1ZzRGSa4O5o/ReXHFaPrr1GXv4KD6C9cZoP4jVeF2TLdP8sqtvZY1T0J
+ hfXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784551025; x=1785155825;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=fQr+EMaeosf3EJse+8a7BrVBolL0lk1sXGCzF/fOxS8=;
+ b=slf3T1XTOpix9sXtbNA5VYX3VlJ2tbu7PMvojez/MlHI0E+VIx6u+Li5e6lEPGYNGw
+ CGvzYOPILK7LFOVopNdmXx2HyFhZQlzVjpWfbBjfTsa+Lu+iNSae27jF+ky3GuKXf5FI
+ 1XXFsnrF60NR1PMaifnpm9+APVOvvdipfK+5HnZ5gs1bQHrj2jYKZ97k9iEhcyar7X4X
+ uTBO/gHXeAoArV8GIFqLltBoGlAKZ3CFpK0DzD2NqrUiGVY6i+TylGNdC+lt+iI835m7
+ 9QFZsZlu7ynoVtZ6lKy5+s1kCApNr6PE2WkpAHFxcC9rw94202IntRJLhYaQx2FOlS6D
+ T4NQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RobzG2sAZpi+w4SZsl0ekjQWaqOZCQ3Iujej3bXP+kaHhp5TUKThy8oQgQPU+JrW8MVSmM97tuEZLw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxx2CgpDmnWHPCZHi0KHZrMTWVdoP+MouGXpZ/tuWy9aPhFSitD
+ VipgUqFMtyxF9JwWV9Bh9tE8c1KV7oy33qBYrZ0qxA5LR3hIp7B//9Sdvr+mGDSwvu8=
+X-Gm-Gg: AfdE7cntlZF+3CfyFF7xPBbaQV8mpkq/v1A1KIbHXUhW2SbAqG+GXLTwG2lCDYfB4h0
+ g8QeFyPLj3elMQ+/epWf6unQyjjlhfGGmd6LmZ34THNzKQgQVsYRz5BE3sTDVVIICScyWb42Bg8
+ 161piMssIIcW1K1bvgXMmo/67d+Hjm2cZEQF9HyBBjebbVe2ArvRKcZ3umYWI7RwxLgn//CPcEC
+ BiB2xUAbmRk4lpF5DtlCAbOlOl5dUnXCK20O1ymoHn24NPZKWrjyeB6XpoalF44m7FBBsgTe1E4
+ Vb3SnDqteHN+abtB4klew4rGbb7xx5CK7tUd2hKAlmYvHlUrqr70XSMn7PuSo+0ZqpTJMgmzH93
+ Ft8gFm9DG/JBvED0T54mN7n7sLREnY2TlBwe2YQ9mwIw6/ZGcNxrYdSCIgcx/+eUwJBZarpUwba
+ 60LcXpPQ5bVqd3ltd0SGZ5hruq6Ll0UqiEqn1TPPMEgCRHRNIRJOPewmjgNQ==
+X-Received: by 2002:a05:600c:45d5:b0:495:4056:9473 with SMTP id
+ 5b1f17b1804b1-4954a40d0c3mr153014455e9.28.1784551024982; 
+ Mon, 20 Jul 2026 05:37:04 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:544a:2852:f257:ebc5?
+ ([2a01:e0a:106d:1080:544a:2852:f257:ebc5])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4954c841a0dsm236624065e9.5.2026.07.20.05.37.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 Jul 2026 05:37:04 -0700 (PDT)
+Message-ID: <605ac9fd-d9af-4de1-9f5d-4f1a30a5a1ed@linaro.org>
+Date: Mon, 20 Jul 2026 14:37:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/imx: replace struct drm_simple_display_pipe with
- regular atomic helpers
-To: Ze Huang <ze.huang@oss.qualcomm.com>, sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, imx@lists.linux.dev
-References: <20260716-drm-simple-kms-removal-v2-1-7e4a6b8528e6@oss.qualcomm.com>
- <20260716091459.1D8101F000E9@smtp.kernel.org>
- <DK1XPK73QJHC.JWFUMTTLOD1D@oss.qualcomm.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <DK1XPK73QJHC.JWFUMTTLOD1D@oss.qualcomm.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] drm/panel: osd101t2587: migrate to newer mipi_dsi*
+ functions
+To: Robert-Andrei Mercea <robertandreimercea@gmail.com>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260720115126.666363-1-robertandreimercea@gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260720115126.666363-1-robertandreimercea@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_FIVE(0.00)[5];
- FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- bootlin.com:url, suse.de:mid]
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,105 +120,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On 7/20/26 13:51, Robert-Andrei Mercea wrote:
+> Migrate osd101t2587-53ts panel driver from deprecated mipi_dsi*
+> functions to their *_multi variants for improved error handling, as
+> specified in the GPU subsystem TODO list.
+> 
+> Link: https://docs.kernel.org/gpu/todo.html#transition-away-from-using-deprecated-mipi-dsi-functions
+> 
+> Signed-off-by: Robert-Andrei Mercea <robertandreimercea@gmail.com>
+> ---
+>   drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c | 14 ++++++--------
+>   1 file changed, 6 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c b/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c
+> index 2334b77f348c..63ae9dc5712f 100644
+> --- a/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c
+> +++ b/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c
+> @@ -32,11 +32,11 @@ static inline struct osd101t2587_panel *ti_osd_panel(struct drm_panel *panel)
+>   static int osd101t2587_panel_disable(struct drm_panel *panel)
+>   {
+>   	struct osd101t2587_panel *osd101t2587 = ti_osd_panel(panel);
+> -	int ret;
+> +	struct mipi_dsi_multi_context ctx = { .dsi = osd101t2587->dsi };
+>   
+> -	ret = mipi_dsi_shutdown_peripheral(osd101t2587->dsi);
+> +	mipi_dsi_shutdown_peripheral_multi(&ctx);
+>   
+> -	return ret;
+> +	return ctx.accum_err;
+>   }
+>   
+>   static int osd101t2587_panel_unprepare(struct drm_panel *panel)
+> @@ -58,13 +58,11 @@ static int osd101t2587_panel_prepare(struct drm_panel *panel)
+>   static int osd101t2587_panel_enable(struct drm_panel *panel)
+>   {
+>   	struct osd101t2587_panel *osd101t2587 = ti_osd_panel(panel);
+> -	int ret;
+> +	struct mipi_dsi_multi_context ctx = { .dsi = osd101t2587->dsi };
+>   
+> -	ret = mipi_dsi_turn_on_peripheral(osd101t2587->dsi);
+> -	if (ret)
+> -		return ret;
+> +	mipi_dsi_turn_on_peripheral_multi(&ctx);
+>   
+> -	return ret;
+> +	return ctx.accum_err;
+>   }
+>   
+>   static const struct drm_display_mode default_mode_osd101t2587 = {
 
-Am 18.07.26 um 21:12 schrieb Ze Huang:
-[...]
->>>   
->>> -	if (event) {
->>> -		crtc->state->event = NULL;
->>> +static int imx_lcdc_plane_helper_atomic_check(struct drm_plane *plane,
->>> +					      struct drm_atomic_commit *commit)
->>> +{
->>> +	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(commit, plane);
->>> +	struct drm_crtc *crtc = plane_state->crtc;
->>> +	struct drm_crtc_state *crtc_state = NULL;
->>>   
->>> -		spin_lock_irq(&crtc->dev->event_lock);
->>> +	if (crtc)
->>> +		crtc_state = drm_atomic_get_new_crtc_state(commit, crtc);
->>>   
->>> -		if (crtc->state->active && drm_crtc_vblank_get(crtc) == 0)
->>> -			drm_crtc_arm_vblank_event(crtc, event);
->>> -		else
->>> -			drm_crtc_send_vblank_event(crtc, event);
->>> +	return drm_atomic_helper_check_plane_state(plane_state, crtc_state,
->> [Severity: High]
->> Can fetching the CRTC state this way cause a kernel panic in the core atomic
->> helpers?
->>
->> If userspace submits a commit that modifies only plane properties without
->> affecting the CRTC, the CRTC is not implicitly added to the atomic commit
->> state.
->>
->> In this scenario, drm_atomic_get_new_crtc_state() returns NULL. Passing this
->> NULL pointer directly to drm_atomic_helper_check_plane_state() causes a crash
->> when it dereferences crtc_state->enable.
->>
->> Could this use drm_atomic_get_crtc_state() instead to ensure the state is
->> brought into the commit if it is missing?
-> I think it is fine here; I'll just copy the pattern from [1].
->
-> [1] https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/mgag200/mgag200_mode.c#L487
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-It could be that there's a long standing problem in the overall logic. 
-Not having a CRTC (and hence crtc_state) should also mean !fb, so we'd 
-return at [1]. If we have a CRTC on the plane but pass a crtc_state of 
-NULL, we could get a panic at [2], where it does crtc_state->crtc.  I'm 
-not aware of any bug reports about this problem, but it's still an issue.
-
-A number of drivers get this wrong by using 
-drm_atomic_helper_get_new_crtc_state(). The bot suggests to use 
-drm_atomic_helper_get_crtc_state() instead.  This helper also returns 
-the new state. But  if there's no new state, it duplicates the CRTC's 
-existing state. That's a bit of an overhead, but probably not an issue.  
-Several drivers use this helper, but also get it wrong. They tend to 
-return early in the case of !crtc or !fb without calling 
-_check_plane_state(). See [3] and [4] for examples.
-
-I think, going with the bot's suggestion to use 
-drm_atomic_helper_get_crtc_state() might be the best resolution for now. 
-It still needs a crtc pointer, so the pattern is
-
-crtc_state = NULL
-if (plane_state->crtc)
-     crtc_state = drm_atomic_helper_get_crtc_state(plane_state->crtc)
-
-_check_plane_state(plane_state, crtc_state);
-
-And in this case, _check_plane_state() should work correctly. But you 
-can only use _get_crtc_state() in the atomic_check helpers! In the 
-atomic_update, atomic_enable, etc helpers, it's too late for the helper 
-to copy the CRTC state.
-
-I think some other DRM dev should look over this as well. It's one of 
-the trickier things in DRM to get right.
-
-Best regards
-Thomas
-
-
-[1] 
-https://elixir.bootlin.com/linux/v7.1.3/source/drivers/gpu/drm/drm_atomic_helper.c#L912
-[2] 
-https://elixir.bootlin.com/linux/v7.1.3/source/drivers/gpu/drm/drm_atomic_helper.c#L907
-
-[3] 
-https://elixir.bootlin.com/linux/v7.1.3/source/drivers/gpu/drm/mediatek/mtk_plane.c#L230
-[4] 
-https://elixir.bootlin.com/linux/v7.1.3/source/drivers/gpu/drm/tidss/tidss_plane.c#L31
-
-
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+Thanks,
+Neil
