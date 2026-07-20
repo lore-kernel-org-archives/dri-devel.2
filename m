@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5428C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 11:13:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0326C4452D
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 11:13:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03D2B10E8A8;
-	Mon, 20 Jul 2026 11:13:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1ADD10E899;
+	Mon, 20 Jul 2026 11:13:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="cbkgXDcl";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="huoblUWq";
 	dkim-atps=neutral
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1682410E893
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 11:13:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B4B610E8A3
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 11:13:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
  Reply-To:Content-Type:Content-ID:Content-Description;
- bh=zGzjQyHuVcqPZBvP+3cG6Vz0Ke3LkZDrFTo2xuU4/JA=; b=cbkgXDcltWLhobeGshdyHgBXgz
- MLmIk478H08vV7I7AMZcXXBh489GA2DHVHQqPTcyzjlJDiP7J7zbixxQuHzHZVnT/yzLUmG5Smv+f
- nvrF7y57wWCnQXXXlCKicL1cGQRl7Mzl6uThPTRVJlax+VrWKX1rM2C+BT+08POe+jS2LhDm32qnh
- qTl3ozOo2+uYw1FhKImJrNs6XwnuyMTdSWeYKq1dS3wtwI5U9nqOMJltX+DoDMP9m6ZvgTb7vq0/l
- IerT3EilVqLV8ZiBvPaqjXG0TIhK5VVj8QXqZ0HfxOepLO5vlLzn+UWk+qPEaqQcv1P/0zCrA74HK
- v2WGivcw==;
+ bh=MPI0esnaI+iKyyVD2owOeN2PPFEfj2bEb5B7L5h2YUc=; b=huoblUWqucdvnS/fsMFI5JJB/o
+ 0jf+waRlgzSBLcdMA2somjfUCQEkXUV4/dxfO9u7qqVYW7Adng04GnLrGD+Idh5A9g5vaLUM5sCS9
+ q2yy9RsjG8uFZxoJkULnV5Ozmp/dcPojeASQUHnBwgvWzXKqdpAu4RnOWvbHBR7w7BYu2aAWUq1Eh
+ 20+vGS6brBzHrIhNXD4FpYk3TSiNQRcNdGuu+Nanv87Pa6UB6hlSCZxIpgZ+FTnDoE899P0WidIYQ
+ PPru6XOjaeLnUO4QUJm0HiDRReKI2xJ910Xgx6hHdmAI/KHn0YYQXnYNkCgmqfy3axLVlluyjKb09
+ d9jzcOmQ==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
  by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
- id 1wllvj-0000000GWe7-0vqI; Mon, 20 Jul 2026 11:13:03 +0000
+ id 1wllvj-0000000GWe6-0ztZ; Mon, 20 Jul 2026 11:13:08 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.4 #2 (Red
- Hat Linux)) id 1wllvg-00000000W0S-2RFO;
+ Hat Linux)) id 1wllvg-00000000W0P-21nV;
  Mon, 20 Jul 2026 12:13:00 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: Sean Christopherson <seanjc@google.com>,
@@ -53,13 +53,13 @@ Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
  Dan Williams <djbw@kernel.org>, Eric Biggers <ebiggers@kernel.org>,
  Colin Ian King <colin.i.king@gmail.com>, connordw@amazon.co.uk,
  graf@amazon.de, fgriffo@amazon.co.uk, David Woodhouse <dwmw@amazon.co.uk>
-Subject: [RFC PATCH v2 02/11] KVM: selftests: sev_init2_tests: Derive SEV
- availability from KVM
-Date: Mon, 20 Jul 2026 12:03:03 +0100
-Message-ID: <5d3c345113748f39b7982e365d241abaf3e11086.1784545391.git.dwmw@amazon.co.uk>
+Subject: [RFC PATCH v2 01/11] KVM: selftests: sev_smoke_test: Only run VM
+ types the host offers
+Date: Mon, 20 Jul 2026 12:03:02 +0100
+Message-ID: <2b5e7a83d277134294199a455469bb436196b902.1784545391.git.dwmw@amazon.co.uk>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2b5e7a83d277134294199a455469bb436196b902.1784545391.git.dwmw@amazon.co.uk>
-References: <2b5e7a83d277134294199a455469bb436196b902.1784545391.git.dwmw@amazon.co.uk>
+In-Reply-To: <20260720111259.122911-1-dwmw2@infradead.org>
+References: <20260720111259.122911-1-dwmw2@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
@@ -81,50 +81,44 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The test asserted that the X86_FEATURE_SEV CPUID bit exactly matches
-whether KVM offers KVM_X86_SEV_VM.  That is not an invariant: when all
-SEV ASIDs are assigned to SEV-SNP, KVM does not offer the SEV VM type
-even though CPUID reports SEV, so the test aborts on an SNP-only host.
+sev_smoke_test ran the plain SEV subtest unconditionally, gated only on
+the X86_FEATURE_SEV CPUID bit, while gating SEV-ES and SNP on the
+KVM_CAP_VM_TYPES bits.  CPUID reporting SEV does not mean KVM offers the
+SEV VM type: when all SEV ASIDs are assigned to SEV-SNP, KVM_X86_SEV_VM
+is unavailable even though X86_FEATURE_SEV is set.  On such a host the
+test aborts in KVM_CREATE_VM instead of exercising the available modes.
 
-Derive SEV availability from KVM_CAP_VM_TYPES (as already done for SEV-ES
-and SNP), assert only the one-way implication that a type offered by KVM
-is also reported in CPUID, and TEST_REQUIRE() the SEV VM type so the test
-skips cleanly when it is unavailable.
+Gate the SEV subtest on KVM_CAP_VM_TYPES like the others, so the test
+runs the VM types the host actually offers.
 
 Reviewed-by: Tycho Andersen (AMD) <tycho@kernel.org>
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- .../testing/selftests/kvm/x86/sev_init2_tests.c  | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ tools/testing/selftests/kvm/x86/sev_smoke_test.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/kvm/x86/sev_init2_tests.c b/tools/testing/selftests/kvm/x86/sev_init2_tests.c
-index 8db88c355f16..689390c10f7c 100644
---- a/tools/testing/selftests/kvm/x86/sev_init2_tests.c
-+++ b/tools/testing/selftests/kvm/x86/sev_init2_tests.c
-@@ -130,12 +130,18 @@ int main(int argc, char *argv[])
- 			    KVM_X86_SEV_VMSA_FEATURES,
- 			    &supported_vmsa_features);
+diff --git a/tools/testing/selftests/kvm/x86/sev_smoke_test.c b/tools/testing/selftests/kvm/x86/sev_smoke_test.c
+index 6b2cbe2a90b7..bf27b6187afa 100644
+--- a/tools/testing/selftests/kvm/x86/sev_smoke_test.c
++++ b/tools/testing/selftests/kvm/x86/sev_smoke_test.c
+@@ -247,7 +247,14 @@ int main(int argc, char *argv[])
+ {
+ 	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_SEV));
  
--	have_sev = kvm_cpu_has(X86_FEATURE_SEV);
--	TEST_ASSERT(have_sev == !!(kvm_check_cap(KVM_CAP_VM_TYPES) & BIT(KVM_X86_SEV_VM)),
--		    "sev: KVM_CAP_VM_TYPES (%x) does not match cpuid (checking %x)",
--		    kvm_check_cap(KVM_CAP_VM_TYPES), 1 << KVM_X86_SEV_VM);
+-	test_sev_smoke(guest_sev_code, KVM_X86_SEV_VM, 0);
 +	/*
-+	 * Whether a VM type is available depends on KVM, not just CPUID: e.g.
-+	 * when all SEV ASIDs are assigned to SEV-SNP, KVM does not offer the
-+	 * SEV VM type even though X86_FEATURE_SEV is set.  Derive availability
-+	 * from KVM_CAP_VM_TYPES and only assert the one-way implication that a
-+	 * type offered by KVM must also be reported in CPUID.
++	 * Only exercise VM types the host actually offers.  CPUID reporting
++	 * SEV does not guarantee KVM offers the SEV VM type: when all SEV
++	 * ASIDs are assigned to SEV-SNP, KVM_X86_SEV_VM is unavailable even
++	 * though X86_FEATURE_SEV is set.  Gate every type on KVM_CAP_VM_TYPES.
 +	 */
-+	have_sev = kvm_check_cap(KVM_CAP_VM_TYPES) & BIT(KVM_X86_SEV_VM);
-+	TEST_ASSERT(!have_sev || kvm_cpu_has(X86_FEATURE_SEV),
-+		    "sev: SEV_VM supported without SEV in CPUID");
++	if (kvm_check_cap(KVM_CAP_VM_TYPES) & BIT(KVM_X86_SEV_VM))
++		test_sev_smoke(guest_sev_code, KVM_X86_SEV_VM, 0);
  
--	TEST_REQUIRE(kvm_check_cap(KVM_CAP_VM_TYPES) & BIT(KVM_X86_SEV_VM));
-+	TEST_REQUIRE(have_sev);
- 	have_sev_es = kvm_check_cap(KVM_CAP_VM_TYPES) & BIT(KVM_X86_SEV_ES_VM);
- 
- 	TEST_ASSERT(!have_sev_es || kvm_cpu_has(X86_FEATURE_SEV_ES),
+ 	if (kvm_check_cap(KVM_CAP_VM_TYPES) & BIT(KVM_X86_SEV_ES_VM))
+ 		test_sev_smoke(guest_sev_es_code, KVM_X86_SEV_ES_VM, SEV_POLICY_ES);
+
+base-commit: 0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53
 -- 
 2.55.0
 
