@@ -4,97 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7EE8C4451B
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 06:11:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7B5CC4451B
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 06:11:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24B4610E6A1;
-	Mon, 20 Jul 2026 06:11:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C2F110E6A2;
+	Mon, 20 Jul 2026 06:11:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LnPAuyED";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EoNEyQCD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="G+47JyE2";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VAf7bmVg";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 587BF10E69F
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:11:31 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C96A10E698
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:11:37 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66JNskas645389
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:11:31 GMT
+ 66JNsrtR912628
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:11:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- D03QOeyPxDyyec5WvQKHewnRJ0KQmMoPVroW949BZ9s=; b=LnPAuyEDWbfk7F9v
- T5cExMuJBFo97QkVaqCbmyT9TDHVTFsJjR9xCkY2n9SYe5gTOMZaJ6uc7/Eaa1rn
- +sB7Dx6b0xUbcitaRL8HnnmhMNAlm+JBWNBnxVX6wFa6SXEdGqpd2GpsBWDt5YUm
- +lKYMbkczN7fhEPqbFPJDSO4+nnhuFWXI5il380wKg+fPVBDoSiCi/jG3qc0W3IT
- wuaJRBYH5x5zyZAaKFpHBOrztiRubIYIX1cJiu3naItBOf+Mn5nHYrPJXCaO3SSf
- av+KMB0IY70X6AVKUthyt1HTtiMXRJ8qATdQvVKNvNKFq1ztqjvSvSadix6v3aH3
- MRyDbQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2bvvn2m-1
+ vpHHP29whbdx5cs2gLezZzHUwiHHHxuEcH2BBOfuJdY=; b=G+47JyE2e9DXgIbt
+ KUPHDrZ24Y6zX2wjSmlar2f/Y2RZftdhUvodJ6OdU2QfTxd6jpdRn6v5UqofgBcb
+ 3Eo3VVvASWzm4aBKiDp7z2aBuy7LBA4LxXCcwAIBWPP7hkLij2Xz95QAyaF8J/VE
+ wcX+7IH3kwYLBZ+e/2xc++20ti09eab+aIfcWLq19S78DAk6Xuqqlcw5OPBIaeL1
+ l7ayOmJhuz5QNkQTmc8gORX6eqt8lqJS1fmvN2Uydfmc7tCGOU95vsuLk0pUsVjB
+ vGQxgdQk13lErvKngdgasyAWST9vNkidJWnmC8Ewy3qBVhuNgmfL9+ESnbAxwjGx
+ Q1sZVA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fg2af4mhn-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:11:30 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-8ef8249f73fso77851036d6.0
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Jul 2026 23:11:30 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:11:35 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-51a8db414c7so162613141cf.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Jul 2026 23:11:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784527890; x=1785132690;
+ d=oss.qualcomm.com; s=google; t=1784527895; x=1785132695;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=D03QOeyPxDyyec5WvQKHewnRJ0KQmMoPVroW949BZ9s=;
- b=EoNEyQCDSX7Inx3d7+JhkrmtBnFhrfc0btIGVkMfp1MyTyXtqhj8XXeakazfZs0ASI
- 60gyHq2bYeXHQzvmO6XRNsIGa/i87W5IryOgUHBtNUjA23GqmB8KLgveOIoDzYcDr8XN
- Hs4o2NLhFQO2QGs1CcScm/6EYvRIvJe5nqfHFvIrxwhLK9YBkMWYP939vuOgJNgRhMMA
- EfbVE7bHngpfLYRYvObiWK2WUCfPauLSvYRDGAXIgTgMOx6mTTaEMo2D4cSSQ7yXLYRL
- zy01uOGOdTYsp6x7pe3Fo0/BtJDQ3VoP4dXo46tRZ3WD+M3k011JxWsnTn8btiutdhJv
- lLEg==
+ bh=vpHHP29whbdx5cs2gLezZzHUwiHHHxuEcH2BBOfuJdY=;
+ b=VAf7bmVgH7zTdVHV+Qlr1EjW8qjYpa1zvlZPKt45GqfoE7AVlsOZXHTQqZ+Rp6hQd8
+ pZ8rt13qKz3LLlHLcbqnWwmJt1OsVuKJNqa8Zgyg1TSEhTset7jQxdnQF0Djwth6B7kQ
+ sa/VTchtfyERS5VT7AFyEXCqyEN+N9fVAOp8yehL1VTmdOSGFW03H5wjG3btFe8mS2dI
+ U68/3pH+MDlQWJZxfVIcVgQMWIcrNqZGlVnMO5rjuSusIaYKmuOWGbtbYY/49bSPO/2b
+ HOCLex6j4t/rMF9TnkRofr/ovCYy+YPtiArzQxOjaY/kJ1lIZWHXb80fR3vlKvqSW2wN
+ N6gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784527890; x=1785132690;
+ d=1e100.net; s=20251104; t=1784527895; x=1785132695;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=D03QOeyPxDyyec5WvQKHewnRJ0KQmMoPVroW949BZ9s=;
- b=bqd5xeUJLREbdXh1SunQEVhAx2sxaLgaa2m6xNwUp+74+DUvEf7XM36HXdCrEuazFC
- Jmn5W+9YPBb6t+8/h+A2JKt80sT8fWUcanahn44t6asLrNaJimW24ojdgr1rHqHMJiCM
- fqeULBf/Rpbbjlwuj+AmBez6PWf/qAC0dmbwzevLkCfk2yxz7XKy4Hsct/Ybtn7qkEY+
- j7nGhlKGId3EREfan343u5J3r4xQd2AqDwBhQrf59p//TGVJUQvpXZIncHhvAEkIRYF8
- STWfFJ0D4KHYJ7Z8aZuOoK5OZ0pK4UPSEn8rpKz6h3Jaz6KPk7mMngaTI6HOcJviAEGj
- Aopw==
+ bh=vpHHP29whbdx5cs2gLezZzHUwiHHHxuEcH2BBOfuJdY=;
+ b=WCV6BrOQMsDEeI3K7D41b+bTVXwEKo6voDskS60xIyV4xtk8pUs1kbdEz3MS1QAWK4
+ fG8bRCj1LkfXQmE9wIHO6PoSGwrnS+U58TnPPMwhCqSmnqfTg8lXVDfTnih+YM88OTVX
+ kBO3r4vAo22dMznrLMoyFLP2ve5x9rc4G4T00ojNnI9LPo++NmNTGhZMzng1r9T7gbbp
+ uJmIKOYejCBlEjl8/iefsfnNAQZb6yj8Ziw9/wPJ5uivjefcToBVfyI52qlfLIktM3mX
+ 5UsYKbUCEtZ5C6f3s2CdzxMV+HGAQAVQksKc3qSbq6l+LXu2j7Xqb9Hb5l8dyqGddlCs
+ jEew==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoTOrm7kNBbjpKM2m+DmnnISOuJzZDcXFYoB0OWxlUcxgkc9JKz+rLzuPisfMDw4fxcAIXN/Mz0wWs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YztqtpeQqrpwt5WRokpNvxmF/2FQXyf4iKzh1czdZXLEparIGN0
- po2co6FQOmK4/go0cSgYDGgcnragb7laZDPfpOdiPvnvRlun5sJP/+PZep39jiJU9ljDdRrXtDp
- +CyE2OEacEZJmmJwgek1mdvdQY+BY/pT8sVLjGgly5XvI6Lv3atei/c66B6q4wPYJXxmBzwY=
-X-Gm-Gg: AfdE7cmBv2a9H0AlKGmdxc686HpAgJQ2dNKG6UycZjoX0WBjqKsJz9qvCSpMQ0LJj1t
- N+sOILLLGjdGJd+OMq9jxWRkmKftNWrykQgX0lBttUDfzcaoVY/eYt8ObkWLDw8y+ArCWv8umCN
- f8eVBLIltnlsgDedUeIauFAv/sHbn5AJklvNLpJnjPP5pesHP/41J1yTEkRZRbUe25aYN//vENJ
- tteCd6f4V02p4OTahGl43mVEdJC1ZL4Zf7FEqkYNgK2XWNUxfSszDqdZZdxtD3fyAivYKsJr7VW
- 2HaAIgI1mtmOYOxydnUEynlNzHJGrZbqxH8pmIVAQJ3FFy1GwOr4maFtmrUeDLLuv/9x6q0Dz+E
- DpibIa+DDpqWkeRGq7r3HmJ/O3tf135/Ry6hTwRvSnpyK02+S1PAA2pJSk6sLSRE=
-X-Received: by 2002:a05:6214:2303:b0:907:5b47:b875 with SMTP id
- 6a1803df08f44-907783a06aemr125648956d6.35.1784527889820; 
- Sun, 19 Jul 2026 23:11:29 -0700 (PDT)
-X-Received: by 2002:a05:6214:2303:b0:907:5b47:b875 with SMTP id
- 6a1803df08f44-907783a06aemr125648726d6.35.1784527889386; 
- Sun, 19 Jul 2026 23:11:29 -0700 (PDT)
+ AHgh+RoDFNS2LsNVyQbhovoPgx7kR1J+5ztzkRPtyg8IlVv9bGuN50Wgo5Bpe5pqrvgnZJ07FstanstRxxI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyldXqYYG/gza143p04MewpZfIY5hZ7AkrKpM4o+hU7ey16FQOI
+ KIC3L++yImAtQvBzvFllRWR+UlJu8RfDtD86F9EibB3/I0HcTJ06/p39jMrYeQpBsGL6VQxpFPc
+ BtpYcN9fCaSaYzWdHwsxYyZvKUJBgD1IbYRHItQFKxtyfWv85Hp3ml7CofURlb3HPT+xYEOkqvU
+ rzNzQ=
+X-Gm-Gg: AfdE7cnBIZ29hD8j4Q2EqeS5CSFylfcVmeAbIpdrEL9v3JM/jAxhNVFaHnQgHk0Qt67
+ M3gCTAGosyegEsSpX7/KoDcdmBOxREOkUY7ae6OHB8C9IYMUxvEIJLtMq7Ms+wHsQxZ3gdc6ck7
+ wj5+ml2+TDiEN+U8E9LTWI8NZsPFYpAmBD5qGJw4ks2MCYVDYNMY7HHD4+CNYhyOFWqO0DTtW5+
+ j0tKGhkZ7STnoLtdUmbkN15vDcoAe6Xe3d6sCRDnndCutBSU7ptkS1Kc4w7699BiiBG0mkK2cEu
+ 48EkqKHLap7+2/8hcCfIyA8wta9uBlvP0Baev5xOOxJ4geolnF5avEGCxWdg9FRfAK+cS5ZU2Gq
+ dYFe5PI6yb/SfP2iVDOMEVY83yZUoWYvsDwa2nOBx4T/ucO7qAf3UIgF09RjzCeM=
+X-Received: by 2002:a05:622a:510:b0:51c:7b11:41a6 with SMTP id
+ d75a77b69052e-5213f66b7a2mr116069221cf.83.1784527895196; 
+ Sun, 19 Jul 2026 23:11:35 -0700 (PDT)
+X-Received: by 2002:a05:622a:510:b0:51c:7b11:41a6 with SMTP id
+ d75a77b69052e-5213f66b7a2mr116068911cf.83.1784527894633; 
+ Sun, 19 Jul 2026 23:11:34 -0700 (PDT)
 Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
  [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-90778588a39sm84793216d6.20.2026.07.19.23.11.24
+ 6a1803df08f44-90778588a39sm84793216d6.20.2026.07.19.23.11.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Jul 2026 23:11:29 -0700 (PDT)
+ Sun, 19 Jul 2026 23:11:34 -0700 (PDT)
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Mon, 20 Jul 2026 14:08:16 +0800
-Subject: [PATCH v8 09/15] drm/msm/dp: re-arrange dp_display_disable() into
- functional parts
+Date: Mon, 20 Jul 2026 14:08:17 +0800
+Subject: [PATCH v8 10/15] drm/msm/dp: allow dp_ctrl stream APIs to use any
+ panel passed to it
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260720-dp_mstclean-v8-9-bea261bf4e7d@oss.qualcomm.com>
+Message-Id: <20260720-dp_mstclean-v8-10-bea261bf4e7d@oss.qualcomm.com>
 References: <20260720-dp_mstclean-v8-0-bea261bf4e7d@oss.qualcomm.com>
 In-Reply-To: <20260720-dp_mstclean-v8-0-bea261bf4e7d@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -109,38 +110,38 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784527840; l=3890;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784527840; l=32464;
  i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=cC8v2WuisuVaw0cBf4g3L0Y6jW9Y1zprJ/LBzfDlZvU=;
- b=V7hE7hyNsEQYHZHCC9TbZojrbarQgINs6s//Ii+LSbpYzSERG6objSv6/4GknaWiRB/rHJzY6
- n/PX53bDddVCpzuM4Bsm1bBYLwoi1r9Gy8jm99LQjtkp2frQIG/2e+0
+ bh=M/3qBSnURiAfSpf7imZmGSCcN7M0akFHDhqfcWmyCV4=;
+ b=ais4gFXg4Wo3IslO+9hZJPIYSYyhEkxAARFiNNg/y1bW11KZ3gsqlG2zO8ZEAAoq76Ve30ycz
+ u1mDsDw4J9HCEoGNPnWMieuL/EiJ4xujTTntJsUl1kCeH7+pmbcwUf3
 X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
  pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Proofpoint-GUID: kBSpK5IYk-yISRC4UYF3xA0z3cgaefwq
-X-Authority-Analysis: v=2.4 cv=EcH4hvmC c=1 sm=1 tr=0 ts=6a5dbc12 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDA2NyBTYWx0ZWRfXy2UNx8FlvfhG
+ tkT71/QrMc2E/d0mdxf5PXMjNmuyJUXCm04GDg5fi95wtBJlCCuZZ8a2OyRend/Q8eD05Nqw9nS
+ 9eb83HOszuM8ZQqUoundFoL5twinjJ0=
+X-Proofpoint-GUID: wW_XHJbm3rVdhgXOozAej89KHjayi-vG
+X-Proofpoint-ORIG-GUID: wW_XHJbm3rVdhgXOozAej89KHjayi-vG
+X-Authority-Analysis: v=2.4 cv=a+sAM0SF c=1 sm=1 tr=0 ts=6a5dbc18 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=3ttbkIfPOWFMAE6HwJMA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDA2NyBTYWx0ZWRfX6Vjl2nfw2u1V
- iPkXmW2fR+wvjYVe3oE+dga1Umqnwzy3R38mFgbp1OIk4iUiw9sctmNjHuQaT5bPpafDPldediD
- JxN1FX28wknAs7H8BvzGhoSZwXvQ9ruEIrxyzWg/0bk9AaG3VChxG8ykn894nU5OsOXxxb+xlgC
- v/T2r6Vo7hPFHKm9vL7kvyIVqSCLNNiFiLTAqIAnIUcX9NS75OFsavd+i06t5jxPt8VWWoCQbQb
- 82XAFIHIpIDnzeFWDpqGbGJ5Ah9zuWd6O/nclBxG+JkPbpsC5uIsVfGnfX2OVWUDh4/jaamknjb
- prnGcLYHjbKO7hgax3V+s0QSmTcIQ5c2kNyPNT7KON4J9jGFVdrKNULIg5Fqn0n1x8jQBtH91h8
- 5VQyhho05CNtGVQYO4fqqbQkUCyCAde+szDAj/zG04OD7JZMsHbYfeQuOBsoX6/ns8UiHLLR5fH
- 69Ie2hhvPFC/NKAq0sw==
-X-Proofpoint-ORIG-GUID: kBSpK5IYk-yISRC4UYF3xA0z3cgaefwq
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDA2NyBTYWx0ZWRfX8I3a1qL7vsaR
- RBe4qRo3yL9Gj20pvIADDkOZZV1FmQMuUU8VE71WrOWFvHBTJHeVD5feZ9WC6fs/G0T+ALkBemx
- soEtS9KrDuag3G4QxSmojvqyrTbdq5g=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=531mWe0hPKX_9nM1v_MA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDA2NyBTYWx0ZWRfX/GOxprTs9zpf
+ dN9HLSIC+xQ50BX5b12j94ztqTsZ5mrXIOjHCH1i5CZnrWncgZxAynMcpMG/Qjmr2JaGpGl9XkH
+ q65VUZrMSsrjq+1GqWh7dr/McM9pF8EIryMTMG4OObeYK4PVWe70GN8vsiiu+ojESXIThu/m9sA
+ VGYMup2JqonGXuYAwpwLXhN5WQhzcuX+LXz0YJavEZH/x7HpAVpFvvFcjT3y5y8H3zobcqpdZDY
+ gn7U12WMWZE4DWcm1ffNDqM4IecEJnCSm4oFq3jisoPFs+3XR4nC9+PgPKAb0Hk6Eil9Lp4Myrc
+ qJRur6DRUDpeLbx9/S/Hatt14RSgh5zxKV/tHbrNKCCdMlv082YO+vKHgyXIEkzHzsaZc5po6hD
+ KNokZlIqzar26yYxP1Ik7oHb2dYWuSsJnyF0qeO4xxFrmSbiN/fL8roP7iUZ3STE4r0krM8WUZC
+ H4vrIWlZD8ujRZi/P9Q==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-19_08,2026-07-17_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 clxscore=1015 impostorscore=0
- phishscore=0 adultscore=0 malwarescore=0 priorityscore=1501 spamscore=0
+ suspectscore=0 clxscore=1015 impostorscore=0 malwarescore=0 spamscore=0
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607200067
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -160,102 +161,873 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-dp_display_disable() handles special case of when monitor is
-disconnected from the dongle while the dongle stays connected
-thereby needing a separate function dp_ctrl_off_link_stream()
-for this. However with a slight rework this can still be handled
-by keeping common paths same for regular and special case.
+With MST, multiple sinks share a single DP controller, so a cached
+panel in msm_dp_ctrl_private can no longer represent the per-stream
+sink. Drop the cache and pass panel explicitly to all stream-related
+dp_ctrl APIs.
 
 Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/dp/dp_ctrl.c    | 19 +------------------
- drivers/gpu/drm/msm/dp/dp_ctrl.h    |  2 +-
- drivers/gpu/drm/msm/dp/dp_display.c | 10 +++++++++-
- 3 files changed, 11 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 198 ++++++++++++++++++++----------------
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |  28 +++--
+ drivers/gpu/drm/msm/dp/dp_display.c |  24 ++---
+ 3 files changed, 141 insertions(+), 109 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 32607eb678a0..ae79cbec26d1 100644
+index ae79cbec26d1..207643fa7306 100644
 --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
 +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -2601,7 +2601,7 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
+@@ -114,7 +114,6 @@ struct msm_dp_ctrl_private {
+ 	struct drm_device *drm_dev;
+ 	struct device *dev;
+ 	struct drm_dp_aux *aux;
+-	struct msm_dp_panel *panel;
+ 	struct msm_dp_link *link;
+ 	void __iomem *ahb_base;
+ 	void __iomem *link_base;
+@@ -202,7 +201,8 @@ static int msm_dp_aux_link_configure(struct drm_dp_aux *aux,
+ /*
+  * NOTE: resetting DP controller will also clear any pending HPD related interrupts
+  */
+-void msm_dp_ctrl_reset(struct msm_dp_ctrl *msm_dp_ctrl)
++void msm_dp_ctrl_reset(struct msm_dp_ctrl *msm_dp_ctrl,
++		       struct msm_dp_panel *panel)
+ {
+ 	struct msm_dp_ctrl_private *ctrl =
+ 		container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
+@@ -219,7 +219,7 @@ void msm_dp_ctrl_reset(struct msm_dp_ctrl *msm_dp_ctrl)
+ 
+ 	if (!ctrl->hw_revision) {
+ 		ctrl->hw_revision = msm_dp_read_ahb(ctrl, REG_DP_HW_VERSION);
+-		ctrl->panel->hw_revision = ctrl->hw_revision;
++		panel->hw_revision = ctrl->hw_revision;
+ 	}
+ }
+ 
+@@ -414,10 +414,11 @@ static void msm_dp_ctrl_config_ctrl_streams(struct msm_dp_ctrl_private *ctrl,
+ 	msm_dp_write_link(ctrl, REG_DP_CONFIGURATION_CTRL, config);
+ }
+ 
+-static void msm_dp_ctrl_config_ctrl_link(struct msm_dp_ctrl_private *ctrl)
++static void msm_dp_ctrl_config_ctrl_link(struct msm_dp_ctrl_private *ctrl,
++					 struct msm_dp_panel *panel)
+ {
+ 	u32 config = 0;
+-	const u8 *dpcd = ctrl->panel->dpcd;
++	const u8 *dpcd = panel->dpcd;
+ 
+ 	/* Default-> LSCLK DIV: 1/4 LCLK  */
+ 	config |= (2 << DP_CONFIGURATION_CTRL_LSCLK_DIV_SHIFT);
+@@ -480,13 +481,14 @@ static void msm_dp_ctrl_config_misc1_misc0(struct msm_dp_ctrl_private *ctrl,
+ 	msm_dp_write_link(ctrl, REG_DP_MISC1_MISC0, misc_val);
+ }
+ 
+-static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl)
++static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl,
++						struct msm_dp_panel *panel)
+ {
+-	msm_dp_ctrl_config_ctrl_streams(ctrl, ctrl->panel);
++	msm_dp_ctrl_config_ctrl_streams(ctrl, panel);
+ 
+-	msm_dp_ctrl_config_misc1_misc0(ctrl, ctrl->panel);
++	msm_dp_ctrl_config_misc1_misc0(ctrl, panel);
+ 
+-	msm_dp_panel_timing_cfg(ctrl->panel, ctrl->msm_dp_ctrl.wide_bus_en);
++	msm_dp_panel_timing_cfg(panel, ctrl->msm_dp_ctrl.wide_bus_en);
+ }
+ 
+ /*
+@@ -1256,20 +1258,21 @@ static void _dp_ctrl_calc_tu(struct msm_dp_ctrl_private *ctrl,
+ }
+ 
+ static void msm_dp_ctrl_calc_tu_parameters(struct msm_dp_ctrl_private *ctrl,
++		struct msm_dp_panel *panel,
+ 		struct msm_dp_vc_tu_mapping_table *tu_table)
+ {
+ 	struct msm_dp_tu_calc_input in;
+-	struct drm_display_mode *drm_mode;
++	const struct drm_display_mode *drm_mode;
+ 
+-	drm_mode = &ctrl->panel->msm_dp_mode.drm_mode;
++	drm_mode = &panel->msm_dp_mode.drm_mode;
+ 
+ 	in.lclk = ctrl->link->link_params.rate / 1000;
+ 	in.pclk_khz = drm_mode->clock;
+ 	in.hactive = drm_mode->hdisplay;
+ 	in.hporch = drm_mode->htotal - drm_mode->hdisplay;
+ 	in.nlanes = ctrl->link->link_params.num_lanes;
+-	in.bpp = ctrl->panel->msm_dp_mode.bpp;
+-	in.pixel_enc = ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420 ? 420 : 444;
++	in.bpp = panel->msm_dp_mode.bpp;
++	in.pixel_enc = panel->msm_dp_mode.out_fmt_is_yuv_420 ? 420 : 444;
+ 	in.dsc_en = 0;
+ 	in.async_en = 0;
+ 	in.fec_en = 0;
+@@ -1279,14 +1282,15 @@ static void msm_dp_ctrl_calc_tu_parameters(struct msm_dp_ctrl_private *ctrl,
+ 	_dp_ctrl_calc_tu(ctrl, &in, tu_table);
+ }
+ 
+-static void msm_dp_ctrl_setup_tr_unit(struct msm_dp_ctrl_private *ctrl)
++static void msm_dp_ctrl_setup_tr_unit(struct msm_dp_ctrl_private *ctrl,
++				      struct msm_dp_panel *panel)
+ {
+ 	u32 msm_dp_tu = 0x0;
+ 	u32 valid_boundary = 0x0;
+ 	u32 valid_boundary2 = 0x0;
+ 	struct msm_dp_vc_tu_mapping_table tu_calc_table;
+ 
+-	msm_dp_ctrl_calc_tu_parameters(ctrl, &tu_calc_table);
++	msm_dp_ctrl_calc_tu_parameters(ctrl, panel, &tu_calc_table);
+ 
+ 	msm_dp_tu |= tu_calc_table.tu_size_minus1;
+ 	valid_boundary |= tu_calc_table.valid_boundary_link;
+@@ -1438,6 +1442,7 @@ static int msm_dp_ctrl_set_pattern_state_bit(struct msm_dp_ctrl_private *ctrl,
+ }
+ 
+ static int msm_dp_ctrl_link_train_1(struct msm_dp_ctrl_private *ctrl,
++			struct msm_dp_panel *panel,
+ 			int *training_step, enum drm_dp_phy dp_phy)
+ {
+ 	int delay_us;
+@@ -1446,7 +1451,7 @@ static int msm_dp_ctrl_link_train_1(struct msm_dp_ctrl_private *ctrl,
+ 	int const maximum_retries = 4;
+ 
+ 	delay_us = drm_dp_read_clock_recovery_delay(ctrl->aux,
+-						    ctrl->panel->dpcd, dp_phy, false);
++						    panel->dpcd, dp_phy, false);
+ 
+ 	msm_dp_write_link(ctrl, REG_DP_STATE_CTRL, 0);
+ 
+@@ -1532,14 +1537,15 @@ static int msm_dp_ctrl_link_rate_down_shift(struct msm_dp_ctrl_private *ctrl)
  	return ret;
  }
  
--void msm_dp_ctrl_off_link_stream(struct msm_dp_ctrl *msm_dp_ctrl)
-+void msm_dp_ctrl_reinit_phy(struct msm_dp_ctrl *msm_dp_ctrl)
+-static int msm_dp_ctrl_link_lane_down_shift(struct msm_dp_ctrl_private *ctrl)
++static int msm_dp_ctrl_link_lane_down_shift(struct msm_dp_ctrl_private *ctrl,
++					    struct msm_dp_panel *panel)
+ {
+ 
+ 	if (ctrl->link->link_params.num_lanes == 1)
+ 		return -1;
+ 
+ 	ctrl->link->link_params.num_lanes /= 2;
+-	ctrl->link->link_params.rate = ctrl->panel->link_info.rate;
++	ctrl->link->link_params.rate = panel->link_info.rate;
+ 
+ 	ctrl->link->phy_params.p_level = 0;
+ 	ctrl->link->phy_params.v_level = 0;
+@@ -1548,6 +1554,7 @@ static int msm_dp_ctrl_link_lane_down_shift(struct msm_dp_ctrl_private *ctrl)
+ }
+ 
+ static void msm_dp_ctrl_clear_training_pattern(struct msm_dp_ctrl_private *ctrl,
++					       struct msm_dp_panel *panel,
+ 					       enum drm_dp_phy dp_phy)
+ {
+ 	int delay_us;
+@@ -1555,11 +1562,12 @@ static void msm_dp_ctrl_clear_training_pattern(struct msm_dp_ctrl_private *ctrl,
+ 	msm_dp_ctrl_train_pattern_set(ctrl, DP_TRAINING_PATTERN_DISABLE, dp_phy);
+ 
+ 	delay_us = drm_dp_read_channel_eq_delay(ctrl->aux,
+-						ctrl->panel->dpcd, dp_phy, false);
++						panel->dpcd, dp_phy, false);
+ 	fsleep(delay_us);
+ }
+ 
+ static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
++			struct msm_dp_panel *panel,
+ 			int *training_step, enum drm_dp_phy dp_phy)
+ {
+ 	int delay_us;
+@@ -1570,16 +1578,16 @@ static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
+ 	u8 link_status[DP_LINK_STATUS_SIZE];
+ 
+ 	delay_us = drm_dp_read_channel_eq_delay(ctrl->aux,
+-						ctrl->panel->dpcd, dp_phy, false);
++						panel->dpcd, dp_phy, false);
+ 
+ 	msm_dp_write_link(ctrl, REG_DP_STATE_CTRL, 0);
+ 
+ 	*training_step = DP_TRAINING_2;
+ 
+-	if (drm_dp_tps4_supported(ctrl->panel->dpcd)) {
++	if (drm_dp_tps4_supported(panel->dpcd)) {
+ 		pattern = DP_TRAINING_PATTERN_4;
+ 		state_ctrl_bit = 4;
+-	} else if (drm_dp_tps3_supported(ctrl->panel->dpcd)) {
++	} else if (drm_dp_tps3_supported(panel->dpcd)) {
+ 		pattern = DP_TRAINING_PATTERN_3;
+ 		state_ctrl_bit = 3;
+ 	} else {
+@@ -1616,18 +1624,19 @@ static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
+ }
+ 
+ static int msm_dp_ctrl_link_train_1_2(struct msm_dp_ctrl_private *ctrl,
++				      struct msm_dp_panel *panel,
+ 				      int *training_step, enum drm_dp_phy dp_phy)
+ {
+ 	int ret;
+ 
+-	ret = msm_dp_ctrl_link_train_1(ctrl, training_step, dp_phy);
++	ret = msm_dp_ctrl_link_train_1(ctrl, panel, training_step, dp_phy);
+ 	if (ret) {
+ 		DRM_ERROR("link training #1 on phy %d failed. ret=%d\n", dp_phy, ret);
+ 		return ret;
+ 	}
+ 	drm_dbg_dp(ctrl->drm_dev, "link training #1 on phy %d successful\n", dp_phy);
+ 
+-	ret = msm_dp_ctrl_link_train_2(ctrl, training_step, dp_phy);
++	ret = msm_dp_ctrl_link_train_2(ctrl, panel, training_step, dp_phy);
+ 	if (ret) {
+ 		DRM_ERROR("link training #2 on phy %d failed. ret=%d\n", dp_phy, ret);
+ 		return ret;
+@@ -1638,17 +1647,18 @@ static int msm_dp_ctrl_link_train_1_2(struct msm_dp_ctrl_private *ctrl,
+ }
+ 
+ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
++			struct msm_dp_panel *panel,
+ 			int *training_step)
+ {
+ 	int i;
+ 	int ret = 0;
+-	const u8 *dpcd = ctrl->panel->dpcd;
++	const u8 *dpcd = panel->dpcd;
+ 	u8 encoding[] = { 0, DP_SET_ANSI_8B10B };
+ 	u8 assr;
+ 	struct msm_dp_link_info link_info = {0};
+ 
+-	msm_dp_ctrl_config_ctrl_link(ctrl);
+-	msm_dp_ctrl_config_ctrl_streams(ctrl, ctrl->panel);
++	msm_dp_ctrl_config_ctrl_link(ctrl, panel);
++	msm_dp_ctrl_config_ctrl_streams(ctrl, panel);
+ 
+ 	link_info.num_lanes = ctrl->link->link_params.num_lanes;
+ 	link_info.rate = ctrl->link->link_params.rate;
+@@ -1671,8 +1681,8 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
+ 	for (i = ctrl->link->lttpr_count - 1; i >= 0; i--) {
+ 		enum drm_dp_phy dp_phy = DP_PHY_LTTPR(i);
+ 
+-		ret = msm_dp_ctrl_link_train_1_2(ctrl, training_step, dp_phy);
+-		msm_dp_ctrl_clear_training_pattern(ctrl, dp_phy);
++		ret = msm_dp_ctrl_link_train_1_2(ctrl, panel, training_step, dp_phy);
++		msm_dp_ctrl_clear_training_pattern(ctrl, panel, dp_phy);
+ 
+ 		if (ret)
+ 			break;
+@@ -1683,7 +1693,7 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
+ 		goto end;
+ 	}
+ 
+-	ret = msm_dp_ctrl_link_train_1_2(ctrl, training_step, DP_PHY_DPRX);
++	ret = msm_dp_ctrl_link_train_1_2(ctrl, panel, training_step, DP_PHY_DPRX);
+ 	if (ret) {
+ 		DRM_ERROR("link training on sink failed. ret=%d\n", ret);
+ 		goto end;
+@@ -1696,6 +1706,7 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
+ }
+ 
+ static int msm_dp_ctrl_setup_main_link(struct msm_dp_ctrl_private *ctrl,
++			struct msm_dp_panel *panel,
+ 			int *training_step)
+ {
+ 	int ret = 0;
+@@ -1711,7 +1722,7 @@ static int msm_dp_ctrl_setup_main_link(struct msm_dp_ctrl_private *ctrl,
+ 	 * a link training pattern, we have to first do soft reset.
+ 	 */
+ 
+-	ret = msm_dp_ctrl_link_train(ctrl, training_step);
++	ret = msm_dp_ctrl_link_train(ctrl, panel, training_step);
+ 
+ 	return ret;
+ }
+@@ -1810,11 +1821,12 @@ static void msm_dp_ctrl_link_clk_disable(struct msm_dp_ctrl *msm_dp_ctrl)
+ 		   str_on_off(ctrl->core_clks_on));
+ }
+ 
+-static int msm_dp_ctrl_enable_mainlink_clocks(struct msm_dp_ctrl_private *ctrl)
++static int msm_dp_ctrl_enable_mainlink_clocks(struct msm_dp_ctrl_private *ctrl,
++					      struct msm_dp_panel *panel)
+ {
+ 	int ret = 0;
+ 	struct phy *phy = ctrl->phy;
+-	const u8 *dpcd = ctrl->panel->dpcd;
++	const u8 *dpcd = panel->dpcd;
+ 
+ 	ctrl->phy_opts.dp.lanes = ctrl->link->link_params.num_lanes;
+ 	ctrl->phy_opts.dp.link_rate = ctrl->link->link_params.rate / 100;
+@@ -1866,13 +1878,14 @@ static void msm_dp_ctrl_psr_exit(struct msm_dp_ctrl_private *ctrl)
+ 	msm_dp_write_link(ctrl, REG_PSR_CMD, cmd);
+ }
+ 
+-void msm_dp_ctrl_config_psr(struct msm_dp_ctrl *msm_dp_ctrl)
++void msm_dp_ctrl_config_psr(struct msm_dp_ctrl *msm_dp_ctrl,
++			    struct msm_dp_panel *panel)
+ {
+ 	struct msm_dp_ctrl_private *ctrl = container_of(msm_dp_ctrl,
+ 			struct msm_dp_ctrl_private, msm_dp_ctrl);
+ 	u32 cfg;
+ 
+-	if (!ctrl->panel->psr_cap.version)
++	if (!panel->psr_cap.version)
+ 		return;
+ 
+ 	/* enable PSR1 function */
+@@ -1887,12 +1900,13 @@ void msm_dp_ctrl_config_psr(struct msm_dp_ctrl *msm_dp_ctrl)
+ 	drm_dp_dpcd_write(ctrl->aux, DP_PSR_EN_CFG, &cfg, 1);
+ }
+ 
+-void msm_dp_ctrl_set_psr(struct msm_dp_ctrl *msm_dp_ctrl, bool enter)
++void msm_dp_ctrl_set_psr(struct msm_dp_ctrl *msm_dp_ctrl,
++			 struct msm_dp_panel *panel, bool enter)
+ {
+ 	struct msm_dp_ctrl_private *ctrl = container_of(msm_dp_ctrl,
+ 			struct msm_dp_ctrl_private, msm_dp_ctrl);
+ 
+-	if (!ctrl->panel->psr_cap.version)
++	if (!panel->psr_cap.version)
+ 		return;
+ 
+ 	/*
+@@ -1962,7 +1976,8 @@ void msm_dp_ctrl_phy_exit(struct msm_dp_ctrl *msm_dp_ctrl)
+ 	phy_exit(phy);
+ }
+ 
+-static int msm_dp_ctrl_reinitialize_mainlink(struct msm_dp_ctrl_private *ctrl)
++static int msm_dp_ctrl_reinitialize_mainlink(struct msm_dp_ctrl_private *ctrl,
++					     struct msm_dp_panel *panel)
+ {
+ 	struct phy *phy = ctrl->phy;
+ 	int ret = 0;
+@@ -1983,7 +1998,7 @@ static int msm_dp_ctrl_reinitialize_mainlink(struct msm_dp_ctrl_private *ctrl)
+ 	/* hw recommended delay before re-enabling clocks */
+ 	msleep(20);
+ 
+-	ret = msm_dp_ctrl_enable_mainlink_clocks(ctrl);
++	ret = msm_dp_ctrl_enable_mainlink_clocks(ctrl, panel);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to enable mainlink clks. ret=%d\n", ret);
+ 		return ret;
+@@ -1992,7 +2007,8 @@ static int msm_dp_ctrl_reinitialize_mainlink(struct msm_dp_ctrl_private *ctrl)
+ 	return ret;
+ }
+ 
+-static int msm_dp_ctrl_deinitialize_mainlink(struct msm_dp_ctrl_private *ctrl)
++static int msm_dp_ctrl_deinitialize_mainlink(struct msm_dp_ctrl_private *ctrl,
++					     struct msm_dp_panel *panel)
+ {
+ 	struct phy *phy;
+ 
+@@ -2000,7 +2016,7 @@ static int msm_dp_ctrl_deinitialize_mainlink(struct msm_dp_ctrl_private *ctrl)
+ 
+ 	msm_dp_ctrl_mainlink_disable(ctrl);
+ 
+-	msm_dp_ctrl_reset(&ctrl->msm_dp_ctrl);
++	msm_dp_ctrl_reset(&ctrl->msm_dp_ctrl, panel);
+ 
+ 	dev_pm_opp_set_rate(ctrl->dev, 0);
+ 	msm_dp_ctrl_link_clk_disable(&ctrl->msm_dp_ctrl);
+@@ -2014,7 +2030,8 @@ static int msm_dp_ctrl_deinitialize_mainlink(struct msm_dp_ctrl_private *ctrl)
+ 	return 0;
+ }
+ 
+-static int msm_dp_ctrl_link_maintenance(struct msm_dp_ctrl_private *ctrl)
++static int msm_dp_ctrl_link_maintenance(struct msm_dp_ctrl_private *ctrl,
++					struct msm_dp_panel *panel)
+ {
+ 	int ret = 0;
+ 	int training_step = DP_TRAINING_NONE;
+@@ -2024,11 +2041,11 @@ static int msm_dp_ctrl_link_maintenance(struct msm_dp_ctrl_private *ctrl)
+ 	ctrl->link->phy_params.p_level = 0;
+ 	ctrl->link->phy_params.v_level = 0;
+ 
+-	ret = msm_dp_ctrl_setup_main_link(ctrl, &training_step);
++	ret = msm_dp_ctrl_setup_main_link(ctrl, panel, &training_step);
+ 	if (ret)
+ 		goto end;
+ 
+-	msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
++	msm_dp_ctrl_clear_training_pattern(ctrl, panel, DP_PHY_DPRX);
+ 
+ 	msm_dp_write_link(ctrl, REG_DP_STATE_CTRL, DP_STATE_CTRL_SEND_VIDEO);
+ 
+@@ -2207,7 +2224,8 @@ static void msm_dp_ctrl_off_pixel_clk(struct msm_dp_ctrl *msm_dp_ctrl)
+ 	}
+ }
+ 
+-static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl)
++static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl,
++						struct msm_dp_panel *panel)
+ {
+ 	int ret;
+ 	unsigned long pixel_rate;
+@@ -2223,15 +2241,15 @@ static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl
+ 	 * running. Add the global reset just before disabling the
+ 	 * link clocks and core clocks.
+ 	 */
+-	msm_dp_ctrl_off(&ctrl->msm_dp_ctrl);
++	msm_dp_ctrl_off(&ctrl->msm_dp_ctrl, panel);
+ 
+-	ret = msm_dp_ctrl_on_link(&ctrl->msm_dp_ctrl);
++	ret = msm_dp_ctrl_on_link(&ctrl->msm_dp_ctrl, panel);
+ 	if (ret) {
+ 		DRM_ERROR("failed to enable DP link controller\n");
+ 		return ret;
+ 	}
+ 
+-	pixel_rate = ctrl->panel->msm_dp_mode.drm_mode.clock;
++	pixel_rate = panel->msm_dp_mode.drm_mode.clock;
+ 	ret = msm_dp_ctrl_on_pixel_clk(ctrl, pixel_rate);
+ 	if (ret)
+ 		return ret;
+@@ -2241,7 +2259,8 @@ static int msm_dp_ctrl_process_phy_test_request(struct msm_dp_ctrl_private *ctrl
+ 	return 0;
+ }
+ 
+-void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl)
++void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl,
++				     struct msm_dp_panel *panel)
+ {
+ 	struct msm_dp_ctrl_private *ctrl;
+ 	u32 sink_request = 0x0;
+@@ -2256,14 +2275,14 @@ void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl)
+ 
+ 	if (sink_request & DP_TEST_LINK_PHY_TEST_PATTERN) {
+ 		drm_dbg_dp(ctrl->drm_dev, "PHY_TEST_PATTERN request\n");
+-		if (msm_dp_ctrl_process_phy_test_request(ctrl)) {
++		if (msm_dp_ctrl_process_phy_test_request(ctrl, panel)) {
+ 			DRM_ERROR("process phy_test_req failed\n");
+ 			return;
+ 		}
+ 	}
+ 
+ 	if (sink_request & DP_LINK_STATUS_UPDATED) {
+-		if (msm_dp_ctrl_link_maintenance(ctrl)) {
++		if (msm_dp_ctrl_link_maintenance(ctrl, panel)) {
+ 			DRM_ERROR("LM failed: TEST_LINK_TRAINING\n");
+ 			return;
+ 		}
+@@ -2271,7 +2290,7 @@ void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl)
+ 
+ 	if (sink_request & DP_TEST_LINK_TRAINING) {
+ 		msm_dp_link_send_test_response(ctrl->link);
+-		if (msm_dp_ctrl_link_maintenance(ctrl)) {
++		if (msm_dp_ctrl_link_maintenance(ctrl, panel)) {
+ 			DRM_ERROR("LM failed: TEST_LINK_TRAINING\n");
+ 			return;
+ 		}
+@@ -2307,7 +2326,8 @@ static bool msm_dp_ctrl_channel_eq_ok(struct msm_dp_ctrl_private *ctrl)
+ 	return drm_dp_channel_eq_ok(link_status, num_lanes);
+ }
+ 
+-int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
++int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
++			struct msm_dp_panel *panel)
+ {
+ 	int rc = 0;
+ 	struct msm_dp_ctrl_private *ctrl;
+@@ -2323,8 +2343,8 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
+ 
+ 	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
+ 
+-	rate = ctrl->panel->link_info.rate;
+-	pixel_rate = ctrl->panel->msm_dp_mode.drm_mode.clock;
++	rate = panel->link_info.rate;
++	pixel_rate = panel->msm_dp_mode.drm_mode.clock;
+ 
+ 	msm_dp_ctrl_core_clk_enable(&ctrl->msm_dp_ctrl);
+ 
+@@ -2336,8 +2356,8 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
+ 	} else {
+ 		ctrl->link->link_params.rate = rate;
+ 		ctrl->link->link_params.num_lanes =
+-			ctrl->panel->link_info.num_lanes;
+-		if (ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420)
++			panel->link_info.num_lanes;
++		if (panel->msm_dp_mode.out_fmt_is_yuv_420)
+ 			pixel_rate >>= 1;
+ 	}
+ 
+@@ -2345,13 +2365,13 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
+ 		ctrl->link->link_params.rate, ctrl->link->link_params.num_lanes,
+ 		pixel_rate);
+ 
+-	rc = msm_dp_ctrl_enable_mainlink_clocks(ctrl);
++	rc = msm_dp_ctrl_enable_mainlink_clocks(ctrl, panel);
+ 	if (rc)
+ 		return rc;
+ 
+ 	while (--link_train_max_retries) {
+ 		training_step = DP_TRAINING_NONE;
+-		rc = msm_dp_ctrl_setup_main_link(ctrl, &training_step);
++		rc = msm_dp_ctrl_setup_main_link(ctrl, panel, &training_step);
+ 		if (rc == 0) {
+ 			/* training completed successfully */
+ 			break;
+@@ -2370,7 +2390,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
+ 					 * some lanes are ready,
+ 					 * reduce lane number
+ 					 */
+-					rc = msm_dp_ctrl_link_lane_down_shift(ctrl);
++					rc = msm_dp_ctrl_link_lane_down_shift(ctrl, panel);
+ 					if (rc < 0) { /* lane == 1 already */
+ 						/* end with failure */
+ 						break;
+@@ -2391,7 +2411,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
+ 					ctrl->link->link_params.num_lanes))
+ 				rc = msm_dp_ctrl_link_rate_down_shift(ctrl);
+ 			else
+-				rc = msm_dp_ctrl_link_lane_down_shift(ctrl);
++				rc = msm_dp_ctrl_link_lane_down_shift(ctrl, panel);
+ 
+ 			if (rc < 0) {
+ 				/* end with failure */
+@@ -2399,10 +2419,10 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
+ 			}
+ 
+ 			/* stop link training before start re training  */
+-			msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
++			msm_dp_ctrl_clear_training_pattern(ctrl, panel, DP_PHY_DPRX);
+ 		}
+ 
+-		rc = msm_dp_ctrl_reinitialize_mainlink(ctrl);
++		rc = msm_dp_ctrl_reinitialize_mainlink(ctrl, panel);
+ 		if (rc) {
+ 			DRM_ERROR("Failed to reinitialize mainlink. rc=%d\n", rc);
+ 			break;
+@@ -2423,20 +2443,21 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
+ 		 * link training failed
+ 		 * end txing train pattern here
+ 		 */
+-		msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
++		msm_dp_ctrl_clear_training_pattern(ctrl, panel, DP_PHY_DPRX);
+ 
+-		msm_dp_ctrl_deinitialize_mainlink(ctrl);
++		msm_dp_ctrl_deinitialize_mainlink(ctrl, panel);
+ 		rc = -ECONNRESET;
+ 	}
+ 
+ 	return rc;
+ }
+ 
+-static int msm_dp_ctrl_link_retrain(struct msm_dp_ctrl_private *ctrl)
++static int msm_dp_ctrl_link_retrain(struct msm_dp_ctrl_private *ctrl,
++				    struct msm_dp_panel *panel)
+ {
+ 	int training_step = DP_TRAINING_NONE;
+ 
+-	return msm_dp_ctrl_setup_main_link(ctrl, &training_step);
++	return msm_dp_ctrl_setup_main_link(ctrl, panel, &training_step);
+ }
+ 
+ static void msm_dp_ctrl_config_msa(struct msm_dp_ctrl_private *ctrl,
+@@ -2507,7 +2528,9 @@ static void msm_dp_ctrl_config_msa(struct msm_dp_ctrl_private *ctrl,
+ 	msm_dp_write_link(ctrl, REG_DP_SOFTWARE_NVID, nvid);
+ }
+ 
+-int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train)
++int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl,
++				  struct msm_dp_panel *panel,
++				  bool force_link_train)
+ {
+ 	int ret = 0;
+ 	struct msm_dp_ctrl_private *ctrl;
+@@ -2526,7 +2549,7 @@ int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl, bool force_li
+ 		ctrl->core_clks_on, ctrl->link_clks_on, ctrl->stream_clks_on);
+ 
+ 	if (!ctrl->link_clks_on) { /* link clk is off */
+-		ret = msm_dp_ctrl_enable_mainlink_clocks(ctrl);
++		ret = msm_dp_ctrl_enable_mainlink_clocks(ctrl, panel);
+ 		if (ret) {
+ 			DRM_ERROR("Failed to start link clocks. ret=%d\n", ret);
+ 			return ret;
+@@ -2534,15 +2557,15 @@ int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl, bool force_li
+ 	}
+ 
+ 	if (force_link_train || !msm_dp_ctrl_channel_eq_ok(ctrl))
+-		msm_dp_ctrl_link_retrain(ctrl);
++		msm_dp_ctrl_link_retrain(ctrl, panel);
+ 
+ 	/* stop txing train pattern to end link training */
+-	msm_dp_ctrl_clear_training_pattern(ctrl, DP_PHY_DPRX);
++	msm_dp_ctrl_clear_training_pattern(ctrl, panel, DP_PHY_DPRX);
+ 
+ 	return ret;
+ }
+ 
+-int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
++int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *panel)
+ {
+ 	int ret = 0;
+ 	bool mainlink_ready = false;
+@@ -2555,10 +2578,10 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
+ 
+ 	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
+ 
+-	pixel_rate_orig = ctrl->panel->msm_dp_mode.drm_mode.clock;
++	pixel_rate_orig = panel->msm_dp_mode.drm_mode.clock;
+ 	pixel_rate = pixel_rate_orig;
+ 
+-	if (msm_dp_ctrl->wide_bus_en || ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420)
++	if (msm_dp_ctrl->wide_bus_en || panel->msm_dp_mode.out_fmt_is_yuv_420)
+ 		pixel_rate >>= 1;
+ 
+ 	drm_dbg_dp(ctrl->drm_dev, "pixel_rate=%lu\n", pixel_rate);
+@@ -2575,18 +2598,18 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl)
+ 
+ 	msm_dp_ctrl_lane_mapping(ctrl);
+ 	msm_dp_setup_peripheral_flush(ctrl);
+-	msm_dp_ctrl_config_ctrl_link(ctrl);
++	msm_dp_ctrl_config_ctrl_link(ctrl, panel);
+ 
+-	msm_dp_ctrl_configure_source_params(ctrl);
++	msm_dp_ctrl_configure_source_params(ctrl, panel);
+ 
+ 	msm_dp_ctrl_config_msa(ctrl,
+ 		ctrl->link->link_params.rate,
+ 		pixel_rate_orig,
+-		ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420);
++		panel->msm_dp_mode.out_fmt_is_yuv_420);
+ 
+-	msm_dp_panel_clear_dsc_dto(ctrl->panel);
++	msm_dp_panel_clear_dsc_dto(panel);
+ 
+-	msm_dp_ctrl_setup_tr_unit(ctrl);
++	msm_dp_ctrl_setup_tr_unit(ctrl, panel);
+ 
+ 	msm_dp_write_link(ctrl, REG_DP_STATE_CTRL, DP_STATE_CTRL_SEND_VIDEO);
+ 
+@@ -2614,7 +2637,8 @@ void msm_dp_ctrl_reinit_phy(struct msm_dp_ctrl *msm_dp_ctrl)
+ 	phy_init(phy);
+ }
+ 
+-void msm_dp_ctrl_off(struct msm_dp_ctrl *msm_dp_ctrl)
++void msm_dp_ctrl_off(struct msm_dp_ctrl *msm_dp_ctrl,
++		     struct msm_dp_panel *panel)
  {
  	struct msm_dp_ctrl_private *ctrl;
  	struct phy *phy;
-@@ -2609,23 +2609,6 @@ void msm_dp_ctrl_off_link_stream(struct msm_dp_ctrl *msm_dp_ctrl)
+@@ -2622,11 +2646,11 @@ void msm_dp_ctrl_off(struct msm_dp_ctrl *msm_dp_ctrl)
  	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
  	phy = ctrl->phy;
  
 -	msm_dp_panel_disable_vsc_sdp(ctrl->panel);
--
--	/* set dongle to D3 (power off) mode */
--	msm_dp_link_psm_config(ctrl->link, &ctrl->panel->link_info, true);
--
--	msm_dp_ctrl_mainlink_disable(ctrl);
--
--	if (ctrl->stream_clks_on) {
--		clk_disable_unprepare(ctrl->pixel_clk);
--		ctrl->stream_clks_on = false;
--	}
--
--	dev_pm_opp_set_rate(ctrl->dev, 0);
--	msm_dp_ctrl_link_clk_disable(&ctrl->msm_dp_ctrl);
--
--	phy_power_off(phy);
--
- 	/* aux channel down, reinit phy */
- 	phy_exit(phy);
- 	phy_init(phy);
++	msm_dp_panel_disable_vsc_sdp(panel);
+ 
+ 	msm_dp_ctrl_mainlink_disable(ctrl);
+ 
+-	msm_dp_ctrl_reset(&ctrl->msm_dp_ctrl);
++	msm_dp_ctrl_reset(&ctrl->msm_dp_ctrl, panel);
+ 
+ 	msm_dp_ctrl_off_pixel_clk(msm_dp_ctrl);
+ 	dev_pm_opp_set_rate(ctrl->dev, 0);
+@@ -2635,7 +2659,8 @@ void msm_dp_ctrl_off(struct msm_dp_ctrl *msm_dp_ctrl)
+ 	phy_power_off(phy);
+ }
+ 
+-irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm_dp_ctrl)
++irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm_dp_ctrl,
++			    struct msm_dp_panel *panel)
+ {
+ 	struct msm_dp_ctrl_private *ctrl;
+ 	u32 isr;
+@@ -2646,7 +2671,7 @@ irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm_dp_ctrl)
+ 
+ 	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
+ 
+-	if (ctrl->panel->psr_cap.version) {
++	if (panel->psr_cap.version) {
+ 		isr = msm_dp_ctrl_get_psr_interrupt(ctrl);
+ 
+ 		if (isr)
+@@ -2735,7 +2760,7 @@ static int msm_dp_ctrl_clk_init(struct msm_dp_ctrl *msm_dp_ctrl)
+ }
+ 
+ struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev, struct msm_dp_link *link,
+-			struct msm_dp_panel *panel,	struct drm_dp_aux *aux,
++			struct drm_dp_aux *aux,
+ 			struct phy *phy,
+ 			void __iomem *ahb_base,
+ 			void __iomem *link_base)
+@@ -2743,7 +2768,7 @@ struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev, struct msm_dp_link *link
+ 	struct msm_dp_ctrl_private *ctrl;
+ 	int ret;
+ 
+-	if (!dev || !panel || !aux || !link) {
++	if (!dev || !aux || !link) {
+ 		DRM_ERROR("invalid input\n");
+ 		return ERR_PTR(-EINVAL);
+ 	}
+@@ -2771,7 +2796,6 @@ struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev, struct msm_dp_link *link
+ 	init_completion(&ctrl->video_comp);
+ 
+ 	/* in parameters */
+-	ctrl->panel    = panel;
+ 	ctrl->aux      = aux;
+ 	ctrl->link     = link;
+ 	ctrl->dev      = dev;
 diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-index 1497f1a8fc2f..5d615f50d13b 100644
+index 5d615f50d13b..00b430392a52 100644
 --- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
 +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-@@ -19,7 +19,6 @@ struct phy;
- int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl);
- int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl);
- int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train);
--void msm_dp_ctrl_off_link_stream(struct msm_dp_ctrl *msm_dp_ctrl);
- void msm_dp_ctrl_off(struct msm_dp_ctrl *msm_dp_ctrl);
- void msm_dp_ctrl_push_idle(struct msm_dp_ctrl *msm_dp_ctrl);
- irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm_dp_ctrl);
-@@ -46,4 +45,5 @@ void msm_dp_ctrl_core_clk_disable(struct msm_dp_ctrl *msm_dp_ctrl);
- void msm_dp_ctrl_enable_irq(struct msm_dp_ctrl *msm_dp_ctrl);
- void msm_dp_ctrl_disable_irq(struct msm_dp_ctrl *msm_dp_ctrl);
+@@ -16,28 +16,36 @@ struct msm_dp_ctrl {
  
-+void msm_dp_ctrl_reinit_phy(struct msm_dp_ctrl *msm_dp_ctrl);
- #endif /* _DP_CTRL_H_ */
+ struct phy;
+ 
+-int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl);
+-int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl);
+-int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl, bool force_link_train);
+-void msm_dp_ctrl_off(struct msm_dp_ctrl *msm_dp_ctrl);
++int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
++			struct msm_dp_panel *panel);
++int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *panel);
++int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl,
++				  struct msm_dp_panel *panel,
++				  bool force_link_train);
++void msm_dp_ctrl_off(struct msm_dp_ctrl *msm_dp_ctrl,
++		     struct msm_dp_panel *panel);
+ void msm_dp_ctrl_push_idle(struct msm_dp_ctrl *msm_dp_ctrl);
+-irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm_dp_ctrl);
+-void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl);
++irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm_dp_ctrl,
++			    struct msm_dp_panel *panel);
++void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl,
++				     struct msm_dp_panel *panel);
+ struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev,
+ 				    struct msm_dp_link *link,
+-				    struct msm_dp_panel *panel,
+ 				    struct drm_dp_aux *aux,
+ 				    struct phy *phy,
+ 				    void __iomem *ahb_base,
+ 				    void __iomem *link_base);
+ 
+-void msm_dp_ctrl_reset(struct msm_dp_ctrl *msm_dp_ctrl);
++void msm_dp_ctrl_reset(struct msm_dp_ctrl *msm_dp_ctrl,
++		       struct msm_dp_panel *panel);
+ void msm_dp_ctrl_phy_init(struct msm_dp_ctrl *msm_dp_ctrl);
+ void msm_dp_ctrl_phy_exit(struct msm_dp_ctrl *msm_dp_ctrl);
+ void msm_dp_ctrl_irq_phy_exit(struct msm_dp_ctrl *msm_dp_ctrl);
+ 
+-void msm_dp_ctrl_set_psr(struct msm_dp_ctrl *msm_dp_ctrl, bool enable);
+-void msm_dp_ctrl_config_psr(struct msm_dp_ctrl *msm_dp_ctrl);
++void msm_dp_ctrl_set_psr(struct msm_dp_ctrl *msm_dp_ctrl,
++			 struct msm_dp_panel *panel, bool enable);
++void msm_dp_ctrl_config_psr(struct msm_dp_ctrl *msm_dp_ctrl,
++			    struct msm_dp_panel *panel);
+ 
+ int msm_dp_ctrl_core_clk_enable(struct msm_dp_ctrl *msm_dp_ctrl);
+ void msm_dp_ctrl_core_clk_disable(struct msm_dp_ctrl *msm_dp_ctrl);
 diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index ced299cad831..9df094340f0b 100644
+index 9df094340f0b..8694f366623d 100644
 --- a/drivers/gpu/drm/msm/dp/dp_display.c
 +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -716,12 +716,20 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp)
- 	if (!msm_dp_display->power_on)
- 		return 0;
+@@ -359,7 +359,7 @@ static void msm_dp_display_host_init(struct msm_dp_display_private *dp)
+ 		dp->phy_initialized);
  
-+	msm_dp_panel_disable_vsc_sdp(dp->panel);
-+
-+	/* dongle is still connected but sinks are disconnected */
- 	if (dp->link->sink_count == 0) {
- 		/*
- 		 * irq_hpd with sink_count = 0
- 		 * hdmi unplugged out of dongle
- 		 */
--		msm_dp_ctrl_off_link_stream(dp->ctrl);
-+
-+		/* set dongle to D3 (power off) mode */
-+		msm_dp_link_psm_config(dp->link, &dp->panel->link_info, true);
-+		msm_dp_ctrl_off(dp->ctrl);
-+		/* re-init the PHY so that we can listen to Dongle disconnect */
-+		msm_dp_ctrl_reinit_phy(dp->ctrl);
+ 	msm_dp_ctrl_core_clk_enable(dp->ctrl);
+-	msm_dp_ctrl_reset(dp->ctrl);
++	msm_dp_ctrl_reset(dp->ctrl, dp->panel);
+ 	msm_dp_ctrl_enable_irq(dp->ctrl);
+ 	msm_dp_aux_init(dp->aux);
+ 	dp->core_initialized = true;
+@@ -371,7 +371,7 @@ static void msm_dp_display_host_deinit(struct msm_dp_display_private *dp)
+ 		dp->msm_dp_display.connector_type, dp->core_initialized,
+ 		dp->phy_initialized);
+ 
+-	msm_dp_ctrl_reset(dp->ctrl);
++	msm_dp_ctrl_reset(dp->ctrl, dp->panel);
+ 	msm_dp_ctrl_disable_irq(dp->ctrl);
+ 	msm_dp_aux_deinit(dp->aux);
+ 	msm_dp_ctrl_core_clk_disable(dp->ctrl);
+@@ -392,7 +392,7 @@ static int msm_dp_display_handle_irq_hpd(struct msm_dp_display_private *dp)
+ 
+ 	drm_dbg_dp(dp->drm_dev, "%d\n", sink_request);
+ 
+-	msm_dp_ctrl_handle_sink_request(dp->ctrl);
++	msm_dp_ctrl_handle_sink_request(dp->ctrl, dp->panel);
+ 
+ 	if (sink_request & DP_TEST_LINK_VIDEO_PATTERN)
+ 		msm_dp_display_handle_video_request(dp);
+@@ -570,7 +570,7 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
+ 		goto error_link;
+ 	}
+ 
+-	dp->ctrl = msm_dp_ctrl_get(dev, dp->link, dp->panel, dp->aux,
++	dp->ctrl = msm_dp_ctrl_get(dev, dp->link, dp->aux,
+ 			       phy, dp->ahb_base, dp->link_base);
+ 	if (IS_ERR(dp->ctrl)) {
+ 		rc = PTR_ERR(dp->ctrl);
+@@ -642,14 +642,14 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
+ 		force_link_train = true;
+ 	}
+ 
+-	rc = msm_dp_ctrl_on_link(dp->ctrl);
++	rc = msm_dp_ctrl_on_link(dp->ctrl, dp->panel);
+ 	if (rc) {
+ 		DRM_ERROR("Failed link training (rc=%d)\n", rc);
+ 		// TODO: schedule drm_connector_set_link_status_property()
+ 		return rc;
+ 	}
+ 
+-	return msm_dp_ctrl_prepare_stream_on(dp->ctrl, force_link_train);
++	return msm_dp_ctrl_prepare_stream_on(dp->ctrl, dp->panel, force_link_train);
+ }
+ 
+ static int msm_dp_display_enable(struct msm_dp_display_private *dp)
+@@ -663,7 +663,7 @@ static int msm_dp_display_enable(struct msm_dp_display_private *dp)
+ 		return 0;
+ 	}
+ 
+-	rc = msm_dp_ctrl_on_stream(dp->ctrl);
++	rc = msm_dp_ctrl_on_stream(dp->ctrl, dp->panel);
+ 	if (!rc)
+ 		msm_dp_display->power_on = true;
+ 
+@@ -688,7 +688,7 @@ static int msm_dp_display_post_enable(struct msm_dp *msm_dp_display)
+ 	msm_dp_display_handle_plugged_change(msm_dp_display, true);
+ 
+ 	if (msm_dp_display->psr_supported)
+-		msm_dp_ctrl_config_psr(dp->ctrl);
++		msm_dp_ctrl_config_psr(dp->ctrl, dp->panel);
+ 
+ 	return 0;
+ }
+@@ -727,7 +727,7 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp)
+ 
+ 		/* set dongle to D3 (power off) mode */
+ 		msm_dp_link_psm_config(dp->link, &dp->panel->link_info, true);
+-		msm_dp_ctrl_off(dp->ctrl);
++		msm_dp_ctrl_off(dp->ctrl, dp->panel);
+ 		/* re-init the PHY so that we can listen to Dongle disconnect */
+ 		msm_dp_ctrl_reinit_phy(dp->ctrl);
  	} else {
- 		/*
+@@ -735,7 +735,7 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp)
  		 * unplugged interrupt
+ 		 * dongle unplugged out of DUT
+ 		 */
+-		msm_dp_ctrl_off(dp->ctrl);
++		msm_dp_ctrl_off(dp->ctrl, dp->panel);
+ 		msm_dp_display_host_phy_exit(dp);
+ 	}
+ 
+@@ -871,7 +871,7 @@ void msm_dp_display_set_psr(struct msm_dp *msm_dp_display, bool enter)
+ 	}
+ 
+ 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
+-	msm_dp_ctrl_set_psr(dp->ctrl, enter);
++	msm_dp_ctrl_set_psr(dp->ctrl, dp->panel, enter);
+ }
+ 
+ /**
+@@ -981,7 +981,7 @@ static irqreturn_t msm_dp_display_irq_handler(int irq, void *dev_id)
+ 	}
+ 
+ 	/* DP controller isr */
+-	ret |= msm_dp_ctrl_isr(dp->ctrl);
++	ret |= msm_dp_ctrl_isr(dp->ctrl, dp->panel);
+ 
+ 	return ret;
+ }
 
 -- 
 2.43.0
