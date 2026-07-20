@@ -4,123 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C63BC44521
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:17:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23A41C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:17:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C2E310E7CA;
-	Mon, 20 Jul 2026 07:17:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FB5D10E7D3;
+	Mon, 20 Jul 2026 07:17:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ouynuz9X";
+	dkim=pass (2048-bit key; unprotected) header.d=mt.com header.i=@mt.com header.b="dSR4z9QV";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55A1D10F24C;
- Thu, 16 Jul 2026 09:28:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CB346600B0;
- Thu, 16 Jul 2026 09:28:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 385B31F000E9;
- Thu, 16 Jul 2026 09:27:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784194089;
- bh=/0foZKhiUwL8omqMEdPagooKRvaN2Pu32mvklzzR96U=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Ouynuz9X0lV2DAJDCejClm81hBPwIvqmcFzLkXPpDvO8UAzJ88Y5GFYWUGewLjfo4
- HKvUXozG50KbI7M8oj9PZqHoNdM3EWsTOc5AoySLbeypeJa24AUH4AxU81qOxHVvw0
- LWvKYpCHYG972J1MXh+h9WLhUWEBriCZ3WTWAqSriYpYKn4bXicTywz8/GNCucKdn8
- R6LKviBKKQBuclZEJxtnFDDX5dD5VKnTRgP5qx8f/ILSXiidqRmj+frtMf0NdUMKLi
- 5KUn6IrqcfVxM9r76RXMPOnT1CywejJXY9d/xN41f7ojz71LUqX+G/Fq0sdzs/NK2v
- CrhSCYImgSEMA==
-Date: Thu, 16 Jul 2026 10:27:33 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, 
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
- Pedro Falcato <pfalcato@suse.de>, Russell King <linux@armlinux.org.uk>, 
- Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>,
- Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
- SJ Park <sj@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>,
- Peter Xu <peterx@redhat.com>, 
- Kees Cook <kees@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
- Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>,
- Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
- x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazon11011013.outbound.protection.outlook.com
+ [40.107.130.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A07B210E6B9
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:55:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cHFEZ9MeJj4uKyjWPmwGhnZcKQSMeRLSUlUf3bGPqJwZKUFaaPrMYr/VZUwEgLLtPf/9v0VS3IaRpMpKrhQlcyp5xphLV/WWKkEj2ihonNEUftUemJmzbuvYDSS91GgC8WGXzKvJcX5eQMDhr62bxC/PSkVFVTS9nZ0NseuhnfSy9RT9xLGBk9INASnbDDCdOk+mv5zmerWxj8bap8lGK65mmmL3AJmCYnTVXEnNuDN5zwy4Hvj+aHeisVRaBQZO5c3IngyNkD0sMvcB/Tz+PVJbnFzdBRkuTBQ6M2oCkp8Gc85oahDIG21tX8HZvFdKvasnTbT8H51p0KrFgx1/Yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RJEYDwGuwdRotgzY7j0rCz/IgZSnSVJ9SGs2CPGqHes=;
+ b=NUr38B1mGHccqcd5yhmxi0SihtwMLt5wkAXGmZsuHoCMWpQCrR8o29d1jVjIJaDIG33gfp47YzaK3YH8I30brr+KtSLEd0OugynhQQ2eQVp4En1hwQxqxlf8qiX6EguRUH5F/JCmQP7gmjqDfOPUaWRltcwu9SfyP3VoyzMHZuOcAU3F7nm9G4HEql/XFcF3ekvhcn75j78wg3yIQctWcmfdM4oF0jSg6c929O6t5X2EnJ00aUwqwtsXxylU2FllCkoMBpEDqnFLX9DkW5wKI8mJR+ExEFThZUxelUydXRhoW/eh7klJ0/lBfB7LuNKRNJVFRyofsVqRI2I6TGwivw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
+ header.d=mt.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RJEYDwGuwdRotgzY7j0rCz/IgZSnSVJ9SGs2CPGqHes=;
+ b=dSR4z9QV7elpzn8fJgSHy/stkNMGCkagKuO1JOCDfrk6/86nR6wUwvZzBxrIX9yOIXE8I4iH2GWSn9VAZu0OTYO1hiOhDilA6ldL6zWNsWheOJy5AU0i9kVto8N/3m+lLP7JGWxb6prTsZ81cYvTecSq+tMf1IfQLICGudVSvylDKyIIt1lwl7m2hHC3r+umt1CjFTI/WC0MVKMxD7AjG6tIaah9BhTaGL14j2xQ0MgWKgC76MzhrDCv4S50TO/0cKtLcX/iXPTuPJHjOZsnw75UdI3nvj320DJIy36SA7ty6JJzetH7/Reckg+FoLGJMHUYk3dusTM+/yYGbv0RWQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mt.com;
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
+ by AS2PR03MB9467.eurprd03.prod.outlook.com (2603:10a6:20b:59c::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.16; Mon, 20 Jul
+ 2026 06:55:14 +0000
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0223.015; Mon, 20 Jul 2026
+ 06:55:14 +0000
+Date: Mon, 20 Jul 2026 08:55:11 +0200
+From: Wojciech Dubowik <wojciech.dubowik@mt.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, 
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>, 
- Shameer Kolothum <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
- Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev,
- iommu@lists.linux.dev, 
- kasan-dev@googlegroups.com, linux-sgx@vger.kernel.org,
- etnaviv@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, kvm@vger.kernel.org, 
- Russell King <linux+etnaviv@armlinux.org.uk>
-Subject: Re: [PATCH v2 18/33] mm/vma: use vma_start_pgoff(),
- linear_page_index() in mm code
-Message-ID: <aligtF3WwRam1rMd@lucifer>
-References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
- <20260710-b4-pre-scalable-cow-v2-18-2a5aa403d977@kernel.org>
- <e98110da-f26a-46ca-8360-fc84fc159bd8@kernel.org>
-MIME-Version: 1.0
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 2/3] dt-bindings: display: sn65dsi83: Add output
+ data-lanes property
+Message-ID: <al3GT1MuFZZmE-GY@mt.com>
+References: <20260717115002.308035-1-wojciech.dubowik@mt.com>
+ <20260717115002.308035-3-wojciech.dubowik@mt.com>
+ <20260720-international-industrious-hippogriff-dd24ee@quoll>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <e98110da-f26a-46ca-8360-fc84fc159bd8@kernel.org>
-X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
+In-Reply-To: <20260720-international-industrious-hippogriff-dd24ee@quoll>
+X-ClientProxiedBy: ZR0P278CA0005.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:16::15) To DB9PR03MB7180.eurprd03.prod.outlook.com
+ (2603:10a6:10:22d::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|AS2PR03MB9467:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f8b985b-b552-499f-5dfb-08dee62bd9bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|19092799006|23010399003|366016|52116014|376014|7416014|1800799024|38350700014|56012099006|5023799004|10067099003|4143699003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: /zBNlxpTothF2gWt3emIiESJTYuoyrU8dXgTtXDnDz5vnyw2Qvatcsb/aGx0VoXpFQgHbxASf88epcJvFtxmJG7b4LqT4qTsdrGWLdvrn3BnSmiGilkOsNRQ+IeqUuoibTQLpooTiR1anY9IQmf8iBdzrinv82D8JqIQoN63k8XfZuRW8tgWsJTuYsoLUullD5erJtXmCfbqTt495PoszSHBqGtz4IvlTwKGJSLx7f35TPAXbkWgQzWNNJy+lJ878mEoIiyT4RmNPeGq8oJlQRNZF/m6PM03ivlbEuHRJMKccao4DguRP/jAl1d9Zpei0oBvSXRwi4UJ63WLxQR+mCDRQseYpn5QHVB5VSZFIck696tEUOwPB9XKnmjbTvJCQcp/hpM+knP8BE3oKdr0rb8YJe7DnEhB+h+3wWtyn93+JJGjQv3x4XnfhDMkL5QqQ+6TyVXW6BUTx1jrKAUPMmBlYPrHEGfPZorF/7NO0pagbdyVIFRc5hAmeqVE5YjaMdQ6urSd5tyTAgG9gpqRYJLO1KHyPEw/05YrgN0lRshBk//yUdOu95x3NIFvXVMZt5b9CV1FOy78nbaBf7Ac5A5QePK8m/N8i4XJjSJTZ3mCjoDEQ9QxAUd87E7IWML/zsbSVGuSo+KSi7Ay02IVBHN+6h2tpm1dze0wWaaWcWYpJT0lX3UOYqA+DO4hws8gKRZwH5kmraNEQNHP12v4lg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB9PR03MB7180.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(19092799006)(23010399003)(366016)(52116014)(376014)(7416014)(1800799024)(38350700014)(56012099006)(5023799004)(10067099003)(4143699003)(22082099003)(18002099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?toB5vYJ4YMriCaYhP1J9rad51mXPMfCsXrk81+3pGyjK+2JD+asy1B6KUbuB?=
+ =?us-ascii?Q?jwRQ7M1aQIeiZe+9z85bcphjH/LlwWZgJ3eKO7q2zv2F2uNZO8oUHnXLW2fq?=
+ =?us-ascii?Q?3H87u8z/E1h9tIWqelof093qweC0dqJ9x8hTStHuAlDoj6JhE4ORaSS/Vt5Q?=
+ =?us-ascii?Q?4xijjdgmZ3Ddgo+9vgF/8sH96mAOEQ0eoZkVx/hrOYt8KyAxFu9kEBHX/2IW?=
+ =?us-ascii?Q?lc95lNF3HvBQ7eAbv8Pp9iCmgmBfjR/V08PKImyYrsuhXdUFnw6fy4hCeJK/?=
+ =?us-ascii?Q?8pdm4OEq+iaPjPptFfmmTvZnkpQTCogG1SrukgS+lr1O5ai/n1YWA9wuKnLH?=
+ =?us-ascii?Q?SrENE89bCYiVr8dDDeOwPTCekMVax1iwhCx5GkO2Nt8ionfn1sLt7Fo+ZIXu?=
+ =?us-ascii?Q?ugQ9/nTCFyDuPxr0qN3+qDuu835P8oqaFcsewT+qJoCb5ZNqsxmX5EawqOw3?=
+ =?us-ascii?Q?/P0RlIleFHPhXnxPZn9Fq3x0X05zfB0GyHLhPqE2T+mSxiGW37mmTck5XeSv?=
+ =?us-ascii?Q?PG/NGvx0Rw0YNlIRTd+N3xduJQXRusudgFMkXcS8RkPJFH5v48pMHs6A8t4/?=
+ =?us-ascii?Q?o2uBGWFjar+3Z+sDpS7XPGxgB2z8PX9ULZZOtA/eOIHaCzttpXYK28k2ftUj?=
+ =?us-ascii?Q?Vk9yJDV4XFNHsfqJxmcByz6aIiZybPAdZnYt+0vlYcC3z8bBhA3UltElYluE?=
+ =?us-ascii?Q?yImRHBj/Z/WF4VXYvdp2Aad8RPFEbOm8ZyrBcY6ryDvUpaZZtX84FMB+jQq4?=
+ =?us-ascii?Q?y35uZmW2XOOVofVkWpL5eJhjfaQFK40iNFoUaEvrWDO6WFeifTLEuqcjJCUN?=
+ =?us-ascii?Q?xLl/akuxqu6jYvjEuKlzrawWl8IWThBloYJZf+UgpMw82Jd2A4k7VWMEarSF?=
+ =?us-ascii?Q?b8LLHgqehjAjIvaH+ChggvSCIs3E61QE0yoqnn2mmZN2czIoeJve/yXGG27Z?=
+ =?us-ascii?Q?CQ0oHTdUYAHPmn8GcZOSjAanXPUUjuldXI4+fmAuNS0JgTECdGG84NMghqzx?=
+ =?us-ascii?Q?4O1XNj5quYv1UAuYL7zjUDqyB3yQyqT4SNe4wr3rIYLEXBb40MDpVPn1TkXd?=
+ =?us-ascii?Q?Gi345ZkZaPXKZ8IgrbE+ESw0NBgLRlt2uIsm5FEiwgVdHABcPaNXBLbYCq+1?=
+ =?us-ascii?Q?OWo5P51sXbvsOeYbKTd5Yqe46IbSUuqwg4w+3stcNf9Q8SQzCMgrDuBiK2w/?=
+ =?us-ascii?Q?z84gchsVMKAuckY8MYWH3X6X7/QKs2d+HEuoUACMaaxUby3D+6bPbkIROxZN?=
+ =?us-ascii?Q?mnBv90Z2BW/wKZ6I7AfkouTulG7VFuBA4rn7kVGbBSbLaCNH6Z7cJyMtYFLg?=
+ =?us-ascii?Q?b4L3jFsuBEB9J/TP14qu3K/bPScpp8Wpxej/gVvYUsyyfmQK3lYdEeQFWilS?=
+ =?us-ascii?Q?hEIt1PWWw86oLAGae3LhtLZExEfY5KRzT+fHS3IOzwDemVckZyobDP0NHMGj?=
+ =?us-ascii?Q?q1QY9UNcYX5WMguEn2Mq9zjAaOtFIJ2Vy4ogoTAiVbNWv27MNfeKdlEM6UuZ?=
+ =?us-ascii?Q?0dzKktbiO8q6sC1At8DZeXant9eBi2QSJ5Q7HVdWxCffbnao9OVKirexpMcR?=
+ =?us-ascii?Q?mIX/JFBnGjYNoIrt0TqH/6aN6f22sGsQg4sKZAwukmARgQiArIkHhtc5jssy?=
+ =?us-ascii?Q?2EIGT+cD1bDQQzhJDuVJHnQxmIr1V3yrlT6W3y/L95i9GgSVknIIEbflzm6j?=
+ =?us-ascii?Q?CbLzISFjf1P7tl7inLru2ekhuyL2qEJ5oxEezLQeCPD1UXLV8WXSL3m5C8eW?=
+ =?us-ascii?Q?EEJbZcrmRA=3D=3D?=
+X-OriginatorOrg: mt.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f8b985b-b552-499f-5dfb-08dee62bd9bf
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 06:55:14.5683 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: skHa9DwiRiA7FxkHjP9pvYovzicWsxFoDbBpw0wJACjL4aJvxT5HesvmGWKAagOQOm0YBDXMLYXYkX7uGE7oWQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB9467
+X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:04 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,166 +139,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 15, 2026 at 05:23:09PM +0200, Vlastimil Babka (SUSE) wrote:
-> On 7/10/26 22:16, Lorenzo Stoakes wrote:
-> > There are many instances in which linear_page_index() (as well as
-> > linear_page_delta()) is open-coded, which is confusing and inconsistent.
-> >
-> > Additionally, vma->vm_pgoff doesn't necessarily make it clear that this is
-> > the page offset of the start of the VMA range.
-> >
-> > Doing so also aids greppability.
-> >
-> > So use vma_start_pgoff() in favour of directly accessing vma->vm_pgoff, and
-> > linear_page_index() where we can.
-> >
-> > This also lays the ground for future changes which will add an anonymous
-> > page offset in order to be able to index MAP_PRIVATE-file backed anon
-> > folios in terms of their virtual page offset.
-> >
-> > No functional change intended.
-> >
-> > Reviewed-by: Gregory Price <gourry@gourry.net>
-> > Reviewed-by: SJ Park <sj@kernel.org>
-> > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
->
-> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+On Mon, Jul 20, 2026 at 07:51:10AM +0200, Krzysztof Kozlowski wrote:
+> On Fri, Jul 17, 2026 at 01:50:00PM +0200, Wojciech Dubowik wrote:
+> > From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+> > 
+> > Add an optional output lvds data lanes property with two allowed values.
+> > The array <1 2 3 4> for standard layout and <4 3 2 1> for reversed lvds
+> > output lanes. The latter informs the driver that reverse lvds config
+> > option has to be set in config register for the respective output channel.
+> > 
+> > Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+> 
+> Well, I am not doing the work twice (nothing in cover letter explains
+> why I should, IOW, why you decided to drop my review).
 
-Thanks!
+Sorry. Missed it. I will add reviewed-by-you tag in the nest interation.
 
->
-> Nit:
->
-> > diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-> > index 2058db9c01d5..d10b8042adb5 100644
-> > --- a/mm/damon/vaddr.c
-> > +++ b/mm/damon/vaddr.c
-> > @@ -10,6 +10,7 @@
-> >  #include <linux/mman.h>
-> >  #include <linux/mmu_notifier.h>
-> >  #include <linux/page_idle.h>
-> > +#include <linux/pagemap.h>
-> >  #include <linux/pagewalk.h>
-> >  #include <linux/sched/mm.h>
-> >
-> > @@ -623,8 +624,8 @@ static void damos_va_migrate_dests_add(struct folio *folio,
-> >  	}
-> >
-> >  	order = folio_order(folio);
-> > -	ilx = vma->vm_pgoff >> order;
-> > -	ilx += (addr - vma->vm_start) >> (PAGE_SHIFT + order);
-> > +	ilx = vma_start_pgoff(vma) >> order;
-> > +	ilx += linear_page_delta(vma, addr) >> order;
->
-> Could these be combined to linear_page_index(vma, addr) >> order?
+Regards,
+Wojtek
 
-So this is:
-
-	(x >> order) + (y >> order)
-
-And linear_page_index(vma, addr) >> order is:
-
-	(x + y) >> order
-
-Consider:
-
-	order = 1, x = 0b11, y = 0b01
-
-	(x    >> order) + (y    >> order) =
-	(0b11 >> 1    ) + (0b01 >> 1    ) =
-	0b1             + 0               =
-	1
-
-	(x    + y   ) >> order =
-	(0b11 + 0b01) >> 1     =
-	(0b100      ) >> 1     =
-	2
-
-They are not equivalent - the carry bit changes the result.
-
->
-> >
-> >  	for (i = 0; i < dests->nr_dests; i++)
-> >  		weight_total += dests->weight_arr[i];
->
-> > diff --git a/mm/filemap.c b/mm/filemap.c
-> > index b39111abdc4b..1dbb4c6f824e 100644
-> > --- a/mm/filemap.c
-> > +++ b/mm/filemap.c
-> > @@ -3411,8 +3411,8 @@ static struct file *do_sync_mmap_readahead(struct vm_fault *vmf)
-> >  		 * of memory.
-> >  		 */
-> >  		struct vm_area_struct *vma = vmf->vma;
-> > -		unsigned long start = vma->vm_pgoff;
-> > -		unsigned long end = start + vma_pages(vma);
-> > +		const unsigned long start = vma_start_pgoff(vma);
-> > +		const unsigned long end = vma_end_pgoff(vma);
-> >  		unsigned long ra_end;
-> >
-> >  		ra->order = exec_folio_order();
-> > @@ -3930,7 +3930,8 @@ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
-> >  		goto out;
-> >  	}
-> >
-> > -	addr = vma->vm_start + ((start_pgoff - vma->vm_pgoff) << PAGE_SHIFT);
-> > +	addr = vma->vm_start +
-> > +		((start_pgoff - vma_start_pgoff(vma)) << PAGE_SHIFT);
->
-> This could be linear_page_index(vma, start_pgoff) <<
->
-> >  	vmf->pte = pte_offset_map_lock(vma->vm_mm, vmf->pmd, addr, &vmf->ptl);
-> >  	if (!vmf->pte) {
-> >  		folio_unlock(folio);
->
-> > --- a/mm/mempolicy.c
-> > +++ b/mm/mempolicy.c
-> > @@ -2049,8 +2049,8 @@ struct mempolicy *get_vma_policy(struct vm_area_struct *vma,
-> >  		pol = get_task_policy(current);
-> >  	if (pol->mode == MPOL_INTERLEAVE ||
-> >  	    pol->mode == MPOL_WEIGHTED_INTERLEAVE) {
-> > -		*ilx += vma->vm_pgoff >> order;
-> > -		*ilx += (addr - vma->vm_start) >> (PAGE_SHIFT + order);
-> > +		*ilx += vma_start_pgoff(vma) >> order;
-> > +		*ilx += linear_page_delta(vma, addr) >> order;
->
-> Also?
-
-See above.
-
->
-> >  	}
-> >  	return pol;
-> >  }
->
-> > --- a/mm/nommu.c
-> > +++ b/mm/nommu.c
-> > @@ -975,7 +975,7 @@ static int do_mmap_private(struct vm_area_struct *vma,
-> >  		/* read the contents of a file into the copy */
-> >  		loff_t fpos;
-> >
-> > -		fpos = vma->vm_pgoff;
-> > +		fpos = vma_start_pgoff(vma);
-> >  		fpos <<= PAGE_SHIFT;
-> >
-> >  		ret = kernel_read(vma->vm_file, base, len, &fpos);
-> > @@ -1378,7 +1378,8 @@ static int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
-> >  	delete_nommu_region(vma->vm_region);
-> >  	if (new_below) {
-> >  		vma->vm_region->vm_start = vma->vm_start = addr;
-> > -		vma->vm_region->vm_pgoff = vma->vm_pgoff += npages;
->
-> yuck, good to remove that ugly construct
-> it's not the only occurence in this function
-> oh well
-
-Yup at least improved it here :)
-
->
-> > +		vma->vm_pgoff += npages;
-> > +		vma->vm_region->vm_pgoff = vma_start_pgoff(vma);
-> >  	} else {
-> >  		vma->vm_region->vm_end = vma->vm_end = addr;
-> >  		vma->vm_region->vm_top = addr;
-
-Cheers, Lorenzo
+> 
+> Dropping this patch from Patchwork.
+> 
+> Best regards,
+> Krzysztof
+> 
