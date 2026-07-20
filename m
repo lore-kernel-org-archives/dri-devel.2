@@ -4,63 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2EAFC4452B
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 11:29:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE661C44520
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 11:31:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4033F10E8B5;
-	Mon, 20 Jul 2026 11:29:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F88510E8B1;
+	Mon, 20 Jul 2026 11:31:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="QSDBBBx0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HjRDzRFE";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28FB110E8AD;
- Mon, 20 Jul 2026 11:29:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=K5kqgxhX01awbVWi1803hLkxKlTKDjLrNRqbuRxSU0w=; b=QSDBBBx0OZ099E0xiIkqdYCy2H
- /ZlxrBh1xZYNWPtnGpNwQtO7XIA6A+roP99g9MrOOHOpGqdzUAS0n1kV5enSF+x9ngfFazs7tb1yz
- 8Fx++4F0Uh58MxCISJ5PbotSQBi3rTnRddMhvLQC9x5xNy3w8hVIUdnbV9yx2xzsMo6R2yYt9CBQ5
- kA8RPfJNEBaJDTgUBYUTbsNWVsMYtv4tseo/g2P1MakogHwlBUoXvuBrhikIkFdH4iXi8pUD56uNB
- 5XqwXE58YtbyPTx4M61LLyBQpV9acerFzaS7yotm+QNQJ5SMIyK6LosfKtAjKxHU9Cj+AwWN5TDWn
- k7/c/ygw==;
-Received: from 100.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.100]
- helo=[192.168.1.202]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wlmAo-0011ww-JV; Mon, 20 Jul 2026 13:28:38 +0200
-Message-ID: <2b327712-5cd7-400b-bf3d-31b49377154c@igalia.com>
-Date: Mon, 20 Jul 2026 13:28:36 +0200
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 860B710E8B1
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 11:31:06 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-47de0093c42so5336033f8f.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 04:31:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784547065; x=1785151865; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Kk/EdydNuPaevf5JbgU06sHPzz6RMAwoT7HsixFynpc=;
+ b=HjRDzRFE5Ys0pkA6BHtvvP1Th8hHMIG+CRv9HeL1Vdj4pAPwDMU8/UdgqqbhVMjThl
+ b8UIvm8Ja+sf9PRwC6111jMUC5eAn4XmvItvnEOZ02E/bJ9UAkfYCZjEfVALl8FS+SKw
+ 4+6PpACykKJ8Buj9CygUh68LMTALZ5aa/08HqvL7ZrnQEXEv5yrhOHK6l9tn+RIvUck2
+ t9yN+aWbwrELzF18IrxGKK/Fn7Y4Kf2WTZ6Z5mDpbaXCEjDfI82bV08zJZBLiEN6tQCs
+ cyJgu+eR0Eh2UBl9vHvVB88o522bACnr9Xb95lo3CiXVOLs7Wrbi+G2tUwlPSUjzy7cT
+ pK/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784547065; x=1785151865;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Kk/EdydNuPaevf5JbgU06sHPzz6RMAwoT7HsixFynpc=;
+ b=sXEugMmZwApyk0+bAFB+ue7NRL+OpuF8O3fV+L+EvNNe0RjfkE+ag4zI2D2nezHFB2
+ OBHSOSaPcxG7k1e7N/3AlHn3UkPcij2wvFmPieS8y4ZStyJ7PHKc+/hh0nvcfEv7S/uE
+ tTAS7X+pEXZU1bBG5+rs67CdNTHYocT7oUOyqg6NUjmwT2MMbj6n9bKadwjdE1UZGy83
+ U0WqwsElRTEqIoZM+RiYctYOBv8M+DoyjFbqur+VC8CcJMcrDUGhaW7Zp0/B3Y916YAJ
+ Kv8+FW8hx2R8sLAj+rckXh0wCLOKXSsl3nnNn0Chk9OoaYh1Ntf6QLA8iXBpevHDhNk7
+ PbOA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp8gj9zyYhCzLGgP96Aom+RyeCNtBKQOBwIGG0/UJCymGMoWb5fF1f1b2opS8G0iO4AQ6TxuAr53XM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz9mPYSj6MKeniiLTYgz2BweGrxXZjnvWAyTj3YZIsIb0N8fsGW
+ YJ+mP1gAvvVaJJ8H4LiKWA3w/xyN8XQ/vJkxGufPnJBWk/0QMNCPyhn1
+X-Gm-Gg: AR+sD106L0yGDdJyADUcScf4d+U2dj6Q414pw1jiuLJTBkp0s4gXtgzW4HTRt10yM0x
+ gKGYUByjPrljbvCKXfGgLZByey24kX6CWQ4kSJvBAI2+necWiNwBmSTHBRy0ormS6sZaQ5Ev84A
+ a3cX66IyA9E3vBUxJAxUbLCdbjL8hE/8iwRKR0CtwT/6e+/n9GwlvWq2z9FCN8OuKnBkUC8l8rZ
+ JUJopnn8LfD1WEX1tWXZjw5TPf9sTyZH/OR4nKgBygiWXOr+T5MgGbXlWyyo1Lj8V5mxjR24vCH
+ f6bnkOOJLeUcjH7bXZBzygVEeytvzK1jmaTH9NJ5lSqQhESoXFH2Vjbi/ulM8RY0JLHg8cOMLgX
+ YWpnLlkUIlDF7xuytLZ9YJ1sUu86IuPlrZyp3Pi75FPVGhFiWB9D1Xqt+UdpY8ThIBgzOGTYAlb
+ MRjrLwetXvBc6lEFWGpw9IiAXrZzlcaSS4Le6+bw==
+X-Received: by 2002:adf:e192:0:b0:47f:5710:8cad with SMTP id
+ ffacd0b85a97d-47f622f2a3fmr14665764f8f.4.1784547064514; 
+ Mon, 20 Jul 2026 04:31:04 -0700 (PDT)
+Received: from osama.. ([2a02:908:185:7e40:a26b:a888:7408:fac])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47f63ed1911sm31098429f8f.22.2026.07.20.04.31.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Jul 2026 04:31:03 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/panthor: reject zero-sized firmware sections
+Date: Mon, 20 Jul 2026 13:30:23 +0200
+Message-ID: <20260720113024.11619-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/7] drm/amd/display: don't check colorop status if its
- in an inactive pipeline
-To: John Harrison <John.Harrison@Igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, alex.hung@amd.com, aurabindo.pillai@amd.com,
- christian.koenig@amd.com, contact@emersion.fr, daniels@collabora.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Sashiko <sashiko-bot@kernel.org>, dri-devel@lists.freedesktop.org
-References: <20260609121230.1358786-1-mwen@igalia.com>
- <20260609121230.1358786-4-mwen@igalia.com>
- <3691d76a-4a9c-41ea-ba3b-de08d6c90260@Igalia.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <3691d76a-4a9c-41ea-ba3b-de08d6c90260@Igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,127 +92,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+panthor_fw_load_section_entry() skips BO creation when the firmware section
+VA range is empty. The section is still added to the firmware section list,
+leaving section->mem as NULL.
 
+Later reload and unplug paths iterate over all firmware sections and
+dereference section->mem, which can lead to a NULL pointer dereference.
 
-On 26/06/2026 00:52, John Harrison wrote:
-> On 6/9/26 13:51, Melissa Wen wrote:
->> If colorop BYPASS property is true, but the colorop isn't part of an
-> Should this say 'is false'?
+Reject zero-sized firmware sections before adding them to the section list.
 
-Oops, you are right. I'll fix it in the next version.
+Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
+Cc: stable@vger.kernel.org
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+ drivers/gpu/drm/panthor/panthor_fw.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
->
-> John.
->
->> active/transient active color pipeline, this colorop status should not
->> be taken into account when checking if a plane color pipeline is
->> actually active. For example, if the userspace doesn't explicitly set a
->> colorop obj to bypass but deactivates its color pipeline by setting
->> plane COLOR_PIPELINE to bypass, it means that colorop is inactive
->> regardless of its BYPASS property status.
->>
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Fixes: d3a549f4df78 ("drm/amd/display: Use overlay cursor when color 
->> pipeline is active")
->> Signed-off-by: Melissa Wen <mwen@igalia.com>
->> ---
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 +++++++++++++------
->>   1 file changed, 21 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c 
->> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index ba7f98a87808..2edec3e1b838 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -12590,9 +12590,9 @@ static int add_affected_mst_dsc_crtcs(struct 
->> drm_atomic_commit *state, struct dr
->>    * @use_old: if true, inspect the old colorop states; otherwise the 
->> new ones
->>    *
->>    * A color pipeline may be selected (color_pipeline != NULL) but 
->> still is
->> - * inactive if every colorop in the chain is bypassed.  Only return
->> - * true when at least one colorop has bypass == false, meaning the 
->> cursor
->> - * would be subjected to the transformation in native mode.
->> + * inactive if every colorop in the chain is bypassed. Only return 
->> true when at
->> + * least one active colorop has bypass == false, meaning the cursor 
->> would be
->> + * subjected to the transformation in native mode.
->>    *
->>    * Return: true if the pipeline modifies pixels, false otherwise.
->>    */
->> @@ -12600,18 +12600,29 @@ static bool 
->> dm_plane_color_pipeline_active(struct drm_atomic_commit *state,
->>                          struct drm_plane *plane,
->>                          bool use_old)
->>   {
->> -    struct drm_colorop *colorop;
->> -    struct drm_colorop_state *old_colorop_state, *new_colorop_state;
->> -    int i;
->> +    struct drm_plane_state *plane_state = use_old ?
->> +                          drm_atomic_get_old_plane_state(state, 
->> plane) :
->> +                          drm_atomic_get_new_plane_state(state, plane);
->> +    struct drm_colorop *colorop, *pipeline;
->> +    struct drm_colorop_state *cstate;
->>   -    for_each_oldnew_colorop_in_state(state, colorop, 
->> old_colorop_state, new_colorop_state, i) {
->> -        struct drm_colorop_state *cstate = use_old ? 
->> old_colorop_state : new_colorop_state;
->> +    pipeline = plane_state ? plane_state->color_pipeline :
->> +                 plane->state->color_pipeline;
-> Why would plane_state be null? And if it is, why is it correct to use 
-> plane->state rather than the old or new state as requested by the 
-> use_old flag? Seems like there should be a comment to explain this.
-
-Right, about the plane_state, it was a defensive approach for the case 
-that we have a colorop change but no changes on plane that make its 
-state part of an atomic commit and in this case, there is no difference 
-between old/new state, it's just the committed state.
-However following the callers of this function, currently plane_state is 
-never NULL, so now I think a WARN_ON is enough, instead of handling an 
-unreachable case.
->
->
->>   -        if (cstate->colorop->plane != plane)
->> -            continue;
->> +    if (!pipeline)
->> +        return false;
->> +
->> +    drm_for_each_colorop_in_pipeline(colorop, pipeline) {
->> +        cstate = use_old ?
->> +             drm_atomic_get_old_colorop_state(state, colorop) :
->> +             drm_atomic_get_new_colorop_state(state, colorop);
->> +
->> +        if (!cstate)
->> +            cstate = colorop->state;
-> Same question as above. Why would there not be a old/new state and if 
-> there isn't, why is it correct to use the current state when a check 
-> against the old/new state was explicitly requested?
-
-Here is a bit different, there is a situation in which just one or two 
-colorops of a given color pipeline changes, but others are not touched. 
-In this case only colorops that changed will have a old/new states, but 
-others only have the committed state for validation.
-To state that a given color pipeline can modify pixels or not, we also 
-need to check the commited/current state of all colorop in the selected 
-colorop pipeline, not only those that were changed in this atomic commit.
-I'll add a comment explaining it better.
-
-Thanks,
-
-Melissa
-
->
-> John.
->
->>           if (!cstate->bypass)
->>               return true;
->>       }
->> +
->>       return false;
->>   }
->
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+index a338c4f0a7f5..6335893d3f16 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.c
++++ b/drivers/gpu/drm/panthor/panthor_fw.c
+@@ -596,6 +596,11 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+ 	}
+ 
+ 	section_size = hdr.va.end - hdr.va.start;
++	if (!section_size) {
++		drm_err(&ptdev->base, "Firmware corrupted, zero-sized section\n");
++		return -EINVAL;
++	}
++
+ 	data_size = hdr.data.end - hdr.data.start;
+ 	if (data_size > section_size) {
+ 		drm_err(&ptdev->base, "Firmware corrupted, section data exceeds section size\n");
+-- 
+2.43.0
 
