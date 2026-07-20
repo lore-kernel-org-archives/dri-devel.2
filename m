@@ -4,79 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F1A4C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 13:55:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0C13C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 13:55:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9000410E942;
-	Mon, 20 Jul 2026 13:55:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58AE710E952;
+	Mon, 20 Jul 2026 13:55:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U2wUoyn/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NWkdua8G";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 660FF10E942
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 13:55:43 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-495437bb891so30662795e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:55:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784555742; x=1785160542; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=N1G6MUTItawGdl9kT6xgYXezu1UMlR9b+KB/O0a8o3c=;
- b=U2wUoyn/Z2tl01rXoyOAnmOLRwPIsNSX72szhE/QNxtLn/zmLYsj9arFZARPi1OUie
- SEkJUyMMZ2JrvQYxWJ66KpzyR6K/sVcgHnoFpCfLvdDrcFRqTYd3CgY974jM6kVIooRT
- lvLZj4vpwO/FMuS/SvE7eWvaMlQ/Df8xUaTd8mjxxHiQAtYRHzqDX1/m4u1ngur4jsPt
- FW1mr2xsqzuqAdXBDtMT6n8PGbH+dNvW5gO+Xlpucz1g0rbl/cNDdIypiNoRkvvlr7jq
- w9sVcMxQQd4YLa8/GOkoreYOiZpLHs6zI2zJEi5Oqe01vCBXZYPn2mnKXFusKKBtIGBr
- lygw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784555742; x=1785160542;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=N1G6MUTItawGdl9kT6xgYXezu1UMlR9b+KB/O0a8o3c=;
- b=TnxJAmKlB3m8Ox6ooJoWTBwWbGDg9FQhbP+3FxZLh5S2fulrBpjmjIXoCcRcuIuv4U
- 34CuOHj59ZZZHFYPQmtne9JL91nienC7mt/C/wEHcjWqLakqwoApj4w5oN3+UwSld3hy
- ZTm08YicnnHE3rLsxOtqp+1G/ACf5ShMHhGyjDt56JfoM2D4fwhY4AYHWRgmquLMHSal
- YZXBKV0ADHDvqElkGtTFCfjofpLd9HgCBGmMNHrIIFtOPBj9C5f6g27b+FejEAHZZfex
- /Ewkb6rRSTotjx9TisK7Tpk7lfvamlz9QGYrs4Y7iAKaumSlqlARqzgnHuaoGr3xOlfR
- 4Vcg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp4yOkV0NTZlVPdu36xQblw2Thgt58QtA62WJBeZDvdp6acOFnL5ZMZx1xXjJoFlVr4r4FVeXPwMjc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyo4fTaVgIdlZATXsINsm7JCJWCX++opYcKu9x3noP+nF1Q2TtY
- a+gVJHbWYhnaDGuIICWiYBMa5SMdoQzoE43eeTj+kcentri1y11Kq4Tt
-X-Gm-Gg: AfdE7cnk3o+6kIIdFOiRqvos0sl3kP9dmlsyrWokGHWYtmZBbtLTc4g/JWnbCClcnjL
- Y2K3VttinjawpB3WCjFRyIHNqYPC8iTsl9gHBLNgFN/4Z6m4dx9CyYWcHKiwtVu/KLDmfYTEoNn
- AmUcCJfj+B3kyPXTjkhbvcNmQson7fxFfelLMDB2bPrja1+75tKKvMfzTiiT2uXtN+JnSvE4vIW
- N9sewzi2VkGviLzR3PIE7UhBPVCWPDjMhRFwp1zb2CtrG/BF8A0mZXSayODg5q9YFzbHwEF6mnl
- MoY0wi7gVzTp4tNGSfOaBfDFg305ydXnZmSWi44XWIi2bOf1RDYqJ5VSiI9EhBe88pWa0yWHprz
- TysZvgUCP1Quel7Je8EBL2rszMIAAW60wQ3FrrXQnEX7ohqBnYN3naKJxfv5feDh5840N/mFxDX
- 12qsuopc0Doxu5ueLipweRvH47Bykt1n6iqyAC+RfJTniVQdno/Q==
-X-Received: by 2002:a05:600c:6289:b0:493:b4a3:5ab0 with SMTP id
- 5b1f17b1804b1-4954a33dc26mr146084685e9.13.1784555741410; 
- Mon, 20 Jul 2026 06:55:41 -0700 (PDT)
-Received: from osama.. ([2a02:908:185:7e40:177b:1470:c99b:b6d9])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4954a2b87c6sm512521655e9.7.2026.07.20.06.55.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jul 2026 06:55:40 -0700 (PDT)
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/panthor: snapshot firmware interface counts before loops
-Date: Mon, 20 Jul 2026 15:55:18 +0200
-Message-ID: <20260720135518.17927-1-osama.abdelkader@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011057.outbound.protection.outlook.com
+ [40.93.194.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4DD010E94B;
+ Mon, 20 Jul 2026 13:55:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KK+MpT0oT5Kv7OwiUa1VIcnlEWijpuAAi7PBRF4QTEIhk0JZszXdnEsmdJ6prq1tbuPAE1SKS9QQYYZVAWkPEw2jTvOTqr1Pd1LRHZt4FyV+raqMFXbCipxOXSjzEtuoRySl10bS6sjrKR1bBtRt0WK0T/eEAupq68xYHrNKDmcA2/mkz98SkwqZcm1+NekycujUomr2vPu2lkZPf8zv7rds1W1LyZwN297KxziHhsNtQIYP51TwCJSM2cX+tVzsmNG/yykaSrI2iWH0hUC84nw+V61pH4SBpiUPVOl+kqZYT22/cX4T4v1kimWkjaCnxj1sb9YnBefSqxNTJVIBGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JFAlQQV7SKgATOIBXdfwRgsbYisTPHws5XlwsydjLec=;
+ b=wrh5TeR7fXN7Y3L4NS4V3NqLbw1X29sOqobt9l9HKrTKXQF7VHaXsUI+scMwXMC/z9Ztc0Ko/coo1SzLx9Wklce7D1km1xy3o5+FTzCB45gchLMTxlIUCyrSE+TDKvzfxy8JkLOx6xnf2R+ws+8idJhPq6FdC4gyve5M4q6EfXyXaQULtzRXhiPGvW+a94ikjQANRfM65MdgE2vJPrBJ5TP7kTHS3FqVT3W1FHZTN0w3gwqQiAynNanHMxSuXbDIIm2kfeUCWCgU1obOXsahrEKwY0CPcbYdIBTkYL6YGi9dwPOLSuE6okJtfbvBZNkGMoeme7uaihjOe2mA/o2yDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=collabora.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JFAlQQV7SKgATOIBXdfwRgsbYisTPHws5XlwsydjLec=;
+ b=NWkdua8GTNX0XCkkZFLe7AzKB5mFhnsWM4/kh11/fdOt46H0Bz+03UAgprb5r0K4zfTGJLj5m3K2dm6aHcPhiGSK1dbH5rxnXs9ge7wO7L5sS41HsWLtfm0VFiHzHL4OZDGcJArAspWwK6BgQrsWErPzBDEXYYqjA6uQ9q+H7+Y=
+Received: from MW4PR02CA0015.namprd02.prod.outlook.com (2603:10b6:303:16d::6)
+ by MN6PR12MB8590.namprd12.prod.outlook.com (2603:10b6:208:47c::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.14; Mon, 20 Jul
+ 2026 13:55:50 +0000
+Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
+ (2603:10b6:303:16d:cafe::48) by MW4PR02CA0015.outlook.office365.com
+ (2603:10b6:303:16d::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.16 via Frontend Transport; Mon,
+ 20 Jul 2026 13:55:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Mon, 20 Jul 2026 13:55:49 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 20 Jul
+ 2026 08:55:49 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 20 Jul
+ 2026 08:55:48 -0500
+Received: from [10.254.92.49] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 20 Jul 2026 08:55:47 -0500
+Message-ID: <f1d1965c-dbbc-42ad-a6eb-616a172cfb0f@amd.com>
+Date: Mon, 20 Jul 2026 09:55:47 -0400
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Remove redundant AUTO color format
+ handling in else
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Harry Wentland
+ <harry.wentland@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Daniel Stone <daniel@fooishbar.org>, Marius Vlad
+ <marius.vlad@collabora.com>
+CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Dan Carpenter <error27@gmail.com>,
+ <kernel@collabora.com>
+References: <20260720-color-format-amdgpu-fix-v1-1-4ec896bb1531@collabora.com>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <20260720-color-format-amdgpu-fix-v1-1-4ec896bb1531@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|MN6PR12MB8590:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99488c4c-5580-4545-9b2a-08dee6669b3e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|42112799006|23010399003|36860700016|7416014|376014|13003099007|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 0lUP0BBH6zLeNh9L9d+MPTcvz4is0Ormu/iyGuy79Y/kua/2FyzPbGHIywkNe+EmxtPJYymz3uQUcg4hKY+tyzictOMxWPIXeTQ3le/bzGaTiuLyhQs/gnhrZ9zSRlIxhLqydk/l7uXKpeFtWt8/S7Cxhfc/BaU3C9dDxCNNWiiiTQYrDUEgY2Q/bB5EwZve/Zih7ApmBuCuEkcFixRrqjXLBqmYH5AKNZF7fi04bQvqvENzuM3I4zbDICaSaOMdY8t6de9tpjQhLWYHS8pLj0DO+rAvUgZf5DmhDOrKPOol1rrENMHEwjcAnK/GOHipO1By4PE4/upyt6Q6uweCfvupVpDzgOmxrRI0boRLBivl330aexzr3iPGgwgyai2lP0VlPop/i8d5Yp/KYfrFe0RZXKPHMFgP1l4/6e6xMuqLRW5JDBXH3YD9Ifheliv4SnFHRST9CwG4Up3JfOc0faOqsbcV6OUNMQXcrFR1tK4ts38rocSwJq8slKOA/ko6c4PyFXcO+GW7LAGWkuYhHO23qT1naPSZiYabXo9T7OPbP4ATuiMoZuNptip2+9APuLTeKPDPtqDJRUq4CWIY8pZqd8hZE5t0jtymrDjwCYqX0Zr/kT3WXK8KxIAAh5xEi7SD4Nsqpm6E/vyWlcBkkIEiwx5ntExeQtswJ0YhKN/uhwvAP+eUMw0dqzwcv+1ClqFveRB32+mVcdTOtjEUyg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(42112799006)(23010399003)(36860700016)(7416014)(376014)(13003099007)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: vnrpCMwoyBSykYDjyq9CX9lrB1OZ4JGz6prAHxaEjNlYQaRK5j9fuNluFF229vwd6hIcMjD8HdFpcd0AqcXEXU0ULq6OsKz1mX6Jildd2HPwkbNgk2NaEA9d4UWcIqZBz0srIHAWP/pjlT5yH4LwRaO4TsYXD+AueUeD9d6WST/IS/l5ylD0EbSfuUOexXqEfXp9Lz0mGxRkDoVYHnp4ZbjAhenEfhIH8dV4fdJx+LnFDSBEJ89R5Nyx6o4etfJeU+EU/Dx0rVkztZEbc3B50ImIZai3QeAUcAyuehj049K/XldAqimfHA3JhYw3sFRZmjFDHVy9RbIUmHFAoOmPTCvCkUh+nexRV1k+lCm9AQsIVq/E6OAXtKnx4IaW74HFzlOyC3AtYOpGRXt2uQ03M1YoDYTrW4r9+y40LF7+kJut1jt6xC4XjqqvmBXCISzQ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 13:55:49.7359 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99488c4c-5580-4545-9b2a-08dee6669b3e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6194.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8590
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,84 +124,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The firmware exposes the global group count and per-group stream count in
-the shared control interface. These values are validated before being used
-as loop bounds, but the memory is shared with the MCU firmware and can be
-changed after validation.
 
-Read each count once with READ_ONCE() and use the validated snapshot as the
-loop bound. This keeps the loop bounds consistent with the validation and
-prevents the compiler from reloading a firmware-controlled count during
-iteration.
 
-Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
-Cc: stable@vger.kernel.org
-Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
----
- drivers/gpu/drm/panthor/panthor_fw.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+On 2026-07-20 09:03, Nicolas Frattaroli wrote:
+> The AUTO connector color format is handled in the earlier branches for
+> both RGB and YUV420. The repeated check in the else branch is therefore
+> redundant.
+> 
+> Remove it to make the code less confusing to read.
+> 
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Closes: https://lore.kernel.org/r/alCcJmDeIYEE94Eh@stanley.mountain/
+> Fixes: 8a0343b03b98 ("drm/amdgpu: Implement "color format" DRM property")
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index e2fcbd639c3c..6e6da98d795e 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -959,6 +959,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
- 	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
- 	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
- 			   ((u64)csg_idx * glb_iface->control->group_stride);
-+	u32 stream_num;
- 	unsigned int i;
- 
- 	if (iface_offset > shared_section_sz ||
-@@ -972,8 +973,8 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
- 	csg_iface->output = iface_fw_to_cpu_addr(ptdev, csg_iface->control->output_va,
- 						 sizeof(*csg_iface->output));
- 
--	if (csg_iface->control->stream_num < MIN_CS_PER_CSG ||
--	    csg_iface->control->stream_num > MAX_CS_PER_CSG)
-+	stream_num = READ_ONCE(csg_iface->control->stream_num);
-+	if (stream_num < MIN_CS_PER_CSG || stream_num > MAX_CS_PER_CSG)
- 		return -EINVAL;
- 
- 	if (!csg_iface->input || !csg_iface->output) {
-@@ -990,7 +991,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
- 		}
- 	}
- 
--	for (i = 0; i < csg_iface->control->stream_num; i++) {
-+	for (i = 0; i < stream_num; i++) {
- 		int ret = panthor_init_cs_iface(ptdev, csg_idx, i);
- 
- 		if (ret)
-@@ -1015,6 +1016,7 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
- {
- 	struct panthor_fw_global_iface *glb_iface = &ptdev->fw->iface.global;
- 	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-+	u32 group_num;
- 	unsigned int i;
- 
- 	if (!ptdev->fw->shared_section->mem->kmap)
-@@ -1034,17 +1036,17 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
- 		return -EINVAL;
- 	}
- 
--	if (glb_iface->control->group_num > MAX_CSGS ||
--	    glb_iface->control->group_num < MIN_CSGS) {
-+	group_num = READ_ONCE(glb_iface->control->group_num);
-+	if (group_num > MAX_CSGS || group_num < MIN_CSGS) {
- 		drm_err(&ptdev->base, "Invalid number of control groups");
- 		return -EINVAL;
- 	}
- 
--	for (i = 0; i < glb_iface->control->group_num; i++) {
-+	for (i = 0; i < group_num; i++) {
- 		int ret = panthor_init_csg_iface(ptdev, i);
- 
- 		if (ret)
- 			return ret;
- 	}
- 
- 	drm_info(&ptdev->base, "CSF FW using interface v%d.%d.%d, Features %#x Instrumentation features %#x",
--- 
-2.43.0
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
+
+Thanks!
+
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 7 +------
+>  1 file changed, 1 insertion(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index 88f938a8f24f..ea277c991234 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -854,12 +854,7 @@ static void fill_stream_properties_from_drm_display_mode(
+>  		 * error bubbles up to userspace. This way, userspace knows it
+>  		 * needs to make a better choice.
+>  		 */
+> -		if (connector_state->color_format != DRM_CONNECTOR_COLOR_FORMAT_AUTO)
+> -			timing_out->pixel_encoding = PIXEL_ENCODING_UNDEFINED;
+> -		else if (drm_mode_is_420_only(info, mode_in))
+> -			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+> -		else
+> -			timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
+> +		timing_out->pixel_encoding = PIXEL_ENCODING_UNDEFINED;
+>  	}
+>  
+>  	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
+> 
+> ---
+> base-commit: e6a72e9b927165081566252d972ea1cbbee5bf28
+> change-id: 20260720-color-format-amdgpu-fix-09a03106c9da
+> 
+> Best regards,
+> --  
+> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> 
 
