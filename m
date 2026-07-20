@@ -4,96 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCBD0C4452A
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:54:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E817C4452A
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 13:04:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 189F710E90C;
-	Mon, 20 Jul 2026 12:54:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D841F10E912;
+	Mon, 20 Jul 2026 13:04:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="AF7fWuRE";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="X6t28ym+";
 	dkim-atps=neutral
-Received: from ixit.cz (ixit.cz [185.100.197.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C474810E90C
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:54:18 +0000 (UTC)
-Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id 7F6605340263;
- Mon, 20 Jul 2026 14:54:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1784552055;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=5UJJ9AGxOuEpi5KTgqxObL3hBgV3pTaZjpjXiJSRfjQ=;
- b=AF7fWuREI3y07f0OOA6DbdBE27pzUxcNuMhlsfMutYh8cii6Jqj/qMR/+zu1u7we8Cluyr
- GKbCgt7uP4j0Za9YNoA3kCGT5P4C24tQnRojrgbENVgORI27nqXYcA2DRMP2pbktRMG6hs
- MUigYq+zJ0heTU+8SfxYRxBLeXiWBUY=
-Message-ID: <803f5056-4348-4050-903d-f4ab430eafb0@ixit.cz>
-Date: Mon, 20 Jul 2026 14:54:14 +0200
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB2F10E912;
+ Mon, 20 Jul 2026 13:04:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784552660; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=ehHzSpYz0V8EqhdM6EaBEumDPGR8sGmdS4JCTGmnlybjizGiVLuY6BG48JZFwiopfrn1xAoX5nMkONF4+4GDcw8YYDC1srZoA31xKfhXN/D49sVE/KBqn69UL0JHIv/9porcqQGi+1ypeeoMnbpSsfQcHzSlBgDd5mNOLRaHlxA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1784552660;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=HN6kXcysOJTr101hpnG7NcuN/66ELXnKkFR6JHIY2pk=; 
+ b=cKPVZKlH/AhN7djjCHYWlH25lEpgA4afBBKsuDb6hv7wfPnIlYsyzPGzJcBEot2CJ7D1TG+ZSoEq4KF/XDd4GLpAk9JGy611AW9fnpiaL7HIaGYqz5E7LQ6f4f7TSGrA1BqOMqw8wiZtyE7GNZ35aHCOwVK/lqIz6qyRUZmRWVQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784552660; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
+ bh=HN6kXcysOJTr101hpnG7NcuN/66ELXnKkFR6JHIY2pk=;
+ b=X6t28ym+Q1c2Hgiw1gNAGYOUlvwWeGIMnUZgR5ERmumVio2zJYE5uusYgKFz/nR1
+ VNH9sr5uv5f1nAz0MJR96qf7hIg2xFmE6m8dBHMHsJJu0DNGMPwW05noTrzFESgEeCg
+ Iml1oMvyDB5i5TCDUCuFtTEdn+WTLRLUOJXLGSrY=
+Received: by mx.zohomail.com with SMTPS id 1784552658856490.3691525909395;
+ Mon, 20 Jul 2026 06:04:18 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Mon, 20 Jul 2026 15:03:57 +0200
+Subject: [PATCH] drm/amd/display: Remove redundant AUTO color format
+ handling in else
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/panel: sofef00: Fix DSI transfer errors on backlight
- update
-To: =?UTF-8?Q?C=C3=A9dric_Bellegarde?= <cedric.bellegarde@adishatz.org>,
- linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Casey Connolly <casey.connolly@linaro.org>, phone-devel@vger.kernel.org
-References: <20260706051825.78752-1-cedric.bellegarde@adishatz.org>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260706051825.78752-1-cedric.bellegarde@adishatz.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260720-color-format-amdgpu-fix-v1-1-4ec896bb1531@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NwQqDMBBEf0X23IXVgqK/UnqIyWq3NMZuYhHEf
+ 2+sPb5hZt4GkVU4QldsoPyRKGHKUF4KsA8zjYziMkNFVU1NRWjDKygOQb1JaLwb5wUHWZFaQ9e
+ Sats6A3k9K+f493y7nxyX/sk2HXf/hvJ7ycp01qA3kbPAe0ld4dSjl2hx4jXh4UdqsKzhvu9fs
+ hhtXrcAAAA=
+X-Change-ID: 20260720-color-format-amdgpu-fix-09a03106c9da
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Daniel Stone <daniel@fooishbar.org>, 
+ Marius Vlad <marius.vlad@collabora.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Dan Carpenter <error27@gmail.com>, 
+ kernel@collabora.com, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,26 +76,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 06/07/2026 07:18, Cédric Bellegarde wrote:
-> Backlight updates via bl_update_status() could be triggered before the
-> panel was fully initialized, resulting in failed DCS commands during
-> the atomic commit sequence.
-> 
-> Guard bl_update_status() with a prepared flag to skip backlight updates
-> when the panel is not yet ready.
+The AUTO connector color format is handled in the earlier branches for
+both RGB and YUV420. The repeated check in the else branch is therefore
+redundant.
 
-Looking at
+Remove it to make the code less confusing to read.
 
-  * When the panel is enabled backlight will be enabled after a
-  * successful call to &drm_panel_funcs.enable()
+Reported-by: Dan Carpenter <error27@gmail.com>
+Closes: https://lore.kernel.org/r/alCcJmDeIYEE94Eh@stanley.mountain/
+Fixes: 8a0343b03b98 ("drm/amdgpu: Implement "color format" DRM property")
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-in drivers/gpu/drm/drm_panel.c
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 88f938a8f24f..ea277c991234 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -854,12 +854,7 @@ static void fill_stream_properties_from_drm_display_mode(
+ 		 * error bubbles up to userspace. This way, userspace knows it
+ 		 * needs to make a better choice.
+ 		 */
+-		if (connector_state->color_format != DRM_CONNECTOR_COLOR_FORMAT_AUTO)
+-			timing_out->pixel_encoding = PIXEL_ENCODING_UNDEFINED;
+-		else if (drm_mode_is_420_only(info, mode_in))
+-			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+-		else
+-			timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
++		timing_out->pixel_encoding = PIXEL_ENCODING_UNDEFINED;
+ 	}
+ 
+ 	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
 
-I have feeling this isn't something driver itself should take care of.
+---
+base-commit: e6a72e9b927165081566252d972ea1cbbee5bf28
+change-id: 20260720-color-format-amdgpu-fix-09a03106c9da
 
-While this solving issue for this specific driver, I'm not seeing anything 
-similar deployed anywhere else which makes me suspicious.
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-David
-
-[...]
