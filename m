@@ -4,97 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CDE9C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 15:05:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36A26C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 15:06:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A152610E109;
-	Mon, 20 Jul 2026 15:05:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97B6A10E1D7;
+	Mon, 20 Jul 2026 15:06:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="jXljGms0";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="UgVA8sC3";
+	dkim=pass (2048-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ex698Wny";
 	dkim-atps=neutral
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com
- [209.85.217.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D9C610E109
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 15:05:11 +0000 (UTC)
-Received: by mail-vs1-f51.google.com with SMTP id
- ada2fe7eead31-7380954d1c6so3367097137.3
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 08:05:11 -0700 (PDT)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11D8610E1D7
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 15:06:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1784560005;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=raPd+j2sNnja6yObFkLuI3fBBY7t0sFpL6aJ3ppEwEQ=;
+ b=UgVA8sC3bAHuUWH3XtUA5TxyXGFuoVXWQANJR7FBF+8/K7Qm82z9Wo9USpeYubfVt2eugY
+ 5pilK6JQOvMv7HT4B8UOlX4jQIWWqy4YjSl/GareuFO37VC2XgOS+8YTRJ3+WQkOzeDuOf
+ i5PWeTEvDfdH3hgJ2vpBgohI4/2vVKA=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-142-eNpWzbxUOa-4m9nPYonT0g-1; Mon, 20 Jul 2026 11:06:43 -0400
+X-MC-Unique: eNpWzbxUOa-4m9nPYonT0g-1
+X-Mimecast-MFC-AGG-ID: eNpWzbxUOa-4m9nPYonT0g_1784560002
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-495517d39fbso11006255e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 08:06:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1784559910; x=1785164710;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ d=redhat.com; s=google; t=1784560002; x=1785164802; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=DzQyYANNjq+7VySreA3Am+Pyxk37p/vOEcew0s14qEU=;
- b=jXljGms04apYzdwqa2G5Ozvru/qX+lYzsuTgVaOARw/cF9tZHcYyi6/T+cFDS2S2Bo
- ueTuTadVeqSZ9gcvDEGLJxZcLFHVL5Q7XqhMH/h8LcPKFvDNsv8u8Xc7tSkKS9DQaRzW
- p/XvpR1c00nxsHqSL/eTkk2LJWwRJyNz1GxSk=
+ bh=raPd+j2sNnja6yObFkLuI3fBBY7t0sFpL6aJ3ppEwEQ=;
+ b=ex698WnywGN7cMLUhVNN/coACxqi6ygVcCBFY8zYXXtgTh4bUWuW7wt5Tu93qDP82q
+ uPKVBnLl8qbHqmlm1NPJGVYD2RlgqzzTHggTKjoJZyvwtW/o5nWc0OZEQ53r+b8K84cn
+ qMgOzxZoWGpAW1LjmCfIEu81Ke6Vkct89XFTsQQ84h7HSaX7aI2YZSj8b/rvGI8a278k
+ nUBsHi3cHk4dvkG46VQedVI94QSstZS9fEuOiY3+52g0HjQVnKA274HjpOCmiTKNL2Lg
+ yNs7qfi7HtqhW26SNCo1oG6KHhzFhW3jmcDd95SVdfkDewDIVzt0fWSjC1IzgAeggeOt
+ f5iA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784559910; x=1785164710;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20251104; t=1784560002; x=1785164802;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=DzQyYANNjq+7VySreA3Am+Pyxk37p/vOEcew0s14qEU=;
- b=CENOeyQwASFYBFBvZHPQ0Ros9BZeZSguZkLzyp2UNp1gk6EZgQx4g2v5gdetvauUv1
- dRywATOe1FAfQJmkdPMKtSzOuuKvurvEFaPVSqs5PtsO1CdHd3LkVPrGk2bxeJp7RDMi
- YDJ2Ycr4eTqk6sVTMAHklbhxxg4Y5wwQedueTm3l90UH4gM02f13eO99c6cIEkHX7qew
- CAubP4nrmLpBZioFDAZqSBclAiYMQADtmytsdvFTpeTri3orrxMm9fqCv9Pw9fY38YIc
- oqoYJWKUo9oKgM5o3hhJ0A+C7k+fIhj2XvTR6FtHfpW9s5T8NqOdW6aJvOsnuCNyTb0x
- YkxA==
+ bh=raPd+j2sNnja6yObFkLuI3fBBY7t0sFpL6aJ3ppEwEQ=;
+ b=U2EboQZjRqbUs14F2Mco4OjZFVgtQQz1AXAny1+9K5W7kc60gFxZdO9qqyLqL/JMmr
+ DCQhx5W0OhpZYYGiWaJM1+/pZsbLD0xwwek2NHwCn1ZfJA5Jzm9GOkF9gNsB3YWkyEsp
+ TBNn9PBd7ZwQxdRECh5542IytEpRO7GmuYrKYHCP9t/ZLziSSMfMBD4Rgp8K81bTRhPw
+ JM8/ZhPMnFHV/gQqXlkjyrs+1V0Uu5d4tPQzS6wS4fVoTgAbLDe/vPkc8wcedlgM3zaJ
+ T45z5dCExK4AmtKOWyzyS0y6a8jaS0F2HQVem1t1eZr1HAJL/clKeoG7fwkhmpIWW0eq
+ jOjA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrqFdnz/YkhCPTwfqXyKPH3L/j4JY5Pt82Q2e/j2nvnUhNdhy3Zf8y2/Cq1DKRt+mxzXrFJ0s7nxVg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxDux7Xq0vIOgU2FFe6vNzxCCI+ZOREEwD7OUR9TeI1NIhV3Pru
- TmNlVeBeWyWP5ujJ/uX9oMRISyXPmT52M3rEjLCaAVFs1uswKAuEUQtFJD/6ztQDJpiig6BrSQK
- 8pyU=
-X-Gm-Gg: AfdE7cm/bpDCnupwFWreBxuyI6a059D8wVKKWnmippqcmyv4saT2GbC2WoesPZcrwMS
- lt+WXqh+6iPCuPpRE0vAV+wX3QY0AbYw5RZ0XdhLM4xfLbVWJVDTrgvOiNz3hEBCo9cX1DL2lLZ
- CoiWv+0MCcl7SuUzEAI7b8Jf0PZX31k/7yfMOdofRHm/RJUf9/OZh886asVEEiPWfOdILxi6b8S
- EacD4+HzawXibvr3LucXFnoPpr2uUGFQ9gVC7G5hTKQucNAkAkju/hhiSkwYg8UbGmrCuYOuSpC
- AFqUUaO819UqlamOefPMurhetUczMnNJw93on0M02jUNfVJoB0epKjCo0wYALJMLiedQWjTdpJF
- dqO+sLWQjQ6eZFkjrtDkMa3B99h+al7yRsdOGEUd9FS0nY1XW/WE4jmQSBn7MRXIQAYMPgTWIZv
- rMq8/V5Iolm9HphyKb5gpCX9kO0Zb81rZTpMDh+bEAerXM
-X-Received: by 2002:a05:6102:4422:b0:739:4470:d8 with SMTP id
- ada2fe7eead31-7475373cbc4mr3146514137.26.1784559909737; 
- Mon, 20 Jul 2026 08:05:09 -0700 (PDT)
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com.
- [209.85.221.171]) by smtp.gmail.com with ESMTPSA id
- a1e0cc1a2514c-976fc65cd25sm7996877241.12.2026.07.20.08.05.06
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Jul 2026 08:05:08 -0700 (PDT)
-Received: by mail-vk1-f171.google.com with SMTP id
- 71dfb90a1353d-5bf5370d38fso3836397e0c.2
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 08:05:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+Rqi0Wcu894XeJeU3mYRY1krQUQwMlQWZCTsOShkRMqSpYxIUtXZf6cZBm0cgtceW2gtNRaGOOVkOWc=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:3751:b0:73f:7bca:217d with SMTP id
- ada2fe7eead31-747536f091bmr3604840137.20.1784559905013; Mon, 20 Jul 2026
- 08:05:05 -0700 (PDT)
+ AHgh+Rqz0MOhbpoN4bSvS3j4iKYOWtMiT4RwHPn8KKMOStWjDCADA0cit/xpVnWryKkMC8iyhfQP7yG+4CA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyievZelIKWD0OqXAo2Yad+G+9sQ+xjXwJvG+nYeD5oI5sDnsEP
+ PlV2D+fijF2Uj3D7C2ZTTTP3KKis7GkdO6zialivSh3gdaA0wV78AoC277OO6oWv1fZKK7kdApt
+ SQbdwcKGaJU7FQmORScWbqmLJ17UG1pNiyUE66+ePhC8IblMofy8i+Yuvsr2rN66SkV0I8A==
+X-Gm-Gg: AfdE7cnIsMPfYSFVZuOsZqxNCn1cLTda3QrHxQ/rltutDblzv4ZrZTe7ATUYo+AdsM2
+ A3DQuvQAuo2el77WbU9DGPPQGLnoF6/PGmPemoscZQy/BYLuCXEq78O4wNr6JK6/2xZX8fYhQn1
+ mSgYEQOoN0181Yv0noBxFKDqrMwLqhJK8vTGTdH7vsGEH92LbFAPRSQTN/zUaf2+qqze80Ffpu2
+ 6XMTwYXwAsK6DaNgvJuevqgyREnAS0ussyJ77/km1w0Cs03uxpGyLzY8rvtisj0Psg6nFyFv8JM
+ a7SCijo9UEBNXthK1CXoAX7Ne5tMPdpR2HEIfjOyxY3VlPXDAUTxqBoy6T4kDj1R1tsLA+8t2A=
+ =
+X-Received: by 2002:a05:600c:4685:b0:495:4a77:1327 with SMTP id
+ 5b1f17b1804b1-4954a771521mr171385305e9.33.1784560002014; 
+ Mon, 20 Jul 2026 08:06:42 -0700 (PDT)
+X-Received: by 2002:a05:600c:4685:b0:495:4a77:1327 with SMTP id
+ 5b1f17b1804b1-4954a771521mr171384685e9.33.1784560001343; 
+ Mon, 20 Jul 2026 08:06:41 -0700 (PDT)
+Received: from localhost ([2a01:e0a:a99:9822:edbd:5894:eb1d:c2c7])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49562709500sm57729825e9.14.2026.07.20.08.06.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Jul 2026 08:06:39 -0700 (PDT)
+Date: Mon, 20 Jul 2026 17:06:38 +0200
+From: Maxime Ripard <mripard@redhat.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Ze Huang <ze.huang@oss.qualcomm.com>, sashiko-reviews@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, imx@lists.linux.dev
+Subject: Re: [PATCH v2] drm/imx: replace struct drm_simple_display_pipe with
+ regular atomic helpers
+Message-ID: <20260720-sly-tricky-elephant-c8afa1@penduick>
+References: <20260716-drm-simple-kms-removal-v2-1-7e4a6b8528e6@oss.qualcomm.com>
+ <20260716091459.1D8101F000E9@smtp.kernel.org>
+ <DK1XPK73QJHC.JWFUMTTLOD1D@oss.qualcomm.com>
+ <63cca05a-ec83-430c-abcf-c2f0b508446f@suse.de>
+ <20260720-bold-jasmine-goldfish-d979e5@penduick>
+ <3749a60a-a8bb-45a0-a06e-a21017990c10@suse.de>
 MIME-Version: 1.0
-References: <20260623060635.16064-1-pengpeng@iscas.ac.cn>
- <CAD=FV=Vx=q_TzxGo3j+fKVRi9p4ih0kMmUY0MM6GfL+2-a7vHA@mail.gmail.com>
-In-Reply-To: <CAD=FV=Vx=q_TzxGo3j+fKVRi9p4ih0kMmUY0MM6GfL+2-a7vHA@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 20 Jul 2026 08:04:52 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=V4aZMcSr48OkMfFxSdhgNnTDE+r9EWKZyviwbcb=7+qA@mail.gmail.com>
-X-Gm-Features: AUfX_mxInmJ_gnwYR-eJCGh3M16yyoeGn1S2MPvws6-XV2cLQy1Q2KcHka1KVFw
-Message-ID: <CAD=FV=V4aZMcSr48OkMfFxSdhgNnTDE+r9EWKZyviwbcb=7+qA@mail.gmail.com>
-Subject: Re: [PATCH] drm/bridge: ps8640: propagate AUX transfer register errors
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="7vkstdocennjbk5t"
+Content-Disposition: inline
+In-Reply-To: <3749a60a-a8bb-45a0-a06e-a21017990c10@suse.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,110 +116,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Tue, Jun 23, 2026 at 10:17=E2=80=AFAM Doug Anderson <dianders@chromium.o=
-rg> wrote:
->
-> Hi,
->
-> On Mon, Jun 22, 2026 at 11:06=E2=80=AFPM Pengpeng Hou <pengpeng@iscas.ac.=
-cn> wrote:
-> >
-> > ps8640_aux_transfer_msg() programs the AUX address registers, starts th=
-e
-> > AUX transfer, waits for SWAUX_SEND to clear, and reads the AUX status
-> > register. Several of those regmap operations have return values, but th=
-e
-> > function only checks a stale ret after the status read.
-> >
-> > Propagate failures from the address write, transfer start, completion
-> > poll, and status read. This avoids returning a transfer length when the
-> > bridge register transaction or AUX completion wait failed.
-> >
-> > Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
->
-> I think we want this, right?
->
-> Fixes: 13afcdd7277e ("drm/bridge: parade-ps8640: Add support for AUX chan=
-nel")
->
->
-> > ---
-> >  drivers/gpu/drm/bridge/parade-ps8640.c | 24 ++++++++++++++++++------
-> >  1 file changed, 18 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/bridge/parade-ps8640.c b/drivers/gpu/drm/b=
-ridge/parade-ps8640.c
-> > index b93514023baa..bf5a36e76c56 100644
-> > --- a/drivers/gpu/drm/bridge/parade-ps8640.c
-> > +++ b/drivers/gpu/drm/bridge/parade-ps8640.c
-> > @@ -257,8 +257,12 @@ static ssize_t ps8640_aux_transfer_msg(struct drm_=
-dp_aux *aux,
-> >         addr_len[PAGE0_SWAUX_LENGTH - base] =3D (len =3D=3D 0) ? SWAUX_=
-NO_PAYLOAD :
-> >                                               ((len - 1) & SWAUX_LENGTH=
-_MASK);
-> >
-> > -       regmap_bulk_write(map, PAGE0_SWAUX_ADDR_7_0, addr_len,
-> > -                         ARRAY_SIZE(addr_len));
-> > +       ret =3D regmap_bulk_write(map, PAGE0_SWAUX_ADDR_7_0, addr_len,
-> > +                               ARRAY_SIZE(addr_len));
-> > +       if (ret) {
-> > +               DRM_DEV_ERROR(dev, "failed to write AUX address: %d\n",=
- ret);
-> > +               return ret;
-> > +       }
->
-> nit: Include "msg->address" and "len" in the error message?
->
->
-> >         if (len && (request =3D=3D DP_AUX_NATIVE_WRITE ||
-> >                     request =3D=3D DP_AUX_I2C_WRITE)) {
-> > @@ -274,13 +278,21 @@ static ssize_t ps8640_aux_transfer_msg(struct drm=
-_dp_aux *aux,
-> >                 }
-> >         }
-> >
-> > -       regmap_write(map, PAGE0_SWAUX_CTRL, SWAUX_SEND);
-> > +       ret =3D regmap_write(map, PAGE0_SWAUX_CTRL, SWAUX_SEND);
-> > +       if (ret) {
-> > +               DRM_DEV_ERROR(dev, "failed to start AUX transfer: %d\n"=
-, ret);
-> > +               return ret;
-> > +       }
-> >
-> >         /* Zero delay loop because i2c transactions are slow already */
-> > -       regmap_read_poll_timeout(map, PAGE0_SWAUX_CTRL, data,
-> > -                                !(data & SWAUX_SEND), 0, 50 * 1000);
-> > +       ret =3D regmap_read_poll_timeout(map, PAGE0_SWAUX_CTRL, data,
-> > +                                      !(data & SWAUX_SEND), 0, 50 * 10=
-00);
-> > +       if (ret) {
-> > +               DRM_DEV_ERROR(dev, "AUX transfer timed out: %d\n", ret)=
-;
->
-> nit: not all failures here will be a timeout. Can you adjust the error me=
-ssage?
->
->
-> > +               return ret;
-> > +       }
-> >
-> > -       regmap_read(map, PAGE0_SWAUX_STATUS, &data);
-> > +       ret =3D regmap_read(map, PAGE0_SWAUX_STATUS, &data);
-> >         if (ret) {
-> >                 DRM_DEV_ERROR(dev, "failed to read PAGE0_SWAUX_STATUS: =
-%d\n",
-> >                               ret);
->
-> The one above is super weird since we clearly meant to set "ret" given
-> the error message. Not sure how we missed that originally. Oh well.
->
-> In any case, the change looks good to me, though it'd be nice if you
-> could spin with slightly different error messages.
+--7vkstdocennjbk5t
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2] drm/imx: replace struct drm_simple_display_pipe with
+ regular atomic helpers
+MIME-Version: 1.0
 
-I was assuming you'd send a v2 with the above nits fixed, but I
-haven't seen it. Did I miss it?
+On Mon, Jul 20, 2026 at 04:38:26PM +0200, Thomas Zimmermann wrote:
+> Am 20.07.26 um 16:08 schrieb Maxime Ripard:
+> > On Mon, Jul 20, 2026 at 02:36:19PM +0200, Thomas Zimmermann wrote:
+> > > Hi
+> > >=20
+> > > Am 18.07.26 um 21:12 schrieb Ze Huang:
+> > > [...]
+> > > > > > -	if (event) {
+> > > > > > -		crtc->state->event =3D NULL;
+> > > > > > +static int imx_lcdc_plane_helper_atomic_check(struct drm_plane=
+ *plane,
+> > > > > > +					      struct drm_atomic_commit *commit)
+> > > > > > +{
+> > > > > > +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_pl=
+ane_state(commit, plane);
+> > > > > > +	struct drm_crtc *crtc =3D plane_state->crtc;
+> > > > > > +	struct drm_crtc_state *crtc_state =3D NULL;
+> > > > > > -		spin_lock_irq(&crtc->dev->event_lock);
+> > > > > > +	if (crtc)
+> > > > > > +		crtc_state =3D drm_atomic_get_new_crtc_state(commit, crtc);
+> > > > > > -		if (crtc->state->active && drm_crtc_vblank_get(crtc) =3D=3D =
+0)
+> > > > > > -			drm_crtc_arm_vblank_event(crtc, event);
+> > > > > > -		else
+> > > > > > -			drm_crtc_send_vblank_event(crtc, event);
+> > > > > > +	return drm_atomic_helper_check_plane_state(plane_state, crtc_=
+state,
+> > > > > [Severity: High]
+> > > > > Can fetching the CRTC state this way cause a kernel panic in the =
+core atomic
+> > > > > helpers?
+> > > > >=20
+> > > > > If userspace submits a commit that modifies only plane properties=
+ without
+> > > > > affecting the CRTC, the CRTC is not implicitly added to the atomi=
+c commit
+> > > > > state.
+> > > > >=20
+> > > > > In this scenario, drm_atomic_get_new_crtc_state() returns NULL. P=
+assing this
+> > > > > NULL pointer directly to drm_atomic_helper_check_plane_state() ca=
+uses a crash
+> > > > > when it dereferences crtc_state->enable.
+> > > > >=20
+> > > > > Could this use drm_atomic_get_crtc_state() instead to ensure the =
+state is
+> > > > > brought into the commit if it is missing?
+> > > > I think it is fine here; I'll just copy the pattern from [1].
+> > > >=20
+> > > > [1] https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/=
+mgag200/mgag200_mode.c#L487
+> > > It could be that there's a long standing problem in the overall logic=
+=2E Not
+> > > having a CRTC (and hence crtc_state) should also mean !fb, so we'd re=
+turn at
+> > > [1]. If we have a CRTC on the plane but pass a crtc_state of NULL, we=
+ could
+> > > get a panic at [2], where it does crtc_state->crtc.=A0 I'm not aware =
+of any
+> > > bug reports about this problem, but it's still an issue.
+> > >=20
+> > > A number of drivers get this wrong by using
+> > > drm_atomic_helper_get_new_crtc_state(). The bot suggests to use
+> > > drm_atomic_helper_get_crtc_state() instead.=A0 This helper also retur=
+ns the
+> > > new state. But=A0 if there's no new state, it duplicates the CRTC's e=
+xisting
+> > > state. That's a bit of an overhead, but probably not an issue.=A0 Sev=
+eral
+> > > drivers use this helper, but also get it wrong. They tend to return e=
+arly in
+> > > the case of !crtc or !fb without calling _check_plane_state(). See [3=
+] and
+> > > [4] for examples.
+> > >=20
+> > > I think, going with the bot's suggestion to use
+> > > drm_atomic_helper_get_crtc_state() might be the best resolution for n=
+ow. It
+> > > still needs a crtc pointer, so the pattern is
+> > >=20
+> > > crtc_state =3D NULL
+> > > if (plane_state->crtc)
+> > >  =A0 =A0 crtc_state =3D drm_atomic_helper_get_crtc_state(plane_state-=
+>crtc)
+> > >=20
+> > > _check_plane_state(plane_state, crtc_state);
+> > >=20
+> > > And in this case, _check_plane_state() should work correctly. But you=
+ can
+> > > only use _get_crtc_state() in the atomic_check helpers! In the
+> > > atomic_update, atomic_enable, etc helpers, it's too late for the help=
+er to
+> > > copy the CRTC state.
+> > >=20
+> > > I think some other DRM dev should look over this as well. It's one of=
+ the
+> > > trickier things in DRM to get right.
+> > drm_atomic_helper_get_crtc_state is safe in atomic_check. It's
+> > everything after that must use either get_new_crtc_state or
+> > get_old_crtc_state, as the global state cannot be modified anymore.
+>=20
+> Thanks a lot for confirming.
+>=20
+> Wrt. the logic in plane atomic_check, we might have to fix a number of
+> drivers. As I outlined above, some use _get_new_crtc_state(), some use
+> _get_crtc_state() incorrectly. But that's for another series.
 
--Doug
+Sigh... I removed all of them a couple of years ago, I guess some crept
+back in. Maybe we should warn loudly if it happens?
+
+Maxime
+
+--7vkstdocennjbk5t
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCal45eQAKCRAnX84Zoj2+
+dg/AAYDTsrf3Fkgk1ZRklRK6roAOsuZiFoREp5NdX6u03Jpi4+thGFxdq0lEKyS0
+6K/TZMcBgL6ZYUXFbXvt4bZJ6BknrGbVMlzCNEfV2lYGsQdJWBLqDAfrlypdfYay
+4ZjNz+WlxA==
+=nM5m
+-----END PGP SIGNATURE-----
+
+--7vkstdocennjbk5t--
+
