@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D32E9C4451B
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 05:22:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 660AEC44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 05:27:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DA9D10E138;
-	Mon, 20 Jul 2026 05:22:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7501A10E657;
+	Mon, 20 Jul 2026 05:27:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IH4voaOO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DuvgjnLl";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4238910E138
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:22:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 100E210E657
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:27:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E839C41FEC;
- Mon, 20 Jul 2026 05:22:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A13D91F000E9;
- Mon, 20 Jul 2026 05:22:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B331440235;
+ Mon, 20 Jul 2026 05:27:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 760811F000E9;
+ Mon, 20 Jul 2026 05:27:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784524934;
- bh=Y3lyBAjtdefH8aeMSrI8KcN0EpFlZxHXmGHD6JHDn1M=;
+ s=k20260515; t=1784525257;
+ bh=bCe026GXv3IVDpbmM9nU3TRixlh2/11V7OnhW6uOkaw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IH4voaOOtFHvcsteF3xC4GjVNc5pTKvPTSdXnZ8jpU2cXK6jn5FMnpJJcEuUgrEt4
- ih30z9LLV9XF2F3o0JlgNsryToKx7loHJh1NFVcKtiMYYqAj/SlkIEiKWRkT4mZZuO
- 7UNfQA3Sx2l+k+fOvpb2J0RbFiX6/l8Ie950hk9K8P6yj7b08gdeVnAht13damPk5k
- tJg4mSHFWQw9LZc9gkqJH1URE/fnpXhFMYGSPq/MUfMtuL790hj/HspwQcwgfIulj+
- 6M8z9bF4uJ0GCD04agKtLfE98wDWHQ4o6KWTl2O7d4Kdj++1mJ4bOfwQsNuplpdsa/
- IwP2VtDnd8RrQ==
+ b=DuvgjnLl9vUzGdemympTM7P85ojvAWTbF0GSTeFa+wBdjS50fmSzx030PJJdtUOAP
+ JCHvSTsW3UXASZXHIyEjL3gF4BXG/+eWPCdBYAGATejYxw+NAbIRYIkn5KnR/D0I1S
+ M2MokcBO1PApqi/kjHqEZaYpgNYYmdqu+YBjVZxVomcgAXZUOE8jH7o4k3Q30SpVlV
+ B1NB0ihzuFQfUchxT+OZHadmHxL6Vxz4Jrya+CRNObE2uDL7Xi7ebdXT2QOx+2T46D
+ SMUgSvpWyL6LxDLTK8tuANxDwOGVHcaczgfce7DtygT79DO6cCjEDFDepagS7NIrRN
+ NFUuK0S4tvthQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [v5 01/14] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+Subject: Re: [v5 06/14] drm/i915/display: Program input CSC on SDR planes
 To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720045131.971650-2-chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260720045131.971650-7-chaitanya.kumar.borah@intel.com>
 References: <20260720045131.971650-1-chaitanya.kumar.borah@intel.com>
- <20260720045131.971650-2-chaitanya.kumar.borah@intel.com>
+ <20260720045131.971650-7-chaitanya.kumar.borah@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 05:22:14 +0000
-Message-Id: <20260720052214.A13D91F000E9@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 05:27:37 +0000
+Message-Id: <20260720052737.760811F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,68 +59,58 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Validation of the 64-bit `supported_fm` mask uses the 32-bit `BI=
-T()` macro, causing invalid bits in the upper 32 bits to silently bypass va=
-lidation on 32-bit architectures.
+- [High] YUV range correction is not disabled for full-range YCbCr formats =
+when a color pipeline is active on an SDR plane.
 --
 
---- Patch [1]: [v5 01/14] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX ---
-commit 25b997b331b57b2649988bc81ff156f876274b02
+--- Patch [6]: [v5 06/14] drm/i915/display: Program input CSC on SDR planes=
+ ---
+commit 8a9ffb3a71cf84165b43a62eef15fa69e1d8e5a0
 Author: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 
-drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+drm/i915/display: Program input CSC on SDR planes
 
-Introduce DRM_COLOROP_FIXED_MATRIX, a new colorop type representing a
-hardware that performs a fixed matrix operation. Userspace selects one of
-the predefined hardware modes via a new FIXED_MATRIX_TYPE enum property.
+When a color pipeline is active, program the SDR plane fixed-function
+CSC. Keep the legacy color_encoding/color_range properties mutually
+exclusive with color pipeline uapi.
 
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index 682fcc6515259..483defad699c0 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
+> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers=
+/gpu/drm/i915/display/skl_universal_plane.c
+> index da2df5be9848d..9893b061da5fa 100644
+> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
 [ ... ]
-> @@ -453,6 +462,80 @@ int drm_plane_colorop_3dlut_init(struct drm_device *=
-dev, struct drm_colorop *col
+> @@ -1240,33 +1240,62 @@ static u32 glk_plane_color_ctl_crtc(const struct =
+intel_crtc_state *crtc_state)
 [ ... ]
-> +int drm_plane_colorop_fixed_matrix_init(struct drm_device *dev, struct d=
-rm_colorop *colorop,
-> +					struct drm_plane *plane,
-> +					const struct drm_colorop_funcs *funcs,
-> +					u64 supported_fm, uint32_t flags)
-> +{
-> +	struct drm_prop_enum_list enum_list[DRM_COLOROP_FM_COUNT];
-> +	int i, len;
-> +	struct drm_property *prop;
-> +	int ret;
-> +
-> +	if (!supported_fm) {
-> +		drm_err(dev,
-> +			"No supported FM type op for new Fixed Matrix colorop on [PLANE:%d:%s=
-]\n",
-> +			plane->base.id, plane->name);
-> +		return -EINVAL;
+>  static u32 glk_plane_color_ctl_input_csc(const struct intel_plane_state =
+*plane_state)
+>  {
+[ ... ]
+> +		if (plane_state->hw.color_range =3D=3D DRM_COLOR_YCBCR_FULL_RANGE)
+> +			ctl |=3D PLANE_COLOR_YUV_RANGE_CORRECTION_DISABLE;
+> +	} else if (!icl_is_hdr_plane(display, plane->id)) {
+> +		if (plane_state->hw.csc_ff_enable)
+> +			ctl |=3D intel_csc_ff_type_to_csc_mode(plane_state->hw.csc_ff_type);
 > +	}
-> +
-> +	if ((supported_fm & -BIT(DRM_COLOROP_FM_COUNT)) !=3D 0) {
 
-[Severity: Medium]
-Since supported_fm is a u64, could using the 32-bit BIT() macro here cause
-validation issues on 32-bit architectures?
+[Severity: High]
+Does this code miss disabling YUV range correction for full-range YCbCr for=
+mats
+when a color pipeline is active?
 
-On 32-bit architectures, BIT() evaluates to an unsigned long (32 bits). When
-negated and then promoted to u64 for the bitwise AND with supported_fm, it
-zero-extends the upper 32 bits (e.g., 0x00000000FFFFFFE0ULL). This means any
-invalid bits set in the upper 32 bits of supported_fm would be zeroed out
-during the operation and silently bypass this validation check.
+Userspace configuring an SDR plane with a color pipeline using one of the
+supported DRM_COLOROP_FM_YCBCR*_FULL_RGB fixed matrix operations will map to
+PLANE_COLOR_CSC_MODE_YUV* modes, but it doesn't appear to set the
+PLANE_COLOR_YUV_RANGE_CORRECTION_DISABLE bit here.
 
-Would it be better to use BIT_ULL(DRM_COLOROP_FM_COUNT) or GENMASK_ULL to
-ensure the mask is properly validated across its entire 64-bit range?
+Could this lead to the hardware performing an unintended limited-to-full
+range correction on full-range YCbCr data?
 
-> +		drm_err(dev, "Unknown Fixed Matrix provided on [PLANE:%d:%s]\n",
-> +			plane->base.id, plane->name);
-> +		return -EINVAL;
-> +	}
+> =20
+>  	return ctl;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720045131.9716=
-50-1-chaitanya.kumar.borah@intel.com?part=3D1
+50-1-chaitanya.kumar.borah@intel.com?part=3D6
