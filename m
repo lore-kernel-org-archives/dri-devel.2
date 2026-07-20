@@ -4,78 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F542C44515
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2020C4452D
 	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 19:04:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9A6E10E122;
-	Mon, 20 Jul 2026 19:04:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A8C610E127;
+	Mon, 20 Jul 2026 19:04:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NLwdmr9G";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="FiCbGMQm";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="W39M6Jay";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA20110E18E
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 11:53:04 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-47f785467faso516522f8f.2
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 04:53:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784548383; x=1785153183; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=7plU2/kVmQSn+LOCEtFWHQX2WddsHW3wUI2HcoGLNVg=;
- b=NLwdmr9GDgjM7M1bDSFPZEOnlmeFOLGRPchhw6ghGyNjnhNYUvTrmnX9G63tfuw4tX
- 2xEBnm6VWBHmQpKJUyOlnxQyE3+ScgV6zjDoBLC5Yne9WoMlFixtPob+2HBevhxUX35+
- Dw+pTfAowzWi2iWGiCtSf+KqA9gV6+Pk3mhk0nQngnipe28tXR9huzCZpjlaPfO01A5y
- kLMrrxWpk5cwMO9ObYiNpilSrhmqUeoLcuTp7azZqa2ozoamMwzsY0UGIWOd/5EHXGcO
- hedH2Alo5ACck9JGPxosMbzKVslGPTNGEmKYMSjnUTkOUxP3A6BFqVgtD4K6KOaGkQ+H
- PPFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784548383; x=1785153183;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=7plU2/kVmQSn+LOCEtFWHQX2WddsHW3wUI2HcoGLNVg=;
- b=iX63yYyk3KBsdW7xju7pJYzQl5oTbDTFfAGZMZhnIUPUoUZ+K1s6EEbiWgiqk+q30r
- vV4A+wey7qp2wR/69wnLG1G9Si23GxrX2VtKeL7QMKHS81v2Ce0YoKpcLfRkT/FYsgbP
- d+PXXExymNV2iWYsf7VY4m5SR3lackkrX3HJjE3PEu4nsLShIkoD0ofa050hOQ03a9II
- q5UqKhimgxeDQoVdcT9EUmE/P1DZF0CnAiBzWov3XsHBVSsQUDME1QEx9l3jvDR944JE
- tcLrmEt39a7PBTpKfMrCG3zaxyhVy1F2u5bUF+vLzXMi4bYkrzVb60OOMQRmeJM16e+g
- iJeg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro7XfeaU1FPirpPZxo2ggnh3S3DzAT/kkpp2cMeTQ4uyhAG1mMs+j81mSR64ztbMR79nnd1bHbOj5Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxfkC/oTu0ihNT/xX2dw+Q/Z8qVVgwasLXQqA+DbS7k3FAGI83S
- txZJDiZoEI9ygmO/tHPNdlM2Y0Dxsl7n0QcZx0DiVxDy4rl7ZlpVULvA
-X-Gm-Gg: AR+sD11S9vJOg9EeNszDWL/NmdoMo0HnObhOib7RNwohEB7bqfkDUxb0UtAxCBA5CMl
- JZxXZMEklQy24MxDih6/npjZm42Ys0QiXFyAoI1RnItwcZpM4VjOMMNmlZMVdWu4YZZ2vpW8/FC
- sIsn1QbuJ9qYmanLkiU9ZN2kAr8tKVyDmc3O5e7TiFQKh8Rm/SA+96+4acHJk3qaDY9CcNGUxSW
- w7lyPs8JkYHHVCngfhvQq1jlQelYXv4W7ERhSEkF4G+oNIVxkJ1QYcz+JTy0eIwnlhtcA3gifF/
- az7GKl9LElVu/XmZbDla69FKp5gyiM/UmQy8ObxPEUflRUOvlVq74LTcvXpiziiDRX+eoXYvK1d
- xKxJGcx6hRIJrQz/GB66Yr+FIi4htOoGZsbTkKmYv4c4ZqqovFdjI3KyQEkA1dLXr2uQR0FzkXW
- abTdDnTJdBTus=
-X-Received: by 2002:a05:6000:2613:b0:47f:7114:7d6c with SMTP id
- ffacd0b85a97d-47f71147deamr7069056f8f.44.1784548383122; 
- Mon, 20 Jul 2026 04:53:03 -0700 (PDT)
-Received: from fedora ([2a02:2f0a:7305:1100:2d17:dc4a:b635:9a95])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f63ec7ea1sm30204633f8f.24.2026.07.20.04.53.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jul 2026 04:53:02 -0700 (PDT)
-From: Robert-Andrei Mercea <robertandreimercea@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Robert-Andrei Mercea <robertandreimercea@gmail.com>
-Subject: [PATCH] drm/panel: osd101t2587: migrate to newer mipi_dsi* functions
-Date: Mon, 20 Jul 2026 14:51:26 +0300
-Message-ID: <20260720115126.666363-1-robertandreimercea@gmail.com>
-X-Mailer: git-send-email 2.55.0
+X-Greylist: delayed 593 seconds by postgrey-1.36 at gabe;
+ Mon, 20 Jul 2026 17:30:50 UTC
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23F5C10E1FD
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 17:30:50 +0000 (UTC)
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1784568055;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gpk28iHPO7PC05304UxcoPudPVrzlTV8S79O5pVRZfI=;
+ b=FiCbGMQms4RcsDVNUsTN51j76nNj8HOPwjC41O5KuWK+oEsHEb4uEvMAWT6AqtIJZg/Z8R
+ udp1dikrBomMVcgDOgxVIk3EVgxjNIUWY/dRN6FIN3Vb2iH9KJMrXPmjDOzYe5ouaPfwN0
+ FeQ2+V7bs32Sf3YXK9vFUWgZBFODle1UjUDXy839ahPaNxge94c1CCOYPQueaMKDJlGgSb
+ v4Zp7Oxva7vQVgYfrNuHrVKyXIKKvJcYXNqSud28EHU6WY8V1IkU5+Zh3TPDLW11Zg2fPl
+ EX3QFrIFNLSCDiW8YXhBhSNzX00C4j3MW2dr/v2tl4bdJLuF0mtEOYgEwhinBQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1784568055;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gpk28iHPO7PC05304UxcoPudPVrzlTV8S79O5pVRZfI=;
+ b=W39M6JaymblcVCFinem2pr2nBeAKTlsnQK1sENnAIBsKYRTD/IHR+vXn8GZ3NxS6Ww8V4E
+ mV0Q5tEkW+C4M7Cw==
+Date: Mon, 20 Jul 2026 19:20:37 +0200
+Subject: [PATCH] drm/vc4: hvs/v3d: Fix null dereference in unbind
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260720-rpi-vc4-fix-v1-1-6073a96a5773@linutronix.de>
+X-B4-Tracking: v=1; b=H4sIAORYXmoC/yXMQQ5AMBCF4avIrE3SVku4ilhQg7FAWkQivbti+
+ b3k/Td4ckwequQGRyd7XpcImSZgp3YZCbmPBiVULgpp0G2Mp9U48IV9mRmZdcJoZSA+Nkdx/mp
+ 189sf3Ux2fxMQwgMo3gGYbwAAAA==
+X-Change-ID: 20260715-rpi-vc4-fix-d93513b05425
+To: Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Douglas Anderson <dianders@chromium.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Gregor Herburger <gregor.herburger@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784568054; l=1945;
+ i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
+ bh=rgKMaikcnyYgqwLELlkEBZrPTGaoKIum3hhFD20sO2E=;
+ b=wm08g+zCxUBIOnZya9Ew232hQOHQrCbUStR2valI6eUGZrvftuSIKbifX1+ptfWKgRiCT1cmW
+ wE9JIb7k1EFAE9IZ7aLCTfL3VAaBoMbfsO6+RhkgrcnqlAiJdn+gyK2
+X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
+ pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 X-Mailman-Approved-At: Mon, 20 Jul 2026 19:03:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,53 +80,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Migrate osd101t2587-53ts panel driver from deprecated mipi_dsi*
-functions to their *_multi variants for improved error handling, as
-specified in the GPU subsystem TODO list.
+The hvs and v3d drivers use dev_get_drvdata(master) in their unbind
+functions. Since the vc4-drm gets removed before its dependent drivers
+(vc4_hvs/vc4_v3d) the vc4_hvs_unbind/vc4_v3d_unbind functions try to
+get drvdata of its master and fails with a null dereference error.
 
-Link: https://docs.kernel.org/gpu/todo.html#transition-away-from-using-deprecated-mipi-dsi-functions
+Use the data pointer passed to the unbind functions directly instead of
+dev_get_drvdata(master). This avoids using potentially freed memory.
 
-Signed-off-by: Robert-Andrei Mercea <robertandreimercea@gmail.com>
+Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
 ---
- drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hvs.c | 2 +-
+ drivers/gpu/drm/vc4/vc4_v3d.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c b/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c
-index 2334b77f348c..63ae9dc5712f 100644
---- a/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c
-+++ b/drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c
-@@ -32,11 +32,11 @@ static inline struct osd101t2587_panel *ti_osd_panel(struct drm_panel *panel)
- static int osd101t2587_panel_disable(struct drm_panel *panel)
+diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
+index 184d51ea3fa5..e715147d091c 100644
+--- a/drivers/gpu/drm/vc4/vc4_hvs.c
++++ b/drivers/gpu/drm/vc4/vc4_hvs.c
+@@ -1752,7 +1752,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+ static void vc4_hvs_unbind(struct device *dev, struct device *master,
+ 			   void *data)
  {
- 	struct osd101t2587_panel *osd101t2587 = ti_osd_panel(panel);
--	int ret;
-+	struct mipi_dsi_multi_context ctx = { .dsi = osd101t2587->dsi };
- 
--	ret = mipi_dsi_shutdown_peripheral(osd101t2587->dsi);
-+	mipi_dsi_shutdown_peripheral_multi(&ctx);
- 
--	return ret;
-+	return ctx.accum_err;
- }
- 
- static int osd101t2587_panel_unprepare(struct drm_panel *panel)
-@@ -58,13 +58,11 @@ static int osd101t2587_panel_prepare(struct drm_panel *panel)
- static int osd101t2587_panel_enable(struct drm_panel *panel)
+-	struct drm_device *drm = dev_get_drvdata(master);
++	struct drm_device *drm = data;
+ 	struct vc4_dev *vc4 = to_vc4_dev(drm);
+ 	struct vc4_hvs *hvs = vc4->hvs;
+ 	struct drm_mm_node *node, *next;
+diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+index d31b906cb8e7..f32410420d3e 100644
+--- a/drivers/gpu/drm/vc4/vc4_v3d.c
++++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+@@ -494,7 +494,7 @@ static int vc4_v3d_bind(struct device *dev, struct device *master, void *data)
+ static void vc4_v3d_unbind(struct device *dev, struct device *master,
+ 			   void *data)
  {
- 	struct osd101t2587_panel *osd101t2587 = ti_osd_panel(panel);
--	int ret;
-+	struct mipi_dsi_multi_context ctx = { .dsi = osd101t2587->dsi };
+-	struct drm_device *drm = dev_get_drvdata(master);
++	struct drm_device *drm = data;
+ 	struct vc4_dev *vc4 = to_vc4_dev(drm);
  
--	ret = mipi_dsi_turn_on_peripheral(osd101t2587->dsi);
--	if (ret)
--		return ret;
-+	mipi_dsi_turn_on_peripheral_multi(&ctx);
- 
--	return ret;
-+	return ctx.accum_err;
- }
- 
- static const struct drm_display_mode default_mode_osd101t2587 = {
--- 
-2.55.0
+ 	vc4_irq_uninstall(drm);
+
+---
+base-commit: 58717b2a1365d06c8c64b72aa948541b53fe31eb
+change-id: 20260715-rpi-vc4-fix-d93513b05425
+
+Best regards,
+--  
+Gregor Herburger <gregor.herburger@linutronix.de>
 
