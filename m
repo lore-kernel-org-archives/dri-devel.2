@@ -4,142 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75CCBC44525
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 09:52:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9B29C44527
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 09:54:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8F8010E158;
-	Mon, 20 Jul 2026 09:52:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CB2410E13F;
+	Mon, 20 Jul 2026 09:54:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="ScmwHF42";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ViEoCZkW";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.15.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DBF610E158
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 09:52:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1784541146; x=1785145946; i=markus.elfring@web.de;
- bh=j+GFna9NRb2HuBvQJD0oUM/Zix3uuE8dlGpVy5zxZdU=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=ScmwHF42c5aisGOGN3N9qaLT8tKNm0mcDRjSbhVtq+X4TyQc+RLXI1CXRG2yKdQB
- IW7Pwhac2w7ZsycgjzniiWkIGphYkwSIklY9sG51/JiJjtMYFCNCT4W6Uxburjp9o
- z1i4Mx6R6x/ZGP1uE3d0wfMmp71pY81H/Fsm2VOSNllpXDNGO7Z8bUwCPffvg8/Wk
- MCUrMU2VHEcKLDd0E7wOm8xosZFDXMXAU0GfQc2og+PksjiPaqjSLxIc8QuFRYOPU
- xNXdgswsMT24WiU0AEtkj7qbNbziVGH5pT1e+MKMqe0pMEWPBFs5EV1VSQDrQNIlg
- Pj9FsXDo9r+MshLwGA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1McZjd-1xHDs72MHd-00n4f6; Mon, 20
- Jul 2026 11:52:26 +0200
-Message-ID: <e624499c-7fff-4c77-8f4d-0fb8c0d0814c@web.de>
-Date: Mon, 20 Jul 2026 11:52:24 +0200
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 05F9F10E13F
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 09:54:56 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6F0A62B;
+ Mon, 20 Jul 2026 02:54:51 -0700 (PDT)
+Received: from [10.57.84.220] (unknown [10.57.84.220])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CC8F43F86F;
+ Mon, 20 Jul 2026 02:54:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1784541295; bh=tgJkIB4B+jky/Ski+nut9PFjibMvVkWxjSFcztspMP0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ViEoCZkWwBB4U5jsCe/MenGzFNXbQMBSaC5EHu6i6kjJWEKhL4xaRojQr89BKZSgs
+ WpYAl0Cc9hYS6ia083mYJImUWffA77MzsU7zSZ8rY2Yj0q65clVrp/Br9jjmWtuN6Q
+ kuM3BuW2JZYN/AhHBIMX5SftJJL97UjTEDm2Ics0=
+Message-ID: <cd4258f6-084d-4759-9ba5-17cf29428b1d@arm.com>
+Date: Mon, 20 Jul 2026 10:54:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: fbdev: arkfb: Move a variable assignment behind a condition check
- in ics5342_init()
-To: Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Kees Cook <kees@kernel.org>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- kernel-janitors@vger.kernel.org, linux-hardening@vger.kernel.org
-Cc: LKML <linux-kernel@vger.kernel.org>
-References: <36d0eba7-e78d-4a06-95bc-c97d9b91f8f0@web.de>
- <40d5e392-3f99-44c9-b30a-3481f60143ba@gmx.de>
- <550584cc-863d-48c3-813b-3a0cb45d9084@web.de>
- <5a13f19d-4ba0-40d4-b061-0d17156b1686@gmx.de>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <5a13f19d-4ba0-40d4-b061-0d17156b1686@gmx.de>
+Subject: Re: [RFC PATCH v1 1/8] misc/arm-cla: Add driver skeleton and
+ documentation
+Content-Language: en-GB
+To: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Jean-Philippe Brucker <jpb@kernel.org>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+References: <20260717104759.123203-1-ryan.roberts@arm.com>
+ <20260717104759.123203-2-ryan.roberts@arm.com>
+ <1e561b1a-2c87-4a23-b4da-126b333de8ba@app.fastmail.com>
+ <5f82ee6b-d106-4ae1-9b2c-5a817e3e43b9@arm.com>
+ <2732dc3b-e3b0-4df6-9b63-f0de4eaca993@app.fastmail.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+In-Reply-To: <2732dc3b-e3b0-4df6-9b63-f0de4eaca993@app.fastmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:CMHwCFXVNXhc75th/O8NH0ABCwkICIAYrj8Oh1kjoXjgdxrS6aQ
- vL38EbVABf3H8LPIFc64u/rGNLVnpaTpOcB2i07Wpuv6wyHtMQo3B9U7JiYRXQRclabjYGp
- x+17MAt8atlNS4LW3NGzzEo4T2GOZi215WbNSnsze+msZ3fW6G3zN7vkNhPrnz8nfGasep6
- UOCjPJAf1SvPqGHmVqgjQ==
-UI-OutboundReport: notjunk:1;M01:P0:JQOQTvrWW5o=;zL8YovSRSPMCYZbSe/CkuYIIZzn
- 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
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,40 +65,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
->>>> The address of a data structure member was determined before
->>>> a corresponding null pointer check in the implementation of
->>>> the function =E2=80=9Cics5342_init=E2=80=9D.
->>>>
->>>> Thus avoid the risk for undefined behaviour by moving the assignment
->>>> for the variable =E2=80=9Cinfo=E2=80=9D behind a condition check.
->>>>
->>>> This issue was detected by using the Coccinelle software.
+On 17/07/2026 17:10, Arnd Bergmann wrote:
+> On Fri, Jul 17, 2026, at 17:44, Ryan Roberts wrote:
+>> On 17/07/2026 14:49, Arnd Bergmann wrote:
+>>> On Fri, Jul 17, 2026, at 12:47, Ryan Roberts wrote:
+>>> This sounds a lot like st64bv or st64bv0, passing an 8-word payload and returning
+>>> a single word per accelerator operation with shared addressing.
+>>
+>> We're actually passing 9 words here; 8 DATA words plus the LAUNCH word. CLA
+>> supports only 64 bit aligned and sized accesses (other accesses are RAZ/WI) so
+>> they have to be written as 9x64bit stores. Then poll using 64bit loads.
+>>
 >>>
->>> There is no "risk" here.
->>> It just adds an offset to a potential NULL value (which isn't then use=
-d afterwards).
->> Does your understanding of programming language details differ from the=
- view of
->> SEI CERT C Coding Standard (from the Carnegie Mellon University)?
->> https://cmu-sei.github.io/secure-coding-standards/sei-cert-c-coding-sta=
-ndard/rules/expressions-exp/exp34-c/
-> My statement still stands.
-> Try to find the difference between the code and the examples on that web=
-site yourself.
-> Tip: The relevant part is the "&" and in doubt look at the generated ass=
-embly code.
-Do any more code reviewers take another look at results from undefined beh=
-aviour sanitizers?
+>>> Why are there now two interfaces to do the same thing?
+>>
+>> Good question. This is how the HW operates.
+>>
+>>>
+>>> Can a user process use st64bv to do the four steps in a
+>>> single instruction?
+>>
+>> No, unfortunately not.
+>>
+> 
+> Ok
+> 
+>>> Can a CPU start multiple asynchronous operations concurrently?
+>>
+>> Yes; STATUS indicates READY while it can accept more asynchronous operations
+>> ("comamnds").
+> 
+> How does userspace know which operations have already completed
+> then? (not worried about this bit, just trying to understand)
 
-* https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html#introduction
+There is nothing architected in the CLA to determine this; You can determine
+READY (i.e. can accept new commands) and IDLE (i.e. completed all previously
+submitted commands). If you want to know when a specific command completed
+without having to wait for all commands to complete, then you need extra
+knowledge of the specific accelerator.
 
-* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/=
-Documentation/dev-tools/ubsan.rst?h=3Dv7.2-rc3#n6
+> 
+>>> Do these continue to run if the starting process is scheduled out
+>>> and another process also tries to use CLA?
+>>
+>> Yes; the driver manages assignment of a CLA to a process context completely
+>> separately from the thread scheduler's decisions about which threads run on
+>> which CPUs and when. If another process is scheduled onto the CPU and it
+>> attempts to access it's VA for the CLA, it will fault into the driver's handler
+>> and be put to sleep until the driver decides to reassign the CLA.
+> 
+> This part does sound dangerous, not in the sense that I think it's
+> fundamentally broken, but in the complexity it adds.
+
+Can you describe more about the complexity you see here? The intention is to
+_reduce_ complexity by not coupling with the CPU scheduler.
+
+> 
+> I wonder if it's feasible to simplify this by always canceling
+> any ongoing CLA operations during switch_mm():
+
+The advice I've had so far is to avoid at all costs, coupling the CLA context
+switch with the CPU context switch; there are concerns about the latency
+impliciaitons for the CLA context switch and also a desire not to couple the CLA
+device driver with arch code.
+
+> 
+> Is there an upper bound on how long a single operation can take,
+> or a guarantee that an operation at least provides a partial result
+> in hardware?
+
+For the compute accelerator we have, operations are gauranteed to complete in
+finite time, but that time could technically be very large. In practice
+operations for known use cases range from a few microseconds to ~10 milliseconds.
+
+As I described in a previous response, the accelerator does not support full
+save/restore so if it is interrupted while running an operation, the operation
+appears aborted when the state is next restored. Due to forward progress
+concerns, we are looking at the possibility of a grace period (of the order of a
+few milliseconds) during CLA reassignment. I'm pretty sure we wouldn't want to
+insert that into the (non-preemptible) CPU context switch path...
+
+> 
+> From your earlier descriptions, it sounds like the CPU is usually
+> assumed to wait for completion with WFE anyway, so from the
+> scheduler's perspective, the thread is active while waiting for
+> the accelerator to complete a job (even if from hardware side
+> the CPU is powered down during WFE).
+
+In practice the CPU will have some parallel work to prepare the next
+operation(s) for submission, but yes, eventually it will enter a polling loop
+waiting for accelarator completion with WFE.
+
+> 
+> If this is how it generally operates, and the accelerator jobs
+> are usually fast, forcing the CLA TTBR0 to be the same as the
+> CPU TTBR0 would avoid the entire problem of unmapping the registers
+> on context switch, but instead let this hook into the same place
+> as the corresponding iommu_mm_data switch on x86, which seems> to handle this
+more nicely.
+>
+
+I agree this feels like a much simpler model on the surface but because the jobs
+are not always fast and because the accelerator doesn't support full
+save/restore, I don't think this approach flies in practice.
+
+Thanks,
+Ryan
 
 
-See also:
-https://stackoverflow.com/questions/79662603/why-do-compilers-not-warn-abo=
-ut-this-null-dereferencing-even-when-they-detect-i#answer-79663272
+>> I'm not sure what you mean by "Which instruction specifically causes the fault".
+>> A fault occurs within the accelerator if it tries to access a virtual address
+>> that is not mapped by the page table or if the permissions of the mapping are
+>> not sufficient, etc... The fact that the accelerator has faulted is reported to
+>> the SW that is polling the accelerator's STATUS register within user space. That
+>> SW is expected to trigger fault handling by the usual kernel mechanisms by
+>> accessing the VA. Then it issues a RESOLVE operation to tell the accelerator it
+>> can continue.
+> 
+> Got it now. I had assumed that the page fault is delivered asynchronously
+> to the kernel without user space getting involved. In this case, I think
+> the interface is actually cleaner, though it does add a little bit
+> of overhead for userspace having to decipher the status. 
+>  
+>>>> +User space software is expected to create a thread to drive each CLA it is
+>>>> +using, and for each thread to be pinned to the CLA's local CPU.
+>>>
+>>> What happens if multiple processes have the same chardev open and
+>>> each mmap() that, e.g. after a fork()? Does each process see its
+>>> own virtual instance of the accelerator and interact with it through
+>>> the same physical MMIO register range but its own process address space,
+>>> or do you have to rely on the registers being mapped only into a
+>>> single mm_struct to prevent a process from messing with another process
+>>> data?
+>>
+>> The driver maintains a cla_ctx for each {file description, mm_struct} pair. So
+>> in this case, even though the file description is shared between the parent and
+>> child processes, they still have distinct mm_structs so still have separate
+>> contexts allowing the driver to virtualize access correctly.
+> 
+> Ok, got it.
+> 
+>      Arnd
 
-Regards,
-Markus
