@@ -4,125 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 830A3C44529
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 07:21:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 055CAC4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 07:21:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D88A910E6AE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFC0310E6AA;
 	Tue, 21 Jul 2026 07:21:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mt.com header.i=@mt.com header.b="hPpTV+KR";
+	dkim=temperror (0-bit key; unprotected) header.d=0sec.ai header.i=@0sec.ai header.b="bNKd0mll";
 	dkim-atps=neutral
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013070.outbound.protection.outlook.com
- [40.107.162.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0551410E033
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 07:13:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hULpAM2jup3KmyQrdcOGMgg/gG4UfCXdtoHQxMDJt0n7jyq5wTIBT8zhCnDAPlx2dtokQa6Ag328BzMMqmHS0vqVO1m9/Dkck5rMUgkDiWvY6hox9uMUQs0Oah6ZsLSfaCxYxP6crrpiaS9GcF4vjMAeBIDxo5vf/YEM34PoYzYprZPAuAwR4jZ0hVCZwu4+YGKEgGDQ+4UDnKgTqZenEKDL5x6JD32JcNBA0dVamPC4I8rCqkMeAHxQaIxynok7IJi/7P9+hRhrbgMCoSiBPKGNp6y5YrbFc/47Sd6933coBl73+JezUn/XWdIgf5mntTKEUEcTVq+iFTVdQ9NybA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2bGwy71TT0ErkKstC5Ym1MV7/PkBEOByBqIg/zMZyGk=;
- b=k/5RZpYZKc1j8rZQKFK80IvHmxEF/oJsf88QueP7dzAQasdqsIKREKOA1vEjnWscu28GjHqX+wAhUJne28YnnP5Y8fVO9CcoA12Xs0vcaqrLwgOOO4k5msR+cRIn+FlvUMEdeIWpyc/R9RLRpSyHxcGgh3OaUvuyXuJCzlJv1dWd0HhRFwcri1/7kJRulTyqHcndFHFieVZMB2DumoLBT6Y2+Zh+mw4ghGoOs40tic9YGcsCQkp2uGf+t1rbWfTNYZXFT8flphE/UaIlefu3NZx9kfc9OttUEMN08nToPKwKPbYjlRkdUf/l4C8rTq21fNSWcyh4pHYn+LjtyvCF3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
- header.d=mt.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2bGwy71TT0ErkKstC5Ym1MV7/PkBEOByBqIg/zMZyGk=;
- b=hPpTV+KRaSUP0b6WzVEAV/YbXGaLlLoLT6WsNun7KcDNL/4QtoggSa/qf732hur+rjlsqUzY1vl/w4tzoes/oVgoJ8WKxHfHblyAVgUvJtL08ulHZffYH44ITYRKAb5c6i9FkC0q4/9272diLJv2L5AgranG9rCH97wjMwDNIlghJ6yJainAMJsKR1MFMI40v11sj4YyGh8qQGcn4VRiCpCG741rZi8bTS1n7Xnpn7oC6Muz45UdZhnYv79sPoVOiwv+0zMqg57hJrn34tRk4cLwtJPL95tiE2nBectprtt4YZNkRo7OOsRb2i218PhouoxGPodcjw4RIQCtk52zMQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mt.com;
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
- by GV2PR03MB11523.eurprd03.prod.outlook.com (2603:10a6:150:320::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
- 2026 07:13:10 +0000
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0223.017; Tue, 21 Jul 2026
- 07:13:09 +0000
-From: Wojciech Dubowik <wojciech.dubowik@mt.com>
-To: linux-kernel@vger.kernel.org
-Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Subject: [PATCH v6 1/3] drm/bridge: ti-sn65dsi83: Simplify error condition
- logic
-Date: Tue, 21 Jul 2026 09:12:48 +0200
-Message-ID: <20260721071253.1098652-2-wojciech.dubowik@mt.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260721071253.1098652-1-wojciech.dubowik@mt.com>
-References: <20260721071253.1098652-1-wojciech.dubowik@mt.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR2P278CA0047.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:53::12) To DB9PR03MB7180.eurprd03.prod.outlook.com
- (2603:10a6:10:22d::13)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B87610E133
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 19:20:48 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-495590dde14so17809725e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:20:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=0sec.ai; s=google; t=1784575246; x=1785180046; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Nn308Uc42Dl57RP6Xi6iEgaOKqgEpx9JiKwuLvZ7d4o=;
+ b=bNKd0mllxuRsDe6Hl9KFyGnmnG94i1R7vpB05cjIov1tIx1JC0pXyeYDANfrryJPX9
+ wRhoS5rnjHrCgOhI0OSAtWsaoUEorFbslleZD/s6o8a2leP5IQvytSmcJQBYhhQvGg4m
+ /dzmO/zeV5LIMpvvjB4d042C7g+XKgn2MiV+qJ43QzwW3Ydb/iutvflEjWDy16YvNFL0
+ mG9d8ZKwfl6dTK1TL/R6ceJP2OoIxEJohjz7NyiOXKLHYSfJRLmvl+OhmlHAWDRjQu0r
+ xVbrdLRwWYLXJA+F0R8yiMnSqMhVY6h2ZR88sY7chHU8A7FIABQF7cXLn841BtJZms9n
+ f1KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784575246; x=1785180046;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Nn308Uc42Dl57RP6Xi6iEgaOKqgEpx9JiKwuLvZ7d4o=;
+ b=cvOWY2CHWf9GkWzpwGY0sd0a+eIK3qmsvteAXh4wHohNSJ0TGA1UTeJFBrJqm8Z24T
+ +a/HyF1QxMH5siB/WZDrhngwf+DkBg+2m+OCDuAhuQffs4a0h+x7IBbBL9tMgksfinLJ
+ 0Su7L9Et3c9rxhPMpTd/YHyTIaLmnutK94D4WXct5zuFSM5uDruo2oPQZl/2MhO+38y9
+ pDvHeNJ7UbOXiHNzdVcngfyCaBMYJ5s7/QqJEvAqpmK25rJfOmrbsg0/rSwh13hE0xRP
+ myrJ8vJEsWZEpgyRIVkfUzlJOHurrhpq7SJzSEzDy1kX2ZeawDGuR0mPbedE+jW3TVRV
+ vQnA==
+X-Gm-Message-State: AOJu0YyFfBtmbrK4ZsPXyUj34osbv2JIQ15awo7oBScIRKtt9Z9Xf2NY
+ klUoe2inOdBZMBOCcQjm9BIHfyE8Fe24jnmhaOCW8MgrCebzuFXyTi2frAj1ltlyWkbv
+X-Gm-Gg: AfdE7cnRWVztcc3I3rw3ANoV80uTRlJ5TyPPr4pdtkKwpe8TRyE//fsK5wVh60Xhs8z
+ Y/ULrg2juz74EPmd8AL61d9motqM3miAXNRMB/0mWLfVeMaLFU+lmTmGJKKkAo/EoLCCa1JYiHc
+ +OFTekZyb2DFMiyOwb05miQTffmLqeerrNkju6l8JOA6wZR8a/NJTmbB45alGxqUcERFYEnYIH4
+ Tbmc1hwErxjVxf8BKeg0l4Ub0os9pcPuiGYCEF3sNCyCN+0wevbQkbXwxkAJFKZc+jCoCSwzdTm
+ RCl6DHFORXgcvNmiTIrHFUrodPvS+bMjghF7+iGA1DT/shHVzvstugae4rEhMSctyL28CyJW2Nn
+ xTwHuMsglZ7nXMc50fBciNqvIxgRqObtM3OZPDX63Hjo3g+6XqdAYTH8Q3ie5NLm95nQmffunom
+ ANwd7SopVClocIxItAUTj/II3SM16CjyupRl+PHKMGXG80Gf32p2y9kgFLDxNIrW6AmXqjiozMe
+ aDqQ3bSgEol9uVHPQXgPqnU
+X-Received: by 2002:a05:600c:1509:b0:495:3f5e:e7a with SMTP id
+ 5b1f17b1804b1-4954a51dee6mr121496285e9.34.1784575246312; 
+ Mon, 20 Jul 2026 12:20:46 -0700 (PDT)
+Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.14])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-495653bffefsm9693325e9.9.2026.07.20.12.20.45
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Mon, 20 Jul 2026 12:20:45 -0700 (PDT)
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+To: robh@kernel.org,
+	tomeu@tomeuvizoso.net
+Cc: dri-devel@lists.freedesktop.org, ogabbay@kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] accel/ethosu: validate all tiles and the packed-channel peak
+ in the cmdstream verifier
+Date: Mon, 20 Jul 2026 21:20:44 +0200
+Message-ID: <20260720192044.19557-1-doruk@0sec.ai>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|GV2PR03MB11523:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71d11b04-fc34-427a-a2d7-08dee6f78510
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|19092799006|23010399003|18002099003|22082099003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: 2FedXgPFBAAJRIS1BwlxUH7Q0Y2HcLBF9BH0Rqec2k3zBHru/EBg+7y81OhCNjKfOL/MUonaj1b6Nmj6oG7d3yedFVzFPHEvcmquewdA69KBlgXzxjvujYxOPXuhnlYWYkV/lTV18n0WgNNO2a0Kv1Gsc9dI7L9Jwz7Od8x/OCT92U4MMQVVg93A4l0MSlCDUvb0r+LkCZTQSIz0olsQv6WSlAMYvOh+39/Ul/40tBHiHVSdh/KHzSjx5rdO3YfjwmFKF0HuVuCpkLIBi2KbZpgQ3au2kEq/oxtzd94xTfk5o+/lwabzzjeqKLD+LivX6/WFXzXZdjceP+wtZpMnF/XMlkLia9rRrPZQ/kRfAoaRsHDdkIlFzQ0ewCxRiEMtyej5DMsSmGF8WvXq2ocSOYD0BoqhNMF7kR7wQugpph3EuVTcQwgfKYJY23rvl1DFc0GNJqy05w7RUGk4gwL7TJNRNrI7of9QobEttGZQdzyo6Q3nsnBKHTHou6j/1MaeSJiwjnyV6Ryg3Xt/XHQa8LLMpeEY4n5WitRxG8JU5EW2L2G532GpzxhDfVcvMh2cEB5e5MtiRC18CDAXKqnspXQSEdgx2bkBqaiOwSwuixOFSg56uCryzuRQ/S8lxTX5ee8LVog+2+8sV5fJrx1yVhfXkFLq2vzr7/BBVeXIVUU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DB9PR03MB7180.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(19092799006)(23010399003)(18002099003)(22082099003)(56012099006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?mtwBZHgUlQnMv7+aboqnxNPwvt5MtPkVlpEzkvHxpSBI4cLWlq6npdjB4Skp?=
- =?us-ascii?Q?RSYTbMQ70Yx0y2Mfq8AeNP4nd56Uuys0DXfs7pWpX6L/6eYOFGUdwZV6hLW8?=
- =?us-ascii?Q?1xNJl4Bi4ZxfhFb/omqKo/dT/VNKQSTuMn9n14qH17ocIffHOGOZjJJ0bRsB?=
- =?us-ascii?Q?YQbhxNqA8Ua3/uKP0gwjpsNvVW8ViXhSCOwhwF+XViESAvuwZFqiauNYXVbc?=
- =?us-ascii?Q?apzP0SVVno29Mg74o3zsUreaVUTrxbExfGBaTnmOMU6CAGKk9+a0jJLdSALQ?=
- =?us-ascii?Q?hVTsqJFUG/xyCz2g6efeCCWvDo3Y+AHz7dew4If5cY1pN0EVFZz87GwUAutl?=
- =?us-ascii?Q?g+kd8dwSSjeNUdGLO15Tff1bb5w4Ix/7JjMxoyXM2Pd043SkuRaG2j6N3uf3?=
- =?us-ascii?Q?25HXwtSUqeAjCkNiKaFBluoctt76bs3r6J3zSGqcscFoKomeRxRGsOIveuiZ?=
- =?us-ascii?Q?FqEL0R7ZMumEXyNBIG+1h2P3Y7DRlYxh9xEF0sApAOC7t/nDZsP38rNrihuq?=
- =?us-ascii?Q?fp29ap7dl2iov8lg3WpKKdzfHn7UTF2maXuzW6Yg2rol9ErBRi/qaDbzmBny?=
- =?us-ascii?Q?7NXiF5Q9Ff+f3fmabODgXFZcG4C3zfVSQ34H6lvOcCoEyVZdqAMB/CLjg53q?=
- =?us-ascii?Q?U2LB9a+F9YZ1y4x/9KjuIuX0mnrZ1DKzP+vmsCRmm+nbmj5P8fe/hn3nmDyG?=
- =?us-ascii?Q?Z5F3mJCEHMvNl6+U0dZPr49MNAbei67utajoLQoomjufTO2RHHtmCTu2CKWn?=
- =?us-ascii?Q?a6e55w6HwIgyfb30UTV8lUiPWbOz0rlLOMjzftMXkXPv8Oeq3wseFwTJbZWQ?=
- =?us-ascii?Q?ZGey1Rl1Fr1Mj14bkCMOkwvU8AAHfHQKCDZ2dWhaTA+HeQVZ81GmoXd1Ho7+?=
- =?us-ascii?Q?zfkkMUjyTxumNJBCuAMkMggvzKpTWpr4oMvpBt6imagikYdGL55xCno1XXeN?=
- =?us-ascii?Q?2k0E+sf4PoH1ve3uFRKhyGx6PyO2igiPyZuOpcqrqmAAkTTnY9ZKv2Kbn7HT?=
- =?us-ascii?Q?xMD6Lcs05DltBCw+qhp+hiCs8i5MugWw/ejlDseR86/UCl5tHA6mqyUfQ4PQ?=
- =?us-ascii?Q?A6RFiJOcENSrqhHzmmb3oUZVG2iucTc7V9I5yofkM5mH1+LFecNfMIodjuzH?=
- =?us-ascii?Q?BM0OORarQpEgRLH8dDTwYgqkyBmJQ9X2LuJRqdsfOexanK3nGbNhmEPpdqI0?=
- =?us-ascii?Q?fDbW983eXYJY7DBFlXrMPSe3vyvohMKVfNMkh1EtzD/A5fsV7Fly9oFVSDRx?=
- =?us-ascii?Q?PWSSKhkQDP6BUjXkcPivsnWBrdGwcrAf/nOoV48LQNcvCq7exvlrzU2jsLTl?=
- =?us-ascii?Q?xbdF8d17oiYXPD7/fYOiB0dGFIHK4hhhs3yC56BCc9++gnxUjxAtsHrm++01?=
- =?us-ascii?Q?j5qiXy6OLmbI50niEmMmfvIIfOhSUHP+aor3Drl4pgC06KA1/o3Pz0FnykiD?=
- =?us-ascii?Q?R6tgV0ZtwzF1pTaMxLW77pjzBotSOZfWLf7bH2mvQlQfkq3gAWVorLr7B0FV?=
- =?us-ascii?Q?26grnTR1QB0XRh7bW7ytbfUNn+frVXLlNyI4OdGtQP3nZdzTCHfdIY5pOpQl?=
- =?us-ascii?Q?CTWGDmChuMmz7/vuQ23G4+obN0BplJ7OW2vwNlXTPJah3y5l/mF4Rdn5HIxl?=
- =?us-ascii?Q?jMyxrUqzvAUEC1IO8qxsqVThGWikQArzmYyPPZjc6nsib+MyHTN7ONpZ9xIX?=
- =?us-ascii?Q?1ucvCTXdv9CjNQIyjjgxis2yFA3R2MBvIu67mswBtfCDjjMrxMpzw0sdnazj?=
- =?us-ascii?Q?1Dfm7e8KEA=3D=3D?=
-X-OriginatorOrg: mt.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71d11b04-fc34-427a-a2d7-08dee6f78510
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 07:13:09.8650 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gKEBaR7AuQW+bVjIfnRBSzueOL6qxlIJTPEp+KOk6UfwlJMgjbsH7+vUY/Za8jBza+RlXG/sGcrt44ju31dT0g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR03MB11523
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 21 Jul 2026 07:21:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -139,103 +88,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+The command-stream verifier records region_size[], the maximum byte
+offset the NPU will touch in each buffer object, and the submit path
+rejects a job whose region_size exceeds the bound BO
+(region_size[i] > gem->size). feat_matrix_length() computed that maximum
+by evaluating the touched address at a single presumed-worst corner
+(x = width, y = height, c = depth). That is the true maximum only when
+the address is monotonic in x/y/c and the feature matrix occupies a
+single tile. Neither always holds:
 
-Simplify error condition logic in lvds device tree property parsing. It
-makes it easier to add extra properties without handling complex goto
-entries.
+ - Storage modes 0 and 1 split the feature matrix into up to four tiles,
+   each with an independent, user-supplied base (base[0..3]) into the
+   same region. feat_matrix_length() is evaluated once, so only the tile
+   containing the (max x, max y) corner is bounded; a large offset placed
+   in any other tile base is never accounted for.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+ - In the nhcwb16 packed format the channel term
+   (c / 16) * stride_c + (c & 0xf) * element_size is not monotonic in c
+   when stride_c is small, so the largest offset can lie at an interior
+   channel rather than at c = depth.
+
+An unprivileged process able to open the accelerator node can therefore
+craft a cmdstream whose real maximum output offset exceeds the computed
+region_size, pass the submit check with an undersized output buffer, and
+have the NPU DMA-write past the end of that buffer (up to ~1 MiB out of
+bounds in the tiling case).
+
+Evaluate the extent at every corner that can bound the populated tiles
+and at the packed-channel peak, take the maximum, and reject the stream
+if any reachable tile base is left unset. Well-formed single-tile,
+monotonic streams are unchanged: the computed size is identical.
+
+Found by 0sec automated security-research tooling (https://0sec.ai).
+Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
+Cc: stable@vger.kernel.org
+Assisted-by: 0sec:multi-model
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 43 ++++++++-------------------
- 1 file changed, 13 insertions(+), 30 deletions(-)
+ drivers/accel/ethosu/ethosu_gem.c | 73 +++++++++++++++++++++++++++----
+ 1 file changed, 65 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index 42b451432bbb..f8a786953526 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -825,48 +825,35 @@ static int sn65dsi83_select_lvds_vod_swing(struct device *dev,
- static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
- {
- 	struct device *dev = ctx->dev;
--	struct device_node *endpoint;
--	int endpoint_reg;
-+	int endpoint_reg = (channel == CHANNEL_A) ? 2 : 3;
-+	struct device_node *endpoint __free(device_node) =
-+		of_graph_get_endpoint_by_regs(dev->of_node, endpoint_reg, -1);
- 	/* Set so the property can be freely selected if not defined */
- 	u32 lvds_vod_swing_data[2] = { 0, 1000000 };
- 	u32 lvds_vod_swing_clk[2] = { 0, 1000000 };
- 	/* Set default near end terminataion to 200 Ohm */
- 	u32 lvds_term = 200;
- 	int lvds_vod_swing_conf;
--	int ret = 0;
- 	int ret_data;
- 	int ret_clock;
- 
--	if (channel == CHANNEL_A)
--		endpoint_reg = 2;
--	else
--		endpoint_reg = 3;
--
--	endpoint = of_graph_get_endpoint_by_regs(dev->of_node, endpoint_reg, -1);
--
- 	of_property_read_u32(endpoint, "ti,lvds-termination-ohms", &lvds_term);
- 	if (lvds_term == 100)
- 		ctx->lvds_term_conf[channel] = OHM_100;
- 	else if (lvds_term == 200)
- 		ctx->lvds_term_conf[channel] = OHM_200;
--	else {
--		ret = -EINVAL;
--		goto exit;
--	}
-+	else
-+		return -EINVAL;
- 
- 	ret_data = of_property_read_u32_array(endpoint, "ti,lvds-vod-swing-data-microvolt",
- 					lvds_vod_swing_data, ARRAY_SIZE(lvds_vod_swing_data));
--	if (ret_data != 0 && ret_data != -EINVAL) {
--		ret = ret_data;
--		goto exit;
--	}
-+	if (ret_data != 0 && ret_data != -EINVAL)
-+		return ret_data;
- 
- 	ret_clock = of_property_read_u32_array(endpoint, "ti,lvds-vod-swing-clock-microvolt",
- 					lvds_vod_swing_clk, ARRAY_SIZE(lvds_vod_swing_clk));
--	if (ret_clock != 0 && ret_clock != -EINVAL) {
--		ret = ret_clock;
--		goto exit;
--	}
-+	if (ret_clock != 0 && ret_clock != -EINVAL)
-+		return ret_clock;
- 
- 	/* Use default value if both properties are NOT defined. */
- 	if (ret_data == -EINVAL && ret_clock == -EINVAL)
-@@ -876,17 +863,13 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
- 	if (!ret_data || !ret_clock) {
- 		lvds_vod_swing_conf = sn65dsi83_select_lvds_vod_swing(dev, lvds_vod_swing_data,
- 						lvds_vod_swing_clk, ctx->lvds_term_conf[channel]);
--		if (lvds_vod_swing_conf < 0) {
--			ret = lvds_vod_swing_conf;
--			goto exit;
--		}
-+		if (lvds_vod_swing_conf < 0)
-+			return lvds_vod_swing_conf;
- 	}
- 
- 	ctx->lvds_vod_swing_conf[channel] = lvds_vod_swing_conf;
--	ret = 0;
--exit:
--	of_node_put(endpoint);
--	return ret;
-+
-+	return 0;
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index 3401883e207f..dfc499d7fb0c 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -192,17 +192,19 @@ static u64 dma_length(struct ethosu_validated_cmdstream_info *info,
+ 	return len;
  }
  
- static int sn65dsi83_parse_dt(struct sn65dsi83 *ctx, enum sn65dsi83_model model)
+-static u64 feat_matrix_length(struct ethosu_validated_cmdstream_info *info,
+-			      struct feat_matrix *fm,
+-			      u32 x, u32 y, u32 c)
++/*
++ * Compute the byte offset the NPU addresses for one feature-matrix coordinate
++ * (x, y, c). Storage modes 0 and 1 route disjoint (x, y) sub-rectangles to up
++ * to four independent tile bases; the caller must only pass coordinates whose
++ * tiles it means to bound. Returns U64_MAX if the coordinate lands on a tile
++ * whose base was never set by the command stream.
++ */
++static u64 feat_matrix_addr(struct feat_matrix *fm, u32 x, u32 y, u32 c)
+ {
+ 	u32 element_size, storage = fm->precision >> 14;
+ 	int tile = 0;
+ 	u64 addr;
+ 
+-	if (fm->region < 0)
+-		return U64_MAX;
+-
+ 	switch (storage) {
+ 	case 0:
+ 		if (x >= fm->width0 + 1) {
+@@ -240,11 +242,66 @@ static u64 feat_matrix_length(struct ethosu_validated_cmdstream_info *info,
+ 		break;
+ 	}
+ 
+-	info->region_size[fm->region] = max(info->region_size[fm->region], addr + 1);
+-
+ 	return addr;
+ }
+ 
++/*
++ * Bound the region a feature matrix touches over the coordinate box
++ * [0, x] x [0, y] x [0, c].
++ *
++ * The address is separable and, as the strides are unsigned 40-bit quantities,
++ * non-decreasing in x and y, so their maxima sit at the box edge and, for the
++ * tiled storage modes, just below each split (width0, height[]) where an
++ * independent tile base takes over. Only nhcwb16 packing is non-monotonic in c:
++ * crossing a 16-lane group adds stride_c but resets the in-group term, so the
++ * peak may sit at the top of the last full group instead of at c. Evaluating
++ * every such extremal corner bounds all up-to-four tiles, whereas a single
++ * presumed-max corner undercounts the other tiles and the channel peak.
++ */
++static u64 feat_matrix_length(struct ethosu_validated_cmdstream_info *info,
++			      struct feat_matrix *fm,
++			      u32 x, u32 y, u32 c)
++{
++	u32 storage = fm->precision >> 14;
++	u32 xs[2], ys[3], cs[2];
++	int nx = 0, ny = 0, nc = 0, i, j, k;
++	u64 max_addr = 0;
++
++	if (fm->region < 0)
++		return U64_MAX;
++
++	xs[nx++] = x;
++	if (storage == 0)
++		xs[nx++] = min_t(u32, x, fm->width0);
++
++	ys[ny++] = y;
++	if (storage == 0 || storage == 1) {
++		ys[ny++] = min_t(u32, y, fm->height[0]);
++		ys[ny++] = min_t(u32, y, fm->height[1]);
++	}
++
++	cs[nc++] = c;
++	if (((fm->precision >> 6) & 0x3) == 1 && c >= 16)
++		cs[nc++] = (c & ~0xfu) - 1;
++
++	for (i = 0; i < nx; i++) {
++		for (j = 0; j < ny; j++) {
++			for (k = 0; k < nc; k++) {
++				u64 addr = feat_matrix_addr(fm, xs[i], ys[j], cs[k]);
++
++				if (addr == U64_MAX)
++					return U64_MAX;
++				max_addr = max(max_addr, addr);
++			}
++		}
++	}
++
++	info->region_size[fm->region] =
++		max(info->region_size[fm->region], max_addr + 1);
++
++	return max_addr;
++}
++
+ static int calc_sizes(struct drm_device *ddev,
+ 		      struct ethosu_validated_cmdstream_info *info,
+ 		      u16 op, struct cmd_state *st,
 -- 
-2.47.3
+2.43.0
 
