@@ -4,126 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0DE8C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 15:27:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C70E2C44520
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 15:31:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB7BD10E094;
-	Mon, 20 Jul 2026 15:27:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1137510E202;
+	Mon, 20 Jul 2026 15:31:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="rSvtzNjt";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="s8wRfVdc";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FZxXkRq3";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Y8b71xct";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="xZf1BRst";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="sC843PgU";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xZf1BRst";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="sC843PgU";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77CF110E094
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 15:27:38 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B24B610E202
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 15:31:07 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D6B0C7A027;
- Mon, 20 Jul 2026 15:27:36 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2579C3E22;
+ Mon, 20 Jul 2026 15:31:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1784561257; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1784561466; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kTyehpI+Frpde8vx4Y/usVDlefaVXjVPd9jl0F472DA=;
- b=rSvtzNjtQIY+oL+pZb9Z7HxTl+ceaV1jIAfd90ZAviR/KUdRbN4YOiCjyazpvR/PA8g13I
- ip5sL7rxrk6wVoZAmzi5W+OJ21reUcDlrXqBqAlP21vQD/uy2TKtSNu0eD5pqwlCf2Cqco
- gOhOjJhe8gZ/bQnsuYOvQXir2Yofj1o=
+ bh=AQEhKEAigYY/0ZQLtZwn9KGRO4/KpUVIKXBaH3yztko=;
+ b=xZf1BRstikPeb/ug/kgoyVQq517yrOHwXxm2Or18ZUtVBM5XjUReVMaWaULjSd2LL2DpDV
+ WfnqoYaA8POELYdxOySlMcDMtH5We58xRgZ2EXmx0cIT425cMUz853vt44eMSryCj80AvG
+ 88My+8I0zwV8zNTAtj6qRMkUT7NkORU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1784561257;
+ s=susede2_ed25519; t=1784561466;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kTyehpI+Frpde8vx4Y/usVDlefaVXjVPd9jl0F472DA=;
- b=s8wRfVdc+ajxxOiSm5qAIaGfAxpSWN8FFiWUMl5Yc+Ptht+dAYpKm8TNx1SLbM9xPYbOfS
- Cf52o18/LCbbAECQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FZxXkRq3;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Y8b71xct
+ bh=AQEhKEAigYY/0ZQLtZwn9KGRO4/KpUVIKXBaH3yztko=;
+ b=sC843PgUVTqTqECuoTUbp6IvdO7Q1L9kMLECtiukE0wY3RJg5hL1LgyFQ/qFxq5wXqaCWH
+ OclBh0lnHmc4CRCA==
+Authentication-Results: smtp-out2.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1784561256; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1784561466; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kTyehpI+Frpde8vx4Y/usVDlefaVXjVPd9jl0F472DA=;
- b=FZxXkRq3+XPfr7HNKL1iVxiYCbadfG59H8SS/f9s+AF23Ta/lCVqEMyoohir+bgO3Ke9Vd
- JSl0eAlwz5EfzTdCiIMUWLNn646doRy/KWZdlfAumSJ/cFlSztw6LK3sQBX/brF7xhaspw
- tXlSGTPQrGIB6//gEfBWfCy/G5kYSZ8=
+ bh=AQEhKEAigYY/0ZQLtZwn9KGRO4/KpUVIKXBaH3yztko=;
+ b=xZf1BRstikPeb/ug/kgoyVQq517yrOHwXxm2Or18ZUtVBM5XjUReVMaWaULjSd2LL2DpDV
+ WfnqoYaA8POELYdxOySlMcDMtH5We58xRgZ2EXmx0cIT425cMUz853vt44eMSryCj80AvG
+ 88My+8I0zwV8zNTAtj6qRMkUT7NkORU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1784561256;
+ s=susede2_ed25519; t=1784561466;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kTyehpI+Frpde8vx4Y/usVDlefaVXjVPd9jl0F472DA=;
- b=Y8b71xctD+F7nWJ+3Jr4a4km6bsocJJhhQYVVlZpixDP72DjWw0E/dHkBsnpIKueaP1lzm
- Ns4Kbl11JgHIHvAw==
+ bh=AQEhKEAigYY/0ZQLtZwn9KGRO4/KpUVIKXBaH3yztko=;
+ b=sC843PgUVTqTqECuoTUbp6IvdO7Q1L9kMLECtiukE0wY3RJg5hL1LgyFQ/qFxq5wXqaCWH
+ OclBh0lnHmc4CRCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4F75C779AA;
- Mon, 20 Jul 2026 15:27:35 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ED089779AA;
+ Mon, 20 Jul 2026 15:31:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id BHEDEmc+XmrzCgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 20 Jul 2026 15:27:35 +0000
-Message-ID: <bde20e63-ec55-4ad4-872e-a7a983424100@suse.de>
-Date: Mon, 20 Jul 2026 17:27:34 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Zh6fNjk/XmrfDgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 20 Jul 2026 15:31:05 +0000
+Message-ID: <6b65d48a-24ac-468d-a9a2-571a9e39d283@suse.de>
+Date: Mon, 20 Jul 2026 17:31:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/15] drm/exynos: remove dependency on DRM simple helpers
-To: Diogo Silva <diogompaissilva@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Michal Simek <michal.simek@amd.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Stefan Agner <stefan@agner.ch>,
- Alison Wang <alison.wang@nxp.com>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Yongqin Liu
- <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
- imx@lists.linux.dev, linux-mediatek@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-doc@vger.kernel.org
-References: <20260719-drm_simple_encoder_init-v1-0-a78c509e3062@gmail.com>
- <20260719-drm_simple_encoder_init-v1-1-a78c509e3062@gmail.com>
- <4af254a4-beb7-4f77-830f-42d5bacb10a4@suse.de>
- <CAJpoHp73S2_cavgV3aVwC5PS8H1GRqTdDV-Xu8n6nXavBnV2=g@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/imx: replace struct drm_simple_display_pipe with
+ regular atomic helpers
+To: Maxime Ripard <mripard@redhat.com>
+Cc: Ze Huang <ze.huang@oss.qualcomm.com>, sashiko-reviews@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, imx@lists.linux.dev
+References: <20260716-drm-simple-kms-removal-v2-1-7e4a6b8528e6@oss.qualcomm.com>
+ <20260716091459.1D8101F000E9@smtp.kernel.org>
+ <DK1XPK73QJHC.JWFUMTTLOD1D@oss.qualcomm.com>
+ <63cca05a-ec83-430c-abcf-c2f0b508446f@suse.de>
+ <20260720-bold-jasmine-goldfish-d979e5@penduick>
+ <3749a60a-a8bb-45a0-a06e-a21017990c10@suse.de>
+ <20260720-sly-tricky-elephant-c8afa1@penduick>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -150,33 +113,22 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CAJpoHp73S2_cavgV3aVwC5PS8H1GRqTdDV-Xu8n6nXavBnV2=g@mail.gmail.com>
+In-Reply-To: <20260720-sly-tricky-elephant-c8afa1@penduick>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_CC(0.00)[gmail.com,samsung.com,ffwll.ch,kernel.org,linaro.org,ideasonboard.com,linux.intel.com,amd.com,nvidia.com,agner.ch,nxp.com,intel.com,redhat.com,collabora.com,chromium.org,iki.fi,pengutronix.de,glider.be,google.com,arm.com,baylibre.com,googlemail.com,lwn.net,linuxfoundation.org,lists.freedesktop.org,lists.infradead.org,vger.kernel.org,lists.linux.dev];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FREEMAIL_TO(0.00)[gmail.com]; MIME_TRACE(0.00)[0:+];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
  RCVD_TLS_ALL(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RL5qdohruh175rhiw1bqi96ifb)];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCPT_COUNT_GT_50(0.00)[59];
- DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[renesas];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:dkim,
- imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns, suse.com:url]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: D6B0C7A027
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_FIVE(0.00)[6];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:url, imap1.dmz-prg2.suse.org:helo,
+ suse.com:url, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -194,34 +146,100 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi
 
-Am 20.07.26 um 17:15 schrieb Diogo Silva:
-> Hey,
->
->> Again, you rather want drm_err() with drm_dev here.
+Am 20.07.26 um 17:06 schrieb Maxime Ripard:
+> On Mon, Jul 20, 2026 at 04:38:26PM +0200, Thomas Zimmermann wrote:
+>> Am 20.07.26 um 16:08 schrieb Maxime Ripard:
+>>> On Mon, Jul 20, 2026 at 02:36:19PM +0200, Thomas Zimmermann wrote:
+>>>> Hi
+>>>>
+>>>> Am 18.07.26 um 21:12 schrieb Ze Huang:
+>>>> [...]
+>>>>>>> -	if (event) {
+>>>>>>> -		crtc->state->event = NULL;
+>>>>>>> +static int imx_lcdc_plane_helper_atomic_check(struct drm_plane *plane,
+>>>>>>> +					      struct drm_atomic_commit *commit)
+>>>>>>> +{
+>>>>>>> +	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(commit, plane);
+>>>>>>> +	struct drm_crtc *crtc = plane_state->crtc;
+>>>>>>> +	struct drm_crtc_state *crtc_state = NULL;
+>>>>>>> -		spin_lock_irq(&crtc->dev->event_lock);
+>>>>>>> +	if (crtc)
+>>>>>>> +		crtc_state = drm_atomic_get_new_crtc_state(commit, crtc);
+>>>>>>> -		if (crtc->state->active && drm_crtc_vblank_get(crtc) == 0)
+>>>>>>> -			drm_crtc_arm_vblank_event(crtc, event);
+>>>>>>> -		else
+>>>>>>> -			drm_crtc_send_vblank_event(crtc, event);
+>>>>>>> +	return drm_atomic_helper_check_plane_state(plane_state, crtc_state,
+>>>>>> [Severity: High]
+>>>>>> Can fetching the CRTC state this way cause a kernel panic in the core atomic
+>>>>>> helpers?
+>>>>>>
+>>>>>> If userspace submits a commit that modifies only plane properties without
+>>>>>> affecting the CRTC, the CRTC is not implicitly added to the atomic commit
+>>>>>> state.
+>>>>>>
+>>>>>> In this scenario, drm_atomic_get_new_crtc_state() returns NULL. Passing this
+>>>>>> NULL pointer directly to drm_atomic_helper_check_plane_state() causes a crash
+>>>>>> when it dereferences crtc_state->enable.
+>>>>>>
+>>>>>> Could this use drm_atomic_get_crtc_state() instead to ensure the state is
+>>>>>> brought into the commit if it is missing?
+>>>>> I think it is fine here; I'll just copy the pattern from [1].
+>>>>>
+>>>>> [1] https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/mgag200/mgag200_mode.c#L487
+>>>> It could be that there's a long standing problem in the overall logic. Not
+>>>> having a CRTC (and hence crtc_state) should also mean !fb, so we'd return at
+>>>> [1]. If we have a CRTC on the plane but pass a crtc_state of NULL, we could
+>>>> get a panic at [2], where it does crtc_state->crtc.  I'm not aware of any
+>>>> bug reports about this problem, but it's still an issue.
+>>>>
+>>>> A number of drivers get this wrong by using
+>>>> drm_atomic_helper_get_new_crtc_state(). The bot suggests to use
+>>>> drm_atomic_helper_get_crtc_state() instead.  This helper also returns the
+>>>> new state. But  if there's no new state, it duplicates the CRTC's existing
+>>>> state. That's a bit of an overhead, but probably not an issue.  Several
+>>>> drivers use this helper, but also get it wrong. They tend to return early in
+>>>> the case of !crtc or !fb without calling _check_plane_state(). See [3] and
+>>>> [4] for examples.
+>>>>
+>>>> I think, going with the bot's suggestion to use
+>>>> drm_atomic_helper_get_crtc_state() might be the best resolution for now. It
+>>>> still needs a crtc pointer, so the pattern is
+>>>>
+>>>> crtc_state = NULL
+>>>> if (plane_state->crtc)
+>>>>       crtc_state = drm_atomic_helper_get_crtc_state(plane_state->crtc)
+>>>>
+>>>> _check_plane_state(plane_state, crtc_state);
+>>>>
+>>>> And in this case, _check_plane_state() should work correctly. But you can
+>>>> only use _get_crtc_state() in the atomic_check helpers! In the
+>>>> atomic_update, atomic_enable, etc helpers, it's too late for the helper to
+>>>> copy the CRTC state.
+>>>>
+>>>> I think some other DRM dev should look over this as well. It's one of the
+>>>> trickier things in DRM to get right.
+>>> drm_atomic_helper_get_crtc_state is safe in atomic_check. It's
+>>> everything after that must use either get_new_crtc_state or
+>>> get_old_crtc_state, as the global state cannot be modified anymore.
+>> Thanks a lot for confirming.
 >>
->> I've briefly looked over the series and many patches seem affected.
->> Please prefer drm_ logging functions and DRM devices over the plain
->> device equivalents.
-> Thanks. I will submit a v2 with consistent usage of drm_err().
+>> Wrt. the logic in plane atomic_check, we might have to fix a number of
+>> drivers. As I outlined above, some use _get_new_crtc_state(), some use
+>> _get_crtc_state() incorrectly. But that's for another series.
+> Sigh... I removed all of them a couple of years ago, I guess some crept
+> back in. Maybe we should warn loudly if it happens?
 
-Thanks
-
->
-> Also, is there any ongoing task or would it be useful to submit patches
-> changing the usage of DRM_DEV_* functions with drm_* equivalents?
-> Or from dev_* to drm_* when possible ?
-
-Possibly. DRM_DEV_ logging is supposed to be replaced with drm_ logging 
-helpers. That would be a simple follow-up series.  Whether to prefer 
-drm_ over dev_ logging depends on the context and the driver maintainer.
+I think the handling of atomic state is non-trivial and not easily 
+discoverable. So yeah. Once sorted out, there should probably be a 
+WARN_ONCE of some kind.
 
 Best regards
 Thomas
 
 
 >
-> BR,
-> Diogo
+> Maxime
 
 -- 
 --
