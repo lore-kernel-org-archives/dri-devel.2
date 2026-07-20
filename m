@@ -4,58 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21A4CC44530
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 19:03:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29BDCC44520
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 19:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C15F10E111;
-	Mon, 20 Jul 2026 19:03:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1752310E125;
+	Mon, 20 Jul 2026 19:03:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="wRhRoWgX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qr//C2Xn";
 	dkim-atps=neutral
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net
- (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1EE0D88284
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 13:55:41 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FF1E10E1D5
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 14:54:57 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-47f633e6058so2854033f8f.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 07:54:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-Id:MIME-Version:Content-Transfer-Encoding; bh=2DX0IGdpE5
- v2MDecZAGaKeD6g+xf+olxBRMjdHPEnYA=; b=wRhRoWgXLUf2cRITzDDeH4dESY
- CcVFYWflYmuQ6nC8ZJXhh5IaiejuFTGRLNplQFmYxlqJ7LRf7bsGQq9gKwmXCI6r
- cAASkNw4SLPIeg2TOb0rJM2oyGT1c3zpr3Tt8a8Jq7P9mzb/ELZP5qIvU+rM3eAk
- HnUB3s+Z2uPI5UDAc=
-Received: from wmy.localdomain (unknown [115.53.184.36])
- by hzbj-edu-front-4.icoremail.net (Coremail) with SMTP id
- BrQMCkAGKxHXKF5qGFg9AQ--.7751S2; 
- Mon, 20 Jul 2026 21:55:38 +0800 (CST)
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-To: simona@ffwll.ch,
-	deller@gmx.de
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Subject: [PATCH] fbdev: core: Clamp total_size to smem_len in fb_io_read/write
-Date: Mon, 20 Jul 2026 21:55:34 +0800
-Message-Id: <20260720135534.103599-1-25181214217@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+ d=gmail.com; s=20251104; t=1784559295; x=1785164095; darn=lists.freedesktop.org;
+ h=content-type:content-transfer-encoding:autocrypt:mime-version
+ :references:in-reply-to:message-id:date:subject:cc:to:from:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=XnoNJySGi2Izzd1ger7ulGeh5cfeHWBXigWAMR6/Z+4=;
+ b=qr//C2Xn/lmWYblajWTXrr0xCOq9bUtXDQ669X34yS3Bh/mhpbE5apaM7rovZudXcN
+ xu+3BW7ndFiRrywe+pXAwiOnyXyvU3/R9bP+sFSXcGOWie9lKLO9+nC86rbdP86Xpe34
+ Fys4eMxAf1/h9NcdxcRHbe2AbQG0p6wnplsieml+rLBWz9Vr1Mhxq7lfRE5icUhGz2om
+ NGO5U3dDHZWRgMTzPqCbV70avitPzRXwyVLtVfnddQ1lPLe/4IEGT07YuoxIxpBC04Iv
+ MMXhp3J5rmWMoLQKRgGtDqEVUUs5RZ4kFvyEdzSA5K61d577VXNqcl+lYmqRqz/ZgfsS
+ 6lwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784559295; x=1785164095;
+ h=content-type:content-transfer-encoding:autocrypt:mime-version
+ :references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=XnoNJySGi2Izzd1ger7ulGeh5cfeHWBXigWAMR6/Z+4=;
+ b=gkthzsBngx7JpVUvVJKTVavEOdmC1mbAI6H57GUm8kJAxMFb5Ydn8c23lBDhTBkCcj
+ nt+lWEMfDPolI+CJ0Gti280kmjyj0sMVW7Wiqlj3kCldr3agVQz/kxckZEiOYjVa4Err
+ edzR0VonOmgqUcc8sBHRL9ZFFgCW2DwBvdRisRi9hH9raBogmuPUosh5tDh92Fr2i8Ud
+ Fipo92SSGNEwJtKc9xOgaI+PK7ZbgNczgtp2tSWGI+d7YHgMWC2EAemB6wFer45rp8Rw
+ 0DBBo3rAKp9vweYV5HLMif84zyqgzEC3fh3wa0PqRriSQSMvfApuyohGgM5aCQYdhLPw
+ OHxA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqhhThxfL1WtwNsBncZsNfoCFLHOGtCAFBFhIFh2N6OIcA9fwTP4jzNrCmBUoHuAwekxK/n13cqQY8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzIEPZV59ya5loK7DoWTHwWBZiXvCwA8LNT0ZSKbpAQWM1NGClB
+ oUUhVoztCb/vejEEfsz3i+E1aDLZNgXypvgl5fOpQqvDHMwK6SwRwNZF
+X-Gm-Gg: AR+sD1045eu1nOu7ysBi3yCcEfsSu9rYhcBvqj2AXEItDsNFi6T09qe01QwEEe5dWCR
+ /5tIPc79z6QIpJJom1wiuKGGi7k5c2kc+xlAp7dqnwLKKVqcDmYRoW6FXLAJfNR4Lnz9Kba9ccX
+ wk7t4S+X/C1jeLxpzI7eInc8XLba6GaRiwEDcSRR5FCQxhThZDJ+TLegK5KMMnxE8cAqCZJRq1F
+ RJ1waRcpR5EnAw0crkIZPIFF8HIRh/2/T8q/tiam/lOwbg/3ZTMPKOKd8GtLOlRpHbrEzgano30
+ GFjtHssaoLIBnhzFuG+XbdZSAGJdyyMVKBgg52Dup1VBX6a67wFvZwA8l5eGSSa2yVAksTRkBaO
+ TQT3IWFu5AwG0orCMfa3mhw8nq4ETVABXuSGbbvZ7LERTQnk/u/PHBrZaqXk161IEMkpfqgIPXq
+ y9eLcWXmI4erBhxeHHXg==
+X-Received: by 2002:a05:6000:46d0:b0:47e:81aa:3822 with SMTP id
+ ffacd0b85a97d-47f6232c96fmr10331792f8f.42.1784559295439; 
+ Mon, 20 Jul 2026 07:54:55 -0700 (PDT)
+Received: from radijator.localnet ([93.140.52.191])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47f63edcf8dsm33115875f8f.27.2026.07.20.07.54.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Jul 2026 07:54:54 -0700 (PDT)
+From: Duje =?UTF-8?B?TWloYW5vdmnEhw==?= <dujemihanovic32@gmail.com>
+To: lee@kernel.org, danielt@kernel.org, jingoohan1@gmail.com, deller@gmx.de,
+ Julian Braha <julianbraha@gmail.com>
+Cc: rdunlap@infradead.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, arnd@arndb.de,
+ Julian Braha <julianbraha@gmail.com>
+Subject: Re: [PATCH] backlight: ktd2801: fix unmet dependency on GPIOLIB
+Date: Mon, 20 Jul 2026 16:54:53 +0200
+Message-ID: <-BogvF49T5iTuPtucSB0VA@gmail.com>
+In-Reply-To: <20260719024902.151710-1-julianbraha@gmail.com>
+References: <20260719024902.151710-1-julianbraha@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: BrQMCkAGKxHXKF5qGFg9AQ--.7751S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CryDCrW5JF4xKFyfZr1DWrg_yoW8Cw13pF
- 48uF93Jry5JF1xGFn2k3W3Way5ta1kCr98K343X34ayrsxArsI934xJa4akFW8A398Xr1f
- JrykJryxuFyDCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9j14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
- 1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
- Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
- W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
- 0VAGYxC7MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
- AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
- 17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
- IF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
- IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
- C2KfnxnUUI43ZEXa7VUjJ3vUUUUUU==
-X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAQUAEWpc6mud3wABsh
+Autocrypt: addr=dujemihanovic32@gmail.com; keydata=
+ mDMEabRVUBYJKwYBBAHaRw8BAQdAG5VJBpoPRIGQml4+E2LcPdyVtnXRuuqoD1BsHxRjNQ60KER
+ 1amUgTWloYW5vdmnEhyA8ZHVqZUBkdWplbWloYW5vdmljLnh5ej6ImQQTFgoAQRYhBJvUYwF2kA
+ idqo3CZidfVEs7G0eSBQJptFVQAhsDBQkFo5qABQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheAA
+ AoJECdfVEs7G0eStq0A/1SDcm8Bkq1JV+GTGMC8qE1QzCFvnoJuZqtUuQRCkd31AP9Mbc3pmg1K
+ JDxgPl17/CQohZ98dbUVffmdQpJJLLMsArgzBGm0VXYWCSsGAQQB2kcPAQEHQH8nnS6QNfgpc1Y
+ tqU80DWMWMsDPEGJ7yZ9Nf90mPEEQiPUEGBYKACYWIQSb1GMBdpAInaqNwmYnX1RLOxtHkgUCab
+ RVdgIbAgUJBaOagACBCRAnX1RLOxtHknYgBBkWCgAdFiEEA6Ue0g5lV5FAcj1ivjIt18NZWcUFA
+ mm0VXYACgkQvjIt18NZWcUyDwEA5OK1WRFN4/psOq/bS6Wuh5ysy0CyXIydqIwDJDdAFukA+wfc
+ lr1qyAbEX0FHVunCl+sxv/ymvjsup85rAH+a2j8HA7gBAIolabvAIUTUfCQNCu5MUt482b2EC8K
+ 40xl/6HT43dunAQCqxwRLI2k0xmTdia2AZwqbbMvqWonOLWtdZwWvodgjBLg4BGm0VaASCisGAQ
+ QBl1UBBQEBB0CoqkQL2R15WHRvj3RlkxjW3pPpZVUOHyfhEX+Q9PhTcwMBCAeIfgQYFgoAJhYhB
+ JvUYwF2kAidqo3CZidfVEs7G0eSBQJptFWgAhsMBQkFo5qAAAoJECdfVEs7G0eSnB0A/3oyRxS5
+ cUJMNnM1+4UkRahmU5/42NfVOxIL5d5oaW13AQD617LpOfnCuZR3U0vHLOW5vrnFtdvi32N5zLD
+ 9wyShC7gzBGm0VbYWCSsGAQQB2kcPAQEHQPRL1mWe9nIhjicyAqqEN80IXEF0NeKSFFpN8n75b2
+ YIiH4EGBYKACYWIQSb1GMBdpAInaqNwmYnX1RLOxtHkgUCabRVtgIbIAUJBaOagAAKCRAnX1RLO
+ xtHktyGAQCJPD6JsQhQZEB8ciZrJz+hnonsJp+KZZQQGEK/KsLHEgD/ePz/x0pQdI/DcJd/5Qge
+ +IJGd+jyv4zyevPxipVbyAo=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Mon, 20 Jul 2026 19:03:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,55 +111,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some legacy fbdev drivers may incorrectly set info->screen_size to a
-value larger than the actual mapped framebuffer size (info->fix.smem_len)
-during mode switches. This could allow out-of-bounds I/O accesses in
-fb_io_read() and fb_io_write().
+On Sunday, 19 July 2026 04:49:02 Central European Summer Time Julian Braha=
+=20
+wrote:
+> LEDS_EXPRESSWIRE depends on GPIOLIB, so its selector, BACKLIGHT_KTD2801
+> also needs to ensure GPIOLIB is enabled. Otherwise:
+>=20
+> WARNING: unmet direct dependencies detected for LEDS_EXPRESSWIRE
+>   Depends on [n]: NEW_LEDS [=3Dn] && GPIOLIB [=3Dn]
+>   Selected by [y]:
+>   - BACKLIGHT_KTD2801 [=3Dy] && HAS_IOMEM [=3Dy] && BACKLIGHT_CLASS_DEVIC=
+E [=3Dy]
+>=20
+> This unmet dependency was found by kconfirm, a static analysis tool for
+> Kconfig.
+>=20
+> Fixes: d95963e309bc ("backlight: ktd2801: Depend on GPIOLIB")
+> Signed-off-by: Julian Braha <julianbraha@gmail.com>
 
-Prevent this by clamping total_size to smem_len when smem_len is non-zero.
-Virtual framebuffers (smem_len == 0) are unaffected.
+Acked-by: Duje Mihanovi=C4=87 <duje@dujemihanovic.xyz>
 
-This is a hardening measure; no specific crash is fixed by this patch.
+Regards,
+=2D-
+Duje
 
-Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
----
- drivers/video/fbdev/core/fb_io_fops.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
-diff --git a/drivers/video/fbdev/core/fb_io_fops.c b/drivers/video/fbdev/core/fb_io_fops.c
-index 6ab60fcd0050..335f16d2cc23 100644
---- a/drivers/video/fbdev/core/fb_io_fops.c
-+++ b/drivers/video/fbdev/core/fb_io_fops.c
-@@ -24,6 +24,14 @@ ssize_t fb_io_read(struct fb_info *info, char __user *buf, size_t count, loff_t
- 	if (total_size == 0)
- 		total_size = info->fix.smem_len;
- 
-+	/*
-+	 * Security Hardening: Defend against buggy legacy drivers that may
-+	 * calculate a malformed screen_size. Clamp total_size to the actual
-+	 * hardware mapped memory limit (smem_len) to prevent OOB access.
-+	 */
-+	if (info->fix.smem_len && total_size > info->fix.smem_len)
-+		total_size = info->fix.smem_len;
-+
- 	if (p >= total_size)
- 		return 0;
- 
-@@ -88,6 +96,14 @@ ssize_t fb_io_write(struct fb_info *info, const char __user *buf, size_t count,
- 	if (total_size == 0)
- 		total_size = info->fix.smem_len;
- 
-+	/*
-+	 * Security Hardening: Defend against buggy legacy drivers that may
-+	 * calculate a malformed screen_size. Clamp total_size to the actual
-+	 * hardware mapped memory limit (smem_len) to prevent OOB access.
-+	 */
-+	if (info->fix.smem_len && total_size > info->fix.smem_len)
-+		total_size = info->fix.smem_len;
-+
- 	if (p > total_size)
- 		return -EFBIG;
- 
--- 
-2.34.1
 
