@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E70C6C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 16:06:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3C7DC44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 16:07:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 114F510E9B3;
-	Mon, 20 Jul 2026 16:06:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 149AB10E9CF;
+	Mon, 20 Jul 2026 16:07:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MAu1qKg1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VmzVp+RI";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBCF210E9B3
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 16:06:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 567F010E9D1
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 16:07:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 92605405EA;
- Mon, 20 Jul 2026 16:06:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C9581F000E9;
- Mon, 20 Jul 2026 16:06:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AAD9860052;
+ Mon, 20 Jul 2026 16:07:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26491F00A3A;
+ Mon, 20 Jul 2026 16:07:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784563604;
- bh=TnCCxKQTIbg/rpbFFgLp/hNHJfvP1lAi32pZPDQ61Ew=;
+ s=k20260515; t=1784563646;
+ bh=JF6x3v05IF6JcSqACDd1Ioo37Y1aQR5NcKaWwtQBaB4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MAu1qKg1QHu6azOZxv8ebiDOx6s1IeyrHEkGqI4k1t5Foxi4CIloZjkg9pPtAQV3N
- Gco5swtEzvPKy8EZvY3sjP0QiVJ9El1CT3a2SoqKVg5ejpNclB8fDu0I7rOn5sKNuH
- zEB7gdNwB/BbGXA5OpR/zrR5z57+ixVTehQ/nkuPULPYerkAk+xcs3cnX39c2fwwMg
- qWX850QauLTEJCHFd0WblYKuzAQ6teq2HqkE4iN0e+v2OZMvTNlT3N+OVd32Ntk/L0
- Ao8yfqRUnghfwyfWg141gBX3/2vrYsiOACp9oFZqy+F1rrfK7iaEp+LJ4kl1eLNWQG
- 6UHqmECe/7ORQ==
+ b=VmzVp+RI15t4zvpJkkWoY9d5TgC9d8RG2zYDlPpM2oK3npFP9nwgV3cXY+pke5mmq
+ vFo+jBvr17XZC09CRsqIaj2HYL30DebOdI7t48fRQQUFtvhdG6nDh24Ty1n+2cRYxM
+ /PyZnH7vNUnhJk0Gndyq94EpLFthhgQKiXWcEi0i2AQHeDzJSG7Dmld5uZGfUuFMQp
+ Du66Ttodx3dFesyvQ9GGRB0rkVaAz4NtLZIqmd4ZJfTYLDOPp+NuPK7XdiSU5awLT5
+ rKOmXx6cKBoL2RMl3f5NDn2TFhpMF8yRvGaMFI0tAURRhEicgYGSwpQpvbQh23OgkV
+ Beycik5fCTH2A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] drm/bridge: it6505: Don't reject audio hw_params
- without an encoder
-To: "Daniel Golle" <daniel@makrotopia.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <11d86a39a66ad81f29bb6d9274419e993d58337a.1784561622.git.daniel@makrotopia.org>
-References: <cover.1784561622.git.daniel@makrotopia.org>
- <11d86a39a66ad81f29bb6d9274419e993d58337a.1784561622.git.daniel@makrotopia.org>
+Subject: Re: [PATCH v2 15/15] Documentation/gpu: remove completed
+ drm_simple_encoder_init() todo
+To: "Diogo Silva" <diogompaissilva@gmail.com>
+Cc: linux-amlogic@lists.infradead.org, Frank.Li@kernel.org,
+ neil.armstrong@linaro.org, wsa+renesas@sang-engineering.com,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev
+In-Reply-To: <20260720-drm_simple_encoder_init-v2-15-5020b630668a@gmail.com>
+References: <20260720-drm_simple_encoder_init-v2-0-5020b630668a@gmail.com>
+ <20260720-drm_simple_encoder_init-v2-15-5020b630668a@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 16:06:43 +0000
-Message-Id: <20260720160644.4C9581F000E9@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 16:07:25 +0000
+Message-Id: <20260720160725.F26491F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,89 +60,71 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing bounds check for `channel_count =3D=3D 0` causes an out-of=
--bounds stack read in `it6505_enable_audio_infoframe`.
-- [High] Missing cancellation of workqueues in the driver's remove path lea=
-ds to Use-After-Free.
+- [Low] Incomplete refactoring causes build failure in the gma500 driver du=
+e to unconverted usages of `drm_simple_encoder_init()`.
 --
 
---- Patch [2]: [PATCH v2 2/2] drm/bridge: it6505: Don't reject audio hw_par=
-ams without an encoder ---
-commit 283dcf1804abd2952ffc7edbd9e7c45ae0570f87
-Author: Daniel Golle <daniel@makrotopia.org>
+--- Patch [15]: [PATCH v2 15/15] Documentation/gpu: remove completed drm_si=
+mple_encoder_init() todo ---
+commit ecefbc42ff1cbd0e228a1785c066cd3cab8deafc
+Author: Diogo Silva <diogompaissilva@gmail.com>
 
-drm/bridge: it6505: Don't reject audio hw_params without an encoder
+Documentation/gpu: remove completed drm_simple_encoder_init() todo
 
-This commit drops the encoder check in it6505_audio_setup_hw_params() so
-stream parameters are always cached. Previously, returning early left
-it6505->audio.channel_count at 0, which could cause an out-of-bounds access
-if a display was hotplugged while a stream was running.
+All drm_simple_encoder_init() users have been removed, so drop the
+completed todo item.
 
-> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
-/ite-it6505.c
-> index d84441926e8e0..e20edbbb7c133 100644
-> --- a/drivers/gpu/drm/bridge/ite-it6505.c
-> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-> @@ -2979,9 +2979,6 @@ static int it6505_audio_setup_hw_params(struct it65=
-05 *it6505,
->  			     params->sample_rate, params->sample_width,
->  			     params->cea.channels);
+> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+> index 14cf37590fc7e..b7351467dc74c 100644
+> --- a/Documentation/gpu/todo.rst
+> +++ b/Documentation/gpu/todo.rst
+> @@ -29,21 +29,6 @@ refactorings already and are an expert in the specific=
+ area
+>  Subsystem-wide refactorings
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
 > =20
-> -	if (!it6505->bridge.encoder)
-> -		return -ENODEV;
+> -Open-code drm_simple_encoder_init()
+> ------------------------------------
 > -
+> -The helper drm_simple_encoder_init() was supposed to simplify encoder
+> -initialization. Instead it only added an intermediate layer between atom=
+ic
+> -modesetting and the DRM driver.
+> -
+> -The task here is to remove drm_simple_encoder_init(). Search for a driver
 
-[Severity: High]
-This is a pre-existing issue, but if the SoC's I2S controller continuously
-drives clocks (e.g. from an active shared speaker backend), could the IT6505
-hardware audio FIFO overflow and trigger the INT_AUDIO_FIFO_ERROR interrupt
-before ALSA configures the audio stream parameters?
+[Severity: Low]
+Are there still remaining users of drm_simple_encoder_init() in the tree?
 
-If this happens, it6505_irq_audio_fifo_error() would call
-it6505_enable_audio_infoframe() while it6505->audio.channel_count is still 0
-(zero-initialized during probe).=20
+Looking at the gma500 driver, it appears there are several unconverted calls
+remaining, such as in drivers/gpu/drm/gma500/cdv_intel_crt.c:
 
-In it6505_enable_audio_infoframe(), it6505->audio.channel_count - 1 evaluat=
-es
-to -1, causing an out-of-bounds stack read:
+cdv_intel_crt_init() {
+    ...
+    ret =3D drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_DAC);
+    ...
+}
 
-    audio_info_ca[it6505->audio.channel_count - 1]);
+There also seem to be similar calls in cdv_intel_dp.c, cdv_intel_hdmi.c,
+cdv_intel_lvds.c, oaktrail_hdmi.c, oaktrail_lvds.c, and psb_intel_lvds.c.
 
->  	if (params->cea.channels <=3D 1 || params->cea.channels > 8) {
->  		DRM_DEV_DEBUG_DRIVER(dev, "channel number: %d not support",
->  				     it6505->audio.channel_count);
+Will this cause a build failure when compiling with CONFIG_DRM_GMA500 if the
+underlying function is removed before these are converted?
 
-[Severity: High]
-This is a pre-existing issue, but does the driver's remove path miss cancel=
-ling
-several workqueues, leading to a potential use-after-free?
-
-In it6505_i2c_remove():
-
-    static void it6505_i2c_remove(struct i2c_client *client)
-    {
-        struct it6505 *it6505 =3D i2c_get_clientdata(client);
-
-        platform_device_unregister(it6505->audio_pdev);
-        cancel_delayed_work_sync(&it6505->delayed_audio);
-        drm_bridge_remove(&it6505->bridge);
-        drm_dp_aux_unregister(&it6505->aux);
-        it6505_debugfs_remove(it6505);
-        it6505_poweroff(it6505);
-        it6505_remove_edid(it6505);
-    }
-
-Only delayed_audio is explicitly cancelled.=20
-
-If other background work items (link_works, hdcp_wait_ksv_list, hdcp_work,
-extcon_wq) are pending or running when the device is unbound, could they ac=
-cess
-the it6505 structure after it has been automatically freed by devres?
+> -that calls drm_simple_encoder_init() and inline the helper. The driver w=
+ill
+> -also need its own instance of drm_encoder_funcs.
+> -
+> -Contact: Thomas Zimmermann, respective driver maintainer
+> -
+> -Level: Easy
+> -
+>  Replace struct drm_simple_display_pipe with regular atomic helpers
+>  ------------------------------------------------------------------
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784561622.gi=
-t.daniel@makrotopia.org?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-drm_simple=
+_encoder_init-v2-0-5020b630668a@gmail.com?part=3D15
