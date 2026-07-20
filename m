@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DAD6C44520
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:38:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E31E2C4452A
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:39:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2F8510E8F8;
-	Mon, 20 Jul 2026 12:38:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E36810E196;
+	Mon, 20 Jul 2026 12:39:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="T5uX/mmS";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qppplrcz";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93EDD10E8F9
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:38:55 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4956242332dso4960085e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:38:55 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F254110E196
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:39:44 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-49557167508so15745345e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:39:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1784551134; x=1785155934; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1784551183; x=1785155983; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=E6KBtb/Bb0z4jnxcgcZfuIhxmNTLNaOmSJg4VYdhfw4=;
- b=T5uX/mmSjfQIG7FAEkvrGD/sEd3995oLvN+IABXYV0MnsFeK3NnesRa5PcQqD09ZAJ
- agapUHSU1fvde7p2G3uCwcu8s9K/u7N/IWAJ9h+WPEBXqsyAcIyulkLjMsxu9mMcR9Om
- T9eyi1vgD2jXVuU5mU26ndZv2i9x7GVdfK4VR97xwAXsVuW64907B/tLK/YlB97HvKah
- tiEWThWR2AxNhdzA1LAcwElB0YKowG63NGReE2CLeFfUkfVp7S8/RdUNjofnbWIwjX4k
- 3WN/IlumumPyhnqgzngYXfnlyjx2M/LHI2MUv0V3Aikil6eOzi5GIcIwVy03FCwo5A1H
- mtQQ==
+ bh=L5zUponltIjn1ApAM74wz7JqTYwcqK5nj1eOLyYOd1c=;
+ b=qppplrczxbBy5HmLMDzKGQtbJo05NELGv86ytZfDIL7G5SLBYDkp0OTH+3LLP6bIGC
+ jgO6/pOZMTDnzzdg8d65/XuOm6sZWz9UpV68xco/Mzs1FwZUWJ5edJJxwiah5Q0T/6w1
+ CAOufN7x2iMVl2v18rrqGTOiQjlliHHygZFK6Kgn89+n6ZlAUwFFUTWrFGKj9csbPNck
+ WkB7V91/Fc3SE6Ef9mNlZU92aIP/68UCPj8ZHoQYRxBgnagPI/Z8ZaH5z6ch87DYN4vm
+ jNyq8EgvQOcfEyu2ynFmmo6rLgnNdKaDVXud2DhSFeEQUnPHnpq3CLrdOPWRvpOTegHV
+ 7PWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784551134; x=1785155934;
+ d=1e100.net; s=20251104; t=1784551183; x=1785155983;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=E6KBtb/Bb0z4jnxcgcZfuIhxmNTLNaOmSJg4VYdhfw4=;
- b=obvA5mfesis5cUufu98aQRvw3I/sGYoVZcW+n6ywmCWCx+TWg4dlqgg5kg+yAmpT2Z
- 9c0P7mDbbjasnf/9i4UKYjyEN1Z0xkufgSblgLBAjZ8IrKxUA9AK3fTecvfFhj3i9rE4
- uiNdmw/sYm83LrTroiGNgaSSPUlbEBP999n/ZOPEPdNG5OLv9MFqPAkMD0WC67LLWQ3H
- N/e+Z9reDHqH1sshQ/g5PSEKlatAlmcncwaKzisXD4DobwnRiPQZax+u5OyH1fACDTQi
- 1+aTs/mwRef/igXnnDeb5dl/465NuQr6mOS9VrKpP/EWz9S+Cno168onEtVo3gjtLvTj
- PLqQ==
-X-Gm-Message-State: AOJu0YznxG3+8WZEAMLXlxh9tYjSdMjMWSZyMTrrDSd/q3wxX+mourQp
- KD4oRBQWbXzYBT2cWqEbZzcRwxq1YTFwOOaRTNKMxzwOao9+Iy8CmAqamY/QW/CaLko6SdXyh1I
- LyRIWpLM=
-X-Gm-Gg: AfdE7cnAls4Db18N8VqrXpLJx2S7RGevoAlRh2dAidAU44TCNxPD3SfnecmfyVwPcuL
- /GSueKBqm/0m7F6XvwZ4XO3seJJCO+uBos8wGXD+he5ao9HYWeDY7ULNdha4gxA0NTPzH0dDgCE
- xil3GYgQ7ta6TjwZgu7UB5cvGUH35K4VI1NSfsosRjWNkyOzLHp2XpL3aHApPAHwT+OKuxbevh+
- kovmrvs04oU54D6U9r2Wa2vUk6KiUeDqWcjGzz86qWZVKLu9DaIBYtv6I8VvXtUbIltI4Si9pm+
- TF8ZhHLqUiMKR2Amy+ygA/SL/89QEEy2RTepNDdrOTXvlZ2BpsY7jT3xLr6e2TKkdPfwYFXct2t
- MmRqbJq5hqbYS3sLJsaaBlygSPLkPLc1smG8Yj7ZRvkJTT6LP2Fk99w+wD7Y2Fnq0dKlhrfhiX9
- llEIWlCyRpwMqv/3DiyuDddS577e3TqeNlwIk6b0wceX3lEisTrk1EUbtI2A==
-X-Received: by 2002:a05:600c:5297:b0:495:6485:226b with SMTP id
- 5b1f17b1804b1-49564852284mr880375e9.22.1784551133799; 
- Mon, 20 Jul 2026 05:38:53 -0700 (PDT)
+ bh=L5zUponltIjn1ApAM74wz7JqTYwcqK5nj1eOLyYOd1c=;
+ b=UVpbxqGQ87iiDlPmVPdocmLZBeuAVwT79dhPOpl+MlOQeLF636mLTU35FmpMvRDchH
+ /LT1XdgteWNyDzZMKQ+A7Leq6vzFw6vN/tJEtIYQHox65eB/RmuBNSs3t+mTOZsyp4No
+ 5Y9syeh23I0RtQu7N78UDc+3K2b5A2NBEP48B7K/6CO1BE05oGNF/C3TVAOosSYkYa1w
+ Se/FNDzMffQ9MXmnrxH9AqWdj0FFszPt+yHSMiam6yipVVtmSgRYD4d0uDDJM5xnRhi8
+ Pfcr4uhllq4iE3SzXI5JEXsFOz9S1s/VrL37rjhwWAVmKR5E6Z428GGtJUAGvDCSMJD0
+ 8sQA==
+X-Gm-Message-State: AOJu0YxXArpexg2Swf44aA41qN4Ml/VHUezMjc96QVBirvUEJ9inti/j
+ Npb4xlAtEp7bTHuCQDu4IzuOBjUhisNutCgAqEfF6clXAafmqsO6cINeejyzdQVPyJKG/7cNgLr
+ j0L47Jzk=
+X-Gm-Gg: AfdE7cl+vNofkTLaLFD6pDuGy+melNsCdwZvz172Yee/zIxTdT1KkVH7JfE5K0pHBRx
+ +8FFceYg7DSwCFMAtk///3Gny6CIOVkcm3CE8I36H8+XCZI+LDvbUMBV8vuQxx11RqEEnzBB/xE
+ pq1rUtlf0Eq5oc2PKtONy4LtaE5QPJkKcYnxm2rnuvJEwTfglwuTZQZmxf84WS2wTz7TK05UJw4
+ f9SDjha9unitu1sXqTFHSO8x9DMuEwPC7umVpVxf666fkBxhWaWgcYi3+rU2IYBU5mkb2K0Shhe
+ FCDx/fnVnjmFfGCuQdznNZLTAQyTLk7sh31i9MJ1v/P6OSQlIitmZpkFmPC0fw0Hkz07K1KZfqc
+ pauAcjWAY0cs4f3M3X4PU942ltobSHK5j9gMQau440EV3pTmVux5qErh01fAiHarn5fmpRZ0sJn
+ qSkVxHYxujUUjeusYeJV+FG7peILYyDfId3Qid/kUzBodNXNu6otO2D/ab/g==
+X-Received: by 2002:a05:600c:63c5:b0:495:5d5b:7533 with SMTP id
+ 5b1f17b1804b1-4955d5b760fmr41009505e9.13.1784551183085; 
+ Mon, 20 Jul 2026 05:39:43 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:544a:2852:f257:ebc5?
  ([2a01:e0a:106d:1080:544a:2852:f257:ebc5])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4955dfa4a97sm109669725e9.4.2026.07.20.05.38.53
+ 5b1f17b1804b1-49563eee22esm18488705e9.1.2026.07.20.05.39.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Jul 2026 05:38:53 -0700 (PDT)
-Message-ID: <a74ca56f-9961-4018-93b7-4058f08b1090@linaro.org>
-Date: Mon, 20 Jul 2026 14:38:52 +0200
+ Mon, 20 Jul 2026 05:39:42 -0700 (PDT)
+Message-ID: <c03c3574-4df1-4fdc-9a7f-2f1736b8e261@linaro.org>
+Date: Mon, 20 Jul 2026 14:39:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: neil.armstrong@linaro.org
-Subject: Re: [PATCH v2 1/3] drm/panel: ilitek-ili9805: Use _multi variants
+Subject: Re: [PATCH v2 2/3] drm/panel: ilitek-ili9805: Use dsi_multi in init
 To: Michail Tatas <michail.tatas@gmail.com>, michael@amarulasolutions.com,
  jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
  dianders@chromium.org
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260719190358.438699-1-michail.tatas@gmail.com>
- <20260719190358.438699-2-michail.tatas@gmail.com>
+ <20260719190358.438699-3-michail.tatas@gmail.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -103,7 +103,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260719190358.438699-2-michail.tatas@gmail.com>
+In-Reply-To: <20260719190358.438699-3-michail.tatas@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -123,96 +123,213 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 7/19/26 21:03, Michail Tatas wrote:
-> Convert functions mipi_dsi_* to mipi_dsi_*_multi as per the
-> gpu/todo file.
-> The multi variant of these functions include improved error
-> handling.
+> Drop the struct ili9805_instr and the init table
+> and use init functions.
 > 
 > Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
 > ---
->   drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 51 +++++---------------
->   1 file changed, 13 insertions(+), 38 deletions(-)
+>   drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 156 +++++++++----------
+>   1 file changed, 73 insertions(+), 83 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
-> index e6c483851f1f..7e9587afebbe 100644
+> index 7e9587afebbe..a70b9512746a 100644
 > --- a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
 > +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
-> @@ -159,36 +159,23 @@ static int ili9805_power_off(struct ili9805 *ctx)
+> @@ -25,22 +25,9 @@
+>   #define ILI9805_SETEXTC_PARAMETER2		(0x98)
+>   #define ILI9805_SETEXTC_PARAMETER3		(0x05)
 >   
+> -#define ILI9805_INSTR(_delay, ...) { \
+> -		.delay = (_delay), \
+> -		.len = sizeof((u8[]) {__VA_ARGS__}), \
+> -		.data = (u8[]){__VA_ARGS__} \
+> -	}
+> -
+> -struct ili9805_instr {
+> -	size_t len;
+> -	const u8 *data;
+> -	u32 delay;
+> -};
+> -
+>   struct ili9805_desc {
+>   	const char *name;
+> -	const struct ili9805_instr *init;
+> -	const size_t init_length;
+> +	void (*init)(struct mipi_dsi_multi_context *ctx);
+>   	const struct drm_display_mode *mode;
+>   	u32 width_mm;
+>   	u32 height_mm;
+> @@ -56,65 +43,78 @@ struct ili9805 {
+>   	struct gpio_desc	*reset_gpio;
+>   };
+>   
+> -static const struct ili9805_instr gpm1780a0_init[] = {
+> -	ILI9805_INSTR(100, ILI9805_EXTCMD_CMD_SET_ENABLE_REG, ILI9805_SETEXTC_PARAMETER1,
+> -		      ILI9805_SETEXTC_PARAMETER2, ILI9805_SETEXTC_PARAMETER3),
+> -	ILI9805_INSTR(100, 0xFD, 0x0F, 0x10, 0x44, 0x00),
+> -	ILI9805_INSTR(0, 0xf8, 0x18, 0x02, 0x02, 0x18, 0x02, 0x02, 0x30, 0x00,
+> -		      0x00, 0x30, 0x00, 0x00, 0x30, 0x00, 0x00),
+> -	ILI9805_INSTR(0, 0xB8, 0x62),
+> -	ILI9805_INSTR(0, 0xF1, 0x00),
+> -	ILI9805_INSTR(0, 0xF2, 0x00, 0x58, 0x40),
+> -	ILI9805_INSTR(0, 0xF3, 0x60, 0x83, 0x04),
+> -	ILI9805_INSTR(0, 0xFC, 0x04, 0x0F, 0x01),
+> -	ILI9805_INSTR(0, 0xEB, 0x08, 0x0F),
+> -	ILI9805_INSTR(0, 0xe0, 0x00, 0x08, 0x0d, 0x0e, 0x0e, 0x0d, 0x0a, 0x08, 0x04,
+> -		      0x08, 0x0d, 0x0f, 0x0b, 0x1c, 0x14, 0x0a),
+> -	ILI9805_INSTR(0, 0xe1, 0x00, 0x08, 0x0d, 0x0e, 0x0e, 0x0d, 0x0a, 0x08, 0x04,
+> -		      0x08, 0x0d, 0x0f, 0x0b, 0x1c, 0x14, 0x0a),
+> -	ILI9805_INSTR(10, 0xc1, 0x13, 0x39, 0x19, 0x06),
+> -	ILI9805_INSTR(10, 0xc7, 0xe5),
+> -	ILI9805_INSTR(10, 0xB1, 0x00, 0x12, 0x14),
+> -	ILI9805_INSTR(10, 0xB4, 0x02),
+> -	ILI9805_INSTR(0, 0xBB, 0x14, 0x55),
+> -	ILI9805_INSTR(0, MIPI_DCS_SET_ADDRESS_MODE, 0x08),
+> -	ILI9805_INSTR(0, MIPI_DCS_SET_PIXEL_FORMAT, 0x77),
+> -	ILI9805_INSTR(0, 0x20),
+> -	ILI9805_INSTR(0, 0xB0, 0x01),
+> -	ILI9805_INSTR(0, 0xB6, 0x31, 0x00, 0xef),
+> -	ILI9805_INSTR(0, 0xDF, 0x23),
+> -	ILI9805_INSTR(0, 0xB9, 0x02, 0x00),
+> -};
+> +static void gpm1780a0_init(struct mipi_dsi_multi_context *ctx)
+> +{
+> +	mipi_dsi_dcs_write_seq_multi(ctx, ILI9805_EXTCMD_CMD_SET_ENABLE_REG, ILI9805_SETEXTC_PARAMETER1,
+> +							ILI9805_SETEXTC_PARAMETER2, ILI9805_SETEXTC_PARAMETER3);
+> +	mipi_dsi_msleep(ctx, 100);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xFD, 0x0F, 0x10, 0x44, 0x00);
+> +	mipi_dsi_msleep(ctx, 100);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xf8, 0x18, 0x02, 0x02, 0x18, 0x02, 0x02, 0x30, 0x00,
+> +							0x00, 0x30, 0x00, 0x00, 0x30, 0x00, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB8, 0x62);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xF1, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xF2, 0x00, 0x58, 0x40);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xF3, 0x60, 0x83, 0x04);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xFC, 0x04, 0x0F, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xEB, 0x08, 0x0F);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xe0, 0x00, 0x08, 0x0d, 0x0e, 0x0e, 0x0d, 0x0a, 0x08, 0x04,
+> +							0x08, 0x0d, 0x0f, 0x0b, 0x1c, 0x14, 0x0a);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xe1, 0x00, 0x08, 0x0d, 0x0e, 0x0e, 0x0d, 0x0a, 0x08, 0x04,
+> +							0x08, 0x0d, 0x0f, 0x0b, 0x1c, 0x14, 0x0a);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xc1, 0x13, 0x39, 0x19, 0x06);
+> +	mipi_dsi_msleep(ctx, 10);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xc7, 0xe5);
+> +	mipi_dsi_msleep(ctx, 10);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB1, 0x00, 0x12, 0x14);
+> +	mipi_dsi_msleep(ctx, 10);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB4, 0x02);
+> +	mipi_dsi_msleep(ctx, 10);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xBB, 0x14, 0x55);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_ADDRESS_MODE, 0x08);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_PIXEL_FORMAT, 0x77);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0x20);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB0, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB6, 0x31, 0x00, 0xef);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xDF, 0x23);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB9, 0x02, 0x00);
+> +}
+>   
+> -static const struct ili9805_instr tm041xdhg01_init[] = {
+> -	ILI9805_INSTR(100, ILI9805_EXTCMD_CMD_SET_ENABLE_REG, ILI9805_SETEXTC_PARAMETER1,
+> -		      ILI9805_SETEXTC_PARAMETER2, ILI9805_SETEXTC_PARAMETER3),
+> -	ILI9805_INSTR(100, 0xFD, 0x0F, 0x13, 0x44, 0x00),
+> -	ILI9805_INSTR(0, 0xf8, 0x18, 0x02, 0x02, 0x18, 0x02, 0x02, 0x30, 0x01,
+> -		      0x01, 0x30, 0x01, 0x01, 0x30, 0x01, 0x01),
+> -	ILI9805_INSTR(0, 0xB8, 0x74),
+> -	ILI9805_INSTR(0, 0xF1, 0x00),
+> -	ILI9805_INSTR(0, 0xF2, 0x00, 0x58, 0x40),
+> -	ILI9805_INSTR(0, 0xFC, 0x04, 0x0F, 0x01),
+> -	ILI9805_INSTR(0, 0xEB, 0x08, 0x0F),
+> -	ILI9805_INSTR(0, 0xe0, 0x01, 0x0d, 0x15, 0x0e, 0x0f, 0x0f, 0x0b, 0x08, 0x04,
+> -		      0x07, 0x0a, 0x0d, 0x0c, 0x15, 0x0f, 0x08),
+> -	ILI9805_INSTR(0, 0xe1, 0x01, 0x0d, 0x15, 0x0e, 0x0f, 0x0f, 0x0b, 0x08, 0x04,
+> -		      0x07, 0x0a, 0x0d, 0x0c, 0x15, 0x0f, 0x08),
+> -	ILI9805_INSTR(10, 0xc1, 0x15, 0x03, 0x03, 0x31),
+> -	ILI9805_INSTR(10, 0xB1, 0x00, 0x12, 0x14),
+> -	ILI9805_INSTR(10, 0xB4, 0x02),
+> -	ILI9805_INSTR(0, 0xBB, 0x14, 0x55),
+> -	ILI9805_INSTR(0, MIPI_DCS_SET_ADDRESS_MODE, 0x0a),
+> -	ILI9805_INSTR(0, MIPI_DCS_SET_PIXEL_FORMAT, 0x77),
+> -	ILI9805_INSTR(0, 0x20),
+> -	ILI9805_INSTR(0, 0xB0, 0x00),
+> -	ILI9805_INSTR(0, 0xB6, 0x01),
+> -	ILI9805_INSTR(0, 0xc2, 0x11),
+> -	ILI9805_INSTR(0, 0x51, 0xFF),
+> -	ILI9805_INSTR(0, 0x53, 0x24),
+> -	ILI9805_INSTR(0, 0x55, 0x00),
+> -};
+> +static void tm041xdhg01_init(struct mipi_dsi_multi_context *ctx)
+> +{
+> +	mipi_dsi_dcs_write_seq_multi(ctx, ILI9805_EXTCMD_CMD_SET_ENABLE_REG, ILI9805_SETEXTC_PARAMETER1,
+> +							ILI9805_SETEXTC_PARAMETER2, ILI9805_SETEXTC_PARAMETER3);
+> +	mipi_dsi_msleep(ctx, 100);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xFD, 0x0F, 0x13, 0x44, 0x00);
+> +	mipi_dsi_msleep(ctx, 100);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xf8, 0x18, 0x02, 0x02, 0x18, 0x02, 0x02, 0x30, 0x01,
+> +							0x01, 0x30, 0x01, 0x01, 0x30, 0x01, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB8, 0x74);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xF1, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xF2, 0x00, 0x58, 0x40);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xFC, 0x04, 0x0F, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xEB, 0x08, 0x0F);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xe0, 0x01, 0x0d, 0x15, 0x0e, 0x0f, 0x0f, 0x0b, 0x08, 0x04,
+> +							0x07, 0x0a, 0x0d, 0x0c, 0x15, 0x0f, 0x08);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xe1, 0x01, 0x0d, 0x15, 0x0e, 0x0f, 0x0f, 0x0b, 0x08, 0x04,
+> +							0x07, 0x0a, 0x0d, 0x0c, 0x15, 0x0f, 0x08);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xc1, 0x15, 0x03, 0x03, 0x31);
+> +	mipi_dsi_msleep(ctx, 10);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB1, 0x00, 0x12, 0x14);
+> +	mipi_dsi_msleep(ctx, 10);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB4, 0x02);
+> +	mipi_dsi_msleep(ctx, 10);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xBB, 0x14, 0x55);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_ADDRESS_MODE, 0x0a);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_PIXEL_FORMAT, 0x77);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0x20);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB0, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB6, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xc2, 0x11);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0x51, 0xFF);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0x53, 0x24);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0x55, 0x00);
+> +}
+>   
+>   static inline struct ili9805 *panel_to_ili9805(struct drm_panel *panel)
+>   {
+> @@ -160,16 +160,8 @@ static int ili9805_power_off(struct ili9805 *ctx)
 >   static int ili9805_activate(struct ili9805 *ctx)
 >   {
-> -	struct mipi_dsi_device *dsi = ctx->dsi;
-> -	struct device *dev = &dsi->dev;
-> -	int i, ret;
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> +	int i;
+>   	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> -	int i;
 >   
->   	for (i = 0; i < ctx->desc->init_length; i++) {
->   		const struct ili9805_instr *instr = &ctx->desc->init[i];
->   
-> -		ret = mipi_dsi_dcs_write_buffer(ctx->dsi, instr->data, instr->len);
-> -		if (ret < 0)
-> -			return ret;
-> +		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, instr->data, instr->len);
->   
->   		if (instr->delay > 0)
-> -			msleep(instr->delay);
-> -	}
+> -	for (i = 0; i < ctx->desc->init_length; i++) {
+> -		const struct ili9805_instr *instr = &ctx->desc->init[i];
 > -
-> -	ret = mipi_dsi_dcs_exit_sleep_mode(ctx->dsi);
-> -	if (ret) {
-> -		dev_err(dev, "Failed to exit sleep mode (%d)\n", ret);
-> -		return ret;
-> +			mipi_dsi_msleep(&dsi_ctx, instr->delay);
->   	}
->   
-> -	usleep_range(5000, 6000);
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
->   
-> -	ret = mipi_dsi_dcs_set_display_on(ctx->dsi);
-> -	if (ret) {
-> -		dev_err(dev, "Failed to set display ON (%d)\n", ret);
-> -		return ret;
-> -	}
+> -		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, instr->data, instr->len);
 > -
-> -	return 0;
-> +	return dsi_ctx.accum_err;
->   }
->   
->   static int ili9805_prepare(struct drm_panel *panel)
-> @@ -211,25 +198,13 @@ static int ili9805_prepare(struct drm_panel *panel)
->   
->   static int ili9805_deactivate(struct ili9805 *ctx)
->   {
-> -	struct mipi_dsi_device *dsi = ctx->dsi;
-> -	struct device *dev = &dsi->dev;
-> -	int ret;
-> -
-> -	ret = mipi_dsi_dcs_set_display_off(ctx->dsi);
-> -	if (ret < 0) {
-> -		dev_err(dev, "Failed to set display OFF (%d)\n", ret);
-> -		return ret;
+> -		if (instr->delay > 0)
+> -			mipi_dsi_msleep(&dsi_ctx, instr->delay);
 > -	}
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +	ctx->desc->init(&dsi_ctx);
 >   
-> -	usleep_range(5000, 10000);
-> -
-> -	ret = mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
-> -	if (ret < 0) {
-> -		dev_err(dev, "Failed to enter sleep mode (%d)\n", ret);
-> -		return ret;
-> -	}
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 10000);
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+>   	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+>   	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
+> @@ -343,7 +335,6 @@ static void ili9805_dsi_remove(struct mipi_dsi_device *dsi)
 >   
-> -	return 0;
-> +	return dsi_ctx.accum_err;
->   }
+>   static const struct ili9805_desc gpm1780a0_desc = {
+>   	.init = gpm1780a0_init,
+> -	.init_length = ARRAY_SIZE(gpm1780a0_init),
+>   	.mode = &gpm1780a0_timing,
+>   	.width_mm = 65,
+>   	.height_mm = 65,
+> @@ -351,7 +342,6 @@ static const struct ili9805_desc gpm1780a0_desc = {
 >   
->   static int ili9805_unprepare(struct drm_panel *panel)
+>   static const struct ili9805_desc tm041xdhg01_desc = {
+>   	.init = tm041xdhg01_init,
+> -	.init_length = ARRAY_SIZE(tm041xdhg01_init),
+>   	.mode = &tm041xdhg01_timing,
+>   	.width_mm = 42,
+>   	.height_mm = 96,
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
