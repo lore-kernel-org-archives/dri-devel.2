@@ -4,83 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5566C44529
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 20:08:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BBF2C44529
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 20:08:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4825F10E16E;
-	Mon, 20 Jul 2026 20:08:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D937C10E178;
+	Mon, 20 Jul 2026 20:08:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="BYJzbwZA";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="PQ4AMqVp";
 	dkim-atps=neutral
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com
- [209.85.217.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B674A10E16E
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 20:08:14 +0000 (UTC)
-Received: by mail-vs1-f41.google.com with SMTP id
- ada2fe7eead31-73a442f7cd3so4435173137.3
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 13:08:14 -0700 (PDT)
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
+ [209.85.221.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0195410E178
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 20:08:24 +0000 (UTC)
+Received: by mail-vk1-f171.google.com with SMTP id
+ 71dfb90a1353d-59b074ec7ceso3897317e0c.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 13:08:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1784578093; x=1785182893;
+ d=chromium.org; s=google; t=1784578104; x=1785182904;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=qZK1H78g4ElM4lCk4yo6u/+rQvzyoecCzo3mQeXpIGc=;
- b=BYJzbwZAChGeTBdRS69P2etNlqUokrQ06JdoRdH9JvgwJzejqI/7Tp7TVFGgqmbYEq
- upxPe2d6oxNd/SzuZ4IdElg5hk4Yu/TVqFGbPlfhB49quuP6RpyUXQDoi6AzL0ncOQnN
- 8f68M9kR7V3kQAggzDoNjiAYHYOhLWJaggslc=
+ bh=iFzejZ2ypE5waA9MMcITXEgimyfo81y8HvT6rxfu8Yg=;
+ b=PQ4AMqVpxfgD24hetjW5TNqMP18CPe3DuBbhwjbS1hFzkgPjO7C+2JA7j8/q/jmHtv
+ aIWxQ1vN45xzPtEhM82HIato72/U+7Kb06Cng5jSb8SPBSEvheskFLQLGL9miNQMXQUf
+ OEKODCv7GqlTwHXtsVSE+rB0fznkty4mMp+bM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784578093; x=1785182893;
+ d=1e100.net; s=20251104; t=1784578104; x=1785182904;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=qZK1H78g4ElM4lCk4yo6u/+rQvzyoecCzo3mQeXpIGc=;
- b=hRSjs7KiOTgmXwsYb04JLRa62hQoP8MD6jnIs+A8waumieEjXM0Dk8L33/FFfgnfO3
- MOqQgwu4jE8B+Wxg5yvaDqrrUJDehAjT4xTXiQZiNPlZVpIBAuUnTGRc3tSlA5Ew/oqY
- nGp3O69PsRuemU7z3t3JZskrj/WpQdignf7aFEL79aItq+Hfkqy8ErKqghStU+zGTzuj
- j8Y/FMdTnhSZtnwhZGP7uMeMfKGg4kTw7IwOpyf1TEFbhV57FpqeoAFSVVQFTgJLOmMF
- H5muK2Ko4WBBPFc2ro/CjbRv/fviSuL4mhotPvfXolv8yVQdraULqyPiJPMFOEPot70m
- +kZg==
+ bh=iFzejZ2ypE5waA9MMcITXEgimyfo81y8HvT6rxfu8Yg=;
+ b=X10dj8XQSa44ZI2aYyuLFOmwdsrZcEyYtxmjPJ3R5v0M63OrmHQE5CZF85JYKWEKVE
+ K6BtKAD9tuUfKMoJmRZwJIXuEJ9Tkj/Q3a3Iqzb0Y5T36rT8GCKTmC+BYTkHbZR0PwEM
+ O5QmWlPgzCDnxdhOv6kTYQbmQUvq3vntR4N1U8N8fz90fjH7w2+UCKluUf5v+bCd/Xhq
+ 2r67u0arLdeT2HbzMi3AjE+AMQD6L9Gc3z7S64C70xLF1TDDMrvaKLKe3Pc+4K8t+Xws
+ uCVoXyaqVN1SjW6uKHnoTbGxsGV5uYrY75JG9MEYPM7kPN5QtSWIjw0PaADvG5FSn7MX
+ A0Zw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrJfDD4QMB92H1SH+4g+PjK/mCu1YrdY32iZ1B9vVTYYCyoxZzNCMQZMSYsKLgKgrOCkDMZLfHKUQY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxMvEI+Pw6xeWIv+MJd6B+uRkB87DDksBdDEMXRHQEpxL4EaRTg
- nBQ54i9Lx4esBRW8E4tcy6yUR5K4iHrzbdop3jMYs1ybWe4O3o1BBL/HMKe8L4Y08EbfgahEEeS
- Kn6Y=
-X-Gm-Gg: AfdE7cmI814Ir0w+H9j27e19Uy2zQ0togYLY+rGY1LVKQqxlQt2DK6yeBxTlUaZRbfR
- KbFniClYmLntDVyen8EFKS4/5uO7KdXZWpC5sQDuqJKCTePmOjkntBIoOZAXpYCBYCjLMKmg+bi
- GI2xORUdgxAM4ENtF5nwo32otm26wiOIumL/SBD3BqvUQnpytqqFj3Hft5xVkV1B5VzrfkUV+Ds
- UctTW6zuxc2JB1gG54YCuy+hy3t0fW+TArDm32Cx7eXmI35Vov9xfwx1590hNAO6VxtvbtL1r89
- T6CiXKjclFfP1XjxO/hWbxOPKwZqq6q9tD12dBff6NoEOT0f+qV0pt0Fa3DhS3VyZRitWcIhKZX
- cuohx9PTNUGt/v9ivad+bBeOWDDENM3HF32livawNE6FsYqPU3pftjH59jEyNlP/L4NleMQJ7u5
- +D6QAVyl1tjQpHdTSRo1WprjkSEz43Yhow7aW7wlp8
-X-Received: by 2002:a05:6102:b0a:b0:73e:9fae:5845 with SMTP id
- ada2fe7eead31-747531315acmr5052018137.0.1784578093471; 
- Mon, 20 Jul 2026 13:08:13 -0700 (PDT)
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com.
- [209.85.217.48]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-747581b09absm9425094137.8.2026.07.20.13.08.12
+ AHgh+RqXY8imVD/nPwBc8lM31YNu7iCf2rdaK3HxtGZUuPEGin9iAtyEZK3a+4sgfjdTCa7as/EJXGKY2ug=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyhAb4w+Q/m/1ttxRVik5QrguobBA/OeBmWT6qs/5Qus50fjWyV
+ pgfeYxq+2PLQIxYht8pTwwb4vZjWcoC6tH+7KKI7tLWMD+c1Nt/TvlX67Xt4UiRNl29nJsPfu+W
+ xEM8=
+X-Gm-Gg: AfdE7ckqAPv1RXMrU836doOgSrNyLFb8MetDhW0cQsdUqhl/tYQceBmaVFuCUvcKPrp
+ 2ZUBAzDtvU5kgSfVWlUQg0xmWRrIZoDAVV4suPcLyMcWuQYkY9HRfEvlTxY6tKQjfvVZ6nNJP4B
+ iKD2KhLck/4O9mKVBPBvX1qejAReyagq2PB7D9OX2V1LmotSLILm1YJigPwfnKBC0KfYBNjO0xL
+ uKvn7eMRKBFoWL41KOdWICKeWNLvYQ7y2Z8YsKVwodoX5zBc/8jiac6h6UXVdvajgHpDgPRQ6Wu
+ J4P/+FJHwwCRWi0QUMqVnYZdvYol7vELLCMIs4TzZHrRLHG2Nyccg++cAv5bx1fAI7uKuN/nn0P
+ k+w2QTxdc3iBK1WEYZFLN9d3mSMtPIpV4d2uMcBpUzs4fQ5O/CTRPsRW5g8F/biS2Dh9i11PTIN
+ DlJmC3woUb4yAujhisPm6UO4DcC9hjqbS6XtsNxlK9OeLe
+X-Received: by 2002:a05:6122:8b10:b0:5bd:aba5:3830 with SMTP id
+ 71dfb90a1353d-5c1b64b6898mr3354219e0c.0.1784578103791; 
+ Mon, 20 Jul 2026 13:08:23 -0700 (PDT)
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com.
+ [209.85.221.177]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c1eefe4543sm10602930e0c.11.2026.07.20.13.08.21
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Jul 2026 13:08:12 -0700 (PDT)
-Received: by mail-vs1-f48.google.com with SMTP id
- ada2fe7eead31-74a9ac9cda6so496683137.1
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 13:08:12 -0700 (PDT)
+ Mon, 20 Jul 2026 13:08:21 -0700 (PDT)
+Received: by mail-vk1-f177.google.com with SMTP id
+ 71dfb90a1353d-5bfdbc68bbeso3290836e0c.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 13:08:21 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AHgh+Rr4I9/AJYHgRpLB+a7GsaM7WlSRTmF5Q83nWDYoLKbQMWH0FrUAnTRakNHeTnD+INxbdgeyylCdo+s=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:3f56:b0:6c5:d55d:c096 with SMTP id
- ada2fe7eead31-7475367f1a5mr5667713137.16.1784578091050; Mon, 20 Jul 2026
- 13:08:11 -0700 (PDT)
+ AHgh+Rogs5yhhJTje671aOxMIRN7xtii36Kzu7V8F/whjDLX79fvpm1dUUmfuSTWb3g79Dmdhx/F+RMQK+c=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:3fa6:b0:737:9edc:36f8 with SMTP id
+ ada2fe7eead31-7475344549emr4012508137.1.1784578100701; Mon, 20 Jul 2026
+ 13:08:20 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260719190358.438699-1-michail.tatas@gmail.com>
- <20260719190358.438699-2-michail.tatas@gmail.com>
-In-Reply-To: <20260719190358.438699-2-michail.tatas@gmail.com>
+ <20260719190358.438699-3-michail.tatas@gmail.com>
+In-Reply-To: <20260719190358.438699-3-michail.tatas@gmail.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 20 Jul 2026 13:07:59 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XaLNRfgi-SR=+O2HPHEj9oZ7U=ZqbUMX6y+W-7hjj+iA@mail.gmail.com>
-X-Gm-Features: AUfX_mzUZa-ii0h7Gki1poMuutlaV4wP4tRYvA2tsh9ShW9JxW2Dtj3jpHmM8OE
-Message-ID: <CAD=FV=XaLNRfgi-SR=+O2HPHEj9oZ7U=ZqbUMX6y+W-7hjj+iA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] drm/panel: ilitek-ili9805: Use _multi variants
+Date: Mon, 20 Jul 2026 13:08:09 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Wqo8Y=NCH0HVn8diQ2q1qxh0tcYLTKNKxGL2e-He_mNg@mail.gmail.com>
+X-Gm-Features: AUfX_mwihhuMmlmMz-XnCtVH05KhY2i6jzh5jkmahlFo6a8baZ85WeYb_l6nNTU
+Message-ID: <CAD=FV=Wqo8Y=NCH0HVn8diQ2q1qxh0tcYLTKNKxGL2e-He_mNg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] drm/panel: ilitek-ili9805: Use dsi_multi in init
 To: Michail Tatas <michail.tatas@gmail.com>
 Cc: michael@amarulasolutions.com, neil.armstrong@linaro.org, 
  jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
@@ -108,14 +108,110 @@ Hi,
 On Sun, Jul 19, 2026 at 12:04=E2=80=AFPM Michail Tatas <michail.tatas@gmail=
 .com> wrote:
 >
-> Convert functions mipi_dsi_* to mipi_dsi_*_multi as per the
-> gpu/todo file.
-> The multi variant of these functions include improved error
-> handling.
+> Drop the struct ili9805_instr and the init table
+> and use init functions.
 >
 > Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
 > ---
->  drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 51 +++++---------------
->  1 file changed, 13 insertions(+), 38 deletions(-)
+>  drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 156 +++++++++----------
+>  1 file changed, 73 insertions(+), 83 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c b/drivers/gpu/d=
+rm/panel/panel-ilitek-ili9805.c
+> index 7e9587afebbe..a70b9512746a 100644
+> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
+> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
+> @@ -25,22 +25,9 @@
+>  #define ILI9805_SETEXTC_PARAMETER2             (0x98)
+>  #define ILI9805_SETEXTC_PARAMETER3             (0x05)
+>
+> -#define ILI9805_INSTR(_delay, ...) { \
+> -               .delay =3D (_delay), \
+> -               .len =3D sizeof((u8[]) {__VA_ARGS__}), \
+> -               .data =3D (u8[]){__VA_ARGS__} \
+> -       }
+> -
+> -struct ili9805_instr {
+> -       size_t len;
+> -       const u8 *data;
+> -       u32 delay;
+> -};
+> -
+>  struct ili9805_desc {
+>         const char *name;
+> -       const struct ili9805_instr *init;
+> -       const size_t init_length;
+> +       void (*init)(struct mipi_dsi_multi_context *ctx);
+>         const struct drm_display_mode *mode;
+>         u32 width_mm;
+>         u32 height_mm;
+> @@ -56,65 +43,78 @@ struct ili9805 {
+>         struct gpio_desc        *reset_gpio;
+>  };
+>
+> -static const struct ili9805_instr gpm1780a0_init[] =3D {
+> -       ILI9805_INSTR(100, ILI9805_EXTCMD_CMD_SET_ENABLE_REG, ILI9805_SET=
+EXTC_PARAMETER1,
+> -                     ILI9805_SETEXTC_PARAMETER2, ILI9805_SETEXTC_PARAMET=
+ER3),
+> -       ILI9805_INSTR(100, 0xFD, 0x0F, 0x10, 0x44, 0x00),
+> -       ILI9805_INSTR(0, 0xf8, 0x18, 0x02, 0x02, 0x18, 0x02, 0x02, 0x30, =
+0x00,
+> -                     0x00, 0x30, 0x00, 0x00, 0x30, 0x00, 0x00),
+> -       ILI9805_INSTR(0, 0xB8, 0x62),
+> -       ILI9805_INSTR(0, 0xF1, 0x00),
+> -       ILI9805_INSTR(0, 0xF2, 0x00, 0x58, 0x40),
+> -       ILI9805_INSTR(0, 0xF3, 0x60, 0x83, 0x04),
+> -       ILI9805_INSTR(0, 0xFC, 0x04, 0x0F, 0x01),
+> -       ILI9805_INSTR(0, 0xEB, 0x08, 0x0F),
+> -       ILI9805_INSTR(0, 0xe0, 0x00, 0x08, 0x0d, 0x0e, 0x0e, 0x0d, 0x0a, =
+0x08, 0x04,
+> -                     0x08, 0x0d, 0x0f, 0x0b, 0x1c, 0x14, 0x0a),
+> -       ILI9805_INSTR(0, 0xe1, 0x00, 0x08, 0x0d, 0x0e, 0x0e, 0x0d, 0x0a, =
+0x08, 0x04,
+> -                     0x08, 0x0d, 0x0f, 0x0b, 0x1c, 0x14, 0x0a),
+> -       ILI9805_INSTR(10, 0xc1, 0x13, 0x39, 0x19, 0x06),
+> -       ILI9805_INSTR(10, 0xc7, 0xe5),
+> -       ILI9805_INSTR(10, 0xB1, 0x00, 0x12, 0x14),
+> -       ILI9805_INSTR(10, 0xB4, 0x02),
+> -       ILI9805_INSTR(0, 0xBB, 0x14, 0x55),
+> -       ILI9805_INSTR(0, MIPI_DCS_SET_ADDRESS_MODE, 0x08),
+> -       ILI9805_INSTR(0, MIPI_DCS_SET_PIXEL_FORMAT, 0x77),
+> -       ILI9805_INSTR(0, 0x20),
+> -       ILI9805_INSTR(0, 0xB0, 0x01),
+> -       ILI9805_INSTR(0, 0xB6, 0x31, 0x00, 0xef),
+> -       ILI9805_INSTR(0, 0xDF, 0x23),
+> -       ILI9805_INSTR(0, 0xB9, 0x02, 0x00),
+> -};
+> +static void gpm1780a0_init(struct mipi_dsi_multi_context *ctx)
+> +{
+> +       mipi_dsi_dcs_write_seq_multi(ctx, ILI9805_EXTCMD_CMD_SET_ENABLE_R=
+EG, ILI9805_SETEXTC_PARAMETER1,
+> +                                                       ILI9805_SETEXTC_P=
+ARAMETER2, ILI9805_SETEXTC_PARAMETER3);
+
+nit: the indentation of the 2nd line of your two-line
+mipi_dsi_dcs_write_seq_multi() seems off. checkpatch.sh --strict
+yells:
+
+CHECK: Alignment should match open parenthesis
+
+Strict mode also yells about a few lines that are over 100 characters.
+I'm not quite as picky about that, but it would be nic eto fix too...
+
+> +       mipi_dsi_msleep(ctx, 100);
+> +       mipi_dsi_dcs_write_seq_multi(ctx, 0xFD, 0x0F, 0x10, 0x44, 0x00);
+> +       mipi_dsi_msleep(ctx, 100);
+> +       mipi_dsi_dcs_write_seq_multi(ctx, 0xf8, 0x18, 0x02, 0x02, 0x18, 0=
+x02, 0x02, 0x30, 0x00,
+> +                                                       0x00, 0x30, 0x00,=
+ 0x00, 0x30, 0x00, 0x00);
+
+Since you're touching these lines anyway, can you also fix these
+functions to consistently use lower case hex instead of (mostly)
+uppercase hex? AKA 0xfd rather than 0xFD.
+
+
+Other than above nits, this looks great to me.
 
 Reviewed-by: Douglas Anderson <dianders@chromium.org>
