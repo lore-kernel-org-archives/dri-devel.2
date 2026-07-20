@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E392C4451B
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 05:29:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2A75C4451B
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 05:29:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72E1910E66C;
-	Mon, 20 Jul 2026 05:28:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09C7610E105;
+	Mon, 20 Jul 2026 05:29:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gjoPxciB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EofFRzfB";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A58F610E66C
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:28:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0827510E105
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:29:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 26D9660103;
- Mon, 20 Jul 2026 05:28:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B12B71F000E9;
- Mon, 20 Jul 2026 05:28:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 670F860103;
+ Mon, 20 Jul 2026 05:29:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F186B1F000E9;
+ Mon, 20 Jul 2026 05:29:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784525336;
- bh=JTIjICLCLC8e8xqcYxkrE/9DtAeeLk80aSOLnvJuit8=;
+ s=k20260515; t=1784525385;
+ bh=hmw+YvnE+Za9RaHAAfdNqbw4lkrcoM0BfaDaImrFfvw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gjoPxciBhEFJ/atRIf8ygJU4DP2ZX+Ubn7F+0RrXyAqX5I8F0bVVpnA9F/oWSdpFa
- vls4cpzHGQ1Z1ddSg0XXRTiyTh8NMqEBv4c2ORixMBV1V3Ch2Daf2Jrxi1fPW3pPp6
- +KxjfBOUoM3SAmkcPvNrXMG+c3LgtzBhzjymqAd3SDr7eX+aSt0dj1H9Mydx9ygaXV
- AK0x6mcKkpz7UGEu90wHrFaU71am4Gu01k6hU5iVr0kJ0mvtVRms+0rZxNuPsL0AtD
- OzyAEcUMOD+xzryhAhR5/OV+ewguB/ylbStyu/6xeqhxi+vIeiOodZ8UgT6flC/p4N
- 1fB21putRv5nw==
+ b=EofFRzfBkSsZ/jqIiCQD7NNKDHgb7IDxunnoE7VbThbBeGq65vWIZOya9xCG9MReX
+ kpmvwD8mNp+6hH0x2DpFFX/UIpCV/T6b890fyOUu4rVhTNrqfQ54Hc112i7R3V3d2w
+ sl5JO934S/2bHAvItFDj3J10eLP0+ptIMcFL6lCMhz4VgTJJoREjeYc9e9H+D/U45y
+ x1dtU1pjlBK4q/kh6efjLwXksQtlRq08knFhL8+nOmnXiN+Xo+Y2yBDyEdz3wxHsy/
+ rKk1JaHuOAarvulggHdakwnLonBSTfhYa96s2i/ZRgKG6MFdGsrPk26KVs/dGJtsSz
+ ryLRrg1aduTUg==
 From: sashiko-bot@kernel.org
-Subject: Re: [v5 07/14] drm/i915/color: Add YCbCr limited-to-full range
- color block support
+Subject: Re: [v5 08/14] drm/i915/color: Add YUV range correction to SDR
+ plane pipeline
 To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720045131.971650-8-chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260720045131.971650-9-chaitanya.kumar.borah@intel.com>
 References: <20260720045131.971650-1-chaitanya.kumar.borah@intel.com>
- <20260720045131.971650-8-chaitanya.kumar.borah@intel.com>
+ <20260720045131.971650-9-chaitanya.kumar.borah@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 05:28:56 +0000
-Message-Id: <20260720052856.B12B71F000E9@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 05:29:44 +0000
+Message-Id: <20260720052944.F186B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,134 +58,117 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 New issues:
-- [High] YUV range correction is incorrectly enabled by default for all col=
-or pipelines, corrupting both RGB and YUV surfaces.
-- [Medium] The INTEL_PLANE_CB_YUV_RANGE_CORRECT color block is never added =
-to the plane color pipeline arrays, making the feature unreachable.
+- [Medium] The SDR plane color pipeline is never exposed to userspace becau=
+se `intel_color_pipeline_plane_init()` unconditionally early-returns for no=
+n-HDR planes.
+- [Low] The fixed matrix support mask validation fails to check bits 32-63 =
+on 32-bit architectures due to unsigned integer zero-extension.
 
 Pre-existing issues:
-- [Critical] Use-After-Free via leaked DRM IDR pointer during colorop clean=
-up.
-- [High] NULL Pointer Dereference on colorop initialization error path.
+- [High] If colorop initialization fails early, the cleanup path dereferenc=
+es a NULL `colorop->dev` pointer and uninitialized list head, causing a ker=
+nel panic.
 --
 
---- Patch [7]: [v5 07/14] drm/i915/color: Add YCbCr limited-to-full range c=
-olor block support ---
-commit 63b36f46939531b2add35ef940340e77707f342a
+--- Patch [8]: [v5 08/14] drm/i915/color: Add YUV range correction to SDR p=
+lane pipeline ---
+commit cf2ffd1a2b5d8ea9f91da1ef444dd3fa882dd254
 Author: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 
-drm/i915/color: Add YCbCr limited-to-full range color block support
+drm/i915/color: Add YUV range correction to SDR plane pipeline
 
-Add support for color block which performs YCbCr limited-to-full
-range expansion in the plane color pipeline. The color block is
-represented using DRM_COLOROP_FIXED_MATRIX colorop.
+Insert the INTEL_PLANE_CB_YUV_RANGE_CORRECT color block into the SDR
+plane color pipeline. This enables YCbCr limited-to-full range expansion
+ahead of the CSC block that expects full range pixel data. With this,
+the pipeline can accept limited range framebuffers.
 
 > diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/driver=
 s/gpu/drm/i915/display/intel_color_pipeline.c
-> index 2ef42a133a987..7d25f4fbfa9b7 100644
+> index 7d25f4fbfa9b7..7457fa51cb97a 100644
 > --- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
 > +++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-> @@ -108,6 +108,12 @@ struct intel_colorop *intel_color_pipeline_plane_add=
-_colorop(struct drm_plane *p
->  							  intel_plane_supported_csc_ff,
->  							  DRM_COLOROP_FLAG_ALLOW_BYPASS);
->  		break;
-> +	case INTEL_PLANE_CB_YUV_RANGE_CORRECT:
-> +		ret =3D drm_plane_colorop_fixed_matrix_init(dev, &colorop->base, plane,
-> +							  &intel_colorop_funcs,
-> +							  BIT(DRM_COLOROP_FM_YCBCR_LIMITED_FULL),
-> +							  DRM_COLOROP_FLAG_ALLOW_BYPASS);
+> @@ -44,6 +44,7 @@ static const enum intel_color_block hdr_plane_pipeline[=
+] =3D {
+>  };
+> =20
+>  static const enum intel_color_block sdr_plane_pipeline[] =3D {
+> +	INTEL_PLANE_CB_YUV_RANGE_CORRECT,
+>  	INTEL_PLANE_CB_CSC_FF,
+>  };
 
 [Severity: Medium]
-Is INTEL_PLANE_CB_YUV_RANGE_CORRECT actually reachable? It appears this col=
-or
-block is omitted from the pipeline definition arrays like sdr_plane_pipelin=
-e,
-which means it will never be added to the pipeline.
+Will this newly added SDR plane pipeline actually be exposed to userspace?
+
+Looking at intel_color_pipeline_plane_init(), there appears to be an early
+return that completely prevents color pipelines from being initialized for =
+SDR
+planes:
+
+drivers/gpu/drm/i915/display/intel_color_pipeline.c:intel_color_pipeline_pl=
+ane_init() {
+	...
+	/* Currently expose pipeline only for HDR planes */
+	if (!icl_is_hdr_plane(display, to_intel_plane(plane)->id))
+		return 0;
+	...
+}
+
+Because of this early return, doesn't the assignment in
+_intel_color_pipeline_plane_init() become dead code, leaving the new SDR
+pipeline features inaccessible?
 
 [Severity: High]
-This is a pre-existing issue, but does drm_colorop_cleanup() dereference a
-NULL pointer if drm_plane_colorop_fixed_matrix_init() fails?
+This is a pre-existing issue, but could the error path in
+intel_color_pipeline_plane_add_colorop() cause a kernel panic?
 
-If drm_mode_object_add() fails during initialization, it returns an error
-before colorop->dev is set. The cleanup path calls drm_colorop_cleanup(),
-which unconditionally dereferences colorop->dev:
+If drm_plane_colorop_init() fails early (e.g., if drm_mode_object_add()
+returns -ENOMEM), it returns before colorop->dev is set and before
+colorop->head is added to the list.
 
-void drm_colorop_cleanup(struct drm_colorop *colorop)
-{
+When intel_color_pipeline_plane_add_colorop() jumps to the cleanup label:
+
+drivers/gpu/drm/i915/display/intel_color_pipeline.c:intel_color_pipeline_pl=
+ane_add_colorop() {
+    ...
+cleanup:
+	intel_colorop_destroy(&colorop->base);
+	return ERR_PTR(ret);
+}
+
+This calls drm_colorop_cleanup(), which unconditionally dereferences
+colorop->dev and calls list_del() on the zeroed list head:
+
+drivers/gpu/drm/drm_colorop.c:drm_colorop_cleanup() {
 	struct drm_device *dev =3D colorop->dev;
 	struct drm_mode_config *config =3D &dev->mode_config;
 
-This would result in a crash during device probe.
-
-[Severity: Critical]
-This is also a pre-existing issue, but does drm_colorop_cleanup() leak the
-DRM IDR pointer?
-
-drm_plane_colorop_fixed_matrix_init() registers the colorop with the DRM IDR
-via drm_mode_object_add(). However, drm_colorop_cleanup() fails to call
-drm_mode_object_unregister(), leaving a dangling pointer in the IDR:
-
-void drm_colorop_cleanup(struct drm_colorop *colorop)
-{
-    ...
 	list_del(&colorop->head);
-	config->num_colorop--;
-
-	if (colorop->state)
-		drm_colorop_atomic_destroy_state(colorop, colorop->state);
+    ...
 }
 
-Could this lead to a Use-After-Free if userspace invokes DRM IOCTLs (like
-DRM_IOCTL_MODE_OBJ_GETPROPERTIES) using the leaked ID?
+Would this lead to a NULL pointer dereference for colorop->dev and a list
+corruption panic?
 
-> +		break;
->  	default:
->  		drm_err(plane->dev, "Invalid colorop id [%d]", id);
->  		ret =3D -EINVAL;
+[Severity: Low]
+Does the bitwise validation in drm_plane_colorop_fixed_matrix_init()
+correctly handle checking on 32-bit architectures?
 
-[ ... ]
+Looking at drivers/gpu/drm/drm_colorop.c:drm_plane_colorop_fixed_matrix_ini=
+t():
 
-> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers=
-/gpu/drm/i915/display/skl_universal_plane.c
-> index 9893b061da5fa..88df4a76a0ab8 100644
-> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> @@ -1295,6 +1295,8 @@ static u32 glk_plane_color_ctl_input_csc(const stru=
-ct intel_plane_state *plane_s
->  	} else if (!icl_is_hdr_plane(display, plane->id)) {
->  		if (plane_state->hw.csc_ff_enable)
->  			ctl |=3D intel_csc_ff_type_to_csc_mode(plane_state->hw.csc_ff_type);
-> +		if (plane_state->hw.yuv_range_correction_disable)
-> +			ctl |=3D PLANE_COLOR_YUV_RANGE_CORRECTION_DISABLE;
+	if ((supported_fm & -BIT(DRM_COLOROP_FM_COUNT)) !=3D 0) {
 
-[Severity: High]
-Does this logic inadvertently enable YUV range correction by default for all
-color pipelines, corrupting RGB and YUV surfaces?
+The check evaluates -BIT(5). On 32-bit platforms, this becomes a 32-bit
+unsigned value (0xFFFFFFE0). When bitwise ANDed with the u64 supported_fm,
+C integer promotion zero-extends it to 0x00000000FFFFFFE0.
 
-When a color pipeline is active, the early return for non-YUV surfaces is
-skipped in glk_plane_color_ctl_input_csc():
-
-    if (!fb->format->is_yuv)
-        return 0;
-
-Since INTEL_PLANE_CB_YUV_RANGE_CORRECT is missing from the pipeline array,
-yuv_range_correction_disable defaults to false. This leaves the
-PLANE_COLOR_YUV_RANGE_CORRECTION_DISABLE bit unset (meaning enabled).
-
-Furthermore, HDR planes skip this bit assignment entirely due to the
-!icl_is_hdr_plane() check, meaning range correction is unconditionally enab=
-led
-for them as well.
-
->  	}
-> =20
->  	return ctl;
+Would this allow any invalid bits set in supported_fm between 32 and 63 to
+silently bypass the check?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720045131.9716=
-50-1-chaitanya.kumar.borah@intel.com?part=3D7
+50-1-chaitanya.kumar.borah@intel.com?part=3D8
