@@ -4,49 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75B75C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 14:46:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 071D4C4452A
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 15:00:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCB0A891E1;
-	Mon, 20 Jul 2026 14:46:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B4A610E02D;
+	Mon, 20 Jul 2026 15:00:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="q4gTrKD/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="juzvZPvt";
 	dkim-atps=neutral
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E967891E1
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 14:46:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=PfRAFhBZQchppXOO+Jgr0cSkDMbt1DF4C/TUagsgCiA=; b=q4gTrKD/JHkF9rdgVeJRopM9/L
- urB9FO9pjuI91E3n7c9jeYmhfBQk91aQcrjjO1TtyyNPydmLVGxvVs8GYqpkhU6xWo+Hks5uvS6sB
- lbHDdqdJUCjuYiG8mU+GU49oC7mnX3Kj2F6mfBWxhopOLY7hye2br5fU7IrywpKGXRzGUth0DCKqO
- 83YobtUbSGP3EUD1DQkEyI0UuUvTT/LFgFWKV0uhYRaMArtJ9d8bjgZRIC4ZiJqYnK1EvgzzFLcab
- 03iYunE5zqja9kzp9HTj1eUqgezn+yrRqb7Fy3L6X8ZPqqAF9rs3rAq2uuSLtzcM6NlT1/E509PwL
- LAH7i8BA==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red
- Hat Linux)) id 1wlpFo-0000000B90V-2Ozj;
- Mon, 20 Jul 2026 14:46:00 +0000
-Date: Mon, 20 Jul 2026 15:46:00 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Mark Brown <broonie@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, dri-devel@lists.freedesktop.org
-Subject: Re: linux-next: manual merge of the mm-unstable tree with the
- drm-misc-fixes tree
-Message-ID: <al40qCMTxhEP3Kx8@casper.infradead.org>
-References: <al4jGBGNG_QACaNL@sirena.org.uk>
- <20260720144141.GA16699@lst.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720144141.GA16699@lst.de>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D06E10E02D
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 15:00:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9B3A1417F0;
+ Mon, 20 Jul 2026 15:00:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EA371F000E9;
+ Mon, 20 Jul 2026 15:00:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784559629;
+ bh=pjhSA13CJurjZCgiR8wBKQUWuIC9GpeOhuJvv0NuOaA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=juzvZPvtgfbhTq/G6NVxbOAn6/XeMPh346kPmh39MBF3116RVkWdXRSMhfVRuAp0F
+ cXMJBu6x2+GgVba0OT3Gpfwot/vNyd8Z8pm8r2MkD3TO8r5i0FQN/Kj0sitF/VSn5X
+ aYP92zzTze2Oe0ty7JwFavxgzUMMiUEbpnSTHh9Gr+XTqIIQ/TSbIM097j6l4Nhprq
+ kzvkgLUFiNZN5o4LD6Qy86bXnTlR8z36w6ZPFQycO5myz+7XO4wRA02rvbTcg+9cjp
+ jGkbMfJbdbcw6k/k8kfquYzcg6dH2ZxGYJs2O28Soe1EpiA/R9+W71zPaFGIve64aW
+ cA4eTNrdbIyaA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/4] drm/amd/display: Don't use tiling flags anymore
+To: =?utf-8?b?VGltdXIgS3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260720142440.22076-5-timur.kristof@gmail.com>
+References: <20260720142440.22076-1-timur.kristof@gmail.com>
+ <20260720142440.22076-5-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Jul 2026 15:00:28 +0000
+Message-Id: <20260720150029.5EA371F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,22 +53,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 20, 2026 at 04:41:41PM +0200, Christoph Hellwig wrote:
-> >   /**
-> >  - * ttm_backup_backup_page() - Backup a page
-> >  + * ttm_backup_backup_folio() - Backup a folio
-> >    * @backup: The struct backup pointer to use.
-> >  - * @page: The page to back up.
-> >  - * @writeback: Whether to perform immediate writeback of the page.
-> >  + * @folio: The folio to back up.
-> >  + * @order: The allocation order of @folio.  Since TTM allocates higher-order
-> >  + *         pages without __GFP_COMP, folio_nr_pages(@folio) would always
-> >  + *         return 1; the caller must pass the true order explicitly.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] KUnit tests fail to compile and execute due to un-updated function =
+signatures and test logic.
+--
 
-Wait, what?  This is just broken.  TTM should change to allocate using
-GFP_COMP.  Why can't graphics people ask questions before writing stupid
-patches?
+--- Patch [4]: [PATCH 4/4] drm/amd/display: Don't use tiling flags anymore =
+---
+commit d732188b7192db7cd4cbe5558fd7f9823861ddf2
+Author: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
+drm/amd/display: Don't use tiling flags anymore
+
+All supported GPU generations now support DRM format modifiers.
+Remove all code from amdgpu_dm that dealt with tiling flags.
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> index 365e306a52e78..2b9b5f2507377 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> @@ -48,7 +48,6 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(struct=
+ amdgpu_device *adev,
+>  				 const struct amdgpu_framebuffer *afb,
+>  				 const enum surface_pixel_format format,
+>  				 const enum dc_rotation_angle rotation,
+> -				 const uint64_t tiling_flags,
+>  				 struct dc_tiling_info *tiling_info,
+>  				 struct plane_size *plane_size,
+
+[Severity: Low]
+Were the remaining KUnit tests in amdgpu_dm_plane_test.c updated to reflect
+this signature change?
+
+When compiling with CONFIG_DRM_AMD_DC_KUNIT_TEST=3Dy, there appear to be bu=
+ild
+failures because functions like dm_test_fill_plane_buffer_attributes_gfx8()
+and dm_test_plane_attrs() still pass the extra tiling_flags (or 0) argument.
+
+For example, in dm_test_fill_plane_buffer_attributes_gfx8():
+
+	ret =3D amdgpu_dm_plane_fill_plane_buffer_attributes(adev, afb,
+		SURFACE_PIXEL_FORMAT_GRPH_ARGB8888, ROTATION_ANGLE_0,
+		tiling_flags, tiling_info, plane_size, dcc, address, true);
+
+Additionally, does the test logic in
+dm_test_fill_plane_buffer_attributes_gfx8() need to be updated to populate
+afb->base.modifier instead of the removed tiling_flags so the test executes
+correctly?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720142440.2207=
+6-1-timur.kristof@gmail.com?part=3D4
