@@ -4,43 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E024C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 19:38:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC9E2C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 19:44:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5201310E194;
-	Mon, 20 Jul 2026 19:38:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AE9C10E14E;
+	Mon, 20 Jul 2026 19:44:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DAzXCLcS";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="G4e4RkH7";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 578D110E14E
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 19:38:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C8DBF40E2D;
- Mon, 20 Jul 2026 19:38:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959C31F000E9;
- Mon, 20 Jul 2026 19:38:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784576329;
- bh=o/a6nZ1Lv35/c1Av89l5GRSG3HuLAC3EUlJ4VJEf9OQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DAzXCLcSF4U9AdEYPGmx7RWF4Jkd2C8EbnCE0R+kQbJ2hZRpsdyFWUk847ORpbpqr
- MTRwQbV15Bsj2JFGpL1Ji9zGjpHbE7AOkVS+1ERTeILU9edeXUQ8bFYvOaHVD1Gw+s
- QouqTBe2TJyz4qKSvBUGO6++ilD9RDT7CE8rHMAiPwukcCH7cbfuNIKPCCeSbu1s13
- NABcVHZaTLHjJjcM/xTfxRreTe8MUrTGZtHgrd96497NWghrb3blJdQbdvPFPGDe+F
- 2Mcn588Os0XXrprV8eH6r8pMXRX6Dfnhu8S8ORC0/KFfoOr7RRi7Q6qHGpHlULljhz
- XNt2AmbArXJzQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] accel/ethosu: validate all tiles and the packed-channel
- peak in the cmdstream verifier
-To: "Doruk Tan Ozturk" <doruk@0sec.ai>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720192044.19557-1-doruk@0sec.ai>
-References: <20260720192044.19557-1-doruk@0sec.ai>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47EC410E168
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 19:44:10 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-495509b08ebso90075e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:44:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784576648; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Lz8dByhtraA6OihJVK5V4Iqqe/kJPxZh+YOYvW2S1eeyLzQsWK/58W+FZLX3brnko/
+ EQUlkAUhmIr2CZgGg7g+MUdzIMV6o8INS68JiVgUmN7emcj1qc01yCnxjY3fy5Gm1vcx
+ JEmVJvmwuhgstWoM5ylIGrrgnOpcV9BdMREF5GrIEpnXHGUhMfEtpByo3N2bG6aM5UwL
+ wUGp3iwSZl2IKWM7Tjr/V04D2QTC55tGAHSKKkBGdWQmq1hAFpTHU/cx3pwZCvQheE6t
+ E18EhU3Rksu0GntkakpNcz0yXSYJMapwtdMnbEDlCkrhDLl6vu+fzJe8pi7pDBAqwG3v
+ ppcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=LfC49QPlyZaqOrOjM8PszDB9lp1q3fneMjUdK0YaQRk=;
+ fh=Qwztk9mP/ARWToxql7Aydq7gBFJmshkv3iBBpB8SUCo=;
+ b=QasCQEzNGRecxh9dR60yW2Zq7YA6ae1NOPr01KCI85IH6uK6TwcTOJMWOnH8Nmhijr
+ W+OzG37IXlymX33iBejS9y3DTSxXK82Fm8aNDCLcRRk4BSxVw3ahqYmHwcpw3fmOYFi8
+ hUMbG/jKWoYXJwMpfsdGSUPrOtFT4Tvnnq+ZMOkZskzLylxGXMINXmchse2G11++iL7l
+ 4L4t3KyMYlAihgYRhEYJInW4nsT7fu+ojq8J0K0SqNprSqQz2VyP+H1W3Zs0978tcM73
+ r3josyoNhMij5nhK5/91DLopHckEG0Q8Y071rj2NVvng0/Qc4DG/StBP+lT08EstLX3X
+ 0iwA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1784576648; x=1785181448;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=LfC49QPlyZaqOrOjM8PszDB9lp1q3fneMjUdK0YaQRk=;
+ b=G4e4RkH70uFwLAoLxZqgETbnfpBNAS13b7RHi000v+TYMSzR+9WpmXr19KzxcsPWfs
+ EYgma88uwLdP64PqmtOvuflmdBDIultb3+a3H9mUtTgsgYCluxV+Jq4zO3KYmAJn/UWL
+ PLZcVNgaag2FLBWtxZb/Z/Nq/4RIiw8Dq3CI+4cuknyaku7QY+HHfTEcJvKKepE3H0kl
+ 5i2wQMeQUjElNUPey/hRk/qwWPZaq9vA2zO90KppTYrfbcn9o7LiB4xRMoD1UQ0yncrb
+ K0T4zjluFpgSoKxiQvPgDv9kSJIbAuVBbrTYkSEiBK6+x9mK0kALvUBG5oWovDWIjSCe
+ /2cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784576648; x=1785181448;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=LfC49QPlyZaqOrOjM8PszDB9lp1q3fneMjUdK0YaQRk=;
+ b=pSbKTnlWFCiDySOHMQXr1zl9p238XyHkVK+dzOQ0/RGoWbKPVrAN3+bo3AhaJ/krGQ
+ CWz71Lek19g/ywvcCR+q4sVDAKkQgRI9gZctEvisbFSrrCgi4pChAGLPWjn7nW3CZcTI
+ MA6J4j5+3lOqMNV6cIJAP3SQKjlw2fQl84kOSgpufMr5hHYmuGVOOeACtPxR3/v5Ncmv
+ Bd0kbOGJpt9FlLzed+2yv3YIups8g2ui7e9bYzd1fFuY7XncF1W1+8TzSSFDWuLkcUTf
+ XbYvc1TNzA9o5LgYyN+8xslIIkHGNqnWkj2/gBwSZ/tvVCNiCDYnJbBYG1FfGrNqbEiL
+ PFxg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpaAsBO159T4jksrds3V9NnCeglsrZ69njeUpozjocvnnaZy6sPtvVI/c7HaJYmrZi6LzItPYQ3KO0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxmKbQfNYo4skClOP05kFG60jlyzNhBC0PmDJY9TiRGwWuiFNhf
+ k21/a5XORtlWUSlYYaZOUAfVVPK5YKd/dBikBxpio0KnhaUlhSdTsihlL3TCalRjQlnkkcNqoEg
+ Odvn2oqcotJS8ZReCG0tTT/latuEIbD0fX0ROrqXM
+X-Gm-Gg: AfdE7clDzQSRx+iJlWN0Sm8SJrIA73tgHide10/z6zMaodrBAVMNRIFshdBWwUY2eUo
+ PEnCT9QovHdvlFKJiaIt1ylQHmfFKSz2g42rGGfmdZJmdbcYeYa44jKCOlX+2TEfFgFcFthabIq
+ kfrz1n1gROiR4N5EZaVuX596WTTy1jXFaYMVQTSmSYOOpcU9zRb5FPdHmLTKyRB9nrRBRtZYPUx
+ hb56KiOA4PwLlftNKHKF0LR1GVqvbxSrEQSXk2JlXlxZeyONxoMNX3PDB5dWbKzg0kER+1GSXAK
+ XZpFoUzMpvojniuoGnWv3rjVlqo=
+X-Received: by 2002:a05:600c:3412:b0:495:5515:3c00 with SMTP id
+ 5b1f17b1804b1-495643961d2mr413355e9.9.1784576647864; Mon, 20 Jul 2026
+ 12:44:07 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260719175857.4071636-1-ap420073@gmail.com>
+ <20260719175857.4071636-3-ap420073@gmail.com>
+In-Reply-To: <20260719175857.4071636-3-ap420073@gmail.com>
+From: Mina Almasry <almasrymina@google.com>
+Date: Mon, 20 Jul 2026 12:43:52 -0700
+X-Gm-Features: AUfX_mzh-HpiMTdTmR9Mwblg1Yg1F2-k1cGWYRzG5BMePvMor3JMM2rdb0_Pak0
+Message-ID: <CAHS8izMU4gQCH2v0dcOFkjP6Sxj7RUvC8=Baet=+pFXG24qh7A@mail.gmail.com>
+Subject: Re: [RFC PATCH net-next 02/13] net: devmem: extend memory provider
+ for knod
+To: Taehee Yoo <ap420073@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Alexei Starovoitov <ast@kernel.org>, 
+ amd-gfx@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Andrii Nakryiko <andrii@kernel.org>, Bill Wendling <morbo@google.com>,
+ bpf@vger.kernel.org, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Daniel Borkmann <daniel@iogearbox.net>, David Airlie <airlied@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>,
+ Donald Hunter <donald.hunter@gmail.com>, 
+ dri-devel@lists.freedesktop.org, Eduard Zingerman <eddyz87@gmail.com>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, Eric Dumazet <edumazet@google.com>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>, Hoyeon Lee <hoyeon.rhee@gmail.com>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Jakub Kicinski <kuba@kernel.org>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>,
+ Justin Stitt <justinstitt@google.com>, 
+ Kees Cook <kees@kernel.org>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Leon Romanovsky <leon@kernel.org>, 
+ linaro-mm-sig@lists.linaro.org, linux-hardening@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-rdma@vger.kernel.org, llvm@lists.linux.dev, 
+ Mark Bloch <mbloch@nvidia.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+ Michael Chan <michael.chan@broadcom.com>, Nathan Chancellor <nathan@kernel.org>,
+ netdev@vger.kernel.org, 
+ Nick Desaulniers <ndesaulniers@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, Saeed Mahameed <saeedm@nvidia.com>, 
+ Shuah Khan <shuah@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Simon Horman <horms@kernel.org>, 
+ Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Tariq Toukan <tariqt@nvidia.com>, 
+ Yonghong Song <yonghong.song@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 19:38:49 +0000
-Message-Id: <20260720193849.959C31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,131 +136,292 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Sun, Jul 19, 2026 at 11:03=E2=80=AFAM Taehee Yoo <ap420073@gmail.com> wr=
+ote:
+>
+> Extend the devmem memory-provider path so a knod accelerator can back a
+> NIC page_pool with accelerator-exported memory (dma-buf), letting the
+> NIC DMA received packets directly into accelerator memory.
+>
+> Signed-off-by: Taehee Yoo <ap420073@gmail.com>
 
-Pre-existing issues:
-- [Critical] Missing lower-bound tracking for negative DMA strides allows t=
-he NPU to access memory before the start of the buffer.
-- [Critical] Missing feature matrix configuration parameters result in `-1`=
- defaults that cause integer underflow in bounds checks, leading to out-of-=
-bounds DMA.
---
+Changes look fine in general but I do not understand in the design how
+the page_pool not bound to rx queue would be used. Maybe elaborate on
+the design in the commit message or cover letter in the next
+iteration.
 
---- Patch [1]: [PATCH] accel/ethosu: validate all tiles and the packed-chan=
-nel peak in the cmdstream verifier ---
-commit 272f98612406533d182249a7aefbd612bfb04a39
-Author: Doruk Tan Ozturk <doruk@0sec.ai>
-Subject: accel/ethosu: validate all tiles and the packed-channel peak in th=
-e cmdstream verifier
+> (cherry picked from commit d511a8cb3e229f8f5cf060985880d45bd384db87)
 
-The patch addresses an issue where feat_matrix_length() computed the maximum
-byte offset by evaluating a single presumed-worst corner. This allowed
-unprivileged processes to craft command streams that bypassed submit checks
-with undersized output buffers, leading to out-of-bounds DMA writes. The fix
-evaluates the extent at every corner that can bound the populated tiles and
-at the packed-channel peak.
+I guess remove unintended cherry-pick tag.
 
-> diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/eth=
-osu_gem.c
-> index 3401883e207fc..dfc499d7fb0c1 100644
-> --- a/drivers/accel/ethosu/ethosu_gem.c
-> +++ b/drivers/accel/ethosu/ethosu_gem.c
-> @@ -192,17 +192,19 @@ static u64 dma_length(struct ethosu_validated_cmdst=
-ream_info *info,
->  	return len;
->  }
+> ---
+>  include/net/devmem.h                    |  58 +++++++++++++
+>  include/net/netmem.h                    |   9 +++
+>  include/net/page_pool/memory_provider.h |   4 +
+>  include/net/page_pool/types.h           |  23 +++++-
+>  net/core/devmem.c                       | 103 +++++++++++++++++++-----
+>  net/core/devmem.h                       |   7 +-
+>  net/core/page_pool.c                    |  22 ++++-
+>  7 files changed, 198 insertions(+), 28 deletions(-)
+>  create mode 100644 include/net/devmem.h
+>
+> diff --git a/include/net/devmem.h b/include/net/devmem.h
+> new file mode 100644
+> index 000000000000..f1c3895d7833
+> --- /dev/null
+> +++ b/include/net/devmem.h
 
-[Severity: Critical]
-This is a pre-existing issue, but is there a missing lower-bound check for
-negative DMA strides in dma_length()?
+Try to keep only include/net/netmem.h and net/core/devmem.h rather
+than add an include/net/devmem.h
 
-When dma->stride[0] is negative, this function reduces the computed length,
-which allows the upper-bound check (len + offset) to pass:
-
-	if (mode >=3D 1) {
-		if (dma->stride[0] < 0 && (u64)(-dma->stride[0]) > len)
-			return U64_MAX;
-		len +=3D dma->stride[0];
-		...
-
-However, there is no lower-bound validation to ensure the minimum accessed
-address does not drop below 0. Could an unprivileged user submit a command
-stream with a negative stride and an offset near 0, causing the hardware
-DMA engine to drop below offset 0 and access memory preceding the GEM buffe=
-r?
-
-> =20
-> -static u64 feat_matrix_length(struct ethosu_validated_cmdstream_info *in=
-fo,
-> -			      struct feat_matrix *fm,
-> -			      u32 x, u32 y, u32 c)
+> @@ -0,0 +1,58 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
 > +/*
-> + * Compute the byte offset the NPU addresses for one feature-matrix coor=
-dinate
-> + * (x, y, c). Storage modes 0 and 1 route disjoint (x, y) sub-rectangles=
- to up
-> + * to four independent tile bases; the caller must only pass coordinates=
- whose
-> + * tiles it means to bound. Returns U64_MAX if the coordinate lands on a=
- tile
-> + * whose base was never set by the command stream.
+> + * Device memory TCP support
+> + *
+> + * Authors:    Mina Almasry <almasrymina@google.com>
+> + *             Willem de Bruijn <willemb@google.com>
+> + *             Kaiyuan Zhang <kaiyuanz@google.com>
+> + *
 > + */
-> +static u64 feat_matrix_addr(struct feat_matrix *fm, u32 x, u32 y, u32 c)
->  {
-
-[ ... ]
-
-> @@ -240,11 +242,66 @@ static u64 feat_matrix_length(struct ethosu_validat=
-ed_cmdstream_info *info,
->  		break;
->  	}
-> =20
-> -	info->region_size[fm->region] =3D max(info->region_size[fm->region], ad=
-dr + 1);
-> -
->  	return addr;
+> +#ifndef _NET_DEVMEM_H
+> +#define _NET_DEVMEM_H
+> +
+> +#include <linux/dma-direction.h>
+> +#include <linux/err.h>
+> +#include <linux/types.h>
+> +
+> +struct device;
+> +struct dma_buf;
+> +struct dma_buf_attach_ops;
+> +struct net_device;
+> +struct net_devmem_dmabuf_binding;
+> +struct netlink_ext_ack;
+> +
+> +#if defined(CONFIG_NET_DEVMEM)
+> +struct net_devmem_dmabuf_binding *
+> +__net_devmem_binding_create(struct net_device *dev, struct device *dma_d=
+ev,
+> +                           struct dma_buf *dmabuf,
+> +                           enum dma_data_direction direction,
+> +                           const struct dma_buf_attach_ops *importer_ops=
+,
+> +                           struct netlink_ext_ack *extack);
+> +int net_devmem_bind_dmabuf_to_queue_direct(struct net_device *dev, u32 r=
+xq_idx,
+> +                                          struct net_devmem_dmabuf_bindi=
+ng *binding);
+> +void net_devmem_unbind_dmabuf_direct(struct net_devmem_dmabuf_binding *b=
+inding);
+> +#else
+> +static inline struct net_devmem_dmabuf_binding *
+> +__net_devmem_binding_create(struct net_device *dev, struct device *dma_d=
+ev,
+> +                           struct dma_buf *dmabuf,
+> +                           enum dma_data_direction direction,
+> +                           const struct dma_buf_attach_ops *importer_ops=
+,
+> +                           struct netlink_ext_ack *extack)
+> +{
+> +       return ERR_PTR(-EOPNOTSUPP);
+> +}
+> +
+> +static inline int
+> +net_devmem_bind_dmabuf_to_queue_direct(struct net_device *dev, u32 rxq_i=
+dx,
+> +                                      struct net_devmem_dmabuf_binding *=
+binding)
+> +{
+> +       return -EOPNOTSUPP;
+> +}
+> +
+> +static inline void
+> +net_devmem_unbind_dmabuf_direct(struct net_devmem_dmabuf_binding *bindin=
+g)
+> +{
+> +}
+> +#endif
+> +
+> +#endif /* _NET_DEVMEM_H */
+> diff --git a/include/net/netmem.h b/include/net/netmem.h
+> index bccacd21b6c3..3ddfbd37500f 100644
+> --- a/include/net/netmem.h
+> +++ b/include/net/netmem.h
+> @@ -127,6 +127,15 @@ static inline void net_iov_init(struct net_iov *niov=
+,
+>         niov->type =3D type;
 >  }
+>
+> +/* Global page index within the dma-buf, accounting for multi-chunk
+> + * scatter-gather layouts where each chunk owner's niovs start at 0.
+> + */
+> +static inline unsigned int net_iov_binding_idx(const struct net_iov *nio=
+v)
+> +{
+> +       return (net_iov_owner(niov)->base_virtual >> PAGE_SHIFT) +
+> +              net_iov_idx(niov);
+> +}
+> +
+>  /* netmem */
+>
+>  /**
+> diff --git a/include/net/page_pool/memory_provider.h b/include/net/page_p=
+ool/memory_provider.h
+> index 255ce4cfd975..4b58a9702fb7 100644
+> --- a/include/net/page_pool/memory_provider.h
+> +++ b/include/net/page_pool/memory_provider.h
+> @@ -23,6 +23,10 @@ bool net_mp_niov_set_dma_addr(struct net_iov *niov, dm=
+a_addr_t addr);
+>  void net_mp_niov_set_page_pool(struct page_pool *pool, struct net_iov *n=
+iov);
+>  void net_mp_niov_clear_page_pool(struct net_iov *niov);
+>
+> +void page_pool_provider_set_netmem(struct page_pool *pool, netmem_ref ne=
+tmem,
+> +                                  dma_addr_t addr);
+> +void page_pool_clear_pp_info(netmem_ref netmem);
+> +
+>  int netif_mp_open_rxq(struct net_device *dev, unsigned int rxq_idx,
+>                       const struct pp_memory_provider_params *p,
+>                       struct netlink_ext_ack *extack);
+> diff --git a/include/net/page_pool/types.h b/include/net/page_pool/types.=
+h
+> index 03da138722f5..3e866f249768 100644
+> --- a/include/net/page_pool/types.h
+> +++ b/include/net/page_pool/types.h
+> @@ -31,8 +31,16 @@
+>   */
+>  #define PP_FLAG_ALLOW_UNREADABLE_NETMEM BIT(3)
+>
+> +/* Driver-managed pool with a directly-supplied memory provider, not bou=
+nd to a
+> + * netdev rx queue. Setting this flag requires page_pool_params.mp_ops a=
+nd
+> + * .mp_priv to both be set.
+> + */
+> +#define PP_FLAG_CUSTOM_MEMORY_PROVIDER BIT(4)
+> +
+>  #define PP_FLAG_ALL            (PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV |=
+ \
+> -                                PP_FLAG_SYSTEM_POOL | PP_FLAG_ALLOW_UNRE=
+ADABLE_NETMEM)
+> +                                PP_FLAG_SYSTEM_POOL | \
+> +                                PP_FLAG_ALLOW_UNREADABLE_NETMEM | \
+> +                                PP_FLAG_CUSTOM_MEMORY_PROVIDER)
+>
+>  /* Index limit to stay within PP_DMA_INDEX_BITS for DMA indices */
+>  #define PP_DMA_INDEX_LIMIT XA_LIMIT(1, BIT(PP_DMA_INDEX_BITS) - 1)
+> @@ -54,11 +62,11 @@
+>   * would have to take a slower code path.
+>   */
+>  #if PAGE_SIZE >=3D SZ_64K
+> -#define PP_ALLOC_CACHE_REFILL  4
+> +#define PP_ALLOC_CACHE_REFILL  256
+>  #elif PAGE_SIZE >=3D SZ_16K
+> -#define PP_ALLOC_CACHE_REFILL  16
+> +#define PP_ALLOC_CACHE_REFILL  1024
+>  #else
+> -#define PP_ALLOC_CACHE_REFILL  64
+> +#define PP_ALLOC_CACHE_REFILL  4096
+>  #endif
+>
 
-[Severity: Critical]
-This is a pre-existing issue, but does feat_matrix_addr() handle missing
-configuration parameters correctly?
+I'm guessing this is just a workaround/optimization. You need a proper
+change for this, maybe make it configurable arguments when creating a
+pp or something.
 
-cmd_state_init() initializes cmd_state fields to 0xff, setting unprovided
-s64 strides to -1. If a command stream omits a stride command, the stride
-remains -1.
+>  #define PP_ALLOC_CACHE_SIZE    (PP_ALLOC_CACHE_REFILL * 2)
+> @@ -67,6 +75,8 @@ struct pp_alloc_cache {
+>         netmem_ref cache[PP_ALLOC_CACHE_SIZE];
+>  };
+>
+> +struct memory_provider_ops;
+> +
+>  /**
+>   * struct page_pool_params - page pool parameters
+>   * @fast:      params accessed frequently on hotpath
+> @@ -83,6 +93,9 @@ struct pp_alloc_cache {
+>   * @queue_idx: queue idx this page_pool is being created for.
+>   * @flags:     PP_FLAG_DMA_MAP, PP_FLAG_DMA_SYNC_DEV, PP_FLAG_SYSTEM_POO=
+L,
+>   *             PP_FLAG_ALLOW_UNREADABLE_NETMEM.
+> + * @mp_ops:    driver-supplied memory provider for a pool not bound to a
+> + *             netdev rx queue (NULL to use rxq->mp_params instead)
+> + * @mp_priv:   context passed to @mp_ops
+>   */
+>  struct page_pool_params {
+>         struct_group_tagged(page_pool_params_fast, fast,
+> @@ -99,6 +112,8 @@ struct page_pool_params {
+>                 struct net_device *netdev;
+>                 unsigned int queue_idx;
+>                 unsigned int    flags;
+> +               const struct memory_provider_ops *mp_ops;
+> +               void *mp_priv;
+>  /* private: used by test code only */
+>                 void (*init_callback)(netmem_ref netmem, void *arg);
+>                 void *init_arg;
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index 957d6b96216b..9e21cffc9643 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
+> @@ -121,12 +121,9 @@ void net_devmem_free_dmabuf(struct net_iov *niov)
+>         gen_pool_free(binding->chunk_pool, dma_addr, PAGE_SIZE);
+>  }
+>
+> -void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+> +static void
+> +net_devmem_binding_unpublish(struct net_devmem_dmabuf_binding *binding)
+>  {
+> -       struct netdev_rx_queue *rxq;
+> -       unsigned long xa_idx;
+> -       unsigned int rxq_idx;
+> -
+>         xa_erase(&net_devmem_dmabuf_bindings, binding->id);
+>
+>         /* Ensure no tx net_devmem_lookup_dmabuf() are in flight after th=
+e
+> @@ -136,6 +133,15 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmab=
+uf_binding *binding)
+>
+>         if (binding->list.next)
+>                 list_del(&binding->list);
+> +}
+> +
+> +void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+> +{
+> +       struct netdev_rx_queue *rxq;
+> +       unsigned long xa_idx;
+> +       unsigned int rxq_idx;
+> +
+> +       net_devmem_binding_unpublish(binding);
+>
+>         xa_for_each(&binding->bound_rxqs, xa_idx, rxq) {
+>                 const struct pp_memory_provider_params mp_params =3D {
+> @@ -151,6 +157,47 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmab=
+uf_binding *binding)
+>         percpu_ref_kill(&binding->ref);
+>  }
+>
+> +/* Bind/unbind variants for in-kernel offload importers that drive the r=
+x
+> + * queue lifecycle themselves. The mp_params are poked directly, without=
+ the
+> + * tcp-data-split/XDP guards or the queue reconfigure that the netlink c=
+ontrol
+> + * plane applies through netif_mp_open_rxq()/netif_mp_close_rxq().
+> + */
+> +int net_devmem_bind_dmabuf_to_queue_direct(struct net_device *dev, u32 r=
+xq_idx,
+> +                                          struct net_devmem_dmabuf_bindi=
+ng *binding)
+> +{
 
-In feat_matrix_addr(), these -1 values act as subtractive strides:
-
-	addr =3D fm->base[tile] + y * fm->stride_y;
-	switch ((fm->precision >> 6) & 0x3) { // format
-	case 0: //nhwc:
-		addr +=3D x * fm->stride_x + c;
-
-If a user provides a base offset large enough to prevent unsigned wrap-arou=
-nd,
-the maximum address evaluated in feat_matrix_length() simply remains the
-initial base offset at coordinate (0,0,0), completely hiding the bounds of
-the access.
-
-If an attacker submits a job setting a large hardware stride, and a second
-job omits the stride command, could the verifier use the subtractive -1 str=
-ide
-to pass bounds checks while the hardware performs out-of-bounds DMA using t=
-he
-retained large stride from the previous job?
-
-> =20
-> +/*
-> + * Bound the region a feature matrix touches over the coordinate box
-> + * [0, x] x [0, y] x [0, c].
-
-[ ... ]
+The LLM says in this function you need to check if the queue is
+already bound to a devmem tcp memory provider.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720192044.1955=
-7-1-doruk@0sec.ai?part=3D1
+Thanks,
+Mina
