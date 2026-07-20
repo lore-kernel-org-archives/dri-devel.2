@@ -4,86 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B665FC4452A
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 14:25:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEA9CC4452B
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 14:28:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0514D10E95F;
-	Mon, 20 Jul 2026 14:25:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E473B10E95A;
+	Mon, 20 Jul 2026 14:28:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hki4RF+y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I+BL4sgR";
 	dkim-atps=neutral
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEC8810E95D
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 14:24:56 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-c15dd4b9132so1640335166b.1
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 07:24:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784557495; x=1785162295; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=P8PwqyBHNjFdce8qQVbwsdIAnoB3bJRdMu7cUIdQ61c=;
- b=hki4RF+yrlP0Uou7NLyvZWbfsJvaAAkNhUO3Wwj9jOEOP0Ww09a67CViVyFCogI5RS
- PnUH1JaQQswzv7nB5lC9qf9lF+cU1De+8bikmwqBvIGu9Gbi6rZRC+PLXZIWAr6Yel9g
- k8iQj8BXeHOzRK4bPVB5H9QfAtMoU+OxyYujfB4tc/sQkGsfYkjmKxw/C62Yxp6lHWp/
- 3Fy21hLxSFl2NjRSmZR63Bgxj4ox+WOiQ87CSirRSaOWonnlU7rtCA1Q/fczulzi09/H
- +b034sQBGTdVArGa6nb4sI2yK6s+EyLq4mk24qh/DNirKA2prHhslkKWOQxz2NeGbaA7
- y2WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784557495; x=1785162295;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=P8PwqyBHNjFdce8qQVbwsdIAnoB3bJRdMu7cUIdQ61c=;
- b=kSjddeP6vMJB8Awwt5IFUhNDqaSOMcBPVV9avG8CuwwCBqIrCXwvymXZN6ohddYvUt
- OpsIKPwyA6z/RVzTQnSMppZrzxDaB+F91N1hBmrZvPkEU+SCBEA4TZgFkhm0jWsd3lSk
- 7D76gUG38d97munK0pPwx1JX7SxPNftba4v3ZMCLVJK5Zo4HtdbaivgdV+g9B1TJuSnG
- pZuCo3vCU4gVOzrnb4g6JL5CyCczy2+GbYF3Jj5/cwz+qkuY/Q5LKhtL5Wf5I4VjoSE1
- k6ixSo7v5r6VtUu0HVH4DYu6DCxu6X8nZ68yg2MJ7YG1teqGnNRoa6YcpQ0m6yjvClT0
- Q+Jw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rpk5E6yVzoJ1FE6l7fdtoibV2xJw9ZZF31A90QcZz33YjR0D3+qhe3NH5VCWU5xqBm1/RnU7ctihbM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyhHvWT5rs548v46r19HgnwLnt6gl6fEzmVqwTX2DCc4a/fk9Pb
- OvEey6urZ3UUuPEQqXE7JiK7yhepZonhgvW5cBpXhlbkQykQiHVSZ5cT
-X-Gm-Gg: AfdE7cngGenv/kLTUmBUh18qHMiayKK2+Cte4e/uar5fsirwtsW/JDElmMnqjnZxJ+r
- 5+hceYuzCtv9I75voyr7TDModQxTDxoZxFc6iekVBoutKwCWN4KeQDI2aKFsJm+wnbkW8S2cPVr
- dpnDdrbubwl2Vb6jg+UNgz9hDOZtoji0t5qbWv7khvy7IBx/nt9n6QH700/eTbmgHj2yaHp98Qi
- j+Hjswt3HYPww4ChuG5xQeV8wnJEwsb92+QmSyAwdLH8tuMLfgd19PuDQb4ny6cyQtZJx1Pxazd
- 3AHLYICxIpcnQ4fNyS4ANx9gXOYShRJEA+bfF42i0mnNMaqIKyJryoAOKiVQwlLtQbAudGZT0vb
- iWaZURSxQ0m7tZMXRBmj6JajMfcIqys9quqKMK/lp8dc6cj6lXs02P0V52viTpHiloy99go+raR
- gqad5bnqxl1BiDyQLdoyeb9RG/6Dhp3nI9UDi6NnXPQfc=
-X-Received: by 2002:a17:907:787:b0:c15:cc30:6c74 with SMTP id
- a640c23a62f3a-c16b4768a08mr640813066b.44.1784557495172; 
- Mon, 20 Jul 2026 07:24:55 -0700 (PDT)
-Received: from Timur-Hyperion.home (5401D94C.dsl.pool.telekom.hu.
- [84.1.217.76]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-69e6fff5efasm4999534a12.26.2026.07.20.07.24.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jul 2026 07:24:53 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Link Mauve <linkmauve@linkmauve.fr>,
- =?UTF-8?q?Nikola=20Medi=C4=87?= <nmedic89@gmail.com>,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
- Daniel Stone <daniels@collabora.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Dieter=20N=C3=BCtzel?= <Dieter@nuetzel-hh.de>,
- Tvrtko Ursulin <tursulin@ursulin.net>, pierre-eric.pelloux-prayer@amd.com,
- Natalie Vock <natalie.vock@gmx.de>
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 4/4] drm/amd/display: Don't use tiling flags anymore
-Date: Mon, 20 Jul 2026 16:24:40 +0200
-Message-ID: <20260720142440.22076-5-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260720142440.22076-1-timur.kristof@gmail.com>
-References: <20260720142440.22076-1-timur.kristof@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B41DF10E95A
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 14:28:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A990260A6A;
+ Mon, 20 Jul 2026 14:28:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBCD81F000E9;
+ Mon, 20 Jul 2026 14:28:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784557726;
+ bh=QAQHbsBV90WnR9+tdGtScEWvzclJKWcmodue1Ffc3Cs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=I+BL4sgRlsEcHDDq90cf0u4HVNvGks9J7Nc1O0fePHO7OzmTlag8sOST9OgwiTEVA
+ 8Gvt+Hn261WmF1Z8y41WojxA3qRtFu8ZrV4Ogj54MYaxwYJMmQqxVmN34j1zN69hMz
+ b/BstZP7t3yhRp05FTQ491iKZY69Ipyuw8R1OjspqV/OWpN5df3DaJA1YRfbkk2xsN
+ fW2CVwFQU/NLPHoaKIngzeZ0nuTWru1LUXdptx1wEmHBmDPfRJufYiZwp12YqWHao4
+ Xk8dE/NvT6tIi8OH5p0IOl2u+UmgXJ6YmTdA5uOeMVv67JcIqkaHtTKGKEjGuuBM+r
+ 4TpoqJS/aWaBQ==
+Date: Mon, 20 Jul 2026 16:28:43 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+ Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 05/37] drm/display: bridge-connector: split code creating
+ the connector to a subfunction
+Message-ID: <20260720-eel-of-immense-triumph-3e24e0@penduick>
+References: <DJHEAWSEZR79.19UFIKS8QJBQ7@bootlin.com>
+ <20260626-polite-hairy-perch-25e1aa@houat>
+ <DJJ1MPCEJGZD.UZM9183V6ZE5@bootlin.com>
+ <20260626-classy-nightingale-of-romance-1cacad@houat>
+ <DJJ4X22CJ3FG.5EYF84LVRNOG@bootlin.com>
+ <20260707-warping-goshawk-of-swiftness-beea4a@penduick>
+ <20260707123205.GB211515@killaraus.ideasonboard.com>
+ <DJZUXUBO8DI4.2J2NI3S0KYNUE@bootlin.com>
+ <20260716-stoic-muskox-from-asgard-c12b65@houat>
+ <DK0QXI6KF7PC.3DJW38KB8MJED@bootlin.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="lp6wptr2qw22x2tg"
+Content-Disposition: inline
+In-Reply-To: <DK0QXI6KF7PC.3DJW38KB8MJED@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,303 +84,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-All supported GPU generations now support DRM format modifiers.
-Remove all code from amdgpu_dm that dealt with tiling flags.
 
-Note that the legacy non-DC display code still relies on
-tiling flags, so we can't remove them outside of DC
-until we also remove the legacy display code.
+--lp6wptr2qw22x2tg
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 05/37] drm/display: bridge-connector: split code creating
+ the connector to a subfunction
+MIME-Version: 1.0
 
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Tested-by: Link Mauve <linkmauve@linkmauve.fr>
-Tested-by: Nikola Medić <nmedic89@gmail.com>
-Tested-by: Dieter Nützel <Dieter@nuetzel-hh.de>
-Reviewed-by: Marek Olšák <maraeo@gmail.com>
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Acked-by: Christian König <christian.koenig@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 29 +------
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 37 --------
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.h   |  3 -
- .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    | 84 -------------------
- 4 files changed, 2 insertions(+), 151 deletions(-)
+On Fri, Jul 17, 2026 at 11:41:33AM +0200, Luca Ceresoli wrote:
+> Hi Maxime,
+>=20
+> On Thu Jul 16, 2026 at 3:22 PM CEST, Maxime Ripard wrote:
+> > On Thu, Jul 16, 2026 at 10:37:24AM +0200, Luca Ceresoli wrote:
+> >> >> > Now if the bridges start doing it themselves we should go back to
+> >> >> > those encoder drivers and ditch all the drm_bridge_connector from
+> >> >> > there?
+> >> >> >
+> >> >> > I must be missing something. Can you elaborate on this?
+> >> >>
+> >> >> drm_bridge_connectors bring together a (complete) bridge chain and a
+> >> >> connector. If you don't have either anymore, then we shouldn't keep=
+ it
+> >> >> around.
+> >> >>
+> >> >> What I was suggesting before was only a suggestion. I guess we could
+> >> >> also make the encoder own the hotplug handling code and create the
+> >> >> drm_bridge_connector when the chain is complete, and remove it when=
+ it's
+> >> >> no longer the case.
+> >> >
+> >> > That's an interesting option. We don't have to keep drm_bridge_conne=
+ctor
+> >> > in its current form, but I don't think we should go back to individu=
+al
+> >> > bridge driver creating connectors, especially now that we have bridge
+> >> > chains where the connector ops are implemented collectively by multi=
+ple
+> >> > bridges.
+> >>
+> >> I definitely agree we don't want to add burden back on the encoder.
+> >
+> > I don't think Laurent mentioned the encoder anywhere.
+>=20
+> Ah, indeed, sorry! However, I think both the bridges and the encoder
+> drivers should equally have the minimum burden on them.
+>=20
+> Right now the recommended practice is:
+>=20
+>  - bridges do not create connectors (thanks to DRM_BRIDGE_ATTACH_NO_CONNE=
+CTOR)
+>  - encoders just call drm_bridge_connector_init(), which does all the
+>    common operations to populate a suitable drm_connector
+>=20
+> So all common operations involved in connector creation and bridge chain
+> analysis are implemented in common code, not per-bridge or
+> per-encoder. That's good.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f8d8132ea50e..200d6bd41a7a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3059,7 +3059,6 @@ EXPORT_IF_KUNIT(fill_plane_color_attributes);
- static int
- fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
- 			    const struct drm_plane_state *plane_state,
--			    const u64 tiling_flags,
- 			    struct dc_plane_info *plane_info,
- 			    struct dc_plane_address *address,
- 			    bool tmz_surface)
-@@ -3157,7 +3156,7 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
- 		return ret;
- 
- 	ret = amdgpu_dm_plane_fill_plane_buffer_attributes(adev, afb, plane_info->format,
--					   plane_info->rotation, tiling_flags,
-+					   plane_info->rotation,
- 					   &plane_info->tiling_info,
- 					   &plane_info->plane_size,
- 					   &plane_info->dcc, address,
-@@ -3193,7 +3192,6 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
- 	dc_plane_state->scaling_quality = scaling_info.scaling_quality;
- 
- 	ret = fill_dc_plane_info_and_addr(adev, plane_state,
--					  afb->tiling_flags,
- 					  &plane_info,
- 					  &dc_plane_state->address,
- 					  afb->tmz_surface);
-@@ -4281,7 +4279,6 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 
- 		fill_dc_plane_info_and_addr(
- 			dm->adev, new_plane_state,
--			afb->tiling_flags,
- 			&bundle->plane_infos[planes_count],
- 			&bundle->flip_addrs[planes_count].address,
- 			afb->tmz_surface);
-@@ -6254,8 +6251,7 @@ static bool should_reset_plane(struct drm_atomic_commit *state,
- 		new_afb = (struct amdgpu_framebuffer *)new_other_state->fb;
- 
- 		/* Tiling and DCC changes also require bandwidth updates. */
--		if (old_afb->tiling_flags != new_afb->tiling_flags ||
--		    old_afb->base.modifier != new_afb->base.modifier)
-+		if (old_afb->base.modifier != new_afb->base.modifier)
- 			return true;
- 	}
- 
-@@ -6267,9 +6263,7 @@ static int dm_check_cursor_fb(struct amdgpu_crtc *new_acrtc,
- 			      struct drm_framebuffer *fb)
- {
- 	struct amdgpu_device *adev = drm_to_adev(new_acrtc->base.dev);
--	struct amdgpu_framebuffer *afb = to_amdgpu_framebuffer(fb);
- 	unsigned int pitch;
--	bool linear;
- 
- 	if (fb->width > new_acrtc->max_cursor_width ||
- 	    fb->height > new_acrtc->max_cursor_height) {
-@@ -6304,25 +6298,6 @@ static int dm_check_cursor_fb(struct amdgpu_crtc *new_acrtc,
- 		return -EINVAL;
- 	}
- 
--	/* Core DRM takes care of checking FB modifiers, so we only need to
--	 * check tiling flags when the FB doesn't have a modifier.
--	 */
--	if (!(fb->flags & DRM_MODE_FB_MODIFIERS)) {
--		if (adev->family == AMDGPU_FAMILY_GC_12_0_0) {
--			linear = AMDGPU_TILING_GET(afb->tiling_flags, GFX12_SWIZZLE_MODE) == 0;
--		} else if (adev->family >= AMDGPU_FAMILY_AI) {
--			linear = AMDGPU_TILING_GET(afb->tiling_flags, SWIZZLE_MODE) == 0;
--		} else {
--			linear = AMDGPU_TILING_GET(afb->tiling_flags, ARRAY_MODE) != DC_ARRAY_2D_TILED_THIN1 &&
--				 AMDGPU_TILING_GET(afb->tiling_flags, ARRAY_MODE) != DC_ARRAY_1D_TILED_THIN1 &&
--				 AMDGPU_TILING_GET(afb->tiling_flags, MICRO_TILE_MODE) == 0;
--		}
--		if (!linear) {
--			drm_dbg_atomic(adev_to_drm(adev), "Cursor FB not linear");
--			return -EINVAL;
--		}
--	}
--
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 2706b2ea4eae..82a6235904ab 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -211,39 +211,6 @@ STATIC_IFN_KUNIT unsigned int amdgpu_dm_plane_modifier_gfx9_swizzle_mode(uint64_
- }
- EXPORT_IF_KUNIT(amdgpu_dm_plane_modifier_gfx9_swizzle_mode);
- 
--STATIC_IFN_KUNIT void amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(struct dc_tiling_info *tiling_info,
--								       uint64_t tiling_flags)
--{
--	/* Fill GFX8 params */
--	if (AMDGPU_TILING_GET(tiling_flags, ARRAY_MODE) == DC_ARRAY_2D_TILED_THIN1) {
--		unsigned int bankw, bankh, mtaspect, tile_split, num_banks;
--		bankw = AMDGPU_TILING_GET(tiling_flags, BANK_WIDTH);
--		bankh = AMDGPU_TILING_GET(tiling_flags, BANK_HEIGHT);
--		mtaspect = AMDGPU_TILING_GET(tiling_flags, MACRO_TILE_ASPECT);
--		tile_split = AMDGPU_TILING_GET(tiling_flags, TILE_SPLIT);
--		num_banks = AMDGPU_TILING_GET(tiling_flags, NUM_BANKS);
--
--		tiling_info->gfxversion = DcGfxVersion8;
--		/* XXX fix me for VI */
--		tiling_info->gfx8.num_banks = num_banks;
--		tiling_info->gfx8.array_mode =
--				DC_ARRAY_2D_TILED_THIN1;
--		tiling_info->gfx8.tile_split = tile_split;
--		tiling_info->gfx8.bank_width = bankw;
--		tiling_info->gfx8.bank_height = bankh;
--		tiling_info->gfx8.tile_aspect = mtaspect;
--		tiling_info->gfx8.tile_mode =
--				DC_ADDR_SURF_MICRO_TILING_DISPLAY;
--	} else if (AMDGPU_TILING_GET(tiling_flags, ARRAY_MODE)
--			== DC_ARRAY_1D_TILED_THIN1) {
--		tiling_info->gfx8.array_mode = DC_ARRAY_1D_TILED_THIN1;
--	}
--
--	tiling_info->gfx8.pipe_config =
--			AMDGPU_TILING_GET(tiling_flags, PIPE_CONFIG);
--}
--EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags);
--
- STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx6_tiling_info_from_modifier(
- 						struct dc_tiling_info *tiling_info,
- 						uint64_t modifier)
-@@ -1160,7 +1127,6 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
- 			     const struct amdgpu_framebuffer *afb,
- 			     const enum surface_pixel_format format,
- 			     const enum dc_rotation_angle rotation,
--			     const uint64_t tiling_flags,
- 			     struct dc_tiling_info *tiling_info,
- 			     struct plane_size *plane_size,
- 			     struct dc_plane_dcc_param *dcc,
-@@ -1235,8 +1201,6 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
- 										address);
- 		if (ret)
- 			return ret;
--	} else if (afb->base.modifier == DRM_FORMAT_MOD_INVALID) {
--		amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(tiling_info, tiling_flags);
- 	} else {
- 		ret = amdgpu_dm_plane_fill_gfx6_tiling_info_from_modifier(tiling_info,
- 									  afb->base.modifier);
-@@ -1332,7 +1296,6 @@ static int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
- 
- 		amdgpu_dm_plane_fill_plane_buffer_attributes(
- 			adev, afb, plane_state->format, plane_state->rotation,
--			afb->tiling_flags,
- 			&plane_state->tiling_info, &plane_state->plane_size,
- 			&plane_state->dcc, &plane_state->address,
- 			afb->tmz_surface);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-index 365e306a52e7..2b9b5f250737 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-@@ -48,7 +48,6 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
- 				 const struct amdgpu_framebuffer *afb,
- 				 const enum surface_pixel_format format,
- 				 const enum dc_rotation_angle rotation,
--				 const uint64_t tiling_flags,
- 				 struct dc_tiling_info *tiling_info,
- 				 struct plane_size *plane_size,
- 				 struct dc_plane_dcc_param *dcc,
-@@ -71,8 +70,6 @@ bool amdgpu_dm_plane_is_video_format(uint32_t format);
- #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
- void amdgpu_dm_plane_add_modifier(uint64_t **mods, uint64_t *size,
- 				  uint64_t *cap, uint64_t mod);
--void amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(struct dc_tiling_info *tiling_info,
--						      uint64_t tiling_flags);
- void amdgpu_dm_plane_fill_gfx9_tiling_info_from_device(const struct amdgpu_device *adev,
- 						       struct dc_tiling_info *tiling_info);
- void amdgpu_dm_plane_fill_gfx9_tiling_info_from_modifier(const struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-index a751e67cadf1..a210ca1d0a12 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-@@ -998,86 +998,6 @@ static void dm_test_add_modifier_noop_when_mods_null(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, cap, 7ULL);
- }
- 
--/**
-- * dm_test_fill_gfx8_tiling_info_2d_tiled() - Verify GFX8 2D tiled flag parsing.
-- * @test: KUnit test context.
-- *
-- * Verify if 2D tiled GFX8 flags populate expected tiling fields.
-- */
--static void dm_test_fill_gfx8_tiling_info_2d_tiled(struct kunit *test)
--{
--	struct dc_tiling_info tiling_info = {0};
--	uint64_t tiling_flags = 0;
--
--	tiling_flags |= AMDGPU_TILING_SET(ARRAY_MODE, DC_ARRAY_2D_TILED_THIN1);
--	tiling_flags |= AMDGPU_TILING_SET(BANK_WIDTH, 2);
--	tiling_flags |= AMDGPU_TILING_SET(BANK_HEIGHT, 1);
--	tiling_flags |= AMDGPU_TILING_SET(MACRO_TILE_ASPECT, 3);
--	tiling_flags |= AMDGPU_TILING_SET(TILE_SPLIT, 4);
--	tiling_flags |= AMDGPU_TILING_SET(NUM_BANKS, 2);
--	tiling_flags |= AMDGPU_TILING_SET(PIPE_CONFIG, 7);
--
--	amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(&tiling_info, tiling_flags);
--
--	KUNIT_EXPECT_EQ(test, (int)tiling_info.gfxversion, (int)DcGfxVersion8);
--	KUNIT_EXPECT_EQ(test, (int)tiling_info.gfx8.array_mode, (int)DC_ARRAY_2D_TILED_THIN1);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.bank_width, 2U);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.bank_height, 1U);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.tile_aspect, 3U);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.tile_split, 4U);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.num_banks, 2U);
--	KUNIT_EXPECT_EQ(test, (int)tiling_info.gfx8.tile_mode,
--			(int)DC_ADDR_SURF_MICRO_TILING_DISPLAY);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.pipe_config, 7U);
--}
--
--/**
-- * dm_test_fill_gfx8_tiling_info_1d_tiled() - Verify GFX8 1D tiled flag parsing.
-- * @test: KUnit test context.
-- *
-- * Verify if 1D tiled GFX8 flags populate array mode and pipe config.
-- */
--static void dm_test_fill_gfx8_tiling_info_1d_tiled(struct kunit *test)
--{
--	struct dc_tiling_info tiling_info = {0};
--	uint64_t tiling_flags = 0;
--
--	tiling_flags |= AMDGPU_TILING_SET(ARRAY_MODE, DC_ARRAY_1D_TILED_THIN1);
--	tiling_flags |= AMDGPU_TILING_SET(PIPE_CONFIG, 5);
--
--	amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(&tiling_info, tiling_flags);
--
--	KUNIT_EXPECT_EQ(test, (int)tiling_info.gfx8.array_mode, (int)DC_ARRAY_1D_TILED_THIN1);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.pipe_config, 5U);
--}
--
--/**
-- * dm_test_fill_gfx8_tiling_info_other_mode() - Verify non-1D/non-2D mode handling.
-- * @test: KUnit test context.
-- *
-- * Verify if unsupported array mode keeps preset fields and updates pipe config.
-- */
--static void dm_test_fill_gfx8_tiling_info_other_mode(struct kunit *test)
--{
--	struct dc_tiling_info tiling_info = {0};
--	uint64_t tiling_flags = 0;
--
--	tiling_info.gfxversion = 0x7f;
--	tiling_info.gfx8.array_mode = 0x7f;
--	tiling_info.gfx8.tile_mode = 0x7f;
--	tiling_info.gfx8.num_banks = 0x7f;
--
--	tiling_flags |= AMDGPU_TILING_SET(PIPE_CONFIG, 6);
--
--	amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(&tiling_info, tiling_flags);
--
--	KUNIT_EXPECT_EQ(test, tiling_info.gfxversion, 0x7f);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.array_mode, 0x7f);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.tile_mode, 0x7f);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.num_banks, 0x7f);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.pipe_config, 6U);
--}
--
- /**
-  * dm_test_fill_gfx9_tiling_info_from_device_pre_10_3() - Verify GFX9 field copy before 10.3.
-  * @test: KUnit test context.
-@@ -3251,10 +3171,6 @@ static struct kunit_case amdgpu_dm_plane_test_cases[] = {
- 	KUNIT_CASE(dm_test_add_modifier_appends_value),
- 	KUNIT_CASE(dm_test_add_modifier_grows_capacity),
- 	KUNIT_CASE(dm_test_add_modifier_noop_when_mods_null),
--	/* amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags() */
--	KUNIT_CASE(dm_test_fill_gfx8_tiling_info_2d_tiled),
--	KUNIT_CASE(dm_test_fill_gfx8_tiling_info_1d_tiled),
--	KUNIT_CASE(dm_test_fill_gfx8_tiling_info_other_mode),
- 	/* amdgpu_dm_plane_fill_gfx9_tiling_info_from_device() */
- 	KUNIT_CASE(dm_test_fill_gfx9_tiling_info_from_device_pre_10_3),
- 	KUNIT_CASE(dm_test_fill_gfx9_tiling_info_from_device_10_3_plus),
--- 
-2.55.0
+I agree, but another way to phrase it is: bridges aren't aware of how
+the chain is setup, the encoder ties it all together.
 
+> >> >> We can discuss alternatives too. But either way, we shouldn't have =
+it
+> >> >> stick around.
+> >>
+> >> Bottom line, I roughly see three ideas mentioned:
+> >>
+> >>  1. (this series) extend the drm_bridge_connector to create the
+> >>     drm_connector based on bridge hotplug events [+rename it]
+> >>  2. - keep the drm_bridge_connector (mostly) as is
+> >>     - let each encoder driver add/remove it based on bridge hotplug ev=
+ents
+> >>     =3D> more burden on encoder drivers -> no
+> >
+> > Can you motivate that with *any* reason? Because I really feel like it's
+> > the best solution going forward.
+>=20
+> My understanding of your idea (maybe a bit overstressed just to ensure it=
+'s
+> clear) is that:
+>=20
+>  - the drm_bridge_connector should stay (almost) unmodified
+
+Yes, and bridges should ideally remain as lightly affected as possible.
+We have probably around 100 bridge drivers at the moment, having some
+kind of opt-in to enable hotplug would mean that we can't expect hotplug
+to work on a new platform, which should be a last resort.
+
+>  - there should be no new "manager" component (not sure this is actually
+>    your opinion, can you comment on this specifically?)
+>  - every encoder driver would have to:
+>    - register to receive hotplug events
+>    - when receiving one such event, find out whether the hardware is
+>      complete or not (by calling drm_bridge_connector_pipeline_is_complet=
+e()
+>      or so)
+>    - create/destroy a drm_bridge_connector based on hotplug events
+>=20
+> Is this somewhat close to what you have in mind?
+
+Yes. To make things a bit more precise, we need two things: the encoder
+to put the chain together, and "something" (that you used to call
+manager) to react to hotplug events and handle the bridge
+detach/destruction, connector creation/destruction, etc and should stick
+around when we enable hotplug.
+
+What I'm suggesting is that, since the encoder already owns and creates
+the chain in the first place, and is there forever, it's only natural
+for the encoder to be that "something", and we don't necessarily mean
+creating a new entity or piece of code. A bunch of helpers and hooks a
+probably going to be enough.
+
+This is where the opt-in part should be, and I'd like, if possible, for
+hotplug-enabled encoders to work with any bridge.
+
+> To me the best solution to add hotplug support is that encoder drivers
+> replace the single drm_bridge_connector_init() call with a single call to
+> something new (let's call it a hotplug manager), which takes care of all
+> the common aspects: registering to receive bridge hotplug events, finding
+> out whether the hardware pipeline is complete or not, and add/remove the
+> drm_connector based on that.
+>=20
+> In other words, the changes on encoder drivers would be similar to patch
+> 37. In a nutshell:
+>=20
+>   -	connector =3D drm_bridge_connector_init(lcdif->drm, encoder);
+>   +	drm_hotplug_manager =3D drm_hotplug_manager_init(lcdif->drm, encoder);
+>=20
+> All the hotplug logic would be in common code, and any maintenance and
+> future improvements to it would stay in a single place, benefitting all
+> encoders at once.
+>=20
+> What do you think about this?
+
+=46rom a high level point-of-view, I think we mostly agree. We can argue
+on the name, and if we should merge it with something else
+(drm_encoder_init, drm_bridge_attach, something else?) but that's the
+path forward I think.
+
+Maxime
+
+--lp6wptr2qw22x2tg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCal4wmgAKCRAnX84Zoj2+
+dgktAX4228G96x+8Z0Dw6IjUdAVLYXmjmJyQlMI/D0b0Lbb/y7NEWM86n6g9VaJT
+M3uZYKYBf0U1YCLtV3vGID4exmQjHi60MDFrDBb6zVc4tvw3U2CZ0uFcTrkLpMW3
+MpRElEYqOg==
+=UEBc
+-----END PGP SIGNATURE-----
+
+--lp6wptr2qw22x2tg--
