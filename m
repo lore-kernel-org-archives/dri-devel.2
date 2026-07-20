@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F374DC44520
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 21:59:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 212D1C44520
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 22:06:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41FE089238;
-	Mon, 20 Jul 2026 21:59:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B0AB10E1EC;
+	Mon, 20 Jul 2026 22:06:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HMoRAd+K";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iFy05tfM";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3154689238
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 21:59:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B99FF10E1EC
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 22:06:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id ECD5740296;
- Mon, 20 Jul 2026 21:59:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFB641F000E9;
- Mon, 20 Jul 2026 21:59:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5384942B94;
+ Mon, 20 Jul 2026 22:06:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A6851F000E9;
+ Mon, 20 Jul 2026 22:06:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784584775;
- bh=lXvSOnYhDxBahA0TqnKTinZ19kdbj/E10gdGQclt4KA=;
+ s=k20260515; t=1784585193;
+ bh=jh6fRXb9c3bEbQaeMgUV456Yi1ZMa0tZYHl0Y2cJpvE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HMoRAd+KIjVO/pF0f+EBpPTrZQL7VJ/BGvafxXl3FPNdloOy2W+MaMiNq68I7R+XU
- 5P7bjZDsxpJ81RLqnzYQ9Shdtdxhm+1E+zrRQZDtWnNUTTnr0M1lCZ04oqAZIjySsi
- ab9Xv/eSnmegxLI+s9WzusgvX47pF45p+02DL6Otq+o1Zu3skYFlVk8E67xBOt4cJy
- mp7Iqom0cOLV74lJz5GeeimSktxNw3jIGGBhlNyGD+RIp8hEevMSiM/u8MdglIT1w3
- yQeXloL7CJfKTITyf74rKTbHiQ6xGM5q/ESgtixq3Gt4iSl5mBVjuqXlEQc7o/lZhm
- 5Rn0+K8JM76dQ==
+ b=iFy05tfMlIwBt9XxC3NQB14sCvpmRRzRgE6sqQe0qVLX6TO7FEU2B6pl6a+miVOrd
+ lHrlM4/vTEUm/XaTjYzKwcR9fPG2OOLYQmzZ9OdIMQpr2BHx7r3DoW/YviV23kX4TM
+ 5dfou3lGtFZXzw7vUxTqLS51/49X9SWEhqCoWaLp865iG1WuhiVcjEMXtV0XYv9h6s
+ Iw1oAemFuKNevsXufmZ/5LCPlp5QBFmG5h/7z7i/c+KCypLFGYl7jlro5T8/3a7F10
+ 5am6hftQahW0JU0YPnyyvPwoWmGSRIHX+hrqihjcnP0HZc2YRE8E4glgyAx1PbMylr
+ 9s+JSCoNakNsw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/3] drm/nouveau/kms/nv50-: Add .blend_modes to
- nv50_wndw_func
+Subject: Re: [PATCH v3 2/3] drm/nouveau/kms/nv50-: Introduce
+ nv50_wndw_default_state()
 To: "Lyude Paul" <lyude@redhat.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720215058.398210-2-lyude@redhat.com>
+In-Reply-To: <20260720215058.398210-3-lyude@redhat.com>
 References: <20260720215058.398210-1-lyude@redhat.com>
- <20260720215058.398210-2-lyude@redhat.com>
+ <20260720215058.398210-3-lyude@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 21:59:35 +0000
-Message-Id: <20260720215935.AFB641F000E9@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 22:06:32 +0000
+Message-Id: <20260720220633.0A6851F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,54 +60,64 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The macro `WNDW_BLEND_MODES` is defined as a bitwise OR of multiple=
- values without enclosing parentheses, creating a latent bug due to operato=
-r precedence.
+- [High] Unconditional dereference of `wndw->plane.state` which may be NULL=
+ if the initial state allocation fails.
 --
 
---- Patch [1]: [PATCH v3 1/3] drm/nouveau/kms/nv50-: Add .blend_modes to nv=
-50_wndw_func ---
-commit d67d01315e1f18573429becf6e45ab97a7ea2324
+--- Patch [2]: [PATCH v3 2/3] drm/nouveau/kms/nv50-: Introduce nv50_wndw_de=
+fault_state() ---
+commit 2d2dcbda94d37e6b985a1775b04d636840fd94c1
 Author: Lyude Paul <lyude@redhat.com>
 
-drm/nouveau/kms/nv50-: Add .blend_modes to nv50_wndw_func
+drm/nouveau/kms/nv50-: Introduce nv50_wndw_default_state()
 
-This commit adds a .blend_modes field to the nv50_wndw_func struct and
-various display structures. This introduces a way to look up supported
-blend modes for different types of windows to expose a blend property
-for all planes that can display color formats with an alpha channel.
+This commit introduces nv50_wndw_default_state() to ensure the initial
+atomic state for a window always starts with a supported value in
+pixel_blend_mode. It hooks this function into nv50_display_read_hw_state()
+to enforce a valid blend mode value during driver startup.
+
+> diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.c b/drivers/gpu/drm/no=
+uveau/dispnv50/wndw.c
+> index 2635458d52acc..dfa1ba45acd99 100644
+> --- a/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+> +++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
 
 [ ... ]
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.h b/drivers/gpu/drm/no=
-uveau/dispnv50/wndw.h
-> index 90d100514bef2..81af5c3369d4c 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/wndw.h
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.h
-[ ... ]
-> @@ -139,4 +142,11 @@ int wndwca7e_new(struct nouveau_drm *, enum drm_plan=
-e_type, int, s32,
-> =20
->  int nv50_wndw_new(struct nouveau_drm *, enum drm_plane_type, int index,
->  		  struct nv50_wndw **);
+
+> +/*
+> + * Setup defaults for the atomic wndw state
+> + */
+> +void
+> +nv50_wndw_default_state(struct nv50_wndw *wndw)
+> +{
+> +	struct nv50_wndw_atom *armw =3D nv50_wndw_atom(wndw->plane.state);
+> +	const unsigned int blend_modes =3D wndw->func->blend_modes;
 > +
-> +/* A set of blend modes supported by all wndws */
-> +#define WNDW_BLEND_MODES               \
-> +	  BIT(DRM_MODE_BLEND_COVERAGE) \
-> +	| BIT(DRM_MODE_BLEND_PREMULTI) \
-> +	| BIT(DRM_MODE_BLEND_PIXEL_NONE)
-
-[Severity: Low]
-Does this multi-token macro need to be enclosed in parentheses?
-
-If WNDW_BLEND_MODES is later used in an expression with operators that have
-higher precedence than bitwise OR (such as flags & WNDW_BLEND_MODES),
-it will evaluate incorrectly. Enclosing the entire expression in
-parentheses would prevent future operator precedence issues.
-
+> +	drm_modeset_lock_assert_held(&wndw->plane.mutex);
 > +
->  #endif
-[ ... ]
+> +	/* Ensure the plane's atomic state didn't default to a pixel_blend_mode=
+ we don't support */
+> +	if (blend_modes && (!(BIT(armw->state.pixel_blend_mode) & blend_modes))=
+) {
+
+[Severity: High]
+Could this dereference a NULL pointer if memory allocation fails during
+drm_mode_config_reset()?
+
+If plane state allocation fails in the plane's reset hook, wndw->plane.state
+is left as NULL. When nv50_display_read_hw_state() subsequently calls this
+function, armw will evaluate to NULL, leading to a fault when accessing
+armw->state.pixel_blend_mode.
+
+> +		if (blend_modes & BIT(DRM_MODE_BLEND_COVERAGE))
+> +			armw->state.pixel_blend_mode =3D DRM_MODE_BLEND_COVERAGE;
+> +		else if (blend_modes & BIT(DRM_MODE_BLEND_PREMULTI))
+> +			armw->state.pixel_blend_mode =3D DRM_MODE_BLEND_PREMULTI;
+> +		else if (blend_modes & BIT(DRM_MODE_BLEND_PIXEL_NONE))
+> +			armw->state.pixel_blend_mode =3D DRM_MODE_BLEND_PIXEL_NONE;
+> +	}
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720215058.3982=
-10-1-lyude@redhat.com?part=3D1
+10-1-lyude@redhat.com?part=3D2
