@@ -4,73 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BE8DC4452A
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:41:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB975C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:41:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E64B10E8FC;
-	Mon, 20 Jul 2026 12:41:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1594510E8FD;
+	Mon, 20 Jul 2026 12:41:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WU/sdQfh";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZJycX4C/";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1961A10E8FC
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:41:01 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-49550ec592cso8462815e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:41:01 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C01F610E8FD
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:41:14 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-49554ebb87dso17060575e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:41:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1784551259; x=1785156059; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1784551273; x=1785156073; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=9RLppTCvwfs6eki4J5o77QyN9i8+Bne6Cqvn0sJNVGI=;
- b=WU/sdQfh/eAtPUvLElMBM1qvOe+d+/vmykf7eZoP7uDoaWDF4EZRMmhwcR37su/bYc
- WQdig3Ne0uinoR79plDrS/eApy0ojZs6ViOFFro2pqNtmm5C3xEYo0qs6FuMQo1LSwFP
- 623a9dVXDS86WLLXEDLXJ+k28G1ptxGFHHm2oeKSQK1QizzIb4neVyOAUcDGPVd6WCya
- B0elP8J9E1EoIyn8lDykwjCWd6mJ1t6NnOrlAE0QbVduKUAHQLMWFCDj3T+gvRxxFucQ
- PpjAc6oB0K/I6jA73B/tjchqKn6ro5P+rs8AuB4VUhxogHSJBZo3Yqq9Qt4dc6cr2Xbf
- mO4Q==
+ bh=02PeqF3rbp1hsOzW2e5ny6E3Yj+EmyQ/4DKajWJOxPY=;
+ b=ZJycX4C/Sk1AtK/uEh8M0O0KdGTP1+BOQ0qay3tXf0fsXeTABMXHtxQCrBZFv8c5hJ
+ 14Mv9G6jDkUFUExWGBExQWHeKmyPsALM6MPhgN45MDDfxX5hJM0cTDJSXiOReCSe1K9E
+ 2JkAF4vbkqkNKGEMMUTCLzNSMLtISqIgaHYrlx74u84W+M8w3PXrx10o6k/MBpVbG8vX
+ 78CTcJn9ArI8sgXlc3WYQsz1wLQjpRPFUHOPD8GzrxR7msTjMPlZBPO7dm7tt+OvVaPg
+ 1WCFmjD1LZbHXQvkpY0fd70bH4/UljKtKHd6Hk73I7xkOg2IIhNq9lTZBft68FVYojd+
+ +cbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784551259; x=1785156059;
+ d=1e100.net; s=20251104; t=1784551273; x=1785156073;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=9RLppTCvwfs6eki4J5o77QyN9i8+Bne6Cqvn0sJNVGI=;
- b=iBiTT3GQNJmq0iaCyAqQT9+5aoF/kTuH1cIHtqpevml68qgOUdSS82dzOO9seCk81E
- 9Umkg3A56sFLTkSFeW1jmFV/63aoquVPh4tO3WmO5MUxwFKS5Vj0E8K1yFZAIl2If6wY
- 27GX1lM2tqIuFM0pC9FttrbyzvN3W5fdUEZulN/mIBYofjoiJgEClH5fkVCgmZxoSPRs
- I639zvPDp64f59Tipi5mqCo7I2JQE6YHW3DAfMFzlkW/UGhJ1KMyKVtaxn+HvGkbp+2e
- aj8fa7XOpghVBedP7A/VcH9X8izLLIdZ6HhKx9GYSTIr6ONJOSCQbt17yXElXYhiQu10
- nKgg==
+ bh=02PeqF3rbp1hsOzW2e5ny6E3Yj+EmyQ/4DKajWJOxPY=;
+ b=LcouIh6UX4nwbwIYG6JZX58pulUtv+ZoaxWEQN0N+ktn7EV9XnkLEffCiJh3afaArf
+ tXgvDywgq+MGtU+9/4kRky3CBKxtDd+cE+d3hC/wxts5IHIvsMAwFLCD1AF6YKiyG27t
+ mUewZWQYhB50CVkCw23izQtLxPXJC+BgKz4tGYneVhmKLXLZtf8WNxAr1HbzQG0nm8GW
+ l9aOx2mHFeXrtBgQMqVBmzeoepmYikxV0Rn87xMJ+voMTbeWU8Q5BDLsFudjKDO0UVs8
+ b2+Y8UfcU+Zi01+FGK3PfdhPPLNGrdOhOOLPA7Zgg75h3qd9+1QIjlV92OdAh5PBKOOC
+ n+1A==
 X-Forwarded-Encrypted: i=1;
- AHgh+RolMz6npKjxR9QE7LaP0fOJgMIr2Dx5W/BRTKNadns40OnLlFSRLeBfbafTQRjZqcEYXo6edNkk2AI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyD6O7rS+B7Q1coowbnMXMQMCEKHcDdiCWSyVtL0SBRUEM6mfLx
- XoMZqUZDji0kXW6/Cu1cYk94wUCw91r9idlf+Gn8fCcCXhK1UrynvtOGxwOTqOP7dTE=
-X-Gm-Gg: AfdE7cmei3vTgG2R88FbWT7vr3Ag4GE12UjxiNaHsTz7pqgZnBOZwwWghybAhFx7i4e
- U8GFP1vqcPuSnC4RiQx6zpZ5WGOh0t5guhQW/U9miVkdNL4chBJELmmJKNqIoG/u1NiAe+NKnc4
- p1cyGArh3cK7uelHbstM6WG6AM19YJ8Q2QUovarS3if64Tnn4PJU9M0J0aQDapyIGFG9AybjEyA
- 67dxIF1aq68CLVvlPX3RBs5AZHPfq8EiSOgO1Q3ZXmkrJEz2nbKDU7esYjLLjmpaYIJfgvePHRU
- iBqalxxCeFGra/PWU6XFxnpsRAPmx6ZnT4gSMc/qDGJgVMXndw8zvjYNXHY+p3hDbPxrusXIWTV
- Rjjj/xWLqIp9GJqwHMVkD4K033Yn05BHKLTu+rNMdxXAbXffn/F75QKKUmCJ+vFS3Sa9Azpdw2j
- lbQVh7FWJ0dP+ueaZ0b1oLfHbqX6SpknT3VjBsX/iPvnPRqa7QHHoEfFEzcw==
-X-Received: by 2002:a05:600c:b8a:b0:48f:e230:29f5 with SMTP id
- 5b1f17b1804b1-4954a33dc55mr148751995e9.16.1784551259402; 
- Mon, 20 Jul 2026 05:40:59 -0700 (PDT)
+ AHgh+RoHXyvcJdtF7sJOdYwIQb8cluQ/r5miKIh+ebpv+O3ZUL3bf+r+w9NbVFJbZo52yZ5Gb6LJgs+8Ss8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzsMsAc0JCxUxUKa0nGB5Ue/zibFH+vmamryXIZnku0Fpuv3dj3
+ 3aEcBtJS9mYLet4sAQ+Z5iH1X877PxOwD0X443Qb0NIGbJYkVrYhwXBMViAPo5y899Y=
+X-Gm-Gg: AfdE7cmQ1htH8Eo41KhmZ4zjAx5PsJKtPZEqZNLTs7ORZQ0K9rpuRe/JQLxnB8mnKRw
+ cyW/w/jDgNVyVEGhhx9KZTHYfHHiONKDKzooDndRQG/C8KfgxgsIsrhnqGG8W0MLZi4RZW+qLxI
+ qHxhCL6vFKxf4IEkXX5oiHvo6QYIccYJipdrh13b+YY2b+O24y5QLxyEFgr4ACju/OKA+qjZq1N
+ QCQvySr+P6oM0AaPyAqFtmFx8FBny96iv5oIDK97RzyIFWgXz2ZgQDhVQTIVunHCA/lRQQ2ycnT
+ 61zdiKf85n9iRK7wjuiKYADTqYDYHBYNvppsOtwCl69asPA3OT7j9ZTOQD+WIaH8gHQihJqFm+D
+ IoPEgxVhLRLR/tVGMxDkaSMBVnV8eOoUaKjjbYbs/JN6drwDi7GmBR4kVm2jSMYTdYhVrP+Syiw
+ hkGUQO+Nl9FZCC3g/0LH60qpHP+utd75qi8KgoRr3DTk56OjOgICGVPsidz/+xE9ml7gjr
+X-Received: by 2002:a05:600c:6a0b:b0:493:c453:6002 with SMTP id
+ 5b1f17b1804b1-4954a516453mr90764735e9.35.1784551272978; 
+ Mon, 20 Jul 2026 05:41:12 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:544a:2852:f257:ebc5?
  ([2a01:e0a:106d:1080:544a:2852:f257:ebc5])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-495499a5847sm201100115e9.2.2026.07.20.05.40.58
+ 5b1f17b1804b1-49549a36312sm300850935e9.2.2026.07.20.05.41.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Jul 2026 05:40:59 -0700 (PDT)
-Message-ID: <39c805d0-0435-4c27-980b-97a7c2850b87@linaro.org>
-Date: Mon, 20 Jul 2026 14:40:58 +0200
+ Mon, 20 Jul 2026 05:41:12 -0700 (PDT)
+Message-ID: <7b7e6b86-e14f-4d84-89b8-73e689c00ab6@linaro.org>
+Date: Mon, 20 Jul 2026 14:41:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/5] drm: panel: jd9365da: Enable LPM mode
+Subject: Re: [PATCH 2/5] drm: panel: jd9365da: Add prepare_prev_first flag to
+ drm_panel
 To: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
  Jagan Teki <jagan@edgeble.ai>, Jessica Zhang <jesszhan0024@gmail.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -85,7 +86,7 @@ Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
  Felix Boucher <felix.boucher@savoirfairelinux.com>,
  Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
 References: <20260708213500.1867092-1-marc-olivier.champagne@savoirfairelinux.com>
- <20260708213500.1867092-2-marc-olivier.champagne@savoirfairelinux.com>
+ <20260708213500.1867092-3-marc-olivier.champagne@savoirfairelinux.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -112,7 +113,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260708213500.1867092-2-marc-olivier.champagne@savoirfairelinux.com>
+In-Reply-To: <20260708213500.1867092-3-marc-olivier.champagne@savoirfairelinux.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -132,29 +133,29 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 7/8/26 23:34, Marc-Olivier Champagne wrote:
-> The JD9365DA-H3 uses DSI LPM for command transmissions, make sure
-> this is configured correctly in the DSI mode flags.
+> The DSI host must be enabled for the panel to be initialized in
+> prepare(). Set the prepare_prev_first flag to guarantee this.
+> This fixes the panel operation on Renesas RZ/G2LC SoC DSI host.
 > 
 > Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 > Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
 > ---
->   drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> index f6b04de1182e..1ef0c937863a 100644
+> index 1ef0c937863a..a79dc8f8d5af 100644
 > --- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
 > +++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> @@ -2950,7 +2950,8 @@ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
->   	else
->   		dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
->   				  MIPI_DSI_MODE_VIDEO_BURST |
-> -				  MIPI_DSI_MODE_NO_EOT_PACKET;
-> +				  MIPI_DSI_MODE_NO_EOT_PACKET |
-> +				  MIPI_DSI_MODE_LPM;
+> @@ -2993,6 +2993,8 @@ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
+>   		return dev_err_probe(&dsi->dev, PTR_ERR(jadard->vccio),
+>   				"failed to get vccio regulator\n");
 >   
->   	dsi->format = desc->format;
->   	dsi->lanes = desc->lanes;
+> +	jadard->panel.prepare_prev_first = true;
+> +
+>   	ret = of_drm_get_panel_orientation(dev->of_node, &jadard->orientation);
+>   	if (ret < 0)
+>   		return dev_err_probe(dev, ret, "failed to get orientation\n");
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
