@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC023C44520
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 15:52:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35635C44524
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 15:54:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16DE610E1BF;
-	Mon, 20 Jul 2026 15:52:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B43210E2B1;
+	Mon, 20 Jul 2026 15:54:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Lgp+DB77";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DcveVqC7";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B1F410E1BF
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 15:52:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D320E10E2B1
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 15:54:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 21F4A43CE4;
- Mon, 20 Jul 2026 15:52:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 977A51F00A3A;
- Mon, 20 Jul 2026 15:52:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2F64C60254;
+ Mon, 20 Jul 2026 15:54:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773541F000E9;
+ Mon, 20 Jul 2026 15:54:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784562760;
- bh=nGdQxqcaIC04tyTye7SFtUtqtKsuT9hgPtoDK04EPgQ=;
+ s=k20260515; t=1784562858;
+ bh=h4FtL+GwCY7Mo+W4nkJ1CUNyHo99Pgq0iuKUvWe5hNE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Lgp+DB77KA0glEGY2KC3kK7SGwXXDWcymcYVLNkJX/iJPvDbZ/wjSCfHYtH9bA17q
- RsePj2B38Hza3XWDiLs1CzU/fnLKX5bX62+fwvh06ja77yT7oJQQZi4WgZnNcziRSh
- VU9BHGcpdQVURVCip3a40uIxVQxBDcFM40QjyPoJQPBYiP6j1ODf80N3JPqCK+XMDX
- xR58yaP42uYK5BpHpcXXCtwzrg/sTDz8C5aYkyGtJXHFDS0xLBT5AyjFND6xAoAfep
- b94bXG3sFn7ltkeJ/LAYihpSJB7yOeNE7aFPT0dHB/Y8bjZ1+lTlLG/ws9xZ8b3kDS
- dXfYFDM0S5zqQ==
+ b=DcveVqC7Fgu3NEKvExRHo/w/gxLBE1kaLqLiFg1uNuhrCYPCD78scfcOdN6DIzVEB
+ Svw5cGQvBNW+Yfvr+RHLA5T8UzhpTX2oPn1wT1SKPJKl9dLd6tdwDoqEgtRjWoJ2v5
+ fCDLPchrOSFks4mpbuCW6E1iYo63m3GLApCauvxx8ORdIOHvX0C63Ex8tFdjASzE3A
+ fEf4VRqIwjtPNk4XYZ5N5HVTVoz7O7a08PDoLEG9CKEzAYe3PtwnSU1Eb8X2o4SC07
+ /rqW/i+42Hp1Zu+N3H4Es3ndto56dbneUc0Kus8tzUqb24C+rDPzZLkcttl8FdF+N5
+ M9lEpBET7OPyg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 01/15] drm/exynos: remove dependency on DRM simple
- helpers
+Subject: Re: [PATCH v2 14/15] drm/drm_simple: remove deprecated
+ drm_simple_encoder_init function
 To: "Diogo Silva" <diogompaissilva@gmail.com>
-Cc: Frank.Li@kernel.org, neil.armstrong@linaro.org,
- wsa+renesas@sang-engineering.com, imx@lists.linux.dev,
- linux-amlogic@lists.infradead.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720-drm_simple_encoder_init-v2-1-5020b630668a@gmail.com>
+Cc: Frank.Li@kernel.org, imx@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-amlogic@lists.infradead.org, wsa+renesas@sang-engineering.com,
+ neil.armstrong@linaro.org
+In-Reply-To: <20260720-drm_simple_encoder_init-v2-14-5020b630668a@gmail.com>
 References: <20260720-drm_simple_encoder_init-v2-0-5020b630668a@gmail.com>
- <20260720-drm_simple_encoder_init-v2-1-5020b630668a@gmail.com>
+ <20260720-drm_simple_encoder_init-v2-14-5020b630668a@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 15:52:39 +0000
-Message-Id: <20260720155239.977A51F00A3A@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 15:54:18 +0000
+Message-Id: <20260720155418.773541F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,74 +60,70 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the DP AUX chann=
-el and resources registered by analogix_dp_bind() are leaked if drm_bridge_=
-connector_init() fails, leading to a Use-After-Free (UAF).
+- [Low] Removing drm_simple_encoder_init() breaks the build for the gma500 =
+driver, which still has unconverted callers.
+- [Low] The task to remove `drm_simple_encoder_init()` is still listed in t=
+he GPU TODO list, leaving the documentation stale.
 --
 
---- Patch [1]: [PATCH v2 01/15] drm/exynos: remove dependency on DRM simple=
- helpers ---
-commit c403fdd838b4dabbda14312eb449cb97a7566462
+--- Patch [14]: [PATCH v2 14/15] drm/drm_simple: remove deprecated drm_simp=
+le_encoder_init function ---
+commit 017140dd8a05d473cb61f897db90d827140d76fc
 Author: Diogo Silva <diogompaissilva@gmail.com>
-Subject: drm/exynos: remove dependency on DRM simple helpers
+
+drm/drm_simple: remove deprecated drm_simple_encoder_init function
 
 The simple KMS helpers are deprecated because they only add an
-intermediate layer between drivers and atomic modesetting. Open-code
-drm_simple_encoder_init() by calling drm_encoder_init() directly and
-providing driver-local drm_encoder_funcs.
+intermediate layer between drivers and atomic modesetting.
 
-> diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/=
-exynos_dp.c
-> index b805403281504..957382223956a 100644
-> --- a/drivers/gpu/drm/exynos/exynos_dp.c
-> +++ b/drivers/gpu/drm/exynos/exynos_dp.c
+All driver users of drm_simple_encoder_init() have been converted to
+drm_encoder_init(). Drop the helper and open-code its remaining internal
+use in drm_simple_display_pipe_init() to prevent new users.
 
-[ ... ]
-
-> @@ -95,7 +99,12 @@ static int exynos_dp_bind(struct device *dev, struct d=
-evice *master, void *data)
+> diff --git a/drivers/gpu/drm/drm_simple_kms_helper.c b/drivers/gpu/drm/dr=
+m_simple_kms_helper.c
+> index 8e1d07b9f1e30..7878b9d7d5248 100644
+> --- a/drivers/gpu/drm/drm_simple_kms_helper.c
+> +++ b/drivers/gpu/drm/drm_simple_kms_helper.c
+> @@ -20,16 +20,6 @@ static const struct drm_encoder_funcs drm_simple_encod=
+er_funcs_cleanup =3D {
+>  	.destroy =3D drm_encoder_cleanup,
+>  };
 > =20
->  	dp->drm_dev =3D drm_dev;
-> =20
-> -	drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_TMDS);
-> +	ret =3D drm_encoder_init(drm_dev, encoder, &exynos_dp_encoder_funcs,
-> +			       DRM_MODE_ENCODER_TMDS, NULL);
-> +	if (ret) {
-> +		drm_err(drm_dev, "Failed to initialize encoder\n");
-> +		return ret;
-> +	}
-> =20
->  	drm_encoder_helper_add(encoder, &exynos_dp_encoder_helper_funcs);
+> -int drm_simple_encoder_init(struct drm_device *dev,
+> -			    struct drm_encoder *encoder,
+> -			    int encoder_type)
+> -{
+> -	return drm_encoder_init(dev, encoder,
+> -				&drm_simple_encoder_funcs_cleanup,
+> -				encoder_type, NULL);
+> -}
+> -EXPORT_SYMBOL(drm_simple_encoder_init);
 
-[Severity: High]
-This isn't a bug introduced by this patch, but looking further down in
-exynos_dp_bind(), if drm_bridge_connector_init() fails, does this code leak
-the DP AUX character device and resources registered by analogix_dp_bind()?
+[Severity: Low]
+Does removing this helper break the build for the gma500 driver?
 
-Currently, if the bridge connector init fails:
+The commit message states that all driver users have been converted, but
+it looks like the gma500 driver still has unconverted callers.
 
-	connector =3D drm_bridge_connector_init(dp->drm_dev, dp->plat_data.encoder=
-);
-	if (IS_ERR(connector)) {
-		ret =3D PTR_ERR(connector);
-		dev_err(dp->dev, "Failed to initialize bridge_connector\n");
-		return ret;
-	}
+For example, in drivers/gpu/drm/gma500/cdv_intel_crt.c:cdv_intel_crt_init():
 
-The error path returns directly without calling analogix_dp_unbind() to roll
-back the earlier success of analogix_dp_bind().
+    ret =3D drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_DAC);
 
-Since the component bind fails, the master DRM bind will also fail, and the
-component's unbind hook (exynos_dp_unbind()) is never invoked.
+and in drivers/gpu/drm/gma500/cdv_intel_dp.c:cdv_intel_dp_init():
 
-When the devres framework later frees the struct analogix_dp_device, could
-the still-registered /dev/drm_dp_auxN character device cause a
-Use-After-Free if accessed from userspace?
+    drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_TMDS);
+
+Removing the definition and declaration here causes implicit function
+declaration and undefined reference errors when building with
+CONFIG_DRM_GMA500 enabled.
+
+Also, this isn't a bug, but should the task to remove
+drm_simple_encoder_init() be removed from Documentation/gpu/todo.rst
+as well, since this patch completes that task?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-drm_simple=
-_encoder_init-v2-0-5020b630668a@gmail.com?part=3D1
+_encoder_init-v2-0-5020b630668a@gmail.com?part=3D14
