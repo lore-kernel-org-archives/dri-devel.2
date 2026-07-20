@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF137C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 06:27:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D98F2C4451B
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 06:27:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12A0710E687;
-	Mon, 20 Jul 2026 06:27:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AE0010E698;
+	Mon, 20 Jul 2026 06:27:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gIjrU8gN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QY8+K08b";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 307CF10E687
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:27:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8C1410E698
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:27:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 19BD94122D;
- Mon, 20 Jul 2026 06:27:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6E741F000E9;
- Mon, 20 Jul 2026 06:27:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D0A2042B19;
+ Mon, 20 Jul 2026 06:27:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89BAC1F000E9;
+ Mon, 20 Jul 2026 06:27:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784528828;
- bh=ENm+VSnesq8pGr3OlPDcuxVkIN37q9le4dCi4YnvPRg=;
+ s=k20260515; t=1784528848;
+ bh=q1oDEcMVI65Rk7a1GVyUvqpjHSuPXlEigBs5pTApcYQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gIjrU8gN9fOhmlH11KGqmc4EDJnNd6t7fCee3xnfom/98lb9X0ZMMzqxublf/pdTK
- X12Qk6PNqAXe4gn3bGieCp43kzB+gqC93xrZDf1aYYqKF5oJ5Tv+MPtm6MEngNcvay
- 0303rnOQnNPhDXDv/5Z6hTynTxz1MSFn7crEPcrcR+VnsTCqBalSioOczM7Si0w8gb
- BhWNQaX/yLsho1pN5HTX6KqXd32FGPws4rXlPv2WTOoWBd6/z1X2GXW3fa9GPygr8P
- hqpQibRd+1r3SvO1ST+1MNGGOMIkTYPrzwjUP1MAukTiF5tCsVQsvXb+fpJvSS+ncc
- PkWUTm7JMnqGQ==
+ b=QY8+K08b3zuK3foYWo5IWV0hiK+vUD5Dwm2jfxdD4YcGxwuH22A96nkcawJA7Qbvo
+ o3EK8bGHX0Vp99q2FH9+OBBzMhgCT3AcguvFZmra4EfobdJ9YRxsXRz9ytQawdQm6W
+ IwTewI3pTuYilgWAlS7UR0mI1s+dpgf1OaWc20XjqJs//Iz80XrR9tNUMQyzsVE2OB
+ SaxYpLcUDRFssCJwIz3cQHBHB0hmc3At0ZZ6lcGbkUYld7rgn60GKXBNAOiKIUxRgY
+ JZzwWTHrWdpRfNLnq93wVK898Bb27M1/tD892/kBmeO85YKRKCRC4sAOV7hudUL6oJ
+ dhD+7tZDH42RQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 13/15] drm/msm/dp: make bridge helpers use dp_display
- to allow re-use
+Subject: Re: [PATCH v8 06/15] drm/msm/dp: split link setup from source params
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720-dp_mstclean-v8-13-bea261bf4e7d@oss.qualcomm.com>
+In-Reply-To: <20260720-dp_mstclean-v8-6-bea261bf4e7d@oss.qualcomm.com>
 References: <20260720-dp_mstclean-v8-0-bea261bf4e7d@oss.qualcomm.com>
- <20260720-dp_mstclean-v8-13-bea261bf4e7d@oss.qualcomm.com>
+ <20260720-dp_mstclean-v8-6-bea261bf4e7d@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 06:27:07 +0000
-Message-Id: <20260720062707.C6E741F000E9@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 06:27:28 +0000
+Message-Id: <20260720062728.89BAC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,72 +59,66 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The refactoring of `msm_dp_display_atomic_enable` hardcodes the =
-primary bridge's encoder, breaking the MST reuse it was explicitly intended=
- to support.
+- [Medium] msm_dp_ctrl_config_ctrl_streams() performs an incomplete Read-Mo=
+dify-Write (RMW) on REG_DP_CONFIGURATION_CTRL without clearing stream-speci=
+fic bitfields, leading to potential hardware state corruption.
 --
 
---- Patch [13]: [PATCH v8 13/15] drm/msm/dp: make bridge helpers use dp_dis=
-play to allow re-use ---
-commit 94e6d1d4d94637e92b8d6868e076b0bb8d8e32d0
-Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
-drm/msm/dp: make bridge helpers use dp_display to allow re-use
+--- Patch [6]: [PATCH v8 06/15] drm/msm/dp: split link setup from source pa=
+rams ---
+commit ea5efedb46078b56862c196153fb89423c8cb660
+Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-This commit refactors the DP bridge helpers to directly take a msm_dp_displ=
-ay
-object instead of a drm_bridge. The stated goal is to allow the upcoming MST
-bridge implementation to reuse these same helpers.
+drm/msm/dp: split link setup from source params
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+msm_dp_ctrl_configure_source_params() should only handle stream-related
+configuration. Move the link setup out of it so MST can program link and
+stream settings separately.
 
-[ ... ]
-
-> @@ -1408,11 +1405,9 @@ int msm_dp_modeset_init(struct msm_dp *msm_dp_disp=
-lay, struct drm_device *dev,
->  	return 0;
->  }
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
+_ctrl.c
+> index ac24c958852b8..711579de899d8 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -482,10 +482,6 @@ static void msm_dp_ctrl_config_misc1_misc0(struct ms=
+m_dp_ctrl_private *ctrl,
 > =20
-> -void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
-> -				 struct drm_atomic_commit *state)
-> +void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
-> +				  struct drm_atomic_commit *state)
+>  static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_priva=
+te *ctrl)
 >  {
-> -	struct msm_dp_bridge *msm_dp_bridge =3D to_dp_bridge(drm_bridge);
-> -	struct msm_dp *msm_dp_display =3D msm_dp_bridge->msm_dp_display;
->  	struct drm_crtc *crtc;
->  	struct drm_crtc_state *crtc_state;
->  	int rc =3D 0;
-> @@ -1421,7 +1416,7 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge =
-*drm_bridge,
->  	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
-dp_display);
-> =20
->  	crtc =3D drm_atomic_get_new_crtc_for_encoder(state,
-> -						   drm_bridge->encoder);
-> +						   msm_dp_display->bridge->encoder);
+> -	msm_dp_ctrl_lane_mapping(ctrl);
+> -	msm_dp_setup_peripheral_flush(ctrl);
+> -
+> -	msm_dp_ctrl_config_ctrl_link(ctrl);
+>  	msm_dp_ctrl_config_ctrl_streams(ctrl, ctrl->panel);
 
 [Severity: Medium]
-The commit message mentions this refactoring is done so the MST bridge can
-re-use these helpers. However, doesn't replacing the caller-provided
-drm_bridge->encoder with the hardcoded primary encoder break that intended
-reuse?
+By splitting the link setup from the stream setup here, are we exposing an
+incomplete read-modify-write in msm_dp_ctrl_config_ctrl_streams()?
 
-If an MST stream calls this helper with its own virtual encoder's state,
-drm_atomic_get_new_crtc_for_encoder() will evaluate the primary encoder
-instead. Because the primary encoder won't be attached to the MST stream's
-CRTC in this atomic state, crtc will be NULL, causing this function to
-silently return early.
+When MST programs the link and stream settings separately,
+msm_dp_ctrl_config_ctrl_streams() will be called independently. Looking at
+msm_dp_ctrl_config_ctrl_streams():
 
-Would it be better to retain the drm_bridge parameter or pass the drm_encod=
-er
-directly so that MST callers can specify their virtual encoder?
+drivers/gpu/drm/msm/dp/dp_ctrl.c:msm_dp_ctrl_config_ctrl_streams() {
+    ...
+    config =3D msm_dp_read_link(ctrl, REG_DP_CONFIGURATION_CTRL);
 
->  	if (!crtc)
->  		return;
+    if (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
+        config |=3D DP_CONFIGURATION_CTRL_RGB_YUV; /* YUV420 */
+
+    tbd =3D msm_dp_link_get_test_bits_depth(ctrl->link,
+                                          msm_dp_panel->msm_dp_mode.bpp);
+
+    config |=3D tbd << DP_CONFIGURATION_CTRL_BPC_SHIFT;
+    ...
+}
+
+Since this function reads the register and bitwise-ORs the new values
+without clearing the existing stream-specific bitfields (like the BPC or
+YUV bits), won't this cause bit accumulation and hardware state corruption
+across multiple streams if the link isn't reset in between?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-dp_mstclea=
-n-v8-0-bea261bf4e7d@oss.qualcomm.com?part=3D13
+n-v8-0-bea261bf4e7d@oss.qualcomm.com?part=3D6
