@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92B41C4452E
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 15:41:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D029C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 15:41:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C55A210E99B;
-	Mon, 20 Jul 2026 15:41:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDC1910E99C;
+	Mon, 20 Jul 2026 15:41:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dKPzZPKM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RTI/b+At";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA4810E994
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 15:41:26 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4954df200ddso17132105e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 08:41:25 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECADF10E99C
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 15:41:29 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4954df200ddso17132645e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 08:41:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784562084; x=1785166884; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784562088; x=1785166888; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=46qE/+7MkuQ3i6sxWImy8gxRhDtZKExvMlDvjet5bv4=;
- b=dKPzZPKMr8FaY+0nqE2IITYnbjVUhys3br9S96jqsiDiQg0fL2CqUjU4Eunj2VozjB
- L0qNy77Z2ufRXypDIVOIID9QNBpKdiQrHrrTOuab9Jz4laFl2U5EId44aWXgUfZmZ/Nn
- MZNav8dcaLqcnK90hMosQaNPx7lAfr9+VV8Bk6VVZCP2LbzihSJj7xmOi7hAvRg+V++N
- qrVsKmdE5nt+S9MyVtSHR0KswP3F6NnDqM44BJnD63cVNtxEdMx0Sx/KZL6x9Pjpa5Mp
- C2aK4HamaL6Qr6xzN0vkGHo5buQSFuHxHbi5AMxSzBM6uJVNyF+Q5UZVWJ1B2iUkCFE1
- cjAw==
+ bh=UCTzuFV7eFCGxIzO9ORcmzHtSM3Ggk/jrKBR0xDgYaA=;
+ b=RTI/b+AtrC85L4XzwZISdrgddsJgCJURW6ywywg5rQcL/YtfRvxggFOMNQtx4vjHdR
+ 6Ybnq8e3OH33H6/0sDdxOTMJJCE4HiVIbnG+p2LaCp+CzR/Ap3yNW3bsxriIb8Azcsu4
+ FcciUH0w/BK9iwdVwdLBM9GV3BeAfrmqAsGzDBLbOfvT5gKWKwIGY4BtxpIxG1GiHbDk
+ q0nchP1M/7ZVmQiCs+CfEg2MNn8awQfq2tOaZsgRVR6Aazb35iA/Vyj63k7nUDUPYt6e
+ Csa+cjJ37mST3a4sCE0c1IG8qrdsR1A0Xa7WwHfLGPUH67iGpw4hh45ZhnttI9xCsFbR
+ 1uhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784562084; x=1785166884;
+ d=1e100.net; s=20251104; t=1784562088; x=1785166888;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=46qE/+7MkuQ3i6sxWImy8gxRhDtZKExvMlDvjet5bv4=;
- b=AKpZ2ZYEWjizw5Vp05Uf0uEfYPJAJUjmEJueaHKemssgplzzpkziStJqhOhzUPQ4tK
- 75balowpCjTEAP5RlXPUxGx7uXLIWQApcsjmafUX4Dy4Cdlx0MuoUjW/Kxt/2ZSSuF88
- Ty4DxzYXssERbv7ALDXcEq1KCni0JuGhqvIwzVA2NywV64gcuA4kQ2lSJvXTbUF5GzKd
- sFeVPpjezZtoPSAuW8H/BNW0XnqJIv2zCLOXIcqamy9JcWTpUHhw3ecS4Zuw6Nk0T5hV
- 0eJ7g5jmArUQbRmQ7D6PyH6teRpYdkhkC5WB/94mewID5oP+rmQf5jwtv1SVQgCBfc3e
- xsAg==
-X-Gm-Message-State: AOJu0Yyw+SIqvft2ft/t6g5AMiI48HZxLs8S8oo0zUXAJp3o5n5KvIz8
- YW4tZYpZtwvax3OCr+uK41KUgveZryxyP2flcmDgKMg6JfpBKLtHGaTg
-X-Gm-Gg: AfdE7cmBjjspRVFR0QSS2ecJGs3OVULEByFsY9ymYUzY6kFtIWZKDazZPBV/xajcjmh
- PKSFixpeqa2N6pyRyWzaFi34tkd6EDOe3KmI07BzQ1ikJvDrLWVEKOeZcYgRCRykPuVwogL+hc5
- LXvqhGczmy6S5AtA6PWvRBEm4m5j6CdLdGOP3zTwHiBW77DQnacvZ4cFa2vBpQjzTN9SrppnZLW
- DN5bvNx3arxdqxIFHXDnLDAGZTooDGRUeYcDPDcRe7As0Y5YlB4Bmaf7GgdrJlbj7T62GSQCngD
- YRs32lxh4MOC6XB4i2fRLn6pDWh/O+Olc6xjVFaBQraOl65IuFbisY6KhF3SGXxn1HUGa65Ok7N
- o9omZgKia0wXyPcb9zMP/9IWomj5uNxszyI3v0OBnAwVwwBq7QBMCLu+fu+VF563WDlAWsX10NE
- 3W9fsMVKwExQ==
-X-Received: by 2002:a05:600c:4fc2:b0:495:5b02:23b0 with SMTP id
- 5b1f17b1804b1-4955b0224c7mr79919205e9.26.1784562084325; 
- Mon, 20 Jul 2026 08:41:24 -0700 (PDT)
+ bh=UCTzuFV7eFCGxIzO9ORcmzHtSM3Ggk/jrKBR0xDgYaA=;
+ b=EkOscmNxgn670t/qTkcas3Pj3m3tJsZmVoywMCkfDBaD+go6RXnNezInazQD+Gz+p8
+ 0iHWApoLgfrV2VQBxRn9VoED3UBXCkoYON779qhIAvCUA6pS3dP8rzL1p8S9S75I3p4b
+ lphy7HVyANCCVbfsohrSHyVHDQYl7cEtDzHMX6kz3HJk6wdLnPS7P8crbYYsGqHFgkrM
+ MWCqJN0DhPRVp5CZK9veq0ndiv1PdX9HHfg8tHjaxQsdHsL6GkfpMvGDZo1x/3fk4sjK
+ tOJkReJZulrl+JQrvGH0/uIgJA3M2mzPGXH8zbf7JKFqnjePhDGQJpYVprqwciiQmvQP
+ IqOQ==
+X-Gm-Message-State: AOJu0YxwQBKBCQ5ujKxqjenfKIJFlTPnuhW8NHRy7zVUbvi5jmnfUIB0
+ 27R8qzocoZXPePIXO4SNzD2k0/fwRPySjkRm5MpItxV0/1gV9UHFnzi6
+X-Gm-Gg: AfdE7ckEQBGt3UN1B5mm8dqI0/hZ4+Lk2nA5Zp3GHOZBBawDD+SyNPGiZV61auNHce7
+ A1VH6jFP2hD+CSVb8U6aPrXvJZl/sAmjTPnruVQyEukyMC4uSfERYAmjsxboqujKI2+hPCDAcNq
+ CwfnAyESeboMRU350fbKLx/Qb1pI449/BEJBdGeREHSUXOp67BZ3hUEbHLmv6JDl5mjKy7Mid24
+ Lb3CavDDkN2zKLn7EWSRMp+qSMuM2exyG4dDmQB1qOkxS2Bc5f/Sh06UIMEzD857TEyddWZakog
+ JV17MCmgR9ilHSaq/e/ASfkWdVfZov7gQo0k8pYYjXfyX9VGIj9uwITBA1tQgGdEmnC+m8BZddY
+ aAxI3uv3r4SvhIxPUx51Xj01m/HZ33C1xeLKBFkYKYpj2PlmMEHqThr/KJepxBN/FZ4yKf36303
+ +BL7LZ+qI6jadbWQBgiPGu
+X-Received: by 2002:a05:600c:1d1e:b0:493:b6ee:fcb7 with SMTP id
+ 5b1f17b1804b1-4954a3f39ffmr153406895e9.14.1784562088052; 
+ Mon, 20 Jul 2026 08:41:28 -0700 (PDT)
 Received: from [127.0.0.2] ([2a01:14:111:ccf0:e9c1:2f80:10a9:c708])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f67466e09sm32667936f8f.21.2026.07.20.08.41.20
+ ffacd0b85a97d-47f67466e09sm32667936f8f.21.2026.07.20.08.41.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jul 2026 08:41:23 -0700 (PDT)
+ Mon, 20 Jul 2026 08:41:27 -0700 (PDT)
 From: Diogo Silva <diogompaissilva@gmail.com>
-Date: Mon, 20 Jul 2026 17:40:42 +0200
-Subject: [PATCH v2 10/15] drm/renesas/shmobile: remove dependency on DRM
+Date: Mon, 20 Jul 2026 17:40:43 +0200
+Subject: [PATCH v2 11/15] drm/hisilicon/kirin: remove dependency on DRM
  simple helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260720-drm_simple_encoder_init-v2-10-5020b630668a@gmail.com>
+Message-Id: <20260720-drm_simple_encoder_init-v2-11-5020b630668a@gmail.com>
 References: <20260720-drm_simple_encoder_init-v2-0-5020b630668a@gmail.com>
 In-Reply-To: <20260720-drm_simple_encoder_init-v2-0-5020b630668a@gmail.com>
 To: Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
@@ -137,51 +137,47 @@ directly and providing driver-local drm_encoder_funcs.
 
 Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
 ---
- drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c b/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
-index 1a2b9b68af6f..2dc477c7eda6 100644
---- a/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
-+++ b/drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c
-@@ -21,6 +21,7 @@
- #include <drm/drm_bridge_connector.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_crtc_helper.h>
+diff --git a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
+index 15042365dec0..62c5bd3277da 100644
+--- a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
++++ b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
+@@ -20,11 +20,11 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_device.h>
 +#include <drm/drm_encoder.h>
- #include <drm/drm_fb_dma_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
-@@ -29,7 +30,6 @@
- #include <drm/drm_modeset_helper_vtables.h>
- #include <drm/drm_panel.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
  #include <drm/drm_probe_helper.h>
 -#include <drm/drm_simple_kms_helper.h>
- #include <drm/drm_vblank.h>
  
- #include <video/videomode.h>
-@@ -436,6 +436,10 @@ static const struct drm_encoder_helper_funcs encoder_helper_funcs = {
- 	.mode_fixup = shmob_drm_encoder_mode_fixup,
- };
+ #include "dw_dsi_reg.h"
  
-+static const struct drm_encoder_funcs shmob_encoder_funcs = {
+@@ -687,6 +687,10 @@ static int dsi_encoder_atomic_check(struct drm_encoder *encoder,
+ 	return 0;
+ }
+ 
++static const struct drm_encoder_funcs dw_encoder_funcs = {
 +	.destroy = drm_encoder_cleanup,
 +};
 +
- /* -----------------------------------------------------------------------------
-  * Encoder
-  */
-@@ -448,8 +452,8 @@ int shmob_drm_encoder_create(struct shmob_drm_device *sdev)
+ static const struct drm_encoder_helper_funcs dw_encoder_helper_funcs = {
+ 	.atomic_check	= dsi_encoder_atomic_check,
+ 	.mode_valid	= dsi_encoder_mode_valid,
+@@ -708,7 +712,8 @@ static int dw_drm_encoder_init(struct device *dev,
+ 	}
  
- 	encoder->possible_crtcs = 1;
- 
--	ret = drm_simple_encoder_init(&sdev->ddev, encoder,
--				      DRM_MODE_ENCODER_DPI);
-+	ret = drm_encoder_init(&sdev->ddev, encoder, &shmob_encoder_funcs,
-+			       DRM_MODE_ENCODER_DPI, NULL);
- 	if (ret < 0)
+ 	encoder->possible_crtcs = crtc_mask;
+-	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_DSI);
++	ret = drm_encoder_init(drm_dev, encoder, &dw_encoder_funcs,
++			       DRM_MODE_ENCODER_DSI, NULL);
+ 	if (ret) {
+ 		DRM_ERROR("failed to init dsi encoder\n");
  		return ret;
- 
 
 -- 
 2.54.0
