@@ -4,125 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EABEBC44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 11:58:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE343C4452B
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 12:03:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51FD510E15F;
-	Mon, 20 Jul 2026 11:58:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11BF810E11F;
+	Mon, 20 Jul 2026 12:03:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="jraAyO9l";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uxASTd7k";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jraAyO9l";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uxASTd7k";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XcBFQJSg";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6A0D10E15F
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 11:58:31 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 52DA03DFC;
- Mon, 20 Jul 2026 11:58:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1784548710; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=akfTilc+0fib5FYWb+g/y+K8rkZXkEd403H7R21K+ew=;
- b=jraAyO9lWN1hfhaw228+vTtrfCzYZLTFDOfFD+GUqZ4TiCiRFLQe42qsI+tIhGDDd9qeZd
- Epx9fOPDxxn8qi745Un9z8WHDPybik2gthrhkiPFadiRUtlgYwveXev7eUebeHdddZldQK
- gQdeFeMrGSNOFK+p1ijoAbvbhbBMqOQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1784548710;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=akfTilc+0fib5FYWb+g/y+K8rkZXkEd403H7R21K+ew=;
- b=uxASTd7kbKtoEhpHAHN4mM+LpXC3w6EL1+RUqwbVkngkoF4+erpVnaLDTjkt0kl9e3Uall
- VAErmAfGxTCruXBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1784548710; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=akfTilc+0fib5FYWb+g/y+K8rkZXkEd403H7R21K+ew=;
- b=jraAyO9lWN1hfhaw228+vTtrfCzYZLTFDOfFD+GUqZ4TiCiRFLQe42qsI+tIhGDDd9qeZd
- Epx9fOPDxxn8qi745Un9z8WHDPybik2gthrhkiPFadiRUtlgYwveXev7eUebeHdddZldQK
- gQdeFeMrGSNOFK+p1ijoAbvbhbBMqOQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1784548710;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=akfTilc+0fib5FYWb+g/y+K8rkZXkEd403H7R21K+ew=;
- b=uxASTd7kbKtoEhpHAHN4mM+LpXC3w6EL1+RUqwbVkngkoF4+erpVnaLDTjkt0kl9e3Uall
- VAErmAfGxTCruXBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 36B45779AA;
- Mon, 20 Jul 2026 11:58:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id QBciDGYNXmrTNwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 20 Jul 2026 11:58:30 +0000
-Message-ID: <345d7f81-e86e-48ef-af23-277dc0ae16d1@suse.de>
-Date: Mon, 20 Jul 2026 13:58:29 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/7] vga_switcheroo, drm: Push fbcon handling into DRM
- clients
-To: Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-References: <20260709092215.168172-1-tzimmermann@suse.de>
- <88fa0f85-0960-464a-a602-f797785f0c2e@gmx.de>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <88fa0f85-0960-464a-a602-f797785f0c2e@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.996]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
- FREEMAIL_TO(0.00)[gmx.de]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmx.de];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[3]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- suse.de:mid]
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0488F10E11F
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 12:03:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 26A2F60A6A;
+ Mon, 20 Jul 2026 12:03:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47061F00A3E;
+ Mon, 20 Jul 2026 12:03:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784548997;
+ bh=c47JGbkJ9uNuY4YLwhBCSuk3Djn77kjsuXEzQJm9LnI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=XcBFQJSgIE6pLOtG0ILx3GMj2AOwigQwPqTAnf3eoRTCVp1M+tIPcsC+LcFoIdoOd
+ 11gmT3C8mCTNHpnVyhX+j5pmU9cPAFfEmb0Lw/ZIlExT65GqF2eSZwL/tyc4ua5j/h
+ hZlEyQ+GuxhVeiyru7XoOH6mIbok/ZlGfYRYeyhv90dwDc3wihqGwlGl8caOOowqL3
+ XU8QeekF3AvUwbx7zWqPyVFu8eUaZCC+qtp6cAAZE6kf6CXmq4+AWjVjmf8uFetlx5
+ CJ1e2D7LMZCuyXCWAiFdbUpPHoQNryCbdYcUDvcAX/WPELfSaF97L1X6KjMXqbQiW3
+ mSY0QOobNyykA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/panthor: validate firmware interface structure sizes
+To: "Osama Abdelkader" <osama.abdelkader@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260720114918.15973-1-osama.abdelkader@gmail.com>
+References: <20260720114918.15973-1-osama.abdelkader@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Jul 2026 12:03:17 +0000
+Message-Id: <20260720120317.A47061F00A3E@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,93 +52,174 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Am 18.07.26 um 21:08 schrieb Helge Deller:
-> Hi Thomas,
->
-> On 7/9/26 11:15, Thomas Zimmermann wrote:
->> Vga_switcheroo currently invokes fb_switch_outputs() to inform fbcon
->> about switching of the physical outputs among framebuffer devices. But
->> new DRM clients to not use fbdev/fbcon and might require their own
->> vga_switcheroo support. Let's strictly separate them from each other.
->>
->> Remove fbdev/fbcon from vga_switcheroo. Introduce a pre_switch callback
->> for vga_switcheroo clients to do the fbcon update. Allows for removing
->> all direct interactions between vga_switcheroo and fbdev/fbcon.
->>
->> There are only four drivers that support vga_switcheroo: amdgpu,
->> radeon, i915 and nouveau. Update each of them with the new callback.
->> When vga_switcheroo now invokes pre_switch, each DRM driver forwards
->> to aquire_outputs and lets the DRM clients handle the new outputs.
->>
->> At the same time, push the fbcon update into DRM's client for fbdev
->> emulation. Do this with the new DRM client callback acquire_outputs,
->> so that other clients can have their own handling of vga_switcheroo.
->>
->> Also replace the existing reprobe hook with post_switch for symetry.
->> For nouveau, this is merely a rename of the helper function. The other
->> drivers dor not implement reprobe.
->>
->> Tested with radeon on a notebook with Radeon HD 4225 and HD 5430.
->>
->> v2:
->> - implement all of pre_switch in a single commit to avoid possible
->>    deadlock in intermediate state (Sashiko)
->> - fix erroneous docs (Sashiko)
->>
->> Thomas Zimmermann (7):
->>    drm/edid: Include <linux/fb.h>
->>    drm/client: Add acquire_outputs callback; implement for fbdev
->>      emulation
->>    vga_switcheroo: Add pre_switch callback to client ops
->>    vga_switcheroo: Add post_switch callback to client ops
->>    drm: Implement struct vga_switcheroo_client_ops.pre_switch
->>    drm: Implement vga_switcheroo_client_ops.post_switch
->>    vga-switcheroo: Remove unused interfaces
->>
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  9 ++++-
->>   drivers/gpu/drm/clients/drm_fbdev_client.c | 23 ++++++++----
->>   drivers/gpu/drm/drm_client_event.c         | 18 ++++++++++
->>   drivers/gpu/drm/drm_edid.c                 |  1 +
->>   drivers/gpu/drm/i915/i915_switcheroo.c     | 11 +++++-
->>   drivers/gpu/drm/nouveau/nouveau_vga.c      | 28 +++++++++------
->>   drivers/gpu/drm/radeon/radeon_device.c     |  9 ++++-
->>   drivers/gpu/vga/vga_switcheroo.c           | 41 +++++-----------------
->>   drivers/video/fbdev/core/fbcon.c           |  8 -----
->>   include/drm/drm_client.h                   | 14 ++++++++
->>   include/drm/drm_client_event.h             |  3 ++
->>   include/linux/vga_switcheroo.h             | 29 ++++++++-------
->>   12 files changed, 121 insertions(+), 73 deletions(-)
-> You may add a
-> Acked-by: Helge Deller <deller@gmx.de>
-> to the series.
-
-Thank you so much.
-
->
-> Just in case you want me to take the series through the fbdev git tree,
-> please let me know.
-
-The series is supposed to go though DRM trees. I'm still waiting for 
-reviews from the rsp devs.
-
-Best regards
-Thomas
-
-
->
-> Helge
-
--- 
+Pre-existing issues:
+- [Critical] Time-of-Check to Time-of-Use (TOCTOU) vulnerability in firmwar=
+e interface initialization allows kernel memory corruption.
+- [High] Integer overflow and incorrect structure size in firmware bounds c=
+hecks on 32-bit architectures.
+- [High] NULL pointer dereference when firmware provides a 0-sized shared s=
+ection.
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
+--- Patch [1]: [PATCH] drm/panthor: validate firmware interface structure s=
+izes ---
+commit a126d5ded05975c89ebf69bcb6a208082b1f032d
+Author: Osama Abdelkader <osama.abdelkader@gmail.com>
 
+drm/panthor: validate firmware interface structure sizes
+
+iface_fw_to_cpu_addr() only checks that the firmware-provided MCU virtual
+address points inside the shared section. The returned pointer is later
+used as a full firmware interface structure, so accepting an address near
+the end of the shared section can still lead to out-of-bounds accesses.
+
+Pass the expected object size to iface_fw_to_cpu_addr() and reject ranges
+that do not fit entirely in the shared section.
+
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panth=
+or/panthor_fw.c
+> index 90f59d782a809..1697305c7b0e9 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+
+[ ... ]
+
+> @@ -890,8 +896,10 @@ static int panthor_init_cs_iface(struct panthor_devi=
+ce *ptdev,
+> =20
+>  	spin_lock_init(&cs_iface->lock);
+
+[Severity: High]
+This is a pre-existing issue, but could the bounds check earlier in
+panthor_init_cs_iface() be vulnerable to a 32-bit integer overflow?
+
+panthor_fw.c:panthor_init_cs_iface() {
+    ...
+    if (iface_offset + sizeof(*cs_iface) >=3D shared_section_sz)
+        return -EINVAL;
+    ...
+}
+
+If a malicious firmware provides crafted strides, could iface_offset wrap
+around near U32_MAX on 32-bit architectures, allowing it to bypass this
+check while still extending beyond shared_section_sz?
+
+Also, does this check incorrectly use the size of the host wrapper struct
+sizeof(*cs_iface) instead of the actual firmware struct size, allowing
+an invalid iface_offset to pass the check if the host struct is smaller?
+
+>  	cs_iface->control =3D ptdev->fw->shared_section->mem->kmap + iface_offs=
+et;
+> -	cs_iface->input =3D iface_fw_to_cpu_addr(ptdev, cs_iface->control->inpu=
+t_va);
+> -	cs_iface->output =3D iface_fw_to_cpu_addr(ptdev, cs_iface->control->out=
+put_va);
+> +	cs_iface->input =3D iface_fw_to_cpu_addr(ptdev, cs_iface->control->inpu=
+t_va,
+> +					       sizeof(*cs_iface->input));
+> +	cs_iface->output =3D iface_fw_to_cpu_addr(ptdev, cs_iface->control->out=
+put_va,
+> +						sizeof(*cs_iface->output));
+
+[ ... ]
+
+> @@ -941,8 +949,10 @@ static int panthor_init_csg_iface(struct panthor_dev=
+ice *ptdev,
+> =20
+>  	spin_lock_init(&csg_iface->lock);
+>  	csg_iface->control =3D ptdev->fw->shared_section->mem->kmap + iface_off=
+set;
+> -	csg_iface->input =3D iface_fw_to_cpu_addr(ptdev, csg_iface->control->in=
+put_va);
+> -	csg_iface->output =3D iface_fw_to_cpu_addr(ptdev, csg_iface->control->o=
+utput_va);
+> +	csg_iface->input =3D iface_fw_to_cpu_addr(ptdev, csg_iface->control->in=
+put_va,
+> +						sizeof(*csg_iface->input));
+> +	csg_iface->output =3D iface_fw_to_cpu_addr(ptdev, csg_iface->control->o=
+utput_va,
+> +						 sizeof(*csg_iface->output));
+> =20
+>  	if (csg_iface->control->stream_num < MIN_CS_PER_CSG ||
+>  	    csg_iface->control->stream_num > MAX_CS_PER_CSG)
+
+[Severity: Critical]
+This is a pre-existing issue, but is there a Time-of-Check to Time-of-Use
+(TOCTOU) vulnerability here and in panthor_fw_init_ifaces()?
+
+Since panthor_fw_start() starts the GPU MCU before panthor_fw_init_ifaces()
+is called, could compromised GPU firmware mutate stream_num (or group_num)
+directly in shared memory after this bounds check?
+
+If the compiler reloads the limit from memory on each iteration of the
+subsequent loop:
+
+    for (i =3D 0; i < csg_iface->control->stream_num; i++) {
+        int ret =3D panthor_init_cs_iface(ptdev, csg_idx, i);
+        ...
+    }
+
+could the loop overrun and index out of bounds, overwriting adjacent kernel
+structures?
+
+[ ... ]
+
+> @@ -999,8 +1009,10 @@ static int panthor_fw_init_ifaces(struct panthor_de=
+vice *ptdev)
+>  		return -EINVAL;
+>  	}
+> =20
+> -	glb_iface->input =3D iface_fw_to_cpu_addr(ptdev, glb_iface->control->in=
+put_va);
+> -	glb_iface->output =3D iface_fw_to_cpu_addr(ptdev, glb_iface->control->o=
+utput_va);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but earlier in this function
+could we dereference a NULL pointer if the firmware provides a 0-sized
+shared section?
+
+In panthor_fw_load_section_entry(), if the firmware provides a
+CSF_MCU_SHARED_REGION_START section header where hdr.va.end =3D=3D hdr.va.s=
+tart,
+the memory allocation is skipped:
+
+panthor_fw.c:panthor_fw_load_section_entry() {
+    ...
+    section_size =3D hdr.va.end - hdr.va.start;
+    if (section_size) {
+        ...
+    }
+    ptdev->fw->shared_section =3D section;
+    ...
+}
+
+This leaves section->mem as NULL.  When panthor_fw_init_ifaces() runs,
+it checks:
+
+    if (!ptdev->fw->shared_section->mem->kmap)
+
+Will this unconditionally dereference mem when it is NULL, causing a
+kernel panic during device probe?
+
+> +	glb_iface->input =3D iface_fw_to_cpu_addr(ptdev, glb_iface->control->in=
+put_va,
+> +						sizeof(*glb_iface->input));
+> +	glb_iface->output =3D iface_fw_to_cpu_addr(ptdev, glb_iface->control->o=
+utput_va,
+> +						 sizeof(*glb_iface->output));
+>  	if (!glb_iface->input || !glb_iface->output) {
+>  		drm_err(&ptdev->base, "Invalid global control interface input/output V=
+A");
+>  		return -EINVAL;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720114918.1597=
+3-1-osama.abdelkader@gmail.com?part=3D1
