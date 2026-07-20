@@ -4,89 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59FCBC44521
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:17:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1C7AC44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 07:17:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C60E510E7C6;
-	Mon, 20 Jul 2026 07:17:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 029DF10E7C9;
+	Mon, 20 Jul 2026 07:17:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="v0Ev9U20";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="kIXOAQwc";
+	dkim=pass (2048-bit key; unprotected) header.d=mt.com header.i=@mt.com header.b="MRaGlqAS";
 	dkim-atps=neutral
-Received: from flow-b8-smtp.messagingengine.com
- (flow-b8-smtp.messagingengine.com [202.12.124.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3594110F454
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Jul 2026 09:01:04 +0000 (UTC)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailflow.stl.internal (Postfix) with ESMTP id EF81913002C9;
- Fri, 17 Jul 2026 04:53:49 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Fri, 17 Jul 2026 04:53:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1784278429; x=
- 1784282029; bh=zinUu7usH8QT+lRBkTaKjglbcOcyqsNJ7aGjhR0dVuc=; b=v
- 0Ev9U20tBJWMVb1EmdXdnSoUf6IwfEDDfeQWAomsNPlGcq2M/dSHHugtLYyProcf
- tUVfpYEHMEHgmAjoGtKW/NI6ybmC/hJ40dbu0DfaTNeFkBzKoK5y2Ttn5g/N5qPU
- Njt+qeuAo4vUGll42ky+E5WPiNds2bcTINQw6y9DKPVlb0LLxk6uj06aJPi/deFg
- J0rkKLXlMpE/E0q/vq4y4v1gh0M+47BYIW8e74q2/r5vgYY6sMgWw7NCpFVLd4l2
- 1yzkrAEcYerdljozyw9D39M/XbkYEeqia8nAIIjzW/AAos4VG9U+WDp1zCP/SqrV
- G8DgZF+vTuOxDN1wS0sTw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; t=1784278429; x=1784282029; bh=z
- inUu7usH8QT+lRBkTaKjglbcOcyqsNJ7aGjhR0dVuc=; b=kIXOAQwc18Lq5X7qC
- /HflxDnJPI2DhuHg4+4a85wMJz48k+2uNgkIP9e90PCXiWUyhW50tuKDfJ4wR3EP
- O1ZUJX5GjW2tWzA6H5K8aQ0AFBYYHajgtImlXnY169Hc0tE/9kYbQWYYkI/a1rO7
- 0TMeHvhqj4aGueHYaJeVtkHWdpIz8g2ZiCoKZPVYIp2sIXSmnpiJ00wqFup26Bxc
- m+jHudN8HkXb1dsOGsreNjXC0HNRlFO2yPi4zdElahDcUjseEHNDvjn4O68LGcM1
- dTG4oF68ggSxy5Khe7anEofBtl8eH6GdUCz5iLalW86UQB6rYJYjrvUV2GsZ+dg/
- 5wnsA==
-X-ME-Sender: <xms:ne1ZahKSnZPikya0PRW9xaHqJYmxvzw9PuieOBrHHI18YeIE79cFkg>
- <xme:ne1ZapCs7osDD-DI1Fy8I7njz9wxbp5l04XG5p03nrDaH1ZbQvS0tF0UehYPPKXc4
- QpI3h6lEcDaX6McU0RyGKW5JLGRbFYXxuzxhTK3Q76FHIadS7QB9A>
-X-ME-Received: <xmr:ne1ZalPAfAEOvps3ZTtp--HFh6H6o9dfpdzS3oIenCCmeahqhEA3GxmjUvTRFpl7KIr-gdNi92QHZQvqgoU>
-X-ME-Proxy-Cause: dmFkZTFS7GW/vS+PGg3aNaRtXNWwH13wr4t6a3PsYvzLEfoa0d1tCLQMk4kuPOyqJxWYg8
- zWRgYifu3Q3qEvL/I6D+A7sONbehMF6Fzv0Jx15W8Bp0zPI2L6EoHnTvsn7KCzlmdcjq5Z
- AMiUX8pm/4UU/5q2rly/ctUYuGrpfv6aggolOMe4+7cw+YQgQv04wJ8otXu77hR4cT4fFc
- rauulgYGXJAH/ttinZ2FdpHwYOQghdgc8wZDZhtrydZHcBfVIkqxRabCZivPsjLLb49//R
- HUixI1q1RTZqMytwufV0grN2inkZxcvjyE8RnYSpDV3z9U1hNPWgMeNXqfzcYN3TNROTjP
- DJWBxCI5LG07PpCtrDGQylNVLAXiJDOw8Zv7N+umyJqbcz5h42OyiWTfA9CJmLIVWk/eBR
- 7Oln6Gq6e+F9e84h2z6cwCDpiPcYcwApw7eCgr9txIBNNq+fRM3OTF3EQHFoPNbSxFAkpU
- 5ELogvMw16Wd+Vy6XMRw9A/UtwpPyLICJuTXAYYhH4xpDkDzMpb3HsHGpDAc1aQPOHAVKz
- djVrFxTql8z755ghlxCYAAPcAYjK1U21pj1mw/oRDOjRT+w19y4qp358reb4GFc2oAgB4C
- J/ZOdnLoEh/CfXkF+vAx7BUzlua9nEu49XoFr0DIyWHCNBHuc6tRzL6mAn4Q
-X-ME-Proxy: <xmx:ne1ZamVf31AEljBp2KKIoxbKOG-lQk3X5ND9YiBLc3vCKwgoosp84w>
- <xmx:ne1ZagQVWCGUG30yhYZaGHOFuWtPwDLAGpbk02NECHF1eP5fnOfnvQ>
- <xmx:ne1Zak0hbu3Ej3bh0k9toYLJ3R0M43UiOyyYQlVdTmEiym68R8bg5Q>
- <xmx:ne1Zalh9lYwZvJcbWs2ezvAw4Kqm81gGl0hUN-NqWGK9Ainagsp4_A>
- <xmx:ne1Zag4aPt7Zx-oleisTXffXPfkps3G8dhk90C6wCJV4EDkwuO5WycWb>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 17 Jul 2026 04:53:44 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [RFC PATCH 4/9] iommu/rockchip: skip orphaned-fault banks in
- rk_iommu_is_stall_active
-Date: Fri, 17 Jul 2026 20:50:42 +1200
-Message-ID: <20260717085220.3212274-5-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260717085220.3212274-1-gahing@gahingwoo.com>
-References: <20260717085220.3212274-1-gahing@gahingwoo.com>
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013003.outbound.protection.outlook.com
+ [52.101.83.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FDB610E6B1
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:39:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zI/Jw+nHVWN0+3Vt4VR2HvswM5w1GuoPTEuV7Xgu0Ko2J8u2RPMF9lNpAO0IpF/+1MSbg/TNhceyq1nsQGisVzIgeqjoJ4JHFVwdd6akgWBmy5RptJ4kfEbtudJxFZCxLIC/4Y03K6n67fnQqJjHhSZEprYcItCfomIhg+uIGr5PbYARs8w2IrFfRZUha/RpG3PQTRvPKEHTOd2fXxbvh6UVGxoNx/zX64XR0xMVYb49dEKVbSm+vd3eB5gemF4UlUubRGWHAX7ePK0uwhYZVN/w4Ik5AKbUtuvpvEusCa/5fYeMAdbwQ9lmDKIa3VPbUITODCifBnrs+YT6syp9kQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=etE78zVh+atILNGaMszs7d90nTFsmdc8WwUTw3wpek8=;
+ b=eKQPBzXbk39O2ezmEwvTP37JwdefXJWD/AbFaXpyzU3fN4OnqMsumR8Qfu8MtBuLAmjIfs2YrWK6uINzfSo5y7o5OP9Z2zROPpfIr/s0c5YWdMJOHEoSuQIPPIAlghNLmltwGKjoIKCYCyTC3/wf+GAjDokKN12oCa2dfI2lesBesOan5p9vEpVGPOkBdcP9D4xXsQ2zwhylopwzk/Cr8qfY3QWkAK7vQ2fUzFWji7Do4MnSyQDvIKeZ2c0wIzMFkjAE21NRC+eN9RTjrUUT/gcsfoSNCbMzzNvc3FzqB0rcTAj9E0j5KtHg9WBBaShiX4h52rhJbmQevWwwBwZGOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
+ header.d=mt.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=etE78zVh+atILNGaMszs7d90nTFsmdc8WwUTw3wpek8=;
+ b=MRaGlqAS9ZPYieobaSvgfnaJQsB3enLRtYRGId+lo2WrcoF5a2DDWDRGBAHzc2lpq1sJjff6TBOlP4Aj7KleYT97WlZRcitClsWLM7R6ST0U3L/VhWchMbSYosDGI6WNP/aA82g851dU7MizCBeicW46/ZA+d9Tp0JV0zlA9wgi3ReaCse/273a5uLJDy+Cu8aLzF2lCy7Znje2Q1yob5C2qn4pMpaUm2WvWDs9N9BZeOnzTCFO3FT8n7uXLp0d/V6yGcVw18yb9K84UVcOGI1g/44X76Z2qvpHh081I8zg4BLXFIMDM5R+AdXdlZuj2bbnvubON2Qq40y4DR0CIIA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mt.com;
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
+ by DB9PR03MB7404.eurprd03.prod.outlook.com (2603:10a6:10:222::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.16; Mon, 20 Jul
+ 2026 06:39:40 +0000
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0223.015; Mon, 20 Jul 2026
+ 06:39:40 +0000
+Date: Mon, 20 Jul 2026 08:39:32 +0200
+From: Wojciech Dubowik <wojciech.dubowik@mt.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 3/3] drm/bridge: ti-sn65dsi83: Add reversed lvds lanes
+ support
+Message-ID: <al3CpOXMCzgxil0G@mt.com>
+References: <20260717115002.308035-1-wojciech.dubowik@mt.com>
+ <20260717115002.308035-4-wojciech.dubowik@mt.com>
+ <178432135989.269908.12890193389587995172.b4-review@b4>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178432135989.269908.12890193389587995172.b4-review@b4>
+X-ClientProxiedBy: MI2PEPF00000B7D.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::410) To DB9PR03MB7180.eurprd03.prod.outlook.com
+ (2603:10a6:10:22d::13)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:03 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|DB9PR03MB7404:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff24fce7-3676-4eef-345d-08dee629ad30
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|52116014|376014|7416014|366016|1800799024|19092799006|4143699003|10067099003|56012099006|38350700014|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: EXg7Rkq4W7aL/rMX51Fr8JLHSCKWsWNJLZ1YJ+lRhTpfcsI10UAiaTUe8QxhcPPYSgR1JEhMAM35yXiweL4wpTn3TycYnuhoJswqKjAPJIVZTUFcCmdfffpKwe6ancdHkEz9H+Ce76NTYeY6mek5dTeNNnu3vkGwFVlIvH5dBfrNfaRaigB+BP6cR7+fcAvLavJK9jhLJYUo66MMi6+awf8U5DFyfkJ4OGFoYq/W+iIHcMYVknCOugK1RbKNMaRwUFahMiZtqoXUNWTIK9/sFdMagkDnFWJ+wzKAT3MPBtJSYc4fJ3I/V5Zx6Uhni7yorL/KUNHUIL9mZ1e8Nj/JD8NqqShZi7413Fw2K86hcugKoLgr713KzjARPeF9GDADb9w6cTO6PbCZ+Au9jS/Wk0ELgXCmBV+kFUyMQKA5lYyG0yAQxILb5rPQwa2Mp90OVGmRxyqH/jXtSvmFOcpbWYh/yA8hjmR1W8NLDO9J9UQ5VOIDO6FvZX9VG+xYCcgv4k7hp97XenwGlzxA6eQIDju4L4mwStgOndtJQc5oUq2Gxbp01qruRNvf6zJGTd6L5K42Xx/bOOgTfkIuolf27FKocneIPuVDPZLQ18/Fc/skxEk06P3RfGY8bF9y4c/GGEkSBWxlUjWLvIvWqseiWCBjAo+QRfLNxsJDk9jOVtc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB9PR03MB7180.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(52116014)(376014)(7416014)(366016)(1800799024)(19092799006)(4143699003)(10067099003)(56012099006)(38350700014)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?/JWlZqr4FPITWlVMoX7/cnimgrpy9cQDCRgqhYOCc+SuMT25IUwUhY6MZplb?=
+ =?us-ascii?Q?oEm1bgSV874JKWidfEiX5qIvM+wzsRq4ILhY1IubEqaYxtkMitNNMrPzN2p/?=
+ =?us-ascii?Q?jf8lPRN/1Vx+30ldNNN+I9KiDbzO71vfqZ7hw3CucbSvyTbKG6a2p0biyTpN?=
+ =?us-ascii?Q?g5uB2agepMYfWhYxbRwIsi9XkkCYDd9gZwm5uMU4RoJdnnSx2Rh2bPgisvBC?=
+ =?us-ascii?Q?09cx7fB6Y7Yuuw8ucrLFaRPuaQY03O0X96YzZBOZYu+a0uvZZR5cqD8fZg10?=
+ =?us-ascii?Q?inxAF5Uql85Gc8i1vn+AusDkyCQMbeT/uHS2liFGnkmpOKqvgpgXrsdP/QD9?=
+ =?us-ascii?Q?KbC62YzUGYZsqQSxFN3Nu811KgwwHEQUZ4fYQlj7cvJ5OY8djVgl0ffMn4OX?=
+ =?us-ascii?Q?eWgdvr5624xlScXTSZFNxnduJOVR/GKO5RHmhllUM9Ovf+Cr4jsOdbC3epJ+?=
+ =?us-ascii?Q?AVgZ/xhdFt78k3yhDauuDsnzrBDgvylojw/2Owb/JQrVoKndZgtMK6KHyJvR?=
+ =?us-ascii?Q?jBE7JQk5sUiHoV26JrYbgYYtdxf44xZ0TANyIFooJlUqJIU4Plfy3JmBxtHf?=
+ =?us-ascii?Q?/EqNgAy0VJJXMm+PqlFjQmh5dkvQW5SjsIkpOQVnby3dMwlid7Th/jUhwXFn?=
+ =?us-ascii?Q?53Y9OMDyr682y70zd4yvXVlLrR82BVXisjh235KYSUUh354lBxBii4ItMgrj?=
+ =?us-ascii?Q?0N/fVSsemx4dC9+o9VK0etkW9kFnSFbtnRW2ghQ5cd/hpThM15vZ87pa47rH?=
+ =?us-ascii?Q?IPaJewXTTRdP1SSeEoFtN7IF6XkUwKdzilms3AQDf6w4peeFAcKU8JfQTtGf?=
+ =?us-ascii?Q?pCklF5Jy6Z8X1lESGGxtYC6uuq1DzvKcTmAgelrFAIoBsNfDgZBFJL82Fary?=
+ =?us-ascii?Q?fT5x+9nZh4BZ/WNx6dyIE+hCeZn7Pzs5As+0xyzgoDyTVQy0wSGjPI5PAlhd?=
+ =?us-ascii?Q?QUjBa2EpovG8lzEAcykL1gLBJyRuzf6LowVBLyyvvGs64tmVF2COVLLAxh5q?=
+ =?us-ascii?Q?Slv2sKjZpj/615SIj9LARXgxHk5/jw0loyxdhtjnFdqcAcYUjj3xpqjz+Xkm?=
+ =?us-ascii?Q?mPGAHg9WgtEK2kTTOXDYcENVCWX3i3BuctYS9lIUnGLGsm1absObKgfGODTE?=
+ =?us-ascii?Q?uvANJANjaZ20+TmWVW+lirkxOujCBQhqDpAH1OSb5pGt3PsqiVVyPBRY3TlK?=
+ =?us-ascii?Q?GxmZFZvNLiKRNs13VCkrAVIXaAsHi5FCKqqnvCwTvZcneJak4bUvL85B1qEy?=
+ =?us-ascii?Q?WVR6KjSGyd2HiHmurbrjG7tWUehsctLriEIxAmBXVDtbmLIrmIb9XLTELK34?=
+ =?us-ascii?Q?50n8QCi09HN2Ql/RytTP5oL7gh5IpbDdXyCG+R/0BlFmUirgQSXa7k76pfom?=
+ =?us-ascii?Q?CcNGylonFzuV8la0QaN4onbQ1oBSu7HQPRcpV3kXNgUqqtdgLTtiKH7HMf9G?=
+ =?us-ascii?Q?Nv3PF8FWd9udupvbAdZHDjLC/tHZo932R8OWl547kPRFo/dd1/RYQBKCwq0q?=
+ =?us-ascii?Q?oSLKkYs189oqm9okJCCsIgpDJifh1GBGfyixdpwgRLUHvT0Q6jj12bnSYxfu?=
+ =?us-ascii?Q?94ER6gBi4Gc6IGFB4eQxIlJ8fQTSUlV8wdn9iMP/fNm/3E/dUh0MvSZaMKOw?=
+ =?us-ascii?Q?SJg05w8iYtIRkAGj/5lhHmQdCAYPxqf/7gq1fyr8VYCcMcjQqu2JfHPRujSe?=
+ =?us-ascii?Q?X3qcfys2RAAutKDnRJ1vVvVqgSTtMKLBu7o4nORWLh8r8wAAPFGuR4YQpc1S?=
+ =?us-ascii?Q?cEtTlrvgqQ=3D=3D?=
+X-OriginatorOrg: mt.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff24fce7-3676-4eef-345d-08dee629ad30
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 06:39:40.8237 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 97kZOMQZdaF+B2FcyfFyHPkbI+/BLyIn5Xlay1cWn2NsAiBaqy22Rm7umz1l4zfCxbN4gRrGunLqMvE67f/O2g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7404
+X-Mailman-Approved-At: Mon, 20 Jul 2026 07:15:04 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,56 +138,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Boot firmware can leave a PAGE_FAULT_ACTIVE condition in an IOMMU bank
-before the driver has configured paging.  Such a bank shows:
+On Fri, Jul 17, 2026 at 10:49:19PM +0200, Luca Ceresoli wrote:
+> On Fri, 17 Jul 2026 13:50:01 +0200, Wojciech Dubowik <wojciech.dubowik@mt.com> wrote:
 
-  PAGE_FAULT_ACTIVE=1  STALL_ACTIVE=0  IDLE=1
+Hello Luca,
 
-rk_iommu_is_stall_active() sees STALL_ACTIVE=0 and reports the whole
-IOMMU as "not stalled", so any subsequent readx_poll_timeout() loop
-waiting for the stall to complete never sees a passing result even
-after the other banks have correctly entered stall mode.
+> 
+> Hello,
+> 
+> >
+> > diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> > index f8a786953526..df44df2e872a 100644
+> > --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> > +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> > @@ -845,6 +863,19 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
+> >  	else
+> >  		return -EINVAL;
+> >  
+> > +	ret_data = of_property_read_u32_array(endpoint, "data-lanes", data_lanes,
+> > +			ARRAY_SIZE(data_lanes));
+> > +	if (!ret_data) {
+> > +		if (memcmp(data_lanes,
+> > +				supported_data_lane_mapping[LANE_MAPPING_REVERSE],
+> > +				ARRAY_SIZE(data_lanes)) == 0)
+> 
+> Did you have a look at this sashiko report? It seems valid:
+>  | sashiko-bot@kernel.org <sashiko-bot@kernel.org>:
+>  |
+>  | [Severity: Medium]
+>  | Does this code compare the entire array? memcmp() expects the length in
+>  | bytes, but ARRAY_SIZE(data_lanes) evaluates to 4 (the number of elements).
+>  |
+>  | Because data_lanes is an array of u32, checking only 4 bytes means only
+>  | the first element is compared. Should this be using sizeof(data_lanes)
+>  | instead?
+>  |
+>  | via: https://patch.msgid.link/20260717115630.C58A61F000E9@smtp.kernel.org
+> 
+> > +			ctx->lvds_reverse_lanes_conf[channel] = true;
+> > +		else if (memcmp(data_lanes,
+> > +			   supported_data_lane_mapping[LANE_MAPPING_NORMAL],
+> > +			   ARRAY_SIZE(data_lanes)) != 0)
+> 
 
-Detect the orphaned-fault pattern (PAGE_FAULT_ACTIVE & !STALL_ACTIVE &
-IDLE) and skip those banks in the stall check.  They have no in-flight
-transaction, so they are already quiescent.
+My stupid copy/paste error. I don't know how I have missed it. It has passed
+my basic testing as it compares only firs lane. I will fix it in v6.
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
----
- drivers/iommu/rockchip-iommu.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+Regards,
+Wojtek
 
-diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
-index 0013cf196..f42ffcafb 100644
---- a/drivers/iommu/rockchip-iommu.c
-+++ b/drivers/iommu/rockchip-iommu.c
-@@ -378,9 +378,23 @@ static bool rk_iommu_is_stall_active(struct rk_iommu *iommu)
- 	bool active = true;
- 	int i;
- 
--	for (i = 0; i < iommu->num_mmu; i++)
--		active &= !!(rk_iommu_read(iommu->bases[i], RK_MMU_STATUS) &
--					   RK_MMU_STATUS_STALL_ACTIVE);
-+	for (i = 0; i < iommu->num_mmu; i++) {
-+		u32 status = rk_iommu_read(iommu->bases[i], RK_MMU_STATUS);
-+
-+		/*
-+		 * A bank stuck with PAGE_FAULT_ACTIVE but without STALL_ACTIVE
-+		 * and with IDLE set has an orphaned fault left by firmware before
-+		 * paging was configured.  It cannot enter stall mode but has no
-+		 * transaction in flight, so it is already quiescent.  Skip it
-+		 * rather than treating it as "not stalled."
-+		 */
-+		if ((status & RK_MMU_STATUS_PAGE_FAULT_ACTIVE) &&
-+		    !(status & RK_MMU_STATUS_STALL_ACTIVE) &&
-+		    (status & RK_MMU_STATUS_IDLE))
-+			continue;
-+
-+		active &= !!(status & RK_MMU_STATUS_STALL_ACTIVE);
-+	}
- 
- 	return active;
- }
--- 
-2.43.0
 
+> Same here.
+> 
+> Otherwise looks good.
+> 
+> Luca
+> 
+> -- 
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+> 
