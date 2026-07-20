@@ -4,72 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25D66C44520
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 15:49:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 294B9C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 15:50:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8274910E9A9;
-	Mon, 20 Jul 2026 15:49:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 606D710E9AA;
+	Mon, 20 Jul 2026 15:50:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="F21h8Ntf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h1sF0eU/";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A7D410E9A9
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 15:49:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1784562537; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=VAPaz9plnQ71Y1rYTRJdmsl1nfVH6gEg+gDewwwx+0aKLuOJug9ASBaPBNOjTyl9hya917UREBjlSkyq5noTmqwOITsGGUbiA9HvrB4qrqgbnMc8X4UXbvvQqtpb3A0c8lWckN5HeBDYZ1oxEpoML8q/yTjL7lMspoLYmi8RVck=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1784562537;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=aeq4nmM+JxGlAsti9NDM21PDtdCz75OwddqUytSgKEg=; 
- b=FhTuDDOyBmdaLWQJjxuVeGkKU3/260u9EM6087i36Z5TCsGeRvlQvO2quxtpgvOXKG84IGGUAJFtX9ThMCk7r4tyGrrFhdozgbhzcsXIpruKXn65K7sbCek+aKzwz+PUCfCmvUqaDtaa3OtZTC2msJFAaNrtaeLLgpwN9XBHX90=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784562537; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=aeq4nmM+JxGlAsti9NDM21PDtdCz75OwddqUytSgKEg=;
- b=F21h8Ntf4atnh/wXGUPfeFIUcLeCaqGajunl5AJcZzatSJcV9AFdrXatAAx7ItOS
- MC70lhRi18sK48GDAu2S5aNevr4eXANMWuxWh/a+7yLPl7jLEx0gP/miMeCcWFIYqYv
- IqcmrX4S3scWcf/SimYMQFSXOSIQCWadYcpQOSOg=
-Received: by mx.zohomail.com with SMTPS id 1784562535254486.0950739146084;
- Mon, 20 Jul 2026 08:48:55 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Mon, 20 Jul 2026 16:48:42 +0100
-Subject: [PATCH v6 2/2] drm/panthor: Fix comment to reflect actual struct
- field name
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260720-vm_bind_checks-v6-2-c2c7dbe93a73@collabora.com>
-References: <20260720-vm_bind_checks-v6-0-c2c7dbe93a73@collabora.com>
-In-Reply-To: <20260720-vm_bind_checks-v6-0-c2c7dbe93a73@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Heiko Stuebner <heiko@sntech.de>, Grant Likely <grant.likely@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=963;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=I7bcJBWiyRWmDq9ENsy+r1iT6w27qhchjEkWP+LUsIY=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqXkNZFdooQDy+gPYYKgtf8D102kJ7YLu9PBMae
- zCdzcIL+S6JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCal5DWQAKCRAOJn5M7lND
- PebHC/9VW33jbDY5XKQCuRB+uGPr7OGJ99361JnmtSKC+3S4pbG3qOwMSsIEDzD1CJX87Uieig2
- WIhI4NkrCjbx2uqCfwXfwsxGuRbw014ZbHHKFJns2VfJWMxxb5ngoUjb5Nay2iA03NYZNylVl8c
- vX5NEArJbhqNSWds1HcBfYOfYEuaUjL/GHRud1D8G/5MbZBJEa5CtD4YGgMy0JBDahTTq5KqyB2
- RZAzIQhbHdTcEtp+r3inAI28nkelFr/ZZhxYJCJc2fJ5FiBIMyWE9erJneVwk5+jBg0au2Vahrc
- CBUk3Xd8tdFJPNt9zM0tpujCGAPxRErPqnYCW09ijDsZY1mOn96OI8xVz9O+e+ovuFvuJTV4J0r
- Ycm+cRAO/frroDnSKgL+IIVSySlAwgqsV0zwzejnO16P2W6LvwiIfY5CnDbx1bAMN5swnT70kjY
- PNC2N66clzMH3nTaeVJPs/d1dRWQjaDBbJ585oDqIsKO+OteUY2QlQXAjVdzIaYy07d1M=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7681610E9AA
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 15:50:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B072960A5C;
+ Mon, 20 Jul 2026 15:50:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEC5D1F000E9;
+ Mon, 20 Jul 2026 15:50:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784562656;
+ bh=qJQU5tT4gBWPtLIh3ibKXTeM8itlzBuYVgP05V0atv8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=h1sF0eU/to38WbjOxI4rKStfKZXgTUuGYSwOT/8ZSG4nslE/0S+ZLaTo36X6bXpjD
+ muMARxPlmMavvJjYjkgQ1M/uhyphfqBE0zMf8YFeegyRUqiquY/0U0e6WkCwjzJtyf
+ dM+mhK7oaVL0Gy+DuuO2lJiHFewqWHSfTAS5GI2VOA9c73DO+UHCmtySNths9ioBTn
+ XqWm3ipLKW9CDiWc8gfQUm3eR3kBnCzkoLbgoUxVCM6SA5Il6EJoqU1nNI7GAzIDTa
+ s2gTDvG4zU5P4O1BOhIXvrIhre9Q0RFAeNxtRFj7UTrrHwPtREOL8XftS1H7aSN6b1
+ nOBItbX9MYvbQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 11/15] drm/hisilicon/kirin: remove dependency on DRM
+ simple helpers
+To: "Diogo Silva" <diogompaissilva@gmail.com>
+Cc: Frank.Li@kernel.org, dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-amlogic@lists.infradead.org, wsa+renesas@sang-engineering.com,
+ neil.armstrong@linaro.org
+In-Reply-To: <20260720-drm_simple_encoder_init-v2-11-5020b630668a@gmail.com>
+References: <20260720-drm_simple_encoder_init-v2-0-5020b630668a@gmail.com>
+ <20260720-drm_simple_encoder_init-v2-11-5020b630668a@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Jul 2026 15:50:55 +0000
+Message-Id: <20260720155055.EEC5D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,33 +56,79 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The mismatch would pop up when building the kernel with W=1.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/panthor/panthor_mmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Pre-existing issues:
+- [Critical] The `dsi_data` structure, which embeds the `drm_encoder` objec=
+t via `dw_dsi`, is allocated using `devm_kzalloc`. This violates DRM lifeti=
+me rules and leads to a use-after-free when the platform device unbinds.
+--
 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 80a1dac40a6a..0182b72f1932 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -306,7 +306,7 @@ struct panthor_vm {
- 		/** @kernel_auto_va.start: Start of the automatic VA-range for kernel BOs. */
- 		u64 start;
- 
--		/** @kernel_auto_va.size: Size of the automatic VA-range for kernel BOs. */
-+		/** @kernel_auto_va.end: End of the automatic VA-range for kernel BOs. */
- 		u64 end;
- 	} kernel_auto_va;
- 
+--- Patch [11]: [PATCH v2 11/15] drm/hisilicon/kirin: remove dependency on =
+DRM simple helpers ---
+commit b9a0117f6ac1e860030dfb53be58e44730659ad8
+Author: Diogo Silva <diogompaissilva@gmail.com>
 
--- 
-2.55.0
+drm/hisilicon/kirin: remove dependency on DRM simple helpers
 
+This patch removes the deprecated simple KMS helpers by open-coding
+drm_simple_encoder_init() to call drm_encoder_init() directly and
+providing driver-local drm_encoder_funcs.
+
+> diff --git a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c b/drivers/gpu/d=
+rm/hisilicon/kirin/dw_drm_dsi.c
+> index 15042365dec00..62c5bd3277da1 100644
+> --- a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
+> +++ b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
+
+[ ... ]
+
+> @@ -687,6 +687,10 @@ static int dsi_encoder_atomic_check(struct drm_encod=
+er *encoder,
+>  	return 0;
+>  }
+> =20
+> +static const struct drm_encoder_funcs dw_encoder_funcs =3D {
+> +	.destroy =3D drm_encoder_cleanup,
+
+[Severity: Critical]
+This is a pre-existing issue, but could this setup lead to a use-after-free
+when the platform device unbinds?
+
+The encoder is embedded in the dsi_data structure, which is allocated
+using devm_kzalloc() in dsi_probe():
+
+drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c:dsi_probe() {
+    ...
+    data =3D devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
+    ...
+}
+
+If userspace holds an open file descriptor when the platform device unbinds,
+the DRM device and its mode objects will outlive the platform device. The
+devres cleanup will free the dsi_data memory, but the DRM device will still
+hold a pointer to the encoder in its internal lists.
+
+When the DRM device is finally released, drm_mode_config_cleanup() will
+iterate over its encoder list and invoke this .destroy callback
+(drm_encoder_cleanup) on the already-freed memory.
+
+Since you are refactoring the encoder initialization here, would this be a
+good time to transition to drmm_encoder_alloc() or drmm_kzalloc() to tie the
+allocation lifetime to the DRM device instead of the platform device?
+
+> +};
+> +
+>  static const struct drm_encoder_helper_funcs dw_encoder_helper_funcs =3D=
+ {
+>  	.atomic_check	=3D dsi_encoder_atomic_check,
+>  	.mode_valid	=3D dsi_encoder_mode_valid,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720-drm_simple=
+_encoder_init-v2-0-5020b630668a@gmail.com?part=3D11
