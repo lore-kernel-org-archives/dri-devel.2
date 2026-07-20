@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31B4AC4451B
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 08:22:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BCA5C44515
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 08:22:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 871C010E821;
-	Mon, 20 Jul 2026 08:22:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56C2510E804;
+	Mon, 20 Jul 2026 08:22:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g/nEg/hj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hTo9Tslq";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E472010E810;
- Mon, 20 Jul 2026 08:22:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D47310E80C;
+ Mon, 20 Jul 2026 08:22:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784535753; x=1816071753;
+ t=1784535759; x=1816071759;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=V/+8vVTnXMWD1uRZOC2IGFZRow/hsIK0zCZryso1STc=;
- b=g/nEg/hjw0MTwb1YjirleFgRWAxjTq/DCiMityphtYThAuy10gIx6kwy
- juirUzGHLBlz/a5yILORBECgSwNEveHIuWX1BioBcqIEhczi0Ey19Sacs
- mv6z45C3CR/VskcsvONSmYU8+sB+ZC/sCPILp0nB8pOJYhm3P6mXQhO39
- PcZnsLqogC2yOAwplYKLLLSvYUTTfg2sagSsPt7QorDwqX868QXjYwNHy
- 2tt2SQOqFtsH70vj8pB26HWXGYTLXtP8LiYainvoMhGfUAY6l45HK5ACx
- jSu5Mz52ALM20dGaQbVjTKkmnlvaQpDu2qZWfXuTWRE1MyDZAKpzMC8Kj Q==;
-X-CSE-ConnectionGUID: 5psA5/ruRiyFHCdS702O/g==
-X-CSE-MsgGUID: uawyKvyxTWy35mf0Ig0S0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="85228589"
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="85228589"
+ bh=rIk48nY104apc/H2DpXtZihD/8wq4FWxOoHXstjyoZg=;
+ b=hTo9TslqNvGerKc3EYJt77g4O6wrzu7fA52bkGchlB4Oq/BzFb55jXpL
+ 9QSENpsSXaZ5wlk9G+a81btq+obK+oexqzxMG2pL84Lcnuo5sPwK/5gYV
+ PyB45BOdX8cZ6IZ2vawSbYS5no9i4Ggv+dezlHlF9oo5qQTpXDSidP+PJ
+ PWGrYkNWQuXpB8NJtxqwoU9QiRn314pTIO7Y5ZxZmXNz1VFQ1XTmgm7Ps
+ A/R7jkap6iqnl/2sKVik2JEZdcsFCP+R9o//XYgptemY4Y+rYqYPGCcGQ
+ 5IfJvDvtn+vAHdWUSeZNfBPqB01lB7VeJpcU02/Sajq1ODwTYTntP37Vy g==;
+X-CSE-ConnectionGUID: RmsW0LCQQUaaAziDuEtApA==
+X-CSE-MsgGUID: 00i68Ao3TDSM1mZrNuuAXw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="85228605"
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="85228605"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2026 01:22:32 -0700
-X-CSE-ConnectionGUID: HPkL3e/dRRCRae7mdBSRMg==
-X-CSE-MsgGUID: AYVAyfc+Rs206XJ4ZHMU8w==
+ 20 Jul 2026 01:22:39 -0700
+X-CSE-ConnectionGUID: O48m47AGQnC9r8np3SjYIg==
+X-CSE-MsgGUID: /5L3Py/2TjSX8ZENhHpZXQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="258034729"
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="258034744"
 Received: from rtauro-desk.iind.intel.com ([10.190.238.50])
  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2026 01:22:27 -0700
+ 20 Jul 2026 01:22:35 -0700
 From: Riana Tauro <riana.tauro@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  netdev@vger.kernel.org
@@ -52,13 +52,11 @@ Cc: aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
  raag.jadav@intel.com, maarten.lankhorst@linux.intel.com,
  mallesh.koujalagi@intel.com, soham.purkait@intel.com,
  Riana Tauro <riana.tauro@intel.com>,
- Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- "David S. Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>,
- Eric Dumazet <edumazet@google.com>
-Subject: [PATCH v5 1/3] drm/drm_ras: Add drm_ras netlink error event
-Date: Mon, 20 Jul 2026 13:52:10 +0530
-Message-ID: <20260720082208.2648279-6-riana.tauro@intel.com>
+ Michal Wajdeczko <michal.wajdeczko@intel.com>
+Subject: [PATCH v5 2/3] drm/xe/xe_ras: Report correctable error events to
+ userspace
+Date: Mon, 20 Jul 2026 13:52:11 +0530
+Message-ID: <20260720082208.2648279-7-riana.tauro@intel.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20260720082208.2648279-5-riana.tauro@intel.com>
 References: <20260720082208.2648279-5-riana.tauro@intel.com>
@@ -79,345 +77,219 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Define a new netlink event 'error-event' and a new multicast group
-'error-report' in drm_ras. Each event contains device name, node and
-error information to identify the error triggering the event.
+When an interrupt is received indicating that error counter has crossed
+its threshold, read the current counter value and deliver a drm_ras error
+event to userspace for each affected component.
 
-Add drm_ras_nl_error_event() to trigger an event from the driver.
-Userspace must subscribe to 'error-report' to receive 'error-event'
-notifications.
+To avoid sending duplicate events when the same component appears multiple
+times in the response. Send the error-event once per component.
 
-Usage:
-
-$ sudo ynl --family drm_ras --subscribe error-report
-
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
-Cc: Lijo Lazar <lijo.lazar@amd.com>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: David S. Miller <davem@davemloft.net>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Eric Dumazet <edumazet@google.com>
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Riana Tauro <riana.tauro@intel.com>
-Reviewed-by: Raag Jadav <raag.jadav@intel.com>
 ---
-v2: remove redundant initialization
-    remove unnecessary space
-    use ynl in commit message and doc (Raag)
-    simplify doc for error-event attrs
+v2: add warns for unexpected values from system controller (Michal)
+    send an event at most once per component for each interrupt (Raag)
+    use correct parameters for get_counter (Sashiko)
 
-v3: rename error-notify to error-report
-    Replace notify with report across the file (Raag)
-
-v4: send event to all network namespaces (Sashiko)
-    remove has_listeners check
+v3: move unsupported logs to drm_ras layer
+    use get_counter directly
+    use BITS_PER_TYPE
+    move the checks before detected log (Raag)
 ---
- Documentation/gpu/drm-ras.rst            | 21 ++++++
- Documentation/netlink/specs/drm_ras.yaml | 48 ++++++++++++++
- drivers/gpu/drm/drm_ras.c                | 84 ++++++++++++++++++++++++
- drivers/gpu/drm/drm_ras_nl.c             |  6 ++
- drivers/gpu/drm/drm_ras_nl.h             |  4 ++
- include/drm/drm_ras.h                    |  5 ++
- include/uapi/drm/drm_ras.h               | 15 +++++
- 7 files changed, 183 insertions(+)
+ drivers/gpu/drm/xe/xe_drm_ras.c | 42 +++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_drm_ras.h |  3 ++
+ drivers/gpu/drm/xe/xe_ras.c     | 67 +++++++++++++++++++++++++++++++++
+ 3 files changed, 112 insertions(+)
 
-diff --git a/Documentation/gpu/drm-ras.rst b/Documentation/gpu/drm-ras.rst
-index 83c21853b74b..406e4c49bac1 100644
---- a/Documentation/gpu/drm-ras.rst
-+++ b/Documentation/gpu/drm-ras.rst
-@@ -56,6 +56,7 @@ User space tools can:
-   ``node-id`` and ``error-id`` as parameters.
- * Clear specific error counters with the ``clear-error-counter`` command, using both
-   ``node-id`` and ``error-id`` as parameters.
-+* Subscribe to the ``error-report`` multicast group to receive ``error-event``.
- 
- YAML-based Interface
- --------------------
-@@ -111,3 +112,23 @@ Example: Clear an error counter for a given node
- 
-     sudo ynl --family drm_ras --do clear-error-counter --json '{"node-id":0, "error-id":1}'
-     None
-+
-+Example: Subscribe to ``error-report`` multicast group
-+
-+.. code-block:: bash
-+
-+    sudo ynl --family drm_ras --output-json --subscribe error-report
-+
-+.. code-block:: json
-+
-+    {
-+        "name": "error-event",
-+        "msg": {
-+            "device-name": "0000:03:00.0",
-+            "node-id": 1,
-+            "node-name": "uncorrectable-errors",
-+            "error-id": 1,
-+            "error-name": "error_name1",
-+            "error-value": 1
-+        }
-+    }
-diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/netlink/specs/drm_ras.yaml
-index e113056f8c01..8aed3d4515e5 100644
---- a/Documentation/netlink/specs/drm_ras.yaml
-+++ b/Documentation/netlink/specs/drm_ras.yaml
-@@ -69,6 +69,33 @@ attribute-sets:
-         name: error-value
-         type: u32
-         doc: Current value of the requested error counter.
-+  -
-+    name: error-event-attrs
-+    attributes:
-+      -
-+        name: device-name
-+        type: string
-+        doc: Device (PCI BDF, UUID) that reported the error.
-+      -
-+        name: node-id
-+        type: u32
-+        doc: ID of the node that reported the error.
-+      -
-+        name: node-name
-+        type: string
-+        doc: Name of the node that reported the error.
-+      -
-+        name: error-id
-+        type: u32
-+        doc: ID of the error counter.
-+      -
-+        name: error-name
-+        type: string
-+        doc: Name of the error.
-+      -
-+        name: error-value
-+        type: u32
-+        doc: Current value of the error counter.
- 
- operations:
-   list:
-@@ -124,3 +151,24 @@ operations:
-       do:
-         request:
-           attributes: *id-attrs
-+    -
-+      name: error-event
-+      doc: >-
-+           Report an error event to userspace.
-+           The event includes the device, node and error information
-+           of the error that triggered the event.
-+      attribute-set: error-event-attrs
-+      mcgrp: error-report
-+      event:
-+        attributes:
-+          - device-name
-+          - node-id
-+          - node-name
-+          - error-id
-+          - error-name
-+          - error-value
-+
-+mcast-groups:
-+  list:
-+    -
-+      name: error-report
-diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
-index d6eab29a1394..0b77e4358ea8 100644
---- a/drivers/gpu/drm/drm_ras.c
-+++ b/drivers/gpu/drm/drm_ras.c
-@@ -41,6 +41,11 @@
-  *    Userspace must provide Node ID, Error ID.
-  *    Clears specific error counter of a node if supported.
-  *
-+ * 4. ERROR_REPORT: Subscribe to this multicast group to receive error events
-+ *
-+ * 5. ERROR_EVENT: Report an error event to userspace. The event contains device, node
-+ *    and error information that triggered the event.
-+ *
-  * Node registration:
-  *
-  * - drm_ras_node_register(): Registers a new node and assigns
-@@ -186,6 +191,34 @@ static int msg_reply_value(struct sk_buff *msg, u32 error_id,
- 			   value);
- }
- 
-+static int msg_put_error_event_attrs(struct sk_buff *msg, struct drm_ras_node *node,
-+				     u32 error_id, const char *error_name, u32 value)
-+{
-+	int ret;
-+
-+	ret = nla_put_string(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_DEVICE_NAME, node->device_name);
-+	if (ret)
-+		return ret;
-+
-+	ret = nla_put_u32(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_ID, node->id);
-+	if (ret)
-+		return ret;
-+
-+	ret = nla_put_string(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_NAME, node->node_name);
-+	if (ret)
-+		return ret;
-+
-+	ret = nla_put_u32(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_ID, error_id);
-+	if (ret)
-+		return ret;
-+
-+	ret = nla_put_string(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_NAME, error_name);
-+	if (ret)
-+		return ret;
-+
-+	return nla_put_u32(msg, DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_VALUE, value);
-+}
-+
- static int doit_reply_value(struct genl_info *info, u32 node_id,
- 			    u32 error_id)
- {
-@@ -222,6 +255,57 @@ static int doit_reply_value(struct genl_info *info, u32 node_id,
- 	return genlmsg_reply(msg, info);
+diff --git a/drivers/gpu/drm/xe/xe_drm_ras.c b/drivers/gpu/drm/xe/xe_drm_ras.c
+index 7937d8ba0ed9..0287594e1026 100644
+--- a/drivers/gpu/drm/xe/xe_drm_ras.c
++++ b/drivers/gpu/drm/xe/xe_drm_ras.c
+@@ -185,6 +185,48 @@ static int register_nodes(struct xe_device *xe)
+ 	return ret;
  }
  
 +/**
-+ * drm_ras_nl_error_event() - Report an error event
-+ * @node: Node structure
-+ * @error_id: ID of the error
-+ * @error_name: Name of the error
-+ * @value: Value associated with the error
++ * xe_drm_ras_event() - Report drm_ras error event to userspace
++ * @xe: xe device structure
++ * @component: error component (see &enum drm_xe_ras_error_component)
++ * @severity: error severity (see &enum drm_xe_ras_error_severity)
++ * @value: value of error counter
 + *
-+ * Report an error-event to userspace using the error-report multicast group.
-+ *
-+ * Return: 0 on success, or negative errno on failure.
++ * Report an error-event to userspace.
 + */
-+int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id, const char *error_name,
-+			   u32 value)
++void xe_drm_ras_event(struct xe_device *xe, u8 component, u8 severity, u32 value)
 +{
-+	struct genl_info info;
-+	struct sk_buff *msg;
-+	struct nlattr *hdr;
++	struct xe_drm_ras *ras = &xe->ras;
++	struct xe_drm_ras_counter *info;
++	struct drm_ras_node *node;
 +	int ret;
 +
-+	if (!error_name)
-+		return -EINVAL;
++	/* Event is supported only if drm_ras is enabled */
++	if (!xe->info.has_drm_ras)
++		return;
 +
-+	genl_info_init_ntf(&info, &drm_ras_nl_family, DRM_RAS_CMD_ERROR_EVENT);
-+
-+	msg = genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
-+	if (!msg)
-+		return -ENOMEM;
-+
-+	hdr = genlmsg_iput(msg, &info);
-+	if (!hdr) {
-+		ret = -EMSGSIZE;
-+		goto free_msg;
++	if (component >= DRM_XE_RAS_ERR_COMP_MAX) {
++		drm_warn(&xe->drm, "unsupported component %u\n", component);
++		return;
 +	}
 +
-+	ret = msg_put_error_event_attrs(msg, node, error_id, error_name, value);
++	if (severity >= DRM_XE_RAS_ERR_SEV_MAX) {
++		drm_warn(&xe->drm, "unsupported severity %u\n", severity);
++		return;
++	}
++
++	node = &ras->node[severity];
++	info = ras->info[severity];
++
++	if (!info || !info[component].name)
++		return;
++
++	ret = drm_ras_nl_error_event(node, component, info[component].name, value);
 +	if (ret)
-+		goto cancel_msg;
-+
-+	genlmsg_end(msg, hdr);
-+	genlmsg_multicast_allns(&drm_ras_nl_family, msg, 0, DRM_RAS_NLGRP_ERROR_REPORT);
-+
-+	return 0;
-+
-+cancel_msg:
-+	genlmsg_cancel(msg, hdr);
-+free_msg:
-+	nlmsg_free(msg);
-+	return ret;
++		drm_err_ratelimited(&xe->drm, "drm_ras error-event failed: %d for %s %s\n", ret,
++				    info[component].name, error_severity[severity]);
 +}
-+EXPORT_SYMBOL(drm_ras_nl_error_event);
 +
  /**
-  * drm_ras_nl_get_error_counter_dumpit() - Dump all Error Counters
-  * @skb: Netlink message buffer
-diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
-index dea1c1b2494e..9d3123cc9f9c 100644
---- a/drivers/gpu/drm/drm_ras_nl.c
-+++ b/drivers/gpu/drm/drm_ras_nl.c
-@@ -58,6 +58,10 @@ static const struct genl_split_ops drm_ras_nl_ops[] = {
- 	},
- };
+  * xe_drm_ras_init() - Initialize DRM RAS
+  * @xe: xe device instance
+diff --git a/drivers/gpu/drm/xe/xe_drm_ras.h b/drivers/gpu/drm/xe/xe_drm_ras.h
+index 365c70e93e82..add96bf1a7ab 100644
+--- a/drivers/gpu/drm/xe/xe_drm_ras.h
++++ b/drivers/gpu/drm/xe/xe_drm_ras.h
+@@ -5,11 +5,14 @@
+ #ifndef _XE_DRM_RAS_H_
+ #define _XE_DRM_RAS_H_
  
-+static const struct genl_multicast_group drm_ras_nl_mcgrps[] = {
-+	[DRM_RAS_NLGRP_ERROR_REPORT] = { "error-report", },
-+};
++#include <linux/types.h>
 +
- struct genl_family drm_ras_nl_family __ro_after_init = {
- 	.name		= DRM_RAS_FAMILY_NAME,
- 	.version	= DRM_RAS_FAMILY_VERSION,
-@@ -66,4 +70,6 @@ struct genl_family drm_ras_nl_family __ro_after_init = {
- 	.module		= THIS_MODULE,
- 	.split_ops	= drm_ras_nl_ops,
- 	.n_split_ops	= ARRAY_SIZE(drm_ras_nl_ops),
-+	.mcgrps		= drm_ras_nl_mcgrps,
-+	.n_mcgrps	= ARRAY_SIZE(drm_ras_nl_mcgrps),
- };
-diff --git a/drivers/gpu/drm/drm_ras_nl.h b/drivers/gpu/drm/drm_ras_nl.h
-index a398643572a5..03ec275aca92 100644
---- a/drivers/gpu/drm/drm_ras_nl.h
-+++ b/drivers/gpu/drm/drm_ras_nl.h
-@@ -21,6 +21,10 @@ int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
- int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
- 					struct genl_info *info);
+ struct xe_device;
  
-+enum {
-+	DRM_RAS_NLGRP_ERROR_REPORT,
-+};
-+
- extern struct genl_family drm_ras_nl_family;
+ #define for_each_error_severity(i)	\
+ 	for (i = 0; i < DRM_XE_RAS_ERR_SEV_MAX; i++)
  
- #endif /* _LINUX_DRM_RAS_GEN_H */
-diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
-index 0beede3ddc4e..ee2caa0edc6f 100644
---- a/include/drm/drm_ras.h
-+++ b/include/drm/drm_ras.h
-@@ -80,9 +80,14 @@ struct drm_device;
- #if IS_ENABLED(CONFIG_DRM_RAS)
- int drm_ras_node_register(struct drm_ras_node *node);
- void drm_ras_node_unregister(struct drm_ras_node *node);
-+int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id, const char *error_name,
-+			   u32 value);
- #else
- static inline int drm_ras_node_register(struct drm_ras_node *node) { return 0; }
- static inline void drm_ras_node_unregister(struct drm_ras_node *node) { }
-+static inline int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id,
-+					 const char *error_name, u32 value)
-+{ return 0; }
- #endif
+ int xe_drm_ras_init(struct xe_device *xe);
++void xe_drm_ras_event(struct xe_device *xe, u8 component, u8 severity, u32 value);
  
  #endif
-diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
-index 218a3ee86805..eab8231aa87c 100644
---- a/include/uapi/drm/drm_ras.h
-+++ b/include/uapi/drm/drm_ras.h
-@@ -38,13 +38,28 @@ enum {
- 	DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX = (__DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX - 1)
+diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
+index a31e06b8aa67..b08c664778ff 100644
+--- a/drivers/gpu/drm/xe/xe_ras.c
++++ b/drivers/gpu/drm/xe/xe_ras.c
+@@ -90,6 +90,8 @@ static const char * const gpu_health_states[] = {
  };
+ static_assert(ARRAY_SIZE(gpu_health_states) == XE_RAS_HEALTH_MAX);
  
-+enum {
-+	DRM_RAS_A_ERROR_EVENT_ATTRS_DEVICE_NAME = 1,
-+	DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_ID,
-+	DRM_RAS_A_ERROR_EVENT_ATTRS_NODE_NAME,
-+	DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_ID,
-+	DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_NAME,
-+	DRM_RAS_A_ERROR_EVENT_ATTRS_ERROR_VALUE,
++static int get_counter(struct xe_device *xe, struct xe_ras_error_class *counter, u32 *value);
 +
-+	__DRM_RAS_A_ERROR_EVENT_ATTRS_MAX,
-+	DRM_RAS_A_ERROR_EVENT_ATTRS_MAX = (__DRM_RAS_A_ERROR_EVENT_ATTRS_MAX - 1)
-+};
-+
- enum {
- 	DRM_RAS_CMD_LIST_NODES = 1,
- 	DRM_RAS_CMD_GET_ERROR_COUNTER,
- 	DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
-+	DRM_RAS_CMD_ERROR_EVENT,
+ static u8 drm_to_xe_ras_severity(u8 severity)
+ {
+ 	switch (severity) {
+@@ -102,6 +104,18 @@ static u8 drm_to_xe_ras_severity(u8 severity)
+ 	}
+ }
  
- 	__DRM_RAS_CMD_MAX,
- 	DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
- };
- 
-+#define DRM_RAS_MCGRP_ERROR_REPORT	"error-report"
++static u8 xe_to_drm_ras_severity(u8 severity)
++{
++	switch (severity) {
++	case XE_RAS_SEV_CORRECTABLE:
++		return DRM_XE_RAS_ERR_SEV_CORRECTABLE;
++	case XE_RAS_SEV_UNCORRECTABLE:
++		return DRM_XE_RAS_ERR_SEV_UNCORRECTABLE;
++	default:
++		return DRM_XE_RAS_ERR_SEV_MAX;
++	}
++}
 +
- #endif /* _UAPI_LINUX_DRM_RAS_H */
+ static u8 drm_to_xe_ras_component(u8 component)
+ {
+ 	switch (component) {
+@@ -120,6 +134,24 @@ static u8 drm_to_xe_ras_component(u8 component)
+ 	}
+ }
+ 
++static u8 xe_to_drm_ras_component(u8 component)
++{
++	switch (component) {
++	case XE_RAS_COMP_DEVICE_MEMORY:
++		return DRM_XE_RAS_ERR_COMP_DEVICE_MEMORY;
++	case XE_RAS_COMP_CORE_COMPUTE:
++		return DRM_XE_RAS_ERR_COMP_CORE_COMPUTE;
++	case XE_RAS_COMP_PCIE:
++		return DRM_XE_RAS_ERR_COMP_PCIE;
++	case XE_RAS_COMP_FABRIC:
++		return DRM_XE_RAS_ERR_COMP_FABRIC;
++	case XE_RAS_COMP_SOC_INTERNAL:
++		return DRM_XE_RAS_ERR_COMP_SOC_INTERNAL;
++	default:
++		return DRM_XE_RAS_ERR_COMP_MAX;
++	}
++}
++
+ static int ras_status_to_errno(u32 status)
+ {
+ 	switch (status) {
+@@ -218,6 +250,26 @@ static void ras_usp_aer_init(struct xe_device *xe)
+ 	dev_dbg(&usp->dev, "Uncorrectable Internal Errors downgraded and unmasked\n");
+ }
+ 
++static void ras_send_error_event(struct xe_device *xe, u8 severity, u8 component)
++{
++	struct xe_ras_error_class counter = {0};
++	u8 drm_severity, drm_component;
++	u32 value;
++	int ret;
++
++	counter.common.severity = severity;
++	counter.common.component = component;
++
++	ret = get_counter(xe, &counter, &value);
++	if (ret)
++		return;
++
++	drm_severity = xe_to_drm_ras_severity(severity);
++	drm_component = xe_to_drm_ras_component(component);
++
++	xe_drm_ras_event(xe, drm_component, drm_severity, value);
++}
++
+ static u8 handle_core_compute_errors(struct xe_ras_error_array *arr)
+ {
+ 	struct xe_ras_compute_error *error_info = (void *)arr->details;
+@@ -312,8 +364,10 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
+ 	struct xe_ras_threshold_crossed *pending = (void *)&response->data;
+ 	struct xe_ras_error_class *errors = pending->counters;
+ 	u32 id, ncounters = pending->ncounters;
++	u8 sent = 0;
+ 
+ 	BUILD_BUG_ON(sizeof(response->data) < sizeof(*pending));
++	BUILD_BUG_ON(BITS_PER_TYPE(sent) < XE_RAS_COMP_MAX);
+ 	xe_device_assert_mem_access(xe);
+ 
+ 	if (!ncounters || ncounters > XE_RAS_NUM_COUNTERS)
+@@ -327,8 +381,21 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
+ 		severity = errors[id].common.severity;
+ 		component = errors[id].common.component;
+ 
++		if (severity != XE_RAS_SEV_CORRECTABLE) {
++			xe_warn(xe, "sysctrl: unexpected severity %s (%u)\n", sev_to_str(severity),
++				severity);
++			continue;
++		}
++
+ 		xe_warn(xe, "[RAS]: %s %s detected\n",
+ 			comp_to_str(component), sev_to_str(severity));
++
++		/* Send event once per component */
++		if (sent & BIT(component))
++			continue;
++		sent |= BIT(component);
++
++		ras_send_error_event(xe, severity, component);
+ 	}
+ }
+ 
 -- 
 2.47.1
 
