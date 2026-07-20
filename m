@@ -4,49 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0020EC44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 09:32:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC5E6C44525
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 09:48:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5330710E142;
-	Mon, 20 Jul 2026 09:32:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 266C110E14A;
+	Mon, 20 Jul 2026 09:48:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="acdgbrur";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="lLRgpw36";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FBE210E142
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 09:32:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
- From:Subject:Message-ID:From:Reply-To;
- bh=D3JZPaESfH8iwXG+5oYUqhlXe7bCJsb662lIocix6OE=; b=acdgbrurH+3S5yh/+JnVOwuMhw
- qBKnv5EknaTyniJUy1op9D9lYswITVGTzXwQxC2A9HomWysh2dKMwk3cg+pglAFWXLL9WhZFr+2XW
- iKRIotpgc3DD2yftGyTjHun4n4/6p1jeCR0SThUJ1eChq6rBLoC7TvPYPFbkPsOO6uoJ0Wow4mGmq
- gpHMG6Rtgi/BPOwzCzt1w7Y+JZGFsFiXgEtTHKu1NFrFS6Vr6rdQRZQ0tUaxfrpR8LkpwRoeOBEl0
- iY1/bykp5AjR/flBgdLoEvRLVTW7TT5dapOiK/Uz+jRpbfnpQU+qa1FpGlGM421QUytnWGdq2P33S
- F8QNOe+w==;
-Received: from [159.147.19.205] (helo=[192.168.0.17])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wlkM8-000sNC-Lt; Mon, 20 Jul 2026 11:32:12 +0200
-Message-ID: <b15fb627d91cb75f6fd8bf61b611c28174e0e161.camel@igalia.com>
-Subject: Re: [PATCH 0/3] drm/vc4: Fix binner overflow-memory corruption and
- GPU hangs
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Jose Maria Casanova
- Crespo <jmcasanova@igalia.com>, Emma Anholt <anholt@igalia.com>, Maxime
- Ripard <mripard@kernel.org>,  Dave Stevenson
- <dave.stevenson@raspberrypi.com>, Raspberry Pi Kernel Maintenance
- <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- stable@vger.kernel.org
-Date: Mon, 20 Jul 2026 11:32:02 +0200
-In-Reply-To: <20260718-vc4-bin-oom-fixes-v1-0-8cba09558c33@igalia.com>
-References: <20260718-vc4-bin-oom-fixes-v1-0-8cba09558c33@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D844610E14A
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 09:48:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784540886; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=ZsocTz/8b0nVZF8qsJxiZUPQfX01++RPg63N2+4t22GehJNJ+sUMUIvbpb1uwD8x2dsOedaSQKv/fur6EnbEAHgIyV8smAX7rM+VnlEu8Gi76HjeCxv6CQcgC1t4XG5/uY1ux1hEOsGHqvmVnYNz9Yrswa4rEDj71ajTGV/vWg4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1784540886;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=f06YDyvcwlZTxvovNFtb1iwHk4VC7nx7/aML7uTwEsI=; 
+ b=OlDK8pvYXTNtmhp44Z7q2JJRAUBn4iQvkA+d06kGtSVvWLSUVqe6YLbFyO23zfOBhLfnltm9/X2sluzyRR2koju87jgNCR7LRroYXW04+39BzM00QVEWOg/2zTtaewImCGA9TQ1qJBrSOedxxisDwbNp5UrWk7YzwAp5Ozy0bE0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784540886; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=f06YDyvcwlZTxvovNFtb1iwHk4VC7nx7/aML7uTwEsI=;
+ b=lLRgpw36yyE6HgjGZukGkOLNRqT8NVVhLC9KUPirfPangFD/IHHhYhldLeVabHX5
+ 2iMz9g60zzKaJCbvLEuesmIGgfaSoMBk74UkeyPabyBXZ4GjroWiHZmNptE7m2q4WCW
+ M4dRfRMnyfkEQHXovmhrimTavzwcdh/Bn3Oa+YBM=
+Received: by mx.zohomail.com with SMTPS id 1784540885604554.0929587352072;
+ Mon, 20 Jul 2026 02:48:05 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Chia-I Wu <olvaffe@gmail.com>, Karunika Choo <karunika.choo@arm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Boris Brezillon <boris.brezillon@collabora.com>, sashiko-bot@kernel.org
+Subject: Re: [PATCH 03/11] drm/panthor: Fix UAF on works queued to
+ panthor_cleanup_wq
+Date: Mon, 20 Jul 2026 11:47:59 +0200
+Message-ID: <bw7DeMSTSiqMFTSPLhpuNA@collabora.com>
+In-Reply-To: <20260625-panthor-misc-fixes-v1-3-b67ed973fea6@collabora.com>
+References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
+ <20260625-panthor-misc-fixes-v1-3-b67ed973fea6@collabora.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,97 +71,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks Ma=C3=ADra, for the series:
-
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
-
-I do have a question though:
-
-How certain are we that this issue with vc4 not realiably following
-continuation block chains is a hw problem? If we are confident this is
-a hw issue and not a side-effect of a driver bug, we should talk to
-Broadcom about this to confirm and see if there are any known
-workarounds (I am assuming this has not been confirmed with Broadcom
-yet)
-
-Iago
-
-El s=C3=A1b, 18-07-2026 a las 14:28 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> This series fixes a couple of long-standing bugs in the VC4 binner's
-> out-of-memory (overflow) path. The binner writes each tile's binned
-> command list into a per-job binner BO that is carved into fixed
-> slots,
-> and spills into overflow memory whenever a tile's list outgrows its
-> initial tile-alloc block. Bugs in that path have been reported for
-> years
-> as GPU hangs, a GPU that stays permanently wedged after the first
-> hang,
-> userspace heap corruption and occasional full system crashes [1][2].
->=20
-> The three patches address distinct problems and can be reviewed
-> independently, though they were all found while chasing the same
-> reports.
->=20
-> Patch 1 address an issue in vc4_overflow_mem_work(). The function
-> points
-> BPOA at a 512KB slot inside the 16MB binner BO but writes the size of
-> the
-> *whole* BO to BPOS, so on every binner OOM event the hardware is
-> authorized
-> to DMA tile lists across other in-flight jobs' slots and, for any
-> slot but
-> the first, past the end of the BO into unrelated CMA memory.
->=20
-> Patch 2 resets the software overflow allocator and the BPOA/BPOS
-> registers on GPU reset. Today a reset force-completes the RENDER job
-> that
-> would have consumed the pending overflow slot, so a slot leaks on
-> every
-> reset and the hardware is left pointing at stale overflow memory that
-> the
-> re-queued BIN job would consume before raising a fresh OOM.
->=20
-> Patch 3 dynamically sizes the initial tile-alloc block up to the 256-
-> byte
-> hardware maximum, picking the largest size that still fits the binner
-> slot for the job's tile count. This keeps more tiles' lists in their
-> initial block and off the continuation-block chain, which VC4 does
-> not
-> walk reliably, and takes the reported EmulationStation workload from
-> storming resets to zero. As explained in that patch, it is a
-> mitigation
-> for a hardware limitation rather than a complete fix.
->=20
-> [1] https://github.com/raspberrypi/linux/issues/3221
-> [2] https://github.com/raspberrypi/linux/issues/5780
->=20
-> Best regards,
-> - Ma=C3=ADra
->=20
+On Thursday, 25 June 2026 14:40:29 Central European Summer Time Boris Brezillon wrote:
+> If we don't drain the panthor_cleanup_wq before
+> unregistering/destroying the panthor_device, we might end up with
+> cleanup works that are executed after the device is gone.
+> 
+> Add a drain_workqueue() call in panthor_device_unplug() to prevent
+> that.
+> 
+> Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+> Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=2
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 > ---
-> Jose Maria Casanova Crespo (1):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Supply the overflow slot size in =
-BPOS, not the whole
-> bin BO size
->=20
-> Ma=C3=ADra Canal (2):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Reset the binner overflow allocat=
-or on GPU reset
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Dynamically size the initial tile=
--alloc block
->=20
-> =C2=A0drivers/gpu/drm/vc4/vc4_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 5 +++++
-> =C2=A0drivers/gpu/drm/vc4/vc4_irq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
- 14 +++++++++++++-
-> =C2=A0drivers/gpu/drm/vc4/vc4_render_cl.c |=C2=A0 3 ++-
-> =C2=A0drivers/gpu/drm/vc4/vc4_validate.c=C2=A0 | 29 +++++++++++++++++++++=
-+++++-
-> --
-> =C2=A04 files changed, 46 insertions(+), 5 deletions(-)
-> ---
-> base-commit: 7a4b7122a623e3d57fc15cf843a9d45fbd72c6ab
-> change-id: 20260718-vc4-bin-oom-fixes-29cf2cce2562
->=20
->=20
+>  drivers/gpu/drm/panthor/panthor_device.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 0b25abebb803..a0774e28aa94 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -101,6 +101,11 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+>  	panthor_gpu_unplug(ptdev);
+>  	panthor_pwr_unplug(ptdev);
+>  
+> +	/* Make sure works queued to panthor_cleanup_wq are executed
+> +	 * before the device is destroyed.
+> +	 */
+> +	drain_workqueue(panthor_cleanup_wq);
+> +
+>  	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
+>  	pm_runtime_put_sync_suspend(ptdev->base.dev);
+>  
+> 
+> 
+
+I feel like nothing in the driver instance should be allowed to queue new
+work to that workqueue while the unplug mutex is being held, and
+panthor_sched_unplug should just disable_work_sync all the associated group
+release_work items as well. If there's not a strong enough relationship
+between a scheduler and the groups to ensure we get all the groups in a
+non-racey manner that might not work out cleanly though.
+
+Having a scheduler unplug be completely disconnected from the associated
+groups being gone seems counter-intuitive to me.
+
+Kind regards,
+Nicolas Frattaroli
+
 
