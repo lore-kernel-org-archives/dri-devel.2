@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8924C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 06:51:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8613BC44521
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 06:54:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAB6610E0BA;
-	Mon, 20 Jul 2026 06:51:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD71110E6B8;
+	Mon, 20 Jul 2026 06:54:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h9z2zFJc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KrQosxJr";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C80A10E0BA
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:51:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBD2A10E6B8
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 06:54:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C065B4127C;
- Mon, 20 Jul 2026 06:51:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A75891F000E9;
- Mon, 20 Jul 2026 06:51:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CAD58601D9;
+ Mon, 20 Jul 2026 06:54:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 848101F000E9;
+ Mon, 20 Jul 2026 06:54:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784530270;
- bh=mB4VfrE4IPaRs5nWbuzDw2hUqa4EvbcO2Mbi+Mnfh38=;
+ s=k20260515; t=1784530477;
+ bh=KRb6TGQxOC1FpFX6y3n5ATAXoW7DHU5XuX04bzI5yNw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=h9z2zFJcev5nFSleKWKEEGP1WC0USJTYp/ds3ksIT9XTrXc876yk9of+EyhDRb6/o
- HTi3k1KLFLHnOFmNtf0XuWleGTtQp1xydZQ0fKUdRSkg6yyy2VEoGxzcD4n+bIbc3a
- HccDZMOxnkwoIovCQXcXApmWfR3GDTN7BI7ffUQ5frKEIhUmxunWthxzGY2zJGk0y3
- K4tJp+nSqoDWqcKydFei7hHb25al8SvoJiDuSuzhl+4Cs3cIQA8oAbtJSrotLMIyBv
- rcHYLWyY89SQ0tngY+/0rJC8tcDHCFdN9YpGhAcOOuG6+FqH2HT/weNY6s6qb9VNCI
- 7lXnNPtC0ZAcg==
-Date: Mon, 20 Jul 2026 08:51:06 +0200
+ b=KrQosxJrHCwq+btkXOpUYptoX+JGrJtGW8RNxpgyd9ZY2dQFMRbV2zas5fN5KzMAw
+ djgrG3YRQnM7FmnOYIPrhzmsxyF2gJ2AlC1USnFXuNCQygnr6flhkYVwrA5dxj7XA6
+ TNbRojYNm/XqFDwcZJl3v19Qh9sqeLduiLJwyKIlyT+4FDRlE5G6U7z0zCT4Nhb+RI
+ n46RehFK6SwdWabFoPlisYKQeakodv9MUvja1J94TjU75wH26W6QVfxHzgjII6YnnT
+ rwl70AVrhnBDnKyGFEJ5gX9ecIlMvhiMG27UziU+/wv91zzEuMsOm25F+uXTt276OG
+ xBDcAbrR2zj+Q==
+Date: Mon, 20 Jul 2026 08:54:33 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Eduard Bostina <egbostina@gmail.com>
 Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, 
@@ -46,15 +46,15 @@ Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
  Roger Quadros <rogerq@kernel.org>, 
  Tony Lindgren <tony@atomide.com>, daniel.baluta@nxp.com, simona.toaca@nxp.com, 
  goledhruva@gmail.com, m-chawdhry@ti.com
-Subject: Re: [PATCH v2 2/3] dt-bindings: input: Convert TI TPS65217 power
- button to DT schema
-Message-ID: <20260720-brilliant-pastoral-oryx-cbe49f@quoll>
+Subject: Re: [PATCH v2 3/3] dt-bindings: leds: backlight: Convert TPS65217 to
+ DT schema
+Message-ID: <20260720-huge-sturgeon-from-shambhala-a1bdcf@quoll>
 References: <20260718215632.3295049-1-egbostina@gmail.com>
- <20260718215632.3295049-3-egbostina@gmail.com>
+ <20260718215632.3295049-4-egbostina@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260718215632.3295049-3-egbostina@gmail.com>
+In-Reply-To: <20260718215632.3295049-4-egbostina@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,19 +70,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Jul 18, 2026 at 09:56:31PM +0000, Eduard Bostina wrote:
-> Convert the Texas Instruments TPS65217 and TPS65218 Power Button
-> bindings to DT schema.
-> 
-> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
-> ---
->  .../bindings/input/ti,tps65217-pwrbutton.yaml | 42 +++++++++++++++++++
->  .../bindings/input/tps65218-pwrbutton.txt     | 30 -------------
->  2 files changed, 42 insertions(+), 30 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/input/ti,tps65217-pwrbutton.yaml
->  delete mode 100644 Documentation/devicetree/bindings/input/tps65218-pwrbutton.txt
+On Sat, Jul 18, 2026 at 09:56:32PM +0000, Eduard Bostina wrote:
+ +
+> +    patternProperties:
+> +      "^regulator@[0-6]$":
+> +        type: object
+> +        $ref: /schemas/regulator/regulator.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          reg:
+> +            maxItems: 1
+> +
+> +          regulator-compatible:
+> +            $ref: /schemas/types.yaml#/definitions/string
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+You should not need this property, it is already in regulator.yaml.
+
+> +
+> +  charger:
+> +    $ref: /schemas/power/supply/tps65217-charger.yaml#
+
+unevaluatedProperties: false
+
+> +
+> +  pwrbutton:
+> +    $ref: /schemas/input/ti,tps65217-pwrbutton.yaml#
+
+unevaluatedProperties: false
+
+> +
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        tps@24 {
+
+pmic@24
+
+Please make the example mostly complete - add rest of properties and nodes.
+
+> +            reg = <0x24>;
+> +            compatible = "ti,tps65217";
+> +
+> +            backlight {
+> +                isel = <1>;   /* 1 - ISET1, 2 ISET2 */
+> +                fdim = <100>; /* TPS65217_BL_FDIM_100HZ */
+> +                default-brightness = <50>;
+> +            };
+> +        };
 
 Best regards,
 Krzysztof
