@@ -4,107 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5B9DC44512
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 01:35:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A50D2C44512
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 01:59:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2689810E0E3;
-	Mon, 20 Jul 2026 01:35:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD2A410E07B;
+	Mon, 20 Jul 2026 01:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r6fHh7k6";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="fGaSFrmt";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011009.outbound.protection.outlook.com [40.107.208.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77A6510E0E3
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 01:35:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gnXoB/VdGR69/G5oFg1f0h8Q5jjcns+XQ4IajT3FedaL/DTX1zfv+AF8yP4hXfKaa66sXqwtQfvgp4BUGtGobJITbC+80HYTNT6ii+sahwMkQnWE/Lbi6Sa+XmL8dlw9dFRokexbfBi0xmWifPLu3ri/ByTb9x6ROLzyp0EGsPGYNH+nh2G58MmQD72FeUfPO18ElE0yfKZD+S6yx3ZpIOvF8jrAmyUF9/zaBq2h6mjtQK9F4a7uEAF3qNTk606TgldGh5cjIAazwo5S9PYTcbTwNdX8bxGB88rLYDlzHh1ueBPusyxDmJ+1Aum7+mul2L2t+p2IKlWXQxX3rlbY2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V9YnghcrzNTWh0rUfuezjDPTxI0BNU+TpaSg6vIEhCE=;
- b=n8BZ+sAeg+wO9tQiRLDajSYgmLzGOhMqL40CTv7IjSnenkbNkIObBnj88creu4tRtk+SQe7A8w6Xsw9hXvA+b/K5cm52a3RvQ7XDjIWPa/rKkm5Iot7zScqP8QIMv98X+L5fKcv6y95rJmgqvX/ZrjPF63/z1fka5Y8FAnTnt0UPlYCrEXFFLCG+ENKJ6zXNq3Oa1XTjwnN7Ho4SKUkkss7G32ndW63lTavVc8ONnkcwZxHre3620twUAFhbFJznlGqYOGyzcFrh2r13KJzyfhdVmf6XQpi5p6fmnbGnpqzbYEoI9oVf1flNpFKK+hi1cdVcJl2QbwW9gCVFvJoYaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V9YnghcrzNTWh0rUfuezjDPTxI0BNU+TpaSg6vIEhCE=;
- b=r6fHh7k6jZ+BAFYxLr8X8lYP5RriP662cwLjzCYqJfbzhnCedAIrVk8tRUTMIb61qP+WM3xjeevp/WEuGi0oKBk1LdvG53/35mFSjBduUT5jLCmVXgsapZdvUt/hhx+sXQsolDW5rTTFfp22icEkbNn1vAUzfHwaA96hkv5pyGM=
-Received: from SN7PR04CA0022.namprd04.prod.outlook.com (2603:10b6:806:f2::27)
- by LV2PR12MB999074.namprd12.prod.outlook.com (2603:10b6:408:351::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.13; Mon, 20 Jul
- 2026 01:35:08 +0000
-Received: from SA2PEPF00003AE7.namprd02.prod.outlook.com
- (2603:10b6:806:f2:cafe::a) by SN7PR04CA0022.outlook.office365.com
- (2603:10b6:806:f2::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.16 via Frontend Transport; Mon,
- 20 Jul 2026 01:35:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SA2PEPF00003AE7.mail.protection.outlook.com (10.167.248.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.245.5 via Frontend Transport; Mon, 20 Jul 2026 01:35:07 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sun, 19 Jul
- 2026 20:35:06 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sun, 19 Jul
- 2026 20:35:06 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Sun, 19 Jul 2026 20:35:06 -0500
-Message-ID: <215a5b1b-7acc-08f3-8db4-1b46db1d66ec@amd.com>
-Date: Sun, 19 Jul 2026 18:35:05 -0700
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Mon, 20 Jul 2026 01:59:18 UTC
+Received: from mail-m103131191208.xmail.ntesmail.com
+ (mail-m103131191208.xmail.ntesmail.com [103.131.191.208])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3309810E07B
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 01:59:17 +0000 (UTC)
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 46c36dd28;
+ Mon, 20 Jul 2026 09:54:10 +0800 (GMT+08:00)
+Message-ID: <9219738d-c3f2-4034-b88f-84335f77fbad@rock-chips.com>
+Date: Mon, 20 Jul 2026 09:54:08 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V1] accel/amdxdna: Fix command timeout race
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] drm/rockchip: lvds: add RK3568 support
+To: Rok Markovic <rok@kanardia.eu>, Heiko Stuebner <heiko@sntech.de>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Alibek Omarov <a1ba.omarov@gmail.com>
+References: <20260717120005.2087386-1-rok@kanardia.eu>
+ <20260717120005.2087386-4-rok@kanardia.eu>
 Content-Language: en-US
-To: Max Zhen <max.zhen@amd.com>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
-CC: Wendy Liang <wendy.liang@amd.com>, <linux-kernel@vger.kernel.org>,
- <sonal.santan@amd.com>
-References: <20260718083409.1825940-1-lizhi.hou@amd.com>
- <5ed0acbc-ec50-4055-9e03-cc4aa730c293@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <5ed0acbc-ec50-4055-9e03-cc4aa730c293@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE7:EE_|LV2PR12MB999074:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1bcd8c6-e220-4eb7-6333-08dee5ff215b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|22082099003|18002099003|56012099006|4143699003|11063799006|3023799007|10067099003;
-X-Microsoft-Antispam-Message-Info: 7JqWR28aCR7H+MXl6A9yXEmrhRcoReiZXQJTFMJ8yLnDKqZyM/OFBT06VibpROzjqwjXkKDqrOMMLip+9E48PBZKk+VOUfi0kJ6eiE7zRERfzW1pU1UkV+qQrvnKtz++dna8afSrvmlDS8sy5SASLX1EZ4WZC3QvBRcCWfmqSlcMGn4pM0L2EeecYuxY6Ebaq0KgS/WjuxrEsw93HUlWpa64CxvYYfjuKBbSdQkZI7cTmf6eB6kUxawoyqRuBRUih3cLM024ld00/3Yb2E0gP7bckO83RB2I8Lq8jHE3X2tD7KFMq0cmz0HaZlk079u7RM9pA2T5kcnMh1bfCwmIrsivctwfREQZfX2CWVUjHVbn063oykBWYcRw6UMdKZEDSFz/nqq7+68pmWPFZXmGA+nBZFLVSyvN8NSzxJIWMMpqmZ7KIWE0BPyYbI9SIMLHXtkDn8sRv3eegC64F/AHJlxfnGGcoW04E097OMyKXOBa8hJWFrr93X0f+Fde5fgvj/0pj96+2z1WRILEYHe1NdXg/JD3HtQFk+gytmZAHk0P1mQReGOfFR2CO0eA4zFeOAFIi2G5MkcQekTn5tqyQF/Rbp8hqTUBX1JerkchdLFdOeJNL+71OkIXYnzdJukKml9YP1sMJKlpEiq3Ni4HXUgjBxHt6UYuN00SBDHn1W6dMCtbxex8I9Z0uVN+G5hSHUTpEfCtXQT+LA8VeQQuTQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(3023799007)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: OYQX7IPrgKKEQoRvL3l9ZqdSt1lbI1w+/nMk20PcPiM++Xm8nfmaAcB8DZ4m19MXG6vnrbzULeFXMm0yT2YWE879VGsxMzKn9JNMP7NP5njJH6I9s044rhQFIBnZyV0mXZAjOHhVnD3IrqwYMTyXr6a6o6z5KiyyQCiC2UL39wZoFGMRwpbOcZSi6+BRr3TnmX7XY3NN2vHLWcLkIyJpXwZFtQp4Xe4ES2+NkisqmB4eZI1JJMnAIvgKWROOAHwKXyPjvuVXpsbgsj27YCRUovTgXQyD2tt9FmoPUFz3idjCRhWVw5hswrHDF9TNj3eqNY9GteuebrCfHNQ3ZGCWLlychzv1Te6z9jFRMsGXGO9RV6eajkyKrl4axjLTXcJhcqDfFmn6IH92unXjnKfPbjMnqMxIwDxpSKriGcDMyy9oT3BOTmCxhB9ZJB0iojV/
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 01:35:07.1604 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1bcd8c6-e220-4eb7-6333-08dee5ff215b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE7.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB999074
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20260717120005.2087386-4-rok@kanardia.eu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9f7d3b0eee03a7kunmae00338f1d2cb8
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHUxOVkxNTEpNQxhMTBpIH1YVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=fGaSFrmtAq9Zm9i+EivkmOIz/2NPZ3/XxwjUasJmYxVkitxTDhUlAixtqWleZGVJiu+YIMuz90INFCceAj/VK7GI8tjQS6V6JZwTA2CFwYE6SDD3oxGJ+jl0DAjwZ4gvGyBUiBm9tAkmidSLNru0eGF1yxpueblRJs1RyW9sBdQ=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=0ZU4UPHBu/3uY02SJQ9uBBNkmVWDmaewVSFdHdw5PBw=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,113 +69,310 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied to drm-misc-fixes
+Hello Rok,
 
-On 7/19/26 15:29, Max Zhen wrote:
+Thank you for your patch. Please see the comment below:
+
+On 7/17/2026 8:00 PM, Rok Markovic wrote:
+> The RK3568 LVDS transmitter has no register block of its own. It is
+> driven entirely through the GRF and re-uses the MIPI DSI0 D-PHY in
+> PHY_MODE_LVDS, which phy-rockchip-inno-dsidphy already supports.
+> 
+> Based on Alibek Omarov's earlier posting [1], with the changes below.
+> 
+> Power the D-PHY from the encoder enable path rather than from probe.
+> phy_power_on() runs the phy driver's whole LVDS bring-up: PLL and
+> bandgap power-on, a settle, PLL mode select, then a reset pulse of the
+> serializer and the lane enables. None of that is safe at probe time -
+> the GRF has not yet switched the block to LVDS mode (LVDS0_MODE_EN is
+> set from rk3568_lvds_poweron(), i.e. the enable path) and the VOP is
+> not driving dclk. The serializer is clocked from dclk and latches its
+> state coming out of that reset, so it comes up dead and stays dead.
+> The failure is silent: every register in the phy, the GRF and the VOP
+> reads back exactly as on a working system while the lanes sit at
+> common mode and never toggle.
 >
->
-> On 7/18/2026 Sat 01:34, Lizhi Hou wrote:
->> From: Wendy Liang <wendy.liang@amd.com>
->>
->> When two commands enter aie2_sched_job_timedout() concurrently, both
->> check the timeout detection state. The first scheduler thread observes
->> tdr_status as SIGNALED and updates it to WAIT. The second thread then
->> observes the updated state instead of the original SIGNALED state, which
->> may cause the command timeout to be handled incorrectly.
->>
->> Replace tdr_status with last_signal_ts, which records the timestamp of
->> the last driver signal. Timeout detection now only reads
->> last_signal_ts and never modifies it, allowing multiple serialized
->> detect() calls under dev_lock to evaluate the same signal timestamp
->> independently. If there is not any new job scheduled or completed
->> within tdr_timeout_ms, the command will timeout.
->>
->> Fixes: 9022f010977f ("accel/amdxdna: Check for device hang on job 
->> timeout")
->> Signed-off-by: Wendy Liang <wendy.liang@amd.com>
->> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-> Reviewed-by: Max Zhen <max.zhen@amd.com>
->> ---
->>   drivers/accel/amdxdna/aie2_ctx.c | 22 +++++++++++++++-------
->>   drivers/accel/amdxdna/aie2_pci.c |  1 +
->>   drivers/accel/amdxdna/aie2_pci.h |  7 +------
->>   3 files changed, 17 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/accel/amdxdna/aie2_ctx.c 
->> b/drivers/accel/amdxdna/aie2_ctx.c
->> index 101f324ee178..94dfee7263bd 100644
->> --- a/drivers/accel/amdxdna/aie2_ctx.c
->> +++ b/drivers/accel/amdxdna/aie2_ctx.c
->> @@ -43,20 +43,22 @@ struct aie2_ctx_health {
->>     static inline void aie2_tdr_signal(struct amdxdna_dev *xdna)
->>   {
->> -    WRITE_ONCE(xdna->dev_handle->tdr_status, AIE2_TDR_SIGNALED);
->> +    WRITE_ONCE(xdna->dev_handle->last_signal_ts, jiffies);
->>   }
->>     static bool aie2_tdr_detect(struct amdxdna_dev *xdna)
->>   {
->>       struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
->> +    unsigned long last = READ_ONCE(ndev->last_signal_ts);
->>   -    if (READ_ONCE(ndev->tdr_status) == AIE2_TDR_WAIT) {
->> -        XDNA_ERR(xdna, "TDR timeout detected");
->> -        return true;
->> -    }
->> +    if (!tdr_timeout_ms)
->> +        return false;
->> +
->> +    if (!time_after(jiffies, last + msecs_to_jiffies(tdr_timeout_ms)))
->> +        return false;
->>   -    WRITE_ONCE(ndev->tdr_status, AIE2_TDR_WAIT);
->> -    return false;
->> +    XDNA_ERR(xdna, "TDR timeout detected");
->> +    return true;
->>   }
->>     static void aie2_cmd_release(struct kref *ref)
->> @@ -434,6 +436,12 @@ aie2_sched_job_run(struct drm_sched_job *sched_job)
->>           mmput(job->mm);
->>           fence = ERR_PTR(ret);
->>       } else {
->> +        /*
->> +         * Command is successfully posted to hardware, update the
->> +         * tdr timestamp. The total pending commands are limited.
->> +         * So there will not be a case that driver keeps posting
->> +         * commands without getting any hardware respond.
->> +         */
->>           aie2_tdr_signal(hwctx->client->xdna);
->>       }
->>       trace_xdna_job(sched_job, hwctx->name, "sent to device",
->> diff --git a/drivers/accel/amdxdna/aie2_pci.c 
->> b/drivers/accel/amdxdna/aie2_pci.c
->> index 22f66c7f534d..daec1f6b4907 100644
->> --- a/drivers/accel/amdxdna/aie2_pci.c
->> +++ b/drivers/accel/amdxdna/aie2_pci.c
->> @@ -420,6 +420,7 @@ static int aie2_hw_start(struct amdxdna_dev *xdna)
->>           goto stop_fw;
->>       }
->>   +    WRITE_ONCE(ndev->last_signal_ts, jiffies);
->>       ndev->dev_status = AIE2_DEV_START;
->>         return 0;
->> diff --git a/drivers/accel/amdxdna/aie2_pci.h 
->> b/drivers/accel/amdxdna/aie2_pci.h
->> index 77648cc548b6..ea1dac106400 100644
->> --- a/drivers/accel/amdxdna/aie2_pci.h
->> +++ b/drivers/accel/amdxdna/aie2_pci.h
->> @@ -143,11 +143,6 @@ struct aie2_exec_msg_ops {
->>       u32 (*get_chain_msg_op)(u32 cmd_op);
->>   };
->>   -enum aie2_tdr_status {
->> -    AIE2_TDR_WAIT,
->> -    AIE2_TDR_SIGNALED,
->> -};
->> -
->>   struct amdxdna_dev_hdl {
->>       struct aie_device        aie;
->>       const struct amdxdna_dev_priv    *priv;
->> @@ -179,7 +174,7 @@ struct amdxdna_dev_hdl {
->>       u32                hwctx_num;
->>         struct amdxdna_async_error    last_async_err;
->> -    enum aie2_tdr_status        tdr_status;
->> +    unsigned long            last_signal_ts;
->>   };
->>     struct aie2_hw_ops {
->
+
+Could you please confirm this? Based on my earlier tests, after PHY
+poweron, re-disabling and re-enabling the GRF did not reproduce the
+issue you described.
+
+> Program RK3568_LVDS0_DCLK_INV_SEL from the CRTC state's bus_flags so
+> the panel's declared pixelclk-active is honoured on the LVDS block as
+> well as on the VOP pin polarity. Both have to agree with the edge the
+> panel samples on.
+> 
+> Re-assert RK3568_LVDS0_P2S_EN in rk3568_lvds_poweron().
+> rk3568_lvds_poweroff() clears MODE_EN and P2S_EN together, so setting
+> P2S_EN once at probe would leave the parallel-to-serial converter off
+> after the first disable/enable cycle.
+> 
+> Use regmap_write() rather than regmap_update_bits() for the GRF. These
+> registers are write-masked - the upper 16 bits select which of the
+> lower 16 a write may change - so there is nothing to preserve and no
+> reason to read first. Passing a FIELD_PREP_WM16() value as both the
+> mask and the value of an update_bits() applies the masking twice and
+> only works by accident.
+> 
+> Between the two, nothing needs programming at probe at all: the GRF is
+> written entirely from the enable path, so px30_lvds_probe() is left
+> alone rather than being refactored into a shared phy helper.
+> 
+> [1] https://lore.kernel.org/all/20230119184807.171132-1-a1ba.omarov@gmail.com/
+> 
+> Co-developed-by: Alibek Omarov <a1ba.omarov@gmail.com>
+> Signed-off-by: Alibek Omarov <a1ba.omarov@gmail.com>
+> Signed-off-by: Rok Markovic <rok@kanardia.eu>
+> Assisted-by: Claude:claude-opus-4-8
+> ---
+>  drivers/gpu/drm/rockchip/rockchip_lvds.c | 161 +++++++++++++++++++++++
+>  drivers/gpu/drm/rockchip/rockchip_lvds.h |  10 ++
+>  2 files changed, 171 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+> index 95fa0a9..f45d04a 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+> @@ -435,6 +435,133 @@ static void px30_lvds_encoder_disable(struct drm_encoder *encoder)
+>  	drm_panel_unprepare(lvds->panel);
+>  }
+>  
+> +static int rk3568_lvds_poweron(struct rockchip_lvds *lvds)
+> +{
+> +	int ret;
+> +
+> +	ret = clk_enable(lvds->pclk);
+> +	if (ret < 0) {
+> +		DRM_DEV_ERROR(lvds->dev, "failed to enable lvds pclk %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ret = pm_runtime_get_sync(lvds->dev);
+> +	if (ret < 0) {
+> +		DRM_DEV_ERROR(lvds->dev, "failed to get pm runtime: %d\n", ret);
+> +		clk_disable(lvds->pclk);
+> +		return ret;
+> +	}
+> +
+> +	/*
+> +	 * Enable LVDS mode and the parallel-to-serial converter. These are
+> +	 * write-masked registers, so a plain write only touches the bits named
+> +	 * here; there is nothing to preserve and no need to read first.
+> +	 */
+
+I think this comment is redundant. We all know this is a common design
+on Rockchip platform, right? :)
+
+> +	return regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
+> +			    RK3568_LVDS0_MODE_EN(1) |
+> +			    RK3568_LVDS0_P2S_EN(1));
+> +}
+> +
+> +static void rk3568_lvds_poweroff(struct rockchip_lvds *lvds)
+> +{
+> +	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
+> +		     RK3568_LVDS0_MODE_EN(0) | RK3568_LVDS0_P2S_EN(0));
+> +
+> +	pm_runtime_put(lvds->dev);
+> +	clk_disable(lvds->pclk);
+> +}
+> +
+> +static int rk3568_lvds_grf_config(struct drm_encoder *encoder,
+> +				  struct drm_display_mode *mode)
+> +{
+> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
+> +	struct rockchip_crtc_state *s =
+> +		to_rockchip_crtc_state(encoder->crtc->state);
+> +	bool negedge = !!(s->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE);
+> +
+> +	if (lvds->output != DISPLAY_OUTPUT_LVDS) {
+> +		DRM_DEV_ERROR(lvds->dev, "Unsupported display output %d\n",
+> +			      lvds->output);
+> +		return -EINVAL;
+> +	}
+> +
+> +	/*
+> +	 * The LVDS block has its own dclk inversion select, separate from the
+> +	 * VOP's pin polarity. Both have to agree with what the panel samples on.
+> +	 */
+> +	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
+> +		     RK3568_LVDS0_DCLK_INV_SEL(negedge));
+> +
+> +	/* Set format */
+> +	return regmap_write(lvds->grf, RK3568_GRF_VO_CON0,
+> +			    RK3568_LVDS0_SELECT(lvds->format) |
+> +			    RK3568_LVDS0_MSBSEL(1));
+> +}
+
+I think rk3568_lvds_poweron() and rk3568_lvds_grf_config() can be merged
+to reduce extra register operations. 
+
+> +
+> +static void rk3568_lvds_encoder_enable(struct drm_encoder *encoder)
+> +{
+> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
+> +	struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
+> +	int ret;
+> +
+> +	drm_panel_prepare(lvds->panel);
+> +
+> +	ret = rk3568_lvds_poweron(lvds);
+> +	if (ret) {
+> +		DRM_DEV_ERROR(lvds->dev, "failed to power on LVDS: %d\n", ret);
+> +		drm_panel_unprepare(lvds->panel);
+> +		return;
+> +	}
+> +
+> +	ret = rk3568_lvds_grf_config(encoder, mode);
+> +	if (ret) {
+> +		DRM_DEV_ERROR(lvds->dev, "failed to configure LVDS: %d\n", ret);
+> +		drm_panel_unprepare(lvds->panel);
+> +		return;
+> +	}
+> +
+> +	/*
+> +	 * Only now bring the D-PHY up. phy_power_on() runs the whole
+> +	 * inno_dsidphy_lvds_mode_enable() sequence - PLL and bandgap power-on,
+> +	 * a settle, PLL mode select, then a reset pulse of the serializer and
+> +	 * the lane enables. All of that has to happen with the block already
+> +	 * switched to LVDS mode in the GRF (above) and with the VOP's dclk
+> +	 * running, because the serializer is clocked from dclk and latches its
+> +	 * state out of that reset.
+> +	 *
+> +	 * Doing it at probe instead - as this driver used to - resets and
+> +	 * enables the serializer against a block that is not in LVDS mode yet
+> +	 * and has no input clock. Every register then reads back correct while
+> +	 * the lanes sit at common mode forever. Rockchip's BSP orders it this
+> +	 * way (GRF writes, then phy_set_mode + phy_power_on).
+> +	 */
+
+I think this comment is redundant. These are internal details of
+phy_set_mode() and don't need to be explained here. Also, the
+ordering requirements are quite common. You can describe them in the
+commit message.
+
+> +	ret = phy_set_mode(lvds->dphy, PHY_MODE_LVDS);
+> +	if (ret) {
+> +		DRM_DEV_ERROR(lvds->dev, "failed to set phy mode: %d\n", ret);
+> +		drm_panel_unprepare(lvds->panel);
+> +		return;
+> +	}
+> +
+> +	ret = phy_power_on(lvds->dphy);
+> +	if (ret) {
+> +		DRM_DEV_ERROR(lvds->dev, "failed to power on phy: %d\n", ret);
+> +		drm_panel_unprepare(lvds->panel);
+> +		return;
+> +	}
+> +
+> +	drm_panel_enable(lvds->panel);
+> +}
+> +
+> +static void rk3568_lvds_encoder_disable(struct drm_encoder *encoder)
+> +{
+> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
+> +
+> +	drm_panel_disable(lvds->panel);
+> +	phy_power_off(lvds->dphy);
+> +	rk3568_lvds_poweroff(lvds);
+> +	drm_panel_unprepare(lvds->panel);
+> +}
+> +
+>  static const
+>  struct drm_encoder_helper_funcs rk3288_lvds_encoder_helper_funcs = {
+>  	.enable = rk3288_lvds_encoder_enable,
+> @@ -449,6 +576,13 @@ struct drm_encoder_helper_funcs px30_lvds_encoder_helper_funcs = {
+>  	.atomic_check = rockchip_lvds_encoder_atomic_check,
+>  };
+>  
+> +static const
+> +struct drm_encoder_helper_funcs rk3568_lvds_encoder_helper_funcs = {
+> +	.enable = rk3568_lvds_encoder_enable,
+> +	.disable = rk3568_lvds_encoder_disable,
+> +	.atomic_check = rockchip_lvds_encoder_atomic_check,
+> +};
+> +
+>  static int rk3288_lvds_probe(struct platform_device *pdev,
+>  			     struct rockchip_lvds *lvds)
+>  {
+> @@ -512,6 +646,22 @@ static int px30_lvds_probe(struct platform_device *pdev,
+>  	return phy_power_on(lvds->dphy);
+>  }
+>  
+> +static int rk3568_lvds_probe(struct platform_device *pdev,
+> +			     struct rockchip_lvds *lvds)
+> +{
+> +	/*
+> +	 * Grab and init the phy, but do NOT power it on here - that is done in
+> +	 * rk3568_lvds_encoder_enable() once the GRF is in LVDS mode and dclk is
+> +	 * running. See the comment there. The GRF is not touched at probe
+> +	 * either: every bit of it is programmed from the enable path.
+> +	 */
+
+Please see the comments above.
+
+> +	lvds->dphy = devm_phy_get(&pdev->dev, "dphy");
+> +	if (IS_ERR(lvds->dphy))
+> +		return PTR_ERR(lvds->dphy);
+> +
+> +	return phy_init(lvds->dphy);
+> +}
+> +
+>  static const struct rockchip_lvds_soc_data rk3288_lvds_data = {
+>  	.probe = rk3288_lvds_probe,
+>  	.helper_funcs = &rk3288_lvds_encoder_helper_funcs,
+> @@ -522,6 +672,11 @@ static const struct rockchip_lvds_soc_data px30_lvds_data = {
+>  	.helper_funcs = &px30_lvds_encoder_helper_funcs,
+>  };
+>  
+> +static const struct rockchip_lvds_soc_data rk3568_lvds_data = {
+> +	.probe = rk3568_lvds_probe,
+> +	.helper_funcs = &rk3568_lvds_encoder_helper_funcs,
+> +};
+> +
+>  static const struct of_device_id rockchip_lvds_dt_ids[] = {
+>  	{
+>  		.compatible = "rockchip,rk3288-lvds",
+> @@ -531,6 +686,10 @@ static const struct of_device_id rockchip_lvds_dt_ids[] = {
+>  		.compatible = "rockchip,px30-lvds",
+>  		.data = &px30_lvds_data
+>  	},
+> +	{
+> +		.compatible = "rockchip,rk3568-lvds",
+> +		.data = &rk3568_lvds_data
+> +	},
+>  	{}
+>  };
+>  MODULE_DEVICE_TABLE(of, rockchip_lvds_dt_ids);
+> @@ -601,6 +760,8 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
+>  	encoder = &lvds->encoder.encoder;
+>  	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
+>  							     dev->of_node);
+> +	rockchip_drm_encoder_set_crtc_endpoint_id(&lvds->encoder,
+> +						  dev->of_node, 0, 0);
+>  
+>  	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_LVDS);
+>  	if (ret < 0) {
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.h b/drivers/gpu/drm/rockchip/rockchip_lvds.h
+> index 2d92447..93d3415 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.h
+> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.h
+> @@ -121,4 +121,14 @@
+>  #define   PX30_LVDS_P2S_EN(val)			FIELD_PREP_WM16(BIT(6), (val))
+>  #define   PX30_LVDS_VOP_SEL(val)		FIELD_PREP_WM16(BIT(1), (val))
+>  
+> +#define RK3568_GRF_VO_CON0			0x0360
+> +#define   RK3568_LVDS0_SELECT(val)		FIELD_PREP_WM16(GENMASK(5, 4), (val))
+> +#define   RK3568_LVDS0_MSBSEL(val)		FIELD_PREP_WM16(BIT(3), (val))
+> +
+> +#define RK3568_GRF_VO_CON2			0x0368
+> +#define   RK3568_LVDS0_DCLK_INV_SEL(val)	FIELD_PREP_WM16(BIT(9), (val))
+> +#define   RK3568_LVDS0_DCLK_DIV2_SEL(val)	FIELD_PREP_WM16(BIT(8), (val))
+> +#define   RK3568_LVDS0_MODE_EN(val)		FIELD_PREP_WM16(BIT(1), (val))
+> +#define   RK3568_LVDS0_P2S_EN(val)		FIELD_PREP_WM16(BIT(0), (val))
+> +
+>  #endif /* _ROCKCHIP_LVDS_ */
+
+-- 
+Best, 
+Chaoyi
