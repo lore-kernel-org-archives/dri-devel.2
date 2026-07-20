@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8865C44515
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 05:34:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C30EC4451B
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Jul 2026 05:39:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FAA110E675;
-	Mon, 20 Jul 2026 05:34:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24C4210E65B;
+	Mon, 20 Jul 2026 05:39:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ASOI10vs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="khO1aUeN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92F7910E675
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:34:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DD8810E65B
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 05:39:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 335F64346B;
- Mon, 20 Jul 2026 05:34:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0BE51F000E9;
- Mon, 20 Jul 2026 05:34:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BCA8E60A8B;
+ Mon, 20 Jul 2026 05:39:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C6EC1F00A3A;
+ Mon, 20 Jul 2026 05:39:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784525641;
- bh=Rr/+gFmPMr2eLi0Xn2fJkFSIQ+dwZgvknoxrtrqGFw0=;
+ s=k20260515; t=1784525941;
+ bh=QJWerBtgXAVOq1V3dxFKySibApRMngkMrWeKZrL3OAg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ASOI10vsjy7XOKLvQps+RQuBgJe0WNQRwn4fhej12WrufFOwFzdc6IY6UKV5cSk9I
- 6RhSfAiDTwNpc2RTBd/0Zm2XObhxTbNY2Uq8gN5hwFmv9WJi4YGlgMv8VLuxqJKn+l
- j4ojm6jrtCnfCMLJsHJGnXYxXEF4DFvvxKI5oB4ham+6+yYBfvr/wCLbEKXbtQ754/
- Lf7m047OgFY6sI/ew/trbRCdbfgzxx8jxWPBVYG8VYcSDZ8eaeNYKKMDaTNyZPe1p9
- 2SNFKQlKcFvugq8Xg4lwUfild+O9mV6URT9HsD2962FGgw3r+3HlgHW/GFHrqS6rVz
- UthXvKzDJljBg==
+ b=khO1aUeN4B+6w8RYgjAgWtpXsTB472o2VVJqtyxBY/3Qlu+niBo1H5ukWWbPfVxa5
+ Gvu3L3OG7cNgaUXT0ZCgXpsbjwRtDy08mH0qt1jmAmMhSdtlthbk21wPxvRxZ1o5Nh
+ UxybX50PXenUsXjPIfhw5FVJ68eAlZ7L+ycdHVGVXVfMRIRZr/f5Q4Hd37Tunsa2VS
+ icHCiKRGoZT4pv0A41yF2KTk4pHIogBl7CeAGVV9uKIkmBZqziUnv7MwRRjz3VsxRG
+ nidJZ8BOSgSpMvRCz1gRY6z/na/7s2YUrIcMAzTNIy5/dsfbGHtOeZzX8CYxcIwxUV
+ TikoxezCig4dw==
 From: sashiko-bot@kernel.org
-Subject: Re: [v5 02/14] drm/i915/color: Add CSC on SDR plane color pipeline
+Subject: Re: [v5 14/14] drm/i915/color: Add color pipeline support for SDR
+ planes
 To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720045131.971650-3-chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260720045131.971650-15-chaitanya.kumar.borah@intel.com>
 References: <20260720045131.971650-1-chaitanya.kumar.borah@intel.com>
- <20260720045131.971650-3-chaitanya.kumar.borah@intel.com>
+ <20260720045131.971650-15-chaitanya.kumar.borah@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 20 Jul 2026 05:33:59 +0000
-Message-Id: <20260720053400.E0BE51F000E9@smtp.kernel.org>
+Date: Mon, 20 Jul 2026 05:39:01 +0000
+Message-Id: <20260720053901.7C6EC1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,168 +58,111 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Missing backend implementation for exposed `INTEL_PLANE_CB_CSC_FF`=
- colorop.
-- [Medium] Unreachable SDR plane color pipeline logic.
-- [Medium] Validation bypass for 64-bit bitmasks on 32-bit architectures.
-
 Pre-existing issues:
-- [High] NULL pointer dereference in error cleanup path of `intel_color_pip=
-eline_plane_add_colorop`.
-- [High] Leaked DRM mode object ID on colorop cleanup leads to a Use-After-=
-Free.
+- [High] A missing NULL check for the `kasprintf()` allocation in `_intel_c=
+olor_pipeline_plane_init()` causes a NULL pointer dereference in `drm_prope=
+rty_add_enum()`.
+- [High] Early initialization failures during colorop creation cause `drm_c=
+olorop_cleanup()` to access uninitialized structure members, leading to a c=
+rash.
+- [High] Missing `drm_mode_object_unregister()` in `drm_colorop_cleanup()` =
+leaves destroyed colorops in the DRM object IDR, leading to a Use-After-Fre=
+e.
 --
 
---- Patch [2]: [v5 02/14] drm/i915/color: Add CSC on SDR plane color pipeli=
-ne ---
-commit 406763c8b5fb35d6a8f9c41091f76f4b8453fc5a
+--- Patch [14]: [v5 14/14] drm/i915/color: Add color pipeline support for S=
+DR planes ---
+commit 898c62da94ca7a00530f154f1e3d4b18c45aaa47
 Author: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 
-drm/i915/color: Add CSC on SDR plane color pipeline
-   =20
-Add the fixed-function CSC block to color pipeline in SDR planes
-as a DRM_COLOROP_FIXED_MATRIX colorop.
+drm/i915/color: Add color pipeline support for SDR planes
+
+This commit exposes the SDR plane color pipeline to user-space by removing
+the check that previously limited it to HDR planes.
 
 > diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/driver=
 s/gpu/drm/i915/display/intel_color_pipeline.c
-> index 6cf8080ee8000..2ef42a133a987 100644
+> index 136b9378ca484..a99b6eb204488 100644
 > --- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
 > +++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-[ ... ]
-> @@ -92,6 +102,12 @@ struct intel_colorop *intel_color_pipeline_plane_add_=
-colorop(struct drm_plane *p
->  							  DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR,
->  							  DRM_COLOROP_FLAG_ALLOW_BYPASS);
->  		break;
-> +	case INTEL_PLANE_CB_CSC_FF:
-> +		ret =3D drm_plane_colorop_fixed_matrix_init(dev, &colorop->base, plane,
-> +							  &intel_colorop_funcs,
-> +							  intel_plane_supported_csc_ff,
-> +							  DRM_COLOROP_FLAG_ALLOW_BYPASS);
-> +		break;
-
-[Severity: Medium]
-Can this bypass validation for invalid upper bits on 32-bit architectures?
-
-When calling drm_plane_colorop_fixed_matrix_init() and passing the 64-bit m=
-ask
-intel_plane_supported_csc_ff, the validation check uses the BIT() macro:
-
-drivers/gpu/drm/drm_colorop.c:drm_plane_colorop_fixed_matrix_init() {
-	...
-	if ((supported_fm & -BIT(DRM_COLOROP_FM_COUNT)) !=3D 0) {
-	...
-}
-
-Since BIT() returns an unsigned long, which is 32 bits on 32-bit
-architectures, negating it produces a 32-bit mask (0xFFFFFFFx) that is
-zero-extended when ANDed with the 64-bit supported_fm mask. Does this silen=
-tly
-ignore bits 32-63 during validation?
+> @@ -188,17 +188,11 @@ int _intel_color_pipeline_plane_init(struct drm_pla=
+ne *plane, struct drm_prop_en
+> =20
+>  int intel_color_pipeline_plane_init(struct drm_plane *plane, enum pipe p=
+ipe)
+>  {
+> -	struct drm_device *dev =3D plane->dev;
+> -	struct intel_display *display =3D to_intel_display(dev);
+>  	struct drm_prop_enum_list pipelines[MAX_COLOR_PIPELINES] =3D {};
+>  	int len =3D 0;
+>  	int ret =3D 0;
+>  	int i;
+> =20
+> -	/* Currently expose pipeline only for HDR planes */
+> -	if (!icl_is_hdr_plane(display, to_intel_plane(plane)->id))
+> -		return 0;
+> -
+>  	/* Add pipeline consisting of transfer functions */
+>  	ret =3D _intel_color_pipeline_plane_init(plane, &pipelines[len], pipe);
 
 [Severity: High]
-Does the i915 driver have the backend implementation to process this newly
-exposed fixed-matrix colorop?
+This isn't a bug introduced by this patch, but opening this up to SDR planes
+makes a pre-existing issue more reachable.
 
-The INTEL_PLANE_CB_CSC_FF colorop exposes the fixed_matrix_type property to
-userspace. However, looking at the parsing logic:
+In _intel_color_pipeline_plane_init(), kasprintf() can fail and return NULL
+under memory pressure:
 
-drivers/gpu/drm/i915/display/intel_plane.c:
-intel_plane_color_copy_uapi_to_hw_state() {
-	...
-	blob =3D new_colorop_state->bypass ? NULL : new_colorop_state->data;
-	intel_colorop =3D to_intel_colorop(colorop);
-	changed |=3D intel_plane_colorop_replace_blob(plane_state,
-						    intel_colorop,
-						    blob);
-	...
-}
+	list->name =3D kasprintf(GFP_KERNEL, "Color Pipeline %d",=20
+			       colorop[0]->base.base.id);
 
-This appears to only handle blobs (LUTs, CTMs) and completely ignores the
-fixed_matrix_type state. Could this cause the userspace configuration to be
-silently discarded and never programmed to the hardware?
+Because there is no check for failure, a NULL name gets passed down to
+drm_plane_create_color_pipeline_property(), then to drm_property_create_enu=
+m(),
+and finally to drm_property_add_enum(), which dereferences it during=20
+strlen(name) and crashes. Should we add a NULL check for kasprintf() in=20
+_intel_color_pipeline_plane_init()?
 
 [Severity: High]
-This isn't a bug introduced by this patch, but if
-drm_plane_colorop_fixed_matrix_init() fails, will the cleanup path trigger
-a NULL pointer dereference?
+This is also a pre-existing issue, but since we are expanding the usage of
+this pipeline:
 
-If initialization fails, it jumps to the cleanup label:
+If an early initialization failure occurs in
+intel_color_pipeline_plane_add_colorop() (such as drm_mode_object_add()
+returning an error), the cleanup path calls intel_colorop_destroy() which
+invokes drm_colorop_cleanup().
 
-drivers/gpu/drm/i915/display/intel_color_pipeline.c:
-intel_color_pipeline_plane_add_colorop() {
-	...
-cleanup:
-	intel_colorop_destroy(&colorop->base);
-	return ERR_PTR(ret);
-}
+At this point, drm_colorop_cleanup() will dereference colorop->dev:
 
-Which then calls drm_colorop_cleanup():
-
-drivers/gpu/drm/drm_colorop.c:drm_colorop_cleanup() {
+void drm_colorop_cleanup(struct drm_colorop *colorop)
+{
 	struct drm_device *dev =3D colorop->dev;
 	struct drm_mode_config *config =3D &dev->mode_config;
+        ...
 
-	list_del(&colorop->head);
-	...
-}
-
-If the failure happens early in initialization before colorop->dev or
-colorop->head are set, dev will be NULL and this will crash.
+If drm_mode_object_add() failed, colorop->dev remains NULL, causing an
+immediate crash. Additionally, list_del(&colorop->head) is called on a
+zero-initialized list node. Can this cleanup path be made safe for objects
+that failed early initialization?
 
 [Severity: High]
-This is a pre-existing issue, but does drm_colorop_cleanup() leak the DRM
-mode object ID?
+This is another pre-existing issue exposed by the expanded plane support:
 
-When drm_plane_colorop_init() executes successfully, it allocates an ID in =
-the
-DRM device's IDR by calling drm_mode_object_add(). However,
-drm_colorop_cleanup() appears to be missing a call to
-drm_mode_object_unregister(dev, &colorop->base).
+If a colorop initialization fails midway (for instance, if
+drm_property_create_enum() fails after drm_mode_object_add() succeeds),
+the error path calls drm_colorop_cleanup() to free the memory.
 
-Does this mean the ID remains allocated forever, potentially leading to a
-use-after-free if userspace later queries the leaked ID after the memory is
-freed?
+However, drm_colorop_cleanup() does not call drm_mode_object_unregister().
+This leaves a freed object pointer in the DRM device's object IDR. Is there
+a risk that a user could trigger a use-after-free by passing the leaked
+object ID to an ioctl like DRM_IOCTL_MODE_OBJ_GETPROPERTIES?
 
->  	default:
->  		drm_err(plane->dev, "Invalid colorop id [%d]", id);
->  		ret =3D -EINVAL;
-> @@ -126,9 +142,12 @@ int _intel_color_pipeline_plane_init(struct drm_plan=
-e *plane, struct drm_prop_en
->  	if (plane_has_3dlut(display, pipe, plane)) {
->  		pipeline =3D xe3plpd_primary_plane_pipeline;
->  		pipeline_len =3D ARRAY_SIZE(xe3plpd_primary_plane_pipeline);
-> -	} else {
-> +	} else if (icl_is_hdr_plane(display, to_intel_plane(plane)->id)) {
->  		pipeline =3D hdr_plane_pipeline;
->  		pipeline_len =3D ARRAY_SIZE(hdr_plane_pipeline);
-> +	} else {
-> +		pipeline =3D sdr_plane_pipeline;
-> +		pipeline_len =3D ARRAY_SIZE(sdr_plane_pipeline);
->  	}
-
-[Severity: Medium]
-Will this else branch ever be executed for SDR planes?
-
-Looking at the caller, intel_color_pipeline_plane_init(), there is an expli=
-cit
-early return for non-HDR planes:
-
-drivers/gpu/drm/i915/display/intel_color_pipeline.c:
-intel_color_pipeline_plane_init() {
-	...
-	/* Currently expose pipeline only for HDR planes */
-	if (!icl_is_hdr_plane(display, to_intel_plane(plane)->id))
-		return 0;
-	...
-}
-
-It seems this prevents the newly added SDR logic from ever being reached.
+>  	if (ret)
+>  		goto out;
+>  	len++;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720045131.9716=
-50-1-chaitanya.kumar.borah@intel.com?part=3D2
+50-1-chaitanya.kumar.borah@intel.com?part=3D14
