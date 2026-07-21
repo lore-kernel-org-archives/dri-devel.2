@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97B16C44529
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 08:26:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABD53C44529
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 08:26:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A98910E2FA;
-	Tue, 21 Jul 2026 08:26:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AA9210E64A;
+	Tue, 21 Jul 2026 08:26:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eRX09FZv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hv8pxWHD";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22C6C10E2F2
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E262910E2F2
  for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 08:26:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0BBD843C2C;
+ by sea.source.kernel.org (Postfix) with ESMTP id CAEFC43C2C;
  Tue, 21 Jul 2026 08:26:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C26941F000E9;
- Tue, 21 Jul 2026 08:26:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841EF1F000E9;
+ Tue, 21 Jul 2026 08:26:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784622388;
- bh=NB7qfUsWpqsGUBwgkmUbcVZib1AiT0VCXSOuorX/VTA=;
+ s=k20260515; t=1784622389;
+ bh=vFAdaoT7OamaEBVURNU0AFkYyr0nmD6m2RXog9dfwOg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eRX09FZvu+MH4RES2qXMkwhCCrDbPDi7z+ynE+DVwxRB41hEHQ0pwqdhobJAZk9FO
- wn4Hsjn+RCOXeSethLA7zTdUZw3WjglRKG2DVxF4Wpp36neBk0OoTi8yQtb11vdxn3
- wN06aRWz7zXzAtaiiWo2Y/NF74JPLrOr70oAR8w5Cc6scHpxGNOo8NvQmOxPhnCcHE
- zm5LRUOssivgDvW/gqowpkcxr5gDogJbOVMS76yJSVu/sFESVRR8PJzhU/YJ5iVvWg
- ITj7HucLaJnnHfRVIjCdfRR5BUGFAcC2ivNbwlqZFuwPy3fhKqCsxRGawxlKF60XT2
- OmcScWMpYjyHA==
+ b=Hv8pxWHDL6WcLm4flf4e6LRD87BpvKljGokYMAaYxda1w1lfj4D9+q5tLuS1Bem8Y
+ /lIbT2koQpXyPaJqgZE2DU6wVv3Po2XTH9/+xD4jFFy2C8zyxldUNL/ogfQhONac9Y
+ 4qDG2JdKOUfePsJk8IjpuQJ7mahJK0EiYihpuBhvLtt0zisVYNUymdSe5wkBA69rMG
+ Lxwg0puTuxt3GOFLWsyDPotqPhb/qjl0aR+0dkQwuMHihmPvNkvHgT9Vk/UIw/UWWJ
+ drCFeOldZiuIBBu4MyYjZTUZjL2DOfPPvU606uABks2oTFJEWf08FDuB5ionuuc2LO
+ crZ/fGNFDX3HA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/3] drm/xe/xe_ras: Report uncorrectable error events
- to userspace
+Subject: Re: [PATCH v5 1/3] drm/drm_ras: Add drm_ras netlink error event
 To: "Riana Tauro" <riana.tauro@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260720082208.2648279-8-riana.tauro@intel.com>
+In-Reply-To: <20260720082208.2648279-6-riana.tauro@intel.com>
 References: <20260720082208.2648279-5-riana.tauro@intel.com>
- <20260720082208.2648279-8-riana.tauro@intel.com>
+ <20260720082208.2648279-6-riana.tauro@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 08:26:28 +0000
-Message-Id: <20260721082628.C26941F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 08:26:29 +0000
+Message-Id: <20260721082629.841EF1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,103 +57,80 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Synchronous mailbox commands injected during an active pagination =
-loop disrupt stateful firmware communication.
-- [Medium] Unvalidated firmware-provided `component` ID is used in the `BIT=
-()` macro, leading to out-of-bounds shifts (Undefined Behavior) and truncat=
-ion that breaks deduplication.
-- [Medium] Errors of different severities for the same component are incorr=
-ectly collapsed, masking critical hardware errors.
+- [High] The 'error-report' multicast group lacks the admin-perm flag, allo=
+wing unprivileged users to listen to sensitive hardware events.
+- [Medium] The exported API drm_ras_nl_error_event() unconditionally uses G=
+FP_KERNEL for netlink message allocation, making it unsafe to call from ato=
+mic context.
 --
 
---- Patch [3]: [PATCH v5 3/3] drm/xe/xe_ras: Report uncorrectable error eve=
-nts to userspace ---
-commit 51a0403024c186a2a443b450caaf0da16723e651
+--- Patch [1]: [PATCH v5 1/3] drm/drm_ras: Add drm_ras netlink error event =
+---
+commit 50118022fc58ae5076236cbd29a79d06fb22c201
 Author: Riana Tauro <riana.tauro@intel.com>
+drm/drm_ras: Add drm_ras netlink error event
 
-drm/xe/xe_ras: Report uncorrectable error events to userspace
+This commit defines a new netlink event error-event and a new multicast
+group error-report in drm_ras to report hardware errors to userspace.
+It also adds the exported function drm_ras_nl_error_event() to trigger
+these events from drivers.
 
-When the firmware reports uncorrectable errors, this patch delivers a
-drm-ras error event to userspace for each affected component. Multiple
-errors for the same component are collapsed to avoid duplicate events.
-
-> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-> index cf85075d62667..462cbb548f07b 100644
-> --- a/drivers/gpu/drm/xe/xe_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_ras.c
-> @@ -378,6 +378,7 @@ enum xe_ras_recovery_action xe_ras_process_errors(str=
-uct xe_device *xe)
->  	enum xe_ras_recovery_action final_action;
->  	u32 remaining =3D XE_SYSCTRL_FLOOD_LIMIT;
->  	struct xe_ras_get_soc_error response;
-> +	u8 sent =3D 0;
-
+> diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/net=
+link/specs/drm_ras.yaml
+> index e113056f8c016..8aed3d4515e5a 100644
+> --- a/Documentation/netlink/specs/drm_ras.yaml
+> +++ b/Documentation/netlink/specs/drm_ras.yaml
 [ ... ]
-
-> @@ -421,6 +422,12 @@ enum xe_ras_recovery_action xe_ras_process_errors(st=
-ruct xe_device *xe)
->  			xe_info(xe, "[RAS]: %s %s detected\n", comp_to_str(component),
->  				sev_to_str(severity));
-> =20
-> +			/* Send event once per component */
-> +			if (!(sent & BIT(component))) {
-> +				sent |=3D BIT(component);
-
-[Severity: Medium]
-Is there a risk of undefined behavior or truncation here if the firmware
-returns an unexpected component ID?
-
-Since sent is a u8, any component value of 8 or greater will cause
-BIT(component) to be truncated to 0 when bitwise OR'ed with sent. The
-condition !(sent & BIT(component)) would then constantly evaluate to
-true, bypassing the duplicate suppression.
-
-Also, if component is greater than or equal to BITS_PER_LONG, BIT()
-will cause an out-of-bounds shift. Should component be validated against a
-maximum value before using it in the bit shift?
-
-[Severity: Medium]
-Does this deduplication logic unintentionally mask uncorrectable errors if
-multiple errors for the same component arrive with different severities?
-
-If the firmware responds with a correctable error followed by an
-uncorrectable error for the exact same component, the first error sets
-the bit in the sent mask. The subsequent uncorrectable error would then
-be skipped, and userspace would only be notified of the correctable
-severity.
-
-> +				ras_send_error_event(xe, severity, component);
+> +mcast-groups:
+> +  list:
+> +    -
+> +      name: error-report
 
 [Severity: High]
-Can calling ras_send_error_event() here disrupt the firmware's pagination
-state?
+Should this multicast group include flags: [admin-perm]?
 
-The xe_ras_process_errors() function retrieves errors using a stateful
-XE_SYSCTRL_CMD_GET_SOC_ERROR command inside a do-while loop based on
-response.additional_errors.
+The netlink commands for this family explicitly require GENL_ADMIN_PERM, but
+this multicast group omits the flag. Without it, unprivileged users can open
+a netlink socket and subscribe to the error-report group, potentially
+observing sensitive hardware reliability events that could be used in
+side-channel attacks.
 
-However, ras_send_error_event() synchronously sends a different mailbox
-command (XE_SYSCTRL_CMD_GET_COUNTER):
-
-xe_ras.c:ras_send_error_event() {
-    ...
-    ret =3D get_counter(xe, &counter, &value);
-    ...
-}
-
-If xe_sysctrl_send_command() releases its mutex between calls, injecting
-this GET_COUNTER command into the GET_SOC_ERROR pagination stream on the
-wire might reset or corrupt the firmware's internal cursor. This could lead
-to dropped errors or an infinite loop reading the same initial chunk.
-
-> +			}
+> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+> index d6eab29a1394c..0b77e4358ea8f 100644
+> --- a/drivers/gpu/drm/drm_ras.c
+> +++ b/drivers/gpu/drm/drm_ras.c
+[ ... ]
+> +int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id, cons=
+t char *error_name,
+> +			   u32 value)
+> +{
+> +	struct genl_info info;
+> +	struct sk_buff *msg;
+> +	struct nlattr *hdr;
+> +	int ret;
 > +
->  			switch (component) {
->  			case XE_RAS_COMP_CORE_COMPUTE:
->  				action =3D handle_core_compute_errors(arr);
+> +	if (!error_name)
+> +		return -EINVAL;
+> +
+> +	genl_info_init_ntf(&info, &drm_ras_nl_family, DRM_RAS_CMD_ERROR_EVENT);
+> +
+> +	msg =3D genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
+
+[Severity: Medium]
+Will this function be called from atomic contexts?
+
+Hardware RAS errors are frequently detected and reported from interrupt
+handlers or while holding spinlocks. If a driver calls this API from an ato=
+mic
+context, the unconditional GFP_KERNEL allocation will cause a sleep-in-atom=
+ic
+panic.
+
+Would it be safer to accept a gfp_t mask as a parameter, or default to
+GFP_ATOMIC, to support reporting from these contexts?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260720082208.2648=
-279-5-riana.tauro@intel.com?part=3D3
+279-5-riana.tauro@intel.com?part=3D1
