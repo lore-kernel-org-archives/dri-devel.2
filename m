@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3B6DC44532
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 15:41:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F034C4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 15:41:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3255310E37D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 410E010E37F;
 	Tue, 21 Jul 2026 15:41:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cdGOkI5C";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rviY8kFg";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCBC210E199
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF5B510E241
  for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 15:41:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 37B51600FC;
+ by tor.source.kernel.org (Postfix) with ESMTP id 5640460204;
  Tue, 21 Jul 2026 15:41:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D5673C2BCB8;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 00BFCC2BCFB;
  Tue, 21 Jul 2026 15:41:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1784648496;
- bh=ZbffgWN1kX4ZHQUBKZKA6y26aw/ky0IhdmuCiZYJ8QM=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=cdGOkI5CpOhXcefJMLZrETlDrwZVfSx+KJ00/iv6Cyq7xRIZ3SoSK7GKkXwnTbtpm
- FgHyzifUpnSYeU3ejWHoCY/SsdQEG4EGUghmeOisHuw1aW+5khagvg9SzW3xxGsK32
- 4F30KJkdl5Y1tufTOBq7K4EI1XHLpZPa4FhYSyvLYmQAl0YvR3uFi3UbjLXhiw97D8
- 970caAqvMCvZ9OVP1nzsY1EnN90RUJWHq0U3WtLvxscNQXcEQdkHklzf8EHGvHjB8D
- L6kOI70UX/twPMUWBmLdlmx3uzP3WBGbX3vmSaGu3Yj22GtPdOAAnYMG4WGMJ4shHK
- f7uMi1Ia2y8Gg==
+ s=k20201202; t=1784648497;
+ bh=QVofKbFRHhRIn2BgSo+erAmwhhzTLiOTW/x4Naq+KZI=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=rviY8kFgoXhOJwTdilpDbvGp/VQC+Q6S5OPPeXUNaksqUB5TizL31b1Ulr3f3Whnw
+ UQOGn8Xx1N10VNXYyRttaPtlyWnM6cdKHTKPjyDxHEGzuhyykhLnq8U6vtAHb1Sgfq
+ FIfU6WdJooD6NHF6lufjeffqmVEwBthRXliEcOL0dcN1VPXbj3xnJrceJLt3hdkNNz
+ afo5GsSnG04dlCLm5yLER0uIvZdduZLjYbOrfZKQHc6WV92vkDkdMHZfpVehHPYwUM
+ 7eXGE8Hj5n1mb5yQKJNTvI40wc1OYzjpDoUBe4jQ/VrDcsbpKgxmUJP8uyk6Nlbpnc
+ 9MgzQ/C+tHZmA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id B182CC4451C;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id D5B0BC44536;
  Tue, 21 Jul 2026 15:41:36 +0000 (UTC)
 From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
-Subject: [PATCH 0/3] gpu: nova-core: Move PFB and PBUS register
-Date: Tue, 21 Jul 2026 17:41:06 +0200
-Message-Id: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
+Date: Tue, 21 Jul 2026 17:41:08 +0200
+Subject: [PATCH 2/3] gpu: nova-core: Move PFB registers definitions
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDtgEvyhVyldpMlUR0oiMyoF8
- e6mdvkt3ttBSZgU7tUOQhsr51RgbhWE0aeBkGMx2Nq2dWcNprx5DFkIhQZFnT+8YOyc6503TUM
- RSjoLvfl7bR/Pv3V9TRSW3wuO4wRNFyhxeAAAAA==
-X-Change-ID: 20260721-nova-core-regs-split-d73383a155ed
+Message-Id: <20260721-nova-core-regs-split-v1-2-384fa2a42244@nanonej.com>
+References: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
+In-Reply-To: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
 To: Danilo Krummrich <dakr@kernel.org>, 
  Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
@@ -52,21 +50,21 @@ Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, daniel.almeida@collabora.com, 
  Antonin Malzieu Ridolfi <dev@nanonej.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1687; i=dev@nanonej.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14293; i=dev@nanonej.com;
  h=from:subject:message-id;
- bh=ZbffgWN1kX4ZHQUBKZKA6y26aw/ky0IhdmuCiZYJ8QM=;
- b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqX5MlfFPdj9d0agONH2SWdbsnkVH1uxCaAHG3f
- M7NMGRyDSqJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCal+TJQAKCRBmh/EjChUV
- /W4tD/9ilWfV5dVSZo2RhjUS5eMld167E+NfAUtKbS58ckvT0Nt3deTt+J/4CKyu2k0qwMfaTqK
- cghdIy6FF1chdc7819EMkuUAXQ4bYZWUO5/4qZTjURGFedlmCnN5+EveL6Kmc/m9oRIX+NmzfqS
- 7/CDKrJ2J9pnpl85fBXsSGyxEscTOAUUjKOZufiFjKoAUAS1X8rSJ5Dfh5NSoP0soPH6afmCzMn
- fm3RtuFocHxvbWih3ijYwyD45v7G0656Q74KEblqKaWMaKa5wiygN4p8qVYwGN+NPOZscPJCsoV
- RLGaO6EbRnpYpHdd1eqwsIIE7JkWAYcVPj3kb1MCzXiLN8zNk/O5tmbxymFrPQxsU+sLYAWBVzt
- Anj1zl6ApdA992onra62vBlTyX3cYRjc7aa29UJvRCx+84VdF5Bgu66dKHpi01XosyfI43OEeL7
- 4EIaaJ7RT5bYAJjXrA1Qlr8Me/LSeruNbUJcchprKtzYhQ0YZIxHlOOXm70sQ1c80pO7AFfAX8a
- bs/3JshNPieWjcu+fwJUiEmrS59brKdlzHDb8T55kKgs5Dw+qRLn0+O6rN4BmpwfCEvhSfBBhOs
- OhHpkL63K+E2Gu/8qk8ZbCOkHVT7HFmait6HfKScdgHwEwNKL2MrKXUq2ekH4sXsHDcDNyejPn4
- sODTXl4jXEi6gTw==
+ bh=F5LTVHjgFJ3uUDHCKOhGSKmExpbgKCjvPw0GmpMTOP0=;
+ b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqX5Mtt2gsPtSVggbdn9Na86o9+nkrOuPPEplDS
+ RbWDTpIelGJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCal+TLQAKCRBmh/EjChUV
+ /YdQD/kBgdMGuuN9pmUCgfgYyZCfBzw/UnT6f3LYAxOXBONe8dSl6miJJUypbeMCqsmEpm7LFOq
+ +VRCZsnfN+4DEAhSfIXiy+w+fWyFd3osbgLdGIlQ/C43+QoQw8UVpRPoPkq7OZMJquqIb+8kdZN
+ 5W/cehIBPO3ilAfHISzdBhJUvI/zye3UrBskVNW8Gc7d+HLKarKdSN+rPaVQ12xIaEq+HM04nSh
+ 90jgmGKw3TwITKbbymxVzPdmdOuyHjTfAa+Urt85SLMmDdY98lcynTD8oKo2h3P0iOF48mdQUNE
+ 7/s2clcyd6Q4Oow/HRUxBUTyRm8Vb1IkuDGd/0tu4wNwHekhlJuTv21T0ZaIOnJ+NHZfjZd14Wh
+ sww4il2DiDZUPqXNnmwDx9y6pSrnF1KiqmBx4efEMRtPILRxxPj84woxTd9C86b1/QoryEJgvdl
+ kWSrdCF3fqJscinH1TJ+JeDVvMYnH2O7n+Mcup0578XcMBD99Q0hENIiY4nZ8ydFPk5b8cOz+6K
+ GhczdD/g6MKfOyDlMBOsENz6yn0WJCpL13uv/1tDR0nIUEfAITGblRTHqgXVaijX0U/+EcX9ke/
+ 4JNiAc9hCGZCO/qyOF2+ibA8y8WfTohJ+FenwchqvcHdCgAKwQDfMd3ldwWpK49Qc7xyCVKnmLP
+ CGdBpQqHRpDX6nw==
 X-Developer-Key: i=dev@nanonej.com; a=openpgp;
  fpr=83B64FB07C91212F5285227D6687F1230A1515FD
 X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with auth_id=825
@@ -87,46 +85,427 @@ Reply-To: dev@nanonej.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Split part of the registers definitions grouped in nova root register file to
-belonging modules whom actually use them.
-Add WPR2 range query function to fb module.
-
-To: Danilo Krummrich <dakr@kernel.org>
-To: Alexandre Courbot <acourbot@nvidia.com>
-To: Alice Ryhl <aliceryhl@google.com>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: nova-gpu@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: daniel.almeida@collabora.com
+From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 
 Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
 Suggested-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
 ---
-Antonin Malzieu Ridolfi (3):
-      gpu: nova-core: Add function to query WPR2 range
-      gpu: nova-core: Move PFB registers definitions
-      gpu: nova-core: Move one PBUS register definition
+ drivers/gpu/nova-core/fb.rs           |   4 +-
+ drivers/gpu/nova-core/fb/hal/ga100.rs |   8 ++-
+ drivers/gpu/nova-core/fb/hal/gb100.rs |   6 +-
+ drivers/gpu/nova-core/fb/hal/gb202.rs |   6 +-
+ drivers/gpu/nova-core/fb/hal/gh100.rs |   6 +-
+ drivers/gpu/nova-core/fb/hal/tu102.rs |   8 ++-
+ drivers/gpu/nova-core/fb/regs.rs      | 132 +++++++++++++++++++++++++++++++++-
+ drivers/gpu/nova-core/regs.rs         | 127 --------------------------------
+ 8 files changed, 155 insertions(+), 142 deletions(-)
 
- drivers/gpu/nova-core/fb.rs            |  15 ++++
- drivers/gpu/nova-core/fb/hal/ga100.rs  |   8 +-
- drivers/gpu/nova-core/fb/hal/gb100.rs  |   6 +-
- drivers/gpu/nova-core/fb/hal/gb202.rs  |   6 +-
- drivers/gpu/nova-core/fb/hal/gh100.rs  |   6 +-
- drivers/gpu/nova-core/fb/hal/tu102.rs  |   8 +-
- drivers/gpu/nova-core/fb/regs.rs       | 132 ++++++++++++++++++++++++++++++++-
- drivers/gpu/nova-core/gsp/hal/tu102.rs |  60 +++++++--------
- drivers/gpu/nova-core/gsp/regs.rs      |  11 +++
- drivers/gpu/nova-core/regs.rs          | 132 ---------------------------------
- 10 files changed, 206 insertions(+), 178 deletions(-)
----
-base-commit: 22e77d81d0a9ab3aee1c5538b3f2f8a66930bfa7
-change-id: 20260721-nova-core-regs-split-d73383a155ed
+diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
+index 864a34ca20b8..59e715b73479 100644
+--- a/drivers/gpu/nova-core/fb.rs
++++ b/drivers/gpu/nova-core/fb.rs
+@@ -275,8 +275,8 @@ pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gsp_fw: &GspFirmware) -> Resu
+ /// Returns `None` if the WPR2 region is not set.
+ pub(crate) fn wpr2_range(bar: Bar0<'_>) -> Option<Range<u64>> {
+     let (wpr2_lo, wpr2_hi) = (
+-        bar.read(crate::regs::NV_PFB_PRI_MMU_WPR2_ADDR_LO),
+-        bar.read(crate::regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI),
++        bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_LO),
++        bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI),
+     );
+ 
+     if !wpr2_hi.is_wpr2_set() {
+diff --git a/drivers/gpu/nova-core/fb/hal/ga100.rs b/drivers/gpu/nova-core/fb/hal/ga100.rs
+index 3cc1caf361c7..d13c9a826eef 100644
+--- a/drivers/gpu/nova-core/fb/hal/ga100.rs
++++ b/drivers/gpu/nova-core/fb/hal/ga100.rs
+@@ -9,8 +9,10 @@
+ 
+ use crate::{
+     driver::Bar0,
+-    fb::hal::FbHal,
+-    regs, //
++    fb::{
++        hal::FbHal,
++        regs, //
++    },
+ };
+ 
+ use super::tu102::FLUSH_SYSMEM_ADDR_SHIFT;
+@@ -41,7 +43,7 @@ pub(super) fn write_sysmem_flush_page_ga100(bar: Bar0<'_>, addr: u64) {
+ }
+ 
+ pub(super) fn display_enabled_ga100(bar: Bar0<'_>) -> bool {
+-    !bar.read(regs::ga100::NV_FUSE_STATUS_OPT_DISPLAY)
++    !bar.read(crate::regs::ga100::NV_FUSE_STATUS_OPT_DISPLAY)
+         .display_disabled()
+ }
+ 
+diff --git a/drivers/gpu/nova-core/fb/hal/gb100.rs b/drivers/gpu/nova-core/fb/hal/gb100.rs
+index 6e0eba101ca1..ec55ec3fc7e1 100644
+--- a/drivers/gpu/nova-core/fb/hal/gb100.rs
++++ b/drivers/gpu/nova-core/fb/hal/gb100.rs
+@@ -22,9 +22,11 @@
+ 
+ use crate::{
+     driver::Bar0,
+-    fb::hal::FbHal,
++    fb::{
++        hal::FbHal,
++        regs, //
++    },
+     num::usize_into_u32,
+-    regs, //
+ };
+ 
+ struct Gb100;
+diff --git a/drivers/gpu/nova-core/fb/hal/gb202.rs b/drivers/gpu/nova-core/fb/hal/gb202.rs
+index b78e0970f66d..69ba35d2ea08 100644
+--- a/drivers/gpu/nova-core/fb/hal/gb202.rs
++++ b/drivers/gpu/nova-core/fb/hal/gb202.rs
+@@ -12,8 +12,10 @@
+ 
+ use crate::{
+     driver::Bar0,
+-    fb::hal::FbHal,
+-    regs, //
++    fb::{
++        hal::FbHal,
++        regs, //
++    },
+ };
+ 
+ struct Gb202;
+diff --git a/drivers/gpu/nova-core/fb/hal/gh100.rs b/drivers/gpu/nova-core/fb/hal/gh100.rs
+index d39fe99537ed..2867ae058d0a 100644
+--- a/drivers/gpu/nova-core/fb/hal/gh100.rs
++++ b/drivers/gpu/nova-core/fb/hal/gh100.rs
+@@ -10,8 +10,10 @@
+ 
+ use crate::{
+     driver::Bar0,
+-    fb::hal::FbHal,
+-    regs, //
++    fb::{
++        hal::FbHal,
++        regs, //
++    },
+ };
+ 
+ struct Gh100;
+diff --git a/drivers/gpu/nova-core/fb/hal/tu102.rs b/drivers/gpu/nova-core/fb/hal/tu102.rs
+index f629e8e9d5d5..2ef04ccb550c 100644
+--- a/drivers/gpu/nova-core/fb/hal/tu102.rs
++++ b/drivers/gpu/nova-core/fb/hal/tu102.rs
+@@ -9,8 +9,10 @@
+ 
+ use crate::{
+     driver::Bar0,
+-    fb::hal::FbHal,
+-    regs, //
++    fb::{
++        hal::FbHal, //
++        regs,
++    },
+ };
+ 
+ /// Shift applied to the sysmem address before it is written into `NV_PFB_NISO_FLUSH_SYSMEM_ADDR`,
+@@ -31,7 +33,7 @@ pub(super) fn write_sysmem_flush_page_gm107(bar: Bar0<'_>, addr: u64) -> Result
+ }
+ 
+ pub(super) fn display_enabled_gm107(bar: Bar0<'_>) -> bool {
+-    !bar.read(regs::gm107::NV_FUSE_STATUS_OPT_DISPLAY)
++    !bar.read(crate::regs::gm107::NV_FUSE_STATUS_OPT_DISPLAY)
+         .display_disabled()
+ }
+ 
+diff --git a/drivers/gpu/nova-core/fb/regs.rs b/drivers/gpu/nova-core/fb/regs.rs
+index b2ec02f584be..b2baa4a2a85f 100644
+--- a/drivers/gpu/nova-core/fb/regs.rs
++++ b/drivers/gpu/nova-core/fb/regs.rs
+@@ -1,6 +1,9 @@
+ // SPDX-License-Identifier: GPL-2.0
+ 
+-use kernel::io::register;
++use kernel::{
++    io::register,
++    sizes::SizeConstants, //
++};
+ 
+ // PDISP
+ 
+@@ -23,3 +26,130 @@ pub(super) fn vga_workspace_addr(self) -> Option<u64> {
+         }
+     }
+ }
++
++// PFB
++
++register! {
++    /// Low bits of the physical system memory address used by the GPU to perform sysmembar
++    /// operations (see [`super::fb::SysmemFlush`]).
++    pub(super) NV_PFB_NISO_FLUSH_SYSMEM_ADDR(u32) @ 0x00100c10 {
++        31:0    adr_39_08;
++    }
++
++    /// High bits of the physical system memory address used by the GPU to perform sysmembar
++    /// operations.
++    pub(super) NV_PFB_NISO_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x00100c40 {
++        23:0    adr_63_40;
++    }
++
++    pub(super) NV_PFB_PRI_MMU_LOCAL_MEMORY_RANGE(u32) @ 0x00100ce0 {
++        30:30   ecc_mode_enabled => bool;
++        9:4     lower_mag;
++        3:0     lower_scale;
++    }
++
++    pub(super) NV_PFB_PRI_MMU_WPR2_ADDR_LO(u32) @ 0x001fa824 {
++        /// Bits 12..40 of the lower (inclusive) bound of the WPR2 region.
++        31:4    lo_val;
++    }
++
++    pub(super) NV_PFB_PRI_MMU_WPR2_ADDR_HI(u32) @ 0x001fa828 {
++        /// Bits 12..40 of the higher (exclusive) bound of the WPR2 region.
++        31:4    hi_val;
++    }
++}
++
++/// Base of the GB10x HSHUB0 register window (`NV_HSHUB0_PRIV_BASE` in Open RM).
++///
++/// The base is provided by the GB10x framebuffer HAL.
++pub(super) struct Hshub0Base(());
++
++register! {
++    // GB10x sysmem flush registers, relative to the HSHUB0 base. GB10x routes sysmembar
++    // through a primary and an EG (egress) pair that must both be programmed to the same
++    // address. Hardware ignores bits 7:0 of each LO register. The boot path uses a fixed
++    // HSHUB0 base, so the multiple runtime-discovered HSHUB bases are not needed here.
++    pub(super) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x00000e50 {
++        31:0    adr => u32;
++    }
++
++    pub(super) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x00000e54 {
++        19:0    adr;
++    }
++
++    pub(super) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x000006c0 {
++        31:0    adr => u32;
++    }
++
++    pub(super) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x000006c4 {
++        19:0    adr;
++    }
++}
++
++register! {
++    // GB20x FBHUB0 sysmem flush registers. Unlike the older
++    // NV_PFB_NISO_FLUSH_SYSMEM_ADDR registers, which encode the address with an
++    // 8-bit right-shift, these take the raw address split into lower and upper
++    // halves. Hardware ignores bits 7:0 of the LO register.
++    pub(super) NV_PFB_FBHUB0_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x008a1d58 {
++        31:0    adr => u32;
++    }
++
++    pub(super) NV_PFB_FBHUB0_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x008a1d5c {
++        19:0    adr;
++    }
++}
++
++register! {
++    /// Low bits of the physical system memory address used by the GPU to perform
++    /// sysmembar operations on Hopper.
++    ///
++    /// Like the GB20x FBHUB0 registers, and unlike the Ampere
++    /// `NV_PFB_NISO_FLUSH_SYSMEM_ADDR` registers (which encode the address with an
++    /// 8-bit right-shift), these take the raw address split into lower and upper
++    /// halves. Hardware ignores bits 7:0 of the LO register.
++    pub(super) NV_PFB_FBHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x00100a34 {
++        31:0    adr => u32;
++    }
++
++    /// High bits of the physical system memory address used by the GPU to perform
++    /// sysmembar operations on Hopper.
++    pub(super) NV_PFB_FBHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x00100a38 {
++        19:0    adr;
++    }
++}
++
++impl NV_PFB_PRI_MMU_LOCAL_MEMORY_RANGE {
++    /// Returns the usable framebuffer size, in bytes.
++    pub(super) fn usable_fb_size(self) -> u64 {
++        let size = (u64::from(self.lower_mag()) << u64::from(self.lower_scale())) * u64::SZ_1M;
++
++        if self.ecc_mode_enabled() {
++            // Remove the amount of memory reserved for ECC (one per 16 units).
++            size / 16 * 15
++        } else {
++            size
++        }
++    }
++}
++
++impl NV_PFB_PRI_MMU_WPR2_ADDR_LO {
++    /// Returns the lower (inclusive) bound of the WPR2 region.
++    pub(super) fn lower_bound(self) -> u64 {
++        u64::from(self.lo_val()) << 12
++    }
++}
++
++impl NV_PFB_PRI_MMU_WPR2_ADDR_HI {
++    /// Returns the higher (exclusive) bound of the WPR2 region.
++    ///
++    /// A value of zero means the WPR2 region is not set.
++    pub(super) fn higher_bound(self) -> u64 {
++        u64::from(self.hi_val()) << 12
++    }
++
++    /// Returns whether the WPR2 region is currently set.
++    pub(super) fn is_wpr2_set(self) -> bool {
++        self.hi_val() != 0
++    }
++}
+diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+index 397124f245ee..f7304b27ae0c 100644
+--- a/drivers/gpu/nova-core/regs.rs
++++ b/drivers/gpu/nova-core/regs.rs
+@@ -116,133 +116,6 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
+     }
+ }
+ 
+-// PFB
+-
+-register! {
+-    /// Low bits of the physical system memory address used by the GPU to perform sysmembar
+-    /// operations (see [`crate::fb::SysmemFlush`]).
+-    pub(crate) NV_PFB_NISO_FLUSH_SYSMEM_ADDR(u32) @ 0x00100c10 {
+-        31:0    adr_39_08;
+-    }
+-
+-    /// High bits of the physical system memory address used by the GPU to perform sysmembar
+-    /// operations.
+-    pub(crate) NV_PFB_NISO_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x00100c40 {
+-        23:0    adr_63_40;
+-    }
+-
+-    pub(crate) NV_PFB_PRI_MMU_LOCAL_MEMORY_RANGE(u32) @ 0x00100ce0 {
+-        30:30   ecc_mode_enabled => bool;
+-        9:4     lower_mag;
+-        3:0     lower_scale;
+-    }
+-
+-    pub(crate) NV_PFB_PRI_MMU_WPR2_ADDR_LO(u32) @ 0x001fa824 {
+-        /// Bits 12..40 of the lower (inclusive) bound of the WPR2 region.
+-        31:4    lo_val;
+-    }
+-
+-    pub(crate) NV_PFB_PRI_MMU_WPR2_ADDR_HI(u32) @ 0x001fa828 {
+-        /// Bits 12..40 of the higher (exclusive) bound of the WPR2 region.
+-        31:4    hi_val;
+-    }
+-}
+-
+-/// Base of the GB10x HSHUB0 register window (`NV_HSHUB0_PRIV_BASE` in Open RM).
+-///
+-/// The base is provided by the GB10x framebuffer HAL.
+-pub(crate) struct Hshub0Base(());
+-
+-register! {
+-    // GB10x sysmem flush registers, relative to the HSHUB0 base. GB10x routes sysmembar
+-    // through a primary and an EG (egress) pair that must both be programmed to the same
+-    // address. Hardware ignores bits 7:0 of each LO register. The boot path uses a fixed
+-    // HSHUB0 base, so the multiple runtime-discovered HSHUB bases are not needed here.
+-    pub(crate) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x00000e50 {
+-        31:0    adr => u32;
+-    }
+-
+-    pub(crate) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x00000e54 {
+-        19:0    adr;
+-    }
+-
+-    pub(crate) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x000006c0 {
+-        31:0    adr => u32;
+-    }
+-
+-    pub(crate) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x000006c4 {
+-        19:0    adr;
+-    }
+-}
+-
+-register! {
+-    // GB20x FBHUB0 sysmem flush registers. Unlike the older
+-    // NV_PFB_NISO_FLUSH_SYSMEM_ADDR registers, which encode the address with an
+-    // 8-bit right-shift, these take the raw address split into lower and upper
+-    // halves. Hardware ignores bits 7:0 of the LO register.
+-    pub(crate) NV_PFB_FBHUB0_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x008a1d58 {
+-        31:0    adr => u32;
+-    }
+-
+-    pub(crate) NV_PFB_FBHUB0_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x008a1d5c {
+-        19:0    adr;
+-    }
+-}
+-
+-register! {
+-    /// Low bits of the physical system memory address used by the GPU to perform
+-    /// sysmembar operations on Hopper.
+-    ///
+-    /// Like the GB20x FBHUB0 registers, and unlike the Ampere
+-    /// `NV_PFB_NISO_FLUSH_SYSMEM_ADDR` registers (which encode the address with an
+-    /// 8-bit right-shift), these take the raw address split into lower and upper
+-    /// halves. Hardware ignores bits 7:0 of the LO register.
+-    pub(crate) NV_PFB_FBHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x00100a34 {
+-        31:0    adr => u32;
+-    }
+-
+-    /// High bits of the physical system memory address used by the GPU to perform
+-    /// sysmembar operations on Hopper.
+-    pub(crate) NV_PFB_FBHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x00100a38 {
+-        19:0    adr;
+-    }
+-}
+-
+-impl NV_PFB_PRI_MMU_LOCAL_MEMORY_RANGE {
+-    /// Returns the usable framebuffer size, in bytes.
+-    pub(crate) fn usable_fb_size(self) -> u64 {
+-        let size = (u64::from(self.lower_mag()) << u64::from(self.lower_scale())) * u64::SZ_1M;
+-
+-        if self.ecc_mode_enabled() {
+-            // Remove the amount of memory reserved for ECC (one per 16 units).
+-            size / 16 * 15
+-        } else {
+-            size
+-        }
+-    }
+-}
+-
+-impl NV_PFB_PRI_MMU_WPR2_ADDR_LO {
+-    /// Returns the lower (inclusive) bound of the WPR2 region.
+-    pub(crate) fn lower_bound(self) -> u64 {
+-        u64::from(self.lo_val()) << 12
+-    }
+-}
+-
+-impl NV_PFB_PRI_MMU_WPR2_ADDR_HI {
+-    /// Returns the higher (exclusive) bound of the WPR2 region.
+-    ///
+-    /// A value of zero means the WPR2 region is not set.
+-    pub(crate) fn higher_bound(self) -> u64 {
+-        u64::from(self.hi_val()) << 12
+-    }
+-
+-    /// Returns whether the WPR2 region is currently set.
+-    pub(crate) fn is_wpr2_set(self) -> bool {
+-        self.hi_val() != 0
+-    }
+-}
+-
+ // PGC6 register space.
+ //
+ // `GC6` is a GPU low-power state where VRAM is in self-refresh and the GPU is powered down (except
 
-Best regards,
---  
-Antonin Malzieu Ridolfi <dev@nanonej.com>
+-- 
+2.55.0
 
 
