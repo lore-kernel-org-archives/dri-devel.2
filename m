@@ -4,44 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCC2BC4451C
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 08:44:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 639D8C4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 08:53:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 176EE10E313;
-	Tue, 21 Jul 2026 08:44:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3CAB10E753;
+	Tue, 21 Jul 2026 08:53:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OcTJdY0t";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="XjRzXw7M";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73AF810E313
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 08:43:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 049AD4322F;
- Tue, 21 Jul 2026 08:43:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B06541F00A3A;
- Tue, 21 Jul 2026 08:43:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784623437;
- bh=VzCdjtx8altAk5e7BQbTItUKnprqOHMnuj84DFtaUXQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OcTJdY0tSgwBPShcmwYT5VRGX6Ij5BPbxn0FabKbiaeKqHr7IpH+Xf/cXlMskBqOq
- z7xZ8gVZ8CpMRf0ZDg+kV1IHs5XZK15jXsd31IUrdr2VEQkPPPq/UW0tu6L+YxXauu
- 1l7p3d8jPz2UQ+KkP3ZTNU33KH43KfgZEN9Dba2rz0pPXjYjERssUPoOBzTsoNCcM2
- T47KSbkm6elX5oXarPYHn+3c9kY1jMS3co5FyzGC9SqbNz0vLKsj7svUnFx5G8QAee
- 3Hbw9RptBu2mKAvGubBROwPya5tL7+oxmD/lSHYCNKxtePiVGXGTqGRy0yy/4H/8wU
- oSM+nIuLnesLw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/2] drm/drm_crtc: ensure dma_fence_ops remain valid
- during device unbind
-To: =?utf-8?b?QW5kcsOpIERyYXN6aWs=?= <andre.draszik@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
-References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
- <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 08:43:57 +0000
-Message-Id: <20260721084357.B06541F00A3A@smtp.kernel.org>
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Tue, 21 Jul 2026 08:53:17 UTC
+Received: from mail-m6053.netease.com (mail-m6053.netease.com [210.79.60.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5DEE10E753
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 08:53:16 +0000 (UTC)
+Received: from [172.16.12.90] (unknown [58.22.7.114])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 46fd7cbde;
+ Tue, 21 Jul 2026 16:48:10 +0800 (GMT+08:00)
+Message-ID: <e2eb4217-e4d3-4650-915c-e36f4355168e@rock-chips.com>
+Date: Tue, 21 Jul 2026 16:48:09 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] drm/rockchip: lvds: add RK3568 support
+To: =?UTF-8?Q?Rok_Markovi=C4=8D?= <rok@kanardia.eu>
+Cc: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Alibek Omarov <a1ba.omarov@gmail.com>
+References: <20260717120005.2087386-1-rok@kanardia.eu>
+ <20260717120005.2087386-4-rok@kanardia.eu>
+ <9219738d-c3f2-4034-b88f-84335f77fbad@rock-chips.com>
+ <3a5685992b5e335f2ebf50ee740b8a36@kanardia.eu>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <3a5685992b5e335f2ebf50ee740b8a36@kanardia.eu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9f83dc72e703a7kunmfe88d93e2be2a2
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQksdSVYeSEpOT0hISE
+ wZTUpWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+ tIVUpLSEpKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=XjRzXw7MwJLm9McXvDow27Pg+1obxCpoSzcZkszDWvMrRG59L4CLwFNojND9xtfzan/5I4qO/VcDyFQjxXH6wV6a58h/64teTRyFuMcY32miB7ZlEia7cOEjFXZWFvRCI7WnDEf7LXw8hAL178AwXaEA1vOEcsq/XQmxBTGuEmU=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=VbdYabY6304wmkQVRhzKWa2oeZwqHMjq8WamtfsNPII=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,104 +68,340 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 7/21/2026 4:31 PM, Rok Markovič wrote:
+> 20.7.2026 3:54, je Chaoyi Chen napisal
+>> Hello Rok,
+>>
+>> Thank you for your patch. Please see the comment below:
+>>
+>> On 7/17/2026 8:00 PM, Rok Markovic wrote:
+>>> The RK3568 LVDS transmitter has no register block of its own. It is
+>>> driven entirely through the GRF and re-uses the MIPI DSI0 D-PHY in
+>>> PHY_MODE_LVDS, which phy-rockchip-inno-dsidphy already supports.
+>>>
+>>> Based on Alibek Omarov's earlier posting [1], with the changes below.
+>>>
+>>> Power the D-PHY from the encoder enable path rather than from probe.
+>>> phy_power_on() runs the phy driver's whole LVDS bring-up: PLL and
+>>> bandgap power-on, a settle, PLL mode select, then a reset pulse of the
+>>> serializer and the lane enables. None of that is safe at probe time -
+>>> the GRF has not yet switched the block to LVDS mode (LVDS0_MODE_EN is
+>>> set from rk3568_lvds_poweron(), i.e. the enable path) and the VOP is
+>>> not driving dclk. The serializer is clocked from dclk and latches its
+>>> state coming out of that reset, so it comes up dead and stays dead.
+>>> The failure is silent: every register in the phy, the GRF and the VOP
+>>> reads back exactly as on a working system while the lanes sit at
+>>> common mode and never toggle.
+>>>
+>>
+>> Could you please confirm this? Based on my earlier tests, after PHY
+>> poweron, re-disabling and re-enabling the GRF did not reproduce the
+>> issue you described.
+> 
+> I can confirm that this is not working but I testedwith writing registers
+> manually with devmem and I could make something wrong.
+> 
+> Should I leave it this way or should I move this back to probe and try to
+> make it work in enable by some trick (disabel/enable GRF)?
+> 
 
-Pre-existing issues:
-- [High] The patch fails to address a critical use-after-free of `crtc->fen=
-ce_lock` because `synchronize_rcu()` does not protect external spinlocks.
-- [High] The synchronize_rcu() fix violates the RCU-001 'Remove Before Recl=
-aim' rule, failing to prevent UAF of the CRTC when new readers query the fe=
-nce.
---
-
---- Patch [1]: [PATCH v3 1/2] drm/drm_crtc: ensure dma_fence_ops remain val=
-id during device unbind ---
-commit 31b9417fd75463986e2e186faa6c672078a471fd
-Author: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
-
-drm/drm_crtc: ensure dma_fence_ops remain valid during device unbind
-   =20
-This commit adds a synchronize_rcu() call to drm_crtc_cleanup() before remo=
-ving
-the CRTC from the DRM mode setting core. This is intended to wait for an RCU
-grace period to ensure that dma_fence_ops can safely dereference crtc->dev
-if userspace queries a sync_file concurrently with device hot-unplug.
-
-Link: https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix2-v1-1-c03e=
-77b36f34@linaro.org?part=3D1
-
-> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-> index 63ead8ba67564..e8e80c9368529 100644
-> --- a/drivers/gpu/drm/drm_crtc.c
-> +++ b/drivers/gpu/drm/drm_crtc.c
-> @@ -493,14 +493,23 @@ EXPORT_SYMBOL(__drmm_crtc_alloc_with_planes);
-[ ... ]
->  void drm_crtc_cleanup(struct drm_crtc *crtc)
->  {
->  	struct drm_device *dev =3D crtc->dev;
-> =20
-> +	/* Ensure our dma_fence_ops remain valid for an RCU grace period after
-> +	 * the fence is signaled. This is necessary because our dma_fence_ops
-> +	 * dereference crtc->dev.
-> +	 */
-> +	synchronize_rcu();
-
-[Severity: High]
-This is a pre-existing issue, but does this actually protect the
-crtc->fence_lock?
-
-In drm_crtc_create_fence(), the dma_fence is initialized with a pointer to
-the CRTC's embedded spinlock:
-
-drivers/gpu/drm/drm_crtc.c:drm_crtc_create_fence() {
-    ...
-    dma_fence_init(fence, &drm_crtc_fence_ops, &crtc->fence_lock,
-                   crtc->fence_context, ++crtc->fence_seqno);
-    ...
-}
-
-Because the dma_fence does not hold a reference to the CRTC, the fence can
-outlive the CRTC.
-
-The synchronize_rcu() call added here provides no protection for the direct
-spinlock acquisition in the dma_fence API.
-
-If userspace calls ioctl(SYNC_IOC_FILE_INFO) after the CRTC is freed, the
-kernel calls dma_fence_get_status(), which executes spin_lock_irqsave() on =
-the
-fence's external lock (pointing to the freed crtc->fence_lock).
-
-Can this still lead to a use-after-free of the crtc->fence_lock?
+Just out of curiosity. I think it's fine as it is now :)
 
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does calling synchronize_rcu=
-()
-here violate the RCU "Remove Before Reclaim" rule?
+>>
+>>> Program RK3568_LVDS0_DCLK_INV_SEL from the CRTC state's bus_flags so
+>>> the panel's declared pixelclk-active is honoured on the LVDS block as
+>>> well as on the VOP pin polarity. Both have to agree with the edge the
+>>> panel samples on.
+>>>
+>>> Re-assert RK3568_LVDS0_P2S_EN in rk3568_lvds_poweron().
+>>> rk3568_lvds_poweroff() clears MODE_EN and P2S_EN together, so setting
+>>> P2S_EN once at probe would leave the parallel-to-serial converter off
+>>> after the first disable/enable cycle.
+>>>
+>>> Use regmap_write() rather than regmap_update_bits() for the GRF. These
+>>> registers are write-masked - the upper 16 bits select which of the
+>>> lower 16 a write may change - so there is nothing to preserve and no
+>>> reason to read first. Passing a FIELD_PREP_WM16() value as both the
+>>> mask and the value of an update_bits() applies the masking twice and
+>>> only works by accident.
+>>>
+>>> Between the two, nothing needs programming at probe at all: the GRF is
+>>> written entirely from the enable path, so px30_lvds_probe() is left
+>>> alone rather than being refactored into a shared phy helper.
+>>>
+>>> [1] https://lore.kernel.org/all/20230119184807.171132-1-a1ba.omarov@gmail.com/
+>>>
+>>> Co-developed-by: Alibek Omarov <a1ba.omarov@gmail.com>
+>>> Signed-off-by: Alibek Omarov <a1ba.omarov@gmail.com>
+>>> Signed-off-by: Rok Markovic <rok@kanardia.eu>
+>>> Assisted-by: Claude:claude-opus-4-8
+>>> ---
+>>>  drivers/gpu/drm/rockchip/rockchip_lvds.c | 161 +++++++++++++++++++++++
+>>>  drivers/gpu/drm/rockchip/rockchip_lvds.h |  10 ++
+>>>  2 files changed, 171 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+>>> index 95fa0a9..f45d04a 100644
+>>> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
+>>> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+>>> @@ -435,6 +435,133 @@ static void px30_lvds_encoder_disable(struct drm_encoder *encoder)
+>>>      drm_panel_unprepare(lvds->panel);
+>>>  }
+>>>
+>>> +static int rk3568_lvds_poweron(struct rockchip_lvds *lvds)
+>>> +{
+>>> +    int ret;
+>>> +
+>>> +    ret = clk_enable(lvds->pclk);
+>>> +    if (ret < 0) {
+>>> +        DRM_DEV_ERROR(lvds->dev, "failed to enable lvds pclk %d\n", ret);
+>>> +        return ret;
+>>> +    }
+>>> +
+>>> +    ret = pm_runtime_get_sync(lvds->dev);
+>>> +    if (ret < 0) {
+>>> +        DRM_DEV_ERROR(lvds->dev, "failed to get pm runtime: %d\n", ret);
+>>> +        clk_disable(lvds->pclk);
+>>> +        return ret;
+>>> +    }
+>>> +
+>>> +    /*
+>>> +     * Enable LVDS mode and the parallel-to-serial converter. These are
+>>> +     * write-masked registers, so a plain write only touches the bits named
+>>> +     * here; there is nothing to preserve and no need to read first.
+>>> +     */
+>>
+>> I think this comment is redundant. We all know this is a common design
+>> on Rockchip platform, right? :)
+>>
+> 
+> Done
+> 
+>>> +    return regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
+>>> +                RK3568_LVDS0_MODE_EN(1) |
+>>> +                RK3568_LVDS0_P2S_EN(1));
+>>> +}
+>>> +
+>>> +static void rk3568_lvds_poweroff(struct rockchip_lvds *lvds)
+>>> +{
+>>> +    regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
+>>> +             RK3568_LVDS0_MODE_EN(0) | RK3568_LVDS0_P2S_EN(0));
+>>> +
+>>> +    pm_runtime_put(lvds->dev);
+>>> +    clk_disable(lvds->pclk);
+>>> +}
+>>> +
+>>> +static int rk3568_lvds_grf_config(struct drm_encoder *encoder,
+>>> +                  struct drm_display_mode *mode)
+>>> +{
+>>> +    struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
+>>> +    struct rockchip_crtc_state *s =
+>>> +        to_rockchip_crtc_state(encoder->crtc->state);
+>>> +    bool negedge = !!(s->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE);
+>>> +
+>>> +    if (lvds->output != DISPLAY_OUTPUT_LVDS) {
+>>> +        DRM_DEV_ERROR(lvds->dev, "Unsupported display output %d\n",
+>>> +                  lvds->output);
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    /*
+>>> +     * The LVDS block has its own dclk inversion select, separate from the
+>>> +     * VOP's pin polarity. Both have to agree with what the panel samples on.
+>>> +     */
+>>> +    regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
+>>> +             RK3568_LVDS0_DCLK_INV_SEL(negedge));
+>>> +
+>>> +    /* Set format */
+>>> +    return regmap_write(lvds->grf, RK3568_GRF_VO_CON0,
+>>> +                RK3568_LVDS0_SELECT(lvds->format) |
+>>> +                RK3568_LVDS0_MSBSEL(1));
+>>> +}
+>>
+>> I think rk3568_lvds_poweron() and rk3568_lvds_grf_config() can be merged
+>> to reduce extra register operations.
+> 
+> Done
+> 
+>>> +
+>>> +static void rk3568_lvds_encoder_enable(struct drm_encoder *encoder)
+>>> +{
+>>> +    struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
+>>> +    struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
+>>> +    int ret;
+>>> +
+>>> +    drm_panel_prepare(lvds->panel);
+>>> +
+>>> +    ret = rk3568_lvds_poweron(lvds);
+>>> +    if (ret) {
+>>> +        DRM_DEV_ERROR(lvds->dev, "failed to power on LVDS: %d\n", ret);
+>>> +        drm_panel_unprepare(lvds->panel);
+>>> +        return;
+>>> +    }
+>>> +
+>>> +    ret = rk3568_lvds_grf_config(encoder, mode);
+>>> +    if (ret) {
+>>> +        DRM_DEV_ERROR(lvds->dev, "failed to configure LVDS: %d\n", ret);
+>>> +        drm_panel_unprepare(lvds->panel);
+>>> +        return;
+>>> +    }
+>>> +
+>>> +    /*
+>>> +     * Only now bring the D-PHY up. phy_power_on() runs the whole
+>>> +     * inno_dsidphy_lvds_mode_enable() sequence - PLL and bandgap power-on,
+>>> +     * a settle, PLL mode select, then a reset pulse of the serializer and
+>>> +     * the lane enables. All of that has to happen with the block already
+>>> +     * switched to LVDS mode in the GRF (above) and with the VOP's dclk
+>>> +     * running, because the serializer is clocked from dclk and latches its
+>>> +     * state out of that reset.
+>>> +     *
+>>> +     * Doing it at probe instead - as this driver used to - resets and
+>>> +     * enables the serializer against a block that is not in LVDS mode yet
+>>> +     * and has no input clock. Every register then reads back correct while
+>>> +     * the lanes sit at common mode forever. Rockchip's BSP orders it this
+>>> +     * way (GRF writes, then phy_set_mode + phy_power_on).
+>>> +     */
+>>
+>> I think this comment is redundant. These are internal details of
+>> phy_set_mode() and don't need to be explained here. Also, the
+>> ordering requirements are quite common. You can describe them in the
+>> commit message.
+>>
+> 
+> Done
+> 
+>>> +    ret = phy_set_mode(lvds->dphy, PHY_MODE_LVDS);
+>>> +    if (ret) {
+>>> +        DRM_DEV_ERROR(lvds->dev, "failed to set phy mode: %d\n", ret);
+>>> +        drm_panel_unprepare(lvds->panel);
+>>> +        return;
+>>> +    }
+>>> +
+>>> +    ret = phy_power_on(lvds->dphy);
+>>> +    if (ret) {
+>>> +        DRM_DEV_ERROR(lvds->dev, "failed to power on phy: %d\n", ret);
+>>> +        drm_panel_unprepare(lvds->panel);
+>>> +        return;
+>>> +    }
+>>> +
+>>> +    drm_panel_enable(lvds->panel);
+>>> +}
+>>> +
+>>> +static void rk3568_lvds_encoder_disable(struct drm_encoder *encoder)
+>>> +{
+>>> +    struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
+>>> +
+>>> +    drm_panel_disable(lvds->panel);
+>>> +    phy_power_off(lvds->dphy);
+>>> +    rk3568_lvds_poweroff(lvds);
+>>> +    drm_panel_unprepare(lvds->panel);
+>>> +}
+>>> +
+>>>  static const
+>>>  struct drm_encoder_helper_funcs rk3288_lvds_encoder_helper_funcs = {
+>>>      .enable = rk3288_lvds_encoder_enable,
+>>> @@ -449,6 +576,13 @@ struct drm_encoder_helper_funcs px30_lvds_encoder_helper_funcs = {
+>>>      .atomic_check = rockchip_lvds_encoder_atomic_check,
+>>>  };
+>>>
+>>> +static const
+>>> +struct drm_encoder_helper_funcs rk3568_lvds_encoder_helper_funcs = {
+>>> +    .enable = rk3568_lvds_encoder_enable,
+>>> +    .disable = rk3568_lvds_encoder_disable,
+>>> +    .atomic_check = rockchip_lvds_encoder_atomic_check,
+>>> +};
+>>> +
+>>>  static int rk3288_lvds_probe(struct platform_device *pdev,
+>>>                   struct rockchip_lvds *lvds)
+>>>  {
+>>> @@ -512,6 +646,22 @@ static int px30_lvds_probe(struct platform_device *pdev,
+>>>      return phy_power_on(lvds->dphy);
+>>>  }
+>>>
+>>> +static int rk3568_lvds_probe(struct platform_device *pdev,
+>>> +                 struct rockchip_lvds *lvds)
+>>> +{
+>>> +    /*
+>>> +     * Grab and init the phy, but do NOT power it on here - that is done in
+>>> +     * rk3568_lvds_encoder_enable() once the GRF is in LVDS mode and dclk is
+>>> +     * running. See the comment there. The GRF is not touched at probe
+>>> +     * either: every bit of it is programmed from the enable path.
+>>> +     */
+>>
+>> Please see the comments above.
+> 
+> Done
+> 
+>>
+>>> +    lvds->dphy = devm_phy_get(&pdev->dev, "dphy");
+>>> +    if (IS_ERR(lvds->dphy))
+>>> +        return PTR_ERR(lvds->dphy);
+>>> +
+>>> +    return phy_init(lvds->dphy);
+>>> +}
+>>> +
+>>>  static const struct rockchip_lvds_soc_data rk3288_lvds_data = {
+>>>      .probe = rk3288_lvds_probe,
+>>>      .helper_funcs = &rk3288_lvds_encoder_helper_funcs,
+>>> @@ -522,6 +672,11 @@ static const struct rockchip_lvds_soc_data px30_lvds_data = {
+>>>      .helper_funcs = &px30_lvds_encoder_helper_funcs,
+>>>  };
+>>>
+>>> +static const struct rockchip_lvds_soc_data rk3568_lvds_data = {
+>>> +    .probe = rk3568_lvds_probe,
+>>> +    .helper_funcs = &rk3568_lvds_encoder_helper_funcs,
+>>> +};
+>>> +
+>>>  static const struct of_device_id rockchip_lvds_dt_ids[] = {
+>>>      {
+>>>          .compatible = "rockchip,rk3288-lvds",
+>>> @@ -531,6 +686,10 @@ static const struct of_device_id rockchip_lvds_dt_ids[] = {
+>>>          .compatible = "rockchip,px30-lvds",
+>>>          .data = &px30_lvds_data
+>>>      },
+>>> +    {
+>>> +        .compatible = "rockchip,rk3568-lvds",
+>>> +        .data = &rk3568_lvds_data
+>>> +    },
+>>>      {}
+>>>  };
+>>>  MODULE_DEVICE_TABLE(of, rockchip_lvds_dt_ids);
+>>> @@ -601,6 +760,8 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
+>>>      encoder = &lvds->encoder.encoder;
+>>>      encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
+>>>                                   dev->of_node);
+>>> +    rockchip_drm_encoder_set_crtc_endpoint_id(&lvds->encoder,
+>>> +                          dev->of_node, 0, 0);
+>>>
+>>>      ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_LVDS);
+>>>      if (ret < 0) {
+>>> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.h b/drivers/gpu/drm/rockchip/rockchip_lvds.h
+>>> index 2d92447..93d3415 100644
+>>> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.h
+>>> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.h
+>>> @@ -121,4 +121,14 @@
+>>>  #define   PX30_LVDS_P2S_EN(val)            FIELD_PREP_WM16(BIT(6), (val))
+>>>  #define   PX30_LVDS_VOP_SEL(val)        FIELD_PREP_WM16(BIT(1), (val))
+>>>
+>>> +#define RK3568_GRF_VO_CON0            0x0360
+>>> +#define   RK3568_LVDS0_SELECT(val)        FIELD_PREP_WM16(GENMASK(5, 4), (val))
+>>> +#define   RK3568_LVDS0_MSBSEL(val)        FIELD_PREP_WM16(BIT(3), (val))
+>>> +
+>>> +#define RK3568_GRF_VO_CON2            0x0368
+>>> +#define   RK3568_LVDS0_DCLK_INV_SEL(val)    FIELD_PREP_WM16(BIT(9), (val))
+>>> +#define   RK3568_LVDS0_DCLK_DIV2_SEL(val)    FIELD_PREP_WM16(BIT(8), (val))
+>>> +#define   RK3568_LVDS0_MODE_EN(val)        FIELD_PREP_WM16(BIT(1), (val))
+>>> +#define   RK3568_LVDS0_P2S_EN(val)        FIELD_PREP_WM16(BIT(0), (val))
+>>> +
+>>>  #endif /* _ROCKCHIP_LVDS_ */
+> 
+> 
 
-Because the fence is exposed to userspace via sync_file, it is not removed
-from RCU-accessible paths before synchronize_rcu() is called.
+-- 
+Best, 
+Chaoyi
 
-synchronize_rcu() only waits for existing readers.
-
-New userspace calls to ioctl(SYNC_IOC_FILE_INFO) after the CRTC is destroyed
-will start a new rcu_read_lock(), call ops->get_driver_name(), cast the
-fence to the freed CRTC, and dereference crtc->dev.
-
-Does this leave the CRTC structure vulnerable to a use-after-free when new
-readers query the fence?
-
-> +
->  	/* Note that the crtc_list is considered to be static; should we
->  	 * remove the drm_crtc at runtime we would have to decrement all
->  	 * the indices on the drm_crtc after us in the crtc_list.
->  	 */
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-linux-drm_=
-crtc_fix2-v3-0-afa8c71506e6@linaro.org?part=3D1
