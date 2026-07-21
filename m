@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02DE3C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 16:54:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1F88C4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 16:54:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 557D510E383;
-	Tue, 21 Jul 2026 16:54:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 349B010E228;
+	Tue, 21 Jul 2026 16:54:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="HykDDPEK";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="urGWbtut";
 	dkim-atps=neutral
 Received: from CWXP265CU010.outbound.protection.outlook.com
  (mail-ukwestazon11022096.outbound.protection.outlook.com [52.101.101.96])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 660D310E228
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 16:54:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE12110E228
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 16:54:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Dgy2LPlB8MaN6ce0Nv30CINbAUVLFxLSxREx3HJbGNYvtk0/8NudJZnOn6yf7VxSOqN0AEit8LyFEKSFMEtkNPLnwVlAAP7VPpZu0c1YbnfF5kEbnx2sSam5hQh6Upvnus2On1bBO4oiMFg2AEcgRpgX7yudNLX8StNfJI7cZYlLe028lgG04QIBuwiKGz0+vYC2snvFrphoQZ39Xqlu17P5at1vGPHWi8CzANF9P6NG3wanYAIPjJERDYEm4dOfk8IBRIMO3PrEuX9fMswAr2UEuXXzUL3Son48kwVWMaWW1Mg/TzQ1J1R39y2bxPG/GAnFc90VQl7c4N5dgy/z1g==
+ b=mGZW3g9AMH1yNAFfsEYjjdIigTrtCauK9iQJIJe3xLDepQBHx+RRW96Mr2D3c+SiaQHeiHz81FNH92huq1TZ682TzBWKpgISQhBwyGpSrbx0kXr4sSe3bfbbCwvTHw0xYNLTyGBzZVq15qbO7xpi5aQnmMDoCrp9Hx8hOVd0VJTWf5/dbG7RiYNEGuiZMro/HdvTNGpC+Ydyw53/8CASw/QJhr+yqRwAndCEuTzlVIx/SjIXk1Vyj0Sv38xRnuTb1O+peZH/9ZDS7xRkWcvMdkOfUXnd/Q7nifiWlYVoK7eMOacIN1zuCT352G2lxZq54458M5MB2ZH0OOEnEtbNZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pQSlD2okbMxmDByMY0NDFaKyI69PtZ5jkloRhFMO7Y4=;
- b=ZYTUqNkGn3DcHYv+UHZNOWtEItH9G9Dl8F4D6gullKq0LjgyzuJFTL4pqYmeA1jb4y2ESha5FaVXx2755D3w4APGmALwAKqlc0KhJn94HYZANtdEirFw+yByyf4pXeET1mlYowqo+Ybzi9WW43OnzK+gKOZYvDnzdwLku3IGBgaM7rhE6lG15qd3U14lSRA11E5dFFUvvgov5YVkXEwgYFXt0dD44iEBY8kdeIFjKXgVNAGYBpiwEIaGrkaQ+nUmbIInUQv9u1AOc9EMmgPB8dxiSQkfWTQNuv1L5R1uQGsHnY8ro1lWelhYjR0ADIMV7SkYcYu5NEt1e6RXhgljOA==
+ bh=As+buIbTDyIVvTDk4Plvpn/1BAjMTteMMWjIWgKGcJM=;
+ b=RAQ3zC5kwH/xwXQgDFMuJ6EmniIrddTrgtLgwXVo/GKg+FiF+cSr9eCpHXmBstY3xV1UUxBPkAFK/YxccPW/jJgGZWohdor4EWdlhmwTCP/yqMzb4Kf2sfPtkANMmHsF5vXnYn9xMR6PIK6WXcDHhxdKwvEobOz/5b2ipmIzwVYZMT/eI5Ac7F0RY1ZX8ZE3xWBFroFcW8/968++wblNlbxPRQDnX71PjjHTmddZW6WPzXhTXm8WyHsxlameqGkC3frt7ZzGw1gD20ETo6pU9DnauLt1yJbtMAsQUbZtM0WA/dgYgNJlLpID8rvYcUPWbUdoqQEJXZYvW9JeKhH4Jg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pQSlD2okbMxmDByMY0NDFaKyI69PtZ5jkloRhFMO7Y4=;
- b=HykDDPEKCBorJ88H3mtLlyykf686ALPjmDdG5Ca22Ly2SPSvFIOBP46F4GANxVHddamargkXtNYd6Mtuv463pBncRCFsPkAGEuvdr3lLjtY5p17S/ozjHyc2rHmNbck+aIOz4NmbjFxiRhbaSQyZKu9DrW7E7VF4WsVeWKGYlm4=
+ bh=As+buIbTDyIVvTDk4Plvpn/1BAjMTteMMWjIWgKGcJM=;
+ b=urGWbtut8F68WPF10UvqzzCE9G0ovY1dvfUnnpw+HvAviIFKq1DubIeDO/4R6y3a7AyEPQCcD+Lqi3f0Bd/l3ESs4qTGu/rhbpnHnPryZ8TNf2LqyvizSEbHTMQJAKkXfgsQe09nbgTlYseLoIUkSSBBlf61g+hoA0uZA2gZcns=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
@@ -43,12 +43,11 @@ Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0223.017; Tue, 21 Jul 2026
  16:54:34 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Tue, 21 Jul 2026 17:54:25 +0100
-Subject: [PATCH 01/10] rust: io: register: allow explicit base type
- specification
+Date: Tue, 21 Jul 2026 17:54:26 +0100
+Subject: [PATCH 02/10] gpu: nova-core: specify base type for registers
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-typed_register-v1-1-452d72b60262@garyguo.net>
+Message-Id: <20260721-typed_register-v1-2-452d72b60262@garyguo.net>
 References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
 In-Reply-To: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -67,11 +66,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784652872; l=8773;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784652872; l=8641;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=4xGCDf5PobFlcVHfZZcN3wpd3WKhjw3CCXz8HU8+f0k=;
- b=oaKOqpH8wtNQ3+XFDkY5oDFQGe7nJPZDfogjm/DSM6x5VqO5usNei/DzpJcM1CIR7hCmM2jao
- IOQN1R8pIoDBgODvPLkPt9Utm/ECA+dUIkEE4WtsVmwiG9yBWCgtEnX
+ bh=RKlPXQIeVwE25TJbDbo2jJ1JHqp1gKN62EqUDFh5udE=;
+ b=G2V0jN3aVmE+51teSWwx/lqrkwktnviNtrT5f01Ff2nC2mXj1BvlM3cCoZe2unM9iqjK+FSG/
+ vt2ZuB1m9ggCP5VFzTTPp07e8LnC+x76zbLX+b8cmcXbZCnwUd9hh+0
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P123CA0143.GBRP123.PROD.OUTLOOK.COM
@@ -80,65 +79,65 @@ X-ClientProxiedBy: LO4P123CA0143.GBRP123.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO8P265MB7878:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74c92060-225c-4156-c359-08dee748bd85
+X-MS-Office365-Filtering-Correlation-Id: 48250de1-954f-4b6a-9448-08dee748bdd3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|23010399003|376014|7416014|10070799003|1800799024|366016|56012099006|10067099003|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info: rgYoD7CWhtXMvfNWAimT3uz/GTz0ltJ9F8BE9xrbD3uLGRaAvAfbTHvl0TlF4itm874rfxncUfqwZvMuc39HCXWDjrOpXbHzdqHm81vboSbA7/7BdzkF5zwueqgUvoZPxlhIUpCwcckFhNeKMZFCsa7dTb9iGYZBqJTGLexTYrKE2vV8Wcxy9tv2yhWxgTMYJLRnwFCVoVtOUNmfwl0fosG0dG6oUIZMfhI6EuAyC5SaPI0kapeCNGmWUaSIMpTwrfSL8DIFp6IBqmLeAOxS5mNzCiLNsLvNaqqXycfI3LsXq13v1fNg2dhCqsHIJ0Y9HevoZg2qH8yoc8IalXVx+/rI9NLwDZmUsJ7b6Fwy07O7gJV0zYTuPtrt7zxXV6XyoaPnyEMQoQrVD9e3Z3pY9OSe4xaxYTmIboSqNJ0YEIkFXRT1UIgYQ+KwUegH/JQD4wUnsCJyZInDqxc7xwcR76szL9gXKTQ5ToWaKu91p9BPhJ9OddmysFAGLX2OTr0nhskCvx7nbuR4UIV+lvnjK2JbYEwIqDHkN7L+Kw4fiG0sxEKDeQI2E6e7ZjiGgZoSRmWE3mSpGbSdcpDYz2mhkO42x8XgfZgWqdLqQ1kT83l5yAdUfhroWejzxcJo9fz8xb2k0Hh8aeolbiTRxNP4PTNlQF4NcU4NKRdk/Z6x6Rw/9353CUZUy8E8HsMCiW1XSH16drpWKbuAqLNaRolg6A==
+X-Microsoft-Antispam-Message-Info: fUy3t1PN5LtoqYRDNig0R5MVdlkDcODgue4zElED7NQHV7kr+cr8UyvsQvBfAjsEw3yxXB+TPihBdvrMufRWnYhEhitKBChskTlFgGWSfHnTIeaLFR/5vW8t/nxXNvASFCcxILioJfEbWmSeXG2ptmwHp+k1EDVD74TgRVlbgSm2kflOfFEiwZJjTtXCPDDOrxvgaTvoNFRTKWojnIkFlB4YMT5dv+1GF3GXVvs+gmQrABPVhxoTjwbZHOHLhslzJysTocPrrEr88k7tB3/PbtfVwSm7Kdbv56/m/QfhgDPhp43EQ7VVXm5/bSY9S/oWZwUZ2orlg/8yEpzpHlz74+gZgdz1pjMAtbHkRax5+EN491ELmnGo7fgzLF0oJPUjBFqBEv6JdhfkY0h4ul+SgdChtqyFlXdR0SAwO/HHTPCYenaQ6e7h9FFcUEAfMLd/Svy49Qx+LApNHeY7cdRCgEuue1Tfzp1P0JeWQAlXX+TtjBqYHvE2rUAJxsPrQoqePAy/VobCu3RGH6hSUU/rJbMlATQ8QJgHHM+WJ8DGVvzzHO+jDKH8NFm/uJpb9h7cwxThWpXg5ELmnDOBy3mTXpfV2FqUSxZ66w9rq7cue1vrrlyTZ7MMPaPR8KqXdqwzy+KtPAS9z5A99/l6btzfTCMXwCskdgTiJ4k0OkAHZSO3enAhRgieyI75rQc5j6y/Dmslz993n++SEkP73FpMUw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
  SFS:(13230040)(23010399003)(376014)(7416014)(10070799003)(1800799024)(366016)(56012099006)(10067099003)(22082099003)(18002099003)(921020);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2t6bTM5YWxGazdvZERLNjVCYXdEb2p0MVJkYitQMVZzVUtQTXZhek1TaC9B?=
- =?utf-8?B?SFFFSVhSaW54LzRjUFUvZytIRW5qMUpUQ1JIRmhUczdxNzcyY0lhUldyd016?=
- =?utf-8?B?dzVmY1AySmw4NElMc0N0TmJPYnJzRnlWczF4REpsQlMzbUhtL1ZxUTM5ZW9i?=
- =?utf-8?B?QVYxdFpDcnk1V2s3Uy95dUZXR2hIWUVmZytoSTRqMVVXVXJCbzRaRjQwZWk5?=
- =?utf-8?B?YzJJUFR4bXpJcTV2bG42b0Z1TkYvQ3QwLzF1blc5VXVyRURXOHpRYlNLOVQ3?=
- =?utf-8?B?SXRWYVcrUTZaM3o4c0JYbkZDN28wMlZBeTlUVDE4VnhpTnhLOFRkSEJ5MTI2?=
- =?utf-8?B?US9WME9WaDVldStQWlRRNzIwK3dmbFE2M0R6aWZUOUMzRHYzMXI1M2lYS2V2?=
- =?utf-8?B?cEhDUERxYU9nU0dwZk9yTDZnYXdRbkwyOFBkemZxb0JlQXhvZjFid3BrVGtm?=
- =?utf-8?B?enY2dFFxb0tWdmFCODVVR2Q4TjNxSlZxQk5lZ2podjgzUWx6UmRJd0Z1dnhw?=
- =?utf-8?B?NEtXZm9IcnQwSjkyR3A2YlpKWEpDajkraGRzTk5ndXAvcjdtUGkvS3VHYkhN?=
- =?utf-8?B?eTM1QWFUNFA4bEJMYlVTc1JiTGdLdXdWSzZmeWZPRDEvdkVmbDlPM2c5WUNY?=
- =?utf-8?B?Y1BBcmhTMUkrUTdxNEJwSlUzNWJ1amxpa2tGaXNsYTZWVEUzMDZuL2QrZ3ZZ?=
- =?utf-8?B?YURMS0VmOWJ2dVoxL3dmZzQvTXBjL3plRkpZVzliTm9JY2ZYSW9jckkza2M0?=
- =?utf-8?B?QzBNc2dicjBpeUdxcVBOem1jYm82RmhhZk8zbUxnSUhJcFZsU2pDNnVJdWJz?=
- =?utf-8?B?UzBTVWtyY0d4RW94a2dXTkFxTXZ5TXdSZ2VZK0pqV0E2T0V6TEVRVjV5eCtL?=
- =?utf-8?B?OGNvRkFaaU1PZ2pLMTdYaFkwWTVkQ3ZWY2dTcWR1dzU2aXRodVNoQ0UzNzd3?=
- =?utf-8?B?NThrODlhU01ZUWwxRFM3bHpXa01QbGZ4MkhKZ1pQSitjMnlrK2NBTnhQVFVS?=
- =?utf-8?B?VTdxT2lxdHpHc3lUbk9YMHFZaXNmVUo3dkdlODE4MGtwSlE5cHlhaStFNklp?=
- =?utf-8?B?NDVmR2EvQlg2Tk5tcVFiVnV1WjkwWFVrRE1zRDhLRkdnZTBSWHZGSm9ZcTU4?=
- =?utf-8?B?ZVAvQk1BYUVDUmFwQmRPc2dHMmd1YXZGOEI5dER5ZGt3WDMzUWdoZ0hWSWpP?=
- =?utf-8?B?TEpqcjRZQmNGbWp0ZlpIL2MxMWRRK1NZL3JHQ056TnYwMmF4R1NkTG9hSkw2?=
- =?utf-8?B?NUpYSzVyN0dEVWVyQXk4dXFRK2J6dmRtL0dHbGsyb0hBRllZcUduekpyU1kr?=
- =?utf-8?B?WnlsdEtseFZwVUVjaVo3b3d0OUtCbVl2SkVMakdLempKdGc4Q2pFUUdIVis3?=
- =?utf-8?B?TWlDSkVVZjVUZS9HZWRQUUJRZzNJKytqQ0NhaUxSbHljR3ZyV3NSZHg5dUNs?=
- =?utf-8?B?UVRPd2V2TTNmZCtqU1lyOWFZTHFmUVVURGEyT2FCalAzdnhJaE5XTTdSTStT?=
- =?utf-8?B?eG9iNmYvQ2RTUjhnYzNIUk1Fd0NsUzE1bGd0MlJHaFpINXl0MVBjSkQvVTVC?=
- =?utf-8?B?RERjNTdwTEhNUmtxbjVtSmhrSEMvazMzZWZLSEQ0SjdqUXVGckZuTVhEM1Jo?=
- =?utf-8?B?MmZRSE5PVzJDb05ZRWVmeWt5WWpwK1NKQ2tPZ1FaeHFKT1NZQjJnRStRaFFj?=
- =?utf-8?B?a3RJV1RKNzVZTWFyQ21IVlpxaG9rNXNDMldneS9ucWRPdC9oTmI4b3c1a29u?=
- =?utf-8?B?d3JTbHI5QXovd3RyMC9SeU82NEZST2ZRWTBUckJDeTYrZ1JveC9JZ25odXd3?=
- =?utf-8?B?R3VKQldoYmNIeTdpUUFWcXdHZGlybmh5cXBQcndydVZOSGxUZVJxY040ZUZI?=
- =?utf-8?B?SktxVjZ6ajZSVGV6a2J6S01JNjdqTHFmRTRBS1JQTWdyV25ndTBCKytKUXJn?=
- =?utf-8?B?bGk4eDhEa2FUZWRJWEwzY2VkSmdNQ3ZYTXcvQjFXanhjK2ZMdVRrQU5Bc2Zl?=
- =?utf-8?B?VnNBRUluTEZKU2NzSjdmaUtvWWc3Qkl0TXlaTFFTRHMyMmw5THVSM1RJWVhB?=
- =?utf-8?B?SHIyYURIRHRxam1lajZ0L3IrWTRMck16SWlOSEc3dTF6V2hKdnF0Vm9FekUy?=
- =?utf-8?B?SzkrVDEreXMxRXJFSnQyS04yQ1dqQ0t5R0xnczNSaVdkOWNwOFVwdEh6ZGRo?=
- =?utf-8?B?Yks2V3NlNWFkV0xhTGdBYThYbTM3c2RBR1ZsUUl3U2ZWQXl2YlNiaG4rUXJV?=
- =?utf-8?B?ckJSTG0wWmtSYnlNaVNlSzMwZ0hEaTY5VjVkSWFIVWR4YVEwZ1E1YkxYTnF3?=
- =?utf-8?B?SWx0QVhMK2FtNUxHT2pKNHpoRVFIazRVNVlZb3hpTXM1bUNxM1dHdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eU1ZRm1RclowOWFyNGhKNDNGamRVdlVlK1VBcVN6c0dwU2tqZ2FJeDlMSnM1?=
+ =?utf-8?B?S1ZSSlJCWXV6YnVHYWYyUFFDU3RKSU52V096L0pXeGN5ZmpPcDhMenJYd25F?=
+ =?utf-8?B?b1RMZ3NVQTZ1Q29Dd2hQNStUV1RMcU9TSktMZ2MrR2hDZEFLRmxqdTVUc1Uy?=
+ =?utf-8?B?eFVPWVg2VXRLSERFbk40VVh1cHFoakdOUGg2NU1NMDFoaTdqbngyK3JpbzdY?=
+ =?utf-8?B?cTdaUk96QS80QTZhVFRiN1J6K0J3cjZ3bkROeDJLNG43RnZpdms0YUNiQnVC?=
+ =?utf-8?B?VXVJQUpHZmROcjdpLzRjcU1odmFBYURsQko3T2tMVWRwc1hZWWo5a2ZwbVZ4?=
+ =?utf-8?B?THF1QjQxY0dYSFFXaE1LU0p2ZUJYaFlxM1A2V0dXbm45UUc2bk51OXlDMmlD?=
+ =?utf-8?B?WlZQZXplUkcvcmxHZEdVWkpNMzNNS3VQWlFvU05BOStjMUJGem04RlhzNlBC?=
+ =?utf-8?B?aVVQeGpXZXdMRXQwVE5zYno5SWVqbS8rU2xqa01hbXNHbWM0dU44LzRqcFpU?=
+ =?utf-8?B?NTFmd2tjNlR6aVNYcW5aUmNEYUcvSUVrMFl3cDYrZERiQVUxQXlRRTJTQkMx?=
+ =?utf-8?B?ZTlKcy9KWDJVWTB0akFKeDcvenAzK1c5U3pvR1puQ09EZEcrU0JucE43Z05p?=
+ =?utf-8?B?VElzY0FycTFzZG9aZFRvNG5FVFkzVkxONVVxaVYrdU0xNURGV2pNSENOVEVF?=
+ =?utf-8?B?KzdhWGxRd3dHM0FLMjY3SGpENUlDcWwvazZSTlZXZzljOVpWNEFQM1hrNDNs?=
+ =?utf-8?B?eVovMCt6OGUyanN5RG9pOVNLVzF3ZnJhdjV2aCszS2lYYzg1Rzc5WUVMTDUw?=
+ =?utf-8?B?cm54K2ZWNkNqaDZWZUpvaDVuSW9vREthcFlCU2p3OEhpTzBBOHhoblAwMUR4?=
+ =?utf-8?B?eFpjUUV3MzNNVUNSYkRsSmpNYldnR3ZXVFVac3Aza0pHUzVXUjZhLzVsOE5z?=
+ =?utf-8?B?SHhQNFlEY2JHc3BqNXdLdXFHNURLUFZvSnlPMnc5YlpBaXNLdWhZZEtRazgw?=
+ =?utf-8?B?UEhzT2ZjdjFmZG5wTFA5c2EzUGhFUDRSOS9keWh5UUdCWlpVZ1loZ1NzYTZS?=
+ =?utf-8?B?cFQ0WHVsL3BUU0xDajF0UndSTm9kMktZeVczbUZoSmx4YUdIb1p0eXF4VUZO?=
+ =?utf-8?B?b0dndDliSnQzYUpLeGZQVy90MWtHQnp3eTBYcTg5ajgrcFk2SmhiNVlQb2lo?=
+ =?utf-8?B?UzdVQWpwaTZPMTNMajBJcFlvejhlWGVrdXZEc3R3ODVlaWJtQ2U4NTJRK1lM?=
+ =?utf-8?B?OTQxT1hFOWMxdHc0a0t5NFFyMUhkenQzYjlPUHUrTUVvdHBRUDU5d2p4Mngz?=
+ =?utf-8?B?b0ZIYnBjdW8zdnRYMWxKcmhWNEg0ajA4N1BRRHVSbTEzcnZ6Q0pZMHEyN3Zl?=
+ =?utf-8?B?OU9YRW9OYlU3bDE3QzFZbWpWTTdPWnA0SHRwUVUybDFoNEgzT1QyZTFpWWsy?=
+ =?utf-8?B?TXJIcVJYSVFtVWJ3TWhoUWxMeFp0RjJ0bytPNVl6L2M5aUx4M1htcHgvV3lK?=
+ =?utf-8?B?WVorUGxXcmVLZHZtTzRsVHArMENNUUdCU2FWY1hSb0dSOXkwY3hqS3IwQjNT?=
+ =?utf-8?B?ZjlQRW56NkdJVjRVUjhOYXd6SkpwT2RqYzBCNWs5V1BHbkFWL0NrWEkrNjV2?=
+ =?utf-8?B?Nm02SmRUVERTZDJtVEhKa3BpZ3VXZlVZREFINlRrUkVHemd2MjI2T2ZnN3RT?=
+ =?utf-8?B?bTNsQm4zVTdwUzViQ0t0SEFYVlRGbnVPRkgyYzBUK25Ud3RuaFFITXVNNmJv?=
+ =?utf-8?B?K01JdUlvMjRXTUQzZlU4NlB4RnNGR1F4dmhOUFZLWVI4ZWMzbHlEU1VXTzdE?=
+ =?utf-8?B?bTV4VWNpd1hTRlFTNDZNaFVDSldQODN5eGhFWjRoZXdrbE1WdUZoU0xTdlFK?=
+ =?utf-8?B?RUVmZHpqbjJDSWhTQWxsQXF6VGFGQTA5ZTB4b2tqdkdkeHdGSC8xTkhMTHlW?=
+ =?utf-8?B?bmYrTTM5ZitPWC91L0ZxekZOa3JtVjFMZzNNMFlhSkZiaVBBV1NVWitDS0lZ?=
+ =?utf-8?B?MmVQa0ZVTUF0WWMxQWR4VWlMclNxTHB0Mk1xcnFtQ3ZLUmY1MnZ3Z1FHaEVr?=
+ =?utf-8?B?Y1BmQUF5eFIzMzFjMTlTRFRKWFJ2bzFzRFZFVHIzbXdNRGxYSi9Kb1E1cUJB?=
+ =?utf-8?B?Uys4RGZmTmNmZzMxZEFJZ0NFbHlFWnFmTXdHVHVzTERidlNMTVcya2dhK3dT?=
+ =?utf-8?B?R0JyeGpDSGxUcDFNdFJ4Wm54bDZ3bVc4NWdBQUlUUjNUMVYzQjJRZkNtdlZR?=
+ =?utf-8?B?NzQwK1N3OTNUYWlualFZblIzYVNHSkpLa3ZCRzV6UVZ6RFQzOU54MFRpZGZw?=
+ =?utf-8?B?MDVXNXIxREVYcHptV1R4bnNZdTlDbnIvSGRqUm1zYWNRS0dKdWxndz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74c92060-225c-4156-c359-08dee748bd85
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48250de1-954f-4b6a-9448-08dee748bdd3
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 16:54:33.6963 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 16:54:34.2226 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FSbBwgu9xyV6/9GoununumtHZljpychy5llmGHc/l71+NGaLXUiBAD6U4++ck0/tR+5N4+GlzjGSyYYsAUOgXA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: rOiztYiI2MXh92wh5HWAnqh9V1EmQYPQLJwKqcXbIBP288nInbbp8HToRRNhlH9Xus82x0iJhqkMMUWnpRlC2w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7878
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -155,271 +154,285 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently registers work for all untyped I/O regions, which is not ideal.
-It allows registers defined for device A to work for another device B and
-there is no safeguarding at all.
-
-All users of the `register!` macro know what type it will be operating on,
-and that type is consistent across the driver. Therefore, add a `base`
-parameter to `register!`.
-
-Currently this parameter is unused in the generated code; it will be used
-when all users of `register!` is converted to gain the parameter.
+All registers use the same base type, which is `<Bar0 as IO>::Target`. Thus
+add the base parameter to `register!` invocation.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/io.rs          |  4 +++
- rust/kernel/io/register.rs | 79 ++++++++++++++++++++++++++++++++++++++++++----
- 2 files changed, 76 insertions(+), 7 deletions(-)
+ drivers/gpu/nova-core/driver.rs   |  1 +
+ drivers/gpu/nova-core/fb/regs.rs  |  4 ++++
+ drivers/gpu/nova-core/gsp/regs.rs |  4 ++++
+ drivers/gpu/nova-core/regs.rs     | 42 ++++++++++++++++++++++++++++++++++++++-
+ drivers/gpu/nova-core/vbios.rs    | 11 +++++++++-
+ 5 files changed, 60 insertions(+), 2 deletions(-)
 
-diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index 95f46bb75f9e..c5f07c38e59e 100644
---- a/rust/kernel/io.rs
-+++ b/rust/kernel/io.rs
-@@ -883,6 +883,8 @@ fn try_write<T, L>(self, location: L, value: T) -> Result
-     /// };
-     ///
-     /// register! {
-+    ///     base: Region;
-+    ///
-     ///     VERSION(u32) @ 0x100 {
-     ///         15:8 major;
-     ///         7:0  minor;
-@@ -1028,6 +1030,8 @@ fn write<T, L>(self, location: L, value: T)
-     /// };
-     ///
-     /// register! {
-+    ///     base: Region<0x1000>;
-+    ///
-     ///     VERSION(u32) @ 0x100 {
-     ///         15:8 major;
-     ///         7:0  minor;
-diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index 6cb07fc92cc3..b0fcfce36c9c 100644
---- a/rust/kernel/io/register.rs
-+++ b/rust/kernel/io/register.rs
-@@ -13,9 +13,14 @@
- //! # Simple example
- //!
- //! ```no_run
--//! use kernel::io::register;
-+//! use kernel::io::{
-+//!     register,
-+//!     Region,
-+//! };
- //!
- //! register! {
-+//!     base: Region<0x1000>;
-+//!
- //!     /// Basic information about the chip.
- //!     pub BOOT_0(u32) @ 0x00000100 {
- //!         /// Vendor ID.
-@@ -55,11 +60,14 @@
- //!         register,
- //!         Io,
- //!         IoLoc,
-+//!         Region,
- //!     },
- //!     num::Bounded,
- //! };
--//! # use kernel::io::{Mmio, Region};
-+//! # use kernel::io::Mmio;
- //! # register! {
-+//! #     base: Region<0x1000>;
-+//! #
- //! #     pub BOOT_0(u32) @ 0x00000100 {
- //! #         15:8 vendor_id;
- //! #         7:4 major_revision;
-@@ -444,11 +452,14 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///     io::{
- ///         register,
- ///         Io,
-+///         Region,
- ///     },
- /// };
--/// # use kernel::io::{Mmio, Region};
-+/// # use kernel::io::Mmio;
- ///
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     FIXED_REG(u32) @ 0x100 {
- ///         15:8 high_byte;
- ///         7:0  low_byte;
-@@ -479,9 +490,14 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// the context:
- ///
- /// ```no_run
--/// use kernel::io::register;
-+/// use kernel::io::{
-+///     register,
-+///     Region,
-+/// };
- ///
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Scratch register.
- ///     pub SCRATCH(u32) @ 0x00000200 {
- ///         31:0 value;
-@@ -531,6 +547,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///
- /// ```ignore
- /// register! {
-+///     ...
- ///     pub RELATIVE_REG(u32) @ Base + 0x80 {
- ///         ...
- ///     }
-@@ -557,9 +574,10 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///             WithBase,
- ///         },
- ///         Io,
-+///         Region,
- ///     },
- /// };
--/// # use kernel::io::{Mmio, Region};
-+/// # use kernel::io::Mmio;
- ///
- /// // Type used to identify the base.
- /// pub struct CpuCtlBase;
-@@ -578,6 +596,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///
- /// // This makes `CPU_CTL` accessible from all implementors of `RegisterBase<CpuCtlBase>`.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// CPU core control.
- ///     pub CPU_CTL(u32) @ CpuCtlBase + 0x10 {
- ///         0:0 start;
-@@ -594,6 +614,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///
- /// // Aliases can also be defined for relative register.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Alias to CPU core control.
- ///     pub CPU_CTL_ALIAS(u32) => CpuCtlBase + CPU_CTL {
- ///         /// Start the aliased CPU core.
-@@ -636,15 +658,18 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///         register,
- ///         register::Array,
- ///         Io,
-+///         Region,
- ///     },
- /// };
--/// # use kernel::io::{Mmio, Region};
-+/// # use kernel::io::Mmio;
- /// # fn get_scratch_idx() -> usize {
- /// #   0x15
- /// # }
- ///
- /// // Array of 64 consecutive registers with the same layout starting at offset `0x80`.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Scratch registers.
- ///     pub SCRATCH(u32)[64] @ 0x00000080 {
- ///         31:0 value;
-@@ -670,6 +695,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// // Alias to a specific register in an array.
- /// // Here `SCRATCH[8]` is used to convey the firmware exit code.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Firmware exit status code.
- ///     pub FIRMWARE_STATUS(u32) => SCRATCH[8] {
- ///         7:0 status;
-@@ -682,6 +709,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// // Here, each of the 16 registers of the array is separated by 8 bytes, meaning that the
- /// // registers of the two declarations below are interleaved.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Scratch registers bank 0.
- ///     pub SCRATCH_INTERLEAVED_0(u32)[16, stride = 8] @ 0x000000c0 {
- ///         31:0 value;
-@@ -703,6 +732,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///
- /// ```ignore
- /// register! {
-+///     ...
- ///     pub RELATIVE_REGISTER_ARRAY(u8)[10, stride = 4] @ Base + 0x100 {
- ///         ...
- ///     }
-@@ -722,9 +752,10 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///             WithBase,
- ///         },
- ///         Io,
-+///         Region,
- ///     },
- /// };
--/// # use kernel::io::{Mmio, Region};
-+/// # use kernel::io::Mmio;
- /// # fn get_scratch_idx() -> usize {
- /// #   0x15
- /// # }
-@@ -746,6 +777,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///
- /// // 64 per-cpu scratch registers, arranged as a contiguous array.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Per-CPU scratch registers.
- ///     pub CPU_SCRATCH(u32)[64] @ CpuCtlBase + 0x00000080 {
- ///         31:0 value;
-@@ -773,6 +806,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///
- /// // Alias to `SCRATCH[8]` used to convey the firmware exit code.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Per-CPU firmware exit status code.
- ///     pub CPU_FIRMWARE_STATUS(u32) => CpuCtlBase + CPU_SCRATCH[8] {
- ///         7:0 status;
-@@ -783,6 +818,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// // Here, each of the 16 registers of the array is separated by 8 bytes, meaning that the
- /// // registers of the two declarations below are interleaved.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Scratch registers bank 0.
- ///     pub CPU_SCRATCH_INTERLEAVED_0(u32)[16, stride = 8] @ CpuCtlBase + 0x00000d00 {
- ///         31:0 value;
-@@ -801,6 +838,34 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// ```
- #[macro_export]
- macro_rules! register {
-+    // Entry point for the macro, allowing multiple registers to be defined in one call.
-+    // It matches all possible register declaration patterns to dispatch them to corresponding
-+    // `@reg` rule that defines a single register.
-+    (
-+        base: $reg_base:ty;
-+        $(
-+            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
-+                $([ $size:expr $(, stride = $stride:expr)? ])?
-+                $(@ $($base:ident +)? $offset:literal)?
-+                $(=> $alias:ident $(+ $alias_offset:ident)? $([$alias_idx:expr])? )?
-+            { $($fields:tt)* }
-+        )*
-+    ) => {
-+        const _: () = {
-+            #[allow(unused)]
-+            fn test_base(_: &$reg_base) {}
-+        };
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index 48380ac15f68..fe82363a8201 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -37,6 +37,7 @@ pub(crate) struct NovaCore<'bound> {
+ const BAR0_SIZE: usize = SZ_16M;
+ 
+ pub(crate) type Bar0<'a> = &'a pci::Bar<'a, BAR0_SIZE>;
++pub(crate) type NovaRegisters = kernel::io::Region<BAR0_SIZE>;
+ 
+ kernel::pci_device_table!(
+     PCI_TABLE,
+diff --git a/drivers/gpu/nova-core/fb/regs.rs b/drivers/gpu/nova-core/fb/regs.rs
+index b2ec02f584be..4296bef5f262 100644
+--- a/drivers/gpu/nova-core/fb/regs.rs
++++ b/drivers/gpu/nova-core/fb/regs.rs
+@@ -2,9 +2,13 @@
+ 
+ use kernel::io::register;
+ 
++use crate::driver::NovaRegisters;
 +
-+        $(
-+        $crate::register!(
-+            @reg $(#[$attr])* $vis $name ($storage) $([$size $(, stride = $stride)?])?
-+                $(@ $($base +)? $offset)?
-+                $(=> $alias $(+ $alias_offset)? $([$alias_idx])? )?
-+            { $($fields)* }
-+        );
-+        )*
-+    };
+ // PDISP
+ 
+ register! {
++    base: NovaRegisters;
 +
-     // Entry point for the macro, allowing multiple registers to be defined in one call.
-     // It matches all possible register declaration patterns to dispatch them to corresponding
-     // `@reg` rule that defines a single register.
+     pub(super) NV_PDISP_VGA_WORKSPACE_BASE(u32) @ 0x00625f04 {
+         /// VGA workspace base address divided by 0x10000.
+         31:8    addr;
+diff --git a/drivers/gpu/nova-core/gsp/regs.rs b/drivers/gpu/nova-core/gsp/regs.rs
+index a76dea3c3ab0..34ce8dd1f464 100644
+--- a/drivers/gpu/nova-core/gsp/regs.rs
++++ b/drivers/gpu/nova-core/gsp/regs.rs
+@@ -2,9 +2,13 @@
+ 
+ use kernel::io::register;
+ 
++use crate::driver::NovaRegisters;
++
+ // PGSP
+ 
+ register! {
++    base: NovaRegisters;
++
+     pub(super) NV_PGSP_QUEUE_HEAD(u32) @ 0x00110c00 {
+         31:0    address;
+     }
+diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+index 397124f245ee..f2aadeb429b8 100644
+--- a/drivers/gpu/nova-core/regs.rs
++++ b/drivers/gpu/nova-core/regs.rs
+@@ -13,7 +13,7 @@
+ };
+ 
+ use crate::{
+-    driver::Bar0,
++    driver::{Bar0, NovaRegisters},
+     falcon::{
+         DmaTrfCmdSize,
+         FalconCoreRev,
+@@ -37,6 +37,8 @@
+ // PMC
+ 
+ register! {
++    base: NovaRegisters;
++
+     /// Basic revision information about the GPU.
+     pub(crate) NV_PMC_BOOT_0(u32) @ 0x00000000 {
+         /// Lower bits of the architecture.
+@@ -108,6 +110,8 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
+ // PBUS
+ 
+ register! {
++    base: NovaRegisters;
++
+     pub(crate) NV_PBUS_SW_SCRATCH(u32)[64] @ 0x00001400 {}
+ 
+     /// Scratch register 0xe used as FRTS firmware error code.
+@@ -119,6 +123,8 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
+ // PFB
+ 
+ register! {
++    base: NovaRegisters;
++
+     /// Low bits of the physical system memory address used by the GPU to perform sysmembar
+     /// operations (see [`crate::fb::SysmemFlush`]).
+     pub(crate) NV_PFB_NISO_FLUSH_SYSMEM_ADDR(u32) @ 0x00100c10 {
+@@ -154,6 +160,8 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
+ pub(crate) struct Hshub0Base(());
+ 
+ register! {
++    base: NovaRegisters;
++
+     // GB10x sysmem flush registers, relative to the HSHUB0 base. GB10x routes sysmembar
+     // through a primary and an EG (egress) pair that must both be programmed to the same
+     // address. Hardware ignores bits 7:0 of each LO register. The boot path uses a fixed
+@@ -176,6 +184,8 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
+ }
+ 
+ register! {
++    base: NovaRegisters;
++
+     // GB20x FBHUB0 sysmem flush registers. Unlike the older
+     // NV_PFB_NISO_FLUSH_SYSMEM_ADDR registers, which encode the address with an
+     // 8-bit right-shift, these take the raw address split into lower and upper
+@@ -190,6 +200,8 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
+ }
+ 
+ register! {
++    base: NovaRegisters;
++
+     /// Low bits of the physical system memory address used by the GPU to perform
+     /// sysmembar operations on Hopper.
+     ///
+@@ -253,6 +265,8 @@ pub(crate) fn is_wpr2_set(self) -> bool {
+ // number.
+ 
+ register! {
++    base: NovaRegisters;
++
+     /// Boot Sequence Interface (BSI) register used to determine
+     /// if GSP reload/resume has completed during the boot process.
+     pub(crate) NV_PGC6_BSI_SECURE_SCRATCH_14(u32) @ 0x001180f8 {
+@@ -307,6 +321,8 @@ pub(crate) fn usable_fb_size(self) -> u64 {
+ pub(crate) const NV_FUSE_OPT_FPF_SIZE: usize = 16;
+ 
+ register! {
++    base: NovaRegisters;
++
+     pub(crate) NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION(u32)[NV_FUSE_OPT_FPF_SIZE] @ 0x00824100 {
+         15:0    data => u16;
+     }
+@@ -323,6 +339,8 @@ pub(crate) fn usable_fb_size(self) -> u64 {
+ // PFALCON
+ 
+ register! {
++    base: NovaRegisters;
++
+     pub(crate) NV_PFALCON_FALCON_IRQSCLR(u32) @ PFalconBase + 0x00000004 {
+         6:6     swgen0 => bool;
+         4:4     halt => bool;
+@@ -524,6 +542,8 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
+ /* PFALCON2 */
+ 
+ register! {
++    base: NovaRegisters;
++
+     pub(crate) NV_PFALCON2_FALCON_MOD_SEL(u32) @ PFalcon2Base + 0x00000180 {
+         7:0     algo ?=> FalconModSelAlgo;
+     }
+@@ -546,6 +566,8 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
+ // PRISCV
+ 
+ register! {
++    base: NovaRegisters;
++
+     /// RISC-V status register for debug (Turing and GA100 only).
+     /// Reflects current RISC-V core status.
+     pub(crate) NV_PRISCV_RISCV_CORE_SWITCH_RISCV_STATUS(u32) @ PFalcon2Base + 0x00000240 {
+@@ -571,6 +593,8 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
+ // These registers manage falcon EMEM communication queues.
+ 
+ register! {
++    base: NovaRegisters;
++
+     pub(crate) NV_PFSP_QUEUE_HEAD(u32)[8] @ 0x008f2c00 {
+         31:0    address => u32;
+     }
+@@ -594,9 +618,13 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
+ pub(crate) mod gm107 {
+     use kernel::io::register;
+ 
++    use crate::driver::NovaRegisters;
++
+     // FUSE
+ 
+     register! {
++        base: NovaRegisters;
++
+         pub(crate) NV_FUSE_STATUS_OPT_DISPLAY(u32) @ 0x00021c04 {
+             0:0     display_disabled => bool;
+         }
+@@ -606,9 +634,13 @@ pub(crate) mod gm107 {
+ pub(crate) mod ga100 {
+     use kernel::io::register;
+ 
++    use crate::driver::NovaRegisters;
++
+     // FUSE
+ 
+     register! {
++        base: NovaRegisters;
++
+         pub(crate) NV_FUSE_STATUS_OPT_DISPLAY(u32) @ 0x00820c04 {
+             0:0     display_disabled => bool;
+         }
+@@ -620,9 +652,13 @@ pub(crate) mod ga100 {
+ pub(crate) mod gh100 {
+     use kernel::io::register;
+ 
++    use crate::driver::NovaRegisters;
++
+     // PTHERM
+ 
+     register! {
++        base: NovaRegisters;
++
+         pub(crate) NV_THERM_I2CS_SCRATCH(u32) @ 0x000200bc {
+             31:0    data;
+         }
+@@ -637,9 +673,13 @@ pub(crate) mod gh100 {
+ pub(crate) mod gb202 {
+     use kernel::io::register;
+ 
++    use crate::driver::NovaRegisters;
++
+     // PTHERM
+ 
+     register! {
++        base: NovaRegisters;
++
+         pub(crate) NV_THERM_I2CS_SCRATCH(u32) @ 0x00ad00bc {
+             31:0    data;
+         }
+diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
+index c03650ee5226..9c214b9f4dd9 100644
+--- a/drivers/gpu/nova-core/vbios.rs
++++ b/drivers/gpu/nova-core/vbios.rs
+@@ -16,7 +16,10 @@
+ };
+ 
+ use crate::{
+-    driver::Bar0,
++    driver::{
++        Bar0,
++        NovaRegisters, //
++    },
+     firmware::{
+         fwsec::Bcrt30Rsa3kSignature,
+         FalconUCodeDesc,
+@@ -92,12 +95,16 @@ impl<'a> VbiosIterator<'a> {
+     fn rom_offset(dev: &device::Device, bar0: Bar0<'_>) -> Result<usize> {
+         // IFR Header in VBIOS.
+         register! {
++            base: NovaRegisters;
++
+             NV_PBUS_IFR_FMT_FIXED0(u32) @ 0x300000 {
+                 31:0    signature;
+             }
+         }
+ 
+         register! {
++            base: NovaRegisters;
++
+             NV_PBUS_IFR_FMT_FIXED1(u32) @ 0x300004 {
+                 30:16   fixed_data_size;
+                 15:8    version => u8;
+@@ -105,6 +112,8 @@ fn rom_offset(dev: &device::Device, bar0: Bar0<'_>) -> Result<usize> {
+         }
+ 
+         register! {
++            base: NovaRegisters;
++
+             NV_PBUS_IFR_FMT_FIXED2(u32) @ 0x300008 {
+                 19:0 total_data_size;
+             }
 
 -- 
 2.54.0
