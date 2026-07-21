@@ -4,49 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 096FCC4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 17:52:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5794CC4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 17:52:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6208F10E373;
-	Tue, 21 Jul 2026 17:52:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72BDA10E696;
+	Tue, 21 Jul 2026 17:52:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="frRhbVBA";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="H5bAbQve";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D07C10E373
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9CD010E373
  for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 17:52:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1784656358;
- bh=mBRcyJ2IZ1f0GRAtYA85IIg0I8e5eYm3P2phDsUz730=;
- h=From:Subject:Date:To:Cc:From;
- b=frRhbVBAqT47DEV/ZzFdAO8JHwl2pAldSVYNZo9PqHIsQQfmvZZSV9zWd0DV9TEcm
- yOXhRPCdL7FGN8lKmv2f16nKZaMUR6sdBb4Y/DsCGzbhw+guBCGdjB9JbISn0m5t9d
- EOSWKbh1nGlIWZQ2c5ap6nzf6zVINWYgo1jH6EP36LBVXc+ej59SPVRMkKtPKbi5dT
- oTC5ffa0FI8SIK4GuHuSErtbCNm0Qvl72yubLtWeyfzof9umcRn+4A7ExaCqPEn3UU
- 0KabZzg4JH5mRgakVBN/752DWBP6nUcL/Hm2JNu+AWo3xZ3gOjDxMBJ8e7Wt+FDORq
- wezEbtaX/mzgw==
+ bh=oiWWXRm0/cQ/tnB5PbRJ+mS8OTFZDOErXBKz7hNNENs=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=H5bAbQvewlB4XdutPGbj6v8Dr3pN62frIKGpnVKcOpZXrre9fpvszlLZI2pF1I7GD
+ vqgLlkVhQnBW0G1LOwbpkpP6nUpe+6gRJprAOe4L4eOkNcH8eEVfqKzWezAkODr+03
+ zev7ByXxzR53mS8MME++MWfjHfz1HQTNdtm6i9VoIHiXwQtDLEbWaAEMNV5LBFimOU
+ feaJEE9cqIuP9WiUAJyqj+oXShHJK97PYlll424S4Q+jeRMSQZ7HlwenrvaI1WOcLZ
+ vmOa43D1W8J0ugbt6vR/juA/z4+8lCkbr/9500y4fbum/a08L/zKZat9sgBN6L83Vv
+ p0OTCSH8libYQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id DF56F17E0851;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E210917E0FD2;
  Tue, 21 Jul 2026 19:52:37 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 94194480029; Tue, 21 Jul 2026 19:52:37 +0200 (CEST)
+ id 966E748002C; Tue, 21 Jul 2026 19:52:37 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: [PATCH v4 00/10] Synopsys DisplayPort Controller improvements for
- Rockchip platforms
-Date: Tue, 21 Jul 2026 19:52:30 +0200
-Message-Id: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
+Date: Tue, 21 Jul 2026 19:52:32 +0200
+Subject: [PATCH v4 02/10] drm/bridge: synopsys: dw-dp: Support
+ MEDIA_BUS_FMT_FIXED
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33N0QqCMBTG8VeRXbfYjrppV71HdDG3Yw7SyRYrC
- d+9KYQQ4eX/4/A7bxLQWwzklL2Jx2iDdUOK4pAR3anhhtSa1AQYCJZDScM0uDFMgZonNSO1/eh
- dxB6HR6DSKMC6Mi03hiRh9Nja16pfrqk7Gx7OT+uzyJf164pdN3LKaMl4VdRcANTsrN39rhrn1
- VG7nix2hM1Lp/seJM9IlK1olJay/eflmyc47Hv54mnBUeQllKz69eZ5/gAQvJrtagEAAA==
-X-Change-ID: 20260325-synopsys-dw-dp-improvements-7da2e98df1dd
+Message-Id: <20260721-synopsys-dw-dp-improvements-v4-2-f0f4a4ede712@collabora.com>
+References: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
+In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
  =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
  Andy Yan <andy.yan@rock-chips.com>, 
@@ -69,21 +66,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4915;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1544;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=mBRcyJ2IZ1f0GRAtYA85IIg0I8e5eYm3P2phDsUz730=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpfseXsRyzy6CdS28+N3270IWLaVbXG7h5Na
- Lk0I7aCnffyZokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqX7HlAAoJENju1/PI
- O/qaA6AP/1WL0gv0PNhkm3D5w5edzN8CMmC8UDmz1aZpumBYnRl1jKcXF1864effACLauaFZGoR
- pQNXRN8pqOJcRF42P5qBLQWUEuSdA5pVYCtQdGEqSJ3du7JRonCPXGFJD5VRN4+6gJyczhPbi4T
- eYiYb2RunjNXoU0OJ1MMU12DcmE7U1o8MinfZPlp8MzfDA8JrqB+QI+ZNNRoCp5bo14HoX7Qa1P
- VfoBgjwn47Fb2mZkNOUJl9R18jQKgfuD8RzqlcYZiO9W6bS3xCe0Fkm2szn4Mk9TYfRnKXc6gVm
- WHMKVEp94zaha9qw0CHoDevgwAa62gQSAge0xkb/XqxKTTYSGJueYYYfDlRzKWmdh5qce+QzFei
- O3KcITCe+qHTVM4sqUWhGruapGN1mFh4oFXOF8C2asg/sFe4UiwdIQxGEeNtz5gII888jSBR2kn
- 4Vk6KCLiLmcL8LaHUPo4ful12EPaRl0nfT+fp+ZzHWuTznuUQ33I1hLWMkChOBcHoKR88T65YBL
- PtAx6ir7bJwkoxI1kg7lEYAenmsbz/y9J/maaVZsmGOd3XBMpIxhj+BNat1s4kG4JUdOhq9dzHM
- 7d3X5UnK+C5cZLvCXE8O217b8xbPIYJ09wZ8AJOdZgXGH/SsLpFtF3Cb2rs8QjipOijRG1dX4Do
- 9gtjLl6Qs17vON7r4YIAtjA==
+ bh=oiWWXRm0/cQ/tnB5PbRJ+mS8OTFZDOErXBKz7hNNENs=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpfseWaZo8u4YM2fcGoridEgdNIEiwuvkpuW
+ 7qpmL+Fr0D/aokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqX7HlAAoJENju1/PI
+ O/qa6dYP/ifbvNSK+yxLY4zkGyIr/SbYIGC3zGQmLlpTPrmaxm1F/+iN6leUD9VYQumBG4zJt8i
+ t6I/C9H3TvZgFbE3iEC6PxP2LwPw5wUJJlkSfmbR0HEmpeIZqcDpT+mB90BnuAtihlUuzo1ewzA
+ +mPE8tsXvyWBE/Zob6hhimfZTRSsyaAotMb6DQNq3E4upaduciBUCEaO8+MdxrFeekhWezJQU4E
+ SW7xXJAj8SCxogvIzgB4wlsAhZMV8/SSiWaNSfeuAW9W8E8cW8C27TgGDOUCU+PsphCsUIy7Unz
+ USs4PhA2ggY+iabsEH+aR1+WP0x01G69wQg7snBr8QEbAkXFgpZhbuGh6RF6Ye1B7HN5sqtHp1o
+ b9ogXebJiAAP4i5xDmW2dox+8FDEmdMGzfZ2Fzj4iUMJfcrTr9hLrgktGx6KXnt93bVly8VKp0z
+ vNxZBrd/3ykGyA4WM/4cLDrqyaBrkLlRux1Qh8rCKeKG7O97rgd55owO06bdO8L0s4DBHD0+bC8
+ ITRzrzO1eM+ElpKnBMc3kSt9BIby9qJCEEPG7V5VZmS53+aGN1hxnAV3UySRPY4e0j8ms7zHaD2
+ J8HqPB5LMw4xmpKjcCoWN8Pn1bw6Py/W57Ar8ez3652NncpS+JNqAEALlPPLGvvRXrwuv/HI3za
+ TASCKJSP3MWU0mrsD4UwxEw==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -101,103 +98,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series updates the Synopsys Designware DisplayPort bridge
-together with the only existing user: The Rockchip RK3576/RK3588:
-
- 1. follow-up bridges (PHY, USB-C connector)
-    this is needed to get USB-C DP AltMode working; I've followed the
-    Qualcomm driver as reference
-
- 2. runtime PM
-    the initial driver has been upstreamed without RPM; add it to
-    avoid wasting power when nothing is plugged
-
- 3. audio
-    the initial driver has been upstreamed without audio support;
-    this adds all missing bits for audio with single stream transport
-
-To properly make use of the bridge code the following USBDP PHY series
-is also needed:
-
-https://lore.kernel.org/all/20260714-rockchip-usbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com/
-
-There are two parts, which possibly need some discussion:
-
- 1. I added a dedicated bridge callback for out-of-band hotplug events,
-    which is separate from the hotplug_notify. I have a feeling, that
-    there might be a better solution, but haven't found it.
-
- 2. The DT binding for audio support works perfectly fine, but is not
-    really ready for MST. I don't intend to implement MST right now,
-    but the binding should obviously take it into consideration to
-    avoid breaking it in the future. I've put different options into
-    the patch description and went with the easy one, which is easy to
-    test.
-
-Changes in PATCHv4:
- - Link to v3: https://lore.kernel.org/all/20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com/
- - Drop "Simplify driver data setting" (effectively reverted later on)
- - Add "Fix incorrect resource lifetimes in bind callback", which
-   affects all following patches quite a bit (Sashiko)
- - Update "Add follow-up bridge support" to mention that fatal errors
-   are fine (Sashiko)
- - Update "Add out-of-band HPD notify handler" to use
-   drm_for_each_bridge_in_chain() instead of
-   drm_for_each_bridge_in_chain_scoped() required after rebase to
-   latest drm-misc-next
- - Add 100ms sleep in hpd detect functions after runtime resume in the
-   "Add Runtime PM support" patch (Andy Yan)
- - Keep runtime PM enabled if DP is used without USB-C to avoid missing
-   HPD signals in "Add Runtime PM support" patch (Andy Yan)
- - Update patch description of DT binding patch and drop RFC tag
- - Use pm_runtime_resume_and_get() in the audio startup function, which
-   allows easy error handling (Sashiko)
- - Avoid updating audio_interface in the audio prepare function when
-   an error related early exit happens (Sashiko)
- - Add error handling for clock prepare calls in audio prepare function
-   (Sashiko)
-
-Changes in PATCHv3:
-- Link to v2: https://lore.kernel.org/r/20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com
-- Collect Reviewed-by on "Simplify driver data setting" patch (Andy Yan)
-- Use of_drm_get_bridge_by_endpoint instead of devm_drm_of_get_bridge (Luca Ceresoli)
-- Use FIELD_PREP_WM16 instead of FIELD_PREP_WM16_CONST (Chaoyi Chen)
-- Rebase to latest drm-misc-next (Dropped Cristian's patches)
-
-Changes in PATCHv2:
- * Link to v1: https://lore.kernel.org/r/20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com
- * rebased to latest drm-misc-next
- * prepended the Patches from Cristian's cleanup series, as they also
-   needed a rebase and should be merged first
-   https://lore.kernel.org/dri-devel/20260327-drm-rk-fixes-v3-0-fd2e6900c08c@collabora.com/
- * fix issue with the audio stream (un)prepare handling in last patch
+Add support for MEDIA_BUS_FMT_FIXED, which is e.g. requested for USB-C
+DP chains as the last bridge in the chain (aux-hpd-bridge) does not
+implement atomic_get_output_bus_fmts(), which results in the generic
+drm_atomic_bridge_chain_select_bus_fmts() code using MEDIA_BUS_FMT_FIXED
+instead.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
-Sebastian Reichel (10):
-      drm/bridge: synopsys: dw-dp: Fix incorrect resource lifetimes in bind callback
-      drm/bridge: synopsys: dw-dp: Support MEDIA_BUS_FMT_FIXED
-      drm/bridge: synopsys: dw-dp: Add follow-up bridge support
-      drm/bridge: Add out-of-band HPD notify handler
-      drm/bridge: synopsys: dw-dp: Support software triggered OOB HPD
-      drm/rockchip: dw_dp: Implement out-of-band HPD handling
-      drm/bridge: synopsys: dw-dp: Add Runtime PM support
-      drm/rockchip: dw_dp: Add runtime PM support
-      dt-bindings: display: rockchip: dw-dp: Fix sound DAI cells
-      drm/bridge: synopsys: dw-dp: Add audio support
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
- .../bindings/display/rockchip/rockchip,dw-dp.yaml  |   9 +-
- drivers/gpu/drm/bridge/synopsys/dw-dp.c            | 456 ++++++++++++++++++---
- drivers/gpu/drm/display/drm_bridge_connector.c     |   6 +
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c          | 223 ++++++++--
- include/drm/bridge/dw_dp.h                         |  11 +-
- include/drm/drm_bridge.h                           |  14 +
- 6 files changed, 629 insertions(+), 90 deletions(-)
----
-base-commit: 7296004bd2ceb1284fb557399f0134361f8e34af
-change-id: 20260325-synopsys-dw-dp-improvements-7da2e98df1dd
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 368e1f85e625..aca6816febe6 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1528,6 +1528,7 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 				     struct drm_connector_state *conn_state)
+ {
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++	unsigned int out_bus_format = bridge_state->output_bus_cfg.format;
+ 	struct dw_dp *dp = bridge_to_dp(bridge);
+ 	struct dw_dp_bridge_state *state;
+ 	const struct dw_dp_output_format *fmt;
+@@ -1538,7 +1539,10 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 	state = to_dw_dp_bridge_state(bridge_state);
+ 	mode = &state->mode;
+ 
+-	fmt = dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
++	if (out_bus_format == MEDIA_BUS_FMT_FIXED)
++		out_bus_format = MEDIA_BUS_FMT_RGB888_1X24;
++
++	fmt = dw_dp_get_output_format(out_bus_format);
+ 	if (!fmt)
+ 		return -EINVAL;
+ 
 
-Best regards,
 -- 
-Sebastian Reichel <sebastian.reichel@collabora.com>
+2.53.0
 
