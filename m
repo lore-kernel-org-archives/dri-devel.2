@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D084C44537
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 17:52:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B79AC4452D
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 17:52:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B4BC10E3B8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE81310EAD8;
 	Tue, 21 Jul 2026 17:52:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NqJyIAgz";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="XMfaaq0D";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5536F10E3B8
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 17:52:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06EBE10E373
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 17:52:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1784656358;
- bh=Szu0whIwry2XJLoGj7gD8cKhUNL8gnGbIBLAwSmIRe0=;
+ bh=F4BrRjFviO71BqTa0/M+DJMgwptFTQA7fNEwqLzoieE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=NqJyIAgztefUst+y54jAgxbzu1I2uDgagI+DYb6hDOgnWQMUhvf1kG8mqAUZaZnZb
- LbQpO/RKAV3pvDz9Nh4M720kTadhiwe0lKFYS+NCkIub2kkTXaMrhPzh+zYhYqst7H
- h0WdkWNUDgGuQS4pWT0eIVLPkndBa/7c1Tp4hTxsAAcZyI7TUja82vLfk0KtTmSuzC
- mpNATiT/QHjI2eK7lXyKovwmExdA7vz3ApvreJfEDCtV6dcUrITF3H0cnJY5TpStKp
- +3UeWH4Jr+V8J9g3kvMCvzV3Ky89urPaeWYmjvkDxyZMAr09Mhy3LHIHAtBDmT6iyf
- Cz+gyol7HTuAQ==
+ b=XMfaaq0DZkW0JTJElZ6n/tBjEjfcrYdDTEx38afJX/DvZrhqB8amk2d4Ry/11FVJS
+ 4xdtrpDcfbiziG84bOh5xMcL9eF4wLHtYdhrNV3rBFO9/Pv7tbtPYdYfTPxeHdlrzI
+ Gc1+874ps7gdLuye7AhA63n97WPtA6GfSLbDdXA+H1bVCyE62qZQ1DpeJ6qzin7sOS
+ 2uvSLMNGKvIcRhb9cPq7sLWce8D+H/uAhtwoeyv7aVltj4gEP7L46+kyjJBV8FrMY0
+ L7C/c22PQ/3Z0I0daQ7Eqf3y70RMNstIEBNb5836/Gc5bp1HWK/60VMpN9zHCOpiye
+ u/8DVElLgWo7Q==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4E94217E121B;
- Tue, 21 Jul 2026 19:52:38 +0200 (CEST)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: sre)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E499017E1078;
+ Tue, 21 Jul 2026 19:52:37 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id A20FB48003D; Tue, 21 Jul 2026 19:52:37 +0200 (CEST)
+ id 9819048002F; Tue, 21 Jul 2026 19:52:37 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 21 Jul 2026 19:52:39 +0200
-Subject: [PATCH v4 09/10] dt-bindings: display: rockchip: dw-dp: Fix sound
- DAI cells
+Date: Tue, 21 Jul 2026 19:52:33 +0200
+Subject: [PATCH v4 03/10] drm/bridge: synopsys: dw-dp: Add follow-up bridge
+ support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-synopsys-dw-dp-improvements-v4-9-f0f4a4ede712@collabora.com>
+Message-Id: <20260721-synopsys-dw-dp-improvements-v4-3-f0f4a4ede712@collabora.com>
 References: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
 In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -66,21 +66,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3195;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2769;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=Szu0whIwry2XJLoGj7gD8cKhUNL8gnGbIBLAwSmIRe0=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpfseVT8gMOJz3vR303GHeE0KZMP8YapXJc2
- vxfs/1dCS6KcIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqX7HlAAoJENju1/PI
- O/qaLicQAJvSC78msD3XpfFR7f6XwjAhjFubR7DC7qMAn0Tqatma134CJr3XRnIe68yBm84JaXe
- M8julUdS5n5ro0kUu9sN+9IFa3+3jNSzgYq1v+dlkaLETNdmL+InLZf+WYkJ7FG1ds0uop+pzdI
- KP2iJxy2HlibpwSmu+NyJdqrxgUC6plMCgiqb9PK61uej3F76qSLkRRDH/Zg0yPUAKvPDkrMI3e
- 3t6Ygo7i5mKj4BMT1JuUgAsdno3WySJHXsfep86pDe8i4bxqqY0SjK2LPkQxYjXaA2gBOB/sRvS
- BNm6yT0+5fabFu2L6f7yl+dmfvIKr6VecknazQoFjzRAA7Xov8LLXj6rNGxqE7u7jnJs3wrPRsA
- /RLPQCJYB1ABbNjxZ0fv9SGX4GOFCW8dsQEJEvvecN680oR2UP3k0dsJm+zQ8edsojT3W2kE4vB
- RYnyvs0IbECDHgu+Hfa8P/nHdKVlRTBAWO619spDzfNQlvJxqt7t9zi18UmhwMyos86AS0rZ1Mf
- OE3tgSzzBfEIietWm0qNmwSe14BIfRW+BzkX+FZTsjDYnqsLES/ZTpPB9ATd+SG/2UTSaFTOl22
- IJOp/CdGPSipI/JLbPb9h3EfQdjf+TCdevRjWqM7TlygjwbQUUefSNIu8HRx6uyOqV+/JigLSsh
- gVHzikkL64T9R1nhTCskuIQ==
+ bh=F4BrRjFviO71BqTa0/M+DJMgwptFTQA7fNEwqLzoieE=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpfseXu2xeAkd/HPdm6crAbguEIl46uzZE6g
+ +dqFbJRl5j/04kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqX7HlAAoJENju1/PI
+ O/qaj8UP/3zFA7fAGLscxeldf6FxsgEdelxSp3mitYjuztqDM2nrIS1b8vowQZfijZQRqS/d7n5
+ I1FSjp6KJ78TdXd21w65YUewsjM5nXdMP8+kGC+cfVwZwRxrBHzZk0g7zlBEoj3cX317qLz0rsI
+ CcVwI9Wd54NpH275UFvlm7yLyUarQbvlTR2zl4K+TiDK8gLwhKuyvDLGLJOfz4ePZhmB+SW5riw
+ PU8viG/InMtGjrG5ucU7MDFG2jbGg5Z0gvPTSB8bFHs2sbjezjvHg9HoZBZ9z/QDN3g5PtimPKk
+ Fgw2HnXPlqJn2/2Up7lgApcj2zhCP70Yx3h81Zd5xOSiTC6zIOWDoHiYfJmQzzT3BXOlc5HpGwl
+ qdf8pGzHQcg6TDQGHKxLaBjjb+y4Fu7fwlzZLHhzPaIHIWmIA0PUlXGnQvyPBuSt+wGiEUehlfj
+ CxTlrKwjsXCdChFcpKI8VLsFy4a12ZSJa0vSq+DnsamQ27iIA933rfzBDqYdBCjBv8pxuFRuidO
+ miV//IbSLyp0KXNVhtfXriOHWCqE7ekMogZ07MbnRv3DOmIkMGLTuuyRxVFsin0Gn7DLV7Dz7LK
+ 19M1+wNbXMQZXDUAPcUS4iny7vGr0zJh6JWasYrUDLj+BcsiebmVrIv1QUpEoWNkNNuqyzjpLv5
+ 8TjC08JHri+hdrpsv2d816g==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,94 +98,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
-possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
-to select the right interface.
+Add support to use USB-C connectors with the DP altmode helper code on
+devicetree based platforms. To get this working there must be a DRM
+bridge chain from the DisplayPort controller to the USB-C connector.
+E.g. on Rockchip RK3576:
 
-In addition to that the RK3576 has the same IP as RK3588, but configured
-with Multi Stream Transport (MST) enabled for up to 3 displays and thus
-has a total of 6 DAI interfaces (I2S and S/PDIF for each possible
-stream). Meanwhile the RK3588 does not support MST and thus has only 2
-DAI interfaces.
+root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
+bridge[0]: dw_dp_bridge_funcs
+        refcount: 7
+        type: [10] DP
+        OF: /soc/dp@27e40000:rockchip,rk3576-dp
+        ops: [0x47] detect edid hpd
+bridge[1]: drm_aux_bridge_funcs
+        refcount: 4
+        type: [0] Unknown
+        OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
+        ops: [0x0]
+bridge[2]: drm_aux_hpd_bridge_funcs
+        refcount: 5
+        type: [10] DP
+        OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
+        ops: [0x4] hpd
 
-The binding update from this patch has only been tested with the simple
-single stream transport (SST) setup as the Linux driver does not yet
-support MST.
-
-For MST it is unclear what a good binding should look like. Technically
-there are a couple of options:
-
-1. Stay with the single cell, but add more numbers. I.e.
-   0 = I2S on stream 0,
-   1 = S/PDIF on stream 0
-   2 = I2S on stream 1,
-   3 = S/PDIF on stream 1
-   4 = I2S on stream 2,
-   5 = S/PDIF on stream 2
-
-2. Add yet another cell, so that there is one argument for the stream ID
-   and one argument to select between S/PDIF and I2S. I.e.
-   0 0 = I2S on stream 0
-   0 1 = S/PDIF on stream 0
-   1 0 = I2S on stream 1
-   1 1 = S/PDIF on stream 1
-   2 0 = I2S on stream 2
-   2 1 = S/PDIF on stream 2
-
-3. Create one subnode for each stream in the DP controller with its
-   own graph for the video streams. This would mean the MST binding
-   is quite different from the SST one.
-
-As it is unclear which way is the most sensible at this point in time,
-just go with the most simple option for now and revisit this once MST
-is added.
+It's fine to fatally error out when there is no follow-up bridge
+as the Rockchip Designware Displayport controller is the only
+user of the bridge helper and has the port marked as required
+in its binding.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml     | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-index 2b0d9e23e943..c4f8959dd65d 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-@@ -25,7 +25,7 @@ description: |
-   * Supports up to 8/10 bits per color component
-   * Supports RBG, YCbCr4:4:4, YCbCr4:2:2, YCbCr4:2:0
-   * Pixel clock up to 594MHz
--  * I2S, SPDIF audio interface
-+  * I2S, S/PDIF audio interface
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index aca6816febe6..0e8ecd73a000 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -329,6 +329,8 @@ struct dw_dp {
+ 	struct dw_dp_plat_data plat_data;
+ 	u8 pixel_mode;
  
- properties:
-   compatible:
-@@ -46,7 +46,7 @@ properties:
-       - description: DisplayPort AUX clock
-       - description: HDCP clock
-       - description: I2S interface clock
--      - description: SPDIF interfce clock
-+      - description: S/PDIF interfce clock
++	struct drm_bridge *next_bridge;
++
+ 	DECLARE_BITMAP(sdp_reg_bank, SDP_REG_BANK_SIZE);
+ };
  
-   clock-names:
-     minItems: 3
-@@ -83,7 +83,8 @@ properties:
-     maxItems: 1
+@@ -1988,18 +1990,35 @@ int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
+ 		goto unregister_aux;
+ 	}
  
-   "#sound-dai-cells":
--    const: 0
-+    const: 1
-+    description: 0 for I2S, 1 for S/PDIF
++	dp->next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
++	if (IS_ERR(dp->next_bridge)) {
++		ret = PTR_ERR(dp->next_bridge);
++		dev_err_probe(dev, ret, "failed to get follow-up bridge.\n");
++		goto unregister_aux;
++	}
++
++	ret = drm_bridge_attach(encoder, dp->next_bridge, bridge,
++				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
++	if (ret) {
++		dev_err_probe(dev, ret, "Failed to attach next bridge\n");
++		goto put_next_bridge;
++	}
++
+ 	dw_dp_init_hw(dp);
  
- required:
-   - compatible
-@@ -144,7 +145,7 @@ examples:
-         resets = <&cru SRST_DP0>;
-         phys = <&usbdp_phy0 PHY_TYPE_DP>;
-         power-domains = <&power RK3588_PD_VO0>;
--        #sound-dai-cells = <0>;
-+        #sound-dai-cells = <1>;
+ 	ret = phy_init(dp->phy);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "phy init failed\n");
+-		goto unregister_aux;
++		goto put_next_bridge;
+ 	}
  
-         ports {
-           #address-cells = <1>;
+ 	enable_irq(dp->irq);
+ 
+ 	return 0;
+ 
++put_next_bridge:
++	drm_bridge_put(dp->next_bridge);
++
+ unregister_aux:
+ 	drm_dp_aux_unregister(&dp->aux);
+ 
+@@ -2014,6 +2033,7 @@ void dw_dp_unbind(struct dw_dp *dp)
+ {
+ 	disable_irq(dp->irq);
+ 	phy_exit(dp->phy);
++	drm_bridge_put(dp->next_bridge);
+ 	drm_dp_aux_unregister(&dp->aux);
+ 	drm_bridge_remove(&dp->bridge);
+ }
 
 -- 
 2.53.0
