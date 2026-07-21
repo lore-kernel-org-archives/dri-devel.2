@@ -4,105 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 401C3C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 08:21:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A049C44529
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 08:21:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B121410E706;
-	Tue, 21 Jul 2026 08:21:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB9510E6DE;
+	Tue, 21 Jul 2026 08:21:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="JgjW7153";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9bXfJdrM";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JgjW7153";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9bXfJdrM";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OTeLA6Rv";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B155C10E6DE
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 08:21:15 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0ECFC3E61;
- Tue, 21 Jul 2026 08:21:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1784622074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=g3p7NhHkrrkmq6Eg4P3XqhgRlLkuDdR28KUihZ1Gu3Y=;
- b=JgjW7153saTJtKK0v9/X5Ih0gQBSCZDq5VMgMP4CUIxV2aB///vDk9GIfRzTKS6otlemS2
- sK7elkMD5dom+BFg6cKYRTw7dLg/YLSa1qW5Nn3ybVZhY87vk/RDcm2kP/br8BNEixtZV3
- 0Yz54CV3ADbw5vLhZAsKs4QOr9AVHkU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1784622074;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=g3p7NhHkrrkmq6Eg4P3XqhgRlLkuDdR28KUihZ1Gu3Y=;
- b=9bXfJdrMuCU+22XSWeOCZhmUryhnx8jYNRox7lGv5W4Eki0QyKMDLNb6oij52rro6iS+uE
- ONHQYOo/oR13YmDg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JgjW7153;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=9bXfJdrM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1784622074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=g3p7NhHkrrkmq6Eg4P3XqhgRlLkuDdR28KUihZ1Gu3Y=;
- b=JgjW7153saTJtKK0v9/X5Ih0gQBSCZDq5VMgMP4CUIxV2aB///vDk9GIfRzTKS6otlemS2
- sK7elkMD5dom+BFg6cKYRTw7dLg/YLSa1qW5Nn3ybVZhY87vk/RDcm2kP/br8BNEixtZV3
- 0Yz54CV3ADbw5vLhZAsKs4QOr9AVHkU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1784622074;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=g3p7NhHkrrkmq6Eg4P3XqhgRlLkuDdR28KUihZ1Gu3Y=;
- b=9bXfJdrMuCU+22XSWeOCZhmUryhnx8jYNRox7lGv5W4Eki0QyKMDLNb6oij52rro6iS+uE
- ONHQYOo/oR13YmDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AC63A779AA;
- Tue, 21 Jul 2026 08:21:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id NfqsKPkrX2r2UgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 21 Jul 2026 08:21:13 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: ville.syrjala@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>
-Subject: [PATCH v2] drm/i915/display: Handle struct
- drm_plane_state.ignore_damage_clips
-Date: Tue, 21 Jul 2026 10:20:27 +0200
-Message-ID: <20260721082108.225599-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC71310E2F6
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 08:21:31 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-69e08ad526cso7876959a12.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 01:21:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1784622090; x=1785226890; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=9+ia3WLYSRNd9xkwqotEf8gwl8oDgEsTaLE4rh2ip0U=;
+ b=OTeLA6RvX7IuX3Bw1JMzotC+IcnVcV6RIvZtyHCNiInFKXxmwa6P4xXIpHnXXpSm2S
+ imdqDf4KUDPvL175cVuTcuBEn4kF5xZCVJDnYeEB/5wSxRTt6f0DLMGxaStOfuBlCIQu
+ KPpaJKXyaufPyhcIJixARlVkOnopKltI6d+pBgCmajQws/Trw9K2QCfk3QWLfim9kbEw
+ X2XgrsJlYV1H4VOf5PIag7NS5Bs/RzdFgfXlY59w6Mrau3iDMosRmYR/zXU+hsFlzXXS
+ Kq8iBdVVUSnjW3OLPtnsO/cExaPBIW0qrzxe/TugSFoQrVBjTelBRLvddFKJx/g2RPcM
+ oRsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784622090; x=1785226890;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=9+ia3WLYSRNd9xkwqotEf8gwl8oDgEsTaLE4rh2ip0U=;
+ b=p8QD+b0rFJCpQWSeEjPJfHhOQR+PvybOT/NnVhiiZcP1ECoDnqavXgyszRKwNx2KNV
+ 4aHCwjiyDYxej+QUpfYFPvs8RNx4M+h0rCsR+1H1RhOsQWZdH0PLnMsjmG09RZZ/N632
+ TkqSahKvDMy8ATUx+58+yrfW+So3hxRO8LnouEs+T/cSnWP4NvMzLKUXh+nkbhg5K+kt
+ wn8XPAyZFOR+2s7/VBgJwDfHfXaMrnn/TUPth5dde35YD2GFzpgsocispkwp3PwMkdNx
+ qB59IRKJG7PWMGta1zF+Ay2Y198y2ibMDkz9T0MFMmMOwK0BrmZSSP6WfrBwK3E4XvEM
+ nyYA==
+X-Gm-Message-State: AOJu0YyNCvqY1CKnH7WNV+xXybHUf/bjVFkNOu+fRN5tHzumqsbFr0UT
+ ABmjJw1tGtkMY445dNvQAvTVBMf8NiEDteC6j1mfI2lZAQ0lGd2brUxd5dL8HBcpX5w=
+X-Gm-Gg: AfdE7cmvkfc2ZePxDpT6FPaH17QHmlISjqfH1ZwM/+ja2x9ZNrSHbOgFMnntgHjvbtm
+ 9EJyju6DQRyOAfj7iY+N5sP9itE5AiVNHECjju52nt+WApNWJ3xjsnwyeZcznJE/cbN0ipOiGvs
+ itppYYtTTY3d/CG5kzeBReCTSUGWT5Y3xzGy0avMsh3vqxdzTJcQSlx9R8xpRbxZd+xSTaqIx0P
+ B72Ek99eND4P5Sa1d0yEAwjFUYFtWeiizk7PNhMRxRSZPacMs2+y53yoY9+6Hj2dg6Hcrs6oiXd
+ XkhvJRiAU1WoS1EIRDiZ0K6LqHZZZ5/lGbCJXKNvdzNi0Rax0DGs0otkVj2j+Ux6jQURm9pUz8y
+ aJAAo5piCw5HJsGl7VhOFoZCiZ7GZMAx8nwRBKDUll5QwYo94ddb+ULDo/2wug3917RbdAUreqR
+ e7JRpXGV9L9fZ2Rn38PQv91qnUqJ4G4e7ohyw/58TU4AzxT+mVX16xduL1rx1qwZr5SQ==
+X-Received: by 2002:a17:906:eece:b0:c0d:cd71:6463 with SMTP id
+ a640c23a62f3a-c16b46b6474mr753086366b.16.1784622090194; 
+ Tue, 21 Jul 2026 01:21:30 -0700 (PDT)
+Received: from puffmais2.c.googlers.com
+ (185.155.90.34.bc.googleusercontent.com. [34.90.155.185])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c1724f50b72sm564725066b.48.2026.07.21.01.21.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2026 01:21:29 -0700 (PDT)
+From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
+Subject: [PATCH v3 0/2] drm/drm_crtc: dma_fence_ops fixes
+Date: Tue, 21 Jul 2026 09:21:25 +0100
+Message-Id: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 0ECFC3E61
-X-Spamd-Result: default: False [-4.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- DWL_DNSWL_LOW(-1.00)[suse.de:dkim]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[intel.com,linux.intel.com,ursulin.net,gmail.com,ffwll.ch];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCPT_COUNT_TWELVE(0.00)[13];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,suse.de:mid];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-B4-Tracking: v=1; b=H4sIAAUsX2oC/33NQQ6CMBAF0KuQrh3TToEaV97DGFJKgSZKyRQbD
+ OHuFjbGhS7/z/w3CwuWnA3snC2MbHTB+SEFeciY6fXQWXBNygw5lrwUJ7i74TlDQ4/K0GSq1s0
+ IKLUyssh1LpCl5Ug29bt6vaXcuzB5eu1Potja/14UIMBwaZWqZdnK/JKuNPmjp45tYMQPovgPB
+ IGDaRXWVhWNKvQXsq7rG/mUxaj8AAAA
+X-Change-ID: 20260618-linux-drm_crtc_fix2-23a7c354a412
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Sean Paul <seanpaul@chromium.org>, 
+ Gustavo Padovan <gustavo.padovan@collabora.co.uk>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>, 
+ kernel-team@android.com, Simona Vetter <simona.vetter@ffwll.ch>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,60 +106,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Calling drm_atomic_helper_check_plane_damage() in plane_atomic_check()
-before copying the damage information guarantees that ignore_damage_clips
-from struct drm_plane_state has the correct value. Although i915 does not
-directly modify or use the flag, DRM's damage iterator will soon rely on
-it.
+Hi,
 
-Git commit 35ed38d58257 ("drm: Allow drivers to indicate the damage
-helpers to ignore damage clips") introduced ignore_damage_clips to
-selectively ignore damage clipping for certain framebuffer changes. The
-mode-setting pipeline can disabled damage clippings for an atomic commit
-by setting ignore_damage_clips in struct drm_plane_state. The atomic
-commit will then do a full display update.
+These patches fix two issues in the drm/drm_crtc driver. Initially I
+was hitting the BUG_ON() in a scenario as explained in the commit
+message of what is now the second patch in this series.
 
-Future directions: there's currently a multitude of options that affect
-damage clipping; with different places seeing different state. In order
-to unify this, drm_atomic_helper_check_plane_state() will soon evaluate
-all options in a single place and set ignore_damage_clips accordingly. All
-later stages of the mode-setting pipeline will only look at this field.
+After posting, sashiko.dev noticed another issue, that was previously
+masked by the now-removed BUG_ON(). Since we can't have a loud BUG() be
+replaced with silent data corruption or worse, I've also added a patch
+to address this issue highlighted by sashiko.dev. I believe its
+observation and analysis to be correct.
 
-v2:
-- move _check_plane_damage() before reading damage first time (Sashiko)
-- expand commit description
+Cheers,
+Andre'
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Signed-off-by: André Draszik <andre.draszik@linaro.org>
 ---
-Taken with updates from the series at
+Changes in v3:
+- Philipp:
+  - patch 1: update kerneldoc, add Fixes:
+  - patch 2: shorten commit message
+  - explicitly Cc: stable
+  - collect tag
+- Link to v2: https://lore.kernel.org/r/20260708-linux-drm_crtc_fix2-v2-0-cf72be75d75a@linaro.org
 
-  https://lore.kernel.org/dri-devel/20260610152505.260172-1-tzimmermann@suse.de/
+Changes in v2:
+- add new patch 1 to address sashiko observation
+- original patch 1 becomes patch 2
+- patch 2:
+  - don't turn fence_to_crtc() into macro (Jani, Philipp)
+  - update commit message to include reference to deprecated use of BUG
+- Link to v1: https://lore.kernel.org/r/20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f34@linaro.org
+
 ---
- drivers/gpu/drm/i915/display/intel_plane.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+André Draszik (2):
+      drm/drm_crtc: ensure dma_fence_ops remain valid during device unbind
+      drm/drm_crtc: fix race with dma_fence_signal() in ::get_driver_name()
 
-diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
-index a440f92ff00c..7d312c88a1db 100644
---- a/drivers/gpu/drm/i915/display/intel_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_plane.c
-@@ -873,6 +873,14 @@ static int plane_atomic_check(struct intel_atomic_state *state,
- 		old_primary_crtc_plane_state = old_plane_state;
- 	}
- 
-+	/*
-+	 * Prepare plane-damage state before using it; do this on all
-+	 * display versions to keep the underlying DRM plane state in
-+	 * good shape.
-+	 */
-+	drm_atomic_helper_check_plane_damage(&new_plane_state->base,
-+					     &new_uapi_plane_state->uapi);
-+
- 	intel_plane_copy_uapi_plane_damage(new_plane_state,
- 					   old_primary_crtc_plane_state,
- 					   new_primary_crtc_plane_state);
+ drivers/gpu/drm/drm_crtc.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
+---
+base-commit: 0718283ab28bc3907e10b61a6b4be6fefa1cbb2f
+change-id: 20260618-linux-drm_crtc_fix2-23a7c354a412
 
-base-commit: fcaba3bc017906059b910ece3f83185e93010581
+Best regards,
 -- 
-2.54.0
+André Draszik <andre.draszik@linaro.org>
 
