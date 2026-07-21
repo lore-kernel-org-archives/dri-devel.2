@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B739C44536
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 17:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D084C44537
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 17:52:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CB0910E3E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B4BC10E3B8;
 	Tue, 21 Jul 2026 17:52:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VZivdVdP";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NqJyIAgz";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C144710E3B8
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 17:52:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5536F10E3B8
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 17:52:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1784656358;
- bh=9OEEVTGH6CtYBorsugsyey8Z+5Bz4/YUYRXLfK0S0LI=;
+ bh=Szu0whIwry2XJLoGj7gD8cKhUNL8gnGbIBLAwSmIRe0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=VZivdVdP33X3exby8TN0qv+TCDYL/lQl/TdISs605cXJL3ubhjEnYht3rvHHp6el/
- Dc7QyyPmSgrz82rme9zJTxm+NwBJetDNwjiHU0VBh00pY0vxmBPnrmmFDspAxeSrOd
- y+/oiPwjAip1JIoRfsrLKptb2QrM5vwD2r6rM3kkhgsUAefs38EzHoIvuuhcaK0evv
- encYtz8WhAcoeTlyiujjTPjzjxfDEjuVCf8PVpvpAQAk0P/ZX7um6dpP3jzVfDsN+D
- ReAQIalPAjFamOTSJsuxnTWFynNDS6wHQLPWfQGKWcrHzzj81y3ifEEBBL96z/ZxW9
- 0WrP5DA8gEFCA==
+ b=NqJyIAgztefUst+y54jAgxbzu1I2uDgagI+DYb6hDOgnWQMUhvf1kG8mqAUZaZnZb
+ LbQpO/RKAV3pvDz9Nh4M720kTadhiwe0lKFYS+NCkIub2kkTXaMrhPzh+zYhYqst7H
+ h0WdkWNUDgGuQS4pWT0eIVLPkndBa/7c1Tp4hTxsAAcZyI7TUja82vLfk0KtTmSuzC
+ mpNATiT/QHjI2eK7lXyKovwmExdA7vz3ApvreJfEDCtV6dcUrITF3H0cnJY5TpStKp
+ +3UeWH4Jr+V8J9g3kvMCvzV3Ky89urPaeWYmjvkDxyZMAr09Mhy3LHIHAtBDmT6iyf
+ Cz+gyol7HTuAQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E35B817E1064;
- Tue, 21 Jul 2026 19:52:37 +0200 (CEST)
+ key-exchange x25519) (No client certificate requested)
+ (Authenticated sender: sre)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 4E94217E121B;
+ Tue, 21 Jul 2026 19:52:38 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 99DAD480030; Tue, 21 Jul 2026 19:52:37 +0200 (CEST)
+ id A20FB48003D; Tue, 21 Jul 2026 19:52:37 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 21 Jul 2026 19:52:34 +0200
-Subject: [PATCH v4 04/10] drm/bridge: Add out-of-band HPD notify handler
+Date: Tue, 21 Jul 2026 19:52:39 +0200
+Subject: [PATCH v4 09/10] dt-bindings: display: rockchip: dw-dp: Fix sound
+ DAI cells
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-synopsys-dw-dp-improvements-v4-4-f0f4a4ede712@collabora.com>
+Message-Id: <20260721-synopsys-dw-dp-improvements-v4-9-f0f4a4ede712@collabora.com>
 References: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
 In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -65,21 +66,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2377;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3195;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=9OEEVTGH6CtYBorsugsyey8Z+5Bz4/YUYRXLfK0S0LI=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpfseV3Iw/lPbZt2LprMMlfHmFycSj8HNlun
- 7XgzmGmt5Ku2YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqX7HlAAoJENju1/PI
- O/qahgcP/0eop2idDCK50e5ARxK5ljSg3WSVEOfxbihD487+TdZamArvuOt8xWI4cHh4qAUbdyW
- +RpweD48urRKW1TL7hcwhOwqeWNdC9gsPdGlolg2HHRO41WEh7e5Vs96IdmPqw6G/CbNaqfNz4X
- zMxb+7oPrDCJJME66gYfue7/LvDAml7FnBoppX1yavtB09LPmA/14wJv6dE0QKvQvr/VQXyGITc
- oI0VR/L21FS2x1XdNu8YykO17Nx6Uub+36RPCUCYwmiVLyT79/asPwq6V3u+TpLQGCPnjpI0qaC
- qc8himXvBy/bjC73SytIfP9e3MkLa6ftXJTKBcrfg7imli298nz82rf7CzLOPrl3z5veSNbI3qf
- gpXiReU58AM81jnhOhaM+0z2FDhGWt1z16l/I6EEhec49v0ycvtoLbXglSpcUhY4GF0BKykJyOq
- mB6HHHHcNbP3V/nIB+1tY+hxxEe5/KQ+axbjWp5y0BPGVAiENHH2ExCtsDtHUXGsfJfVB7Nowe9
- P0NKsjIFP8VZeM1oCvHfvbPzB1ZN9ed4lqwhIYXtXErxS1ia1dAwnkju+1fycuGA3azq9PMCxzl
- grOKaG26l/USE9lgmuT0mHFH5OCWo0WtzesdHP8c7o19OiJrmGZSX8J8Akj/IlDq8P68yzTWk7E
- AYey8eHwLBva7Jo5yWsA2Ag==
+ bh=Szu0whIwry2XJLoGj7gD8cKhUNL8gnGbIBLAwSmIRe0=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpfseVT8gMOJz3vR303GHeE0KZMP8YapXJc2
+ vxfs/1dCS6KcIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqX7HlAAoJENju1/PI
+ O/qaLicQAJvSC78msD3XpfFR7f6XwjAhjFubR7DC7qMAn0Tqatma134CJr3XRnIe68yBm84JaXe
+ M8julUdS5n5ro0kUu9sN+9IFa3+3jNSzgYq1v+dlkaLETNdmL+InLZf+WYkJ7FG1ds0uop+pzdI
+ KP2iJxy2HlibpwSmu+NyJdqrxgUC6plMCgiqb9PK61uej3F76qSLkRRDH/Zg0yPUAKvPDkrMI3e
+ 3t6Ygo7i5mKj4BMT1JuUgAsdno3WySJHXsfep86pDe8i4bxqqY0SjK2LPkQxYjXaA2gBOB/sRvS
+ BNm6yT0+5fabFu2L6f7yl+dmfvIKr6VecknazQoFjzRAA7Xov8LLXj6rNGxqE7u7jnJs3wrPRsA
+ /RLPQCJYB1ABbNjxZ0fv9SGX4GOFCW8dsQEJEvvecN680oR2UP3k0dsJm+zQ8edsojT3W2kE4vB
+ RYnyvs0IbECDHgu+Hfa8P/nHdKVlRTBAWO619spDzfNQlvJxqt7t9zi18UmhwMyos86AS0rZ1Mf
+ OE3tgSzzBfEIietWm0qNmwSe14BIfRW+BzkX+FZTsjDYnqsLES/ZTpPB9ATd+SG/2UTSaFTOl22
+ IJOp/CdGPSipI/JLbPb9h3EfQdjf+TCdevRjWqM7TlygjwbQUUefSNIu8HRx6uyOqV+/JigLSsh
+ gVHzikkL64T9R1nhTCskuIQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -97,66 +98,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For DP bridges, that can be used for DP AltMode, it might be necessary
-to enforce HPD status. There is an existing ->oob_hotplug_event() on
-the DRM connector, but it currently just calls into hpd_notify().
+The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
+possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
+to select the right interface.
 
-As DP bridge drivers usually also implement .detect and that also
-generates calls into hpd_notify, this is a bad place to force the
-HPD status as the follow-up detect call might force it off again
-resulting in all follow-up calls to the detection routine also
-failing.
+In addition to that the RK3576 has the same IP as RK3588, but configured
+with Multi Stream Transport (MST) enabled for up to 3 displays and thus
+has a total of 6 DAI interfaces (I2S and S/PDIF for each possible
+stream). Meanwhile the RK3588 does not support MST and thus has only 2
+DAI interfaces.
 
-Avoid this by having a dedicated function for OOB events.
+The binding update from this patch has only been tested with the simple
+single stream transport (SST) setup as the Linux driver does not yet
+support MST.
+
+For MST it is unclear what a good binding should look like. Technically
+there are a couple of options:
+
+1. Stay with the single cell, but add more numbers. I.e.
+   0 = I2S on stream 0,
+   1 = S/PDIF on stream 0
+   2 = I2S on stream 1,
+   3 = S/PDIF on stream 1
+   4 = I2S on stream 2,
+   5 = S/PDIF on stream 2
+
+2. Add yet another cell, so that there is one argument for the stream ID
+   and one argument to select between S/PDIF and I2S. I.e.
+   0 0 = I2S on stream 0
+   0 1 = S/PDIF on stream 0
+   1 0 = I2S on stream 1
+   1 1 = S/PDIF on stream 1
+   2 0 = I2S on stream 2
+   2 1 = S/PDIF on stream 2
+
+3. Create one subnode for each stream in the DP controller with its
+   own graph for the video streams. This would mean the MST binding
+   is quite different from the SST one.
+
+As it is unclear which way is the most sensible at this point in time,
+just go with the most simple option for now and revisit this once MST
+is added.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c |  6 ++++++
- include/drm/drm_bridge.h                       | 14 ++++++++++++++
- 2 files changed, 20 insertions(+)
+ .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml     | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 8b54069fa53a..632cc3ae3b54 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -180,6 +180,12 @@ static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connect
- 	struct drm_bridge_connector *bridge_connector =
- 		to_drm_bridge_connector(connector);
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+index 2b0d9e23e943..c4f8959dd65d 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+@@ -25,7 +25,7 @@ description: |
+   * Supports up to 8/10 bits per color component
+   * Supports RBG, YCbCr4:4:4, YCbCr4:2:2, YCbCr4:2:0
+   * Pixel clock up to 594MHz
+-  * I2S, SPDIF audio interface
++  * I2S, S/PDIF audio interface
  
-+	/* Notify all bridges in the pipeline of hotplug events. */
-+	drm_for_each_bridge_in_chain(bridge_connector->encoder, bridge) {
-+		if (bridge->funcs->oob_notify)
-+			bridge->funcs->oob_notify(bridge, connector, status);
-+	}
-+
- 	drm_bridge_connector_handle_hpd(bridge_connector, status);
- }
+ properties:
+   compatible:
+@@ -46,7 +46,7 @@ properties:
+       - description: DisplayPort AUX clock
+       - description: HDCP clock
+       - description: I2S interface clock
+-      - description: SPDIF interfce clock
++      - description: S/PDIF interfce clock
  
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 3ac84ed57ab2..f38010d2edd1 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -540,6 +540,20 @@ struct drm_bridge_funcs {
- 	 */
- 	void (*hpd_disable)(struct drm_bridge *bridge);
+   clock-names:
+     minItems: 3
+@@ -83,7 +83,8 @@ properties:
+     maxItems: 1
  
-+	/**
-+	 * @oob_notify:
-+	 *
-+	 * Notify the bridge of out of band hot plug detection.
-+	 *
-+	 * This callback is optional, it may be implemented by bridges that
-+	 * need to be notified of display connection or disconnection for
-+	 * internal reasons. One use case is to force the DP controllers HPD
-+	 * signal for USB-C DP AltMode.
-+	 */
-+	void (*oob_notify)(struct drm_bridge *bridge,
-+			   struct drm_connector *connector,
-+			   enum drm_connector_status status);
-+
- 	/**
- 	 * @hdmi_tmds_char_rate_valid:
- 	 *
+   "#sound-dai-cells":
+-    const: 0
++    const: 1
++    description: 0 for I2S, 1 for S/PDIF
+ 
+ required:
+   - compatible
+@@ -144,7 +145,7 @@ examples:
+         resets = <&cru SRST_DP0>;
+         phys = <&usbdp_phy0 PHY_TYPE_DP>;
+         power-domains = <&power RK3588_PD_VO0>;
+-        #sound-dai-cells = <0>;
++        #sound-dai-cells = <1>;
+ 
+         ports {
+           #address-cells = <1>;
 
 -- 
 2.53.0
