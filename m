@@ -4,69 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87410C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:02:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B918C4452B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:08:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E603510E3E6;
-	Tue, 21 Jul 2026 20:02:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 652C410E08B;
+	Tue, 21 Jul 2026 20:08:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="emSG6YCR";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="chJgMWMM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEF3310E3E6
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:02:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784664167; x=1816200167;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=96yA8mD1e3ZjIfnonBbknt72yA7ScFllXK17fNt3ozc=;
- b=emSG6YCR6eEftOF85UbWdf4wThlHn1SSz82/Utgw0QqgnKrrBRKjofo3
- BRJTu+Ys610HcTEoNHAxycdO9ZRhEoFo9lNfNUHoWcxbinJ9CZ7nuWrkq
- oCeSrhpl22TdE2+v/jNdMxNDCpNbP2ZrU2m+GNFeYNKZcnayy/GZxkPmm
- fz8uYyqiJ3tePKmCYlus2WKYzGhdVji84fyua0tt8abeGQSv8paLFFF55
- 6iqZFkZO92LfmdNynrRGsoTS2kUnyOggLHeTt74nip+HSdS113SPGSV4T
- Leux66Qt4saFGA1F7ftSzLabkgAhoErTpHYiaBu3a1YvOt+g55gRUjG3V Q==;
-X-CSE-ConnectionGUID: N3gkG4PHS1utDc2Yh+IdzQ==
-X-CSE-MsgGUID: 5h286MpPSiK/Aarh3Qmmxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="110828105"
-X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="110828105"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2026 13:02:46 -0700
-X-CSE-ConnectionGUID: xBUHeOvTT7mlRNO3WfVr+g==
-X-CSE-MsgGUID: 5fzaCiORQziorivDS7oSrQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="256075075"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.245.142])
- ([10.245.245.142])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2026 13:02:42 -0700
-Message-ID: <9aad796e-0db7-4368-8228-8eed3556d1e2@linux.intel.com>
-Date: Tue, 21 Jul 2026 22:03:38 +0200
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A1A810E3B6
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:08:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1784664530;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kAHPDe7ybewGiUFEcOR2l6oFJvAxNe2N1MZePQ+DsrM=;
+ b=chJgMWMMF8V8ROuZHaKIrCeDRY0fFyWRVmhU8IWqrRhzFBMObcIzhGV7cHSEenY3EctIaS
+ P9gvzpUtGpS5otbsC/dGwjkjdd5WFA0oQ8sYqEVo+mBoGzPK8o+hjRzxchTmiVp0DQjd43
+ +mN9eprrmEs0KSo0atq26lnMpLkiDG4=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-665-CkLHRiOLPLiN91vYxU-9hg-1; Tue, 21 Jul 2026 16:08:49 -0400
+X-MC-Unique: CkLHRiOLPLiN91vYxU-9hg-1
+X-Mimecast-MFC-AGG-ID: CkLHRiOLPLiN91vYxU-9hg_1784664528
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-8f0867a75ecso132713446d6.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:08:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784664528; x=1785269328;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=YoOouUI2xFyBZQ4n8b5UEgP4pMR5eMIkpQq69XgErXE=;
+ b=jMoT0U+FSopKVbEyWItHKJQF2pcisaJn9imbpLrgJZ1yj1w8x1loeo3/3Ncczbaoxh
+ tdWF5ts0mc3vISCUxzM9Tlf5kVUfUjbyUTzi9jEcCn0Q+S/BlIfjQgZyjHG4sGY08Rzv
+ XPV1qVQrP7bnnXCiGJP19zBGF9uw2sjAFzTIBryNUKmGKpYQQGAt1f42dYAzjXjz0x04
+ 9mDX5Cit/SU0gQ8dxwb4bAVC7evt9bSA2M5qBAjdVxn3UsRsXwYuA3XWsViEBt767L/O
+ evWGZrp0o+5lwgoK90MszBuZBmdK5bS3xXS7EZVJsL+rw9HK2fY4zamAnpxvb1pS3u6T
+ lpFg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rof8obxkK7IzVs9BV4iGxnLAll5e9ZsOgcLgw2ZV/jD+3umcwOCiGHb8qB2InMp/NfHeZJXyE5rlOg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzy/9XbW8OdYTQO1vLE5b1XFRPSBxEv9jZ02xgGpmZkxieqD+4D
+ eR+Yqsg902WR4kQKVxyRIUqQH/jx6U0wLu48Ngwl16aohjM0cfrb8vg8JFE5bAfnuG0fzCGSK+L
+ v4ucVU+PaFChjGVZYhQtJxXVW1qb7hDJ+ymJWgShWU+Dpznk6VSA8sihW5yX7OQIZnNmQZQ==
+X-Gm-Gg: AR+sD11kSLKwFcTa3M++xMfGe62S1OE7I083HImDqrc4jHDzbceoPVn9kk/Odi5oY6e
+ c/JD6BOaeBM9QOOFJZ+mqe+dZq1ogM7/n8viWJqn8yswU45oT5K+U6swNXWZIeeqJL/aHHNIfLe
+ 48Soyvhh651zg89ISpi3RgxPA/CUreFl7+A1BiX78Sh0VtymwpIiPiLezOCuP21ab7h+haorGYh
+ YowSvYuPy7fBvtoTT7iYjsbG81sIp7JGVLfInkDbRMIT8tgE4xdkzfttcZUBfpRe5UYZS9NaMi1
+ FqpJBzQ1GiNYdUd9jzf5inKhdvl2vU27lFMalm2Je3NTEQSlEuyFu2V5wCkCJjPO6d1XgISh
+X-Received: by 2002:a05:6214:e87:b0:904:546a:1c47 with SMTP id
+ 6a1803df08f44-907783dbe63mr224352336d6.53.1784664528510; 
+ Tue, 21 Jul 2026 13:08:48 -0700 (PDT)
+X-Received: by 2002:a05:6214:e87:b0:904:546a:1c47 with SMTP id
+ 6a1803df08f44-907783dbe63mr224351876d6.53.1784664528014; 
+ Tue, 21 Jul 2026 13:08:48 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-907baa27ce6sm3874066d6.45.2026.07.21.13.08.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2026 13:08:47 -0700 (PDT)
+Message-ID: <c7176459c23a43167a63ede73d2ba9b0c805445a.camel@redhat.com>
+Subject: Re: [PATCH v2 0/3] drm/nouveau: Fix WARN_ON() from missing blend modes
+From: lyude@redhat.com
+To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Cc: Faith Ekstrand <faith.ekstrand@collabora.com>, Dave Airlie	
+ <airlied@redhat.com>, Leandro Ribeiro <leandro.ribeiro@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Kees Cook
+ <kees@kernel.org>, Marco Crivellari	 <marco.crivellari@suse.com>, Simona
+ Vetter <simona@ffwll.ch>, Pekka Paalanen	 <pekka.paalanen@collabora.com>,
+ David Airlie <airlied@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Stone <daniels@collabora.com>, James Jones <jajones@nvidia.com>
+Date: Tue, 21 Jul 2026 16:08:46 -0400
+In-Reply-To: <20260720205541.257781-1-lyude@redhat.com>
+References: <20260720205541.257781-1-lyude@redhat.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/6] drm/ttm: Extract code for attempting allocation in
- a place
-To: Natalie Vock <natalie.vock@gmx.de>, Maarten Lankhorst <dev@lankhorst.se>, 
- Maxime Ripard <mripard@kernel.org>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-References: <20260721-dmemcg-aggressive-protect-v7-0-97c4b1014315@gmx.de>
- <20260721-dmemcg-aggressive-protect-v7-3-97c4b1014315@gmx.de>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <20260721-dmemcg-aggressive-protect-v7-3-97c4b1014315@gmx.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: SPxBZe5iP0B6FG76eJAhrsh5bNzRcpxsbwi0SF3yaNY_1784664528
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,198 +106,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+I had thought that testing this on fbcon would be enough, but there is
+still more issues with this series I found when adding these to the
+kernel I dog food on my desktop. Will figure them out and send another
+respin of this series asap
 
-
-On 7/21/26 21:43, Natalie Vock wrote:
-> Move all code for attempting allocation for a specific place to
-> ttm_bo_alloc_place. With subsequent patches, this logic is going to get
-> more complicated, so it helps readability to have this separate.
-> 
-> ttm_bo_alloc_at_place takes a pointer to a struct ttm_bo_alloc_state.
-> This struct holds various state produced by the allocation (e.g. cgroup
-> resource associated with the allocation) that the caller needs to keep
-> track of (and potentially dispose of). This is just the limiting cgroup
-> pool for now, but future patches will add more state needing to be tracked.
-> 
-> ttm_bo_alloc_at_place also communicates via return codes if eviction
-> using ttm_bo_evict_alloc should be attempted. This is preparation for
-> attempting eviction in more cases than just force_space being set.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
-> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Reviewed-by: Maarten Lankhorst <dev@lankhorst.se>
-> ---
->  drivers/gpu/drm/ttm/ttm_bo.c | 101 +++++++++++++++++++++++++++++++++----------
->  1 file changed, 79 insertions(+), 22 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index 3980f376e3ba4..7192c15f2fcef 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -488,6 +488,62 @@ int ttm_bo_evict_first(struct ttm_device *bdev, struct ttm_resource_manager *man
->  	return ret;
->  }
->  
-> +struct ttm_bo_alloc_state {
-> +	/** @limit_pool: Which pool limit we should test against */
-> +	struct dmem_cgroup_pool_state *limit_pool;
-> +};
-> +
-> +/**
-> + * ttm_bo_alloc_at_place - Attempt allocating a BO's backing store in a place
-> + *
-> + * @bo: The buffer to allocate the backing store of
-> + * @place: The place to attempt allocation in
-> + * @ctx: ttm_operation_ctx associated with this allocation
-> + * @force_space: If we should evict buffers to force space
-> + * @res: On allocation success, the resulting struct ttm_resource.
-> + * @alloc_state: Object holding allocation state such as charged cgroups.
-> + *
-> + * Returns:
-> + * -EBUSY: No space available, but allocation should be retried with ttm_bo_evict_alloc.
-> + * -ENOSPC: No space available, allocation should not be retried.
-> + * -ERESTARTSYS: An interruptible sleep was interrupted by a signal.
-> + *
-> + */
-> +static int ttm_bo_alloc_at_place(struct ttm_buffer_object *bo,
-> +				 const struct ttm_place *place,
-> +				 struct ttm_operation_ctx *ctx,
-> +				 bool force_space,
-> +				 struct ttm_resource **res,
-> +				 struct ttm_bo_alloc_state *alloc_state)
-> +{
-> +	bool may_evict;
-> +	int ret;
-> +
-> +	may_evict = force_space && place->mem_type != TTM_PL_SYSTEM;
-> +
-> +	ret = ttm_resource_alloc(bo, place, res,
-> +				 force_space ? &alloc_state->limit_pool : NULL);
-> +
-> +	if (ret) {
-> +		/*
-> +		 * -EAGAIN means the charge failed, which we treat like an
-> +		 * allocation failure. Therefore, return an error code indicating
-> +		 * the allocation failed - either -EBUSY if the allocation should
-> +		 * be retried with eviction, or -ENOSPC if there should be no second
-> +		 * attempt.
-> +		 */
-> +		if (ret == -EAGAIN)
-> +			return may_evict ? -EBUSY : -ENOSPC;
-
--EAGAIN is no longer returned here since commit
-591711b32681 ("drm/ttm: Convert -EAGAIN from dmem_cgroup_try_charge to -ENOSPC")
-
-> +		if (ret == -ENOSPC && may_evict)
-> +			return -EBUSY;
-> +
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  /**
->   * struct ttm_bo_evict_walk - Parameters for the evict walk.
->   */
-> @@ -503,12 +559,13 @@ struct ttm_bo_evict_walk {
->  	/** @evicted: Number of successful evictions. */
->  	unsigned long evicted;
->  
-> -	/** @limit_pool: Which pool limit we should test against */
-> -	struct dmem_cgroup_pool_state *limit_pool;
->  	/** @try_low: Whether we should attempt to evict BO's with low watermark threshold */
->  	bool try_low;
->  	/** @hit_low: If we cannot evict a bo when @try_low is false (first pass) */
->  	bool hit_low;
-> +
-> +	/** @alloc_state: State associated with the allocation attempt. */
-> +	struct ttm_bo_alloc_state *alloc_state;
->  };
->  
->  static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
-> @@ -517,8 +574,9 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
->  		container_of(walk, typeof(*evict_walk), walk);
->  	s64 lret;
->  
-> -	if (!dmem_cgroup_state_evict_valuable(evict_walk->limit_pool, bo->resource->css,
-> -					      evict_walk->try_low, &evict_walk->hit_low))
-> +	if (!dmem_cgroup_state_evict_valuable(evict_walk->alloc_state->limit_pool,
-> +					      bo->resource->css, evict_walk->try_low,
-> +					      &evict_walk->hit_low))
->  		return 0;
->  
->  	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk->place))
-> @@ -560,7 +618,7 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
->  			      struct ttm_operation_ctx *ctx,
->  			      struct ww_acquire_ctx *ticket,
->  			      struct ttm_resource **res,
-> -			      struct dmem_cgroup_pool_state *limit_pool)
-> +			      struct ttm_bo_alloc_state *state)
->  {
->  	struct ttm_bo_evict_walk evict_walk = {
->  		.walk = {
-> @@ -573,7 +631,7 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
->  		.place = place,
->  		.evictor = evictor,
->  		.res = res,
-> -		.limit_pool = limit_pool,
-> +		.alloc_state = state,
->  	};
->  	s64 lret;
->  
-> @@ -724,9 +782,8 @@ static int ttm_bo_alloc_resource(struct ttm_buffer_object *bo,
->  
->  	for (i = 0; i < placement->num_placement; ++i) {
->  		const struct ttm_place *place = &placement->placement[i];
-> -		struct dmem_cgroup_pool_state *limit_pool = NULL;
-> +		struct ttm_bo_alloc_state alloc_state = {};
->  		struct ttm_resource_manager *man;
-> -		bool may_evict;
->  
->  		man = ttm_manager_type(bdev, place->mem_type);
->  		if (!man || !ttm_resource_manager_used(man))
-> @@ -736,25 +793,25 @@ static int ttm_bo_alloc_resource(struct ttm_buffer_object *bo,
->  				    TTM_PL_FLAG_FALLBACK))
->  			continue;
->  
-> -		may_evict = (force_space && place->mem_type != TTM_PL_SYSTEM);
-> -		ret = ttm_resource_alloc(bo, place, res, force_space ? &limit_pool : NULL);
-> -		if (ret) {
-> -			if (ret != -ENOSPC) {
-> -				dmem_cgroup_pool_state_put(limit_pool);
-> -				return ret;
-> -			}
-> -			if (!may_evict) {
-> -				dmem_cgroup_pool_state_put(limit_pool);
-> -				continue;
-> -			}
-> +		ret = ttm_bo_alloc_at_place(bo, place, ctx, force_space,
-> +				res, &alloc_state);
->  
-> +		if (ret == -ENOSPC) {
-> +			dmem_cgroup_pool_state_put(alloc_state.limit_pool);
-> +			continue;
-> +		} else if (ret == -EBUSY) {
->  			ret = ttm_bo_evict_alloc(bdev, man, place, bo, ctx,
-> -						 ticket, res, limit_pool);
-> -			dmem_cgroup_pool_state_put(limit_pool);
-> +						 ticket, res, &alloc_state);
-> +
-> +			dmem_cgroup_pool_state_put(alloc_state.limit_pool);
-> +
->  			if (ret == -EBUSY)
->  				continue;
-> -			if (ret)
-> +			else if (ret)
->  				return ret;
-> +		} else if (ret) {
-> +			dmem_cgroup_pool_state_put(alloc_state.limit_pool);
-> +			return ret;
->  		}
->  
->  		ret = ttm_bo_add_pipelined_eviction_fences(bo, man, ctx->no_wait_gpu);
-> 
+On Mon, 2026-07-20 at 16:43 -0400, Lyude Paul wrote:
+> Recently a change went into the kernel to ensure that drivers which
+> expose color formats which have alpha channels. This would cause
+> nouveau
+> to hit a WARN_ON when setting up cursors, since they do support
+> blending
+> - but we never bothered trying to hook up the controls for it to
+> nouveau.
+>=20
+> This fixes the issue by ensuring that nouveau always exposes a blend
+> mode for any planes with alpha channels, regardless of whether or not
+> we
+> have control of the blend mode hooked up. If someone wants to add
+> control for this in the future as well, it should be fairly easy to
+> hook
+> up with this.
+>=20
+> Previous version:
+> =09https://patchwork.freedesktop.org/patch/741031/
+>=20
+> Lyude Paul (3):
+> =C2=A0 drm/nouveau/kms/nv50-: Add .blend_modes to nv50_wndw_func
+> =C2=A0 drm/nouveau/kms/nv50-: Introduce nv50_wndw_default_state()
+> =C2=A0 drm/nouveau/kms/nv50-: Unconditionally create blend_mode prop for
+> =C2=A0=C2=A0=C2=A0 wndws
+>=20
+> =C2=A0drivers/gpu/drm/nouveau/dispnv50/curs507a.c |=C2=A0 3 ++
+> =C2=A0drivers/gpu/drm/nouveau/dispnv50/disp.c=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 4 +++
+> =C2=A0drivers/gpu/drm/nouveau/dispnv50/wndw.c=C2=A0=C2=A0=C2=A0=C2=A0 | 4=
+0 +++++++++++++++++--
+> --
+> =C2=A0drivers/gpu/drm/nouveau/dispnv50/wndw.h=C2=A0=C2=A0=C2=A0=C2=A0 | 1=
+1 ++++++
+> =C2=A0drivers/gpu/drm/nouveau/dispnv50/wndwc37e.c |=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/nouveau/dispnv50/wndwc57e.c |=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/nouveau/dispnv50/wndwc67e.c |=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/nouveau/dispnv50/wndwca7e.c |=C2=A0 1 +
+> =C2=A08 files changed, 55 insertions(+), 7 deletions(-)
+>=20
+>=20
+> base-commit: b0a652436b892eb9a036a031b33099dca036faaa
 
