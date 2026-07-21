@@ -4,77 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DA3FC44529
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:45:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CADFC4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:46:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 816D510E751;
-	Tue, 21 Jul 2026 11:45:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0C4710E983;
+	Tue, 21 Jul 2026 11:46:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bZnXy0sZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ggo6kr75";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE67910E751;
- Tue, 21 Jul 2026 11:45:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784634325; x=1816170325;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=J1xsi8VIiBy3ADMhHE51f9v/YO6RpUregFBkwBXQQeo=;
- b=bZnXy0sZBrm++e5fp/wsZReB3T0ZDPVlLzrOiA/8+oiVk/bfVX52Kbie
- DN2Auz4z2mABSCaSIpggTwN0i6oNmc6rSTBaAhbEOt/YHz8UvFxupj2LY
- SbBlBRvZ7qW/4zEIEebxRbQsPiRodOC70bOkdyWO0YEh8nq4EIGeYc+tT
- dC41/eAGoZTc7QGHNeZi/LUYsGf10IMfxkD1JtKZzWIZt442TejGUGy/6
- 4gGOArp4wXF53PRV+L9fABdXLRYkMVM6Rgjk4N0qzAGz/sIKB4VaDbzD2
- l7KVWgmf2inh/tlqIkzwu+YLGP8Or6Un5UfAy/iTWXjFzxsdlaz4s573f Q==;
-X-CSE-ConnectionGUID: FZMsdGURRf+t/5ggSgRRpQ==
-X-CSE-MsgGUID: aMrUAqnMTCie3odVgqXPQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="85323376"
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; d="scan'208";a="85323376"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2026 04:45:24 -0700
-X-CSE-ConnectionGUID: ku8MPGn/Tp29kK3iZ9FQwg==
-X-CSE-MsgGUID: 7EkwXeWOTE28ofZcw2n6qw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; d="scan'208";a="281016028"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.93])
- ([10.245.245.93])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2026 04:45:18 -0700
-Message-ID: <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
-Date: Tue, 21 Jul 2026 13:46:15 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC24E10E75F;
+ Tue, 21 Jul 2026 11:46:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EA0596004E;
+ Tue, 21 Jul 2026 11:46:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79BF11F00A3A;
+ Tue, 21 Jul 2026 11:46:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784634391;
+ bh=0wvV4a53mMDMORRPeE+UpXOHgo5YRjaLD4LHFIHgeug=;
+ h=Date:From:To:Cc:Subject;
+ b=ggo6kr75D3P8gHu6CvnWhCRBTsDIL/uw3Fnih1fjdsJ/qF2GMR2cjsdkpEIzUGZ6u
+ tSiQ8v1cV3+TXLH1mTNgfUfhAz87Ir+sJeVYVCTjTcLSIdloZO4/YXqp0wdlPZvjNx
+ K3qokSVGLBHEDMmLSOwZa3YjzPEJU7yxYTBb2OH3ngyk7j4wy98BrB6hvXd5Kkyvxt
+ 85fPD++JgIQy5I7GAfMSinfeXeYEXs+H/Ht8fS/qh9t0AFuCNpu7+9GEzPBcC+jC0M
+ ymc88WA/7rex0y1WILmVDRJnql2Q5I9/V/gifkEfa73CY3MndPFoHfrn3LKY5cLRGR
+ Kui571mFeTejA==
+Date: Tue, 21 Jul 2026 12:46:27 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Unexpected files in the drm-misc tree
+Message-ID: <al9cE1PAYd9jyCfZ@sirena.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
- amdgpu_vram_mgr_init()
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Sashiko-bot <sashiko-bot@kernel.org>,
- Friedrich Vock <friedrich.vock@gmx.de>, Maarten Lankhorst
- <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
- Huang Rui <ray.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
-References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
- <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
- <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
- <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="F/qVIg8LOFPH4swv"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,88 +57,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey,
 
-Can I merge this through drm-misc-next together with the rest of the series?
+--F/qVIg8LOFPH4swv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Kind regards
-~Maarten
+Commit
 
-On 7/7/26 20:05, Arunpravin Paneer Selvam wrote:
-> 
-> 
-> On 7/3/2026 6:38 PM, Christian König wrote:
->> Arun please take a look at this.
-> Sure Christian. This fix looks correct to me.
-> Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> 
-> Thanks,
-> Arun.
->>
->> Thanks,
->> Christian.
->>
->> On 7/3/26 15:05, Thomas Hellström wrote:
->>> drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
->>> gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
->>> returns early and bypasses those initializations.
->>>
->>> Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
->>> is called, a failure triggers amdgpu_ttm_fini(), which calls
->>> amdgpu_vram_mgr_fini(), which then:
->>>
->>>   - Calls list_for_each_entry_safe() on reservations_pending and
->>>     reserved_pages, whose list_head::next pointers are zero-initialized
->>>     (NULL). The loop does not recognize them as empty and dereferences NULL.
->>>
->>>   - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
->>>     via for_each_free_tree(). Since mm->free_trees is NULL
->>>     (never allocated), this dereferences NULL.
->>>
->>> Both result in a kernel panic on the module load error path.
->>>
->>> Fix by moving drmm_cgroup_register_region() to after the list and buddy
->>> allocator are fully initialized, so the teardown path is safe to run.
->>>
->>> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
->>> Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
->>> Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
->>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
->>> Cc: Maarten Lankhorst <dev@lankhorst.se>
->>> Cc: Tejun Heo <tj@kernel.org>
->>> Cc: Maxime Ripard <mripard@kernel.org>
->>> Cc: Christian König <christian.koenig@amd.com>
->>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>> Cc: amd-gfx@lists.freedesktop.org
->>> Cc: dri-devel@lists.freedesktop.org
->>> Cc: <stable@vger.kernel.org> # v6.14+
->>> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
->>> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
->>>   1 file changed, 4 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>> index 2a241a5b12c4..ac3f71d77140 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>> @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->>>       struct ttm_resource_manager *man = &mgr->manager;
->>>       int err;
->>>   -    man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
->>> -    if (IS_ERR(man->cg))
->>> -        return PTR_ERR(man->cg);
->>>       ttm_resource_manager_init(man, &adev->mman.bdev,
->>>                     adev->gmc.real_vram_size);
->>>   @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->>>       if (err)
->>>           return err;
->>>   +    man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
->>> +    if (IS_ERR(man->cg))
->>> +        return PTR_ERR(man->cg);
->>> +
->>>       ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
->>>       ttm_resource_manager_set_used(man, true);
->>>       return 0;
-> 
+  ac3baea883dab ("drm/panel: find_panel_by_fwnode() return a counted reference")
 
+added this unexpected file:
+
+ drivers/gpu/drm/drm_panel.c.orig
+
+
+--F/qVIg8LOFPH4swv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpfXBMACgkQJNaLcl1U
+h9BGOAf/Qg2e/6NfuC5Q5NIeXYX/dCx3IWB6Ry788nRbqm/WdE2dczfxLwKJSbKg
+Ny/f7xpqPDiv6CtNAk0I2UMYQwrFXIwdE+erUVrs29KtQIiNg00rHf7SA6ob3R0t
+V2DqtJgKuWi8l7Rn9oWO/PWSLbL+XrktlOMZmTGdlbqaifJENb9CtWKxx8MA2Sn/
+k7C1cEAX4at9QjsMeVyh6YPM0uDIJ4lYrNdwwmUl5darRETbX1v28pYEgJuTib6M
+ELdvvKnfXQhKIXTm34vuh1nS05mCt/C7k5rEczdFFJ8xZk+UrsQsbRBzTFojUN86
+IOhfWOfCxzCJkL6PJIoRSXvQRzNpPg==
+=t9Rb
+-----END PGP SIGNATURE-----
+
+--F/qVIg8LOFPH4swv--
