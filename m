@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6C92C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:02:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2B1DC4452D
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:02:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F202F10E042;
-	Tue, 21 Jul 2026 20:01:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08F3810EB3C;
+	Tue, 21 Jul 2026 20:02:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ikJu//RB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bqr1X9Hs";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4503610E042
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:01:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF38810EB36
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:02:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B93A243FA6;
- Tue, 21 Jul 2026 20:01:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5033F1F00A3A;
- Tue, 21 Jul 2026 20:01:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 924B2417C0;
+ Tue, 21 Jul 2026 20:02:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B9B1F000E9;
+ Tue, 21 Jul 2026 20:02:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784664118;
- bh=ZzYpCza1cf7ZRS1K5GgXGq3ZkHF8A9Ks9VHvPi0KKhY=;
+ s=k20260515; t=1784664134;
+ bh=ujvJr9/9fRNZtODXpux8Y7H70PdPOvrhrGGFXLoaRJk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ikJu//RBNpPOmM7941qKlwsaRZetHRNTGzQxew6f1L3RbKt0mJzfV4tru14sSrgMu
- ybxqV/oBeMrE0fMsDeuGg0dmtti5yEaLjgsPKo95JjikKxw1QMM3MidRsvTa6NYofA
- lKtHFl4oavhDnPAwb7iSgp3WuZn+Qt2J7YJOZb2fEHuvoW/TnE8uuB9htRzjpvZr2g
- 3XiileP997oae4xWFXALCzlA++cEyLRjyjpzHxaoXGRDb85LT6xU3mnnqJb+ggsn+P
- M0LJaUMWuN7a3S1T3IXq8lQUJ8oIBeiNypBHrE5XqbZ6Cz5e4CvdJkCUOXKG1Plcmp
- dsqvyIe7IaJOg==
+ b=Bqr1X9HsCI1yQR+fHB3t/lbmJXMvyv9OnRngh0ylHpEWvSdK6HZvvj5KZNwHMGrH4
+ 4n4pY7PPeujjkZECiGSUrksLa0RRxVfPSMTMQZlf4JB2W9bVJD6QOorlh46mlEIX9E
+ meaRrCZPGf6m8p8C5SYayBIKVfOwUnLlbZwZBNFKhK3EefwtSo1dx7GL3iohMAY+Lt
+ 4rDv5SLAHIRbeZpor9cjP2rQDMhZIUKNBJNdQQr0Gys7H6t3xjPDQuiApp3Sxw+XQe
+ 2xcqWZCVlKxAyG2+lZGhVPOtk1yCNcalDuOD3xY09pCb7BYx+KLcpIOXp3BYYKvkeJ
+ iLac2jNHhHuFw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 6/6] drm/ttm: Use common ancestor of evictor and
- evictee as limit pool
+Subject: Re: [PATCH v7 5/6] drm/ttm: Be more aggressive when allocating
+ below protection limit
 To: "Natalie Vock" <natalie.vock@gmx.de>
-Cc: tj@kernel.org, mkoutny@suse.com, hannes@cmpxchg.org,
+Cc: mkoutny@suse.com, hannes@cmpxchg.org, tj@kernel.org,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20260721-dmemcg-aggressive-protect-v7-6-97c4b1014315@gmx.de>
+In-Reply-To: <20260721-dmemcg-aggressive-protect-v7-5-97c4b1014315@gmx.de>
 References: <20260721-dmemcg-aggressive-protect-v7-0-97c4b1014315@gmx.de>
- <20260721-dmemcg-aggressive-protect-v7-6-97c4b1014315@gmx.de>
+ <20260721-dmemcg-aggressive-protect-v7-5-97c4b1014315@gmx.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 20:01:57 +0000
-Message-Id: <20260721200158.5033F1F00A3A@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 20:02:13 +0000
+Message-Id: <20260721200214.29B9B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,169 +59,86 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Unchecked ERR_PTR return from `dmem_cgroup_get_common_ancestor()` =
-leads to kernel panic.
-- [High] The patch bypasses memory protection (`dmem.min`) for the allocati=
-ng cgroup's own buffers, causing self-cannibalization.
-- [High] `dmem_cgroup_get_common_ancestor()` leaks a CSS reference and retu=
-rns an error pointer instead of NULL.
-- [High] Sleeping in atomic context via `kzalloc_obj()` inside an RCU read-=
-side critical section.
+- [High] Missing IS_ERR check on get_cg_pool_unlocked() return value in dme=
+m_cgroup_get_common_ancestor() causes a css reference leak and returns an E=
+RR_PTR.
+- [High] alloc_state->may_try_low remains uninitialized (false) when ttm_re=
+source_try_charge fails with -EAGAIN, preventing necessary eviction of low-=
+protected buffers.
 --
 
---- Patch [6]: [PATCH v7 6/6] drm/ttm: Use common ancestor of evictor and e=
-victee as limit pool ---
-commit f795676aadfddedc450e8bf4becfe0e912e1b01e
+--- Patch [5]: [PATCH v7 5/6] drm/ttm: Be more aggressive when allocating b=
+elow protection limit ---
+commit e2b13b1ad2c262766026403c3b8254d739bd29e9
 Author: Natalie Vock <natalie.vock@gmx.de>
-Subject: drm/ttm: Use common ancestor of evictor and evictee as limit pool
+Subject: drm/ttm: Be more aggressive when allocating below protection limit
 
-This commit updates TTM buffer eviction to calculate memory protection based
-on the shared subtree of the evictor and evictee. It explicitly skips buffe=
-rs
-belonging to the same cgroup if trying to evict unprotected buffers, and se=
-ts
-the limit pool to the common ancestor for cross-cgroup evictions.
+This patch modifies the TTM allocation process to consider cgroup protection
+limits. When a cgroup's memory usage is below its low or min limit, TTM will
+now attempt to evict unprotected buffers to make space rather than forcing
+allocations into the GTT domain.
 
 > diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index ec0821e306da1..c843189f36088 100644
+> index 95ce3fc0f8764..ec0821e306da1 100644
 > --- a/drivers/gpu/drm/ttm/ttm_bo.c
 > +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -627,11 +627,48 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *wal=
-k, struct ttm_buffer_object *
->  {
->  	struct ttm_bo_evict_walk *evict_walk =3D
->  		container_of(walk, typeof(*evict_walk), walk);
-> +	struct dmem_cgroup_pool_state *limit_pool, *ancestor =3D NULL;
-> +	bool evict_valuable;
->  	s64 lret;
-> =20
-> -	if (!dmem_cgroup_state_evict_valuable(evict_walk->alloc_state->limit_po=
-ol,
-> -					      bo->resource->css, evict_walk->try_low,
-> -					      &evict_walk->hit_low))
-> +	/*
-> +	 * If may_try_low is not set, then we're trying to evict unprotected
-> +	 * buffers in favor of a protected allocation for charge_pool. Explicit=
-ly skip
-> +	 * buffers belonging to the same cgroup here - that cgroup is definitel=
-y protected,
-> +	 * even though dmem_cgroup_state_evict_valuable would allow the evictio=
-n because a
-> +	 * cgroup is always allowed to evict from itself even if it is protecte=
-d.
-> +	 */
-> +	if (!evict_walk->alloc_state->may_try_low &&
-> +			bo->resource->css =3D=3D evict_walk->alloc_state->charge_pool)
-> +		return 0;
-
-[Severity: High]
-Does this logic bypass dmem.min memory protection for a cgroup's own buffer=
-s?
-
-When an allocation fails while a cgroup is below its min limit, may_try_low
-is set to true. The first LRU pass skips this !may_try_low guard.
-
-Later, dmem_cgroup_get_common_ancestor(charge_pool, charge_pool) returns
-charge_pool, so limit_pool becomes charge_pool. When calling
-dmem_cgroup_state_evict_valuable(charge_pool, charge_pool), the fast path:
-if (limit_pool =3D=3D test_pool) unconditionally returns true.
-
-Can this cause a cgroup to eagerly evict its own highly-protected memory
-before evicting other cgroups' unprotected memory?
-
-> +
-> +	limit_pool =3D evict_walk->alloc_state->limit_pool;
-> +	/*
-> +	 * If there is no explicit limit pool, find the root of the shared subt=
-ree between
 [ ... ]
-> +	 * calculation cannot distinguish direct siblings from unrelated subtre=
-es and the
-> +	 * calculated protection ends up wrong.
+> @@ -544,6 +548,42 @@ static int ttm_bo_alloc_at_place(struct ttm_buffer_o=
+bject *bo,
+>  		}
+>  	}
+> =20
+> +	/*
+> +	 * cgroup protection plays a special role in eviction.
+[ ... ]
+> +	 * eviction path that only evicts buffers covered by neither 'low' or
+> +	 * 'min' protections.
 > +	 */
-> +	if (!limit_pool) {
-> +		ancestor =3D dmem_cgroup_get_common_ancestor(bo->resource->css,
-> +							   evict_walk->alloc_state->charge_pool);
-> +		limit_pool =3D ancestor;
+> +	if (!alloc_state->in_evict) {
+> +		may_evict |=3D dmem_cgroup_below_min(NULL, alloc_state->charge_pool);
+> +		alloc_state->may_try_low =3D may_evict;
+
+[Severity: High]
+If ttm_resource_try_charge() fails with -EAGAIN earlier in this function, it
+returns early and bypasses setting alloc_state->may_try_low here.=20
+
+Since alloc_state is zero-initialized, may_try_low would remain false.
+Would this unintentionally prevent the fallback eviction pass in
+ttm_bo_evict_alloc() from executing, thereby preventing a cgroup at its max
+limit from evicting low-protected BOs from its own subtree?
+
+> +
+> +		may_evict |=3D dmem_cgroup_below_low(NULL, alloc_state->charge_pool);
 > +	}
-
-[Severity: High]
-Can dmem_cgroup_get_common_ancestor() return an ERR_PTR here?
-
-Under memory pressure, get_cg_pool_unlocked() inside
-dmem_cgroup_get_common_ancestor() can fail and return ERR_PTR(-ENOMEM).
-
-Because the if (!limit_pool) check above only guards against NULL, the error
-pointer is passed down directly to dmem_cgroup_state_evict_valuable().
-
 > +
-> +	evict_valuable =3D dmem_cgroup_state_evict_valuable(limit_pool, bo->res=
-ource->css,
-> +							  evict_walk->try_low,
-> +							  &evict_walk->hit_low);
+>  	ret =3D ttm_resource_alloc(bo, place, res, alloc_state->charge_pool);
+>  	if (ret) {
+[ ... ]
 
-[Severity: High]
-Does this cause a kernel panic due to an invalid pointer dereference?
-
-The unchecked ERR_PTR stored in limit_pool is passed into
-dmem_cgroup_state_evict_valuable(), where limit_pool->cs will directly
-dereference the error pointer.
-
-> +	if (ancestor)
-> +		dmem_cgroup_pool_state_put(ancestor);
-> +
-> +	if (!evict_valuable)
->  		return 0;
-
-
-Additionally, looking at the implementation of dmem_cgroup_get_common_ances=
-tor()
-in kernel/cgroup/dmem.c which is called by this patch:
+While reviewing the interactions with the dmem cgroup API, I noticed an
+issue in kernel/cgroup/dmem.c:
 
 kernel/cgroup/dmem.c:dmem_cgroup_get_common_ancestor() {
-    ...
-	rcu_read_lock();
-	ancestor_css =3D cgroup_e_css(ancestor_cgroup, &dmem_cgrp_subsys);
-	if (css_tryget(ancestor_css))
+        ...
 		pool =3D get_cg_pool_unlocked(css_to_dmemcs(ancestor_css),
 					    a->region);
 	if (!pool)
 		css_put(ancestor_css);
-	rcu_read_unlock();
-
-	return pool;
+        ...
 }
 
 [Severity: High]
-Does this code leak a CSS reference and improperly handle error pointers?
+Could get_cg_pool_unlocked() return an error pointer like ERR_PTR(-ENOMEM)?
 
-If get_cg_pool_unlocked() fails, it returns an error pointer. Since an error
-pointer is truthy, the if (!pool) check evaluates to false.=20
+If it returns an error pointer, the !pool check evaluates to false, causing
+the ancestor_css reference to be leaked.
 
-Can this cause a CSS reference leak by skipping the css_put(), preventing
-the cgroup from being fully destroyed, while also violating the API contract
-by returning an ERR_PTR instead of NULL?
-
-[Severity: High]
-Is it safe to call get_cg_pool_unlocked() inside an RCU read-side critical
-section?
-
-dmem_cgroup_get_common_ancestor() acquires rcu_read_lock() before calling
-get_cg_pool_unlocked(). If a new cgroup pool needs to be instantiated,
-get_cg_pool_unlocked() drops its internal spinlock and calls:
-
-kernel/cgroup/dmem.c:get_cg_pool_unlocked() {
-    ...
-			allocpool =3D kzalloc_obj(*allocpool);
-    ...
-}
-
-Since kzalloc_obj() defaults to GFP_KERNEL when no flags are provided,
-can this sleepable allocation inside the caller's RCU read-side critical
-section cause system stalls or deadlocks?
+Additionally, since this function is expected to return NULL on failure,
+returning an ERR_PTR could cause callers checking for NULL to dereference
+the error pointer. Should this check use IS_ERR(pool) instead?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-dmemcg-agg=
-ressive-protect-v7-0-97c4b1014315@gmx.de?part=3D6
+ressive-protect-v7-0-97c4b1014315@gmx.de?part=3D5
