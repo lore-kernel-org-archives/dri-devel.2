@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F272C44520
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 02:41:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B83BBC44520
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 02:42:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6789010E26E;
-	Tue, 21 Jul 2026 02:41:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C2F10E26F;
+	Tue, 21 Jul 2026 02:42:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kxNxMw6a";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WVItYcx4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05E9F10E26E
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 02:41:48 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8D3510E26F
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 02:42:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 77E7043C58;
- Tue, 21 Jul 2026 02:41:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FEE71F000E9;
- Tue, 21 Jul 2026 02:41:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2E62C60A61;
+ Tue, 21 Jul 2026 02:42:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF1551F000E9;
+ Tue, 21 Jul 2026 02:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784601707;
- bh=327Yo6TOBFmgqoiGe+drydOj8lDGW5cMGRmO/yV3J8w=;
+ s=k20260515; t=1784601774;
+ bh=yzALuV5DrXr3ZRPHG0k2t4XlfbZP0ahAklZK6K5TO/U=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kxNxMw6ajXDB8ScSXTXirqZH3+Uaocx+LnmCB/sjOkCGX2ISV9T3o2YMT6aWJrlo8
- tcyMQvL4NOVLYI6iHPTtKbkZty2sXcKd8lzZcTkNkTq99/jmfTS6oTuvYNug6/D0sp
- c2pP4cwxLC2mgp6nwGBirXGkZH0FyKg8+k9IYRhgSKxJBNeFp+mSwuQkd49vuH6BX2
- 8f0V7zhTKsERx33NCFq4a8kZqwLEns+nzdoEHi3JsCPuKe12ZwWRSkETzZc7NuaWFQ
- f4zOip2fYSudHNJHWdgUEH3jtTTifbfR6zZMm4kJLzXkEPkW74hXfcJTj0Nh+3UWGV
- hArRnhITF+G/w==
+ b=WVItYcx4kFZQW+qoEgEhH+RzRc1De7sIzK2MAOiqMDWwL/S8XwCSjShxLiiZ+eZ1H
+ snwK/nxOXx9n4K5SixKzoQM9vxOemrFkIsph5qcXPBUsxXS0QxTfdQTcOm6oz5O5xC
+ 23Sza5qUs53QR7cJL+/0Ff04VtbGIbpJP7uZWeIBtJmFrGp1Fbl8ket/EDm2eqyngs
+ dzA1rfXPxM7iPdPCUj5lS6Fh3IjvE4pYAhMPloFzmJpiOKU0404lq3IN/jx4D8kLmm
+ AVwxdgl/hQbTvmaWcaGFTHXPXKR9NiG8gp06PHU7JIrzYB1d9B0asOJtpZNOMcUlAN
+ ZN5GzyoeXe1Ow==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] drm/bridge: it6505: cancel outstanding work
- before teardown in remove()
+Subject: Re: [PATCH v3 4/4] drm/bridge: it6505: Don't reject audio hw_params
+ without an encoder
 To: "Daniel Golle" <daniel@makrotopia.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <91b40322b07b967fcf286b3e4bd11e5f821bff1c.1784600387.git.daniel@makrotopia.org>
+In-Reply-To: <c82134d59d36fbc66e75d397ae50141ad447220b.1784600387.git.daniel@makrotopia.org>
 References: <cover.1784600387.git.daniel@makrotopia.org>
- <91b40322b07b967fcf286b3e4bd11e5f821bff1c.1784600387.git.daniel@makrotopia.org>
+ <c82134d59d36fbc66e75d397ae50141ad447220b.1784600387.git.daniel@makrotopia.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 02:41:46 +0000
-Message-Id: <20260721024147.2FEE71F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 02:42:54 +0000
+Message-Id: <20260721024254.AF1551F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,92 +58,139 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
-New issues:
-- [Medium] Calling cancel_work_sync() on the potentially uninitialized extc=
-on_wq triggers a WARN_ON(!work->func) kernel splat.
-
 Pre-existing issues:
-- [High] Canceling work items without first disabling their scheduling sour=
-ces (IRQ and extcon notifier) leaves a race window where works can be reque=
-ued, leading to a use-after-free.
+- [High] The interrupt handler can still execute and re-queue work items af=
+ter `cancel_work_sync()` in `it6505_i2c_remove()`, leading to Use-After-Fre=
+e.
+- [High] Missing `pm_runtime_disable()` in `it6505_i2c_remove()` leaves the=
+ device in an inconsistent PM state.
+- [High] Unprotected modification and TOCTOU race on `it6505->audio.mute` l=
+eading to unintended audio enablement.
+- [Medium] Cached audio parameters are overwritten by default values on dis=
+play hotplug, defeating the secondary goal of the patch.
+- [Medium] Audio configuration fields in `it6505->audio` are modified witho=
+ut consistent locking, leading to potential race conditions.
 --
 
---- Patch [1]: [PATCH v3 1/4] drm/bridge: it6505: cancel outstanding work b=
-efore teardown in remove() ---
-commit 06b35e4209da852ce0af8e4b1dd2aec2e9e172b4
+--- Patch [4]: [PATCH v3 4/4] drm/bridge: it6505: Don't reject audio hw_par=
+ams without an encoder ---
+commit af4a3bfaf41a8f5bf333fd6908bc4e3f4fabd9a8
 Author: Daniel Golle <daniel@makrotopia.org>
 
-drm/bridge: it6505: cancel outstanding work before teardown in remove()
+drm/bridge: it6505: Don't reject audio hw_params without an encoder
 
-This commit adds calls to cancel_work_sync() and cancel_delayed_work_sync()
-in it6505_i2c_remove() to ensure background works do not dereference freed
-memory after the device is unbound. It notes that extcon_wq might not be
-initialized, but claims a zero-allocated work_struct is safe to cancel.
-
-> cancel_work_sync() on extcon_wq is safe even
-> when it was never INIT_WORK()'d, since it6505 is zero-allocated and a
-> zeroed work_struct is reported as not pending.
-
-[Severity: Medium]
-Is this description accurate?
-
-Looking at __flush_work() in kernel/workqueue.c, the workqueue core asserts
-WARN_ON(!work->func) when flushing a work item. If the DRM bridge was never
-attached, extcon_wq remains zero-allocated.
-
-During module removal, calling cancel_work_sync(&it6505->extcon_wq) will
-unconditionally call __flush_work(work, true), which immediately triggers
-the WARN_ON because the work function is NULL. On systems with panic_on_war=
-n,
-this leads to a kernel panic.
+it6505_audio_setup_hw_params() returns -ENODEV when the bridge is not
+attached to a DRM encoder. This commit drops the encoder check so the
+parameters are always cached.
 
 > diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
 /ite-it6505.c
-> index 8ecb43611dba8..2f349aefb7054 100644
+> index 37036ef5403fb..435601b6929ed 100644
 > --- a/drivers/gpu/drm/bridge/ite-it6505.c
 > +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-> @@ -3644,6 +3644,10 @@ static void it6505_i2c_remove(struct i2c_client *c=
-lient)
->  {
->  	struct it6505 *it6505 =3D i2c_get_clientdata(client);
+> @@ -2999,9 +2999,6 @@ static int it6505_audio_setup_hw_params(struct it65=
+05 *it6505,
+>  			     params->sample_rate, params->sample_width,
+>  			     params->cea.channels);
 > =20
-> +	cancel_work_sync(&it6505->link_works);
-> +	cancel_work_sync(&it6505->hdcp_wait_ksv_list);
-> +	cancel_delayed_work_sync(&it6505->hdcp_work);
-> +	cancel_work_sync(&it6505->extcon_wq);
+> -	if (!it6505->bridge.encoder)
+> -		return -ENODEV;
+> -
+
+[Severity: Medium]
+This is a pre-existing issue, but does removing this check fully solve the
+problem if the cached parameters are overwritten on hotplug?
+
+When a stream starts with no display attached, it6505_audio_setup_hw_params=
+()
+caches the correct settings as intended. However, if a display is hotplugged
+later, the HPD interrupt handler sees a disconnected state beforehand and z=
+eroed
+it6505->dpcd.
+
+Upon reconnect, it finds it6505->dpcd[0] =3D=3D 0 and calls
+it6505_variable_config():
+
+    it6505->audio.sample_rate =3D AUDIO_SAMPLE_RATE;
+    it6505->audio.channel_count =3D AUDIO_CHANNEL_COUNT;
+
+Does this unconditionally reset the audio variables to default values, caus=
+ing
+audio to play with 2 channels and 48kHz rather than the dynamically configu=
+red
+stream parameters?
+
+[Severity: Medium]
+This is a pre-existing issue, but does this function need to take the
+audio_lock when modifying the audio configuration fields?
+
+In it6505_audio_setup_hw_params():
+
+    it6505->audio.channel_count =3D params->cea.channels;
+
+This modifies the fields in it6505->audio without taking it6505->audio_lock.
+
+Since it6505_enable_audio() can be called from asynchronous paths (like
+it6505_delayed_audio or IRQ) which takes audio_lock and reads these fields,
+could this result in hardware being programmed with a partially updated sta=
+te
+if readers see a mix of old and new parameters?
+
+>  	if (params->cea.channels <=3D 1 || params->cea.channels > 8) {
+>  		DRM_DEV_DEBUG_DRIVER(dev, "channel number: %d not support",
+>  				     params->cea.channels);
 
 [Severity: High]
-This is a pre-existing issue, but does this leave a race window where these
-work items could be requeued?
+This is a pre-existing issue, but can the interrupt handler still execute a=
+nd
+re-queue work items after they are cancelled during driver unbind?
 
-The driver uses devres for the IRQ and extcon notifier, which remain active
-during these cancel_work_sync() calls. Furthermore, the hardware interrupt
-is disabled after the works are cancelled.
+In it6505_i2c_remove():
 
-If we look further down in it6505_i2c_remove():
+    cancel_work_sync(&it6505->link_works);
+    cancel_work_sync(&it6505->hdcp_wait_ksv_list);
+    cancel_delayed_work_sync(&it6505->hdcp_work);
+    cancel_work_sync(&it6505->extcon_wq);
 
-	...
-	drm_bridge_remove(&it6505->bridge);
-	drm_dp_aux_unregister(&it6505->aux);
-	it6505_debugfs_remove(it6505);
-	it6505_poweroff(it6505);
-	...
+Since the device interrupt (it6505->irq) is not disabled before cancelling
+these work items, could an incoming interrupt spawn the threaded handler and
+call schedule_work(&it6505->link_works) after cancel_work_sync() returns,
+leading to a use-after-free when the work item executes?
 
-The interrupt is only disabled inside it6505_poweroff(it6505). If an
-interrupt or extcon event fires immediately after the work is cancelled but
-before it6505_poweroff() and devres cleanup, won't the handler run and
-re-queue the work via schedule_work()?
+[Severity: High]
+This is a pre-existing issue, but is there a missing pm_runtime_disable() in
+the driver removal path?
 
-This could lead to a use-after-free when devres frees the it6505 structure
-while the re-queued work is still pending.
+While it6505_i2c_probe() successfully enables runtime PM with
+pm_runtime_enable(dev), it6505_i2c_remove() does not appear to call
+pm_runtime_disable(dev) before returning. Can this leave the PM core with
+references to the unbound device, leading to a resource leak or lifecycle
+violation?
 
->  	drm_bridge_remove(&it6505->bridge);
->  	drm_dp_aux_unregister(&it6505->aux);
->  	it6505_debugfs_remove(it6505);
+[Severity: High]
+This is a pre-existing issue, but is there a time-of-check to time-of-use r=
+ace
+on the audio mute state?
+
+In it6505_irq_audio_fifo_error(), the mute state is read outside of the loc=
+k:
+
+    if (it6505->audio.mute)
+        return;
+
+    if (it6505_audio_input(it6505))
+        it6505_enable_audio(it6505);
+
+If ALSA mutes the stream concurrently, it6505_audio_mute() sets mute to true
+and disables audio. After it returns, if the IRQ wakes up and unconditional=
+ly
+calls it6505_enable_audio() which takes the lock and turns audio back on,
+could this defeat the mute and cause hardware malfunction by sending an
+InfoFrame without audio data?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784600387.gi=
-t.daniel@makrotopia.org?part=3D1
+t.daniel@makrotopia.org?part=3D4
