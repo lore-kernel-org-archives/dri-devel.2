@@ -4,43 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29E15C4452F
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 12:40:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 898B1C4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 12:41:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8950D10E771;
-	Tue, 21 Jul 2026 12:40:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4E2B10E9F5;
+	Tue, 21 Jul 2026 12:41:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SnKR3sgc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O/UWNzA0";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F7C010E771
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 12:40:07 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CBB810E9F5
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 12:41:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 559C0600BB
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 12:40:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00041F00A3A;
- Tue, 21 Jul 2026 12:40:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 55CA943C5F;
+ Tue, 21 Jul 2026 12:41:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AC731F000E9;
+ Tue, 21 Jul 2026 12:41:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784637606;
- bh=6Lb3rPLSBKgFgH67y/vyAXqj3AnUa5ziIsUXJys/CL0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SnKR3sgcdkKqbcTCyDXtiCvJL+Y1TxwfWE6ejJIk0P+R2nluAPT0PPuUXpw/5XKSC
- pPWpP5gOaejTYIPCHYNiWsLr5nfZ8L5retwDzfenOQT1Vu5QghzZB+wW90jkjjH11J
- 7b1m8SMhODMkODd86RPhf0l2K96ZrdkQQ9KmBAvKK4MPautecaUMPlxlMsVkp+mDiB
- BOBifj68tQeCTKYrK5AhUL+thpKg/fMnc+Rwj9pcw/m/pV+tVzYQdzsDqeuZerdk5x
- pk2sd+0e3bfUtBmYJVBF0LyTMLOpEyLpyHqBrc+1BAfLu+i1gztHmkqQJhPM7XF6te
- BA/0sxRrp1EQQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] soc: qcom: ubwc: Get HBB from SMEM
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260721-topic-smem_dramc-v4-2-748f992278a3@oss.qualcomm.com>
-References: <20260721-topic-smem_dramc-v4-0-748f992278a3@oss.qualcomm.com>
- <20260721-topic-smem_dramc-v4-2-748f992278a3@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 12:40:05 +0000
-Message-Id: <20260721124005.E00041F00A3A@smtp.kernel.org>
+ s=k20260515; t=1784637705;
+ bh=1JHcUVKCdjggW2V84rHWH09x4Ps/8CZBsAwOVTuMPeE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=O/UWNzA0yWWlF9ZLanaiQNsP6Zm7yDKSGYmj48b5b+4g4LyvtFST9LlYVnYrtO6H+
+ QRFeT1d7B7dmbTk2/g9Gy3PfH0D99jsdBlIhUO7+58g56hWRchl2PtZPwtTQODogjl
+ kD84mcbdn9cwSDzVuNyYhtLCuOYRZJe+PXycP0wXVTKc4RHp+WQvVQD7hm9J8RdciI
+ 4OwD+fvjH5aX9k8YN6otXljbhQlgBCCIq4OAlSjnicIC+8Z/qWlB1S2ZWTV7o2634L
+ VDfyRCdAvcr/QYBRURkhYpfw79fdcJNTlVItL1kzuLD6JUkOT8I1z0TuSjE1CQ2OI/
+ X8ou5ameiWTMw==
+Date: Tue, 21 Jul 2026 14:41:42 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Daniel Stone <daniel@fooishbar.org>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Samuel Holland <samuel@sholland.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v7 2/5] drm/scdc-helper: Add scdc_status debugfs entry
+Message-ID: <20260721-angelic-gay-caiman-26f7ab@houat>
+References: <20260721-scdc-link-health-v7-0-92df1b6ad5fc@collabora.com>
+ <20260721-scdc-link-health-v7-2-92df1b6ad5fc@collabora.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="ah7fjvzl6blaxfpq"
+Content-Disposition: inline
+In-Reply-To: <20260721-scdc-link-health-v7-2-92df1b6ad5fc@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,127 +72,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] A race condition between SMEM probing and `qcom_ubwc_config_get_da=
-ta()` can cause the driver to bypass probe deferral, incorrectly fall back =
-to default UBWC data, and return mismatched configurations to concurrent ca=
-llers.
-- [Low] Missing Kconfig dependency on QCOM_SMEM causes linker errors when Q=
-COM_UBWC_CONFIG is selected but QCOM_SMEM is disabled or built as a module.
---
 
---- Patch [2]: [PATCH v4 2/2] soc: qcom: ubwc: Get HBB from SMEM ---
-commit e0bf0c57e180329e2b45423901bc2dc1b3492f77
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+--ah7fjvzl6blaxfpq
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v7 2/5] drm/scdc-helper: Add scdc_status debugfs entry
+MIME-Version: 1.0
 
-soc: qcom: ubwc: Get HBB from SMEM
-
-This commit updates the UBWC configuration driver to dynamically retrieve
-the Highest Bank Bit (HBB) from SMEM. If SMEM is not yet available, it
-returns -EPROBE_DEFER. Once available, it allocates and updates a copy of
-the UBWC configuration data with the retrieved HBB value.
-
-> diff --git a/drivers/soc/qcom/ubwc_config.c b/drivers/soc/qcom/ubwc_confi=
-g.c
-> index 0209a02c390f0..23901a4c51f73 100644
-> --- a/drivers/soc/qcom/ubwc_config.c
-> +++ b/drivers/soc/qcom/ubwc_config.c
-[ ... ]
-> @@ -168,9 +169,25 @@ static const struct of_device_id qcom_ubwc_configs[]=
- __maybe_unused =3D {
->  	{ }
->  };
-> =20
-> +static struct qcom_ubwc_cfg_data *cfg;
-> +static DEFINE_MUTEX(cfg_mutex);
+On Tue, Jul 21, 2026 at 10:58:58AM +0200, Nicolas Frattaroli wrote:
+> SCDC provides status information on the current display link. At the
+> very least, it may be useful to expose this info through debugfs.
+>
+> Add a debugfs entry for it under the connector, which displays a few
+> more details parsed out of the SCDC registers. A new
+> drm_scdc_debugfs_init function can be called by the connector
+> implementation to initialise the debugfs file.
+>
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>  drivers/gpu/drm/display/drm_scdc_helper.c | 184 ++++++++++++++++++++++++++++++
+>  include/drm/display/drm_scdc_helper.h     |  32 ++++++
+>  2 files changed, 216 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
 > +/**
-> + * qcom_ubwc_config_get_data() - Retrieve UBWC data for the platform.
+> + * drm_scdc_debugfs_init - Initialize scdc files in connector debugfs
+> + * @connector: pointer to &struct drm_connector to operate on
+> + * @root: debugfs &struct dentry for the debugfs root of @connector
 > + *
-> + * Return: Pointer to valid struct qcom_ubwc_cfg_data on success, negati=
-ve
-> + * errno on failure. Note that this may return EPROBE_DEFER.
+> + * Creates SCDC-related debugfs files for @connector. Must be called after
+> + * @root is already created.
 > + */
->  const struct qcom_ubwc_cfg_data *qcom_ubwc_config_get_data(void)
->  {
->  	const struct qcom_ubwc_cfg_data *data;
-> +	int hbb;
+> +void drm_scdc_debugfs_init(struct drm_connector *connector, struct dentry *root)
+> +{
+> +	struct scdc_debugfs_priv *priv;
 > +
-> +	guard(mutex)(&cfg_mutex);
-> +	if (cfg)
-> +		return cfg;
+> +	if (!root || !connector)
+> +		return;
 > +
-> +	if (!qcom_smem_is_available())
-> +		return ERR_PTR(-EPROBE_DEFER);
-
-[Severity: Low]
-Will this cause linker errors if the kernel is configured with
-CONFIG_QCOM_UBWC_CONFIG=3Dy but CONFIG_QCOM_SMEM=3Dm or CONFIG_QCOM_SMEM=3D=
-n?
-
-Since these SMEM functions are called unconditionally without stub
-implementations provided for when SMEM is disabled, it seems dependent driv=
-ers
-selecting QCOM_UBWC_CONFIG might trigger undefined reference errors during
-the build.
-
->  	data =3D of_machine_get_match_data(qcom_ubwc_configs);
->  	if (!data) {
-> @@ -178,9 +195,30 @@ const struct qcom_ubwc_cfg_data *qcom_ubwc_config_ge=
-t_data(void)
->  		return ERR_PTR(-EINVAL);
->  	}
-> =20
-> -	return data;
-> +	hbb =3D qcom_smem_dram_get_hbb();
-
-[Severity: High]
-Can a race condition occur between SMEM probing and this function, causing
-it to bypass probe deferral and use incorrect default data?
-
-In drivers/soc/qcom/smem.c:qcom_smem_probe(), the global __smem pointer is
-published before the DRAM data is populated:
-
-drivers/soc/qcom/smem.c:qcom_smem_probe() {
-    ...
-    __smem =3D smem;
-    ...
-    smem->debugfs_dir =3D smem_dram_parse(smem->dev);
-    ...
-}
-
-If a driver calls qcom_ubwc_config_get_data() concurrently during this
-window, qcom_smem_is_available() would return true, but
-qcom_smem_dram_get_hbb() would return -ENODATA because __dram is not
-populated yet.
-
-> +	if (hbb =3D=3D -ENODATA) {
-> +		/* Lack of HBB data is OK - it was only introduced later */
-> +		return data;
-
-Would this result in interpreting a transient initialization state as a
-permanent lack of HBB data, returning mismatched configurations that could
-cause issues like graphical corruption or SMMU faults across IP blocks that
-share UBWC memory?
-
-> +	} else if (hbb < 0) {
-> +		pr_err("Couldn't get HBB data from SMEM: %d\n", hbb);
-> +		return ERR_PTR(hbb);
-> +	}
+> +	priv = drmm_kzalloc(connector->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return;
 > +
-> +	cfg =3D kmemdup(data, sizeof(*data), GFP_KERNEL);
-> +	if (!cfg)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	cfg->highest_bank_bit =3D hbb;
-> +
-> +	return cfg;
->  }
+> +	priv->connector = connector;
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-topic-smem=
-_dramc-v4-0-748f992278a3@oss.qualcomm.com?part=3D2
+You need to take a reference to the connector pointer here with
+drm_connector_get()
+
+With this fixed,
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+
+Maxime
+
+--ah7fjvzl6blaxfpq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCal9pBgAKCRAnX84Zoj2+
+duQAAX4m1SnGZZ8EMKaEFk9BhMZ/Xe875CrDjdHjh302duMOC5cuJpLPYvEQ9kqh
+q+HhmA0BgMrujQdJGYnLIZuz92Uq7vUm+TUXDnAv9rppoVkbLBtCiEhC4riDT7yL
+VYFcIdRPLw==
+=Vh4j
+-----END PGP SIGNATURE-----
+
+--ah7fjvzl6blaxfpq--
