@@ -4,74 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E73F7C44536
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:11:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC437C4452B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:11:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1484B10EB9D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A1CC10EB9E;
 	Tue, 21 Jul 2026 22:11:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YosDL3nO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OWtyEaxK";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08CD910E34C
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:23:08 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-38125cebfdaso9105487a91.1
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 06:23:08 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7B7110E39A
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 17:32:29 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4921eed3fa2so89230435e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 10:32:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784640187; x=1785244987; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=LtVNy9WEfDzxsKFFVeCmSkblw1jFuZZyyyPD7xNCflw=;
- b=YosDL3nORhPv/2iyhH4Oewty8DCr0yyuKlcv8kuINcrR9qscs2oHkFPteHnRGj0Iwc
- 1x5+pCPsjihzYVTA01R4MXOI3TNxHQx5qEGLOuqjTWXgj/jBCffc4C94WLY7/W9MyBoJ
- Ix4PlwBW0Bo1YCeM5QaPUjFL/01zvzODn1tqGYDSViY4/1rfQ76L9r5zVL9j4NETY9ly
- GoekvbbDEGTSzb9TRwMJyxXoeuiklmpOaoWx+DXqiRBspUiYtrXADMnRg7hPCQ0zIc9x
- 9L1sj603BrL7XsBbgO2PQicPRAhbepK4ePtKW276By3DjHN634hfXxyeuuUyRj5oo+7h
- 5kJQ==
+ d=gmail.com; s=20251104; t=1784655148; x=1785259948; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=oarivZVG6jdDaREUGN57J4bwMGePVEaf7kTu1kPSfvQ=;
+ b=OWtyEaxKGiPVQ5n/8ynIi1/yjIBJGXzffKD6upXTJAQHqQwB3Ziymze+g4zX1em5l8
+ nVS5cpVCd8zbb1j/rLchW70dKq63BZFGxGh0y+zpZ7RojZUxCA9UYlltMhlk+KB9Mm/E
+ Ze3bOdOzx/9COdvEaycaDdYXnH9WW3Lu9zZBYENWryER5KjSnD0E89Clz3FdnQ0F+DO5
+ xe5+IZ5GnRspvkEDsY3kuqVvfLOH+QTATDjEIoVllMJM4CE2TMm7FE+9Q6l252X8AwJr
+ eqTigCks701F0HxIDeE6VaRAwzqA2TNngdwFQKC6qNpoXNMGfDY97U+32J2iF0cRTHc8
+ 3ajQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784640187; x=1785244987;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=LtVNy9WEfDzxsKFFVeCmSkblw1jFuZZyyyPD7xNCflw=;
- b=ajGebbcG4bfPsboEpj0AJh+h/Q+YwBJV1UnkVmJbwLFjvXgfekidOcI8AIeA1u5uqc
- 3FA5HsSoWfnZNzQwlh1y0wHK0bUgx1WgnjCkUfbB2++0fBP0CjjqdguRwsm5iDu5qLjA
- b++8YDc3pnJO9rMuo99BfC+izh5XThRQCMNBmAunig5TPjMk3VOBvEdRWnbXozaDmxn9
- uJ0sIjuWg/3/KlfL8qrKh7G0Byou3OWuuMgtbr/QIjZc1ZQOgrIp3E6eFmI7mi/GJOFD
- 18jA21hzfGZ4iYGtKE3Vst8hiN4fFGAm+DVTiObyBxpfkLx1uqit+ylcPnk27JRE925f
- IvuQ==
-X-Gm-Message-State: AOJu0YzsXAg9CkbdL2WfnhqVbC4LUhb3cUZvBmKZqjhg5tkBvcktxOk8
- wWPIS/4uFKsJbhZcxPVfhLIKXplkpLCf1Y1kXKBQFOImTHzpRp886yq5
-X-Gm-Gg: AR+sD12/ZkYle0cKgDddRLCSnxMs3YXlHfYTZty/XWJQd/i9FEqMJ9aGW0sbVFU3DPL
- mUPcE/5unNkl472BeCbI7Iuo4bqTYwbaGx3+U0/beFvE9XlZAo8LpGpiHCX/Z9Dqoqal7OZWu3c
- /k+dgaU0ErgHh7hHrxl2Tw8hN5Mr1mHL+yIVpTPXDhLALcHG+CWaQFsR/hkyhVulSAY2WPkbhoh
- zIEHaQi7B4uxCfp0JKse4DsxTN6S/FxZq0r5txMk/sjPD3ekwfbBWN9F0MJXpPIPnwWW7DTZs4C
- Ee88AAepJB6pYWeDplpkjJAdKgUwVWk1mPHZbsxMUYuDFBQtJNbJVDT7YY4zRVqJkoyivX+HUkl
- R9Hy+b2j+WsLXqeIVmrgyFX4vbP/51t49l0hFKzQa9JMJbR+vvSVsfrElemNgD4X5tuoprXfhVY
- CDAS4glBG8q2608DFx1etOUs9r1li2UVaBCha56KTX4Y56glaZb3LM3ig=
-X-Received: by 2002:a17:90b:2d50:b0:380:fead:448d with SMTP id
- 98e67ed59e1d1-38e4b455693mr20977206a91.13.1784640187373; 
- Tue, 21 Jul 2026 06:23:07 -0700 (PDT)
-Received: from fedora ([2405:201:a412:78a0:40cb:342e:9c1b:a9a3])
+ d=1e100.net; s=20251104; t=1784655148; x=1785259948;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=oarivZVG6jdDaREUGN57J4bwMGePVEaf7kTu1kPSfvQ=;
+ b=ZE0PROjmE5FY4Cmzw/2yDsH5U2U6sYqsAoCjkEKywpsUz55MH2KWZvfUrrxfQfEMTj
+ 6qMpQ7C822Qg2vtyZTLUpjOOXKg/4VK0yuy7prEB8IxMihfz0c/IBayXIGAVSEjWJl32
+ GO/cmexMxY8BfefwhHRpBalYx447aM9NfSO2gPO/zaq2+Dh4ptstOrf+6QWOIU/DI/DX
+ HLEbQyM65oM4xw99dJwwDebcRFRdoJxn4v/ZxFRBBdjC4ASeXU38S/M0xKTorermlSuw
+ rocP2ONuUPUqt0v6+ipn/BFoyWwnSlzGox8OuL4/Yyi9lSQddMTO1zYqkMykDCy7evfC
+ zYiQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpsRNmJ2SMXkjSlJcsdPSf9T06x5wJGBPzXPYdYO93ijaEJOGUIQv73QzdKsNH/y3PFeo2ADX/3PKo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YykxRVjs9hyk8nWUCS2IO0tdtOHyyIKmI5Z56WzkyhI761wydlD
+ BgKcYA40V4WDtkZzcx4E+BX42zfrbWK1GCeBpY75mfcKka5jBUTbTF/3
+X-Gm-Gg: AfdE7cleCgsXgVtOKRgZI/yra4f1Pm45UuQi5NBfHIioKS3cmLK3SSLPQFhBNpoKaqy
+ mVRVXkr8N0PQSkV4tSMwCIDyJ/znHZGMc2nhWkxEIxqLpsIR4rS2HvXNhnSL6Ek9Ow8045TQsGZ
+ HjKg9snT8EsIuetV7cvEU0j6L8gaTacuVTEVPs9M2hXDWCwA2x0a7EOf3G3R+SPDlosRlRr3T6Y
+ z4EaInM+SXHJLVoaE+CO+2L9gq6oWsjQ3lDH20oIJoCiXOQjXhkAqffR7KgjnQkOMtxAwXMcpYn
+ R1zu1NNG0L1eg09RrqoeVcoS7hgRp6CcgL7egZjpd+8WpqkQ96cTWQ6tFrZYDlTJFw+J3FnXMxF
+ ZyXiYx/wJkaUbw86r8L6T6E/DOFSXa6i8qrxDF4JwOPSce4R9x1PMTfVzGNCPauRh4WdcqOKPhW
+ NsHnN80eaSVFxNANmgTxb7eb7losuMgiuhBIzLCw==
+X-Received: by 2002:a05:600c:49aa:b0:495:5943:b76c with SMTP id
+ 5b1f17b1804b1-4955943b9dfmr94309475e9.34.1784655148196; 
+ Tue, 21 Jul 2026 10:32:28 -0700 (PDT)
+Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-13ce2ddfb35sm43244731c88.14.2026.07.21.06.23.03
+ 5b1f17b1804b1-4956ab41a15sm2475905e9.3.2026.07.21.10.32.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 06:23:06 -0700 (PDT)
-From: Shivank Sharma <shivanksharma2376543@gmail.com>
-To: lee@kernel.org,
-	danielt@kernel.org,
-	jingoohan1@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Shivank Sharma <shivanksharma2376543@gmail.com>
-Subject: [PATCH] doc: ABI: sysfs-class-backlight: update outdated HAL
- userspace reference
-Date: Tue, 21 Jul 2026 18:52:53 +0530
-Message-ID: <20260721132253.256422-1-shivanksharma2376543@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Tue, 21 Jul 2026 10:32:27 -0700 (PDT)
+Date: Tue, 21 Jul 2026 20:32:26 +0300
+From: Michail Tatas <michail.tatas@gmail.com>
+To: Doug Anderson <dianders@chromium.org>
+Cc: michael@amarulasolutions.com, neil.armstrong@linaro.org,
+ jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] drm/panel: ilitek-ili9805: Use dsi_multi in init
+Message-ID: <al-tKjc-wAzmEOUx@michalis-linux>
+References: <20260719190358.438699-1-michail.tatas@gmail.com>
+ <20260719190358.438699-3-michail.tatas@gmail.com>
+ <CAD=FV=Wqo8Y=NCH0HVn8diQ2q1qxh0tcYLTKNKxGL2e-He_mNg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAD=FV=Wqo8Y=NCH0HVn8diQ2q1qxh0tcYLTKNKxGL2e-He_mNg@mail.gmail.com>
 X-Mailman-Approved-At: Tue, 21 Jul 2026 22:11:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,47 +96,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-HAL was deprecated around 2009 and is
-no longer used on modern Linux distributions. Update the 'Users:' field
-in the sysfs-class-backlight ABI documentation to reflect modern
-systemd-logind, udev, general userspace.
+Hello,
 
-Signed-off-by: Shivank Sharma <shivanksharma2376543@gmail.com>
----
- Documentation/ABI/stable/sysfs-class-backlight | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Thanks a lot for the review Neil and Doug, I appreciate the feedback
 
-diff --git a/Documentation/ABI/stable/sysfs-class-backlight b/Documentation/ABI/stable/sysfs-class-backlight
-index 40b8c46b9..2f60dd3f4 100644
---- a/Documentation/ABI/stable/sysfs-class-backlight
-+++ b/Documentation/ABI/stable/sysfs-class-backlight
-@@ -8,7 +8,7 @@ Description:
- 
- 		 - 0 (FB_BLANK_UNBLANK)   : power on.
- 		 - 4 (FB_BLANK_POWERDOWN) : power off
--Users:		HAL
-+Users:		systemd-logind, udev, general userspace.
- 
- What:		/sys/class/backlight/<backlight>/brightness
- Date:		April 2005
-@@ -19,7 +19,7 @@ Description:
- 		are between 0 and max_brightness. This file will also
- 		show the brightness level stored in the driver, which
- 		may not be the actual brightness (see actual_brightness).
--Users:		HAL
-+Users:		systemd-logind, udev, general userspace.
- 
- What:		/sys/class/backlight/<backlight>/actual_brightness
- Date:		March 2006
-@@ -40,7 +40,7 @@ KernelVersion:	2.6.12
- Contact:	Richard Purdie <rpurdie@rpsys.net>
- Description:
- 		Maximum brightness for <backlight>.
--Users:		HAL
-+Users:		systemd-logind, udev, general userspace.
- 
- What:		/sys/class/backlight/<backlight>/type
- Date:		September 2010
--- 
-2.55.0
+> > +static void gpm1780a0_init(struct mipi_dsi_multi_context *ctx)
+> > +{
+> > +       mipi_dsi_dcs_write_seq_multi(ctx, ILI9805_EXTCMD_CMD_SET_ENABLE_REG, ILI9805_SETEXTC_PARAMETER1,
+> > +                                                       ILI9805_SETEXTC_PARAMETER2, ILI9805_SETEXTC_PARAMETER3);
+> 
+> nit: the indentation of the 2nd line of your two-line
+> mipi_dsi_dcs_write_seq_multi() seems off. checkpatch.sh --strict
+> yells:
+> 
+> CHECK: Alignment should match open parenthesis
+> 
+> Strict mode also yells about a few lines that are over 100 characters.
+> I'm not quite as picky about that, but it would be nic eto fix too...
+> 
+> > +       mipi_dsi_msleep(ctx, 100);
+> > +       mipi_dsi_dcs_write_seq_multi(ctx, 0xFD, 0x0F, 0x10, 0x44, 0x00);
+> > +       mipi_dsi_msleep(ctx, 100);
+> > +       mipi_dsi_dcs_write_seq_multi(ctx, 0xf8, 0x18, 0x02, 0x02, 0x18, 0x02, 0x02, 0x30, 0x00,
+> > +                                                       0x00, 0x30, 0x00, 0x00, 0x30, 0x00, 0x00);
+> 
+> Since you're touching these lines anyway, can you also fix these
+> functions to consistently use lower case hex instead of (mostly)
+> uppercase hex? AKA 0xfd rather than 0xFD.
+> 
+> 
+> Other than above nits, this looks great to me.
 
+I have sent a new version with these changes
+
+Regards,
+Michail
