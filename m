@@ -4,45 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B076C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:00:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EA19C4452B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:00:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 778CE10E3AF;
-	Tue, 21 Jul 2026 18:00:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D007510EAE7;
+	Tue, 21 Jul 2026 18:00:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="1lDTIOXi";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qZBVHTXb";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C7A310EAE7
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:00:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=b4vj9pdDbrTPu+3PTFFFKzDHXQxEvXPTTpHLpTTIlrc=; b=1lDTIOXim5kwLnkEhYDSo9GNRa
- Mbxt8Dp5kfAbYeXX02OV3XI4WIgJO3VbM83Bvg5Zf1RghamdB6SOiqWmmvMsQihYJ6KTOvTJKDUx4
- t5yACFKKOnDKsAcRijbPLHjRTHftGXfMO6fDiobS9FAfBCZ+dkzJ9rEjTKn0Udraj330HVEgnWrFp
- IiC0TB7Kq3TpyVZxZTPxhK1uU6E0/PtqBux6VzsLhcjNeowD9kwO0ZhQIGJ2Zlal6ieVjI+YX0Avb
- ZiTE9d+k9c+31AY7Wa68HCHu2NZp7dcPFyZ+AedXVZ7N2TJIBUhhtGPud91oHJz8t+2MoJhtI7GEc
- 9wF8HkQg==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wmEln-0000000A8rI-3i1b; Tue, 21 Jul 2026 18:00:43 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: dri-devel@lists.freedesktop.org
-Cc: Randy Dunlap <rdunlap@infradead.org>, Rob Herring <robh@kernel.org>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v4] accel: Arm Ethos-U NPU: fix most uapi kernel-doc warnings
-Date: Tue, 21 Jul 2026 11:00:42 -0700
-Message-ID: <20260721180042.3737202-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.55.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C68C510EAE7;
+ Tue, 21 Jul 2026 18:00:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Subject:Cc:To:From:Date:From:Reply-To;
+ bh=5yEiyqBo9BHY5fwhIZBUZYRN1WWovER+0Yiy2s7YlAY=; b=qZBVHTXbu8uP6YWyeqcMV6xIOL
+ O66N5rkS0JrrlV1xZSPX1NpAH9OD3ofLXe0Tn2X2ZKx8X6UHv/FRKdKrkpCej7igdMB5i4Rs1oK+g
+ RbxzwSB2tvFArnvQwluXjuzX22P2ZULsABD4FjPUZXyZ7GyFsAL4UhZOTqVvaZAnE4VDpCVvXghfY
+ TdlVryTHPfXYMNmd7+QiR2YtrRUW5+eQeVejFub9sOh0TmZGICn4hI8/IaRlVQ7i7tPYKovMTGTYt
+ 1FRhZ+3QxaKw2Hk1vop/SITCpeTdMEsWRYXYfkMDuHFT+jv6x7f2GevY7rBtuCGMbhkhiCgLFR9Yd
+ memidESQ==;
+Received: from 179-125-91-91-dinamico.pombonet.net.br ([179.125.91.91]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wmElu-001j3F-HN; Tue, 21 Jul 2026 20:00:51 +0200
+Date: Tue, 21 Jul 2026 15:00:43 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= via Kernel-dev <kernel-dev@igalia.com>
+Cc: igt-dev@lists.freedesktop.org, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH i-g-t v4 7/7] tests/dmem_cgroups: add test for dmem.current
+Message-ID: <al-zyxVn0RNpZXq6@quatroqueijos.cascardo.eti.br>
+References: <20260717120447.1837818-1-cascardo@igalia.com>
+ <20260717120447.1837818-8-cascardo@igalia.com>
+ <93ec79b4fe0ab7d75affdb7c01367ff4400354d2.camel@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <93ec79b4fe0ab7d75affdb7c01367ff4400354d2.camel@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,116 +69,394 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use correct struct names, struct member names, and kernel-doc
-format to resolve most kernel-doc warnings:
+On Fri, Jul 17, 2026 at 03:00:33PM +0200, Thomas Hellström via Kernel-dev wrote:
+> On Fri, 2026-07-17 at 09:04 -0300, Thadeu Lima de Souza Cascardo wrote:
+> > Based on the work of Thomas Hellström to test dmem.max eviction, add
+> > a
+> > test for dmem.current usage after allocations and setting dmem.max.
+> > 
+> > Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
+> > check current usage is within a small slack of the expected
+> > allocation.
+> > Then, set max to a small value and check allocations and current
+> > usage
+> > are limited to the max set.  Set max to less than a single BO size,
+> > then
+> > check no allocations are allowed and current usage is also within the
+> > slack. After each allocation, release memory and check current usage
+> > has gone down.
+> > 
+> > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> 
+> In what situations do you see the need for a slack? I've seen it only
+> when max is set close to 0. For higher max limit, the slack usage may
+> potentially mask bugs. Is there a way the slack can be activated only
+> when it's needed?
+> 
+> Thanks,
+> Thomas
+> 
 
-Warning: include/uapi/drm/ethosu_accel.h:87 expecting prototype for struct drm_ethosu_gpu_info. Prototype was for struct drm_ethosu_npu_info instead
-Warning: include/uapi/drm/ethosu_accel.h:178 expecting prototype for struct drm_ethosu_wait_bo. Prototype was for struct drm_ethosu_bo_wait instead
-Warning: include/uapi/drm/ethosu_accel.h:214 struct member 'cmd_bo' not described in 'drm_ethosu_job'
-Warning: include/uapi/drm/ethosu_accel.h:214 struct member 'sram_size' not described in 'drm_ethosu_job'
-Warning: include/uapi/drm/ethosu_accel.h:214 struct member 'region_bo_handles' not described in 'drm_ethosu_job'
-Warning: include/uapi/drm/ethosu_accel.h:230 struct member 'jobs' not described in 'drm_ethosu_submit'
-Warning: include/uapi/drm/ethosu_accel.h:230 struct member 'job_count' not described in 'drm_ethosu_submit'
-Warning: include/uapi/drm/ethosu_accel.h:230 struct member 'perfmon_id' not described in 'drm_ethosu_submit'
+I found this was necessary when testing on Xe and I suspected it could be
+related to page tables or some extra pages I noticed in one specific code
+path.
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-v2: rebase & resend
-v3: rebase & resend
-v4: fix patch description (not fixing struct
-    drm_ethosu_perform_set_global struct members)
+Now that I looked more into the logs that I have, I noticed around 56KiB
+extra bytes when allocating as many BOs as possible when there is no max.
+And when releasing them all, 32KiB bytes were still accounted for.
 
-Cc: Rob Herring <robh@kernel.org>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
+Reading the code, I could not find where these exactly these come from. And
+given I ended up changing the way we allocate memory on Xe due to the
+allocation trigger on write_eviction_interruptible and
+write_eviction_nonblock, this might not even be true.
 
- include/uapi/drm/ethosu_accel.h |   25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+Unfortunately, Rodrigo Siqueira, who helped me run those tests on Xe, is
+not available for the next few weeks, so I will have to chase some other
+discrete Xe GPUs around.
 
---- linux-next-20260720.orig/include/uapi/drm/ethosu_accel.h
-+++ linux-next-20260720/include/uapi/drm/ethosu_accel.h
-@@ -65,7 +65,7 @@ enum drm_ethosu_dev_query_type {
- };
- 
- /**
-- * struct drm_ethosu_gpu_info - NPU information
-+ * struct drm_ethosu_npu_info - NPU information
-  *
-  * Structure grouping all queryable information relating to the NPU.
-  */
-@@ -80,10 +80,12 @@ struct drm_ethosu_npu_info {
- #define DRM_ETHOSU_VERSION_MINOR(x)		(((x) >> 4) & 0xff)
- #define DRM_ETHOSU_VERSION_STATUS(x)		((x) & 0xf)
- 
--	/** @gpu_rev: GPU revision. */
-+	/** @config: NPU revision. */
- 	__u32 config;
- 
-+	/** @sram_size: NPU SRAM size (KB) */
- 	__u32 sram_size;
-+	/** @pmu_counters: number of performance counters */
- 	__u32 pmu_counters;
- };
- 
-@@ -165,7 +167,7 @@ struct drm_ethosu_bo_mmap_offset {
- };
- 
- /**
-- * struct drm_ethosu_wait_bo - ioctl argument for waiting for
-+ * struct drm_ethosu_bo_wait - ioctl argument for waiting for
-  * completion of the last DRM_ETHOSU_SUBMIT on a BO.
-  *
-  * This is useful for cases where multiple processes might be
-@@ -173,9 +175,12 @@ struct drm_ethosu_bo_mmap_offset {
-  * completed.
-  */
- struct drm_ethosu_bo_wait {
-+	/** @handle: BO handle */
- 	__u32 handle;
-+	/** @pad: Reserved, must be zero. */
- 	__u32 pad;
--	__s64 timeout_ns;	/* absolute */
-+	/** @timeout_ns: Absolute timeout in ns. */
-+	__s64 timeout_ns;
- };
- 
- struct drm_ethosu_cmdstream_bo_create {
-@@ -203,14 +208,14 @@ struct drm_ethosu_cmdstream_bo_create {
-  * sequentially on the same core, to benefit from memory residency in SRAM.
-  */
- struct drm_ethosu_job {
--	/** Input: BO handle for cmdstream. */
-+	/** @cmd_bo: Input: BO handle for cmdstream. */
- 	__u32 cmd_bo;
- 
--	/** Input: Amount of SRAM to use. */
-+	/** @sram_size: Input: Amount of SRAM to use. */
- 	__u32 sram_size;
- 
- #define ETHOSU_MAX_REGIONS	8
--	/** Input: Array of BO handles for each region. */
-+	/** @region_bo_handles: Input: Array of BO handles for each region. */
- 	__u32 region_bo_handles[ETHOSU_MAX_REGIONS];
- };
- 
-@@ -220,13 +225,13 @@ struct drm_ethosu_job {
-  * The kernel will schedule the execution of these jobs in dependency order.
-  */
- struct drm_ethosu_submit {
--	/** Input: Pointer to an array of struct drm_ethosu_job. */
-+	/** @jobs: Input: Pointer to an array of struct drm_ethosu_job. */
- 	__u64 jobs;
- 
--	/** Input: Number of jobs passed in. */
-+	/** @job_count: Input: Number of jobs passed in. */
- 	__u32 job_count;
- 
--	/** Input: Id returned by DRM_ETHOSU_PERFMON_CREATE */
-+	/** @perfmon_id: Input: perfmon ID */
- 	__u32 perfmon_id;
- };
- 
+I will chase this down and at try to pinpoint exactly where these are
+coming from. They might even point out to a bug.
+
+This might take me a few days. If there is anything else that you want me
+to fix in the meantime, let me know.
+
+Thanks.
+Cascardo.
+
+> 
+> 
+> > ---
+> >  tests/cgroup_dmem.c | 251
+> > +++++++++++++++++++++++++++++++++++++++++++-
+> >  1 file changed, 246 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+> > index 442c965f9bbf..fa4694b45035 100644
+> > --- a/tests/cgroup_dmem.c
+> > +++ b/tests/cgroup_dmem.c
+> > @@ -1,6 +1,8 @@
+> >  // SPDX-License-Identifier: MIT
+> >  /*
+> >   * Copyright © 2025 Intel Corporation
+> > + * Copyright © 2026 Intel Corporation
+> > + * Copyright 2026 Valve Corporation
+> >   */
+> >  
+> >  /**
+> > @@ -17,10 +19,214 @@
+> >   * Test category: uapi
+> >   */
+> >  
+> > +#include <errno.h>
+> >  #include <inttypes.h>
+> > +#include <signal.h>
+> > +#include <stdatomic.h>
+> > +#include <stdint.h>
+> > +#include <stdlib.h>
+> > +#include <string.h>
+> > +#include <unistd.h>
+> >  
+> > +#include "drmtest.h"
+> >  #include "igt.h"
+> > +#include "igt_aux.h"
+> >  #include "igt_cgroup.h"
+> > +#include "igt_dmem_driver.h"
+> > +
+> > +#define BO_SIZE			SZ_64M
+> > +#define MAX_LIMIT		((uint64_t)4 * SZ_1G)
+> > +#define USAGE_SLACK		SZ_4M		/* tolerance above
+> > the set max */
+> > +#define USAGE_POLL_MS		10
+> > +#define USAGE_DROP_TIMEOUT_MS	1000
+> > +
+> > +/**
+> > + * SUBTEST: simple
+> > + * DESCRIPTION:
+> > + *  Creates a cgroup, moves the process into it, enumerates all dmem
+> > regions,
+> > + *  prints their capacity, system-wide current usage, per-cgroup
+> > current usage
+> > + *  and configured limits, then destroys the cgroup.
+> > + */
+> > +
+> > +/**
+> > + * SUBTEST: current
+> > + * DESCRIPTION:
+> > + *  Create a dmem cgroup, allocate close to capacity (or at most
+> > 4GiB),
+> > + *  check current usage is within a small slack of the expected
+> > allocation.
+> > + *  Then, set max to a small value and check allocations and current
+> > usage
+> > + *  are limited to the max set.
+> > + *  Set max to less than a single BO size, then check no allocations
+> > are allowed
+> > + *  and current usage is also within the slack.
+> > + *  After each allocation, release memory and check current usage
+> > has gone
+> > + *  down.
+> > + * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
+> > + */
+> > +
+> > +static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const
+> > char *region,
+> > +				    uint64_t limit)
+> > +{
+> > +	uint64_t current;
+> > +	unsigned int elapsed = 0;
+> > +
+> > +	do {
+> > +		igt_cgroup_dmem_get_current(cg, region, &current);
+> > +		if (current <= limit)
+> > +			return current;
+> > +		usleep(USAGE_POLL_MS * 1000);
+> > +		elapsed += USAGE_POLL_MS;
+> > +	} while (elapsed < USAGE_DROP_TIMEOUT_MS);
+> > +
+> > +	return current;
+> > +}
+> > +
+> > +static int allocate_vram(const struct igt_dmem_driver *drv, void
+> > *ctx, int fd, int max_bo, size_t len)
+> > +{
+> > +	int n_bo, err = 0;
+> > +	for (n_bo = 0; n_bo < max_bo; n_bo++) {
+> > +		err = drv->allocate_vram(ctx, n_bo, len);
+> > +		if (err)
+> > +			break;
+> > +	}
+> > +	/* These are expected failures we can ignore. */
+> > +	if (err == -ENOMEM || err == -ENOSPC)
+> > +		err = 0;
+> > +	return err ?: n_bo;
+> > +}
+> > +
+> > +static void free_vram(const struct igt_dmem_driver *drv, void *ctx,
+> > int max_bo)
+> > +{
+> > +	int i;
+> > +	for (i = 0; i < max_bo; i++)
+> > +		drv->free_vram(ctx, i);
+> > +}
+> > +
+> > +static void test_current(int fd, char *cg_region, unsigned int
+> > flags, const struct igt_dmem_driver *drv)
+> > +{
+> > +	struct igt_cgroup *cg;
+> > +	void *ctx;
+> > +	uint64_t current, capacity, cg_max;
+> > +	int n_bo = 0, max_bo;
+> > +	int err;
+> > +
+> > +	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
+> > +	igt_require_f(capacity >= 4 * BO_SIZE,
+> > +		      "VRAM capacity (%"PRIu64" MiB) too small to
+> > test\n",
+> > +		      capacity / SZ_1M);
+> > +
+> > +	/*
+> > +	 * Use up to 4 GiB, or the full capacity if the device has
+> > less.
+> > +	 * Leave one BO_SIZE worth of headroom so the device isn't
+> > completely
+> > +	 * exhausted before the cgroup limit is hit.
+> > +	 */
+> > +	cg_max = min(MAX_LIMIT, capacity - BO_SIZE - USAGE_SLACK);
+> > +	cg_max = ALIGN_DOWN(cg_max, BO_SIZE);
+> > +
+> > +	/* Create cgroup and move into it */
+> > +	cg = igt_cgroup_new("igt_cgroups_test");
+> > +	igt_cgroup_move_current(cg);
+> > +
+> > +	max_bo = cg_max / BO_SIZE;
+> > +
+> > +	err = drv->init(&ctx, fd, max_bo);
+> > +	igt_assert_f(!err, "Failed to initialize driver");
+> > +
+> > +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
+> > +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
+> > +
+> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> > +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> > +		  "max = %"PRIu64" MiB\n",
+> > +		  current / SZ_1M, cg_max / SZ_1M);
+> > +	igt_assert_f(current < cg_max + USAGE_SLACK && current >
+> > cg_max - USAGE_SLACK,
+> > +		     "current usage (%"PRIu64" MiB) is not within
+> > margin of allocation (%"PRIu64" MiB)\n",
+> > +		     current / SZ_1M, cg_max / SZ_1M);
+> > +
+> > +	free_vram(drv, ctx, n_bo);
+> > +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
+> > +
+> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> > +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
+> > +		  "max = %"PRIu64" MiB\n",
+> > +		  current / SZ_1M, cg_max / SZ_1M);
+> > +	igt_assert_f(current < USAGE_SLACK,
+> > +		     "current usage (%"PRIu64" MiB) is not within
+> > margin (%d MiB)\n",
+> > +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
+> > +
+> > +	/* Allow for a slack as there might be some extra pages
+> > allocated. */
+> > +	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE +
+> > USAGE_SLACK, false);
+> > +
+> > +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
+> > +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
+> > +
+> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> > +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> > +		  "max = %"PRIu64" MiB\n",
+> > +		  current / SZ_1M, cg_max / SZ_1M);
+> > +	igt_assert_f(current < 2 * BO_SIZE + USAGE_SLACK && current
+> > > 2 * BO_SIZE - USAGE_SLACK,
+> > +		     "current usage (%"PRIu64" MiB) is not within
+> > margin of allocation (%"PRIu64" MiB)\n",
+> > +		     current / SZ_1M, cg_max / SZ_1M);
+> > +
+> > +	free_vram(drv, ctx, n_bo);
+> > +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
+> > +
+> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> > +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
+> > +		  "max = %"PRIu64" MiB\n",
+> > +		  current / SZ_1M, cg_max / SZ_1M);
+> > +	igt_assert_f(current < USAGE_SLACK,
+> > +		     "current usage (%"PRIu64" MiB) is not within
+> > margin (%d MiB)\n",
+> > +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
+> > +
+> > +	igt_cgroup_dmem_set_max(cg, cg_region, USAGE_SLACK, false);
+> > +
+> > +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
+> > +
+> > +	/*
+> > +	 * amdgpu may succeed the allocation, by falling back to
+> > GTT, so no assertion here.
+> > +	 * Verify by reading current usage.
+> > +	 */
+> > +
+> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> > +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> > +		  "max = %"PRIu64" MiB\n",
+> > +		  current / SZ_1M, cg_max / SZ_1M);
+> > +	igt_assert_f(current < USAGE_SLACK,
+> > +		     "current usage (%"PRIu64" MiB) is not within
+> > margin\n",
+> > +		     current / SZ_1M);
+> > +
+> > +	if (n_bo > 0)
+> > +		free_vram(drv, ctx, n_bo);
+> > +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
+> > +
+> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> > +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
+> > +		  "max = %"PRIu64" MiB\n",
+> > +		  current / SZ_1M, cg_max / SZ_1M);
+> > +	igt_assert_f(current < USAGE_SLACK,
+> > +		     "current usage (%"PRIu64" MiB) is not within
+> > margin (%d MiB)\n",
+> > +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
+> > +
+> > +	drv->deinit(ctx);
+> > +	igt_cgroup_free(cg);
+> > +}
+> > +
+> > +static const struct {
+> > +	const char *name;
+> > +	void (*test_fn)(int fd, char *cg_region, unsigned int flags,
+> > const struct igt_dmem_driver *drv);
+> > +	unsigned int flags;
+> > +} subtests[] = {
+> > +	{ "current", test_current, 0 },
+> > +	{ }
+> > +};
+> > +
+> > +static const struct {
+> > +	int driver_flag;
+> > +	const struct igt_dmem_driver *driver;
+> > +} drivers[] = {
+> > +	{ DRIVER_XE, &xe_dmem_driver },
+> > +	{ DRIVER_AMDGPU, &amdgpu_dmem_driver },
+> > +	{ },
+> > +};
+> >  
+> >  IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller
+> > interface.");
+> >  
+> > @@ -32,7 +238,7 @@ static void fmt_bytes(uint64_t v, char *buf,
+> > size_t len)
+> >  		snprintf(buf, len, "%" PRIu64, v);
+> >  }
+> >  
+> > -int igt_simple_main()
+> > +static void simple_cgroup(void)
+> >  {
+> >  	struct igt_cgroup *cg;
+> >  	const char *region;
+> > @@ -42,10 +248,6 @@ int igt_simple_main()
+> >  	char min_s[32], low_s[32], max_s[32];
+> >  	int i;
+> >  
+> > -	igt_require_f(igt_cgroup_dmem_available(),
+> > -		      "No dmem regions found; is cgroup v2 with the
+> > "
+> > -		      "dmem controller available?\n");
+> > -
+> >  	cg = igt_cgroup_new("igt-cgroup-dmem-test");
+> >  	igt_assert_f(cg, "Failed to create cgroup\n");
+> >  
+> > @@ -90,3 +292,42 @@ int igt_simple_main()
+> >  	igt_cgroup_dmem_regions_free(regions);
+> >  	igt_cgroup_free(cg);
+> >  }
+> > +
+> > +int igt_main()
+> > +{
+> > +	igt_fixture() {
+> > +		igt_require_f(getuid() == 0, "Test requires
+> > root\n");
+> > +		/* Check dmem cgroup controller is available before
+> > doing anything else */
+> > +		igt_require_f(igt_cgroup_dmem_available(),
+> > +			      "dmem cgroup controller not available
+> > (no cgroup v2 or no registered regions)\n");
+> > +
+> > +	}
+> > +
+> > +	igt_subtest("simple")
+> > +		simple_cgroup();
+> > +
+> > +	for (int d = 0; drivers[d].driver; d++) {
+> > +		igt_subtest_group() {
+> > +			int fd = -1;
+> > +			char *cg_region;
+> > +			igt_fixture() {
+> > +				fd =
+> > drm_open_driver(drivers[d].driver_flag);
+> > +				igt_require_f(fd >= 0,
+> > +					"No %s device found,
+> > skipping\n",
+> > +					drivers[d].driver->name);
+> > +				cg_region = drivers[d].driver-
+> > >get_region_name(fd);
+> > +				igt_require_f(cg_region, "Region not
+> > tracked by dmem cgroup controller\n");
+> > +			}
+> > +
+> > +			for (int i = 0; subtests[i].name; i++)
+> > +				igt_subtest_f("%s-%s",
+> > drivers[d].driver->name, subtests[i].name)
+> > +					subtests[i].test_fn(fd,
+> > cg_region, subtests[i].flags, drivers[d].driver);
+> > +
+> > +			igt_fixture() {
+> > +				if (fd >= 0)
+> > +					drm_close_driver(fd);
+> > +				free(cg_region);
+> > +			}
+> > +		}
+> > +	}
+> > +}
