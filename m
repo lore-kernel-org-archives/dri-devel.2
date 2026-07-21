@@ -4,19 +4,19 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED614C44520
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 02:26:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EE3DC44520
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 02:26:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 494D210E1BA;
-	Tue, 21 Jul 2026 02:26:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E23310E25C;
+	Tue, 21 Jul 2026 02:26:53 +0000 (UTC)
 Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D74110E1BA
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 02:26:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBA4310E25C
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 02:26:52 +0000 (UTC)
 Received: from local
  by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
  (Exim 4.99) (envelope-from <daniel@makrotopia.org>)
- id 1wm0BX-000000000D4-2tJm; Tue, 21 Jul 2026 02:26:19 +0000
-Date: Tue, 21 Jul 2026 03:26:16 +0100
+ id 1wm0Bz-000000000F1-2BJV; Tue, 21 Jul 2026 02:26:47 +0000
+Date: Tue, 21 Jul 2026 03:26:44 +0100
 From: Daniel Golle <daniel@makrotopia.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -33,9 +33,9 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Hermes Wu <hermes.wu@ite.com.tw>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-mediatek@lists.infradead.org
-Subject: [PATCH v3 1/4] drm/bridge: it6505: cancel outstanding work before
- teardown in remove()
-Message-ID: <91b40322b07b967fcf286b3e4bd11e5f821bff1c.1784600387.git.daniel@makrotopia.org>
+Subject: [PATCH v3 2/4] drm/bridge: it6505: guard against zero channel count
+ in audio infoframe
+Message-ID: <e7c7944f7ab37332c2afcc808aa8e105e4752a43.1784600387.git.daniel@makrotopia.org>
 References: <cover.1784600387.git.daniel@makrotopia.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -56,49 +56,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-it6505_i2c_remove() tears down the bridge and frees its state without
-cancelling any of the driver's background work. struct it6505 is
-allocated with devm_drm_bridge_alloc(), so devres frees it as soon as
-remove() returns; link_works, hdcp_wait_ksv_list, hdcp_work and
-extcon_wq can all still be pending or running at that point and will
-then dereference freed memory.
+it6505->audio.channel_count is zero from allocation until either DP
+link training has run once (it6505_variable_config()) or a valid
+hw_params call has cached a channel count. it6505_enable_audio() can
+be reached before either of those has happened, e.g. from the
+audio-FIFO-error IRQ, which is unmasked unconditionally at poweron.
+it6505_enable_audio_infoframe() then indexes the 8-entry
+audio_info_ca[] table with channel_count - 1, an out-of-bounds stack
+read when channel_count is still 0.
 
-link_works and extcon_wq are flushed in it6505_bridge_detach(), but
-that only runs if DRM core calls the bridge's .detach() before the
-i2c client is unbound -- not guaranteed if the i2c driver is unbound
-independently of the DRM device that consumes it. hdcp_wait_ksv_list
-and hdcp_work are never cancelled anywhere.
+Bail out of it6505_enable_audio_infoframe() when channel_count is not
+yet known instead of indexing with it.
 
-Cancel all four synchronously in remove() itself so teardown is safe
-regardless of ordering. cancel_work_sync() on extcon_wq is safe even
-when it was never INIT_WORK()'d, since it6505 is zero-allocated and a
-zeroed work_struct is reported as not pending.
+While here, fix the debug print in it6505_audio_setup_hw_params(): on
+the invalid-channel-count path it logged the previously cached
+channel_count instead of the actually-rejected params->cea.channels.
 
 Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
 Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 ---
-v3: new patch, split out to fix a pre-existing use-after-free flagged
-    by automated review of v2's audio series; needed before that
-    series adds another cancel_delayed_work_sync() call next to the
-    ones this commit is adding.
+v3: new patch
 
- drivers/gpu/drm/bridge/ite-it6505.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/bridge/ite-it6505.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index 8ecb43611dba..2f349aefb705 100644
+index 2f349aefb705..f2ed76a05f6b 100644
 --- a/drivers/gpu/drm/bridge/ite-it6505.c
 +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -3644,6 +3644,10 @@ static void it6505_i2c_remove(struct i2c_client *client)
- {
- 	struct it6505 *it6505 = i2c_get_clientdata(client);
+@@ -1575,6 +1575,9 @@ static void it6505_enable_audio_infoframe(struct it6505 *it6505)
+ 	struct device *dev = it6505->dev;
+ 	u8 audio_info_ca[] = { 0x00, 0x00, 0x01, 0x03, 0x07, 0x0B, 0x0F, 0x1F };
  
-+	cancel_work_sync(&it6505->link_works);
-+	cancel_work_sync(&it6505->hdcp_wait_ksv_list);
-+	cancel_delayed_work_sync(&it6505->hdcp_work);
-+	cancel_work_sync(&it6505->extcon_wq);
- 	drm_bridge_remove(&it6505->bridge);
- 	drm_dp_aux_unregister(&it6505->aux);
- 	it6505_debugfs_remove(it6505);
++	if (!it6505->audio.channel_count)
++		return;
++
+ 	DRM_DEV_DEBUG_DRIVER(dev, "infoframe channel_allocation:0x%02x",
+ 			     audio_info_ca[it6505->audio.channel_count - 1]);
+ 
+@@ -2990,7 +2993,7 @@ static int __maybe_unused it6505_audio_setup_hw_params(struct it6505 *it6505,
+ 
+ 	if (params->cea.channels <= 1 || params->cea.channels > 8) {
+ 		DRM_DEV_DEBUG_DRIVER(dev, "channel number: %d not support",
+-				     it6505->audio.channel_count);
++				     params->cea.channels);
+ 		return -EINVAL;
+ 	}
+ 
 -- 
 2.55.0
