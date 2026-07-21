@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA73C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 21:11:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0981C4452B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 21:13:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F49D10EB6A;
-	Tue, 21 Jul 2026 21:11:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D48010E3C5;
+	Tue, 21 Jul 2026 21:13:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ClNMTze0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LiAcVsfQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C309010EB6A
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 21:11:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5036410E3C5
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 21:13:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A715E42AE9;
- Tue, 21 Jul 2026 21:11:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FF051F00A3A;
- Tue, 21 Jul 2026 21:11:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 94B0D600FC;
+ Tue, 21 Jul 2026 21:13:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 172D21F00A3A;
+ Tue, 21 Jul 2026 21:13:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784668304;
- bh=0ScPYnj5IbReOtaBBVv19khK4LHuX+DAL4QUToVNaHc=;
+ s=k20260515; t=1784668381;
+ bh=0aHuKPzw5r+UQJ2O1NSpcCR0rev6JAbn2QH3XshSR5Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ClNMTze0kvnbNqESR93ledbA0gLqb3fQuVclocihIPp8VerF1ZrYxb38SH0v3y9wH
- puTyYo76xm2ki7eBLpRqlBZuVCh0av/9S6FOmklI8We3XaKF85j7X044+TGyZBvvo/
- YEy4NesTtdS/L9zejDRmFdtjxa3oM5s3QQXgQFhvK0xoQhJEMhMcRxAjetDyVd/qMN
- balJLqSQub/6/vHDlm16c3qRVkTm9Rq+uyArbiWCEO2uc94a6KOAdJyVR8vGAtiycl
- IvtfQJBZwHRggHUDX/f+nWxcEeYp7HCYK3K8ECJi+ebYzQh63i3mup0o6A6eROvxde
- m4LRIP/cQfKoQ==
+ b=LiAcVsfQ0TfJcNRXqVwyzLCKDma35ziHbvA8E3ROKXU973plo8iPCkNMDtnbZmDN6
+ GCKi4ClKwUcWfPZEX8zFrEFpJNoguYQ4WcV9kqCSXu+XMQX+1q7VuKa6d6JNljg1pI
+ Dr/62roLVXl1eNsrdFjgehyA8+oJn9G28jLX3Q5guSrq2NbgsANUFda2HT4NyZrGyh
+ bIrTTKJhhDWt+vIQCKqebWY95SpAmAZKj8uO0emXDubMJadd4g7LhcAV0AVIGGMOJp
+ pTYC5Wk0XI4yJdgawTjJ0ufCtTDvAO9x2i7XG+OmDCSL1UoEIEVgLub218o6Pn7h4z
+ pBVRsT9h31qeg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 20/29] dyndbg: refactor param_set_dyndbg_classes and
- below
+Subject: Re: [PATCH v7 26/29] dyndbg: move mod_name down from struct
+ ddebug_table to _ddebug_info
 To: "Jim Cromie" <jim.cromie@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
-In-Reply-To: <20260721-dd-maint-2-v7-20-010fbe73b311@gmail.com>
+In-Reply-To: <20260721-dd-maint-2-v7-26-010fbe73b311@gmail.com>
 References: <20260721-dd-maint-2-v7-0-010fbe73b311@gmail.com>
- <20260721-dd-maint-2-v7-20-010fbe73b311@gmail.com>
+ <20260721-dd-maint-2-v7-26-010fbe73b311@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 21:11:43 +0000
-Message-Id: <20260721211144.5FF051F00A3A@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 21:13:00 +0000
+Message-Id: <20260721211301.172D21F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,95 +60,81 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The refactored `param_set_dyndbg_module_classes` is structurally=
- incapable of correctly applying existing global classmap settings to newly=
- loaded modules, and it corrupts the global state.
+- [Medium] When processing a built-in module that has no class maps, `ddebu=
+g_attach_module_classes()` fails to reset `dt->info.maps.len` to 0, causing=
+ the module to erroneously inherit the global array of all built-in class m=
+aps.
 --
 
---- Patch [20]: [PATCH v7 20/29] dyndbg: refactor param_set_dyndbg_classes =
-and below ---
-commit fd7e6888285afde6b911cef67e7e2452e7180dba
+--- Patch [26]: [PATCH v7 26/29] dyndbg: move mod_name down from struct dde=
+bug_table to _ddebug_info ---
+commit bd18115a5b87d80ee2f5c15c166c46a301cbd184
 Author: Jim Cromie <jim.cromie@gmail.com>
 
-dyndbg: refactor param_set_dyndbg_classes and below
+    dyndbg: move mod_name down from struct ddebug_table to _ddebug_info
+   =20
+    struct _ddebug_info already has most of dyndbg's info for a module;
+    push debug_table.mod_name down into it, finishing the encapsulation.
 
-This commit refactors the param_set_dyndbg_classes callchain to support
-module-specific classmap updates, primarily intended for modprobe handling.
-It splits the function into upper and lower parts, threading a modname
-parameter through to ddebug_exec_queries. It also adds a check in
-ddebug_apply_class_bitmap to skip printing if bits haven't changed.
+This commit moves the module name from struct ddebug_table into
+struct _ddebug_info. This encapsulates the module information, allowing
+several callchains to pass _ddebug_info directly rather than the full table.
 
 > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index f66e5373e61e2..a619cefd801f7 100644
+> index e7742fcca50ba..905277fa495b4 100644
 > --- a/lib/dynamic_debug.c
 > +++ b/lib/dynamic_debug.c
 [ ... ]
-> @@ -625,7 +626,9 @@ static int ddebug_apply_class_bitmap(const struct dde=
-bug_class_param *dcp,
->  	int matches =3D 0;
->  	int bi, ct;
-> =20
-> -	v2pr_info("apply: 0x%lx to: 0x%lx\n", *new_bits, *old_bits);
-> +	if (*new_bits !=3D *old_bits)
-> +		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
-> +			  *old_bits, query_modname ?: "'*'");
-> =20
->  	for (bi =3D 0; bi < map->length; bi++) {
->  		if (test_bit(bi, new_bits) =3D=3D test_bit(bi, old_bits))
->  			continue;
+> @@ -1187,7 +1187,7 @@ static void ddebug_attach_module_classes(struct dde=
+bug_table *dt, struct _ddebug
+>  	 * and length of the subrange at its edges.
+>  	 */
+>  	for_subvec(i, cm, di, maps) {
+> -		if (!strcmp(cm->mod_name, dt->mod_name)) {
+> +		if (!strcmp(cm->mod_name, dt->info.mod_name)) {
+>  			if (!nc) {
+>  				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d=
+\n",
+>  					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
+> @@ -1201,7 +1201,7 @@ static void ddebug_attach_module_classes(struct dde=
+bug_table *dt, struct _ddebug
+>  	}
+>  	if (nc) {
+>  		dt->info.maps.len =3D nc;
+> -		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
+> +		vpr_info("module:%s attached %d classes\n", dt->info.mod_name, nc);
+>  	}
+>  }
 
 [Severity: Medium]
-When applying the current global state to a newly probed module, will this
-continue statement incorrectly skip all configuration queries?
+When processing a built-in module that has no class maps, does
+ddebug_attach_module_classes() fail to reset dt->info.maps.len to 0?
 
-Since old_bits represents the global state, test_bit() will evaluate to true
-when applying the same global configuration to a new module, silently
-skipping required query updates.
+During boot, dynamic_debug_init() creates a stack variable di where maps.st=
+art
+and maps.len cover the entire __dyndbg_class_maps section. For each built-in
+module, ddebug_add_module(&di) is called. It performs a shallow copy
+dt->info =3D *di, assigning the full length.
 
->  		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
->  			 test_bit(bi, new_bits) ? '+' : '-', dcp->flags);
-> =20
-[ ... ]
-> @@ -683,8 +693,8 @@ int param_set_dyndbg_classes(const char *instr, const=
- struct kernel_param *kp)
->  				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
->  			inrep &=3D CLASSMAP_BITMASK(map->length);
->  		}
-> -		v2pr_info("bits:%lx > %s\n", inrep, KP_NAME(kp));
-> -		totct +=3D ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits);
-> +		v2pr_info("bits:0x%lx > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
-> +		totct +=3D ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, mod_name);
->  		*dcp->bits =3D inrep;
+It then calls ddebug_attach_module_classes(). If the module has no class ma=
+ps,
+the loop finds no matches (nc =3D=3D 0), skipping the if (nc) block:
 
-[Severity: Medium]
-Does this code inadvertently corrupt the global state if a module-specific
-override is applied?
+	if (nc) {
+		dt->info.maps.len =3D nc;
+		vpr_info("module:%s attached %d classes\n", dt->info.mod_name, nc);
+	}
 
-It appears that *dcp->bits (the global parameter state) is unconditionally
-overwritten with inrep, even when a mod_name is provided.
+Because of this, does dt->info.maps.len improperly retain the length of all
+built-in class maps, causing the module to erroneously inherit the global a=
+rray
+of all built-in class maps?
 
-Should the state update be conditional on mod_name being NULL, to prevent
-modprobe handling from modifying the global state?
-
->  		break;
->  	case DD_CLASS_TYPE_LEVEL_NUM:
-> @@ -697,7 +707,7 @@ int param_set_dyndbg_classes(const char *instr, const=
- struct kernel_param *kp)
->  		old_bits =3D CLASSMAP_BITMASK(*dcp->lvl);
->  		new_bits =3D CLASSMAP_BITMASK(inrep);
->  		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
-> -		totct +=3D ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits);
-> +		totct +=3D ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, mod_na=
-me);
->  		*dcp->lvl =3D inrep;
-
-[Severity: Medium]
-Similarly, is the global *dcp->lvl state unconditionally overwritten here
-when a module-specific override is applied for LEVEL_NUM map types?
-
->  		break;
->  	default:
+This logic error could allow users to apply unrelated class strings to a
+module's debug prints via the control interface, leading to incorrect funct=
+ional
+behavior of the dynamic debug API.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-dd-maint-2=
--v7-0-010fbe73b311@gmail.com?part=3D20
+-v7-0-010fbe73b311@gmail.com?part=3D26
