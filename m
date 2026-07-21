@@ -4,44 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B83BBC44520
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 02:42:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3526C44524
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 03:08:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05C2F10E26F;
-	Tue, 21 Jul 2026 02:42:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E50410E1E2;
+	Tue, 21 Jul 2026 03:08:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WVItYcx4";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="DyMCWVHc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8D3510E26F
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 02:42:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2E62C60A61;
- Tue, 21 Jul 2026 02:42:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF1551F000E9;
- Tue, 21 Jul 2026 02:42:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784601774;
- bh=yzALuV5DrXr3ZRPHG0k2t4XlfbZP0ahAklZK6K5TO/U=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WVItYcx4kFZQW+qoEgEhH+RzRc1De7sIzK2MAOiqMDWwL/S8XwCSjShxLiiZ+eZ1H
- snwK/nxOXx9n4K5SixKzoQM9vxOemrFkIsph5qcXPBUsxXS0QxTfdQTcOm6oz5O5xC
- 23Sza5qUs53QR7cJL+/0Ff04VtbGIbpJP7uZWeIBtJmFrGp1Fbl8ket/EDm2eqyngs
- dzA1rfXPxM7iPdPCUj5lS6Fh3IjvE4pYAhMPloFzmJpiOKU0404lq3IN/jx4D8kLmm
- AVwxdgl/hQbTvmaWcaGFTHXPXKR9NiG8gp06PHU7JIrzYB1d9B0asOJtpZNOMcUlAN
- ZN5GzyoeXe1Ow==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] drm/bridge: it6505: Don't reject audio hw_params
- without an encoder
-To: "Daniel Golle" <daniel@makrotopia.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <c82134d59d36fbc66e75d397ae50141ad447220b.1784600387.git.daniel@makrotopia.org>
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF50A10E1E2
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 03:08:51 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-81ee6b2da98so48983697b3.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Jul 2026 20:08:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784603330; cv=none;
+ d=google.com; s=arc-20260327;
+ b=qytG15H4BzYQbp/ZUT9y1N6hzJCcgql7Fz7eUV+YO2G+Ir8oyR5jJbEI4PsZd/iFPb
+ vss6YLbvq8jgTwdOvRrHcahgn1FETBQudR/C0XgzpxlJ2A12CV4NSrjR98SttWICNzAY
+ y5+Q0wrLK7GPMv4j1wfwCZ3pNDQWse58YkZ7j56FgjtLCnGsTEGdP4C0DTJXPdJa5Tib
+ SGaxbc1t6AE8Zr3AwsoHHpVtZkHSZ7pQY5KiybhC5DiIQDVSjQum65QuJa4jDsV2oe0R
+ jwl0mSakfy4oUkr6MuxV8yYQBiE6iRG1/t+p1R+lYCMJveNPjF7C/+/zzfEGsXJSwN9Y
+ eOGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=XR3KYJTpiBWw0+V3gZDjHv2XkYH8NffsgkJP+nAma/0=;
+ fh=cy12p5XWH9PaurnuSlO+ZYkS+8AdWHiHorXCKFUhlus=;
+ b=gvD7YJBry3XPaFdIBx6A6cMKHUMLOBiWVvZFDSA27wl2fFBPGJf0h1pNjsIOSxe9uN
+ zbYzVsnAEiT1pOLva2DQv9kkiYKHGpyJNa+EJ1V/IgMjnSQm5QWS61fzCxpe3tX2S0Kg
+ amekJx7KjnUgMZ1J9zWCl753P4puHSJ849LETMzesy2T3bU9SHy4ihIxGU5HCrn2kYWg
+ /5KPHJ+8YbkW8pTEjE3/unfEPZlz9piuoHNce3iVZ56pT3HjPoBx6D/FaxpmzES83z3J
+ suaPr15wBmSWApuFXQCEOQNlaVF7JhdsY1tXmWbrYFU9THSxa3drATH06AWnp0TpSUuh
+ JtYw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1784603330; x=1785208130;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=XR3KYJTpiBWw0+V3gZDjHv2XkYH8NffsgkJP+nAma/0=;
+ b=DyMCWVHcOS+Qs+bUeX5HYsuTs5XxQvNs/2XRx/pCbvbYn8KlUpK2cWa5oZ7/UGeFrF
+ egpaeziNZCFymTQqqG2BnWyf5hEZjlCqJBWAktqBAslErai+eQVVzlNfPDUORpzbacdg
+ K13b2RnrYpc/1vnGWWl4E7CFGybXknmykhyAI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784603330; x=1785208130;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=XR3KYJTpiBWw0+V3gZDjHv2XkYH8NffsgkJP+nAma/0=;
+ b=bb/5p+vtsu+MqLnXIz2qKZs9nGpmB92tDdlz+7PcBKiBmHxsQY2QT2guFnTIxfygNg
+ G78Oqjur0kGUUQzCUsGyDW2jAqLAzftPafQ4jLirEOtSVWyZy3pSDlquxE3JXDESKogj
+ qwTrDY6Xdz+eWpH1qqm5g04USj8zYIa8fVHygTMHa8dLDZL4J5j9bvIq0KdfCmU9TiEh
+ HZIrs3feZqoFhcU5RAXflYWnmFyLnKqhHlgV5C3y0Bwwog5vZXhEjYmmpsa2BDSGg442
+ MlNDM5NHiOZqZtEhtgrIgwwiV9lUV9F6qJA++ic6TsbtGRCfHIsLVSlTuMmRDDt4OV2N
+ ZRJA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RryQDTJIQ/Ul5tn+pMLvpm6vszOtMFWnSFGNxYiS+54MlzrcHbvqb3WHtwBhjFbdAPWJl89abgJ5aY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzgGe/27kNrCSXAebmwxVAoUc4eK7BGe3mnwec4aqWTrK9Acvv3
+ XleolLYjK8MXH0q5fQKB5SnDk77QltpfPFdHQePJA0TxPly9ZQDRkNRCV+5HgRO8itfTtl39uHU
+ q9SkYj6SrTSvq3PqIgNiIlkjJ4XGfoPFrxW2Dv4pa
+X-Gm-Gg: AR+sD125g4y8/SDtm1YwWiMdEIESjlfFE3xUVxiZzUIsiAj9MjHSXAKMp5X0ZB0pfOW
+ vF72SoR/C9zJcvTJ0ryiqgWEZzOra/TR863kAAHs5gDPQLwDyRER/nIWKXm2E8ccB2VXuN0Yasw
+ Ggju/2Nh6xSR3UvEVpuXKyzSDGaJaq7uZjzvAVHNnpIWXIYyT07GGZhFuPnMjAlPCkeUAOcQR8c
+ fMkhbHeQTJD32KDfgzfXQ7/oLXDVLW1M7KaNY+viF8mWCJDrbpiB7yP+JZdKhgYxviusHMXhGfo
+ Yg73tm390Wl0np5A
+X-Received: by 2002:a05:690c:6e11:b0:80d:78bd:7a37 with SMTP id
+ 00721157ae682-81ef260c8d6mr52675177b3.49.1784603330663; Mon, 20 Jul 2026
+ 20:08:50 -0700 (PDT)
+MIME-Version: 1.0
 References: <cover.1784600387.git.daniel@makrotopia.org>
- <c82134d59d36fbc66e75d397ae50141ad447220b.1784600387.git.daniel@makrotopia.org>
-Content-Type: text/plain; charset=utf-8
+ <e7c7944f7ab37332c2afcc808aa8e105e4752a43.1784600387.git.daniel@makrotopia.org>
+In-Reply-To: <e7c7944f7ab37332c2afcc808aa8e105e4752a43.1784600387.git.daniel@makrotopia.org>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Tue, 21 Jul 2026 11:08:38 +0800
+X-Gm-Features: AUfX_mzmSRPeYPFPJC8VuKfMiw-bdx8XSXW3n2innYVifkRGLxhR_ScL03w_tUM
+Message-ID: <CAGXv+5GOhYnziQnKeUYVJVr1Hn3vtE0Jbcqp3FoyT2eJpUEzMQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/4] drm/bridge: it6505: guard against zero channel
+ count in audio infoframe
+To: Daniel Golle <daniel@makrotopia.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Allen Chen <allen.chen@ite.com.tw>, Hermes Wu <hermes.wu@ite.com.tw>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 02:42:54 +0000
-Message-Id: <20260721024254.AF1551F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,143 +116,29 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+On Tue, Jul 21, 2026 at 10:26=E2=80=AFAM Daniel Golle <daniel@makrotopia.or=
+g> wrote:
+>
+> it6505->audio.channel_count is zero from allocation until either DP
+> link training has run once (it6505_variable_config()) or a valid
+> hw_params call has cached a channel count. it6505_enable_audio() can
+> be reached before either of those has happened, e.g. from the
+> audio-FIFO-error IRQ, which is unmasked unconditionally at poweron.
+> it6505_enable_audio_infoframe() then indexes the 8-entry
+> audio_info_ca[] table with channel_count - 1, an out-of-bounds stack
+> read when channel_count is still 0.
+>
+> Bail out of it6505_enable_audio_infoframe() when channel_count is not
+> yet known instead of indexing with it.
+>
+> While here, fix the debug print in it6505_audio_setup_hw_params(): on
+> the invalid-channel-count path it logged the previously cached
+> channel_count instead of the actually-rejected params->cea.channels.
+>
+> Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
+> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 
-Pre-existing issues:
-- [High] The interrupt handler can still execute and re-queue work items af=
-ter `cancel_work_sync()` in `it6505_i2c_remove()`, leading to Use-After-Fre=
-e.
-- [High] Missing `pm_runtime_disable()` in `it6505_i2c_remove()` leaves the=
- device in an inconsistent PM state.
-- [High] Unprotected modification and TOCTOU race on `it6505->audio.mute` l=
-eading to unintended audio enablement.
-- [Medium] Cached audio parameters are overwritten by default values on dis=
-play hotplug, defeating the secondary goal of the patch.
-- [Medium] Audio configuration fields in `it6505->audio` are modified witho=
-ut consistent locking, leading to potential race conditions.
---
-
---- Patch [4]: [PATCH v3 4/4] drm/bridge: it6505: Don't reject audio hw_par=
-ams without an encoder ---
-commit af4a3bfaf41a8f5bf333fd6908bc4e3f4fabd9a8
-Author: Daniel Golle <daniel@makrotopia.org>
-
-drm/bridge: it6505: Don't reject audio hw_params without an encoder
-
-it6505_audio_setup_hw_params() returns -ENODEV when the bridge is not
-attached to a DRM encoder. This commit drops the encoder check so the
-parameters are always cached.
-
-> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
-/ite-it6505.c
-> index 37036ef5403fb..435601b6929ed 100644
-> --- a/drivers/gpu/drm/bridge/ite-it6505.c
-> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-> @@ -2999,9 +2999,6 @@ static int it6505_audio_setup_hw_params(struct it65=
-05 *it6505,
->  			     params->sample_rate, params->sample_width,
->  			     params->cea.channels);
-> =20
-> -	if (!it6505->bridge.encoder)
-> -		return -ENODEV;
-> -
-
-[Severity: Medium]
-This is a pre-existing issue, but does removing this check fully solve the
-problem if the cached parameters are overwritten on hotplug?
-
-When a stream starts with no display attached, it6505_audio_setup_hw_params=
-()
-caches the correct settings as intended. However, if a display is hotplugged
-later, the HPD interrupt handler sees a disconnected state beforehand and z=
-eroed
-it6505->dpcd.
-
-Upon reconnect, it finds it6505->dpcd[0] =3D=3D 0 and calls
-it6505_variable_config():
-
-    it6505->audio.sample_rate =3D AUDIO_SAMPLE_RATE;
-    it6505->audio.channel_count =3D AUDIO_CHANNEL_COUNT;
-
-Does this unconditionally reset the audio variables to default values, caus=
-ing
-audio to play with 2 channels and 48kHz rather than the dynamically configu=
-red
-stream parameters?
-
-[Severity: Medium]
-This is a pre-existing issue, but does this function need to take the
-audio_lock when modifying the audio configuration fields?
-
-In it6505_audio_setup_hw_params():
-
-    it6505->audio.channel_count =3D params->cea.channels;
-
-This modifies the fields in it6505->audio without taking it6505->audio_lock.
-
-Since it6505_enable_audio() can be called from asynchronous paths (like
-it6505_delayed_audio or IRQ) which takes audio_lock and reads these fields,
-could this result in hardware being programmed with a partially updated sta=
-te
-if readers see a mix of old and new parameters?
-
->  	if (params->cea.channels <=3D 1 || params->cea.channels > 8) {
->  		DRM_DEV_DEBUG_DRIVER(dev, "channel number: %d not support",
->  				     params->cea.channels);
-
-[Severity: High]
-This is a pre-existing issue, but can the interrupt handler still execute a=
-nd
-re-queue work items after they are cancelled during driver unbind?
-
-In it6505_i2c_remove():
-
-    cancel_work_sync(&it6505->link_works);
-    cancel_work_sync(&it6505->hdcp_wait_ksv_list);
-    cancel_delayed_work_sync(&it6505->hdcp_work);
-    cancel_work_sync(&it6505->extcon_wq);
-
-Since the device interrupt (it6505->irq) is not disabled before cancelling
-these work items, could an incoming interrupt spawn the threaded handler and
-call schedule_work(&it6505->link_works) after cancel_work_sync() returns,
-leading to a use-after-free when the work item executes?
-
-[Severity: High]
-This is a pre-existing issue, but is there a missing pm_runtime_disable() in
-the driver removal path?
-
-While it6505_i2c_probe() successfully enables runtime PM with
-pm_runtime_enable(dev), it6505_i2c_remove() does not appear to call
-pm_runtime_disable(dev) before returning. Can this leave the PM core with
-references to the unbound device, leading to a resource leak or lifecycle
-violation?
-
-[Severity: High]
-This is a pre-existing issue, but is there a time-of-check to time-of-use r=
-ace
-on the audio mute state?
-
-In it6505_irq_audio_fifo_error(), the mute state is read outside of the loc=
-k:
-
-    if (it6505->audio.mute)
-        return;
-
-    if (it6505_audio_input(it6505))
-        it6505_enable_audio(it6505);
-
-If ALSA mutes the stream concurrently, it6505_audio_mute() sets mute to true
-and disables audio. After it returns, if the IRQ wakes up and unconditional=
-ly
-calls it6505_enable_audio() which takes the lock and turns audio back on,
-could this defeat the mute and cause hardware malfunction by sending an
-InfoFrame without audio data?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784600387.gi=
-t.daniel@makrotopia.org?part=3D4
+Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
