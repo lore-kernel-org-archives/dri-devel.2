@@ -4,51 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 785DEC44532
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 15:15:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8D83C44532
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 15:16:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D585910EA63;
-	Tue, 21 Jul 2026 15:15:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 108A210EA82;
+	Tue, 21 Jul 2026 15:16:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="OW8ofhD+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eYDr7RAp";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07B8910E35A
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 15:15:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784646935;
- bh=Bm2sDgGGdf93DGpkU5R0geZJmOBMRfW4uCRvCqoKcOk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OW8ofhD+7zPldXdMKoPwIRCf1AgKP5NHavOOfAT5COpMLadJgFqhc3ro6vEBxC4H3
- 5q8lfc+SHEWZ/MPZFwhLFESpkMV3Stocac/JZnLHKj6hj9+ooXQpF5E3PhpnXH1C3o
- D8uTJB97SZIL6TAZaiiIed5eM/My+fRoMNHkjoLR7d3K3/TeBC+ZUzVdlys78iCy93
- rZ8KtIK/XL2kNlxAm0C7wDcUHBovThA2I0W1OJFfm1SXlNpfRttNS9Qx0g19A8lhwH
- EOmYxRf8rU1+EveYhKZ40kpXz3ZxHT2kJNjT4894utKpe88prVOQpxDo41I8Et5w5l
- qivftjQSC4niQ==
-Received: from laura.lan (unknown [100.64.0.215])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: laura.nao)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id AFC9917E08A2;
- Tue, 21 Jul 2026 17:15:34 +0200 (CEST)
-From: Laura Nao <laura.nao@collabora.com>
-To: daniel.almeida@collabora.com, aliceryhl@google.com, dakr@kernel.org,
- airlied@gmail.com, simona@ffwll.ch, ojeda@kernel.org
-Cc: boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- a.hindborg@kernel.org, tmgross@umich.edu, tamird@kernel.org,
- acourbot@nvidia.com, work@onurozkan.dev, deborah.brouwer@collabora.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, kernel@collabora.com,
- Laura Nao <laura.nao@collabora.com>
-Subject: [PATCH 2/2] drm/tyr: add Job IRQ handling
-Date: Tue, 21 Jul 2026 17:14:23 +0200
-Message-Id: <20260721151423.444175-3-laura.nao@collabora.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260721151423.444175-1-laura.nao@collabora.com>
-References: <20260721151423.444175-1-laura.nao@collabora.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66B0F10EA64
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 15:16:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B8BE5600D8;
+ Tue, 21 Jul 2026 15:16:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 467FB1F00A3A;
+ Tue, 21 Jul 2026 15:16:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784646975;
+ bh=kUeHdoFi5d37CX8YFNFwEXcBDYUB3952afpr3sB+tBQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=eYDr7RApalGwMqHPvKJJwM/iijEdvSqGQ3sp4NXH87hiAdG3XKaTBj6+OD2ghVLA7
+ 2MtJLaEqlqErVT3bx5T+ZlLrKQi/I+3ge5ac87MhxGiJ4V/D7YM5G4csTuq8zEuVKs
+ f4BzvcIaHeP4qhvwVR+e3LWT7SW+DgPvIf0Dh5uDePBGqZAZH1CM99x5jczYcaV2fZ
+ UqMfkg1pz+xkvCC4i6CVwfULPzyoHG+E3EB1ptpJp8jeWJP7bSQNIhI55qZpyUuVkv
+ jPMVYjExUg8WaSnW+Y/wVFBkBUAyAqMBrt2UPnHfxoz9YbvDoLIjSQrMBM/x06ShL1
+ ep2NWNlWFM41A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/virtio: Remove usage of drm_simple_encoder_init()
+To: liutianyi2211@gmail.com
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260721162114.471692-1-liutianyi2211@gmail.com>
+References: <20260721162114.471692-1-liutianyi2211@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 15:16:14 +0000
+Message-Id: <20260721151615.467FB1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,253 +52,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a threaded IRQ wrapper for Tyr interrupt sources and use it to handle
-the firmware Job IRQ.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-The Job IRQ reports requests from the CSF firmware, including global
-interface requests and CSG attention bits. Add a Job IRQ handler that
-masks the interrupt in the primary IRQ handler, processes pending raw
-status in the threaded handler, clears handled bits, and reenables the
-mask before returning.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the return value=
+s from DRM object initialization functions (`drm_connector_init` and `drm_e=
+ncoder_init`) are ignored. When replacing `drm_simple_encoder_init` with `d=
+rm_encoder_init`, the error code returned by the initialization function co=
+ntinues to be discarded.
+--
 
-Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-Signed-off-by: Laura Nao <laura.nao@collabora.com>
----
- drivers/gpu/drm/tyr/driver.rs |  75 ++++++++++++++++++++++++
- drivers/gpu/drm/tyr/fw.rs     |   4 ++
- drivers/gpu/drm/tyr/fw/irq.rs | 104 ++++++++++++++++++++++++++++++++++
- 3 files changed, 183 insertions(+)
- create mode 100644 drivers/gpu/drm/tyr/fw/irq.rs
+--- Patch [1]: [PATCH] drm/virtio: Remove usage of drm_simple_encoder_init(=
+) ---
+commit 8109d37cb7e4ad300368c323487228873cfe6959
+Author: Tianyi Liu <liutianyi2211@gmail.com>
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 46ba91af9aca..6ee6f5e578b7 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -1,5 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0 or MIT
- 
-+use core::marker::PhantomPinned;
-+
- use kernel::{
-     clk::{
-         Clk,
-@@ -21,6 +23,13 @@
-         poll,
-         Io, //
-     },
-+    irq::{
-+        Flags,
-+        IrqReturn,
-+        ThreadedHandler,
-+        ThreadedIrqReturn,
-+        ThreadedRegistration, //
-+    },
-     new_mutex,
-     of,
-     platform,
-@@ -238,3 +247,69 @@ struct Regulators {
-     _mali: Regulator<regulator::Enabled>,
-     _sram: Regulator<regulator::Enabled>,
- }
-+
-+pub(crate) trait TyrIrqTrait: Sync {
-+    fn read_status(&self) -> u32;
-+    fn clear_mask(&self);
-+    fn reenable_mask(&self);
-+    fn read_raw_status(&self) -> u32;
-+    fn clear_status(&self, status: u32);
-+    fn mask(&self) -> u32;
-+    fn handle(&self, status: u32);
-+}
-+
-+#[pin_data]
-+pub(crate) struct TyrIrq<T: TyrIrqTrait> {
-+    irq: T,
-+    #[pin]
-+    _pin: PhantomPinned,
-+}
-+
-+impl<T: TyrIrqTrait> TyrIrq<T> {
-+    pub(crate) fn request<'a>(
-+        pdev: &'a platform::Device<Bound>,
-+        name: &'static CStr,
-+        irq: T,
-+    ) -> Result<impl PinInit<ThreadedRegistration<'a, Self>, Error> + 'a>
-+    where
-+        T: 'a,
-+    {
-+        let handler = try_pin_init!(Self {
-+            irq,
-+            _pin: PhantomPinned,
-+        });
-+
-+        // SAFETY: The resulting `PinInit` is not leaked, it is consumed by the caller to
-+        // initialize a pinned `ThreadedRegistration`.
-+        Ok(unsafe { pdev.request_threaded_irq_by_name(Flags::SHARED, name, name, handler) })
-+    }
-+}
-+
-+impl<T: TyrIrqTrait> ThreadedHandler for TyrIrq<T> {
-+    fn handle(&self) -> ThreadedIrqReturn {
-+        let masked_status = self.irq.read_status();
-+
-+        if masked_status == 0 {
-+            return ThreadedIrqReturn::None;
-+        }
-+        self.irq.clear_mask();
-+        ThreadedIrqReturn::WakeThread
-+    }
-+
-+    fn handle_threaded(&self) -> IrqReturn {
-+        let mut ret = IrqReturn::None;
-+
-+        loop {
-+            let raw_status = self.irq.read_raw_status() & self.irq.mask();
-+            if raw_status == 0 {
-+                break;
-+            }
-+            self.irq.handle(raw_status);
-+            self.irq.clear_status(raw_status);
-+            ret = IrqReturn::Handled;
-+        }
-+
-+        self.irq.reenable_mask();
-+        ret
-+    }
-+}
-diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-index 554808a792aa..4188dc4232f5 100644
---- a/drivers/gpu/drm/tyr/fw.rs
-+++ b/drivers/gpu/drm/tyr/fw.rs
-@@ -66,8 +66,12 @@
-     vm::Vm, //
- };
- 
-+pub(crate) mod irq;
- mod parser;
- 
-+/// Maximum number of CSG interfaces supported by hardware.
-+const MAX_CSG: usize = 16;
-+
- impl_flags!(
-     #[derive(Debug, Clone, Default, Copy, PartialEq, Eq)]
-     pub(super) struct SectionFlags(u32);
-diff --git a/drivers/gpu/drm/tyr/fw/irq.rs b/drivers/gpu/drm/tyr/fw/irq.rs
-new file mode 100644
-index 000000000000..4084904d53f6
---- /dev/null
-+++ b/drivers/gpu/drm/tyr/fw/irq.rs
-@@ -0,0 +1,104 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
-+
-+//! IRQ handling for the Job IRQ.
-+//!
-+//! The Job IRQ signals events from the MCU, including global interface acknowledgements.
-+#![allow(dead_code)]
-+
-+use core::sync::atomic::{
-+    AtomicBool,
-+    Ordering, //
-+};
-+
-+use kernel::{
-+    c_str,
-+    device::Bound, //
-+    io::Io,
-+    irq::ThreadedRegistration,
-+    platform,
-+    prelude::*,
-+    sync::Arc, //
-+};
-+
-+use crate::{
-+    driver::{
-+        IoMem,
-+        TyrIrq,
-+        TyrIrqTrait, //
-+    },
-+    regs::job_control::{
-+        JOB_IRQ_CLEAR,
-+        JOB_IRQ_MASK,
-+        JOB_IRQ_RAWSTAT,
-+        JOB_IRQ_STATUS, //
-+    },
-+    wait::Wait, //
-+};
-+
-+const CSG_IRQ_MASK: u32 = (1u32 << super::MAX_CSG) - 1;
-+
-+pub(crate) struct JobIrq<'bound> {
-+    iomem: Arc<IoMem<'bound>>,
-+    fw_ready: Arc<AtomicBool>,
-+    ready_wait: Arc<Wait>,
-+}
-+
-+pub(crate) fn job_irq_init<'bound>(
-+    pdev: &'bound platform::Device<Bound>,
-+    iomem: Arc<IoMem<'bound>>,
-+    fw_ready: Arc<AtomicBool>,
-+    ready_wait: Arc<Wait>,
-+) -> Result<impl PinInit<ThreadedRegistration<'bound, TyrIrq<JobIrq<'bound>>>, Error> + 'bound> {
-+    iomem.write_reg(
-+        JOB_IRQ_MASK::zeroed()
-+            .with_const_csg::<CSG_IRQ_MASK>()
-+            .with_glb(true),
-+    );
-+    let job_irq = JobIrq {
-+        iomem: iomem.clone(),
-+        fw_ready,
-+        ready_wait,
-+    };
-+
-+    TyrIrq::request(pdev, c_str!("job"), job_irq)
-+}
-+
-+impl TyrIrqTrait for JobIrq<'_> {
-+    fn read_status(&self) -> u32 {
-+        self.iomem.read(JOB_IRQ_STATUS).into_raw()
-+    }
-+
-+    fn clear_mask(&self) {
-+        self.iomem.write_reg(JOB_IRQ_MASK::zeroed());
-+    }
-+
-+    fn reenable_mask(&self) {
-+        self.iomem.write_reg(
-+            JOB_IRQ_MASK::zeroed()
-+                .with_const_csg::<CSG_IRQ_MASK>()
-+                .with_glb(true),
-+        );
-+    }
-+
-+    fn read_raw_status(&self) -> u32 {
-+        self.iomem.read(JOB_IRQ_RAWSTAT).into_raw()
-+    }
-+
-+    fn clear_status(&self, status: u32) {
-+        self.iomem.write_reg(JOB_IRQ_CLEAR::from_raw(status));
-+    }
-+
-+    fn mask(&self) -> u32 {
-+        JOB_IRQ_MASK::zeroed()
-+            .with_const_csg::<CSG_IRQ_MASK>()
-+            .with_glb(true)
-+            .into_raw()
-+    }
-+
-+    fn handle(&self, status: u32) {
-+        if JOB_IRQ_RAWSTAT::from_raw(status).glb() {
-+            self.fw_ready.store(true, Ordering::Release);
-+            self.ready_wait.notify_all();
-+        }
-+    }
-+}
--- 
-2.39.5
+drm/virtio: Remove usage of drm_simple_encoder_init()
 
+This patch removes the deprecated drm_simple_encoder_init() helper function=
+.=20
+It replaces it with a direct call to drm_encoder_init() and introduces a=20
+drm_encoder_funcs structure to handle cleanup.
+
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/v=
+irtio/virtgpu_display.c
+> index 44ffffec550fd..048c195432183 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_display.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_display.c
+
+[ ... ]
+
+> @@ -306,7 +310,8 @@ static int vgdev_output_init(struct virtio_gpu_device=
+ *vgdev, int index)
+>  	if (vgdev->has_edid)
+>  		drm_connector_attach_edid_property(connector);
+> =20
+> -	drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VIRTUAL);
+> +	drm_encoder_init(dev, encoder, &virtio_gpu_encoder_funcs_cleanup,
+> +				DRM_MODE_ENCODER_VIRTUAL, NULL);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the return value of
+drm_encoder_init() appears to be ignored here.
+
+If drm_encoder_init() fails, such as during memory pressure or ID exhaustio=
+n,
+the driver continues execution with partially initialized DRM objects.
+Could this lead to kernel oopses if uninitialized mutexes or lists are
+subsequently accessed during hotplug events or driver teardown?
+
+Looking just above this in vgdev_output_init(), drm_connector_init() also
+ignores its return value. Should we capture these error codes and return th=
+em
+to ensure robust error handling?
+
+>  	drm_encoder_helper_add(encoder, &virtio_gpu_enc_helper_funcs);
+>  	encoder->possible_crtcs =3D 1 << index;
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721162114.4716=
+92-1-liutianyi2211@gmail.com?part=3D1
