@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63779C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 16:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9AB4C4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 16:54:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 670F010EAB7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 072D510E384;
 	Tue, 21 Jul 2026 16:54:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="xU3l24Nu";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="mNgBNBtd";
 	dkim-atps=neutral
 Received: from CWXP265CU010.outbound.protection.outlook.com
  (mail-ukwestazon11022096.outbound.protection.outlook.com [52.101.101.96])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF2310E228
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 16:54:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CE5810E228
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 16:54:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YD/z8qafj8w6WK+6ODxL/9beE3hIrwGg5M9lOeGdoY2f9I/S5l+QiN1O08FJ6exF3slW7xsB3b2yvSrPJ1+mvnLx96PPL1fEMtgxDGmWBmUwzkMDtHS669fEwncyRVumcSvdAjYNlTB+CscGudNCbMoiWFHVzGVdQzFc0puroYfo7S+Kt/s4jgDvacE+x4vGn/fKpW6ey+CcmUbsDjvKLcY5vM31pDa8Q5DWRFYCEE383c5oexvcKvO28FXFxFcKyir0wUFjxxSqKE/zP7XZRPJbVHuUf0GWaGNbGnF0VDt9vu7xb3pTKmsLipzF9to0/suHZsTj3ax/k8N3s9/YSg==
+ b=OjHOxo2LN/iNtnlYePW6z2mTp4kcanA3/tkIdNmhO56a2GmuHLZy7elsD+GYgujub8kZD9E1+N99ylf87uojBQ0oSs03Cb2dCcX5xtxSHsyMPqovXNQN5IHUEfsnBArwqtOtw6FFiP6US7vfmnMHl6x5WFQ0/bSDBNLZAXIrT69og+ZzkjOeh735thElpz+XFAKvR2p+QbL3Bb8yGPrDNGuX8OEgDXXjuJ5IBJCMuN3A9ADTsPwZC1jy1AVEm83uPqYYAN3pfXqHUFSE7S9Qd5yBhBo68q94gb3JdOMfPG7bVhTQRVQJ3RYw1KVqRzkBasH6ZEQ9OVqnqypS2IRhHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pqvt61eNCMhTn8pEzy/jGP0FdJQ7M057SVVhboqWcpI=;
- b=sQaNcXWkVpKXSYwx8IIa9N3KWUF5pO0K3PKjhWWy7yiDQOfUj/+DlSCWUBurEpEHKC/LvuFk5BeKz3eqKqLa7xg6VNxn97nBUGvkdypZ/6VLYGGuKS+KRAxizk1g01/qFC9zRmvz8W93sQRDk9L4r/cyWBNFYMB/3BTZ1cmMeS4ak4NDkZ+rGAaQsbI/MzYTS7FF31m+t1PwCVEX/UjHzYcyFwQ2JJWyntKanUTryBmSL7McpaV/RX3xFLqX86gR2DdQls7FdZhWswRVsyZnhPKzZXqh89p9xUrttiLPfMaRnK8Lrqfk5ztWn6VhTAoc6JXoxTK1vBfFgDjrdxRgdA==
+ bh=0Isb2qRjG2IOYlLfoblXZPhuZ8hatUUlVZuaUx1uueU=;
+ b=p6PJ86UOCWTF6RwL6xjpqzLhApvaTmux17JNK8xh2xrJdI1ULEQo3fleyxD5vQPn3BopWip55D9fG57GJQpFOYPMF8j9bBZ0vVgHhj1dwt6aLpZOYmi9ETeV8vehCk0bGk+MONMTzdA8mHar9tOq38jYZ0YJg1NuzdaPh8zFxftknmgusuPljNs5jqqQrHQvEYI63xDUqs6TloY2NX/6ILQwemR9rRGQKMDWH4lmzniqC5dRIphIOfH2YzlvV980cQf5XT5sFAQozQCsTs70vAGXR8FIUHHhzUePHC7WTMkeUmwB7zu0ZxTxCDycSt54ZfzfhYkn7lYYqypjurdCLw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pqvt61eNCMhTn8pEzy/jGP0FdJQ7M057SVVhboqWcpI=;
- b=xU3l24Nu8ATRmjPb0BNxXzBvSxRImv2Zu93weD44ES18swVLPkx8+WFIjiwxPCNuWGx6V9o2WhktYxq7gMwp+GtdYmkaUUt4boU/mEDVGXThC+7Hqy4Nk9W7Gk9zC5RRPhM4bfCUjakaZQIFvD3+vnYCJ5GwftI57/QESf8CxRo=
+ bh=0Isb2qRjG2IOYlLfoblXZPhuZ8hatUUlVZuaUx1uueU=;
+ b=mNgBNBtdcoEbEAv4GQaz2Zq2GkdXlMAuN3xcY2sKmjoiKcECAcxFzLPmx5ZuN5Yb2UkH9bOcI/lXA1YP8aoZ8Th3fkZ14we76AolKma0m/5mriL5f5etvptIZaWDRRanngyWirfHhf0ky8a4uD2LZdibO0Y4mJvX5fhQePQEBpM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
  by LO8P265MB7878.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3ae::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
- 2026 16:54:35 +0000
+ 2026 16:54:38 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0223.017; Tue, 21 Jul 2026
- 16:54:35 +0000
+ 16:54:38 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Tue, 21 Jul 2026 17:54:29 +0100
-Subject: [PATCH 05/10] rust: io: register: make register have a typed base
+Date: Tue, 21 Jul 2026 17:54:34 +0100
+Subject: [PATCH 10/10] rust: io: register: remove relative registers
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-typed_register-v1-5-452d72b60262@garyguo.net>
+Message-Id: <20260721-typed_register-v1-10-452d72b60262@garyguo.net>
 References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
 In-Reply-To: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -66,11 +66,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784652872; l=13356;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784652872; l=20299;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=/tbPMm7MZEGr2hdg4hsZfc5XlLdU+1m/iS/d5okVeRs=;
- b=dC6R3tnbzA8WfUd7G6E8uIHh7G0cPg5LGaLQC/bdZO6ph302S/Kwy6h73pwAKAhMm6tSk9Kj9
- X7tz1z0nH4ZARTnXXqYT1U6mMZVchRdq2w98Y/roGJSBNdeA1a20zRt
+ bh=0lk1tT21wk00ME8X9EtuM9WZ/LhWLpfXQthdWTrO4H0=;
+ b=HqZLBa1CLQMjE9VVupYEngU69n60gQGQNVytkOXX3GgTJoEzK1eKnP7q5jhUPOJyNB3WCL7jT
+ yMCAvg0A6XTCObZ+ucKPUP6xY5yaCWkkm1PLd9WQelTvc3/ffpm1+KW
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P123CA0143.GBRP123.PROD.OUTLOOK.COM
@@ -79,65 +79,65 @@ X-ClientProxiedBy: LO4P123CA0143.GBRP123.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO8P265MB7878:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48b3b6b3-18f4-4be2-5aa0-08dee748bec9
+X-MS-Office365-Filtering-Correlation-Id: 4cc05bfd-b81c-4de9-1e00-08dee748c059
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|23010399003|376014|7416014|10070799003|1800799024|366016|56012099006|10067099003|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info: AvAHAuTRiKesMwSfDnRjS/G39PBN7eAAmE1suKgXXWAnUvAusK3Og76N4vkoy12PS0sr0GXXeQrG9PLRAn8Ft/WWduVCp5vMe355l48/yESrnZsukqjS7TJL5890D5kndWopZHMajFHgz1SVrkWWeHjdAxRTrOpvX76u6ddzoiRapOMBvLnR176a/bbOEaht2i0DXkfcswSM89ohrR9vxDuqzL/+cKZ1VUejCrFY7oiPVDLlcxr9NgUE55sJFK8Rs2tYFD/4PWC3Y65zvHT6TmJiC3yev470sy6gBlgsnoCA+lrpqpl8YFInmfMyxZUcMzDpLWhVn0QvK1FdW+BQyeZKWVUIOSTotaVp6wt+VO/g8EJq6+2e0E7uTjZOmwa/uFoeqdfvevTs6/9yFhZpjczAupNKfERk7uGSo5jfJXzTVuqEOmJVhlRE/btzoLpPpIEnxC4ERCtj/zQh5rokIKhIviPOhwF9IoKKmsrSohmg0ZWildZZ+N8X/eV8bUMXKuE+lXxJ4km7lkbthnqHXVlN/ShIt2w+oqe9oHEK6EgRWJnwvp6zzHtAiQQKL6fJvIpVM9Ep7hMl4z8xW3mELFqPZB2Ee0uqqJ1R6LaUFgCUiuNHih5lxc9lrZxDHcALJh7Cbl+fkgObJEfaLs1O1P9gkYRFjOdXBHbGWbSumyIMTbzAcFIpI4Ef+g+kULQQuS/fOxwBrez+LMpiZFl6/Q==
+X-Microsoft-Antispam-Message-Info: jnnjPr8GgexPdYnLU2b4jm19PApwXZs1nqB8yUHd4F6mocf4sJ6vITAOz8qcYDt35AfB+nvGQNG8tIkxmLJGQqtUW9vRLmhUPiifUUXh8FZVP1oPJtxGSNh02uQwM8UdoH7Tbx7AIRiBC/uOAWOJA+57DnW69Mjht3WE9PYerufio59+xkskdtQsjPMcyrX8Ekfi4/KiDy3v7XJq7zZDqbn77w++zrL9o0qBOcZnglPmrQrJyL0nRkWaXJG7yEtCrudLiKiL4inlpDLK1pTEBhG5hKaTulG7zEK1vKMH+hDSCFMW+257k1KIF1RA7X3J2+eY6goTHh4NkS6ey4uqMsmb3XigkM7nQ5qpuCXlA5BDzCtxt+Vxe5idwbZP4JdC+it7U3Nh9/fFfDCAup3DwG/BmS/jQ0H/5JbbSt+oRIKCxp6ctBCkqXWXyXRI+Gl6P7BsEOwdm6x5zKkFceTwMYZubQwY1Uate7tE1Y4G13WJ8ma3mMakYfE0gxDglht5N6KS/R8VcUgXpXkJQemfcNOXEDisDpRoxrBJ5SCBvr82yuYc1C+ievzSw1i3m28OmdzZ7NPUU2m2IRWN4ewkMnKcT2qhb14zN0KfPDelZ3Q6lK2XQcIWahe9QGx7X3LVmvez7EDuoG7yyfU8d0ShTx5p0IL+eZEHFHks7sVbTB7Z1yqfJ40rfqlDPDwCGbMkTrENxICZrZQFKvt8VjbuwQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
  SFS:(13230040)(23010399003)(376014)(7416014)(10070799003)(1800799024)(366016)(56012099006)(10067099003)(22082099003)(18002099003)(921020);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rm5YV2VkeGdNZzRYNlVWbTlyMk13djNGYW4xNkJCUjEvWWNNcysrK0JUZXpR?=
- =?utf-8?B?Y1A5NmxLSzhVQ2dJK3NYMUpSdjgyQ2hGZHR2UFE3N1RjK25NcEFtQnhhU1ZL?=
- =?utf-8?B?NXZWTkJpSi9hNlRlUitFd3F2SDViVXAwTUtFdzhmU28wRnM0aGJNWU1QcnRN?=
- =?utf-8?B?OFRJVTl5eVB6alJMZHNqZ3BwczZWT0FCb3NTVmhZZEVFZjZKVUo3WDRTaVZQ?=
- =?utf-8?B?VDFoc2l5MDZBdFk5T2lIUVFVL0FsdHJjdTZaaFBzeDM4SGtLV2hDclZKOHVj?=
- =?utf-8?B?bEFFV2lPWWRDSFJvTWZkQk5JbnM2NHR1SFlZaFBheXdnTTJkTHBPSjNPNFll?=
- =?utf-8?B?SWdjdHZ6M3c5QjMxMGoxRGtIeEdjWHNrU0ZQV2JPUFpoZzQyc0hMVlBDbFZY?=
- =?utf-8?B?eXFUTFZTdXJ2R1V6aCtkZ1NmT1h0Y0lPdTUxZjhCOXdybWQ1REtjUkNZenBk?=
- =?utf-8?B?TXJ6RTVFK3pqRHkvcUVnS2l0Z2NkcHFUNWo2ZFJnd2wwaEFMQWVLQThnWHEz?=
- =?utf-8?B?OHNBRjVja25HYUpwYzFsTXp0bXBPMXZEUngyOW5UaDVRVmNIQUt0L2tIamhR?=
- =?utf-8?B?TUZaTVMyZ0F0QWNBZmJSV0ZGVk9vR0Z1UVdOYkRuS2cwRHNXNjZpNzdUb1Q5?=
- =?utf-8?B?N0x3TFFHOURXTmw0MFFERGdQbXJFTzRaU0NKSnk2ck9lMzd1VVdibzlQbGlC?=
- =?utf-8?B?R204elFtb3hMRlFQT2g1Wk1ITkthNHhuNm1QemR2WWh0NG94ZDRIS29SdGNa?=
- =?utf-8?B?blcxUWdTYUV0M0luRGJ1aTdSTnBrVmNyeUZiZWlyWVJFK1REV1VGR21GbUgy?=
- =?utf-8?B?Y25sM3pEaHlGbklsQTZDbW1TVTViWmYzcm5SV24vMThNSFJFK0JqR01vSDJI?=
- =?utf-8?B?TldjKzBQR09BLyszZEQ2eWwvcjl0TzdCakEwYXNpOVdpa3o0T3BMSDV0VlVK?=
- =?utf-8?B?Q3JpMGFXaWJPcXVlMU1KNmxPajZESkdMc2h0TzRNWXVOSGhPMmZBaXFTL1RQ?=
- =?utf-8?B?dDA5aEN1dEpCdnRqT2VNOEQ4UHRaNlJYMEVINnF4dVVhem1lelpscnQ1RFZ1?=
- =?utf-8?B?QVVISGx4NmdFL2FGNzRPRE96aUtXVW1GWFg1ZnFoVTFKdVRNRlQxQUtPS3px?=
- =?utf-8?B?V0JUVVZuTUdESEhlMXJ3YitSN2piaEtjUGY1enBUZys2ME5ud083MW16VnZ4?=
- =?utf-8?B?THVlQVlVZ0s1U0Zob1J1WkFiVXprR0xLSE9MY3RxOE5VWlZZWTBoeWkrTXJ5?=
- =?utf-8?B?YnZLdVVzeXlETGtoaEhzYXZtZ1hMZEFJbjFkckQzZ21SeGJyVjNxb1daVElk?=
- =?utf-8?B?ajQyU3A0K2t1N3FtTlpSUW9sVjJub2JPOWtDSmhsU2FJM0pOQUc2OFVReUY0?=
- =?utf-8?B?TVlZRkJNZ1BxUlNiNHlpcmRNcmdHU1NMMXZhZDRrdXFReERrWUxRQlpGRHd0?=
- =?utf-8?B?bGRCQTgyZHcxMzF4dUNlYU1jbFd2S0tnc205Y2FheHA2NlJFMjFuZDdxQjNH?=
- =?utf-8?B?ZDhRSisxQ2FBN3hLWDg5YU1kU1lMVWI3TFhROXJFYktxOEdKU09XUXdZdVM2?=
- =?utf-8?B?d0wxRURyZktjVkdYdWFaL0l1bUJMSFNHallXSHVtOUJTSkpyU0Z4VThyMTRG?=
- =?utf-8?B?N3FEbUJUM0hYM2JSS1pLMGFpWkZwd1VhN09uTjFWd0dieGc0Kzh6ZGt0TDdS?=
- =?utf-8?B?ZXl4ZGQzZEc4QWZwZVdEK2YwemFyOVJtWlJTM25KMnNxeVgwVmlBMHh6anF5?=
- =?utf-8?B?RWVpUitscWFVYjhueUdNb2JVUWNFcXZscVdXRGRaSUhCekZ3bFRGMGJJSEdO?=
- =?utf-8?B?K3UyOUhCbXRpeEFHKzZTeU9QRmZhQlpJMTVjWXJwVnRUWnlIOG9WeFNkYVZM?=
- =?utf-8?B?YmpmZHoyNFpWdUdJNlNWSktPSkphTFhydXNOMWhVcUtmdERObEpJWGRkQnd5?=
- =?utf-8?B?bW1ScXVWRnpGdXpiZ2hHeTFQQVY3b1puNWhlb3RsVE9RaW1tQTIrbmlvZXFD?=
- =?utf-8?B?YThXT05rejUwK3NWejBTT2VDWlZjakRLaUVrOWc2eERUNXFHVVltd0tBclMv?=
- =?utf-8?B?OG5BNUhzTEVjRHNrRGpyUkFRdGJITi82U3ZWeHV3RUU1Y3FHdFV1Tm5TRi9a?=
- =?utf-8?B?ODV4ODgwSENMbGhqbkZHYTZkY1NMSUJUU3QyeGQrT1ppenJFV0d2aEppYkM5?=
- =?utf-8?B?cWpoay9KYlpzMlR0d2kvWDB5QWhaajF6M3Z2KzNTRzFoSm94RW41SWI5b2JG?=
- =?utf-8?B?K1A0c05VcGxvcUcrTWR0VkNmbFZRbVowQzB2aFU3UnFCU2ZuamlHbjlkTDVZ?=
- =?utf-8?B?dGMvNE9Uam90U0hzdm9KdkxRV2FzaU03cVJSR1hpcEpDZ05ubkh0dz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Sk9DWWgvNmVDekdEbWRrNGFPQlFESXNra0NYSUpoVE5ZODMyRmorSWRNWjc3?=
+ =?utf-8?B?dzRBa1I2cjRoeVBhYUdBTjA3VzZaSlBzRzV6YlpXYS9SUlJxb3diMjY0MUdO?=
+ =?utf-8?B?NUkzR3pSVXc5Y0dsSDBqM0FKU0k3bnpiOSthSk5IdXRzcGxQTHk3bzhDamxR?=
+ =?utf-8?B?NFp2VndqYWtYdVZreXNOTjkxR3ZSZzJvQzFCclNOZnVuSFR1YmdENUNhc3pp?=
+ =?utf-8?B?UlN0YXV2cEhXbldiZ0tFcTZ0VlMzUUpLajVIZGJqc3oxak9hTHc3NE94Nktj?=
+ =?utf-8?B?NXFKdGdUYythL2lIN0s4LzgwTWc2NTV4eWN6c2VQVHk0L2xQdWxwejNhWmor?=
+ =?utf-8?B?OElBaW9KQlRCUnh2bHVkbnQ0OTFvQzBWYmtuZmt1aVByUnFHT0M3U3FaMzht?=
+ =?utf-8?B?eXpPL05UNUYwcEtRZk15RlArVU5ac3E2TUI5ZVc0aGwxL3F5ellHSEZGeEw0?=
+ =?utf-8?B?WGlQei9iSVVnNXF3YUdZa3N1T01MSEdiZ1NkTm0vekMvS2szQzJrVSttU0dv?=
+ =?utf-8?B?a3VSNzd5SUlvanFFWGd1UWQvWm9lZDFpNVFDQVRNaUtUZ2poRWxUaDFTNFAx?=
+ =?utf-8?B?eDZuUWhJT0hvbi95U3pXMUVJR2pQcWJLVzJTNnh2Z3ppRXRPbnBaNTBPNGho?=
+ =?utf-8?B?dFhBclpMNGZtbm9QcWxJU0lkOUtzQXVZU2JuRUJIUjV2VXp6dGVObmsrQTZB?=
+ =?utf-8?B?dDBYMUpwUFVnejhYWkFiRWhmR2FEN21UbFVkUTg5T0NWbnBFRko4RkJvVTVU?=
+ =?utf-8?B?aHozRGdRTnEza24vU0tlSHdyYVlFSnEySU1sQmpzK2ZSeHNldnY2L3l1dmZj?=
+ =?utf-8?B?alZzQ2dPL2RqYVBLaWhvaUZSUHBMUVR5TVNTQlRPSGNpVlkwSUNHR0hmSEU2?=
+ =?utf-8?B?Vlk2djJUU3NqdkE4L1NsbW1ReFZjb1hjU21hai9yNTBxU09QN3U5dVd3VlRO?=
+ =?utf-8?B?K2FaNWthYnprMy9WSUVZOEJYN2dWaGhHWDVDQmJmWm9mVVVua2FMQlErVUhw?=
+ =?utf-8?B?VnZ2Z0p5dHJSR1lsV255cnY4U1F5OCs3NVQ5cWIvblRIWndLR21FMWo0Zmth?=
+ =?utf-8?B?SkV3c3VPS1pUNGhwOE1oTG5ONEUrNlNld3RLY1dnQ1NYa3VSTE93UnYvZXNE?=
+ =?utf-8?B?MGdhekhraFM0UjhhK3NSd3E5bjZuNTVEaHhweUhPQ3M5NHFxNHlSSk0yQTVG?=
+ =?utf-8?B?bUhaNWlDbml4K2JBNm1VNERWWCtHYnJNa2FaMDNwZ1pFWVlvK1gyZjEzN0xy?=
+ =?utf-8?B?KzZueXFhaFNVK21rZEtZdU1XNnhJdXViWDRXWi9uUWVtY1c3QkdWaHVnTHhS?=
+ =?utf-8?B?UXREK0YvVTZkelc3TDNCL1J3NkRTSS8wZjAyWEs5Zm4veUxLS1FnMDJwemQ4?=
+ =?utf-8?B?U1lJUTZWbXBBSzNhM2RRNmJSWFphY0RNaHM5VzI1ZFFXZzA5MzdqYjdwSE4w?=
+ =?utf-8?B?TUIyTEEvNkRkUlNDTmFUdjdCNTc1eVJwd0J4TjhNOVdlVlhZcDBNdlVtOGhD?=
+ =?utf-8?B?VnoxZ3RWY2cvRlVLOGl6ejdZUHJ3dUtTSzB4M2NObEd3Q3diaUNIcFgwS0ls?=
+ =?utf-8?B?anJrRERTQWlhRGdTYU1UUktTSEgyd1FEb3ExRlJ0L1ZxZEpKUkdsTWI0YXlB?=
+ =?utf-8?B?ZUphbEl3SHFkYnZNVW1iRXZwUlFjSnNUdzNiQ1lVRHVGaHlWQUpQN3p1Tkln?=
+ =?utf-8?B?ek5kWDFPakFuK3BIYU1DK1B5Nm1qcU9oMmJld2hzcmhrd1psVFNHQUVjRkZX?=
+ =?utf-8?B?eDQwRlJvOFBFTlhTdUljeklOVGFqbTd1WTJpbUhIaHJGdUpMMHkxamdQc1Vz?=
+ =?utf-8?B?Z2FQRUZLem5xRWluQ0FDbWZ2alNoT0haWnM4aWJkQmRPRkhKTUJNa0NoRVpl?=
+ =?utf-8?B?QmRCN2E2dHk4c0QwckxqWFdvcGpBNmI3TFRSV2tUYzZHZjNNZmFKZWY4RlNs?=
+ =?utf-8?B?SVRhb0dzSm13ZDJmb00rekEreE1yVUR5L2lVNzRISVZ2a1dmaDFHOXE4eE5u?=
+ =?utf-8?B?MmN6c3NMZmZXZWpFcGRZalhQWWp4ZWtyZUZqdVFYNzZmZncxSzJNK0trdXpq?=
+ =?utf-8?B?MDd6Ky9pK2I5T2xYU3d4ekxNU2xvUHl0aEtRYWdDSzNGOVJzN25LU1lJKzVO?=
+ =?utf-8?B?YnpsdW1BOGx5b0RhTkp4RU8xRUR6Y1lHbE1majdMTzBDN3UzaU4zazBCdGNT?=
+ =?utf-8?B?N2kxdDVIZmhYSTBhbFZkT0RHcHRBSzdvQm1qK1pWVFVVcGhKei9tYTBFbVVL?=
+ =?utf-8?B?b0dJS3NBeTZYSkpSc0YxR2NhS3AxY1Z5ZHM4dnlKdkpjT1JnWDJMRFJ6WUd0?=
+ =?utf-8?B?aXk4VHV6dzhyMG9JQkVkWnF1NjBBMDk1SENORFJXT3hpMkNzQW9sQT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48b3b6b3-18f4-4be2-5aa0-08dee748bec9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4cc05bfd-b81c-4de9-1e00-08dee748c059
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 16:54:35.8411 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 16:54:38.4726 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l1TsTYq3T1O8xAlixo6iewnCqsRThCaVYdcgyxy3eC7j7L4xh5bLrgDqpdH0AnyBZ1X2VH9bDmNTBqhzVG1RpQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 91/vIx89ToUmh4TpI8fYLZcs7JOTjPEa89dfj/OaguYsrhjZdiY/HBGBCnyWMGCJQW1mqPF+w6DpW+HbcJ0i1g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7878
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -154,319 +154,564 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Previously `register!` defined registers can be used on any untyped I/O
-regions. With all users specifying their desired register type now,
-propagate the specified type and restrict I/O access only when type
-matches.
+Relative registers can be better served by projection to subregion instead
+of ad-hoc handling in register macro. Projection composes better (e.g. it
+natively allows relative registers of relative registers without needing
+additional support).
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/io/register.rs | 111 ++++++++++++++++++---------------------------
- 1 file changed, 45 insertions(+), 66 deletions(-)
+ rust/kernel/io/register.rs | 469 +--------------------------------------------
+ 1 file changed, 3 insertions(+), 466 deletions(-)
 
 diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index b0fcfce36c9c..df47c28ba4f4 100644
+index df47c28ba4f4..88ead1c1874f 100644
 --- a/rust/kernel/io/register.rs
 +++ b/rust/kernel/io/register.rs
-@@ -121,10 +121,11 @@
-     io::IoLoc, //
- };
+@@ -191,78 +191,6 @@ fn offset(self) -> usize {
+     }
+ }
  
--use super::Region;
+-/// Trait providing a base address to be added to the offset of a relative register to obtain
+-/// its actual offset.
+-///
+-/// The `T` generic argument is used to distinguish which base to use, in case a type provides
+-/// several bases. It is given to the `register!` macro to restrict the use of the register to
+-/// implementors of this particular variant.
+-pub trait RegisterBase<T> {
+-    /// Base address to which register offsets are added.
+-    const BASE: usize;
+-}
 -
- /// Trait implemented by all registers.
- pub trait Register: Sized {
-+    /// Base type for this register.
-+    type Base: ?Sized;
-+
-     /// Backing primitive type of the register.
-     type Storage: Into<Self> + From<Self>;
- 
-@@ -139,9 +140,9 @@ pub trait FixedRegister: Register {}
- 
- /// Allows `()` to be used as the `location` parameter of [`Io::write`](super::Io::write) when
- /// passing a [`FixedRegister`] value.
--impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for ()
-+impl<Base: ?Sized, T> IoLoc<Base, T> for ()
- where
--    T: FixedRegister,
-+    T: FixedRegister<Base = Base>,
- {
-     type IoType = T::Storage;
- 
-@@ -153,9 +154,9 @@ fn offset(self) -> usize {
- 
- /// A [`FixedRegister`] carries its location in its type. Thus `FixedRegister` values can be used
- /// as an [`IoLoc`].
--impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for T
-+impl<Base: ?Sized, T> IoLoc<Base, T> for T
- where
--    T: FixedRegister,
-+    T: FixedRegister<Base = Base>,
- {
-     type IoType = T::Storage;
- 
-@@ -178,9 +179,9 @@ pub const fn new() -> Self {
+-/// Trait implemented by all registers that are relative to a base.
+-pub trait WithBase {
+-    /// Family of bases applicable to this register.
+-    type BaseFamily;
+-
+-    /// Returns the absolute location of this type when using `B` as its base.
+-    #[inline(always)]
+-    fn of<B: RegisterBase<Self::BaseFamily>>() -> RelativeRegisterLoc<Self, B>
+-    where
+-        Self: Register,
+-    {
+-        RelativeRegisterLoc::new()
+-    }
+-}
+-
+-/// Trait implemented by relative registers.
+-pub trait RelativeRegister: Register + WithBase {}
+-
+-/// Location of a relative register.
+-///
+-/// This can either be an immediately accessible regular [`RelativeRegister`], or a
+-/// [`RelativeRegisterArray`] that needs one additional resolution through
+-/// [`RelativeRegisterLoc::at`].
+-pub struct RelativeRegisterLoc<T: WithBase, B: ?Sized>(PhantomData<T>, PhantomData<B>);
+-
+-impl<T, B> RelativeRegisterLoc<T, B>
+-where
+-    T: Register + WithBase,
+-    B: RegisterBase<T::BaseFamily> + ?Sized,
+-{
+-    /// Returns the location of a relative register or register array.
+-    #[inline(always)]
+-    // We do not implement `Default` so we can be const.
+-    #[expect(clippy::new_without_default)]
+-    pub const fn new() -> Self {
+-        Self(PhantomData, PhantomData)
+-    }
+-
+-    // Returns the absolute offset of the relative register using base `B`.
+-    //
+-    // This is implemented as a private const method so it can be reused by the [`IoLoc`]
+-    // implementations of both [`RelativeRegisterLoc`] and [`RelativeRegisterArrayLoc`].
+-    #[inline]
+-    const fn offset(self) -> usize {
+-        B::BASE + T::OFFSET
+-    }
+-}
+-
+-impl<SuperBase: ?Sized, T, B> IoLoc<SuperBase, T> for RelativeRegisterLoc<T, B>
+-where
+-    T: RelativeRegister<Base = SuperBase>,
+-    B: RegisterBase<T::BaseFamily> + ?Sized,
+-{
+-    type IoType = T::Storage;
+-
+-    #[inline(always)]
+-    fn offset(self) -> usize {
+-        RelativeRegisterLoc::offset(self)
+-    }
+-}
+-
+ /// Trait implemented by arrays of registers.
+ pub trait RegisterArray: Register {
+     /// Number of elements in the registers array.
+@@ -327,73 +255,6 @@ fn try_at(idx: usize) -> Option<RegisterArrayLoc<Self>>
      }
  }
  
--impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for FixedRegisterLoc<T>
-+impl<Base: ?Sized, T> IoLoc<Base, T> for FixedRegisterLoc<T>
- where
--    T: FixedRegister,
-+    T: FixedRegister<Base = Base>,
- {
-     type IoType = T::Storage;
- 
-@@ -249,9 +250,9 @@ const fn offset(self) -> usize {
-     }
- }
- 
--impl<const SIZE: usize, T, B> IoLoc<Region<SIZE>, T> for RelativeRegisterLoc<T, B>
-+impl<SuperBase: ?Sized, T, B> IoLoc<SuperBase, T> for RelativeRegisterLoc<T, B>
- where
--    T: RelativeRegister,
-+    T: RelativeRegister<Base = SuperBase>,
-     B: RegisterBase<T::BaseFamily> + ?Sized,
- {
-     type IoType = T::Storage;
-@@ -293,9 +294,9 @@ pub fn try_new(idx: usize) -> Option<Self> {
-     }
- }
- 
--impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for RegisterArrayLoc<T>
-+impl<Base: ?Sized, T> IoLoc<Base, T> for RegisterArrayLoc<T>
- where
--    T: RegisterArray,
-+    T: RegisterArray<Base = Base>,
- {
-     type IoType = T::Storage;
- 
-@@ -380,9 +381,9 @@ pub fn try_at(self, idx: usize) -> Option<RelativeRegisterArrayLoc<T, B>> {
-     }
- }
- 
--impl<const SIZE: usize, T, B> IoLoc<Region<SIZE>, T> for RelativeRegisterArrayLoc<T, B>
-+impl<SuperBase: ?Sized, T, B> IoLoc<SuperBase, T> for RelativeRegisterArrayLoc<T, B>
- where
+-/// Trait implemented by arrays of relative registers.
+-pub trait RelativeRegisterArray: RegisterArray + WithBase {}
+-
+-/// Location of a relative array register.
+-pub struct RelativeRegisterArrayLoc<
 -    T: RelativeRegisterArray,
-+    T: RelativeRegisterArray<Base = SuperBase>,
-     B: RegisterBase<T::BaseFamily> + ?Sized,
- {
-     type IoType = T::Storage;
-@@ -408,9 +409,9 @@ pub trait LocatedRegister<Base: ?Sized> {
-     fn into_io_op(self) -> (Self::Location, Self::Value);
- }
- 
--impl<const SIZE: usize, T> LocatedRegister<Region<SIZE>> for T
-+impl<Base: ?Sized, T> LocatedRegister<Base> for T
- where
--    T: FixedRegister,
-+    T: FixedRegister<Base = Base>,
- {
-     type Location = FixedRegisterLoc<Self::Value>;
-     type Value = T;
-@@ -850,37 +851,10 @@ macro_rules! register {
+-    B: RegisterBase<T::BaseFamily> + ?Sized,
+->(RelativeRegisterLoc<T, B>, usize);
+-
+-impl<T, B> RelativeRegisterArrayLoc<T, B>
+-where
+-    T: RelativeRegisterArray,
+-    B: RegisterBase<T::BaseFamily> + ?Sized,
+-{
+-    /// Returns the location of register `T` from the base `B` at index `idx`, with build-time
+-    /// validation.
+-    #[inline(always)]
+-    pub fn new(idx: usize) -> Self {
+-        build_assert!(idx < T::SIZE);
+-
+-        Self(RelativeRegisterLoc::new(), idx)
+-    }
+-
+-    /// Attempts to return the location of register `T` from the base `B` at index `idx`, with
+-    /// runtime validation.
+-    #[inline(always)]
+-    pub fn try_new(idx: usize) -> Option<Self> {
+-        if idx < T::SIZE {
+-            Some(Self(RelativeRegisterLoc::new(), idx))
+-        } else {
+-            None
+-        }
+-    }
+-}
+-
+-/// Methods exclusive to [`RelativeRegisterLoc`]s created with a [`RelativeRegisterArray`].
+-impl<T, B> RelativeRegisterLoc<T, B>
+-where
+-    T: RelativeRegisterArray,
+-    B: RegisterBase<T::BaseFamily> + ?Sized,
+-{
+-    /// Returns the location of the register at position `idx`, with build-time validation.
+-    #[inline(always)]
+-    pub fn at(self, idx: usize) -> RelativeRegisterArrayLoc<T, B> {
+-        RelativeRegisterArrayLoc::new(idx)
+-    }
+-
+-    /// Returns the location of the register at position `idx`, with runtime validation.
+-    #[inline(always)]
+-    pub fn try_at(self, idx: usize) -> Option<RelativeRegisterArrayLoc<T, B>> {
+-        RelativeRegisterArrayLoc::try_new(idx)
+-    }
+-}
+-
+-impl<SuperBase: ?Sized, T, B> IoLoc<SuperBase, T> for RelativeRegisterArrayLoc<T, B>
+-where
+-    T: RelativeRegisterArray<Base = SuperBase>,
+-    B: RegisterBase<T::BaseFamily> + ?Sized,
+-{
+-    type IoType = T::Storage;
+-
+-    #[inline(always)]
+-    fn offset(self) -> usize {
+-        self.0.offset() + self.1 * T::STRIDE
+-    }
+-}
+-
+ /// Trait implemented by items that contain both a register value and the absolute I/O location at
+ /// which to write it.
+ ///
+@@ -428,8 +289,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
+ /// This documentation focuses on how to declare registers. See the [module-level
+ /// documentation](mod@kernel::io::register) for examples of how to access them.
+ ///
+-/// There are 4 possible kinds of registers: fixed offset registers, relative registers, arrays of
+-/// registers, and relative arrays of registers.
++/// Registers can either be fixed offset registers or arrays of registers.
+ ///
+ /// ## Fixed offset registers
+ ///
+@@ -514,122 +374,6 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
+ /// In this example, `SCRATCH_BOOT_STATUS` uses the same I/O address as `SCRATCH`, while providing
+ /// its own `completed` field.
+ ///
+-/// ## Relative registers
+-///
+-/// Relative registers can be instantiated several times at a relative offset of a group of bases.
+-/// For instance, imagine the following I/O space:
+-///
+-/// ```text
+-///           +-----------------------------+
+-///           |             ...             |
+-///           |                             |
+-///  0x100--->+------------CPU0-------------+
+-///           |                             |
+-///  0x110--->+-----------------------------+
+-///           |           CPU_CTL           |
+-///           +-----------------------------+
+-///           |             ...             |
+-///           |                             |
+-///           |                             |
+-///  0x200--->+------------CPU1-------------+
+-///           |                             |
+-///  0x210--->+-----------------------------+
+-///           |           CPU_CTL           |
+-///           +-----------------------------+
+-///           |             ...             |
+-///           +-----------------------------+
+-/// ```
+-///
+-/// `CPU0` and `CPU1` both have a `CPU_CTL` register that starts at offset `0x10` of their I/O
+-/// space segment. Since both instances of `CPU_CTL` share the same layout, we don't want to define
+-/// them twice and would prefer a way to select which one to use from a single definition.
+-///
+-/// This can be done using the `Base + Offset` syntax when specifying the register's address:
+-///
+-/// ```ignore
+-/// register! {
+-///     ...
+-///     pub RELATIVE_REG(u32) @ Base + 0x80 {
+-///         ...
+-///     }
+-/// }
+-/// ```
+-///
+-/// This creates a register with an offset of `0x80` from a given base.
+-///
+-/// `Base` is an arbitrary type (typically a ZST) to be used as a generic parameter of the
+-/// [`RegisterBase`] trait to provide the base as a constant, i.e. each type providing a base for
+-/// this register needs to implement `RegisterBase<Base>`.
+-///
+-/// The location of relative registers can be built using the [`WithBase::of`] method to specify
+-/// its base. All relative registers implement [`WithBase`].
+-///
+-/// Here is the above layout translated into code:
+-///
+-/// ```no_run
+-/// use kernel::{
+-///     io::{
+-///         register,
+-///         register::{
+-///             RegisterBase,
+-///             WithBase,
+-///         },
+-///         Io,
+-///         Region,
+-///     },
+-/// };
+-/// # use kernel::io::Mmio;
+-///
+-/// // Type used to identify the base.
+-/// pub struct CpuCtlBase;
+-///
+-/// // ZST describing `CPU0`.
+-/// struct Cpu0;
+-/// impl RegisterBase<CpuCtlBase> for Cpu0 {
+-///     const BASE: usize = 0x100;
+-/// }
+-///
+-/// // ZST describing `CPU1`.
+-/// struct Cpu1;
+-/// impl RegisterBase<CpuCtlBase> for Cpu1 {
+-///     const BASE: usize = 0x200;
+-/// }
+-///
+-/// // This makes `CPU_CTL` accessible from all implementors of `RegisterBase<CpuCtlBase>`.
+-/// register! {
+-///     base: Region<0x1000>;
+-///
+-///     /// CPU core control.
+-///     pub CPU_CTL(u32) @ CpuCtlBase + 0x10 {
+-///         0:0 start;
+-///     }
+-/// }
+-///
+-/// # fn test(io: Mmio<'_, Region<0x1000>>) {
+-/// // Read the status of `Cpu0`.
+-/// let cpu0_started = io.read(CPU_CTL::of::<Cpu0>());
+-///
+-/// // Stop `Cpu0`.
+-/// io.write(WithBase::of::<Cpu0>(), CPU_CTL::zeroed());
+-/// # }
+-///
+-/// // Aliases can also be defined for relative register.
+-/// register! {
+-///     base: Region<0x1000>;
+-///
+-///     /// Alias to CPU core control.
+-///     pub CPU_CTL_ALIAS(u32) => CpuCtlBase + CPU_CTL {
+-///         /// Start the aliased CPU core.
+-///         1:1 alias_start;
+-///     }
+-/// }
+-///
+-/// # fn test2(io: Mmio<'_, Region<0x1000>>) {
+-/// // Start the aliased `CPU0`, leaving its other fields untouched.
+-/// io.update(CPU_CTL_ALIAS::of::<Cpu0>(), |r| r.with_alias_start(true));
+-/// # }
+-/// ```
+-///
+ /// ## Arrays of registers
+ ///
+ /// Some I/O areas contain consecutive registers that share the same field layout. These areas can
+@@ -725,118 +469,6 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
+ /// # Ok(())
+ /// # }
+ /// ```
+-///
+-/// ## Relative arrays of registers
+-///
+-/// Combining the two features described in the sections above, arrays of registers accessible from
+-/// a base can also be defined:
+-///
+-/// ```ignore
+-/// register! {
+-///     ...
+-///     pub RELATIVE_REGISTER_ARRAY(u8)[10, stride = 4] @ Base + 0x100 {
+-///         ...
+-///     }
+-/// }
+-/// ```
+-///
+-/// Like relative registers, they implement the [`WithBase`] trait. However the return value of
+-/// [`WithBase::of`] cannot be used directly as a location and must be further specified using the
+-/// [`at`](RelativeRegisterLoc::at) method.
+-///
+-/// ```no_run
+-/// use kernel::{
+-///     io::{
+-///         register,
+-///         register::{
+-///             RegisterBase,
+-///             WithBase,
+-///         },
+-///         Io,
+-///         Region,
+-///     },
+-/// };
+-/// # use kernel::io::Mmio;
+-/// # fn get_scratch_idx() -> usize {
+-/// #   0x15
+-/// # }
+-///
+-/// // Type used as parameter of `RegisterBase` to specify the base.
+-/// pub struct CpuCtlBase;
+-///
+-/// // ZST describing `CPU0`.
+-/// struct Cpu0;
+-/// impl RegisterBase<CpuCtlBase> for Cpu0 {
+-///     const BASE: usize = 0x100;
+-/// }
+-///
+-/// // ZST describing `CPU1`.
+-/// struct Cpu1;
+-/// impl RegisterBase<CpuCtlBase> for Cpu1 {
+-///     const BASE: usize = 0x200;
+-/// }
+-///
+-/// // 64 per-cpu scratch registers, arranged as a contiguous array.
+-/// register! {
+-///     base: Region<0x1000>;
+-///
+-///     /// Per-CPU scratch registers.
+-///     pub CPU_SCRATCH(u32)[64] @ CpuCtlBase + 0x00000080 {
+-///         31:0 value;
+-///     }
+-/// }
+-///
+-/// # fn test(io: Mmio<'_, Region<0x1000>>) -> Result<(), Error> {
+-/// // Read scratch register 0 of CPU0.
+-/// let scratch = io.read(CPU_SCRATCH::of::<Cpu0>().at(0));
+-///
+-/// // Write the retrieved value into scratch register 15 of CPU1.
+-/// io.write(WithBase::of::<Cpu1>().at(15), scratch);
+-///
+-/// // This won't build.
+-/// // let cpu0_scratch_128 = io.read(CPU_SCRATCH::of::<Cpu0>().at(128)).value();
+-///
+-/// // Runtime-obtained array index.
+-/// let scratch_idx = get_scratch_idx();
+-/// // Access on a runtime index returns an error if it is out-of-bounds.
+-/// let cpu0_scratch = io.read(
+-///     CPU_SCRATCH::of::<Cpu0>().try_at(scratch_idx).ok_or(EINVAL)?
+-/// ).value();
+-/// # Ok(())
+-/// # }
+-///
+-/// // Alias to `SCRATCH[8]` used to convey the firmware exit code.
+-/// register! {
+-///     base: Region<0x1000>;
+-///
+-///     /// Per-CPU firmware exit status code.
+-///     pub CPU_FIRMWARE_STATUS(u32) => CpuCtlBase + CPU_SCRATCH[8] {
+-///         7:0 status;
+-///     }
+-/// }
+-///
+-/// // Non-contiguous relative register arrays can be defined by adding a stride parameter.
+-/// // Here, each of the 16 registers of the array is separated by 8 bytes, meaning that the
+-/// // registers of the two declarations below are interleaved.
+-/// register! {
+-///     base: Region<0x1000>;
+-///
+-///     /// Scratch registers bank 0.
+-///     pub CPU_SCRATCH_INTERLEAVED_0(u32)[16, stride = 8] @ CpuCtlBase + 0x00000d00 {
+-///         31:0 value;
+-///     }
+-///
+-///     /// Scratch registers bank 1.
+-///     pub CPU_SCRATCH_INTERLEAVED_1(u32)[16, stride = 8] @ CpuCtlBase + 0x00000d04 {
+-///         31:0 value;
+-///     }
+-/// }
+-///
+-/// # fn test2(io: Mmio<'_, Region<0x1000>>) -> Result<(), Error> {
+-/// let cpu0_status = io.read(CPU_FIRMWARE_STATUS::of::<Cpu0>()).status();
+-/// # Ok(())
+-/// # }
+-/// ```
+ #[macro_export]
+ macro_rules! register {
+     // Entry point for the macro, allowing multiple registers to be defined in one call.
+@@ -847,7 +479,7 @@ macro_rules! register {
+         $(
+             $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+                 $([ $size:expr $(, stride = $stride:expr)? ])?
+-                $(@ $($base:ident +)? $offset:literal)?
++                $(@ $offset:literal)?
                  $(=> $alias:ident $(+ $alias_offset:ident)? $([$alias_idx:expr])? )?
              { $($fields:tt)* }
          )*
--    ) => {
--        const _: () = {
--            #[allow(unused)]
--            fn test_base(_: &$reg_base) {}
--        };
--
--        $(
--        $crate::register!(
--            @reg $(#[$attr])* $vis $name ($storage) $([$size $(, stride = $stride)?])?
--                $(@ $($base +)? $offset)?
--                $(=> $alias $(+ $alias_offset)? $([$alias_idx])? )?
--            { $($fields)* }
--        );
--        )*
--    };
--
--    // Entry point for the macro, allowing multiple registers to be defined in one call.
--    // It matches all possible register declaration patterns to dispatch them to corresponding
--    // `@reg` rule that defines a single register.
--    (
--        $(
--            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
--                $([ $size:expr $(, stride = $stride:expr)? ])?
--                $(@ $($base:ident +)? $offset:literal)?
--                $(=> $alias:ident $(+ $alias_offset:ident)? $([$alias_idx:expr])? )?
--            { $($fields:tt)* }
--        )*
-     ) => {
+@@ -855,7 +487,7 @@ macro_rules! register {
          $(
          $crate::register!(
--            @reg $(#[$attr])* $vis $name ($storage) $([$size $(, stride = $stride)?])?
-+            @reg [$reg_base] $(#[$attr])* $vis $name ($storage) $([$size $(, stride = $stride)?])?
-                 $(@ $($base +)? $offset)?
+             @reg [$reg_base] $(#[$attr])* $vis $name ($storage) $([$size $(, stride = $stride)?])?
+-                $(@ $($base +)? $offset)?
++                $(@ $offset)?
                  $(=> $alias $(+ $alias_offset)? $([$alias_idx])? )?
              { $($fields)* }
-@@ -892,22 +866,22 @@ fn test_base(_: &$reg_base) {}
- 
-     // Creates a register at a fixed offset of the MMIO space.
-     (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $offset:literal
-+        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $offset:literal
-             { $($fields:tt)* }
-     ) => {
-         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $name($storage) @ $offset);
-+        $crate::register!(@io_base [$reg_base] $name($storage) @ $offset);
+         );
+@@ -887,30 +519,6 @@ macro_rules! register {
          $crate::register!(@io_fixed $(#[$attr])* $vis $name($storage));
      };
  
-     // Creates an alias register of fixed offset register `alias` with its own fields.
-     (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:ident
-+        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:ident
-             { $($fields:tt)* }
-     ) => {
-         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
-         $crate::register!(
--            @io_base $name($storage) @
-+            @io_base [$reg_base] $name($storage) @
-             <$alias as $crate::io::register::Register>::OFFSET
-         );
-         $crate::register!(@io_fixed $(#[$attr])* $vis $name($storage));
-@@ -915,44 +889,47 @@ fn test_base(_: &$reg_base) {}
- 
-     // Creates a register at a relative offset from a base address provider.
-     (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $base:ident + $offset:literal
-+        @reg [$reg_base:ty]
-+            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $base:ident + $offset:literal
-             { $($fields:tt)* }
-     ) => {
-         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $name($storage) @ $offset);
-+        $crate::register!(@io_base [$reg_base] $name($storage) @ $offset);
-         $crate::register!(@io_relative $vis $name($storage) @ $base);
-     };
- 
-     // Creates an alias register of relative offset register `alias` with its own fields.
-     (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $base:ident + $alias:ident
-+        @reg [$reg_base:ty]
-+            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $base:ident + $alias:ident
-             { $($fields:tt)* }
-     ) => {
-         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(
--            @io_base $name($storage) @ <$alias as $crate::io::register::Register>::OFFSET
-+        $crate::register!(@io_base [$reg_base]
-+            $name($storage) @ <$alias as $crate::io::register::Register>::OFFSET
-         );
-         $crate::register!(@io_relative $vis $name($storage) @ $base);
-     };
- 
+-    // Creates a register at a relative offset from a base address provider.
+-    (
+-        @reg [$reg_base:ty]
+-            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $base:ident + $offset:literal
+-            { $($fields:tt)* }
+-    ) => {
+-        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+-        $crate::register!(@io_base [$reg_base] $name($storage) @ $offset);
+-        $crate::register!(@io_relative $vis $name($storage) @ $base);
+-    };
+-
+-    // Creates an alias register of relative offset register `alias` with its own fields.
+-    (
+-        @reg [$reg_base:ty]
+-            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $base:ident + $alias:ident
+-            { $($fields:tt)* }
+-    ) => {
+-        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+-        $crate::register!(@io_base [$reg_base]
+-            $name($storage) @ <$alias as $crate::io::register::Register>::OFFSET
+-        );
+-        $crate::register!(@io_relative $vis $name($storage) @ $base);
+-    };
+-
      // Creates an array of registers at a fixed offset of the MMIO space.
      (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
-+        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
-             [ $size:expr, stride = $stride:expr ] @ $offset:literal { $($fields:tt)* }
-     ) => {
-         $crate::build_assert::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
- 
-         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $name($storage) @ $offset);
-+        $crate::register!(@io_base [$reg_base] $name($storage) @ $offset);
-         $crate::register!(@io_array $vis $name($storage) [ $size, stride = $stride ]);
+         @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+@@ -954,51 +562,6 @@ macro_rules! register {
+         $crate::register!(@io_fixed $(#[$attr])* $vis $name($storage));
      };
  
-     // Shortcut for contiguous array of registers (stride == size of element).
-     (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $size:expr ] @ $offset:literal
-+        @reg [$reg_base:ty]
-+            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $size:expr ] @ $offset:literal
-             { $($fields:tt)* }
-     ) => {
+-    // Creates an array of registers at a relative offset from a base address provider.
+-    (
+-        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+-            [ $size:expr, stride = $stride:expr ]
+-            @ $base:ident + $offset:literal { $($fields:tt)* }
+-    ) => {
+-        $crate::build_assert::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
+-
+-        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+-        $crate::register!(@io_base [$reg_base] $name($storage) @ $offset);
 -        $crate::register!(
-+        $crate::register!(@reg [$reg_base]
-             $(#[$attr])* $vis $name($storage) [ $size, stride = ::core::mem::size_of::<$storage>() ]
-                 @ $offset { $($fields)* }
-         );
-@@ -960,7 +937,8 @@ fn test_base(_: &$reg_base) {}
- 
-     // Creates an alias of register `idx` of array of registers `alias` with its own fields.
-     (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:ident [ $idx:expr ]
-+        @reg [$reg_base:ty]
-+            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:ident [ $idx:expr ]
-             { $($fields:tt)* }
-     ) => {
-         $crate::build_assert::static_assert!(
-@@ -969,7 +947,7 @@ fn test_base(_: &$reg_base) {}
- 
-         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
-         $crate::register!(
--            @io_base $name($storage) @
-+            @io_base [$reg_base] $name($storage) @
-             <$alias as $crate::io::register::Register>::OFFSET
-                 + $idx * <$alias as $crate::io::register::RegisterArray>::STRIDE
-         );
-@@ -978,14 +956,14 @@ fn test_base(_: &$reg_base) {}
- 
-     // Creates an array of registers at a relative offset from a base address provider.
-     (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
-+        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
-             [ $size:expr, stride = $stride:expr ]
-             @ $base:ident + $offset:literal { $($fields:tt)* }
-     ) => {
-         $crate::build_assert::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
- 
-         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $name($storage) @ $offset);
-+        $crate::register!(@io_base [$reg_base] $name($storage) @ $offset);
-         $crate::register!(
-             @io_relative_array $vis $name($storage) [ $size, stride = $stride ] @ $base + $offset
-         );
-@@ -993,10 +971,10 @@ fn test_base(_: &$reg_base) {}
- 
-     // Shortcut for contiguous array of relative registers (stride == size of element).
-     (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $size:expr ]
-+        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $size:expr ]
-             @ $base:ident + $offset:literal { $($fields:tt)* }
-     ) => {
+-            @io_relative_array $vis $name($storage) [ $size, stride = $stride ] @ $base + $offset
+-        );
+-    };
+-
+-    // Shortcut for contiguous array of relative registers (stride == size of element).
+-    (
+-        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $size:expr ]
+-            @ $base:ident + $offset:literal { $($fields:tt)* }
+-    ) => {
+-        $crate::register!(@reg [$reg_base]
+-            $(#[$attr])* $vis $name($storage) [ $size, stride = ::core::mem::size_of::<$storage>() ]
+-                @ $base + $offset { $($fields)* }
+-        );
+-    };
+-
+-    // Creates an alias of register `idx` of relative array of registers `alias` with its own
+-    // fields.
+-    (
+-        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+-            => $base:ident + $alias:ident [ $idx:expr ] { $($fields:tt)* }
+-    ) => {
+-        $crate::build_assert::static_assert!(
+-            $idx < <$alias as $crate::io::register::RegisterArray>::SIZE
+-        );
+-
+-        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
 -        $crate::register!(
-+        $crate::register!(@reg [$reg_base]
-             $(#[$attr])* $vis $name($storage) [ $size, stride = ::core::mem::size_of::<$storage>() ]
-                 @ $base + $offset { $($fields)* }
-         );
-@@ -1005,7 +983,7 @@ fn test_base(_: &$reg_base) {}
-     // Creates an alias of register `idx` of relative array of registers `alias` with its own
-     // fields.
-     (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
-+        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
-             => $base:ident + $alias:ident [ $idx:expr ] { $($fields:tt)* }
-     ) => {
-         $crate::build_assert::static_assert!(
-@@ -1014,7 +992,7 @@ fn test_base(_: &$reg_base) {}
- 
-         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
-         $crate::register!(
--            @io_base $name($storage) @
-+            @io_base [$reg_base] $name($storage) @
-                 <$alias as $crate::io::register::Register>::OFFSET +
-                 $idx * <$alias as $crate::io::register::RegisterArray>::STRIDE
-         );
-@@ -1035,8 +1013,9 @@ fn test_base(_: &$reg_base) {}
+-            @io_base [$reg_base] $name($storage) @
+-                <$alias as $crate::io::register::Register>::OFFSET +
+-                $idx * <$alias as $crate::io::register::RegisterArray>::STRIDE
+-        );
+-        $crate::register!(@io_relative $vis $name($storage) @ $base);
+-    };
+-
+     // Generates the bitfield for the register.
+     //
+     // `#[allow(non_camel_case_types)]` is added since register names typically use
+@@ -1031,15 +594,6 @@ impl $crate::io::register::FixedRegister for $name {}
+             $crate::io::register::FixedRegisterLoc::<$name>::new();
      };
  
-     // Implementations shared by all registers types.
--    (@io_base $name:ident($storage:ty) @ $offset:expr) => {
-+    (@io_base [$reg_base:ty] $name:ident($storage:ty) @ $offset:expr) => {
-         impl $crate::io::register::Register for $name {
-+            type Base = $reg_base;
-             type Storage = $storage;
- 
-             const OFFSET: usize = $offset;
+-    // Implementations of relative registers.
+-    (@io_relative $vis:vis $name:ident ($storage:ty) @ $base:ident) => {
+-        impl $crate::io::register::WithBase for $name {
+-            type BaseFamily = $base;
+-        }
+-
+-        impl $crate::io::register::RelativeRegister for $name {}
+-    };
+-
+     // Implementations of register arrays.
+     (@io_array $vis:vis $name:ident ($storage:ty) [ $size:expr, stride = $stride:expr ]) => {
+         impl $crate::io::register::Array for $name {}
+@@ -1049,21 +603,4 @@ impl $crate::io::register::RegisterArray for $name {
+             const STRIDE: usize = $stride;
+         }
+     };
+-
+-    // Implementations of relative array registers.
+-    (
+-        @io_relative_array $vis:vis $name:ident ($storage:ty) [ $size:expr, stride = $stride:expr ]
+-            @ $base:ident + $offset:literal
+-    ) => {
+-        impl $crate::io::register::WithBase for $name {
+-            type BaseFamily = $base;
+-        }
+-
+-        impl $crate::io::register::RegisterArray for $name {
+-            const SIZE: usize = $size;
+-            const STRIDE: usize = $stride;
+-        }
+-
+-        impl $crate::io::register::RelativeRegisterArray for $name {}
+-    };
+ }
 
 -- 
 2.54.0
