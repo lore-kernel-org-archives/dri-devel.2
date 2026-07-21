@@ -4,74 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22359C44537
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:57:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7355BC4452B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:57:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50E0310EB63;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 471D310EB62;
 	Tue, 21 Jul 2026 20:57:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MVlz2HPu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KKyqxjLt";
 	dkim-atps=neutral
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
- [209.85.210.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B94710EB56
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:57:34 +0000 (UTC)
-Received: by mail-ot1-f53.google.com with SMTP id
- 46e09a7af769-7ea9c6ea7deso721247a34.3
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:57:34 -0700 (PDT)
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E23E510EB45
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:57:40 +0000 (UTC)
+Received: by mail-ot1-f41.google.com with SMTP id
+ 46e09a7af769-7e9f5637634so5328215a34.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:57:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784667453; x=1785272253; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784667460; x=1785272260; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=l/mBb0fGCUwSIYa5j0WOJP7wxrKLNvtiy/Z40bYPFTI=;
- b=MVlz2HPuvGbBRJ5pr3xtLun90tBdEREvQ9VNGfts+kILm9tkfDNmyD1VTT5z5iK4u1
- NnjZf8VzzjymwnRpiN7MZw5v6YxzFC9O55uybn430npVfF8EosB3/mk5XmXiv7lGdV7g
- VIutqq3UGO2Ee2aLWGmvV6BELlG8p8vyETjVqAA14p38oEgHHAaAYeEofw51gYTJdzCd
- eOo4c44Z36rvkCbLxHxsJEE0762sZB6hd6yrNzpnxy31/yC1pIfTGHEJSkrLNomjF0JT
- rDWFWvm3+YNdRPaCsldHJzU+lc7sa439fIlEl+eFCVV41exZi5v41czpm5FiTCeEOQKe
- O8/g==
+ bh=+p5X+L3EjbioL7qooa7mEhosDjVvQif2b67bG9XXJTw=;
+ b=KKyqxjLtjoMttUO3+rxvLXwSwrGaw9CROAlQ5JnG1vY/DkT9i0wFcvlUhSJsFzJIjI
+ 5r2xjSVx5DjZiLlT4CMXDsZCvoxgzDVkHbI4hiAfVF7qbKJqSCjNbSn6xeSd59awLJID
+ L/EGXz8voZI7GaxsTAQeAyWP3+madRjf5/0hGnv7uR5dqY04isSHSkwBt4ErJaeLK4SM
+ DWtpBemjTyCAPa/LBaS43JMdo0BhKhfukpvBsR6/13tavAYClsjhg6NK8ccflqJ0MgM9
+ 4OmfqRs+CQjSi3I5NVq8NI5c8dLRMVxiaP6v2UY6zB0pPYwxyWOuLNseQopVsh/fZ3jb
+ 3ZHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784667453; x=1785272253;
+ d=1e100.net; s=20251104; t=1784667460; x=1785272260;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=l/mBb0fGCUwSIYa5j0WOJP7wxrKLNvtiy/Z40bYPFTI=;
- b=XHhWk3Q4rSfgMU0m3gTN7YKcFx+rVJZ2ujG5jJqvPkUeuMvitggeEGD6jlslQzX3az
- /TwqKqQeg7ccyReorlRbo3rtDg1Te07O8xbffHmBc1JoauYsyqbb9GzWQBZqwTQo22ko
- yDtFkQI5C9waU+RMG8yYQmvsLbuFTVYmXLoXbL+USyjBjvDWXaxFDAEezAu1u1pryIL6
- ZJ9QLoppHfgOR/tQtCNo9NI2Osh7gJ4VPjGLKF8EmTx58xfFpZdfR6M8Mjfe2S3oHP3H
- cm7YrVWbaoewX5+t7Ibgwh04yCjiFqRJ7qBfiS9qlFEBNSudg6S0IRD3Yg8yvrE0Z0ZE
- E2Qg==
+ bh=+p5X+L3EjbioL7qooa7mEhosDjVvQif2b67bG9XXJTw=;
+ b=juJltCwN52dWqO9TlzkFNcfMKzCzZZW5BlmZAiRi4GeoI98Lfbh3eQ9SobaOGB+YQJ
+ da+AQkrTx817xNJ3kPAR4TEYE9OnDwYrW3gwh3sCDkLCcEGM2mxur6TrzjXBD0Q/ijQz
+ PqKm7lmhFWHamdez05/dy4JMFl6XL2WjA5R+TUcb8nr6fAmf8wdu4PnaKl9CEd5LNaeh
+ KoYNW4sHqMe5TRIEgj4IqeBE00FlPd3csci+ABXa7B+v8OuNNIgMZBy8RVDLV5cWRQnF
+ 4cQYtqzSysVC6DqUDGK2mNzqyvDkEfl+m4SdBb0UNYRP7iveq8bUVBafE26ipllgXZrC
+ xQdQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rr5VsA5WpQNpwSz4Cn8ONSexZDKm94eT2nvdyMR6puotf+u/Jj2Okt+6xDLt0q3eupnhyUUfjJ7/Cw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzh9QVSIcWMV6d9LHg7OwSxCQcD53GsjySoLhUMERLMQbvh5hLG
- 0q8OCXm9XLQSiMJ0fhayVSOwAdSn+WT24qWmVmVLxM0tbe6F55ep6psR
-X-Gm-Gg: AfdE7clJZOlt6xCjARNHHz+gZ/OYu7utYsVqxW4uSfjztZo2ppYpgOLo4T3U4dShmrb
- yE7M5JFa6kgaebDC0d7grAhDnftjOopL+BkGRchCF9HEXHBCSYDY7P1n2mHWB6qLPCMBkwknPRC
- i9JoOEHi/w+l0VBhsGWNAEXaUojJBAeiSDY4+sO11xzh125O2gPPmxxYuX+RP3/MNvTuAXgWpRR
- j2WMO6kNUeZmDKiX8zSRaLMP+v1aWrHfJHJLvC+/P3yYo6TJ4vTajIwkQX1qYbPDRZrOKkuzR17
- S5z4yYanP46SeKLoQHCvtz6xucfPlqMF7iYAFwDnCY+4UtBh3+FS6CUlLRWCrD6XWPjSx/4AU/+
- FG36E5xREyNabBlRrC4YRs4eQoDiImuAMXAulNHT+VFZM+2P3gb6Ap0N3pDEDhDjiOhN2x8k595
- pCHPTSzIEK0l3BLbWZQNKRU+rBQosIEDBAzo+8ah5MsJEHimPzHeSanqUaxG2+BfqSer76tpZQy
- HZS3QYH0AlP7CPMjIsJ3YGIzA==
-X-Received: by 2002:a05:6830:7002:b0:7e9:e82e:e683 with SMTP id
- 46e09a7af769-7eda08ab141mr11477690a34.7.1784667453210; 
- Tue, 21 Jul 2026 13:57:33 -0700 (PDT)
+ AHgh+RrK3eWx275lpTCYR9pvwBVKzYoozUAG4wJYgT8P6UtMFssTLJX2Edu4KN/xdSdr9EVA4BjVU7U2gZc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwLe++aoUlM+7uULUI7lkuuu+/umLV9FMEO5ZIgz3JXkXHcV5WN
+ qx2b5W9EOuHbjsyToodGPfT+lr4ZouCUnivveVT+ZXo8lF2THGETzg2R
+X-Gm-Gg: AfdE7cnxrBxiofwLuZ8EWzKSbrWs7NeUGY3rnjV25fL1w2YH8cr8bnSQlIW1IBz9+KH
+ 4fgSulZfv0yYw2I9wDeeZlsB3UdcZvZEU1N5bQ2AcHGXkhH4ZyGTmGKp2+tIglPr7JbTWEL2EbV
+ TrIVMA11XYLotTYkjtSrvAs2fiSwLQcK3K4mwmezzt8iP5MyvrQ2HwdTlJazLdOUktWSoyl3Emo
+ ioW0oLvcCUYYGW/68TR6V0q++T35OdlR6gDBigxTnmLwbsy03YCouZemjmVqoiWR6yOUy+LlgKt
+ GfHtmV5rosfrgUuOiccQlljNcsracpc/iwQvG1b94rClGihmC1ldsU39X+/swPYUar60VCPyCTc
+ eCUuhgrY34VdzvDvNZk7x4dcGznL44Xmz39McUx+AT9RU3+yg6teAUQ9MIGPiKAmHSzrJGvmTTe
+ VCScoR9CDZO8sYGJkcOuxz5R/XSwLfxuljRoFPAfMREmNLvL+EH6G0RBUzhCebJB4Xtr+hrjX8E
+ 4k/RQaUaPuDrWMNNy6jLXnn3N1Qr5lJQd4F
+X-Received: by 2002:a05:6830:82f9:b0:7e7:9493:dc3e with SMTP id
+ 46e09a7af769-7ed9a7c8739mr11870689a34.3.1784667460037; 
+ Tue, 21 Jul 2026 13:57:40 -0700 (PDT)
 Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
  [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 46e09a7af769-7edaf94a494sm11134501a34.13.2026.07.21.13.57.32
+ 46e09a7af769-7edaf94a494sm11134501a34.13.2026.07.21.13.57.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 13:57:32 -0700 (PDT)
+ Tue, 21 Jul 2026 13:57:39 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Tue, 21 Jul 2026 14:57:07 -0600
-Subject: [PATCH v7 18/29] lib/parser: add match_wildcard_hyphen() for
- agnostic matching
+Date: Tue, 21 Jul 2026 14:57:13 -0600
+Subject: [PATCH v7 24/29] dyndbg: pin class param storage to u32
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-dd-maint-2-v7-18-010fbe73b311@gmail.com>
+Message-Id: <20260721-dd-maint-2-v7-24-010fbe73b311@gmail.com>
 References: <20260721-dd-maint-2-v7-0-010fbe73b311@gmail.com>
 In-Reply-To: <20260721-dd-maint-2-v7-0-010fbe73b311@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -84,11 +83,11 @@ Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-modules@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784667429; l=4222;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784667429; l=8797;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=cOvO6sx3YqLFd3U+lr49fTx42/CUMz8iaG20o06tc/Q=;
- b=omQ27F1Lj0I+8IXmB8JTu88Ef5LiDN+J0UVCbq+/MPKcMkHoSyEhHezbJpnSU+hYg3ip/fEgR
- mO3/oDXWNBOCjLYtJlHFX2MGwd1O38pZNZduH0FaAyqjqod07vIJjkT
+ bh=BtFsC+jRskmZ8tfG9qnjayxmfaGyCVjq2KP62L8Dag4=;
+ b=4GpRc/YRaQOF4YUBudCYDobWKAM8Je51zKZLAjGKWsCnI5OmG3Z5x+YHr902gLK1NW1lRcch7
+ ya8AwUg3JqeD28rAqleKBCQrsslpGG0C4CxFaeRhjhh75qve5HFzuaR
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -106,126 +105,237 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This commit introduces match_wildcard_hyphen() as a variant of the
-existing match_wildcard() function. It treats hyphens and underscores
-as identical characters during the matching process.
+Currently, `struct ddebug_class_param` uses pointers to `unsigned
+long` values which store the state of `bits` and `lvl`, so it changes
+sizes depending upon the architecture.  Make it always u32 for
+consistency.
 
-This is necessary for subsystems like dynamic_debug that need to match
-module names provided by users (who often use underscores) against
-names stored in the kernel (which may use hyphens, especially when
-using KBUILD_MODFILE for built-ins).
+The bits field references __drm_debug, which was unsigned int, before
+commit f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+changed it to unsigned long.  This patch changes it back.
 
-To avoid code duplication, the core logic is refactored into a private
-__match_wildcard() function marked as __always_inline. This allows the
-compiler to generate optimized versions for both the strict and agnostic
-callsites with zero runtime overhead.
+That enlargement was a thinko; although modules can have up to 63
+classes, and *could* have all those classes in a single classmap, the
+real reason is to support multiple classmaps (with non-overlapping
+class-id ranges).
+
+32 bits is a practical limit for a class-param's usability since all
+classes are set together with a single write of a hex value; 16 would
+be a realistic limit, drm.debug has ~12 classes.
+
+  #> echo 0x0fff > /sys/module/drm/parameters/debug
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-v5: move ahead of array-slice patch to silence sashiko complaint about it
-v4: initial version
----
- include/linux/parser.h |  1 +
- lib/parser.c           | 58 +++++++++++++++++++++++++++++++++++++-------------
- 2 files changed, 44 insertions(+), 15 deletions(-)
+v5: u32 for all arches
+v4: undo change struct ddebug_class_param to _ddebug_class_param
 
-diff --git a/include/linux/parser.h b/include/linux/parser.h
-index dd79f45a37b8..a3cc7bc5fb93 100644
---- a/include/linux/parser.h
-+++ b/include/linux/parser.h
-@@ -34,6 +34,7 @@ int match_u64(substring_t *, u64 *result);
- int match_octal(substring_t *, int *result);
- int match_hex(substring_t *, int *result);
- bool match_wildcard(const char *pattern, const char *str);
-+bool match_wildcard_hyphen(const char *pattern, const char *str);
- size_t match_strlcpy(char *, const substring_t *, size_t);
- char *match_strdup(const substring_t *);
+v3:
+fix undefd behavior when classmaps is all 64 bits.
+change module_param_named( type-arg from ulong to ullong)
+change struct ddebug_class_param to _ddebug_class_param
+
+in drivers/gpu/drm/drm_print.{c,h}
+api change later
+
+v2:
+
+patch was "make bits & lvl same size"
+but that size was unsigned long, only 32 bits on i386 etc
+use u64 for all bits, and %llu %llx
+
+u64-fix
+
+u64-drm-dbg
+---
+ drivers/gpu/drm/drm_print.c   |  4 ++--
+ include/drm/drm_print.h       |  2 +-
+ include/linux/dynamic_debug.h |  4 ++--
+ lib/dynamic_debug.c           | 35 +++++++++++++++++++----------------
+ lib/test_dynamic_debug.c      |  2 +-
+ 5 files changed, 25 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index ac0288dabfc0..0a4091807722 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -40,7 +40,7 @@
+  * __drm_debug: Enable debug output.
+  * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
+  */
+-unsigned long __drm_debug;
++u32 __drm_debug;
+ EXPORT_SYMBOL(__drm_debug);
  
-diff --git a/lib/parser.c b/lib/parser.c
-index 62da0ac0d438..d5be01fa9adf 100644
---- a/lib/parser.c
-+++ b/lib/parser.c
-@@ -268,20 +268,13 @@ int match_hex(substring_t *s, int *result)
- }
- EXPORT_SYMBOL(match_hex);
+ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
+@@ -54,7 +54,7 @@ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug cat
+ "\t\tBit 8 (0x100) will enable DP messages (displayport code)");
  
--/**
-- * match_wildcard - parse if a string matches given wildcard pattern
-- * @pattern: wildcard pattern
-- * @str: the string to be parsed
-- *
-- * Description: Parse the string @str to check if matches wildcard
-- * pattern @pattern. The pattern may contain two types of wildcards:
-- *
-- * * '*' - matches zero or more characters
-- * * '?' - matches one character
-- *
-- * Return: If the @str matches the @pattern, return true, else return false.
-- */
--bool match_wildcard(const char *pattern, const char *str)
-+static inline char dash2underscore(char c)
-+{
-+	return (c == '-') ? '_' : c;
-+}
-+
-+static __always_inline bool __match_wildcard(const char *pattern, const char *str,
-+					     bool hyphen_agnostic)
- {
- 	const char *s = str;
- 	const char *p = pattern;
-@@ -301,7 +294,9 @@ bool match_wildcard(const char *pattern, const char *str)
- 			pattern = p;
- 			break;
- 		default:
--			if (*s == *p) {
-+			if (hyphen_agnostic ?
-+			    (dash2underscore(*s) == dash2underscore(*p)) :
-+			    (*s == *p)) {
- 				s++;
- 				p++;
- 			} else {
-@@ -319,8 +314,41 @@ bool match_wildcard(const char *pattern, const char *str)
- 		++p;
- 	return !*p;
- }
-+
-+/**
-+ * match_wildcard - parse if a string matches given wildcard pattern
-+ * @pattern: wildcard pattern
-+ * @str: the string to be parsed
-+ *
-+ * Description: Parse the string @str to check if matches wildcard
-+ * pattern @pattern. The pattern may contain two types of wildcards:
-+ *
-+ * * '*' - matches zero or more characters
-+ * * '?' - matches one character
-+ *
-+ * Return: If the @str matches the @pattern, return true, else return false.
-+ */
-+bool match_wildcard(const char *pattern, const char *str)
-+{
-+	return __match_wildcard(pattern, str, false);
-+}
- EXPORT_SYMBOL(match_wildcard);
+ #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+-module_param_named(debug, __drm_debug, ulong, 0600);
++module_param_named(debug, __drm_debug, uint, 0600);
+ #else
+ /* classnames must match vals of enum drm_debug_category */
+ DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index ab017b05e175..ed7ce7d7b74c 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -39,7 +39,7 @@ struct drm_device;
+ struct seq_file;
  
-+/**
-+ * match_wildcard_hyphen - parse if a string matches given wildcard pattern
-+ * @pattern: wildcard pattern
-+ * @str: the string to be parsed
-+ *
-+ * Description: Same as match_wildcard, but treats '-' and '_' as identical.
-+ *
-+ * Return: If the @str matches the @pattern, return true, else return false.
-+ */
-+bool match_wildcard_hyphen(const char *pattern, const char *str)
-+{
-+	return __match_wildcard(pattern, str, true);
-+}
-+EXPORT_SYMBOL(match_wildcard_hyphen);
-+
+ /* Do *not* use outside of drm_print.[ch]! */
+-extern unsigned long __drm_debug;
++extern u32 __drm_debug;
+ 
  /**
-  * match_strlcpy - Copy the characters from a substring_t to a sized buffer
-  * @dest: where to copy to
+  * DOC: print
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 5e484862f814..7aff85bd145e 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -105,8 +105,8 @@ struct _ddebug_info {
+ 
+ struct ddebug_class_param {
+ 	union {
+-		unsigned long *bits;
+-		unsigned int *lvl;
++		u32 *bits;
++		u32 *lvl;
+ 	};
+ 	char flags[8];
+ 	const struct ddebug_class_map *map;
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 59e3c0eccbed..60b67face46e 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -582,6 +582,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 		pr_err("query parse failed\n");
+ 		return -EINVAL;
+ 	}
++
+ 	/* actually go and implement the change */
+ 	nfound = ddebug_change(&query, &modifiers);
+ 	v3pr_info_dq(&query, nfound ? "applied" : "no-match");
+@@ -632,8 +633,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ 
+ /* apply a new class-param setting */
+ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+-				     const unsigned long *new_bits,
+-				     const unsigned long old_bits,
++				     const u32 *new_bits, const u32 old_bits,
+ 				     const char *query_modname)
+ {
+ #define QUERY_SIZE 128
+@@ -643,24 +643,27 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 	int bi, ct;
+ 
+ 	if (*new_bits != old_bits)
+-		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++		v2pr_info("apply bitmap: 0x%x to: 0x%x for %s\n", *new_bits,
+ 			  old_bits, query_modname ?: "'*'");
+ 
+ 	for (bi = 0; bi < map->length; bi++) {
+-		if (test_bit(bi, new_bits) == test_bit(bi, &old_bits))
++		bool new_b = !!(*new_bits & BIT(bi));
++		bool old_b = !!(old_bits & BIT(bi));
++
++		if (new_b == old_b)
+ 			continue;
+ 
+ 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
+-			 test_bit(bi, new_bits) ? '+' : '-', dcp->flags);
++			 new_b ? '+' : '-', dcp->flags);
+ 
+ 		ct = ddebug_exec_queries(query, query_modname);
+ 		matches += ct;
+ 
+-		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
++		v2pr_info("bit_%d: %d matches on class: %s -> 0x%x\n", bi,
+ 			  ct, map->class_names[bi], *new_bits);
+ 	}
+ 	if (*new_bits != old_bits)
+-		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++		v2pr_info("applied bitmap: 0x%x to: 0x%x for %s\n", *new_bits,
+ 			  old_bits, query_modname ?: "'*'");
+ 
+ 	return matches;
+@@ -669,7 +672,7 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ /* stub to later conditionally add "$module." prefix where not already done */
+ #define KP_NAME(kp)	kp->name
+ 
+-#define CLASSMAP_BITMASK(width) ((1UL << (width)) - 1)
++#define CLASSMAP_BITMASK(width) ((width) >= 32 ? ~0U : (1U << (width)) - 1)
+ 
+ /**
+  * param_set_dyndbg_classes - class FOO >control
+@@ -689,10 +692,10 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ {
+ 	const struct ddebug_class_param *dcp = kp->arg;
+ 	const struct ddebug_class_map *map = dcp->map;
+-	unsigned long inrep, new_bits, old_bits;
++	u32 inrep, new_bits, old_bits;
+ 	int rc, totct = 0;
+ 
+-	rc = kstrtoul(instr, 0, &inrep);
++	rc = kstrtou32(instr, 0, &inrep);
+ 	if (rc) {
+ 		int len = strcspn(instr, "\n");
+ 
+@@ -705,24 +708,24 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ 	case DD_CLASS_TYPE_DISJOINT_BITS:
+ 		/* expect bits. mask and warn if too many */
+ 		if (inrep & ~CLASSMAP_BITMASK(map->length)) {
+-			pr_warn("%s: input: 0x%lx exceeds mask: 0x%lx, masking\n",
++			pr_warn("%s: input: 0x%x exceeds mask: 0x%x, masking\n",
+ 				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
+ 			inrep &= CLASSMAP_BITMASK(map->length);
+ 		}
+-		v2pr_info("bits:0x%lx > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
++		v2pr_info("bits:0x%x > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
+ 		totct += ddebug_apply_class_bitmap(dcp, &inrep, *dcp->bits, mod_name);
+ 		*dcp->bits = inrep;
+ 		break;
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+ 		/* input is bitpos, of highest verbosity to be enabled */
+ 		if (inrep > map->length) {
+-			pr_warn("%s: level:%ld exceeds max:%d, clamping\n",
++			pr_warn("%s: level:%u exceeds max:%d, clamping\n",
+ 				KP_NAME(kp), inrep, map->length);
+ 			inrep = map->length;
+ 		}
+ 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 		new_bits = CLASSMAP_BITMASK(inrep);
+-		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
++		v2pr_info("lvl:%u bits:0x%x > %s\n", inrep, new_bits, KP_NAME(kp));
+ 		totct += ddebug_apply_class_bitmap(dcp, &new_bits, old_bits, mod_name);
+ 		*dcp->lvl = inrep;
+ 		break;
+@@ -768,9 +771,9 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+ 
+ 	switch (map->map_type) {
+ 	case DD_CLASS_TYPE_DISJOINT_BITS:
+-		return scnprintf(buffer, PAGE_SIZE, "0x%lx\n", *dcp->bits);
++		return scnprintf(buffer, PAGE_SIZE, "0x%x\n", *dcp->bits);
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+-		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
++		return scnprintf(buffer, PAGE_SIZE, "%u\n", *dcp->lvl);
+ 	default:
+ 		return -1;
+ 	}
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index 74d183ebf3e0..9e8e028461ad 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -40,7 +40,7 @@ module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
+  * - tie together sysname, mapname, bitsname, flagsname
+  */
+ #define DD_SYS_WRAP(_model, _flags)					\
+-	static unsigned long bits_##_model;				\
++	static u32 bits_##_model;					\
+ 	static struct ddebug_class_param _flags##_model = {		\
+ 		.bits = &bits_##_model,					\
+ 		.flags = #_flags,					\
 
 -- 
 2.55.0
