@@ -4,53 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5122EC44532
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 15:46:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08AC4C44532
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 15:48:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD10310E387;
-	Tue, 21 Jul 2026 15:46:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21C2410E390;
+	Tue, 21 Jul 2026 15:48:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="BXC5B1ty";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k0P8Jv3+";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3518010E387
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 15:45:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1784648757; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=dcqplijPyjeFh261he/Uf3MIREWRqkkLqWLk8Z7/7eTFFjpZNhing7Z++N0JUBLn9IVFLRlop/1IJIXBu6Ml/yIMQiJqNca+2vMAhqVL6DlmzT1R2OjlUEQXjqfEd3COXXIybCIMzG3BRXNy5iQxFGqk0oNFdd173qIB3sHoHFY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1784648757;
- h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=ZAvQk/6m6DWKl6sT4lq/bUf3KH2u2HC04TgXFYqcg+Y=; 
- b=laeHal/krEnan2RwAPJcIltUoNIsUyOqsq1xsinx6bFjGzerMm014LhNx81y0mRcQD4e+D1ZlW42fi29pmGBoLxS1ybC95GV7yzVzXbQ+SNpwFjOvUrgova53Esxs1diapvFRaHwINmacd7rj2PWm2cTEXQjRQaIMgrchbbblaE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784648757; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
- bh=ZAvQk/6m6DWKl6sT4lq/bUf3KH2u2HC04TgXFYqcg+Y=;
- b=BXC5B1tytGVpelkNTs0JjAUE/y8n+AYT1LZ0LVY337BQfjyAv5m7wywZ+1+oIcZ3
- Up+Xq5xwIDM+cipFPbPG6/cjyqNMOnTni8S+2TIzVbE/pl4aHn/mIU4Az5HoVSRlvpe
- 5UDtnkJtTWHDe+1HM9h6o4Odlu7Uz5MMMVgA05Lo=
-Received: by mx.zohomail.com with SMTPS id 1784648754899218.0162182642406;
- Tue, 21 Jul 2026 08:45:54 -0700 (PDT)
-Message-ID: <025d17ff-b558-422d-b44e-6bd1d005b73c@collabora.com>
-Date: Tue, 21 Jul 2026 17:45:53 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] software_isp: debayer_egl: Re-add log for failing
- DMABuf import
-To: dri-devel@lists.freedesktop.org
-References: <20260721130839.85262-1-robert.mader@collabora.com>
- <87b82d38-fb6a-44ed-abad-e5a3ac9add1e@collabora.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <87b82d38-fb6a-44ed-abad-e5a3ac9add1e@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26D8910E390
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 15:48:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7D16560204;
+ Tue, 21 Jul 2026 15:48:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F073A1F00A3A;
+ Tue, 21 Jul 2026 15:48:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784648924;
+ bh=jf/gmOd/XYNN04eN/025KZlQJap2pGVB+B5WIDpmNaU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=k0P8Jv3+ha5a5fCRxGP3OAuzSuyiUww2AJzNB3QOfeobV/i2+aOO19NtSdQqqTJ+D
+ us+Klpr4JVleMY20baM46OdKj//BqEjSzG4m+g6yWLZHGecqum4HFR1ER859dIPxaE
+ qvsRF65+TUw4vl5N8wstR6oScqTbSU9sDT32ut6kXfpjh4kKZm0uyWCfbNXpgSavX/
+ RJH33357OJtSBTBkOlr/E/rp8q49K0kytYZDx8ROZxlmpNVaalNMrxUWUuj6imiJy0
+ Kwm0BZu7zeWBTn8n+4pAX2AMdKVEAo8TaH88dPr7YxD8V7qX7D3Bwtlr/Qz8IdOp+U
+ FavNsQHFOUCyg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] gpu: nova-core: Move PFB registers definitions
+To: "Antonin Malzieu Ridolfi" <dev@nanonej.com>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
+ "Danilo Krummrich" <dakr@kernel.org>
+In-Reply-To: <20260721-nova-core-regs-split-v1-2-384fa2a42244@nanonej.com>
+References: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
+ <20260721-nova-core-regs-split-v1-2-384fa2a42244@nanonej.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 15:48:43 +0000
+Message-Id: <20260721154843.F073A1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,55 +54,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Uh, I'm sorry, please ignore this message - wrong mailing list 🤦
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Broken rustdoc intra-doc link in `NV_PFB_NISO_FLUSH_SYSMEM_ADDR` do=
+cumentation.
+--
 
-On 21.07.26 17:44, Robert Mader wrote:
-> P.S.: this should also help with testing the CAMSS pipeline handler 
-> (https://patchwork.libcamera.org/cover/27426/), which *should* be able 
-> to accommodate requested strides - and thus always allow dmabuf import 
-> \o/ (I haven't tested that yet, will try ASAP).
->
-> On 21.07.26 15:08, Robert Mader wrote:
->> The log was introduced in commit
->> 93f0db167a8d ("debayer_egl: Implement dmabuf import for input buffers")
->> and dropped in the commit mentioned below. Let's readd it as failing
->> imports majorly impact performance and indicate actionable issues in the
->> V4L2 or GPU drivers. Ensure the log is only printed once, now that we 
->> use
->> multiple eGLImages.
->>
->> Fixes: 13f7b921acdf ("libcamera: software_isp: debayer_egl: Implement 
->> input/output frame caching mechanism")
->> Signed-off-by: Robert Mader <robert.mader@collabora.com>
->> ---
->>   src/libcamera/software_isp/debayer_egl.cpp | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/src/libcamera/software_isp/debayer_egl.cpp 
->> b/src/libcamera/software_isp/debayer_egl.cpp
->> index 02651fe87922..8e0a9b79dfa4 100644
->> --- a/src/libcamera/software_isp/debayer_egl.cpp
->> +++ b/src/libcamera/software_isp/debayer_egl.cpp
->> @@ -533,6 +533,8 @@ eGLImage 
->> *DebayerEGL::getCachedInputFrameBuffer(FrameBuffer *input, std::optiona
->>           if (egl_.createInputDMABufTexture2D(*eglImageIn, 
->> input->planes()[0].fd.get()) == 0)
->>               return eglImageIn;
->>   +        if (eglImageInCache_.size() == 1)
->> +            LOG(Debayer, Info) << "Importing input buffer with 
->> DMABuf import failed, falling back to upload";
->>       } else if (!eglImageIn->dmabuf_import_failed_) {
->>           egl_.activateBindTexture(*eglImageIn);
->>           return eglImageIn;
->
--- 
-Robert Mader
-Consultant Software Developer
+--- Patch [2]: [PATCH 2/3] gpu: nova-core: Move PFB registers definitions -=
+--
+commit 93581bd57d4fa161f3ef24dd18b77e6a7afea781
+Author: Antonin Malzieu Ridolfi <dev@nanonej.com>
 
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+gpu: nova-core: Move PFB registers definitions
 
+This commit moves the PFB register definitions from the global regs.rs file
+to a dedicated fb/regs.rs file and updates the corresponding references
+across the hardware abstraction layers.
+
+> diff --git a/drivers/gpu/nova-core/fb/regs.rs b/drivers/gpu/nova-core/fb/=
+regs.rs
+> index b2ec02f584bee..b2baa4a2a85ff 100644
+> --- a/drivers/gpu/nova-core/fb/regs.rs
+> +++ b/drivers/gpu/nova-core/fb/regs.rs
+
+[ ... ]
+
+> @@ -23,3 +26,130 @@ pub(super) fn vga_workspace_addr(self) -> Option<u64>=
+ {
+>          }
+>      }
+>  }
+> +
+> +// PFB
+> +
+> +register! {
+> +    /// Low bits of the physical system memory address used by the GPU t=
+o perform sysmembar
+> +    /// operations (see [`super::fb::SysmemFlush`]).
+> +    pub(super) NV_PFB_NISO_FLUSH_SYSMEM_ADDR(u32) @ 0x00100c10 {
+
+[Severity: Low]
+Will this intra-doc link fail to resolve during the rustdoc build?
+
+Since this code was moved into fb/regs.rs, the `super` keyword resolves to
+crate::fb. This means `super::fb::SysmemFlush` points to
+crate::fb::fb::SysmemFlush, which doesn't exist.
+
+Should this be updated to [`super::SysmemFlush`] to prevent a
+broken_intra_doc_links warning?
+
+> +        31:0    adr_39_08;
+> +    }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-nova-core-=
+regs-split-v1-0-384fa2a42244@nanonej.com?part=3D2
