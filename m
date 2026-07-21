@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AB3EC44535
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 07:18:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77649C4452D
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 07:18:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BE3010E69C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D69210E64B;
 	Tue, 21 Jul 2026 07:18:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bjtgujxH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gzj9EqTb";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B741C10E3DF
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 07:17:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F0E910E3DF
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 07:18:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 397A860A92;
- Tue, 21 Jul 2026 07:17:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEEDA1F00A3A;
- Tue, 21 Jul 2026 07:17:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 87F1D60A92;
+ Tue, 21 Jul 2026 07:17:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F411F00A3A;
+ Tue, 21 Jul 2026 07:17:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784618276;
- bh=YkOlNdxhCh8Pfnc01Q+NIhinab1Gl6a0Obo1O2Zbs60=;
+ s=k20260515; t=1784618279;
+ bh=TuICvdkhYFkfwJvswpn7FhCUDElehUmd6cepDTkR13g=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bjtgujxHSuiNM03GcGaAuWGimdI5eExyTtvjis4XUpiD+RGne685Cd4aTOhIwHsVz
- Ri8rgDpvGwYRWcGnmU3pO+ThHzCrmuFoUtOc4Y5qqmHZeZq/LbgtdhsZwMJis2L5av
- 9Ku8FmOVFoMRQ50BsrHlbsk8OqIq/DOAZwcqzyrhr3wkHJFFKqr3BwSTzdMy7H2Bha
- DTApi6QKWd1EPJotn4h0k86dwbHU8CrYyNbE1k7yJwjGOy/INN6OR2+rpiK9QIl8Md
- p5XIn3SPrmU9EoFu74bWHhE29scOPYn8zjJd/nhEXqitJZjmgx3hpVgcOe0W8WIIBC
- /RxtsX7FeMtsg==
+ b=Gzj9EqTbSQ+CoiwzgnDu+DKS5kPeY7lQbvSt6ftllA8MK8e8TMDlY/4OUig+JNltJ
+ Qtc8I85MgN9CYwfa5zWMMXbbWczKsG3sYKcMXGreCW3xGUviR4ZpHD+sCpjle2mozd
+ rgLnuGvrfTDkcqBJhap3/tFmVbz03M83BeJaoVykOliFljLrdxgGNBn8gTRiVui8uR
+ ogVOcM5cuw9qFwOMn63v6McoVKQ2u1piqfuECiYAwh3yvYOFNWxQsEwomdTf6tQcoT
+ oZpHgYw0JeRKt8jypvNRzrd68FOye92BDiI0fZdopxFwXg2Ti/MlLcTQhNfOfsYNzH
+ Qbzx9xvAsLuqA==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH net-next 05/13] bpf: offload: allow PERCPU_ARRAY
- maps for offloaded programs
+Subject: Re: [RFC PATCH net-next 04/13] net: knod: add offload device core
+ and control plane
 To: "Taehee Yoo" <ap420073@gmail.com>
-Cc: bpf@vger.kernel.org, dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260719175857.4071636-6-ap420073@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, bpf@vger.kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260719175857.4071636-5-ap420073@gmail.com>
 References: <20260719175857.4071636-1-ap420073@gmail.com>
- <20260719175857.4071636-6-ap420073@gmail.com>
+ <20260719175857.4071636-5-ap420073@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 07:17:56 +0000
-Message-Id: <20260721071756.AEEDA1F00A3A@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 07:17:58 +0000
+Message-Id: <20260721071759.09F411F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,132 +58,255 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-
-New issues:
-- [High] Permitting BPF_MAP_TYPE_PERCPU_ARRAY on the offload path introduce=
-s a kernel heap buffer overflow (OOB write) and an uninitialized memory lea=
-k during map lookups, because the offload driver API lacks the `flags` para=
-meter required to determine the `value` buffer size.
-- [Medium] User-triggerable WARN_ON in netdevsim driver when attempting to =
-allocate an offloaded PERCPU_ARRAY map.
-
-Pre-existing issues:
-- [High] NULL pointer dereference in `prepare_seq_file` for offloaded maps =
-due to incomplete `bpf_map_offload_ops`.
+Thank you for your contribution! Sashiko AI review found 10 potential issue=
+(s) to consider:
+- [High] Lockless traversal of knod_dev_list in IPsec datapath races with l=
+ist mutations in knod_dev_detach, leading to kernel panic or Use-After-Free.
+- [High] Lack of hot-unplug detachment and missing net_device refcounts lea=
+d to Use-After-Free if hardware is removed.
+- [High] knod_pass_detach uses a timeout that forces premature freeing of p=
+age pool structures, causing Use-After-Free when delayed SKBs are eventuall=
+y released.
+- [High] Uninitialized variable 'i' is used in the free_spsc error cleanup =
+path if memory allocation fails.
+- [High] Hardware SDMA target pages are prematurely recycled if the hardwar=
+e fence times out, leading to silent data corruption.
+- [High] PP_FLAG_DMA_MAP is improperly set for a custom memory provider tha=
+t supplies pre-mapped device memory.
+- [High] Hardcoded sdma_idx =3D 0 causes hardware fence polling on the wron=
+g queue.
+- [Medium] Netlink operations do not reply with a full message for object c=
+reation, and notifications ignore NLM_F_ECHO requirements.
+- [Medium] Direct modification of netdev->features bypasses networking core=
+ feature synchronization and notifications.
+- [Medium] Double-attachment in knod_ipsec_attach corrupts the saved xfrmde=
+v_ops pointer.
 --
 
---- Patch [5]: [RFC PATCH net-next 05/13] bpf: offload: allow PERCPU_ARRAY =
-maps for offloaded programs ---
-commit 48af783b3fca05c679c6224bf05a40782d3679ed
+--- Patch [4]: [RFC PATCH net-next 04/13] net: knod: add offload device cor=
+e and control plane ---
+commit e070e2966937b9789951030b969d12e24910bb8f
 Author: Taehee Yoo <ap420073@gmail.com>
+Subject: net: knod: add offload device core and control plane
 
-bpf: offload: allow PERCPU_ARRAY maps for offloaded programs
+Add the KNOD core framework and its genetlink control plane. The core
+maintains three object types and drives the RX data path over per-queue
+SPSC rings. The genetlink family exposes attach/detach, inventory, and
+feature selection.
 
-The knod BPF offload keeps hot per-CPU statistics in a PERCPU_ARRAY
-map that is mirrored into accelerator memory and aggregated back on the
-host.  Permit this map type on the offload path.
+> diff --git a/net/knod/knod_core.c b/net/knod/knod_core.c
+> index af50a69bca651..[snip]
+> --- /dev/null
+> +++ b/net/knod/knod_core.c
 
-> diff --git a/kernel/bpf/offload.c b/kernel/bpf/offload.c
-> index 0d6f5569588c3..36e747a12cbe7 100644
-> --- a/kernel/bpf/offload.c
-> +++ b/kernel/bpf/offload.c
-> @@ -510,7 +510,8 @@ struct bpf_map *bpf_map_offload_map_alloc(union bpf_a=
-ttr *attr)
->  	if (!capable(CAP_SYS_ADMIN))
->  		return ERR_PTR(-EPERM);
->  	if (attr->map_type !=3D BPF_MAP_TYPE_ARRAY &&
-> -	    attr->map_type !=3D BPF_MAP_TYPE_HASH)
-> +	    attr->map_type !=3D BPF_MAP_TYPE_HASH &&
-> +	    attr->map_type !=3D BPF_MAP_TYPE_PERCPU_ARRAY)
+[ ... ]
+
+> 		desc =3D ptr;
+> 		desc->netmem =3D dst;
+> 		desc->src =3D src;
+> 		desc->off =3D off;
+> 		desc->len =3D len;
+> 		desc->fence_val =3D fv;
+> 		desc->sdma_idx =3D 0;
+
+[Severity: High]
+Does this hardcoded index cause hardware fence polling on the wrong queue?
+
+By setting sdma_idx to 0 instead of the dynamically assigned napi_index,
+subsequent calls to d2h_fence() in knod_d2h_drain() and knod_pass_flush()
+will always poll queue 0. This could lead to premature delivery of incomple=
+te
+DMA buffers or hang indefinitely on multi-queue configurations.
+
+[ ... ]
+
+> static struct knod_dev *knod_ipsec_find_xdev(struct net_device *dev)
+> {
+> 	struct knod_dev *knodev;
+>=20
+> 	list_for_each_entry(knodev, &knod_dev_list, list) {
+> 		if (knodev->netdev =3D=3D dev)
+> 			return knodev;
+> 	}
+
+[Severity: High]
+Can this lockless iteration of knod_dev_list cause a use-after-free or
+kernel panic?
+
+This function is called from the IPsec transmit path via
+knod_ipsec_xdo_offload_ok(). Concurrently, knod_dev_detach() for other
+devices modifies knod_dev_list using list_del() and kfree() without RCU
+protection or locking, meaning this traversal could read poisoned list
+pointers or freed memory.
+
+[ ... ]
+
+> 	knodev->ipsec_orig_xfrmdev_ops =3D knodev->netdev->xfrmdev_ops;
+> 	knodev->ipsec_added_hw_esp =3D
+> 		!(knodev->netdev->features & NETIF_F_HW_ESP);
+> 	knodev->netdev->xfrmdev_ops =3D &knod_ipsec_xfrmdev_ops;
 
 [Severity: Medium]
-Does this change trigger a WARN_ON in the netdevsim driver?
+Is there protection against double-attachment overwriting the original
+operations pointer?
 
-Looking at nsim_bpf_map_alloc() in drivers/net/netdevsim/bpf.c, there is an
-explicit check that will panic if panic_on_warn is set:
+If knod_ipsec_attach() is called twice, the previously installed proxy
+operations will be saved as the original xfrmdev_ops. During detach, this
+proxy will be restored instead of the true hardware operations, breaking the
+offload and potentially creating recursion loops.
 
-drivers/net/netdevsim/bpf.c:nsim_bpf_map_alloc() {
-    if (WARN_ON(offmap->map.map_type !=3D BPF_MAP_TYPE_ARRAY &&
-                offmap->map.map_type !=3D BPF_MAP_TYPE_HASH))
-        return -EINVAL;
-}
+> 	knodev->netdev->features |=3D NETIF_F_HW_ESP;
+> 	knodev->netdev->hw_enc_features |=3D NETIF_F_HW_ESP;
 
-Since BPF_MAP_TYPE_PERCPU_ARRAY is now allowed, could this assertion be hit
-when creating an offloaded PERCPU_ARRAY map on a netdevsim device?
+[Severity: Medium]
+Does directly modifying netdev->features bypass core network synchronizatio=
+n?
 
+Dynamically modifying features should typically be done by updating
+hw_features or wanted_features and invoking netdev_update_features().
+Modifying them directly misses the NETDEV_FEAT_CHANGE notification, leaving
+userspace tools like ethtool out of sync with the hardware state.
 
-[Severity: High]
-Can this lead to a buffer overflow or uninitialized memory disclosure during
-map lookups?
+[ ... ]
 
-When user-space calls bpf(BPF_MAP_LOOKUP_ELEM) on a PERCPU_ARRAY,
-map_lookup_elem() dynamically allocates the value buffer size based on
-whether BPF_F_CPU is passed:
-
-kernel/bpf/syscall.c:map_lookup_elem() {
-    ...
-    value_size =3D bpf_map_value_size(map, attr->flags);
-    err =3D -ENOMEM;
-    value =3D kvmalloc(value_size, GFP_USER | __GFP_NOWARN);
-    ...
-}
-
-However, bpf_map_offload_lookup_elem() drops the flags argument entirely
-when calling the driver's hook:
-
-kernel/bpf/offload.c:bpf_map_offload_lookup_elem() {
-    int bpf_map_offload_lookup_elem(struct bpf_map *map, void *key,
-                                    void *value)
-    {
-        struct bpf_offloaded_map *offmap =3D map_to_offmap(map);
-    ...
-}
-
-If a user specifies BPF_F_CPU, the allocated buffer is small. If the driver
-returns full per-CPU data, could it overwrite the buffer? Alternatively, if
-no flag is passed but the driver only returns one element, could the rest
-of the uninitialized buffer be copied to user-space?
-
+> static bool hostmem_pp_release_netmem(struct page_pool *pool, netmem_ref =
+netmem)
+> {
+> 	struct page_pool_hostmem *hm =3D pool->mp_priv;
+> 	unsigned long addr =3D page_pool_get_dma_addr_netmem(netmem);
+>=20
+> 	page_pool_clear_pp_info(netmem);
+> 	gen_pool_free(hm->genpool, addr, PAGE_SIZE);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does allowing PERCPU_ARRAY
-(as well as existing ARRAY and HASH maps) expose a NULL pointer dereference
-in the BPF iterator code?
+Can this lead to a use-after-free when delayed SKBs are released?
 
-When calling open() on a BPF iterator file descriptor for an offloaded map,
-prepare_seq_file() executes:
+In knod_pass_detach(), there is a timeout that forcefully frees the wpriv
+structure (which contains pass_hm) if the page pool hasn't drained within
+5 seconds. When the network stack eventually frees those delayed SKBs,
+this callback will dereference the freed pool->mp_priv (hm) when calling
+gen_pool_free().
 
-kernel/bpf/bpf_iter.c:prepare_seq_file() {
-    const struct bpf_iter_seq_info *seq_info =3D __get_seq_info(link);
-    ...
-    total_priv_dsize =3D offsetof(struct bpf_iter_priv_data, target_private=
-) +
-                       seq_info->seq_priv_size;
-    ...
-}
+[ ... ]
 
-Because bpf_map_offload_ops does not implement .iter_seq_info,
-__get_seq_info() returns NULL:
+> 	struct page_pool_params pp =3D {
+> 		.order		=3D 0,
+> 		.pool_size	=3D KNOD_PASS_SLOTS,
+> 		.nid		=3D NUMA_NO_NODE,
+> 		.dev		=3D knodev->netdev->dev.parent,
+> 		.dma_dir	=3D DMA_FROM_DEVICE,
+> 		.max_len	=3D PAGE_SIZE,
+> 		.flags		=3D PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV |
+> 				  PP_FLAG_CUSTOM_MEMORY_PROVIDER,
 
-kernel/bpf/bpf_iter.c:__get_seq_info() {
-    if (link->aux.map) {
-        seq_info =3D link->aux.map->ops->iter_seq_info;
-        if (seq_info)
-            return seq_info;
-    }
-    return link->tinfo->reg_info->seq_info;
-}
+[Severity: High]
+Is PP_FLAG_DMA_MAP appropriate for a custom memory provider returning
+pre-mapped device memory?
 
-Will this result in a direct NULL pointer dereference when accessing
-seq_info->seq_priv_size since both sources of seq_info are NULL for
-offloaded maps?
+Setting PP_FLAG_DMA_MAP instructs the page pool core to automatically unmap
+the page via dma_unmap_page_attrs() on release. Since hostmem_pp_init uses
+GTT device addresses instead of standard system RAM DMA mappings, this will
+result in invalid DMA API unmap operations.
 
->  		return ERR_PTR(-EINVAL);
-> =20
->  	offmap =3D bpf_map_area_alloc(sizeof(*offmap), NUMA_NO_NODE);
+[ ... ]
+
+> 			if (desc->src) {
+> 				struct page_pool *src_pp =3D
+> 					netmem_get_pp(desc->src);
+>=20
+> 				page_pool_recycle_direct_netmem(src_pp,
+> 								desc->src);
+> 			}
+> 			page_pool_put_full_netmem(pool, desc->netmem, false);
+
+[Severity: High]
+Could recycling these DMA target pages after a timeout cause silent data
+corruption?
+
+If the polling loop in knod_pass_flush() times out, the pages are recycled
+back to the active pools immediately. Since the hardware operation was not
+definitively aborted, the accelerator might complete its delayed DMA write
+later, silently overwriting whatever new packet data has been placed in
+that page.
+
+[ ... ]
+
+> 	knodev->netdev =3D knetdev->dev;
+
+[Severity: High]
+Should dev_hold() be called here to take a reference on the net_device?
+
+If the device is hot-removed, the hardware driver invokes
+unregister_netdev() and frees the net_device. knod_netdev_unregister() only
+removes the object from the list without detaching it. This leaves a
+dangling pointer in knodev->netdev, which can cause a use-after-free when
+accessed by Netlink queries like knod_nl_dev_get_dumpit().
+
+[ ... ]
+
+> 		if (knodev->accel_ops->alloc_mem) {
+> 			size_t total =3D pool_size * nqueues;
+> 			u64 base_gaddr;
+> 			void *base_pool;
+> 			void *pool_priv;
+>=20
+> 			base_pool =3D knodev->accel_ops->alloc_mem(knodev, total,
+> 					&base_gaddr, NULL, &pool_priv);
+> 			if (!base_pool) {
+> 				err =3D -ENOMEM;
+> 				pr_err("%s: alloc_mem failed\n", __func__);
+> 				goto free_spsc;
+> 			}
+
+[ ... ]
+
+> free_spsc:
+> 	for (i--; i >=3D 0; i--)
+> 		spsc_destroy(&knodev->wpriv[i].spsc_bds);
+
+[Severity: High]
+Will this loop use an uninitialized variable if alloc_mem() fails?
+
+If alloc_mem() fails, the code jumps to free_spsc before 'i' is initialized.
+The loop then operates on an uninitialized stack value for 'i', leading to
+an out-of-bounds array access on knodev->wpriv[i] and passing an invalid
+pointer to spsc_destroy().
+
+> diff --git a/net/knod/knod_nl.c b/net/knod/knod_nl.c
+> index 77799202abcf4..[snip]
+> --- /dev/null
+> +++ b/net/knod/knod_nl.c
+
+[ ... ]
+
+> 	genlmsg_multicast_netns(&knod_nl_family, net, ntf, 0,
+> 				KNOD_NLGRP_MGMT, GFP_KERNEL);
+
+[Severity: Medium]
+Does this ignore the NLM_F_ECHO flag?
+
+Notifications emitted in response to requests should pass the request
+information to genl_notify() to honor the NLM_F_ECHO flag. Using
+genlmsg_multicast_netns() drops the request context.
+
+[ ... ]
+
+> 	err =3D knod_dev_attach(knetdev, accel);
+> 	if (!err)
+> 		knod_nl_notify_dev(knetdev->knodev, KNOD_CMD_DEV_ADD_NTF);
+>=20
+> unlock:
+> 	mutex_unlock(&knod_lock);
+> 	rtnl_unlock();
+> 	return err;
+
+[Severity: Medium]
+Should this operation reply with a full message?
+
+According to Netlink uAPI design rules, NEW/ADD operations must reply with
+a full message carrying identifying information about the newly created
+object, rather than just returning zero and ACKing the request.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260719175857.4071=
-636-1-ap420073@gmail.com?part=3D5
+636-1-ap420073@gmail.com?part=3D4
