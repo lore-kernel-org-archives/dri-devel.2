@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5025C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 21:09:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC22EC4452D
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 21:10:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1520510E379;
-	Tue, 21 Jul 2026 21:09:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4642410E287;
+	Tue, 21 Jul 2026 21:10:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FFnpq9+J";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ONXXii7f";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D181510E379
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 21:09:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCB8F10E287
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 21:10:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2E53260204;
- Tue, 21 Jul 2026 21:09:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4A8C1F00A3F;
- Tue, 21 Jul 2026 21:09:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 52D5860A65;
+ Tue, 21 Jul 2026 21:10:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D28351F000E9;
+ Tue, 21 Jul 2026 21:10:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784668166;
- bh=7wgDjnw7QnTpFWAn6E2MwK8kTJLqveKowBOvXf7xDcY=;
+ s=k20260515; t=1784668253;
+ bh=knrpHStVOCVVxYCMRyxiaKE5pUbZPv/jIqbcEWBXL4w=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FFnpq9+JxNEx8gQCQz+wJaNqqLGLSb/mjrU7W1O0TKNkq+LVvtYzf+BAxnlRQCHCt
- Wyg8sHMZj49nkO2cHnQfv5vS2D1DFJQNrgZ8pD73pC+6kIOKvW0dOBD/cfyMyPpHmG
- 1lJFLBsZAX6s7l5fhOdIZi6Il7DGBCgjKNzxVIVxFBCCNhcOlvBorxNs4WwNZQ0c4i
- Tt40Ob4sIfLXsys8UHe1djbeHXbjok6Zyz7qa/CiTraVSGYIy0QSUqRYaN4aGjm3l/
- zuaN/nQsU4qsrqevcdmd8dsxe0yiAGbGU1Kf+6vGovuHEnEVqv0hzx1KQwIiDF/cW7
- XRWCi6wv9eEYw==
+ b=ONXXii7f1qOoq6UFEABW1cRY9mc8NBzdY7/V23lOz5Zw9hp2uUSbnpDDTCCTNg14K
+ eLd2WpEEkmyGRR8LDo9MIRbzgr69qRXkbobU4C3DLvqf6rnzBom4TkaYk1IYQSYvTb
+ kLtu4ioTRMCLKKATH9KRkRFmkkNvH0Vgrg6wSSxgQcCyaoRxH1BNGbcSGPN2Y1A6v5
+ vZH1Cen8x6fYqAc+/MNJRUH6pB5bWHhSaVvEJDGxKbqg2Lf6tVzM0ZAc+1/1aF1Pni
+ HlEqJjsk0O0xbLDT1Ow3q0auD+TSnXxp1zFdU1lbWqLJvR7bmzliElrvW3wi5oKsZ7
+ dErDnflNfki2w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 25/29] dyndbg,module: make proper substructs in
- _ddebug_info
+Subject: Re: [PATCH v7 24/29] dyndbg: pin class param storage to u32
 To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
-In-Reply-To: <20260721-dd-maint-2-v7-25-010fbe73b311@gmail.com>
+Cc: linux-modules@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260721-dd-maint-2-v7-24-010fbe73b311@gmail.com>
 References: <20260721-dd-maint-2-v7-0-010fbe73b311@gmail.com>
- <20260721-dd-maint-2-v7-25-010fbe73b311@gmail.com>
+ <20260721-dd-maint-2-v7-24-010fbe73b311@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 21:09:26 +0000
-Message-Id: <20260721210926.A4A8C1F00A3F@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 21:10:52 +0000
+Message-Id: <20260721211052.D28351F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,104 +59,59 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Built-in modules without their own dynamic debug class maps inco=
-rrectly inherit the entire array of built-in class maps, causing cross-cont=
-amination of debug class settings.
+- [Medium] Bitwise shift out-of-bounds on 32-bit architectures when evaluat=
+ing `BIT(bi)` in `ddebug_apply_class_bitmap()`.
 --
 
---- Patch [25]: [PATCH v7 25/29] dyndbg,module: make proper substructs in _=
-ddebug_info ---
-commit 9690152a047a31662e977dac229f6c3d6cb68cd2
+--- Patch [24]: [PATCH v7 24/29] dyndbg: pin class param storage to u32 ---
+commit 87a65c25e24b4e05bdc18ddf16105e9237d922db
 Author: Jim Cromie <jim.cromie@gmail.com>
 
-dyndbg,module: make proper substructs in _ddebug_info
+dyndbg: pin class param storage to u32
 
-This commit recomposes struct _ddebug_info by inserting proper sub-structs
-for descriptors and class maps, and updates the dynamic debug core to use
-these new structures.
+This commit changes the bits and lvl fields in struct ddebug_class_param
+to use u32 instead of unsigned long. This ensures consistent sizing across
+different architectures.
 
 > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index 60b67face46e1..e7742fcca50ba 100644
+> index 59e3c0eccbede..60b67face46e1 100644
 > --- a/lib/dynamic_debug.c
 > +++ b/lib/dynamic_debug.c
-[ ... ]
-> @@ -1185,12 +1186,12 @@ static void ddebug_attach_module_classes(struct d=
-debug_table *dt, struct _ddebug
->  	 * the builtin/modular classmap vector/section.  Save the start
->  	 * and length of the subrange at its edges.
->  	 */
-> -	for_subvec(i, cm, di, classes) {
-> +	for_subvec(i, cm, di, maps) {
->  		if (!strcmp(cm->mod_name, dt->mod_name)) {
->  			if (!nc) {
->  				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d=
-\n",
->  					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
-> -				dt->classes =3D cm;
-> +				dt->info.maps.start =3D cm;
->  			}
->  			nc++;
->  		} else if (nc) {
-> @@ -1199,7 +1200,7 @@ static void ddebug_attach_module_classes(struct dde=
-bug_table *dt, struct _ddebug
->  		}
->  	}
->  	if (nc) {
-> -		dt->num_classes =3D nc;
-> +		dt->info.maps.len =3D nc;
->  		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
->  	}
->  }
-
-[Severity: Medium]
-When a module has no classes and nc remains 0, does dt->info.maps retain
-the values originally copied from di?
-
-Since dt->info =3D *di is performed before this function is called, this me=
-ans
-the module will incorrectly inherit the entire global array of built-in
-class maps. Could this cause cross-contamination of debug class settings
-between unrelated modules?
 
 [ ... ]
-> @@ -1212,10 +1213,10 @@ static int ddebug_add_module(struct _ddebug_info =
-*di, const char *modname)
->  {
->  	struct ddebug_table *dt;
+
+> @@ -643,24 +643,27 @@ static int ddebug_apply_class_bitmap(const struct d=
+debug_class_param *dcp,
+>  	int bi, ct;
 > =20
-> -	if (!di->num_descs)
-> +	if (!di->descs.len)
->  		return 0;
+>  	if (*new_bits !=3D old_bits)
+> -		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
+> +		v2pr_info("apply bitmap: 0x%x to: 0x%x for %s\n", *new_bits,
+>  			  old_bits, query_modname ?: "'*'");
 > =20
-> -	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
-> +	v3pr_info("add-module: %s %d sites\n", modname, di->descs.len);
-> =20
->  	dt =3D kzalloc_obj(*dt);
->  	if (dt =3D=3D NULL) {
-> @@ -1229,19 +1230,18 @@ static int ddebug_add_module(struct _ddebug_info =
-*di, const char *modname)
->  	 * this struct ddebug_table.
->  	 */
->  	dt->mod_name =3D modname;
-> -	dt->ddebugs =3D di->descs;
-> -	dt->num_ddebugs =3D di->num_descs;
-> +	dt->info =3D *di;
-> =20
->  	INIT_LIST_HEAD(&dt->link);
-> =20
-> -	if (di->classes && di->num_classes)
-> +	if (di->maps.len)
->  		ddebug_attach_module_classes(dt, di);
+>  	for (bi =3D 0; bi < map->length; bi++) {
+> -		if (test_bit(bi, new_bits) =3D=3D test_bit(bi, &old_bits))
+> +		bool new_b =3D !!(*new_bits & BIT(bi));
+> +		bool old_b =3D !!(old_bits & BIT(bi));
 
 [Severity: Medium]
-If di->maps.len > 0 (which is true for built-ins since di spans all global
-maps), but the module itself has no classes, ddebug_attach_module_classes()
-won't reset dt->info.maps.len to 0.
+Can this result in an out-of-bounds bitwise shift on 32-bit architectures?
 
-Would it be better to clear dt->info.maps.len and dt->info.maps.start here
-before calling ddebug_attach_module_classes() to prevent the module from
-accidentally keeping the global state?
+The BIT(bi) macro expands to (1UL << bi). On 32-bit systems, 1UL is 32
+bits wide. If a module defines a classmap with 32 or more classes
+(map->length >=3D 32), shifting by 32 or more triggers undefined behavior.
+
+On most 32-bit architectures, the CPU masks the shift count modulo 32, mean=
+ing
+BIT(32) evaluates to BIT(0). This causes the loop to incorrectly re-evaluate
+and alter class 0 instead of processing the intended class, leading to
+incorrect functional behavior when configuring dynamic debug.
+
+> +		if (new_b =3D=3D old_b)
+>  			continue;
+> =20
+>  		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-dd-maint-2=
--v7-0-010fbe73b311@gmail.com?part=3D25
+-v7-0-010fbe73b311@gmail.com?part=3D24
