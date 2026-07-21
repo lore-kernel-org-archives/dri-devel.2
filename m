@@ -4,89 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 423BFC4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 19:44:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B44E5C4452B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 19:44:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE1210E3C0;
-	Tue, 21 Jul 2026 19:44:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10BB010EB2B;
+	Tue, 21 Jul 2026 19:44:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="GeuKFjwH";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="YeUFhxG+";
 	dkim-atps=neutral
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com
- [209.85.221.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C65A10E3C0
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 19:44:28 +0000 (UTC)
-Received: by mail-vk1-f176.google.com with SMTP id
- 71dfb90a1353d-5c27e38ee18so1507077e0c.1
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 12:44:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1784663067; x=1785267867;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=peXYBmUmPf4ccVAD39jgFso+IzH3zKbnCN6+sTxaNBQ=;
- b=GeuKFjwHMHCZGR92T6I5Yi5WdiwRAT6rOjHZFUS6EyKTr/0LEk3kcpnQcTKtXZPCrJ
- CsDg/W0AtnJWje483X/sd4nm3CTqUDbbZCGa7ZJ7i8K6Fw0hSMXYR6c1aL6h5/LpLjT1
- jqxAX+AIFvi/MYZkKbZFvmpZ64xD0mihbPD6E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784663067; x=1785267867;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=peXYBmUmPf4ccVAD39jgFso+IzH3zKbnCN6+sTxaNBQ=;
- b=fxVv2ibAhtkPVSpwwLE+oQXtcw/aOPUluYEhGVZlUsxh42kmHORKWJKLEGO7p0TK87
- aP2+etKM5E9dqIDQP+lc061iNzQJZaZnANPnxie86GsOYNSdSdA8XlcSUKDCkw8QNb6x
- vGaJ0cbCW7xtrCKJRBxmRCecP65kUFCa5ReL0w8mQaG8rmYkJTIqIPSQCc6njbSLMrzd
- GHhy2DQIeNq8neAjDvp0vDjHyNQ+IcpNCbIuNjJUfeMY0sCjaqo9CVSMR0XFGfoguqqu
- A05NVJTM2TzZNRciO7ELqsMsuyU60pjGlZlNH610BJAPntgq/ohTjZ1mcROouqRORx0Z
- hGSw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoO6tUDAX+mazQPP9UcdQ+/ayrLIfqlMmldTrFVoF8PvRjMm75StzVysgAbPwWafOfJ6QKq1c+jg8g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw9AFkeXP+CtxuHlwO2uhZbJqhF3oWm5n7SbjmTzpBht+NxRPlQ
- fCMZK9zOwXGbJD2pXD+FWnCgor4XJNlyvJZ482dFlH/hP7TDjl/ZZ1wkpJCUqaXw1rhUFYjNXLo
- 5kpM=
-X-Gm-Gg: AR+sD13grZ/NCkczNmZqNi3g/GgtB/SR5//QGoMFJ8WMwS9EjB3LHkW+Q71KYbfwfO0
- pKUNil5JYt6p17+NB6BjGQta8aqo+5FIGoZpeF9laR44QutUWgLSWLy85oI/oiGY0jzW5zHvqps
- +TVWKg7FIMe0n18ZVpE/+elU0Xi3XYlfrF2QjcVssd0BXGeoXLTu5dm6pycPquFfNZnygkz4LyC
- 3VuhfUTJw+Y0Dakds7/Y4unJXq/WpR1oRLrOOTWDGTYoODfYfyhdxJvENFht1UmjZWHIWU9FBmU
- Emcb304zOZY0mViXn/MTQWAjSB4VcGf6HocqA6QT7vbloXjNTqNsD2Uxw3ng24U7DjyCwSEr8lr
- gAQHHl94XAZw0Rk/A3yuUxl05Fli5hTpwYOfg4rS4XVq1fQIPOHeQbVnNJEBPSBIPEY5ExWviFk
- m94NdjTprlcumDeFoWUnezeTljuniByPUJkVO4gS13
-X-Received: by 2002:a05:6122:d90:b0:5c1:31ed:157 with SMTP id
- 71dfb90a1353d-5c1bfa5cc5emr6765617e0c.13.1784663067300; 
- Tue, 21 Jul 2026 12:44:27 -0700 (PDT)
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com.
- [209.85.222.51]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c2c62b63cfsm490234e0c.5.2026.07.21.12.44.25
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jul 2026 12:44:25 -0700 (PDT)
-Received: by mail-ua1-f51.google.com with SMTP id
- a1e0cc1a2514c-96935063700so2132703241.0
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 12:44:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RqWNFkAVH385fJyr2bE6dYfzPPtTFeR9+hXhrSYVnJzmaaWoY4GiLHfptlmSJo74ZbsWC5TFtscIK4=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:689c:b0:738:133f:8d5e with SMTP id
- ada2fe7eead31-74753529dccmr6785664137.12.1784663064703; Tue, 21 Jul 2026
- 12:44:24 -0700 (PDT)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3EEF10E3C0
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 19:44:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1784663049; x=1785267849; i=natalie.vock@gmx.de;
+ bh=1p8nKeSscW/1ofacP9W19lyKcMIRAtNN/X2d/TG423c=;
+ h=X-UI-Sender-Class:From:Date:Subject:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=YeUFhxG+0Kw1aoFoFxitksSL9h0KAT0g9QS3xuvlxFxF/X4o4vAEX83oKH7CEnA5
+ 6SfUfItxQAGmechmDtPfLT/5kzKax/7tgbADgEOzBZgSpWlnXNLOQw9JXOtv+rkf4
+ h8x+ud8eEfg/ctVPfeeQRMz6MGlCJVFVvuwFdeTnOOU4rPzoEirgvgaBguhXGFzJf
+ WwFyDrmqDPt+eHXzptn/MCTvVwxaGxxXj9T1m80JrGuVtkmskHHuzTr2SF0983TVx
+ HI9qI7XkFLnaJ2C1f/ty1Y9E8oT69/71KsbibYqGv7Mm56FPc9epwfsoEfWuAFQLa
+ JRCoQ4i4pmKY6Aymsg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MGz1f-1wptQg07nv-00HLM1; Tue, 21
+ Jul 2026 21:44:09 +0200
+From: Natalie Vock <natalie.vock@gmx.de>
+Date: Tue, 21 Jul 2026 21:43:25 +0200
+Subject: [PATCH v7 6/6] drm/ttm: Use common ancestor of evictor and evictee
+ as limit pool
 MIME-Version: 1.0
-References: <20260721172715.602196-1-michail.tatas@gmail.com>
-In-Reply-To: <20260721172715.602196-1-michail.tatas@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 21 Jul 2026 12:44:12 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VsKrjivcg1s-YgD7Bd3Mw34O0sXfFCYRLO8r+9kENRPQ@mail.gmail.com>
-X-Gm-Features: AUfX_mwyv4GYZICbf75vOtPfc7qWJSDRm4f5SevXnN_dF6FQfMGB5bFFwj4Rt88
-Message-ID: <CAD=FV=VsKrjivcg1s-YgD7Bd3Mw34O0sXfFCYRLO8r+9kENRPQ@mail.gmail.com>
-Subject: Re: [PATCH v3 0/3] drm/panel: ilitek-ili9805: convert to *_multi API
-To: Michail Tatas <michail.tatas@gmail.com>
-Cc: michael@amarulasolutions.com, neil.armstrong@linaro.org, 
- jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <20260721-dmemcg-aggressive-protect-v7-6-97c4b1014315@gmx.de>
+References: <20260721-dmemcg-aggressive-protect-v7-0-97c4b1014315@gmx.de>
+In-Reply-To: <20260721-dmemcg-aggressive-protect-v7-0-97c4b1014315@gmx.de>
+To: Maarten Lankhorst <dev@lankhorst.se>, 
+ Maxime Ripard <mripard@kernel.org>, Tejun Heo <tj@kernel.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
+ =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Natalie Vock <natalie.vock@gmx.de>
+X-Mailer: b4 0.15.2
+X-Provags-ID: V03:K1:P0jWobo2B3bL0W0fCbQPEphPApjLzn3f6vUSEbtT9T9KB2kExlq
+ zbOy7Xe328c9+av3jwlxu2QfRBkJg2+EWHcY6sbff/ttNwH/uDIcCsP/DhPoZaBZqP7SIFF
+ WsCdiyWrGmLlhTIgTpZEtZeoxEbayosQzEfhwY2nG5zXHu3KLMSPMdEf/nh9phnz01Qkq9P
+ z/N6XAeAQx7sp4VfHa6Tg==
+UI-OutboundReport: notjunk:1;M01:P0:6Qkwqt9vJNk=;MKbLBUbaoLsKeW13AFtwF6KHQex
+ 8YzKJ48sRHIvsGnRxpdlXy7lPgKfcU4crQiVU2fWtrtStA+LIu7a7bqXxkZHFePh1qY5Jqc1V
+ 7pA6IrzM64OOeqxptU1HpiGDwjJ5O3IrF6VlfS0QubrvZ5X3ldYGQU/RuWrkn92jole7p4nT5
+ JZ/NTP5phHePhzEKzv2RP/bAX2a8bJGEVTXCsN3kxdkrIJ0MulWUuIfFWjUTAXH+q50xRCz5i
+ phHSvOe7GK0VgsJuD7KACN6vOetNgdU6fdpY5hNXd2mMNst7E7smPMUw9oaynu6P+kNpxYDB3
+ 0b9BUqdbfkHrTvQViPFbKV/mqeai+bEpnWFMy5NHSnXP0y6FF/IjyNB5QIcdbE1eOFMvwu46a
+ r3pzBHpgMjEwDXyLKRDJpeapRalawnH3R88aa3ZuYGtOaVzsyZ32yTukmdAuizRZmI4sHrpkx
+ 7uNNAh9652oyUl0hBXfXq3bURcoWdMkozDSbqujUKtvUbAx1geov7lEJ2pKBjZLLutVWnjRAq
+ GtX+QS0HvWYevOwDYFM4s3mzzHV/fgDoSkN3r+7eyEqp++GlVpeb9EGtKkgd+4Bds3wGBYZlM
+ J4bg13alHrs2tBUvD2QY5+tV9Z6C0y9PRJCEGOQa2T5Lf9kKmgTqVGbDg2NFGdxT2WoD+8TXk
+ Ry/jxkG90mdZpn6kDlB4gcKOhpNiyIMLrzg8+WotzRUSKiihp0M/ETvk6UR1wWf1QmW5P4krH
+ b4cqnViEdCfov9XqSYrxtfvzHmfZMrYCO8ilHgnT9JmFKjxNGuMGiQYj4EjvYAB9FiUc15d1e
+ OB+EG+P2kEZHrqkXx/BkyzdlBmTnJugfyVmXxY3X4L0KbMvaeTu94e5SZju7H736D3857naRm
+ 6xU90v+4fnbHuNdIDW9/YWzb4pRn+qiAl5AP7Fk93/Go/z63IwLJdPhO9FLtULZJRd7fTQyfp
+ cloIyst4kHQvBQ7lwhIYJnUfNM3pyPMYMkiDDroco8H8MqZBQ5+jL1W7mGFEq5O/xNpRsIt3I
+ aFGTRYg7tjzO7yXEaIf/rahPQb+E+OctaxoMshHGoqT4B//kAQ5LotSA4Zm5PDQPaEKP4fInq
+ cAFE/BUm04rynDxHlWK5pVOvp9YTCpbK6LhJf+7XK4V1s4KJ0qfTpSxH7U1fiSm74s45F3laX
+ jEOnPxMT8AHPEc7emxKGaiwFLrBQuhE8CTHoD8fp6dahStjcjaXGnetgR5n7wJQgHMWEo0Ewi
+ tlDt6GMugm6Cmoj9lrlpJLtGfSbl3o8YsJUbfAWVmRaXhHsaFtC68XiAQXk4L628592CRQrRL
+ Tr+9Eu3VKDmV87oei+juWujZlW0vnCv1yREjJa+debBLi0U7nQQkP6hP62HnST38CKBjXJgd/
+ nSw83CvYX1ipPE/6mE2z6NoUGrvTqHvNnR/CEuz7I1waIJzF7FdSzo5QCQanH7CMGJbLVW9GP
+ NYEW1GTszx+eg+yqy+f3UN09ExupLcpf2nhHFc4mx/Barap8ufEpM0fW34OB1BzpvH1m8za6C
+ GJAozABdRoZxyRuzWbFT63eaTVhD1zk2apYEDfSP5QinxgoUYwfMJ1J0sb4TVGQo1R73kgecH
+ HDyA9mhWKXsqdutoBhkN0PV9W775e+GrthXlwN6HNXTPKWXh/Xp5p0uDJ+tSSDUeTGj6eLZBV
+ gCcaK2pxvlbmIvWxaAWbLj+M3hb2UeHdDGm9Wzc42MIDwu3RCfMViRZMC/Gt0qsRjztY6VxaT
+ 3wMB5jTeD3kKjqeOAAQBcuKwK56AG8omtfBPA7MLv0JmJQ99y8EI6ParUAiTuE1i4LrxAWfAA
+ HCJPNa6pHKhuoZq1obFfK7V5HclzsfGqhkiPYfhSLZsvdzp8L2a4SFpWEiom6NVQdtWoBEu6/
+ ailrlskAZnJEJAmzH6eGAVBlG0PMqVRSN78FKZX4cNI7AF4gitNF2PeIeqsgfvmhXCLwjCglz
+ 98/P1y1s4HU6hTU05TfMrt3q/ww1+vzhjphuCP7wUkYt5gubtgzV2ZK8i7XxEYA9KRhHYz4HR
+ EiktHaoRSJOKQ8AVBzuq5OAk9DHfW3Q4N9x0/jd8yze6K5yJv3RF80pXnCrVqlMmJ2IHLOdaY
+ ConqJadVj92l7zcj/ihNxylu4CR1WDEd0BgWxB2rZE0yKZPd/QnPH0gTdeGQ3A+cMP4quP1fx
+ TyYh3tnvKatd3mE35R9cezfIsLsBkAnSVVEBScaN6SAAUOKPqOEpxD7sT2LBnrIr5LWdP0N2W
+ ZBVzbHFNBfCxHety4TwSu2cGtA4DFGsMbArEh81XS+BB6eqNZPgIJQwL00O4gsL1WyO1VdB4F
+ b4hB7COsulNYcguMuMkq/RaBKtsp5S+vhXxkv1WAWvD8IfpYEsjzU0Tg85R4tJUX7iNKnGWSh
+ FnRpBsv5dYa92gJzhd8SK1SLP6m/5pa9hedEQh4rLDQyjzz1xqM1ODIC2O5TLA584ba4boHvV
+ DgJmhgbaN+qkh/G2FTzNXRYkkzBmwitWTK7OQEejH2IXlJhnRRiOWAD+3hK9pToVyk7w1mnQK
+ Fz0+gwtrnSlEFd8IsrnyzAc2oyRtWlPoMaIyjw7ByosQmPjvqrbFC2ZWyqijcUpTbdkJ4r7uw
+ PJcQ4QTK6Ih/pNFn8rO/ySamILp2FlvHj69LDEkl6Y1erjawSDIDqb9x9kyjFs1XonZzp/FRm
+ 8xI0pNo20cIwVkKqneyS1/hiV1je9UQFBgvr+/aS1EzzuxqUXc9AMbbe0BDB5cNInuffN8Zh3
+ BTa2B6mu9h1Aj8YBOfGoxG9k4ppINudJ4zMUCvHktDy6xA+5JrMtJQoM5UNzEVo9mqoVWtE0s
+ EUhcqUpDRILNWrwrIp6oRtRNB/VNdZHYvR5cHCz8clZpJT7Zjy1kiRS9MPWmHJl5LAEFa9kn2
+ qguWWUDoPwoctsbcSMAWCnfLz9xQQNlryJKdeXxbplVfR7R41YkxRdxMCqObdLV9vU9vgqpLF
+ pzfH+1Xg5V4ixhlcjJem2XmEJpTzOmvukD5pcFJhDuAz2qtcm+hqbPKTu72OuMSGoPvz+kZ7x
+ HlhTwuDSM+GHKNvb2mZzrmBm2iCyKRoeckKaklmkRKQ3vmCFZ872Yvc7KC/+Qj4sR1c3j9Pl3
+ TCZoc5ejO8wFyoXNGrHBWm3DHS95erCTomNH74W8y0Vr6Vps0r8B57PckQBlMS734K8cPFnVf
+ MwJ47jBCfNqnYQKaxhlhSX/df4V6gdCyDHM8xjIgOkm//0Ivc/9RsYG4XAlA2ENagyFDQv/he
+ 7onfqqlcC1tWzafIjTUO9xIIqe80Gr8bWpmDHfLqOkt2x191ZmD9Br8kz4Rzau/PKz5HrIzq0
+ oHpVvxHDddFYx7OfuL3PqMV+JzuO8ZYX4MJQLT94PjvOr6yoR+dWxA1fbRrONe9o4BzIC8SRd
+ 3ZivmFd620hxxGcb5weYLGHw+NkOwJ4YQOJ8jK1LCWBNZOSXkt+1mZ5rDKPK86eJclTGA/iNH
+ d9ZT50pihgXPo5iXMp2Bzp40sxat/2C+RU0EKErhmsJx4/Ii56i70mGpC7TlKG8JkJJFTkDYE
+ jr/lnzg/dS0BgsyiSNs+OAB4wINHuhWjUSbEVslgwM3FEhrBUfe0oYqUoiZ/MSywyTraEanwK
+ Ds/SueUK9uTgHWAfkpXXInJPQ27fenoLfVy9z5kE66gYQHwX2QSBuflbXtn9Ya9SoCAmcbOYe
+ SLFmroklma46hNJB/QcxgnZQcw3y4CFE70RDpwjaFvRyzWbknVdaySNUgVKvnB86VonIo1iNp
+ 4Wy5Ns2aeQC1c2TtOQFAnkxJ0DCFAbt4f8+88ZLzXhYYsurTGCHATiW8dpIZ0MPL0WBJ8shIp
+ l5+YKqYeExxdpUIxFNkfRQYZa3msRi/90Ag8Ab+Hv4U95/EbYf2QOu8ygtLbHiz9ketM7/oGt
+ /OhbPnO0xXFHRnpXXeib6IJtn7RkvzAZ/M18l5nNm3v4T5vQDQzfcTJWBctZsIrh/KPPNp8f0
+ a7XTt2xMsctQd8/NevWVwwD7MUldeli7+iPnGgRkC8IcxLLkhfRiSnpGCqu/DL3gJ80oNzVa7
+ VmvG1Vte9CHBywlQb1CKOeUkeRkYkQXfXU9EZ9aBd82GomYdAB97YryR1rFMF5732RAoDVNKu
+ 6UyJ+f4uFwkwI/4MrJSRTZRAbHvlraJDryU6K/dc9+QoWGmhqX2l5fPdFI/kXvcXFJuHVQClJ
+ 6y/6PVN08ZWvhrhXaW7eEK2yWXtWxFFMvakWR4yjkMDZAcq+3iINoXEZ+bkFMi3kQUQcvikCe
+ pKcsiEwC0Jl1rhDE1VqCSlHKegcwYZEnMmVb84veFsTQ6hNhfFaOTo0YC2d5uRPrgohMg0A4Q
+ BOSx3HKQRvUwMs5eqxIKEJsffLM3OTGhmN0ZWcyO0KbmnFcPUeRBIUnSwZmu68YXDq1d2ej7+
+ 92mmEKMO8tLCG9LHpLxznhcUAw0IYKhV7AFsmx1rovPSN3bvRXmn9CHdfS96+KA2XlSMoQUiq
+ HvhdPhHV/vABTGDJwvI0TLRKAE9YXWS+F3jR97UdQZIdNq1Tt8auR7hdNchXkveFdwPZ17ao8
+ +FVt3ag4SQs7IG2BmzG/ELvoMYS+iVDepV15x8VO4Cb0JW4UQ6qAYf7UDwOV8FkOpLHm2lN8/
+ 8czknUPUlGy3n4hZRqyHXpzOTofflLoKdgFdeqKR5Vy63hK9mgl70QKlfSigQ2t+iLSOVqsUQ
+ hmwTKYYYJ0QDhe3w/py+k0XFb7PTA1A4Jy4YgcuCRMzK7lFiI9Jh+kU9/aCDhdRWb+NsggGCD
+ qYU/vfOWiPiIMbC37OGpwZW0sVfhGY7BUPTkAInIeDEbKz4R9th2l0wnQZlsNNqxGpw4zRCDQ
+ bQCatQSmqJtWxzynUBOnpwayEgNkXtpUs0Xgezjf+mqfu/YGZbRh6EQey5OCehirZLAqrlQo7
+ lS2Numfmzir/u9S1Sn8gUh9vCkxPlAZ3So1Lh8JBJ/K03Ugz3JbEBY3vo+w6x5TSJJRpBXWb5
+ E967DHGjnzvthwdbhgsN7m/FGy25SkTMyCfr3vVykw6Ta1dbdHwCa7i1XBU9FPWzRgisxL89F
+ wPzx5BjgtcM4TW2U79tClgND7WOU+rWATYnLmCGSEYAsh77vvaDUDZxRV8VXs8VvVpHtyIPUU
+ ZZ3vdK7ZPBfK0SHM2h1vSj6Z46SfOvb2Ww9tUpIrcrOZzBS1AdEyv+TTULWE6JTP6zGpXjsWk
+ 33/jrmgHqXZCF9ND40e//n1LsWtlG9mzeBkDibOx4v97JZsAQslLilyykEpazpIPg1028pq6E
+ dGFyAOov3OlD3r5pEp4u5EAsZfaC2TMVQNdNQ+CqEyjSW9Aa+FCbtqUd4pRwrMqNdfrM2NR0X
+ evoonvU6xo4uRyx8wu/R+hIx0rHngaJxIZClVKAecKdDrlmnP/ENtolwMSJXQfyvGVPOwzC4t
+ lkzS24T1TEu6pAYn3cpcCYXfn+rX4bWUW6wM/tQwL5ZW/zqIQK4uTdPDr7l6bzNEZz8VYcr8/
+ jU4dB9UXXys8mgQOMoARUL9QWf2SCIfxICzNNVdAwbzKj8U2KSjpjOoiamskmmIzfUcScv5r8
+ uueGI6+3qkGAJWHCYSx60mRqW5ImgtU5X9KD7y/oCbeQ/eZRCbj4DyRrzb+0NVlVFI82appU1
+ FxlV45f3UVjshgNTocQA34/s56g8cqsp0iSN7IEcrJY11GfivB1xnB3FRPzUc68iR0hyPXJcl
+ qYmIRrnxMpWyzdKLnKxOsZt3AMKXCSsdjahKl6lVyZ5PNr3vShrIlc18zSLoA1sgeCHyio3qQ
+ =
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,33 +158,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+When checking whether to skip certain buffers because they're protected
+by dmem.low, we're checking the effective protection of the evictee's
+cgroup, but depending on how the evictor's cgroup relates to the
+evictee's, the semantics of effective protection values change.
 
-On Tue, Jul 21, 2026 at 10:27=E2=80=AFAM Michail Tatas <michail.tatas@gmail=
-.com> wrote:
->
-> This series converts panel-ilitek-ili9805 to the
-> mipi_dsi_*_multi helpers and cleans up the resulting code.
->
-> Patch 1: Convert the individual DSI calls to their
-> *_multi variants
->
-> Patch 2: Replace the ILI9805_INSTR table with per
-> panel init functions using the *_multi API, dropping
-> struct ili9805_instr
->
-> Patch 3: makes ili9805_power_off() and ili9805_deactivate()
-> return void, since no one checks their return values.
->
-> Michail Tatas (3):
->   drm/panel: ilitek-ili9805: Use _multi variants
->   drm/panel: ilitek-ili9805: Use dsi_multi in init
->   drm/panel: ilitek-ili9805: make cleanup funcs void
->
->  drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 211 ++++++++-----------
->  1 file changed, 87 insertions(+), 124 deletions(-)
+When testing against cgroups from different subtrees, page_counter's
+recursive protection propagates memory protection afforded to a parent
+down to the child cgroups, even if the children were not explicitly
+protected. This prevents cgroups whose parents were afforded no
+protection from stealing memory from cgroups whose parents were afforded
+more protection, without users having to explicitly propagate this
+protection.
 
-This looks great now, thanks! Unless there is more feedback on the
-lists, I'll plan to apply to drm-misc-next in ~1 week.
+However, if we always calculate protection from the root cgroup, this
+breaks prioritization of sibling cgroups: If one cgroup was explicitly
+protected and its siblings were not, the protected cgroup should get
+higher priority, i.e. the protected cgroup should be able to steal from
+unprotected siblings. This only works if we restrict the protection
+calculation to the subtree shared by evictor and evictee.
 
--Doug
+Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+Reviewed-by: Maarten Lankhorst <dev@lankhorst.se>
+=2D--
+ drivers/gpu/drm/ttm/ttm_bo.c | 43 +++++++++++++++++++++++++++++++++++++++=
++---
+ 1 file changed, 40 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index ec0821e306da1..c843189f36088 100644
+=2D-- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -627,11 +627,48 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk=
+, struct ttm_buffer_object *
+ {
+ 	struct ttm_bo_evict_walk *evict_walk =3D
+ 		container_of(walk, typeof(*evict_walk), walk);
++	struct dmem_cgroup_pool_state *limit_pool, *ancestor =3D NULL;
++	bool evict_valuable;
+ 	s64 lret;
+=20
+-	if (!dmem_cgroup_state_evict_valuable(evict_walk->alloc_state->limit_poo=
+l,
+-					      bo->resource->css, evict_walk->try_low,
+-					      &evict_walk->hit_low))
++	/*
++	 * If may_try_low is not set, then we're trying to evict unprotected
++	 * buffers in favor of a protected allocation for charge_pool. Explicitl=
+y skip
++	 * buffers belonging to the same cgroup here - that cgroup is definitely=
+ protected,
++	 * even though dmem_cgroup_state_evict_valuable would allow the eviction=
+ because a
++	 * cgroup is always allowed to evict from itself even if it is protected=
+.
++	 */
++	if (!evict_walk->alloc_state->may_try_low &&
++			bo->resource->css =3D=3D evict_walk->alloc_state->charge_pool)
++		return 0;
++
++	limit_pool =3D evict_walk->alloc_state->limit_pool;
++	/*
++	 * If there is no explicit limit pool, find the root of the shared subtr=
+ee between
++	 * evictor and evictee. This is important so that recursive protection r=
+ules can
++	 * apply properly: Recursive protection distributes cgroup protection af=
+forded
++	 * to a parent cgroup but not used explicitly by a child cgroup between =
+all child
++	 * cgroups (see docs of effective_protection in mm/page_counter.c). Howe=
+ver, when
++	 * direct siblings compete for memory, siblings that were explicitly pro=
+tected
++	 * should get prioritized over siblings that weren't. This only happens =
+correctly
++	 * when the root of the shared subtree is passed to
++	 * dmem_cgroup_state_evict_valuable. Otherwise, the effective-protection
++	 * calculation cannot distinguish direct siblings from unrelated subtree=
+s and the
++	 * calculated protection ends up wrong.
++	 */
++	if (!limit_pool) {
++		ancestor =3D dmem_cgroup_get_common_ancestor(bo->resource->css,
++							   evict_walk->alloc_state->charge_pool);
++		limit_pool =3D ancestor;
++	}
++
++	evict_valuable =3D dmem_cgroup_state_evict_valuable(limit_pool, bo->reso=
+urce->css,
++							  evict_walk->try_low,
++							  &evict_walk->hit_low);
++	if (ancestor)
++		dmem_cgroup_pool_state_put(ancestor);
++
++	if (!evict_valuable)
+ 		return 0;
+=20
+ 	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk-=
+>place))
+
+=2D-=20
+2.55.0
+
