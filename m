@@ -4,90 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66151C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:13:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0033C4452D
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:32:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4C1910EBAD;
-	Tue, 21 Jul 2026 22:13:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F16E110E249;
+	Tue, 21 Jul 2026 22:32:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XeBAcRNr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="donYVceI";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E3BF10E23A
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:21:48 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-47640541585so5744469f8f.1
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 04:21:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784632907; x=1785237707; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=6g+koxDLN1Chjep218/XBMsTlfwQifOiOfABmvTzX4A=;
- b=XeBAcRNrjxL8PD1iUlneD9Z8A0Z2LTlxzTAsA9khfrBFCxgSU5+6zGeKD8a4AsptNh
- pBB0pY/C4X0XckUd3jm9xdmENSAtrBnQDuB14zScmuCOYkRmMz4DeyQtLwNZrI+v82K4
- Vb/e3PZpwSkyKFLNa0ol6KsOYa1ZdBWKFhwI+ZyWWWzrOIJjH0uxvIqJs4TIZO9zQI55
- 2oJ42ubozxczDPJLVbDBL2JERvKK1zfwSzg3I4pBvuAQMwZb+KLNOhZNjBTxTQFAmV0t
- xvhnBjpdYuuhQkAmQgMazn6GxRpXafwGOqnlMwcvcvFTTEAFEchjwHCS2fxRNi1TLkIK
- YC0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784632907; x=1785237707;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=6g+koxDLN1Chjep218/XBMsTlfwQifOiOfABmvTzX4A=;
- b=GE2B8GFcCTiPsphTsSBrbKhUFuqXNJcgCeP2atcjlph0PCcjjVqY77H2zSgOGMkhMe
- wnZKQ8C5pN3ZG0tBR2MN9vZchYHK0WUsWNKyzC24ZoY/HxnBmpmh8eENJ3mcSmL5sVXo
- NHXDGztN2eVyjHaUITP+2w7xVpbEyPG/wHpEhbndw3WbvWr3DQtHUuUHL6oLJZqZlHMn
- yI1vqW3wjTU6XqkkqwDUUgSDhatcYa3Zf6u0sjinp0FgJAAaMnv/WJ0hlgmUSf2JdjrV
- DJ0Nr0E/PKhx8y0UnFPUbBmIC5qGkDaA3s41lhjXbbAcq4PYM7pqUWSxu2oI9Jvh0jP9
- dGwg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr9MPrnEeG2PXEXenOPAzAVSUaqwt1EIiJZ3W+NgluY9DeIkgoKqDn7P2Uw4YTTZ0CuesXflTRUo94=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzBCG3d1onidMmyWeQLHXBYvn9gQoflINpoWgR/3M8TmpGuAbHt
- lp64wOuIItZp3EVvG33cDdOJ8FswVHcP9oRuTeZEx59fkNiP+0nRFS8j
-X-Gm-Gg: AR+sD13UzyjULAVQhWITKnBm875ASeJ/ipiq8wdfRDxBHuy9eRSbYtAtemR4AJGpNGL
- YivDrZTRSYi/wlDmBtr+nf6Uh+KtPywguVxh778OpfTAIAf7zUQYLgQes/CxzwbjA1W4UDuvssW
- hcIm/WYMGt3Nnu6Dkkoxj1lx6axqDa/xXUK/Lnjry/GlWqrWKqiF5l8QVEUsDvS72s2OSlAFbWU
- ViGBixYBNl8MJ+6NboU3otiaJ4Z4ECDpHsFDpZyaYeXSeLrt69lOGmcR3NoFEH9UtZFJ2ezsGfq
- dTVRVVB5gYNyBdiwrDJ8IHPXi2hgDjvjELjdZ8ChdU3qU/y0S4sYkzthF6WJT4TzfSwIUtaF4ww
- LUjjm1W4DP/I+PEzLCZnqoMwT0p7trZvti6PuvdmqQ0xNT4Blg5AL1sBbqKlF9U+pE/eqFyJYM8
- iHihlGf1qg/vuTCVhBq1H6kdWf/PjbaWcEJ9GKM0JwUxHbrQLdiP11B8A=
-X-Received: by 2002:a05:6000:71a:b0:47f:48cb:ea5b with SMTP id
- ffacd0b85a97d-47f6233d615mr19569935f8f.43.1784632906622; 
- Tue, 21 Jul 2026 04:21:46 -0700 (PDT)
-Received: from localhost.localdomain ([188.26.50.240])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-47f63e49ab8sm40232416f8f.5.2026.07.21.04.21.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 04:21:46 -0700 (PDT)
-From: Eduard Bostina <egbostina@gmail.com>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>, Conor Dooley <conor+dt@kernel.org>,
- Daniel Thompson <danielt@kernel.org>, devicetree@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- dri-devel@lists.freedesktop.org, Eduard Bostina <egbostina@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Kevin Hilman <khilman@baylibre.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-omap@vger.kernel.org,
- Mark Jackson <mpfj@newflow.co.uk>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Roger Quadros <rogerq@kernel.org>,
- Tony Lindgren <tony@atomide.com>
-Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com,
- m-chawdhry@ti.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 1/4] ARM: dts: ti: am335x-guardian: Drop unused isink-en
- property
-Date: Tue, 21 Jul 2026 11:21:25 +0000
-Message-ID: <20260721112133.70382-2-egbostina@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260721112133.70382-1-egbostina@gmail.com>
-References: <20260721112133.70382-1-egbostina@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81CA310E249;
+ Tue, 21 Jul 2026 22:32:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784673170; x=1816209170;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=wBW8/xWz5cZP3mB4Ua+X/jgwLVYSyDNCUMD6EfqGOFg=;
+ b=donYVceI+rTWJQy2eJElnsU4RkhpL36izItQV3t3OS6buc1YiNMPP108
+ Tk2z6XtWIK08IqAAI3d0Flypjunu4c3/jbXHjnbyPVtTSpr5+1dRFkkBi
+ CE9AeDp/gMNxet5qO86k9zRhi7ixzlVb2+dEcd6OYNp9MBqQY5TkHkIZH
+ 2lHzSlJv2EvtQcf27tzwFOsp3KqAr6A1H0LcL1ht20u0HeZ+IF+FcgTij
+ OWxIiU5/AY4XwRFy1HqSVU3HBrEOrQmgKCDDKUmcY/sPSrYCstfNuobX6
+ y+sflK9zjC63TozDFyWR+fMCAiWV1hV1XzLkMoaijbdTlOozNuGa822y2 w==;
+X-CSE-ConnectionGUID: /2Yb+1agQ3WWLVI4qzxAtA==
+X-CSE-MsgGUID: efmJp/x/QGa9/40ykb0rew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="87825837"
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="87825837"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2026 15:32:50 -0700
+X-CSE-ConnectionGUID: qCE4QiNUR0OnHLZzQ+QIDA==
+X-CSE-MsgGUID: 6tmxdz9FSfWt0YGy2NHQEA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="257358806"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2026 15:32:50 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: kernel test robot <lkp@intel.com>,
+	Jan Stancek <jstancek@redhat.com>
+Subject: [PATCH] drm/pagemap: Guard HPAGE_PMD_ORDER use with
+ CONFIG_ARCH_ENABLE_THP_MIGRATION
+Date: Tue, 21 Jul 2026 15:32:44 -0700
+Message-Id: <20260721223244.1102276-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 21 Jul 2026 22:11:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,29 +68,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The 'isink-en' property is not documented and not read by any driver,
-so remove it from the TPS65217 backlight node.
+HPAGE_PMD_SHIFT expands to BUILD_BUG() when CONFIG_PGTABLE_HAS_HUGE_LEAVES
+is not set, causing a compile error when both CONFIG_TRANSPARENT_HUGEPAGE
+and CONFIG_HUGETLB_PAGE are disabled:
 
-Signed-off-by: Eduard Bostina <egbostina@gmail.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ drivers/gpu/drm/drm_pagemap.c:480:12: error: call to '__compiletime_assert_458'
+ declared with 'error' attribute: BUILD_BUG failed
+   480 |                         order = HPAGE_PMD_ORDER;
+       |                                 ^
+ include/linux/huge_mm.h:117:26: note: expanded from macro 'HPAGE_PMD_ORDER'
+   117 | #define HPAGE_PMD_ORDER (HPAGE_PMD_SHIFT-PAGE_SHIFT)
+       |                          ^
+ include/linux/huge_mm.h:113:28: note: expanded from macro 'HPAGE_PMD_SHIFT'
+   113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
+
+Define DRM_PAGEMAP_PMD_ORDER, which maps to HPAGE_PMD_ORDER when
+CONFIG_ARCH_ENABLE_THP_MIGRATION is enabled and to -1 otherwise.
+
+This is safe because all code paths that use DRM_PAGEMAP_PMD_ORDER are
+reachable only when CONFIG_ARCH_ENABLE_THP_MIGRATION is enabled.
+
+Fixes: 139ab31aea8a ("drm/pagemap: Correct cpages calculation for migrate_vma_setup")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/r/202607201914.LpAGsbXs-lkp@intel.com/
+Cc: Jan Stancek <jstancek@redhat.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- arch/arm/boot/dts/ti/omap/am335x-guardian.dts | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/gpu/drm/drm_pagemap.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm/boot/dts/ti/omap/am335x-guardian.dts b/arch/arm/boot/dts/ti/omap/am335x-guardian.dts
-index 6ce3a2d029ee..d595e79d6b05 100644
---- a/arch/arm/boot/dts/ti/omap/am335x-guardian.dts
-+++ b/arch/arm/boot/dts/ti/omap/am335x-guardian.dts
-@@ -320,9 +320,6 @@ backlight {
- 		isel = <1>;  /* 1 - ISET1, 2 ISET2 */
- 		fdim = <500>; /* TPS65217_BL_FDIM_500HZ */
- 		default-brightness = <50>;
--		/* 1(on) - enable current sink, while initialization */
--		/* 0(off) - disable current sink, while initialization */
--		isink-en = <1>;
- 	};
+diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+index 15c78eca180b..951cd92c930c 100644
+--- a/drivers/gpu/drm/drm_pagemap.c
++++ b/drivers/gpu/drm/drm_pagemap.c
+@@ -12,6 +12,12 @@
+ #include <drm/drm_pagemap_util.h>
+ #include <drm/drm_print.h>
  
- 	regulators {
++#if IS_ENABLED(CONFIG_ARCH_ENABLE_THP_MIGRATION)
++#define DRM_PAGEMAP_PMD_ORDER	HPAGE_PMD_ORDER
++#else
++#define DRM_PAGEMAP_PMD_ORDER	(-1)
++#endif
++
+ /**
+  * DOC: Overview
+  *
+@@ -579,7 +585,7 @@ static int drm_pagemap_cpages(unsigned long *migrate_pfn, unsigned long npages)
+ 			order = folio_order(folio);
+ 			cpages += NR_PAGES(order);
+ 		} else if (migrate_pfn[i] & MIGRATE_PFN_COMPOUND) {
+-			order = HPAGE_PMD_ORDER;
++			order = DRM_PAGEMAP_PMD_ORDER;
+ 			cpages += NR_PAGES(order);
+ 		}
+ 
+@@ -765,10 +771,11 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
+ 
+ 		if (migrate.src[i] & MIGRATE_PFN_COMPOUND) {
+ 			drm_WARN_ONCE(dpagemap->drm, src_page &&
+-				      folio_order(page_folio(src_page)) != HPAGE_PMD_ORDER,
++				      folio_order(page_folio(src_page)) !=
++				      DRM_PAGEMAP_PMD_ORDER,
+ 				      "Unexpected folio order\n");
+ 
+-			order = HPAGE_PMD_ORDER;
++			order = DRM_PAGEMAP_PMD_ORDER;
+ 			migrate.dst[i] |= MIGRATE_PFN_COMPOUND;
+ 
+ 			for (j = 1; j < NR_PAGES(order) && i + j < npages; j++)
 -- 
-2.43.0
+2.34.1
 
