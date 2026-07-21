@@ -4,42 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FC03C44529
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:03:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82B4CC44529
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:08:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDB3D10E8E9;
-	Tue, 21 Jul 2026 11:03:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBEFA10E2EB;
+	Tue, 21 Jul 2026 11:07:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oi04spBa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TX1m9EUq";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 072B110E8E9
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:03:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90F9410E2EB
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:07:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9B33E42A71;
- Tue, 21 Jul 2026 11:03:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54ACA1F000E9;
- Tue, 21 Jul 2026 11:03:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AFC3E6001A;
+ Tue, 21 Jul 2026 11:07:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 229381F000E9;
+ Tue, 21 Jul 2026 11:07:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784631790;
- bh=jnqBbvf29F//CNHhQmNFcQsozSJ7qfyC4BcWfsQiKZE=;
+ s=k20260515; t=1784632077;
+ bh=q/9xii2TgWiaPuMdPCqhtIUOhaSQYsKsjyKj35l8fzQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oi04spBaG42duuAGGO9LsPPRccPyqsYBykF4eSiFEeUWPjcdlD1KrMIGnedzk85V7
- 0kjaWpbquFUrQs2xw/CKi/O0pNS7oOBstdIuXVi9UBISPhySHBeZfdRhFHbNSvp5DI
- Ml2Wzk4HDt3kOWoRR6DTHNHwyxmPCIUBqI6Xbo+GQi5xc1Z0fH9mvv0JSip8W7d0Q/
- qA/oJ/0XPOQHTWjXTkycihH0cZmR4X/zZ8kj6XcGfSrXBQYSYVELvGaVemluqNNSIt
- tcXd9iW/DcE6hCLMT75D1OTjV3NpQusUv5u5VNoANXE42P8a/Sjm5ImTPNl/eVUGqm
- CBVtKVdR9WInQ==
+ b=TX1m9EUqqCC1u5QBc5xWnsb3TLwxak178iVfKBuxijOKEXEHVoj99VW7E8u9yafDX
+ B/NGBrU325K7p9/j6uvDntMmW4m+1AsalS1MolwZBiHqm0YFh/9Cb7ruIEZU2onJ46
+ ABUWCIvxx9/iQuX4QO4giV1haDO6bhcD5P73KBHvJnr2smAeFNYAFieAcLOEuWXPM7
+ 4ap1Xz31tNoF+YXYHMdLHgFpL+KmdWPGbkIhF1tjRacVeuqaTiuYmeV5aH/GbD0wQl
+ n7TMs5CRvPbMk8mdeCOsVJEFe7re+lZKI7PKrwmCghLfu1v3s4UiQcmlWSC5ymmLME
+ PlsWqhmTMQLvA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/drv: Add buffer bounds check in drm_dev_wedged_event()
-To: "Mallesh Koujalagi" <mallesh.koujalagi@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260721105041.642598-2-mallesh.koujalagi@intel.com>
-References: <20260721105041.642598-2-mallesh.koujalagi@intel.com>
+Subject: Re: [PATCH 3/8] rust: io: register: use path fragment for alias
+ destination
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>,
+ dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>
+In-Reply-To: <20260721-registers_fix-v1-3-3711b2317e1f@nvidia.com>
+References: <20260721-registers_fix-v1-0-3711b2317e1f@nvidia.com>
+ <20260721-registers_fix-v1-3-3711b2317e1f@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 11:03:09 +0000
-Message-Id: <20260721110310.54ACA1F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 11:07:56 +0000
+Message-Id: <20260721110757.229381F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,62 +61,55 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The newly added buffer bounds check evaluates truncation at the =
-wrong time, missing partial truncations on the final recovery method and ca=
-using string corruption.
+- [Medium] Incomplete macro parser update preventing the use of qualified p=
+aths for fixed and indexed alias destinations.
 --
 
---- Patch [1]: [PATCH] drm/drv: Add buffer bounds check in drm_dev_wedged_e=
-vent() ---
-commit d685223ec7cc48ba38c7ea409895bbfb9a46aadc
-Author: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+--- Patch [3]: [PATCH 3/8] rust: io: register: use path fragment for alias =
+destination ---
+commit 2d0652e05a1a9983e77fe52bcfa5cbaeead4c274
+Author: Alexandre Courbot <acourbot@nvidia.com>
 
-drm/drv: Add buffer bounds check in drm_dev_wedged_event()
+rust: io: register: use path fragment for alias destination
 
-This patch adds a bounds check to prevent silent truncation when
-formatting the wedged event string. It emits a warning and breaks
-the loop if the buffer is full.
+This commit updates the register! macro to use a path fragment instead of
+ident for alias destinations. This aims to allow referencing registers using
+a qualified path instead of only identifiers visible from the current modul=
+e.
 
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 1ff0bf7cba6aa..63eef0a19e993 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -578,6 +578,9 @@ int drm_dev_wedged_event(struct drm_device *dev, unsi=
-gned long method,
->  		if (drm_WARN_ONCE(dev, !recovery, "invalid recovery method %u\n", opt))
->  			break;
-> =20
-> +		if (drm_WARN_ON(dev, len >=3D WEDGE_STR_LEN - 1))
-> +			break;
-> +
->  		len +=3D scnprintf(event_string + len, sizeof(event_string) - len, "%s=
-,", recovery);
+> diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
+> index 82f674aea45a2..1e0e23e4233fa 100644
+> --- a/rust/kernel/io/register.rs
+> +++ b/rust/kernel/io/register.rs
+> @@ -809,7 +809,7 @@ macro_rules! register {
+>              $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+>                  $([ $size:expr $(, stride =3D $stride:expr)? ])?
+>                  $(@ $($base:ident +)? $offset:literal)?
+> -                $(=3D> $alias:ident $(+ $alias_offset:ident)? $([$alias_=
+idx:expr])? )?
+> +                $(=3D> $alias:ident $(+ $alias_offset:path)? $([$alias_i=
+dx:expr])? )?
 
 [Severity: Medium]
-Since this bounds check is placed before the scnprintf() call, what happens
-if the string is partially truncated during the final iteration of the loop?
+Does this top-level rule unintentionally restrict fixed and indexed aliases?
 
-If multiple recovery methods are present and their combined length exceeds =
-the
-32-byte buffer during the last iteration, scnprintf() will partially trunca=
-te
-the string. Because this is the last iteration, the loop terminates without
-ever reaching the bounds check on the next iteration.
+While the inner @reg rules were updated to use $alias:path, this main parsi=
+ng
+rule still captures $alias as an ident. Because of this, it appears that
+using a qualified path (like =3D> module::ALIAS) for fixed or indexed alias=
+es
+will fail to match here and result in a compilation error.
 
-Consequently, the truncation goes unnoticed, and the post-loop cleanup code:
+Should $alias:ident also be changed to $alias:path in this top-level
+match pattern so that fixed and indexed aliases can fully benefit from this
+update?
 
-	if (recovery)
-		/* Get rid of trailing comma */
-		event_string[len - 1] =3D '\0';
+>              { $($fields:tt)* }
+>          )*
+>      ) =3D> {
 
-will overwrite the last valid character of the truncated string rather than
-a trailing comma, emitting a malformed string to userspace.
-
-Should the truncation check also evaluate the result of the scnprintf() call
-to ensure partial truncations are caught on the final loop iteration?
-
->  	}
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721105041.6425=
-98-2-mallesh.koujalagi@intel.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-registers_=
+fix-v1-0-3711b2317e1f@nvidia.com?part=3D3
