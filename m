@@ -4,61 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E5B2C4452D
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B32CC4452D
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:57:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E303810EB32;
-	Tue, 21 Jul 2026 20:52:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F228510E5D2;
+	Tue, 21 Jul 2026 20:57:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="Na3fwDt6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="orCEL9yT";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 555D910E1CB
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:52:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1784667160; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=PVip5GSz6YMFai2guBmz5C1P4O0O3oMVQjuJGNrneDXpGZh/quaoBzPtPG1q5hvOShVv9dQ80tQeHmlWp7ROIiFfV20dLkta5bvT1/CHnp/lhnLAA3LkBNBEDoi1vqxeZjHiqGwTJhED/1q1RAQ9y+cOOgI0y1SxaYRQ9O9s3Fo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1784667160;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=LLBagPNXHJ0kpfP4oPNBwhSEz+cGT6bZGlW+lGGkdRc=; 
- b=dAm9Vp524VKWVnvKFm37+iudEeky8N7rRI+gPygZ/NDpRAoU9nk11ULSFun7pIOgNwq7SP1c5CeLtWhtC3jVQu0R3HVwtYx4XeFa1QUYLtB9lM78CHsHG+U3LGoSUvBENd2Mykmh2FJX54+4DaY+YxTb/lrONT6WbMSL2dCHL4U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784667160; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=LLBagPNXHJ0kpfP4oPNBwhSEz+cGT6bZGlW+lGGkdRc=;
- b=Na3fwDt6f2Jc8nFcUWOYQgccvCF0Q9FRTamRFmhvJ9w+3K+UAK1ahlqXfzrMtdXd
- mbe3Ee41TupmlFMfRudwq03SUYbxBQOrzL1whvaPxUYEbO9hhaBU40EMAwLrXC1Bgo+
- hWjsGXZYwwZj/kn8E2HQ6qupub6qwE5RisAyXphc=
-Received: by mx.zohomail.com with SMTPS id 1784667158635637.4615082768967;
- Tue, 21 Jul 2026 13:52:38 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v7 6/7] drm/tyr: add parser for firmware binary
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260713-fw-boot-b4-v7-6-afd8dc1494dd@collabora.com>
-Date: Tue, 21 Jul 2026 17:52:20 -0300
-Cc: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, boris.brezillon@collabora.com,
- samitolvanen@google.com, work@onurozkan.dev, acourbot@nvidia.com,
- lyude@redhat.com, laura.nao@collabora.com, beata.michalska@arm.com,
- alvin.sun@linux.dev, steven.price@arm.com
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <D0A4704C-F275-42DD-B82D-8B021BE5DF1F@collabora.com>
-References: <20260713-fw-boot-b4-v7-0-afd8dc1494dd@collabora.com>
- <20260713-fw-boot-b4-v7-6-afd8dc1494dd@collabora.com>
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F36910E5D2
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:57:12 +0000 (UTC)
+Received: by mail-ot1-f50.google.com with SMTP id
+ 46e09a7af769-7e9ef94c0e2so3713964a34.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:57:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784667431; x=1785272231; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=qbpzhZprvzL7jC81RqT6ZTBnFe6RFMUwroybvguCBv0=;
+ b=orCEL9yTYH9yoUJZLvSwKfz8rFbVSr5M/l9yPjH4OVILrtdJyGIypXfJrohW2qEUN3
+ Ww8QC6Yux0m42VtLXDuDPGnvlDNQhexEZkMuLG2PZkKxOhUx8t/fSKunbTocUNmhua9z
+ vkosiLLdYIa74YF0OCYN6OwVPCmHhMZY/gKnwjAKfvt8UZsPZAkyMHbVfVQuuQD/Shko
+ JP5S6lQDqAenjZjQr8qK6drVLQjd+7R1cRJq/wQ9bSUA6cmeCdQ7odmZaBvm+hDBYQ4j
+ l/cxWsbEmatZy/aZpCCCQQYulLsUgjoXxvLYFWAa05pV1WBDwlYizpdpFgUaN9FXlE2X
+ 8d2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784667431; x=1785272231;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=qbpzhZprvzL7jC81RqT6ZTBnFe6RFMUwroybvguCBv0=;
+ b=Ib0/sZyMjfkFgHMs3sfaOa0C8isS0H3EHOJwoNynItqPJZKI08w/S2fxqhMMrHLvtd
+ uLqFvcn22pXFS8VxYU5rZp6Nd3GCZ5DixPGnsdsoq8KB3o7KkabGfGy6rRkpuFAjUma2
+ 8kNWYpzdjW26sKMW+TXmqIy5qimCEh7VAGtVgWVoBQCUOF9TTmplAQkWXbueUYhWgQb8
+ 5TRHk3BP4Dad5H1wWD7hgoQU76uh5WNDw8olxJj9YjytwSFSsY/xlK031b4I4zJOF2W8
+ sW2eoRpWQgl1DL2y7FMWwP9uQ3i/HB5yBeEsD/y4NP9BDB9437GgQfswxMeVe0xIE15A
+ PzxQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrsNryiaxfqZFYzZqhbQ9B5nrQWN5a2LKSqdvcM2X7FVjQ2iYjGiOPpo2UMmtPdbnB1wkjhhE5JH5E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwxyfYD9jBtUHPi4rwiiOoqUlS5nBByjPeIk7h93ItGiPPpCrnr
+ qsdDXB2ZCRgkcFaPpkLSwXZZl+M1yJxsxpH6J1bYakxAjIybN/QX4WlJ
+X-Gm-Gg: AfdE7cn3Z3jgokulzL1rhLM5O3nxF5Qs22SCwEjV18URP8K4CsIyr4a/e09kvOY9a4z
+ v2Bo0I5RuUwL5hD8gGCvX6cB8EXM/Tn+BZkE384CPp7LNxQp26s9vXpAhOlOyfA908Lan1kNRXp
+ aAcwyRUqb7DHT0a0tTl9vY5yrPq0d8Dw6ofFFKtA7D00fQL7VYlp6wSO2EWyQlkkKbCsNEupxD+
+ seCgo+OA1vzu2EP4Y9wxcAIjwpfiE3aiz1u7VWcqqVoVgVX41eZtg994ia76Y/CRJoPeSaDxkQN
+ 9t5mrYA1E/sJuNB7CKsNZlMMZM6pprmuVvEtYPT/kXIYoBi/5T7o6pgMW6wFvVMrqibmHpkYMpD
+ vD4eZhUm5I9hHVt1llG3mP9v3VHV5dlZiTkS2H2VnB4RoKX6+VfpPf/lzAmS3XlOB+yHZiqmYBq
+ bAzT+vatLrE7hnRFK3NrTK5DXUGwHFa7jw++GYWVsqxi/3h6BKIbCpDEKkWnnCryONepVsFJzY2
+ m4muNwpo9ev6su+7WsGClgFkQ==
+X-Received: by 2002:a05:6830:700a:b0:7e9:e0f3:b914 with SMTP id
+ 46e09a7af769-7ed9aa59b8amr11454589a34.13.1784667431085; 
+ Tue, 21 Jul 2026 13:57:11 -0700 (PDT)
+Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
+ [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
+ 46e09a7af769-7edaf94a494sm11134501a34.13.2026.07.21.13.57.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2026 13:57:10 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v7 00/29] fix dynamic-debug classmaps API for DRM
+Date: Tue, 21 Jul 2026 14:56:49 -0600
+Message-Id: <20260721-dd-maint-2-v7-0-010fbe73b311@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13RS27DIBAG4KtYrEsEw2DsrHqPqgteTpBquwUXt
+ Ypy904SVbG9QRqG7xcMF1ZiTrGwY3NhOdZU0jxRYV4a5s92OkWeAtUMBLRCg+Qh8NGmaeHATes
+ 1gjA9LYzAZ45D+rmHvb1TfU5lmfPvPbvCbfc/Rq1jKnDBXa+MkmCt6NTriVofBz+P7BZT1ZO2Y
+ nODqoiildoBSheU31NcU9hQJCp7KxG17rTt9lQ/qdlRTRRwAHD0FjfAnrZraja0Jao6OagYnBC
+ o1/T6mGGOX9/0D8tjkMzZEjn1x7Qcm2oOwLNHOnz9A3SSw5K8AQAA
+X-Change-ID: 20260521-dd-maint-2-76c542079420
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Jason Baron <jbaron@akamai.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Simona Vetter <simona@ffwll.ch>, 
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>
+Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
+ linux-modules@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Jim Cromie <jim.cromie@gmail.com>, stable@vger.kernel.org, 
+ Arnd Bergmann <arnd@arndb.de>, Louis Chauvet <louis.chauvet@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784667429; l=8836;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=HSLmyNqqlC5f/lDHCkwX2D39xGcapCKnPGT/JRUn8pQ=;
+ b=oFSZGGaTYP15h5jzOe5WHoYI0xiibB/2BmYKd1+zJ6fzliY8bP3Mc7kWXJ+scKnr8xqXJrjjY
+ +oLZz0O0YrlAR14Qij1VrOtntdWRv13KJp1GGkUmCFKGJvu8CHOUePF
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,625 +109,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This series fixes problems which broke CONFIG_DRM_USE_DYNAMIC_DEBUG=Y.
 
+Briefly, the bug was that the handling of drm.debug settings occurs
+when drm.ko is up/ready, long before drm drivers and helper modules
+are up/ready.  So they missed the enablement.
 
-> On 14 Jul 2026, at 00:18, Deborah Brouwer =
-<deborah.brouwer@collabora.com> wrote:
->=20
-> From: Daniel Almeida <daniel.almeida@collabora.com>
->=20
-> Add a parser for the Mali CSF GPU firmware binary format. The firmware
-> consists of a header followed by entries describing how to load =
-firmware
-> sections into the MCU's memory.
->=20
-> The parser extracts section metadata including virtual address ranges,
-> data byte offsets within the binary, and section flags controlling
-> permissions and cache modes. It validates the basic firmware structure
-> and alignment and ignores protected-mode sections for now.
->=20
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Co-developed-by: Beata Michalska <beata.michalska@arm.com>
-> Signed-off-by: Beata Michalska <beata.michalska@arm.com>
-> Co-developed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> ---
-> drivers/gpu/drm/tyr/fw/parser.rs | 521 =
-+++++++++++++++++++++++++++++++++++++++
-> 1 file changed, 521 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/tyr/fw/parser.rs =
-b/drivers/gpu/drm/tyr/fw/parser.rs
-> new file mode 100644
-> index 000000000000..198a754b294f
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/fw/parser.rs
-> @@ -0,0 +1,521 @@
-> +// SPDX-License-Identifier: GPL-2.0 or MIT
-> +
-> +//! Firmware binary parser for Mali CSF (Command Stream Frontend) =
-GPU.
-> +//!
-> +//! This module implements a parser for the Mali GPU firmware binary =
-format. The firmware
-> +//! file contains a header followed by a sequence of entries, each =
-describing how to load
-> +//! firmware sections into the MCU (Microcontroller Unit) memory. The =
-parser extracts section
-> +//! metadata including:
-> +//! - Virtual address ranges where sections should be mapped
-> +//! - Data ranges (byte offsets) within the firmware binary
-> +//! - Section flags (permissions, cache modes)
-> +
-> +use core::{
-> +    mem::size_of,
-> +    ops::Range, //
-> +};
-> +
-> +use kernel::{
-> +    bits::bit_u32,
-> +    prelude::*,
-> +    str::CString, //
-> +};
-> +
-> +use crate::{
-> +    fw::{
-> +        SectionFlag,
-> +        SectionFlags,
-> +        CSF_MCU_SHARED_REGION_START, //
-> +    },
-> +    vm::{
-> +        VmFlag,
-> +        VmMapFlags, //
-> +    }, //
-> +};
-> +
-> +/// A parsed firmware section ready for loading into MCU memory.
-> +///
-> +/// Represents a single firmware section extracted from the firmware =
-binary, containing
-> +/// all information needed to map the section's data into the MCU's =
-virtual address space.
-> +pub(super) struct ParsedSection {
-> +    /// Byte offset range within the firmware binary where this =
-section's data resides.
-> +    pub(super) data_range: Range<u32>,
-> +    /// MCU virtual address range where this section should be =
-mapped.
-> +    pub(super) va: Range<u32>,
-> +    /// Memory protection and caching flags for the mapping.
-> +    pub(super) vm_map_flags: VmMapFlags,
-> +}
-> +
-> +/// A bare-bones `std::io::Cursor<[u8]>` clone to keep track of the =
-current position in the
-> +/// firmware binary.
-> +///
-> +/// Provides methods to sequentially read primitive types and byte =
-arrays from the firmware
-> +/// binary while maintaining the current read position.
-> +struct Cursor<'a> {
-> +    data: &'a [u8],
-> +    pos: usize,
-> +}
-> +
-> +impl<'a> Cursor<'a> {
-> +    fn new(data: &'a [u8]) -> Self {
-> +        Self { data, pos: 0 }
-> +    }
-> +
-> +    fn len(&self) -> usize {
-> +        self.data.len()
-> +    }
-> +
-> +    fn pos(&self) -> usize {
-> +        self.pos
-> +    }
-> +
-> +    /// Returns a view into the cursor's data.
-> +    ///
-> +    /// This spawns a new cursor, leaving the current cursor =
-unchanged.
-> +    fn view(&self, range: Range<usize>) -> Result<Cursor<'_>> {
-> +        if range.start < self.pos || range.end > self.data.len() {
-> +            pr_err!(
-> +                "Invalid cursor range {:?} for data of length {}",
-> +                range,
-> +                self.data.len()
-> +            );
-> +
-> +            Err(EINVAL)
-> +        } else {
-> +            Ok(Self {
-> +                data: &self.data[range],
-> +                pos: 0,
-> +            })
-> +        }
-> +    }
-> +
-> +    /// Reads a slice of bytes from the current position and advances =
-the cursor.
-> +    ///
-> +    /// Returns an error if the read would exceed the data bounds.
-> +    fn read(&mut self, nbytes: usize) -> Result<&[u8]> {
-> +        let start =3D self.pos;
-> +        let end =3D start + nbytes;
-> +
-> +        if end > self.data.len() {
-> +            pr_err!(
-> +                "Invalid firmware file: read of size {} at position =
-{} is out of bounds",
-> +                nbytes,
-> +                start,
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        self.pos +=3D nbytes;
-> +        Ok(&self.data[start..end])
-> +    }
-> +
-> +    /// Reads a little-endian `u8` from the current position and =
-advances the cursor.
-> +    fn read_u8(&mut self) -> Result<u8> {
-> +        let bytes =3D self.read(size_of::<u8>())?;
-> +        Ok(bytes[0])
-> +    }
-> +
-> +    /// Reads a little-endian `u16` from the current position and =
-advances the cursor.
-> +    fn read_u16(&mut self) -> Result<u16> {
-> +        let bytes =3D self.read(size_of::<u16>())?;
-> +        Ok(u16::from_le_bytes(bytes.try_into().unwrap()))
-> +    }
-> +
-> +    /// Reads a little-endian `u32` from the current position and =
-advances the cursor.
-> +    fn read_u32(&mut self) -> Result<u32> {
-> +        let bytes =3D self.read(size_of::<u32>())?;
-> +        Ok(u32::from_le_bytes(bytes.try_into().unwrap()))
-> +    }
-> +
-> +    /// Advances the cursor position by the specified number of =
-bytes.
-> +    ///
-> +    /// Returns an error if the advance would exceed the data bounds.
-> +    fn advance(&mut self, nbytes: usize) -> Result {
-> +        if self.pos + nbytes > self.data.len() {
-> +            pr_err!(
-> +                "Invalid firmware file: advance of size {} at =
-position {} is out of bounds",
-> +                nbytes,
-> +                self.pos,
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +        self.pos +=3D nbytes;
-> +        Ok(())
-> +    }
-> +}
-> +
-> +/// Parser for Mali CSF GPU firmware binaries.
-> +///
-> +/// Parses the firmware binary format, extracting section metadata =
-including virtual
-> +/// address ranges, data offsets, and memory protection flags needed =
-to load firmware
-> +/// into the MCU's memory.
-> +pub(super) struct FwParser<'a> {
-> +    cursor: Cursor<'a>,
-> +}
-> +
-> +impl<'a> FwParser<'a> {
-> +    /// Creates a new firmware parser for the given firmware binary =
-data.
-> +    pub(super) fn new(data: &'a [u8]) -> Self {
-> +        Self {
-> +            cursor: Cursor::new(data),
-> +        }
-> +    }
-> +
-> +    /// Parses the firmware binary and returns a collection of parsed =
-sections.
-> +    ///
-> +    /// This method validates the firmware header and iterates =
-through all entries
-> +    /// in the binary, extracting section information needed for =
-loading.
-> +    pub(super) fn parse(&mut self) -> Result<KVec<ParsedSection>> {
-> +        let fw_header =3D self.parse_fw_header()?;
-> +
-> +        let mut parsed_sections =3D KVec::new();
-> +        while (self.cursor.pos() as u32) < fw_header.size {
-> +            let entry_section =3D self.parse_entry()?;
-> +
-> +            if let Some(inner) =3D entry_section.inner {
-> +                parsed_sections.push(inner, GFP_KERNEL)?;
-> +            }
-> +        }
-> +
+The fix is to split DECLARE_DYNDBG_CLASSMAP in 2; a client-server
+scheme where drm calls DYNAMIC_DEBUG_CLASSMAP_DEFINE, and drivers call
+DYNAMIC_DEBUG_CLASSMAP_USE.  Now when a driver is modprobed, dyndbg
+sees the _USE record, follows it to the classmap _DEFINition, finds
+drm's drm.debug param which the classmap is wired to, and applies its
+setting to the driver module.
 
-Can we please check for parsed_sections =3D=3D 0 here?=20
+The patchset, by chunks:
 
+1. tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+   moved to front
+   available from start to validate each following commit
+   "fingerprint" based.
 
-> +        Ok(parsed_sections)
-> +    }
-> +
-> +    fn parse_fw_header(&mut self) -> Result<FirmwareHeader> {
-> +        let fw_header: FirmwareHeader =3D match =
-FirmwareHeader::new(&mut self.cursor) {
-> +            Ok(fw_header) =3D> fw_header,
-> +            Err(e) =3D> {
-> +                pr_err!("Invalid firmware file: {}", e.to_errno());
-> +                return Err(e);
-> +            }
-> +        };
-> +
-> +        if fw_header.size > self.cursor.len() as u32 {
-> +            pr_err!("Firmware image is truncated");
-> +            return Err(EINVAL);
-> +        }
-> +        Ok(fw_header)
-> +    }
-> +
-> +    fn parse_entry(&mut self) -> Result<EntrySection> {
-> +        let entry_section =3D EntrySection {
-> +            entry_hdr: EntryHeader(self.cursor.read_u32()?),
-> +            inner: None,
-> +        };
-> +
-> +        if self.cursor.pos() % size_of::<u32>() !=3D 0
-> +            || entry_section.entry_hdr.size() as usize % =
-size_of::<u32>() !=3D 0
+2. DRM setup
+   enable code under test thru entire series
+   remove BROKEN on CONFIG_DRM_USE_DYNAMIC_DEBUG
+   fix ccflags-y in Makefile - build with -DDYNAMIC_DEBUG_MODULE
+   probably omit this for merge
 
-|| entry_section.entry_hdr.size() < size_of::<EntryHeader>()
+3. vmlinux fixes for i386 misalignment crash
+   cleanups needed,added too.
 
-(reads better if we extract this expression into a variable)
+4. cleanups, preps, etc
+   unused code removal
+   callchain refactors, struct re-structuring,
+   verbose debug reduction
 
-> +        {
-> +            pr_err!(
-> +                "Firmware entry isn't 32 bit aligned, offset=3D{:#x} =
-size=3D{:#x}\n",
-> +                self.cursor.pos() - size_of::<u32>(),
-> +                entry_section.entry_hdr.size()
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        let section_hdr_size =3D entry_section.entry_hdr.size() as =
-usize - size_of::<EntryHeader>();
-> +
-> +        let entry_section =3D {
-> +            let mut entry_cursor =3D self
-> +                .cursor
-> +                .view(self.cursor.pos()..self.cursor.pos() + =
-section_hdr_size)?;
-> +
-> +            match entry_section.entry_hdr.entry_type() {
-> +                Ok(EntryType::Iface) =3D> Ok(EntrySection {
-> +                    entry_hdr: entry_section.entry_hdr,
-> +                    inner: Self::parse_section_entry(&mut =
-entry_cursor)?,
-> +                }),
-> +                Ok(
-> +                    EntryType::Config
-> +                    | EntryType::FutfTest
-> +                    | EntryType::TraceBuffer
-> +                    | EntryType::TimelineMetadata
-> +                    | EntryType::BuildInfoMetadata,
-> +                ) =3D> Ok(entry_section),
-> +
-> +                entry_type =3D> {
-> +                    if entry_type.is_err() || =
-!entry_section.entry_hdr.optional() {
-> +                        if !entry_section.entry_hdr.optional() {
-> +                            pr_err!(
-> +                                "Failed to handle firmware entry =
-type: {}\n",
-> +                                entry_type
-> +                                    =
-.map_or(entry_section.entry_hdr.entry_type_raw(), |e| e as u8)
-> +                            );
-> +                            Err(EINVAL)
-> +                        } else {
-> +                            Ok(entry_section)
-> +                        }
-> +                    } else {
-> +                        Ok(entry_section)
-> +                    }
-> +                }
-> +            }
-> +        };
-> +
-> +        if entry_section.is_ok() {
-> +            self.cursor.advance(section_hdr_size)?;
-> +        }
-> +
-> +        entry_section
-> +    }
-> +
-> +    fn parse_section_entry(entry_cursor: &mut Cursor<'_>) -> =
-Result<Option<ParsedSection>> {
-> +        let section_hdr: SectionHeader =3D =
-SectionHeader::new(entry_cursor)?;
-> +
-> +        if section_hdr.data.end < section_hdr.data.start {
-> +            pr_err!(
-> +                "Firmware corrupted, data.end < data.start (0x{:x} < =
-0x{:x})\n",
-> +                section_hdr.data.end,
-> +                section_hdr.data.start
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        if section_hdr.va.end < section_hdr.va.start {
-> +            pr_err!(
-> +                "Firmware corrupted, section_hdr.va.end < =
-section_hdr.va.start (0x{:x} < 0x{:x})\n",
-> +                section_hdr.va.end,
-> +                section_hdr.va.start
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        if section_hdr.section_flags.contains(SectionFlag::Prot) {
-> +            pr_info!("Firmware protected mode entry not supported, =
-ignoring");
-> +            return Ok(None);
-> +        }
-> +
-> +        if section_hdr.va.start =3D=3D CSF_MCU_SHARED_REGION_START
-> +            && =
-!section_hdr.section_flags.contains(SectionFlag::Shared)
-> +        {
-> +            pr_err!(
-> +                "Interface at 0x{:x} must be shared",
-> +                CSF_MCU_SHARED_REGION_START
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        let name_len =3D entry_cursor.len() - entry_cursor.pos();
-> +        let name_bytes =3D entry_cursor.read(name_len)?;
-> +
-> +        let mut name =3D KVec::with_capacity(name_bytes.len() + 1, =
-GFP_KERNEL)?;
-> +        name.extend_from_slice(name_bytes, GFP_KERNEL)?;
-> +        name.push(0, GFP_KERNEL)?;
-> +
-> +        let _name =3D CStr::from_bytes_with_nul(&name)
-> +            .ok()
-> +            .and_then(|name| CString::try_from(name).ok());
-> +
-> +        let cache_mode =3D section_hdr.section_flags.cache_mode();
-> +        let mut vm_map_flags =3D VmMapFlags::empty();
-> +
-> +        if !section_hdr.section_flags.contains(SectionFlag::Write) {
-> +            vm_map_flags |=3D VmFlag::Readonly;
-> +        }
-> +        if !section_hdr.section_flags.contains(SectionFlag::Exec) {
-> +            vm_map_flags |=3D VmFlag::Noexec;
-> +        }
-> +        if cache_mode !=3D SectionFlag::CacheModeCached.into() {
-> +            vm_map_flags |=3D VmFlag::Uncached;
-> +        }
-> +
-> +        Ok(Some(ParsedSection {
-> +            data_range: section_hdr.data.clone(),
-> +            va: section_hdr.va,
-> +            vm_map_flags,
-> +        }))
-> +    }
-> +}
-> +
-> +/// Firmware binary header containing version and size information.
-> +///
-> +/// The header is located at the beginning of the firmware binary and =
-contains
-> +/// a magic value for validation, version information, and the total =
-size of
-> +/// all structured headers that follow.
-> +#[expect(dead_code)]
-> +struct FirmwareHeader {
-> +    /// Magic value to check binary validity.
-> +    magic: u32,
-> +
-> +    /// Minor firmware version.
-> +    minor: u8,
-> +
-> +    /// Major firmware version.
-> +    major: u8,
-> +
-> +    /// Padding. Must be set to zero.
-> +    _padding1: u16,
-> +
-> +    /// Firmware version hash.
-> +    version_hash: u32,
-> +
-> +    /// Padding. Must be set to zero.
-> +    _padding2: u32,
-> +
-> +    /// Total size of all the structured data headers at beginning of =
-firmware binary.
-> +    size: u32,
-> +}
-> +
-> +impl FirmwareHeader {
-> +    const FW_BINARY_MAGIC: u32 =3D 0xc3f13a6e;
-> +    const FW_BINARY_MAJOR_MAX: u8 =3D 0;
-> +
-> +    /// Reads and validates a firmware header from the cursor.
-> +    ///
-> +    /// Verifies the magic value, version compatibility, and padding =
-fields.
-> +    fn new(cursor: &mut Cursor<'_>) -> Result<Self> {
-> +        let magic =3D cursor.read_u32()?;
-> +        if magic !=3D Self::FW_BINARY_MAGIC {
-> +            pr_err!("Invalid firmware magic");
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        let minor =3D cursor.read_u8()?;
-> +        let major =3D cursor.read_u8()?;
-> +
-> +        if major > Self::FW_BINARY_MAJOR_MAX {
-> +            pr_err!(
-> +                "Unsupported firmware binary header version {}.{} =
-(expected {}.x)\n",
-> +                major,
-> +                minor,
-> +                Self::FW_BINARY_MAJOR_MAX
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        let padding1 =3D cursor.read_u16()?;
-> +        let version_hash =3D cursor.read_u32()?;
-> +        let padding2 =3D cursor.read_u32()?;
-> +        let size =3D cursor.read_u32()?;
-> +
-> +        if padding1 !=3D 0 || padding2 !=3D 0 {
-> +            pr_err!("Invalid firmware file: header padding is not =
-zero");
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        let fw_header =3D Self {
-> +            magic,
-> +            minor,
-> +            major,
-> +            _padding1: padding1,
-> +            version_hash,
-> +            _padding2: padding2,
-> +            size,
-> +        };
-> +
-> +        Ok(fw_header)
-> +    }
-> +}
-> +
-> +/// Firmware section header for loading binary sections into MCU =
-memory.
-> +#[derive(Debug)]
-> +struct SectionHeader {
-> +    section_flags: SectionFlags,
-> +    /// MCU virtual range to map this binary section to.
-> +    va: Range<u32>,
-> +    /// References the data in the FW binary.
-> +    data: Range<u32>,
-> +}
-> +
-> +impl SectionHeader {
-> +    /// Reads and validates a section header from the cursor.
-> +    ///
-> +    /// Parses section flags, virtual address range, and data range =
-from the firmware binary.
-> +    fn new(cursor: &mut Cursor<'_>) -> Result<Self> {
-> +        let section_flags =3D cursor.read_u32()?;
-> +        let section_flags =3D SectionFlags::try_from(section_flags)?;
-> +
-> +        let va_start =3D cursor.read_u32()?;
-> +        let va_end =3D cursor.read_u32()?;
-> +
-> +        let va =3D va_start..va_end;
-> +
-> +        if va.is_empty() {
-> +            pr_err!(
-> +                "Invalid firmware file: empty VA range at pos {}\n",
-> +                cursor.pos(),
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        let data_start =3D cursor.read_u32()?;
-> +        let data_end =3D cursor.read_u32()?;
-> +        let data =3D data_start..data_end;
-> +
-> +        Ok(Self {
-> +            section_flags,
-> +            va,
-> +            data,
-> +        })
-> +    }
-> +}
-> +
-> +/// A firmware entry containing a header and optional parsed section =
-data.
-> +///
-> +/// Represents a single entry in the firmware binary, which may =
-contain loadable
-> +/// section data or metadata that doesn't require loading.
-> +struct EntrySection {
-> +    entry_hdr: EntryHeader,
-> +    inner: Option<ParsedSection>,
-> +}
-> +
-> +/// Header for a firmware entry, packed into a single u32.
-> +///
-> +/// The entry header encodes the entry type, size, and optional flag =
-in a
-> +/// 32-bit value with the following layout:
-> +/// - Bits 0-7: Entry type
-> +/// - Bits 8-15: Size in bytes
-> +/// - Bit 31: Optional flag
-> +struct EntryHeader(u32);
-> +
-> +impl EntryHeader {
-> +    fn entry_type_raw(&self) -> u8 {
-> +        (self.0 & 0xff) as u8
-> +    }
-> +
-> +    fn entry_type(&self) -> Result<EntryType> {
-> +        let v =3D self.entry_type_raw();
-> +        EntryType::try_from(v)
-> +    }
-> +
-> +    fn optional(&self) -> bool {
-> +        self.0 & bit_u32(31) !=3D 0
-> +    }
-> +
-> +    fn size(&self) -> u32 {
-> +        self.0 >> 8 & 0xff
-> +    }
-> +}
-> +
-> +#[derive(Clone, Copy, Debug)]
-> +#[repr(u8)]
-> +enum EntryType {
-> +    /// Host <-> FW interface.
-> +    Iface =3D 0,
-> +    /// FW config.
-> +    Config =3D 1,
-> +    /// Unit tests.
-> +    FutfTest =3D 2,
-> +    /// Trace buffer interface.
-> +    TraceBuffer =3D 3,
-> +    /// Timeline metadata interface.
-> +    TimelineMetadata =3D 4,
-> +    /// Metadata about how the FW binary was built.
-> +    BuildInfoMetadata =3D 6,
-> +}
-> +
-> +impl TryFrom<u8> for EntryType {
-> +    type Error =3D Error;
-> +
-> +    fn try_from(value: u8) -> Result<Self, Self::Error> {
-> +        match value {
-> +            0 =3D> Ok(EntryType::Iface),
-> +            1 =3D> Ok(EntryType::Config),
-> +            2 =3D> Ok(EntryType::FutfTest),
-> +            3 =3D> Ok(EntryType::TraceBuffer),
-> +            4 =3D> Ok(EntryType::TimelineMetadata),
-> +            6 =3D> Ok(EntryType::BuildInfoMetadata),
-> +            _ =3D> Err(EINVAL),
-> +        }
-> +    }
-> +}
->=20
-> --=20
-> 2.54.0
->=20
+5. The API fix
+   new __dyndbg_class_users section
+   new test_dynamic_debug_submod.ko
+   selftests - reproduce the drm-drivers scenario
+
+Not included:
+   a few drm-core adaptation patches
+   75+ 1-liner-ish DRM patches to +DYNAMIC_DEBUG_CLASSMAP_USE
+   patches validating DYNAMIC_DEBUG_CLASSMAP_* args at compile-time, etc
+
+There are 2 user-visible changes I should note:
+
+1. change an ERROR condition displayed in dynamic_debug/control,
+from "class:unknown, _id:1" to "class:_UNKNOWN_ id:1"
+
+This only happens if a classmap is incorrectly defined.  Such a
+problem should be caught in review, and should be SHOUTED about.  And
+since classmaps are BROKEN for DRM (its only user), this affects no
+users.  Followon patches will catch more classmap definition errors,
+but not this particular one.
+
+2. change builtin module names, displayed in dynamic_debug/control,
+from simple "[main]" to subsystem "[init/main]" etc.  This corrects an
+existing naming ambiguity, which is disallowed for loadable modules by
+the module loader.  To preserve legacy query behavior, "module main"
+will select all of "[*/main]".
+
+NB: the current ambiguity prevents cleanly adding classmaps to
+builtins named "[main]".  Such an addition is quite unlikely, so this
+change could/can be dropped, but it seemed proper to point it out and
+correct it.
+
+3. revert a change in classmaps-v1 (2022) which enlarged __drm_debug
+from (unsigned) int to long int.  64 categories of drm-debug is well
+past reasonable and useful.  The param is now a u32, for clarity.
+
+NB: 63 class-ids allows 2+ classmaps per module.
+
+PS: shortened cc list to stay under gmail's 500/day limit,
+pls cc folks you think should see this.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+Changes in v7:
+
+- rebased onto v7.2-rc4
+- applies clean to mm-nonmm-unstable@376804729797
+
+- move selftest script to front, always there for validating, bisecting.
+- substantial rewrite of test script. now fingerprint based.
+- move DRM patches to front, for more thorough build-tests
+- drop statements-to-expressions, the compile error no longer exists.
+- sashiko fixes - all, I hope
+- Link to v6: https://lore.kernel.org/r/20260707-dd-maint-2-v6-0-381f3edb0045@gmail.com
+
+Changes in v6:
+
+previous versions split the 1st chunk into a separate submission, in
+an attempt to get past gmail's 500 msgs/day limit, and to ease review.
+
+This complicated application; although the 2nd chunk had the b4
+dependency on the 1st, this fact was missed by sashiko, which
+therefore couldnt apply it.
+
+A followon series adds compile-time and runtime checks to fail-fast if
+classmaps are used incorrectly.
+
+Changes in v5:
+
+move KBUILD_MODFILE ahead of array-slice, to address sashiko
+complaints which were fixed by later patches in V4.
+
+Changes in v4:
+
+Dyndbg previously used KBUILD_MODNAME to provide module-name, this
+works well for loadable modules (module loader requires unique module
+names), but for builtin modules, is effectively kbasename, and is not
+guaranteed unique.
+
+So we get 4 modules named "main": init/main, kernel/power/main,
+kernel/base/power/main.  This ambiguity is visible in user-space since
+the beginning of dyndbg.
+
+Now suppose kernel/{,base}/power/main want to define classmaps to
+categorize the various pr-debugs they have.  The current code finds a
+module's classmaps by strcmp on modname, so init/main will match
+against classmaps defined by both kernel/{,base}/power/main.
+
+The current code will also map "main" classes to kernel/*/power/main,
+so they will probably work at first, but 2 independent classmaps can
+both use class-ids 0-N, but will conflict if they're both used by a
+module.  Then we have classmap overlaps and unpredictable results.
+
+v3:
+- move #includes to top of files,
+- drop redundant ALIGN(8) in dydnbg.lds.S: DYNDBG_SECTIONS macro
+- add Reviewed-by tag (thx Petr)
+
+v2:
+- avoid BOUNDED_SECTION in modules, dont need _start & _end symbols.
+- sets 0 address to the sections, not just whatever current is.
+
+---
+Jim Cromie (29):
+      params: fix a pr_debug(" %p ") use - already in MM-*
+      selftests/dyndbg: Add kselftest script to verify dynamic-debug
+      drm: Fix incorrect ccflags-y spelling inside Makefile
+      drm: fix config dependent unused variable warning.
+      drm: Mark CONFIG_DRM_USE_DYNAMIC_DEBUG as unBROKEN
+      vmlinux.lds.h: refactor BOUNDED_SECTION_* macros into bounded_sections.lds.h
+      vmlinux.lds.h: drop unused HEADERED_SECTION* macros
+      vmlinux.lds.h: Fix ALIGN(8) omission causing NULL ptr on i386
+      vmlinux.lds.h: remove redundant ALIGN(8) directives
+      dyndbg.lds.S: fix lost dyndbg sections in modules
+      dyndbg: factor ddebug_match_desc out from ddebug_change
+      dyndbg: add stub macro for DECLARE_DYNDBG_CLASSMAP
+      dyndbg: reword "class unknown," to "class:_UNKNOWN_"
+      dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
+      dyndbg: drop NUM_TYPE_ARGS
+      dyndbg: bump num-tokens in a query-cmd from 9 to 15
+      dyndbg: reduce verbose/debug clutter
+      lib/parser: add match_wildcard_hyphen() for agnostic matching
+      dyndbg: use KBUILD_MODFILE for unique builtin module names
+      dyndbg: refactor param_set_dyndbg_classes and below
+      dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
+      dyndbg: replace classmap list with an array-slice
+      dyndbg: macrofy a 2-index for-loop pattern
+      dyndbg: pin class param storage to u32
+      dyndbg,module: make proper substructs in _ddebug_info
+      dyndbg: move mod_name down from struct ddebug_table to _ddebug_info
+      dyndbg: hoist classmap-filter-by-modname up to ddebug_add_module
+      dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
+      selftests/dyndbg: enable FT_classmap_inheritance
+
+ Documentation/admin-guide/dynamic-debug-howto.rst  |  42 +-
+ MAINTAINERS                                        |   2 +
+ drivers/gpu/drm/Kconfig.debug                      |   1 -
+ drivers/gpu/drm/Makefile                           |   3 +-
+ drivers/gpu/drm/drm_print.c                        |   7 +-
+ include/asm-generic/bounded_sections.lds.h         |  32 +
+ include/asm-generic/dyndbg.lds.h                   |  22 +
+ include/asm-generic/vmlinux.lds.h                  |  68 +-
+ include/drm/drm_print.h                            |   2 +-
+ include/linux/dynamic_debug.h                      | 257 +++++--
+ include/linux/parser.h                             |   1 +
+ kernel/module/main.c                               |  15 +-
+ kernel/params.c                                    |   4 +-
+ lib/Kconfig.debug                                  |  24 +-
+ lib/Makefile                                       |   3 +
+ lib/dynamic_debug.c                                | 607 +++++++++------
+ lib/parser.c                                       |  58 +-
+ lib/test_dynamic_debug.c                           | 145 ++--
+ lib/test_dynamic_debug_submod.c                    |  14 +
+ scripts/module.lds.S                               |   2 +
+ tools/testing/selftests/dynamic_debug/Makefile     |  10 +
+ tools/testing/selftests/dynamic_debug/config       |   8 +
+ .../selftests/dynamic_debug/dyndbg_selftest.sh     | 847 +++++++++++++++++++++
+ .../dynamic_debug/syslog_hash_validation.sh        | 384 ++++++++++
+ 24 files changed, 2089 insertions(+), 469 deletions(-)
+---
+base-commit: 6946cd5d0aa4dd10a414ddcb7a10844fdb0ad345
+change-id: 20260521-dd-maint-2-76c542079420
+
+Best regards,
+-- 
+Jim Cromie <jim.cromie@gmail.com>
 
