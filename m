@@ -4,100 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FDD3C44529
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 07:27:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEB96C44529
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 07:31:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEEA810E39F;
-	Tue, 21 Jul 2026 07:27:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42B5A10E2EF;
+	Tue, 21 Jul 2026 07:31:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K0wqn47T";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bnf3FRJM";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1AA310E39F
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 07:27:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F045C10E2EF
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 07:31:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6299C4388E;
- Tue, 21 Jul 2026 07:27:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F7FA1F000E9;
- Tue, 21 Jul 2026 07:27:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BFECA40332;
+ Tue, 21 Jul 2026 07:31:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81A121F000E9;
+ Tue, 21 Jul 2026 07:31:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784618875;
- bh=5F7fNMXeuG9Q3F222iQnqqlNqXWmNBLKOrmQ4jLWd4s=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=K0wqn47Tqfhrkm4MwO+HIleL0+qrwyFXMusfhuRojf18qVXzJrAI710WkE8iJOmO2
- CJqshKpzUJysesQiFh0BbIOb8uZJKaRqklsGosFx5k4AQFVSJPbNKjLPjm1GK+NmEW
- hPa3iHMgzca5dKK5GqFKnj8exVt5ofZEIUiyIu8uj4kI3lI1qLB9+HsS9kN9YaQEvX
- AM/DBw7UA76iekjfJroCCsMGSlSdqZ+Zk1h7/bz7TGx/wJSoWJtB0slHbah9I2Hilj
- PEZi2C6qdP6V7Y6d+nl7/LFXWxLPkFjDydAkk465YA1g3dWuMe6L98f6SmwJcK+I/z
- C2BZG2H4i5Piw==
-Message-ID: <12527bdb-c96f-40f1-b2dd-2c95ded1bdd4@kernel.org>
-Date: Tue, 21 Jul 2026 09:27:46 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/3] dt-bindings: display: sn65dsi83: Add output
- data-lanes property
-To: Wojciech Dubowik <wojciech.dubowik@mt.com>, linux-kernel@vger.kernel.org
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20260721071253.1098652-1-wojciech.dubowik@mt.com>
- <20260721071253.1098652-3-wojciech.dubowik@mt.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260721071253.1098652-3-wojciech.dubowik@mt.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1784619069;
+ bh=/Yne6L3SmwDoSSZsIZM4lzGxQIY7TvUySWoPkA/SvrI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=bnf3FRJMO9FgNQjqEHWhffLmFk5dVhoms8DMVGYZt+x4OGvrpFXMnQ1yMc0NoDdEe
+ 6/ocq/IGVygGXPKw6+cMCLkSOrvdoZVy1EpSQ1Wc+TJM4eD/VmcK6pyg3YUgufNCCw
+ OO1grVdGpvphbv5O+2aIqBE8uWqDs0BmwnhcO9Rdrr9eiLFlPVtLCs4tetgQ3+eFgV
+ sTst1Sg9wc/IyenLJDh2xaMiJ1uxRJ1Zv94scmdBkdktXeane06C9tZqXaTwWBOemM
+ bjEXPuCZr6SOYDVMv+GsGMHl7PnaA/LoDZ1MQSZ0sPixFbz6DpCHQwGwC69PN9XpWo
+ XmQSa4LqfGw4w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] fbdev: core: Clamp total_size to smem_len in
+ read/write functions
+To: "Mingyu Wang" <25181214217@stu.xidian.edu.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260721071522.106306-1-25181214217@stu.xidian.edu.cn>
+References: <20260721071522.106306-1-25181214217@stu.xidian.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 07:31:09 +0000
+Message-Id: <20260721073109.81A121F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,42 +53,130 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 21/07/2026 09:12, Wojciech Dubowik wrote:
-> From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
-> 
-> Add an optional output lvds data lanes property with two allowed values.
-> The array <1 2 3 4> for standard layout and <4 3 2 1> for reversed lvds
-> output lanes. The latter informs the driver that reverse lvds config
-> option has to be set in config register for the respective output channel.
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-You are not allowed to invent tag contents. This is not what you received.
+Pre-existing issues:
+- [High] Partial copy to user space in `fb_io_read` causes silent skipping =
+of framebuffer data and loop state desynchronization, leading to out-of-bou=
+nds I/O reads.
+- [High] Missing locking in fb_io and fb_sys operations allows concurrent m=
+ode switches to cause Use-After-Free and Out-Of-Bounds accesses.
+--
 
-<form letter>
-This is a friendly reminder during the review process.
+--- Patch [1]: [PATCH v2] fbdev: core: Clamp total_size to smem_len in read=
+/write functions ---
+commit 18031b5da874491bcb50306ae03282ff2763384b
+Author: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-It looks like you received a tag and forgot to add it.
+fbdev: core: Clamp total_size to smem_len in read/write functions
 
-If you do not know the process, here is a short explanation:
-Please add Acked-by/Reviewed-by/Tested-by tags when posting new versions
-of patchset, under or above your Signed-off-by tag, unless patch changed
-significantly (e.g. new properties added to the DT bindings). Tag is
-"received", when provided in a message replied to you on the mailing
-list. Tools like b4 can help here. However, there's no need to repost
-patches *only* to add the tags. The upstream maintainer will do that for
-tags received on the version they apply.
+This patch clamps the total_size of framebuffers to info->fix.smem_len in r=
+ead
+and write functions when smem_len is non-zero. This aims to prevent
+out-of-bounds accesses for legacy drivers that set screen_size larger than =
+the
+actual mapped framebuffer size. Virtual framebuffers remain unaffected.
 
-Please read:
-https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+> diff --git a/drivers/video/fbdev/core/fb_io_fops.c b/drivers/video/fbdev/=
+core/fb_io_fops.c
+> index 6ab60fcd00501..335f16d2cc23b 100644
+> --- a/drivers/video/fbdev/core/fb_io_fops.c
+> +++ b/drivers/video/fbdev/core/fb_io_fops.c
+> @@ -24,6 +24,14 @@ ssize_t fb_io_read(struct fb_info *info, char __user *=
+buf, size_t count, loff_t
+>  	if (total_size =3D=3D 0)
+>  		total_size =3D info->fix.smem_len;
+> =20
+> +	/*
+> +	 * Security Hardening: Defend against buggy legacy drivers that may
+> +	 * calculate a malformed screen_size. Clamp total_size to the actual
+> +	 * hardware mapped memory limit (smem_len) to prevent OOB access.
+> +	 */
+> +	if (info->fix.smem_len && total_size > info->fix.smem_len)
+> +		total_size =3D info->fix.smem_len;
+> +
 
-If a tag was not added on purpose, please state in the patch changelog
-or cover letter why and what changed.
-</form letter>
+[Severity: High]
+This isn't a bug introduced by this patch, but can partial copies to user s=
+pace
+cause out-of-bounds I/O reads later in this function?
 
+Looking at the copy loop further down in fb_io_read():
 
-Best regards,
-Krzysztof
+	while (count) {
+		c  =3D (count > PAGE_SIZE) ? PAGE_SIZE : count;
+		dst =3D buffer;
+		fb_memcpy_fromio(dst, src, c);
+		dst +=3D c;
+		src +=3D c;
+
+		trailing =3D copy_to_user(buf, buffer, c);
+		if (trailing =3D=3D c) {
+			err =3D -EFAULT;
+			break;
+		}
+		c -=3D trailing;
+
+		*ppos +=3D c;
+		buf +=3D c;
+		cnt +=3D c;
+		count -=3D c;
+	}
+
+The src pointer is eagerly advanced by the full chunk size before the result
+of copy_to_user() is known. If a partial copy occurs, trailing is greater
+than 0 but less than c. The loop adjusts c -=3D trailing and count -=3D c, =
+but
+src is not rewound.
+
+On the next iteration, does the read resume from an over-advanced src offse=
+t?
+Because count is only decremented by the successful bytes, the loop may
+execute more iterations than originally bounded by total_size, potentially
+causing fb_memcpy_fromio() to read beyond the end of the hardware-mapped
+framebuffer.
+
+[ ... ]
+
+> diff --git a/drivers/video/fbdev/core/fb_sys_fops.c b/drivers/video/fbdev=
+/core/fb_sys_fops.c
+> index be96b3b3942ed..e97cf02f7c70f 100644
+> --- a/drivers/video/fbdev/core/fb_sys_fops.c
+> +++ b/drivers/video/fbdev/core/fb_sys_fops.c
+> @@ -35,6 +35,14 @@ ssize_t fb_sys_read(struct fb_info *info, char __user =
+*buf, size_t count,
+>  	if (total_size =3D=3D 0)
+>  		total_size =3D info->fix.smem_len;
+> =20
+> +	/*
+> +	 * Security Hardening: Defend against buggy legacy drivers that may
+> +	 * calculate a malformed screen_size. Clamp total_size to the actual
+> +	 * hardware mapped memory limit (smem_len) to prevent OOB access.
+> +	 */
+> +	if (info->fix.smem_len && total_size > info->fix.smem_len)
+> +		total_size =3D info->fix.smem_len;
+> +
+
+[Severity: High]
+This is a pre-existing issue, but does this function lack locking to prevent
+concurrent mode switches from causing use-after-free or out-of-bounds
+accesses?
+
+Bounds checking is performed locklessly on total_size, and later
+info->screen_buffer is accessed. If a concurrent user calls
+ioctl(FBIOPUT_VSCREENINFO), which takes info->lock and invokes fb_set_var(),
+could it free info->screen_buffer via vfree() and allocate a new one while
+this read is in progress?
+
+A concurrent read might then either dereference the freed screen_buffer, or
+use the newly allocated smaller buffer with the previously fetched, larger
+total_size.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721071522.1063=
+06-1-25181214217@stu.xidian.edu.cn?part=3D1
