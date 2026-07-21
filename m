@@ -4,69 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A73FC4451C
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 08:59:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94E31C4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 08:59:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9A0B10E7C8;
-	Tue, 21 Jul 2026 08:59:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="hmXhdRS5";
-	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8851B10E7C8
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 08:59:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1784624384; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=h5xljdTgT+s0PcGqm50zaHhb6nAkfZ5U6gX+BspX8AkrlrdYG0Oh+wY5fkuz5kxBLDy43LsEkLBRsSsDg3SqyjU2RlqUW/ABk8LBZ07s2pTc92MHxf2fDCbhUpvCAutgLbEXXtdm23hiSHXAhEgFOC5f4Uop1oR7rkp15MKWKiM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1784624384;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Nf4YfT/PVuNJI6rw/ahjdO4P2Ufeq7Km/8hgSrV69+M=; 
- b=DNFjxAaVNFiL5zgS29wQ6MkGYJpgISrYyT1q/4ypVJTJLyPqlUGMvZMzSYY0DEMZ9qgc4fuj9bCl/rvnAqzzbzcjRaXGvweYogCDCKXkq/WB+tKsjDqz7ETPdkcsCeDZNc2UA4gWUEE8ydd5RKl1LVqeYNr3M9bV9QHRtb64Jkc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784624384; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=Nf4YfT/PVuNJI6rw/ahjdO4P2Ufeq7Km/8hgSrV69+M=;
- b=hmXhdRS5RBkTEI/CYLOIBIKL13OBlmSoFw352AyAKjQBZY/o8pc5uPygYEWg8IvA
- DrBYlTOD/cs47VtjOTreJuuyJp4o3X4VKx/0t8pCbAYSDU/iUOpBLzCUacQrYR2r5HB
- 3HYzQrB65M7pMpbV4vcOIRhpgrbmJn8w82UU9VSU=
-Received: by mx.zohomail.com with SMTPS id 178462438340847.379787705359604;
- Tue, 21 Jul 2026 01:59:43 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Tue, 21 Jul 2026 10:59:00 +0200
-Subject: [PATCH v7 4/5] drm/debugfs: Move HDMI debugfs registration to
- state helper
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-scdc-link-health-v7-4-92df1b6ad5fc@collabora.com>
-References: <20260721-scdc-link-health-v7-0-92df1b6ad5fc@collabora.com>
-In-Reply-To: <20260721-scdc-link-health-v7-0-92df1b6ad5fc@collabora.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	by gabe.freedesktop.org (Postfix) with ESMTP id E990110E300;
+	Tue, 21 Jul 2026 08:59:58 +0000 (UTC)
+X-Greylist: delayed 431 seconds by postgrey-1.36 at gabe;
+ Tue, 21 Jul 2026 08:59:50 UTC
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
+ [185.203.200.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D37E10E7C8
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 08:59:50 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de
+ (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+ (Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 711AF20268C;
+ Tue, 21 Jul 2026 10:52:37 +0200 (CEST)
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <mfe@pengutronix.de>) id 1wm6DN-000Xk5-1B;
+ Tue, 21 Jul 2026 10:52:37 +0200
+Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+ (envelope-from <mfe@pengutronix.de>) id 1wm6DN-00000009YGz-0wQ6;
+ Tue, 21 Jul 2026 10:52:37 +0200
+Date: Tue, 21 Jul 2026 10:52:37 +0200
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Daniel Stone <daniel@fooishbar.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Samuel Holland <samuel@sholland.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev,
+ devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v1 2/4] drm: mxsfb: Allow optional LCDIF interface format
+ override
+Message-ID: <bfhx5yyyyqxa6aty4ybdmwp7t7q6kyh5jacotlugf6cyhohmwt@ygi7jioxbyt4>
+References: <20260717121847.488148-1-francesco@dolcini.it>
+ <20260717121847.488148-3-francesco@dolcini.it>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717121847.488148-3-francesco@dolcini.it>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,432 +68,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The HDMI debugfs files are only useful for connectors that already make
-use of the HDMI state helpers. In addition, relying on HDMI-specific
-functions in drm_debugfs.c can lead to circular linking problems later
-down the line.
+Hi Francesco,
 
-Move hdmi_debugfs_add() and friends to a new helper in
-drm_hdmi_state_helper.c, and make all current users (vc4, sun4i, bridge)
-either use it as a debugfs_init func, or call it directly in its
-debugfs_init func.
+On 26-07-17, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> 
+> LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
+> format reported by the downstream panel or bridge describes the display
+> input, but it does not describe how the LCDIF data pins are physically
+> wired on the board.
+> 
+> These can differ. For example, a 16-bit LCDIF bus can be connected to a
+> 24-bit display by wiring the available color bits to the corresponding
+> display inputs. In that case, using the display's 24-bit format to
+> configure LCDIF selects the wrong data-bus mode and changes the assignment
+> of color bits on the LCD_DATA pins.
+> 
+> Read the optional interface-pix-fmt property from the LCDIF node and use
+> it to select the media bus format used to configure LCDIF. This allows
+> the LCDIF bus mode to describe the physical interface independently of
+> the downstream display format.
+> 
+> When the optional property is absent, continue using the format reported
+> by the downstream display device, preserving the existing behavior.
+> 
+> This follows the same approach already implemented in
+> drivers/gpu/drm/imx/ipuv3/parallel-display.c.
 
-Suggested-by: Maxime Ripard <mripard@kernel.org>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/display/drm_bridge_connector.c  |   3 +
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 154 +++++++++++++++++++++++
- drivers/gpu/drm/drm_debugfs.c                   | 157 ------------------------
- drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c          |   1 +
- drivers/gpu/drm/vc4/vc4_hdmi.c                  |   1 +
- include/drm/display/drm_hdmi_state_helper.h     |   3 +
- 6 files changed, 162 insertions(+), 157 deletions(-)
+According the driver comment, this is a legacy property. If you just
+want to limit the physical bus width you could use the common of-graph
+endpoint bus-width property.
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 8b54069fa53a..00feb73e63d7 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -263,6 +263,9 @@ static void drm_bridge_connector_debugfs_init(struct drm_connector *connector,
- 		if (bridge->funcs->debugfs_init)
- 			bridge->funcs->debugfs_init(bridge, root);
- 	}
-+
-+	if (bridge_connector->bridge_hdmi)
-+		drm_hdmi_connector_debugfs_init(connector, root);
- }
- 
- static struct drm_connector_state *
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index ce17eeefc2da..8d5ee10ceb87 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -1,5 +1,6 @@
- // SPDX-License-Identifier: MIT
- 
-+#include <linux/debugfs.h>
- #include <linux/export.h>
- 
- #include <drm/drm_atomic.h>
-@@ -965,6 +966,159 @@ drm_hdmi_connector_mode_valid(struct drm_connector *connector,
- }
- EXPORT_SYMBOL(drm_hdmi_connector_mode_valid);
- 
-+static ssize_t
-+audio_infoframe_read(struct file *filp, char __user *ubuf, size_t count, loff_t *ppos)
-+{
-+	struct drm_connector_hdmi_infoframe *infoframe;
-+	struct drm_connector *connector;
-+	union hdmi_infoframe *frame;
-+	u8 buf[HDMI_INFOFRAME_SIZE(AUDIO)];
-+	ssize_t len = 0;
-+
-+	connector = filp->private_data;
-+	mutex_lock(&connector->hdmi.infoframes.lock);
-+
-+	infoframe = &connector->hdmi.infoframes.audio;
-+	if (!infoframe->set)
-+		goto out;
-+
-+	frame = &infoframe->data;
-+	len = hdmi_infoframe_pack(frame, buf, sizeof(buf));
-+	if (len < 0)
-+		goto out;
-+
-+	len = simple_read_from_buffer(ubuf, count, ppos, buf, len);
-+
-+out:
-+	mutex_unlock(&connector->hdmi.infoframes.lock);
-+	return len;
-+}
-+
-+static const struct file_operations audio_infoframe_fops = {
-+	.owner   = THIS_MODULE,
-+	.open    = simple_open,
-+	.read    = audio_infoframe_read,
-+};
-+
-+static int create_hdmi_audio_infoframe_file(struct drm_connector *connector,
-+					    struct dentry *parent)
-+{
-+	struct dentry *file;
-+
-+	if (!connector->hdmi.funcs ||
-+	    !connector->hdmi.funcs->audio.write_infoframe)
-+		return 0;
-+
-+	file = debugfs_create_file("audio", 0400, parent, connector, &audio_infoframe_fops);
-+	if (IS_ERR(file))
-+		return PTR_ERR(file);
-+
-+	return 0;
-+}
-+
-+#define DEFINE_INFOFRAME_FILE(_f) \
-+static ssize_t _f##_read_infoframe(struct file *filp, \
-+				   char __user *ubuf, \
-+				   size_t count,      \
-+				   loff_t *ppos)      \
-+{ \
-+	struct drm_connector_hdmi_infoframe *infoframe; \
-+	struct drm_connector_state *conn_state; \
-+	struct drm_connector *connector; \
-+	union hdmi_infoframe *frame; \
-+	struct drm_device *dev; \
-+	u8 buf[HDMI_INFOFRAME_SIZE(MAX)]; \
-+	ssize_t len = 0; \
-+	\
-+	connector = filp->private_data; \
-+	dev = connector->dev; \
-+	\
-+	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL); \
-+	\
-+	conn_state = connector->state; \
-+	infoframe = &conn_state->hdmi.infoframes._f; \
-+	if (!infoframe->set) \
-+		goto out; \
-+	\
-+	frame = &infoframe->data; \
-+	len = hdmi_infoframe_pack(frame, buf, sizeof(buf)); \
-+	if (len < 0) \
-+		goto out; \
-+	\
-+	len = simple_read_from_buffer(ubuf, count, ppos, buf, len); \
-+	\
-+out: \
-+	drm_modeset_unlock(&dev->mode_config.connection_mutex); \
-+	return len; \
-+} \
-+\
-+static const struct file_operations _f##_infoframe_fops = { \
-+	.owner = THIS_MODULE, \
-+	.open = simple_open, \
-+	.read = _f##_read_infoframe, \
-+}; \
-+\
-+static int create_hdmi_## _f ## _infoframe_file(struct drm_connector *connector, \
-+						struct dentry *parent) \
-+{ \
-+	struct dentry *file; \
-+	\
-+	if (!connector->hdmi.funcs || \
-+	    !connector->hdmi.funcs->_f.write_infoframe) \
-+		return 0; \
-+	file = debugfs_create_file(#_f, 0400, parent, connector, &_f ## _infoframe_fops); \
-+	if (IS_ERR(file)) \
-+		return PTR_ERR(file); \
-+	\
-+	return 0; \
-+}
-+
-+DEFINE_INFOFRAME_FILE(avi);
-+DEFINE_INFOFRAME_FILE(hdmi);
-+DEFINE_INFOFRAME_FILE(hdr_drm);
-+DEFINE_INFOFRAME_FILE(spd);
-+
-+static int create_hdmi_infoframe_files(struct drm_connector *connector,
-+				       struct dentry *parent)
-+{
-+	int ret;
-+
-+	ret = create_hdmi_audio_infoframe_file(connector, parent);
-+	if (ret)
-+		return ret;
-+
-+	ret = create_hdmi_avi_infoframe_file(connector, parent);
-+	if (ret)
-+		return ret;
-+
-+	ret = create_hdmi_hdmi_infoframe_file(connector, parent);
-+	if (ret)
-+		return ret;
-+
-+	ret = create_hdmi_hdr_drm_infoframe_file(connector, parent);
-+	if (ret)
-+		return ret;
-+
-+	ret = create_hdmi_spd_infoframe_file(connector, parent);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+void drm_hdmi_connector_debugfs_init(struct drm_connector *connector,
-+				     struct dentry *root)
-+{
-+	struct dentry *dir;
-+
-+	dir = debugfs_create_dir("infoframes", root);
-+	if (IS_ERR(dir))
-+		return;
-+
-+	create_hdmi_infoframe_files(connector, dir);
-+}
-+EXPORT_SYMBOL(drm_hdmi_connector_debugfs_init);
-+
- static int clear_infoframe(struct drm_connector *connector,
- 			   const struct drm_connector_infoframe_funcs *funcs,
- 			   const char *type)
-diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-index ae1c6126c2c5..a72f9723d3a9 100644
---- a/drivers/gpu/drm/drm_debugfs.c
-+++ b/drivers/gpu/drm/drm_debugfs.c
-@@ -633,161 +633,6 @@ static const struct file_operations drm_connector_fops = {
- 	.write = connector_write
- };
- 
--static ssize_t
--audio_infoframe_read(struct file *filp, char __user *ubuf, size_t count, loff_t *ppos)
--{
--	struct drm_connector_hdmi_infoframe *infoframe;
--	struct drm_connector *connector;
--	union hdmi_infoframe *frame;
--	u8 buf[HDMI_INFOFRAME_SIZE(AUDIO)];
--	ssize_t len = 0;
--
--	connector = filp->private_data;
--	mutex_lock(&connector->hdmi.infoframes.lock);
--
--	infoframe = &connector->hdmi.infoframes.audio;
--	if (!infoframe->set)
--		goto out;
--
--	frame = &infoframe->data;
--	len = hdmi_infoframe_pack(frame, buf, sizeof(buf));
--	if (len < 0)
--		goto out;
--
--	len = simple_read_from_buffer(ubuf, count, ppos, buf, len);
--
--out:
--	mutex_unlock(&connector->hdmi.infoframes.lock);
--	return len;
--}
--
--static const struct file_operations audio_infoframe_fops = {
--	.owner   = THIS_MODULE,
--	.open    = simple_open,
--	.read    = audio_infoframe_read,
--};
--
--static int create_hdmi_audio_infoframe_file(struct drm_connector *connector,
--					    struct dentry *parent)
--{
--	struct dentry *file;
--
--	if (!connector->hdmi.funcs ||
--	    !connector->hdmi.funcs->audio.write_infoframe)
--		return 0;
--
--	file = debugfs_create_file("audio", 0400, parent, connector, &audio_infoframe_fops);
--	if (IS_ERR(file))
--		return PTR_ERR(file);
--
--	return 0;
--}
--
--#define DEFINE_INFOFRAME_FILE(_f) \
--static ssize_t _f##_read_infoframe(struct file *filp, \
--				   char __user *ubuf, \
--				   size_t count,      \
--				   loff_t *ppos)      \
--{ \
--	struct drm_connector_hdmi_infoframe *infoframe; \
--	struct drm_connector_state *conn_state; \
--	struct drm_connector *connector; \
--	union hdmi_infoframe *frame; \
--	struct drm_device *dev; \
--	u8 buf[HDMI_INFOFRAME_SIZE(MAX)]; \
--	ssize_t len = 0; \
--	\
--	connector = filp->private_data; \
--	dev = connector->dev; \
--	\
--	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL); \
--	\
--	conn_state = connector->state; \
--	infoframe = &conn_state->hdmi.infoframes._f; \
--	if (!infoframe->set) \
--		goto out; \
--	\
--	frame = &infoframe->data; \
--	len = hdmi_infoframe_pack(frame, buf, sizeof(buf)); \
--	if (len < 0) \
--		goto out; \
--	\
--	len = simple_read_from_buffer(ubuf, count, ppos, buf, len); \
--	\
--out: \
--	drm_modeset_unlock(&dev->mode_config.connection_mutex); \
--	return len; \
--} \
--\
--static const struct file_operations _f##_infoframe_fops = { \
--	.owner = THIS_MODULE, \
--	.open = simple_open, \
--	.read = _f##_read_infoframe, \
--}; \
--\
--static int create_hdmi_## _f ## _infoframe_file(struct drm_connector *connector, \
--						struct dentry *parent) \
--{ \
--	struct dentry *file; \
--	\
--	if (!connector->hdmi.funcs || \
--	    !connector->hdmi.funcs->_f.write_infoframe) \
--		return 0; \
--	file = debugfs_create_file(#_f, 0400, parent, connector, &_f ## _infoframe_fops); \
--	if (IS_ERR(file)) \
--		return PTR_ERR(file); \
--	\
--	return 0; \
--}
--
--DEFINE_INFOFRAME_FILE(avi);
--DEFINE_INFOFRAME_FILE(hdmi);
--DEFINE_INFOFRAME_FILE(hdr_drm);
--DEFINE_INFOFRAME_FILE(spd);
--
--static int create_hdmi_infoframe_files(struct drm_connector *connector,
--				       struct dentry *parent)
--{
--	int ret;
--
--	ret = create_hdmi_audio_infoframe_file(connector, parent);
--	if (ret)
--		return ret;
--
--	ret = create_hdmi_avi_infoframe_file(connector, parent);
--	if (ret)
--		return ret;
--
--	ret = create_hdmi_hdmi_infoframe_file(connector, parent);
--	if (ret)
--		return ret;
--
--	ret = create_hdmi_hdr_drm_infoframe_file(connector, parent);
--	if (ret)
--		return ret;
--
--	ret = create_hdmi_spd_infoframe_file(connector, parent);
--	if (ret)
--		return ret;
--
--	return 0;
--}
--
--static void hdmi_debugfs_add(struct drm_connector *connector)
--{
--	struct dentry *dir;
--
--	if (!(connector->connector_type == DRM_MODE_CONNECTOR_HDMIA ||
--	      connector->connector_type == DRM_MODE_CONNECTOR_HDMIB))
--		return;
--
--	dir = debugfs_create_dir("infoframes", connector->debugfs_entry);
--	if (IS_ERR(dir))
--		return;
--
--	create_hdmi_infoframe_files(connector, dir);
--}
--
- void drm_debugfs_connector_add(struct drm_connector *connector)
- {
- 	struct drm_device *dev = connector->dev;
-@@ -815,8 +660,6 @@ void drm_debugfs_connector_add(struct drm_connector *connector)
- 	debugfs_create_file("output_bpc", 0444, root, connector,
- 			    &output_bpc_fops);
- 
--	hdmi_debugfs_add(connector);
--
- 	if (connector->funcs->debugfs_init)
- 		connector->funcs->debugfs_init(connector, root);
- }
-diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-index e99f52ebb26f..e6c4f121ad0c 100644
---- a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-@@ -292,6 +292,7 @@ static void sun4i_hdmi_connector_reset(struct drm_connector *connector)
- }
- 
- static const struct drm_connector_funcs sun4i_hdmi_connector_funcs = {
-+	.debugfs_init		= drm_hdmi_connector_debugfs_init,
- 	.detect			= sun4i_hdmi_connector_detect,
- 	.fill_modes		= drm_helper_probe_single_connector_modes,
- 	.reset			= sun4i_hdmi_connector_reset,
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 17c8635c5afa..ea1f2013b20e 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -513,6 +513,7 @@ static void vc4_hdmi_connector_reset(struct drm_connector *connector)
- }
- 
- static const struct drm_connector_funcs vc4_hdmi_connector_funcs = {
-+	.debugfs_init = drm_hdmi_connector_debugfs_init,
- 	.force = drm_atomic_helper_connector_hdmi_force,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.reset = vc4_hdmi_connector_reset,
-diff --git a/include/drm/display/drm_hdmi_state_helper.h b/include/drm/display/drm_hdmi_state_helper.h
-index 13375bd0f4ae..596c57d9d250 100644
---- a/include/drm/display/drm_hdmi_state_helper.h
-+++ b/include/drm/display/drm_hdmi_state_helper.h
-@@ -3,6 +3,7 @@
- #ifndef DRM_HDMI_STATE_HELPER_H_
- #define DRM_HDMI_STATE_HELPER_H_
- 
-+struct dentry;
- struct drm_atomic_commit;
- struct drm_connector;
- struct drm_connector_state;
-@@ -29,5 +30,7 @@ void drm_atomic_helper_connector_hdmi_force(struct drm_connector *connector);
- enum drm_mode_status
- drm_hdmi_connector_mode_valid(struct drm_connector *connector,
- 			      const struct drm_display_mode *mode);
-+void drm_hdmi_connector_debugfs_init(struct drm_connector *connector,
-+				     struct dentry *root);
- 
- #endif // DRM_HDMI_STATE_HELPER_H_
+Regards,
+  Marco
+
+> 
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> ---
+>  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 16 ++++++++++++++++
+>  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
+>  drivers/gpu/drm/mxsfb/mxsfb_kms.c |  8 ++++++++
+>  3 files changed, 26 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> index 9b8fbda85d28..edf347968fd2 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> @@ -12,7 +12,9 @@
+>  #include <linux/clk.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/io.h>
+> +#include <linux/media-bus-format.h>
+>  #include <linux/module.h>
+> +#include <linux/of.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/property.h>
+>  #include <linux/pm_runtime.h>
+> @@ -209,7 +211,10 @@ static int mxsfb_load(struct drm_device *drm,
+>  		      const struct mxsfb_devdata *devdata)
+>  {
+>  	struct platform_device *pdev = to_platform_device(drm->dev);
+> +	struct device_node *np = pdev->dev.of_node;
+>  	struct mxsfb_drm_private *mxsfb;
+> +	u32 bus_format = 0;
+> +	const char *fmt;
+>  	int ret;
+>  
+>  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
+> @@ -236,6 +241,17 @@ static int mxsfb_load(struct drm_device *drm,
+>  	if (IS_ERR(mxsfb->clk_disp_axi))
+>  		mxsfb->clk_disp_axi = NULL;
+>  
+> +	ret = of_property_read_string(np, "interface-pix-fmt", &fmt);
+> +	if (!ret) {
+> +		if (!strcmp(fmt, "rgb24"))
+> +			bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+> +		else if (!strcmp(fmt, "rgb565"))
+> +			bus_format = MEDIA_BUS_FMT_RGB565_1X16;
+> +		else if (!strcmp(fmt, "rgb666"))
+> +			bus_format = MEDIA_BUS_FMT_RGB666_1X18;
+> +	}
+> +	mxsfb->bus_format = bus_format;
+> +
+>  	ret = dma_set_mask_and_coherent(drm->dev, DMA_BIT_MASK(32));
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> index d160d921b25f..f64800f06a69 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> @@ -46,6 +46,8 @@ struct mxsfb_drm_private {
+>  	struct drm_connector		*connector;
+>  	struct drm_bridge		*bridge;
+>  
+> +	u32 bus_format;
+> +
+>  	bool				crc_active;
+>  };
+>  
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> index d8ebebc5314b..8b482727aed5 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> @@ -386,6 +386,14 @@ static void mxsfb_crtc_atomic_enable(struct drm_crtc *crtc,
+>  	if (!bus_format)
+>  		bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+>  
+> +	/*
+> +	 * Prefer bus format set via optional "interface-pix-fmt" DT property,
+> +	 * over panel or next bridge bus format. This is necessary to support
+> +	 * 24bit DPI panels connected to a 18bit interface, for example.
+> +	 */
+> +	if (mxsfb->bus_format)
+> +		bus_format = mxsfb->bus_format;
+> +
+>  	mxsfb_crtc_mode_set_nofb(mxsfb, bridge_state, bus_format);
+>  
+>  	/* Write cur_buf as well to avoid an initial corrupt frame */
+> -- 
+> 2.47.3
+> 
+> 
+> 
 
 -- 
-2.55.0
+#gernperDu 
+#CallMeByMyFirstName
 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
