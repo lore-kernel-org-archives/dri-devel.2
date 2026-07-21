@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13077C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 16:59:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E449C4452B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 16:59:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B96910E0F7;
-	Tue, 21 Jul 2026 16:59:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A0A010EAC3;
+	Tue, 21 Jul 2026 16:59:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lSpZTuZk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NrYxLE93";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEA7B10E0F7
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 16:59:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A2A510E0F7
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 16:59:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 83BC84115F;
- Tue, 21 Jul 2026 16:59:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530981F000E9;
+ by tor.source.kernel.org (Postfix) with ESMTP id 60FE2600D8;
+ Tue, 21 Jul 2026 16:59:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD33D1F000E9;
  Tue, 21 Jul 2026 16:59:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784653175;
- bh=7WYCd/o/7wPHFeVBfJBzSo+unEZ3bh3rQR5MkpxteRc=;
+ s=k20260515; t=1784653176;
+ bh=WJUS7PUh6rougI4oL7CS6wKyDqtM7/jvvxuBpuoCyKk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lSpZTuZkkfrRYTyOV11b4x/D8MkLuY8TLCVxai/0UBVLhuRwqhu03N6TMts7WAPD8
- lumMfUyqnMDZa8mh7feibu0C4+NrKgfYS1jk1TNz/Jknq6tEpZj17JxNNCJROJeOEp
- NQmUb+i+O6TfwQoJ7PQThBPgq7Kku/NAUw9qVIDBy7WSnFKx1IBc2idnIggpcaHcwi
- fX7akHIeJkNC+PzzaIESrhRsOSKSRykdUYicS5GxAXa4Av5pbn2eSvj7PV/0OkfcbK
- MuHRqiKROG4ErTpSM4DhX3z7W+VV6/HAqnuiYMg7GiclB3DaQHiqJs25lNEwazZDSq
- 2YRvSbbh2nIDg==
+ b=NrYxLE93IaHik+vMvF43ES/Y1sSwthXOn1BW4A16AwPTuVd+rpmslVC9ECbHamDWL
+ QPtE8TYJQi1qU1+uaXNg9yVv2dEszPnKmncQcg7fmXRLK+aS5SbZuvo8VmrBHx4H6h
+ xoWnBnYN/RPucz56826FpZyarLqppQlVwH51Lj0fukiXwjWtGX796a2eZ2C1Vwx2oi
+ eWLbdmyIYH3QgfuTpEZTe4M8/mjGgSkK7NqtiJkPxke/XANyQhRew0oYR5+h6mJj6q
+ E7qGkbYdj+OK8k3meKJ01L9/4XZW/MhgW8ZVaT703/C541NuUZ2Wyo0v3aq/Sxv9Eb
+ WjiSNI2uGUigg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] drm/amd/display: Remove unused DMCU/DMUB EDID CEA
- parser
-To: "Alex Huang" <Alex.Huang2@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260721164430.2121326-5-Alex.Huang2@amd.com>
-References: <20260721164430.2121326-1-Alex.Huang2@amd.com>
- <20260721164430.2121326-5-Alex.Huang2@amd.com>
+Subject: Re: [PATCH 02/10] gpu: nova-core: specify base type for registers
+To: "Gary Guo" <gary@garyguo.net>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Danilo Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org, ojeda@kernel.org
+In-Reply-To: <20260721-typed_register-v1-2-452d72b60262@garyguo.net>
+References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
+ <20260721-typed_register-v1-2-452d72b60262@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 16:59:34 +0000
-Message-Id: <20260721165935.530981F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 16:59:35 +0000
+Message-Id: <20260721165935.CD33D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,65 +59,15 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Parsing AMD VSDB blocks of version 2 or 3 without verifying the pa=
-yload length leads to out-of-bounds memory reads on malformed EDIDs.
---
+> All registers use the same base type, which is `<Bar0 as IO>::Target`. Th=
+us
+> add the base parameter to `register!` invocation.
+>=20
+> Signed-off-by: Gary Guo <gary@garyguo.net>
 
---- Patch [4]: [PATCH 4/4] drm/amd/display: Remove unused DMCU/DMUB EDID CE=
-A parser ---
-commit f5b939679f4dd7676bcd444c9eae98b5a45015a4
-Author: Alex Huang <Alex.Huang2@amd.com>
-
-drm/amd/display: Remove unused DMCU/DMUB EDID CEA parser
-
-With HDMI FreeSync detection now sourced from the common DRM EDID parser,
-the DMUB parsing for AMD VSDB is no longer used. This commit removes all
-relevant fields and files for this flow.
-
->     With HDMI FreeSync detection now sourced from the common DRM EDID
->     parser, the DMUB parsing for AMD VSDB is no longer used.
-
-[Severity: High]
-Does the common DRM EDID parser validate the payload length before parsing?
-
-Looking at drm_parse_amd_vsdb() in drivers/gpu/drm/drm_edid.c, the version
-checks lack corresponding payload length validation before calling the v2
-and v3 parsing functions:
-
-drivers/gpu/drm/drm_edid.c:drm_parse_amd_vsdb() {
-	if (common->version >=3D 2)
-		drm_parse_amd_vsdb_v2(info, data);
-
-	if (common->version >=3D 3)
-		drm_parse_amd_vsdb_v3(info, data, cea_db_payload_len(db));
-}
-
-If a malformed EDID presents a block with payload_len =3D 8 and version =3D=
- 3,
-drm_parse_amd_vsdb_v2() unconditionally accesses fields up to offset 12
-(p->lum2_min):
-
-drivers/gpu/drm/drm_edid.c:drm_parse_amd_vsdb_v2() {
-    ...
-	info->amd_vsdb.luminance_range2.min_luminance =3D p->lum2_min;
-}
-
-Similarly, drm_parse_amd_vsdb_v3() unconditionally accesses fields up to
-offset 14 (p->max_vfreq_ext_high):
-
-drivers/gpu/drm/drm_edid.c:drm_parse_amd_vsdb_v3() {
-    ...
-	max_frame_rate =3D p->max_vfreq_ext_low |
-			 (p->max_vfreq_ext_high & 0x3) << 8;
-    ...
-}
-
-Can this lead to out-of-bounds memory reads on malformed EDIDs? Since the
-block could be as short as 8 bytes, these accesses might read past the
-allocated buffer into adjacent heap memory.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721164430.2121=
-326-1-Alex.Huang2@amd.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-typed_regi=
+ster-v1-0-452d72b60262@garyguo.net?part=3D2
+
