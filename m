@@ -4,90 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DADF0C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:23:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3D03C4452B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:25:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F93710E3B9;
-	Tue, 21 Jul 2026 18:23:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4249B10EB10;
+	Tue, 21 Jul 2026 18:25:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="VZI2P2mk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OZ54J1Hc";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 617BC10E3B9
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:23:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1784658217;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=EDSz62jCk0OzsKXSSKAgLcWpgh9OgrJcskErIfIIIWw=;
- b=VZI2P2mkCtId4OR4h2uMF/wHuE+VXiLND8dHBNUQKHhZzmfXvpHdAW1dB9celd+IBZ8uNt
- j2OMBhog3L4fpF+uyplB3MhsQqCrdjvpnJhUuosYpHA9Is/sEsdwbvg/hVjgo85yCPnJtk
- wG5rlT3ip4lLt5TF460QVcr6yedj/38=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-588-CAXG4_0BN9-d1AcprSNFVQ-1; Tue, 21 Jul 2026 14:23:36 -0400
-X-MC-Unique: CAXG4_0BN9-d1AcprSNFVQ-1
-X-Mimecast-MFC-AGG-ID: CAXG4_0BN9-d1AcprSNFVQ_1784658216
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-92ec91dc265so811470385a.2
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:23:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784658216; x=1785263016;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Nf89HWE5FEb29AybdiEPsxsfpgf+Ik6TKAe6jF03lFU=;
- b=cLDrUKTk8zrVL/SDf/M5VqcqPou2dZO2a/zvrAYsQwtJT6/BmTAQ975aDEjU7iJ6oY
- kDa6pLpLI4e1k3YeT2hjSdm3o2AezeD7R7OKLCpJcSkfI/EJPquxRE1+P/22mrlpDeK3
- cewbet+ndpAArB3TnreWr5z3ox7sPddg7jVnJ41lNhTqceYC+oL/Io15gZ7FFlhs4ofG
- cb49F0yYZTTUIoMqpGpEFIrg+0MEuMhPsGXtG5HoOpBF6mIXz2gASTg8p/EZKSI/EhKD
- dp6pUi+ZOV3ZWKlqAUvUoHplvaIv3PzlxHLZs7O8cqKlV5TZ/MsNxnOmjuVLG+fUFoU0
- foVg==
-X-Gm-Message-State: AOJu0YwlpufNuR4qQUr1cTYkYlJ5hpF3tFHAN+s2FkXuO74STYUt5ziA
- XxhGC2DwX1pXFoIVBHQDo0yw6dfdfhMsqMSKD2qPHlIIzkZYHKSDahadzAsKElsKZy8aJG+edv1
- wdm7EcluN5Psh67vG+nF4mLJTjMTRXR0EG7lK6ibA9verMbfeWU1tghs1U9y0LUxEKLhtMw==
-X-Gm-Gg: AR+sD13eWL+khYRj0usaHz30OaVzPJylcuY3B6325ShxBz68FzK9kY6SXarSftdhAXq
- +Ltz4mevX/1aSjGN7fzFC6SCwqRlCNM/MWcudBnr47a5sW+LBpNEdQitIEU7qc0JgzBe0JLnEOM
- u2XkG+LNoUbhmXzjeBChnz8FInXBcGyWhwyOnuIiiL55aj4/Sfk2Ul1Qu2zEtlAtN7buYzC9GMM
- UgFYdycPFO/GuUv6Zo1M1I+NHZ6eom1VuspUmWjcXAjvY1I4Cumhj7ze5ft9AWvd/Jpdudx/XgP
- dGmRrotOGZ7FWkyvjEV9jSE1WHBUNfe2l5YImnUu0wROXfFbtNrY6rVUTHRJoQLqCMqsLPeA
-X-Received: by 2002:a05:6214:61cc:20b0:907:b32f:9b79 with SMTP id
- 6a1803df08f44-907b32f9c56mr27881696d6.6.1784658215299; 
- Tue, 21 Jul 2026 11:23:35 -0700 (PDT)
-X-Received: by 2002:a05:6214:61cc:20b0:907:b32f:9b79 with SMTP id
- 6a1803df08f44-907b32f9c56mr27881156d6.6.1784658214438; 
- Tue, 21 Jul 2026 11:23:34 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-907ba8df5d0sm2230206d6.18.2026.07.21.11.23.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 11:23:33 -0700 (PDT)
-Message-ID: <174e6951bd8216b76c2bc5fb42f1be8138b345ac.camel@redhat.com>
-Subject: Re: [PATCH 2/6] drm/nouveau/gsp: add RUSD telemetry support
-From: lyude@redhat.com
-To: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>, 
- linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Mary
- Guillemard <mary@mary.zone>, Milos Tijanic	 <mtijanic@nvidia.com>,
- nouveau@lists.freedesktop.org
-Date: Tue, 21 Jul 2026 14:23:33 -0400
-In-Reply-To: <20260714211429.238355-3-mohamedahmedegypt2001@gmail.com>
-References: <20260714211429.238355-1-mohamedahmedegypt2001@gmail.com>
- <20260714211429.238355-3-mohamedahmedegypt2001@gmail.com>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: DnrdyOWKmlB2Xr2VcXji-xOpc5DlNHHXsp8L_xZUhgI_1784658216
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61A2510E39C
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:25:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 10E5943BE8;
+ Tue, 21 Jul 2026 18:25:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3ABC1F00A3A;
+ Tue, 21 Jul 2026 18:25:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784658322;
+ bh=wkGzB3ShbAvWISg4sxHNeQcUOniW1HkCmjm4pleFNSw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=OZ54J1HcZ4GJT3dOk8VrzpjyAnVku2UgdPnSOKiHmblLfw1377PbG6eVtpYLtRShW
+ 4yWWbtT1EI/uRPjYWj1QgiKLpvr50UwZfZIC2905UY7OdzEqES9324x5z+3FoQVYCR
+ +MjPlh8/A0FGBX4tTR26hUc1iXQrZVReLorvUqlYeD9+8KgEBUDu7pWCrHqDffn7+z
+ pB2hJPyGwnlnDBDZbquTCUekOAu+h1I6i2DM169TdMN7b9Bkb52gj7XuUf2oUQu1Ui
+ 4krKOoc/sOKmPHUXs6Wf8Vio2xrRvUbSkGmCr+svj/GJ/lDGQBON1zyk0TjbgeXmTW
+ /jrLQUwfpB/KA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 10/10] drm/bridge: synopsys: dw-dp: Add audio support
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-10-f0f4a4ede712@collabora.com>
+References: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
+ <20260721-synopsys-dw-dp-improvements-v4-10-f0f4a4ede712@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 18:25:22 +0000
+Message-Id: <20260721182522.A3ABC1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,116 +54,231 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some lil nitpicks
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Audio infoframe preparation permanently leaks an SDP register bank=
+ slot on every call, leading to exhaustion of slots and duplicated Audio In=
+foFrames.
+- [Medium] The return value of `clk_prepare_enable(dp->i2s_clk)` is not ass=
+igned to `ret`, rendering the subsequent error check dead code and ignoring=
+ failures.
+- [Medium] TOCTOU race condition in `dw_dp_send_sdp` for SDP register bank =
+allocation when called concurrently from audio and display contexts.
+- [Medium] A 32-bit audio sample width will be silently truncated to 0 when=
+ configured in the hardware register via FIELD_PREP.
+- [Medium] Incomplete channel count support blocks valid ALSA streams from =
+playing.
+--
 
-On Wed, 2026-07-15 at 01:14 +0400, Mohamed Ahmed wrote:
-> +=09case NVKM_GSP_RUSD_ROWREMAP_HIST_MAX ... NVKM_GSP_RUSD_ROWREMAP_FAILU=
-RE: {
-> +=09=09RUSD_MEM_ROW_REMAP remap;
-> +
-> +=09=09ret =3D r570_rusd_read_section(gsp,
-> +=09=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 offsetof(NV00DE_SHARED_DATA, mem=
-RowRemap),
-> +=09=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 sizeof(remap), &remap);
-> +=09=09if (ret)
-> +=09=09=09return ret;
-> +
-> +=09=09switch (item) {
-> +=09=09case NVKM_GSP_RUSD_ROWREMAP_HIST_MAX:
-> +=09=09=09*val =3D remap.info.histogramMax;
-> +=09=09=09break;
-> +=09=09case NVKM_GSP_RUSD_ROWREMAP_HIST_HIGH:
-> +=09=09=09*val =3D remap.info.histogramHigh;
-> +=09=09=09break;
-> +=09=09case NVKM_GSP_RUSD_ROWREMAP_HIST_PARTIAL:
-> +=09=09=09*val =3D remap.info.histogramPartial;
-> +=09=09=09break;
-> +=09=09case NVKM_GSP_RUSD_ROWREMAP_HIST_LOW:
-> +=09=09=09*val =3D remap.info.histogramLow;
-> +=09=09=09break;
-> +=09=09case NVKM_GSP_RUSD_ROWREMAP_HIST_NONE:
-> +=09=09=09*val =3D remap.info.histogramNone;
-> +=09=09=09break;
-> +=09=09case NVKM_GSP_RUSD_ROWREMAP_CORRECTABLE:
-> +=09=09=09*val =3D remap.info.correctableRows;
-> +=09=09=09break;
-> +=09=09case NVKM_GSP_RUSD_ROWREMAP_UNCORRECTABLE:
-> +=09=09=09*val =3D remap.info.uncorrectableRows;
-> +=09=09=09break;
-> +=09=09case NVKM_GSP_RUSD_ROWREMAP_PENDING:
-> +=09=09=09*val =3D remap.info.isPending;
-> +=09=09=09break;
-> +=09=09default: /* NVKM_GSP_RUSD_ROWREMAP_FAILURE */
-> +=09=09=09*val =3D remap.info.hasFailureOccurred;
-> +=09=09=09break;
+--- Patch [10]: [PATCH v4 10/10] drm/bridge: synopsys: dw-dp: Add audio sup=
+port ---
+commit 9935aa2c50aed1038e27452a987227adb8e93b00
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-Maybe this should be an explicit case instead of default, so we can
-drm_WARN_ON_ONCE unknown values?
+drm/bridge: synopsys: dw-dp: Add audio support
 
-> +=09=09}
-> +=09=09return 0;
-> +=09}
-> +=09case NVKM_GSP_RUSD_PCIE_GEN ... NVKM_GSP_RUSD_PCIE_UNSUPPORTED_REQUES=
-TS: {
-> +=09=09RUSD_PCIE_DATA pcie;
+Implement audio support for the Synopsys DesignWare DisplayPort
+controller.
+
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index 636b9e1052978..8d6a52135e54d 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+
+[ ... ]
+
+> @@ -1846,6 +1871,195 @@ static void dw_dp_bridge_oob_notify(struct drm_br=
+idge *bridge,
+>  		dev_err_once(dp->dev, "Missing platform handler for OOB HPD handling\n=
+");
+>  }
+> =20
+> +static int dw_dp_audio_infoframe_send(struct dw_dp *dp)
+> +{
+> +	struct hdmi_audio_infoframe frame;
+> +	struct dw_dp_sdp sdp;
+> +	int ret;
 > +
-> +=09=09int idx =3D item - NVKM_GSP_RUSD_PCIE_GEN;
+> +	ret =3D hdmi_audio_infoframe_init(&frame);
+> +	if (ret < 0)
+> +		return ret;
 > +
-> +=09=09ret =3D r570_rusd_read_section(gsp,
-> +=09=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 offsetof(NV00DE_SHARED_DATA, pci=
-BusData),
-> +=09=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 sizeof(pcie), &pcie);
-> +=09=09if (ret)
-> +=09=09=09return ret;
+> +	frame.coding_type =3D HDMI_AUDIO_CODING_TYPE_STREAM;
+> +	frame.sample_frequency =3D HDMI_AUDIO_SAMPLE_FREQUENCY_STREAM;
+> +	frame.sample_size =3D HDMI_AUDIO_SAMPLE_SIZE_STREAM;
+> +	frame.channels =3D dp->audio_channels;
 > +
-> +=09=09*val =3D pcie.info.data[idx];
-> +=09=09return 0;
-> +=09}
-> +=09default:
-> +=09=09return -EINVAL;
-> +=09}
+> +	ret =3D hdmi_audio_infoframe_pack_for_dp(&frame, &sdp.base, DW_DP_SDP_V=
+ERSION);
+> +	if (ret < 0)
+> +		return ret;
 > +
-> +=09/* A reading of 0 mW is indistinguishable from "not supported on this
-> +=09 * board" (e.g. module power on Ampere/Hopper).
-> +=09 */
-> +=09if (!mw)
-> +=09=09return -ENODATA;
+> +	sdp.flags =3D DW_DP_SDP_VERTICAL_INTERVAL;
 > +
-> +=09*val =3D (s64)mw * 1000;
-> +=09return 0;
+> +	return dw_dp_send_sdp(dp, &sdp);
+
+[Severity: Medium]
+Is there a race condition when allocating SDP register bank slots?=20
+
+When dw_dp_audio_infoframe_send() is called, it routes to dw_dp_send_sdp()=
+=20
+which performs a non-atomic bitmap allocation on the shared dp->sdp_reg_ban=
+k=20
+state:
+
+    nr =3D find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
+    if (nr < SDP_REG_BANK_SIZE)
+        set_bit(nr, dp->sdp_reg_bank);
+
+If a DRM atomic commit and an ALSA stream start execute concurrently on=20
+different CPUs, could they allocate the same SDP slot and corrupt the=20
+hardware configuration?
+
 > +}
 > +
-> +const struct nvkm_rm_api_rusd
-> +r570_rusd =3D {
-> +=09.init =3D r570_rusd_init,
-> +=09.resume =3D r570_rusd_resume,
-> +=09.read =3D r570_rusd_read,
-> +};
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gp=
-u/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-> index a9af94adf9ef..1338b4a88f95 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-> @@ -130,6 +130,12 @@ struct nvkm_rm_api {
-> =C2=A0=09=09=09void (*fini)(struct r535_gr *);
-> =C2=A0=09=09} scrubber;
-> =C2=A0=09} *gr;
+> +static int dw_dp_audio_startup(struct drm_bridge *bridge,
+> +			       struct drm_connector *connector)
+> +{
+> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
 > +
-> +=09const struct nvkm_rm_api_rusd {
-> +=09=09int (*init)(struct nvkm_gsp *);
-> +=09=09void (*resume)(struct nvkm_gsp *);
-> +=09=09int (*read)(struct nvkm_gsp *, enum nvkm_gsp_rusd_item, s64 *);
-> +=09} *rusd;
-> =C2=A0};
-> =C2=A0
-> =C2=A0extern const struct nvkm_rm_impl r535_rm_tu102;
-> @@ -188,4 +194,5 @@ extern const struct nvkm_rm_api_gr r570_gr;
-> =C2=A0int r570_gr_gpc_mask(struct nvkm_gsp *, u32 *mask);
-> =C2=A0int r570_gr_tpc_mask(struct nvkm_gsp *, int gpc, u32 *mask);
-> =C2=A0extern const struct nvkm_rm_api_engine r570_ofa;
-> +extern const struct nvkm_rm_api_rusd r570_rusd;
-> =C2=A0#endif
+> +	dev_dbg(dp->dev, "audio startup\n");
+> +
+> +	return pm_runtime_resume_and_get(dp->dev);
+> +}
+> +
+> +static void dw_dp_audio_unprepare(struct drm_bridge *bridge,
+> +				  struct drm_connector *connector)
+> +{
+> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
+> +
+> +	/* Disable all audio streams */
+> +	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1, AUDIO_DATA_IN_EN,
+> +			   FIELD_PREP(AUDIO_DATA_IN_EN, 0));
 
+[Severity: High]
+Does dw_dp_audio_unprepare() miss freeing the SDP register bank slot=20
+allocated during audio prepare?=20
+
+When dw_dp_audio_infoframe_send() calls dw_dp_send_sdp(), a slot in=20
+dp->sdp_reg_bank is allocated and the corresponding EN_VERTICAL_SDP=20
+hardware bits are set.=20
+
+Since the cleanup path here doesn't clear that bit or disable the hardware=
+=20
+bits, won't repeatedly starting and stopping an ALSA stream exhaust all 16=
+=20
+hardware slots and permanently break audio infoframe updates with -EBUSY?
+
+> +
+> +	if (dp->audio_interface =3D=3D DW_DP_AUDIO_SPDIF)
+> +		clk_disable_unprepare(dp->spdif_clk);
+
+[ ... ]
+
+> +static int dw_dp_audio_prepare(struct drm_bridge *bridge,
+> +			       struct drm_connector *connector,
+> +			       struct hdmi_codec_daifmt *daifmt,
+> +			       struct hdmi_codec_params *params)
+> +{
+> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
+> +	u8 audio_data_in_en, supported_audio_interfaces;
+> +	enum dw_dp_audio_interface audio_interface;
+> +	u32 cfg1;
+> +	int ret;
+> +
+> +	/*
+> +	 * prepare might be called multiple times, so release the clocks
+> +	 * from previous calls to keep the calls in balance.
+> +	 */
+> +	if (dp->audio_interface !=3D DW_DP_AUDIO_UNUSED)
+> +		dw_dp_audio_unprepare(bridge, connector);
+> +
+> +	dp->audio_channels =3D params->cea.channels;
+> +	switch (params->cea.channels) {
+> +	case 1:
+> +	case 2:
+> +		audio_data_in_en =3D AUDIO_DATA_IN_EN_CHANNEL12;
+> +		break;
+> +	case 8:
+> +		audio_data_in_en =3D AUDIO_DATA_IN_EN_CHANNEL12 |
+> +				   AUDIO_DATA_IN_EN_CHANNEL34 |
+> +				   AUDIO_DATA_IN_EN_CHANNEL56 |
+> +				   AUDIO_DATA_IN_EN_CHANNEL78;
+> +		break;
+> +	default:
+> +		dev_err(dp->dev, "invalid audio channels %d\n", dp->audio_channels);
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+Does this switch statement need to handle 4 and 6 channel audio streams?=20
+
+Since the bridge advertises support for up to 8 channels via=20
+hdmi_audio_max_i2s_playback_channels =3D 8, the ALSA framework might=20
+negotiate 4.0 or 5.1 surround sound configurations.=20
+
+It seems these valid channel counts would be rejected here with -EINVAL,=20
+blocking their playback.
+
+> +
+> +	switch (daifmt->fmt) {
+
+[ ... ]
+
+> +	ret =3D clk_prepare_enable(dp->spdif_clk);
+> +	if (ret)
+> +		return ret;
+> +
+> +	clk_prepare_enable(dp->i2s_clk);
+> +	if (ret) {
+
+[Severity: Medium]
+Does this ignore the return value of clk_prepare_enable() for the I2S clock=
+?=20
+
+Since the result isn't assigned to ret, the subsequent error check appears=
+=20
+to be evaluating the return value from the previous spdif_clk enable call=20
+(which is already known to be 0).=20
+
+If the I2S clock fails to enable, it looks like this will silently proceed=
+=20
+with an unclocked interface and cause an unbalanced clock state when=20
+dw_dp_audio_unprepare() is called.
+
+> +		clk_disable_unprepare(dp->spdif_clk);
+> +		return ret;
+> +	}
+> +
+> +	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1,
+> +			   AUDIO_DATA_IN_EN | NUM_CHANNELS | AUDIO_DATA_WIDTH |
+> +			   AUDIO_INF_SELECT | HBR_MODE_ENABLE,
+> +			   FIELD_PREP(AUDIO_DATA_IN_EN, audio_data_in_en) |
+> +			   FIELD_PREP(NUM_CHANNELS, dp->audio_channels - 1) |
+> +			   FIELD_PREP(AUDIO_DATA_WIDTH, params->sample_width) |
+
+[Severity: Medium]
+Can a 32-bit audio sample width get silently truncated here?=20
+
+The AUDIO_DATA_WIDTH mask is defined as GENMASK(9, 5) which is 5 bits wide.=
+=20
+If userspace negotiates a 32-bit audio stream (which is allowed by default)=
+,=20
+the value 32 (binary 100000, 6 bits) will be truncated to 0 by FIELD_PREP,=
+=20
+potentially misconfiguring the hardware.
+
+> +			   FIELD_PREP(AUDIO_INF_SELECT, audio_interface) |
+> +			   FIELD_PREP(HBR_MODE_ENABLE, 0));
+> +
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-synopsys-d=
+w-dp-improvements-v4-0-f0f4a4ede712@collabora.com?part=3D10
