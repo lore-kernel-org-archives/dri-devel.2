@@ -4,74 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94CE1C44536
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:11:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56A85C44539
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:11:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FD1C10EB97;
-	Tue, 21 Jul 2026 22:11:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 056B910EB9C;
+	Tue, 21 Jul 2026 22:11:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PWEnHDH+";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="RVqn67G7";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0bh+Hqcw";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B42C10EAE7
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 17:27:21 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-49548aebcd8so29984025e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 10:27:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784654839; x=1785259639; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=42pW+71pg0Jh6s4IcFPEIBJFPC+m1EF8ujgkpv3uhhg=;
- b=PWEnHDH+9vnddRv8rTmcT74n7IwEeG8/hB6rV81qR5b9NBPTrfpMHM0H5KMwVyWBNE
- fJfzfsaIWgJHJmCkV4FEOaJigeSgqsQ5dqEdeR0RpM7NXt6/OMbWisi8fUpDUZyW+/iy
- 13KadtVlWPKtHZwxD8A8XoVNqr827W0Yz2QSwr0KVC0BBy7wX5HKJt+CgD7nzPBIsETE
- 9H/QE7mWxc1WltLaCfhgdMVOQLvaU0+PtWpRjgYOSAS4R+IZytOa8J7JDNpARXYTFTaR
- eJVv9Vjl9YaXsh7iR5saloJc1SVXbtv7h65531E2l6E8g8mUYDVuxEjQgXKyYSfaqTph
- JMAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784654839; x=1785259639;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=42pW+71pg0Jh6s4IcFPEIBJFPC+m1EF8ujgkpv3uhhg=;
- b=pGRycVm1T0ewSGw8MvEOxgYKLZC9bSUHVECUqLyLESwx/wan8CElOEnh5yG5+xgUFU
- zMmB5sYgu0JXD54iuqqnyDoBwNKkZ7dG4WdbEhFhy252XcISSTWGx9ktNpbGvrl/b7uN
- pRk9gIjnEbb2a253mjvqJNYXw5qO+LVPzTghzCu0X6mRUlgR/8K7AmV4dXmZ1SMCHaCa
- VbTmYXwOw4dW4T7Nd37mQ7Y+araBJLAac+g+8Q42mFmu0rERGsaqLEdtzwfFFqAm16KT
- yW/65ZssPz9sy2zfX7jKOEREq1Iosf1qkntsZtjKWgtNCePAb/Oqw9I5Ey/kOqRhxzJf
- Ta/g==
-X-Gm-Message-State: AOJu0Yw3iknbm/wHGL4CXW6ADSIGkNBdZ3tDHsepUbV9519YMogM4FNz
- w5Me0pK6OF50Qxouuw9p2TIg+zh3+Na1gdAKsdUYoMC/jDWqeVdk7fkd
-X-Gm-Gg: AfdE7cmw2kTNIMX+gWuvROq9B7X73Q23nLZh9s8r/9Z65NseUijjIFh2WU4piaUifZ1
- vdMmzu4gWNN5ASsVtJCtnU/1mXsEWOjLLLaKK3ZdDnr2W+9iA3olWsSsv3L9PBqw6NliME863LV
- fgjpGBYlAviqG/kXxD5eCm3vNgq+AYA5moqgxQqme5YEKdBjN61Dr515MkDl3Vri4AWznpavl7T
- +ONqAKA4xgP+W71GZvqSur9XSRWOzZ4I1YSuH+BGhLOphIV4Z8cPvwX7cPxWozz4PbrXdB0knkN
- Y9nIVBdzakcgRgS6r6MuF6rDjslITbeVk2otgkpn67X73VUyxetrrH8BINmzV3+7jNpYEOvi53F
- jcpHD5FW4EbTSEHek9FrYhW464TweExKzDkBMQ5m59TVs3ccaqZCvEfLeuyej5UzxPF8ufbZ7/N
- mDK/4KFGFt9wcS7egt0mx3O/NMFu4/qrnpOfldWQ==
-X-Received: by 2002:a05:600c:3b19:b0:495:48d7:f178 with SMTP id
- 5b1f17b1804b1-4954a3db76amr224885175e9.11.1784654839240; 
- Tue, 21 Jul 2026 10:27:19 -0700 (PDT)
-Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4956a4f25b6sm8214605e9.2.2026.07.21.10.27.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 10:27:18 -0700 (PDT)
-From: Michail Tatas <michail.tatas@gmail.com>
-To: michael@amarulasolutions.com, neil.armstrong@linaro.org,
- jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dianders@chromium.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Michail Tatas <michail.tatas@gmail.com>
-Subject: [PATCH v3 0/3] drm/panel: ilitek-ili9805: convert to *_multi API
-Date: Tue, 21 Jul 2026 20:27:12 +0300
-Message-ID: <20260721172715.602196-1-michail.tatas@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D21A010E34C
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:43:52 +0000 (UTC)
+Date: Tue, 21 Jul 2026 15:43:48 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1784641430;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=LSxdxXIt1908WxxV+0JYrAx1/H/jAX98PXijkclkVos=;
+ b=RVqn67G7dpS+KxmlGYZk8EFL4TT7NrdIGgQgbXaTxqv6k/iZJGhh6ADS4nkY8r/FAqwqfy
+ W8RZDeoPICqavufKUHGSiMvg7W+ggNg9UKKoSEKOidbETBDVAHwyk3gL5D/gHt+3kDa2cS
+ NkBbjG2HzPxbaflUd6s1MPnhN6iTvdGaGSRf5a6UrpP33gnp1vn+kgxUx05JA/+8pNHUme
+ P9XfKR/ilOMT2YxksLkF3KxNDmqb2+SpjNQo0dGDPujBqaIzk79K6t6isgfZhm9gx+XDF+
+ VOp+kUYMyfYwUSma4gWPNEX1eEACptK1Se652h+puli9aQWW4EWciVrDnnYfXg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1784641430;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=LSxdxXIt1908WxxV+0JYrAx1/H/jAX98PXijkclkVos=;
+ b=0bh+Hqcwd2XcpK91Oou08Q+mbXBAfY3a4510jizlEP4UVYV5U/PmwK6WvELy3/4bF1jkZ9
+ 5y+68Cefe+ZuOKDA==
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+To: =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>
+Cc: Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/vc4: hvs/v3d: Fix null dereference in unbind
+Message-ID: <cthbezi5wyphyxqvbae22y5ktd5hefuos53v7sirclvhm6z2yv@dp3xibrbgoij>
+References: <20260720-rpi-vc4-fix-v1-1-6073a96a5773@linutronix.de>
+ <b1a84b2e-1f34-469f-898c-1dfb76efe2df@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <b1a84b2e-1f34-469f-898c-1dfb76efe2df@igalia.com>
 X-Mailman-Approved-At: Tue, 21 Jul 2026 22:11:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,46 +73,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series converts panel-ilitek-ili9805 to the
-mipi_dsi_*_multi helpers and cleans up the resulting code.
-
-Patch 1: Convert the individual DSI calls to their
-*_multi variants
-
-Patch 2: Replace the ILI9805_INSTR table with per
-panel init functions using the *_multi API, dropping
-struct ili9805_instr
-
-Patch 3: makes ili9805_power_off() and ili9805_deactivate()
-return void, since no one checks their return values.
-
-Michail Tatas (3):
-  drm/panel: ilitek-ili9805: Use _multi variants
-  drm/panel: ilitek-ili9805: Use dsi_multi in init
-  drm/panel: ilitek-ili9805: make cleanup funcs void
-
- drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 211 ++++++++-----------
- 1 file changed, 87 insertions(+), 124 deletions(-)
+On Tue, Jul 21, 2026 at 09:28:51AM -0300, Maíra Canal wrote:
+> Hi Gregor,
+> 
+> On 20/07/26 14:20, Gregor Herburger wrote:
+> > The hvs and v3d drivers use dev_get_drvdata(master) in their unbind
+> > functions. Since the vc4-drm gets removed before its dependent drivers
+> > (vc4_hvs/vc4_v3d) the vc4_hvs_unbind/vc4_v3d_unbind functions try to
+> > get drvdata of its master and fails with a null dereference error.
+> > 
+> > Use the data pointer passed to the unbind functions directly instead of
+> > dev_get_drvdata(master). This avoids using potentially freed memory.
+> > 
+> 
+> Shouldn't this patch have a "Fixes:" tag?
+Right, will send a v2 with Fixes tags. 
+> 
+> Best regards,
+> - Maíra
+> 
+> > Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+> > ---
+> >   drivers/gpu/drm/vc4/vc4_hvs.c | 2 +-
+> >   drivers/gpu/drm/vc4/vc4_v3d.c | 2 +-
+> >   2 files changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
+> > index 184d51ea3fa5..e715147d091c 100644
+> > --- a/drivers/gpu/drm/vc4/vc4_hvs.c
+> > +++ b/drivers/gpu/drm/vc4/vc4_hvs.c
+> > @@ -1752,7 +1752,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+> >   static void vc4_hvs_unbind(struct device *dev, struct device *master,
+> >   			   void *data)
+> >   {
+> > -	struct drm_device *drm = dev_get_drvdata(master);
+> > +	struct drm_device *drm = data;
+> >   	struct vc4_dev *vc4 = to_vc4_dev(drm);
+> >   	struct vc4_hvs *hvs = vc4->hvs;
+> >   	struct drm_mm_node *node, *next;
+> > diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+> > index d31b906cb8e7..f32410420d3e 100644
+> > --- a/drivers/gpu/drm/vc4/vc4_v3d.c
+> > +++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+> > @@ -494,7 +494,7 @@ static int vc4_v3d_bind(struct device *dev, struct device *master, void *data)
+> >   static void vc4_v3d_unbind(struct device *dev, struct device *master,
+> >   			   void *data)
+> >   {
+> > -	struct drm_device *drm = dev_get_drvdata(master);
+> > +	struct drm_device *drm = data;
+> >   	struct vc4_dev *vc4 = to_vc4_dev(drm);
+> >   	vc4_irq_uninstall(drm);
+> > 
+> > ---
+> > base-commit: 58717b2a1365d06c8c64b72aa948541b53fe31eb
+> > change-id: 20260715-rpi-vc4-fix-d93513b05425
+> > 
+> > Best regards,
+> > --
+> > Gregor Herburger <gregor.herburger@linutronix.de>
+> > 
+> 
 
 -- 
-Changes in v3:
-Addresses review feedback from Doug on v2
-- Convert hex to lowercase
-- Align to match open parenthesis
-- Change lines to not cross 100 chars
+Gregor Herburger
+Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
+Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
 
-Changes in v2:
-Addresses review feedback from Doug on v1
-- Patch 1 remains the same as v1
-- Added patch 2 dropping struct ili9805_instr and used
-  per-panel init functions
-- Added patch 3 making the cleanup functions return void
+Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
+can be found here): https://linutronix.de/legal/data-protection.php
 
-Revisions
-- v1: https://lore.kernel.org/all/allWpYxgHfpKughy@michalis-linux/
-- v2: https://lore.kernel.org/all/20260719190358.438699-1-michail.tatas@gmail.com/
-
-The changes are compile tested only. Also I run checkpatch.pl --strict, 
-sparse, smatch, gcc W=1, clang W=1 and coccinelle.
-2.43.0
-
+Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
+Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
+806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
+Katharina Kopp, Alexander Gieringer
