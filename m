@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C770FC44529
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:34:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1B84C44529
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:41:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 130BF10E328;
-	Tue, 21 Jul 2026 11:34:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C20010E321;
+	Tue, 21 Jul 2026 11:41:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PCXqL6Ma";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C5SPsU82";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 500E310E328
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:34:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E92D10E321
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:41:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 093C840C55;
- Tue, 21 Jul 2026 11:34:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 655C01F000E9;
- Tue, 21 Jul 2026 11:34:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DC888600BB;
+ Tue, 21 Jul 2026 11:41:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F17941F000E9;
+ Tue, 21 Jul 2026 11:40:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784633648;
- bh=PArcXuGcxVkYbHbZ0JDAmL4nZr7XyevIyRu/GP8HdQk=;
+ s=k20260515; t=1784634060;
+ bh=NNAgLrpDH0/UU8+wsDoeYGyVlYL+qTZEqWUnwFngF7g=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PCXqL6MafXzNC1VPH8DkyClaoNyl35lEe6/++vtT6LqpyJGu0Napu9U2OpYQIssT8
- iQcovEHdwpAd0TZF+ESJ7wvd5HPNicTJyrZKcIUP5B97LlezwCasyN7eRrUkZXtq5+
- HKiWkpjixo5DWAWS91zj+QY2UW1RPYEdWSpyDOntt7f8z3aYpifKzQcZ5bZW+A1G9k
- r10izde39OCpsLYvJyMjnO+JrFM2L6F7Fi+mcEFBRSRd8cFaEzQJJsrBhIgW1gF3o4
- 2CnIiO93wuUCjSp02XDtl315jvE9bVkkgWT2nlw5mrZFZDmV3Y6GNwmtpcDYDsbUex
- i/IXExfRcO5SQ==
+ b=C5SPsU827OX56Uob8a1dbCTau1rZm+xkDVVotHIC8QglLYa8KbJ40Af2X1/OOqsW+
+ iktk0gDgP1uEHj1IH3Aa1aymUNd8PjAEpYGvzJu50t51UIvYQWcP6ln0XInb3HmMZM
+ zYqokC665UofDct7MiPNsXZUlf2mZm12hTeqou+Y8bXkNAjAym2v29+1PcG0+msuYy
+ kvbYwaxOeuMYjD4oIvl+bZ8S9SrkyXuWFp0WylM/BismZPxK1hpp31o7RxDWOhBlUb
+ whLXyhrO3ccA3GPf4r+jlgUvMz4GoLd2Y/xGh3i14cZbr9Uo9KrcRtH8Hb2FMhQ+PI
+ mGljbueDijoZw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] dt-bindings: input: Convert TI TPS65217 power
- button to DT schema
-To: "Eduard Bostina" <egbostina@gmail.com>
-Cc: conor+dt@kernel.org, linux-input@vger.kernel.org,
- linux-leds@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org, lee@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20260721112133.70382-4-egbostina@gmail.com>
-References: <20260721112133.70382-1-egbostina@gmail.com>
- <20260721112133.70382-4-egbostina@gmail.com>
+Subject: Re: [PATCH 6/8] rust: io: register: use new relative base syntax in
+ doc and examples
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
+ ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>
+In-Reply-To: <20260721-registers_fix-v1-6-3711b2317e1f@nvidia.com>
+References: <20260721-registers_fix-v1-0-3711b2317e1f@nvidia.com>
+ <20260721-registers_fix-v1-6-3711b2317e1f@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 11:34:07 +0000
-Message-Id: <20260721113408.655C01F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 11:40:59 +0000
+Message-Id: <20260721114059.F17941F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,71 +59,84 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing NULL check on `dev_get_regmap` can lead to a kernel panic =
-in the IRQ handler.
-- [High] The driver incorrectly masks `platform_get_irq()` error codes with=
- `-EINVAL`, breaking probe deferral.
+- [Medium] The `register!` macro fails to compile when using the deprecated=
+ `+` syntax for relative register aliases.
 --
 
---- Patch [3]: [PATCH v3 3/4] dt-bindings: input: Convert TI TPS65217 power=
- button to DT schema ---
-commit 7ffa82f06e0d099b257abd8ec45ed224af6ff3c6
-Author: Eduard Bostina <egbostina@gmail.com>
+--- Patch [6]: [PATCH 6/8] rust: io: register: use new relative base syntax=
+ in doc and examples ---
+commit ad4a7f900a81289c91c14aec0581812ddbb526e4
+Author: Alexandre Courbot <acourbot@nvidia.com>
 
-dt-bindings: input: Convert TI TPS65217 power button to DT schema
+rust: io: register: use new relative base syntax in doc and examples
 
-Convert the Texas Instruments TPS65217 and TPS65218 Power Button
-bindings to DT schema.
+This commit (along with earlier patches in the series) converts the
+documentation and examples to use the new Base: syntax to specify
+relative registers bases. It also updates the macro's internal rules
+to support this new syntax while keeping temporary support for the
+old syntax.
 
-drivers/input/misc/tps65218-pwrbutton.c:tps6521x_pb_probe() {
-        ...
-        pwr->regmap =3D dev_get_regmap(dev->parent, NULL);
-        ...
-}
+> diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
+> index 80e638a892d74..eeb7f859f8b9d 100644
+> --- a/rust/kernel/io/register.rs
+> +++ b/rust/kernel/io/register.rs
+> @@ -801,6 +801,26 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
+>  /// ```
+>  #[macro_export]
+>  macro_rules! register {
+> +    // Deprecated `+` syntax for relative registers and their aliases.
+> +    (
+> +        $(
+> +            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+> +                $([ $size:expr $(, stride =3D $stride:expr)? ])?
+> +                $(@ $($base:ident +)? $offset:literal)?
+> +                $(=3D> $alias:ident $(+ $alias_offset:ty)? $([$alias_idx=
+:expr])? )?
+> +            { $($fields:tt)* }
+> +        )*
+> +    ) =3D> {
+> +        $(
+> +        $crate::register!(
+> +            @reg $(#[$attr])* $vis $name ($storage) $([$size $(, stride =
+=3D $stride)?])?
+> +                $(@ $($base :)? $offset)?
+> +                $(=3D> $alias $(: $alias_offset)? $([$alias_idx])? )?
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this code need to check
-if pwr->regmap is NULL?
+[Severity: Medium]
+Could this cause a regression where the macro fails to compile when using t=
+he
+deprecated + syntax for relative register aliases?
 
-If dev_get_regmap() returns NULL due to an incomplete device tree, it seems
-this could lead to a kernel panic during an interrupt when tps6521x_pb_irq()
-dereferences it:
-
-drivers/input/misc/tps65218-pwrbutton.c:tps6521x_pb_irq() {
-        ...
-        error =3D regmap_read(pwr->regmap, tps_data->reg_status, &reg);
-        ...
-}
-
-
-drivers/input/misc/tps65218-pwrbutton.c:tps6521x_pb_probe() {
-        ...
-        irq =3D platform_get_irq(pdev, 0);
-        if (irq < 0)
-                return -EINVAL;
-        ...
-}
-
-[Severity: High]
-This is also a pre-existing issue, but does masking the return value of
-platform_get_irq() break probe deferral?
-
-If platform_get_irq() returns -EPROBE_DEFER, converting the error to -EINVAL
-prevents the driver core from handling the deferral and retrying later.
-
-> diff --git a/Documentation/devicetree/bindings/input/ti,tps65217-pwrbutto=
-n.yaml b/Documentation/devicetree/bindings/input/ti,tps65217-pwrbutton.yaml
-> new file mode 100644
-> index 0000000000000..3526d8b045fd2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/ti,tps65217-pwrbutton.yaml
+In the deprecated branch above, $alias_offset is matched as a :ty fragment.
+It is then forwarded here to an internal @reg rule:
 
 [ ... ]
 
+>      // Creates an alias register of relative offset register `alias` wit=
+h its own fields.
+>      (
+> -        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) =3D> $=
+base:ident + $alias:ident
+> +        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) =3D> $=
+base:path : $alias:path
+>              { $($fields:tt)* }
+>      ) =3D> {
+
+However, this internal @reg rule expects a :path fragment. Rust macros do
+not allow an abstract syntax tree node parsed as a ty fragment to match a
+path specifier, which will result in a "no rules expected the token"
+compilation error.
+
+Since it was intended that the old form continues to be accepted temporaril=
+y,
+continuous integration might miss this conditional compilation error if no
+dependent driver using the old syntax is built in standard configs. Could
+$alias_offset be matched as a :path or :ident instead of :ty in the
+deprecated branch to avoid this?
+
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721112133.7038=
-2-1-egbostina@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-registers_=
+fix-v1-0-3711b2317e1f@nvidia.com?part=3D6
