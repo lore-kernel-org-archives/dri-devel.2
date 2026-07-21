@@ -4,61 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C999C4452D
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:11:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88EB4C44536
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:11:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B528D10EB9B;
-	Tue, 21 Jul 2026 22:11:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 523C810EBA5;
+	Tue, 21 Jul 2026 22:11:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="Y9Fl8EVI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cV3EgqGd";
 	dkim-atps=neutral
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net
- (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
- by gabe.freedesktop.org (Postfix) with ESMTP id C4B9B10E706
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 08:19:56 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C3C710EAD1
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 17:27:23 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4953de5be0aso41530585e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 10:27:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-Id:MIME-Version:Content-Transfer-Encoding; bh=slkMB1n5lL
- 18xVarizCiSrf3pbimSGms9jOIwlPcuPE=; b=Y9Fl8EVIROLgzAT7Q1/vyVB3pR
- N/chrl4/htKfVUiZQa7dRl8MLJh7OxlCAbDMBo2jfE9B3hGOozqoDn/gmrObv/nd
- 0fgBfK3F9SE4IfJMakBJBdL7ojfCUMtHJdqJS/1aG7AIGt4B0woOG7EEfsb4STr1
- Pn/UaB1nN5jVt/2cE=
-Received: from wmy.localdomain (unknown [115.51.78.210])
- by hzbj-edu-front-4.icoremail.net (Coremail) with SMTP id
- BrQMCkC23xWgK19q0zBKAQ--.7875S2; 
- Tue, 21 Jul 2026 16:19:46 +0800 (CST)
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-To: simona@ffwll.ch,
-	deller@gmx.de
-Cc: tzimmermann@suse.de, sam@ravnborg.org, javierm@redhat.com,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Mingyu Wang <25181214217@stu.xidian.edu.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] fbdev: core: Fix pointer desynchronization in fb_io_read()
-Date: Tue, 21 Jul 2026 16:19:42 +0800
-Message-Id: <20260721081942.107024-1-25181214217@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+ d=gmail.com; s=20251104; t=1784654842; x=1785259642; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=H9I5kwUNdI22d3Rq9mSVERh4Hdo8G6QxFzmLpwrynNI=;
+ b=cV3EgqGdN7xCUPfzCWBASjWKa4giQupOrno6e4dwFAIoU1IYCdeR783Qmfp3vz1Q8R
+ NFZU9bwOIaxdR/0FTnYqgVAzwIWI/mODGj71eX3IalPL4m0K9Ph2uLRBg3JCVb8r8xPB
+ 1qjZp5yz2BL+Fi3K/vHzxcKSUCCVlTzHLqzNg0JpGlw7+3OGOnGzT+XjMtFgAZZrGxVG
+ afEbA+EHhfkQI5jpgqGXsU5vTPcX+Xy3i6/b7Q6QK7QA/dlfTmlVbzYywPLEf87vLJrj
+ hczrb6vCm5Sxc3jdg7UvNdQJj2pGEgjkoKupgVWXfyQduGSXQ/qpSLXGQWSh+3Z7Dvvk
+ xdhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784654842; x=1785259642;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=H9I5kwUNdI22d3Rq9mSVERh4Hdo8G6QxFzmLpwrynNI=;
+ b=o0GUqJDaGkrrfk+Q3zGCrMhxa8Ew3nCsOwNkYYq+ZhQ3mE1jfmwFhTLkUG5X3I22Po
+ TkMzsrvkNsj7P6yNXOrQkdqMuH5zKQYw7Wt1HGflqWbrJQzpmxlnuXGnr9IpOW8YdcFa
+ sFcfwh2gSo8U1qsH5zKShV6O7fQMqBKWYBMlJsrP0rqLH2oVgOf61kmxKlHajshxs129
+ bIDuFz+7WtNok2McGce2co+1xsV00PEO1cEWUyBYMkXALDiNglU0htawb8zCmcvuuowk
+ +qSSTHs5IU9WzmtSdsXS4ztBLs98G3o8NPCIguICpzRHlZ9zr4gu4HN/c87IoXqv18oc
+ kyVA==
+X-Gm-Message-State: AOJu0YxX2IQcnYbPXnI8TueW4FaJdmId6OWHP4dllcvdZyHocCKldvqL
+ 6KeK6JcIcy+Z9dQ25dVuD7QoQQwqaCFIzN/8w7Yt1RIAyDwpdp5yxfKvHMuFAA==
+X-Gm-Gg: AfdE7cmjRxgd7R0S/lm/Gfs1RT9VhuVvwjp4N6bgwbxqLAn//TtTe5bbe1k7w1FwTIM
+ eIvlRoXv0MqG6gXK3JSDu3PW+stwvmr3vMaSZSaT7RkdRkZ93UhymNfJvzFa3G+e9nisfd7vR3n
+ 4k/irdKRQkBmptPwx2uZJYlfYLj9Jhswh9iNHt2A3XnmCzM13brs9M+mfooyXYxRX2a3zxbu9aH
+ h6cdce6GyayLwshfq0I1MWUkcJkQ7F8qAtYzphGKrDBYOmPtdWzuWTXfuwLd4lOBJgqzOuFPIs5
+ 4TEL8bB0OABDZQFOtpb0FyCIFdCBWIuDVsYcloAeaFRv0WihO7bnkr5n56XOTl5q0MtukzhY7hQ
+ mRuJRV4O8gaaE11Jh6eksI5D7yGaDL2LodYPyOwJ3SyHQPavMLgVP324b37vW1IRMzDTU52RseD
+ Uidm1CfinEYqs6Vsdv8LrQWasoAPM7sk55iMw7q5kxakcwh199
+X-Received: by 2002:a05:600c:8284:b0:495:5d6d:d4f7 with SMTP id
+ 5b1f17b1804b1-4955d6dd523mr129158855e9.24.1784654841621; 
+ Tue, 21 Jul 2026 10:27:21 -0700 (PDT)
+Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4956a4f9a11sm7593595e9.4.2026.07.21.10.27.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2026 10:27:21 -0700 (PDT)
+From: Michail Tatas <michail.tatas@gmail.com>
+To: michael@amarulasolutions.com, neil.armstrong@linaro.org,
+ jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dianders@chromium.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Michail Tatas <michail.tatas@gmail.com>
+Subject: [PATCH v3 1/3] drm/panel: ilitek-ili9805: Use _multi variants
+Date: Tue, 21 Jul 2026 20:27:13 +0300
+Message-ID: <20260721172715.602196-2-michail.tatas@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260721172715.602196-1-michail.tatas@gmail.com>
+References: <20260721172715.602196-1-michail.tatas@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: BrQMCkC23xWgK19q0zBKAQ--.7875S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar17WFyfCFWrZr4kXryrJFb_yoW8Cr15pF
- 43KFyfKFn8XwsrAw4DCa12qa4Fka1xZF98WFWvk3WYv3s8tr1Y9348KFyjgrWfAF4xGry0
- qan7Kw1FvF9xuFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUPF14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
- 1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
- FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
- 0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
- x2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4
- vE14v_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
- 67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MI
- IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E
- 14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJV
- W8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUeYLv
- DUUUU
-X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUBEWpeO3mHWgAAs8
 X-Mailman-Approved-At: Tue, 21 Jul 2026 22:11:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,49 +91,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In fb_io_read(), if copy_to_user() performs a partial copy (e.g., due to
-a faulty user buffer), the loop adjusts the chunk size 'c' and updates
-the remaining 'count'. However, the hardware 'src' pointer has already
-been eagerly advanced by the original chunk size.
+Convert functions mipi_dsi_* to mipi_dsi_*_multi as per the
+gpu/todo file.
+The multi variant of these functions include improved error
+handling.
 
-If the loop is allowed to continue, the read will resume from an
-incorrect, over-advanced offset. Since the remaining 'count' was only
-decremented by the successful bytes, this desynchronization causes the
-next iterations to execute more hardware reads than originally bounded,
-eventually leading to out-of-bounds I/O reads.
-
-Fix this by breaking out of the loop immediately upon a partial
-copy_to_user(). A partial copy indicates a faulty user buffer, making
-subsequent read attempts futile. Breaking out ensures we return the
-number of successfully read bytes without risking out-of-bounds hardware
-accesses in subsequent mismatched iterations.
-
-Fixes: 6121cd9ef911 ("fbdev: Move I/O read and write code into helper functions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 ---
- drivers/video/fbdev/core/fb_io_fops.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 51 +++++---------------
+ 1 file changed, 13 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/video/fbdev/core/fb_io_fops.c b/drivers/video/fbdev/core/fb_io_fops.c
-index 6ab60fcd0050..0798e88799eb 100644
---- a/drivers/video/fbdev/core/fb_io_fops.c
-+++ b/drivers/video/fbdev/core/fb_io_fops.c
-@@ -61,6 +61,14 @@ ssize_t fb_io_read(struct fb_info *info, char __user *buf, size_t count, loff_t
- 		buf += c;
- 		cnt += c;
- 		count -= c;
-+
-+		/*
-+		 * If there was a partial copy, the user buffer is faulty.
-+		 * Break out to avoid over-advancing the src pointer and
-+		 * reading out of bounds in the next iteration.
-+		 */
-+		if (trailing)
-+			break;
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
+index e6c483851f1f..7e9587afebbe 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
+@@ -159,36 +159,23 @@ static int ili9805_power_off(struct ili9805 *ctx)
+ 
+ static int ili9805_activate(struct ili9805 *ctx)
+ {
+-	struct mipi_dsi_device *dsi = ctx->dsi;
+-	struct device *dev = &dsi->dev;
+-	int i, ret;
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++	int i;
+ 
+ 	for (i = 0; i < ctx->desc->init_length; i++) {
+ 		const struct ili9805_instr *instr = &ctx->desc->init[i];
+ 
+-		ret = mipi_dsi_dcs_write_buffer(ctx->dsi, instr->data, instr->len);
+-		if (ret < 0)
+-			return ret;
++		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, instr->data, instr->len);
+ 
+ 		if (instr->delay > 0)
+-			msleep(instr->delay);
+-	}
+-
+-	ret = mipi_dsi_dcs_exit_sleep_mode(ctx->dsi);
+-	if (ret) {
+-		dev_err(dev, "Failed to exit sleep mode (%d)\n", ret);
+-		return ret;
++			mipi_dsi_msleep(&dsi_ctx, instr->delay);
  	}
  
- 	kfree(buffer);
+-	usleep_range(5000, 6000);
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+ 
+-	ret = mipi_dsi_dcs_set_display_on(ctx->dsi);
+-	if (ret) {
+-		dev_err(dev, "Failed to set display ON (%d)\n", ret);
+-		return ret;
+-	}
+-
+-	return 0;
++	return dsi_ctx.accum_err;
+ }
+ 
+ static int ili9805_prepare(struct drm_panel *panel)
+@@ -211,25 +198,13 @@ static int ili9805_prepare(struct drm_panel *panel)
+ 
+ static int ili9805_deactivate(struct ili9805 *ctx)
+ {
+-	struct mipi_dsi_device *dsi = ctx->dsi;
+-	struct device *dev = &dsi->dev;
+-	int ret;
+-
+-	ret = mipi_dsi_dcs_set_display_off(ctx->dsi);
+-	if (ret < 0) {
+-		dev_err(dev, "Failed to set display OFF (%d)\n", ret);
+-		return ret;
+-	}
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+ 
+-	usleep_range(5000, 10000);
+-
+-	ret = mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
+-	if (ret < 0) {
+-		dev_err(dev, "Failed to enter sleep mode (%d)\n", ret);
+-		return ret;
+-	}
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	mipi_dsi_usleep_range(&dsi_ctx, 5000, 10000);
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+ 
+-	return 0;
++	return dsi_ctx.accum_err;
+ }
+ 
+ static int ili9805_unprepare(struct drm_panel *panel)
 -- 
-2.34.1
+2.43.0
 
