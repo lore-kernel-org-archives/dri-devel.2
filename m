@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BA69C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 16:54:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63779C4452B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 16:54:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8479B10EAB3;
-	Tue, 21 Jul 2026 16:54:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 670F010EAB7;
+	Tue, 21 Jul 2026 16:54:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="ocPpBmhq";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="xU3l24Nu";
 	dkim-atps=neutral
 Received: from CWXP265CU010.outbound.protection.outlook.com
  (mail-ukwestazon11022096.outbound.protection.outlook.com [52.101.101.96])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C12110E228
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 16:54:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF2310E228
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 16:54:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c3vYOu+qKYdz91Lub9OVxTiYc3s09uWLSJATZZuHS29IwwmS1+8pvHHrqV3T7Oj6yHQP4Nmm0fA75z7KMjvRSWOFJuFbypDHjH/0rdjpvY3Sm0c7mVOKITzLTd7kU7h2JztlEUR+vou+M8hIx6FwC/jV++fhnBORL2nUI9VTRdctjkQWQKbNsurdrYIjkrsMIhyilFy3Z2pDkuiDBsffhiNlCF0zFN1HoENvwYXYWL85YvwU/vN5ix0+jgiynPxL1+mN7N04WdVldoWpzO9EptMmoQFkqaJ4detHdE0B3vErBEz5sPrMNAtaoAXjN/oo5lDasfftEnbo0RlEIjl7Zw==
+ b=YD/z8qafj8w6WK+6ODxL/9beE3hIrwGg5M9lOeGdoY2f9I/S5l+QiN1O08FJ6exF3slW7xsB3b2yvSrPJ1+mvnLx96PPL1fEMtgxDGmWBmUwzkMDtHS669fEwncyRVumcSvdAjYNlTB+CscGudNCbMoiWFHVzGVdQzFc0puroYfo7S+Kt/s4jgDvacE+x4vGn/fKpW6ey+CcmUbsDjvKLcY5vM31pDa8Q5DWRFYCEE383c5oexvcKvO28FXFxFcKyir0wUFjxxSqKE/zP7XZRPJbVHuUf0GWaGNbGnF0VDt9vu7xb3pTKmsLipzF9to0/suHZsTj3ax/k8N3s9/YSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EH+Ks+rTkbtc+YjDCEWnOULQnHv8ONMCUfN815ETfyk=;
- b=aSXNce3dVqa0/7MIqtADvoAePNsVP8HKPAtXJdGZxagswyZLaT7wHAtcwZQ6orZ9nKLVVcHGq0Anbjk5ecpbHKj9lMimsjfT1WJSp+xCMrGZNcYRpMMUCj7aip1MEza1kSdX5Aww4SH3yzROdfibYNvDLojXGwE5abD/VhAzGQ6DH0MNB0D5sV1/7cF7ySPAlqblztcElyPJ6vCrJX5KQhU928ga+bEtn+vgDdOvaQpIEjkCTwwsMswcexnJIn0kGFvFErqbmAay0QxQ2EauXyg1yYi9L6RL3CeEGiCIzAnR2LmgH9IxBOjCBeS8ZxI2T8Nb0RF6jQ6G+9wZz/oJaQ==
+ bh=pqvt61eNCMhTn8pEzy/jGP0FdJQ7M057SVVhboqWcpI=;
+ b=sQaNcXWkVpKXSYwx8IIa9N3KWUF5pO0K3PKjhWWy7yiDQOfUj/+DlSCWUBurEpEHKC/LvuFk5BeKz3eqKqLa7xg6VNxn97nBUGvkdypZ/6VLYGGuKS+KRAxizk1g01/qFC9zRmvz8W93sQRDk9L4r/cyWBNFYMB/3BTZ1cmMeS4ak4NDkZ+rGAaQsbI/MzYTS7FF31m+t1PwCVEX/UjHzYcyFwQ2JJWyntKanUTryBmSL7McpaV/RX3xFLqX86gR2DdQls7FdZhWswRVsyZnhPKzZXqh89p9xUrttiLPfMaRnK8Lrqfk5ztWn6VhTAoc6JXoxTK1vBfFgDjrdxRgdA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EH+Ks+rTkbtc+YjDCEWnOULQnHv8ONMCUfN815ETfyk=;
- b=ocPpBmhqlaZKodzrLDaDcUzAfQNhuU1jd3Zm0zpOkGAE7zcJgTq8nPFNH6UptUcFWNkUapq41bknAyYkO6NJ0zM7mIOt1E9aBa7nIhwVW9Z5wmPfwej96TqooAlkYDKC3FAo9CbfWBU/OCZ+sbslfVO0y8VLVCAoYcb8muyrJEk=
+ bh=pqvt61eNCMhTn8pEzy/jGP0FdJQ7M057SVVhboqWcpI=;
+ b=xU3l24Nu8ATRmjPb0BNxXzBvSxRImv2Zu93weD44ES18swVLPkx8+WFIjiwxPCNuWGx6V9o2WhktYxq7gMwp+GtdYmkaUUt4boU/mEDVGXThC+7Hqy4Nk9W7Gk9zC5RRPhM4bfCUjakaZQIFvD3+vnYCJ5GwftI57/QESf8CxRo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
  by LO8P265MB7878.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3ae::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
- 2026 16:54:34 +0000
+ 2026 16:54:35 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0223.017; Tue, 21 Jul 2026
- 16:54:34 +0000
+ 16:54:35 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Tue, 21 Jul 2026 17:54:27 +0100
-Subject: [PATCH 03/10] drm/tyr: specify base type for registers
+Date: Tue, 21 Jul 2026 17:54:29 +0100
+Subject: [PATCH 05/10] rust: io: register: make register have a typed base
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-typed_register-v1-3-452d72b60262@garyguo.net>
+Message-Id: <20260721-typed_register-v1-5-452d72b60262@garyguo.net>
 References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
 In-Reply-To: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -66,11 +66,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784652872; l=6378;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784652872; l=13356;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=CVtl6QGHGHTgUxhd8Ee9uc5NPHuTrs9T/t3HWlWXORM=;
- b=BmQhSct2n/JjfcoI5g5rdOy8aqDhgeHB7HmT4ryN0SBg7rb2wUBKuHSw6XEmNLY4Avl2Vxj3f
- sse3W52DHj/B6Avb/lleTyzgDnVm212Xv5uQrdi5XuKm8htUqePwTn4
+ bh=/tbPMm7MZEGr2hdg4hsZfc5XlLdU+1m/iS/d5okVeRs=;
+ b=dC6R3tnbzA8WfUd7G6E8uIHh7G0cPg5LGaLQC/bdZO6ph302S/Kwy6h73pwAKAhMm6tSk9Kj9
+ X7tz1z0nH4ZARTnXXqYT1U6mMZVchRdq2w98Y/roGJSBNdeA1a20zRt
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P123CA0143.GBRP123.PROD.OUTLOOK.COM
@@ -79,65 +79,65 @@ X-ClientProxiedBy: LO4P123CA0143.GBRP123.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO8P265MB7878:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9250cad6-d9e2-483e-97cf-08dee748be24
+X-MS-Office365-Filtering-Correlation-Id: 48b3b6b3-18f4-4be2-5aa0-08dee748bec9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|10070799003|1800799024|366016|56012099006|10067099003|6133799003|3023799007|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info: SqYb4db7u/nCZW5APDeKoEIl1VTsECpzJCAx9COBvak/4FFbMueosYuye7Ux086DtxvN6Ezsv+HRusvmJDQmFKEEpySSPxmwg9Px0CDcu0fDGeFlDoc1LcqlUtEb8yCuQiqoYauD+HeqXDiJEYVvnyL8ihPG6jtx7B1hwGxlScznMZiNPnwpytAX+CBscdMti+46KRTULWAd0VsncTZzcZN6bb+LA6fRrNslc11nebEzI/Ko7gkP17pYuT5V4gWJT5JZTkc1w0+hMsB6t8IeXoYs1Csm9L0K55mtSl1MLEakq2PI3yZMlrZ6vCmsLyLau1eXMB3M4q/au5ebjOw7tK53Aa/DlvVXVEs527fRgMwJoD3vS+ONrKojviG5b3X779RZ/5YN4E6s4L3ntPQjkxYGXSBerdhrPVjQRNIQqhYXJMPPTiJgTYGaudVEqRqHXKObPyth6yfSBH0k3okK8uVGoyNOGKBvYH/KN1S5IrH/Waf0JwHg4SI4QWNFgMtfVz/RFqD3D+iOXITVioSRTmgXrSuZTIs+muu7ZX0K3RPK+033Nw5albBgPjbIcLr4eCdq8cXWhnIruKPujA9/dVsgrw5/jvhhDwqx3Qz0qxtn66+kBodKcrUlDQbpv4zJRiAgrHYlAJo0UuYsx7zah/RYP5S8giYE3sPBHpEWiWRat8CN+oSa6rxcMnKUDJvio3Nxltw661mBMjXmSiU9vA==
+ ARA:13230040|23010399003|376014|7416014|10070799003|1800799024|366016|56012099006|10067099003|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: AvAHAuTRiKesMwSfDnRjS/G39PBN7eAAmE1suKgXXWAnUvAusK3Og76N4vkoy12PS0sr0GXXeQrG9PLRAn8Ft/WWduVCp5vMe355l48/yESrnZsukqjS7TJL5890D5kndWopZHMajFHgz1SVrkWWeHjdAxRTrOpvX76u6ddzoiRapOMBvLnR176a/bbOEaht2i0DXkfcswSM89ohrR9vxDuqzL/+cKZ1VUejCrFY7oiPVDLlcxr9NgUE55sJFK8Rs2tYFD/4PWC3Y65zvHT6TmJiC3yev470sy6gBlgsnoCA+lrpqpl8YFInmfMyxZUcMzDpLWhVn0QvK1FdW+BQyeZKWVUIOSTotaVp6wt+VO/g8EJq6+2e0E7uTjZOmwa/uFoeqdfvevTs6/9yFhZpjczAupNKfERk7uGSo5jfJXzTVuqEOmJVhlRE/btzoLpPpIEnxC4ERCtj/zQh5rokIKhIviPOhwF9IoKKmsrSohmg0ZWildZZ+N8X/eV8bUMXKuE+lXxJ4km7lkbthnqHXVlN/ShIt2w+oqe9oHEK6EgRWJnwvp6zzHtAiQQKL6fJvIpVM9Ep7hMl4z8xW3mELFqPZB2Ee0uqqJ1R6LaUFgCUiuNHih5lxc9lrZxDHcALJh7Cbl+fkgObJEfaLs1O1P9gkYRFjOdXBHbGWbSumyIMTbzAcFIpI4Ef+g+kULQQuS/fOxwBrez+LMpiZFl6/Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(10070799003)(1800799024)(366016)(56012099006)(10067099003)(6133799003)(3023799007)(22082099003)(18002099003)(921020);
+ SFS:(13230040)(23010399003)(376014)(7416014)(10070799003)(1800799024)(366016)(56012099006)(10067099003)(22082099003)(18002099003)(921020);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UGtsbURBVWoxbXdhb1BkNnMxR0UxL3BGbUFvY3ByckFQU0NRL1pCU2RhbUdy?=
- =?utf-8?B?OXBocFN5UG1xbWh3ZERXNmhOY25hQVVCTmpncnNjM3R0NWJmRDNZWno3NHZO?=
- =?utf-8?B?ZTlWWlJ3M1hvd0tPMWJTcldicHQxZ3IzblN1bWJaK0FMRjZWUXZkNS85ckZE?=
- =?utf-8?B?Y3gzdXArOUh6bFAya1RuSFZhb1poQmZVdXhhYWRQK0s4dkxybnp0cmhzVXBk?=
- =?utf-8?B?VFRXMlFxVDh3eHpyKzRqeFBpa0NodmpXbVVVeXhjblhWU2twY3dTTmRLMnc1?=
- =?utf-8?B?SWd1L2NyL3pUT2JhRVdHRDREK051SVFvNk9ITklnK3VJbzVmSGZUVVVaTmd2?=
- =?utf-8?B?ZUVhdXRXQUhkRmh1OFVVbGVoemprSzJOUlhqelU1NmdiQWZNSzQzeS9ad0pn?=
- =?utf-8?B?dFhFSy9hek0wRHJHZklWS0FwWGhic01TbnFVK2ZwV3VTWW9yNGYvb2paT1Jv?=
- =?utf-8?B?ckk1MGxhL3JVbFFtKzdvWnlId0VGcXhJcWcwL0ZEaTJIWkQ1aUYzM0NXVnJp?=
- =?utf-8?B?U0V1Z0ZyRnRGL2w2S2drMCtwditPUE1nVSszSllBNG9ONEorUVk2bVRneFly?=
- =?utf-8?B?bk5lSzE0N2paaHJRRnc4VVNkeFRyZkQwQTAwNDFoYUR0bkVTYVpvc2tQMXp5?=
- =?utf-8?B?VEZQcVRPNEIvY3dPajRlVEZaRXNKaE9qQU9RWHVkYVNINDlqdnNhYnRpckZ3?=
- =?utf-8?B?N283QTNZZlpNeHdWd2tsUnA3TGtEdnl5eFdwbHJ5c0dOVDcyTjdLdEdtK1Nh?=
- =?utf-8?B?TTBNZTJVWTcvcGVuMFh4VWRWVitQUjYvclhNY09rNFA1d0hMK3A1cVMwdGI0?=
- =?utf-8?B?eTM0ektEQ2xNNDl1aGZHVDdPc3BHTzdaRDFYeVhEUU9BVmQwaFkrM0pjaFVK?=
- =?utf-8?B?a2VJQ0hzZGtabzcvdjJBa1Ezczk1VHhOSFE4K0JueTBKTjNCaWFwR01qcktI?=
- =?utf-8?B?UHRzRjBqajV3VGVkVFI1R2hSR0tpRWp3L0F6eFowbmxJV2hLQ1NMbVAzKy9w?=
- =?utf-8?B?Sno2aWw5dVI5ZGlzV2N4WW5IRGhxd1p5VTRsMUl5cHNVVzFLcnBWakhIRmJw?=
- =?utf-8?B?M09wWk1TbURqYW5oblIyc0cwVW9CbzY0V2xVam5ZNm4zdW5zemJETWt5QjZQ?=
- =?utf-8?B?ejVIVlBnd1MzeldtUHhzZlNVNTFhbFZIZ0R6MkdPYkpSRlFIV09KM3VqVkxl?=
- =?utf-8?B?MUxLaGJBSWp1TzdDREFKUHNzUnNYN0lKTi9iOCtYKzExWU1keFBwK3JCcCtE?=
- =?utf-8?B?SU1rWGRPdG5LZnhvb3RMT2wvdURDdVYvU240Zng2eVF4S2lnUUJvSExGdEdC?=
- =?utf-8?B?R21CMU5iWEc1dEdreHFoRXpOb1h4R2wyc2k2TEw1dHpacC9kOGVPVWRQSTBN?=
- =?utf-8?B?YlhkcHlhbDd5MXpCZmlrRFUvREdWRDBDRG8yc0pqK2pwN0NLWjgwRmhlTGh1?=
- =?utf-8?B?dmZjUzlkNDRzOGdCU212VmgyaXVXdmdJa1UvOXRNdlBYVVFFcERIWG15RHpn?=
- =?utf-8?B?WWNDVmlJUlRPUnVvNnNQK2JvUTU1MVR1WkI2QWhpRTEza3o1WFJ3dWIyT2xM?=
- =?utf-8?B?QjZRWkM2MVR3WjluMGthd29uOTdqTFdFc09DNER3MS9xMURVSkNFaTB3Tkpt?=
- =?utf-8?B?a1EwS29WSDRwNk9ES0JoZzhPNGoySW9FRjdOZy9CeGxpOWNKMnJSdDhKaFRr?=
- =?utf-8?B?Uzhsb05hTWs3cEY1S0NiTitnclFWZ2JZdkY4aWdGNTlBOFg4d3BkZDBwTHRs?=
- =?utf-8?B?Nlo3a3dIVHRFYU5oVWNDSm9Pb2xmaDMvOXRQTmd3U1NteWEvRHh5VnNaangz?=
- =?utf-8?B?c1I4Zy9nUUpBTnNING9kVTJRaE92SDlTRUpkYjZMQVNxU2E5V1NCNWRZd0d5?=
- =?utf-8?B?cVlaZFhOZU4ydzdyMUNSNlkyYlJaajBOYytmVzlvSG1WQkdHdUJTZXptVzlh?=
- =?utf-8?B?d3lCUXpTSk5LWEJtSDVvZmhVbUkyWFVaZXIxWXBGeUZiNzdiWEVUanArMnRi?=
- =?utf-8?B?UGpVT2Z3bElQK2VTR3hKT2pBREhKaXhJZlhtTjEybFlxbDJva0gzNlhqMi9D?=
- =?utf-8?B?SWxjeWM1TkhHOW1DSU9aQVExQnAxME1HaTBneThxMDh5aEtCZTZDUGZTN1VJ?=
- =?utf-8?B?OWlYdnBxVngrNVFaKzBQSEVSZytnR2ljUkZJNlgzY0hVLzRLanJMWldtcnN6?=
- =?utf-8?B?RjZDbklMdmszQ1E0UEFwemcrbk1ueng1dVJVVlN0VWVWRE1zSHlid1VzRlg2?=
- =?utf-8?B?QlNpZ1hWb1hrY3FCNlhpZzFLamd1cEc4enAvTmlQWThQaXVYMUh0RHAvV2Nq?=
- =?utf-8?B?NmsyZFFvaWFTbGdjNys2WlVIUGRZWUNTY0RXVlhBdW80dVF0Y0dEZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rm5YV2VkeGdNZzRYNlVWbTlyMk13djNGYW4xNkJCUjEvWWNNcysrK0JUZXpR?=
+ =?utf-8?B?Y1A5NmxLSzhVQ2dJK3NYMUpSdjgyQ2hGZHR2UFE3N1RjK25NcEFtQnhhU1ZL?=
+ =?utf-8?B?NXZWTkJpSi9hNlRlUitFd3F2SDViVXAwTUtFdzhmU28wRnM0aGJNWU1QcnRN?=
+ =?utf-8?B?OFRJVTl5eVB6alJMZHNqZ3BwczZWT0FCb3NTVmhZZEVFZjZKVUo3WDRTaVZQ?=
+ =?utf-8?B?VDFoc2l5MDZBdFk5T2lIUVFVL0FsdHJjdTZaaFBzeDM4SGtLV2hDclZKOHVj?=
+ =?utf-8?B?bEFFV2lPWWRDSFJvTWZkQk5JbnM2NHR1SFlZaFBheXdnTTJkTHBPSjNPNFll?=
+ =?utf-8?B?SWdjdHZ6M3c5QjMxMGoxRGtIeEdjWHNrU0ZQV2JPUFpoZzQyc0hMVlBDbFZY?=
+ =?utf-8?B?eXFUTFZTdXJ2R1V6aCtkZ1NmT1h0Y0lPdTUxZjhCOXdybWQ1REtjUkNZenBk?=
+ =?utf-8?B?TXJ6RTVFK3pqRHkvcUVnS2l0Z2NkcHFUNWo2ZFJnd2wwaEFMQWVLQThnWHEz?=
+ =?utf-8?B?OHNBRjVja25HYUpwYzFsTXp0bXBPMXZEUngyOW5UaDVRVmNIQUt0L2tIamhR?=
+ =?utf-8?B?TUZaTVMyZ0F0QWNBZmJSV0ZGVk9vR0Z1UVdOYkRuS2cwRHNXNjZpNzdUb1Q5?=
+ =?utf-8?B?N0x3TFFHOURXTmw0MFFERGdQbXJFTzRaU0NKSnk2ck9lMzd1VVdibzlQbGlC?=
+ =?utf-8?B?R204elFtb3hMRlFQT2g1Wk1ITkthNHhuNm1QemR2WWh0NG94ZDRIS29SdGNa?=
+ =?utf-8?B?blcxUWdTYUV0M0luRGJ1aTdSTnBrVmNyeUZiZWlyWVJFK1REV1VGR21GbUgy?=
+ =?utf-8?B?Y25sM3pEaHlGbklsQTZDbW1TVTViWmYzcm5SV24vMThNSFJFK0JqR01vSDJI?=
+ =?utf-8?B?TldjKzBQR09BLyszZEQ2eWwvcjl0TzdCakEwYXNpOVdpa3o0T3BMSDV0VlVK?=
+ =?utf-8?B?Q3JpMGFXaWJPcXVlMU1KNmxPajZESkdMc2h0TzRNWXVOSGhPMmZBaXFTL1RQ?=
+ =?utf-8?B?dDA5aEN1dEpCdnRqT2VNOEQ4UHRaNlJYMEVINnF4dVVhem1lelpscnQ1RFZ1?=
+ =?utf-8?B?QVVISGx4NmdFL2FGNzRPRE96aUtXVW1GWFg1ZnFoVTFKdVRNRlQxQUtPS3px?=
+ =?utf-8?B?V0JUVVZuTUdESEhlMXJ3YitSN2piaEtjUGY1enBUZys2ME5ud083MW16VnZ4?=
+ =?utf-8?B?THVlQVlVZ0s1U0Zob1J1WkFiVXprR0xLSE9MY3RxOE5VWlZZWTBoeWkrTXJ5?=
+ =?utf-8?B?YnZLdVVzeXlETGtoaEhzYXZtZ1hMZEFJbjFkckQzZ21SeGJyVjNxb1daVElk?=
+ =?utf-8?B?ajQyU3A0K2t1N3FtTlpSUW9sVjJub2JPOWtDSmhsU2FJM0pOQUc2OFVReUY0?=
+ =?utf-8?B?TVlZRkJNZ1BxUlNiNHlpcmRNcmdHU1NMMXZhZDRrdXFReERrWUxRQlpGRHd0?=
+ =?utf-8?B?bGRCQTgyZHcxMzF4dUNlYU1jbFd2S0tnc205Y2FheHA2NlJFMjFuZDdxQjNH?=
+ =?utf-8?B?ZDhRSisxQ2FBN3hLWDg5YU1kU1lMVWI3TFhROXJFYktxOEdKU09XUXdZdVM2?=
+ =?utf-8?B?d0wxRURyZktjVkdYdWFaL0l1bUJMSFNHallXSHVtOUJTSkpyU0Z4VThyMTRG?=
+ =?utf-8?B?N3FEbUJUM0hYM2JSS1pLMGFpWkZwd1VhN09uTjFWd0dieGc0Kzh6ZGt0TDdS?=
+ =?utf-8?B?ZXl4ZGQzZEc4QWZwZVdEK2YwemFyOVJtWlJTM25KMnNxeVgwVmlBMHh6anF5?=
+ =?utf-8?B?RWVpUitscWFVYjhueUdNb2JVUWNFcXZscVdXRGRaSUhCekZ3bFRGMGJJSEdO?=
+ =?utf-8?B?K3UyOUhCbXRpeEFHKzZTeU9QRmZhQlpJMTVjWXJwVnRUWnlIOG9WeFNkYVZM?=
+ =?utf-8?B?YmpmZHoyNFpWdUdJNlNWSktPSkphTFhydXNOMWhVcUtmdERObEpJWGRkQnd5?=
+ =?utf-8?B?bW1ScXVWRnpGdXpiZ2hHeTFQQVY3b1puNWhlb3RsVE9RaW1tQTIrbmlvZXFD?=
+ =?utf-8?B?YThXT05rejUwK3NWejBTT2VDWlZjakRLaUVrOWc2eERUNXFHVVltd0tBclMv?=
+ =?utf-8?B?OG5BNUhzTEVjRHNrRGpyUkFRdGJITi82U3ZWeHV3RUU1Y3FHdFV1Tm5TRi9a?=
+ =?utf-8?B?ODV4ODgwSENMbGhqbkZHYTZkY1NMSUJUU3QyeGQrT1ppenJFV0d2aEppYkM5?=
+ =?utf-8?B?cWpoay9KYlpzMlR0d2kvWDB5QWhaajF6M3Z2KzNTRzFoSm94RW41SWI5b2JG?=
+ =?utf-8?B?K1A0c05VcGxvcUcrTWR0VkNmbFZRbVowQzB2aFU3UnFCU2ZuamlHbjlkTDVZ?=
+ =?utf-8?B?dGMvNE9Uam90U0hzdm9KdkxRV2FzaU03cVJSR1hpcEpDZ05ubkh0dz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9250cad6-d9e2-483e-97cf-08dee748be24
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48b3b6b3-18f4-4be2-5aa0-08dee748bec9
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 16:54:34.7714 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 16:54:35.8411 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wIpHJY1Txrh6tbn+/81yyTJ9zR2GAL6uXrKZFsQ1BSP/19AU63BEF5123LFZlHlrJ7I14RjlZC9ysXoJkT1WEA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: l1TsTYq3T1O8xAlixo6iewnCqsRThCaVYdcgyxy3eC7j7L4xh5bLrgDqpdH0AnyBZ1X2VH9bDmNTBqhzVG1RpQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7878
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -154,202 +154,319 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-All registers use the same base type, which is `<IoMem as IO>::Target`.
-Thus add the base parameter to `register!` invocation.
+Previously `register!` defined registers can be used on any untyped I/O
+regions. With all users specifying their desired register type now,
+propagate the specified type and restrict I/O access only when type
+matches.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- drivers/gpu/drm/tyr/driver.rs |  1 +
- drivers/gpu/drm/tyr/regs.rs   | 42 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 43 insertions(+)
+ rust/kernel/io/register.rs | 111 ++++++++++++++++++---------------------------
+ 1 file changed, 45 insertions(+), 66 deletions(-)
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 8348c6cd3929..401a4b321eaf 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -43,6 +43,7 @@
+diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
+index b0fcfce36c9c..df47c28ba4f4 100644
+--- a/rust/kernel/io/register.rs
++++ b/rust/kernel/io/register.rs
+@@ -121,10 +121,11 @@
+     io::IoLoc, //
  };
  
- pub(crate) type IoMem<'a> = kernel::io::mem::IoMem<'a, SZ_2M>;
-+pub(crate) type TyrRegisters = kernel::io::Region<SZ_2M>;
+-use super::Region;
+-
+ /// Trait implemented by all registers.
+ pub trait Register: Sized {
++    /// Base type for this register.
++    type Base: ?Sized;
++
+     /// Backing primitive type of the register.
+     type Storage: Into<Self> + From<Self>;
  
- pub(crate) struct TyrDrmDriver;
+@@ -139,9 +140,9 @@ pub trait FixedRegister: Register {}
  
-diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
-index 831357a8ef87..ef21d90dbbc4 100644
---- a/drivers/gpu/drm/tyr/regs.rs
-+++ b/drivers/gpu/drm/tyr/regs.rs
-@@ -55,7 +55,11 @@ pub(crate) mod gpu_control {
-         uapi, //
+ /// Allows `()` to be used as the `location` parameter of [`Io::write`](super::Io::write) when
+ /// passing a [`FixedRegister`] value.
+-impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for ()
++impl<Base: ?Sized, T> IoLoc<Base, T> for ()
+ where
+-    T: FixedRegister,
++    T: FixedRegister<Base = Base>,
+ {
+     type IoType = T::Storage;
+ 
+@@ -153,9 +154,9 @@ fn offset(self) -> usize {
+ 
+ /// A [`FixedRegister`] carries its location in its type. Thus `FixedRegister` values can be used
+ /// as an [`IoLoc`].
+-impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for T
++impl<Base: ?Sized, T> IoLoc<Base, T> for T
+ where
+-    T: FixedRegister,
++    T: FixedRegister<Base = Base>,
+ {
+     type IoType = T::Storage;
+ 
+@@ -178,9 +179,9 @@ pub const fn new() -> Self {
+     }
+ }
+ 
+-impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for FixedRegisterLoc<T>
++impl<Base: ?Sized, T> IoLoc<Base, T> for FixedRegisterLoc<T>
+ where
+-    T: FixedRegister,
++    T: FixedRegister<Base = Base>,
+ {
+     type IoType = T::Storage;
+ 
+@@ -249,9 +250,9 @@ const fn offset(self) -> usize {
+     }
+ }
+ 
+-impl<const SIZE: usize, T, B> IoLoc<Region<SIZE>, T> for RelativeRegisterLoc<T, B>
++impl<SuperBase: ?Sized, T, B> IoLoc<SuperBase, T> for RelativeRegisterLoc<T, B>
+ where
+-    T: RelativeRegister,
++    T: RelativeRegister<Base = SuperBase>,
+     B: RegisterBase<T::BaseFamily> + ?Sized,
+ {
+     type IoType = T::Storage;
+@@ -293,9 +294,9 @@ pub fn try_new(idx: usize) -> Option<Self> {
+     }
+ }
+ 
+-impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for RegisterArrayLoc<T>
++impl<Base: ?Sized, T> IoLoc<Base, T> for RegisterArrayLoc<T>
+ where
+-    T: RegisterArray,
++    T: RegisterArray<Base = Base>,
+ {
+     type IoType = T::Storage;
+ 
+@@ -380,9 +381,9 @@ pub fn try_at(self, idx: usize) -> Option<RelativeRegisterArrayLoc<T, B>> {
+     }
+ }
+ 
+-impl<const SIZE: usize, T, B> IoLoc<Region<SIZE>, T> for RelativeRegisterArrayLoc<T, B>
++impl<SuperBase: ?Sized, T, B> IoLoc<SuperBase, T> for RelativeRegisterArrayLoc<T, B>
+ where
+-    T: RelativeRegisterArray,
++    T: RelativeRegisterArray<Base = SuperBase>,
+     B: RegisterBase<T::BaseFamily> + ?Sized,
+ {
+     type IoType = T::Storage;
+@@ -408,9 +409,9 @@ pub trait LocatedRegister<Base: ?Sized> {
+     fn into_io_op(self) -> (Self::Location, Self::Value);
+ }
+ 
+-impl<const SIZE: usize, T> LocatedRegister<Region<SIZE>> for T
++impl<Base: ?Sized, T> LocatedRegister<Base> for T
+ where
+-    T: FixedRegister,
++    T: FixedRegister<Base = Base>,
+ {
+     type Location = FixedRegisterLoc<Self::Value>;
+     type Value = T;
+@@ -850,37 +851,10 @@ macro_rules! register {
+                 $(=> $alias:ident $(+ $alias_offset:ident)? $([$alias_idx:expr])? )?
+             { $($fields:tt)* }
+         )*
+-    ) => {
+-        const _: () = {
+-            #[allow(unused)]
+-            fn test_base(_: &$reg_base) {}
+-        };
+-
+-        $(
+-        $crate::register!(
+-            @reg $(#[$attr])* $vis $name ($storage) $([$size $(, stride = $stride)?])?
+-                $(@ $($base +)? $offset)?
+-                $(=> $alias $(+ $alias_offset)? $([$alias_idx])? )?
+-            { $($fields)* }
+-        );
+-        )*
+-    };
+-
+-    // Entry point for the macro, allowing multiple registers to be defined in one call.
+-    // It matches all possible register declaration patterns to dispatch them to corresponding
+-    // `@reg` rule that defines a single register.
+-    (
+-        $(
+-            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+-                $([ $size:expr $(, stride = $stride:expr)? ])?
+-                $(@ $($base:ident +)? $offset:literal)?
+-                $(=> $alias:ident $(+ $alias_offset:ident)? $([$alias_idx:expr])? )?
+-            { $($fields:tt)* }
+-        )*
+     ) => {
+         $(
+         $crate::register!(
+-            @reg $(#[$attr])* $vis $name ($storage) $([$size $(, stride = $stride)?])?
++            @reg [$reg_base] $(#[$attr])* $vis $name ($storage) $([$size $(, stride = $stride)?])?
+                 $(@ $($base +)? $offset)?
+                 $(=> $alias $(+ $alias_offset)? $([$alias_idx])? )?
+             { $($fields)* }
+@@ -892,22 +866,22 @@ fn test_base(_: &$reg_base) {}
+ 
+     // Creates a register at a fixed offset of the MMIO space.
+     (
+-        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $offset:literal
++        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $offset:literal
+             { $($fields:tt)* }
+     ) => {
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+-        $crate::register!(@io_base $name($storage) @ $offset);
++        $crate::register!(@io_base [$reg_base] $name($storage) @ $offset);
+         $crate::register!(@io_fixed $(#[$attr])* $vis $name($storage));
      };
  
-+    use crate::driver::TyrRegisters;
-+
-     register! {
-+        base: TyrRegisters;
-+
-         /// GPU identification register.
-         pub(crate) GPU_ID(u32) @ 0x0 {
-             /// Status of the GPU release.
-@@ -313,6 +317,8 @@ fn from(mode: FlushMode) -> Self {
-     }
+     // Creates an alias register of fixed offset register `alias` with its own fields.
+     (
+-        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:ident
++        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:ident
+             { $($fields:tt)* }
+     ) => {
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+         $crate::register!(
+-            @io_base $name($storage) @
++            @io_base [$reg_base] $name($storage) @
+             <$alias as $crate::io::register::Register>::OFFSET
+         );
+         $crate::register!(@io_fixed $(#[$attr])* $vis $name($storage));
+@@ -915,44 +889,47 @@ fn test_base(_: &$reg_base) {}
  
-     register! {
-+        base: TyrRegisters;
-+
-         /// GPU command register.
-         ///
-         /// Use the constructor methods to create commands:
-@@ -378,6 +384,8 @@ pub(crate) fn clear_fault() -> Self {
-     }
+     // Creates a register at a relative offset from a base address provider.
+     (
+-        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $base:ident + $offset:literal
++        @reg [$reg_base:ty]
++            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $base:ident + $offset:literal
+             { $($fields:tt)* }
+     ) => {
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+-        $crate::register!(@io_base $name($storage) @ $offset);
++        $crate::register!(@io_base [$reg_base] $name($storage) @ $offset);
+         $crate::register!(@io_relative $vis $name($storage) @ $base);
+     };
  
-     register! {
-+        base: TyrRegisters;
-+
-         /// GPU status register. Read only.
-         pub(crate) GPU_STATUS(u32) @ 0x34 {
-             /// GPU active, a 1-bit boolean flag.
-@@ -461,6 +469,8 @@ fn from(access: AccessType) -> Self {
-     }
+     // Creates an alias register of relative offset register `alias` with its own fields.
+     (
+-        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $base:ident + $alias:ident
++        @reg [$reg_base:ty]
++            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $base:ident + $alias:ident
+             { $($fields:tt)* }
+     ) => {
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+-        $crate::register!(
+-            @io_base $name($storage) @ <$alias as $crate::io::register::Register>::OFFSET
++        $crate::register!(@io_base [$reg_base]
++            $name($storage) @ <$alias as $crate::io::register::Register>::OFFSET
+         );
+         $crate::register!(@io_relative $vis $name($storage) @ $base);
+     };
  
-     register! {
-+        base: TyrRegisters;
-+
-         /// GPU fault status register. Read only.
-         pub(crate) GPU_FAULTSTATUS(u32) @ 0x3c {
-             /// Exception type.
-@@ -766,6 +776,8 @@ fn from(mode: CoherencyMode) -> Self {
-     }
+     // Creates an array of registers at a fixed offset of the MMIO space.
+     (
+-        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
++        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+             [ $size:expr, stride = $stride:expr ] @ $offset:literal { $($fields:tt)* }
+     ) => {
+         $crate::build_assert::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
  
-     register! {
-+        base: TyrRegisters;
-+
-         /// Coherency enable. An index of which coherency protocols should be used.
-         /// This register only selects the protocol for coherency messages on the
-         /// interconnect. This is not to enable or disable coherency controlled by MMU.
-@@ -806,6 +818,8 @@ fn from(mode: McuControlMode) -> Self {
-     }
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+-        $crate::register!(@io_base $name($storage) @ $offset);
++        $crate::register!(@io_base [$reg_base] $name($storage) @ $offset);
+         $crate::register!(@io_array $vis $name($storage) [ $size, stride = $stride ]);
+     };
  
-     register! {
-+        base: TyrRegisters;
-+
-         /// MCU control.
-         pub(crate) MCU_CONTROL(u32) @ 0x700 {
-             /// Request MCU state change.
-@@ -847,6 +861,8 @@ fn from(status: McuStatus) -> Self {
-     }
+     // Shortcut for contiguous array of registers (stride == size of element).
+     (
+-        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $size:expr ] @ $offset:literal
++        @reg [$reg_base:ty]
++            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $size:expr ] @ $offset:literal
+             { $($fields:tt)* }
+     ) => {
+-        $crate::register!(
++        $crate::register!(@reg [$reg_base]
+             $(#[$attr])* $vis $name($storage) [ $size, stride = ::core::mem::size_of::<$storage>() ]
+                 @ $offset { $($fields)* }
+         );
+@@ -960,7 +937,8 @@ fn test_base(_: &$reg_base) {}
  
-     register! {
-+        base: TyrRegisters;
-+
-         /// MCU status. Read only.
-         pub(crate) MCU_STATUS(u32) @ 0x704 {
-             /// Read current state of MCU.
-@@ -860,7 +876,11 @@ fn from(status: McuStatus) -> Self {
- pub(crate) mod job_control {
-     use kernel::register;
+     // Creates an alias of register `idx` of array of registers `alias` with its own fields.
+     (
+-        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:ident [ $idx:expr ]
++        @reg [$reg_base:ty]
++            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:ident [ $idx:expr ]
+             { $($fields:tt)* }
+     ) => {
+         $crate::build_assert::static_assert!(
+@@ -969,7 +947,7 @@ fn test_base(_: &$reg_base) {}
  
-+    use crate::driver::TyrRegisters;
-+
-     register! {
-+        base: TyrRegisters;
-+
-         /// Raw status of job interrupts.
-         ///
-         /// Write to this register to trigger these interrupts.
-@@ -910,7 +930,11 @@ pub(crate) mod job_control {
- pub(crate) mod mmu_control {
-     use kernel::register;
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+         $crate::register!(
+-            @io_base $name($storage) @
++            @io_base [$reg_base] $name($storage) @
+             <$alias as $crate::io::register::Register>::OFFSET
+                 + $idx * <$alias as $crate::io::register::RegisterArray>::STRIDE
+         );
+@@ -978,14 +956,14 @@ fn test_base(_: &$reg_base) {}
  
-+    use crate::driver::TyrRegisters;
-+
-     register! {
-+        base: TyrRegisters;
-+
-         /// IRQ sources raw status.
-         ///
-         /// This register contains the raw unmasked interrupt sources for MMU status and exception
-@@ -965,6 +989,8 @@ pub(crate) mod mmu_as_control {
-             register, //
-         };
+     // Creates an array of registers at a relative offset from a base address provider.
+     (
+-        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
++        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+             [ $size:expr, stride = $stride:expr ]
+             @ $base:ident + $offset:literal { $($fields:tt)* }
+     ) => {
+         $crate::build_assert::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
  
-+        use crate::driver::TyrRegisters;
-+
-         /// Maximum number of hardware address space slots.
-         /// The actual number of slots available is usually lower.
-         pub(crate) const MAX_AS: usize = 16;
-@@ -973,6 +999,8 @@ pub(crate) mod mmu_as_control {
-         const STRIDE: usize = 0x40;
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+-        $crate::register!(@io_base $name($storage) @ $offset);
++        $crate::register!(@io_base [$reg_base] $name($storage) @ $offset);
+         $crate::register!(
+             @io_relative_array $vis $name($storage) [ $size, stride = $stride ] @ $base + $offset
+         );
+@@ -993,10 +971,10 @@ fn test_base(_: &$reg_base) {}
  
-         register! {
-+            base: TyrRegisters;
-+
-             /// Translation table base address. A 64-bit pointer.
-             ///
-             /// This field contains the address of the top level of a translation table structure.
-@@ -1100,6 +1128,8 @@ fn from(val: MemoryType) -> Self {
-         }
+     // Shortcut for contiguous array of relative registers (stride == size of element).
+     (
+-        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $size:expr ]
++        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $size:expr ]
+             @ $base:ident + $offset:literal { $($fields:tt)* }
+     ) => {
+-        $crate::register!(
++        $crate::register!(@reg [$reg_base]
+             $(#[$attr])* $vis $name($storage) [ $size, stride = ::core::mem::size_of::<$storage>() ]
+                 @ $base + $offset { $($fields)* }
+         );
+@@ -1005,7 +983,7 @@ fn test_base(_: &$reg_base) {}
+     // Creates an alias of register `idx` of relative array of registers `alias` with its own
+     // fields.
+     (
+-        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
++        @reg [$reg_base:ty] $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+             => $base:ident + $alias:ident [ $idx:expr ] { $($fields:tt)* }
+     ) => {
+         $crate::build_assert::static_assert!(
+@@ -1014,7 +992,7 @@ fn test_base(_: &$reg_base) {}
  
-         register! {
-+            base: TyrRegisters;
-+
-             /// Stage 1 memory attributes (8-bit bitfield).
-             ///
-             /// This is not an actual register, but a bitfield definition used by the MEMATTR
-@@ -1133,6 +1163,8 @@ fn from(val: MMU_MEMATTR_STAGE1) -> Self {
-         }
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+         $crate::register!(
+-            @io_base $name($storage) @
++            @io_base [$reg_base] $name($storage) @
+                 <$alias as $crate::io::register::Register>::OFFSET +
+                 $idx * <$alias as $crate::io::register::RegisterArray>::STRIDE
+         );
+@@ -1035,8 +1013,9 @@ fn test_base(_: &$reg_base) {}
+     };
  
-         register! {
-+            base: TyrRegisters;
-+
-             /// Memory attributes.
-             ///
-             /// Each address space can configure up to 8 different memory attribute profiles.
-@@ -1220,6 +1252,8 @@ fn from(cmd: MmuCommand) -> Self {
-         }
+     // Implementations shared by all registers types.
+-    (@io_base $name:ident($storage:ty) @ $offset:expr) => {
++    (@io_base [$reg_base:ty] $name:ident($storage:ty) @ $offset:expr) => {
+         impl $crate::io::register::Register for $name {
++            type Base = $reg_base;
+             type Storage = $storage;
  
-         register! {
-+            base: TyrRegisters;
-+
-             /// MMU command register for each address space. Write only.
-             pub(crate) COMMAND(u32)[MAX_AS, stride = STRIDE] @ 0x2418 {
-                 7:0     command ?=> MmuCommand;
-@@ -1347,6 +1381,8 @@ fn from(access: MmuAccessType) -> Self {
-         }
- 
-         register! {
-+            base: TyrRegisters;
-+
-             /// Fault status register for each address space. Read only.
-             pub(crate) FAULTSTATUS(u32)[MAX_AS, stride = STRIDE] @ 0x241c {
-                 /// Exception type.
-@@ -1572,6 +1608,8 @@ fn from(sh: PtwShareability) -> Self {
-         }
- 
-         register! {
-+            base: TyrRegisters;
-+
-             /// Translation configuration and control.
-             pub(crate) TRANSCFG(u64)[MAX_AS, stride = STRIDE] @ 0x2430 {
-                 /// Address space mode.
-@@ -1627,6 +1665,8 @@ fn from(sh: PtwShareability) -> Self {
- pub(crate) mod doorbell_block {
-     use kernel::register;
- 
-+    use crate::driver::TyrRegisters;
-+
-     /// Number of doorbells available.
-     pub(crate) const NUM_DOORBELLS: usize = 64;
- 
-@@ -1637,6 +1677,8 @@ pub(crate) mod doorbell_block {
-     const STRIDE: usize = 0x10000;
- 
-     register! {
-+        base: TyrRegisters;
-+
-         /// Doorbell request register. Write-only.
-         pub(crate) DOORBELL(u32)[NUM_DOORBELLS, stride = STRIDE] @ 0x80000 {
-             /// Doorbell set. Writing 1 triggers the doorbell.
+             const OFFSET: usize = $offset;
 
 -- 
 2.54.0
