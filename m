@@ -4,130 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5C85C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:47:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88AA8C4452B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:50:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8AF110EB16;
-	Tue, 21 Jul 2026 18:47:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF8B010E1DD;
+	Tue, 21 Jul 2026 18:50:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="p02EeJxV";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DAthBagQ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zb/b3xou";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RAb5JutS";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FAED10E1DD
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:47:56 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D29410E3BF
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:50:11 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66LH2WCX2548706
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:47:55 GMT
+ 66LHROtN2446214
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:50:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=AlT487GjgIuItMOY/9Z1aN2h
- x+ACKb8H7eDtCUp9i6E=; b=p02EeJxVrgZk3DaDlRZ/z97I7DX4YBz4l2+BQJLj
- ilVzwXuLHWycF158bJN7kJHVKSYgu0DLz4HqodhybyftbTnNaqTFP+Cd/kSGWzEB
- eJ9WfqnmGCIWPNRm6tg4CnGx/q8Lq8bXi6zYUD63IpHZ74EdACzYBRnSSGkvu84u
- 5lRF3Gc6msOgVP5xSzq9sTDDiQ2xAfnGxVUvQGEbSM3afrqiVy/mO4o+agLaHQBv
- pPjoGiYkVcY3jrrYxgdBIclGpntN+sIpQj6iw4jRtBgdP9uYoqhPXUe3+F9fjhNe
- rK5JAfJl/hs4A0hgVMvtVLVG9OumuP9itb65BDrtC5S78w==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj6r3jfrs-1
+ :references:subject:to; s=qcppdkim1; bh=fxC8wePi6tkBj4RJjKl1UeH/
+ A/kptp+3A5mz2gNO7yg=; b=Zb/b3xouFz4nyp0/go8oLtuwEUoKD9C0cirnBLfW
+ aVwEUGt1yadY44wTqGfBAnPYInHpvYnQCnm0BrX0DHrG2YTQyRmP1HUa/JVkz1gT
+ jdAhrHFsJmuhWzmZomIFrbGMO7Fwa22JCp2DiQwTOli7FKlcOkTtOYA8PQlx4dP8
+ Tg7BPZoDr02ZNZISLp4EJ07jZs4MkUp5xZtT8s596MTRKOX0RexUDkpifaCEyzRu
+ GaB55z7KMzHgPiEU/m5zbJjMfOcimRAeskZzNR5oEobYIQeqct73F5OtVCaXkBzw
+ rQi9cvx7jLWr500P5ppA3Kwcp66BDvk18k5BHsD3rVNeYw==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
+ [209.85.217.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjd6d0cey-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:47:55 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-51c19493ac2so15704301cf.1
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:47:55 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:50:10 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id
+ ada2fe7eead31-73a8aba30a4so5568749137.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:50:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784659674; x=1785264474;
+ d=oss.qualcomm.com; s=google; t=1784659809; x=1785264609;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=AlT487GjgIuItMOY/9Z1aN2hx+ACKb8H7eDtCUp9i6E=;
- b=DAthBagQjHDkZG/CXyovcQTScOjkftd0Z53yGwJlSyw/UPDBipwq83B3v77EtxpkUO
- kfESenG4SnoV3qO9ZcN+5Fgb+KYufzYCVY0HoxSlRHCfa+hlmJyhTCA8HAo1g8Bzzh06
- VgrbvNCxoVV2JGswxYRwNU+ugj2RoR1kRb870QBbh1p0ZSvlxCQ43ysbLFuQWlM788CG
- rCBaGVXfVwU0r+kCPpLR0j5jN9dBVC3vS5QesUzQGdE+Dj78JE/Wa9FTNtw5JSjPABRD
- rSn/VFu5T7ncP42ok0ZSeR+owWYqqRp+IBJBj633R4s+LHOAu1wEN0f5514yrIJpSwvw
- aH7w==
+ bh=fxC8wePi6tkBj4RJjKl1UeH/A/kptp+3A5mz2gNO7yg=;
+ b=RAb5JutSkMFzdpzWcP5PKzMdScwjrQENTpWXZ2Lw+FvVRlOiuwcs28Ab8xaP9VM9d+
+ TXGIypIMPrtxJJ9Y5cRo1s+9GejsnLrGr4uUDVMl+l9ykk55G0vzw8VpFtL6hfzi5YHJ
+ w8uIntNJi28zssUCIm54+EQaQpTlNrn46lXQx2+GWzl84230SgckJl0pR8HExnNdvZyG
+ xU1fPNCBqq/KQ3/J6F9ucnqwTrqUZC3VOOeln0USLHg5467kW6pbRom1ruJ1TBHzM0sf
+ sFl6hfzSexLq6K0m8g98ZJuSbyyQ0G0LqvzO8L3MqiADuu4Fs4WozKIvW09adweubIJV
+ 2yxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784659674; x=1785264474;
+ d=1e100.net; s=20251104; t=1784659809; x=1785264609;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=AlT487GjgIuItMOY/9Z1aN2hx+ACKb8H7eDtCUp9i6E=;
- b=L8tEZRUnHoyHCuyJ2B9QONQkFWxvhhX66eLmRfgZ+76iif9sLcLQNCaiXttbxdXUwQ
- bcoZF7xjODt4vlWdWHit8BbLzfEQyg2flt1KpUoxujUaHkkz/1A9skSLUPxXKpvD7VR1
- zqqGcRIqou+51GS4DqAIece3Gi0AlElTB30HzTnF5ClQvaN3L1uE5igkFljMynsrz1zC
- s6LpKIvoAgDen5ps4KGKFnwZFhu3wn6GB0/hIXeHFnS2foQK4q2SIDR8sKSPV9TUgXYQ
- a2dHhyiRF+avm2NsBQE6y5Y+sy3fBzklHDDfaGEAyZJ6ToqcdgaKmmkiL1mvO1H8HLUd
- FE1w==
+ bh=fxC8wePi6tkBj4RJjKl1UeH/A/kptp+3A5mz2gNO7yg=;
+ b=jrkVs/lRpcJVFZrhs43NENDrSnwannYWJsftwe04VNR0RBy5cJwCMG9tUblll84936
+ S2OxKAUDpus+Oa5nG+Fs92lzaNKepYvepCAAQWw1kMMhrPNgER7B6veGZjFTUfhQTODQ
+ AwP5Tc86YJQLJ0gQzY2YxJuAQlC5B7yvK/vV0a3PdmujpQMm5tbTJRFWjH0lMkGZvFXT
+ cUqxjL/VLaEwLBI9MeU0dKBY81duwcbvyow0hhQJ+G+KCLHgmVsTJpwVwvgqKApyiB9m
+ bU2GPTKCPzR8yThpfQFQXGFgKkVPSuc37k2Wbbau6yFBJLc/70RLT4S2GdYL7ja4wzBx
+ NHWA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqytxCD637EZRfoxNX3BtLduou9MPyw2Dv2t5K2sDG1Dv2zqAgJcK3Ozc0SUt9EANYpdDBSHxUbujM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwzbMATacD8LjXHMhoP2oCjYRemyQVkVz+3/9bRv6qShpi7WMEb
- 1HyvqVdE06QcvEwcwSUYyJsuW1ZNh1F1CeukkrYmPFIA31fytCZzacXu5Ym6KQkVTvNcDXRu6Tk
- TYd6SXIWbkP2yZcWjjqNSBoqoK+k6s95Tamt7x9FHj2f3rpZk6df9alAMU7gdpXHn3HxVII4=
-X-Gm-Gg: AfdE7ckcN8//Jz3zKA/h7gvw1IQdtpT6Dxa+5ifIVLYhKeJOX96wrg/0xmGCaNNG7B+
- lsLYvFmwlh8KXSGXDRSPD9Eh5vGmoCx7mp+zU2f2/urpxwgZY6QZxedIUapGoGUL3T6edk8Thxz
- 7p8nqQosWxftP6QQLhWzerjzpOqVb52PYiUd5ZroMfD5vElgXEHnPNGJlPQyG7sKLx+HHsIwFT3
- s2FDcJS5UUQFI+xFrjMPYRtRrxvRaAC2NxMqJVfiRCZ4IsIoe9TZbiWAeSD9+TtNmwWCHXc1+na
- NSXB+G3HexkJqXY0Vo7a/8Dhmwq9ti3TSi2lExaKUFdh3Z624wcCLrJMlL3cS3lkmLp6vj05pni
- JgnbH7ca+i0msO2JvjjJx9gEWZvwn7sd5/YzPhDyNcoQ163+dU8f1amm4Uu0nbjslghQvWint61
- jrq9KYx0AcH1aI/A==
-X-Received: by 2002:ac8:7fd5:0:b0:51c:7b11:41ad with SMTP id
- d75a77b69052e-5213ed76967mr189500931cf.73.1784659674519; 
- Tue, 21 Jul 2026 11:47:54 -0700 (PDT)
-X-Received: by 2002:ac8:7fd5:0:b0:51c:7b11:41ad with SMTP id
- d75a77b69052e-5213ed76967mr189500591cf.73.1784659674039; 
- Tue, 21 Jul 2026 11:47:54 -0700 (PDT)
+ AHgh+RolBIjUFYGutcCtsMCTcGfqJB3J/H8i8CBo32nXTxF4+vnT4f7dfIoq4wj+83C90AUEbX9k/jtMdbk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzSmU1PlL6XDFY0T8aXeuGfB+CNnt9qpp3HSr5k9NGG+UAMAYAL
+ +hs7mxvt/v4jcxlcgi02MDGA51bqNzgvxDXkje3Nf6TiwZuSVwvjBOlciNIItbXUV+PE0zBtCHc
+ /a9/PzSDQ56tCUsgeUOCyL3jewVLsRjPhhjNnLYY1ZAgt3MBA9lvKmY9NKwegf/d6CLUSbpM=
+X-Gm-Gg: AR+sD12cYzkrFgdNN8bNXpnav3n2YAbbV5/VfDaoltmRqck/MB5CdEULHpCMJFSHXhi
+ B59E+W2KzaYkNSAsKoM8NlFNwy2QbUkV5nOHfZGA0cpiY9JTbX0CPSek16oX8NZL95bpRDQESPu
+ 5dP6C9l+v6sS9ISg3eKqr7ZgqQuShQNte37Bmup7rWtKAthcAhJP1iFOIRpnm5VPQm4FHhK/yHM
+ AXwwkl/hKgM+SgDOsBC72BbofTwL5zUqi73Azk28nUJmrN7e8pbulmp0xmLnIoGz5UAjySnQAux
+ NaxeU0nfZUcI5ZWwlunaqtDnoxIawVK72hLRrD+qZ+YkKARazAn9bUgxXBQ5GyyRDgrHIzNJtc2
+ OdVAd++VyPxGH02Qpjnbvc3vynbVdeGpyE7pAFBxdE0Bg1nAcKLfvABQXCm1j1PpxG5uSCdTW3P
+ 7s6FYYRj7GA/nZ5w==
+X-Received: by 2002:a05:6102:18cd:b0:738:8b5c:a41a with SMTP id
+ ada2fe7eead31-74ad17da68fmr341891137.18.1784659809465; 
+ Tue, 21 Jul 2026 11:50:09 -0700 (PDT)
+X-Received: by 2002:a05:6102:18cd:b0:738:8b5c:a41a with SMTP id
+ ada2fe7eead31-74ad17da68fmr341878137.18.1784659809037; 
+ Tue, 21 Jul 2026 11:50:09 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b2a9e45fa5sm70740e87.66.2026.07.21.11.47.52
+ 38308e7fff4ca-39ef6888542sm721611fa.1.2026.07.21.11.50.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 11:47:52 -0700 (PDT)
-Date: Tue, 21 Jul 2026 21:47:51 +0300
+ Tue, 21 Jul 2026 11:50:06 -0700 (PDT)
+Date: Tue, 21 Jul 2026 21:50:03 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: sashiko-reviews@lists.linux.dev
+To: sashiko-reviews@lists.linux.dev, freedreno@lists.freedesktop.org,
+ linux-arm-msm@umbar.lan
 Cc: Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
  dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v8 02/15] drm/msm/dp: drop deprecated .mode_set() and use
- .atomic_enable
-Message-ID: <ldznbgwysgo4ya6h2s57wytjjhhljkfyiagrce4z2gvty5suye@bdc3gfzl7xff>
+Subject: Re: [PATCH v8 06/15] drm/msm/dp: split link setup from source params
+Message-ID: <2ysoleroryfoh3tosv54iyq5t6556k4uf2hkp67fofy7gizkhp@3koilwev3czy>
 References: <20260720-dp_mstclean-v8-0-bea261bf4e7d@oss.qualcomm.com>
- <20260720-dp_mstclean-v8-2-bea261bf4e7d@oss.qualcomm.com>
- <20260720063317.CFCFF1F000E9@smtp.kernel.org>
+ <20260720-dp_mstclean-v8-6-bea261bf4e7d@oss.qualcomm.com>
+ <20260720062728.89BAC1F000E9@smtp.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260720063317.CFCFF1F000E9@smtp.kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE5NyBTYWx0ZWRfX55acWThQRed8
- A3uFKtHwXr89L/tTOd0+jOEOMlAFCJAkq5MDORz5Du6ro2d5lkEtf2GyTCOrbE7XNhh8OAqxycM
- Qz680wW8oWn2S3ISbUK1YpRxTBNOqX32SMWZzC1RJEASu/p2j1U+Sq31AUbdl2g9Pp6A2dR9Rlz
- MpnjTqXY+PTKUhl3B1vLrPTeQNCPiusjl1jMbTv5K7/1GY1FoQ7FW1QMIwQzUoGUa0Wxu5gorC1
- gSN/SIqg4aCHqSafeHkiYNYDUkZN4Xb2nv6DwFnjhNS0Zzn42v6jQiw11oJCrnH9DDZ03prpu71
- Ak+irFeR+23F18/PkeKDjISZQLNemt2m2ErxXMb/rbwfH/ANVTd8ddt2Q0qUdsPwTDvbgyAcSYQ
- tD5IF5Uxokez841dOj7Mw0D5A2IcgUoxvbY3JxjxOokBKrj4f31TVFycaFd/tC2IfSNMWNy/t2U
- LGR2Pvb7YqvljW6u1+A==
-X-Proofpoint-ORIG-GUID: qSV-JGut4AdctYFO_LGyZbUJCL2qE0Ln
-X-Proofpoint-GUID: qSV-JGut4AdctYFO_LGyZbUJCL2qE0Ln
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE5NyBTYWx0ZWRfX01M7howZIbNw
- LDf4AogY+iqsODLF5isNTrrIX4H8vVgpJcNrCG30RUgMmN9DjfhHWdBiCdA8ixz3+yrBfwb2+qC
- tAPR6U1ZZsZAbt803l22s7J5grMK4ow=
-X-Authority-Analysis: v=2.4 cv=SIRykuvH c=1 sm=1 tr=0 ts=6a5fbedb cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260720062728.89BAC1F000E9@smtp.kernel.org>
+X-Proofpoint-GUID: PjYTlZsgt53j6DyNOi-9g6Fwzr4qQ0MG
+X-Proofpoint-ORIG-GUID: PjYTlZsgt53j6DyNOi-9g6Fwzr4qQ0MG
+X-Authority-Analysis: v=2.4 cv=XaG5Co55 c=1 sm=1 tr=0 ts=6a5fbf62 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
- a=10R1qcJeZEgYezoHLQYA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=mEP0jwSp7JUOxKfJe-kA:9 a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE5NyBTYWx0ZWRfXxj1TKhTiDiiY
+ IOy012lRL662+kYcFeZf4IW13j8OOC+yuu4kPd2fzqjfu8Botl00RQkrxhKwbnyOyvjY7iI7j75
+ N+6AVOfdRuV95o7HOWyV+tKhPHqKKt9M03nxFz9eTYxsaAAVABrGToVKeuS+UejWLKlJdRlwZp9
+ /4nxUcxS91BYzRbjnFcH+u7OR0eG7y1SYbKajznwgRvymTBqBzyjfxPLvtkQ/uG39xTvp0ibmye
+ WyqF2PxSA4OEAtB9yJxLGwDba/C2l7dK9al6c2ePhJBbKHqD8HfvSAw3+3mA5eAmh12iS2bbHyE
+ zKvjbZp9pg/xN29/QCPSowz5P0I4vVg3uTF6vqUG86PlDlNhRFDcDq1K8/k+9iPT2NqJ9r7Vp5I
+ 22GeMQqjxJErzjll9IrT+b1586OptlveWIdsApAl62H1wHbqvlq496b2eiljJ7qVy01p7V/9ibB
+ 1Q6quThmGjVBdjK6zrg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE5NyBTYWx0ZWRfX1+czKvpX0KSt
+ K7tCAKOReI8HcuTMsE8d9HMLBRWJeO4xx6W+zIxP6VzMicI/w8VASaZ/eQLskzOufcCzzRkN/AO
+ Dx4T2ZmKVDu81sqJoltSXiJaGvBzdJQ=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-21_03,2026-07-21_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 clxscore=1015
- suspectscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0 suspectscore=0
+ bulkscore=0 impostorscore=0 clxscore=1015 malwarescore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210197
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -145,46 +145,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 20, 2026 at 06:33:16AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+On Mon, Jul 20, 2026 at 06:27:28AM +0000, sashiko-bot@kernel.org wrote:
+> [Severity: Medium]
+> By splitting the link setup from the stream setup here, are we exposing an
+> incomplete read-modify-write in msm_dp_ctrl_config_ctrl_streams()?
 > 
-> New issues:
-> - [High] Moving mode state updates to `.atomic_enable` causes the DPU encoder to read stale wide bus configuration.
+> When MST programs the link and stream settings separately,
+> msm_dp_ctrl_config_ctrl_streams() will be called independently. Looking at
+> msm_dp_ctrl_config_ctrl_streams():
 > 
-> Pre-existing issues:
-> - [High] `mode_valid` incorrectly evaluates wide bus availability based on the currently active mode's state rather than the candidate mode, causing valid modes to be rejected.
-> --
+> drivers/gpu/drm/msm/dp/dp_ctrl.c:msm_dp_ctrl_config_ctrl_streams() {
+>     ...
+>     config = msm_dp_read_link(ctrl, REG_DP_CONFIGURATION_CTRL);
 > 
+>     if (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
+>         config |= DP_CONFIGURATION_CTRL_RGB_YUV; /* YUV420 */
+> 
+>     tbd = msm_dp_link_get_test_bits_depth(ctrl->link,
+>                                           msm_dp_panel->msm_dp_mode.bpp);
+> 
+>     config |= tbd << DP_CONFIGURATION_CTRL_BPC_SHIFT;
+>     ...
+> }
+> 
+> Since this function reads the register and bitwise-ORs the new values
+> without clearing the existing stream-specific bitfields (like the BPC or
+> YUV bits), won't this cause bit accumulation and hardware state corruption
+> across multiple streams if the link isn't reset in between?
 
-> > @@ -1386,7 +1406,7 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
-> >  	if (msm_dp_display->link->sink_count == 0)
-> >  		return;
-> >  
-> > -	rc = msm_dp_display_set_mode(dp, &msm_dp_display->msm_dp_mode);
-> > +	rc = msm_dp_display_set_mode(dp, &crtc_state->adjusted_mode, msm_dp_display->panel);
-> >  	if (rc) {
-> >  		DRM_ERROR("Failed to perform a mode set, rc=%d\n", rc);
-> >  		return;
-> 
-> [Severity: High]
-> Does moving this mode setup into .atomic_enable() cause the DPU encoder
-> to read a stale wide bus configuration?
-> 
-> In the DRM atomic commit flow, the encoder's .atomic_enable() (which executes
-> dpu_encoder_virt_atomic_enable()) is called before the bridge's
-> .atomic_enable().
-> 
-> Because msm_dp_display_set_mode() updates the format state 
-> (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420), the DPU encoder will query
-> msm_dp_wide_bus_available() before this new mode's format has been stored.
-> 
-> Won't this cause the hardware to be programmed using the wide bus state from
-> the previously active mode, potentially causing display corruption or a blank
-> screen when switching between RGB and YUV420?
-
-Indeed, both look like an issue. Please add a patch before this one,
-adding drm_display_mode to the msm_dp_wide_bus_available() call. It will
-solve both issues.
+This deserves a comment or a fix.
 
 -- 
 With best wishes
