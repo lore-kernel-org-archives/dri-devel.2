@@ -4,147 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 977A5C44532
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 13:54:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FBDCC44533
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 13:55:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E093410E347;
-	Tue, 21 Jul 2026 13:54:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A12F110EA0C;
+	Tue, 21 Jul 2026 13:55:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GqtjO2F7";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eRc2N8H9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cN3iMM45";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAA2F10E347
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:54:20 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66LDg7wd1958773
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:54:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- YNbDulAa1I+AbKFTKUClc7Hwh6v/gjl6MCRbbkrXRFI=; b=GqtjO2F7DqutUXGu
- IGh4Zy8RyYG2knw2smRWSwMNamUqzcbOf/D+c1ZAgozDJY2jiAjQ7fQxXjlGaRVS
- O4Rk6pHglewkWirb1l1CxLECDtWO9i3X2u+W66AI6JQLNE6/eZhKOQERJYbeF1nG
- NY884cqM7n6wl6h+9PvYAoAq+2BIAu8uYp/tci88ByK0B83G8JYzKcYlghaTvVLK
- +vSOqDYm7ZKZtE6PNLUJDz5FuXXFMS7yD2ywya2h6Q92HY0JslLhnK83aQF510Oe
- qAJh0Y1pZY50k+WfUlBehuf01+Qehpk+I9Kc0pbDs2DgQBEPMm8O5xtukLX2H1xz
- XuNHfw==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj1bvtqde-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:54:19 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-38e475f83a2so7928683a91.1
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 06:54:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784642059; x=1785246859;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=YNbDulAa1I+AbKFTKUClc7Hwh6v/gjl6MCRbbkrXRFI=;
- b=eRc2N8H9Ht9pfg9Xj08f5Ydqvo6PhAG7sE7A98KKTftzQH6YTzV06rdcI2kisfdqXb
- j8dfKUjKyTFwZRSzpOuPd5Il80wdtGBoZRW262SyEtCZPNhv7fxj5Bzm6CbVtSgs8MpA
- Tot9v4e3xTtRFNOiyCYowqDaBqoLdaropgEdEQTv/xy5qf35oXmMhlnQtJVVBWXZJON0
- SISCRg+d9DYPjwMoZdYg0Yv5bizp2YQo7iQ54aJIyLo9VuA/8/iaQ5uDcFegpdxyDfaB
- u0QKvS6lRyEEGm01FC2iR+LOyX9he52u7w85OsdjRnXQM4/Jqcw3rQmt7I7/5Nni+zAq
- +djg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784642059; x=1785246859;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=YNbDulAa1I+AbKFTKUClc7Hwh6v/gjl6MCRbbkrXRFI=;
- b=LQfVnLixUpmqH8/MuSr3/lXu3hpH6nebfvWE9jGarDb2U168+s5Am2v9WT3Ks9z0DF
- gnF5ni7uzUckwr61GemdoCubxAk+VClff4PXMHs9SY793rS2/WqjeYNlObJ9lkWGCq8w
- eP7Rd0m+KqN+m0J+gW80LbHeYOBx1yn6q3l1w1PqG1Z+m1I+w4jCCLfGMpWdmMFPatkZ
- qioIKTHJReHI1FBoNDWzOw52B1Gszovn+uyN5qYavrwh7dr91JKzSf7VOSUEVpD6zCB/
- Q7E7zRwgYuBldkID9CPDETaZ/MI6YnTelnAmlnaubr20Eftoi7Y/3u28rG/Ky0e0iOA6
- cL+w==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rpl2miBGrfFGw7/nvGa+rXkA9aVre9neZjwsCX3h8/qeoAM1d9sasW+92MzF93gU0oVIQQ8+pIb6q8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy0/+3q+38+AxmM6H+n3Y3ZDMBlGM2fWIk7GH8c63LmkPGXNrtT
- OK+7NE3DEPB54/DXOXQhfJWDowxIiH6MYKCwwGXkIaPsuHxroLAZhU8dQvQijfu0oMsuuD4Rgpe
- 7VSDr2VknDDpsKDZqIUSknRm6z811Ui64Gq1JGIXHImeIyLIGrsAjfOeAbIzLsAYNpSXR+pz5Pp
- aV+OU=
-X-Gm-Gg: AR+sD13xGusXwO/myixxoOPcsOwK+Pt5S2KkwbJxGglVXh9wwd765wk1WMWFAV3aUjg
- 24XiLVk2LY4XyG7zJ55DO/TJy03G/+HTcA7IHQQbY/YBWFlR1VX6Fbt+KQeBfZJ2GlZ3RD673zj
- eHmBixk+/2s2EMDPVZRJGPGu10BeDdPIfwnvLHirzzemDkK0iI+9shmE0fqV5/NEJo/QAfZlBU5
- dM7jts/h5GBN90HJ9cBJgKu/PvPXwALluhCFZyfMKtANkKyFbHbGmXQ+uhV33yl1Iwz3mD/TAH1
- 1EGyzZHkTSk+JdjYHP6sNTmTmSrPyeDFb2u7wWg5NiRcngOHiAdiUubkbN+iWz1C22DdcB3Ly9a
- ka9BvVqQWM84fkX14/GeTfo31kw==
-X-Received: by 2002:a17:90b:4f89:b0:381:152b:d596 with SMTP id
- 98e67ed59e1d1-38e4b40f926mr19219111a91.11.1784642058554; 
- Tue, 21 Jul 2026 06:54:18 -0700 (PDT)
-X-Received: by 2002:a17:90b:4f89:b0:381:152b:d596 with SMTP id
- 98e67ed59e1d1-38e4b40f926mr19219082a91.11.1784642058084; 
- Tue, 21 Jul 2026 06:54:18 -0700 (PDT)
-Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-13ce2900a37sm39019725c88.0.2026.07.21.06.54.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 06:54:17 -0700 (PDT)
-Date: Tue, 21 Jul 2026 19:24:07 +0530
-From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sunyun Yang <syyang@lontium.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
- Jessica Zhang <jesszhan0024@gmail.com>, Mohit Dsor <mdsor@oss.qualcomm.com>
-Subject: Re: [PATCH v7 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-Message-ID: <al95/zd0JTOv8UY1@hu-mdsor-hyd.qualcomm.com>
-References: <20260716-lt9611c-v7-v7-0-7553a14735fc@oss.qualcomm.com>
- <20260716-lt9611c-v7-v7-1-7553a14735fc@oss.qualcomm.com>
- <20260719-sparkling-musical-lionfish-bb9d80@quoll>
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012043.outbound.protection.outlook.com [52.101.48.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 461E710E364;
+ Tue, 21 Jul 2026 13:55:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LgEBnbLw4F+0oCGxO5k6whJkT1oavFyQ6wSnSK6OyV3OdR6B51qiaYHQoHdGvV1VvZ6TuSyF8YeQsP9NEgl6pgNShbpSeDb2p8JDw7jT0wSCLkCofG7EHcvBiOM1i4eeIdtFz0xPhFzNyxb15qejbQutox2X+mvHp7N4V4g6IcS2WeUuaTLPJkOvc9cDiGNtLYUjvoQKb4e5xYwrvz2nSDxZLDJ1BDf6Vy52HejSP6PZfhsac6vwKVa7ij1rDKXiNzs+KpiA6ehqM9kv+tSxeu2Lfj9vyGnjfQm8Zn5Z/YqhUpi2P5mM3xsJv2aWm00PZscb5o1WvGi8CrcNcHGHQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7/APmSaMOyunPxERsCF2xJdqPIGqOvgajzqOZY4u9rk=;
+ b=UEiYneZ2xIUgmWwN1H7pqFmnH4dEX6eBVqR7LAjssOqO19nwkvln/IGtfpGgbiMFUe8FZIEQsodkNcse8r7niMD4K/ZEart+d4Q3G6+5uOMjVaf4I0NskHjunQrhaiVly48tWI+1XLI/mhpdEJyiCmHU4PjRjEKDPa8UP820diwfxcY04cvzy62aZSSkWgzrjW+LZ7wqr6MuWAnY3Jc/K7URDSvazRt+EtfZVJT2GangArazfwrNCE9oXnDFr+OqvqJZwPj1XEBW0pFoGOKTxfFtwVLo1i4KBKYprrfb0U2oh5sc50807tmDtR1GeEtqjAd8n3ae+K8Rml7bHL2/rQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7/APmSaMOyunPxERsCF2xJdqPIGqOvgajzqOZY4u9rk=;
+ b=cN3iMM45n077GIWmmJnc3H+nlcVSlQmgfeFdtWRxT+Ws26JgPaoeNSnLeLYY0lY/QzBX6xaXP19cDOksVI+KPfEFdAAZ1a3D+bvZZtr46oY7SKVj4HxOn15xvlMM9Cfezbk8Xs68S2SLxeXdd/R0mmydXp4MbpDDlupN/yPZ/Mc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7003.namprd12.prod.outlook.com (2603:10b6:806:2c0::10)
+ by SAWPR12MB999115.namprd12.prod.outlook.com (2603:10b6:806:4e3::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
+ 2026 13:55:18 +0000
+Received: from SA0PR12MB7003.namprd12.prod.outlook.com
+ ([fe80::4099:396e:1f40:169b]) by SA0PR12MB7003.namprd12.prod.outlook.com
+ ([fe80::4099:396e:1f40:169b%3]) with mapi id 15.21.0245.009; Tue, 21 Jul 2026
+ 13:55:18 +0000
+Message-ID: <b670d594-0582-4c91-8264-88d1de5de1d8@amd.com>
+Date: Tue, 21 Jul 2026 09:55:13 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+From: Harry Wentland <harry.wentland@amd.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Robert Mader <robert.mader@collabora.com>,
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Daniel Stone <daniels@collabora.com>, Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>
+References: <20260703073230.19982-1-robert.mader@collabora.com>
+ <6d8806b8-fc71-4699-82c4-7189a0ea2284@intel.com>
+ <bb5918f5-a6da-4908-9332-18e0df39c005@linux.intel.com>
+ <7d58b289-eabe-4d68-9080-c7202b0f60a0@intel.com>
+ <d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com>
+ <361dfc91-94e8-4289-9b3e-5280803d9257@collabora.com>
+ <a7887776-c26c-4f6d-a662-2d8ef005ff4c@linux.intel.com>
+ <2fa23cb1-b4c9-459b-a0dc-31960313a243@amd.com>
+Content-Language: en-US
+In-Reply-To: <2fa23cb1-b4c9-459b-a0dc-31960313a243@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT1PR01CA0047.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::16) To SA0PR12MB7003.namprd12.prod.outlook.com
+ (2603:10b6:806:2c0::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260719-sparkling-musical-lionfish-bb9d80@quoll>
-X-Proofpoint-ORIG-GUID: P18hnmZenv1YKXkNMLgNoduChOhXBnt0
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE0NyBTYWx0ZWRfXzsUGLJOYZJIE
- sIrhr/VzaSCgmDsh0p+g7VxlO+DQK2WvL7jXOHRc2H6DlfcyyMKBy0NOHV42I+8B76YeSee9RFC
- 3Qz/4PqTRLRtAqIglJnw5GatN6ZNRsw=
-X-Proofpoint-GUID: P18hnmZenv1YKXkNMLgNoduChOhXBnt0
-X-Authority-Analysis: v=2.4 cv=Sb7HsPRu c=1 sm=1 tr=0 ts=6a5f7a0b cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=Kz8-B0t5AAAA:8 a=VwQbUJbxAAAA:8
- a=UgQGg25I8tL8cNqpnCwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=sptkURWiP4Gy88Gu7hUp:22 a=RuZk68QooNbwfxovefhk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE0NyBTYWx0ZWRfXwP5r5wt8MG6e
- 4SybLBO+yCX7HwFZC4sp90Bx2G2jV97HfEobejcE/sJQOIdPQLNhHYKA0tVUAKwdgPefZVSIge3
- fqc2sdSiiTjUiqQTBBSR/ocegopb3DlwNkqOyr/XPHNC8LZs4kmXKCK59Garxnf+ddQDjERRtKh
- 2P5CogkMgmU0yZAxKsHH0VXZAPZxaOnqnD18sLgprU9byYof/Ga9bnHl8dzPv10tLcGo9Dhye2v
- RjpPfMjLdXhr2wtyvMZnEzOsEwGyh4Di6TB8wqEia5HcpNgvjf9RS4T8VFCNfin3ZmyF2CPQ2vf
- pgFo2gG0gaK/3JaGV++fREK4KRG2M6UO/WxpeD11l1wAP5JqZQLAhrwWEV9nGVt0JyYj/M46fFo
- E3f61LIXWMQZBY8ibLnEMRPHDhVVnRugPe5aQB/IPwre6ScN65BynrLrTXdX6uaDySp5aqawyNt
- lN6Y99PVFs/t3dWEAyQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_03,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
- lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607210147
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7003:EE_|SAWPR12MB999115:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22e10b3a-4537-410e-8ff2-08dee72fb296
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|23010399003|366016|22082099003|18002099003|56012099006|11063799006|4143699003|10067099003|6133799003;
+X-Microsoft-Antispam-Message-Info: W5GWgUaYb3MOU8sJKWeCyfA+V5FNTbVEh219si/TNHFw2pXNi+MG6CTvQF7Z4uv79NCN2PFPmsCtlFzkJs2R/mzY/lPTds92q7+GUnAmx+y/AB2nRn9uAtihL7AMEDxZl5uzZanq7xaof5xYVmTLdD/brB9dgmcVCedKoqKE3GFD2/y1igkJ6j+3Cham5wf06JUH3AihyFhtbP8Rqf7QTWIesaHipl1caqoI3MRFp6TAXIQHXLDT6A5zU9VcGaEDDe6eo822UpzQlOpJ5MX8mJ8WVwwG/B1QDR4ZaPH9kDbJKeze3nsiMCc/MtTvbs0rZGVGHghwUBZc2RwVWyZnI8dPrD0GXlO7M0SDm9xkzOP192Eeg85FFugZg6Dupp/7N/nSbCZp4rLlVj8CrcIdW30EF+68J2hYh2QTCbDyqYEw0rppu1KFkoTQDPoopB8936Weg5f/GuHbQCCFo/AbQFQFEiFKPf1kSURbNILRXQGWs9/kgDtx74IdaUK86kqZ+gNGr3XZ2XDb7Ht9KWwINf7pCejK6s358rlOyKK5GOpszFuhauLoIQQlahZuTxANxNvNpOS9KI4i7AtO+yK24vlb5IlisbS9dkqfQxZB663z1+NPJf5ScXep1wnOPHcEtOyPTPRF+nsyQEkc0hP29xWlAYtbAO7GaZI0km15T7o=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7003.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UHFaNSszYmhIMTV1MmtJTnhUaHpjWWs0d3JnNVhoUHpETW5LQjVtSWhzL2xz?=
+ =?utf-8?B?RWt1aCtHdFhrMjBrMW1KOVE2VGZrS1pzbzVhM0FlWDBPZVhFbzZDUHNibDBh?=
+ =?utf-8?B?MnhoRE1iME0vNTlNMzBobGtKVzZVR1Q3MnY0UENKRkRXbGxtUzhnTDFZb1A0?=
+ =?utf-8?B?aDVTdUhSenh2eVF5Q0luQUQvM1EyWkcwTjJxVjIySVdiaTRibkFVOXZ3SXhZ?=
+ =?utf-8?B?V3J4Z2s4Zm54a0lNWHQrNjM3eUhGQk5QRElGUUxVMnJDTDA1SWhleVZxb0Z3?=
+ =?utf-8?B?Ynh4bklYOFdrdkgrSGxzRU9XRDE5d2c3M2FhQ2dTRWordGRRajRWWjliQ0pj?=
+ =?utf-8?B?NnJwazR3QnlmM0p3YjBqcVRlV0F4UHl4WERnVmRXRnN3dk9ISzZZT2tLL1ly?=
+ =?utf-8?B?MjVWSjYwUnVsTmNOZWNaTG5lZ3lRbGNGRFZ5blpQY2NQSzl1cEVnVGhCdmtF?=
+ =?utf-8?B?b0kwOHNCWmE2NzY2L0tlVnZrd2RhYWRLemdzaWozYVBrbHJJdTVQTkk0VkZh?=
+ =?utf-8?B?RmlpcEZTMzl3NUdYNkxHYkNqOVlQdU1nZXV0djNvUE5ZNW80eHRGdDliRURO?=
+ =?utf-8?B?OE5abjdTcGtwRTFWdURDWFByajhyMXFCN2dCMWlzRTRhUTdiRXRRN1hybW41?=
+ =?utf-8?B?dU05NXJvL1kzNXordkRsdXdUd2dHdXFQUFErckpxMm16ZEpzeU13ZldpaXFs?=
+ =?utf-8?B?a0hmM1I5bGwxOWNKVzVGRUZBSUhxd0hHVlFvMlEwUUVOTnN5a2xXUXhZWFJ4?=
+ =?utf-8?B?ZlF5enNkY29jRWJYeU11WDFIRnc1Z2Q0U05aRDVHN0JNVGNuVSsyam0vWVJS?=
+ =?utf-8?B?bDcxVnp0aHlBdnY3TEQzR01zd0F1cFZWMHdBQjdheUpPTjRidGtYUE8vTTJN?=
+ =?utf-8?B?U2s2ZS9EMXVFVTlUN1BZVnFlNlNBZ0hrTXNTZmRzUmU1Nlp1dWNONDdjcjVz?=
+ =?utf-8?B?K0NZMEE5eXNIbGpKQUNqeWFFeklocjFpS004ZzdkWk5udGQ0N0FlQkpYN3dD?=
+ =?utf-8?B?bVJiZE1LUjlMbWk3MlR5bFJ4SjFHcjRsbzJtMFYrY2s4VGY4TEU0ZmwvZ1h4?=
+ =?utf-8?B?bnBCOHVxcnM2cVdybXphNlErN3d3cTJXdTRBV0RRSGtFenRvaXlHbXMwc2Fp?=
+ =?utf-8?B?d3BZb1B1NW42VmVpblVWVEhoL1lvdFZVczlmdXdiSis4a1o2d2FOZ29MbEFi?=
+ =?utf-8?B?UFV5YWJQM3VYK0tMdm4ra1F1OUJZWFlqcTZiUDFoM0ZCc3V6QmhTdzJDdW9G?=
+ =?utf-8?B?RUV2SjNraVYwajlvNnhpUzhpNFlFZ0VMSjlzb1haR2lHVnVzVTdmb0k5cEZB?=
+ =?utf-8?B?QVcwMkhzd3RxM0s3OTFreVdLU3lKaFpOOTNhR1U2dmliZ3UwOFFQZlNXRmpp?=
+ =?utf-8?B?QzBPV3VZYy9ZV3Iyd1owVlJDUGRjTWUxL0lXcU1IRVBYaUJoNVYybGIydmE0?=
+ =?utf-8?B?ejBwSFVHT2Q0eXVNUXN0NW5OVU9OV3h3TkpESjB2UXUzSUhLVmxDK0szK0th?=
+ =?utf-8?B?MCttUjV1RHJIN0ZjaUVsK296NU9ycGxRME1ValE1OEVHbEx2ajloSUNnRHpM?=
+ =?utf-8?B?M2RHUUFUTm0vYXJRYlkyYm9zMEVuUGZmR3ZkQzE5d1BUSHRSbnRQdTJzZ1Ns?=
+ =?utf-8?B?ajNTN3hHM0l0M1lOdldEYXhxdDVXWWE0ZUpBWnZCQTA4MXpINWNpMU4wcHJo?=
+ =?utf-8?B?N3QzU240WDRlQW5haENLcDAzdFMrU1ZLYlpMSTJYYlhwQnlTcW53Rmh2WFgy?=
+ =?utf-8?B?R2N3TW9leWpCdzgvL0N1TUR3ZmcveHNScHZsUGxHRG0xWU45cE8wdnN5NGxF?=
+ =?utf-8?B?bUZoZlM5bzhncnBxUWJ1cnR6aWlSMmVJMWdtNnlUSXg0T0dzd2FRRUdhQldp?=
+ =?utf-8?B?aExXT2ZLUXV0RXp0d3hvdzVjbmJuaGYxcnd3S1pRYld2aWR4S1FIdmxOZW4r?=
+ =?utf-8?B?ZDNLNVZ1cjN4bDJZM0xFS0NaNWJRcS9tVWduajdWeG0vYUdzREpMNWlVRmdO?=
+ =?utf-8?B?eWxwVklJOHppcWE5MXdPc1p6NDFLVkU2L0xKRmxiOEhvOUJuSEtXWldBRnNQ?=
+ =?utf-8?B?S05uREdMNFpSRStvZXlldW9DYkI4UXFYemJyejVZU3BybXJ5N0dBREhCbjVz?=
+ =?utf-8?B?Z29nandoYklJWHZQaFVENTl5dXRBTG43L2ZxbCtvSTJXeVJRbS9KNXRGYzhP?=
+ =?utf-8?B?QnVNQ2t5UnZIbVhWcHg0QW1EanUrdEZ1N05GZ3ZvdHJRQWgrZnA4Z3dqakhm?=
+ =?utf-8?B?Ty83TCtlQXR6VmdhdXJtMlB5V0xYcDE4Z241eHByQzUxa0pNeEZjT0dlWjVY?=
+ =?utf-8?B?S2VDejNoVXd1dTlkdnYvd0NLKzcyUkN0VzNrL3NWUnd5ekUwMEl6dz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22e10b3a-4537-410e-8ff2-08dee72fb296
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7003.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 13:55:18.0658 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7xQH2nBA5QN0H0P13QSbJO4STzp2v1b7X186mqC+COxQW2g8cAe34Pc4ZjLGjVTmEZidYkYwFflYJW2vurnMqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999115
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,48 +152,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jul 19, 2026 at 08:36:51AM +0200, Krzysztof Kozlowski wrote:
-> On Thu, Jul 16, 2026 at 05:01:09PM +0530, mohit.dsor@oss.qualcomm.com wrote:
-> > From: Sunyun Yang <syyang@lontium.com>
-> > 
-> > LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-> > mipi dsi and output hdmi, differences in hardware features:
-> > - LT9611C: supports 1-port mipi dsi to hdmi 1.4
+
+
+On 2026-07-13 16:05, Harry Wentland wrote:
 > 
-> So you need "if:then:" block disallowing port@1.
-Ok, need to add in driver code? Will add this in v8.
 > 
-> > - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> > - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-> > 
-> > Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> > Signed-off-by: Mohit Dsor <mdsor@oss.qualcomm.com>
-> > ---
-> >  .../devicetree/bindings/display/bridge/lontium,lt9611.yaml        | 8 ++++++--
-> >  1 file changed, 6 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-> > index 429a06057ae8..e0821a63d9d7 100644
-> > --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-> > +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-> > @@ -4,19 +4,23 @@
-> >  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
-> >  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> >  
-> > -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
-> > +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
-> >  
-> >  maintainers:
-> >    - Vinod Koul <vkoul@kernel.org>
-> >  
-> >  description: |
-> > -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
-> > +  The LT9611、LT9611UXC、LT9611C、LT9611EX and LT9611UXD
+> On 2026-07-09 07:49, Maarten Lankhorst wrote:
+>> Hey,
+>>
+>> On 7/9/26 13:14, Robert Mader wrote:
+>>> Hi,
+>>>
+>>> On 09.07.26 12:02, Maarten Lankhorst wrote:
+>>>> Hey,
+>>>>
+>>>> On 7/9/26 08:44, Borah, Chaitanya Kumar wrote:
+>>>>>
+>>>>> On 7/7/2026 6:31 PM, Maarten Lankhorst wrote:
+>>>>>> Hey,
+>>>>>>
+>>>>>> On 7/7/26 10:03, Borah, Chaitanya Kumar wrote:
+>>>>>>> On 7/3/2026 1:02 PM, Robert Mader wrote:
+>>>>>>>> The client cap is currently advertised unconditionally, even for drivers
+>>>>>>>> that do not support plane color pipelines. If clients supporting the later,
+>>>>>>> s/later/latter
+>>>>>>>
+>>>>>>>> like Wayland compositors or tools like drm_info, enable the client cap on
+>>>>>>>> such drivers they will be left without both color pipeline and the legacy
+>>>>>>>> properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
+>>>>>>>> conversion support.
+>>>>>>>>
+>>>>>>>> Prevent that by only marking the cap supported if there are actually planes
+>>>>>>>> with color pipelines.
+>>>>>>>>
+>>>>>>>> Note: while the color pipeline replacement for the legacy properties is
+>>>>>>>> still under review (1), we can assume that it will work as a drop-in
+>>>>>>>> replacement.
+>>>>>>> This change will but a driver can also choose to export colorops like programmable CTM_3x4 to achieve the same.
+>>>>>>>
+>>>>>>> We should also perhaps document this somewhere that if a driver supports LEGACY properties, it is imperative to implement some version of it with the color pipeline line property.
+>>>>>> Would this be doable inside drm core? Implement the color pipeline properties, get the fixed pipeline for free?
+>>>>> Right now, the Bypass(default) pipeline is automatically created when we call drm_plane_create_color_pipeline_property(), we could come up with a similar helper that could also create a pipeline that replaces the legacy properties.
+>>>>>
+>>>>> But this can't replace the existing helper entirely because some HW (though unlikely) might not support YUV buffers.
+>>>> No need to do this for free, but a cheaper way for drivers to implement legacy
+>>>> properties by only implementing the pipeline would be nice, similar to how
+>>>> atomic also implements legacy modesetting and universal planes.
+>>>
+>>> I really like this idea - should we take it to the corresponding series, https://lore.kernel.org/dri-devel/20260623164812.81110-1-harry.wentland@amd.com/ so the initial implementations for AMD and VKMS directly do so?
+>>
+>> That would be great!
+>>
 > 
-> These are some odd characters here. I guess this was in earlier versions
-> as well...
-Ok, I will fix this.
+> If I understand you correctly you suggest to map legacy COLOR_RANGE and COLOR_ENCODING to the new FIXED_MATRIX colorop in a generic way, instead of having drivers advertise them separately. Do I have that right?
 > 
-> Best regards,
-> Krzysztof
+> It's probably a good idea. It should be easy to make that change after merging the Fixed Matrix series with YUV support.
 > 
+
+I sketched this out but both VKMS and amdgpu have HW generations
+or configs where no color pipeline is created. For that we still
+need the current way of COLOR_RANGE and COLOR_ENCODING handling.
+Because of this the code to create COLOR_RANGE and COLOR_ENCODING
+based on the color pipeline is not really simplifying things, but
+merely adding more code.
+
+At this point I am not convinced adding helpers to create COLOR_RANGE
+and COLOR_ENCODING based on the color pipeline is a net positive.
+Maybe in the future that equation changes.
+
+If anyone is interested I'm still happy to share the code. Just
+let me know.
+
+Harry
+
+> Harry
+> 
+>> Kind regards,
+>> ~Maarten Lankhorst
+> 
+
