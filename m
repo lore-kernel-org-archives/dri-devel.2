@@ -4,44 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CAC9C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DADF0C4452B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:23:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 771B510E3AB;
-	Tue, 21 Jul 2026 18:23:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F93710E3B9;
+	Tue, 21 Jul 2026 18:23:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y3kROm6w";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="VZI2P2mk";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF5AC10E3AB
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:23:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 69180416CA;
- Tue, 21 Jul 2026 18:23:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086261F00A3A;
- Tue, 21 Jul 2026 18:23:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784658202;
- bh=9JKfmergHW/lvMkZbMMBYa3kDN/4QhU9CpglMry68BA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Y3kROm6wQqQvqJYcy485fB3XY11b8zJHNDasHA/aW8JYj4GiVX6FVmsgskAdOhc/4
- 3G/abWzjGoqmPxKhtlGXYjmuKh3ldVPHwH56BcEDdOscf8PHW2enzFi+pmzAwa3+uT
- 8prXYJSf0+50nJ2oLutak6NbBnTC4TgH9WYgtgrzgX2EGb89OY+VRiSKKrhN5pPJfD
- IvCaZOEAYYQdJ5QFGehVEZVVRBIMbYcRZkx/jOWdWProvrswNkarsaNlszBR6J3pUT
- R8X6n37SSAbDcTRt/rPLgPGchDvL9XBPY5V1AscXh8MBIXCwsN7sctymk3mBecGiZS
- CfRWoS4Wh5RFQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 08/10] drm/rockchip: dw_dp: Add runtime PM support
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-8-f0f4a4ede712@collabora.com>
-References: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
- <20260721-synopsys-dw-dp-improvements-v4-8-f0f4a4ede712@collabora.com>
-Content-Type: text/plain; charset=utf-8
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 617BC10E3B9
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:23:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1784658217;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EDSz62jCk0OzsKXSSKAgLcWpgh9OgrJcskErIfIIIWw=;
+ b=VZI2P2mkCtId4OR4h2uMF/wHuE+VXiLND8dHBNUQKHhZzmfXvpHdAW1dB9celd+IBZ8uNt
+ j2OMBhog3L4fpF+uyplB3MhsQqCrdjvpnJhUuosYpHA9Is/sEsdwbvg/hVjgo85yCPnJtk
+ wG5rlT3ip4lLt5TF460QVcr6yedj/38=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-588-CAXG4_0BN9-d1AcprSNFVQ-1; Tue, 21 Jul 2026 14:23:36 -0400
+X-MC-Unique: CAXG4_0BN9-d1AcprSNFVQ-1
+X-Mimecast-MFC-AGG-ID: CAXG4_0BN9-d1AcprSNFVQ_1784658216
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-92ec91dc265so811470385a.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:23:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784658216; x=1785263016;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Nf89HWE5FEb29AybdiEPsxsfpgf+Ik6TKAe6jF03lFU=;
+ b=cLDrUKTk8zrVL/SDf/M5VqcqPou2dZO2a/zvrAYsQwtJT6/BmTAQ975aDEjU7iJ6oY
+ kDa6pLpLI4e1k3YeT2hjSdm3o2AezeD7R7OKLCpJcSkfI/EJPquxRE1+P/22mrlpDeK3
+ cewbet+ndpAArB3TnreWr5z3ox7sPddg7jVnJ41lNhTqceYC+oL/Io15gZ7FFlhs4ofG
+ cb49F0yYZTTUIoMqpGpEFIrg+0MEuMhPsGXtG5HoOpBF6mIXz2gASTg8p/EZKSI/EhKD
+ dp6pUi+ZOV3ZWKlqAUvUoHplvaIv3PzlxHLZs7O8cqKlV5TZ/MsNxnOmjuVLG+fUFoU0
+ foVg==
+X-Gm-Message-State: AOJu0YwlpufNuR4qQUr1cTYkYlJ5hpF3tFHAN+s2FkXuO74STYUt5ziA
+ XxhGC2DwX1pXFoIVBHQDo0yw6dfdfhMsqMSKD2qPHlIIzkZYHKSDahadzAsKElsKZy8aJG+edv1
+ wdm7EcluN5Psh67vG+nF4mLJTjMTRXR0EG7lK6ibA9verMbfeWU1tghs1U9y0LUxEKLhtMw==
+X-Gm-Gg: AR+sD13eWL+khYRj0usaHz30OaVzPJylcuY3B6325ShxBz68FzK9kY6SXarSftdhAXq
+ +Ltz4mevX/1aSjGN7fzFC6SCwqRlCNM/MWcudBnr47a5sW+LBpNEdQitIEU7qc0JgzBe0JLnEOM
+ u2XkG+LNoUbhmXzjeBChnz8FInXBcGyWhwyOnuIiiL55aj4/Sfk2Ul1Qu2zEtlAtN7buYzC9GMM
+ UgFYdycPFO/GuUv6Zo1M1I+NHZ6eom1VuspUmWjcXAjvY1I4Cumhj7ze5ft9AWvd/Jpdudx/XgP
+ dGmRrotOGZ7FWkyvjEV9jSE1WHBUNfe2l5YImnUu0wROXfFbtNrY6rVUTHRJoQLqCMqsLPeA
+X-Received: by 2002:a05:6214:61cc:20b0:907:b32f:9b79 with SMTP id
+ 6a1803df08f44-907b32f9c56mr27881696d6.6.1784658215299; 
+ Tue, 21 Jul 2026 11:23:35 -0700 (PDT)
+X-Received: by 2002:a05:6214:61cc:20b0:907:b32f:9b79 with SMTP id
+ 6a1803df08f44-907b32f9c56mr27881156d6.6.1784658214438; 
+ Tue, 21 Jul 2026 11:23:34 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-907ba8df5d0sm2230206d6.18.2026.07.21.11.23.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2026 11:23:33 -0700 (PDT)
+Message-ID: <174e6951bd8216b76c2bc5fb42f1be8138b345ac.camel@redhat.com>
+Subject: Re: [PATCH 2/6] drm/nouveau/gsp: add RUSD telemetry support
+From: lyude@redhat.com
+To: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>, 
+ linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Mary
+ Guillemard <mary@mary.zone>, Milos Tijanic	 <mtijanic@nvidia.com>,
+ nouveau@lists.freedesktop.org
+Date: Tue, 21 Jul 2026 14:23:33 -0400
+In-Reply-To: <20260714211429.238355-3-mohamedahmedegypt2001@gmail.com>
+References: <20260714211429.238355-1-mohamedahmedegypt2001@gmail.com>
+ <20260714211429.238355-3-mohamedahmedegypt2001@gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: DnrdyOWKmlB2Xr2VcXji-xOpc5DlNHHXsp8L_xZUhgI_1784658216
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 18:23:21 +0000
-Message-Id: <20260721182322.086261F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,201 +100,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
+Some lil nitpicks
 
-New issues:
-- [Critical] Threaded IRQ handler accesses unclocked hardware registers if =
-triggered while runtime suspended.
-- [High] Double disable of devm-managed clocks due to uncoordinated runtime=
- PM suspend.
-- [Medium] Incorrect runtime PM teardown sequence prevents asynchronous sus=
-pends.
-- [Medium] Missing idle trigger leaves the device fully powered on after in=
-itialization.
-- [Medium] Calling dw_dp_bind() before pm_runtime_enable() causes -EACCES e=
-rrors from the PM core.
-
-Pre-existing issues:
-- [High] Inverted logic for runtime PM reference management causes usage co=
-unt leaks and underflows.
-- [High] Missing runtime PM reference drop on the bind error path.
---
-
---- Patch [8]: [PATCH v4 08/10] drm/rockchip: dw_dp: Add runtime PM support=
- ---
-commit 73aba26d330e327d28e953d044baf166117572f7
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-drm/rockchip: dw_dp: Add runtime PM support
-
-This patch adds support for runtime PM to the Rockchip RK3576/3588 Synopsys
-DesignWare DisplayPort driver.
-
-> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
-rockchip/dw_dp-rockchip.c
-> index 0ecbad24dd4e8..d7e1704fd9806 100644
-> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-[ ... ]
-> @@ -169,14 +174,25 @@ static int dw_dp_rockchip_bind(struct device *dev, =
-struct device *master, void *
->  	if (ret)
->  		return ret;
-> =20
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_set_autosuspend_delay(dev, 500);
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-
-[Severity: Medium]
-Because dw_dp_bind() is called immediately before this block, does it
-cause -EACCES errors from the PM core?
-
-Inside dw_dp_bind(), the core driver calls pm_runtime_get_sync(dp->dev).
-Since runtime PM is not yet enabled for the device at that point, the PM
-core will return -EACCES.
-
-[Severity: High]
-This is a pre-existing issue, but does dw_dp_bind() leak a runtime PM
-reference on its error path?
-
-In drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_bind():
-
-    if (!dp->usbc_mode)
-        pm_runtime_get_sync(dp->dev);
-
-    ...
-
-    ret =3D phy_init(dp->phy);
-    if (ret) {
-        dev_err_probe(dev, ret, "phy init failed\n");
-        goto put_next_bridge;
-    }
-
-If phy_init() fails, the function jumps to put_next_bridge and returns
-without dropping the reference acquired earlier, permanently preventing
-the device from suspending.
-
-[Severity: Medium]
-Does this initialization sequence miss an idle trigger?
-
-The driver calls pm_runtime_set_active() and pm_runtime_enable(), but does
-not queue an idle check. The runtime PM core does not automatically queue
-one on enable, which might leave the device fully powered on until the
-first display modeset cycle. Could a manual call to pm_request_idle() be
-needed to start the autosuspend timer?
-
->  	connector =3D drm_bridge_connector_init(drm_dev, encoder);
->  	if (IS_ERR(connector)) {
-> -		dw_dp_unbind(dp->base);
-> -		return dev_err_probe(dev, PTR_ERR(connector),
-> -				     "Failed to init bridge connector\n");
-> +		ret =3D PTR_ERR(connector);
-> +		dev_err_probe(dev, ret, "Failed to init bridge connector\n");
-> +		goto error;
->  	}
-> =20
->  	return 0;
+On Wed, 2026-07-15 at 01:14 +0400, Mohamed Ahmed wrote:
+> +=09case NVKM_GSP_RUSD_ROWREMAP_HIST_MAX ... NVKM_GSP_RUSD_ROWREMAP_FAILU=
+RE: {
+> +=09=09RUSD_MEM_ROW_REMAP remap;
 > +
-> +error:
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	pm_runtime_disable(dev);
-> +	dw_dp_unbind(dp->base);
-> +	return ret;
->  }
-> =20
->  static void dw_dp_rockchip_unbind(struct device *dev, struct device *mas=
-ter,
-> @@ -184,6 +200,8 @@ static void dw_dp_rockchip_unbind(struct device *dev,=
- struct device *master,
->  {
->  	struct rockchip_dw_dp *dp =3D dev_get_drvdata(dev);
-> =20
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	pm_runtime_disable(dev);
->  	dw_dp_unbind(dp->base);
->  }
-
-[Severity: Medium]
-Does disabling runtime PM before calling dw_dp_unbind() prevent
-asynchronous suspends?
-
-By calling pm_runtime_disable() first, when dw_dp_unbind() subsequently
-calls pm_runtime_put_autosuspend(), the asynchronous idle request is
-rejected because runtime PM is already disabled. This leaves the device
-permanently in the RPM_ACTIVE state and the hardware remains powered on
-after the driver is unbound.
-
-[Severity: High]
-Could this teardown sequence result in a double disable of devm-managed
-clocks?
-
-The driver acquires clocks using devm_clk_get_enabled() during probe,
-which registers a devres action to automatically disable them on removal.
-
-However, dw_dp_runtime_suspend() manually calls clk_disable_unprepare().
-If the device is already in the RPM_SUSPENDED state when unbound,
-pm_runtime_disable() leaves it suspended. When devres subsequently
-attempts to disable the already-disabled clocks, it will cause an
-underflow.
-
-[Severity: High]
-This is a pre-existing issue, but is the logic for dropping the runtime
-PM reference inverted in dw_dp_unbind()?
-
-In drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_bind():
-
-    if (!dp->usbc_mode) {
-        pm_runtime_get_sync(dp->dev);
-    }
-
-But in dw_dp_unbind():
-
-    if (dp->usbc_mode)
-        pm_runtime_put_autosuspend(dp->dev);
-
-This means standard DP (usbc_mode =3D false) leaks the reference it
-acquired, while USB-C DP (usbc_mode =3D true) attempts to drop a reference
-it never acquired, causing usage count leaks and underflows.
-
-[ ... ]
-> @@ -254,6 +272,34 @@ static void dw_dp_rockchip_remove(struct platform_de=
-vice *pdev)
->  	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
->  }
-> =20
-> +static int dw_dp_rockchip_runtime_suspend(struct device *dev)
-> +{
-> +	struct rockchip_dw_dp *dp =3D dev_get_drvdata(dev);
+> +=09=09ret =3D r570_rusd_read_section(gsp,
+> +=09=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 offsetof(NV00DE_SHARED_DATA, mem=
+RowRemap),
+> +=09=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 sizeof(remap), &remap);
+> +=09=09if (ret)
+> +=09=09=09return ret;
 > +
-> +	return dw_dp_runtime_suspend(dp->base);
+> +=09=09switch (item) {
+> +=09=09case NVKM_GSP_RUSD_ROWREMAP_HIST_MAX:
+> +=09=09=09*val =3D remap.info.histogramMax;
+> +=09=09=09break;
+> +=09=09case NVKM_GSP_RUSD_ROWREMAP_HIST_HIGH:
+> +=09=09=09*val =3D remap.info.histogramHigh;
+> +=09=09=09break;
+> +=09=09case NVKM_GSP_RUSD_ROWREMAP_HIST_PARTIAL:
+> +=09=09=09*val =3D remap.info.histogramPartial;
+> +=09=09=09break;
+> +=09=09case NVKM_GSP_RUSD_ROWREMAP_HIST_LOW:
+> +=09=09=09*val =3D remap.info.histogramLow;
+> +=09=09=09break;
+> +=09=09case NVKM_GSP_RUSD_ROWREMAP_HIST_NONE:
+> +=09=09=09*val =3D remap.info.histogramNone;
+> +=09=09=09break;
+> +=09=09case NVKM_GSP_RUSD_ROWREMAP_CORRECTABLE:
+> +=09=09=09*val =3D remap.info.correctableRows;
+> +=09=09=09break;
+> +=09=09case NVKM_GSP_RUSD_ROWREMAP_UNCORRECTABLE:
+> +=09=09=09*val =3D remap.info.uncorrectableRows;
+> +=09=09=09break;
+> +=09=09case NVKM_GSP_RUSD_ROWREMAP_PENDING:
+> +=09=09=09*val =3D remap.info.isPending;
+> +=09=09=09break;
+> +=09=09default: /* NVKM_GSP_RUSD_ROWREMAP_FAILURE */
+> +=09=09=09*val =3D remap.info.hasFailureOccurred;
+> +=09=09=09break;
+
+Maybe this should be an explicit case instead of default, so we can
+drm_WARN_ON_ONCE unknown values?
+
+> +=09=09}
+> +=09=09return 0;
+> +=09}
+> +=09case NVKM_GSP_RUSD_PCIE_GEN ... NVKM_GSP_RUSD_PCIE_UNSUPPORTED_REQUES=
+TS: {
+> +=09=09RUSD_PCIE_DATA pcie;
+> +
+> +=09=09int idx =3D item - NVKM_GSP_RUSD_PCIE_GEN;
+> +
+> +=09=09ret =3D r570_rusd_read_section(gsp,
+> +=09=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 offsetof(NV00DE_SHARED_DATA, pci=
+BusData),
+> +=09=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 sizeof(pcie), &pcie);
+> +=09=09if (ret)
+> +=09=09=09return ret;
+> +
+> +=09=09*val =3D pcie.info.data[idx];
+> +=09=09return 0;
+> +=09}
+> +=09default:
+> +=09=09return -EINVAL;
+> +=09}
+> +
+> +=09/* A reading of 0 mW is indistinguishable from "not supported on this
+> +=09 * board" (e.g. module power on Ampere/Hopper).
+> +=09 */
+> +=09if (!mw)
+> +=09=09return -ENODATA;
+> +
+> +=09*val =3D (s64)mw * 1000;
+> +=09return 0;
 > +}
+> +
+> +const struct nvkm_rm_api_rusd
+> +r570_rusd =3D {
+> +=09.init =3D r570_rusd_init,
+> +=09.resume =3D r570_rusd_resume,
+> +=09.read =3D r570_rusd_read,
+> +};
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gp=
+u/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
+> index a9af94adf9ef..1338b4a88f95 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
+> @@ -130,6 +130,12 @@ struct nvkm_rm_api {
+> =C2=A0=09=09=09void (*fini)(struct r535_gr *);
+> =C2=A0=09=09} scrubber;
+> =C2=A0=09} *gr;
+> +
+> +=09const struct nvkm_rm_api_rusd {
+> +=09=09int (*init)(struct nvkm_gsp *);
+> +=09=09void (*resume)(struct nvkm_gsp *);
+> +=09=09int (*read)(struct nvkm_gsp *, enum nvkm_gsp_rusd_item, s64 *);
+> +=09} *rusd;
+> =C2=A0};
+> =C2=A0
+> =C2=A0extern const struct nvkm_rm_impl r535_rm_tu102;
+> @@ -188,4 +194,5 @@ extern const struct nvkm_rm_api_gr r570_gr;
+> =C2=A0int r570_gr_gpc_mask(struct nvkm_gsp *, u32 *mask);
+> =C2=A0int r570_gr_tpc_mask(struct nvkm_gsp *, int gpc, u32 *mask);
+> =C2=A0extern const struct nvkm_rm_api_engine r570_ofa;
+> +extern const struct nvkm_rm_api_rusd r570_rusd;
+> =C2=A0#endif
 
-[Severity: Critical]
-Does leaving the IRQ enabled during runtime suspend risk a kernel panic?
-
-This patch introduces runtime PM support, which can now trigger an issue
-in the bridge driver. dw_dp_runtime_suspend() disables the apb_clk.
-However, the driver leaves dp->irq enabled.
-
-If a spurious interrupt or HPD event fires while the device is in the
-RPM_SUSPENDED state, dw_dp_irq() will directly read
-DW_DP_GENERAL_INTERRUPT via regmap:
-
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_irq() {
-    ...
-    regmap_read(dp->regmap, DW_DP_GENERAL_INTERRUPT, &value);
-}
-
-Accessing these unclocked hardware registers without first checking the
-runtime PM status (e.g., using pm_runtime_get_if_active()) will cause a
-synchronous external abort or data abort.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-synopsys-d=
-w-dp-improvements-v4-0-f0f4a4ede712@collabora.com?part=3D8
