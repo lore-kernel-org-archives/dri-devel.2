@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33918C4451C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 709B7C44529
 	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 07:21:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AC0710E6AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82B8E10E6AC;
 	Tue, 21 Jul 2026 07:21:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DUKKnoBq";
+	dkim=pass (2048-bit key; unprotected) header.d=nabladev.com header.i=@nabladev.com header.b="HiobroSZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D341410E6AC
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 07:21:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3E89F60A92;
- Tue, 21 Jul 2026 07:21:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A55A1F00A3D;
- Tue, 21 Jul 2026 07:21:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784618485;
- bh=pTLTBl3hGZ5qngcN4DiWZhg2v0RiX4jScLGVHre3RHg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DUKKnoBq5DbAlxtj04NqUgK8TX3YkNYYV5I4BeJyvvGjyUvyWbuNOxLkeyNfSIVcd
- WORxAWRTWSb/Y//8XGDJkEJC3JS5HQiw+VY7r1uuay8yU1SzYHxL40lzjmXjRXM1TS
- /zTTLUK6bN1LCa03zfOHuAQcwzuAvcVuavLvJHnj8r6k3iBMOb1Z+ph6ONTt8obpZF
- n4dwAc0WLvX1a112TtIjrc6BPifj1tgjGb/ZhHo2XGqXqYj2QIHcEWynNXUgCkBWdH
- CkilcV2qBcgVwSiCRzQOBNIjTEdnE86L7sNM6iuSgkfCTiGhOjfq+aspDadeOC4HK3
- ummRUyuI/NKNg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/3] drm/bridge: ti-sn65dsi83: Add reversed lvds
- lanes support
-To: "Wojciech Dubowik" <wojciech.dubowik@mt.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260721071253.1098652-4-wojciech.dubowik@mt.com>
-References: <20260721071253.1098652-1-wojciech.dubowik@mt.com>
- <20260721071253.1098652-4-wojciech.dubowik@mt.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 07:21:23 +0000
-Message-Id: <20260721072124.9A55A1F00A3D@smtp.kernel.org>
+X-Greylist: delayed 314 seconds by postgrey-1.36 at gabe;
+ Tue, 21 Jul 2026 04:24:58 UTC
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79CC910E1DF
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 04:24:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 80B5B11A6DB; Tue, 21 Jul 2026 06:19:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+ s=dkim; t=1784607582; h=from:subject:date:message-id:to:cc:mime-version:
+ content-transfer-encoding; bh=NmOHbUsNial5QKHl9vm8xpsyqeQGDivA0DLIByqaVa8=;
+ b=HiobroSZ25O7SFIdr3sT4njzwP0/Ms1IGnn7AmARf0xCC1Z97XLW//IxV6RiaYJR0testc
+ qKX6QqTsU/yzY1cG7gOrSnJYXtYaXIIW+7r6PvkM+KXA/PKXbqGmUxe9Ng7je0oQct23d+
+ Hr2hgHLnkEM08/FiMQZSMy53InHqdWepHmJX5yvbaXtZuDv0/3fh2VBFbFLYdCehVJamKp
+ LVhKS33jRjF8kuBngIJRmSc7JbHUd+I2g/1jF087xTWvVPTQ2nJhR2DFJO5D/P+F3eOVE+
+ 2i2XOreebGhEjYJBMcBiZ9Y33Sg0bRyqFGfx4zb9K88tdE8eiU7C48T/Ac4/GA==
+From: Heiko Schocher <hs@nabladev.com>
+To: linux-kernel@vger.kernel.org
+Cc: Heiko Schocher <hs@nabladev.com>, David Airlie <airlied@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Subject: [PATCH v1] drm/panel: simple: Add Kyocera tcg070wvlq panel
+Date: Tue, 21 Jul 2026 06:19:32 +0200
+Message-ID: <20260721041935.757240-1-hs@nabladev.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
+X-Mailman-Approved-At: Tue, 21 Jul 2026 07:21:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,72 +56,41 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing error check causes genuinely malformed 'data-lanes' prop=
-erty to be silently ignored.
---
+Commit 922fb2db0287 ("dt-bindings: display: simple: Add Kyocera
+tcg070wvlq panel") added the compatible string for the Kyocera
+tcg070wvlq panel to the devicetree bindings documentation
+(panel-simple.yaml), but the corresponding entry was not added
+to the panel-simple driver.
 
---- Patch [3]: [PATCH v6 3/3] drm/bridge: ti-sn65dsi83: Add reversed lvds l=
-anes support ---
-commit b4313ac661e9afa3be192ed6d9fd4791e5f7c33a
-Author: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+Add the missing compatible entry to the driver.
 
-drm/bridge: ti-sn65dsi83: Add reversed lvds lanes support
+Signed-off-by: Heiko Schocher <hs@nabladev.com>
+---
 
-This commit adds support for parsing an optional "data-lanes" property to
-configure the ti-sn65dsi83 chip when LVDS output lanes have been reversed,=
-=20
-allowing it to program the corresponding hardware registers accordingly.
+ drivers/gpu/drm/panel/panel-simple.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
-ge/ti-sn65dsi83.c
-> index 1869ebe13366c..e1b6e22bed359 100644
-> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index c09bf3db5e78..caef94e5f384 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -5909,6 +5909,9 @@ static const struct of_device_id platform_of_match[] = {
+ 	}, {
+ 		.compatible = "koe,tx31d200vm0baa",
+ 		.data = &koe_tx31d200vm0baa,
++	}, {
++		.compatible = "kyo,tcg070wvlq",
++		.data = &lg_lb070wv8,
+ 	}, {
+ 		.compatible = "kyo,tcg121xglp",
+ 		.data = &kyo_tcg121xglp,
+---
+base-commit: b95f03f04d475aa6719d15a636ddf32222d55657
+branch: abb-display-v1
 
-[ ... ]
+-- 
+2.55.0
 
-> @@ -845,6 +863,19 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65=
-dsi83 *ctx, int channel)
->  	else
->  		return -EINVAL;
-> =20
-> +	ret_data =3D of_property_read_u32_array(endpoint, "data-lanes", data_la=
-nes,
-> +			ARRAY_SIZE(data_lanes));
-> +	if (!ret_data) {
-> +		if (memcmp(data_lanes,
-> +				supported_data_lane_mapping[LANE_MAPPING_REVERSE],
-> +				sizeof(data_lanes)) =3D=3D 0)
-> +			ctx->lvds_reverse_lanes_conf[channel] =3D true;
-> +		else if (memcmp(data_lanes,
-> +			   supported_data_lane_mapping[LANE_MAPPING_NORMAL],
-> +			   sizeof(data_lanes)) !=3D 0)
-> +			return dev_err_probe(dev, -EINVAL, "invalid data lanes mapping\n");
-> +	}
-> +
->  	ret_data =3D of_property_read_u32_array(endpoint, "ti,lvds-vod-swing-da=
-ta-microvolt",
->  					lvds_vod_swing_data, ARRAY_SIZE(lvds_vod_swing_data));
-
-[Severity: Medium]
-If the "data-lanes" property exists but is malformed (for example, containi=
-ng an
-incorrect number of elements and returning -EOVERFLOW), ret_data will be
-non-zero and the error is ignored. The ret_data variable is then immediately
-overwritten by the next property read.
-
-Should we check for error codes other than -EINVAL (which indicates the opt=
-ional
-property is absent) and return an error, rather than silently ignoring malf=
-ormed
-device tree properties?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721071253.1098=
-652-1-wojciech.dubowik@mt.com?part=3D3
