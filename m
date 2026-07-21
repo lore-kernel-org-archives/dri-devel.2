@@ -4,62 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12B3EC44524
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 02:22:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38812C44524
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 02:26:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4299610E235;
-	Tue, 21 Jul 2026 02:22:37 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="NcPrwaP/";
-	dkim-atps=neutral
-Received: from mail-m1069.netease.com (mail-m1069.netease.com [154.81.10.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C5BE10E235
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 02:22:34 +0000 (UTC)
-Received: from [172.16.12.90] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 46edaba15;
- Tue, 21 Jul 2026 10:22:30 +0800 (GMT+08:00)
-Message-ID: <f567a9fb-925e-4d61-ba57-1bf8c72668c8@rock-chips.com>
-Date: Tue, 21 Jul 2026 10:22:28 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] drm/bridge: Implement generic USB Type-C DP HPD
- bridge
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3295710E258;
+	Tue, 21 Jul 2026 02:26:25 +0000 (UTC)
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E500A10E1BA
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 02:26:23 +0000 (UTC)
+Received: from local
+ by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.99) (envelope-from <daniel@makrotopia.org>)
+ id 1wm0BL-000000000Cr-1a0z; Tue, 21 Jul 2026 02:26:07 +0000
+Date: Tue, 21 Jul 2026 03:26:04 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Vinod Koul <vkoul@kernel.org>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-phy@lists.infradead.org
-References: <20260717072323.96-1-kernel@airkyi.com>
- <20260717072323.96-2-kernel@airkyi.com> <alpeAqKo72pwOEnX@venus>
- <al5fYojQ0kJw2okg@venus>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <al5fYojQ0kJw2okg@venus>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9f827b5c9903a7kunm1e14f012284aff
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHklLVklDTU0ZGBkYTEIeHVYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
- 9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=NcPrwaP/SOF3bVD2Wap635SUawMfOlaMfPFODyXj/hvz4H6eYO1G089WGYOnvIoxHXFQWVafef22+S5ntKXholZO2GOc6QvX7Rzkz7jVLkgND7SOpKFqE3TC8fOImzJ9R3KUQTCwINZiK6Ao7Zr+4bR4SX/FqdlVlBJ+jSURwRk=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=wMHOBENfy80mTz3btHp7p7Yxxoxadnd1IuP2ft5rDgw=;
- h=date:mime-version:subject:message-id:from;
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Allen Chen <allen.chen@ite.com.tw>,
+ Hermes Wu <hermes.wu@ite.com.tw>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+Subject: [PATCH v3 0/4] drm/bridge: it6505: DP audio support + shared-DAI
+ hw_params fix
+Message-ID: <cover.1784600387.git.daniel@makrotopia.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,104 +54,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Sebastian,
+This series revives HDMI/DP audio support for the ITE IT6505 DP
+bridge, originally posted by Jiaxin Yu [1], rebased onto current
+-next and with the v3 review feedback addressed: the stale
+&client->dev usages reported by AngeloGioacchino Del Regno [2] are
+gone (the driver meanwhile gained it6505->dev), and the
+"#sound-dai-cells" binding property requested by Chen-Yu Tsai [3] has
+since been added by commit 325af1bef5b9 ("dt-bindings: display:
+bridge: it6505: Add #sound-dai-cells").
 
-On 7/21/2026 1:59 AM, Sebastian Reichel wrote:
-> Hi,
-> 
-> On Fri, Jul 17, 2026 at 07:19:29PM +0200, Sebastian Reichel wrote:
->> On Fri, Jul 17, 2026 at 03:23:19PM +0800, Chaoyi Chen wrote:
->>> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->>>
->>> The HPD function of Type-C DP is implemented through
->>> drm_connector_oob_hotplug_event(). For embedded DP, it is required
->>> that the DRM connector fwnode corresponds to the Type-C port fwnode.
->>>
->>> To describe the relationship between the DP controller and the Type-C
->>> port device, we usually using drm_bridge to build a bridge chain.
->>>
->>> Now several USB-C controller drivers have already implemented the DP
->>> HPD bridge function provided by aux-hpd-bridge.c, it will build a DP
->>> HPD bridge on USB-C connector port device.
->>>
->>> But this requires the USB-C controller driver to manually register the
->>> HPD bridge. If the driver does not implement this feature, the bridge
->>> will not be create.
->>>
->>> So this patch implements a generic DP HPD bridge based on
->>> aux-hpd-bridge.c. It will monitor Type-C bus events, and when a
->>> Type-C port device containing the DP svid is registered, it will
->>> create an HPD bridge for it without the need for the USB-C controller
->>> driver to implement it.
->>>
->>> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->>> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
->>> Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
->>> ---
->>
->> Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
->> Tested-by: Sebastian Reichel <sebastian.reichel@collabora.com> # ArmSom Sige5
->>
->> I gave this a test together with the RK3588/RK3576 USB-C DP AltMode
->> patches I'm working on. As the fusb302 does a manual registration
->> for the DRM bridge in its probe function, the bridge is registered
->> twice:
->>
->> root@sige5 # cat /sys/kernel/debug/dri/bridges
->> ...
->> bridge[1]: drm_aux_hpd_bridge_funcs
->> 	refcount: 4
->> 	type: [10] DP
->> 	OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
->> 	ops: [0x4] hpd
->> bridge[2]: drm_aux_hpd_bridge_funcs
->> 	refcount: 2
->> 	type: [10] DP
->> 	OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
->> 	ops: [0x4] hpd
->> ...
->>
->> Apparently the USB-C DP AltMode keeps working, so this just wastes
->> a few CPU cycles and some memory. So this can land and then we can
->> remove the manual code from the driver as a follow-up step. I also
->> gave that a try and things keep working. I won't send the fusb302
->> patch for now to ensure its not applied before this patch lands.
-> 
-> The above test was done with a kernel having all config options
-> built-in (i.e. no modules). Using arm64 defconfig one ends up with
-> 
-> CONFIG_DRM_AUX_HPD_TYPEC_BRIDGE=m
-> 
-> But the resulting 'aux-hpd-typec-dp-bridge' module is not loaded
-> automatically resulting in missing bridge registration. Running
-> 'modprobe aux-hpd-typec-dp-bridge' manually in the booted system
-> does not work either as the TypeC controller has already been
-> registered and no new BUS_NOTIFY_ADD_DEVICE is generated.
->
+Patch 1 fixes a pre-existing use-after-free in the driver's remove()
+path: none of link_works, hdcp_wait_ksv_list or hdcp_work were ever
+cancelled before devres frees the it6505 struct, unless DRM core
+happened to call the bridge's .detach() first. It is needed before
+patch 3 so that wiring up the new hdmi-audio-codec platform_device
+does not add another caller into an already-broken teardown path.
 
-Oh, we indeed didn't consider that such a probe ordering issue exists.
+Patch 2 fixes a second pre-existing bug: it6505->audio.channel_count
+is zero until either DP link training or a valid ALSA hw_params call
+has run, but it6505_enable_audio_infoframe() indexes an 8-entry table
+with channel_count - 1 unconditionally, which is an out-of-bounds
+stack read if the audio-FIFO-error IRQ fires first. It also fixes a
+debug print that logged the previous channel count instead of the
+rejected one. Needed before patch 3 for the same reason as patch 1:
+that patch starts exercising the audio-FIFO-error IRQ path in a
+configuration (shared I2S bus) where it is actually likely to fire
+before any display has ever been hotplugged.
 
-The approach I came up with is to iterate through the &typec_bus after
-registering the notifier, to ensure we don't miss any events that 
-occurred prior:
+Patch 3 wires up the previously-unused it6505 audio helpers via
+hdmi_codec_ops, which unblocks the mt8186-mt6366 sound card that
+references it6505 as the I2S3 codec.
 
- static int __init drm_aux_hpd_typec_dp_bridge_module_init(void)
- {
-        bus_register_notifier(&typec_bus, &drm_typec_event_nb);
--
-+       bus_for_each_dev(&typec_bus, NULL, NULL,
-+                        check_altmode_dev_and_register_hpd_bridge);
-        return 0;
- }
+Patch 4 is a follow-up fix so that audio hw_params are accepted even
+when the it6505 DP output has no display (and thus no encoder)
+attached. This is needed when the it6505 shares its I2S bus with
+another codec, as on the MediaTek MT8186 "steelix" Chromebooks, where
+the shared I2S3 must keep working for the speaker path regardless of
+the it6505 link state.
+
+Tested on a MediaTek MT8186 (google,steelix) Chromebook.
+Actual HDMI/DP audio output could not be tested lacking the USB-C
+adapter cable. However, making the it6505 at least probe and fixing
+the obviously missing things makes the sound card on the Chromebook
+come up and internal speakers and microphone as well as the headset
+mini-jack work as expected (both tested).
+
+[1] https://lore.kernel.org/all/20230730180803.22570-4-jiaxin.yu@mediatek.com/
+[2] https://lore.kernel.org/all/c35ef2d8-ab40-484b-9a4c-38f2f3e7d99c@collabora.com/
+[3] https://lore.kernel.org/all/CAGXv+5G2tP9i8VrUc6-xs2d72_nL9XH9iSCeixzA2AM7X5fXOQ@mail.gmail.com/
+---
+v3:
+ * new patch 1: cancel link_works, hdcp_wait_ksv_list and hdcp_work in
+   it6505_i2c_remove(), fixing a pre-existing use-after-free flagged
+   by automated review of v2
+ * new patch 2: guard it6505_enable_audio_infoframe() against
+   channel_count == 0 and fix a debug log printing the wrong channel
+   count, both pre-existing bugs flagged by automated review of v2
+ * patch 3 (formerly patch 1): serialise it6505_enable_audio() /
+   it6505_disable_audio() with a new audio_lock mutex, resolving the
+   "input welcome on whether a lock is warranted" note in the commit
+   message; track explicit mute state so the audio-FIFO-error IRQ
+   no longer re-enables audio out from under an ALSA-requested mute,
+   both issues flagged by automated review of v2
+ * patch 4 (formerly patch 2): no changes
+
+v2: https://lore.kernel.org/all/cover.1784561622.git.daniel@makrotopia.org/
+ * it6505: store the hdmi-codec platform_device and unregister it on
+   i2c remove, fixing a resource leak / use-after-free
+ * it6505: initialise the delayed audio work before registering the
+   codec device
+ * it6505: synchronously cancel the delayed audio work on audio
+   shutdown and on driver remove (cancel_delayed_work_sync)
+ * it6505: rework the mute path to cancel pending work synchronously
+   and disable audio immediately when muting, removing a race
+ * patch 2: drop the encoder check entirely instead of returning 0
+   early, so the stream parameters are always cached; rewrite the
+   commit message accordingly
+
+v1: https://lore.kernel.org/all/cover.1784393979.git.daniel@makrotopia.org/
+
+Daniel Golle (3):
+  drm/bridge: it6505: cancel outstanding work before teardown in
+    remove()
+  drm/bridge: it6505: guard against zero channel count in audio
+    infoframe
+  drm/bridge: it6505: Don't reject audio hw_params without an encoder
+
+Jiaxin Yu (1):
+  drm/bridge: it6505: Add audio support
+
+ drivers/gpu/drm/bridge/ite-it6505.c | 138 +++++++++++++++++++++++-----
+ 1 file changed, 116 insertions(+), 22 deletions(-)
 
 
-But I'm not sure if there are potential race conditions involved.
-Perhaps @Heikki and others have better ideas? Thanks.
-
-> Greetings,
-> 
-> -- Sebastian
-
+base-commit: 0718283ab28bc3907e10b61a6b4be6fefa1cbb2f
 -- 
-Best, 
-Chaoyi
+2.55.0
