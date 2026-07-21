@@ -4,92 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2838FC4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:40:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3804C4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:41:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E98D10EB13;
-	Tue, 21 Jul 2026 18:40:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 051FE10EB19;
+	Tue, 21 Jul 2026 18:41:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="H/pijcCR";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g0GS0QlR";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="S/croqKJ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zm+Z3Sh1";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3206410E3BF
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:40:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7BBF10EB15
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:41:56 +0000 (UTC)
 Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66LH2TFK3439769
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:40:28 GMT
+ 66LH2TVD3439745
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:41:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=J1E9XgqDLWxtZv8FcbIWlNPK
- dkn0kvALTOZvp+gJNuo=; b=H/pijcCRc7FErFAE+ghFC+kugdImVvMf+EvaVBuh
- kaJud9n5zlkqN9O4zHod7PvU15Jb9qOxOP3BP6/GAevlFzUA2aMA9GYZX66fjGs2
- RqWKACLHBhU8vqwltXAY/arA2u53QBZQpTw/Fa+yDokoWBn8y5rv9PVFzgY79FnI
- FB617hXmrC0IZwKTq0hNrOtdzz7vjNjiy9rnl72ixXGkPZa4Z2XI7zf025goBFqO
- lBVUeqsK5GaexAmo7DW68ej6L1a1xebzlZbQ1/4/Jswm/L+6zrUvpGexlRac1rIH
- dIJcmtmhIr85iDLqfdvHDGrMZ2UEyiRaZVaJP2D3bNmr5Q==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj6nstgb5-1
+ :references:subject:to; s=qcppdkim1; bh=+n/NFf65uT2dq8qZ8BzjRHqx
+ r6jmGdLSwt4tjEC+VzQ=; b=S/croqKJB9y9nJR1fs48IjHwaX18RWz5LlqrAPbn
+ RwTgpH5g3PmowiwedsSRnAaP68uE8cbZNAipKCnsmSm/7wNngiWcD7S13UvnhlQM
+ EFHLnQy+XXSgeWs+uyH/ly58ahX9SFQPhyr0kQgrlb+E7wYeOz7XgnMtW7ynTgur
+ A8MZNYriTzSdGl4ft/nVlnPvhcmHbdBBMhSo8jqiJ/sHLRc9s3xoobSVHdhtLNPX
+ E6sxYQBSP3lHKbMCNMve4a64n8UBy3kwL5BzZPZtsueToApx/7gSYvzcMe8+tAj2
+ ULV1z2ag9ad0+e9JHwtPVNZmmtkvcvrVSsl+HMJoBVePzQ==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj6nstghq-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:40:28 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-51bff5c7035so131239311cf.2
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:40:28 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:41:56 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-5174a236220so214509111cf.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:41:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784659227; x=1785264027;
+ d=oss.qualcomm.com; s=google; t=1784659315; x=1785264115;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=J1E9XgqDLWxtZv8FcbIWlNPKdkn0kvALTOZvp+gJNuo=;
- b=g0GS0QlRCwW3PMolYhYfoOaHer9szKUSykpBq/rCxY0IkuWwkQ61cKK/CdCgMD28iS
- 5B3/tSIi8D2lzGwaq07KJQcilU1TUkHp2ADw1LoPsWOcEspS8kICH66Gt0wcGf1YTGDt
- qFd7F3Sm/I8JG8B4iyvO6yxf2WYtls2i5MO20rcipTFnzNKFMRMJhtzfLloRJ447LNSj
- ZiBKy6piic3Nrht7PHmuH+KHLm3zCQYxAtum21Y/+sPAwNamlL1PIGwRw9svvzBDhwb8
- tReG5VeJA0HXNWn8B/0+Rm7mhaiO4/fDx6uyu0tfH1D2HlK+BAxLd0/CEZ3GSy1botIZ
- Onzw==
+ bh=+n/NFf65uT2dq8qZ8BzjRHqxr6jmGdLSwt4tjEC+VzQ=;
+ b=Zm+Z3Sh1+agsWr5UlYokAa74QPMZSENuvVFt+PAFbJPHtmGhYQPmM+cvdwVo++t1rQ
+ CFpvE9aYnb/Tipn5KzLfwykLfva4Yk++WOrixdh/17yP7Bjy6vEaS2H40s+n61oN/tHo
+ ZmF5EmjRIqGBU6bv89pe38KB8nF5EHFADND4DtmMenq4KM2ZI9cArjzkmZAKUCECUt7B
+ pbH4B5CY95PT2nv3NZKgP4LsLfNMxpSeGQ9fJZCQ3tBfHXZdzxoQkwMRhmq5MQlHd9cW
+ J+N/HxQvTCfJXcyzSb0CNXEL2gmQMYd2m1ymSRltGJyF7UY4+fNLsYKgDLCVAoOJaJ29
+ O2lA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784659227; x=1785264027;
+ d=1e100.net; s=20251104; t=1784659315; x=1785264115;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=J1E9XgqDLWxtZv8FcbIWlNPKdkn0kvALTOZvp+gJNuo=;
- b=Jh3C+I+U/mDmoLGcICBT7BLjdfSE/OgeGRPkz35zDKAfTFdpGL7lCk3f8F5AriXyHK
- s1CJ7Zo4bbFt+NUXADrQvQpxULWUevtwm1wPW6gufhO8w6pLaCSOTr2izTD7b6l4Nvyd
- +bpAgqIGc+Q8zPVQ6uVQjpFwj6UhdEsV5osPfoaq7Rm5jpS3Eb5PaFUf4k9DCk/c4j5+
- bAjzX+d0g6a3RZ9dhFQ8oNtaAq2v9LKqPy87mn4AiVegQyRhPGwczqYndJpccxX+hhkI
- mrn5m3GMGCUvqvcRgYLuXMdn6/rEBziofxuTvOKQoPH7MN2iv2Qyw0qGALhkZuOL6Apw
- PJIw==
+ bh=+n/NFf65uT2dq8qZ8BzjRHqxr6jmGdLSwt4tjEC+VzQ=;
+ b=kj3zRrHD6Z0UJYvoXiz9F7myCk0fPy5I4o/LX57rweToanJS7XJGG3QCh3YH4YAscB
+ yKME9XSYVNtkQXXWkxNuDq9zpdnNLZexKaYUMIG7uO/atF+ufdhcZJO2lT3w06bd8TmX
+ 5b5QsbTAiHWRIe8pdszkzSWzzRTh01F+Jql98/I1CAG7ek6j0OjvBbFld4B/cO9MiyH/
+ FsGcUE1jZ3L/tMHG5Y6N3NebSUa6tDqq26k9ODjvBRPWhFZK1sRl7iXmR+u6WiN5q41X
+ I2GFvMudrqGtw06MXA+uxtUu+IzEcMThC5ENLD+lHlFwLdFUgUqnROrhhs9RxMm/UBoO
+ dXOg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq1Z5T9dhdLHpckrLsZbmiiBeMcFvhBQphoKMTAaBj7h6PRMyCksrm7tbZWiujJa8Tk+C+k+L/RCq4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxkekUFvsoBXNH7++m9wGvSVjW3BC379/MtoHOL86r4VNoWjO95
- DGqAr0uzqwwfDtH5U4loZlvVxcfDNZxOSwBwMuw9wIybqh2TbWF97xITlzWzWYAuE5+Bin3Ux5z
- oJjuXkK3OYSrbEU1WBEK4GDkrKwJsixQmMoGN1LqVQNMC2UmyLkOAXytb/G2Ho3aLfI5C7Ic=
-X-Gm-Gg: AfdE7ck6RQmlsXkzx3NLbnLOTcjxGIIv1fjpZvfBNLOTMYiV/jXAKZlPTwe1snNVoOG
- 5mbpxWHMMjnivrwMriLlspJWAHg6HiqKOWZWNJLhS/DR/4P1Jt3lrDAg9V98it7GDDGMFmFSEQo
- KVADQmVttAPKSOK2omxSaRfFdIaEVKJkUcRgwTCFpQc3ZcGVvSfAyJasiGjrxeyPsf5dO5j84fm
- tJozIvcXMeTcWt64tPc9OJKOCDrWMpN1NtwU5H68KQ3glJQdoToihIKOcmk6rR1D+PrzbUjDGWt
- L/9RuHumkvKLtKsCeFveAsjPq9tQpnIDomL1gX6fwe3vmcZZzh3LJk0iIcvDiVDUYNxBve1XMWn
- iDkd6JQCvf1eltElGSNPWZ/qr7RMrny6+l1Hs1YNZQKpyidnIOMqPke8VDutmSvwwTtA9DEW39Q
- SnJQVJ9Lo8nwn3mg==
-X-Received: by 2002:a05:622a:1cc4:b0:51a:8c86:bd3e with SMTP id
- d75a77b69052e-5213cdcae0cmr189114361cf.59.1784659227601; 
- Tue, 21 Jul 2026 11:40:27 -0700 (PDT)
-X-Received: by 2002:a05:622a:1cc4:b0:51a:8c86:bd3e with SMTP id
- d75a77b69052e-5213cdcae0cmr189113991cf.59.1784659227184; 
- Tue, 21 Jul 2026 11:40:27 -0700 (PDT)
+ AHgh+Rp5LW2myGDicXZBXBU32A0+DCY+5nl24fUoLnXfFx7N1lA/6Fd46BCc+lZjgqSTRGy32cnddh/ZJI0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3GhCTd+8Kst9EYfvBGVPU1EFV+Kuq9Pjqant8ZadiOKPbIlUu
+ Bkn2ImZ2lWudlDoRlxuSGEmqLVneCpHC/klI7A3f6tB8ddF5N5kDLLPBnZGZfR4PK1wv3jq2FN1
+ 2v0fd55A13nSZL0InkWXYw5SBAxBU4J8B+9uh3kOfwaVt8Ilp1XAjlXQ7Hp96Y7NcFLAqwUI=
+X-Gm-Gg: AfdE7ck4ihbIk8oVYpk19kI45ZlVhrl5zSYrpXU9mjm978c/jb96XFXTbxzrYkxZish
+ njepfs4ksmM21fItuAbXSNsH28Ar4w396Qchg+pIU5WktZBT+LqrWh7hyqYO2nbT3EhptkULza2
+ ORJxH/UzWu6UvFDyooH5I05YWkrib4k2Quzc4EqFjj05T54MmMRqRsPpS8+P7FYgRAoaXMm6/sp
+ RIb08ESUUzFnfoQo6gan9lOA1+UG6CRzU7mC4aqk/y/EGrqTJwa/obGPvwmdO+Eb5K4SdKoMAQL
+ azllaWaRJHyZsgYKjQbMrTuZmlKUcI4JfHymfjOtE2jVeO1b5qtWcfjVDaf2FlXfQXzj5iM9NlS
+ o9E4mHWyBQ7lPBGSCjEW3k8VkIExE6ZbHIUL9byagUfRQFIAvPXYORuPY16gu1iw49B0muV5KPu
+ EYhZmAOFPqnyTy/Q==
+X-Received: by 2002:ac8:7f53:0:b0:51c:2633:9ddd with SMTP id
+ d75a77b69052e-5213e081cf4mr191503941cf.41.1784659315241; 
+ Tue, 21 Jul 2026 11:41:55 -0700 (PDT)
+X-Received: by 2002:ac8:7f53:0:b0:51c:2633:9ddd with SMTP id
+ d75a77b69052e-5213e081cf4mr191502761cf.41.1784659313364; 
+ Tue, 21 Jul 2026 11:41:53 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b2a9bad3besm73925e87.31.2026.07.21.11.40.25
+ 2adb3069b0e04-5b2a9d4356dsm65884e87.56.2026.07.21.11.41.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 11:40:25 -0700 (PDT)
-Date: Tue, 21 Jul 2026 21:40:24 +0300
+ Tue, 21 Jul 2026 11:41:51 -0700 (PDT)
+Date: Tue, 21 Jul 2026 21:41:49 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -98,44 +98,33 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Abel Vesa <abelvesa@kernel.org>,
- Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] drm/msm/mdss: Enable INT2_GDSC alongside CORE_GDSC
-Message-ID: <nwz6ail4qwkmsejow6757nxkutojc2q76tw7lt6oj3h4pncp5f@w6xkgj3bnlmh>
-References: <20260720-msm_gdsc2-v1-0-4687866d6cb0@oss.qualcomm.com>
- <20260720-msm_gdsc2-v1-2-4687866d6cb0@oss.qualcomm.com>
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dpu: Fix DMA SSPP REC block offsets on DPU v13
+Message-ID: <aqna6hzjorbpnnu5gcwsxkhhy4xstokoo5uzqwspr5saftyivf@2uxvuhwp2c2m>
+References: <20260720-dpu-v13-dma-sspp-rec-fix-v1-1-10d69b4875e7@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260720-msm_gdsc2-v1-2-4687866d6cb0@oss.qualcomm.com>
-X-Proofpoint-GUID: 4nZTxFyKtnjunCaVaTtgU5vPKqSJfu3D
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE5NiBTYWx0ZWRfXw2CCav2JPLKA
- HAZ2sgDPD2nXsQSvooWdI8vgXm4GKN7R+FJor8dkl3dWdkABGbmusuU0vMde+riBTuVCRF5v01p
- K/CX4JxQw70wV2SFlaTExBhTbSSJlQA=
-X-Authority-Analysis: v=2.4 cv=ZJjnX37b c=1 sm=1 tr=0 ts=6a5fbd1c cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260720-dpu-v13-dma-sspp-rec-fix-v1-1-10d69b4875e7@oss.qualcomm.com>
+X-Proofpoint-GUID: wSWEwvc34rMUZ5_TzEw63EymF_FSA3-a
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE5NiBTYWx0ZWRfX7iygrIUhzUKc
+ HsldNmPhtByVEi3g76kN7sWqFXM7c8EDRGSMeVL8IoGzWmJgR7B4JfDiWwS2DsVizUjIdeJeCTe
+ +ssiHVgxXW4w5fjS/T02tn7rUhmwXjw=
+X-Authority-Analysis: v=2.4 cv=ZJjnX37b c=1 sm=1 tr=0 ts=6a5fbd74 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=XCLxqskMeitJ3Y5ba8EA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: 4nZTxFyKtnjunCaVaTtgU5vPKqSJfu3D
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE5NiBTYWx0ZWRfX5vu6iciaz4BK
- kbs6rbbHMvshRk/4omcOZBOnDAun9jqPMa9cEIQeR2QYPFU67OIFoKMp+CnrEfqYO3tnYc4dJxf
- frbBUxGEeOS5ssyFjoaTOKNh8IQ5gfGG++UeoXFtSYUsr3R1gHAxIRUuhyozE5mXEpoIXPcPlv5
- +Ve2lufFL1xZOk7tvBERa196JKmbhoeu3Ab5aMfDrgZ6Dv93714tSFRHS4pRMkZ8R7B9bp9aK1p
- mSbm3G8TmH2yXgxxBQrnHz9kL9HEwiFZiWfmUoO+MHNxWyXOFTWxnSivKEOaYOr+NexrDHXloCq
- +K5a/idwvDoUrDjiDXb/qG2AU2wfavUphVrMmg/5huXX+I8+ggqcxy/AACqX5jGkI2vog9PEhGS
- Wp9dmhxYiFtX7Zt87oNkdY0ApyztUDXeck6YXzzjxzSFmfL7+IuhyvwIMi7qkW/o5pmdxfHGVZE
- Nyx3t8yJPaEHA6yUpTw==
+ a=Po1t57-fbbXoP4SbIj8A:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: wSWEwvc34rMUZ5_TzEw63EymF_FSA3-a
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE5NiBTYWx0ZWRfX9jSRnTxY6mrs
+ Q8k69nyc9OMbAIcQtw4U9hknI8Xn53jTaYqT1ACaMm2fPqk6HzezJyLr3jJ/kw9PfhMcX2cCmg/
+ PjoaBkV3JR1MpwIWt1wOBqtRyR4MlFqiZv0Vo2uyuj4GNQtC2sit2XgqDGRFtpOX38zeHeDqH/P
+ t7H79dm//0QRPjDO2vPZAYr51dDa6yvHeBbzNU141YUV4ZFnZtM9bjEo23mGwBI3oBU/2Icrgh/
+ AD0zFJHfu1couzmajU6bf3Btbo+IxY9/5M+S3h68rqfinDnrpfHxFR26W7V4Xj0lb5glcxtNieK
+ oyVngf2HSMdrRZAnvUN9o332bbXJ/H3uwB/T4NQRS12BiEy/1GGJqt4K0kDm45dUIsHfUpQkcaq
+ sTmCZEFn/JLlVk7IoE+LKJ9M6KhcKA0lcdZyVZ0Ewd2A+Sam3PvT7WtDtIpgHC9qPIrWxWi36RC
+ 6OrSp6rVdogWzseUFgA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-21_03,2026-07-21_01,2025-10-01_01
@@ -159,60 +148,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 20, 2026 at 04:43:54PM +0800, Yongxing Mou wrote:
-> Kaanapali (SM8750) and Glymur use two display power domains.
-> CORE_GDSC powers the main display hardware while INT2_GDSC powers
-> a subset of SSPP blocks (VIG2/VIG3/DMA5/DMA6).
+On Mon, Jul 20, 2026 at 03:56:08PM +0800, Yongxing Mou wrote:
+> On DPU v13, the DMA SSPP REC0 and REC1 blocks are located at
+> offsets 0x1000 and 0x3000 from the SSPP common base.
 > 
-> The MDSS driver currently relies on the default runtime PM handling
-> and does not enable the secondary INT2_GDSC. As a result, display
-> pipes backed by INT2_GDSC remain inaccessible.
+> The existing DMA SSPP sub-block descriptor does not initialize
+> sspp_rec0_blk and sspp_rec1_blk, causing REC register accesses
+> to be performed at offset 0 instead of the corresponding REC
+> block. As a result, DMA SSPP pipes are not programmed correctly
+> and fail to produce output.
 > 
-> Attach and manage both power domains explicitly and enable them
-> during MDSS runtime PM activation.
+> Introduce a DPU v13 specific DMA SSPP descriptor with the correct
+> REC block offsets and use it for all DMA SSPPs in the Kaanapali
+> catalog.
 > 
 > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/msm/msm_mdss.c | 53 +++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 52 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_13_0_kaanapali.h | 12 ++++++------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c             | 12 ++++++++++++
+>  2 files changed, 18 insertions(+), 6 deletions(-)
 
-Why is it being handled in the MDSS rather than DPU?
+Fixes: 83fe2cd56b1d ("drm/msm/dpu: Add support for Kaanapali DPU")
 
-> @@ -421,6 +451,27 @@ static struct msm_mdss *msm_mdss_init(struct platform_device *pdev, bool is_mdp5
->  	irq_set_chained_handler_and_data(irq, msm_mdss_irq,
->  					 msm_mdss);
->  
-> +	/*
-> +	 * When two power domains are listed in DT, the core framework does not
-> +	 * auto-attach either of them.  Attach and manage both explicitly so
-> +	 * that INT2_GDSC (needed for VIG2/VIG3) is enabled alongside the main
-> +	 * CORE_GDSC.  Single-domain platforms are unaffected.
-> +	 */
-> +	if (of_count_phandle_with_args(pdev->dev.of_node, "power-domains",
-> +				       "#power-domain-cells") > 1) {
-> +		static const char * const mdss_pd_names[] = { "core", "int2" };
-> +		static const struct dev_pm_domain_attach_data pd_data = {
-> +			.pd_names = mdss_pd_names,
-> +			.num_pd_names = ARRAY_SIZE(mdss_pd_names),
-> +			.pd_flags = PD_FLAG_NO_DEV_LINK,
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Can't you use DL_FLAG_PM_RUNTIME here?
 
-> +		};
-> +
-> +		ret = devm_pm_domain_attach_list(&pdev->dev, &pd_data,
-> +						 &msm_mdss->pd_list);
-> +		if (ret < 0)
-> +			return ERR_PTR(ret);
-> +	}
-> +
->  	pm_runtime_enable(&pdev->dev);
->  
->  	return msm_mdss;
-> 
-> -- 
-> 2.43.0
-> 
 
 -- 
 With best wishes
