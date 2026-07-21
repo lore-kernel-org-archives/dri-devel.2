@@ -4,44 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7725AC4452F
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 13:06:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 578E8C4452F
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 13:12:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE77410E77F;
-	Tue, 21 Jul 2026 13:06:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F3BC10EA31;
+	Tue, 21 Jul 2026 13:12:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fhfQUPYH";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="KR7n2fVj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD11610E77F
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:06:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C67EB406E2;
- Tue, 21 Jul 2026 13:06:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893D31F000E9;
- Tue, 21 Jul 2026 13:06:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784639204;
- bh=PHLB/yvqcDofwl8fAeuAAEqEck7vhTcu0WcSQanxzEk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fhfQUPYH0U7OPw2S/1MIYnMqpRrABuW9WyysfLEWaKRMIrPuXs9iX8bGqgtpgROSI
- RPJs83NU7LycRHUItQR1oOej1Qz+Y5axvY9aBNFvXeeIT4nNji9rYlfEPVLBSsHjRA
- 5abEEpag9+HhFXmSkDosDPO1R5ezCFLj+308zhMT5nHYHDIyQtXX6RFIZ29jfJCGny
- nQAKxyFtsBCbeA64k1MjABfC4DpDb59zDngqT5Cma1YI6FEkrzRDqVz76Sxj/2DiM/
- HPuiGJMGPW9avRx95wspSG0M98Utkh0MAD10VqIdbcsyHwzqn3VYLH6b2+85X26ulk
- VyL58wE9ZJUAw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH for drm-misc-fixes v2 1/2] drm/hisilicon/hibmc: Modify
- the method of obtaining the hpd_status
-To: "Yongbang Shi" <shiyongbang@huawei.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260721124324.1885856-2-shiyongbang@huawei.com>
-References: <20260721124324.1885856-1-shiyongbang@huawei.com>
- <20260721124324.1885856-2-shiyongbang@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 13:06:44 +0000
-Message-Id: <20260721130644.893D31F000E9@smtp.kernel.org>
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DABA610EA2F
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:12:40 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-47f73d9c177so2176736f8f.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 06:12:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1784639559; x=1785244359; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=vXH/AcaDYaWjD1D7W7UeWMormFqpNiZzAjn7k+W0SEQ=;
+ b=KR7n2fVjrqqplaSCV3xWHp3PNpr7ZWfOP28g5Qsh1Voy0+rOzyGOxXnzroGsLkckvk
+ DLOf+kuonqLlBKEdgRZT7DHHvrdrxcW8vNzCQQjlpLSGFtsLc6BaWYu15NSoYKmfPxLG
+ LqIvc4s+jDUlu1+l2bOmX6zAInaJ+Zi4PXt+pVHLYacXeg/5r4CLrCjIRimNxqvt0SAz
+ zQoTSpHfJeVhCBTlebjuU9/xoFI0yhSpyy++HCJcAOfuKZwmMbhQ394ap1+L+eUVb4PB
+ 1Rcamgr/UvBA5zWtPGORv2ia69S+gK4znH2tWqmtczczQ417wecYqYfg5l8IvJefR3t2
+ /K2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784639559; x=1785244359;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=vXH/AcaDYaWjD1D7W7UeWMormFqpNiZzAjn7k+W0SEQ=;
+ b=IPEfhfXRLg44T5mB4MNduzS+VagToGfJhKa6e8CIdAdaCjVKrujP44HgLoa2sZdu57
+ +OpRaqtdeJtywXhwNHKrsEGayXRICMXiBy0PcGqF7hsLuHlwXaTAQt68xNKgRbMa9L+I
+ ZcWnS+OYBXkIwMHXs1v4V7WL5PGc/a1s1h16AHQ3P0q8+KBmbaMow6ySI2jpAcG7+XPy
+ lMAYcYtacbsnC2+HLl8CXTONyxcaTlSLZpS0S8A1tmzo1dyO6JQ3PJshCFyWXMVDeW1g
+ OKAeDQ45vjN6J72EZFNG1oSPbQ42wzepgbdxWSYw9ag6Uo78ZZ3HSS1wOiOmt/l8YaXi
+ oujw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ropm8ez3aN6yUrul2yBS29MNjq9+RTYnh/b2gGBTWcs4lALSb7OXYXB8nJSYgEJZ+UmVvEixJ4z6aE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxpa/T3ye+KGqapKHaEu6jOwTvP1PUOWXq8M92KWFhxCkCni59v
+ dl2xkezimbBf88Y4mCJrjc7B1DRWVTDh+a6ssbOJ0B2+Q4jq5mjjRlAZEsgvA7PJQDE=
+X-Gm-Gg: AR+sD10qBF/j5H9qLkCGTNIasVPS8gvDszDoRP6REebxLSzs3wt7S+n5yGGUJiE/Nza
+ vazuK9VcFuTzz3QSKJ86CtiRYv4qyNCIU51bzMF1W84BSRi341honL1LOhwWrgHLM2F6+Idx9M/
+ hS7s+mg2QIgVyyZjNomsVBI43KqYeb5PLQt/jdE2Qdl/x58Kh8JRENC9HWmCX5xCrXVQNXWU7mx
+ yFqotoLYAL/StqizcDAjAX82INaMCSczG44ocIFvxZg0wauq24Mz7FvGkH6BfCEEaK1iDfWZF0H
+ g7giRkN4AXI+Svie37gWATyQH6HH4JU96CCytkhHxXVtcpQOhkamwQuwgez3cVY1kK+SXG68esQ
+ QCPBzlUXeg61oToiblVpzfK4NwAVGFbS3M4K9Gqd0VPSTprvNxQn0VGKxUcjHV5UaI6UsV0G2xg
+ ==
+X-Received: by 2002:a05:6000:2084:b0:47e:81aa:3832 with SMTP id
+ ffacd0b85a97d-47f6230e614mr22543209f8f.16.1784639559042; 
+ Tue, 21 Jul 2026 06:12:39 -0700 (PDT)
+Received: from zovi.suse.cz ([2001:af0:8000:1409:193:86:92:181])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47f63ee9281sm42070938f8f.36.2026.07.21.06.12.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2026 06:12:38 -0700 (PDT)
+From: Petr Pavlu <petr.pavlu@suse.com>
+To: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ =?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Johan Hovold <johan@kernel.org>,
+ Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Michal Januszewski <spock@gentoo.org>, Helge Deller <deller@gmx.de>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ Joseph Qi <joseph.qi@linux.alibaba.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>, Pavel Machek <pavel@kernel.org>,
+ Len Brown <lenb@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Nikolay Aleksandrov <razor@blackwall.org>,
+ Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Kentaro Takeda <takedakn@nttdata.co.jp>,
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
+ drbd-dev@lists.linux.dev, linux-block@vger.kernel.org,
+ greybus-dev@lists.linaro.org, linuxppc-dev@lists.ozlabs.org,
+ linux-acpi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+ linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
+ cgroups@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
+ bridge@lists.linux.dev, netdev@vger.kernel.org, keyrings@vger.kernel.org,
+ linux-security-module@vger.kernel.org
+Subject: [PATCH v2 0/3] Bring includes in linux/kmod.h up to date
+Date: Tue, 21 Jul 2026 15:11:24 +0200
+Message-ID: <20260721131207.803760-1-petr.pavlu@suse.com>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,182 +127,64 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+The usermode helper declarations were previously provided by linux/kmod.h
+but commit c1f3fa2a4fde ("kmod: split off umh headers into its own file")
+moved them to linux/umh.h in 2017. Add explicit includes of linux/umh.h to
+files that use usermode helpers and remove linux/kmod.h where it is no
+longer needed.
 
-New issues:
-- [High] Hardcoded initial HPD status breaks display detection for pre-conn=
-ected monitors and ignores `force` probes.
-- [High] Silently aborting `encoder_enable` when HPD is not IN breaks DRM a=
-tomic state guarantees.
-- [High] State overwriting and TOCTOU races between hardirq and threaded ha=
-ndlers drop legitimate HPD events.
-- [Medium] Instantaneous hardware read replaces 100ms debouncing loop, caus=
-ing hotplug events to be dropped on contact bounce.
+Also add a missing include of linux/sysctl.h to kernel/time/jiffies.c.
 
-Pre-existing issues:
-- [High] Unconditional NULL pointer dereference in the hard IRQ handler if =
-DP initialization is skipped or fails.
---
+Finally, clean up linux/kmod.h so that it includes only the headers that it
+actually requires, importantly removing the compat linux/umh.h include.
 
---- Patch [1]: [PATCH for drm-misc-fixes v2 1/2] drm/hisilicon/hibmc: Modif=
-y the method of obtaining the hpd_status ---
-commit 9a953a788498e9cd1859698ff0b7eabd2a8009b2
-Author: Lin He <helin52@huawei.com>
+This cleanup is motivated by trying to reduce the preprocessed size of
+linux/module.h, which includes linux/kmod.h. The linux/module.h header is
+included by every *.mod.c file to provide `struct module` and other related
+definitions, so it should avoid pulling in unnecessary dependencies. Note
+that this series doesn't immediately improve the situation, since most of
+the files included by linux/kmod.h are, for now, also included by
+linux/module.h through other paths.
 
-drm/hisilicon/hibmc: Modify the method of obtaining the hpd_status
+Apologies for the wide distribution. Acked-bys are appreciated.
 
-To more accurately determine whether the current HPD status matches the
-interrupt status, the polling mechanism in the lower half of the HPD
-interrupt has been replaced with directly retrieving the interrupt
-status in the upper half of the interrupt.
+Changes in v2:
+- Remove the linux/kmod.h include from kernel/cgroup/cgroup-v1.c.
+- Add a missing include of linux/sysctl.h to kernel/time/jiffies.c.
+- Link to v1: https://lore.kernel.org/linux-modules/20260708154510.6794-1-petr.pavlu@suse.com/
 
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c b/drivers/gpu/drm=
-/hisilicon/hibmc/dp/dp_hw.c
-> index d5bd3c45649b2..c9a113a1937d3 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
-[ ... ]
-> @@ -322,20 +326,26 @@ void hibmc_dp_set_cbar(struct hibmc_dp *dp, const s=
-truct hibmc_dp_cbar_cfg *cfg)
->  	writel(HIBMC_DP_SYNC_EN_MASK, dp_dev->base + HIBMC_DP_TIMING_SYNC_CTRL);
->  }
-> =20
-> -bool hibmc_dp_check_hpd_status(struct hibmc_dp *dp, int exp_status)
-> +int hibmc_dp_get_hpd_status(struct hibmc_dp *dp)
->  {
-> +	int ret =3D HIBMC_HPD_UNKNOWN;
->  	u32 status;
-> -	int ret;
-> =20
-> -	ret =3D readl_poll_timeout(dp->dp_dev->base + HIBMC_DP_HPD_STATUS, stat=
-us,
-> -				 FIELD_GET(HIBMC_DP_HPD_CUR_STATE, status) =3D=3D exp_status,
-> -				 1000, 100000); /* DP spec says 100ms */
-> -	if (ret) {
-> -		drm_dbg_dp(dp->drm_dev, "wait hpd status timeout");
-> -		return false;
-> +	status =3D FIELD_GET(HIBMC_DP_HPD_CUR_STATE,
-> +			   readl(dp->dp_dev->base + HIBMC_DP_HPD_STATUS));
+Petr Pavlu (3):
+  umh, treewide: Explicitly include linux/umh.h where needed
+  time/jiffies: Include linux/sysctl.h for proc_int_u2k_conv_uop(), ...
+  module: Bring includes in linux/kmod.h up to date
 
-[Severity: High]
-This is a pre-existing issue, but does this code dereference a potentially
-NULL pointer?
+ arch/x86/kernel/cpu/mce/dev-mcelog.c |  2 +-
+ drivers/block/drbd/drbd_nl.c         |  1 +
+ drivers/greybus/svc_watchdog.c       |  1 +
+ drivers/macintosh/windfarm_core.c    |  1 +
+ drivers/pnp/pnpbios/core.c           |  2 +-
+ drivers/video/fbdev/uvesafb.c        |  1 +
+ fs/coredump.c                        |  2 +-
+ fs/nfs/cache_lib.c                   |  2 +-
+ fs/nfsd/nfs4layouts.c                |  2 +-
+ fs/nfsd/nfs4recover.c                |  1 +
+ fs/ocfs2/stackglue.c                 |  1 +
+ include/linux/kmod.h                 | 12 ++----------
+ kernel/cgroup/cgroup-v1.c            |  2 +-
+ kernel/module/kmod.c                 |  1 +
+ kernel/power/process.c               |  2 +-
+ kernel/reboot.c                      |  2 +-
+ kernel/time/jiffies.c                |  1 +
+ kernel/umh.c                         |  2 +-
+ lib/kobject_uevent.c                 |  2 +-
+ net/bridge/br_stp_if.c               |  2 +-
+ security/keys/request_key.c          |  2 +-
+ security/tomoyo/common.h             |  2 +-
+ 22 files changed, 23 insertions(+), 23 deletions(-)
 
-If DP initialization is skipped or fails, dp->dp_dev remains NULL. However,
-hibmc_msi_init() unconditionally requests the DP interrupt. If the unclocked
-DP hardware returns 0xFFFFFFFF when HIBMC_DP_INTSTAT is read, the hardirq
-handler unconditionally calls hibmc_dp_get_hpd_status(), which dereferences
-dp->dp_dev->base, potentially causing a panic.
+-- 
+2.54.0
 
-[Severity: Medium]
-Does replacing the 100ms debouncing loop with a single instantaneous read
-cause hotplug events to be dropped due to contact bounce?
-
-The DP specification mandates debouncing because physical hotplugs suffer f=
-rom
-mechanical bouncing. By removing the poll and taking a single instantaneous
-read in the hardirq handler, the hardware read may capture an intermediate
-state. The threaded ISR then compares irq_status against this incorrectly
-sampled state and drops the event entirely if they do not match.
-
-> +	switch (status) {
-> +	case 0: /* idle */
-[ ... ]
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu=
-/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> index 2e9403b8bf3c8..23716d48149f2 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> @@ -63,12 +63,8 @@ static int hibmc_dp_detect(struct drm_connector *conne=
-ctor,
->  	struct hibmc_dp_dev *dp_dev =3D dp->dp_dev;
->  	int ret =3D connector_status_disconnected;
-> =20
-> -	if (dp->irq_status) {
-> -		if (dp_dev->hpd_status !=3D HIBMC_HPD_IN) {
-> -			ret =3D connector_status_disconnected;
-> -			goto exit;
-> -		}
-> -	}
-> +	if (dp->hpd_status !=3D HIBMC_HPD_IN)
-> +		goto exit;
-
-[Severity: High]
-Does this hardcoded check ignore force probes and pre-connected monitors?
-
-Because dp->hpd_status is initialized to HIBMC_HPD_OUT and relies entirely =
-on
-edge-triggered interrupts to update it, a monitor connected prior to boot
-will not trigger an edge interrupt. This causes hibmc_dp_detect() to
-unconditionally return connector_status_disconnected, ignoring the actual
-hardware state.
-
-> =20
->  	if (!hibmc_dp_get_dpcd(dp_dev)) {
->  		ret =3D connector_status_disconnected;
-[ ... ]
-> @@ -166,6 +162,9 @@ static void hibmc_dp_encoder_enable(struct drm_encode=
-r *drm_encoder,
->  	struct hibmc_dp *dp =3D container_of(drm_encoder, struct hibmc_dp, enco=
-der);
->  	struct drm_display_mode *mode =3D &drm_encoder->crtc->state->mode;
-> =20
-> +	if (dp->hpd_status !=3D HIBMC_HPD_IN)
-> +		return;
-> +
-
-[Severity: High]
-Does silently aborting hardware enablement here break DRM atomic state
-guarantees?
-
-If userspace explicitly forces a disconnected connector to ON (e.g. via
-xrandr), the DRM framework commits the atomic state and expects the driver =
-to
-enable the hardware pipeline. Silently returning from
-hibmc_dp_encoder_enable() leaves the hardware disabled while the software
-state tracks it as enabled, which can cause subsequent operations to fail
-or time out.
-
->  	if (hibmc_dp_prepare(dp, mode))
->  		return;
-> =20
-> @@ -189,24 +188,31 @@ irqreturn_t hibmc_dp_hpd_isr(int irq, void *arg)
->  {
->  	struct drm_device *dev =3D (struct drm_device *)arg;
->  	struct hibmc_drm_private *priv =3D to_hibmc_drm_private(dev);
-> -	int idx, exp_status;
-> +	int status =3D priv->dp.hpd_status;
-> +	int idx;
-> =20
->  	if (!drm_dev_enter(dev, &idx))
->  		return -ENODEV;
-> =20
->  	if (priv->dp.irq_status & DP_MASKED_SINK_HPD_PLUG_INT) {
-
-[Severity: High]
-Can a race condition between the hardirq handler and this threaded handler
-cause legitimate HPD events to be permanently lost?
-
-The threaded handler first reads a snapshot of priv->dp.hpd_status into the
-status variable, then checks priv->dp.irq_status. If a new interrupt preemp=
-ts
-the threaded handler between these two reads, the hardirq handler updates
-priv->dp.irq_status and priv->dp.hpd_status using direct assignments instead
-of bitwise accumulation. This mismatch causes the threaded handler to fail
-its state consistency check and completely drop the hotplug event.
-
->  		drm_dbg_dp(&priv->dev, "HPD IN isr occur!\n");
-> +		if (status !=3D HIBMC_HPD_IN) {
-> +			drm_err(&priv->dev, "HPD status (%d) error", status);
-> +			goto exit;
-> +		}
->  		hibmc_dp_hpd_cfg(&priv->dp);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721124324.1885=
-856-1-shiyongbang@huawei.com?part=3D1
