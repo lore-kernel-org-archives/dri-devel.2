@@ -4,52 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEE90C4452F
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:00:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BEC6C44529
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:00:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06CA010E75E;
-	Tue, 21 Jul 2026 11:00:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7E3B10E8D9;
+	Tue, 21 Jul 2026 11:00:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="kaaDbZaA";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="BG3t0ykI";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011032.outbound.protection.outlook.com
- [40.93.194.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE74410E74B
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:00:44 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010041.outbound.protection.outlook.com [52.101.85.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5AA210E8D9
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:00:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XQzwC2ow9M1ADSg9ZC3aUDc8hnbBbq0dnPVleEIxewkUNSBES/0YYVqqhXAGykNL9U+tOXqezTi3kfHxTOSa5Q12XGA36MWbZ3f9D2GFVFHZ3dd45cFBzSlEf7pF8FgvpL2eOfa82bLdcGImdgEwQdjFSrnSvKUp85GlS9BTP3ibDqYWgD4o37jLICt/idle+GeOtoREg1reztY7AgDfyCW9C7bxjfCcXZ1s5iyi78qi7nt+XZSvF0qw53RjkG0f4OxS4EBYyC/G4oBCGkq1kMkzDDs9RR7d/pktdyIMFgbd+x8IpUWpCJmM28ND/g8n3ReZ+E+llKQFDY8brL8dCQ==
+ b=IDfcJOrW/yMJ71fsn8uB72A2JPU54Dmt10q7nOy7C4K0APFJNehGiP2hnck2/rGTMoahM0bKwZdVCToqpR79pvotpAJtRXl3x4odLexgVuc+QFeZ+K4IdICrWZz+crGBM+4s920jXqWQpSKuwSnqwkbHoVg9VZROx8uNexa9mKse73g6UlDUDtjqkW3023sr+VR0CvkWcqymcXamYSkYJDspBfx3oDuVmVC+cf8rtM58Kznl0hHh7/K3bdyM15X0wzALPwKZOrYDA7fO39raYFOHvoVAIWAQdRjbrNlkBlKKX4Hu84XUkVLtYxfwwKunjNa4t5LNZWxz9YAirvMeRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mDlH+YVH8tHI+csmJ/+plzj8sveApw79WjimdUzy+qE=;
- b=WZ0QQ4NHqR41LloScsBpFGZ8Z8Ho/1VOw9Xy2enxi52+13PSPC8hHsumZZKyqctwfcxiEjz1G1cmVdAC1EX1Lkp/spJkv+k/eslAHpli02R+8Bc7kAS+6kfH94gBt64CAyg+ft8VeTl0d/wNnCH0tqwR5c0+LmFVVVN7dDGK5+/grCD9jobWLn/hgKXpqF9d4HM2jxpfU4oS+Mu8wXj8gqVFGE2Ugg62duuuIw65YgYkrkglu8K9PPuKaiyy+yXqXTjD7rr20plmo/vjiq/KF0Xvg0MWnGFMwJFglk+QJILwRmyWqHSUqS+s7k2IkyFzrc8lSmTLh367+jNIdoe0ow==
+ bh=ZyKa1BSq82m9/dqjjdW8sYP2tagw8HuQ+NPSc4t44w4=;
+ b=Vkj8/l64EmDkivK+vfSqosUYEOmbS/DbgUYYGLc62NigH+5qyQW5KJYT/OnF8lz84QqAxsi2xMweGCUwQFTNY4qrYtJWUEHs3pvRTIjdfx0yLSTeQw2k6kU+bGYW3R0Rvb8EAkUd1sSKLo1DbTfJDJ8kEf108LO6jCeOI8TXvWSyWfNAv02bGs798WG7IwjTcvLcEwHnkeM186AAj+sd0y2gPs4aTeoNkYjWDhQ4r9KdHensM0ajW1qM50D+DByXgM833Q9BVOqcVnw8VJnbovsPWjuZcz1t6IN7qV4SXk7O+ErMoVNfGKU8vZDMn90LMyoG/5TIEB1fi11HHSoBwQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mDlH+YVH8tHI+csmJ/+plzj8sveApw79WjimdUzy+qE=;
- b=kaaDbZaACaWGYoWe/shF+cLa/l/45KOedkkp7IlxPFfyGfIlen5bnZVfPOhuyLC0XM7Xx1ZMRbCmA3jNclIuPrNKNr8/Fie/443OrxHRVo19AkDkQC+KeA+ui0jVXegiL5mCahReXSgPmZGqkoDJo9VAgw5DI5AmVXbfrh8SlhehnCRPGkrzIRF1gfzY4j81WLUXLJoTr4VN6r/eots6q4BZPDl4xIjF00VRW8jBV6hmpD7sPMtXg8bHgB99qbq2quSvAxw+bOHbh/8z4LL+QA51/f9W3gxcVoP180rkRXJ6tpyJZkcy+yC9AHkzIYVQJRnuvppQUANMofVb8blotw==
+ bh=ZyKa1BSq82m9/dqjjdW8sYP2tagw8HuQ+NPSc4t44w4=;
+ b=BG3t0ykI0IsZ3wMly8TzZpvPd4hz8NmOL+sgvN03xhAF/UpJUBX1p19HT8C2OTveSA7s39+apb/oq4KVT6TLkTuV3eh17ElaJuY6Khb7z3LA/4TNcDWB2vVenxyDqiRbqhYDdQgjUuju7/Dd7DWcrUhv9uIlrp9/185h0Rt93LX+ft9WJMGud7qze9cBZRFB51j7waP17Ybg2WwDufU/TLTWU1zPV7WaGye841odIQGtyBof97DnzmJH4YUr/pqyZFMYpdsuzHQ2TZXtv2M+erbyrc8PMikcx8c+dtgXjG4TdxxGyrlY2sWpMIcc3k2XIA2TMTccrpOFhnjD+24xFg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
  by CH3PR12MB7667.namprd12.prod.outlook.com (2603:10b6:610:14f::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
- 2026 11:00:38 +0000
+ 2026 11:00:45 +0000
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0245.009; Tue, 21 Jul 2026
- 11:00:38 +0000
+ 11:00:45 +0000
 From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 21 Jul 2026 04:00:10 -0700
-Subject: [PATCH 1/8] rust: io: register: dispatch fixed array shortcut
- internally
+Date: Tue, 21 Jul 2026 04:00:11 -0700
+Subject: [PATCH 2/8] rust: io: register: remove unused rule arguments
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-registers_fix-v1-1-3711b2317e1f@nvidia.com>
+Message-Id: <20260721-registers_fix-v1-2-3711b2317e1f@nvidia.com>
 References: <20260721-registers_fix-v1-0-3711b2317e1f@nvidia.com>
 In-Reply-To: <20260721-registers_fix-v1-0-3711b2317e1f@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -67,71 +65,71 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, Alexandre Courbot <acourbot@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: KL1P15301CA0052.APCP153.PROD.OUTLOOK.COM
- (2603:1096:820:3d::10) To CH2PR12MB3990.namprd12.prod.outlook.com
+X-ClientProxiedBy: KL1P15301CA0062.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:820:3d::13) To CH2PR12MB3990.namprd12.prod.outlook.com
  (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CH3PR12MB7667:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e0df14b-2f99-4803-352a-08dee7174c6a
+X-MS-Office365-Filtering-Correlation-Id: 6d2b5854-e88a-4cf2-c6d8-08dee717502c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|7416014|376014|1800799024|56012099006|5023799004|11063799006|10067099003|6133799003|921020|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: ivLgetTgpz1U/E+lyWA+SKkf8D3pq3vRcX3XaBi2dLgf+TPfMZV+h6EQWYOoQNdQoGdDAfCBr71jHJbpybx/m+epnTCS5q+JNVghXq0Bs1P1RdKr+zo9eyxrqUOMLUUxJB1bcEY6RBI9HfWzm6Ka8Be4vJ2c6e40N3X6Yxg4BmJSoMSmdA9arL5Ouc7P3Fdl2yyM92f3idf2LZPK5qUiYJxKG6GKCUXEf3xf+patONqWYuikgcvnwiCbfl5LRCe1+G2eyIkDGZhGaVlK17/yCAp6end7iSouwlvhR2PTh8hAIIRDGAYUlYpim4Nigm9pT1UG61eG+nrpnUH+QVnyMH0cPTjeLiKihUN0Vfq+MgkGYT3DaxfMH+yYSB/CESAwVLFtaIk8nw2g5Z394d8Nl2K/IQJoxsG4doYXPO5OQirYRoo3w7YZPzltUWrxBKVC9ByydG0ha0Cu4F/1UPJNFBMAP8FCb8eKXPc8VmFGSwUXJ0wC0vq80sajzdRqksvAZLCcZegnIgO6MgxQ4Q0ui9kJmOVUCDxNg/5Tc/Q5o5W7FygBQui4Uq+Cy3ceCXc73bnks7mYvrr7ePJXY8dv5ZwdoKGC+GwZZhgGOnuj8t1Wa0UBWom761LUYXMXl2ztQh5eLcBTRVU2s/PA9NgpGPk3xTNGMX3al/Mv9bsIH3avlEdERTmRfpGcrn3Vap9VjB2eAAsdWcwQG7EHj5MqWg==
+ ARA:13230040|23010399003|366016|7416014|376014|1800799024|56012099006|11063799006|10067099003|921020|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 1Fnt+TJuTvovwKPzca6oAlgrTa958osKTwS5ZMLTJWKNcgJ+mvMcnGeEX3onnfxrJlWk3tTeGL/h+CMC5mk3qev2cktVh9eanlC27zpF5Dg2M7zoTnXIN4YRmJCJtHLyTlVyM5ZFGNDoyQtOBR833gXPIuO9ixaJdy7Z3IPsqBBvyF5qHwa0Ont+XBXjP+rZ2r1c13rSRJVFi9hqcYLCXu5ZVziWdifJILyJyL7y6WC/XsGNbaxGwvP00bA8MQH3mgU5hTrdAIYeRMoePPvG6sIMb2OTdgOT+/6cb0USuqk9caOv+sE1jVKCYKt8adUIkLuIdJkKqmqw3iuaCPCX3VIow5/xXgDKS+fRH5Ks1Hfadzf0fm7txWY8BwN5WVb3KHjl+I0CWTKDQTaTLJ8tUPwUQ4R9McQclgq1XSKhQsJWeH7mJXnOM06rQuMwtp5rXeftzycMBu2Z1Lh6L08QNVCDWWo5w5MUqtRHJlISdeNQMDInBRRJmpoOQjkAL+IpH8JzYnrtiPUI0XjTQXb7FV/2WRHNQOcgOaV7gfWyQgT670jQEtOPg+/HlOcDLr2TOGX8jeqfy2xkLcbWcjJy1qSPgTS36o99QY0QGQJR+yQKHJVgsH+NanM6R8XFQU/NMGvTXUDslJUJKbrBVUEzq1Kw5GCWxqGPqqBUJXzkGE6A8UPSI1yTn6gootppaZp0FHCag9YE8NlsmNiJFqls6w==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(56012099006)(5023799004)(11063799006)(10067099003)(6133799003)(921020)(18002099003)(22082099003);
+ SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(56012099006)(11063799006)(10067099003)(921020)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cmFxWm5DK3YvVXZsdGZoZ1BFTDUxZnFjeGFPVk1QNnhxOXBnRmJDQUQwdm5C?=
- =?utf-8?B?dS9xM3FmMXFXaHNTdUFZUTNHY1RZOWhxMXI0bzV3TW5iaytvdkdyNm10Tk9K?=
- =?utf-8?B?aEx6ZG9OSERlZjRabXlITEZieDZiclJTUlYrVVdQSTR3ODdxTERNZnQ0YjYv?=
- =?utf-8?B?VjV6VkVLeFFkWWZFN0EwSjRsa2dpQ3MvOEcyWGFhRnF4SEgxTEtUM0FSbDNS?=
- =?utf-8?B?aHZxRm5mdHZLbDZwYzcrQ0xudDk0Y2N3ckY1NzRRZzk2ZGJVS2hmRDRzQWQx?=
- =?utf-8?B?N0kxY1ZUUHAxUC9hSnRISVhQT1NBVTk1eFFsdGZ6bmQxUkhuUFBQWWlPYUxP?=
- =?utf-8?B?aVYvVkJDNHBYV2ViOWdJOHNPRUJINms4blNxSDd6ckdISUlybHc4ZTB0bnoz?=
- =?utf-8?B?MC9qdEJoamZoNmhnODlCZVVETm5uaXd4TU9FVVBxNXNTUDNZK2x1RllqODY4?=
- =?utf-8?B?TjRnTU1jV2J3SzJDOE00RWpMVi8rN0wrak92OFczdXFrc3FINWlSSUdhUmpX?=
- =?utf-8?B?ZlJaU1NURmk4WXZyd2IwODF0Y3A1NldPMnRhSU02VTJDY0RscjVnMDdLdXA5?=
- =?utf-8?B?RU91NXIrYm1EbEs2WHRSc041ckt1OGxPMkkxZytwNmk0dzc5cnluN0tyaTNQ?=
- =?utf-8?B?R0w4NFUvVnkzcGFoSXlYeGpkeHhHSTlLSS9Oa3VDMWM5TEcxZ3U2cDNneUZQ?=
- =?utf-8?B?U2h0SGZSdmVUZ2IzN2lmNjlUVVJyS1ZiQnNhaGpjTk0ydzMvZmtMVHFCdWND?=
- =?utf-8?B?czlwNWxxVGpOMjFBYnVreVIrK0djT2JFZU1YK2ErellxWER6dWJrTVF6dnBN?=
- =?utf-8?B?RHB2cVpWMVVzaHM5ejRtTzkzNVBNb1BHL1hBeHE3cWRRQnRteXNoR1piWHNO?=
- =?utf-8?B?eERxY3g4K0cveFVUYlFxNWhZU0dRYVozZlk5b2d0RWw0Yk9uMEFEUGduVHFG?=
- =?utf-8?B?TmRQL1hFbkV3aWtiMEh4TGVaTGgyaVpLYzlnelVxY29rSGtoTnJKQ0VCdDRm?=
- =?utf-8?B?Y3hISU9LaFRsNWlWN1gwMXgvUVczeVlaanRKUTJwUnlueWRWVWFNcUlnY05Q?=
- =?utf-8?B?ZW1JWktpK3Bqc3RJRnpjT2MvRXp3MStIdjA2cm1KT1pLNDNEenNXUURMd0xQ?=
- =?utf-8?B?Wk1ETTZFK0FBajVlMStJWGJjMFQ1aE04MW5EL3FqTzhWSFVLN0hMcVM3SHg4?=
- =?utf-8?B?QkVUdXlqYTFRbTY1NGFpbCsvVFdRRmRjTXdGSnpYQnBiR2lnd1plNzBWc05J?=
- =?utf-8?B?ZlJIZ0x1Nyt5UTBqQ2dCRDRUZEwwSEZRNW5RdDBvZEVCU1lLWFdPYXEybmQ4?=
- =?utf-8?B?a2NnM1N3TE5wdGtaTlg0YUp5Z1lGeE9zVjh3UHQ5ckZHZlRjSTlVcVIrRWlN?=
- =?utf-8?B?T0dNZG1wVlYyei9FcTBybmtOSkJleWtLZ1paOGlmaDQ0eXVzUE5FVVp6anh4?=
- =?utf-8?B?RjhSc2hZMmMzZjhuMnZNQnVvOHpYeVFsaG01ckgxYi8ySXdJRTh6YzBZMllD?=
- =?utf-8?B?NUNobFZGWXFDNnR5bkN1bHlsQzNJMWFUYVd6d0cxeHk3Zm9GQU9CcktWTTVH?=
- =?utf-8?B?STB1Y2JDeElnTE13QytFMFNybU9ZYk1DcGJ5aUZKbWIzVUc2dHJTY1AvV1M5?=
- =?utf-8?B?emhJUDJtN1o5TjNiaERQeGt5OVdjQzBFSVVnU0JwOGtiaGtsZG0rcDRSQWdz?=
- =?utf-8?B?ZnZoL3FuaElVUElwU1F3dlJQTDRVNHBOOTVpR0QyQW1rR3ZtL2k3UUlSQnda?=
- =?utf-8?B?NlREVlpxL2JQc1dqSFNTenF3Um11S1JDVjdzVm5PZUhZbGdjSjZ4MkhvOXdY?=
- =?utf-8?B?S2I0NmprZktya1I5VFdYZStOVk1WSEw2dzVVby9JWDZFVDFtTGpIdklaZ3F6?=
- =?utf-8?B?MHdxeVVta04yNWlXZmtvZFBEWXlZemRIdWZ3MElleW14SUQ2VEtzSGE3enhu?=
- =?utf-8?B?aFg1Z21zQmozeWFGTzNOOGN4dFE3RjlwSnVib3hiSzcvOGJxYzFmNjZ3dGdu?=
- =?utf-8?B?eXVWLy9ML1p3ZUphSjgvTCtmK3FtdHBZMFN1NFdrVllkWGJFTEZCdWJic296?=
- =?utf-8?B?WHJ2VVZRSzdzNzM2ZGM2aFpEbHRiMXNXWVZtVE9YVjA3TGhHTjdGRU9TV1hy?=
- =?utf-8?B?Ym1uU3EyM1BkMFZMdjFtSENjOE1yUUVMOEU1UW1lTUV6TWw4bTluaTQwQWVn?=
- =?utf-8?B?S1I3SjZmd1lVZ21CQjNxaENnc0h5TDNubFdIdkNkV21qbTBqR0hLYjQ4TzE4?=
- =?utf-8?B?RjFIeC8yQm9QdGxqVG1jcGY2dzNlaDhDM1BwL1NNSndrUERiUXlnK3h2bmdS?=
- =?utf-8?B?R3hsUFhncXJxK1BwYmJjVXUvdklzSERTZzd2ZkZRbjFJSjZLMXVMZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NS9hMklkMjV4NHVWNXJadHBpWWJpenI2cmRjUzZSTUxDYWN3QmhzVXM1TjlZ?=
+ =?utf-8?B?RFNaUWhuSm0wU0R6cGFFUGhUd1h5VGwrNXNLSmF0Qk8wOGJOZnh1dWxLd0g0?=
+ =?utf-8?B?ZEpnTmNsWEl1NnVrSEM3b1czbk5lRVdiWXEwcC9RZXdBU2FTMUFDUzhueEp2?=
+ =?utf-8?B?SE95OG9uYW51WlE1ZEVCOEpSM0RWRFRTb3FubXNuT1lPUU5vODNuTTFxelFL?=
+ =?utf-8?B?QkNKQXMvTVUzTEpkN2JQVlUyRVRsZE9MS01KV3RjcDExNXBxZkpYNXI2bFRN?=
+ =?utf-8?B?dFZjajJNUkR2blBXMGpybWxNOWFqU05NUTM1YkhIU0Rvc0wxOEdyTHN2MVpT?=
+ =?utf-8?B?d2h4YmptUnI4aklVUnJVRlZrNlZFRG5VSjI4TzU5NzZIbEhQOW1USjBDR2xH?=
+ =?utf-8?B?T29QRWlLeFJIYlRNWDV3VUlTTkptV1MyL3hrdi9mZEM3SnB3RFgydHkzeGFt?=
+ =?utf-8?B?VitIMWRPR200WXdvMkM4MWtlWm5HajdvdTJrY1FpRDYwTnlDYUZNTjdtaENG?=
+ =?utf-8?B?VXZTOC83WXF1SXdTR241L1l5aW41UXFqd1p3N0VnWnRWRlJKZEszY085b3E4?=
+ =?utf-8?B?cTdEUk9CdnNPLzdPSTRPYVRvV0cyWEtkazM3K05lK0VHVUdqb045TXVVNUNr?=
+ =?utf-8?B?RDl0N2VqU3Y5enYxY003U25DNXd6RGJDTnBkRXoyRkdpK3pmaUdwcW9rUThF?=
+ =?utf-8?B?akRrL21hQ0pMWDVuSXpJT1QyQlpEeEFmODI5QkplcEhxQXo1cTBHMktuRTJE?=
+ =?utf-8?B?N0hWcEJQU0lqZFIvaTZuVXgySjN1TmZtRjl0RlFQeHI0U3N3d3ozNUt0bEV0?=
+ =?utf-8?B?Z3VDc05Zak9QUUl2aFowSHhJanpNT2w0YXRDOTVQV09xTUxQQXFTRFk3Kzk0?=
+ =?utf-8?B?emJ4cWdoNVVuZzlnM1hNRTJKWFYwQ3NxUVFoRm1jWGZrME9BSmpzUU5QeW5O?=
+ =?utf-8?B?M3d6VXFUNXIxUDBLRk5RVjdoRjVmYm1oeGYyV3JLeWtDNUpMMGNzaWVZRVVs?=
+ =?utf-8?B?cWM4T1ArbHZwOEk0cmJVbXZQbnNTaUJtS3NVbkh2UW1Wa3JINmFsYmZuMndC?=
+ =?utf-8?B?eHB3dlhwSHE4aDJBK2Q2L25uamdrZkJuSDZ1VkE0UzVzUWk5NkdCTCtqWVo4?=
+ =?utf-8?B?WEttVmc3dnlVSFFONEFROTI4N2ltamJvdFVDdjdOOFFQbnhCYVFGckIrV0RV?=
+ =?utf-8?B?T1dKaEszNFh3eGUwaTdBL09RTEl2UEhTNzZ6NkloMjhXOVpSYTZmVlFaejlI?=
+ =?utf-8?B?aEVDcWhjWlp6a0NCakRuZjY1bStkZGlQK3NvKzA2OWRwa0phTnIyb0tXR0RN?=
+ =?utf-8?B?aS9pa0hQZnh4ckR6SmVHbEgvdE1zSTlld0dDbEtMWFJLMFd0SHVaczFYMVJM?=
+ =?utf-8?B?aFRkV1hTeWlybjByS3B5ZFlKbTBsbzBjdlBhMjlHaWZ1cG91akxVRkN6MjVn?=
+ =?utf-8?B?SHZxd0ZsSVdNNDZDT2QxRG1xQ0p6L05WNjJXdHlIeHQ3ZUF3UTR3cHRSSGFs?=
+ =?utf-8?B?Q0NqWDdpYTk3VUlTcTdwSm41akJXUmF4L0VCSEM2cGhtYUhXVzJzbzhLbDhB?=
+ =?utf-8?B?NU1tZmVXazE2THkxKy9SWDBLbFBVV0FQaElGSldrV2xHMWVzV3dJTlc1SjRY?=
+ =?utf-8?B?Z0IwcEtxQ0ozMTNSS2VRU0MxNGdTa2VwVmZwSnBweXRzQzVTYU9XQ2Nkbncv?=
+ =?utf-8?B?TTB6RmQwZEJlZXNuYktqampKUU56eE01VVYycTJrSjRvZXJTQ0JLdll6dkR6?=
+ =?utf-8?B?OTlvRHdTY3BlYXdXSDh1TktPMVkyTy90d3h0NlVTVkM0SzNFMGg0ZU5FMy91?=
+ =?utf-8?B?WU9rdDdBLzJnaWhWaHlpQnlsQTBRSGJJMzFYVFNua0lkVG84N0xxMG41VXAz?=
+ =?utf-8?B?RDgyb0tZc3dGMnUwS1lpUXhwaDZTS2FmVmE5d1pjUm1PTWJ5V0xGMTdIRzZ6?=
+ =?utf-8?B?RnFDeVZOYkNPR21NS3piWHFYbkN3dXBiTXhseWV3VFZOWUl6cDZ6ai83VmRk?=
+ =?utf-8?B?dmwzUjZ2UEhpYTZNK0Z2Y0YwZ3R5dUhUYjhkZk4xSks1RkxGVHJtNGlVVXA4?=
+ =?utf-8?B?Y2ZpdHJWNVhQN3lLTm1pbS9NRXhEaXluS044SE11K3pMaTV0VTMvZVZHbVlw?=
+ =?utf-8?B?UjhHaXg0YXNMU0cyNWd0dFM5N2dPVC9ZYmNFU1RoYUhyRm15cEg0anhHUTJr?=
+ =?utf-8?B?WkZKVzJPQzhpUys3eXEraUpyWGRzaW1PSmZLKy9waU5WVXlNRFc5QlIrbnVh?=
+ =?utf-8?B?RmhkRFNXTDR3eUZza01LdHNrZzV6TzdPb21mZjFXclhiNTBmdGFnOVdaT3F6?=
+ =?utf-8?B?RGhpOXZLaHg2UXo2MVpUbW5XMEtHclN6a0xjc0QrZWhvQnZkbStGQT09?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e0df14b-2f99-4803-352a-08dee7174c6a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d2b5854-e88a-4cf2-c6d8-08dee717502c
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 11:00:38.6867 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 11:00:45.2098 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FqcHV3i2bIMKdyhQl/mw2QFo2DZqcROKHMbg5xN94krJ3FU8wlCGDKwaoE5KqU9OogOKNxgs3a25svroEaMlcQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6j4HHPwwxTZYvZBf4/37JDQLWtlcXTZRrFqhfd7NB2ooW1Tqp8tHHgEHdvLJW8tMsU97ZP24pm5L/SaDqG7QPw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7667
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -148,31 +146,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The contiguous fixed-register-array shortcut redispatches an already
-normalized declaration through the public register! entry point. This is
-unneeded - the public rule should only be invoked by users.
-
-Dispatch directly to the appropriate internal @reg rule instead.
+A few arguments passed to internal rules are never used and just add
+unneeded complexity. Remove them to simplify the rules a bit.
 
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- rust/kernel/io/register.rs | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ rust/kernel/io/register.rs | 27 ++++++++++++---------------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
 diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index 80e638a892d7..27a9fe45b06d 100644
+index 27a9fe45b06d..82f674aea45a 100644
 --- a/rust/kernel/io/register.rs
 +++ b/rust/kernel/io/register.rs
-@@ -888,7 +888,8 @@ macro_rules! register {
-             { $($fields:tt)* }
+@@ -832,7 +832,7 @@ macro_rules! register {
      ) => {
-         $crate::register!(
--            $(#[$attr])* $vis $name($storage) [ $size, stride = ::core::mem::size_of::<$storage>() ]
-+            @reg $(#[$attr])* $vis $name($storage)
-+                [ $size, stride = ::core::mem::size_of::<$storage>() ]
-                 @ $offset { $($fields)* }
-         );
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+         $crate::register!(@io_base $name($storage) @ $offset);
+-        $crate::register!(@io_fixed $(#[$attr])* $vis $name($storage));
++        $crate::register!(@io_fixed $(#[$attr])* $vis $name);
      };
+ 
+     // Creates an alias register of fixed offset register `alias` with its own fields.
+@@ -845,7 +845,7 @@ macro_rules! register {
+             @io_base $name($storage) @
+             <$alias as $crate::io::register::Register>::OFFSET
+         );
+-        $crate::register!(@io_fixed $(#[$attr])* $vis $name($storage));
++        $crate::register!(@io_fixed $(#[$attr])* $vis $name);
+     };
+ 
+     // Creates a register at a relative offset from a base address provider.
+@@ -855,7 +855,7 @@ macro_rules! register {
+     ) => {
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+         $crate::register!(@io_base $name($storage) @ $offset);
+-        $crate::register!(@io_relative $vis $name($storage) @ $base);
++        $crate::register!(@io_relative $name @ $base);
+     };
+ 
+     // Creates an alias register of relative offset register `alias` with its own fields.
+@@ -867,7 +867,7 @@ macro_rules! register {
+         $crate::register!(
+             @io_base $name($storage) @ <$alias as $crate::io::register::Register>::OFFSET
+         );
+-        $crate::register!(@io_relative $vis $name($storage) @ $base);
++        $crate::register!(@io_relative $name @ $base);
+     };
+ 
+     // Creates an array of registers at a fixed offset of the MMIO space.
+@@ -879,7 +879,7 @@ macro_rules! register {
+ 
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+         $crate::register!(@io_base $name($storage) @ $offset);
+-        $crate::register!(@io_array $vis $name($storage) [ $size, stride = $stride ]);
++        $crate::register!(@io_array $name [ $size, stride = $stride ]);
+     };
+ 
+     // Shortcut for contiguous array of registers (stride == size of element).
+@@ -909,7 +909,7 @@ macro_rules! register {
+             <$alias as $crate::io::register::Register>::OFFSET
+                 + $idx * <$alias as $crate::io::register::RegisterArray>::STRIDE
+         );
+-        $crate::register!(@io_fixed $(#[$attr])* $vis $name($storage));
++        $crate::register!(@io_fixed $(#[$attr])* $vis $name);
+     };
+ 
+     // Creates an array of registers at a relative offset from a base address provider.
+@@ -922,9 +922,7 @@ macro_rules! register {
+ 
+         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+         $crate::register!(@io_base $name($storage) @ $offset);
+-        $crate::register!(
+-            @io_relative_array $vis $name($storage) [ $size, stride = $stride ] @ $base + $offset
+-        );
++        $crate::register!(@io_relative_array $name [ $size, stride = $stride ] @ $base);
+     };
+ 
+     // Shortcut for contiguous array of relative registers (stride == size of element).
+@@ -954,7 +952,7 @@ macro_rules! register {
+                 <$alias as $crate::io::register::Register>::OFFSET +
+                 $idx * <$alias as $crate::io::register::RegisterArray>::STRIDE
+         );
+-        $crate::register!(@io_relative $vis $name($storage) @ $base);
++        $crate::register!(@io_relative $name @ $base);
+     };
+ 
+     // Generates the bitfield for the register.
+@@ -980,7 +978,7 @@ impl $crate::io::register::Register for $name {
+     };
+ 
+     // Implementations of fixed registers.
+-    (@io_fixed $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)) => {
++    (@io_fixed $(#[$attr:meta])* $vis:vis $name:ident) => {
+         impl $crate::io::register::FixedRegister for $name {}
+ 
+         $(#[$attr])*
+@@ -989,7 +987,7 @@ impl $crate::io::register::FixedRegister for $name {}
+     };
+ 
+     // Implementations of relative registers.
+-    (@io_relative $vis:vis $name:ident ($storage:ty) @ $base:ident) => {
++    (@io_relative $name:ident @ $base:ident) => {
+         impl $crate::io::register::WithBase for $name {
+             type BaseFamily = $base;
+         }
+@@ -998,7 +996,7 @@ impl $crate::io::register::RelativeRegister for $name {}
+     };
+ 
+     // Implementations of register arrays.
+-    (@io_array $vis:vis $name:ident ($storage:ty) [ $size:expr, stride = $stride:expr ]) => {
++    (@io_array $name:ident [ $size:expr, stride = $stride:expr ]) => {
+         impl $crate::io::register::Array for $name {}
+ 
+         impl $crate::io::register::RegisterArray for $name {
+@@ -1009,8 +1007,7 @@ impl $crate::io::register::RegisterArray for $name {
+ 
+     // Implementations of relative array registers.
+     (
+-        @io_relative_array $vis:vis $name:ident ($storage:ty) [ $size:expr, stride = $stride:expr ]
+-            @ $base:ident + $offset:literal
++        @io_relative_array $name:ident [ $size:expr, stride = $stride:expr ] @ $base:ident
+     ) => {
+         impl $crate::io::register::WithBase for $name {
+             type BaseFamily = $base;
 
 -- 
 2.55.0
