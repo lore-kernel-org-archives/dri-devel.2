@@ -4,43 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 379C1C4452F
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 12:37:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF0A1C4452F
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 12:38:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F61910E33D;
-	Tue, 21 Jul 2026 12:37:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CD7610E9DB;
+	Tue, 21 Jul 2026 12:38:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Tdq87CEJ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gnfQvCm9";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F7gmjGzX";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF1FE10E33D
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 12:37:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0AB8160A59
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 12:37:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949961F000E9;
- Tue, 21 Jul 2026 12:37:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784637436;
- bh=ijHyHCT1kNZoYw74s+/G4WF0USVAAfJRUH2ReuqdRNs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Tdq87CEJ7tSaFIrkoWVhYIAomkXxiWZ6YjxC0XDXesxS5tToRx8YHYChyIFPggKed
- X9sPQJe3kIQ+tcyRvxWqaX6DWOqmLRtW6Zo2539uG8Hb5Wkwg0+pgRCpC0XRi46Yry
- 3aPC1w4pwT+WhIMKafka2YWmkF6saUf3/PTX7Z6S7pbj13Y9FG2yTbHBZGR2OaJE0G
- UFmZYjhPN99op5qOQtcsQ2YOHj3iJAoaVGSrO8uQQtjguocWpwW+gDy90NS5HQWBLf
- Rs5Z0mx4K0UfQ3tGUbAQ94k/aVFeL7g3nacrKGdgrM3FO/fLM1JAz1RXIjtmqUpXCP
- gBscuhcAJIemA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] soc: qcom: smem: Expose DDR data from SMEM
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260721-topic-smem_dramc-v4-1-748f992278a3@oss.qualcomm.com>
-References: <20260721-topic-smem_dramc-v4-0-748f992278a3@oss.qualcomm.com>
- <20260721-topic-smem_dramc-v4-1-748f992278a3@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 12:37:16 +0000
-Message-Id: <20260721123716.949961F000E9@smtp.kernel.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E95210E9DB
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 12:38:11 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66LARJ1J1385792
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 12:38:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=oFR/ZjnA7aiJL98A84yTG7kq
+ GldPgkhkZvdUyz39BOI=; b=gnfQvCm9rRhi5DfOsyPOt/sZRovX0OmiJZ9Ca8uA
+ PVSuq1GPQzmsZsNPUDSxMIIFy0KVW7AhMNoLa5H6MVD7UgeFtV7s69HN+jgEGeU9
+ TAGrZukdY/LP/0j4EQTDlO4zDWPSZ9ANatoz+SZSOlsMC7ympiKJB50l3pzcXTqV
+ H2vaPizc7ezkXg/w/xmnOvqcMr2Eys+fo+UYP2IemJ98YfQmywaAer3+fiI1w28F
+ Tj4KJK398lHxT1lW9BsNSl5TqBbJUQ6SmU7AwFMV864y+UoBhcelmpqcZHNQRAG7
+ wyX+ACDz+xtvKL6NPvpN8FdOTGD6epWLwiMn03zRWxGwwQ==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj1se267c-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 12:38:10 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-38e1118e4abso12251605a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 05:38:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1784637489; x=1785242289;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=oFR/ZjnA7aiJL98A84yTG7kqGldPgkhkZvdUyz39BOI=;
+ b=F7gmjGzXHiNzWBGAfxZ9xJxAiNQpIqgzf6LLYXxAYuiVzHjucSGGwF5mNJayjm0RXI
+ foP8JTL33JyN4ZqUrPoXKNtKvOdbRP9iXnITvydj1dByhLPEWN+66R+JF2hssS8kXtJB
+ jkiJuNp/x0kQ5CpvFkVcZS2TUPxtaL9v5+Iv0isZkcswZ8KHuwzDmHY7UrVe+nksNMn3
+ gvhIoDyZOMdm0i07tGW3B+XHe1du7A1lUgF5FWGVYVljnYmiOZHQH8KR4cojHvP5T3/S
+ 9PXxbRwNhaDJh1Zf5PTVJl3M3mpmnn2jvDtMljUoIoiHuBUEjsX1Mu1IUZphNGMJ32QG
+ L/PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784637489; x=1785242289;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=oFR/ZjnA7aiJL98A84yTG7kqGldPgkhkZvdUyz39BOI=;
+ b=LzJTvAP1dZFwdQwtjNy3QTr/F0dexur4L/wdbDdAN1faBfG1PbLHz44637j4DpnNBd
+ Dez5EZNiPi/nNhRzRpv33ZZFAwCoD9atDXM35mE/qzMbjaHX8f8jFgjmMTC7qvHC6dhi
+ vQbgHwoESWqfXX0M8ErHF9CxHOB4XH9tnZt+VGmPE9NHJAV7PaMsmSqQGYlZnAaLkjh4
+ 0a46rDnPpkC657HOS1oN0022TO0LOBSQw7cyibHTrxS1vVNCWnnjZgxGqJC+fpsxsCI9
+ EfqArhGMRDBF6GhzkAqwrQZYznse1M1ljWZHjeWRKApAdjQccMaiMQxAh5ROz1oWtiIs
+ F7Yg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rofue8TSuRu4IJKyAT2D6yukWZDm1C7IsIR5KZRmxbq/pdXG+CA+fTSDgOgQMcXIkefRVwPJRjauPQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzDIcSgbuMI7BmZZJf+KyLF1BDW084x8IchqXp6AvMGVINh3HMM
+ yU+LIaUHFPElMDN7SFm2RRdHgAmbBnw0+mAdHHRS8Q1+TOMPo1QW/h1jiNMXelbII8PXmQVvpm3
+ GUsqUjFQKqU5+2y/PxFLcLdkZG1JA/7v7gmqU1PYFQB2H/WElwt6IkHnO1faawR0fDGcHTEY=
+X-Gm-Gg: AR+sD13VIJ5A72+zeipqC83LXh4ggvFrcaApN1seI0a8RxPx9WmofF48IaDJ4lkPki4
+ LdSv/WF/q11NDQBN2Oh0tGqv8xYvTxdDoheKZ1Tng/QEsgFC6IsKQeDqcPPO1gsOvvWkG4ZLDEU
+ eVhHiefAkymLkOFf206nudR6oExkZir7iV1EYmHvtOtTi8wKqRVIP0tzKxPtgmFS1UszQ5NK0S+
+ V8ycc9FWOUmR+SNRd3qqaQNdg98E2+q8Q4LxQHVQCAmClv+lY/UrxUxdGlB+r/UbfoXOAScTkyF
+ 3tFItkbSRZ2PYRgo1rZoWkqncEmQuD+9h3nMLXyugz8HY8CeVrdP9y8wYmb7Mp25Y881s1Erwga
+ vsgexdAuc82tF7QXi5g3Jagxt/g==
+X-Received: by 2002:a17:90b:258d:b0:381:a766:efcc with SMTP id
+ 98e67ed59e1d1-38e4b446c37mr16944612a91.14.1784637488720; 
+ Tue, 21 Jul 2026 05:38:08 -0700 (PDT)
+X-Received: by 2002:a17:90b:258d:b0:381:a766:efcc with SMTP id
+ 98e67ed59e1d1-38e4b446c37mr16944576a91.14.1784637488212; 
+ Tue, 21 Jul 2026 05:38:08 -0700 (PDT)
+Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-38e9237cd97sm1576802a91.15.2026.07.21.05.38.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2026 05:38:07 -0700 (PDT)
+Date: Tue, 21 Jul 2026 18:07:57 +0530
+From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Sunyun Yang <syyang@lontium.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
+ Jessica Zhang <jesszhan0024@gmail.com>, y@hu-mdsor-hyd.qualcomm.com
+Subject: Re: [PATCH v7 2/2] drm/bridge: Add Lontium LT9609C(EX/UXD) MIPI DSI
+ to HDMI driver
+Message-ID: <al9oJQfVo9XO7rAZ@hu-mdsor-hyd.qualcomm.com>
+References: <20260716-lt9611c-v7-v7-0-7553a14735fc@oss.qualcomm.com>
+ <20260716-lt9611c-v7-v7-2-7553a14735fc@oss.qualcomm.com>
+ <85505d92-ebe3-4ffd-84e1-8fe26994e053@kernel.org>
+ <altfrJgx2IjO1g33@hu-mdsor-hyd.qualcomm.com>
+ <767e5a58-3d2e-4f80-bb85-d300757a9dbc@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <767e5a58-3d2e-4f80-bb85-d300757a9dbc@kernel.org>
+X-Proofpoint-ORIG-GUID: za3vaDjbZL1PDrdyalKOcobXippofO5_
+X-Authority-Analysis: v=2.4 cv=TIZ1jVla c=1 sm=1 tr=0 ts=6a5f6832 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=Kz8-B0t5AAAA:8 a=VwQbUJbxAAAA:8 a=EXFPzEZa-quHJTxolLAA:9
+ a=CjuIK1q_8ugA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=RuZk68QooNbwfxovefhk:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDEzNCBTYWx0ZWRfX64aGctvZm3cb
+ p5HA4yhwphVRHH9kz1fgaj9oLHhHlMtxsRd/unvl1hQDV9Atw/9e6MptQc6ABO3wzugFw1oDaw1
+ GK2TzRPHaEKHfpKVPNIs9Ih8+714Meg=
+X-Proofpoint-GUID: za3vaDjbZL1PDrdyalKOcobXippofO5_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDEzNCBTYWx0ZWRfX/S4D7XVbjIek
+ W3h/+Es2DQToumXyH3Z1OiS8hLvsj4aSybynaPK7PVbJPdqNELd+PRV+0SO4vVOUgUybO5Jo31s
+ 4e/vQuOq5UguFMWIt9jRlX3TXIQXfWF6laycVrFXBvy65LBc+NsMywHtPj8qN+KFXChBBzANVr0
+ 0gBIzr7o8st20oyV9FQGjAsCp+utbNOwxWcCr6cbrpNrVzfCf2QLkHzR5vwT3NTd91WTmJREVGb
+ DowZstgQ270zEvB6+r/QBw3YuSC27PwnAfkeqkHi7jfQ9TgR+sJlPJkyJmT7TUxWi0xVG3F8e8H
+ tnCErqp1PDylFmLAvbO2Awe9rJ1C0he8kMraqHFLDyjLIxDi+R735k1LEsh8GHcePAkiq8E/al3
+ IUxFgsLbMUNxIIBke6lwZOfHzKLmARqJYLB/gBA2PybpRBEhWht2d6zrRmu9DRy67JT6dixJHYA
+ w3D9mFLrkO2gBd5W6eg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-21_01,2026-07-20_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 priorityscore=1501 spamscore=0
+ clxscore=1015 malwarescore=0 bulkscore=0 suspectscore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607210134
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,243 +155,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-
-New issues:
-- [High] The global pointer `__dram` is assigned memory managed by `devm_kz=
-alloc`, but is never cleared to `NULL` upon driver removal, leading to a Us=
-e-After-Free when accessed by other drivers.
-- [High] Firmware/hardware SMEM structures incorrectly use the configurable=
- `phys_addr_t` type, breaking binary compatibility with the fixed firmware =
-layout.
-- [High] `debugfs_remove_recursive()` is called twice on the same dentry if=
- `socinfo` registration fails, leading to a Double-Free/Use-After-Free.
-- [Medium] The `__le32` field `freq_khz` is used directly in an arithmetic =
-operation without conversion to native CPU endianness.
-- [Medium] Multiplying `freq_khz` by `1000` evaluates as a 32-bit unsigned =
-integer, which will overflow for memory frequencies above ~4.29 GHz.
-- [Medium] The global `__smem` pointer is published before `smem_dram_parse=
-()` completes, allowing concurrent callers to `qcom_smem_dram_get_hbb()` to=
- erroneously observe a NULL `__dram`.
-- [Medium] The global `__dram` pointer is written and read locklessly witho=
-ut necessary memory barriers, risking exposure of uninitialized struct fiel=
-ds to concurrent readers.
-
-Pre-existing issues:
-- [High] `platform_device_unregister()` is unconditionally called with an `=
-ERR_PTR` if `socinfo` registration fails, leading to a crash.
---
-
---- Patch [1]: [PATCH v4 1/2] soc: qcom: smem: Expose DDR data from SMEM ---
-commit 21c7410afeccade097a3fa15bf0554d407b561bb
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-soc: qcom: smem: Expose DDR data from SMEM
-
-Most modern Qualcomm platforms (>=3D SM8150) expose information about the
-DDR memory present on the system via SMEM.
-
-Details from this information is used in various scenarios, such as
-multimedia drivers configuring the hardware based on the "Highest Bank
-address Bit" (hbb), or the list of valid frequencies in validation
-scenarios...
-
-Add support for parsing v3-v7 version of the structs. Unforunately,
-they are not versioned, so some elbow grease is necessary to determine
-which one is present. See for reference:
-
-ver 3: https://git.codelinaro.org/clo/la/abl/tianocore/edk2/-/commit/1d1189=
-7d2cfcc7b85f28ff74c445018dbbecac7a
-ver 4: https://git.codelinaro.org/clo/la/abl/tianocore/edk2/-/commit/f6e9aa=
-549260bbc0bdcb156c2b05f48dc5963203
-ver 5: https://git.codelinaro.org/clo/la/abl/tianocore/edk2/-/commit/617d32=
-97abe8b1b8dd3de3d1dd69c3961e6f343f
-ver 5 with 6regions: https://git.codelinaro.org/clo/la/abl/tianocore/edk2/-=
-/commit/d770e009f9bae58d56d926f7490bbfb45af8341f
-ver 6: https://git.codelinaro.org/clo/la/abl/tianocore/edk2/-/commit/62659b=
-557fdb1551b20fae8073d1d701dfa8a62e
-ver 7: https://git.codelinaro.org/clo/la/abl/tianocore/edk2/-/commit/734d95=
-599c5ebb1ca0d4e1639142e65c590532b7
-
-Reviewed-by: Bjorn Andersson <andersson@kernel.org>
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-> diff --git a/drivers/soc/qcom/smem.c b/drivers/soc/qcom/smem.c
-> index afb21a778fe7b..4315512d3a1d4 100644
-> --- a/drivers/soc/qcom/smem.c
-> +++ b/drivers/soc/qcom/smem.c
-
-[ ... ]
-
-> @@ -1239,17 +1244,24 @@ static int qcom_smem_probe(struct platform_device=
- *pdev)
-> =20
->  	__smem =3D smem;
-> =20
-> +	smem->debugfs_dir =3D smem_dram_parse(smem->dev);
-
-[Severity: Medium]
-Is it safe to publish the global __smem pointer before smem_dram_parse
-completes?
-
-If a concurrent driver probe calls qcom_smem_is_available, it will return
-true, and the driver might then call qcom_smem_dram_get_hbb. Since the
-__dram pointer hasn't been initialized yet, wouldn't the caller falsely
-receive -ENODATA?
-
-> +
->  	smem->socinfo =3D platform_device_register_data(&pdev->dev, "qcom-socin=
-fo",
->  						      PLATFORM_DEVID_NONE, NULL,
->  						      0);
-> -	if (IS_ERR(smem->socinfo))
-> +	if (IS_ERR(smem->socinfo)) {
-> +		debugfs_remove_recursive(smem->debugfs_dir);
-> +
-
-[Severity: High]
-This is a pre-existing issue, but if platform_device_register_data fails, it
-returns an ERR_PTR which is stored in smem->socinfo.
-
-Since probe still returns 0 (success) in this case, when the driver is later
-removed, qcom_smem_remove will pass this ERR_PTR directly to
-platform_device_unregister. Could this cause a crash when the driver core
-attempts to dereference it?
-
-[Severity: High]
-Additionally, when socinfo registration fails, we call
-debugfs_remove_recursive on smem->debugfs_dir, but we leave the pointer
-intact.
-
-When the driver is later unbound, qcom_smem_remove calls
-debugfs_remove_recursive again on __smem->debugfs_dir. Does this trigger a
-double-free or use-after-free in the debugfs core?
-
->  		dev_dbg(&pdev->dev, "failed to register socinfo device\n");
-> +	}
-> =20
->  	return 0;
->  }
-> =20
->  static void qcom_smem_remove(struct platform_device *pdev)
->  {
-> +	debugfs_remove_recursive(__smem->debugfs_dir);
-> +
-
-[Severity: High]
-When the driver is unbound, the devm-managed dram memory allocated in
-smem_dram_parse will be freed.
-
-However, the global __dram pointer is never cleared to NULL. If an external
-driver later calls the exported qcom_smem_dram_get_hbb, will it bypass the
-NULL check and dereference the freed memory?
-
->  	platform_device_unregister(__smem->socinfo);
-> =20
->  	xa_destroy(&__smem->partitions);
-
-[ ... ]
-
-> diff --git a/drivers/soc/qcom/smem_dramc.c b/drivers/soc/qcom/smem_dramc.c
-> new file mode 100644
-> index 0000000000000..2998573a6e074
-> --- /dev/null
-> +++ b/drivers/soc/qcom/smem_dramc.c
-
-[ ... ]
-
-> +/* V3 */
-> +struct ddr_freq_plan_v3 {
-> +	struct ddr_freq_table ddr_freq[MAX_DDR_FREQ_NUM_V3];
-> +	u8 num_ddr_freqs;
-> +	phys_addr_t clk_period_address;
-> +};
-
-[Severity: High]
-Does using phys_addr_t in these firmware structures break binary compatibil=
-ity?
-
-Since the size of phys_addr_t depends on kernel configuration (e.g., 32-bit=
- vs
-64-bit), this could alter the structure layout and offsets. Should these use
-explicit fixed-width types like u32 or u64 to match the fixed firmware ABI?
-(This also appears to affect ddr_xbl2quantum_smem_data and ddr_freq_plan_v5=
-).
-
-[ ... ]
-
-> +int qcom_smem_dram_get_hbb(void)
-> +{
-> +	if (!__dram || !__dram->hbb)
-> +		return -ENODATA;
-
-[Severity: Medium]
-Are memory barriers required here?
-
-Since smem_dram_parse writes to the global __dram pointer without
-smp_store_release, and this function reads it without smp_load_acquire, cou=
-ld
-CPU or compiler reordering cause concurrent readers to observe a non-NULL
-pointer but read uninitialized values from its fields?
-
-[ ... ]
-
-> +static void smem_dram_parse_v3_data(struct smem_dram *dram, void *data)
-> +{
-> +	struct ddr_details_v3 *details =3D data;
-> +
-> +	for (int i =3D 0; i < MAX_DDR_FREQ_NUM_V3; i++) {
-> +		struct ddr_freq_table *freq_entry =3D &details->ddr_freq_tbl.ddr_freq[=
-i];
-> +
-> +		if (freq_entry->freq_khz && freq_entry->enabled) {
-> +			u32 freq_khz =3D le32_to_cpu(freq_entry->freq_khz);
-> +			dram->frequencies[dram->num_frequencies++] =3D 1000 * freq_khz;
-
-[Severity: Medium]
-Can this multiplication overflow on modern high-speed memory?
-
-The expression 1000 * freq_khz uses a 32-bit unsigned integer multiplicatio=
-n.
-If the frequency exceeds 4,294,967 kHz, the value will wrap around before
-being implicitly promoted to unsigned long for the array assignment. Would =
-it
-help to cast freq_khz to unsigned long first? (This logic appears in
-smem_dram_parse_v5_data as well).
-
-> +		}
-> +	}
-> +}
-> +
-> +static void smem_dram_parse_v3_14freqs_data(struct smem_dram *dram, void=
- *data)
-> +{
-> +	struct ddr_details_v3_14freqs *details =3D data;
-> +
-> +	for (int i =3D 0; i < MAX_DDR_FREQ_NUM_V3 + 1; i++) {
-> +		struct ddr_freq_table *freq_entry =3D &details->ddr_freq_tbl.ddr_freq[=
-i];
-> +
-> +		if (freq_entry->freq_khz && freq_entry->enabled)
-> +			dram->frequencies[dram->num_frequencies++] =3D 1000 * freq_entry->fre=
-q_khz;
-
-[Severity: Medium]
-Is the little-endian to CPU conversion missing here?
-
-In the other parsing functions, le32_to_cpu is used to read freq_khz. Here =
-it
-is read directly, which might result in incorrect frequency calculations on
-big-endian systems.
-
-> +	}
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-topic-smem=
-_dramc-v4-0-748f992278a3@oss.qualcomm.com?part=3D1
+On Sat, Jul 18, 2026 at 05:55:18PM +0200, Krzysztof Kozlowski wrote:
+> On 18/07/2026 13:12, Mohit Dsor wrote:
+> > On Thu, Jul 16, 2026 at 02:56:02PM +0200, Krzysztof Kozlowski wrote:
+> >> On 16/07/2026 13:31, mohit.dsor@oss.qualcomm.com wrote:
+> >>> From: Sunyun Yang <syyang@lontium.com>
+> >>>
+> >>> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
+> >>> mipi dsi and output hdmi, differences in hardware features:
+> >>> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
+> >>> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
+> >>> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
+> >>>
+> >>> Signed-off-by: Sunyun Yang <syyang@lontium.com>
+> >>> Co-developed-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+> >>> Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+> >>> ---
+> >>>  MAINTAINERS                              |    7 +
+> >>>  drivers/gpu/drm/bridge/Kconfig           |   18 +
+> >>>  drivers/gpu/drm/bridge/Makefile          |    1 +
+> >>>  drivers/gpu/drm/bridge/lontium-lt9611c.c | 1293 ++++++++++++++++++++++++++++++
+> >>>  4 files changed, 1319 insertions(+)
+> >>>
+> >>> diff --git a/MAINTAINERS b/MAINTAINERS
+> >>> index 6dea93a41962..30be2eaf2bec 100644
+> >>> --- a/MAINTAINERS
+> >>> +++ b/MAINTAINERS
+> >>> @@ -15184,6 +15184,13 @@ S:	Maintained
+> >>>  F:	Documentation/devicetree/bindings/display/bridge/lontium,lt8912b.yaml
+> >>>  F:	drivers/gpu/drm/bridge/lontium-lt8912b.c
+> >>>  
+> >>> +LONTIUM LT9611C MIPI DSI TO HDMI BRIDGE
+> >>> +M:	Sunyun Yang <syyang@lontium.com>
+> >>> +M:	Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+> >>> +S:	Maintained
+> >>> +F:	Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+> >>> +F:	drivers/gpu/drm/bridge/lontium-lt9611c.c
+> >>> +
+> >>>  LOONGARCH
+> >>>  M:	Huacai Chen <chenhuacai@kernel.org>
+> >>>  R:	WANG Xuerui <kernel@xen0n.name>
+> >>> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+> >>> index 4a57d49b4c6d..b8959b8e2ad0 100644
+> >>> --- a/drivers/gpu/drm/bridge/Kconfig
+> >>> +++ b/drivers/gpu/drm/bridge/Kconfig
+> >>> @@ -177,6 +177,24 @@ config DRM_LONTIUM_LT9611
+> >>>  	  HDMI signals
+> >>>  	  Please say Y if you have such hardware.
+> >>>  
+> >>> +config DRM_LONTIUM_LT9611C
+> >>> +	tristate "Lontium LT9611C DSI/HDMI bridge"
+> >>> +	select SND_SOC_HDMI_CODEC if SND_SOC
+> >>> +	depends on OF
+> >>> +	select CRC8
+> >>> +	select FW_LOADER
+> >>> +	select DRM_PANEL_BRIDGE
+> >>> +	select DRM_KMS_HELPER
+> >>> +	select DRM_MIPI_DSI
+> >>> +	select DRM_DISPLAY_HELPER
+> >>> +	select DRM_DISPLAY_HDMI_STATE_HELPER
+> >>> +	select REGMAP_I2C
+> >>> +	help
+> >>> +	  Driver for Lontium DSI to HDMI bridge
+> >>> +	  chip driver that converts dual DSI and I2S to
+> >>> +	  HDMI signals
+> >>> +	  Please say Y if you have such hardware.
+> >>
+> >> Please wrap the code to appropriate limits.
+> > I checked the others in Kconfigs they appear to be similar,
+> > still i will try to fix it.
+> 
+> This is nowhere close to the limit expressed by coding style.
+I will fix this.
+> 
+> Best regards,
+> Krzysztof
