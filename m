@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92D5FC44529
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:01:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9322EC44529
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:01:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02B5D10E92A;
-	Tue, 21 Jul 2026 11:01:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8B6010E920;
+	Tue, 21 Jul 2026 11:01:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="rV1gnc0A";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="lp0fPofI";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010058.outbound.protection.outlook.com [52.101.46.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A59FC10E916
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:01:22 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010022.outbound.protection.outlook.com [52.101.85.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79D9810E92C
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:01:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MVt2yMmMFMNQUgaWEv0cj974zPpJGgu5RpFrXTCIcu7r/pB0FCwCZjENnnSp+2D+1ETiwch8Qmop5XLl9t9lK7p8QdiUK810KIkuRTQm6EzOj68ljfnFta2qlnh7Rzs1QRdmOpQn9FV0eKTMcNZ2TMPnt/P7FxUl7vJmQlx39s/lprFV/VLSoaZPRE8wPNro5hbhkwdz68Xp87gEQ5HsIuZOF+VbZxRV6qjLJaCt93y+sA6f5ZtDGxy6qJDVOSqHevIDHD2JS7cBmIbaEnQsIfmHcPVsUINFsANGjBF4eLhYj34NDPRenwPikQhWAxcgYYgIxBAO6qpISS8iDjl2SA==
+ b=E92vkY3SK9XXWpdS7sWDbP4KTf+MDSKoKhRJ5cZ7sQJE5UyDdM0Tr+wR2F9x0pHuuRX6hzErKRsFNVfEVGFTAdW7XKcNjhAwOmVo8nyFHusFOJNdVCd0Due8YHy+F1pbId4Z9NBmPdr7FpGAoa9qra7nhQzZ6/4zx29ZqPVl9Nzd5tijr+zIjr0HSc4ZKbvnJmqJGshu6NKGq5Xi6pEmDpPzMc+rQavcw/+NZ/mWEhLb2Kr/5v3y2s6+lyCPC63hJGW5z5ReX96ez4qGRjlLCvrxK+fQA5XYwLysAl11KBBvUuRVBGmiKBWvGO7wku7r4y24zj6XZy4uusL3iJ5sSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K0uH93Hmn6DG86otbDsoaCULddw9unWdF6WEYZa6fUY=;
- b=NJpNb5NAy5NtkYNmlLNEVs0l1IXQ4qKQUghcHSIisNgoWMVrX/rCDUFaiC7wNMVAEvVNtkpaD276HDI/ggzhaZaKiF+F/CJSlxzb9Aq7mTe4croHXC8Vyaur3MoeVSLr9LsPG+yJ4zr7ecChXN/rXwpa8iKQTfkliYrwrBmX95NAOUSrfNvj6FTKpWFI1FhODMghySHRY4XkOYEZc+ptLc2bzvVuZmX4ShJv1bwjcB+H34ZtNeIEhP3RwLR/vwFcOAEBY0KDex3jZvPomY1kHULlOW5oUD+2WXxR3czt9HsmGP9eIJGiBUQmdx+q8lllEJSvU4Sv75vhZkaxg6YKxg==
+ bh=7qtPw4WvS/IJUeKdZuUP7VnjY20rtwIw0y8xhQcyJZQ=;
+ b=UgaAEBDfVrkricEfzZ2o8Ahn1ip/gLiDZAodK7dVcn1T3kly+c0yLcuL5xtlswQ03mDPlMGESB1yvVGBv0AT/qh0CgPKnKJwByXXYpguqnY9a2x+9j2NBn3XnnTgn2MXXJmL6q64jAvsIlqpiwVf3sFy8q0iXOk8R6FaDOrirKpTviON5Sy4NetHPkV7/1Kz3Zuu4nk2OykN/Ll9a3W6gGA964X53f9dTZmbBfuHZ9GvpnUqUsohZrot5N2+xbe9U3p7M1x5gnViWMjmaLHEPzBn+2LxZ0kHyRnetwf6eESXkw83TUCBqNZuL9xNF/TwF82aAKPikCXIONfhx+mIYg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K0uH93Hmn6DG86otbDsoaCULddw9unWdF6WEYZa6fUY=;
- b=rV1gnc0AOUYdKkHN6xBJn/27CKAp3ef+1ct3aHpWVSEX3gKRm7tCIIo2V1Z4rjTVnG3DbUNC6Zvj4PtQ2Jqad0JG3ymOXCDbdExS4ggf4xKWOcLCshl+wIxtho3F5PfMyM3eI3WWjV6UF9EaWGyrlTnxSKLSlH+VSmnLsPNy4a8ZyUJIQH92v3TSKGG3W01T42U9qtCU6Ozz/dtMh8r7golZlWPkdBuztNKc6oBlsgJs3RcBETQ6Cxq0dwoebiV2ebXXA4xzkUqRXHvEd+GRxmBPwA/rpt0viWT7NcLSEE0yYwJPfr7XjJhKXFqsiHeqCD+VII/hzbIFQjNSfZ4NXw==
+ bh=7qtPw4WvS/IJUeKdZuUP7VnjY20rtwIw0y8xhQcyJZQ=;
+ b=lp0fPofIrrQtQRD+Xd9bPDF5fc0ph4mCU7TWuRNeUoVJdFB3PvsMEcecCQoKhdP0ksQ/dr7+TkORESreVE8XGT0V+giN9ubHMcfe/lwij2xo3uXfuNQiQZ8hzgP0YzWkg9c0d2gbPwh8VBNS7k4SryGKVH0olypecoXKE5nzIX4IzrS/3VI5Tpm1KS6pNU8HHDfozAPK734rFckX+BKAWC2/jI/232ZRbTyjK0eK/EymhtfTdNwft+NuJCunY0lrTxaPDmPfiS02cD+7U5WyP+cy0IK9WNYdsvGmCyAgK/ahQ8l44lxV3tJ+Z0k2dKHcyentrYO+VnFoOo/TpFiQvQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
  by CH3PR12MB7667.namprd12.prod.outlook.com (2603:10b6:610:14f::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
- 2026 11:01:17 +0000
+ 2026 11:01:22 +0000
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0245.009; Tue, 21 Jul 2026
- 11:01:17 +0000
+ 11:01:22 +0000
 From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 21 Jul 2026 04:00:16 -0700
-Subject: [PATCH 7/8] gpu: nova-core: convert relative registers to new syntax
+Date: Tue, 21 Jul 2026 04:00:17 -0700
+Subject: [PATCH 8/8] rust: io: register: remove deprecated relative
+ register rule
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-registers_fix-v1-7-3711b2317e1f@nvidia.com>
+Message-Id: <20260721-registers_fix-v1-8-3711b2317e1f@nvidia.com>
 References: <20260721-registers_fix-v1-0-3711b2317e1f@nvidia.com>
 In-Reply-To: <20260721-registers_fix-v1-0-3711b2317e1f@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -65,71 +66,71 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, Alexandre Courbot <acourbot@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: SI3PR02CA0007.apcprd02.prod.outlook.com
- (2603:1096:4:295::9) To CH2PR12MB3990.namprd12.prod.outlook.com
+X-ClientProxiedBy: SI1PR02CA0026.apcprd02.prod.outlook.com
+ (2603:1096:4:1f4::11) To CH2PR12MB3990.namprd12.prod.outlook.com
  (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CH3PR12MB7667:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3401be1f-432c-460c-99ef-08dee717638e
+X-MS-Office365-Filtering-Correlation-Id: c9276800-8fbb-4d3f-1c5e-08dee71766ba
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|23010399003|366016|7416014|376014|1800799024|56012099006|11063799006|10067099003|921020|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: k/WBjrljg5b/sD4zzNtut8yHDlVmfBtaPMUvlbXT/5BfWZguWNGwhEdkHn2f933s2dlE9CEq+l25QKtEXsLaavINMlzmTf5EfEpR/3WyB2OOQWJb2H6TUISGsiWM/1+R6eUZo/FOeW54Qo96CpmcQ50Gf3N3Uq49bdUBaEbzPsOLqS16mnUDIvJDUB2BafGGzNLuSPOSf2+vD8PY7MpmvXr/1djCKcnW0kcfsYU4pQ7vR1FCGxw9BIm4p9IignNK8ohQSwgUUxmY7ErI0qgvCIhbniEHFEw9a+pyHd4kdFRoMrWxnw7HQqBuW+8Iv22jOAFXWA50xMddo5gjQ/fMx/L75Sl2PHKbDIPGTUPt66754NIaHnBGO9UH0AHwOiIDJ63bcgp3PVhFNHbjuVqHOjFmeEVOLWtqPxJuZNpElTuaz6xL0NeLeh3H2VjvXt08nKKA3pVKo5AUEOB5SNMtcBZSQ2rMuoSXm0xBk/DAliP8zll0JRh/c7hqsI3E8Nk0bh8M9a57yMaGvRRpzzKW+9nhsyWEFH0xw3RDrpTwNihpkPWDGvPq8tjGkGO4JfZaGHLUVoz5hLDBztcq7b6ceQHsXGLNPGbeuJ3U/SrFYEu15Fv3j1VOtNZ6L2At9fcDjxVbp+OSW/vAecgere9bFCNAm4g292msjBBFKUmrrX2wZ9mJ5KxsvC4IuS0lqoZor6UsRy34lICiO7XK9ziTBw==
+X-Microsoft-Antispam-Message-Info: qBeAtGQk0s1WcRxfooRJkAcfXbryFG/27F06NckVfxAjyXCV4H+9x0IDynlrNeoYtKqqxepvr3khaWK8FyGSR4remOo5e2X0RiZy+AQgALJIQA/W0ByviphMzXnB7MEgRk5/QwwWxKP5cKbUHHPbXp/5aZS7pYUUqF9qMCkNXKTCePMrkWTiDKA67E7Y33m18nAYvChFgVwq2g93hV6sXfDd7+7ti2+4FxnR1G1SXnTqkz0WxYpVI4RUN5Cf5H3Nw/o7L1ykAbP69o0AUMUO3HMrY7qFMmouJ57mR9t7PwtlnINaEDed3tSWOQeaRpHZSg6cmJZqcyAz1V+2v1uSZ2H2xOF3sZ2lDUIfaUrsiqlfECTDkDwrzvoXs/eBzVX/NyM5m9+y07CwuvpfkHCzFsaRFZbUplVPNmqVRr7eYKX+WRpa0UPu1VQQbCtogUnnyNNkbDZG1BDAF1OScThGdY+FtXtnZBmXp3Y2ZMuMrEw4NtxTFcVgfeaMIYDR6Qpiu8YpgU4e/nP7XIFisRrW6g/lyhjg7IDz4tBS15z3QhUADwBhcylKHhsun1wsPs2i2mPS8ST4yvQuCFOHtDRPwGXa+6sPS8uoOnWG/DGWZxLBD3Lb1Yjmt4q9P6fUVCoOG7az7EnBE/S3eEMX/62JDitogBTGNrMGWPHIjfa4a+3pFMUZxVQFRGJy4X/eUU50ldlXCUVdaiJDuunXX0ooQg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(56012099006)(11063799006)(10067099003)(921020)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bFdZY0k0RFlUc0NSMXBiRHg0MnpaaVIzUmRUdlNrbGxtWjlnSUlsOXFDdFFU?=
- =?utf-8?B?Y3pOWXFGdDg3Z09mbFRldVhUVDRGVkY3ckxGcnRPVEF1cm5NZUhNekxIa3E1?=
- =?utf-8?B?dU5rQUlyRmVXeWdaOUlrM3N6U09UczJNREY4K21xZnpLNUxDejQzMitJZVFN?=
- =?utf-8?B?ZXQxa0x4QjJKVjV0QUlVUFFWK3J6aU9QQmsvKzQ4N1ZiZ0hjQXQ5UUNtNzNH?=
- =?utf-8?B?dG4xa2ZMSkpMdHFTVGE0R01sVnJXQm5Ham1RbjBwOEpyQmtrNjU5ckZ3dGhp?=
- =?utf-8?B?eEtudC9MQmFISTExMTByRzB6TnJEZDk4K1cxL1lvdjBmRTFiVVM2VzVISjBs?=
- =?utf-8?B?dzMwbVNFRWtWSllzNkR1ZTZVcVdiekczeFlRNDBFMTYrMWtPV0ZoV1ltOURn?=
- =?utf-8?B?RldIMlVGY0h0YUxmTXlBWDZTZkRITHltUWJJaW82QUE4b2RmVG02dmo2alRx?=
- =?utf-8?B?VkpQdm9CdDJnWWNFM3AzTGo4SXMwOWVySHVyUVRMMGJISHRqNFE3MlhhdHhI?=
- =?utf-8?B?ZnRraXZhTjI2ZHlMQUMrOEVQUG0vdk9SNk1GekJwS1VzOHltS0RCWllVbm5N?=
- =?utf-8?B?aFJoK0w0SzV6d3pqekNpWThUYUN5Yys2M3habm1qSXVYWUNjVWJDd3pPcGVt?=
- =?utf-8?B?dG5aTThQRE93cFVEZm5GbVQwV2RzaGVhMWFmdzJnN3lxUWJqRXRDYWJENkZF?=
- =?utf-8?B?YmR2NnpLZlNxMDlyeER0T2JMTWZ1a3RxaUNzTXY1a1VVVVZOTnhXd3VnSmlV?=
- =?utf-8?B?c0pBZXNoYysybVA3T0huWVRveHB4Y3RvT0ZXOVc0R0VvYUc5ZXVybi9FOWsx?=
- =?utf-8?B?dzZZNWkxbU1pQUtGRFA2TGZtc1dkbnRPQzNRdExDd1o0OHo0THBBWU1ScjBR?=
- =?utf-8?B?RlB1NEZYeUhRR1lBdHg2aTFVRDBJNkRNUkJ3cmtiNlBpdG5yZ0pWMi9MWU1H?=
- =?utf-8?B?UUtlQUNaYlhyQXNRSEI4MmFkVWFoWU1STTd5WTVmYjF5Vk5aUmlBR3E3b0tV?=
- =?utf-8?B?MjlBR3pLWk9mT3oyRExtZHluVXdYWitmUzVCbWJIdm5UUjNKRm54SlQrZUV1?=
- =?utf-8?B?WE5GNGUyUnBKSEhqNStCeHVqdlE1U2VVeTNmS3JkZXh1WkVjMFpDUFNSL2ly?=
- =?utf-8?B?S1Q5aVpNQlphc0JtZlg1eUdYTlc0TXBKWitzOFRHbU94Z1BNWHAxcUdoUXFK?=
- =?utf-8?B?bWhuMjJLQ3pXcDJNK3Y0MFZ1SnFYdzJ0eEtJUC9CNXlDSktGOUZCVmFhQm1k?=
- =?utf-8?B?dTc5dWUxbEpTbUxtS0tWZ0tUNHErQjRTdmxONmtDMVNqSWhHS3FJd0VWM1JN?=
- =?utf-8?B?eGFWdkFrVEc4cUk4dnlpK1JQMmlDZmY5UmpjNWFuUkxoNVdwcTl1a1Q0a3pY?=
- =?utf-8?B?cWtybVdYLzJ4TkhnSy84cXRwYVZ5TFZkVE1yUCtyZWlXMlJTRHhSeEp1U3Vh?=
- =?utf-8?B?OFU3RUhveGZYR1dVTWs4V3NNK041emladnhCd0RhNi9zcWRlUDVGeU5yVVZD?=
- =?utf-8?B?LzA0bHFxSUZ2T2N4Y2VveFlMQUZSZHk1d0djakNtSXhIR3dnNW9aRytOTkxk?=
- =?utf-8?B?U2RWV0Q4cWwrc0hlQ2EvLzdHeU4rRHlNd2FYT0Z0UmUxNXVuUHhxVGxFSFJp?=
- =?utf-8?B?L1FXUHhEbUMwZy9xMTE3RTk2dkFuS2d5Wm91SUZKRmtaUjFTcmY1R3FacU43?=
- =?utf-8?B?YUtoSGY1L0ZVMnkxSWR4ZGI1UjVlNjZDQmMzdEtJY2pOMlFZRG1FMk83aXhh?=
- =?utf-8?B?Y1RmSFh0czU4RkI1Q29QSmRyRmVVNGZ3aG5ubEsxVXd1KzZISHRnV1oxdkVh?=
- =?utf-8?B?cUQ2WVV5UzBpcXA4L2tYbXhVRTRtZHI3OGlxRFRlaUZFRVhhSm9RY0FzUndN?=
- =?utf-8?B?YnZla0Y3bHhwd1pkY0tvbGFScDF6NnRWSGN1WFpwRUd3ZFo0b2RTbXJtZ1NN?=
- =?utf-8?B?ZjVTWUhBSlN6eExPRXgweFdmU1NvVG1HZlMzUDltM1c3dVd1MTdWTDVPSU9J?=
- =?utf-8?B?cmc1eG96MnordUpsQXJ5cjhnWUx1Rk9Ebm1OeVhsckF0VWc5RVpNRS8rdmcr?=
- =?utf-8?B?bHoyZ3F5alplVEpqYyswQU1ta3htd0NJZzdacjhqeEk5bUhGMHVqOVRITnZS?=
- =?utf-8?B?OHVqajJhQ0g4WEUzU2lrU1RGVTNWeEtjbDVoRG5aMG5Uc29oWVQxNFRRTUZi?=
- =?utf-8?B?SzJzTU92dEhZUit0bFNsNjJpeGZxekxabzB6YnJsdGVTcFJnU1pqZkNkOWlh?=
- =?utf-8?B?cVBBeXJINEFqTWROaS9JdnZLRnRKSm93bUtKUlJPNHRsUkR1VTBBNk5hR3Ry?=
- =?utf-8?B?cDZaUmF3S2FpMWl3NzA2bVBwTXFuRnNmc2hUelU5YzFPTXNLMXJUdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MVBGVGkybDFJKzY2UkZqcy9oMTB6U3Ftd2VnVFg4TFpmVXptNmxoR1lTZFVx?=
+ =?utf-8?B?bmhrK1h6SVI4ZElOZDhmVExHbHdMaWtCWS9UQ3ZTVWxjK25RVGswQ3dHd3c5?=
+ =?utf-8?B?N1A4dXRkaFk2Zi94T3lXM29OTW5yc1FWdnNNcmpxb200VFVFY2FaaWRhb21X?=
+ =?utf-8?B?NHYyMHdsVkt5VEU5aFFlL3kyd0djN2pNelcwOVBkNk9ubUJ5aC9ZVFF2bmpR?=
+ =?utf-8?B?UzZOWGRUZ3JYcG53Vk5HWXoydmR2Qjc5d3doMnhUL3llTDZDOXgwbWNsbXpO?=
+ =?utf-8?B?OHhnanJvYjk0M241cSswSkJ0SzQ2U1ZpNDJjazhCRzBnQS91bmd0dFZ1eTJR?=
+ =?utf-8?B?TjZVSlNpNk1mb2lTc0R0MHZROXdQaVFEYlpXSzRBM2pESFFKV3lxV2hlbmxh?=
+ =?utf-8?B?eVBxc2N1a1BsNXNsYUFlRHVzMUZsalYrVUs0U0FFc0paSHdhcWN0dXkrdFlw?=
+ =?utf-8?B?cjBpaHovNURaZmJLNS9hVk52dW1Xd0Q0K1Q5ODNvQWNtckZEdEI5RTJTc1BN?=
+ =?utf-8?B?QWZqcDQxWUVwSHFHdVJ3dTRGUUpweG1STXQ2T1pXc0dlbTlwazVhMmNOY2d0?=
+ =?utf-8?B?ZEd2QmFyMDhpaFRZYm5YOHNzSjUzSUdIWUo0R3hQWGx6eVVZRjhSczN1aW03?=
+ =?utf-8?B?d2VEKzZjR1pxWTZDN1FSekNCSnM4aFhmTjJDOVZwWWRlK3pWWnpXSCsrZENZ?=
+ =?utf-8?B?V0U5MmpkOTBRTFJPWWZwcXJyZHNmU1pMbDQ0Uy9CZ3l3YXpDUHVXYWRHWXNh?=
+ =?utf-8?B?eS80VmY1SXpsMTZCZUZLbUpDL1VkRVpxRkhtU1dHSjNHM0p3QUJSRjY1RzZi?=
+ =?utf-8?B?eWNNSjk0b25INXZZVlh0akFLL0RaaGcwNlRwRkZkY1Zid1hrTUQ2dEtnVTNP?=
+ =?utf-8?B?SERQZFV2QWEwV3gvK08vd1ltNWlBYStrcXFxM1ppc3o5OHdlRncwNXQ0Nzgx?=
+ =?utf-8?B?d2FiMFd3UkpaSEJ0aDRGbkdHZnNGT1ArWEFwbzdqTlB0aTdFWEF4bjNZTHRw?=
+ =?utf-8?B?UENzK1FFNTdVZGo5ZFFjcm0xdzYzdVVpSjJrdDVuUlJuYlA4WjlobnJVUmJs?=
+ =?utf-8?B?MDBIekR3am91S0p5cU9sVENFQlVZN0dLbWdrNEttUGEzeW5BOW1JeHhVcDRX?=
+ =?utf-8?B?N21Gd3pBOUJvRytPMEp6NFVITHVhR2tkS3R0blFwTVFubzJDa0ZHcHRDVjFU?=
+ =?utf-8?B?WU9iZ3hLZjdId1NCVnMzRUkwendKUEM4SFNDSzdwVlBlM2tvd0ppaWcwamo1?=
+ =?utf-8?B?bFZyeUJoem9pZ3pEUWxLRlF3NDM0ZEYwQ0pqcUNQWnppM2FVbmpGZkdmaHhx?=
+ =?utf-8?B?cmFhTE5MY3MwUlZpeEtsQlJqWDNCZHhDblU3aDZBdjl3YXFhd0l1SW00R1pO?=
+ =?utf-8?B?S1dpT0ZzSWhFNUt5djRZb0UxelBjYXJQSDQvRzRIb1RuR3lETHBGcEJCT1l0?=
+ =?utf-8?B?cmlLMVN4MzRiaXVOcjFqR1NrZnluWVhjdHFJV2liSGg3TkVEeS9TemowMG0r?=
+ =?utf-8?B?MkNjQ1NzZWhoVitEM1NNRXV5enNuZWdJTG1abnM0SVVuUXEyaFFKbHkvWXpZ?=
+ =?utf-8?B?c2pIL2I2YmcxWStoNUhuZGJBTkZtVjhFTSt6bkkzUUpIczAyOGpudUcvRGZ4?=
+ =?utf-8?B?SUh4Wm4zQkQ2VVZFSEo2dnZmUFNjU1FxNmRiUG4yK0Vmano1SlhSSEp0TUZy?=
+ =?utf-8?B?T09MM09BdDc2RjJnV000bFJ1R2U4eWF3V2ZhUEdKVG5FOU05Tm1GMWx3NHNr?=
+ =?utf-8?B?V1FhZlJwZHlTWWpzOGhPTmtNWHhBUU8vcXVmTGlZZVpaMUxVZjc4YjFKUnRa?=
+ =?utf-8?B?b2JlbU5mQVNuaGFJVk9WZys3NE42WGdLOGllYk5pUGw2cFFIb1BGcmlTWDlh?=
+ =?utf-8?B?aWpBZjF2ZlBJVTlhOGlpblZBelFwU3h5a2t6NWp0MXM4ZnJvTWNWaFArNVRq?=
+ =?utf-8?B?aHlEV3JUUzFYTEkzbzlyaTVhN2ExVWdab2lxc3A4N0NEb3ZNSjZDTHRNWDVD?=
+ =?utf-8?B?aUJyWGJUdXN3WDEyU3hPc2ZHZCt5Mmw3ZUVxL3NwVDAzUVNDaURMNDlOWExT?=
+ =?utf-8?B?Zlo3RFFpemN5alEyVkpXUjI4T3Q2UWlKKzU2V0poUjk4UmprQWJpbHZyUHJ4?=
+ =?utf-8?B?bWxSL2JwaThKWFh6dUVOT2VTNjI5UVFpTFZzYnExcUp0Z3ZFcktxdkdhLzBP?=
+ =?utf-8?B?Wjk0bUY3U2Z5YTB4SDZFWTlReXQwclR6TytkbzhlZk9XWWxibnZ5eXVzQS9T?=
+ =?utf-8?B?VWx3ZDBmd0VRTXBkdnZrQy9ER3dVZkxwYUFrVis4SG12SGY5MVh5aXhVZlpx?=
+ =?utf-8?B?eXF2bHFYSE1wa3VmQVpzWlNqMW42U0NYc3l4dXBPSDhRQnJsVGNhUT09?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3401be1f-432c-460c-99ef-08dee717638e
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9276800-8fbb-4d3f-1c5e-08dee71766ba
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 11:01:17.5745 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 11:01:22.8295 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0BA3wQNvqOHGfqYgfHiYxApK8omAeSDp0GleS6Ds2dWTg5VtJF4KidYSM0shVQarPGAGwQD8LomMQKuGjVoF2w==
+X-MS-Exchange-CrossTenant-UserPrincipalName: /7hRjwNoJ4WP+bYG3Spxe3G+C7mWPWVPviO7oJc1iNKVQpJcBrYpxJ6+8saT4s3WIljHrHEHH07pnX/GUbWylg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7667
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -146,267 +147,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert all relative registers declarations to use the new `Base:`
-syntax.
+Now that all users are converted to the new syntax, remove the
+deprecated rule for the `Base +` relative register base syntax.
 
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- drivers/gpu/nova-core/regs.rs | 74 +++++++++++++++++++++----------------------
- 1 file changed, 37 insertions(+), 37 deletions(-)
+ rust/kernel/io/register.rs | 20 --------------------
+ 1 file changed, 20 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index 397124f245ee..744c6087220e 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -158,19 +158,19 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
-     // through a primary and an EG (egress) pair that must both be programmed to the same
-     // address. Hardware ignores bits 7:0 of each LO register. The boot path uses a fixed
-     // HSHUB0 base, so the multiple runtime-discovered HSHUB bases are not needed here.
--    pub(crate) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x00000e50 {
-+    pub(crate) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base: 0x00000e50 {
-         31:0    adr => u32;
-     }
- 
--    pub(crate) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x00000e54 {
-+    pub(crate) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base: 0x00000e54 {
-         19:0    adr;
-     }
- 
--    pub(crate) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x000006c0 {
-+    pub(crate) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base: 0x000006c0 {
-         31:0    adr => u32;
-     }
- 
--    pub(crate) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x000006c4 {
-+    pub(crate) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base: 0x000006c4 {
-         19:0    adr;
-     }
- }
-@@ -323,30 +323,30 @@ pub(crate) fn usable_fb_size(self) -> u64 {
- // PFALCON
- 
- register! {
--    pub(crate) NV_PFALCON_FALCON_IRQSCLR(u32) @ PFalconBase + 0x00000004 {
-+    pub(crate) NV_PFALCON_FALCON_IRQSCLR(u32) @ PFalconBase: 0x00000004 {
-         6:6     swgen0 => bool;
-         4:4     halt => bool;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_MAILBOX0(u32) @ PFalconBase + 0x00000040 {
-+    pub(crate) NV_PFALCON_FALCON_MAILBOX0(u32) @ PFalconBase: 0x00000040 {
-         31:0    value => u32;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_MAILBOX1(u32) @ PFalconBase + 0x00000044 {
-+    pub(crate) NV_PFALCON_FALCON_MAILBOX1(u32) @ PFalconBase: 0x00000044 {
-         31:0    value => u32;
-     }
- 
-     /// Used to store version information about the firmware running
-     /// on the Falcon processor.
--    pub(crate) NV_PFALCON_FALCON_OS(u32) @ PFalconBase + 0x00000080 {
-+    pub(crate) NV_PFALCON_FALCON_OS(u32) @ PFalconBase: 0x00000080 {
-         31:0    value => u32;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_RM(u32) @ PFalconBase + 0x00000084 {
-+    pub(crate) NV_PFALCON_FALCON_RM(u32) @ PFalconBase: 0x00000084 {
-         31:0    value => u32;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_HWCFG2(u32) @ PFalconBase + 0x000000f4 {
-+    pub(crate) NV_PFALCON_FALCON_HWCFG2(u32) @ PFalconBase: 0x000000f4 {
-         /// Signal indicating that reset is completed (GA102+).
-         31:31   reset_ready => bool;
-         /// RISC-V branch privilege lockdown bit.
-@@ -356,17 +356,17 @@ pub(crate) fn usable_fb_size(self) -> u64 {
-         10:10   riscv => bool;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_CPUCTL(u32) @ PFalconBase + 0x00000100 {
-+    pub(crate) NV_PFALCON_FALCON_CPUCTL(u32) @ PFalconBase: 0x00000100 {
-         6:6     alias_en => bool;
-         4:4     halted => bool;
-         1:1     startcpu => bool;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_BOOTVEC(u32) @ PFalconBase + 0x00000104 {
-+    pub(crate) NV_PFALCON_FALCON_BOOTVEC(u32) @ PFalconBase: 0x00000104 {
-         31:0    value => u32;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_DMACTL(u32) @ PFalconBase + 0x0000010c {
-+    pub(crate) NV_PFALCON_FALCON_DMACTL(u32) @ PFalconBase: 0x0000010c {
-         7:7     secure_stat => bool;
-         6:3     dmaq_num;
-         2:2     imem_scrubbing => bool;
-@@ -374,15 +374,15 @@ pub(crate) fn usable_fb_size(self) -> u64 {
-         0:0     require_ctx => bool;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_DMATRFBASE(u32) @ PFalconBase + 0x00000110 {
-+    pub(crate) NV_PFALCON_FALCON_DMATRFBASE(u32) @ PFalconBase: 0x00000110 {
-         31:0    base => u32;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_DMATRFMOFFS(u32) @ PFalconBase + 0x00000114 {
-+    pub(crate) NV_PFALCON_FALCON_DMATRFMOFFS(u32) @ PFalconBase: 0x00000114 {
-         23:0    offs;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_DMATRFCMD(u32) @ PFalconBase + 0x00000118 {
-+    pub(crate) NV_PFALCON_FALCON_DMATRFCMD(u32) @ PFalconBase: 0x00000118 {
-         16:16   set_dmtag;
-         14:12   ctxdma;
-         10:8    size ?=> DmaTrfCmdSize;
-@@ -393,15 +393,15 @@ pub(crate) fn usable_fb_size(self) -> u64 {
-         0:0     full => bool;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_DMATRFFBOFFS(u32) @ PFalconBase + 0x0000011c {
-+    pub(crate) NV_PFALCON_FALCON_DMATRFFBOFFS(u32) @ PFalconBase: 0x0000011c {
-         31:0    offs => u32;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_DMATRFBASE1(u32) @ PFalconBase + 0x00000128 {
-+    pub(crate) NV_PFALCON_FALCON_DMATRFBASE1(u32) @ PFalconBase: 0x00000128 {
-         8:0     base;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_HWCFG1(u32) @ PFalconBase + 0x0000012c {
-+    pub(crate) NV_PFALCON_FALCON_HWCFG1(u32) @ PFalconBase: 0x0000012c {
-         /// Core revision subversion.
-         7:6     core_rev_subversion => FalconCoreRevSubversion;
-         /// Security model.
-@@ -410,12 +410,12 @@ pub(crate) fn usable_fb_size(self) -> u64 {
-         3:0     core_rev ?=> FalconCoreRev;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_CPUCTL_ALIAS(u32) @ PFalconBase + 0x00000130 {
-+    pub(crate) NV_PFALCON_FALCON_CPUCTL_ALIAS(u32) @ PFalconBase: 0x00000130 {
-         1:1     startcpu => bool;
-     }
- 
-     /// IMEM access control register. Up to 4 ports are available for IMEM access.
--    pub(crate) NV_PFALCON_FALCON_IMEMC(u32)[4, stride = 16] @ PFalconBase + 0x00000180 {
-+    pub(crate) NV_PFALCON_FALCON_IMEMC(u32)[4, stride = 16] @ PFalconBase: 0x00000180 {
-         /// Access secure IMEM.
-         28:28     secure => bool;
-         /// Auto-increment on write.
-@@ -426,17 +426,17 @@ pub(crate) fn usable_fb_size(self) -> u64 {
- 
-     /// IMEM data register. Reading/writing this register accesses IMEM at the address
-     /// specified by the corresponding IMEMC register.
--    pub(crate) NV_PFALCON_FALCON_IMEMD(u32)[4, stride = 16] @ PFalconBase + 0x00000184 {
-+    pub(crate) NV_PFALCON_FALCON_IMEMD(u32)[4, stride = 16] @ PFalconBase: 0x00000184 {
-         31:0      data;
-     }
- 
-     /// IMEM tag register. Used to set the tag for the current IMEM block.
--    pub(crate) NV_PFALCON_FALCON_IMEMT(u32)[4, stride = 16] @ PFalconBase + 0x00000188 {
-+    pub(crate) NV_PFALCON_FALCON_IMEMT(u32)[4, stride = 16] @ PFalconBase: 0x00000188 {
-         15:0      tag;
-     }
- 
-     /// DMEM access control register. Up to 8 ports are available for DMEM access.
--    pub(crate) NV_PFALCON_FALCON_DMEMC(u32)[8, stride = 8] @ PFalconBase + 0x000001c0 {
-+    pub(crate) NV_PFALCON_FALCON_DMEMC(u32)[8, stride = 8] @ PFalconBase: 0x000001c0 {
-         /// Auto-increment on write.
-         24:24     aincw => bool;
-         /// DMEM block and word offset.
-@@ -445,29 +445,29 @@ pub(crate) fn usable_fb_size(self) -> u64 {
- 
-     /// DMEM data register. Reading/writing this register accesses DMEM at the address
-     /// specified by the corresponding DMEMC register.
--    pub(crate) NV_PFALCON_FALCON_DMEMD(u32)[8, stride = 8] @ PFalconBase + 0x000001c4 {
-+    pub(crate) NV_PFALCON_FALCON_DMEMD(u32)[8, stride = 8] @ PFalconBase: 0x000001c4 {
-         31:0      data;
-     }
- 
-     /// Actually known as `NV_PSEC_FALCON_ENGINE` and `NV_PGSP_FALCON_ENGINE` depending on the
-     /// falcon instance.
--    pub(crate) NV_PFALCON_FALCON_ENGINE(u32) @ PFalconBase + 0x000003c0 {
-+    pub(crate) NV_PFALCON_FALCON_ENGINE(u32) @ PFalconBase: 0x000003c0 {
-         0:0     reset => bool;
-     }
- 
--    pub(crate) NV_PFALCON_FBIF_TRANSCFG(u32)[8] @ PFalconBase + 0x00000600 {
-+    pub(crate) NV_PFALCON_FBIF_TRANSCFG(u32)[8] @ PFalconBase: 0x00000600 {
-         2:2     mem_type => FalconFbifMemType;
-         1:0     target ?=> FalconFbifTarget;
-     }
- 
--    pub(crate) NV_PFALCON_FBIF_CTL(u32) @ PFalconBase + 0x00000624 {
-+    pub(crate) NV_PFALCON_FBIF_CTL(u32) @ PFalconBase: 0x00000624 {
-         7:7     allow_phys_no_ctx => bool;
-     }
- 
-     // Falcon EMEM PIO registers (used by FSP on Hopper/Blackwell).
-     // These provide the falcon external memory communication interface.
- 
--    pub(crate) NV_PFALCON_FALCON_EMEMC(u32) @ PFalconBase + 0x00000ac0 {
-+    pub(crate) NV_PFALCON_FALCON_EMEMC(u32) @ PFalconBase: 0x00000ac0 {
-         /// EMEM byte offset (4-byte aligned) within the block.
-         7:2     offs;
-         /// EMEM block to access.
-@@ -478,7 +478,7 @@ pub(crate) fn usable_fb_size(self) -> u64 {
-         25:25   aincr => bool;
-     }
- 
--    pub(crate) NV_PFALCON_FALCON_EMEMD(u32) @ PFalconBase + 0x00000ac4 {
-+    pub(crate) NV_PFALCON_FALCON_EMEMD(u32) @ PFalconBase: 0x00000ac4 {
-         31:0    data => u32;
-     }
- }
-@@ -524,21 +524,21 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
- /* PFALCON2 */
- 
- register! {
--    pub(crate) NV_PFALCON2_FALCON_MOD_SEL(u32) @ PFalcon2Base + 0x00000180 {
-+    pub(crate) NV_PFALCON2_FALCON_MOD_SEL(u32) @ PFalcon2Base: 0x00000180 {
-         7:0     algo ?=> FalconModSelAlgo;
-     }
- 
--    pub(crate) NV_PFALCON2_FALCON_BROM_CURR_UCODE_ID(u32) @ PFalcon2Base + 0x00000198 {
-+    pub(crate) NV_PFALCON2_FALCON_BROM_CURR_UCODE_ID(u32) @ PFalcon2Base: 0x00000198 {
-         7:0    ucode_id => u8;
-     }
- 
--    pub(crate) NV_PFALCON2_FALCON_BROM_ENGIDMASK(u32) @ PFalcon2Base + 0x0000019c {
-+    pub(crate) NV_PFALCON2_FALCON_BROM_ENGIDMASK(u32) @ PFalcon2Base: 0x0000019c {
-         31:0    value => u32;
-     }
- 
-     /// OpenRM defines this as a register array, but doesn't specify its size and only uses its
-     /// first element. Be conservative until we know the actual size or need to use more registers.
--    pub(crate) NV_PFALCON2_FALCON_BROM_PARAADDR(u32)[1] @ PFalcon2Base + 0x00000210 {
-+    pub(crate) NV_PFALCON2_FALCON_BROM_PARAADDR(u32)[1] @ PFalcon2Base: 0x00000210 {
-         31:0    value => u32;
-     }
- }
-@@ -548,19 +548,19 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
- register! {
-     /// RISC-V status register for debug (Turing and GA100 only).
-     /// Reflects current RISC-V core status.
--    pub(crate) NV_PRISCV_RISCV_CORE_SWITCH_RISCV_STATUS(u32) @ PFalcon2Base + 0x00000240 {
-+    pub(crate) NV_PRISCV_RISCV_CORE_SWITCH_RISCV_STATUS(u32) @ PFalcon2Base: 0x00000240 {
-         /// RISC-V core active/inactive status.
-         0:0     active_stat => bool;
-     }
- 
-     /// GA102 and later.
--    pub(crate) NV_PRISCV_RISCV_CPUCTL(u32) @ PFalcon2Base + 0x00000388 {
-+    pub(crate) NV_PRISCV_RISCV_CPUCTL(u32) @ PFalcon2Base: 0x00000388 {
-         7:7     active_stat => bool;
-         0:0     halted => bool;
-     }
- 
-     /// GA102 and later.
--    pub(crate) NV_PRISCV_RISCV_BCR_CTRL(u32) @ PFalcon2Base + 0x00000668 {
-+    pub(crate) NV_PRISCV_RISCV_BCR_CTRL(u32) @ PFalcon2Base: 0x00000668 {
-         8:8     br_fetch => bool;
-         4:4     core_select => PeregrineCoreSelect;
-         0:0     valid => bool;
+diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
+index eeb7f859f8b9..2c88ebf0057e 100644
+--- a/rust/kernel/io/register.rs
++++ b/rust/kernel/io/register.rs
+@@ -801,26 +801,6 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
+ /// ```
+ #[macro_export]
+ macro_rules! register {
+-    // Deprecated `+` syntax for relative registers and their aliases.
+-    (
+-        $(
+-            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+-                $([ $size:expr $(, stride = $stride:expr)? ])?
+-                $(@ $($base:ident +)? $offset:literal)?
+-                $(=> $alias:ident $(+ $alias_offset:ty)? $([$alias_idx:expr])? )?
+-            { $($fields:tt)* }
+-        )*
+-    ) => {
+-        $(
+-        $crate::register!(
+-            @reg $(#[$attr])* $vis $name ($storage) $([$size $(, stride = $stride)?])?
+-                $(@ $($base :)? $offset)?
+-                $(=> $alias $(: $alias_offset)? $([$alias_idx])? )?
+-            { $($fields)* }
+-        );
+-        )*
+-    };
+-
+     // Entry point for the macro, allowing multiple registers to be defined in one call.
+     // It matches all possible register declaration patterns to dispatch them to corresponding
+     // `@reg` rule that defines a single register.
 
 -- 
 2.55.0
