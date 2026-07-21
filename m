@@ -4,43 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD6A0C44537
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:11:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94CE1C44536
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:11:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D597D10EB82;
-	Tue, 21 Jul 2026 22:11:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FD1C10EB97;
+	Tue, 21 Jul 2026 22:11:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="rg0Atn70";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PWEnHDH+";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id C5A2E10E1EF
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:53:03 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1B67F15A1;
- Tue, 21 Jul 2026 06:52:59 -0700 (PDT)
-Received: from e135116.manchester.arm.com (e135116.arm.com [10.33.50.66])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 34A633F58B;
- Tue, 21 Jul 2026 06:53:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1784641983; bh=z+0sbQICk2r/MH87vzYWNV2SevbRD+kWsOGPx/9J1c8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rg0Atn70hgVOQtkjbgVzCXodm5x7Ce3cZc/wnemijvhszkDdHXX8P7FvrNL4I1ypo
- 0EMNlyS9UTEg9Z3ghyCV5CWehmKK/SPYx9IClGWJs2g2+tMzuIl6MOxzVVFfjbLGMI
- 2SLQHL2TfiiARx/9ntZnvqb0r/LpaN1eKWXK6Zp4=
-From: Raveendra Talabattula <raveendra.talabattula@arm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org,
- Raveendra Talabattula <raveendra.talabattula@arm.com>, liviu.dudau@arm.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, james.qian.wang@arm.com,
- vincenzo.frascino@arm.com, nayden.kanchev@arm.com, charvi.mehta@arm.com,
- Asad Malik <asad.malik@arm.com>
-Subject: [PATCH 2/2] drm/komeda: Initialize encoder possible_clones
-Date: Tue, 21 Jul 2026 14:52:27 +0100
-Message-ID: <20260721135227.439413-3-raveendra.talabattula@arm.com>
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B42C10EAE7
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 17:27:21 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-49548aebcd8so29984025e9.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 10:27:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784654839; x=1785259639; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=42pW+71pg0Jh6s4IcFPEIBJFPC+m1EF8ujgkpv3uhhg=;
+ b=PWEnHDH+9vnddRv8rTmcT74n7IwEeG8/hB6rV81qR5b9NBPTrfpMHM0H5KMwVyWBNE
+ fJfzfsaIWgJHJmCkV4FEOaJigeSgqsQ5dqEdeR0RpM7NXt6/OMbWisi8fUpDUZyW+/iy
+ 13KadtVlWPKtHZwxD8A8XoVNqr827W0Yz2QSwr0KVC0BBy7wX5HKJt+CgD7nzPBIsETE
+ 9H/QE7mWxc1WltLaCfhgdMVOQLvaU0+PtWpRjgYOSAS4R+IZytOa8J7JDNpARXYTFTaR
+ eJVv9Vjl9YaXsh7iR5saloJc1SVXbtv7h65531E2l6E8g8mUYDVuxEjQgXKyYSfaqTph
+ JMAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784654839; x=1785259639;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=42pW+71pg0Jh6s4IcFPEIBJFPC+m1EF8ujgkpv3uhhg=;
+ b=pGRycVm1T0ewSGw8MvEOxgYKLZC9bSUHVECUqLyLESwx/wan8CElOEnh5yG5+xgUFU
+ zMmB5sYgu0JXD54iuqqnyDoBwNKkZ7dG4WdbEhFhy252XcISSTWGx9ktNpbGvrl/b7uN
+ pRk9gIjnEbb2a253mjvqJNYXw5qO+LVPzTghzCu0X6mRUlgR/8K7AmV4dXmZ1SMCHaCa
+ VbTmYXwOw4dW4T7Nd37mQ7Y+araBJLAac+g+8Q42mFmu0rERGsaqLEdtzwfFFqAm16KT
+ yW/65ZssPz9sy2zfX7jKOEREq1Iosf1qkntsZtjKWgtNCePAb/Oqw9I5Ey/kOqRhxzJf
+ Ta/g==
+X-Gm-Message-State: AOJu0Yw3iknbm/wHGL4CXW6ADSIGkNBdZ3tDHsepUbV9519YMogM4FNz
+ w5Me0pK6OF50Qxouuw9p2TIg+zh3+Na1gdAKsdUYoMC/jDWqeVdk7fkd
+X-Gm-Gg: AfdE7cmw2kTNIMX+gWuvROq9B7X73Q23nLZh9s8r/9Z65NseUijjIFh2WU4piaUifZ1
+ vdMmzu4gWNN5ASsVtJCtnU/1mXsEWOjLLLaKK3ZdDnr2W+9iA3olWsSsv3L9PBqw6NliME863LV
+ fgjpGBYlAviqG/kXxD5eCm3vNgq+AYA5moqgxQqme5YEKdBjN61Dr515MkDl3Vri4AWznpavl7T
+ +ONqAKA4xgP+W71GZvqSur9XSRWOzZ4I1YSuH+BGhLOphIV4Z8cPvwX7cPxWozz4PbrXdB0knkN
+ Y9nIVBdzakcgRgS6r6MuF6rDjslITbeVk2otgkpn67X73VUyxetrrH8BINmzV3+7jNpYEOvi53F
+ jcpHD5FW4EbTSEHek9FrYhW464TweExKzDkBMQ5m59TVs3ccaqZCvEfLeuyej5UzxPF8ufbZ7/N
+ mDK/4KFGFt9wcS7egt0mx3O/NMFu4/qrnpOfldWQ==
+X-Received: by 2002:a05:600c:3b19:b0:495:48d7:f178 with SMTP id
+ 5b1f17b1804b1-4954a3db76amr224885175e9.11.1784654839240; 
+ Tue, 21 Jul 2026 10:27:19 -0700 (PDT)
+Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4956a4f25b6sm8214605e9.2.2026.07.21.10.27.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2026 10:27:18 -0700 (PDT)
+From: Michail Tatas <michail.tatas@gmail.com>
+To: michael@amarulasolutions.com, neil.armstrong@linaro.org,
+ jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dianders@chromium.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Michail Tatas <michail.tatas@gmail.com>
+Subject: [PATCH v3 0/3] drm/panel: ilitek-ili9805: convert to *_multi API
+Date: Tue, 21 Jul 2026 20:27:12 +0300
+Message-ID: <20260721172715.602196-1-michail.tatas@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260721135227.439413-1-raveendra.talabattula@arm.com>
-References: <20260721135227.439413-1-raveendra.talabattula@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 21 Jul 2026 22:11:24 +0000
@@ -59,62 +88,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Komeda leaves encoder->possible_clones unset, so it stays at 0 for every
-encoder. When userspace asks for writeback, the DRM atomic checks
-reject the configuration because no encoder is marked as clone-compatible,
-leading to errors such as:
+This series converts panel-ilitek-ili9805 to the
+mipi_dsi_*_multi helpers and cleans up the resulting code.
 
-	crtc96 failed valid clone check for mask 0x5
+Patch 1: Convert the individual DSI calls to their
+*_multi variants
 
-Komeda does not impose per-encoder clone restrictions, so initialize
-possible_clones for all registered encoders to the full encoder mask
-after encoder creation. This fixes writeback validation.
+Patch 2: Replace the ILI9805_INSTR table with per
+panel init functions using the *_multi API, dropping
+struct ili9805_instr
 
-Signed-off-by: Asad Malik <asad.malik@arm.com>
-Signed-off-by: Raveendra Talabattula <raveendra.talabattula@arm.com>
----
- .../gpu/drm/arm/display/komeda/komeda_kms.c   | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+Patch 3: makes ili9805_power_off() and ili9805_deactivate()
+return void, since no one checks their return values.
 
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
-index 6ed504099188..0dcc8c05e86b 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
-@@ -276,7 +276,10 @@ struct komeda_kms_dev *komeda_kms_attach(struct komeda_dev *mdev)
- {
- 	struct komeda_kms_dev *kms;
- 	struct drm_device *drm;
-+	struct drm_encoder *encoder;
- 	int err;
-+	/* Bitmap of all encoders, assigned to each encoder's possible_clones. */
-+	u32 clone_mask = 0;
- 
- 	kms = devm_drm_dev_alloc(mdev->dev, &komeda_kms_driver,
- 				 struct komeda_kms_dev, base);
-@@ -311,6 +314,23 @@ struct komeda_kms_dev *komeda_kms_attach(struct komeda_dev *mdev)
- 
- 	drm_mode_config_reset(drm);
- 
-+	/*
-+	 * Build the full possible_clones mask once. drm_encoder_index()
-+	 * returns the bit position assigned to each encoder and BIT() converts
-+	 * that index into the corresponding mask value.
-+	 *
-+	 * Komeda does not have per-encoder clone restrictions, so every encoder
-+	 * gets the same mask and is advertised as clone-compatible with all
-+	 * other registered encoders.
-+	 */
-+	drm_for_each_encoder(encoder, drm) {
-+		clone_mask |= BIT(drm_encoder_index(encoder));
-+	}
-+
-+	drm_for_each_encoder(encoder, drm) {
-+		encoder->possible_clones = clone_mask;
-+	}
-+
- 	err = devm_request_irq(drm->dev, mdev->irq,
- 			       komeda_kms_irq_handler, IRQF_SHARED,
- 			       drm->driver->name, drm);
+Michail Tatas (3):
+  drm/panel: ilitek-ili9805: Use _multi variants
+  drm/panel: ilitek-ili9805: Use dsi_multi in init
+  drm/panel: ilitek-ili9805: make cleanup funcs void
+
+ drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 211 ++++++++-----------
+ 1 file changed, 87 insertions(+), 124 deletions(-)
+
 -- 
+Changes in v3:
+Addresses review feedback from Doug on v2
+- Convert hex to lowercase
+- Align to match open parenthesis
+- Change lines to not cross 100 chars
+
+Changes in v2:
+Addresses review feedback from Doug on v1
+- Patch 1 remains the same as v1
+- Added patch 2 dropping struct ili9805_instr and used
+  per-panel init functions
+- Added patch 3 making the cleanup functions return void
+
+Revisions
+- v1: https://lore.kernel.org/all/allWpYxgHfpKughy@michalis-linux/
+- v2: https://lore.kernel.org/all/20260719190358.438699-1-michail.tatas@gmail.com/
+
+The changes are compile tested only. Also I run checkpatch.pl --strict, 
+sparse, smatch, gcc W=1, clang W=1 and coccinelle.
 2.43.0
 
