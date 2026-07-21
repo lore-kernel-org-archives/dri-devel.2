@@ -4,58 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 639D8C4451C
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 08:53:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01587C4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 08:59:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3CAB10E753;
-	Tue, 21 Jul 2026 08:53:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49AEA10E2B4;
+	Tue, 21 Jul 2026 08:59:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="XjRzXw7M";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="jLmoZl36";
 	dkim-atps=neutral
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Tue, 21 Jul 2026 08:53:17 UTC
-Received: from mail-m6053.netease.com (mail-m6053.netease.com [210.79.60.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5DEE10E753
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 08:53:16 +0000 (UTC)
-Received: from [172.16.12.90] (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 46fd7cbde;
- Tue, 21 Jul 2026 16:48:10 +0800 (GMT+08:00)
-Message-ID: <e2eb4217-e4d3-4650-915c-e36f4355168e@rock-chips.com>
-Date: Tue, 21 Jul 2026 16:48:09 +0800
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5A6310E2B4
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 08:59:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784624360; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=TpmxDqB+9PXZf/5XfSWtzkLrrooh4dsvgjznOOwq96//U8+bINkZWw5qvolj/OjnIcxyLuvgc1Y0tEAMGjtyBcIInBI03WJDUKoaaIQEPFsCxrNClwzYf4iRlgNZw0oFKXd8Ab0L3Uc5C1cvddkfVad1vMHQ6i5awJm3aWmeTQw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1784624360;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=0zQlbPcaMiJ1gejg/GHI2kq1vW7b6hSbSPF7DRaFsjQ=; 
+ b=lHGUwE5asFF3LVbG1zlZEBUspHPE+m0DROdpNeHu+iZ3oJqpUxoS84pUZ06Vy+iFGwkPxxCRa9fKJOvKd2sTYBcnVU7GIAB+08IL1+fGG9Ypc3JqF6bs/OkUy3Ebx61oTgJk6k+QTWstcjgHw+ReIhO1L8d88IPdtOFtbDJLZtU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784624360; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=0zQlbPcaMiJ1gejg/GHI2kq1vW7b6hSbSPF7DRaFsjQ=;
+ b=jLmoZl36LGvQN/IDbK+6ZrBO8I5+xcUFEf1cIw12EHLf1oDD8yU2hoUwZrWgBXeZ
+ f9pA5qx+a2kPVhn0JvAzlXQWyZf1k1MPC6H5g/MD5iuNArVzumknmoyql9Yzsg8yjeQ
+ 6g35nEw8Mb8pK7TCH3TnDCDW2CKhq8KahrzozEUU=
+Received: by mx.zohomail.com with SMTPS id 1784624358563570.7228757268492;
+ Tue, 21 Jul 2026 01:59:18 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: [PATCH v7 0/5] Add SCDC information to connector debugfs
+Date: Tue, 21 Jul 2026 10:58:56 +0200
+Message-Id: <20260721-scdc-link-health-v7-0-92df1b6ad5fc@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/rockchip: lvds: add RK3568 support
-To: =?UTF-8?Q?Rok_Markovi=C4=8D?= <rok@kanardia.eu>
-Cc: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Alibek Omarov <a1ba.omarov@gmail.com>
-References: <20260717120005.2087386-1-rok@kanardia.eu>
- <20260717120005.2087386-4-rok@kanardia.eu>
- <9219738d-c3f2-4034-b88f-84335f77fbad@rock-chips.com>
- <3a5685992b5e335f2ebf50ee740b8a36@kanardia.eu>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <3a5685992b5e335f2ebf50ee740b8a36@kanardia.eu>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f83dc72e703a7kunmfe88d93e2be2a2
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQksdSVYeSEpOT0hISE
- wZTUpWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
- tIVUpLSEpKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=XjRzXw7MwJLm9McXvDow27Pg+1obxCpoSzcZkszDWvMrRG59L4CLwFNojND9xtfzan/5I4qO/VcDyFQjxXH6wV6a58h/64teTRyFuMcY32miB7ZlEia7cOEjFXZWFvRCI7WnDEf7LXw8hAL178AwXaEA1vOEcsq/XQmxBTGuEmU=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=VbdYabY6304wmkQVRhzKWa2oeZwqHMjq8WamtfsNPII=;
- h=date:mime-version:subject:message-id:from;
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23QzW7CMAwH8FdBOS9bnK+2nPYe0w5u4q7ZCoWkV
+ JsQ7760IIFETpEV++e/fGaJYqDEtpszizSHFMZ9LqqXDXM97r+IB59rJoW0QoPiyXnHh7D/4T3
+ hMPW8blT+AuUb61geO0Tqwu9Kfnxe63Rqv8lNi3PriHQ85V3TtY21mIi7cbcL03bj445P4fB2e
+ 9mC9CFNY/xbY86wztwSmedEM3DBa6oUUF0TduLdjcOA7RjxNS9ZwVneESNFAZEZMQDYQe281W0
+ JUY+ILSBqQRrSqBEJPZQQ/YhUBURnxEpJqAVCZ5oSYu5IvkoBMRkBgEq1Ap3yVELsAwJQQOySR
+ Imqrgza1jwhl8vlHwCYTFRSAgAA
+X-Change-ID: 20260413-scdc-link-health-89326013d96c
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Daniel Stone <daniel@fooishbar.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,337 +86,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/21/2026 4:31 PM, Rok Markovič wrote:
-> 20.7.2026 3:54, je Chaoyi Chen napisal
->> Hello Rok,
->>
->> Thank you for your patch. Please see the comment below:
->>
->> On 7/17/2026 8:00 PM, Rok Markovic wrote:
->>> The RK3568 LVDS transmitter has no register block of its own. It is
->>> driven entirely through the GRF and re-uses the MIPI DSI0 D-PHY in
->>> PHY_MODE_LVDS, which phy-rockchip-inno-dsidphy already supports.
->>>
->>> Based on Alibek Omarov's earlier posting [1], with the changes below.
->>>
->>> Power the D-PHY from the encoder enable path rather than from probe.
->>> phy_power_on() runs the phy driver's whole LVDS bring-up: PLL and
->>> bandgap power-on, a settle, PLL mode select, then a reset pulse of the
->>> serializer and the lane enables. None of that is safe at probe time -
->>> the GRF has not yet switched the block to LVDS mode (LVDS0_MODE_EN is
->>> set from rk3568_lvds_poweron(), i.e. the enable path) and the VOP is
->>> not driving dclk. The serializer is clocked from dclk and latches its
->>> state coming out of that reset, so it comes up dead and stays dead.
->>> The failure is silent: every register in the phy, the GRF and the VOP
->>> reads back exactly as on a working system while the lanes sit at
->>> common mode and never toggle.
->>>
->>
->> Could you please confirm this? Based on my earlier tests, after PHY
->> poweron, re-disabling and re-enabling the GRF did not reproduce the
->> issue you described.
-> 
-> I can confirm that this is not working but I testedwith writing registers
-> manually with devmem and I could make something wrong.
-> 
-> Should I leave it this way or should I move this back to probe and try to
-> make it work in enable by some trick (disabel/enable GRF)?
-> 
+HDMI uses the DDC I2C bus for communicating various bits of link status
+out of band with the actual HDMI video signal. This information can be
+useful for debugging issues like questionable cables sabotaged by feline
+teeth, Enthusiast Grade cables made of cow fencing wire, and other such
+problems that ruin one's media viewing plans.
 
-Just out of curiosity. I think it's fine as it is now :)
+Consequently, this series exposes various bits of pertinent information
+from the SCDC protocol in an HDMI connector's debugfs. To continually
+poll the link status, userspace can poll the debugfs file.
 
+---
+Changes in v7:
+- Move HDMI debugfs registration to new state helper, fix up all users
+  (sun4i, vc4, bridge)
+- Register scdc debugfs in new hdmi debugfs helper
+- Link to v6: https://patch.msgid.link/20260611-scdc-link-health-v6-0-6307875a6b5e@collabora.com
 
->>
->>> Program RK3568_LVDS0_DCLK_INV_SEL from the CRTC state's bus_flags so
->>> the panel's declared pixelclk-active is honoured on the LVDS block as
->>> well as on the VOP pin polarity. Both have to agree with the edge the
->>> panel samples on.
->>>
->>> Re-assert RK3568_LVDS0_P2S_EN in rk3568_lvds_poweron().
->>> rk3568_lvds_poweroff() clears MODE_EN and P2S_EN together, so setting
->>> P2S_EN once at probe would leave the parallel-to-serial converter off
->>> after the first disable/enable cycle.
->>>
->>> Use regmap_write() rather than regmap_update_bits() for the GRF. These
->>> registers are write-masked - the upper 16 bits select which of the
->>> lower 16 a write may change - so there is nothing to preserve and no
->>> reason to read first. Passing a FIELD_PREP_WM16() value as both the
->>> mask and the value of an update_bits() applies the masking twice and
->>> only works by accident.
->>>
->>> Between the two, nothing needs programming at probe at all: the GRF is
->>> written entirely from the enable path, so px30_lvds_probe() is left
->>> alone rather than being refactored into a shared phy helper.
->>>
->>> [1] https://lore.kernel.org/all/20230119184807.171132-1-a1ba.omarov@gmail.com/
->>>
->>> Co-developed-by: Alibek Omarov <a1ba.omarov@gmail.com>
->>> Signed-off-by: Alibek Omarov <a1ba.omarov@gmail.com>
->>> Signed-off-by: Rok Markovic <rok@kanardia.eu>
->>> Assisted-by: Claude:claude-opus-4-8
->>> ---
->>>  drivers/gpu/drm/rockchip/rockchip_lvds.c | 161 +++++++++++++++++++++++
->>>  drivers/gpu/drm/rockchip/rockchip_lvds.h |  10 ++
->>>  2 files changed, 171 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
->>> index 95fa0a9..f45d04a 100644
->>> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
->>> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
->>> @@ -435,6 +435,133 @@ static void px30_lvds_encoder_disable(struct drm_encoder *encoder)
->>>      drm_panel_unprepare(lvds->panel);
->>>  }
->>>
->>> +static int rk3568_lvds_poweron(struct rockchip_lvds *lvds)
->>> +{
->>> +    int ret;
->>> +
->>> +    ret = clk_enable(lvds->pclk);
->>> +    if (ret < 0) {
->>> +        DRM_DEV_ERROR(lvds->dev, "failed to enable lvds pclk %d\n", ret);
->>> +        return ret;
->>> +    }
->>> +
->>> +    ret = pm_runtime_get_sync(lvds->dev);
->>> +    if (ret < 0) {
->>> +        DRM_DEV_ERROR(lvds->dev, "failed to get pm runtime: %d\n", ret);
->>> +        clk_disable(lvds->pclk);
->>> +        return ret;
->>> +    }
->>> +
->>> +    /*
->>> +     * Enable LVDS mode and the parallel-to-serial converter. These are
->>> +     * write-masked registers, so a plain write only touches the bits named
->>> +     * here; there is nothing to preserve and no need to read first.
->>> +     */
->>
->> I think this comment is redundant. We all know this is a common design
->> on Rockchip platform, right? :)
->>
-> 
-> Done
-> 
->>> +    return regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
->>> +                RK3568_LVDS0_MODE_EN(1) |
->>> +                RK3568_LVDS0_P2S_EN(1));
->>> +}
->>> +
->>> +static void rk3568_lvds_poweroff(struct rockchip_lvds *lvds)
->>> +{
->>> +    regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
->>> +             RK3568_LVDS0_MODE_EN(0) | RK3568_LVDS0_P2S_EN(0));
->>> +
->>> +    pm_runtime_put(lvds->dev);
->>> +    clk_disable(lvds->pclk);
->>> +}
->>> +
->>> +static int rk3568_lvds_grf_config(struct drm_encoder *encoder,
->>> +                  struct drm_display_mode *mode)
->>> +{
->>> +    struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
->>> +    struct rockchip_crtc_state *s =
->>> +        to_rockchip_crtc_state(encoder->crtc->state);
->>> +    bool negedge = !!(s->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE);
->>> +
->>> +    if (lvds->output != DISPLAY_OUTPUT_LVDS) {
->>> +        DRM_DEV_ERROR(lvds->dev, "Unsupported display output %d\n",
->>> +                  lvds->output);
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    /*
->>> +     * The LVDS block has its own dclk inversion select, separate from the
->>> +     * VOP's pin polarity. Both have to agree with what the panel samples on.
->>> +     */
->>> +    regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
->>> +             RK3568_LVDS0_DCLK_INV_SEL(negedge));
->>> +
->>> +    /* Set format */
->>> +    return regmap_write(lvds->grf, RK3568_GRF_VO_CON0,
->>> +                RK3568_LVDS0_SELECT(lvds->format) |
->>> +                RK3568_LVDS0_MSBSEL(1));
->>> +}
->>
->> I think rk3568_lvds_poweron() and rk3568_lvds_grf_config() can be merged
->> to reduce extra register operations.
-> 
-> Done
-> 
->>> +
->>> +static void rk3568_lvds_encoder_enable(struct drm_encoder *encoder)
->>> +{
->>> +    struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
->>> +    struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
->>> +    int ret;
->>> +
->>> +    drm_panel_prepare(lvds->panel);
->>> +
->>> +    ret = rk3568_lvds_poweron(lvds);
->>> +    if (ret) {
->>> +        DRM_DEV_ERROR(lvds->dev, "failed to power on LVDS: %d\n", ret);
->>> +        drm_panel_unprepare(lvds->panel);
->>> +        return;
->>> +    }
->>> +
->>> +    ret = rk3568_lvds_grf_config(encoder, mode);
->>> +    if (ret) {
->>> +        DRM_DEV_ERROR(lvds->dev, "failed to configure LVDS: %d\n", ret);
->>> +        drm_panel_unprepare(lvds->panel);
->>> +        return;
->>> +    }
->>> +
->>> +    /*
->>> +     * Only now bring the D-PHY up. phy_power_on() runs the whole
->>> +     * inno_dsidphy_lvds_mode_enable() sequence - PLL and bandgap power-on,
->>> +     * a settle, PLL mode select, then a reset pulse of the serializer and
->>> +     * the lane enables. All of that has to happen with the block already
->>> +     * switched to LVDS mode in the GRF (above) and with the VOP's dclk
->>> +     * running, because the serializer is clocked from dclk and latches its
->>> +     * state out of that reset.
->>> +     *
->>> +     * Doing it at probe instead - as this driver used to - resets and
->>> +     * enables the serializer against a block that is not in LVDS mode yet
->>> +     * and has no input clock. Every register then reads back correct while
->>> +     * the lanes sit at common mode forever. Rockchip's BSP orders it this
->>> +     * way (GRF writes, then phy_set_mode + phy_power_on).
->>> +     */
->>
->> I think this comment is redundant. These are internal details of
->> phy_set_mode() and don't need to be explained here. Also, the
->> ordering requirements are quite common. You can describe them in the
->> commit message.
->>
-> 
-> Done
-> 
->>> +    ret = phy_set_mode(lvds->dphy, PHY_MODE_LVDS);
->>> +    if (ret) {
->>> +        DRM_DEV_ERROR(lvds->dev, "failed to set phy mode: %d\n", ret);
->>> +        drm_panel_unprepare(lvds->panel);
->>> +        return;
->>> +    }
->>> +
->>> +    ret = phy_power_on(lvds->dphy);
->>> +    if (ret) {
->>> +        DRM_DEV_ERROR(lvds->dev, "failed to power on phy: %d\n", ret);
->>> +        drm_panel_unprepare(lvds->panel);
->>> +        return;
->>> +    }
->>> +
->>> +    drm_panel_enable(lvds->panel);
->>> +}
->>> +
->>> +static void rk3568_lvds_encoder_disable(struct drm_encoder *encoder)
->>> +{
->>> +    struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
->>> +
->>> +    drm_panel_disable(lvds->panel);
->>> +    phy_power_off(lvds->dphy);
->>> +    rk3568_lvds_poweroff(lvds);
->>> +    drm_panel_unprepare(lvds->panel);
->>> +}
->>> +
->>>  static const
->>>  struct drm_encoder_helper_funcs rk3288_lvds_encoder_helper_funcs = {
->>>      .enable = rk3288_lvds_encoder_enable,
->>> @@ -449,6 +576,13 @@ struct drm_encoder_helper_funcs px30_lvds_encoder_helper_funcs = {
->>>      .atomic_check = rockchip_lvds_encoder_atomic_check,
->>>  };
->>>
->>> +static const
->>> +struct drm_encoder_helper_funcs rk3568_lvds_encoder_helper_funcs = {
->>> +    .enable = rk3568_lvds_encoder_enable,
->>> +    .disable = rk3568_lvds_encoder_disable,
->>> +    .atomic_check = rockchip_lvds_encoder_atomic_check,
->>> +};
->>> +
->>>  static int rk3288_lvds_probe(struct platform_device *pdev,
->>>                   struct rockchip_lvds *lvds)
->>>  {
->>> @@ -512,6 +646,22 @@ static int px30_lvds_probe(struct platform_device *pdev,
->>>      return phy_power_on(lvds->dphy);
->>>  }
->>>
->>> +static int rk3568_lvds_probe(struct platform_device *pdev,
->>> +                 struct rockchip_lvds *lvds)
->>> +{
->>> +    /*
->>> +     * Grab and init the phy, but do NOT power it on here - that is done in
->>> +     * rk3568_lvds_encoder_enable() once the GRF is in LVDS mode and dclk is
->>> +     * running. See the comment there. The GRF is not touched at probe
->>> +     * either: every bit of it is programmed from the enable path.
->>> +     */
->>
->> Please see the comments above.
-> 
-> Done
-> 
->>
->>> +    lvds->dphy = devm_phy_get(&pdev->dev, "dphy");
->>> +    if (IS_ERR(lvds->dphy))
->>> +        return PTR_ERR(lvds->dphy);
->>> +
->>> +    return phy_init(lvds->dphy);
->>> +}
->>> +
->>>  static const struct rockchip_lvds_soc_data rk3288_lvds_data = {
->>>      .probe = rk3288_lvds_probe,
->>>      .helper_funcs = &rk3288_lvds_encoder_helper_funcs,
->>> @@ -522,6 +672,11 @@ static const struct rockchip_lvds_soc_data px30_lvds_data = {
->>>      .helper_funcs = &px30_lvds_encoder_helper_funcs,
->>>  };
->>>
->>> +static const struct rockchip_lvds_soc_data rk3568_lvds_data = {
->>> +    .probe = rk3568_lvds_probe,
->>> +    .helper_funcs = &rk3568_lvds_encoder_helper_funcs,
->>> +};
->>> +
->>>  static const struct of_device_id rockchip_lvds_dt_ids[] = {
->>>      {
->>>          .compatible = "rockchip,rk3288-lvds",
->>> @@ -531,6 +686,10 @@ static const struct of_device_id rockchip_lvds_dt_ids[] = {
->>>          .compatible = "rockchip,px30-lvds",
->>>          .data = &px30_lvds_data
->>>      },
->>> +    {
->>> +        .compatible = "rockchip,rk3568-lvds",
->>> +        .data = &rk3568_lvds_data
->>> +    },
->>>      {}
->>>  };
->>>  MODULE_DEVICE_TABLE(of, rockchip_lvds_dt_ids);
->>> @@ -601,6 +760,8 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
->>>      encoder = &lvds->encoder.encoder;
->>>      encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
->>>                                   dev->of_node);
->>> +    rockchip_drm_encoder_set_crtc_endpoint_id(&lvds->encoder,
->>> +                          dev->of_node, 0, 0);
->>>
->>>      ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_LVDS);
->>>      if (ret < 0) {
->>> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.h b/drivers/gpu/drm/rockchip/rockchip_lvds.h
->>> index 2d92447..93d3415 100644
->>> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.h
->>> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.h
->>> @@ -121,4 +121,14 @@
->>>  #define   PX30_LVDS_P2S_EN(val)            FIELD_PREP_WM16(BIT(6), (val))
->>>  #define   PX30_LVDS_VOP_SEL(val)        FIELD_PREP_WM16(BIT(1), (val))
->>>
->>> +#define RK3568_GRF_VO_CON0            0x0360
->>> +#define   RK3568_LVDS0_SELECT(val)        FIELD_PREP_WM16(GENMASK(5, 4), (val))
->>> +#define   RK3568_LVDS0_MSBSEL(val)        FIELD_PREP_WM16(BIT(3), (val))
->>> +
->>> +#define RK3568_GRF_VO_CON2            0x0368
->>> +#define   RK3568_LVDS0_DCLK_INV_SEL(val)    FIELD_PREP_WM16(BIT(9), (val))
->>> +#define   RK3568_LVDS0_DCLK_DIV2_SEL(val)    FIELD_PREP_WM16(BIT(8), (val))
->>> +#define   RK3568_LVDS0_MODE_EN(val)        FIELD_PREP_WM16(BIT(1), (val))
->>> +#define   RK3568_LVDS0_P2S_EN(val)        FIELD_PREP_WM16(BIT(0), (val))
->>> +
->>>  #endif /* _ROCKCHIP_LVDS_ */
-> 
-> 
+Changes in v6:
+- Fix off-by-one error in drm_scdc_read_state
+- Link to v5: https://patch.msgid.link/20260604-scdc-link-health-v5-0-11173b0ac3de@collabora.com
 
--- 
-Best, 
-Chaoyi
+Changes in v5:
+- Read all SCDC data regardless of update flags
+- Dump SCDC data as hex before the human-readable output. It's separated
+  with "\n----------------\n\n".
+- No longer write 0 to read-only registers
+- Add Reed-Solomon Corrections counter parsing
+- Parsing has been kept. A desire was expressed to get this data without
+  any external userspace tooling, and the kernel will need to parse it
+  eventually anyway to set the link status.
+- Functions have been made static as of right now, since external users
+  may do another pass over the function signatures anyway.
+- Link to v4: https://patch.msgid.link/20260527-scdc-link-health-v4-0-622ea40a1f59@collabora.com
+
+Changes in v4:
+- Don't use C struct bitfields for parsing status flags. Switch to
+  bitwise AND for boolean flags, and FIELD_GET for multi-bit values.
+- Drop the superfluous !! and parens
+- Drop the __pure attributes on static functions
+- Initialise stack local arrays with {}, not { 0 }.
+- I've kept the print macros and %-30s format. Reason being that I don't
+  want to repeat the format specifier and str_yes_no(foo) a bunch, and I
+  like the %-30s format because it means all values are aligned with the
+  value of the longest field, which is 30 chars long.
+- Link to v3: https://patch.msgid.link/20260526-scdc-link-health-v3-0-59e4a4aaead1@collabora.com
+
+Changes in v3:
+- Add patch to change return type of drm_scdc_read/write.
+- Rework error counter reading to duplicate less code.
+- Also check lane 3 counter valid flag when reading its error counter.
+- Use memset to clear buf for error counters, rather than doing it in
+  the loop.
+- Make read_error_counters not accept 0 as num_lanes; fix it up in the
+  caller instead.
+- Link to v2: https://patch.msgid.link/20260520-scdc-link-health-v2-0-511af18cd64b@collabora.com
+
+Changes in v2:
+- Add HDMI 2.1 SCDC status reporting
+- Link to v1: https://patch.msgid.link/20260415-scdc-link-health-v1-0-8e731e88eaf0@collabora.com
+
+To: Jani Nikula <jani.nikula@linux.intel.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Daniel Stone <daniel@fooishbar.org>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+To: Chen-Yu Tsai <wens@kernel.org>
+To: Samuel Holland <samuel@sholland.org>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+To: Maíra Canal <mcanal@igalia.com>
+To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: kernel@collabora.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-sunxi@lists.linux.dev
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
+---
+Nicolas Frattaroli (5):
+      drm/scdc-helper: Don't use ssize_t return type for scdc_read/write
+      drm/scdc-helper: Add scdc_status debugfs entry
+      drm/scdc-helper: Implement parsing and printing HDMI 2.1 fields
+      drm/debugfs: Move HDMI debugfs registration to state helper
+      drm/display: hdmi-state-helper: Init SCDC debugfs for HDMI
+
+ drivers/gpu/drm/display/drm_bridge_connector.c  |   3 +
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 156 +++++++++++++
+ drivers/gpu/drm/display/drm_scdc_helper.c       | 285 +++++++++++++++++++++++-
+ drivers/gpu/drm/drm_debugfs.c                   | 157 -------------
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c          |   1 +
+ drivers/gpu/drm/vc4/vc4_hdmi.c                  |   1 +
+ include/drm/display/drm_hdmi_state_helper.h     |   3 +
+ include/drm/display/drm_scdc.h                  |  21 +-
+ include/drm/display/drm_scdc_helper.h           | 103 ++++++++-
+ 9 files changed, 564 insertions(+), 166 deletions(-)
+---
+base-commit: 97aed8a757dcf4d64b13c6387637821a2888586e
+change-id: 20260413-scdc-link-health-89326013d96c
+
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
