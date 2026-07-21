@@ -4,45 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E849FC4451C
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:16:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FC76C4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:18:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 578E810E3B3;
-	Tue, 21 Jul 2026 18:16:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6339310EAFD;
+	Tue, 21 Jul 2026 18:18:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F7WisUlj";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Aa9dwQfD";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aAWZLLsE";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B6B710E3B3
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:16:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E7B5A435BD;
- Tue, 21 Jul 2026 18:16:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86C871F00A3D;
- Tue, 21 Jul 2026 18:16:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784657806;
- bh=1TO52dJI0tUVixJ8kT1TbaztNmWdQqJaXVom3MIpsDg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=F7WisUljD6EQj0A+WS/IvrK4sCpQGEuPpdyCZXNy9npIUG727reKDBbnNCyIMhxMJ
- 5SRuZpIvFUu7CMy0bszU6Vj5cagZjFxeFDW/WBG/yJJtjIVazzF7yPRdW8ukTVS7ka
- 55h/CBfd/b/CWoVzHsepTQYUwuKA1mBnSu9+zslzTW37A7TGqYOz3yZLu9l8S49Zct
- MDCSGb/528lBsGuWNJL8wluP3BDajoifQuttsyrJ1z4b0lZoA+ZTlz4x6FUxhbljNE
- DAYJgUWD+k9YPXFM4SgIyz2LWFV92C9nwO0LOJ+gatT6EiplRGcD3HJGJFnWwInOdE
- F2UbAzzo+qtRw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 07/10] drm/bridge: synopsys: dw-dp: Add Runtime PM
- support
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-7-f0f4a4ede712@collabora.com>
-References: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
- <20260721-synopsys-dw-dp-improvements-v4-7-f0f4a4ede712@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 18:16:46 +0000
-Message-Id: <20260721181646.86C871F00A3D@smtp.kernel.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1577410EB10
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:18:57 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66LH2UOh2548696
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:18:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=4QBS1Lbjs3T8Bi8cwftIEYn+
+ AAPcSxijVVdaZ7ikGUg=; b=Aa9dwQfDhcfc0r0EcjH1Xr3an1xQ+QC34uzc2ekz
+ CmiTn907Igw+JrtVbV2NiDLgtFLn1Sev3arqXzpS158DGmPt8IgPbUxQid3E4vV0
+ HegiAZFvCKlS6OxqPOZPGlvxs5yjxi5hnq2n6fltX/WEl+Pg8ljHPHBydu/e8yaD
+ WLZ52/1TcJRcXCFgt1laSsBD+ddh7Ecx9Cs0qOjX55quWGqxyf2EeAgyZLMD5hyn
+ Q+gVjv0JNxan8+FvnbIQhROHLuHbLNNLal7piX4huO5WGXuQFCFMialWog27h1S2
+ 9E1nWVhBOM0ARQUK16gyIUZzRzycqsHEjFXEnG/ig9kJww==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj6r3jbsu-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:18:57 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-51c2af04aeeso36514251cf.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:18:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1784657936; x=1785262736;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=4QBS1Lbjs3T8Bi8cwftIEYn+AAPcSxijVVdaZ7ikGUg=;
+ b=aAWZLLsEQ3HXOKQla/O63ozKL2atl6TSIYV7JWpwoNlnQxac5V2kRvdlCEVKqecMS8
+ XyCO+cXbyu0joeCb5ejBOP7a0iLI3lU1mbS2G+bTXhT2CE5cK6kKNfjjzLd1neerCWrA
+ 9UmjYBjq3s1I8y6FwEGUEJQN45yVfLhL77aPDd2NQFGDL02qLRcQGOiMnJltKSyNWDMW
+ itHohmrX5P9cfdoj2RY5z5ukFQ6gjvtqpIGceQ34KrXLpL7JPZAvgttMgUESf7qG28Ui
+ f8G+HHruTzVXJboMWhB++avZAIHhe1Yfdbw4b16ynFtmjIJTdFvI1sB+91HbKS70okFh
+ lcqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784657936; x=1785262736;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=4QBS1Lbjs3T8Bi8cwftIEYn+AAPcSxijVVdaZ7ikGUg=;
+ b=Iuk5xCPlXvVXu42JKUnDsRdZ0IGChDk/6swHXLkBXNnIVps31MVdDjHtWsBpAPOxEq
+ qiX7pFP7Bo9ErXUqYc+V/q+jPXP9I3WMErWm65kRDI+uc+6BIPyvGi9TzHhpLmQqStCQ
+ yj/rYBBG+p0dd1nPUVvpyPuXNReGRmhziK6K+zLPLpKfuk+4mpO3CKW1+yGDhgNYc4eC
+ wooeNCsYSJktA5jTj+jbEumBfOMC1qvTZqOxElOK7mB5B7Y1KKKUMiYgxdWQ0xHSAwgu
+ lFrtfNvD9+jfQQu/9P8gtdDT9s6nAib/Cu3OjP1ISttieADRSkJsQ69tLMDWIs/PAz+S
+ gKlA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrIIjUcj65UcmMQVgHQFkHKo4RPAvidHd0vXxUu8Q+GaP0xyur1no/sLqDdPy4eM55g5MPmLTGJZLQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxp+iiN4RFPWWQkp1Bpbm2x/BibeTHYlu8w1zl676c+sHSIpZTM
+ WUzQHX2VRhu1K9/GgCWgOFVwIUxjgCtdsdo8e/9ZtfWNG/QdTEW5rmlqSYV0GhWguWSRlaIkJTI
+ 6uvfOJfSTWiZikUc52CFwMOa9KmtWSXUhHnUWq8fib578MuMlUESQEi8dQdWCSskKCv8L53Q=
+X-Gm-Gg: AfdE7cn2L4Aeg2zbdxEijhrb21i1uJFZaoGYUccFP0TmcgrrXidKYob8ayYBJFaT/LU
+ QUD1fDCbfJljFi4maR7z+gDEQLCm6RmrjOfXoH1TSYPWoSxER4mwapOlm4/7NxsObVT661Z095T
+ xbuvw1E8MIWddUQDqxY7T5J6iq2O+VNuza2k/ObGh7surfSHZICzjzAHb7MBSS7jO8fSspAh0dp
+ LxsDaIYxa0TWqRUqVUJdTkB0OJEl8ZqbHh+0cbHdQm1GNmzbGHNPHHK6hOfUPExUJgK62x+ELhf
+ 9UAQeVKvnLlv/NLRAoCQkKTF01Bjdzyr/FNrbCA8XwDfdOsb3HzTva1b+88cBTlAx/Q17la3stn
+ fjMaN0fV/D8vVFuxDrwqK75Pblz6JNJWSlFgCWeXwVeu/fMW/b+as/+L/n2lS5oTY6u0vyW9Z2z
+ qEiHC1jOENHYRIqw==
+X-Received: by 2002:a05:622a:1c05:b0:516:7a83:8c37 with SMTP id
+ d75a77b69052e-527a640e6eemr9782931cf.11.1784657936453; 
+ Tue, 21 Jul 2026 11:18:56 -0700 (PDT)
+X-Received: by 2002:a05:622a:1c05:b0:516:7a83:8c37 with SMTP id
+ d75a77b69052e-527a640e6eemr9782501cf.11.1784657935963; 
+ Tue, 21 Jul 2026 11:18:55 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b2a9b9ac81sm65135e87.21.2026.07.21.11.18.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2026 11:18:54 -0700 (PDT)
+Date: Tue, 21 Jul 2026 21:18:52 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Abel Vesa <abelvesa@kernel.org>,
+ Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: display: msm: Allow two MDSS power
+ domains
+Message-ID: <nqxbpcwxwastqutkfkaqz4o2telev3lixgrdlmb6anftpywjog@ibfxfb4e42xd>
+References: <20260720-msm_gdsc2-v1-0-4687866d6cb0@oss.qualcomm.com>
+ <20260720-msm_gdsc2-v1-1-4687866d6cb0@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260720-msm_gdsc2-v1-1-4687866d6cb0@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE5MiBTYWx0ZWRfX58eQOPivn2KA
+ 4r74gVKQSHgKwl2aRwrj6mGcts4Kb2twHtJzOADIPKOySMmY6EYPVlOno99DHpQvNzvj18nih/Z
+ 4GzetL1++KlYx56CwizeoEYxZ5S9YLh4HfJ0IPIc4em8vT4/67+7vfV8p0u8im1HbvHEnSA02Xt
+ djKZaUiL9sv7hT5kWvlp5UwGsp/1wUvsybmXs7s44WxQn2ZBnNd24R/6VyvoT8NL/tXxbbkeB8i
+ zpnnlpQN/UbH3IvcFAQPnqxHN8h3+b4MTSz8rgbjvToXRsRHwkKD8JnYCfbpDwZUM5PVnzwII5o
+ 09bp8/KUHpQI6KkTa9DyC1V3qVjo0HxXEKAi4co+sablX5+Q8VDNCV1SswquxEYlUWAmIZE3Z+5
+ 7xfnEotiDyvOw6p2xRrUKFhHhuqkb2aPYayAIJkJWeyh1zrcU2X/4kF/wDN9FFEcDAgD6XxxFQ1
+ UeJv1A4+tyWb3cOK1mg==
+X-Proofpoint-ORIG-GUID: ONJggY1tzCjaGUHsmbZOfpsxpFwXTYMy
+X-Proofpoint-GUID: ONJggY1tzCjaGUHsmbZOfpsxpFwXTYMy
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE5MiBTYWx0ZWRfX0HQ2HyQ7yN18
+ hd5tYSn7UQohAJV7tuC5Sfu3aMoXkWWDRLmhCM5tmW51D4r1Q57qAP+86l+seKSnbVkInJJaMoY
+ KR6wT6is/+a7wDJPlBr/rqJO0FVsF2s=
+X-Authority-Analysis: v=2.4 cv=SIRykuvH c=1 sm=1 tr=0 ts=6a5fb811 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=HlDJ1ZyWpHQnnzQbUF8A:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-21_03,2026-07-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 clxscore=1015
+ suspectscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210192
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,262 +157,29 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
+On Mon, Jul 20, 2026 at 04:43:53PM +0800, Yongxing Mou wrote:
+> Kaanapali (SM8750) and Glymur use two display power domains.
+> CORE_GDSC powers the main display hardware while INT2_GDSC
+> powers a subset of SSPP blocks.
 
-New issues:
-- [High] Inverted boolean condition in `dw_dp_unbind()` causes runtime PM u=
-sage count leak and unbalanced puts.
-- [High] Missing API return value check for `pm_runtime_get_sync()` causes =
-unsafe hardware access on failure.
-- [High] Sleeping function `pm_runtime_get_sync()` called from atomic conte=
-xt.
-- [High] Missing runtime PM reference release on error path in `dw_dp_bind(=
-)`.
-- [High] Asynchronous `pm_runtime_put_autosuspend()` is incorrectly used in=
- the teardown path.
-- [High] Clock disable imbalance between `devm_clk_get_enabled()` and expli=
-cit `clk_disable_unprepare()` in runtime suspend.
-- [Medium] Unconditional sleep in `dw_dp_bridge_detect()` causes severe per=
-formance degradation during display polling.
+I see that INT2_GDSC is defined since SC8280XP / SM8450. Does it need to
+be enabled on all those platforms?
 
-Pre-existing issues:
-- [Critical] Use-After-Free due to missing cancellation of `hpd_work` in te=
-ardown.
-- [High] Preexisting atomic context violation in `dw_dp_bridge_atomic_disab=
-le()`.
---
+> 
+> Allow the MDSS bindings to describe both power domains and
+> their corresponding power-domain-names values.
+> 
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/display/msm/mdss-common.yaml        |  3 ++-
+>  .../devicetree/bindings/display/msm/qcom,glymur-mdss.yaml   | 13 ++++++++++++-
+>  .../bindings/display/msm/qcom,kaanapali-mdss.yaml           | 13 ++++++++++++-
+>  3 files changed, 26 insertions(+), 3 deletions(-)
+> 
 
---- Patch [7]: [PATCH v4 07/10] drm/bridge: synopsys: dw-dp: Add Runtime PM=
- support ---
-commit e300d93b1e1336324cbbd71c5f0b1b81334c7912
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date:   Tue Jul 21 17:52:37 2026 +0000
-
-    drm/bridge: synopsys: dw-dp: Add Runtime PM support
-   =20
-    Add runtime PM stubs to the Synopsys DesignWare DisplayPort bridge
-    driver. Support is not enabled automatically and must be hooked up
-    in the vendor specific glue code.
-   =20
-    Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index 8eb2699dc7ab0..636b9e1052978 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-
-[ ... ]
-
-> @@ -1467,6 +1468,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux=
- *aux,
->  	if (WARN_ON(msg->size > 16))
->  		return -E2BIG;
-> =20
-> +	ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
-> +
-
-[Severity: High]
-Does the ACQUIRE macro wrapper silently ignore the return value of the
-underlying get_sync operation?
-
-If the device fails to power on or clock enablement fails, the driver might
-proceed to access hardware registers anyway. Could we handle the error here=
-=20
-and abort the transfer instead of proceeding?
-
->  	switch (msg->request & ~DP_AUX_I2C_MOT) {
->  	case DP_AUX_NATIVE_WRITE:
->  	case DP_AUX_I2C_WRITE:
-
-[ ... ]
-
-> @@ -1657,6 +1660,8 @@ static void dw_dp_bridge_atomic_enable(struct drm_b=
-ridge *bridge,
->  	struct drm_connector_state *conn_state;
->  	int ret;
-> =20
-> +	pm_runtime_get_sync(dp->dev);
-> +
-
-[Severity: High]
-Are we allowed to call a sleeping function from atomic context here?
-
-The dw_dp_bridge_atomic_enable() callback executes in atomic context where
-sleeping is forbidden. However, pm_runtime_get_sync() triggers
-dw_dp_runtime_resume(), which calls clk_prepare_enable() and sleeps.
-
-Also, similar to the ACQUIRE wrapper above, the return value of
-pm_runtime_get_sync() is ignored here. If it fails, will the driver proceed
-to access hardware registers while the device is unclocked?
-
->  	connector =3D drm_atomic_get_new_connector_for_encoder(state, bridge->e=
-ncoder);
->  	if (!connector) {
->  		dev_err(dp->dev, "failed to get connector\n");
-
-[ ... ]
-
-> @@ -1711,6 +1716,7 @@ static void dw_dp_bridge_atomic_disable(struct drm_=
-bridge *bridge,
->  	dw_dp_link_disable(dp);
->  	bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
->  	dw_dp_reset(dp);
-> +	pm_runtime_put_autosuspend(dp->dev);
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does dw_dp_reset() sleep ins=
-ide
-an atomic context?
-
-The dw_dp_bridge_atomic_disable() callback runs in atomic context, but
-dw_dp_reset() unconditionally calls usleep_range() and
-regmap_read_poll_timeout(). Should this hardware reset sequence be moved out
-of the atomic path or use non-sleeping delays?
-
->  static bool dw_dp_hpd_detect_link(struct dw_dp *dp, struct drm_connector=
- *connector)
-> @@ -1731,6 +1737,14 @@ static enum drm_connector_status dw_dp_bridge_dete=
-ct(struct drm_bridge *bridge,
->  {
->  	struct dw_dp *dp =3D bridge_to_dp(bridge);
-> =20
-> +	ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
-> +
-> +	/*
-> +	 * HPD_HOT_PLUG bit is asserted only after the sink holds HPD high for
-> +	 * at least 100ms. Thus we need to wait 100ms after runtime PM resume.
-> +	 */
-> +	msleep(110);
-> +
-
-[Severity: Medium]
-Will this sleep degrade display polling performance?
-
-By using the ACQUIRE wrapper, the return value of pm_runtime_get_sync() is
-discarded, making it impossible to differentiate a fresh resume (returning =
-0)
-from an already-active device (returning 1).
-
-As a result, this 110ms sleep executes unconditionally on every detect call,
-even when the device is already active (such as in native DP mode where it =
-is
-kept active permanently).
-
->  	if (!dw_dp_hpd_detect(dp))
->  		return connector_status_disconnected;
-> =20
-
-[ ... ]
-
-> @@ -2032,10 +2046,15 @@ int dw_dp_bind(struct dw_dp *dp, struct drm_encod=
-er *encoder)
->  	}
-> =20
->  	if (dw_dp_is_routed_to_usb_c(encoder)) {
-> +		dp->usbc_mode =3D true;
->  		dev_dbg(dev, "USB-C mode\n");
-> =20
->  		if (dp->plat_data.hpd_sw_sel)
->  			dp->plat_data.hpd_sw_sel(dp->plat_data.data, 1);
-> +	} else {
-> +		dp->usbc_mode =3D false;
-> +		/* Keep runtime PM enabled to have working native HPD IRQ */
-> +		pm_runtime_get_sync(dp->dev);
->  	}
-> =20
->  	dw_dp_init_hw(dp);
-
-[Severity: High]
-Does the error path for hardware initialization following this block leak t=
-he
-runtime PM reference?
-
-If dp->usbc_mode is false, pm_runtime_get_sync() increments the usage count.
-If phy_init() fails shortly after dw_dp_init_hw(), the function jumps to the
-err_put_next_bridge label and returns without balancing this get_sync
-operation, causing the PM reference to permanently leak.
-
-> @@ -2065,6 +2084,8 @@ EXPORT_SYMBOL_GPL(dw_dp_bind);
-> =20
->  void dw_dp_unbind(struct dw_dp *dp)
->  {
-> +	if (dp->usbc_mode)
-> +		pm_runtime_put_autosuspend(dp->dev);
-
-[Severity: High]
-Is this boolean condition inverted?
-
-In dw_dp_bind(), pm_runtime_get_sync() is called when usbc_mode is false.
-By checking for true here, we call put on a reference we never acquired
-(causing an underflow/warning for USB-C) and leak the reference when native=
- DP
-mode is used.
-
-[Severity: High]
-Is it safe to use the asynchronous pm_runtime_put_autosuspend() variant in a
-teardown path?
-
-When device removal or pm_runtime_disable() follows immediately, the pending
-async idle/suspend work can be cancelled by the PM core. This could leave t=
-he
-hardware active indefinitely. Should a synchronous pm_runtime_put_sync() be
-used here instead?
-
->  	disable_irq(dp->irq);
-
-[Severity: Critical]
-This is a pre-existing issue, but is there a use-after-free risk because
-hpd_work is not canceled?
-
-The hpd_work struct is allocated via devm_kzalloc. In this teardown path, t=
-he
-IRQ is disabled, but cancel_work_sync(&dp->hpd_work) is never called. If the
-work was scheduled by an interrupt just before disable_irq(), the work queue
-thread could execute after the devm subsystem frees the memory.
-
->  	phy_exit(dp->phy);
->  	drm_bridge_put(dp->next_bridge);
-
-[ ... ]
-
-> @@ -2163,6 +2184,35 @@ struct dw_dp *dw_dp_probe(struct platform_device *=
-pdev, const struct dw_dp_plat_
->  }
->  EXPORT_SYMBOL_GPL(dw_dp_probe);
-> =20
-> +int dw_dp_runtime_suspend(struct dw_dp *dp)
-> +{
-> +	clk_disable_unprepare(dp->aux_clk);
-> +	clk_disable_unprepare(dp->apb_clk);
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Will manually disabling these clocks here cause an imbalance on device tear=
-down?
-
-If the apb_clk and aux_clk clocks are acquired using devm_clk_get_enabled(),
-a cleanup action is registered to call clk_disable_unprepare() upon device
-unbind. If the device is runtime suspended when it is unbound, the devm
-teardown mechanism will invoke clk_disable_unprepare() again on these
-already-disabled clocks, dropping the enable counters below zero.
-
-> +EXPORT_SYMBOL_GPL(dw_dp_runtime_suspend);
-> +
-> +int dw_dp_runtime_resume(struct dw_dp *dp)
-> +{
-> +	int ret;
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-synopsys-d=
-w-dp-improvements-v4-0-f0f4a4ede712@collabora.com?part=3D7
+-- 
+With best wishes
+Dmitry
