@@ -4,49 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 212D3C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:32:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F74FC4452D
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:36:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81ADD10E37C;
-	Tue, 21 Jul 2026 20:32:45 +0000 (UTC)
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
- [209.85.210.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEE4F10E37C
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:32:43 +0000 (UTC)
-Received: by mail-ot1-f71.google.com with SMTP id
- 46e09a7af769-7ee1e335245so501409a34.1
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:32:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 744C810E3C3;
+	Tue, 21 Jul 2026 20:36:43 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="gHW+XIjd";
+	dkim-atps=neutral
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF78C10E3C3
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:36:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1784666202;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Zux0FQwqS5dqbu+u3nZlsMBVqV5QPwfWD3UCTLe1nKU=;
+ b=gHW+XIjdr3Z3jFdEEBBWx/L3MJ5mj26agwL2i1DXZWeBPx9KbWTSK0iEIcyPUS4fNAbVBi
+ NcwtEcCH4dWpfQl5wuAYzm9wtc1J3gp/m3/zE+utsU+Xn4CjOTwqZnHbHmp9h+33pQy/QV
+ awlbLLshwlSxfQBkIidQbH2LSn7+EMU=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-179-cSoJWNaNNKSLK19ar6bY0Q-1; Tue, 21 Jul 2026 16:36:39 -0400
+X-MC-Unique: cSoJWNaNNKSLK19ar6bY0Q-1
+X-Mimecast-MFC-AGG-ID: cSoJWNaNNKSLK19ar6bY0Q_1784666198
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-51c01ff996dso94443161cf.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:36:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784665963; x=1785270763;
- h=content-type:to:from:subject:message-id:date:mime-version
+ d=1e100.net; s=20251104; t=1784666198; x=1785270998;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=mhzdGWNIgCsOpXo2Hq0aKouupzEmWAxumDwrNCDD2uc=;
- b=lxaudKba/rkIWGHdPDRFkqxNOcS3w6Zq1xDVtYzhuA+yNifPZt9Yq5x88bOrXCn1ws
- 0IQdYTAyisSlmAXoRZgEZL8QYhfzaTxpz6Qx/5sLdT6kHP7ZBa+fSfa6uOTbesprGuzb
- BU+Wc06aYOPUlZhIPg0cxK3DC6GIn6I5VTF/TiY6NYxZVBkZwL21W8FUvMQ8HfQIDm5Z
- RJYVb2woTYq3AQMvnNn8uKL03+RAuJyTgzAyo2XbT79roUkmbHhQ1D0B+VQC7/BdR7VF
- tBUMM0R/OzVmH56eXAZu76TCHgwCQhAxbgWpPrnQoAJs4vHQK8y3I6yXH2UGRqdOy6Qp
- icfw==
+ bh=Zux0FQwqS5dqbu+u3nZlsMBVqV5QPwfWD3UCTLe1nKU=;
+ b=ez3u29ifWOeTFj4XBwISqqbIhx7S7POrtcIWpesUPc6vRZdmdf92Wbe61Uj7Au70Tf
+ ZxbQOiPJ3+7NMSMIVT1HDf/uo+iGl+3PfAOBzM+7H6B8xs2m+Oc1GTstZ4ioBjrU7MiK
+ 5VaQ9EqE9PZM5OSotClVUfkxPN424MmAGa1P/OR46hDaE07ttKv9c5k/eQjrRcC3Qsvh
+ vBzJy68VVVvbJntKLFCP5JsfI2v+SvT02t0dZFU/64M1q+zLTRs9B4iX3FstfyTL4+it
+ xidsq9YXTil8qGIVOGtuqYGoM/Yczdvd1JgGZl9oYyA+vTA7gPGEmKT1nKNM7wBQ5t0j
+ w4HA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rrjn8zTUHFx3ZnI/Vq3kMgb3Lgwi7GNsmDDaorglVKnb5STUpWY8oRXyBG4GjCG2o4i3fS/Fha2gC8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzSZfsDnFbLmNyFACIT7VoaqRGIPOEMuSxp4MByey/Dlx9S8hoD
- 2WGzZbWOrk9i8A+qiX9xFrM7SmzYQpzcLn9Z5keOg2J68vHY3ZvNjDkhKvYj7aVjNY6pfCkC1aD
- xhv/pFxvVOzT5JvQBZXTcCvmn8y4P4BleWes/0V6FO5m+G3bM5tdxXOOopZ4=
+ AHgh+RqicJVsjBkpM66Mlz14mE1eVbSpKCvtm9CuC10zpGzTv0vZCaqB4Fn8NvoSD8JuNsWqeS1wyNO3lWc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwuxMMplGqOBQ+rfCGnbAuMngBQCJNIBKG5ndme62DnK3wU0dp+
+ S33J/T7NUviiIV0rFsUHPryNFj+Nxv7WwS55cW7xEJ6NPYXQshgmiK64tJqQWOl2mwODwqXWWu+
+ 2KBZXF0/OW8ZkKT0hhxh+ryW1OLo4//7Xmy1CwvIPsii//C2Wt9Z2DMqnzoEmb+68n9C1vg==
+X-Gm-Gg: AfdE7ckfotwgi2t+WCfhDtopAOiLAcWy2v4PYOXS7dqTLFZ7ocEaYniC+lq0NbhEGqP
+ BOegzFXU/MLKHk321yE9H3Er89PeJ3wVbWuKA/ZwUHdRWDrn/8ilTcncPNyhmvbkDNf9sOnaR/H
+ nHhrJSWJLInDHSGbUxLGzTvqii9AAbTKphz+OtVzoOnGiWJvlCAPKNgFMz+ZR4SGH1Beqf5n91l
+ 8uMB5sZKC4Pm3+FTWF4H+bD6tD/sG3DjIPZLPN1AIlv2BnqM4xS+Q1phI23fmgpQVkysMctKVu/
+ p8nTgYRW6SCgFFYzoabIWzD7dOW3wy4p5aWLQaoxk0IO3HWvLFxO5+anN1luVarpw17E4yy0
+X-Received: by 2002:a05:622a:1825:b0:51c:1d18:2fe9 with SMTP id
+ d75a77b69052e-5213c10a2bdmr202739411cf.5.1784666198592; 
+ Tue, 21 Jul 2026 13:36:38 -0700 (PDT)
+X-Received: by 2002:a05:622a:1825:b0:51c:1d18:2fe9 with SMTP id
+ d75a77b69052e-5213c10a2bdmr202739041cf.5.1784666198087; 
+ Tue, 21 Jul 2026 13:36:38 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-527cda3c2ddsm2829911cf.0.2026.07.21.13.36.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2026 13:36:37 -0700 (PDT)
+Message-ID: <37f6625f23cc0c041d5d079dbca683d47fe9b4fa.camel@redhat.com>
+Subject: Re: [PATCH 3/6] drm/nouveau: add GSP hwmon support
+From: lyude@redhat.com
+To: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Danilo
+ Krummrich <dakr@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard	 <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie	 <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Mary Guillemard	 <mary@mary.zone>, Milos
+ Tijanic <mtijanic@nvidia.com>, 	nouveau@lists.freedesktop.org
+Date: Tue, 21 Jul 2026 16:36:36 -0400
+In-Reply-To: <CAA+WOBuLgkKy_BAgEWgN7jgxDrJYchO1D+B44u6VVMPsGJ-AEA@mail.gmail.com>
+References: <20260714211429.238355-1-mohamedahmedegypt2001@gmail.com>
+ <20260714211429.238355-4-mohamedahmedegypt2001@gmail.com>
+ <78ca5c308ce81465956e839c82e1bba46a9f0686.camel@redhat.com>
+ <CAA+WOBuLgkKy_BAgEWgN7jgxDrJYchO1D+B44u6VVMPsGJ-AEA@mail.gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3442:b0:4a4:c64e:c7e with SMTP id
- 5614622812f47-4a4d05984admr10840818b6e.30.1784665962954; Tue, 21 Jul 2026
- 13:32:42 -0700 (PDT)
-Date: Tue, 21 Jul 2026 13:32:42 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a5fd76a.42649fcc.22d900.0007.GAE@google.com>
-Subject: [syzbot] Monthly fbdev report (Jul 2026)
-From: syzbot <syzbot+listc08b34ae2f4b2a2fb064@syzkaller.appspotmail.com>
-To: deller@gmx.de, dri-devel@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- syzkaller-bugs@googlegroups.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: AQomnzpQF00TwL3RJ-gIyPLwU-V0VmsxoTN3kSJ86LM_1784666198
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,34 +106,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello fbdev maintainers/developers,
+On Tue, 2026-07-21 at 23:36 +0400, Mohamed Ahmed wrote:
+> It can work but it's strictly worse than this. nvif_msec() does busy
+> looping, which would be overkill for this as it would be doing a lot
+> more reading for something that changes at most once per 500ms poll
+> cycle, and it keeps the CPU fully occupied with every read. It also
+> couples us to GPU timing while the main thing we are waiting here on
+> is whether the GSP's buffer writes are now visible in RAM so GPU side
+> time doesn't offer us anything. I actually wasn't sure at first how
+> to
+> properly wait and did go over all the possible timing alternatives
+> and
+> jiffies looked to be the best here.
+>=20
+> That said, to address what Milos mentioned (the weirdness of files
+> being -ENODATA), I am going to have to move this into nvkm/rusd,
+> inside r570_rusd_supported()/r570_rusd_read() which doesn't have any
+> other alternative available to do a similar style waiting loop.
 
-This is a 31-day syzbot report for the fbdev subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/fbdev
+Gotcha, sgtm
 
-During the period, 0 new issues were detected and 1 were fixed.
-In total, 3 issues are still open and 30 have already been fixed.
-
-Some of the still happening issues:
-
-Ref Crashes Repro Title
-<1> 6706    Yes   KASAN: vmalloc-out-of-bounds Write in imageblit (6)
-                  https://syzkaller.appspot.com/bug?extid=5a40432dfe8f86ee657a
-<2> 1601    Yes   KASAN: slab-out-of-bounds Read in fbcon_prepare_logo
-                  https://syzkaller.appspot.com/bug?extid=0c815b25cdb3678e7083
-<3> 285     No    KASAN: vmalloc-out-of-bounds Write in fillrect
-                  https://syzkaller.appspot.com/bug?extid=7a63ce155648954e749b
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
