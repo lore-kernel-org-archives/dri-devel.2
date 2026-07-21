@@ -4,47 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3489BC44536
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:11:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5766AC4452D
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:11:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88FA610EB8E;
-	Tue, 21 Jul 2026 22:11:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E474110EB83;
+	Tue, 21 Jul 2026 22:11:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="ovUD1F6o";
+	dkim=pass (2048-bit key; unprotected) header.d=nanonej.com header.i=@nanonej.com header.b="RITv0cPo";
 	dkim-atps=neutral
-X-Greylist: delayed 1029 seconds by postgrey-1.36 at gabe;
- Tue, 21 Jul 2026 13:49:44 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4071710E353
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:49:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=qF
- tS1cyXiss5O+tpSA4K0a0dG7hXX3ZlQEbtz7ZkF54=; b=ovUD1F6ohHNUZpOZyN
- PAofoi+2eB+EsCeXmSxfr6SziwjsOlO9xHsx9kAZ6AVS0WVY59Vr3N7n6bbiDER8
- H0BsCYxTjm/UQrTfqmZbYDhck0cv/Q2yexW5zqP4z/lbvm9BDDLpKu6lJYdigszB
- 3t3uFf8nRGHHIO9uSIj/a4O8o=
-Received: from lwj.localdomain (unknown [])
- by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id
- _____wAXQpXbeF9qOuCyKQ--.50215S2; 
- Tue, 21 Jul 2026 21:49:16 +0800 (CST)
-From: Xuan Tang <x14786623579@163.com>
-To: patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Xuan Tang <x14786623579@163.com>, stable@vger.kernel.org
-Subject: [PATCH v2] drm/gma500: Handle zero-length GMBUS writes
-Date: Tue, 21 Jul 2026 21:49:10 +0800
-Message-Id: <20260721134910.844678-1-x14786623579@163.com>
-X-Mailer: git-send-email 2.34.1
+X-Greylist: delayed 402 seconds by postgrey-1.36 at gabe;
+ Tue, 21 Jul 2026 15:57:56 UTC
+Received: from mail-106109.protonmail.ch (mail-106109.protonmail.ch
+ [79.135.106.109])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C377210E3A1
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 15:57:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nanonej.com;
+ s=protonmail2; t=1784649067; x=1784908267;
+ bh=4xJdf7VXivw/wmWg7N3kuh9PsFrCjXHEJpgiZKPVOoc=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=RITv0cPoav8kjkOZduD2wA3VWlIWqR0QQLXZeNAesxuutc8FhpHzT4NJqE5G0BZOD
+ hRUJz6gFgCbK6bnYhW5yFZpz+jMfkBxo995/q/xDvoMqn75BklpIaExf2SOcclEzDp
+ js3M/HwdE41w5CqHxloA9UraDefXS0fYEoxpNILCMzKNLOuNERal1FpwCDNgytTcoC
+ OkU5uGcS+29840CmC3JQp8TnDWIZ0bdmbsSSgy1YDrDq7i5ijBvEIbf0kFSO4jaMdN
+ GPKJN1ySBFUvmMwSFAMk/mS55kgasZ9tAq3rUHQ9YX+outBKYZ1QCAXrkovPR/gKi9
+ rq4QUGLrmq5fw==
+Date: Tue, 21 Jul 2026 15:51:04 +0000
+To: Alexandre Courbot <acourbot@nvidia.com>
+From: Nanonej Dev <dev@nanonej.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, daniel.almeida@collabora.com
+Subject: Re: [PATCH 3/3] gpu: nova-core: Move one PBUS register definition
+Message-ID: <TPL-Nmz1jd_sB3sr_x-746jIwTxY7IRTMU5b8jwBv1ice0C31BNvqzUzo3s68ZkE1-mfZHAx2SURO54hHnbR8CUPo3rNLnfHIs_ujtl8D_Q=@nanonej.com>
+In-Reply-To: <20260721-nova-core-regs-split-v1-3-384fa2a42244@nanonej.com>
+References: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
+ <20260721-nova-core-regs-split-v1-3-384fa2a42244@nanonej.com>
+Feedback-ID: 32181229:user:proton
+X-Pm-Message-ID: 3cbe4f318882a5b26acc02f784099a943722e458
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wAXQpXbeF9qOuCyKQ--.50215S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF1fJF47ZF1fur4rKF4xtFb_yoW8GrW5pF
- sIgF4UKrZxJF42y343ua17AFWrC3W7Xa43GF4kKw15u3W3XFy5JFW5Wa4aqryrGrnavrZ3
- trn5KFyrWr17JF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRrOz3UUUUU=
-X-Originating-IP: [113.200.174.121]
-X-CM-SenderInfo: j0rulmywwsjkixz6il2tof0z/xtbCzRzHt2pfeNxaWAAA3y
+Content-Type: multipart/signed; protocol="application/pgp-signature";
+ micalg=pgp-sha512;
+ boundary="------90ec2874e62782a973c832ee1cb04ece76142ec267716d49afc83988116fa4c7";
+ charset=utf-8
 X-Mailman-Approved-At: Tue, 21 Jul 2026 22:11:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,43 +65,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-gmbus_xfer() uses a do-while loop to preload the first bytes of a
-write message into GMBUS3. The loop accesses the message buffer
-before checking whether any bytes remain.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------90ec2874e62782a973c832ee1cb04ece76142ec267716d49afc83988116fa4c7
+Content-Type: multipart/mixed;boundary=---------------------caaab8e2f47728585588c4be9d747c1d
 
-For a zero-length write, the loop therefore dereferences the buffer
-once. Decrementing the unsigned length from zero also wraps it to
-65535, which may lead to further out-of-bounds accesses.
+-----------------------caaab8e2f47728585588c4be9d747c1d
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-Check the remaining length before accessing the buffer. This keeps
-the existing GMBUS transaction flow unchanged and preserves the
-behavior of all non-zero-length writes.
+> - Move the `NV_PBUS_SW_SCRATCH_0E_FRTS_ERR` register under the `gsp`
+>   module, since it is clearly themed after `FRTS`, which is part of the
+>   GSP boot. But, without moving `NV_PBUS_SW_SCRATCH` (the actual
+>   register being aliased). I expect you will hit a bug of the `register`
+>   macro when doing this one - I'll try to address it, but the first two
+>   steps should be safe to do and correct.
 
-Fixes: 5c0c1d50d7ba ("gma500: Add support for Intel GMBUS")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xuan Tang <x14786623579@163.com>
----
- drivers/gpu/drm/gma500/intel_gmbus.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+You told me that I would hit a bug on `NV_PBUS_SW_SCRATCH`, but as far as =
+I compile, I didn't. Anything I could have missed?
+-----------------------caaab8e2f47728585588c4be9d747c1d--
 
-diff --git a/drivers/gpu/drm/gma500/intel_gmbus.c b/drivers/gpu/drm/gma500/intel_gmbus.c
-index 5933ae04a6aa..bf060a62b3b7 100644
---- a/drivers/gpu/drm/gma500/intel_gmbus.c
-+++ b/drivers/gpu/drm/gma500/intel_gmbus.c
-@@ -294,9 +294,10 @@ gmbus_xfer(struct i2c_adapter *adapter,
- 			u32 val, loop;
- 
- 			val = loop = 0;
--			do {
--				val |= *buf++ << (8 * loop);
--			} while (--len && ++loop < 4);
-+			while (len && loop < 4) {
-+				val |= *buf++ << (8 * loop++);
-+				len -= 1;
-+			}
- 
- 			GMBUS_REG_WRITE(GMBUS3 + reg_offset, val);
- 			GMBUS_REG_WRITE(GMBUS1 + reg_offset,
--- 
-2.34.1
+--------90ec2874e62782a973c832ee1cb04ece76142ec267716d49afc83988116fa4c7
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmpflVAJEFKmzSsu6sDwRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmeO7oAu5DM/5lP6bIP2W+HspMUPayb2ZPEYyasl
+PmwVbBYhBI+99gDJjAW7MoHJ0VKmzSsu6sDwAADS/AD9EpYBfq9Kr+a39+kQ
+akbqa9xwLHWgaL4MEK4wf7bbpCgA/RyEo4HklPGFdn5zLDzNb7te8K4qYiHa
+YJma6b43vjoC
+=WCSH
+-----END PGP SIGNATURE-----
+
+
+--------90ec2874e62782a973c832ee1cb04ece76142ec267716d49afc83988116fa4c7--
 
