@@ -4,42 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EE38C44532
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 13:57:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B4A7C44533
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 14:06:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF2F810E353;
-	Tue, 21 Jul 2026 13:57:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA2EF10E352;
+	Tue, 21 Jul 2026 14:06:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SF9G7O5w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D1Eq2Afq";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C7DC10E353
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:57:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92CD210E34E;
+ Tue, 21 Jul 2026 14:06:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4514D600DA;
- Tue, 21 Jul 2026 13:57:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFD0C1F00A3D;
- Tue, 21 Jul 2026 13:57:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0FE9B6001A;
+ Tue, 21 Jul 2026 14:06:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A6391F000E9;
+ Tue, 21 Jul 2026 14:06:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784642247;
- bh=kf8eZ6K+bHuIGhOUWZxEqPuHsjwCiWazT1UrFg6LJPQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SF9G7O5wHpiCCbpYmq7yLmHTim+6Ed4f6FudzcTiLQjoKen3SOb4XXgmNGfT6jMuS
- bqKSPPuW9uLQhkGyxNxuYoyKhdGGlrx1gexIihcX+HK0d6UaRdKyfJXYlpspHeHJRX
- b2kfSw91eHhKwv/PG5s+I6qfWZO6pDG/MRhGPynWZioLVlcF3aHIdn7PExH704B2EE
- 5iKD/ZwgpSwd+n8qLjH6YUOYuqCOK5UemKU8fcTroii6r2Qul1xoxmoePpMtKel3Rp
- zaLpGDb9u/ISX0EOpQY8VNhBwUesOZlp4nmm5mYUPhnAZfRGKV8zqfW+vVSIT+MFXn
- u8KlxoHpGsLRw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/gma500: Handle zero-length GMBUS writes
-To: "Xuan Tang" <x14786623579@163.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260721134910.844678-1-x14786623579@163.com>
-References: <20260721134910.844678-1-x14786623579@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 13:57:26 +0000
-Message-Id: <20260721135726.CFD0C1F00A3D@smtp.kernel.org>
+ s=k20260515; t=1784642802;
+ bh=Idt5G772KwxjQM6Cd/5RAUT8Wlfvka+iIYZrY3DWysw=;
+ h=Date:From:To:Cc:Subject;
+ b=D1Eq2Afq1MgQOx80XBoKQWiQfGWEs1oObt39VxNpJud6DFNnh36vAyqeJQI2DUktl
+ wG6KVlkAyvJRjsBFe8DHFsXpcmsviBfE86ddnOAB3B754MHrXJSbT4le8ti9ew0HYq
+ 8bW6P5mv49FC9e/ElzVK9/DCNGvtJKHAxRkGwCdU9IIHkDCXrzSoBXYdT1Ko/+LovF
+ 0imp05Lfo0KYnGjp/AvBBiblHeTg4w39zMsMp14QTjY+wQXtedpCHfQbU7gYhIgHZl
+ viUMEerKDaxBSSb85LrsZLqmlGSLHK/0+l8ca3rK+Ho5M7iUHBPvDhl3Nq//rKsv1T
+ 3J0ncQy2ImgLw==
+Date: Tue, 21 Jul 2026 15:06:38 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>, Maxime Ripard <mripard@kernel.org>,
+ Albert Esteve <aesteve@redhat.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <al987knJq4h66FcJ@sirena.org.uk>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="KVSqdCw1em5yhpkZ"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,70 +57,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Incomplete fix: The patch addresses an out-of-bounds access for ze=
-ro-length I2C writes but entirely misses the identical bug in the zero-leng=
-th I2C read path. If a zero-length read message is processed, the unconditi=
-onal `do-while` loops will underflow `len` and write 65536 bytes out-of-bou=
-nds to the `buf` pointer.
---
+--KVSqdCw1em5yhpkZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [1]: [PATCH v2] drm/gma500: Handle zero-length GMBUS writes ---
-commit 7fd0792ed62f6cc7ed832202067488e2f598937f
-Author: Xuan Tang <x14786623579@163.com>
+Hi all,
 
-drm/gma500: Handle zero-length GMBUS writes
+After merging the drm-misc tree, today's linux-next build
+(arm64 defconfig) failed like this:
 
-This commit fixes an out-of-bounds access in the GMBUS write path for
-zero-length transfers. It changes a do-while loop to a while loop, preventi=
-ng
-the underflow of the length parameter and subsequent invalid memory access.
+/tmp/next/build/drivers/gpu/drm/imx/dcss/dcss-kms.c: In function 'dcss_kms_=
+bridge_connector_init':
+/tmp/next/build/drivers/gpu/drm/imx/dcss/dcss-kms.c:81:17: error: implicit =
+declaration of function 'drm_panel_put'; did you mean 'drm_dev_put'? [-Wimp=
+licit-function-declaration]
+   81 |                 drm_panel_put(panel);
+      |                 ^~~~~~~~~~~~~
+      |                 drm_dev_put
+make[8]: *** [/tmp/next/build/scripts/Makefile.build:289: drivers/gpu/drm/i=
+mx/dcss/dcss-kms.o] Error 1
+make[7]: *** [/tmp/next/build/scripts/Makefile.build:549: drivers/gpu/drm/i=
+mx/dcss] Error 2
+make[6]: *** [/tmp/next/build/scripts/Makefile.build:549: drivers/gpu/drm/i=
+mx] Error 2
+make[6]: *** Waiting for unfinished jobs....
+/tmp/next/build/drivers/gpu/drm/mxsfb/mxsfb_drv.c: In function 'mxsfb_attac=
+h_bridge':
+/tmp/next/build/drivers/gpu/drm/mxsfb/mxsfb_drv.c:130:17: error: implicit d=
+eclaration of function 'drm_panel_put'; did you mean 'drm_dev_put'? [-Wimpl=
+icit-function-declaration]
+  130 |                 drm_panel_put(panel);
+      |                 ^~~~~~~~~~~~~
+      |                 drm_dev_put
 
-> diff --git a/drivers/gpu/drm/gma500/intel_gmbus.c b/drivers/gpu/drm/gma50=
-0/intel_gmbus.c
-> index 5933ae04a6aa5..d004e2a1feaee 100644
-> --- a/drivers/gpu/drm/gma500/intel_gmbus.c
-> +++ b/drivers/gpu/drm/gma500/intel_gmbus.c
-> @@ -294,9 +294,10 @@ gmbus_xfer(struct i2c_adapter *adapter,
+Caused by commit
 
-[Severity: High]
-This is a pre-existing issue, but does the read path just above this fix
-have the exact same vulnerability?
+   b71a623598d31 (drm/panel: of_drm_find_panel() return a counted reference)
+  =20
+I have used the version from next-20260720 instead.
 
-Looking at gmbus_xfer(), if an I2C message with I2C_M_RD is processed and
-len is 0, the read path uses an identical unconditional do-while loop:
+--KVSqdCw1em5yhpkZ
+Content-Type: application/pgp-signature; name="signature.asc"
 
-				val =3D GMBUS_REG_READ(GMBUS3 + reg_offset);
-				do {
-					*buf++ =3D val & 0xff;
-					val >>=3D 8;
-				} while (--len && ++loop < 4);
-			} while (len);
+-----BEGIN PGP SIGNATURE-----
 
-Would this also underflow len and write 65536 bytes out-of-bounds to the buf
-pointer?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpffO0ACgkQJNaLcl1U
+h9ATzgf5Adwr9uCkP59givHL6GPZ5+UsW8JMEQnGh8XV745k1dzIUTyUtzoTjH4s
+W6JFzvEr9doz8Z2Roj6QB8bApC3ogiS2ADhtXRcamNL/3S+lIY9GS/aAVFfUlqzs
+JKxE6ZE9QFNlrwywGcY95q2WyGb70DfLZ15HDyHDi3rZAiYNi38R/BZ7xmlYfuJT
+6uvOvp7litUarT5b/cxKlMbnfyGioIOMdqaBQc9PshwafVOmOJxQErgKgLDMuRfh
+2FzU6QDaNHNF4fdBDuvU1c+lASaSTiQanASPjR/lPACrFIgydh82UFCnMF1+lv+A
+xtOcoGdmZgOkhs/D3h78zOM1H2JQUg==
+=HczC
+-----END PGP SIGNATURE-----
 
->  			u32 val, loop;
-> =20
->  			val =3D loop =3D 0;
-> -			do {
-> -				val |=3D *buf++ << (8 * loop);
-> -			} while (--len && ++loop < 4);
-> +			while (len && loop < 4) {
-> +				val |=3D *buf++ << (8 * loop++);
-> +				len -=3D 1;
-> +			}
-> =20
->  			GMBUS_REG_WRITE(GMBUS3 + reg_offset, val);
->  			GMBUS_REG_WRITE(GMBUS1 + reg_offset,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721134910.8446=
-78-1-x14786623579@163.com?part=3D1
+--KVSqdCw1em5yhpkZ--
