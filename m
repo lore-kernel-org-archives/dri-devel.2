@@ -4,44 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79853C4451C
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 16:55:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41961C4452B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 16:55:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5DF410EAC0;
-	Tue, 21 Jul 2026 16:55:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E6E610EABD;
+	Tue, 21 Jul 2026 16:55:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jzHA4Zdl";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="QxPfcSmJ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BDBC10EABC
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 16:55:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6444A4364E;
- Tue, 21 Jul 2026 16:55:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3B21F00A3E;
- Tue, 21 Jul 2026 16:55:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784652904;
- bh=xaP4iJo/L1ERHadu0eJ50XoMx0i04MAli12ha4zzyvo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jzHA4ZdlgOfJ2zsiMX8FAkjm0+lNykyvLHSc8ZpHekQtOWip6KrpS7w75U0CPpnS8
- z+aW29oILZsfYvZbIsr8/ZKri2tZeq2VMmBcBHvxznpfpIyQo5WULBa+n9CrMf97Dy
- uUYYss9TyU97qbTmZ3FhhDppKXXSQOq4lpn609ro2jHPdEuo4znDgNuS7aQjecvl2D
- J2ZAea0vlftMaRnicUCzR171hmoXgcVcHMztNC8bkLNCVNTn/BR6v6WTc0koyILzLw
- ikMvroKvsc301fvl6RL0zTrFYt7ppR1avy7AK10bbT2f5uJifH+FGDqPN48rs6NAl2
- P+Cfh6of9ZfiA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] drm/amd/display: Clean up FreeSync capability
- detection
-To: "Alex Huang" <Alex.Huang2@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260721164430.2121326-4-Alex.Huang2@amd.com>
-References: <20260721164430.2121326-1-Alex.Huang2@amd.com>
- <20260721164430.2121326-4-Alex.Huang2@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 16:55:03 +0000
-Message-Id: <20260721165504.1D3B21F00A3E@smtp.kernel.org>
+Received: from CWXP265CU010.outbound.protection.outlook.com
+ (mail-ukwestazon11022096.outbound.protection.outlook.com [52.101.101.96])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02F4110E228
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 16:54:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=skukv3Djd6nNosB3bRXfr5V9G/J8+Ux6Mp0woeURF+GVTbZKtztMtlKC2nOrHmQ+gked6tetGuK8zqFU13cYv/Mf5gEQUMRLMpjZFZWt2iK3KwFjmewVbtbAvsszmj+MSn+4FA9dKFeVPLpVgG5Q4oBdriWpKGq4ME1bPXaaHAbxAwoR62g/0uATeW/NDZR4g+iXmb2a/zZq39mad1O+XuuWVNHEKDABlrBU7YfYZt+NeA89xIASMglGn2D6y8wxX7NkZ5q4nxtTK7Y4QTm82Qa5rDggT/aUKF4XOZd9cv1GM2y+8pXPny7vtGWbBiYnfNTd3pv4A5esXmA1qKO++w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9U1O/G0PdIjgKwC9lMycnNTEDGZPORy/i+sUq9XpXAQ=;
+ b=IcmCihfnFs8rz9JwP4A32klatzKXwXWYJTN2F8Z7BIxvFpKZ8hDgtI16ZURFEAG/fmZNgU/2BLgx/v3OsD3k6V0P2BOr9JCBOgjUUvxYGA9wncbbTH8ID77oh85ehydWkiUjMZtFEPSpgKSHGoj4uZsy0G8MK6ijS7wj9/IZSL8MPuT3E2YzCALiANBf9xT6HPE2Xnia/Rf1poUKdBxMmNzZxJi9R8x5+Fp79sR/InDLR6NAAW6bgOr5jeEclenBEFvmPmQdBrh684PthxnvLZjyjQAmmQrs98ztR3lBTIaPODbS5/L/kCYYCrbT7US/ZXKkZF9jcQrc1LbPqauBtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9U1O/G0PdIjgKwC9lMycnNTEDGZPORy/i+sUq9XpXAQ=;
+ b=QxPfcSmJrLzstNVJ29bGDNqIMvUJ1f38BEI6tIoixvYn2V+0qavAWNQSSdGt0CfiQl0RzKDMvgeoPP3PeoI/B470JDAmPI7vMIpYox0HLaNkPvAnhBB8TMGUL6wXed60J5n3scyiAMQDxbGlsaNmUMDqYVrX6FFIMayp19x1jQ8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO8P265MB7878.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3ae::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
+ 2026 16:54:38 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0223.017; Tue, 21 Jul 2026
+ 16:54:37 +0000
+From: Gary Guo <gary@garyguo.net>
+Date: Tue, 21 Jul 2026 17:54:33 +0100
+Subject: [PATCH 09/10] gpu: nova-core: convert hshub0 from relative
+ register to projection
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260721-typed_register-v1-9-452d72b60262@garyguo.net>
+References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
+In-Reply-To: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
+ Gary Guo <gary@garyguo.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784652872; l=5363;
+ i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
+ bh=v1AhLEytp+ubGM9er1SfcTppOcOxQOUG4YK7S3jTrxY=;
+ b=ID3jt47eVs7jdqWoN2OOu+OOrmCzvsaCkStotLa64wc55VDv1532zGICa44Layqayp2pGYXWF
+ bSgrc3qliorAdQmJy82eTujUJkIbevjC0ofyG5cpVMw+MmR9REOrblv
+X-Developer-Key: i=gary@garyguo.net; a=ed25519;
+ pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
+X-ClientProxiedBy: LO4P123CA0143.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:193::22) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO8P265MB7878:EE_
+X-MS-Office365-Filtering-Correlation-Id: f141ebb4-b23a-49c0-67f3-08dee748c00a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|7416014|10070799003|1800799024|366016|56012099006|10067099003|6133799003|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: +ZIPC95uqLTYltm/6l1eXLxyFH7kpGA53q6euFwuAsGWEt4DE9CbgCZoh3SfhHqjRNmLlWZLY9k/JBtpS/JEyFGh9pJiGKas4QY/5L51UdcS6kqW+abMbFXrh26za1NPqo1aP2Xnx3aILrkyhvZ2XVZybI4DotExcutWZjRe9B7ZJQNfUHAfyIuPH/NSphZ345zQ4Ge4WfowY+Pu5qSgmgmHB0Dwc5OOBfkjDi0jYRUCpXy/9jTK/hcxw79ePmSRnRXBKarQiulW+12ddWuqdAfd1KVL7ysRb5fj8YdXPl9Lu7cYYAqPve6VvuR/rH3D5O7VBBpJvO0/YRN9VQiaFpj1E9rb3AZEC8p6Uh3T0SdhxRMuL3Ed/Q87OZ59wKbUnjoFh1DJtBWlD4VH7HKa3sYq47AmAI9TWMe9pCT8wk2pVRzSePD0SYqv4UNWj9gXqSm5KNIJoDMtxkrNZLx2eneZCAyu93ukOsmbbiJnGLILc5lo2nTbg/8DVApN6KO7Z9UzXPsPPvaSKcj3/GbzCu6lptoy6NbDYQspr3J6BeI8q6L3gtfPAMn0cl4JxTcvLkVsoPhZ3HEU6bQFNUh46/rYtxEBzM5t6GwRBDHJ3Xlt3HThHWzBl8NkuDwJU2dsINi83LmdHosBaCgHtSm2GxHWjsDSPNTlaFA7eTt9dN/xJ8Ce5FCxZW0oQXcJjCW9RGZY6LcDzU4lkt3G/Fuuvg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(7416014)(10070799003)(1800799024)(366016)(56012099006)(10067099003)(6133799003)(22082099003)(18002099003)(921020);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dmNvVk9XU2l6ZktONVl3NW8yYmxLRDVIUGltaHdLcFMyZWtZdk91NlE0Wng0?=
+ =?utf-8?B?NHZjOHFlZC9hZnIvd0Z4RmNyUE1vYjJRS2poVWdvaUQyOUw3R3BqejFvNG9x?=
+ =?utf-8?B?c25ZZG5PWFVUWUltd0lMMHNvRlQ4Z29uVXlBK1g4WjdIR1dEVFlsV3VmQXkr?=
+ =?utf-8?B?cU0xRWJNQ3BiS2NUWGg5ZVdSMnJEZHdMb3U2U1Q2NHA4ZjRVMDlXamtIZ0d5?=
+ =?utf-8?B?eEoycVhsbWRKUnIrZ0owQUJsdlA1MlR2VkcwU21NSXN2T1ZtMnRaMXNYREhu?=
+ =?utf-8?B?T212cWpuVlJ5TkU5cE1DRlNOSmNLSXF5U0kxU1lKelNPNGh5eUlVVDZsdmZ3?=
+ =?utf-8?B?NE9LMHJuS2ZURlNDRmRDTDk0WGtLRGQ0VTI1RmF4bllyNVhEczBEb25QVVlP?=
+ =?utf-8?B?TE5Vb1BJVkxSanRtMTRXQW1xMXhyNTdRejBWajlqTEpKbWUweGtLb2g3Q3kx?=
+ =?utf-8?B?djAxZkFuR05BNGFiNkd6K0xpMzJNcmJ0YmpLMC9KcUx3dzloZHUwTi96Ty9x?=
+ =?utf-8?B?UWFEUlJMcDhodDBYUWtJMXJtL05EYVhNRVNKZGdpWHZ3RG1lYlJoZDViamZx?=
+ =?utf-8?B?aG4zemhzUnMyT0lDM0lDWVltdTlkVngyVWZkcnNkeFg4U0lZckxjQ2N6THVo?=
+ =?utf-8?B?bmJyVkY2SHVGcE45MGd2dFo3Y3ZqSUJCN0JEVllXeWIydnE1Z2ljaUl0aUFC?=
+ =?utf-8?B?R0NzQW1JcHU0em1QYUFtRDlUbnFleVViWi9RMjIrcGRPSWw2M0x6QnZsd1U1?=
+ =?utf-8?B?WkRLcGp2RVlhaXcrTXlGTlh4d0RVZTBzQnBxWnExSW1oMDBqdEpOZlpUVW01?=
+ =?utf-8?B?V09FL0VnblhzREZydHZYNE8vcEc5RHZ0cnFwZHVLVm5aOExWYkI5Q2puUXZ6?=
+ =?utf-8?B?TXpLY0ZQRms5TTZrL05PdS9XM09MeU5jazVYRDJoc2VteEovczBFS3BSNWxk?=
+ =?utf-8?B?d2RJWG43eXZ6ZGNidC9qR1pVbDJhRkZWbTBCWXJtRzUra1dpZkdHcE45dnFP?=
+ =?utf-8?B?Um5EdHZtanhNUkxweVRXbVFiMHpKY3A2NjJDb1hnR21PenpMWnpiRmE5R1Ni?=
+ =?utf-8?B?VVpDNXh1WU1xZC8zaHVhbHBFcEVsTWlvZFB2dWxHZE1YbXoyYjlGOC9nQ0FS?=
+ =?utf-8?B?b2hWRUNzdHY2ZTlPeDdmbHdObk5RNit4elViUUQwOXN2QjlmcmpPeDFXeFhV?=
+ =?utf-8?B?MXVPMkZkSUd2QVB1eDZlcU41ZlcxNGRMc3J6RHdHZmVobk84dGhhVTRvQ2Jr?=
+ =?utf-8?B?dHhDQTFVbVljMEZ6TFN5R0tVejBGNEJvekpkM21NWmh2YmJ4RFRObFNBbEI3?=
+ =?utf-8?B?em5Nd1c0azJXWkVZcmExWUFyYno1cSswOHB2eE9EdGlCS2Q5WHBLRmpyeVFn?=
+ =?utf-8?B?dm8zUnZoWVhMSWFRNURraXBkU09wcEg1WS95eVlKZXJQd080M2JKTWVNSTMx?=
+ =?utf-8?B?b2RjNEZpUE9kMUJjVER5cXlMK0hPN3VoS3NRVk85bGFhQlVDQXpTNmxqY2Rz?=
+ =?utf-8?B?VjZ2WXdCZy9xRDFTWnRZODQ0TkdueGZGbW8xYm9TRTRjbWttYzQ3NjhybDZp?=
+ =?utf-8?B?d2NFLzQrL1QvTElBWjVkRnNINThTOEVORmVFeTdnUkVOUVRpZEduQmRZQWdR?=
+ =?utf-8?B?eFdGRWVQOVEzR3R6eFVsQnBmcjg5bFV6SmpZUzJIdE0xWkgwdE53ZnNXRnFX?=
+ =?utf-8?B?eXh3SndDQ2IrRW5VSFpnR2wybFdicEtVWTJkaGlVdjhzY0ovT3AwSEVXcU9a?=
+ =?utf-8?B?djdvRjJyZkZITDVxV1IycWo1MWs0OUYwQldFcmdMQ25UZWdnNzVYYnRsV1Y3?=
+ =?utf-8?B?dXhBV2JkOE13NzA1bmNQTi9hZElLY0ZtRWpPRTg5cVVnclBJS1pYR1Q3Yjcv?=
+ =?utf-8?B?QkZXd3VGMWUyS2ZIRUkzeXgyNUV5RVJQWWg5T1d1N3kzMHA2dDR1dXBiVDEx?=
+ =?utf-8?B?VHFOdUNUeFhoUnZjMFMrUE9IM2ZUSkh5YlZaQzQ4QURURklaeDR5ZGhrQ0pl?=
+ =?utf-8?B?MXA0QWk4cVVNaGhFbWFzZGRkdDNJTVY4dUJJRjBFQklhaWpvMEJ4MHY1R0tx?=
+ =?utf-8?B?akhYZlRGR1JhMU8zWTZFZVVhZ3U0MDU5TVFERkdleFFqdzF5YmxGQmhvL1Er?=
+ =?utf-8?B?U2ZyNDlNSzFoQjQyMitFSVNQN1JqNnVWdFNOeG96OTlweUt3V29iSWEvOEhn?=
+ =?utf-8?B?VGh6Zlg1NWFJSzEzTU5qWjNyYlJCR21HRlZvdjRHTG5jOG5PR2pGUis0QXhi?=
+ =?utf-8?B?Q0FPS2g4dnBlUGMxUkg5N21vZTRuOStCK3VyalJ1OWZlRi8vbk14ZXV5ckoz?=
+ =?utf-8?B?MDJCSWVTMU5xTjRIbXRna2JDTEZsR0dtKzhwV2s0dlJkVVhUK3ZKZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: f141ebb4-b23a-49c0-67f3-08dee748c00a
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 16:54:37.9343 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: d1+PqdJf/cGddBCZqJTifG1WgMtS6qbA4v8Ho1NfU/UFDLqBjx644BgleN0ghmTLKQlD9FomVFgYgZB3/zqnig==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7878
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,98 +152,157 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing fallback to EDID monitor range when an AMD VSDB is present=
- but does not advertise FreeSync support.
-- [Low] Using integer literal 0 to initialize a boolean variable.
---
+Similar to the PFALCON and PFALCON2 conversion, the hshub0 relative access
+can also be achieved cleanly with projection and a new base.
 
---- Patch [3]: [PATCH 3/4] drm/amd/display: Clean up FreeSync capability de=
-tection ---
-commit f8ae668c998c7d60648194bc1a8a582d9e952ad8
-Author: Alex Huang <Alex.Huang2@amd.com>
+Signed-off-by: Gary Guo <gary@garyguo.net>
+---
+ drivers/gpu/nova-core/fb/hal/gb100.rs | 51 ++++++++++++++++++-----------------
+ drivers/gpu/nova-core/regs.rs         | 19 ++++++++-----
+ 2 files changed, 38 insertions(+), 32 deletions(-)
 
-drm/amd/display: Clean up FreeSync capability detection
+diff --git a/drivers/gpu/nova-core/fb/hal/gb100.rs b/drivers/gpu/nova-core/fb/hal/gb100.rs
+index 6e0eba101ca1..ec910e0a044b 100644
+--- a/drivers/gpu/nova-core/fb/hal/gb100.rs
++++ b/drivers/gpu/nova-core/fb/hal/gb100.rs
+@@ -5,11 +5,9 @@
+ 
+ use kernel::{
+     io::{
+-        register::{
+-            RegisterBase,
+-            WithBase, //
+-        },
+-        Io, //
++        Io,
++        Mmio,
++        Region, //
+     },
+     num::Bounded,
+     prelude::*,
+@@ -29,17 +27,24 @@
+ 
+ struct Gb100;
+ 
+-impl RegisterBase<regs::Hshub0Base> for Gb100 {
+-    const BASE: usize = 0x0087_0000;
++impl Gb100 {
++    #[inline]
++    fn hshub0(self, bar: Bar0<'_>) -> Mmio<'_, regs::Hshub0Registers> {
++        Region::subregion::<0x0087_0000, SZ_4K, _>(bar).cast()
++    }
+ }
+ 
+ fn read_sysmem_flush_page_gb100(bar: Bar0<'_>) -> u64 {
+     let lo = u64::from(
+-        bar.read(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO::of::<Gb100>())
++        Gb100
++            .hshub0(bar)
++            .read(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO)
+             .adr(),
+     );
+     let hi = u64::from(
+-        bar.read(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI::of::<Gb100>())
++        Gb100
++            .hshub0(bar)
++            .read(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI)
+             .adr(),
+     );
+ 
+@@ -58,24 +63,20 @@ fn write_sysmem_flush_page_gb100(bar: Bar0<'_>, addr: Bounded<u64, 52>) {
+     // Write HI first. The hardware will trigger the flush on the LO write.
+ 
+     // Primary HSHUB pair.
+-    bar.write(
+-        regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI::of::<Gb100>(),
+-        regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI::zeroed().with_adr(addr_hi),
+-    );
+-    bar.write(
+-        regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO::of::<Gb100>(),
+-        regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO::zeroed().with_adr(addr_lo),
+-    );
++    Gb100
++        .hshub0(bar)
++        .write_reg(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI::zeroed().with_adr(addr_hi));
++    Gb100
++        .hshub0(bar)
++        .write_reg(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO::zeroed().with_adr(addr_lo));
+ 
+     // EG (egress) pair -- must match the primary pair.
+-    bar.write(
+-        regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI::of::<Gb100>(),
+-        regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI::zeroed().with_adr(addr_hi),
+-    );
+-    bar.write(
+-        regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO::of::<Gb100>(),
+-        regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO::zeroed().with_adr(addr_lo),
+-    );
++    Gb100
++        .hshub0(bar)
++        .write_reg(regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI::zeroed().with_adr(addr_hi));
++    Gb100
++        .hshub0(bar)
++        .write_reg(regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO::zeroed().with_adr(addr_lo));
+ }
+ 
+ pub(super) const fn pmu_reserved_size_gb100() -> u32 {
+diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+index 7f7cb84b21e8..6bc8601f2176 100644
+--- a/drivers/gpu/nova-core/regs.rs
++++ b/drivers/gpu/nova-core/regs.rs
+@@ -7,7 +7,10 @@
+         Io, //
+     },
+     prelude::*,
+-    sizes::SizeConstants,
++    sizes::{
++        SizeConstants,
++        SZ_4K, //
++    },
+     time, //
+ };
+ 
+@@ -156,28 +159,30 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
+ /// Base of the GB10x HSHUB0 register window (`NV_HSHUB0_PRIV_BASE` in Open RM).
+ ///
+ /// The base is provided by the GB10x framebuffer HAL.
+-pub(crate) struct Hshub0Base(());
++#[repr(align(4))]
++#[derive(FromBytes, IntoBytes)]
++pub(crate) struct Hshub0Registers([u8; SZ_4K]);
+ 
+ register! {
+-    base: NovaRegisters;
++    base: Hshub0Registers;
+ 
+     // GB10x sysmem flush registers, relative to the HSHUB0 base. GB10x routes sysmembar
+     // through a primary and an EG (egress) pair that must both be programmed to the same
+     // address. Hardware ignores bits 7:0 of each LO register. The boot path uses a fixed
+     // HSHUB0 base, so the multiple runtime-discovered HSHUB bases are not needed here.
+-    pub(crate) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x00000e50 {
++    pub(crate) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x00000e50 {
+         31:0    adr => u32;
+     }
+ 
+-    pub(crate) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x00000e54 {
++    pub(crate) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x00000e54 {
+         19:0    adr;
+     }
+ 
+-    pub(crate) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x000006c0 {
++    pub(crate) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x000006c0 {
+         31:0    adr => u32;
+     }
+ 
+-    pub(crate) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x000006c4 {
++    pub(crate) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x000006c4 {
+         19:0    adr;
+     }
+ }
 
-This commit extracts duplicate FreeSync capability detection code into
-common code, pulling VSDB data once and falling back to monitor ranges
-when needed.
+-- 
+2.54.0
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -13707,7 +13707,7 @@ static int get_amd_vsdb(struct amdgpu_dm_connecto=
-r *aconnector,
->  void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
->  				    const struct drm_edid *drm_edid, bool do_mccs)
->  {
-> -	int i =3D 0;
-> +	bool has_vsdb =3D 0;
-
-[Severity: Low]
-This isn't a bug, but is it better to initialize this boolean variable
-with 'false' instead of '0'?
-
-[ ... ]
-
-> +	if (has_vsdb) {
-> +		amdgpu_dm_connector->vsdb_info =3D vsdb_info;
-> +		amdgpu_dm_connector->vsdb_info.amd_vsdb_version =3D vsdb_info.amd_vsdb=
-_version;
-> +
-> +		/* copy refresh rate info as long as VSDB advertises FreeSync */
-> +		if (vsdb_info.freesync_supported) {
-> +			amdgpu_dm_connector->min_vfreq =3D vsdb_info.min_refresh_rate_hz;
-> +			amdgpu_dm_connector->max_vfreq =3D vsdb_info.max_refresh_rate_hz;
-> +
-> +			connector->display_info.monitor_range.min_vfreq =3D
-> +				vsdb_info.min_refresh_rate_hz;
-> +			connector->display_info.monitor_range.max_vfreq =3D
-> +				vsdb_info.max_refresh_rate_hz;
->  		}
-> +	} else {
-> +		/* fall back to the base EDID range when there is no VSDB */
-> +		amdgpu_dm_connector->min_vfreq =3D connector->display_info.monitor_ran=
-ge.min_vfreq;
-> +		amdgpu_dm_connector->max_vfreq =3D connector->display_info.monitor_ran=
-ge.max_vfreq;
-> +	}
-
-[Severity: High]
-What happens if a monitor has an AMD VSDB (has_vsdb is true) but does not
-advertise FreeSync support (vsdb_info.freesync_supported is false)?
-
-In this scenario, it looks like the code skips assigning the VSDB refresh
-rates but also skips the else block that falls back to the EDID monitor
-range. Will amdgpu_dm_connector->min_vfreq and max_vfreq be left
-unmodified, potentially retaining stale values from a previously connected
-monitor?
-
-[ ... ]
-
-> +	if (sink->sink_signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT ||
-> +	    sink->sink_signal =3D=3D SIGNAL_TYPE_EDP) {
-> +		if (amdgpu_dm_connector->dc_link &&
-> +		    amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing_p=
-aram &&
-> +		    amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > =
-10)
-> +			freesync_capable =3D true;
-
-[Severity: High]
-If min_vfreq and max_vfreq retain stale values, could this arithmetic check
-evaluate to true and erroneously enable FreeSync?
-
-For example, when hotplugging an eDP panel that has a VSDB for Replay mode
-but no FreeSync, it seems freesync_capable might be incorrectly set to true
-based on the previous display's refresh rates.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721164430.2121=
-326-1-Alex.Huang2@amd.com?part=3D3
