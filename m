@@ -4,43 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A503C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 21:18:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D00DC4452D
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:11:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 679EA10EB76;
-	Tue, 21 Jul 2026 21:18:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D3E710E136;
+	Tue, 21 Jul 2026 22:11:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="in+oPhEO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NAxpsbmo";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF84810EB76
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 21:18:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4A011437B4;
- Tue, 21 Jul 2026 21:18:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01EBE1F000E9;
- Tue, 21 Jul 2026 21:18:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784668694;
- bh=mXQKFfeBIvyQMbFSB56/rrzSiZVK3LbSSb9i7/0lvYE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=in+oPhEOlrQ6pGPM6u3uG4oq4AxZMaRbZevr1JgcbefOrOMELy937j6YxJGMnWm8A
- DVEzs4HMnwZDyjc6odH04ovCQUJgOhHoGKgVxkYfST1fTKOTz2i/C8Ahkb6BoNEoSt
- qGsQG4GG3L/Uj0N8DzIh4rBJltCsmxH57c0z26rRyJdNdiKN5QL4wJycv5ebw8P0YO
- HJS23lkonRYfoWVfTwqp2Ei9TxgQCbO9qqJrbg5LRy8C7BGgiEA4orTz6ZEoBAfUDf
- JsQ9a6tH9b4Ky1PY6l0JaId7mriVHcxr0FX+Yqaf3AEE5ERXCn2ku01GHtrikmSrKC
- hFRgu9XHLIqpw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 28/29] dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
-To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
-In-Reply-To: <20260721-dd-maint-2-v7-28-010fbe73b311@gmail.com>
-References: <20260721-dd-maint-2-v7-0-010fbe73b311@gmail.com>
- <20260721-dd-maint-2-v7-28-010fbe73b311@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 21:18:13 +0000
-Message-Id: <20260721211814.01EBE1F000E9@smtp.kernel.org>
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E09010E391
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 17:27:28 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-49548aebcd8so29984815e9.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 10:27:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784654847; x=1785259647; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=JLzCAfsGEIgUcEbUqrqY0ww6cKzEJHPvtWy4z538qTk=;
+ b=NAxpsbmod1yss2mwscnpbEt3o+G5+fvhNict4zdC9vTUFe7Idk5LUtK653mVTSfnda
+ Am36D1nOEO7GobGHjz2nHHAKp2L7/IIDzX3p6HyFfDlRgFOTnJJg0pyn+9ofBisK5g/t
+ +AtIz+X4xyNZsifuIgwes7IzJNQICMbldU8bb8nWPFBOoc2bm+UO9WWDk723aX/CB9HJ
+ IL0gYTbMVprSqWOT5D5CByKdgXfdmedqfh4I5IDi4Roq7Hq702/pRFRkf6O6fiNCkc1M
+ KDyluq69ZV2BWJiZ8SHgKsaMwjmka2o8WTOJDoo4K12RDSONt5j/4qMlpU+Y+G3j+7IH
+ cgwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784654847; x=1785259647;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=JLzCAfsGEIgUcEbUqrqY0ww6cKzEJHPvtWy4z538qTk=;
+ b=MleNiFfO+/32hCQH9F/ZOYDolhalr9Knj1TEWKX7q1fgtJTOmcESSwJOL/+maci8C6
+ bZCJ67aAkOyFV49ihs4bKcjx4+HJ6M5TJtlVGRBwbWe942UyKHVZEH+NDyNILrYbkNBZ
+ Ubytvhwu97ufQBr0bAm2/lWJYKo1knVmLI8v8sdQlNTeWDhJs35YJ4uBBk1nvTsZs+7h
+ tCfaO36Hyk7V78avJCzBMrD167C9u1YyQ9PQwzHFANTuWI34BA/RIkOcHCQFytfah9+t
+ Stg5d1EuZB3MQM4QJj0njv4OwrVUL8PmKopqAgd/6cm6vCluYgP+McOQxSMoSqlxwr1z
+ /dGg==
+X-Gm-Message-State: AOJu0Yw8454rBmePv6o000pMJQVVIM40DmeAzqo0BWse//R4HnlE3A9p
+ nmaCX7bL4a3OfQHrOd/4hQ1uWsSau7Tu19qbKmvmg79C0T1gVI/og7WR
+X-Gm-Gg: AfdE7cnxnevoEXyZuvVFB30LGwmB76vWeuwsl6yCR5SpFMSanJYbwuh3znQEk3YaTWv
+ If78zWTRpXWIXmHX1uaznpqzTWUUlDGWQV0nLR71xQ5fTFJBmrcItJOK2pZ8dgNJghL53lbng88
+ kfY9HDseJU8qIvEGIzvMzQaTLymUCt8MBd7VflTyMhOQPasy9rgq6JNgX43sbzC+e64f0IjNjzL
+ KMsAT38KB2wYa3QEYXKcZwDvoql7GvlsBUsSIfREGx2+5A4wj6rqELwi8Di/k8nEW1TI15+jsEz
+ oNYzJfnjnN/7xu5YPoYi9Y7LTas+DL6cOkM2xKnJATx7/S7PqfnbMhgHULBp9rZ4Dn0sdjqe8S8
+ k5d9r762KHlYU8zrBjYqoo+VG7FfW3TeYvM5VCu1+n4q0DQUZ8exeVXvP3+zYRfkacTW5WRoiz4
+ qiLhrAAYph3NOK9hBTh2OSt+UF2sWSZeAVxT8SCLPZ8A3Cuo/t
+X-Received: by 2002:a05:600c:3112:b0:495:472c:208d with SMTP id
+ 5b1f17b1804b1-4954a41307cmr206826185e9.38.1784654846553; 
+ Tue, 21 Jul 2026 10:27:26 -0700 (PDT)
+Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47f63e49500sm43027137f8f.2.2026.07.21.10.27.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2026 10:27:26 -0700 (PDT)
+From: Michail Tatas <michail.tatas@gmail.com>
+To: michael@amarulasolutions.com, neil.armstrong@linaro.org,
+ jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dianders@chromium.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Michail Tatas <michail.tatas@gmail.com>
+Subject: [PATCH v3 3/3] drm/panel: ilitek-ili9805: make cleanup funcs void
+Date: Tue, 21 Jul 2026 20:27:15 +0300
+Message-ID: <20260721172715.602196-4-michail.tatas@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260721172715.602196-1-michail.tatas@gmail.com>
+References: <20260721172715.602196-1-michail.tatas@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 21 Jul 2026 22:11:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,188 +88,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] ddebug_sync_classbits unconditionally treats LEVEL_NUM parameters =
-as bitmasks, corrupting stored verbosity levels and incorrectly configuring=
- callsites.
-- [High] Incorrect arithmetic for used classmaps with offsets completely br=
-eaks class control and leads to out-of-bounds array reads.
-- [High] Module classmap initialization silently fails because configuratio=
-n queries are executed before the module is published to the global trackin=
-g list.
-- [Medium] ddebug_match_apply_kparam fails to verify that the kernel parame=
-ter's class map matches the target map, applying all loaded dyndbg paramete=
-rs indiscriminately.
-- [Medium] Unprotected read-modify-write on shared classmap bits causes a d=
-ata race during concurrent module loads or sysfs writes.
---
+Make cleanup functions return void since no one is checking
+their return values
 
---- Patch [28]: [PATCH v7 28/29] dyndbg-API: replace DECLARE_DYNDBG_CLASSMA=
-P ---
-commit bd4f2adcad3c31e1b42bccb83f503513dbc0eb2e
-Author: Jim Cromie <jim.cromie@gmail.com>
-Subject: dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
+Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+---
+ drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-This patch replaces DECLARE_DYNDBG_CLASSMAP with two new macros:
-DYNAMIC_DEBUG_CLASSMAP_DEFINE and DYNAMIC_DEBUG_CLASSMAP_USE. It splits the
-classmap declarations into definitions (exported by core) and uses (from
-drivers) to solve initialization ordering issues and avoid duplicate classm=
-ap
-allocations.
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
+index 909661f67d26..a8d501be3e9b 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9805.c
+@@ -150,13 +150,11 @@ static int ili9805_power_on(struct ili9805 *ctx)
+ 	return 0;
+ }
+ 
+-static int ili9805_power_off(struct ili9805 *ctx)
++static void ili9805_power_off(struct ili9805 *ctx)
+ {
+ 	gpiod_set_value(ctx->reset_gpio, 0);
+ 	regulator_disable(ctx->dvdd);
+ 	regulator_disable(ctx->avdd);
+-
+-	return 0;
+ }
+ 
+ static int ili9805_activate(struct ili9805 *ctx)
+@@ -190,15 +188,13 @@ static int ili9805_prepare(struct drm_panel *panel)
+ 	return 0;
+ }
+ 
+-static int ili9805_deactivate(struct ili9805 *ctx)
++static void ili9805_deactivate(struct ili9805 *ctx)
+ {
+ 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+ 
+ 	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+ 	mipi_dsi_usleep_range(&dsi_ctx, 5000, 10000);
+ 	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+-
+-	return dsi_ctx.accum_err;
+ }
+ 
+ static int ili9805_unprepare(struct drm_panel *panel)
+-- 
+2.43.0
 
-> --- a/lib/dynamic_debug.c
-> +++ b/lib/dynamic_debug.c
-[ ... ]
-> @@ -160,20 +163,39 @@ static void v3pr_info_dq(const struct ddebug_query =
-*query, const char *msg)
-[ ... ]
->  static struct ddebug_class_map *ddebug_find_valid_class(struct _ddebug_i=
-nfo const *di,
->  							 const char *query_class,
->  							 int *class_id)
->  {
-[ ... ]
-> +	for_subvec(i, cli, di, users) {
-> +		idx =3D match_string(cli->map->class_names, cli->map->length, query_cl=
-ass);
-> +		if (idx >=3D 0) {
-> +			v2pr_di_info(di, "class-ref: %s -> %s.%s ",
-> +				    cli->mod_name, cli->map->mod_name, query_class);
-> +			*class_id =3D idx + cli->map->base - cli->offset;
-
-[Severity: High]
-Should this subtract the offset? When a module uses a classmap with a non-z=
-ero
-offset, subtracting it here instead of adding it appears to yield the wrong
-class ID, breaking sysfs control ID mapping.
-
-> +			return cli->map;
-> +		}
-> +	}
-> +	*class_id =3D -ENOENT;
-> +	return NULL;
->  }
-[ ... ]
-> @@ -1090,12 +1113,17 @@ static bool ddebug_class_in_range(const int class=
-_id, const struct ddebug_class_
->  static const char *ddebug_class_name(struct _ddebug_info *di, struct _dd=
-ebug *dp)
->  {
->  	struct ddebug_class_map *map;
-> +	struct ddebug_class_user *cli;
->  	int i;
-> =20
->  	for_subvec(i, map, di, maps)
->  		if (ddebug_class_in_range(dp->class_id, map))
->  			return map->class_names[dp->class_id - map->base];
-> =20
-> +	for_subvec(i, cli, di, users)
-> +		if (ddebug_class_in_range(dp->class_id, cli->map))
-> +			return cli->map->class_names[dp->class_id - cli->map->base - cli->off=
-set];
-
-[Severity: High]
-Does this compute a negative array index? If an unrelated callsite falls in
-the unadjusted range checked by ddebug_class_in_range(), subtracting both
-base and offset from dp->class_id could result in a negative index. This
-could lead to an out-of-bounds read on cli->map->class_names.
-
-> +
->  	return NULL;
->  }
-[ ... ]
-> @@ -1176,6 +1204,87 @@ static const struct proc_ops proc_fops =3D {
-[ ... ]
-> +static void ddebug_sync_classbits(const struct kernel_param *kp, const c=
-har *modname)
-> +{
-> +	const struct ddebug_class_param *dcp =3D kp->arg;
-> +
-> +	/* clamp initial bitvec, mask off hi-bits */
-> +	if (*dcp->bits & ~CLASSMAP_BITMASK(dcp->map->length)) {
-> +		*dcp->bits &=3D CLASSMAP_BITMASK(dcp->map->length);
-
-[Severity: High]
-Does this logic corrupt LEVEL_NUM classmaps? By unconditionally treating the
-union field *dcp->bits as a bitmask, this overwrites the integer level stor=
-ed
-in *dcp->lvl for DD_CLASS_TYPE_LEVEL_NUM. Treating an integer level as a
-bitmask seems to incorrectly enable disjoint classes and corrupt the stored
-verbosity level.
-
-[Severity: Medium]
-Could this unprotected read-modify-write on *dcp->bits cause a data race?
-Since this can execute during concurrent module loads or sysfs writes witho=
-ut
-ddebug_lock, it looks like concurrent updates to the shared parent classmap
-bitmask could be lost.
-
-> +		v2pr_info("preset classbits: %x\n", *dcp->bits);
-> +	}
-> +	/* force class'd prdbgs (in USEr module) to match (DEFINEr module) clas=
-s-param */
-> +	ddebug_apply_class_bitmap(dcp, dcp->bits, ~0, modname);
-> +	ddebug_apply_class_bitmap(dcp, dcp->bits, 0, modname);
-> +}
-> +
-> +static void ddebug_match_apply_kparam(const struct kernel_param *kp,
-> +				      const struct ddebug_class_map *map,
-> +				      const char *mod_name)
-> +{
-> +	struct ddebug_class_param *dcp;
-> +
-> +	if (kp->ops !=3D &param_ops_dyndbg_classes)
-> +		return;
-> +
-> +	dcp =3D (struct ddebug_class_param *)kp->arg;
-> +
-> +	if (dcp) {
-> +		v2pr_info(" kp:%s.%s =3D0x%x", mod_name, kp->name, *dcp->bits);
-> +		vpr_cm_info(map, " %s maps ", mod_name);
-> +		ddebug_sync_classbits(kp, mod_name);
-
-[Severity: Medium]
-Is a check comparing dcp->map to map missing here? Because this verifies
-kp->ops but omits verifying that the kernel parameter's class map matches t=
-he
-target map, it seems all dyndbg parameters of the defining module will be
-applied to every classmap indiscriminately.
-
-> +	}
-> +}
-[ ... ]
-> @@ -1213,6 +1322,7 @@ static int ddebug_add_module(struct _ddebug_info *d=
-i)
-[ ... ]
-> +	if (dt->info.maps.len)
-> +		ddebug_apply_class_maps(&dt->info);
-> +	if (dt->info.users.len)
-> +		ddebug_apply_class_users(&dt->info);
-> =20
->  	mutex_lock(&ddebug_lock);
->  	list_add_tail(&dt->link, &ddebug_tables);
->  	mutex_unlock(&ddebug_lock);
-
-[Severity: High]
-Will module classmap initialization fail here? The initialization functions
-ddebug_apply_class_maps() and ddebug_apply_class_users() execute queries
-against the global ddebug_tables list. Since list_add_tail() is called
-after these functions return, it appears ddebug_change() will fail to find
-the newly loaded module, silently dropping the initial configuration.
-
-> =20
-> -	vpr_info("%3u debug prints in module %s\n", di->descs.len, di->mod_name=
-);
-> +	vpr_info("%3u debug prints in module %s\n",
-> +		 dt->info.descs.len, dt->info.mod_name);
->  	return 0;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-dd-maint-2=
--v7-0-010fbe73b311@gmail.com?part=3D28
