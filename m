@@ -4,137 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22795C4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:54:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9451DC4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 19:12:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E766610E1E6;
-	Tue, 21 Jul 2026 18:54:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA42510E3AE;
+	Tue, 21 Jul 2026 19:12:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PPb85F0r";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jRlr7Bt0";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lPFQuX90";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEB1A10E1E6
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:54:11 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66LH2jeF2449285
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:54:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- SMUsR7BSh0s3toLvJ14SFMc5jpWtih5ahRw168rWv9c=; b=PPb85F0rqjIfG+31
- weIRv2CX1QLYry8qDZkKXJFXcdc7ykanrMT4bXQh2Rzk6XSvA/ZF1frZQ1UIX6/d
- uX5FmSjChOAGCyxafmKV7fM6maSOadtOVpBwY4ysGN8NhwQ/7n8mYgQQrTI2PJ5U
- O/NUB57owXbbZqzWSutqk2erdmMnEJTkCQFdK9t0jy9lHejD4WrtYZfuCmTuXZVq
- fi7d5bU8I8sLt/Un0tIT3Gubc0Vkp2bmZSZYgWvEMmywhARl4FYMIlERN2vCBb0T
- d2/u43SfYNU2buRzja68H2/O0x3cH2cj6QgZqUddzLBS/RGp0cKTdKJC29tUQDE1
- +PVgPw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj6862mrd-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:54:10 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-51c01ff996dso93387171cf.2
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:54:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784660050; x=1785264850;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=SMUsR7BSh0s3toLvJ14SFMc5jpWtih5ahRw168rWv9c=;
- b=jRlr7Bt0S/5FUUeYUKivDmK+lgE7sGRHpXyhVCUyf6LRTnkKeMHN1b56G1pqcZZ5UC
- GK7Fyx88rR5CjVpYMYGf1trdNTSG9tXIgZ4FgYYst5DhJ8IuCC7g+aNw5yTkGgGSPs7D
- Ks6lQxO0zNYJD6O/9endggbXo0PEA3rkD/TSvIeUQlrXsHP17kV32iqXsh7yronDFpd6
- fbZmI+CnMfloGv/6CkJzz5HJJNrgPao4TWAl4KlwqMbAbg7Sgea9S4OtPIKC0NyjbZps
- QDRtOYOjd7270ZqgtE1tSgtM2XAKPfk++8S5o5ZyVG77vKuj4uF23MDXsU1xnm+hqzfE
- 2pWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784660050; x=1785264850;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=SMUsR7BSh0s3toLvJ14SFMc5jpWtih5ahRw168rWv9c=;
- b=Ekm+bF/Kpgro0IaHVV2+JTF37EEDFoxskb3jO3Mu7XSSewS/QGzPrZu+8qrkq8Pgni
- yJUONIboC7enwTZUemeyayCxqk+ZNiFOWOmugOk5I+5JmE7NEQFbBplYAsd6RYF7scfG
- 9arSDFTB8ekD1PUNOj4IkZ5dt6SwzA0+N/sjRUXk9CzPwKxDDcvhyp9yC3lZG8sMyFzK
- 9vvi+f3sOfEsJDhu3uiYlP1m6iaYLM/meew5aDp17dW6Q4nr0enQZornEuEj7dKcuypB
- 4nz7arcLTdEhnWNGSgNyvvwJHixyhetEMSgOAk4N/1z3WTK8udjvkFf7VmGxY/vNu+lx
- V5iA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rpmq7SzOlF6gg9WeReEIhy1zUHk4qKIO8AN23tuxoS3TnzIcFOVKRBQcBQDmzQevV5ZFOzHU8YJTVU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy7oQ0W19HwvYQ+7BGkxUiMP1hU7dszM3nQHoQ0LHXPEFuL3u4T
- ei+xG4CfDmesg+Q6eFmuE8adGfz+cIoji3bBdXCTLqtKNNy9F3eni59aV/0upk5Mq9OiVMYs9B4
- i7f1IzcvL7GY1GpajlQ8M1UTiIR+kvK4NfGBX5kGd+CDhQXyceeCKcuZLAnpHK6FKmnTGfj8=
-X-Gm-Gg: AfdE7cnBsLdoCluzlLh1hx9sWl7ZeizhbXG6iAThuj3xFEEjp28LFdStQrbV+IZnXtZ
- Q+c3S9Q4d6WFZbuztlkFwOmXT40k2MraER2IKDJPt34Ek/wGGdxyJJcNcdU1T85hE2LzgsjEO3Y
- U7BUunetidf/XOlQjdPR+PPI6s/EbgBT173A+tBoIuTFr20iNZZjGB44s2CoN2/1WVeNKXqDOgo
- ONdbqaaAnxSTNzQ+Isi6FH/qBwMbhY7qkm90ANewucMkk1OVLjjHX9VznQHz6r0C0KPz2Bp9BKw
- rJwK5ue9CzvL0ed10sH3MJE8YCj/9iuf7FRni7297pf5XRuA2kryjULE0iP10+Em+vI3Fd4a17L
- +RIj6eL0QFDDUw4kI80IvwuBLjLwOZbTJxyjdre0NomZ7UNSWunpsUprNFS4y0hHUCrewYME8bm
- /0kDaDAhUDj52jZw==
-X-Received: by 2002:ac8:7f13:0:b0:51a:8c99:1f17 with SMTP id
- d75a77b69052e-5213eb8266cmr182508351cf.70.1784660049725; 
- Tue, 21 Jul 2026 11:54:09 -0700 (PDT)
-X-Received: by 2002:ac8:7f13:0:b0:51a:8c99:1f17 with SMTP id
- d75a77b69052e-5213eb8266cmr182507991cf.70.1784660049206; 
- Tue, 21 Jul 2026 11:54:09 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b2a9ba342esm74873e87.27.2026.07.21.11.54.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 11:54:08 -0700 (PDT)
-Date: Tue, 21 Jul 2026 21:54:06 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: sashiko-reviews@lists.linux.dev, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
-Cc: Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v8 10/15] drm/msm/dp: allow dp_ctrl stream APIs to use
- any panel passed to it
-Message-ID: <3k7xz57peytyda7cvzfpao3j6xuhn4gyf7f43wnspdpgnrel4r@vipemh3nkoi7>
-References: <20260720-dp_mstclean-v8-0-bea261bf4e7d@oss.qualcomm.com>
- <20260720-dp_mstclean-v8-10-bea261bf4e7d@oss.qualcomm.com>
- <20260720062405.E079D1F000E9@smtp.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15BAC10E3AA
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 19:12:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784661136; x=1816197136;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=Lc4oAFzHuSgs1kW6hwZmcDHY40smwiqVdPy5OqrHcQw=;
+ b=lPFQuX90QYYCewet43N5zHzh+zM4/TDt0tiaP1NmoPO+T5FMocQWTfRB
+ fYCbtSOGA8MAK7RNMMiMoBqx1eWxanvmEAqD/IaFYEwVqoqfNwqY5qe4l
+ jBQE97XuUiWneIGGMBjoFJ9rNzIsQLj7OGlc2BohhhfT26OUQosOByV/N
+ 5XXWFlTtjeUHpmdC622JMoyljInE17wDjGdEetQbxRYNDv+olYt0tU+QM
+ rpCuW8hn+bOYWcUVrbhS/I+5nM4/6CLk+JnGqxjUV9jYEvMuqTGQUpd1w
+ gfwLSSIOt5vNU1v/tP6FQZCRVjy6Nu6v1bhxnrIx0vJkAX2iFqtt/4+Y8 g==;
+X-CSE-ConnectionGUID: E2u+MxxrTVGizlmJ1OLRpw==
+X-CSE-MsgGUID: /iDoT7psQ7eKVycycX3AAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="87808971"
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="87808971"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2026 12:12:15 -0700
+X-CSE-ConnectionGUID: 3x/35f6kTFqYx2F/6ShzEQ==
+X-CSE-MsgGUID: p7XH7yHaSCaYdwXQ3SVnqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="254428695"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2026 12:12:15 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Tue, 21 Jul 2026 12:12:15 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Tue, 21 Jul 2026 12:12:15 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.40) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Tue, 21 Jul 2026 12:12:14 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HWdbEGymzZxorJGh3zq0sbvfK3BDjsMnaU2syhRB+iHJDdzbznBbUylc2Dxi4+r22tAUXFVQ1vX07cE32nui28jOYTV7t/lNEEm4EFKJaYbUtVDeZWiLoMG2T67nUdaGfFahe9YVw3p9MqPhhl5TtQm2Bv2KWFQWH/yer8JchC6UEdOsTeLOW3dwc8r3aoWyG1kMlt+uGFDtrFqcerh7uxg4ckFMQr5zU+CGSvVkXs2aUK5gRPkrENQJPRSbF4Dvq5xufc3evMe1YPM+kQKdRitkhnZKZ/8IMJ4/omf3YlPXCrPoyCiMfRDrZvtG+ynBXev8qVQhbH2wG7TNAfMLRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Bf8krg51x+32tfe8z35Kxlos0R7ER/VcjAeSHYgm3Zg=;
+ b=qAmYJSpc/iCP2PuYFi2OCArbi1SolPr1XltB/Sohgf6fh88snn92xzJ/mmseHNNZ8kGKQi30X7XmUNcLUchKiCpp8g5XbxZdLrPp4PB6cyPytBFtmmnkKMebpXJF/x3GLeC6CoQjiycLf0v5idacggVK8ZY9D5x+DIrJW9kHvgHJmoqcQB1i/skwL7LgWHprzID1NCPFHWJ1bVNlWLno8H+EKI9VH1j94KpzcrVwfsrxd/aBu+iv5x4iGQ9bKLrQfNz58U8nCcjmdP1dTfTbZXNhHlUP7VsfwMW2v6PoVmtOmkz8+lGfIEUekAqq0LcaCPtJw+V3zBL5DtJ3KdWalg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by SA2PR11MB5019.namprd11.prod.outlook.com (2603:10b6:806:f8::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
+ 2026 19:12:05 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0245.009; Tue, 21 Jul 2026
+ 19:12:05 +0000
+Date: Tue, 21 Jul 2026 12:12:01 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Jan Stancek <jstancek@redhat.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>
+Subject: Re: [PATCH] drm/pagemap: Guard HPAGE_PMD_ORDER use with
+ CONFIG_ARCH_ENABLE_THP_MIGRATION
+Message-ID: <al/EgTw/D2mC42pT@gsse-cloud1.jf.intel.com>
+References: <202607201914.LpAGsbXs-lkp@intel.com>
+ <84a35e16f72330d6e7b2d6e969040f36959e2dad.1784630290.git.jstancek@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260720062405.E079D1F000E9@smtp.kernel.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE5NyBTYWx0ZWRfX0OuZ5IufJHNA
- YeV2LM/wzc8+RPZRXoKe8u4zpgjps+Y7bGwi+PmkE9kErckBzYuY2+Rqoxc53QK2aTMWMwxFJ/i
- +btTzA2nqKgF4eQafpY7Mp9PuFvof2I=
-X-Proofpoint-ORIG-GUID: -g4dsRQX4HNzE4eEscDcIMsJlOZ7lZk3
-X-Proofpoint-GUID: -g4dsRQX4HNzE4eEscDcIMsJlOZ7lZk3
-X-Authority-Analysis: v=2.4 cv=X75i7mTe c=1 sm=1 tr=0 ts=6a5fc052 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=c92rfblmAAAA:8
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=fjmCN9aIutHrqzZMW0YA:9
- a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10 a=dawVfQjAaf238kedN5IG:22
- a=GvGzcOZaWPEFPQC_NcjD:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE5NyBTYWx0ZWRfX+2xfIFN8izDS
- 0Bx8eWO/mgW7pdHzHHzTJeq9BzRNpBRaY2BhsKGwveqZF2jD9uW29rSeUjKK5KhsIPhVPGwtnbx
- LcUg1Ra6jmXd8X7R8LlPZ5NnkrOGUzRp9ulM7Ug7W6wc4d2iYv9Q7Zu+16ZQzEUHus2R1MitLRh
- +wOgp5ZrbAC9U7KHMAtNksx37+r9FMmSeYdZv/5kEeszfZoprEcu6gMUv4behcL6idYT4D8ep9S
- FHwvpB3PsCPxXzp9vbIc8dMrUI7klJlQwFK18dZs/IrvoP/YrpLzT19X/A5wudG6nCgPTMvUEsY
- 39d7zpJtrYNoyrdw6UutkoiLD1eAdkdAhJ1LyRnXAigeJOBKkW/RzC9d6sA4keRGU6QS4csXGTd
- 0D4r1e3vzzVv2LgtfCTk62pZIkXyn9eS6oS3m2/r1rgJPfdmhSiUzLA2WzaU6RwKjUEFztuw9K7
- LUPk28I5hkofPByAc9A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_03,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
- malwarescore=0 phishscore=0 adultscore=0 suspectscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210197
+In-Reply-To: <84a35e16f72330d6e7b2d6e969040f36959e2dad.1784630290.git.jstancek@redhat.com>
+X-ClientProxiedBy: MW4PR03CA0054.namprd03.prod.outlook.com
+ (2603:10b6:303:8e::29) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|SA2PR11MB5019:EE_
+X-MS-Office365-Filtering-Correlation-Id: b1479710-5c67-44bb-c11e-08dee75bf396
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|18002099003|22082099003|11063799006|4143699003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: 2kshGSwnPDoyI3Ldx5+BZFiBT12b56K7TJ5CLo7NqELXnPeO7G2e7dQnbYMKUQIiWiUj9RG4Fxz1Q442P8ft/J28d3aq5c18YO6JB1Rtxb1xVFh5hlrHMdghEmKJ8UL7pOi4GT5Q2gj/O5pwyWBJy3QswKhptOQDz2J5DKRcYufqhT+B4vsA4g9i0WSqyR2Mp9zfZeWqs79J/4trLaF3GgbPOZuyBzMf1rVduZ6BQ7a4uKXtEtL1Vv1KKhpAdtBBDoDkEFPTpoKxKI8fYK1vcjkfvheJaQxcgikVLADAJrYukrCPUaMqeeEGpfnFJiD23RvU+s35Z9fALUSI5EpOUlWDZfxw2/RIvgy8L9BGUHowXTNONuarSHmeJspYMusKeJx99isMpVhaXtR9H/lmYvoZl9f0MSr0p1UXYbm0cJtwve/VOj7pEH8XLXyIO2naUwBZinWXMJmx51V8LAV99GfwkfDS+4qKXZWmKjSaVzhG9Bj14IBLrqqTZ01shPIgSsLs4Fc/14kCfqeyzNhmJ5gDJdLTteFdoV+cU3fFhyonMcNPaqwBy+6sOa37R0Lv5yVUatxeRgWm7vandlshhkra8snxvJP4l+6n3rrwZY04gdYevJT0XTcxFhPYx/hnrIQK8qeUAM6i2d14ywlYT8EjUzZPWTHTkuIOy5xwnwY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?H5bOSwnWG4LwHcBgzLAnNk5KqW6qRo82CWuo9WsvYHbOMmRw+zbC8feczPvN?=
+ =?us-ascii?Q?28X7Pe91G/XGozhQCv4vEqZD5nKpA+SC+y3OU2L1HYaNQwVEUKukvtfQP76p?=
+ =?us-ascii?Q?6s22LAvpZq1H2FTzhR2a+Ai+vfvRC1IEvLo5lOAqN/zMwPBmjJd6Dx2pkOhL?=
+ =?us-ascii?Q?RNzyPxjg4+BvKxZqN+RQldSsWvFzidIRugJ16E/Cs1Qm+YZqToxBuqXCljbl?=
+ =?us-ascii?Q?Ottp6vqDTKFrtr60fVulOcQIl+EaH/FH9GutP7Rjnq3xVpTfm+Ywdo81H9CA?=
+ =?us-ascii?Q?HkRVrrSlMAE4sB2JvESHv60/ZRNUZRwUuAvTNcyjy4kd83+LSqH5l4RpkWKb?=
+ =?us-ascii?Q?+DxmNDcDE0399Jep5OboPB7+JmInRgy86w0Gy9eW3qm7fU18CK1gBHSbBg1g?=
+ =?us-ascii?Q?6CDxPtxgJmOEWkgUoFFMuo8ZX6VhIBLhE4Twd1U4zWF96rnUPbbTWrVbFy3n?=
+ =?us-ascii?Q?SnFK/QDjwNM8Ds/XzXTr/tQ8P+JQXKLz42p/TRrsTdfBwDznDCZBupNdT79f?=
+ =?us-ascii?Q?Vc3YOPCjXJ9FlosSdu9F6XOoIV4ESTYtsSs2ActKvrUfWo6rMl0lxqmKVqOP?=
+ =?us-ascii?Q?tw7sc+M1wjLFlW1MBeOt89f7+InP8mv8OYa2NieWSX+m5ThpJmtzPL9K9SXc?=
+ =?us-ascii?Q?l9A0T+8r7oX6M4+8CgQ5HHXluNQzwSIgyF210oUduQSDpeHWSKu8U32iB9xq?=
+ =?us-ascii?Q?GT0mmMoCNq4rCwcp/Li+HEXrXkFqhLVvUsSqTYip+0wRAf+DS/e0mb0Dm7B3?=
+ =?us-ascii?Q?KUQFIOdXYy4iIFnYUcAt4MPZmU6t6/i2X42J0HO7HlZwNXUi3IXbHrVIJ4RX?=
+ =?us-ascii?Q?4WjppGtespC9QuHTar43a3STVzEQY4pje6FiXJM9yCWFAt9DzaHBg0eZS8Kz?=
+ =?us-ascii?Q?eNucLHRw9rlHims+NR04CEKe8U8opfxVXU9E6HS+ENs2wHbsWeg26/Mza3oR?=
+ =?us-ascii?Q?olh1+h9t57SIuJ+EINPu8Y6eg5S1Ei1Yw9i5Z+gwniDytCSKM/1h+FItHap/?=
+ =?us-ascii?Q?zsrt34IfiYRc/aupnUf9e7wZUnYBU137RZYRrSiZ/fFjHoqpvKNDQpfNxVmG?=
+ =?us-ascii?Q?Y7nH5N8tGi6ThGCoQvQAhYm4qRs5YDBqMK0tnVd11O98GEx0hQTGPs8sdUoi?=
+ =?us-ascii?Q?gCMK3VJ6Dq+n/0HYkbkDw0xIJrbFfFRmQM2Gfi77vuC5kpD47YfYkXtmj+kv?=
+ =?us-ascii?Q?YKhCW6jw/NF+7jX9Ul5e2CwwHEQOvh4ub/ThNO3n6Qc7U907/pPcPagBY77Y?=
+ =?us-ascii?Q?tiIE7zqLTjjGKVcJxhQEdN0nxzeNJdsW8Xu9J34c9XxSPuE/5yVEEnTHq/sO?=
+ =?us-ascii?Q?xOlhrT9AzSea96xa18sE4mwD/a7c7dtzbDFaeFYVMJXoGeP+l+xkDZ4BfA6c?=
+ =?us-ascii?Q?9Dkw08nufRlLVmMbPqDWc0RmDtX0TgEmANzbrwLPQiVAunWEkxsmM5SQl17X?=
+ =?us-ascii?Q?pC9Jo/5RLMPIdCOWdM3PfY6z82+Zg069wbNroPnl69JicdLZUyUKbtsC0i0n?=
+ =?us-ascii?Q?yBB3mctUYpj5ZHxHv7ThSDgxXTAfPMyGipfyoLrbHpW6gi2AYl7oL7vZxZ2d?=
+ =?us-ascii?Q?VTddKJb0hPXeGz5wiEQXv1w5rSdpF65zAtIk7yzJj38EP8H3E0e17IZ1xPhT?=
+ =?us-ascii?Q?TAXkzeR/AjcNm9Mpxk6Te0UM9/cLTktDVAKkv2MhbUVvXXFgmwUerfAd0ZDG?=
+ =?us-ascii?Q?KWzQJdXdxHQCe45crNgWpuTNkj6vHAhDTmRgAILpWTitrz0I//+kKAoQuHci?=
+ =?us-ascii?Q?l1MRNDdJxw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: oGisN1Md8hXUvK+komJqUT6oUuoKJUG1QGK3yKqqWCM+CHniydPGKYt6iV0zheYughDDO8qoNWkc91lMurwRZkMmSIk9cNnFWpBMZDRMOB+77T3z5mppe/h8c5ug1gridB8HivrYjTClahP7jqlTnizjN/iv7zXmNveijy5DYrR0KhvXSG3NQ3iyantApRc7u9Ig7LNN60/NCXPewJXqXOGKsQpHTIlhglqKzZQidt40XNQ8Nn6WxtuOf7oRNdy7sLxLV/unl0Kzych2xPUq7tYaxJxhIRO9q4ihOaUQQqtm0bHxhKrrihgIuDKVet70el8YkFhNufCI9oO5Gx8cCQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1479710-5c67-44bb-c11e-08dee75bf396
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 19:12:05.0286 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kr1fm5on9BKo1Bw/DrY3tsKPSQzxnUszoc6WUxTBrrDGCTnwNTURUtntfGCCfpvc6JbG76Im4WOJEPIw6yo9+Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB5019
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,105 +161,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 20, 2026 at 06:24:05AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] Secondary stream panels fail to have their `hw_revision` initialized, silently breaking controller-specific hardware workarounds in MST setups.
-> - [High] Stream-specific panels are incorrectly passed to mainlink APIs, corrupting shared link state and misconfiguring the link based on leaf monitor capabilities instead of the MST hub.
-> --
+On Tue, Jul 21, 2026 at 12:40:38PM +0200, Jan Stancek wrote:
+> HPAGE_PMD_SHIFT expands to BUILD_BUG() when CONFIG_PGTABLE_HAS_HUGE_LEAVES
+> is not set, causing a compile error when both CONFIG_TRANSPARENT_HUGEPAGE
+> and CONFIG_HUGETLB_PAGE are disabled:
 > 
-> --- Patch [10]: [PATCH v8 10/15] drm/msm/dp: allow dp_ctrl stream APIs to use any panel passed to it ---
-> commit 07d3f4b80ae5875a958a8aceb22c9ffab07db108
-> Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>  drivers/gpu/drm/drm_pagemap.c:480:12: error: call to '__compiletime_assert_458'
+>  declared with 'error' attribute: BUILD_BUG failed
+>    480 |                         order = HPAGE_PMD_ORDER;
+>        |                                 ^
+>  include/linux/huge_mm.h:117:26: note: expanded from macro 'HPAGE_PMD_ORDER'
+>    117 | #define HPAGE_PMD_ORDER (HPAGE_PMD_SHIFT-PAGE_SHIFT)
+>        |                          ^
+>  include/linux/huge_mm.h:113:28: note: expanded from macro 'HPAGE_PMD_SHIFT'
+>    113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
 > 
-> drm/msm/dp: allow dp_ctrl stream APIs to use any panel passed to it
+> Guard the two HPAGE_PMD_ORDER uses with CONFIG_ARCH_ENABLE_THP_MIGRATION,
+> matching the pattern used in migrate_device.c.
 > 
-> With MST, multiple sinks share a single DP controller, so a cached
-> panel in msm_dp_ctrl_private can no longer represent the per-stream
-> sink. Drop the cache and pass panel explicitly to all stream-related
-> dp_ctrl APIs.
+> Fixes: 139ab31aea8a ("drm/pagemap: Correct cpages calculation for migrate_vma_setup")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/r/202607201914.LpAGsbXs-lkp@intel.com/
+> Signed-off-by: Jan Stancek <jstancek@redhat.com>
+> ---
+>  drivers/gpu/drm/drm_pagemap.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
 > 
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> > index ae79cbec26d19..207643fa73063 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> > @@ -219,7 +219,7 @@ void msm_dp_ctrl_reset(struct msm_dp_ctrl *msm_dp_ctrl)
-> >  
-> >  	if (!ctrl->hw_revision) {
-> >  		ctrl->hw_revision = msm_dp_read_ahb(ctrl, REG_DP_HW_VERSION);
-> > -		ctrl->panel->hw_revision = ctrl->hw_revision;
-> > +		panel->hw_revision = ctrl->hw_revision;
-> >  	}
-> >  }
-> 
-> [Severity: High]
-> Does this leave the hw_revision uninitialized for secondary stream panels in an
-> MST setup?
-> 
-> Since ctrl->hw_revision is populated during the host initialization for the
-> primary panel, any subsequent stream panels passed to this function will bypass
-> the assignment. Could this silently break hardware workarounds that depend on
-> panel->hw_revision being set correctly?
+> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+> index 15c78eca180b..53a78752c8be 100644
+> --- a/drivers/gpu/drm/drm_pagemap.c
+> +++ b/drivers/gpu/drm/drm_pagemap.c
+> @@ -578,10 +578,13 @@ static int drm_pagemap_cpages(unsigned long *migrate_pfn, unsigned long npages)
+>  			folio = page_folio(page);
+>  			order = folio_order(folio);
+>  			cpages += NR_PAGES(order);
+> -		} else if (migrate_pfn[i] & MIGRATE_PFN_COMPOUND) {
+> +		}
+> +#ifdef CONFIG_ARCH_ENABLE_THP_MIGRATION
+> +		else if (migrate_pfn[i] & MIGRATE_PFN_COMPOUND) {
+>  			order = HPAGE_PMD_ORDER;
 
-It does. This should be fixed.
+Would it be do something like this at the top of the file...
 
-> 
-> [ ... ]
-> 
-> > @@ -414,10 +414,11 @@ static void msm_dp_ctrl_config_ctrl_streams(struct msm_dp_ctrl_private *ctrl,
-> >  	msm_dp_write_link(ctrl, REG_DP_CONFIGURATION_CTRL, config);
-> >  }
-> >  
-> > -static void msm_dp_ctrl_config_ctrl_link(struct msm_dp_ctrl_private *ctrl)
-> > +static void msm_dp_ctrl_config_ctrl_link(struct msm_dp_ctrl_private *ctrl,
-> > +					 struct msm_dp_panel *panel)
-> >  {
-> >  	u32 config = 0;
-> > -	const u8 *dpcd = ctrl->panel->dpcd;
-> > +	const u8 *dpcd = panel->dpcd;
-> >  
-> >  	/* Default-> LSCLK DIV: 1/4 LCLK  */
-> >  	config |= (2 << DP_CONFIGURATION_CTRL_LSCLK_DIV_SHIFT);
-> 
-> [Severity: High]
-> Can the direct write to REG_DP_CONFIGURATION_CTRL at the end of this function
-> erase stream-specific configurations established by previously enabled streams?
-> 
-> Since msm_dp_ctrl_config_ctrl_link() is called on every stream enable from
-> msm_dp_ctrl_on_stream(), it seems this might overwrite the shared register and
-> corrupt the state of active streams.
+#ifdef HPAGE_PMD_ORDER
+#define DRM_PAGEMAP_PMD_ORDER	HPAGE_PMD_ORDER
+#else
+#define DRM_PAGEMAP_PMD_ORDER	(-1)
+#endif
 
-Hmm?
+Then in common code s/HPAGE_PMD_ORDER/DRM_PAGEMAP_PMD_ORDER/
 
-> 
-> [ ... ]
-> 
-> > @@ -1810,11 +1821,12 @@ static void msm_dp_ctrl_link_clk_disable(struct msm_dp_ctrl *msm_dp_ctrl)
-> >  		   str_on_off(ctrl->core_clks_on));
-> >  }
-> >  
-> > -static int msm_dp_ctrl_enable_mainlink_clocks(struct msm_dp_ctrl_private *ctrl)
-> > +static int msm_dp_ctrl_enable_mainlink_clocks(struct msm_dp_ctrl_private *ctrl,
-> > +					      struct msm_dp_panel *panel)
-> >  {
-> >  	int ret = 0;
-> >  	struct phy *phy = ctrl->phy;
-> > -	const u8 *dpcd = ctrl->panel->dpcd;
-> > +	const u8 *dpcd = panel->dpcd;
-> >  
-> >  	ctrl->phy_opts.dp.lanes = ctrl->link->link_params.num_lanes;
-> >  	ctrl->phy_opts.dp.link_rate = ctrl->link->link_params.rate / 100;
-> 
-> [Severity: High]
-> Is it correct to use the stream-specific (leaf) DPCD to configure shared
-> mainlink properties here and in msm_dp_ctrl_link_train()?
-> 
-> This appears to misconfigure the link based on leaf monitor capabilities instead
-> of the MST hub. If a leaf monitor doesn't support features like enhanced
-> framing or downspread, but the hub does, could this break the link to the hub?
-> 
+I think this works as we can never get to the MIGRATE_PFN_COMPOUND code
+paths without CONFIG_ARCH_ENABLE_THP_MIGRATION enabled (see
+mm/migrate_device.c).
+
+Also btw fixing the unrelated bug Sashiko flagged in this patch.
+
+Matt
+
+>  			cpages += NR_PAGES(order);
+>  		}
+> +#endif
+>  
+>  		i += NR_PAGES(order);
+>  	}
+> @@ -733,7 +736,6 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
+>  	own_pages = 0;
+>  
+>  	for (i = 0; i < npages;) {
+> -		unsigned long j;
+>  		struct page *page = pfn_to_page(migrate.dst[i]);
+>  		struct page *src_page = migrate_pfn_to_page(migrate.src[i]);
+>  		unsigned int order = 0;
+> @@ -763,7 +765,10 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
+>  		}
+>  		migrate.dst[i] = migrate_pfn(migrate.dst[i]);
+>  
+> +#ifdef CONFIG_ARCH_ENABLE_THP_MIGRATION
+>  		if (migrate.src[i] & MIGRATE_PFN_COMPOUND) {
+> +			unsigned long j;
+> +
+>  			drm_WARN_ONCE(dpagemap->drm, src_page &&
+>  				      folio_order(page_folio(src_page)) != HPAGE_PMD_ORDER,
+>  				      "Unexpected folio order\n");
+> @@ -774,6 +779,7 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
+>  			for (j = 1; j < NR_PAGES(order) && i + j < npages; j++)
+>  				migrate.dst[i + j] = 0;
+>  		}
+> +#endif
+>  
+>  		drm_pagemap_get_devmem_page(page, order, zdd);
+>  
 > -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260720-dp_mstclean-v8-0-bea261bf4e7d@oss.qualcomm.com?part=10
-
--- 
-With best wishes
-Dmitry
+> 2.52.0
+> 
