@@ -4,46 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5C8CC4451C
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:14:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56131C44529
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:20:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EBDA10E76A;
-	Tue, 21 Jul 2026 11:14:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B78710E32F;
+	Tue, 21 Jul 2026 11:20:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="croPeb7A";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="LJI39VGc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 027F810E76A
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:14:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3356F600AE;
- Tue, 21 Jul 2026 11:14:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EB801F000E9;
- Tue, 21 Jul 2026 11:14:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784632449;
- bh=w2oSk/8ampqUko4t63SgE8cUxbaT9W3gh3wtikyLms4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=croPeb7A6h7r2ypdqB4h9VJE4tTnFR0d8VPkKK/qTna0dComSKfh4tvi1E99mNEMG
- Dwa8/EMZHApgvCWgH7d4OhLhA0kcsq+JIllSBDSng3LF8KcCwNNhR6zmNk4+D95dl2
- 1iYZPhialh1GCdBSVAR9IxXt1i/IQmLxBcGRnxNDADSRFqZNVkSyjsgKUV9pSo5XDo
- 60N0B9nHpcg18b9zWKgREbqXIfJCaZO62iWo98CODuyU4lyIoolEtXTj8Zx/9ipkir
- PHbUX/m9yNiRbPhOGV86LXUNW2lLRBu5movGfCXiAf/px9PY77K4FTKirIAeIvIT+Z
- CsLAsgxlJt4Cg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/8] rust: io: register: allow paths for relative
- register bases
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
- "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo
- Krummrich" <dakr@kernel.org>
-In-Reply-To: <20260721-registers_fix-v1-5-3711b2317e1f@nvidia.com>
-References: <20260721-registers_fix-v1-0-3711b2317e1f@nvidia.com>
- <20260721-registers_fix-v1-5-3711b2317e1f@nvidia.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B151010E25E
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:20:21 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4h4FKs4bVfzKwFH;
+ Tue, 21 Jul 2026 13:20:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1784632817; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=LKpi1QJExAG0mTKbgB479qLyGlvO4ws8edcvgoE0sNw=;
+ b=LJI39VGcVauLEYgUYPnMNj8DTDe+i1zpBwT6gcnHJFMursZ3cC+CZh1+BhMyKfpgAFaXB0
+ llbjx8Xl6bzHFPMC1LLF3h04sBjDKOdUuxgxf+8uVNeF7Cl1OAMfH1O13VIH9AQDXB0jVH
+ wQ0f+/OzkowhGvIYuhPD6eib84bfWMAvDhjGQJiTUnLKq+lpW0GoSEZW/WLERXEz8xDx39
+ Bux2hz9/3788GUPUCei/l4pLE6VvfYU21kySbWVQAzXX3H4x9LbthlHgsC+njHvcqycAGu
+ to6TgmpMuXGfAHUlIE0sCp5rEgvViiSHRwOPi7FSwgmt9hwbwi8aF47nZMfQzA==
+Message-ID: <d2d9aca41c4f0b9b6e5ae4e9b8e5de3c2d8f95c6.camel@mailbox.org>
+Subject: Re: [PATCH v3 1/2] drm/drm_crtc: ensure dma_fence_ops remain valid
+ during device unbind
+From: Philipp Stanner <phasta@mailbox.org>
+To: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, Philipp Stanner
+ <phasta@kernel.org>, Danilo Krummrich	 <dakr@kernel.org>, Sean Paul
+ <seanpaul@chromium.org>, Gustavo Padovan	 <gustavo.padovan@collabora.co.uk>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Peter Griffin	
+ <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Juan
+ Yescas <jyescas@google.com>, kernel-team@android.com, Simona Vetter
+ <simona.vetter@ffwll.ch>, 	stable@vger.kernel.org
+Date: Tue, 21 Jul 2026 13:20:07 +0200
+In-Reply-To: <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
+References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
+ <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 11:14:09 +0000
-Message-Id: <20260721111409.8EB801F000E9@smtp.kernel.org>
+MIME-Version: 1.0
+X-MBO-RS-META: 9h7711f6dsx8ed7fjaab3zaieaz7czi3
+X-MBO-RS-ID: 6c79188dbeca7e152c3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,92 +73,97 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] Deprecated `+` syntax fallback rule for relative register aliases i=
-ncorrectly captures the alias offset as a `ty` fragment, causing a macro ex=
-pansion error.
-- [Low] Mixing the deprecated `+` syntax and the new `:` syntax within the =
-same `register! { ... }` block results in a compilation error.
---
+On Tue, 2026-07-21 at 09:21 +0100, Andr=C3=A9 Draszik wrote:
+> In [1], sashiko reported the following issue:
+>=20
+> =3D=3D=3D snip =3D=3D=3D
+> Looking at how these fences are managed, drm_crtc_create_fence()
+> creates a dma_fence without taking a reference to the drm_device or
+> drm_crtc. Because the sync_file framework exposes this fence to
+> userspace, the fence can outlive the CRTC.
+>=20
+> The dma_fence contract requires that data accessed by dma_fence_ops
+> (like get_driver_name) must remain valid for an RCU grace period after
+> the fence is signaled. However, drm_crtc_cleanup() and the subsequent
+> freeing of the device do not wait for an RCU grace period via
+> synchronize_rcu().
+>=20
+> If userspace calls ioctl(SYNC_IOC_FILE_INFO) concurrently with a device
+> hot-unplug:
+>=20
+> CPU1 (Userspace)
+> sync_file_get_name()
+> =C2=A0 ops =3D rcu_dereference(fence->ops);
+> =C2=A0 if (!dma_fence_test_signaled_flag())
+> =C2=A0=C2=A0=C2=A0 // Preempted or delayed here
 
---- Patch [5]: [PATCH 5/8] rust: io: register: allow paths for relative reg=
-ister bases ---
-commit 0d4940e7a464ea733ee8d4db86d88c71b931bf2d
-Author: Alexandre Courbot <acourbot@nvidia.com>
+nit: no one will be preempted here since the RCU read lock must be
+held. The Sashiko tool misses the point, which is simply that someone
+illegally frees up stuff that might be still in use, with or without
+delay or preemption, that's all irrelevant for the issue.
 
-rust: io: register: allow paths for relative register bases
+Anyways, thanks for fixing this:
 
-This commit introduces Base: Offset and Base: Alias syntax in the register!
-macro, parsing them as path fragments rather than ident. It temporarily
-retains the deprecated + syntax fallback to allow in-tree users to be
-converted incrementally in subsequent patches.
+>=20
+>=20
 
-> diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-> --- a/rust/kernel/io/register.rs
-> +++ b/rust/kernel/io/register.rs
-> @@ -801,6 +801,26 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
->  /// ```
->  #[macro_export]
->  macro_rules! register {
-> +    // Deprecated `+` syntax for relative registers and their aliases.
-> +    (
-> +        $(
-> +            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
-> +                $([ $size:expr $(, stride =3D $stride:expr)? ])?
-> +                $(@ $($base:ident +)? $offset:literal)?
-> +                $(=3D> $alias:ident $(+ $alias_offset:ty)? $([$alias_idx=
-:expr])? )?
-                                                      ^^^
-[Severity: Low]
-Does capturing the alias offset as a ty fragment here break the backward
-compatibility?
+[=E2=80=A6]
 
-When this is forwarded to the internal rule:
+> Link: https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix2-v1-1-c0=
+3e77b36f34@linaro.org?part=3D1
+> Fixes: 6d6003c4b613 ("drm/fence: add fence timeline to drm_crtc")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
 
-@reg $(#[$attr])* $vis $name ($storage) =3D> $base:path : $alias:path
+Reviewed-by: Philipp Stanner <phasta@kernel.org>
 
-a parsed ty fragment cannot be matched by a path fragment specifier in the
-subsequent macro invocation. This seems to result in a "no rules expected t=
-he
-token in macro call" compilation error for any code still using the old
-syntax.
-
-[ ... ]
-
->      // Entry point for the macro, allowing multiple registers to be defi=
-ned in one call.
->      // It matches all possible register declaration patterns to dispatch=
- them to corresponding
->      // `@reg` rule that defines a single register.
-> @@ -808,8 +828,8 @@ macro_rules! register {
->          $(
->              $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
->                  $([ $size:expr $(, stride =3D $stride:expr)? ])?
-> -                $(@ $($base:ident +)? $offset:literal)?
-> -                $(=3D> $alias:ident $(+ $alias_offset:path)? $([$alias_i=
-dx:expr])? )?
-> +                $(@ $($base:path :)? $offset:literal)?
-> +                $(=3D> $alias:path $(: $alias_offset:path)? $([$alias_id=
-x:expr])? )?
->              { $($fields:tt)* }
->          )*
->      ) =3D> {
-
-[Severity: Low]
-Will this structure prevent mixing the old and new syntax within the same
-register block?
-
-Since both top-level macro arms use $( ... )* to match the entire contents
-of the block, a block containing a mix of + and : syntax will fail both
-matchers. This might cause compilation errors if users attempt to
-incrementally migrate some, but not all, registers within a single
-register block.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-registers_=
-fix-v1-0-3711b2317e1f@nvidia.com?part=3D5
+>=20
+> ---
+> v3:
+> - Philipp: update kerneldoc, add Fixes:
+>=20
+> v2: new patch
+> ---
+> =C2=A0drivers/gpu/drm/drm_crtc.c | 15 ++++++++++++---
+> =C2=A01 file changed, 12 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
+> index 63ead8ba6756..e8e80c936852 100644
+> --- a/drivers/gpu/drm/drm_crtc.c
+> +++ b/drivers/gpu/drm/drm_crtc.c
+> @@ -493,14 +493,23 @@ EXPORT_SYMBOL(__drmm_crtc_alloc_with_planes);
+> =C2=A0 * drm_crtc_cleanup - Clean up the core crtc usage
+> =C2=A0 * @crtc: CRTC to cleanup
+> =C2=A0 *
+> - * This function cleans up @crtc and removes it from the DRM mode settin=
+g
+> - * core. Note that the function does *not* free the crtc structure itsel=
+f,
+> - * this is the responsibility of the caller.
+> + * This function cleans up @crtc and removes it from the DRM mode settin=
+g core,
+> + * after first waiting an RCU grace period to ensure @crtc->dev can safe=
+ly be
+> + * dereferenced by our dma_fence_ops.
+> + *
+> + * Note that the function does *not* free the crtc structure itself, thi=
+s is the
+> + * responsibility of the caller.
+> =C2=A0 */
+> =C2=A0void drm_crtc_cleanup(struct drm_crtc *crtc)
+> =C2=A0{
+> =C2=A0	struct drm_device *dev =3D crtc->dev;
+> =C2=A0
+> +	/* Ensure our dma_fence_ops remain valid for an RCU grace period after
+> +	 * the fence is signaled. This is necessary because our dma_fence_ops
+> +	 * dereference crtc->dev.
+> +	 */
+> +	synchronize_rcu();
+> +
+> =C2=A0	/* Note that the crtc_list is considered to be static; should we
+> =C2=A0	 * remove the drm_crtc at runtime we would have to decrement all
+> =C2=A0	 * the indices on the drm_crtc after us in the crtc_list.
