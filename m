@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFC5AC44529
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:29:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C770FC44529
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:34:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B6DB10E25E;
-	Tue, 21 Jul 2026 11:29:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 130BF10E328;
+	Tue, 21 Jul 2026 11:34:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dyr1wqhS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PCXqL6Ma";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CEC910E25E
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:29:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 500E310E328
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:34:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 06B7F41F95;
- Tue, 21 Jul 2026 11:29:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DB511F00A3A;
- Tue, 21 Jul 2026 11:29:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 093C840C55;
+ Tue, 21 Jul 2026 11:34:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 655C01F000E9;
+ Tue, 21 Jul 2026 11:34:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784633381;
- bh=t6xHG5vDB/uOSrEsDNOgnHVxiTWU3BpUyvABOs9c/mM=;
+ s=k20260515; t=1784633648;
+ bh=PArcXuGcxVkYbHbZ0JDAmL4nZr7XyevIyRu/GP8HdQk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Dyr1wqhSojRwQXeexjnLHDOJ8FEwXLymYq6jBZbw8vzhyhupSXc3tXMp09qEtSHPi
- Py8O6IG8aRCamhGyMj8EU4Ct85b5RKf1jBzUse2MVvQnmaZ9ANSzek+A1opEThaLjv
- apSzZ7YdIakYnDO/V55teA1ta/WFywucbwQH7wKQt6cTTTWK833E2H9kYc5IbnzJ3G
- Y4gPy/ycdL9TPo6rjsRMA92cyME3GsM5toThrwRqgsDQEWcU+P3znQRKlW0BPNbKhi
- aDBHtEUjtYIjEisb+eQvUW38uO/vqkeF57rv3LfmpNIEVBIQvX80rnMkqfB4RWexSP
- w1Xj4zp4jzquw==
+ b=PCXqL6MafXzNC1VPH8DkyClaoNyl35lEe6/++vtT6LqpyJGu0Napu9U2OpYQIssT8
+ iQcovEHdwpAd0TZF+ESJ7wvd5HPNicTJyrZKcIUP5B97LlezwCasyN7eRrUkZXtq5+
+ HKiWkpjixo5DWAWS91zj+QY2UW1RPYEdWSpyDOntt7f8z3aYpifKzQcZ5bZW+A1G9k
+ r10izde39OCpsLYvJyMjnO+JrFM2L6F7Fi+mcEFBRSRd8cFaEzQJJsrBhIgW1gF3o4
+ 2CnIiO93wuUCjSp02XDtl315jvE9bVkkgWT2nlw5mrZFZDmV3Y6GNwmtpcDYDsbUex
+ i/IXExfRcO5SQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] dt-bindings: leds: backlight: Convert TPS65217
- to DT schema
+Subject: Re: [PATCH v3 3/4] dt-bindings: input: Convert TI TPS65217 power
+ button to DT schema
 To: "Eduard Bostina" <egbostina@gmail.com>
-Cc: linux-leds@vger.kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org, lee@kernel.org,
- dmitry.torokhov@gmail.com
-In-Reply-To: <20260721112133.70382-5-egbostina@gmail.com>
+Cc: conor+dt@kernel.org, linux-input@vger.kernel.org,
+ linux-leds@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org, lee@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20260721112133.70382-4-egbostina@gmail.com>
 References: <20260721112133.70382-1-egbostina@gmail.com>
- <20260721112133.70382-5-egbostina@gmail.com>
+ <20260721112133.70382-4-egbostina@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 11:29:40 +0000
-Message-Id: <20260721112940.8DB511F00A3A@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 11:34:07 +0000
+Message-Id: <20260721113408.655C01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,70 +62,69 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The patch converts the TPS65217 backlight binding to a comprehen=
-sive PMIC schema but fails to delete the existing `regulator/tps65217.txt` =
-binding, resulting in duplicate bindings.
-- [Medium] The binding adds interrupt controller capabilities but omits `in=
-terrupt-controller` and `#interrupt-cells` from the `required` list.
+
+Pre-existing issues:
+- [High] Missing NULL check on `dev_get_regmap` can lead to a kernel panic =
+in the IRQ handler.
+- [High] The driver incorrectly masks `platform_get_irq()` error codes with=
+ `-EINVAL`, breaking probe deferral.
 --
 
---- Patch [4]: [PATCH v3 4/4] dt-bindings: leds: backlight: Convert TPS6521=
-7 to DT schema ---
-commit 280c44c9d977e107c7e28a27785e5c9c3dbde99e
+--- Patch [3]: [PATCH v3 3/4] dt-bindings: input: Convert TI TPS65217 power=
+ button to DT schema ---
+commit 7ffa82f06e0d099b257abd8ec45ed224af6ff3c6
 Author: Eduard Bostina <egbostina@gmail.com>
 
-dt-bindings: leds: backlight: Convert TPS65217 to DT schema
+dt-bindings: input: Convert TI TPS65217 power button to DT schema
 
-This commit converts the Texas Instruments TPS65217 backlight binding to
-DT schema, adding child nodes for regulators, charger, and pwrbutton,
-as well as documenting interrupt and shutdown controller properties.
+Convert the Texas Instruments TPS65217 and TPS65218 Power Button
+bindings to DT schema.
 
-> diff --git a/Documentation/devicetree/bindings/leds/backlight/ti,tps65217=
-.yaml b/Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
+drivers/input/misc/tps65218-pwrbutton.c:tps6521x_pb_probe() {
+        ...
+        pwr->regmap =3D dev_get_regmap(dev->parent, NULL);
+        ...
+}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this code need to check
+if pwr->regmap is NULL?
+
+If dev_get_regmap() returns NULL due to an incomplete device tree, it seems
+this could lead to a kernel panic during an interrupt when tps6521x_pb_irq()
+dereferences it:
+
+drivers/input/misc/tps65218-pwrbutton.c:tps6521x_pb_irq() {
+        ...
+        error =3D regmap_read(pwr->regmap, tps_data->reg_status, &reg);
+        ...
+}
+
+
+drivers/input/misc/tps65218-pwrbutton.c:tps6521x_pb_probe() {
+        ...
+        irq =3D platform_get_irq(pdev, 0);
+        if (irq < 0)
+                return -EINVAL;
+        ...
+}
+
+[Severity: High]
+This is also a pre-existing issue, but does masking the return value of
+platform_get_irq() break probe deferral?
+
+If platform_get_irq() returns -EPROBE_DEFER, converting the error to -EINVAL
+prevents the driver core from handling the deferral and retrying later.
+
+> diff --git a/Documentation/devicetree/bindings/input/ti,tps65217-pwrbutto=
+n.yaml b/Documentation/devicetree/bindings/input/ti,tps65217-pwrbutton.yaml
 > new file mode 100644
-> index 0000000000000..4d2f4dbd2d52e
+> index 0000000000000..3526d8b045fd2
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
-> @@ -0,0 +1,170 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/leds/backlight/ti,tps65217.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TPS65217 family of regulators
-
-[Severity: Medium]
-This schema defines a comprehensive PMIC with regulators and chargers
-rather than just a backlight, but it is placed in the leds/backlight
-directory. Should this be moved to a more central MFD or regulator schema
-location?
-
-Additionally, it appears the existing regulator binding documentation at
-Documentation/devicetree/bindings/regulator/tps65217.txt was not deleted
-in this patch, leaving duplicate bindings for the ti,tps65217 compatible
-string. Should that file be removed as part of this conversion so schema
-validation is not split and inconsistent?
+> +++ b/Documentation/devicetree/bindings/input/ti,tps65217-pwrbutton.yaml
 
 [ ... ]
 
-> +  pwrbutton:
-> +    $ref: /schemas/input/ti,tps65217-pwrbutton.yaml#
-> +    unevaluatedProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-
-[Severity: Medium]
-Because this binding allows the device to act as an interrupt controller,
-do interrupt-controller and #interrupt-cells need to be included in this
-required list?
-
-The device tree binding guidelines indicate that when hardware provides
-these capabilities, the corresponding properties must be required so
-incomplete device tree nodes don't silently pass validation.
-
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721112133.7038=
-2-1-egbostina@gmail.com?part=3D4
+2-1-egbostina@gmail.com?part=3D3
