@@ -4,99 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36F6BC4452B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:47:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E5B2C4452D
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:52:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8832210E3C6;
-	Tue, 21 Jul 2026 20:47:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E303810EB32;
+	Tue, 21 Jul 2026 20:52:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hCEGACkh";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="Na3fwDt6";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37CDC10E5D2
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:47:01 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2cc61541f8cso66636705ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:47:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784666820; cv=none;
- d=google.com; s=arc-20260327;
- b=SdsmagvVBcNNPrS9xBtsmYVeA59DWfhOO0JVlnMBrJSSQCCshE+QAshff26KshRRyY
- dxOJrPHHp0AN4ztsAl7X7kAeQBbTbAs3mxV82G7Oj94OAciNkHaJaVxUZ8p49Gmn7tNc
- nz5TbZgd6vjCRtjZVpajZZlidrA+sBADGzHyI9+4p2KOXHeJuNjin0O+Dhyk2WU1iaBJ
- FJ+3ii+OqutSZapYTVRtSNSDXeC6sXxYlPCUyWEvXwqiQYH/lp/w8h0fpnzUF5QfJ963
- NpH/pR20kydkBQ3CZY3hTIwamkNTHYFMDOk8OWxGLjX7a7YgeA79SEMogXFEYf207hhL
- RkEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=GJbUbySs84LNWjl5SycArBud2hG3wkiE9tEYI1yGGjI=;
- fh=I99sHGDaPQv0PlNBVP4cPSvUVceJaqkJEEDfLnGP/z4=;
- b=H5glPw67rcELWQ6VPNRegLkDIuldqU/1aXSObFzVWpH1bK+3UI7jp5HdL48HiCfSkI
- rqEN5LVUOL+9v0ch5Ht3092rq2m8uO6wgQrSEseme1mqmUHRRHwQAmQW2/ZdiW3DTamM
- D53aneNkxNXO/KWMkDhRBMT54W97fnKI/GZragNTxWgznAryZa/hZ72UC980QdRylkj8
- Uyfe69QIO8bo+5VB5Ivf9B+FQYzW2n4UOoshOjHKSE4n+mx+e+5MESLRZMJXk23sJNey
- qgP2YBbIAszPzTeMx036RD8FGQJyEnQ62QifuNZXvbKvSdK78yTORuRHstsEASQAKNBJ
- Ybag==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784666820; x=1785271620; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=GJbUbySs84LNWjl5SycArBud2hG3wkiE9tEYI1yGGjI=;
- b=hCEGACkh//oq7YDM1B7Px0QQLalluJ58VGC+OBjPvkqlWkGuN2JZ89MQtk5WXWn1nC
- 2JO1DLcXN0OtRubo4XzTVKG2ZqpA0nnOMWq37QYraB9hMJjU1C4+RJhxQwSqkFOW7O4k
- M58nn/bJvGUGAMoXZtINWYDlH7WAV1KzKxuub22rIkIDv5bdj0sQGtyGO05JAm9apSLF
- fXjwYo/ZmnqrK5Yt1HOrCv1oTJSU7EYHHg/ESTozOjCe+VExjVAmSfMlrLcV4PqNlVG3
- txD/stf6S39xUZs3HXJFTMK4lqlf6teLyzmtIAHVlF+EdQm/1gAqIMZpelpDaJbyOxe8
- XMHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784666820; x=1785271620;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=GJbUbySs84LNWjl5SycArBud2hG3wkiE9tEYI1yGGjI=;
- b=M5QRhG/SYNasH70QxLoSizR5HJboAqAG88ctHysdQgQHOAWF4meRLMLV1QCXpWOVNu
- WDwpcXbEqX32SlEz+o3txMo36GGyn2rl32OnLrPL7fovYLCb8byhyVOLFv/b18kHD+Ej
- 5eQT3CXmC65lxua7orZe1t4kk0J/+9PJv/Bz8P/DQZzlVIaWWMdGD/wZeE9Pq66uj7fU
- E3RecnLG5n72iFly7heo5w9E5hEBcGK5EyJHNJrvGvUseXlYEXwUbuUohE02i+yd3DVn
- mvbFGCKdAc4E4WkrsTQ/RXpvEqEYg1J//SP13Fzvs6tddNuobTtxq5vuRKBKFOotFRf6
- /xgA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqDpX6Uv5Jnj4co8ufJosq0vYTtMYZh50KEKHJcoTwE5fw1ZvOP432zVK1czpi3nrXpToDt5xMJk6M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzHoRA/RjiOP8jmiH6OrjQVkeBgSclQg6sOuILjUvGI9tacWabe
- rkRumuSlpVaybUwyr8J3boGLn4XTZpD7zs2TaKw9iS48kkA3niYLCFZU3VfRoVfiok3be/HqTmx
- fm7VKNuAb6yBQN72thOXt05w9BAF0Jxg=
-X-Gm-Gg: AR+sD10x+URULTmQoSNAKAPsVEENLH5LN7YZ2T4YH82X0gWmZ+bFC4GEmXRnbZ2p9KK
- oSs15raz+4m7PMLvsOOsTZbgPAsX6topU1sAhoGU0mc9/L9YXlNW0/cdJled5uPEtX9A1t8r+wE
- Fo2mSYs+aKRaxTYFAjxSVKt9wNM0+nUrDsYC8ZWY6mtdjBqTRtB+pJ6FA0b90zcFHSotx+kIktc
- XqQ/QKFKaKMow+463crmX76QmieRWL0ypT1OzeU8JJGJESP+8O2jED06CucbRHLg5VtVg==
-X-Received: by 2002:a17:90b:4b04:b0:37e:1620:dabc with SMTP id
- 98e67ed59e1d1-38ea3203c92mr1107979a91.0.1784666820492; Tue, 21 Jul 2026
- 13:47:00 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260714211429.238355-1-mohamedahmedegypt2001@gmail.com>
- <d17afcac57059fc5effc786321ac43cc6d0b2c30.camel@redhat.com>
-In-Reply-To: <d17afcac57059fc5effc786321ac43cc6d0b2c30.camel@redhat.com>
-From: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
-Date: Wed, 22 Jul 2026 00:46:49 +0400
-X-Gm-Features: AUfX_mzU0gvZD_QQT3Qph1MI2ZWe3n4-T0xRbt8Sz7wnfNAh6FJ04Xhdy4VnbSA
-Message-ID: <CAA+WOBstz=K3MgfLSMG2Nh=gsrLyTi98qato0QtJicYoyG5LJQ@mail.gmail.com>
-Subject: Re: [PATCH 0/6] drm/nouveau: GSP telemetry via RUSD, and fdinfo
- telemetry exposure
-To: lyude@redhat.com
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 555D910E1CB
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:52:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784667160; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=PVip5GSz6YMFai2guBmz5C1P4O0O3oMVQjuJGNrneDXpGZh/quaoBzPtPG1q5hvOShVv9dQ80tQeHmlWp7ROIiFfV20dLkta5bvT1/CHnp/lhnLAA3LkBNBEDoi1vqxeZjHiqGwTJhED/1q1RAQ9y+cOOgI0y1SxaYRQ9O9s3Fo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1784667160;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=LLBagPNXHJ0kpfP4oPNBwhSEz+cGT6bZGlW+lGGkdRc=; 
+ b=dAm9Vp524VKWVnvKFm37+iudEeky8N7rRI+gPygZ/NDpRAoU9nk11ULSFun7pIOgNwq7SP1c5CeLtWhtC3jVQu0R3HVwtYx4XeFa1QUYLtB9lM78CHsHG+U3LGoSUvBENd2Mykmh2FJX54+4DaY+YxTb/lrONT6WbMSL2dCHL4U=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784667160; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+ bh=LLBagPNXHJ0kpfP4oPNBwhSEz+cGT6bZGlW+lGGkdRc=;
+ b=Na3fwDt6f2Jc8nFcUWOYQgccvCF0Q9FRTamRFmhvJ9w+3K+UAK1ahlqXfzrMtdXd
+ mbe3Ee41TupmlFMfRudwq03SUYbxBQOrzL1whvaPxUYEbO9hhaBU40EMAwLrXC1Bgo+
+ hWjsGXZYwwZj/kn8E2HQ6qupub6qwE5RisAyXphc=
+Received: by mx.zohomail.com with SMTPS id 1784667158635637.4615082768967;
+ Tue, 21 Jul 2026 13:52:38 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v7 6/7] drm/tyr: add parser for firmware binary
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260713-fw-boot-b4-v7-6-afd8dc1494dd@collabora.com>
+Date: Tue, 21 Jul 2026 17:52:20 -0300
+Cc: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Mary Guillemard <mary@mary.zone>, 
- Milos Tijanic <mtijanic@nvidia.com>, nouveau@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+ Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, boris.brezillon@collabora.com,
+ samitolvanen@google.com, work@onurozkan.dev, acourbot@nvidia.com,
+ lyude@redhat.com, laura.nao@collabora.com, beata.michalska@arm.com,
+ alvin.sun@linux.dev, steven.price@arm.com
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <D0A4704C-F275-42DD-B82D-8B021BE5DF1F@collabora.com>
+References: <20260713-fw-boot-b4-v7-0-afd8dc1494dd@collabora.com>
+ <20260713-fw-boot-b4-v7-6-afd8dc1494dd@collabora.com>
+To: Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,181 +74,625 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 22, 2026 at 12:40=E2=80=AFAM <lyude@redhat.com> wrote:
->
-> With the various nits addressed or responded to, for the whole series:
->
-> Reviewed-by: Lyude Paul <lyude@redhat.com>
->
-> (I assume with you moving stuff into nvkm I might need to re-review
-> later, but that's fine with me)
->
 
-Thanks a lot! All your suggestions are fine by me so I'll incorporate
-them, do the shifting around to prevent the errors on unsupported
-metrics/cold reads from reaching userspace, and push a V2.
 
-> On Wed, 2026-07-15 at 01:14 +0400, Mohamed Ahmed wrote:
-> > On the GSP firmware, nouveau reports nothing about the GPU. The GSP
-> > owns
-> > the sensors, so the legacy nvkm therm/clk/volt hwmon paths never run,
-> > and
-> > monitoring tools have no data to read.
-> >
-> > GSP on later firmware does publish all of it through a stable
-> > interface.
-> > It maintains a shared-memory region called "RM User Shared Data"
-> > (RUSD),
-> > which the firmware fills with all the relevant sensor readings like
-> > power,
-> > temperatures, clocks, and many others. Consuming it needs only two
-> > internal subdevice controls: INIT_USER_SHARED_DATA to register the
-> > buffer,
-> > and SET_DATA_POLL to tell the GSP which data groups to poll and how
-> > often.
-> >
-> > This series makes nouveau a RUSD client and exposes the data through
-> > two
-> > main surfaces:
-> >
-> >   - hwmon, for the values that map onto standard channels: GPU and
-> > memory
-> >     temperature, GPU/board/VRAM power, power cap.
-> >
-> >   - sysfs, under /sys/class/drm/cardN/device/rusd/, for everything
-> > hwmon
-> >     has no channel type for: clocks, utilisation, pstate, throttle
-> > reason,
-> >     ECC counters, PCIe error counters, and everything exposed to
-> > hwmon as
-> >     well. One value per file according to sysfs convention.
-> >
-> > Polling is demand-driven. GSP polls a group only while a client is
-> > reading
-> > it, and a group idles off after 10s after the last read. Polling
-> > costs
-> > power, so nothing is polled unless someone is looking. A section that
-> > has
-> > not been polled yet, or that the board does not support, reads -
-> > ENODATA.
-> >
-> > The sysfs interface is documented in
-> > Documentation/ABI/testing/sysfs-driver-nouveau.
-> >
-> > While the original scope was RUSD support only, monitoring tools
-> > needed
-> > two extra additions to complete the picture:
-> >
-> >   - VRAM size and usage on sysfs (patch 5): since this series adds a
-> > sysfs
-> >     interface for nouveau, it's better to expose VRAM metrics there
-> > rather
-> >     than force monitoring apps to pull in libdrm for the GETPARAM
-> > memory
-> >     ioctls.
-> >
-> >   - fdinfo (patch 6): nouveau implemented none at all, and monitoring
-> > apps
-> >     could not show per-process GPU and memory usage. It now reports
-> >     per-client memory and per-engine busy time, accounted from the
-> > DRM
-> >     scheduler that the EXEC/VM_BIND path already uses.
-> >
-> > Limitations, caveats, and additional considerations or questions:
-> >
-> >   - RUSD needs r570 or newer GSP firmware; r535 does not have the
-> > needed
-> >     controls. Pre-GSP and r535 behavior is identical to what it was:
-> > the
-> >     rusd/ group is not created, and hwmon keeps its current behavior.
-> >
-> >   - This is all read-only telemetry. Clock, voltage, or power control
-> > is
-> >     through other interfaces out of scope of this series.
-> >
-> >   - The sysfs interface exposed here should be stable and valid for
-> > nova
-> >     as well. RUSD is stable and only grows more fields with newer GSP
-> >     firmware (e.g., fan telemetry gets added in r580), so it is
-> > possible
-> >     to keep the same interface as we use newer firmware or as we move
-> > to
-> >     nova and any potential considerations should be ironed out before
-> > this
-> >     gets merged and the interface gets frozen.
-> >
-> >   - amdgpu offers a single binary blob with all the telemetry
-> > embedded in
-> >     addition to the sysfs sensor files. This series currently only
-> > exposes
-> >     sensor files, but it is possible to add a similar binary for a
-> > v2.
-> >     This mainly offers a more efficient way to read the telemetry as
-> >     clients would read only a few files instead of reading all of
-> > them.
-> >
-> >   - The last two patches don't depend on RUSD and work on every GPU.
-> > But
-> >     they are here because they complete the sensor telemetry story. I
-> > am
-> >     happy to split them into their own series if that is preferred.
-> >
-> > Userspace WIP work built on this sysfs surface exists in form of
-> > nouveau
-> > backends for nvtop, LACT, and a NVK HUD:
-> >
-> >   - nvtop: https://github.com/mohamexiety/nvtop/tree/nvtop-nouvtop
-> >
-> >   - LACT: https://github.com/mohamexiety/LACT/tree/lnouvct
-> >
-> >   - NVK HUD:
-> >     https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/39898
-> >
-> > None of these are merged yet and exist for testing only. Upstreaming
-> > will
-> > begin when this series gets merged and the interface is stable.
-> >
-> > Mohamed Ahmed (6):
-> >   drm/nouveau/gsp: vendor the RUSD header
-> >   drm/nouveau/gsp: add RUSD telemetry support
-> >   drm/nouveau: add GSP hwmon support
-> >   drm/nouveau: expose RUSD telemetry via sysfs
-> >   drm/nouveau: expose global VRAM size and usage via sysfs
-> >   drm/nouveau: expose per-client GPU usage via fdinfo
-> >
-> >  .../ABI/testing/sysfs-driver-nouveau          | 167 ++++++
-> >  MAINTAINERS                                   |   1 +
-> >  drivers/gpu/drm/nouveau/Kbuild                |   1 +
-> >  .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  33 ++
-> >  .../drm/nouveau/include/nvkm/subdev/rusd.h    | 114 ++++
-> >  .../gpu/drm/nouveau/include/nvrm/nvtypes.h    |   3 +
-> >  drivers/gpu/drm/nouveau/nouveau_abi16.c       |  16 +
-> >  drivers/gpu/drm/nouveau/nouveau_chan.h        |   2 +
-> >  drivers/gpu/drm/nouveau/nouveau_drm.c         |  22 +
-> >  drivers/gpu/drm/nouveau/nouveau_drv.h         |  29 +
-> >  drivers/gpu/drm/nouveau/nouveau_exec.c        |   3 +
-> >  drivers/gpu/drm/nouveau/nouveau_gem.c         |  16 +
-> >  drivers/gpu/drm/nouveau/nouveau_hwmon.c       | 375 ++++++++++---
-> >  drivers/gpu/drm/nouveau/nouveau_sched.c       |  87 +++
-> >  drivers/gpu/drm/nouveau/nouveau_sched.h       |  11 +
-> >  drivers/gpu/drm/nouveau/nouveau_sysfs.c       | 311 ++++++++++
-> >  drivers/gpu/drm/nouveau/nouveau_sysfs.h       |  10 +
-> >  .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c |  26 +
-> >  .../drm/nouveau/nvkm/subdev/gsp/rm/r535/rm.c  |   1 +
-> >  .../nouveau/nvkm/subdev/gsp/rm/r570/Kbuild    |   1 +
-> >  .../nvkm/subdev/gsp/rm/r570/nvrm/rusd.h       | 303 ++++++++++
-> >  .../drm/nouveau/nvkm/subdev/gsp/rm/r570/rm.c  |   1 +
-> >  .../nouveau/nvkm/subdev/gsp/rm/r570/rusd.c    | 531
-> > ++++++++++++++++++
-> >  .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |   7 +
-> >  24 files changed, 1990 insertions(+), 81 deletions(-)
-> >  create mode 100644 Documentation/ABI/testing/sysfs-driver-nouveau
-> >  create mode 100644
-> > drivers/gpu/drm/nouveau/include/nvkm/subdev/rusd.h
-> >  create mode 100644 drivers/gpu/drm/nouveau/nouveau_sysfs.c
-> >  create mode 100644 drivers/gpu/drm/nouveau/nouveau_sysfs.h
-> >  create mode 100644
-> > drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/rusd.h
-> >  create mode 100644
-> > drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/rusd.c
->
+> On 14 Jul 2026, at 00:18, Deborah Brouwer =
+<deborah.brouwer@collabora.com> wrote:
+>=20
+> From: Daniel Almeida <daniel.almeida@collabora.com>
+>=20
+> Add a parser for the Mali CSF GPU firmware binary format. The firmware
+> consists of a header followed by entries describing how to load =
+firmware
+> sections into the MCU's memory.
+>=20
+> The parser extracts section metadata including virtual address ranges,
+> data byte offsets within the binary, and section flags controlling
+> permissions and cache modes. It validates the basic firmware structure
+> and alignment and ignores protected-mode sections for now.
+>=20
+> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+> Co-developed-by: Beata Michalska <beata.michalska@arm.com>
+> Signed-off-by: Beata Michalska <beata.michalska@arm.com>
+> Co-developed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> ---
+> drivers/gpu/drm/tyr/fw/parser.rs | 521 =
++++++++++++++++++++++++++++++++++++++++
+> 1 file changed, 521 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/tyr/fw/parser.rs =
+b/drivers/gpu/drm/tyr/fw/parser.rs
+> new file mode 100644
+> index 000000000000..198a754b294f
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tyr/fw/parser.rs
+> @@ -0,0 +1,521 @@
+> +// SPDX-License-Identifier: GPL-2.0 or MIT
+> +
+> +//! Firmware binary parser for Mali CSF (Command Stream Frontend) =
+GPU.
+> +//!
+> +//! This module implements a parser for the Mali GPU firmware binary =
+format. The firmware
+> +//! file contains a header followed by a sequence of entries, each =
+describing how to load
+> +//! firmware sections into the MCU (Microcontroller Unit) memory. The =
+parser extracts section
+> +//! metadata including:
+> +//! - Virtual address ranges where sections should be mapped
+> +//! - Data ranges (byte offsets) within the firmware binary
+> +//! - Section flags (permissions, cache modes)
+> +
+> +use core::{
+> +    mem::size_of,
+> +    ops::Range, //
+> +};
+> +
+> +use kernel::{
+> +    bits::bit_u32,
+> +    prelude::*,
+> +    str::CString, //
+> +};
+> +
+> +use crate::{
+> +    fw::{
+> +        SectionFlag,
+> +        SectionFlags,
+> +        CSF_MCU_SHARED_REGION_START, //
+> +    },
+> +    vm::{
+> +        VmFlag,
+> +        VmMapFlags, //
+> +    }, //
+> +};
+> +
+> +/// A parsed firmware section ready for loading into MCU memory.
+> +///
+> +/// Represents a single firmware section extracted from the firmware =
+binary, containing
+> +/// all information needed to map the section's data into the MCU's =
+virtual address space.
+> +pub(super) struct ParsedSection {
+> +    /// Byte offset range within the firmware binary where this =
+section's data resides.
+> +    pub(super) data_range: Range<u32>,
+> +    /// MCU virtual address range where this section should be =
+mapped.
+> +    pub(super) va: Range<u32>,
+> +    /// Memory protection and caching flags for the mapping.
+> +    pub(super) vm_map_flags: VmMapFlags,
+> +}
+> +
+> +/// A bare-bones `std::io::Cursor<[u8]>` clone to keep track of the =
+current position in the
+> +/// firmware binary.
+> +///
+> +/// Provides methods to sequentially read primitive types and byte =
+arrays from the firmware
+> +/// binary while maintaining the current read position.
+> +struct Cursor<'a> {
+> +    data: &'a [u8],
+> +    pos: usize,
+> +}
+> +
+> +impl<'a> Cursor<'a> {
+> +    fn new(data: &'a [u8]) -> Self {
+> +        Self { data, pos: 0 }
+> +    }
+> +
+> +    fn len(&self) -> usize {
+> +        self.data.len()
+> +    }
+> +
+> +    fn pos(&self) -> usize {
+> +        self.pos
+> +    }
+> +
+> +    /// Returns a view into the cursor's data.
+> +    ///
+> +    /// This spawns a new cursor, leaving the current cursor =
+unchanged.
+> +    fn view(&self, range: Range<usize>) -> Result<Cursor<'_>> {
+> +        if range.start < self.pos || range.end > self.data.len() {
+> +            pr_err!(
+> +                "Invalid cursor range {:?} for data of length {}",
+> +                range,
+> +                self.data.len()
+> +            );
+> +
+> +            Err(EINVAL)
+> +        } else {
+> +            Ok(Self {
+> +                data: &self.data[range],
+> +                pos: 0,
+> +            })
+> +        }
+> +    }
+> +
+> +    /// Reads a slice of bytes from the current position and advances =
+the cursor.
+> +    ///
+> +    /// Returns an error if the read would exceed the data bounds.
+> +    fn read(&mut self, nbytes: usize) -> Result<&[u8]> {
+> +        let start =3D self.pos;
+> +        let end =3D start + nbytes;
+> +
+> +        if end > self.data.len() {
+> +            pr_err!(
+> +                "Invalid firmware file: read of size {} at position =
+{} is out of bounds",
+> +                nbytes,
+> +                start,
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        self.pos +=3D nbytes;
+> +        Ok(&self.data[start..end])
+> +    }
+> +
+> +    /// Reads a little-endian `u8` from the current position and =
+advances the cursor.
+> +    fn read_u8(&mut self) -> Result<u8> {
+> +        let bytes =3D self.read(size_of::<u8>())?;
+> +        Ok(bytes[0])
+> +    }
+> +
+> +    /// Reads a little-endian `u16` from the current position and =
+advances the cursor.
+> +    fn read_u16(&mut self) -> Result<u16> {
+> +        let bytes =3D self.read(size_of::<u16>())?;
+> +        Ok(u16::from_le_bytes(bytes.try_into().unwrap()))
+> +    }
+> +
+> +    /// Reads a little-endian `u32` from the current position and =
+advances the cursor.
+> +    fn read_u32(&mut self) -> Result<u32> {
+> +        let bytes =3D self.read(size_of::<u32>())?;
+> +        Ok(u32::from_le_bytes(bytes.try_into().unwrap()))
+> +    }
+> +
+> +    /// Advances the cursor position by the specified number of =
+bytes.
+> +    ///
+> +    /// Returns an error if the advance would exceed the data bounds.
+> +    fn advance(&mut self, nbytes: usize) -> Result {
+> +        if self.pos + nbytes > self.data.len() {
+> +            pr_err!(
+> +                "Invalid firmware file: advance of size {} at =
+position {} is out of bounds",
+> +                nbytes,
+> +                self.pos,
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +        self.pos +=3D nbytes;
+> +        Ok(())
+> +    }
+> +}
+> +
+> +/// Parser for Mali CSF GPU firmware binaries.
+> +///
+> +/// Parses the firmware binary format, extracting section metadata =
+including virtual
+> +/// address ranges, data offsets, and memory protection flags needed =
+to load firmware
+> +/// into the MCU's memory.
+> +pub(super) struct FwParser<'a> {
+> +    cursor: Cursor<'a>,
+> +}
+> +
+> +impl<'a> FwParser<'a> {
+> +    /// Creates a new firmware parser for the given firmware binary =
+data.
+> +    pub(super) fn new(data: &'a [u8]) -> Self {
+> +        Self {
+> +            cursor: Cursor::new(data),
+> +        }
+> +    }
+> +
+> +    /// Parses the firmware binary and returns a collection of parsed =
+sections.
+> +    ///
+> +    /// This method validates the firmware header and iterates =
+through all entries
+> +    /// in the binary, extracting section information needed for =
+loading.
+> +    pub(super) fn parse(&mut self) -> Result<KVec<ParsedSection>> {
+> +        let fw_header =3D self.parse_fw_header()?;
+> +
+> +        let mut parsed_sections =3D KVec::new();
+> +        while (self.cursor.pos() as u32) < fw_header.size {
+> +            let entry_section =3D self.parse_entry()?;
+> +
+> +            if let Some(inner) =3D entry_section.inner {
+> +                parsed_sections.push(inner, GFP_KERNEL)?;
+> +            }
+> +        }
+> +
+
+Can we please check for parsed_sections =3D=3D 0 here?=20
+
+
+> +        Ok(parsed_sections)
+> +    }
+> +
+> +    fn parse_fw_header(&mut self) -> Result<FirmwareHeader> {
+> +        let fw_header: FirmwareHeader =3D match =
+FirmwareHeader::new(&mut self.cursor) {
+> +            Ok(fw_header) =3D> fw_header,
+> +            Err(e) =3D> {
+> +                pr_err!("Invalid firmware file: {}", e.to_errno());
+> +                return Err(e);
+> +            }
+> +        };
+> +
+> +        if fw_header.size > self.cursor.len() as u32 {
+> +            pr_err!("Firmware image is truncated");
+> +            return Err(EINVAL);
+> +        }
+> +        Ok(fw_header)
+> +    }
+> +
+> +    fn parse_entry(&mut self) -> Result<EntrySection> {
+> +        let entry_section =3D EntrySection {
+> +            entry_hdr: EntryHeader(self.cursor.read_u32()?),
+> +            inner: None,
+> +        };
+> +
+> +        if self.cursor.pos() % size_of::<u32>() !=3D 0
+> +            || entry_section.entry_hdr.size() as usize % =
+size_of::<u32>() !=3D 0
+
+|| entry_section.entry_hdr.size() < size_of::<EntryHeader>()
+
+(reads better if we extract this expression into a variable)
+
+> +        {
+> +            pr_err!(
+> +                "Firmware entry isn't 32 bit aligned, offset=3D{:#x} =
+size=3D{:#x}\n",
+> +                self.cursor.pos() - size_of::<u32>(),
+> +                entry_section.entry_hdr.size()
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let section_hdr_size =3D entry_section.entry_hdr.size() as =
+usize - size_of::<EntryHeader>();
+> +
+> +        let entry_section =3D {
+> +            let mut entry_cursor =3D self
+> +                .cursor
+> +                .view(self.cursor.pos()..self.cursor.pos() + =
+section_hdr_size)?;
+> +
+> +            match entry_section.entry_hdr.entry_type() {
+> +                Ok(EntryType::Iface) =3D> Ok(EntrySection {
+> +                    entry_hdr: entry_section.entry_hdr,
+> +                    inner: Self::parse_section_entry(&mut =
+entry_cursor)?,
+> +                }),
+> +                Ok(
+> +                    EntryType::Config
+> +                    | EntryType::FutfTest
+> +                    | EntryType::TraceBuffer
+> +                    | EntryType::TimelineMetadata
+> +                    | EntryType::BuildInfoMetadata,
+> +                ) =3D> Ok(entry_section),
+> +
+> +                entry_type =3D> {
+> +                    if entry_type.is_err() || =
+!entry_section.entry_hdr.optional() {
+> +                        if !entry_section.entry_hdr.optional() {
+> +                            pr_err!(
+> +                                "Failed to handle firmware entry =
+type: {}\n",
+> +                                entry_type
+> +                                    =
+.map_or(entry_section.entry_hdr.entry_type_raw(), |e| e as u8)
+> +                            );
+> +                            Err(EINVAL)
+> +                        } else {
+> +                            Ok(entry_section)
+> +                        }
+> +                    } else {
+> +                        Ok(entry_section)
+> +                    }
+> +                }
+> +            }
+> +        };
+> +
+> +        if entry_section.is_ok() {
+> +            self.cursor.advance(section_hdr_size)?;
+> +        }
+> +
+> +        entry_section
+> +    }
+> +
+> +    fn parse_section_entry(entry_cursor: &mut Cursor<'_>) -> =
+Result<Option<ParsedSection>> {
+> +        let section_hdr: SectionHeader =3D =
+SectionHeader::new(entry_cursor)?;
+> +
+> +        if section_hdr.data.end < section_hdr.data.start {
+> +            pr_err!(
+> +                "Firmware corrupted, data.end < data.start (0x{:x} < =
+0x{:x})\n",
+> +                section_hdr.data.end,
+> +                section_hdr.data.start
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        if section_hdr.va.end < section_hdr.va.start {
+> +            pr_err!(
+> +                "Firmware corrupted, section_hdr.va.end < =
+section_hdr.va.start (0x{:x} < 0x{:x})\n",
+> +                section_hdr.va.end,
+> +                section_hdr.va.start
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        if section_hdr.section_flags.contains(SectionFlag::Prot) {
+> +            pr_info!("Firmware protected mode entry not supported, =
+ignoring");
+> +            return Ok(None);
+> +        }
+> +
+> +        if section_hdr.va.start =3D=3D CSF_MCU_SHARED_REGION_START
+> +            && =
+!section_hdr.section_flags.contains(SectionFlag::Shared)
+> +        {
+> +            pr_err!(
+> +                "Interface at 0x{:x} must be shared",
+> +                CSF_MCU_SHARED_REGION_START
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let name_len =3D entry_cursor.len() - entry_cursor.pos();
+> +        let name_bytes =3D entry_cursor.read(name_len)?;
+> +
+> +        let mut name =3D KVec::with_capacity(name_bytes.len() + 1, =
+GFP_KERNEL)?;
+> +        name.extend_from_slice(name_bytes, GFP_KERNEL)?;
+> +        name.push(0, GFP_KERNEL)?;
+> +
+> +        let _name =3D CStr::from_bytes_with_nul(&name)
+> +            .ok()
+> +            .and_then(|name| CString::try_from(name).ok());
+> +
+> +        let cache_mode =3D section_hdr.section_flags.cache_mode();
+> +        let mut vm_map_flags =3D VmMapFlags::empty();
+> +
+> +        if !section_hdr.section_flags.contains(SectionFlag::Write) {
+> +            vm_map_flags |=3D VmFlag::Readonly;
+> +        }
+> +        if !section_hdr.section_flags.contains(SectionFlag::Exec) {
+> +            vm_map_flags |=3D VmFlag::Noexec;
+> +        }
+> +        if cache_mode !=3D SectionFlag::CacheModeCached.into() {
+> +            vm_map_flags |=3D VmFlag::Uncached;
+> +        }
+> +
+> +        Ok(Some(ParsedSection {
+> +            data_range: section_hdr.data.clone(),
+> +            va: section_hdr.va,
+> +            vm_map_flags,
+> +        }))
+> +    }
+> +}
+> +
+> +/// Firmware binary header containing version and size information.
+> +///
+> +/// The header is located at the beginning of the firmware binary and =
+contains
+> +/// a magic value for validation, version information, and the total =
+size of
+> +/// all structured headers that follow.
+> +#[expect(dead_code)]
+> +struct FirmwareHeader {
+> +    /// Magic value to check binary validity.
+> +    magic: u32,
+> +
+> +    /// Minor firmware version.
+> +    minor: u8,
+> +
+> +    /// Major firmware version.
+> +    major: u8,
+> +
+> +    /// Padding. Must be set to zero.
+> +    _padding1: u16,
+> +
+> +    /// Firmware version hash.
+> +    version_hash: u32,
+> +
+> +    /// Padding. Must be set to zero.
+> +    _padding2: u32,
+> +
+> +    /// Total size of all the structured data headers at beginning of =
+firmware binary.
+> +    size: u32,
+> +}
+> +
+> +impl FirmwareHeader {
+> +    const FW_BINARY_MAGIC: u32 =3D 0xc3f13a6e;
+> +    const FW_BINARY_MAJOR_MAX: u8 =3D 0;
+> +
+> +    /// Reads and validates a firmware header from the cursor.
+> +    ///
+> +    /// Verifies the magic value, version compatibility, and padding =
+fields.
+> +    fn new(cursor: &mut Cursor<'_>) -> Result<Self> {
+> +        let magic =3D cursor.read_u32()?;
+> +        if magic !=3D Self::FW_BINARY_MAGIC {
+> +            pr_err!("Invalid firmware magic");
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let minor =3D cursor.read_u8()?;
+> +        let major =3D cursor.read_u8()?;
+> +
+> +        if major > Self::FW_BINARY_MAJOR_MAX {
+> +            pr_err!(
+> +                "Unsupported firmware binary header version {}.{} =
+(expected {}.x)\n",
+> +                major,
+> +                minor,
+> +                Self::FW_BINARY_MAJOR_MAX
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let padding1 =3D cursor.read_u16()?;
+> +        let version_hash =3D cursor.read_u32()?;
+> +        let padding2 =3D cursor.read_u32()?;
+> +        let size =3D cursor.read_u32()?;
+> +
+> +        if padding1 !=3D 0 || padding2 !=3D 0 {
+> +            pr_err!("Invalid firmware file: header padding is not =
+zero");
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let fw_header =3D Self {
+> +            magic,
+> +            minor,
+> +            major,
+> +            _padding1: padding1,
+> +            version_hash,
+> +            _padding2: padding2,
+> +            size,
+> +        };
+> +
+> +        Ok(fw_header)
+> +    }
+> +}
+> +
+> +/// Firmware section header for loading binary sections into MCU =
+memory.
+> +#[derive(Debug)]
+> +struct SectionHeader {
+> +    section_flags: SectionFlags,
+> +    /// MCU virtual range to map this binary section to.
+> +    va: Range<u32>,
+> +    /// References the data in the FW binary.
+> +    data: Range<u32>,
+> +}
+> +
+> +impl SectionHeader {
+> +    /// Reads and validates a section header from the cursor.
+> +    ///
+> +    /// Parses section flags, virtual address range, and data range =
+from the firmware binary.
+> +    fn new(cursor: &mut Cursor<'_>) -> Result<Self> {
+> +        let section_flags =3D cursor.read_u32()?;
+> +        let section_flags =3D SectionFlags::try_from(section_flags)?;
+> +
+> +        let va_start =3D cursor.read_u32()?;
+> +        let va_end =3D cursor.read_u32()?;
+> +
+> +        let va =3D va_start..va_end;
+> +
+> +        if va.is_empty() {
+> +            pr_err!(
+> +                "Invalid firmware file: empty VA range at pos {}\n",
+> +                cursor.pos(),
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let data_start =3D cursor.read_u32()?;
+> +        let data_end =3D cursor.read_u32()?;
+> +        let data =3D data_start..data_end;
+> +
+> +        Ok(Self {
+> +            section_flags,
+> +            va,
+> +            data,
+> +        })
+> +    }
+> +}
+> +
+> +/// A firmware entry containing a header and optional parsed section =
+data.
+> +///
+> +/// Represents a single entry in the firmware binary, which may =
+contain loadable
+> +/// section data or metadata that doesn't require loading.
+> +struct EntrySection {
+> +    entry_hdr: EntryHeader,
+> +    inner: Option<ParsedSection>,
+> +}
+> +
+> +/// Header for a firmware entry, packed into a single u32.
+> +///
+> +/// The entry header encodes the entry type, size, and optional flag =
+in a
+> +/// 32-bit value with the following layout:
+> +/// - Bits 0-7: Entry type
+> +/// - Bits 8-15: Size in bytes
+> +/// - Bit 31: Optional flag
+> +struct EntryHeader(u32);
+> +
+> +impl EntryHeader {
+> +    fn entry_type_raw(&self) -> u8 {
+> +        (self.0 & 0xff) as u8
+> +    }
+> +
+> +    fn entry_type(&self) -> Result<EntryType> {
+> +        let v =3D self.entry_type_raw();
+> +        EntryType::try_from(v)
+> +    }
+> +
+> +    fn optional(&self) -> bool {
+> +        self.0 & bit_u32(31) !=3D 0
+> +    }
+> +
+> +    fn size(&self) -> u32 {
+> +        self.0 >> 8 & 0xff
+> +    }
+> +}
+> +
+> +#[derive(Clone, Copy, Debug)]
+> +#[repr(u8)]
+> +enum EntryType {
+> +    /// Host <-> FW interface.
+> +    Iface =3D 0,
+> +    /// FW config.
+> +    Config =3D 1,
+> +    /// Unit tests.
+> +    FutfTest =3D 2,
+> +    /// Trace buffer interface.
+> +    TraceBuffer =3D 3,
+> +    /// Timeline metadata interface.
+> +    TimelineMetadata =3D 4,
+> +    /// Metadata about how the FW binary was built.
+> +    BuildInfoMetadata =3D 6,
+> +}
+> +
+> +impl TryFrom<u8> for EntryType {
+> +    type Error =3D Error;
+> +
+> +    fn try_from(value: u8) -> Result<Self, Self::Error> {
+> +        match value {
+> +            0 =3D> Ok(EntryType::Iface),
+> +            1 =3D> Ok(EntryType::Config),
+> +            2 =3D> Ok(EntryType::FutfTest),
+> +            3 =3D> Ok(EntryType::TraceBuffer),
+> +            4 =3D> Ok(EntryType::TimelineMetadata),
+> +            6 =3D> Ok(EntryType::BuildInfoMetadata),
+> +            _ =3D> Err(EINVAL),
+> +        }
+> +    }
+> +}
+>=20
+> --=20
+> 2.54.0
+>=20
+
