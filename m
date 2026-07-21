@@ -4,58 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57611C44529
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 14:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD589C44532
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 14:57:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A1AE10E517;
-	Tue, 21 Jul 2026 14:55:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B22610E386;
+	Tue, 21 Jul 2026 14:57:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DEdnrGnm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ifvo8ykP";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7075A10E517
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 14:55:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDBDA10EA4C
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 14:57:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3288F41AC3;
- Tue, 21 Jul 2026 14:55:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE21A1F00A3A;
- Tue, 21 Jul 2026 14:55:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E0A1360054;
+ Tue, 21 Jul 2026 14:57:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D8B51F000E9;
+ Tue, 21 Jul 2026 14:57:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784645723;
- bh=sGLA1oqQx4bYLG3XBqhDuXsnGxss7Hzt9GBEXS4EmYo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=DEdnrGnmlNlUThh0c4gZDY4lTwFm156Pv/Jff10y/tK2gtaLOFRbfuzoOtqKnKLBc
- 8PD0ZzDpaP0bfzJg6VjlSVgB4JJVJU6OUtJZ7Di7umlQ5NVzqAZo1QLl3rPIzUc3EQ
- O2N5CZrPb6Cvzdckikxwlc6oKBvZZQriis3KuoOtyaoZtDJkvua+8GlCpWlOE/ARQ1
- S06isJuKu07uZdS5KMPnuVrBHLC7SDG26OZhRpN3/+IDThASaakw4ptBUv2RmD2MCt
- ZrOurL7S4H5LF+3xNlC5JLQ0W7HnWUW3UA847WBVrgiLE5kraUM7knrFc2G4ngHZIo
- 4usCOYX5ezrdQ==
-Date: Tue, 21 Jul 2026 09:55:22 -0500
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Wojciech Dubowik <wojciech.dubowik@mt.com>, linux-kernel@vger.kernel.org,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v6 2/3] dt-bindings: display: sn65dsi83: Add output
- data-lanes property
-Message-ID: <20260721145522.GB3790672-robh@kernel.org>
-References: <20260721071253.1098652-1-wojciech.dubowik@mt.com>
- <20260721071253.1098652-3-wojciech.dubowik@mt.com>
- <12527bdb-c96f-40f1-b2dd-2c95ded1bdd4@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <12527bdb-c96f-40f1-b2dd-2c95ded1bdd4@kernel.org>
+ s=k20260515; t=1784645843;
+ bh=qWLT0SyX9FvTZtG37OnDF5iWpBSsGRQYZou5kUEJWvE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ifvo8ykPirCMfHJFuerVxO8eElxWx5WIa7Cg9x8Uyj1pnrLoNGLuwNdqNBPsyaBwd
+ TWULK1cM9lIf8s2ehNDErUxL9WTGrqbT9Xigw09L7yyj4bXaRKpD5higkZNdiubNqS
+ me/3Y63v5KQiyoOl0H/YHdibpLfzO5zpE+C3st+8THeGu4iZLxKp2FeW8sHZe/4WaE
+ Jx+xRu4oxVlH614T+JCMwyfarWrpfMRf297wWovC1JBGdPQkZFnx98crJnDeLvPBie
+ GxaYaTqe5qg31GurrBrHCUl1pvwqsvcg6zZ6UJyiwggr3Bx3ZjPri2aM7bUe0AwQms
+ FraqwmiT00SXQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/bridge: anx7625: stop IRQ work before teardown
+To: "Myeonghun Pak" <mhun512@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260721143559.27322-1-mhun512@gmail.com>
+References: <20260721143559.27322-1-mhun512@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 21 Jul 2026 14:57:22 +0000
+Message-Id: <20260721145723.6D8B51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,23 +52,107 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 21, 2026 at 09:27:46AM +0200, Krzysztof Kozlowski wrote:
-> On 21/07/2026 09:12, Wojciech Dubowik wrote:
-> > From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
-> > 
-> > Add an optional output lvds data lanes property with two allowed values.
-> > The array <1 2 3 4> for standard layout and <4 3 2 1> for reversed lvds
-> > output lanes. The latter informs the driver that reverse lvds config
-> > option has to be set in config register for the respective output channel.
-> > 
-> > Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
-> 
-> You are not allowed to invent tag contents. This is not what you received.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-You may want to reconsider any tag other than nak. This is fundamentally 
-flawed which sashiko has pointed out since v4 and has been ignored.
+Pre-existing issues:
+- [High] The teardown path uses cancel_delayed_work() instead of cancel_del=
+ayed_work_sync(), allowing the timer handler to race with destroy_workqueue=
+() and lead to a use-after-free.
+- [High] If driver initialization fails during or after anx7625_link_bridge=
+(), the DRM bridge remains registered but its parent memory is freed by dev=
+res, leading to a Use-After-Free.
+- [Medium] anx7625_bridge_atomic_disable() attempts to wait for hdcp_work u=
+sing flush_workqueue(), but this does not cancel or wait for pending delaye=
+d work timers.
+--
 
-Rob
+--- Patch [1]: [PATCH] drm/bridge: anx7625: stop IRQ work before teardown -=
+--
+commit f6280d9ebcac680a90e170320e540ca6f7ab4e30
+Author: Myeonghun Pak <mhun512@gmail.com>
+
+drm/bridge: anx7625: stop IRQ work before teardown
+
+This commit disables the HPD interrupt and destroys the workqueue first to
+synchronize with the handler and drain queued work. This prevents the
+interrupt from racing with teardown and queuing work that accesses released
+objects.
+
+> diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/=
+bridge/analogix/anx7625.c
+> index ebd34657908ea..9c9a4a7bbf726 100644
+> --- a/drivers/gpu/drm/bridge/analogix/anx7625.c
+> +++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+> @@ -2973,13 +2973,15 @@ static void anx7625_i2c_remove(struct i2c_client =
+*client)
+>  {
+[ ... ]
+>  	drm_bridge_remove(&platform->bridge);
+> =20
+> -	if (platform->pdata.intp_irq)
+> -		destroy_workqueue(platform->workqueue);
+> -
+>  	if (platform->hdcp_workqueue) {
+>  		cancel_delayed_work(&platform->hdcp_work);
+
+[Severity: High]
+This is a pre-existing issue, but does this non-synchronous cancel allow
+a race condition?=20
+
+If cancel_delayed_work() is called while the timer callback is executing on
+another CPU, it returns immediately without waiting. When destroy_workqueue=
+()
+then frees the workqueue, the timer callback could resume and attempt to
+queue work on the freed workqueue, leading to a use-after-free.=20
+
+Should this use cancel_delayed_work_sync() instead?
+
+>  		destroy_workqueue(platform->hdcp_workqueue);
+>  	}
+
+[Severity: Medium]
+This is a pre-existing issue, but does anx7625_bridge_atomic_disable()=20
+correctly handle the delayed work?=20
+
+drivers/gpu/drm/bridge/analogix/anx7625.c:anx7625_bridge_atomic_disable() {
+    ...
+	flush_workqueue(ctx->hdcp_workqueue);
+    ...
+}
+
+Calling flush_workqueue() doesn't actually cancel or wait for pending
+delayed work timers if they haven't expired yet, causing the work to run=20
+later. Should this use cancel_delayed_work_sync() to ensure the work is=20
+properly stopped?
+
+[Severity: High]
+This is a pre-existing issue, but does the probe function leak the DRM=20
+bridge registration on error paths?
+
+drivers/gpu/drm/bridge/analogix/anx7625.c:anx7625_i2c_probe() {
+    ...
+	ret =3D anx7625_typec_register(platform);
+	if (ret)
+		goto pm_suspend;
+    ...
+}
+
+Because anx7625_link_bridge() calls drm_bridge_add() earlier in the probe,
+if a subsequent step like anx7625_typec_register() fails, the probe
+function jumps to the error path and returns an error without calling
+drm_bridge_remove().=20
+
+The devres framework then frees the platform structure, but the bridge rema=
+ins
+globally registered in bridge_list. Any subsequent iteration of the bridge
+list by the DRM core would dereference the freed memory, leading to a
+use-after-free.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721143559.2732=
+2-1-mhun512@gmail.com?part=3D1
