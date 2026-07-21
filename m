@@ -4,67 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EF8CC4452D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C2B9C4452B
 	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 22:13:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 863FA10E2FF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 647EE10EBA8;
 	Tue, 21 Jul 2026 22:12:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="JcWjyMTq";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="/ebiC3dJ";
+	dkim=pass (2048-bit key; unprotected) header.d=nanonej.com header.i=@nanonej.com header.b="dDtaIwDV";
 	dkim-atps=neutral
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CA1010E241
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 15:38:35 +0000 (UTC)
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1784648313;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=Qr0yzIrf3ANiObvCzKGQ0FrOzPoo5WBOtSa9iiW6L2c=;
- b=JcWjyMTqJl2LU2MceAk83qGUEYBMzQAdfKzqDEInDgu8NUK37fPkzZWmZHAf9d7zdBKuvI
- Yj5rehgeUjIfqoQw1xLJJWiIuYhRdX4F++1s6reShPvrrjny2hrtWkXqX715hT/F8Ler43
- 8SfbDNnCMnDfWnWm86eXSfbbz5M6tlplQCrU9XMhOHMFusu+UPXk7jCUGV4r3/C1NfsrIo
- IWpm6ga+G6kqVGtf0LMImH9CMEcC8DBLuxWkUjmvgwKLw1SfUskEEIm/FKllZxEJ9wVhP1
- e/se4HNh3psGihesAM9AVCFGfOF/SXWQNFAPBTQjiv7O5Us09j7axLaCDornUQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1784648313;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=Qr0yzIrf3ANiObvCzKGQ0FrOzPoo5WBOtSa9iiW6L2c=;
- b=/ebiC3dJq1eQxGTOdQXF/8jKcpNZ31jHzqZS+KuA/yeaiE33JyZOfpU2NzHNFDoK+g5gMl
- TT1wZLVWnTuxlzAg==
-Date: Tue, 21 Jul 2026 17:38:19 +0200
-Subject: [PATCH v2] drm/vc4: hvs/v3d: Fix null dereference in unbind
+Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1115D10E390
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 15:47:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nanonej.com;
+ s=protonmail2; t=1784648822; x=1784908022;
+ bh=sejJ10464xWNGyKrf8hceYDLJk0iFdB37wranr0KVcE=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=dDtaIwDVdKjz6jQlhpmx3Qjgmmz/1WWdhLYDDS3p909+rbY7oRFUMNTVmmCW9MdEo
+ nGjvXU7pRJ5mIFBb8N2FMi9k6CwRIcoUTvaO11oR0Zh2Vmo9mJcE1MHZpMbr9GQCFl
+ hs+3Acr8FZZFjc3o6eKWKufWx8OCbp5qS5LENb9rHdttoggTaHHVHFCxfruL167LOJ
+ rPcEUHFkN6D6KQyYE2ffMqflQH7T/NE7MmrlURt6w1WLDyvzRu7/TtQPJEGiDf7Rpc
+ YtZALD3CB1c1w/4hPxIMEh7GfXTEtmrj5rt3ylhfee8j676E01xlQ8VXYz+gvpVLiJ
+ Uz4DU1LwqvLTw==
+Date: Tue, 21 Jul 2026 15:46:59 +0000
+To: Alexandre Courbot <acourbot@nvidia.com>
+From: Nanonej Dev <dev@nanonej.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, daniel.almeida@collabora.com
+Subject: Re: [PATCH 0/3] gpu: nova-core: Move PFB and PBUS register
+Message-ID: <OprRCKDmuvyHtJbjO71JS5CO4up4JGOsy85dYGzOQu6mwC8N-9dihiX_h-NmEcCoxb2bUVDb_kGcpA-H58Y6ZOrumPp_Dj5X3iUa4AjZLts=@nanonej.com>
+In-Reply-To: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
+References: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
+Feedback-ID: 32181229:user:proton
+X-Pm-Message-ID: 62932c73e2bbd3959f507078ac28bf6b08bdc139
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-rpi-vc4-fix-v2-1-b813dcd01dc7@linutronix.de>
-X-B4-Tracking: v=1; b=H4sIAGqSX2oC/1WNyw6CMBBFf4XM2jF9UAiu/A/DgscoY0whbWkwh
- H+3oBuX5+bec1fw5Jg8XLIVHEX2PNoE6pRBNzT2Qch9YlBCFaKUBt3EGLsc77xgX2kjdStMrgy
- kxeQoxYftVn/Zz+2TurAr9sbAPozufdxFufd+ZiX+zFGixBTrpioaU5b6+mI7BzdaXs49Qb1t2
- wdvNVfyvAAAAA==
-X-Change-ID: 20260715-rpi-vc4-fix-d93513b05425
-To: Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Douglas Anderson <dianders@chromium.org>, 
- Eric Anholt <eric@anholt.net>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Simona Vetter <simona.vetter@ffwll.ch>, 
- Gregor Herburger <gregor.herburger@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784648313; l=2215;
- i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
- bh=gT0B/UqWA+MfWagMrYsjYSZgllA5pSGacte4E7za4cU=;
- b=x1oGNt3ancCKQbthbfgNDd12zjrlgcc2w0dm8L1rJ7GcGJpFJDQgBt4fWZeL3f0TeGyzlw4JF
- dw2Xeio/yJECVNVXi0eez2pR/2tC7C0z5jrDzDVkciJfUgJdtwWJaYd
-X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
- pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
+Content-Type: multipart/signed; protocol="application/pgp-signature";
+ micalg=pgp-sha512;
+ boundary="------3095c324009ef214f1bf2869700201677b558d96d572de11cafb61feb736ed1b";
+ charset=utf-8
 X-Mailman-Approved-At: Tue, 21 Jul 2026 22:11:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,58 +61,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The hvs and v3d drivers use dev_get_drvdata(master) in their unbind
-functions. Since the vc4-drm gets removed before its dependent drivers
-(vc4_hvs/vc4_v3d) the vc4_hvs_unbind/vc4_v3d_unbind functions try to
-get drvdata of its master and fails with a null dereference error.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------3095c324009ef214f1bf2869700201677b558d96d572de11cafb61feb736ed1b
+Content-Type: multipart/mixed;boundary=---------------------b6fea5139d6c13f745785138f2175e27
 
-Use the data pointer passed to the unbind functions directly instead of
-dev_get_drvdata(master). This avoids using potentially freed memory.
+-----------------------b6fea5139d6c13f745785138f2175e27
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-Fixes: d3f5168a0810 ("drm/vc4: Bind and initialize the V3D engine.")
-Fixes: c8b75bca92cb ("drm/vc4: Add KMS support for Raspberry Pi.")
-Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
----
-Changes in v2:
-- Add Fixes tags
-- Link to v1: https://patch.msgid.link/20260720-rpi-vc4-fix-v1-1-6073a96a5773@linutronix.de
----
- drivers/gpu/drm/vc4/vc4_hvs.c | 2 +-
- drivers/gpu/drm/vc4/vc4_v3d.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+> There could be a function in the `fb` module that reads the registers
+> and returns an `Option<Range<u64>>` - `None` if `is_wpr2_set` is
+> `false`, or the WPR2 range otherwise. Then the GSP TU102 HAL would just
+> use this function instead of poking the register as it currently does.
+> =
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
-index 184d51ea3fa5..e715147d091c 100644
---- a/drivers/gpu/drm/vc4/vc4_hvs.c
-+++ b/drivers/gpu/drm/vc4/vc4_hvs.c
-@@ -1752,7 +1752,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
- static void vc4_hvs_unbind(struct device *dev, struct device *master,
- 			   void *data)
- {
--	struct drm_device *drm = dev_get_drvdata(master);
-+	struct drm_device *drm = data;
- 	struct vc4_dev *vc4 = to_vc4_dev(drm);
- 	struct vc4_hvs *hvs = vc4->hvs;
- 	struct drm_mm_node *node, *next;
-diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
-index d31b906cb8e7..f32410420d3e 100644
---- a/drivers/gpu/drm/vc4/vc4_v3d.c
-+++ b/drivers/gpu/drm/vc4/vc4_v3d.c
-@@ -494,7 +494,7 @@ static int vc4_v3d_bind(struct device *dev, struct device *master, void *data)
- static void vc4_v3d_unbind(struct device *dev, struct device *master,
- 			   void *data)
- {
--	struct drm_device *drm = dev_get_drvdata(master);
-+	struct drm_device *drm = data;
- 	struct vc4_dev *vc4 = to_vc4_dev(drm);
- 
- 	vc4_irq_uninstall(drm);
 
----
-base-commit: 58717b2a1365d06c8c64b72aa948541b53fe31eb
-change-id: 20260715-rpi-vc4-fix-d93513b05425
+> Doing so would move the WPR2 registers to the right place, and provide t=
+he
+> right abstraction for the WPR2 region.
+> =
 
-Best regards,
---  
-Gregor Herburger <gregor.herburger@linutronix.de>
+
+> A patch series doing this could look like this:
+> =
+
+
+> - Add the `fb` module function abstracting the WPR2 region registers and
+>   use it in the GSP's TU102 HAL.
+> - Move the `NV_PFB_PRI_MMU_WPR2_ADDR*` registers under the `fb` module.
+> - Move the `NV_PBUS_SW_SCRATCH_0E_FRTS_ERR` register under the `gsp`
+>   module, since it is clearly themed after `FRTS`, which is part of the
+>   GSP boot. But, without moving `NV_PBUS_SW_SCRATCH` (the actual
+>   register being aliased). I expect you will hit a bug of the `register`
+>   macro when doing this one - I'll try to address it, but the first two
+>   steps should be safe to do and correct.
+
+Thanks for the plan Alexandre, worked like a charm.
+
+-----------------------b6fea5139d6c13f745785138f2175e27--
+
+--------3095c324009ef214f1bf2869700201677b558d96d572de11cafb61feb736ed1b
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmpflFsJEFKmzSsu6sDwRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmeAsFbFD8EepBCx9XY+x0Eu6GhsEMYdWe02x+Kx
+lamwiRYhBI+99gDJjAW7MoHJ0VKmzSsu6sDwAADy4AD+KhUkNxpNcXkcZ2p+
+wA47FeTA/Z1+LqsetiGdBFiHtEwA/2DzSUFqPoZKYx1BWMbg1cMUcTuxIobW
+45ZN2/TlVasH
+=PPKZ
+-----END PGP SIGNATURE-----
+
+
+--------3095c324009ef214f1bf2869700201677b558d96d572de11cafb61feb736ed1b--
 
