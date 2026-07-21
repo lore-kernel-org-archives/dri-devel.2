@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7D18C4451C
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:15:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71F10C4452B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 18:16:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21D1710E3AC;
-	Tue, 21 Jul 2026 18:15:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C01B410E3A4;
+	Tue, 21 Jul 2026 18:16:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HFWLFC3j";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LBC3Akd2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 012CF10E3AC
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:14:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4AD710E3A4
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 18:15:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 52604601DE;
- Tue, 21 Jul 2026 18:14:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEF271F00A3A;
- Tue, 21 Jul 2026 18:14:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 543D440620;
+ Tue, 21 Jul 2026 18:15:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE9B11F000E9;
+ Tue, 21 Jul 2026 18:15:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784657697;
- bh=b9TxdQy0//5Ha8Gm5yJXnTz0DY13wIxZMlP4M1iFGzE=;
+ s=k20260515; t=1784657759;
+ bh=B/m+owWUBM6VQS1O2fFdRNrAMYihKIj+X1ZPFE5jqhA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HFWLFC3jV4hlIppjT+uoMbAPLd/eKhg8bz7wkz4NSsQMMqfshtHpFx7KLWGk76lAA
- BE0ykQ9NaRBNxOqs5UT8lWEaq4fDHhsmd8yQuZxDR9RibZ5Vt8gxxXPIq33fUlAJRU
- p1h+qSt+Tzx5X0kuaDVb465ZrscO5DWXioXMDBWPOHKzHYzaFr2pcdzRHz43Wfd/Ot
- tx+jW4YIRwS9c5+DMQFTQ/U7cDbchWQm/QRN+zCMcoBBgxZ6UGxK46eaPnqgH3450I
- zDNqxxZfm4gBkG17Z6hI+cjtPbknntmE/ybCfppCmS4a2qa/j1RwYdNVXb0MWKM5x3
- aRcQMrgvUGkVA==
+ b=LBC3Akd2OsuipYisFRaFBUKZGTmiLJKqzSSRorFJFFeNgKLPgyHBkoreUndRKDzL9
+ q99qWWW+wdioMBKyixeV+E4+ZUCmYqPsJGilwtU4AKMoywtiqIagyvZhrSGYJ99y2A
+ IUaLSd1NJuZV9MCJzZWG5s2KUMgUHMNl+tLMsvIa/JE0+mZei4q0gWITxZ6Rlit+1w
+ 3wrtWzZgaQd020XSeD63YG9CArlfM4WIzO/dlNrqE5yPipk1jrdeK6MhxZH49v518G
+ 7J+lGvn9STujiqczbUsiKa/a5aAV4FxDvv4nPRZmvpotSHfvyvwNimQpHfl9+1lqrv
+ vsimACew7lqng==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 05/10] drm/bridge: synopsys: dw-dp: Support software
- triggered OOB HPD
+Subject: Re: [PATCH v4 06/10] drm/rockchip: dw_dp: Implement out-of-band HPD
+ handling
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-5-f0f4a4ede712@collabora.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-6-f0f4a4ede712@collabora.com>
 References: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
- <20260721-synopsys-dw-dp-improvements-v4-5-f0f4a4ede712@collabora.com>
+ <20260721-synopsys-dw-dp-improvements-v4-6-f0f4a4ede712@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 18:14:56 +0000
-Message-Id: <20260721181456.AEF271F00A3A@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 18:15:58 +0000
+Message-Id: <20260721181558.DE9B11F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,73 +59,104 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] The VO GRF regmap lookup fails to parse the DisplayPort DT node =
+for new platforms, contradicting its documented design.
+
 Pre-existing issues:
-- [High] Missing Workqueue Cancellation / Use-After-Free in teardown path
+- [High] This problem wasn't introduced by this patch, but missing cancel_w=
+ork_sync() for hpd_work in dw_dp_unbind() causes a Use-After-Free.
 --
 
---- Patch [5]: [PATCH v4 05/10] drm/bridge: synopsys: dw-dp: Support softwa=
-re triggered OOB HPD ---
-commit 27d73c3f273597742127e6851884d387b3ffe886
+--- Patch [6]: [PATCH v4 06/10] drm/rockchip: dw_dp: Implement out-of-band =
+HPD handling ---
+commit 78e1ce0dbd7ef8a004080f25b4449ba54b71de3a
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-drm/bridge: synopsys: dw-dp: Support software triggered OOB HPD
+drm/rockchip: dw_dp: Implement out-of-band HPD handling
 
-This patch adds support for USB-C DP AltMode out-of-band hotplug handling
-by allowing platform-specific drivers to implement HPD software
-configuration and selection.
+This patch implements out-of-band hotplug handling to receive external
+hotplug information from the USB-C state machine. It uses the vo-grf
+registers to control HPD signal routing and configuration.
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index 0e8ecd73a0002..8eb2699dc7ab0 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
+rockchip/dw_dp-rockchip.c
+> index 005938dc66c9f..0ecbad24dd4e8 100644
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+[ ... ]
+> @@ -71,6 +116,34 @@ static const struct drm_encoder_helper_funcs dw_dp_en=
+coder_helper_funcs =3D {
+>  	.atomic_check		=3D dw_dp_encoder_atomic_check,
+>  };
+> =20
+> +static struct regmap *dp_dp_rockchip_get_vo_grf(struct rockchip_dw_dp *d=
+p)
+> +{
+> +	struct device_node *np =3D dev_of_node(dp->dev);
+> +	struct of_phandle_args args;
+> +	struct regmap *regmap;
+> +	int ret;
+> +
+> +	ret =3D of_parse_phandle_with_args(np, "phys", "#phy-cells", 0, &args);
+> +	if (ret)
+> +		return ERR_PTR(-ENODEV);
+> +
+> +	/*
+> +	 * Limit this workaround to RK3576 and RK3588, new platforms should
+> +	 * add a VO GRF phandle in the DisplayPort DT node.
+> +	 */
+> +	if (!of_device_is_compatible(args.np, "rockchip,rk3576-usbdp-phy") &&
+> +	    !of_device_is_compatible(args.np, "rockchip,rk3588-usbdp-phy")) {
+> +		regmap =3D ERR_PTR(-ENODEV);
+> +		goto out_put_node;
+> +	}
+> +
+> +	regmap =3D syscon_regmap_lookup_by_phandle(args.np, "rockchip,vo-grf");
 
+[Severity: Medium]
+Will this fail to probe on new platforms?=20
+
+The comment states new platforms should add a VO GRF phandle in the
+DisplayPort DT node, but the code only looks up "rockchip,vo-grf" on the
+phy node (args.np) after explicitly rejecting any phy other than rk3576 and
+rk3588.=20
+
+Should it try to parse the property from the DisplayPort node (np) instead?
+
+> +
+> +out_put_node:
+> +	of_node_put(args.np);
+> +	return regmap;
+> +}
 [ ... ]
 
-> @@ -2052,6 +2086,10 @@ struct dw_dp *dw_dp_probe(struct platform_device *=
-pdev, const struct dw_dp_plat_
-> =20
->  	dp->dev =3D dev;
->  	dp->pixel_mode =3D plat_data->pixel_mode;
-> +
-> +	dp->plat_data.hpd_sw_sel =3D plat_data->hpd_sw_sel;
-> +	dp->plat_data.hpd_sw_cfg =3D plat_data->hpd_sw_cfg;
-> +	dp->plat_data.data =3D plat_data->data;
->  	dp->plat_data.max_link_rate =3D plat_data->max_link_rate;
-> =20
->  	mutex_init(&dp->irq_lock);
+While reviewing this patch, I also noticed a pre-existing issue in the
+related dw_dp_unbind() teardown path:
+
+drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_unbind() {
+	...
+	disable_irq(dp->irq);
+	phy_exit(dp->phy);
+	drm_bridge_put(dp->next_bridge);
+	drm_dp_aux_unregister(&dp->aux);
+	drm_bridge_remove(&dp->bridge);
+}
 
 [Severity: High]
-This is a pre-existing issue, but is there a missing workqueue cancellation
-in the driver teardown path?
+This isn't a bug introduced by this patch, but can this cause a
+use-after-free if an HPD interrupt fires right before disable_irq() is
+called?=20
 
-In dw_dp_probe(), the driver initializes a work item for hotplug detection
-shortly after the modified code block:
+If dp->hpd_work is scheduled and the devm-allocated struct dw_dp is freed
+during device removal, the background worker might execute dw_dp_hpd_work()
+on freed memory.=20
 
-    INIT_WORK(&dp->hpd_work, dw_dp_hpd_work);
-
-However, looking at dw_dp_unbind(), the work is never canceled:
-
-    void dw_dp_unbind(struct dw_dp *dp)
-    {
-        disable_irq(dp->irq);
-        phy_exit(dp->phy);
-        drm_bridge_put(dp->next_bridge);
-        drm_dp_aux_unregister(&dp->aux);
-        drm_bridge_remove(&dp->bridge);
-    }
-
-Since the dp structure is automatically freed by devres after the remove
-callback completes, could this result in a use-after-free if the IRQ
-handler schedules the work right before unbound is called, and the work
-executes after the dp structure is deallocated?=20
-
-Would it make sense to add a cancel_work_sync(&dp->hpd_work) call to the
-teardown path to ensure the work item finishes safely?
+Does dw_dp_unbind() need to call cancel_work_sync(&dp->hpd_work)?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-synopsys-d=
-w-dp-improvements-v4-0-f0f4a4ede712@collabora.com?part=3D5
+w-dp-improvements-v4-0-f0f4a4ede712@collabora.com?part=3D6
