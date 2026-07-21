@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC22EC4452D
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 21:10:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4B2AC4452D
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 21:11:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4642410E287;
-	Tue, 21 Jul 2026 21:10:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C27810EB72;
+	Tue, 21 Jul 2026 21:11:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ONXXii7f";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NMxojnEC";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCB8F10E287
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 21:10:53 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25B2710E3C5
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 21:11:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 52D5860A65;
- Tue, 21 Jul 2026 21:10:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D28351F000E9;
- Tue, 21 Jul 2026 21:10:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E4479413B9;
+ Tue, 21 Jul 2026 21:11:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9274E1F00A3A;
+ Tue, 21 Jul 2026 21:11:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784668253;
- bh=knrpHStVOCVVxYCMRyxiaKE5pUbZPv/jIqbcEWBXL4w=;
+ s=k20260515; t=1784668283;
+ bh=n8T7yg5g3bUvpE3hgwpnqYxaGobKxLlckUXEn/pBazA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ONXXii7f1qOoq6UFEABW1cRY9mc8NBzdY7/V23lOz5Zw9hp2uUSbnpDDTCCTNg14K
- eLd2WpEEkmyGRR8LDo9MIRbzgr69qRXkbobU4C3DLvqf6rnzBom4TkaYk1IYQSYvTb
- kLtu4ioTRMCLKKATH9KRkRFmkkNvH0Vgrg6wSSxgQcCyaoRxH1BNGbcSGPN2Y1A6v5
- vZH1Cen8x6fYqAc+/MNJRUH6pB5bWHhSaVvEJDGxKbqg2Lf6tVzM0ZAc+1/1aF1Pni
- HlEqJjsk0O0xbLDT1Ow3q0auD+TSnXxp1zFdU1lbWqLJvR7bmzliElrvW3wi5oKsZ7
- dErDnflNfki2w==
+ b=NMxojnEC1Pp6CbQ/7qGcJfOV9vWeDqjuqOOqfplxmP7hET9rGBXIIOApkaxIfoLNC
+ kkRUqvSxKKHue7VsGUj3aRnm3zLTfP2Kd9+rkuUqq4bYpaJeE4LH/11YakR5T8j6vd
+ 4sgmQaXUXgZcAKTslzXAztza23EZNZDh6B2l761UnfCjTaRAOyMeAUsM5aeqx3+aqy
+ PL4DhXndtSpqqlwp+tphlqi6hgxC0o7bQiZTzQvjcT2z1VzudC/CnmOgk/aOH/kEyr
+ ViXp9Zp74GvL0eVjfmkkaiklQ3XCgSHYFbYblAHJ3WQLkGRCTtTNfWdu1FflkxQ0C5
+ 1OiFZg77TY3fA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 24/29] dyndbg: pin class param storage to u32
+Subject: Re: [PATCH v7 29/29] selftests/dyndbg: enable FT_classmap_inheritance
 To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: linux-modules@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260721-dd-maint-2-v7-24-010fbe73b311@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
+In-Reply-To: <20260721-dd-maint-2-v7-29-010fbe73b311@gmail.com>
 References: <20260721-dd-maint-2-v7-0-010fbe73b311@gmail.com>
- <20260721-dd-maint-2-v7-24-010fbe73b311@gmail.com>
+ <20260721-dd-maint-2-v7-29-010fbe73b311@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 21 Jul 2026 21:10:52 +0000
-Message-Id: <20260721211052.D28351F000E9@smtp.kernel.org>
+Date: Tue, 21 Jul 2026 21:11:23 +0000
+Message-Id: <20260721211123.9274E1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,61 +57,86 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Bitwise shift out-of-bounds on 32-bit architectures when evaluat=
-ing `BIT(bi)` in `ddebug_apply_class_bitmap()`.
+- [Medium] The test `FT_classmap_inheritance` is broken by commenting out t=
+he entire `modprobe test_dynamic_debug` command.
+- [Low] Redundant and confusing double assignment to `default_hash`.
 --
 
---- Patch [24]: [PATCH v7 24/29] dyndbg: pin class param storage to u32 ---
-commit 87a65c25e24b4e05bdc18ddf16105e9237d922db
+--- Patch [29]: [PATCH v7 29/29] selftests/dyndbg: enable FT_classmap_inher=
+itance ---
+commit 368562dd09d0a9983482e5b9ecbe159f50ea9ede
 Author: Jim Cromie <jim.cromie@gmail.com>
 
-dyndbg: pin class param storage to u32
+selftests/dyndbg: enable FT_classmap_inheritance
 
-This commit changes the bits and lvl fields in struct ddebug_class_param
-to use u32 instead of unsigned long. This ensures consistent sizing across
-different architectures.
+This commit re-enables FT_classmap_inheritance in the dynamic debug
+selftests. It also updates parameter names and syncs result checksums
+to match a recent test run.
 
-> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index 59e3c0eccbede..60b67face46e1 100644
-> --- a/lib/dynamic_debug.c
-> +++ b/lib/dynamic_debug.c
+> diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/t=
+ools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> index 947f23dcb4ce7..49c2a79929c6f 100755
+> --- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> +++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
 
 [ ... ]
 
-> @@ -643,24 +643,27 @@ static int ddebug_apply_class_bitmap(const struct d=
-debug_class_param *dcp,
->  	int bi, ct;
+> @@ -217,8 +217,10 @@ function verify_modprobe_param_logging {
 > =20
->  	if (*new_bits !=3D old_bits)
-> -		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
-> +		v2pr_info("apply bitmap: 0x%x to: 0x%x for %s\n", *new_bits,
->  			  old_bits, query_modname ?: "'*'");
+>          # Verify that the resulting control-file state is completely cle=
+ared
+>          local hash_unset=3D$(slice_and_hash_ddctrl '\[test_dynamic_debug=
+\]')
+> -        local default_hash=3D"fd89900c8614f23c3a6e8a8d45aa3280"
+> +
+>  	# Pristine fully-disabled slice hash
+> +	local default_hash=3D"fd89900c8614f23c3a6e8a8d45aa3280"
+> +	default_hash=3D"d8d188e03eb33d970453c06b8f3f25a4"
+
+[Severity: Low]
+Is this double assignment to default_hash intentional? The first value is
+immediately overwritten, leaving redundant dead code behind in
+verify_modprobe_param_logging.
+
+[ ... ]
+
+> @@ -508,8 +510,8 @@ function FT_classmap_inheritance {
+>      ddcmd =3D_
 > =20
->  	for (bi =3D 0; bi < map->length; bi++) {
-> -		if (test_bit(bi, new_bits) =3D=3D test_bit(bi, &old_bits))
-> +		bool new_b =3D !!(*new_bits & BIT(bi));
-> +		bool old_b =3D !!(old_bits & BIT(bi));
+>      # modprobe with class enablements
+> -    modprobe test_dynamic_debug \
+> -	dyndbg=3Dclass,D2_CORE,+pf@class,D2_KMS,+pt@class,D2_ATOMIC,+pm
+> +    #modprobe test_dynamic_debug \
+> +	#dyndbg=3Dclass,D2_CORE,+pf@class,D2_KMS,+pt@class,D2_ATOMIC,+pm
+> =20
+>      verify_file_slice '\[test_dynamic_debug\]'
 
 [Severity: Medium]
-Can this result in an out-of-bounds bitwise shift on 32-bit architectures?
+Does commenting out the entire modprobe command break the test? Because the
+module is no longer loaded, verify_file_slice in FT_classmap_inheritance
+will check an empty state.
 
-The BIT(bi) macro expands to (1UL << bi). On 32-bit systems, 1UL is 32
-bits wide. If a module defines a classmap with 32 or more classes
-(map->length >=3D 32), shifting by 32 or more triggers undefined behavior.
+[ ... ]
 
-On most 32-bit architectures, the CPU masks the shift count modulo 32, mean=
-ing
-BIT(32) evaluates to BIT(0). This causes the loop to incorrectly re-evaluate
-and alter class 0 instead of processing the intended class, leading to
-incorrect functional behavior when configuring dynamic debug.
+> @@ -689,6 +690,59 @@ function GOLDEN_RECORDS {
+>  #K=3D da6bd1c6a299290150668186f8263b82 FT_basic_queries.4       "kernel/=
+params.c"
+>  #K=3D 82572e8d20c4b567afac783006d1a935 FT_basic_queries.5       "kernel/=
+params.c"
+>  #K=3D baea1247680e8151c121539f4b90a6d8 FT_basic_queries.6       "kernel/=
+params.c"
+> +#K=3D 68b329da9893e34099c7d8ad5cb9c940 FT_classmap_inheritance.1 "\[test=
+_dynamic_debug\]"
 
-> +		if (new_b =3D=3D old_b)
->  			continue;
-> =20
->  		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
+[Severity: Medium]
+Is it expected that this golden record in GOLDEN_RECORDS matches the MD5 ha=
+sh
+of an empty string (68b329da9893e34099c7d8ad5cb9c940)? This appears to
+cement a broken test that asserts the module is absent rather than verifying
+classmap inheritance.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-dd-maint-2=
--v7-0-010fbe73b311@gmail.com?part=3D24
+-v7-0-010fbe73b311@gmail.com?part=3D29
