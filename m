@@ -4,55 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1720FC44529
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 11:55:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 595A7C4451C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 12:10:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4230710E2D2;
-	Tue, 21 Jul 2026 11:55:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABE3010E0EB;
+	Tue, 21 Jul 2026 12:10:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="CYlN8PjA";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="f5DychrC";
 	dkim-atps=neutral
-Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com
- [91.218.175.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A590E10E2D2
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 11:55:32 +0000 (UTC)
-Message-ID: <c3a56e7e-1599-416e-a76d-2143656b5cf4@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1784634929;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ESYFlNYqnnw79nV05/D92TXtjki8hOc44KB1bg1igzo=;
- b=CYlN8PjAJVOi6Oe7Z3gOgBNAfkzrkp9GB79A+GqXzgn1VpUo1Rz/fm1rvMceKzouzNK+wg
- GWlN+evjXo6s+Zc23PHFJOnBGKlq9m8lsDlR+tszCJMxl4mj+y93t7UYMgraFXBMAzhGMe
- m9z4k4Vwc5/ZfxitsxpHmpE497D5N5k=
-Date: Tue, 21 Jul 2026 13:55:22 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70A8110E0EB;
+ Tue, 21 Jul 2026 12:10:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784635836; x=1816171836;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=XqSUnTCT5BmpcGLO10lA1I3XmkdkD5PqInuS9MnabNY=;
+ b=f5DychrCnL/O5qxFedvy/xXkbzW/LX3Sgv59bxamygwot3R7ov9U6Pqh
+ 0mz8Jm/9I9BMQ11lH506Mm7X9eYKZLXdfelXvVbAClturjtkOpSj/a0qV
+ /tpaZDxx1HVd0SvQVJihKeKEjgEoQ3AJO0xX9dyLlsaT+XmRH5OOu5nif
+ IR/YjVcH0NYFrLmY3NwWSP2Agst2Sr9nnGNhGbKbZ54VxskYiHXK611DJ
+ zqDwrLXJDSfSSaTLhFhBGzBcm7H+6yUgtY0brYK9lDoTmq8j8T4SOiOAY
+ pI70BeG3XlHegdtKIMdrtpZ0b5iJgnd+gatfwpNrMTzEFfxOTZR6u6eK9 w==;
+X-CSE-ConnectionGUID: DAtG7lXVQSmaNi9NF0DVqw==
+X-CSE-MsgGUID: /4ptZt6RSCKr4yxnIQcrNA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="95887133"
+X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; d="scan'208";a="95887133"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2026 05:10:35 -0700
+X-CSE-ConnectionGUID: 83S1zJEXSLKUsdZJTisvdA==
+X-CSE-MsgGUID: ukkcRf6jQTO2hf8ogStMHw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; d="scan'208";a="255103335"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.57])
+ ([10.245.245.57])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2026 05:10:30 -0700
+Message-ID: <60de7db0d25e387de4c13d0acb52d2dc1cc22d39.camel@linux.intel.com>
+Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
+ amdgpu_vram_mgr_init()
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Arunpravin Paneer
+ Selvam <arunpravin.paneerselvam@amd.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ intel-xe@lists.freedesktop.org
+Cc: Sashiko-bot <sashiko-bot@kernel.org>, Friedrich Vock
+ <friedrich.vock@gmx.de>,  Maarten Lankhorst	 <dev@lankhorst.se>, Tejun Heo
+ <tj@kernel.org>, Maxime Ripard <mripard@kernel.org>,  Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 	stable@vger.kernel.org, Natalie Vock
+ <natalie.vock@gmx.de>, Johannes Weiner	 <hannes@cmpxchg.org>, Michal
+ =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, 	cgroups@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Brost	 <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, David Airlie
+ <airlied@gmail.com>,  Thadeu Lima de Souza Cascardo	 <cascardo@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 	linux-kernel@vger.kernel.org
+Date: Tue, 21 Jul 2026 14:10:28 +0200
+In-Reply-To: <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
+References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
+ <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
+ <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
+ <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
+ <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Marco Pagani <marco.pagani@linux.dev>
-Subject: Re: [RFC PATCH] drm/sched/tests: Let the DRM scheduler manage job
- lifetimes
-To: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260707114807.154572-1-marco.pagani@linux.dev>
- <46ffa75c-83e2-4f4b-9d5b-e43fdfa12176@ursulin.net>
- <f36c7c87-38c5-41f9-bd14-efc9918a4b61@linux.dev>
- <f524ee2d-c15f-4b7f-ae42-2c28b06e58b6@ursulin.net>
- <949473de-f402-44d7-9fd5-125270bdfbd9@linux.dev>
- <4dd5a686-f935-41a3-89d2-0f651061545d@ursulin.net>
-Content-Language: en-US
-In-Reply-To: <4dd5a686-f935-41a3-89d2-0f651061545d@ursulin.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,92 +89,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi, Maarten,
+
+On Tue, 2026-07-21 at 13:46 +0200, Maarten Lankhorst wrote:
+> Hey,
+>=20
+> Can I merge this through drm-misc-next together with the rest of the
+> series?
+>=20
+> Kind regards
+> ~Maarten
+
+For the xe patches, Ack from me.
+
+I do have a v8 that fixes a sashiko comment on the last patch, though,
+but I was holding that awaiting a review on the other patches.
+
+Thanks,
+Thomas
 
 
-On 16/07/2026 14:14, Tvrtko Ursulin wrote:
-> 
-> 
-> On 15/07/2026 17:02, Marco Pagani wrote:
-> 
-> 8<>
-> 
->>> I first want to understand exactly what the issue is. The current design
->>> exactly cannot free the memory under the scheduler nose unless there is
->>> a test bug where test exited and has left the scheduler with unprocessed
->>> jobs. I am not saying we cannot have reference counted jobs but, again,
->>> at the moment I don't understand the problem.
->>
->> I think that the current design of the mock scheduler can indeed free
->> test objects' memory under the scheduler backend's nose. Consider the
->> example discussed above: the mock scheduler is instantiated and released
->> in the .init and .exit functions respectively, while jobs are allocated
->> in the test body using drm_mock_sched_job_new(). In this rather basic
->> use case, jobs' memory is freed before the entities and the scheduler
->> are released in the .exit function.
-> 
-> So at first I thought that as long as entity is freed at each test exit, 
-> which includes idling, and is done by all current test cases (apart from 
-> the parallel one where you did it via actions) it is all fine. The 
-> entity->last_scheduled you mention is not a concern then since it is 
-> cleared etc.
-> 
-> However, now I think that even if entity is idled and freed before test 
-> exit that does nothing for the jobs not yet processed by the 
-> drm_sched_free_job_work()-er.
-> 
-> Even though I was testing with KASAN I possibly did not manage to hit 
-> that race. Strange but I guess possible.
 
-It was also a surprise for me when Philipp reported a suspected UAF.
-Definitely a subtle bug to catch. I managed to reproduce it by building
-the kernel with KASAN and kunit.autorun enabled, and then simply booting
-it with no rootfs using qemu with this slightly odd configuration:
-
-qemu-system-x86_64 -enable-kvm -m 48G -smp cpus=18 -kernel [...]
-
-> Unless I am missing something with the above analysis, one options is 
-> along the lines of what you propose - forgo using kunit managed 
-> allocations for anything mock scheduler owned. Second would be to stop 
-> using test suite init/exit for the scheduler management and just make 
-> each test create own scheduler and free it as it exits.
-
-I think the second approach is still fragile. If we move
-drm_mock_sched_fini() at the end of each test body, any KUNIT_ASSERT_*()
-failure will cause the test to abort immediately, skipping the teardown
-and leaving the scheduler in an inconsistent state that could cause any
-sort of problem.
-
-Moreover, initializing/tearing down the scheduler in the test's
-init/exit functions is the most intuitive and possibly the best approach
-(DRY) from a test code perspective. Asking test writers to not use the
-standard init/exit functions and enforcing this limitation is a burden
-that I think no one deserves to take.
-
-> Regardless of the option, as long as it is safe against UAFs we are I 
-> think good. Memory leaks on test failures are not that interesting that 
-> it would warrant coming up with anything more complicated.
-
-> Does that make sense? If so, question is which option is simpler? 
-> Probably just making tests create and destroy schedulers since then 
-> there is no need to deal with any memory freeing. It would be just two 
-> lines added to a subset of tests, the ones which rely on .init/.exit.
-
-I thought so too when developing the drm_gem_shmem_test some time ago,
-but then I changed my mind after dealing with downstream CI. A single
-test leaking some memory is not optimal, but not even a big deal per se.
-However, consider hundreds of KUnit tests running periodically on a CI.
-If all failing tests did not care about leaking memory, they could
-seriously bog down the system. I think it's responsible to have tests
-that do not leak memory when they fail.
-
-I'll see if I can come up with a cleaner version of the kref approach,
-taking into account your recommendations and Sashiko's bug report.
-
-Thank you for your suggestions,
-Marco
- 
-> Regards,
-> 
-> Tvrtko
-> 
-
+>=20
+> On 7/7/26 20:05, Arunpravin Paneer Selvam wrote:
+> >=20
+> >=20
+> > On 7/3/2026 6:38 PM, Christian K=C3=B6nig wrote:
+> > > Arun please take a look at this.
+> > Sure Christian. This fix looks correct to me.
+> > Reviewed-by: Arunpravin Paneer Selvam
+> > <Arunpravin.PaneerSelvam@amd.com>
+> >=20
+> > Thanks,
+> > Arun.
+> > >=20
+> > > Thanks,
+> > > Christian.
+> > >=20
+> > > On 7/3/26 15:05, Thomas Hellstr=C3=B6m wrote:
+> > > > drmm_cgroup_register_region() is called before INIT_LIST_HEAD()
+> > > > and
+> > > > gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the
+> > > > function
+> > > > returns early and bypasses those initializations.
+> > > >=20
+> > > > Since adev->mman.initialized is set to true before
+> > > > amdgpu_vram_mgr_init()
+> > > > is called, a failure triggers amdgpu_ttm_fini(), which calls
+> > > > amdgpu_vram_mgr_fini(), which then:
+> > > >=20
+> > > > =C2=A0 - Calls list_for_each_entry_safe() on reservations_pending
+> > > > and
+> > > > =C2=A0=C2=A0=C2=A0 reserved_pages, whose list_head::next pointers a=
+re zero-
+> > > > initialized
+> > > > =C2=A0=C2=A0=C2=A0 (NULL). The loop does not recognize them as empt=
+y and
+> > > > dereferences NULL.
+> > > >=20
+> > > > =C2=A0 - Calls gpu_buddy_fini(), which iterates free_trees[]
+> > > > unconditionally
+> > > > =C2=A0=C2=A0=C2=A0 via for_each_free_tree(). Since mm->free_trees i=
+s NULL
+> > > > =C2=A0=C2=A0=C2=A0 (never allocated), this dereferences NULL.
+> > > >=20
+> > > > Both result in a kernel panic on the module load error path.
+> > > >=20
+> > > > Fix by moving drmm_cgroup_register_region() to after the list
+> > > > and buddy
+> > > > allocator are fully initialized, so the teardown path is safe
+> > > > to run.
+> > > >=20
+> > > > Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
+> > > > Closes:
+> > > > https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellst=
+rom@linux.intel.com?part=3D4
+> > > > Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in
+> > > > TTM")
+> > > > Cc: Friedrich Vock <friedrich.vock@gmx.de>
+> > > > Cc: Maarten Lankhorst <dev@lankhorst.se>
+> > > > Cc: Tejun Heo <tj@kernel.org>
+> > > > Cc: Maxime Ripard <mripard@kernel.org>
+> > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > > Cc: amd-gfx@lists.freedesktop.org
+> > > > Cc: dri-devel@lists.freedesktop.org
+> > > > Cc: <stable@vger.kernel.org> # v6.14+
+> > > > Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+> > > > Signed-off-by: Thomas Hellstr=C3=B6m
+> > > > <thomas.hellstrom@linux.intel.com>
+> > > > ---
+> > > > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
+> > > > =C2=A0 1 file changed, 4 insertions(+), 3 deletions(-)
+> > > >=20
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > > > index 2a241a5b12c4..ac3f71d77140 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > > > @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct
+> > > > amdgpu_device *adev)
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ttm_resource_manager *man =3D=
+ &mgr->manager;
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int err;
+> > > > =C2=A0 -=C2=A0=C2=A0=C2=A0 man->cg =3D drmm_cgroup_register_region(=
+adev_to_drm(adev),
+> > > > "vram", adev->gmc.real_vram_size);
+> > > > -=C2=A0=C2=A0=C2=A0 if (IS_ERR(man->cg))
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return PTR_ERR(man->cg)=
+;
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_resource_manager_init(man, &adev=
+->mman.bdev,
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev->gmc.real_vram_size);
+> > > > =C2=A0 @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct
+> > > > amdgpu_device *adev)
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err)
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return err;
+> > > > =C2=A0 +=C2=A0=C2=A0=C2=A0 man->cg =3D drmm_cgroup_register_region(=
+adev_to_drm(adev),
+> > > > "vram", adev->gmc.real_vram_size);
+> > > > +=C2=A0=C2=A0=C2=A0 if (IS_ERR(man->cg))
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return PTR_ERR(man->cg)=
+;
+> > > > +
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_set_driver_manager(&adev->mman.b=
+dev, TTM_PL_VRAM,
+> > > > &mgr->manager);
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_resource_manager_set_used(man, t=
+rue);
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+> >=20
