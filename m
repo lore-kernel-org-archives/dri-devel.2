@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FDD2C44532
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 15:15:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F6AAC44532
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 15:15:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F154F10EA53;
-	Tue, 21 Jul 2026 15:15:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3F2710E35A;
+	Tue, 21 Jul 2026 15:15:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ZTyEBTh5";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NfpHWD+F";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1000410E35A
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C86D110E35A
  for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 15:15:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784646933;
- bh=Hasvze30jososRFzbjqNmH2jMj7kKk3wRulieAc4wKc=;
- h=From:To:Cc:Subject:Date:From;
- b=ZTyEBTh5xlPUidppa/l6GSJcE26ze9eHv3vOsJhKnFR0AnEC7YX1vaSSuIfxkaYaH
- Ep8HRFZ0vtztRp/Ps49b4CO6ythnMswEi7kXd5S2a23GCnq/uPwkmOJSCzn1FIsMqV
- otlXDwbbfd0YczTyTpMPS/2ppc8jc82gXbBNXevgxnnD1TfzZOx/jtoh+eEIlwRCQ3
- QIpyfLnTE3EXCCx+tERdc8fonhnSI80/V6Y38/QbbSjXCj6dIOSfZqItVWq3k24oWZ
- wWeYR+KO0bZ8U2+gR4HU4oXLRoMkGIM54rNf1k/oOq1VG/ZtZ25ABvCONCQm6BVsKc
- 1pZ1p4yglPWig==
+ s=mail; t=1784646934;
+ bh=btItQEO2+VGINywKdLiJJbQna1oD70XRrKeHl9goPRc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=NfpHWD+FlOEjJKHzwS7KUGObW6P4FLggJIApYuU0k5c51VUWvSC1sHXD3+pzdNaks
+ VimB4z3BmE8MGx01iVVQRxgGYci6o9nwToWtoq6dOBaSyYb6rZd5LAepbyRjneUKmV
+ GaqK48BE910nTNh2XPVtm8UvdRTv6kciMvz+cgwVoZDZxswNLRz4VKacCApGCIPtdq
+ dxzV5ZvOuVlDhK78KO/BryVkWr1reXyz4ZDDujdeQN4rhmy7wnL4zWSTKlMb1dqaH6
+ on9U7DJtNICoYWJrkuK9cc5jQW4BDPqKdIiaSJ+WyZOdMb3FasI2z5+Rnd+xSJwuKf
+ h1fwe977UPE1w==
 Received: from laura.lan (unknown [100.64.0.215])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: laura.nao)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3CBF417E0564;
- Tue, 21 Jul 2026 17:15:32 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9F74317E062C;
+ Tue, 21 Jul 2026 17:15:33 +0200 (CEST)
 From: Laura Nao <laura.nao@collabora.com>
 To: daniel.almeida@collabora.com, aliceryhl@google.com, dakr@kernel.org,
  airlied@gmail.com, simona@ffwll.ch, ojeda@kernel.org
@@ -40,11 +40,13 @@ Cc: boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
  acourbot@nvidia.com, work@onurozkan.dev, deborah.brouwer@collabora.com,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  rust-for-linux@vger.kernel.org, kernel@collabora.com,
- Laura Nao <laura.nao@collabora.com>
-Subject: [PATCH 0/2] drm/tyr: add Job IRQ handling and GPU event wait support
-Date: Tue, 21 Jul 2026 17:14:21 +0200
-Message-Id: <20260721151423.444175-1-laura.nao@collabora.com>
+ Beata Michalska <beata.michalska@arm.com>
+Subject: [PATCH 1/2] drm/tyr: add Wait type for GPU events
+Date: Tue, 21 Jul 2026 17:14:22 +0200
+Message-Id: <20260721151423.444175-2-laura.nao@collabora.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260721151423.444175-1-laura.nao@collabora.com>
+References: <20260721151423.444175-1-laura.nao@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -62,46 +64,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series follows up to [1], which adds support for firmware loading
-and MCU booting to the Tyr driver. The changes included here were
-originally introduced in v4[2], then dropped to reduce the scope of the
-series, and have been adjusted to work with the HRT (Higher-Ranked
-Lifetime Types) driver architecture recently introduced.
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
 
-The first commit adds a new Wait type, wrapping a CondVar and a Mutex,
-for sleeping until a condition is met or a timeout expires. This can be
-used to wait for GPU-driven events.
+Add a Wait convenience type wrapping a CondVar and Mutex for sleeping
+until a condition is met or a timeout expires.
 
-The second commit adds a threaded IRQ wrapper for the firmware Job
-interrupts, used to signal events from the global CSF (GLB) and Command
-Stream Group (CSG) interfaces.
+The helper centralizes a common wait pattern: check the completion
+predicate before sleeping, wait interruptibly with a timeout, retry on
+spurious or unrelated wakeups, and perform a final predicate check before
+returning ETIMEDOUT.
 
-These changes will be later used to wait for global CSF interface
-readiness after firmware boot, as part of the CSF firmware interfaces
-support that will be submitted as a separate series.
+This will be used for CSF firmware responses and other GPU-driven events.
 
-This series is based on drm-rust-next and depends on:
-- [PATCH v7 0/7] drm/tyr: firmware loading and MCU boot support[1]
-- [PATCH v2] rust: irq: make Registration compatible with lifetime-bound drivers[2]
+Also add a new_wait! macro so each Wait instance gets a call-site-specific
+lockdep class key for its internal mutex.
 
-[1] https://lore.kernel.org/rust-for-linux/20260713-fw-boot-b4-v7-0-afd8dc1494dd@collabora.com/#t
-[2] https://lore.kernel.org/rust-for-linux/20260719153631.559341-1-dakr@kernel.org/
-
-Deborah Brouwer (1):
-  drm/tyr: add Wait type for GPU events
-
-Laura Nao (1):
-  drm/tyr: add Job IRQ handling
-
- drivers/gpu/drm/tyr/driver.rs |  75 ++++++++++++++++++++
- drivers/gpu/drm/tyr/fw.rs     |   4 ++
- drivers/gpu/drm/tyr/fw/irq.rs | 104 ++++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/tyr.rs    |   1 +
- drivers/gpu/drm/tyr/wait.rs   | 126 ++++++++++++++++++++++++++++++++++
- 5 files changed, 310 insertions(+)
- create mode 100644 drivers/gpu/drm/tyr/fw/irq.rs
+Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+Co-developed-by: Beata Michalska <beata.michalska@arm.com>
+Signed-off-by: Beata Michalska <beata.michalska@arm.com>
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+---
+ drivers/gpu/drm/tyr/tyr.rs  |   1 +
+ drivers/gpu/drm/tyr/wait.rs | 126 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 127 insertions(+)
  create mode 100644 drivers/gpu/drm/tyr/wait.rs
 
+diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
+index e7ec450bdc9c..3f6fe5fbeb0f 100644
+--- a/drivers/gpu/drm/tyr/tyr.rs
++++ b/drivers/gpu/drm/tyr/tyr.rs
+@@ -16,6 +16,7 @@
+ mod regs;
+ mod slot;
+ mod vm;
++mod wait;
+ 
+ kernel::module_platform_driver! {
+     type: TyrPlatformDriver,
+diff --git a/drivers/gpu/drm/tyr/wait.rs b/drivers/gpu/drm/tyr/wait.rs
+new file mode 100644
+index 000000000000..2a4d691c443c
+--- /dev/null
++++ b/drivers/gpu/drm/tyr/wait.rs
+@@ -0,0 +1,126 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++
++//! Code to wait on GPU events.
++#![allow(dead_code)]
++
++use kernel::{
++    new_condvar,
++    prelude::*,
++    sync::{
++        lock::{
++            mutex::MutexBackend,
++            Lock, //
++        },
++        Arc,
++        CondVar,
++        CondVarTimeoutResult,
++        Mutex, //
++    },
++    time::msecs_to_jiffies, //
++};
++
++/// Creates a new [`Wait`] instance with a call-site-specific lockdep class key.
++///
++/// Always prefer this macro over [`Wait::new_with_lock`] when the [`Wait`] instance has
++/// unique locking behaviour that could otherwise trigger false-positive lockdep
++/// warnings.
++#[macro_export]
++macro_rules! new_wait {
++    () => {{
++        let lock = new_mutex!(());
++        $crate::wait::Wait::new_with_lock(lock)
++    }};
++}
++
++/// A convenience type to wait for GPU events.
++///
++/// Wraps a [`CondVar`] and [`Mutex`] pair. The mutex synchronizes predicate checks
++/// with wait/wake operations; the condvar provides the sleep/wake mechanism.
++#[pin_data]
++pub(crate) struct Wait {
++    /// The actual wait/signal mechanism.
++    #[pin]
++    cond: CondVar,
++    /// Synchronizes waiters with notifications.
++    #[pin]
++    lock: Mutex<()>,
++}
++
++impl Wait {
++    /// Creates a new [`Wait`] with a caller-supplied lock instance.
++    ///
++    /// Use [`new_wait!`] instead of calling this directly; the macro ensures a
++    /// per-call-site lockdep class key is registered.
++    pub(crate) fn new_with_lock(lock: impl PinInit<Lock<(), MutexBackend>>) -> Result<Arc<Self>> {
++        Arc::pin_init(
++            pin_init!(Self {
++                cond <- new_condvar!(),
++                lock <- lock,
++            }),
++            GFP_KERNEL,
++        )
++    }
++
++    /// Waits until a GPU event condition is met or the timeout elapses.
++    ///
++    /// Calls `on_woken` before sleeping and after each wakeup. If `on_woken`
++    /// returns [`WaitResult::Retry`], the wait continues; [`WaitResult::Done`]
++    /// returns success.
++    ///
++    /// `on_woken` is called while the internal wait lock is held, so it must be
++    /// cheap and must not call back into code that can notify this wait object.
++    ///
++    /// Returns [`ETIMEDOUT`] if the deadline is reached without the condition
++    /// becoming true, or [`ERESTARTSYS`] if interrupted by a signal.
++    pub(crate) fn wait_interruptible_timeout<F>(&self, timeout_ms: u32, mut on_woken: F) -> Result
++    where
++        F: FnMut() -> Result<WaitResult>,
++    {
++        let mut guard = self.lock.lock();
++        let mut remaining_time = msecs_to_jiffies(timeout_ms);
++
++        loop {
++            // Check the condition before sleeping to avoid missing a wakeup
++            // that arrived between the caller's last check and acquiring the
++            // lock here.
++            if let WaitResult::Done = on_woken()? {
++                return Ok(());
++            }
++
++            match self
++                .cond
++                .wait_interruptible_timeout(&mut guard, remaining_time)
++            {
++                CondVarTimeoutResult::Woken { jiffies } => match on_woken()? {
++                    WaitResult::Done => return Ok(()),
++                    WaitResult::Retry => remaining_time = jiffies,
++                },
++                CondVarTimeoutResult::Timeout => {
++                    // One final check before giving up.
++                    if let WaitResult::Done = on_woken()? {
++                        return Ok(());
++                    }
++                    return Err(ETIMEDOUT);
++                }
++                CondVarTimeoutResult::Signal { .. } => return Err(ERESTARTSYS),
++            }
++        }
++    }
++
++    /// Wakes all waiters.
++    ///
++    /// Takes the internal lock so notifications are serialized against waiters
++    /// checking the condition and entering the sleep state.
++    pub(crate) fn notify_all(&self) {
++        let _guard = self.lock.lock();
++        self.cond.notify_all();
++    }
++}
++
++/// The result of a wait operation.
++pub(crate) enum WaitResult {
++    /// The condition was met.
++    Done,
++    /// The wakeup was spurious or for an unrelated event; retry.
++    Retry,
++}
 -- 
 2.39.5
 
