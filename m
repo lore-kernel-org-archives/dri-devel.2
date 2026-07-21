@@ -4,74 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B4FFC44537
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:57:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39815C4452D
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Jul 2026 20:57:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CB3210EB58;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4420410EB50;
 	Tue, 21 Jul 2026 20:57:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jr2TM5Ox";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AiuQDDHM";
 	dkim-atps=neutral
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
- [209.85.210.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C30D10EB45
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:57:18 +0000 (UTC)
-Received: by mail-ot1-f51.google.com with SMTP id
- 46e09a7af769-7ec49608332so2723484a34.3
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:57:18 -0700 (PDT)
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
+ [209.85.210.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13A3810EB47
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 20:57:28 +0000 (UTC)
+Received: by mail-ot1-f48.google.com with SMTP id
+ 46e09a7af769-7eb4d532e65so4555438a34.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 13:57:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784667437; x=1785272237; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784667447; x=1785272247; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=tICvvWUDLTcQaplMAJMGSX4sdCGxuxLlP7txV6x7Ef0=;
- b=jr2TM5Oxe8Enc5EfN9ZNfhKae45ZNPbCMRAysaorhvYQhwhn7IEkApzIXCpTFT4HBL
- n8SMtzLxbS3ZMD41gZHUYJklH9vYlgHURMcGCzLHzgcNR0xyAA9LGoYiMJuL6YNI7s5c
- 4BDLFAkVbxf7tLJHkrB5kO4rYrq4IkDpIeR+oS9tz3fY1QUnoIyLWcjPr4Eocvu1FljG
- +qGsfBGYH9t+wergNVUSJbEBakH9oyl8oRV9Ae5t306tiwdK6gZTfykn3p+5hchfDtbE
- csOI7jjtD6FadpDnnJF0YEZZUAjdiZITKP+POkCJaukCoRwv85Dmszg+T7P/LsYkaMa0
- +83g==
+ bh=Tkpd6XZrbayv1qGlRLm5NJZ/GcnFTR7uIhPPki4vU/s=;
+ b=AiuQDDHMffJjWLnoXaRZf3cqbT132VJe1zMzyHnRY+TODZHXkvxYGVWvWwz2M32ftl
+ ST2pkCvfBlfoazvxAMG2FSG4lgYoI3LAYMiqbmQ/Uhd0NtdA/4eEmxpERKPjeyl6ZpmW
+ xyUukRRWPI1UTqeEPG/0wp5wtJfGqFvEPRI9R1XM05yvScFU6lXnioGg1o6hQ1IhuLK/
+ O/laFlUU2tR9HmhAdsCF8ed1WplaesRZNp0Dpo5BOCK6vOhpZqaZO6SimqENReBzVh0/
+ PMtSJy0eqvIvjVj6RztM0EXnQN8E2IFkKX84NRLtS6lEK1kuGXufarKP73KlpKqN2WdF
+ UJpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784667437; x=1785272237;
+ d=1e100.net; s=20251104; t=1784667447; x=1785272247;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=tICvvWUDLTcQaplMAJMGSX4sdCGxuxLlP7txV6x7Ef0=;
- b=RwqHzQlJeGe90u+Z8J0ZHEWB8798Rgoav4gXx0pqg0o77bGeNpnbVvhM1apmKuEJie
- wWOwF0kAoBBRSjrLh7aFgtCR7KhWOuiCGejP3SzpIlu9tTDj1EnYmwJQRauuv/zJ2tQ2
- ZlkPEi7uEKmNGwYAIfweLHBI0RQfSGX5NQ6a0N7IvnBlxWZZsIIMFcTffqxHhOV2bulc
- hCmQaRmFpdhWjDkCIh8ye4owXAPjRrb6snw6jdQxmfZdk5z6RAHtOxzfKuURHVcXDYWy
- 8jCOyRpOH5gvNpRvwh2Y6VoohlNCKLyYI5wL30c17l7PLZ9FiYShGpNFFdGa5xk7mURo
- ZaSg==
+ bh=Tkpd6XZrbayv1qGlRLm5NJZ/GcnFTR7uIhPPki4vU/s=;
+ b=rchVVAkWbQVeDb6h+MbCnWXIlZCNBegFwq/SGr9XNRxu2JULmKE4Bh/aO1NRBP6/fS
+ i7ZnPFg69gwt5tFcgOknjFQ5/GPSVEj0PCX9vWMcLJemFMsRs2O0UFhbmiAjqfXDGt31
+ 8NWZDTxdN12kEUaoqQanA5uJ927jwEkTu/JeH3hCRF6Sof9m4agRUK8hT79K3oHebAql
+ xk4nqxmaxI1dERLRDkt1dL6m/WLcGYdBVOFUpIgZ3//4ZXCYdIDWQMv3nrr8C1ahHXGu
+ XLaF9LEjS8i+nYRUXU5WzWGzitihiIoZ0/LrvDCD8UsWJ1FGZo+FvIhBjRQsyeFMOBtV
+ ZVqQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rqtm1Fwbpp9PDrcT8TVrQgHT0DsrOQfActjfD5LjE2SXnYpTXl3Dvmb572xQ8AhIkEyMmzn21XNmzE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwKdGznLzR6NidusmGrvIL5k7xpI7tLqatXlhuyyu8q8ty6eGaZ
- 2ySulTJtM6elaUH8c4pKGE1DpGUHEthYg+OSytR/8eIqTl4VJhEqUPW2
-X-Gm-Gg: AfdE7clKvBoRROU133esPSb8bbr9SLyn1Q2/StwrH0y4JZEYvzkjF2LDBPGXALYrENi
- 1ccT3U168ONJyayJoxBY5o5rNQ8XCzIKuNLTR+d5gTjbETP86Kf8Js8C1r/DEa02AZi3GT/Axvs
- oEPxxOSe1cv1w/N6chRY4KYd6ZCE5C9d3OL8BnswQpXx/bKBiJZ3AB5X/AwHD0lWVvQ+vIbVppS
- LuNtf+onEb8xz20WiKBOgaJdWZbRsN2pDufjFdT2nxS3WsGp75d2aNUXI2jMTfSuQlf0dV71RJw
- ggvJo6f1I3WZ/wRSamU51XJsCSpgN26l8RkIh6F3Ic++vjEzEXHsfHYfdqfJSvhqWBMGo2Rg7BT
- sqIUNtusgeCiDxgkAQL1nfyJneOnLL61qFaWJ5PpVCIukd5YifpydujsIGPI308qxOvR2EPgSmw
- rhkk7tzD8GVlCgO7S8Z3k9HQtQ/9fbzlT2VNBsJ2+/8GaSuNuEbaNkKOwool9SEglRM7S8dHt1b
- PfPrT3PN0YLCdc1qdbdklJQZA==
-X-Received: by 2002:a05:6830:3746:b0:7e6:c9eb:535a with SMTP id
- 46e09a7af769-7ed9aa4576emr10492097a34.6.1784667437350; 
- Tue, 21 Jul 2026 13:57:17 -0700 (PDT)
+ AHgh+RrTsBVVckcU4mj/oEGrn7MR8UzBNUq4mRtxWsZeFEDpgEQeaSTwDBfGNfRjODN7x+SIiQeErJ9ZNoA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxSSTjBlsQrlnUaeVrj43P460PhtRJ5H8VD14EvXvvvGGoMW4yb
+ nTSVkgtGVDmrwGqWsDjPwkGgng//6Fg2wmaHWAQGjzPmZFV9iiiaikzO
+X-Gm-Gg: AfdE7clf7cayDlzmlXId2R72PGC2Vc5Zi7uoFW9lssKuxtw13A5pC3TmLmf/INrBH/O
+ xyi19PSqDvQQ2YpzoIjO++Px9UbstqzohUm74nOADXXkiswuOfM51nBQ280N3VOLxG0wkChMYbF
+ PwUiRF8ZeODoHgjylb3WL5m0S5mzL+znBjxn3YDTVXuQZ3f9IUwNp6zI4J5XrZYPe6M1M6N/pLf
+ GoJLePTkYHQ01xTFWmSN0C+u6MIN5lOz4FQggg4vZOUb9Xb7DBmNqS9oY3f4ObYS7tzXtAEoHOh
+ 4I+fml4PdzLEgoJ2nBAKftm4M9MV2NMJkcURKRCsZKzkGw/MOpbO5OEjv3mAP5C5b6FlIk0GeSv
+ jJk+G/YUl71VVEzD1anBTmA2n5zLqoPee4DTZ9YGa1eVXCU5sB544MeubxypUaymt9IzhYS/nbM
+ jhMSfkx8s9vsRduoFeliig9Z3ihjAtT47cqtniNg3x7eltNiTtdXkiX9JrIhVvSpnNjssOzZ4M0
+ cx3rAdt7YXMyga4S3tZiSDf6g==
+X-Received: by 2002:a05:6830:909:b0:7e9:dbbe:5af9 with SMTP id
+ 46e09a7af769-7eda4d70994mr10261926a34.31.1784667447247; 
+ Tue, 21 Jul 2026 13:57:27 -0700 (PDT)
 Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
  [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 46e09a7af769-7edaf94a494sm11134501a34.13.2026.07.21.13.57.16
+ 46e09a7af769-7edaf94a494sm11134501a34.13.2026.07.21.13.57.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 13:57:16 -0700 (PDT)
+ Tue, 21 Jul 2026 13:57:26 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Tue, 21 Jul 2026 14:56:54 -0600
-Subject: [PATCH v7 05/29] drm: Mark CONFIG_DRM_USE_DYNAMIC_DEBUG as
- unBROKEN
+Date: Tue, 21 Jul 2026 14:57:02 -0600
+Subject: [PATCH v7 13/29] dyndbg: reword "class unknown," to "class:_UNKNOWN_"
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-dd-maint-2-v7-5-010fbe73b311@gmail.com>
+Message-Id: <20260721-dd-maint-2-v7-13-010fbe73b311@gmail.com>
 References: <20260721-dd-maint-2-v7-0-010fbe73b311@gmail.com>
 In-Reply-To: <20260721-dd-maint-2-v7-0-010fbe73b311@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -82,13 +81,14 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>
+ Jim Cromie <jim.cromie@gmail.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784667429; l=924;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784667429; l=1375;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=hS/jtkq/JrVHcN/uc/pVKASKGCENsolPn7B4mWKffAg=;
- b=Lsf35FcMlCjbByxil/qjct2DAL4mr3Oc2q7x03tL/lqrAAMPWfcuP6gbFsC+oTgUeWP2YAwmG
- rTpFDD680+JBUtHGotBL8c4zwJWAzCGG1m6f1joIJBe2KBkLkyy1u+R
+ bh=yfxjNCD2FfV6WQ7UCS9hJEIU3/cj9TtYhccgD7F2GOk=;
+ b=QF5cQMK6T8UD1YJz5nk2AJgW01BgHiDFKzY+xuJZdV3zwDHcNIHgMuD2tCQNxi+sv49R3fsxO
+ T3mOec9MvhtCAxvyJpnSu43qxs3y9ZYtOKNNAHiEMVbFgE2WhPqbHCp
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -106,32 +106,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Remove BROKEN mark on CONFIG_DRM_USE_DYNAMIC_DEBUG, inside
-drivers/gpu/drm/Kconfig.debug.
+When a dyndbg classname is unknown to a kernel module, the callsite is
+un-addressable via >control queries, and therefore uncontrollable.
 
-Un-breaking the var allows to enable the config, and build and test
-dynamic-debug-enabled DRM drivers with full classmap query support.
+The control-file displays this condition as "class unknown, _id:N"
+currently.  That spelling is sub-optimal/too-generic, so change it to
+"class:_UNKNOWN_ _id:N" to loudly announce the erroneous situation,
+and to make it uniquely greppable.
 
-Doing this early in the commit-set exposes the series to more
-in-series enabled testing, which has more chance to expose bugs.
+NB: while this might be seen as a user-visible change, this shouldn't
+disqualify the change:
+
+a- it reports a classmap coding error condition, which should be
+   detected in (or before) review.
+b- SHOUTING the error makes it more visible, uniquely greppable.
+c- the classmap feature is marked BROKEN for its only current user.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/Kconfig.debug | 1 -
- 1 file changed, 1 deletion(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/Kconfig.debug b/drivers/gpu/drm/Kconfig.debug
-index 1f4c98cbf090..2ae59a616e75 100644
---- a/drivers/gpu/drm/Kconfig.debug
-+++ b/drivers/gpu/drm/Kconfig.debug
-@@ -1,7 +1,6 @@
- config DRM_USE_DYNAMIC_DEBUG
- 	bool "use dynamic debug to implement drm.debug"
- 	default n
--	depends on BROKEN
- 	depends on DRM
- 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	depends on JUMP_LABEL
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 577a07916072..a86e1d5845e6 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1170,7 +1170,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+-			seq_printf(m, " class unknown, _id:%d", dp->class_id);
++			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
+ 	}
+ 	seq_putc(m, '\n');
+ 
 
 -- 
 2.55.0
