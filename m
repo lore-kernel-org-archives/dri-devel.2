@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15CBBC44512
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 07:03:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB093C4451C
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 07:04:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67D4D10EC84;
-	Wed, 22 Jul 2026 07:03:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0149B10EC85;
+	Wed, 22 Jul 2026 07:04:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FOlm7AVm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cHMjB+e+";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E46010EC84
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:03:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B69D910EC85
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:04:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 86A7160A64;
- Wed, 22 Jul 2026 07:03:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C84D1F000E9;
- Wed, 22 Jul 2026 07:03:49 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3B24760A64;
+ Wed, 22 Jul 2026 07:04:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B87281F000E9;
+ Wed, 22 Jul 2026 07:03:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784703829;
- bh=+043Re44fITy2mxq2BjAV27pYbUgXMNvZxrSPt/lWLU=;
+ s=k20260515; t=1784703839;
+ bh=mi6FNoadZeC/8dg36kcPRzE27I/+1Lwdqs03CJNKve8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FOlm7AVmvzUrytlr09Lsoxqvey0bZofpqY+8AqeO/4hAENs1SauC85R7SlWovFC0B
- Cbo6iQnL4gFufeZOHCYeMOIgtfiBOU681DDXk6guLmX493FJjwTLrhmzEGuiP9M8ZI
- 8i2xcp5aB16PlgZ4Je7KYG6Q6Zff7EC2Sf9XpuTO39EU+NFP431ChfUsC92pM9FQvn
- 7vUIRFZY3lb0s9cgV6yJkVMygtT3Ox6gZfKNbzxA9q6D1UyaHoN12dPWSKpILf9M3k
- 1fDkz+hNOwXomCtobZgGet4cZmRiLGfnTZuAKtXsODZx+THG8ehpM1d0Y4hAfYRPqX
- dGlx0BTBfFfTg==
+ b=cHMjB+e+X1Xz+fVlAOA/ZkHcWPvWn7CcgaqWQO/kXnQWxZLhWuv2VFG0xGdaXDs6c
+ T5Oc/UwXIKLjj802PdST75MAlUPqP6Q7wLVlCxfmE79UKPT4Akrkoq7nZZVRm/bbyU
+ GtQF9xq/g7iHgJaiSKIGHy9gdKuyUructV/XKYv+s7kofwksfayND3PQ3ItYsS3ToA
+ PQCJUno+YBvN+LusSO8N5xmh5pHgerFzJD7Adj4xVI098Yme00425amkcQHdWb1ebs
+ G0x0OkzDza+RkRADugCH54OARM3+kwcQDgV4PlQI8zF19n85ERp3whTf3hnu6XJDJO
+ 36qN7Og3YrfPQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 13/24] drm/msm/hdmi: use dev_get_drvdata() in
- msm_hdmi_unbind()
+Subject: Re: [PATCH 15/24] drm/msm/dp: do not reject wide-bus modes while a
+ YUV420 mode is active
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260722-drm-msm-display-interface-v1-13-368c10fe62fd@oss.qualcomm.com>
+In-Reply-To: <20260722-drm-msm-display-interface-v1-15-368c10fe62fd@oss.qualcomm.com>
 References: <20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com>
- <20260722-drm-msm-display-interface-v1-13-368c10fe62fd@oss.qualcomm.com>
+ <20260722-drm-msm-display-interface-v1-15-368c10fe62fd@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 07:03:48 +0000
-Message-Id: <20260722070349.1C84D1F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 07:03:59 +0000
+Message-Id: <20260722070359.B87281F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,75 +58,81 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Use-After-Free of `hdmi` and `hdmi->i2c` due to missing IRQ teardo=
-wn in `msm_hdmi_unbind`.
+- [High] The state-dependent mode validation bug fixed in `msm_dp_bridge_mo=
+de_valid` was missed in its eDP counterpart `msm_edp_bridge_mode_valid`.
+- [High] Halving `mode_pclk_khz` for RGB wide-bus modes causes the DP link =
+bandwidth requirement to be incorrectly evaluated as 50% of its true value,=
+ allowing invalid modes to pass validation.
 --
 
---- Patch [13]: [PATCH 13/24] drm/msm/hdmi: use dev_get_drvdata() in msm_hd=
-mi_unbind() ---
-commit fd38b018e0f710b01405e26519af9581c27b6208
+--- Patch [15]: [PATCH 15/24] drm/msm/dp: do not reject wide-bus modes whil=
+e a YUV420 mode is active ---
+commit 6dbb162c934d82f2d73ac5d225ee02599200aeac
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: drm/msm/dp: do not reject wide-bus modes while a YUV420 mode is ac=
+tive
 
-drm/msm/hdmi: use dev_get_drvdata() in msm_hdmi_unbind()
+This commit fixes a bug in msm_dp_bridge_mode_valid() where candidate modes
+requiring wide bus to stay under DP_MAX_PIXEL_CLK_KHZ were wrongly rejected
+if the currently active mode used YUV 420 output. It replaces the
+state-dependent msm_dp_wide_bus_available() check with a direct check of
+wide_bus_supported.
 
-This commit updates msm_hdmi_unbind() to fetch the hdmi structure directly
-using dev_get_drvdata(dev) rather than indirectly through the private kms
-pointer. It also removes a NULL check, as the hdmi pointer is guaranteed to
-be valid at unbind time.
-
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/h=
-dmi.c
-> index 506a9856459e1..0327098287d14 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> @@ -324,11 +324,10 @@ static void msm_hdmi_unbind(struct device *dev, str=
-uct device *master,
->  		void *data)
->  {
->  	struct msm_drm_private *priv =3D dev_get_drvdata(master);
-> +	struct hdmi *hdmi =3D dev_get_drvdata(dev);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -722,7 +722,7 @@ enum drm_mode_status msm_dp_bridge_mode_valid(struct =
+drm_bridge *bridge,
+>  	if (is_yuv_420 && !msm_dp_display->panel->vsc_sdp_supported)
+>  		return MODE_NO_420;
 > =20
-> -	if (priv->kms->hdmi) {
-> -		msm_hdmi_destroy(priv->kms->hdmi);
+> -	if (is_yuv_420 || msm_dp_wide_bus_available(dp))
+> +	if (is_yuv_420 || msm_dp_display->wide_bus_supported)
+>  		mode_pclk_khz /=3D 2;
 
 [Severity: High]
-This is a pre-existing issue, but does this unbind sequence leave an active
-IRQ handler that can cause a use-after-free?
+This isn't a bug introduced by this patch, but should the same fix be
+applied to the eDP counterpart?
 
-In msm_hdmi_modeset_init(), the IRQ is requested using devm_request_irq()
-tied to the DRM master device (dev->dev), not the HDMI component device:
+Looking at msm_edp_bridge_mode_valid() in drivers/gpu/drm/msm/dp/dp_drm.c:
 
-msm_hdmi_modeset_init() {
-    ...
-    ret =3D devm_request_irq(dev->dev, hdmi->irq,
-                msm_hdmi_irq, IRQF_TRIGGER_HIGH,
-                "hdmi_isr", hdmi);
-    ...
-}
+	if (msm_dp_wide_bus_available(dp))
+		mode_pclk_khz /=3D 2;
 
-When the HDMI platform device is unbound, msm_hdmi_unbind() is called, which
-in turn calls msm_hdmi_destroy(hdmi) here and frees hdmi->i2c. Later, the
-HDMI device's devres runs and frees the hdmi structure itself.=20
+Since eDP bridges also have ycbcr_420_allowed =3D true, could an eDP=20
+sink enter a YUV 420 mode and cause subsequent candidate eDP modes requirin=
+g=20
+wide bus to be incorrectly rejected?
 
-Because the DRM master device is not removed during component unbind, its
-devres cleanup does not run, and the IRQ remains registered and active.
+[Severity: High]
+This is a pre-existing issue, but does halving mode_pclk_khz here corrupt=20
+the link bandwidth validation further down in this function?
 
-If a pending or spurious interrupt triggers msm_hdmi_irq() after this point,
-will it dereference the freed hdmi structure and call msm_hdmi_i2c_irq()
-with the freed hdmi->i2c pointer?
+After mode_pclk_khz is halved, it is used to calculate mode_rate_khz:
 
-> -		priv->kms->hdmi =3D NULL;
-> -	}
-> +	msm_hdmi_destroy(hdmi);
-> +	priv->kms->hdmi =3D NULL;
->  }
+	mode_bpp =3D msm_dp_panel_get_mode_bpp(msm_dp_display->panel,
+			mode_bpp, mode_pclk_khz);
+
+	mode_rate_khz =3D mode_pclk_khz * mode_bpp;
+	supported_rate_khz =3D link_info->num_lanes * link_info->rate * 8;
+
+	if (mode_rate_khz > supported_rate_khz)
+		return MODE_BAD;
+
+Since the physical DP serial link over the cable does not compress RGB data,
+doesn't the physical link still need to transmit the full clock rate? Does=
+=20
+calculating mode_rate_khz with the halved clock allow modes to pass that=20
+exceed the physical DP lanes' capacity?
+
 > =20
->  static const struct component_ops msm_hdmi_ops =3D {
+>  	if (mode_pclk_khz > DP_MAX_PIXEL_CLK_KHZ)
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-drm-msm-di=
-splay-interface-v1-0-368c10fe62fd@oss.qualcomm.com?part=3D13
+splay-interface-v1-0-368c10fe62fd@oss.qualcomm.com?part=3D15
