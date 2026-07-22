@@ -4,114 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABAE5C531CB
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 07:07:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A91C5C531D0
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 07:07:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE32010EFBD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB3F110EFBC;
 	Thu, 23 Jul 2026 07:07:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="X+JQwMyn";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="oPm/Bedy";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="NV96MHVG";
 	dkim-atps=neutral
-Received: from TYPPR03CU001.outbound.protection.outlook.com
- (mail-japaneastazon11012048.outbound.protection.outlook.com [52.101.126.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D14AD10ECB7
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:58:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YdT4IHGD8dBIBgVBa+u6YBuJxi5XIn70nOmCEnfI1dnrZSK0pyrm4LQnZi7QPszx41QKMtM7+JvHb36B6PZ+y6DTQcvmJ3aL+erjdYzoVGxUcmZdBTvKvdHwBfWwwS7wvvBHRvskNmizYH1l8qFNcKo+eGuQ1TDuAADiRCtNQsY6o0vObpOYCd06OgQDA7tXPP27zGGioMLD+qibNd1tvbjrgyXR57cKNoWVdxL15aBt0+ZleYFJk0HPVdvH6S24fnvGoaDK5k4nxwkMJrqo9IZwRtBCWoKMAaBcPKRuhnSqdAn4hcWfFYrptO54KoGB2m8YidbrFenbc6scJKIWhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R0sL6d+owm7UCADur1L+TPX89skmLLCPQay4ZUrau8k=;
- b=NbER2UbjQfUa8jsgdiddG/JJuuqv+74CmG9W0KMNqbbMJqZErucBnEBk+MlQtp920RRZmVPuQT2ALHEvmbhgNQJ5ulw71YYfwtwJVDvEtXkl6bfH2Xb2OgQsClyOmAvtjiKsRaRU9BbnXNOgxYdGvm12VRs5nd/ZZ0+9BVrqH1lKd8g/l3efrhcLoTyWITVw91gcxVhy0dB4CaG8XmqflBFT6ginOYt7HURfVi5M9pqlnXvvDyzhZKpIlzVB+nQv0v8BXL9jihfe/cSjI3Enn00fJ4dJhKhJPo3fTfmQ8d/XuYQOn9/fxL21YVjaPCPmjqWVQHhAQ+27lUvHpJN2SQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R0sL6d+owm7UCADur1L+TPX89skmLLCPQay4ZUrau8k=;
- b=X+JQwMynN9v4gaaff4XmQgnI8uIrp20AC8kl7vN3HqC8E11vylfjLYzVVU3JM8IpFyvGr1k8NR4tdpwOuD88Y1h/rK6H5/3y5uKPSXbHY/mRpb7BsR2zxGElmJPXYURQ9UBIoPoPwD8pkC63vjV+UjQ7O5nMkAQjN3R0NmMpPuEOBEdbXlHI6QVELd1JOWC61N0nezNOWT8KJ0So9JBBbNKA3feTOAlkwu3G5U8KQowNFzQTSNXdyGHkSaP1HIKS1zSwf/zJS9G2InBmrq3+lLSj+3KMXbXlK7TpIXJzIwa9JVhSOILG5QIvtTKsrOqRVQXxm+lzutM1fxkED9eaZw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SEZPR06MB5832.apcprd06.prod.outlook.com (2603:1096:101:c8::12)
- by SI3PR06MB8492.apcprd06.prod.outlook.com (2603:1096:4:2a3::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
- 2026 07:58:20 +0000
-Received: from SEZPR06MB5832.apcprd06.prod.outlook.com
- ([fe80::f98:5e32:4ccb:d07b]) by SEZPR06MB5832.apcprd06.prod.outlook.com
- ([fe80::f98:5e32:4ccb:d07b%6]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
- 07:58:20 +0000
-From: Pan Chuang <panchuang@vivo.com>
-To: Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>,
- Pan Chuang <panchuang@vivo.com>,
- linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER),
- dri-devel@lists.freedesktop.org (open list:FRAMEBUFFER LAYER),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 1/7] fbdev: mmp: Remove redundant dev_err()
-Date: Wed, 22 Jul 2026 15:57:41 +0800
-Message-Id: <20260722075803.570532-2-panchuang@vivo.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260722075803.570532-1-panchuang@vivo.com>
-References: <20260722075803.570532-1-panchuang@vivo.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TYCP286CA0296.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c8::8) To SEZPR06MB5832.apcprd06.prod.outlook.com
- (2603:1096:101:c8::12)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15FB410E415
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 10:14:58 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4h4qr01wH0z8tx7;
+ Wed, 22 Jul 2026 12:14:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1784715296;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=oUVGFSfgae8I/vHiNB3JYuYYHtz3ffWiRX8LsNpmNyM=;
+ b=oPm/BedyHMHnxQPT1f9aQ+Qq0dDXP2UZ2DRV2xvUusASEJEoEfJlYRROuikvs6npaPpk25
+ PkvwjweNREaMTUl11oX1murb1hvVJoVKLhfZ/Sm3hhzq0aagU1/Wu/FjmN8XBYMzTbr4F+
+ 7uUsDK8W/f2voyqDQqxx9ODr79SMNd+tYICh+eXjGw9wXZj2vXRsMxznzqMJf63QXxfLrW
+ 7mfo5GAiFBb4u8msef+C04aKyu5y1duBjWoMQY6Hfve3SzyETp4+Frde0oHG9OQyojESfs
+ 2R9KyhuoOHKyx4IW+ijjxgpq/Yf8uXxMiDwLHQ0tg/tnRCgpno9ozpVUWVNyRg==
+Authentication-Results: outgoing_mbo_mout;
+ dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=NV96MHVG;
+ spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates
+ 2001:67c:2050:b231:465::102 as permitted sender)
+ smtp.mailfrom=manuelebnerli@mailbox.org
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1784715294;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=oUVGFSfgae8I/vHiNB3JYuYYHtz3ffWiRX8LsNpmNyM=;
+ b=NV96MHVGs1cPIF3/U7qf1rftSzAndrpSrie2oC1L2Fa1FeZWHGfTpJLCmas2rUn4S5GDMJ
+ qDV+TA4IdMG64EBauO52RwfVHVvcfhJYr+avMU8UW/h4lrRphTmIIwXTqOUhJImydkp7Yv
+ zpe3QbMKR1EYl98ncNYVDERjBetD7fHqSg8dbjpqz+aGH80q+uvKL84yUNScHQt5Nse/XZ
+ +yxiYZ+SiKB+m3DdB3LsfAGezBu2T3+/xOE8vWGAXGjtJrF4s7WmisBJJYIJvUOpXWVPdP
+ 32ktPk8X5vaNkU3WiUAkt+sS4UJ1LdIajgk6K3GRGK4kZk3DdwyHbOkZfh3z8Q==
+To: krzk@kernel.org
+Cc: conor+dt@kernel.org, danielt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, jingoohan1@gmail.com, krzk+dt@kernel.org,
+ lee@kernel.org, linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
+ pavel@kernel.org, robh@kernel.org, manuelebner@mailbox.org,
+ Manuel Ebner <manuelebnerli@mailbox.org>
+Subject: [PATCH v2] dt-bindings: fix typos and brackets
+Date: Wed, 22 Jul 2026 12:12:47 +0200
+Message-ID: <20260722101246.3113818-2-manuelebnerli@mailbox.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEZPR06MB5832:EE_|SI3PR06MB8492:EE_
-X-MS-Office365-Filtering-Correlation-Id: cbfc7bb3-24c7-4686-22e8-08dee7c6ff10
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|52116014|366016|38350700014|22082099003|18002099003|56012099006|11063799006|10067099003|6133799003;
-X-Microsoft-Antispam-Message-Info: HxgFNZwqs45KQHTOOIC/Zq4tAH78M2zCP5/ffIpUedhtuX0RQjlYbxQG623TJasc7QyOvGmuMNrR0KztNdbISUIHOkTV1NUjpn8L+dDka9gP0pqzhPVQ2n5zC/ZVHHqwSaDklW8f145DL21h9WEanHHO2uwGBDGMjuNdSZxB1ZZnZJW20hxYChCGhMZrtHnF6xXUrYi9l6NOeNkSDsVxHeUb7Pc9a374vo7OBtltBDWMyPwjvhsTzSy0iJYJ2CI87pRVXLCp7qwU/VOODE2zuqHjmil0DB+/Mjnp49sKVLGLFexvoJtbf6GGHoK79mCmysw9uZVB2aBjrI8vknfxWvVi4jgS9FEN3aVT5ce9iT/EqMEzAWzmGoCT31VSpF+MLi3qtv1BjV9jMcsSqbbQQlY015wj7fUu7wQmziyk1OmSeP+47+wPCyd8yeHiR+W06yhPUOjMjW/R+Yd8/eNrKdHIL1NPVK/N7jsuvnBD0QcxB+C7Ea5LbZmx21ROtWHxjg+C5NXOswCZpXUhDysw+Dcoe1tBClX1nO2NpOm3Pqf9cftPFQwMbyPIZEHtBwjH63ocYotDOhStk68t60Cp1HCiVcIkRSn8GX67Cz7erocT7FRT+OijXoz1RhB4lwITJMgHXe68+Z2V/ZMvbVWiVcExEQXN6BEOV0Tr15yTI4JPAoGw3QXYOrt2yU6j18lvu8FLbgc5EjLBdDW9JRiU2szPl84+greA/sITBFoXabs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SEZPR06MB5832.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(52116014)(366016)(38350700014)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?w7l7Pka9IAabPjo3RYpYPWoZ0K86nDcQcjDmMV5vnUq6qT/rSqlcDLB7Nu5F?=
- =?us-ascii?Q?EBpOJo2mOHeikENgpsiDJK7ja1D6r1wuxxL4lfn7sGi4BTVri6B5cNm77dDY?=
- =?us-ascii?Q?vY56cbL7mekwBehEIlSf8KiKF1g2i1/0g1qQNZ+i5PeVAWX0Zi4sfcy4ZOUj?=
- =?us-ascii?Q?oAuEaAoJK3Aav13MvmkR5iPr/zEWpEqCjeMSIEaPYqZifP+6jV2aB9o7qWF9?=
- =?us-ascii?Q?8LI5UXDuo8/a1epB6F+mzRkROqIEC25lLwyVAzeKy6EnLLuo1GnAbi8g9rWD?=
- =?us-ascii?Q?YXyrCAeA+gTXj0YRZe9SWNQ7DfK+3/O3Hhi22MCaCAvwEpMEyPjLwsr7GFVA?=
- =?us-ascii?Q?6sWABv2VEmhbDDkruPsw4/c78OZR+xtKmTcY68bVONsjXoGL58K/ELzteCso?=
- =?us-ascii?Q?ODF2Vodhdjc/tjX0qThF5o5zW04Ps0D6WADXugipuiJ6irfj40uhXQwHKudd?=
- =?us-ascii?Q?keXw47hFiARC9OU+hMT/EjqAINcKp5m+T9BfmPr4oAG8uJbcD58jY65JVI1R?=
- =?us-ascii?Q?krX+v5fU8A6ae1+RmxHzYrOlBOs0e6LP3lvyc2/nx1yqthajH+g/rh/tVyqF?=
- =?us-ascii?Q?zis087Yp+eQY0a1KmBYZDeC1iDYjr5xF9UE04ocMvN14mQVjxtDuJjFwxCPR?=
- =?us-ascii?Q?f4TcCDfKUEyDnpobygW3rV3dvqdjK9hgDFe64NWt/xNJhL3yeu5U+52s6HKy?=
- =?us-ascii?Q?zu1X5mRVOy91jCoSOKE3KpJze2dugV9B1Ij+56ZJmbi23YEgjdCBBqxDKX4G?=
- =?us-ascii?Q?HQVVOYWiIXhKgv00b4TuN+3Sc3/zZDusFQLPOX/9UuSztNe2h/FTUKqa/48C?=
- =?us-ascii?Q?qx87wMvU5BUfDN4pBl6oC8NMGfNMzAd6mxuC/ahCmJD5kGCiit8VJc6x/ZaG?=
- =?us-ascii?Q?tjX4VvYEXtQdUbpR+9NnC5OVQR1wR8/UcahbgF0HRfuh52fWeYxhxU1WUQL/?=
- =?us-ascii?Q?+eUtz4ZJ6iFocRyyYHlNEXP5Z1/NZFBOy8fweW1/+u01Rsjq5OR1wDYzqwZ/?=
- =?us-ascii?Q?N6xu6NNMVMyVriYtJeeueeudGAt1/apqDHgwUQPt50Idx/2dbs6n6fUVk2f9?=
- =?us-ascii?Q?h1hydS4KMMn+wVF6Bwwe0gRzcN4iq13YAnGoDJ9Q/vfdRTdDG6PF9Yu9ojtL?=
- =?us-ascii?Q?uraFq9u9ySsQsbZjivokrUp4mFHe1g98GFJa9cnBOxGRBdu4uSs3MgooJ5/6?=
- =?us-ascii?Q?HVACeyqt7gZKTn5Dv6uvTcItGr57tVBQPllgv5tTPiAyHJ36FgT0apF9XbCS?=
- =?us-ascii?Q?aR0w5oicMA+8N5eRVRSDbaI42hdYUc9ar4T07rDZIDxvk9PJv4rTAekXkWKs?=
- =?us-ascii?Q?dl9fNZSRATkLmJJSFn6sS5L8W6xLFuFHoD/sr9GdZR2b1OLX3jqFd6++erub?=
- =?us-ascii?Q?IynnIUlLQ05Fh8tB4EUPsLg/220mBdIbt6mParD0gsz3ZIiJnvJge3RNdU2j?=
- =?us-ascii?Q?ZTE0iKX+ZMy2PgI+WYGjtXVWFsHSEyd+9CoTRgQ6tCAgdn/hiHHo2VqrFtmv?=
- =?us-ascii?Q?DOiVPyQz1siePjmnogxsBbDaZlYf6/zwQprHRAQJkyC+yJSDKd1ZWYZvEVAz?=
- =?us-ascii?Q?njXuZCmfOR8BOnDDgV+75jq/ltd/R3rHx27KgN4/bhgsT20k5+E1UxVC2D3K?=
- =?us-ascii?Q?m+PvYMMx/pJV2Co3UuuxLPIMMqPwvBi8V2FbOA35iaN70FPhPFtODPdSv8LL?=
- =?us-ascii?Q?HPMxgQBXjL7Tg6ug7/PK+427fKbWJs6bjX87UZNKAMVwEbiKcD45ffVU69Rj?=
- =?us-ascii?Q?+ShWuDOb4g=3D=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cbfc7bb3-24c7-4686-22e8-08dee7c6ff10
-X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5832.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 07:58:20.3924 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xXc6Fui1IXXZIGCxURoIe3X463Gn2bsuQfpZzVmsGWxLvdg/6HKOqeuZukXCghYyX0NOsAQ6Jv6sBxc2FIu3Sg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI3PR06MB8492
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: ac203eba58c9d61047b
+X-MBO-RS-META: 536gcdwj8ycmyr4tn4bpizd1xd17q4ae
+X-Rspamd-Queue-Id: 4h4qr01wH0z8tx7
 X-Mailman-Approved-At: Thu, 23 Jul 2026 07:07:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -128,29 +81,232 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since commit 55b48e23f5c4 ("genirq/devres: Add error handling in
-devm_request_*_irq()"), devm_request_irq() automatically logs
-detailed error messages on failure. Remove the now-redundant
-driver-specific dev_err() call.
+Add missing '(', ')', '}'
+Remove needless '(', ')', '{', '}'
+'lover voltage' -> 'lower voltage'
 
-Signed-off-by: Pan Chuang <panchuang@vivo.com>
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
 ---
- drivers/video/fbdev/mmp/hw/mmp_ctrl.c | 2 --
- 1 file changed, 2 deletions(-)
+[v2]
+ rebased
 
-diff --git a/drivers/video/fbdev/mmp/hw/mmp_ctrl.c b/drivers/video/fbdev/mmp/hw/mmp_ctrl.c
-index 75bbdc0b4aa6..2c457da67a9f 100644
---- a/drivers/video/fbdev/mmp/hw/mmp_ctrl.c
-+++ b/drivers/video/fbdev/mmp/hw/mmp_ctrl.c
-@@ -505,8 +505,6 @@ static int mmphw_probe(struct platform_device *pdev)
- 	ret = devm_request_irq(ctrl->dev, ctrl->irq, ctrl_handle_irq,
- 		IRQF_SHARED, "lcd_controller", ctrl);
- 	if (ret < 0) {
--		dev_err(ctrl->dev, "%s unable to request IRQ %d\n",
--				__func__, ctrl->irq);
- 		ret = -ENXIO;
- 		goto failed;
- 	}
+[v1]
+ https://lore.kernel.org/all/20260713134751.498891-2-manuelebner@mailbox.org/
+
+I changed to my new address, manuelebner +LI @mailbox.org to
+reduce the mail to my main address.
+---
+ Documentation/devicetree/bindings/arm/mediatek.yaml           | 2 +-
+ .../devicetree/bindings/arm/qcom,coresight-tpdm.yaml          | 2 +-
+ .../bindings/clock/renesas,rcar-usb2-clock-sel.yaml           | 4 ++--
+ .../devicetree/bindings/memory-controllers/renesas,dbsc.yaml  | 2 +-
+ .../devicetree/bindings/memory-controllers/ti-aemif.txt       | 4 ++--
+ Documentation/devicetree/bindings/mips/brcm/soc.txt           | 2 +-
+ Documentation/devicetree/bindings/phy/phy-miphy365x.txt       | 2 +-
+ Documentation/devicetree/bindings/powerpc/ibm,vas.txt         | 2 +-
+ Documentation/devicetree/bindings/regulator/max8907.txt       | 1 -
+ .../bindings/regulator/mediatek,mt6358-regulator.yaml         | 2 +-
+ .../devicetree/bindings/regulator/pbias-regulator.txt         | 1 +
+ .../devicetree/bindings/regulator/rohm,bd71837-regulator.yaml | 4 ++--
+ .../devicetree/bindings/regulator/rohm,bd71847-regulator.yaml | 4 ++--
+ .../devicetree/bindings/sound/mikroe,mikroe-proto.txt         | 1 -
+ Documentation/devicetree/bindings/usb/iproc-udc.txt           | 1 +
+ 15 files changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Documentation/devicetree/bindings/arm/mediatek.yaml
+index 382d0eb4d..cd4040ad3 100644
+--- a/Documentation/devicetree/bindings/arm/mediatek.yaml
++++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
+@@ -314,7 +314,7 @@ properties:
+           - const: google,steelix-sku196608
+           - const: google,steelix
+           - const: mediatek,mt8186
+-      - description: Google Squirtle (Acer Chromebook Spin 311 (R724T)
++      - description: Google Squirtle (Acer Chromebook Spin 311 (R724T))
+         items:
+           - const: google,squirtle
+           - const: mediatek,mt8186
+diff --git a/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml b/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
+index 152403f54..c7301f1b2 100644
+--- a/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
+@@ -9,7 +9,7 @@ title: Trace, Profiling and Diagnostics Monitor - TPDM
+ 
+ description: |
+   The TPDM or Monitor serves as data collection component for various dataset
+-  types specified in the QPMDA spec. It covers Implementation defined ((ImplDef),
++  types specified in the QPMDA spec. It covers Implementation defined (ImplDef),
+   Basic Counts (BC), Tenure Counts (TC), Continuous Multi-Bit (CMB), and Discrete
+   Single Bit (DSB). It performs data collection in the data producing clock
+   domain and transfers it to the data collection time domain, generally ATB
+diff --git a/Documentation/devicetree/bindings/clock/renesas,rcar-usb2-clock-sel.yaml b/Documentation/devicetree/bindings/clock/renesas,rcar-usb2-clock-sel.yaml
+index c84f29f18..a14be249f 100644
+--- a/Documentation/devicetree/bindings/clock/renesas,rcar-usb2-clock-sel.yaml
++++ b/Documentation/devicetree/bindings/clock/renesas,rcar-usb2-clock-sel.yaml
+@@ -13,8 +13,8 @@ description: |
+   If you connect an external clock to the USB_EXTAL pin only, you should set
+   the clock rate to "usb_extal" node only.
+   If you connect an oscillator to both the USB_XTAL and USB_EXTAL, this module
+-  is not needed because this is default setting. (Of course, you can set the
+-  clock rates to both "usb_extal" and "usb_xtal" nodes.
++  is not needed because this is default setting (Of course, you can set the
++  clock rates to both "usb_extal" and "usb_xtal" nodes).
+ 
+   Case 1: An external clock connects to R-Car SoC
+     +----------+   +--- R-Car ---------------------+
+diff --git a/Documentation/devicetree/bindings/memory-controllers/renesas,dbsc.yaml b/Documentation/devicetree/bindings/memory-controllers/renesas,dbsc.yaml
+index 8e3822314..30ad2a858 100644
+--- a/Documentation/devicetree/bindings/memory-controllers/renesas,dbsc.yaml
++++ b/Documentation/devicetree/bindings/memory-controllers/renesas,dbsc.yaml
+@@ -13,7 +13,7 @@ description: |
+   Renesas SoCs contain one or more memory controllers.  These memory
+   controllers differ from one SoC variant to another, and are called by
+   different names, e.g. "DDR Bus Controller (DBSC)", "DDR3 Bus State Controller
+-  (DBSC3)", or "SDRAM Bus State Controller (SBSC)").
++  (DBSC3)", or "SDRAM Bus State Controller (SBSC)".
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/memory-controllers/ti-aemif.txt b/Documentation/devicetree/bindings/memory-controllers/ti-aemif.txt
+index 190437a0c..3ec0a43d4 100644
+--- a/Documentation/devicetree/bindings/memory-controllers/ti-aemif.txt
++++ b/Documentation/devicetree/bindings/memory-controllers/ti-aemif.txt
+@@ -111,7 +111,7 @@ Optional child cs node properties:
+ 
+ - ti,cs-read-hold-ns:		read hold width, ns
+ 				Time between the deactivation of the read
+-				strobe and the end of the cycle (which may be
++				strobe and the end of the cycle which may be
+ 				either an address change or the deactivation of
+ 				the chip select signal.
+ 				Minimum value is 1 (0 treated as 1).
+@@ -128,7 +128,7 @@ Optional child cs node properties:
+ 
+ - ti,cs-write-hold-ns:		write hold width, ns
+ 				Time between the deactivation of the write
+-				strobe and the end of the cycle (which may be
++				strobe and the end of the cycle which may be
+ 				either an address change or the deactivation of
+ 				the chip select signal.
+ 				Minimum value is 1 (0 treated as 1).
+diff --git a/Documentation/devicetree/bindings/mips/brcm/soc.txt b/Documentation/devicetree/bindings/mips/brcm/soc.txt
+index 3a66d3c48..70cd69a4f 100644
+--- a/Documentation/devicetree/bindings/mips/brcm/soc.txt
++++ b/Documentation/devicetree/bindings/mips/brcm/soc.txt
+@@ -45,7 +45,7 @@ each of which may have several associated hardware blocks, which are versioned
+ independently (control registers, DDR PHYs, etc.). One might consider
+ describing these controllers as a parent "memory controllers" block, which
+ contains N sub-nodes (one for each controller in the system), each of which is
+-associated with a number of hardware register resources (e.g., its PHY.
++associated with a number of hardware register resources (e.g., its PHY).
+ 
+ == MEMC (MEMory Controller)
+ 
+diff --git a/Documentation/devicetree/bindings/phy/phy-miphy365x.txt b/Documentation/devicetree/bindings/phy/phy-miphy365x.txt
+index 8772900e0..e36fac92f 100644
+--- a/Documentation/devicetree/bindings/phy/phy-miphy365x.txt
++++ b/Documentation/devicetree/bindings/phy/phy-miphy365x.txt
+@@ -31,7 +31,7 @@ Required properties (port (child) node):
+ 
+ Optional properties (port (child) node):
+ - st,sata-gen	     :	Generation of locally attached SATA IP. Expected values
+-			are {1,2,3). If not supplied generation 1 hardware will
++			are (1,2,3). If not supplied generation 1 hardware will
+ 			be expected
+ - st,pcie-tx-pol-inv :	Bool property to invert the polarity PCIe Tx (Txn/Txp)
+ - st,sata-tx-pol-inv :	Bool property to invert the polarity SATA Tx (Txn/Txp)
+diff --git a/Documentation/devicetree/bindings/powerpc/ibm,vas.txt b/Documentation/devicetree/bindings/powerpc/ibm,vas.txt
+index bf11d2faf..80ea97569 100644
+--- a/Documentation/devicetree/bindings/powerpc/ibm,vas.txt
++++ b/Documentation/devicetree/bindings/powerpc/ibm,vas.txt
+@@ -10,7 +10,7 @@ Required properties:
+ - reg : Should contain 4 pairs of 64-bit fields specifying the Hypervisor
+   window context start and length, OS/User window context start and length,
+   "Paste address" start and length, "Paste window id" start bit and number
+-  of bits)
++  of bits
+ 
+ Example:
+ 
+diff --git a/Documentation/devicetree/bindings/regulator/max8907.txt b/Documentation/devicetree/bindings/regulator/max8907.txt
+index 371eccd1c..b04c9edd3 100644
+--- a/Documentation/devicetree/bindings/regulator/max8907.txt
++++ b/Documentation/devicetree/bindings/regulator/max8907.txt
+@@ -66,4 +66,3 @@ Example:
+ ...
+ 			};
+ 		};
+-	};
+diff --git a/Documentation/devicetree/bindings/regulator/mediatek,mt6358-regulator.yaml b/Documentation/devicetree/bindings/regulator/mediatek,mt6358-regulator.yaml
+index c50402fcb..4eb635179 100644
+--- a/Documentation/devicetree/bindings/regulator/mediatek,mt6358-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/mediatek,mt6358-regulator.yaml
+@@ -145,7 +145,7 @@ allOf:
+     then:
+       patternProperties:
+         # Old regulator node name scheme (with prefix and underscores) only
+-        # ([^y-] is used to avoid matching -supply
++        # ([^y-]) is used to avoid matching -supply
+         "^(?<!buck_)(?<!ldo_)v.*[^y-](?!-supply)$": false
+         "^ldo_vsram-": false
+         # vsram_core regulator doesn't exist on MT6358
+diff --git a/Documentation/devicetree/bindings/regulator/pbias-regulator.txt b/Documentation/devicetree/bindings/regulator/pbias-regulator.txt
+index acbcb452a..09b07f7ab 100644
+--- a/Documentation/devicetree/bindings/regulator/pbias-regulator.txt
++++ b/Documentation/devicetree/bindings/regulator/pbias-regulator.txt
+@@ -30,3 +30,4 @@ Example:
+ 				regulator-min-microvolt = <1800000>;
+ 				regulator-max-microvolt = <3000000>;
+ 			};
++		};
+diff --git a/Documentation/devicetree/bindings/regulator/rohm,bd71837-regulator.yaml b/Documentation/devicetree/bindings/regulator/rohm,bd71837-regulator.yaml
+index efb38dd15..b886cb6d2 100644
+--- a/Documentation/devicetree/bindings/regulator/rohm,bd71837-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/rohm,bd71837-regulator.yaml
+@@ -98,8 +98,8 @@ patternProperties:
+       # Setups where regulator (especially the buck8) output voltage is scaled
+       # by adding external connection where some other regulator output is
+       # connected to feedback-pin (over suitable resistors) is getting popular
+-      # amongst users of BD71837. (This allows for example scaling down the
+-      # buck8 voltages to suit lover GPU voltages for projects where buck8 is
++      # amongst users of BD71837. This allows for example scaling down the
++      # buck8 voltages to suit lower GPU voltages for projects where buck8 is
+       # (ab)used to supply power for GPU.
+       #
+       # So we allow describing this external connection from DT and scale the
+diff --git a/Documentation/devicetree/bindings/regulator/rohm,bd71847-regulator.yaml b/Documentation/devicetree/bindings/regulator/rohm,bd71847-regulator.yaml
+index ef6f69be2..f0846983f 100644
+--- a/Documentation/devicetree/bindings/regulator/rohm,bd71847-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/rohm,bd71847-regulator.yaml
+@@ -93,8 +93,8 @@ patternProperties:
+       # Setups where regulator (especially the buck8) output voltage is scaled
+       # by adding external connection where some other regulator output is
+       # connected to feedback-pin (over suitable resistors) is getting popular
+-      # amongst users of BD71837. (This allows for example scaling down the
+-      # buck8 voltages to suit lover GPU voltages for projects where buck8 is
++      # amongst users of BD71837. This allows for example scaling down the
++      # buck8 voltages to suit lower GPU voltages for projects where buck8 is
+       # (ab)used to supply power for GPU.
+       #
+       # So we allow describing this external connection from DT and scale the
+diff --git a/Documentation/devicetree/bindings/sound/mikroe,mikroe-proto.txt b/Documentation/devicetree/bindings/sound/mikroe,mikroe-proto.txt
+index 912f8fae1..d6fdcf457 100644
+--- a/Documentation/devicetree/bindings/sound/mikroe,mikroe-proto.txt
++++ b/Documentation/devicetree/bindings/sound/mikroe,mikroe-proto.txt
+@@ -20,4 +20,3 @@ Example:
+ 		audio-codec = <&wm8731>;
+ 		dai-format = "i2s";
+         };
+-};
+diff --git a/Documentation/devicetree/bindings/usb/iproc-udc.txt b/Documentation/devicetree/bindings/usb/iproc-udc.txt
+index 272d7faf1..6a701ce29 100644
+--- a/Documentation/devicetree/bindings/usb/iproc-udc.txt
++++ b/Documentation/devicetree/bindings/usb/iproc-udc.txt
+@@ -19,3 +19,4 @@ Example:
+ 		reg = <0x664e0000 0x2000>;
+ 		interrupts = <GIC_SPI 424 IRQ_TYPE_LEVEL_HIGH>;
+ 		phys = <&usbdrd_phy>;
++	};
 -- 
-2.34.1
+2.54.0
 
