@@ -4,44 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8046AC44536
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 19:13:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9858C44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 19:30:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3F8410EE7B;
-	Wed, 22 Jul 2026 19:13:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02DB110E217;
+	Wed, 22 Jul 2026 19:30:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ULtpBGnO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MicShiMn";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F38FB10EE7B
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 19:13:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE7C110E217
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 19:30:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4D5C160051;
- Wed, 22 Jul 2026 19:13:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD3091F000E9;
- Wed, 22 Jul 2026 19:13:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2F17D60051;
+ Wed, 22 Jul 2026 19:30:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B73741F000E9;
+ Wed, 22 Jul 2026 19:30:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784747599;
- bh=eOHk9sXcDuwWFABO9WvB8oYIAFEb0qoakUkuJj30BEY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ULtpBGnOyAJWb1n9Hnk19DwCU2HSn2cDPk2WwwdIF40V8ALEPBnBPEySdFmxD5OUB
- 7SOjVjVH9T7scsFp5i2wbHF9fTlWtZ2x+s2UuGlc/Lmiu8jKfv1g3sigV0zJRQSrhk
- vBw/h1RnJwsWh/wBqQgLvivKEAf0/VbZTlUe4ULF5gY6pkfPKBhCk5wV15zCyOJhQf
- 812GlorB2K6H2wE2EHAnHEBH1ygcY2h3a+bqu4dg+7Eg6VS4FcEZdSDk0R/hcH1Hxf
- 6igQP9yI5QuNeJsDBzRwVOySzJB1PchOBNt6/NEFUaCyfmvmduhonndQVDJ6xLvCd9
- IfPaykx1Qk1yw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] drm/bridge: samsung-dsim: use DSIM interrupt to
- wait for PLL stability
-To: "Kaustabh Chakraborty" <kauschluss@disroot.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723-exynos-dsim-fixes-v3-2-0c31ae1dbecc@disroot.org>
-References: <20260723-exynos-dsim-fixes-v3-0-0c31ae1dbecc@disroot.org>
- <20260723-exynos-dsim-fixes-v3-2-0c31ae1dbecc@disroot.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 19:13:18 +0000
-Message-Id: <20260722191318.CD3091F000E9@smtp.kernel.org>
+ s=k20260515; t=1784748644;
+ bh=3j/QOD0vnHlFRoYcnlJW/d2NjKmuDjzpQav1pRPJ1d8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=MicShiMn+2IDzvdux8jhTGz4/VqiFUjE/WeK8ciYocW3H2uEFKlAS4cje53cwZJDQ
+ LvHwD53wmBM4RHr84QBSX5uDz/w5DJxH6KmNCyPUYYumKol7NQ3FGcO8TVnxIgH2u5
+ pTvCMQfuF6xnwrucRex5X/6yAU7ZIK0tg+bzTdx4/rUDAdcal89/m7fbrTpXFH3tOm
+ mO7yR3N+EIZJWvoOYTpiDDkIy/vyYB2gxtrYXc7t2qMyjmyTDypH0DFoRDaoOIa1Ts
+ d9WjuuaISZfpl+Ss10XQaHHRRjwloE0JNFI8fGwCbGrwa39UwJrf11ioD1ElxQLgVH
+ L1kEcW2qgGN3A==
+Date: Wed, 22 Jul 2026 14:30:44 -0500
+From: Rob Herring <robh@kernel.org>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Frank Li <Frank.li@oss.nxp.com>, sashiko-reviews@lists.linux.dev,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
+Subject: Re: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format
+Message-ID: <20260722193044.GA1489843-robh@kernel.org>
+References: <20260717121847.488148-1-francesco@dolcini.it>
+ <20260717121847.488148-2-francesco@dolcini.it>
+ <20260717122808.693211F000E9@smtp.kernel.org>
+ <alpQh0ASY1HgdNqE@SMW015318> <20260717205754.GB512678@francesco-nb>
+ <20260717211344.GC512678@francesco-nb>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717211344.GC512678@francesco-nb>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,170 +59,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Fri, Jul 17, 2026 at 11:13:44PM +0200, Francesco Dolcini wrote:
+> On Fri, Jul 17, 2026 at 10:57:54PM +0200, Francesco Dolcini wrote:
+> > On Fri, Jul 17, 2026 at 10:55:51AM -0500, Frank Li wrote:
+> > > On Fri, Jul 17, 2026 at 12:28:07PM +0000, sashiko-bot@kernel.org wrote:
+> > > > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > > > - [Low] Introduction of the legacy, non-standard `interface-pix-fmt` property for a standard hardware concept (parallel bus width), violating modern DT principles.
+> > > > --
+> > > >
+> > > > --- Patch [1]: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format ---
+> > > > commit 7225ea545d2ff50540972dd75d375b8ecea4f315
+> > > > Author: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > > >
+> > > > dt-bindings: lcdif: Add interface pixel format
+> > > >
+> > > > This commit updates the fsl,lcdif device tree binding to support the
+> > > > interface-pix-fmt property. The property is used to describe the hardware's
+> > > > parallel data bus transfer width to match board wiring and prevent shifted
+> > > > colors.
+> > > >
+> > > > > diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > > > index 2dd0411ec6516..209ee5a96e393 100644
+> > > > > --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > > > +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > > > @@ -58,6 +58,13 @@ properties:
+> > > > >      items:
+> > > > >        - const: rx
+> > > > >
+> > > > > +  interface-pix-fmt:
+> > > > > +    $ref: /schemas/types.yaml#/definitions/string
+> > > > > +    enum:
+> > > > > +      - rgb24
+> > > > > +      - rgb565
+> > > > > +      - rgb666
+> > > >
+> > > > [Severity: Low]
+> > > > Is this introducing a legacy, non-standard property into the new schema ABI?
+> > > >
+> > > > Standard devicetree guidelines usually prefer endpoint properties like
+> > > > bus-width (defined in video-interfaces.yaml) to describe physical parallel
+> > > > data line configurations, such as setting bus-width = <18> for RGB666.
+> > > 
+> > > Make sense, can we use standard property?
+> > 
+> > video-interfaces.yaml is for video capture interfaces (cameras and the
+> > media/v4l subsystem). It does not apply here for DPI display interfaces.
+> 
+> ok, looking at this closer, it seems this is a used property also in the
+> DRM subsystem. I'll appreciate a feedback from some DT maintainer before
+> reworking this patch accordingly.
 
-New issues:
-- [High] The return value of wait_for_completion_timeout() is evaluated inc=
-orrectly, treating a timeout as success and success as an error.
-- [High] The DSIM_INT_PLL_STABLE interrupt is permanently masked in DSIM_IN=
-TMSK_REG and will never fire.
-- [Medium] Using `wait_for_completion_timeout` with a 1-jiffy timeout can e=
-xpire prematurely, violating hardware timing requirements.
+I reject any custom properties for describing the format of the parallel 
+interface. 
 
-Pre-existing issues:
-- [High] Global static clk_bulk_data structures are shared among driver ins=
-tances, leading to pointer overwrites and potential Use-After-Free.
---
-
---- Patch [2]: [PATCH v3 2/3] drm/bridge: samsung-dsim: use DSIM interrupt =
-to wait for PLL stability ---
-commit ab2f26b528640a4bd75a69b30c4182a9e493647b
-Author: Kaustabh Chakraborty <kauschluss@disroot.org>
-
-drm/bridge: samsung-dsim: use DSIM interrupt to wait for PLL stability
-
-Stabilizing PLL needs to be waited for. This is done using a loop,
-checking the PLL_STABLE bit in the status register. DSIM fires an
-interrupt when the PLL is stabilized. Rely on this functionality for
-stabilization wait, getting rid of the implicit loop.
-
-Link: https://lore.kernel.org/r/CAAQKjZMLMbwDVZRb5+Xb_5yz3AEP4uuzFJMuuZy9NF=
-Du13VU5w@mail.gmail.com
-
-> diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/brid=
-ge/samsung-dsim.c
-> --- a/drivers/gpu/drm/bridge/samsung-dsim.c
-> +++ b/drivers/gpu/drm/bridge/samsung-dsim.c
-
-[ ... ]
-
-> @@ -849,19 +850,26 @@ static unsigned long samsung_dsim_set_pll(struct sa=
-msung_dsim *dsi,
->  	if (dsi->swap_dn_dp_data)
->  		reg |=3D DSIM_PLL_DPDNSWAP_DAT;
-> =20
-> +	/*
-> +	 * The PLL_TIMER value is the product of the timeout delay and the APB
-> +	 * bus clock rate. Calcutate the timeout delay on-the-fly here.
-> +	 * It is assumed that the bus clock is the first clock in the provided
-> +	 * bulk clock data.
-> +	 */
-> +	timeout =3D 100;
-> +	fin =3D clk_get_rate(dsi->driver_data->clk_data[0].clk) / HZ_PER_MHZ;
-
-[Severity: High]
-This is a pre-existing issue, but does accessing the global static
-clk_bulk_data structures here risk a use-after-free or pointer overwrite
-in multi-DSI systems?
-
-The driver defines global static arrays that dsi->driver_data->clk_data poi=
-nts
-to, and devm_clk_bulk_get() modifies this shared array in-place, overwriting
-the .clk pointers. In multi-DSI systems, a second instance's probe will
-overwrite the clock pointers belonging to the first. If an instance is unbo=
-und,
-the pointers become dangling.
-
-Could this dereference of the potentially overwritten or dangling clock poi=
-nter
-cause issues during PLL setup?
-
-> +	if (fin)
-> +		timeout =3D max(dsi->driver_data->reg_values[PLL_TIMER] / fin,
-> +			      timeout);
-> +
-> +	reinit_completion(&dsi->pll_stabilized);
->  	samsung_dsim_write(dsi, DSIM_PLLCTRL_REG, reg);
-> =20
-> -	timeout =3D 3000;
-> -	do {
-> -		if (timeout-- =3D=3D 0) {
-> -			dev_err(dsi->dev, "PLL failed to stabilize\n");
-> -			return 0;
-> -		}
-> -		if (driver_data->has_legacy_status_reg)
-> -			reg =3D samsung_dsim_read(dsi, DSIM_STATUS_REG);
-> -		else
-> -			reg =3D samsung_dsim_read(dsi, DSIM_LINK_STATUS_REG);
-> -	} while ((reg & BIT(driver_data->pll_stable_bit)) =3D=3D 0);
-> +	if (wait_for_completion_timeout(&dsi->pll_stabilized,
-> +					usecs_to_jiffies(timeout))) {
-
-[Severity: Medium]
-Since the timeout is dynamically calculated with a lower bound of 100
-microseconds, usecs_to_jiffies(100) will evaluate to 1 jiffy on most
-systems.
-
-Does a 1-jiffy timeout mean 'timeout on the next timer tick', which could
-happen almost immediately depending on timer alignment?
-
-Could this cause the wait to expire prematurely before the hardware PLL
-has actually stabilized, leading to regressions?
-
-[Severity: High]
-Does this code incorrectly handle the return value of
-wait_for_completion_timeout()?
-
-wait_for_completion_timeout() returns 0 if the wait timed out, and > 0 if
-it was successful. Evaluating the return value directly in the if condition
-treats > 0 as true, causing a successful wait to erroneously execute the
-error path and return 0 (failure).
-
-Conversely, if it times out, it returns 0, evaluating to false, and
-incorrectly returns success.
-
-> +		dev_err(dsi->dev, "PLL failed to stabilize\n");
-> +		return 0;
-> +	}
-> =20
->  	dsi->hs_clock =3D fout;
-
-[ ... ]
-
-> @@ -1596,8 +1604,12 @@ static irqreturn_t samsung_dsim_irq(int irq, void =
-*dev_id)
->  		return IRQ_HANDLED;
->  	}
-> =20
-> -	if (!(status & (DSIM_INT_RX_DONE | DSIM_INT_SFR_FIFO_EMPTY |
-> -			DSIM_INT_PLL_STABLE)))
-> +	if (status & DSIM_INT_PLL_STABLE) {
-> +		complete(&dsi->pll_stabilized);
-> +		return IRQ_HANDLED;
-> +	}
-
-[Severity: High]
-Will the DSIM_INT_PLL_STABLE interrupt ever fire?
-
-Looking earlier in samsung_dsim_irq(), when DSIM_INT_SW_RST_RELEASE is
-handled, the hardware interrupt mask is rewritten using:
-
-    unsigned long mask =3D ~(DSIM_INT_RX_DONE |
-                           DSIM_INT_SFR_FIFO_EMPTY |
-                           DSIM_INT_SFR_HDR_FIFO_EMPTY |
-                           DSIM_INT_RX_ECC_ERR |
-                           DSIM_INT_SW_RST_RELEASE);
-    samsung_dsim_write(dsi, DSIM_INTMSK_REG, mask);
-
-Since DSIM_INT_PLL_STABLE is omitted from this unmasking list, its bit
-remains 1 due to the bitwise NOT, which actively masks (disables) it in the
-hardware.
-
-Because the interrupt is permanently masked in DSIM_INTMSK_REG, will the wa=
-it
-for completion always time out?
-
-> +
-> +	if (!(status & (DSIM_INT_RX_DONE | DSIM_INT_SFR_FIFO_EMPTY)))
->  		return IRQ_HANDLED;
-> =20
->  	if (samsung_dsim_transfer_finish(dsi))
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-exynos-dsi=
-m-fixes-v3-0-0c31ae1dbecc@disroot.org?part=3D2
+Rob
