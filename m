@@ -4,82 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D501C44536
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 12:15:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB61DC4453C
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 12:15:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ED1B10ED74;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B7E910ED76;
 	Wed, 22 Jul 2026 12:15:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="NNttbQiD";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="pCFMoj2w";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95BFD10EDA0
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 12:15:40 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4955484387cso25211385e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 05:15:40 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 401AA10E431
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 12:15:42 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-49548e01d02so25144025e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 05:15:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1784722539; x=1785327339; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1784722540; x=1785327340; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=xw4PW534JRt7W+7M044jqZN3M/EBMZUMhKAoOTNL9HY=;
- b=NNttbQiDfaNfribAb2afxvutiEb13HObMAO23Bl2KqBmc7+IweyRQiygm5WcvFRS6f
- DbA+BJbLNtp829njVNbi0LmORTpMQMWtEAtPfDFV0SBwI7Sja4FCH84XyXGd48GShU9P
- PBnwDeUCm0uqF/ZajTGqJAAqujukxbYuTL1hCqgFmX72fxZquUDd86WHGd0/1xODsbZt
- DKMobQTJZI7UFzWnlVev5lFMp9HhDMRuEyxBZHB8lhORt6JBu+RHVXnLel9rcv721K1o
- gdUWaHzgnldvyKxk/xq507jnTs9tarGtcUWniUvlS2pk9Ys7Tbwd2qgMgcoRVKnGVsKq
- XqoA==
+ bh=uTe5FAQJLLQHDH6vlAa82uTTEPb2slflxpV33H1nb6w=;
+ b=pCFMoj2w1g68eX/TBr7+W97OU7E+AEZKnAy9Qpwb7M0bbr7LW+lnsuEV8aIIosV2kU
+ xhnyh5vGCDNb/GjcCx6pk9NEYJcm2eML25liTKtXTV9JgMDrzExim/nsg8MZejiLXUJs
+ OuP3x3phxzeksekYI+K4pfYg1yTqRTM3jLkp/nxRq8kTo7K6batWOXPz/gtB7j3wt903
+ oD0/01DNQt9SQMdL3f8FAWt0DO7/Mdtq1C6HWjpdut7MlFSOL/O5Bq6JFyD9yUC7obdz
+ z+COu/syIKbEDxQWqh266zi0Ndbusq+TsRXyT8iUu23GKguScZJ5thwjrCrHpNP7CWBh
+ hYWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784722539; x=1785327339;
+ d=1e100.net; s=20251104; t=1784722541; x=1785327341;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=xw4PW534JRt7W+7M044jqZN3M/EBMZUMhKAoOTNL9HY=;
- b=fWkbz8c9kDn9+9+ow7pv10EDRscBJbQF/sQIZQEP5cDIJflndo2yNCwLkpfA8KbifV
- m8nl1gjE/UUosgIpVBAI3UalbWUbTmU6J6bG3pQhgW9iImHPJGqImiW6FMB8KcsmwAR1
- u3mBxdOrONPaozXBznKInZQ2S4nRN8Oc+M7LKDLQ9NKHblvZIUw1winXBT1RWAk2zGdN
- VzUqKPqztwT0ZBo8jMgjgV4tbF7shZjwe90sGwDTZGrfXi7hQ9XFbOeglnriuXprK0WZ
- 2icupVAx1DKzpuEhkFj6a+VaumUJ/ZZ25ML2pOQ3guXj1h0nMj/aUUz/8w8pr8FIONpE
- FAKA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqI81cNhb3q5IP08LW5MdKPeaEUgb0RHD5n3sybyJSCtR6UtYfNTsnz5oJeQByW5MjnWWPiMP9PT8E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw/Sn0nZU5ZqsP2hPHfgmpMzQXcTRN9gmZloOWZkHpXwAHdpcUZ
- BT1hf4BfddqxvPuBSxysbvk5G+yXZJhqi37rahD0eGl6r0sY8t947CMBGzgquMB9aGA=
-X-Gm-Gg: AR+sD11fPjohatPV/WJNlguZhfVtSPzPv5f0K+Ux0+6g1qTydAnSg2JkTtwUeheGbYw
- arP8W/2iJHC0oN0u84EpQiU7KFRcWYfcnkp7vBU9ZtkBxWIiZG/bxVtVna2Xxv5/hFP/o7Py+6s
- xi0ffe6uM6OLDlCyStczUDqCEc/J7MsmnxRVGCPBy1oPie0MB+cR7P8aimBA9Y25UYmWZmdxWEf
- 0mWd1mOMG3ZyZ2NfHBHdzoCThJnzjFv3TPUl1g7BXVnGzmUglodotVPBVGFzM/qx1X0UeNF7RNV
- WNQ9mOeDK1cO6D1SKbcHq7APupBqdfxnAH1MiG0vCiKB+V635HscuhXXarcIfvjGzijsYUXNDRi
- LlMhiipPsFBFgpFp5+XvAJ6pB3UcCyXd/oquIhw/nHjS1zgq8BNO/G4NmEKxqjRy4uWR6gdmbJS
- mGIzjm/vppUeNof2NuqNk9Exk=
-X-Received: by 2002:a05:600c:4753:b0:493:bc4b:b8c with SMTP id
- 5b1f17b1804b1-4954a413024mr250331295e9.38.1784722538803; 
- Wed, 22 Jul 2026 05:15:38 -0700 (PDT)
+ bh=uTe5FAQJLLQHDH6vlAa82uTTEPb2slflxpV33H1nb6w=;
+ b=AC0k3yfPZloIm6ORrThSB4odl/ZFKnfbjS8uZdvpDreXESvxlcDamNVuRDWhWmasI9
+ /ARF2ozigtlo5i5VfztIWfZELUh5vhKN2tTEmns2CJDOoqQdRzf/5HXzr3Id3alZ4bcf
+ 0pmnixPZhio5/x+kZfykzRQgnv2BemWlRACZUy67B9QJyriPRsyO5EYSAe0MmSB+a5rR
+ FAB09gqJfpWZ/tM/5qH6uwHew6mepl6e72PBAI+tn8vcgcINsj5qkX7Ud8m4uRms7HEJ
+ cHqPt9RJeR0gliWGy+iY9UepVeIDAQ90t6Kscex0LbsoqzPOx8o3hwh0gKmDNVcM5byH
+ UGtg==
+X-Gm-Message-State: AOJu0YyydPqguzKDBiqQCTfxfnAK+cphteOgcklUTkKPG59Mn9EAxp8q
+ JOn9WB9udm91yisgBgJtTJNJVQhTofyvGJJlTeSYcEsUPoXkfBI7mAv3KdUTGIeJuqg=
+X-Gm-Gg: AR+sD13VKWgRu3ArRk8zppxIsXHTR7AiYtL60b2YHSDd9yC0XKwgu5PYd3snvNC3qEN
+ iQ39MnCuCbQbbiRz291QDGs1TuKwCbK2b+xIp/Sqbtu4wZz5KY7VGDp1NT/iH4vH5972un52jv8
+ eyLjQfs903jo7wuyY/kmVlJK2zOvONCiWA2NyzpUReW/VCNjKDvGpYN1XbDsLz0Rxh2nQ3aCcCx
+ DpvAj7tdtBVhKJMmh5pKftlbSReCgJeJLX/YXqYmJsLsUqcCiV56LYMge9Zcidst+V9UCSNRHU9
+ o5Ygc56qJBpKziTlzyQyOoHKF4GSRHEni5c1o/UFVFFSgqCdOPaYTISO/YnOh5uB+XNM7NBr7DC
+ uvjzpbhFpviV3u9MSozjheMdlGO/DWQRsUPyyDXyDEAa8JjSZ1roPblg9iO6BLYmlsyQnah3Soe
+ 8bZFEq+iEHlnZxZNR8AVHDP5U=
+X-Received: by 2002:a05:600c:524c:b0:495:4e12:6ae5 with SMTP id
+ 5b1f17b1804b1-4954e126afamr259062795e9.26.1784722540451; 
+ Wed, 22 Jul 2026 05:15:40 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f8635c8d7sm4379093f8f.21.2026.07.22.05.15.38
+ ffacd0b85a97d-47f8635c8d7sm4379093f8f.21.2026.07.22.05.15.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jul 2026 05:15:38 -0700 (PDT)
+ Wed, 22 Jul 2026 05:15:40 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>,
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] drm/panel: Add Novatek NT36536 panel driver
-Date: Wed, 22 Jul 2026 14:15:14 +0200
-Message-Id: <178472247749.1745070.8996806935280043926.b4-ty@b4>
+ Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Albert Esteve <aesteve@redhat.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH] drm: fix missing header include for drm_panel_put()
+Date: Wed, 22 Jul 2026 14:15:15 +0200
+Message-Id: <178472247765.1745070.9105161637266531122.b4-ty@b4>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260709142846.12463-1-mitltlatltl@gmail.com>
-References: <20260709142846.12463-1-mitltlatltl@gmail.com>
+In-Reply-To: <20260722-panel-fix-kms-panel-put-v1-1-ebde56446ee5@linaro.org>
+References: <20260722-panel-fix-kms-panel-put-v1-1-ebde56446ee5@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -100,17 +108,14 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Thu, 09 Jul 2026 22:28:44 +0800, Pengyu Luo wrote:
-> Add a driver for panels using the Novatek NT36536 Display Driver IC,
-> including support for the CSOT PP8807HB1-1, a dual-link 10-bit panel
-> found in LENOVO Legion Y700 Gen4.
+On Wed, 22 Jul 2026 12:07:30 +0200, Neil Armstrong wrote:
+> Some DRM drivers lacked the drm_panel.h include to use drm_panel_put()
+> after the commit b71a623598d3 ("drm/panel: of_drm_find_panel() return a counted reference").
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/2] dt-bindings: display: panel: Add Novatek NT36536
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/38873dd52850c3d713f006c240a2ce0abad52271
-[2/2] drm/panel: Add Novatek NT36536 panel driver
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/75a5dbd1f4f71b1382dae973538af00178ba55a0
+[1/1] drm: fix missing header include for drm_panel_put()
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/057fad48d7f9f1caa90bd32295a03228254cf1e3
 
 -- 
 Neil
