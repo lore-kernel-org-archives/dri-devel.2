@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B02CC44539
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:08:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC944C44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:13:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7372C10EDD2;
-	Wed, 22 Jul 2026 14:08:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D2ED10EDD8;
+	Wed, 22 Jul 2026 14:13:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UBESPOzN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hCUlpRkb";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B81E10EDD2
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:08:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 096CB10EDD8
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:13:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 88FEC600C3;
- Wed, 22 Jul 2026 14:08:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296691F00A3A;
- Wed, 22 Jul 2026 14:08:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CCA2540AFF;
+ Wed, 22 Jul 2026 14:13:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 854711F000E9;
+ Wed, 22 Jul 2026 14:13:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784729329;
- bh=wkJU6L3nHkRh40O4uzIDgNpdLAxV/tHAqPneaXdCMMo=;
+ s=k20260515; t=1784729628;
+ bh=VKp87SMHIFOs1tB51VlLZI4UWehcvj7V9s9WjfrLbN8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UBESPOzNJfBEByd3OINBSK62Z+gaDrzS+dA41ZP4wffJByIxlcflgvAZ7YlZ/ksWO
- hOUJArRVuyeOMcLXfJhxk7HF23MOYjhkUG78qDU/Jh+9xOx2xbG9m4YeqIlzTPdXS6
- vnqxc5ftpcBODm1Q9ZJiwrYdkDcIlBp15vGwt/CrJOBDGFFyVmrpad17x/WIYsba6R
- ljEPJuIyzIY9+9TIxz13/juNsOnYbDOn8hrIfUiJaMZaTP4hksJ8+KUy/O0AvCHHKW
- rN+jvrhHczGySnIvcj0FRjuBWZz3nS0FTv+Vrm9IOBbMNDMGH17MD1XfTaA/NwPqkU
- hMvqXbqrO+CyA==
+ b=hCUlpRkb/kbhWfmXFRlebov7dtnbNZ8BdaZCWuxh1gcS06NWihAxZCVcx3ZTbXBvM
+ No91/dxGqA8AlCY1z8ZjtQyReIFIExOap7Ml77HILSqC4P2PW/PlrQsJEVwWwOfjrp
+ nUbpOX1n9Sd1999hRmTXe5WQxXOoDKnfzhCTT2EUxYU9xWfd1w8URJZ8ETMIG3kn/6
+ PY+QjD2T1FdZI9dlbeB8n2p1EWNim5pCd/exm+ivyDCtVWXK1ZhuAdyqMobtZuumMZ
+ Mcch3xMqW3Jq2FiO+Qbx6uoRmn01athHol4J77JO8KZbdV9lNubVWb/x18evO27RPZ
+ 18rcsVGE4j4IQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 09/11] drm/amd/display: Check actual state during
- commit_tail
+Subject: Re: [PATCH v4 10/11] drm/amd/display: Set color_space to plane_infos
 To: "Harry Wentland" <harry.wentland@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260722134607.136293-10-harry.wentland@amd.com>
+In-Reply-To: <20260722134607.136293-11-harry.wentland@amd.com>
 References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-10-harry.wentland@amd.com>
+ <20260722134607.136293-11-harry.wentland@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 14:08:48 +0000
-Message-Id: <20260722140849.296691F00A3A@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 14:13:48 +0000
+Message-Id: <20260722141348.854711F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,98 +57,73 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Build Breakage / Function Prototype Mismatch
-- [High] Logic Error overwriting correctly calculated color_space with SRGB=
- during commit_tail
+- [High] Changes to DRM plane color pipeline properties (drm_colorop) do no=
+t trigger a DC plane state reset, causing the hardware to use stale color s=
+pace and colorop properties.
 --
 
---- Patch [9]: [PATCH v4 09/11] drm/amd/display: Check actual state during =
-commit_tail ---
-commit 7fa51e59a15d532394f2e3959287098fefb48b8d
+--- Patch [10]: [PATCH v4 10/11] drm/amd/display: Set color_space to plane_=
+infos ---
+commit d69c24f2afbe9ab20f934e3e3173c2c3d2c7b892
 Author: Harry Wentland <harry.wentland@amd.com>
 
-drm/amd/display: Check actual state during commit_tail
+drm/amd/display: Set color_space to plane_infos
 
-Previously we checked the plane_state->state's plane_color_pipeline
-client config when determining whether fill_plane_color_attributes
-should run, i.e., whether we had a plane color pipeline and should
-use that code for handling fixed matrix properties, or whether we
-should look at legacy plane encoding and range.
+This commit assigns the color space from the dc_plane directly to the
+plane_infos array in the update bundle during plane commits. This replaces
+the legacy behavior that handled COLOR_ENCODING and COLOR_RANGE inside
+fill_plane_color_attributes.
 
 > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
 gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index e7080880b2211..4f07fe5688262 100644
+> index 4f07fe5688262..779f98e8d2d7d 100644
 > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3008,7 +3008,8 @@ STATIC_IFN_KUNIT bool modereset_required(struct drm=
-_crtc_state *crtc_state)
->  EXPORT_IF_KUNIT(modereset_required);
+> @@ -4288,6 +4288,8 @@ static void amdgpu_dm_commit_planes(struct drm_atom=
+ic_commit *state,
+>  			&bundle->flip_addrs[planes_count].address,
+>  			afb->tmz_surface);
 > =20
->  STATIC_IFN_KUNIT int
-> -fill_plane_color_attributes(const struct drm_plane_state *plane_state,
-> +fill_plane_color_attributes(struct drm_atomic_commit *state,
-> +			    const struct drm_plane_state *plane_state,
->  			    const enum surface_pixel_format format,
->  			    enum dc_color_space *color_space)
->  {
+> +		bundle->plane_infos[planes_count].color_space =3D dc_plane->color_spac=
+e;
+> +
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
+^^^^^^^^^^^
 
 [Severity: High]
-Will this break the build when CONFIG_DRM_AMD_DC_KUNIT_TEST is enabled?
+Could this assignment use a stale color_space value?
 
-The old prototype remains in drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_d=
-m.h:
+When userspace dynamically updates a property on an active drm_colorop
+pipeline, DRM core sets new_plane_state->color_mgmt_changed =3D true.
 
-    int fill_plane_color_attributes(const struct drm_plane_state *plane_sta=
-te,
-                                    const enum surface_pixel_format format,
-                                    enum dc_color_space *color_space);
+However, should_reset_plane() incorrectly omits checking
+new_other_state->color_mgmt_changed or iterating over drm_colorop_state
+property changes:
 
-And the KUnit tests still call the function with 3 arguments:
-
-drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c:dm_test_fill_c=
-olor_attr_rgb_format() {
-    ...
-    ret =3D fill_plane_color_attributes(&plane_state,
-                                      SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
-                                      &color_space);
-    ...
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:should_reset_plane() {
+	...
+	/* Colorspace changes. */
+	if (old_other_state->color_range !=3D new_other_state->color_range ||
+	    old_other_state->color_encoding !=3D new_other_state->color_encoding)
+		return true;
+	...
 }
 
-> @@ -3017,7 +3018,7 @@ fill_plane_color_attributes(const struct drm_plane_=
-state *plane_state,
->  	*color_space =3D COLOR_SPACE_SRGB;
-> =20
->  	/* Ignore properties when DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE is set */
-> -	if (plane_state->state && plane_state->state->plane_color_pipeline)
-> +	if (state && state->plane_color_pipeline)
->  		return 0;
+Because should_reset_plane() returns false when only colorop pipeline
+properties are modified, dm_update_plane_state() skips recreating the
+dc_plane_state and bypasses amdgpu_dm_update_plane_color_mgmt().
 
-[Severity: High]
-Could this unintentionally overwrite the correctly calculated color_space w=
-ith
-COLOR_SPACE_SRGB during commit_tail?
+As a result, stale color space parameters are passed to DC here. Should
+should_reset_plane() be updated to properly check for color management chan=
+ges
+so the hardware color pipeline does not retain stale configuration values?
 
-Because *color_space is initialized to COLOR_SPACE_SRGB before the early
-return, when the color pipeline is active, fill_plane_color_attributes() se=
-ts
-plane_info->color_space to COLOR_SPACE_SRGB.
-
-Later, DC core's copy_surface_update_to_plane() unconditionally copies this
-value to surface->color_space:
-
-drivers/gpu/drm/amd/display/dc/core/dc.c:copy_surface_update_to_plane() {
-    ...
-    if (srf_update->plane_info) {
-        surface->color_space =3D
-                srf_update->plane_info->color_space;
-    ...
-}
-
-Can this clobber the fixed matrix value calculated during atomic check,
-causing YUV-to-RGB conversion to be bypassed for YUV framebuffers?
+>  		drm_dbg_state(state->dev, "plane: id=3D%d dcc_en=3D%d\n",
+>  				 new_plane_state->plane->index,
+>  				 bundle->plane_infos[planes_count].dcc.enable);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722134607.1362=
-93-1-harry.wentland@amd.com?part=3D9
+93-1-harry.wentland@amd.com?part=3D10
