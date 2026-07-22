@@ -4,44 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52526C44536
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 21:59:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30326C44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 22:00:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7523410E4E2;
-	Wed, 22 Jul 2026 21:59:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8602D10E4E7;
+	Wed, 22 Jul 2026 22:00:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O+s41WrG";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ncm4i5m5";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A76310E4E2
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 21:59:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C201060051;
- Wed, 22 Jul 2026 21:59:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41A591F000E9;
- Wed, 22 Jul 2026 21:59:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784757572;
- bh=Cs69w1XeZgx1dG6wbGBDMyL5GToaChKSmsoe5Ew6Uw4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=O+s41WrGOKDTVWPg+hWnCf+Dd8iuejc5iXwl2PrFTkbQed91vupNtFWn+x3oMCR2r
- WGsIZOw5plX+/c2wAgn6bnUQUukvUxyNxATsG7UT16Bx/YyerWIWvL/vrFLX2GTkHH
- 2xMjNXAvd1hv3dmU1ETv/roXzvV4VgFRDDmO/6sVW9Dm2IMnVtSCJ5xxcCqkV88krb
- ZlNrM7AobPEU0qmrsvgP/uNEwp55pjOupDr0UR/fBfnY93l4AbPDzbE2FcgbGumFSU
- 1VqjeM+F1Qge8LJcmpu8GQg2oOqeciAV216TMapB9tCxxyi3mxdZeSMUILgLpJVrq5
- kK4XdSm/hVpWQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 8/8] drm/gpusvm: Use
- hmm_range_fault_unlocked_timeout() for range faults
-To: "Stanislav Kinsburskii" <skinsburskii@gmail.com>
-Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260722-hmm-v10-v1-8-606464dd601a@gmail.com>
-References: <20260722-hmm-v10-v1-0-606464dd601a@gmail.com>
- <20260722-hmm-v10-v1-8-606464dd601a@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 21:59:31 +0000
-Message-Id: <20260722215932.41A591F000E9@smtp.kernel.org>
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3240810E4E7
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 22:00:29 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-49546c690ffso44324995e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 15:00:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784757627; x=1785362427; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=hAmg9kvDp6fcRhAWqYJmRWgkw3aQP6ISOL7nDMeVy7Y=;
+ b=ncm4i5m5Ma25HuVN2Dhehixr0/kMVN2Ods/Ms1+c9fNIeDl65/glf6Aq1qB+X46BpJ
+ XwpFraX1a4aocv9dUo6oRFuQbZQXQplOV66BGRvCzYT5+4+mM8QN4FnzIFrIom9HY+ah
+ ZSXqTGXpN3aTe7pAQNRJcnm0bSn8KvcduRUJXQREJPKkgrwN31xa5tsvE+4SEm7t/lNx
+ PM0IFJI7mxvhjh8RNRK4NEZygXubKW3Tq9DbpOFkc5iUU+adbbvNLz1O3S/fmjpw5EmG
+ uR5wnaimQ2L2o5oEZCvbV33nYyaZx3hH3SZAa4pfGjqCUMQwkdi5LcuNOtU0/jxudmsP
+ c4jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784757627; x=1785362427;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=hAmg9kvDp6fcRhAWqYJmRWgkw3aQP6ISOL7nDMeVy7Y=;
+ b=pjzKx+YTDVFMKlCbakCi+LE6R3lN3+ezIrAwDRt1af98+xFzvqKGRJiyNXFjS0AHR+
+ +A0sstcnqe2CJrIDP2ac4VW+97ug9+1gCPA94tp6TbwE7Pi2vMKLyZgLywzaksIZx0QW
+ Vw2UyH2aeXbiDFAUE2Rzzzzyq989rxxVneCwbZt5B92SxLIHY1gjORFPPgw7pl+XShlD
+ 3+hmxGPx47JSHadRjZ/EYkDo9a77v4+Lfl7vJhI07OK2dG5wAMVqONohYdCXojQ+Dw00
+ 2kek3Dybj2dBHoKKaIs9p9Hd2ChJWl5IPGkEHYG26RkwbZ9LSHEpk+wuVofdXySrDPXz
+ IuwQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrGSx29ERoa71n59AaZ4RsT2BgFhDPWxImmvpvo9sWUgTfGp2Ia3N2r04aoA1Et8qmNbNJWKp9hawk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzdwFAZ7HLANTsdjnxWBpj1HxG9K3Xa8G+7CHNftScy0+eOgfeh
+ EFO9BsTW1tNzYAPrKEHwwrD8tL/hnup9UimflbytHkuIYGxL/ie5U7pT
+X-Gm-Gg: AR+sD11eTorL4Dc0IQ1cn1ngfn2eIdzjru9CXSZatN/JmHqc8oV8MFJF5FTiEykmrHC
+ 940VS2EF7pJZP3douFX2Hjvgq3UZIwDoZw7C663/dzLx92ns5TJxZSdAQ9Cigw5DeJvtSnjSlJL
+ sCYTj4eC6k2cr6JSVaPyljUTg7w6Q6nFFRjrLMzcv75Wg0lmQQNppH2v1bAAU/pjIwgBWMhsoQU
+ vv4XLoTeWMzOdpEx2ORYJnfzZQKGZBqnxZ/bVjK1cZ0VbZfGfGz1CctMkfgPsj3etoFA6fljqD4
+ V6s6YxI9qlsrc/Eq6QTLMtN8qHqXqOycx7PDuCwsp1rPEUbRAqlfqAkcoj2OeSBgDO5bY/609eO
+ Z9Rn3Q+yUF8AMdt1T+CiIDPM2OcVIVSjaKnJwajKNRP+xJq+zDM2ngQ9X3Mk7nIVS3zsBw/FH3p
+ bFd+DmFRtkVFRi6szeo9eHgdj1X3wS0YlqIvdn0ACqMjFxRu06BP+hMwwsn2+LPBalTQ==
+X-Received: by 2002:a05:600c:818f:b0:495:4f62:c9f5 with SMTP id
+ 5b1f17b1804b1-49573cf6daamr3388225e9.24.1784757627049; 
+ Wed, 22 Jul 2026 15:00:27 -0700 (PDT)
+Received: from nixos-office (195-23-151-163.net.novis.pt. [195.23.151.163])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4956b0395f7sm62532245e9.3.2026.07.22.15.00.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Jul 2026 15:00:26 -0700 (PDT)
+From: Julian Braha <julianbraha@gmail.com>
+To: deller@gmx.de
+Cc: tzimmermann@suse.de, wei.liu@kernel.org, ptsm@linux.microsoft.com,
+ arnd@arndb.de, u.kleine-koenig@baylibre.com, hsukrut3@gmail.com,
+ rob.github@jumpstation.co.uk, enelsonmoore@gmail.com,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Julian Braha <julianbraha@gmail.com>
+Subject: [PATCH] fbdev: replace dead select with dependency
+Date: Wed, 22 Jul 2026 23:00:23 +0100
+Message-ID: <20260722220023.196029-1-julianbraha@gmail.com>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,164 +86,43 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+'select' does not work on config options in a 'choice', so currently it is
+possible to enable FB_MB862XX_LIME without FB_LITTLE_ENDIAN.
 
-New issues:
-- [High] TOCTOU race on volatile `jiffies` can result in a 0 timeout, causi=
-ng an infinite loop.
-- [High] The absolute outer deadline in `drm_gpusvm_get_pages()` is defeate=
-d by the relative timeout extension semantics of `hmm_range_fault_unlocked_=
-timeout()`.
+We cannot replace the 'select FB_LITTLE_ENDIAN' without also changing
+FB_FOREIGN_ENDIAN from 'select' to 'depends on', otherwise we will get
+a recursive dependency.
 
-Pre-existing issues:
-- [High] Failure to allocate `pfns` in `drm_gpusvm_range_evict()` leaks the=
- `mm_struct` reference.
---
+Note that, if we remove the select / dependency, the kernel will compile
+with FB_MB862XX_LIME=y and FB_LITTLE_ENDIAN=n so if it would be
+better to remove the select, please advise as I do not have the hardware
+to runtime test this.
 
---- Patch [8]: [PATCH v10 8/8] drm/gpusvm: Use hmm_range_fault_unlocked_tim=
-eout() for range faults ---
-commit f0577dfbb2f6c27cfd07d3be42e1db31600b9e4d
-Author: Stanislav Kinsburskii <skinsburskii@gmail.com>
-Subject: drm/gpusvm: Use hmm_range_fault_unlocked_timeout() for range faults
+This dead select was found by kconfirm, a static analysis tool for Kconfig.
 
-This commit replaces open-coded HMM fault retry loops in the GPU SVM paths
-with the new hmm_range_fault_unlocked_timeout() helper. It updates
-drm_gpusvm_scan_mm(), drm_gpusvm_range_evict(), and drm_gpusvm_get_pages()
-to delegate mmap_lock acquisition and retry logic to the helper.
+Signed-off-by: Julian Braha <julianbraha@gmail.com>
+---
+ drivers/video/fbdev/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-> index 958cb605aedd5..b946f920b7a00 100644
-> --- a/drivers/gpu/drm/drm_gpusvm.c
-> +++ b/drivers/gpu/drm/drm_gpusvm.c
-[ ... ]
-> @@ -1408,6 +1392,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
->  	void *zdd;
->  	unsigned long timeout =3D
->  		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-> +	unsigned long remaining;
->  	unsigned long i, j;
->  	unsigned long npages =3D npages_in_range(pages_start, pages_end);
->  	unsigned long num_dma_mapped;
-> @@ -1422,9 +1407,11 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
->  	struct dma_iova_state *state =3D &svm_pages->state;
-> =20
->  retry:
-> -	if (time_after(jiffies, timeout))
-> +	if (time_after_eq(jiffies, timeout))
->  		return -EBUSY;
-> =20
-> +	remaining =3D timeout - jiffies;
+diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
+index 085d3a202148..1ed4506c0cb2 100644
+--- a/drivers/video/fbdev/Kconfig
++++ b/drivers/video/fbdev/Kconfig
+@@ -1717,8 +1717,8 @@ config FB_MB862XX_PCI_GDC
+ config FB_MB862XX_LIME
+ 	bool "Lime GDC"
+ 	depends on OF && PPC
+-	select FB_FOREIGN_ENDIAN
+-	select FB_LITTLE_ENDIAN
++	depends on FB_FOREIGN_ENDIAN
++	depends on FB_LITTLE_ENDIAN
+ 	help
+ 	  Framebuffer support for Fujitsu Lime GDC on host CPU bus.
+ 
+-- 
+2.54.0
 
-[Severity: High]
-Does this double read of jiffies introduce a race condition?
-
-Because jiffies is volatile, it is fetched from memory for the
-time_after_eq() check, and then fetched again for the subtraction. If
-jiffies increments between these reads, remaining can evaluate to 0
-(if jiffies equals timeout) or ULONG_MAX (if jiffies ticks past timeout).
-
-When remaining is 0, hmm_range_fault_unlocked_timeout() disables the
-deadline entirely. When it is ULONG_MAX, the timeout is effectively
-infinite, which could hang the page-fault worker.
-
->  	hmm_range.notifier_seq =3D mmu_interval_read_begin(notifier);
->  	if (drm_gpusvm_pages_valid_unlocked(gpusvm, svm_pages))
->  		goto set_seqno;
-> @@ -1439,21 +1426,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
->  	}
-> =20
->  	hmm_range.hmm_pfns =3D pfns;
-> -	while (true) {
-> -		mmap_read_lock(mm);
-> -		err =3D hmm_range_fault(&hmm_range);
-> -		mmap_read_unlock(mm);
-> -
-> -		if (err =3D=3D -EBUSY) {
-> -			if (time_after(jiffies, timeout))
-> -				break;
-> -
-> -			hmm_range.notifier_seq =3D
-> -				mmu_interval_read_begin(notifier);
-> -			continue;
-> -		}
-> -		break;
-> -	}
-> +	err =3D hmm_range_fault_unlocked_timeout(&hmm_range, remaining);
-
-[Severity: High]
-Does passing remaining defeat the absolute deadline intended for this path?
-
-The commit message notes that drm_gpusvm_get_pages() keeps an absolute outer
-deadline to prevent endless invalidation retry loops from hanging GPU
-page-fault workers.
-
-However, hmm_range_fault_unlocked_timeout() treats the passed value as a
-relative timeout and recalculates its internal deadline every time the lock
-is dropped:
-
-mm/hmm.c:hmm_range_fault_unlocked_timeout() {
-    ...
-    if (timeout && !locked)
-        deadline =3D jiffies + timeout;
-    ...
-}
-
-Since remaining is passed as the full timeout budget, the helper will extend
-its deadline by the full amount of remaining into the future every time it
-drops the lock, which can allow an infinite loop.
-
->  	mmput(mm);
->  	if (err)
->  		goto err_free;
-[ ... ]
-> @@ -1736,24 +1708,12 @@ int drm_gpusvm_range_evict(struct drm_gpusvm *gpu=
-svm,
->  		return -ENOMEM;
-
-[Severity: High]
-This is a pre-existing issue, but does this error path leak the mm_struct
-reference?
-
-Earlier in drm_gpusvm_range_evict(), the code acquires an mm reference:
-
-    if (!mmget_not_zero(mm))
-        return -EFAULT;
-
-If kvmalloc_array() fails, the function returns -ENOMEM directly, bypassing
-the mmput(mm) call at the end of the function. This permanently leaks the mm
-reference, preventing the target process's memory structures from being fre=
-ed
-upon exit.
-
-> =20
->  	hmm_range.hmm_pfns =3D pfns;
-> -	while (!time_after(jiffies, timeout)) {
-> -		hmm_range.notifier_seq =3D mmu_interval_read_begin(notifier);
-> -		if (time_after(jiffies, timeout)) {
-> -			err =3D -ETIME;
-> -			break;
-> -		}
-> -
-> -		mmap_read_lock(mm);
-> -		err =3D hmm_range_fault(&hmm_range);
-> -		mmap_read_unlock(mm);
-> -		if (err !=3D -EBUSY)
-> -			break;
-> -	}
-> +	err =3D hmm_range_fault_unlocked_timeout(&hmm_range, timeout);
-> =20
->  	kvfree(pfns);
->  	mmput(mm);
-> =20
-> -	return err;
-> +	return err =3D=3D -EBUSY ? -ETIME : err;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-hmm-v10-v1=
--0-606464dd601a@gmail.com?part=3D8
