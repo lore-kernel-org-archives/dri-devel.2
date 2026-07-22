@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 941F3C4452B
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 01:02:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 402C3C4452B
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 01:04:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00DC110EBF4;
-	Wed, 22 Jul 2026 01:02:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84BF110EBF6;
+	Wed, 22 Jul 2026 01:04:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CkAn0hCn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LHJTl/OC";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D769C10EBF4
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 01:02:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B93A10EBF6
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 01:04:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A78484131D;
- Wed, 22 Jul 2026 01:02:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59DA51F000E9;
- Wed, 22 Jul 2026 01:02:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9339F42D51;
+ Wed, 22 Jul 2026 01:04:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 474EA1F000E9;
+ Wed, 22 Jul 2026 01:04:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784682144;
- bh=ZsahaHbiUyPLImxk655F6B9zR140cP1pWZ5kuD98/94=;
+ s=k20260515; t=1784682251;
+ bh=DO654lot1HE1y8tftbhqQA5Tq1r6w5adHV92yAVrht8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CkAn0hCnnPEqwIYxEqxyC/K8ZJLKIoEr8lNpM1aD+T4rY82Seg4ULoL2RobZzPU3w
- q0jTrfLpFY3GvJYT4gR8R3qVPbrs2rkzMfuOmMBVppxaTdSOZPXiOR2RTma3x+Jk27
- wtFaft329B1mshE068znqSBqjC5Cl2rMpO2XcSkYggD02WZoyJrNNBnUToAv8ooy3Z
- MZmQFDxJ9BtzioDhPALDGXC9McRmT88fDmXMltSKf/UZog+lWjFjhGEH2FGsGpW0PB
- xQAwOmBejs28drvP2P5+kyghUuhiW+4db+MzYTi9n2FuR6as5sSQPB+Yq10n7cxrDA
- omvonEy0AEGfA==
+ b=LHJTl/OCg0OISiprBMWMPrPwWzfRnpwR/g6iSFnTvS45B+RzrlI6I4vfWoL6acdk6
+ 9CEWIAvi0k5ADE45lZXmbzXIs59MlXlKY2w2G2P/AFHUzv/cpJWVG1rO3Oq2SkC5HD
+ 0MecTDeHQ1ZydpoYbiK7oCXOT5+UomTJNLcBTvl8P1wSrUP4W5eJjREXIEYu0Gzblp
+ WYmmL4q78YkhnI6skGPzvJxlLUSZ5WmZuWg8EaA3UOGBuHPRsQoQJV5mv24K0v7UMr
+ pl5HHZtl1mv8LW8cQGpMVFCbcnZA9rw5pTBEJ9PqiURgtUHiWgLMdW+4iSoa9XFZ+e
+ sRNowKUxiq/pg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 3/7] drm/tyr: add Memory Management Unit (MMU) support
+Subject: Re: [PATCH v8 6/7] drm/tyr: add parser for firmware binary
 To: "Deborah Brouwer" <deborah.brouwer@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
-In-Reply-To: <20260721-fw-boot-b4-v8-3-b28f744581c9@collabora.com>
+In-Reply-To: <20260721-fw-boot-b4-v8-6-b28f744581c9@collabora.com>
 References: <20260721-fw-boot-b4-v8-0-b28f744581c9@collabora.com>
- <20260721-fw-boot-b4-v8-3-b28f744581c9@collabora.com>
+ <20260721-fw-boot-b4-v8-6-b28f744581c9@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 01:02:23 +0000
-Message-Id: <20260722010224.59DA51F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 01:04:10 +0000
+Message-Id: <20260722010411.474EA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,130 +57,204 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Medium] Delayed validation of the hardware AS_PRESENT mask causes probe =
-to succeed but runtime operations to fail.
-- [Medium] Busy-waiting for up to 10ms in a sleepable context.
+- [High] The parser incorrectly rejects firmware sections where `va_start =
+=3D=3D va_end`, which breaks compatibility with valid firmware binaries.
+- [High] Firmware entries can silently extend beyond the header region, cau=
+sing the parser to incorrectly read payload data as headers.
+- [Medium] The parser fails to validate that virtual address ranges are pag=
+e-aligned.
+- [Medium] Casting the firmware binary length to `u32` can cause silent int=
+eger truncation on 64-bit architectures, leading to incorrect size validati=
+on.
+- [Low] The catch-all match arm for unknown entry types contains unreachabl=
+e dead code and overly convoluted boolean logic.
 --
 
---- Patch [3]: [PATCH v8 3/7] drm/tyr: add Memory Management Unit (MMU) sup=
-port ---
-commit d32ee18da5af7d1944026f776d63573705b0da02
-Author: Boris Brezillon <boris.brezillon@collabora.com>
+--- Patch [6]: [PATCH v8 6/7] drm/tyr: add parser for firmware binary ---
+commit a6abcd1e77314e56a03e26729fd17f0e939b696a
+Author: Daniel Almeida <daniel.almeida@collabora.com>
 
-drm/tyr: add Memory Management Unit (MMU) support
+drm/tyr: add parser for firmware binary
 
-This commit adds Memory Management Unit (MMU) support in Tyr, wrapping a
-SlotManager instance to allocate MMU address-space slots for virtual memory.
-It also introduces the AddressSpaceManager for hardware-specific MMU regist=
-er
-commands and updates Kconfig dependencies.
+This commit adds a parser for the Mali CSF GPU firmware binary format. The
+firmware consists of a header followed by entries describing how to load
+firmware sections into the MCU's memory.
 
-> diff --git a/drivers/gpu/drm/tyr/mmu/address_space.rs b/drivers/gpu/drm/t=
-yr/mmu/address_space.rs
-> index 0000000000000..add5100b26f2e
+> diff --git a/drivers/gpu/drm/tyr/fw/parser.rs b/drivers/gpu/drm/tyr/fw/pa=
+rser.rs
+> new file mode 100644
+> index 0000000000000..f71cdcf760bd4
 > --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/mmu/address_space.rs
+> +++ b/drivers/gpu/drm/tyr/fw/parser.rs
+
 [ ... ]
-> +impl<'bound> AddressSpaceManager<'bound> {
-> +    /// Creates a new address space manager.
-> +    ///
-> +    /// Initializes the manager with references to the platform device a=
-nd
-> +    /// I/O memory region, along with the bitmask of available AS slots.
-> +    pub(super) fn new(
-> +        dev: &'bound Device<Bound>,
-> +        iomem: Arc<IoMem<'bound>>,
-> +        as_present: u32,
-> +    ) -> Result<AddressSpaceManager<'bound>> {
-> +        Ok(Self {
-> +            dev,
-> +            iomem,
-> +            as_present,
-> +        })
-> +    }
-> +
-> +    /// Validates that an AS slot number is within range and present in =
-hardware.
-> +    ///
-> +    /// Checks that the slot index is less than [`MAX_AS`] and that
-> +    /// the corresponding bit is set in the `as_present` mask read from =
-the GPU.
-> +    ///
-> +    /// Returns [`EINVAL`] if the slot is out of range or not present in=
- hardware.
-> +    fn validate_as_slot(&self, as_nr: usize) -> Result {
-> +        if as_nr >=3D MAX_AS {
-> +            dev_err!(
-> +                self.dev,
-> +                "AS slot {} out of valid range (max {})\n",
-> +                as_nr,
-> +                MAX_AS
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        if (self.as_present & (1 << as_nr)) =3D=3D 0 {
-> +            dev_err!(
-> +                self.dev,
-> +                "AS slot {} not present in hardware (AS_PRESENT=3D{:#x})=
-\n",
-> +                as_nr,
-> +                self.as_present
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        if self.as_present.trailing_ones() !=3D self.as_present.count_on=
-es() {
 
-[Severity: Medium]
-Should the as_present mask validation occur during probe in
-AddressSpaceManager::new() instead of on every runtime slot operation?
+> +    fn parse_fw_header(&mut self) -> Result<FirmwareHeader> {
 
-If the hardware has a sparse AS_PRESENT mask, wouldn't the driver
-successfully probe but unconditionally fail all subsequent MMU operations at
-runtime? Moving this static mask check to probe time would catch unsupported
-hardware earlier and avoid re-evaluating it on every slot operation.
+[ ... ]
 
-> +            dev_err!(
-> +                self.dev,
-> +                "Sparse AS_PRESENT mask is unsupported: {:#x}\n",
-> +                self.as_present
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        Ok(())
-> +    }
-> +
-> +    /// Waits for an AS slot to become ready (not active).
-> +    ///
-> +    /// Returns an error if polling times out after 10ms or if register =
-access fails.
-> +    fn as_wait_ready(&self, as_nr: usize) -> Result {
-> +        let io =3D &*self.iomem;
-> +        let op =3D || {
-> +            let status_reg =3D STATUS::try_at(as_nr).ok_or(EINVAL)?;
-> +            Ok(io.read(status_reg))
+> +        let fw_header: FirmwareHeader =3D match FirmwareHeader::new(&mut=
+ self.cursor) {
+> +            Ok(fw_header) =3D> fw_header,
+> +            Err(e) =3D> {
+> +                dev_err!(self.cursor.dev, "Invalid firmware file: {}\n",=
+ e.to_errno());
+> +                return Err(e);
+> +            }
 > +        };
-> +        let cond =3D |status: &STATUS| -> bool { !status.active_ext() };
-> +        poll::read_poll_timeout(op, cond, Delta::from_millis(0), Delta::=
-from_millis(10))?;
+> +
+> +        if fw_header.size > self.cursor.len() as u32 {
 
 [Severity: Medium]
-Can this busy-wait stall the CPU for up to 10ms without yielding?
+Could casting the firmware slice length down to 32 bits cause issues on
+64-bit architectures?=20
 
-Since the MMU is protected by a sleepable kernel Mutex (specifically
-as_manager: Mutex<AsSlotManager>), should the sleep delta in
-poll::read_poll_timeout be a small non-zero value instead of 0ms to allow
-yielding and prevent degrading system scheduling latency?
+If a firmware file happens to be larger than 4GB, the truncated length might
+falsely trigger the truncated image error. Would it be safer to cast
+fw_header.size to usize instead?
+
+> +            dev_err!(self.cursor.dev, "Firmware image is truncated\n");
+> +            return Err(EINVAL);
+> +        }
+> +        Ok(fw_header)
+> +    }
+> +
+> +    fn parse_entry(&mut self) -> Result<EntrySection> {
+
+[ ... ]
+
+> +        let entry_section =3D {
+> +            let mut entry_cursor =3D self
+> +                .cursor
+> +                .view(self.cursor.pos()..self.cursor.pos() + section_hdr=
+_size)?;
+
+[Severity: High]
+Can an entry size silently extend beyond the header region here?
+   =20
+The FwParser::parse() method iterates until cursor.pos() < fw_header.size,
+but cursor.view() checks its bounds against self.data.len() (the full
+binary file size).
+   =20
+If an entry size extends past fw_header.size, will the parser read past
+the header region into the payload data, interpreting raw payload bytes
+as structured headers?
 
 > +
-> +        Ok(())
-> +    }
+> +            match entry_section.entry_hdr.entry_type() {
+> +                Ok(EntryType::Iface) =3D> Ok(EntrySection {
+> +                    entry_hdr: entry_section.entry_hdr,
+> +                    inner: Self::parse_section_entry(&mut entry_cursor, =
+firmware_size)?,
+> +                }),
+> +                Ok(
+> +                    EntryType::Config
+> +                    | EntryType::FutfTest
+> +                    | EntryType::TraceBuffer
+> +                    | EntryType::TimelineMetadata
+> +                    | EntryType::BuildInfoMetadata,
+> +                ) =3D> Ok(entry_section),
+> +
+> +                entry_type =3D> {
+> +                    if entry_type.is_err() || !entry_section.entry_hdr.o=
+ptional() {
+> +                        if !entry_section.entry_hdr.optional() {
+
+[Severity: Low]
+Since EntryType is an exhaustive enum, does this catch-all arm only match
+the Err variants from TryFrom?=20
+   =20
+If entry_type.is_err() is always true here, it looks like the else block
+returning Ok(entry_section) is unreachable dead code. Can this logic be
+simplified to just check the optional flag?
+
+> +                            dev_err!(
+> +                                self.cursor.dev,
+> +                                "Failed to handle firmware entry type: {=
+}\n",
+> +                                entry_type
+> +                                    .map_or(entry_section.entry_hdr.entr=
+y_type_raw(), |e| e as u8)
+> +                            );
+> +                            Err(EINVAL)
+> +                        } else {
+> +                            Ok(entry_section)
+> +                        }
+> +                    } else {
+> +                        Ok(entry_section)
+> +                    }
+> +                }
+> +            }
+> +        };
+
+[ ... ]
+
+> +    fn parse_section_entry(
+> +        entry_cursor: &mut Cursor<'_>,
+> +        firmware_size: usize,
+> +    ) -> Result<Option<ParsedSection>> {
+
+[ ... ]
+
+> +        if section_hdr.va.start =3D=3D CSF_MCU_SHARED_REGION_START
+> +            && !section_hdr.section_flags.shared()
+> +        {
+> +            dev_err!(
+> +                entry_cursor.dev,
+> +                "Interface at 0x{:x} must be shared\n",
+> +                CSF_MCU_SHARED_REGION_START
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let mut vm_map_flags =3D VmMapFlags::empty();
+
+[Severity: Medium]
+Does the virtual address range need to be validated for page alignment
+before setting up the VM mapping flags?=20
+   =20
+Passing unaligned virtual addresses to the GPU VM subsystem might cause
+mapping errors or corrupted page tables.
+
+> +
+> +        if !section_hdr.section_flags.write() {
+> +            vm_map_flags |=3D VmFlag::Readonly;
+> +        }
+
+[ ... ]
+
+> +impl SectionHeader {
+> +    fn new(cursor: &mut Cursor<'_>) -> Result<Self> {
+> +        let section_flags =3D SectionFlags::try_from_fw(cursor.read_u32(=
+)?)?;
+> +
+> +        let va_start =3D cursor.read_u32()?;
+> +        let va_end =3D cursor.read_u32()?;
+> +
+> +        let va =3D va_start..va_end;
+> +
+> +        if va.is_empty() {
+
+[Severity: High]
+Does this check incorrectly reject valid firmware sections?
+
+The Rust Range::is_empty() function returns true when start >=3D end, which
+means sections with va_start =3D=3D va_end are rejected with EINVAL.
+
+If a firmware section contains payload data but has no VM mapping footprint
+(where va_start =3D=3D va_end is intentional), will this cause the parser to
+falsely reject it?
+
+> +            dev_err!(
+> +                cursor.dev,
+> +                "Invalid firmware file: empty VA range at pos {}\n",
+> +                cursor.pos(),
+> +            );
+> +            return Err(EINVAL);
+> +        }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-fw-boot-b4=
--v8-0-b28f744581c9@collabora.com?part=3D3
+-v8-0-b28f744581c9@collabora.com?part=3D6
