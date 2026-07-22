@@ -4,59 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8AD7C4453A
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 22:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4844C44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 22:56:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA06110E4F4;
-	Wed, 22 Jul 2026 22:48:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 338EA10EEC7;
+	Wed, 22 Jul 2026 22:56:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ey11rnFQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZPkBpSIy";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C28D210E4F4;
- Wed, 22 Jul 2026 22:48:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89EBB10EEAE
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 22:56:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F298742DC4;
- Wed, 22 Jul 2026 22:48:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A931F000E9;
- Wed, 22 Jul 2026 22:48:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=korg; t=1784760498;
- bh=PNgL8SYp9VI1NhjQT8Ovt6BfZV4gAJBoTR6QXW/SnYQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=ey11rnFQSaKacaNArWVfr0eeKP+Coih9IwasoSNFGEWkgFxEAp6Gj30weTETOSTMu
- Kb3glBybuhz+H4qunDZQxS9olJTmLRVgjyXlAi+i+JjF52ZA7V5vh6IJduz1xNJhqy
- 6T2KvTOpUyORKJL9JJtXt564uLU4rprlu8gbdCNE=
-Date: Wed, 22 Jul 2026 15:48:17 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Stanislav Kinsburskii <skinsburskii@gmail.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, David
- Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan
- <shuah@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang
- <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
- <decui@microsoft.com>, Long Li <longli@microsoft.com>, Lyude Paul
- <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Min Ma <mamin506@gmail.com>, Lizhi Hou
- <lizhi.hou@amd.com>, Oded Gabbay <ogabbay@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-hyperv@vger.kernel.org,
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-rdma@vger.kernel.org
-Subject: Re: [PATCH v10 0/8] mm/hmm: Add mmap lock-drop support for
- userfaultfd-backed mappings
-Message-Id: <20260722154817.8c036f2d007edccbd7ab84c7@linux-foundation.org>
-In-Reply-To: <20260722-hmm-v10-v1-0-606464dd601a@gmail.com>
-References: <20260722-hmm-v10-v1-0-606464dd601a@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ by tor.source.kernel.org (Postfix) with ESMTP id B38C2600AB;
+ Wed, 22 Jul 2026 22:56:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D5E81F000E9;
+ Wed, 22 Jul 2026 22:56:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784760970;
+ bh=nnwsPKVbi4DvaYV8nWWsvMkgYyamzu5KTWQUU7aAxNA=;
+ h=Date:From:To:Cc:Subject;
+ b=ZPkBpSIygpo7zwkLCFfrCkN630Q73t3unwq8Ryg3gZLQahZp2q8QHd3pusDqaWtUw
+ c1Ere6dRXFMjYAvUd4fBwfDY9764WDASWOTPEnRvIKayNXrfrzyhJV+PRdNg0XLRJa
+ yznM14j+ZswrRsLK/JeWZQR4glE9mIkh29df2kUcdv5H9qJAxRNPdyCpeiTFpXKY6k
+ cbnzAi712V0pfeO1mVq6hGA5CfBDZcH3REZ5TLkNiN/r1Jg6mnA7p8C+MsItzOuefT
+ ooMHeyX2qXK0WnmukgtbNlsbfnsKdJOmKKE5JBmOhXJGDafvFgQoVHEtRxKuOIwDJe
+ PivPabZFBIrvw==
+Date: Wed, 22 Jul 2026 15:56:05 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Mark Brown <broonie@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Usama Arif <usama.arif@linux.dev>
+Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ linux-next@vger.kernel.org
+Subject: Semantic conflict between 04b177544a04 in drm-misc-fixes and
+ 0b6b1bb28482 in -mm
+Message-ID: <20260722225605.GA1910198@ax162>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,112 +62,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 22 Jul 2026 14:44:22 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
+Hi Mark and drm and mm folks,
 
-> This series extends the HMM framework to support userfaultfd-backed memory
-> by allowing the mmap read lock to be dropped during hmm_range_fault().
+There is a semantic conflict between commit 04b177544a04 ("drm/pagemap:
+Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION") in the
+drm-misc-fixes tree and commit 0b6b1bb28482 ("mm: rename
+ARCH_ENABLE_THP_MIGRATION to ARCH_HAS_PMD_SOFTLEAVES"), resulting in a
+lone instance of CONFIG_ARCH_ENABLE_THP_MIGRATION with no way to define
+it.
 
-Thanks, I've updated mm.git's mm-unstable branch to this version.
+  $ git grep ARCH_ENABLE_THP_MIGRATION
+  Next/merge.log:Merging drm-misc-fixes/for-linux-next-fixes (04b177544a040 drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION)
+  drivers/gpu/drm/drm_pagemap.c:#if IS_ENABLED(CONFIG_ARCH_ENABLE_THP_MIGRATION)
 
-Sashiko pointed at a few things, some pre-existing.  The jiffies race
-in [8/8] looks legit.
+This results in an objtool warning (or error with CONFIG_OBJTOOL_WERROR)
+when building with clang because NR_PAGES(order) results in 1U << -1,
+which causes clang to stop generating code for
+drm_pagemap_migrate_to_devmem() when encountering unconditional
+undefined behavior.
 
-	https://sashiko.dev/#/patchset/20260722-hmm-v10-v1-0-606464dd601a@gmail.com
+  drivers/gpu/drm/drm_gpusvm_helper.o: error: objtool: drm_pagemap_migrate_to_devmem() falls through to next function drm_pagemap_zdd_alloc()
 
-> Changes in v10:
->   - Included contended mmap_lock acquisition in the
->     hmm_range_fault_unlocked_timeout() retry budget.
->   - Dropped the redundant top-level fatal_signal_pending() check in the HMM
->     unlocked retry loop; mmap_read_lock_killable() now covers that path.
->   - Restored the absolute outer timeout in drm_gpusvm_get_pages(), since it can
->     run from GPU page-fault workers and must not rely on the worker task’s fatal
->     signal state to stop invalidation retries.
+Mark, could please apply the following diff to the -mm merge to avoid
+this? Obviously, there will need to be further coordination for
+resolving this upstream when the time comes but it is only an issue in
+-next currently.
 
-Here's how v10 altered mm.git:
-
-
- drivers/gpu/drm/drm_gpusvm.c |   11 +++++++++--
- mm/hmm.c                     |   29 +++++++++++++----------------
- 2 files changed, 22 insertions(+), 18 deletions(-)
-
---- a/drivers/gpu/drm/drm_gpusvm.c~b
-+++ a/drivers/gpu/drm/drm_gpusvm.c
-@@ -1405,7 +1405,9 @@ int drm_gpusvm_get_pages(struct drm_gpus
- 		.dev_private_owner = ctx->device_private_page_owner,
- 	};
- 	void *zdd;
--	unsigned long timeout = msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-+	unsigned long timeout =
-+		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-+	unsigned long remaining;
- 	unsigned long i, j;
- 	unsigned long npages = npages_in_range(pages_start, pages_end);
- 	unsigned long num_dma_mapped;
-@@ -1420,6 +1422,11 @@ int drm_gpusvm_get_pages(struct drm_gpus
- 	struct dma_iova_state *state = &svm_pages->state;
+diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+index 4a794544b7dc..f00c27edbfb9 100644
+--- a/drivers/gpu/drm/drm_pagemap.c
++++ b/drivers/gpu/drm/drm_pagemap.c
+@@ -12,7 +12,7 @@
+ #include <drm/drm_pagemap_util.h>
+ #include <drm/drm_print.h>
  
- retry:
-+	if (time_after_eq(jiffies, timeout))
-+		return -EBUSY;
-+
-+	remaining = timeout - jiffies;
-+
- 	hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
- 	if (drm_gpusvm_pages_valid_unlocked(gpusvm, svm_pages))
- 		goto set_seqno;
-@@ -1434,7 +1441,7 @@ retry:
- 	}
- 
- 	hmm_range.hmm_pfns = pfns;
--	err = hmm_range_fault_unlocked_timeout(&hmm_range, timeout);
-+	err = hmm_range_fault_unlocked_timeout(&hmm_range, remaining);
- 	mmput(mm);
- 	if (err)
- 		goto err_free;
---- a/mm/hmm.c~b
-+++ a/mm/hmm.c
-@@ -790,22 +790,14 @@ int hmm_range_fault_unlocked_timeout(str
- 	int ret;
- 
- 	do {
--		if (fatal_signal_pending(current))
--			return -EINTR;
--
--		if (timeout) {
--			/*
--			 * If the previous fault dropped mmap_lock, then the fault
--			 * handler made progress. Restart the retry timeout in that
--			 * case, but keep the existing deadline for ordinary -EBUSY
--			 * retries.
--			 */
--			if (!locked)
--				deadline = jiffies + timeout;
--
--			if (time_after(jiffies, deadline))
--				return -EBUSY;
--		}
-+		/*
-+		 * If the previous fault dropped mmap_lock, then the fault
-+		 * handler made progress. Restart the retry timeout in that
-+		 * case, but keep the existing deadline for ordinary -EBUSY
-+		 * retries.
-+		 */
-+		if (timeout && !locked)
-+			deadline = jiffies + timeout;
- 
- 		range->notifier_seq =
- 			mmu_interval_read_begin(range->notifier);
-@@ -814,6 +806,11 @@ int hmm_range_fault_unlocked_timeout(str
- 		if (ret)
- 			return ret;
- 
-+		if (timeout && time_after(jiffies, deadline)) {
-+			mmap_read_unlock(mm);
-+			return -EBUSY;
-+		}
-+
- 		locked = true;
- 		ret = hmm_range_fault_locked(range, &locked);
- 		if (locked)
-_
-
+-#if IS_ENABLED(CONFIG_ARCH_ENABLE_THP_MIGRATION)
++#if IS_ENABLED(CONFIG_ARCH_HAS_PMD_SOFTLEAVES)
+ #define DRM_PAGEMAP_PMD_ORDER	HPAGE_PMD_ORDER
+ #else
+ #define DRM_PAGEMAP_PMD_ORDER	(-1)
+-- 
+Cheers,
+Nathan
