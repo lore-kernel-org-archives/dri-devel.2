@@ -4,116 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A34E7C44512
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 04:15:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E96CC4452D
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 04:31:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE49710E403;
-	Wed, 22 Jul 2026 04:15:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 705CE10E29E;
+	Wed, 22 Jul 2026 04:30:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="hrYkOkCV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Yzzkp8Xl";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010031.outbound.protection.outlook.com [52.101.61.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F2F110E403
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 04:15:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hrG4ycUsD8B7stl8DlmXq+d9G4NE/PP3t1e51rWngvLeBqGG2y93ZEwFEVwS8nhTDKIIh9m81bF+Kqsg+iIHQKBWAYPrCN/MJZnbXQApVH4qrAIPNnJ+jKcwUGwMWWDXivKmRopDaesQW1MALLP6p5/lAc5pHa0CIA8LAE82fC2mYZ/UZraMXn35W2AgU3BPhPrQziCBVd7s30u+ujlfEXzNwvwqWGTlGQ0XX0N0ELvL/PH6SQVwGkMoawO8OjqZsSQSEMINLhvxglLQpHyzn2VUUwvfsy2yDLQt8fjw+8x51EqoRwyQH+cU8xH4Kpd7S+KLGH/G8h204QEVTK3dvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IQOx2pmxXWBWXSFpyzJ7igopZdlMKd6FVlB3qsAU1Pk=;
- b=VuU6MterpseUtA/ldExf9fGZmYDBK6kKhyqbZR+cpgVARJRCJ6HSsqwQQkU/96p5fuKIznO9FhxHnyT5NXAhT8kRBNLBICjf03L+MfXB6zR+dUEzq3q5Ld5z6pnraqAnnMXp9EO9jdSQaVpPIdyfWZIstzhXQPZws2b8oz7EJVOqXYUTQ3R19Hbw/oVIilyOUZywhvzNRGMsx4dHx5CHRf61CCvXXm9lLeThLNM6KLeDlR89I3cCRkqO4NK1XNYI15iUjoVnvuBubYz+nl6S2iIfUioimziWU0qUSmjydHinBYrDbeim2GUbHXEpca7mTprdgAUxCT/bi5fF9WryQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IQOx2pmxXWBWXSFpyzJ7igopZdlMKd6FVlB3qsAU1Pk=;
- b=hrYkOkCVhwBUIS824R/3GaB7pJdBZEM3yyT9b5zKhdO3v44prPX/VluE8Z+xv8U421In1KdKw5YYp/C0YXO9tWP+288LnfcIb5Ny49KfWf+OM/d7+1WMI9CpTXgZea+iuU8ix4/gdbkCWBIAi8h284KsUtUErSqbOYF8MCcTovcyzvImvo+ZW/eWeynCO4gH2dWZSy7IWDw+pp1I6s6AY3oJWvAy1f6Tmo6DDGbbbogIKORMGom2SMkVDV59WHQBqCO1Ux3AHN4I8lROuQUJapD9T+vZRrGCHoTEctN86p01RBVlR96mcoQ40t9h+FdmL99wRzrb5J6crmQm2Z8OVQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB4168.namprd12.prod.outlook.com (2603:10b6:610:a8::7)
- by IA1PR12MB8538.namprd12.prod.outlook.com (2603:10b6:208:455::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
- 2026 04:15:35 +0000
-Received: from CH2PR12MB4168.namprd12.prod.outlook.com
- ([fe80::762:c8d0:c9ed:ebcd]) by CH2PR12MB4168.namprd12.prod.outlook.com
- ([fe80::762:c8d0:c9ed:ebcd%5]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
- 04:15:35 +0000
-From: Jonah Walker <jonahw@nvidia.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-api@vger.kernel.org
-Subject: Re: [PATCH] drm/fourcc: Add P212, P410 and P412 formats
-Date: Wed, 22 Jul 2026 04:15:33 +0000
-Message-ID: <20260722041533.941126-1-jonahw@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260702212355.1072804-1-jonahw@nvidia.com>
-References: <20260702212355.1072804-1-jonahw@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR05CA0159.namprd05.prod.outlook.com
- (2603:10b6:a03:339::14) To CH2PR12MB4168.namprd12.prod.outlook.com
- (2603:10b6:610:a8::7)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4168:EE_|IA1PR12MB8538:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2afba17e-cf11-4424-4d48-08dee7a7e0cc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|22082099003|18002099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: ZKlKax7i/0ODJ6QVJ/uUKMxuJrsjngKA/Vu3AawdpVCmjlVFcBHejJdYqApE+qAJexp1hPHRJaPaPDUkuKdjUuLV9ETEDXh+t9S5ll9KpOqRRcIJ3G/4mneLPvy6QPEWEyAODSnj04RpifVvePdbAVOrCZ6UlsblBvuIHvi8FTBUWtDgIVZIg+7mIpwssAAzXpoNmv3eO8FrgoLZEF6WoNsoaNiGA9hrqBgr7d+jJO3z99xQQQTchMb53wFn6VanLrXFwdp3oWyln65K0PNlZ7BRGZNxwBkyIsp1/TJA3+BwTnRgY6YcfbuiC4ZxlHV55HCBSJgNLFEjartYUOXoRIc0iuRzNdI9RnL7efTfVrrsGMrAWca4StbT1ltuQTONe1d7JQSQWuHzBBrr9fiZ0Tbyi21B8vcJE8xJkPH4DrdZWzACB1dohd1+tBkpfeII8xzD3CuEhoXVqTRJ89B6PjYwGJxPw8pEurtLyuPxz72KQTqWxuPzcXi4Bn8PT7DjzuOptYJKAScLnjWOngFjCH2K5RCDu1bFRUIzt2HMRZDiCUxRy6uiPrN0Qj4JS/SEmDO33ynbfQ9EB2JKD0GBvZhZogAfW4soZ7qOI5Jxg8fiH4aKtcRdxEl7yEpVVfAautSTgz5MCEUSjix9o0Cc+0S1aJfD6i0iLdSSvI3xCwk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB4168.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?wyA2gf8TSEziUu6tyulGNatg/DnhKoUC1SErKTJ+NeXGbEwga1XSzUjXX+JE?=
- =?us-ascii?Q?HXqJ8oc/r29J/LpKd2RDbvSogM7tpTeI4lfavs30w9+PyLQjk+LZilk8suAK?=
- =?us-ascii?Q?YqL1tLWgAxLkbTHqwD/7Kls6wAjMhlw1ZZ/OSoYPtetvHRkpF7ScksIrHSPc?=
- =?us-ascii?Q?7Jh6FVaYU/pM6JoLjzfVUmFC2QWV3rKBOPORordofSAB+lQ/Aqrft4mSrwd3?=
- =?us-ascii?Q?64v1/DNHnk8XnlTapsuUQitjVxBRq1pYSFYS8fMJGeoSfJsnC1wRyznkHIp7?=
- =?us-ascii?Q?PBqc9rNcKaLReALvGMvcmu6QOx2dxgHlkbm9VRSXjaEqm2SqFTgmQSFwJun7?=
- =?us-ascii?Q?4+gJ35GXZY2eEkhRyp8hkH7IUtxJkJt8xNbamuqRdy48UzzJI1qu7pgzAwy+?=
- =?us-ascii?Q?QaFMIkILhbTWwVhvK14kX7n2U82OMJo9Os+HRy8lJd8GiJ07vgc4DL7j2WMZ?=
- =?us-ascii?Q?lI5oJ/mOrh0pnJUn6JVGAL0/NuPvjnsNFYkf0MDyJfv7R9moJDei5lGzvrGR?=
- =?us-ascii?Q?2lGFswxRdH/kZC24BzIqrWL7KAJvUwsfvDAnuggCS4Iypxvh3EBIyHrSXa2s?=
- =?us-ascii?Q?lqtSAmrziGHHDvn/T7ZjsmRvVaXbovW7mP0o6WpfPz9W9e6GiQxpQWoNLV5f?=
- =?us-ascii?Q?DE8KWaKOH4Au9JhOWeZVCuYZkx5pnZeH8FSybfvaaUPyFvLjJyVUoYUR3Cxo?=
- =?us-ascii?Q?kl+qGVWlgElxiFObe6lmPhgQezmFizzOwG2KX7VE63qIKorEtoQ4RJKor18z?=
- =?us-ascii?Q?Pw8ccN2ursUfgNqPfEeCngBGDktGgXe6aC1w6K2DEkQEx2OSpAjh7bzfOy12?=
- =?us-ascii?Q?zrYzh637pbuh551OcDG09PEcKuhbEpYxC8jxrVgD8+S7Ybb60PggvHMw6Y1A?=
- =?us-ascii?Q?hXcwZA74yp+9ge0lO7S1m6FJmyElq1AwATdJGiq8oafIBx8SCpRUQ1ZIRY/H?=
- =?us-ascii?Q?J2FkQMUyJTFgtOGOuPPBBJGLfMc0wOJDMZ0OKOsk/Aj99fJ5Ei+koGbYtBBY?=
- =?us-ascii?Q?I8/Uv5MHs4g0vIu0iX6J1JJgzeQ1x1LFBweBfNatO2lHFEObLXgIlUkWutXM?=
- =?us-ascii?Q?QztIfUrRjy+RXyjIO+vODhDtFDQOLbzvtIzGupFfbX7wUBJhpr9VznSQ5Uf8?=
- =?us-ascii?Q?rA0GbNoZhYFsjGRBrNUbesaVZG8FcvpvFknETYxu6PCckFekLgTm5fbeYcr5?=
- =?us-ascii?Q?kJG6Y2uIgi18lx/sv9IkIsR7L6EoGg6PElb48FInPt5VN4hUsebH6j+LC78q?=
- =?us-ascii?Q?ZF+Yw1/PAcrEGdtTrw0J5C7PSmiPhRIO1Gnqo92WgLDLA+Vt3co/WOZyN37v?=
- =?us-ascii?Q?7N6LFrqIP0+iQDTnYY+tryCtEU59F2OXDSxJQtJa2+ZSgx9Xr7v9qdaa0MST?=
- =?us-ascii?Q?5Gv+7ewsGeo1F/rlDGVDTshDgNY44IzZBQYCi2SKJKSaBEBGUvUY4p8eJ75Z?=
- =?us-ascii?Q?34i2K13a1Umt2IDZOVyxwnAhLZIh8XRtejCUayFqHBXZMvwdJoyk1yWTic7O?=
- =?us-ascii?Q?+32bVFUl6o/k/WG79hes0YjmSvDK1hx94VinPidxU17xH3grVipsgqOw1EEH?=
- =?us-ascii?Q?KBU5D3uBCXg7PsTFnYZ4nFLHgLjHSku44CY9GvPrfVGYSjpwgEIowAcF5jP2?=
- =?us-ascii?Q?iuRYRtebLzpKBbR3HJvxfX0eL4g9sGQr9o1ZErwtiaiVTeCB+5VniMZb+oKP?=
- =?us-ascii?Q?iNB3Xb7BJq2V8jwkZFPMMhqJwdgh6/h3O4fAtt9qWvUn++pJ6eb1qk+jp+la?=
- =?us-ascii?Q?7TNa8f5KrQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2afba17e-cf11-4424-4d48-08dee7a7e0cc
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4168.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 04:15:35.1026 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DfswPuH8GC//GoWX318z7eOZtl6wmBAnVKIhOw0kCTYOJ9gq1PDSzSRCFC1oo3YLTyrypxr7BRi+0gMFFl5xVQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8538
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7194F10E29E
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 04:30:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 71481601EC;
+ Wed, 22 Jul 2026 04:30:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085B81F000E9;
+ Wed, 22 Jul 2026 04:30:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784694657;
+ bh=d5APJGMME49rryZB/NZeG5y0yxD0+UDoExp+FKQrs9Y=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Yzzkp8XlN7Uec/qjYUmdFx+o9p5kVZt3eKDFGRJkcqSbSfLJllwtL26Xfo/kkkQuf
+ 6tVBRW4yyzFcVaXNePBaEfubdYr305P0QXuh6/i5gHLn4AjUdrz6D9BoGxSkeZQwmQ
+ dB3hqffAOLXBxBzOu4U6hKERH7ZLuwFdFHUanOFO/KGbj/3hMN1PgNgcgCAhwhmISa
+ zYiUmy+sohA9PoH9VHkQ4hGlX5UnWROVx+qc1Kp/5FFMN1rVAOVnHle15RZuwtA8+G
+ tdjRa8ii4TwJb9WQdv1JLU2EnKwKnfEbYuV/UBmPWw+ummpUnIt1lyNm6G45NI++AA
+ 9FmwAzYT2vtQw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/exynos: limit G2D GEM map count
+To: "Pengpeng Hou" <pengpeng@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260722040832.80135-1-pengpeng@iscas.ac.cn>
+References: <20260722040832.80135-1-pengpeng@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 04:30:56 +0000
+Message-Id: <20260722043057.085B81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,13 +52,240 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+Thank you for your contribution! Sashiko AI review found 10 potential issue=
+(s) to consider:
 
-Friendly ping -- any comments for this patch?
-https://lore.kernel.org/all/20260702212355.1072804-1-jonahw@nvidia.com/
+Pre-existing issues:
+- [Critical] The driver processes commands backwards during validation, all=
+owing bounds checking bypass via duplicate register commands.
+- [Critical] g2d_wait_finish fails to clear g2d->runqueue_node after freein=
+g it on timeout, leading to a double-free.
+- [Critical] An integer overflow in last_pos calculation allows an attacker=
+ to bypass buffer bounds checks and perform arbitrary out-of-bounds DMA.
+- [Critical] The driver entirely skips bounds validation for REG_TYPE_SRC_P=
+LANE2 and REG_TYPE_DST_PLANE2 buffers, allowing out-of-bounds DMA.
+- [High] Off-by-one error in cmdlist size check allows an out-of-bounds wri=
+te of a null terminator over struct g2d_cmdlist's last field.
+- [High] On 64-bit architectures, struct g2d_cmdlist size exceeds its DMA p=
+ool block size due to unsigned long scaling, causing memory corruption.
+- [High] Submitting multiple GEM mapping commands for the same register typ=
+e overwrites references in buf_info->obj, permanently leaking GEM objects.
+- [High] Lockless access to file_priv->userptr_list causes Use-After-Free a=
+nd list corruption.
+- [High] Lockless modifications to file_priv->inuse_cmdlist lead to list co=
+rruption across concurrent ioctls.
+- [High] Global userptr pool limits are bypassed due to unconditional reset=
+ on file close.
+--
 
-Thanks,
-Jonah
+--- Patch [1]: [PATCH] drm/exynos: limit G2D GEM map count ---
+commit b30e7ac73eaa32c37f3e06c772aa25cba4e9ce35
+Author: Pengpeng Hou <pengpeng@iscas.ac.cn>
+
+drm/exynos: limit G2D GEM map count
+
+This patch limits the number of GEM mapping commands by MAX_REG_TYPE_NR
+to prevent out-of-bounds access on fixed-size buf_info arrays. It also
+defers taking a command-list node until after validation.
+
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_g2d.c b/drivers/gpu/drm/ex=
+ynos/exynos_drm_g2d.c
+> index e92a4d872c410..2dfea16f32cb8 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_g2d.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_g2d.c
+> @@ -1151,21 +1151,17 @@ int exynos_g2d_set_cmdlist_ioctl(struct drm_devic=
+e *drm_dev, void *data,
+>  	int size;
+>  	int ret;
+> =20
+> -	node =3D g2d_get_cmdlist(g2d);
+> -	if (!node)
+> -		return -ENOMEM;
+> -
+> -	/*
+> -	 * To avoid an integer overflow for the later size computations, we
+> -	 * enforce a maximum number of submitted commands here. This limit is
+> -	 * sufficient for all conceivable usage cases of the G2D.
+> -	 */
+> +	/* GEM mapping commands also populate fixed-size buf_info arrays. */
+>  	if (req->cmd_nr > G2D_CMDLIST_DATA_NUM ||
+> -	    req->cmd_buf_nr > G2D_CMDLIST_DATA_NUM) {
+> +	    req->cmd_buf_nr > MAX_REG_TYPE_NR) {
+>  		dev_err(g2d->dev, "number of submitted G2D commands exceeds limit\n");
+>  		return -EINVAL;
+>  	}
+> =20
+> +	node =3D g2d_get_cmdlist(g2d);
+> +	if (!node)
+> +		return -ENOMEM;
+> +
+>  	node->event =3D NULL;
+> =20
+>  	if (req->event_type !=3D G2D_EVENT_NOT) {
+
+[Severity: High]
+This is a pre-existing issue, but further down in this same function
+there is a size check that allows an off-by-one write:
+
+	size =3D cmdlist->last + req->cmd_nr * 2 + req->cmd_buf_nr * 2 + 2;
+	if (size > G2D_CMDLIST_DATA_NUM) {
+		dev_err(g2d->dev, "cmdlist size is too big\n");
+		...
+
+If a user crafts the number of commands such that size perfectly equals
+G2D_CMDLIST_DATA_NUM, the check passes. Then later in the function:
+
+	cmdlist->data[cmdlist->last] =3D 0;
+
+Could this overwrite the last field of struct g2d_cmdlist on 32-bit
+architectures since data is bounded at G2D_CMDLIST_DATA_NUM elements?
+
+[Severity: High]
+This is a pre-existing issue, but does struct g2d_cmdlist exceed its
+DMA pool block size on 64-bit architectures?
+
+struct g2d_cmdlist {
+	...
+	unsigned long	data[G2D_CMDLIST_DATA_NUM];
+};
+
+On LP64 architectures, unsigned long is 8 bytes, making the data array alone
+over 2032 bytes. However, nodes are distributed using a fixed 1024-byte blo=
+ck
+size:
+
+	node[nr].cmdlist =3D g2d->cmdlist_pool_virt + nr * G2D_CMDLIST_SIZE;
+
+Could this cause the data array of one node to overlap and corrupt the next
+node in the pool?
+
+[Severity: Critical]
+This is a pre-existing issue, but does processing commands backwards during
+validation allow bypassing bounds checks?
+
+In g2d_check_reg_offset():
+
+	for (i =3D 0; i < nr; i++) {
+		...
+		index =3D cmdlist->last - 2 * (i + 1);
+
+If duplicate configuration commands are submitted for the same register,
+the first occurrence in the stream determines the validation state, but the
+hardware executes sequentially and uses the last occurrence. Can an attacker
+supply a valid configuration to pass software validation, followed by an
+invalid out-of-bounds configuration that the hardware will execute?
+
+[Severity: High]
+This is a pre-existing issue, but can multiple GEM mapping commands for the
+same register type cause a memory leak?
+
+In g2d_map_cmdlist_gem():
+
+		buf_info->obj[reg_type] =3D exynos_gem;
+
+If userspace submits multiple commands targeting the same register type,
+this overwrites the slot without dropping the reference to the previously
+stored object. In the cleanup function g2d_unmap_cmdlist_gem():
+
+		if (buf_info->types[reg_type] =3D=3D BUF_TYPE_GEM)
+			exynos_drm_gem_put(obj);
+
+The cleanup clears the array entry on the first pass, so subsequent passes =
+for
+the same register type do nothing. Does this permanently leak the overwritt=
+en
+GEM objects?
+
+[Severity: High]
+This is a pre-existing issue, but are there lockless accesses to
+file_priv->userptr_list causing use-after-free conditions?
+
+In the ioctl path:
+
+	list_for_each_entry(g2d_userptr, &file_priv->userptr_list, list) {
+
+Concurrently, the workqueue executes hardware completion routines that call
+g2d_userptr_put_dma_addr(), which modifies the list locklessly:
+
+	list_del_init(&g2d_userptr->list);
+
+If the worker frees a node while the ioctl thread is iterating over the lis=
+t,
+can this corrupt the list and cause a crash?
+
+[Severity: High]
+This is a pre-existing issue, but are there lockless modifications to
+file_priv->inuse_cmdlist causing list corruption?
+
+In g2d_add_cmdlist_to_inuse():
+
+	list_add_tail(&node->list, &file_priv->inuse_cmdlist);
+
+And in exynos_g2d_exec_ioctl():
+
+	list_splice_init(&file_priv->inuse_cmdlist, run_cmdlist);
+
+Neither of these operations appears to be protected by a lock. Can concurre=
+nt
+execution of these ioctls race and cause list corruption?
+
+[Severity: High]
+This is a pre-existing issue, but does unconditional zeroing of the global
+counter bypass device-wide userptr accounting?
+
+In g2d_userptr_free_all(), when a DRM file descriptor is closed:
+
+	g2d->current_pool =3D 0;
+
+This executes after freeing only that client's userptrs. If other clients
+still have pinned memory, doesn't this allow an attacker to repeatedly open,
+map, and close file descriptors to completely bypass the max_pool limit?
+
+[Severity: Critical]
+This is a pre-existing issue, but does g2d_wait_finish() fail to clear
+the dangling pointer after a timeout?
+
+	if (runqueue_node->async)
+		g2d_free_runqueue_node(g2d, runqueue_node);
+
+The node is freed, but g2d->runqueue_node is not set to NULL. When the
+g2d_runqueue_worker executes shortly after, will it read this stale pointer
+and double-free the node?
+
+[Severity: Critical]
+This is a pre-existing issue, but does an integer overflow in the last_pos
+calculation allow out-of-bounds DMA?
+
+In g2d_check_buf_desc_is_valid():
+
+	last_pos =3D ((unsigned long)buf_desc->bottom_y - 1) *
+		(unsigned long)buf_desc->stride +
+		(unsigned long)buf_desc->right_x * bpp - 1;
+
+Since unsigned long is 32-bit on ARM32, providing a massive stride can
+wrap the multiplication to a very small number, bypassing the last_pos >=3D=
+ size
+check. Can this cause the hardware to access memory outside the pinned buff=
+er?
+
+[Severity: Critical]
+This is a pre-existing issue, but is bounds validation completely skipped
+for Plane 2 registers?
+
+In g2d_check_buf_desc_is_valid():
+
+	if (reg_type !=3D REG_TYPE_SRC && reg_type !=3D REG_TYPE_DST)
+		return true;
+
+This early return bypasses all checks for REG_TYPE_SRC_PLANE2 and
+REG_TYPE_DST_PLANE2. Can an attacker submit massive width and height
+configurations against a small 1-page buffer for PLANE2 to read or write
+out-of-bounds memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722040832.8013=
+5-1-pengpeng@iscas.ac.cn?part=3D1
