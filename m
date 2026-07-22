@@ -4,126 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73C7DC4453A
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 17:51:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA94EC44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 18:10:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AC3510EE71;
-	Wed, 22 Jul 2026 17:51:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46EBA10E4BF;
+	Wed, 22 Jul 2026 18:10:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="23bZviOO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="koRr+jpD";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011035.outbound.protection.outlook.com [52.101.57.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54E4B10EE6F;
- Wed, 22 Jul 2026 17:51:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B32910E4BF;
+ Wed, 22 Jul 2026 18:10:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784743824; x=1816279824;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=YlL5okqVm4zrUMUnGAelbWMQCqgkS2XY7g1gJVlqfeI=;
+ b=koRr+jpDgd6XFRyOuE3OqWvZVG6cFGvD+69Am0+U+CkkY1qTi9XYOixm
+ TQFmJWNZZe+hQwFUQGRsuK30h9KaG38bsWH2hj9gDbZIDcSe8nB2SjPV4
+ YgtxoA7vjaS/UNQ2VLk/EbxXcwKHYSKQM+W8IH52IrKlLMzPhscF5S3mX
+ 2YTJcAn15sMe9DSZ5vW+r/ZguAEAcyZvLgVqRr9KbNEkAZAiqS7OwYB20
+ 37UUU74jUEFkonKdJqqrF9pOM05YyuRZzsJ45w4/TbvJjJZhJ8LdJXp2S
+ V+pc3KmQx2Vi/5b2ivqG8RFqQcLozE9tSgklWaxZpRMjdlr+Vus3aAfEV A==;
+X-CSE-ConnectionGUID: e0vyoFtwSiW6NvT2eEfJLw==
+X-CSE-MsgGUID: cBcXPrs3TtyVNo0ySd5kjw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="85582156"
+X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="85582156"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2026 11:10:24 -0700
+X-CSE-ConnectionGUID: mS+9md2jT4Gjrf5/8H2iMg==
+X-CSE-MsgGUID: ancjQtoGT5ONKsPVsDGnxQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="255517084"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2026 11:10:23 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Wed, 22 Jul 2026 11:10:23 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Wed, 22 Jul 2026 11:10:23 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.56) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Wed, 22 Jul 2026 11:10:23 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f65/wK10hhEQaEahd9L/d6Ogw+s8gAl10O1djhDz3c6e5veCutnN+lJJbUqPd2FtPUC7jvty2gK0dZjUbLyGCZw6LkPEkmq4L7UUPE2ntKJFVj7lTFNGw5OayvFDexD7yWEJ9PY1XA8mS6q4kC1PmocD8bk2A/DuROolraXzqfWrMMsO73mz+g6vYBhN3jkaOYzCvws2RrbiYCTfKfSirAbZvRbEy+ACWC2f/iWqYfpAF5mx+m/oohTsa6jzsHrjJf6B/ktKaqVV0sp+vxFOAa7HjNcHNT5HSPBf+3srMSC/78bZNiD2pybhf99lUHQqHopIPz+/oM/pLFI8NlgkAQ==
+ b=Usp2ucC0ztV5xQf915KdIoovK/tS/1qE5DHNvUnanvsdg1YouBlRC70O5P0FHEloqhllwRNwT5dIjiSxXX8wGKkh1y9XNAu40+jnUTrFWAc65DvpP39Q7uZjNG22wZ8qz7XKd6eLwWkDHY2ERN8uUWUXx2NBbEii+UCuQnd2snLWwEo+OhunyvLJ+eJFgERgzG07ovJB+OK3G4W/sq3tHjldditF6ia/yZ+Upoyu5qWySrpNbIb73cP3HMWQG4aIlLIxvOgXUGL2KUwV6K4b5RgTlA7uUPobKLk2vjyHB5UnEg8iQp3yAlRWO6se8Iq1m1vbYJD8lJDPip+zwqbc1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2FIlLGAbyVGY74fQ0fVYuTQfhy7cMso4a+nNK5dvdiY=;
- b=jL632ndhFT502EfZ+KZ+9IscadY4Y4eEH3cyXLKD8zYA1INezgVg28YZoLOJq7/T6FZW39QDrhevVNcE50folzoc3KVsGKP2+ld5utEXg+Hq8QhxJeXKHMLXMSwGfW+Sg0P1IKrBt3Yzv6a0tcrMCRSgJRAEYPYeSEWqE5oBX7FoOKpiLrdg+OG3mus4ahH1FPlAe6su0glnQcdHEGD3fAWLt8VdYOcZvSJrNg8UY+Hjx89LhRr47++kEIIUsdDoseUCrgmZwtg+Cpl0m3TL1oJuFfxBdPQqc5u7BvBmCOLqIy5BogERq1pJvZoUjqn5ZPavNV1PR41nHZzK14HFXw==
+ bh=7lb5/1GzFrBXvZR6yy/FCkZBWgclfzO/sLyjWxBN2K4=;
+ b=RUvGl9uU6JA/4Kqn0UsQBMcgiME2C8mYOVvrNMsSEVxXt7k+yUVPuRl4WFq6FpEwnU6+1R4qo+Z1RTgJy14ZwLstBCuIlA4jd1c8Zghq8tOL0JJFgVtErLyQO1HMhjxRxeGrsgFHfJUuX5Qy6bhd/ArOnbkwm1vxiIyFQ9EmbgwyL4IaRwMrjdDirF5gIXs7ZV0C1TLhsJEILXjFQO+Id+ImAwQ22tb5xT1x6Ca2O7vbE7WBSfeP8OuW4ZUxHrlcGRdC7WgFt219s+W+8d14VfUX5wezUaPf7SjL2xjkZFJi893r4uvgPtsJ/buaGmdXPqq9wGQOC3G2eyZeu+FmTg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2FIlLGAbyVGY74fQ0fVYuTQfhy7cMso4a+nNK5dvdiY=;
- b=23bZviOOuBrStuE/78FPr2hUJmODnUDBQss3Wg1XwmdLBmC1SskprIZyd0MTGvsJTCh4SoQ+x7hkm7jL47dm6zCWHBAJSe8O0x5wCBG2eVsjPbAB0NJQs5P4MFh/2tl5suZqY+x04O4OG570kK7gHup2LbAqci4Rydo8PKl68Fc=
-Received: from PH8PR12MB7279.namprd12.prod.outlook.com (2603:10b6:510:221::10)
- by CH0PR12MB8531.namprd12.prod.outlook.com (2603:10b6:610:181::8)
- with Microsoft SMTP Server (version=TLS1_2,
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB8182.namprd11.prod.outlook.com (2603:10b6:8:163::17)
+ by CY8PR11MB7292.namprd11.prod.outlook.com (2603:10b6:930:9c::8) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
- 2026 17:51:23 +0000
-Received: from PH8PR12MB7279.namprd12.prod.outlook.com
- ([fe80::87e7:239d:191f:3bb]) by PH8PR12MB7279.namprd12.prod.outlook.com
- ([fe80::87e7:239d:191f:3bb%3]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
- 17:51:20 +0000
-From: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
-To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Wentland, 
- Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/display: use proper context for logging
-Thread-Topic: [PATCH] drm/amd/display: use proper context for logging
-Thread-Index: AQHdGaPZZbpH5J/YLU2sFStfCjiUp7Z50Aqh
-Date: Wed, 22 Jul 2026 17:51:20 +0000
-Message-ID: <PH8PR12MB7279DCFA0D11A95FDCA0D773F9C12@PH8PR12MB7279.namprd12.prod.outlook.com>
-References: <20260722063210.1144266-1-jirislaby@kernel.org>
-In-Reply-To: <20260722063210.1144266-1-jirislaby@kernel.org>
-Accept-Language: en-CA, en-US
-Content-Language: en-CA
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-22T17:51:20.591Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH8PR12MB7279:EE_|CH0PR12MB8531:EE_
-x-ms-office365-filtering-correlation-id: c1367bfb-22e8-4dfc-1933-08dee819d694
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|56012099006|38070700021|11063799006|10067099003|13003099007|22082099003|18002099003|8096899003|3023799007;
-x-microsoft-antispam-message-info: sYceIFf8NCF6jmVy2J3p7m29T1ysKSeSCgm516j0le4C40F4E6bnKwYkydGHXZLe8BFpx+2habS4skn0T9K7lFpAdgaMi/8oO2Isd1kGf3I2in338wnIL8NopW6RSLfT9oEKXU4tC45H96bHqI0yjJ/+8zSxhzd/JPnmJQ40RR3W34UNzzFqW0BDPRNLiVYDHQC5WhNIpewzAGFLNyUuEubYZuSfEZiXf7+GYw97dX674nYPNQrCh2G7VfUGsc/GS6GfnRdZfHwdK1UTafbJ972H+QkjSz68ijlYpTpF04jBKkadBTvW0u5hgAjPOYX99YGy99lYtZSMq5FdujGG3MGr3somaV6o91niDdJflrtwsnDtDwJZpTf6XvoyP4VnbM+N1qvDMn8/VsPnD40kbqeN3KcGirN6q37RE4tap75e2LS0Z5nhNQ2aayEsa2X0nnNSU8pTAGZx8/YjvbCAw3P8GiG495w6+9NgAe2uRgYAT23yNnXO53sY/ngdvFeFi6rQbsSiekJOrnsNz2FOirBkOadHUJRpJ5bwunn2YU5V9N+nwjPahOktgZHsAvMsRd7IwPUBSVsTb1sMnQfpKqZ9dutfWIMJvgvlgib7OzJkwXM1tE7ifZPL8KGAB9aSyWmyIXT/DDGWjthobQ4vwBmAc2UwT+uQv7dsweaYnb9wSfnOacmmQL3zPiBYiN9j3xSBY9T8KXuBN2MeAG0s2eD0YzQkLI6bi/z9qaWkkq8=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB7279.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(56012099006)(38070700021)(11063799006)(10067099003)(13003099007)(22082099003)(18002099003)(8096899003)(3023799007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?1pnNAiU3Zi9piQ0nidBNpsxu8EizV5H4TAc6jZtiZOf/7LF7/rpMaa2bj4?=
- =?iso-8859-1?Q?ab3f1wbvLPMC7VR6EKQJHyVMroSMyGs8RwQMjhMk6thnhBn2pGJRgziPBe?=
- =?iso-8859-1?Q?M+dx33mliMnfkiCwvAd0osXsfSCvrFKlIEqCp9RlWbyPmljRyQxaRyEl3j?=
- =?iso-8859-1?Q?C4hZinYr0Thd3KeoDjys97gwA4rS7EqaiOPdCwg3sSkKOdJpwZ+xTQaflT?=
- =?iso-8859-1?Q?KLE5EKEi7aVNrq/DgpiDdplbF0Ip5VtLwlMXtSJ7rpRLpuwsvyiVXTvkJZ?=
- =?iso-8859-1?Q?vk/o3+EJ5DQ82VpFtGMFu+obJFLTaNT7xYz+Xd1S+3PMExFNxWtsFLDQEb?=
- =?iso-8859-1?Q?fKc3zzoRQTRe+p14ygt+olWUhRFtvfqb8XbHRWBMO1wVmK+mCIyj/99rDd?=
- =?iso-8859-1?Q?+ZNMg6l5/yUSFcmGlNP9j5QwMx/7rAJMSwefvHVLYlRbeKNbm71sZK8g8g?=
- =?iso-8859-1?Q?1nSeN1Qx91epXQldNFsjIpxXldZnBC2LA2nyO5Mkh4lWao1HYyTFtvP6H3?=
- =?iso-8859-1?Q?IitvG9GUwl6ALm8068Laz0CYLbmCY/5+SG9AbW0Nq+vXiFwzbKtllyJ/A3?=
- =?iso-8859-1?Q?YDlh0+EOPQbBgAAwCXX3oLmjZEFen0E82cJ/rkBJiIYUPyaXTySlni84+I?=
- =?iso-8859-1?Q?tou1OxTZj+bw3kWihyGaF26KtDV+hGjgiCzxGaMc/nF9yDCo7TpfWd4p9s?=
- =?iso-8859-1?Q?KST1oX5PBzn8FPYMuK1CTdrCZCb5H+lSiOA2tnW5Genb0fiZpYBw65VoU4?=
- =?iso-8859-1?Q?O+32EPeNuOSY4FLugRHrgXKM6w5dQlbESnxSqjPj4xnac9ZwyOD5Dhk1J5?=
- =?iso-8859-1?Q?4nKL1V6W/hYQRDwLlDm6u1vutUv9WZrzMap/SJrqhkHKSB2HeZEuQU1H3E?=
- =?iso-8859-1?Q?4VY9J3kkgCvI6XtVsiot+0DYK/HiL/IiQC8Lzm2v6H/IyqZXbB/IEduCvD?=
- =?iso-8859-1?Q?hLcaqg5OCdv/i5zqzEvpBBG31h58vojfl+rE8hjqRuTLKx9tGshEDTfWUw?=
- =?iso-8859-1?Q?3+0R6UiVyC1SVq14hlSgAG2h0UZqCNDIuF3ASBIKSdP98RruJB6KaXOY6m?=
- =?iso-8859-1?Q?moXMXa1gaER2+Tts7xjSwacXOwjAhHsRa0lZBWe5vybcRRlCZr3IO6Ez3/?=
- =?iso-8859-1?Q?UAPYdl/SEqDT9iPQ9cZwN30M60r9nh5YZ4x3+ISm9/sW6lkRw13dxFn50P?=
- =?iso-8859-1?Q?RUPKK2I+PGakEQKdLWeUeaJiCpZmU3Jxb5Ekt1bvyKHQuNJKWoXcb757ES?=
- =?iso-8859-1?Q?vFCvmLmenq3MG5J1BoAYLVKTiH4cnQiqhNUXEFMpLIiBIXcCfL9PRca21J?=
- =?iso-8859-1?Q?qlZ+go7Xk8y6fcz/LwGtB/wF0rQWp7Fc1OgKLbdgLfbpiERkS2SIB7It18?=
- =?iso-8859-1?Q?YvLxaX1gCU7gw/VxgiCdOdkoDVduXZrvv6DxUawavTb6NDMV91ZzBvHVjy?=
- =?iso-8859-1?Q?DRremprDWZ3d3JcAImwycGoB4k5DxHz/kqo+8llclht2cs1JAgEAWQ26n0?=
- =?iso-8859-1?Q?kvBUV6axuPCLNXIBziLjAemW9YhPVLhZqBFFl02ssck8bEa/83AmCZamts?=
- =?iso-8859-1?Q?QASY5uIhooV17mkCYDKuvZDzPVKzNJhzOOiV9PlxaENXMkHj4zJn+vg96I?=
- =?iso-8859-1?Q?+sdAU6B5DLdQfWUCSJxKNNOzr+2uuiACxaqhtKV5C2vhfrbyB7iECj8Tws?=
- =?iso-8859-1?Q?M7+0DBPx0XIR3rcd/HpZWkKU/NYU1efgOyYMbmw0oihLLgG9yrRJfSvXb9?=
- =?iso-8859-1?Q?at9FKUNk0/PKRpIsbOyZjRUO4=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_PH8PR12MB7279DCFA0D11A95FDCA0D773F9C12PH8PR12MB7279namp_"
+ 2026 18:10:20 +0000
+Received: from DS0PR11MB8182.namprd11.prod.outlook.com
+ ([fe80::7b65:81e6:c6c4:449e]) by DS0PR11MB8182.namprd11.prod.outlook.com
+ ([fe80::7b65:81e6:c6c4:449e%4]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
+ 18:10:20 +0000
+Date: Wed, 22 Jul 2026 11:10:17 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Tales =?iso-8859-1?Q?A=2E_Mendon=E7a?= <talesam@gmail.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <matthew.brost@intel.com>, <thomas.hellstrom@linux.intel.com>,
+ <rodrigo.vivi@intel.com>
+Subject: Re: [PATCH v1 1/4] drm/xe/mcr: Keep GT forcewake during MCR steering
+Message-ID: <20260722181017.GF2327163@mdroper-desk1.amr.corp.intel.com>
+References: <20260722004654.744249-1-talesam@gmail.com>
+ <20260722004654.744249-2-talesam@gmail.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260722004654.744249-2-talesam@gmail.com>
+X-ClientProxiedBy: SJ0PR05CA0204.namprd05.prod.outlook.com
+ (2603:10b6:a03:330::29) To DS0PR11MB8182.namprd11.prod.outlook.com
+ (2603:10b6:8:163::17)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB8182:EE_|CY8PR11MB7292:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2446ca23-165c-44a3-00eb-08dee81c7dbf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|23010399003|1800799024|11063799006|56012099006|4143699003|6133799003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 2m82m/Pajz1tXaQ+eUkUwt8M5CBp31J89S4lHuswFWpcZbj6RSZ4ZdZlCjpaM9gG03o8E69d0va6I12YdZGGp3PrCO/2H+wMZEyYaC22+++ZHefTyaknyz1vNYJWdWKz2ydg/1vfuT1vImjZOL8T72vPfZthYk3Wxq0JzNDMmZ+HDcoyxUgptAYHV7qfeU+Hz/TbxhMnbaSYRpetWyUCpuTaTsoxoSjSDg40yoSTIH3GqrsWQwa2GVXHAanL0QdH8HfDvl/mR1oDFk3D71tWUURoWm4nCvPv8nDwjJkOeKUganK8zlBIr2mVk7AJOSJa3CNicis46dI/o2qb7MGlUELMc6t45bKu6jfUBzGCNQtuLbqB16cOaD4R3DsAl37k/ggC+raQL7CB3Mcz1qL6DFAZCkqfJYD4XMKT1jAhUil9gMy3sR+iZWYpl+4y8Vne8wBUnL2XTT1sIsBPSlRa+YCAbaARfpKaUwXhfBB428yggn5/Msc0fDnJJl8iVUyLyVsD0navOLbRnJt9lBWeE49AvkT7gNWSSEfMKDq4RVmo93z6mAYafLMFG//V0VRACDlxZVjdqVNmbev9g8kyHgidCg+EPWGTj5cQASmnt1uN1h6RmoMK5gpq6MzEul551UEObQuaT3/2czs3Of6ABrk3/Fayp1L+QX3CUx8jEjk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB8182.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(56012099006)(4143699003)(6133799003)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?rZI9RS1BWSgcViGhYKi5hq0Th3rN9eyO76Wh6vmeMGt6FO5+RZaEygA8NA?=
+ =?iso-8859-1?Q?vr7YGVnoX6eNwzf7tdShPxw154srE1fwDwNzQ5UwJWndsM0BCsOa8BMQ3M?=
+ =?iso-8859-1?Q?K+N2sAE+RzmgOKJ+YZgSZ1Lp7zsCbFrLF/aFcfeP/RmTBSnKfG+ZyqgwBT?=
+ =?iso-8859-1?Q?pl1eJRM+BWD9M6C0IBnrp92G49ZiCMGFtLV2pvX4QKoHxKEF8bhYLHWg6F?=
+ =?iso-8859-1?Q?tTmkmE1z1K8sZhmT0pAuuK6l3gPMfT7ARrziKKV1moL5dT1E0JzPreX++m?=
+ =?iso-8859-1?Q?pO+i1ak4mXDirT1sKYEqXmb83XGDi9Nx04T2z0fN2qstJ1phISIS3bfMsM?=
+ =?iso-8859-1?Q?C/4QXE9uyVPPTxzPjDgJTrRlcTgsYdmpWRwK1b30gawy/Xbltup+/Lwiby?=
+ =?iso-8859-1?Q?6bVv/xwijG9dnabLhQ0yQtPB+LqmFOoIhY4x1yoQ/DsuV5OWCv8KD4beR1?=
+ =?iso-8859-1?Q?YZYdohUQNHmtemBYDxakHVYOAiMbnxTCvhP6/DQpPTbPwuG4un8Eil6yAM?=
+ =?iso-8859-1?Q?PuW5T1pq2WbnO7wonqiTMa/eLHd1cAD87zBMsLfTgkRPNCCCnuxRRhWq76?=
+ =?iso-8859-1?Q?IzGc40P6MnxiWYm/saKpOH/2vsK+YG4ZYNXVQZQTOc5L++Taux4crFtRSB?=
+ =?iso-8859-1?Q?8WXetsvmgm+EZlQYGhNptf2USXi0nVqXedk4WVRweqyRoPAh/QiQ5GVZNM?=
+ =?iso-8859-1?Q?pYQfx3N1yxJKcoha5ufdb9PWjNdMqfSKhgLBVFgthFCiLexJt5sRxf65r9?=
+ =?iso-8859-1?Q?5+OC+mQE7CUnJKNX5ZojoOAndetg7TRDxYqbAkPS3Cb+B2+9hvhijhweZO?=
+ =?iso-8859-1?Q?dtGI/m2NnUCsJAfDBpXg5N8PXbEAdg4/8VdASpxDBd2DVVI6ypAV8VjZQ9?=
+ =?iso-8859-1?Q?QRKOd1P/a2+uB4Gdiq0nCazjb8FhaPwET66YtsXr8SEW0wLaJVA9tPl/2I?=
+ =?iso-8859-1?Q?tSqCWUDBlmewNpX4FJZKNSHlRouo37ehM9ZsdKa6iySoc5vODAitSnur1y?=
+ =?iso-8859-1?Q?ibrzCo4CGKkLK0NNADVWBz7axsceny1eRQIe6bZFV0rwBFIMuUfjVQyu6I?=
+ =?iso-8859-1?Q?M3Uxses2I5bNZ/ag+BiUa5Teep4Lxo8ur9u34gh4MOyPrV0YflaD/qMLAE?=
+ =?iso-8859-1?Q?aMvT+BEEwDkqqAvItJ6hgiJSXr4U3NyirexhMug0nua8JagkADI+KO6xNC?=
+ =?iso-8859-1?Q?hRDuYN3GSrbdXu8LtTuaoYLDDCdurD6JvKxZLECcmCnqDXblSPtBqxTom1?=
+ =?iso-8859-1?Q?cEiXIbk4Z7aJN/GuQou8I96XBg7zVY9+5+yy54ABP57w1jEaXIOdC2R0cc?=
+ =?iso-8859-1?Q?ZWtDwU9oGA1W56xsLhXcU4FvjvFfVcSL8dOrN/yQfd1Pw1MyOuyC9VNvBo?=
+ =?iso-8859-1?Q?eKupAFveIZhbeZvpbpciMqgk6xbbQtvTm3dhLNDJAVoG+OGcUkLtIrvRhf?=
+ =?iso-8859-1?Q?cFrCtuqrrqU4sPkUBfIpz3+4Koo/wrjDq4sLxuqxOv8il1ksKzmRY99Ugr?=
+ =?iso-8859-1?Q?gXbZdVk8RRR9Q3k7BwrCY1uH7caEOh1YF/pgW7i+JR1kDOd6HGu3jSCene?=
+ =?iso-8859-1?Q?2XejsO1Yxr2H+YrxxO1R1FcQ6DmGyQjPhG3EI3501NXbP2+aNnW93SNVpj?=
+ =?iso-8859-1?Q?M4xjKRYFZb4shgHjeCbw5Vy7vGBHTcl8BFzydGiT/yzM7jB+2qNMZGtLra?=
+ =?iso-8859-1?Q?0orTRTnjV9VehEkipVMXBPxdBbpc1flg2dQv5srV6l8UQeX99T5dj6s/mu?=
+ =?iso-8859-1?Q?4pUZGHYBy0m0udckln3zJ1XEuYR1hx2N8kMZsOPFdaMkMzVsA5Z7dDNwBP?=
+ =?iso-8859-1?Q?Xj/2NUzZD6PO1uE51PEQWlJYtzjyoTo=3D?=
+X-Exchange-RoutingPolicyChecked: sO6bq4YYhRiEpqzGLUPkfIXZq0Ofwv3Fl7zUViBXE2qCJmcVOrUV69UPILcXvEW8jJ2DGCtZj8mbobkD8mA9wNYlHSqpUEIFz7wdsQtUK3GuCClr2+N6OPnBNnqNTcxC4Htr2knMbbHYNjj6JMffuzvWHVYWgoDAbdr5V5+OCuImpiRKdYnNQmNyzaAyxPIMbEJUTew66eKz9G5UykZHimy9yB2eDI/el1KgGI8b2b6UY+6LKT1C2pspkJHpwW+oj9WUdVwneirVezFt5uMw0MFp7hdFLfEBRwJqPNp2yUDv1Af4rX1JwBw2FT8wAGTaCDFiMcBNDVCQSsB042V36A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2446ca23-165c-44a3-00eb-08dee81c7dbf
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8182.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7279.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1367bfb-22e8-4dfc-1933-08dee819d694
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jul 2026 17:51:20.4058 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yQI1ya8OgFvXcyW+3eokhV8JqJLipK7tIQ60H6ZJqLG1HeGQx3gUQ1YfpTw0FlOF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8531
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 18:10:20.1936 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I0StR+onuoupgfvrLVVhhh4FH7xpqbNMIZDT+n9YWrAcZDHHYtBNo95p0LQr8vuhSd7w/5DlCCdxu+Bn43ZytC+dI0o7VXbr6kPLi0UVhH4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7292
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,348 +162,230 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---_000_PH8PR12MB7279DCFA0D11A95FDCA0D773F9C12PH8PR12MB7279namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+On Tue, Jul 21, 2026 at 09:46:51PM -0300, Tales A. Mendonça wrote:
+> On MTL and newer platforms xe uses STEER_SEMAPHORE to synchronize MCR
+> steering with external agents such as firmware. The current code waits
+> only 10us for the semaphore, while already holding the software MCR
+> spinlock, and fires drm_WARN_ON_ONCE() with a full stack trace when the
+> wait times out. On an Arrow Lake-P system this triggers during resume
+> while firmware still owns the semaphore:
+> 
+>   drm_WARN_ON_ONCE(ret == -110)
+>   WARNING: drivers/gpu/drm/xe/xe_gt_mcr.c:697 mcr_lock
+> 
+> Port the i915 MCR locking model (intel_gt_mcr_lock/unlock) to xe:
+> 
+> - Wait for the hardware semaphore before taking the software spinlock,
+>   so the wait may sleep instead of spinning inside the critical
+>   section.
+> - Allow up to 100ms for firmware to release the semaphore, matching
+>   i915.
+> - Demote the WARN stack to a rate-limited GT error, using the same
+>   message as i915 for easier cross-driver triage.
+> - Grab GT forcewake before touching the semaphore and hold it over the
+>   entire lock/steer/unlock cycle (Wa_22018931422). The steering
+>   registers are in an "always on" domain with respect to RC6, but are
+>   sensitive while higher-level platform sleep states are
+>   entering/exiting.
 
-AMD General
+This workaround only applies to specific platforms (MTL and ARL), but
+your implementation here is grabbing forcewake on all platforms, which
+we don't want to happen.  Workarounds should be implemented through the
+workaround layers of the driver (either RTP or OOB) so that they only
+apply on the specific platforms that need them.
 
-Why not just do
+I did a previous implementation of this workaround a couple years ago:
 
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -45,7 +45,7 @@
-        clk_src->base.ctx
+https://lore.kernel.org/all/20250114190242.2026743-2-matthew.d.roper@intel.com/
 
- #define DC_LOGGER \
--       calc_pll_cs->ctx->logger
-+       clk_src->base.ctx->logger or CTX->logger
-
-
-clk_src is available everywhere right after dce110_clk_src_construct()
-
-
-Bhawan
-
-________________________________
-From: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Sent: July 22, 2026 2:32 AM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>
-Cc: linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; Jiri Slaby=
- (SUSE) <jirislaby@kernel.org>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.c=
-om>; Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.=
-Li@amd.com>; Rodrigo Siqueira <siqueira@igalia.com>; Koenig, Christian <Chr=
-istian.Koenig@amd.com>; David Airlie <airlied@gmail.com>; Simona Vetter <si=
-mona@ffwll.ch>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.or=
-g>; dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: use proper context for logging
-
-The same as the rest of the code, get_ss_info_from_atombios() uses
-calc_pll_cs->ctx->logger for logging. But calc_pll_cs->ctx is
-initialized only later in calc_pll_max_vco_construct(). Therefore, any
-output using DC_LOG_SYNC() leads to a NULL pointer deference in
-get_ss_info_from_atombios().
-
-To avoid accessing the NULL context, use clk_src->base.ctx->logger
-in get_ss_info_from_atombios(). That context is initialized earlier in
-dce110_clk_src_construct() -- before get_ss_info_from_atombios() is
-actually called. This is done by temporarily redefining DC_LOGGER to
-CTX->logger.
-
-Before:
-dce110_clk_src_construct() did:
- -> sets clk_src->base.ctx =3D ctx;
- -> ss_info_from_atombios_create()
-   -> get_ss_info_from_atombios()   <- uses calc_pll_cs->ctx  # BOOM
- -> calc_pll_max_vco_construct()    <- sets calc_pll_cs->ctx
-
-After:
-dce110_clk_src_construct() does:
- -> sets clk_src->base.ctx =3D ctx;
- -> ss_info_from_atombios_create()
-   -> get_ss_info_from_atombios()   <- uses clk_src->base.ctx
-
-Closes: https://bugzilla.suse.com/show_bug.cgi?id=3D1271175
-Closes: https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@ke=
-rnel.org/
-Fixes: 1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian K=F6nig" <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org
----
-Cc: dri-devel@lists.freedesktop.org
----
- drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/driver=
-s/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-index ecb8493ec523..d3f7aa853e3a 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -1513,6 +1513,10 @@ static const struct clock_source_funcs dce110_clk_sr=
-c_funcs =3D {
-         .get_dp_dto_frequency_100hz =3D get_dp_dto_frequency_100hz
- };
-
-+/* calc_pll_cs->ctx is set only after get_ss_info_from_atombios(), unlike =
-clk_src->base */
-+#pragma push_macro("DC_LOGGER")
-+#undef DC_LOGGER
-+#define DC_LOGGER CTX->logger
-
- static void get_ss_info_from_atombios(
-                 struct dce110_clk_src *clk_src,
-@@ -1526,7 +1530,7 @@ static void get_ss_info_from_atombios(
-         struct spread_spectrum_info *ss_info_cur;
-         struct spread_spectrum_data *ss_data_cur;
-         uint32_t i;
--       DC_LOGGER_INIT();
-+
-         if (ss_entries_num =3D=3D NULL) {
-                 DC_LOG_SYNC(
-                         "Invalid entry !!!\n");
-@@ -1631,6 +1635,8 @@ static void get_ss_info_from_atombios(
-         kfree(ss_info);
- }
-
-+#pragma pop_macro("DC_LOGGER")
-+
- static void ss_info_from_atombios_create(
-         struct dce110_clk_src *clk_src)
- {
---
-2.55.0
+but we decided not to apply it because the Xe driver doesn't officially
+support MTL or ARL (using force_probe to force Xe to probe the device is
+only intended for driver developers, not end users).  Generally we only
+include workarounds in Xe for unsupported platforms like MTL/ARL if they
+also apply to one of the platforms that the driver is intended to
+support, or if the workaround is trivial (e.g., one extra RTP entry).
 
 
---_000_PH8PR12MB7279DCFA0D11A95FDCA0D773F9C12PH8PR12MB7279namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Matt
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Why not just do&nbsp;</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-@@ -45,7 +45,7 @@</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp; &nbsp; &nbsp; clk_src-&gt;base.ctx</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp;#define DC_LOGGER \</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-- &nbsp; &nbsp; &nbsp; calc_pll_cs-&gt;ctx-&gt;logger</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-+ &nbsp; &nbsp; &nbsp; clk_src-&gt;base.ctx-&gt;logger or CTX-&gt;logger</d=
-iv>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-clk_src is available everywhere right after dce110_clk_src_construct()</div=
->
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Bhawan</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Jiri Slaby (SUSE) &lt=
-;jirislaby@kernel.org&gt;<br>
-<b>Sent:</b> July 22, 2026 2:32 AM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Cc:</b> linux-kernel@vger.kernel.org &lt;linux-kernel@vger.kernel.org&gt=
-;; Jiri Slaby (SUSE) &lt;jirislaby@kernel.org&gt;; Lakha, Bhawanpreet &lt;B=
-hawanpreet.Lakha@amd.com&gt;; Wentland, Harry &lt;Harry.Wentland@amd.com&gt=
-;; Li, Sun peng (Leo) &lt;Sunpeng.Li@amd.com&gt;; Rodrigo Siqueira
- &lt;siqueira@igalia.com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.co=
-m&gt;; David Airlie &lt;airlied@gmail.com&gt;; Simona Vetter &lt;simona@ffw=
-ll.ch&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt=
-;<br>
-<b>Subject:</b> [PATCH] drm/amd/display: use proper context for logging</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">The same as the rest of the code, get_ss_info_from=
-_atombios() uses<br>
-calc_pll_cs-&gt;ctx-&gt;logger for logging. But calc_pll_cs-&gt;ctx is<br>
-initialized only later in calc_pll_max_vco_construct(). Therefore, any<br>
-output using DC_LOG_SYNC() leads to a NULL pointer deference in<br>
-get_ss_info_from_atombios().<br>
-<br>
-To avoid accessing the NULL context, use clk_src-&gt;base.ctx-&gt;logger<br=
->
-in get_ss_info_from_atombios(). That context is initialized earlier in<br>
-dce110_clk_src_construct() -- before get_ss_info_from_atombios() is<br>
-actually called. This is done by temporarily redefining DC_LOGGER to<br>
-CTX-&gt;logger.<br>
-<br>
-Before:<br>
-dce110_clk_src_construct() did:<br>
-&nbsp;-&gt; sets clk_src-&gt;base.ctx =3D ctx;<br>
-&nbsp;-&gt; ss_info_from_atombios_create()<br>
-&nbsp;&nbsp; -&gt; get_ss_info_from_atombios()&nbsp;&nbsp; &lt;- uses calc_=
-pll_cs-&gt;ctx&nbsp; # BOOM<br>
-&nbsp;-&gt; calc_pll_max_vco_construct()&nbsp;&nbsp;&nbsp; &lt;- sets calc_=
-pll_cs-&gt;ctx<br>
-<br>
-After:<br>
-dce110_clk_src_construct() does:<br>
-&nbsp;-&gt; sets clk_src-&gt;base.ctx =3D ctx;<br>
-&nbsp;-&gt; ss_info_from_atombios_create()<br>
-&nbsp;&nbsp; -&gt; get_ss_info_from_atombios()&nbsp;&nbsp; &lt;- uses clk_s=
-rc-&gt;base.ctx<br>
-<br>
-Closes: <a href=3D"https://bugzilla.suse.com/show_bug.cgi?id=3D1271175">htt=
-ps://bugzilla.suse.com/show_bug.cgi?id=3D1271175</a><br>
-Closes: <a href=3D"https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528=
-ae3c63a3@kernel.org/">
-https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@kernel.org=
-/</a><br>
-Fixes: 1296423bf23c (&quot;drm/amd/display: define DC_LOGGER for logger&quo=
-t;)<br>
-Signed-off-by: Jiri Slaby (SUSE) &lt;jirislaby@kernel.org&gt;<br>
-Cc: Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha@amd.com&gt;<br>
-Cc: Harry Wentland &lt;harry.wentland@amd.com&gt;<br>
-Cc: Leo Li &lt;sunpeng.li@amd.com&gt;<br>
-Cc: Rodrigo Siqueira &lt;siqueira@igalia.com&gt;<br>
-Cc: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-Cc: &quot;Christian K=F6nig&quot; &lt;christian.koenig@amd.com&gt;<br>
-Cc: David Airlie &lt;airlied@gmail.com&gt;<br>
-Cc: Simona Vetter &lt;simona@ffwll.ch&gt;<br>
-Cc: amd-gfx@lists.freedesktop.org<br>
----<br>
-Cc: dri-devel@lists.freedesktop.org<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 8 +++++++-<br=
->
-&nbsp;1 file changed, 7 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/driver=
-s/gpu/drm/amd/display/dc/dce/dce_clock_source.c<br>
-index ecb8493ec523..d3f7aa853e3a 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c<br>
-@@ -1513,6 +1513,10 @@ static const struct clock_source_funcs dce110_clk_sr=
-c_funcs =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_dp_dto_frequency_100h=
-z =3D get_dp_dto_frequency_100hz<br>
-&nbsp;};<br>
-&nbsp;<br>
-+/* calc_pll_cs-&gt;ctx is set only after get_ss_info_from_atombios(), unli=
-ke clk_src-&gt;base */<br>
-+#pragma push_macro(&quot;DC_LOGGER&quot;)<br>
-+#undef DC_LOGGER<br>
-+#define DC_LOGGER CTX-&gt;logger<br>
-&nbsp;<br>
-&nbsp;static void get_ss_info_from_atombios(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; struct dce110_clk_src *clk_src,<br>
-@@ -1526,7 +1530,7 @@ static void get_ss_info_from_atombios(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct spread_spectrum_inf=
-o *ss_info_cur;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct spread_spectrum_dat=
-a *ss_data_cur;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_LOGGER_INIT();<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ss_entries_num =3D=3D =
-NULL) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DC_LOG_SYNC(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot=
-;Invalid entry !!!\n&quot;);<br>
-@@ -1631,6 +1635,8 @@ static void get_ss_info_from_atombios(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(ss_info);<br>
-&nbsp;}<br>
-&nbsp;<br>
-+#pragma pop_macro(&quot;DC_LOGGER&quot;)<br>
-+<br>
-&nbsp;static void ss_info_from_atombios_create(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dce110_clk_src *clk=
-_src)<br>
-&nbsp;{<br>
--- <br>
-2.55.0<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
+> 
+> The GT resume/reset paths already hold XE_FORCEWAKE_ALL around their
+> MCR accesses, so the forcewake reference taken here is usually just a
+> refcount increment; it closes the Wa_22018931422 window for the
+> remaining callers (debugfs, OA, EU stall, etc.).
+> 
+> mcr_lock() may now sleep; add might_sleep() to document and enforce
+> that contract. All current callers are in process context.
+> 
+> Signed-off-by: Tales A. Mendonça <talesam@gmail.com>
+> ---
+>  drivers/gpu/drm/xe/xe_gt_mcr.c | 70 +++++++++++++++++++++++++---------
+>  1 file changed, 52 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_gt_mcr.c b/drivers/gpu/drm/xe/xe_gt_mcr.c
+> index a97b236dab7..e1e3c0688dc 100644
+> --- a/drivers/gpu/drm/xe/xe_gt_mcr.c
+> +++ b/drivers/gpu/drm/xe/xe_gt_mcr.c
+> @@ -10,6 +10,8 @@
+>  
+>  #include "regs/xe_gt_regs.h"
+>  #include "xe_assert.h"
+> +#include "xe_device.h"
+> +#include "xe_force_wake.h"
+>  #include "xe_gt_printk.h"
+>  #include "xe_gt_topology.h"
+>  #include "xe_gt_types.h"
+> @@ -58,6 +60,8 @@ enum {
+>  	MCR_OP_WRITE
+>  };
+>  
+> +#define MCR_STEER_SEMAPHORE_TIMEOUT_US	100000
+> +
+>  static const struct xe_mmio_range xelp_l3bank_steering_table[] = {
+>  	{ 0x00B100, 0x00B3FF },
+>  	{},
+> @@ -692,33 +696,58 @@ bool xe_gt_mcr_get_nonterminated_steering(struct xe_gt *gt,
+>   * to synchronize with external clients (e.g., firmware), so a semaphore
+>   * register will also need to be taken.
+>   */
+> -static void mcr_lock(struct xe_gt *gt) __acquires(&gt->mcr_lock)
+> +static unsigned int mcr_lock(struct xe_gt *gt) __acquires(&gt->mcr_lock)
+>  {
+>  	struct xe_device *xe = gt_to_xe(gt);
+> +	unsigned int fw_ref = 0;
+>  	int ret = 0;
+>  
+> -	spin_lock(&gt->mcr_lock);
+> +	might_sleep();
+>  
+>  	/*
+>  	 * Starting with MTL we also need to grab a semaphore register
+>  	 * to synchronize with external agents (e.g., firmware) that now
+>  	 * shares the same steering control register. The semaphore is obtained
+>  	 * when a read to the relevant register returns 1.
+> +	 *
+> +	 * The steering control and semaphore registers are inside an
+> +	 * "always on" power domain with respect to RC6.  However there
+> +	 * are some issues if higher-level platform sleep states are
+> +	 * entering/exiting at the same time these registers are accessed.
+> +	 * Grabbing GT forcewake and holding it over the entire
+> +	 * lock/steer/unlock cycle ensures that those sleep states have
+> +	 * fully exited before we access these registers, matching what
+> +	 * i915 does in intel_gt_mcr_lock().
+> +	 *
+> +	 * Wa_22018931422
+>  	 */
+> -	if (GRAPHICS_VERx100(xe) >= 1270)
+> -		ret = xe_mmio_wait32(&gt->mmio, STEER_SEMAPHORE, 0x1, 0x1, 10, NULL,
+> -				     true);
+> +	if (GRAPHICS_VERx100(xe) >= 1270) {
+> +		fw_ref = xe_force_wake_get(gt_to_fw(gt), XE_FW_GT);
+> +		if (!xe_force_wake_ref_has_domain(fw_ref, XE_FW_GT))
+> +			xe_gt_err_ratelimited(gt, "failed to get MCR forcewake\n");
+> +
+> +		ret = xe_mmio_wait32(&gt->mmio, STEER_SEMAPHORE, 0x1, 0x1,
+> +				     MCR_STEER_SEMAPHORE_TIMEOUT_US, NULL,
+> +				     false);
+> +	}
+> +
+> +	spin_lock(&gt->mcr_lock);
+> +
+> +	if (ret == -ETIMEDOUT)
+> +		xe_gt_err_ratelimited(gt, "hardware MCR steering semaphore timed out\n");
+>  
+> -	xe_gt_WARN_ON_ONCE(gt, ret == -ETIMEDOUT);
+> +	return fw_ref;
+>  }
+>  
+> -static void mcr_unlock(struct xe_gt *gt) __releases(&gt->mcr_lock)
+> +static void mcr_unlock(struct xe_gt *gt, unsigned int fw_ref) __releases(&gt->mcr_lock)
+>  {
+> +	spin_unlock(&gt->mcr_lock);
+> +
+>  	/* Release hardware semaphore - this is done by writing 1 to the register */
+> -	if (GRAPHICS_VERx100(gt_to_xe(gt)) >= 1270)
+> +	if (GRAPHICS_VERx100(gt_to_xe(gt)) >= 1270) {
+>  		xe_mmio_write32(&gt->mmio, STEER_SEMAPHORE, 0x1);
+> -
+> -	spin_unlock(&gt->mcr_lock);
+> +		xe_force_wake_put(gt_to_fw(gt), fw_ref);
+> +	}
+>  }
+>  
+>  /*
+> @@ -807,10 +836,11 @@ u32 xe_gt_mcr_unicast_read_any(struct xe_gt *gt, struct xe_reg_mcr reg_mcr)
+>  						     &group, &instance);
+>  
+>  	if (steer) {
+> -		mcr_lock(gt);
+> +		unsigned int fw_ref = mcr_lock(gt);
+> +
+>  		val = rw_with_mcr_steering(gt, reg_mcr, MCR_OP_READ,
+>  					   group, instance, 0);
+> -		mcr_unlock(gt);
+> +		mcr_unlock(gt, fw_ref);
+>  	} else {
+>  		val = xe_mmio_read32(&gt->mmio, reg);
+>  	}
+> @@ -832,13 +862,14 @@ u32 xe_gt_mcr_unicast_read(struct xe_gt *gt,
+>  			   struct xe_reg_mcr reg_mcr,
+>  			   int group, int instance)
+>  {
+> +	unsigned int fw_ref;
+>  	u32 val;
+>  
+>  	xe_gt_assert(gt, !IS_SRIOV_VF(gt_to_xe(gt)));
+>  
+> -	mcr_lock(gt);
+> +	fw_ref = mcr_lock(gt);
+>  	val = rw_with_mcr_steering(gt, reg_mcr, MCR_OP_READ, group, instance, 0);
+> -	mcr_unlock(gt);
+> +	mcr_unlock(gt, fw_ref);
+>  
+>  	return val;
+>  }
+> @@ -857,11 +888,13 @@ u32 xe_gt_mcr_unicast_read(struct xe_gt *gt,
+>  void xe_gt_mcr_unicast_write(struct xe_gt *gt, struct xe_reg_mcr reg_mcr,
+>  			     u32 value, int group, int instance)
+>  {
+> +	unsigned int fw_ref;
+> +
+>  	xe_gt_assert(gt, !IS_SRIOV_VF(gt_to_xe(gt)));
+>  
+> -	mcr_lock(gt);
+> +	fw_ref = mcr_lock(gt);
+>  	rw_with_mcr_steering(gt, reg_mcr, MCR_OP_WRITE, group, instance, value);
+> -	mcr_unlock(gt);
+> +	mcr_unlock(gt, fw_ref);
+>  }
+>  
+>  /**
+> @@ -876,6 +909,7 @@ void xe_gt_mcr_multicast_write(struct xe_gt *gt, struct xe_reg_mcr reg_mcr,
+>  			       u32 value)
+>  {
+>  	struct xe_reg reg = to_xe_reg(reg_mcr);
+> +	unsigned int fw_ref;
+>  
+>  	xe_gt_assert(gt, !IS_SRIOV_VF(gt_to_xe(gt)));
+>  
+> @@ -884,9 +918,9 @@ void xe_gt_mcr_multicast_write(struct xe_gt *gt, struct xe_reg_mcr reg_mcr,
+>  	 * access, the MULTICAST bit should already be set, so there's no need
+>  	 * to touch the steering register.
+>  	 */
+> -	mcr_lock(gt);
+> +	fw_ref = mcr_lock(gt);
+>  	xe_mmio_write32(&gt->mmio, reg, value);
+> -	mcr_unlock(gt);
+> +	mcr_unlock(gt, fw_ref);
+>  }
+>  
+>  void xe_gt_mcr_steering_dump(struct xe_gt *gt, struct drm_printer *p)
+> -- 
+> 2.55.0
+> 
 
---_000_PH8PR12MB7279DCFA0D11A95FDCA0D773F9C12PH8PR12MB7279namp_--
+-- 
+Matt Roper
+Graphics Software Engineer
+Linux GPU Platform Enablement
+Intel Corporation
