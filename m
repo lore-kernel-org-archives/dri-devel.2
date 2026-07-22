@@ -4,52 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3278FC44539
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 15:45:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B603C44539
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 15:45:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CC2910E464;
-	Wed, 22 Jul 2026 15:45:05 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bsjF49+n";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B20B710E464
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 15:45:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EC188600AB;
- Wed, 22 Jul 2026 15:45:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0DB1F000E9;
- Wed, 22 Jul 2026 15:45:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784735103;
- bh=/OsIhPpVYT3n9diLVUiR7498vs3ZnyRvw7xjAByzCgA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=bsjF49+nysB5MqTTiGuxAQwzjtDFeEXvEIeCB6m6+CUqR0A4ru9FDJnUOaO+B2oWX
- CXKTsoDKJpLBZqdvHYPZKXFivbA9Evrf0q16oC30RCW2bWRo3xgJ+o/sgzpeqJxFC6
- zeA6A8HTmsLYWxeTsgohoG59Jyh0Zzfhcvlq5eTYrGNktN2q2HnZXiY1RqqTbo4rOz
- pGGrI/YEV2oPbWC3at+oO0C/RmKf99VgeV4n6lhbl7wvASpXOmx/N8pIs24iVVDifV
- pbmV4IyCdHwB2eCKbaUF3kM0fdzeWs7JX3SAGiBkMiyV5z9PBSCTdpp6JsflIU2QJC
- z/Qee/jv9Ki+w==
-Date: Wed, 22 Jul 2026 10:45:00 -0500
-From: Rob Herring <robh@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, krzk+dt@kernel.org,
- conor+dt@kernel.org, matthias.bgg@gmail.com,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
- jason-jh.lin@mediatek.com, kernel@collabora.com
-Subject: Re: [PATCH v2 12/46] dt-bindings: soc: mediatek: mutex: Allow
- #trigger-source-cells
-Message-ID: <20260722154500.GA988735-robh@kernel.org>
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-13-angelogioacchino.delregno@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A392410EE21;
+	Wed, 22 Jul 2026 15:45:44 +0000 (UTC)
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4AC010EE21
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 15:45:43 +0000 (UTC)
+Received: from local
+ by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.99) (envelope-from <daniel@makrotopia.org>)
+ id 1wmZ8R-000000006a3-2gyv; Wed, 22 Jul 2026 15:45:27 +0000
+Date: Wed, 22 Jul 2026 16:45:24 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Hermes Wu <hermes.wu@ite.com.tw>, Allen Chen <allen.chen@ite.com.tw>,
+ Pin-yen Lin <treapking@chromium.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Cc: Chen-Yu Tsai <wenst@chromium.org>
+Subject: [PATCH v5 00/11] drm/bridge: it6505: DP audio support + shared-DAI
+ hw_params fix
+Message-ID: <cover.1784717129.git.daniel@makrotopia.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260714114414.184512-13-angelogioacchino.delregno@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,42 +55,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 14, 2026 at 01:43:40PM +0200, AngeloGioacchino Del Regno wrote:
-> This hardware controls trigger sources, and there's even a generic
-> binding just for that: allow #trigger-source-cells in MuteX, so
-> that this is allowed to provide triggers to external HW.
-> 
-> Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Revive HDMI/DP audio support for the it6505, originally posted by
+Jiaxin Yu [1], rebased onto current -next with the review feedback
+addressed: &client->dev is gone (the driver gained it6505->dev) and
+"#sound-dai-cells" has since been added by commit 325af1bef5b9
+("dt-bindings: display: bridge: it6505: Add #sound-dai-cells").
 
-You ack-ed your own patch?
+Patches 1-9 fix pre-existing bugs found during review of earlier
+versions of this series; they carry Fixes: tags and are ordered first
+so stable trees can pick them.
 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
->  .../devicetree/bindings/soc/mediatek/mediatek,mutex.yaml      | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
-> index 5267cfe92572..886e6f904b78 100644
-> --- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
-> +++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
-> @@ -54,6 +54,9 @@ properties:
->      items:
->        - description: MUTEX Clock
->  
-> +  '#trigger-source-cells':
-> +    const: 1
-> +
->    mediatek,gce-events:
->      description:
->        The event id which is mapping to the specific hardware event signal
-> @@ -116,6 +119,7 @@ examples:
->              interrupts = <GIC_SPI 169 IRQ_TYPE_LEVEL_LOW>;
->              power-domains = <&spm MT8173_POWER_DOMAIN_MM>;
->              clocks = <&mmsys CLK_MM_MUTEX_32K>;
-> +            #trigger-source-cells = <1>;
->              mediatek,gce-events = <CMDQ_EVENT_MUTEX0_STREAM_EOF>,
->                                    <CMDQ_EVENT_MUTEX1_STREAM_EOF>;
->          };
-> -- 
-> 2.54.0
-> 
+Patch 10 wires up the it6505 audio helpers via hdmi_codec_ops,
+unblocking the mt8186-mt6366 sound card which references it6505 as
+the I2S3 codec. Patch 11 makes hw_params succeed with no display
+attached, needed when the I2S bus is shared with another codec as on
+MT8186 "steelix" Chromebooks, where the speaker path must keep
+working regardless of the it6505 link state.
+
+Tested on a MT8186 (google,steelix) Chromebook: the sound card comes
+up, speakers, microphone and headset jack work. HDMI/DP audio output
+itself could not be tested for lack of a suitable adapter cable.
+
+[1] https://lore.kernel.org/all/20230730180803.22570-4-jiaxin.yu@mediatek.com/
+---
+v5:
+ * patch 1: serialise notifier registration state with extcon_lock
+ * patch 2: also drop the runtime PM usage ref held for a connected
+   display; retitled
+ * new patches 3-7 and 9: more pre-existing fixes from v4 review
+   (AUX unregister symmetry, poweroff error path, IRQ status read
+   errors, two divisions by zero, of_node_put before use)
+ * patch 10 (was 4): update plugged_cb/codec_dev under mode_lock
+ * patches 8 and 11: no changes
+
+v4: https://lore.kernel.org/all/cover.1784681487.git.daniel@makrotopia.org/
+ * patch 1: quiesce extcon notifier and IRQ before cancelling work,
+   initialise extcon_wq in probe; retitled
+ * new patch 2: disable runtime PM on remove
+ * patch 3 (was 2): collected Chen-Yu Tsai's Reviewed-by
+ * patch 4 (was 3): start out muted; mute state and cached
+   parameters updated under audio_lock; unregister codec after
+   quiesce
+ * patch 5 (was 4): apply audio defaults at probe time
+
+v3: https://lore.kernel.org/all/cover.1784600387.git.daniel@makrotopia.org/
+ * new patches 1 and 2, fixing a pre-existing use-after-free on
+   remove() and an out-of-bounds read with channel_count == 0
+ * patch 3 (was 1): serialise audio enable/disable with audio_lock;
+   track mute state so the FIFO-error IRQ cannot undo a mute
+ * patch 4 (was 2): no changes
+
+v2: https://lore.kernel.org/all/cover.1784561622.git.daniel@makrotopia.org/
+ * keep and unregister the hdmi-codec platform_device on remove
+ * initialise delayed_audio before registering the codec device
+ * cancel delayed_audio synchronously on shutdown and remove
+ * disable audio immediately when muting
+ * patch 2: drop the encoder check instead of returning 0 early
+
+Daniel Golle (10):
+  drm/bridge: it6505: quiesce event sources and work on remove()
+  drm/bridge: it6505: balance and disable runtime PM on remove
+  drm/bridge: it6505: unregister DP AUX adapter on bridge detach
+  drm/bridge: it6505: complete poweroff even if disabling regulators
+    fails
+  drm/bridge: it6505: bail out of the IRQ handler when status reads fail
+  drm/bridge: it6505: avoid division by zero in pixel clock calculation
+  drm/bridge: it6505: avoid division by zero in audio FS debug print
+  drm/bridge: it6505: guard against zero channel count in audio
+    infoframe
+  drm/bridge: it6505: hold endpoint OF node reference while parsing it
+  drm/bridge: it6505: Don't reject audio hw_params without an encoder
+
+Jiaxin Yu (1):
+  drm/bridge: it6505: Add audio support
+
+ drivers/gpu/drm/bridge/ite-it6505.c | 247 +++++++++++++++++++++-------
+ 1 file changed, 190 insertions(+), 57 deletions(-)
+
+
+base-commit: 0718283ab28bc3907e10b61a6b4be6fefa1cbb2f
+-- 
+2.55.0
