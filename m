@@ -4,153 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A60CC44539
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 10:27:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50685C44532
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 10:55:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1C3210ED3D;
-	Wed, 22 Jul 2026 10:27:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A08AF10E429;
+	Wed, 22 Jul 2026 10:55:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="eo/zbBmT";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9XhPfdBa";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eo/zbBmT";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9XhPfdBa";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="c36GvnUt";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aN+E6elb";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7D1710E1C4
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 10:27:22 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5AEA23DF3;
- Wed, 22 Jul 2026 10:27:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1784716041; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IxW/vV2un4Yj21F+g4YGmA5/b/By2dnt0VtZgb052AQ=;
- b=eo/zbBmT0ZQ2wbYOWky8601C4n8Jmj4TD/MHExC6ugYOuo0FA6LjDw5ajuPxavdwv0H+4d
- sS8dV7zpZ6QcImLNCUMOzABK3L4vvQGsaICwO7RdA7aVnSOCHIp826343d4tcYFZUw3swr
- 8ZN/INjhyGxovvFpdtftalMWDpodWMs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1784716041;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IxW/vV2un4Yj21F+g4YGmA5/b/By2dnt0VtZgb052AQ=;
- b=9XhPfdBaU+I8CejeLQ82f9UCa4JkELPmqpxKb/L59ZJMC3ztbM5AzH9hlojzOKzptVL+Qc
- giiJ8LpztxtG3NBA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="eo/zbBmT";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=9XhPfdBa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1784716041; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IxW/vV2un4Yj21F+g4YGmA5/b/By2dnt0VtZgb052AQ=;
- b=eo/zbBmT0ZQ2wbYOWky8601C4n8Jmj4TD/MHExC6ugYOuo0FA6LjDw5ajuPxavdwv0H+4d
- sS8dV7zpZ6QcImLNCUMOzABK3L4vvQGsaICwO7RdA7aVnSOCHIp826343d4tcYFZUw3swr
- 8ZN/INjhyGxovvFpdtftalMWDpodWMs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1784716041;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IxW/vV2un4Yj21F+g4YGmA5/b/By2dnt0VtZgb052AQ=;
- b=9XhPfdBaU+I8CejeLQ82f9UCa4JkELPmqpxKb/L59ZJMC3ztbM5AzH9hlojzOKzptVL+Qc
- giiJ8LpztxtG3NBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7F206779B0;
- Wed, 22 Jul 2026 10:27:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 0QrSHQibYGoadwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 22 Jul 2026 10:27:20 +0000
-Message-ID: <4cda6ecd-5727-42bf-8df9-289244549a6e@suse.de>
-Date: Wed, 22 Jul 2026 12:27:20 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1656710E429
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 10:55:03 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66M8xde7123853
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 10:55:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ LPDGN1eDhV0cM2OKKPZ5QUdzqEuIcsRmODO3PXGRRAw=; b=c36GvnUtGVL/AuIy
+ EWnidWC9uyBJbjugFm+g40UN9rLF+9Olk3E6lYKTxTuli6s9XOx4qL6n9gFrwkK6
+ 56hm2uQppvAUegsm/uvisNsbB8i9XyAXwVvOLP4Aj3jEVfaUKparM4Hp0snEreU4
+ zQyqW5yn9xaGjQKDrDB/qkicaBsumlx0UlhUMzvFcZZ0pCfHJsWbRXCf+9CUFxk/
+ aCJHkmbC7wjM7N6GA/EWy9S5JIyLT+R/MaCj+gsyupYyLKcYU4A0EasdFhesgKV3
+ T9NLspTeF5W2hdB4WNdga5xjmZQstUphCgZkeDuKMvzwG3dxhME7RxXO61OLACca
+ GY04ew==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjnu4sqmw-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 10:55:02 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-92ec91dc265so885051785a.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 03:55:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1784717701; x=1785322501;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=LPDGN1eDhV0cM2OKKPZ5QUdzqEuIcsRmODO3PXGRRAw=;
+ b=aN+E6elbBpoNDYAmIgFZXasy7qyRNNVM1lkHJiCXappL+kn+qAeqmxfTLhfICSKmBX
+ VUfgS8dUTUw4NIqAJN0AgOXxK+oY9YK1g1S3ppWP6t2lttz9B4CmCruZbGa4ulE8YSK6
+ L9E5JLZkR4ZRN4YV3zg8JBgNevkGcZAleioFFqoUWi+5KT+uf2yyRJOUGbPGhDT7zpXT
+ /swQzXfai+mQRd+4K/kKOWec+nERJnIjolnwkhtPrZCZkPvtKVxBhZKe5o1E8wIFC2Vw
+ BCQubGwoPaZz4qP5l/LRlQEiSXZOSlkDtAUIrEo6e8wN1bUAf6A9yBBwMpD/njYc0FrX
+ hP1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784717701; x=1785322501;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=LPDGN1eDhV0cM2OKKPZ5QUdzqEuIcsRmODO3PXGRRAw=;
+ b=qI1G2wuagb+HjH+lpc2GHMAh6MhaNpuF8jRhHN5NtFHvBEDr+BT3liCBneMylBlyqF
+ yjwn0K36dsg6m9dzHNMXjpBvwXzRrKBh+1/AXcvvlCOLG3apw38nFqW8BwF8cFIDVMiJ
+ 9Hfqr+Cw3BxHHVk3f15xV5MgkhXQF1p4rpCTSCQAr+PgrqjooXyWofuspTihPor3dQCj
+ rzZ3duUCp2rvDVE0WTu0YHBjY2CNRE6KjnoCoturmsgwIV+zpcorLLzK2ebJg9lB3TQD
+ aJUZMBSc38KQVp6dygBQqMH4yAhcIEDUWt7LBT+gRJ13+pE8KJ4rzhZuq2F6GV4OVNCf
+ ES8Q==
+X-Gm-Message-State: AOJu0YzOx/B07orQXGRQcB7gtrNIG99eIH+TYpUFzWuIMcL1NsU+79Hr
+ zX/oQJ51U9vw7zBlC6ZRCiLoD4vFoIlFU9wof9hD0vkrulCXoRZ1PvYFH415TWwUslAwazd5u+S
+ AwAJ1P2O6D/WDyqZPB0YbuZTUaT6qoioNYlDzxUj/NWVgr71JSS8m85c292E+ocKBpVWkm1M=
+X-Gm-Gg: AR+sD10JvEl0HJLZX7NHsajjYKbgiwi4OoJIDJmBPG30rZVoPLKMv07wiLk15H1tXWq
+ yv6jQtUsNCpJSXj1tLSVgI5/yO6PaG0m4QfMTEw14Xyvoo3sPfbXkyI+yGECDu2PT/QD9/qZJXl
+ w9Hhk5XnLYFXaPmsZYC8GXx8RIeNq2pm8wX/Gl+5Vy5wqXYASdqRQREYb7kFjGJzcLiV7CoBnui
+ xhpx/ufJli2cpivmEgxQxU2fLRWtO1dDXjE4lRX//JBBOgh67Wo/LIqKdVxgsthOuLvfDRFy9xk
+ zW0QrOhx1Aw+5enb+eNyzDsorj9evAaQSzrJS0a6UUaP6X7fIUZ3yx/NeH8bPon/sF4PAA5vkNp
+ YMaTRWF67oX0mwmHU8gR3sIB3vOfOkW92+aBYG75r7CHvX7tKYToRUO+yRkAkGnP1oQ==
+X-Received: by 2002:a05:6214:2f12:b0:8e9:f62b:8fa0 with SMTP id
+ 6a1803df08f44-907783cfb3bmr246503226d6.53.1784717701421; 
+ Wed, 22 Jul 2026 03:55:01 -0700 (PDT)
+X-Received: by 2002:a05:6214:2f12:b0:8e9:f62b:8fa0 with SMTP id
+ 6a1803df08f44-907783cfb3bmr246502966d6.53.1784717700892; 
+ Wed, 22 Jul 2026 03:55:00 -0700 (PDT)
+Received: from [10.111.173.228] (Global_NAT1_IAD_FW.qualcomm.com.
+ [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-907ba8b3e96sm18841846d6.1.2026.07.22.03.54.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Jul 2026 03:55:00 -0700 (PDT)
+Message-ID: <fccb4620-d5b2-4a49-b703-8725a863c540@oss.qualcomm.com>
+Date: Wed, 22 Jul 2026 18:54:56 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm: fix missing header include for drm_panel_put()
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>, Yannick Fertre <yannick.fertre@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Albert Esteve <aesteve@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260722-panel-fix-kms-panel-put-v1-1-ebde56446ee5@linaro.org>
+Subject: Re: [PATCH v8 02/15] drm/msm/dp: drop deprecated .mode_set() and use
+ .atomic_enable
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+References: <20260720-dp_mstclean-v8-0-bea261bf4e7d@oss.qualcomm.com>
+ <20260720-dp_mstclean-v8-2-bea261bf4e7d@oss.qualcomm.com>
+ <20260720063317.CFCFF1F000E9@smtp.kernel.org>
+ <ldznbgwysgo4ya6h2s57wytjjhhljkfyiagrce4z2gvty5suye@bdc3gfzl7xff>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260722-panel-fix-kms-panel-put-v1-1-ebde56446ee5@linaro.org>
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <ldznbgwysgo4ya6h2s57wytjjhhljkfyiagrce4z2gvty5suye@bdc3gfzl7xff>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 5AEA23DF3
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCPT_COUNT_TWELVE(0.00)[24];
- FREEMAIL_TO(0.00)[linaro.org,oss.nxp.com,pengutronix.de,linux.intel.com,kernel.org,gmail.com,ffwll.ch,nxp.com,denx.de,agner.ch,foss.st.com,redhat.com];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, linaro.org:email, suse.com:url, suse.de:dkim,
- suse.de:email, suse.de:mid]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: LlZwwtcx-GZIG88N8XMZqHOfNzRQHboK
+X-Authority-Analysis: v=2.4 cv=KLhqylFo c=1 sm=1 tr=0 ts=6a60a186 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=ATxrgLNVpGx5eOw1QnYA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDEwNSBTYWx0ZWRfX9xFZxAqULMLu
+ +EeV8ktsyo+ExAWTz9OXnM1JJ1FxpV5g/6Ul36HlxFPvDY5Y25v78oBc7LWTED/sxmh/NhRPEo5
+ v5oimrthT/v4d4WpmGqzC2rKlcEksuzt9MZbK/JlYzodbQTRdFbvC14oR8OEjW1IYj1fxD6RFt7
+ /Ikpk08jpKU9Nmr4P5M0fjrSUqYakLQN1avrD0I271UBcB0+9g+YtnRZVtRREurnI+w5MiL7xDP
+ IJRlAHbUAEq3H4ZX0M1CgLyU8wCYvv9nrwJ7jU89GLJvy/4gmtBbzjuNaNwHXk2yaVGjXKNVHuL
+ cc6TNIaHx2g6v0ueRS9tYt3B3FVWZR+K/4O4CbkfqGLd/29a8JBPkNdQRYpersuHgmqW+loKXpR
+ eCX1vaLP/mQ7xIM3kujM8RmR92PmjIHbe1TIIod9yL6MhsGCZ5fxKF7S+jrWMZ4nsWrT0h13QmU
+ JUmDKwOWkfCM0l819RQ==
+X-Proofpoint-ORIG-GUID: LlZwwtcx-GZIG88N8XMZqHOfNzRQHboK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDEwNSBTYWx0ZWRfX7QpGcsZVVxmU
+ kGLCooj8Imzh0ZUfXA7nA03S9hwRlS2RcGt16MvH329feQmMloCMnQiZyZmzYmLUJKi4VvLWa7q
+ c0QDPxm5/ncUOnPYYhCaL/8+OzWHX10=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 phishscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220105
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,73 +147,46 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-Am 22.07.26 um 12:07 schrieb Neil Armstrong:
-> Some DRM drivers lacked the drm_panel.h include to use drm_panel_put()
-> after the commit b71a623598d3 ("drm/panel: of_drm_find_panel() return a counted reference").
->
-> Fixes: b71a623598d3 ("drm/panel: of_drm_find_panel() return a counted reference")
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-> ---
->   drivers/gpu/drm/imx/dcss/dcss-kms.c | 1 +
->   drivers/gpu/drm/mxsfb/mxsfb_drv.c   | 1 +
->   drivers/gpu/drm/stm/ltdc.c          | 1 +
->   3 files changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/imx/dcss/dcss-kms.c b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-> index 01e0c10b6ea1..7c5a6e2bc89a 100644
-> --- a/drivers/gpu/drm/imx/dcss/dcss-kms.c
-> +++ b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-> @@ -13,6 +13,7 @@
->   #include <drm/drm_gem_dma_helper.h>
->   #include <drm/drm_gem_framebuffer_helper.h>
->   #include <drm/drm_of.h>
-> +#include <drm/drm_panel.h>
->   #include <drm/drm_probe_helper.h>
->   #include <drm/drm_vblank.h>
->   
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> index 7cb19c15bf39..8b4a500347fb 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> @@ -29,6 +29,7 @@
->   #include <drm/drm_mode_config.h>
->   #include <drm/drm_module.h>
->   #include <drm/drm_of.h>
-> +#include <drm/drm_panel.h>
->   #include <drm/drm_probe_helper.h>
->   #include <drm/drm_vblank.h>
->   
-> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-> index daf198edb42f..8818dcf98da7 100644
-> --- a/drivers/gpu/drm/stm/ltdc.c
-> +++ b/drivers/gpu/drm/stm/ltdc.c
-> @@ -34,6 +34,7 @@
->   #include <drm/drm_gem_atomic_helper.h>
->   #include <drm/drm_gem_dma_helper.h>
->   #include <drm/drm_of.h>
-> +#include <drm/drm_panel.h>
->   #include <drm/drm_print.h>
->   #include <drm/drm_probe_helper.h>
->   #include <drm/drm_simple_kms_helper.h>
->
-> ---
-> base-commit: 0f065acf44aeb8c32691d88cc87004fd2e54e902
-> change-id: 20260722-panel-fix-kms-panel-put-38c079412f83
->
-> Best regards,
-> --
-> Neil Armstrong <neil.armstrong@linaro.org>
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+On 7/22/2026 2:47 AM, Dmitry Baryshkov wrote:
+> On Mon, Jul 20, 2026 at 06:33:16AM +0000, sashiko-bot@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+>>
+>> New issues:
+>> - [High] Moving mode state updates to `.atomic_enable` causes the DPU encoder to read stale wide bus configuration.
+>>
+>> Pre-existing issues:
+>> - [High] `mode_valid` incorrectly evaluates wide bus availability based on the currently active mode's state rather than the candidate mode, causing valid modes to be rejected.
+>> --
+>>
+> 
+>>> @@ -1386,7 +1406,7 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
+>>>   	if (msm_dp_display->link->sink_count == 0)
+>>>   		return;
+>>>   
+>>> -	rc = msm_dp_display_set_mode(dp, &msm_dp_display->msm_dp_mode);
+>>> +	rc = msm_dp_display_set_mode(dp, &crtc_state->adjusted_mode, msm_dp_display->panel);
+>>>   	if (rc) {
+>>>   		DRM_ERROR("Failed to perform a mode set, rc=%d\n", rc);
+>>>   		return;
+>>
+>> [Severity: High]
+>> Does moving this mode setup into .atomic_enable() cause the DPU encoder
+>> to read a stale wide bus configuration?
+>>
+>> In the DRM atomic commit flow, the encoder's .atomic_enable() (which executes
+>> dpu_encoder_virt_atomic_enable()) is called before the bridge's
+>> .atomic_enable().
+>>
+>> Because msm_dp_display_set_mode() updates the format state
+>> (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420), the DPU encoder will query
+>> msm_dp_wide_bus_available() before this new mode's format has been stored.
+>>
+>> Won't this cause the hardware to be programmed using the wide bus state from
+>> the previously active mode, potentially causing display corruption or a blank
+>> screen when switching between RGB and YUV420?
+> 
+> Indeed, both look like an issue. Please add a patch before this one,
+> adding drm_display_mode to the msm_dp_wide_bus_available() call. It will
+> solve both issues.
+> 
+Sure. Will update it next version.
