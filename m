@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35FB5C4453A
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 20:46:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5069CC44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 20:58:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56DAB10E4CF;
-	Wed, 22 Jul 2026 20:46:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E71210E4CA;
+	Wed, 22 Jul 2026 20:58:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DEwy/dy6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PQ3g8GGE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B961510E4CF
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 20:46:22 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D46C610E4CA
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 20:58:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 01A3C60051;
- Wed, 22 Jul 2026 20:46:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 815281F000E9;
- Wed, 22 Jul 2026 20:46:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4B55A43647;
+ Wed, 22 Jul 2026 20:58:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04DDA1F000E9;
+ Wed, 22 Jul 2026 20:58:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784753181;
- bh=rWSba6subFqr7XtDQFE+tfhQeFN5BabLrbDEwyTBLRE=;
+ s=k20260515; t=1784753899;
+ bh=2efdzSVz+LRfaPt15cAMEOK01WwdRBIG530Mio1PQyY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DEwy/dy68Hg52FvRhwXRBu3Xho++anA0EO5azSTYWEHm4L4fDzeDVVg3/RbACCfax
- N0n+QZdQ8/UlKvkTYhadmOvIJZIlWa3KmuiVm+ggLbR9SjOxSMT/1DPLnjKjxrqxvk
- EmswILkB4gXzvklWcdCmXTNPBzJxn89Ij0ebsXehRCAlXLOD1yST6pPU/x3qe0BCni
- dXBIn7gfnXUsgZ1e/9SngupmNRZEg+g0PHTfRxMUSLC5+zK24Kf7Q83i9A42Rc6N2G
- AuExabS0uJJUe9uNBx2an87ot4uhHFj5l2ZEDE96Ir3wctxCnTypuBqntU8E3QWCpI
- 08Urhn7OHP0Fw==
+ b=PQ3g8GGE/PySIaiwIBVVGwR/SBNx9MQra4VJJrK/bLD2UZkbVfXX/PDxD175aN4r9
+ wuDkNso+aNewOzxJ+fGyAVLMJEUYKpcufS8J+e2SyW7vwzriE87c+CWE1FU/lSMWAg
+ 8z95T9ycXe3hxIzxu0uZVPsvaRyYeo0PQMqPN7ViCh1OIscJ5UTSiY+u6RWX7XCESA
+ 7hgr6CkC1oGBcOG4lLn+P2trPUTs9VQ+Cnc/TKk5Mcuet5jcNv4rb9JDVA4pi/bd2O
+ B69VrKScGJLWiR7AZhB6eptGOG2lQDg2bt0NmLlKfR2ixtMEOr1GpMWiJ3V1YkQvAx
+ CcqPVlE5xjqtw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 03/11] drm/bridge: it6505: unregister DP AUX adapter
- on bridge detach
+Subject: Re: [PATCH v5 04/11] drm/bridge: it6505: complete poweroff even if
+ disabling regulators fails
 To: "Daniel Golle" <daniel@makrotopia.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <a472535bc291e77aee5cae71ea2a26d695511fd6.1784717129.git.daniel@makrotopia.org>
+In-Reply-To: <51bec6ff870eb67415408268a798a934dcad6a6c.1784717129.git.daniel@makrotopia.org>
 References: <cover.1784717129.git.daniel@makrotopia.org>
- <a472535bc291e77aee5cae71ea2a26d695511fd6.1784717129.git.daniel@makrotopia.org>
+ <51bec6ff870eb67415408268a798a934dcad6a6c.1784717129.git.daniel@makrotopia.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 20:46:21 +0000
-Message-Id: <20260722204621.815281F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 20:58:18 +0000
+Message-Id: <20260722205819.04DDA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,69 +58,146 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Removing `drm_dp_aux_unregister()` from `it6505_i2c_remove()` intr=
-oduces a critical Use-After-Free vulnerability if the I2C driver is unbound=
- while the DRM bridge remains attached.
+
+New issues:
+- [High] Ignoring regulator_disable() failure causes a permanent regulator =
+reference leak and hardware state corruption.
+
+Pre-existing issues:
+- [High] I2C over AUX reads and writes silently ignore timeout and NACK err=
+ors, returning success with garbage data.
+- [High] Device power state functions lack synchronization, leading to race=
+ conditions between extcon events and system suspend.
+- [High] Background works are not cancelled during system suspend, risking =
+I/O operations on powered-down hardware.
+- [High] Regulators are disabled in the same order they are enabled, violat=
+ing power sequencing constraints.
 --
 
---- Patch [3]: [PATCH v5 03/11] drm/bridge: it6505: unregister DP AUX adapt=
-er on bridge detach ---
-commit b259e088ec0ed97d1f41a3a8463e232914e7c924
+--- Patch [4]: [PATCH v5 04/11] drm/bridge: it6505: complete poweroff even =
+if disabling regulators fails ---
+commit f1926053557b0f8b21512c835ff0e5a067508980
 Author: Daniel Golle <daniel@makrotopia.org>
 
-drm/bridge: it6505: unregister DP AUX adapter on bridge detach
+drm/bridge: it6505: complete poweroff even if disabling regulators fails
 
-This commit moves the DP AUX adapter unregistration from the I2C remove
-path to the bridge detach and attach error paths. This is intended to
-prevent duplicate registrations when unbinding and rebinding the DRM
-device.
+This patch modifies the driver to continue the power-off sequence and set
+the powered state to false even if regulator_disable() fails. This aims
+to prevent the bridge from being left deaf to hotplug interrupts by ensuring
+the state transition completes.
 
 > diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
 /ite-it6505.c
+> index ff6471d3ef7ab..0f79ddfd1501e 100644
 > --- a/drivers/gpu/drm/bridge/ite-it6505.c
 > +++ b/drivers/gpu/drm/bridge/ite-it6505.c
+> @@ -2810,13 +2810,15 @@ static int it6505_poweroff(struct it6505 *it6505)
+>  	if (pdata->pwr18) {
+>  		err =3D regulator_disable(pdata->pwr18);
+
+[Severity: High]
+This is a pre-existing issue, but does disabling the regulators in the same
+order they were enabled violate power sequencing constraints?
+
+In it6505_poweron(), pwr18 is enabled before ovdd. Here in
+it6505_poweroff(), pwr18 is disabled before ovdd.
+
+Could removing core power before I/O power cause back-powering and latch-up
+in CMOS logic, potentially damaging the hardware?
+
+>  		if (err)
+> -			return err;
+> +			dev_err(dev, "cannot disable pwr18 regulator: %d",
+> +				err);
+
+[Severity: High]
+If regulator_disable() fails (for example, due to an I2C timeout on a PMIC),
+does ignoring the error here cause a permanent regulator reference leak?
+
+When the regulator core returns an error during disable, it does not
+decrement the consumer's enable_count.
+
+Since this patch ignores the error and forces it6505->powered to false, the
+next power-on will increment the enable_count from 1 to 2.
+
+Because the count never reaches 0 again, will the regulator core permanently
+leave the hardware powered on?
 
 [ ... ]
 
-> @@ -3652,7 +3654,6 @@ static void it6505_i2c_remove(struct i2c_client *cl=
-ient)
->  	struct it6505 *it6505 =3D i2c_get_clientdata(client);
-> =20
->  	drm_bridge_remove(&it6505->bridge);
-> -	drm_dp_aux_unregister(&it6505->aux);
+While reviewing this driver, I also noticed a few other pre-existing issues:
 
-[Severity: High]
-Does removing drm_dp_aux_unregister() here introduce a use-after-free
-if the I2C driver is unbound while the DRM bridge remains attached?
+it6505_aux_i2c_readb() {
+    for (retry =3D 0; retry < AUX_I2C_DEFER_RETRY; retry++) {
+        // ...
+        if (ret >=3D 0)
+            break;
+    }
 
-If the I2C driver is unbound (for example, via sysfs) while the DRM
-device is still active, the DP AUX character device (/dev/drm_dp_auxN)
-appears to remain registered because drm_bridge_remove() does not invoke
-it6505_bridge_detach() when the bridge is removed from the global list.
+    for (i =3D 0; i < size; i++)
+        buf[i] =3D it6505_read(it6505, REG_AUX_USER_RXB(0 + i));
 
-After it6505_i2c_remove() returns, the driver core's devres cleanup will
-execute and free the it6505 structure and its managed resources, such as
-the regmap.
-
-If userspace subsequently interacts with the leaked character device,
-it can invoke it6505_aux_transfer() which dereferences the freed memory:
-
-drivers/gpu/drm/bridge/ite-it6505.c:it6505_aux_transfer() {
-	struct it6505 *it6505 =3D container_of(aux, struct it6505, aux);
-	...
-	// accesses freed it6505 and performs I/O on freed it6505->regmap
+    return size;
 }
 
-Should drm_dp_aux_unregister() be kept in the I2C remove path as well,
-or is there another mechanism guaranteeing the AUX character device is
-unregistered before devres cleanup occurs?
+[Severity: High]
+This is a pre-existing issue, but does this I2C read silently ignore timeout
+and NACK errors?
 
->  	it6505_debugfs_remove(it6505);
->  	it6505_remove_notifier_module(it6505);
->  	disable_irq(it6505->irq);
+When an AUX I2C transfer encounters a NACK or timeout, it6505_aux_i2c_wait()
+returns a negative error code.
+
+If the retry loop exhausts all retries without breaking, the function
+unconditionally executes the register read loop and returns the requested
+size as if the transfer succeeded.
+
+Can this result in the DRM core receiving uninitialized memory or garbage
+data instead of an error, leading to corrupted EDID parsing?
+
+
+it6505_extcon_work() {
+    // ...
+    if (ret < 0)
+        it6505_poweron(it6505);
+}
+
+[Severity: High]
+This is a pre-existing issue, but do the device power state functions lack
+synchronization?
+
+During system suspend, pm_runtime_force_suspend() calls
+it6505_bridge_suspend(), which invokes it6505_poweroff() without acquiring
+extcon_lock.
+
+Concurrently, if an extcon event triggers it6505_extcon_work() on the
+non-freezable system_wq, it attempts pm_runtime_get_sync().
+
+If runtime PM is disabled during suspend, this fails and the fallback path
+directly calls it6505_poweron().
+
+Could this race condition lead to unbalanced IRQ enable depths or corrupted
+regulator states?
+
+
+it6505_bridge_suspend() {
+    // ...
+    it6505_remove_edid(it6505);
+    return it6505_poweroff(it6505);
+}
+
+[Severity: High]
+This is a pre-existing issue, but does the suspend handler fail to cancel
+background works before powering off the hardware?
+
+it6505_bridge_suspend() calls it6505_poweroff() but does not call
+cancel_work_sync() for link_works or extcon_wq.
+
+Because these works are scheduled on the non-freezable system_wq, could
+they execute concurrently during the suspend process and attempt I/O
+operations on powered-down hardware?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784717129.gi=
-t.daniel@makrotopia.org?part=3D3
+t.daniel@makrotopia.org?part=3D4
