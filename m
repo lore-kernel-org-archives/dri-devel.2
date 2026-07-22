@@ -4,37 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F16C9C4453F
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:31:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CB65C44539
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:35:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E27B10EE11;
-	Wed, 22 Jul 2026 14:31:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D0BB10E477;
+	Wed, 22 Jul 2026 14:35:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z312ICh0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BoNSrvzJ";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77CC510E477;
- Wed, 22 Jul 2026 14:31:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33EA610E477;
+ Wed, 22 Jul 2026 14:35:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 664DE600AF;
- Wed, 22 Jul 2026 14:31:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735B01F00A3A;
- Wed, 22 Jul 2026 14:31:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4AEBF600AB;
+ Wed, 22 Jul 2026 14:35:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526301F000E9;
+ Wed, 22 Jul 2026 14:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784730702;
- bh=OvPrDFwM1EEVYtQ4pZxzQ4Crg7V635gU058Fwjy4pjg=;
+ s=k20260515; t=1784730911;
+ bh=v3Dka0Kxl0RaJGtuTH0yTzaDEXoIUNO9u9IFv8oVYKs=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Z312ICh01hwf5PNipjdUbCmTEpxOFlzpFrFpEbvVg2M62vqBeTEwf2myPaFZw7tPE
- VB8S2/xH3Cb64UA1VtTgUUNTgWkDHNnMSRIScWWwylFYdqQUJf29ZSBT+8tvuVKFT+
- qpgOuQvv4nbvr4jbtsA43T6qNk4ivRr13hGczyw/g2FSRI/UCbh4ijU+6nZylJLPk5
- +vUMLKp/zTcjlaGh9h6kCxmkwMXMYDyA4hWh4uxOZC5o0Hhq3C4INZyEa9oR4qk8id
- AL8BavBz/vrgJflUQPB3q0Ym1iVOZACXNzbgj3bOumnwJsWuqmyNhwK6KU112+LaeT
- oiB3ruF4FVC7g==
-Message-ID: <0c9b4dbb-95c2-4d19-935e-18a45d8aefd2@kernel.org>
-Date: Wed, 22 Jul 2026 16:31:22 +0200
+ b=BoNSrvzJYQLAEfX3sCIxyc7ZkwirgsWknsff/Mra8/IlU74HXActL9HeMA579jh44
+ T9qmfb4rlcf+ZSuQDXLSpBUeDY2tak0s32nJdFgrBrk09Qk7VXEx5T5+B2A9t2i4lb
+ T7KREF6hvGI4oAnK+1xITP1UHiLneP8l7RBubqbljEBi0slULes/fvkmxRdOX71MpV
+ bMSLulS5NDO9ufYBlKQbRqcLa2jMXn1Kw4jzPErEyJEwl6CA4ywx5ldWZSfTgLsHwM
+ sBj+KtFeUnsVFLsqvy7yitX1QTr82nsrUT3PDi6UDnxpJzhWaBjScQs6EGuKMa4pWl
+ ZBBB1SQ2Xhywg==
+Message-ID: <eea9c6bf-5ff9-45de-ac92-784a174ff61b@kernel.org>
+Date: Wed, 22 Jul 2026 16:34:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/13] mm: prefer mm->def_vma_flags in mm logic
+Subject: Re: [PATCH v2 06/13] mm/vma: convert vm_pgprot_modify() to use
+ vma_flags_t and rename
 Content-Language: en-US
 To: Lorenzo Stoakes <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
@@ -102,7 +103,7 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
  linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
 References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
- <20260711-b4-vma-flags-mm-v2-5-0fa2357d5431@kernel.org>
+ <20260711-b4-vma-flags-mm-v2-6-0fa2357d5431@kernel.org>
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 Autocrypt: addr=vbabka@kernel.org; keydata=
  xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
@@ -143,7 +144,7 @@ Autocrypt: addr=vbabka@kernel.org; keydata=
  NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
  OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
  jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
-In-Reply-To: <20260711-b4-vma-flags-mm-v2-5-0fa2357d5431@kernel.org>
+In-Reply-To: <20260711-b4-vma-flags-mm-v2-6-0fa2357d5431@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -162,28 +163,23 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 7/11/26 20:45, Lorenzo Stoakes wrote:
-> Currently mm->def_flags (of type vm_flags_t) is union'd with
-> mm->def_vma_flags (of type vma_flags_t).
+> Update vm_pgprot_modify() to use the new VMA flags type vma_flags_t, and
+> rename to vma_pgprot_modify() accordingly.
 > 
-> As part of the effort to convert vm_flags_t usage to vma_flags_t (in order
-> to no longer be arbitrarily limited to a system word size for VMA flags),
-> prefer mm->def_vma_flags to mm->def_flags throughout the mm logic.
+> This is part of the ongoing work to convert vm_flags_t to vma_flags_t, in
+> order to eliminate the arbitrary limit of the number of bits in a system
+> word on available VMA flags.
 > 
-> We update dump_mm() to use the %*pb format which means we make no
-> assumption about the number of VMA flag bits on output when outputting
-> default VMA flags.
+> Update VMA userland tests accordingly, updating vma_set_page_prot() to no
+> longer inline vma_pgprot_modify(), rather we can simply define
+> vma_pgprot_modify() as a static inline function and the tests will pick it
+> up from vma.h.
 > 
 > No functional change intended.
 > 
 > Reviewed-by: Lance Yang <lance.yang@linux.dev>
 > Reviewed-by: Zi Yan <ziy@nvidia.com>
 > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> ---
->  mm/debug.c |  5 +++--
->  mm/mlock.c | 13 +++++++------
->  mm/mmap.c  | 11 ++++++-----
->  mm/vma.c   |  2 +-
->  4 files changed, 17 insertions(+), 14 deletions(-)
 
 Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
