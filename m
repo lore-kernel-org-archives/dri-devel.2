@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1538C44512
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 07:09:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2F08C4451C
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 07:12:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18F7D10EC92;
-	Wed, 22 Jul 2026 07:09:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19BFF10EC93;
+	Wed, 22 Jul 2026 07:12:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bBuBS1Z4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mGb3/FY0";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D941D10EC92
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:09:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47A7710EC93
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:12:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5C99660A67;
- Wed, 22 Jul 2026 07:09:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E58491F000E9;
- Wed, 22 Jul 2026 07:09:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 86F2E60A67;
+ Wed, 22 Jul 2026 07:12:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 136891F000E9;
+ Wed, 22 Jul 2026 07:12:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784704161;
- bh=yfyu/KanP6qnriRYguQnjXMHbf/YnrvRqa028R6znig=;
+ s=k20260515; t=1784704357;
+ bh=XJpg/hkFlEkKNd6o4gJUED1yRb4CiuEy7nBn3sPIAN4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bBuBS1Z4EUsjYDKNiTv4RV6jx6cli5kVnZ0trpNZ7h8NLtDOGe8SAMGQyx0SSZA5M
- euxck/mNDregqShi67CJVUUp5QDi35RNXsuB226naD+6W5EtdS3r1QQC+fPn+0T+9D
- 0e/ZCU7fkStO3EKgvo47xtrzO1xcBZypNir8gGOAGdN13c/PvdPRJB1dtBXfGn+RSF
- vc1uFTb4lrdWlKuhu9aYZoRUr88k0fJXaXOGbWFWO/lCd2kKtRHjDkIqZOpft7Gw2/
- 3RKx+iYNP6LZ9FIabARiylAjIFDWlDBiEyPtflFIo+a91RanVo/XLVO/+PRZkB1rvI
- X1B0QloRSCYnw==
+ b=mGb3/FY0+ETtz2bt5QU+d+OLfI/IcjlsTxwhrUiC80VzzHyzDleYC5hS9SgySSEKa
+ SkfXRzHx5Gr8MOL4B1PDVCQjoWceUWyw7eVdXBn6O0rOnWGIaVBFIBJlFq1WWvW+mU
+ kFMyvX4UV39KMwcW2f34uugYy+eoDnFfRLS0OfCRmQ2qVJNVdF2piripnW4A51lRdM
+ ZYa1KaH63AbskHjmTrmIPD6/0S9KjHW2THPpCx4H1q5fwNrF/b1DJxJVAq6sjQVeuB
+ MTlGbdVVVGJcAIVmeqOF8GHNfXoLnTh/wfroljbvKV4GnuV0xReBtaHNyriwFog3qT
+ YR6ZWu3ugC8Kg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] backlight: qcom-wled: Remove redundant dev_err()
-To: "Pan Chuang" <panchuang@vivo.com>
+Subject: Re: [PATCH 22/24] drm/msm/dp: stop storing the connector in struct
+ msm_dp
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260722065709.346072-1-panchuang@vivo.com>
-References: <20260722065709.346072-1-panchuang@vivo.com>
+In-Reply-To: <20260722-drm-msm-display-interface-v1-22-368c10fe62fd@oss.qualcomm.com>
+References: <20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com>
+ <20260722-drm-msm-display-interface-v1-22-368c10fe62fd@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 07:09:20 +0000
-Message-Id: <20260722070920.E58491F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 07:12:36 +0000
+Message-Id: <20260722071237.136891F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,127 +58,96 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [Low] Incomplete cleanup of redundant dev_err() after devm_request_thread=
-ed_irq().
+- [Medium] msm_dp_display_get_connector() returns a connector pointer witho=
+ut holding a reference, violating the DRM iterator API.
 
 Pre-existing issues:
-- [High] Unconditional calls to disable_irq() during driver removal can use=
- negative or 0 IRQ values, leading to crashes or disabling critical system =
-IRQs.
-- [High] Teardown race condition in wled_remove() allows sysfs and IRQ acce=
-ss to a destroyed mutex.
-- [Medium] The driver swallows -EPROBE_DEFER from platform_get_irq_byname()=
-, leading to permanent feature loss.
+- [High] Missing assignment of `debug->connector` leads to a guaranteed NUL=
+L pointer dereference when reading debugfs files.
 --
 
---- Patch [1]: [PATCH] backlight: qcom-wled: Remove redundant dev_err() ---
-commit d0dd0e4fe4ebc4391de7914a6014d4894f4acea9
-Author: Pan Chuang <panchuang@vivo.com>
+--- Patch [22]: [PATCH 22/24] drm/msm/dp: stop storing the connector in str=
+uct msm_dp ---
+commit 6517fb125f3c91df434e357450ad362fc4f2fec3
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-backlight: qcom-wled: Remove redundant dev_err()
+drm/msm/dp: stop storing the connector in struct msm_dp
 
-Since commit 55b48e23f5c4 ("genirq/devres: Add error handling in
-devm_request_*_irq()"), devm_request_threaded_irq() automatically logs
-detailed error messages on failure. Remove the now-redundant
-driver-specific dev_err() calls.
+This commit removes the cached drm_connector from struct msm_dp. Instead of
+storing the connector, consumers are updated to obtain it from their calling
+context, the atomic state, or by looking it up from the encoder.
 
-> diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backligh=
-t/qcom-wled.c
-> index 8054e4787725e..650dd95f06ef5 100644
-> --- a/drivers/video/backlight/qcom-wled.c
-> +++ b/drivers/video/backlight/qcom-wled.c
-> @@ -1639,8 +1639,6 @@ static int wled_configure_ovp_irq(struct wled *wled,
->  				       wled_ovp_irq_handler, IRQF_ONESHOT,
->  				       "wled_ovp_irq", wled);
->  	if (rc < 0) {
-> -		dev_err(wled->dev, "Unable to request ovp_irq (err:%d)\n",
-> -			rc);
->  		wled->ovp_irq =3D 0;
->  		return 0;
->  	}
-
-[Severity: Low]
-Is this cleanup incomplete? Looking at wled_configure_short_irq(), it appea=
-rs
-there is another call to dev_err() after devm_request_threaded_irq() that w=
-as
-left behind:
-
-drivers/video/backlight/qcom-wled.c:wled_configure_short_irq()
-    ...
-	rc =3D devm_request_threaded_irq(wled->dev, wled->short_irq,
-				       NULL, wled_short_irq_handler,
-				       IRQF_ONESHOT,
-				       "wled_short_irq", wled);
-	if (rc < 0)
-		dev_err(wled->dev, "Unable to request short_irq (err:%d)\n",
-			rc);
-    ...
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could wled_remove() pass
-negative or zero IRQ values to disable_irq()?
-
-Looking at wled_remove(), it disables both IRQs unconditionally:
-
-drivers/video/backlight/qcom-wled.c:wled_remove()
-    ...
-	disable_irq(wled->short_irq);
-	disable_irq(wled->ovp_irq);
-}
-
-If platform_get_irq_byname() fails, wled->short_irq retains the negative
-error code because probe continues. If devm_request_threaded_irq() fails
-for ovp_irq, wled->ovp_irq is explicitly set to 0. Would passing these
-values to disable_irq() lead to out-of-bounds access or disable system IRQs?
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+[ ... ]
+> @@ -1329,6 +1341,25 @@ bool msm_dp_wide_bus_available(const struct msm_dp=
+ *msm_dp_display)
+>  	return dp->wide_bus_supported;
+>  }
+> =20
+> +static struct drm_connector *
+> +msm_dp_display_get_connector(struct msm_dp *msm_dp_display)
+> +{
+> +	struct drm_encoder *encoder =3D msm_dp_display->bridge->encoder;
+> +	struct drm_connector_list_iter conn_iter;
+> +	struct drm_connector *connector, *found =3D NULL;
+> +
+> +	drm_connector_list_iter_begin(msm_dp_display->drm_dev, &conn_iter);
+> +	drm_for_each_connector_iter(connector, &conn_iter) {
+> +		if (drm_connector_has_possible_encoder(connector, encoder)) {
+> +			found =3D connector;
+> +			break;
+> +		}
+> +	}
+> +	drm_connector_list_iter_end(&conn_iter);
+> +
+> +	return found;
+> +}
 
 [Severity: Medium]
-This is a pre-existing issue, but might the driver permanently lose features
-by swallowing -EPROBE_DEFER?
+When the loop breaks, drm_connector_list_iter_end() automatically drops the
+reference on the current iterator connector. Since drm_connector_get() is n=
+ot
+called on found before returning, does this return a raw pointer without an
+elevated reference count?
 
-drivers/video/backlight/qcom-wled.c:wled_configure_ovp_irq()
-    ...
-	wled->ovp_irq =3D platform_get_irq_byname(pdev, "ovp");
-	if (wled->ovp_irq < 0) {
-		dev_dbg(&pdev->dev, "OVP IRQ not found ...\n");
-		return 0;
-	}
-    ...
-
-If the interrupt controller driver probes after the backlight driver,
-platform_get_irq_byname() returns -EPROBE_DEFER. Instead of deferring,
-the driver treats any negative value as missing and proceeds without the IR=
-Q.
-The same pattern exists in wled_configure_short_irq().
+> +
+>  void msm_dp_display_debugfs_init(struct msm_dp *msm_dp_display, struct d=
+entry *root, bool is_edp)
+>  {
+>  	struct msm_dp_display_private *dp;
+> @@ -1338,7 +1369,9 @@ void msm_dp_display_debugfs_init(struct msm_dp *msm=
+_dp_display, struct dentry *r
+>  	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
+dp_display);
+>  	dev =3D &dp->msm_dp_display.pdev->dev;
+> =20
+> -	rc =3D msm_dp_debug_init(dev, dp->panel, dp->link, dp->msm_dp_display.c=
+onnector, root, is_edp);
+> +	rc =3D msm_dp_debug_init(dev, dp->panel, dp->link,
+> +			       msm_dp_display_get_connector(msm_dp_display),
+> +			       root, is_edp);
 
 [Severity: High]
-This is a pre-existing issue, but is there a use-after-destroy race conditi=
-on
-during driver unbind?
+This is a pre-existing issue, but I noticed that msm_dp_debug_init() in
+dp_debug.c accepts the connector argument but never assigns it to the
+allocated debug structure (missing debug->connector =3D connector).
 
-drivers/video/backlight/qcom-wled.c:wled_remove()
-{
-	struct wled *wled =3D platform_get_drvdata(pdev);
+Later, when a user reads from debugfs nodes like dp_test_active, the show
+handlers dereference debug->connector. Since it remains NULL from the
+devm_kzalloc() allocation, will reading these debugfs files cause a NULL
+pointer dereference?
 
-	mutex_destroy(&wled->lock);
-	cancel_delayed_work_sync(&wled->ovp_work);
-	disable_irq(wled->short_irq);
-	disable_irq(wled->ovp_irq);
-}
-
-Since devm_backlight_device_register() is used, the sysfs interface remains
-active until devres cleanup, which happens after wled_remove() returns.
-A concurrent write to the sysfs brightness attribute can call
-wled_update_status(), locking the already destroyed mutex.=20
-
-Additionally, hardware IRQs are disabled after mutex_destroy(), so an
-in-flight OVP interrupt could trigger wled_ovp_irq_handler() and also lock
-the destroyed mutex.
+>  	if (rc)
+>  		DRM_ERROR("failed to initialize debug, rc =3D %d\n", rc);
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722065709.3460=
-72-1-panchuang@vivo.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-drm-msm-di=
+splay-interface-v1-0-368c10fe62fd@oss.qualcomm.com?part=3D22
