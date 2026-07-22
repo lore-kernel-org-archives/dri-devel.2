@@ -4,148 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EB86C4453E
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 16:15:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46F30C4453E
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 16:22:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A9CA10E4A3;
-	Wed, 22 Jul 2026 16:15:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9314810E4A5;
+	Wed, 22 Jul 2026 16:22:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DZFALzRw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JCSAm4hB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E3A910E4A2;
- Wed, 22 Jul 2026 16:15:33 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EB1810E4A5
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 16:22:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F414E43964;
- Wed, 22 Jul 2026 16:15:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3F941F000E9;
- Wed, 22 Jul 2026 16:15:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BD7A4600AB;
+ Wed, 22 Jul 2026 16:22:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52E141F00A3A;
+ Wed, 22 Jul 2026 16:22:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784736932;
- bh=YtoXCA62CyJBNC7Tbkqm6QUVmIJyF8vWZgzG8HkNlzI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=DZFALzRwUkrcWF32RmBloDBG4APMVkGxhtgaZyfkfq4w77n6RpNrdAHXIykI0LwMX
- tGTerPv7RnSpnWTQAISeMEzjQWr0uGJk7k+k1pIaGnKeBR4YxJpt9RyDLS1Ii9bIGB
- 43/hCcIIVUkgRJS7+JSbLJBvsJXvM8ST2ld2ORuO4pGg5dZ4eXczqK6/TJ9lcC7zTV
- 184NzHUANyj1upIfiufIzTzgFXEU4ol0nH+6Z9pEAlACTIbjzOLfqyhBSUIaxXrwXh
- gLiKpiTLLNgHpkBvl6V4zRf6clxml/U/1TOwopiR7NwCRl7coCul519YgSFNAZ8pPL
- 5ogQPeJG8QmfA==
-Message-ID: <fd9defdf-5d82-4f07-a496-4fe8064710ff@kernel.org>
-Date: Wed, 22 Jul 2026 18:15:11 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/13] mm/mremap: convert mremap code to use vma_flags_t
-Content-Language: en-US
-To: Lorenzo Stoakes <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, Zi Yan <ziy@nvidia.com>,
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-aio@kvack.org,
- linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
- xen-devel@lists.xenproject.org, linux-fbdev@vger.kernel.org,
- linux-sound@vger.kernel.org
-References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
- <20260711-b4-vma-flags-mm-v2-13-0fa2357d5431@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
- KxRWDHX0R2tgpFDXHnzZcQywawu8eSq0LxzxFNYMvtB7sV1pxYwej2qx9B75qW2plBs+7+YB
- 87tMFA+u+L4Z5xAzIimfLD5EKC56kJ1CsXlM8S/LHcmdD9Ctkn3trYDNnat0eoAcfPIP2OZ+
- 9oe9IF/R28zmh0ifLXyJQQz5ofdj4bPf8ecEW0rhcqHfTD8k4yK0xxt3xW+6Exqp9n9bydiy
- tcSAw/TahjW6yrA+6JhSBv1v2tIm+itQc073zjSX8OFL51qQVzRFr7H2UQG33lw2QrvHRXqD
- Ot7ViKam7v0Ho9wEWiQOOZlHItOOXFphWb2yq3nzrKe45oWoSgkxKb97MVsQ+q2SYjJRBBH4
- 8qKhphADYxkIP6yut/eaj9ImvRUZZRi0DTc8xfnvHGTjKbJzC2xpFcY0DQbZzuwsIZ8OPJCc
- LM4S7mT25NE5kUTG/TKQCk922vRdGVMoLA7dIQrgXnRXtyT61sg8PG4wcfOnuWf8577aXP1x
- 6mzw3/jh3F+oSBHb/GcLC7mvWreJifUL2gEdssGfXhGWBo6zLS3qhgtwjay0Jl+kza1lo+Cv
- BB2T79D4WGdDuVa4eOrQ02TxqGN7G0Biz5ZLRSFzQSQwLn8fbwARAQABzSNWbGFzdGltaWwg
- QmFia2EgPHZiYWJrYUBrZXJuZWwub3JnPsLBsAQTAQoAWhYhBKlA1DSZLC6OmRA9UCJPp+fM
- gqZkBQJqFFy6GxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDIsMgIbAwUJGtCBUAULCQgHAwUV
- CgkICwUWAgMBAAIeBQIXgAAKCRAiT6fnzIKmZJIUEADFx/tREzUImHrEwVHeSvDFmA7tJysI
- UVrlvrM09E7GIuzphzv7jYmo8n3ANpCczLEVr4G0syYQdTigaZgv3+FQDIIzhKih1IHhu1Ei
- XHlywNWKnQxxQEUNi5Mwx43wQz5XVw9F1A7gtKBKNtfogO511hAbrzagrYajyQacEJ/+sfhZ
- 9Da8ltHIXD8pcYaHUfQgEusCgmEd9+KrUwrTbckFKmYq5chuE6yJ4J0EmWknL096jIE6CnzF
- FRslQ3B1UKDjxVsm1ZHfir5NeWszLkTvGFsddFaWTgh8UycESG6VQzKXjjewXu2pG7YQYRpj
- QKm1W5X2TkwWkXRBZTmfmbhxIUMh3+zf5wQ463rSmDN/8v81tdqBtAW6rH/kzg1GvkaTHXn0
- 507yEHFzBksk2viAuIxxr7km8+/KARYLIdGtx30EG8cKzAUZOK6WqxtNCsXUJNrVE8CWrCaD
- icoNu7Fs1c5hmPHdSTnU48ce67449DdnO4neLSNhRiGlMHJgfJUmgrxu/hcYeOZ3haWmEQ2w
- uW1Mh01OHi8QZHCEyAbABrPs9GUgccc/4eYXX9hIgxfSkYzn8f+8NuIFPWl/0uTvjgqU29FQ
- SbzOLxHq9439Ox40G5mS5eZXRGxITYR+6TXvRGI6P/264jvflnr/pDGUttaikU+0W+1uxgKH
- cmYbEc7ATQRbGTU1AQgAn0H6UrFiWcovkh6EXVcl+SeqyO6JHOPm+e9Wu0Vw+VIUvXZVUVVQ
- La1PQDUi6j00ChlcR66g9/V0sPIcSutacPKfdKYOBvzd4rlhL8rfrdEsQw5ApZxrA8kYZVMh
- FmBRKAa6wos25moTlMKpCWzTH84+WO5+ziCTsTUZASAToz3RdunTD+vQcHj0GqNTPAHK63sf
- bAB2I0BslZkXkY1RLb/YhuA6E7JyEd2pilZOrIuBGl/5q2qSakgnAVFWFBR/DO27JuAksYnq
- +aH8vI0xGvwn75KqSk4UzAkDzWSmO4ZHuahKtQgZNsMYV+PGayRBX9b9zbldzopoLBdqHc4n
- jQARAQABwsF8BBgBCgAmAhsMFiEEqUDUNJksLo6ZED1QIk+n58yCpmQFAmfIHFQFCRYU6J8A
- CgkQIk+n58yCpmS2PA//bqN1LfcotmArgElsa+0EGZSQlYgK48pm8WAeTXTngudP9IJ4SuKY
- HR5RNjHcBeqN+Me0zxRqYzRb8nGanHEkDyf4Im8DQM8d6vbyU+FcPmG4skud4kgS1zMHnlVd
- SXfSIwKC/hKgdHG8aBV7545Lz9X6Iohea+94wneD0aw/hqF+QWewGZhWJriWAZtvEkzNjQOi
- 4U9F/trLten/x7bpphDSnDMKJtITbtzATT1Dq7o7VpIUK1nCTQALMuMjKCdi8OdU/+V+R3O4
- 0PXWvX8qrvqYapVbZ+9KqT74FsuB0Ya9uXwgBF2Q6cRuETZk5vqaqKxzqoQZCO8AOz/58j6O
- 2RHNy/mZEN+7tJ5Tsq42zVJ4jxsT8b9YplavCMsnBgDeRWhcbYhCyttoL7nYISyWg4kQYZ/P
- wIV3OuNv2f8iKYsxNsRuClOAF82+gvqOy1/1pprFjy8uo2pkoOrb63aOP3vO5VHnRKgra6dq
- NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
- OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
- jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
-In-Reply-To: <20260711-b4-vma-flags-mm-v2-13-0fa2357d5431@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1784737352;
+ bh=iMFk1aaWGGVoj8fAZpSXeah11KlsqhRKW/dk+/xD3Dk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JCSAm4hBcrJekVgTJpcbanh02oSPpVSJAxCzCmlHAQNwYFXf2StbrxV8ZNc0uNsqw
+ 46bCfac6MsH03bRfGvA4+TUUQ0svkbB8JsBd1vq5zHdcHy6nJcUK9A8jUdkadmESX/
+ PThqfRekF0uhmh3T8UbLTanb7SHKliJIIFQ+B9BZpchazkL3kU8VjBf3CXnBrzA1xv
+ AGiQ2A9xvx5/kh3V6cL+SbthtpiEjdgHeTa5XJBckHNhawTt8aEP/djiawgpbCB7Tb
+ rnjDXGojaivkDtNFx3xKqmBwktgmmsZUzqrEBZVgOWBik8tX+ILpEnuMB0CQ+QGang
+ Q/W/ikFlVqmHg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 01/11] drm/bridge: it6505: quiesce event sources and
+ work on remove()
+To: "Daniel Golle" <daniel@makrotopia.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <837efb37cc967fc0bb4371d1051dd33838425d2d.1784717129.git.daniel@makrotopia.org>
+References: <cover.1784717129.git.daniel@makrotopia.org>
+ <837efb37cc967fc0bb4371d1051dd33838425d2d.1784717129.git.daniel@makrotopia.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 16:22:31 +0000
+Message-Id: <20260722162232.52E141F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,31 +54,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/11/26 20:45, Lorenzo Stoakes wrote:
-> Replace use of the legacy vm_flags_t flags with vma_flags_t values
-> throughout the mremap logic.
-> 
-> Note that, in replacing vm_flags_clear() (which takes the VMA write lock)
-> with vma_clear_flags() and vma_clear_flags_mask() (which do not)
-> respectively in unmap_source_vma() and dontunmap_complete(), we do not add
-> a VMA write lock to account for htis.
-> 
-> This is because, in both cases, move_vma() is their calling function and
-> this has already acquired the VMA write lock on vrm->vma whose VMA flags
-> are being cleared.
-> 
-> In the case of vma_set_flags() in unmap_source_vma() we do need to do this
-> - as prev and next were not necessarily write locked at this point.
-> 
-> Additionally update comments to reflect the changes to be consistent.
-> 
-> No functional change intended.
-> 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+New issues:
+- [High] Setting `notifier_call` to NULL during unregistration causes a NUL=
+L pointer dereference in concurrent extcon notifier traversals.
 
+Pre-existing issues:
+- [High] The extcon notifier callback can queue `extcon_wq` after the work =
+has been cancelled, leading to a Use-After-Free of the `it6505` structure.
+--
+
+--- Patch [1]: [PATCH v5 01/11] drm/bridge: it6505: quiesce event sources a=
+nd work on remove() ---
+commit ea23622a6daa324ec330db52ae5d71446a7f3ab2
+Author: Daniel Golle <daniel@makrotopia.org>
+
+drm/bridge: it6505: quiesce event sources and work on remove()
+
+The patch attempts to fix use-after-free issues during device removal by
+unregistering the extcon notifier, disabling IRQs, and cancelling work items
+before the devres cleanup frees the it6505 structure. It also initializes t=
+he
+extcon workqueue in the probe function.
+
+> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
+/ite-it6505.c
+> index 8ecb43611dba8..e9c84e4fb3a09 100644
+> --- a/drivers/gpu/drm/bridge/ite-it6505.c
+> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
+
+[ ... ]
+
+> @@ -2951,13 +2954,16 @@ static int it6505_use_notifier_module(struct it65=
+05 *it6505)
+> =20
+>  static void it6505_remove_notifier_module(struct it6505 *it6505)
+>  {
+> -	if (it6505->extcon) {
+> -		devm_extcon_unregister_notifier(it6505->dev,
+> -						it6505->extcon,	EXTCON_DISP_DP,
+> +	mutex_lock(&it6505->extcon_lock);
+> +	if (it6505->extcon && it6505->event_nb.notifier_call) {
+> +		devm_extcon_unregister_notifier(it6505->dev, it6505->extcon,
+> +						EXTCON_DISP_DP,
+>  						&it6505->event_nb);
+> -
+> -		flush_work(&it6505->extcon_wq);
+> +		it6505->event_nb.notifier_call =3D NULL;
+
+[Severity: High]
+Does setting notifier_call to NULL here cause a NULL pointer dereference in
+concurrent extcon notifier traversals?
+
+Extcon uses raw notifiers, which do not provide built-in locking or RCU gra=
+ce
+periods during traversal. If an extcon state change triggers extcon_sync()
+(which calls raw_notifier_call_chain()) concurrently with this unbind proce=
+ss,
+setting it6505->event_nb.notifier_call to NULL while the traversal thread is
+examining this notifier block can cause a crash.
+
+If the traversal thread fetches nb->notifier_call inside notifier_call_chai=
+n()
+immediately after it is set to NULL, it will attempt to execute it.
+
+>  	}
+> +	mutex_unlock(&it6505->extcon_lock);
+> +
+> +	flush_work(&it6505->extcon_wq);
+>  }
+
+[ ... ]
+
+> @@ -3647,6 +3654,12 @@ static void it6505_i2c_remove(struct i2c_client *c=
+lient)
+>  	drm_bridge_remove(&it6505->bridge);
+>  	drm_dp_aux_unregister(&it6505->aux);
+>  	it6505_debugfs_remove(it6505);
+> +	it6505_remove_notifier_module(it6505);
+> +	disable_irq(it6505->irq);
+> +	cancel_work_sync(&it6505->link_works);
+> +	cancel_work_sync(&it6505->hdcp_wait_ksv_list);
+> +	cancel_delayed_work_sync(&it6505->hdcp_work);
+> +	cancel_work_sync(&it6505->extcon_wq);
+
+[Severity: High]
+This is a pre-existing issue, but does this fully prevent a Use-After-Free
+if the extcon notifier callback is running concurrently?
+
+In it6505_remove_notifier_module(), devm_extcon_unregister_notifier() remov=
+es
+the raw notifier but does not wait for concurrently executing callbacks to =
+finish.
+If the it6505_extcon_notifier() callback is executing or preempted on anoth=
+er
+CPU, it can call schedule_work(&it6505->extcon_wq) after cancel_work_sync()
+returns.
+
+When the device unbinds, devres frees the it6505 structure, which can cause
+the scheduled workqueue to dereference freed memory.
+
+>  	it6505_poweroff(it6505);
+>  	it6505_remove_edid(it6505);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784717129.gi=
+t.daniel@makrotopia.org?part=3D1
