@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1F8BC4452D
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 01:01:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 941F3C4452B
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 01:02:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C77810EBF3;
-	Wed, 22 Jul 2026 01:01:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00DC110EBF4;
+	Wed, 22 Jul 2026 01:02:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j9WlEXmS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CkAn0hCn";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5472810EBF3
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 01:01:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D769C10EBF4
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 01:02:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3D105402B6;
- Wed, 22 Jul 2026 01:01:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAD411F000E9;
- Wed, 22 Jul 2026 01:01:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A78484131D;
+ Wed, 22 Jul 2026 01:02:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59DA51F000E9;
+ Wed, 22 Jul 2026 01:02:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784682088;
- bh=j/lX1enO0GcHpC/n8g5LVwQ1h8xezuhujH7moU7egUY=;
+ s=k20260515; t=1784682144;
+ bh=ZsahaHbiUyPLImxk655F6B9zR140cP1pWZ5kuD98/94=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=j9WlEXmS1vfGjnH6eMIbavlnhtGZVYWF3m2nWXMUdCyIj9MG7mUfyZbdJ1kp368wV
- JbfjKda5zvc7wkoa1RcZXpe+VaGHby3pFXKk6NtDcSAG/8mG2RAL3n7Iz+T890/A4L
- hjfav9q6c7w7DptB2gtiIkn2UR2b2e0Kunicqm2sKTOfbl0V+pc4u9LMzqnF//gJAV
- aYjz/Fh6ct7UukO92dRg5fxHqa4GIWeBwjbfwmm6S7VSeN3nLlvBeBvd9QX/s2ZoSN
- 2wV4y1HroF18yn7iYHjHDQCF//CsJSkbwq6aXQeOmtn3TIECzhVIBVsWLs1ly7Q0rs
- AY1nS+tNex2JQ==
+ b=CkAn0hCnnPEqwIYxEqxyC/K8ZJLKIoEr8lNpM1aD+T4rY82Seg4ULoL2RobZzPU3w
+ q0jTrfLpFY3GvJYT4gR8R3qVPbrs2rkzMfuOmMBVppxaTdSOZPXiOR2RTma3x+Jk27
+ wtFaft329B1mshE068znqSBqjC5Cl2rMpO2XcSkYggD02WZoyJrNNBnUToAv8ooy3Z
+ MZmQFDxJ9BtzioDhPALDGXC9McRmT88fDmXMltSKf/UZog+lWjFjhGEH2FGsGpW0PB
+ xQAwOmBejs28drvP2P5+kyghUuhiW+4db+MzYTi9n2FuR6as5sSQPB+Yq10n7cxrDA
+ omvonEy0AEGfA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/7] drm/tyr: add a generic slot manager
+Subject: Re: [PATCH v8 3/7] drm/tyr: add Memory Management Unit (MMU) support
 To: "Deborah Brouwer" <deborah.brouwer@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
-In-Reply-To: <20260721-fw-boot-b4-v8-2-b28f744581c9@collabora.com>
+In-Reply-To: <20260721-fw-boot-b4-v8-3-b28f744581c9@collabora.com>
 References: <20260721-fw-boot-b4-v8-0-b28f744581c9@collabora.com>
- <20260721-fw-boot-b4-v8-2-b28f744581c9@collabora.com>
+ <20260721-fw-boot-b4-v8-3-b28f744581c9@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 01:01:27 +0000
-Message-Id: <20260722010127.DAD411F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 01:02:23 +0000
+Message-Id: <20260722010224.59DA51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,87 +57,130 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] `SlotManager::activate` is a safe function but can cause a Use-Aft=
-er-Free and hardware state corruption if called with mismatched `slot_data`=
- on an already active seat.
+- [Medium] Delayed validation of the hardware AS_PRESENT mask causes probe =
+to succeed but runtime operations to fail.
+- [Medium] Busy-waiting for up to 10ms in a sleepable context.
 --
 
---- Patch [2]: [PATCH v8 2/7] drm/tyr: add a generic slot manager ---
-commit c0b62f1ee506ab72e8c6ddd5dd7d561783c86a38
+--- Patch [3]: [PATCH v8 3/7] drm/tyr: add Memory Management Unit (MMU) sup=
+port ---
+commit d32ee18da5af7d1944026f776d63573705b0da02
 Author: Boris Brezillon <boris.brezillon@collabora.com>
 
-drm/tyr: add a generic slot manager
+drm/tyr: add Memory Management Unit (MMU) support
 
-Introduce a generic slot manager to dynamically allocate limited hardware
-slots to software "seats". It handles address space and command stream
-group slots, lazily evicting idle slots when contention arises.
+This commit adds Memory Management Unit (MMU) support in Tyr, wrapping a
+SlotManager instance to allocate MMU address-space slots for virtual memory.
+It also introduces the AddressSpaceManager for hardware-specific MMU regist=
+er
+commands and updates Kconfig dependencies.
 
+> diff --git a/drivers/gpu/drm/tyr/mmu/address_space.rs b/drivers/gpu/drm/t=
+yr/mmu/address_space.rs
+> index 0000000000000..add5100b26f2e
 > --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/slot.rs
+> +++ b/drivers/gpu/drm/tyr/mmu/address_space.rs
 [ ... ]
-> +    /// Records a slot as active for the given seat.
-> +    fn record_active_slot(
-> +        &mut self,
-> +        slot_idx: usize,
-> +        locked_seat: &LockedSeat<T, MAX_SLOTS>,
-> +        slot_data: T::SlotData,
-> +    ) {
-[ ... ]
-> +        self.slots[slot_idx] =3D Slot::Active(SlotInfo {
-> +            slot_data,
-> +            seqno: cur_seqno,
-> +        });
-> +
-> +        self.use_seqno +=3D 1;
-> +    }
-[ ... ]
-> +    /// Activates a resource on any available/reclaimable slot.
+> +impl<'bound> AddressSpaceManager<'bound> {
+> +    /// Creates a new address space manager.
 > +    ///
-> +    /// TODO: add a mechanism to ensure that `locked_seat` and `slot_dat=
-a` belong to the
-> +    /// same seat owner since they may be reused. For now the caller has=
- to be careful
-> +    /// to do this correctly.
-> +    pub(crate) fn activate(
-> +        &mut self,
-> +        locked_seat: &LockedSeat<T, MAX_SLOTS>,
-> +        slot_data: T::SlotData,
-> +    ) -> Result {
-> +        self.check_seat(locked_seat);
-> +        match locked_seat.access(self) {
-> +            // If a seat still has a valid slot, just reuse the slot and=
- refresh the bookkeeping.
-> +            Seat::Active(seat_info) | Seat::Idle(seat_info) =3D> {
-> +                self.record_active_slot(seat_info.slot as usize, locked_=
-seat, slot_data);
+> +    /// Initializes the manager with references to the platform device a=
+nd
+> +    /// I/O memory region, along with the bitmask of available AS slots.
+> +    pub(super) fn new(
+> +        dev: &'bound Device<Bound>,
+> +        iomem: Arc<IoMem<'bound>>,
+> +        as_present: u32,
+> +    ) -> Result<AddressSpaceManager<'bound>> {
+> +        Ok(Self {
+> +            dev,
+> +            iomem,
+> +            as_present,
+> +        })
+> +    }
+> +
+> +    /// Validates that an AS slot number is within range and present in =
+hardware.
+> +    ///
+> +    /// Checks that the slot index is less than [`MAX_AS`] and that
+> +    /// the corresponding bit is set in the `as_present` mask read from =
+the GPU.
+> +    ///
+> +    /// Returns [`EINVAL`] if the slot is out of range or not present in=
+ hardware.
+> +    fn validate_as_slot(&self, as_nr: usize) -> Result {
+> +        if as_nr >=3D MAX_AS {
+> +            dev_err!(
+> +                self.dev,
+> +                "AS slot {} out of valid range (max {})\n",
+> +                as_nr,
+> +                MAX_AS
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        if (self.as_present & (1 << as_nr)) =3D=3D 0 {
+> +            dev_err!(
+> +                self.dev,
+> +                "AS slot {} not present in hardware (AS_PRESENT=3D{:#x})=
+\n",
+> +                as_nr,
+> +                self.as_present
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        if self.as_present.trailing_ones() !=3D self.as_present.count_on=
+es() {
 
-[Severity: High]
-When a seat is already active or idle, this branch refreshes the slot by
-calling record_active_slot() with the newly provided slot_data, but without
-calling self.manager.activate() to update the hardware.
+[Severity: Medium]
+Should the as_present mask validation occur during probe in
+AddressSpaceManager::new() instead of on every runtime slot operation?
 
-In record_active_slot(), the assignment to self.slots[slot_idx] overwrites
-the old SlotInfo and drops the previous slot_data.
+If the hardware has a sparse AS_PRESENT mask, wouldn't the driver
+successfully probe but unconditionally fail all subsequent MMU operations at
+runtime? Moving this static mask check to probe time would catch unsupported
+hardware earlier and avoid re-evaluating it on every slot operation.
 
-If the old slot_data held the last reference to resources mapped to the
-hardware (such as DMA buffers or pagetables), could they be freed while the
-hardware is still actively using them, causing a use-after-free?
+> +            dev_err!(
+> +                self.dev,
+> +                "Sparse AS_PRESENT mask is unsupported: {:#x}\n",
+> +                self.as_present
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        Ok(())
+> +    }
+> +
+> +    /// Waits for an AS slot to become ready (not active).
+> +    ///
+> +    /// Returns an error if polling times out after 10ms or if register =
+access fails.
+> +    fn as_wait_ready(&self, as_nr: usize) -> Result {
+> +        let io =3D &*self.iomem;
+> +        let op =3D || {
+> +            let status_reg =3D STATUS::try_at(as_nr).ok_or(EINVAL)?;
+> +            Ok(io.read(status_reg))
+> +        };
+> +        let cond =3D |status: &STATUS| -> bool { !status.active_ext() };
+> +        poll::read_poll_timeout(op, cond, Delta::from_millis(0), Delta::=
+from_millis(10))?;
 
-Furthermore, when the slot is later evicted, self.manager.evict() will be
-called with the newly provided slot_data instead of the old one. Could this
-confuse the eviction logic and corrupt hardware state?
+[Severity: Medium]
+Can this busy-wait stall the CPU for up to 10ms without yielding?
 
-Since activate() is a safe function, relying on callers to be careful about
-mismatched slot_data without marking the function unsafe or enforcing the
-invariant at runtime seems to violate Rust's soundness guarantees. Is there=
- a
-plan to implement the mechanism mentioned in the TODO before this is merged?
+Since the MMU is protected by a sleepable kernel Mutex (specifically
+as_manager: Mutex<AsSlotManager>), should the sleep delta in
+poll::read_poll_timeout be a small non-zero value instead of 0ms to allow
+yielding and prevent degrading system scheduling latency?
 
-> +                Ok(())
-> +            }
+> +
+> +        Ok(())
+> +    }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260721-fw-boot-b4=
--v8-0-b28f744581c9@collabora.com?part=3D2
+-v8-0-b28f744581c9@collabora.com?part=3D3
