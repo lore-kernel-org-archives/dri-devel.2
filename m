@@ -4,83 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F7BBC44539
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 12:15:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96D8AC44539
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 12:18:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9188D10ED99;
-	Wed, 22 Jul 2026 12:15:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5A1910ED9C;
+	Wed, 22 Jul 2026 12:18:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="NebbcwcJ";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="IetJodkq";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6F4310EDA7
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 12:15:37 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-47f703a9d05so2394044f8f.0
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 05:15:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1784722536; x=1785327336; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=irQTQ8XdUWdZ80B2Ynlymn+M9Ebrx4IqFd38HePJwiw=;
- b=NebbcwcJFaMsk133ZVY78B90qCpSfOEtr3C1Dn6PkKrbVHJGUlm3crcCoTTsiF/wGU
- sDtAlY4AMCFndi05BDDmLUoSLycZqNogapLz4L5QfH9TAhqAciTcuraHJ0C3yXEsy3Ya
- 9JwXcb/nMKck2jJZlWOfFEBfQb4QcimuruxDaNa1QnD7Tw2dgl902uQ9N3RdmAeU0JE5
- FjXkpKdRzQ1MjuZSix57EVEBg5PLDRLn6mRXFZESaKOqBs+YFS0a+xxHM6TjmOtUnqiB
- d9yLx1GUXq+o3LbCLY+3QovEGU2zXgxCxagqFkcK7apKvyZQFyDsQC6jNdWOKPFeW3JI
- zaSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784722536; x=1785327336;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=irQTQ8XdUWdZ80B2Ynlymn+M9Ebrx4IqFd38HePJwiw=;
- b=G/7MNKk2EkHy2NmHSD5RO/z+NCAHLaTy//BtBN6/DRGBrhMsvbq9AFgN47k07ZeSQs
- LpQSAuGUU5MzqYkobjuxfZB56mDshsPAGLeW7bh5FuJgzbZYzpPQrx4UsdLRHao0nFNc
- p/Nm3eSl8gWRQKIK0k5iNEhgkg5Cac47p15RkqqL8EE9WJ6lMcgvm0Khs9g0UiwqcRt8
- QDlj8bhBtHPaqW0QuW+/EZ/RDpNlJAdQHS0tS8xNNTBPYaZG0qe1ZnbHWo/HHM3J8JTp
- IZNy0XLXawZoJr5qlrHfvmaIjftrdPKTguCOTpl43zSWyB76uj7DGEZ8LZmqOIURlk3o
- FUHg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoAA8z+wV4q3DVC7yJ/dXyrVR4wozrfxm9dn7jQzOrxFtQWD5+kpOhU/uUGuHB7vW5zIFTSZbhwAUw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw9U1MswonH+DSHFZxx2OrQqyBVPdWseuX88HZTh5z6JV8dgfnQ
- wXRtS8sSxqiepJIApuuS4U8TtIM2asASdqEWA1XUfIXbymc4wTM/cI8KHBEeg8xbf1g=
-X-Gm-Gg: AR+sD12aaMReDAEricCx9VjAw29g+0MNMQos9cuQSrZTHiBCLhowcdfqkYfrQem2Umr
- E5pFrDwA/l2ATIIPWII+G/UqKA8GGmBUQ/vVyeJpejWD3D6VU5zIoQGaYuCendvdTnBTd6zUT26
- 46DQn78aCUCFskUpa7nfTtpMgC6utse8zD9QA+GODbJvsJiFrcG8sx2w6kvl21iEio7jrEE2iDT
- PDJA8ljKCmuA3Svim25uzsO/MUCvD6pjp/Qe8ijG+Yoh2yVUC8GDtsjrkpts62PrlgF1va/Qi4H
- D6JpcnT4FIBqWxj+DgRysDOhjRupYvTbT9OQgGxkBagpAlQIjVHgoU3UiabZFtGk2gl+NDk830n
- PKke0tJeWvNv/JFI24kNAr3LfjLXBc/VrNwUe2r5yrXx+Jav1KnK+tYNLcnUm7H4ATDmJ/mePW1
- RRWupnzZmjcqE1taYLOQUMp+VIUcoZ3AyWgQ==
-X-Received: by 2002:a5d:5f84:0:b0:47f:80f9:1830 with SMTP id
- ffacd0b85a97d-47f80f919b0mr8632658f8f.53.1784722535970; 
- Wed, 22 Jul 2026 05:15:35 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f8635c8d7sm4379093f8f.21.2026.07.22.05.15.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jul 2026 05:15:35 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: linux-kernel@vger.kernel.org,
-	Heiko Schocher <hs@nabladev.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v1] drm/panel: simple: Add Kyocera tcg070wvlq panel
-Date: Wed, 22 Jul 2026 14:15:13 +0200
-Message-Id: <178472247764.1745070.12653554536175856217.b4-ty@b4>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260721041935.757240-1-hs@nabladev.com>
-References: <20260721041935.757240-1-hs@nabladev.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB9710E3E4
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 12:18:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1784722702;
+ bh=hkrp+yDQRqwNUpeTFXjADV7o+wwH+RGlwUA/SvJw0HI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=IetJodkqZT8jjWJexpncST6NRGxRRena5iFVjRMs/sIB69M3KYTnqEfEsRVESwMG1
+ SHsAPJP8p0J6ieVCWd7tZn92GM4hnwMVHDj9k4xkx67ES2CS7NSPiJY/Glg1735iyL
+ VR5f6XtjNAmNBeoz1j2rUk0S1XFOWmaM4mVcSs2YC4thsOOVfC959Ju3PK0ZakFnzg
+ kCYTrebVzz+KXzq+pUv19la6ZAfcg3yjKGCabSvdOVcboSQP0Isy2u+J3lawwfOEcQ
+ dERjibTQRf55wtYuwEs6tCAbXNDk42VDyqJ9/Dkw5q+R5D/ti14jBMvg2ZEWprn9U4
+ N5C8T0TjbHy0w==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C197F17E0177;
+ Wed, 22 Jul 2026 14:18:21 +0200 (CEST)
+Message-ID: <ba22b854-be4b-4146-9e72-1da13bf41c08@collabora.com>
+Date: Wed, 22 Jul 2026 15:18:21 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 04/39] drm/connector: Add HDMI 2.0 scrambler
+ infrastructure
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
+ <20260702-dw-hdmi-qp-scramb-v8-4-d79890d00b6a@collabora.com>
+ <tjsidlnvswo2rdhqa6jybxrnb47lxgmxdlfrfbasuh67wjbqoy@3a45n3zawvnf>
+ <17753a1c-824a-4835-ac2d-8b2796bba1eb@collabora.com>
+ <534b921c-638c-4fc3-b89e-5dfc1f269f96@collabora.com>
+ <20260713-statuesque-nonchalant-seagull-b9c39d@houat>
+ <91c3a825-3344-4ff5-8ea0-f8f057665b3f@collabora.com>
+ <20260715-ancient-zealous-eagle-b13e94@houat>
+ <dfca9032-98ca-4c61-b1b1-85fd05283d77@collabora.com>
+ <20260716-astute-nippy-moose-bd22b5@houat>
+ <62b3bsa7ucgo2g7w75wudt3aundl3hv57qgjr6kqfteve56rf7@w42tah2fnvml>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <62b3bsa7ucgo2g7w75wudt3aundl3hv57qgjr6kqfteve56rf7@w42tah2fnvml>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,23 +86,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Tue, 21 Jul 2026 06:19:32 +0200, Heiko Schocher wrote:
-> Commit 922fb2db0287 ("dt-bindings: display: simple: Add Kyocera
-> tcg070wvlq panel") added the compatible string for the Kyocera
-> tcg070wvlq panel to the devicetree bindings documentation
-> (panel-simple.yaml), but the corresponding entry was not added
-> to the panel-simple driver.
+On 7/22/26 9:51 AM, Dmitry Baryshkov wrote:
+> On Thu, Jul 16, 2026 at 03:50:29PM +0200, Maxime Ripard wrote:
+>> On Wed, Jul 15, 2026 at 01:46:12PM +0300, Cristian Ciocaltea wrote:
+>>> On 7/15/26 11:55 AM, Maxime Ripard wrote:
+>>>> On Mon, Jul 13, 2026 at 01:23:00PM +0300, Cristian Ciocaltea wrote:
+>>>>> On 7/13/26 11:50 AM, Maxime Ripard wrote:
+>>>>>> On Thu, Jul 09, 2026 at 10:25:54PM +0300, Cristian Ciocaltea wrote:
+>>>>>>> On 7/3/26 11:54 PM, Cristian Ciocaltea wrote:
+>>>>>>>> On 7/3/26 5:34 PM, Dmitry Baryshkov wrote:
+>>>>>>>>> On Thu, Jul 02, 2026 at 05:46:17PM +0300, Cristian Ciocaltea wrote:
+>>>>>>>>>> Add the connector-level infrastructure to support HDMI 2.0 scrambling:
+>>>>>>>>>>
+>>>>>>>>>> - A scrambler_supported flag to indicate whether the source supports the
+>>>>>>>>>>   scrambling capability, in which case the newly introduced
+>>>>>>>>>>   .scrambler_{enable|disable}() callbacks in drm_connector_hdmi_funcs
+>>>>>>>>>>   are mandatory
+>>>>>>>>>
+>>>>>>>>> Do we need a flag? What would it mean if the flag is set, but the
+>>>>>>>>> callbacks are not? Can we drop the flag and use the presence of the
+>>>>>>>>> callbacks as a way to identify that scrambler is enabled?
+>>>>>>>>
+>>>>>>>> The flag is intended to be set only within drmm_connector_hdmi_init_with_caps()
+>>>>>>>> when drivers advertise HDMI 2.x capability, in which case it also ensures the
+>>>>>>>> callbacks are provided.  
+>>>>>>>>
+>>>>>>>> We could drop the flag and instead have the init helper clear the callbacks if
+>>>>>>>> they were provided for HDMI 1.x.  This might slightly reduce code readability,
+>>>>>>>> as it relies on checking the presence of individual callbacks - especially since
+>>>>>>>> we plan to extend this further with HDMI 2.1 support, providing four or five
+>>>>>>>> additional FRL-specific callbacks.
+>>>>>>>
+>>>>>>> I tried to replace the flag with a helper that checks the presence of (one of)
+>>>>>>> the callbacks, but it's not straightforward to unset those for non-HDMI 2.x
+>>>>>>> cases since the hdmi_funcs argument is immutable.
+>>>>>>
+>>>>>> I'm not sure why we would need to unset them. If the driver states that
+>>>>>> it support HDMI 2.0, then it needs to be there, if it doesn't, then who
+>>>>>> cares? it's not going to be used. We can log a warning that it's
+>>>>>> inconsistent I guess, but there's no need to actively remove it.
+>>>>>
+>>>>> I was trying to address the use case where drivers provide the scrambler
+>>>>> callbacks despite not supporting HDMI 2.0.
+>>>>
+>>>> Scrambling got introduced with HDMI 2.0. That doesn't make sense, but
+>>>> it's not a total deal breaker, it's just going to be here unused. Hence
+>>>> why I was suggesting to put a warning there if you wanted to.
+>>>>
+>>>>> If we replace the scrambler_supported flag with a helper checking the
+>>>>> presence of the scrambler callbacks, then we would need to ensure the
+>>>>> callbacks do not exist in this case.
+>>>>
+>>>> Keep it simple:
+>>>>
+>>>> if (hdmi_version >= HDMI_VERSION_2_0)
+>>>>    if (funcs->scrambler_enable)
+>>>>       hdmi->scramblers_supported = true
+>>>>    else
+>>>>       return -EINVAL
+>>>> else
+>>>>     drm_warn(warn, "Inconsistent HDMI version");
+>>>>
+>>>> We don't need anything more than that.
+>>>
+>>> I dropped the scrambler_supported flag and introduced a helper:
+>>>
+>>> static inline bool
+>>> drm_connector_hdmi_scrambler_supported(struct drm_connector *connector)
+>>> {
+>>> 	return connector->hdmi.funcs && connector->hdmi.funcs->scrambler_enable;
+>>
+>> I'd add disable to that test
 > 
-> Add the missing compatible entry to the driver.
-> 
-> [...]
+> I'd make it an error, if there is only scrambler_enable without
+> scrambler_disable (or vice versa).
 
-Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+hdmi_init() already guaranties that both scrambler callbacks must be present
+when supported_hdmi_ver indicates HDMI_VERSION_2_0, and neither of them
+otherwise.
 
-[1/1] drm/panel: simple: Add Kyocera tcg070wvlq panel
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/900517da69afca6f72dacf14278aee3b65275507
+Regardless, I've already added scrambler_disable to the check above to improve
+code readability.
 
--- 
-Neil
+Thanks,
+Cristian
