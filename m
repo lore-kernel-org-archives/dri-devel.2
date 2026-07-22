@@ -4,77 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 386E4C44524
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 07:08:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D357C531D0
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 07:08:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2201310EFF2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4000310EFF3;
 	Thu, 23 Jul 2026 07:08:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mbAgzanK";
-	dkim-atps=neutral
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35EB510EE45
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 15:48:04 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id
- d2e1a72fcca58-848593533cbso5029753b3a.3
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 08:48:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784735284; x=1785340084; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=oYgzICp3WWBVEAdBWpXW/nz3XQWTxOaX/2nc+F1fyyo=;
- b=mbAgzanKgbrsr/Rh8V4iysxZzDWxKj4GcWJEZkSL101AhSdl3cE/7OxD5XtNZ6Lcpt
- ECVnM/WtYPVYqoY0SNqhDJSp1d+LtDowPahjW6V4xe8umzNmlZSfjWi2YNlqN6M5bR9U
- /pIjHjWdvjRJCGGvrXgXlKsEvl/7H+ARtxGl8w88OZRRLQFJROCEwqvl/+1SCI3NKpwN
- AIpimg/YSqrd9Q8a4l4kbhZw8/F49uiq+zolMH3LedeY801czZzjkNYGimbEPCVACYn7
- Ecmi/Sp5IK5tBFkhBZOvC16N2oE0wBWrPCwSJX44XXExN8mEb/2rghG3V2E02SEx/lPm
- AlMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784735284; x=1785340084;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=oYgzICp3WWBVEAdBWpXW/nz3XQWTxOaX/2nc+F1fyyo=;
- b=VG1qUC7n1ntx9V50ogNBylneaRbmj8F6rdD4wDhoHeNLIhqqcPUD5K/WdfRdd5R7Lq
- 6mUSI6y7r36Yz1Zd4qF4QfdU0GqpBjBhdicgvrpuwgk5tE4liO4GNTBjy5K3W/LRqetn
- KVGAGtwJn+GGB2TMWWo8u/XOAfMkUGMI8/yrR9sVlbnfiyqdwD2xR689GsOZ0m5gnqAa
- btWBe63jicRd+pubhNYITlhpGb+TiIEq1IG/cAX5F94ZoTqxWDOjITDCO3Mjg29EMg1d
- CGEHA3qCjmDXOjgTyErBO//N8ArpW+/bY8HYvTRsDmCcYMTsa8mNUu4Sc4IrvGmhBAe+
- THJA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqehNHIGhmhI/kKmPxw9WTj0DkwRfyz3I48PlFR8SP6lA2BznbfhPH0rq08frM9Sqec73NTDFxI8yY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz43IhL3zT1wtnaj7PsyItpIBEQMuY7HajdlH8GMSXeJE5ic35F
- KDgM9yk9v+ZG97DO9Qe3jRBojouRyT5br2pBW8Z3Fgtqa6i8g8MuFhIC
-X-Gm-Gg: AR+sD10R2o+deDzRJAUVa80loXIAS4tMxwYLSsu4tk+Xtsbp9VrhOv/inAGrtiUQQlI
- s9SaGGIBOHP/o8O3tQElaRTZ5fG8CxN1K3joMvBwWzffXlk/1f0z3C0JSB9xbaoZy3wzmjW3LEF
- 3XnHousUYNmf88yixheDCXz/QIfiPuiVeYaheRQAuNput++jFMvoHXHx0ss3J02C4Pt84p3P6mB
- fLbVmxnKCkW6gTyEEe5c1iX6nUjvuz6oEIfojLwDFj+FkNYcAhyUuqx649zF3errz99g96L9sPr
- xB0PZccIkttIa9PBcTgKLMY8sYMZ1zVrJvK8BY0tE7Taz5AGgemRdxrmO7zr24cgAtdnBhbpfJq
- J7MBSQnmGT7oOLMQeu/3l1FM9iFDAMDwxxq39FZLgapnrQetydLPhxTHqV96Nml6N2vcszItOPl
- +CrmKNsJD/ZucXSC0nNm1WC4ZTtSlke33TUl3ZrgDxM8u0ugNLPWYCn3BUpSM=
-X-Received: by 2002:a05:6a00:1382:b0:846:7507:4e07 with SMTP id
- d2e1a72fcca58-84c29505e28mr24354626b3a.39.1784735283477; 
- Wed, 22 Jul 2026 08:48:03 -0700 (PDT)
-Received: from cm5pi.lan (174-21-80-34.tukw.qwest.net. [174.21.80.34])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84e175cdc21sm1567763b3a.47.2026.07.22.08.48.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jul 2026 08:48:02 -0700 (PDT)
-From: John Foushee <johnfoushee@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B60810E403;
+ Wed, 22 Jul 2026 04:13:57 +0000 (UTC)
+Received: from localhost.localdomain (unknown [111.196.245.140])
+ by APP-05 (Coremail) with SMTP id zQCowAAHOEKAQ2BqvyK7AA--.33885S2;
+ Wed, 22 Jul 2026 12:13:52 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>,
- John Foushee <johnfoushee@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH] drm/i915/backlight: allow hybrid pin-enable + AUX brightness
- panels
-Date: Wed, 22 Jul 2026 08:48:02 -0700
-Message-ID: <20260722154802.3760046-1-johnfoushee@gmail.com>
-X-Mailer: git-send-email 2.47.3
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>
+Subject: [PATCH] drm/i915: retain user exec count for relocation cleanup
+Date: Wed, 22 Jul 2026 12:13:52 +0800
+Message-ID: <20260722041352.5612-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowAAHOEKAQ2BqvyK7AA--.33885S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw1DuFy8Ww4Utr4xCFy7trb_yoW8Wr4fp3
+ W5Kr4jyrWktr1Uta9rXa15ZF1akas2qFy3K3yUGw1fCFnFyFnIvFyY9ryjyr1UAF4Iqry2
+ vr40gFy093W7Jr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+ 1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+ 6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
+ 0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+ 8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+ Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+ x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+ 4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+ 6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
+ BIdaVFxhVjvjDU0xZFpf9x0JUL0edUUUUU=
+X-Originating-IP: [111.196.245.140]
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Thu, 23 Jul 2026 07:07:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,71 +64,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit 102d44b3a8fa ("drm/i915/backlight: Fix VESA backlight possible
-check condition") restricted the VESA backlight path to fully AUX-based
-panels (enable and adjustment both via AUX), on the grounds that the
-hybrid configurations are not currently supported.
+The exec array contains one entry for each userspace object. eb_parse()
+can append internal VMAs by increasing buffer_count after relocation
+arrays have been copied only for the original userspace entries.
 
-The hybrid pin-enable + AUX-adjustment configuration is however already
-handled: intel_dp_aux_vesa_enable_backlight() falls back to the PWM
-funcs for enable when info.aux_enable is unset, and
-drm_edp_backlight_init() supports aux_set without aux_enable.
+The cleanup path currently uses the enlarged count and can index beyond
+the copied exec array. Preserve the original userspace count and use it
+when freeing copied relocation arrays.
 
-At least one panel requires this configuration to work at all: the
-Tianma Y156ZAN02.0 in the Google Pixel Slate (nocturne) advertises
-DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP but not
-DP_EDP_BACKLIGHT_AUX_ENABLE_CAP (DP_EDP_GENERAL_CAP_1 = 0xfb,
-DP_EDP_BACKLIGHT_ADJUSTMENT_CAP = 0xff). The panel ignores the PWM pin
-for brightness adjustment, and resets its AUX brightness register
-(DP_EDP_BACKLIGHT_BRIGHTNESS_MSB/LSB) to 0 whenever panel power is
-cycled. With the PWM backlight funcs selected, the panel comes back
-black after every suspend/resume or DPMS off/on cycle while all
-driver-visible state (link training, PPS, PWM duty) looks healthy.
-Firmware rewrites the register at boot, which masks the problem until
-the first runtime panel power cycle.
-
-Allow the hybrid configuration by requiring only AUX brightness
-adjustment capability; backlight enable keeps using the pin/PWM path
-via the existing fallback.
-
-Tested on the Google Pixel Slate (KBL-Y) on 7.1.4: i915 now selects the
-VESA AUX backlight interface, the panel's AUX brightness register is
-restored across suspend/resume, and brightness control works over the
-full range where it previously had no effect.
-
-Fixes: 102d44b3a8fa ("drm/i915/backlight: Fix VESA backlight possible check condition")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16679
-Cc: stable@vger.kernel.org
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-Signed-off-by: John Foushee <johnfoushee@gmail.com>
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- .../gpu/drm/i915/display/intel_dp_aux_backlight.c    | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index 7a6c07f..a5c03c3 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -616,11 +616,15 @@ check_if_vesa_backlight_possible(struct intel_dp *intel_dp)
- 	u8 bit_min, bit_max;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 65ce54b20ec2..b991f4e82ae6 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -1768,6 +1768,7 @@ static int eb_reinit_userptr(struct i915_execbuffer *eb)
  
- 	/*
--	 * Since we only support Fully AUX Based VESA Backlight interface make sure
--	 * backlight enable is possible via AUX along with backlight adjustment
-+	 * Brightness adjustment must be possible via AUX. Backlight *enable*
-+	 * may come either via AUX (DP_EDP_BACKLIGHT_AUX_ENABLE_CAP) or via the
-+	 * BL_ENABLE pin, which the VESA backlight code already supports by
-+	 * falling back to the PWM funcs for enable when aux_enable is not set.
-+	 * Some panels (e.g. Tianma Y156ZAN02.0 in the Google Pixel Slate)
-+	 * support only that hybrid configuration and ignore the PWM pin for
-+	 * brightness adjustment.
- 	 */
--	if (!(intel_dp->edp_dpcd[1] & DP_EDP_BACKLIGHT_AUX_ENABLE_CAP &&
--	      intel_dp->edp_dpcd[2] & DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP))
-+	if (!(intel_dp->edp_dpcd[2] & DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP))
- 		return false;
+ static noinline int eb_relocate_parse_slow(struct i915_execbuffer *eb)
+ {
++	const unsigned int exec_count = eb->buffer_count;
+ 	bool have_copy = false;
+ 	struct eb_vma *ev;
+ 	int err = 0;
+@@ -1870,10 +1871,10 @@ static noinline int eb_relocate_parse_slow(struct i915_execbuffer *eb)
  
- 	ret = drm_dp_dpcd_read_byte(&intel_dp->aux, DP_EDP_PWMGEN_BIT_COUNT_CAP_MIN, &bit_min);
+ out:
+ 	if (have_copy) {
+-		const unsigned int count = eb->buffer_count;
+ 		unsigned int i;
+ 
+-		for (i = 0; i < count; i++) {
++		/* eb_parse() may append internal VMAs without appending eb->exec. */
++		for (i = 0; i < exec_count; i++) {
+ 			const struct drm_i915_gem_exec_object2 *entry =
+ 				&eb->exec[i];
+ 			struct drm_i915_gem_relocation_entry *relocs;
 -- 
-2.47.3
+2.43.0
 
