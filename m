@@ -4,99 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4E8AC531CB
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 07:08:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92844C44524
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 07:09:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D44F10EFF4;
-	Thu, 23 Jul 2026 07:08:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED70010EFD1;
+	Thu, 23 Jul 2026 07:09:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nu2dRBj5";
+	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="GQfLbNCo";
 	dkim-atps=neutral
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com
- [74.125.224.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEFA410E4AA
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 16:44:29 +0000 (UTC)
-Received: by mail-yx1-f44.google.com with SMTP id
- 956f58d0204a3-66843304cbaso4944041d50.2
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 09:44:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784738669; cv=none;
- d=google.com; s=arc-20260327;
- b=KhzS2Bz2XTru7U5+6aUo/yKrkFX171eJuGq47eqMQgaU/TsP/ehmN8UYH8HrOewV9n
- BCWVdSKzrYHx38waXcZ1A6QWmNgYOzZitXLDtq/zv/NABvAQsa8n8qPlMtPjUYgZA7mS
- SgXBxf2fGzlgbPCnS0XiFmv8vnJ6YRD+iKGnir0d0TbqX7p1/CeUlaEONnW5ZG6FIuCS
- qnO0vWRFb25kqEXAz0CwxReOMJ4fsAZPyYINTU5gekLYhll/7Io3CIkqtmWMmOxEZzf3
- 4IXGjzf+F2mKQOhff5mdJcGKEWoK26+ESYElUv2COQKckG3EjkCSr8ZtCIpPMT23r8sa
- YhNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=6vCGv/RyeVFnoEW9tIkNt/ZBPJkW6RlvdlpEDoVrknM=;
- fh=V0QMwFWwFqQC8dG6kZx0XO/ZjiWh38tE0TCuza3Zps4=;
- b=DavremTU99bDwqdKdqrL2px3/dqHokUpqaY0C9RskoZlxRp5ZbDuRLKDpQo04mp/eb
- KfS696lCIVBMxDpQBdzvPnIlj4cIws5lbkSSJsa5Ptvyu4LwncyW4INmDl9K9cHTYVXt
- Uwx7X7POdMuQnwXG2bHrsOhEBRR2u426qgkwsgy7xvQHxvEh5POgb30UdI3hy8C4tItf
- qwjxR+M1Axk7A62X3VcAsDObZFhc6dC/aHeGfl1Rk0JaqAArbqJj2XkMuuf9bdb/J/y4
- LP1v5EEL6xnUUJMi3SrOeGcG4PKcNzV/YtazfptqX0Qkd5ubhySL1+Jpn4L4sBKO/To7
- I3Xg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784738669; x=1785343469; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=6vCGv/RyeVFnoEW9tIkNt/ZBPJkW6RlvdlpEDoVrknM=;
- b=Nu2dRBj546yt7EYskjRYjLJXSglLr1Tk4Upm+bGqJ1zLDPMax9IfT5JaRhLVxbRhhB
- O92emjePqIAdilw/2pitl8xXg3YNuMYFVXwIrFcTEw8rZQc8q/hx0dDBFG90ivOY4ab5
- 6rsQgsSqozVzQp2WteYAinkDvLVMwRVgnZ78+zTBgoWNoeDd9H2ZOSK0UKpSxWT0FR82
- 6iAWzNgp6lXEh7247BaQomiTJCt+xFpG4akqNSv2r4uaTormlczmfqcha5hDTzU4MTjE
- F3p3rvKPEQQ5OJq5Dd8ILC7XPYBig4Vhd110ytjad04JC1pAxNfwDtoIAFwLtq25IEl0
- 1T3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784738669; x=1785343469;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=6vCGv/RyeVFnoEW9tIkNt/ZBPJkW6RlvdlpEDoVrknM=;
- b=rR9MSCsh70zxpVwPFXhTWKqTeRc4EhBtwbzWTDDVkK1KmkNqWj9lwAGUH+FF7F8Evw
- 9aqGpxQR+g+hvl3m73Cin2g3uDIkJVJYPwOpvTV4UQUtCv7X35mmTK2hwOWYnq48AmEM
- iRfVd6937AFSxRe9F1hxDGsV0XyLbSUVRTKMggOqiP3IEQLrwQytXavv6yYZJMiTzMO9
- GLnrYC+0Ll3La0yIcwcxfMGqXtjgfZ8WdrRtIVjCrCkXl2PBbEfGC5g0QZHR50/xH66n
- 9RGMn8l/YifM8spc9sSQrOjjLEUW54A3v0edHpoPIvWPQbfAB9msbmXhj2Vjh5Pkr/Si
- IvrQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqyIG8vJrX36GxmiaNy5xHf/lu4i5oPs29cC+LbLbb+GJ4aQXM0tpyRLSjcoHQm7I4BBk/IKRRdsKk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxd5oMhw1lNLE7FqPPDLzkGTGUGx/JpIEmmbAGTTiU2rMXBLVMA
- /kc9VdHVy5HwKTa+IdZ68zFCCokmSNkdlc9PRm04Xs/UDU3hxXMP8WDvMa/BiFNbV0OOeQEP+nY
- +Z/HR8ILzoL5hXqwBwl8mOHM/khhuSlQ=
-X-Gm-Gg: AR+sD11XcmqzLL7Y/0rPKwnhTJDV/IYJ0DtRC9UvfnBSSQk6F/fvC3nIO1qkqwb9vor
- /lAjpRWZlTSoIIzkr9Iz07Rp4CSyifYfDNLFkaGw2mYRl0i5TrTvC3G0rGGU8OnJudLHF39uKsi
- PQfpylqF+Cz4zoOJeqBdp/ErQcNyXlq4t7S3hbmy7kkv6Y9GAocoCnXQuFTnL/0knOCOSSILfRQ
- Y3pA5r4oVa/AEsXWtKzyAwQuVGgBAymJyRFHUveLXYSqCQnyC6Xu3tdiahGbhzxC+az33NBoUxh
- DPrPVNVuo50uiN8VPfS0cbm5sI4=
-X-Received: by 2002:a53:a6d0:0:b0:667:e2e1:4c with SMTP id
- 956f58d0204a3-6683bb03e7bmr4142068d50.2.1784738668720; 
- Wed, 22 Jul 2026 09:44:28 -0700 (PDT)
+Received: from OS8PR02CU002.outbound.protection.outlook.com
+ (mail-japanwestazon11012027.outbound.protection.outlook.com [40.107.75.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F8E110ECB5
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:58:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NhYs1BYWbd27trFVJ0inOkPs6AR/a6hiLNGUXIfiJi1LouCg5jgFdazKUNi9PeLWM5/07+8wrNnnAcBERsikszaOBl1x7wVhxxRc06lj7KfAjPfs16tB7xkmYh2bkVNBCshy135V/t4neNLYUkO+PAMVXgNm4bI5nwk0X+eEsOTjnWxFaS3i9b5NDCIFzjokj6okshKhBHmE3rnndvD/coCA3113lZHtTNWg35wc3gfAaeOSVH0cJBwsSuMe7PgfNeHnlinA+VzS6SE+usdSAmLQnvA4gWnF7ghyHgL5E1EpoFjj+OZgGRYWAR2pu4ZLhQYA3MLhHv/UmuP0MpRdKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UubTSuLqqIwcanYCwxBxQGd72IKcLAUB62vjlgVIhG4=;
+ b=MwHMKmBheYj1h4QkSj/yFPUSkedf2aZwmntcpnLmVtXQo+afrfbScjAwtyLFyKF4tyfAfZsO43HoR+bELqw7H4psDwNwq/6y8+Oe0RZEqS9jphRNf/ir2LPNIRFNxmb1VclCjYa8IcxkGkHissdlK8AwbIODw16Aa78tiblJMFmfrXK6gSvnUDNdsGqV7bEktIgXobojC3jX1CRuNCGYXUt8TQ3MMDNd6HqK20CloEpZchjteZrpRrWCQW8heglHay4z0s0jtSoXkeWb+vlQNM48cYbNA5zj7FN+s1BmAJEay9w9Bbwz/F+xdJ5zaJGEKd7JzhT1EOW6Ssa2Ah2jeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UubTSuLqqIwcanYCwxBxQGd72IKcLAUB62vjlgVIhG4=;
+ b=GQfLbNCopg8rya93GRy/u95gV+08LSK11RtBuUWttDKma4Sx6ADNhCuWyAWZU2vt7RhKXifY7nW2efIKFhHF1UGuFSNIN0WbLKCHFgPHu58q4S4ru2j41Nn7JE953plW00XtqCltNH0D6or/PZhcIdyZquO6cxuyam6R48pLMrL/mR3khTcW/29tgypCvW2OTE0NgB/vCOQXPpTVWvwdhT1ZtjMbThqt7Zd587emdN+D83fL9WxZaGccZrjds3OQ/qfxn2s+eiHel0PujPuLM+RZ7FItjSEylrFaCQRBwWT9DpCCPwhVsshV4EVMOlAV/zEEteKJFCTSu5pRFYD2hw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SEZPR06MB5832.apcprd06.prod.outlook.com (2603:1096:101:c8::12)
+ by SI3PR06MB8492.apcprd06.prod.outlook.com (2603:1096:4:2a3::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
+ 2026 07:58:34 +0000
+Received: from SEZPR06MB5832.apcprd06.prod.outlook.com
+ ([fe80::f98:5e32:4ccb:d07b]) by SEZPR06MB5832.apcprd06.prod.outlook.com
+ ([fe80::f98:5e32:4ccb:d07b%6]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
+ 07:58:33 +0000
+From: Pan Chuang <panchuang@vivo.com>
+To: Helge Deller <deller@gmx.de>, Pan Chuang <panchuang@vivo.com>,
+ Kees Cook <kees@kernel.org>,
+ linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER),
+ dri-devel@lists.freedesktop.org (open list:FRAMEBUFFER LAYER),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH 4/7] fbdev: pxa3xx-gcu: Remove redundant dev_err()
+Date: Wed, 22 Jul 2026 15:57:44 +0800
+Message-Id: <20260722075803.570532-5-panchuang@vivo.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260722075803.570532-1-panchuang@vivo.com>
+References: <20260722075803.570532-1-panchuang@vivo.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0296.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c8::8) To SEZPR06MB5832.apcprd06.prod.outlook.com
+ (2603:1096:101:c8::12)
 MIME-Version: 1.0
-References: <20260722154802.3760046-1-johnfoushee@gmail.com>
- <DS4PPFE901A304F30C76A6DDF48BDAAE920E3C12@DS4PPFE901A304F.namprd11.prod.outlook.com>
-In-Reply-To: <DS4PPFE901A304F30C76A6DDF48BDAAE920E3C12@DS4PPFE901A304F.namprd11.prod.outlook.com>
-From: John Foushee <johnfoushee@gmail.com>
-Date: Wed, 22 Jul 2026 09:44:16 -0700
-X-Gm-Features: AUfX_mwNuDWTzYcYl8OndK4uZQVeNS7dreLBBMCpSlV4-VUHUR7Lah18YjNHuuI
-Message-ID: <CAGsDCxQ30bUzMbzSigA-o55zX=vzyeP91g38ZDvzJftppp17uA@mail.gmail.com>
-Subject: Re: [PATCH] drm/i915/backlight: allow hybrid pin-enable + AUX
- brightness panels
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5832:EE_|SI3PR06MB8492:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52b20ff7-8aff-4342-8385-08dee7c706e4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|52116014|366016|38350700014|22082099003|18002099003|56012099006|11063799006|10067099003|6133799003;
+X-Microsoft-Antispam-Message-Info: RLQYBT0v3fTGrywfff/yIt3HY5nEPSAHruxPP9BQO4tjFY5sXk2uqlqJSg2OQGkhgX02xRTwBF1LU23cS+yPZItX0Iz4VsNYAbzyZjL/O46mE4x+09Fjccn4U5+LEHf8ooV5pxzm42GbNnB1ntRW4umwvSjI7Bp5QbjFSUvhZ2kSAdsMnr8QbeDFqH3HAcYpPw41lqFvsDggCWFQbmkJQa65fxScFKhWP5xIv57qBfdC1XFFJsEy3LvCLXkLUycTlozd6Tjai30IPLX9ePYu4vkduTD0RLBH+EgunTVrHLU2TB8iuDkj5tO/BTkQ5LBhFql6HyP34p8ChwnK4oOHDevB3aLcW/NL56q6OMq5xiQ8CdS3i0ygLiq2740yN7BNt3r9H6AcPdGZmvuLWiyg1Jvswj7MfBFAhLRu+aFQzka+UC3UCbuRF7BR0nVp/um1vrSzzIvMnp7qij8jL4XF1AibArVrf3JVujCepOXwjQrPsjLkL7j28Nmk604ugKN+4kWW1DlVXY1ZjS9q3h2XrWwVH5WAgkF4WbGnzsYsUOX/7vwUimZBvcO1sXFX8CFWiiIboS5Nsopin1I4EaAS12AO754HOprWDzog//m8TTC//mhomsOrW4TPxn5XjIXqXVzghseCF6YulOHHm6eSc5MuyFEoxo69ol58XSYEitnR1noDEAoVNPMM9s75AwVXLgKFJD384v0Ku3G5/7+dWKGHLSL+Gl3bTC8zQuXlqs8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SEZPR06MB5832.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(52116014)(366016)(38350700014)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Z2YbFOd/Dga+Kj4mJcFJXFBXD3brvhK+Lg+GHwheFal/+0aKI9nBXVRaKUPy?=
+ =?us-ascii?Q?FxeZXoU3HlfjMIAjT5AsqemjUrHM+FfaQQ62msTDoKo4w2IuLg9xnz6dhLaW?=
+ =?us-ascii?Q?E5sRUR57j/gz7xdy+K9llkCsuQ4wpcxytf8PJK5ITy047rUCel9qdwOmvdhj?=
+ =?us-ascii?Q?yl3aWugfIF5m6KkCKwo7D7fO7hA9x2qoqYKBJ6w69fRRFytOa73kJf5vOZM+?=
+ =?us-ascii?Q?mNnGijoQ0ajS+bRKDIx1R60Qr0S8/faJiIVFGIKalA9ztR0Vusp2+NF/kIrl?=
+ =?us-ascii?Q?Sc7Q04SRp//6nFmTKwK5Hh0/XzIHhWnb1LnlJq4HYgsImrJMD8QuwS+BizAw?=
+ =?us-ascii?Q?I0A+z44lg4F/DUro83KQwNOOkWVXniA2iju3maz/Ps6pLRz4s+uRaVzsYQu/?=
+ =?us-ascii?Q?oo6DVPqS+Z+kK3Z/2gc/ydbHBnZlTg3Nr4K9ciWShopOFrFkizEVJ/Nxyx5S?=
+ =?us-ascii?Q?9IOCC6Oamrc6fZguVLY5mNWyvWUMWl6K30ArKSZAAfidJNPtzzNid1JhRp6f?=
+ =?us-ascii?Q?yvvZcrIKZmCLu/qxYklp1LwLXfUh9cyEvmI7C27RmYgN3gMshu4iiF4Lk8iY?=
+ =?us-ascii?Q?3QeKL4B6w4/FpWrYd2aWBd+FZgqnBVCDoq7iwSEjauB0WjtrpErIBDWJo/hD?=
+ =?us-ascii?Q?YKqjC50U4EH22WqTK7sraa0LNdYU8kg8XoJCeYccWLq0kB2c0ceIujGb8phR?=
+ =?us-ascii?Q?KQMDO6P+at0brgOL0jbrW7srXO4h50z7s/jUvq+sy8oDCHoEPkn4tTZWiYNK?=
+ =?us-ascii?Q?kxoI8F0b9l6NFw24mq2Xw1LFaHTDwR1Lm6Fvb9sb8dWInvDZ+fiP2lJdhJmO?=
+ =?us-ascii?Q?BwlGs/rHviPXecGtq6fLoXmgwabHy4hQPsvHGC2ND2mgoDIh4IvxJNVPv3am?=
+ =?us-ascii?Q?qf5LsIIEFykyv2COfwqXMrFilRjsySo152x9/S2nyDPkiuu14YJ7DDUeRzZl?=
+ =?us-ascii?Q?LuAWeRBSQ8xvAJWFCjFPTSNcz9D6AcDXLMNL9EI832pEGgyurDQmQt6c90L7?=
+ =?us-ascii?Q?dNXMOM9tTVdtuPXaR5ZS9GwsYVaSEceqml/XJU/lN1CaPK4rKwDItPwwscgY?=
+ =?us-ascii?Q?gl/LfrsWaI+3q+sClcP4wX14kMmPlPZuqlyqJDL8HAGEyTOjz9SKWWLOpuFC?=
+ =?us-ascii?Q?0DWk72mpr/RqrSBHC1PWyt5d0AYRGGODK76vUqkMEzhzog75eWZeOBqt8JgL?=
+ =?us-ascii?Q?sn8q2fFJg5qOhdqMYipI4b9Qoyqmh3bPPDi1PqL8WlQpggWQovM4ZPfrt44r?=
+ =?us-ascii?Q?Eyfomb5GzOFB/euT1eHY3nwk4rjXwGHMv/vIYdBj4x3NoF/f7u3+rRAsYtSR?=
+ =?us-ascii?Q?/uBN3MZlwHZwE0qIs//k7TZZ3wpe5wooQLp76ddWrM7rj/D3mxwNFyprlUf5?=
+ =?us-ascii?Q?r0j2yRtaN8dLiJleDjr1CB+95gcA0jKdluTVdTCs5jRKHQIYvOwRVtJa6ST5?=
+ =?us-ascii?Q?gtxhQLPo48eujQG0IUwdi/8DAEaMNrmYyKIpmpe42qHAU4Y80NVf0r65b8OF?=
+ =?us-ascii?Q?tRinOITAci9CaDuDFzt9Z6A5rqbwUxj5ynBCLkhikOpoW/3wtxvPCIkDeUpi?=
+ =?us-ascii?Q?nWnZkqCvZ1H183aUEq5ocK55peG0CYif4tfBWH+CyX0tpjKmw3qRCRA/EhH8?=
+ =?us-ascii?Q?4Tv7LyvJsgvqTI28YzA60Ir0pZrBoHfsBEUEWHdhfU8FQGjRABOts9Pap3C6?=
+ =?us-ascii?Q?EPdDow3g+nWxznprgawA+jVWYay6xvq0E0qYq+aXj0WtsLKgKk/uUbycPNQE?=
+ =?us-ascii?Q?eMIbrUy1Bg=3D=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52b20ff7-8aff-4342-8385-08dee7c706e4
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5832.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 07:58:33.5118 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QVa8Lk7L86CBhFJIe2wiE1z7vHxm2SjNcIKV2Nt+0Cem0xNvK32xsucEKbl0ckx3sX3QxIj6PR0k5YQ1veS5rA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI3PR06MB8492
 X-Mailman-Approved-At: Thu, 23 Jul 2026 07:07:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,157 +128,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Hi John this fix has been already floated, reviewed and merged some days
-> ago to drm-intel-next.
->
-> https://patchwork.freedesktop.org/series/170522/
+Since commit 55b48e23f5c4 ("genirq/devres: Add error handling in
+devm_request_*_irq()"), devm_request_irq() automatically logs
+detailed error messages on failure. Remove the now-redundant
+driver-specific dev_err() call.
 
-Thanks, glad it's fixed, and happy to see the same conclusion; please
-disregard my patch.
+Signed-off-by: Pan Chuang <panchuang@vivo.com>
+---
+ drivers/video/fbdev/pxa3xx-gcu.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-For the record: independently root-caused and tested the same change on a
-Google Pixel Slate (nocturne, Tianma Y156ZAN02.0: advertises
-BRIGHTNESS_AUX_SET_CAP without AUX_ENABLE_CAP, ignores PWM for brightness,
-and resets the AUX brightness register on every panel power cycle, so it
-resumes from suspend to a permanently black screen without this fix). With
-the equivalent change on 7.1.4 the panel's AUX brightness register is
-restored across suspend/resume and full-range brightness control works,
-so feel free to count that as a
+diff --git a/drivers/video/fbdev/pxa3xx-gcu.c b/drivers/video/fbdev/pxa3xx-gcu.c
+index a2320e2fb8f2..fc5bd7e7aae6 100644
+--- a/drivers/video/fbdev/pxa3xx-gcu.c
++++ b/drivers/video/fbdev/pxa3xx-gcu.c
+@@ -615,10 +615,8 @@ static int pxa3xx_gcu_probe(struct platform_device *pdev)
+ 
+ 	ret = devm_request_irq(dev, irq, pxa3xx_gcu_handle_irq,
+ 			       0, DRV_NAME, priv);
+-	if (ret < 0) {
+-		dev_err(dev, "request_irq failed\n");
++	if (ret < 0)
+ 		return ret;
+-	}
+ 
+ 	/* allocate dma memory */
+ 	priv->shared = dma_alloc_coherent(dev, SHARED_SIZE,
+-- 
+2.34.1
 
-Tested-by: John Foushee <johnfoushee@gmail.com>
-
-for commit 7d594b24 on real affected hardware.
-
-One question: the regression (ed8be780bdbc upstream / 102d44b3a8fa in
-mainline) is present in the shipping 7.1.x stable series, but 7d594b24
-doesn't carry Cc: stable. Will the Fixes: tag be enough for it to be picked
-up for 7.1.x/7.2.x, or should it be nominated to stable explicitly?
-Affected devices are unusable after any suspend without it, so a backport
-would matter to users on current stable kernels.
-
-Diagnosis details, DPCD dumps and EDID, if useful:
-https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16679
-
-Thanks,
-John
-
-
-On Wed, Jul 22, 2026 at 9:22=E2=80=AFAM Kandpal, Suraj <suraj.kandpal@intel=
-.com> wrote:
->
->
-> > Subject: [PATCH] drm/i915/backlight: allow hybrid pin-enable + AUX brig=
-htness
-> > panels
-> >
-> > Commit 102d44b3a8fa ("drm/i915/backlight: Fix VESA backlight possible c=
-heck
-> > condition") restricted the VESA backlight path to fully AUX-based panel=
-s
-> > (enable and adjustment both via AUX), on the grounds that the hybrid
-> > configurations are not currently supported.
-> >
-> > The hybrid pin-enable + AUX-adjustment configuration is however already
-> > handled: intel_dp_aux_vesa_enable_backlight() falls back to the PWM fun=
-cs
-> > for enable when info.aux_enable is unset, and
-> > drm_edp_backlight_init() supports aux_set without aux_enable.
-> >
-> > At least one panel requires this configuration to work at all: the Tian=
-ma
-> > Y156ZAN02.0 in the Google Pixel Slate (nocturne) advertises
-> > DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP but not
-> > DP_EDP_BACKLIGHT_AUX_ENABLE_CAP (DP_EDP_GENERAL_CAP_1 =3D 0xfb,
-> > DP_EDP_BACKLIGHT_ADJUSTMENT_CAP =3D 0xff). The panel ignores the PWM
-> > pin for brightness adjustment, and resets its AUX brightness register
-> > (DP_EDP_BACKLIGHT_BRIGHTNESS_MSB/LSB) to 0 whenever panel power is
-> > cycled. With the PWM backlight funcs selected, the panel comes back bla=
-ck
-> > after every suspend/resume or DPMS off/on cycle while all driver-visibl=
-e state
-> > (link training, PPS, PWM duty) looks healthy.
-> > Firmware rewrites the register at boot, which masks the problem until t=
-he first
-> > runtime panel power cycle.
-> >
-> > Allow the hybrid configuration by requiring only AUX brightness adjustm=
-ent
-> > capability; backlight enable keeps using the pin/PWM path via the exist=
-ing
-> > fallback.
-> >
-> > Tested on the Google Pixel Slate (KBL-Y) on 7.1.4: i915 now selects the=
- VESA
-> > AUX backlight interface, the panel's AUX brightness register is restore=
-d across
-> > suspend/resume, and brightness control works over the full range where =
-it
-> > previously had no effect.
-> >
-> > Fixes: 102d44b3a8fa ("drm/i915/backlight: Fix VESA backlight possible c=
-heck
-> > condition")
-> > Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16679
-> > Cc: stable@vger.kernel.org
-> > Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-> > Signed-off-by: John Foushee <johnfoushee@gmail.com>
->
-> Hi John this fix has been already floated, reviewed and merged some days =
-ago to drm-intel-next.
->
-> https://patchwork.freedesktop.org/series/170522/
->
-> Regards,
-> Suraj Kandpal
->
-> > ---
-> >  .../gpu/drm/i915/display/intel_dp_aux_backlight.c    | 12 ++++++++----
-> >  1 file changed, 8 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> > b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> > index 7a6c07f..a5c03c3 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> > @@ -616,11 +616,15 @@ check_if_vesa_backlight_possible(struct intel_dp
-> > *intel_dp)
-> >       u8 bit_min, bit_max;
-> >
-> >       /*
-> > -      * Since we only support Fully AUX Based VESA Backlight interface=
- make
-> > sure
-> > -      * backlight enable is possible via AUX along with backlight adju=
-stment
-> > +      * Brightness adjustment must be possible via AUX. Backlight *ena=
-ble*
-> > +      * may come either via AUX (DP_EDP_BACKLIGHT_AUX_ENABLE_CAP)
-> > or via the
-> > +      * BL_ENABLE pin, which the VESA backlight code already supports =
-by
-> > +      * falling back to the PWM funcs for enable when aux_enable is no=
-t set.
-> > +      * Some panels (e.g. Tianma Y156ZAN02.0 in the Google Pixel Slate=
-)
-> > +      * support only that hybrid configuration and ignore the PWM pin =
-for
-> > +      * brightness adjustment.
-> >        */
-> > -     if (!(intel_dp->edp_dpcd[1] & DP_EDP_BACKLIGHT_AUX_ENABLE_CAP
-> > &&
-> > -           intel_dp->edp_dpcd[2] &
-> > DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP))
-> > +     if (!(intel_dp->edp_dpcd[2] &
-> > +DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP))
-> >               return false;
-> >
-> >       ret =3D drm_dp_dpcd_read_byte(&intel_dp->aux,
-> > DP_EDP_PWMGEN_BIT_COUNT_CAP_MIN, &bit_min);
-> > --
-> > 2.47.3
->
-
-
---=20
-
-@foush
