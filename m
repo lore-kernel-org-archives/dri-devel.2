@@ -4,53 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1B60C44539
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 09:12:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12AD7C4453A
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 09:12:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D14C10E41F;
-	Wed, 22 Jul 2026 09:12:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55DB810E438;
+	Wed, 22 Jul 2026 09:12:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="ihIwcVvE";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="TYDF4QF2";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACE5410E41F
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 09:12:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1784711531; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4900410E438
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 09:12:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784711537; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=QBanPf5sfMjuNVL+LNPXpbNTTsrVtmsz6BtBsxIFBxklXoHihhzgAHP2gCbhpIHRsGDtuINiwmk1M6sXZ9L8nl8QNgc9Dp/Y0fzVUlMozHCKpm8elmNUOcr6s+457u9RJ3gugVv/DipD65lEggklVxGdpUPoURx1rn6P2jPL14I=
+ b=hScHYgI6q9Fkjb+rlRUwihK1ZpvLtqWCZ+wixYeYWC+v02EEGUTownQft6R05DevC+9M2whU+HhA+nhR9hqTXfZWmIVSg3MVfT3jFsaPGvi7iSwzCMlu3vE0EMhumeonnNF2JwCRcAvjWZ/8fXtnIdl2C9SbIdcWUmRTD7uNS5M=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1784711531;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=mKhIR4Ek3ICMYJEFEVH0hFZdQnpuziqGCYr67mB6Fzc=; 
- b=Qeqztj0KyhYSK7kbkB+uYNUGgee9KSa9xrNd7Bts0vGHyCiVPJq/vuoh8PROwvZ/L9FkMGs9afOpGEI1GNqIiG6lfzLn286+mlEZCL+ZSo5w4tzbfJC0VwUS2V4/t7Pbmliqm5gIXgjf78Wn7Hy4hDxlv+bvnfj6UsHwKX/ii/0=
+ s=zohoarc; t=1784711537;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=D0GUxHD8Q9JSYP82sYc8lospznA2NKpGPVZdowq2lU0=; 
+ b=OUYc4YQgOwzEis+yM/5q3gNJ5Va3yQE+/zQHI3WOhmppbMAJKqS6NClg48tiyS1qNZlEymjHq3aLyA6xZ+ZEf6B6h4JNU8irPTHKo/mz/iTQ2Z4qr076oxxNyCp38wH/gJj9K//Et/FdUwZ+qF762Id6olVVTzgy0LvS4oPBoio=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784711530; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784711536; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=mKhIR4Ek3ICMYJEFEVH0hFZdQnpuziqGCYr67mB6Fzc=;
- b=ihIwcVvEg5PSCHk2IhIp3oFYGUk1DZXH6eiQUifHbJLak6INsVmmCF2PDglXa0zr
- pQbsCg0qGrF4KdeG/zIG0pRB5P0arirKiK8DjL0dcqsDAKtqmzKNG0hAa6qELdAiI9D
- MUeeb3YshLGdK8ZOjiM/NiFI8wqOfejn9IC/Jn3o=
-Received: by mx.zohomail.com with SMTPS id 1784711528684463.52529575154904;
- Wed, 22 Jul 2026 02:12:08 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=D0GUxHD8Q9JSYP82sYc8lospznA2NKpGPVZdowq2lU0=;
+ b=TYDF4QF2JGljZ7mxhAkB3Lnb+CtQtnfYLPL7Gtyy+d3+L1RILAztYONN9ImgG2If
+ jvMKJN+cbtpLiWN8NiPGOWo1xxvlnb1YR6pMQWfy9YBEuOhDuhTZ11hEHjnBjLmmJaB
+ PhYbEOskHk4uGvzHVO/sCcmN85i5xtluhm9GTN34=
+Received: by mx.zohomail.com with SMTPS id 1784711534503217.6681008874317;
+ Wed, 22 Jul 2026 02:12:14 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: [PATCH v8 0/5] Add SCDC information to connector debugfs
-Date: Wed, 22 Jul 2026 11:11:46 +0200
-Message-Id: <20260722-scdc-link-health-v8-0-cd1dacbb85d9@collabora.com>
+Date: Wed, 22 Jul 2026 11:11:47 +0200
+Subject: [PATCH v8 1/5] drm/scdc-helper: Don't use ssize_t return type for
+ scdc_read/write
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23QzU7DMAwH8FeZciYQ57PdifdAHJzEpYFu3dquA
- k17d9Ju0ibIKbJi//yXz2ykIdHItpszG2hOY+r3uaieNiy0uP8gnmKumRTSCg2KjyEG3qX9F28
- Ju6nlVa3yF6hY28Dy2GGgJn2v5Nv7tR5P/pPCtDi3joGOp7xrurYxjyPx0O92adpu4rDjUzq83
- F62IG0ap374WWPOsM7cEpn/iWbgglfkFFBVETbiNfRdh74f8DkvWcFZ3hEjRQGRGTEA2EAVotW
- +hKhHxBYQtSA1adSIhBFKiH5EXAHRGbFSEmqB0Ji6hJg7kq9SQExGAMApLzCoSCXEPiAABcQuS
- ZRwlTNovSki7o44WUJcRmoZG/AWo2nCX+RyufwCRmV4X5cCAAA=
-X-Change-ID: 20260413-scdc-link-health-89326013d96c
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260722-scdc-link-health-v8-1-cd1dacbb85d9@collabora.com>
+References: <20260722-scdc-link-health-v8-0-cd1dacbb85d9@collabora.com>
+In-Reply-To: <20260722-scdc-link-health-v8-0-cd1dacbb85d9@collabora.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
@@ -69,8 +65,7 @@ To: Jani Nikula <jani.nikula@linux.intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,132 +82,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-HDMI uses the DDC I2C bus for communicating various bits of link status
-out of band with the actual HDMI video signal. This information can be
-useful for debugging issues like questionable cables sabotaged by feline
-teeth, Enthusiast Grade cables made of cow fencing wire, and other such
-problems that ruin one's media viewing plans.
+drm_scdc_read and drm_scdc_write, both of which are only used within
+drm_scdc_helper (although exported), use a ssize_t as their return type.
 
-Consequently, this series exposes various bits of pertinent information
-from the SCDC protocol in an HDMI connector's debugfs. To continually
-poll the link status, userspace can poll the debugfs file.
+This would make sense if they returned the number of bytes read/written
+on success, and negative errno otherwise. However, they return 0 on
+success.
 
----
-Changes in v8:
-- Acquire mode_config mutex in an interruptible way during
-  scdc_status_show to avoid racing connector state
-- Remove scdc_debugfs_priv, use connector as debugfs entry priv instead
-- Allocate and free state in scdc_status_show, since it doesn't need to
-  persist across debugfs reads
-- Check for NULL ddc in drm_scdc_read_state in the unlikely event an
-  EDID with the SCDC flag was forced on a connector with no DDC
-- Note: drm_connector_get() is omitted from drm_scdc_debugfs_init
-  because drm_scdc_debugfs_init is called on connector construction and
-  the debugfs is removed on connector destruction. Adding a redundant
-  reference increase here would necessitate introducing a destruction
-  callback to mirror the debugfs_init connector op for the sole purpose
-  of decreasing the counter again.
-- Link to v7: https://patch.msgid.link/20260721-scdc-link-health-v7-0-92df1b6ad5fc@collabora.com
+Demote them to "int" as their return type, in order to avoid needlessly
+using 64 bits when less suffices.
 
-Changes in v7:
-- Move HDMI debugfs registration to new state helper, fix up all users
-  (sun4i, vc4, bridge)
-- Register scdc debugfs in new hdmi debugfs helper
-- Link to v6: https://patch.msgid.link/20260611-scdc-link-health-v6-0-6307875a6b5e@collabora.com
+No functional change.
 
-Changes in v6:
-- Fix off-by-one error in drm_scdc_read_state
-- Link to v5: https://patch.msgid.link/20260604-scdc-link-health-v5-0-11173b0ac3de@collabora.com
-
-Changes in v5:
-- Read all SCDC data regardless of update flags
-- Dump SCDC data as hex before the human-readable output. It's separated
-  with "\n----------------\n\n".
-- No longer write 0 to read-only registers
-- Add Reed-Solomon Corrections counter parsing
-- Parsing has been kept. A desire was expressed to get this data without
-  any external userspace tooling, and the kernel will need to parse it
-  eventually anyway to set the link status.
-- Functions have been made static as of right now, since external users
-  may do another pass over the function signatures anyway.
-- Link to v4: https://patch.msgid.link/20260527-scdc-link-health-v4-0-622ea40a1f59@collabora.com
-
-Changes in v4:
-- Don't use C struct bitfields for parsing status flags. Switch to
-  bitwise AND for boolean flags, and FIELD_GET for multi-bit values.
-- Drop the superfluous !! and parens
-- Drop the __pure attributes on static functions
-- Initialise stack local arrays with {}, not { 0 }.
-- I've kept the print macros and %-30s format. Reason being that I don't
-  want to repeat the format specifier and str_yes_no(foo) a bunch, and I
-  like the %-30s format because it means all values are aligned with the
-  value of the longest field, which is 30 chars long.
-- Link to v3: https://patch.msgid.link/20260526-scdc-link-health-v3-0-59e4a4aaead1@collabora.com
-
-Changes in v3:
-- Add patch to change return type of drm_scdc_read/write.
-- Rework error counter reading to duplicate less code.
-- Also check lane 3 counter valid flag when reading its error counter.
-- Use memset to clear buf for error counters, rather than doing it in
-  the loop.
-- Make read_error_counters not accept 0 as num_lanes; fix it up in the
-  caller instead.
-- Link to v2: https://patch.msgid.link/20260520-scdc-link-health-v2-0-511af18cd64b@collabora.com
-
-Changes in v2:
-- Add HDMI 2.1 SCDC status reporting
-- Link to v1: https://patch.msgid.link/20260415-scdc-link-health-v1-0-8e731e88eaf0@collabora.com
-
-To: Jani Nikula <jani.nikula@linux.intel.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Robert Foss <rfoss@kernel.org>
-To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-To: Jonas Karlman <jonas@kwiboo.se>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Daniel Stone <daniel@fooishbar.org>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-To: Chen-Yu Tsai <wens@kernel.org>
-To: Samuel Holland <samuel@sholland.org>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-To: Maíra Canal <mcanal@igalia.com>
-To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: kernel@collabora.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-sunxi@lists.linux.dev
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-
 ---
-Nicolas Frattaroli (5):
-      drm/scdc-helper: Don't use ssize_t return type for scdc_read/write
-      drm/scdc-helper: Add scdc_status debugfs entry
-      drm/scdc-helper: Implement parsing and printing HDMI 2.1 fields
-      drm/debugfs: Move HDMI debugfs registration to state helper
-      drm/display: hdmi-state-helper: Init SCDC debugfs for HDMI
+ drivers/gpu/drm/display/drm_scdc_helper.c | 8 ++++----
+ include/drm/display/drm_scdc_helper.h     | 8 ++++----
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
- drivers/gpu/drm/display/drm_bridge_connector.c  |   3 +
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 156 +++++++++++++
- drivers/gpu/drm/display/drm_scdc_helper.c       | 287 +++++++++++++++++++++++-
- drivers/gpu/drm/drm_debugfs.c                   | 157 -------------
- drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c          |   1 +
- drivers/gpu/drm/vc4/vc4_hdmi.c                  |   1 +
- include/drm/display/drm_hdmi_state_helper.h     |   3 +
- include/drm/display/drm_scdc.h                  |  21 +-
- include/drm/display/drm_scdc_helper.h           | 103 ++++++++-
- 9 files changed, 566 insertions(+), 166 deletions(-)
----
-base-commit: 9766e5bd48f44e1f249f60fdf8dfd1f0aaf22e6b
-change-id: 20260413-scdc-link-health-89326013d96c
+diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
+index df878aad4a36..8403f2390ab6 100644
+--- a/drivers/gpu/drm/display/drm_scdc_helper.c
++++ b/drivers/gpu/drm/display/drm_scdc_helper.c
+@@ -67,8 +67,8 @@
+  * Returns:
+  * 0 on success, negative error code on failure.
+  */
+-ssize_t drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
+-		      size_t size)
++int drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
++		  size_t size)
+ {
+ 	int ret;
+ 	struct i2c_msg msgs[2] = {
+@@ -107,8 +107,8 @@ EXPORT_SYMBOL(drm_scdc_read);
+  * Returns:
+  * 0 on success, negative error code on failure.
+  */
+-ssize_t drm_scdc_write(struct i2c_adapter *adapter, u8 offset,
+-		       const void *buffer, size_t size)
++int drm_scdc_write(struct i2c_adapter *adapter, u8 offset, const void *buffer,
++		   size_t size)
+ {
+ 	struct i2c_msg msg = {
+ 		.addr = SCDC_I2C_SLAVE_ADDRESS,
+diff --git a/include/drm/display/drm_scdc_helper.h b/include/drm/display/drm_scdc_helper.h
+index 34600476a1b9..e9ccaeba56dd 100644
+--- a/include/drm/display/drm_scdc_helper.h
++++ b/include/drm/display/drm_scdc_helper.h
+@@ -31,10 +31,10 @@
+ struct drm_connector;
+ struct i2c_adapter;
+ 
+-ssize_t drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
+-		      size_t size);
+-ssize_t drm_scdc_write(struct i2c_adapter *adapter, u8 offset,
+-		       const void *buffer, size_t size);
++int drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
++		  size_t size);
++int drm_scdc_write(struct i2c_adapter *adapter, u8 offset, const void *buffer,
++		   size_t size);
+ 
+ /**
+  * drm_scdc_readb - read a single byte from SCDC
 
-Best regards,
---  
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+-- 
+2.55.0
 
