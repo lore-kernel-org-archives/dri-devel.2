@@ -4,99 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECCBFC4451C
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 06:37:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3172C44512
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 06:37:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 122E310EC68;
-	Wed, 22 Jul 2026 06:37:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0831510EC6D;
+	Wed, 22 Jul 2026 06:37:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="pj/GOYzf";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M7OSsGoS";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RcW4rOuK";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jYU9jgyq";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0B5110EC64
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:36:58 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C641E10EC61
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:36:52 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66M53pae3787372
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:36:57 GMT
+ 66M54J4C3769548
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:36:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- rGpNlcLNCKBAGjCH7PVJuWAxbvSjcIcNj9l3odZvHF8=; b=pj/GOYzft/MdCvdr
- BOLWknwlOUzEccWqhoYuIovEbcRZvpCX4hA/rrZGdWNi5FsMeu3kaOaxeo60Sncn
- 4jdXAbxOve1z0u5hsWe8uyy5GqZWQSIGXzqvgnjMt9+6FQKj/BMvnPZTs6nmeO3e
- fwOvdbJ/0+nk+ZNhdHgsNRg3zx8HLgYhjdQjisAboGUWXeimu4uz3V5IT33cQo6b
- 8AIsz3nnQoyahEorwVPUoeAh0ZgLpR5o73fQ5yUm5jJZpZAZktgz+Ss4jPEfve8X
- tNjYRJtRrTNpjONuIuIovg7o+cp8IC406G1wbKIb1J+xsWJz0WYyDLuXz6Za/F7G
- fo2nmQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj9aec0c1-1
+ YWr9wwuoYNg3NTbM6h8++bi9NeLoqHztxgk7/YWPoxM=; b=RcW4rOuK2fwD+LzM
+ N13XfMOdyCqjokMjHcDrkyMb389lIWNH2UbJGpmcluaqtE+HStWcpY8ihhFdyt4z
+ 1+gFGH/DIVNE6Y1OnmoeEYWJc1IGNZO9eYkf1dmff6FMgrxr+J2rLOGSKADH1XwP
+ tLh2O7wTNMPOMmM4HGL+EEJC3SajW+AH2SpKlen1EelVecK0FHf1LNKoXgs3bVJw
+ jGk0pT7VivPGPurJ06WwlKBhNdmLvuLniaen2vBrCRdYNQnr3FpVpfQPoZtL5Ebg
+ +obvv3lk7Mg2ZbAbpyOgCK03KfcssuUK4UjdU2FAarjfgo90gFCbHnASzz/hH0cj
+ AX/H/Q==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjnu4rn6r-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:36:57 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-51c1a97644aso34077801cf.2
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 23:36:57 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:36:52 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-522de3c645dso104714661cf.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 23:36:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784702217; x=1785307017;
+ d=oss.qualcomm.com; s=google; t=1784702211; x=1785307011;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=rGpNlcLNCKBAGjCH7PVJuWAxbvSjcIcNj9l3odZvHF8=;
- b=M7OSsGoSpErftgBZp8mJvSv20XwGv5Y4Y5wBYvMug5QM8VNgfcv9wkToZZ4x6L6X1G
- wUwW2CRc91ycY/qmmOW3A4Wc4B+Ygd76jHd/ArnA9JuXUA+uOCD3V6c19gaZsmNP+SWt
- 5S01sPG3XVa8JJUsEMzYjsxnwEW+qELDghqyKbRtO+JCcuECEKjaMhOPHBMjGGJ78cJw
- WXAvzk/RP36wlVtt2LcSomIJzUrkvhLfsMwmwuV4wqDjAz+R4g51/yGbwKOGP+Fv62bs
- Xz4B5MOwWwnuj0kxU0NlX+jVpCmAOlg/9/ntMYXeUvZISJh5bjy+Gb6Zp20cIZEyYzu7
- o60A==
+ bh=YWr9wwuoYNg3NTbM6h8++bi9NeLoqHztxgk7/YWPoxM=;
+ b=jYU9jgyqrPqW76RAHG8fmYPJta/UNgoN6eHRo1EhRDWgvQB8YvMnbcXhJq72iZhZzn
+ Pwwje1VEHLf457hNxBkVc5mDdYqqV8xVEyaP05gq3iKUtt+DFCEHSgIdZJz7VztI72nQ
+ bRFBPwQ6m9tbDYySjQe16it0yo7P2HZXh5bAOwHjbN613IedKOl83Q/2xDlXh8jGPp0L
+ riP55WB9jtVIsjqneePrsItq3/1DPHVLuIWamUJM6UMUJbVevvma0sxKDAhIuOYXrye4
+ 8nVnaa7WZU3+5NnBAalbw4LaXMhBm+xAGiV9Kl5jSjjE8iJfEn1ihFfdTCsCbx0igT4b
+ 6FfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784702217; x=1785307017;
+ d=1e100.net; s=20251104; t=1784702211; x=1785307011;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=rGpNlcLNCKBAGjCH7PVJuWAxbvSjcIcNj9l3odZvHF8=;
- b=a48/kTjRG/tipJlPsUz5ckhI+EOpi66IzV8/en6pkhwpQ43f3Pm/5hSJYtPmIlpeHk
- NKl2psWEiQAI2PvdrMZt2oYFnOjrKzCpuub/aoR0jUiSt7gdg+iiJwPRpNWF5ywv1juA
- 3VbzXczg8uNmYPmVKXAVz6lAiC0FUjBL3Op2oSWO4/fPqOZ6s3pcy9mqi3JcCsryZ87f
- 6nSBS1WVYPU7+CF3dYr9WeOtNa2vmgLNlVvO9KwAxLadGb1ptDT3h4ecmPLKv/exbC3m
- 0hScT0vvJFgotK0LeSK2uzxWdfWPv8hqH8MFsH7e76pSsurVrsR7UP1pwXIcQsmepv2E
- k7Ag==
+ bh=YWr9wwuoYNg3NTbM6h8++bi9NeLoqHztxgk7/YWPoxM=;
+ b=ruraXs3mKLb7h8MgqYyAXS3jU67l3DWRH4bQnKPBrDhHxfjvgxlJ/kpAkZ/cl2XlUq
+ biaFs397LVggndoYvVi9W/CqBzycnhizlKnxvBCfhvYIwRi2wLCSpHyfiO1N28qEWUK7
+ iJgP2IY/zeJ9/GP+tKD0ZW9jkLTcQgxnx6dBTtAYhv5Cupb0ArYcvRsbEyrqKdI0zQPU
+ 56bHjE3mf8x3icE1HusYrGwBX6YvV49Ivd7/zOSxsFaYzUEUldTAUCrpWsaR36+oAMWj
+ febqrn0Bw5xDpSadjgQDJoeFhmiG3V1QZ3zweYIKzZyZXfzKabn3v5YHP4IdY4PbPTOo
+ c2jA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpcKE0nL5E+cOUu/UDK8QaGm4VCM+HwF32ZvrtEFupAmPaBmrMl6EwAI6czQoyTsiF6UOkqc5WGk2Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyek/yiyuA0EUnynMQB0NcZ03sK+Pn9sSVBrQR4x7FLVuwuGFZv
- INEEpbBYaU9keYx2XUHoXCVwDPw5gPf/S5uqTTeOZ718DePEVD/rrInmFS/kz0R9qA88NFXf69P
- Du+OMiMr2/jJmEHcicyujOdsgR6bgE7Hxs6mitQeHUMcbFGlCBwkmuIy0/aeMhhGLaNj7oeE=
-X-Gm-Gg: AR+sD113lx4ySgLKs3hedySmaK25c//jy0Hv+u5HSXhO/T2uRc/Rro01phex/jZhHme
- dU5j/APyDgdFB7uYthGIuTAfR0eHrmMovRKfRcuugncjFRdv6xrOU4u582B69dVsMZvQtLwGv99
- 4z6qhT2eQFY0/XNyyCnWcWjWnnSF94o3Lgl11P8P1qTpheOgUHO7KTmBHTTuCbc5QQTXGQkU6Ka
- +SWaqI1ert3Ddw9OKQ3E3fcLw3JJivXMUjfrVbw6NYNApNT+82qTiJI3Si89KdNyrOHM/bOz2JL
- bIFvfM8li1URbLJsWiyDPSQNNVF7zrt0gyFHHIbArrqx4keX/j2Azjzy/lkQO56ZRFooFa6HBBI
- aH5Nm1EelclcDsJDHYpWV8LMvJyAl1J5QDgf0bXuwOC8abHYOJ36xHdtFTGRIFKSS2P4h8sISPw
- PoUkZzM3rnwkzt3Q==
-X-Received: by 2002:a05:622a:4d44:b0:51c:7b11:41b5 with SMTP id
- d75a77b69052e-5213f374d31mr206859771cf.81.1784702216754; 
- Tue, 21 Jul 2026 23:36:56 -0700 (PDT)
-X-Received: by 2002:a05:622a:4d44:b0:51c:7b11:41b5 with SMTP id
- d75a77b69052e-5213f374d31mr206859571cf.81.1784702216299; 
- Tue, 21 Jul 2026 23:36:56 -0700 (PDT)
+ AHgh+RqQefzxT9QihTNqc/dtOR3tmdrr0khsa661SMiGkUmHE7jMZv4DZ9ft0Y4TTvrl6limU54YI2F3p7w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxc9hPBtKjDnrFor0NcVliBGU3DQ6DF/9fezFcXy6kJniJfsGhH
+ zyuoQQqY1Y4PY5Iml6iG0ptMmZR0WoxkQn/YeXZqfgkqnSmUjOV1Yyf6gw4gYs2tLWTw8vA0lCE
+ sz+sFZkiOt9zLURmRIVCp9mQ5IZk4JFDSxAdMN3F/YrMGxd08u3JHKYDB0ObWUkBq5a0CqFA=
+X-Gm-Gg: AR+sD13KQuON42/08oWAo96T/lmtcR+BQ00WDZll1Ou3h8mMt5crIsmZ2Y/EAlXUW8r
+ ugVFLkMH3q6ecFuYTyR1vps+TXGbgnRexDfJ55uF1SRkIdywssUaY0HP6e0y1K/RcqI5moabQpp
+ W3aFeGlO3HMZeSIu5JI0RDiIpLU1jtV9eP1ADLQVN7V/jzNBdhZ3BExDA2YRfKADJDnftH8KoKF
+ x4HPkRxWfVpmZpA/0Iw0b3p3Cr6NKtaxSI8pcUesqUXHWVOZOHHge1srPRPyFn53eZJoWUNG5r0
+ zc38pT8wEKnABfk2NuHnSz2DkEXkTzKBNzH3z+r80mcWSfBPlQqMzPmKBNOpMF+jmBrBEcpBvVT
+ WGI1S9wNjio+ouNNMVYgf7iP/zUgJ7fHP9UL5CKrrjMQKwFj2eQFIqJOIyo2TDj8RUg04Nnug+T
+ MetGzabJBUd1u6aQ==
+X-Received: by 2002:a05:622a:118c:b0:51c:8571:1ccc with SMTP id
+ d75a77b69052e-5213c7e67acmr203287271cf.41.1784702211164; 
+ Tue, 21 Jul 2026 23:36:51 -0700 (PDT)
+X-Received: by 2002:a05:622a:118c:b0:51c:8571:1ccc with SMTP id
+ d75a77b69052e-5213c7e67acmr203287141cf.41.1784702210731; 
+ Tue, 21 Jul 2026 23:36:50 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b2a9b8c6f6sm309696e87.4.2026.07.21.23.36.54
+ 2adb3069b0e04-5b2a9b8c6f6sm309696e87.4.2026.07.21.23.36.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 23:36:55 -0700 (PDT)
+ Tue, 21 Jul 2026 23:36:48 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Wed, 22 Jul 2026 09:36:24 +0300
-Subject: [PATCH 09/24] drm/msm: add the is_cmd_mode callback to msm_display
+Date: Wed, 22 Jul 2026 09:36:22 +0300
+Subject: [PATCH 07/24] drm/msm: add the wide_bus_enabled callback to
+ msm_display
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-drm-msm-display-interface-v1-9-368c10fe62fd@oss.qualcomm.com>
+Message-Id: <20260722-drm-msm-display-interface-v1-7-368c10fe62fd@oss.qualcomm.com>
 References: <20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com>
 In-Reply-To: <20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -115,45 +116,44 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6968;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8943;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=pBWRP7CW7402hSiIR+bCI9JjVAYLuwniHNi90OzwRGE=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqYGTnExifL7rU2hhr3InCOFU2scDV4u7idMuBy
- gAPLvZgO8qJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCamBk5wAKCRCLPIo+Aiko
- 1Tt2B/9WUmKit0v/CTdVHUMLqa2W5b9YySHhAfqcTt9d6EIvnFcjzrSHuxEqKWWc4GETLCDUbOC
- hRjV6n7PajHSCAwahTPrEWDyYOvoaRoL3nRxTP7EA0M/P28kklYPxNhRkRQnngCS54uFgJlzl3p
- xNO25vvxiNviXQLn8Sd82kGxxP2OJmYZuYMTH0CwH7xuXYhQzKbMNEqfiZBvLvxRyDuxxwsoX6A
- 5ZnNpy4KzIpv3zAnJs3w6XM+qdwanvOFVBT/3rnw0kM4oVung5NxWj6NOlFLnVU/OQklsfzjz+Q
- zTfobVeiiyj7RLIuBNXv8SU4ukNe4SXKVpg6Hb5YhURQUesn
+ bh=+OUGc5FgVaREgTIXpTKbHBCCj4cUh+urB6VbsBn5Osk=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqYGTnQ1UXylmG+15DdhP4e9ml2vmSj7jklAamp
+ ggsil/0I/WJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCamBk5wAKCRCLPIo+Aiko
+ 1V6qB/9WyRNAfBFo35hPzLIXNxJaPSTXCFo5MdVTLj/MZzFIixos99vQgv1VDVt5nayNyjSHzdG
+ F7bzWkzNqVLs6fo3ewHfJFx0d8rRoNMhw9LmG5Ruwy3EDVlsm2dfCMeQIjZq9S9RSiAM3/xUAxd
+ y4jkLJG7TbL/G+dbyt0md1kbg9ZuszRYd73LAfteM1dvtSbZXhx69xIF/maWWvCHutu0zr6XgHo
+ fWyrVTNnX6PQBkPHuP64K1Pyb/m2DfloFhS+/5FySCEDHFEL6Yirn/s25exAaHqN1vsBnRVMmiG
+ j++SL3Q6Fc8xHwECqLYW3vQkzZuFltepPqE3SR6p9kTKplBH
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: 8RqlqHTaHURkt7kT11-HL1ES-BGLPgiZ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA2MCBTYWx0ZWRfXzkY4KICK8uvb
- AAeAFZdHduF2j1p9EkksGbdvTaSQI3kOqRMVfl4rgiP2JbiaLA/ky8yPAbVO2yy3MttDetrL+N3
- XrIYykhxRva9zQHBytyICT0b/HsaVkE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA2MCBTYWx0ZWRfXwP2x42PCnAoR
- pN9GyyDo2r7xvbiPyXBrGqB0HkkuwKbD75OGhlBuFlNQrQD5aABsPI9s0IBi0BKAfzdmxmqP9kx
- zwGIZsdTEQB4FltODOHQrcursjSDkvf1TN+FkaXsqnaSqkguPlbHAAZ2fhY7dSpYO6pWRETljhk
- RAVQQXwtpCKsp8NGVJ4YvSlH2rVEMKJrJeqJv5aK5hPBMDdSjAts0T5AII8yjBmqHBVYhSB39mJ
- 72oJtlOaLFXkK5pcxwUssmo+IGP4a+Za9Y4rxGyPwfWDV7f5PogFqkAlqLDBNHxQajLCUWZvuT6
- 9BWTVP0YSUOXKgQXeNTPfSO5Nusz1mx4UHCc2F1m0F0TsviL/z3HQmLRKYhF//2N4q+ZGsAIsPs
- Lcp4hiUpRICIO2qj2oOY6r7Hmxj7GAcDPA2u0x3++43TS3tdpLPSStJ2Vj3t8/1oyKLW3OfefpM
- ka1B3xWngqDTJDGLiiw==
-X-Proofpoint-GUID: 8RqlqHTaHURkt7kT11-HL1ES-BGLPgiZ
-X-Authority-Analysis: v=2.4 cv=Cr6PtH4D c=1 sm=1 tr=0 ts=6a606509 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-GUID: lJt3xtYVobAo8Kf3zMUT2NzuXELQBofB
+X-Authority-Analysis: v=2.4 cv=KLhqylFo c=1 sm=1 tr=0 ts=6a606504 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=U3fWpF8k-n0SBARnw3cA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=EXGRFEm-sg837V2a6F4A:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA2MCBTYWx0ZWRfXzsPkXE0+Qdj5
+ iQuYhbgtQDFd662ZF6WwDDYVHix8t/esqopXkNVN+95BRuXn1ScD84nix+BMnEds5rZTP0UxoB5
+ EI0xjq1T7qnLHc67spNxzKKByghz7FM6TxQ6yA+rFLXqmVcjJQJ2Au3wXzKkdwKGq50aVHdc2x2
+ wkqsBHiVA1oXPCO7ubC+DH9jwU0HP443Q43NTpuCEglGgrC1vF4SwJcQ2UBGouTnV7H5CBUfNze
+ X4vCroK4x7r4I3a4hk6raGjOKVV93cgdE3ppoSwU9GWqD6gOE4vKK3e1G14o8zJpcOkfT1005wE
+ VhYWzRSdg7Dr9MEtqAsHo8YMn5H+nFGF0lW5uGiaWfn7KObqZ1TNtqkKE436MhqZiqSVjeeR4rw
+ qgp2BVpyEfhLWqgPuXpyUIQyoYYMzbpdgxGe3NcOOaH9/dROdq6K41UT2xmISoBsbXIKfBKLp73
+ vcgsCXn9Kj7CCDL/OTw==
+X-Proofpoint-ORIG-GUID: lJt3xtYVobAo8Kf3zMUT2NzuXELQBofB
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA2MCBTYWx0ZWRfX8bfRdzNHMluo
+ 9yPtpySS6M6iBhSg79EOKjlSsD6T+TUzU7wELIoOLoRjMEid3TQIwHjv7uwoqPPG52zQ95Cr7MK
+ odUZbIwFgzpqk1QBwYB2MgCPX6u6yWk=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-22_02,2026-07-21_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 adultscore=0 impostorscore=0
- lowpriorityscore=0 spamscore=0 phishscore=0 clxscore=1015 suspectscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607220060
+ bulkscore=0 spamscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 phishscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220060
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,127 +169,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DPU and MDP5 backends query whether a DSI link runs in command mode by
-calling msm_dsi_is_cmd_mode() directly on the concrete sub-block while
-building their encoders.
+dpu_encoder_is_widebus_enabled() switches on the interface type to call
+either msm_dsi_wide_bus_enabled() or msm_dp_wide_bus_available(), two
+differently named sub-block functions.
 
-Add a mandatory is_cmd_mode() callback to struct msm_display_funcs; DSI
-implements it, DP and HDMI (always video) return false. The backends
-dispatch through the callback.
+Replace them with a single mandatory wide_bus_enabled() callback on
+struct msm_display_funcs. DSI and DP implement it (DP keeps its internal
+msm_dp_wide_bus_available() helper, now declared privately in
+dp_display.h); HDMI, which never drives a wide bus, returns false.
+
+Add a dpu_encoder_get_display() helper that maps a struct msm_display_info
+to its struct msm_display, so the DPU encoder can look up the sub-block
+and call the callback without open-coding the interface-type switch. It is
+reused by the following callback conversions.
 
 No functional change intended.
 
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 4 +++-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 4 +++-
- drivers/gpu/drm/msm/dp/dp_display.c      | 6 ++++++
- drivers/gpu/drm/msm/dsi/dsi.c            | 4 +++-
- drivers/gpu/drm/msm/hdmi/hdmi.c          | 6 ++++++
- drivers/gpu/drm/msm/msm_drv.h            | 7 ++-----
- 6 files changed, 23 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 42 +++++++++++++++++++++--------
+ drivers/gpu/drm/msm/dp/dp_display.c         |  8 ++++++
+ drivers/gpu/drm/msm/dp/dp_display.h         |  1 +
+ drivers/gpu/drm/msm/dsi/dsi.c               |  5 +++-
+ drivers/gpu/drm/msm/hdmi/hdmi.c             |  6 +++++
+ drivers/gpu/drm/msm/msm_drv.h               | 14 +++-------
+ 6 files changed, 53 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 42dff1a98292..7928bc1a73f3 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -583,6 +583,7 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
- {
- 	struct drm_encoder *encoder = NULL;
- 	struct msm_display_info info;
-+	struct msm_display *display;
- 	int i, rc = 0;
- 
- 	if (!(priv->kms->dsi[0] || priv->kms->dsi[1]))
-@@ -613,7 +614,8 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
- 		if (msm_dsi_is_bonded_dsi(priv->kms->dsi[i]))
- 			info.h_tile_instance[info.num_of_h_tiles++] = other;
- 
--		info.is_cmd_mode = msm_dsi_is_cmd_mode(priv->kms->dsi[i]);
-+		display = msm_dsi_get_display(priv->kms->dsi[i]);
-+		info.is_cmd_mode = display->funcs->is_cmd_mode(display);
- 
- 		rc = dpu_kms_dsi_set_te_source(&info, priv->kms->dsi[i]);
- 		if (rc) {
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 68b71a7c6666..e372d295b80f 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -337,6 +337,7 @@ static int modeset_init_intf(struct mdp5_kms *mdp5_kms,
- 		const struct mdp5_cfg_hw *hw_cfg =
- 					mdp5_cfg_get_hw_config(mdp5_kms->cfg);
- 		int dsi_id = get_dsi_id_from_intf(hw_cfg, intf->num);
-+		struct msm_display *display;
- 
- 		if ((dsi_id >= ARRAY_SIZE(priv->kms->dsi)) || (dsi_id < 0)) {
- 			DRM_DEV_ERROR(dev->dev, "failed to find dsi from intf %d\n",
-@@ -360,9 +361,10 @@ static int modeset_init_intf(struct mdp5_kms *mdp5_kms,
- 			break;
- 		}
- 
-+		display = msm_dsi_get_display(priv->kms->dsi[dsi_id]);
- 		priv->kms->dsi_encoder[dsi_id] = encoder;
- 		mdp5_encoder_set_intf_mode(encoder,
--					   msm_dsi_is_cmd_mode(priv->kms->dsi[dsi_id]));
-+					   display->funcs->is_cmd_mode(display));
- 
- 		break;
- 	}
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 773dee9d0be4..425526db7ef9 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1369,11 +1369,17 @@ static bool msm_dp_display_needs_periph_flush(struct msm_display *display,
- 	return msm_dp_needs_periph_flush(dp, mode);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 1f20695f81e3..ce358c1c9757 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -268,25 +268,45 @@ bool dpu_encoder_needs_periph_flush(struct dpu_encoder_phys *phys_enc)
+ 	       msm_dp_needs_periph_flush(priv->kms->dp[disp_info->h_tile_instance[0]], mode);
  }
  
-+static bool msm_dp_display_is_cmd_mode(struct msm_display *display)
++/**
++ * dpu_encoder_get_display - find the display sub-block driving an interface
++ * @dev:        the DRM device
++ * @disp_info:  the interface description
++ *
++ * Return: the &struct msm_display (DSI/DP/HDMI) driving the interface, or NULL
++ * for interfaces (e.g. writeback) that have no such sub-block.
++ */
++static struct msm_display *dpu_encoder_get_display(struct drm_device *dev,
++		const struct msm_display_info *disp_info)
 +{
-+	return false;
++	struct msm_drm_private *priv = dev->dev_private;
++	int index = disp_info->h_tile_instance[0];
++
++	switch (disp_info->intf_type) {
++	case INTF_DP:
++		return msm_dp_get_display(priv->kms->dp[index]);
++	case INTF_DSI:
++		return msm_dsi_get_display(priv->kms->dsi[index]);
++	case INTF_HDMI:
++		return msm_hdmi_get_display(priv->kms->hdmi);
++	default:
++		return NULL;
++	}
++}
++
+ /**
+  * dpu_encoder_is_widebus_enabled - return bool value if widebus is enabled
+  * @drm_enc:    Pointer to previously created drm encoder structure
+  */
+ bool dpu_encoder_is_widebus_enabled(const struct drm_encoder *drm_enc)
+ {
+-	const struct dpu_encoder_virt *dpu_enc;
+-	struct msm_drm_private *priv = drm_enc->dev->dev_private;
+-	const struct msm_display_info *disp_info;
+-	int index;
++	const struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
++	struct msm_display *display;
+ 
+-	dpu_enc = to_dpu_encoder_virt(drm_enc);
+-	disp_info = &dpu_enc->disp_info;
+-	index = disp_info->h_tile_instance[0];
++	display = dpu_encoder_get_display(drm_enc->dev, &dpu_enc->disp_info);
+ 
+-	if (disp_info->intf_type == INTF_DP)
+-		return msm_dp_wide_bus_available(priv->kms->dp[index]);
+-	else if (disp_info->intf_type == INTF_DSI)
+-		return msm_dsi_wide_bus_enabled(priv->kms->dsi[index]);
++	if (display)
++		return display->funcs->wide_bus_enabled(display);
+ 
+ 	return false;
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index f4fa86d1b9c7..04d291a93d20 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1354,9 +1354,17 @@ static int msm_dp_modeset_init(struct msm_display *display,
+ 	return 0;
+ }
+ 
++static bool msm_dp_display_wide_bus_enabled(struct msm_display *display)
++{
++	struct msm_dp *dp = container_of(display, struct msm_dp, display);
++
++	return msm_dp_wide_bus_available(dp);
 +}
 +
  static const struct msm_display_funcs msm_dp_display_funcs = {
  	.modeset_init = msm_dp_modeset_init,
  	.snapshot = msm_dp_snapshot,
- 	.wide_bus_enabled = msm_dp_display_wide_bus_enabled,
- 	.needs_periph_flush = msm_dp_display_needs_periph_flush,
-+	.is_cmd_mode = msm_dp_display_is_cmd_mode,
++	.wide_bus_enabled = msm_dp_display_wide_bus_enabled,
  };
  
  struct msm_display *msm_dp_get_display(struct msm_dp *msm_dp_display)
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+index 20a71afb1f90..8c34a473c7db 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.h
++++ b/drivers/gpu/drm/msm/dp/dp_display.h
+@@ -34,6 +34,7 @@ int msm_dp_display_get_test_bpp(struct msm_dp *msm_dp_display);
+ void msm_dp_display_signal_audio_start(struct msm_dp *msm_dp_display);
+ void msm_dp_display_signal_audio_complete(struct msm_dp *msm_dp_display);
+ void msm_dp_display_set_psr(struct msm_dp *dp, bool enter);
++bool msm_dp_wide_bus_available(const struct msm_dp *dp_display);
+ void msm_dp_display_debugfs_init(struct msm_dp *msm_dp_display, struct dentry *dentry, bool is_edp);
+ 
+ #endif /* _DP_DISPLAY_H_ */
 diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
-index 085e202bf7e6..bda778dbcc5b 100644
+index c86142f66237..ce3b261123ea 100644
 --- a/drivers/gpu/drm/msm/dsi/dsi.c
 +++ b/drivers/gpu/drm/msm/dsi/dsi.c
-@@ -5,8 +5,9 @@
+@@ -17,8 +17,10 @@ struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi)
+ 	return msm_dsi_host_get_dsc_config(msm_dsi->host);
+ }
  
- #include "dsi.h"
- 
--bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi)
-+static bool msm_dsi_is_cmd_mode(struct msm_display *display)
+-bool msm_dsi_wide_bus_enabled(struct msm_dsi *msm_dsi)
++static bool msm_dsi_wide_bus_enabled(struct msm_display *display)
  {
 +	struct msm_dsi *msm_dsi = container_of(display, struct msm_dsi, display);
- 	unsigned long host_flags = msm_dsi_host_get_mode_flags(msm_dsi->host);
++
+ 	return msm_dsi_host_is_wide_bus_enabled(msm_dsi->host);
+ }
  
- 	return !(host_flags & MIPI_DSI_MODE_VIDEO);
-@@ -289,6 +290,7 @@ static const struct msm_display_funcs msm_dsi_display_funcs = {
+@@ -279,6 +281,7 @@ static void msm_dsi_snapshot(struct msm_display *display,
+ static const struct msm_display_funcs msm_dsi_display_funcs = {
+ 	.modeset_init = msm_dsi_modeset_init,
  	.snapshot = msm_dsi_snapshot,
- 	.wide_bus_enabled = msm_dsi_wide_bus_enabled,
- 	.needs_periph_flush = msm_dsi_needs_periph_flush,
-+	.is_cmd_mode = msm_dsi_is_cmd_mode,
++	.wide_bus_enabled = msm_dsi_wide_bus_enabled,
  };
  
  struct msm_display *msm_dsi_get_display(struct msm_dsi *msm_dsi)
 diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-index 72f7403265f9..828cb89ebf9a 100644
+index 72ab2e92964e..5f24f778c7ef 100644
 --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
 +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-@@ -239,11 +239,17 @@ static bool msm_hdmi_needs_periph_flush(struct msm_display *display,
- 	return false;
+@@ -228,9 +228,15 @@ static void msm_hdmi_snapshot(struct msm_display *display,
+ 				    hdmi->mmio, "hdmi");
  }
  
-+static bool msm_hdmi_is_cmd_mode(struct msm_display *display)
++static bool msm_hdmi_wide_bus_enabled(struct msm_display *display)
 +{
 +	return false;
 +}
@@ -297,51 +331,69 @@ index 72f7403265f9..828cb89ebf9a 100644
  static const struct msm_display_funcs msm_hdmi_display_funcs = {
  	.modeset_init = msm_hdmi_modeset_init,
  	.snapshot = msm_hdmi_snapshot,
- 	.wide_bus_enabled = msm_hdmi_wide_bus_enabled,
- 	.needs_periph_flush = msm_hdmi_needs_periph_flush,
-+	.is_cmd_mode = msm_hdmi_is_cmd_mode,
++	.wide_bus_enabled = msm_hdmi_wide_bus_enabled,
  };
  
  struct msm_display *msm_hdmi_get_display(struct hdmi *hdmi)
 diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 806d72ed393b..5320e4977af9 100644
+index d25d783b4f11..519571170207 100644
 --- a/drivers/gpu/drm/msm/msm_drv.h
 +++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -286,6 +286,7 @@ struct msm_disp_state;
-  * @wide_bus_enabled: whether the sub-block drives a wide (2 pixel/clock) bus;
-  *                    mandatory.
-  * @needs_periph_flush: whether @mode requires a peripheral flush; mandatory.
-+ * @is_cmd_mode:  whether the sub-block runs in command mode; mandatory.
+@@ -283,12 +283,15 @@ struct msm_disp_state;
+  *                to @encoder.
+  * @snapshot:     capture the sub-block's state for a display snapshot;
+  *                mandatory.
++ * @wide_bus_enabled: whether the sub-block drives a wide (2 pixel/clock) bus;
++ *                    mandatory.
   */
  struct msm_display_funcs {
  	int (*modeset_init)(struct msm_display *display, struct drm_device *dev,
-@@ -295,6 +296,7 @@ struct msm_display_funcs {
- 	bool (*wide_bus_enabled)(struct msm_display *display);
- 	bool (*needs_periph_flush)(struct msm_display *display,
- 				   const struct drm_display_mode *mode);
-+	bool (*is_cmd_mode)(struct msm_display *display);
+ 			    struct drm_encoder *encoder);
+ 	void (*snapshot)(struct msm_display *display,
+ 			 struct msm_disp_state *disp_state);
++	bool (*wide_bus_enabled)(struct msm_display *display);
  };
  
  /**
-@@ -330,7 +332,6 @@ void dsi_dev_detach(struct platform_device *pdev);
- void __init msm_dsi_register(void);
- void __exit msm_dsi_unregister(void);
- struct msm_display *msm_dsi_get_display(struct msm_dsi *msm_dsi);
--bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi);
+@@ -327,7 +330,6 @@ struct msm_display *msm_dsi_get_display(struct msm_dsi *msm_dsi);
+ bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi);
  bool msm_dsi_is_bonded_dsi(struct msm_dsi *msm_dsi);
  bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi);
+-bool msm_dsi_wide_bus_enabled(struct msm_dsi *msm_dsi);
  struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi);
-@@ -346,10 +347,6 @@ static inline struct msm_display *msm_dsi_get_display(struct msm_dsi *msm_dsi)
+ const char *msm_dsi_get_te_source(struct msm_dsi *msm_dsi);
+ #else
+@@ -353,10 +355,6 @@ static inline bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi)
  {
- 	return NULL;
+ 	return false;
  }
--static inline bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi)
+-static inline bool msm_dsi_wide_bus_enabled(struct msm_dsi *msm_dsi)
 -{
 -	return false;
 -}
- static inline bool msm_dsi_is_bonded_dsi(struct msm_dsi *msm_dsi)
+ 
+ static inline struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi)
  {
+@@ -376,7 +374,6 @@ void __exit msm_dp_unregister(void);
+ struct msm_display *msm_dp_get_display(struct msm_dp *dp_display);
+ bool msm_dp_needs_periph_flush(const struct msm_dp *dp_display,
+ 			       const struct drm_display_mode *mode);
+-bool msm_dp_wide_bus_available(const struct msm_dp *dp_display);
+ 
+ #else
+ static inline int __init msm_dp_register(void)
+@@ -397,11 +394,6 @@ static inline bool msm_dp_needs_periph_flush(const struct msm_dp *dp_display,
  	return false;
+ }
+ 
+-static inline bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
+-{
+-	return false;
+-}
+-
+ #endif
+ 
+ #ifdef CONFIG_DRM_MSM_MDP4
 
 -- 
 2.47.3
