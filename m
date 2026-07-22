@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CBA3C4453A
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 20:36:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35FB5C4453A
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 20:46:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81A9110E4CC;
-	Wed, 22 Jul 2026 20:36:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56DAB10E4CF;
+	Wed, 22 Jul 2026 20:46:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k2JaT9rf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DEwy/dy6";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3D3B10E4CC
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 20:36:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B961510E4CF
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 20:46:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2A45E60051;
- Wed, 22 Jul 2026 20:36:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA3E31F000E9;
- Wed, 22 Jul 2026 20:36:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 01A3C60051;
+ Wed, 22 Jul 2026 20:46:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 815281F000E9;
+ Wed, 22 Jul 2026 20:46:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784752608;
- bh=3R6CeXQI9MNlo/spd0Upe0cyipsh8y3RKdy4V+57QjQ=;
+ s=k20260515; t=1784753181;
+ bh=rWSba6subFqr7XtDQFE+tfhQeFN5BabLrbDEwyTBLRE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=k2JaT9rfwWhuN1y3+3wWGgGKfrz+UvQDsjOCT+EHBwpygPDUXO5NlJ+QwksElOQE7
- VNt0pRTZvouAROBoTn9TqY87lp6/XWvspyShAzrcwQaMbrLkuwuOnhT8o+e/NcTZg2
- Ch0FCggJigYXkghnTJk3EdIyp0VC9y9JiF3vJgBovDPsl2riMS1dxUm+KrCiRqX3mL
- 8yj42Ni5BUQ244QXAspSCDDUTzMT9UpL1Eya3N8cgujQQKIPAyvB/egcQ/LpLG9ZeX
- d/XI50LN7wmQY/yOajvsZpBOVyHGW8Ocgf7EnvoMZrf+lKB0lLbqqwos1skFqWiun9
- 51Bfa5jKdqyYQ==
+ b=DEwy/dy68Hg52FvRhwXRBu3Xho++anA0EO5azSTYWEHm4L4fDzeDVVg3/RbACCfax
+ N0n+QZdQ8/UlKvkTYhadmOvIJZIlWa3KmuiVm+ggLbR9SjOxSMT/1DPLnjKjxrqxvk
+ EmswILkB4gXzvklWcdCmXTNPBzJxn89Ij0ebsXehRCAlXLOD1yST6pPU/x3qe0BCni
+ dXBIn7gfnXUsgZ1e/9SngupmNRZEg+g0PHTfRxMUSLC5+zK24Kf7Q83i9A42Rc6N2G
+ AuExabS0uJJUe9uNBx2an87ot4uhHFj5l2ZEDE96Ir3wctxCnTypuBqntU8E3QWCpI
+ 08Urhn7OHP0Fw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 02/11] drm/bridge: it6505: balance and disable
- runtime PM on remove
+Subject: Re: [PATCH v5 03/11] drm/bridge: it6505: unregister DP AUX adapter
+ on bridge detach
 To: "Daniel Golle" <daniel@makrotopia.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <2ba351075bfd63f0ea937080c37f417140a8c97a.1784717129.git.daniel@makrotopia.org>
+In-Reply-To: <a472535bc291e77aee5cae71ea2a26d695511fd6.1784717129.git.daniel@makrotopia.org>
 References: <cover.1784717129.git.daniel@makrotopia.org>
- <2ba351075bfd63f0ea937080c37f417140a8c97a.1784717129.git.daniel@makrotopia.org>
+ <a472535bc291e77aee5cae71ea2a26d695511fd6.1784717129.git.daniel@makrotopia.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 20:36:48 +0000
-Message-Id: <20260722203648.AA3E31F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 20:46:21 +0000
+Message-Id: <20260722204621.815281F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,58 +60,67 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Use-After-Free of devres-managed resources when I2C device is unbo=
-und while DRM pipeline is active.
+- [High] Removing `drm_dp_aux_unregister()` from `it6505_i2c_remove()` intr=
+oduces a critical Use-After-Free vulnerability if the I2C driver is unbound=
+ while the DRM bridge remains attached.
 --
 
---- Patch [2]: [PATCH v5 02/11] drm/bridge: it6505: balance and disable run=
-time PM on remove ---
-commit e15fa2b94105d4f1aa7e633d5a8987820994caa9
+--- Patch [3]: [PATCH v5 03/11] drm/bridge: it6505: unregister DP AUX adapt=
+er on bridge detach ---
+commit b259e088ec0ed97d1f41a3a8463e232914e7c924
 Author: Daniel Golle <daniel@makrotopia.org>
 
-drm/bridge: it6505: balance and disable runtime PM on remove
+drm/bridge: it6505: unregister DP AUX adapter on bridge detach
 
-This commit balances the usage reference held for a connected display and
-explicitly disables runtime PM in the I2C remove path. This prevents a
-device from leaking the reference count across rebinds and resolves an
-unbalanced pm_runtime_enable warning.
+This commit moves the DP AUX adapter unregistration from the I2C remove
+path to the bridge detach and attach error paths. This is intended to
+prevent duplicate registrations when unbinding and rebinding the DRM
+device.
 
 > diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
 /ite-it6505.c
 > --- a/drivers/gpu/drm/bridge/ite-it6505.c
 > +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-> @@ -3660,6 +3660,9 @@ static void it6505_i2c_remove(struct i2c_client *cl=
+
+[ ... ]
+
+> @@ -3652,7 +3654,6 @@ static void it6505_i2c_remove(struct i2c_client *cl=
 ient)
->  	cancel_work_sync(&it6505->hdcp_wait_ksv_list);
->  	cancel_delayed_work_sync(&it6505->hdcp_work);
->  	cancel_work_sync(&it6505->extcon_wq);
-> +	if (it6505->extcon_state)
-> +		pm_runtime_put_sync(&client->dev);
-> +	pm_runtime_disable(&client->dev);
->  	it6505_poweroff(it6505);
->  	it6505_remove_edid(it6505);
->  }
+>  	struct it6505 *it6505 =3D i2c_get_clientdata(client);
+> =20
+>  	drm_bridge_remove(&it6505->bridge);
+> -	drm_dp_aux_unregister(&it6505->aux);
 
 [Severity: High]
-This is a pre-existing issue, but does this remove sequence lead to a
-use-after-free if the device is unbound via sysfs while the DRM pipeline is
-active?
+Does removing drm_dp_aux_unregister() here introduce a use-after-free
+if the I2C driver is unbound while the DRM bridge remains attached?
 
-When it6505_i2c_remove() returns, the driver core cleans up devres-managed
-resources allocated during probe, including the regmap and regulators.
+If the I2C driver is unbound (for example, via sysfs) while the DRM
+device is still active, the DP AUX character device (/dev/drm_dp_auxN)
+appears to remain registered because drm_bridge_remove() does not invoke
+it6505_bridge_detach() when the bridge is removed from the global list.
 
-The bridge container itself is allocated via devm_drm_bridge_alloc(), which
-uses a kref to manage its lifetime, meaning it outlives the devres cleanup
-as long as the DRM pipeline holds a reference.
+After it6505_i2c_remove() returns, the driver core's devres cleanup will
+execute and free the it6505 structure and its managed resources, such as
+the regmap.
 
-If the DRM pipeline is subsequently torn down, it will call bridge callbacks
-like it6505_bridge_atomic_disable() which attempt to access the freed regmap
-and regulators. Is there a way to ensure the bridge is fully disconnected a=
-nd
-hardware resources are safe from late access during unbind?
+If userspace subsequently interacts with the leaked character device,
+it can invoke it6505_aux_transfer() which dereferences the freed memory:
+
+drivers/gpu/drm/bridge/ite-it6505.c:it6505_aux_transfer() {
+	struct it6505 *it6505 =3D container_of(aux, struct it6505, aux);
+	...
+	// accesses freed it6505 and performs I/O on freed it6505->regmap
+}
+
+Should drm_dp_aux_unregister() be kept in the I2C remove path as well,
+or is there another mechanism guaranteeing the AUX character device is
+unregistered before devres cleanup occurs?
+
+>  	it6505_debugfs_remove(it6505);
+>  	it6505_remove_notifier_module(it6505);
+>  	disable_irq(it6505->irq);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784717129.gi=
-t.daniel@makrotopia.org?part=3D2
+t.daniel@makrotopia.org?part=3D3
