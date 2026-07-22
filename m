@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC13C4451C
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 07:06:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5228CC4451C
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 07:08:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0517410EC90;
-	Wed, 22 Jul 2026 07:06:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CCBE10EC91;
+	Wed, 22 Jul 2026 07:08:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WGSt0slU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TmeicZaE";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A9CF10EC90
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:06:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ACCD10EC91
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:08:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CC0A460A64;
- Wed, 22 Jul 2026 07:06:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 610F61F000E9;
- Wed, 22 Jul 2026 07:06:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9E66760A67;
+ Wed, 22 Jul 2026 07:08:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29E0B1F000E9;
+ Wed, 22 Jul 2026 07:08:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784703984;
- bh=yI3C12YwprhGLNkUesAzGvbliAKydFe850qghJBh1Zk=;
+ s=k20260515; t=1784704115;
+ bh=JrJuSQIysKBTB/GREf6cyf0kni2MpRezNaFtboNzbKA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WGSt0slU5cY6eFRxQhmPob891onO+pipm3GAjZMSy9f2xEJCQbwanU8k0hG9lrme7
- 0pt+YaXyRDD0HaLSHxE3iYqND9CjBAs+Yb6+YmrNGXfo9FR951+L8AL8c3sfCo6+bV
- Yrh/2kKwkhwioJ2uNE8/3onCps6jK3NVOWcvjo3c1ZaeNxhOpV/eGxMOwz1mw7F4yP
- i6ZSmCRhg8K77YheCmuNBo9+qD7B37DMKiPTd4bP7gNa69Pb326MmEzYL7Zx6dckMV
- fnITNaXrxAtauP63FyIndyuZg0zsRrHGpPVgHR3LY2ccBq8kQSNJxU4SKKvocSUtRW
- m8MhDRVHhJMkA==
+ b=TmeicZaE6F1QNDkMgAa3tTrT1+lH2eKdZSPMFjJEnnYTC1WEtVX7get33Eq54d7Gf
+ GtY401Gn8b2g9na/XEYvehkDrdzg700ha5kKOnjpyDpnjl24JeeoUv0XYDRnnRBkuA
+ DDNnhuEq/apdHqpfa4+syP60aVqcUNooIomIBOIm1I/1UtTJ+OiBGUXJpuGI+oTKoj
+ rq3LVQXYTbaxmQOzvmlRZI5WiUi8z2tWYTZCMicQjw4hC07J41bhYD6dF1H12OD4Cg
+ TJBaFokb4h8c079DGch3dPDEz1M3vJ9AMrQxB08hUP5DUJfInWG/sa0zCXnO6ef/O1
+ jz7i2YCgpXyyQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 18/24] drm/msm/hdmi: cache is_hdmi instead of storing
- the connector
+Subject: Re: [PATCH 16/24] drm/msm/dp: remove cached drm_edid from panel
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260722-drm-msm-display-interface-v1-18-368c10fe62fd@oss.qualcomm.com>
+In-Reply-To: <20260722-drm-msm-display-interface-v1-16-368c10fe62fd@oss.qualcomm.com>
 References: <20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com>
- <20260722-drm-msm-display-interface-v1-18-368c10fe62fd@oss.qualcomm.com>
+ <20260722-drm-msm-display-interface-v1-16-368c10fe62fd@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 07:06:23 +0000
-Message-Id: <20260722070624.610F61F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 07:08:34 +0000
+Message-Id: <20260722070835.29E0B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,122 +57,82 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Missing State Synchronization when connector state is forced via s=
-ysfs.
-- [Medium] Data Race on `hdmi->is_hdmi` boolean.
-
 Pre-existing issues:
-- [High] NULL Pointer Dereference on drmm-managed connector destroy hook.
+- [High] Lockless modification of `connector->edid_blob_ptr` in HPD handler=
+s.
 --
 
---- Patch [18]: [PATCH 18/24] drm/msm/hdmi: cache is_hdmi instead of storin=
-g the connector ---
-commit c8e64d4ebbe7d3c6a0a2cb94dd5d7a4af528ed77
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+--- Patch [16]: [PATCH 16/24] drm/msm/dp: remove cached drm_edid from panel=
+ ---
+commit 379cd36eb86a5e848dbe71b567a862219cda4dab
+Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Subject: drm/msm/dp: remove cached drm_edid from panel
 
-drm/msm/hdmi: cache is_hdmi instead of storing the connector
+This commit removes the cached drm_edid from the DP panel structure.
+Instead of caching it, the EDID is read and updated directly in the plug
+stage to simplify the code.
 
-This commit updates the HDMI driver to cache the is_hdmi boolean from the
-EDID rather than retaining a driver-side pointer to the drm_connector. The
-cached value is refreshed via a new hpd_notify bridge callback.
-
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/h=
-dmi.c
-> index 1d5a4b63f3c8f..62961dddd8f5e 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
 [ ... ]
-
-> @@ -204,10 +205,8 @@ static int msm_hdmi_modeset_init(struct msm_display =
-*display,
->  	return 0;
+> @@ -272,6 +272,7 @@ static int msm_dp_display_process_hpd_high(struct msm=
+_dp_display_private *dp)
+>  	const struct drm_display_info *info =3D &connector->display_info;
+>  	int rc =3D 0;
+>  	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+> +	const struct drm_edid *drm_edid =3D NULL;
 > =20
->  fail:
-> -	if (hdmi->connector) {
-> -		hdmi->connector->funcs->destroy(hdmi->connector);
-> -		hdmi->connector =3D NULL;
-> -	}
-> +	if (connector)
-> +		connector->funcs->destroy(connector);
+>  	rc =3D drm_dp_read_dpcd_caps(dp->aux, dpcd);
+>  	if (rc)
+> @@ -279,10 +280,20 @@ static int msm_dp_display_process_hpd_high(struct m=
+sm_dp_display_private *dp)
+> =20
+>  	dp->link->lttpr_count =3D msm_dp_display_lttpr_init(dp, dpcd);
+> =20
+> -	rc =3D msm_dp_panel_read_sink_caps(dp->panel, connector);
+> +	rc =3D msm_dp_panel_read_link_caps(dp->panel, connector);
+>  	if (rc)
+>  		goto end;
+> =20
+> +	drm_edid =3D drm_edid_read_ddc(connector, &dp->aux->ddc);
+> +	drm_edid_connector_update(connector, drm_edid);
 
 [Severity: High]
-This is a pre-existing issue, but does calling the destroy hook here cause a
-NULL pointer dereference?=20
-   =20
-The connector is created earlier in msm_hdmi_modeset_init() via
-drm_bridge_connector_init(), which uses the drmm-managed API
-drmm_connector_init(). The DRM-managed API explicitly requires funcs->destr=
-oy
-to be NULL, otherwise it returns -EINVAL.=20
-   =20
-This means connector->funcs->destroy is guaranteed to be NULL when this err=
-or
-path is taken, which would cause a panic when dereferenced.
+This isn't a bug introduced by this patch, but does calling
+drm_edid_connector_update() here in the hotplug handler occur without holdi=
+ng
+drm_mode_config.mutex?
 
-> =20
->  	return ret;
->  }
+If this is called from an IRQ thread holding only the driver-local
+dp->plugged_lock, drm_edid_connector_update() will replace
+connector->edid_blob_ptr and decrement the old blob's reference count.
+
+Concurrently, if userspace reads the EDID via sysfs or queries modes via
+ioctl, it will acquire drm_mode_config.mutex and directly dereference the
+blob. Can this lead to a Use-After-Free if the EDID blob is freed while
+readers are still accessing it?
 
 [ ... ]
-
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm=
-/hdmi/hdmi_bridge.c
-> index 7abb9243dba57..84a423af73e93 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-
-[ ... ]
-
-> @@ -452,6 +452,17 @@ static enum drm_mode_status msm_hdmi_bridge_tmds_cha=
-r_rate_valid(const struct dr
->  	return 0;
->  }
+> @@ -456,7 +468,7 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_dis=
+play_private *dp)
 > =20
-> +static void msm_hdmi_bridge_hpd_notify(struct drm_bridge *bridge,
-> +				       struct drm_connector *connector,
-> +				       enum drm_connector_status status)
-> +{
-> +	struct hdmi_bridge *hdmi_bridge =3D to_hdmi_bridge(bridge);
-> +	struct hdmi *hdmi =3D hdmi_bridge->hdmi;
-> +
-> +	/* called after the EDID update, so display_info is up to date */
-> +	hdmi->is_hdmi =3D connector->display_info.is_hdmi;
+>  	/* Don't forget modes for eDP */
+>  	if (!dp->msm_dp_display.is_edp)
+> -		msm_dp_panel_unplugged(dp->panel, dp->msm_dp_display.connector);
+> +		drm_edid_connector_update(dp->msm_dp_display.connector, NULL);
 
 [Severity: High]
-Can the cached hdmi->is_hdmi state become stale if the connector is forced
-via sysfs?=20
+This is a pre-existing issue, but a similar lockless update to the
+connector's EDID property blob seems to happen here during an unplug event.
 
-When userspace forces the connector state (for example, by echoing on to the
-status file), the DRM core sets the status and invokes=20
-connector->funcs->force(), which maps to drm_bridge_connector_force().=20
-
-This force operation successfully updates the EDID and display_info.is_hdmi,
-but it bypasses the standard detect hook and does not invoke the hpd_notify
-callback. Will this missing state synchronization cause HDMI-specific hardw=
-are
-programming to incorrectly fall back to DVI mode and drop audio?
-
-[Severity: Medium]
-Could there be a data race when accessing hdmi->is_hdmi?=20
-
-This variable is updated here in msm_hdmi_bridge_hpd_notify() from the
-asynchronous hotplug workqueue thread. Concurrently, it is read in
-msm_hdmi_set_mode() under the reg_lock spinlock, and in msm_hdmi_audio_upda=
-te()
-from audio subsystem paths.=20
-
-Since there is no common lock protecting this cross-thread state access, and
-neither READ_ONCE() nor WRITE_ONCE() is used, will this trigger KCSAN
-warnings?
-
-> +}
-> +
+Does this unplug path also need to hold drm_mode_config.mutex to prevent a
+potential Use-After-Free?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-drm-msm-di=
-splay-interface-v1-0-368c10fe62fd@oss.qualcomm.com?part=3D18
+splay-interface-v1-0-368c10fe62fd@oss.qualcomm.com?part=3D16
