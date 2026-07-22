@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76F8CC4452D
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 01:15:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06CAEC4452D
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 01:16:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDE5E10E174;
-	Wed, 22 Jul 2026 01:15:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6624110EBFD;
+	Wed, 22 Jul 2026 01:16:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MW8dexEd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iFVAKXDd";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0575510E174
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 01:15:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF4810EBFD
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 01:16:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C871A41688;
- Wed, 22 Jul 2026 01:15:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 976E31F000E9;
- Wed, 22 Jul 2026 01:15:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 76DC240E34;
+ Wed, 22 Jul 2026 01:16:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCB01F000E9;
+ Wed, 22 Jul 2026 01:16:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784682930;
- bh=/MBZBfUwM1CuJwfGXyz5dV3P6YfHZqrEMUV1GsgyppU=;
+ s=k20260515; t=1784682992;
+ bh=IYkSq9tGc3lSFWdDxkJwVpu/hkXbzvkcv+65NtqXktc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MW8dexEdb3HwUh7YJesd3DbM/CKraBww3uZYtYtmZMx+keM3Um0/oUHBZVuWXVsaf
- s4DQKmjXdYrB84B056YPL1IEvfalUmqV/49Ep4BXrGyblATkJ9s+gCbwjoXscSdzaD
- f4AUC3QsQj4C0gu7SI9HaAp/p1E2nbJPlvUOkDLLTUWA4SJyA9TU6WUuWtcH4KknZj
- qLBq8WFkvPucNVcBpydQab2EtArW0T8vwFF1vAZ71wOQHu691FsaopjxxLmvTx1Ffz
- EjbN9NsmvfiGJBgFYz/VdE6UYYcXl5AwT2X7Ea+lzKUnrPbkAhIfYKrl8Ge35qyceN
- lx6XDCf8VfIjg==
+ b=iFVAKXDdquz4sGHxIKFgQZoh3+1J3kr94vXZPmGayXxTOcYaC39yOdvj5u873AdO+
+ cA596WIO6g4bvpIwcaSyDhcPeaxajlrpNg4ndVmCbNbHlzos8/a91uaa8im5xilEJI
+ 7Jcg2ASGs1sp4SdEn40Wyt7zJyywsIHfdfrgNJ3czQpcwMM6BfrFsDDeOYt5IAmGpT
+ Zud7TrjCW/gPbJNWhgz/MzRxStQWKWmqC8d3lXikVOn4jVJMavx4q8tTHsJE5BotrO
+ 2f/2kITU0C1k524ecyz+e0yKZB4RvF9EEtBaXqSReb1l31QcMV5YldGWFE+v+Nu+Bu
+ sH8jNhYo7Q1cw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/5] drm/bridge: it6505: Add audio support
+Subject: Re: [PATCH v4 3/5] drm/bridge: it6505: guard against zero channel
+ count in audio infoframe
 To: "Daniel Golle" <daniel@makrotopia.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <82871481f951bbba67febdf7a7445d01f0bd60f2.1784681487.git.daniel@makrotopia.org>
+In-Reply-To: <94721d5c75645a574263cc849249c56e504c2ade.1784681487.git.daniel@makrotopia.org>
 References: <cover.1784681487.git.daniel@makrotopia.org>
- <82871481f951bbba67febdf7a7445d01f0bd60f2.1784681487.git.daniel@makrotopia.org>
+ <94721d5c75645a574263cc849249c56e504c2ade.1784681487.git.daniel@makrotopia.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 01:15:30 +0000
-Message-Id: <20260722011530.976E31F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 01:16:31 +0000
+Message-Id: <20260722011632.2FCB01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,134 +58,101 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Data race and dangling pointer dereference (Use-After-Free) in `it=
-6505_plugged_status_to_codec`.
-
 Pre-existing issues:
-- [High] Use-After-Free of device_node `ep` in `it6505_parse_dt`.
-- [High] Potential divide-by-zero kernel panic if the audio input frequency=
- register reads as 0.
+- [High] Kernel panic due to division by zero when calculating audio input =
+frequency.
+- [High] Kernel panic due to division by zero when calculating video pixel =
+clock.
 --
 
---- Patch [4]: [PATCH v4 4/5] drm/bridge: it6505: Add audio support ---
-commit cb584e38b3bb2386c2c945750f3e9126c5d8acfa
-Author: Jiaxin Yu <jiaxin.yu@mediatek.com>
+--- Patch [3]: [PATCH v4 3/5] drm/bridge: it6505: guard against zero channe=
+l count in audio infoframe ---
+commit 8ace85a52fcbf9bce4f2a154064b6799263b545d
+Author: Daniel Golle <daniel@makrotopia.org>
+Subject: drm/bridge: it6505: guard against zero channel count in audio info=
+frame
 
-drm/bridge: it6505: Add audio support
-
-This commit adds audio support for the it6505 bridge by registering an
-hdmi-audio-codec platform device. It wires up the previously unused audio
-setup and shutdown helpers via hdmi_codec_ops. The patch also introduces
-locking to serialize audio enable/disable paths across different contexts.
-
-Link: https://lore.kernel.org/all/20230730180803.22570-4-jiaxin.yu@mediatek=
-.com/
+This commit guards against a zero channel count in it6505_enable_audio_info=
+frame()
+to prevent an out-of-bounds stack read. It also fixes a debug print logging=
+ an
+incorrect channel count on failure.
 
 > diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
 /ite-it6505.c
+> index 2a8298ee6c03c..443ea55797441 100644
 > --- a/drivers/gpu/drm/bridge/ite-it6505.c
 > +++ b/drivers/gpu/drm/bridge/ite-it6505.c
 
 [ ... ]
 
-> @@ -1629,6 +1640,14 @@ static void it6505_enable_audio(struct it6505 *it6=
-505)
->  	it6505_set_bits(it6505, REG_DATA_MUTE_CTRL, EN_AUD_MUTE, 0x00);
->  }
+While reviewing this, I noticed a couple of pre-existing issues in this fil=
+e:
 
-[Severity: High]
-This is a pre-existing issue, but since this patch wires up the audio helpe=
-rs
-and makes them reachable, can this code cause a divide-by-zero panic?
+drivers/gpu/drm/bridge/ite-it6505.c:it6505_calc_video_info() {
+	...
+	if (sum =3D=3D 0) {
+		DRM_DEV_DEBUG_DRIVER(dev, "calc video timing error");
+		return;
+	}
 
-In __it6505_enable_audio(), the variable regbe is read from the hardware:
-
-    regbe =3D it6505_read(it6505, REG_AUDIO_INPUT_FREQ);
-    DRM_DEV_DEBUG_DRIVER(dev, "regbe:0x%02x audio input fs: %d.%d kHz",
-                         regbe, 6750 / regbe, (6750 % regbe) * 10 / regbe);
-
-If the hardware register reads as 0 (e.g., due to an uninitialized clock or=
- bus
-error), regbe will be 0. If CONFIG_DRM_USE_DYNAMIC_DEBUG is disabled, the m=
-acro
-expands to a standard function call, meaning the division 6750 / regbe is
-unconditionally evaluated before the call, triggering a kernel panic.
-
-[ ... ]
-
-> -static int __maybe_unused it6505_audio_hook_plugged_cb(struct device *de=
-v,
-> -						       void *data,
-> -						       hdmi_codec_plugged_cb fn,
-> -						       struct device *codec_dev)
-> +static int it6505_audio_hook_plugged_cb(struct device *dev,
-> +					void *data,
-> +					hdmi_codec_plugged_cb fn,
-> +					struct device *codec_dev)
->  {
->  	struct it6505 *it6505 =3D data;
-
-[Severity: High]
-Can this cause a use-after-free if the hdmi-audio-codec driver is unbound
-concurrently?
-
-When the codec driver unbinds, its remove function calls this hook to set
-it6505->plugged_cb and it6505->codec_dev to NULL. However, this is done
-without holding mode_lock.
-
-Concurrently, if an HPD interrupt or DRM ioctl invokes it6505_bridge_detect=
-(),
-it calls it6505_plugged_status_to_codec():
-
-static void it6505_plugged_status_to_codec(struct it6505 *it6505)
-{
-        enum drm_connector_status status =3D it6505->connector_status;
-
-        if (it6505->plugged_cb && it6505->codec_dev)
-                it6505->plugged_cb(it6505->codec_dev, ...);
+	sum /=3D 3;
+	pclk =3D 13500 * 2048 / sum;
+	...
 }
 
-Could the detect thread pass the if-condition, get preempted while the codec
-unbinds and its module unloads, and then resume to call the now-dangling
-function pointer with the freed codec_dev?
+[Severity: High]
+This is a pre-existing issue, but can this integer division shrink small su=
+ms
+to 0?
+
+If the accumulated readings are very small (e.g., sum is 1 or 2), the
+integer division sum /=3D 3 will truncate the sum to 0.
+
+The subsequent division for pclk will divide by zero and panic the kernel.
+
+Should there be a check to ensure sum is still non-zero after the division
+by 3?
 
 [ ... ]
 
-> @@ -3616,6 +3712,12 @@ static int it6505_i2c_probe(struct i2c_client *cli=
-ent)
->  		return err;
->  	}
+> @@ -1575,6 +1575,9 @@ static void it6505_enable_audio_infoframe(struct it=
+6505 *it6505)
+>  	struct device *dev =3D it6505->dev;
+>  	u8 audio_info_ca[] =3D { 0x00, 0x00, 0x01, 0x03, 0x07, 0x0B, 0x0F, 0x1F=
+ };
 > =20
-> +	err =3D it6505_register_audio_driver(dev);
-> +	if (err < 0) {
-> +		dev_err(dev, "Failed to register audio driver: %d", err);
-> +		return err;
-> +	}
+> +	if (!it6505->audio.channel_count)
+> +		return;
 > +
+>  	DRM_DEV_DEBUG_DRIVER(dev, "infoframe channel_allocation:0x%02x",
+>  			     audio_info_ca[it6505->audio.channel_count - 1]);
+> =20
+
+drivers/gpu/drm/bridge/ite-it6505.c:it6505_enable_audio() {
+	...
+	regbe =3D it6505_read(it6505, REG_AUDIO_INPUT_FREQ);
+	DRM_DEV_DEBUG_DRIVER(dev, "regbe:0x%02x audio input fs: %d.%d kHz",
+			     regbe, 6750 / regbe, (6750 % regbe) * 10 / regbe);
+	...
+}
 
 [Severity: High]
-This is a pre-existing issue, but does this code lead to a use-after-free
-during device probe?
+This isn't a bug introduced by this patch, but is it possible for regbe to
+be 0 here?
 
-In it6505_parse_dt() (which is called earlier in it6505_i2c_probe()), the ep
-node is released via of_node_put(ep) and subsequently dereferenced:
+If the hardware measures no audio clock, this register could return 0.
 
-    ep =3D of_graph_get_endpoint_by_regs(np, 1, 0);
-    of_node_put(ep);
+The debug print macro then divides by regbe, which would cause a kernel
+panic due to division by zero.
 
-    if (ep) {
-        len =3D it6505_get_data_lanes_count(ep, 1, 4);
+Could we check if regbe is non-zero before using it as a divisor?
 
-If of_node_put(ep) drops the last reference, the node is freed, and the
-subsequent call to it6505_get_data_lanes_count(ep, ...) will access freed
-memory.
-
->  	INIT_WORK(&it6505->link_works, it6505_link_training_work);
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784681487.gi=
-t.daniel@makrotopia.org?part=3D4
+t.daniel@makrotopia.org?part=3D3
