@@ -4,97 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0185C531CD
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 07:08:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E3EFC531CB
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 07:08:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4244610EFE4;
-	Thu, 23 Jul 2026 07:07:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DF5610EFEE;
+	Thu, 23 Jul 2026 07:08:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mjqtW/tG";
+	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="GeT8cDUp";
 	dkim-atps=neutral
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4A8910E358
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 23:29:07 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-80bb41f7f3cso745277b3.2
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 16:29:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784762946; cv=none;
- d=google.com; s=arc-20260327;
- b=d/J8eOix0hy54XhM9xoTpLuaHgD76LJASlXbNZpfHs1KY3gtSkghuNnJ7oyiz8Cjnz
- hBj9H3rvcnUjGmmkGzcj7rGX2f7h5uD4KoSPQFDE4018DH1yoRtlkFuI2XnnzkNwK+HR
- bRRTXmybF6NNMCfTtk+r5PQ9S49ZWnKdfdHyoephg2JvwUasvLZKLsOVkVfO/JmNTeEC
- 5H5NBe6ic7C7cJ2TId+vJwQ20xOzCgyq0iEE7sAe9cn+Xy/hW/cXaqHEAEDWzJNrGIW1
- /VVUD/I1/9MMX1/vsWh8OPSaZVJf0RK/YhEuWi2TCT52GV3w9BgMQ8TVRVdZsfb0b6u5
- f5+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=r/+tVIQa+UduMGfrWB40bPaCPG6RGoDkheXVQ+bMeMo=;
- fh=NO560NvT8j2tDCLQ3YY1SVvAK+qqM+ofswwe4BOpZNA=;
- b=nZ1GjGJi5/HtfolfjhpM8s5iBVPBKckoCZ2/KNSPB+VcvWzku5juq5ewViNJvV9hVy
- ktJQC9OlGLNyrBxhS1XbAU0vW/K7rp/bJ8Vb8ADjH5wjPXx3z6VyZ6MsCa4aGjUehBZe
- 5HJZ15pYeKDOCIHNGUI8FDQNe5amJTG5B0empYLz8BZagBTTXKxA9p/XNFG9A85ADGT8
- eBpulUxy/fZktR7FCHk+TPMEhCpDij+7bsi6jtJswSVyB0JLeYAacxX14eLisz/ebHM/
- gwEe6KfewIj/0OYX6zdmAZZrJfYpAxmMg9WqEx1/Us3Raj/iEcrZPFTPyWSrOgvDVtx5
- T1+g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784762946; x=1785367746; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=r/+tVIQa+UduMGfrWB40bPaCPG6RGoDkheXVQ+bMeMo=;
- b=mjqtW/tGdoF6ubGVlsPLFdD5Jy8G1YqKQSNlxz14emTa2okOnd/vTlwCLQP4kQjpBn
- CRyly8trI2MBV6mKfjjLsacuympgjytFHSkxSMHIXDaN9/BrLmxNCRF6Sht4mB9/puot
- O0kaGVCDE0167Hx2pQIUo5zYOYScnXGbQk8S4NxlemOf3oU9MLPd+saXx3wEsK9OjCSL
- d7xKuoiURCp1qb24uzx2QZ+AsJeXt/bO4Rs8dd4uv5MEU3FL7Hh9biW9pHA3Y88Plq0X
- JSpX8VeQK+QcYrCaynm0BuZDpwu8N1nKqL/W5oQ6WcESAim0bUYhhbzg7OG6myDBzbQV
- xGFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784762946; x=1785367746;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=r/+tVIQa+UduMGfrWB40bPaCPG6RGoDkheXVQ+bMeMo=;
- b=UdxBgDIqAU0tWMShfgi1EIQvTjjaoEqRZoRMGUG0nP1kMtaeSasO3l+zdNfy+Ql2Fl
- u6QqNnjdGReyJefZY3URqxywSYsWoszrME6/6+F9j1OYkvdgaeTL8FefGNuqs39735CQ
- /RL1WmHkq0qp1EqBN9+VDf+XJ+NKrOEU8y0TqsUh+/onxmbiGDCPQ6z29lNZZS0olUEL
- 4WyIyRTMFJN99Z4yNisQMbJ68wijgO/UiQaCL10sDGGLO3J0iVpC5ehXWWWb3dZ2iB7O
- CPvsX5wgvCelzzbxfQUTbmb4QpeDQlvDdmDw9cRKkETzyc0Cz0L23biuVPYg8/BLJ1gi
- 8cWw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rqk6E77Uqic+M/lBiw3+Z0Ij1NPERO3wLUMkRXYWCvSH07FQYgMJyhedcZczeNAZadXRWYzzPj5OgY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyZFVLOONRINzANNmyGaOaC1BgVnBCz6keHlTrluuSjBaNcrizb
- VooTYynqu3IQLAj+UEdQ2YeQMZtt6y1i7eWDdEEVdW00oJtiu9YGwXE4rtj78Srn/6BMQbZ4vTZ
- RPkhLTU2pSwWL7nxz0CDryklOw5DqbUc=
-X-Gm-Gg: AR+sD13elJi6U3xIH7fgrcuNe2NyAPaO+gpm9OLNcPcymJLNX9b+n5d+N8R+HzVMsB/
- 4bakcXCld8Fa0SLfedWx3LNON/VjKcPQb9zIJsnmCxRVs1LE3qutig6tnZw9PyP+Iqg8s3I7c9l
- dExVh5o2C9Ap7PVKDHfSmXZL9n+wmpI/FblsBfgUiregYmJW5c+ZXYOpAgGNtq9RdJ9Gdw816lt
- Z/a28AzKBDrrPdm1abYdGUHy+tJ+F8Okr1NuMAfe6rlbZOhVwcGilIXyHp9QjzhFQN6v3niGLgM
- LEfDeeGuKlkfWQCbPiYM4qo+rGPeWy4l7r754IPfQd+w2SL3
-X-Received: by 2002:a05:690c:c458:b0:81e:8985:aa9 with SMTP id
- 00721157ae682-81f4c2daf3dmr1946697b3.50.1784762946180; Wed, 22 Jul 2026
- 16:29:06 -0700 (PDT)
+Received: from TYDPR03CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11013022.outbound.protection.outlook.com [52.101.127.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAA1C10ECB5
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:58:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=k06KKLwN6XoLiW4+/R1HIp6P05MoDT5E5v+uvT6JcnkfaL+iBSpFs8YVzON/oq2B5oJtc/kQ6fQVCIgrruJEZPzbI44C3csDNn2xpXygNQuwnozINPiBJ5nzfOx5rSDaX9vVA+faOS5CxTyrY8HCRqjIMo3kGOk5S2qCc4xRmknAlp7sNKK7zTS8gBmkmwkW955M3oGkHEAPlMacaLpId4rRHnLATp/Bhai2E0pIF6hX5BpaG+DPksvDt9RosefgO64V6J6KprUX+lE9m577gQRFr4o/LIafgUm8TXV9woto8JHlLVTQePw7yDWXmk2EsQFqWO9HrnxmnwWLq0o6Jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hosoqBK3vq2aP3yq2fvuN2u1zqCrRb/pvQQJfEfCMHs=;
+ b=b3+bZFuLPl9fgARAUmGF03ZpuEUsjwoTFmz/0kcclalsU0prwm192ZKuWa29Z4LZSrrtJU8i1J3JfiPTHyU8qEGwbkWrYWC8sFBvdgAprVtgH4wwJSPhGYPSHRcdqjd/lGRs033anx4UcQ1g531qvx+pjjnSLwL4tDMwLkG/lIgFXdGLt/ujNN+HxnJw4f1BnqF7hGRANd6eN1dWaH3SSN8xxLy1lVH0O8fR5mQlX5EZIzLNRmpu++BV7YEHYdX0cbGu5CL4IKF8DjoBmcMwD81Ql2fegT8gH+bcluVHVUJFWYRUXncrKxu8b1qdbS8vlccZ1cdw60tOpvZbGxXDTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hosoqBK3vq2aP3yq2fvuN2u1zqCrRb/pvQQJfEfCMHs=;
+ b=GeT8cDUppGHClXKXsy3DKUiXdXSO7aE01+x5xPQWRJidtWZxrh7/oTsRLLt1tAFML5Wgqx2EtGkOKjpWaGx8GJk/bNNlYE8HnuONnbefCSc5zUC8vUmYrLWEfj/Nyc7cJs4bE9MJWS92aReGz2Zwbm7xdD+5U/pFJkxOINepW6V6djaPy03MY0XLD8nuDvXHeoKRnFuQeM6dyKCs0B8FwFF3VG1DCYr8BhN3rDR8eo/4TriErlrBnpdIRQOB7X+9vL896eMdWoGKF66oarzZu/L6PtutOzkLWiyQ02g9RPO7VFeGOFRSIsv8E4U1MW0NIrFVxnBdTtFcw7cbHazx4A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SEZPR06MB5832.apcprd06.prod.outlook.com (2603:1096:101:c8::12)
+ by KL1PR06MB6759.apcprd06.prod.outlook.com (2603:1096:820:101::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
+ 2026 07:58:43 +0000
+Received: from SEZPR06MB5832.apcprd06.prod.outlook.com
+ ([fe80::f98:5e32:4ccb:d07b]) by SEZPR06MB5832.apcprd06.prod.outlook.com
+ ([fe80::f98:5e32:4ccb:d07b%6]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
+ 07:58:43 +0000
+From: Pan Chuang <panchuang@vivo.com>
+To: Helge Deller <deller@gmx.de>, Pan Chuang <panchuang@vivo.com>,
+ linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER),
+ dri-devel@lists.freedesktop.org (open list:FRAMEBUFFER LAYER),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH 7/7] fbdev: sa1100fb: Remove redundant dev_err()
+Date: Wed, 22 Jul 2026 15:57:47 +0800
+Message-Id: <20260722075803.570532-8-panchuang@vivo.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260722075803.570532-1-panchuang@vivo.com>
+References: <20260722075803.570532-1-panchuang@vivo.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0296.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c8::8) To SEZPR06MB5832.apcprd06.prod.outlook.com
+ (2603:1096:101:c8::12)
 MIME-Version: 1.0
-References: <20260722004654.744249-1-talesam@gmail.com>
- <20260722004654.744249-4-talesam@gmail.com>
- <amExusdY0Qhs3LIx@gsse-cloud1.jf.intel.com>
- <amE+Ltrb8qKNKWd2@gsse-cloud1.jf.intel.com>
-In-Reply-To: <amE+Ltrb8qKNKWd2@gsse-cloud1.jf.intel.com>
-From: =?UTF-8?B?VGFsZXMgQS4gTWVuZG9uw6dh?= <talesam@gmail.com>
-Date: Wed, 22 Jul 2026 20:28:54 -0300
-X-Gm-Features: AUfX_mwQwgPDcODL-DrlUpYlLjj-DlLsoD2FXc69mgh26Py5BQr-Sc2jsyjkWfQ
-Message-ID: <CAHBRX4HbDnpiEqgFauZNMWPq+Wtp6RhYYLKMW=zNbTphAB_xgw@mail.gmail.com>
-Subject: Re: [PATCH v1 3/4] drm/xe/guc/ct: Queue G2H worker before flushing it
- in timeout paths
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5832:EE_|KL1PR06MB6759:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65b048e9-7b93-4ee7-64ef-08dee7c70cd1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|52116014|376014|38350700014|11063799006|56012099006|10067099003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: aRrq1s5X+nxLCdJBMocMOnmyaBrCUDdS7E2pzrRYUk+rEDBLpqBYPcIuxMVBN/a2CRfr4llMjTLJOxhlXHpMtigXF9iGePwA6Sk7fXUSscxctphuTyFqFHfj5kTcW2Pd+t8D/4xmdZhERpzB+qvjNQjV7SJwJkxukuE3S2UhtAzfcbeupdEouzmJqYc6a20TfOM4zwejwf25ibj/qktyMt7cj8jXKc4p4xg+Ie2gNIoz1O27qvryRbBaLilkJyIf9/z6p/LdBjtEbpFNZGbkHmDM79yL/NxXEJ8tlBGQ2NArHG1Cyep6pp9+4ZeGRUKU+XIsbPc2Fml6J7TN1+haxZBVprll9MbWlT/S3O7LouydEBtioSU0RdRpHfrjL3hYGeE2btOSxqenpuUwyIfcy/++hz+vdNvm+uKL8F9FJIzw+mdoIXwUsqHwmMLM5a++YhLQ5aNv69DQ9PRoy4mrEoGqqvPZ5WK5z8l+tyItRr3BS65p7ekKDVHCuuZJy2kNsmBux6CzBuKyZG9Nj84zlG2HfahOS2EyMBwRWzsdx+1DX83IyItWkX4jNBSRjO5AKdcBqJUtTDoNdMuKbusMkJo1ytljte9enVBosn72T1E9czTy+OblnPmC3UPVuZcJlv1p+rTrAbma3MB3fYytttaUHbpZrupCBJkzYgTwkdqdxiBW3DRs3sVVQHxN2VUzb2N8lYb1CbQPFE9e21bGWgxvF+lrAdPP6ZvjCbWGkrM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SEZPR06MB5832.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(52116014)(376014)(38350700014)(11063799006)(56012099006)(10067099003)(6133799003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?jrUyVapLwXCUExUDOEB4a36CduJk8TEpXTKLuIeHJ3hcbthrVJymiGA5cG7l?=
+ =?us-ascii?Q?gO5LbF3eSOkBePDHAbeHURjbKblaPfNTnBIaeC24GLPuiKM6Y2EtHJnEqZLZ?=
+ =?us-ascii?Q?wI8hCW0Z66RfTNpVQgww89qlQPlik38IP3mhMSf2Ej6/LhE/nGPVZVsfyGSL?=
+ =?us-ascii?Q?oWxpAFms29dJh6RizoRVlZNcISqClu0sZnq2lCibI36tAqlb2mBjmk33rOd3?=
+ =?us-ascii?Q?6cWLrruDanQaWXz8/dYwPV2Cg6Pey1EocrynZpJGAM7vXi0aYUBKvY1A/g5N?=
+ =?us-ascii?Q?XhWOATtMscf6td6TuQpH5mbIB/mcZKRkXfTWtq2jGAYgUx/MbWA8mb2PZsEv?=
+ =?us-ascii?Q?4TxTi2LxfvFnXqw99ti2xg9f2FphSQ3r1mqMlcXBbCHzCNS8rwMA2sASvgtF?=
+ =?us-ascii?Q?Ybn9kmfl+QaNFgS7CcuOaTqN0REjV6Cl6RFAvkepB69qKRYqTb/S4HH0CoCF?=
+ =?us-ascii?Q?Zmah1IoqKpvwJ0GE7/N9zk4nJtr2xN+i/Sz280rViywCRTzX35Glc/pawGkm?=
+ =?us-ascii?Q?KXLo1FjseBXpRVt924zwYu6Po+bGMmdgWEnWFFSUACCYrdqU0qEKl+SItjP4?=
+ =?us-ascii?Q?dLarjOqIh+0M5p3C4yiFPMRhqdxS+ZzJvQOf5DkQrp8LOT+MN2ya6eQt9bhx?=
+ =?us-ascii?Q?r//q2IUVA/nCNV5bTDfMXkRO4cli166A1PYy0bxIwUf3z4raFhJsfhB2C8tT?=
+ =?us-ascii?Q?P+OChODKu++VgXo0JLfNuA+uytjJ9NslZgbE3R3OtubJpc7o5VZJzhkS/nD7?=
+ =?us-ascii?Q?ykivIPEi4mu0VKtjihSnfet6qF/q3BG9y303+Ueb3Prt3ZycIywWEzR4agCA?=
+ =?us-ascii?Q?1QfZM5yA7y5S78kTnwn4MveIMjfLrMvx2g6GCe6F03wraHuVMhhWPUeVqzKa?=
+ =?us-ascii?Q?+9Xh/jJZLSByVVhCdsgroR54EcPPbtowBXL7mvLIGERFkf0+W8oB18h0LFza?=
+ =?us-ascii?Q?dCT9iaOWG7axpHlO6nSgCjJEe2GAE1YX5pTHyTxj4S9Q83GD4mfI7tvYfpAC?=
+ =?us-ascii?Q?DP+/ZHo/2agCKBagGV1Dqb9d+wZXJZwxgzsPYgQV++iL9db+GfLZeZYUTGxW?=
+ =?us-ascii?Q?0R7pOLQwvpXJh6m2ZQH9HVNpzasMLNgxaWls+8PHeuQiPeDT3yzq7+anPaqp?=
+ =?us-ascii?Q?O2lLJXJXk+uZcT0rGinT3p7i94ckGk3lnlnBscpgluZPwZmMt0zSWZOpChLm?=
+ =?us-ascii?Q?8OnFEcPy55NwmDouJWcHcVIL3aIKsottiruYfAyneJPkVYzreHw9DJNWo7LV?=
+ =?us-ascii?Q?X3wWbADRr3IZ9bSnOlJcXONhOdXYzYE7EnAFNh5LY2w0WlFlaVYt3Ci4oo15?=
+ =?us-ascii?Q?xcBnr1ppjIRw2pnyans1hpTNKLCI/6Qpo+hkNW7l4cziYXmOUf22Dc8ea49W?=
+ =?us-ascii?Q?+iK/IWLMOz/03IodfPtuTMKDDGT055tt0npwR6T4rYV7lQvD4tGTVgRHHXu1?=
+ =?us-ascii?Q?tqERmSr9xPyPyo/Be2/4iDBBccqeIX55i2bwMCHdaZTIa6yQULOc02V4tRHu?=
+ =?us-ascii?Q?IZb1XulVbx/EzO09npgr/tM9VeunigtTHR9Yey77lA1WWtr0y95zGlXhgWCg?=
+ =?us-ascii?Q?AJC7kjtqXL/xmv34F7tiqG+5oYDzwdcHfzIFKHLOXWUUt+J/ztfdRBX1zSGd?=
+ =?us-ascii?Q?QaQtyL/iy03s6CjSH8NlS61cpvuPWkxa8sulu3roRWhv+i8DV6r62Ovj6gKC?=
+ =?us-ascii?Q?1xwzJDBGX4lBpb4w9zTctN3yjgDHgcUG9oEVe+/lEn2J9On76HgqZ/v1XC0/?=
+ =?us-ascii?Q?X6zIGBeYjQ=3D=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65b048e9-7b93-4ee7-64ef-08dee7c70cd1
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5832.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 07:58:43.4482 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IU4UX8Qmv4uRnVDk/7nFdsiCMAX5naOIEAm3P3HLL7FpjDn8TylpziNzaUIU704zP4a4+fyLAGGK/ZWSw/TVZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR06MB6759
 X-Mailman-Approved-At: Thu, 23 Jul 2026 07:07:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,219 +127,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Matt,
+Since commit 55b48e23f5c4 ("genirq/devres: Add error handling in
+devm_request_*_irq()"), devm_request_irq() automatically logs
+detailed error messages on failure. Remove the now-redundant
+driver-specific dev_err() call.
 
-Thanks for the detailed look - and you're right about the framing.
-Later instrumentation on this system (sampling G2H CTB head/tail in
-the TDR *before* the flush) refuted the lost-wakeup theory from my
-commit message: in every observed timeout (30+ events across two ARL
-machines, 7d51 and 7dd1) the CTB is empty at timeout time (head =3D=3D
-tail, 0 pending dwords), and the ack lands 5-475ms (median ~22ms)
-later via the normal path. So the flush recovers nothing - the ack
-simply hasn't been posted yet by the GuC at that point. The stall
-appears to be firmware-side (GuC 70.53.0); I'm preparing a report with
-the full data.
+Signed-off-by: Pan Chuang <panchuang@vivo.com>
+---
+ drivers/video/fbdev/sa1100fb.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-That also means I agree with dropping this patch, and the data is
-consistent with your suspicion that LNL_FLUSH_WORK papers over nothing
-here.
+diff --git a/drivers/video/fbdev/sa1100fb.c b/drivers/video/fbdev/sa1100fb.c
+index 0d362d2bf0e3..fea0172c45b5 100644
+--- a/drivers/video/fbdev/sa1100fb.c
++++ b/drivers/video/fbdev/sa1100fb.c
+@@ -1167,10 +1167,8 @@ static int sa1100fb_probe(struct platform_device *pdev)
+ 
+ 	ret = devm_request_irq(&pdev->dev, irq, sa1100fb_handle_irq, 0,
+ 			       "LCD", fbi);
+-	if (ret) {
+-		dev_err(&pdev->dev, "request_irq failed: %d\n", ret);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	fbi->shannon_lcden = gpiod_get_optional(&pdev->dev, "shannon-lcden",
+ 						GPIOD_OUT_LOW);
+-- 
+2.34.1
 
-I'll test your series from
-https://patchwork.freedesktop.org/series/170939/ on both ARL machines
-(daily-driver workloads that reproduce the timeouts at ~1.5/h) and
-report back.
-
- Thanks,
- Tales
-
-Em qua., 22 de jul. de 2026 =C3=A0s 19:03, Matthew Brost
-<matthew.brost@intel.com> escreveu:
->
-> On Wed, Jul 22, 2026 at 02:10:18PM -0700, Matthew Brost wrote:
-> > On Tue, Jul 21, 2026 at 09:46:53PM -0300, Tales A. Mendon=C3=A7a wrote:
-> > > Timeout-recovery paths flush the G2H worker to pick up a response tha=
-t
-> > > may have been posted by the GuC but not yet processed:
-> > >
-> > >  - guc_ct_send_recv() after the 1s wait for a G2H response fails
-> > >  - the TLB invalidation backend's .flush() hook, called by
-> > >    xe_tlb_inval_fence_timeout() before declaring a fence timed out
-> > >
-> > > However flush_work() on a work item that is neither queued nor runnin=
-g
-> > > is a no-op. If the GUC2HOST interrupt for the response was lost or
-> >
-> > GUC2HOST messages getting lost are a different issue and would be
-> > catastrophic for a variety of reasons. I'd like to dig into that if it
-> > occurs on a POR platform (i.e., LNL+).
-> >
-> > > coalesced, the G2H worker was never queued: the flush does not read t=
-he
-> > > G2H CTB and the response sits there unprocessed until an unrelated G2=
-H
-> > > interrupt arrives. For TLB invalidations this results in
-> > >
-> > >   TLB invalidation fence timeout, seqno=3DN recv=3DN-1
-> > >
-> > > with the fence force-signalled with -ETIME even though the ack may
-> > > already be present in the CTB. Observed sporadically on ARL-H under C=
-PU
-> > > load, always with recv =3D=3D seqno - 1 and self-recovering on the ne=
-xt G2H
-> > > interrupt, which is consistent with a lost wakeup rather than a
-> > > GuC-side failure.
-> > >
-> > > Add xe_guc_ct_flush_g2h(), which queues the worker before flushing it=
-,
-> > > guaranteeing the flush always drains the CTB, and use it in both
-> > > timeout paths. A spurious worker run is safe: g2h_read() returns no
-> > > data under fast_lock, and receive_g2h() copes with runtime-PM state a=
-nd
-> > > disabled CT communication.
-> > >
-> > > After this change the fence-timeout error only fires when the ack is
-> > > genuinely absent from the CTB, making the message a reliable indicato=
-r
-> > > of a GuC-side stall.
-> > >
-> > > Signed-off-by: Tales A. Mendon=C3=A7a <talesam@gmail.com>
-> > > ---
-> > >  drivers/gpu/drm/xe/xe_guc_ct.c        | 23 ++++++++++++++++++++++-
-> > >  drivers/gpu/drm/xe/xe_guc_ct.h        |  1 +
-> > >  drivers/gpu/drm/xe/xe_guc_tlb_inval.c |  2 +-
-> > >  3 files changed, 24 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_g=
-uc_ct.c
-> > > index fe70c0fd85c..11a05c2b8c7 100644
-> > > --- a/drivers/gpu/drm/xe/xe_guc_ct.c
-> > > +++ b/drivers/gpu/drm/xe/xe_guc_ct.c
-> > > @@ -1377,7 +1377,7 @@ static int guc_ct_send_recv(struct xe_guc_ct *c=
-t, const u32 *action, u32 len,
-> > >  wait_again:
-> > >     ret =3D wait_event_timeout(ct->g2h_fence_wq, READ_ONCE(g2h_fence.=
-done), HZ);
-> > >     if (!ret) {
-> > > -           LNL_FLUSH_WORK(&ct->g2h_worker);
-> > > +           xe_guc_ct_flush_g2h(ct);
-> > >             if (READ_ONCE(g2h_fence.done)) {
-> > >                     xe_gt_warn(gt, "G2H fence %u, action %04x, done\n=
-",
-> > >                                g2h_fence.seqno, action[0]);
-> > > @@ -2046,6 +2046,27 @@ static void g2h_worker_func(struct work_struct=
- *w)
-> > >     receive_g2h(ct);
-> > >  }
-> > >
-> > > +/**
-> > > + * xe_guc_ct_flush_g2h() - Force processing of pending G2H messages
-> > > + * @ct: GuC CT object
-> > > + *
-> > > + * The GUC2HOST interrupt for a G2H message may be lost or coalesced=
-. When
-> > > + * that happens the G2H worker is never queued and flushing it is a =
-no-op
-> > > + * that does not read the G2H CTB, leaving messages the GuC has alre=
-ady
-> > > + * posted unprocessed until the next interrupt arrives. Queue the wo=
-rker
-> > > + * before flushing it so the flush always drains the G2H CTB. A spur=
-ious
-> > > + * worker run is safe: it returns without side effects if the CTB is=
- empty
-> > > + * or CT communication is disabled.
-> > > + */
-> > > +void xe_guc_ct_flush_g2h(struct xe_guc_ct *ct)
-> > > +{
-> > > +   if (!xe_guc_ct_enabled(ct))
-> > > +           return;
-> > > +
-> > > +   queue_work(ct->g2h_wq, &ct->g2h_worker);
-> >
-> > If the original queued work gets lost or is never submitted, then there
-> > is a bug somewhere else in the kernel, as mentioned above.
-> >
-> > As for the flush part, yes, it's possible that this could take a while
-> > if the scheduler goes out to lunch, but it shouldn't happen with a
-> > sufficiently large timeout. Have you tried making the GuC CT worker hig=
-h
-> > priority? We could also consider making the G2H handlers RT once those
-> > land upstream.
-> >
-> > In general, I'm quite unhappy with the existing LNL_FLUSH_WORK, and we
-> > never determined the root cause of the original issue. In retrospect, w=
-e
-> > probably should never have merged that code. Looking at it now, the LNL
-> > flush code isn't even scoped to LNL, which makes this even worse than I
-> > initially thought, as it can paper over bugs. I'm going to post a patch
-> > to scope the existing workaround to LNL and earlier platforms (or maybe
-> > just removing it completely) and see what happens in our CI over the
-> > next several months before it makes its way into a kernel release.
-> >
-> > With that said, the patch as proposed is a no from me. If you want to
-> > pursue my suggestion of scoping this change to LNL and earlier
-> > platforms, we can discuss that separately.
->
-> This is roughly what I had in mind:
->
-> https://patchwork.freedesktop.org/series/170939/
->
-> Compile tested only, so if you could give it try and see what pops up, I
-> think that would be helpful. Fell free to use the code in anyway and
-> give me feedback.
->
-> Matt
->
-> >
-> > Matt
-> >
-> > > +   flush_work(&ct->g2h_worker);
-> > > +}
-> > > +
-> > >  static struct xe_guc_ct_snapshot *guc_ct_snapshot_alloc(struct xe_gu=
-c_ct *ct, bool atomic,
-> > >                                                     bool want_ctb)
-> > >  {
-> > > diff --git a/drivers/gpu/drm/xe/xe_guc_ct.h b/drivers/gpu/drm/xe/xe_g=
-uc_ct.h
-> > > index 767365a33de..4e0338953f1 100644
-> > > --- a/drivers/gpu/drm/xe/xe_guc_ct.h
-> > > +++ b/drivers/gpu/drm/xe/xe_guc_ct.h
-> > > @@ -22,6 +22,7 @@ void xe_guc_ct_runtime_suspend(struct xe_guc_ct *ct=
-);
-> > >  void xe_guc_ct_stop(struct xe_guc_ct *ct);
-> > >  void xe_guc_ct_flush_and_stop(struct xe_guc_ct *ct);
-> > >  void xe_guc_ct_fast_path(struct xe_guc_ct *ct);
-> > > +void xe_guc_ct_flush_g2h(struct xe_guc_ct *ct);
-> > >
-> > >  struct xe_guc_ct_snapshot *xe_guc_ct_snapshot_capture(struct xe_guc_=
-ct *ct);
-> > >  void xe_guc_ct_snapshot_print(struct xe_guc_ct_snapshot *snapshot, s=
-truct drm_printer *p);
-> > > diff --git a/drivers/gpu/drm/xe/xe_guc_tlb_inval.c b/drivers/gpu/drm/=
-xe/xe_guc_tlb_inval.c
-> > > index 046d0655122..91960dc4ba9 100644
-> > > --- a/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
-> > > +++ b/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
-> > > @@ -327,7 +327,7 @@ static void tlb_inval_flush(struct xe_tlb_inval *=
-tlb_inval)
-> > >  {
-> > >     struct xe_guc *guc =3D tlb_inval->private;
-> > >
-> > > -   LNL_FLUSH_WORK(&guc->ct.g2h_worker);
-> > > +   xe_guc_ct_flush_g2h(&guc->ct);
-> > >  }
-> > >
-> > >  static long tlb_inval_timeout_delay(struct xe_tlb_inval *tlb_inval)
-> > > --
-> > > 2.55.0
-> > >
-
-
-
---=20
-Com os cumprimentos,
-
-Tales A. Mendon=C3=A7a
-talesam.org
-communitybig.org
