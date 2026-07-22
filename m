@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8F9FC44512
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 07:03:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15CBBC44512
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 07:03:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40EF310EC81;
-	Wed, 22 Jul 2026 07:03:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67D4D10EC84;
+	Wed, 22 Jul 2026 07:03:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JRJCBdpQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FOlm7AVm";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E47710EC81
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:03:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E46010EC84
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:03:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E995260A64;
- Wed, 22 Jul 2026 07:03:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F02F1F000E9;
- Wed, 22 Jul 2026 07:03:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 86A7160A64;
+ Wed, 22 Jul 2026 07:03:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C84D1F000E9;
+ Wed, 22 Jul 2026 07:03:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784703813;
- bh=fMeQi/iytPFu6JtXIKCghIfuAZK7zjJE6z+B6e8fRfA=;
+ s=k20260515; t=1784703829;
+ bh=+043Re44fITy2mxq2BjAV27pYbUgXMNvZxrSPt/lWLU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JRJCBdpQWJl7RH1btHuBIO+H3mShP7JGYnIvpz7Pr+K6OBDDrf6sbh0swiDc5gSK0
- JPhanMPYkKaV840otfMxUPlRP1UoXwoH3cB2a/wplFCpqXo63xAYWs9LV0EBIyRGMu
- 8hR/cChLFrgMqQ/zcDp/lW9ZvoFIUTHAIV2mApZDvuO2lo+rjSLFLH5w+VycluXIvS
- n30AZ0yDyeiKYat48Pd5UOpfqvNlEm3A7q2I8N62CJKIy7YcRqstx+omg2XMNtewbO
- ngM2+IGqXrMeaFI/uxzZAbImWMyntDHoukGB7W3QU83+6x+Ey/G1NKi/IuneaOHCUU
- QvqbPLPHG5AoQ==
+ b=FOlm7AVmvzUrytlr09Lsoxqvey0bZofpqY+8AqeO/4hAENs1SauC85R7SlWovFC0B
+ Cbo6iQnL4gFufeZOHCYeMOIgtfiBOU681DDXk6guLmX493FJjwTLrhmzEGuiP9M8ZI
+ 8i2xcp5aB16PlgZ4Je7KYG6Q6Zff7EC2Sf9XpuTO39EU+NFP431ChfUsC92pM9FQvn
+ 7vUIRFZY3lb0s9cgV6yJkVMygtT3Ox6gZfKNbzxA9q6D1UyaHoN12dPWSKpILf9M3k
+ 1fDkz+hNOwXomCtobZgGet4cZmRiLGfnTZuAKtXsODZx+THG8ehpM1d0Y4hAfYRPqX
+ dGlx0BTBfFfTg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 01/24] drm/msm/dp: reject YUV420-only modes without VSC
- SDP support
+Subject: Re: [PATCH 13/24] drm/msm/hdmi: use dev_get_drvdata() in
+ msm_hdmi_unbind()
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260722-drm-msm-display-interface-v1-1-368c10fe62fd@oss.qualcomm.com>
+In-Reply-To: <20260722-drm-msm-display-interface-v1-13-368c10fe62fd@oss.qualcomm.com>
 References: <20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com>
- <20260722-drm-msm-display-interface-v1-1-368c10fe62fd@oss.qualcomm.com>
+ <20260722-drm-msm-display-interface-v1-13-368c10fe62fd@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 07:03:33 +0000
-Message-Id: <20260722070333.7F02F1F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 07:03:48 +0000
+Message-Id: <20260722070349.1C84D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,116 +58,75 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [High] The patch relies on mode filtering to replace explicit VSC SDP sup=
-port checks, but fails to apply this filtering to eDP, causing a DPU/DP sta=
-te mismatch.
-
 Pre-existing issues:
-- [High] msm_dp_wide_bus_available() incorrectly uses the currently active =
-hardware state to determine if wide bus can be used for a proposed mode, po=
-tentially rejecting valid high-bandwidth modes.
+- [High] Use-After-Free of `hdmi` and `hdmi->i2c` due to missing IRQ teardo=
+wn in `msm_hdmi_unbind`.
 --
 
---- Patch [1]: [PATCH 01/24] drm/msm/dp: reject YUV420-only modes without V=
-SC SDP support ---
-commit 978b7d550fcfcaed1db8ec32849e99ffcd2880a7
+--- Patch [13]: [PATCH 13/24] drm/msm/hdmi: use dev_get_drvdata() in msm_hd=
+mi_unbind() ---
+commit fd38b018e0f710b01405e26519af9581c27b6208
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/msm/dp: reject YUV420-only modes without VSC SDP support
+drm/msm/hdmi: use dev_get_drvdata() in msm_hdmi_unbind()
 
-This patch updates DP mode validation to explicitly reject YUV420-only
-modes if the panel lacks VSC SDP support. By filtering these out, the
-DPU encoder logic is simplified to assume any validated 420-only mode
-has VSC SDP support.
+This commit updates msm_hdmi_unbind() to fetch the hdmi structure directly
+using dev_get_drvdata(dev) rather than indirectly through the private kms
+pointer. It also removes a NULL check, as the hdmi pointer is guaranteed to
+be valid at unbind time.
 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/dr=
-m/msm/disp/dpu1/dpu_encoder.c
-> index 778e231d49677..1f20695f81e35 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -710,8 +710,7 @@ void dpu_encoder_update_topology(struct drm_encoder *=
-drm_enc,
->  		if (fb && MSM_FORMAT_IS_YUV(msm_framebuffer_format(fb)))
->  			topology->num_cdm++;
->  	} else if (disp_info->intf_type =3D=3D INTF_DP) {
-> -		if (msm_dp_is_yuv_420_enabled(priv->kms->dp[disp_info->h_tile_instance=
-[0]],
-> -					      adj_mode))
-> +		if (drm_mode_is_420_only(&connector->display_info, adj_mode))
->  			topology->num_cdm++;
-
-[Severity: High]
-Does this change break mode validation for eDP displays by assuming VSC SDP
-support is always present for 420-only modes?
-
-This patch adds mode filtering to msm_dp_bridge_mode_valid() to reject modes
-without VSC SDP, so that dpu_encoder_update_topology() can assume all
-420-only modes are fully supported.
-
-However, the eDP validation function, msm_edp_bridge_mode_valid(), does not
-appear to have the same filtering logic applied.
-
-If an eDP sink advertises a YUV420-only mode without VSC SDP support, will =
-it
-pass validation, causing dpu_encoder_update_topology() to allocate a CDM
-block (expecting YUV420) while the DP controller is still configured for RG=
-B?
-
->  	}
->  }
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index dc6f33809ca5f..e0c44eef3abab 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-[ ... ]
-> @@ -709,9 +710,16 @@ enum drm_mode_status msm_dp_bridge_mode_valid(struct=
- drm_bridge *bridge,
->  	msm_dp_display =3D container_of(dp, struct msm_dp_display_private, msm_=
-dp_display);
->  	link_info =3D &msm_dp_display->panel->link_info;
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/h=
+dmi.c
+> index 506a9856459e1..0327098287d14 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+> @@ -324,11 +324,10 @@ static void msm_hdmi_unbind(struct device *dev, str=
+uct device *master,
+>  		void *data)
+>  {
+>  	struct msm_drm_private *priv =3D dev_get_drvdata(master);
+> +	struct hdmi *hdmi =3D dev_get_drvdata(dev);
 > =20
-> -	if ((drm_mode_is_420_only(&dp->connector->display_info, mode) &&
-> -	     msm_dp_display->panel->vsc_sdp_supported) ||
-> -	     msm_dp_wide_bus_available(dp))
-> +	is_yuv_420 =3D drm_mode_is_420_only(&dp->connector->display_info, mode);
-> +
-> +	/*
-> +	 * YUV 420 is carried over DP by signalling the colorimetry through a
-> +	 * VSC SDP, so a 420-only mode cannot be driven without VSC SDP support.
-> +	 */
-> +	if (is_yuv_420 && !msm_dp_display->panel->vsc_sdp_supported)
-> +		return MODE_NO_420;
-> +
-> +	if (is_yuv_420 || msm_dp_wide_bus_available(dp))
->  		mode_pclk_khz /=3D 2;
+> -	if (priv->kms->hdmi) {
+> -		msm_hdmi_destroy(priv->kms->hdmi);
 
 [Severity: High]
-This is a pre-existing issue, but does msm_dp_wide_bus_available() check
-the active hardware state rather than the proposed mode?
+This is a pre-existing issue, but does this unbind sequence leave an active
+IRQ handler that can cause a use-after-free?
 
-During mode validation in msm_dp_bridge_mode_valid(), the code checks:
-	if (is_yuv_420 || msm_dp_wide_bus_available(dp))
+In msm_hdmi_modeset_init(), the IRQ is requested using devm_request_irq()
+tied to the DRM master device (dev->dev), not the HDMI component device:
 
-However, msm_dp_wide_bus_available() evaluates the currently active modeset
-instead of the proposed mode:
-
-drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_wide_bus_available() {
-	...
-	if (dp->msm_dp_mode.out_fmt_is_yuv_420)
-		return false;
-	...
+msm_hdmi_modeset_init() {
+    ...
+    ret =3D devm_request_irq(dev->dev, hdmi->irq,
+                msm_hdmi_irq, IRQF_TRIGGER_HIGH,
+                "hdmi_isr", hdmi);
+    ...
 }
 
-If userspace probes a high-bandwidth RGB mode while the current display sta=
-te
-is YUV420, could this incorrectly restrict hardware capability based on
-the transient state and improperly reject valid modes?
+When the HDMI platform device is unbound, msm_hdmi_unbind() is called, which
+in turn calls msm_hdmi_destroy(hdmi) here and frees hdmi->i2c. Later, the
+HDMI device's devres runs and frees the hdmi structure itself.=20
+
+Because the DRM master device is not removed during component unbind, its
+devres cleanup does not run, and the IRQ remains registered and active.
+
+If a pending or spurious interrupt triggers msm_hdmi_irq() after this point,
+will it dereference the freed hdmi structure and call msm_hdmi_i2c_irq()
+with the freed hdmi->i2c pointer?
+
+> -		priv->kms->hdmi =3D NULL;
+> -	}
+> +	msm_hdmi_destroy(hdmi);
+> +	priv->kms->hdmi =3D NULL;
+>  }
+> =20
+>  static const struct component_ops msm_hdmi_ops =3D {
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-drm-msm-di=
-splay-interface-v1-0-368c10fe62fd@oss.qualcomm.com?part=3D1
+splay-interface-v1-0-368c10fe62fd@oss.qualcomm.com?part=3D13
