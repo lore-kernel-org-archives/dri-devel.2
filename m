@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75DFAC4452D
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 07:04:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9340AC4451C
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 07:04:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2F0D10EC87;
-	Wed, 22 Jul 2026 07:04:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEBE810EC89;
+	Wed, 22 Jul 2026 07:04:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nm8u9tDX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X4qFircQ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 920CF10EC87
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:04:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE21910EC89
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:04:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EE9EC60A65;
- Wed, 22 Jul 2026 07:04:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A6851F00A3A;
- Wed, 22 Jul 2026 07:04:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 89C9F43554;
+ Wed, 22 Jul 2026 07:04:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 422D81F000E9;
+ Wed, 22 Jul 2026 07:04:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784703860;
- bh=idFMjNdiu33sK+rOuEyxc2EEPdiZxnoMBb7N/WS1IWU=;
+ s=k20260515; t=1784703881;
+ bh=9Xd1irictntXRnTyt34BCScYtJ/IyVbmfggMM6104N8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nm8u9tDXptReHv1jIyiYqK7+RnsAyDio0adyyjy7n9O0L2ZbsonvGERn6kiTCvEsH
- ijCQssqs0TkGFyCUN9186C7ZELBe1EX4AkDM+t0iWUmYKftMHBqX/ZYeQplLKi8118
- 0ikcHbsYHGZzXxnPEa+58p8nVuDQsV8iAMiqnAuuUTA2+DPC1OIc4WYKZlgHR+Ijb8
- aP66wYKpQwp9q+Yte8umqiscqcN5HXEOCV9bgIz/Yyqozk9E8spJEOiZejEP8j7uEq
- etyOGFcfK6XhBlYfbGMPDSXHro+7yjiChzYoDO8WdBhGyQLMFuAH3BQth193EBmrV9
- JYrcYLkDiKrxg==
+ b=X4qFircQzP/CQeh8rWtLu6iP7OmKFAvOV2DWO8sykBgM2CArZvXiInpNMO4q6Terb
+ yw16Uottjaogp63UDf3GemVGUUk24KeYBcUfetNoHD8kS4g04M+LOQpRe69fGNAdTV
+ vQmuXSV44D/ANSwBueHuMANCjqMKuHPa26KTI3P6yUs2A2B8ngBEXSIedndQh7baa+
+ Xk4S22NjlgQnMkH6ySDCPJT1z/TxwIadQyfhD5OwKHwhPN7C5+Ybllm9ceoRMKAgxW
+ EbQizuQbZI1/XhiR1pHhN67MSoEexZlfphdf+jQ0jnMcR++cEK7LFAU6Hu6/TnBpYZ
+ gWXSARmVFFpuQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/24] drm/msm: create the display connectors from
- common code
+Subject: Re: [PATCH 23/24] drm/msm: create the bridge connectors from common
+ code
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260722-drm-msm-display-interface-v1-3-368c10fe62fd@oss.qualcomm.com>
+In-Reply-To: <20260722-drm-msm-display-interface-v1-23-368c10fe62fd@oss.qualcomm.com>
 References: <20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com>
- <20260722-drm-msm-display-interface-v1-3-368c10fe62fd@oss.qualcomm.com>
+ <20260722-drm-msm-display-interface-v1-23-368c10fe62fd@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 07:04:20 +0000
-Message-Id: <20260722070420.7A6851F00A3A@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 07:04:40 +0000
+Message-Id: <20260722070441.422D81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,82 +60,77 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Unconditional calls to modeset_init functions with potentially NUL=
-L encoders causes kernel crash or probe failure.
+- [High] Centralized `msm_kms_init_connectors` loop unconditionally calls `=
+drm_bridge_connector_init` for all non-virtual encoders, failing the driver=
+ probe with `-EINVAL` if any encoder lacks an attached bridge.
 --
 
---- Patch [3]: [PATCH 03/24] drm/msm: create the display connectors from co=
+--- Patch [23]: [PATCH 23/24] drm/msm: create the bridge connectors from co=
 mmon code ---
-commit a0a4ea009e59812e9ecb6b60251e9294d0b779b8
+commit 04453784aafc591b434b0736383d9d31623d416b
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+drm/msm: create the bridge connectors from common code
 
-drm/msm: create the display connectors from common code
-
-This commit moves the bridge and connector setup logic from the individual
-KMS backends into a common msm_kms_init_connectors() function. The backend
-is now only responsible for creating the encoder, which is then used by the
-common code.
+This patch centralizes bridge connector creation in the msm backend by
+having each sub-block only set up its bridge chain. A new function,
+msm_kms_init_connectors(), then walks through all encoders to create the
+connectors using common code.
 
 > diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-> index e5d0ea6294484..87530145e82b0 100644
+> index 1a081e15a0a89..71af3780b7b13 100644
 > --- a/drivers/gpu/drm/msm/msm_kms.c
 > +++ b/drivers/gpu/drm/msm/msm_kms.c
 [ ... ]
-> @@ -260,6 +260,57 @@ void msm_drm_kms_uninit(struct device *dev)
->  		kms->funcs->destroy(kms);
+> @@ -310,6 +313,35 @@ static int msm_kms_init_connectors(struct drm_device=
+ *ddev)
+>  	return ret;
 >  }
 > =20
-> +/*
-> + * Set up the bridges and connectors for the display sub-blocks, using t=
-he
-> + * encoders the backend created in ->kms_init().
-> + */
+> +/* Build a bridge connector for each encoder. */
 > +static int msm_kms_init_connectors(struct drm_device *ddev)
 > +{
-> +	struct msm_drm_private *priv =3D ddev->dev_private;
-> +	struct msm_kms *kms =3D priv->kms;
-> +	int i, ret;
-[ ... ]
-> +	if (kms->hdmi) {
-> +		ret =3D msm_hdmi_modeset_init(kms->hdmi, ddev, kms->hdmi_encoder);
+> +	struct drm_encoder *encoder;
+> +
+> +	drm_for_each_encoder(encoder, ddev) {
+> +		struct drm_connector *connector;
+> +		int ret;
+> +
+> +		/* the virtual writeback encoder brings its own connector */
+> +		if (encoder->encoder_type =3D=3D DRM_MODE_ENCODER_VIRTUAL)
+> +			continue;
+> +
+> +		connector =3D drm_bridge_connector_init(ddev, encoder);
+> +		if (IS_ERR(connector)) {
+> +			DRM_DEV_ERROR(ddev->dev,
+> +				      "failed to init connector for %s: %ld\n",
+> +				      encoder->name, PTR_ERR(connector));
+> +			return PTR_ERR(connector);
+> +		}
 
 [Severity: High]
-Will this cause a NULL pointer dereference if the encoder was not created?
+Will this fail the entire driver probe on hardware where some encoders are
+left without an attached bridge?
 
-If the device tree defines an HDMI node (so kms->hdmi is populated), but the
-KMS backend's hardware configuration doesn't support the interface, encoder
-creation is skipped and kms->hdmi_encoder remains NULL.
+For example, on MDP4 hardware, a TMDS encoder is registered unconditionally
+in mdp4_modeset_init_intf(), but it will have an empty bridge chain if HDMI
+is not present. Similarly, for bonded DSI, msm_dsi_modeset_init() skips
+bridge creation for the slave DSI, leaving its encoder without a bridge.
 
-If msm_hdmi_modeset_init() receives a NULL encoder and there is no external
-bridge, it eventually calls drm_bridge_connector_init():
+When drm_bridge_connector_init() processes an encoder with an empty bridge
+chain, it returns ERR_PTR(-EINVAL) because it cannot determine the connector
+type. Since this loop treats any error as fatal, won't this break
+display initialization on these configurations?
 
-drivers/gpu/drm/msm/hdmi/hdmi.c:msm_hdmi_modeset_init() {
-    ...
-    hdmi->connector =3D drm_bridge_connector_init(hdmi->dev, encoder);
-    ...
-}
-
-This unconditionally dereferences the encoder to access the bridge chain:
-
-drivers/gpu/drm/display/drm_bridge_connector.c:drm_bridge_connector_init() {
-    ...
-    drm_for_each_bridge_in_chain(encoder, bridge) {
-    ...
-}
-
-Should there be a check ensuring the encoder was actually populated before
-calling msm_hdmi_modeset_init() (and similarly for DP and DSI above this)?
-
-> +		if (ret) {
-> +			DRM_DEV_ERROR(ddev->dev,
-> +				      "modeset_init failed for HDMI: %d\n", ret);
-> +			return ret;
-> +		}
+> +
+> +		/* The DP subconnector property applies to DisplayPort only. */
+> +		if (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_DisplayPort)
+> +			drm_connector_attach_dp_subconnector_property(connector);
 > +	}
 > +
 > +	return 0;
 > +}
+> +
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-drm-msm-di=
-splay-interface-v1-0-368c10fe62fd@oss.qualcomm.com?part=3D3
+splay-interface-v1-0-368c10fe62fd@oss.qualcomm.com?part=3D23
