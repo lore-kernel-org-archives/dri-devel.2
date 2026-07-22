@@ -4,60 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A183DC44536
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 18:59:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D369FC44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 19:05:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0793410E2DB;
-	Wed, 22 Jul 2026 18:59:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ADF010E2F4;
+	Wed, 22 Jul 2026 19:05:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=disroot.org header.i=@disroot.org header.b="akPUmchE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EaV3/ZS/";
 	dkim-atps=neutral
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73C5110E2DB
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 18:59:32 +0000 (UTC)
-Received: from mail01.layka.lan (localhost [127.0.0.1])
- by disroot.org (Postfix) with ESMTP id 509AE83F7A;
- Wed, 22 Jul 2026 20:59:31 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id MN0pYQ004ibo; Wed, 22 Jul 2026 20:59:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
- t=1784746770; bh=1YohDgTSOkkTpl+65u26bbQhosd/+AGS22C8onQsxPU=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=akPUmchE2iIdGt7B3MdYhifPqGY3yW16Vqxr/8pilsgaFQC4fTNhWFS2WNtzYnwQO
- CrKrhyDmPgHR2Wnq7BJoF0oB47EFPr/3kRjveb0eFz4hx3EEUC/fGY8naLSXGiXrXt
- V247SGp06E8Qa4wBijyAF5OCi8qlhlfpWe9OIYgDNvweWwtc7GnbaNbNWMP3HVhRED
- bQtCugGy+SV5KUplFHQpd4UZPGweK3mYr3hO6HX+V4WYKVicApyC5IO6F1ZMwZrl3I
- RPEXA4lZgUiFb3/1KZffFLY9ML8IrR1APABc7sJBUpqg7oGHdyEI8Ufir7eZGED6ev
- mpdKxJWpJO5Sw==
-From: Kaustabh Chakraborty <kauschluss@disroot.org>
-Date: Thu, 23 Jul 2026 00:28:34 +0530
-Subject: [PATCH v3 3/3] drm/exynos: remove simplefb nodes before init
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDFC110E2F4
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 19:05:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9D43F43A9A;
+ Wed, 22 Jul 2026 19:05:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56C2F1F000E9;
+ Wed, 22 Jul 2026 19:05:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784747131;
+ bh=GTNAXQzdEcbikbTOwRyr/U5VO4eOAsomxKg31uWGKSU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=EaV3/ZS/pnK9IyioF7sZu71ZXWKcCuseQeNEOler0qJsQybEeMHvqSLpX36aGhTeK
+ I+Pd5YmgNsjh1XKY/exNanP/Wae039RRmCV4eACmCxyVWCArBg2D9wpSkYJgOGc1YB
+ 5zSDgltbZAin3kxbd5qO6jWXx0zkpTCW8raa8XT7Rxaj1FANnHr3SCB6jlUXz2xfQr
+ eEFI7ODz6u7YyBwRIsOfd1aW2Dpn5JDWezLPP6x11DqKYqWy9e369sZiSarUcoJ4Yl
+ iWstcuQEwTF8jtWqdz1gBuw5Gw72/0bPAu7vXIBJrL1/3eOnuGGdtR5jjKPe4+j4jV
+ PIX3vCuMZBaDw==
+Date: Wed, 22 Jul 2026 09:05:30 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Tvrtko Ursulin via Kernel-dev <kernel-dev@igalia.com>,
+ dri-devel@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ linux-kernel@vger.kernel.org, Chia-I Wu <olv@google.com>
+Subject: Re: [RFC v3 1/2] workqueue: Add support for real-time workers
+Message-ID: <amEUelR4oL_odDuq@slm.duckdns.org>
+References: <20260717090209.26931-1-tvrtko.ursulin@igalia.com>
+ <20260717090209.26931-2-tvrtko.ursulin@igalia.com>
+ <8dffe078-ca2e-4d01-96b3-f1709472ef1b@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-exynos-dsim-fixes-v3-3-0c31ae1dbecc@disroot.org>
-References: <20260723-exynos-dsim-fixes-v3-0-0c31ae1dbecc@disroot.org>
-In-Reply-To: <20260723-exynos-dsim-fixes-v3-0-0c31ae1dbecc@disroot.org>
-To: Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- Kaustabh Chakraborty <kauschluss@disroot.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8dffe078-ca2e-4d01-96b3-f1709472ef1b@igalia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,47 +64,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The simple-framebuffer uses the framebuffer region initialized by the
-boot loader for display. However, with Linux the DSI and FIMD/DECON
-stack is initialized from scratch.
+Hello, sorry about the delay.
 
-However, both are destined use the same memory region, so both cannot
-co-exist. For a seamless display transition during boot, the framebuffer
-must be destroyed, which releases the memory region, followed by proper
-IP re-initialization. Achieve it using
-aperture_remove_all_conflicting_devices(). This is also implemented in
-other similar systems such as in Qualcomm's msm_kms driver.
+On Fri, Jul 17, 2026 at 11:06:55AM +0100, Tvrtko Ursulin wrote:
+> > +	/*
+> > +	 * Do not consume all CPUs with RT workers to avoid scheduler
+> > +	 * starvation.
+> > +	 */
+> > +	if (pool->attrs->prio == WQ_PRIO_RT) {
+> > +		unsigned int max = num_online_cpus();
+> > +
+> > +		if (max > 2)
+> > +			max = max - 1;
+> > +		else
+> > +			max = 1;
+> > +
+> > +		if (atomic_inc_return(&total_rtpri_workers) > max) {
+> > +			atomic_dec(&total_rtpri_workers);
+> > +			return NULL;
+> 
+> Sashiko is warning me here this can create a deadlock when called from
+> maybe_create_worker(). My apparently naive idea was that this would make it
+> wait for a bit, until the load on the currently instantiated workers
+> subsides, at which point need_to_create_worker() would say "not any more"
+> and allow it to exit.
+> 
+> But even more importantly, it is also warning me that strict CPU affinity
+> creates per CPU threads.
+> 
+> So my idea of global limit will just not work.
+> 
+> Tejun, how does this sound to you? Are you okay without having the global
+> limit of RT threads?
+> 
+> I will await sending v4 with other fixes until we can close on this one. I
+> also have some vacation pending so there may be a delay in my replies.
 
-Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
----
- drivers/gpu/drm/exynos/exynos_drm_drv.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+I don't think we need to limit the total number of workers. It's not a
+meaningful protection anyway (is it ok if max-1 CPUs are pinned in RT?), the
+DL server already provides forward progress protection, and it doesn't make
+sense to design this assuming malicious / incompetent users.
 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
-index 9ee30086879f..7657f86a9d19 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
-@@ -7,6 +7,7 @@
-  *	Seung-Woo Kim <sw0312.kim@samsung.com>
-  */
- 
-+#include <linux/aperture.h>
- #include <linux/component.h>
- #include <linux/dma-mapping.h>
- #include <linux/platform_device.h>
-@@ -273,6 +274,11 @@ static int exynos_drm_bind(struct device *dev)
- 	if (ret)
- 		goto err_mode_config_cleanup;
- 
-+	/* Remove existing devices which own the framebuffer memory. */
-+	ret = aperture_remove_all_conflicting_devices(exynos_drm_driver.name);
-+	if (ret)
-+		goto err_unbind_all;
-+
- 	ret = drm_vblank_init(drm, drm->mode_config.num_crtc);
- 	if (ret)
- 		goto err_unbind_all;
+Thanks.
 
 -- 
-2.54.0
-
+tejun
