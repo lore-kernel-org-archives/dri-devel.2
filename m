@@ -4,81 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77A9BC4453F
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 12:15:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F7BBC44539
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 12:15:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF6610ED8B;
-	Wed, 22 Jul 2026 12:15:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9188D10ED99;
+	Wed, 22 Jul 2026 12:15:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gzE/5dlo";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="NebbcwcJ";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E13810E431
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 12:15:43 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-47f59f25ec4so1957968f8f.2
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 05:15:43 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6F4310EDA7
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 12:15:37 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-47f703a9d05so2394044f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 05:15:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1784722542; x=1785327342; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1784722536; x=1785327336; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=IVLV7NjgP0TOqg9eeIPWtc9f772NSdz+whEsysuPUVM=;
- b=gzE/5dlorRPdsBF85dJzKBbDKqr6BS9Kj0IUN93lIJaEdOdBeAbeeJlXWW8bxbPZsg
- HWiDKSOAtuLhGa1i1ioSmRGxUoJRL+6hZeKTDimypO3IdEr5AssgZdVGcXs/Jbd+kFUg
- 418FmBI/R80OsPgVriKTHVW0rPTti0yFwSOcfWO4grJvkEWkBAU4SnLkCWr4NbwfoUQ9
- uzF99+hdnImcjcKf3FW1eosjMA4+DUNVgrwkmhPAKPGl61kCzU4giBvfoVflu85F/A4G
- zWed70C2bTwbn/J7P2iWZO1TJ4fYHfiOVIUQhq6fGsvjbykxt07z2uTlKeq4UJzy/O0D
- xIYg==
+ bh=irQTQ8XdUWdZ80B2Ynlymn+M9Ebrx4IqFd38HePJwiw=;
+ b=NebbcwcJFaMsk133ZVY78B90qCpSfOEtr3C1Dn6PkKrbVHJGUlm3crcCoTTsiF/wGU
+ sDtAlY4AMCFndi05BDDmLUoSLycZqNogapLz4L5QfH9TAhqAciTcuraHJ0C3yXEsy3Ya
+ 9JwXcb/nMKck2jJZlWOfFEBfQb4QcimuruxDaNa1QnD7Tw2dgl902uQ9N3RdmAeU0JE5
+ FjXkpKdRzQ1MjuZSix57EVEBg5PLDRLn6mRXFZESaKOqBs+YFS0a+xxHM6TjmOtUnqiB
+ d9yLx1GUXq+o3LbCLY+3QovEGU2zXgxCxagqFkcK7apKvyZQFyDsQC6jNdWOKPFeW3JI
+ zaSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784722542; x=1785327342;
+ d=1e100.net; s=20251104; t=1784722536; x=1785327336;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=IVLV7NjgP0TOqg9eeIPWtc9f772NSdz+whEsysuPUVM=;
- b=PedM4GIDYS3vOA8ofmnIBn4o0n+xJX4LUgL0E6yi6D1QUwZYPQ/lASt2M6Lkv0GqiO
- 5dfwu1lYsHKzniAINywokmbFOaln+/thTzMx/7rcb/PKJkYGmls/v6ztXVBx6y4hmaSD
- VpuGK3kX6oqFo/QxcVWDF8Rz/LoeHirRoFLWLy6u4ELg4MNjYYIK4dfJW0ItmkWmcLxE
- k8GZ3NF2Xe5Zla2rTLr1Rd0IeCn6wZLGGclungg1MaMC6ss/MewUM55imjYbleuQ3zIx
- x+f3VpUfJRVBtL7+lv92OwK6FW6SFAD3wUnHJXUXkyALSCdUL9sH8jT/5O6vpUxpBI6s
- XE0A==
+ bh=irQTQ8XdUWdZ80B2Ynlymn+M9Ebrx4IqFd38HePJwiw=;
+ b=G/7MNKk2EkHy2NmHSD5RO/z+NCAHLaTy//BtBN6/DRGBrhMsvbq9AFgN47k07ZeSQs
+ LpQSAuGUU5MzqYkobjuxfZB56mDshsPAGLeW7bh5FuJgzbZYzpPQrx4UsdLRHao0nFNc
+ p/Nm3eSl8gWRQKIK0k5iNEhgkg5Cac47p15RkqqL8EE9WJ6lMcgvm0Khs9g0UiwqcRt8
+ QDlj8bhBtHPaqW0QuW+/EZ/RDpNlJAdQHS0tS8xNNTBPYaZG0qe1ZnbHWo/HHM3J8JTp
+ IZNy0XLXawZoJr5qlrHfvmaIjftrdPKTguCOTpl43zSWyB76uj7DGEZ8LZmqOIURlk3o
+ FUHg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqFdtgxAOMsOzrfmClQmM1U9TXzlHOiSci1f1CDhydxNgZN04NlVIiO6aBDQWTAKtyPx5VGdReVgc4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzXKCl/K06Wh/5nxWl9Q/Z7n+Ws9gjvVyI9u4+tBxIW0P01+jy0
- A1f2vFyV+s43gR0oaBRHqD1PgBZYBZmf139ISNoeNWVXZzRN0ZfvXW01l85wWjSbZkA=
-X-Gm-Gg: AR+sD10rGrCxeuYfiFhexNSiUheK5pXtfgusyMvM4MDhg1pnsRvtkWLjzS4Qls0vqHv
- Sasq2fVCD9D0v8fmCbVP3XkKt1U5DXs+Ukd2B0w41lM3o7e5G88LPWMBojxZSZcCVBsjfkqvdlp
- Ns6UAbDUbm6lTXu9/bI497I/TVK5H2sh9rrxGo3e1Ds+Z1ARBfUMnNe4H1t4ED9FOl5RT/IeDmI
- fIurPaTaqVtZ/QkcWIIuYDVL68PqTQHxv16i719PCn0Hol/IzuO8v9EzMti4u58CM1HeD63XKs7
- QI/Al+ZtajCh2ggxl3jpZzF5FggQuwu3J3ObyNG9YOdqTTybkiO1rYY7ZG49bjr3tYvrcGhviEd
- dCUCTdCAFdqIoc2OAYLJQXcm0pdOvykPzzWZRnhCh6s6oAkYhbzmePJgzvgSl45ZgGfApzvLDyk
- m+xIFRBJZsyROBI/1Ku6QhyavpZOqNwrOMhw==
-X-Received: by 2002:a05:6000:4702:b0:47f:83c5:74d4 with SMTP id
- ffacd0b85a97d-47f83c574ffmr5638257f8f.23.1784722541786; 
- Wed, 22 Jul 2026 05:15:41 -0700 (PDT)
+ AHgh+RoAA8z+wV4q3DVC7yJ/dXyrVR4wozrfxm9dn7jQzOrxFtQWD5+kpOhU/uUGuHB7vW5zIFTSZbhwAUw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw9U1MswonH+DSHFZxx2OrQqyBVPdWseuX88HZTh5z6JV8dgfnQ
+ wXRtS8sSxqiepJIApuuS4U8TtIM2asASdqEWA1XUfIXbymc4wTM/cI8KHBEeg8xbf1g=
+X-Gm-Gg: AR+sD12aaMReDAEricCx9VjAw29g+0MNMQos9cuQSrZTHiBCLhowcdfqkYfrQem2Umr
+ E5pFrDwA/l2ATIIPWII+G/UqKA8GGmBUQ/vVyeJpejWD3D6VU5zIoQGaYuCendvdTnBTd6zUT26
+ 46DQn78aCUCFskUpa7nfTtpMgC6utse8zD9QA+GODbJvsJiFrcG8sx2w6kvl21iEio7jrEE2iDT
+ PDJA8ljKCmuA3Svim25uzsO/MUCvD6pjp/Qe8ijG+Yoh2yVUC8GDtsjrkpts62PrlgF1va/Qi4H
+ D6JpcnT4FIBqWxj+DgRysDOhjRupYvTbT9OQgGxkBagpAlQIjVHgoU3UiabZFtGk2gl+NDk830n
+ PKke0tJeWvNv/JFI24kNAr3LfjLXBc/VrNwUe2r5yrXx+Jav1KnK+tYNLcnUm7H4ATDmJ/mePW1
+ RRWupnzZmjcqE1taYLOQUMp+VIUcoZ3AyWgQ==
+X-Received: by 2002:a5d:5f84:0:b0:47f:80f9:1830 with SMTP id
+ ffacd0b85a97d-47f80f919b0mr8632658f8f.53.1784722535970; 
+ Wed, 22 Jul 2026 05:15:35 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f8635c8d7sm4379093f8f.21.2026.07.22.05.15.41
+ ffacd0b85a97d-47f8635c8d7sm4379093f8f.21.2026.07.22.05.15.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jul 2026 05:15:41 -0700 (PDT)
+ Wed, 22 Jul 2026 05:15:35 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Robert-Andrei Mercea <robertandreimercea@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	Heiko Schocher <hs@nabladev.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/panel: osd101t2587: migrate to newer mipi_dsi*
- functions
-Date: Wed, 22 Jul 2026 14:15:16 +0200
-Message-Id: <178472247763.1745070.6461113880184444922.b4-ty@b4>
+ Oleksij Rempel <o.rempel@pengutronix.de>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v1] drm/panel: simple: Add Kyocera tcg070wvlq panel
+Date: Wed, 22 Jul 2026 14:15:13 +0200
+Message-Id: <178472247764.1745070.12653554536175856217.b4-ty@b4>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260720115126.666363-1-robertandreimercea@gmail.com>
-References: <20260720115126.666363-1-robertandreimercea@gmail.com>
+In-Reply-To: <20260721041935.757240-1-hs@nabladev.com>
+References: <20260721041935.757240-1-hs@nabladev.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -99,20 +98,21 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Mon, 20 Jul 2026 14:51:26 +0300, Robert-Andrei Mercea wrote:
-> Migrate osd101t2587-53ts panel driver from deprecated mipi_dsi*
-> functions to their *_multi variants for improved error handling, as
-> specified in the GPU subsystem TODO list.
+On Tue, 21 Jul 2026 06:19:32 +0200, Heiko Schocher wrote:
+> Commit 922fb2db0287 ("dt-bindings: display: simple: Add Kyocera
+> tcg070wvlq panel") added the compatible string for the Kyocera
+> tcg070wvlq panel to the devicetree bindings documentation
+> (panel-simple.yaml), but the corresponding entry was not added
+> to the panel-simple driver.
 > 
-> Link: https://docs.kernel.org/gpu/todo.html#transition-away-from-using-deprecated-mipi-dsi-functions
-> 
+> Add the missing compatible entry to the driver.
 > 
 > [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/1] drm/panel: osd101t2587: migrate to newer mipi_dsi* functions
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/ab3d527aaa334f843d1a5f71aa79678a34ff4e48
+[1/1] drm/panel: simple: Add Kyocera tcg070wvlq panel
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/900517da69afca6f72dacf14278aee3b65275507
 
 -- 
 Neil
