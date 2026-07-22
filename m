@@ -4,44 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24C3DC44536
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 21:23:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3F54C44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 21:39:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A0E110E4D3;
-	Wed, 22 Jul 2026 21:23:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D2FE10E1A6;
+	Wed, 22 Jul 2026 21:39:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JsOTyO2t";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="brRzAZBd";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4DBF10E4D3
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 21:23:16 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C6EF10E09A;
+ Wed, 22 Jul 2026 21:39:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8E1FA40111;
- Wed, 22 Jul 2026 21:23:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EDA11F000E9;
- Wed, 22 Jul 2026 21:23:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 427BB600AD;
+ Wed, 22 Jul 2026 21:39:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971A31F000E9;
+ Wed, 22 Jul 2026 21:39:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784755396;
- bh=v9jtjJznIZViId7HzsvuaHAQ3JDnsyxRyHvgdwSsAIk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JsOTyO2tbjW5RGcFV7pxgUPP9NDFx8w5MvujKJIUvzpqywTsrpg8I3SLj24Pidu5e
- d4IhkinHkSY+NwYgBh27MKj7JG2tCRDhndiwkgrV0c/jAR5+hxoVrkv5vCPDqYOgon
- OMXfPxh0ZQWb6H6oohwzyO0SPAOFO5et7t7fVgNc9PF2A9Lig4kV1yjYYFQmIJH4+C
- hMIxzhtYfxk1RtGoMkC2A1leKeK+/AHUidBJW3Pm01bVu7ul4ORWkx2S8ovXzxiCJk
- Z9C05YcLAyKm5CwH8AsgYc78bhoq1UK2dqJZHfXz/ehuZVNWsBZqX78lMI9ej2S6Rp
- HMlp0hEGN2R/A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 07/11] drm/bridge: it6505: avoid division by zero in
- audio FS debug print
-To: "Daniel Golle" <daniel@makrotopia.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <699a55456c1eb21b450b01f9d55277f72ddf12d9.1784717129.git.daniel@makrotopia.org>
-References: <cover.1784717129.git.daniel@makrotopia.org>
- <699a55456c1eb21b450b01f9d55277f72ddf12d9.1784717129.git.daniel@makrotopia.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 21:23:15 +0000
-Message-Id: <20260722212316.3EDA11F000E9@smtp.kernel.org>
+ s=k20260515; t=1784756388;
+ bh=J/4AwJDlUc6G4FSUtMAB2vODvWwQjx1d0P5R5iMgpjI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=brRzAZBda7UZHIg4veJxZLCYpAqd3lCO2ZMyHBAzG56VDW8Zr41kajFzsuVf16Qen
+ jfveSt7reJYPqIKL3ap9i1AnIyHiFlS2Tm2AphtXD9AmgXbcX/tXagmG+t+IpMhD1A
+ cwtRgmM7wLAMuu+ewZgaPPBKxQQowjI+KwaYQcE/ftJy2R4yI3g/+/pTG5vCEffyze
+ hBzeg+QNlgQ8LQurTVNRWREViUly0jR3ypJbAUy9STmVgZ1bPpdG76mL2ABYqgxY5u
+ +mgrWmQyS2Er3Bx/3LapCmBRVzBgGijicDWB1Yop4ngvwCcd3OHRjq2U63RXJIEvIh
+ 9R8xWkFBQzGFw==
+From: Will Deacon <will@kernel.org>
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: catalin.marinas@arm.com, kernel-team@android.com,
+ Will Deacon <will@kernel.org>,
+ Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/9] drm/msm: Support for Eliza GPU
+Date: Wed, 22 Jul 2026 22:39:19 +0100
+Message-ID: <178472234101.2849821.2122520947416470747.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260718-eliza-gpu-v2-0-64379dbebd7a@oss.qualcomm.com>
+References: <20260718-eliza-gpu-v2-0-64379dbebd7a@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,80 +78,28 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Sat, 18 Jul 2026 02:11:25 +0530, Akhil P Oommen wrote:
+> Adreno 722 found in Eliza chipset belongs to the A7x Gen1 family. It is
+> derived from A730 and shares the same IP-level configurations: HWCG
+> registers, protected registers, GBIF CX registers and gmu_cgc_mode.
+> Major differences include smaller cache/core counts, 1MB GMEM, no
+> Concurrent Binning & LPAC support. Some of the peripheral blocks like
+> RSCC are from A740 that resulted in updates to RSC layout.
+> 
+> [...]
 
-Pre-existing issues:
-- [High] Missing I2C read error handling in `it6505_audio_input()` leads to=
- logic reset and false positive audio enable.
---
+Applied bindings update to iommu (arm/smmu/bindings), thanks!
 
---- Patch [7]: [PATCH v5 07/11] drm/bridge: it6505: avoid division by zero =
-in audio FS debug print ---
-commit ebf71cd14ba5699a1da0c18fc4c670be657e122d
-Author: Daniel Golle <daniel@makrotopia.org>
+[4/9] dt-bindings: arm-smmu: Document GPU SMMU for Eliza SoC
+      https://git.kernel.org/iommu/c/925f98235a72
 
-drm/bridge: it6505: avoid division by zero in audio FS debug print
+Cheers,
+-- 
+Will
 
-This commit adds a check for regbe > 0 before printing debug information
-about the audio input frequency in it6505_enable_audio(). This prevents a
-division by zero when regbe is 0 or negative due to an I2C read failure.
-
-> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
-/ite-it6505.c
-> index fc95f8d4f4129..81d2c96445318 100644
-> --- a/drivers/gpu/drm/bridge/ite-it6505.c
-> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-> @@ -1622,8 +1622,11 @@ static void it6505_enable_audio(struct it6505 *it6=
-505)
->  	it6505_set_bits(it6505, REG_AUDIO_SRC_CTRL, AUDIO_FIFO_RESET, 0x00);
->  	it6505_set_bits(it6505, REG_RESET_CTRL, AUDIO_RESET, 0x00);
->  	regbe =3D it6505_read(it6505, REG_AUDIO_INPUT_FREQ);
-
-[Severity: High]
-This is a pre-existing issue, but since we are handling I2C read failures
-for REG_AUDIO_INPUT_FREQ here, I noticed a similar problem in
-it6505_audio_input().
-
-If it6505_read() fails, it returns a negative error code. In
-it6505_audio_input():
-
-	reg05 =3D it6505_read(it6505, REG_RESET_CTRL);
-	it6505_set_bits(it6505, REG_RESET_CTRL, AUDIO_RESET, 0x00);
-	usleep_range(3000, 4000);
-	regbe =3D it6505_read(it6505, REG_AUDIO_INPUT_FREQ);
-	it6505_write(it6505, REG_RESET_CTRL, reg05);
-
-The negative error code in reg05 is stored without validation and passed
-directly to it6505_write(). Because the regmap uses 8-bit values, the integ=
-er
-is truncated (e.g., -5 becomes 0xFB). Will this inadvertently assert critic=
-al
-hardware reset bits such as ALL_LOGIC_RESET and VIDEO_RESET?
-
-Additionally, at the end of it6505_audio_input():
-
-	return regbe !=3D 0xFF;
-
-Since regbe can be a negative error code if the second read fails, this che=
-ck
-evaluates to true. Could this falsely signal that audio should be enabled,
-leading to unexpected behavior?
-
-> -	DRM_DEV_DEBUG_DRIVER(dev, "regbe:0x%02x audio input fs: %d.%d kHz",
-> -			     regbe, 6750 / regbe, (6750 % regbe) * 10 / regbe);
-> +	if (regbe > 0)
-> +		DRM_DEV_DEBUG_DRIVER(dev,
-> +				     "regbe:0x%02x audio input fs: %d.%d kHz",
-> +				     regbe, 6750 / regbe,
-> +				     (6750 % regbe) * 10 / regbe);
->  	it6505_set_bits(it6505, REG_DATA_MUTE_CTRL, EN_AUD_MUTE, 0x00);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784717129.gi=
-t.daniel@makrotopia.org?part=3D7
+https://fixes.arm64.dev
+https://next.arm64.dev
+https://will.arm64.dev
