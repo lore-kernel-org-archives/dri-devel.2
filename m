@@ -4,44 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 957CEC44539
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:14:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D860DC44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:18:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1A6510E2DC;
-	Wed, 22 Jul 2026 14:14:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8E5010EDFD;
+	Wed, 22 Jul 2026 14:18:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k7ki9pgO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a4vdnNdZ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E52F10E2DC
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:14:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11C4410E44C;
+ Wed, 22 Jul 2026 14:18:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6782A406F3;
- Wed, 22 Jul 2026 14:14:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A5D71F00A3A;
- Wed, 22 Jul 2026 14:14:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BC1C4432E9;
+ Wed, 22 Jul 2026 14:18:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 998571F000E9;
+ Wed, 22 Jul 2026 14:17:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784729661;
- bh=8Uy4r1WmC1LXEI6P01rLjjYlp/IXFKh4B/SxP/8QKfA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=k7ki9pgOL55vqVpVNAodkWGQ06oHU3IHfcuP93ErEqOiMe7wtNgGPwFa6303cj/VR
- cJxpetrFu7SDmSFLHUqA90pxFgsThrdXecLCx0ymyBOkWjp7U9jWB0tKqm1ZtdMKSX
- A1pVOq3z0gaxiaJcFvhU+PGIlhEnoRMPOiEQjydy/zOT5xQwjdMZa2L1JA8j5FZX8S
- lbDAHB8WaJSOTgISZo/zBi494HgJDcA3e1TOfkMIDWEvVM2TA/wh7C38Zvd+RVliMg
- WECm+QKCOJVTbgd8+W4Sy48+kNB4u4N/Z954mMIs0esydKS79KvYDydwkTKJzB8Fob
- N55mLLzN4x4vg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 07/11] drm/amd/display: Implement fixed matrix
- colorop color space mapping
-To: "Harry Wentland" <harry.wentland@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260722134607.136293-8-harry.wentland@amd.com>
-References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-8-harry.wentland@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 14:14:20 +0000
-Message-Id: <20260722141421.2A5D71F00A3A@smtp.kernel.org>
+ s=k20260515; t=1784729883;
+ bh=nr20QdluTC6Xb2QJCx/L2OqHD3wYjRZzxUHD+ltN0io=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=a4vdnNdZSy07RDuS+C9gat8xlWANgEMGre2Gt8w50+S/RARkD/NxqriSXn9wrozPj
+ E5W9CBr1d7eepeguATkGjOrPXaqKaMp0+xcdJH6JVLGWRdkxSRqsBQirTItAu9VNRf
+ xKAJOUg/URAYNGPYd8y4vGKj+ONw/nWOpgBtlfPsR8ltFxfx8IoinmWT2jtQMA7WpP
+ nozoGRCEMkB8851Fg9u/prJ/JOJKbaLEpz8L+8Zr68k62Ilb0p88pE+y3ZC8cSKbhK
+ kBpgQZfX/d3Rxy5rU6yBQqCx1AN3uW+o51yyGmm2In6YviRmTxHVmf6qDl7Zlbt9Ib
+ DwnPnhWrhgAMw==
+Message-ID: <ac18f5bc-62a9-41b0-8980-a4c465a4229a@kernel.org>
+Date: Wed, 22 Jul 2026 16:17:43 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 03/13] mm: convert __get_unmapped_area() to use
+ vma_flags_t
+Content-Language: en-US
+To: Lorenzo Stoakes <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, Zi Yan <ziy@nvidia.com>,
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
+References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+ <20260711-b4-vma-flags-mm-v2-3-0fa2357d5431@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260711-b4-vma-flags-mm-v2-3-0fa2357d5431@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,132 +159,23 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+On 7/11/26 20:45, Lorenzo Stoakes wrote:
+> Update __get_unmapped_area() to be parameterised by vma_flags_t rather than
+> vm_flags_t as part of the effort to move VMA flags from a system word to a
+> bitmap.
+> 
+> We cascade the changes up to arch_get_unmapped_area_topdown() and
+> arch_get_unmapped_area(), where, for now, we use vma_flags_to_legacy() in
+> order to propagate the VMA flags.
+> 
+> No functional change intended.
+> 
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-New issues:
-- [High] `vkms_plane_atomic_update` unintentionally disables the fixed matr=
-ix colorop during simple page flips.
-- [Medium] `drm_plane_colorop_fixed_matrix_init` uses `-BIT(DRM_COLOROP_FM_=
-COUNT)` which zero-extends on 32-bit platforms, failing to validate bits 32=
--63 of the `u64` `supported_fm` mask.
-- [Medium] `__set_dm_plane_colorop_fixed_matrix` unconditionally sets `full=
-_update =3D 1`, which can unnecessarily destroy fast page flip performance.
-- [Low] Mismatch between commit message documentation and code implementati=
-on for bypass color space.
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Pre-existing issues:
-- [High] `__set_dm_plane_colorop_fixed_matrix` and `amdgpu_dm_update_plane_=
-color_mgmt` silently drop the entire color pipeline on page flips.
---
-
---- Patch [7]: [PATCH v4 07/11] drm/amd/display: Implement fixed matrix col=
-orop color space mapping ---
-commit b2189c95d176aaf780d252979cb22287548aef19
-Author: Harry Wentland <harry.wentland@amd.com>
-
-drm/amd/display: Implement fixed matrix colorop color space mapping
-
-Add __set_dm_plane_colorop_fixed_matrix() which maps the fixed matrix type
-enum to the appropriate dc_color_space for DC programming. It also updates
-the plane properties processing to handle the fixed matrix before degamma.
-
-> When the fixed matrix is bypassed, color_space is set to
-> COLOR_SPACE_UNKNOWN.
-
-[Severity: Low]
-This isn't a bug, but there is a mismatch between the documentation and the
-implementation. The commit message states COLOR_SPACE_UNKNOWN is used when
-bypassed, but the code sets it to COLOR_SPACE_SRGB.
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> index 357c7c5c85cff..62791077ceef8 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> @@ -1545,6 +1545,61 @@ __set_colorop_in_tf_1d_curve(struct dc_plane_state=
- *dc_plane_state,
->  }
->  EXPORT_IF_KUNIT(__set_colorop_in_tf_1d_curve);
-> =20
-> +static int
-> +__set_dm_plane_colorop_fixed_matrix(struct drm_plane_state *plane_state,
-> +				    struct dc_plane_state *dc_plane_state,
-> +				    struct drm_colorop *colorop)
-> +{
-> +	struct drm_colorop *old_colorop;
-> +	struct drm_colorop_state *colorop_state =3D NULL, *new_colorop_state;
-> +	struct drm_atomic_commit *state =3D plane_state->state;
-> +	int i =3D 0;
-> +
-> +	old_colorop =3D colorop;
-> +
-> +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> +		if (new_colorop_state->colorop =3D=3D old_colorop) {
-> +			colorop_state =3D new_colorop_state;
-> +			break;
-> +		}
-> +	}
-> +
-> +	if (!colorop_state)
-> +		return -EINVAL;
-
-[Severity: High]
-This isn't a regression introduced by this patch, but does returning -EINVAL
-here cause the entire hardware color pipeline configuration to be silently
-discarded?
-
-When userspace performs a fast page flip without modifying the color pipeli=
-ne,
-the DRM core does not add the colorop states to the atomic commit.
-
-Since for_each_new_colorop_in_state() only searches the current transaction,
-it will return -EINVAL if the state is missing. Can this lead to
-amdgpu_dm_update_plane_color_mgmt() catching this -EINVAL and reverting to
-legacy DRM color properties on every simple page flip?
-
-> +
-> +	if (colorop_state->bypass) {
-> +		dc_plane_state->color_space =3D COLOR_SPACE_SRGB;
-> +		return 0;
-> +	}
-> +
-> +	switch (colorop_state->fixed_matrix_type) {
-> +	case DRM_COLOROP_FM_YCBCR601_FULL_RGB:
-> +		dc_plane_state->color_space =3D COLOR_SPACE_YCBCR601;
-> +		break;
-
-[ ... ]
-
-> +	case DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB:
-> +		dc_plane_state->color_space =3D COLOR_SPACE_2020_YCBCR_LIMITED;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	dc_plane_state->update_bits.full_update =3D 1;
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does setting full_update to 1 unconditionally here unnecessarily impact fast
-page flip performance?
-
-If the fixed matrix colorop is explicitly included in the atomic commit, th=
-is
-forces a full update even if the state didn't actually change from the
-previous commit.
-
-Should this only force a full update if the color_space or bypass state
-actively transitioned, to avoid hardware sequencer overhead and potential
-stuttering?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722134607.1362=
-93-1-harry.wentland@amd.com?part=3D7
