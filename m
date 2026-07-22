@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B0FCC44536
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 21:45:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ACF8C4453F
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 21:45:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41C5D10EEA9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C440A10EED9;
 	Wed, 22 Jul 2026 21:45:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ir2H3ScM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Yl8dhvHk";
 	dkim-atps=neutral
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
- [209.85.210.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96EC310E507
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 21:44:57 +0000 (UTC)
-Received: by mail-pf1-f180.google.com with SMTP id
- d2e1a72fcca58-8485b358552so604892b3a.2
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:44:57 -0700 (PDT)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C117F10EEDA
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 21:45:00 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-8486672f03cso12981076b3a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:45:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784756697; x=1785361497; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784756700; x=1785361500; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Hwr2PA6k/yzOHBkhyRcV60oQVyvCsFMHOEQ+QEbH+Ag=;
- b=Ir2H3ScMeokp/QSaS7KllnXLnr5QrWE9Bx6fNfx3+6glyYVUuBr9V+pcaJyXS3982r
- Kr5IPAANfzp6A79GzGZ1O48RDmRGsGC4EbTEsGt9KzaeW8ulirODchhaYINWZTevN9Un
- wEAsvA1XMHTAa7gVY6wWNuO+22EFKvIMLZaav8nX8jgvFA7qbNGNyEtL8o2mzGMFyoBZ
- v6lM8Ihto1vgZLEj22OkI5UGSZCTWNCIjb9pO+FYmfVZbkably9bpCW1iJmNYQOulngJ
- jwqyQtPLPzFX1AFMVxaqHxHirfUD2uywQSneAYchSH1miTgjiJjwp1sn79zegEHdAP57
- YgMw==
+ bh=TSbIIq+MW5ujNCU6weGrEYnGd53JSmfWB5BOONHtR2c=;
+ b=Yl8dhvHkIXcdiB60ZwLySEk/CJijATfas8WXS0cLnZHbYZwOIiA6Rwu7gjBBPOUrJC
+ OgCz5+QD8Fef2qGEj+o0ZLRUT/GxZPgX5duE7AXsvM4On13aRLD0e5nRpsLC+Ry2ET3I
+ 5K1rmNvnrp/Ii+ASKyS4GcJ8D7rDc+/Fl6jkpiLVvYg5lfsAr0govD63fAqUtzZDB8Yp
+ v+WAA/oUWjJL8ph9kVPlwJARGBuEpmVZ3dLAvfI5nCrm1XFzf4xqsk7aTH6RH6HCFD3o
+ kttl187CwajG1+3x91b0kyxSU36JLFlROuFhnHkrkafcjtVx0/rY0DbA9myS04S1gSrT
+ oL/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784756697; x=1785361497;
+ d=1e100.net; s=20251104; t=1784756700; x=1785361500;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Hwr2PA6k/yzOHBkhyRcV60oQVyvCsFMHOEQ+QEbH+Ag=;
- b=dyx+F7SktJSsL/VDl/3Iz0ezHGw/+SA/n54mPPf84YdgIKCkuNNpZiuIy53ZiUVynn
- 3HC1cBifCEWphdBWpP77E7EZ10KXfmO43360+rAkQskSLFd2L1HuKWiNq/UxWqcMcfZd
- bDI0gmW2Uy1Z1uCdKh+/00CrlbojgslwpkQtKtBQDsVmN0lYezIABUswzyL8ovyITW1+
- 1PKgYcka9XaiZrxvytKa9+jCsc0cQvXjQ2Cj/hHbI2G5hJnR7jL4ETTDt9gJ4zAYZ45Z
- Q4zzK7SK6nb9qOmgh5MEc1CaPbz6jQL2ZgBqzjv+sXE/AftCfivRNH/PdIdmOQQ0o3t6
- 9ibw==
+ bh=TSbIIq+MW5ujNCU6weGrEYnGd53JSmfWB5BOONHtR2c=;
+ b=nom9gJPB5j6LXDE5AHkWxGcEG86bS/mQcVflW6NMIX2Kad1L1OLPzOC0fsQZDqIeYK
+ HNquKorgEb/bevD3HwdS8PQKbebEAZXHaDe8vEb+dEM/KamK0jDG2t6KGNUQMyhhrZiP
+ T8TgfCNkuo4guGs9qSUaRuPa4K2JIjtpqT5J5fK4KLxBcIjm0CoIwD0du5r85R5SIGvO
+ B3KP/lECElQmowhzjD1GIrydek12B1NmSW9EnhNLtSv4/5ufqk/CjS6o64sgoSx/9c9L
+ 9K2c8nwWsANVPAaedlsggvQ7ZyTJCkWmWbmV0EAzABAyMF/qadplwZDrW0RraCoZkqud
+ x9Jg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrzZTUAclRaVULk6SiGSX89XV3wZDjky96J4Rub9Z3LukA3XQGS33HV2HdcR0J9Z7llqIgVH9KuSBE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyjasE5/LAkE+NzeEgfABInTfyDSMJzXuQd1BYmT8YYqS6+tegw
- /qJMh9IHGYV+tn71Qenv6bsK2glMgSrywc/UHDJoT4k9OpwXRNR43z3f
-X-Gm-Gg: AR+sD11VmuQR4G/hk3dwsuIbh4/Hr/HpDJNwmhU2+z4zpbapGzz1q0E2gz03VVfJKE4
- 68wA0OwOD9QCBtIL7pJciWkUk2QcRb5H1guc1dbOrIJjrwQ2OO4H6PDmY50pPf2MYbMy8TCI0pE
- YNVe6kqGQt43iBUe22/+8eOekNhvGIgUBuCtj14IkUHTNCyBMn715mwVJ9pMD6KQBBVsMNnZh1r
- ntbk2VU5IB1AM5K7NjsjO6GiB8CAQ7B0T+Meb07qf98ADOsgKsugVRm0JCRXmuGfP5jm4HAb5Vy
- i2jCNzNJOvU/AFx4M9FqvFgxqKJKYFcJ3RhXVCNE8fQMSzXdJTkbFLHpqRE5BsVsiTMWA8zthRE
- qEMhjaKVJY+UiQeHgjzZ8xLZQDQWcCXw9NkTxeiz0mgw/vctSme/+NXKWKGjCjGv5xA1d7x34dk
- kIorvW+Ql8PCvkTcJLeHunsq1HaKn/4wVN0of9sV+DQFl5RtpK
-X-Received: by 2002:a05:6a00:1388:b0:848:7b92:8e74 with SMTP id
- d2e1a72fcca58-84e2c1b9f43mr598680b3a.39.1784756697112; 
- Wed, 22 Jul 2026 14:44:57 -0700 (PDT)
+ AHgh+Rr++I3gLd0whx1qKlrRQjuq3Nd49vzfWarOqwN0QUaGadFuWG+VEoiCI1VR5lXSoHXNQYmEKCrqvkw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzXCu+v4OUswHiwUvUfOcCj3FFGzVWW0ufJ1F1P9UYXFV/uitkl
+ 95+vTH6IiNR+6AyGnvbLHxuvERjtSU5KF9GSxkdKBsfR4Jf40JNfoHcN
+X-Gm-Gg: AR+sD11KfOaOQgjzD3BH4o35+GgR7kMbCqhdFSouyb9TUmXHUPL8K/z9IBSMc5aGiRL
+ vcNwzbcjOjKkOnrz+MuuUkrKULT4b54mD2XgcKT8GnjvUp5CitWe8eAfxQ6dLE1PBG6YIJOqc7K
+ llCaShdjI4UJLaqeBEN3l4j0K6CArXZsRNx2bIkze2YxjB/hPWOzH0QIGh5SW5x4wJm5Bc93h9T
+ Y6nBX3dhNyWhkEqACznXRAiLMZQnxWWTbJEGgiAfqQsUalcY74CG4x+rDbv62xGKrkLUhF2ViNa
+ raTprxNN2wKwG56f953JeVOrg6am2d2B11GVuLSEs4cOTIh9Bd93iNk2BTgX+erU+sXUaZmCZEL
+ cA9ulS+2NfTo8l+PWLpNsrT+ZbtVzGwtUX9sKNZqqRMYkTrzrlatT5zg4Nvwmj1SzIUvn2Q4xcV
+ iMiWK7eZHQNbxzetTbok4aO9YVN1l+FZHDIowIfr1ZYlLZedAA
+X-Received: by 2002:a05:6a00:94f7:b0:848:467d:293e with SMTP id
+ d2e1a72fcca58-84e2baddf66mr627847b3a.43.1784756700316; 
+ Wed, 22 Jul 2026 14:45:00 -0700 (PDT)
 Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net.
  [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84e17237c3fsm1946297b3a.9.2026.07.22.14.44.55
+ d2e1a72fcca58-84e17237c3fsm1946297b3a.9.2026.07.22.14.44.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jul 2026 14:44:56 -0700 (PDT)
+ Wed, 22 Jul 2026 14:44:59 -0700 (PDT)
 From: Stanislav Kinsburskii <skinsburskii@gmail.com>
-Date: Wed, 22 Jul 2026 14:44:28 -0700
-Subject: [PATCH v10 6/8] RDMA/umem: Use hmm_range_fault_unlocked_timeout()
- for ODP faults
+Date: Wed, 22 Jul 2026 14:44:30 -0700
+Subject: [PATCH v10 8/8] drm/gpusvm: Use hmm_range_fault_unlocked_timeout()
+ for range faults
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-hmm-v10-v1-6-606464dd601a@gmail.com>
+Message-Id: <20260722-hmm-v10-v1-8-606464dd601a@gmail.com>
 References: <20260722-hmm-v10-v1-0-606464dd601a@gmail.com>
 In-Reply-To: <20260722-hmm-v10-v1-0-606464dd601a@gmail.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
@@ -95,11 +95,11 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
  Jason Gunthorpe <jgg@ziepe.ca>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784756683; l=2457;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784756683; l=5001;
  i=skinsburskii@gmail.com; s=20260722; h=from:subject:message-id;
- bh=wCDSwsZ/5jgwWzEqFja4q7w3SxWPNbitK21qCohy6H8=;
- b=oTLl/A3KKM6QVfczDQir+MiwWd6xegg7AP0nwym7Jb+EYIV4zgzMMZlGO0Uy3Tv+0wtFJYifg
- zfmA30BQ0D/AoP9W2yBY0iwSakKcdy31nmnUIbQ0QmfiWeEgduaY6fE
+ bh=JxcTBTW6lEzlUH9pe80rZJYyQZGUPa2uP7JaZIpbDO4=;
+ b=t5pXaIaExV86XNOZX4rodLg/qlkvO7z8UzQMAKDvBSpVBwUgOqPA+1uKWVHHstjr3FsmGAV1u
+ FhiXQ8BfH3FAK6QXFIhXuSWoEAqA3lYTf5A7cJupNOmjpSFDJW/pEX3
 X-Developer-Key: i=skinsburskii@gmail.com; a=ed25519;
  pk=bDpriHBYgeTdkIDweZDCemxsU93neJBOCn3YLIuJpnE=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -117,69 +117,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ib_umem_odp_map_dma_and_lock() takes mmap_read_lock() only around
-hmm_range_fault(), then retries -EBUSY until HMM_RANGE_DEFAULT_TIMEOUT
-expires.
+Several GPU SVM paths take mmap_read_lock() only to call hmm_range_fault()
+and open-code mmu interval sequence setup before each HMM walk. They also
+retry -EBUSY until HMM_RANGE_DEFAULT_TIMEOUT expires.
 
-Use hmm_range_fault_unlocked_timeout() instead. The HMM helper now owns
-the mmap lock and refreshes range->notifier_seq for its internal retries.
-ODP keeps using HMM_RANGE_DEFAULT_TIMEOUT for each HMM fault attempt,
-while interval invalidation retries continue to be handled by the existing
-outer loop.
+Use hmm_range_fault_unlocked_timeout() for those faults. The HMM helper now
+owns mmap_lock acquisition and refreshes range->notifier_seq for its
+internal retries, while GPU SVM keeps its existing driver-lock validation
+with mmu_interval_read_retry() after a successful fault.
 
-ODP still validates the interval notifier sequence while holding umem_mutex
-before DMA mapping pages.
+drm_gpusvm_scan_mm() and drm_gpusvm_range_evict() pass
+HMM_RANGE_DEFAULT_TIMEOUT as the helper retry budget for each HMM fault
+attempt. drm_gpusvm_get_pages() keeps its existing absolute outer deadline
+because it can be reached from GPU page-fault workers, where fatal signals
+from the faulting process cannot stop an endless invalidation retry loop.
+It passes the remaining time from that deadline to HMM for each fault
+attempt.
+
+Leave drm_gpusvm_check_pages() on hmm_range_fault() because that path is
+called with the mmap lock already held by its caller.
 
 Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
 ---
- drivers/infiniband/core/umem_odp.c | 18 +++++-------------
- 1 file changed, 5 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/drm_gpusvm.c | 60 ++++++++------------------------------------
+ 1 file changed, 10 insertions(+), 50 deletions(-)
 
-diff --git a/drivers/infiniband/core/umem_odp.c b/drivers/infiniband/core/umem_odp.c
-index 404fa1cc3254..9cc21cd762d9 100644
---- a/drivers/infiniband/core/umem_odp.c
-+++ b/drivers/infiniband/core/umem_odp.c
-@@ -329,7 +329,7 @@ int ib_umem_odp_map_dma_and_lock(struct ib_umem_odp *umem_odp, u64 user_virt,
- 	struct mm_struct *owning_mm = umem_odp->umem.owning_mm;
- 	int pfn_index, dma_index, ret = 0, start_idx;
- 	unsigned int page_shift, hmm_order, pfn_start_idx;
--	unsigned long num_pfns, current_seq;
-+	unsigned long num_pfns;
- 	struct hmm_range range = {};
- 	unsigned long timeout;
- 
-@@ -363,26 +363,18 @@ int ib_umem_odp_map_dma_and_lock(struct ib_umem_odp *umem_odp, u64 user_virt,
- 	}
- 
- 	range.hmm_pfns = &(umem_odp->map.pfn_list[pfn_start_idx]);
--	timeout = jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-+	timeout = msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index 958cb605aedd..b946f920b7a0 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -773,8 +773,7 @@ enum drm_gpusvm_scan_result drm_gpusvm_scan_mm(struct drm_gpusvm_range *range,
+ 		.end = end,
+ 		.dev_private_owner = dev_private_owner,
+ 	};
+-	unsigned long timeout =
+-		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
++	unsigned long timeout = msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+ 	enum drm_gpusvm_scan_result state = DRM_GPUSVM_SCAN_UNPOPULATED, new_state;
+ 	unsigned long *pfns;
+ 	unsigned long npages = npages_in_range(start, end);
+@@ -788,22 +787,7 @@ enum drm_gpusvm_scan_result drm_gpusvm_scan_mm(struct drm_gpusvm_range *range,
+ 	hmm_range.hmm_pfns = pfns;
  
  retry:
--	current_seq = range.notifier_seq =
--		mmu_interval_read_begin(&umem_odp->notifier);
+-	hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
+-	mmap_read_lock(range->gpusvm->mm);
 -
--	mmap_read_lock(owning_mm);
--	ret = hmm_range_fault(&range);
--	mmap_read_unlock(owning_mm);
--	if (unlikely(ret)) {
--		if (ret == -EBUSY && !time_after(jiffies, timeout))
--			goto retry;
-+	ret = hmm_range_fault_unlocked_timeout(&range, timeout);
-+	if (unlikely(ret))
- 		goto out_put_mm;
+-	while (true) {
+-		err = hmm_range_fault(&hmm_range);
+-		if (err == -EBUSY) {
+-			if (time_after(jiffies, timeout))
+-				break;
+-
+-			hmm_range.notifier_seq =
+-				mmu_interval_read_begin(notifier);
+-			continue;
+-		}
+-		break;
 -	}
+-	mmap_read_unlock(range->gpusvm->mm);
++	err = hmm_range_fault_unlocked_timeout(&hmm_range, timeout);
+ 	if (err)
+ 		goto err_free;
  
- 	start_idx = (range.start - ib_umem_start(umem_odp)) >> page_shift;
- 	dma_index = start_idx;
+@@ -1408,6 +1392,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+ 	void *zdd;
+ 	unsigned long timeout =
+ 		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
++	unsigned long remaining;
+ 	unsigned long i, j;
+ 	unsigned long npages = npages_in_range(pages_start, pages_end);
+ 	unsigned long num_dma_mapped;
+@@ -1422,9 +1407,11 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+ 	struct dma_iova_state *state = &svm_pages->state;
  
- 	mutex_lock(&umem_odp->umem_mutex);
--	if (mmu_interval_read_retry(&umem_odp->notifier, current_seq)) {
-+	if (mmu_interval_read_retry(&umem_odp->notifier, range.notifier_seq)) {
- 		mutex_unlock(&umem_odp->umem_mutex);
- 		goto retry;
+ retry:
+-	if (time_after(jiffies, timeout))
++	if (time_after_eq(jiffies, timeout))
+ 		return -EBUSY;
+ 
++	remaining = timeout - jiffies;
++
+ 	hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
+ 	if (drm_gpusvm_pages_valid_unlocked(gpusvm, svm_pages))
+ 		goto set_seqno;
+@@ -1439,21 +1426,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
  	}
+ 
+ 	hmm_range.hmm_pfns = pfns;
+-	while (true) {
+-		mmap_read_lock(mm);
+-		err = hmm_range_fault(&hmm_range);
+-		mmap_read_unlock(mm);
+-
+-		if (err == -EBUSY) {
+-			if (time_after(jiffies, timeout))
+-				break;
+-
+-			hmm_range.notifier_seq =
+-				mmu_interval_read_begin(notifier);
+-			continue;
+-		}
+-		break;
+-	}
++	err = hmm_range_fault_unlocked_timeout(&hmm_range, remaining);
+ 	mmput(mm);
+ 	if (err)
+ 		goto err_free;
+@@ -1720,8 +1693,7 @@ int drm_gpusvm_range_evict(struct drm_gpusvm *gpusvm,
+ 		.end = drm_gpusvm_range_end(range),
+ 		.dev_private_owner = NULL,
+ 	};
+-	unsigned long timeout =
+-		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
++	unsigned long timeout = msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+ 	unsigned long *pfns;
+ 	unsigned long npages = npages_in_range(drm_gpusvm_range_start(range),
+ 					       drm_gpusvm_range_end(range));
+@@ -1736,24 +1708,12 @@ int drm_gpusvm_range_evict(struct drm_gpusvm *gpusvm,
+ 		return -ENOMEM;
+ 
+ 	hmm_range.hmm_pfns = pfns;
+-	while (!time_after(jiffies, timeout)) {
+-		hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
+-		if (time_after(jiffies, timeout)) {
+-			err = -ETIME;
+-			break;
+-		}
+-
+-		mmap_read_lock(mm);
+-		err = hmm_range_fault(&hmm_range);
+-		mmap_read_unlock(mm);
+-		if (err != -EBUSY)
+-			break;
+-	}
++	err = hmm_range_fault_unlocked_timeout(&hmm_range, timeout);
+ 
+ 	kvfree(pfns);
+ 	mmput(mm);
+ 
+-	return err;
++	return err == -EBUSY ? -ETIME : err;
+ }
+ EXPORT_SYMBOL_GPL(drm_gpusvm_range_evict);
+ 
 
 -- 
 2.43.0
