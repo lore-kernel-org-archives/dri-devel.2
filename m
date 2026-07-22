@@ -4,56 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41454C44536
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 19:39:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7F7DC4453A
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 19:47:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9718F10E31D;
-	Wed, 22 Jul 2026 19:39:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 382FD10EE7D;
+	Wed, 22 Jul 2026 19:47:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R6CWYkHe";
+	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="tIxVz/nc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4299810E31D
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 19:39:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7517A600AF;
- Wed, 22 Jul 2026 19:39:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA8E1F000E9;
- Wed, 22 Jul 2026 19:39:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784749195;
- bh=ZUyuIQ9nqah6EK1D0NOzJjYyGgjr5WnKeB3TFi1F4Es=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=R6CWYkHej0TzzO3ANb+dlL3TJDL3lajBzdS7ovs2HnGR3VdE6hO8OmjYjtU5Q3ihV
- 32qRgwxReQThPm6my97JY7+60yWrfpNW8oeww//RcBSMlDPhke2TKYzh10GK11eSFA
- UtxlzQ8mkezj74OtVQqlYyLcWZaTJss2ohbsf8WSbNkQPY5tyih3A9ksZhbsEWuD+i
- 1hKiMHK9mBog2OGwfIsWBto97LQQHYz9bvF33U4xmvY4SB3sZSI5A03zUlAvMJsqtE
- DJLlQkpjN71PUJN2D6QVYbHuWPHPpsY2nGExOQxV4p9qq2etYLE2R5GRjNgXx8NFcU
- vWRQaMdWksDiQ==
-Date: Wed, 22 Jul 2026 14:39:54 -0500
-From: Rob Herring <robh@kernel.org>
-To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com
-Subject: Re: [PATCH] dt-bindings: display: panel-lvds: Add boe,dv215fhm-r01
- compatible
-Message-ID: <20260722193954.GA1559082-robh@kernel.org>
-References: <20260719-b4-lvds-panel-doc-v1-1-6a18c213c2f6@oss.qualcomm.com>
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C1EA10EEA4
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 19:47:05 +0000 (UTC)
+Received: from francesco-nb (93-38-170-58.ip71.fastwebnet.it [93.38.170.58])
+ by mail11.truemail.it (Postfix) with ESMTPA id E38471FA0B;
+ Wed, 22 Jul 2026 21:47:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+ s=default; t=1784749623;
+ bh=Ijtk+bxGjefd3BFxrgHKuzhrZVrVdvf6txD8HAvKjiw=; h=From:To:Subject;
+ b=tIxVz/ncyyxwhfpXs4BsHyZ87BzwiyGF33dzBYOGa4veP8xDdcPnykumghVoVeZeH
+ 7/5IbfHEVS8Z3rvkTpH6e8VIlkazuBSSN1+dQvQ4yPiZMOIBaYm4YKFDP9R7I7yspZ
+ ups5PQqMbYTjRPEqSYiOrxoHShXvfsxy41qMEXfTFQd8CXQK18XQN4DePQYa654gle
+ cVDLmr5qcXx975kdgYOr0qWaRs0e0mtM+xestJ8Hy/WhdAj+XaKq5hpbnIX5eHAI1j
+ XzPColBP3DOqGFC1bNcWSzuHYM7NvGNH4ZeZmF5Oi4puQrfZUKv3M5ilJaN56Ad2KO
+ jHP/BA50vt7YA==
+Date: Wed, 22 Jul 2026 21:46:56 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+ Frank Li <Frank.li@oss.nxp.com>, sashiko-reviews@lists.linux.dev,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
+Subject: Re: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format
+Message-ID: <20260722194656.GA73938@francesco-nb>
+References: <20260717121847.488148-1-francesco@dolcini.it>
+ <20260717121847.488148-2-francesco@dolcini.it>
+ <20260717122808.693211F000E9@smtp.kernel.org>
+ <alpQh0ASY1HgdNqE@SMW015318> <20260717205754.GB512678@francesco-nb>
+ <20260717211344.GC512678@francesco-nb>
+ <20260722193044.GA1489843-robh@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260719-b4-lvds-panel-doc-v1-1-6a18c213c2f6@oss.qualcomm.com>
+In-Reply-To: <20260722193044.GA1489843-robh@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,31 +61,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jul 19, 2026 at 09:38:36PM +0530, Vishnu Saini wrote:
-> Add BOE DV215FHM-R01 21.5" FHD (1920x1080) dual-channel LVDS panel
-> compatible string to the panel-lvds binding.
-> 
-> Also remove the 'port' requirement from the required list to allow
-> dual-channel LVDS panels to use the 'ports' graph topology with
-> separate port@0 (odd pixels) and port@1 (even pixels) nodes, as
-> required by the dual-LVDS binding.
-> 
-> Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/display/panel/panel-lvds.yaml          | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-> index b89f86bc0683..584818b2df6e 100644
-> --- a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-> @@ -58,6 +58,8 @@ properties:
->            - hydis,hv070wx2-1e0
->            # Jenson Display BL-JT60050-01A 7" WSVGA (1024x600) color TFT LCD LVDS panel
->            - jenson,bl-jt60050-01a
-> +          # BOE DV215FHM-R01 21.5" FHD (1920x1080) dual-channel LVDS panel
-> +          - boe,dv215fhm-r01
+Hello Rob,
 
-This belongs in panel-simple-lvds-dual-ports.yaml.
+On Wed, Jul 22, 2026 at 02:30:44PM -0500, Rob Herring wrote:
+> On Fri, Jul 17, 2026 at 11:13:44PM +0200, Francesco Dolcini wrote:
+> > On Fri, Jul 17, 2026 at 10:57:54PM +0200, Francesco Dolcini wrote:
+> > > On Fri, Jul 17, 2026 at 10:55:51AM -0500, Frank Li wrote:
+> > > > On Fri, Jul 17, 2026 at 12:28:07PM +0000, sashiko-bot@kernel.org wrote:
+> > > > > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > > > > - [Low] Introduction of the legacy, non-standard `interface-pix-fmt` property for a standard hardware concept (parallel bus width), violating modern DT principles.
+> > > > > --
+> > > > >
+> > > > > --- Patch [1]: [PATCH v1 1/4] dt-bindings: lcdif: Add interface pixel format ---
+> > > > > commit 7225ea545d2ff50540972dd75d375b8ecea4f315
+> > > > > Author: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > > > >
+> > > > > dt-bindings: lcdif: Add interface pixel format
+> > > > >
+> > > > > This commit updates the fsl,lcdif device tree binding to support the
+> > > > > interface-pix-fmt property. The property is used to describe the hardware's
+> > > > > parallel data bus transfer width to match board wiring and prevent shifted
+> > > > > colors.
+> > > > >
+> > > > > > diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > > > > index 2dd0411ec6516..209ee5a96e393 100644
+> > > > > > --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > > > > +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > > > > @@ -58,6 +58,13 @@ properties:
+> > > > > >      items:
+> > > > > >        - const: rx
+> > > > > >
+> > > > > > +  interface-pix-fmt:
+> > > > > > +    $ref: /schemas/types.yaml#/definitions/string
+> > > > > > +    enum:
+> > > > > > +      - rgb24
+> > > > > > +      - rgb565
+> > > > > > +      - rgb666
+> > > > >
+> > > > > [Severity: Low]
+> > > > > Is this introducing a legacy, non-standard property into the new schema ABI?
+> > > > >
+> > > > > Standard devicetree guidelines usually prefer endpoint properties like
+> > > > > bus-width (defined in video-interfaces.yaml) to describe physical parallel
+> > > > > data line configurations, such as setting bus-width = <18> for RGB666.
+> > > > 
+> > > > Make sense, can we use standard property?
+> > > 
+> > > video-interfaces.yaml is for video capture interfaces (cameras and the
+> > > media/v4l subsystem). It does not apply here for DPI display interfaces.
+> > 
+> > ok, looking at this closer, it seems this is a used property also in the
+> > DRM subsystem. I'll appreciate a feedback from some DT maintainer before
+> > reworking this patch accordingly.
+> 
+> I reject any custom properties for describing the format of the parallel 
+> interface. 
 
-Rob
+v2 is coming tomorrow using the common bus-width property
+
+thanks for the feedback
+
