@@ -4,75 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85599C44539
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:23:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83F78C44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:23:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E538710E45A;
-	Wed, 22 Jul 2026 14:23:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDF4810EDD5;
+	Wed, 22 Jul 2026 14:23:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="q+ZhzryJ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yIwigZ97";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 385B110E45A
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:23:10 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-49553515a8bso48245525e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:23:10 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EF2B10EDD5
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:23:12 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-495590ba856so32395295e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:23:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1784730188; x=1785334988; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1784730191; x=1785334991; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:date:message-id
  :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=6DyMgDBLdlc4MSAJ/0qjv0HubLavSr5g1w/PqV6qWLY=;
- b=q+ZhzryJPJgc8cLF9k70voAq9ZTC+/mkhVv/SPEWjfIvHe6Yp5CYKzykhr3yh7ncT4
- wBkNYz0ulW3hsjTKcI2QE4h1OT2hO9xaSKI/e+hkrA59UKZ2Bgwqc9Z03a9hYL5N39Cf
- xa8pe4uGtchj40wZsvAXDohVy4VDCUkvttCl1bMcu6V7ZI4/HOhuWQGk/kuspGkTPNgg
- pvEib1pPY2WX/U8ilicHWi/GA23fOuPaC0ilGaOw/Zf09SRv02nBQ0j8gn2hdloFrY97
- YVGXXieCwam2RMi5dMFzQTXfabzG68qUqZ/aH7bCl8B69kM8HaLan/A508Oo8fvr9nWs
- 22Mg==
+ bh=LIJsdUeD5+Jjva16C9sc8daq8nS2QPwgblMc0qoogbA=;
+ b=yIwigZ97ekyR+i8j2wLjLuj9Z0GzfQvCKppFTms87j2G5YoHPwpLpNcN5xCllrcOe9
+ Nobz4gvlpsXOJFt/vqsIcJSUslOO3dfG3Dk5jVRyLL6E8UgnpO5BxPPjfanRyYggIKix
+ hgCpHQipwk0qXsxL+q/9GUJalSfb/qagWhqnXKFoFUwC0wcqVWExxrLS3QfDQe81Ktp4
+ 8DH+50SsLK43m0S56+FpBlb7cbrajY/Wa1F/RYmGcfDQJR+R6I0spslmqvDP6YWpbUBQ
+ JiaFc5jLRfySZeSSmEPHdg4oQ1JxoJ38G+1OzFdk96ER0MGx0uMIqrNZnh5u8EmKtxZL
+ R0PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784730188; x=1785334988;
+ d=1e100.net; s=20251104; t=1784730191; x=1785334991;
  h=content-transfer-encoding:content-type:mime-version:date:message-id
  :subject:references:in-reply-to:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=6DyMgDBLdlc4MSAJ/0qjv0HubLavSr5g1w/PqV6qWLY=;
- b=Gf3w8Vxj1tliYLMJqrxwxaF7UBd6aiAdMFQ+PqiBHo67QZAkTH6DPAPA3svuGC2NR/
- hUh0PWFPhI6rQ10kNh3J3+BrL85txinNyGwYHLR2ewZdHsIWIOleH/36W4S4ppoOru69
- lHKxVIjECDa4OchODuBpil5+eLnErkp+hUBYWUySmQqm8OlUW2nJMkxNxGojEvb5Tekd
- 7LNyA3BrO81CzavvruZDzHo447VkkapfGkjtF18Gk4xHiCRswQE55JPI99TrbFSuOizR
- 6q8YZ5ax6WyDxHN2jlcGWBKZc+FK09oDjyvUSZ3L8MgQZ97f8JQapMEh0Mj7DYOsPswm
- NHgg==
-X-Gm-Message-State: AOJu0Ywz5dqbhdEBfX5VMaIlYmebBO4TqrnHwoD2fGPuhfYnV5jhMsxH
- IOCysCprUSJxdjMd6ohIPKFoce4nKAO/rEOTsbfJeo6CMP+f1pld65xEb1ZZ2FmnRok=
-X-Gm-Gg: AR+sD10lp4iTAPlDNGrAGuqVYVK/SQE6EoxO9aM2gt+dCACgTEW+GFgFcIagwk4xrI2
- D04ulgokUKW3/yT3YfnfMaTu9EAO0ShsmDfKMFvGPg7WI60Jyq7pXCtRlsJsEJbVD5fHv/aI1zq
- QNr7pH40YgOCJyqSOSQWnFpyS/p37tfFgZq3wLYYv7jSlABrlAOU0IgMMOTRFGzfu/TJdRTN0fD
- 5+LwTzT8d+nZ1oqzVkoLaAmLj+33NzvEYAOKgyricjDeXUuZWVbb2sw4EWySnJs7rF5W9MOjCNQ
- iq2rYojJhTJBrtHCke66jeBN4ZAQOmDlMDi5FMp/kWEr9CNU1sXduG0j2OhfMWMdkwKX6GPV3h7
- qntRrj+DtYpdGdOS45GsL3jj5iQzqhfG5YwNH040hwyioYnU1s51Fs12l+Bc0aD69D6vWygxfwe
- qPSsJfqEok9EF67suPHU1WVlY=
-X-Received: by 2002:a05:600c:19cc:b0:493:b877:fbc with SMTP id
- 5b1f17b1804b1-4954a402fcdmr294673445e9.21.1784730188436; 
- Wed, 22 Jul 2026 07:23:08 -0700 (PDT)
+ bh=LIJsdUeD5+Jjva16C9sc8daq8nS2QPwgblMc0qoogbA=;
+ b=TKCyTQgd2x2fVEk5bG8koSKElvCqYQUlQVtqoLyeA9uQze/Wmng1GdhQmtXgvz5/YS
+ /bGkAXTXsy33wjOCs46oPMFGnSKfoQwbLFymiPr9X4pkIfdSMA0dHGFE0h2+/zN+36VB
+ K8l6+NSRr5YwdklUcL7bO1gU6cmceKnveEjVi2NanHAelQQZsx87J495JdWVa4bMP3Nr
+ gCM1OEVx0e8Fu25Yw74asiig8C1UdG0bQuNkDBTB4IGEhA2j3ObGdsPWeapHAMOy8UQd
+ F1TMnhidQzuCsED4LbENq91T6TwVWZ32o+xx2fFj64n8tqVm2smNLUQvTHm31NSD8ZUi
+ A7jA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoEy7+7/lJKRNQ8jesIUySrCj3YkfM7Bi3ywy2DDbE6K960rKNcVWBglpRE8FCSG49GmLzy6tbPNFY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxIS2YfsnmC5mYynT0vj1eGtFLhLjlFm0tSZWBLshOX6oP2eqRx
+ 4CuK8mlIlpsyLoo5qbpZxZHDsxr5RKfM6gV+SpaNj7dKiISfWLGAKyXMOr7qlUBcl8P1V1wIdDO
+ fq5/K
+X-Gm-Gg: AR+sD11VuE3LgQ6oMynmU+j2vNeTqhVz+EWSccLVISz2nQ4BjKhT7D3SDKcozyqMSjs
+ qTxWEDGe9tg4NaxDavEAMZAr589u10z8jLkU4P2BJjws7ePA0uLg1boduL5rnzoud+JYSfmyxrC
+ 4BS6DFD33UVuOnz8n7A5ZgBR9KhVN1ns5aJXbcnIeBofAzlFnExARHq9ax3aQKwBM1vMdWuCvPZ
+ 4OsF61I9SK+I0F/VgRFc4yrONVhYgSLzQOHykY7gCxqVVqUFnhywxa/ybnH4QUJf6S3BqZ1kNhh
+ rdvof4uZNhihv7MUbHulCfgVaP2nVRd9I+yPmJ7GSURyqu0fA8k5aHb/3AXmkmPT/6XFLfO12zM
+ xnQNbU6WAeQN2iVbo7cARXaWr3Ui4tykTBNt7+BmWyROH/0RDYj2FZqgX3ImhDwXR6U0oW35NS7
+ TEPrTdAYi9+PrAfgj3jtdrips=
+X-Received: by 2002:a05:600c:1551:b0:495:5858:e163 with SMTP id
+ 5b1f17b1804b1-4955858e1damr189393785e9.27.1784730190604; 
+ Wed, 22 Jul 2026 07:23:10 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-495653c8760sm138527875e9.14.2026.07.22.07.23.07
+ 5b1f17b1804b1-495653c8760sm138527875e9.14.2026.07.22.07.23.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jul 2026 07:23:08 -0700 (PDT)
+ Wed, 22 Jul 2026 07:23:10 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linusw@kernel.org, dmitry.baryshkov@oss.qualcomm.com, 
- David Oberhollenzer <david.oberhollenzer@sigma-star.at>
-Cc: jesszhan0024@gmail.com, upstream+drm@sigma-star.at, 
- Julian.FRIEDRICH@frequentis.com
-In-Reply-To: <20260713082213.75759-1-david.oberhollenzer@sigma-star.at>
-References: <20260713082213.75759-1-david.oberhollenzer@sigma-star.at>
-Subject: Re: [PATCH] drm/panel: ilitek-ili9881c: do not fail probe if iovcc
- is absent
-Message-Id: <178473018784.1921106.8982509983996002656.b4-ty@b4>
-Date: Wed, 22 Jul 2026 16:23:07 +0200
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ Julian Braha <julianbraha@gmail.com>
+Cc: david@ixit.cz, arnd@arndb.de, jesszhan0024@gmail.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260711234230.2236041-1-julianbraha@gmail.com>
+References: <20260711234230.2236041-1-julianbraha@gmail.com>
+Subject: Re: [PATCH] drm/panel: fix unmet dependency bug for
+ DRM_PANEL_HIMAX_HX83121A
+Message-Id: <178473018996.1921106.159802975224648442.b4-ty@b4>
+Date: Wed, 22 Jul 2026 16:23:09 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -94,23 +97,23 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Mon, 13 Jul 2026 10:22:13 +0200, David Oberhollenzer wrote:
-> Commit 4c95b2b7d49e ("drm/panel: ilitek-ili9881c: support Waveshare
-> 7.0" DSI panel") adds an additional iovcc regulator that other
-> Ilitek ili9881c based panels apparently do not have or need.
+On Sun, 12 Jul 2026 00:42:30 +0100, Julian Braha wrote:
+> Currently, DRM_PANEL_HIMAX_HX83121A selects DRM_DISPLAY_DSC_HELPER
+> without also ensuring DRM_DISPLAY_HELPER is enabled, causing an unmet
+> dependency:
 > 
-> The commit goes out of its way to make usage of this new regulator
-> optional, dutifully testing if the field in `struct ili9881c` is NULL
-> before touching the new regulator. However, in the probe function,
-> it unconditionally fails if devm_regulator_get_optional returns an
-> error.
+> WARNING: unmet direct dependencies detected for DRM_DISPLAY_DSC_HELPER
+>   Depends on [n]: HAS_IOMEM [=y] && DRM [=m] && DRM_DISPLAY_HELPER [=n]
+>   Selected by [m]:
+>   - DRM_PANEL_HIMAX_HX83121A [=m] && HAS_IOMEM [=y] && DRM [=m] && DRM_PANEL [=y] && OF [=y] && DRM_MIPI_DSI [=y] && BACKLIGHT_CLASS_DEVICE [=m]
+>   - DRM_PANEL_ILITEK_ILI9882T [=m] && HAS_IOMEM [=y] && DRM [=m] && DRM_PANEL [=y] && OF [=y] && DRM_MIPI_DSI [=y] && BACKLIGHT_CLASS_DEVICE [=m]
 > 
 > [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-fixes)
 
-[1/1] drm/panel: ilitek-ili9881c: do not fail probe if iovcc is absent
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/fa989f2cc351aec3643350489553c9bdfb3adf9f
+[1/1] drm/panel: fix unmet dependency bug for DRM_PANEL_HIMAX_HX83121A
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/aaa5be0258db1709e254b4150af5c2fa5518c548
 
 -- 
 Neil
