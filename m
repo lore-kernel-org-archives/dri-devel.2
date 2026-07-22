@@ -4,135 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78568C44539
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 13:44:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A10FC44539
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 13:46:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8D6710E480;
-	Wed, 22 Jul 2026 13:44:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1238C10EDE4;
+	Wed, 22 Jul 2026 13:46:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Pismn3qJ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YDH6/KvL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QaYSjwVG";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E93410E480
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 13:44:21 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66MDWZ8K974008
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 13:44:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=GIYdoPwmlp7SGGM3Zke7zv5s
- UTlikc1HJ43uNZXOXg0=; b=Pismn3qJPSfTO0BiitkZhgBvnpO3ySI2znI+O3ZV
- Ov3IyKoKlZumsAOUsdIKT4xFm0Eg15T5GjXaI6xf+22/7z4HgV+ojKmiHTvWqsrP
- zrwxvHY/3stUpZ/uVvgsMPufeuYKJTesqIfcpLZ7B/3eJiS4Xoqn/YKK93R7MeHc
- 33coLoq+RliTOVxCrdMi3Y4MKZAHBvAH1xAh+FbniqUBWqpLD7XJl0RfNeKi9QdD
- E/RkPm3qgoWpVZtwgKzmCPiD3M+vIo/ziiG2fe+gv7x6A+BupKHFdEppwEsBgqQ1
- uzB3nlbwfO9VoixGtzXCDoRnB4r3TLMyvtKtqy7KO6C1rg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjuu78rxq-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 13:44:19 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-51ebdfceddcso158467531cf.3
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:44:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784727859; x=1785332659;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=GIYdoPwmlp7SGGM3Zke7zv5sUTlikc1HJ43uNZXOXg0=;
- b=YDH6/KvLikBuhG1ZVh4kmJ9AG+P/SYd3/MGSwrvF5bcB6PwFXFjv6Kra0Bj+gPVk1+
- 5yFE1VLHYDrn9WeYMQiuAsAnyXHvBTmDBbMFhwNv0IMegW1Nc80CX0ZTA96YgJ9VdCAW
- T7M5fj4EXS0Z84ZKvIv9TNqWE9Ho7KGFb4RpxqyjkI+Ct/vtmTdW8VE189cCpjxt0oEg
- qc4o/VzvrO5TSMVxzwXec+2VeEPLwGCxw3Jn3OrIObfdiGae0YN9vty8dFOuy7L9vPqt
- o/5YZUADKn6PM9ek2+RUCsamN84VHgAWyo0ktqTcrTEeYLi9S/51S4jY7zJYuFdrO2A0
- DUrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784727859; x=1785332659;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=GIYdoPwmlp7SGGM3Zke7zv5sUTlikc1HJ43uNZXOXg0=;
- b=RGcKfSdiABPkqs0+JRL3k7awI/qmgvaUfGnAcH9wGt4sC+7CcAnr8i4KIZI3bDfIsf
- 8riaRRsQhcpAMaczDkR9OMUgiM43Xth71ld7EZ2QI0lo9vXnWy805p3/X5+EE8E4VC0L
- EJaavsEC7AP0SjI6qNgY9pnw3WQp6hO4CdnNkLLVLWlSvKGZbyZx6UT7NQjwYpFwgbgp
- kzDA+dDVeWwJ8P4P7cvHpt8pdcxQRZYec1MA88h0bVWr6Mf0N2j1bdYmyunT+XS07AvQ
- Ja++//6k4prbzP8QiMLhMczWTkeed2BOt+5MCh5fVIgQi4nQLZL5BgJ7rd1oCCx9Xz4M
- /IEA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrujMPIzRdjHSxT4ZlntClJ18ZXBQbIlsYsGpFuZ2CMlRgjsrqPAUyyF2DXBFXTNNlVseoIcmE1AOs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz7vrC7w8eK3s0h9z5eN00GAqKUB1N2Mxq3wevUTsKPeViC+Ja+
- C2IyO46WMxtfgYQo8bksOVP4flKkNK9AnJb9dsp46GE4Pz5Y9RaeqAQQ8ouAnL8nEYDLB3uHya7
- ggXVkC28DatbpC/3pDIudwSNCXhIeKnutnp0weygYqWHjvDi4ErSn/L2LIjKjo5ZjeXYCeXc=
-X-Gm-Gg: AR+sD11ZXfVS79kT3LSHWO1l9KWF2OSUSRH9We3lAKlUu+uCvLuWDXXtBFeUiOLLOmB
- S8acd92yUWfcTlBJQ45jfdwHKXcLMlP8q/s4ITUIY7xsXyQ7qpj38KwWwRe17058Kzd128f+kso
- Hh3HE7pHEKwS5QSEWJTFXmvwXa2cRVrnYPJF8P40eTk7MlmMwUFkGMzrD4Vuur2FJRR3jiHP8G2
- sQ7SNBuLjbJ8aO5iGbe1/xxdXkAImWLSlw2s+1mY9RuWSDdHxKu16v/ZkDAzdHeRFCitvkU+o7Y
- Bk5uZIXiYwpoJfOg0F1XM3FFQdnrH0iAm1OsQoMWAzA6MDWf5C+RsBQ5a2okjZohrLeLWckrNw5
- Lk8/JUd9EE6uebkmjWh4nTTJWihVuFeCwgq+3OrNSJYjXVF56eXCE5p816GtVue8jOVCg6OdJ1K
- OFpF3MPdi6XT7RNQ==
-X-Received: by 2002:ac8:7d0c:0:b0:51c:94f:8ce with SMTP id
- d75a77b69052e-5213c201a70mr211249441cf.34.1784727858367; 
- Wed, 22 Jul 2026 06:44:18 -0700 (PDT)
-X-Received: by 2002:ac8:7d0c:0:b0:51c:94f:8ce with SMTP id
- d75a77b69052e-5213c201a70mr211249091cf.34.1784727857758; 
- Wed, 22 Jul 2026 06:44:17 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b2a9f4a728sm482968e87.75.2026.07.22.06.44.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jul 2026 06:44:16 -0700 (PDT)
-Date: Wed, 22 Jul 2026 16:44:14 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- venkata.valluru@oss.qualcomm.com, Jessica Zhang <jesszhan0024@gmail.com>
-Subject: Re: [PATCH 1/3] arm64: dts: qcom: lemans-evk: Add LVDS display overlay
-Message-ID: <b2pbwtqd5mf5d3sbbadx3e5o3ohys4mmjv5dxc3grycuuqjvgg@rh5veftljlrt>
-References: <20260719-lvds-support-v1-0-1f1aca3213ba@oss.qualcomm.com>
- <20260719-lvds-support-v1-1-1f1aca3213ba@oss.qualcomm.com>
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011040.outbound.protection.outlook.com
+ [40.93.194.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16DF310EDE3;
+ Wed, 22 Jul 2026 13:46:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wwxIjzD0LeLkyMUi9YP0MGJpFtPuM4U67zLolaWZom9s7FuHM//5Sr1LDbT8bA7ByzSypXYwYgFK1L6zMyUaPM308doj/QQECu8c6XK/vmPHanPV1DmsIEDB+UwbqD2d/GmrT9gdLrwg8+WLVvw4HIEfZoEPRPjcbe2GyBoSVHFd9h8/FqSo3JFGQZdo9VEXER1gHvW90sNdvFwSVOAo9ITWtkUv7nUxu76t+SmHBtQhsW+VOV+nVowmctjH7dBK8AG+qlAxSKMiphE/SV0tc1WE1G3Td8fU7K0rAY0szsfOzFKcb3VBUXRRSV6tslatY9W8FwGFc4ajxMlRwEvlFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ozkJNWVjojQwILyzNt60oLCj7h+tLNr53C/dXI2ery0=;
+ b=xT/J2/TXXcqNn82gcyFe0KJvxzGqpKKjxpLUKDkA9EabKQbeBYvu2rR1ef/LX53+YmdV7pae8lIfS8RssqI8p62X7Jxc9cM8FBZlIySZocLamLcOQk7XcgHlIQpPxvrLPu/WR8SAHVZRoOoVh96dWJ0HQla/QiIcQlS2MluBpQ+q8fA/pGihJ04EcCS8b2egxc3Ai1MnnklggNdh34uJrGLQPocSNoh11d/8suUp+1dz561E94o+bkEs6Upg3HiLJq8Gyx9mXjqM9/kANn0QiBcRKGsIjeEEmlMsJP35QX09Hoqxmy03vu1dUVfCOaaGUw/ceIGod2rSAO4izTKLyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ozkJNWVjojQwILyzNt60oLCj7h+tLNr53C/dXI2ery0=;
+ b=QaYSjwVGmgdC9xltAPXwvv45tjZ9Yf3+ehPRgnzI9pNpIXsYa2Wz7y4p0BmUJrAdZgBYrj4iE3ieXgjylDzfcdlTSCAsnWTeajw48xLhHtJoEWQ2JdIy99p/jpbqkGL5qakUVU6unzX/5WK7VCHJDZf659NnBR9uOMcEqWGG+G4=
+Received: from SJ0PR05CA0151.namprd05.prod.outlook.com (2603:10b6:a03:339::6)
+ by SAWPR12MB999291.namprd12.prod.outlook.com (2603:10b6:806:55f::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
+ 2026 13:46:18 +0000
+Received: from SJ5PEPF000001CA.namprd05.prod.outlook.com
+ (2603:10b6:a03:339:cafe::97) by SJ0PR05CA0151.outlook.office365.com
+ (2603:10b6:a03:339::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.4 via Frontend Transport; Wed, 22
+ Jul 2026 13:46:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001CA.mail.protection.outlook.com (10.167.242.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Wed, 22 Jul 2026 13:46:17 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 22 Jul
+ 2026 08:46:17 -0500
+Received: from hwentlanryzen (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 22 Jul 2026 08:46:16 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH v4 03/11] drm/vkms: Add KUnit test for YCbCr to RGB conversion
+ matrices
+Date: Wed, 22 Jul 2026 09:45:59 -0400
+Message-ID: <20260722134607.136293-4-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260722134607.136293-1-harry.wentland@amd.com>
+References: <20260722134607.136293-1-harry.wentland@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260719-lvds-support-v1-1-1f1aca3213ba@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: JoZKn6CIeS648RYCL5DkqywJ46ayWeqL
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDEzNCBTYWx0ZWRfX+vXhy1mgPEBg
- 95A7dhJ/S3Ubu+LBuEPg/f9ZYmVSj8Cyh/JOXBIdMg87ECVhHiiI9WapySAquRLqB/7y7Y0385D
- OlT/FrQRzR5IWASgYqIx3z7Yr4oDDE8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDEzNCBTYWx0ZWRfX2o1RztePSlnB
- 2MmsADvPfw2EE/5nn7YKxduGZuyfhRl/11fVzOl/g52kHzRslOLfRwn3Ok4n9QpVss21GJkjbnu
- m4HVk8t3VcILB80P15JkzzgvhRyin0KhlIe+L1TUPUQmObv1zhqPQuef5hNl/XzGDYK5XNKaqhn
- RPjB4QNk+NfLiddZs09fZ9bfHC8CYklW0PuO+wgQE35+yzX+N1zOLG+wVcYufCE6HcwAkh0yC1d
- 0teAcjy27T90ukuLynO3iGx+ZNDSVU0UUFufmM6tKF9373e92IUDWsj/i4MBf7T6RnR2DXNIGpH
- PyDwc+2kpvrFCEqWwmNjNmi/icMOIRbEWkU3DHBTat2KL/uRiqFkeUqsZYXjHDtKT4oK+1PTY4Z
- wb9rQ+9DPSGn1xVCjt/8KrQMKTTno2Euetg9E5M8wGT/zA1y6E9svJdARuB2bMbQSHkEdKyOB97
- kJ6oRnvu8D3IvjK7wUw==
-X-Proofpoint-GUID: JoZKn6CIeS648RYCL5DkqywJ46ayWeqL
-X-Authority-Analysis: v=2.4 cv=JuTBas4C c=1 sm=1 tr=0 ts=6a60c933 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=hb4hLJ562k5UIXpG1yUA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_04,2026-07-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 spamscore=0 adultscore=0
- phishscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220134
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CA:EE_|SAWPR12MB999291:EE_
+X-MS-Office365-Filtering-Correlation-Id: e23f4079-4152-4197-a0a2-08dee7f79b29
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|36860700016|82310400026|376014|56012099006|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: QcixUj16mdK8GHmCuD5tyWJNLnwZkQy+SluOkY5q1zng3fIG1P2TOZQTku+jryF4zdxNkGjj0encDmPhxNDJa6IaFFAh96hbC7SVVQuYv6ZxwTYMup74GYa18V+7LSlqz97s7gRZnbEJbkKvcDyjyPuXyUzPMbEgIIRCApRiGR9pPGPecZ1IMuNp2Y9fo1hEFMSXx8corKrwv4Ba0leKKwH/wL+fkxR/HJAtXdUGwrZW4WEULCm6916W6M0AVi01a4j/4Zs8szt1EqD9dxMPw0mXogY2gjdbh1HZEASeFoL84uyTj+gYvnvoY0JTbIrBVWs8N4GS7lKsgtUT41euhuQhiOkxUF5i8MFeTKnPpzvx2vUJxrpmouyh1YRzUZWVKp/xBeBOwjMd6wjICi1gpIoON/+997NE3cd2uOFggx39jETVpBSKZVVKXB/odHrtyyFRanjiaElErwVeIVgEmIAbyNIFF4m3hFgxPrChU8Y+E22755xhFJAPiyvRti7nXOTMhoOvpz6XVXroa67r1QsxQQO7DThAsVs03JmxXy/jOZck141j0vLBy53RxlCyTGNZaifhaRRwqco8h7A9PVFn30KpdIa6U80OtMy1L56B/pPOLFb6Yz2x3bPL5x27y1DIewcHW1RhAFQFGWJWzhtWJ/RmmeyFlLD+Qdv6udhfY96j5vfecOrc5sFBxM8Zjnbrt6JEmUxhv0DhDHul9g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(36860700016)(82310400026)(376014)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: OxhGfJCrQDj0anqOH7fTBRBOhfYLieoVC8BGA80kQ/2kIIxyyK0sGLTSs8DOO6oLz/vYBN+PJUTxyjgIZ/K6iN8c3kU3vpB2DYxTewnyYvdPTTPtTgCrXVBgGk05ydT2si+g+r2k4gW60eaqjYMZaw4mcsE7fxOOP1ZLFXdLHRY+z8nvATHH8kIEZacIfk76gtoOVA0wKGHKERQjuI6cyHVngomGSGlzyZowY6JKW+BHkOVrmrcZzs/opIy9zA+tsIEIdb/xflvIfnvoSTR7/WpOeAspLSG5xlChmkVND1V60c/6y6l22i4lBuERhT/LWWcM/HprynDIL0DukvDP+YvQLPwkGMTUWSkX/tfz99WWBN0vB3I6PngRFwKJj2RBtz91TvLVvfHJJ0waYoalh+/7OFKEF+npo8mYuF8aQSIoMEUrwt25QIwtj5dHLl4B
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 13:46:17.8552 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e23f4079-4152-4197-a0a2-08dee7f79b29
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999291
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,77 +112,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jul 19, 2026 at 11:35:06PM +0530, Vishnu Saini wrote:
-> The Lemans EVK IFP mezzanine supports LVDS display output using the
-> Lontium LT9211C DSI-to-LVDS bridge. The bridge is connected to the
-> DSI0 output and drives a dual-channel 1920x1080 LVDS panel in
-> VESA-24 mapping.
-> 
-> Add a DTBO overlay, lemans-evk-lvds-boe,dv215fhm-r01.dtso, that wires
-> up the LT9211C bridge on I2C1 (address 0x2d) with reset on GPIO37,
-> a panel-lvds node describing the 476x268mm 1080p panel timing, and
-> an LCD display bias regulator supplied through the GPIO expander.
-> DSI power is provided by vreg_s4a.
-> 
-> The overlay is built as a composite DTB combining the base
-> lemans-evk.dtb, the IFP mezzanine overlay, and this LVDS overlay.
-> 
-> Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/Makefile                  |   4 +
->  .../dts/qcom/lemans-evk-lvds-boe,dv215fhm-r01.dtso | 127 +++++++++++++++++++++
->  2 files changed, 131 insertions(+)
-> 
-> +	model = "Qualcomm Technologies, Inc. Lemans-evk Mezzanine Lvds";
+The existing yuv_u16_to_argb_u16 test performs a full RGB->YCbCr->RGB
+round trip with a tolerance of 0x1ff. That tolerance is required because
+fully saturated primaries clamp their chroma at encode time and cannot
+round-trip exactly, but it also makes the test unable to detect small
+scaling errors in the conversion matrices (such as using a 2^n instead
+of a 2^n - 1 full-range maximum for limited range, an error of ~129 at
+gray - below the tolerance).
 
-EVK, LVDS.
+Add a parameterised test that checks the exact S31.32 fixed-point
+coefficients and luma offset returned by
+get_conversion_matrix_to_argb_u16() for each encoding and range against
+reference values. This directly pins the matrices and catches
+sub-tolerance regressions that the round-trip test cannot.
 
-> +
-> +	panel_lvds: panel-lvds {
-> +		compatible = "boe,dv215fhm-r01", "panel-lvds";
+Assisted-by: Copilot:claude-opus-4.8
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+---
+ drivers/gpu/drm/vkms/tests/vkms_format_test.c | 122 ++++++++++++++++++
+ 1 file changed, 122 insertions(+)
 
-Thinking about it, does your panel have EDID? Is it readable from the
-device via the I2C bus?
-
-My major concern is that if the user changes the LVDS panel, they'd need
-a new DTBO.
-
-Would it make sense to implement EDID-based handling (like it's done in
-panel-edp)?
-
-> +		data-mapping = "vesa-24";
-> +		width-mm = <476>;
-> +		height-mm = <268>;
-> +		power-supply = <&lcd_disp_bias>;
-> +		status = "okay";
-> +
-> +		panel-timing {
-> +			clock-frequency = <148500000>;
-> +			hactive = <1920>;
-> +			vactive = <1080>;
-> +			hfront-porch = <88>;
-> +			hback-porch = <148>;
-> +			hsync-len = <44>;
-> +			vfront-porch = <4>;
-> +			vback-porch = <36>;
-> +			vsync-len = <5>;
-> +			de-active = <1>;
-> +		};
-
-[..]
-
-> +
-> +&i2c1 {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&qup_i2c1_default>;
-> +	status = "okay";
-
-Empty lines before the status property (here and later).
-
-> +
-
+diff --git a/drivers/gpu/drm/vkms/tests/vkms_format_test.c b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
+index 789c59d07ffb..e746b18bf37b 100644
+--- a/drivers/gpu/drm/vkms/tests/vkms_format_test.c
++++ b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
+@@ -263,8 +263,130 @@ KUNIT_ARRAY_PARAM(yuv_u16_to_argb_u16, yuv_u16_to_argb_u16_cases,
+ 		  vkms_format_test_yuv_u16_to_argb_u16_case_desc
+ );
+ 
++/*
++ * struct conversion_matrix_case - Reference matrix to test the YUV to RGB
++ * conversion matrices returned by get_conversion_matrix_to_argb_u16()
++ *
++ * @encoding: Encoding of the conversion matrix under test
++ * @range: Range of the conversion matrix under test
++ * @expected: Expected S31.32 fixed-point matrix and luma offset
++ *
++ * The limited-range coefficients use the studio-range scaling mandated by the
++ * DRM UAPI and IGT's igt_ycbcr_to_rgb_matrix(): the narrow range is expanded
++ * relative to a full-range maximum of 2^n - 1 (255 for 8-bit), i.e. luma by
++ * 255/(235 - 16) and chroma by 255/(240 - 128). Generating them with the
++ * common 2^n normalisation (as colour.matrix_YCbCr(is_legal=True) does) is off
++ * by a factor of 256/255. See the DRM_COLOROP_FM_YCBCR*_LIMITED_RGB
++ * documentation in <drm/drm_colorop.h>.
++ */
++struct conversion_matrix_case {
++	enum drm_color_encoding encoding;
++	enum drm_color_range range;
++	struct conversion_matrix expected;
++};
++
++static struct conversion_matrix_case conversion_matrix_cases[] = {
++	{
++		.encoding = DRM_COLOR_YCBCR_BT601,
++		.range = DRM_COLOR_YCBCR_FULL_RANGE,
++		.expected = { .matrix = {
++			{ 4294967296, 0,           6021544149 },
++			{ 4294967296, -1478054095, -3067191994 },
++			{ 4294967296, 7610682049,  0 },
++		}, .y_offset = 0 },
++	},
++	{
++		.encoding = DRM_COLOR_YCBCR_BT601,
++		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
++		.expected = { .matrix = {
++			{ 5000989317, 0,           6854882848 },
++			{ 5000989317, -1682606224, -3491669458 },
++			{ 5000989317, 8663946082,  0 },
++		}, .y_offset = 16 },
++	},
++	{
++		.encoding = DRM_COLOR_YCBCR_BT709,
++		.range = DRM_COLOR_YCBCR_FULL_RANGE,
++		.expected = { .matrix = {
++			{ 4294967296, 0,          6763714498 },
++			{ 4294967296, -804551626, -2010578443 },
++			{ 4294967296, 7969741314, 0 },
++		}, .y_offset = 0 },
++	},
++	{
++		.encoding = DRM_COLOR_YCBCR_BT709,
++		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
++		.expected = { .matrix = {
++			{ 5000989317, 0,          7699764272 },
++			{ 5000989317, -915895824, -2288828138 },
++			{ 5000989317, 9072696586, 0 },
++		}, .y_offset = 16 },
++	},
++	{
++		.encoding = DRM_COLOR_YCBCR_BT2020,
++		.range = DRM_COLOR_YCBCR_FULL_RANGE,
++		.expected = { .matrix = {
++			{ 4294967296, 0,          6333358775 },
++			{ 4294967296, -706750298, -2453942994 },
++			{ 4294967296, 8080551471, 0 },
++		}, .y_offset = 0 },
++	},
++	{
++		.encoding = DRM_COLOR_YCBCR_BT2020,
++		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
++		.expected = { .matrix = {
++			{ 5000989317, 0,          7209850391 },
++			{ 5000989317, -804559491, -2793551177 },
++			{ 5000989317, 9198842076, 0 },
++		}, .y_offset = 16 },
++	},
++};
++
++/*
++ * vkms_format_test_conversion_matrix - Verify the YUV to RGB conversion matrices
++ *
++ * This test checks that get_conversion_matrix_to_argb_u16() returns the exact
++ * fixed-point coefficients expected for each encoding and range. Unlike the
++ * round-trip test above, it is sensitive to small (sub-tolerance) scaling
++ * errors such as using a 2^n instead of a 2^n - 1 full-range maximum for the
++ * limited-range matrices.
++ */
++static void vkms_format_test_conversion_matrix(struct kunit *test)
++{
++	const struct conversion_matrix_case *param = test->param_value;
++	struct conversion_matrix matrix;
++
++	get_conversion_matrix_to_argb_u16(DRM_FORMAT_NV12, param->encoding,
++					  param->range, false, &matrix);
++
++	for (size_t i = 0; i < 3; i++) {
++		for (size_t j = 0; j < 3; j++) {
++			KUNIT_EXPECT_EQ_MSG(test, matrix.matrix[i][j],
++					    param->expected.matrix[i][j],
++					    "matrix[%zu][%zu] mismatch for %s - %s",
++					    i, j,
++					    drm_get_color_encoding_name(param->encoding),
++					    drm_get_color_range_name(param->range));
++		}
++	}
++
++	KUNIT_EXPECT_EQ(test, matrix.y_offset, param->expected.y_offset);
++}
++
++static void vkms_format_test_conversion_matrix_case_desc(struct conversion_matrix_case *t,
++							 char *desc)
++{
++	snprintf(desc, KUNIT_PARAM_DESC_SIZE, "%s - %s",
++		 drm_get_color_encoding_name(t->encoding), drm_get_color_range_name(t->range));
++}
++
++KUNIT_ARRAY_PARAM(conversion_matrix, conversion_matrix_cases,
++		  vkms_format_test_conversion_matrix_case_desc
++);
++
+ static struct kunit_case vkms_format_test_cases[] = {
+ 	KUNIT_CASE_PARAM(vkms_format_test_yuv_u16_to_argb_u16, yuv_u16_to_argb_u16_gen_params),
++	KUNIT_CASE_PARAM(vkms_format_test_conversion_matrix, conversion_matrix_gen_params),
+ 	{}
+ };
+ 
 -- 
-With best wishes
-Dmitry
+2.55.0
+
