@@ -4,19 +4,19 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0548C44536
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 15:46:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59AE4C44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 15:46:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22A2E10EE34;
-	Wed, 22 Jul 2026 15:46:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACFF010EE35;
+	Wed, 22 Jul 2026 15:46:37 +0000 (UTC)
 Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49A4610EE34
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 15:46:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B57B10EE35
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 15:46:36 +0000 (UTC)
 Received: from local
  by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
  (Exim 4.99) (envelope-from <daniel@makrotopia.org>)
- id 1wmZ9J-000000006e0-2uhX; Wed, 22 Jul 2026 15:46:21 +0000
-Date: Wed, 22 Jul 2026 16:46:18 +0100
+ id 1wmZ9S-000000006er-2bjZ; Wed, 22 Jul 2026 15:46:30 +0000
+Date: Wed, 22 Jul 2026 16:46:27 +0100
 From: Daniel Golle <daniel@makrotopia.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -34,9 +34,9 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
 Cc: Chen-Yu Tsai <wenst@chromium.org>
-Subject: [PATCH v5 05/11] drm/bridge: it6505: bail out of the IRQ handler
- when status reads fail
-Message-ID: <d4e609224548d57520e8d1b24152d48d610ba101.1784717129.git.daniel@makrotopia.org>
+Subject: [PATCH v5 06/11] drm/bridge: it6505: avoid division by zero in pixel
+ clock calculation
+Message-ID: <66fbe7f9cb0efe2fb4b66dc4a4a632d46398eca8.1784717129.git.daniel@makrotopia.org>
 References: <cover.1784717129.git.daniel@makrotopia.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -57,35 +57,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When reading the interrupt status registers fails, the negative error
-codes end up in int_status[], where it6505_test_bit() sees almost all
-bits set: every interrupt sub-handler runs on garbage and the error
-values are even written back to the status registers. Return IRQ_NONE
-instead.
+it6505_calc_video_info() checks the sum of the three pixel clock
+counter samples for zero before dividing it by 3, so sums of 1 or 2
+truncate to 0 and the following pixel clock calculation divides by
+zero. Divide first and check the result.
 
 Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
 Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 ---
 v5: new patch
 
- drivers/gpu/drm/bridge/ite-it6505.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/bridge/ite-it6505.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index 0f79ddfd1501..0e141310ed3c 100644
+index 0e141310ed3c..fc95f8d4f412 100644
 --- a/drivers/gpu/drm/bridge/ite-it6505.c
 +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -2713,6 +2713,11 @@ static irqreturn_t it6505_int_threaded_handler(int unused, void *data)
- 	int_status[1] = it6505_read(it6505, INT_STATUS_02);
- 	int_status[2] = it6505_read(it6505, INT_STATUS_03);
+@@ -750,12 +750,13 @@ static void it6505_calc_video_info(struct it6505 *it6505)
+ 		sum += rddata;
+ 	}
  
-+	if (int_status[0] < 0 || int_status[1] < 0 || int_status[2] < 0) {
-+		pm_runtime_put_sync(dev);
-+		return IRQ_NONE;
-+	}
++	sum /= 3;
 +
- 	it6505_write(it6505, INT_STATUS_01, int_status[0]);
- 	it6505_write(it6505, INT_STATUS_02, int_status[1]);
- 	it6505_write(it6505, INT_STATUS_03, int_status[2]);
+ 	if (sum == 0) {
+ 		DRM_DEV_DEBUG_DRIVER(dev, "calc video timing error");
+ 		return;
+ 	}
+ 
+-	sum /= 3;
+ 	pclk = 13500 * 2048 / sum;
+ 	it6505->video_info.clock = pclk;
+ 	it6505->video_info.hdisplay = hdew;
 -- 
 2.55.0
