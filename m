@@ -4,104 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44B79C44536
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 21:45:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5EF0C4453A
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 21:52:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5D5210E4DE;
-	Wed, 22 Jul 2026 21:45:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA6EB10E4F7;
+	Wed, 22 Jul 2026 21:52:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KmzDszZN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Zs4XDqwX";
 	dkim-atps=neutral
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3BD010EECA
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 21:44:55 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id
- d2e1a72fcca58-8487214ad2bso12675928b3a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:44:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784756695; x=1785361495; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=WVIK4CTS2ebWqFuX16f+6TzH9lK4l3CZHr+WHLsMqrs=;
- b=KmzDszZNxzpzdxLE7K0gm71K8vtZ79VDkbw2FKhV09Y6zsHW9KTF1GhF/crpYzCi7o
- DvixbWlHrZzHbRcHJnq1dEXgmikSl7+AU2MdHbwkcObpyfM2YVOH6ZnN8teeT0Ccvx1T
- mmS/S7FkD1wZDWEzbeVjs2TAbXM8p42WOd31Ql1b26/xiC9LZO15SbC7IYB7qjbUKyqt
- d7uY6ui0XW3tNrggkVF19DDqyYrVvLzlWighUE2iga6IdNfRvS6wUewBuQyvzEHdNkaO
- uAO7G6jH4ZCjGovxpdyNtGoLi8Q+JqLQvl7sc88uoqnUtTBI1d6bD3f6dsKPawmCpywH
- U01Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784756695; x=1785361495;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=WVIK4CTS2ebWqFuX16f+6TzH9lK4l3CZHr+WHLsMqrs=;
- b=EV+1FVSODFNcEWB/iRX2haqTEpNU/qsmszVAPRMDb9fU7REbBtUKAZiyC3zsacT1O4
- DP/iC58pAOGw9cNUdqNAJokz6a5XG86xAicLLzMl9duW178flLWPNDmimTyMsD1x3fNa
- KNuSJJvX9/o1IYBFKbcBg2LXCxYidswsDmyYrbkknrLyLrKMTzAdbTZCR8Y2zEAXFg1t
- zzouLLBUM+RF37DOznwl6x/ekpmhy5cmXpXY9EG3G7ESCn8NnZ5sreEMx31ZrcdJh0k2
- QnBp4ymK46TlJXCo4bnmQ9YIyMYeeuXYto41r1DSX2F6+l383BaWTX82sevY/8gSw/b4
- ohWA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr5Jn7NKfNQlcjVW7maMaqYEL2E7QGKihTGFYUzn+g0OzYwm9wk4oejeaT7q21i2gjMAFllq2Qr0Gw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyvlsVgI7cQ1KYxtUdjuaB48rVFJfqhoh6kuOZEpn+7rz6ILuzX
- sUfmlAfpGRFsxn/BS4z7HXOYitXC8xlcyjPseEAmc8dl7iqmHfPotMBb
-X-Gm-Gg: AR+sD12E39akyh4oSnpzp2l/DXjHiZAbo82OqQ3k5bOhgY8HwmvvkKhFemICDAuPxCA
- UtHfu9wMB1+evjiXOe8OrUWPMWYvw/3+idI0KUkH14PFH6TKD5yiGEAsYp+gF2svoA/xj5Iv02I
- xc3jy/vUDMG8A1TY2ezOLx25xPeAscY+2CbGoekZ1B4eqT6PqmpQA8di9dW95Nww2c4k1uTaA7+
- 2S9J1DDAnsaGyHHZRFrJRp1eappdyPgyAsMATVLo1q4AF/0GFRPbXouGsL2Te+Dg2gcxtQ+wCN/
- H3x3H/rII9p9Ynoh7qjHtTfuHI5402iREEY2UkyyxCSO1o/GoQRgW1bjnznn7QogARj2ofyT9tA
- rJsyuKb1/qbWkbnG9VwYnC7G9qYyXlLtLU1McHatPIWthXYIA0i+V6/5z6XwIbQJAr+i/Fcg05x
- VTuCoPvXDrocja4F2f/Ut9gJwY/mg97g2raGlGPJ9tt3KpwgjI
-X-Received: by 2002:a05:6a00:852:b0:848:46ea:bbe7 with SMTP id
- d2e1a72fcca58-84e2bc6b5d6mr673956b3a.19.1784756695183; 
- Wed, 22 Jul 2026 14:44:55 -0700 (PDT)
-Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net.
- [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84e17237c3fsm1946297b3a.9.2026.07.22.14.44.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jul 2026 14:44:54 -0700 (PDT)
-From: Stanislav Kinsburskii <skinsburskii@gmail.com>
-Date: Wed, 22 Jul 2026 14:44:27 -0700
-Subject: [PATCH v10 5/8] drm/nouveau: Use
- hmm_range_fault_unlocked_timeout() for SVM faults
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-hmm-v10-v1-5-606464dd601a@gmail.com>
-References: <20260722-hmm-v10-v1-0-606464dd601a@gmail.com>
-In-Reply-To: <20260722-hmm-v10-v1-0-606464dd601a@gmail.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
- "K. Y. Srinivasan" <kys@microsoft.com>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>, 
- Oded Gabbay <ogabbay@kernel.org>, skinsburskii@gmail.com
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
- Jason Gunthorpe <jgg@ziepe.ca>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784756683; l=2163;
- i=skinsburskii@gmail.com; s=20260722; h=from:subject:message-id;
- bh=KaVy0LDD2WZ56zIlG4jDVljfxrz2j27JL0AnOSACkpk=;
- b=uKgRFxKY7gMhEFoK0hHnwQl6N8UsouNcazo70jIAxend3BGPO0koGFjjGoE03g3KTWZd66DI6
- 5tAsc5/qbDAAjPQ/pjqrtB3km5I7U9rctkdARaqcdzu58Lj+SzHd5bT
-X-Developer-Key: i=skinsburskii@gmail.com; a=ed25519;
- pk=bDpriHBYgeTdkIDweZDCemxsU93neJBOCn3YLIuJpnE=
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D86DF10E4F7
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 21:52:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 592A5412F0;
+ Wed, 22 Jul 2026 21:52:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11AF51F000E9;
+ Wed, 22 Jul 2026 21:52:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784757140;
+ bh=CjGMbBkZhx7UWgji+UfMLm1HK/NA5rmTVH8ZGx2L6VY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Zs4XDqwXM78XwKfj+WbvQIx8vi7ZgYhBKuM5TO4DUrCZkjceJnWgQApX5C6PB4P1R
+ TRNmNFXiPIAhND+g+s0o7ilGyJEcb+6VFboWyNhDWbS0Lo+sVwpPKPh4Rq2+sNwm8l
+ iVTJ/4UGgbSK/YA3AjdoD3RgrTL6V+53sX6G+Dc5f27QLu3+o/eno/I+Z1y5qpoNcj
+ 8FcEXajcpGSpJj4cXZX62wt6ufU6JrN6YsK09ATr0A1l7o5XdsAmVGE5sB5bDTSpBK
+ rUrOydNYVehhDSokSlcdC997qM96XYAvIi1XNh3svcYo1BCQj1jpSSuUonji7SYA4h
+ SAufJpp2z8X0w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 09/11] drm/bridge: it6505: hold endpoint OF node
+ reference while parsing it
+To: "Daniel Golle" <daniel@makrotopia.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <8a9ec00b8464f0dec0242792f7f9d990d33589a0.1784717129.git.daniel@makrotopia.org>
+References: <cover.1784717129.git.daniel@makrotopia.org>
+ <8a9ec00b8464f0dec0242792f7f9d990d33589a0.1784717129.git.daniel@makrotopia.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 22 Jul 2026 21:52:19 +0000
+Message-Id: <20260722215220.11AF51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,66 +54,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-nouveau_range_fault() takes mmap_read_lock() only to call
-hmm_range_fault(). It also keeps a single HMM_RANGE_DEFAULT_TIMEOUT
-deadline across both HMM -EBUSY retries and post-fault
-mmu_interval_read_retry() retries.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Use hmm_range_fault_unlocked_timeout() instead. The HMM helper now owns
-the mmap lock and refreshes range->notifier_seq for its internal retries.
-Nouveau keeps its existing absolute deadline in the outer loop and passes
-the remaining jiffies to the helper for each fault attempt, so retries
-caused by mmu_interval_read_retry() do not reset the overall retry budget.
+Pre-existing issues:
+- [High] The local variable `link_frequencies` is used uninitialized if `of=
+_property_read_variable_u64_array()` returns 0.
+--
 
-Nouveau still validates the interval notifier sequence while holding
-svmm->mutex before programming the GPU mapping.
+--- Patch [9]: [PATCH v5 09/11] drm/bridge: it6505: hold endpoint OF node r=
+eference while parsing it ---
+commit a152f40f457f0c59599e70de71a80bcac957ec14
+Author: Daniel Golle <daniel@makrotopia.org>
+Subject: drm/bridge: it6505: hold endpoint OF node reference while parsing =
+it
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
----
- drivers/gpu/drm/nouveau/nouveau_svm.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+This commit fixes an issue where the device tree endpoint node reference
+is dropped before parsing is complete, which can cause a use-after-free
+race if the node is freed dynamically. It defers the of_node_put() calls
+to execute only after all property parsing has finished.
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-index dcc92131488e..58735446d783 100644
---- a/drivers/gpu/drm/nouveau/nouveau_svm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-@@ -678,20 +678,22 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
- 	range.end = notifier->notifier.interval_tree.last + 1;
- 
- 	while (true) {
--		if (time_after(jiffies, timeout)) {
-+		long remaining = timeout - jiffies;
-+
-+		/*
-+		 * The HMM timeout only bounds retries while HMM is walking and
-+		 * faulting the range. This fault is handled by a kernel worker,
-+		 * so fatal signals from the faulting process cannot stop an
-+		 * endless stream of invalidations here.
-+		 */
-+		if (time_after_eq(jiffies, timeout)) {
- 			ret = -EBUSY;
- 			goto out;
- 		}
- 
--		range.notifier_seq = mmu_interval_read_begin(range.notifier);
--		mmap_read_lock(mm);
--		ret = hmm_range_fault(&range);
--		mmap_read_unlock(mm);
--		if (ret) {
--			if (ret == -EBUSY)
--				continue;
-+		ret = hmm_range_fault_unlocked_timeout(&range, remaining);
-+		if (ret)
- 			goto out;
--		}
- 
- 		mutex_lock(&svmm->mutex);
- 		if (mmu_interval_read_retry(range.notifier,
+> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
+/ite-it6505.c
+> index e9208d827ce3d..6f23203d5f2a6 100644
+> --- a/drivers/gpu/drm/bridge/ite-it6505.c
+> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
+[ ... ]
+>  	ep =3D of_graph_get_endpoint_by_regs(np, 0, 0);
+> -	of_node_put(ep);
+> =20
+>  	if (ep) {
+>  		len =3D of_property_read_variable_u64_array(ep,
+>  							  "link-frequencies",
+>  							  &link_frequencies, 0,
+>  							  1);
+>  		if (len >=3D 0) {
+>  			do_div(link_frequencies, 1000);
 
--- 
-2.43.0
+[Severity: High]
+This isn't a bug introduced by this patch, but there is a pre-existing issue
+here in it6505_parse_dt(). If of_property_read_variable_u64_array() returns
+0, does this code use an uninitialized link_frequencies stack variable?
 
+The of_property_read_variable_u64_array() function is called with a minimum
+size of 0. If the link-frequencies property in the device tree is empty or
+less than 8 bytes long (such as a common syntax mistake where a 32-bit
+integer is provided), the function computes the size as 0. It then returns
+0 without modifying the link_frequencies output variable.
+
+Because the subsequent check is "if (len >=3D 0)", it evaluates to true, and
+do_div() will consume whatever garbage value happens to be on the stack.
+Depending on the stack memory, this could result in incorrectly rejecting
+valid display modes or causing unpredictable display pipeline failures.
+
+Should this code check "if (len > 0)" instead to guarantee the variable was
+actually populated before using it?
+
+>  			it6505->max_dpi_pixel_clock =3D link_frequencies;
+>  		} else {
+>  			dev_err(dev, "error link frequencies, use default");
+>  			*max_dpi_pixel_clock =3D DPI_PIXEL_CLK_MAX;
+>  		}
+> +		of_node_put(ep);
+>  	} else {
+>  		dev_err(dev, "error endpoint, use default");
+>  		*max_dpi_pixel_clock =3D DPI_PIXEL_CLK_MAX;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784717129.gi=
+t.daniel@makrotopia.org?part=3D9
