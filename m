@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23491C4453E
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 09:12:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A688DC44539
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 09:12:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 723F510E428;
-	Wed, 22 Jul 2026 09:12:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D22ED10ECE8;
+	Wed, 22 Jul 2026 09:12:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="VCHlW35b";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="AAltFSdh";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F51210ECE8
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 09:12:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1784711547; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21CB210ECE8
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 09:12:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784711553; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=HC6agMmq0uTzJYw9nb0ZQkOIMlbS2Lqu4cSk6+e1IdVgr0t/XWU88RUgOc04iJArHwBaibftsW79T/LRkeAC+hcQ0HaB1bK/P9WOJlDOsCeTphHKFsVo8SjZegMf4DVJq5JZG/cymY0iWp8Ik1ideu2imUlM0qJv1M/tc0VAYUA=
+ b=BtiExc6BExPv2oPxfEnpsI7xA2VLmpH80GLgRj75o6USMKBDYPIFKJiQjsbpjzEWKFNXcSLuWHD62dZRe1tAdsFFPBx0aq5KsOJUsoY/cM9eS7l5wQBDrpTdfnzs2tW1OJ+Rs4YyMi5S9MDqTROj17kU4Bmjl2ahR/ZApbyr1Q4=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1784711547;
+ s=zohoarc; t=1784711553;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=3CS8Jrpq99HegzeX39MaDWXWZL1kHKzCi2hzvv74k+s=; 
- b=jRKqCyRuU52ZpcrYCzwqiYbWPJaonNrl0UdvWh0HzIHAiBoOaet2cWBtIldAp2lyEW1o9jpdNR8kkM7+nOS5nDzRNNxF+ezOxy76s1h1L+3ygUY5v2UZolStN6paA6I84PJYQQ44zceOKc6MR5yXtfqTYzohIB/U2Hm8GDLk0zs=
+ bh=iyMdeIjesJ+k58luJXaL+sqCBtei9UFC6fuSl+9RZtM=; 
+ b=VwDCJi38iJOZKcg30bZV5q4dx4NejMKciMMaqpDSxqjvuBJN7xXYRQpllc3G36cnBsVBnPBSKeEpx0eNZoMJeptGR79b2C/6iX/O44hhfxYCm1qsb8cQjh7d8zUlouDMELUcRgwNejyimw5PDpPjV7SeTidjWA8A7DhDsUQfgZ8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784711546; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784711553; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=3CS8Jrpq99HegzeX39MaDWXWZL1kHKzCi2hzvv74k+s=;
- b=VCHlW35bDVYfLFyYjWutVUNCTxplZ4pJGUcdRQHgy34129zJnpOcHkzfmtG0b3tk
- B23RPvxP5YbBE12HGwlhSyFV006xhS9RmW4aB4UG7qPrvqFoUZwxHFgJgoZ1nOkPbkE
- m6yJkxr6kObOrHUYJdSkNLngIrn+7PJH13TKEZqA=
-Received: by mx.zohomail.com with SMTPS id 1784711546064282.8324062263172;
- Wed, 22 Jul 2026 02:12:26 -0700 (PDT)
+ bh=iyMdeIjesJ+k58luJXaL+sqCBtei9UFC6fuSl+9RZtM=;
+ b=AAltFSdhoPdoaO2KYSQtzGfzwpyuxjcg2fE0W1pqpKcTQ4AKUQsZDzrrMeNFyVwy
+ 1qBI//aS9VPKohPXA6+F67QuCkVjeVIvih8kVIN1MfbPfj7mu0afcP+MP78MOfqwOro
+ hUWsOgYswpGULKAQeL5GveMxfvr1a07MWG+8RdGU=
+Received: by mx.zohomail.com with SMTPS id 1784711552275117.3981724913416;
+ Wed, 22 Jul 2026 02:12:32 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Wed, 22 Jul 2026 11:11:49 +0200
-Subject: [PATCH v8 3/5] drm/scdc-helper: Implement parsing and printing
- HDMI 2.1 fields
+Date: Wed, 22 Jul 2026 11:11:50 +0200
+Subject: [PATCH v8 4/5] drm/debugfs: Move HDMI debugfs registration to
+ state helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-scdc-link-health-v8-3-cd1dacbb85d9@collabora.com>
+Message-Id: <20260722-scdc-link-health-v8-4-cd1dacbb85d9@collabora.com>
 References: <20260722-scdc-link-health-v8-0-cd1dacbb85d9@collabora.com>
 In-Reply-To: <20260722-scdc-link-health-v8-0-cd1dacbb85d9@collabora.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>, 
@@ -65,7 +65,8 @@ To: Jani Nikula <jani.nikula@linux.intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,344 +83,433 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-HDMI 2.1 redefines previously reserved fields in SCDC for various new
-uses. No version check needs to be performed, as an HDMI 2.0 sink's
-reserved SCDC fields are well-defined to be 0, and any zero-ness of
-these fields for an HDMI 2.0 sink is not a surprise for SCDC parsers for
-HDMI 2.1.
+The HDMI debugfs files are only useful for connectors that already make
+use of the HDMI state helpers. In addition, relying on HDMI-specific
+functions in drm_debugfs.c can lead to circular linking problems later
+down the line.
 
-Implement reading and outputting these fields over debugfs.
+Move hdmi_debugfs_add() and friends to a new helper in
+drm_hdmi_state_helper.c, and make all current users (vc4, sun4i, bridge)
+either use it as a debugfs_init func, or call it directly in its
+debugfs_init func.
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Suggested-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Acked-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/display/drm_scdc_helper.c | 99 ++++++++++++++++++++++++++++++-
- include/drm/display/drm_scdc.h            | 21 ++++++-
- include/drm/display/drm_scdc_helper.h     | 69 ++++++++++++++++++++-
- 3 files changed, 182 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/display/drm_bridge_connector.c  |   3 +
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 154 +++++++++++++++++++++++
+ drivers/gpu/drm/drm_debugfs.c                   | 157 ------------------------
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c          |   1 +
+ drivers/gpu/drm/vc4/vc4_hdmi.c                  |   1 +
+ include/drm/display/drm_hdmi_state_helper.h     |   3 +
+ 6 files changed, 162 insertions(+), 157 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
-index 97256b272329..73d46de33ab5 100644
---- a/drivers/gpu/drm/display/drm_scdc_helper.c
-+++ b/drivers/gpu/drm/display/drm_scdc_helper.c
-@@ -21,6 +21,7 @@
-  * DEALINGS IN THE SOFTWARE.
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/export.h>
- #include <linux/i2c.h>
- #include <linux/slab.h>
-@@ -57,6 +58,38 @@
- 
- #define SCDC_I2C_SLAVE_ADDRESS 0x54
- 
-+static const char *drm_scdc_frl_rate_str(enum drm_scdc_frl_rate rate)
-+{
-+	switch (rate) {
-+	case SCDC_FRL_RATE_OFF:
-+		return "Off";
-+	case SCDC_FRL_RATE_3X3:
-+		return "3 Gbit/s x 3 lanes";
-+	case SCDC_FRL_RATE_6X3:
-+		return "6 Gbit/s x 3 lanes";
-+	case SCDC_FRL_RATE_6X4:
-+		return "6 Gbit/s x 4 lanes";
-+	case SCDC_FRL_RATE_8X4:
-+		return "8 Gbit/s x 4 lanes";
-+	case SCDC_FRL_RATE_10X4:
-+		return "10 Gbit/s x 4 lanes";
-+	case SCDC_FRL_RATE_12X4:
-+		return "12 Gbit/s x 4 lanes";
-+	case SCDC_FRL_RATE_RESV_7:
-+	case SCDC_FRL_RATE_RESV_8:
-+	case SCDC_FRL_RATE_RESV_9:
-+	case SCDC_FRL_RATE_RESV_10:
-+	case SCDC_FRL_RATE_RESV_11:
-+	case SCDC_FRL_RATE_RESV_12:
-+	case SCDC_FRL_RATE_RESV_13:
-+	case SCDC_FRL_RATE_RESV_14:
-+	case SCDC_FRL_RATE_RESV_15:
-+		return "(Reserved)";
-+	default:
-+		return NULL;
-+	}
-+}
-+
- /**
-  * drm_scdc_read - read a block of data from SCDC
-  * @adapter: I2C controller
-@@ -286,14 +319,41 @@ drm_scdc_parse_status0_flags(u8 val, struct drm_scdc_status_flags *flags)
- 	flags->ch0_locked = val & SCDC_CH0_LOCK;
- 	flags->ch1_locked = val & SCDC_CH1_LOCK;
- 	flags->ch2_locked = val & SCDC_CH2_LOCK;
-+	flags->ln3_locked = val & SCDC_LN3_LOCK;
-+	flags->flt_ready = val & SCDC_FLT_READY;
-+	flags->dsc_fail = val & SCDC_DSC_FAIL;
-+}
-+
-+static void
-+drm_scdc_parse_status1_2_flags(u8 val_flag1, u8 val_flag2,
-+			       struct drm_scdc_status_flags *flags)
-+{
-+	flags->ln0_training_pattern = FIELD_GET(SCDC_LN_EVEN_TRAIN_PTRN, val_flag1);
-+	flags->ln1_training_pattern = FIELD_GET(SCDC_LN_ODD_TRAIN_PTRN, val_flag1);
-+
-+	flags->ln2_training_pattern = FIELD_GET(SCDC_LN_EVEN_TRAIN_PTRN, val_flag2);
-+	flags->ln3_training_pattern = FIELD_GET(SCDC_LN_ODD_TRAIN_PTRN, val_flag2);
- }
- 
--static int drm_scdc_parse_error_counters(const u8 scdc[256], u16 counter[3])
-+static int drm_scdc_parse_error_counters(const u8 scdc[256], u16 counter[4],
-+					 unsigned int num_lanes)
- {
-+	u8 end_reg;
- 	u8 sum = 0;
- 	int i;
- 
--	for (i = SCDC_ERR_DET_0_L; i <= SCDC_ERR_DET_CHECKSUM ; i++)
-+	switch (num_lanes) {
-+	case 3:
-+		end_reg = SCDC_ERR_DET_CHECKSUM;
-+		break;
-+	case 4:
-+		end_reg = SCDC_ERR_DET_3_H;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	for (i = SCDC_ERR_DET_0_L; i <= end_reg; i++)
- 		sum = wrapping_add(u8, sum, scdc[i]);
- 
- 	if (sum)
-@@ -308,6 +368,12 @@ static int drm_scdc_parse_error_counters(const u8 scdc[256], u16 counter[3])
- 			counter[i] = 0;
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 8b54069fa53a..00feb73e63d7 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -263,6 +263,9 @@ static void drm_bridge_connector_debugfs_init(struct drm_connector *connector,
+ 		if (bridge->funcs->debugfs_init)
+ 			bridge->funcs->debugfs_init(bridge, root);
  	}
- 
-+	if (num_lanes == 4 && scdc[SCDC_ERR_DET_3_H] & SCDC_CHANNEL_VALID)
-+		counter[3] =  (scdc[SCDC_ERR_DET_3_H] & ~SCDC_CHANNEL_VALID) << 8 |
-+			      scdc[SCDC_ERR_DET_3_L];
-+	else
-+		counter[3] = 0;
 +
- 	return 0;
++	if (bridge_connector->bridge_hdmi)
++		drm_hdmi_connector_debugfs_init(connector, root);
  }
  
-@@ -325,6 +391,7 @@ int drm_scdc_read_state(struct drm_connector *connector, struct drm_scdc_state *
- 	struct i2c_adapter *ddc;
- 	struct drm_scdc *scdc;
- 	u8 *buf = state->scdc;
-+	int num_lanes;
- 	int ret;
+ static struct drm_connector_state *
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index ce17eeefc2da..8d5ee10ceb87 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: MIT
  
- 	if (!state || !connector)
-@@ -350,11 +417,26 @@ int drm_scdc_read_state(struct drm_connector *connector, struct drm_scdc_state *
++#include <linux/debugfs.h>
+ #include <linux/export.h>
  
- 	state->scrambling_detected = buf[SCDC_SCRAMBLER_STATUS] & SCDC_SCRAMBLING_STATUS;
- 
-+	state->rate = FIELD_GET(SCDC_FRL_RATE, buf[SCDC_CONFIG_1]);
-+	num_lanes = drm_scdc_num_frl_lanes(state->rate);
-+	if (num_lanes < 0)
-+		return num_lanes;
-+	if (!num_lanes)
-+		num_lanes = 3;
-+
-+	state->ffe_levels = FIELD_GET(SCDC_FFE_LEVELS, buf[SCDC_CONFIG_1]);
-+
- 	drm_scdc_parse_status0_flags(buf[SCDC_STATUS_FLAGS_0], &state->stf);
--	ret = drm_scdc_parse_error_counters(buf, state->error_count);
-+	drm_scdc_parse_status1_2_flags(buf[SCDC_STATUS_FLAGS_1],
-+				       buf[SCDC_STATUS_FLAGS_2], &state->stf);
-+	ret = drm_scdc_parse_error_counters(buf, state->error_count, num_lanes);
- 	if (ret)
- 		return ret;
- 
-+	if (num_lanes == 4 && (buf[SCDC_ERR_DET_RS_H] & SCDC_CHANNEL_VALID))
-+		state->rs_corrections = (buf[SCDC_ERR_DET_RS_H] & ~SCDC_CHANNEL_VALID) << 8 |
-+					buf[SCDC_ERR_DET_RS_L];
-+
- 	return 0;
+ #include <drm/drm_atomic.h>
+@@ -965,6 +966,159 @@ drm_hdmi_connector_mode_valid(struct drm_connector *connector,
  }
- EXPORT_SYMBOL(drm_scdc_read_state);
-@@ -416,6 +498,8 @@ static int scdc_status_show(struct seq_file *m, void *data)
+ EXPORT_SYMBOL(drm_hdmi_connector_mode_valid);
  
- 	scdc_print_flag(m, "Scrambling Enabled", st->scrambling_enabled);
- 	scdc_print_flag(m, "Scrambling Detected", st->scrambling_detected);
-+	scdc_print_str(m, "FRL Rate", drm_scdc_frl_rate_str(st->rate));
-+	scdc_print_dec(m, "FFE Levels", st->ffe_levels);
- 
- 	if (st->tmds_bclk_x40)
- 		scdc_print_str(m, "TMDS Bit Clock Ratio", "1/40");
-@@ -426,10 +510,19 @@ static int scdc_status_show(struct seq_file *m, void *data)
- 	scdc_print_flag(m, "Channel 0 Locked", st->stf.ch0_locked);
- 	scdc_print_flag(m, "Channel 1 Locked", st->stf.ch1_locked);
- 	scdc_print_flag(m, "Channel 2 Locked", st->stf.ch2_locked);
-+	if (drm_scdc_num_frl_lanes(st->rate) == 4)
-+		scdc_print_flag(m, "Lane 3 Locked", st->stf.ln3_locked);
++static ssize_t
++audio_infoframe_read(struct file *filp, char __user *ubuf, size_t count, loff_t *ppos)
++{
++	struct drm_connector_hdmi_infoframe *infoframe;
++	struct drm_connector *connector;
++	union hdmi_infoframe *frame;
++	u8 buf[HDMI_INFOFRAME_SIZE(AUDIO)];
++	ssize_t len = 0;
 +
-+	scdc_print_flag(m, "Sink Ready For Link Training", st->stf.flt_ready);
-+	scdc_print_flag(m, "Sink Failed To Decode DSC", st->stf.dsc_fail);
- 
- 	scdc_print_dec(m, "Channel 0 Errors", st->error_count[0]);
- 	scdc_print_dec(m, "Channel 1 Errors", st->error_count[1]);
- 	scdc_print_dec(m, "Channel 2 Errors", st->error_count[2]);
-+	if (drm_scdc_num_frl_lanes(st->rate) == 4) {
-+		scdc_print_dec(m, "Lane 3 Errors", st->error_count[3]);
-+		scdc_print_dec(m, "Reed-Solomon Corrections", st->rs_corrections);
-+	}
- 
- 	kfree(st);
- 
-diff --git a/include/drm/display/drm_scdc.h b/include/drm/display/drm_scdc.h
-index 3d58f37e8ed8..7f0b05b2f280 100644
---- a/include/drm/display/drm_scdc.h
-+++ b/include/drm/display/drm_scdc.h
-@@ -29,6 +29,8 @@
- #define SCDC_SOURCE_VERSION 0x02
- 
- #define SCDC_UPDATE_0 0x10
-+#define  SCDC_RSED_UPDATE (1 << 6)
-+#define  SCDC_FLT_UPDATE (1 << 5)
- #define  SCDC_READ_REQUEST_TEST (1 << 2)
- #define  SCDC_CED_UPDATE (1 << 1)
- #define  SCDC_STATUS_UPDATE (1 << 0)
-@@ -46,14 +48,25 @@
- #define SCDC_CONFIG_0 0x30
- #define  SCDC_READ_REQUEST_ENABLE (1 << 0)
- 
-+#define SCDC_CONFIG_1 0x31
-+#define  SCDC_FRL_RATE   0x0f
-+#define  SCDC_FFE_LEVELS 0xf0
++	connector = filp->private_data;
++	mutex_lock(&connector->hdmi.infoframes.lock);
 +
- #define SCDC_STATUS_FLAGS_0 0x40
-+#define  SCDC_DSC_FAIL (1 << 7)
-+#define  SCDC_FLT_READY (1 << 6)
-+#define  SCDC_LN3_LOCK (1 << 4)
- #define  SCDC_CH2_LOCK (1 << 3)
- #define  SCDC_CH1_LOCK (1 << 2)
- #define  SCDC_CH0_LOCK (1 << 1)
--#define  SCDC_CH_LOCK_MASK (SCDC_CH2_LOCK | SCDC_CH1_LOCK | SCDC_CH0_LOCK)
-+#define  SCDC_CH_LOCK_MASK (SCDC_LN3_LOCK | SCDC_CH2_LOCK | SCDC_CH1_LOCK | \
-+			    SCDC_CH0_LOCK)
- #define  SCDC_CLOCK_DETECT (1 << 0)
- 
- #define SCDC_STATUS_FLAGS_1 0x41
-+#define  SCDC_LN_EVEN_TRAIN_PTRN 0x0f
-+#define  SCDC_LN_ODD_TRAIN_PTRN 0xf0
-+#define SCDC_STATUS_FLAGS_2 0x42
- 
- #define SCDC_ERR_DET_0_L 0x50
- #define SCDC_ERR_DET_0_H 0x51
-@@ -65,6 +78,12 @@
- 
- #define SCDC_ERR_DET_CHECKSUM 0x56
- 
-+#define SCDC_ERR_DET_3_L 0x57
-+#define SCDC_ERR_DET_3_H 0x58
++	infoframe = &connector->hdmi.infoframes.audio;
++	if (!infoframe->set)
++		goto out;
 +
-+#define SCDC_ERR_DET_RS_L 0x59
-+#define SCDC_ERR_DET_RS_H 0x5a
++	frame = &infoframe->data;
++	len = hdmi_infoframe_pack(frame, buf, sizeof(buf));
++	if (len < 0)
++		goto out;
 +
- #define SCDC_TEST_CONFIG_0 0xc0
- #define  SCDC_TEST_READ_REQUEST (1 << 7)
- #define  SCDC_TEST_READ_REQUEST_DELAY(x) ((x) & 0x7f)
-diff --git a/include/drm/display/drm_scdc_helper.h b/include/drm/display/drm_scdc_helper.h
-index e0b79d79e1ff..a3b20adaac7e 100644
---- a/include/drm/display/drm_scdc_helper.h
-+++ b/include/drm/display/drm_scdc_helper.h
-@@ -24,6 +24,7 @@
- #ifndef DRM_SCDC_HELPER_H
- #define DRM_SCDC_HELPER_H
- 
-+#include <linux/errno.h>
- #include <linux/types.h>
- 
- #include <drm/display/drm_scdc.h>
-@@ -38,8 +39,65 @@ struct drm_scdc_status_flags {
- 	bool ch0_locked;
- 	bool ch1_locked;
- 	bool ch2_locked;
-+	bool ln3_locked;
-+	bool flt_ready;
-+	bool dsc_fail;
++	len = simple_read_from_buffer(ubuf, count, ppos, buf, len);
 +
-+	/* Status Register 1 */
-+	u8 ln0_training_pattern : 4;
-+	u8 ln1_training_pattern : 4;
++out:
++	mutex_unlock(&connector->hdmi.infoframes.lock);
++	return len;
++}
 +
-+	/* Status Register 2 */
-+	u8 ln2_training_pattern : 4;
-+	u8 ln3_training_pattern : 4;
++static const struct file_operations audio_infoframe_fops = {
++	.owner   = THIS_MODULE,
++	.open    = simple_open,
++	.read    = audio_infoframe_read,
 +};
 +
-+enum drm_scdc_frl_rate {
-+	SCDC_FRL_RATE_OFF = 0,
-+	SCDC_FRL_RATE_3X3 = 1,
-+	SCDC_FRL_RATE_6X3 = 2,
-+	SCDC_FRL_RATE_6X4 = 3,
-+	SCDC_FRL_RATE_8X4 = 4,
-+	SCDC_FRL_RATE_10X4 = 5,
-+	SCDC_FRL_RATE_12X4 = 6,
-+	SCDC_FRL_RATE_RESV_7 = 7,
-+	SCDC_FRL_RATE_RESV_8 = 8,
-+	SCDC_FRL_RATE_RESV_9 = 9,
-+	SCDC_FRL_RATE_RESV_10 = 10,
-+	SCDC_FRL_RATE_RESV_11 = 11,
-+	SCDC_FRL_RATE_RESV_12 = 12,
-+	SCDC_FRL_RATE_RESV_13 = 13,
-+	SCDC_FRL_RATE_RESV_14 = 14,
-+	SCDC_FRL_RATE_RESV_15 = 15
- };
- 
-+/**
-+ * drm_scdc_num_frl_lanes - get number of lanes for a given FRL rate
-+ * @rate: one of &enum drm_scdc_frl_rate
-+ *
-+ * For a given @rate, return the number of lanes it uses.
-+ *
-+ * Returns: %-EINVAL if @rate is not a valid FRL rate, or the number of lanes
-+ * for a given &enum drm_scdc_frl_rate on success (including %0 for "off")
-+ */
-+static inline __pure int drm_scdc_num_frl_lanes(enum drm_scdc_frl_rate rate)
++static int create_hdmi_audio_infoframe_file(struct drm_connector *connector,
++					    struct dentry *parent)
 +{
-+	switch (rate) {
-+	case SCDC_FRL_RATE_OFF:
++	struct dentry *file;
++
++	if (!connector->hdmi.funcs ||
++	    !connector->hdmi.funcs->audio.write_infoframe)
 +		return 0;
-+	case SCDC_FRL_RATE_3X3:
-+	case SCDC_FRL_RATE_6X3:
-+		return 3;
-+	case SCDC_FRL_RATE_6X4:
-+	case SCDC_FRL_RATE_8X4:
-+	case SCDC_FRL_RATE_10X4:
-+	case SCDC_FRL_RATE_12X4:
-+		return 4;
-+	default:
-+		return -EINVAL;
-+	}
++
++	file = debugfs_create_file("audio", 0400, parent, connector, &audio_infoframe_fops);
++	if (IS_ERR(file))
++		return PTR_ERR(file);
++
++	return 0;
 +}
 +
- struct drm_scdc_state {
- 	/** @stf: contents of the status flag registers */
- 	struct drm_scdc_status_flags stf;
-@@ -52,9 +110,14 @@ struct drm_scdc_state {
- 	 * clock period, false if it's 1/10th of the clock period.
- 	 */
- 	bool tmds_bclk_x40;
--	/** @error_count: character error counts for each channel */
--	u16 error_count[3];
--
-+	/** @rate: FRL rate set by the source */
-+	enum drm_scdc_frl_rate rate : 4;
-+	/** @ffe_levels: The FFE levels for @rate set by the source */
-+	u8 ffe_levels : 4;
-+	/** @error_count: character error counts for each channel/link */
-+	u16 error_count[4];
-+	/** @rs_corrections: number of Reed-Solomon Corrections */
-+	u16 rs_corrections;
- 	/** @scdc: raw SCDC data buffer */
- 	u8 scdc[256];
++#define DEFINE_INFOFRAME_FILE(_f) \
++static ssize_t _f##_read_infoframe(struct file *filp, \
++				   char __user *ubuf, \
++				   size_t count,      \
++				   loff_t *ppos)      \
++{ \
++	struct drm_connector_hdmi_infoframe *infoframe; \
++	struct drm_connector_state *conn_state; \
++	struct drm_connector *connector; \
++	union hdmi_infoframe *frame; \
++	struct drm_device *dev; \
++	u8 buf[HDMI_INFOFRAME_SIZE(MAX)]; \
++	ssize_t len = 0; \
++	\
++	connector = filp->private_data; \
++	dev = connector->dev; \
++	\
++	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL); \
++	\
++	conn_state = connector->state; \
++	infoframe = &conn_state->hdmi.infoframes._f; \
++	if (!infoframe->set) \
++		goto out; \
++	\
++	frame = &infoframe->data; \
++	len = hdmi_infoframe_pack(frame, buf, sizeof(buf)); \
++	if (len < 0) \
++		goto out; \
++	\
++	len = simple_read_from_buffer(ubuf, count, ppos, buf, len); \
++	\
++out: \
++	drm_modeset_unlock(&dev->mode_config.connection_mutex); \
++	return len; \
++} \
++\
++static const struct file_operations _f##_infoframe_fops = { \
++	.owner = THIS_MODULE, \
++	.open = simple_open, \
++	.read = _f##_read_infoframe, \
++}; \
++\
++static int create_hdmi_## _f ## _infoframe_file(struct drm_connector *connector, \
++						struct dentry *parent) \
++{ \
++	struct dentry *file; \
++	\
++	if (!connector->hdmi.funcs || \
++	    !connector->hdmi.funcs->_f.write_infoframe) \
++		return 0; \
++	file = debugfs_create_file(#_f, 0400, parent, connector, &_f ## _infoframe_fops); \
++	if (IS_ERR(file)) \
++		return PTR_ERR(file); \
++	\
++	return 0; \
++}
++
++DEFINE_INFOFRAME_FILE(avi);
++DEFINE_INFOFRAME_FILE(hdmi);
++DEFINE_INFOFRAME_FILE(hdr_drm);
++DEFINE_INFOFRAME_FILE(spd);
++
++static int create_hdmi_infoframe_files(struct drm_connector *connector,
++				       struct dentry *parent)
++{
++	int ret;
++
++	ret = create_hdmi_audio_infoframe_file(connector, parent);
++	if (ret)
++		return ret;
++
++	ret = create_hdmi_avi_infoframe_file(connector, parent);
++	if (ret)
++		return ret;
++
++	ret = create_hdmi_hdmi_infoframe_file(connector, parent);
++	if (ret)
++		return ret;
++
++	ret = create_hdmi_hdr_drm_infoframe_file(connector, parent);
++	if (ret)
++		return ret;
++
++	ret = create_hdmi_spd_infoframe_file(connector, parent);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
++void drm_hdmi_connector_debugfs_init(struct drm_connector *connector,
++				     struct dentry *root)
++{
++	struct dentry *dir;
++
++	dir = debugfs_create_dir("infoframes", root);
++	if (IS_ERR(dir))
++		return;
++
++	create_hdmi_infoframe_files(connector, dir);
++}
++EXPORT_SYMBOL(drm_hdmi_connector_debugfs_init);
++
+ static int clear_infoframe(struct drm_connector *connector,
+ 			   const struct drm_connector_infoframe_funcs *funcs,
+ 			   const char *type)
+diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+index ae1c6126c2c5..a72f9723d3a9 100644
+--- a/drivers/gpu/drm/drm_debugfs.c
++++ b/drivers/gpu/drm/drm_debugfs.c
+@@ -633,161 +633,6 @@ static const struct file_operations drm_connector_fops = {
+ 	.write = connector_write
  };
+ 
+-static ssize_t
+-audio_infoframe_read(struct file *filp, char __user *ubuf, size_t count, loff_t *ppos)
+-{
+-	struct drm_connector_hdmi_infoframe *infoframe;
+-	struct drm_connector *connector;
+-	union hdmi_infoframe *frame;
+-	u8 buf[HDMI_INFOFRAME_SIZE(AUDIO)];
+-	ssize_t len = 0;
+-
+-	connector = filp->private_data;
+-	mutex_lock(&connector->hdmi.infoframes.lock);
+-
+-	infoframe = &connector->hdmi.infoframes.audio;
+-	if (!infoframe->set)
+-		goto out;
+-
+-	frame = &infoframe->data;
+-	len = hdmi_infoframe_pack(frame, buf, sizeof(buf));
+-	if (len < 0)
+-		goto out;
+-
+-	len = simple_read_from_buffer(ubuf, count, ppos, buf, len);
+-
+-out:
+-	mutex_unlock(&connector->hdmi.infoframes.lock);
+-	return len;
+-}
+-
+-static const struct file_operations audio_infoframe_fops = {
+-	.owner   = THIS_MODULE,
+-	.open    = simple_open,
+-	.read    = audio_infoframe_read,
+-};
+-
+-static int create_hdmi_audio_infoframe_file(struct drm_connector *connector,
+-					    struct dentry *parent)
+-{
+-	struct dentry *file;
+-
+-	if (!connector->hdmi.funcs ||
+-	    !connector->hdmi.funcs->audio.write_infoframe)
+-		return 0;
+-
+-	file = debugfs_create_file("audio", 0400, parent, connector, &audio_infoframe_fops);
+-	if (IS_ERR(file))
+-		return PTR_ERR(file);
+-
+-	return 0;
+-}
+-
+-#define DEFINE_INFOFRAME_FILE(_f) \
+-static ssize_t _f##_read_infoframe(struct file *filp, \
+-				   char __user *ubuf, \
+-				   size_t count,      \
+-				   loff_t *ppos)      \
+-{ \
+-	struct drm_connector_hdmi_infoframe *infoframe; \
+-	struct drm_connector_state *conn_state; \
+-	struct drm_connector *connector; \
+-	union hdmi_infoframe *frame; \
+-	struct drm_device *dev; \
+-	u8 buf[HDMI_INFOFRAME_SIZE(MAX)]; \
+-	ssize_t len = 0; \
+-	\
+-	connector = filp->private_data; \
+-	dev = connector->dev; \
+-	\
+-	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL); \
+-	\
+-	conn_state = connector->state; \
+-	infoframe = &conn_state->hdmi.infoframes._f; \
+-	if (!infoframe->set) \
+-		goto out; \
+-	\
+-	frame = &infoframe->data; \
+-	len = hdmi_infoframe_pack(frame, buf, sizeof(buf)); \
+-	if (len < 0) \
+-		goto out; \
+-	\
+-	len = simple_read_from_buffer(ubuf, count, ppos, buf, len); \
+-	\
+-out: \
+-	drm_modeset_unlock(&dev->mode_config.connection_mutex); \
+-	return len; \
+-} \
+-\
+-static const struct file_operations _f##_infoframe_fops = { \
+-	.owner = THIS_MODULE, \
+-	.open = simple_open, \
+-	.read = _f##_read_infoframe, \
+-}; \
+-\
+-static int create_hdmi_## _f ## _infoframe_file(struct drm_connector *connector, \
+-						struct dentry *parent) \
+-{ \
+-	struct dentry *file; \
+-	\
+-	if (!connector->hdmi.funcs || \
+-	    !connector->hdmi.funcs->_f.write_infoframe) \
+-		return 0; \
+-	file = debugfs_create_file(#_f, 0400, parent, connector, &_f ## _infoframe_fops); \
+-	if (IS_ERR(file)) \
+-		return PTR_ERR(file); \
+-	\
+-	return 0; \
+-}
+-
+-DEFINE_INFOFRAME_FILE(avi);
+-DEFINE_INFOFRAME_FILE(hdmi);
+-DEFINE_INFOFRAME_FILE(hdr_drm);
+-DEFINE_INFOFRAME_FILE(spd);
+-
+-static int create_hdmi_infoframe_files(struct drm_connector *connector,
+-				       struct dentry *parent)
+-{
+-	int ret;
+-
+-	ret = create_hdmi_audio_infoframe_file(connector, parent);
+-	if (ret)
+-		return ret;
+-
+-	ret = create_hdmi_avi_infoframe_file(connector, parent);
+-	if (ret)
+-		return ret;
+-
+-	ret = create_hdmi_hdmi_infoframe_file(connector, parent);
+-	if (ret)
+-		return ret;
+-
+-	ret = create_hdmi_hdr_drm_infoframe_file(connector, parent);
+-	if (ret)
+-		return ret;
+-
+-	ret = create_hdmi_spd_infoframe_file(connector, parent);
+-	if (ret)
+-		return ret;
+-
+-	return 0;
+-}
+-
+-static void hdmi_debugfs_add(struct drm_connector *connector)
+-{
+-	struct dentry *dir;
+-
+-	if (!(connector->connector_type == DRM_MODE_CONNECTOR_HDMIA ||
+-	      connector->connector_type == DRM_MODE_CONNECTOR_HDMIB))
+-		return;
+-
+-	dir = debugfs_create_dir("infoframes", connector->debugfs_entry);
+-	if (IS_ERR(dir))
+-		return;
+-
+-	create_hdmi_infoframe_files(connector, dir);
+-}
+-
+ void drm_debugfs_connector_add(struct drm_connector *connector)
+ {
+ 	struct drm_device *dev = connector->dev;
+@@ -815,8 +660,6 @@ void drm_debugfs_connector_add(struct drm_connector *connector)
+ 	debugfs_create_file("output_bpc", 0444, root, connector,
+ 			    &output_bpc_fops);
+ 
+-	hdmi_debugfs_add(connector);
+-
+ 	if (connector->funcs->debugfs_init)
+ 		connector->funcs->debugfs_init(connector, root);
+ }
+diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+index e99f52ebb26f..e6c4f121ad0c 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
++++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+@@ -292,6 +292,7 @@ static void sun4i_hdmi_connector_reset(struct drm_connector *connector)
+ }
+ 
+ static const struct drm_connector_funcs sun4i_hdmi_connector_funcs = {
++	.debugfs_init		= drm_hdmi_connector_debugfs_init,
+ 	.detect			= sun4i_hdmi_connector_detect,
+ 	.fill_modes		= drm_helper_probe_single_connector_modes,
+ 	.reset			= sun4i_hdmi_connector_reset,
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index 17c8635c5afa..ea1f2013b20e 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -513,6 +513,7 @@ static void vc4_hdmi_connector_reset(struct drm_connector *connector)
+ }
+ 
+ static const struct drm_connector_funcs vc4_hdmi_connector_funcs = {
++	.debugfs_init = drm_hdmi_connector_debugfs_init,
+ 	.force = drm_atomic_helper_connector_hdmi_force,
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+ 	.reset = vc4_hdmi_connector_reset,
+diff --git a/include/drm/display/drm_hdmi_state_helper.h b/include/drm/display/drm_hdmi_state_helper.h
+index 13375bd0f4ae..596c57d9d250 100644
+--- a/include/drm/display/drm_hdmi_state_helper.h
++++ b/include/drm/display/drm_hdmi_state_helper.h
+@@ -3,6 +3,7 @@
+ #ifndef DRM_HDMI_STATE_HELPER_H_
+ #define DRM_HDMI_STATE_HELPER_H_
+ 
++struct dentry;
+ struct drm_atomic_commit;
+ struct drm_connector;
+ struct drm_connector_state;
+@@ -29,5 +30,7 @@ void drm_atomic_helper_connector_hdmi_force(struct drm_connector *connector);
+ enum drm_mode_status
+ drm_hdmi_connector_mode_valid(struct drm_connector *connector,
+ 			      const struct drm_display_mode *mode);
++void drm_hdmi_connector_debugfs_init(struct drm_connector *connector,
++				     struct dentry *root);
+ 
+ #endif // DRM_HDMI_STATE_HELPER_H_
 
 -- 
 2.55.0
