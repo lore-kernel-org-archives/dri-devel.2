@@ -4,63 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12815C44536
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:39:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68D26C44539
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:40:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6272010EE16;
-	Wed, 22 Jul 2026 14:39:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB9DB10EE15;
+	Wed, 22 Jul 2026 14:40:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mlBhTxfR";
+	dkim=pass (2048-bit key; unprotected) header.d=ubuntu.com header.i=@ubuntu.com header.b="kwtFnuNn";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40EB710EE15;
- Wed, 22 Jul 2026 14:39:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784731145; x=1816267145;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=8aOgLn46DVa4Y157P1gYH41efpVpSrdx03UoQnyu+q0=;
- b=mlBhTxfRSy26AIG7Xg/bPzn4wBgpPPt4hVeyVF1Eu9J38ouNHj1u108V
- k94ci7Q6V8xB1l4YbkREEENtEtPFO0efpAlMzgVHbPcBlfBsIWUvDIVkB
- HL7nCgxjAGFNk2ePjCtPpzPwMMyiupUQUTEAUX9DdEpTZWZAU1/fig5c0
- x35JNtiXQDHeW19ElC2E16zr5DJd+FdJUqbd50hyzHyDwMrbhHpszS3cR
- SDWDhDgUsOP3t1p4yKJXqteLU7bwP3JgGcakydKOpSi2I/KlrE9RqP8Ge
- M5ui7/1S19mW4mm5coVuxDwmo0TxUYTFe+6bhNIG9BZvzT6v8Szue+lyc w==;
-X-CSE-ConnectionGUID: VEn21lpxRNCBPqNkat28HQ==
-X-CSE-MsgGUID: iPYteJxpQD6NVIR9c1SILg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="89044784"
-X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="89044784"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2026 07:39:05 -0700
-X-CSE-ConnectionGUID: fvKJnEMoTQKw1v7dYrSong==
-X-CSE-MsgGUID: +QNYQxmoS9iVVBJY7611+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="258781172"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.180])
- ([10.245.245.180])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2026 07:39:01 -0700
-Message-ID: <7fdc1aa1d8c605a642a9b283ca60ec062842f139.camel@linux.intel.com>
-Subject: Re: [PATCH 01/10] memcg: add support for GPU page counters. (v5)
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
- tj@kernel.org, christian.koenig@amd.com, Johannes Weiner
- <hannes@cmpxchg.org>,  Michal Hocko <mhocko@kernel.org>, Roman Gushchin
- <roman.gushchin@linux.dev>, Shakeel Butt	 <shakeel.butt@linux.dev>, Muchun
- Song <muchun.song@linux.dev>
-Cc: cgroups@vger.kernel.org, Waiman Long <longman@redhat.com>,
- simona@ffwll.ch, 	intel-xe@lists.freedesktop.org
-Date: Wed, 22 Jul 2026 16:38:58 +0200
-In-Reply-To: <20260706052330.1110909-2-airlied@gmail.com>
-References: <20260706052330.1110909-1-airlied@gmail.com>
- <20260706052330.1110909-2-airlied@gmail.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4377F10EE15
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:40:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1784731225;
+ bh=RD31tW8LmUG6AZAI01B0tujYL1MNyoRdlJ5f+ELAs0g=;
+ b=kwtFnuNng8ib30FqEsJtBwlqWKqy0TO9GBQMxyq9CC5BsNhdkw0VwwzJP4Zw9kzfsm+2zelxc
+ HU/m/XJvaIFbfjqMLy9WnL/TYUgegFzFcDlnEGVeYnHLps8h3DCBAC32U7RzsOhZZpQGh9ym2E5
+ V4kA2uPX+TXdmKEq2Gx0dfoQMEdLV+5sevaXv+1v1AmEoR+8OzlgzUqbD+nCXHqDP2UgPgoGFFL
+ 38TRj8/wqHDyTu55eFw/dj1WuYjL+6PWB8+D9ZnchMugreY/Gc/EhgTuYEzEQk0vJXaqKbAWtmu
+ 4e3/xW2NAz8sUp1UHR/PzE0dMQrJh4qxUFEkaWgxfsbQ==
+X-Forward-Email-ID: 6a60d65708d8c87d01d8a86f
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 121.127.44.66
+X-Forward-Email-Version: 2.12.0
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Wed, 22 Jul 2026 10:40:22 -0400
+Message-Id: <DK56F0N1D7ZA.1IYP6RGCYDI3T@ubuntu.com>
+Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] [PATCH] drm/vkms: Advertise PREMULTI blend mode
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+To: "Michail Tatas" <michail.tatas@gmail.com>, <louis.chauvet@bootlin.com>,
+ <simona@ffwll.ch>, <melissa.srw@gmail.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <airlied@gmail.com>, <hamohammed.sa@gmail.com>,
+ <maarten.lankhorst@linux.intel.com>
+X-Mailer: aerc 0.21.0
+References: <al1pElMQZsDfpAYI@michalis-linux>
+In-Reply-To: <al1pElMQZsDfpAYI@michalis-linux>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,306 +63,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-07-06 at 15:22 +1000, Dave Airlie wrote:
-> From: Dave Airlie <airlied@redhat.com>
->=20
-> This introduces 2 new statistics and 3 new memcontrol APIs for
-> dealing
-> with GPU system memory allocations.
->=20
-> The stats corresponds to the same stats in the global vmstat,
-> for number of active GPU pages, and number of pages in pools that
-> can be reclaimed.
->=20
-> The first API charges a order of pages to a objcg, and sets
-> the objcg on the pages like kmem does, and updates the active/reclaim
-> statistic.
->=20
-> The second API uncharges a page from the obj cgroup it is currently
-> charged
-> to.
->=20
-> The third API allows moving a page to/from reclaim and between obj
-> cgroups.
-> When pages are added to the pool lru, this just updates accounting.
-> When pages are being removed from a pool lru, they can be taken from
-> the parent objcg so this allows them to be uncharged from there and
-> transferred
-> to a new child objcg.
->=20
-> Signed-off-by: Dave Airlie <airlied@redhat.com>
+On Sun Jul 19, 2026 at 8:17 PM EDT, Michail Tatas wrote:
+> Since we only support pre-multiplied alpha blend mode,
+> advertise that, otherwise validate_blend_mode_for_alpha_formats()
+> will throw a WARN.
+>
+> Reported-by: syzbot+6245cb95ae707991bffa@syzkaller.appspotmail.com
+> Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
 > ---
-> v2: use memcg_node_stat_items
-> v3: fix null ptr dereference in uncharge
-> v4: AI review: fix parameter names, fix problem with reclaim moving
-> doing wrong thing
-> v5: fix the build with CONFIG_MEMCG=3Dn
-> ---
-> =C2=A0Documentation/admin-guide/cgroup-v2.rst |=C2=A0=C2=A0 6 ++
-> =C2=A0include/linux/memcontrol.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 34 ++++++++
-> =C2=A0mm/memcontrol.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 | 104
-> ++++++++++++++++++++++++
-> =C2=A03 files changed, 144 insertions(+)
+>
+> syzbot link: https://syzkaller.appspot.com/bug?extid=3D6245cb95ae707991bf=
+fa
+>
+>  drivers/gpu/drm/vkms/vkms_plane.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkm=
+s_plane.c
+> index 68cb2a3335e6..a2e5ebee729a 100644
+> --- a/drivers/gpu/drm/vkms/vkms_plane.c
+> +++ b/drivers/gpu/drm/vkms/vkms_plane.c
+> @@ -246,6 +246,12 @@ struct vkms_plane *vkms_plane_init(struct vkms_devic=
+e *vkmsdev,
+>  					  DRM_COLOR_YCBCR_BT601,
+>  					  DRM_COLOR_YCBCR_FULL_RANGE);
+> =20
+> +	/* Since our composer only supports pre-multiplied alpha,
+> +	 * advertise only the PREMULTI blend mode.
+> +	 */
+> +	drm_plane_create_blend_mode_property(&plane->base,
+> +					BIT(DRM_MODE_BLEND_PREMULTI));
+> +
+>  	if (vkms_config_plane_get_default_pipeline(plane_cfg))
+>  		vkms_initialize_colorops(&plane->base);
+> =20
 
-Looks like there are a couple of sashiko issues remaining for this
-patch:
+Hi,
 
-https://sashiko.dev/#/message/20260706052330.1110909-2-airlied%40gmail.com
+Unfortunately, this still causes the warning on my machine. In my
+config CONFIG_DRM_VKMS is not set.
 
->=20
-> diff --git a/Documentation/admin-guide/cgroup-v2.rst
-> b/Documentation/admin-guide/cgroup-v2.rst
-> index 993446ab66d0..aa4f503770c5 100644
-> --- a/Documentation/admin-guide/cgroup-v2.rst
-> +++ b/Documentation/admin-guide/cgroup-v2.rst
-> @@ -1573,6 +1573,12 @@ The following nested keys are defined.
-> =C2=A0	=C2=A0 vmalloc (npn)
-> =C2=A0		Amount of memory used for vmap backed memory.
-> =C2=A0
-> +	=C2=A0 gpu_active (npn)
-> +		Amount of system memory used for GPU devices.
-> +
-> +	=C2=A0 gpu_reclaim (npn)
-> +		Amount of system memory cached for GPU devices.
-> +
-> =C2=A0	=C2=A0 shmem
-> =C2=A0		Amount of cached filesystem data that is swap-
-> backed,
-> =C2=A0		such as tmpfs, shm segments, shared anonymous
-> mmap()s
-> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> index e1f46a0016fc..9d057f58c9d0 100644
-> --- a/include/linux/memcontrol.h
-> +++ b/include/linux/memcontrol.h
-> @@ -1583,6 +1583,7 @@ static inline void
-> mem_cgroup_flush_foreign(struct bdi_writeback *wb)
-> =C2=A0#endif	/* CONFIG_CGROUP_WRITEBACK */
-> =C2=A0
-> =C2=A0struct sock;
-> +
-
-Unrelated
-
-
-> =C2=A0#ifdef CONFIG_MEMCG
-> =C2=A0extern struct static_key_false memcg_sockets_enabled_key;
-> =C2=A0#define mem_cgroup_sockets_enabled
-> static_branch_unlikely(&memcg_sockets_enabled_key)
-> @@ -1629,6 +1630,17 @@ static inline u64
-> mem_cgroup_get_socket_pressure(struct mem_cgroup *memcg)
-> =C2=A0}
-> =C2=A0#endif
-> =C2=A0
-> +bool mem_cgroup_charge_gpu_page(struct obj_cgroup *objcg, struct
-> page *page,
-> +			=C2=A0=C2=A0 unsigned int order,
-> +			=C2=A0=C2=A0 gfp_t gfp_mask, bool reclaim);
-> +void mem_cgroup_uncharge_gpu_page(struct page *page,
-> +				=C2=A0 unsigned int order,
-> +				=C2=A0 bool reclaim);
-> +bool mem_cgroup_move_gpu_page_reclaim(struct obj_cgroup *objcg,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct page *page,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int order,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool to_reclaim);
-> +
-> =C2=A0int alloc_shrinker_info(struct mem_cgroup *memcg);
-> =C2=A0void free_shrinker_info(struct mem_cgroup *memcg);
-> =C2=A0void set_shrinker_bit(struct mem_cgroup *memcg, int nid, int
-> shrinker_id);
-> @@ -1665,6 +1677,28 @@ static inline void
-> mem_cgroup_sk_uncharge(const struct sock *sk,
-> =C2=A0{
-> =C2=A0}
-> =C2=A0
-> +static inline bool mem_cgroup_charge_gpu_page(struct obj_cgroup
-> *objcg,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct page *page,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int order,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gfp_t gfp_mask, bool
-> reclaim)
-> +{
-> +	return true;
-> +}
-> +
-> +static inline void mem_cgroup_uncharge_gpu_page(struct page *page,
-> +						unsigned int order,
-> +						bool reclaim)
-> +{
-> +}
-> +
-> +static inline bool mem_cgroup_move_gpu_page_reclaim(struct
-> obj_cgroup *objcg,
-> +						=C2=A0=C2=A0=C2=A0 struct page
-> *page,
-> +						=C2=A0=C2=A0=C2=A0 unsigned int
-> order,
-> +						=C2=A0=C2=A0=C2=A0 bool to_reclaim)
-> +{
-> +	return true;
-> +}
-> +
-> =C2=A0static inline void set_shrinker_bit(struct mem_cgroup *memcg,
-> =C2=A0				=C2=A0=C2=A0=C2=A0 int nid, int shrinker_id)
-> =C2=A0{
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 6dc4888a90f3..4c682b91cbbe 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -423,6 +423,8 @@ static const unsigned int memcg_node_stat_items[]
-> =3D {
-> =C2=A0#ifdef CONFIG_HUGETLB_PAGE
-> =C2=A0	NR_HUGETLB,
-> =C2=A0#endif
-> +	NR_GPU_ACTIVE,
-> +	NR_GPU_RECLAIM,
-> =C2=A0};
-> =C2=A0
-> =C2=A0static const unsigned int memcg_stat_items[] =3D {
-> @@ -1553,6 +1555,8 @@ static const struct memory_stat memory_stats[]
-> =3D {
-> =C2=A0	{
-> "percpu",			MEMCG_PERCPU_B			},
-> =C2=A0	{
-> "sock",			MEMCG_SOCK			},
-> =C2=A0	{
-> "vmalloc",			NR_VMALLOC			},
-> +	{
-> "gpu_active",			NR_GPU_ACTIVE			},
-> +	{
-> "gpu_reclaim",		NR_GPU_RECLAIM	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 },
-> =C2=A0	{
-> "shmem",			NR_SHMEM			},
-> =C2=A0#ifdef CONFIG_ZSWAP
-> =C2=A0	{
-> "zswap",			MEMCG_ZSWAP_B			},
-> @@ -5508,6 +5512,106 @@ void mem_cgroup_flush_workqueue(void)
-> =C2=A0	flush_workqueue(memcg_wq);
-> =C2=A0}
-> =C2=A0
-> +/**
-> + * mem_cgroup_charge_gpu_page - charge a page to GPU memory tracking
-Nit: Patch guidelines call for ()
-
-> + * @objcg: objcg to charge, NULL charges root memcg
-> + * @page: page to charge
-> + * @order: page allocation order
-> + * @gfp_mask: gfp mode
-> + * @reclaim: charge the reclaim counter instead of the active one.
-
-Return:
-
->=20
-> + *
-> + * Charge the order sized @page to the objcg. Returns %true if the
-> charge fit within
-> + * @objcg's configured limit, %false if it doesn't.
-> + */
-> +bool mem_cgroup_charge_gpu_page(struct obj_cgroup *objcg, struct
-> page *page,
-> +				unsigned int order, gfp_t gfp_mask,
-> bool reclaim)
-> +{
-> +	unsigned int nr_pages =3D 1 << order;
-> +	struct mem_cgroup *memcg =3D NULL;
-> +	struct lruvec *lruvec;
-> +	int ret;
-> +
-> +	if (objcg) {
-> +		memcg =3D get_mem_cgroup_from_objcg(objcg);
-> +
-> +		ret =3D try_charge_memcg(memcg, gfp_mask, nr_pages);
-> +		if (ret) {
-> +			mem_cgroup_put(memcg);
-> +			return false;
-> +		}
-> +
-> +		obj_cgroup_get(objcg);
-> +		page_set_objcg(page, objcg);
-> +	}
-> +
-> +	lruvec =3D mem_cgroup_lruvec(memcg, page_pgdat(page));
-> +	mod_lruvec_state(lruvec, reclaim ? NR_GPU_RECLAIM :
-> NR_GPU_ACTIVE, nr_pages);
-> +
-> +	mem_cgroup_put(memcg);
-> +	return true;
-> +}
-> +EXPORT_SYMBOL_GPL(mem_cgroup_charge_gpu_page);
-> +
-> +/**
-> + * mem_cgroup_uncharge_gpu_page - uncharge a page from GPU memory
-> tracking
-> + * @page: page to uncharge
-> + * @order: order of the page allocation
-> + * @reclaim: uncharge the reclaim counter instead of the active.
-> + */
-> +void mem_cgroup_uncharge_gpu_page(struct page *page,
-> +				=C2=A0 unsigned int order, bool reclaim)
-> +{
-> +	struct obj_cgroup *objcg =3D page_objcg(page);
-> +	struct mem_cgroup *memcg;
-> +	struct lruvec *lruvec;
-> +	int nr_pages =3D 1 << order;
-> +
-> +	memcg =3D objcg ? get_mem_cgroup_from_objcg(objcg) : NULL;
-> +
-> +	lruvec =3D mem_cgroup_lruvec(memcg, page_pgdat(page));
-> +	mod_lruvec_state(lruvec, reclaim ? NR_GPU_RECLAIM :
-> NR_GPU_ACTIVE, -nr_pages);
-> +
-> +	if (memcg && !mem_cgroup_is_root(memcg))
-> +		refill_stock(memcg, nr_pages);
-> +	page->memcg_data =3D 0;
-> +	obj_cgroup_put(objcg);
-> +	mem_cgroup_put(memcg);
-> +}
-> +EXPORT_SYMBOL_GPL(mem_cgroup_uncharge_gpu_page);
-> +
-> +/**
-> + * mem_cgroup_move_gpu_reclaim - move pages from gpu to gpu reclaim
-> and back
-> + * @new_objcg: objcg to move page to, NULL if just stats update.
-> + * @nr_pages: number of pages to move
-> + * @to_reclaim: true moves pages into reclaim, false moves them back
-
-Return:
-
-> + */
-> +bool mem_cgroup_move_gpu_page_reclaim(struct obj_cgroup *new_objcg,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct page *page,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int order,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool to_reclaim)
-> +{
-> +	struct obj_cgroup *objcg =3D page_objcg(page);
-> +
-> +	if (!objcg || !new_objcg || objcg =3D=3D new_objcg) {
-> +		struct mem_cgroup *memcg =3D objcg ?
-> get_mem_cgroup_from_objcg(objcg) : NULL;
-> +		struct lruvec *lruvec;
-> +		unsigned long flags;
-> +		int nr_pages =3D 1 << order;
-> +
-> +		lruvec =3D mem_cgroup_lruvec(memcg, page_pgdat(page));
-> +		local_irq_save(flags);
-> +		mod_lruvec_state(lruvec, to_reclaim ? NR_GPU_RECLAIM
-> : NR_GPU_ACTIVE, nr_pages);
-> +		mod_lruvec_state(lruvec, to_reclaim ? NR_GPU_ACTIVE
-> : NR_GPU_RECLAIM, -nr_pages);
-> +		local_irq_restore(flags);
-> +		mem_cgroup_put(memcg);
-> +		return true;
-> +	} else {
-> +		mem_cgroup_uncharge_gpu_page(page, order, true);
-> +		return mem_cgroup_charge_gpu_page(new_objcg, page,
-> order, 0, false);
-> +	}
-> +}
-> +EXPORT_SYMBOL_GPL(mem_cgroup_move_gpu_page_reclaim);
-> +
-> =C2=A0static int __init cgroup_memory(char *s)
-> =C2=A0{
-> =C2=A0	char *token;
+-Josh
