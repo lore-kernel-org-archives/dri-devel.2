@@ -4,44 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5EF0C4453A
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 21:52:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F6E4C44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 21:53:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA6EB10E4F7;
-	Wed, 22 Jul 2026 21:52:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F205710E09A;
+	Wed, 22 Jul 2026 21:53:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Zs4XDqwX";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="NBNCUfb/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D86DF10E4F7
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 21:52:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 592A5412F0;
- Wed, 22 Jul 2026 21:52:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11AF51F000E9;
- Wed, 22 Jul 2026 21:52:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784757140;
- bh=CjGMbBkZhx7UWgji+UfMLm1HK/NA5rmTVH8ZGx2L6VY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Zs4XDqwXM78XwKfj+WbvQIx8vi7ZgYhBKuM5TO4DUrCZkjceJnWgQApX5C6PB4P1R
- TRNmNFXiPIAhND+g+s0o7ilGyJEcb+6VFboWyNhDWbS0Lo+sVwpPKPh4Rq2+sNwm8l
- iVTJ/4UGgbSK/YA3AjdoD3RgrTL6V+53sX6G+Dc5f27QLu3+o/eno/I+Z1y5qpoNcj
- 8FcEXajcpGSpJj4cXZX62wt6ufU6JrN6YsK09ATr0A1l7o5XdsAmVGE5sB5bDTSpBK
- rUrOydNYVehhDSokSlcdC997qM96XYAvIi1XNh3svcYo1BCQj1jpSSuUonji7SYA4h
- SAufJpp2z8X0w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 09/11] drm/bridge: it6505: hold endpoint OF node
- reference while parsing it
-To: "Daniel Golle" <daniel@makrotopia.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <8a9ec00b8464f0dec0242792f7f9d990d33589a0.1784717129.git.daniel@makrotopia.org>
-References: <cover.1784717129.git.daniel@makrotopia.org>
- <8a9ec00b8464f0dec0242792f7f9d990d33589a0.1784717129.git.daniel@makrotopia.org>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E821310E09A
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 21:53:52 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-5b0129cf6ffso1910e87.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:53:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784757231; cv=none;
+ d=google.com; s=arc-20260327;
+ b=JuJI9NN6iX4JBz7n5IsfIoVYyKayMnpgSIFr3NiNvTnRzxIyI0GGF9QVza52Vp4p75
+ 7s0Uv+dTC2AQT0bNjRFaD0WKBK/awmkK5WODl4A2js34tSZbtxuHLj76WaWLImOM/SIA
+ 2AVokO6M3NdQD5/6pQh+Ux4JX8X4pFaFKDnsjYuI667BBfuMX03QkV1TRSHUQ40TrIBi
+ 1vL8p7y88XGsGcUXmuml+HtB0RM/sPTMYvHvvgUPck8XY4/rdul63aujntBdaKfzDmq9
+ Y4rh2iYG/DQlpJagGtkdHmqiQQ3pzfSM3G2W/LCZ74YhRrg0zM57QOnXkveN1qYcA7e5
+ hytw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=3UirpLV1ZtIxhwqN9P10MkPtE1lhmhI/AHpOOHSx3qE=;
+ fh=b/rjQhxG21TYIGvKQH106LzBNfAr1OrmOrTEYgrLHt0=;
+ b=OzO3uK+4Tm4+1NeqwRuqei2OIHiBdnXhRBNG0iGR8LBsuKS3G7cIRw/kHssYYBNshP
+ GqRUCo0YJuvVxUkXV5G2lmyH8DXynx/kmdrrSuV5Xeygj88wqs+09LdzrQdaTaok1QU+
+ /GHc02us2AKrPvLWSAFtNOPrFGVxg1ykrDmUqnwQ3VwOy2WDQuTXCYTKkqoVogJQlwQq
+ Q8OFdrPymTQUt/976UTGrAALp8Nhsw1KCDh/UC55+hOdvUqNeNSSWhbg4KiANXuRYICq
+ hIYcBGnCGEW9OXCUFofTmucGwXfXXT0FfBBtuFT6q/TMWopmR7VRh2sJnEqH1MmM2qh8
+ Qv7A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1784757231; x=1785362031;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=3UirpLV1ZtIxhwqN9P10MkPtE1lhmhI/AHpOOHSx3qE=;
+ b=NBNCUfb/ruvqEOFm3l3BRwHxvNb0GkxHUbO1ies/NgtcOYwTnYnJtQmEfmZ1+HrP/2
+ wpejUcafPik7DLDhtnPrdaSsceC1AEE72M09dUQCsEGxoWv3Xp8cT+CU0erkjTm+6UOS
+ 2rmHyyVF/RloYZLImTOP8uE8GiVyklbgArwjTDoUveUOBtQz83qbIVABa+DrtGacCsR1
+ gNa5Qg/4Cq7hL7C6O4YNXBFaiX9g7Mh/ad7U2PM9dD9VQI12Oyt9m9V0TQvPdftvENLh
+ 2TXNm+pjJzc+r4y9L0rncJrMqQb+6/tU2gQr0ndUGzRQW1JzO0iS74KMazaAKbOCJrgv
+ /IeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784757231; x=1785362031;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=3UirpLV1ZtIxhwqN9P10MkPtE1lhmhI/AHpOOHSx3qE=;
+ b=TsqKQ6NxlnAUqCL2P5U+YTF2Y0BXPJkyOnftfIlO9H8HWAIj85g+xRX8V+JH/lRbR9
+ inKScCcflf3L3gE+YIL7SKA6duC2JsoUbSRE/GlgH+KXlqVQpuCqwUcja8SsWJlxqUQy
+ VS/aAsVmONQ1le2mfadQaWbhEe33HCG/YRdd8H+39QG+tQNxQjVltQGSMZZbTG7czUdi
+ mTq7P79IpY1DVRb0Ac2CSwZEVocy3PEGUtz4HsohuH/GhOaMCeSPQrxUdZjI6d1iEWBO
+ PSVHsR7XR0nh3ei3V2jOw67EW96MQwwksntKJB59ojxCpPidJaIjiGP2ecwI9/HKg/2v
+ w/7Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoOrHVxbw5NT4zzUegPjPEgj7thMx2UDa4etnxbuktzRxDZheynFwIAM0pGjzcceIVjN+MOZSsGM2w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzvhPq5egvV8F2gfavc0/BhpULC0E/SrXVbVolaEMZeIusd0o64
+ 4cK7TrpmqZSpe9diCa1xyb9H1t8+SYsKlAPHvmxQNKKY/Ij1SG+qakW9C8g/fCjwzKp4ViyNgxj
+ vz92U3R2/U2lH7Alz+mAVLrkuRVKiJPSjiy5YlzE=
+X-Gm-Gg: AR+sD13/pzEdzoOSKAZ5WBWIziuPcmeztPpUykTruzVTS6Iw32a7yy+QJKuvcMSoqmL
+ rrWYVXfu8nlQE9YfxFrwhPKIy43pkz2ZR/Zj+PUVN+iPa7n5NH5RpcBrrUqxoryfCuxu9DGj6CN
+ RgsBWSey1FvUZqQzhex4ag1x+aKoByrthF0YEXXn3CKAKgmHNCyYPH59XPSW8P2OWDr+eN3WiGp
+ meZCD1KcC7kZhqyJ39nnNpn29mvjbiRyP/5XPriSGGlVem95x5hNu9tBj0=
+X-Received: by 2002:a05:6512:3e07:b0:5ae:ae6f:8b09 with SMTP id
+ 2adb3069b0e04-5b2b0e25fcdmr55344e87.10.1784757230622; Wed, 22 Jul 2026
+ 14:53:50 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260609164047.486227-1-xuehaohu@google.com>
+In-Reply-To: <20260609164047.486227-1-xuehaohu@google.com>
+From: David Hu <xuehaohu@google.com>
+Date: Wed, 22 Jul 2026 17:53:37 -0400
+X-Gm-Features: AUfX_mx6lXFHuf0Wgd2wPQM1BjAzgoxGSU-8B31GXW_8srvK8ZED4wSLL-WfrUA
+Message-ID: <CAPd9Lg_30aqB6x342xLeFAc4exgXwWzwBc4KWh6+3p-N=yAwsw@mail.gmail.com>
+Subject: Re: [PATCH v7] dma-buf: Fix silent overflow for phys vec to sgt
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
+ Leon Romanovsky <leon@kernel.org>, 
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, jmoroni@google.com, 
+ praan@google.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 21:52:19 +0000
-Message-Id: <20260722215220.11AF51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,76 +109,143 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Tue, Jun 9, 2026 at 12:40=E2=80=AFPM David Hu <xuehaohu@google.com> wrot=
+e:
+>
+> In case MMIO size is bigger than 4G and peer2peer DMA goes
+> through host bridge, we trigger a code path that assigns the
+> total linked IOVA (which is greater than 4G) to mapped_len.
+>
+> Previously, `mapped_len` was declared as 32-bit `unsigned int`.
+> When accumulating `size_t` lengths, this leads to a silent wrap-around.
+> This truncation causes truncated lengths to be passed to functions
+> like `fill_sg_entry()`.
+>
+> Fix this by changing `mapped_len` to `size_t` (64-bit). While
+> at it, fix similar potential overflow issues in `calc_sg_nents`
+> by using `check_add_overflow()` for `nents` and using
+> `unsigned int` for the loop iterator in `fill_sg_entry` to match.
+>
+> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping=
+ routine")
+> Cc: stable@vger.kernel.org
+> Cc: iommu@lists.linux.dev
+> Reviewed-by: Pranjal Shrivastava <praan@google.com>
+> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> Reviewed-by: Leon Romanovsky <leon@kernel.org>
+> Signed-off-by: David Hu <xuehaohu@google.com>
+> ---
+> Changes in v7:
+>  - Added a missing blank line after local variable declaration in
+>    `calc_sg_nents()` (Leon).
+>  - Collected Reviewed-by from Leon Romanovsky.
+>
+> Changes in v6:
+>  - Used `check_add_overflow()` in `calc_sg_nents()` for safer
+>    accumulation (Leon).
+>  - Dropped explicit `!nents` check and added a comment noting that
+>    `sg_alloc_table` handles `nents =3D=3D 0` (Leon).
+>  - Collected Reviewed-by from Kevin Tian.
+>
+> Changes in v5:
+>  - Removed WARN_ON_ONCE from calc_sg_nents() to avoid log noise (Jason).
+>  - Added explicit check for `!nents` in dma_buf_phys_vec_to_sgt() to
+>    cleanly return -EINVAL on overflow (Jason).
+>
+> Changes in v4:
+>  - Added WARN_ON_ONCE() to the nents overflow check to prevent silent
+>    failures (Claude Bot).
+>
+> Changes in v3:
+>  - Removed leftover sentence fragment from the commit message.
+>  - Kept `nents =3D 0` initialization (previously stated as removed in the
+>    v2 changelog) as it is strictly required for the `+=3D` accumulation
+>    loop in `calc_sg_nents()`.
+>
+> Changes in v2:
+>  - Fixed 'IVOA' -> 'IOVA' typo and expanded commit message (Claude Bot).
+>  - Added Reverse Xmas tree formatting (Pranjal).
+>  - Folded in extra bounds checking for calc_sg_nents() (Pranjal).
+>  - Folded in type consistency fix for fill_sg_entry() (Pranjal).
+>  - Collected Reviewed-by from Pranjal Shrivastava.
+>
+>  drivers/dma-buf/dma-buf-mapping.c | 16 ++++++++++++----
+>  1 file changed, 12 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-=
+mapping.c
+> index 794acff2546a..80f6ab2f4809 100644
+> --- a/drivers/dma-buf/dma-buf-mapping.c
+> +++ b/drivers/dma-buf/dma-buf-mapping.c
+> @@ -5,12 +5,13 @@
+>   */
+>  #include <linux/dma-buf-mapping.h>
+>  #include <linux/dma-resv.h>
+> +#include <linux/overflow.h>
+>
+>  static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t=
+ length,
+>                                          dma_addr_t addr)
+>  {
+>         unsigned int len, nents;
+> -       int i;
+> +       unsigned int i;
+>
+>         nents =3D DIV_ROUND_UP(length, UINT_MAX);
+>         for (i =3D 0; i < nents; i++) {
+> @@ -40,8 +41,12 @@ static unsigned int calc_sg_nents(struct dma_iova_stat=
+e *state,
+>         size_t i;
+>
+>         if (!state || !dma_use_iova(state)) {
+> -               for (i =3D 0; i < nr_ranges; i++)
+> -                       nents +=3D DIV_ROUND_UP(phys_vec[i].len, UINT_MAX=
+);
+> +               for (i =3D 0; i < nr_ranges; i++) {
+> +                       unsigned int added =3D DIV_ROUND_UP(phys_vec[i].l=
+en, UINT_MAX);
+> +
+> +                       if (check_add_overflow(nents, added, &nents))
+> +                               return 0;
+> +               }
+>         } else {
+>                 /*
+>                  * In IOVA case, there is only one SG entry which spans
+> @@ -95,9 +100,10 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_b=
+uf_attachment *attach,
+>                                          size_t nr_ranges, size_t size,
+>                                          enum dma_data_direction dir)
+>  {
+> -       unsigned int nents, mapped_len =3D 0;
+>         struct dma_buf_dma *dma;
+>         struct scatterlist *sgl;
+> +       size_t mapped_len =3D 0;
+> +       unsigned int nents;
+>         dma_addr_t addr;
+>         size_t i;
+>         int ret;
+> @@ -133,6 +139,8 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_b=
+uf_attachment *attach,
+>         }
+>
+>         nents =3D calc_sg_nents(dma->state, phys_vec, nr_ranges, size);
+> +
+> +       /* sg_alloc_table will cleanly fail and return -EINVAL if nents =
+=3D=3D 0 */
+>         ret =3D sg_alloc_table(&dma->sgt, nents, GFP_KERNEL | __GFP_ZERO)=
+;
+>         if (ret)
+>                 goto err_free_state;
+> --
+> 2.54.0.1064.gd145956f57-goog
+>
 
-Pre-existing issues:
-- [High] The local variable `link_frequencies` is used uninitialized if `of=
-_property_read_variable_u64_array()` returns 0.
---
+Hi Christian et al,
 
---- Patch [9]: [PATCH v5 09/11] drm/bridge: it6505: hold endpoint OF node r=
-eference while parsing it ---
-commit a152f40f457f0c59599e70de71a80bcac957ec14
-Author: Daniel Golle <daniel@makrotopia.org>
-Subject: drm/bridge: it6505: hold endpoint OF node reference while parsing =
-it
+Gentle nudge on this. LMK if there is anything else needed.
 
-This commit fixes an issue where the device tree endpoint node reference
-is dropped before parsing is complete, which can cause a use-after-free
-race if the node is freed dynamically. It defers the of_node_put() calls
-to execute only after all property parsing has finished.
-
-> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
-/ite-it6505.c
-> index e9208d827ce3d..6f23203d5f2a6 100644
-> --- a/drivers/gpu/drm/bridge/ite-it6505.c
-> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-[ ... ]
->  	ep =3D of_graph_get_endpoint_by_regs(np, 0, 0);
-> -	of_node_put(ep);
-> =20
->  	if (ep) {
->  		len =3D of_property_read_variable_u64_array(ep,
->  							  "link-frequencies",
->  							  &link_frequencies, 0,
->  							  1);
->  		if (len >=3D 0) {
->  			do_div(link_frequencies, 1000);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but there is a pre-existing issue
-here in it6505_parse_dt(). If of_property_read_variable_u64_array() returns
-0, does this code use an uninitialized link_frequencies stack variable?
-
-The of_property_read_variable_u64_array() function is called with a minimum
-size of 0. If the link-frequencies property in the device tree is empty or
-less than 8 bytes long (such as a common syntax mistake where a 32-bit
-integer is provided), the function computes the size as 0. It then returns
-0 without modifying the link_frequencies output variable.
-
-Because the subsequent check is "if (len >=3D 0)", it evaluates to true, and
-do_div() will consume whatever garbage value happens to be on the stack.
-Depending on the stack memory, this could result in incorrectly rejecting
-valid display modes or causing unpredictable display pipeline failures.
-
-Should this code check "if (len > 0)" instead to guarantee the variable was
-actually populated before using it?
-
->  			it6505->max_dpi_pixel_clock =3D link_frequencies;
->  		} else {
->  			dev_err(dev, "error link frequencies, use default");
->  			*max_dpi_pixel_clock =3D DPI_PIXEL_CLK_MAX;
->  		}
-> +		of_node_put(ep);
->  	} else {
->  		dev_err(dev, "error endpoint, use default");
->  		*max_dpi_pixel_clock =3D DPI_PIXEL_CLK_MAX;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784717129.gi=
-t.daniel@makrotopia.org?part=3D9
+Regards,
+David
