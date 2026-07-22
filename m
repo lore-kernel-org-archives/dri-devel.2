@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50785C4453A
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 09:49:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76E7CC4453A
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 09:49:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD90F10E42E;
-	Wed, 22 Jul 2026 09:49:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC23910E44A;
+	Wed, 22 Jul 2026 09:49:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="nLX4SDKn";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="tcDzR5BB";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A176710E42E
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 09:49:28 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0A2410ED10
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 09:49:30 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 2AFFF1A1180;
- Wed, 22 Jul 2026 09:49:27 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 9CEF14E40EC5;
+ Wed, 22 Jul 2026 09:49:29 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id F2B0C60388;
- Wed, 22 Jul 2026 09:49:26 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 69D3E60388;
+ Wed, 22 Jul 2026 09:49:29 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 98E7611BD065D; 
- Wed, 22 Jul 2026 11:49:22 +0200 (CEST)
+ with ESMTPSA id 9958411BD3A30; 
+ Wed, 22 Jul 2026 11:49:27 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1784713766; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding; bh=/PXZ0ojAGesGFy8sIFupMTzEGX0GsWKAAQlJwFEUI0Q=;
- b=nLX4SDKnStLsmDnIL7D2iLRjQkBph3U745LqILANDoRg21jXvs6DEGDee22vbtAQNTzHEZ
- vurL6jPDBrdVXtwQY3LcJa695zyLA37iaGQNekrUhtCChUN6c1lavJ8fIuR8eKKOk0QHgP
- 1Q4u6M2ftuoF0VzK6KcOu+5Tp17oLZ5GM4j5RzTpMTNKwy2JLd11tqxhZaZRcYOScRfxQK
- e6fHzZ1HLq3Lj5oEcku8ToJeWxIb3WWcYLvyT4UemElLVfviFywm+25J9xD+HaSYBs0j00
- iBm2d38eYIw1xP83xghhQkuUaYLnbXfyg5EtRXJ+mxYl/zq922yvby5w1k35jw==
+ t=1784713768; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=stxIwdcEleIWpSaYIh2+fwHEePZ7UOvIiJ1idqO9hgI=;
+ b=tcDzR5BBmWodymMvcvZB931nkbROUJXX4yFigAx1RfQMt1ncxXeIOq8vhFcGIEbfadqfnB
+ gEisTvXUWwSCVBWGs0bL2nFE7nZn5FfApkSIghYXqzbButtEd9NHTGuOiS6l7o2OjExx7d
+ DN8AzpBaXhMZJSK36HmnSftf+6/WVHHg6x9RdQWlKTcmXRUkpxc2ZTil11VPLkkt719MJw
+ dSjCebsBS4Q6r5c+qhqAcgCUmBL6NBuP+HVKP2JaWbznmWpPt12oneNaX6rM9dF9B2n8Dh
+ xdmugNDZfaD9i+rXuwo97K1JGEEXHvuQ0FDaqzArIXfQSRyJ4EKDZlAPf51sMg==
 From: Romain Gantois <romain.gantois@bootlin.com>
-Subject: [PATCH v3 0/2] drm/logicvc: Avoid UAF in DRM object management
-Date: Wed, 22 Jul 2026 11:49:11 +0200
-Message-Id: <20260722-logicvc-uaf-v3-0-f3b2319d58a6@bootlin.com>
+Date: Wed, 22 Jul 2026 11:49:13 +0200
+Subject: [PATCH v3 2/2] drm/logicvc: Avoid using DRM resources after device
+ is unplugged
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNQQ6DIBQFr2JYl+YD1UBXvUfTBeBXaaw0oKSN8
- e4V3dTlJG/mzSRicBjJtZhJwOSi88MK4lQQ2+mhRerqlQkHXkHJK9r71tlk6aQbitowEA3UUCN
- ZjXfAxn222v2xc5zME+2YE3nRuTj68N3uEsu7vVwBO5QTo4xKq6wujbhwZW/G+7F3w9n6F8ntx
- P9sAUebU6BKoZRMCiErONrLsvwAgpfq3vgAAAA=
-X-Change-ID: 20260526-logicvc-uaf-eab103f0d0de
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260722-logicvc-uaf-v3-2-f3b2319d58a6@bootlin.com>
+References: <20260722-logicvc-uaf-v3-0-f3b2319d58a6@bootlin.com>
+In-Reply-To: <20260722-logicvc-uaf-v3-0-f3b2319d58a6@bootlin.com>
 To: Paul Kocialkowski <paulk@sys-base.io>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
@@ -70,58 +69,270 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi everyone, this is version three of my series which fixes some memory
-management issues in the logicvc-drm driver.
+Some DRM resources such as plane, CRTC or encoder objects could remain in
+use after the DRM device is removed. Use the drm_dev_enter/exit() mechanism
+to ensure that the DRM device is not unplugged before using its resources.
 
-Patch 1/2 migrates the driver to drmm to avoid accessing DRM objects after
-they have been freed by devm.
-
-Patch 2/2 uses the unplug mechanism to ensure that DRM objects aren't
-accessed after the DRM device is removed.
-
-Best Regards,
-
-Romain
-
+Fixes: efeeaefe9be56 ("drm: Add support for the LogiCVC display controller")                                                                        │
+Cc: stable@vger.kernel.org
 Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
 ---
-Changes in v3:
-- Added a required drm_device_enter() section.
-- Removed unecessary drm_device_enter() sections.
-- Cleared vblank events in atomic callbacks when device is unplugged.
-- Link to v2: https://patch.msgid.link/20260630-logicvc-uaf-v2-0-99e881833860@bootlin.com
+ drivers/gpu/drm/logicvc/logicvc_crtc.c      | 39 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/logicvc/logicvc_drm.c       |  6 ++++-
+ drivers/gpu/drm/logicvc/logicvc_interface.c | 12 +++++++++
+ drivers/gpu/drm/logicvc/logicvc_layer.c     | 28 ++++++++++++++++-----
+ 4 files changed, 78 insertions(+), 7 deletions(-)
 
-Changes in v2:
-- Added protection of DRM device resources after removal using drm_dev_enter()
-- Link to v1: https://patch.msgid.link/20260601-logicvc-uaf-v1-1-8c9ca5b3429c@bootlin.com
+diff --git a/drivers/gpu/drm/logicvc/logicvc_crtc.c b/drivers/gpu/drm/logicvc/logicvc_crtc.c
+index 3a4c347eaa648..e2575fa78ab25 100644
+--- a/drivers/gpu/drm/logicvc/logicvc_crtc.c
++++ b/drivers/gpu/drm/logicvc/logicvc_crtc.c
+@@ -36,6 +36,21 @@ logicvc_crtc_mode_valid(struct drm_crtc *drm_crtc,
+ 	return 0;
+ }
+ 
++static void logicvc_crtc_drop_any_event(struct drm_device *drm_dev,
++					struct drm_crtc *drm_crtc)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&drm_dev->event_lock, flags);
++
++	if (drm_crtc->state->event) {
++		drm_crtc->state->event = NULL;
++		drm_warn(drm_crtc->dev, "Device is unplugged, ignoring pending vblank event!");
++	}
++
++	spin_unlock_irqrestore(&drm_dev->event_lock, flags);
++}
++
+ static void logicvc_crtc_atomic_begin(struct drm_crtc *drm_crtc,
+ 				      struct drm_atomic_state *state)
+ {
+@@ -44,6 +59,12 @@ static void logicvc_crtc_atomic_begin(struct drm_crtc *drm_crtc,
+ 		drm_atomic_get_old_crtc_state(state, drm_crtc);
+ 	struct drm_device *drm_dev = drm_crtc->dev;
+ 	unsigned long flags;
++	int idx;
++
++	if (!drm_dev_enter(drm_dev, &idx)) {
++		logicvc_crtc_drop_any_event(drm_dev, drm_crtc);
++		return;
++	}
+ 
+ 	/*
+ 	 * We need to grab the pending event here if vblank was already enabled
+@@ -58,6 +79,8 @@ static void logicvc_crtc_atomic_begin(struct drm_crtc *drm_crtc,
+ 
+ 		spin_unlock_irqrestore(&drm_dev->event_lock, flags);
+ 	}
++
++	drm_dev_exit(idx);
+ }
+ 
+ static void logicvc_crtc_atomic_enable(struct drm_crtc *drm_crtc,
+@@ -76,6 +99,12 @@ static void logicvc_crtc_atomic_enable(struct drm_crtc *drm_crtc,
+ 	unsigned int vact, vfp, vsl, vbp;
+ 	unsigned long flags;
+ 	u32 ctrl;
++	int idx;
++
++	if (!drm_dev_enter(drm_dev, &idx)) {
++		logicvc_crtc_drop_any_event(drm_dev, drm_crtc);
++		return;
++	}
+ 
+ 	/* Timings */
+ 
+@@ -148,6 +177,8 @@ static void logicvc_crtc_atomic_enable(struct drm_crtc *drm_crtc,
+ 		drm_crtc->state->event = NULL;
+ 		spin_unlock_irqrestore(&drm_dev->event_lock, flags);
+ 	}
++
++	drm_dev_exit(idx);
+ }
+ 
+ static void logicvc_crtc_atomic_disable(struct drm_crtc *drm_crtc,
+@@ -155,6 +186,12 @@ static void logicvc_crtc_atomic_disable(struct drm_crtc *drm_crtc,
+ {
+ 	struct logicvc_drm *logicvc = logicvc_drm(drm_crtc->dev);
+ 	struct drm_device *drm_dev = drm_crtc->dev;
++	int idx;
++
++	if (!drm_dev_enter(drm_dev, &idx)) {
++		logicvc_crtc_drop_any_event(drm_dev, drm_crtc);
++		return;
++	}
+ 
+ 	drm_crtc_vblank_off(drm_crtc);
+ 
+@@ -180,6 +217,8 @@ static void logicvc_crtc_atomic_disable(struct drm_crtc *drm_crtc,
+ 		drm_crtc->state->event = NULL;
+ 		spin_unlock_irq(&drm_dev->event_lock);
+ 	}
++
++	drm_dev_exit(idx);
+ }
+ 
+ static const struct drm_crtc_helper_funcs logicvc_crtc_helper_funcs = {
+diff --git a/drivers/gpu/drm/logicvc/logicvc_drm.c b/drivers/gpu/drm/logicvc/logicvc_drm.c
+index bbebf4fc7f51a..fb66f5fb67937 100644
+--- a/drivers/gpu/drm/logicvc/logicvc_drm.c
++++ b/drivers/gpu/drm/logicvc/logicvc_drm.c
+@@ -72,6 +72,10 @@ static irqreturn_t logicvc_drm_irq_handler(int irq, void *data)
+ 	irqreturn_t ret = IRQ_NONE;
+ 	u32 stat = 0;
+ 
++	/* The interrupt handler will be unregistered when the device is
++	 * removed. Therefore, there's no need for drm_dev_enter() here.
++	 */
++
+ 	/* Get pending interrupt sources. */
+ 	regmap_read(logicvc->regmap, LOGICVC_INT_STAT_REG, &stat);
+ 
+@@ -463,7 +467,7 @@ static void logicvc_drm_remove(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	struct drm_device *drm_dev = &logicvc->drm_dev;
+ 
+-	drm_dev_unregister(drm_dev);
++	drm_dev_unplug(drm_dev);
+ 	drm_atomic_helper_shutdown(drm_dev);
+ 
+ 	logicvc_mode_fini(logicvc);
+diff --git a/drivers/gpu/drm/logicvc/logicvc_interface.c b/drivers/gpu/drm/logicvc/logicvc_interface.c
+index 0d037f37b950f..aa13338a29535 100644
+--- a/drivers/gpu/drm/logicvc/logicvc_interface.c
++++ b/drivers/gpu/drm/logicvc/logicvc_interface.c
+@@ -34,6 +34,10 @@ static void logicvc_encoder_enable(struct drm_encoder *drm_encoder)
+ 	struct logicvc_drm *logicvc = logicvc_drm(drm_encoder->dev);
+ 	struct logicvc_interface *interface =
+ 		logicvc_interface_from_drm_encoder(drm_encoder);
++	int idx;
++
++	if (!drm_dev_enter(drm_encoder->dev, &idx))
++		return;
+ 
+ 	regmap_update_bits(logicvc->regmap, LOGICVC_POWER_CTRL_REG,
+ 			   LOGICVC_POWER_CTRL_VIDEO_ENABLE,
+@@ -43,17 +47,25 @@ static void logicvc_encoder_enable(struct drm_encoder *drm_encoder)
+ 		drm_panel_prepare(interface->drm_panel);
+ 		drm_panel_enable(interface->drm_panel);
+ 	}
++
++	drm_dev_exit(idx);
+ }
+ 
+ static void logicvc_encoder_disable(struct drm_encoder *drm_encoder)
+ {
+ 	struct logicvc_interface *interface =
+ 		logicvc_interface_from_drm_encoder(drm_encoder);
++	int idx;
++
++	if (!drm_dev_enter(drm_encoder->dev, &idx))
++		return;
+ 
+ 	if (interface->drm_panel) {
+ 		drm_panel_disable(interface->drm_panel);
+ 		drm_panel_unprepare(interface->drm_panel);
+ 	}
++
++	drm_dev_exit(idx);
+ }
+ 
+ static const struct drm_encoder_helper_funcs logicvc_encoder_helper_funcs = {
+diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/logicvc/logicvc_layer.c
+index de1f4a8a61557..4d9bfd57affcf 100644
+--- a/drivers/gpu/drm/logicvc/logicvc_layer.c
++++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
+@@ -10,6 +10,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_blend.h>
++#include <drm/drm_drv.h>
+ #include <drm/drm_fb_dma_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+@@ -92,7 +93,7 @@ static int logicvc_plane_atomic_check(struct drm_plane *drm_plane,
+ 	struct drm_crtc_state *crtc_state;
+ 	int min_scale, max_scale;
+ 	bool can_position;
+-	int ret;
++	int idx, ret = 0;
+ 
+ 	if (!new_state->crtc)
+ 		return 0;
+@@ -108,12 +109,15 @@ static int logicvc_plane_atomic_check(struct drm_plane *drm_plane,
+ 		return -EINVAL;
+ 	}
+ 
++	if (!drm_dev_enter(drm_dev, &idx))
++		return -ENODEV;
++
+ 	if (!logicvc->caps->layer_address) {
+ 		ret = logicvc_layer_buffer_find_setup(logicvc, layer, new_state,
+ 						      NULL);
+ 		if (ret) {
+ 			drm_err(drm_dev, "No viable setup for buffer found.\n");
+-			return ret;
++			goto out_exit;
+ 		}
+ 	}
+ 
+@@ -127,12 +131,12 @@ static int logicvc_plane_atomic_check(struct drm_plane *drm_plane,
+ 	ret = drm_atomic_helper_check_plane_state(new_state, crtc_state,
+ 						  min_scale, max_scale,
+ 						  can_position, true);
+-	if (ret) {
++	if (ret)
+ 		drm_err(drm_dev, "Invalid plane state\n\n");
+-		return ret;
+-	}
+ 
+-	return 0;
++out_exit:
++	drm_dev_exit(idx);
++	return ret;
+ }
+ 
+ static void logicvc_plane_atomic_update(struct drm_plane *drm_plane,
+@@ -148,8 +152,12 @@ static void logicvc_plane_atomic_update(struct drm_plane *drm_plane,
+ 	struct drm_framebuffer *fb = new_state->fb;
+ 	struct logicvc_layer_buffer_setup setup = {};
+ 	u32 index = layer->index;
++	int idx;
+ 	u32 reg;
+ 
++	if (!drm_dev_enter(drm_dev, &idx))
++		return;
++
+ 	/* Layer dimensions */
+ 
+ 	regmap_write(logicvc->regmap, LOGICVC_LAYER_WIDTH_REG(index),
+@@ -230,6 +238,8 @@ static void logicvc_plane_atomic_update(struct drm_plane *drm_plane,
+ 	reg |= LOGICVC_LAYER_CTRL_COLOR_KEY_DISABLE;
+ 
+ 	regmap_write(logicvc->regmap, LOGICVC_LAYER_CTRL_REG(index), reg);
++
++	drm_dev_exit(idx);
+ }
+ 
+ static void logicvc_plane_atomic_disable(struct drm_plane *drm_plane,
+@@ -238,8 +248,14 @@ static void logicvc_plane_atomic_disable(struct drm_plane *drm_plane,
+ 	struct logicvc_layer *layer = logicvc_layer(drm_plane);
+ 	struct logicvc_drm *logicvc = logicvc_drm(drm_plane->dev);
+ 	u32 index = layer->index;
++	int idx;
++
++	if (!drm_dev_enter(&logicvc->drm_dev, &idx))
++		return;
+ 
+ 	regmap_write(logicvc->regmap, LOGICVC_LAYER_CTRL_REG(index), 0);
++
++	drm_dev_exit(idx);
+ }
+ 
+ static struct drm_plane_helper_funcs logicvc_plane_helper_funcs = {
 
-To: Paul Kocialkowski <paulk@sys-base.io>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: Jason Xiang <jx@jasonxiang.net>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Cc: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Romain Gantois (2):
-      drm/logicvc: Avoid use-after-free with devm_kzalloc()
-      drm/logicvc: Avoid using DRM resources after device is unplugged
-
- drivers/gpu/drm/logicvc/logicvc_crtc.c      |  56 +++++++++---
- drivers/gpu/drm/logicvc/logicvc_drm.c       |   6 +-
- drivers/gpu/drm/logicvc/logicvc_interface.c |  61 ++++++-------
- drivers/gpu/drm/logicvc/logicvc_layer.c     | 133 +++++++++++++++-------------
- 4 files changed, 153 insertions(+), 103 deletions(-)
----
-base-commit: 44e151be23deb788d9f6124de93823faf6e04e99
-change-id: 20260526-logicvc-uaf-eab103f0d0de
-
-Best regards,
---  
-Romain Gantois <romain.gantois@bootlin.com>
+-- 
+2.55.0
 
