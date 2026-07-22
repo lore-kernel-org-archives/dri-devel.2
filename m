@@ -4,100 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D7ECC4451C
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 06:38:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5ED97C4451C
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 06:38:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E2B410EC83;
-	Wed, 22 Jul 2026 06:38:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF36710EC82;
+	Wed, 22 Jul 2026 06:38:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="T2jdroEs";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ql2b5jHg";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GXm1Yfcs";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i/n03eKg";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C64710EC79
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:37:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5700410EC82
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:37:34 +0000 (UTC)
 Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66M53lgg3767875
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:37:41 GMT
+ 66M54J4M3769548
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:37:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- XnRrKHywGDxOUzWeTEWzWWRjTrZo78jT5PLWnVtgFyM=; b=T2jdroEsepbJfOw/
- xp6sT6YcsThvbp/BgihiRth+xsuYICbmhr63PpyVhG/9I1c1zmD6pBbP+2WqvEgL
- akfHuShxAAJ/4Tigbpg+FGqGAdW/6wVc11REJde2D5u7AivZenjssjxQqqd91W2w
- EFWSBQm7kHexNOaq9VaZW8T/gGqCKv8e7xUNbh//WACaTBXYFAxYu9kWISY+en15
- wAsPC8Kg8zqAW8rovtiLnSltuWx9Cit/oO1ueoOPvdOLocbNve35iX9VyfrVZoRP
- E4p4lcN7u4PLh0gluG8J6L5pyqsYQzsYmc47t5wjI1YvCoYJ/amLokgUxSnZSDQI
- jBA8pg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjnu4rnc6-1
+ s5GcuVSqx3TARTmxR3YrApkKUxojUC5YenbypcGMgm8=; b=GXm1YfcsRmTqE3rC
+ aILbKPzSetOC6pvsAzmynIuuXw9OlyqPoIOUf9dtoEDfi+aHt9vp+3e+VFmpTHc/
+ mUgiRBgCLqQIJugiJfALEhZ6P2QbzadQ8ZWU1szkp3Zxss1QM92X3PHwsJrQ3vNr
+ v8zQzcdUyWvDiIDQA8WyOjM9t5YO5wUFL2WMtjqzUFXN/vjC9q+S9eHhUJU5fRO6
+ XIOK0eUrEbVLj+tjA8aMqaKNLhvreclevqL50D8Azh5f0fSMCZDi2P9DUkZvyVCs
+ r6/TBFMlKANjoSPuoKB3m+7Ek76CiUFXPK0TUcjMogXJAfXd7yZpdnch1X+zuj+q
+ NATlhg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjnu4rnb5-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:37:40 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-51a8db414c7so212193601cf.0
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 23:37:40 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:37:33 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-51c0408254aso128040611cf.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 23:37:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784702260; x=1785307060;
+ d=oss.qualcomm.com; s=google; t=1784702253; x=1785307053;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=XnRrKHywGDxOUzWeTEWzWWRjTrZo78jT5PLWnVtgFyM=;
- b=Ql2b5jHgMyK1f0uQd12hOU262fu820dv4QBoYLLoNo5y7GGn4/C4Rm5/65p/mUvGhT
- c3AI4EUaS6Stx9WHLhevwrQoE8JaZ3C+S0gxVEJEpd6/Yy9Q/Zt4FXWm1l+726+qSpo2
- CYLKerujHIUCF2LVZYKLTrGxwgK0AWqne+37j5Y2f7TWBUvfL6Cz3mCgcLJqiJg0ygOt
- lsX+etM/R5iNtOrwfOI5Tx6tE+f0Y6SCXv/ZJj5+2K/1DJNEcGEkdC6FhOPVO6WULXDB
- DGU83bzBS2gJceDQrhjWoAzjR19TvKenc3p9ZMg14xV7VH3t3pAkMyXIO4x4lOBQpwH2
- JcBg==
+ bh=s5GcuVSqx3TARTmxR3YrApkKUxojUC5YenbypcGMgm8=;
+ b=i/n03eKg7HQCLVz9qQjga9HYURjyE+vbFNdQD74rEeHHtFUB4oZYN9TXRVZozYuoj+
+ ngrlEJEIeqYzNMIUBgC88M+76do6uzlEbaBa/xJxL88Nd7TJJzuWnqi+3f8zsZ72/aOq
+ O0negMC965SeSpDSuoxn3ovVxmL70oaBXc2a+Aqp9aL8TsiL9OHI7nGveWDOJe0PtQkq
+ wihNNL+CWWV5+aGXlRQcIPLi0/h34WXce0xWQvfCZDgtlKRmW9R20YFCBo0TITsg0nZY
+ mXmxncjyMTZ96SHAWu9mrr37S6Nl5rWDg+FJ6JUt0iN+df3L0xbO+n7Ic3zkU8k0prhK
+ bPGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784702260; x=1785307060;
+ d=1e100.net; s=20251104; t=1784702253; x=1785307053;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=XnRrKHywGDxOUzWeTEWzWWRjTrZo78jT5PLWnVtgFyM=;
- b=Ja+TX6hHYN7ZSb0SYpXFYKdpTA5LtiXaDtY5lftZL3PUWGOjdQgZXvOseFTqf03eUO
- iZVavvJhPOmSNwmRnusowuaBZkQql8D7fgt67m6bmx6jkuNPMfprYTvId9vHGH0KpZ+o
- FF9At/SJJApooGtsOJahO04LLAEstG3sCWfGUs1d6oNxDI8Rl5Vxp8wy0O5WJmYxaQK2
- aw4MC9CPvAYf1EWAjxzQp+SQN/jk/ElIf9yupfq2k0A23jYQ92jRtHcD8H/WwkPH/Wxl
- 9FqGlyrDMzTEwbpC+6HrSxtWPiqWkpNeoKkCTKXkRNvc6m/ygO08aMyBhVExuJjcqACl
- vhTw==
+ bh=s5GcuVSqx3TARTmxR3YrApkKUxojUC5YenbypcGMgm8=;
+ b=X+Rr6QatBmsKscdCIq8s59zUUSPz3d2IF2LAhwNgyyfQrAblIRgcHW3/xUqaEFpo+H
+ LnqHJfeWpdNdfySrccb2q77m3G78cE2uy6jqy/VIoKQEgivNYLyppx9ymZCbkQoLq7Xq
+ eKjwoApSs7QH4NiJfVKEM9rL4V9KEGUIr5tHxUwMrJnii6Wc0gu0kgWpv/5NTA8026a9
+ s4PLPP8yY0Sobao3+jISRIj2Z+Jx8piz1v3HhS642L3KfA+y3V7fEW6y9ge3RpNci2LN
+ ClMskAFYOIZ3PKMAYkbcajvuqPT1ZLCRN3K8yPeaDYOn8SOOcCQamkPFJ1mCqP93q8qC
+ nuew==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqjCgA8obtAFifiu8OAmXqSGerXLTa+qQTHhzhRWhSr/APqL/rwcMBaUh7iBuJVAdTxq5bMvAzBQ/I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxltPG1vHeKFY3k1mEls+/k96e8WKAb87hRuiFH2I0w2KAtIr1a
- vAD3ISOL0ddddtDEDfo7uooCxK6gncPe955l2H9EYHda68BQbWNN5rkdcWhvJ0FF2/PrCP3AWgw
- ARveojvqEt8R7Meu2mOhilLYnPfKRGkIYk1jYPfuWlFG8sWmtn3/8NaQ0MlMb23ARGvfipu4=
-X-Gm-Gg: AR+sD10100vIMqVcn15ujWVKAsRCgX7/Ylmt9Iqk3s6XdgTQX/sWNe8fo+1jYtVyfZ+
- S70guMRKwTKENI48HPz1chYV+V2ubq28QLB0O39a4mokas5rKE3Xz201tcOimb3NNCF0X5rmawV
- tpaA/PqroYcgb6TE0HzHFL6imE6GUoG27w6Xj8v3DFWx646SIS145sN6hecocu3OR/1ujixczYI
- Y+xsvw/EAu823JmeltcXZ8dJ35SSZ6e30s2lRRneKl4Hqe5DiPOLV/rGPYeFJadNx9qLRYtln5I
- a36cF8dF0gBr5ivMEQFL36QfhGKcIfC2RAn0Hei/wsCIsVp+clVpkmH+bIRQaYJLEPLzga+8Y6O
- eky422VmNqA/HsKZiuQEt37QCnaticYQKzOv6NJq1P431XR8loxtmzOVBrbR4546Xobcn63gDDd
- AY6wQMc5RTN7uEPA==
-X-Received: by 2002:a05:622a:4108:b0:51b:fa52:807b with SMTP id
- d75a77b69052e-5213e77dc72mr218367211cf.47.1784702259610; 
- Tue, 21 Jul 2026 23:37:39 -0700 (PDT)
-X-Received: by 2002:a05:622a:4108:b0:51b:fa52:807b with SMTP id
- d75a77b69052e-5213e77dc72mr218366961cf.47.1784702259068; 
- Tue, 21 Jul 2026 23:37:39 -0700 (PDT)
+ AHgh+RqqSz/sWQsjL+ufnNlaeVq1h8OSQh+EjkQ5TA/qaRwj9BVOKMMaXIfX524rULTguusF5UkLvXvLvy4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwIlhaXiMfFvuRWoyViS0RATSN/LM6rygaQqhPIrw1V+P5ygGnA
+ 7Os5vHE62J7dT4UmlEbElimOViSMC88+bHY2F7xN+H6apTbiLfdN0Rl1rlNWiZikFgGaYCmjpPM
+ frMuKAn1QLS4JjqLvZtmUu89gIbIg6C79sY5EAT5hcUUQ+NhzE7I3BjC/vG3+l5Y0t+PFJD0=
+X-Gm-Gg: AR+sD12NlFs2udaEyrBOyHembHYXviLevWpf9NCkoDJgOuUa2S84fhA3aCqcnP5IDDH
+ i0YRAfiYQnYEYBpUjbv/HhxJq566OO2vbPbbSQMb23zUJjKVKlhj7gigU6cSAreyvEPa9Wo8yJT
+ 59QZFv+DVuRQULiJ2VaYHuxEUmZfRLda2vhz8dExAJB30Km5nJm5kMUKcXgUZYg96RBD/g6pf/1
+ MFk3A37U6zNFBc+nFfNFT3A24xXqugp6PkldXZcucg5jEj0VYytHsawtqRb8vr8t4emnEF8cALl
+ Z194QUDyV3x72gM5pNwarCQupcOy6phQ76T1ENj8XjtTyw572sGs1jLCmaTaWSLwSz2LsNQtyGA
+ TgdIaRoL3d74i9OZpG9nW24zB0i4tIZU3T1GOP/6DCCpTi06UhjEsFs+ToV6X8+IdiH3rphEIz0
+ R1QOmKx3aCjbpf6A==
+X-Received: by 2002:a05:622a:296:b0:517:c582:9161 with SMTP id
+ d75a77b69052e-527a5c0ed5dmr28362851cf.7.1784702252769; 
+ Tue, 21 Jul 2026 23:37:32 -0700 (PDT)
+X-Received: by 2002:a05:622a:296:b0:517:c582:9161 with SMTP id
+ d75a77b69052e-527a5c0ed5dmr28362611cf.7.1784702252378; 
+ Tue, 21 Jul 2026 23:37:32 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b2a9b8c6f6sm309696e87.4.2026.07.21.23.37.37
+ 2adb3069b0e04-5b2a9b8c6f6sm309696e87.4.2026.07.21.23.37.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 23:37:37 -0700 (PDT)
+ Tue, 21 Jul 2026 23:37:29 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Wed, 22 Jul 2026 09:36:39 +0300
-Subject: [PATCH 24/24] drm/bridge-connector: attach the DP subconnector
- property
+Date: Wed, 22 Jul 2026 09:36:36 +0300
+Subject: [PATCH 21/24] drm/msm/dp: guard subconnector setup on the
+ connector type
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-drm-msm-display-interface-v1-24-368c10fe62fd@oss.qualcomm.com>
+Message-Id: <20260722-drm-msm-display-interface-v1-21-368c10fe62fd@oss.qualcomm.com>
 References: <20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com>
 In-Reply-To: <20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -116,36 +116,36 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2406;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2550;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=oODRCXTyFFCwRZ0Sv7FS2y/hkfGA+35WKYSGZcOEml0=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqYGTq0i//7pQq5pWgVJJSpoN7VfhV6Bjv6skYl
- NtppAvB7VCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCamBk6gAKCRCLPIo+Aiko
- 1VmsCACifTf6rchkhuEjQrSuhh1LqItb5kRl4fyZdnHEsMSloGVzlQYWwHNMev4dNiVo8g5oFjh
- IrGWNPyfQOZRFchjDhqhkJZ85oMoSnP4JPdjSFZ/5qDZkjZE00xZtUOrsG5fjJTnlSc+6mC2qH0
- 9GF3NvkhY9NPZ/Dskc8WQXKdeBgdakU00j5+PvKx1yeYRGjMRKXZotxhK7LIHGUCkBQATaBgmRm
- zmAtrdw6SX7iimV2sLl15TnjwUgP3/kpt6DFTdAdZF0tvULaGjlHsRcPDZSoSjNfDxLzVzczr7P
- y8mM1KPwa7BnoCnQKkncZ228nEC0Y0Jh6QRGh4rRzGKph1aP
+ bh=9/2o8KpXC7EG+vRWo0L9iXCJX0grbq1xFrlQ8yvb2cc=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqYGTpUgbAG+XcsMyqOlI37kJQzxzDNWXSDTLYv
+ bxCpiezV66JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCamBk6QAKCRCLPIo+Aiko
+ 1QGGB/4w8HILPKpUQzeABwsNjmmVWbOg15aj3qwewGrfqofbXm0E2tKb3tVKsOCsG7v+DaBSTgz
+ E35dLqPkiEAHhK/4mg4X3P2vxPpAloYItnJ7ecrofE133fJzft1hvxWP+MhKnwfrHo96ByF0Sbq
+ LX2vsVRgNPrxG4tNvuIS6gp3tSzucv1orqKL8aPj6tSbCi4rT7pmqpyBATpDaGIRvRaUy1OuSEW
+ NbPya+Cy7ssB9EJ5/VIXExfrLYOngNVhroCV0L3WU+QVDPVBUaK8t13XbRLr/ZpEZoJ86xcAsYn
+ eaWfhzSh59icozOG5smoZvcMA4NAb1WsenQvJcawclpIt8JI
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: j2mrebL2OyVJBTKIu767uW0iSAWEGg8v
-X-Authority-Analysis: v=2.4 cv=KLhqylFo c=1 sm=1 tr=0 ts=6a606534 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-GUID: FWkHUnpuAJoVqss24cuHtvnCZYOD3157
+X-Authority-Analysis: v=2.4 cv=KLhqylFo c=1 sm=1 tr=0 ts=6a60652d cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=3i-1COqLn-c5cVpzcnsA:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA2MCBTYWx0ZWRfX7Cbg2iYdxN6I
- TVAEaYApbosMAKGbl4/gyE4PHGDKEadfSi8kVM5K9DoqFdyTc8x67eQVMn5G1qUbM4Rs0Cqh92I
- vjP1IJeCAaHajozdZiQDdwQlACODjk6S5JDec3IhxwdeVPnJy5/ftN7NNKyIj3+wfJ0RTP2Klc6
- vdQlKb4QnJT3p1pCxjsrxpFuFKh2+ojlgH8xfYFOe1WHAHxqCFRCM3YQpPaNk8KqS48Nr6MGwSu
- mZeGLnCqwpSacY3OXwtqxXmSIWcJG5gy+b7NXWsCtI8CtPqHLbp9k8F6UQmHObmD3scpEIpVfkU
- LuxYbd2RqlX3MzwS+0nPffhtjMuSawRUNv1nWsPpiV3XnGyzXeBdMjDMlaSLe0YB/J+XHJijPdU
- N/GVBMaeRalD9zATyTvwoKulUyjhUV8Z0CWXmgclJVZzcrbg2HON78SiMKVZiK6Kv1iW9Qovq/4
- z6BNVze53fFhAdjkTyw==
-X-Proofpoint-ORIG-GUID: j2mrebL2OyVJBTKIu767uW0iSAWEGg8v
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA2MCBTYWx0ZWRfX3Fwcop0DSRsj
- G04AwNrpe+P3nQckmYZbTDikt1gVrGskNJapZSmlIKl+ucLeJzoMlFU12LR1Oz5BZclxj0BCnOY
- mtYaGykTt0GgrYbb3JsbcHxNLovI1Uk=
+ a=m6zLIIb-bBn14vORhpcA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA2MCBTYWx0ZWRfX9YD+I2m0O+QP
+ XwS+3wxrgjtbtZoNyh0xCUtibzQ20OLPZsj0BbTIQof2JZQ9al5YTykPzO/1OQ6mYw0Z33b7Phu
+ vM02iOX579kuld7ch5SsYvMRNSIsdyP55K8GSttIX5LOnRROYCo2hlc+wWeAkLAou+pQO1dFgQP
+ Kr5TZzpc2ogcJLntbJW6RU93Gp7SVqpsjtd205S+k76nWPrIgUErrZVFHaE372cWzcfq7vfxyhU
+ Ho5Mkjthf5B9GUBUwyaRXAdRcKdugXmKAftWGj/q3m0uskbNreSnO39kgzoprYa6+S3aQzgqvyD
+ QSfW++wZHH0WyKMiiWNhBiq2SfVi2SckMh8yJuOPe0zlRXfdBLtNbIh9x8vY5DItnSA7brcDgE6
+ gFZvxJvHNUgBo3XQ+UU8kniBlgKbvm7pIcN4i9jsIweuMDMeEYbxJqnmrM7E2FEpe4aZC4vde+f
+ zt+mkDeVepkKs3QT7XQ==
+X-Proofpoint-ORIG-GUID: FWkHUnpuAJoVqss24cuHtvnCZYOD3157
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA2MCBTYWx0ZWRfXyMmuzi/ec7HH
+ vRpNZx2SzlAr19d+xajOF+23n+daEWen4kqPQPMcX+TVI1ixUcAm0XbD07geig68tKL1d9JVuSy
+ bV8bM6qluyUhwaIr6aUPNLmiic5O2uw=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-22_02,2026-07-21_01,2025-10-01_01
@@ -169,60 +169,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-DisplayPort connectors can expose the subconnector property, describing
-the attached dongle. While i915 and amdgpu drivers already provide this
-property, bridge-based DisplayPort connectors don't expose it.
+The DP subconnector property only applies to full DisplayPort outputs.
+This was expressed as "!is_edp", which infers the property's
+applicability indirectly from the port flavour rather than from the
+connector it is attached to. Besides eDP, that is also wrong for an
+HDMI output driven by the DP controller through a DP-to-HDMI bridge:
+such a sink is not eDP either, so it would be handed a DP subconnector
+property it should never get.
 
-Attach the DP subconnector property from drm_bridge_connector_init()
-whenever the resolved connector type is DisplayPort, and drop the
-open-coded attachment from the msm code, pushing other DP drivers
-towards adding support for the property.
+Key the DP subconnector calls off the connector type directly
+(DRM_MODE_CONNECTOR_DisplayPort) instead. This ties the decision to the
+object the property lives on and correctly covers both cases, skipping
+eDP as well as HDMI (via a DP-to-HDMI bridge) outputs.
 
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c | 4 ++++
- drivers/gpu/drm/msm/msm_kms.c                  | 5 -----
- 2 files changed, 4 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 4 ++--
+ drivers/gpu/drm/msm/dp/dp_drm.c     | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 8b54069fa53a..f83d5f52ab14 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -1089,6 +1089,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 	    IS_ENABLED(CONFIG_DRM_DISPLAY_HDCP_HELPER))
- 		drm_connector_attach_content_protection_property(connector, true);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 3397a3a47ef3..4f6da636f7c6 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -295,7 +295,7 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
  
-+	/* The DP subconnector property applies to DisplayPort only. */
-+	if (connector_type == DRM_MODE_CONNECTOR_DisplayPort)
-+		drm_connector_attach_dp_subconnector_property(connector);
-+
- 	ret = drm_connector_attach_encoder(connector, encoder);
- 	if (ret)
- 		return ERR_PTR(ret);
-diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-index 71af3780b7b1..cf602be09ff8 100644
---- a/drivers/gpu/drm/msm/msm_kms.c
-+++ b/drivers/gpu/drm/msm/msm_kms.c
-@@ -320,7 +320,6 @@ static int msm_kms_init_connectors(struct drm_device *ddev)
+ 	msm_dp_link_process_request(dp->link);
  
- 	drm_for_each_encoder(encoder, ddev) {
- 		struct drm_connector *connector;
--		int ret;
+-	if (!dp->msm_dp_display.is_edp)
++	if (connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort)
+ 		drm_dp_set_subconnector_property(connector,
+ 						 connector_status_connected,
+ 						 dp->panel->dpcd,
+@@ -477,7 +477,7 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_display_private *dp)
+ 	 * We don't need separate work for disconnect as
+ 	 * connect/attention interrupts are disabled
+ 	 */
+-	if (!dp->msm_dp_display.is_edp)
++	if (dp->msm_dp_display.connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort)
+ 		drm_dp_set_subconnector_property(dp->msm_dp_display.connector,
+ 						 connector_status_disconnected,
+ 						 dp->panel->dpcd,
+diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+index 6b55753da0f7..00653b0364dc 100644
+--- a/drivers/gpu/drm/msm/dp/dp_drm.c
++++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+@@ -323,7 +323,7 @@ struct drm_connector *msm_dp_drm_connector_init(struct msm_dp *msm_dp_display,
+ 	if (IS_ERR(connector))
+ 		return connector;
  
- 		/* the virtual writeback encoder brings its own connector */
- 		if (encoder->encoder_type == DRM_MODE_ENCODER_VIRTUAL)
-@@ -333,10 +332,6 @@ static int msm_kms_init_connectors(struct drm_device *ddev)
- 				      encoder->name, PTR_ERR(connector));
- 			return PTR_ERR(connector);
- 		}
--
--		/* The DP subconnector property applies to DisplayPort only. */
--		if (connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort)
--			drm_connector_attach_dp_subconnector_property(connector);
- 	}
+-	if (!msm_dp_display->is_edp)
++	if (connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort)
+ 		drm_connector_attach_dp_subconnector_property(connector);
  
- 	return 0;
+ 	return connector;
 
 -- 
 2.47.3
