@@ -4,43 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAEBBC4452D
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 04:58:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DBBFC4452D
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 05:22:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1356B10E402;
-	Wed, 22 Jul 2026 04:58:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 871EC10E400;
+	Wed, 22 Jul 2026 05:22:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I4JaQfaW";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GMMXZ2fv";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 096E010E402
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 04:58:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 85CD74138B;
- Wed, 22 Jul 2026 04:58:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2111F000E9;
- Wed, 22 Jul 2026 04:58:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784696283;
- bh=EsgHAZPh1m9+8AYdoRmaFnYgx0Ib/rOd3qn0UhH3TyE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=I4JaQfaWz5JP+/92eLhbzdQ8ojZ3mbcGgeeDIrwhDLwCyD1yji9PScHXZUagGBkl/
- gh3G0z4hUzyP9g8oDLSc9vvnlNtkAPqC3qJD1lgBnxTIpEzOOK8YENhebyR89TDQBA
- 72yAPJqm7ylhnhpW8slKAxO8fCHVrxbZxuMrLKdLmqnWta2sC00qXHUveznvLe0UA4
- ermwOUJVrDRnQDDbWky/V4BH6W/MFttF5kG0ZfYO4hmh5JnPsmjrAYDsbhrGSmec5Q
- tjd2RzkW7RQccjocQP1Z/c+q5Jj19gM+QO/ka2+dcENv93DjjAqGqThjOfRMPwBWcn
- qysVfQxzKJcdg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] drm/ttm: allocate pool pages as compound (__GFP_COMP)
-To: "Matthew Brost" <matthew.brost@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260722044220.1110278-3-matthew.brost@intel.com>
-References: <20260722044220.1110278-1-matthew.brost@intel.com>
- <20260722044220.1110278-3-matthew.brost@intel.com>
-Content-Type: text/plain; charset=utf-8
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 696C210E400
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 05:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1784697729;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zUwBUqB0UJ0jFJVhl6+u41ye61PbDg1BSsWyW+JC2Xs=;
+ b=GMMXZ2fvB45WG35tJabaYxmI5q10zI2Y8tRij2n8XhNr0GyxDDyu5YHd7VYFdXgqxpm6RS
+ P4iAUnwCZVBPBChYKG39IZ0oMzzvvJBfk8N+lUlLFLvhpc1AZ/cuohA/RELzoYqUtJmaCm
+ emNr2MQdwLbp0EbwIpgLOttFs4t/0a8=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-593-xogjPWZMP3G3wYBpejnG2Q-1; Wed, 22 Jul 2026 01:22:06 -0400
+X-MC-Unique: xogjPWZMP3G3wYBpejnG2Q-1
+X-Mimecast-MFC-AGG-ID: xogjPWZMP3G3wYBpejnG2Q_1784697725
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-4926fa2cb17so40551935e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 22:22:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784697725; x=1785302525;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=zUwBUqB0UJ0jFJVhl6+u41ye61PbDg1BSsWyW+JC2Xs=;
+ b=Mfg/FpYm9pcl4+B7JAZU43NyqO8mw2jzzMhstQISKmvc6Mxyhk3zRPPQaRM1DuZy9V
+ /FwkpADuuDvUoPvyT3MeGqcEC8oKw94YiVVrk40nVIEREUm5/Ju39DXqfLekhRsp242Z
+ LaCCSNxkCw5CJnduTq0cuu27z/vmE2hacgWj0QA9y2jgTqwZsuk73jEFrNCw5BC0RViG
+ RvW1d679+adg5gfmMdesdpxndHiiGXV6khLyEOUWXopyht6YVGN4r1v6schwLuT+WI2V
+ RmY/zYiZQ0zPgVILYQhNRxZCM+TB4z9hadsg+BWIXiIhdQ2jzT9CbsUcgSczby1fp33g
+ zCKQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp5hyArbUi6TFFqQ6AyUxGOuaf5yEZ99KH60iyi6HVqOT7gSFFKFpHRG7dPXMJPOeNH/XpTwlS95co=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz1SvMUPS52Z3zw5XFjr/18l56zmi3laDKYfEh7uo4nRJJGJwJ+
+ hkYKSrcp1SA2mqHl//Azz/WkAfsVxTMH22btjWWliI2GU4qIyeyO6JvSccL6/56cqRI3xMANOXz
+ 2XtV4sdBgeNRvVVf4lXaOeIZDVGqknp5uOEfllgOwgzmA/Z7gCOYqA6ehLrLIglkkR4hvi/W6x7
+ n0Zhn0DZkLWxKs3wRCAE45xhjQk3fP38ez2US8ryBxD9pv
+X-Gm-Gg: AR+sD10zq43Ra/s8IUNscahzpKtZ11qiQ59nOg1BNZYUxj5KvoVmZJaOmKCzNQ8w9/x
+ 7QDBqNn/dtVmKF1nNNEQYfaH9aGtoQdY695/t8fom02TuwREssqCxL5PIV4V9uCnX1Yyr4fNwwQ
+ UxBnBYGR0Gc7VRZePrlZhaAsNsrcMAiz1M9MNK0b56v1vegfYTJY0L9gBH
+X-Received: by 2002:a05:600c:548a:b0:493:f783:c46a with SMTP id
+ 5b1f17b1804b1-4956a4ef5d1mr23399505e9.6.1784697724938; 
+ Tue, 21 Jul 2026 22:22:04 -0700 (PDT)
+X-Received: by 2002:a05:600c:548a:b0:493:f783:c46a with SMTP id
+ 5b1f17b1804b1-4956a4ef5d1mr23399355e9.6.1784697724521; Tue, 21 Jul 2026
+ 22:22:04 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260721223244.1102276-1-matthew.brost@intel.com>
+In-Reply-To: <20260721223244.1102276-1-matthew.brost@intel.com>
+From: Jan Stancek <jstancek@redhat.com>
+Date: Wed, 22 Jul 2026 07:21:47 +0200
+X-Gm-Features: AUfX_mwOdL_gU0Ukhn_BHxlTdYAhKkWBviF2rnNH5uTdN37yiHN3GNzhNE9VnzQ
+Message-ID: <CAASaF6yWnMeEa6ZiKNGjh5bMAUy+1D2JdQoDhj-UEaMm_ygG8w@mail.gmail.com>
+Subject: Re: [PATCH] drm/pagemap: Guard HPAGE_PMD_ORDER use with
+ CONFIG_ARCH_ENABLE_THP_MIGRATION
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ kernel test robot <lkp@intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: KOy8vYqkwpiE2a-fx_Mc8az2VSPBnJEZKKlVCInbWJI_1784697725
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 04:58:00 +0000
-Message-Id: <20260722045802.1B2111F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,109 +92,44 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] ttm_pool_split_for_swap() ignores the return value of folio_sp=
-lit_driver_managed(), leading to severe buddy allocator corruption if the s=
-plit fails.
-- [High] Kconfig hazard: Forcing TRANSPARENT_HUGEPAGE via select bypasses c=
-ritical architectural dependencies.
---
+On Wed, Jul 22, 2026 at 12:32=E2=80=AFAM Matthew Brost <matthew.brost@intel=
+.com> wrote:
+>
+> HPAGE_PMD_SHIFT expands to BUILD_BUG() when CONFIG_PGTABLE_HAS_HUGE_LEAVE=
+S
+> is not set, causing a compile error when both CONFIG_TRANSPARENT_HUGEPAGE
+> and CONFIG_HUGETLB_PAGE are disabled:
+>
+>  drivers/gpu/drm/drm_pagemap.c:480:12: error: call to '__compiletime_asse=
+rt_458'
+>  declared with 'error' attribute: BUILD_BUG failed
+>    480 |                         order =3D HPAGE_PMD_ORDER;
+>        |                                 ^
+>  include/linux/huge_mm.h:117:26: note: expanded from macro 'HPAGE_PMD_ORD=
+ER'
+>    117 | #define HPAGE_PMD_ORDER (HPAGE_PMD_SHIFT-PAGE_SHIFT)
+>        |                          ^
+>  include/linux/huge_mm.h:113:28: note: expanded from macro 'HPAGE_PMD_SHI=
+FT'
+>    113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
+>
+> Define DRM_PAGEMAP_PMD_ORDER, which maps to HPAGE_PMD_ORDER when
+> CONFIG_ARCH_ENABLE_THP_MIGRATION is enabled and to -1 otherwise.
+>
+> This is safe because all code paths that use DRM_PAGEMAP_PMD_ORDER are
+> reachable only when CONFIG_ARCH_ENABLE_THP_MIGRATION is enabled.
+>
+> Fixes: 139ab31aea8a ("drm/pagemap: Correct cpages calculation for migrate=
+_vma_setup")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/r/202607201914.LpAGsbXs-lkp@intel.com/
+> Cc: Jan Stancek <jstancek@redhat.com>
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 
---- Patch [3]: [PATCH 3/3] drm/ttm: allocate pool pages as compound (__GFP_=
-COMP) ---
-commit dae665417eeff981f7bae0e75da08ad47a4dd0a0
-Author: Matthew Brost <matthew.brost@intel.com>
+Thanks for fix, this resolves (same) build failure I was seeing as well.
 
-drm/ttm: allocate pool pages as compound (__GFP_COMP)
+Tested-by: Jan Stancek <jstancek@redhat.com>
 
-This commit changes the non-DMA path in ttm_pool_alloc_page() to allocate
-compound pages with __GFP_COMP instead of stashing the order in page->priva=
-te.
-It updates the backup, restore, and free paths to read the order via
-folio_order() and split compound folios using folio_split_driver_managed().
-
-> folio_split_driver_managed() lives in the THP split machinery
-> (mm/huge_memory.c), which only builds when CONFIG_TRANSPARENT_HUGEPAGE
-> is enabled. Drivers that drive the TTM shrinker and therefore reach the
-> split path must select TRANSPARENT_HUGEPAGE.
-
-[Severity: High]
-Is it safe to force select TRANSPARENT_HUGEPAGE in drivers?
-
-The Kconfig select directive forcefully enables the target symbol without
-evaluating its dependencies. TRANSPARENT_HUGEPAGE strictly depends on
-HAVE_ARCH_TRANSPARENT_HUGEPAGE and !PREEMPT_RT.=20
-
-Using select could force THP on architectures that lack support, breaking
-the build, or bypass the !PREEMPT_RT dependency and violate strict latency
-requirements.
-
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
-l.c
-> index 1bf37023fed66..364cc7ec7469c 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-[ ... ]
-> @@ -493,15 +493,31 @@ static unsigned int ttm_pool_page_order(struct ttm_=
-pool *pool, struct page *p)
->  static void ttm_pool_split_for_swap(struct ttm_pool *pool, struct page *=
-p)
->  {
->  	unsigned int order =3D ttm_pool_page_order(pool, p);
-> =20
->  	if (!order)
->  		return;
-> =20
-> -	split_page(p, order);
-> -	nr =3D 1UL << order;
-> -	while (nr--)
-> -		(p++)->private =3D 0;
-> +	if (ttm_pool_uses_dma_alloc(pool)) {
-> +		pgoff_t nr;
-> +
-> +		/*
-> +		 * DMA-alloc pages are not compound; split the plain
-> +		 * higher-order allocation and clear the per-page private
-> +		 * (which held the order for the non-compound case).
-> +		 */
-> +		split_page(p, order);
-> +		nr =3D 1UL << order;
-> +		while (nr--)
-> +			(p++)->private =3D 0;
-> +		return;
-> +	}
-> +
-> +	/*
-> +	 * The non-DMA path allocates compound folios (__GFP_COMP). Split the
-> +	 * driver-owned, off-LRU, unmapped folio into order-0 folios so each
-> +	 * page can be freed as soon as it has been backed up.
-> +	 */
-> +	folio_split_driver_managed(page_folio(p), 0);
->  }
-
-[Severity: Critical]
-Does this code handle split failures correctly?
-
-If CONFIG_TRANSPARENT_HUGEPAGE is disabled, the fallback stub for
-folio_split_driver_managed() unconditionally returns -EINVAL and the folio
-remains an intact compound page. Because the return value is ignored,
-callers like ttm_pool_backup() will incorrectly assume the split succeeded.
-
-Will this corrupt the buddy allocator in ttm_pool_backup()? It follows the
-split with this loop:
-
-			ttm_pool_split_for_swap(pool, page);
-			for (j =3D 0; j < nr_backed; j++)
-				__free_pages_gpu_account(page + j, 0, false);
-
-Calling __free_pages(page + j, 0) on a tail page of an active compound folio
-redirects the refcount decrement to the head page, rapidly underflowing it.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722044220.1110=
-278-1-matthew.brost@intel.com?part=3D3
