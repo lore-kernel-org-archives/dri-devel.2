@@ -4,90 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB61DC4453C
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 12:15:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77A9BC4453F
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 12:15:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B7E910ED76;
-	Wed, 22 Jul 2026 12:15:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF6610ED8B;
+	Wed, 22 Jul 2026 12:15:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="pCFMoj2w";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gzE/5dlo";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 401AA10E431
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 12:15:42 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-49548e01d02so25144025e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 05:15:42 -0700 (PDT)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E13810E431
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 12:15:43 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-47f59f25ec4so1957968f8f.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 05:15:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1784722540; x=1785327340; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1784722542; x=1785327342; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=uTe5FAQJLLQHDH6vlAa82uTTEPb2slflxpV33H1nb6w=;
- b=pCFMoj2w1g68eX/TBr7+W97OU7E+AEZKnAy9Qpwb7M0bbr7LW+lnsuEV8aIIosV2kU
- xhnyh5vGCDNb/GjcCx6pk9NEYJcm2eML25liTKtXTV9JgMDrzExim/nsg8MZejiLXUJs
- OuP3x3phxzeksekYI+K4pfYg1yTqRTM3jLkp/nxRq8kTo7K6batWOXPz/gtB7j3wt903
- oD0/01DNQt9SQMdL3f8FAWt0DO7/Mdtq1C6HWjpdut7MlFSOL/O5Bq6JFyD9yUC7obdz
- z+COu/syIKbEDxQWqh266zi0Ndbusq+TsRXyT8iUu23GKguScZJ5thwjrCrHpNP7CWBh
- hYWg==
+ bh=IVLV7NjgP0TOqg9eeIPWtc9f772NSdz+whEsysuPUVM=;
+ b=gzE/5dlorRPdsBF85dJzKBbDKqr6BS9Kj0IUN93lIJaEdOdBeAbeeJlXWW8bxbPZsg
+ HWiDKSOAtuLhGa1i1ioSmRGxUoJRL+6hZeKTDimypO3IdEr5AssgZdVGcXs/Jbd+kFUg
+ 418FmBI/R80OsPgVriKTHVW0rPTti0yFwSOcfWO4grJvkEWkBAU4SnLkCWr4NbwfoUQ9
+ uzF99+hdnImcjcKf3FW1eosjMA4+DUNVgrwkmhPAKPGl61kCzU4giBvfoVflu85F/A4G
+ zWed70C2bTwbn/J7P2iWZO1TJ4fYHfiOVIUQhq6fGsvjbykxt07z2uTlKeq4UJzy/O0D
+ xIYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784722541; x=1785327341;
+ d=1e100.net; s=20251104; t=1784722542; x=1785327342;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=uTe5FAQJLLQHDH6vlAa82uTTEPb2slflxpV33H1nb6w=;
- b=AC0k3yfPZloIm6ORrThSB4odl/ZFKnfbjS8uZdvpDreXESvxlcDamNVuRDWhWmasI9
- /ARF2ozigtlo5i5VfztIWfZELUh5vhKN2tTEmns2CJDOoqQdRzf/5HXzr3Id3alZ4bcf
- 0pmnixPZhio5/x+kZfykzRQgnv2BemWlRACZUy67B9QJyriPRsyO5EYSAe0MmSB+a5rR
- FAB09gqJfpWZ/tM/5qH6uwHew6mepl6e72PBAI+tn8vcgcINsj5qkX7Ud8m4uRms7HEJ
- cHqPt9RJeR0gliWGy+iY9UepVeIDAQ90t6Kscex0LbsoqzPOx8o3hwh0gKmDNVcM5byH
- UGtg==
-X-Gm-Message-State: AOJu0YyydPqguzKDBiqQCTfxfnAK+cphteOgcklUTkKPG59Mn9EAxp8q
- JOn9WB9udm91yisgBgJtTJNJVQhTofyvGJJlTeSYcEsUPoXkfBI7mAv3KdUTGIeJuqg=
-X-Gm-Gg: AR+sD13VKWgRu3ArRk8zppxIsXHTR7AiYtL60b2YHSDd9yC0XKwgu5PYd3snvNC3qEN
- iQ39MnCuCbQbbiRz291QDGs1TuKwCbK2b+xIp/Sqbtu4wZz5KY7VGDp1NT/iH4vH5972un52jv8
- eyLjQfs903jo7wuyY/kmVlJK2zOvONCiWA2NyzpUReW/VCNjKDvGpYN1XbDsLz0Rxh2nQ3aCcCx
- DpvAj7tdtBVhKJMmh5pKftlbSReCgJeJLX/YXqYmJsLsUqcCiV56LYMge9Zcidst+V9UCSNRHU9
- o5Ygc56qJBpKziTlzyQyOoHKF4GSRHEni5c1o/UFVFFSgqCdOPaYTISO/YnOh5uB+XNM7NBr7DC
- uvjzpbhFpviV3u9MSozjheMdlGO/DWQRsUPyyDXyDEAa8JjSZ1roPblg9iO6BLYmlsyQnah3Soe
- 8bZFEq+iEHlnZxZNR8AVHDP5U=
-X-Received: by 2002:a05:600c:524c:b0:495:4e12:6ae5 with SMTP id
- 5b1f17b1804b1-4954e126afamr259062795e9.26.1784722540451; 
- Wed, 22 Jul 2026 05:15:40 -0700 (PDT)
+ bh=IVLV7NjgP0TOqg9eeIPWtc9f772NSdz+whEsysuPUVM=;
+ b=PedM4GIDYS3vOA8ofmnIBn4o0n+xJX4LUgL0E6yi6D1QUwZYPQ/lASt2M6Lkv0GqiO
+ 5dfwu1lYsHKzniAINywokmbFOaln+/thTzMx/7rcb/PKJkYGmls/v6ztXVBx6y4hmaSD
+ VpuGK3kX6oqFo/QxcVWDF8Rz/LoeHirRoFLWLy6u4ELg4MNjYYIK4dfJW0ItmkWmcLxE
+ k8GZ3NF2Xe5Zla2rTLr1Rd0IeCn6wZLGGclungg1MaMC6ss/MewUM55imjYbleuQ3zIx
+ x+f3VpUfJRVBtL7+lv92OwK6FW6SFAD3wUnHJXUXkyALSCdUL9sH8jT/5O6vpUxpBI6s
+ XE0A==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqFdtgxAOMsOzrfmClQmM1U9TXzlHOiSci1f1CDhydxNgZN04NlVIiO6aBDQWTAKtyPx5VGdReVgc4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzXKCl/K06Wh/5nxWl9Q/Z7n+Ws9gjvVyI9u4+tBxIW0P01+jy0
+ A1f2vFyV+s43gR0oaBRHqD1PgBZYBZmf139ISNoeNWVXZzRN0ZfvXW01l85wWjSbZkA=
+X-Gm-Gg: AR+sD10rGrCxeuYfiFhexNSiUheK5pXtfgusyMvM4MDhg1pnsRvtkWLjzS4Qls0vqHv
+ Sasq2fVCD9D0v8fmCbVP3XkKt1U5DXs+Ukd2B0w41lM3o7e5G88LPWMBojxZSZcCVBsjfkqvdlp
+ Ns6UAbDUbm6lTXu9/bI497I/TVK5H2sh9rrxGo3e1Ds+Z1ARBfUMnNe4H1t4ED9FOl5RT/IeDmI
+ fIurPaTaqVtZ/QkcWIIuYDVL68PqTQHxv16i719PCn0Hol/IzuO8v9EzMti4u58CM1HeD63XKs7
+ QI/Al+ZtajCh2ggxl3jpZzF5FggQuwu3J3ObyNG9YOdqTTybkiO1rYY7ZG49bjr3tYvrcGhviEd
+ dCUCTdCAFdqIoc2OAYLJQXcm0pdOvykPzzWZRnhCh6s6oAkYhbzmePJgzvgSl45ZgGfApzvLDyk
+ m+xIFRBJZsyROBI/1Ku6QhyavpZOqNwrOMhw==
+X-Received: by 2002:a05:6000:4702:b0:47f:83c5:74d4 with SMTP id
+ ffacd0b85a97d-47f83c574ffmr5638257f8f.23.1784722541786; 
+ Wed, 22 Jul 2026 05:15:41 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f8635c8d7sm4379093f8f.21.2026.07.22.05.15.39
+ ffacd0b85a97d-47f8635c8d7sm4379093f8f.21.2026.07.22.05.15.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jul 2026 05:15:40 -0700 (PDT)
+ Wed, 22 Jul 2026 05:15:41 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>,
+To: Robert-Andrei Mercea <robertandreimercea@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Albert Esteve <aesteve@redhat.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH] drm: fix missing header include for drm_panel_put()
-Date: Wed, 22 Jul 2026 14:15:15 +0200
-Message-Id: <178472247765.1745070.9105161637266531122.b4-ty@b4>
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/panel: osd101t2587: migrate to newer mipi_dsi*
+ functions
+Date: Wed, 22 Jul 2026 14:15:16 +0200
+Message-Id: <178472247763.1745070.6461113880184444922.b4-ty@b4>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260722-panel-fix-kms-panel-put-v1-1-ebde56446ee5@linaro.org>
-References: <20260722-panel-fix-kms-panel-put-v1-1-ebde56446ee5@linaro.org>
+In-Reply-To: <20260720115126.666363-1-robertandreimercea@gmail.com>
+References: <20260720115126.666363-1-robertandreimercea@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -108,14 +99,20 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Wed, 22 Jul 2026 12:07:30 +0200, Neil Armstrong wrote:
-> Some DRM drivers lacked the drm_panel.h include to use drm_panel_put()
-> after the commit b71a623598d3 ("drm/panel: of_drm_find_panel() return a counted reference").
+On Mon, 20 Jul 2026 14:51:26 +0300, Robert-Andrei Mercea wrote:
+> Migrate osd101t2587-53ts panel driver from deprecated mipi_dsi*
+> functions to their *_multi variants for improved error handling, as
+> specified in the GPU subsystem TODO list.
+> 
+> Link: https://docs.kernel.org/gpu/todo.html#transition-away-from-using-deprecated-mipi-dsi-functions
+> 
+> 
+> [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/1] drm: fix missing header include for drm_panel_put()
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/057fad48d7f9f1caa90bd32295a03228254cf1e3
+[1/1] drm/panel: osd101t2587: migrate to newer mipi_dsi* functions
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/ab3d527aaa334f843d1a5f71aa79678a34ff4e48
 
 -- 
 Neil
