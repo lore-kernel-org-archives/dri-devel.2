@@ -4,137 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 756ACC44536
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 15:04:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A51CC44539
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 15:09:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFB8110E479;
-	Wed, 22 Jul 2026 15:04:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C43C10E488;
+	Wed, 22 Jul 2026 15:09:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="dNe4yngK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="V9U/GWvA";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011052.outbound.protection.outlook.com
- [40.93.194.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6067D10E479
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 15:04:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VFu48Iiwq5PBUpXRQNVr+ex++YbumjckWWNQHbx2SKyxkPllCR2gwsErBgT5slpDDEfzAG4k6wivihrZHOXwxuaAQ7pvNRaMSKym/XfTonSOJHCl9umer4R3CJYnZxEk75eO+paGu8rKZHP29Pi6400pwQI0MABT2Luez7GNzSceF4yB29jsT8TF1Pc7nBkBtaw+U9VV/16h1lzxZ6LdBZVnlE8si4LsUoIs7L6z7ZsS6gcEpw1JQNiz5+fkptF38cSKR4/UUGQEf495UykJzu3OQ1MCQMIbk/OntvLKh96gFDMsGmpVNEgoje6jW63SjKbX/z3jbjOwL3KmdI8kXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6/5L/lrBrzrpS837jSiELg7MBT6yzSqnwlWt08w08AA=;
- b=qakS+MMxjfs6ywaIGhXbedTTDVUDiMOeJYdvfxMN2W8+s/A0im6TX0wvpdfdrpH2qvvGv3tWCUDCNfizHjr9/KslO+A8CJkkpKpmOgW4rYYDi9UAU+hriBPjozcWKlopczZx4bXC3wnuT6761Whhd0u6LRZfycRauuaiJi+arbm0wNujjHaATJy7fQ6+LxqsaByBrSfoWhYMpqAk2g8jBJVPxU1SOTV1iQ5ZZ4RG1CAOCXf1bA1N17BcApTgVMQNx6Br93/BDeYl+sonDOYATbk9J8h0/zk2g5gXurPcJB0781OXyK/vSBFVCjmXu5wOAHm/8Mf415SUVKPIgt9bDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6/5L/lrBrzrpS837jSiELg7MBT6yzSqnwlWt08w08AA=;
- b=dNe4yngKXYgSE7uO+QxLSShhyH2kAdiNNq1oPjMYTA8g3DrzbFx2zneSDUAbEuRu6v5+20mj3MfMz0n2tOH8e0qw6yKcvJjFgCzeOP7QK6KJFqnncf3V2wYYKz9AkF7RnMJoVsnun7yCUFbIDu/HqBb9OYx1+AyU7p5D0T971m+S9bIn0wSmgidM/t8PwNChyvb3TPhiwwPbN3e7h3K1bvjfHR4Ja7KNuy8se8I98HehPtlbzv9uFu37yZlPWRnDlgAOuqRvg+ko4K7GIA0dqhJHswo/1GN00acdLsuquzD9Azhvogp5mp7oW2MU7qH83BMijCtiN68b97/YeDswig==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by MN0PR12MB6126.namprd12.prod.outlook.com (2603:10b6:208:3c6::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Wed, 22 Jul
- 2026 15:04:37 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
- 15:04:37 +0000
-Date: Wed, 22 Jul 2026 11:04:36 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>,
- Greg KH <gregkh@linuxfoundation.org>, Burak Emir <bqe@google.com>,
- John Hubbard <jhubbard@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Andrew Ballance <andrewjballance@gmail.com>,
- Matthew Wilcox <willy@infradead.org>, Gary Guo <gary@garyguo.net>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- Pedro Falcato <pfalcato@suse.de>
-Cc: Alexandre Courbot <acourbot@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Boqun Feng <boqun@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>,
- David Airlie <airlied@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Simona Vetter <simona@ffwll.ch>,
- Tamir Duberstein <tamird@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
- Trevor Gross <tmgross@umich.edu>, Yury Norov <yury.norov@gmail.com>,
- Zhi Wang <zhiw@nvidia.com>, maple-tree@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v3] lib: test bitmap vs IDA vs Maple Tree performance for
- region allocations
-Message-ID: <amDcBOmcxxz0bCOF@yury>
-References: <20260717053241.916441-1-ynorov@nvidia.com>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260717053241.916441-1-ynorov@nvidia.com>
-X-ClientProxiedBy: LV3P220CA0023.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:408:234::24) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23C7610E488;
+ Wed, 22 Jul 2026 15:08:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784732939; x=1816268939;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=Fuh7j3i1hWPA2ST5wcZWSI4lxKim5UhpPM3nkNKc/fU=;
+ b=V9U/GWvAE3OGxCndQZBf91MSRWWjd3wXo2MGPjb/3jNCD7npQyLplK6V
+ Ms1fX7vjhZc7Tfl5R8F8az1BT9Cb+o6xhVrZCvJTzOrW5jp3XXsi7SOal
+ uvK0CbFQtU9jiu3ntaoMu6ZeY4NvDHEg2HHWK80GcljZV6HhTnUL+Yf8Y
+ /klpEIMBTVO+/umw0QEvYgEgBD5pvUm4Ca5bXyrtxSBkff3V6gKjKGUzb
+ ldxa8V/m5dHWTJVUSNbclZXwhGkUaGDWeA7ApT9TNkb+cpzO5l1qm300Q
+ /DUXDa9HV/Sbio0xMP0FC3+hrcPUE2o36YTSLkYPc5y2dWTQXGQNgP/mV A==;
+X-CSE-ConnectionGUID: b+JiLRjUTXKyi+8wTC114Q==
+X-CSE-MsgGUID: +0cSHmeLSrKPK0agEop7zA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="110913418"
+X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="110913418"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2026 08:08:58 -0700
+X-CSE-ConnectionGUID: iU29KpU5TxCt+NLgMRzEkQ==
+X-CSE-MsgGUID: 0QD0nRCiQpSPTbNLxMR0qA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="258181065"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.180])
+ ([10.245.245.180])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2026 08:08:55 -0700
+Message-ID: <1c4e53bef3e6cdce4edf97352d9f5e04ce0c69a6.camel@linux.intel.com>
+Subject: Re: [PATCH 02/10] ttm: add a memcg accounting flag to the
+ alloc/populate APIs
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
+ tj@kernel.org, christian.koenig@amd.com, Johannes Weiner
+ <hannes@cmpxchg.org>,  Michal Hocko <mhocko@kernel.org>, Roman Gushchin
+ <roman.gushchin@linux.dev>, Shakeel Butt	 <shakeel.butt@linux.dev>, Muchun
+ Song <muchun.song@linux.dev>
+Cc: cgroups@vger.kernel.org, Waiman Long <longman@redhat.com>,
+ simona@ffwll.ch, 	intel-xe@lists.freedesktop.org
+Date: Wed, 22 Jul 2026 17:08:52 +0200
+In-Reply-To: <20260706052330.1110909-3-airlied@gmail.com>
+References: <20260706052330.1110909-1-airlied@gmail.com>
+ <20260706052330.1110909-3-airlied@gmail.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|MN0PR12MB6126:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2bbf1fc2-8f6e-48b9-1932-08dee8028c37
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|1800799024|366016|921020|6133799003|56012099006|10067099003|11063799006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info: Z4HSotPgxvLoA6nVTiZjtVRO5G2V7dIL+DXbMYBfzmTCYFUjjWxlgDj4GFikPMtuZ9lluteOfZevkguRP5a6+MEOHjxSjs4wQqz3yRZWtQgr+Ju02/5m3lEQvRdjjx3487Q0xDzoRcSwPRWPPYpkQ8TZTVeyJYk2hQE1A9PVWQfHvQci16h3UDIHO/VTZS+9obuODHrz3ZOHhpcwI0f67Px583OQ0fMaHHFkxkaZS+I8j1gCpMPDlt//8zvxPYwPW9nI+mm2qV5hf65+Nqa33bZXHqWy6TFSGEX4ejQGTSXjsqhBQrdBWSPE7SPCmJyqvXx320BAhQX9EykvACI3KotBX+UYrqvwY0JGIJAZykAzbWny/2Azpp/NYL2qaq0JrI8CRW0J4pAGPXRFODzeaR8sRSDcW0PeYp74ZcjrC3vXPnhRTxEVpr5R3gD8bUrzMG/VAl3/3Be1KaV8q6muZIHugaPKBS2FVvSf/ekvqlhw1cYinZUAb/9wrGOMfTIR1Y7j/WZK6EECvaD6G63/MkZjWoK+2JBNPtzB+t1SIv9dNiy1HR7WfWmjlM1KpGm3ednOgXCB5ZBDHbPRaBszFs1yHlHJd3YMIMYvxuRhkWfk8IvuviVdq/eW8QUHDal+cFbZWwMah5N5Mfe406/Tv/Tk8a7oOM0chSaDH1TM38NRsybGeliSeKhzonid6AYO0nEIulGQcnRn3dSjraZyzA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV3PR12MB9356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(921020)(6133799003)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?br+YPNsrWpNdIQSSC6ZhzkeIijcZsSbZxCTL2rZjXbXamnVBwKKIoQEBzI?=
- =?iso-8859-1?Q?uw/NBjcLZTS2cizfqmcFx432e56UW4QtC5kz+JOYUa276cIU1iTHPuW1DF?=
- =?iso-8859-1?Q?sq/SQo0bngW77UEs0MDJuQTB40w83zWbtjmPvmHk/1ISjFJXWmQoHo+2w4?=
- =?iso-8859-1?Q?KxxlFeB9lYi2FpSfYOUNKv+Lzxq/wbTSQlVjuDvMXv5PQvS3qMAWQG6Lql?=
- =?iso-8859-1?Q?9PsjMBUpgq/+7+6I3jutJVEqn+Y7ILtzB7yncYvAFf3xnbMxRU1KPWkecX?=
- =?iso-8859-1?Q?Ui5ogg1cGYXMH0EFQGNNMN1gFs5Qx3Af5FqvNTfni24E3W41UU8oZRxUc6?=
- =?iso-8859-1?Q?lwm+6/iLfy2K5qZL2xIcrbwZS2aimds9//SGiVC6ktPWOf3IejUnuY3vVP?=
- =?iso-8859-1?Q?531hN4c2Z8z93oreH9b+LSNkGNNgjA01ZmPl/v/iXN7Fii7BbDvv1eZ5X7?=
- =?iso-8859-1?Q?jVmVtUbe7m33jEIi0B5eU2x20i1qhbrhjBhwUc/6GAnYGTl7vxHFfPq5Gm?=
- =?iso-8859-1?Q?AV+hq6WE1cwkjeCMkabIbYwdESWmmNvhiNIHdbHjzINUpLCSB80lk8I7EJ?=
- =?iso-8859-1?Q?v8YF/s1KIQky0edQqXRN6HAkpHENv1O8hqv/RNCorWqtKIO9nmzKX+6c+N?=
- =?iso-8859-1?Q?JdNtXfyOgZRZ2LyN5ZrpLkLfuqMUJGjJPhmjVGLWO8MNP1CRzwaEzP4cno?=
- =?iso-8859-1?Q?/fGG1BSQItgtUX+nLc/RNEmiGGXzlQQYBi8QUSE+YlvT8YJ2daCkW8znC5?=
- =?iso-8859-1?Q?sQxbnKcw/g7KifE59Mfn5iuq9LYDXN92eY/FnFs715/xaSQEvrzhM4Fwon?=
- =?iso-8859-1?Q?7YG4vaxX93OljB07kBuLaM7T2jYkw7uQGdnhM4ttdOZB8gYQ5rCKSDZdGq?=
- =?iso-8859-1?Q?wb3ohClZiWue8ahFuNZ+zCRYzU+IM71KlqXsTPBhucO+eWFEcno9+GcxdY?=
- =?iso-8859-1?Q?wGJ+TVqYBU9rk2zZEiVlHMNiUkAhtNi5Mq9qhjV1Y3xrhjdgSzv4Gj7OA0?=
- =?iso-8859-1?Q?h2akCF8GWfWG4D8/jJWxI3/1PQmxqDJ33q+HrUNb2mihHfqTjfRy1XKXEU?=
- =?iso-8859-1?Q?slGJa2sye7tTlsYmt7Q5Zp700SA5rkzRefrOMHRwVl7SaSbmqOmqRu1h6r?=
- =?iso-8859-1?Q?M/EuBkqfhm77+g3eBO/X57Daqf1vuhnzwa8oDMApBpCDBnD2iNoiXlMMbF?=
- =?iso-8859-1?Q?8rn+5Sl3bS14UXqlIsS2VZh+sIbxYFwQ4z5LiJJNL8USAmML7GfMfk6q1W?=
- =?iso-8859-1?Q?osXphfG/BbQWZ5ENcrwVoHitYk/cjVbcoqFRFobKesRi9L5cJShk1CoBVN?=
- =?iso-8859-1?Q?b8CLN7Nzmw0etZFwj3aWHaCuUCISZ0dEyBSAmdvkDms2IyKopDv+pSwejb?=
- =?iso-8859-1?Q?49CRLiwLQMZOdc+WaTvPPhUrNq8bOg1CYZx5guy/hHbNbJHpmBE/jFZ2Ff?=
- =?iso-8859-1?Q?KJ4hgKOw9iPcYWAIJhzDUIhftUKNXW2semgy0D9bWMf8EizdtXG0XRhiyG?=
- =?iso-8859-1?Q?Z5S3aFMILBsY3N04e48uS8UVzochBaDv4cdorVLrah/kZGU+pfQ5ISMSkb?=
- =?iso-8859-1?Q?pKz+hjC4pySZMg7ZPI69ivEo8GKDd0zM7RJWC05WJJB68nV+ByTXOFpFNn?=
- =?iso-8859-1?Q?FBtyETzA9Y/n6Wzq8GfqnOZovFRJRBz/SebFS5xw0TPhxC1u07KoICGtj7?=
- =?iso-8859-1?Q?qRkLXx/ipQ8ILECBJYx7ARsSwzhVOKUPxL+0bnC6XGMbu1IhsCHYJe8DLa?=
- =?iso-8859-1?Q?BUctadn5bbwPnDMkoZOeKzG40AP5WYbzaGCaoKWOLCUbrt?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bbf1fc2-8f6e-48b9-1932-08dee8028c37
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 15:04:37.6486 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BtObzB6rXM4dtlnML2wtXI521AKMfAx0AUCQM6a+o6IJVfy43uyrxVQ3Muaism6Zd0YVvLlI2PcMTRYMMm5upA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6126
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,391 +77,771 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Guys, please send your comments / tags!
+On Mon, 2026-07-06 at 15:22 +1000, Dave Airlie wrote:
+> From: Dave Airlie <airlied@redhat.com>
+>=20
+> This flag does nothing yet, but this just changes the APIs to accept
+> it in the future across all users.
+>=20
+> This flag will eventually be filled out with when to account a tt
+> populate to a memcg.
 
-If no objections, I'll move it in bitmap-for-next before the end of week.
+I agree with Matt Brost's comment about the ttm_operation_ctx.
+
+There are also some sashiko comments that appear valid:
+https://sashiko.dev/#/message/20260706053512.D207E1F000E9%40smtp.kernel.org
 
 Thanks,
-Yury
+Thomas
 
-On Fri, Jul 17, 2026 at 01:32:40AM -0400, Yury Norov wrote:
-> Compare the cost of allocating and freeing variable-sized regions using
-> a bitmap, IDA and a Maple Tree. All implementations process the same
-> randomly generated sequence of regions containing up to 32 entries, until
-> the configured capacity is exhausted.
-> 
-> The benchmark exercises monotonic allocation into an initially empty pool,
-> followed by reverse-order freeing. It does not model fragmentation or
-> interleaved allocation and freeing, nor does it isolate locking or RCU
-> overhead. Allocation time includes the terminal failed request that detects
-> exhaustion.
-> 
-> Run the benchmark at several capacities to show how the approaches scale.
-> Report allocation and free times separately because bitmap, IDA and Maple
-> Tree removal have substantially different costs.
-> 
-> On x86/kvm, the output example is:
-> 
-> Start testing bitmap vs IDA vs Maple Tree region allocation
-> memory: bitmap is exact; IDA and Maple Tree are lower bounds
-> Type      alloc (ns)     free (ns)   regions  capacity  memory (B)
-> Bitmap      93457345        176151     60644   1000000      125000
-> Maple       11758660      12870146     60644   1000000     1552656
-> IDA         31066416      20870824     60644   1000000      134864
-> Bitmap        919119         17679      6032    100000       12504
-> Maple        1158193       1187140      6032    100000      154640
-> IDA          2759670       2116004      6032    100000       14288
-> Bitmap         17120          2043       613     10000        1256
-> Maple         116350        117537       613     10000       15888
-> IDA           243396        202654       613     10000        1872
-> Bitmap          1220           262        55      1000         128
-> Maple          12076         10106        55      1000        1552
-> IDA            25730         20875        55      1000         144
-> Bitmap           593           124        18       100          16
-> Maple           3599          4782        18       100         528
-> IDA             3266          1960        18       100         144
-> Bitmap           414           129        10        10           8
-> Maple           2143          1385        10        10         272
-> IDA              892           648        10        10          16
-> Region allocation benchmark complete
-> 
-> Reported IDA and Maple Tree memory figures exclude slab overhead
-> and transient allocations. The Maple Tree figure is additionally
-> a lower-bound estimate that assumes fully occupied leaf nodes and
-> excludes internal nodes.
-> 
-> IDA has no region-allocation API, so each region is implemented as
-> a sequence of single-ID allocations. The IDs remain contiguous
-> because this benchmark fills an initially empty IDA monotonically.
-> 
-> The benchmark is motivated by the discussion linked below about choosing
-> the best data structure for the channel ID pool with the capacity of 2048
-> IDs for the nova GPU driver.
-> 
-> Specifically for 2048 IDs the result is:
-> 
-> Bitmap          5112           615       121      2048         256
-> Maple          78526         59592       121      2048        3344
-> IDA           165274        117761       121      2048         848
-> 
-> The benchmark accepts a list of up to 64 nonzero capacities to test.
-> For example:
-> 
->   insmod region_alloc_benchmark.ko capacities=1024,2048,4096,65536
-> 
-> The list may contain duplicate capacities. Each occurrence generates a new
-> region-size sequence, which is useful for collecting statistical
-> characteristics of the benchmark results.
-> 
-> Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvidia.com/
-> Signed-off-by: Yury Norov <ynorov@nvidia.com>
+
+>=20
+> Signed-off-by: Dave Airlie <airlied@redhat.com>
 > ---
-> v3:
-> - allow capacities to be configured through the module parameter (Yury Norov)
-> - document default and custom-capacity usage in Kconfig (Yury Norov)
-> - store and generate only the region sizes required by each run (Yury Norov)
-> - clarify the workload, timing semantics and memory estimates (Pedro Falcato, Onur Özkan)
-> - report region count and capacity while retaining raw timings (Gary Guo)
-> - add post-free integrity checks (Yury Norov)
-> - add default capacities of 10 and 100 IDs (Matthew Wilcox)
-> - bound generated region sizes appropriately for small capacities (Matthew Wilcox)
-> - report successful completion and return -EAGAIN for repeat runs (Yury Norov)
-> v2: https://lore.kernel.org/all/20260711063602.426311-1-ynorov@nvidia.com/
-> v1: https://lore.kernel.org/all/20260711013910.349586-1-ynorov@nvidia.com/
-> 
->  MAINTAINERS                  |   3 +
->  lib/Kconfig.debug            |  13 +++
->  lib/Makefile                 |   1 +
->  lib/region_alloc_benchmark.c | 217 +++++++++++++++++++++++++++++++++++
->  4 files changed, 234 insertions(+)
->  create mode 100644 lib/region_alloc_benchmark.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 7cc4bca5a2c5..9e487a94aba4 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -4615,6 +4615,7 @@ F:	lib/bitmap.c
->  F:	lib/cpumask.c
->  F:	lib/find_bit.c
->  F:	lib/find_bit_benchmark.c
-> +F:	lib/region_alloc_benchmark.c
->  F:	lib/test_bitmap.c
->  F:	lib/tests/cpumask_kunit.c
->  F:	tools/include/linux/bitfield.h
-> @@ -15581,6 +15582,7 @@ F:	Documentation/core-api/maple_tree.rst
->  F:	include/linux/maple_tree.h
->  F:	include/trace/events/maple_tree.h
->  F:	lib/maple_tree.c
-> +F:	lib/region_alloc_benchmark.c
->  F:	lib/test_maple_tree.c
->  F:	rust/helpers/maple_tree.c
->  F:	rust/kernel/maple_tree.rs
-> @@ -29323,6 +29325,7 @@ F:	Documentation/core-api/xarray.rst
->  F:	include/linux/idr.h
->  F:	include/linux/xarray.h
->  F:	lib/idr.c
-> +F:	lib/region_alloc_benchmark.c
->  F:	lib/test_xarray.c
->  F:	lib/xarray.c
->  F:	tools/testing/radix-tree
-> diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-> index 1244dcac2294..0451dfca7098 100644
-> --- a/lib/Kconfig.debug
-> +++ b/lib/Kconfig.debug
-> @@ -2683,6 +2683,19 @@ config FIND_BIT_BENCHMARK
->  
->  	  If unsure, say N.
->  
-> +config REGION_ALLOC_BENCHMARK
-> +	tristate "Benchmark bitmap, IDA and Maple Tree region allocation"
-> +	help
-> +	  This builds a microbenchmark comparing variable-sized region
-> +	  allocation using bitmaps, IDA and Maple Tree. The benchmark
-> +	  runs at initialization time.
-> +
-> +	  Usage:
-> +	    insmod region_alloc_benchmark.ko
-> +	    insmod region_alloc_benchmark.ko capacities=1024,2048,4096,65536
-> +
-> +	  If unsure, say N.
-> +
->  config FIND_BIT_BENCHMARK_RUST
->  	tristate "Test find_bit functions in Rust"
->  	depends on RUST
-> diff --git a/lib/Makefile b/lib/Makefile
-> index 7f75cc6edf94..adb18810e3f7 100644
-> --- a/lib/Makefile
-> +++ b/lib/Makefile
-> @@ -64,6 +64,7 @@ obj-y += hexdump.o
->  obj-$(CONFIG_TEST_HEXDUMP) += test_hexdump.o
->  obj-y += kstrtox.o
->  obj-$(CONFIG_FIND_BIT_BENCHMARK) += find_bit_benchmark.o
-> +obj-$(CONFIG_REGION_ALLOC_BENCHMARK) += region_alloc_benchmark.o
->  obj-$(CONFIG_FIND_BIT_BENCHMARK_RUST) += find_bit_benchmark_rust.o
->  obj-$(CONFIG_TEST_BPF) += test_bpf.o
->  test_dhry-objs := dhry_1.o dhry_2.o dhry_run.o
-> diff --git a/lib/region_alloc_benchmark.c b/lib/region_alloc_benchmark.c
-> new file mode 100644
-> index 000000000000..e88b4cf55c62
-> --- /dev/null
-> +++ b/lib/region_alloc_benchmark.c
-> @@ -0,0 +1,217 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/* Benchmark bitmap, IDA and Maple Tree allocation of variable-sized regions. */
-> +
-> +#include <linux/bitmap.h>
-> +#include <linux/idr.h>
-> +#include <linux/kernel.h>
-> +#include <linux/maple_tree.h>
-> +#include <linux/module.h>
-> +#include <linux/printk.h>
-> +#include <linux/random.h>
-> +#include <linux/slab.h>
-> +#include <linux/xarray.h>
-> +
-> +#define REGION_MAX_SIZE	32
-> +
-> +static unsigned long *bitmap __initdata;
-> +/* One more request guarantees that even an all-ones trace reaches ENOSPC. */
-> +static u8 *reg_sz __initdata;
-> +static unsigned long *reg_idx __initdata;
-> +static unsigned long capacities[64] = { 1000000, 100000, 10000, 1000, 100, 10 };
-> +static unsigned int cap_cnt = 6;
-> +
-> +module_param_array(capacities, ulong, &cap_cnt, 0400);
-> +MODULE_PARM_DESC(capacities, "Region capacities to benchmark");
-> +
-> +static unsigned long __init benchmark_bitmap(unsigned long cap)
-> +{
-> +	unsigned long cnt, idx;
-> +	ktime_t alloc_time, free_time;
-> +	size_t sz;
-> +
-> +	bitmap_zero(bitmap, cap);
-> +	alloc_time = ktime_get();
-> +	for (cnt = 0; cnt <= cap; cnt++) {
-> +		idx = bitmap_find_next_zero_area(bitmap, cap, 0, reg_sz[cnt], 0);
-> +		if (idx >= cap)
-> +			break;
-> +
-> +		reg_idx[cnt] = idx;
-> +		bitmap_set(bitmap, idx, reg_sz[cnt]);
-> +	}
-> +	alloc_time = ktime_get() - alloc_time;
-> +
-> +	idx = cnt;
-> +
-> +	free_time = ktime_get();
-> +	while (idx--)
-> +		bitmap_clear(bitmap, reg_idx[idx], reg_sz[idx]);
-> +	free_time = ktime_get() - free_time;
-> +
-> +	WARN_ON(!bitmap_empty(bitmap, cap));
-> +
-> +	sz = BITS_TO_LONGS(cap) * sizeof(unsigned long);
-> +	pr_err("Bitmap  %12llu  %12llu  %8lu  %8lu  %10zu\n",
-> +	       alloc_time, free_time, cnt, cap, sz);
-> +
-> +	return cnt;
-> +}
-> +
-> +static size_t __init ida_size(unsigned long nr_ids)
-> +{
-> +	unsigned long entries = DIV_ROUND_UP(nr_ids, IDA_BITMAP_BITS);
-> +	unsigned long bitmaps = nr_ids / IDA_BITMAP_BITS;
-> +	unsigned long nodes = 0;
-> +
-> +	if (nr_ids % IDA_BITMAP_BITS > BITS_PER_XA_VALUE)
-> +		bitmaps++;
-> +
-> +	while (entries > 1) {
-> +		entries = DIV_ROUND_UP(entries, XA_CHUNK_SIZE);
-> +		nodes += entries;
-> +	}
-> +
-> +	return sizeof(struct ida) +
-> +		bitmaps * sizeof(struct ida_bitmap) +
-> +		nodes   * sizeof(struct xa_node);
-> +}
-> +
-> +static unsigned long __init benchmark_ida(unsigned long cap)
-> +{
-> +	struct ida ida = IDA_INIT(ida);
-> +	unsigned long cnt, idx, off, nr_ids = 0;
-> +	ktime_t alloc_time, free_time;
-> +	int id = -ENOSPC;
-> +
-> +	alloc_time = ktime_get();
-> +	for (cnt = 0; cnt <= cap; cnt++) {
-> +		for (off = 0; off < reg_sz[cnt]; off++) {
-> +			id = ida_alloc_max(&ida, cap - 1, GFP_KERNEL);
-> +			if (id < 0)
-> +				break;
-> +
-> +			if (!off)
-> +				reg_idx[cnt] = id;
-> +		}
-> +		if (id < 0) {
-> +			while (off--)
-> +				ida_free(&ida, reg_idx[cnt] + off);
-> +			break;
-> +		}
-> +		WARN_ON(id != reg_idx[cnt] + reg_sz[cnt] - 1);
-> +		nr_ids += reg_sz[cnt];
-> +	}
-> +	alloc_time = ktime_get() - alloc_time;
-> +
-> +	WARN_ON(id != -ENOSPC);
-> +
-> +	idx = cnt;
-> +
-> +	free_time = ktime_get();
-> +	while (idx--) {
-> +		for (off = 0; off < reg_sz[idx]; off++)
-> +			ida_free(&ida, reg_idx[idx] + off);
-> +	}
-> +	free_time = ktime_get() - free_time;
-> +
-> +	WARN_ON(!ida_is_empty(&ida));
-> +
-> +	pr_err("IDA     %12llu  %12llu  %8lu  %8lu  %10zu\n",
-> +	       alloc_time, free_time, cnt, cap, ida_size(nr_ids));
-> +
-> +	ida_destroy(&ida);
-> +	return cnt;
-> +}
-> +
-> +static unsigned long __init benchmark_maple_tree(unsigned long cap)
-> +{
-> +	struct maple_tree mt = MTREE_INIT(mt, MT_FLAGS_ALLOC_RANGE);
-> +	unsigned long cnt, idx;
-> +	ktime_t alloc_time, free_time;
-> +	size_t sz;
-> +	int ret;
-> +
-> +	alloc_time = ktime_get();
-> +	for (cnt = 0; cnt <= cap; cnt++) {
-> +		ret = mtree_alloc_range(&mt, &idx, xa_mk_value(cnt + 1),
-> +					reg_sz[cnt], 0, cap - 1, GFP_KERNEL);
-> +		if (ret)
-> +			break;
-> +
-> +		reg_idx[cnt] = idx;
-> +	}
-> +	alloc_time = ktime_get() - alloc_time;
-> +
-> +	WARN_ON(ret != -EBUSY);
-> +
-> +	idx = cnt;
-> +
-> +	free_time = ktime_get();
-> +	while (idx--)
-> +		mtree_erase(&mt, reg_idx[idx]);
-> +	free_time = ktime_get() - free_time;
-> +
-> +	WARN_ON(!mtree_empty(&mt));
-> +
-> +	/* Minimum storage assuming fully occupied allocation-range leaf nodes. */
-> +	sz = sizeof(mt) + DIV_ROUND_UP(cnt, MAPLE_ARANGE64_SLOTS) * sizeof(struct maple_node);
-> +	pr_err("Maple   %12llu  %12llu  %8lu  %8lu  %10zu\n",
-> +	       alloc_time, free_time, cnt, cap, sz);
-> +
-> +	mtree_destroy(&mt);
-> +	return cnt;
-> +}
-> +
-> +static int __init region_alloc_benchmark(void)
-> +{
-> +	unsigned long bitmap_count, ida_count, maple_count;
-> +	unsigned long i, max_cap = 0;
-> +	int ret = -ENOMEM;
-> +
-> +	for (i = 0; i < cap_cnt; i++) {
-> +		if (capacities[i] == 0) {
-> +			pr_err("capacity must be nonzero\n");
-> +			return -EINVAL;
-> +		}
-> +		max_cap = max(max_cap, capacities[i]);
-> +	}
-> +
-> +	bitmap = kvmalloc_array(BITS_TO_LONGS(max_cap), sizeof(*bitmap), GFP_KERNEL);
-> +	reg_sz = kvmalloc_array(max_cap + 1, sizeof(*reg_sz), GFP_KERNEL);
-> +	reg_idx = kvmalloc_array(max_cap, sizeof(*reg_idx), GFP_KERNEL);
-> +	if (!bitmap || !reg_sz || !reg_idx)
-> +		goto out;
-> +
-> +	pr_err("\nStart testing bitmap vs IDA vs Maple Tree region allocation\n");
-> +	pr_err("memory: bitmap is exact; IDA and Maple Tree are lower bounds\n");
-> +	pr_err("Type      alloc (ns)     free (ns)   regions  capacity  memory (B)\n");
-> +
-> +	for (i = 0; i < cap_cnt; i++) {
-> +		unsigned long idx, max_size;
-> +
-> +		max_size = min(REGION_MAX_SIZE, capacities[i] / 10) ? : 1;
-> +		for (idx = 0; idx <= capacities[i]; idx++)
-> +			reg_sz[idx] = get_random_u32_below(max_size) + 1;
-> +
-> +		bitmap_count = benchmark_bitmap(capacities[i]);
-> +		maple_count  = benchmark_maple_tree(capacities[i]);
-> +		ida_count    = benchmark_ida(capacities[i]);
-> +
-> +		WARN_ON(bitmap_count != ida_count);
-> +		WARN_ON(bitmap_count != maple_count);
-> +	}
-> +
-> +	/* Return an error so the benchmark can run repeatedly without rmmod. */
-> +	pr_info("Region allocation benchmark complete\n");
-> +	ret = -EAGAIN;
-> +out:
-> +	kvfree(reg_idx);
-> +	kvfree(reg_sz);
-> +	kvfree(bitmap);
-> +	return ret;
-> +}
-> +module_init(region_alloc_benchmark);
-> +
-> +MODULE_AUTHOR("Yury Norov <ynorov@nvidia.com>");
-> +MODULE_DESCRIPTION("Benchmark bitmap, IDA and Maple Tree region allocation");
-> +MODULE_LICENSE("GPL");
-> -- 
-> 2.53.0
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
+> =C2=A0drivers/gpu/drm/i915/gem/i915_gem_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 +++--
+> =C2=A0drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 4 ++--
+> =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 6 ++++--
+> =C2=A0drivers/gpu/drm/radeon/radeon_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
+> =C2=A0drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c |=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/ttm/tests/ttm_pool_test.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 | 16 ++++++++------
+> --
+> =C2=A0drivers/gpu/drm/ttm/tests/ttm_tt_test.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++++++------
+> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 7 ++++---
+> =C2=A0drivers/gpu/drm/ttm/ttm_bo_util.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 6 +++---
+> =C2=A0drivers/gpu/drm/ttm/ttm_bo_vm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 =
+4 +++-
+> =C2=A0drivers/gpu/drm/ttm/ttm_pool.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 6 ++++--
+> =C2=A0drivers/gpu/drm/ttm/ttm_tt.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 8 +++++---
+> =C2=A0drivers/gpu/drm/vmwgfx/vmwgfx_blit.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++--
+> =C2=A0drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 7 ++++---
+> =C2=A0drivers/gpu/drm/xe/xe_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0 5 +++--
+> =C2=A0include/drm/ttm/ttm_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
+> =C2=A0include/drm/ttm/ttm_device.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 1 +
+> =C2=A0include/drm/ttm/ttm_pool.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
+> =C2=A0include/drm/ttm/ttm_tt.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
+> =C2=A022 files changed, 63 insertions(+), 44 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 025625e7e800..8062b3d61157 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1220,6 +1220,7 @@ static struct ttm_tt
+> *amdgpu_ttm_tt_create(struct ttm_buffer_object *bo,
+> =C2=A0 */
+> =C2=A0static int amdgpu_ttm_tt_populate(struct ttm_device *bdev,
+> =C2=A0				=C2=A0 struct ttm_tt *ttm,
+> +				=C2=A0 bool memcg_account,
+> =C2=A0				=C2=A0 struct ttm_operation_ctx *ctx)
+> =C2=A0{
+> =C2=A0	struct amdgpu_device *adev =3D amdgpu_ttm_adev(bdev);
+> @@ -1243,7 +1244,7 @@ static int amdgpu_ttm_tt_populate(struct
+> ttm_device *bdev,
+> =C2=A0		pool =3D &adev->mman.ttm_pools[gtt->pool_id];
+> =C2=A0	else
+> =C2=A0		pool =3D &adev->mman.bdev.pool;
+> -	ret =3D ttm_pool_alloc(pool, ttm, ctx);
+> +	ret =3D ttm_pool_alloc(pool, ttm, memcg_account, ctx);
+> =C2=A0	if (ret)
+> =C2=A0		return ret;
+> =C2=A0
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> index df3fcc2b1248..d45ccede78a4 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> @@ -317,6 +317,7 @@ static struct ttm_tt *i915_ttm_tt_create(struct
+> ttm_buffer_object *bo,
+> =C2=A0
+> =C2=A0static int i915_ttm_tt_populate(struct ttm_device *bdev,
+> =C2=A0				struct ttm_tt *ttm,
+> +				bool memcg_account,
+> =C2=A0				struct ttm_operation_ctx *ctx)
+> =C2=A0{
+> =C2=A0	struct i915_ttm_tt *i915_tt =3D container_of(ttm,
+> typeof(*i915_tt), ttm);
+> @@ -324,7 +325,7 @@ static int i915_ttm_tt_populate(struct ttm_device
+> *bdev,
+> =C2=A0	if (i915_tt->is_shmem)
+> =C2=A0		return i915_ttm_tt_shmem_populate(bdev, ttm, ctx);
+> =C2=A0
+> -	return ttm_pool_alloc(&bdev->pool, ttm, ctx);
+> +	return ttm_pool_alloc(&bdev->pool, ttm, memcg_account, ctx);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void i915_ttm_tt_unpopulate(struct ttm_device *bdev, struct
+> ttm_tt *ttm)
+> @@ -815,7 +816,7 @@ static int __i915_ttm_get_pages(struct
+> drm_i915_gem_object *obj,
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	if (bo->ttm && !ttm_tt_is_populated(bo->ttm)) {
+> -		ret =3D ttm_bo_populate(bo, &ctx);
+> +		ret =3D ttm_bo_populate(bo, false, &ctx);
+> =C2=A0		if (ret)
+> =C2=A0			return ret;
+> =C2=A0
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+> b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+> index 56489cc127d6..b81c9df2d7eb 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+> @@ -624,7 +624,7 @@ int i915_ttm_move(struct ttm_buffer_object *bo,
+> bool evict,
+> =C2=A0
+> =C2=A0	/* Populate ttm with pages if needed. Typically system
+> memory. */
+> =C2=A0	if (ttm && (dst_man->use_tt || (ttm->page_flags &
+> TTM_TT_FLAG_SWAPPED))) {
+> -		ret =3D ttm_bo_populate(bo, ctx);
+> +		ret =3D ttm_bo_populate(bo, false, ctx);
+> =C2=A0		if (ret)
+> =C2=A0			return ret;
+> =C2=A0	}
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+> b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+> index 4824f948daed..d951e58f78ea 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+> @@ -91,7 +91,7 @@ static int i915_ttm_backup(struct
+> i915_gem_apply_to_region *apply,
+> =C2=A0		goto out_no_lock;
+> =C2=A0
+> =C2=A0	backup_bo =3D i915_gem_to_ttm(backup);
+> -	err =3D ttm_bo_populate(backup_bo, &ctx);
+> +	err =3D ttm_bo_populate(backup_bo, false, &ctx);
+> =C2=A0	if (err)
+> =C2=A0		goto out_no_populate;
+> =C2=A0
+> @@ -190,7 +190,7 @@ static int i915_ttm_restore(struct
+> i915_gem_apply_to_region *apply,
+> =C2=A0	if (!backup_bo->resource)
+> =C2=A0		err =3D ttm_bo_validate(backup_bo,
+> i915_ttm_sys_placement(), &ctx);
+> =C2=A0	if (!err)
+> -		err =3D ttm_bo_populate(backup_bo, &ctx);
+> +		err =3D ttm_bo_populate(backup_bo, false, &ctx);
+> =C2=A0	if (!err) {
+> =C2=A0		err =3D i915_gem_obj_copy_ttm(obj, backup, pm_apply-
+> >allow_gpu,
+> =C2=A0					=C2=A0=C2=A0=C2=A0 false);
+> diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
+> b/drivers/gpu/drm/loongson/lsdc_ttm.c
+> index d7441d96a0dc..bfb5f1b1ec91 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
+> @@ -111,6 +111,7 @@ lsdc_ttm_tt_create(struct ttm_buffer_object *tbo,
+> uint32_t page_flags)
+> =C2=A0
+> =C2=A0static int lsdc_ttm_tt_populate(struct ttm_device *bdev,
+> =C2=A0				struct ttm_tt *ttm,
+> +				bool memcg_account,
+> =C2=A0				struct ttm_operation_ctx *ctx)
+> =C2=A0{
+> =C2=A0	bool slave =3D !!(ttm->page_flags & TTM_TT_FLAG_EXTERNAL);
+> @@ -123,7 +124,7 @@ static int lsdc_ttm_tt_populate(struct ttm_device
+> *bdev,
+> =C2=A0		return 0;
+> =C2=A0	}
+> =C2=A0
+> -	return ttm_pool_alloc(&bdev->pool, ttm, ctx);
+> +	return ttm_pool_alloc(&bdev->pool, ttm, memcg_account, ctx);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void lsdc_ttm_tt_unpopulate(struct ttm_device *bdev,
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c
+> b/drivers/gpu/drm/nouveau/nouveau_bo.c
+> index 0e8de6d4b36f..a38c19f1d6dc 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_bo.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+> @@ -1417,7 +1417,9 @@ vm_fault_t
+> nouveau_ttm_fault_reserve_notify(struct ttm_buffer_object *bo)
+> =C2=A0
+> =C2=A0static int
+> =C2=A0nouveau_ttm_tt_populate(struct ttm_device *bdev,
+> -			struct ttm_tt *ttm, struct ttm_operation_ctx
+> *ctx)
+> +			struct ttm_tt *ttm,
+> +			bool memcg_account,
+> +			struct ttm_operation_ctx *ctx)
+> =C2=A0{
+> =C2=A0	struct ttm_tt *ttm_dma =3D (void *)ttm;
+> =C2=A0	struct nouveau_drm *drm;
+> @@ -1434,7 +1436,7 @@ nouveau_ttm_tt_populate(struct ttm_device
+> *bdev,
+> =C2=A0
+> =C2=A0	drm =3D nouveau_bdev(bdev);
+> =C2=A0
+> -	return ttm_pool_alloc(&drm->ttm.bdev.pool, ttm, ctx);
+> +	return ttm_pool_alloc(&drm->ttm.bdev.pool, ttm,
+> memcg_account, ctx);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void
+> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c
+> b/drivers/gpu/drm/radeon/radeon_ttm.c
+> index e7ab8162ac69..98b09463abc2 100644
+> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
+> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+> @@ -526,6 +526,7 @@ static struct radeon_ttm_tt
+> *radeon_ttm_tt_to_gtt(struct radeon_device *rdev,
+> =C2=A0
+> =C2=A0static int radeon_ttm_tt_populate(struct ttm_device *bdev,
+> =C2=A0				=C2=A0 struct ttm_tt *ttm,
+> +				=C2=A0 bool memcg_account,
+> =C2=A0				=C2=A0 struct ttm_operation_ctx *ctx)
+> =C2=A0{
+> =C2=A0	struct radeon_device *rdev =3D radeon_get_rdev(bdev);
+> @@ -547,7 +548,7 @@ static int radeon_ttm_tt_populate(struct
+> ttm_device *bdev,
+> =C2=A0		return 0;
+> =C2=A0	}
+> =C2=A0
+> -	return ttm_pool_alloc(&rdev->mman.bdev.pool, ttm, ctx);
+> +	return ttm_pool_alloc(&rdev->mman.bdev.pool, ttm,
+> memcg_account, ctx);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void radeon_ttm_tt_unpopulate(struct ttm_device *bdev, struc=
+t
+> ttm_tt *ttm)
+> diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> index 2db221f6fc3a..0cbf732eebf3 100644
+> --- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> +++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> @@ -538,7 +538,7 @@ static void
+> ttm_bo_validate_no_placement_signaled(struct kunit *test)
+> =C2=A0
+> =C2=A0	if (params->with_ttm) {
+> =C2=A0		old_tt =3D priv->ttm_dev->funcs->ttm_tt_create(bo, 0);
+> -		ttm_pool_alloc(&priv->ttm_dev->pool, old_tt, &ctx);
+> +		ttm_pool_alloc(&priv->ttm_dev->pool, old_tt, false,
+> &ctx);
+> =C2=A0		bo->ttm =3D old_tt;
+> =C2=A0	}
+> =C2=A0
+> diff --git a/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
+> b/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
+> index be75c8abf388..af235d64b970 100644
+> --- a/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
+> +++ b/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
+> @@ -89,7 +89,7 @@ static struct ttm_pool
+> *ttm_pool_pre_populated(struct kunit *test,
+> =C2=A0
+> =C2=A0	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE,
+> TTM_ALLOCATION_POOL_USE_DMA_ALLOC);
+> =C2=A0
+> -	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
+> +	err =3D ttm_pool_alloc(pool, tt, false, &simple_ctx);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
+> =C2=A0
+> =C2=A0	ttm_pool_free(pool, tt);
+> @@ -157,7 +157,7 @@ static void ttm_pool_alloc_basic(struct kunit
+> *test)
+> =C2=A0	KUNIT_ASSERT_EQ(test, pool->nid, NUMA_NO_NODE);
+> =C2=A0	KUNIT_ASSERT_EQ(test, pool->alloc_flags, params-
+> >alloc_flags);
+> =C2=A0
+> -	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
+> +	err =3D ttm_pool_alloc(pool, tt, false, &simple_ctx);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
+> =C2=A0	KUNIT_ASSERT_EQ(test, tt->num_pages, expected_num_pages);
+> =C2=A0
+> @@ -220,7 +220,7 @@ static void ttm_pool_alloc_basic_dma_addr(struct
+> kunit *test)
+> =C2=A0
+> =C2=A0	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE,
+> TTM_ALLOCATION_POOL_USE_DMA_ALLOC);
+> =C2=A0
+> -	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
+> +	err =3D ttm_pool_alloc(pool, tt, false, &simple_ctx);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
+> =C2=A0	KUNIT_ASSERT_EQ(test, tt->num_pages, expected_num_pages);
+> =C2=A0
+> @@ -253,7 +253,7 @@ static void
+> ttm_pool_alloc_order_caching_match(struct kunit *test)
+> =C2=A0	tt =3D ttm_tt_kunit_init(test, 0, caching, size);
+> =C2=A0	KUNIT_ASSERT_NOT_NULL(test, tt);
+> =C2=A0
+> -	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
+> +	err =3D ttm_pool_alloc(pool, tt, false, &simple_ctx);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
+> =C2=A0
+> =C2=A0	KUNIT_ASSERT_TRUE(test, !list_lru_count(&pt->pages));
+> @@ -285,7 +285,7 @@ static void
+> ttm_pool_alloc_caching_mismatch(struct kunit *test)
+> =C2=A0	KUNIT_ASSERT_FALSE(test, !list_lru_count(&pt_pool->pages));
+> =C2=A0	KUNIT_ASSERT_TRUE(test, !list_lru_count(&pt_tt->pages));
+> =C2=A0
+> -	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
+> +	err =3D ttm_pool_alloc(pool, tt, false, &simple_ctx);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
+> =C2=A0
+> =C2=A0	ttm_pool_free(pool, tt);
+> @@ -319,7 +319,7 @@ static void ttm_pool_alloc_order_mismatch(struct
+> kunit *test)
+> =C2=A0	KUNIT_ASSERT_FALSE(test, !list_lru_count(&pt_pool->pages));
+> =C2=A0	KUNIT_ASSERT_TRUE(test, !list_lru_count(&pt_tt->pages));
+> =C2=A0
+> -	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
+> +	err =3D ttm_pool_alloc(pool, tt, false, &simple_ctx);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
+> =C2=A0
+> =C2=A0	ttm_pool_free(pool, tt);
+> @@ -349,7 +349,7 @@ static void ttm_pool_free_dma_alloc(struct kunit
+> *test)
+> =C2=A0	KUNIT_ASSERT_NOT_NULL(test, pool);
+> =C2=A0
+> =C2=A0	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE,
+> TTM_ALLOCATION_POOL_USE_DMA_ALLOC);
+> -	ttm_pool_alloc(pool, tt, &simple_ctx);
+> +	ttm_pool_alloc(pool, tt, false, &simple_ctx);
+> =C2=A0
+> =C2=A0	pt =3D &pool->caching[caching].orders[order];
+> =C2=A0	KUNIT_ASSERT_TRUE(test, !list_lru_count(&pt->pages));
+> @@ -379,7 +379,7 @@ static void ttm_pool_free_no_dma_alloc(struct
+> kunit *test)
+> =C2=A0	KUNIT_ASSERT_NOT_NULL(test, pool);
+> =C2=A0
+> =C2=A0	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, 0);
+> -	ttm_pool_alloc(pool, tt, &simple_ctx);
+> +	ttm_pool_alloc(pool, tt, false, &simple_ctx);
+> =C2=A0
+> =C2=A0	ttm_pool_free(pool, tt);
+> =C2=A0	ttm_tt_fini(tt);
+> diff --git a/drivers/gpu/drm/ttm/tests/ttm_tt_test.c
+> b/drivers/gpu/drm/ttm/tests/ttm_tt_test.c
+> index bd5f7d0b9b62..dfa38bbfd829 100644
+> --- a/drivers/gpu/drm/ttm/tests/ttm_tt_test.c
+> +++ b/drivers/gpu/drm/ttm/tests/ttm_tt_test.c
+> @@ -262,7 +262,7 @@ static void ttm_tt_populate_null_ttm(struct kunit
+> *test)
+> =C2=A0	struct ttm_operation_ctx ctx =3D { };
+> =C2=A0	int err;
+> =C2=A0
+> -	err =3D ttm_tt_populate(devs->ttm_dev, NULL, &ctx);
+> +	err =3D ttm_tt_populate(devs->ttm_dev, NULL, false, &ctx);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, -EINVAL);
+> =C2=A0}
+> =C2=A0
+> @@ -283,11 +283,11 @@ static void
+> ttm_tt_populate_populated_ttm(struct kunit *test)
+> =C2=A0	err =3D ttm_tt_init(tt, bo, 0, ttm_cached, 0);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
+> =C2=A0
+> -	err =3D ttm_tt_populate(devs->ttm_dev, tt, &ctx);
+> +	err =3D ttm_tt_populate(devs->ttm_dev, tt, false, &ctx);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
+> =C2=A0	populated_page =3D *tt->pages;
+> =C2=A0
+> -	err =3D ttm_tt_populate(devs->ttm_dev, tt, &ctx);
+> +	err =3D ttm_tt_populate(devs->ttm_dev, tt, false, &ctx);
+> =C2=A0	KUNIT_ASSERT_PTR_EQ(test, populated_page, *tt->pages);
+> =C2=A0}
+> =C2=A0
+> @@ -307,7 +307,7 @@ static void ttm_tt_unpopulate_basic(struct kunit
+> *test)
+> =C2=A0	err =3D ttm_tt_init(tt, bo, 0, ttm_cached, 0);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
+> =C2=A0
+> -	err =3D ttm_tt_populate(devs->ttm_dev, tt, &ctx);
+> +	err =3D ttm_tt_populate(devs->ttm_dev, tt, false, &ctx);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
+> =C2=A0	KUNIT_ASSERT_TRUE(test, ttm_tt_is_populated(tt));
+> =C2=A0
+> @@ -351,7 +351,7 @@ static void ttm_tt_swapin_basic(struct kunit
+> *test)
+> =C2=A0	err =3D ttm_tt_init(tt, bo, 0, ttm_cached, 0);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
+> =C2=A0
+> -	err =3D ttm_tt_populate(devs->ttm_dev, tt, &ctx);
+> +	err =3D ttm_tt_populate(devs->ttm_dev, tt, false, &ctx);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
+> =C2=A0	KUNIT_ASSERT_TRUE(test, ttm_tt_is_populated(tt));
+> =C2=A0
+> @@ -361,7 +361,7 @@ static void ttm_tt_swapin_basic(struct kunit
+> *test)
+> =C2=A0	KUNIT_ASSERT_TRUE(test, tt->page_flags &
+> TTM_TT_FLAG_SWAPPED);
+> =C2=A0
+> =C2=A0	/* Swapout depopulates TT, allocate pages and then swap them
+> in */
+> -	err =3D ttm_pool_alloc(&devs->ttm_dev->pool, tt, &ctx);
+> +	err =3D ttm_pool_alloc(&devs->ttm_dev->pool, tt, false, &ctx);
+> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
+> =C2=A0
+> =C2=A0	err =3D ttm_tt_swapin(tt);
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+> b/drivers/gpu/drm/ttm/ttm_bo.c
+> index bcd76f6bb7f0..cf4ab2b5521a 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -145,7 +145,7 @@ static int ttm_bo_handle_move_mem(struct
+> ttm_buffer_object *bo,
+> =C2=A0			goto out_err;
+> =C2=A0
+> =C2=A0		if (mem->mem_type !=3D TTM_PL_SYSTEM) {
+> -			ret =3D ttm_bo_populate(bo, ctx);
+> +			ret =3D ttm_bo_populate(bo, false, ctx);
+> =C2=A0			if (ret)
+> =C2=A0				goto out_err;
+> =C2=A0		}
+> @@ -1255,6 +1255,7 @@ void ttm_bo_tt_destroy(struct ttm_buffer_object
+> *bo)
+> =C2=A0 * is set to true.
+> =C2=A0 */
+> =C2=A0int ttm_bo_populate(struct ttm_buffer_object *bo,
+> +		=C2=A0=C2=A0=C2=A0 bool memcg_account,
+> =C2=A0		=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *ctx)
+> =C2=A0{
+> =C2=A0	struct ttm_device *bdev =3D bo->bdev;
+> @@ -1268,7 +1269,7 @@ int ttm_bo_populate(struct ttm_buffer_object
+> *bo,
+> =C2=A0		return 0;
+> =C2=A0
+> =C2=A0	swapped =3D ttm_tt_is_swapped(tt);
+> -	ret =3D ttm_tt_populate(bdev, tt, ctx);
+> +	ret =3D ttm_tt_populate(bdev, tt, memcg_account, ctx);
+> =C2=A0	if (ret)
+> =C2=A0		return ret;
+> =C2=A0
+> @@ -1293,7 +1294,7 @@ int ttm_bo_setup_export(struct
+> ttm_buffer_object *bo,
+> =C2=A0	if (ret !=3D 0)
+> =C2=A0		return ret;
+> =C2=A0
+> -	ret =3D ttm_bo_populate(bo, ctx);
+> +	ret =3D ttm_bo_populate(bo, false, ctx);
+> =C2=A0	ttm_bo_unreserve(bo);
+> =C2=A0	return ret;
+> =C2=A0}
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> index 3e3c201a0222..62dad6c05dff 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -167,7 +167,7 @@ int ttm_bo_move_memcpy(struct ttm_buffer_object
+> *bo,
+> =C2=A0	src_man =3D ttm_manager_type(bdev, src_mem->mem_type);
+> =C2=A0	if (ttm && ((ttm->page_flags & TTM_TT_FLAG_SWAPPED) ||
+> =C2=A0		=C2=A0=C2=A0=C2=A0 dst_man->use_tt)) {
+> -		ret =3D ttm_bo_populate(bo, ctx);
+> +		ret =3D ttm_bo_populate(bo, false, ctx);
+> =C2=A0		if (ret)
+> =C2=A0			return ret;
+> =C2=A0	}
+> @@ -352,7 +352,7 @@ static int ttm_bo_kmap_ttm(struct
+> ttm_buffer_object *bo,
+> =C2=A0
+> =C2=A0	BUG_ON(!ttm);
+> =C2=A0
+> -	ret =3D ttm_bo_populate(bo, &ctx);
+> +	ret =3D ttm_bo_populate(bo, false, &ctx);
+> =C2=A0	if (ret)
+> =C2=A0		return ret;
+> =C2=A0
+> @@ -533,7 +533,7 @@ int ttm_bo_vmap(struct ttm_buffer_object *bo,
+> struct iosys_map *map)
+> =C2=A0		pgprot_t prot;
+> =C2=A0		void *vaddr;
+> =C2=A0
+> -		ret =3D ttm_bo_populate(bo, &ctx);
+> +		ret =3D ttm_bo_populate(bo, false, &ctx);
+> =C2=A0		if (ret)
+> =C2=A0			return ret;
+> =C2=A0
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> index a80510489c45..2e59836b6085 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> @@ -224,7 +224,9 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct
+> vm_fault *vmf,
+> =C2=A0		};
+> =C2=A0
+> =C2=A0		ttm =3D bo->ttm;
+> -		err =3D ttm_bo_populate(bo, &ctx);
+> +		err =3D ttm_bo_populate(bo,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 false,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &ctx);
+> =C2=A0		if (err) {
+> =C2=A0			if (err =3D=3D -EINTR || err =3D=3D -ERESTARTSYS ||
+> =C2=A0			=C2=A0=C2=A0=C2=A0 err =3D=3D -EAGAIN)
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
+> b/drivers/gpu/drm/ttm/ttm_pool.c
+> index 278bbe7a11ad..e4dbf4c93091 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -761,6 +761,7 @@ static unsigned int
+> ttm_pool_alloc_find_order(unsigned int highest,
+> =C2=A0}
+> =C2=A0
+> =C2=A0static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt
+> *tt,
+> +			=C2=A0=C2=A0=C2=A0 bool memcg_account,
+> =C2=A0			=C2=A0=C2=A0=C2=A0 const struct ttm_operation_ctx *ctx,
+> =C2=A0			=C2=A0=C2=A0=C2=A0 struct ttm_pool_alloc_state *alloc,
+> =C2=A0			=C2=A0=C2=A0=C2=A0 struct ttm_pool_tt_restore *restore)
+> @@ -871,6 +872,7 @@ static int __ttm_pool_alloc(struct ttm_pool
+> *pool, struct ttm_tt *tt,
+> =C2=A0 * Returns: 0 on successe, negative error code otherwise.
+> =C2=A0 */
+> =C2=A0int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> +		=C2=A0=C2=A0 bool memcg_account,
+
+Regardless whether memcg_account is passed as a separate parameter or
+part of @ctx, needs kerneldoc update.
+
+
+Thanks,
+Thomas
+
+
+
+> =C2=A0		=C2=A0=C2=A0 struct ttm_operation_ctx *ctx)
+> =C2=A0{
+> =C2=A0	struct ttm_pool_alloc_state alloc;
+> @@ -880,7 +882,7 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct
+> ttm_tt *tt,
+> =C2=A0
+> =C2=A0	ttm_pool_alloc_state_init(tt, &alloc);
+> =C2=A0
+> -	return __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL);
+> +	return __ttm_pool_alloc(pool, tt, memcg_account, ctx,
+> &alloc, NULL);
+> =C2=A0}
+> =C2=A0EXPORT_SYMBOL(ttm_pool_alloc);
+> =C2=A0
+> @@ -935,7 +937,7 @@ int ttm_pool_restore_and_alloc(struct ttm_pool
+> *pool, struct ttm_tt *tt,
+> =C2=A0			return 0;
+> =C2=A0	}
+> =C2=A0
+> -	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
+> +	return __ttm_pool_alloc(pool, tt, false, ctx, &alloc,
+> restore);
+> =C2=A0}
+> =C2=A0
+> =C2=A0/**
+> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c
+> b/drivers/gpu/drm/ttm/ttm_tt.c
+> index b645a1818184..aa0f17fca770 100644
+> --- a/drivers/gpu/drm/ttm/ttm_tt.c
+> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
+> @@ -368,7 +368,9 @@ int ttm_tt_swapout(struct ttm_device *bdev,
+> struct ttm_tt *ttm,
+> =C2=A0EXPORT_SYMBOL_FOR_TESTS_ONLY(ttm_tt_swapout);
+> =C2=A0
+> =C2=A0int ttm_tt_populate(struct ttm_device *bdev,
+> -		=C2=A0=C2=A0=C2=A0 struct ttm_tt *ttm, struct ttm_operation_ctx
+> *ctx)
+> +		=C2=A0=C2=A0=C2=A0 struct ttm_tt *ttm,
+> +		=C2=A0=C2=A0=C2=A0 bool memcg_account,
+> +		=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *ctx)
+> =C2=A0{
+> =C2=A0	int ret;
+> =C2=A0
+> @@ -397,9 +399,9 @@ int ttm_tt_populate(struct ttm_device *bdev,
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	if (bdev->funcs->ttm_tt_populate)
+> -		ret =3D bdev->funcs->ttm_tt_populate(bdev, ttm, ctx);
+> +		ret =3D bdev->funcs->ttm_tt_populate(bdev, ttm,
+> memcg_account, ctx);
+> =C2=A0	else
+> -		ret =3D ttm_pool_alloc(&bdev->pool, ttm, ctx);
+> +		ret =3D ttm_pool_alloc(&bdev->pool, ttm,
+> memcg_account, ctx);
+> =C2=A0	if (ret)
+> =C2=A0		goto error;
+> =C2=A0
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_blit.c
+> b/drivers/gpu/drm/vmwgfx/vmwgfx_blit.c
+> index 135b75a3e013..baa1c3fdb12c 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_blit.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_blit.c
+> @@ -569,13 +569,13 @@ int vmw_bo_cpu_blit(struct vmw_bo *vmw_dst,
+> =C2=A0		dma_resv_assert_held(src->base.resv);
+> =C2=A0
+> =C2=A0	if (!ttm_tt_is_populated(dst->ttm)) {
+> -		ret =3D dst->bdev->funcs->ttm_tt_populate(dst->bdev,
+> dst->ttm, &ctx);
+> +		ret =3D dst->bdev->funcs->ttm_tt_populate(dst->bdev,
+> dst->ttm, false, &ctx);
+> =C2=A0		if (ret)
+> =C2=A0			return ret;
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	if (!ttm_tt_is_populated(src->ttm)) {
+> -		ret =3D src->bdev->funcs->ttm_tt_populate(src->bdev,
+> src->ttm, &ctx);
+> +		ret =3D src->bdev->funcs->ttm_tt_populate(src->bdev,
+> src->ttm, false, &ctx);
+> =C2=A0		if (ret)
+> =C2=A0			return ret;
+> =C2=A0	}
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
+> b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
+> index dfd08ee19041..368701756119 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
+> @@ -360,7 +360,8 @@ static void vmw_ttm_destroy(struct ttm_device
+> *bdev, struct ttm_tt *ttm)
+> =C2=A0
+> =C2=A0
+> =C2=A0static int vmw_ttm_populate(struct ttm_device *bdev,
+> -			=C2=A0=C2=A0=C2=A0 struct ttm_tt *ttm, struct
+> ttm_operation_ctx *ctx)
+> +			=C2=A0=C2=A0=C2=A0 struct ttm_tt *ttm, bool memcg_account,
+> +			=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *ctx)
+> =C2=A0{
+> =C2=A0	bool external =3D (ttm->page_flags & TTM_TT_FLAG_EXTERNAL) !=3D
+> 0;
+> =C2=A0
+> @@ -372,7 +373,7 @@ static int vmw_ttm_populate(struct ttm_device
+> *bdev,
+> =C2=A0						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm-
+> >dma_address,
+> =C2=A0						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm-
+> >num_pages);
+> =C2=A0
+> -	return ttm_pool_alloc(&bdev->pool, ttm, ctx);
+> +	return ttm_pool_alloc(&bdev->pool, ttm, memcg_account, ctx);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void vmw_ttm_unpopulate(struct ttm_device *bdev,
+> @@ -580,7 +581,7 @@ int vmw_bo_create_and_populate(struct vmw_private
+> *dev_priv,
+> =C2=A0	if (unlikely(ret !=3D 0))
+> =C2=A0		return ret;
+> =C2=A0
+> -	ret =3D vmw_ttm_populate(vbo->tbo.bdev, vbo->tbo.ttm, &ctx);
+> +	ret =3D vmw_ttm_populate(vbo->tbo.bdev, vbo->tbo.ttm, false,
+> &ctx);
+> =C2=A0	if (likely(ret =3D=3D 0)) {
+> =C2=A0		struct vmw_ttm_tt *vmw_tt =3D
+> =C2=A0			container_of(vbo->tbo.ttm, struct
+> vmw_ttm_tt, dma_ttm);
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> index 4c80bac67622..20a10a174d1d 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
+> @@ -536,6 +536,7 @@ static struct ttm_tt *xe_ttm_tt_create(struct
+> ttm_buffer_object *ttm_bo,
+> =C2=A0}
+> =C2=A0
+> =C2=A0static int xe_ttm_tt_populate(struct ttm_device *ttm_dev, struct
+> ttm_tt *tt,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool memcg_account,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *ctx)
+> =C2=A0{
+> =C2=A0	struct xe_ttm_tt *xe_tt =3D container_of(tt, struct xe_ttm_tt,
+> ttm);
+> @@ -553,7 +554,7 @@ static int xe_ttm_tt_populate(struct ttm_device
+> *ttm_dev, struct ttm_tt *tt,
+> =C2=A0		err =3D ttm_tt_restore(ttm_dev, tt, ctx);
+> =C2=A0	} else {
+> =C2=A0		ttm_tt_clear_backed_up(tt);
+> -		err =3D ttm_pool_alloc(&ttm_dev->pool, tt, ctx);
+> +		err =3D ttm_pool_alloc(&ttm_dev->pool, tt,
+> memcg_account, ctx);
+> =C2=A0	}
+> =C2=A0	if (err)
+> =C2=A0		return err;
+> @@ -1926,7 +1927,7 @@ static int xe_bo_fault_migrate(struct xe_bo
+> *bo, struct ttm_operation_ctx *ctx,
+> =C2=A0	if (ttm_manager_type(tbo->bdev, tbo->resource->mem_type)-
+> >use_tt) {
+> =C2=A0		err =3D xe_bo_wait_usage_kernel(bo, ctx);
+> =C2=A0		if (!err)
+> -			err =3D ttm_bo_populate(&bo->ttm, ctx);
+> +			err =3D ttm_bo_populate(&bo->ttm, false, ctx);
+> =C2=A0	} else if (should_migrate_to_smem(bo)) {
+> =C2=A0		xe_assert(xe_bo_device(bo), bo->flags &
+> XE_BO_FLAG_SYSTEM);
+> =C2=A0		err =3D xe_bo_migrate(bo, XE_PL_TT, ctx, exec);
+> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+> index 8310bc3d55f9..535ba37aff88 100644
+> --- a/include/drm/ttm/ttm_bo.h
+> +++ b/include/drm/ttm/ttm_bo.h
+> @@ -475,6 +475,7 @@ pgprot_t ttm_io_prot(struct ttm_buffer_object
+> *bo, struct ttm_resource *res,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 pgprot_t tmp);
+> =C2=A0void ttm_bo_tt_destroy(struct ttm_buffer_object *bo);
+> =C2=A0int ttm_bo_populate(struct ttm_buffer_object *bo,
+> +		=C2=A0=C2=A0=C2=A0 bool memcg_account,
+> =C2=A0		=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *ctx);
+> =C2=A0int ttm_bo_setup_export(struct ttm_buffer_object *bo,
+> =C2=A0			struct ttm_operation_ctx *ctx);
+> diff --git a/include/drm/ttm/ttm_device.h
+> b/include/drm/ttm/ttm_device.h
+> index 5618aef462f2..a4bd23988ee0 100644
+> --- a/include/drm/ttm/ttm_device.h
+> +++ b/include/drm/ttm/ttm_device.h
+> @@ -85,6 +85,7 @@ struct ttm_device_funcs {
+> =C2=A0	 */
+> =C2=A0	int (*ttm_tt_populate)(struct ttm_device *bdev,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ttm_tt *ttm,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool memcg_account,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *c=
+tx);
+> =C2=A0
+> =C2=A0	/**
+> diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
+> index 26ee592e1994..7f3f168c536c 100644
+> --- a/include/drm/ttm/ttm_pool.h
+> +++ b/include/drm/ttm/ttm_pool.h
+> @@ -78,6 +78,7 @@ struct ttm_pool {
+> =C2=A0};
+> =C2=A0
+> =C2=A0int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> +		=C2=A0=C2=A0 bool memcg_account,
+> =C2=A0		=C2=A0=C2=A0 struct ttm_operation_ctx *ctx);
+> =C2=A0void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
+> =C2=A0
+> diff --git a/include/drm/ttm/ttm_tt.h b/include/drm/ttm/ttm_tt.h
+> index 406437ad674b..15d4019685f6 100644
+> --- a/include/drm/ttm/ttm_tt.h
+> +++ b/include/drm/ttm/ttm_tt.h
+> @@ -250,6 +250,7 @@ int ttm_tt_swapout(struct ttm_device *bdev,
+> struct ttm_tt *ttm,
+> =C2=A0 * Calls the driver method to allocate pages for a ttm
+> =C2=A0 */
+> =C2=A0int ttm_tt_populate(struct ttm_device *bdev, struct ttm_tt *ttm,
+> +		=C2=A0=C2=A0=C2=A0 bool memcg_account,
+> =C2=A0		=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *ctx);
+> =C2=A0
+> =C2=A0/**
