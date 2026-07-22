@@ -4,52 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60706C44539
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 15:46:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35C48C4453C
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 15:47:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDB1510EE37;
-	Wed, 22 Jul 2026 15:46:47 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MMd3LIqc";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BC8310EE37
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 15:46:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E8774600E1;
- Wed, 22 Jul 2026 15:46:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A6441F000E9;
- Wed, 22 Jul 2026 15:46:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784735205;
- bh=9nrjiIeKKD8Gx6LukkoYpq5DLz0jKwg7ibNVwWPKONQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=MMd3LIqcR9eZc08C538x3+vfewjPoQD2Qh9Ks9jWUsdIvoSkXiEcgeMbCrm/mLL6g
- /y3tFXjyeKsvNh2+/M3r3v/npHcsMw9iPfoz+dCINnf7WMY+/vX8DvSybuwgsAMMdW
- MiDTAb4BjGFMEhzWFt1Kcp5JIKiX6tK3fliwydFMNWnbIQzdbzf+e6gDyZNFa+FA1A
- f/f3rbl+kC7LPbxlP4IYTL5jjZR0nVrY6C/W/lwkUSsQFL+3OsQ57+zh1Yvgypwn+Y
- dbDsxYRO+GW7+iDKSbGMuB9OqEreq1tVARDyVOVhFrPO5H1FrIv+1cSES4tguFhBAk
- DAiebRoRyc+Sg==
-Date: Wed, 22 Jul 2026 10:46:43 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunkuang.hu@kernel.org, simona@ffwll.ch, jason-jh.lin@mediatek.com,
- linux-arm-kernel@lists.infradead.org, airlied@gmail.com,
- kernel@collabora.com, p.zabel@pengutronix.de, krzk+dt@kernel.org,
- conor+dt@kernel.org, mripard@kernel.org,
- dri-devel@lists.freedesktop.org, matthias.bgg@gmail.com,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- justin.yeh@mediatek.com, tzimmermann@suse.de,
- devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v2 12/46] dt-bindings: soc: mediatek: mutex: Allow
- #trigger-source-cells
-Message-ID: <178473520265.995028.6530833938909188983.robh@kernel.org>
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-13-angelogioacchino.delregno@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F44010EE3A;
+	Wed, 22 Jul 2026 15:47:06 +0000 (UTC)
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6475110EE3A
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 15:47:05 +0000 (UTC)
+Received: from local
+ by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.99) (envelope-from <daniel@makrotopia.org>)
+ id 1wmZ9v-000000006gR-23d8; Wed, 22 Jul 2026 15:46:59 +0000
+Date: Wed, 22 Jul 2026 16:46:56 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Hermes Wu <hermes.wu@ite.com.tw>, Allen Chen <allen.chen@ite.com.tw>,
+ Pin-yen Lin <treapking@chromium.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Cc: Chen-Yu Tsai <wenst@chromium.org>
+Subject: [PATCH v5 07/11] drm/bridge: it6505: avoid division by zero in audio
+ FS debug print
+Message-ID: <699a55456c1eb21b450b01f9d55277f72ddf12d9.1784717129.git.daniel@makrotopia.org>
+References: <cover.1784717129.git.daniel@makrotopia.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260714114414.184512-13-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <cover.1784717129.git.daniel@makrotopia.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,18 +57,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+REG_AUDIO_INPUT_FREQ reads back 0 when no audio clock has been
+latched, and it6505_read() returns a negative errno on i2c failure.
+The debug print divides by the readback, and its arguments are
+evaluated even with debug output disabled. Only print when the value
+is usable as a divisor.
 
-On Tue, 14 Jul 2026 13:43:40 +0200, AngeloGioacchino Del Regno wrote:
-> This hardware controls trigger sources, and there's even a generic
-> binding just for that: allow #trigger-source-cells in MuteX, so
-> that this is allowed to provide triggers to external HW.
-> 
-> Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
->  .../devicetree/bindings/soc/mediatek/mediatek,mutex.yaml      | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
+Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+---
+v5: new patch
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+ drivers/gpu/drm/bridge/ite-it6505.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
+index fc95f8d4f412..81d2c9644531 100644
+--- a/drivers/gpu/drm/bridge/ite-it6505.c
++++ b/drivers/gpu/drm/bridge/ite-it6505.c
+@@ -1622,8 +1622,11 @@ static void it6505_enable_audio(struct it6505 *it6505)
+ 	it6505_set_bits(it6505, REG_AUDIO_SRC_CTRL, AUDIO_FIFO_RESET, 0x00);
+ 	it6505_set_bits(it6505, REG_RESET_CTRL, AUDIO_RESET, 0x00);
+ 	regbe = it6505_read(it6505, REG_AUDIO_INPUT_FREQ);
+-	DRM_DEV_DEBUG_DRIVER(dev, "regbe:0x%02x audio input fs: %d.%d kHz",
+-			     regbe, 6750 / regbe, (6750 % regbe) * 10 / regbe);
++	if (regbe > 0)
++		DRM_DEV_DEBUG_DRIVER(dev,
++				     "regbe:0x%02x audio input fs: %d.%d kHz",
++				     regbe, 6750 / regbe,
++				     (6750 % regbe) * 10 / regbe);
+ 	it6505_set_bits(it6505, REG_DATA_MUTE_CTRL, EN_AUD_MUTE, 0x00);
+ }
+ 
+-- 
+2.55.0
