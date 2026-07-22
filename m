@@ -4,64 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A51CC44539
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 15:09:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CDDAC44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 15:19:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C43C10E488;
-	Wed, 22 Jul 2026 15:09:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F8AD10E48D;
+	Wed, 22 Jul 2026 15:19:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="V9U/GWvA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FBs7qFUs";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23C7610E488;
- Wed, 22 Jul 2026 15:08:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784732939; x=1816268939;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=Fuh7j3i1hWPA2ST5wcZWSI4lxKim5UhpPM3nkNKc/fU=;
- b=V9U/GWvAE3OGxCndQZBf91MSRWWjd3wXo2MGPjb/3jNCD7npQyLplK6V
- Ms1fX7vjhZc7Tfl5R8F8az1BT9Cb+o6xhVrZCvJTzOrW5jp3XXsi7SOal
- uvK0CbFQtU9jiu3ntaoMu6ZeY4NvDHEg2HHWK80GcljZV6HhTnUL+Yf8Y
- /klpEIMBTVO+/umw0QEvYgEgBD5pvUm4Ca5bXyrtxSBkff3V6gKjKGUzb
- ldxa8V/m5dHWTJVUSNbclZXwhGkUaGDWeA7ApT9TNkb+cpzO5l1qm300Q
- /DUXDa9HV/Sbio0xMP0FC3+hrcPUE2o36YTSLkYPc5y2dWTQXGQNgP/mV A==;
-X-CSE-ConnectionGUID: b+JiLRjUTXKyi+8wTC114Q==
-X-CSE-MsgGUID: +0cSHmeLSrKPK0agEop7zA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="110913418"
-X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="110913418"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2026 08:08:58 -0700
-X-CSE-ConnectionGUID: iU29KpU5TxCt+NLgMRzEkQ==
-X-CSE-MsgGUID: 0QD0nRCiQpSPTbNLxMR0qA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="258181065"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.180])
- ([10.245.245.180])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2026 08:08:55 -0700
-Message-ID: <1c4e53bef3e6cdce4edf97352d9f5e04ce0c69a6.camel@linux.intel.com>
-Subject: Re: [PATCH 02/10] ttm: add a memcg accounting flag to the
- alloc/populate APIs
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
- tj@kernel.org, christian.koenig@amd.com, Johannes Weiner
- <hannes@cmpxchg.org>,  Michal Hocko <mhocko@kernel.org>, Roman Gushchin
- <roman.gushchin@linux.dev>, Shakeel Butt	 <shakeel.butt@linux.dev>, Muchun
- Song <muchun.song@linux.dev>
-Cc: cgroups@vger.kernel.org, Waiman Long <longman@redhat.com>,
- simona@ffwll.ch, 	intel-xe@lists.freedesktop.org
-Date: Wed, 22 Jul 2026 17:08:52 +0200
-In-Reply-To: <20260706052330.1110909-3-airlied@gmail.com>
-References: <20260706052330.1110909-1-airlied@gmail.com>
- <20260706052330.1110909-3-airlied@gmail.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 169E510E48D
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 15:19:00 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-c15f47e6297so942139366b.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 08:19:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784733538; cv=none;
+ d=google.com; s=arc-20260327;
+ b=lpDiAXoGWLdBqDL+78+UcxMYYMajxSvQnSncACRo4Q9M5OYwRVcn4pGExakeLyXIga
+ cuYM8eIJnqYHRafFK7lu+njrsZnWGQbvgMaT+GxvrG/kwpA6txYUhdCdeZvGOIbuf5zS
+ W5+vErOSJdtRU1SPZc4HBE5nVD2Ju+PacUo/ShRA1ep3YAJZ6qGvkSv2gxEJqokYYzqE
+ 110z+vBOIFGd34OVpdIu/9PYSSZqEeOgQZCLuUPLSw+lKzXMrW4/S3GekLZlGvihfNWG
+ ftqr1IlwoK+5tvy/IA8NPZ1k/0ckuK/RWv6luV1770JHruqs4bkmWyh00HphdxhWGLyH
+ X64g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=i1afpsh2OIvkZaaChULugvD8FxciERHSKG0pHwByaWw=;
+ fh=RnhukKZHq8wcpb4r8t7/YO7XJoGXZkhmtIURsQyotsw=;
+ b=r1vWEta70mcEflqYcls9Gvbe1GCnJOccytkEb8ZNdGZrKV6RbnyjoRQfIlDuwAsBTD
+ zYjeJbqUxeWp7RDCPMX5QPMK6tkNVysSqR2aVqJ2DonCD2imOzw4zK95/kfXXHT0MFlU
+ EF2XKdv4fjdXyV2BzUp8qPa4P0ylVYaXutKH2HKwR61o/6GP+cqluh+YtRqqp9owWwf1
+ Pgm4SoFETnIhUXjN1NzivxY8ThAoWjjh7dcxbnIttDu818i4c7UqSWdYG1aDsa+3eMQ6
+ UR29uw3ORPLU3g+EBQZ/f8F3F9nW9x3ljr/REBErrKSgldAmYlxSHjC9aJM5rrHTDbZT
+ UfZQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784733538; x=1785338338; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=i1afpsh2OIvkZaaChULugvD8FxciERHSKG0pHwByaWw=;
+ b=FBs7qFUsesLC1JCC+UOeSQ6C04KdzUPxUKv4s/kt2xeyvlhvdVXEfaYzi+cMBlKVkV
+ 6Mgz35sc+35n/EQ9Dq0n3+ctJ0L+zOPls6pI3CTi0IziJPLzYrHMe5TbCh3RJcXTlwD4
+ 2ab6uAALKnwrIWIVMILUmdA5R2H8TxWGGCqqlbmClaAZCSATHXU7mge3k6ZP4EQ9QqIa
+ OIU607Pg9JfFo1d5UEogkuhHgFRFnMmZDGIrk+ROppKh6GOOZcKL8swziDRuIF3EMEVx
+ fG9ueoRAI5rL0gvWVpr3UE7O6pfKT5A33IRZ8q9XREjmb6igKVAXPz8pnH5t4vmp/cBh
+ ZS1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784733538; x=1785338338;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=i1afpsh2OIvkZaaChULugvD8FxciERHSKG0pHwByaWw=;
+ b=EYb7AYUh0QwUEowI5LsRvmmnF1VPzS4v4892IFgoCezmqMjW8o4NZrMjJXEM94sXLz
+ 4ZyZbtPqp+l09ABYPrYyCNbqFUrmj5PoV7mh9NrkjiWjMoEuFR5e3T+TAwDGrSLeMaNy
+ 3vUSS9ukRhMi+X42qEhEe2KvmJIO267qEvJ/HuIWtuorK0pNG7GNIOVo1d3Qvm5tcJXd
+ DPqBPnsSRtaPL8o75zzjtbNBfIf/OMA33QovjSq85V1dCbynjtKnRhvCOooSaWwkW26u
+ gAQQmrcJhWPdR9QaAMXSjcxoKS2C8qNgGL9n7NO/o3ey24zfWJfOFJCxZJmw29Iar4oB
+ ceig==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrJBj0BjGHbXW6UZjJ8gqrikgbDCjK2uZDyqdQgjXtJQlEcsaDhhF6CDyTCv+AjhCfrEaWDq6Sc2tI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywb3r8EhPC6Jx4UkePPxccFaITemwD4hhp5/tXaknowtsKEPrAO
+ ZpnZr+oQedavoA+pJxgWdvTsmfMOGsXHE4EkUwlxfipvzWm3nmzmu015rMDYmtseFIfBsodAusI
+ gW+6i9YZeNQPn5035RiSkyTBakYLNr/U=
+X-Gm-Gg: AR+sD10qb82nTaG+Xk5Wt/TDO/SpLBrgd9uUi1MbKmLvKVfP/Eer3cn157X3Q9Medyw
+ ssNU+NeS3OaoWNrjm3D6vKzkosd5u51zCO/f05WNShpvkrXY5eple6IwjbN5bSmVlmO53uRXy06
+ pTl0BrU1V8R3HrWaWYkuSmjiXDdsCwrQardw9vFtuCfByzkxIDXLZkIdcqfkKuQRmHMQWCP12Y1
+ RMBLe359XSEFWymXBb+81irRjmMBMVoGcWZ+O5+qVA1gqYdrGZUFyXItIe5Z5/PC6GovHo3qbNM
+ 7KR4E+0vHgcdkTe/GuHG7JJqkdl25zNXhScHcBl0lGCvWj29J1nV
+X-Received: by 2002:a17:907:388c:b0:c16:945:97f0 with SMTP id
+ a640c23a62f3a-c16b48533femr836839366b.39.1784733538115; Wed, 22 Jul 2026
+ 08:18:58 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260721112133.70382-1-egbostina@gmail.com>
+ <20260721112133.70382-5-egbostina@gmail.com>
+ <20260722-ochre-alpaca-of-tact-ef17e3@quoll>
+In-Reply-To: <20260722-ochre-alpaca-of-tact-ef17e3@quoll>
+From: Eduard Bostina <egbostina@gmail.com>
+Date: Wed, 22 Jul 2026 18:18:46 +0300
+X-Gm-Features: AUfX_mxRkciUP9PmKB_Sf5WpXXnp_jwGYivbso-yHbHHBjEP1jiN3c0a8MRq-10
+Message-ID: <CAEFOc610_15k2z-kCtuKkH3M3_ugE6uotvh+=oiYe560UOW=Ow@mail.gmail.com>
+Subject: Re: [PATCH v3 4/4] dt-bindings: leds: backlight: Convert TPS65217 to
+ DT schema
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>, 
+ Conor Dooley <conor+dt@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ devicetree@vger.kernel.org, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, dri-devel@lists.freedesktop.org, 
+ Jingoo Han <jingoohan1@gmail.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ linux-input@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
+ linux-omap@vger.kernel.org, Mark Jackson <mpfj@newflow.co.uk>, 
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Roger Quadros <rogerq@kernel.org>, 
+ Tony Lindgren <tony@atomide.com>, daniel.baluta@nxp.com, simona.toaca@nxp.com, 
+ goledhruva@gmail.com, m-chawdhry@ti.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,771 +118,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-07-06 at 15:22 +1000, Dave Airlie wrote:
-> From: Dave Airlie <airlied@redhat.com>
->=20
-> This flag does nothing yet, but this just changes the APIs to accept
-> it in the future across all users.
->=20
-> This flag will eventually be filled out with when to account a tt
-> populate to a memcg.
+On Wed, Jul 22, 2026 at 10:44, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On Tue, Jul 21, 2026 at 11:21:28AM +0000, Eduard Bostina wrote:
+> > Convert the Texas Instruments TPS65217 bindings to DT schema.
+> >
+> > During the conversion, the following updates were made:
+> > - Documented the 'regulators', 'charger' and 'pwrbutton' child nodes,
+> >   which are used by the boards but were missing from the old txt
+> >   binding.
+> > - Documented the 'interrupts', 'interrupt-controller', '#interrupt-cells'
+> >   and 'ti,pmic-shutdown-controller' properties, which are used by the
+> >   am335x boards and read by the driver.
+> >
+> > Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+> > ---
+> >  .../bindings/leds/backlight/ti,tps65217.yaml  | 170 ++++++++++++++++++
+> >  .../leds/backlight/tps65217-backlight.txt     |  27 ---
+>
+> Biinding looks fine to me, but as pointed out you missed to remove old
+> TXT binding.
+>
+> Best regards,
+> Krzysztof
+>
 
-I agree with Matt Brost's comment about the ttm_operation_ctx.
+Thanks. Will send v4 that removes regulator/tps65217.txt as well.
+Should I move the binding to another place (mfd/ or regulator/ as
+suggested)? leds/backlight/ is arguably wrong now that the schema
+describes the whole pmic.
 
-There are also some sashiko comments that appear valid:
-https://sashiko.dev/#/message/20260706053512.D207E1F000E9%40smtp.kernel.org
-
-Thanks,
-Thomas
-
-
->=20
-> Signed-off-by: Dave Airlie <airlied@redhat.com>
-> ---
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
-> =C2=A0drivers/gpu/drm/i915/gem/i915_gem_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 +++--
-> =C2=A0drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 6 ++++--
-> =C2=A0drivers/gpu/drm/radeon/radeon_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
-> =C2=A0drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c |=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/ttm/tests/ttm_pool_test.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 | 16 ++++++++------
-> --
-> =C2=A0drivers/gpu/drm/ttm/tests/ttm_tt_test.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++++++------
-> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 7 ++++---
-> =C2=A0drivers/gpu/drm/ttm/ttm_bo_util.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 6 +++---
-> =C2=A0drivers/gpu/drm/ttm/ttm_bo_vm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 =
-4 +++-
-> =C2=A0drivers/gpu/drm/ttm/ttm_pool.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 6 ++++--
-> =C2=A0drivers/gpu/drm/ttm/ttm_tt.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 8 +++++---
-> =C2=A0drivers/gpu/drm/vmwgfx/vmwgfx_blit.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 7 ++++---
-> =C2=A0drivers/gpu/drm/xe/xe_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 5 +++--
-> =C2=A0include/drm/ttm/ttm_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0include/drm/ttm/ttm_device.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 1 +
-> =C2=A0include/drm/ttm/ttm_pool.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0include/drm/ttm/ttm_tt.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A022 files changed, 63 insertions(+), 44 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 025625e7e800..8062b3d61157 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1220,6 +1220,7 @@ static struct ttm_tt
-> *amdgpu_ttm_tt_create(struct ttm_buffer_object *bo,
-> =C2=A0 */
-> =C2=A0static int amdgpu_ttm_tt_populate(struct ttm_device *bdev,
-> =C2=A0				=C2=A0 struct ttm_tt *ttm,
-> +				=C2=A0 bool memcg_account,
-> =C2=A0				=C2=A0 struct ttm_operation_ctx *ctx)
-> =C2=A0{
-> =C2=A0	struct amdgpu_device *adev =3D amdgpu_ttm_adev(bdev);
-> @@ -1243,7 +1244,7 @@ static int amdgpu_ttm_tt_populate(struct
-> ttm_device *bdev,
-> =C2=A0		pool =3D &adev->mman.ttm_pools[gtt->pool_id];
-> =C2=A0	else
-> =C2=A0		pool =3D &adev->mman.bdev.pool;
-> -	ret =3D ttm_pool_alloc(pool, ttm, ctx);
-> +	ret =3D ttm_pool_alloc(pool, ttm, memcg_account, ctx);
-> =C2=A0	if (ret)
-> =C2=A0		return ret;
-> =C2=A0
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> index df3fcc2b1248..d45ccede78a4 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> @@ -317,6 +317,7 @@ static struct ttm_tt *i915_ttm_tt_create(struct
-> ttm_buffer_object *bo,
-> =C2=A0
-> =C2=A0static int i915_ttm_tt_populate(struct ttm_device *bdev,
-> =C2=A0				struct ttm_tt *ttm,
-> +				bool memcg_account,
-> =C2=A0				struct ttm_operation_ctx *ctx)
-> =C2=A0{
-> =C2=A0	struct i915_ttm_tt *i915_tt =3D container_of(ttm,
-> typeof(*i915_tt), ttm);
-> @@ -324,7 +325,7 @@ static int i915_ttm_tt_populate(struct ttm_device
-> *bdev,
-> =C2=A0	if (i915_tt->is_shmem)
-> =C2=A0		return i915_ttm_tt_shmem_populate(bdev, ttm, ctx);
-> =C2=A0
-> -	return ttm_pool_alloc(&bdev->pool, ttm, ctx);
-> +	return ttm_pool_alloc(&bdev->pool, ttm, memcg_account, ctx);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void i915_ttm_tt_unpopulate(struct ttm_device *bdev, struct
-> ttm_tt *ttm)
-> @@ -815,7 +816,7 @@ static int __i915_ttm_get_pages(struct
-> drm_i915_gem_object *obj,
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	if (bo->ttm && !ttm_tt_is_populated(bo->ttm)) {
-> -		ret =3D ttm_bo_populate(bo, &ctx);
-> +		ret =3D ttm_bo_populate(bo, false, &ctx);
-> =C2=A0		if (ret)
-> =C2=A0			return ret;
-> =C2=A0
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-> b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-> index 56489cc127d6..b81c9df2d7eb 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-> @@ -624,7 +624,7 @@ int i915_ttm_move(struct ttm_buffer_object *bo,
-> bool evict,
-> =C2=A0
-> =C2=A0	/* Populate ttm with pages if needed. Typically system
-> memory. */
-> =C2=A0	if (ttm && (dst_man->use_tt || (ttm->page_flags &
-> TTM_TT_FLAG_SWAPPED))) {
-> -		ret =3D ttm_bo_populate(bo, ctx);
-> +		ret =3D ttm_bo_populate(bo, false, ctx);
-> =C2=A0		if (ret)
-> =C2=A0			return ret;
-> =C2=A0	}
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
-> b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
-> index 4824f948daed..d951e58f78ea 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
-> @@ -91,7 +91,7 @@ static int i915_ttm_backup(struct
-> i915_gem_apply_to_region *apply,
-> =C2=A0		goto out_no_lock;
-> =C2=A0
-> =C2=A0	backup_bo =3D i915_gem_to_ttm(backup);
-> -	err =3D ttm_bo_populate(backup_bo, &ctx);
-> +	err =3D ttm_bo_populate(backup_bo, false, &ctx);
-> =C2=A0	if (err)
-> =C2=A0		goto out_no_populate;
-> =C2=A0
-> @@ -190,7 +190,7 @@ static int i915_ttm_restore(struct
-> i915_gem_apply_to_region *apply,
-> =C2=A0	if (!backup_bo->resource)
-> =C2=A0		err =3D ttm_bo_validate(backup_bo,
-> i915_ttm_sys_placement(), &ctx);
-> =C2=A0	if (!err)
-> -		err =3D ttm_bo_populate(backup_bo, &ctx);
-> +		err =3D ttm_bo_populate(backup_bo, false, &ctx);
-> =C2=A0	if (!err) {
-> =C2=A0		err =3D i915_gem_obj_copy_ttm(obj, backup, pm_apply-
-> >allow_gpu,
-> =C2=A0					=C2=A0=C2=A0=C2=A0 false);
-> diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> index d7441d96a0dc..bfb5f1b1ec91 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> @@ -111,6 +111,7 @@ lsdc_ttm_tt_create(struct ttm_buffer_object *tbo,
-> uint32_t page_flags)
-> =C2=A0
-> =C2=A0static int lsdc_ttm_tt_populate(struct ttm_device *bdev,
-> =C2=A0				struct ttm_tt *ttm,
-> +				bool memcg_account,
-> =C2=A0				struct ttm_operation_ctx *ctx)
-> =C2=A0{
-> =C2=A0	bool slave =3D !!(ttm->page_flags & TTM_TT_FLAG_EXTERNAL);
-> @@ -123,7 +124,7 @@ static int lsdc_ttm_tt_populate(struct ttm_device
-> *bdev,
-> =C2=A0		return 0;
-> =C2=A0	}
-> =C2=A0
-> -	return ttm_pool_alloc(&bdev->pool, ttm, ctx);
-> +	return ttm_pool_alloc(&bdev->pool, ttm, memcg_account, ctx);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void lsdc_ttm_tt_unpopulate(struct ttm_device *bdev,
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c
-> b/drivers/gpu/drm/nouveau/nouveau_bo.c
-> index 0e8de6d4b36f..a38c19f1d6dc 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_bo.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
-> @@ -1417,7 +1417,9 @@ vm_fault_t
-> nouveau_ttm_fault_reserve_notify(struct ttm_buffer_object *bo)
-> =C2=A0
-> =C2=A0static int
-> =C2=A0nouveau_ttm_tt_populate(struct ttm_device *bdev,
-> -			struct ttm_tt *ttm, struct ttm_operation_ctx
-> *ctx)
-> +			struct ttm_tt *ttm,
-> +			bool memcg_account,
-> +			struct ttm_operation_ctx *ctx)
-> =C2=A0{
-> =C2=A0	struct ttm_tt *ttm_dma =3D (void *)ttm;
-> =C2=A0	struct nouveau_drm *drm;
-> @@ -1434,7 +1436,7 @@ nouveau_ttm_tt_populate(struct ttm_device
-> *bdev,
-> =C2=A0
-> =C2=A0	drm =3D nouveau_bdev(bdev);
-> =C2=A0
-> -	return ttm_pool_alloc(&drm->ttm.bdev.pool, ttm, ctx);
-> +	return ttm_pool_alloc(&drm->ttm.bdev.pool, ttm,
-> memcg_account, ctx);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void
-> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c
-> b/drivers/gpu/drm/radeon/radeon_ttm.c
-> index e7ab8162ac69..98b09463abc2 100644
-> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
-> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-> @@ -526,6 +526,7 @@ static struct radeon_ttm_tt
-> *radeon_ttm_tt_to_gtt(struct radeon_device *rdev,
-> =C2=A0
-> =C2=A0static int radeon_ttm_tt_populate(struct ttm_device *bdev,
-> =C2=A0				=C2=A0 struct ttm_tt *ttm,
-> +				=C2=A0 bool memcg_account,
-> =C2=A0				=C2=A0 struct ttm_operation_ctx *ctx)
-> =C2=A0{
-> =C2=A0	struct radeon_device *rdev =3D radeon_get_rdev(bdev);
-> @@ -547,7 +548,7 @@ static int radeon_ttm_tt_populate(struct
-> ttm_device *bdev,
-> =C2=A0		return 0;
-> =C2=A0	}
-> =C2=A0
-> -	return ttm_pool_alloc(&rdev->mman.bdev.pool, ttm, ctx);
-> +	return ttm_pool_alloc(&rdev->mman.bdev.pool, ttm,
-> memcg_account, ctx);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void radeon_ttm_tt_unpopulate(struct ttm_device *bdev, struc=
-t
-> ttm_tt *ttm)
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-> b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-> index 2db221f6fc3a..0cbf732eebf3 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-> @@ -538,7 +538,7 @@ static void
-> ttm_bo_validate_no_placement_signaled(struct kunit *test)
-> =C2=A0
-> =C2=A0	if (params->with_ttm) {
-> =C2=A0		old_tt =3D priv->ttm_dev->funcs->ttm_tt_create(bo, 0);
-> -		ttm_pool_alloc(&priv->ttm_dev->pool, old_tt, &ctx);
-> +		ttm_pool_alloc(&priv->ttm_dev->pool, old_tt, false,
-> &ctx);
-> =C2=A0		bo->ttm =3D old_tt;
-> =C2=A0	}
-> =C2=A0
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
-> b/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
-> index be75c8abf388..af235d64b970 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
-> @@ -89,7 +89,7 @@ static struct ttm_pool
-> *ttm_pool_pre_populated(struct kunit *test,
-> =C2=A0
-> =C2=A0	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE,
-> TTM_ALLOCATION_POOL_USE_DMA_ALLOC);
-> =C2=A0
-> -	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
-> +	err =3D ttm_pool_alloc(pool, tt, false, &simple_ctx);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
-> =C2=A0
-> =C2=A0	ttm_pool_free(pool, tt);
-> @@ -157,7 +157,7 @@ static void ttm_pool_alloc_basic(struct kunit
-> *test)
-> =C2=A0	KUNIT_ASSERT_EQ(test, pool->nid, NUMA_NO_NODE);
-> =C2=A0	KUNIT_ASSERT_EQ(test, pool->alloc_flags, params-
-> >alloc_flags);
-> =C2=A0
-> -	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
-> +	err =3D ttm_pool_alloc(pool, tt, false, &simple_ctx);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
-> =C2=A0	KUNIT_ASSERT_EQ(test, tt->num_pages, expected_num_pages);
-> =C2=A0
-> @@ -220,7 +220,7 @@ static void ttm_pool_alloc_basic_dma_addr(struct
-> kunit *test)
-> =C2=A0
-> =C2=A0	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE,
-> TTM_ALLOCATION_POOL_USE_DMA_ALLOC);
-> =C2=A0
-> -	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
-> +	err =3D ttm_pool_alloc(pool, tt, false, &simple_ctx);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
-> =C2=A0	KUNIT_ASSERT_EQ(test, tt->num_pages, expected_num_pages);
-> =C2=A0
-> @@ -253,7 +253,7 @@ static void
-> ttm_pool_alloc_order_caching_match(struct kunit *test)
-> =C2=A0	tt =3D ttm_tt_kunit_init(test, 0, caching, size);
-> =C2=A0	KUNIT_ASSERT_NOT_NULL(test, tt);
-> =C2=A0
-> -	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
-> +	err =3D ttm_pool_alloc(pool, tt, false, &simple_ctx);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
-> =C2=A0
-> =C2=A0	KUNIT_ASSERT_TRUE(test, !list_lru_count(&pt->pages));
-> @@ -285,7 +285,7 @@ static void
-> ttm_pool_alloc_caching_mismatch(struct kunit *test)
-> =C2=A0	KUNIT_ASSERT_FALSE(test, !list_lru_count(&pt_pool->pages));
-> =C2=A0	KUNIT_ASSERT_TRUE(test, !list_lru_count(&pt_tt->pages));
-> =C2=A0
-> -	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
-> +	err =3D ttm_pool_alloc(pool, tt, false, &simple_ctx);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
-> =C2=A0
-> =C2=A0	ttm_pool_free(pool, tt);
-> @@ -319,7 +319,7 @@ static void ttm_pool_alloc_order_mismatch(struct
-> kunit *test)
-> =C2=A0	KUNIT_ASSERT_FALSE(test, !list_lru_count(&pt_pool->pages));
-> =C2=A0	KUNIT_ASSERT_TRUE(test, !list_lru_count(&pt_tt->pages));
-> =C2=A0
-> -	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
-> +	err =3D ttm_pool_alloc(pool, tt, false, &simple_ctx);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
-> =C2=A0
-> =C2=A0	ttm_pool_free(pool, tt);
-> @@ -349,7 +349,7 @@ static void ttm_pool_free_dma_alloc(struct kunit
-> *test)
-> =C2=A0	KUNIT_ASSERT_NOT_NULL(test, pool);
-> =C2=A0
-> =C2=A0	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE,
-> TTM_ALLOCATION_POOL_USE_DMA_ALLOC);
-> -	ttm_pool_alloc(pool, tt, &simple_ctx);
-> +	ttm_pool_alloc(pool, tt, false, &simple_ctx);
-> =C2=A0
-> =C2=A0	pt =3D &pool->caching[caching].orders[order];
-> =C2=A0	KUNIT_ASSERT_TRUE(test, !list_lru_count(&pt->pages));
-> @@ -379,7 +379,7 @@ static void ttm_pool_free_no_dma_alloc(struct
-> kunit *test)
-> =C2=A0	KUNIT_ASSERT_NOT_NULL(test, pool);
-> =C2=A0
-> =C2=A0	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, 0);
-> -	ttm_pool_alloc(pool, tt, &simple_ctx);
-> +	ttm_pool_alloc(pool, tt, false, &simple_ctx);
-> =C2=A0
-> =C2=A0	ttm_pool_free(pool, tt);
-> =C2=A0	ttm_tt_fini(tt);
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_tt_test.c
-> b/drivers/gpu/drm/ttm/tests/ttm_tt_test.c
-> index bd5f7d0b9b62..dfa38bbfd829 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_tt_test.c
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_tt_test.c
-> @@ -262,7 +262,7 @@ static void ttm_tt_populate_null_ttm(struct kunit
-> *test)
-> =C2=A0	struct ttm_operation_ctx ctx =3D { };
-> =C2=A0	int err;
-> =C2=A0
-> -	err =3D ttm_tt_populate(devs->ttm_dev, NULL, &ctx);
-> +	err =3D ttm_tt_populate(devs->ttm_dev, NULL, false, &ctx);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, -EINVAL);
-> =C2=A0}
-> =C2=A0
-> @@ -283,11 +283,11 @@ static void
-> ttm_tt_populate_populated_ttm(struct kunit *test)
-> =C2=A0	err =3D ttm_tt_init(tt, bo, 0, ttm_cached, 0);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
-> =C2=A0
-> -	err =3D ttm_tt_populate(devs->ttm_dev, tt, &ctx);
-> +	err =3D ttm_tt_populate(devs->ttm_dev, tt, false, &ctx);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
-> =C2=A0	populated_page =3D *tt->pages;
-> =C2=A0
-> -	err =3D ttm_tt_populate(devs->ttm_dev, tt, &ctx);
-> +	err =3D ttm_tt_populate(devs->ttm_dev, tt, false, &ctx);
-> =C2=A0	KUNIT_ASSERT_PTR_EQ(test, populated_page, *tt->pages);
-> =C2=A0}
-> =C2=A0
-> @@ -307,7 +307,7 @@ static void ttm_tt_unpopulate_basic(struct kunit
-> *test)
-> =C2=A0	err =3D ttm_tt_init(tt, bo, 0, ttm_cached, 0);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
-> =C2=A0
-> -	err =3D ttm_tt_populate(devs->ttm_dev, tt, &ctx);
-> +	err =3D ttm_tt_populate(devs->ttm_dev, tt, false, &ctx);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
-> =C2=A0	KUNIT_ASSERT_TRUE(test, ttm_tt_is_populated(tt));
-> =C2=A0
-> @@ -351,7 +351,7 @@ static void ttm_tt_swapin_basic(struct kunit
-> *test)
-> =C2=A0	err =3D ttm_tt_init(tt, bo, 0, ttm_cached, 0);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
-> =C2=A0
-> -	err =3D ttm_tt_populate(devs->ttm_dev, tt, &ctx);
-> +	err =3D ttm_tt_populate(devs->ttm_dev, tt, false, &ctx);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
-> =C2=A0	KUNIT_ASSERT_TRUE(test, ttm_tt_is_populated(tt));
-> =C2=A0
-> @@ -361,7 +361,7 @@ static void ttm_tt_swapin_basic(struct kunit
-> *test)
-> =C2=A0	KUNIT_ASSERT_TRUE(test, tt->page_flags &
-> TTM_TT_FLAG_SWAPPED);
-> =C2=A0
-> =C2=A0	/* Swapout depopulates TT, allocate pages and then swap them
-> in */
-> -	err =3D ttm_pool_alloc(&devs->ttm_dev->pool, tt, &ctx);
-> +	err =3D ttm_pool_alloc(&devs->ttm_dev->pool, tt, false, &ctx);
-> =C2=A0	KUNIT_ASSERT_EQ(test, err, 0);
-> =C2=A0
-> =C2=A0	err =3D ttm_tt_swapin(tt);
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
-> b/drivers/gpu/drm/ttm/ttm_bo.c
-> index bcd76f6bb7f0..cf4ab2b5521a 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -145,7 +145,7 @@ static int ttm_bo_handle_move_mem(struct
-> ttm_buffer_object *bo,
-> =C2=A0			goto out_err;
-> =C2=A0
-> =C2=A0		if (mem->mem_type !=3D TTM_PL_SYSTEM) {
-> -			ret =3D ttm_bo_populate(bo, ctx);
-> +			ret =3D ttm_bo_populate(bo, false, ctx);
-> =C2=A0			if (ret)
-> =C2=A0				goto out_err;
-> =C2=A0		}
-> @@ -1255,6 +1255,7 @@ void ttm_bo_tt_destroy(struct ttm_buffer_object
-> *bo)
-> =C2=A0 * is set to true.
-> =C2=A0 */
-> =C2=A0int ttm_bo_populate(struct ttm_buffer_object *bo,
-> +		=C2=A0=C2=A0=C2=A0 bool memcg_account,
-> =C2=A0		=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *ctx)
-> =C2=A0{
-> =C2=A0	struct ttm_device *bdev =3D bo->bdev;
-> @@ -1268,7 +1269,7 @@ int ttm_bo_populate(struct ttm_buffer_object
-> *bo,
-> =C2=A0		return 0;
-> =C2=A0
-> =C2=A0	swapped =3D ttm_tt_is_swapped(tt);
-> -	ret =3D ttm_tt_populate(bdev, tt, ctx);
-> +	ret =3D ttm_tt_populate(bdev, tt, memcg_account, ctx);
-> =C2=A0	if (ret)
-> =C2=A0		return ret;
-> =C2=A0
-> @@ -1293,7 +1294,7 @@ int ttm_bo_setup_export(struct
-> ttm_buffer_object *bo,
-> =C2=A0	if (ret !=3D 0)
-> =C2=A0		return ret;
-> =C2=A0
-> -	ret =3D ttm_bo_populate(bo, ctx);
-> +	ret =3D ttm_bo_populate(bo, false, ctx);
-> =C2=A0	ttm_bo_unreserve(bo);
-> =C2=A0	return ret;
-> =C2=A0}
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c
-> b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> index 3e3c201a0222..62dad6c05dff 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> @@ -167,7 +167,7 @@ int ttm_bo_move_memcpy(struct ttm_buffer_object
-> *bo,
-> =C2=A0	src_man =3D ttm_manager_type(bdev, src_mem->mem_type);
-> =C2=A0	if (ttm && ((ttm->page_flags & TTM_TT_FLAG_SWAPPED) ||
-> =C2=A0		=C2=A0=C2=A0=C2=A0 dst_man->use_tt)) {
-> -		ret =3D ttm_bo_populate(bo, ctx);
-> +		ret =3D ttm_bo_populate(bo, false, ctx);
-> =C2=A0		if (ret)
-> =C2=A0			return ret;
-> =C2=A0	}
-> @@ -352,7 +352,7 @@ static int ttm_bo_kmap_ttm(struct
-> ttm_buffer_object *bo,
-> =C2=A0
-> =C2=A0	BUG_ON(!ttm);
-> =C2=A0
-> -	ret =3D ttm_bo_populate(bo, &ctx);
-> +	ret =3D ttm_bo_populate(bo, false, &ctx);
-> =C2=A0	if (ret)
-> =C2=A0		return ret;
-> =C2=A0
-> @@ -533,7 +533,7 @@ int ttm_bo_vmap(struct ttm_buffer_object *bo,
-> struct iosys_map *map)
-> =C2=A0		pgprot_t prot;
-> =C2=A0		void *vaddr;
-> =C2=A0
-> -		ret =3D ttm_bo_populate(bo, &ctx);
-> +		ret =3D ttm_bo_populate(bo, false, &ctx);
-> =C2=A0		if (ret)
-> =C2=A0			return ret;
-> =C2=A0
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> index a80510489c45..2e59836b6085 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> @@ -224,7 +224,9 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct
-> vm_fault *vmf,
-> =C2=A0		};
-> =C2=A0
-> =C2=A0		ttm =3D bo->ttm;
-> -		err =3D ttm_bo_populate(bo, &ctx);
-> +		err =3D ttm_bo_populate(bo,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 false,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &ctx);
-> =C2=A0		if (err) {
-> =C2=A0			if (err =3D=3D -EINTR || err =3D=3D -ERESTARTSYS ||
-> =C2=A0			=C2=A0=C2=A0=C2=A0 err =3D=3D -EAGAIN)
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
-> b/drivers/gpu/drm/ttm/ttm_pool.c
-> index 278bbe7a11ad..e4dbf4c93091 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -761,6 +761,7 @@ static unsigned int
-> ttm_pool_alloc_find_order(unsigned int highest,
-> =C2=A0}
-> =C2=A0
-> =C2=A0static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt
-> *tt,
-> +			=C2=A0=C2=A0=C2=A0 bool memcg_account,
-> =C2=A0			=C2=A0=C2=A0=C2=A0 const struct ttm_operation_ctx *ctx,
-> =C2=A0			=C2=A0=C2=A0=C2=A0 struct ttm_pool_alloc_state *alloc,
-> =C2=A0			=C2=A0=C2=A0=C2=A0 struct ttm_pool_tt_restore *restore)
-> @@ -871,6 +872,7 @@ static int __ttm_pool_alloc(struct ttm_pool
-> *pool, struct ttm_tt *tt,
-> =C2=A0 * Returns: 0 on successe, negative error code otherwise.
-> =C2=A0 */
-> =C2=A0int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
-> +		=C2=A0=C2=A0 bool memcg_account,
-
-Regardless whether memcg_account is passed as a separate parameter or
-part of @ctx, needs kerneldoc update.
-
-
-Thanks,
-Thomas
-
-
-
-> =C2=A0		=C2=A0=C2=A0 struct ttm_operation_ctx *ctx)
-> =C2=A0{
-> =C2=A0	struct ttm_pool_alloc_state alloc;
-> @@ -880,7 +882,7 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct
-> ttm_tt *tt,
-> =C2=A0
-> =C2=A0	ttm_pool_alloc_state_init(tt, &alloc);
-> =C2=A0
-> -	return __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL);
-> +	return __ttm_pool_alloc(pool, tt, memcg_account, ctx,
-> &alloc, NULL);
-> =C2=A0}
-> =C2=A0EXPORT_SYMBOL(ttm_pool_alloc);
-> =C2=A0
-> @@ -935,7 +937,7 @@ int ttm_pool_restore_and_alloc(struct ttm_pool
-> *pool, struct ttm_tt *tt,
-> =C2=A0			return 0;
-> =C2=A0	}
-> =C2=A0
-> -	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
-> +	return __ttm_pool_alloc(pool, tt, false, ctx, &alloc,
-> restore);
-> =C2=A0}
-> =C2=A0
-> =C2=A0/**
-> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c
-> b/drivers/gpu/drm/ttm/ttm_tt.c
-> index b645a1818184..aa0f17fca770 100644
-> --- a/drivers/gpu/drm/ttm/ttm_tt.c
-> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
-> @@ -368,7 +368,9 @@ int ttm_tt_swapout(struct ttm_device *bdev,
-> struct ttm_tt *ttm,
-> =C2=A0EXPORT_SYMBOL_FOR_TESTS_ONLY(ttm_tt_swapout);
-> =C2=A0
-> =C2=A0int ttm_tt_populate(struct ttm_device *bdev,
-> -		=C2=A0=C2=A0=C2=A0 struct ttm_tt *ttm, struct ttm_operation_ctx
-> *ctx)
-> +		=C2=A0=C2=A0=C2=A0 struct ttm_tt *ttm,
-> +		=C2=A0=C2=A0=C2=A0 bool memcg_account,
-> +		=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *ctx)
-> =C2=A0{
-> =C2=A0	int ret;
-> =C2=A0
-> @@ -397,9 +399,9 @@ int ttm_tt_populate(struct ttm_device *bdev,
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	if (bdev->funcs->ttm_tt_populate)
-> -		ret =3D bdev->funcs->ttm_tt_populate(bdev, ttm, ctx);
-> +		ret =3D bdev->funcs->ttm_tt_populate(bdev, ttm,
-> memcg_account, ctx);
-> =C2=A0	else
-> -		ret =3D ttm_pool_alloc(&bdev->pool, ttm, ctx);
-> +		ret =3D ttm_pool_alloc(&bdev->pool, ttm,
-> memcg_account, ctx);
-> =C2=A0	if (ret)
-> =C2=A0		goto error;
-> =C2=A0
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_blit.c
-> b/drivers/gpu/drm/vmwgfx/vmwgfx_blit.c
-> index 135b75a3e013..baa1c3fdb12c 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_blit.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_blit.c
-> @@ -569,13 +569,13 @@ int vmw_bo_cpu_blit(struct vmw_bo *vmw_dst,
-> =C2=A0		dma_resv_assert_held(src->base.resv);
-> =C2=A0
-> =C2=A0	if (!ttm_tt_is_populated(dst->ttm)) {
-> -		ret =3D dst->bdev->funcs->ttm_tt_populate(dst->bdev,
-> dst->ttm, &ctx);
-> +		ret =3D dst->bdev->funcs->ttm_tt_populate(dst->bdev,
-> dst->ttm, false, &ctx);
-> =C2=A0		if (ret)
-> =C2=A0			return ret;
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	if (!ttm_tt_is_populated(src->ttm)) {
-> -		ret =3D src->bdev->funcs->ttm_tt_populate(src->bdev,
-> src->ttm, &ctx);
-> +		ret =3D src->bdev->funcs->ttm_tt_populate(src->bdev,
-> src->ttm, false, &ctx);
-> =C2=A0		if (ret)
-> =C2=A0			return ret;
-> =C2=A0	}
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
-> b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
-> index dfd08ee19041..368701756119 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
-> @@ -360,7 +360,8 @@ static void vmw_ttm_destroy(struct ttm_device
-> *bdev, struct ttm_tt *ttm)
-> =C2=A0
-> =C2=A0
-> =C2=A0static int vmw_ttm_populate(struct ttm_device *bdev,
-> -			=C2=A0=C2=A0=C2=A0 struct ttm_tt *ttm, struct
-> ttm_operation_ctx *ctx)
-> +			=C2=A0=C2=A0=C2=A0 struct ttm_tt *ttm, bool memcg_account,
-> +			=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *ctx)
-> =C2=A0{
-> =C2=A0	bool external =3D (ttm->page_flags & TTM_TT_FLAG_EXTERNAL) !=3D
-> 0;
-> =C2=A0
-> @@ -372,7 +373,7 @@ static int vmw_ttm_populate(struct ttm_device
-> *bdev,
-> =C2=A0						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm-
-> >dma_address,
-> =C2=A0						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm-
-> >num_pages);
-> =C2=A0
-> -	return ttm_pool_alloc(&bdev->pool, ttm, ctx);
-> +	return ttm_pool_alloc(&bdev->pool, ttm, memcg_account, ctx);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void vmw_ttm_unpopulate(struct ttm_device *bdev,
-> @@ -580,7 +581,7 @@ int vmw_bo_create_and_populate(struct vmw_private
-> *dev_priv,
-> =C2=A0	if (unlikely(ret !=3D 0))
-> =C2=A0		return ret;
-> =C2=A0
-> -	ret =3D vmw_ttm_populate(vbo->tbo.bdev, vbo->tbo.ttm, &ctx);
-> +	ret =3D vmw_ttm_populate(vbo->tbo.bdev, vbo->tbo.ttm, false,
-> &ctx);
-> =C2=A0	if (likely(ret =3D=3D 0)) {
-> =C2=A0		struct vmw_ttm_tt *vmw_tt =3D
-> =C2=A0			container_of(vbo->tbo.ttm, struct
-> vmw_ttm_tt, dma_ttm);
-> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index 4c80bac67622..20a10a174d1d 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.c
-> +++ b/drivers/gpu/drm/xe/xe_bo.c
-> @@ -536,6 +536,7 @@ static struct ttm_tt *xe_ttm_tt_create(struct
-> ttm_buffer_object *ttm_bo,
-> =C2=A0}
-> =C2=A0
-> =C2=A0static int xe_ttm_tt_populate(struct ttm_device *ttm_dev, struct
-> ttm_tt *tt,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool memcg_account,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *ctx)
-> =C2=A0{
-> =C2=A0	struct xe_ttm_tt *xe_tt =3D container_of(tt, struct xe_ttm_tt,
-> ttm);
-> @@ -553,7 +554,7 @@ static int xe_ttm_tt_populate(struct ttm_device
-> *ttm_dev, struct ttm_tt *tt,
-> =C2=A0		err =3D ttm_tt_restore(ttm_dev, tt, ctx);
-> =C2=A0	} else {
-> =C2=A0		ttm_tt_clear_backed_up(tt);
-> -		err =3D ttm_pool_alloc(&ttm_dev->pool, tt, ctx);
-> +		err =3D ttm_pool_alloc(&ttm_dev->pool, tt,
-> memcg_account, ctx);
-> =C2=A0	}
-> =C2=A0	if (err)
-> =C2=A0		return err;
-> @@ -1926,7 +1927,7 @@ static int xe_bo_fault_migrate(struct xe_bo
-> *bo, struct ttm_operation_ctx *ctx,
-> =C2=A0	if (ttm_manager_type(tbo->bdev, tbo->resource->mem_type)-
-> >use_tt) {
-> =C2=A0		err =3D xe_bo_wait_usage_kernel(bo, ctx);
-> =C2=A0		if (!err)
-> -			err =3D ttm_bo_populate(&bo->ttm, ctx);
-> +			err =3D ttm_bo_populate(&bo->ttm, false, ctx);
-> =C2=A0	} else if (should_migrate_to_smem(bo)) {
-> =C2=A0		xe_assert(xe_bo_device(bo), bo->flags &
-> XE_BO_FLAG_SYSTEM);
-> =C2=A0		err =3D xe_bo_migrate(bo, XE_PL_TT, ctx, exec);
-> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-> index 8310bc3d55f9..535ba37aff88 100644
-> --- a/include/drm/ttm/ttm_bo.h
-> +++ b/include/drm/ttm/ttm_bo.h
-> @@ -475,6 +475,7 @@ pgprot_t ttm_io_prot(struct ttm_buffer_object
-> *bo, struct ttm_resource *res,
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 pgprot_t tmp);
-> =C2=A0void ttm_bo_tt_destroy(struct ttm_buffer_object *bo);
-> =C2=A0int ttm_bo_populate(struct ttm_buffer_object *bo,
-> +		=C2=A0=C2=A0=C2=A0 bool memcg_account,
-> =C2=A0		=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *ctx);
-> =C2=A0int ttm_bo_setup_export(struct ttm_buffer_object *bo,
-> =C2=A0			struct ttm_operation_ctx *ctx);
-> diff --git a/include/drm/ttm/ttm_device.h
-> b/include/drm/ttm/ttm_device.h
-> index 5618aef462f2..a4bd23988ee0 100644
-> --- a/include/drm/ttm/ttm_device.h
-> +++ b/include/drm/ttm/ttm_device.h
-> @@ -85,6 +85,7 @@ struct ttm_device_funcs {
-> =C2=A0	 */
-> =C2=A0	int (*ttm_tt_populate)(struct ttm_device *bdev,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ttm_tt *ttm,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool memcg_account,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *c=
-tx);
-> =C2=A0
-> =C2=A0	/**
-> diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
-> index 26ee592e1994..7f3f168c536c 100644
-> --- a/include/drm/ttm/ttm_pool.h
-> +++ b/include/drm/ttm/ttm_pool.h
-> @@ -78,6 +78,7 @@ struct ttm_pool {
-> =C2=A0};
-> =C2=A0
-> =C2=A0int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
-> +		=C2=A0=C2=A0 bool memcg_account,
-> =C2=A0		=C2=A0=C2=A0 struct ttm_operation_ctx *ctx);
-> =C2=A0void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
-> =C2=A0
-> diff --git a/include/drm/ttm/ttm_tt.h b/include/drm/ttm/ttm_tt.h
-> index 406437ad674b..15d4019685f6 100644
-> --- a/include/drm/ttm/ttm_tt.h
-> +++ b/include/drm/ttm/ttm_tt.h
-> @@ -250,6 +250,7 @@ int ttm_tt_swapout(struct ttm_device *bdev,
-> struct ttm_tt *ttm,
-> =C2=A0 * Calls the driver method to allocate pages for a ttm
-> =C2=A0 */
-> =C2=A0int ttm_tt_populate(struct ttm_device *bdev, struct ttm_tt *ttm,
-> +		=C2=A0=C2=A0=C2=A0 bool memcg_account,
-> =C2=A0		=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *ctx);
-> =C2=A0
-> =C2=A0/**
+Eduard
