@@ -4,82 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2F0EC44536
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:28:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B039C44536
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:28:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36B2510EE00;
-	Wed, 22 Jul 2026 14:28:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5945E10EE04;
+	Wed, 22 Jul 2026 14:28:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="aP/+iRwi";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TAYABZjn";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 321A110EE00
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:28:16 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-47ddf7b09e5so8604770f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:28:16 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BD5A10EE04
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:28:49 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-495635a85d2so26027515e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:28:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1784730494; x=1785335294; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1784730527; x=1785335327; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:date:message-id
  :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=lyxwzSpvGQN879gUQIzhLBDWPp/ka/KsPTZu5mIF37Q=;
- b=aP/+iRwiN9T100yliSY+K0N9v+b7xr+lXHCoGmvk2yX1DbEJElXeon1isghMXByYck
- GYSziuc2LnIimA9Fk9GTDgs0NU5ederOwM+ZB8wdqC8rkG8UFRXs2Ks/miMEn/0X/8mO
- 7dj2iNbd9dlWUBZPu5OBvau35cHb8DbZWAa5H9BRQXpTE+aDuiGStM6KHFKp7WA3shLE
- MaJNggaTg8HUuqPhQ+y1eJlfBrD+jB2nGPP8oXHRha8lo70s1bNng9CrSO0rItNzj8De
- GIeQbRjR6sKbPeUadHWjqEKZtl2ty+kbGe2z0CV2uPwvYP5noVKP7lubThQh1FLzLaBd
- Z7yw==
+ bh=ePYWD2iTRHxJu1GtsXub1IW6UWPr8JBMi02BG2MjH5Y=;
+ b=TAYABZjngWk2ZAPZdjqqkFqlOWR5Yvv5A4t3X3ddElnNOxCG4xn6acCF7OJObZL9eS
+ wCRSrVkZmrGO+RrTjNHvq6wPSHMz/cOd2tbVznIonDvIgs9OT72mdNaGafZ4Jc4iy3fq
+ xuDpVzOVvC3NwPaYvwVlBrEqqAFnRug1F7UROwI3kSrFpHzyPJRngi1shXaZHBU3KO9p
+ HUkH9N0NAJBWAWHp7BCkYrnYU2BQNBUDxmkDfQlh2EuOxkXWhDIw03tEbfZRIG4FpUl5
+ 6OkKLg3a7AqYdsz+SHUOJ8Hog7HSZOz6OLA/Ac/w3RNZMU4adsauwotNv59CoIhv4mDW
+ zqyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784730494; x=1785335294;
+ d=1e100.net; s=20251104; t=1784730527; x=1785335327;
  h=content-transfer-encoding:content-type:mime-version:date:message-id
  :subject:references:in-reply-to:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=lyxwzSpvGQN879gUQIzhLBDWPp/ka/KsPTZu5mIF37Q=;
- b=aMVUB1ff04Ubq+r+3Kq9EFHlf5mqjhkdPtqSRXoY/DyR4jBTtbBMz4SFm32ID81TV2
- tk7LY+aIYJaT1eGYcjQ0gSmJGVN2PHt5mGzG7NBBNPB+kOyH3Gu6q+qolu2N0Q1rRMdC
- H6GnyhBXqpwIBGT9Aap22+APKYA1FYfa0CHMkcs1RYLBcoBSd8YT5ZXeobaoMg6ONeso
- Zndow3i0Sfuhhz+etMv+35HFMUj5CeLUK4GbVPifgINy+vu51QPfvMJrwablm8L6U5yO
- FEybz8KdCR59KBvvGYIngmT4rAZFx3mRt6u++L75fbbDNhkkkrsGVedpIgJ9pq8bsrv5
- v4AA==
-X-Gm-Message-State: AOJu0YyYScJXBpfeRw2uym5stl/a+BzbsyRyGr9oeEJrJGwlzJIXXpqB
- JGTuQAZvBWoGXpmE6sDifWx9uJY/G48azbdqBrBL5PJfyvDlQAhbs4otngozU1Dr13c=
-X-Gm-Gg: AR+sD11I/avyDDUHLoGrgzazamnAKO79MoMYEtbeosiIwxvAz+mmx42d3qwdWdD7Pkr
- E22wyhczk731i8KuYtNOaUdvnfpRPDguInPRiRdB5q7mD66QDhRR9sA0F6jua4Q6t4oda8411tW
- RVkxKpCjgsulotFFY83lVKK9U8fdb9BWsO5Yby6kek7G6gjRtxiP/EBxf2rDAoyVefmWQ5GTCmY
- uY/sjkmQUTOJpRO4Z+xMNbtxy+cCsWL3WJmgIyUalM1Z5suGy4l3PPvo59tzbc6BRNQB/dBnjD8
- ca10R9TXqzGshAupIU2RDpYaeBnffaYo+Kkr6QKMswCFuhnHZcLCi0uf3DZ9+OoJoTVdoDqWoxN
- d6YFBNK1Dg46BYH7SeMfwIf8cNs1WWwwXGledAf/4xEfpUgnWDUKilh39NazTG/HQLpORvwlETK
- QJ7Ci8/RbANTkj9ExB+Et/9Ac=
-X-Received: by 2002:a05:6000:22c4:b0:47f:81a9:3f36 with SMTP id
- ffacd0b85a97d-47f81a93fb8mr8233483f8f.18.1784730494276; 
- Wed, 22 Jul 2026 07:28:14 -0700 (PDT)
+ bh=ePYWD2iTRHxJu1GtsXub1IW6UWPr8JBMi02BG2MjH5Y=;
+ b=AEJcz3Yul1/COPzVnySUmRK2+zmJw4bwZ+dnYiJrqwQvcUS/i5sAdxIfUmk5oD8SoY
+ LDmvdNjt2g+aW89AUEYdZi7fqPtCLDI8p/K4V8EV8VDFos3hWMJaN7fwuS6eJGDlZQ6I
+ +YByHlCodjjkPdacKhB7HdOhWhh7FvzqeLZzSpocHPVTDHGhbAbb5zyIOyXivYEwRYbU
+ 4DrC+tVza5rtttVUdYBYkSQYp3m8U9ZsEtcXJ6j1nvsgp2bX2qWlxtKvgj8NX7VmK7wJ
+ OaY3SzjIm95M1Q2pfBdOtlJsRwNbsVTWDNwH+Vej4HDCPEQLxo9tjgSHTKpxBRyY0w/v
+ TmKA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpKDzWgcDNcCFvhI2ynJViggtUelMH2/9UQCNWIJtoBcuNQEz3iGSY/IWKVZ8BZxxzQLr8YKi1mn30=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwV/oqpWlBFrk9HpE26eMmkkVGSGDpYuru5O6TSOstajXkTwkCN
+ XYv+YYFk48LaKIzx1GVbDQ9FBXZsHysfIK8ej/NNsR79jeefMmY3ZSsaoPGtMAYBr+QVfxOYh++
+ Tgb82
+X-Gm-Gg: AR+sD12imu8j+3iOzf0pQ3XGpZ9X2MuM8w8olwHxqgqlnwiRU/oOquaIoBlq4YGSkwc
+ O7DoxMA5hMWWNQJMonJ5SCHANIh6OjmpHYiDz9Y90IGP+VjUvTXqBgPXHQpAs+es7Prw2s/+uVW
+ 0KWumLH2DQNCYyTb2FZ2Ac6E9rYdvmH2O3vQG98Mkkg5WP3+HtehYZ+Rvz0Kz9oubo7txTz8o6g
+ DFilMdxD6Ia3oJgxGzgl9SD0DIrgJdO8UMQbIQNyoN1nz4m48/o4dg9KyRUuKM76EVdtaWRrKSZ
+ OGtYlrBTuNzh9Ek6KyzAn6RmaWEXZOsry0zZyk2oAM8yueyafSJ3iSqO4iR5iDn+z0HINX7u/yB
+ s3rDFerxjAa6S2ykmphBUklPwN/nLez1vFXvh2aN2xP8oOIVYnDXG0lnx5+Q/pKA2/u8BkVXQ8U
+ lppgd7147ihNh/xHi73TIivoc=
+X-Received: by 2002:a05:600c:4755:b0:493:c2cc:aecb with SMTP id
+ 5b1f17b1804b1-4954a51590fmr286003695e9.38.1784730527209; 
+ Wed, 22 Jul 2026 07:28:47 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f85b9a5a2sm7095263f8f.7.2026.07.22.07.28.13
+ 5b1f17b1804b1-4956537c7desm218995045e9.7.2026.07.22.07.28.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jul 2026 07:28:13 -0700 (PDT)
+ Wed, 22 Jul 2026 07:28:46 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: linux-kernel@vger.kernel.org, 
- =?utf-8?q?C=C3=A9dric_Bellegarde?= <cedric.bellegarde@adishatz.org>
-Cc: dri-devel@lists.freedesktop.org, Simona Vetter <simona@ffwll.ch>, 
- David Airlie <airlied@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Maxime Ripard <mripard@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Casey Connolly <casey.connolly@linaro.org>, 
- David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org
-In-Reply-To: <20260706051825.78752-1-cedric.bellegarde@adishatz.org>
-References: <20260706051825.78752-1-cedric.bellegarde@adishatz.org>
-Subject: Re: [PATCH] drm/panel: sofef00: Fix DSI transfer errors on
- backlight update
-Message-Id: <178473049362.1948896.1910557231918245349.b4-ty@b4>
-Date: Wed, 22 Jul 2026 16:28:13 +0200
+To: laurent.pinchart@ideasonboard.com, jesszhan0024@gmail.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, nm@ti.com, vigneshr@ti.com, kristo@kernel.org, 
+ prabhakar.mahadev-lad.rj@bp.renesas.com, thierry.reding@gmail.com, 
+ sam@ravnborg.org, Leonardo Costa <leoreis.costa@gmail.com>
+Cc: leonardo.costa@toradex.com, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260623195741.495734-1-leoreis.costa@gmail.com>
+References: <20260623195741.495734-1-leoreis.costa@gmail.com>
+Subject: Re: (subset) [PATCH 0/5] arm64: dts: ti: k3-am62-verdin: Add
+ Toradex Capacitive Touch Display 10.1" LVDS
+Message-Id: <178473052640.1949706.11360946998734187321.b4-ty@b4>
+Date: Wed, 22 Jul 2026 16:28:46 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,20 +101,20 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Mon, 06 Jul 2026 07:18:22 +0200, Cédric Bellegarde wrote:
-> Backlight updates via bl_update_status() could be triggered before the
-> panel was fully initialized, resulting in failed DCS commands during
-> the atomic commit sequence.
+On Tue, 23 Jun 2026 16:57:36 -0300, Leonardo Costa wrote:
+> From: Leonardo Costa <leonardo.costa@toradex.com>
 > 
-> Guard bl_update_status() with a prepared flag to skip backlight updates
-> when the panel is not yet ready.
+> This series adds device tree overlays for Toradex Capacitive
+> Touch Display 10.1" LVDS V2 on Verdin AM62.
+> 
+> The display addition covers two interface types:
 > 
 > [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/1] drm/panel: sofef00: Fix DSI transfer errors on backlight update
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/3367c5a129f74812806034fa0a106a1c3e4a3890
+[2/5] dt-bindings: display: panel-lvds: Add compatible for Opto Logic SCX1001511GGC49
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/6ce748682f746a0c1ae311191fb820b08151ddb6
 
 -- 
 Neil
