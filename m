@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70194C44539
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:01:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E826C44539
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 14:02:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD13710EDAD;
-	Wed, 22 Jul 2026 14:01:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CF4E10EDBA;
+	Wed, 22 Jul 2026 14:02:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iS2HBzZc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mNwSoILY";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 624DB10EDAD
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:01:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B04A710EDCD
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 14:02:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F0ED540A71;
- Wed, 22 Jul 2026 14:01:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9C8D1F000E9;
- Wed, 22 Jul 2026 14:01:51 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9A09943F56;
+ Wed, 22 Jul 2026 14:02:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 540571F000E9;
+ Wed, 22 Jul 2026 14:02:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784728911;
- bh=3WI8Zf0J6/vDjk7W4+p9lAv/B7zXUqzMCPi2qCULAfE=;
+ s=k20260515; t=1784728938;
+ bh=8NGjpLcWAKZyCLZHY2QHKwbZDh3N9qUG8faciH2gG0U=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iS2HBzZc1kp9Wg9rxjHjteMAi64VcfEamnrhW+dIXpX64q4b+E20cVeH29p81HkAe
- InVTzjZuV/dfxAzojI3iJq95Wy59xeJ49DBCZDmm19xLhKNeK0G7QSpAb3UNJ5iP/Y
- Y6nqKQG+z/69yQSLwxi6426Mu3e+F5ewMAGSYHdKSByIMqh0B7YN+EGGhezjHFhm/g
- TMYqNdnodVWJFxJoqfuoOCgrjolD2SLJsXpBC8N+eDnv9zldNDdEO6pttj6YhjOKKy
- cLuQ5Nn02gMoFBJySKOAtpyhw1mH+C7ojKItnR3lSXJBVbGIKaBQ3N1n9Ic+vnwT1V
- ZPv9t3QF0snoA==
+ b=mNwSoILYhjm0Vfsea5TsXZdVxlkvQvkYg/qH4uQ4LhfptBn6Hicjeq/Pm6trp+LOh
+ cjiY/s5UoVfBGGnZjXbPyMtaeaIiK+epkG2yzoXXIxBIW6/PEDhB67ddVIEmt42kmp
+ Kcz7KfMUHyQqN2zi3DcvKomXS7KqgrCd5iT7jCi1hOcIFwFYTIvqcQn6kSW7h9ge48
+ MdbB8pDeKzCkXmZUF50OEwfWkp3lnoQoOCjz7qSfqX/5SpEl1/Kil+W2y/r4vdY8jW
+ N4g9BgOD+1ZpK4tAG1Tn4xkQfeNZeN+50u3PALQpdtYzFtVRhl9yIyqLoCFnnW8VMz
+ wBIjalWU0UNiQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 03/11] drm/vkms: Add KUnit test for YCbCr to RGB
- conversion matrices
-To: "Harry Wentland" <harry.wentland@amd.com>
+Subject: Re: [PATCH v1 1/4] drm/xe/mcr: Keep GT forcewake during MCR steering
+To: =?utf-8?b?VGFsZXMgQS4gTWVuZG9uw6dh?= <talesam@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260722134607.136293-4-harry.wentland@amd.com>
-References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-4-harry.wentland@amd.com>
+In-Reply-To: <20260722004654.744249-2-talesam@gmail.com>
+References: <20260722004654.744249-1-talesam@gmail.com>
+ <20260722004654.744249-2-talesam@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 22 Jul 2026 14:01:51 +0000
-Message-Id: <20260722140151.A9C8D1F000E9@smtp.kernel.org>
+Date: Wed, 22 Jul 2026 14:02:17 +0000
+Message-Id: <20260722140218.540571F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,59 +59,64 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Compilation error due to function signature mismatch in KUnit test
+
+Pre-existing issues:
+- [High] Unprotected concurrent access to GuC capture `cachelist` and `outl=
+ist`.
 --
 
---- Patch [3]: [PATCH v4 03/11] drm/vkms: Add KUnit test for YCbCr to RGB c=
-onversion matrices ---
-commit dd6b42b44f3cdb2524b236663ae684d8ead8a59a
-Author: Harry Wentland <harry.wentland@amd.com>
+--- Patch [1]: [PATCH v1 1/4] drm/xe/mcr: Keep GT forcewake during MCR stee=
+ring ---
+commit 3d26258fb8d98aa82b5daf58a00b99ab1ef9b4be
+Author: Tales A. Mendon=C3=A7a <talesam@gmail.com>
 
-drm/vkms: Add KUnit test for YCbCr to RGB conversion matrices
+drm/xe/mcr: Keep GT forcewake during MCR steering
 
-The existing yuv_u16_to_argb_u16 test performs a full RGB->YCbCr->RGB round
-trip with a tolerance of 0x1ff. This patch adds a parameterised test that
-checks the exact S31.32 fixed-point coefficients and luma offset returned by
-get_conversion_matrix_to_argb_u16() against reference values.
+This commit ports the i915 MCR locking model to the xe driver. It changes
+the locking sequence to wait for the hardware semaphore before taking the
+software spinlock, allowing it to sleep rather than spin. It also ensures
+GT forcewake is held over the entire lock, steer, and unlock cycle.
 
-> diff --git a/drivers/gpu/drm/vkms/tests/vkms_format_test.c b/drivers/gpu/=
-drm/vkms/tests/vkms_format_test.c
-> index 789c59d07ffb6..e746b18bf37b0 100644
-> --- a/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> +++ b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-[ ... ]
-> +static void vkms_format_test_conversion_matrix(struct kunit *test)
-> +{
-> +	const struct conversion_matrix_case *param =3D test->param_value;
-> +	struct conversion_matrix matrix;
-> +
-> +	get_conversion_matrix_to_argb_u16(DRM_FORMAT_NV12, param->encoding,
-> +					  param->range, false, &matrix);
+> diff --git a/drivers/gpu/drm/xe/xe_gt_mcr.c b/drivers/gpu/drm/xe/xe_gt_mc=
+r.c
+> index a97b236dab7c9..e1e3c0688dc2e 100644
+> --- a/drivers/gpu/drm/xe/xe_gt_mcr.c
+> +++ b/drivers/gpu/drm/xe/xe_gt_mcr.c
 
-[Severity: Low]
-Will this compile when the VKMS KUnit tests are enabled?
+[Severity: High]
+This isn't a bug introduced by this patch, but does the GuC capture code
+lack locking when modifying the cachelist and outlist?
 
-The newly added test code calls get_conversion_matrix_to_argb_u16() with 5
-arguments, passing false as the 4th argument. However, the function signatu=
-re
-in vkms_formats.h only accepts 4 arguments, which will cause a 'too many
-arguments to function' compiler error.
+These double-linked lists appear to be accessed and modified concurrently
+by multiple un-serialized asynchronous contexts. This could be triggered via
+GPU hangs or timeouts during normal operation.
 
-> +
-> +	for (size_t i =3D 0; i < 3; i++) {
-> +		for (size_t j =3D 0; j < 3; j++) {
-> +			KUNIT_EXPECT_EQ_MSG(test, matrix.matrix[i][j],
-> +					    param->expected.matrix[i][j],
-> +					    "matrix[%zu][%zu] mismatch for %s - %s",
-> +					    i, j,
-> +					    drm_get_color_encoding_name(param->encoding),
-> +					    drm_get_color_range_name(param->range));
-> +		}
-> +	}
-> +
-> +	KUNIT_EXPECT_EQ(test, matrix.y_offset, param->expected.y_offset);
-> +}
+For example, during G2H event processing, the list is modified directly
+when the CT worker calls xe_guc_capture_process():
+
+drivers/gpu/drm/xe/xe_guc_capture.c:guc_capture_get_prealloc_node() {
+        ...
+        list_del(&found->link);
+        ...
+}
+
+Concurrently, during DRM scheduler job timeouts, the outlist is also
+modified without locking after xe_engine_manual_capture() calls
+xe_guc_capture_get_matching_and_lock():
+
+drivers/gpu/drm/xe/xe_guc_capture.c:guc_capture_add_node_to_outlist() {
+        ...
+        guc_capture_add_node_to_list(node, &gc->outlist);
+        ...
+}
+
+Other contexts like devcoredump freeing also access these lists via
+xe_guc_capture_put_matched_nodes().
+
+Could concurrent modification of these lists without locking (such as
+spinlocks) cause list corruption and inevitably lead to a kernel panic
+when the lists are later traversed or modified?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722134607.1362=
-93-1-harry.wentland@amd.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722004654.7442=
+49-1-talesam@gmail.com?part=3D1
