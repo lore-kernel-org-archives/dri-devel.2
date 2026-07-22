@@ -4,87 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CA6FC44533
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 07:52:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85D47C4452D
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 08:06:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 425AF10E2B8;
-	Wed, 22 Jul 2026 07:52:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D785010ECB5;
+	Wed, 22 Jul 2026 08:06:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="esENstQf";
+	dkim=pass (2048-bit key; unprotected) header.d=flipper.net header.i=@flipper.net header.b="cjvPkvFn";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 281A710E2B8
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:52:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1784706741;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Ve+PAmrMmy3YGE+ZBaGl9LBgIZtxakmaZDmlMaxCHrU=;
- b=esENstQfgZQYIksxU0GJsWPaPq8p+lu1WAwHzm3h842tkK6zeWD6eEbFr2GmCO8dyVwGZq
- s4BGKLa+1kk3JICdLKm4hsMl2fFfFxUHCesPcfog8xX2yJgCgi5DxIXemXq27nSH8f3XN6
- u6xz3yVU1uXTKKEHFryJmbvAV9iB2LY=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-361-nLu00vsoOGCxEuuXHRuX7Q-1; Wed, 22 Jul 2026 03:52:19 -0400
-X-MC-Unique: nLu00vsoOGCxEuuXHRuX7Q-1
-X-Mimecast-MFC-AGG-ID: nLu00vsoOGCxEuuXHRuX7Q_1784706738
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-47f84ac1990so340491f8f.2
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 00:52:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784706738; x=1785311538;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CBD610ECB5
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 08:06:44 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-c1601d552a8so1292547066b.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 01:06:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784707602; cv=none;
+ d=google.com; s=arc-20260327;
+ b=bS163etoddaAIu9CjKiiPv/pCDB9S+JLQhItGeyz1dXqWcg8dx2pMoGiiowLF5s0d1
+ b7yPk5a28am6P7mbTV+Y+R+8bzFejRvUF1v2eexEdcQAAuvJDxIsk6P3G/VUDQBW+TsP
+ nDZYuwtBYLyZwulhvBEkWwykUbVyDNkVVCS2bItPtP3jQ7eHVRlTYFGTxNBAghzoZdnW
+ +YyGKRMcozdWCy7Ozqc0dWcyRkyP0km5Tyx5E64Rly0svordZdNbhTX8jNDPbYyzdn8u
+ w8fk6x8gxYq25clQq4UKud1UbHLBIIHc3cB5PWdgHytDLxeFEf7imalKx4sRjs54XSSO
+ kvgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=dNnBgtMvRWoIDKMpvV9eibQpg+sWb3zuYV0OsS+F7RY=;
+ fh=jzD9kzT2VSOtlV9IPRlRA4IvTT4UArnJCpk42x/i6bQ=;
+ b=hHOeamFsyHCwYHRYYH07iDBOflweWHvlyDreqS9QD19G+x/rXJW5SXxuHg+FmlQbyj
+ a0rhWzadV9xUh0ckFBEjDbJ25LRK0BIEc/TVAF6vSxccpk3C2CAKaYvqTe2JwD5Pt+ei
+ ThyWxAR2Ly+Xqwtou4YcBWk8S7b1z65+6N5CSD3g+l/T4+97bp7BRiBoG4sitCOkUI3x
+ /OXBmAHAZHlg6i0PsyMJ4mQ/ts7ZeIjfSVwdBdx/DcH8R3TfkfeIjq+oinLPlWv7xV9R
+ D11uMGF61bp40tXFE45scG9nXrP8VI04kNZa//BLa8sfb3MYGKqOhJWbctWnbdhZ/zrf
+ 2FnA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=flipper.net; s=google; t=1784707602; x=1785312402; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=Ve+PAmrMmy3YGE+ZBaGl9LBgIZtxakmaZDmlMaxCHrU=;
- b=c7WmiSIr3PBeOWzohTqiTkB6RvRHaLmkcDxSiQC/Io7YyehbmO1Jt4TK8UCg1klaUr
- 1ul8AaQLtlkssH3bZ+WaN1KlhQeFNhm+L60GqQf811uvEKfEFGgVRNP0GRBhQtrLl72W
- p7ttYy2S3P+CArj2cWZcEPX0khR0v6jsNom9Z5RHBl8nxcPdQ2sIRfMWhw1eQvrxVjUw
- xbldfwiXKai3QhZ8yvnuoT5MS6PIPkuaad1fJKTxlFbqOBjFwU/39EtZSFVGTa0sasCS
- TX0wU63GXK6pE2VR63+PaV6z5XVDyplnCy+Du2bT/uZh5mXaCbfQlcuBtp11ukTcGrs+
- dHPQ==
+ bh=dNnBgtMvRWoIDKMpvV9eibQpg+sWb3zuYV0OsS+F7RY=;
+ b=cjvPkvFnnWjofWYLLIHuQb0waOcPwlGrLUWvF0G3v8uMkcuW+gGI/1yPAK7Th3tZCj
+ 3KtKxXLvhBCB388oDxsy8CXZKuo0yfbQHfOVZDnqSVvVUu0+zNMYx3wL/KGK6zg5YW4a
+ j3Jm2b7aKP7NlZWdkbmcVneL9VGarARZNfE/hTbl8Imqn5hQAgacG2W5DTvNM8geP4A9
+ n8jwXB4QdExEaz7NpLGVQs57FRkV0R0W6+zEjvWOqeB5ioIlme8uEqqilK0uC0UuYs4L
+ qvsHtmzfmRfaYfl0E6Pv7vuCBStBYTbEEzULNPLtSOL1x1oVPiMQqaPquGzLH4R4Ogyf
+ mBeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784707602; x=1785312402;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=dNnBgtMvRWoIDKMpvV9eibQpg+sWb3zuYV0OsS+F7RY=;
+ b=o/q2pvR+Bmng/SDqUyscJy1dBXZricFJfoRiTybi2DJlWkYYMAQTvEDfqtToxkSlVS
+ LotfcqcHT071pXybT+hnPMI3xbV8V6mmE5dXbQnjPVdXmm8oH8RzT0wzvpF0FTjBa0O6
+ VIVFuYZ9UDKAXpwesayYzs8czdElfPi1e1Xy/nqGpt7RJNMfcdIzVU/mT8utIXLQjpil
+ dtsGaonEPnlCruXmrhK4nTLcxNhqEjn1zu06QmhR8xxxUUSTYvltX2+n+OWhsv+UkxBY
+ plbTSHiRtviDj3eTxdccYrmLtD1VwlDosl179g2VpsLe5HkbfpTdw7CjIBJyxcL6WMHV
+ Hzig==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoF/ueecxNdk7yo+0Uxv2qciwuVtZ3G4AWz2Hc/lEn1+PX+kR+LOAR+APUv9XkQPx+0AVz42RgV8co=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxti2mSH4eyZ5HP/2cCwlBwpA4lVhAXGx9myOw2XaQqQsu78Km2
- ec6A0kqQ05OL18DlPEI9yNB4W0CD6reK2c0Q/e7/TodHd3tO/S2GvAuDF61rGkL+hO0ZPR0CUc6
- cqf2eN5UdZ+Axyx2W2v0/dY5AVkbvhVPJfH0ZrujzU9zHprenD/GYMneuPnV4eDTET8XfHg==
-X-Gm-Gg: AR+sD12PmXDe4kKRg97/oVJ3FJ2bu4ump8wt/2bzsRrPkOYqffMSyNJNXVvApp5WFj/
- TM/XXCZ6fguzePVb4mzy1efArUFhcNuzGSW8bznqe5CGUgR08+aazZXLh4+wFSSQSBDiG0/gxzY
- Rn9IK1EVTMpsJbdQBZ/j+Kj6yPtstpe+WcRUqUlXpnYMVyLnioKpVgnyN0HkmMrwSzRHnqL21gC
- xL6z4Ld+/1vl91QoRXQcbuvOOU54PEwDUlNBC7EcC+iO14iGkaAQ5UUczozKaScjjXR37UMgVFr
- THfHP6ml0XAbVpWQz4cAWvznjmYJqPrOxf1AY7ulWxj0HMdZQ4ffyi/RZroSUK9+vOxM72QkC0/
- 7LVQvUJ31GdvbNd8Eakj87m8jfF/wb2N2RWnwnF5E+zHRJGmXZ7cDiiIKy68=
-X-Received: by 2002:a05:6000:41fc:b0:47d:eddd:a90 with SMTP id
- ffacd0b85a97d-47f62343c9amr25508097f8f.61.1784706738327; 
- Wed, 22 Jul 2026 00:52:18 -0700 (PDT)
-X-Received: by 2002:a05:6000:41fc:b0:47d:eddd:a90 with SMTP id
- ffacd0b85a97d-47f62343c9amr25508076f8f.61.1784706737752; 
- Wed, 22 Jul 2026 00:52:17 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f85b9a5a2sm3930493f8f.7.2026.07.22.00.52.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jul 2026 00:52:16 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>
-Cc: airlied@gmail.com, andriy.shevchenko@intel.com, conor+dt@kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, robh@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de
-Subject: Re: [PATCH v3 3/3] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
-In-Reply-To: <20260722071921.43687-1-amit.barzilai22@gmail.com>
-References: <20260722071921.43687-1-amit.barzilai22@gmail.com>
-Date: Wed, 22 Jul 2026 09:52:15 +0200
-Message-ID: <87pl0fsbps.fsf@ocarina.mail-host-address-is-not-set>
+ AHgh+RqDqwkMTOf/O/mwZI3ms7cckbdGFK8AnnXGAq3qelUNGMU0or3ebK+7Sp1f1Kn4hheVhzr1qf20Gns=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwI+6vilmgPOrmbVJHYZkZSxK378z+qURPhkHBTQw7XvsoYYfvu
+ F1eVvdyx/JdPg+7N7ZaWLVdlRCnJ69wOoRjvrV3g6V11+026IN+0/jiWoj/+wxEyG2tboFKh77M
+ 0yTf91kaj0WII8JjCp9Loi1ZpErLemsWgr3IDxT/Tbg==
+X-Gm-Gg: AR+sD13gzrluoaIRyuu9WVypSM6tSShmC8dk8Gwi6OOL2IGVBUguOUbVgYDmCn5rjCi
+ 7FLJVq2HDGfgcPeUtW774YyVLuXxguDuB98aB4WgAEV10PgkVN6rqmMuHvnAutvgHFjJMQY1vnz
+ WxWCKUaHGSH3HgjkjtNgjcjXXZZ1p/mzJ48vrodOoSQ1A+sAKbcuHMiforA5J8tGz/YuqmXgvso
+ RN/jd6jxLOIbcxe+j2lxzSXGV2CSBBdRh3mlUs+0cWdgOP6xN5cNF8QoYkA6CtdhJ6SHBYpQVZR
+ Wxp4hTjfCl4i8QInNr6BSFPJKt9j
+X-Received: by 2002:a17:907:72cd:b0:c16:3187:997e with SMTP id
+ a640c23a62f3a-c16b46ade61mr848716466b.7.1784707602465; Wed, 22 Jul 2026
+ 01:06:42 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 8B-46tMWUQuQDf0C1VqNfy2z5IinupmjI_mr-sodfVY_1784706738
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+References: <20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com>
+ <20260721-synopsys-dw-dp-improvements-v4-10-f0f4a4ede712@collabora.com>
+In-Reply-To: <20260721-synopsys-dw-dp-improvements-v4-10-f0f4a4ede712@collabora.com>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Wed, 22 Jul 2026 12:06:33 +0400
+X-Gm-Features: AUfX_mzBw-mJbEQ5WnpY1t4r4yErUbUBJRWK9UICtFzIcvZnEWvrXDi7mlfnRTM
+Message-ID: <CAKTNdwE6OOPHYpMQXYfWPtdA26AiPJjSi6N_J-yGSU0mSL7HSg@mail.gmail.com>
+Subject: Re: [PATCH v4 10/10] drm/bridge: synopsys: dw-dp: Add audio support
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Damon Ding <damon.ding@rock-chips.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,115 +126,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Amit Barzilai <amit.barzilai22@gmail.com> writes:
+Hi Sebastian,
 
-Hello Amit,
-
-[...]
-
->>
->> Can we move this to the ssd130x-spi driver? For example, something like the
->> following might work:
->>
->> 1. Make ssd130x_write_cmds() to just be a static inline wrapper that calls
->>    to regmap_raw_write(ssd130x->regmap, SSD13XX_COMMAND, cmd, len).
->>
->> 2. Make ssd130x_write_cmd() be a variadic wrapper around ssd130x_write_cmds().
->>
->> 3. Add your logic to ssd130x_spi_write() instead of ssd130x_write_cmds(), that
->>    way it stays in the correct layer rather than having a leaking abstraction.
+On Tue, Jul 21, 2026 at 9:52=E2=80=AFPM Sebastian Reichel
+<sebastian.reichel@collabora.com> wrote:
 >
-> I agree, in hindsight this code goes against the transport abstraction.
-> I'd propose keeping 1 and 2 in a single patch, though. Making ssd130x_write_cmds()
-> a wrapper around regmap_raw_write() and making ssd130x_write_cmd() a variadic wrapper
-> around ssd130x_write_cmds() are two halves of the same change: routing command buffers
-> through regmap_raw_write(). Splitting them would leave an intermediate state that isn't
-> independently meaningful. Happy to split if you'd still prefer it.
+> Implement audio support for the Synopsys DesignWare DisplayPort
+> controller.
 >
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> ---
+>  drivers/gpu/drm/bridge/synopsys/dw-dp.c | 230 ++++++++++++++++++++++++++=
++++++-
+>  1 file changed, 229 insertions(+), 1 deletion(-)
 
-Yeah, as one patch is OK I think.
+Thanks for your work on this!
 
->> Also, instead of checking for info->family_id == SSD135X_FAMILY, we could add
->> a dc_high_params member (or whatever name is more suitable) to the struct
->> ssd130x_spi_transport Then other families that might use the same can just
->> reuse this option instead of checking for specific families.
->
-> I agree that hard-coding a check for the family isn't open for extension and should be changed.
-> Adding a member for this in ssd130x_spi_transport is a fitting solution, I'll populate it in
-> ssd130x_spi_probe() using a static array that will describe which families need dc_high_params.
-> I'd keep that table in ssd130x-spi.c rather than adding a flag to ssd130x_deviceinfo, so the
-> D/C# concern stays in the SPI layer instead of leaking into the transport-agnostic device info.
->
+Quick question. It looks like the audio-related change along with the
+DT binding update is independent of the hotplug/PM part, and shouldn't
+really depend on the (large!) USBDP PHY changes. Would it be possible
+to split it out as a separate mini-series, so that the whole thing
+doesn't have to wait for the fate of the USBDP PHY series?
 
-That works too. I don't have a strong preference on how should be
-handled. As long as the logic remains in the SPI part of the driver.
-
->
->>> +	/*
->>> +	 * No long post-reset delay: the controller datasheets only specify
->>> +	 * microsecond-scale reset timing. The lengthy delay seen in some other
->>> +	 * drivers comes from fbtft's generic reset helper and targets slow
->>> +	 * parallel-bus GPIOs, which do not apply here.
->>> +	 */
->>>  }
->>>
->>
->> I don't understand the point of this comment. You are not changing the logic
->> of this function nor I see how this comment is useful.
->
-> I originally added a redundant delay that I saw in fb_ssd1351.c, when Andy
-> noticed it he told me to add a comment so others could understand the difference
-> between this driver and the fb counterpart.
-> I agree that it shouldn't be included in v4, it was a specific mistake and I
-> highly doubt others will see similar situations and if so they can easily research
-> the subject.
->
-
-Ok, great.
-
->> Instead of ssd133x_write_pixels() and having per family logic in the primary
->> place update path, I prefer to have a little bit more of code duplication
->> and add an .atomic_update, .atomic_disable, etc for the SSD1351.
->>
->> Yes, I know that your current approach reduces code duplication but also
->> makes it harder to change the primary plane update path for a family without
->> affecting another one. This is particularly important in my opinion, given
->> that contributors usually just test on their display family when posting
->> the patches. So I prefer to have per family callbacks if possible.
->
-> Agreed, I'll add per-family .atomic_update/.atomic_disable for SSD135X in v4 and drop
-> the shared ssd133x_write_pixels() path.
->
-> The one thing I'd keep shared is the atomic_check callbacks
-> (ssd133x_primary_plane_atomic_check and ssd133x_crtc_atomic_check): they have no
-> family-specific branching - the plane check is generic and the CRTC check only
-> allocates the RGB565 data_array, which SSD135X needs identically. So I'd reuse them
-> via the table rather than duplicate. Let me know if you'd rather those were split too.
->
-
-Yeah, I agree with you here.
-
->> Again I wonder if is better to have a device_info member to decide whether to
->> register the backlight, instead of harcoding the check for a specific family.
->
-> I already have a draft for splitting ssd130x_update_bl() to be per family, removing
-> the need for this code. I prefer to first submit that patch, and then mention it as
-> a dependency for v4 of this series.
-> Feel free to suggest a different solution.
->
-
-That works for me. Or we could keep the family check for now, knowing that
-a follow-up series from you are going to remove it and properly handle it.
-
-> -- 
-> Thanks,
-> Amit
->
-
--- 
 Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Alexey
