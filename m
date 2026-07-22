@@ -4,100 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAEFDC44512
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 06:37:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 025ABC4451C
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 06:37:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35ECF10EC74;
-	Wed, 22 Jul 2026 06:37:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 499E710EC6F;
+	Wed, 22 Jul 2026 06:37:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BlqLdlbH";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="B/TaBXHw";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Z600wpQr";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dpw61WdD";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B3C310EC64
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:37:07 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F16AB10EC83
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:37:18 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66M547Bv4046130
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:37:06 GMT
+ 66M53vuP3663214
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:37:18 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- dh9XTLUmPOwHTHXAtvP3AK+tH304PXtEioaM+6qNcog=; b=BlqLdlbHaMzZxr8x
- Jfa8wsPRL+T4xkXL8ZoGJLniwsokR2JzvSTXLFEOOo8QLpcsKNE2ibD0RUDzETvm
- ZK+wtpbiT6jrHC6D+eledNVHz92Tf17cYDCzKRiBVyyvYYYS5Qu/2wynX4lS1D54
- EAjRsJu5cGBO+6HSlKG0Jgm8i4gyQuL67dSBxYPJknn6fxkf6tpI4QUqSnAyNPM1
- d2w7Wn7GAS2HmOCF4dBrxhYuyrFgApJXcs2rmy9qjdSAKVkgSxFIjJ53UE2tx9hE
- VDzpV/pDwQsGIxSZRu6IVjfQ5YZsZzZ6R0v9OhhjJNByXPWRpaWccg+s2Ze7MJYr
- 1gsM5w==
+ /N2h2fNm8ptXyOm9YpJtPlGRvCQAMisqL9rrCQy59TI=; b=Z600wpQr42PqCRaK
+ R5PYakpOn2H7heJPepSj2P1XrX767kHw2/APlfzlpvOT18ox6/s69pxbdDpgzEAM
+ 43u/ZWkSXGE4fWhD7u72sTMl+U3fB4l6ouwpX16SeA7NHA600QXSkK4Hbvvu96BS
+ 56MJr8Ot9izmBR4JA/O/Ms9MBhFyR1bdMhDcuRIoc5c/USs0e5cOw6VAzaLuAta7
+ UIDVF5LQslOEkLwTnUwC+tjXXfnLO0EEsEebhG4gH2NNhLUimT/Z7LjZN5ffHa8W
+ 4KcwpD0EmgJEmBUfQqaAP4wNdXa7yGj1M7JnOR7KiuQ1zkXUMTpDCRRF0sGHD4Z1
+ YHOA2A==
 Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
  [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjd6dan2q-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjd5e2jqt-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:37:06 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 06:37:18 +0000 (GMT)
 Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-51c1a97644aso34080661cf.2
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 23:37:06 -0700 (PDT)
+ d75a77b69052e-51bfe3fa93bso247028271cf.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 23:37:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784702226; x=1785307026;
+ d=oss.qualcomm.com; s=google; t=1784702237; x=1785307037;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=dh9XTLUmPOwHTHXAtvP3AK+tH304PXtEioaM+6qNcog=;
- b=B/TaBXHwHUFdU7F2lYX12WANmq5ayNjwX45eSy3ciDKmRcy/7JtcRHdjxnJ4vuMmJ4
- f8B0Ace4gp7plztAqRFgKUk4PQBLEJ9aQPDEEjhNt7bUTk6ZKsLtj+hIyqnqEKOinMJ0
- Rqmi1g6wdZGrDHv+2/tVjD/WElQBuFaoU8GzbcGhZe/6Jm3VSnEcPIZG9DG+BTN2tmyP
- YBFp3OpWTNMynZTlpDdN4EpcG3NiCux7gLguTASnhXLvAjMhyMdNFPwx3cX37bEtjltj
- 9O7nlKQtdhmcQMvPqPjhoDHRH6kkzPd8/kLwMCDVbqjUWQloxNRp6Gqe7Umoo7cdmo+r
- 8Z5w==
+ bh=/N2h2fNm8ptXyOm9YpJtPlGRvCQAMisqL9rrCQy59TI=;
+ b=Dpw61WdDmU7BK/eFGRBt4Vfrmuyi2Ya2om/BsfHqoCNZI9GP+CzQgUXxcboye3Nc0J
+ rx4W82ILPo4gQVWQ4KwpbJ+3g8opzuUUhdUSuhP9qV2iw0KvZqG1aKTb/1faUJNZtPfr
+ cJ6+vEvgfwRIcP5YY83LVDIB9g9Y+0QDIsbjkhXWGMLIB4zECrsWdb8yTrcQ/uibVTEg
+ +qSYOpBShhLGvmTrzbfdzPrmdgSbVRh4f11SBZvoS3OUw8AyjUzVTU0fkaq7Ge73HGZ0
+ Aa6OSG8Y/nYfoKbhJt/MHz11FmAXEwdzW3kyLw0fN8zIwKy71Doq+Wwb/KOZ+xQULp3j
+ tZQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784702226; x=1785307026;
+ d=1e100.net; s=20251104; t=1784702237; x=1785307037;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=dh9XTLUmPOwHTHXAtvP3AK+tH304PXtEioaM+6qNcog=;
- b=tP6WB06pJmdE20D0M59SeqUxQIFbphYOGf29O189RdN2HcOBlOjVsjEMgk6ZOonvW7
- gNf91xtboBzaYXHKQIbGjshGc7U88+wyXXn1i8RW36M4Gp0iH7cxJDySBwo2rmN1paQK
- orFekQvtfA6GPs0OJ03kXJZwp9AOFp5rHTTuJ0bh06JftBSsS/+3ftH5xM4orpeU8aB4
- i3gHDf+3XWuAl5bezTT/zQFxLQfejqMKgV0ooAXYjfdW6Z2XVkbZ+Z6PghfWXKGlRMes
- pN903LLRpqbZv45hiWYlGirJAjLRN2UHwj8rl0doKmk4khUN072qipzniblwNkXKJBS5
- uxXA==
+ bh=/N2h2fNm8ptXyOm9YpJtPlGRvCQAMisqL9rrCQy59TI=;
+ b=l63XvsdYkwUIviBtZYB+amNJ8K3RGkZGlnYDNAi/vYChE8bzMd+5ne77kzo9ovryEW
+ bUai7Hz9WdO5QKjGGMueuUhtqTVIUhuYkfsIZLwh79iH8AvvDT6MQ8Q2FrV2JPKJreqq
+ dXXkjKRsxcuryBgapde2FYf8zLgIKZu4ibWFTiTwCWeSlpsuOgIwuTfTX6sbXqY863Wp
+ ScAAAMG7nR2T8dRnbCzRwu3OBZwWbg4jqjDjOp0LHo2l6ZPnE+5mfrHF93BpW6QtBQn9
+ Xuk0ndFRUQO2xwjwaN5l/E5gJQDzOVg7x4blCOKDJJNumazEeDrg6kIkk6YHOlZ2g4I/
+ zvIw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoNDqa0+H5lmZ3LN65CyZ0e096vfEa+mvVB1kb5ZcWG5HRiDxMTZxtJFFnM3vDH1bUkK6cE5S+smxk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw3kWu0lagQ7TL5EopXAwT7DNzIJWK+ItGR3/3dKFuIGium5QLP
- bZKhkISRPNfeMYpom55g6GdbcSzCRmR7yjSI37k/9chSWpt9V2WAyASvSQsGvNwgkXf6rw8YcR5
- TYbPZko+iX9LnCT0oHXXO2yfXBYsPx+PBno4Vex0beVP+FUqVp2skjTB21tH66GP3AvECKG4=
-X-Gm-Gg: AR+sD133qyTMagYZnGaf6D0jnwM6qZIkEPQTc5/LMfW5+g5FnbAN4pokcqA36xeXL/h
- wxrBQMWlmFAnIXQF5+vHPLR3pMeBpRL2rZQm0osygjoUaVoaYFIJK4oVI1JkV6qAIr1uGhntlCN
- CXTqy779wN/h1geTsjY38WCPWMUNv6SU2OV7C1rs7RXFazHnPC6uaCuND/UK5nPMLIygAzexycw
- L/xUWYJ353NIPPiYCfzdrHbqWDRukAUnSdFIlH/swhaONiBjgVMdmgQKRx10CWmWRD6YapmtqYd
- VUTJU1Jok3yBjI+Z9LRsrgVOr2ftgWYfcwPjPNDjEpW8skbitAEUKYFYXp2m+pD6jpyjvR2MYOD
- xqJ3xmF33PJkaMXb+IJDHH5PbkVPng7lo9aTuWpPI12jYFW86Lp1T2s6MkhX/OU0CX9lF+FVsud
- TU+CSNumXKxni3BQ==
-X-Received: by 2002:ac8:5fc4:0:b0:51c:17cd:1fd4 with SMTP id
- d75a77b69052e-5213e28d313mr204926691cf.41.1784702225802; 
- Tue, 21 Jul 2026 23:37:05 -0700 (PDT)
-X-Received: by 2002:ac8:5fc4:0:b0:51c:17cd:1fd4 with SMTP id
- d75a77b69052e-5213e28d313mr204926451cf.41.1784702225287; 
- Tue, 21 Jul 2026 23:37:05 -0700 (PDT)
+ AHgh+RrE1NPo3wzfHkHdv+c7uM9QFGGmeeQGnrbifR4q6L5tJzHPsM1b82Gu3PzIMd4f2WqD9Q92+IkPs8c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwSNuy5HSVuOWv6HeRetI+nLvEsIPb9tMns8jsAMcjEKMMGcy6A
+ vcav2iZeqMlZZysd4tpW0sZVnLrrPfG727PRIprdN425X3ZY3XkB9dc4DCosMXemLE+o9HXBY7U
+ kp4WXh9U1jxM1xJvvg2T5/RvQUF6t+EtRIFwl+RFzhEDNrcGlwLHsDm+Z3n3DUd6Tz5wD9V0=
+X-Gm-Gg: AR+sD12mrb6WhS04nkE3154oWPINzBNogOqbVB5Wuiw5y793SyeCRlL19w7NvNhR76P
+ VXDSWYHnl+aIyc1dzBajse49U8cbrsZagllRylxuyfWgWaRME1Clsg/jLZ8C7XKCZZ2o6tDhzAa
+ 4pxSKA+hTU8e9hf+GRWoTkmLwkau+ZQWxLSRwNupyBWIqcA0OcUCta92BDV9fg7jonCaxGwd2in
+ tHudOdNIn6+vHSaKO5cw3Z0WK+4gQigWsr4pvy1i2HfzDb/rJw1QWbnUXUcnoK0wMCe9PvL7cAZ
+ 3Y6/IQ0lSYV50myBxGjZjqvXRNDCO1WuGr0afgBFfEt13JR4Cj5HjjUezM5//hNKUk2rDI7aHfW
+ quym/dO2eBFpLszsfRhiMiMMUiuwABxF5aEB/Ke8CoNRHvXdziJ13Aqbp+oW/yRoVt1VDM6OlkY
+ QDaAAjwZ/m2d3fMQ==
+X-Received: by 2002:ac8:7fd5:0:b0:51c:7b13:62f3 with SMTP id
+ d75a77b69052e-5213e67ff0bmr204841331cf.73.1784702237306; 
+ Tue, 21 Jul 2026 23:37:17 -0700 (PDT)
+X-Received: by 2002:ac8:7fd5:0:b0:51c:7b13:62f3 with SMTP id
+ d75a77b69052e-5213e67ff0bmr204841141cf.73.1784702236771; 
+ Tue, 21 Jul 2026 23:37:16 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b2a9b8c6f6sm309696e87.4.2026.07.21.23.37.03
+ 2adb3069b0e04-5b2a9b8c6f6sm309696e87.4.2026.07.21.23.37.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 23:37:04 -0700 (PDT)
+ Tue, 21 Jul 2026 23:37:14 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Wed, 22 Jul 2026 09:36:27 +0300
-Subject: [PATCH 12/24] drm/msm: add is_bonded and needs_encoder callbacks
- to msm_display
+Date: Wed, 22 Jul 2026 09:36:31 +0300
+Subject: [PATCH 16/24] drm/msm/dp: remove cached drm_edid from panel
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-drm-msm-display-interface-v1-12-368c10fe62fd@oss.qualcomm.com>
+Message-Id: <20260722-drm-msm-display-interface-v1-16-368c10fe62fd@oss.qualcomm.com>
 References: <20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com>
 In-Reply-To: <20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -114,45 +113,46 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8063;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9357;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=J5JcUdjVT9C9QWSw0xv74Lqie6fwSBbv71Yn78RRXBM=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqYGTosLfEn7Qh9Mbdbzfe8ragWNL7jpuO/cg9W
- DHuVF5y2SyJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCamBk6AAKCRCLPIo+Aiko
- 1SGwB/4xm0DUK8KHEcta9ibJjkjRO9FRytup/K4DbMJyJ0zE6VcTSRiXFjUWWGgUMBIflwbeZ4i
- b6xKzQjtnNyFGSgjDioL2216MMJNsgdSALZFv2Y9pfrvBn6EIReMcVLnYL2sytQ3tXcqSDXnfdn
- shd5EmCnU1ZsaBi7pzpoy9Jq6voCLLYxQ/gkivR/mR5lWuM+H0t7tbLmAxylAvbR/poqZ16f10X
- kaoC7JjkzeCiZJdRt8NyZxURXKli5X718e4+SB1XfwCON+y25v9k1KM97yMM7t/6C+FQTwEyV5Q
- Je4BY1FrNMC0DL1qriYBEbKa1ORQv4nTITo+u8/rzGk0UNqb
+ bh=tau2awtWuAhs2tDJVOVXS8J6tZ80ehQO2Hh63gIguw0=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqYGToa8nXbs1RicH6gBraYnP9JzFOBMrRiwAON
+ Mqvh71MJ/6JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCamBk6AAKCRCLPIo+Aiko
+ 1bb4B/9qpoCq1AiOg5pzEiaXhfFa6eogR32uUrVitujIIG3Ogd4BhYdJC6jzRnhJuOurjUbIDHd
+ GqNOWwWsvDqUgluPij04jh3/uSGqZf1z8iHXwMFkDeurfScOH0fKGCNnwbG9k6x3YGn0MpbVvOI
+ XcDuuG2FSJK4XGuhJwk+xyYWT2+TTHngLI+xq0OukFkdiw2QS8mFng0QQSI/gMVO7lChJD6ZucI
+ XYaR+Og3idnNgE4i4Y4KGm3T9pOSI3B/1wj8N1tE8lklTvv4Vh8jV7VVrAoqIjO9e5pN4UZKvu/
+ DRMnnajjYtmmFdUBxfPIXnZgNoomrht60t1FsNnemRjhEJ7p
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA2MCBTYWx0ZWRfX6ZeCDlpPELfw
- TaQH2gWXHKCEeY9y1f6FFZP9WtF9Zv7vhrYCT+ZOsT4BuPCGOiaVIOaXc1rDe6VqkIOWor7uyLO
- j/cfV46qWjhVbGq+QQ3rGk0aNSqiATs=
-X-Authority-Analysis: v=2.4 cv=Ipsutr/g c=1 sm=1 tr=0 ts=6a606512 cx=c_pps
+X-Proofpoint-GUID: iasKGFqfJOOX4ZQGGhySdf5eOeu1cKFT
+X-Authority-Analysis: v=2.4 cv=CbE4Irrl c=1 sm=1 tr=0 ts=6a60651e cx=c_pps
  a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=RdJ1Xk1vZwbINtqq3GsA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA2MCBTYWx0ZWRfX+padFBQqfQ3e
- c7LRPF92Ixauqs+L/eSerudrk0d1XCnT0jkjG/LcjnHI0+XAFbwu8SzFNyD7tOhVmbBj+RWiPss
- rSJcDuNuYXujhLYIVyGX/PYjJP74OUGduT1/dCiOM9+wOIjVTS/3dIyZw5hmRVJfb7YcmdK4Jws
- 6r476/gv517twPXs7dXYJ0ooJi0zSDKeqi0kq9uViWiOp2wajxvhXxOmCp8+QjdLpz/TD8HlMdw
- TOo1X43b2J5ifOwMIFQptsIhgrp50ofkbhdlWmFxKacmSZbtRaDRgd8qJ+MZDq3idD23xOHnIM0
- /WVcmw/x4xAkoa+lAjdten7dykJ2B/2mON7hU3wwdkS2+Vd7n21jvmhYCe7FKeOmoxtMqjdy83K
- IAW+tGAHZdthdtE1o9bXJpCHQGRZJT1xr4t4Zo0lnJNglrkE0qMcM1AUQKaE4jF9m1U6eyg40Ux
- qXdb6szGKOT6gHCH1wA==
-X-Proofpoint-GUID: vnWMmqB_OmRTyiR6ZQJ5CSYqrkTyFbnt
-X-Proofpoint-ORIG-GUID: vnWMmqB_OmRTyiR6ZQJ5CSYqrkTyFbnt
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=afWckrBw7P4RIPHO5CIA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: iasKGFqfJOOX4ZQGGhySdf5eOeu1cKFT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA2MCBTYWx0ZWRfX5NaodDFNL1hY
+ S5rvPpxtbB3NdQ3Hw7wfVrfJRn4z1Z88qhh1GJ/gWQ6WWgdwsWy+TOddgd86Ucv+oClpDnmQLdP
+ bUcBJpfr1uyszbJe2VeorVONS/42BNkT82Do/dDdjpkUytw8mIJ06B7ympUHk+jU9HSdhM5taBT
+ 5rYjycALuGC82+VkklIA2esqdfdundYy/p9maLknk6cGirYsSYL7sJd1SByc3dd1FkThbdfdC15
+ o/knoKdU3o39dhWDjdd8HjrBXlB2WKGC3YaJKm7EdZb90lD0pJaNxjFEdratw+2uLXFVW38Mfjq
+ Bl/38qn5wCXvlldeorxTMClIXgKzS0dcb5hqdujO4qwvcaDJiXsQZJCObEj60q2YY3rkThJBvlc
+ aYuPmoQfZ41B+6nS7cL6JihQN8GqDctnxscUaN0sKZ3+xFhUDihO3MRDeiAWkLLU2PQeXD5MpfW
+ 0ya5xZgKgH5b+qiOqjA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA2MCBTYWx0ZWRfXy+enACHfYNxD
+ VB2nUGcr8GYHdB+vcgwgWXz+dJA1qAQtvXN4rUGzZPSwrUfw1Nn27O+P0I4bpUrwo2NTI0lXMMR
+ GvEXCtpw91MJFlK/yWcKe7/1axGHyog=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-22_02,2026-07-21_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 spamscore=0 phishscore=0 bulkscore=0
- priorityscore=1501 impostorscore=0 malwarescore=0 adultscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ phishscore=0 adultscore=0 suspectscore=0 clxscore=1015 spamscore=0
+ malwarescore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
  definitions=main-2607220060
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -170,211 +170,266 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DPU DSI setup calls msm_dsi_is_bonded_dsi() and msm_dsi_is_master_dsi()
-on the concrete sub-block to decide whether to create an encoder (the slave
-of a bonded pair shares the master's) and whether to add a second tile.
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-Add two mandatory callbacks: is_bonded() and needs_encoder(). DSI
-implements them in terms of its internal bonded/master helpers (now
-declared privately in dsi.h); DP and HDMI are never bonded and always need
-their own encoder. The DPU backend uses the callbacks, dropping the last
-concrete msm_dsi_*() queries from its display setup.
+The cached drm_edid seems unnecessary here. Use the drm_edid pointer
+directly in the plug stage instead of caching it. Remove the cached
+drm_edid and the corresponding oneliner to simplify the code.
 
-No functional change intended.
-
-Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c |  8 ++++----
- drivers/gpu/drm/msm/dp/dp_display.c     | 12 ++++++++++++
- drivers/gpu/drm/msm/dsi/dsi.c           | 15 +++++++++++++++
- drivers/gpu/drm/msm/dsi/dsi.h           |  2 ++
- drivers/gpu/drm/msm/hdmi/hdmi.c         | 12 ++++++++++++
- drivers/gpu/drm/msm/msm_drv.h           | 17 +++++++----------
- 6 files changed, 52 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 28 +++++++++++-------
+ drivers/gpu/drm/msm/dp/dp_panel.c   | 59 ++++---------------------------------
+ drivers/gpu/drm/msm/dp/dp_panel.h   | 13 +++-----
+ 3 files changed, 27 insertions(+), 73 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 8dacde316033..2eeaef963e1a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -603,18 +603,18 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
- 		if (!priv->kms->dsi[i])
- 			continue;
- 
--		if (msm_dsi_is_bonded_dsi(priv->kms->dsi[i]) &&
--		    !msm_dsi_is_master_dsi(priv->kms->dsi[i]))
-+		display = msm_dsi_get_display(priv->kms->dsi[i]);
-+
-+		if (!display->funcs->needs_encoder(display))
- 			continue;
- 
- 		memset(&info, 0, sizeof(info));
- 		info.intf_type = INTF_DSI;
- 
- 		info.h_tile_instance[info.num_of_h_tiles++] = i;
--		if (msm_dsi_is_bonded_dsi(priv->kms->dsi[i]))
-+		if (display->funcs->is_bonded(display))
- 			info.h_tile_instance[info.num_of_h_tiles++] = other;
- 
--		display = msm_dsi_get_display(priv->kms->dsi[i]);
- 		info.is_cmd_mode = display->funcs->is_cmd_mode(display);
- 
- 		rc = dpu_kms_dsi_set_te_source(&info, display);
 diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 95810e3b01a7..914cf9dd0f21 100644
+index bd1354f2c15d..cd4923d1a17e 100644
 --- a/drivers/gpu/drm/msm/dp/dp_display.c
 +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1384,6 +1384,16 @@ static const char *msm_dp_display_get_te_source(struct msm_display *display)
- 	return NULL;
+@@ -272,6 +272,7 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+ 	const struct drm_display_info *info = &connector->display_info;
+ 	int rc = 0;
+ 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
++	const struct drm_edid *drm_edid = NULL;
+ 
+ 	rc = drm_dp_read_dpcd_caps(dp->aux, dpcd);
+ 	if (rc)
+@@ -279,10 +280,20 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+ 
+ 	dp->link->lttpr_count = msm_dp_display_lttpr_init(dp, dpcd);
+ 
+-	rc = msm_dp_panel_read_sink_caps(dp->panel, connector);
++	rc = msm_dp_panel_read_link_caps(dp->panel, connector);
+ 	if (rc)
+ 		goto end;
+ 
++	drm_edid = drm_edid_read_ddc(connector, &dp->aux->ddc);
++	drm_edid_connector_update(connector, drm_edid);
++
++	if (!drm_edid) {
++		DRM_ERROR("panel edid read failed\n");
++		/* check edid read fail is due to unplug */
++		if (!msm_dp_aux_is_link_connected(dp->aux))
++			return -ETIMEDOUT;
++	}
++
+ 	msm_dp_link_process_request(dp->link);
+ 
+ 	if (!dp->msm_dp_display.is_edp)
+@@ -294,7 +305,7 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+ 	dp->msm_dp_display.psr_supported = dp->panel->psr_cap.version && psr_enabled;
+ 
+ 	dp->audio_supported = info->has_audio;
+-	msm_dp_panel_handle_sink_request(dp->panel);
++	msm_dp_panel_handle_sink_request(dp->panel, drm_edid);
+ 
+ 	/*
+ 	 * set sink to normal operation mode -- D0
+@@ -305,6 +316,7 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+ 	msm_dp_link_reset_phy_params_vx_px(dp->link);
+ 
+ end:
++	drm_edid_free(drm_edid);
+ 	return rc;
  }
  
-+static bool msm_dp_display_is_bonded(struct msm_display *display)
-+{
-+	return false;
-+}
-+
-+static bool msm_dp_display_needs_encoder(struct msm_display *display)
-+{
-+	return true;
-+}
-+
- static const struct msm_display_funcs msm_dp_display_funcs = {
- 	.modeset_init = msm_dp_modeset_init,
- 	.snapshot = msm_dp_snapshot,
-@@ -1392,6 +1402,8 @@ static const struct msm_display_funcs msm_dp_display_funcs = {
- 	.is_cmd_mode = msm_dp_display_is_cmd_mode,
- 	.get_dsc_config = msm_dp_display_get_dsc_config,
- 	.get_te_source = msm_dp_display_get_te_source,
-+	.is_bonded = msm_dp_display_is_bonded,
-+	.needs_encoder = msm_dp_display_needs_encoder,
- };
+@@ -456,7 +468,7 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_display_private *dp)
  
- struct msm_display *msm_dp_get_display(struct msm_dp *msm_dp_display)
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
-index e07d1a964c7c..69e57ab47258 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi.c
-@@ -27,6 +27,19 @@ static const char *msm_dsi_get_te_source(struct msm_display *display)
- 	return msm_dsi->te_source;
- }
+ 	/* Don't forget modes for eDP */
+ 	if (!dp->msm_dp_display.is_edp)
+-		msm_dp_panel_unplugged(dp->panel, dp->msm_dp_display.connector);
++		drm_edid_connector_update(dp->msm_dp_display.connector, NULL);
  
-+static bool msm_dsi_is_bonded(struct msm_display *display)
-+{
-+	return msm_dsi_is_bonded_dsi(container_of(display, struct msm_dsi, display));
-+}
-+
-+static bool msm_dsi_needs_encoder(struct msm_display *display)
-+{
-+	struct msm_dsi *msm_dsi = container_of(display, struct msm_dsi, display);
-+
-+	/* the slave of a bonded pair shares the master's encoder */
-+	return !(msm_dsi_is_bonded_dsi(msm_dsi) && !msm_dsi_is_master_dsi(msm_dsi));
-+}
-+
- static bool msm_dsi_wide_bus_enabled(struct msm_display *display)
+ 	/* triggered by irq_hdp with sink_count = 0 */
+ 	if (dp->link->sink_count == 0)
+@@ -518,7 +530,6 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_display_private *dp)
+ static void msm_dp_display_deinit_sub_modules(struct msm_dp_display_private *dp)
  {
- 	struct msm_dsi *msm_dsi = container_of(display, struct msm_dsi, display);
-@@ -302,6 +315,8 @@ static const struct msm_display_funcs msm_dsi_display_funcs = {
- 	.is_cmd_mode = msm_dsi_is_cmd_mode,
- 	.get_dsc_config = msm_dsi_get_dsc_config,
- 	.get_te_source = msm_dsi_get_te_source,
-+	.is_bonded = msm_dsi_is_bonded,
-+	.needs_encoder = msm_dsi_needs_encoder,
- };
- 
- struct msm_display *msm_dsi_get_display(struct msm_dsi *msm_dsi)
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-index 1d1bda0682db..d594a7399f54 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.h
-@@ -50,6 +50,8 @@ struct msm_dsi {
- };
- 
- /* dsi manager */
-+bool msm_dsi_is_bonded_dsi(struct msm_dsi *msm_dsi);
-+bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi);
- int msm_dsi_manager_connector_init(struct msm_dsi *msm_dsi,
- 				   struct drm_encoder *encoder);
- int msm_dsi_manager_cmd_xfer(int id, const struct mipi_dsi_msg *msg);
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-index 6e077747ebce..506a9856459e 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-@@ -254,6 +254,16 @@ static const char *msm_hdmi_get_te_source(struct msm_display *display)
- 	return NULL;
+ 	msm_dp_audio_put(dp->audio);
+-	msm_dp_panel_put(dp->panel);
+ 	msm_dp_aux_put(dp->aux);
  }
  
-+static bool msm_hdmi_is_bonded(struct msm_display *display)
-+{
-+	return false;
-+}
-+
-+static bool msm_hdmi_needs_encoder(struct msm_display *display)
-+{
-+	return true;
-+}
-+
- static const struct msm_display_funcs msm_hdmi_display_funcs = {
- 	.modeset_init = msm_hdmi_modeset_init,
- 	.snapshot = msm_hdmi_snapshot,
-@@ -262,6 +272,8 @@ static const struct msm_display_funcs msm_hdmi_display_funcs = {
- 	.is_cmd_mode = msm_hdmi_is_cmd_mode,
- 	.get_dsc_config = msm_hdmi_get_dsc_config,
- 	.get_te_source = msm_hdmi_get_te_source,
-+	.is_bonded = msm_hdmi_is_bonded,
-+	.needs_encoder = msm_hdmi_needs_encoder,
- };
+@@ -569,7 +580,7 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
+ 		rc = PTR_ERR(dp->ctrl);
+ 		DRM_ERROR("failed to initialize ctrl, rc = %d\n", rc);
+ 		dp->ctrl = NULL;
+-		goto error_ctrl;
++		goto error_link;
+ 	}
  
- struct msm_display *msm_hdmi_get_display(struct hdmi *hdmi)
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 989b0a37d6aa..378d2cc80b66 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -289,6 +289,11 @@ struct msm_disp_state;
-  * @is_cmd_mode:  whether the sub-block runs in command mode; mandatory.
-  * @get_dsc_config: return the DSC config for the sub-block, or NULL; mandatory.
-  * @get_te_source: return the tear-check source name, or NULL; mandatory.
-+ * @is_bonded:    whether the sub-block is part of a bonded (tiled) pair;
-+ *                mandatory.
-+ * @needs_encoder: whether the sub-block needs its own encoder created (false
-+ *                 for e.g. the slave of a bonded pair, which shares the
-+ *                 master's encoder); mandatory.
-  */
- struct msm_display_funcs {
- 	int (*modeset_init)(struct msm_display *display, struct drm_device *dev,
-@@ -301,6 +306,8 @@ struct msm_display_funcs {
- 	bool (*is_cmd_mode)(struct msm_display *display);
- 	struct drm_dsc_config *(*get_dsc_config)(struct msm_display *display);
- 	const char *(*get_te_source)(struct msm_display *display);
-+	bool (*is_bonded)(struct msm_display *display);
-+	bool (*needs_encoder)(struct msm_display *display);
- };
+ 	dp->audio = msm_dp_audio_get(dp->msm_dp_display.pdev, dp->link_base);
+@@ -577,13 +588,11 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
+ 		rc = PTR_ERR(dp->audio);
+ 		pr_err("failed to initialize audio, rc = %d\n", rc);
+ 		dp->audio = NULL;
+-		goto error_ctrl;
++		goto error_link;
+ 	}
  
- /**
-@@ -336,8 +343,6 @@ void dsi_dev_detach(struct platform_device *pdev);
- void __init msm_dsi_register(void);
- void __exit msm_dsi_unregister(void);
- struct msm_display *msm_dsi_get_display(struct msm_dsi *msm_dsi);
--bool msm_dsi_is_bonded_dsi(struct msm_dsi *msm_dsi);
--bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi);
- #else
- static inline void __init msm_dsi_register(void)
- {
-@@ -349,14 +354,6 @@ static inline struct msm_display *msm_dsi_get_display(struct msm_dsi *msm_dsi)
- {
- 	return NULL;
+ 	return rc;
+ 
+-error_ctrl:
+-	msm_dp_panel_put(dp->panel);
+ error_link:
+ 	msm_dp_aux_put(dp->aux);
+ error:
+@@ -755,8 +764,7 @@ int msm_dp_display_get_modes(struct msm_dp *dp)
+ 
+ 	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
+ 
+-	return msm_dp_panel_get_modes(msm_dp_display->panel,
+-		dp->connector);
++	return drm_edid_connector_add_modes(msm_dp_display->panel->connector);
  }
--static inline bool msm_dsi_is_bonded_dsi(struct msm_dsi *msm_dsi)
+ 
+ bool msm_dp_display_check_video_test(struct msm_dp *dp)
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index 5b4954e7cb74..bde4a772d22c 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -232,8 +232,8 @@ static u32 msm_dp_panel_get_supported_bpp(struct msm_dp_panel *msm_dp_panel,
+ 	return min_supported_bpp;
+ }
+ 
+-int msm_dp_panel_read_sink_caps(struct msm_dp_panel *msm_dp_panel,
+-	struct drm_connector *connector)
++int msm_dp_panel_read_link_caps(struct msm_dp_panel *msm_dp_panel,
++				struct drm_connector *connector)
+ {
+ 	int rc, bw_code;
+ 	int count;
+@@ -271,36 +271,9 @@ int msm_dp_panel_read_sink_caps(struct msm_dp_panel *msm_dp_panel,
+ 
+ 	rc = drm_dp_read_downstream_info(panel->aux, msm_dp_panel->dpcd,
+ 					 msm_dp_panel->downstream_ports);
+-	if (rc)
+-		return rc;
+-
+-	drm_edid_free(msm_dp_panel->drm_edid);
+-
+-	msm_dp_panel->drm_edid = drm_edid_read_ddc(connector, &panel->aux->ddc);
+-
+-	drm_edid_connector_update(connector, msm_dp_panel->drm_edid);
+-
+-	if (!msm_dp_panel->drm_edid) {
+-		DRM_ERROR("panel edid read failed\n");
+-		/* check edid read fail is due to unplug */
+-		if (!msm_dp_aux_is_link_connected(panel->aux)) {
+-			rc = -ETIMEDOUT;
+-			goto end;
+-		}
+-	}
+-
+-end:
+ 	return rc;
+ }
+ 
+-void msm_dp_panel_unplugged(struct msm_dp_panel *msm_dp_panel,
+-			    struct drm_connector *connector)
 -{
--	return false;
+-	drm_edid_connector_update(connector, NULL);
+-	drm_edid_free(msm_dp_panel->drm_edid);
+-	msm_dp_panel->drm_edid = NULL;
 -}
--static inline bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi)
--{
--	return false;
--}
- #endif
+-
+ u32 msm_dp_panel_get_mode_bpp(struct msm_dp_panel *msm_dp_panel,
+ 		u32 mode_edid_bpp, u32 mode_pclk_khz)
+ {
+@@ -324,22 +297,6 @@ u32 msm_dp_panel_get_mode_bpp(struct msm_dp_panel *msm_dp_panel,
+ 	return bpp;
+ }
  
- struct msm_dp;
+-int msm_dp_panel_get_modes(struct msm_dp_panel *msm_dp_panel,
+-	struct drm_connector *connector)
+-{
+-	if (!msm_dp_panel) {
+-		DRM_ERROR("invalid input\n");
+-		return -EINVAL;
+-	}
+-
+-	if (msm_dp_panel->drm_edid) {
+-		drm_edid_connector_update(connector, msm_dp_panel->drm_edid);
+-		return drm_edid_connector_add_modes(connector);
+-	}
+-
+-	return 0;
+-}
+-
+ static u8 msm_dp_panel_get_edid_checksum(const struct edid *edid)
+ {
+ 	edid += edid->extensions;
+@@ -347,7 +304,8 @@ static u8 msm_dp_panel_get_edid_checksum(const struct edid *edid)
+ 	return edid->checksum;
+ }
+ 
+-void msm_dp_panel_handle_sink_request(struct msm_dp_panel *msm_dp_panel)
++void msm_dp_panel_handle_sink_request(struct msm_dp_panel *msm_dp_panel,
++				      const struct drm_edid *drm_edid)
+ {
+ 	struct msm_dp_panel_private *panel;
+ 
+@@ -360,7 +318,7 @@ void msm_dp_panel_handle_sink_request(struct msm_dp_panel *msm_dp_panel)
+ 
+ 	if (panel->link->sink_request & DP_TEST_LINK_EDID_READ) {
+ 		/* FIXME: get rid of drm_edid_raw() */
+-		const struct edid *edid = drm_edid_raw(msm_dp_panel->drm_edid);
++		const struct edid *edid = drm_edid_raw(drm_edid);
+ 		u8 checksum;
+ 
+ 		if (edid)
+@@ -757,10 +715,3 @@ struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux
+ 	return msm_dp_panel;
+ }
+ 
+-void msm_dp_panel_put(struct msm_dp_panel *msm_dp_panel)
+-{
+-	if (!msm_dp_panel)
+-		return;
+-
+-	drm_edid_free(msm_dp_panel->drm_edid);
+-}
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
+index 9173e90a5053..53b7b4463551 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.h
++++ b/drivers/gpu/drm/msm/dp/dp_panel.h
+@@ -33,7 +33,6 @@ struct msm_dp_panel {
+ 	u8 downstream_ports[DP_MAX_DOWNSTREAM_PORTS];
+ 
+ 	struct msm_dp_link_info link_info;
+-	const struct drm_edid *drm_edid;
+ 	struct drm_connector *connector;
+ 	struct msm_dp_display_mode msm_dp_mode;
+ 	struct msm_dp_panel_psr psr_cap;
+@@ -47,15 +46,12 @@ struct msm_dp_panel {
+ int msm_dp_panel_init_panel_info(struct msm_dp_panel *msm_dp_panel);
+ int msm_dp_panel_deinit(struct msm_dp_panel *msm_dp_panel);
+ int msm_dp_panel_timing_cfg(struct msm_dp_panel *msm_dp_panel, bool wide_bus_en);
+-int msm_dp_panel_read_sink_caps(struct msm_dp_panel *msm_dp_panel,
+-		struct drm_connector *connector);
+-void msm_dp_panel_unplugged(struct msm_dp_panel *msm_dp_panel,
+-			    struct drm_connector *connector);
++int msm_dp_panel_read_link_caps(struct msm_dp_panel *msm_dp_panel,
++				struct drm_connector *connector);
+ u32 msm_dp_panel_get_mode_bpp(struct msm_dp_panel *msm_dp_panel, u32 mode_max_bpp,
+ 			u32 mode_pclk_khz);
+-int msm_dp_panel_get_modes(struct msm_dp_panel *msm_dp_panel,
+-		struct drm_connector *connector);
+-void msm_dp_panel_handle_sink_request(struct msm_dp_panel *msm_dp_panel);
++void msm_dp_panel_handle_sink_request(struct msm_dp_panel *msm_dp_panel,
++				      const struct drm_edid *drm_edid);
+ void msm_dp_panel_tpg_config(struct msm_dp_panel *msm_dp_panel, bool enable);
+ 
+ void msm_dp_panel_clear_dsc_dto(struct msm_dp_panel *msm_dp_panel);
+@@ -94,5 +90,4 @@ struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux
+ 			      struct msm_dp_link *link,
+ 			      void __iomem *link_base,
+ 			      void __iomem *p0_base);
+-void msm_dp_panel_put(struct msm_dp_panel *msm_dp_panel);
+ #endif /* _DP_PANEL_H_ */
 
 -- 
 2.47.3
