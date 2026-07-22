@@ -4,114 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92844C44524
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 07:09:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7634DC531C7
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 07:09:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED70010EFD1;
-	Thu, 23 Jul 2026 07:09:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6EC910EFF6;
+	Thu, 23 Jul 2026 07:09:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="GQfLbNCo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gsWNNrgY";
 	dkim-atps=neutral
-Received: from OS8PR02CU002.outbound.protection.outlook.com
- (mail-japanwestazon11012027.outbound.protection.outlook.com [40.107.75.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F8E110ECB5
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 07:58:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NhYs1BYWbd27trFVJ0inOkPs6AR/a6hiLNGUXIfiJi1LouCg5jgFdazKUNi9PeLWM5/07+8wrNnnAcBERsikszaOBl1x7wVhxxRc06lj7KfAjPfs16tB7xkmYh2bkVNBCshy135V/t4neNLYUkO+PAMVXgNm4bI5nwk0X+eEsOTjnWxFaS3i9b5NDCIFzjokj6okshKhBHmE3rnndvD/coCA3113lZHtTNWg35wc3gfAaeOSVH0cJBwsSuMe7PgfNeHnlinA+VzS6SE+usdSAmLQnvA4gWnF7ghyHgL5E1EpoFjj+OZgGRYWAR2pu4ZLhQYA3MLhHv/UmuP0MpRdKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UubTSuLqqIwcanYCwxBxQGd72IKcLAUB62vjlgVIhG4=;
- b=MwHMKmBheYj1h4QkSj/yFPUSkedf2aZwmntcpnLmVtXQo+afrfbScjAwtyLFyKF4tyfAfZsO43HoR+bELqw7H4psDwNwq/6y8+Oe0RZEqS9jphRNf/ir2LPNIRFNxmb1VclCjYa8IcxkGkHissdlK8AwbIODw16Aa78tiblJMFmfrXK6gSvnUDNdsGqV7bEktIgXobojC3jX1CRuNCGYXUt8TQ3MMDNd6HqK20CloEpZchjteZrpRrWCQW8heglHay4z0s0jtSoXkeWb+vlQNM48cYbNA5zj7FN+s1BmAJEay9w9Bbwz/F+xdJ5zaJGEKd7JzhT1EOW6Ssa2Ah2jeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UubTSuLqqIwcanYCwxBxQGd72IKcLAUB62vjlgVIhG4=;
- b=GQfLbNCopg8rya93GRy/u95gV+08LSK11RtBuUWttDKma4Sx6ADNhCuWyAWZU2vt7RhKXifY7nW2efIKFhHF1UGuFSNIN0WbLKCHFgPHu58q4S4ru2j41Nn7JE953plW00XtqCltNH0D6or/PZhcIdyZquO6cxuyam6R48pLMrL/mR3khTcW/29tgypCvW2OTE0NgB/vCOQXPpTVWvwdhT1ZtjMbThqt7Zd587emdN+D83fL9WxZaGccZrjds3OQ/qfxn2s+eiHel0PujPuLM+RZ7FItjSEylrFaCQRBwWT9DpCCPwhVsshV4EVMOlAV/zEEteKJFCTSu5pRFYD2hw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SEZPR06MB5832.apcprd06.prod.outlook.com (2603:1096:101:c8::12)
- by SI3PR06MB8492.apcprd06.prod.outlook.com (2603:1096:4:2a3::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
- 2026 07:58:34 +0000
-Received: from SEZPR06MB5832.apcprd06.prod.outlook.com
- ([fe80::f98:5e32:4ccb:d07b]) by SEZPR06MB5832.apcprd06.prod.outlook.com
- ([fe80::f98:5e32:4ccb:d07b%6]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
- 07:58:33 +0000
-From: Pan Chuang <panchuang@vivo.com>
-To: Helge Deller <deller@gmx.de>, Pan Chuang <panchuang@vivo.com>,
- Kees Cook <kees@kernel.org>,
- linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER),
- dri-devel@lists.freedesktop.org (open list:FRAMEBUFFER LAYER),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 4/7] fbdev: pxa3xx-gcu: Remove redundant dev_err()
-Date: Wed, 22 Jul 2026 15:57:44 +0800
-Message-Id: <20260722075803.570532-5-panchuang@vivo.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260722075803.570532-1-panchuang@vivo.com>
-References: <20260722075803.570532-1-panchuang@vivo.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TYCP286CA0296.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c8::8) To SEZPR06MB5832.apcprd06.prod.outlook.com
- (2603:1096:101:c8::12)
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
+ [209.85.221.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2EE010E385
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 00:47:36 +0000 (UTC)
+Received: by mail-vk1-f179.google.com with SMTP id
+ 71dfb90a1353d-5bfb5e20a90so5191275e0c.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Jul 2026 17:47:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784681256; x=1785286056; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=QUxIn1WFaPZcx4UkuKtETzjufHYnex7kE/0l2kUJDdc=;
+ b=gsWNNrgY7Gjm66s7k9y2AHTkA1ceFcPpNJaAWkYvhTh++r+nHp8z7CkCkKr4gWd2+b
+ 3wtn6tx59tJ65T+x00S+G9+4CKtnsacecI/XHJ200fnZCJW0810mPtFj54kUwCQoBkpM
+ mO4m5g7z1W9Ad6ulg8uMT5SoxkIS8DMv5MMaUuJXrBgIOJlv/PhUyaxaD83vO7n4wHFj
+ CzRQMh6b7OkAE5LCxRXP4JAijW9S/hJT5WSdm/UNLMnFLTv12OrwcvsZSetLxx7CrYd3
+ xVLiyN5giqZ96kqyMNaEEjXcE2SgycAJcPtYg+IgubFnBhMdjXqtXUh9m5WwCwFlodX6
+ U3tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784681256; x=1785286056;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=QUxIn1WFaPZcx4UkuKtETzjufHYnex7kE/0l2kUJDdc=;
+ b=oAjt0/wG78wAajMw3J6oLlA6dQLmYYySi13fQZTebqQ0Q34qxPaiwUMJfpT0Lnceys
+ SEBaToVpvt+ji8dy1x20clEkMepbRDvKo1c4XNcSwXWXQZrVA8GRpigXCw6hkyfoxHTE
+ Ii1RME1eZJEvmu8yRZpG18N/o/vFpHNAjfyEkN8NOfN4XBG9YyuqbC072yJg3TICFaSe
+ ZG+3cXBuTWmFZCGr1YdRzU6Px8bVMg5uC/XV+umxTeHCO8CxEUVd8QUrEg51clwaO5h/
+ mWBCv1JQobJFRPIUYIkOX+G3/1jLcWWZxk97Nu3XW598x8dphlM41PzeM9Vda1lKeLrq
+ PnSg==
+X-Gm-Message-State: AOJu0YxsH1w4DefQu7kalz6c7F1qbXtrXZ+4AntG4Pffle8M6K+bII7d
+ c2MxjJzGdz/xvyhwPrHbyw1SJI8jAPUjVemh/aancAu38Pf0lQg8N9Bu
+X-Gm-Gg: AR+sD13Ehv3Bm7jRW2f3mCqttYYZK6AEU9KZl96RgNfaKMecs1HcOfCu9pTSxHkkw7A
+ 38tpN7kxWbTo8jVvBZTA6b3sxnbzCowOsEkLulvBqCf0rdZ5d6/MSzM0pCokOHugDvSqw3NX/UW
+ IBOQ50IxzFFn/Cg1mgMtSiRxs5I/HsnQRlv9nWoEidW/cCJOMlNm7mf6PBXKmBqQ4vYkfFBeWNz
+ ako4wcJtiRGnSWBmKzLBbiVopCpcs4bc0kSbwxJGT2e5TczPp/P5d7sJ8eaYulrWkIAgQwBaJzQ
+ TZWCOWXXcwRQPBSnRKsUdJTsHsi1wo6RTT7rzKgA8b7PfWtItd95GfASrRSu+BI+1x5IHnSBC5t
+ gJGfLovy2InAaT+MP/Ioz80sJTZdwWMGqS6y1cjIPcrBS+4fE6qoHUX3QepHIbQ2F9CRpvzdcF5
+ AWTgKwUPo0/IUbQkL3rQXKb7ic4WlOsCHfwLnuoroaCaGvGW/gW39zWEM3nr4MoW8qT3LpEA==
+X-Received: by 2002:a05:6102:f86:b0:740:2bcd:24d2 with SMTP id
+ ada2fe7eead31-74753465e4cmr7656619137.5.1784681255740; 
+ Tue, 21 Jul 2026 17:47:35 -0700 (PDT)
+Received: from lord.bigscale.net ([170.246.211.222])
+ by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-74ad31c215bsm1346505137.2.2026.07.21.17.47.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2026 17:47:34 -0700 (PDT)
+From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
+To: intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
+ =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
+Subject: [PATCH v1 3/4] drm/xe/guc/ct: Queue G2H worker before flushing it in
+ timeout paths
+Date: Tue, 21 Jul 2026 21:46:53 -0300
+Message-ID: <20260722004654.744249-4-talesam@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260722004654.744249-1-talesam@gmail.com>
+References: <20260722004654.744249-1-talesam@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEZPR06MB5832:EE_|SI3PR06MB8492:EE_
-X-MS-Office365-Filtering-Correlation-Id: 52b20ff7-8aff-4342-8385-08dee7c706e4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|52116014|366016|38350700014|22082099003|18002099003|56012099006|11063799006|10067099003|6133799003;
-X-Microsoft-Antispam-Message-Info: RLQYBT0v3fTGrywfff/yIt3HY5nEPSAHruxPP9BQO4tjFY5sXk2uqlqJSg2OQGkhgX02xRTwBF1LU23cS+yPZItX0Iz4VsNYAbzyZjL/O46mE4x+09Fjccn4U5+LEHf8ooV5pxzm42GbNnB1ntRW4umwvSjI7Bp5QbjFSUvhZ2kSAdsMnr8QbeDFqH3HAcYpPw41lqFvsDggCWFQbmkJQa65fxScFKhWP5xIv57qBfdC1XFFJsEy3LvCLXkLUycTlozd6Tjai30IPLX9ePYu4vkduTD0RLBH+EgunTVrHLU2TB8iuDkj5tO/BTkQ5LBhFql6HyP34p8ChwnK4oOHDevB3aLcW/NL56q6OMq5xiQ8CdS3i0ygLiq2740yN7BNt3r9H6AcPdGZmvuLWiyg1Jvswj7MfBFAhLRu+aFQzka+UC3UCbuRF7BR0nVp/um1vrSzzIvMnp7qij8jL4XF1AibArVrf3JVujCepOXwjQrPsjLkL7j28Nmk604ugKN+4kWW1DlVXY1ZjS9q3h2XrWwVH5WAgkF4WbGnzsYsUOX/7vwUimZBvcO1sXFX8CFWiiIboS5Nsopin1I4EaAS12AO754HOprWDzog//m8TTC//mhomsOrW4TPxn5XjIXqXVzghseCF6YulOHHm6eSc5MuyFEoxo69ol58XSYEitnR1noDEAoVNPMM9s75AwVXLgKFJD384v0Ku3G5/7+dWKGHLSL+Gl3bTC8zQuXlqs8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SEZPR06MB5832.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(52116014)(366016)(38350700014)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Z2YbFOd/Dga+Kj4mJcFJXFBXD3brvhK+Lg+GHwheFal/+0aKI9nBXVRaKUPy?=
- =?us-ascii?Q?FxeZXoU3HlfjMIAjT5AsqemjUrHM+FfaQQ62msTDoKo4w2IuLg9xnz6dhLaW?=
- =?us-ascii?Q?E5sRUR57j/gz7xdy+K9llkCsuQ4wpcxytf8PJK5ITy047rUCel9qdwOmvdhj?=
- =?us-ascii?Q?yl3aWugfIF5m6KkCKwo7D7fO7hA9x2qoqYKBJ6w69fRRFytOa73kJf5vOZM+?=
- =?us-ascii?Q?mNnGijoQ0ajS+bRKDIx1R60Qr0S8/faJiIVFGIKalA9ztR0Vusp2+NF/kIrl?=
- =?us-ascii?Q?Sc7Q04SRp//6nFmTKwK5Hh0/XzIHhWnb1LnlJq4HYgsImrJMD8QuwS+BizAw?=
- =?us-ascii?Q?I0A+z44lg4F/DUro83KQwNOOkWVXniA2iju3maz/Ps6pLRz4s+uRaVzsYQu/?=
- =?us-ascii?Q?oo6DVPqS+Z+kK3Z/2gc/ydbHBnZlTg3Nr4K9ciWShopOFrFkizEVJ/Nxyx5S?=
- =?us-ascii?Q?9IOCC6Oamrc6fZguVLY5mNWyvWUMWl6K30ArKSZAAfidJNPtzzNid1JhRp6f?=
- =?us-ascii?Q?yvvZcrIKZmCLu/qxYklp1LwLXfUh9cyEvmI7C27RmYgN3gMshu4iiF4Lk8iY?=
- =?us-ascii?Q?3QeKL4B6w4/FpWrYd2aWBd+FZgqnBVCDoq7iwSEjauB0WjtrpErIBDWJo/hD?=
- =?us-ascii?Q?YKqjC50U4EH22WqTK7sraa0LNdYU8kg8XoJCeYccWLq0kB2c0ceIujGb8phR?=
- =?us-ascii?Q?KQMDO6P+at0brgOL0jbrW7srXO4h50z7s/jUvq+sy8oDCHoEPkn4tTZWiYNK?=
- =?us-ascii?Q?kxoI8F0b9l6NFw24mq2Xw1LFaHTDwR1Lm6Fvb9sb8dWInvDZ+fiP2lJdhJmO?=
- =?us-ascii?Q?BwlGs/rHviPXecGtq6fLoXmgwabHy4hQPsvHGC2ND2mgoDIh4IvxJNVPv3am?=
- =?us-ascii?Q?qf5LsIIEFykyv2COfwqXMrFilRjsySo152x9/S2nyDPkiuu14YJ7DDUeRzZl?=
- =?us-ascii?Q?LuAWeRBSQ8xvAJWFCjFPTSNcz9D6AcDXLMNL9EI832pEGgyurDQmQt6c90L7?=
- =?us-ascii?Q?dNXMOM9tTVdtuPXaR5ZS9GwsYVaSEceqml/XJU/lN1CaPK4rKwDItPwwscgY?=
- =?us-ascii?Q?gl/LfrsWaI+3q+sClcP4wX14kMmPlPZuqlyqJDL8HAGEyTOjz9SKWWLOpuFC?=
- =?us-ascii?Q?0DWk72mpr/RqrSBHC1PWyt5d0AYRGGODK76vUqkMEzhzog75eWZeOBqt8JgL?=
- =?us-ascii?Q?sn8q2fFJg5qOhdqMYipI4b9Qoyqmh3bPPDi1PqL8WlQpggWQovM4ZPfrt44r?=
- =?us-ascii?Q?Eyfomb5GzOFB/euT1eHY3nwk4rjXwGHMv/vIYdBj4x3NoF/f7u3+rRAsYtSR?=
- =?us-ascii?Q?/uBN3MZlwHZwE0qIs//k7TZZ3wpe5wooQLp76ddWrM7rj/D3mxwNFyprlUf5?=
- =?us-ascii?Q?r0j2yRtaN8dLiJleDjr1CB+95gcA0jKdluTVdTCs5jRKHQIYvOwRVtJa6ST5?=
- =?us-ascii?Q?gtxhQLPo48eujQG0IUwdi/8DAEaMNrmYyKIpmpe42qHAU4Y80NVf0r65b8OF?=
- =?us-ascii?Q?tRinOITAci9CaDuDFzt9Z6A5rqbwUxj5ynBCLkhikOpoW/3wtxvPCIkDeUpi?=
- =?us-ascii?Q?nWnZkqCvZ1H183aUEq5ocK55peG0CYif4tfBWH+CyX0tpjKmw3qRCRA/EhH8?=
- =?us-ascii?Q?4Tv7LyvJsgvqTI28YzA60Ir0pZrBoHfsBEUEWHdhfU8FQGjRABOts9Pap3C6?=
- =?us-ascii?Q?EPdDow3g+nWxznprgawA+jVWYay6xvq0E0qYq+aXj0WtsLKgKk/uUbycPNQE?=
- =?us-ascii?Q?eMIbrUy1Bg=3D=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52b20ff7-8aff-4342-8385-08dee7c706e4
-X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5832.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 07:58:33.5118 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QVa8Lk7L86CBhFJIe2wiE1z7vHxm2SjNcIKV2Nt+0Cem0xNvK32xsucEKbl0ckx3sX3QxIj6PR0k5YQ1veS5rA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI3PR06MB8492
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 23 Jul 2026 07:07:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -128,32 +92,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since commit 55b48e23f5c4 ("genirq/devres: Add error handling in
-devm_request_*_irq()"), devm_request_irq() automatically logs
-detailed error messages on failure. Remove the now-redundant
-driver-specific dev_err() call.
+Timeout-recovery paths flush the G2H worker to pick up a response that
+may have been posted by the GuC but not yet processed:
 
-Signed-off-by: Pan Chuang <panchuang@vivo.com>
+ - guc_ct_send_recv() after the 1s wait for a G2H response fails
+ - the TLB invalidation backend's .flush() hook, called by
+   xe_tlb_inval_fence_timeout() before declaring a fence timed out
+
+However flush_work() on a work item that is neither queued nor running
+is a no-op. If the GUC2HOST interrupt for the response was lost or
+coalesced, the G2H worker was never queued: the flush does not read the
+G2H CTB and the response sits there unprocessed until an unrelated G2H
+interrupt arrives. For TLB invalidations this results in
+
+  TLB invalidation fence timeout, seqno=N recv=N-1
+
+with the fence force-signalled with -ETIME even though the ack may
+already be present in the CTB. Observed sporadically on ARL-H under CPU
+load, always with recv == seqno - 1 and self-recovering on the next G2H
+interrupt, which is consistent with a lost wakeup rather than a
+GuC-side failure.
+
+Add xe_guc_ct_flush_g2h(), which queues the worker before flushing it,
+guaranteeing the flush always drains the CTB, and use it in both
+timeout paths. A spurious worker run is safe: g2h_read() returns no
+data under fast_lock, and receive_g2h() copes with runtime-PM state and
+disabled CT communication.
+
+After this change the fence-timeout error only fires when the ack is
+genuinely absent from the CTB, making the message a reliable indicator
+of a GuC-side stall.
+
+Signed-off-by: Tales A. Mendonça <talesam@gmail.com>
 ---
- drivers/video/fbdev/pxa3xx-gcu.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/xe/xe_guc_ct.c        | 23 ++++++++++++++++++++++-
+ drivers/gpu/drm/xe/xe_guc_ct.h        |  1 +
+ drivers/gpu/drm/xe/xe_guc_tlb_inval.c |  2 +-
+ 3 files changed, 24 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/video/fbdev/pxa3xx-gcu.c b/drivers/video/fbdev/pxa3xx-gcu.c
-index a2320e2fb8f2..fc5bd7e7aae6 100644
---- a/drivers/video/fbdev/pxa3xx-gcu.c
-+++ b/drivers/video/fbdev/pxa3xx-gcu.c
-@@ -615,10 +615,8 @@ static int pxa3xx_gcu_probe(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
+index fe70c0fd85c..11a05c2b8c7 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ct.c
++++ b/drivers/gpu/drm/xe/xe_guc_ct.c
+@@ -1377,7 +1377,7 @@ static int guc_ct_send_recv(struct xe_guc_ct *ct, const u32 *action, u32 len,
+ wait_again:
+ 	ret = wait_event_timeout(ct->g2h_fence_wq, READ_ONCE(g2h_fence.done), HZ);
+ 	if (!ret) {
+-		LNL_FLUSH_WORK(&ct->g2h_worker);
++		xe_guc_ct_flush_g2h(ct);
+ 		if (READ_ONCE(g2h_fence.done)) {
+ 			xe_gt_warn(gt, "G2H fence %u, action %04x, done\n",
+ 				   g2h_fence.seqno, action[0]);
+@@ -2046,6 +2046,27 @@ static void g2h_worker_func(struct work_struct *w)
+ 	receive_g2h(ct);
+ }
  
- 	ret = devm_request_irq(dev, irq, pxa3xx_gcu_handle_irq,
- 			       0, DRV_NAME, priv);
--	if (ret < 0) {
--		dev_err(dev, "request_irq failed\n");
-+	if (ret < 0)
- 		return ret;
--	}
++/**
++ * xe_guc_ct_flush_g2h() - Force processing of pending G2H messages
++ * @ct: GuC CT object
++ *
++ * The GUC2HOST interrupt for a G2H message may be lost or coalesced. When
++ * that happens the G2H worker is never queued and flushing it is a no-op
++ * that does not read the G2H CTB, leaving messages the GuC has already
++ * posted unprocessed until the next interrupt arrives. Queue the worker
++ * before flushing it so the flush always drains the G2H CTB. A spurious
++ * worker run is safe: it returns without side effects if the CTB is empty
++ * or CT communication is disabled.
++ */
++void xe_guc_ct_flush_g2h(struct xe_guc_ct *ct)
++{
++	if (!xe_guc_ct_enabled(ct))
++		return;
++
++	queue_work(ct->g2h_wq, &ct->g2h_worker);
++	flush_work(&ct->g2h_worker);
++}
++
+ static struct xe_guc_ct_snapshot *guc_ct_snapshot_alloc(struct xe_guc_ct *ct, bool atomic,
+ 							bool want_ctb)
+ {
+diff --git a/drivers/gpu/drm/xe/xe_guc_ct.h b/drivers/gpu/drm/xe/xe_guc_ct.h
+index 767365a33de..4e0338953f1 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ct.h
++++ b/drivers/gpu/drm/xe/xe_guc_ct.h
+@@ -22,6 +22,7 @@ void xe_guc_ct_runtime_suspend(struct xe_guc_ct *ct);
+ void xe_guc_ct_stop(struct xe_guc_ct *ct);
+ void xe_guc_ct_flush_and_stop(struct xe_guc_ct *ct);
+ void xe_guc_ct_fast_path(struct xe_guc_ct *ct);
++void xe_guc_ct_flush_g2h(struct xe_guc_ct *ct);
  
- 	/* allocate dma memory */
- 	priv->shared = dma_alloc_coherent(dev, SHARED_SIZE,
+ struct xe_guc_ct_snapshot *xe_guc_ct_snapshot_capture(struct xe_guc_ct *ct);
+ void xe_guc_ct_snapshot_print(struct xe_guc_ct_snapshot *snapshot, struct drm_printer *p);
+diff --git a/drivers/gpu/drm/xe/xe_guc_tlb_inval.c b/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
+index 046d0655122..91960dc4ba9 100644
+--- a/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
++++ b/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
+@@ -327,7 +327,7 @@ static void tlb_inval_flush(struct xe_tlb_inval *tlb_inval)
+ {
+ 	struct xe_guc *guc = tlb_inval->private;
+ 
+-	LNL_FLUSH_WORK(&guc->ct.g2h_worker);
++	xe_guc_ct_flush_g2h(&guc->ct);
+ }
+ 
+ static long tlb_inval_timeout_delay(struct xe_tlb_inval *tlb_inval)
 -- 
-2.34.1
+2.55.0
 
