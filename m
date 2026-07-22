@@ -4,55 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F3F3C4453A
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 09:49:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD7ACC4453D
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Jul 2026 09:49:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3C0810ED10;
-	Wed, 22 Jul 2026 09:49:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11CC410ED18;
+	Wed, 22 Jul 2026 09:49:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="sRAaH/ub";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SOysxWJW";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB4E710ED10
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 09:49:29 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 56F334E40EC4;
- Wed, 22 Jul 2026 09:49:28 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 2B57B60388;
- Wed, 22 Jul 2026 09:49:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 6D6F411BD1C3E; 
- Wed, 22 Jul 2026 11:49:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1784713767; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=DwqaYl2u6ozHetdvc/pa9W4sLF5l+X9UH8Twm0l8b5o=;
- b=sRAaH/ubXawQiSsAQXM5IjGeAnFMGwC63jIGnVhQS8E2FXcHC8waO8Z07eu8I6qRkPBAHC
- Wa6FL78uuOJXFWpsgympW7bVh1FWD4Al4Huj6gg3JUwUMwZowPxcxjLsjyVePtS7udJpoA
- 7wOOghVm4XnkCfGbv8eGcJzIeBa4FUNGZDtck6XzfaKunXHWxPdWdYyuNwZ8BUJBprdnUn
- QzdHNgj1TStDn2uPQmhEsWj7oEnE97nHajWVa2VjGOWIgHEvz4hUgSr86mXd0MWiieYwfZ
- IF+t09nHYjIR0RbeOY2Zutd/m6ZV+t7urq4ijt6DpidWLw5raenYs36qXSWF3A==
-From: Romain Gantois <romain.gantois@bootlin.com>
-Date: Wed, 22 Jul 2026 11:49:12 +0200
-Subject: [PATCH v3 1/2] drm/logicvc: Avoid use-after-free with devm_kzalloc()
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012007.outbound.protection.outlook.com [52.101.48.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 519A810ED14;
+ Wed, 22 Jul 2026 09:49:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=btm75pNYbgoDruBrlJbwO/zssoPAbcbPmesYJEe11l8LXcPt7ce79iXDzqnuSuiaaPoQefRIssphYSkwRAs9zWHMCkfgIQQJ3M4c8M3PvGcLAmiu+GVsKNi7u0O8DnhSULGMQaxUDqcD3bQ2RGFgvMhXmPyBAzqbDXBPEBwRVIOeaQlbHhqo0ms92vxvBJsLJzZTmnyuEXwqmfXggY8AjDkCXeZ9+OaVImHsLNMWo9+Vr0e2mjFgg02SHxMHGbZJPCv96wE5O7hIF6jQs/bOn2E6oU7lglSXgGq8GmU5ZZrl0NL0vj7xEmbsvK57IeCmf0+M+XWkCFDRJt42n5uBsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s7vmdZcTo+shrGIK/XXIJZw2P2eIlfdtw8hzsAzKmbQ=;
+ b=oPR+/edRoTlZlSaymFoo6ZDSTfGhwEfVjA2L2blzNFMf7wLKCWuC0J5aYlkM5qhzppxm5qgImZgKiOvesFNWRedsWWrIJPmPWiHQhh8gW5kGy4hc8h5R4rnCBnkCaFL+fxjYUoP8M2rUCpdE3G2F8UscWd/CgLXhum7Q9rTrZCOr4GP6PwsNVyaLg64WGwHYOT/H+OcxVlCffcRQxkGAACrOoylMGScqDZYtNk2BL0HklCR/r2vjZWAzooOFZcioGfoQ1y2XW5it0d7E9xp6T+iYs+X2kJ/9vbVKyWln8HFnqMp4Fu0qlbscxrM3eXLKq+zOfsyqLGp0O8gIbbaKZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s7vmdZcTo+shrGIK/XXIJZw2P2eIlfdtw8hzsAzKmbQ=;
+ b=SOysxWJWbjdpm6jCTOaMcUrYQpt9QfVhX1/QgZqr9FXww+qMu3cZvMJaTXXVyQriJ/5iOsSjojWGA1RU17Hz/y9A72nOhF1w2WrMOgHHbOSRsbe0g3ZNXl6amOFMxx8LDrPOhlVQNh01JFyJZbU/LqJEWS6PLzZ0VgLWd4qsDog=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
+ by CY5PR12MB6108.namprd12.prod.outlook.com (2603:10b6:930:27::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Wed, 22 Jul
+ 2026 09:49:45 +0000
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d%3]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
+ 09:49:45 +0000
+Message-ID: <e408f057-4c7b-4778-8dc8-f9e44e2f0d86@amd.com>
+Date: Wed, 22 Jul 2026 15:19:34 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
+ amdgpu_vram_mgr_init()
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Sashiko-bot <sashiko-bot@kernel.org>,
+ Friedrich Vock <friedrich.vock@gmx.de>, Maarten Lankhorst
+ <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
+References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
+ <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
+ <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
+ <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
+ <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
+ <60de7db0d25e387de4c13d0acb52d2dc1cc22d39.camel@linux.intel.com>
+ <06bcc2e8-a7fd-483d-8c73-2a253b433840@linux.intel.com>
+Content-Language: en-US
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <06bcc2e8-a7fd-483d-8c73-2a253b433840@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0244.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:223::15) To DM4PR12MB5039.namprd12.prod.outlook.com
+ (2603:10b6:5:38a::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-logicvc-uaf-v3-1-f3b2319d58a6@bootlin.com>
-References: <20260722-logicvc-uaf-v3-0-f3b2319d58a6@bootlin.com>
-In-Reply-To: <20260722-logicvc-uaf-v3-0-f3b2319d58a6@bootlin.com>
-To: Paul Kocialkowski <paulk@sys-base.io>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Romain Gantois <romain.gantois@bootlin.com>, 
- Jason Xiang <jx@jasonxiang.net>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|CY5PR12MB6108:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9fbf301d-8eaa-4882-1cfc-08dee7d68f5e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|7416014|376014|18002099003|22082099003|4143699003|56012099006|11063799006|10067099003|6133799003;
+X-Microsoft-Antispam-Message-Info: gS/vfhADQt72/OnboSN10eLx63a2tsjHB2UQHcx0zkvagOeilMYrLcGLESzhHBkp/ZVn4owy5f47oCQVacGxsxRqdhYvI42WEe+pHjwxxC6m0H3gU7oVtCP2HXoFjNjQWLLHEOiMi9oz+8+ZwCKryv6XMD1f4F1nRTd42nn3SnnBt/G6sTKHbUk7+fYRYLmUwiW3ymZWThn/9sPxe7fzv4rL+4WhCwmVaA8PuA+FarUI/BBiuiMG/9osykbFqV114Ef7AYivvu4ib+XASU4YABxZbQlsjq43mwOizK1OWsbl4IDHhelsTGj1F1DAbLAJV6hLH5Spf30pA4Knspf1PdnOOjq5scy97wr7bAedWqeWCNGI/AK43SVbYTbvFwfGkAZy9x74xAPgaDqickbO72bnpohVpQ8TEG42pqYVM4RZjVIKATW/8RCSE81rVT6X7rupIBJMzEPQ7Bk+43nfvLXXY6Gjal6GSK37FNzoH9CO1H2T10pzRLvHm23Je7lpqLjg1GEAfMOI7lgkqqw8S19UhepJ1gDt4iGsxYB5PKg1z7Ed1kCDQvszhB7wGE5BlvTBuzVtBSajY21LHjut58HMeRH1qAaYmvd4PFEUZeU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006)(10067099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2JScWNXczdRWkJxaFpnN0RBVkJrZE5UTTlrUEhEVUlDbHowaVJNL2JNRVR3?=
+ =?utf-8?B?OG5JUkhGMDVTK2VXYWVNMlBiYm52UWZiRnVQbGRmZ1FMd3lNRGNkWGVTMDFT?=
+ =?utf-8?B?WmVGNjlEYWVnTk1mK09rKzFpSkZETS9OU091ckZkeGJJQjR4ZkVwRFZGSmtK?=
+ =?utf-8?B?NGZsUmpEREZaWERrYmpVbEduU1FOWi9QT1NiSG5jbGFhMllaSDRuZ0ExOVBK?=
+ =?utf-8?B?SWRocVJVR01sa1lTQVVVNm5idVpMTWt1VFlkQ3dkZTlxZmprYVlrNkZYd2Nx?=
+ =?utf-8?B?bmtqRmp1d2QvdGppNEdiOStZZWhaNWFoNEdsQ3gzY1U4TXJ2VGZheVpLemZ4?=
+ =?utf-8?B?TlF6akNQcTdsTWh3TkgxVTFMWm9JL1pqRHhjazBpd21kd2NTZDFjM0QrMmRN?=
+ =?utf-8?B?K1B1M1ZIZzRlam1jMU1PRE1oVU1Rbm5JOEFLeCtDN3puVnBzcjRBclRRcVFF?=
+ =?utf-8?B?R1FSNStzQmRDZnJnbEFlTUU3UXJzdmVibE1lUElONU9maHZWb0J5eDVEcVYr?=
+ =?utf-8?B?Vm9UU3NwTHh4SmhTcmtNOU5iOTM0eXhLVktGYzdhZGg5emJndTdiSmsyOHU0?=
+ =?utf-8?B?TmV1SnY0VmhHbnE3R1NQczNxbkJYajBMVTc2dWh2SWpxU3pLL2NvcWVCaEZO?=
+ =?utf-8?B?aGcya1JBSzRDRU5xOE9KMmhIb0Y4eCt3TGxwcmFCc2x2WU1xZzFHbENHVkJN?=
+ =?utf-8?B?bUxGTjV0N2kxbXdhL0ZueG1DcFROVGFKS0dKZXBoYmdwWlZHOGVRRi9RU0NJ?=
+ =?utf-8?B?TldXZmxNMmtYZ3hlMjJ0NDVzVVpBZXdMZFJ1QllrQ0p1eEliSWRMRENOZFRO?=
+ =?utf-8?B?bG9KTS9XcTM3bUJMbU1aekpJVFpXU0dwTTF5UDYvQ2VtRVQxUmt3ZENZa3JL?=
+ =?utf-8?B?ck90SmtxbHMvWGlPUCtFLy9FeVBVQmR3bExyUHZrUTE0RTBDdlRnUjdyYkFl?=
+ =?utf-8?B?blBVMnYxaVpzOFJNVERSVHVJN3lQa2d0ZkxwOWpEcnJYR0orcFRKNWZMUXo3?=
+ =?utf-8?B?WlhYWkowYjRNbHNCa1ZnRTVhQWtxakNHY01KQ2pPVjVJRGFITDNJREdkem55?=
+ =?utf-8?B?ZlpYZmMvTXVGMUszZmNINjFDdlZMaHVobCtnZHY2R1pMa3lLeUgzNVRUNnJB?=
+ =?utf-8?B?Q3pJanhJYlR2aVVlTk1ycmFtSjBsb3FaMUZnSlVEakl5cjBXR3BXeTM3RnJT?=
+ =?utf-8?B?Zmwzbllkdkx2SFdyVkRGK2wreldKNng0bW9mbVBCdXBJZU53OTllbHlNNWk3?=
+ =?utf-8?B?bmxsd3hCWnlYZ25STWhIUGxURjQ0Yi9LYktwYzRaN0kxWHVhOHZ3dERST3hR?=
+ =?utf-8?B?Zkk5UHprWlFnRWFSN0daUzVyS2ZNRDZxY09aTVllTUs1cEpScGhtNDFsdlB5?=
+ =?utf-8?B?dmRpUENiRUk2eXNiWWpyVFlsUTgyd0MrRUZ4QkdIbWZHRWRmUzNzaWFQU1JN?=
+ =?utf-8?B?MEE5b29ubXhNVVBrempqYmY2aS9PS0NmNXNvU2dZYkNMdzJDeTlkZG05RnQy?=
+ =?utf-8?B?aWRKdzEyYU0yUDZ0ZEE0bzhLWW5leFJIWEV3WnorZE13bEJZMDBXOHNZeWl1?=
+ =?utf-8?B?QWpMVUJBNk9SZHY2d1VhVEx3YmFCTGUxQkZQTFFQZ0ZEVEdNd2plYXpLelc3?=
+ =?utf-8?B?N01FNFlBSjNETmpnSHZzVGZ0dFI1UlRnb3lIc3R6cGlCUGtHbC81ZDN4Yjlm?=
+ =?utf-8?B?b3RQSGl4TXdta1NCYXBLa2ZIU3psWU85SW1lYkNydlhoOTJSdTZTTWNnamVB?=
+ =?utf-8?B?TVJpQkczZ09ENFFod0U5cmdYQXRIMEdFM3o3ajllVEtINU9WM1V2UnY5Wk5U?=
+ =?utf-8?B?WXFLSnZQTkVzb2ZaZDd4QVg0b0cyQXJZOC9PRDhKdzBSOXUrUmFZZ3VMWFlh?=
+ =?utf-8?B?RWhkYTFZcjJBMDFGdmtubFFTRVdIVlcrYkZMRk9BdFduOW5CSDgzL1FtOUQ2?=
+ =?utf-8?B?VVlMV255S1lQQXpFWVdkSHJ1cXpybTNaU1h4eXpiZDVrcTcveEh6aUhyelFu?=
+ =?utf-8?B?K2R3V0pFQStsQitycFdvOFlBcVJtaFZaSHR1Rjh6eDUxa1V5V3haNUgzODJk?=
+ =?utf-8?B?TEloUmM4Mlk5aVQrUTVhb2wzSkp6MDliUzdPc2kxZEFaNUs4U0NxUUF1U21k?=
+ =?utf-8?B?RXZnVWhQVDN5NlJ5d0xrUEJ5bU9IMWhyMXprenBiUmloMlJNRWQ0SHRPLy8w?=
+ =?utf-8?B?OVk1UkN1Y3ZNWkNSVVN1WG9xWi9KQ2NURUJ6MUxEOG4wWXg0VjE3MzlNa3dE?=
+ =?utf-8?B?d25MZUxydkpIS1NyT0x2K0RCelZUTS83RU0zRzAyVGt0SzRFWEQ5NUhVU2Zy?=
+ =?utf-8?B?Z1c1NkRWd2I3K3pkZ28vY3lqZjJlV2pNVm5TbEF6N25Cc01HY2c3QT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fbf301d-8eaa-4882-1cfc-08dee7d68f5e
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 09:49:45.0911 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w03tZvsmr2OS8ZNMVP1+NFkQPXOZnW45Ts9UPRi2f0hOz/sxOqP/4NQO5FB3FlqIz4xtn5L1tXgXwQRKsOOYUw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6108
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,408 +157,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The logicvc driver calls drm_universal_plane_init(),
-drm_crtc_init_with_planes(), and drm_encoder_alloc(). These functions
-should not be called with structs allocated with devm_kzalloc(), as this
-can lead to use-after-free bugs. In fact, a use-after-free caused by this
-has been observed on a v6.6 kernel.
 
-Use DRM-managed allocations instead for panel, CRTC and encoder objects.
 
-Found using KASAN.
+On 7/21/2026 5:56 PM, Maarten Lankhorst wrote:
+> Hey,
+>
+> On 7/21/26 14:10, Thomas Hellström wrote:
+>> Hi, Maarten,
+>>
+>> On Tue, 2026-07-21 at 13:46 +0200, Maarten Lankhorst wrote:
+>>> Hey,
+>>>
+>>> Can I merge this through drm-misc-next together with the rest of the
+>>> series?
+>>>
+>>> Kind regards
+>>> ~Maarten
+>> For the xe patches, Ack from me.
+>>
+>> I do have a v8 that fixes a sashiko comment on the last patch, though,
+>> but I was holding that awaiting a review on the other patches.
+> Yeah seems about right. Patches themselves look good to me now, so would be nice if amd can ack here or in v8.
+I have already sent my Reviewed-by for this patch.
+Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-Fixes: efeeaefe9be56 ("drm: Add support for the LogiCVC display controller")
-Cc: stable@vger.kernel.org
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
----
- drivers/gpu/drm/logicvc/logicvc_crtc.c      |  17 ++---
- drivers/gpu/drm/logicvc/logicvc_interface.c |  49 +++++--------
- drivers/gpu/drm/logicvc/logicvc_layer.c     | 105 +++++++++++++---------------
- 3 files changed, 75 insertions(+), 96 deletions(-)
-
-diff --git a/drivers/gpu/drm/logicvc/logicvc_crtc.c b/drivers/gpu/drm/logicvc/logicvc_crtc.c
-index 43a675d03808f..3a4c347eaa648 100644
---- a/drivers/gpu/drm/logicvc/logicvc_crtc.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_crtc.c
-@@ -13,6 +13,7 @@
- #include <drm/drm_crtc.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_gem_dma_helper.h>
-+#include <drm/drm_managed.h>
- #include <drm/drm_print.h>
- #include <drm/drm_vblank.h>
- 
-@@ -214,7 +215,6 @@ static void logicvc_crtc_disable_vblank(struct drm_crtc *drm_crtc)
- 
- static const struct drm_crtc_funcs logicvc_crtc_funcs = {
- 	.reset			= drm_atomic_helper_crtc_reset,
--	.destroy		= drm_crtc_cleanup,
- 	.set_config		= drm_atomic_helper_set_config,
- 	.page_flip		= drm_atomic_helper_page_flip,
- 	.atomic_duplicate_state	= drm_atomic_helper_crtc_duplicate_state,
-@@ -250,11 +250,6 @@ int logicvc_crtc_init(struct logicvc_drm *logicvc)
- 	struct device_node *of_node = dev->of_node;
- 	struct logicvc_crtc *crtc;
- 	struct logicvc_layer *layer_primary;
--	int ret;
--
--	crtc = devm_kzalloc(dev, sizeof(*crtc), GFP_KERNEL);
--	if (!crtc)
--		return -ENOMEM;
- 
- 	layer_primary = logicvc_layer_get_primary(logicvc);
- 	if (!layer_primary) {
-@@ -262,12 +257,12 @@ int logicvc_crtc_init(struct logicvc_drm *logicvc)
- 		return -EINVAL;
- 	}
- 
--	ret = drm_crtc_init_with_planes(drm_dev, &crtc->drm_crtc,
--					&layer_primary->drm_plane, NULL,
--					&logicvc_crtc_funcs, NULL);
--	if (ret) {
-+	crtc = drmm_crtc_alloc_with_planes(drm_dev, struct logicvc_crtc,
-+					   drm_crtc, &layer_primary->drm_plane,
-+					   NULL, &logicvc_crtc_funcs, NULL);
-+	if (IS_ERR(crtc)) {
- 		drm_err(drm_dev, "Failed to initialize CRTC\n");
--		return ret;
-+		return PTR_ERR(crtc);
- 	}
- 
- 	drm_crtc_helper_add(&crtc->drm_crtc, &logicvc_crtc_helper_funcs);
-diff --git a/drivers/gpu/drm/logicvc/logicvc_interface.c b/drivers/gpu/drm/logicvc/logicvc_interface.c
-index 689049d395c0d..0d037f37b950f 100644
---- a/drivers/gpu/drm/logicvc/logicvc_interface.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_interface.c
-@@ -12,6 +12,7 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_gem_dma_helper.h>
-+#include <drm/drm_managed.h>
- #include <drm/drm_modeset_helper_vtables.h>
- #include <drm/drm_of.h>
- #include <drm/drm_panel.h>
-@@ -60,10 +61,6 @@ static const struct drm_encoder_helper_funcs logicvc_encoder_helper_funcs = {
- 	.disable		= logicvc_encoder_disable,
- };
- 
--static const struct drm_encoder_funcs logicvc_encoder_funcs = {
--	.destroy		= drm_encoder_cleanup,
--};
--
- static int logicvc_connector_get_modes(struct drm_connector *drm_connector)
- {
- 	struct logicvc_interface *interface =
-@@ -84,7 +81,6 @@ static const struct drm_connector_helper_funcs logicvc_connector_helper_funcs =
- static const struct drm_connector_funcs logicvc_connector_funcs = {
- 	.reset			= drm_atomic_helper_connector_reset,
- 	.fill_modes		= drm_helper_probe_single_connector_modes,
--	.destroy		= drm_connector_cleanup,
- 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
- 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
- };
-@@ -147,36 +143,35 @@ int logicvc_interface_init(struct logicvc_drm *logicvc)
- 	int encoder_type = logicvc_interface_encoder_type(logicvc);
- 	int connector_type = logicvc_interface_connector_type(logicvc);
- 	bool native_connector = logicvc_interface_native_connector(logicvc);
-+	struct drm_bridge *bridge;
-+	struct drm_panel *panel;
- 	int ret;
- 
--	interface = devm_kzalloc(dev, sizeof(*interface), GFP_KERNEL);
--	if (!interface) {
--		ret = -ENOMEM;
--		goto error_early;
--	}
--
--	ret = drm_of_find_panel_or_bridge(of_node, 0, 0, &interface->drm_panel,
--					  &interface->drm_bridge);
-+	ret = drm_of_find_panel_or_bridge(of_node, 0, 0, &panel,
-+					  &bridge);
- 	if (ret == -EPROBE_DEFER)
--		goto error_early;
-+		return ret;
- 
--	ret = drm_encoder_init(drm_dev, &interface->drm_encoder,
--			       &logicvc_encoder_funcs, encoder_type, NULL);
--	if (ret) {
-+	interface = drmm_encoder_alloc(drm_dev, struct logicvc_interface, drm_encoder,
-+				       NULL, encoder_type, NULL);
-+	if (IS_ERR(interface)) {
- 		drm_err(drm_dev, "Failed to initialize encoder\n");
--		goto error_early;
-+		return PTR_ERR(interface);
- 	}
- 
-+	interface->drm_panel = panel;
-+	interface->drm_bridge = bridge;
-+
- 	drm_encoder_helper_add(&interface->drm_encoder,
- 			       &logicvc_encoder_helper_funcs);
- 
- 	if (native_connector || interface->drm_panel) {
--		ret = drm_connector_init(drm_dev, &interface->drm_connector,
--					 &logicvc_connector_funcs,
--					 connector_type);
-+		ret = drmm_connector_init(drm_dev, &interface->drm_connector,
-+					  &logicvc_connector_funcs,
-+					  connector_type, NULL);
- 		if (ret) {
- 			drm_err(drm_dev, "Failed to initialize connector\n");
--			goto error_encoder;
-+			return ret;
- 		}
- 
- 		drm_connector_helper_add(&interface->drm_connector,
-@@ -187,7 +182,7 @@ int logicvc_interface_init(struct logicvc_drm *logicvc)
- 		if (ret) {
- 			drm_err(drm_dev,
- 				"Failed to attach connector to encoder\n");
--			goto error_encoder;
-+			return ret;
- 		}
- 	}
- 
-@@ -197,17 +192,11 @@ int logicvc_interface_init(struct logicvc_drm *logicvc)
- 		if (ret) {
- 			drm_err(drm_dev,
- 				"Failed to attach bridge to encoder\n");
--			goto error_encoder;
-+			return ret;
- 		}
- 	}
- 
- 	logicvc->interface = interface;
- 
- 	return 0;
--
--error_encoder:
--	drm_encoder_cleanup(&interface->drm_encoder);
--
--error_early:
--	return ret;
- }
-diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/logicvc/logicvc_layer.c
-index eab4d773f92b6..de1f4a8a61557 100644
---- a/drivers/gpu/drm/logicvc/logicvc_layer.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
-@@ -13,6 +13,7 @@
- #include <drm/drm_fb_dma_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
-+#include <drm/drm_managed.h>
- #include <drm/drm_plane.h>
- #include <drm/drm_print.h>
- 
-@@ -250,7 +251,6 @@ static struct drm_plane_helper_funcs logicvc_plane_helper_funcs = {
- static const struct drm_plane_funcs logicvc_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
--	.destroy		= drm_plane_cleanup,
- 	.reset			= drm_atomic_helper_plane_reset,
- 	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
- 	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
-@@ -350,16 +350,17 @@ int logicvc_layer_buffer_find_setup(struct logicvc_drm *logicvc,
- 	return 0;
- }
- 
--static struct logicvc_layer_formats *logicvc_layer_formats_lookup(struct logicvc_layer *layer)
-+static struct logicvc_layer_formats *
-+logicvc_layer_formats_lookup(struct logicvc_layer_config *config)
- {
- 	bool alpha;
- 	unsigned int i = 0;
- 
--	alpha = (layer->config.alpha_mode == LOGICVC_LAYER_ALPHA_PIXEL);
-+	alpha = (config->alpha_mode == LOGICVC_LAYER_ALPHA_PIXEL);
- 
- 	while (logicvc_layer_formats[i].formats) {
--		if (logicvc_layer_formats[i].colorspace == layer->config.colorspace &&
--		    logicvc_layer_formats[i].depth == layer->config.depth &&
-+		if (logicvc_layer_formats[i].colorspace == config->colorspace &&
-+		    logicvc_layer_formats[i].depth == config->depth &&
- 		    logicvc_layer_formats[i].alpha == alpha)
- 			return &logicvc_layer_formats[i];
- 
-@@ -380,10 +381,9 @@ static unsigned int logicvc_layer_formats_count(struct logicvc_layer_formats *fo
- }
- 
- static int logicvc_layer_config_parse(struct logicvc_drm *logicvc,
--				      struct logicvc_layer *layer)
-+				      struct device_node *of_node,
-+				      struct logicvc_layer_config *config)
- {
--	struct device_node *of_node = layer->of_node;
--	struct logicvc_layer_config *config = &layer->config;
- 	int ret;
- 
- 	logicvc_of_property_parse_bool(of_node,
-@@ -458,11 +458,30 @@ struct logicvc_layer *logicvc_layer_get_primary(struct logicvc_drm *logicvc)
- 	return logicvc_layer_get_from_type(logicvc, DRM_PLANE_TYPE_PRIMARY);
- }
- 
-+static void logicvc_layer_set_config(struct logicvc_layer *layer,
-+				     struct logicvc_layer_config *config)
-+{
-+	layer->config.colorspace = config->colorspace;
-+	layer->config.depth = config->depth;
-+	layer->config.alpha_mode = config->alpha_mode;
-+	layer->config.base_offset = config->base_offset;
-+	layer->config.buffer_offset = config->buffer_offset;
-+	layer->config.primary = config->primary;
-+}
-+
-+static void logicvc_layer_fini(struct drm_device *drm_dev,
-+			       void *data)
-+{
-+	struct logicvc_layer *layer = data;
-+
-+	list_del(&layer->list);
-+}
-+
- static int logicvc_layer_init(struct logicvc_drm *logicvc,
- 			      struct device_node *of_node, u32 index)
- {
- 	struct drm_device *drm_dev = &logicvc->drm_dev;
--	struct device *dev = drm_dev->dev;
-+	struct logicvc_layer_config config = { 0 };
- 	struct logicvc_layer *layer = NULL;
- 	struct logicvc_layer_formats *formats;
- 	unsigned int formats_count;
-@@ -470,28 +489,18 @@ static int logicvc_layer_init(struct logicvc_drm *logicvc,
- 	unsigned int zpos;
- 	int ret;
- 
--	layer = devm_kzalloc(dev, sizeof(*layer), GFP_KERNEL);
--	if (!layer) {
--		ret = -ENOMEM;
--		goto error;
--	}
--
--	layer->of_node = of_node;
--	layer->index = index;
--
--	ret = logicvc_layer_config_parse(logicvc, layer);
-+	ret = logicvc_layer_config_parse(logicvc, of_node, &config);
- 	if (ret) {
- 		drm_err(drm_dev, "Failed to parse config for layer #%d\n",
- 			index);
--		goto error;
-+		return ret;
- 	}
- 
--	formats = logicvc_layer_formats_lookup(layer);
-+	formats = logicvc_layer_formats_lookup(&config);
- 	if (!formats) {
- 		drm_err(drm_dev, "Failed to lookup formats for layer #%d\n",
- 			index);
--		ret = -EINVAL;
--		goto error;
-+		return -EINVAL;
- 	}
- 
- 	formats_count = logicvc_layer_formats_count(formats);
-@@ -511,24 +520,27 @@ static int logicvc_layer_init(struct logicvc_drm *logicvc,
- 		regmap_write(logicvc->regmap, LOGICVC_BACKGROUND_COLOR_REG,
- 			     background);
- 
--		devm_kfree(dev, layer);
--
- 		return 0;
- 	}
- 
--	if (layer->config.primary)
-+	if (config.primary)
- 		type = DRM_PLANE_TYPE_PRIMARY;
- 	else
- 		type = DRM_PLANE_TYPE_OVERLAY;
- 
--	ret = drm_universal_plane_init(drm_dev, &layer->drm_plane, 0,
--				       &logicvc_plane_funcs, formats->formats,
--				       formats_count, NULL, type, NULL);
--	if (ret) {
-+	layer = drmm_universal_plane_alloc(drm_dev, struct logicvc_layer,
-+					   drm_plane, 0, &logicvc_plane_funcs,
-+					   formats->formats, formats_count,
-+					   NULL, type, NULL);
-+	if (IS_ERR(layer)) {
- 		drm_err(drm_dev, "Failed to initialize layer plane\n");
--		return ret;
-+		return PTR_ERR(layer);
- 	}
- 
-+	layer->of_node = of_node;
-+	layer->index = index;
-+	logicvc_layer_set_config(layer, &config);
-+
- 	drm_plane_helper_add(&layer->drm_plane, &logicvc_plane_helper_funcs);
- 
- 	zpos = logicvc->config.layers_count - index - 1;
-@@ -545,22 +557,13 @@ static int logicvc_layer_init(struct logicvc_drm *logicvc,
- 
- 	list_add_tail(&layer->list, &logicvc->layers_list);
- 
--	return 0;
--
--error:
--	if (layer)
--		devm_kfree(dev, layer);
--
--	return ret;
--}
-+	ret = drmm_add_action_or_reset(drm_dev, logicvc_layer_fini,
-+				       layer);
-+	if (ret)
-+		return ret;
- 
--static void logicvc_layer_fini(struct logicvc_drm *logicvc,
--			       struct logicvc_layer *layer)
--{
--	struct device *dev = logicvc->drm_dev.dev;
- 
--	list_del(&layer->list);
--	devm_kfree(dev, layer);
-+	return 0;
- }
- 
- void logicvc_layers_attach_crtc(struct logicvc_drm *logicvc)
-@@ -584,14 +587,12 @@ int logicvc_layers_init(struct logicvc_drm *logicvc)
- 	struct device_node *layer_node = NULL;
- 	struct device_node *layers_node;
- 	struct logicvc_layer *layer;
--	struct logicvc_layer *next;
- 	int ret = 0;
- 
- 	layers_node = of_get_child_by_name(of_node, "layers");
- 	if (!layers_node) {
- 		drm_err(drm_dev, "No layers node found in the description\n");
--		ret = -ENODEV;
--		goto error;
-+		return -ENODEV;
- 	}
- 
- 	for_each_child_of_node(layers_node, layer_node) {
-@@ -614,17 +615,11 @@ int logicvc_layers_init(struct logicvc_drm *logicvc)
- 		ret = logicvc_layer_init(logicvc, layer_node, index);
- 		if (ret) {
- 			of_node_put(layers_node);
--			goto error;
-+			return ret;
- 		}
- 	}
- 
- 	of_node_put(layers_node);
- 
- 	return 0;
--
--error:
--	list_for_each_entry_safe(layer, next, &logicvc->layers_list, list)
--		logicvc_layer_fini(logicvc, layer);
--
--	return ret;
- }
-
--- 
-2.55.0
+Thanks,
+Arun.
+>
+> Series themselves look good, so feel free to add my r-b to entire series: (and Thadeu's t-b)
+>
+> Reviewed-By: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>
+>> Thanks,
+>> Thomas
+>>
+>>
+>>
+>>> On 7/7/26 20:05, Arunpravin Paneer Selvam wrote:
+>>>>
+>>>> On 7/3/2026 6:38 PM, Christian König wrote:
+>>>>> Arun please take a look at this.
+>>>> Sure Christian. This fix looks correct to me.
+>>>> Reviewed-by: Arunpravin Paneer Selvam
+>>>> <Arunpravin.PaneerSelvam@amd.com>
+>>>>
+>>>> Thanks,
+>>>> Arun.
+>>>>> Thanks,
+>>>>> Christian.
+>>>>>
+>>>>> On 7/3/26 15:05, Thomas Hellström wrote:
+>>>>>> drmm_cgroup_register_region() is called before INIT_LIST_HEAD()
+>>>>>> and
+>>>>>> gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the
+>>>>>> function
+>>>>>> returns early and bypasses those initializations.
+>>>>>>
+>>>>>> Since adev->mman.initialized is set to true before
+>>>>>> amdgpu_vram_mgr_init()
+>>>>>> is called, a failure triggers amdgpu_ttm_fini(), which calls
+>>>>>> amdgpu_vram_mgr_fini(), which then:
+>>>>>>
+>>>>>>    - Calls list_for_each_entry_safe() on reservations_pending
+>>>>>> and
+>>>>>>      reserved_pages, whose list_head::next pointers are zero-
+>>>>>> initialized
+>>>>>>      (NULL). The loop does not recognize them as empty and
+>>>>>> dereferences NULL.
+>>>>>>
+>>>>>>    - Calls gpu_buddy_fini(), which iterates free_trees[]
+>>>>>> unconditionally
+>>>>>>      via for_each_free_tree(). Since mm->free_trees is NULL
+>>>>>>      (never allocated), this dereferences NULL.
+>>>>>>
+>>>>>> Both result in a kernel panic on the module load error path.
+>>>>>>
+>>>>>> Fix by moving drmm_cgroup_register_region() to after the list
+>>>>>> and buddy
+>>>>>> allocator are fully initialized, so the teardown path is safe
+>>>>>> to run.
+>>>>>>
+>>>>>> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
+>>>>>> Closes:
+>>>>>> https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
+>>>>>> Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in
+>>>>>> TTM")
+>>>>>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
+>>>>>> Cc: Maarten Lankhorst <dev@lankhorst.se>
+>>>>>> Cc: Tejun Heo <tj@kernel.org>
+>>>>>> Cc: Maxime Ripard <mripard@kernel.org>
+>>>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>>>> Cc: amd-gfx@lists.freedesktop.org
+>>>>>> Cc: dri-devel@lists.freedesktop.org
+>>>>>> Cc: <stable@vger.kernel.org> # v6.14+
+>>>>>> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+>>>>>> Signed-off-by: Thomas Hellström
+>>>>>> <thomas.hellstrom@linux.intel.com>
+>>>>>> ---
+>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
+>>>>>>    1 file changed, 4 insertions(+), 3 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>>> index 2a241a5b12c4..ac3f71d77140 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>>> @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct
+>>>>>> amdgpu_device *adev)
+>>>>>>        struct ttm_resource_manager *man = &mgr->manager;
+>>>>>>        int err;
+>>>>>>    -    man->cg = drmm_cgroup_register_region(adev_to_drm(adev),
+>>>>>> "vram", adev->gmc.real_vram_size);
+>>>>>> -    if (IS_ERR(man->cg))
+>>>>>> -        return PTR_ERR(man->cg);
+>>>>>>        ttm_resource_manager_init(man, &adev->mman.bdev,
+>>>>>>                      adev->gmc.real_vram_size);
+>>>>>>    @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct
+>>>>>> amdgpu_device *adev)
+>>>>>>        if (err)
+>>>>>>            return err;
+>>>>>>    +    man->cg = drmm_cgroup_register_region(adev_to_drm(adev),
+>>>>>> "vram", adev->gmc.real_vram_size);
+>>>>>> +    if (IS_ERR(man->cg))
+>>>>>> +        return PTR_ERR(man->cg);
+>>>>>> +
+>>>>>>        ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM,
+>>>>>> &mgr->manager);
+>>>>>>        ttm_resource_manager_set_used(man, true);
+>>>>>>        return 0;
 
