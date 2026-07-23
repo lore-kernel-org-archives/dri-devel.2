@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3CDDC53213
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 22:17:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACC72C53214
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 22:17:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36BA310F22C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A796510F230;
 	Thu, 23 Jul 2026 22:17:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="iT9Wi0cA";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NB1+Vu1f";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D3BE10F226
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D338C10F230
  for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 22:17:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784845042;
- bh=9OEEVTGH6CtYBorsugsyey8Z+5Bz4/YUYRXLfK0S0LI=;
+ s=mail; t=1784845043;
+ bh=k0eRRol0juQKDRwk26Fz36sBhpAIKfOBZOjBCwiTCgw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=iT9Wi0cAWTk0BPVkRYcxlGX3MliTvt/gODTwhFi4S0nfu9V/IBde4G62OY1yd00Kw
- iJcyaCzuqpPJ1517o0eqJ2qgwPAAfz0sOVrurasLJyilM0UEZxyI6Fa+oElt6nMhxZ
- LI26p1u/ZznLKxEpI/Q+u/zTWcmwRMEVgtsUpjBsEbLPcFelJsKEpRz/072136dFGG
- CkHW3J/zZ0AG4lzcGdFp/v7Fw6YkehxjjknVmRgGPMGu5Cl8iRXLDsl1nIpf+Ceddi
- 6t5Z6Wu33kg8P5JxprZm0J/L6CEi5BK4zT75SkVqkZfFTVYIzWu1YqjROKTEWwlWjU
- 7CFqYuqwWr2Ow==
+ b=NB1+Vu1fCV1nTwlfRNX8qIOTQOeHT0VDJjO29BiOv5/vnbUH4W9CcWE8u0QCO+uRe
+ 414bGO78KmWtQrpd6debnqr4phILoNI3K/4igfqD43wC2Nds3qeMtHg4Bm1K9rU48V
+ i6GEQElMGrMVhGiP7EoIC9cSGeFkQUNPoDWlRwBhbnVclhdg9Z6WNmjloZZBeOnhv+
+ bQXqA2X9zz5a/Xw3yDQ6O9S4+OvHnEm+KKRIeAZykv00vAthEHMF3DjLuvw7+ybp+I
+ Avg+Gveuxsd1XnVuTxD2r6DLKm01n75bMzggSBYZTUGWzmRgJQrWF/B6QXMenm8Hae
+ wv8hZ+5gEbhTg==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id AC39217E38B5;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D2AD917E3BAF;
  Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 159B4480038; Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
+ id 20F9F480052; Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 24 Jul 2026 00:17:15 +0200
-Subject: [PATCH v5 07/15] drm/bridge: Add out-of-band HPD notify handler
+Date: Fri, 24 Jul 2026 00:17:22 +0200
+Subject: [PATCH v5 14/15] dt-bindings: display: rockchip: dw-dp: Fix sound
+ DAI cells
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-synopsys-dw-dp-improvements-v5-7-9445c2e87441@collabora.com>
+Message-Id: <20260724-synopsys-dw-dp-improvements-v5-14-9445c2e87441@collabora.com>
 References: <20260724-synopsys-dw-dp-improvements-v5-0-9445c2e87441@collabora.com>
 In-Reply-To: <20260724-synopsys-dw-dp-improvements-v5-0-9445c2e87441@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -65,21 +66,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2377;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3080;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=9OEEVTGH6CtYBorsugsyey8Z+5Bz4/YUYRXLfK0S0LI=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpikvEEFbg1F+E1M6qoMRfvy0KuRci4qdYC6
- V79mAVPRAvWn4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqYpLxAAoJENju1/PI
- O/qarzAQAJdojaS8SDGjiYlZdLf0MSDQ65NzfF7jQsJfIDqC+0s7ey9pDH+0dZZGJIqlBr6xblz
- wXU+f+LBaxkYcKbHKC4WFAxiaWim5PeAJJM8hkS9q1YvuO+bHiZJAi39YfopEAxlAfUBF7BDpm9
- hMq/UJD/gvzRC4PgqJDxo29UcRiHqyw/wwFkO1K+J+9wZij09KuwbdSF/tGhbqTVrS0kBfQpzZj
- bMC3OSSBBUQYLfPe0tlVEpMDA6m6xrpsJUnVXCQOBoQupExYhlAWmzsFLcMYVl4o4erhgs7sS8c
- IP5ec8CevrRcb5/wUhAvUHye/K03ptXojnckLqZoMP9Q1Ih9PpDerzH4iX+bYtIPa/es/M19CNC
- osykMeKpI98CToC+F5zA6TBZoXEMkFFbAD25grA+Dt6NsUFrUZT1Fbc9iocYirN0H02kay9+bYm
- cACXoKBq+nijkk5FGZH2ZaA/aMiSK+1pAevN0N/54xw3MXA5yTZ4yVSbqoUoBKYXIGXyERf2YgG
- 7qNNWNJ/XlwTVCCeRWqXkWUOkM9TApCvOi/zWM1w3qgbDShW9tZ/zCiP7lkrO4fEozHcN6yIiMD
- 1BSsNidIJ58nN9p4Fw+zlTyNN9S+6cdpT6Pb3v69TIUZ4qVZRKxptkSSfpdOM1GOFrju2rDRJ6j
- Ey+bvpCT/H68s4ct3hl8eGA==
+ bh=k0eRRol0juQKDRwk26Fz36sBhpAIKfOBZOjBCwiTCgw=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpikvGv9aRl1I9rdbdJ6KY1XhUsBepalYuih
+ ZEu76KK2kiAaYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqYpLxAAoJENju1/PI
+ O/qaRUgQAKkImUwS1rKg0zuMtEhVWrCaFS3D5vDthyqS7K+2R1JO/YNMsOFmSckaE2J1kcPhZt7
+ AifYn6vnevhgWbH+rGjA/RheouA/KtUDjgpLrYD15Pxt58NTZUB6AMHUor2kuIKNVP03PLE0gul
+ EVmrOFYUMwIccgtsfWn+9JwXXJWYTatbeRrL4VszH5iE4LDUnd/R6SAJ0sq9Gj9OdR5BInO8G6V
+ tr/mB7HrqmkgZ6hPBTsnB/jv0ODAk+fbr4XPXvk8+JBnrlC9xudDSqhvizZSt9MTaH9CIktX7TK
+ bHSRw7SyRgxjq27rtuVVQvC6V1zLquKTvzu7ACPn+PtiDFRpcUQ9mSz6tDkHIayTRRL849eplhE
+ lmv3FXv6Ycun3P7IvxN99pObMxVBMTVkfmFvY4tGNIhxs121VLnt/XpOG0YXM9JKuhUxg6v63Ct
+ /hjPG9RPmR7NGxczUFwfCfCB7PlpNqEGRUbCJ/6f15HKgeIf4icimMvzpyya+m3XFW+UGlcshZg
+ X/wwQJC2JrMMYN2oXexH9GCBrLJ5MMQTLWhDxln21sUV/B+5dfUgNcMVDDVjVL6yUWpqwaWOXmu
+ 6ecd2oKlbOHfyaVBujoM1A6PN66D1wc2LOR1ED3AtYgOCkaA+AisE9tvt+C/RJibbnBLFwu+LDX
+ VqChl59YcHs6czxMnJ6o3lQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -97,66 +98,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For DP bridges, that can be used for DP AltMode, it might be necessary
-to enforce HPD status. There is an existing ->oob_hotplug_event() on
-the DRM connector, but it currently just calls into hpd_notify().
+The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
+possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
+to select the right interface.
 
-As DP bridge drivers usually also implement .detect and that also
-generates calls into hpd_notify, this is a bad place to force the
-HPD status as the follow-up detect call might force it off again
-resulting in all follow-up calls to the detection routine also
-failing.
+In addition to that the RK3576 DisplayPort controller is configured
+with Multi Stream Transport (MST) enabled for up to 3 displays and
+thus has a total of 6 DAI interfaces (I2S and S/PDIF for each possible
+stream). Meanwhile the RK3588 does not support MST and thus has only 2
+DAI interfaces.
 
-Avoid this by having a dedicated function for OOB events.
+The binding update from this patch has only been tested with the simple
+single stream transport (SST) setup as the Linux driver does not yet
+support MST. Once MST support is added, the plan is to simply add more
+numbers to the argument, so that it looks like this for RK3576:
+
+0 = I2S on stream 0,
+1 = S/PDIF on stream 0
+2 = I2S on stream 1,
+3 = S/PDIF on stream 1
+4 = I2S on stream 2,
+5 = S/PDIF on stream 2
+
+As the arguments are not part of the binding itself the audio side
+is also ready for MST after this change.
+
+Switching '#sound-dai-cells' from 0 to 1 without keeping compatibility
+is an ABI break. The rationale for going that way is, that there is not
+a single known driver implementation for the current binding. It's also
+unclear how the current binding would be used (only support I2S or
+S/PDIF for stream 0?). The mainline rk3588 DTS include sets it to 0, but
+does not have any soundcard using the DAI. This will be fixed up
+separately. The RK3576 does not set it at all.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c |  6 ++++++
- include/drm/drm_bridge.h                       | 14 ++++++++++++++
- 2 files changed, 20 insertions(+)
+ .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml     | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 8b54069fa53a..632cc3ae3b54 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -180,6 +180,12 @@ static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connect
- 	struct drm_bridge_connector *bridge_connector =
- 		to_drm_bridge_connector(connector);
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+index 2b0d9e23e943..c4f8959dd65d 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+@@ -25,7 +25,7 @@ description: |
+   * Supports up to 8/10 bits per color component
+   * Supports RBG, YCbCr4:4:4, YCbCr4:2:2, YCbCr4:2:0
+   * Pixel clock up to 594MHz
+-  * I2S, SPDIF audio interface
++  * I2S, S/PDIF audio interface
  
-+	/* Notify all bridges in the pipeline of hotplug events. */
-+	drm_for_each_bridge_in_chain(bridge_connector->encoder, bridge) {
-+		if (bridge->funcs->oob_notify)
-+			bridge->funcs->oob_notify(bridge, connector, status);
-+	}
-+
- 	drm_bridge_connector_handle_hpd(bridge_connector, status);
- }
+ properties:
+   compatible:
+@@ -46,7 +46,7 @@ properties:
+       - description: DisplayPort AUX clock
+       - description: HDCP clock
+       - description: I2S interface clock
+-      - description: SPDIF interfce clock
++      - description: S/PDIF interfce clock
  
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 3ac84ed57ab2..f38010d2edd1 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -540,6 +540,20 @@ struct drm_bridge_funcs {
- 	 */
- 	void (*hpd_disable)(struct drm_bridge *bridge);
+   clock-names:
+     minItems: 3
+@@ -83,7 +83,8 @@ properties:
+     maxItems: 1
  
-+	/**
-+	 * @oob_notify:
-+	 *
-+	 * Notify the bridge of out of band hot plug detection.
-+	 *
-+	 * This callback is optional, it may be implemented by bridges that
-+	 * need to be notified of display connection or disconnection for
-+	 * internal reasons. One use case is to force the DP controllers HPD
-+	 * signal for USB-C DP AltMode.
-+	 */
-+	void (*oob_notify)(struct drm_bridge *bridge,
-+			   struct drm_connector *connector,
-+			   enum drm_connector_status status);
-+
- 	/**
- 	 * @hdmi_tmds_char_rate_valid:
- 	 *
+   "#sound-dai-cells":
+-    const: 0
++    const: 1
++    description: 0 for I2S, 1 for S/PDIF
+ 
+ required:
+   - compatible
+@@ -144,7 +145,7 @@ examples:
+         resets = <&cru SRST_DP0>;
+         phys = <&usbdp_phy0 PHY_TYPE_DP>;
+         power-domains = <&power RK3588_PD_VO0>;
+-        #sound-dai-cells = <0>;
++        #sound-dai-cells = <1>;
+ 
+         ports {
+           #address-cells = <1>;
 
 -- 
 2.53.0
