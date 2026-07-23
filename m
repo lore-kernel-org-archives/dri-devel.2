@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BA0EC531C7
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 09:46:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77B77C531CB
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 09:48:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DA3710E588;
-	Thu, 23 Jul 2026 09:46:33 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BORfaAEg";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 901E010E588
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 09:46:32 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ED64860A67;
- Thu, 23 Jul 2026 09:46:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F9451F000E9;
- Thu, 23 Jul 2026 09:46:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784799991;
- bh=c0op309bUfGA0ctk/Gc5xRw/LObUAXSQRptCHu8HqRc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=BORfaAEge2bgsh1GovGRFQT20U8KHorncsr/Je6lcz0PutT6rInv5N412OjzzkKk8
- dhQrpekbotopVTjFwaNQK/reH7peBqOamowxX3NHAnHLDLwo7wRJ4Q0yzqxZ7RGBc2
- mnhyaTvavdKHoJiG6dIfg2QNSRwlznpF0b+D9ceDuUbf6+Xo2kczew4bwaF278ss/x
- qDUAHZNmNX+HXAbKw5Acszie/fh7C2yo/oqQHjMHEsnTnAogKclcpNYxJAMETetRyk
- uAgp9PGUeswlZGJ0oK5alUchC6wY7joT8jWl8zJVNayhioHnJ68Ok8ucNqvwDEYpC1
- SWGKwaK0Tp5kw==
-Date: Thu, 23 Jul 2026 12:46:25 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: dhu@x6u.co
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>,
- David Laight <david.laight.linux@gmail.com>,
- Nicolin Chen <nicolinc@nvidia.com>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
- Pranjal Shrivastava <praan@google.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- stable@vger.kernel.org, jmoroni@google.com, kpberry@google.com,
- chriscli@google.com, viursachi@google.com, xuehaohu@google.com,
- sashiko-bot <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk
-Message-ID: <20260723094625.GE110966@unreal>
-References: <20260623015459.1153884-1-xuehaohu@google.com>
- <20260722233932.3997681-1-dhu@x6u.co>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D2FA10F04A;
+	Thu, 23 Jul 2026 09:48:06 +0000 (UTC)
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
+ [185.203.200.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F9D210F059
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 09:48:05 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de
+ (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+ (Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C6150201FAF;
+ Thu, 23 Jul 2026 11:48:03 +0200 (CEST)
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <mfe@pengutronix.de>) id 1wmq27-000sTE-2J;
+ Thu, 23 Jul 2026 11:48:03 +0200
+Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+ (envelope-from <mfe@pengutronix.de>) id 1wmq27-0000000EdmK-2SNv;
+ Thu, 23 Jul 2026 11:48:03 +0200
+Date: Thu, 23 Jul 2026 11:48:03 +0200
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ imx@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org,
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 2/4] drm: mxsfb: Add optional DPI output bus-width
+ configuration
+Message-ID: <nwemnkwk5sjo5w6yelba5nmdlxgu7pxsalrxjixnrjlhfyceza@tamb54s7iswz>
+References: <20260723093813.180089-1-francesco@dolcini.it>
+ <20260723093813.180089-3-francesco@dolcini.it>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260722233932.3997681-1-dhu@x6u.co>
+In-Reply-To: <20260723093813.180089-3-francesco@dolcini.it>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,70 +67,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 22, 2026 at 11:39:32PM +0000, dhu@x6u.co wrote:
-> From: David Hu <xuehaohu@google.com>
+Hi Francesco,
+
+On 26-07-23, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
 > 
-> Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-> This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-> first entry, resulting in non-page-aligned DMA addresses for all
-> subsequent entries.
+> LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
+> format reported by the downstream panel or bridge describes the display
+> input, but it does not describe how the LCDIF data pins are physically
+> wired on the board.
 > 
-> While the underlying IOMMU mapping may be contiguous, hardware
-> DMA engines often require explicit address alignment (e.g., page,
-> cacheline, or storage sector boundaries). Passing unaligned
-> addresses and lengths can cause explicit failures in DMA descriptor
-> creation or silent data corruption if lower unaligned bits are
-> truncated.
+> These can differ. For example, a 16-bit LCDIF bus can be connected to a
+> 24-bit display by wiring the available color bits to the corresponding
+> display inputs. In that case, using the display's 24-bit format to
+> configure LCDIF selects the wrong data-bus mode and changes the assignment
+> of color bits on the LCD_DATA pins.
 > 
-> In addition, a non-page-aligned sgl length will trigger an edge case
-> in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
-> buffers, we will have a `va` with lowest bit set to 1. That will lead
-> to `ib_umem_find_best_pgsz()` always return 0, and break the promise
-> to find best page size for the mapping on the NIC side.
+> Read the optional bus-width endpoint property from the LCDIF output port
+> and use it to select the media bus format used to configure LCDIF. This
+> allows the LCDIF bus mode to describe the physical interface
+> independently of the downstream display format.
 > 
-> Fix this by splitting the scatterlist by the largest possible page
-> aligned chunk within `UINT_MAX` (`ALIGN_DOWN(UINT_MAX, PAGE_SIZE)`).
-> This ensures all scatterlist DMA addresses and lengths remain page
-> aligned, while minimizing the total number of sgl entries.
+> When the optional property is absent, continue using the format reported
+> by the downstream display device, preserving the existing behavior.
 > 
-> Page-aligned entries allow the system to cleanly chunk payloads into
-> PCIe MaxPayloadSize (MPS) (e.g., 128 bytes, 256 bytes, 512 bytes).
-> As a result, this may help reduce TLP fragmentation in P2P transfers
-> and alleviate potential congestion within a logical PCIe switch
-> partition, especially when Relaxed Ordering is not possible due to
-> hardware constraints.
-> 
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260609165431.778061F00893@smtp.kernel.org/
-> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hu <xuehaohu@google.com>
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 > ---
->  Changes in v3:
->  - Removed the type cast for `min` (David Laight)
->  - Reverted max ent size to be `ALIGN_DOWN(UINT_MAX, PAGE_SIZE)` and
->    updated commit message to reflect that (Jason Gunthorpe)
->  - Updated commit message to reflect that this also fixes an edge case
->    in `ib_umem_find_best_pgsz()`
+> v2: use the common bus-width property instead of the legacy interface-pix-fmt
+> ---
+>  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
+>  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
+>  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
+>  3 files changed, 38 insertions(+)
 > 
->  Changes in v2:
->  - Updated commit title and message to reflect the switch to 2G chunks
->  - Switch to using 2G as the max sg entry size as it naturally aligns
->    with most hardware boundaries, while allowing compiler optimizations
->    with bit shifts (David Laight)
->  - Optimized away division calculation for `nent`, and multiplication
->    calculation for sgl address, by dropping the `for` loop in favor of a
->    `while (length)` loop (David Laight)
->  - Dropped `min_t` in favor of `min()` to maintain a strict type
->    checking safety net (David Laight)
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> index 9b8fbda85d28..0545718a4b65 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> @@ -12,7 +12,10 @@
+>  #include <linux/clk.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/io.h>
+> +#include <linux/media-bus-format.h>
+>  #include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_graph.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/property.h>
+>  #include <linux/pm_runtime.h>
+> @@ -209,7 +212,10 @@ static int mxsfb_load(struct drm_device *drm,
+>  		      const struct mxsfb_devdata *devdata)
+>  {
+>  	struct platform_device *pdev = to_platform_device(drm->dev);
+> +	struct device_node *np = pdev->dev.of_node;
+>  	struct mxsfb_drm_private *mxsfb;
+> +	struct device_node *ep;
+> +	u32 bus_width = 0;
+
+With this beeing set to '0' and ...
+
+>  	int ret;
+>  
+>  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
+> @@ -236,6 +242,24 @@ static int mxsfb_load(struct drm_device *drm,
+>  	if (IS_ERR(mxsfb->clk_disp_axi))
+>  		mxsfb->clk_disp_axi = NULL;
+>  
+> +	ep = of_graph_get_next_endpoint(np, NULL);
+> +	if (ep) {
+> +		of_property_read_u32(ep, "bus-width", &bus_width);
+
+no bus-width property present, this ...
+
+> +		of_node_put(ep);
+
+Furthermore please see
+20260723-v6-18-topic-imx93-parallel-display-v13-1-ccf3f9bbc0fc@nxp.com
+for a proper error handling.
+
+> +	}
+> +
+> +	switch (bus_width) {
+
+switch should fail. Therefore I would recommend to set the default to
+24 (bit) aka no limitation.
+
+Regards,
+  Marco
+
+> +	case 16:
+> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB565_1X16;
+> +		break;
+> +	case 18:
+> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB666_1X18;
+> +		break;
+> +	case 24:
+> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+> +		break;
+> +	}
+> +
+>  	ret = dma_set_mask_and_coherent(drm->dev, DMA_BIT_MASK(32));
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> index d160d921b25f..bdc47ce5be79 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> @@ -46,6 +46,8 @@ struct mxsfb_drm_private {
+>  	struct drm_connector		*connector;
+>  	struct drm_bridge		*bridge;
+>  
+> +	u32				bus_format;
+> +
+>  	bool				crc_active;
+>  };
+>  
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> index d8ebebc5314b..1d78c486d147 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> @@ -386,6 +386,18 @@ static void mxsfb_crtc_atomic_enable(struct drm_crtc *crtc,
+>  	if (!bus_format)
+>  		bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+>  
+> +	/*
+> +	 * Prefer the bus format derived from the OF graph endpoint "bus-width"
+> +	 * property when available. Otherwise, use the bus format reported by
+> +	 * the downstream bridge or panel.
+> +	 *
+> +	 * This supports mismatched display and interface bus widths, such as
+> +	 * a 24-bit panel connected through an 18-bit interface or an 18-bit
+> +	 * panel connected through a 24-bit interface.
+> +	 */
+> +	if (mxsfb->bus_format)
+> +		bus_format = mxsfb->bus_format;
+> +
+>  	mxsfb_crtc_mode_set_nofb(mxsfb, bridge_state, bus_format);
+>  
+>  	/* Write cur_buf as well to avoid an initial corrupt frame */
+> -- 
+> 2.47.3
 > 
->  drivers/dma-buf/dma-buf-mapping.c | 19 +++++++++++--------
->  1 file changed, 11 insertions(+), 8 deletions(-)
+> 
+> 
 
-Could you please avoid sending patches as replies? It severely disrupts
-the reading flow when using mutt's threaded view.
+-- 
+#gernperDu 
+#CallMeByMyFirstName
 
-Regarding the patch,
-Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
-
-Thanks
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
