@@ -4,63 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D27B6C531D0
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 21:21:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47BA0C531D0
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 21:22:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 287BA10E601;
-	Thu, 23 Jul 2026 21:21:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D6C510E602;
+	Thu, 23 Jul 2026 21:22:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Mi7eEBmg";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="PqDGtK1y";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16CB910E601
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 21:21:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E241C10E602;
+ Thu, 23 Jul 2026 21:22:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CDF5E41FE9;
- Thu, 23 Jul 2026 21:21:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E731F000E9;
- Thu, 23 Jul 2026 21:21:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784841717;
- bh=8KC2DSNpAt9AdYOuMQy3pAgGL6W1aDXGthYyqLSpM5k=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Mi7eEBmgMeVYqqiVjdVsuP88GzcC3Y4dDWRr3EG1EW+Xm8uxB88jlDnBFLgWiloYA
- EzZWLtaF7Oqp+/Dr6sWvc0zk0cNUyC74SbBUeUGcM/tofgQ3zhQRaV7M9Qnz/6nA2Z
- nQont9J0yBdXBJ5PTLJqqIcnfWnUwhPSQAlQXSt43KpOhpDPAuUZBSETCyfmu4OwwI
- 0uUtoFYVLbX6rRwsPcnRagkVhTUNR6HZuRHIgFGSZ7iUBi1uQ1Cn5GkHLr3nNyGSRJ
- vJhBvE03GRfto1K9b8QX9sdSRlQt9a93vj7sm8kwGcLt4oCU3spYGRXpjZtZ1eDdPz
- jWpE/BGAm3QqQ==
-Message-ID: <2220ce37-2fbf-4be8-9af0-b3673be90f04@kernel.org>
-Date: Thu, 23 Jul 2026 23:21:50 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/9] pci: fix UAF and TOCTOU related to dynamic ID
-To: Gary Guo <gary@garyguo.net>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
- Zhenzhong Duan <zhenzhong.duan@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Damien Le Moal
- <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- GOTO Masanori <gotom@debian.or.jp>,
- YOKOTA Hiroshi <yokota@netlab.is.tsukuba.ac.jp>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Vaibhav Gupta <vaibhavgupta40@gmail.com>,
- Jens Taprogge <jens.taprogge@taprogge.org>, Ido Schimmel
- <idosch@nvidia.com>, Petr Machata <petrm@nvidia.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- David Airlie <airlied@redhat.com>, linux-pci@vger.kernel.org,
- driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-ide@vger.kernel.org, linux-scsi@vger.kernel.org,
- industrypack-devel@lists.sourceforge.net, netdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Sashiko <sashiko-bot@kernel.org>
-References: <20260706-pci_id_fix-v3-0-2d48fc025acc@garyguo.net>
-From: Danilo Krummrich <dakr@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260706-pci_id_fix-v3-0-2d48fc025acc@garyguo.net>
-Content-Type: text/plain; charset=UTF-8
+ by sea.source.kernel.org (Postfix) with ESMTP id 738B8408E9;
+ Thu, 23 Jul 2026 21:22:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31E381F000E9;
+ Thu, 23 Jul 2026 21:22:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=korg; t=1784841764;
+ bh=8LsF46xxakxlsARFJxGTWxEVy+kM0PIVoXm+jBklc8Q=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=PqDGtK1ymZc6iwXzb09CtmFYmLViI3ZUzwC4EZJzeq9zwSf91u2vNh/4wCIJIHPWO
+ e15iO8gkDRLbbRBA2tojf2jKWmot7imPS0HbTnDJI9D1VtypOpQwHATciE7rioefeK
+ s0fKBNhwMPvzspt/Hs40GfWyqW0dMZJpQhg7C0tk=
+Date: Thu, 23 Jul 2026 14:22:42 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Stanislav Kinsburskii <skinsburskii@gmail.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, David
+ Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan
+ <shuah@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang
+ <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
+ <decui@microsoft.com>, Long Li <longli@microsoft.com>, Lyude Paul
+ <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Min Ma <mamin506@gmail.com>, Lizhi Hou
+ <lizhi.hou@amd.com>, Oded Gabbay <ogabbay@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org
+Subject: Re: [PATCH v11 0/8] mm/hmm: Add mmap lock-drop support for
+ userfaultfd-backed mappings
+Message-Id: <20260723142242.5d3f87208d47819d873ae458@linux-foundation.org>
+In-Reply-To: <20260723-hmm-v10-v11-0-c55b003a4b61@gmail.com>
+References: <20260723-hmm-v10-v11-0-c55b003a4b61@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,15 +72,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/6/26 4:11 PM, Gary Guo wrote:
-> Gary Guo (9):
->       ata: don't store pci_device_id
->       nsp32: don't store pci_device_id
->       ipack: tpci200: don't store pci_device_id
->       mlxsw: don't store pci_device_id
->       agp/via: don't rely on address of pci_device_id
->       agp/amd-k7: don't rely on address of pci_device_id
->       pci: make pci_match_one_device match on ID instead of device
->       pci: fix dyn_id add TOCTOU
->       pci: fix UAF when probe runs concurrent to dyn ID removal
-Reviewed-by: Danilo Krummrich <dakr@kernel.org>
+On Thu, 23 Jul 2026 10:36:32 -0700 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
+
+> This series extends the HMM framework to support userfaultfd-backed memory
+> by allowing the mmap read lock to be dropped during hmm_range_fault().
+> 
+
+Thanks, I've updated mm.git to this version.
+
+AI review suggests there may be some problems.  Sorry, I don't recall if
+these were considered in previous versions of the patchset:
+
+	https://sashiko.dev/#/patchset/20260723-hmm-v10-v11-0-c55b003a4b61@gmail.com
+
+> 
+> Changes in v11:
+>   - Reject unstable address spaces in hmm_range_fault_unlocked_timeout()
+>     after taking mmap_lock and before walking page tables.
+>   - Compute the remaining HMM timeout budget before the time_after_eq()
+>     check in drm_gpusvm_get_pages() to make sure it can't result in zero
+>     and lead to infinite HMM range faulting loop.
+
+Here's how v11 altered mm.git:
+
+
+ drivers/gpu/drm/drm_gpusvm.c |    4 ++--
+ mm/hmm.c                     |    6 ++++++
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+--- a/drivers/gpu/drm/drm_gpusvm.c~b
++++ a/drivers/gpu/drm/drm_gpusvm.c
+@@ -1422,11 +1422,11 @@ int drm_gpusvm_get_pages(struct drm_gpus
+ 	struct dma_iova_state *state = &svm_pages->state;
+ 
+ retry:
++	remaining = timeout - jiffies;
++
+ 	if (time_after_eq(jiffies, timeout))
+ 		return -EBUSY;
+ 
+-	remaining = timeout - jiffies;
+-
+ 	hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
+ 	if (drm_gpusvm_pages_valid_unlocked(gpusvm, svm_pages))
+ 		goto set_seqno;
+--- a/mm/hmm.c~b
++++ a/mm/hmm.c
+@@ -17,6 +17,7 @@
+ #include <linux/slab.h>
+ #include <linux/sched.h>
+ #include <linux/mmzone.h>
++#include <linux/oom.h>
+ #include <linux/pagemap.h>
+ #include <linux/leafops.h>
+ #include <linux/hugetlb.h>
+@@ -806,6 +807,11 @@ int hmm_range_fault_unlocked_timeout(str
+ 		if (ret)
+ 			return ret;
+ 
++		if (check_stable_address_space(mm)) {
++			mmap_read_unlock(mm);
++			return -EFAULT;
++		}
++
+ 		if (timeout && time_after(jiffies, deadline)) {
+ 			mmap_read_unlock(mm);
+ 			return -EBUSY;
+_
+
