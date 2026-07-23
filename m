@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE8EFC531D0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A48DC531CD
 	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:36:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4327E10EF38;
-	Thu, 23 Jul 2026 01:35:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ABD910EF2D;
+	Thu, 23 Jul 2026 01:35:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MU/4B/nd";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="a//86aP8";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C5BE10EF09
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28E0C10EF09
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784770529;
- bh=LYpIGWFeHlxx1fVwt8S006d+7lbpWnUBcfPCYM40698=;
+ s=mail; t=1784770525;
+ bh=iLBgGcOxsOS2yAa7hsIIJ+lrcLo+tkotBZn2zYbteNg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=MU/4B/ndGHGqa8IAlmRcoXOwNXpyLqEZ54uk8VBK9JgCKjoaopYQairCb6JSdKRwp
- 2EvObD75dJQzrtb8ozO0Ml/Bp2+LXegfjibw5265DRsPl6EvPtLpVXcZq8hPLZ7LkV
- OrnqOMgsqu5tV0soFnoQew6zlexYOtwxq6JsCJdVgM1LZB4Gjp62zDxs6thp0/tQtY
- a7ES+iiCMvHBwAMsVjjCI2OqQSkJU2ZrQ1rhOiscH9skjCorKcYT+LUwboON9yyczZ
- vmkTvzW2jCQ906c0FnPS3+f7dnZhDY17hC84BYYdo/4i4ehEteie+/LB5WQNeOunKB
- KdO+cNJ62NY7g==
+ b=a//86aP8s3QmqoJfeZedJDtPEVErdNHBv0NRJKk6ifdy4IT3skD6NdGxknmhb03C5
+ oMe6tQ4QPZXpys7IK28bPMFUsWatvsqyMAu/uW6DZdcBjXWbCNYh4q7szo0Kv8TglO
+ ooUOYOmvOdYa+XzG9hb8b9H/bKEF0966+5bT/YfJxJV4Saur12Ph1C3EJH9u1Jamgr
+ Mfgw+I1VBVqTvtjS7QmMx1WpibKtI+u3TGHuWiG1Q5DPhv6Uenwe/m2qyb3zjzDpwf
+ P6o92qM2OLVEhsGTs4jfsm/3+mI2cp0gbvL+FyzOcdPbslPK2Xkw/+kauZB7wDPvOG
+ mONZx+qLU8qZw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3F0EE17E1313;
- Thu, 23 Jul 2026 03:35:29 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id CDCEA17E1064;
+ Thu, 23 Jul 2026 03:35:25 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 23 Jul 2026 04:35:28 +0300
-Subject: [PATCH v9 39/61] drm/vc4: hdmi: Defer pixel clock validation to
- HDMI helpers
+Date: Thu, 23 Jul 2026 04:35:23 +0300
+Subject: [PATCH v9 34/61] drm/vc4: hdmi: Use common TMDS char rate
+ constants
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-dw-hdmi-qp-scramb-v9-39-4fb12ea22ac9@collabora.com>
+Message-Id: <20260723-dw-hdmi-qp-scramb-v9-34-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -79,105 +79,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_atomic_helper_connector_hdmi_check() rejects modes whose computed
-TMDS character rate exceeds the connector limit before invoking the
-driver's .tmds_char_rate_valid() hook.
+Replace HDMI_14_MAX_TMDS_CLK defined locally with
+HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ provided by linux/hdmi.h.  Note this
+incorrectly referenced HDMI 1.4, as the 340 MHz maximum TMDS character
+rate was actually introduced in HDMI 1.3.
 
-BCM2835 is capped at 162 MHz, slightly below the 165 MHz limit of HDMI
-1.2.  Set supported_tmds_char_rate in vc4_hdmi_connector_funcs_hdmi10 so
-that the limit inferred from supported_hdmi_ver is overridden by the
-lower hardware constraint.  All other chip variants rely on the standard
-HDMI 1.4/2.0 limits, so the default validation suffices.
+Similarly, use HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ instead of the 600000000
+magic number.
 
-This allows vc4_hdmi_connector_clock_valid() to be simplified by
-dropping the now-redundant max_pixel_clock field from struct
-vc4_hdmi_variant.
-
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Acked-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 10 +---------
- drivers/gpu/drm/vc4/vc4_hdmi.h |  3 ---
- 2 files changed, 1 insertion(+), 12 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 8e5676c5527e..5370d585cd28 100644
+index 7f613f912368..9ce56eca775c 100644
 --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
 +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -1528,12 +1528,8 @@ vc4_hdmi_connector_clock_valid(const struct drm_connector *connector,
- 			       const struct drm_display_mode *mode,
- 			       unsigned long long clock)
- {
--	const struct vc4_hdmi *vc4_hdmi = connector_to_vc4_hdmi(connector);
- 	struct vc4_dev *vc4 = to_vc4_dev(connector->dev);
+@@ -45,6 +45,7 @@
+ #include <linux/clk.h>
+ #include <linux/component.h>
+ #include <linux/gpio/consumer.h>
++#include <linux/hdmi.h>
+ #include <linux/i2c.h>
+ #include <linux/of.h>
+ #include <linux/of_address.h>
+@@ -113,8 +114,6 @@
+ #define HSM_MIN_CLOCK_FREQ	120000000
+ #define CEC_CLOCK_FREQ 40000
  
--	if (clock > vc4_hdmi->variant->max_pixel_clock)
--		return MODE_CLOCK_HIGH;
+-#define HDMI_14_MAX_TMDS_CLK   (340 * 1000 * 1000)
 -
- 	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20 && clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
+ static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
+ {
+ 	struct drm_display_info *display = &vc4_hdmi->connector.display_info;
+@@ -137,7 +136,7 @@ static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
+ {
+ 	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
+ 
+-	return clock > HDMI_14_MAX_TMDS_CLK;
++	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+ }
+ 
+ static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
+@@ -1727,7 +1726,7 @@ vc4_hdmi_connector_clock_valid(const struct drm_connector *connector,
+ 	if (clock > vc4_hdmi->variant->max_pixel_clock)
  		return MODE_CLOCK_HIGH;
  
-@@ -1578,6 +1574,7 @@ static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi12 = {
- 	VC4_HDMI_CONNECTOR_FUNCS_COMMON,
- 	.max_bpc		= 8,
- 	.supported_hdmi_ver	= HDMI_VERSION_1_2,
-+	.supported_tmds_char_rate = 162000000,
- };
+-	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20 && clock > HDMI_14_MAX_TMDS_CLK)
++	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20 && clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
+ 		return MODE_CLOCK_HIGH;
  
- static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi14 = {
-@@ -3184,7 +3181,6 @@ static const struct vc4_hdmi_variant bcm2835_variant = {
- 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
- 	.debugfs_name		= "hdmi_regs",
- 	.card_name		= "vc4-hdmi",
--	.max_pixel_clock	= 162000000,
- 	.registers		= vc4_hdmi_fields,
- 	.num_registers		= ARRAY_SIZE(vc4_hdmi_fields),
+ 	/* 4096x2160@60 is not reliable without overclocking core */
+@@ -3253,7 +3252,7 @@ static int vc4_hdmi_bind(struct device *dev, struct device *master, void *data)
+ 	 * vc4_hdmi_disable_scrambling() will thus run at boot, make
+ 	 * sure it's disabled, and avoid any inconsistency.
+ 	 */
+-	if (variant->max_pixel_clock > HDMI_14_MAX_TMDS_CLK)
++	if (variant->max_pixel_clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
+ 		vc4_hdmi->scdc_enabled = true;
  
-@@ -3204,7 +3200,6 @@ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
+ 	ret = variant->init_resources(drm, vc4_hdmi);
+@@ -3383,7 +3382,7 @@ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
  	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
  	.debugfs_name		= "hdmi0_regs",
  	.card_name		= "vc4-hdmi-0",
--	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
+-	.max_pixel_clock	= 600000000,
++	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
  	.registers		= vc5_hdmi_hdmi0_fields,
  	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi0_fields),
  	.phy_lane_mapping	= {
-@@ -3233,7 +3228,6 @@ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
+@@ -3412,7 +3411,7 @@ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
  	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
  	.debugfs_name		= "hdmi1_regs",
  	.card_name		= "vc4-hdmi-1",
--	.max_pixel_clock	= HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ,
+-	.max_pixel_clock	= HDMI_14_MAX_TMDS_CLK,
++	.max_pixel_clock	= HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ,
  	.registers		= vc5_hdmi_hdmi1_fields,
  	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi1_fields),
  	.phy_lane_mapping	= {
-@@ -3262,7 +3256,6 @@ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
+@@ -3441,7 +3440,7 @@ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
  	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
  	.debugfs_name		= "hdmi0_regs",
  	.card_name		= "vc4-hdmi-0",
--	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
+-	.max_pixel_clock	= 600000000,
++	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
  	.registers		= vc6_hdmi_hdmi0_fields,
  	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi0_fields),
  	.phy_lane_mapping	= {
-@@ -3289,7 +3282,6 @@ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
+@@ -3468,7 +3467,7 @@ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
  	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
  	.debugfs_name		= "hdmi1_regs",
  	.card_name		= "vc4-hdmi-1",
--	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
+-	.max_pixel_clock	= 600000000,
++	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
  	.registers		= vc6_hdmi_hdmi1_fields,
  	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi1_fields),
  	.phy_lane_mapping	= {
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.h b/drivers/gpu/drm/vc4/vc4_hdmi.h
-index f6159c9e6144..61486e7b4ba2 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.h
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.h
-@@ -29,9 +29,6 @@ struct vc4_hdmi_variant {
- 	/* Filename to expose the registers in debugfs */
- 	const char *debugfs_name;
- 
--	/* Maximum pixel clock supported by the controller (in Hz) */
--	unsigned long long max_pixel_clock;
--
- 	/* List of the registers available on that variant */
- 	const struct vc4_hdmi_register *registers;
- 
 
 -- 
 2.55.0
