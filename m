@@ -4,53 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0C08C531D0
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 19:44:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91483C531CC
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 19:45:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49D1410E603;
-	Thu, 23 Jul 2026 19:44:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E49DB10E0FF;
+	Thu, 23 Jul 2026 19:45:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fOffTOoY";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="L8HgI8tO";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 127EE10E5F6;
- Thu, 23 Jul 2026 19:44:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=KAz7i9Ove4XcBDdQk9YpMoj2vNPIO7CntXdd+16g+78=; b=fOffTOoY5LI0qYaAbmQaZIyhF5
- yXy8pXp1zqZCGaxIFz/dHQr5pODCPUbB6M/5Ce5SEN71elJO3EycCdNAr+sKrsSG20i6aHvod7WyQ
- wEZVEn4+f28NdNk39NpvSWgiItb64iuJ3S2qDuEQ8mvY1+iTQz6pYs/ZMG5CFNElv4nLH03Ocx9kD
- KfNQIuF7cmHGjFPyLKfp0z2Kvpm7PXjUH5lj8iAGHayAtwRYWWTYvripX3KUHc/XyzfZxblK+T9Kp
- FvMd6E2x+TcfiiQnRYkUO3YSg4wUQ8Kp331qyssv6KP0rWs93smcmYGra83nMawOXggLVVLscYm1e
- M8O2D6oA==;
-Received: from 179-125-91-91-dinamico.pombonet.net.br ([179.125.91.91]
- helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wmzLS-003a1P-MB; Thu, 23 Jul 2026 21:44:39 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: igt-dev@lists.freedesktop.org
-Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-Subject: [PATCH i-g-t v5 7/7] tests/dmem_cgroups: add test for dmem.current
-Date: Thu, 23 Jul 2026 16:43:13 -0300
-Message-ID: <20260723194313.2748143-8-cascardo@igalia.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260723194313.2748143-1-cascardo@igalia.com>
-References: <20260723194313.2748143-1-cascardo@igalia.com>
-MIME-Version: 1.0
+Received: from CWXP265CU008.outbound.protection.outlook.com
+ (mail-ukwestazon11020102.outbound.protection.outlook.com [52.101.195.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0524410E5FD
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 19:44:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gyspf9s0T32bbbDCyJ/8nBgMhsRjJXAprdMbJkAXGterzHDOvBhrmSJa3O/H2hnAk1JrkBlJJJphbBg6IaIMC37XWnhpyMjUopENc9i5Bzum9/rkenQBw+O149WSNXzfWps5jqIPpbekxPwdk3iiORsbz2YkkSwhRixcoG/Aq5FU3YxPXjRrhkieJJ6epLCkGzd5d83lvg0vt67Db5bm7ofeZ+PCb54Nxy94AMjwdB5VX17BwGq4CF8MTeK2xuPODUQRyIzV/j6lCyfkWMukipnRQbI9BEII1Vx4g8PIgGQwcv3j/R3W0/4meSA9uIwxlvQeew9EpliVtzmdN0XC2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cOaNLZB0McQ3sghz2DY2ek9AWnK8rSxnnGvmFGwp804=;
+ b=U5/dkBAmBsNbJmOS184lH4Oj2MaUDjJ9/aRgwZ5BH7i0JZgyoQmM/RIlLVrDnaUDqF9NC118huvmgPwKcgv+Yw3fdgJmdUILA24pItEDNKZLYQQdQzroAQ6NwOBsApte9BCMMBPUiP6fZtRRxn+vOlFTxganPGocFq9pWiIA6ZuMEQFfBf5Mi5xLdhKvsaSv+CB/QhnnN4w98SR4YzXCAZuLHHN1YlN/PBVqjf1+RP4DstzfC3/CCkOyRmnyKCuYBJXcbXR5+KAMFTBnLN2zfy6afMIEZqUklJIz1GfG0F4nJVTVxgLo8BDrwv95X00QnKSQruazGF+YoowpntMKwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cOaNLZB0McQ3sghz2DY2ek9AWnK8rSxnnGvmFGwp804=;
+ b=L8HgI8tOhvTwMkkQJeXyOC3Aswd5SmW93pfWZMk0QJk8FuNiD7LGamyxce4aOkRc5D2JFR+bueuAQCUvOrj+vEzqeR5MAhxPkqVAJRC/ZMJiZ+ihXV2MgefW2doi5TCFFLTaixDb/UXKugAxxjffm1UyP8d8IGVf3KmusrvpXl4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWXP265MB3686.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:f9::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Thu, 23 Jul
+ 2026 19:44:49 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%2]) with mapi id 15.21.0245.009; Thu, 23 Jul 2026
+ 19:44:48 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Thu, 23 Jul 2026 20:44:48 +0100
+Message-Id: <DK67INM1MX6H.1FA6WNE8RZ9R7@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "Bjorn Helgaas" <helgaas@kernel.org>, "Gary Guo" <gary@garyguo.net>
+Cc: "Bjorn Helgaas" <bhelgaas@google.com>, "Zhenzhong Duan"
+ <zhenzhong.duan@gmail.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Damien Le Moal"
+ <dlemoal@kernel.org>, "Niklas Cassel" <cassel@kernel.org>, "GOTO Masanori"
+ <gotom@debian.or.jp>, "YOKOTA Hiroshi" <yokota@netlab.is.tsukuba.ac.jp>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K.
+ Petersen" <martin.petersen@oracle.com>, "Vaibhav Gupta"
+ <vaibhavgupta40@gmail.com>, "Jens Taprogge" <jens.taprogge@taprogge.org>,
+ "Ido Schimmel" <idosch@nvidia.com>, "Petr Machata" <petrm@nvidia.com>,
+ "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "David
+ Airlie" <airlied@redhat.com>, <linux-pci@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <linux-ide@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <industrypack-devel@lists.sourceforge.net>, <netdev@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, "Sashiko" <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v3 9/9] pci: fix UAF when probe runs concurrent to dyn
+ ID removal
+X-Mailer: aerc 0.21.0
+References: <20260706-pci_id_fix-v3-9-2d48fc025acc@garyguo.net>
+ <20260721223500.GA690676@bhelgaas> <DK66ISTEVM5H.3K5O68CW1F8ZB@garyguo.net>
+ <20260723192957.GA839273@bhelgaas>
+In-Reply-To: <20260723192957.GA839273@bhelgaas>
+X-ClientProxiedBy: LO4P123CA0641.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:296::7) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWXP265MB3686:EE_
+X-MS-Office365-Filtering-Correlation-Id: 694f0370-89e0-4742-51a1-08dee8f2db09
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|23010399003|1800799024|10070799003|366016|56012099006|4143699003|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: IXzwlFePMP0CFJ9B4HWqPAv8Tm7T1X4jlBWmo/y/lwGoeIusuE+gK0gFvm3owlw8oliGGCMcIv9slJ7H+JUfF3cZ4lR1O7KPbcuDyVxO/VTX3ufUoYQVIWV9ld+USSGaTpA/vO7ZpWsxXsCVZ46RvUJJfjyE/aw78qLCJi0Sv4OimshEVaKbLZPzH7LCLmQWfJBiJ2n24w19pNHMpeQIeaEzxBIqUVaD+jceySYUppDN52qOch0lEn07sh8uMGC6sHGnWXq+kFBjbKz+S+cuDf7evut6ECLciCeSScH0eoovQdPj0dw494JFKxNUstKMUzzh0GnzKvJ+qwkARk1Sdu2jVR5Dvy8mA8+y+af31dZfvKlc00Vp91ekfALCS0X19wqv0meOMbjGlqwA/yaRM72SOz7z1s4i1Fnmkxi+o446PaaQGWu+hVNrQ6lXxtfymKZRG8D7SR8bp9rD8fax2OqWAxTlVb2JTSS2kr+iOhQ9cc3r0qM1aWegxyI5tzTr0veO0Pl21I5gpuxaQspJngrZaD0BcrTGWyXjytAYWtT6sRjrfri+ZrwMpzFcmV2Wq7ulqX2RFTsSZmwfX6ZIZO9ptUAgwsbhNI8c6dvgcNHlf3zfXjheOvIALlV2ffGz5D03XJ6LcbjieITKxbY8IrGrFgFuoxqxxb5imapR8v0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(10070799003)(366016)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003)(3023799007);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VUQzU1NXbk1pUjVGOWtCbDBQNzZGbzE3SnZCcWZzZklicDdZWXg2L3FYcFlu?=
+ =?utf-8?B?NVgyblpWZWRldE5wVFM4Q3R2YVpOdmZEa0phV29DU0s0eW1NK3ZUYXMxVFdK?=
+ =?utf-8?B?YU1FZUEvN1RWbnJvb3hndll6aG56eEZaWEhRdFhkU2g4YTlJZmZOQmZqdXZ1?=
+ =?utf-8?B?U0laT0FXSS95a1J5R0cwTWhSSkZkN2FCU0NoU1F5TTRTU0toYnliVmlmc09o?=
+ =?utf-8?B?TjIrK1VpalVabWdJdUFPU2NMZnE0VGVpSUowUzdzaXNqUXBEeUE1TzhHYjAr?=
+ =?utf-8?B?MjhPVG5ieGFGTjUzRWJkN3lKeWNLVGFFMkM1Q2drbWZXMmppS2VoeEZhWHp5?=
+ =?utf-8?B?cmlId1dlNWZpaWxZNitabklqc2VoQjVyZjI4UTRHbXprMTVKRGZuQjVSQitx?=
+ =?utf-8?B?UncwM0d0dmhKK1U1ZjdZa3NMWWRYZlRRT2s1ZzEvZWNLOGRkVVZleHdGZVd5?=
+ =?utf-8?B?VFFySzBPTU1yZTcrRjNnQVVYc3pLVWJ5R3lLcWc2ckNGY1R2WGhQUnU1SjVp?=
+ =?utf-8?B?V1VOSDFzMlJKNVljb1lvbG92Q3F0UjhORlFzVlArMGh6NnVJYmpGaEd0N2w3?=
+ =?utf-8?B?QUJOeUQxQ0tiMjMzMi9lVGZlcE1xMjVqdGZKdWpJLzhMWEg5a1lDZG1YSzZ3?=
+ =?utf-8?B?RFRVVnA5VXZqQldwT1BFZDllZnhNa0JBak1BUGFhMVJnem95VDlEMmxjVy80?=
+ =?utf-8?B?UEk0REpKMEdJT0lRd3MwM2RaN2s3bUFQUnZSME94VVRNd3dsV1hiY2daYTMv?=
+ =?utf-8?B?ZGtyQzVXUmtTQkZlS01kS3lMTFVxTm9POUZLVVRKbjhaNFNDUWdtNm5aKzZY?=
+ =?utf-8?B?MEJUVGl5b0phMzdaWFRQWVpPa3k0SEQyWUEreU1aazFibHoyNzRyK1ROWEtS?=
+ =?utf-8?B?MVRVVEJBYUluYmQ5VEJ2OGM5YWxoVFl2d2llUmNPR2lCVm03akxSNTBUbUQ2?=
+ =?utf-8?B?dEQyZ0tSSDMrekUyeW8yc0xOOUlUMVY2QXVWNHpvbERSa3FmS1FEMVlTeGJl?=
+ =?utf-8?B?VlUraTNESzRROUxmNndnTjZiT2NUcFcvZFF1RUk3NW1Xd0dpVlNTNkNlNk1G?=
+ =?utf-8?B?dzJrblg3ejBLRXFKdFdHaFhJYWJ4R1krLzYzcHY1MzFGdUxtdmEybmpUQm1p?=
+ =?utf-8?B?aG5BRlZnQVovSkRuU0ZES0lKcHY3bCtaMVI4RTF1L1V1WHNDT2hIYUFPeG04?=
+ =?utf-8?B?TFVSK25xNnhoWm9GaGxzbm15dGhscHBOc2V4OHB5Z1crQmwxOHkwS0t0ZEM0?=
+ =?utf-8?B?YzUwMFltTkdwTzFsUm85TXpCRER1by9KdHM5WmtqemY1TlF2SmFSelpVZVgx?=
+ =?utf-8?B?ejlPM24vL2NtRjJYRDVEMCs4Um5NN3ZvTmxQdFUxc0hMSy9hUVZxZUhhcldX?=
+ =?utf-8?B?UDl1Wlg0TDFBZ3hnbi9PVnl6V25FN2ZPeXpYSjJ2K081OXVDREZzalJlVSsx?=
+ =?utf-8?B?NWNuekM5QVptN0tDQjFVbU5mQWdMY1BaWkJvS2NLOVJFeEN5bkQvVnQ0aUV2?=
+ =?utf-8?B?RkdubXNyQ2oxMmQ3cGFoNWVjdUlLUHRvK1gzdzRITWlVZlZEZDJId2pONmJu?=
+ =?utf-8?B?UkFKaWZzcjRmeFFicFc0Q1hSVzVaZHB4U2puMmtXZjNaZHp4eGEwbVV0alZH?=
+ =?utf-8?B?cFlQYVJObktSdFBsMDh6ekFkQjJVcjZFZ2t6bThRRU4zN0M5ZWZ2ek9iR0Vx?=
+ =?utf-8?B?eEhLOXJ5NlZjd0FadklIcVNSMWNZTHpZS1U0Ti9qVlNXdEJFOW5kWVg3dFh4?=
+ =?utf-8?B?TFppQ1hHNU9YZzZIRVJQMEtWUjlmZ1U4Uk9EcVB0Ri9GNklwc1NNVkp2K3JG?=
+ =?utf-8?B?TDlHYW5NOS9tM3FGWnE3QUdBNDA1MjFlTEpjQmJNWGphVmQxWFZzSzJaMlpr?=
+ =?utf-8?B?ZUxDQUtraDdBeU5EOGVNNnhvb0lZMGdIVEl1cXJ1QlNEbHp4TUJHUktBcjFh?=
+ =?utf-8?B?TGE5SW84SHNBNWF3OWVzZFlnblVaSzh1K3I4VVBWTnUreUpLbXIxaC9DQWhB?=
+ =?utf-8?B?dGsxa3FkRGhiaXJoU0EydlBqWXRCR3ZqTGVVaVZ0RHpPWG14STFmS1cxTVZZ?=
+ =?utf-8?B?UktHTnpoSmNWcHp3dUV1elJnNHl4U2JoU1ZOU3lMVUw1UnBGU21hY1dFUG5G?=
+ =?utf-8?B?TzllcXIxWGQwTjJNaW1VOFBwNXdONHd1RTl6aDFYQkFHREZCUEo0M2hwZ0JE?=
+ =?utf-8?B?TTJzR3VoM2ZJUktqeUdOOVNMRmtxNGdMZ0dWWXhXRWtrS2dYbk9RemVTbkVy?=
+ =?utf-8?B?dUlaR0tUUnFXcE5VZG1kakl6TklPUzJkNXVuUVAvU1ZNQ1NzQ01iK0Y2ZnZi?=
+ =?utf-8?B?eGwzQzVHMmFjaW42aU5ENUpPTnNZZzBEY3N2a3pnd2kyRmFXTDRIUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 694f0370-89e0-4742-51a1-08dee8f2db09
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 19:44:48.8375 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: juNy8C80p3JHMyueDfsjHP7hkaYeNGVIRXLHlUlSNwUXL1kLqFCOnwFIhvdxT4Mr/ccsog4M5XAzU8ZT1iy5ng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB3686
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,312 +154,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Based on the work of Thomas Hellström to test dmem.max eviction, add a
-test for dmem.current usage after allocations and setting dmem.max.
+On Thu Jul 23, 2026 at 8:29 PM BST, Bjorn Helgaas wrote:
+> On Thu, Jul 23, 2026 at 07:57:58PM +0100, Gary Guo wrote:
+>> On Tue Jul 21, 2026 at 11:35 PM BST, Bjorn Helgaas wrote:
+>> > On Mon, Jul 06, 2026 at 03:11:21PM +0100, Gary Guo wrote:
+>> >> Dynamic IDs are only guaranteed to be valid when dynids.lock is held,
+>> >> as remove_id_store can free the node. Thus, make a copy in
+>> >> pci_match_device. Also, clarify that the id parameter is only valid d=
+uring
+>> >> probe.
+>> >>=20
+>> >> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> >> Link: https://lore.kernel.org/all/20260619170503.518F61F00A3A@smtp.ke=
+rnel.org/
+>> >> Fixes: 0994375e9614 ("PCI: add remove_id sysfs entry")
+>> >> Signed-off-by: Gary Guo <gary@garyguo.net>
+>> >> ---
+>> >>  drivers/pci/pci-driver.c | 28 +++++++++++++++-------------
+>> >>  include/linux/pci.h      |  1 +
+>> >>  2 files changed, 16 insertions(+), 13 deletions(-)
+>> >>=20
+>> >> diff --git a/include/linux/pci.h b/include/linux/pci.h
+>> >> index 64b308b6e61c..92c17c116de6 100644
+>> >> --- a/include/linux/pci.h
+>> >> +++ b/include/linux/pci.h
+>> >> @@ -979,6 +979,7 @@ struct module;
+>> >>   *		function returns zero when the driver chooses to
+>> >>   *		take "ownership" of the device or an error code
+>> >>   *		(negative number) otherwise.
+>> >> + *		The pci_device_id parameter is only valid during probe.
+>> >
+>> > The probe function takes a pointer to a struct pci_device_id, so I
+>> > think the requirement is that the struct pci_device_id only *needs* to
+>> > be valid during .probe(), right, i.e., the PCI core probe path makes
+>> > its own copy of the ID and doesn't retain the pointer after .probe()
+>> > returns, right?
+>> >
+>> > I assume the caller determines the struct pci_device_id lifetime, and
+>> > it could be forever.
+>> >
+>> > Could say something like:
+>> >
+>> >   The pci_device_id parameter only needs to be valid during probe.
+>>=20
+>> As a contract on function parameter, the caller needs to guarantee that =
+it lives
+>> at least as long as documented (i.e. during the whole probe) and the cal=
+lee
+>> cannot assume that it will be valid beyond what's guaranteed.
+>>=20
+>> How about:
+>>=20
+>>     The pci_device_id parameter is only guaranteed to be valid during pr=
+obe.
+>
+> That's ok with me.  My only niggle is that this documentation is that the
+> *consumer* end, and of course the consumer, i.e., the PCI core probe path=
+,
+> can't guarantee anything about the parameters it receives.  But I guess
+> your point is that the *caller* must guarantee that the parameter remains
+> valid during probe.
 
-Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
-check current usage is within a small slack of the expected allocation.
-Then, set max to a small value and check allocations and current usage
-are limited to the max set.  Set max to less than a single BO size, then
-check no allocations are allowed and current usage is also within the
-slack. After each allocation, release memory and check current usage
-has gone down.
+I'm not quite getting it, the PCI core probe path is pci-driver.c which is =
+the
+caller? Do you mean that the PCI *driver* probe path cannot guarantee anyth=
+ing
+about the parameter it receives?
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- tests/cgroup_dmem.c | 250 +++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 245 insertions(+), 5 deletions(-)
+>
+> The only thing the consumer can guarantee is that it doesn't depend on th=
+e
+> pci_device_id parameter after the probe returns.
 
-diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
-index 442c965f9bbf..a192fd9e23fe 100644
---- a/tests/cgroup_dmem.c
-+++ b/tests/cgroup_dmem.c
-@@ -1,6 +1,8 @@
- // SPDX-License-Identifier: MIT
- /*
-  * Copyright © 2025 Intel Corporation
-+ * Copyright © 2026 Intel Corporation
-+ * Copyright 2026 Valve Corporation
-  */
- 
- /**
-@@ -17,10 +19,213 @@
-  * Test category: uapi
-  */
- 
-+#include <errno.h>
- #include <inttypes.h>
-+#include <signal.h>
-+#include <stdatomic.h>
-+#include <stdint.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
- 
-+#include "drmtest.h"
- #include "igt.h"
-+#include "igt_aux.h"
- #include "igt_cgroup.h"
-+#include "igt_dmem_driver.h"
-+
-+#define BO_SIZE			SZ_64M
-+#define MAX_LIMIT		((uint64_t)4 * SZ_1G)
-+#define USAGE_POLL_MS		10
-+#define USAGE_DROP_TIMEOUT_MS	1000
-+
-+/**
-+ * SUBTEST: simple
-+ * DESCRIPTION:
-+ *  Creates a cgroup, moves the process into it, enumerates all dmem regions,
-+ *  prints their capacity, system-wide current usage, per-cgroup current usage
-+ *  and configured limits, then destroys the cgroup.
-+ */
-+
-+/**
-+ * SUBTEST: current
-+ * DESCRIPTION:
-+ *  Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
-+ *  check current usage is within a small slack of the expected allocation.
-+ *  Then, set max to a small value and check allocations and current usage
-+ *  are limited to the max set.
-+ *  Set max to less than a single BO size, then check no allocations are allowed
-+ *  and current usage is also within the slack.
-+ *  After each allocation, release memory and check current usage has gone
-+ *  down.
-+ * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
-+ */
-+
-+static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
-+				    uint64_t limit)
-+{
-+	uint64_t current;
-+	unsigned int elapsed = 0;
-+
-+	do {
-+		igt_cgroup_dmem_get_current(cg, region, &current);
-+		if (current <= limit)
-+			return current;
-+		usleep(USAGE_POLL_MS * 1000);
-+		elapsed += USAGE_POLL_MS;
-+	} while (elapsed < USAGE_DROP_TIMEOUT_MS);
-+
-+	return current;
-+}
-+
-+static int allocate_vram(const struct igt_dmem_driver *drv, void *ctx, int fd, int max_bo, size_t len)
-+{
-+	int n_bo, err = 0;
-+	for (n_bo = 0; n_bo < max_bo; n_bo++) {
-+		err = drv->allocate_vram(ctx, n_bo, len);
-+		if (err)
-+			break;
-+	}
-+	/* These are expected failures we can ignore. */
-+	if (err == -ENOMEM || err == -ENOSPC)
-+		err = 0;
-+	return err ?: n_bo;
-+}
-+
-+static void free_vram(const struct igt_dmem_driver *drv, void *ctx, int max_bo)
-+{
-+	int i;
-+	for (i = 0; i < max_bo; i++)
-+		drv->free_vram(ctx, i);
-+}
-+
-+static void test_current(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv)
-+{
-+	struct igt_cgroup *cg;
-+	void *ctx;
-+	uint64_t current, capacity, cg_max;
-+	int n_bo = 0, max_bo;
-+	int err;
-+
-+	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-+	igt_require_f(capacity >= 4 * BO_SIZE,
-+		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
-+		      capacity / SZ_1M);
-+
-+	/*
-+	 * Use up to 4 GiB, or the full capacity if the device has less.
-+	 * Leave one BO_SIZE worth of headroom so the device isn't completely
-+	 * exhausted before the cgroup limit is hit.
-+	 */
-+	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
-+	cg_max = ALIGN_DOWN(cg_max, BO_SIZE);
-+
-+	/* Create cgroup and move into it */
-+	cg = igt_cgroup_new("igt_cgroups_test");
-+	igt_cgroup_move_current(cg);
-+
-+	max_bo = cg_max / BO_SIZE;
-+
-+	err = drv->init(&ctx, fd, max_bo);
-+	igt_assert_f(!err, "Failed to initialize driver");
-+
-+	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-+	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == cg_max,
-+		     "current usage (%"PRIu64" MiB) is not requested allocation (%"PRIu64" MiB)\n",
-+		     current / SZ_1M, cg_max / SZ_1M);
-+
-+	free_vram(drv, ctx, n_bo);
-+	wait_for_usage_drop(cg, cg_region, 0);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	/* Allow for a slack as there might be some extra pages allocated. */
-+	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE, false);
-+
-+	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-+	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 2 * BO_SIZE,
-+		     "current usage (%"PRIu64" MiB) is not requested max allocation (%"PRIu64" MiB)\n",
-+		     current / SZ_1M, cg_max / SZ_1M);
-+
-+	free_vram(drv, ctx, n_bo);
-+	wait_for_usage_drop(cg, cg_region, 0);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	igt_cgroup_dmem_set_max(cg, cg_region, 0, false);
-+
-+	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-+
-+	/*
-+	 * amdgpu may succeed the allocation, by falling back to GTT, so no assertion here.
-+	 * Verify by reading current usage.
-+	 */
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	if (n_bo > 0)
-+		free_vram(drv, ctx, n_bo);
-+	wait_for_usage_drop(cg, cg_region, 0);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	drv->deinit(ctx);
-+	igt_cgroup_free(cg);
-+}
-+
-+static const struct {
-+	const char *name;
-+	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv);
-+	unsigned int flags;
-+} subtests[] = {
-+	{ "current", test_current, 0 },
-+	{ }
-+};
-+
-+static const struct {
-+	int driver_flag;
-+	const struct igt_dmem_driver *driver;
-+} drivers[] = {
-+	{ DRIVER_XE, &xe_dmem_driver },
-+	{ DRIVER_AMDGPU, &amdgpu_dmem_driver },
-+	{ },
-+};
- 
- IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
- 
-@@ -32,7 +237,7 @@ static void fmt_bytes(uint64_t v, char *buf, size_t len)
- 		snprintf(buf, len, "%" PRIu64, v);
- }
- 
--int igt_simple_main()
-+static void simple_cgroup(void)
- {
- 	struct igt_cgroup *cg;
- 	const char *region;
-@@ -42,10 +247,6 @@ int igt_simple_main()
- 	char min_s[32], low_s[32], max_s[32];
- 	int i;
- 
--	igt_require_f(igt_cgroup_dmem_available(),
--		      "No dmem regions found; is cgroup v2 with the "
--		      "dmem controller available?\n");
--
- 	cg = igt_cgroup_new("igt-cgroup-dmem-test");
- 	igt_assert_f(cg, "Failed to create cgroup\n");
- 
-@@ -90,3 +291,42 @@ int igt_simple_main()
- 	igt_cgroup_dmem_regions_free(regions);
- 	igt_cgroup_free(cg);
- }
-+
-+int igt_main()
-+{
-+	igt_fixture() {
-+		igt_require_f(getuid() == 0, "Test requires root\n");
-+		/* Check dmem cgroup controller is available before doing anything else */
-+		igt_require_f(igt_cgroup_dmem_available(),
-+			      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
-+
-+	}
-+
-+	igt_subtest("simple")
-+		simple_cgroup();
-+
-+	for (int d = 0; drivers[d].driver; d++) {
-+		igt_subtest_group() {
-+			int fd = -1;
-+			char *cg_region;
-+			igt_fixture() {
-+				fd = drm_open_driver(drivers[d].driver_flag);
-+				igt_require_f(fd >= 0,
-+					"No %s device found, skipping\n",
-+					drivers[d].driver->name);
-+				cg_region = drivers[d].driver->get_region_name(fd);
-+				igt_require_f(cg_region, "Region not tracked by dmem cgroup controller\n");
-+			}
-+
-+			for (int i = 0; subtests[i].name; i++)
-+				igt_subtest_f("%s-%s", drivers[d].driver->name, subtests[i].name)
-+					subtests[i].test_fn(fd, cg_region, subtests[i].flags, drivers[d].driver);
-+
-+			igt_fixture() {
-+				if (fd >= 0)
-+					drm_close_driver(fd);
-+				free(cg_region);
-+			}
-+		}
-+	}
-+}
--- 
-2.47.3
+How about:
 
+    The pci_device_id parameter may not be valid after the probe returns an=
+d
+    must not be used afterwards.
+
+Best,
+Gary
