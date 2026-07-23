@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96191C531CC
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 17:37:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0C67C531F7
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 17:37:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09F7510F19A;
-	Thu, 23 Jul 2026 17:37:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22F9A10F189;
+	Thu, 23 Jul 2026 17:37:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S87Kts+L";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZLhq7Qya";
 	dkim-atps=neutral
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B67610F1BA
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 17:36:52 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-84864086bfeso920865b3a.1
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 10:36:52 -0700 (PDT)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A479710F1C2
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 17:36:56 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id
+ d2e1a72fcca58-84a4d8fd6ecso981442b3a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 10:36:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784828211; x=1785433011; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784828216; x=1785433016; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=3slUHnl834IP76VoxdiRinKrcbFYlUZTVsrXFJZ4JdY=;
- b=S87Kts+Ll8cqgJbTzmg7fPMx83HyW2aA7I/MdjjbdwcNSE38Z7FkGoRS/fUFt8xT7m
- M3cIeY0qzIBnAnYwOgGg0S0DoRuB+QZf5pdbg4Dcv+ggQGFQqaFIyL6WQy35335e5F16
- cNoBmcp7sBzOt/BMonrLdo8xfEL3xygcYb7s06tK+8foILHo+EzCTsw6nsoQMarjuqXl
- ngFRuSDkiY8DXXh5jFV25u+U/RQL49nq3UmAgqOILBehMvRsGhyy0OURzJSWbCjvivNg
- dERyjs8G8h+6xALbeQZwwyW++xHM21VFZhqDtIY4ChSkTOWjDYdc3ZJfKIjIdz1HCrjC
- DbFA==
+ bh=/3EHZQlaXq9sLmhVgtuP5ODA2wxc36yvs54yemcncOc=;
+ b=ZLhq7Qya/YSzA+8eG5ACSRxKnyEuHU8/+Wgz14+FUdYxp2HBpQFwhB6PydHR3beucT
+ /luFIXwpAwV5otRaJJQ+qMXYeHqSgsJOv/78AZFqjyXV1/JL8RYLBPoCm3HDfrr7kH6i
+ rtlmUkEf/nunvPAaZBCyU+eOuEEEVjwANh7upUOPR1NiEzqYypYTnO7npRWlGopPpx9b
+ AoqtQtw6BKP+FRIUiFz1Kxfy3JefTKKkJp8E5NMD8ptb2hYrISExe4p/eARnAgayRF7J
+ qy+VRQ9oxmFJJf3aeesL+6vixYujbrxCWjFIo/MmWJwBEbOQhR6c84pq6K/j9ll+KS2v
+ kWmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784828211; x=1785433011;
+ d=1e100.net; s=20251104; t=1784828216; x=1785433016;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=3slUHnl834IP76VoxdiRinKrcbFYlUZTVsrXFJZ4JdY=;
- b=WAJ2P07HzDeO5jcGo4lyNlKmwjPJGNkD9eUVUETd/OUL253smizJEw15Hu96HTEp3u
- Xixi7M3HJ5L7xMCqnfHGnCeJU0iLlzvhD7RfjhNZbSBdSf0T0EX0dt5nnQcEnOlRp6Hq
- EuAd624938iWSqIuaxskHJDcJOoP7cSM0dVWBWpaTZ0+aOFcSTMfRyncWAz3MuDJLiZM
- 2/5eXlH4IG5WHrBu14Pzt861YOkI0uGz6UTaDrWdfrXNnX5wrOS3RIMk4GETd3zZxwkh
- 5kgI4g0b4XQJGyfZCbt4NJ1EN3FzspZ2xi/K+mYI6YEXBrcVcbXz3iElXgsIKo7nnPxf
- b+kw==
+ bh=/3EHZQlaXq9sLmhVgtuP5ODA2wxc36yvs54yemcncOc=;
+ b=NNECdPeFtdgfcU7oILrVFmFlk/jgyz3Q2ukFN/IMqB/F9kYUaycOV5RySRZXFPgfOX
+ Ao6QUI09s7Qbl7Pbs6ZwPLFGelcA2h9Q02sRJpIGnt85LWLcDT/Ee98GQCo+L6Pf4gU7
+ EucuyDXtVMXkZQdYkZ9qjrC+YJ/fMyFEb/lYDW7qCA0l6aho1cN4W2PHbzV2RO7Z0Sln
+ b99+nwqOUb5Wf2TkBwH3MkV8EsejqT5/kOfrNqyZw89QiTN2I6+itbtTbYl/QbUNf99S
+ FGNunN/GCAjUeVk2WaZBh+GWmc0Mm+1X/twz3jTDLXEBzjxrA3GvBF2AQzK1LYJwPsVv
+ AzAA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoWMHiF6p14x6bUp37yr3dUG9D+mg4/zYvWZckQewex9Ujv6ykyDllpn7O+onk4qPZ8QRJL1dBwEdA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJ2SrjJ8J8yeeFiDBXTNFR33faf5Rcu1WiKX1Nrazb1Nnk+1jC
- ajyF4iR/5NB98EPRU0LnFoGqFDnuT5vxW6bz0r/5IRWPcA433zC8Ci2H
-X-Gm-Gg: AR+sD11KZrEwk/U39Bv3kZR7S4Xe7qTh7WZk1LLKGZm0D6EHRAfa5LKfWDW4HFPwkvL
- x1/5ca9IvVzCBRqJUkKaIlQg3KN+7Re+8I0poQoHLs/C3pgWdOaeLEJL7Qzruis/ZQByV6O1eLK
- lOctAEOFK0FlNF4NdpSAWpplDCRsKsuyvq75FC6R/MsFx2PQvaufcGNGJpcJTdj493kRrVxEWua
- vAdbJFtVmS0Tt9lWyvMHWrFkzWJgn5XO7UCEOmVmA3qt7kfR9KfXGs8c4UWvw5ero6gS9dr/hJe
- 1/ZQS5bqe56sFoQaLR/aJmfm5UYE28lHtjQwrUKRZBYzWN0UvgPZayVCLgIzxCGh7ghDXNEdhj6
- 0CNadVLqpzyxGjcTk9KMibOT10CMoRYewQ/7hsabSVnwLb0L47bYqnRB40AppHx8rIggq1ZlF6X
- qb6VrFAGUjrPgAlBXiviTh1Pq/9NdcgXn7pl7k1GaErnfbkGnwbJxtMA16TsA=
-X-Received: by 2002:a05:6a00:27aa:b0:848:2d1d:836f with SMTP id
- d2e1a72fcca58-84e2bd6923fmr4526185b3a.28.1784828211456; 
- Thu, 23 Jul 2026 10:36:51 -0700 (PDT)
+ AHgh+RpTJpiS1Tc6Od1g4W4ylPe3fc1UKVTKJOnT4up6T4SdhsQovT49l/VHPxlgxZqHTOvsgB0UeQGfSP4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzok8EK+ZNeJx2YrzVqp9HdNZlU2jGQwbfX8xVPguUn1GjdqNNo
+ BnaHlDx+l2PBkUV4lP0D5ceB4qzphM055R+V1SO3kF9K3ScjO4n5GDWR
+X-Gm-Gg: AR+sD13l5EDTWv7aVz8oKviSBDtMInUcxbV2vOL0fJWxQkfjqYiHt1y94uK7QM0i26r
+ re8hT2j1RPV5qWD3wU7BXxbt8T/0pwcf5rWhHwDsoan7fy5kXaGEppsKS3NRs7iL8wFXRwCDW3C
+ qwLhcO0DZxC9aI3EnyyL8iWWJYWfA5JaByHh4TEDD9bLTC2mfoLJdWfmkaNp+Zgkq4flMPiVZRz
+ 6Kh7iqluKqSJEn/kg7Gc58SPsPOcgtxGuee7Dd4sJ29NQT5mURpYcU3+uJ6sdXouonlJ3EMYLOX
+ 3WjAbg/nehadc+lQ4d57XjY4KAWVHcSg1xs02XQDSNudLrD0QVAKTpVDTAvutgBz+8BYXcn5gd8
+ acCoL4ozzn3OTmXGkQ0Q+mSUBfL9u5XTomBsi61OGdPaUpmudLtvnGoymzIyg2iv4fgSIEBc5pB
+ rByZLIYCLQkXIdeNJnLwe1GFQfyp0QeTRF6rBJcHRjTpMc0Ox9
+X-Received: by 2002:a05:6a00:4482:b0:848:47d3:47ec with SMTP id
+ d2e1a72fcca58-84e2b8ab6d2mr4797080b3a.31.1784828216068; 
+ Thu, 23 Jul 2026 10:36:56 -0700 (PDT)
 Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net.
  [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84e20622dedsm2691612b3a.11.2026.07.23.10.36.50
+ d2e1a72fcca58-84e20622dedsm2691612b3a.11.2026.07.23.10.36.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jul 2026 10:36:51 -0700 (PDT)
+ Thu, 23 Jul 2026 10:36:55 -0700 (PDT)
 From: Stanislav Kinsburskii <skinsburskii@gmail.com>
-Date: Thu, 23 Jul 2026 10:36:36 -0700
-Subject: [PATCH v11 4/8] mshv: Use hmm_range_fault_unlocked_timeout() for
- region faults
+Date: Thu, 23 Jul 2026 10:36:39 -0700
+Subject: [PATCH v11 7/8] accel/amdxdna: Use
+ hmm_range_fault_unlocked_timeout() for range population
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-hmm-v10-v11-4-c55b003a4b61@gmail.com>
+Message-Id: <20260723-hmm-v10-v11-7-c55b003a4b61@gmail.com>
 References: <20260723-hmm-v10-v11-0-c55b003a4b61@gmail.com>
 In-Reply-To: <20260723-hmm-v10-v11-0-c55b003a4b61@gmail.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
@@ -95,11 +95,11 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
  Jason Gunthorpe <jgg@ziepe.ca>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784828202; l=3646;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784828202; l=2650;
  i=skinsburskii@gmail.com; s=20260722; h=from:subject:message-id;
- bh=ZyAhBAfWZePcXjSsL7QqvsrSYU5bhX/lu/bgMYHTJjg=;
- b=U8sSsRw+6XM+qGDxpQuoe99V7LeZ+M1zXxyPfZetIcbxZBFVX+M/0/c0psrN63mtn0Gyjy1RN
- 9IByi6+fiCLCWN+9DASYqtkcc69AC9zezCPbmBdSfWzMLLq1QDXujHn
+ bh=Js9Z5fScNTLs9yZDEPq5MMQDWBFdccrrYdkvKMfBR0c=;
+ b=UoKX2QEi16TQG/XSPiXepu/KONklG+8l1kn86LgWhqxQQe32BnNrpIu04JJYOeap8yhmhRNnI
+ Xgchah8NIfnDwgLdxf/plAUECr/N2GDtTgg00z0Czhp7vw9hyXoBoqQ
 X-Developer-Key: i=skinsburskii@gmail.com; a=ed25519;
  pk=bDpriHBYgeTdkIDweZDCemxsU93neJBOCn3YLIuJpnE=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -117,103 +117,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-MSHV currently faults movable memory regions by taking mmap_read_lock()
-around hmm_range_fault(). That prevents the fault path from handling VMAs
-whose fault handlers need to drop mmap_lock, such as userfaultfd-backed
-mappings.
+aie2_populate_range() takes mmap_read_lock() only around hmm_range_fault().
+It also open-codes the mmu interval sequence setup before each HMM walk and
+retries -EBUSY until HMM_RANGE_DEFAULT_TIMEOUT expires.
 
-Use hmm_range_fault_unlocked_timeout() instead. Passing a timeout of 0
-preserves MSHV's existing unbounded retry behavior while letting the HMM
-helper own mmap_lock acquisition and refresh range->notifier_seq internally
-before walking the range. After the fault succeeds, MSHV still takes
-mreg_mutex and checks mmu_interval_read_retry() before installing the pages
-into the region, so the existing invalidation synchronization is preserved.
+Use hmm_range_fault_unlocked_timeout() instead. The HMM helper now owns
+the mmap lock and refreshes mapp->range.notifier_seq for its internal
+retries, so the driver only needs to call the helper and then validate the
+sequence before marking the mapping populated.
 
-Fold the small fault-and-lock helper into mshv_region_range_fault(), since
-the remaining retry path is just the standard "fault, take the driver lock,
-check the interval notifier sequence" pattern.
+Pass HMM_RANGE_DEFAULT_TIMEOUT as the helper retry budget for each HMM
+population attempt. This scopes the timeout to repeated HMM notifier
+retries while preserving the existing outer loop that moves between invalid
+mappings and restarts when the interval is invalidated before the driver
+updates its mapping state.
+
+Keep returning -ETIME when the HMM retry budget expires, matching the
+driver's existing timeout error convention.
 
 Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
 ---
- drivers/hv/mshv_regions.c | 54 +++++++++--------------------------------------
- 1 file changed, 10 insertions(+), 44 deletions(-)
+ drivers/accel/amdxdna/aie2_ctx.c | 23 ++++-------------------
+ 1 file changed, 4 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/hv/mshv_regions.c b/drivers/hv/mshv_regions.c
-index 6d65e5b42152..dddaade31b5d 100644
---- a/drivers/hv/mshv_regions.c
-+++ b/drivers/hv/mshv_regions.c
-@@ -381,46 +381,6 @@ int mshv_region_get(struct mshv_mem_region *region)
- 	return kref_get_unless_zero(&region->mreg_refcount);
+diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+index 54486960cbf5..b5b4ca263002 100644
+--- a/drivers/accel/amdxdna/aie2_ctx.c
++++ b/drivers/accel/amdxdna/aie2_ctx.c
+@@ -1034,7 +1034,7 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
+ 	bool found;
+ 	int ret;
+ 
+-	timeout = jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
++	timeout = msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+ again:
+ 	found = false;
+ 	down_write(&xdna->notifier_lock);
+@@ -1061,24 +1061,9 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
+ 		return -EFAULT;
+ 	}
+ 
+-	mapp->range.notifier_seq = mmu_interval_read_begin(&mapp->notifier);
+-	mmap_read_lock(mm);
+-	ret = hmm_range_fault(&mapp->range);
+-	mmap_read_unlock(mm);
+-	if (ret) {
+-		if (time_after(jiffies, timeout)) {
+-			ret = -ETIME;
+-			goto put_mm;
+-		}
+-
+-		if (ret == -EBUSY) {
+-			amdxdna_umap_put(mapp);
+-			mmput(mm);
+-			goto again;
+-		}
+-
++	ret = hmm_range_fault_unlocked_timeout(&mapp->range, timeout);
++	if (ret)
+ 		goto put_mm;
+-	}
+ 
+ 	down_write(&xdna->notifier_lock);
+ 	if (mmu_interval_read_retry(&mapp->notifier, mapp->range.notifier_seq)) {
+@@ -1096,7 +1081,7 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
+ put_mm:
+ 	amdxdna_umap_put(mapp);
+ 	mmput(mm);
+-	return ret;
++	return ret == -EBUSY ? -ETIME : ret;
  }
  
--/**
-- * mshv_region_hmm_fault_and_lock - Handle HMM faults and lock the memory region
-- * @region: Pointer to the memory region structure
-- * @range: Pointer to the HMM range structure
-- *
-- * This function performs the following steps:
-- * 1. Reads the notifier sequence for the HMM range.
-- * 2. Acquires a read lock on the memory map.
-- * 3. Handles HMM faults for the specified range.
-- * 4. Releases the read lock on the memory map.
-- * 5. If successful, locks the memory region mutex.
-- * 6. Verifies if the notifier sequence has changed during the operation.
-- *    If it has, releases the mutex and returns -EBUSY to match with
-- *    hmm_range_fault() return code for repeating.
-- *
-- * Return: 0 on success, a negative error code otherwise.
-- */
--static int mshv_region_hmm_fault_and_lock(struct mshv_mem_region *region,
--					  struct hmm_range *range)
--{
--	int ret;
--
--	range->notifier_seq = mmu_interval_read_begin(range->notifier);
--	mmap_read_lock(region->mreg_mni.mm);
--	ret = hmm_range_fault(range);
--	mmap_read_unlock(region->mreg_mni.mm);
--	if (ret)
--		return ret;
--
--	mutex_lock(&region->mreg_mutex);
--
--	if (mmu_interval_read_retry(range->notifier, range->notifier_seq)) {
--		mutex_unlock(&region->mreg_mutex);
--		cond_resched();
--		return -EBUSY;
--	}
--
--	return 0;
--}
--
- /**
-  * mshv_region_range_fault - Handle memory range faults for a given region.
-  * @region: Pointer to the memory region structure.
-@@ -452,13 +412,19 @@ static int mshv_region_range_fault(struct mshv_mem_region *region,
- 	range.start = region->start_uaddr + page_offset * HV_HYP_PAGE_SIZE;
- 	range.end = range.start + page_count * HV_HYP_PAGE_SIZE;
- 
--	do {
--		ret = mshv_region_hmm_fault_and_lock(region, &range);
--	} while (ret == -EBUSY);
--
-+again:
-+	ret = hmm_range_fault_unlocked_timeout(&range, 0);
- 	if (ret)
- 		goto out;
- 
-+	mutex_lock(&region->mreg_mutex);
-+
-+	if (mmu_interval_read_retry(range.notifier, range.notifier_seq)) {
-+		mutex_unlock(&region->mreg_mutex);
-+		cond_resched();
-+		goto again;
-+	}
-+
- 	for (i = 0; i < page_count; i++)
- 		region->mreg_pages[page_offset + i] = hmm_pfn_to_page(pfns[i]);
- 
+ int aie2_cmd_submit(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job, u64 *seq)
 
 -- 
 2.43.0
