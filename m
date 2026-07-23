@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E41AC4453D
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:36:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C22C5C531CA
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:36:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B880B10EF44;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB39610EF4B;
 	Thu, 23 Jul 2026 01:36:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="TYzLOWvi";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="HXHA8z2R";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F106710EF09
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7633210EF27
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784770530;
- bh=hse6ZoBRDdkgueZEFZSp6DqlC7adzsHmGMK2OKfFL4E=;
+ s=mail; t=1784770543;
+ bh=uLg7zYEx4PuEm5hUTroSVNr0ajJC3eSnGppIiyCnEzA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=TYzLOWviL9pa0KhzNYiVr0m0TPKlqorlneP2coDDfoXCLH8Xh2S2pmV0Rjim01RmR
- u6cExqeIQhPAPCZKHmM8HYPYgCLXwinhxpFFjXCLrOeNivHWK1CiuUbPLhcrKmaynW
- /KKIQe7g29JTLbMWktiMb4b9xYnrOVlfulJESfq7ALqxMFMdn6Du9W3diOgSChGkYa
- UcbH5IZHQTbcgvN/OZkV++dUDA2ws//3AI+I/xG8MM+DKYZPXPkr4YKfhMltXMQ9es
- qr9tcd373vNEITpo/vM/IfP8FQq08cGzK/mRAAeip9aeP53ulvOYA47xDZo7Ey9nRy
- g0Gxqw4V3vMXA==
+ b=HXHA8z2RRuAR2lvG+YYOntpyPMbEkGeVdL8Pag+3qat7UWtoqZTr55O2Px1PNZcbY
+ Ig68s9VWK2Hngk3GC8D+ibgcFsPmHXJ9JmnRP16Hv8HoumsHHZ/Yhw2ORxm8TbbMCJ
+ ecY07mX6Gfq7wBdKEmq31AeGX7BXZU1PaQnEt3ajOp8V4ecpLgJ0SFylWrGXzp4+8L
+ X3sY8qPt3RIxvKSB2Y4a3j+fdjLRzzczGp1lWd3aZEEzRpYnKfy983WPlRW9eq/EFR
+ TiaMf94yLZme88RmU2Vf0tvuzuF9eqrcx+R1AYnF3jsNEueM6p/dRWCeud1OWZHf7y
+ 4+6RjlTUKCJkA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A3E2B17E3686;
- Thu, 23 Jul 2026 03:35:30 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 261CE17E37F3;
+ Thu, 23 Jul 2026 03:35:43 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 23 Jul 2026 04:35:30 +0300
-Subject: [PATCH v9 41/61] drm/bridge: inno-hdmi: Advertise HDMI 1.2
- capabilities
+Date: Thu, 23 Jul 2026 04:35:48 +0300
+Subject: [PATCH v9 59/61] drm/connector: Drop redundant hdmi vendor/product
+ fields
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-dw-hdmi-qp-scramb-v9-41-4fb12ea22ac9@collabora.com>
+Message-Id: <20260723-dw-hdmi-qp-scramb-v9-59-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -79,32 +79,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
-supported HDMI version.  This is not yet enforced, but will become
-mandatory once the migration to the new caps-based HDMI connector
-initialization API is completed.
+Now that all users migrated to the new drmm_connector_hdmi_init()
+signature, vendor and product are provided through struct
+drm_connector_hdmi_funcs, a reference to which is already stored in
+drm_connector_hdmi.
 
-Since inno_hdmi_phy_config.pixelclock does not exceed 165 MHz for any of
-the chip variants handled by the driver, advertise HDMI 1.2 as the
-supported version.
+Drop the redundant fields from drm_connector_hdmi and point its users to
+hdmi.funcs->vendor and hdmi.funcs->product instead.
+
+This allows simplifying the related connector registration tests by
+getting rid of the now unnecessary KUNIT_EXPECT_MEMEQ() checks.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/inno-hdmi.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c |  4 +--
+ drivers/gpu/drm/drm_connector.c                 |  4 ---
+ drivers/gpu/drm/tests/drm_connector_test.c      | 41 +++----------------------
+ include/drm/drm_connector.h                     | 14 ++-------
+ 4 files changed, 8 insertions(+), 55 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
-index dd35f5a875d3..ea3447d4f285 100644
---- a/drivers/gpu/drm/bridge/inno-hdmi.c
-+++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-@@ -1119,6 +1119,7 @@ struct inno_hdmi *inno_hdmi_bind(struct device *dev,
- 	hdmi->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
- 	hdmi->bridge.vendor = "Inno";
- 	hdmi->bridge.product = "Inno HDMI";
-+	hdmi->bridge.supported_hdmi_ver = HDMI_VERSION_1_2;
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index d112c1555517..bb4dd9d0b482 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -784,8 +784,8 @@ static int hdmi_generate_spd_infoframe(const struct drm_connector *connector,
+ 		return 0;
  
- 	hdmi->bridge.ddc = inno_hdmi_i2c_adapter(hdmi);
- 	if (IS_ERR(hdmi->bridge.ddc))
+ 	ret = hdmi_spd_infoframe_init(frame,
+-				      connector->hdmi.vendor,
+-				      connector->hdmi.product);
++				      connector->hdmi.funcs->vendor,
++				      connector->hdmi.funcs->product);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index d424d245ef71..837dbaa65eb0 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -656,10 +656,6 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 		connector->hdmi.max_tmds_char_rate = hdmi_funcs->supported_tmds_char_rate;
+ 	}
+ 
+-	/* TODO: remove after conversion to new drmm_connector_hdmi_init() */
+-	strtomem_pad(connector->hdmi.vendor, hdmi_funcs->vendor, 0);
+-	strtomem_pad(connector->hdmi.product, hdmi_funcs->product, 0);
+-
+ 	/*
+ 	 * drm_connector_attach_max_bpc_property() requires the
+ 	 * connector to have a state.
+diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
+index 3d050ac5e5f6..1d8c30288aea 100644
+--- a/drivers/gpu/drm/tests/drm_connector_test.c
++++ b/drivers/gpu/drm/tests/drm_connector_test.c
+@@ -769,14 +769,11 @@ static void drm_test_connector_hdmi_init_null_product(struct kunit *test)
+ 
+ /*
+  * Test that the registration of a connector with a valid, shorter than
+- * the max length, product name succeeds, and is stored padded with 0.
++ * the max length, product name succeeds.
+  */
+ static void drm_test_connector_hdmi_init_product_valid(struct kunit *test)
+ {
+ 	struct drm_connector_init_priv *priv = test->priv;
+-	const unsigned char expected_product[DRM_CONNECTOR_HDMI_PRODUCT_LEN] = {
+-		'P', 'r', 'o', 'd',
+-	};
+ 	struct drm_connector_hdmi_funcs hdmi_funcs = dummy_hdmi_funcs;
+ 	int ret;
+ 
+@@ -790,25 +787,15 @@ static void drm_test_connector_hdmi_init_product_valid(struct kunit *test)
+ 				       DRM_MODE_CONNECTOR_HDMIA,
+ 				       &priv->ddc);
+ 	KUNIT_EXPECT_EQ(test, ret, 0);
+-	KUNIT_EXPECT_MEMEQ(test,
+-			   priv->connector.hdmi.product,
+-			   expected_product,
+-			   sizeof(priv->connector.hdmi.product));
+ }
+ 
+ /*
+  * Test that the registration of a connector with a valid, at max
+- * length, product name succeeds, and is stored padded without any
+- * trailing \0.
++ * length, product name succeeds.
+  */
+ static void drm_test_connector_hdmi_init_product_length_exact(struct kunit *test)
+ {
+ 	struct drm_connector_init_priv *priv = test->priv;
+-	const unsigned char expected_product[DRM_CONNECTOR_HDMI_PRODUCT_LEN] = {
+-		'P', 'r', 'o', 'd', 'u', 'c', 't',
+-		'P', 'r', 'o', 'd', 'u', 'c', 't',
+-		'P', 'r',
+-	};
+ 	struct drm_connector_hdmi_funcs hdmi_funcs = dummy_hdmi_funcs;
+ 	int ret;
+ 
+@@ -822,10 +809,6 @@ static void drm_test_connector_hdmi_init_product_length_exact(struct kunit *test
+ 				       DRM_MODE_CONNECTOR_HDMIA,
+ 				       &priv->ddc);
+ 	KUNIT_EXPECT_EQ(test, ret, 0);
+-	KUNIT_EXPECT_MEMEQ(test,
+-			   priv->connector.hdmi.product,
+-			   expected_product,
+-			   sizeof(priv->connector.hdmi.product));
+ }
+ 
+ /*
+@@ -852,14 +835,11 @@ static void drm_test_connector_hdmi_init_product_length_too_long(struct kunit *t
+ 
+ /*
+  * Test that the registration of a connector with a vendor name smaller
+- * than the maximum length succeeds, and is stored padded with zeros.
++ * than the maximum length succeeds.
+  */
+ static void drm_test_connector_hdmi_init_vendor_valid(struct kunit *test)
+ {
+ 	struct drm_connector_init_priv *priv = test->priv;
+-	const char expected_vendor[DRM_CONNECTOR_HDMI_VENDOR_LEN] = {
+-		'V', 'e', 'n', 'd',
+-	};
+ 	struct drm_connector_hdmi_funcs hdmi_funcs = dummy_hdmi_funcs;
+ 	int ret;
+ 
+@@ -873,24 +853,15 @@ static void drm_test_connector_hdmi_init_vendor_valid(struct kunit *test)
+ 				       DRM_MODE_CONNECTOR_HDMIA,
+ 				       &priv->ddc);
+ 	KUNIT_EXPECT_EQ(test, ret, 0);
+-	KUNIT_EXPECT_MEMEQ(test,
+-			   priv->connector.hdmi.vendor,
+-			   expected_vendor,
+-			   sizeof(priv->connector.hdmi.vendor));
+ }
+ 
+ /*
+  * Test that the registration of a connector with a vendor name at the
+- * maximum length succeeds, and is stored padded without the trailing
+- * zero.
++ * maximum length succeeds.
+  */
+ static void drm_test_connector_hdmi_init_vendor_length_exact(struct kunit *test)
+ {
+ 	struct drm_connector_init_priv *priv = test->priv;
+-	const char expected_vendor[DRM_CONNECTOR_HDMI_VENDOR_LEN] = {
+-		'V', 'e', 'n', 'd', 'o', 'r',
+-		'V', 'e',
+-	};
+ 	struct drm_connector_hdmi_funcs hdmi_funcs = dummy_hdmi_funcs;
+ 	int ret;
+ 
+@@ -904,10 +875,6 @@ static void drm_test_connector_hdmi_init_vendor_length_exact(struct kunit *test)
+ 				       DRM_MODE_CONNECTOR_HDMIA,
+ 				       &priv->ddc);
+ 	KUNIT_EXPECT_EQ(test, ret, 0);
+-	KUNIT_EXPECT_MEMEQ(test,
+-			   priv->connector.hdmi.vendor,
+-			   expected_vendor,
+-			   sizeof(priv->connector.hdmi.vendor));
+ }
+ 
+ /*
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index b80cc667604e..03f4e6751165 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1418,11 +1418,13 @@ struct drm_connector_infoframe_funcs {
+  * and controller capabilities
+  */
+ struct drm_connector_hdmi_funcs {
++#define DRM_CONNECTOR_HDMI_VENDOR_LEN	8
+ 	/**
+ 	 * @vendor: HDMI Controller Vendor name.
+ 	 */
+ 	const char *vendor;
+ 
++#define DRM_CONNECTOR_HDMI_PRODUCT_LEN	16
+ 	/**
+ 	 * @product: HDMI Controller Product name
+ 	 */
+@@ -2117,18 +2119,6 @@ struct drm_connector_hdmi_audio {
+  * struct drm_connector_hdmi - DRM Connector HDMI-related structure
+  */
+ struct drm_connector_hdmi {
+-#define DRM_CONNECTOR_HDMI_VENDOR_LEN	8
+-	/**
+-	 * @vendor: HDMI Controller Vendor Name
+-	 */
+-	unsigned char vendor[DRM_CONNECTOR_HDMI_VENDOR_LEN] __nonstring;
+-
+-#define DRM_CONNECTOR_HDMI_PRODUCT_LEN	16
+-	/**
+-	 * @product: HDMI Controller Product Name
+-	 */
+-	unsigned char product[DRM_CONNECTOR_HDMI_PRODUCT_LEN] __nonstring;
+-
+ 	/**
+ 	 * @supported_formats: Bitmask of @drm_output_color_format
+ 	 * supported by the controller.
 
 -- 
 2.55.0
