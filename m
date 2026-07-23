@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26471C44536
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 00:53:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 260C9C44532
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 00:53:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2691410E308;
-	Thu, 23 Jul 2026 00:53:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5241610E4FD;
+	Thu, 23 Jul 2026 00:53:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hKQl9qHs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RwpEHUsu";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFB9B10E308
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 00:53:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF81A10E4FD
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 00:53:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 281CD600AB;
- Thu, 23 Jul 2026 00:53:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27B61F00A3A;
- Thu, 23 Jul 2026 00:53:03 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 33803600E1;
+ Thu, 23 Jul 2026 00:53:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE8621F000E9;
+ Thu, 23 Jul 2026 00:53:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784767983;
- bh=REMJtHFmUWXTNq5fP+3bUHQERsAa0AcZzLarn0vFGzU=;
+ s=k20260515; t=1784768000;
+ bh=gYYndwFdSMvpRgKOW6sp9ud++ykfIwqJnYqjElnJwe0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hKQl9qHsku5/ua1IJ4iOeSQzDK69rKE6G+TfDyv8d3eBMCoFytVItFjgj8MOlxECA
- cG7q4iUB6az6GJ/XXgNR+TyqYzUGAzgsvXIO/TX0RisD+lxrETEkVNMAgpNlFWIZom
- oHAxvCC5WQL+4fiz5he43aEwidttrWYi+3ZFsp1opZ+4nIch2aJidUxzvZdPrI8e5F
- esg/PpF3Nlp4Kw/hNVe/tBSZSQfjO0wVWYJPQZHfAokFYl1j1S/17Ko51pX6xMQcwL
- I63F64FHxjAm6GOwriA/UrL/7saEI4rjPjNsK/LyGyKIjafMt4vpQd9WbFUop3WSMN
- bFuKfyr3zSQOw==
+ b=RwpEHUsufiiM5Tk4dS8Yaog7BL1UU1/YSeXo71eIqeilTCmjRPjHKdE8CX1shJx0u
+ wxsM+900w1rd+9YqWHrt8PHE28tY6XwQoU7lZFSd1WHI97N3iQgy8vsZ8C/LPKt34D
+ jPR9woQXLTYiu92JnfkFZUX/3J2iBqQgIK9E1yz8Qvk1xxIfHLAYRaAX3wIfV6Tyh6
+ usFdnfeo7PwvH8YCMIJzx3liwYURgdCaChTONDlNEABqGX7OgRts7a8Y343leiJxL2
+ LmQr7iDcRKA5HDp+/H6YNnn4wpZrUdVOQfQ15UrSW38EPFrmxuMMLbv7ELCCBIB70+
+ ZqEChPI2FZq0A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 7/8] drm/vc4: use drmm_writeback_connector_init()
+Subject: Re: [PATCH v8 3/8] drm/amd/display: use
+ drmm_writeback_connector_init()
 To: "John Harrison" <John.Harrison@Igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723003205.330362-8-John.Harrison@Igalia.com>
+In-Reply-To: <20260723003205.330362-4-John.Harrison@Igalia.com>
 References: <20260723003205.330362-1-John.Harrison@Igalia.com>
- <20260723003205.330362-8-John.Harrison@Igalia.com>
+ <20260723003205.330362-4-John.Harrison@Igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 00:53:03 +0000
-Message-Id: <20260723005303.B27B61F00A3A@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 00:53:20 +0000
+Message-Id: <20260723005320.BE8621F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,54 +58,130 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] Mismatched object lifetimes in KUnit test causes Use-After-Free =
+when DRM device is torn down.
+
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the `vc4_txp_int=
-errupt` handler can trigger a use-after-free on the `txp` structure if the =
-component is unbound.
+- [High] The struct dc_writeback_info allocated dynamically in dm_set_write=
+back() is leaked on every successful writeback job setup.
 --
 
---- Patch [7]: [PATCH v8 7/8] drm/vc4: use drmm_writeback_connector_init() =
----
-Note: The format of this review has been altered to provide a free-form
-summary of the findings due to recitation restrictions. The original patch
-code is not directly quoted.
-
-commit d2ba7084f0c0f5d055693e1cdaf9ce77bc6aa242
+--- Patch [3]: [PATCH v8 3/8] drm/amd/display: use drmm_writeback_connector=
+_init() ---
+commit 4cc9223584993bb5748e535854c7b5fb0eba8f0d
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/vc4: use drmm_writeback_connector_init()
+drm/amd/display: use drmm_writeback_connector_init()
 
-This commit changes the VC4 driver to use drmm_writeback_connector_init()
-instead of drm_writeback_connector_init() to ensure proper cleanup of the
-job queue. It also removes the vc4_txp_unbind function.
+The driver uses drmm_writeback_connector_init() to ensure proper job queue
+cleanup. It also allocates a simple encoder using drmm_plain_encoder_alloc()
+for the writeback connector.
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 289da9d00b056..ff7b21830fce9 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5048,7 +5048,7 @@ static void dm_set_writeback(struct amdgpu_display_=
+manager *dm,
+>  		return;
+>  	}
+> =20
+> -	acrtc =3D to_amdgpu_crtc(wb_conn->encoder.crtc);
+> +	acrtc =3D to_amdgpu_crtc(crtc_state->base.crtc);
+>  	if (!acrtc) {
+>  		drm_err(adev_to_drm(adev), "no amdgpu_crtc found\n");
+>  		kfree(wb_info);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does the component unbind fl=
-ow
-leave a dangling interrupt handler that can cause a use-after-free?
+This isn't a bug introduced by this patch, but does dm_set_writeback() leak
+the dynamically allocated wb_info struct on success?
 
-In vc4_txp_bind(), the txp structure is allocated using drmm_kzalloc(), tyi=
-ng
-its lifecycle to the DRM master aggregate device.
+When userspace configures a writeback job, wb_info is allocated dynamically
+using kzalloc_obj(). It is then passed to dc_stream_add_writeback():
 
-However, the interrupt handler vc4_txp_interrupt() is registered using
-devm_request_irq() on the component platform device.
+	dc_stream_add_writeback(dm->dc, crtc_state->stream, wb_info);
 
-If the DRM master is unbound via sysfs, the drmm-managed txp structure is
-freed. Because the component platform device driver is not necessarily unbo=
-und,
-the devm-managed IRQ handler remains active.
+	acrtc->wb_conn =3D wb_conn;
+	drm_writeback_queue_job(wb_conn, new_con_state);
 
-If an interrupt fires after the DRM device teardown, won't vc4_txp_interrup=
-t()
-dereference the freed txp structure?
+However, dc_stream_add_writeback() copies the contents by value into an arr=
+ay
+(stream->writeback_info[...] =3D *wb_info) but does not take ownership of t=
+he
+pointer.
 
-Should the IRQ registration be tied to the DRM lifecycle, or should the IRQ
-be explicitly disabled when the component unbinds?
+The function then returns without ever calling kfree(wb_info) on the success
+path, which seems to result in a memory leak on every successful writeback
+job setup.
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drive=
+rs/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> index 9e7bad4d6ed0c..2bb86218e80b0 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+
+[ ... ]
+
+> @@ -197,17 +196,26 @@ int amdgpu_dm_wb_connector_init(struct amdgpu_displ=
+ay_manager *dm,
+>  	struct dc *dc =3D dm->dc;
+>  	struct dc_link *link =3D dc_get_link_at_index(dc, link_index);
+>  	int res;
+> +	struct drm_encoder *encoder;
+> +
+> +	encoder =3D drmm_plain_encoder_alloc(&dm->adev->ddev, NULL,
+> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
+> +	if (IS_ERR(encoder))
+> +		return PTR_ERR(encoder);
+> +
+> +	drm_encoder_helper_add(encoder, &amdgpu_dm_wb_encoder_helper_funcs);
+> +
+> +	encoder->possible_crtcs =3D amdgpu_dm_get_encoder_crtc_mask(dm->adev);
+> =20
+>  	wbcon->link =3D link;
+> =20
+>  	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_f=
+uncs);
+> =20
+> -	res =3D drm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
+> +	res =3D drmm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
+>  					    &amdgpu_dm_wb_connector_funcs,
+> -					    &amdgpu_dm_wb_encoder_helper_funcs,
+> +					    encoder,
+>  					    amdgpu_dm_wb_formats,
+> -					    ARRAY_SIZE(amdgpu_dm_wb_formats),
+> -					    amdgpu_dm_get_encoder_crtc_mask(dm->adev));
+> +					    ARRAY_SIZE(amdgpu_dm_wb_formats));
+
+[Severity: Medium]
+Can this conversion to drmm_writeback_connector_init() cause a use-after-fr=
+ee
+in the KUnit tests during DRM device teardown?
+
+In the KUnit test dm_test_wb_connector_init_success(), the mock DRM device =
+is
+allocated via dm_kunit_alloc_adev() (which registers a KUnit cleanup action=
+).
+The test object wbcon is then allocated using kunit_kzalloc():
+
+	wbcon =3D kunit_kzalloc(test, sizeof(*wbcon), GFP_KERNEL);
+	KUNIT_ASSERT_NOT_NULL(test, wbcon);
+
+	ret =3D amdgpu_dm_wb_connector_init(dm, wbcon, 0);
+
+Because KUnit cleanup actions run in LIFO order, when the test completes, it
+first frees wbcon via kfree(), and then tears down the mock DRM device.
+
+The device teardown triggers the drmm cleanup action registered by this pat=
+ch
+(drm_writeback_connector_cleanup), which will dereference the already-freed
+wbcon to lock job_lock and iterate job_queue.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723003205.3303=
-62-1-John.Harrison@Igalia.com?part=3D7
+62-1-John.Harrison@Igalia.com?part=3D3
