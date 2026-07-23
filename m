@@ -4,69 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 200AFC531C7
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 09:43:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BA0EC531C7
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 09:46:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7489C10F044;
-	Thu, 23 Jul 2026 09:43:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DA3710E588;
+	Thu, 23 Jul 2026 09:46:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=grimler.se header.i=@grimler.se header.b="VVdg24eU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BORfaAEg";
 	dkim-atps=neutral
-Received: from out-182.mta1.migadu.com (out-182.mta1.migadu.com
- [95.215.58.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC36410F044
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 09:43:33 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grimler.se; s=key1;
- t=1784799810;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=6JxfaO/L3H+d6K+qQEbQ1OD1DRtey794ZPKDE9UrqK8=;
- b=VVdg24eU+PnYt0Ycjb39/BvQG+bBe6HubhkSIlTYYIkVqfBTMuaIl+wCn+VIz/pIRDItOw
- SMiBqRS+f0tnxpsZy3kI25f+8xlupXIRMGuLp1PjlMo+cWgr0C03TsgS/1X8nngLx2a4e6
- FMw9w7f3lRtXtsyL/Ud5pkNI4XJPtlc=
-From: Henrik Grimler <henrik@grimler.se>
-Date: Thu, 23 Jul 2026 11:41:56 +0200
-Subject: [PATCH v5] drm/bridge: sii9234: use extcon cable detection logic
- to detect MHL
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 901E010E588
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 09:46:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id ED64860A67;
+ Thu, 23 Jul 2026 09:46:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F9451F000E9;
+ Thu, 23 Jul 2026 09:46:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784799991;
+ bh=c0op309bUfGA0ctk/Gc5xRw/LObUAXSQRptCHu8HqRc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=BORfaAEge2bgsh1GovGRFQT20U8KHorncsr/Je6lcz0PutT6rInv5N412OjzzkKk8
+ dhQrpekbotopVTjFwaNQK/reH7peBqOamowxX3NHAnHLDLwo7wRJ4Q0yzqxZ7RGBc2
+ mnhyaTvavdKHoJiG6dIfg2QNSRwlznpF0b+D9ceDuUbf6+Xo2kczew4bwaF278ss/x
+ qDUAHZNmNX+HXAbKw5Acszie/fh7C2yo/oqQHjMHEsnTnAogKclcpNYxJAMETetRyk
+ uAgp9PGUeswlZGJ0oK5alUchC6wY7joT8jWl8zJVNayhioHnJ68Ok8ucNqvwDEYpC1
+ SWGKwaK0Tp5kw==
+Date: Thu, 23 Jul 2026 12:46:25 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: dhu@x6u.co
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>,
+ David Laight <david.laight.linux@gmail.com>,
+ Nicolin Chen <nicolinc@nvidia.com>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ Pranjal Shrivastava <praan@google.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ stable@vger.kernel.org, jmoroni@google.com, kpberry@google.com,
+ chriscli@google.com, viursachi@google.com, xuehaohu@google.com,
+ sashiko-bot <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk
+Message-ID: <20260723094625.GE110966@unreal>
+References: <20260623015459.1153884-1-xuehaohu@google.com>
+ <20260722233932.3997681-1-dhu@x6u.co>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-exynos4-sii9234-driver-v5-1-44b31b5597bd@grimler.se>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33OwW7CMAyA4VdBOZMpdtwm7LT3QBy6xgFL0KIER
- SDUdydFmrYJleNvyZ99V5mTcFafq7tKXCTLONRo1ivVH7phz1pCbYUGLSB4zdfbMGbSWWSDlnR
- IUjjp4MEF+m4AQqPq8jlxlOsT3u5qHyRfxnR73ikwT2eyMQ5hiSygjUYmx8FgbJ372ic5HTl9Z
- FazWfCvQ4sOVid2zEgUIZB5ceyv4984tjreeNqwg7azr//Qj9MaALvoUHVa9r3peqDo6Z8zTdM
- DRzf45JUBAAA=
-X-Change-ID: 20231218-exynos4-sii9234-driver-d817d4b511d5
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org, 
- ~postmarketos/upstreaming@lists.sr.ht, linux-kernel@vger.kernel.org, 
- Henrik Grimler <henrik@grimler.se>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6920; i=henrik@grimler.se;
- h=from:subject:message-id; bh=yV9viZUIq/erJyt5xIHf3MyM1JE8PA58gOxPHaDZWH4=;
- b=owEBiQF2/pANAwAIAbAHbkkLcWFrAcsmYgBqYeItEEHWEZlqv1qmejnB3WgAxUm6tZRP3vqTx
- WWc7ivsOoyJAU8EAAEIADkWIQQsfymul4kfZBmp4s2wB25JC3FhawUCamHiLRsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwzLDIACgkQsAduSQtxYWs83AgAjrs+ZiCaXeM5j5Z5npW4K98zF24MNZJ
- 44hi9dRwlP9WPev+0qmaxn2THgpeIIKcFIvlal4l8DN2QBhV3OOrzm/GTnSsVojm5GuHpLW0Iy1
- eO0hcTrmKQKV26zLR9m0Aakft6Vp/m7+ooFOLwkmStvCIYlbcUF6r6MvKKh1HkPfIQ4M5qNEXE5
- 4u6qxojHQO0Q9PvFrK25XT6hFzIscS6R2p+LQiMHCy+q8cBanlnb+nhmCa/E1NlvCYyxRj4guLF
- ooIW/QEWrA2bwdt+n9sJZeYgYhTECzfcHS2Hf/zGse5O7FYC0AF/zhrX4ivndz5LwczuOs+MFsX
- M4UNkT/wWlQ==
-X-Developer-Key: i=henrik@grimler.se; a=openpgp;
- fpr=2C7F29AE97891F6419A9E2CDB0076E490B71616B
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260722233932.3997681-1-dhu@x6u.co>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,218 +68,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-To use MHL we currently need the MHL chip to be permanently on, which
-consumes unnecessary power. Let's use extcon attached to MUIC to enable
-the MHL chip only if it detects an MHL cable.
+On Wed, Jul 22, 2026 at 11:39:32PM +0000, dhu@x6u.co wrote:
+> From: David Hu <xuehaohu@google.com>
+> 
+> Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
+> This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
+> first entry, resulting in non-page-aligned DMA addresses for all
+> subsequent entries.
+> 
+> While the underlying IOMMU mapping may be contiguous, hardware
+> DMA engines often require explicit address alignment (e.g., page,
+> cacheline, or storage sector boundaries). Passing unaligned
+> addresses and lengths can cause explicit failures in DMA descriptor
+> creation or silent data corruption if lower unaligned bits are
+> truncated.
+> 
+> In addition, a non-page-aligned sgl length will trigger an edge case
+> in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
+> buffers, we will have a `va` with lowest bit set to 1. That will lead
+> to `ib_umem_find_best_pgsz()` always return 0, and break the promise
+> to find best page size for the mapping on the NIC side.
+> 
+> Fix this by splitting the scatterlist by the largest possible page
+> aligned chunk within `UINT_MAX` (`ALIGN_DOWN(UINT_MAX, PAGE_SIZE)`).
+> This ensures all scatterlist DMA addresses and lengths remain page
+> aligned, while minimizing the total number of sgl entries.
+> 
+> Page-aligned entries allow the system to cleanly chunk payloads into
+> PCIe MaxPayloadSize (MPS) (e.g., 128 bytes, 256 bytes, 512 bytes).
+> As a result, this may help reduce TLP fragmentation in P2P transfers
+> and alleviate potential congestion within a logical PCIe switch
+> partition, especially when Relaxed Ordering is not possible due to
+> hardware constraints.
+> 
+> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260609165431.778061F00893@smtp.kernel.org/
+> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hu <xuehaohu@google.com>
+> ---
+>  Changes in v3:
+>  - Removed the type cast for `min` (David Laight)
+>  - Reverted max ent size to be `ALIGN_DOWN(UINT_MAX, PAGE_SIZE)` and
+>    updated commit message to reflect that (Jason Gunthorpe)
+>  - Updated commit message to reflect that this also fixes an edge case
+>    in `ib_umem_find_best_pgsz()`
+> 
+>  Changes in v2:
+>  - Updated commit title and message to reflect the switch to 2G chunks
+>  - Switch to using 2G as the max sg entry size as it naturally aligns
+>    with most hardware boundaries, while allowing compiler optimizations
+>    with bit shifts (David Laight)
+>  - Optimized away division calculation for `nent`, and multiplication
+>    calculation for sgl address, by dropping the `for` loop in favor of a
+>    `while (length)` loop (David Laight)
+>  - Dropped `min_t` in favor of `min()` to maintain a strict type
+>    checking safety net (David Laight)
+> 
+>  drivers/dma-buf/dma-buf-mapping.c | 19 +++++++++++--------
+>  1 file changed, 11 insertions(+), 8 deletions(-)
 
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Henrik Grimler <henrik@grimler.se>
----
-Hi,
+Could you please avoid sending patches as replies? It severely disrupts
+the reading flow when using mutt's threaded view.
 
-Fix so HDMI through the sii9234 MHL chip works when cable is
-hotplugged, by making the MHL chip use extcon cable detection
-functions. The patch is heavily inspired by commit 688838442147
-("drm/bridge/sii8620: use micro-USB cable detection logic to detect
-MHL") by Maciej Purski.
+Regarding the patch,
+Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
 
-Before these changes, HDMI only worked if cable was plugged in before
-booting. If no cable was connected, then wlr-randr still showed HDMI
-as connected, with 0x0 px, which confused at least some UIs (phosh)
-and caused problems:
-https://gitlab.gnome.org/World/Phosh/phosh/-/issues/828
-
-Tested on exynos4412-i9305.
----
-Changes in v5:
-- Rebase and drop applied patches
-- Fix review comments by Luca:
-  - Remove unnecessary line breaks and braces
-  - Change Kconfig extcon dependency
-  - Use devm_extcon_register_notifier
-- Link to v4: https://lore.kernel.org/r/20260113-exynos4-sii9234-driver-v4-0-6e8c0ac14f84@grimler.se
-
-Changes in v4:
-- Collect tags
-- Link to v3: https://lore.kernel.org/r/20250824-exynos4-sii9234-driver-v3-0-80849e716a37@grimler.se
-
-Changes in v3:
-- Fix return of dev_err_probe in patch 2 and patch 3, spotted by
-  Dmitry and Marek respectively.
-- Change to depends on EXTCON || !EXTCON instead of select
-- Collect tags for patch 1 (not 3 since there were (minor) changes)
-- Link to v2: https://lore.kernel.org/r/20250724-exynos4-sii9234-driver-v2-0-faee244f1d40@grimler.se
-
-Changes in v2:
-- Add dependency on extcon in patch 3. Issue reported by kernel test robot <lkp@intel.com>
-- Link to v1: https://lore.kernel.org/r/20250721-exynos4-sii9234-driver-v1-0-2e47ed02f677@grimler.se
-
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Robert Foss <rfoss@kernel.org>
-To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-To: Jonas Karlman <jonas@kwiboo.se>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/gpu/drm/bridge/Kconfig   |  1 +
- drivers/gpu/drm/bridge/sii9234.c | 78 ++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 77 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 4a57d49b4c6d..84236e816080 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -333,6 +333,7 @@ config DRM_SII902X
- config DRM_SII9234
- 	tristate "Silicon Image SII9234 HDMI/MHL bridge"
- 	depends on OF
-+	depends on EXTCON if EXTCON
- 	help
- 	  Say Y here if you want support for the MHL interface.
- 	  It is an I2C driver, that detects connection of MHL bridge
-diff --git a/drivers/gpu/drm/bridge/sii9234.c b/drivers/gpu/drm/bridge/sii9234.c
-index be67642ab7d3..bf211906fefc 100644
---- a/drivers/gpu/drm/bridge/sii9234.c
-+++ b/drivers/gpu/drm/bridge/sii9234.c
-@@ -20,6 +20,7 @@
- 
- #include <linux/delay.h>
- #include <linux/err.h>
-+#include <linux/extcon.h>
- #include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/interrupt.h>
-@@ -27,6 +28,7 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
- #include <linux/slab.h>
- 
-@@ -173,6 +175,10 @@ struct sii9234 {
- 	struct gpio_desc *gpio_reset;
- 	int i2c_error;
- 	struct regulator_bulk_data supplies[4];
-+	struct extcon_dev *extcon;
-+	struct notifier_block extcon_nb;
-+	struct work_struct extcon_wq;
-+	int cable_state;
- 
- 	struct mutex lock; /* Protects fields below and device registers */
- 	enum sii9234_state state;
-@@ -864,6 +870,63 @@ static int sii9234_init_resources(struct sii9234 *ctx,
- 	return 0;
- }
- 
-+static void sii9234_extcon_work(struct work_struct *work)
-+{
-+	struct sii9234 *ctx = container_of(work, struct sii9234, extcon_wq);
-+	int state = extcon_get_state(ctx->extcon, EXTCON_DISP_MHL);
-+
-+	if (state == ctx->cable_state)
-+		return;
-+
-+	ctx->cable_state = state;
-+
-+	if (state > 0)
-+		sii9234_cable_in(ctx);
-+	else
-+		sii9234_cable_out(ctx);
-+}
-+
-+static int sii9234_extcon_notifier(struct notifier_block *nb,
-+			unsigned long event, void *ptr)
-+{
-+	struct sii9234 *ctx = container_of(nb, struct sii9234, extcon_nb);
-+
-+	schedule_work(&ctx->extcon_wq);
-+
-+	return NOTIFY_DONE;
-+}
-+
-+static int sii9234_extcon_init(struct sii9234 *ctx)
-+{
-+	struct extcon_dev *edev;
-+	struct device_node *musb, *muic;
-+	int ret;
-+
-+	/* Get micro-USB connector node */
-+	musb = of_graph_get_remote_node(ctx->dev->of_node, 1, -1);
-+	/* Then get micro-USB Interface Controller node */
-+	muic = of_get_next_parent(musb);
-+
-+	if (!muic) {
-+		dev_info(ctx->dev, "no extcon found, switching to 'always on' mode\n");
-+		return 0;
-+	}
-+
-+	edev = extcon_find_edev_by_node(muic);
-+	of_node_put(muic);
-+	if (IS_ERR(edev))
-+		return dev_err_probe(ctx->dev, PTR_ERR(edev), "invalid or missing extcon\n");
-+
-+	ctx->extcon = edev;
-+	ctx->extcon_nb.notifier_call = sii9234_extcon_notifier;
-+	INIT_WORK(&ctx->extcon_wq, sii9234_extcon_work);
-+	ret = devm_extcon_register_notifier(ctx->dev, edev, EXTCON_DISP_MHL, &ctx->extcon_nb);
-+	if (ret)
-+		dev_err_probe(ctx->dev, ret, "failed to register notifier for MHL\n");
-+
-+	return 0;
-+}
-+
- static enum drm_mode_status sii9234_mode_valid(struct drm_bridge *bridge,
- 					 const struct drm_display_info *info,
- 					 const struct drm_display_mode *mode)
-@@ -919,12 +982,17 @@ static int sii9234_probe(struct i2c_client *client)
- 	if (ret < 0)
- 		return ret;
- 
-+	ret = sii9234_extcon_init(ctx);
-+	if (ret < 0)
-+		return ret;
-+
- 	i2c_set_clientdata(client, ctx);
- 
- 	ctx->bridge.of_node = dev->of_node;
- 	drm_bridge_add(&ctx->bridge);
- 
--	sii9234_cable_in(ctx);
-+	if (!ctx->extcon)
-+		sii9234_cable_in(ctx);
- 
- 	return 0;
- }
-@@ -933,7 +1001,13 @@ static void sii9234_remove(struct i2c_client *client)
- {
- 	struct sii9234 *ctx = i2c_get_clientdata(client);
- 
--	sii9234_cable_out(ctx);
-+	if (ctx->extcon) {
-+		flush_work(&ctx->extcon_wq);
-+		if (ctx->cable_state > 0)
-+			sii9234_cable_out(ctx);
-+	} else {
-+		sii9234_cable_out(ctx);
-+	}
- 	drm_bridge_remove(&ctx->bridge);
- }
- 
-
----
-base-commit: c182a2ae13886463f7ae36e034449477306d182b
-change-id: 20231218-exynos4-sii9234-driver-d817d4b511d5
-
-Best regards,
---  
-Henrik Grimler <henrik@grimler.se>
-
+Thanks
