@@ -4,62 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87E9EC531F7
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 20:31:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8DB2C531CC
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 20:36:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99D5C10E5FB;
-	Thu, 23 Jul 2026 20:31:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19E8610F1F9;
+	Thu, 23 Jul 2026 20:36:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Zv9QgL0h";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ja3dxhnL";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B11D010E0FA;
- Thu, 23 Jul 2026 20:31:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784838665; x=1816374665;
- h=date:from:to:cc:subject:message-id:mime-version;
- bh=vfYVt2LV4GmnmBTQcQ7sdeG9vaCNcLUGuuwQkZz6EQo=;
- b=Zv9QgL0hjyPBHJgHOTMrbUCKzxd8lYPbirkGE4ZWLB0ftycyQ1V60U+7
- TxzHwsr2lS/mG/la06I/9mOdEPa0xebi2tx798zL/1/eAXJdJOg7Qrspv
- MEs/cbuX7cFhZkwm6GcN9hvE1lga9inHb+6BhaiUuJt990wSEBStDWayw
- wEMCtG0gFMhjmW99cBa+6UWBQ5u2BzPIcRA2h84dFB1GIFrmUH3weiYWp
- Kwak8pbNNRpRq3wuSS2BipB1lOclygraPV9K6MljFqYvUAVxNp7EtlNSB
- 1AR0SlydTzX050/rnvbzLXO7bOxRG8kKzbWzFCmvaOIwNxqtfebvu8pFI Q==;
-X-CSE-ConnectionGUID: 3xu1dtbiQEOiwWVOJujCzg==
-X-CSE-MsgGUID: 5c+1+vNPRLSEY6xayxf/Cw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="85356661"
-X-IronPort-AV: E=Sophos;i="6.25,181,1779174000"; d="scan'208";a="85356661"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 13:31:04 -0700
-X-CSE-ConnectionGUID: gT6gQqwcTfqLbneYVB8RFg==
-X-CSE-MsgGUID: +95Xy65jQZCK8UuFIu+zbQ==
-X-ExtLoop1: 1
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO fedora)
- ([10.245.244.122])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 13:31:00 -0700
-Date: Thu, 23 Jul 2026 22:30:49 +0200
-From: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-xe-fixes
-Message-ID: <amJ5-WUA_OS_RBAp@fedora>
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0F5210F1F9
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 20:36:05 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4954a2e73a9so7487095e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 13:36:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784838964; x=1785443764; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=eOoo7EZ1Hzfz3hHGbRxuZ572y7WHohS2AdGQHbHYkgI=;
+ b=ja3dxhnLA0AS/DDUN9koqhzdAK5IP30cbVEuA5L2iuGmvjkDNt2hzN9vOz0tYc5U26
+ bq6oWcRJS2eKzVo4ptQxA5vfhKwvcPgi2dV//l+hC8X3ltRi6nK4xtOLoZtYM99aL+d6
+ dpWk1XP45d9N5RubT70abacBYvlunosezq5nSzwpygZGpsPhPWXgrZ46rzE2vzMygrgh
+ x8xcu0wBNY2m0o5R3ueRLyZudqtMLkxsmBMNvlBXFlWgrNZruKwEYHLn4LTuoCBrD7E0
+ CGMfQRrhkH6b4Jug43K1+bTdR1bRl30CvLP9dG5ERCkVtmKXrXFBqBZgT0P1qfGPto+x
+ nUUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784838964; x=1785443764;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=eOoo7EZ1Hzfz3hHGbRxuZ572y7WHohS2AdGQHbHYkgI=;
+ b=Bmtw0zXGSjvuvalKHZ+TxHUq/YCbkOEhE4U0X8sA+EZGzW3ZacyBW2LkqXJWvgyiHs
+ OXCwC5gkZJ2WrkwJyfPjs0CuAxjI+WTa8nYEjPhwU/cDH+Wt1/kIfEvnOZGhVYPgICoS
+ L/6f5RRGeLo5EGsG/D3q5mOxdX0XiuXR6Q10wfFd91YgNfmbiEtHyXZtzPw258En3DGE
+ NAmh4DBJ72Fm9OmaVerYvUd2/mW/FgMQIrKiATovlMh/IMNUu3VWK3Wl0fF7BLZ6OGlq
+ 0gGjgYBdYKpRCkiaKqI+la0s8u+6cg2v/61GCcFFUB61MqoXkmaeDNH78GLGddsdEPei
+ 7EhQ==
+X-Gm-Message-State: AOJu0Yx0vC8gUDXGAusqjD8MJYN1t2LJ3VkMTYVlqxxcqdp8eriaooGu
+ VWnY/IHNCA2nXQ2ucJZN8m7hP8VOBE+7l7JPtXXlSqv8jifmBc5Tv7+z
+X-Gm-Gg: AR+sD10aNRnSwgRdrHxVm3fcAINMxMXN0+vG7F7Ebzny9uXJ8N+rCoiJMSALnqW+9As
+ IlP1NXJvtCwvkONOuq1dF4W/Mp8ASeEYpP3HzYVS6ailIajXrkEzCkyWwAq3eo2/C45mcEBmqE1
+ mLqV0R4R5qDqBqDEc7Xa3/ATt+I0s5AghZj5uvSr8XxX52mHaK5St8gVP9+Ocsttd2GvmWZObRJ
+ Fu1536iJ3SN8H7TLDEQg1iviAG1UUAYDbpULk+ycuOtvfrkwh2HzGT5d3aiOQD57+ux+pw9iNFZ
+ xBi79PXsJK0JBLM/fE5Mzys8Txwu9eTnh1A6ceQ+P1SN4DCwUyz/XD/7xzPzIHRIlA7/79gO9PC
+ CJRQucOUwOyvnDQc7RsqieOwU86RQyzALZ7fa68dqKjt+wwTgoMd5RKNNxOHpqhpURwu4/XRSMX
+ 5Q1kVk0KoRZQMzqlElVjQSwIMbrY2Uf8TTHvmZ2g==
+X-Received: by 2002:a05:600c:468e:b0:493:f140:c3fb with SMTP id
+ 5b1f17b1804b1-49573cc12efmr54584635e9.7.1784838964092; 
+ Thu, 23 Jul 2026 13:36:04 -0700 (PDT)
+Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4957af181b7sm23460695e9.0.2026.07.23.13.36.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jul 2026 13:36:03 -0700 (PDT)
+From: Michail Tatas <michail.tatas@gmail.com>
+To: michael@amarulasolutions.com, neil.armstrong@linaro.org,
+ jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dianders@chromium.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Michail Tatas <michail.tatas@gmail.com>
+Subject: [PATCH v4 0/3] drm/panel: ilitek-ili9805: convert to *_multi API
+Date: Thu, 23 Jul 2026 23:35:58 +0300
+Message-ID: <20260723203601.806697-1-michail.tatas@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,56 +87,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona
+This series converts panel-ilitek-ili9805 to the
+mipi_dsi_*_multi helpers and cleans up the resulting code.
 
-The drm-xe-fixes PR towards -rc5. Down to 4 patches this week.
+Patch 1: Convert the individual DSI calls to their
+*_multi variants
 
-Thanks,
-Thomas
+Patch 2: Replace the ILI9805_INSTR table with per
+panel init functions using the *_multi API, dropping
+struct ili9805_instr
 
-drm-xe-fixes-2026-07-23:
-Driver Changes:
-- Skip invalidation for purgeable state updates (Arvind)
-- Add drm_dev guards when detaching CCS read / write buffers (Satyanarayana)
-- Alloc per domain unique i2c id (Raag)
-- Fix SVM leak on resv obj alloc failure in xe_vm_create (Shuicheng)
+Patch 3: makes ili9805_power_off() and ili9805_deactivate()
+return void, since no one checks their return values.
 
-The following changes since commit 130910bac905a42225f93841e338bbea4a431b1a:
+Michail Tatas (3):
+  drm/panel: ilitek-ili9805: Use _multi variants
+  drm/panel: ilitek-ili9805: Use dsi_multi in init
+  drm/panel: ilitek-ili9805: make cleanup funcs void
 
-  drm/xe/pf: Disable display in admin only PF mode (2026-07-16 16:53:38 +0200)
+ drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 212 ++++++++-----------
+ 1 file changed, 87 insertions(+), 125 deletions(-)
 
-are available in the Git repository at:
+-- 
+Changes in v4:
+Addresses review feedback from Doug on v3
+- Delete unused field name in struct ili9805_desc
+- convert MIPI_DCS_SET_PIXEL_FORMAT
+  from mipi_dsi_dcs_write_seq_multi()
+  to mipi_dsi_dcs_set_pixel_format_multi()
+ 
+Changes in v3:
+Addresses review feedback from Doug on v2
+- Convert hex to lowercase
+- Align to match open parenthesis
+- Change lines to not cross 100 chars
 
-  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-fixes-2026-07-23
+Changes in v2:
+Addresses review feedback from Doug on v1
+- Patch 1 remains the same as v1
+- Added patch 2 dropping struct ili9805_instr and used
+  per-panel init functions
+- Added patch 3 making the cleanup functions return void
 
-for you to fetch changes up to d2c6800ad1802bed72a6de1416536737f114f1d6:
+Revisions
+- v1: https://lore.kernel.org/all/allWpYxgHfpKughy@michalis-linux/
+- v2: https://lore.kernel.org/all/20260719190358.438699-1-michail.tatas@gmail.com/
+- v3: https://lore.kernel.org/all/20260721172715.602196-1-michail.tatas@gmail.com/
 
-  drm/xe/vm: Fix SVM leak on resv obj alloc failure in xe_vm_create() (2026-07-23 09:19:08 +0200)
-
-----------------------------------------------------------------
-Driver Changes:
-- Skip invalidation for purgeable state updates (Arvind)
-- Add drm_dev guards when detaching CCS read / write buffers (Satyanarayana)
-- Alloc per domain unique i2c id (Raag)
-- Fix SVM leak on resv obj alloc failure in xe_vm_create (Shuicheng)
-
-----------------------------------------------------------------
-Arvind Yadav (1):
-      drm/xe/madvise: Skip invalidation for purgeable state updates
-
-Raag Jadav (1):
-      drm/xe/i2c: Allow per domain unique id
-
-Satyanarayana K V P (1):
-      drm/xe/vf: Add drm_dev guards when detaching CCS read/write buffers
-
-Shuicheng Lin (1):
-      drm/xe/vm: Fix SVM leak on resv obj alloc failure in xe_vm_create()
-
- drivers/gpu/drm/xe/xe_i2c.c          |  5 ++++-
- drivers/gpu/drm/xe/xe_migrate.c      | 16 ++++++++++------
- drivers/gpu/drm/xe/xe_migrate.h      |  3 ++-
- drivers/gpu/drm/xe/xe_sriov_vf_ccs.c | 14 ++++++++++++--
- drivers/gpu/drm/xe/xe_vm.c           |  8 ++++----
- drivers/gpu/drm/xe/xe_vm_madvise.c   | 19 +++++++++++++++++--
- 6 files changed, 49 insertions(+), 16 deletions(-)
+The changes are compile tested only. Also I run checkpatch.pl --strict, 
+sparse, smatch, gcc W=1, clang W=1 and coccinelle.
+2.43.0
