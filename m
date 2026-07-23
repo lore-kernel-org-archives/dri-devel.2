@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C23BC4453F
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:35:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A556C531CF
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 327E410EF24;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3959F10EF26;
 	Thu, 23 Jul 2026 01:35:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oiCN3Xwh";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hmIt8M33";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79E1910EF09
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CE8F10EF09
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784770536;
- bh=9crytyeEMmKLDIScG8WR6xIWixXj3o7HvkGk8fyfNBE=;
+ s=mail; t=1784770522;
+ bh=HEWkAizPNjQ4alYSufKa3CnkPFEsyCtBIjq0ld1OBEU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=oiCN3XwhlL/a1oXp9XJKZtu5u8HK4Ud8RdfaJufxhzvOHs0C+rk+AfImQkZ9NC5H4
- /Zu19tPDH2h738z9gOVfrGKqrLfziu23A4m0At03tYX9g1+vbYcB0qJIi/yr9brjUf
- rEiEgPoSXlQFn1IVz5GBRyUrUiWfcj/HiiUoHkpiQbfMlEQ+co0RY4elqS4peSNf8S
- grzn3+zi/BirlnjzTe4FWgL6WQNM5otPQbMsS4fs/qYv6wQcfAJ+MQTNzA6nTaDt6g
- edEcL0L+0jgnAamN02uG5+nCUZMS+FjFJk6YYJq7bQwHh9RPUBFmzUgPOgiRvpClq4
- AvU4utbsYESBA==
+ b=hmIt8M33c5NAt5WpKx2Zq7VzZWbv4CyX//KJZI0r/jBvlHMCYBsnLT8OFrozBiK0y
+ 6m3sObxTiShezotjGCMe2uV2S4TDeb3UjJykOJzg8E6CYX5ia1RiUDe/s6TgNwDIhO
+ kmHEv9eZOzrgTcIRD3TXL5B6/2ph54LLDxHafbpEMfj2U+fzpQVdcxB/33tMhOEIb5
+ sy5m0Ga/JoJiyRqFWWVSeqenoYfCzbQl4F9hfns7YB58dHrOR5GoVns57dCctSuCcw
+ xBNCAfpi5EklCPwOTifJWWi3E81ZZT1mbCopytRWs4GmuOP3NoxVYFp2Y+RNor+puz
+ V+80k4+Q/blXw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1FB9B17E1526;
- Thu, 23 Jul 2026 03:35:36 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 4EA2817E124A;
+ Thu, 23 Jul 2026 03:35:22 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 23 Jul 2026 04:35:38 +0300
-Subject: [PATCH v9 49/61] drm/tests: edid: Fix conformity for 1080p+4K
- YUV420 200MHz EDID
+Date: Thu, 23 Jul 2026 04:35:18 +0300
+Subject: [PATCH v9 29/61] drm/rockchip: dw_hdmi_qp: Implement
+ .{enable,disable}_hpd() PHY ops
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-dw-hdmi-qp-scramb-v9-49-4fb12ea22ac9@collabora.com>
+Message-Id: <20260723-dw-hdmi-qp-scramb-v9-29-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,7 +62,8 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
+ Maud Spierings <maud_spierings@hotmail.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,204 +80,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The test EDID added by commit 58fe1d78605e ("drm/tests: hdmi: Provide
-EDID supporting 4K@30Hz with YUV420 only") fails 'edid-decode --check'
-(v1.33.0) with the following issues:
+Implement .enable_hpd() and .disable_hpd() phy ops for RK3576 and RK3588
+SoCs, used by the corresponding bridge callbacks for HPD activation
+control.
 
-  Warnings:
+Consolidate the interrupt clear-and-unmask sequence into enable_hpd()
+and the mask-only operation into disable_hpd(), replacing the open-coded
+register writes in the interrupt handlers and io_init().
 
-  Block 1, CTA-861 Extension Block:
-    IT Video Formats are overscanned by default, but normally this should be underscanned.
-    YCbCr 4:2:0 Video Data Block: Some YCbCr 4:2:0 timings are invalid for HDMI 2.1
-      (which requires an RGB timings pixel rate >= 590 MHz).
-  EDID:
-    Base EDID: Some timings are out of range of the Monitor Ranges:
-      Maximum Clock: 297.000 MHz (Monitor: 170.000 MHz)
-    CTA-861: Multiple native progressive timings are defined.
+The .setup_hpd() phy op, which was previously called from
+dw_hdmi_qp_init_hw(), is no longer needed and its users are removed.
 
-  Failures:
-
-  Block 0, Base EDID:
-    Vendor & Product Identification: EDID 1.3 does not support week 0xff.
-  Block 1, CTA-861 Extension Block:
-    Vendor-Specific Data Block (HDMI Forum), OUI C4-5D-D8: Max TMDS rate is > 0 and <= 340 or > 600.
-    YCbCr 4:2:0 Capability Map Data Block: Empty Capability Map.
-    YCbCr 4:2:0 Video Data Block: YCbCr 4:2:0-only VIC 95 is also a regular VIC.
-    Missing VCDB, needed for Set Selectable RGB Quantization to avoid interop issues.
-  EDID:
-    CTA-861: The maximum HDMI TMDS clock is 200000 kHz, but one or more video timings go up to 297000 kHz.
-
-Address them while preserving the advertised maximum resolutions, BPC
-and TMDS clock used by the existing KUnit tests:
-
-- Week 0xff is not valid for EDID 1.3; set it to 0x00 so that the Model
-  year field becomes a regular Year of Manufacture.
-- The HDMI Forum VSDB Max TMDS Character Rate must be 0 when no rate
-  above 340 MHz is supported.  The HDMI VSDB still advertises 200 MHz as
-  Max TMDS Clock.
-- VIC 95 (3840x2160@30Hz) was reported as YUV420-only but was listed in
-  both the regular Video Data Block and the YCbCr 4:2:0 Video Data
-  Block.  Drop it from the regular VDB (so it stays advertised in the
-  4:2:0 VDB only) and remove the now unnecessary empty YCbCr 4:2:0
-  Capability Map Data Block.
-- Add a Video Capability Data Block advertising selectable RGB and YCC
-  quantization range plus underscan for IT/CE formats; also set the 'IT
-  Video Formats Underscanned' bit in the CTA-861 extension header to
-  match.
-- Bump the Display Range Limits max pixel clock from 170 MHz to 300 MHz
-  so it covers the 297 MHz pixel rate of VIC 95.
-- Drop the 'native' flag from VIC 16 in the Video Data Block so it is no
-  longer flagged as a second native progressive timing alongside the
-  preferred DTD.
-
-The only remaining warning is HDMI 2.1 related and can be ignored, as it
-requires that any mode listed in the YCbCr 4:2:0 Video Data Block must
-have a corresponding RGB pixel clock >= 590 MHz.
-
+Tested-by: Maud Spierings <maud_spierings@hotmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/tests/drm_kunit_edid.c | 65 +++++++++++++++++++++-------------
- 1 file changed, 41 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 78 +++++++++++++-------------
+ 1 file changed, 38 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_kunit_edid.c b/drivers/gpu/drm/tests/drm_kunit_edid.c
-index 673a0ea8c2ae..4dff28fff796 100644
---- a/drivers/gpu/drm/tests/drm_kunit_edid.c
-+++ b/drivers/gpu/drm/tests/drm_kunit_edid.c
-@@ -766,22 +766,22 @@ EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz);
-  * edid-decode (hex):
-  *
-  * 00 ff ff ff ff ff ff 00 31 d8 34 00 00 00 00 00
-- * ff 23 01 03 80 60 36 78 0f ee 91 a3 54 4c 99 26
-+ * 00 23 01 03 80 60 36 78 0f ee 91 a3 54 4c 99 26
-  * 0f 50 54 20 00 00 01 01 01 01 01 01 01 01 01 01
-  * 01 01 01 01 01 01 02 3a 80 18 71 38 2d 40 58 2c
-  * 45 00 c0 1c 32 00 00 1e 00 00 00 fc 00 54 65 73
-  * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 18
-- * 55 18 5e 11 00 0a 20 20 20 20 20 20 00 00 00 10
-- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 bb
-+ * 55 18 5e 1e 00 0a 20 20 20 20 20 20 00 00 00 10
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 ad
-  *
-- * 02 03 29 31 42 90 5f 6c 03 0c 00 10 00 78 28 20
-- * 00 00 01 03 6d d8 5d c4 01 28 80 07 00 00 00 00
-- * 00 00 e3 0f 00 00 e2 0e 5f 00 00 00 00 00 00 00
-+ * 02 03 27 b1 41 10 6c 03 0c 00 10 00 78 28 20 00
-+ * 00 01 03 6d d8 5d c4 01 00 80 07 00 00 00 00 00
-+ * 00 e2 00 ca e2 0e 5f 00 00 00 00 00 00 00 00 00
-  * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ca
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 9a
-  *
-  * ----------------
-  *
-@@ -790,7 +790,7 @@ EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz);
-  *   Vendor & Product Identification:
-  *     Manufacturer: LNX
-  *     Model: 52
-- *     Model year: 2025
-+ *     Made in: 2025
-  *   Basic Display Parameters & Features:
-  *     Digital display
-  *     Maximum image size: 96 cm x 54 cm
-@@ -813,21 +813,21 @@ EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz);
-  *                  Vfront    4 Vsync   5 Vback   36 Vpol P
-  *     Display Product Name: 'Test EDID'
-  *     Display Range Limits:
-- *       Monitor ranges (GTF): 24-85 Hz V, 24-94 kHz H, max dotclock 170 MHz
-+ *       Monitor ranges (GTF): 24-85 Hz V, 24-94 kHz H, max dotclock 300 MHz
-  *     Dummy Descriptor:
-  *   Extension blocks: 1
-- * Checksum: 0xbb
-+ * Checksum: 0xad
-  *
-  * ----------------
-  *
-  * Block 1, CTA-861 Extension Block:
-  *   Revision: 3
-+ *   Underscans IT Video Formats by default
-  *   Supports YCbCr 4:4:4
-  *   Supports YCbCr 4:2:2
-  *   Native detailed modes: 1
-  *   Video Data Block:
-- *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz (native)
-- *     VIC  95:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz
-+ *     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz    148.500000 MHz
-  *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
-  *     Source physical address: 1.0.0.0
-  *     DC_48bit
-@@ -838,40 +838,57 @@ EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz);
-  *     Extended HDMI video details:
-  *   Vendor-Specific Data Block (HDMI Forum), OUI C4-5D-D8:
-  *     Version: 1
-- *     Maximum TMDS Character Rate: 200 MHz
-  *     SCDC Present
-  *     Supports 16-bits/component Deep Color 4:2:0 Pixel Encoding
-  *     Supports 12-bits/component Deep Color 4:2:0 Pixel Encoding
-  *     Supports 10-bits/component Deep Color 4:2:0 Pixel Encoding
-- *   YCbCr 4:2:0 Capability Map Data Block:
-- *     Empty Capability Map
-+ *     VRRmin: 0 Hz
-+ *     VRRmax: 0 Hz
-+ *   Video Capability Data Block:
-+ *     YCbCr quantization: Selectable (via AVI YQ)
-+ *     RGB quantization: Selectable (via AVI Q)
-+ *     PT scan behavior: No Data
-+ *     IT scan behavior: Always Underscanned
-+ *     CE scan behavior: Always Underscanned
-  *   YCbCr 4:2:0 Video Data Block:
-  *     VIC  95:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz
-- * Checksum: 0xca
-+ * Checksum: 0x9a  Unused space in Extension Block: 88 bytes
-+ *
-+ * ----------------
-+ *
-+ * edid-decode 1.33.0
-+ *
-+ * Warnings:
-+ *
-+ * Block 1, CTA-861 Extension Block:
-+ *   YCbCr 4:2:0 Video Data Block: Some YCbCr 4:2:0 timings are invalid for HDMI 2.1
-+ *     (which requires an RGB timings pixel rate >= 590 MHz).
-+ *
-+ * EDID conformity: PASS
-  */
- const unsigned char test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz[] = {
- 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x34, 0x00,
--	0x00, 0x00, 0x00, 0x00, 0xff, 0x23, 0x01, 0x03, 0x80, 0x60, 0x36, 0x78,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x23, 0x01, 0x03, 0x80, 0x60, 0x36, 0x78,
- 	0x0f, 0xee, 0x91, 0xa3, 0x54, 0x4c, 0x99, 0x26, 0x0f, 0x50, 0x54, 0x20,
- 	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
- 	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x3a, 0x80, 0x18, 0x71, 0x38,
- 	0x2d, 0x40, 0x58, 0x2c, 0x45, 0x00, 0xc0, 0x1c, 0x32, 0x00, 0x00, 0x1e,
- 	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
- 	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x18,
--	0x55, 0x18, 0x5e, 0x11, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-+	0x55, 0x18, 0x5e, 0x1e, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
- 	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
--	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xbb, 0x02, 0x03, 0x29, 0x31,
--	0x42, 0x90, 0x5f, 0x6c, 0x03, 0x0c, 0x00, 0x10, 0x00, 0x78, 0x28, 0x20,
--	0x00, 0x00, 0x01, 0x03, 0x6d, 0xd8, 0x5d, 0xc4, 0x01, 0x28, 0x80, 0x07,
--	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe3, 0x0f, 0x00, 0x00, 0xe2, 0x0e,
--	0x5f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xad, 0x02, 0x03, 0x27, 0xb1,
-+	0x41, 0x10, 0x6c, 0x03, 0x0c, 0x00, 0x10, 0x00, 0x78, 0x28, 0x20, 0x00,
-+	0x00, 0x01, 0x03, 0x6d, 0xd8, 0x5d, 0xc4, 0x01, 0x00, 0x80, 0x07, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0xe2, 0x00, 0xca, 0xe2, 0x0e, 0x5f, 0x00,
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
--	0x00, 0x00, 0x00, 0xca
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x9a,
- };
- EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 12cd8db7cc50..5067e3cf0e88 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -277,7 +277,7 @@ dw_hdmi_qp_rk3588_read_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
+ 	return val ? connector_status_connected : connector_status_disconnected;
+ }
  
+-static void dw_hdmi_qp_rk3588_setup_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
++static void dw_hdmi_qp_rk3588_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
+ {
+ 	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
+ 	u32 val;
+@@ -292,11 +292,25 @@ static void dw_hdmi_qp_rk3588_setup_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
+ 	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
+ }
+ 
++static void dw_hdmi_qp_rk3588_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
++{
++	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
++	u32 val;
++
++	if (hdmi->port_id)
++		val = FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 1);
++	else
++		val = FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 1);
++
++	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
++}
++
+ static const struct dw_hdmi_qp_phy_ops rk3588_hdmi_phy_ops = {
+ 	.init		= dw_hdmi_qp_rk3588_phy_init,
+ 	.disable	= dw_hdmi_qp_rk3588_phy_disable,
+ 	.read_hpd	= dw_hdmi_qp_rk3588_read_hpd,
+-	.setup_hpd	= dw_hdmi_qp_rk3588_setup_hpd,
++	.enable_hpd	= dw_hdmi_qp_rk3588_enable_hpd,
++	.disable_hpd	= dw_hdmi_qp_rk3588_disable_hpd,
+ };
+ 
+ static enum drm_connector_status
+@@ -311,7 +325,7 @@ dw_hdmi_qp_rk3576_read_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
+ 		connector_status_connected : connector_status_disconnected;
+ }
+ 
+-static void dw_hdmi_qp_rk3576_setup_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
++static void dw_hdmi_qp_rk3576_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
+ {
+ 	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
+ 	u32 val;
+@@ -320,14 +334,22 @@ static void dw_hdmi_qp_rk3576_setup_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
+ 	       FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0));
+ 
+ 	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
+-	regmap_write(hdmi->regmap, 0xa404, 0xffff0102);
++}
++
++static void dw_hdmi_qp_rk3576_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
++{
++	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
++
++	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0,
++		     FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1));
+ }
+ 
+ static const struct dw_hdmi_qp_phy_ops rk3576_hdmi_phy_ops = {
+ 	.init		= dw_hdmi_qp_rk3588_phy_init,
+ 	.disable	= dw_hdmi_qp_rk3588_phy_disable,
+ 	.read_hpd	= dw_hdmi_qp_rk3576_read_hpd,
+-	.setup_hpd	= dw_hdmi_qp_rk3576_setup_hpd,
++	.enable_hpd	= dw_hdmi_qp_rk3576_enable_hpd,
++	.disable_hpd	= dw_hdmi_qp_rk3576_disable_hpd,
+ };
+ 
+ static void dw_hdmi_qp_rk3588_hpd_work(struct work_struct *work)
+@@ -348,13 +370,12 @@ static void dw_hdmi_qp_rk3588_hpd_work(struct work_struct *work)
+ static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int irq, void *dev_id)
+ {
+ 	struct rockchip_hdmi_qp *hdmi = dev_id;
+-	u32 intr_stat, val;
++	u32 intr_stat;
+ 
+ 	regmap_read(hdmi->regmap, RK3576_IOC_HDMI_HPD_STATUS, &intr_stat);
+-	if (intr_stat & RK3576_HDMI_OHPD_INT) {
+-		val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1);
+ 
+-		regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
++	if (intr_stat & RK3576_HDMI_OHPD_INT) {
++		dw_hdmi_qp_rk3576_disable_hpd(NULL, hdmi);
+ 		return IRQ_WAKE_THREAD;
+ 	}
+ 
+@@ -364,15 +385,11 @@ static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int irq, void *dev_id)
+ static irqreturn_t dw_hdmi_qp_rk3576_irq(int irq, void *dev_id)
+ {
+ 	struct rockchip_hdmi_qp *hdmi = dev_id;
+-	u32 val;
+ 
+-	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_CLR, 1);
+-	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
+ 	mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
+ 			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
+ 
+-	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0);
+-	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
++	dw_hdmi_qp_rk3576_enable_hpd(NULL, hdmi);
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -380,18 +397,14 @@ static irqreturn_t dw_hdmi_qp_rk3576_irq(int irq, void *dev_id)
+ static irqreturn_t dw_hdmi_qp_rk3588_hardirq(int irq, void *dev_id)
+ {
+ 	struct rockchip_hdmi_qp *hdmi = dev_id;
+-	u32 intr_stat, val;
++	u32 intr_stat;
+ 
+ 	regmap_read(hdmi->regmap, RK3588_GRF_SOC_STATUS1, &intr_stat);
+ 
+ 	intr_stat &= hdmi->port_id ? RK3588_HDMI1_OHPD_INT : RK3588_HDMI0_OHPD_INT;
+ 
+ 	if (intr_stat) {
+-		if (hdmi->port_id)
+-			val = FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 1);
+-		else
+-			val = FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 1);
+-		regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
++		dw_hdmi_qp_rk3588_disable_hpd(NULL, hdmi);
+ 		return IRQ_WAKE_THREAD;
+ 	}
+ 
+@@ -401,22 +414,11 @@ static irqreturn_t dw_hdmi_qp_rk3588_hardirq(int irq, void *dev_id)
+ static irqreturn_t dw_hdmi_qp_rk3588_irq(int irq, void *dev_id)
+ {
+ 	struct rockchip_hdmi_qp *hdmi = dev_id;
+-	u32 val;
+-
+-	if (hdmi->port_id)
+-		val = FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_CLR, 1);
+-	else
+-		val = FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_CLR, 1);
+-	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
+ 
+ 	mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
+ 			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
+ 
+-	if (hdmi->port_id)
+-		val |= FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 0);
+-	else
+-		val |= FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 0);
+-	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
++	dw_hdmi_qp_rk3588_enable_hpd(NULL, hdmi);
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -429,11 +431,11 @@ static void dw_hdmi_qp_rk3576_io_init(struct rockchip_hdmi_qp *hdmi)
+ 	      FIELD_PREP_WM16(RK3576_SDAIN_MASK, 1) |
+ 	      FIELD_PREP_WM16(RK3576_HDMI_GRANT_SEL, 1) |
+ 	      FIELD_PREP_WM16(RK3576_I2S_SEL_MASK, 1);
+-
+ 	regmap_write(hdmi->vo_regmap, RK3576_VO0_GRF_SOC_CON14, val);
+ 
+-	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1);
+-	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
++	regmap_write(hdmi->regmap, 0xa404, 0xffff0102);
++
++	dw_hdmi_qp_rk3576_disable_hpd(NULL, hdmi);
+ }
+ 
+ static void dw_hdmi_qp_rk3588_io_init(struct rockchip_hdmi_qp *hdmi)
+@@ -458,11 +460,7 @@ static void dw_hdmi_qp_rk3588_io_init(struct rockchip_hdmi_qp *hdmi)
+ 		val = FIELD_PREP_WM16(RK3588_HDMI0_GRANT_SEL, 1);
+ 	regmap_write(hdmi->vo_regmap, RK3588_GRF_VO1_CON9, val);
+ 
+-	if (hdmi->port_id)
+-		val = FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 1);
+-	else
+-		val = FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 1);
+-	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
++	dw_hdmi_qp_rk3588_disable_hpd(NULL, hdmi);
+ }
+ 
+ static void dw_hdmi_qp_rk3576_enc_init(struct rockchip_hdmi_qp *hdmi,
 
 -- 
 2.55.0
