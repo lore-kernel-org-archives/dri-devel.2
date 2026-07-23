@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07698C4453F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF0B4C531CB
 	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:36:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ED7410EF36;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 395AF10EF3E;
 	Thu, 23 Jul 2026 01:35:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="BHTRMzRe";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="K/vdromO";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43F2310EF09
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C98010EF09
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784770539;
- bh=Zio1qdwxH2lVzK9cxB3X10F7GYooaYFqP2IQ8aoLgJE=;
+ s=mail; t=1784770532;
+ bh=sA9hvcyp15eD/qblsyZ0XpFBugSaj6mhi+/AmnkxIDY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=BHTRMzRejQAhCEEeH5iijxVD+3a6r8Ko+Bv/xCUs33ChjBa+SH3T4jSWDE9U+MjId
- GmX6lLN1TJFPRDFawjCAfIA02QjSekaw5ke6XVBCsfZ+AyAiJs2J7xOrt+lrkMxfAG
- iEAQaNU12A+OephFww+mfDyYnytAdvhEMGV0tbIBu6aH4VtkIw9j8iJnefOev2CZ8x
- yqh4MRXlIbGg5WfdxYiRbaawLecY2d+87TX5CGi3KxOvz3IjF/D703doxaOa+mnxxo
- q+22JkZ+fwylNG/XolFZbG7gtQh/Ji4VtduIylTkCB83OcngRj5Pw/70PCQXc2lq2e
- URtKjEDK7wb8g==
+ b=K/vdromObXhimyURa33bbX5RW/1RDUiao4gpCUOPN98hnsHyRV0Fj/Jum7JVnvGst
+ hQKTwr4xH/lRNBU/wOqYLV9fDz8H4NT6gVdnRz+bi/LSHpc3IlAiHfoBwl5mOveocd
+ x2mKX3Z0kyRe/wFJdp3zR9KVOmplNG4vW+PJH8IJltYRZLkOzW6TC935KsXyf1itz2
+ 7XHl8idqO4hEdos0Ko0WTpQdSCgWaiUSe/6V+0lIUY+DSYug/7w8c9nkqCMw98DO1H
+ TgM15/fKseo+gIa86JtBQKO6J6wI6/SjGEasNiT5I2zWSUM+N0Al1XpaLJet0RXoOg
+ 1Ara8REKSCRgA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id EA29A17E1313;
- Thu, 23 Jul 2026 03:35:38 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B37FA17E062C;
+ Thu, 23 Jul 2026 03:35:32 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 23 Jul 2026 04:35:42 +0300
-Subject: [PATCH v9 53/61] drm/tests: connector: Add HDMI max_tmds_char_rate
- init coverage
+Date: Thu, 23 Jul 2026 04:35:33 +0300
+Subject: [PATCH v9 44/61] drm/bridge: ite-it66121: Advertise HDMI 1.2
+ capabilities
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-dw-hdmi-qp-scramb-v9-53-4fb12ea22ac9@collabora.com>
+Message-Id: <20260723-dw-hdmi-qp-scramb-v9-44-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -79,227 +79,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add KUnit tests for the new drmm_connector_hdmi_init() extension, which
-infers the connector's max_tmds_char_rate from the HDMI specification
-version advertised by the driver.  Also validate a driver-capped
-max_tmds_char_rate against the version-inferred limit: override below,
-accept at, reject above, reject when no version is advertised.
+Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
+supported HDMI version.  This is not yet enforced, but will become
+mandatory once the migration to the new caps-based HDMI connector
+initialization API is completed.
 
-Since HDMI_VERSION_2_0 requires scrambler callbacks to be provided, add
-a dummy_hdmi_funcs_scrambler instance for tests that initialize HDMI 2.0
-connectors.
+Since none of the chip variants handled by the driver can drive a TMDS
+character rate exceeding 148.5 MHz, advertise HDMI 1.2 as the supported
+version.  HDMI 1.2 allows up to 165 MHz, so set the bridge's
+max_tmds_char_rate to ensure the connector limit derived from
+supported_hdmi_ver remains within the hardware capabilities.
+
+drm_bridge_connector_atomic_check() runs
+drm_atomic_helper_connector_hdmi_check(), which rejects modes whose
+computed TMDS character rate exceeds the connector limit before invoking
+the driver's .tmds_char_rate_valid() hook, making the max_rate check in
+it66121_bridge_hdmi_tmds_char_rate_valid() redundant.  Drop it.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/tests/drm_connector_test.c | 182 +++++++++++++++++++++++++++++
- 1 file changed, 182 insertions(+)
+ drivers/gpu/drm/bridge/ite-it66121.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
-index 74342880b301..f14cd741b05e 100644
---- a/drivers/gpu/drm/tests/drm_connector_test.c
-+++ b/drivers/gpu/drm/tests/drm_connector_test.c
-@@ -52,6 +52,34 @@ static const struct drm_connector_hdmi_funcs dummy_hdmi_funcs = {
- 	},
- };
+diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
+index 51fc68ffdf8f..c8d0a26e8e90 100644
+--- a/drivers/gpu/drm/bridge/ite-it66121.c
++++ b/drivers/gpu/drm/bridge/ite-it66121.c
+@@ -10,6 +10,7 @@
+ #include <linux/media-bus-format.h>
+ #include <linux/module.h>
+ #include <linux/device.h>
++#include <linux/hdmi.h>
+ #include <linux/interrupt.h>
+ #include <linux/i2c.h>
+ #include <linux/bitfield.h>
+@@ -867,15 +868,6 @@ it66121_bridge_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
+ 					 const struct drm_display_mode *mode,
+ 					 unsigned long long tmds_rate)
+ {
+-	const struct it66121_ctx *ctx =
+-		container_of(bridge, const struct it66121_ctx, bridge);
+-	unsigned long long max_rate;
+-
+-	max_rate = (ctx->bus_width == 12) ? 74250000ULL : 148500000ULL;
+-
+-	if (tmds_rate > max_rate)
+-		return MODE_CLOCK_HIGH;
+-
+ 	if (tmds_rate < HDMI_TMDS_CHAR_RATE_MIN_HZ)
+ 		return MODE_CLOCK_LOW;
  
-+static int accept_scrambler_enable(struct drm_connector *connector)
-+{
-+	return 0;
-+}
+@@ -1670,6 +1662,9 @@ static int it66121_probe(struct i2c_client *client)
+ 			  DRM_BRIDGE_OP_HDMI;
+ 	ctx->bridge.vendor = "ITE";
+ 	ctx->bridge.product = "IT66121";
++	ctx->bridge.supported_hdmi_ver = HDMI_VERSION_1_2;
++	ctx->bridge.max_tmds_char_rate = ctx->bus_width == 12 ? 74250000ULL : 148500000ULL;
 +
-+static int accept_scrambler_disable(struct drm_connector *connector)
-+{
-+	return 0;
-+}
-+
-+static const struct drm_connector_hdmi_funcs dummy_hdmi_funcs_scrambler = {
-+	.vendor = "Vendor",
-+	.product = "Product",
-+	.supported_hdmi_ver = HDMI_VERSION_2_0,
-+	.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
-+	.max_bpc = 8,
-+	.scrambler_enable = accept_scrambler_enable,
-+	.scrambler_disable = accept_scrambler_disable,
-+	.avi = {
-+		.clear_infoframe = accept_infoframe_clear_infoframe,
-+		.write_infoframe = accept_infoframe_write_infoframe,
-+	},
-+	.hdmi = {
-+		.clear_infoframe = accept_infoframe_clear_infoframe,
-+		.write_infoframe = accept_infoframe_write_infoframe,
-+	},
-+};
-+
- static const struct drm_connector_funcs dummy_funcs = {
- 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
- 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
-@@ -1236,6 +1264,154 @@ KUNIT_ARRAY_PARAM(drm_connector_hdmi_init_type_invalid,
- 		  drm_connector_hdmi_init_type_invalid_tests,
- 		  drm_connector_hdmi_init_type_desc);
- 
-+/*
-+ * Test that the registration of an HDMI connector without an explicit max TMDS
-+ * character rate being provided succeeds, and the connector limit is inferred
-+ * from the advertised HDMI specification version.
-+ */
-+struct drm_connector_hdmi_init_max_tmds_rate_inferred_case {
-+	const char *desc;
-+	enum hdmi_version ver;
-+	unsigned long long expected;
-+};
-+
-+static void drm_test_connector_hdmi_init_max_tmds_rate_inferred(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case *params =
-+		test->param_value;
-+	struct drm_connector_hdmi_funcs hdmi_funcs;
-+	int ret;
-+
-+	hdmi_funcs = params->ver < HDMI_VERSION_2_0 ?
-+			dummy_hdmi_funcs : dummy_hdmi_funcs_scrambler;
-+	hdmi_funcs.supported_hdmi_ver = params->ver;
-+
-+	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
-+				       &dummy_funcs,
-+				       &hdmi_funcs,
-+				       DRM_MODE_CONNECTOR_HDMIA,
-+				       &priv->ddc);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
-+			params->expected);
-+}
-+
-+static const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case
-+drm_connector_hdmi_init_max_tmds_rate_inferred_tests[] = {
-+	{ "unknown",	HDMI_VERSION_UNKNOWN,	0 },
-+	{ "1.0",	HDMI_VERSION_1_0,	HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ },
-+	{ "1.2",	HDMI_VERSION_1_2,	HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ },
-+	{ "1.3",	HDMI_VERSION_1_3,	HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ },
-+	{ "1.4",	HDMI_VERSION_1_4,	HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ },
-+	{ "2.0",	HDMI_VERSION_2_0,	HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ },
-+};
-+
-+static void drm_connector_hdmi_init_max_tmds_rate_inferred_desc(
-+	const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case *t,
-+	char *desc)
-+{
-+	strscpy(desc, t->desc, KUNIT_PARAM_DESC_SIZE);
-+}
-+
-+KUNIT_ARRAY_PARAM(drm_connector_hdmi_init_max_tmds_rate_inferred,
-+		  drm_connector_hdmi_init_max_tmds_rate_inferred_tests,
-+		  drm_connector_hdmi_init_max_tmds_rate_inferred_desc);
-+
-+/*
-+ * Test that the registration of an HDMI connector providing a max TMDS
-+ * character rate strictly below the version-inferred limit succeeds, and
-+ * the connector limit is overridden.
-+ */
-+static void drm_test_connector_hdmi_init_max_tmds_rate_override(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector_hdmi_funcs hdmi_funcs = dummy_hdmi_funcs_scrambler;
-+	int ret;
-+
-+	KUNIT_ASSERT_EQ(test, hdmi_funcs.supported_hdmi_ver, HDMI_VERSION_2_0);
-+
-+	hdmi_funcs.supported_tmds_char_rate = HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
-+
-+	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
-+				       &dummy_funcs,
-+				       &hdmi_funcs,
-+				       DRM_MODE_CONNECTOR_HDMIA,
-+				       &priv->ddc);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
-+			HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ);
-+}
-+
-+/*
-+ * Test that the registration of an HDMI connector providing a max TMDS
-+ * character rate equal to the version-inferred limit succeeds.
-+ */
-+static void drm_test_connector_hdmi_init_max_tmds_rate_at_limit(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector_hdmi_funcs hdmi_funcs = dummy_hdmi_funcs_scrambler;
-+	int ret;
-+
-+	KUNIT_ASSERT_EQ(test, hdmi_funcs.supported_hdmi_ver, HDMI_VERSION_2_0);
-+
-+	hdmi_funcs.supported_tmds_char_rate = HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ;
-+
-+	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
-+				       &dummy_funcs,
-+				       &hdmi_funcs,
-+				       DRM_MODE_CONNECTOR_HDMIA,
-+				       &priv->ddc);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
-+			HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ);
-+}
-+
-+/*
-+ * Test that the registration of an HDMI connector providing a max TMDS
-+ * character rate that exceeds the limit inferred from the advertised HDMI
-+ * specification version fails.
-+ */
-+static void drm_test_connector_hdmi_init_max_tmds_rate_exceeds(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector_hdmi_funcs hdmi_funcs = dummy_hdmi_funcs_scrambler;
-+	int ret;
-+
-+	hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_1_4;
-+	hdmi_funcs.supported_tmds_char_rate = HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ;
-+
-+	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
-+				       &dummy_funcs,
-+				       &hdmi_funcs,
-+				       DRM_MODE_CONNECTOR_HDMIA,
-+				       &priv->ddc);
-+	KUNIT_EXPECT_LT(test, ret, 0);
-+}
-+
-+/*
-+ * Test that the registration of an HDMI connector providing a non-zero max
-+ * TMDS character rate without an HDMI specification version fails, as the
-+ * version-inferred limit defaults to zero and any positive override would
-+ * exceed it.
-+ */
-+static void drm_test_connector_hdmi_init_max_tmds_rate_no_version(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector_hdmi_funcs hdmi_funcs = dummy_hdmi_funcs_scrambler;
-+	int ret;
-+
-+	hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_UNKNOWN;
-+	hdmi_funcs.supported_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
-+
-+	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
-+				       &dummy_funcs,
-+				       &hdmi_funcs,
-+				       DRM_MODE_CONNECTOR_HDMIA,
-+				       &priv->ddc);
-+	KUNIT_EXPECT_LT(test, ret, 0);
-+}
-+
- static struct kunit_case drmm_connector_hdmi_init_tests[] = {
- 	KUNIT_CASE(drm_test_connector_hdmi_init_valid),
- 	KUNIT_CASE(drm_test_connector_hdmi_init_bpc_8),
-@@ -1260,6 +1436,12 @@ static struct kunit_case drmm_connector_hdmi_init_tests[] = {
- 			 drm_connector_hdmi_init_type_valid_gen_params),
- 	KUNIT_CASE_PARAM(drm_test_connector_hdmi_init_type_invalid,
- 			 drm_connector_hdmi_init_type_invalid_gen_params),
-+	KUNIT_CASE_PARAM(drm_test_connector_hdmi_init_max_tmds_rate_inferred,
-+			 drm_connector_hdmi_init_max_tmds_rate_inferred_gen_params),
-+	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_override),
-+	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_at_limit),
-+	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_exceeds),
-+	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_no_version),
- 	{ }
- };
+ 	if (client->irq > 0) {
+ 		ctx->bridge.ops |= DRM_BRIDGE_OP_HPD;
  
 
 -- 
