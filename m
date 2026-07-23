@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9334C531CC
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:35:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 028A6C44532
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A49DD10EF29;
-	Thu, 23 Jul 2026 01:35:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D70D10EF21;
+	Thu, 23 Jul 2026 01:35:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NfFbgI3k";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Xlm3nEiq";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE7910EF09
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFEB410EF05
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784770527;
- bh=X+Xl+mnOIIF24Pu4TT/SwZ4lGixwbF8E+jO0Q9hamMs=;
+ s=mail; t=1784770512;
+ bh=q7cBSlf+upKqhrzdvUOmPKZalLVFqUdAibNT8ES0Wh8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=NfFbgI3kA4+Q65M6Je4ReDh3D/9m4qlvbMgZN4BrBfILunmde6/e6mwTl+xW/Im67
- IdsfWjqKTMNAXMznmPFuTlrKVsuCf33ufPbum31o0qqfuJQ9TttCSZgxMGM3UgD2ym
- sAdLPVw8CE5jBOtxZ7U8jsX/2r+IiZWrSML+CxOfWtrFis+UvghGeEhFTDa+tjeuTR
- U2kSeCd2J6H5cxJIMvLDXF9STHz0aCpdJlREP+BFDUtiXO7cYHv7AOAXHHRZyRjSF1
- kQfewPV5S4m1A6lV5zPSeap06US5jSzVUiwQ1p3uEgH8oDigO4B+4BU0htC7Pgebp8
- cmYaiSiNxx/2g==
+ b=Xlm3nEiqPidMcbYeRy0tg5+GlmpdRMFQ15QBe1oqUwMUxBWlNpDq8QVl2fn6dDC/X
+ K0cNlYAQqZYv3LuQ7oKwiL1RTF9dq8q93JvBC0VhRzqdtz6fB72o/sXBRrrNHjnMcq
+ 7zca/+JEF/yMUmf/r1Sn4w0EbYWfGc4Wu618tUdQGEN2Cl2yzOw75umFonjuBjZelC
+ CnCK2kOYZsjvoGPoLUGHsBe/USAZeAouFPUC+u2yVBpr1tGumS7uhmc5qJOnbz1OhK
+ 8QyFVU1Vtkdk5wNCJnvlJNz1kA0YGkpQ2QrXxnOgVDfKt8IFeQY46L3Cs9cKbhUepv
+ MDiSnpb1NGoIw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3053217E1274;
- Thu, 23 Jul 2026 03:35:27 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 880BD17E36D7;
+ Thu, 23 Jul 2026 03:35:12 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 23 Jul 2026 04:35:25 +0300
-Subject: [PATCH v9 36/61] drm/vc4: hdmi: Propagate -EDEADLK to the top
- level
+Date: Thu, 23 Jul 2026 04:35:04 +0300
+Subject: [PATCH v9 15/61] drm/display: hdmi-state-helper: Add source TMDS
+ rate validation
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-dw-hdmi-qp-scramb-v9-36-4fb12ea22ac9@collabora.com>
+Message-Id: <20260723-dw-hdmi-qp-scramb-v9-15-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,7 +62,8 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
+ Maud Spierings <maud_spierings@hotmail.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,75 +80,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_connector_helper_funcs.detect_ctx() is expected to propagate
--EDEADLK so that context owners, e.g. drm_helper_probe_detect_ctx(), can
-perform the required backoff and retry.
+Validate the computed TMDS character rate against
+connector->hdmi.max_tmds_char_rate, when provided by the driver/source.
 
-vc4_hdmi_handle_hotplug() instead runs its own retry loop and calls
-drm_modeset_backoff() on an acquire context it does not own.  This drops
-all locks in the context, including connection_mutex held by the core.
+This gives HDMI connectors common support for rejecting modes whose TMDS
+character rate exceeds the source supported limit, while still allowing
+drivers with custom validation requirements to implement their own
+tmds_char_rate_valid() callback.
 
-Drop the local retry logic and propagate -EDEADLK to the caller instead.
-This aligns VC4 with the expected detect_ctx() semantics.
-
+Tested-by: Maud Spierings <maud_spierings@hotmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 23 +++++++----------------
- 1 file changed, 7 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 4f7fc6689869..75a251530970 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -344,12 +344,11 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
- 	return drm_atomic_helper_reset_crtc(crtc, ctx);
- }
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index ce17eeefc2da..92be6278ea44 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -560,6 +560,10 @@ hdmi_clock_valid(const struct drm_connector *connector,
+ 	if (info->max_tmds_clock && clock > info->max_tmds_clock * 1000)
+ 		return MODE_CLOCK_HIGH;
  
--static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
--				    struct drm_modeset_acquire_ctx *ctx,
--				    enum drm_connector_status status)
-+static int vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
-+				   struct drm_modeset_acquire_ctx *ctx,
-+				   enum drm_connector_status status)
- {
- 	struct drm_connector *connector = &vc4_hdmi->connector;
--	int ret;
++	if (connector->hdmi.max_tmds_char_rate &&
++	    clock > connector->hdmi.max_tmds_char_rate)
++		return MODE_CLOCK_HIGH;
++
+ 	if (funcs && funcs->tmds_char_rate_valid) {
+ 		enum drm_mode_status status;
  
- 	/*
- 	 * NOTE: This function should really be called with vc4_hdmi->mutex
-@@ -368,17 +367,9 @@ static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
- 	drm_atomic_helper_connector_hdmi_hotplug(connector, ctx, status);
- 
- 	if (status != connector_status_connected)
--		return;
-+		return 0;
- 
--	for (;;) {
--		ret = vc4_hdmi_reset_link(connector, ctx);
--		if (ret == -EDEADLK) {
--			drm_modeset_backoff(ctx);
--			continue;
--		}
--
--		break;
--	}
-+	return vc4_hdmi_reset_link(connector, ctx);
- }
- 
- static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
-@@ -416,10 +407,10 @@ static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
- 			status = connector_status_connected;
- 	}
- 
--	vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
-+	ret = vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
- 	pm_runtime_put(&vc4_hdmi->pdev->dev);
- 
--	return status;
-+	return ret == -EDEADLK ? ret : status;
- }
- 
- static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
 
 -- 
 2.55.0
