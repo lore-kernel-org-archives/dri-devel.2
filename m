@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDE2CC44532
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:55:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10B09C44532
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:57:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A9A110EF5B;
-	Thu, 23 Jul 2026 01:55:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C20F10EF61;
+	Thu, 23 Jul 2026 01:57:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HBDmxs0T";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P/+PVFmf";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2109910EF5B
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:55:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EB2910EF61
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:57:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 73BB4600B0;
- Thu, 23 Jul 2026 01:55:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00B331F000E9;
- Thu, 23 Jul 2026 01:55:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CE42640847;
+ Thu, 23 Jul 2026 01:57:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85AF31F000E9;
+ Thu, 23 Jul 2026 01:57:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784771749;
- bh=0FXp1WbbR6jJ1xktq1Ard0VHYiHpePtLsYhQtudB9mc=;
+ s=k20260515; t=1784771851;
+ bh=6ALM3Ug/lkiph3BMDnj3ItF3Nb1FkSkSG4SbkJuzGyo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HBDmxs0T+8McucLpw062OdnThyHjtZufpBGh0BNZI5x8yOLwfaPz3U6YXejsUC+6X
- 4wz5g90d9NnywxLDo7OxFVWXIuhn5Jvsep8LO/pN11ni/WDx8lNc5baZnevqif/OuJ
- E+G3rcdZ+zHF0aLhxHzdLVCvnBgaRPmmh2GZNnuHxoXR17noF5NPMZHsyhzdhNIbWe
- Xtjg24g6eo85wYECdHGLsYjIo6sv3MmwKnlYAKjeZ/f7yvZb5wtuKn/RRlFRe0+TIr
- KoSpnqtmpNBr+Rx/oApiSRpdb+rMbZon1THQNI0oRDDRZ8HDQkAqhpgEcFyCIbiJYI
- buAZG8X9oBSLQ==
+ b=P/+PVFmf+2XC7QJ5GBnTzb07pKtF5t9gc3IQ+oAzKTZAJmPlJyLOjRpk0dW5IbnFk
+ zNTMfXWWT5Wyn6MsER2AO29ODzPthPvmY0/EqIzRSWi2zAx6sqzvGIy970M4xkK34O
+ rCjWeTKnyUsBxWJo4evPmAyh3O8FVM4WUfcxsdXrjFb8BLukV46Kyf1szxXYBLII7R
+ 5AcHYktvX1nsjMJk11hLDLo6CT1S8A/S/r84Y1KyYM1cd8pBb/jZv6Ox35NJ4dZTmp
+ p0dzPVKFd3eyIFzUiTbSMeynbMJGzVc6qL1k9c3bGEmT5GCj5bdmuKe4BMVu2qrBrV
+ RNqc6L4H5VtSg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 28/61] drm/rockchip: dw_hdmi_qp: Mask RK3576 HPD IRQ
- in io_init
+Subject: Re: [PATCH v9 29/61] drm/rockchip: dw_hdmi_qp: Implement
+ .{enable,disable}_hpd() PHY ops
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
 Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-28-4fb12ea22ac9@collabora.com>
+In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-29-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
- <20260723-dw-hdmi-qp-scramb-v9-28-4fb12ea22ac9@collabora.com>
+ <20260723-dw-hdmi-qp-scramb-v9-29-4fb12ea22ac9@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 01:55:48 +0000
-Message-Id: <20260723015549.00B331F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 01:57:31 +0000
+Message-Id: <20260723015731.85AF31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,110 +58,107 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [Medium] Incomplete/Defeated HPD Interrupt Deferral Implementation
-
 Pre-existing issues:
-- [High] Use-After-Free and resource leak due to mismatched drmm/devm compo=
-nent lifecycles
+- [High] Threaded IRQ handlers unconditionally unmask HPD interrupts and re=
+-queue delayed work, leading to state desync and use-after-free during tear=
+down.
 --
 
---- Patch [28]: [PATCH v9 28/61] drm/rockchip: dw_hdmi_qp: Mask RK3576 HPD =
-IRQ in io_init ---
-commit 14fe26855150a57c0302feac3b2461064deead56
+--- Patch [29]: [PATCH v9 29/61] drm/rockchip: dw_hdmi_qp: Implement .{enab=
+le,disable}_hpd() PHY ops ---
+commit 4e3d155ee238497812dbae4f03f0d9c85824af5a
 Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date:   Thu Jul 23 01:35:17 2026 +0000
 
-    drm/rockchip: dw_hdmi_qp: Mask RK3576 HPD IRQ in io_init
-   =20
-    Start with HPD masked, matching RK3588, so the bridge framework controls
-    when interrupts are armed via hpd_enable().
+    drm/rockchip: dw_hdmi_qp: Implement .{enable,disable}_hpd() PHY ops
+
+This commit implements the .enable_hpd() and .disable_hpd() phy ops for
+RK3576 and RK3588 SoCs. It also consolidates the interrupt clear-and-unmask
+and mask-only sequences into these new ops. The .setup_hpd() phy op is remo=
+ved
+as it is no longer needed.
 
 > diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
 /drm/rockchip/dw_hdmi_qp-rockchip.c
-> index 7e3e86d056116..12cd8db7cc50b 100644
+> index 12cd8db7cc50b..5067e3cf0e881 100644
 > --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
 > +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> @@ -432,7 +432,7 @@ static void dw_hdmi_qp_rk3576_io_init(struct rockchip=
-_hdmi_qp *hdmi)
+[ ... ]
+> @@ -364,15 +385,11 @@ static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int ir=
+q, void *dev_id)
+>  static irqreturn_t dw_hdmi_qp_rk3576_irq(int irq, void *dev_id)
+>  {
+>  	struct rockchip_hdmi_qp *hdmi =3D dev_id;
+> -	u32 val;
 > =20
->  	regmap_write(hdmi->vo_regmap, RK3576_VO0_GRF_SOC_CON14, val);
+> -	val =3D FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_CLR, 1);
+> -	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
+>  	mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
+>  			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
 > =20
 > -	val =3D FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0);
-> +	val =3D FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1);
->  	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
->  }
-
-[Severity: Medium]
-The commit message states the goal is for the bridge framework to control
-when interrupts are armed, but does this actually happen?
-
-It looks like the required .enable_hpd and .disable_hpd callbacks are
-not implemented in rk3576_hdmi_phy_ops:
-
-static const struct dw_hdmi_qp_phy_ops rk3576_hdmi_phy_ops =3D {
-	.init		=3D dw_hdmi_qp_rk3588_phy_init,
-	.disable	=3D dw_hdmi_qp_rk3588_phy_disable,
-	.read_hpd	=3D dw_hdmi_qp_rk3576_read_hpd,
-	.setup_hpd	=3D dw_hdmi_qp_rk3576_setup_hpd,
-};
-
-Without these callbacks, the bridge framework's attempts to unmask HPD
-will be no-ops.
-
-Furthermore, dw_hdmi_qp_init_hw() in drivers/gpu/drm/bridge/synopsys/dw-hdm=
-i-qp.c
-unconditionally calls .setup_hpd() during bind:
-
-	if (hdmi->phy.ops->setup_hpd)
-		hdmi->phy.ops->setup_hpd(hdmi, hdmi->phy.data);
-
-And dw_hdmi_qp_rk3576_setup_hpd() writes 0 to the mask bit, overriding
-the mask set here in io_init:
-
-	val =3D (FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_CLR, 1) |
-	       FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0));
-
-Does this completely bypass the intended deferral and leave the interrupt
-armed immediately during bind?
+> -	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
+> +	dw_hdmi_qp_rk3576_enable_hpd(NULL, hdmi);
 
 [Severity: High]
-This is a pre-existing issue, but is there a use-after-free risk during
-unbind due to mismatched lifecycles?
+This is a pre-existing issue, but this threaded IRQ handler unconditionally
+unmasks the HPD interrupt and requeues delayed work.
 
-The context structure is allocated tied to the DRM master's lifecycle using
-drmm_kzalloc() in dw_hdmi_qp_rockchip_bind():
+During teardown or driver unbind, the DRM master is unregistered and drmm
+resources (including hdmi) are freed. However, because the devm-managed
+IRQ isn't destroyed immediately, the IRQ thread could race with or run after
+the DRM core's attempt to mask the interrupt.
 
-	hdmi =3D drmm_kzalloc(drm, sizeof(*hdmi), GFP_KERNEL);
+This unconditionally calls dw_hdmi_qp_rk3576_enable_hpd(), unmasking the
+interrupt again. A subsequent hotplug event could then fire the interrupt a=
+nd
+cause the hardirq handler to access the freed hdmi structure, leading to a
+use-after-free crash.
 
-However, the HPD interrupt is requested using devm_request_threaded_irq()
-on the component device, which outlives the DRM master across unbinds or
-probe failures:
+Does this need additional teardown synchronization or checking to ensure we
+do not re-enable interrupts and requeue work when unbinding?
 
-	ret =3D devm_request_threaded_irq(dev, irq,
-					cfg->ctrl_ops->hardirq_callback,
-					cfg->ctrl_ops->irq_callback,
-					IRQF_SHARED, "dw-hdmi-qp-hpd",
-					hdmi);
+> =20
+>  	return IRQ_HANDLED;
+>  }
+[ ... ]
+> @@ -401,22 +414,11 @@ static irqreturn_t dw_hdmi_qp_rk3588_hardirq(int ir=
+q, void *dev_id)
+>  static irqreturn_t dw_hdmi_qp_rk3588_irq(int irq, void *dev_id)
+>  {
+>  	struct rockchip_hdmi_qp *hdmi =3D dev_id;
+> -	u32 val;
+> -
+> -	if (hdmi->port_id)
+> -		val =3D FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_CLR, 1);
+> -	else
+> -		val =3D FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_CLR, 1);
+> -	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
+> =20
+>  	mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
+>  			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
+> =20
+> -	if (hdmi->port_id)
+> -		val |=3D FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 0);
+> -	else
+> -		val |=3D FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 0);
+> -	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
+> +	dw_hdmi_qp_rk3588_enable_hpd(NULL, hdmi);
 
-The component unbind function fails to explicitly free the IRQ:
+[Severity: High]
+This is a pre-existing issue, but this RK3588 IRQ handler exhibits the same
+behavior as the RK3576 handler above.=20
 
-static void dw_hdmi_qp_rockchip_unbind(struct device *dev,
-				       struct device *master,
-				       void *data)
-{
-	struct rockchip_hdmi_qp *hdmi =3D dev_get_drvdata(dev);
+Can this lead to a use-after-free during driver teardown if the IRQ thread
+runs after the DRM core tries to mask the interrupt, causing it to be left
+armed?
 
-	cancel_delayed_work_sync(&hdmi->hpd_work);
-}
-
-If the DRM master unbinds, the DRM device is destroyed and hdmi is freed.
-Will the IRQ remain active on the component device and dereference the
-freed hdmi pointer if the interrupt fires?
+> =20
+>  	return IRQ_HANDLED;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-dw-hdmi-qp=
--scramb-v9-0-4fb12ea22ac9@collabora.com?part=3D28
+-scramb-v9-0-4fb12ea22ac9@collabora.com?part=3D29
