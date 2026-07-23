@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98950C44532
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:35:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0063C531CC
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:35:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3EBF10EF33;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9217E10EF31;
 	Thu, 23 Jul 2026 01:35:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="O0HbnrCH";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="BZytFqV/";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF9D810EF09
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6417E10EF09
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784770533;
- bh=RFyuQv7nRggfvzhopw1fvn8ctM8nhZm+B4c1Q6ujibA=;
+ s=mail; t=1784770516;
+ bh=2geCQNKhnwPXaJ/bHUlwxRKPeZYSVig3y46QWPBRk50=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=O0HbnrCHnlC062t8cmkWxDsb4CliHtvRLHziSClu2c3kKR0z/Pb06vgqFQy0dzOTy
- VqPI2e1i8ZOBY/UNCccOsZ9J9x2HQk6J2JDDLD/MYXz8/vMGEO5RXDcUMbfBj0QjyZ
- t709eOQFqtPf3g1qEgczcWAOVvfpXYgkKi4HyffeCngkTPY4mH9Bp7TiId6e3t9yxB
- h8ypdIMNaOaWaaYA+Xpg94BtXmj3w+zWoCGztMbiTVEgHGx2OsGmKTKGoqbCrqjydm
- 8znXuRXq0xFOU0wILh7pp9q/uflCz360FRIziZGyAsOflLbuQz9svZlZ4eI1O5R9h9
- OXK18bwpW8VLg==
+ b=BZytFqV/0RBDH2izdzsIUK80Bjmokva2f8oiB8+Xpgs4+K/DcHTIcW6oXzxXc5J6b
+ 9hwzK7zt4mNcjPHSUy0gvb2f5/7MnekUmTqtAstA21oEun8FheRn78dAc6WiRCbZIu
+ DqlXrygikif7kpMtm4uSUS2E9e66F/zLkypNth79eVGys+1ylnovXbkOoOBte3gpXl
+ uF3K39Tg3szNuLeeAmx7Hp620ptljfv5go4jVt+uSxRH5EjO+yWxlbXwl8K9RBt9u5
+ Hp/l9rznXkvGzTBlOOR5diS0m5GiRMu6bPdC3WzYe5PEBm12WbhmYX/3a2BBdy7K7i
+ AHPHqkQNUkCiQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 6339C17E0857;
- Thu, 23 Jul 2026 03:35:33 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0913117E124A;
+ Thu, 23 Jul 2026 03:35:16 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 23 Jul 2026 04:35:34 +0300
-Subject: [PATCH v9 45/61] drm/bridge: lontium-lt9611: Advertise HDMI 1.4
- capabilities
+Date: Thu, 23 Jul 2026 04:35:09 +0300
+Subject: [PATCH v9 20/61] drm/bridge: dw-hdmi-qp: Provide
+ .{enable,disable}_hpd() PHY ops
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-dw-hdmi-qp-scramb-v9-45-4fb12ea22ac9@collabora.com>
+Message-Id: <20260723-dw-hdmi-qp-scramb-v9-20-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,7 +62,8 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
+ Maud Spierings <maud_spierings@hotmail.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,77 +80,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bridges using DRM_BRIDGE_OP_HDMI are expected to provide the supported
-HDMI version.  This is not enforced yet, but will become mandatory once
-the migration to the caps-based HDMI connector initialization API is
-complete.
+Implement the .hpd_enable() and .hpd_disable() bridge callbacks and
+extend dw_hdmi_qp_phy_ops with corresponding hooks.
 
-As LT9611 supposedly cannot drive a TMDS character rate exceeding 297
-MHz, advertise HDMI 1.4 as the supported version.  HDMI 1.4 allows up to
-340 MHz, so set the bridge's max_tmds_char_rate to ensure the connector
-limit derived from supported_hdmi_ver remains within the hardware
-capabilities.
+This enables the DRM core to control when HPD interrupts are armed,
+which is needed to prevent premature interrupt delivery before the
+connector is fully initialized, and to properly quiesce HPD during
+suspend.
 
-drm_bridge_connector_atomic_check() calls
-drm_atomic_helper_connector_hdmi_check(), which rejects modes whose
-computed TMDS character rate exceeds the connector's max_tmds_char_rate
-before invoking the driver's .tmds_char_rate_valid hook.  Since
-max_tmds_char_rate now carries the existing effective limit,
-lt9611_hdmi_tmds_char_rate_valid() is redundant.  Drop it.
-
+Tested-by: Maud Spierings <maud_spierings@hotmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/lontium-lt9611.c | 16 +++-------------
- 1 file changed, 3 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 18 ++++++++++++++++++
+ include/drm/bridge/dw_hdmi_qp.h              |  2 ++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
-index b6a368f71285..19971ffade8b 100644
---- a/drivers/gpu/drm/bridge/lontium-lt9611.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
-@@ -5,6 +5,7 @@
-  */
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index 7475b6b71836..a0613f0d2ebc 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -1189,6 +1189,22 @@ static int dw_hdmi_qp_cec_transmit(struct drm_bridge *bridge, u8 attempts,
+ #define dw_hdmi_qp_cec_transmit NULL
+ #endif /* CONFIG_DRM_DW_HDMI_QP_CEC */
  
- #include <linux/gpio/consumer.h>
-+#include <linux/hdmi.h>
- #include <linux/i2c.h>
- #include <linux/interrupt.h>
- #include <linux/media-bus-format.h>
-@@ -952,18 +953,6 @@ static int lt9611_hdmi_write_hdmi_infoframe(struct drm_bridge *bridge,
- 	return 0;
- }
++static void dw_hdmi_qp_bridge_hpd_enable(struct drm_bridge *bridge)
++{
++	struct dw_hdmi_qp *hdmi = bridge->driver_private;
++
++	if (hdmi->phy.ops->enable_hpd)
++		hdmi->phy.ops->enable_hpd(hdmi, hdmi->phy.data);
++}
++
++static void dw_hdmi_qp_bridge_hpd_disable(struct drm_bridge *bridge)
++{
++	struct dw_hdmi_qp *hdmi = bridge->driver_private;
++
++	if (hdmi->phy.ops->disable_hpd)
++		hdmi->phy.ops->disable_hpd(hdmi, hdmi->phy.data);
++}
++
+ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
+ 	.atomic_get_output_bus_fmts = drm_atomic_helper_bridge_get_hdmi_output_bus_fmts,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+@@ -1197,6 +1213,8 @@ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
+ 	.atomic_enable = dw_hdmi_qp_bridge_atomic_enable,
+ 	.atomic_disable = dw_hdmi_qp_bridge_atomic_disable,
+ 	.detect = dw_hdmi_qp_bridge_detect,
++	.hpd_enable = dw_hdmi_qp_bridge_hpd_enable,
++	.hpd_disable = dw_hdmi_qp_bridge_hpd_disable,
+ 	.edid_read = dw_hdmi_qp_bridge_edid_read,
+ 	.hdmi_tmds_char_rate_valid = dw_hdmi_qp_bridge_tmds_char_rate_valid,
+ 	.hdmi_clear_avi_infoframe = dw_hdmi_qp_bridge_clear_avi_infoframe,
+diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
+index 6ea9c561cfef..b80fceffc315 100644
+--- a/include/drm/bridge/dw_hdmi_qp.h
++++ b/include/drm/bridge/dw_hdmi_qp.h
+@@ -17,6 +17,8 @@ struct dw_hdmi_qp_phy_ops {
+ 	void (*disable)(struct dw_hdmi_qp *hdmi, void *data);
+ 	enum drm_connector_status (*read_hpd)(struct dw_hdmi_qp *hdmi, void *data);
+ 	void (*setup_hpd)(struct dw_hdmi_qp *hdmi, void *data);
++	void (*enable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
++	void (*disable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
+ };
  
--static enum drm_mode_status
--lt9611_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
--				 const struct drm_display_mode *mode,
--				 unsigned long long tmds_rate)
--{
--	/* 297 MHz for 4k@30 mode */
--	if (tmds_rate > 297000000)
--		return MODE_CLOCK_HIGH;
--
--	return MODE_OK;
--}
--
- static int lt9611_hdmi_audio_startup(struct drm_bridge *bridge,
- 				     struct drm_connector *connector)
- {
-@@ -1029,7 +1018,6 @@ static const struct drm_bridge_funcs lt9611_bridge_funcs = {
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.atomic_get_input_bus_fmts = lt9611_atomic_get_input_bus_fmts,
- 
--	.hdmi_tmds_char_rate_valid = lt9611_hdmi_tmds_char_rate_valid,
- 	.hdmi_write_audio_infoframe = lt9611_hdmi_write_audio_infoframe,
- 	.hdmi_clear_audio_infoframe = lt9611_hdmi_clear_audio_infoframe,
- 	.hdmi_write_avi_infoframe = lt9611_hdmi_write_avi_infoframe,
-@@ -1177,6 +1165,8 @@ static int lt9611_probe(struct i2c_client *client)
- 	lt9611->bridge.hdmi_audio_dev = dev;
- 	lt9611->bridge.hdmi_audio_max_i2s_playback_channels = 8;
- 	lt9611->bridge.hdmi_audio_dai_port = 2;
-+	lt9611->bridge.supported_hdmi_ver = HDMI_VERSION_1_4;
-+	lt9611->bridge.max_tmds_char_rate = 297000000; /* 297 MHz for 4k@30 mode */
- 
- 	drm_bridge_add(&lt9611->bridge);
- 
+ struct dw_hdmi_qp_plat_data {
 
 -- 
 2.55.0
