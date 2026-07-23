@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4929EC44536
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:59:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 659BDC4453D
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:59:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7DC910EF6E;
-	Thu, 23 Jul 2026 01:59:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC5A110EF65;
+	Thu, 23 Jul 2026 01:59:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vr7yOV/F";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WEs5LycH";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC78F10EF6B
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:59:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3552E10EF68
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:59:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EC028600AB;
- Thu, 23 Jul 2026 01:59:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F79A1F000E9;
- Thu, 23 Jul 2026 01:59:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AE163600AB;
+ Thu, 23 Jul 2026 01:59:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31E221F000E9;
+ Thu, 23 Jul 2026 01:59:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784771949;
- bh=IjBr7boVj4c8ABH3KPjMnf5kuNBomzupq5CTDtiQ8Fw=;
+ s=k20260515; t=1784771970;
+ bh=g5JQWaiDZWU+J5zCFmQcTN/S2bBTnOtmhlYsfeNUZ0I=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Vr7yOV/FlhQXsCVoxSFolBpPKkAH/530kuY6VnXmE+8JZ3AvgkO96KXxnKlcMsRFe
- +qm9ZK7YNkR1as4GipDMZQZ08m6Hj59+5sXwXBFthRvPQxknqsTvuhTlcKbrrhGf/c
- DnUIblm80XGqeze0Z5eoCUjURzw7rMry5DoMOIWpCKRLVD5IAz+hePJjQHzRbnYu15
- YLK+X+q6N8+MJA6rq0CJ7u62myeNSANywnyMbi8YYxMVafT9CKkmCa3pQgQu4UJS4k
- 5CWOB6Zi3hH2vVW9oxCycCycV+uARUH5CvuwIb/8XwoQrvEtRvysoLiEaBGUP55CUK
- tWXvPKABHzfnw==
+ b=WEs5LycHwUGwy2m2g3x5TtfjBVN/7xNjiMIMEgrvRU6+SHTwiPJzkQz5HQ7aGljWf
+ z+lB6HP4lOMpIFeKkXMml7bNZYKlQJzWyWu236dL5o+HjsroIItgJqOWDzXDTIP/2m
+ qJ1DkBAQhAdodKQZJ8Iw8Lcl3npX6Gfg9CjRrwMQY3sBtEVGusbDMdaTrc/I+JfZ1b
+ YUqG2/JQprp+go0fVYemLnjoIfz6kJZifppeV0EPI1JcvZmBwtF8gruAr3aA9phb5G
+ 8770ikOM1T/0EFwO2MK64wKIlSrpEM8+W1AMBZA6Q67w0m04G0IASmVJqSfh1oYO92
+ jf5dhbnWEZRsg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 31/61] drm/rockchip: dw_hdmi_qp: Control the HPD IRQ
- line via the bridge HPD ops
+Subject: Re: [PATCH v9 36/61] drm/vc4: hdmi: Propagate -EDEADLK to the top
+ level
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-31-4fb12ea22ac9@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-36-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
- <20260723-dw-hdmi-qp-scramb-v9-31-4fb12ea22ac9@collabora.com>
+ <20260723-dw-hdmi-qp-scramb-v9-36-4fb12ea22ac9@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 01:59:09 +0000
-Message-Id: <20260723015909.7F79A1F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 01:59:29 +0000
+Message-Id: <20260723015930.31E221F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,84 +60,82 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Delayed HPD work is not cancelled when HPD is disabled, risking ex=
-ecution while the display pipeline is suspended or disabled.
+- [High] The return value of `drm_atomic_helper_connector_hdmi_hotplug()` i=
+s ignored, swallowing `-EDEADLK` errors and causing lock API violations.
 --
 
---- Patch [31]: [PATCH v9 31/61] drm/rockchip: dw_hdmi_qp: Control the HPD =
-IRQ line via the bridge HPD ops ---
-commit 1832550496f2064373166520bd5d2d00accd260b
+--- Patch [36]: [PATCH v9 36/61] drm/vc4: hdmi: Propagate -EDEADLK to the t=
+op level ---
+commit 386da5b87a0ad478948abb5cc75141b0bedce489
 Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Subject: drm/vc4: hdmi: Propagate -EDEADLK to the top level
 
-drm/rockchip: dw_hdmi_qp: Control the HPD IRQ line via the bridge HPD ops
+drm_connector_helper_funcs.detect_ctx() is expected to propagate
+-EDEADLK so that context owners, e.g. drm_helper_probe_detect_ctx(), can
+perform the required backoff and retry.
 
-This commit changes the HPD interrupt handling to request it with
-IRQF_NO_AUTOEN and enables/disables it dynamically through the bridge
-hpd_{enable,disable}() callbacks.
-
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
-/drm/rockchip/dw_hdmi_qp-rockchip.c
-> index cdddbbb8b80b2..534a2c8da2a0a 100644
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-
-[ ... ]
-
-> @@ -308,12 +309,14 @@ static void dw_hdmi_qp_rk3588_enable_hpd(struct dw_=
-hdmi_qp *dw_hdmi, void *data)
->  	struct rockchip_hdmi_qp *hdmi =3D (struct rockchip_hdmi_qp *)data;
-> =20
->  	dw_hdmi_qp_rk3588_unmask_hpd(hdmi);
-> +	enable_irq(hdmi->hpd_irq);
+> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdm=
+i.c
+> index 4f7fc6689869e..75a251530970e 100644
+> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> @@ -344,12 +344,11 @@ static int vc4_hdmi_reset_link(struct drm_connector=
+ *connector,
+>  	return drm_atomic_helper_reset_crtc(crtc, ctx);
 >  }
 > =20
->  static void dw_hdmi_qp_rk3588_disable_hpd(struct dw_hdmi_qp *dw_hdmi, vo=
-id *data)
+> -static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
+> -				    struct drm_modeset_acquire_ctx *ctx,
+> -				    enum drm_connector_status status)
+> +static int vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
+> +				   struct drm_modeset_acquire_ctx *ctx,
+> +				   enum drm_connector_status status)
 >  {
->  	struct rockchip_hdmi_qp *hdmi =3D (struct rockchip_hdmi_qp *)data;
+>  	struct drm_connector *connector =3D &vc4_hdmi->connector;
+> -	int ret;
 > =20
-> +	disable_irq(hdmi->hpd_irq);
+>  	/*
+>  	 * NOTE: This function should really be called with vc4_hdmi->mutex
+> @@ -368,17 +367,9 @@ static void vc4_hdmi_handle_hotplug(struct vc4_hdmi =
+*vc4_hdmi,
+>  	drm_atomic_helper_connector_hdmi_hotplug(connector, ctx, status);
+> =20
+>  	if (status !=3D connector_status_connected)
+> -		return;
+> -
+> -	for (;;) {
+> -		ret =3D vc4_hdmi_reset_link(connector, ctx);
+> -		if (ret =3D=3D -EDEADLK) {
+> -			drm_modeset_backoff(ctx);
+> -			continue;
+> -		}
+> +		return 0;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this leave the scheduled
-delayed work running?
+Should the return value of drm_atomic_helper_connector_hdmi_hotplug() be
+captured and propagated to the caller?
 
-When the DRM core disables HPD during suspend, disable_irq() waits for the
-threaded interrupt handler to finish, but the scheduled hdmi->hpd_work is n=
-ot
-cancelled. If an HPD interrupt occurs right before suspend, the delayed work
-might execute 150ms later while the display pipeline is suspended or disabl=
-ed.
+If drm_atomic_helper_connector_hdmi_hotplug() fails to acquire locks, for
+example inside drm_connector_hdmi_sync_scdc(), it can return -EDEADLK. By
+ignoring this return value, the standard DRM locking retry semantics are
+bypassed.
 
-Could this access hardware registers (like GRF) after clocks or power domai=
-ns
-have been disabled, and cause a system hang? Would it be safer to add
-cancel_delayed_work_sync(&hdmi->hpd_work) here in the disable callbacks, or=
- in
-dw_hdmi_qp_rockchip_suspend()?
+When a deadlock occurs, ctx->contended is set. If we proceed to use this
+context in vc4_hdmi_reset_link(), or eventually drop the locks via
+drm_modeset_drop_locks(), it triggers a WARN_ON(ctx->contended) stack
+trace in drm_modeset_lock.c.
 
->  	dw_hdmi_qp_rk3588_mask_hpd(hdmi);
->  }
+Additionally, if the connector was disconnected, returning 0 tricks the
+caller into believing the operation succeeded. This skips essential
+teardown steps like CEC physical address invalidation, Audio InfoFrame
+clearing, and SCDC sync retry.
 
-[ ... ]
-
->  static void dw_hdmi_qp_rk3576_disable_hpd(struct dw_hdmi_qp *dw_hdmi, vo=
-id *data)
->  {
->  	struct rockchip_hdmi_qp *hdmi =3D (struct rockchip_hdmi_qp *)data;
 > =20
-> +	disable_irq(hdmi->hpd_irq);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but this has the same issue with
-uncancelled delayed work as the rk3588 variant above.
-
->  	dw_hdmi_qp_rk3576_mask_hpd(hdmi);
+> -		break;
+> -	}
+> +	return vc4_hdmi_reset_link(connector, ctx);
 >  }
->
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-dw-hdmi-qp=
--scramb-v9-0-4fb12ea22ac9@collabora.com?part=3D31
+-scramb-v9-0-4fb12ea22ac9@collabora.com?part=3D36
