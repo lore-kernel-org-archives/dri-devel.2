@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CE8FC531FA
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 19:44:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA0E7C531D0
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 19:44:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D684210E5F9;
-	Thu, 23 Jul 2026 19:44:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E2CA10E5FA;
+	Thu, 23 Jul 2026 19:44:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gIfhaDId";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gyuQ0vCu";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D78310E5EF;
- Thu, 23 Jul 2026 19:43:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44E1A10E5FA;
+ Thu, 23 Jul 2026 19:44:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=UZZZIyK2AovRwfjZ0N/6ajWt/Sn0YJbtCsW3Hgfz5Kw=; b=gIfhaDId735CnGCFTTUQ8s+leT
- 5xvXWPg7+ccQvIRWTm3ssN53+7n9tuFJQbKfAcexYo6I1kKNieqCLwdOMJP2NeU+XVOuUpXxWw12E
- 4Ks6zt/h2OFEmkYa09j84avQtsV857UXbTnyXpe5DSErVxJYwaB7whjDWHYtO6NT0ueoFr+GELAL+
- oXGmtYCChJQ37ncFY/i32jd+hBqyd8cilMdjX9vtpoh1Tr0beKxPIyBtaPbtCtb0xiy4ZmMCQzWnl
- 89UkSQHqJZYBSN5/On07B/481twFxmrIhIyUxLL95Eq6xQL652SAyaZa/gTEr2f/363BTQAtxiGte
- 9CeEd32A==;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=EL2t/09vcN9V6Rkygrdza4kyop6teAGJd5C5hkrlR48=; b=
+ gyuQ0vCuAl0iVLFGO+I4RaJhmrLPqnw0d+Vx+cjCAy914FPygO3x8xSxNcRvidrfj3JD4x6kt4r/7
+ 41sXLMcyHdA1Z2NcYygsZ21bhKdoBl8FAhIFgbU4kDOzTVa+6SdRMFErsGibRRAI+rK67UtVttcCh
+ 5IDcmVELfpVv5eA05rt4eCUukybY2feB0dNa2cXflAe3n5ZIXFk3FaEI8HJwcfasVoJ62xvqDrm6x
+ 3rR1aNfJDxAjpuSz/rWjqsoF8tDuKIbhMN5XyhqTs103sDwFCTWUoC4aLtsODQcIP1HCbKhSgLv91
+ 2C8kAdu4FtkoxUTGNx5XgC6tZLodCbNamw==;
 Received: from 179-125-91-91-dinamico.pombonet.net.br ([179.125.91.91]
  helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wmzKm-003a1P-TJ; Thu, 23 Jul 2026 21:43:57 +0200
+ id 1wmzLM-003a1P-Uh; Thu, 23 Jul 2026 21:44:33 +0200
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 To: igt-dev@lists.freedesktop.org
 Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
@@ -42,15 +41,13 @@ Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
  Vitaly Prosyak <vitaly.prosyak@amd.com>,
  Natalie Vock <natalie.vock@gmx.de>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-Subject: [PATCH i-g-t v5 2/7] tests/cgroup_dmem: add dmem cgroup controller
- test
-Date: Thu, 23 Jul 2026 16:43:08 -0300
-Message-ID: <20260723194313.2748143-3-cascardo@igalia.com>
+Subject: [PATCH i-g-t v5 6/7] lib/amdgpu: add amdgpu support to igt_dmem_driver
+Date: Thu, 23 Jul 2026 16:43:12 -0300
+Message-ID: <20260723194313.2748143-7-cascardo@igalia.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260723194313.2748143-1-cascardo@igalia.com>
 References: <20260723194313.2748143-1-cascardo@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,136 +64,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+This allows dmem cgroups tests to run on top of amdgpu driver, adding
+support to allocate and release VRAM memory.
 
-Add a test that exercises the cgroup v2 dmem controller interface using
-the new igt_cgroup library.
+This does this by allocating a BO from VRAM domain, which will try to
+place BOs on VRAM, but may fallback to GTT.
 
-The test uses igt_simple_main and:
-  - Skips if no dmem regions are registered (no cgroup v2 or no
-   dmem-capable device).
-  - Creates a sub-cgroup and moves the test process into it.
-  - Enumerates all registered device memory regions and prints their
-   capacity, system-wide current usage, per-cgroup current usage, and
-   configured min, low and max limits.
-  - Destroys the cgroup on completion.
-
-Assisted-by: GitHub Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- tests/cgroup_dmem.c | 92 +++++++++++++++++++++++++++++++++++++++++++++
- tests/meson.build   |  1 +
- 2 files changed, 93 insertions(+)
- create mode 100644 tests/cgroup_dmem.c
+ lib/amdgpu/amd_dmem.c | 99 +++++++++++++++++++++++++++++++++++++++++++
+ lib/igt_dmem_driver.h |  1 +
+ lib/meson.build       |  1 +
+ 3 files changed, 101 insertions(+)
+ create mode 100644 lib/amdgpu/amd_dmem.c
 
-diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+diff --git a/lib/amdgpu/amd_dmem.c b/lib/amdgpu/amd_dmem.c
 new file mode 100644
-index 000000000000..442c965f9bbf
+index 000000000000..5ff6437dc78a
 --- /dev/null
-+++ b/tests/cgroup_dmem.c
-@@ -0,0 +1,92 @@
++++ b/lib/amdgpu/amd_dmem.c
+@@ -0,0 +1,99 @@
 +// SPDX-License-Identifier: MIT
 +/*
-+ * Copyright © 2025 Intel Corporation
++ * Copyright 2026 Valve Corporation
++ * Authors:
++ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 + */
 +
-+/**
-+ * TEST: cgroup dmem
-+ * Description: Exercises the cgroup v2 dmem controller interface.  Creates a
-+ *              cgroup, moves the process into it, enumerates all dmem regions,
-+ *              prints their capacity, system-wide current usage, per-cgroup
-+ *              current usage and configured limits, then destroys the cgroup.
-+ * Category: Core
-+ * Mega feature: General Core features
-+ * Sub-category: uapi
-+ * Functionality: cgroup
-+ * Feature: dmem
-+ * Test category: uapi
-+ */
-+
-+#include <inttypes.h>
++#include <errno.h>
 +
 +#include "igt.h"
 +#include "igt_cgroup.h"
++#include "igt_dmem_driver.h"
++#include "lib/amdgpu/amd_memory.h"
 +
-+IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
++struct amdgpu_dmem_ctx {
++	int fd;
++	amdgpu_device_handle device;
++	amdgpu_bo_handle *handles;
++	int max_bo;
++};
 +
-+static void fmt_bytes(uint64_t v, char *buf, size_t len)
++static int amdgpu_dmem_init(void **ctx, int fd, int max_bo)
 +{
-+	if (v == IGT_CGROUP_DMEM_MAX)
-+		snprintf(buf, len, "max");
-+	else
-+		snprintf(buf, len, "%" PRIu64, v);
++	struct amdgpu_dmem_ctx *actx;
++	uint32_t major, minor;
++	int err = -ENOMEM;
++
++	actx = malloc(sizeof(*actx));
++	if (!actx)
++		return -ENOMEM;
++
++	actx->handles = calloc(max_bo, sizeof(actx->handles[0]));
++	if (!actx->handles)
++		goto out;
++
++	actx->max_bo = max_bo;
++
++	err = amdgpu_device_initialize(fd, &major, &minor, &actx->device);
++	if (err)
++		goto out;
++
++	*ctx = actx;
++
++	return 0;
++
++out:
++	if (actx->handles)
++		free(actx->handles);
++	free(actx);
++
++	return err;
 +}
 +
-+int igt_simple_main()
++static void amdgpu_dmem_deinit(void *ctx)
 +{
-+	struct igt_cgroup *cg;
-+	const char *region;
-+	char **regions;
-+	uint64_t capacity, sys_current, cg_current, min, low, max;
-+	char cap_s[32], sys_s[32], cg_s[32];
-+	char min_s[32], low_s[32], max_s[32];
-+	int i;
++	struct amdgpu_dmem_ctx *actx = ctx;
 +
-+	igt_require_f(igt_cgroup_dmem_available(),
-+		      "No dmem regions found; is cgroup v2 with the "
-+		      "dmem controller available?\n");
-+
-+	cg = igt_cgroup_new("igt-cgroup-dmem-test");
-+	igt_assert_f(cg, "Failed to create cgroup\n");
-+
-+	igt_cgroup_move_current(cg);
-+
-+	regions = igt_cgroup_dmem_regions();
-+	igt_assert_f(regions, "Failed to enumerate dmem regions\n");
-+
-+	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
-+		 "region", "capacity", "system-current",
-+		 "cgroup-current", "min", "low", "max");
-+	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
-+		 "------", "--------", "--------------",
-+		 "--------------", "---", "---", "---");
-+
-+	for (i = 0; regions[i]; i++) {
-+		region = regions[i];
-+
-+		igt_cgroup_dmem_get_capacity(region, &capacity);
-+		fmt_bytes(capacity, cap_s, sizeof(cap_s));
-+
-+		igt_cgroup_dmem_get_system_current(region, &sys_current);
-+		fmt_bytes(sys_current, sys_s, sizeof(sys_s));
-+
-+		igt_cgroup_dmem_get_current(cg, region, &cg_current);
-+		fmt_bytes(cg_current, cg_s, sizeof(cg_s));
-+
-+		igt_cgroup_dmem_get_min(cg, region, &min);
-+		fmt_bytes(min, min_s, sizeof(min_s));
-+
-+		igt_cgroup_dmem_get_low(cg, region, &low);
-+		fmt_bytes(low, low_s, sizeof(low_s));
-+
-+		igt_cgroup_dmem_get_max(cg, region, &max);
-+		fmt_bytes(max, max_s, sizeof(max_s));
-+
-+		igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
-+			 region, cap_s, sys_s, cg_s,
-+			 min_s, low_s, max_s);
-+	}
-+
-+	igt_cgroup_dmem_regions_free(regions);
-+	igt_cgroup_free(cg);
++	amdgpu_device_deinitialize(actx->device);
++	free(actx->handles);
++	free(actx);
 +}
-diff --git a/tests/meson.build b/tests/meson.build
-index 9c266569df25..880f6f5410ba 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -1,4 +1,5 @@
- test_progs = [
-+	'cgroup_dmem',
- 	'core_auth',
- 	'core_debugfs',
- 	'core_getclient',
++
++static int amdgpu_dmem_allocate_vram(void *ctx, int n_bo, size_t len)
++{
++	struct amdgpu_dmem_ctx *actx = ctx;
++	amdgpu_bo_handle handle;
++	int err;
++
++	if (n_bo >= actx->max_bo)
++		return -ENOMEM;
++
++	err = amdgpu_bo_alloc_wrap(actx->device, len, 4096,
++				   AMDGPU_GEM_DOMAIN_VRAM, 0, &handle);
++	if (err)
++		return err;
++
++	actx->handles[n_bo] = handle;
++
++	return 0;
++}
++
++static void amdgpu_dmem_free_vram(void *ctx, int n_bo)
++{
++	struct amdgpu_dmem_ctx *actx = ctx;
++	if (n_bo >= actx->max_bo)
++		return;
++	if (actx->handles[n_bo])
++		amdgpu_bo_free(actx->handles[n_bo]);
++	actx->handles[n_bo] = 0;
++}
++
++const struct igt_dmem_driver amdgpu_dmem_driver = {
++	.name = "amdgpu",
++	.get_region_name = amdgpu_cgroup_region_name,
++	.init = amdgpu_dmem_init,
++	.deinit = amdgpu_dmem_deinit,
++	.allocate_vram = amdgpu_dmem_allocate_vram,
++	.free_vram = amdgpu_dmem_free_vram,
++};
+diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
+index 2f4a4673ab16..d34c839740a5 100644
+--- a/lib/igt_dmem_driver.h
++++ b/lib/igt_dmem_driver.h
+@@ -20,5 +20,6 @@ struct igt_dmem_driver {
+ };
+ 
+ extern const struct igt_dmem_driver xe_dmem_driver;
++extern const struct igt_dmem_driver amdgpu_dmem_driver;
+ 
+ #endif
+diff --git a/lib/meson.build b/lib/meson.build
+index 012802475de0..27177f385ae6 100644
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -199,6 +199,7 @@ if libdrm_amdgpu.found()
+ 		'amdgpu/amd_mmd_shared.c',
+ 		'amdgpu/amd_jpeg_shared.c',
+ 		'amdgpu/amd_utils.c',
++		'amdgpu/amd_dmem.c',
+ 		'amdgpu/amd_vcn_shared.c'
+ 	]
+ 	if libdrm_amdgpu.version().version_compare('> 2.4.99')
 -- 
 2.47.3
 
