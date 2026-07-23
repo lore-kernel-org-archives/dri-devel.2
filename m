@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C22C5C531CA
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:36:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90064C531C9
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:36:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB39610EF4B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C98CF10EF4A;
 	Thu, 23 Jul 2026 01:36:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="HXHA8z2R";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Ivz3i2YE";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7633210EF27
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BF5810EF15
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784770543;
- bh=uLg7zYEx4PuEm5hUTroSVNr0ajJC3eSnGppIiyCnEzA=;
+ s=mail; t=1784770521;
+ bh=wWLl8695JDs0BsUy84dPLaWbC2/ie2tOUX4OkJkjWNI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=HXHA8z2RRuAR2lvG+YYOntpyPMbEkGeVdL8Pag+3qat7UWtoqZTr55O2Px1PNZcbY
- Ig68s9VWK2Hngk3GC8D+ibgcFsPmHXJ9JmnRP16Hv8HoumsHHZ/Yhw2ORxm8TbbMCJ
- ecY07mX6Gfq7wBdKEmq31AeGX7BXZU1PaQnEt3ajOp8V4ecpLgJ0SFylWrGXzp4+8L
- X3sY8qPt3RIxvKSB2Y4a3j+fdjLRzzczGp1lWd3aZEEzRpYnKfy983WPlRW9eq/EFR
- TiaMf94yLZme88RmU2Vf0tvuzuF9eqrcx+R1AYnF3jsNEueM6p/dRWCeud1OWZHf7y
- 4+6RjlTUKCJkA==
+ b=Ivz3i2YEDNObGW3Y7mLk6whYaaQ1iaR+PPd8OMDECjR7LNAUwLJ12XBoYXALxohfs
+ eO4P0IChzTDWt/k9c0p8RgbeD3IJFxZFjJJKxYyPlpe12uG0DLothaEi7193I64+34
+ 2fDAe3QSk09CPPZD9W/WM8+2wVH/OSAQrPs4PDGJlvOebHIKgueIZJXT0LRrcTActf
+ I1N6DcA0JCm+cgTLE9wQLoa/nCu42G/lh2w7s0EWlGt8vv2K40WtEjoO6QSiUa2253
+ zm/7SknOEC8SbxTVyfqQ69BV2gfOfBd/YRrlk1/T1nEO5RRP80H+CezqJ9tnAlTCZJ
+ 9B7Yv8YUt7agg==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 261CE17E37F3;
- Thu, 23 Jul 2026 03:35:43 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id DE2DC17E1313;
+ Thu, 23 Jul 2026 03:35:20 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 23 Jul 2026 04:35:48 +0300
-Subject: [PATCH v9 59/61] drm/connector: Drop redundant hdmi vendor/product
- fields
+Date: Thu, 23 Jul 2026 04:35:16 +0300
+Subject: [PATCH v9 27/61] drm/rockchip: dw_hdmi_qp: Avoid spurious HPD IRQ
+ thread wakeups
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-dw-hdmi-qp-scramb-v9-59-4fb12ea22ac9@collabora.com>
+Message-Id: <20260723-dw-hdmi-qp-scramb-v9-27-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,7 +62,8 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,203 +80,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that all users migrated to the new drmm_connector_hdmi_init()
-signature, vendor and product are provided through struct
-drm_connector_hdmi_funcs, a reference to which is already stored in
-drm_connector_hdmi.
+The RK3576 and RK3588 HPD hardirq handlers read shared status registers
+and currently wake the threaded handler whenever any bit in those
+registers is set.  This can wake the HDMI IRQ thread for unrelated
+status bits, and on RK3588 can also wake the thread for the other HDMI
+port.
 
-Drop the redundant fields from drm_connector_hdmi and point its users to
-hdmi.funcs->vendor and hdmi.funcs->product instead.
+Mask the status value with the SoC-specific HPD interrupt bit before
+deciding whether to wake the threaded handler.  On RK3588, select the
+HDMI0 or HDMI1 HPD bit according to the instance port id.
 
-This allows simplifying the related connector registration tests by
-getting rid of the now unnecessary KUNIT_EXPECT_MEMEQ() checks.
+No stable backport is needed.  The issue may only cause spurious IRQ
+thread wakeups and does not cause functional breakage.
 
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260702151346.5A4EC1F000E9@smtp.kernel.org/
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_hdmi_state_helper.c |  4 +--
- drivers/gpu/drm/drm_connector.c                 |  4 ---
- drivers/gpu/drm/tests/drm_connector_test.c      | 41 +++----------------------
- include/drm/drm_connector.h                     | 14 ++-------
- 4 files changed, 8 insertions(+), 55 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index d112c1555517..bb4dd9d0b482 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -784,8 +784,8 @@ static int hdmi_generate_spd_infoframe(const struct drm_connector *connector,
- 		return 0;
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 2aceff11d14b..7e3e86d05611 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -34,6 +34,7 @@
  
- 	ret = hdmi_spd_infoframe_init(frame,
--				      connector->hdmi.vendor,
--				      connector->hdmi.product);
-+				      connector->hdmi.funcs->vendor,
-+				      connector->hdmi.funcs->product);
- 	if (ret)
- 		return ret;
+ #define RK3576_IOC_HDMI_HPD_STATUS	0xa440
+ #define RK3576_HDMI_LEVEL_INT		BIT(3)
++#define RK3576_HDMI_OHPD_INT		BIT(4)
  
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index d424d245ef71..837dbaa65eb0 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -656,10 +656,6 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
- 		connector->hdmi.max_tmds_char_rate = hdmi_funcs->supported_tmds_char_rate;
- 	}
+ #define RK3576_VO0_GRF_SOC_CON1		0x0004
+ #define RK3576_HDMI_FRL_MOD		BIT(0)
+@@ -64,7 +65,9 @@
+ #define RK3588_HPD_HDMI1_IO_EN_MASK	BIT(13)
+ #define RK3588_GRF_SOC_STATUS1		0x0384
+ #define RK3588_HDMI0_LEVEL_INT		BIT(16)
++#define RK3588_HDMI0_OHPD_INT		BIT(17)
+ #define RK3588_HDMI1_LEVEL_INT		BIT(24)
++#define RK3588_HDMI1_OHPD_INT		BIT(25)
+ #define RK3588_GRF_VO1_CON3		0x000c
+ #define RK3588_GRF_VO1_CON6		0x0018
+ #define RK3588_COLOR_DEPTH_MASK		GENMASK(7, 4)
+@@ -348,7 +351,7 @@ static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int irq, void *dev_id)
+ 	u32 intr_stat, val;
  
--	/* TODO: remove after conversion to new drmm_connector_hdmi_init() */
--	strtomem_pad(connector->hdmi.vendor, hdmi_funcs->vendor, 0);
--	strtomem_pad(connector->hdmi.product, hdmi_funcs->product, 0);
--
- 	/*
- 	 * drm_connector_attach_max_bpc_property() requires the
- 	 * connector to have a state.
-diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
-index 3d050ac5e5f6..1d8c30288aea 100644
---- a/drivers/gpu/drm/tests/drm_connector_test.c
-+++ b/drivers/gpu/drm/tests/drm_connector_test.c
-@@ -769,14 +769,11 @@ static void drm_test_connector_hdmi_init_null_product(struct kunit *test)
+ 	regmap_read(hdmi->regmap, RK3576_IOC_HDMI_HPD_STATUS, &intr_stat);
+-	if (intr_stat) {
++	if (intr_stat & RK3576_HDMI_OHPD_INT) {
+ 		val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1);
  
- /*
-  * Test that the registration of a connector with a valid, shorter than
-- * the max length, product name succeeds, and is stored padded with 0.
-+ * the max length, product name succeeds.
-  */
- static void drm_test_connector_hdmi_init_product_valid(struct kunit *test)
- {
- 	struct drm_connector_init_priv *priv = test->priv;
--	const unsigned char expected_product[DRM_CONNECTOR_HDMI_PRODUCT_LEN] = {
--		'P', 'r', 'o', 'd',
--	};
- 	struct drm_connector_hdmi_funcs hdmi_funcs = dummy_hdmi_funcs;
- 	int ret;
+ 		regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
+@@ -381,6 +384,8 @@ static irqreturn_t dw_hdmi_qp_rk3588_hardirq(int irq, void *dev_id)
  
-@@ -790,25 +787,15 @@ static void drm_test_connector_hdmi_init_product_valid(struct kunit *test)
- 				       DRM_MODE_CONNECTOR_HDMIA,
- 				       &priv->ddc);
- 	KUNIT_EXPECT_EQ(test, ret, 0);
--	KUNIT_EXPECT_MEMEQ(test,
--			   priv->connector.hdmi.product,
--			   expected_product,
--			   sizeof(priv->connector.hdmi.product));
- }
+ 	regmap_read(hdmi->regmap, RK3588_GRF_SOC_STATUS1, &intr_stat);
  
- /*
-  * Test that the registration of a connector with a valid, at max
-- * length, product name succeeds, and is stored padded without any
-- * trailing \0.
-+ * length, product name succeeds.
-  */
- static void drm_test_connector_hdmi_init_product_length_exact(struct kunit *test)
- {
- 	struct drm_connector_init_priv *priv = test->priv;
--	const unsigned char expected_product[DRM_CONNECTOR_HDMI_PRODUCT_LEN] = {
--		'P', 'r', 'o', 'd', 'u', 'c', 't',
--		'P', 'r', 'o', 'd', 'u', 'c', 't',
--		'P', 'r',
--	};
- 	struct drm_connector_hdmi_funcs hdmi_funcs = dummy_hdmi_funcs;
- 	int ret;
- 
-@@ -822,10 +809,6 @@ static void drm_test_connector_hdmi_init_product_length_exact(struct kunit *test
- 				       DRM_MODE_CONNECTOR_HDMIA,
- 				       &priv->ddc);
- 	KUNIT_EXPECT_EQ(test, ret, 0);
--	KUNIT_EXPECT_MEMEQ(test,
--			   priv->connector.hdmi.product,
--			   expected_product,
--			   sizeof(priv->connector.hdmi.product));
- }
- 
- /*
-@@ -852,14 +835,11 @@ static void drm_test_connector_hdmi_init_product_length_too_long(struct kunit *t
- 
- /*
-  * Test that the registration of a connector with a vendor name smaller
-- * than the maximum length succeeds, and is stored padded with zeros.
-+ * than the maximum length succeeds.
-  */
- static void drm_test_connector_hdmi_init_vendor_valid(struct kunit *test)
- {
- 	struct drm_connector_init_priv *priv = test->priv;
--	const char expected_vendor[DRM_CONNECTOR_HDMI_VENDOR_LEN] = {
--		'V', 'e', 'n', 'd',
--	};
- 	struct drm_connector_hdmi_funcs hdmi_funcs = dummy_hdmi_funcs;
- 	int ret;
- 
-@@ -873,24 +853,15 @@ static void drm_test_connector_hdmi_init_vendor_valid(struct kunit *test)
- 				       DRM_MODE_CONNECTOR_HDMIA,
- 				       &priv->ddc);
- 	KUNIT_EXPECT_EQ(test, ret, 0);
--	KUNIT_EXPECT_MEMEQ(test,
--			   priv->connector.hdmi.vendor,
--			   expected_vendor,
--			   sizeof(priv->connector.hdmi.vendor));
- }
- 
- /*
-  * Test that the registration of a connector with a vendor name at the
-- * maximum length succeeds, and is stored padded without the trailing
-- * zero.
-+ * maximum length succeeds.
-  */
- static void drm_test_connector_hdmi_init_vendor_length_exact(struct kunit *test)
- {
- 	struct drm_connector_init_priv *priv = test->priv;
--	const char expected_vendor[DRM_CONNECTOR_HDMI_VENDOR_LEN] = {
--		'V', 'e', 'n', 'd', 'o', 'r',
--		'V', 'e',
--	};
- 	struct drm_connector_hdmi_funcs hdmi_funcs = dummy_hdmi_funcs;
- 	int ret;
- 
-@@ -904,10 +875,6 @@ static void drm_test_connector_hdmi_init_vendor_length_exact(struct kunit *test)
- 				       DRM_MODE_CONNECTOR_HDMIA,
- 				       &priv->ddc);
- 	KUNIT_EXPECT_EQ(test, ret, 0);
--	KUNIT_EXPECT_MEMEQ(test,
--			   priv->connector.hdmi.vendor,
--			   expected_vendor,
--			   sizeof(priv->connector.hdmi.vendor));
- }
- 
- /*
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index b80cc667604e..03f4e6751165 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1418,11 +1418,13 @@ struct drm_connector_infoframe_funcs {
-  * and controller capabilities
-  */
- struct drm_connector_hdmi_funcs {
-+#define DRM_CONNECTOR_HDMI_VENDOR_LEN	8
- 	/**
- 	 * @vendor: HDMI Controller Vendor name.
- 	 */
- 	const char *vendor;
- 
-+#define DRM_CONNECTOR_HDMI_PRODUCT_LEN	16
- 	/**
- 	 * @product: HDMI Controller Product name
- 	 */
-@@ -2117,18 +2119,6 @@ struct drm_connector_hdmi_audio {
-  * struct drm_connector_hdmi - DRM Connector HDMI-related structure
-  */
- struct drm_connector_hdmi {
--#define DRM_CONNECTOR_HDMI_VENDOR_LEN	8
--	/**
--	 * @vendor: HDMI Controller Vendor Name
--	 */
--	unsigned char vendor[DRM_CONNECTOR_HDMI_VENDOR_LEN] __nonstring;
--
--#define DRM_CONNECTOR_HDMI_PRODUCT_LEN	16
--	/**
--	 * @product: HDMI Controller Product Name
--	 */
--	unsigned char product[DRM_CONNECTOR_HDMI_PRODUCT_LEN] __nonstring;
--
- 	/**
- 	 * @supported_formats: Bitmask of @drm_output_color_format
- 	 * supported by the controller.
++	intr_stat &= hdmi->port_id ? RK3588_HDMI1_OHPD_INT : RK3588_HDMI0_OHPD_INT;
++
+ 	if (intr_stat) {
+ 		if (hdmi->port_id)
+ 			val = FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 1);
 
 -- 
 2.55.0
