@@ -4,70 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D09CC53213
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:29:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B440CC531FA
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:29:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD97110F2F7;
-	Fri, 24 Jul 2026 07:29:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EAA810F2F9;
+	Fri, 24 Jul 2026 07:29:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="a8ZgaGCX";
+	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=undefine.pl header.i=@undefine.pl header.b="S2ZRnqHg";
 	dkim-atps=neutral
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15E5810E644
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 02:29:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1784860143;
- bh=COw6l4tZGKI2EtZCsRNwhO9S4qZRY68UndjXev8R1FQ=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=a8ZgaGCX7IP5ahgjzhrcLvGxA79o86aLmAaixDvnoatm0iH/CuHlIahNxBq7/llHi
- p5l/nAesT3f/p3Pxei/j2qxdXQ+6eS3qwAi6Sn84gZn1tHNwHbqUK2aY7qpPgr9n3h
- KSgV/tcfu9fPTyhIygu0udE1a21kpVGJhe6Q0pF4=
-X-QQ-mid: zesmtpip4t1784860135t56239e5a
-X-QQ-Originating-IP: uxNb/JIeTaYaqS/plW1kaXfiKOf+TwmtfXaiPsha900=
-Received: from localhost.localdomain ( [localhost])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 24 Jul 2026 10:28:51 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 5628155496822218120
-EX-QQ-RecipientCnt: 26
-From: Gou Hao <gouhao@uniontech.com>
-To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
- chleroy@kernel.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- bharat@chelsio.com, jgg@ziepe.ca, leon@kernel.org,
- akpm@linux-foundation.org, gouhao@uniontech.com, namcao@linutronix.de,
- ynorov@nvidia.com, sshegde@linux.ibm.com, nilay@linux.ibm.com, clg@kaod.org
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-mm@kvack.org, gouhaojake@163.com, kernel@uniontech.com
-Subject: [PATCH v2 0/6] remove dead NULL checks after GFP_NOFAIL allocations
- and fix xive use-after-free
-Date: Fri, 24 Jul 2026 10:28:45 +0800
-Message-Id: <20260724022851.466017-1-gouhao@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+X-Greylist: delayed 2323 seconds by postgrey-1.36 at gabe;
+ Thu, 23 Jul 2026 22:42:59 UTC
+Received: from 2.mo560.mail-out.ovh.net (2.mo560.mail-out.ovh.net
+ [188.165.53.149])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B563610F249
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 22:42:59 +0000 (UTC)
+Received: from director5.ghost.mail-out.ovh.net (unknown [10.109.254.57])
+ by mo560.mail-out.ovh.net (Postfix) with ESMTP id 4h5lWy450MzBBcJ
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 22:04:14 +0000 (UTC)
+Received: from ghost-submission-7d8d68f679-gjk7l (unknown [10.108.42.33])
+ by director5.ghost.mail-out.ovh.net (Postfix) with ESMTPS id C1448100111;
+ Thu, 23 Jul 2026 22:04:13 +0000 (UTC)
+Received: from undefine.pl ([37.59.142.109])
+ by ghost-submission-7d8d68f679-gjk7l with ESMTPSA
+ id xXZNJtuPYmpDCxMApf6feA:T3
+ (envelope-from <undefine@undefine.pl>); Thu, 23 Jul 2026 22:04:13 +0000
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-109S003fa8341bc-d491-4e9a-84cc-863133dfc8f6,
+ 87426F91C55002030CE6BF1685E8511121647196) smtp.auth=undefine@undefine.pl
+X-OVh-ClientIp: 185.175.106.73
+From: =?UTF-8?q?Micha=C5=82=20Szolc?= <undefine@undefine.pl>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] drm: mark MSI MAG273R with the
+ EDID_QUIRK_IGNORE_STEREO_FLAG quirk
+Date: Fri, 24 Jul 2026 00:04:00 +0200
+Message-ID: <20260723220400.17190-3-undefine@undefine.pl>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260723220400.17190-1-undefine@undefine.pl>
+References: <20260723220400.17190-1-undefine@undefine.pl>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: NkIlkbzvNbmq+cKfi/KPSk/jPEwqsDvwwTO3JJ+qAg96W5gFrIaKDGbx
- UYTorCu2QUbbK7cIiWDTtQncxhHka/MC/c+9AnQacYzJmjMZtLVW1eP1FPI85Fj0RVpLq5M
- /Q+u2+rfxxz40qagDsmTrJ7bCsHsWLrdCiDL+d5h5pK2tFg37b6E1mxE+kernL+T/GCNNcM
- 1NCAfhy5911m9MYxLOxfwJoomOWZaM91tdoDZaeuxTyOncV9j+3YJ+Qtwrgl98jdO1dvZMG
- GXYtGkoFFyEMx1TKZgGhpB/iOW8hZnpyAqRwrVAjd04PslJ/MT0Ds21UfID6VPpTs3V0SmL
- JyM/vNQ5GxP4I/RdE42eE2xVFzWDGEbpu/LiFFPOtedf3afDH/IUQRuCoqveeF0Aji/nDoR
- 8rGCXmEBVWZIu4xwcVe0b5kIB2oXg8nGktm0kNuCxwVXo/BbQO4fJVuMb9aXI6aLFan0K1r
- 4oj3ptF7Ho3GwXpKK0L8fyWE6muZmGAzBqq+1iJr0i0X2nwCiFrKz80XKDLyzqkOpfjyRBL
- hoV5Rcqpy0rJbJR4icjgaXO1703lrDrIl7MYma/8fLCebiAUm7zw9gVxWouEN7i64iJnApg
- mXqv4/sE2jxNoqQf9dzNdjMGJhWo69LYIUrxPzkRPDGJpff5Ps6BYRGaRMD7/Sbxjy+oi+L
- ZtBlAEI6e/Of7RSpbeqwjHDybXtk30/E8pW+SINymM0ZYuV27cTovnA5S39BuU6Q4EDNJVf
- TCZwI+/m4YYGNddZcQUDz5MaL8ZAmw6fdJ0m2TY0aHORzsNGUOhzExlpm4P8EadRKmkwZNf
- hlGNTugYmlN7E7c/gUiyojiUM2EhYr1uy5lrXiYyFXvoYgJh60YGdOhucJOFW4HE7OVXBc4
- 8xDr2JnUEZVX3XdDe9VCItL9w2qY3omUkZPnn5t85FZZjEBiAnn4M1UUQLiCjviRgSGa5xl
- 9dy/zjgOTtjasXcPO/ePWfH8poJbIQIrlegXLaSjhZudBiW7nxE3x7FfcIX74kbgvhm1QZZ
- qY0yrOI+tP1KrsPfVStHzmX71BQuOrZDc7OvNNcw==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+x-ovh-tracer-id: 10366723394463066428
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTE1Vkf/yRSDN8TBjN/MQFUOXY5h8oCUhilcQVC8Yc+15HJDs24li9ZHVMGz9cSv2meJmkivvFx5r6Rw7rMzqwydNT3tAzI3VhrLwQTLG2GuXnSGVRJmJGBS7xUbodrTsslINZM/z3tecdtk1lWZ/SqLVmFOth5XkYxGnWsxrWYapCbMdEvLNcs87tYXQrQ1wv0AdczahYzsHpo7J2C4Xyhyb9h/BIKVJr9CzKIKc+2I+ZBoRwRB3MCABsbwvBHMImmg4hQlwmHWESVeFtZwy53VJ0k3P8MYrKEMuYuxsM1JXRRr+PQ6/BkruNEaoJELvX4y2iedQRajWLR36FZgOGD0eG2Jst9R2IiwUjFXyeeM4RLHOzFMUI5Cy5jcbEYLiwg8srcS1umbG0Wg1uOWZSwcOQAXBAvQICelpLaLqOMNZ/Gut9Gsn5SX3qdzADD61FQ42hoo8fDk08yMkDTV3onsu6S3f7shQGEF5VdffV7QsW/34vwBDLyK1qDZEc6zWCm9YeMDPpnZyzfsPRJtlc73qyDKFKicPOyg2t2R0MxzsMprHtU4FvPGPjQLFxTOyU0fD16jnu0qCzi8YKUzPC8DAiznS+T5HFiQwCZ7k8932JgbnrHKTcrw4uhVsOhUhwOHfyBqCSjq2RldnIE4M4ihHyMnOdNFBy57E9NA3M/x0g
+DKIM-Signature: a=rsa-sha256; bh=eDSNcAFQ0atcn3oz9cTUUVtsHJYet7jIT8X+OZ7JtdE=; 
+ c=relaxed/relaxed; d=undefine.pl; h=From;
+ s=ovhmo4647562-selector1; t=1784844254; v=1;
+ b=S2ZRnqHgnYGNBvZQaBQ0boRJ3D9bkeos4Y+wrfdPhH0RdILm+7abATfYNdaY9tMKZBboyWX0
+ iNeD8O3rA6szIgjZ4FF9i6vrpeoQykmZ82dwsHhjdlURLbjZ6mtG7Pim1Nwen4smVQs2mQ8SxtN
+ kdeicjr5qXdEDuIZM5R5Rs8oJabrC1tyIaJstn4VXssV3YpoL36m3H2Z/wh4YEagoZWP20rvCkS
+ 7nGSEGkrqwZ1U2l6oyKvIFybqbPpVl0hCOeIgUvXBdIEz2EcR1polIA47UmIusCsRdiLyiyuVjV
+ B5cxHLsSVp6G5DZmaLUsb8yZeIkruaAZLDAM/NlVUjCrQ==
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:28:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,36 +77,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Changes in v2:
-- Remove the now-unused out_free_domain error label in the xive
-  patch after deleting the unreachable NULL check goto.
-- Fix a use-after-free of xive_ipis: when xive_init_ipis() fails,
-  the error path frees xive_ipis but xive_smp_probe() ignores the
-  error and proceeds to dereference it in xive_setup_cpu_ipi().
-  Propagate the error return through xive_smp_probe() and check
-  it in both pnv_smp_probe() and pSeries_smp_probe().
+This monitor incorrectly marks it's 1920x1080 144hz mode as stereo,
+which makes 144hz unavailable. Adding this quirk makes the EDID parser
+accept that mode which makes 144hz work as intended.
 
-This is a code cleanup series that removes unreachable
-NULL checks (and associated error handling) that follow allocations
-using __GFP_NOFAIL, which guarantees non-NULL return.
+Signed-off-by: Michał Szolc <undefine@undefine.pl>
+---
+ drivers/gpu/drm/drm_edid.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Gou Hao (6):
-  powerpc/xive: remove dead NULL check after GFP_NOFAIL allocation
-  powerpc/xive: add error return value to xive_smp_probe()
-  powerpc/xive: fix use-after-free of xive_ipis
-  drm: remove dead WARN_ON NULL check after GFP_NOFAIL allocation
-  lib/test_hmm: remove dead NULL checks after GFP_NOFAIL allocations
-  RDMA/cxgb4: remove dead NULL checks after GFP_NOFAIL allocations
-
- arch/powerpc/include/asm/xive.h      |  4 ++--
- arch/powerpc/platforms/powernv/smp.c |  8 +++++---
- arch/powerpc/platforms/pseries/smp.c |  8 +++++---
- arch/powerpc/sysdev/xive/common.c    | 15 +++++++++------
- drivers/gpu/drm/drm_modeset_lock.c   |  4 ----
- drivers/infiniband/hw/cxgb4/mem.c    | 10 ++--------
- lib/test_hmm.c                       |  6 ------
- 7 files changed, 23 insertions(+), 32 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 774530b081d2..54116a14053a 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -278,6 +278,9 @@ static const struct edid_quirk {
+ 	/* LQ116M1JW10 displays noise when 8 bpc, but display fine as 6 bpc */
+ 	EDID_QUIRK('S', 'H', 'P', 0x154c, BIT(EDID_QUIRK_FORCE_6BPC)),
+ 
++	/* MSI MAG273R reports mode as stereo even though it's usable as 2D */
++	EDID_QUIRK('M', 'S', 'I', 15542, BIT(EDID_QUIRK_IGNORE_STEREO_FLAG)),
++
+ 	/*
+ 	 * @drm_edid_internal_quirk entries end here, following with the
+ 	 * @drm_edid_quirk entries.
 -- 
-2.20.1
+2.55.0
 
