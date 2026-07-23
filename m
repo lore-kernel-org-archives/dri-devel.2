@@ -4,136 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B7ADC44524
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 06:16:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60704C4453E
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 06:31:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2928710E32D;
-	Thu, 23 Jul 2026 06:16:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63A5010E4BA;
+	Thu, 23 Jul 2026 06:31:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ivHbvVVu";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dTGYKb0R";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="H68Z8Du7";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF82D10EF91
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 06:16:07 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66N6AUga3268911
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 06:16:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- uztIw7Y/czAkNHoN3VaLJJ/uxyGxSAro/FyBZ0TR0YM=; b=ivHbvVVu63S/vnRj
- W8dmUU7rP8j2FmQk6kGYReehwJvkW3fV9aGu3w1rNKNKQidIuKVWTlg38c3f8xe4
- oJEmBDF1m2uxMcPvw/MVbWNv0kIqKDFrmMvS8WsrRyDLy28Dhphb0GNFfaacRZ+F
- bhgvbWvKZMDvR8+WVxD6zQh62IghWBMvTNqzGVNgkfRcUvXAesCeH16HpYTzFLqc
- /ICKKstXafXvLKPaQrstqrf4K9Nxk9W1v3UkP5qSyREW9s6iET7rv23wDuM750ow
- vVTBufpr7WmKy34osr6OyZM2DxUNDMwb3/u086gsAtCEnwnj1W4RMqibzqXlwwI4
- tqmYiQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fkayh8jnq-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 06:16:05 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-92e8004d60eso49690685a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Jul 2026 23:16:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784787365; x=1785392165;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=uztIw7Y/czAkNHoN3VaLJJ/uxyGxSAro/FyBZ0TR0YM=;
- b=dTGYKb0RmmDUMNEdn6AY3P+WeFGsqMbOfPI9AsVZNNtjAtoAXIZucD13IgvvipdXFC
- OVf4snSYV97hGKxs+MeCG5aZyLWNiEjvxyI/a/w8GSHX0y9UV0P9v20+/jRIz+xhM5BV
- 5RlsQu1VxXag0jfYBk49/1Jr4Ofc4Xr1AQdLQqyrbsuU1jRBNdO+h2dP8IRdhQUlx/zB
- WXNOCObm6CuZvjdIbou/A5XYJBtcFcr/kog0qUX/SEIXFi1QCYMFAw05WA6zWcvbJSVb
- HOtjWg1vKEEBcbRPe19LX60nXy8jjq2qH0Ytpd6uG5U6ahPg3S3ifW41wAkZZO6Tay14
- IvJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784787365; x=1785392165;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=uztIw7Y/czAkNHoN3VaLJJ/uxyGxSAro/FyBZ0TR0YM=;
- b=qEkCXHBC3K2UC1/aNBawsx1Twmsw0DlCn8AIcJ4Y1H7pWgqG8548ShORDF3I/aFMrS
- i2PkjLnlJjWForPXfv2wNNKDGX8j2KZp+8PtV/TC08D68cr3C01Ddno1caJkkNinyRrx
- UN58jCoJergUnnjAl1ASmez9RmVM+fTHNlqr38obP7YDiw5Uj+xNB2NSbi6rrdijTi82
- P282igGGTCSfzdGH9vclnL2If3FHpY9hXKH+TFWkStfZZcFgvBmxw9VDn8Kvz4rBqYV2
- VPQxKrNHRBnnDHae9W5hHDlqsiupytE4VP9cfBUgfJQtTVH7ewbdioSHAFTtk40oow2Y
- PIeg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpbbIQGy7zY7C+1ADTJ4OLPjMUraitX+0U2IesJl4hOK9gFBcNX0XmU5eVW3S7fwSAToBy2tdC2anA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw0BpgaukVsRB/DLU+HUFxFZk/s+m+VzGWJ0Z+Lk0/4svcFeQJa
- OkzTwZ06CpFc0CFGDCSlsZaSkdyOvPqq6SWQ4GFiE1cFdrYSBzYAxQ13ehdD7+vSdx/U/a5ziEF
- Tu+Too9m4L/aw3yayv5aYKgMSBuqNjhYyCcM3yqCerRvGe4FCeSe4+EPykT0kghbnZ6T6XHw=
-X-Gm-Gg: AR+sD13Wz/q87Jn15x3P4JSV+yPM8+XaoP5pCaFeTgDE5BWuWjgSCdONp6EhmpxqGnI
- 1xovt/+pXU/nUmY/BmW7cMtwX2WjCQnhZqRxisAm0HR1TBTPCvTQ1PrmtQuOFzf3NR7A0WqR63e
- v3CbGSFoCux+FKaYBc6LVS7g9c9k7nce6C+9vRRkSF1W+QJ4vOIpRsAaVLc+HO8jkKFFx0JgEEy
- xQiDYa6IBMfRVAwhn639nmQDowmB8NTurIELaKdmha8TR5scWTkScHaKBhwBTvoXWq1XXm6yleh
- g1fFBODiL8evO29oxhaBeagXEK1Y74vtEoXmE9AirikTpABLkriecfi1Ode8V3pE6z0Mg2qayAx
- Whydt39XTQksafepy+HqLFHQ9Ghlm0uxMydvgcl4KhkX9v7H7kYU53jJ2TSxp4YxaTg==
-X-Received: by 2002:a05:620a:1707:b0:92e:f3ca:2ecd with SMTP id
- af79cd13be357-931038f08abmr175251985a.60.1784787365191; 
- Wed, 22 Jul 2026 23:16:05 -0700 (PDT)
-X-Received: by 2002:a05:620a:1707:b0:92e:f3ca:2ecd with SMTP id
- af79cd13be357-931038f08abmr175250385a.60.1784787364665; 
- Wed, 22 Jul 2026 23:16:04 -0700 (PDT)
-Received: from [10.111.173.228] (Global_NAT1_IAD_FW.qualcomm.com.
- [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-930f6a0411dsm343863885a.22.2026.07.22.23.16.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Jul 2026 23:16:04 -0700 (PDT)
-Message-ID: <0436a2a6-4a4a-4b5f-ad53-594781cdc914@oss.qualcomm.com>
-Date: Thu, 23 Jul 2026 14:16:00 +0800
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010015.outbound.protection.outlook.com [52.101.61.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94E7F10E4BA
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 06:31:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HV7fYsAD4j1+Kxfcpp4YA6AB181udhNjPPQPdikslXfZwYFLcTToc1r3arey6UL/KpgAaWBgR/xPvGI8lc1HR7PeXZlr8UKKYPCSbejZi70lHoQx7xOFruMcb9wkhN/fL6wXaewegM5ZHpSdpDbohy8gltSWc5nGmTQyjb8u/O2cbosYxUF/ZfPSH0aZda+Nz9VXzLoKlCX/pDqXE4LjN80+7n4Rwk/secrNsxrkskIKNrcy2pf85A5HI4iHFHN+9qJNAUN01dbR21low+MEm5v0ejvV0xPxLpBkISfxaWag/NwVsAoFaDzmlQSbQAfeyIX7m3Aty9Y+xz8hd2nMBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NxBdDRHE10r/NX5SMhJ0A/0pyGcTo3r9FP4k0E1HbF0=;
+ b=x2ESgqG7iJQ/cErO4RmsQHMAPpUCajwcZFvFpJn+sMDOGK7U54ZNY26AL7siTi+3vGHwwGA+vzXTkyUb7whFRgGwmKdAAp6tGB1QaO3WrS+xHJNRXL0/NMZAVeLOX7rNk6Ph8yA8GxQnfUFuBWYT1M8bcWXdhmnaw5q6hbCbR551a1pbahvB7AgPL73gYN/br58vzrbLcTbJsncd/cFLqgTB4B5liPS7HipkLoHKgrpH8q6wwjRCwGVP+4Q3WF7eSi75IwWjStovVqhjIt9LZw5rn+/HgbdDpvi8TzHONfVIVDjCu1OfPfdm0+jYP0E+Pdpcifypgl9T4Nloc0fHdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NxBdDRHE10r/NX5SMhJ0A/0pyGcTo3r9FP4k0E1HbF0=;
+ b=H68Z8Du7yC6EsAIKMDjik+ZtfFqWjM6wuquf5ChI1E1FcSySW8l0oJJQmP7Q+XrsqFpJeKFvBD5Y26uz9ZSjFb5VA63VaNiRN4VPC4Z6TEcP7KcSWtkXPaZ4ld2xMieHXLLNZujmgEzyOU77EpB4AOBrLpn6cgYwE0YrbXSBXVGMSOYe10RrpLudNk5NNYiSYQWEyvtYiBQhTGX8oUE2U8WqTGzoUveN3kI87EHpYr/Q2+P6HngnQlWucyh4ZlxF0dAYIZZ8E9oPcJe0/Nin1vcsAsmbfHKmn+AwsZmhNTOeP2XI9mfYtlpAJUGv75QzhIingtisylknaHm+tSvspg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
+ CH1PPF0316D269B.namprd12.prod.outlook.com (2603:10b6:61f:fc00::604)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
+ 2026 06:30:57 +0000
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0245.009; Thu, 23 Jul 2026
+ 06:30:57 +0000
+From: Alistair Popple <apopple@nvidia.com>
+To: nova-gpu@lists.linux.dev
+Cc: Alistair Popple <apopple@nvidia.com>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, Benno Lossin <lossin@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Eliot Courtney <ecourtney@nvidia.com>,
+ John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: [PATCH v3 0/7] gpu: nova: Export parameters from nova-core to nova-drm
+Date: Thu, 23 Jul 2026 16:30:38 +1000
+Message-ID: <20260723063046.1265791-1-apopple@nvidia.com>
+X-Mailer: git-send-email 2.54.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SY6PR01CA0157.ausprd01.prod.outlook.com
+ (2603:10c6:10:1ba::22) To DS0PR12MB7726.namprd12.prod.outlook.com
+ (2603:10b6:8:130::6)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 02/15] drm/msm/dp: drop deprecated .mode_set() and use
- .atomic_enable
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: sashiko-reviews@lists.linux.dev, dri-devel@lists.freedesktop.org
-References: <20260720-dp_mstclean-v8-0-bea261bf4e7d@oss.qualcomm.com>
- <20260720-dp_mstclean-v8-2-bea261bf4e7d@oss.qualcomm.com>
- <20260720063317.CFCFF1F000E9@smtp.kernel.org>
- <ldznbgwysgo4ya6h2s57wytjjhhljkfyiagrce4z2gvty5suye@bdc3gfzl7xff>
- <fccb4620-d5b2-4a49-b703-8725a863c540@oss.qualcomm.com>
- <i4h4amxstadjomfd6i5dkgtjdnre23ugewvlsffajfdelwmyfg@kpex2duwixxl>
-Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <i4h4amxstadjomfd6i5dkgtjdnre23ugewvlsffajfdelwmyfg@kpex2duwixxl>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=HZgkiCE8 c=1 sm=1 tr=0 ts=6a61b1a5 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=T-t0yevPL1h59vvOJvEA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: UQfY_Yufj6jt1p44JLz4BgRQaWmE3dxn
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDA2MCBTYWx0ZWRfX4b0kQg7RWnHu
- gKyKEl9YzpLuW3TVks7uiuqBgXCJjRtoPohtEDS/A09EhG936SZWx3PjqRRhGt5sAvYp5XdUFNf
- zgOzjB91m487Fl5rsrND/EfMamTb70lcwFeoeKdHWH1aRGd770FKU9hCox0d6ShaKQId4iWqO6P
- CiNGMHw2ZtwrklP0fAwk3nMl6ELy8w/A7tngp+QVdlxGEw1Yr7T1UzLpfJBqt5Ley6NMkUpTfrL
- znU/iBxb6Do/AHqiKFLSLtWdJUTj1Ih5CmAaIubeW60oWxnKJ15e0403IBn75X9bo3lh2lysW8V
- nQsP6skXR6ERI9lCl/DjmSpExYJ/T0nOkJiWYmtzhwujFpRi26RbktsCdrDu7xt2sYk0s/K3pxM
- SVNNKmsCMnaBywOC9XbxlLGlDWEIfSPEgscNQM7gFsbtTeXqKrrFcwfCDBeWU87aOHsy9kkh5HZ
- ith7TQTwisGS2xXfMug==
-X-Proofpoint-GUID: UQfY_Yufj6jt1p44JLz4BgRQaWmE3dxn
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDA2MCBTYWx0ZWRfX5OEVz6WZzCKn
- CROdWfzlD2gw1frnZW2dSByqbR84i/D8aPDY8tY1MoVrWgbLkqMYAfp8CnfwQO7LhuzWRviQh14
- s3l1I039dfSXHJSb9HcI3bg1XiK+9RY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_02,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 bulkscore=0 suspectscore=0
- priorityscore=1501 adultscore=0 spamscore=0 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607230060
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|CH1PPF0316D269B:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9472fe6-62db-485e-d3da-08dee883f463
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|23010399003|3023799007|6133799003|56012099006|11063799006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: Ticssg7pVeC7cj32v/Em5kT8I0o4h2l3npVXcdgHiELKHEXD++4fXLILLzGKUZaMcZ34hpXklrYhFi+sdUKQQWiYSTU6SJCV32erbwLKnyfEkt1a3wadeMlO8jVpIzwYlpiRWlF4MwZ6ec1JpTZIiVKPf8WYiHxcIsTvKErIBN1EEIFnUfqoAsJVR4UwnUtYuCzvvBxTpgSaf0jeWzfFPULJZbj00mZDf6M1Yf1cq7WpmVSBCw7aQI9kMVFiauCb5Run48TEHG8dA+mCDDiDKA20EYmil8eeTBQgjL7VlAabhR0+FNb+IQyhIqUgo2D7WY0f2gU9i2p6oRuMqqqsDdjivNWv0XNCDAxakbGdefk0bJlx6kYQUGVNyluQArf4jyfb/PUieC8ecNneRbBlBGO05KMYsQ8VYUUw/kQqPXBAKgGXbBjpZ/DFy1TzIB5TTNpGFismIbsH910N+lJwyzrjiRe+BR1guaY0cvBuZykKPrgZza5IUl7VqSr8HUL3rcqLeT6ek/TcXQ+bYfdzMcBhSgvfcW1gJM+BRah/ce7XnMe8tbSfjcqvgBwdTyNx5jFsKkXy8twCswuIueOKsfAe7l10Mxdz5jbI0N6u7tQDcgzhIruIeohBjhZ2u1ZBZrUYJGuh+u/XxthaDxYmP3dXZwRlSJ2sDzk3AcOairA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(3023799007)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8q4zG5DfpsGqFJbkrr7Ch71CzbP614mgGVUGJuB50FmxStLVxjDbE5ngjo+G?=
+ =?us-ascii?Q?ZnwhVLl5Vpr6S5S4eg9tZ4L4RHqf8jvNAPG6sKRuwX6Y+8oLOpcIk1919XyQ?=
+ =?us-ascii?Q?lLoHls/lMW32WAYI6Rfux7cG54g6nNIw4YHtl2rRh+bH4cWkor32A3u1A3s4?=
+ =?us-ascii?Q?YCyb2SSXU5DASqrD8tQ8nP+RMfjewUt42AhwAankbX+gQzYBzd4foMw43BDJ?=
+ =?us-ascii?Q?AQEXS+0RBdtWKhll5lqBybq/lTLjyHEAn8Ijdp9h8lTi6vRUsnBSfvRTIwWD?=
+ =?us-ascii?Q?MfdppiRAVLfqfKpcXX+s4fcWPuRDbuRql+CU//g/NjzsJq2e1THfIBKTHSoL?=
+ =?us-ascii?Q?Gf3kfGV7r1Vo+xbT0h75oMcOja6nrHF5cPbEc1ba6ek7/5E9ayRGklq86YDW?=
+ =?us-ascii?Q?R1Y1jzghdeLkyZcRDhS950sbfN7xsxRZCAtoQYw3sXQzfDtnfss+KdzqM9LA?=
+ =?us-ascii?Q?XGAvISI1DHBv27NKWKwGR42ywdhF+INBKwFjQljidRjTnH3zn4w6d+YhsYPE?=
+ =?us-ascii?Q?8DfjsnHf/ZgM+Vj1LvuuroM5Ut6IvHF/Qz/MtCsnAMZNsKYZekmandgDDEd7?=
+ =?us-ascii?Q?qKIjuxe0rYJ1noW1peJH50Vh6zuCWUOLmxpSbrCFj0YMv5C0V5llVKsumGz7?=
+ =?us-ascii?Q?tAB0Oh3XsLDuRjY/wqR5USEY9fY3odOXrQQUcpGl6Tks2j2LFb6TqdRNXJFf?=
+ =?us-ascii?Q?/5G+im/KOaZbbCGGGMVf1gM28WnRGPl9xP/C32kUBs+b8gk16hnWBMy/+nEy?=
+ =?us-ascii?Q?KjFH/+pyxn+QOI50LHbID2Mig9X8gaqD9jHtbqR2CPAgKXaK7AoURyLHqdH6?=
+ =?us-ascii?Q?fKUXcM68ruqwke4HWW+yUGH9vOgVD9rmDJsIwZcRFUZ12ZXbqpzkIbse1sYI?=
+ =?us-ascii?Q?aiXh6yCvWCcQ0Zurl43zynJeOMxOzalLnl5rOvjZ3UyiI40tozPXcTblZn4P?=
+ =?us-ascii?Q?9wpFwHo2hrh0PMTziq81CDNpr4jv/g28W4RgLZ+E/0h2vPghd9DWwXw9YNm/?=
+ =?us-ascii?Q?vzlMdlX6dOc+omn4zEWTUfQbZJl1VxSBwMsZ4gNMAEUUftCnNPu44HUpchuV?=
+ =?us-ascii?Q?ok/E/lKPyuFg1vD69OvVmRxghi3KDr1oCYahAaGUyQ2BaVQx/bDWJSyYlgpl?=
+ =?us-ascii?Q?Jtf6Xx7jYEhae3VyfLsDGi4C6bVIT6xq6N6+dI+DkeosR4u7y2CdHtVy5y1x?=
+ =?us-ascii?Q?BBv1NV4seU/FXPq9O5xAOswMOddEhEkOVBfbgAT2mpII2ACaqwvJriYhQKdq?=
+ =?us-ascii?Q?e9hKshscjMgVg6rMsUE+tX4tquL/PgLv/X1jGLShws1v6fuj4MyNR5JFB4Up?=
+ =?us-ascii?Q?LTBd9zPnMv2lNdGeJKEMnIR3n/FbXkU75oIrmExvpEntdxiZOmFStCCZJ9fb?=
+ =?us-ascii?Q?I6jWF1HRWEJhCc3VeIzkmisa03/u3y+yqphYVfdLuqrC+9nMSY3S+S/QqoGh?=
+ =?us-ascii?Q?a6q50m0i7yaqNgv1RMqoGZhNMPTr9QjeQJDhRSKUjcutc1O4VdrMa4/EZIJm?=
+ =?us-ascii?Q?m7COGqlqk/n1SM6PhSX0sd97iDNngq2yR8gDqpjiRfkDCga2rLEy/ZvYM/xE?=
+ =?us-ascii?Q?SFTjd7ec5eIDJyJefmEV6tPAJ4Wyo5V26awR16ZkBK8DEPhQ3ROggKGk7XRd?=
+ =?us-ascii?Q?HLCg6HAV2PEYcmwJiS+M6HSLSqD5jhOa4lELh1Vv8N/KcmirkB2C/QsW87Wc?=
+ =?us-ascii?Q?Nj+702lR5GpcKdUPqtA2Pyj6pPbFy2wjYonZB3e1Riz2gpBY2NsVnS6X7o2p?=
+ =?us-ascii?Q?5GLxDFcKnw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9472fe6-62db-485e-d3da-08dee883f463
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 06:30:57.4148 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: C33+v0Jmapd7wu7k/aANyfea6FfSzOTt+MIli6x83qCZ559dRVg00mtQ6UauFzj4x1+JDwgFDYghG+1zb7Qgzg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF0316D269B
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,60 +128,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This patch series adds some basic GPU properties to the existing nova-drm
+GETPARAM ioctl. It builds on top of the "drm: Higher-Ranked Lifetime
+private data" series[1] to correctly manage lifetimes of registration
+data shared between DRM, auxbus and nova-core. It's also based on top of
+"ForLt/CovariantForLt split, auxiliary closure API and DevresLt"[2] although the
+functionality of that series isn't actually required.
 
+A tree with this series applied on top of all pre-requisites is available at
+[3].
 
-On 7/22/2026 9:11 PM, Dmitry Baryshkov wrote:
-> On Wed, Jul 22, 2026 at 06:54:56PM +0800, Yongxing Mou wrote:
->>
->>
->> On 7/22/2026 2:47 AM, Dmitry Baryshkov wrote:
->>> On Mon, Jul 20, 2026 at 06:33:16AM +0000, sashiko-bot@kernel.org wrote:
->>>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->>>>
->>>> New issues:
->>>> - [High] Moving mode state updates to `.atomic_enable` causes the DPU encoder to read stale wide bus configuration.
->>>>
->>>> Pre-existing issues:
->>>> - [High] `mode_valid` incorrectly evaluates wide bus availability based on the currently active mode's state rather than the candidate mode, causing valid modes to be rejected.
->>>> --
->>>>
->>>
->>>>> @@ -1386,7 +1406,7 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
->>>>>    	if (msm_dp_display->link->sink_count == 0)
->>>>>    		return;
->>>>> -	rc = msm_dp_display_set_mode(dp, &msm_dp_display->msm_dp_mode);
->>>>> +	rc = msm_dp_display_set_mode(dp, &crtc_state->adjusted_mode, msm_dp_display->panel);
->>>>>    	if (rc) {
->>>>>    		DRM_ERROR("Failed to perform a mode set, rc=%d\n", rc);
->>>>>    		return;
->>>>
->>>> [Severity: High]
->>>> Does moving this mode setup into .atomic_enable() cause the DPU encoder
->>>> to read a stale wide bus configuration?
->>>>
->>>> In the DRM atomic commit flow, the encoder's .atomic_enable() (which executes
->>>> dpu_encoder_virt_atomic_enable()) is called before the bridge's
->>>> .atomic_enable().
->>>>
->>>> Because msm_dp_display_set_mode() updates the format state
->>>> (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420), the DPU encoder will query
->>>> msm_dp_wide_bus_available() before this new mode's format has been stored.
->>>>
->>>> Won't this cause the hardware to be programmed using the wide bus state from
->>>> the previously active mode, potentially causing display corruption or a blank
->>>> screen when switching between RGB and YUV420?
->>>
->>> Indeed, both look like an issue. Please add a patch before this one,
->>> adding drm_display_mode to the msm_dp_wide_bus_available() call. It will
->>> solve both issues.
->>>
->> Sure. Will update it next version.
-> 
-> I needed to pick up your patches, so I ended up looking at the issue.
-> See https://lore.kernel.org/dri-devel/20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com/T/#t
-> 
-Thanks for the series. With modeset() moved into pre_enable(), this 
-issue is no longer present.
-Do I still need to send a v9 to address the comments on patch 6/10?
-If I send a new version, should I include the first two patches as well, 
-or only resend the remaining patches that still need changes?
+Properties are exported via a new NovaCoreApi type which implements methods to
+read data from the GPU. This has been implemented in a separate module to make
+the public API implementations obvious and to keep them in one place. Auxiliary
+bus drivers can obtain a handle to this type using NovaCoreApi::of().
+
+This handle can then be stored as part of the DRM registration data and used to
+interact with the GPU via the nova-core driver.
+
+Changes since v2:
+
+ - Addressed review Danilo and Alex
+ - Minor renames to better align with HW based on internal feedback
+
+Changes since v1:
+
+ - Address review comments from Danilo
+ - Add an API call to read VRAM PCI BAR size using nova-core
+ 
+[1] - https://lore.kernel.org/rust-for-linux/20260628145406.2107056-1-dakr@kernel.org/
+[2] - https://lore.kernel.org/driver-core/20260626183630.2585057-1-dakr@kernel.org/
+[3] - https://github.com/apopple-nvidia/linux/tree/nova-drm
+
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Benno Lossin <lossin@kernel.org>
+Cc: Gary Guo <gary@garyguo.net>
+Cc: Eliot Courtney <ecourtney@nvidia.com>
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: linux-kernel@vger.kernel.org
+Cc: nova-gpu@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Cc: rust-for-linux@vger.kernel.org
+
+Alistair Popple (7):
+  gpu: nova-core: Add public driver API to nova-core
+  drm: nova: Add DRM registration data
+  drm: nova: Add chipid enum to nova-drm UAPI
+  drm: nova: Add GETPARAM parameter to read the GPU chipid
+  drm: nova: Add GETPARAM parameter to read usable VRAM size
+  drm: nova: Use nova-core to read VRAM_BAR_SIZE parameter
+  drm: nova: Expose a render node
+
+ drivers/gpu/drm/nova/driver.rs        | 17 +++++-
+ drivers/gpu/drm/nova/file.rs          | 24 ++++----
+ drivers/gpu/nova-core/api.rs          | 49 ++++++++++++++++
+ drivers/gpu/nova-core/driver.rs       | 44 +++++++++++----
+ drivers/gpu/nova-core/gpu.rs          | 80 ++++++++++++++-------------
+ drivers/gpu/nova-core/gsp/commands.rs |  8 +++
+ drivers/gpu/nova-core/gsp/hal.rs      |  2 +-
+ drivers/gpu/nova-core/nova_core.rs    |  1 +
+ include/uapi/drm/nova_drm.h           | 47 ++++++++++++++++
+ 9 files changed, 207 insertions(+), 65 deletions(-)
+ create mode 100644 drivers/gpu/nova-core/api.rs
+
+-- 
+2.54.0
+
