@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EDEFC531C7
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 08:08:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 275FBC531C7
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 08:28:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FFBB10E535;
-	Thu, 23 Jul 2026 08:08:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C00910E568;
+	Thu, 23 Jul 2026 08:28:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XKfNeyf2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M4Bx8oPl";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C8C010E535
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 08:08:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A57CB10E568
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 08:28:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 19923401FB;
- Thu, 23 Jul 2026 08:08:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C650D1F000E9;
- Thu, 23 Jul 2026 08:08:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5D9CA439BA;
+ Thu, 23 Jul 2026 08:28:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C2121F000E9;
+ Thu, 23 Jul 2026 08:28:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784794101;
- bh=w6aUjxEcmdvnwcKc7n+JZpn/kZ+8OFEQv8Sx4N0opK8=;
+ s=k20260515; t=1784795285;
+ bh=Ed06Scf2+mUfTgNdVkcX8DxH3VfnQO1yfWDvlOT9vZ4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XKfNeyf2gt/KxQbo57oOux6n3U7lpI6mUY4vjYbMrpDk3W6SbzNEAU2KM13MGNpXA
- lX3qX1OXAQ7noPMWd5BncCzkHuWi8rMJZiug4Ryw9W1rQl7XIjaR7XNvolRi75OGVk
- spLBAi3aCwFumVeTRW4rAMLIcpHhTWZEU1fkB0pmxJfqf0+KVZuyPsB/8afUb5+5f2
- Z8ldtNP4MfCp9DNag2OjiWa3xd2sxsE2GuwlUFIHcQFColnZ3UoaUuM9SJXQuLkRf9
- 6fU3Xu7P5MI5XGLI+feLi9M8QFPH2Rw8UK3BAeCTWgGnM/IiUQnrJfkU7uLIicB4mR
- l96LJ/kT7/zhQ==
+ b=M4Bx8oPlaTk/tDtYFf9m9USzGv6qn5ybQjM5U/JQOV8QEmPQYGjMNBaS/43AdBl8u
+ ROG5WRpOkT+x60CJjKInxDmRMVLIfyn8u8eg2V4riMV/SPIWsrd441TZMZy7MeP8El
+ vyfIDWIWmsBVgLo098XrMFCZBa8RJTjtFiMhm05xDxrHKgmfGoq4MCoI1wrwzIVu0W
+ v9Ai6y3TLZzLw2+XWzXbUISWpKAMu4zUIqy+i3bhe5q3OmX20V1MwbNix3L/jMUjko
+ i8JJwMWVEALvn2H+0XG2SLStdNEAPFUaoSSNxffl8O6pEtxqgo3lO5pFXJhXAgSEPx
+ 05HBrgBdUVPIQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V1] accel/amxdna: fix page-insertion errors in
- amdxdna_insert_pages()
-To: "Lizhi Hou" <lizhi.hou@amd.com>
+Subject: Re: [PATCH 1/4] powerpc/xive: remove dead NULL check after
+ GFP_NOFAIL allocation
+To: "Gou Hao" <gouhao@uniontech.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723074256.2435143-1-lizhi.hou@amd.com>
-References: <20260723074256.2435143-1-lizhi.hou@amd.com>
+In-Reply-To: <20260723081813.176792-2-gouhao@uniontech.com>
+References: <20260723081813.176792-1-gouhao@uniontech.com>
+ <20260723081813.176792-2-gouhao@uniontech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 08:08:20 +0000
-Message-Id: <20260723080820.C650D1F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 08:28:04 +0000
+Message-Id: <20260723082805.0C2121F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,102 +61,82 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Low] Unused label `out_free_domain:` causes a compiler warning.
+
 Pre-existing issues:
-- [Critical] Incompatible VMA flags modification replaces VM_PFNMAP with VM=
-_MIXEDMAP, creating a locally exploitable kernel panic via BUG_ON.
-- [High] Eager page table population inside the mmap callback bypasses inte=
-rval tree tracking, risking Use-After-Free.
+- [High] Use-After-Free on early boot error path when `xive_init_ipis()` fa=
+ils.
 --
 
---- Patch [1]: [PATCH V1] accel/amxdna: fix page-insertion errors in amdxdn=
-a_insert_pages() ---
-commit c41b85178d2bef0390b7acad007274b457c13742
-Author: Lizhi Hou <lizhi.hou@amd.com>
+--- Patch [1]: [PATCH 1/4] powerpc/xive: remove dead NULL check after GFP_N=
+OFAIL allocation ---
+commit 4043ea10e99c6ca83c1b85c8920beef1a521e167
+Author: Gou Hao <gouhao@uniontech.com>
 
-accel/amxdna: fix page-insertion errors in amdxdna_insert_pages()
+powerpc/xive: remove dead NULL check after GFP_NOFAIL allocation
+   =20
+kzalloc_objs with the __GFP_NOFAIL flag will never return NULL, so the
+subsequent NULL check is unreachable dead code. Remove it.
 
-This commit prevents a reference count underflow when error paths in
-amdxdna_insert_pages() prematurely close a VMA. It replaces hard error
-returns with a deferred-fault approach that keeps the VMA alive and retries
-page insertion later.
+> diff --git a/arch/powerpc/sysdev/xive/common.c b/arch/powerpc/sysdev/xive=
+/common.c
+> index dadd1f46ec939..79d7854259cb4 100644
+> --- a/arch/powerpc/sysdev/xive/common.c
+> +++ b/arch/powerpc/sysdev/xive/common.c
+> @@ -1134,9 +1134,6 @@ static int __init xive_init_ipis(void)
+> =20
+>  	xive_ipis =3D kzalloc_objs(*xive_ipis, nr_node_ids,
+>  				 GFP_KERNEL | __GFP_NOFAIL);
+> -	if (!xive_ipis)
+> -		goto out_free_domain;
 
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/=
-amdxdna_gem.c
-> index df236a9d8a0a4..493f34473266e 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-[ ... ]
-> @@ -457,8 +474,7 @@ static int amdxdna_insert_pages(struct amdxdna_gem_ob=
-j *abo,
->  				      &num_pages);
-
-[Severity: Critical]
-This is a pre-existing issue, but does replacing VM_PFNMAP with VM_MIXEDMAP
-create a locally exploitable kernel panic?
-
-Just above this line, vm_flags_mod() sets VM_MIXEDMAP and clears VM_PFNMAP.
-
-If an unprivileged userspace process mmaps a non-imported GEM object and th=
-en
-calls madvise(MADV_DONTNEED), the PTEs will be successfully cleared because
-VM_MIXEDMAP allows this (unlike VM_PFNMAP).
-
-When userspace subsequently accesses the memory, drm_gem_shmem_fault() hand=
-les
-the page fault and attempts to map the backing shmem page via vmf_insert_pf=
-n()
-which calls vmf_insert_pfn_prot().
-
-Because the backing shmem page is normal system memory (pfn_valid(pfn) is
-true) and the VMA now has VM_MIXEDMAP set, won't this predictably trigger t=
-he
-explicit assertion BUG_ON((vma->vm_flags & VM_MIXEDMAP) && pfn_valid(pfn)),
-crashing the system?
+[Severity: Low]
+Does removing this goto leave out_free_domain: as an unused label at the
+end of xive_init_ipis()? This might cause a compiler warning.
 
 [Severity: High]
-This is also a pre-existing issue, but does eagerly populating PTEs inside
-the mmap callback bypass interval tree tracking?
+This isn't a bug introduced by this patch, but does the error path in
+xive_init_ipis() lead to a use-after-free?
 
-At the time the .mmap callback executes, the new VMA is not yet linked into
-the backing file's interval tree (mapping->i_mmap). The core mm links it
-via vma_link_file() only after the .mmap callback returns successfully.
+If irq_domain_alloc_irqs() fails later in this function, it takes the error
+path:
 
-If a dma-buf exporter concurrently evicts the memory and calls
-unmap_mapping_range(), won't the invalidation miss this unlinked VMA and
-fail to shoot down the eagerly populated PTEs, leading to a use-after-free?
+arch/powerpc/sysdev/xive/common.c:xive_init_ipis() {
+    ...
+out_free_xive_ipis:
+    kfree(xive_ipis);
+out_free_domain:
+    ...
+}
 
->  		if (ret) {
->  			XDNA_ERR(xdna, "Failed insert pages %d", ret);
-> -			vma->vm_ops->close(vma);
-> -			return ret;
-> +			amdxdna_mark_mapp_invalid(abo, vma);
->  		}
-> =20
->  		return 0;
-> @@ -478,9 +494,9 @@ static int amdxdna_insert_pages(struct amdxdna_gem_ob=
-j *abo,
->  		fault_ret =3D handle_mm_fault(vma, vma->vm_start + offset,
->  					    FAULT_FLAG_WRITE, NULL);
+The global pointer xive_ipis is freed but not set to NULL.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this eager population f=
-or
-dma-buf imports have the same interval tree tracking bypass issue?
+The caller xive_smp_probe() ignores the return value of xive_init_ipis() and
+continues execution, eventually dereferencing the dangling pointer:
 
-Since the VMA is not yet linked into the interval tree during the .mmap
-callback, an invalidation from the exporter might miss these eagerly
-populated PTEs, resulting in a use-after-free.
+arch/powerpc/sysdev/xive/common.c:xive_smp_probe() {
+    ...
+    xive_init_ipis();
 
->  		if (fault_ret & VM_FAULT_ERROR) {
-> -			vma->vm_ops->close(vma);
->  			XDNA_ERR(xdna, "Fault in page failed");
-> -			return -EFAULT;
-> +			amdxdna_mark_mapp_invalid(abo, vma);
-> +			break;
->  		}
-> =20
->  		offset +=3D PAGE_SIZE;
+    /* Allocate and setup IPI for the boot CPU */
+    xive_setup_cpu_ipi(smp_processor_id());
+    ...
+}
+
+Which accesses the freed pointer:
+
+arch/powerpc/sysdev/xive/common.c:xive_ipi_cpu_to_irq() {
+    return xive_ipis[early_cpu_to_node(cpu)].irq;
+}
+
+Can this cause memory corruption or a crash if early IPI setup fails?
+
+> -
+>  	for_each_node(node) {
+>  		struct xive_ipi_desc *xid =3D &xive_ipis[node];
+>  		struct xive_ipi_alloc_info info =3D { node };
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723074256.2435=
-143-1-lizhi.hou@amd.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723081813.1767=
+92-1-gouhao@uniontech.com?part=3D1
