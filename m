@@ -4,29 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C52F4C531CA
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 12:38:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66590C531D1
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 13:26:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC6110F0DB;
-	Thu, 23 Jul 2026 12:38:31 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34E0410F0DB
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 12:38:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8756410E17C;
+	Thu, 23 Jul 2026 13:26:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YOpb0peS";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3351610E17C
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 13:26:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6C884600AD;
- Thu, 23 Jul 2026 12:38:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 020FF1F000E9;
- Thu, 23 Jul 2026 12:38:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 571AA4053E;
+ Thu, 23 Jul 2026 13:26:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B9B71F000E9;
+ Thu, 23 Jul 2026 13:26:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784813188;
+ bh=F1wkB1a+vwSSZh98Yv5uA16g9k8Yv/YEDhBfUd/JuYc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=YOpb0peSLH42qM2GC8RaExKSdDamSdQQmYLzHt2BEnfLMZaZ98RF282booBkdK4OM
+ zo8gBNYteBhoq6WmcODpGLHpXE3/ymYk0BhQjCIwQpp8gqkUkk2f+I5uHS0hjm7h6m
+ 0LKVL6JQWNsE1bnZwBJGghxFvfpCAKq/D6lbehO8jmXTIoKM8Tziv/GkI2Rk+1GPJ9
+ pOQKqTvbxCRnkphetjmlYWgmK2FVA7GLG1hBxBewdKJnz2QMBTOGRAS0JB1J9NPdEv
+ WQlx2oMfB6EBdcPEdrYcvF2xN00pX+slnWrDp30+oKKtYOtj3SpvgLLOImN3vwCej1
+ kSoEtPegCbU6Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] fbdev: replace dead select with dependency
-To: "Julian Braha" <julianbraha@gmail.com>
+Subject: Re: [PATCH 09/10] drm/bridge: ti-sn65dsi83: Remove redundant
+ dev_err_probe()
+To: "Pan Chuang" <panchuang@vivo.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723122818.437802-1-julianbraha@gmail.com>
-References: <20260723122818.437802-1-julianbraha@gmail.com>
+In-Reply-To: <20260723131649.134127-10-panchuang@vivo.com>
+References: <20260723131649.134127-1-panchuang@vivo.com>
+ <20260723131649.134127-10-panchuang@vivo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 12:38:26 +0000
-Message-Id: <20260723123829.020FF1F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 13:26:25 +0000
+Message-Id: <20260723132628.1B9B71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,60 +60,77 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Replacing `select` with `depends on` silently breaks `socrates_d=
-efconfig` and hides the Lime GDC driver.
+
+Pre-existing issues:
+- [High] The background work `ctx->reset_work` is never explicitly canceled=
+, which can lead to a Use-After-Free if it executes after `ctx` is freed.
 --
 
---- Patch [1]: [PATCH v2] fbdev: replace dead select with dependency ---
-commit bd0c1c5dd1e0309a476de7f3f80441e35d1d6474
-Author: Julian Braha <julianbraha@gmail.com>
+--- Patch [9]: [PATCH 09/10] drm/bridge: ti-sn65dsi83: Remove redundant dev=
+_err_probe() ---
+commit ae3029f9f75aff0082e24f794cc2c0d8fb473908
+Author: Pan Chuang <panchuang@vivo.com>
 
-fbdev: replace dead select with dependency
+drm/bridge: ti-sn65dsi83: Remove redundant dev_err_probe()
 
-This commit modifies the Kconfig dependencies for the Fujitsu Lime GDC
-framebuffer driver. It replaces the select statements for foreign and
-little endian support with a direct dependency on either little endian
-or both endians.
+Since commit 55b48e23f5c4, devm_request_threaded_irq() automatically logs
+detailed error messages on failure. This patch removes the now-redundant
+driver-specific dev_err_probe() call.
 
-Link: https://lore.kernel.org/all/20260722220023.196029-1-julianbraha@gmail=
-.com/
+> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
+ge/ti-sn65dsi83.c
+> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> @@ -1040,7 +1040,7 @@ static int sn65dsi83_probe(struct i2c_client *clien=
+t)
+>  		ret =3D devm_request_threaded_irq(ctx->dev, ctx->irq, NULL, sn65dsi83_=
+irq,
+>  						IRQF_ONESHOT, dev_name(ctx->dev), ctx);
+>  		if (ret)
+> -			return dev_err_probe(dev, ret, "failed to request irq\n");
+> +			return ret;
+>  	}
+> =20
+>  	dev_set_drvdata(dev, ctx);
 
-> diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
-> index 085d3a202148b..e8cd8cb76874b 100644
-> --- a/drivers/video/fbdev/Kconfig
-> +++ b/drivers/video/fbdev/Kconfig
-> @@ -1717,8 +1717,7 @@ config FB_MB862XX_PCI_GDC
->  config FB_MB862XX_LIME
->  	bool "Lime GDC"
->  	depends on OF && PPC
-> -	select FB_FOREIGN_ENDIAN
-> -	select FB_LITTLE_ENDIAN
-> +	depends on FB_LITTLE_ENDIAN || FB_BOTH_ENDIAN
+[Severity: High]
+This is a pre-existing issue, but looking at the driver initialization and
+teardown, is there a risk of a use-after-free with ctx->reset_work?
 
-[Severity: Medium]
-Will this change cause the driver to be silently dropped in
-socrates_defconfig?
+When the IRQ is successfully requested, the handler sn65dsi83_irq() becomes
+active. If a hardware error triggers the IRQ handler, it calls
+sn65dsi83_handle_errors() which schedules the reset work:
 
-Looking at drivers/video/fbdev/core/Kconfig, FB_FOREIGN_ENDIAN defaults
-to 'n' and gates the endianness choice block:
+drivers/gpu/drm/bridge/ti-sn65dsi83.c:sn65dsi83_handle_errors() {
+    ...
+    schedule_work(&ctx->reset_work);
+    ...
+}
 
-menuconfig FB_FOREIGN_ENDIAN
-	bool "Framebuffer foreign endianness support"
-	depends on FB
+If the probe fails later (for example, when sn65dsi83_host_attach() fails),
+the err_remove_bridge path is taken:
 
-Since arch/powerpc/configs/85xx/socrates_defconfig requests
-CONFIG_FB_MB862XX_LIME=3Dy but does not explicitly set
-CONFIG_FB_FOREIGN_ENDIAN=3Dy, removing the select statement means
-FB_FOREIGN_ENDIAN will now evaluate to 'n'.
+drivers/gpu/drm/bridge/ti-sn65dsi83.c:sn65dsi83_probe() {
+err_remove_bridge:
+    drm_bridge_remove(&ctx->bridge);
+    return ret;
+}
 
-This hides the endianness choice block, forcing both FB_LITTLE_ENDIAN and
-FB_BOTH_ENDIAN to 'n'. Does this mean the new dependency will be unmet,
-causing the Lime GDC driver to be dropped during defconfig generation
-despite the commit message indicating this avoids breaking defconfig?
+Since there is no explicit cancellation of the work here, and devres will
+subsequently free the ctx structure upon probe failure, could a scheduled
+reset work execute and dereference the freed ctx pointer?
 
->  	help
->  	  Framebuffer support for Fujitsu Lime GDC on host CPU bus.
+The same pattern appears to exist in the normal driver removal path:
+
+drivers/gpu/drm/bridge/ti-sn65dsi83.c:sn65dsi83_remove() {
+    struct sn65dsi83 *ctx =3D i2c_get_clientdata(client);
+
+    drm_bridge_unplug(&ctx->bridge);
+}
+
+Could this also leave a dangling work item that outlives the device context
+if the device is unbound via sysfs while the background work is pending?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723122818.4378=
-02-1-julianbraha@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723131649.1341=
+27-1-panchuang@vivo.com?part=3D9
