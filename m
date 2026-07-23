@@ -4,44 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 137B9C531C7
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 09:42:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 200AFC531C7
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 09:43:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6694610F043;
-	Thu, 23 Jul 2026 09:42:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7489C10F044;
+	Thu, 23 Jul 2026 09:43:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NoI7eR55";
+	dkim=pass (1024-bit key; secure) header.d=grimler.se header.i=@grimler.se header.b="VVdg24eU";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85F2810F052
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 09:42:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 927D160A67;
- Thu, 23 Jul 2026 09:42:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1473B1F000E9;
- Thu, 23 Jul 2026 09:42:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784799762;
- bh=aggcGZMyP/xFxs3l+jm/6UMherLlOPYA7srJtY1RSgg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NoI7eR559yBZGnGeJ3R/fy7TeQrpa1kwQ+pp82Yguirub+7uhkimMqwdfpDjn3O4u
- wQaqNp/1SwmfXUGMoUzl1lIqFiZIBBPyxHvk7pz9T77hZhgBWukU/jOkYJ/dNd/ds1
- iCvK8LxZqyQX6eJX2Z3veEneHRqulvD9F3g71Ey2f9kXC5Lw1FntER//PomyBW6XOX
- KJhqWqIQXI8PSGEhMhiL8Xc3QJW6tbLVD/WkAW5WoLL56ktZ8re5Sz5qpd8wzxmnNC
- Jz4eXhIpKVRrZEbCym1GaeN5xe6vV/+XVDZKVcWUdN3LqoO0coc4aST4xBHkHMx0hZ
- hLI73kq8Aq3Jg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] drm/xe/xe_ras: Report correctable/uncorrectable
- error events to userspace
-To: "Riana Tauro" <riana.tauro@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260722094134.3036087-6-riana.tauro@intel.com>
-References: <20260722094134.3036087-4-riana.tauro@intel.com>
- <20260722094134.3036087-6-riana.tauro@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 09:42:39 +0000
-Message-Id: <20260723094242.1473B1F000E9@smtp.kernel.org>
+Received: from out-182.mta1.migadu.com (out-182.mta1.migadu.com
+ [95.215.58.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC36410F044
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 09:43:33 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grimler.se; s=key1;
+ t=1784799810;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=6JxfaO/L3H+d6K+qQEbQ1OD1DRtey794ZPKDE9UrqK8=;
+ b=VVdg24eU+PnYt0Ycjb39/BvQG+bBe6HubhkSIlTYYIkVqfBTMuaIl+wCn+VIz/pIRDItOw
+ SMiBqRS+f0tnxpsZy3kI25f+8xlupXIRMGuLp1PjlMo+cWgr0C03TsgS/1X8nngLx2a4e6
+ FMw9w7f3lRtXtsyL/Ud5pkNI4XJPtlc=
+From: Henrik Grimler <henrik@grimler.se>
+Date: Thu, 23 Jul 2026 11:41:56 +0200
+Subject: [PATCH v5] drm/bridge: sii9234: use extcon cable detection logic
+ to detect MHL
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260723-exynos4-sii9234-driver-v5-1-44b31b5597bd@grimler.se>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33OwW7CMAyA4VdBOZMpdtwm7LT3QBy6xgFL0KIER
+ SDUdydFmrYJleNvyZ99V5mTcFafq7tKXCTLONRo1ivVH7phz1pCbYUGLSB4zdfbMGbSWWSDlnR
+ IUjjp4MEF+m4AQqPq8jlxlOsT3u5qHyRfxnR73ikwT2eyMQ5hiSygjUYmx8FgbJ372ic5HTl9Z
+ FazWfCvQ4sOVid2zEgUIZB5ceyv4984tjreeNqwg7azr//Qj9MaALvoUHVa9r3peqDo6Z8zTdM
+ DRzf45JUBAAA=
+X-Change-ID: 20231218-exynos4-sii9234-driver-d817d4b511d5
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, linux-kernel@vger.kernel.org, 
+ Henrik Grimler <henrik@grimler.se>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6920; i=henrik@grimler.se;
+ h=from:subject:message-id; bh=yV9viZUIq/erJyt5xIHf3MyM1JE8PA58gOxPHaDZWH4=;
+ b=owEBiQF2/pANAwAIAbAHbkkLcWFrAcsmYgBqYeItEEHWEZlqv1qmejnB3WgAxUm6tZRP3vqTx
+ WWc7ivsOoyJAU8EAAEIADkWIQQsfymul4kfZBmp4s2wB25JC3FhawUCamHiLRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwzLDIACgkQsAduSQtxYWs83AgAjrs+ZiCaXeM5j5Z5npW4K98zF24MNZJ
+ 44hi9dRwlP9WPev+0qmaxn2THgpeIIKcFIvlal4l8DN2QBhV3OOrzm/GTnSsVojm5GuHpLW0Iy1
+ eO0hcTrmKQKV26zLR9m0Aakft6Vp/m7+ooFOLwkmStvCIYlbcUF6r6MvKKh1HkPfIQ4M5qNEXE5
+ 4u6qxojHQO0Q9PvFrK25XT6hFzIscS6R2p+LQiMHCy+q8cBanlnb+nhmCa/E1NlvCYyxRj4guLF
+ ooIW/QEWrA2bwdt+n9sJZeYgYhTECzfcHS2Hf/zGse5O7FYC0AF/zhrX4ivndz5LwczuOs+MFsX
+ M4UNkT/wWlQ==
+X-Developer-Key: i=henrik@grimler.se; a=openpgp;
+ fpr=2C7F29AE97891F6419A9E2CDB0076E490B71616B
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,168 +79,221 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Unvalidated hardware error severity and component values are conve=
-rted to `_MAX` sentinels and used as array indices, causing out-of-bounds m=
-emory accesses.
-- [High] The event deduplication logic tracks only the component ID, causin=
-g distinct RAS events of different severities to be silently dropped.
-- [Medium] Using an unvalidated 8-bit `component` value with `BIT()` causes=
- undefined behavior on out-of-bounds shifts and logical failures due to tru=
-ncation.
---
+To use MHL we currently need the MHL chip to be permanently on, which
+consumes unnecessary power. Let's use extcon attached to MUIC to enable
+the MHL chip only if it detects an MHL cable.
 
---- Patch [2]: [PATCH v6 2/2] drm/xe/xe_ras: Report correctable/uncorrectab=
-le error events to userspace ---
-commit 27331cfb50f32fc2a792ea10818220c4af94ef3d
-Author: Riana Tauro <riana.tauro@intel.com>
+Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Henrik Grimler <henrik@grimler.se>
+---
+Hi,
 
-drm/xe/xe_ras: Report correctable/uncorrectable error events to userspace
+Fix so HDMI through the sii9234 MHL chip works when cable is
+hotplugged, by making the MHL chip use extcon cable detection
+functions. The patch is heavily inspired by commit 688838442147
+("drm/bridge/sii8620: use micro-USB cable detection logic to detect
+MHL") by Maciej Purski.
 
-When an interrupt is received for correctable errors indicating that error
-counter has crossed its threshold, read the current counter value and
-deliver a drm-ras error-event to userspace for each affected component.
+Before these changes, HDMI only worked if cable was plugged in before
+booting. If no cable was connected, then wlr-randr still showed HDMI
+as connected, with 0x0 px, which confused at least some UIs (phosh)
+and caused problems:
+https://gitlab.gnome.org/World/Phosh/phosh/-/issues/828
 
-> diff --git a/drivers/gpu/drm/xe/xe_drm_ras.c b/drivers/gpu/drm/xe/xe_drm_=
-ras.c
-> index 7937d8ba0ed9c..5cbfd12d61f4b 100644
-> --- a/drivers/gpu/drm/xe/xe_drm_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_drm_ras.c
-[ ... ]
-> @@ -185,6 +185,37 @@ static int register_nodes(struct xe_device *xe)
->  	return ret;
->  }
-> =20
-> +/**
-> + * xe_drm_ras_event() - Report drm-ras error event to userspace
-> + * @xe: xe device structure
-> + * @component: error component (see &enum drm_xe_ras_error_component)
-> + * @severity: error severity (see &enum drm_xe_ras_error_severity)
-> + * @value: value of error counter
-> + *
-> + * Report an error-event to userspace.
-> + */
-> +void xe_drm_ras_event(struct xe_device *xe, u8 component, u8 severity, u=
-32 value)
-> +{
-> +	struct xe_drm_ras *ras =3D &xe->ras;
-> +	struct xe_drm_ras_counter *info =3D ras->info[severity];
-> +	struct drm_ras_node *node;
-> +	int ret;
-> +
-> +	/* Event is supported only if drm-ras is enabled */
-> +	if (!xe->info.has_drm_ras)
-> +		return;
-> +
-> +	node =3D &ras->node[severity];
-> +
-> +	if (!info || !info[component].name)
-> +		return;
+Tested on exynos4412-i9305.
+---
+Changes in v5:
+- Rebase and drop applied patches
+- Fix review comments by Luca:
+  - Remove unnecessary line breaks and braces
+  - Change Kconfig extcon dependency
+  - Use devm_extcon_register_notifier
+- Link to v4: https://lore.kernel.org/r/20260113-exynos4-sii9234-driver-v4-0-6e8c0ac14f84@grimler.se
 
-[Severity: High]
-Does this code introduce a regression where an unexpected firmware response=
- can
-cause an out-of-bounds memory access here?
+Changes in v4:
+- Collect tags
+- Link to v3: https://lore.kernel.org/r/20250824-exynos4-sii9234-driver-v3-0-80849e716a37@grimler.se
 
-If the firmware returns an unsupported severity or component value,
-xe_to_drm_ras_severity() and xe_to_drm_ras_component() map these to
-DRM_XE_RAS_ERR_SEV_MAX and DRM_XE_RAS_ERR_COMP_MAX respectively.
+Changes in v3:
+- Fix return of dev_err_probe in patch 2 and patch 3, spotted by
+  Dmitry and Marek respectively.
+- Change to depends on EXTCON || !EXTCON instead of select
+- Collect tags for patch 1 (not 3 since there were (minor) changes)
+- Link to v2: https://lore.kernel.org/r/20250724-exynos4-sii9234-driver-v2-0-faee244f1d40@grimler.se
 
-Then xe_drm_ras_event() uses these sentinel values as array indices:
+Changes in v2:
+- Add dependency on extcon in patch 3. Issue reported by kernel test robot <lkp@intel.com>
+- Link to v1: https://lore.kernel.org/r/20250721-exynos4-sii9234-driver-v1-0-2e47ed02f677@grimler.se
 
-    struct xe_drm_ras_counter *info =3D ras->info[severity];
-    ...
-    node =3D &ras->node[severity];
-    ...
-    if (!info || !info[component].name)
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/gpu/drm/bridge/Kconfig   |  1 +
+ drivers/gpu/drm/bridge/sii9234.c | 78 ++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 77 insertions(+), 2 deletions(-)
 
-This evaluates exactly one element past the end of the arrays. Should we
-bounds-check or reject _MAX values before using them as indices?
+diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+index 4a57d49b4c6d..84236e816080 100644
+--- a/drivers/gpu/drm/bridge/Kconfig
++++ b/drivers/gpu/drm/bridge/Kconfig
+@@ -333,6 +333,7 @@ config DRM_SII902X
+ config DRM_SII9234
+ 	tristate "Silicon Image SII9234 HDMI/MHL bridge"
+ 	depends on OF
++	depends on EXTCON if EXTCON
+ 	help
+ 	  Say Y here if you want support for the MHL interface.
+ 	  It is an I2C driver, that detects connection of MHL bridge
+diff --git a/drivers/gpu/drm/bridge/sii9234.c b/drivers/gpu/drm/bridge/sii9234.c
+index be67642ab7d3..bf211906fefc 100644
+--- a/drivers/gpu/drm/bridge/sii9234.c
++++ b/drivers/gpu/drm/bridge/sii9234.c
+@@ -20,6 +20,7 @@
+ 
+ #include <linux/delay.h>
+ #include <linux/err.h>
++#include <linux/extcon.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/interrupt.h>
+@@ -27,6 +28,7 @@
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
++#include <linux/of_graph.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/slab.h>
+ 
+@@ -173,6 +175,10 @@ struct sii9234 {
+ 	struct gpio_desc *gpio_reset;
+ 	int i2c_error;
+ 	struct regulator_bulk_data supplies[4];
++	struct extcon_dev *extcon;
++	struct notifier_block extcon_nb;
++	struct work_struct extcon_wq;
++	int cable_state;
+ 
+ 	struct mutex lock; /* Protects fields below and device registers */
+ 	enum sii9234_state state;
+@@ -864,6 +870,63 @@ static int sii9234_init_resources(struct sii9234 *ctx,
+ 	return 0;
+ }
+ 
++static void sii9234_extcon_work(struct work_struct *work)
++{
++	struct sii9234 *ctx = container_of(work, struct sii9234, extcon_wq);
++	int state = extcon_get_state(ctx->extcon, EXTCON_DISP_MHL);
++
++	if (state == ctx->cable_state)
++		return;
++
++	ctx->cable_state = state;
++
++	if (state > 0)
++		sii9234_cable_in(ctx);
++	else
++		sii9234_cable_out(ctx);
++}
++
++static int sii9234_extcon_notifier(struct notifier_block *nb,
++			unsigned long event, void *ptr)
++{
++	struct sii9234 *ctx = container_of(nb, struct sii9234, extcon_nb);
++
++	schedule_work(&ctx->extcon_wq);
++
++	return NOTIFY_DONE;
++}
++
++static int sii9234_extcon_init(struct sii9234 *ctx)
++{
++	struct extcon_dev *edev;
++	struct device_node *musb, *muic;
++	int ret;
++
++	/* Get micro-USB connector node */
++	musb = of_graph_get_remote_node(ctx->dev->of_node, 1, -1);
++	/* Then get micro-USB Interface Controller node */
++	muic = of_get_next_parent(musb);
++
++	if (!muic) {
++		dev_info(ctx->dev, "no extcon found, switching to 'always on' mode\n");
++		return 0;
++	}
++
++	edev = extcon_find_edev_by_node(muic);
++	of_node_put(muic);
++	if (IS_ERR(edev))
++		return dev_err_probe(ctx->dev, PTR_ERR(edev), "invalid or missing extcon\n");
++
++	ctx->extcon = edev;
++	ctx->extcon_nb.notifier_call = sii9234_extcon_notifier;
++	INIT_WORK(&ctx->extcon_wq, sii9234_extcon_work);
++	ret = devm_extcon_register_notifier(ctx->dev, edev, EXTCON_DISP_MHL, &ctx->extcon_nb);
++	if (ret)
++		dev_err_probe(ctx->dev, ret, "failed to register notifier for MHL\n");
++
++	return 0;
++}
++
+ static enum drm_mode_status sii9234_mode_valid(struct drm_bridge *bridge,
+ 					 const struct drm_display_info *info,
+ 					 const struct drm_display_mode *mode)
+@@ -919,12 +982,17 @@ static int sii9234_probe(struct i2c_client *client)
+ 	if (ret < 0)
+ 		return ret;
+ 
++	ret = sii9234_extcon_init(ctx);
++	if (ret < 0)
++		return ret;
++
+ 	i2c_set_clientdata(client, ctx);
+ 
+ 	ctx->bridge.of_node = dev->of_node;
+ 	drm_bridge_add(&ctx->bridge);
+ 
+-	sii9234_cable_in(ctx);
++	if (!ctx->extcon)
++		sii9234_cable_in(ctx);
+ 
+ 	return 0;
+ }
+@@ -933,7 +1001,13 @@ static void sii9234_remove(struct i2c_client *client)
+ {
+ 	struct sii9234 *ctx = i2c_get_clientdata(client);
+ 
+-	sii9234_cable_out(ctx);
++	if (ctx->extcon) {
++		flush_work(&ctx->extcon_wq);
++		if (ctx->cable_state > 0)
++			sii9234_cable_out(ctx);
++	} else {
++		sii9234_cable_out(ctx);
++	}
+ 	drm_bridge_remove(&ctx->bridge);
+ }
+ 
 
-[ ... ]
-> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-> index a31e06b8aa67a..d43f614de7237 100644
-> --- a/drivers/gpu/drm/xe/xe_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_ras.c
-[ ... ]
-> @@ -312,8 +364,10 @@ void xe_ras_counter_threshold_crossed(struct xe_devi=
-ce *xe,
->  	struct xe_ras_threshold_crossed *pending =3D (void *)&response->data;
->  	struct xe_ras_error_class *errors =3D pending->counters;
->  	u32 id, ncounters =3D pending->ncounters;
-> +	u8 sent =3D 0;
-> =20
->  	BUILD_BUG_ON(sizeof(response->data) < sizeof(*pending));
-> +	BUILD_BUG_ON(BITS_PER_TYPE(sent) < XE_RAS_COMP_MAX);
->  	xe_device_assert_mem_access(xe);
-> =20
->  	if (!ncounters || ncounters > XE_RAS_NUM_COUNTERS)
-> @@ -329,6 +383,13 @@ void xe_ras_counter_threshold_crossed(struct xe_devi=
-ce *xe,
-> =20
->  		xe_warn(xe, "[RAS]: %s %s detected\n",
->  			comp_to_str(component), sev_to_str(severity));
-> +
-> +		/* Send event once per component */
-> +		if (sent & BIT(component))
-> +			continue;
-> +		sent |=3D BIT(component);
+---
+base-commit: c182a2ae13886463f7ae36e034449477306d182b
+change-id: 20231218-exynos4-sii9234-driver-d817d4b511d5
 
-[Severity: Medium]
-Does this code introduce a regression if the sysctrl firmware returns an
-unexpected component value >=3D 8?
+Best regards,
+--  
+Henrik Grimler <henrik@grimler.se>
 
-The sent variable is an 8-bit u8. BIT() expands to 1UL << component,
-which produces a value >=3D 256. When assigned to the u8 sent variable, this
-truncates to 0, breaking deduplication. Furthermore, if the component value=
- is
->=3D 64, shifting by more than the width of unsigned long causes undefined
-behavior.
-
-[Severity: High]
-Does this deduplication logic introduce a regression by dropping distinct R=
-AS
-events?
-
-If the hardware sysctrl returns multiple errors for the same component in a
-single response, but with different severities (e.g., one correctable, one
-uncorrectable), this condition evaluates only the component ID.
-
-The first processed event marks the component as sent, causing all subseque=
-nt
-events for that component to be silently dropped regardless of their severi=
-ty.
-Should we track both component and severity to avoid losing these hardware
-events?
-
-> +
-> +		ras_send_error_event(xe, severity, component);
->  	}
->  }
-[ ... ]
-> @@ -425,6 +487,12 @@ enum xe_ras_recovery_action xe_ras_process_errors(st=
-ruct xe_device *xe)
->  			xe_info(xe, "[RAS]: %s %s detected\n", comp_to_str(component),
->  				sev_to_str(severity));
-> =20
-> +			/* Send event once per component */
-> +			if (!(sent & BIT(component))) {
-> +				sent |=3D BIT(component);
-> +				ras_send_error_event(xe, severity, component);
-> +			}
-
-[Severity: Medium]
-Does this logic exhibit the same regressions mentioned above?
-
-Since it uses the same sent bitmask logic, the truncation/undefined behavio=
-r and
-the distinct RAS event dropping regressions apply here as well.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722094134.3036=
-087-4-riana.tauro@intel.com?part=3D2
