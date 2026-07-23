@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 260C9C44532
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 00:53:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 788B3C44532
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 00:54:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5241610E4FD;
-	Thu, 23 Jul 2026 00:53:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C60F310EF06;
+	Thu, 23 Jul 2026 00:54:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RwpEHUsu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JDCJZCnQ";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF81A10E4FD
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 00:53:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F30C10EF1B
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 00:54:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 33803600E1;
- Thu, 23 Jul 2026 00:53:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE8621F000E9;
- Thu, 23 Jul 2026 00:53:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A0C97600E1;
+ Thu, 23 Jul 2026 00:54:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E0F01F000E9;
+ Thu, 23 Jul 2026 00:54:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784768000;
- bh=gYYndwFdSMvpRgKOW6sp9ud++ykfIwqJnYqjElnJwe0=;
+ s=k20260515; t=1784768092;
+ bh=7a+5ud8CPt2otmTC1QtMOUqRvGL5uYkledr9yBCS3V4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RwpEHUsufiiM5Tk4dS8Yaog7BL1UU1/YSeXo71eIqeilTCmjRPjHKdE8CX1shJx0u
- wxsM+900w1rd+9YqWHrt8PHE28tY6XwQoU7lZFSd1WHI97N3iQgy8vsZ8C/LPKt34D
- jPR9woQXLTYiu92JnfkFZUX/3J2iBqQgIK9E1yz8Qvk1xxIfHLAYRaAX3wIfV6Tyh6
- usFdnfeo7PwvH8YCMIJzx3liwYURgdCaChTONDlNEABqGX7OgRts7a8Y343leiJxL2
- LmQr7iDcRKA5HDp+/H6YNnn4wpZrUdVOQfQ15UrSW38EPFrmxuMMLbv7ELCCBIB70+
- ZqEChPI2FZq0A==
+ b=JDCJZCnQaEEm3j4Tmdr9jYQ4v+9cdOPIEDjjM3YqFujEjiVXAXDHpz0B7up7EnVUu
+ 9NYMlg/AICW+y9CKJeLflIuxMoeR12idqtfV+MvLGrUQ8KaR9y8dlpgZjLstE41x6H
+ 0erYWvXOhU5OpgH+W7w+0g49K9Zq0hv8kXthxTnRmjQCTLc+qSqUGHmjeUKst475Pp
+ 4C+JoQRRx7vypqCixxj1SvfbVJ9fS1Zxe9qG9DP3ub7NkG0lT4IAyAZymmNusGfS5h
+ q9P5l7FOGfudi9VckFYHM1c2DypS6HZ2j5+3FVMVc7BMJjum3oKHyIsp+1d/cz+hdQ
+ Jx8QMx+M4Uw0g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 3/8] drm/amd/display: use
- drmm_writeback_connector_init()
+Subject: Re: [PATCH v8 2/8] drm/amd/display: use drmm allocation for
+ writeback connector
 To: "John Harrison" <John.Harrison@Igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723003205.330362-4-John.Harrison@Igalia.com>
+In-Reply-To: <20260723003205.330362-3-John.Harrison@Igalia.com>
 References: <20260723003205.330362-1-John.Harrison@Igalia.com>
- <20260723003205.330362-4-John.Harrison@Igalia.com>
+ <20260723003205.330362-3-John.Harrison@Igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 00:53:20 +0000
-Message-Id: <20260723005320.BE8621F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 00:54:51 +0000
+Message-Id: <20260723005452.2E0F01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,130 +58,98 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [Medium] Mismatched object lifetimes in KUnit test causes Use-After-Free =
-when DRM device is torn down.
-
 Pre-existing issues:
-- [High] The struct dc_writeback_info allocated dynamically in dm_set_write=
-back() is leaked on every successful writeback job setup.
+- [High] Double-free and Use-After-Free of `aencoder` and `aconnector` obje=
+cts in the error path of `amdgpu_dm_initialize_drm_device`.
 --
 
---- Patch [3]: [PATCH v8 3/8] drm/amd/display: use drmm_writeback_connector=
-_init() ---
-commit 4cc9223584993bb5748e535854c7b5fb0eba8f0d
+--- Patch [2]: [PATCH v8 2/8] drm/amd/display: use drmm allocation for writ=
+eback connector ---
+commit eb7f6e488f88ce78a34b3146c10bca2e0792ad3e
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/amd/display: use drmm_writeback_connector_init()
+drm/amd/display: use drmm allocation for writeback connector
 
-The driver uses drmm_writeback_connector_init() to ensure proper job queue
-cleanup. It also allocates a simple encoder using drmm_plain_encoder_alloc()
-for the writeback connector.
+Currently memory used for writeback connectors isn't freed on driver
+unbinding, leaking the memory. Use drm_device-memory allocation
+function for the writeback connector, making sure that the memory is
+freed on the driver unbinding.
 
 > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
 gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 289da9d00b056..ff7b21830fce9 100644
+> index f8d8132ea50ed..289da9d00b056 100644
 > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5048,7 +5048,7 @@ static void dm_set_writeback(struct amdgpu_display_=
-manager *dm,
->  		return;
->  	}
-> =20
-> -	acrtc =3D to_amdgpu_crtc(wb_conn->encoder.crtc);
-> +	acrtc =3D to_amdgpu_crtc(crtc_state->base.crtc);
->  	if (!acrtc) {
->  		drm_err(adev_to_drm(adev), "no amdgpu_crtc found\n");
->  		kfree(wb_info);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does dm_set_writeback() leak
-the dynamically allocated wb_info struct on success?
-
-When userspace configures a writeback job, wb_info is allocated dynamically
-using kzalloc_obj(). It is then passed to dc_stream_add_writeback():
-
-	dc_stream_add_writeback(dm->dc, crtc_state->stream, wb_info);
-
-	acrtc->wb_conn =3D wb_conn;
-	drm_writeback_queue_job(wb_conn, new_con_state);
-
-However, dc_stream_add_writeback() copies the contents by value into an arr=
-ay
-(stream->writeback_info[...] =3D *wb_info) but does not take ownership of t=
-he
-pointer.
-
-The function then returns without ever calling kfree(wb_info) on the success
-path, which seems to result in a memory leak on every successful writeback
-job setup.
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drive=
-rs/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-> index 9e7bad4d6ed0c..2bb86218e80b0 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
 
 [ ... ]
 
-> @@ -197,17 +196,26 @@ int amdgpu_dm_wb_connector_init(struct amdgpu_displ=
-ay_manager *dm,
->  	struct dc *dc =3D dm->dc;
->  	struct dc_link *link =3D dc_get_link_at_index(dc, link_index);
->  	int res;
-> +	struct drm_encoder *encoder;
-> +
-> +	encoder =3D drmm_plain_encoder_alloc(&dm->adev->ddev, NULL,
-> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
-> +	if (IS_ERR(encoder))
-> +		return PTR_ERR(encoder);
-> +
-> +	drm_encoder_helper_add(encoder, &amdgpu_dm_wb_encoder_helper_funcs);
-> +
-> +	encoder->possible_crtcs =3D amdgpu_dm_get_encoder_crtc_mask(dm->adev);
+> @@ -2621,7 +2622,7 @@ static int amdgpu_dm_initialize_drm_device(struct a=
+mdgpu_device *adev)
+>  		link =3D dc_get_link_at_index(dm->dc, i);
 > =20
->  	wbcon->link =3D link;
+>  		if (link->connector_signal =3D=3D SIGNAL_TYPE_VIRTUAL) {
+> -			struct amdgpu_dm_wb_connector *wbcon =3D kzalloc_obj(*wbcon);
+> +			struct amdgpu_dm_wb_connector *wbcon =3D drmm_kzalloc_obj(adev_to_drm=
+(adev), *wbcon);
 > =20
->  	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_f=
-uncs);
+>  			if (!wbcon) {
+>  				drm_err(adev_to_drm(adev), "KMS: Failed to allocate writeback connec=
+tor\n");
+> @@ -2630,7 +2631,6 @@ static int amdgpu_dm_initialize_drm_device(struct a=
+mdgpu_device *adev)
 > =20
-> -	res =3D drm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
-> +	res =3D drmm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
->  					    &amdgpu_dm_wb_connector_funcs,
-> -					    &amdgpu_dm_wb_encoder_helper_funcs,
-> +					    encoder,
->  					    amdgpu_dm_wb_formats,
-> -					    ARRAY_SIZE(amdgpu_dm_wb_formats),
-> -					    amdgpu_dm_get_encoder_crtc_mask(dm->adev));
-> +					    ARRAY_SIZE(amdgpu_dm_wb_formats));
+>  			if (amdgpu_dm_wb_connector_init(dm, wbcon, i)) {
+>  				drm_err(adev_to_drm(adev), "KMS: Failed to initialize writeback conn=
+ector\n");
+> -				kfree(wbcon);
+>  				continue;
+>  			}
 
-[Severity: Medium]
-Can this conversion to drmm_writeback_connector_init() cause a use-after-fr=
-ee
-in the KUnit tests during DRM device teardown?
+[ ... ]
 
-In the KUnit test dm_test_wb_connector_init_success(), the mock DRM device =
-is
-allocated via dm_kunit_alloc_adev() (which registers a KUnit cleanup action=
-).
-The test object wbcon is then allocated using kunit_kzalloc():
+>  	return 0;
+>  fail:
+>  	kfree(aencoder);
+>  	kfree(aconnector);
 
-	wbcon =3D kunit_kzalloc(test, sizeof(*wbcon), GFP_KERNEL);
-	KUNIT_ASSERT_NOT_NULL(test, wbcon);
+[Severity: High]
+This isn't a bug introduced by this patch, but could this error path lead t=
+o a
+use-after-free and double-free?
 
-	ret =3D amdgpu_dm_wb_connector_init(dm, wbcon, 0);
+If amdgpu_dm_encoder_init() succeeds, it registers aencoder into the
+device's encoder list. If a failure occurs later (for example, in
+amdgpu_dm_connector_init() or when registering IRQ handlers), the code jumps
+to the fail label and unconditionally calls kfree(aencoder) without
+unregistering it.
 
-Because KUnit cleanup actions run in LIFO order, when the test completes, it
-first frees wbcon via kfree(), and then tears down the mock DRM device.
+Additionally, if an allocation fails in a subsequent loop iteration:
 
-The device teardown triggers the drmm cleanup action registered by this pat=
-ch
-(drm_writeback_connector_cleanup), which will dereference the already-freed
-wbcon to lock job_lock and iterate job_queue.
+		aconnector =3D kzalloc_obj(*aconnector);
+		if (!aconnector)
+			goto fail;
+
+The aencoder pointer still holds the successfully registered object from
+the previous iteration, which is then erroneously freed again.
+
+When the device initialization fails, the DRM subsystem tears down the devi=
+ce
+via drm_mode_config_cleanup(), which iterates over the encoder and connector
+lists and calls their destroy callbacks. These callbacks will dereference t=
+he
+previously freed memory (use-after-free) and call kfree() on it again
+(double-free).
+
+Would it be safer to update this error path to clean up properly, or perhaps
+use drmm_ managed allocations for these objects as well?
+
+>
+>  	return -EINVAL;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723003205.3303=
-62-1-John.Harrison@Igalia.com?part=3D3
+62-1-John.Harrison@Igalia.com?part=3D2
