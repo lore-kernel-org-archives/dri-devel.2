@@ -4,44 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4329C4453A
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 02:03:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3270FC4453A
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 02:11:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B2C910EF6D;
-	Thu, 23 Jul 2026 02:03:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EC9810EF70;
+	Thu, 23 Jul 2026 02:11:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SiY8AvMQ";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Gljd2ual";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1329610EF6B
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 02:03:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D79674016F;
- Thu, 23 Jul 2026 02:03:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 855E71F000E9;
- Thu, 23 Jul 2026 02:03:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784772185;
- bh=kA7TMm+teipmpEZ5zXaVHPPX7z1kcuu2iCf1aojp8Eg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SiY8AvMQIJ0dXt91j8tNFeH2yWmqWCQyxUtx1rhmKQ3arAQKgL7XqwrnKUash8Rws
- y60Pn+sEkHu3PlOpj8CotM4Jj8vmrZ3RiYxtsIm51KPXIsq3+i7Wu/LuaEU916CEUa
- IRlJw1yfTjsra/KplPhuCY8+HgGVe8ODMxAkM6tcwA4oEyxWUSXNea4n+ZSqgj9wvu
- 1jsV7SmEmi3kxRExF5MPXJjlCRTfMDcVHLGKj/ZKsMA9t0T2i9ag344Bb0qQ9SQ7Ox
- R6Mq2LpiIEP0ffz/F//JeQWkxfjNw0+PwvVPlk0Hqz3qU8XM4SyfZCjhChMC3/P9F7
- iaV+jNFdo15fg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 55/61] drm/tests: hdmi_state_helper: Convert to
- drmm_connector_hdmi_init()
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-55-4fb12ea22ac9@collabora.com>
-References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
- <20260723-dw-hdmi-qp-scramb-v9-55-4fb12ea22ac9@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 02:03:05 +0000
-Message-Id: <20260723020305.855E71F000E9@smtp.kernel.org>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4C3910EF7A
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 02:11:24 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2BBD045036;
+ Thu, 23 Jul 2026 02:11:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 90FA2C4AF18;
+ Thu, 23 Jul 2026 02:11:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+ t=1784772682; bh=GfenyU+iQ7LfW2CcQt+3A3S0sIo6Xlatlci9hGheLLA=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=Gljd2ualOMT0jKmDJHBOAx9JYGYu/9M0rzmeMoD7wxaj0quiTHVArJ2Iw+io472eI
+ WLZEvJxIpyC/z8r/xtywO2nxV3TytdQZMMqLjUsmjuYs1toFlMEwBN4VzQJTWAnqkX
+ Rga3StXCWVopO/Ca1tl7K+Ot4yUVj3fd8C+wSImo=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 77F0DC531C9;
+ Thu, 23 Jul 2026 02:11:22 +0000 (UTC)
+From: Alvin Sun <alvin.sun@linux.dev>
+Date: Thu, 23 Jul 2026 10:10:27 +0800
+Subject: [PATCH v9 04/10] rust: macros: auto-insert OwnerModule in
+ #[vtable]
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260723-fix-fops-owner-v9-4-c1c3af7f7bcb@linux.dev>
+References: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
+In-Reply-To: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, 
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+ Igor Korotin <igor.korotin@linux.dev>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784772679; l=4626;
+ i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
+ bh=GfenyU+iQ7LfW2CcQt+3A3S0sIo6Xlatlci9hGheLLA=;
+ b=IFAmI0CbKm/Jd7mf1yJUeJdyA+TI3CZv5Fo1grMCqGgc4X06NczK8OigT7qDtk4FRIrqc+ju5
+ 4VX2TaBAbMfBEX8fRFS9A+hCeSPc2Aiz+HpUNeQy8+x6AOdVcVOhWoq
+X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
+ auth_id=684
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,84 +91,122 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Stack-allocated `drm_connector_hdmi_funcs` struct is stored as a=
- pointer in a KUnit-managed DRM connector, creating a dangling pointer.
---
+Auto-add `type OwnerModule: ::kernel::ModuleMetadata;` as a required
+associated type on the trait side if not already defined, and
+auto-insert `type OwnerModule = crate::LocalModule;` on the impl side
+if not explicitly provided, eliminating the need to manually declare
+and implement `OwnerModule` in every vtable trait and impl.
 
---- Patch [55]: [PATCH v9 55/61] drm/tests: hdmi_state_helper: Convert to d=
-rmm_connector_hdmi_init() ---
-commit d347c36729856832cc090215d18711ccc7662d1d
-Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Assisted-by: opencode:glm-5.2
+Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+Suggested-by: Gary Guo <gary@garyguo.net>
+Link: https://lore.kernel.org/all/DIMMWHUOLPSH.13JFRHDKDQJGO@garyguo.net
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Acked-by: Danilo Krummrich <dakr@kernel.org>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+---
+ rust/macros/lib.rs    |  6 ++++++
+ rust/macros/vtable.rs | 41 ++++++++++++++++++++++++++++++++++++-----
+ 2 files changed, 42 insertions(+), 5 deletions(-)
 
-drm/tests: hdmi_state_helper: Convert to drmm_connector_hdmi_init()
+diff --git a/rust/macros/lib.rs b/rust/macros/lib.rs
+index 2cfd59e0f9e7c..bc7ded353c5ca 100644
+--- a/rust/macros/lib.rs
++++ b/rust/macros/lib.rs
+@@ -176,6 +176,12 @@ pub fn module(input: TokenStream) -> TokenStream {
+ ///
+ /// This macro should not be used when all functions are required.
+ ///
++/// Additionally, this macro automatically handles the `OwnerModule`
++/// associated type: on the trait side, `type OwnerModule: ModuleMetadata;`
++/// is added as a required associated type if not already defined; on the
++/// impl side, `type OwnerModule = LocalModule;` is automatically inserted
++/// if not explicitly defined.
++///
+ /// # Examples
+ ///
+ /// ```
+diff --git a/rust/macros/vtable.rs b/rust/macros/vtable.rs
+index c6510b0c4ea1d..be9a5ed8abe5e 100644
+--- a/rust/macros/vtable.rs
++++ b/rust/macros/vtable.rs
+@@ -30,6 +30,22 @@ fn handle_trait(mut item: ItemTrait) -> Result<ItemTrait> {
+          const USE_VTABLE_ATTR: ();
+     });
+ 
++    // Add `type OwnerModule: ModuleMetadata` as a required associated type if
++    // the trait does not already define it.
++    if !item
++        .items
++        .iter()
++        .any(|i| matches!(i, TraitItem::Type(t) if t.ident == "OwnerModule"))
++    {
++        gen_items.push(parse_quote! {
++            /// The module implementing this vtable trait.
++            ///
++            /// Automatically set to `crate::LocalModule` by the `#[vtable]`
++            /// impl macro.
++            type OwnerModule: ::kernel::ModuleMetadata;
++        });
++    }
++
+     for item in &item.items {
+         if let TraitItem::Fn(fn_item) = item {
+             let name = &fn_item.sig.ident;
+@@ -57,12 +73,18 @@ fn handle_trait(mut item: ItemTrait) -> Result<ItemTrait> {
+ 
+ fn handle_impl(mut item: ItemImpl) -> Result<ItemImpl> {
+     let mut gen_items = Vec::new();
+-    let mut defined_consts = HashSet::new();
++    let mut defined_items = HashSet::new();
+ 
+-    // Iterate over all user-defined constants to gather any possible explicit overrides.
++    // Iterate over all user-defined items to gather any possible explicit overrides.
+     for item in &item.items {
+-        if let ImplItem::Const(const_item) = item {
+-            defined_consts.insert(const_item.ident.clone());
++        match item {
++            ImplItem::Const(const_item) => {
++                defined_items.insert(const_item.ident.clone());
++            }
++            ImplItem::Type(type_item) => {
++                defined_items.insert(type_item.ident.clone());
++            }
++            _ => {}
+         }
+     }
+ 
+@@ -70,6 +92,15 @@ fn handle_impl(mut item: ItemImpl) -> Result<ItemImpl> {
+         const USE_VTABLE_ATTR: () = ();
+     });
+ 
++    // Auto-insert `type OwnerModule = crate::LocalModule` if not explicitly defined.
++    // `crate::LocalModule` resolves to the real module type (via `module!`) or a
++    // dummy fallback in non-module contexts (e.g., doctests).
++    if !defined_items.contains(&parse_quote!(OwnerModule)) {
++        gen_items.push(parse_quote! {
++            type OwnerModule = crate::LocalModule;
++        });
++    }
++
+     for item in &item.items {
+         if let ImplItem::Fn(fn_item) = item {
+             let name = &fn_item.sig.ident;
+@@ -78,7 +109,7 @@ fn handle_impl(mut item: ItemImpl) -> Result<ItemImpl> {
+                 name.span(),
+             );
+             // Skip if it's declared already -- this allows user override.
+-            if defined_consts.contains(&gen_const_name) {
++            if defined_items.contains(&gen_const_name) {
+                 continue;
+             }
+             let cfg_attrs = crate::helpers::gather_cfg_attrs(&fn_item.attrs);
 
-This commit updates the HDMI state helper tests to use the new
-drmm_connector_hdmi_init() signature. The previously explicit arguments
-for vendor, product, formats, and bpc are now wrapped inside a
-drm_connector_hdmi_funcs structure instead of being passed as discrete
-arguments.
+-- 
+2.43.0
 
-> diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers=
-/gpu/drm/tests/drm_hdmi_state_helper_test.c
-> --- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-> +++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-> @@ -883,6 +874,7 @@ static void drm_test_check_broadcast_rgb_limited_cea_=
-mode_vic_1(struct kunit *te
->   */
->  static void drm_test_check_broadcast_rgb_cea_mode_yuv420(struct kunit *t=
-est)
->  {
-> +	struct drm_connector_hdmi_funcs hdmi_funcs =3D dummy_connector_hdmi_fun=
-cs;
->  	struct drm_atomic_helper_connector_hdmi_priv *priv;
->  	enum drm_hdmi_broadcast_rgb broadcast_rgb;
->  	struct drm_modeset_acquire_ctx ctx;
-> @@ -895,12 +887,11 @@ static void drm_test_check_broadcast_rgb_cea_mode_y=
-uv420(struct kunit *test)
->  	int ret;
-> =20
->  	broadcast_rgb =3D *(enum drm_hdmi_broadcast_rgb *)test->param_value;
-> +	hdmi_funcs.supported_formats =3D BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
-> +				       BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
-> =20
->  	priv =3D drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-> -				BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
-> -				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420),
-> -				8,
-> -				&dummy_connector_hdmi_funcs,
-> +				&hdmi_funcs,
->  				test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
->  	KUNIT_ASSERT_NOT_NULL(test, priv);
 
-[Severity: Medium]
-Could this lead to a use-after-scope bug during test cleanup?
-
-A local stack variable hdmi_funcs is allocated here and its address is
-passed into drm_kunit_helper_connector_hdmi_init_with_edid_funcs(). Under
-the hood, drmm_connector_hdmi_init() in drivers/gpu/drm/drm_connector.c
-stores this pointer directly without copying the structure:
-
-drmm_connector_hdmi_init() {
-    ...
-    connector->hdmi.funcs =3D hdmi_funcs;
-    ...
-}
-
-Because the connector is KUnit-managed and outlives the test function,
-the hdmi.funcs pointer will become a dangling pointer as soon as the
-test returns. If KUnit cleanup or any deferred teardown tasks attempt to
-access this pointer later, it could result in memory corruption or KASAN
-splats.
-
-This same pattern appears to be repeated in numerous other tests introduced
-by this patch, such as drm_test_check_output_bpc_crtc_mode_changed().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-dw-hdmi-qp=
--scramb-v9-0-4fb12ea22ac9@collabora.com?part=3D55
