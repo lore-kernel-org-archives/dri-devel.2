@@ -4,43 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B5F8C531CA
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 11:39:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55DD0C531CF
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 11:56:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5351110E57A;
-	Thu, 23 Jul 2026 11:39:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD3110E583;
+	Thu, 23 Jul 2026 11:56:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VjFR9/yy";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="StdM88VO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5876710E57A
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 11:39:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CBDA640C3A;
- Thu, 23 Jul 2026 11:39:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79C951F000E9;
- Thu, 23 Jul 2026 11:39:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784806792;
- bh=hb1H31aETczk+Uno+nMEjNd1CiZc+MyC+tHcnqxd2XQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VjFR9/yyjR60ktOlzYDGAPvnU5EZvDSmu1FzxhNdycufk0quGZDB5iFsoG78MfQp2
- FHw8IdmNHooih7gaJHRagdFS5QX+27SsFRVOMJzft4Wdfo6yo90jhVi1tITTXon6pa
- lvo18uZL4vMOHICRqfDx4Ni9zImJ7movOwVrBCqqknQqGGn4cxMkSRhmPvqrcgYg7P
- PpxRlJhYbSx73WWV0vj5MqyEoM8PYgFwo1Bycz39kYtBjqfA0Fpi6yG18+iECsHkwo
- giiEHUIi+avXUrObvGL4h4LESDznjWm4qhyH8+bZ6LhzoLdPs8pml/gMpMdZxyCR8p
- rt4tb7o1LXmJQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/5] drm/i915/gem: Remove iterator and use while loop
-To: "Krzysztof Karas" <krzysztof.karas@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723102542.3245495-6-krzysztof.karas@intel.com>
-References: <20260723102542.3245495-1-krzysztof.karas@intel.com>
- <20260723102542.3245495-6-krzysztof.karas@intel.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A394F10E583
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 11:56:32 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4h5V2h6GJWzKpmh;
+ Thu, 23 Jul 2026 13:56:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1784807788; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=m3/0YSZYQzDgQyuA6SQ6Ur7WoM1y3Eq+jlVzjnL0T7c=;
+ b=StdM88VOL0qKMar551fpvZ4V8Ra4MhAyAJnN/U1PArk+62n3lTwyHwRSOL8Ir/L561oVss
+ Qq7WBQHYut/4lTneTkg0IPPgW7Or5hKUZDZWgQqM45fHdSlQ6e1vXrrmTJ0sArXgtlEjDu
+ RJRzTjpt4uflj+tAzuDTIRp2/QqDCyo7eMVo04X7grMdfr1AKQuXY/YNtTy64RL/rprZ6K
+ AznFIIgCWu7PIzVtau7TxEVbpUgIMq6whmYSHbgzKMuo6bjWkm9ZSj20mGD7o2MMgI4qN+
+ cCFPqAZp+KO28Mhxk73e9/Skz0+3qs2yXbzUrMrNwhkQXQGaa6CyZDrSXWf/Kg==
+Message-ID: <73981717a8a609013eaca197a41a741c52bff44d.camel@mailbox.org>
+Subject: Re: [PATCH v6 2/6] rust: error: Add ECANCELED error code
+From: Philipp Stanner <phasta@mailbox.org>
+To: Timur Tabi <ttabi@nvidia.com>, "qiang.zhang@linux.dev"	
+ <qiang.zhang@linux.dev>, "josh@joshtriplett.org" <josh@joshtriplett.org>, 
+ Joel Fernandes <joelagnelf@nvidia.com>,
+ "delcastillodelarosadaniel@gmail.com"	
+ <delcastillodelarosadaniel@gmail.com>, "a.hindborg@kernel.org"	
+ <a.hindborg@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Eliot
+ Courtney <ecourtney@nvidia.com>, "adzicmirko97@gmail.com"
+ <adzicmirko97@gmail.com>,  "alistair.francis@wdc.com"	
+ <alistair.francis@wdc.com>, "ojeda@kernel.org" <ojeda@kernel.org>, 
+ "sumit.semwal@linaro.org"	 <sumit.semwal@linaro.org>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>, 
+ "yury.norov@gmail.com"	 <yury.norov@gmail.com>, "tmgross@umich.edu"
+ <tmgross@umich.edu>,  "frederic@kernel.org"	 <frederic@kernel.org>,
+ "aliceryhl@google.com" <aliceryhl@google.com>, 
+ "daniel.almeida@collabora.com"	 <daniel.almeida@collabora.com>,
+ "boqun@kernel.org" <boqun@kernel.org>,  "lossin@kernel.org"	
+ <lossin@kernel.org>, "bjorn3_gh@protonmail.com" <bjorn3_gh@protonmail.com>,
+ "neeraj.upadhyay@kernel.org"	 <neeraj.upadhyay@kernel.org>,
+ "paulmck@kernel.org" <paulmck@kernel.org>,  "phasta@kernel.org"	
+ <phasta@kernel.org>, "rostedt@goodmis.org" <rostedt@goodmis.org>, 
+ "dakr@kernel.org"	 <dakr@kernel.org>, "tamird@kernel.org"
+ <tamird@kernel.org>,  "gregkh@linuxfoundation.org"	
+ <gregkh@linuxfoundation.org>, "lyude@redhat.com" <lyude@redhat.com>, 
+ "lina+kernel@asahilina.net"	 <lina+kernel@asahilina.net>, "ljs@kernel.org"
+ <ljs@kernel.org>,  "mathieu.desnoyers@efficios.com"	
+ <mathieu.desnoyers@efficios.com>, "work@onurozkan.dev"
+ <work@onurozkan.dev>,  "urezki@gmail.com"	 <urezki@gmail.com>,
+ "gary@garyguo.net" <gary@garyguo.net>,  "jiangshanlai@gmail.com"	
+ <jiangshanlai@gmail.com>, "fujita.tomonori@gmail.com"	
+ <fujita.tomonori@gmail.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-media@vger.kernel.org"	 <linux-media@vger.kernel.org>,
+ "linaro-mm-sig@lists.linaro.org"	 <linaro-mm-sig@lists.linaro.org>,
+ "rcu@vger.kernel.org" <rcu@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
+ "rust-for-linux@vger.kernel.org"	 <rust-for-linux@vger.kernel.org>
+Date: Thu, 23 Jul 2026 13:56:15 +0200
+In-Reply-To: <fdcff2949180fa40d0605866fcb306781ddae4cf.camel@nvidia.com>
+References: <20260722144931.1070312-2-phasta@kernel.org>
+ <20260722144931.1070312-4-phasta@kernel.org>
+ <fdcff2949180fa40d0605866fcb306781ddae4cf.camel@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 11:39:51 +0000
-Message-Id: <20260723113952.79C951F000E9@smtp.kernel.org>
+MIME-Version: 1.0
+X-MBO-RS-META: 1wph3j35gedcc8zuwpiwyyaxym5kdm86
+X-MBO-RS-ID: a53eb3e66d41100d98c
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,101 +96,31 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Wed, 2026-07-22 at 18:38 +0000, Timur Tabi wrote:
+> On Wed, 2026-07-22 at 16:49 +0200, Philipp Stanner wrote:
+> > The Rust dma_fence abstractions need the ECANCELED error code.
+> >=20
+> > Add ECANCELED error code.
+> >=20
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> > Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
+>=20
+> No need for this, all remaining codes are being added via
+>=20
+> https://lore.kernel.org/rust-for-linux/20260629183022.2709524-1-ttabi@nvi=
+dia.com/
+>=20
+> Please pick up that patch instead.
 
-New issues:
-- [High] Flawed scatterlist length overflow check bypasses overflow protect=
-ion, causing IOVA truncation and IOMMU page table corruption.
+Ok, pulled it in my local branch for now, thx for the heads-up.
 
-Pre-existing issues:
-- [High] Pre-existing memory leak in `shmem_sg_alloc_table` error path when=
- scatterlist allocation fails after adding one or more folios to the first =
-segment.
---
-
---- Patch [5]: [PATCH v4 5/5] drm/i915/gem: Remove iterator and use while l=
-oop ---
-commit 08123ce95aacd0e0eea7518e3cd7a5c53bd75933
-Author: Krzysztof Karas <krzysztof.karas@intel.com>
-
-drm/i915/gem: Remove iterator and use while loop
-
-This commit refactors the main loop in shmem_sg_alloc_table to use a while
-loop instead of a for loop. It replaces the iterator with a variable tracki=
-ng
-the completed pages.
-
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
-i915/gem/i915_gem_shmem.c
-> index ac8022997553b..f8fe5e3a4eb40 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-[ ... ]
-> @@ -223,7 +223,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i91=
-5, struct sg_table *st,
->  		 * and predict where the next folio begins.
->  		 */
->  		next_pfn =3D folio_pfn(folio) + folio_page_index + nr_pages;
-> -		i +=3D nr_pages - 1;
-> +		pages_done +=3D nr_pages;
-> =20
->  		/* Check that the i965g/gm workaround works. */
->  		GEM_BUG_ON(gfp & __GFP_DMA32 && next_pfn >=3D 0x00100000UL);
-
-[Severity: High]
-This is a pre-existing issue, but does this error path leak folios if we fa=
-il
-while sg =3D=3D st->sgl?
-
-Looking at shmem_sg_alloc_table() in drivers/gpu/drm/i915/gem/i915_gem_shme=
-m.c:
-
-err_sg:
-    sg_mark_end(sg);
-    if (sg !=3D st->sgl) {
-        shmem_sg_free_table(st, mapping, false, false);
-    } else {
-        mapping_clear_unevictable(mapping);
-        sg_free_table(st);
-    }
-
-If the scatterlist allocation fails after adding one or more folios to the
-first segment, we jump to err_sg. At this point, no second scatterlist
-segment was created, so sg still points to st->sgl.
-
-The condition sg !=3D st->sgl evaluates to false, causing us to skip
-shmem_sg_free_table(). Does this mean the folios placed in the first segment
-are never released, resulting in a memory leak under memory pressure?
+I see that your patch is from June. If it lands in drm-rust-next
+soonish I'd simply rebase.
 
 
-[Severity: High]
-Can the overflow check be bypassed in iommu_dma_map_sg() within
-drivers/iommu/dma-iommu.c?
-
-iommu_dma_map_sg() {
-    ...
-    if ((s_length & UINT_MAX) =3D=3D 0) {
-        /* Prevent possible wrapping upon assignment to s->length. */
-        ret =3D -EOVERFLOW;
-        goto out_restore_sg;
-    }
-    ...
-}
-
-If a caller maps a buffer larger than 4GB where the alignment calculation
-causes s_length + s_iova_off to exceed UINT_MAX, but the lower 32 bits of
-the aligned size are non-zero (for example, 0x100010000 with 64KB granules),
-the bitwise check evaluates to false.
-
-Does this bypass the intended overflow detection, causing iommu_map_sg() to
-map a truncated number of bytes and potentially leading to unmapped IOVAs
-remaining accessible via DMA?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723102542.3245=
-495-1-krzysztof.karas@intel.com?part=3D5
+Regards
+P.
