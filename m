@@ -4,44 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53625C531CB
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 11:26:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89E2AC531CF
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 11:26:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF19C10E558;
-	Thu, 23 Jul 2026 11:26:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E88F010F096;
+	Thu, 23 Jul 2026 11:26:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m5Swv6Sk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QUCKY8M9";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAAD510E558
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 11:26:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 93AEB415FE;
- Thu, 23 Jul 2026 11:26:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42E4B1F000E9;
- Thu, 23 Jul 2026 11:26:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784805968;
- bh=ndCO3J50W2pXUvntTE4rVIi48p72YCEo+7MA4V698rQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=m5Swv6SkCW2FUeRV8d4XJbwP97OHEwzFcb7Gc70gWX9n13Gup8UvPi1w/B5MdCJIN
- iZvOcLBXKa15uLeLBQjOAJvHif3I/ijQ6z5j/GjnlwJ5h/KoM4gP3xdVMESwSUFg0q
- f0Iwg6cLNgho7bWweQ/00RCgkgCnEWp/nEcq7Iwj/Hh52HcVR1bYUEz4/UrqsB9moW
- FLva5TCM5kfkWcuTmu/kuHcMNnrANYcem0RoV6ho+UDku2ErsFFNhEYvInjNs9x7bi
- Xik2Dy94wzII68BtCx8v96A5qzJ7IpAjlWpj7KEHGtQ5WRrOhGYt+s5jhc+Mifx/ei
- mSLh2eJFkV3BA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/5] drm/i915/gem: Read and shrink memory in a
- separate function
-To: "Krzysztof Karas" <krzysztof.karas@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723102542.3245495-5-krzysztof.karas@intel.com>
-References: <20260723102542.3245495-1-krzysztof.karas@intel.com>
- <20260723102542.3245495-5-krzysztof.karas@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 11:26:07 +0000
-Message-Id: <20260723112608.42E4B1F000E9@smtp.kernel.org>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B0CB10F096
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 11:26:29 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 539DA40F13;
+ Thu, 23 Jul 2026 11:26:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 24753C2BCB8;
+ Thu, 23 Jul 2026 11:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1784805989;
+ bh=0YihQE3yREOQU/G6DN7iPIXNkMJ2/jzY9GD/PjwLqj4=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=QUCKY8M97EhnXz+xaVSo0VGjX8BgE3NZJ9JRmIx7sjAhTSHeRCSsXme8Sh13fHGG6
+ KOgPPUQ65fkDE3zm2uFMjt+g1V8ToRuwG52SHkSvcenDWVBPI8nlfeBZVimRYFXO4B
+ RnIiQZf/leMGeaXvHs0M8pwx9bhwBCFf/nU+eWdYrnJ5Kk3pQiD6LQCZBYpVmN8eYF
+ gao6NIM7/8Y8Isqp56eSSnWfI1K6aQM6p3+haiJvUIUpK0qq2Sqw8VAc4MM1nmCgoF
+ ebfShUaIKzqqLQHGVvsPunhJgEVN2ZM/PcsnAKHhv8C9aGvCwrkYFGCSgvPJ7TXAUm
+ /y3v7++6HV74Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id EDEC4C531D0;
+ Thu, 23 Jul 2026 11:26:28 +0000 (UTC)
+From: Alexandre Hamamdjian via B4 Relay
+ <devnull+azkali.limited.gmail.com@kernel.org>
+Subject: [PATCH 0/2] drm/panel: st7703: add AYANEO Pocket DS lower panel
+Date: Thu, 23 Jul 2026 18:26:27 +0700
+Message-Id: <20260723-b4-st7703-pocketds-lower-v1-0-e3db246589f4@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw7CIBBG4VdpZu0kSFFSX8W4EPjVUVMaBi9J0
+ 3cXdfktzplJUQRKu26mgqeo5LFhveooXo7jGSypmayxW+Ntz8GxVu9Nz1OON9SkfM8vFLYpOPi
+ NG2IYqOVTwUnev/X+8Lc+whWxfn+0LB+oEoAzfAAAAA==
+X-Change-ID: 20260723-b4-st7703-pocketds-lower-2db4e7549cb9
+To: =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ Purism Kernel Team <kernel@puri.sm>, Ondrej Jirman <megi@xff.cz>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Alexandre Hamamdjian <azkali.limited@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784805987; l=1180;
+ i=azkali.limited@gmail.com; s=20260510; h=from:subject:message-id;
+ bh=0YihQE3yREOQU/G6DN7iPIXNkMJ2/jzY9GD/PjwLqj4=;
+ b=cQWbm4igXYqt20625hB3hQDnDAefEE+ACUtQUF4iJQQd2chCAI9Nmlg1a/CsVD0Irx5Y6rTFy
+ DvL11Q8ZdZwCQGuQaTejd91EdssAya14OiqrZ4ga49iMhkkEGOGNIJp
+X-Developer-Key: i=azkali.limited@gmail.com; a=ed25519;
+ pk=I0Z0IdCdQJqNGX+FQUnXhrHg950u3cM6Xzz3YT6JOyQ=
+X-Endpoint-Received: by B4 Relay for azkali.limited@gmail.com/20260510 with
+ auth_id=774
+X-Original-From: Alexandre Hamamdjian <azkali.limited@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,88 +81,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: azkali.limited@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+The AYANEO Pocket DS is a dual-screen Qualcomm QCS8550 handheld. Its
+lower (secondary) 5.0" 1024x768 4:3 IPS panel is driven by a Sitronix
+ST7703 DDIC: every opcode in the vendor init sequence maps 1:1 to the
+ST7703_CMD_* command set (SETEXTC 0xB9 with the canonical F1 12 key,
+and SETMIPI/SETRGBIF/SETPOWER/SETGIP payloads near-identical to the
+already-supported Powkiddy RGB10MAX3), so add it to the existing
+sitronix-st7703 driver and its binding rather than a standalone driver.
 
-Pre-existing issues:
-- [High] Memory leak on error path in `shmem_sg_alloc_table` when failing t=
-o allocate after populating exactly one scatterlist entry.
---
+Tested on a Pocket DS: the panel initialises at 768x1024@60 and both
+screens are active.
 
---- Patch [4]: [PATCH v4 4/5] drm/i915/gem: Read and shrink memory in a sep=
-arate function ---
-commit 5dd680cf1299c10f0034b5b2b67f54aa39eb638d
-Author: Krzysztof Karas <krzysztof.karas@intel.com>
+Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
+---
+Alexandre Hamamdjian (2):
+      dt-bindings: display: Add AYANEO Pocket DS lower panel
+      drm/panel: st7703: Add AYANEO Pocket DS Lower Panel Support
 
-drm/i915/gem: Read and shrink memory in a separate function
+ .../display/panel/rocktech,jh057n00900.yaml        |  2 +
+ drivers/gpu/drm/panel/panel-sitronix-st7703.c      | 96 ++++++++++++++++++++++
+ 2 files changed, 98 insertions(+)
+---
+base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+change-id: 20260723-b4-st7703-pocketds-lower-2db4e7549cb9
 
-This commit extracts the page reading and memory shrinking logic from
-shmem_sg_alloc_table() into a new helper function shmem_shrink_get_folio().
-It also removes a loop, noting that multiple shrink calls do not provide
-additional benefits.
+Best regards,
+--  
+Alexandre Hamamdjian <azkali.limited@gmail.com>
 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
-i915/gem/i915_gem_shmem.c
-> index f35b7efa1fc23..ac8022997553b 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
 
-[ ... ]
-
-> @@ -119,57 +169,16 @@ int shmem_sg_alloc_table(struct drm_i915_private *i=
-915, struct sg_table *st,
->  	for (i =3D 0; i < page_count; i++) {
->  		unsigned long folio_page_index =3D 0;
->  		unsigned long nr_pages;
-> -		const unsigned int shrink[] =3D {
-> -			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
-> -			0,
-> -		}, *s =3D shrink;
->  		gfp_t gfp =3D noreclaim;
-> =20
->  		/* Grab the next folio if we exhausted the current one. */
->  		if (!i || i > folio_end) {
-> -			do {
-
-[ ... ]
-
-> +			folio =3D shmem_shrink_get_folio(mapping, i, gfp,
-> +						       page_count, i915);
-> +			if (IS_ERR(folio)) {
-> +				ret =3D PTR_ERR(folio);
-> +				goto err_sg;
-> +			}
-
-[Severity: High]
-This is a pre-existing issue, but does this error path leak memory if the
-allocation fails after exactly one scatterlist entry is populated?
-
-Looking at the error handling for shmem_sg_alloc_table in
-drivers/gpu/drm/i915/gem/i915_gem_shmem.c:
-
-err_sg:
-	sg_mark_end(sg);
-	if (sg !=3D st->sgl) {
-		shmem_sg_free_table(st, mapping, false, false);
-	} else {
-		mapping_clear_unevictable(mapping);
-		sg_free_table(st);
-	}
-
-If a folio is successfully allocated and added to the first scatterlist
-entry, but the loop fails on a subsequent iteration before sg is advanced
-with sg_next(), sg will still equal st->sgl.
-
-When we jump to err_sg under this condition, the code skips calling
-shmem_sg_free_table and only frees the scatterlist structure via
-sg_free_table. Could this bypass the reference count decrements for the
-folios already added to the first scatterlist entry, causing a permanent
-leak during memory exhaustion?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723102542.3245=
-495-1-krzysztof.karas@intel.com?part=3D4
