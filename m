@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A1A3C44536
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:48:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4320DC44536
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:48:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E109510EF49;
-	Thu, 23 Jul 2026 01:48:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F85610EF4D;
+	Thu, 23 Jul 2026 01:48:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cvi8ctWV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SiDvUf5q";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A42410EF49
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:48:12 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C932010EF4D
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:48:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 83824600AB;
- Thu, 23 Jul 2026 01:48:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9F01F000E9;
- Thu, 23 Jul 2026 01:48:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 22FEC404BC;
+ Thu, 23 Jul 2026 01:48:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D601F000E9;
+ Thu, 23 Jul 2026 01:48:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784771291;
- bh=Fw4Lagvlba1Ufjzo3WhxE1lQumG23VEHtg/nsGZIaG0=;
+ s=k20260515; t=1784771317;
+ bh=UzO6x8bOH730sBsnprJ4tCFfCtAaZNg9hfdjU9RDQ6g=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cvi8ctWVCqQ+cY1ckDa6/oZz6swPc368dRfwWmzqjhHN5XUl+fCSV9d/ShXJreMlE
- wYDFb1145Wd1gst09Dshwj84IWiTy3BonCq1p5U6WdaEocEZhiSvkZPQYs8YEXkaBU
- Qb9EKWzlUxU21Xb2O2K8IrTElPGR6ueG2rtV5FocuzitwLBt0ZfkquaFiYvuIY5aIQ
- NquHqtWqZsmYXNVCQGQYgWUriwQXqhyIMPGrowPigMOFBUUpzq46wNtqAFJqc2g7gO
- S2QTxqNw6GFDC+3Cr6jI7CbfhpGSEYfyt9y9Ik7f/+BzNr/iogJ89BnMd1p1iYfOAA
- NIlZwkVaXN7og==
+ b=SiDvUf5qg537wa5Sm+EUTJsB2bOrI9+sBvlyQb/prRJV2pf8wn3+RdJNQOiemWNqz
+ 0yKUZaFXFIVydjsdJDP6eKedl95RGAqn9oC2BqNwwHGdOgHxqoqLOUPJ5YvQ25Xhqx
+ KenguSs4Q2NXLu14XQ8SaF9CX8aYQI8zhWcjzV1ri3Sb/x3njj7zk0RXsO8Egmdtsf
+ IRNV4oeTRSmc5ZSqPwFDNDo2KpWeavOJ+W+JkRf4vfpHA8HeJll821A1w12MS0EMbo
+ RWJLCFmtn8Ydg6EiPFa/bJkWOup5YU8drPKnnFjHiQOz+6WXtYPBXBAUVab1HYzPQG
+ aI4w2eELRwPZA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 24/61] drm/rockchip: dw_hdmi_qp: Fix NULL deref in PM
- ops on incomplete bind
+Subject: Re: [PATCH v9 25/61] drm/rockchip: dw_hdmi_qp: Add missing newlines
+ in dev_err_probe() messages
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
 Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-24-4fb12ea22ac9@collabora.com>
+In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-25-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
- <20260723-dw-hdmi-qp-scramb-v9-24-4fb12ea22ac9@collabora.com>
+ <20260723-dw-hdmi-qp-scramb-v9-25-4fb12ea22ac9@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 01:48:10 +0000
-Message-Id: <20260723014811.1F9F01F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 01:48:36 +0000
+Message-Id: <20260723014836.C4D601F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,98 +62,75 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Use-After-Free in system-sleep PM callbacks due to dangling dr=
-vdata pointer when component bind fails or unbinds.
+- [High] Dangling pointer in drvdata leads to Use-After-Free during system =
+suspend/resume.
 --
 
---- Patch [24]: [PATCH v9 24/61] drm/rockchip: dw_hdmi_qp: Fix NULL deref i=
-n PM ops on incomplete bind ---
-commit bcecf290cbabd0264ffa7bbd8cb566bf124348f0
+--- Patch [25]: [PATCH v9 25/61] drm/rockchip: dw_hdmi_qp: Add missing newl=
+ines in dev_err_probe() messages ---
+commit 999c1afbb80ca84beaa74359eb4e6c431826da22
 Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm/rockchip: dw_hdmi_qp: Fix NULL deref in PM ops on incomplete bind
+drm/rockchip: dw_hdmi_qp: Add missing newlines in dev_err_probe() messages
 
-The system-sleep PM callbacks fetch the driver state via
-dev_get_drvdata() and dereference it unconditionally. This patch adds
-NULL pointer checks for the drvdata pointer in the suspend and resume
-callbacks. It also sets the hdmi->hdmi pointer to NULL on bind failure.
-
-Closes: https://lore.kernel.org/all/20260702151550.8E14D1F000E9@smtp.kernel=
-.org/
+This commit adds missing trailing newlines to a couple of dev_err_probe()
+calls in dw_hdmi_qp_rockchip_bind().
 
 > diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
 /drm/rockchip/dw_hdmi_qp-rockchip.c
-> index 9c4cf68d79d50..7c9d26d796642 100644
+> index 7c9d26d796642..369f1066dabe8 100644
 > --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
 > +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> @@ -686,9 +686,12 @@ static int dw_hdmi_qp_rockchip_bind(struct device *d=
-ev, struct device *master,
+[ ... ]
+> @@ -681,7 +681,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *de=
+v, struct device *master,
+>  	drm_encoder_helper_add(encoder, &dw_hdmi_qp_rockchip_encoder_helper_fun=
+cs);
+>  	ret =3D drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_TMDS, NU=
+LL);
+>  	if (ret)
+> -		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder");
+> +		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder\n");
+> =20
 >  	platform_set_drvdata(pdev, hdmi);
 > =20
->  	hdmi->hdmi =3D dw_hdmi_qp_bind(pdev, encoder, &plat_data);
-> -	if (IS_ERR(hdmi->hdmi))
-> -		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->hdmi),
-> +	if (IS_ERR(hdmi->hdmi)) {
-> +		ret =3D PTR_ERR(hdmi->hdmi);
-> +		hdmi->hdmi =3D NULL;
-> +		return dev_err_probe(hdmi->dev, ret,
->  				     "Failed to bind dw-hdmi-qp");
-> +	}
+> @@ -689,8 +689,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *de=
+v, struct device *master,
+>  	if (IS_ERR(hdmi->hdmi)) {
+>  		ret =3D PTR_ERR(hdmi->hdmi);
+>  		hdmi->hdmi =3D NULL;
+> -		return dev_err_probe(hdmi->dev, ret,
+> -				     "Failed to bind dw-hdmi-qp");
+> +		return dev_err_probe(hdmi->dev, ret, "Failed to bind dw-hdmi-qp\n");
+>  	}
 
-[Severity: Critical]
-This is a pre-existing issue, but does this error path leave a dangling
-pointer in drvdata?
+[Severity: High]
+This isn't a bug introduced by this patch, but could this lead to a
+use-after-free during system suspend?
 
-Since the hdmi structure is allocated using drmm_kzalloc(), its lifetime is
-tied to the DRM master device. If dw_hdmi_qp_bind() fails, this function
-returns an error and the DRM master tears down, which frees the hdmi pointe=
-r.
+Because hdmi is allocated with drmm_kzalloc(), if dw_hdmi_qp_bind() or
+drm_bridge_connector_init() fails later in this function, the DRM framework
+will automatically free the memory. However, platform_set_drvdata() has
+already stored the pointer, and it is never cleared in the error paths or
+in dw_hdmi_qp_rockchip_unbind().
 
-However, since platform_set_drvdata(pdev, hdmi) was already called, this
-leaves a dangling pointer in drvdata.
+During system suspend, dw_hdmi_qp_rockchip_suspend() fetches this pointer:
 
-Also, dw_hdmi_qp_rockchip_unbind() completes without clearing the drvdata
-pointer, which causes the same dangling pointer when the DRM master is
-destroyed.
+dw_hdmi_qp_rockchip_suspend() {
+        struct rockchip_hdmi_qp *hdmi =3D dev_get_drvdata(dev);
 
-[ ... ]
+        if (hdmi && hdmi->hdmi)
+                dw_hdmi_qp_suspend(dev, hdmi->hdmi);
 
-> @@ -735,12 +739,15 @@ static int __maybe_unused dw_hdmi_qp_rockchip_resum=
-e(struct device *dev)
->  {
->  	struct rockchip_hdmi_qp *hdmi =3D dev_get_drvdata(dev);
+        return 0;
+}
+
+If the pointer was freed, does the if (hdmi && hdmi->hdmi) check operate on
+freed memory?
+
 > =20
-> -	hdmi->ctrl_ops->io_init(hdmi);
-> +	if (hdmi) {
-> +		hdmi->ctrl_ops->io_init(hdmi);
-
-[Severity: Critical]
-This is a pre-existing issue, but does this lead to a Use-After-Free if
-drvdata holds a dangling pointer?
-
-Because the error path in dw_hdmi_qp_rockchip_bind() and the unbind function
-do not clear the drvdata pointer, dev_get_drvdata(dev) can return a non-NULL
-freed pointer.
-
-The if (hdmi) check succeeds on the invalid pointer, and
-hdmi->ctrl_ops->io_init(hdmi) will dereference a function pointer from freed
-memory. Could this lead to arbitrary code execution if the system is suspen=
-ded
-or resumed?
-
-> -	dw_hdmi_qp_resume(dev, hdmi->hdmi);
-> +		if (hdmi->hdmi)
-> +			dw_hdmi_qp_resume(dev, hdmi->hdmi);
-> =20
-> -	if (hdmi->encoder.encoder.dev)
-> -		drm_helper_hpd_irq_event(hdmi->encoder.encoder.dev);
-> +		if (hdmi->encoder.encoder.dev)
-> +			drm_helper_hpd_irq_event(hdmi->encoder.encoder.dev);
-> +	}
-> =20
->  	return 0;
->  }
+>  	connector =3D drm_bridge_connector_init(drm, encoder);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-dw-hdmi-qp=
--scramb-v9-0-4fb12ea22ac9@collabora.com?part=3D24
+-scramb-v9-0-4fb12ea22ac9@collabora.com?part=3D25
