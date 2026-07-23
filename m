@@ -4,49 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E6C9C531CB
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 10:02:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11E29C531C7
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 10:04:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B6AB10F054;
-	Thu, 23 Jul 2026 10:02:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3156510F05B;
+	Thu, 23 Jul 2026 10:04:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="RDh7jmjL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="f8MFlBfK";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55E3B10F054
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 10:02:52 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id B218F1A11A5;
- Thu, 23 Jul 2026 10:02:50 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 86151602B8;
- Thu, 23 Jul 2026 10:02:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D5CFD11C10330; 
- Thu, 23 Jul 2026 12:02:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1784800970; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- in-reply-to:references; bh=PUgVr3xoru84whxS4+qfYYSdvhcNRo2BGQ0ueQFurr4=;
- b=RDh7jmjLz//6vilz+TPdxwKpSpmULC1wyXsKIo8s58UDJRlBjial0BbpkcDcFZjXMYF/WJ
- SjnxCHxRcZ6G0F/9aRjdPm8dfq6TsxdOerzq3N/DZwGw/oDRBToKTx9yVsrZxpAntcHbn1
- yNAlpm+oK3w0sMi+BfwXzOMPLf9AafjqzRbxA8Vq+V2mEwcAKnczPIMBFl3j81M4YutB/w
- KoMilsauvm+tLwh9VxdpHFy9aYVqlQ1530MpSBQjT+utYRwQRvI78Y63UkDzlw+rGXD4GJ
- V0+MKYp0ESGff8pujDhqtPgAeJAksPphp2iAOUUpho9n3mtGfBSZo384Zib8dw==
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 1/2] drm/logicvc: Avoid use-after-free with
- devm_kzalloc()
-Date: Thu, 23 Jul 2026 09:53:49 +0200
-Message-ID: <cV8thpNMTuqGECHamaJsPw@bootlin.com>
-In-Reply-To: <20260722100029.27C861F000E9@smtp.kernel.org>
-References: <20260722-logicvc-uaf-v3-0-f3b2319d58a6@bootlin.com>
- <20260722-logicvc-uaf-v3-1-f3b2319d58a6@bootlin.com>
- <20260722100029.27C861F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF8A110F058;
+ Thu, 23 Jul 2026 10:04:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784801058; x=1816337058;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=/k5TklTHou5l2dBOb2sTQtk7OujtNVKbrhR2IlqNeZ4=;
+ b=f8MFlBfKZy84K7ABB6MgiYi7Os/wJwwvps0L9N47wBXklxyHJZH3YjhE
+ VLIDGeYZ263p0N/V3yQDA4jsKxXDR5Kq/jQSr4foSpnu7oV4nCrE0pjEn
+ YjdlFevwcoUxFPsZaLA7x65Chcy21vhLW6K0vTsGjUl8tmZ7BL44+zXpR
+ 4ePGTR+/HIMV9/dAOXmteapzGsFK3roB/+U7tXdxzaf2YqGYI9asp0XQC
+ LrH1BQRWJQYnMQ6VuaRoXUihOkeh0EydAR/g/lLbkAh/jzd8lYEIjw/cu
+ kCLgepsCqBBUIjtMt6oUt8Lg5CbAwWKHxD2D3z9IRhUR+UROR3M6eX7V3 w==;
+X-CSE-ConnectionGUID: KATnO9dfSt+Sl2SmCoIRcA==
+X-CSE-MsgGUID: /zoggW/CRi6P8sGv9Oe+Qg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="87991833"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="87991833"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2026 03:04:17 -0700
+X-CSE-ConnectionGUID: /jUMWDEQRdmamFTezA5kHQ==
+X-CSE-MsgGUID: JR7PUPQPQTijYEq6o8dobg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="254984847"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO fedora)
+ ([10.245.244.122])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2026 03:04:12 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v8 0/6] Add reclaim to the dmem cgroup controller
+Date: Thu, 23 Jul 2026 12:03:44 +0200
+Message-ID: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartL3BGsdYcRdmZW2Iw6n2zNw";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,130 +82,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---nextPartL3BGsdYcRdmZW2Iw6n2zNw
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Date: Thu, 23 Jul 2026 09:53:49 +0200
-Message-ID: <cV8thpNMTuqGECHamaJsPw@bootlin.com>
-In-Reply-To: <20260722100029.27C861F000E9@smtp.kernel.org>
-MIME-Version: 1.0
+When writing a "max" limit lower than the current usage, the
+existing code silently failed. This series aims to improve
+on that by returning -EBUSY on failure and also attempt
+to synchronously reclaim device memory to push the usage
+under the new max limit to avoid the error.
 
-On Wednesday, 22 July 2026 12:00:28 CEST sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider: - [High] The local variable `bridge` is passed to
-> `drm_of_find_panel_or_bridge()` without initialization, leading to a crash
-> when the function returns an error without setting it. --
-> 
-> --- Patch [1]: [PATCH v3 1/2] drm/logicvc: Avoid use-after-free with
-> devm_kzalloc() --- commit 95ef468f51e9bfed648e230bd616663ec7bac106
-> Author: Romain Gantois <romain.gantois@bootlin.com>
-> 
-> drm/logicvc: Avoid use-after-free with devm_kzalloc()
-> 
-> This commit transitions the panel, CRTC, and encoder objects to DRM-managed
-> allocations. It removes devm_kzalloc usages in order to fix a use-after-free
-> bug.
-> 
-> > diff --git a/drivers/gpu/drm/logicvc/logicvc_interface.c
-> > b/drivers/gpu/drm/logicvc/logicvc_interface.c ---
-> > a/drivers/gpu/drm/logicvc/logicvc_interface.c
-> > +++ b/drivers/gpu/drm/logicvc/logicvc_interface.c
-> > @@ -147,36 +143,35 @@ int logicvc_interface_init(struct logicvc_drm
-> > *logicvc)>
-> > 
-> >  	int encoder_type = logicvc_interface_encoder_type(logicvc);
-> >  	int connector_type = logicvc_interface_connector_type(logicvc);
-> >  	bool native_connector = logicvc_interface_native_connector(logicvc);
-> > 
-> > +	struct drm_bridge *bridge;
-> > +	struct drm_panel *panel;
-> > 
-> >  	int ret;
-> > 
-> > -	interface = devm_kzalloc(dev, sizeof(*interface), GFP_KERNEL);
-> > -	if (!interface) {
-> > -		ret = -ENOMEM;
-> > -		goto error_early;
-> > -	}
-> > -
-> > -	ret = drm_of_find_panel_or_bridge(of_node, 0, 0, &interface-
->drm_panel,
-> > -					  &interface->drm_bridge);
-> > +	ret = drm_of_find_panel_or_bridge(of_node, 0, 0, &panel,
-> > +					  &bridge);
-> > 
-> >  	if (ret == -EPROBE_DEFER)
-> > 
-> > -		goto error_early;
-> 
-> [Severity: High]
-> Are panel and bridge guaranteed to be initialized if this call fails?
-> 
-> When drm_of_find_panel_or_bridge() returns an error like -ENODEV (which
-> is valid for native DVI connectors without an OF graph), it might not
-> initialize these variables. Previously, interface was allocated with
-> devm_kzalloc(), so they were safely initialized to NULL. Now, they are
-> uninitialized stack variables.
-> 
-> > -	ret = drm_encoder_init(drm_dev, &interface->drm_encoder,
-> > -			       &logicvc_encoder_funcs, encoder_type, NULL);
-> > -	if (ret) {
-> > +	interface = drmm_encoder_alloc(drm_dev, struct logicvc_interface,
-> > drm_encoder, +				       NULL, encoder_type, 
-NULL);
-> > +	if (IS_ERR(interface)) {
-> > 
-> >  		drm_err(drm_dev, "Failed to initialize encoder\n");
-> > 
-> > -		goto error_early;
-> > +		return PTR_ERR(interface);
-> > 
-> >  	}
-> > 
-> > +	interface->drm_panel = panel;
-> > +	interface->drm_bridge = bridge;
-> 
-> [Severity: High]
-> Could this assignment cause a crash later during driver initialization?
-> 
-> If drm_of_find_panel_or_bridge() returned -ENODEV, bridge will contain
-> stack garbage. Later in logicvc_interface_init(), the code evaluates
-> if (interface->drm_bridge) and calls drm_bridge_attach(), which would
-> dereference this uninitialized pointer and trigger a kernel panic.
+Patch 1 fixes a pre-existing amdgpu_vram_mgr_init() error path
+Patch 2 introduces struct dmem_cgroup_init for extensible region
+      registration.
+Patch 3 implements and documents a reclaim callback interface
+      for the dmem controller.
+Patch 4 implements a TTM reclaim callback.
+Patches 5-6 hook up the reclaim callback to the dmem cgroup-aware
+      drivers xe and amdgpu.
 
-Indeed, these two stack variables need to be initialized to NULL.
+v2:
+- Remove the error propagation that was in a previous series (Maarten)
+- A number of updates in patch 1. See its commit message for
+  details (Maarten)
+
+v3:
+- Add patch 1 fixing a pre-existing amdgpu_vram_mgr_init() error path
+  bug where drmm_cgroup_register_region() was called before
+  INIT_LIST_HEAD() and gpu_buddy_init(), causing a kernel panic on
+  failure. (Sashiko-bot)
+- Use an rwsem to protect reclaim callback registration and region
+  unregister against concurrent reclaim invocations. (Sashiko-bot)
+- Fix ttm_resource_manager_set_dmem_region() storing an error pointer
+  in man->cg unconditionally. (Sashiko-bot)
+- Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
+  ttm_resource_manager_set_dmem_region().
+
+v4:
+- Rebased on drm-tip; dropped the XE_PL_STOLEN guard in the xe patch
+  as stolen memory uses a separate TTM manager.
+
+v5:
+- Add patch 2 introducing struct dmem_cgroup_init to make the
+  dmem_cgroup_register_region() API extensible without adding positional
+  arguments in the future.
+- Use nonblock=true in reset_all_resource_limits() to avoid sleeping
+  inside rcu_read_lock() in dmemcs_offline(). (Sashiko-bot)
+- Compare usage against the truncated limit stored in cnt.max, not the
+  original u64. (Sashiko-bot)
+- Use DMEM_MAX_RECLAIM_RETRIES (16) retry budget instead of 5, matching
+  the memcg controller; only -ENOSPC (no progress) counts against the
+  budget, other errors abort immediately.
+- Handle NULL region in ttm_resource_manager_set_dmem_region() to clear
+  the reclaim callback, preventing use-after-free when the manager is
+  torn down while the dmem region outlives it. (Sashiko-bot)
+- Return 0 on any eviction progress; reserve -ENOSPC for zero progress.
+- Clear the reclaim callback in xe and amdgpu fini paths to prevent
+  use-after-free after driver unbind with open DRM file descriptors.
+  (Sashiko-bot)
+- Register xe fini devres action before drmm_cgroup_register_region()
+  so LIFO teardown runs unregister first, draining callbacks before the
+  manager is destroyed. (Sashiko-bot)
+- Switch amdgpu to explicit dmem_cgroup_unregister_region() at the top
+  of amdgpu_vram_mgr_fini() before any manager teardown, since amdgpu's
+  fini is called explicitly during driver unbind before drmm cleanup.
+  (Sashiko-bot)
+- Wrap the xe reclaim callback with drm_dev_enter()/drm_dev_exit() to
+  prevent TTM reclaim from running after driver unbind.
+
+v6:
+- Move the ops check inside down_read() in set_resource_max(), guarded
+  by region->unregistered, to close a UAF race against
+  dmem_cgroup_unregister_region(). (Sashiko-bot)
+- Fix dmem_cgroup_ops->reclaim docstring: -ENOSPC is retried up to
+  DMEM_MAX_RECLAIM_RETRIES times, not an immediate stop. (Sashiko-bot)
+- Fix mgr->cg_region never being assigned in amdgpu_vram_mgr_init(),
+  causing dmem_cgroup_unregister_region() in fini to silently no-op.
+  (Sashiko-bot)
+- Reorder amdgpu_vram_mgr_fini() to call set_used(false) and
+  evict_all() before dmem_cgroup_unregister_region(), so
+  ttm_resource_free() can uncharge via man->cg during eviction; clear
+  man->cg after unregister. (Sashiko-bot)
+
+v7:
+- Replace the per-region rw_semaphore with a static SRCU domain
+  (dmemcg_srcu). SRCU is a better fit: it avoids per-region lock
+  overhead on every reclaim call, and synchronize_srcu() at unregister
+  time is a rare, shutdown-time operation. (Maarten)
+- Trim in-function comments to focus on what rather than how.
+- Switch back to drmm_cgroup_register_region() with a drm_dev_enter/
+  exit guard in the reclaim callback (matching xe), rather than manual
+  register/unregister.  drm_dev_unplug() fires before vram_mgr_fini(),
+  so drm_dev_enter() returning false prevents any reclaim from touching
+  the manager during teardown.  This also fixes the "vram" name
+  collision on multi-GPU systems, since drmm_cgroup_register_region()
+  automatically prefixes with "drm/<pci-addr>/". (Sashiko-bot)
+
+v8:
+- Fix ttm_resource_manager_set_dmem_region() using IS_ERR_OR_NULL(),
+  which skipped the assignment for a NULL region and thus never cleared
+  man->cg. Use IS_ERR() so that a NULL region detaches the region as the
+  kernel-doc and the v5 changelog intended. (Sashiko-bot)
+- Move the amdgpu dmem cgroup region teardown back into
+  amdgpu_vram_mgr_fini() with an explicit dmem_cgroup_unregister_region()
+  after evict_all(), keeping the drm_dev_enter() guard. The v7 drmm-only
+  approach left a use-after-free on the probe-error teardown path, where
+  drm_dev_unplug() is never called so the drm_dev_enter() guard stays
+  open while drm_driver.release destroys the manager before the drmm
+  action unregisters the region. (Sashiko-bot)
+
+User-space tests are at
+https://patchwork.freedesktop.org/series/163935/
+
+Test-with: 20260428065411.4222-1-thomas.hellstrom@linux.intel.com
+
+Thomas Hellström (6):
+  drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
+  cgroup/dmem: Introduce struct dmem_cgroup_init for region
+    initialization
+  cgroup/dmem: Add reclaim callback for lowering max below current usage
+  drm/ttm: Hook up a cgroup-aware reclaim callback for the dmem
+    controller
+  drm/xe: Wire up dmem cgroup reclaim for VRAM manager
+  drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 52 ++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |  3 +
+ drivers/gpu/drm/drm_drv.c                    |  8 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                 | 95 +++++++++++++++++++-
+ drivers/gpu/drm/ttm/ttm_bo_util.c            |  3 +-
+ drivers/gpu/drm/ttm/ttm_resource.c           | 52 +++++++++++
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         | 53 +++++++++--
+ include/drm/drm_drv.h                        |  4 +-
+ include/drm/ttm/ttm_bo.h                     | 10 +++
+ include/drm/ttm/ttm_resource.h               |  7 ++
+ include/linux/cgroup_dmem.h                  | 38 +++++++-
+ kernel/cgroup/dmem.c                         | 90 +++++++++++++++----
+ 13 files changed, 380 insertions(+), 37 deletions(-)
 
 -- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---nextPartL3BGsdYcRdmZW2Iw6n2zNw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEETFOGm0tqZfYwVxBymGofZEoxB4MFAmphyI0ACgkQmGofZEox
-B4O0hQ/9GIq1yFYGDRWcAHes/JCkM4TcBm0noQYQkwd9CUQaPMGNJPjYfbmbTquY
-da3Ab3Cq9E7VPJK9m+M5mXJT1OmDoTuzge38h6lxzoDT00qtlqWxxDKG51C96YPO
-m9K67qKwQvPFFkC6Zo7ZoAlNM087HFLhS6bg8hx0ls2OyayLtJnenm+Twv9te3aG
-sz3iqI85z2ff77wPVzSYBPhvAPIC0djjbTvQ6n5uG6cGS0P+lhGWf+1aGc0JMN4e
-5X30+b1AS8vTISswmEOafAyDFxNaxg2v//lQHPDporpzFsHuNpOvz6ZYhbudGgKE
-rLk0pucfspcLeHalfghacWK9UAh2n6H1X0M1ggmbsuVnJK2nBxYw+SvLWmF73G+T
-WX+UA9NRAES2wMpM19HOlr3FKSQutKAksnGlhVg7lFWBFmEm9pqQntyh4S+rjx1O
-UQWus4SYkSPBQNVaEPfYWInL5pNvOZMsPEDvvsIOa0CtA+xv7XD0q9Fyw51jXCso
-SokFPx0h3YDobfnOCpt6TcYtu81VT8h2lC5qOu8Z6z5652Ji59whkfNw3glZCqqD
-vqKFMSvlvMqRtOeNZLERcrzjjGFJSKu6STnt3lgG3RT9rdbrPmiA7CKph9FMb5oN
-5jCy2h9RjSEtrGj+Cx93fzpDgZBTKyapxHIPAw6KQs/P/OIQ2Po=
-=t1LC
------END PGP SIGNATURE-----
-
---nextPartL3BGsdYcRdmZW2Iw6n2zNw--
-
-
+2.55.0
 
