@@ -4,44 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E7EEC44536
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:53:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1044C44532
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:55:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6601510EF59;
-	Thu, 23 Jul 2026 01:53:38 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CFEtgrkj";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BBA010EF59
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:53:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E01DE419BE;
- Thu, 23 Jul 2026 01:53:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DDB71F000E9;
- Thu, 23 Jul 2026 01:53:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784771617;
- bh=4cPCloTIk0ymrNXgzIt+S7yl5YLm7pvCq+S4ak4JTU4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CFEtgrkj3yS4raofD76b9m74eoiLYG+NC9BGL3JIPOyg04WGFAUDObUW34BpBQTBJ
- 42QKmtNEuDglOTNPw0s8CqTgl8UnZ9jnFTqG4uD0KRu+3EOI7AaCU8DMQjnPxRq+tu
- hKnrHEp6GqQQLAq3fH6XNqMTmgUSwEIYzt/YiVFjbNttkY26OTMTHef0MI3GTtgrwu
- NcEnrm5LeqhvCVAKgI0zUiZVf93m503aOcBH7EMRz0YMPx43f/exafkxFsRxJO3nbO
- JlIQpQ7iQLaGicr46U2ZVagcfPUCvmQbCycrUOBWdyA/rfy9jFiXaVeEL3ENfvKl19
- 4t9fKC2eAa0iA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 17/61] drm/display: hdmi-state-helper: Sync SCDC
- state on hotplug
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-17-4fb12ea22ac9@collabora.com>
-References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
- <20260723-dw-hdmi-qp-scramb-v9-17-4fb12ea22ac9@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 01:53:37 +0000
-Message-Id: <20260723015337.8DDB71F000E9@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 514F610EF5A;
+	Thu, 23 Jul 2026 01:55:17 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78B6410EF5A;
+ Thu, 23 Jul 2026 01:55:15 +0000 (UTC)
+X-UUID: 884bb690863911f1aa26b74ffac11d73-20260723
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:7c6c1e6b-40f9-4332-9daa-343eac68a9e4, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:e7bac3a, CLOUDID:47046dd41517262187dfe5ac2bfd80b7,
+ BulkI
+ D:nil,BulkQuantity:0,Recheck:0,SF:102|123|136|850|865|898,TC:nil,Content:0
+ |15|50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
+ SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 884bb690863911f1aa26b74ffac11d73-20260723
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 2125063251; Thu, 23 Jul 2026 09:55:08 +0800
+From: yaolu@kylinos.cn
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com
+Cc: siqueira@igalia.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Lu Yao <yaolu@kylinos.cn>
+Subject: [PATCH] drm/amd/display: fix wrong plane_count check in
+ dm_gpureset_toggle_interrupts()
+Date: Thu, 23 Jul 2026 09:55:03 +0800
+Message-Id: <20260723015503.32122-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,79 +58,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The HDMI disconnect path fails to implement SCDC scrambler synch=
-ronization, resulting in dead code and potential display corruption on hotp=
-lug.
---
+From: Lu Yao <yaolu@kylinos.cn>
 
---- Patch [17]: [PATCH v9 17/61] drm/display: hdmi-state-helper: Sync SCDC =
-state on hotplug ---
-commit c0cc8e9a78dd0bbc36a54e19e44a65a37553ae23
-Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+The else-if branch in dm_gpureset_toggle_interrupts() condition was
+incorrectly checking plane_count != 0, which is the same as the
+preceding if-branch and can never be true in the else path.
 
-drm/display: hdmi-state-helper: Sync SCDC state on hotplug
+Fixes: 8382cd234981 ("drm/amd/display: consolidate DCN vblank/flip handling onto vupdate_no_lock")
+Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This commit hooks drm_connector_hdmi_sync_scdc() into both the connect and
-disconnect paths in drm_atomic_helper_connector_hdmi_update() to synchronize
-the SCDC status on hotplug events.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 9c564cd5edee..a11c64277d1d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3353,7 +3353,7 @@ static void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
+ 			if (!dc_interrupt_set(adev->dm.dc, irq_source, enable))
+ 				drm_warn(adev_to_drm(adev), "Failed to %sable vblank interrupt\n", enable ? "en" : "dis");
+ 
+-		} else if (acrtc && state->stream_status[i].plane_count != 0) {
++		} else if (acrtc && state->stream_status[i].plane_count == 0) {
+ 			/* DCN only needs to toggle VUPDATE_NO_LOCK */
+ 			rc = amdgpu_dm_crtc_set_vupdate_irq(&acrtc->base, enable);
+ 			if (rc)
+-- 
+2.25.1
 
-> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gp=
-u/drm/display/drm_hdmi_state_helper.c
-> index 04d5196a2010f..ad59318a3e85f 100644
-> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-> @@ -1205,13 +1205,16 @@ drm_atomic_helper_connector_hdmi_update(struct dr=
-m_connector *connector,
->  					enum drm_connector_status status)
->  {
->  	const struct drm_edid *drm_edid;
-> +	int ret =3D 0;
-> =20
->  	if (status =3D=3D connector_status_disconnected) {
-> -		// TODO: also handle scramber, HDMI sink disconnected.
-> -		drm_connector_hdmi_audio_plugged_notify(connector, false);
-> -		drm_edid_connector_update(connector, NULL);
-> -		drm_connector_cec_phys_addr_invalidate(connector);
-> -		return 0;
-> +		ret =3D drm_connector_hdmi_sync_scdc(connector, false, ctx);
-> +		if (ret !=3D -EDEADLK) {
-
-[Severity: Medium]
-Does this code actually synchronize the scrambler on disconnect?
-
-Looking at drm_connector_hdmi_sync_scdc(), it has an early return when
-plugged is false:
-
-drivers/gpu/drm/display/drm_hdmi_helper.c:drm_connector_hdmi_sync_scdc() {
-	...
-	if (!connector || !plugged || !ctx)
-		return 0;
-	...
-}
-
-Because of this early return, calling drm_connector_hdmi_sync_scdc() with
-false for the plugged parameter makes it a no-op, which bypasses the
-scrambler synchronization logic.
-
-Additionally, since it always returns 0 in this case, doesn't this make the
-if (ret !=3D -EDEADLK) check dead code?
-
-> +			drm_connector_hdmi_audio_plugged_notify(connector, false);
-> +			drm_edid_connector_update(connector, NULL);
-> +			drm_connector_cec_phys_addr_invalidate(connector);
-> +		}
-> +		return ret;
->  	}
-> =20
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-dw-hdmi-qp=
--scramb-v9-0-4fb12ea22ac9@collabora.com?part=3D17
