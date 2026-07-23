@@ -4,126 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B66F3C531FA
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 17:10:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 654AFC531F7
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 17:36:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D97F610F17A;
-	Thu, 23 Jul 2026 17:10:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0FED10E24A;
+	Thu, 23 Jul 2026 17:36:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="plCrNqIt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FhO2f5+J";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012025.outbound.protection.outlook.com [52.101.43.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 389E610E547;
- Thu, 23 Jul 2026 17:10:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sB7QgLlmV3VQ1YXM1Wlr9umF9D7A4D+QZHxC2MMCxf9U4QwUyBJTLk7nPYm/Mwpmbrcgl/S7buOd6CQHLxu4+vtjRrVk2XuUh6J6Y+7r6kVOBAd3RE5+CtdSYVK/qKMYm6cKBcIg0EpDNnT13/KQdlpPHISWiXw028+CPLWiC8rqgsJKPCtPTm6c1Mkr2Xs8zvzYo6VmmS/Ca5V0Dve/5kTAxXCGfks98SED1AbzaffOYcuABhXewNsjCEyZAyci1dQgCwLC7HuWOQvEBFEVRnsF1OvPpvr7ReD6OWm4TGnyWOVl1mOvxAjlK9qQocLInfzQOEcql/EdGHhIghIoAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/MBTb+SWoRP6ZnQGPQtJ/0TGoDeZbmo/tjWWzutpdt0=;
- b=sOHV+4e/RMslxT6P1Yl0VsMMfzOiOcmZcKnKFDJ3wsyCnn1LbhrO4zlf/mjl26tqh7esVSIqItqBRRdRzkwyf5PCVaM0r+YJd+NR8r2XYVKlNfGqrg5C9H/0D8OMmHjXpKZY9ReRo0coCc45gimQ38cNmqogFnN+bwZEXD1lW51YDNElesNusCEBy9w/HqSTAjygiZWI+fVU+aipq6rjgR/piQ2sVF5sh20KQaDEvUso/qPga43cyN7T4RgHkyzjQ2Jyp9r/cKb7k8pkgJ3j/kzsPfD5Arp49T88RfXhEEL/qoQm8Ynpp6vlKVfp+cYCnLEwKxJ2COb/zNpP9J06rA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/MBTb+SWoRP6ZnQGPQtJ/0TGoDeZbmo/tjWWzutpdt0=;
- b=plCrNqItq2cOANX1wSTGrEl//FRwd+cu035cWWflvgVmEVIRibZuk+A+BY9tuGhsvBoeqXIVCy7giu+zx1N8ztCsQM89RSCmAqLDtJDN2lW3CsZfV/qSjTpG9ZlFQpz+Z1AbGpT7fDCiTXfpeyb9zPFXO/OMmPsr67RMiv8eSk8=
-Received: from PH8PR12MB7279.namprd12.prod.outlook.com (2603:10b6:510:221::10)
- by PH7PR12MB5927.namprd12.prod.outlook.com (2603:10b6:510:1da::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 17:10:46 +0000
-Received: from PH8PR12MB7279.namprd12.prod.outlook.com
- ([fe80::87e7:239d:191f:3bb]) by PH8PR12MB7279.namprd12.prod.outlook.com
- ([fe80::87e7:239d:191f:3bb%3]) with mapi id 15.21.0245.010; Thu, 23 Jul 2026
- 17:10:46 +0000
-From: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
-To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Wentland, 
- Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v2] drm/amd/display: use proper context for logging
-Thread-Topic: [PATCH v2] drm/amd/display: use proper context for logging
-Thread-Index: AQHdGltbKB8ar0NLz02RaCplLReMvrZ7Vfrd
-Date: Thu, 23 Jul 2026 17:10:46 +0000
-Message-ID: <PH8PR12MB7279B4E7FAA1899E488AB356F9C02@PH8PR12MB7279.namprd12.prod.outlook.com>
-References: <20260723042548.1225691-1-jirislaby@kernel.org>
-In-Reply-To: <20260723042548.1225691-1-jirislaby@kernel.org>
-Accept-Language: en-CA, en-US
-Content-Language: en-CA
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-23T17:10:46.752Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH8PR12MB7279:EE_|PH7PR12MB5927:EE_
-x-ms-office365-filtering-correlation-id: 35c2399c-3b67-4e31-2722-08dee8dd5653
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|38070700021|6133799003|56012099006|11063799006|10067099003|3023799007|22082099003|18002099003;
-x-microsoft-antispam-message-info: YzKIRJPyR8g621ieVLaK2o/YP9TUBrB5yqVT/YXNzqMBCWREksHbihh56tDcr2imyUld8O0ix//f/I7LN1LxkFlaPaeJqIxrD3Jc8vb7hEGHaTQkzwic3StO6dS0KOZYUGYmDlCMlLfRyvFnitKeEBDbEmc5UW0a3cE7NDxI1y/PQFi2B8bXMCQbLOeJ1jUy6Vuc4jkNy1h6FVB8GLfN05wO1FSaGhZSAhWQH0RPA8++aiiy2jwDby1urzJQybCipQOd02J/1tQZBT6jcsGdOQJbX59LctPLQKJrL1qA3MBkmEugIlUMEnF1bqG2FiXCWUZqgJidyopSgtPp42hkMyXtGtz7ofC55zwGzk7zPN76QjLwh7dG1lfX99tTssI/bdO/VVjWCTmgZle6SSQy+E0AbKU1yHyT1Ole3FSJf3ReP4RBv7mT0ZQ44dVCACbD5rU2nbmBHC5HZal0X9GXr4NLh+PvtdH76i4Vl3gIE8+A13tdUn+XaH7F0EtqBvx/mOifN6fAHWgr5GoW4cSW0q+Qvgv+0zu5YTInTCChRnb4PTSBwvuOYrre+csqMLgTMQ1Xznkp/VMcfh62VvrVNzZjXtIfpCvOtNFp84eKUR0EG1X3Q28Iy/8jUtsxVpBXtEZksJvna08eMRYoWCExILFvYW7e0S5VnOBP5ZsuTYd0rKtoG+++zsqEpbfOTBgj0W8JVvMNAgwo70qAAIxT/HYnkpgtvVkYM3Ay3IucC7M=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB7279.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(38070700021)(6133799003)(56012099006)(11063799006)(10067099003)(3023799007)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?2xozwkaO7Fmctd8mdZqCCwhmUD84nJOCJsvaS8oMEnIIPz1sgQrzPePIDy?=
- =?iso-8859-1?Q?Onwu2hUnfbpY7nUbDmPWgY/YkdQi/P+jfg6YlKU29PxZRUe64TNMbdBgyY?=
- =?iso-8859-1?Q?BfwH2Ouo2ePXWLVP9/zkjzLjhq7+t3L/o4v9D2msrVtVFB/a73K7uo4Yse?=
- =?iso-8859-1?Q?THuyLKycbWbSeqis7f6THVcdXauJJTeAOGv6vfsK9u3Mc7KQxzrzSEbY08?=
- =?iso-8859-1?Q?a2SyVDTe7+Q984h489O8jc8xjzaeoaaLJmM6o3307yB/hpZWp+XiKeLWVj?=
- =?iso-8859-1?Q?2+YUzuxSOa7vgsb3gtAgi9W+zciJ23EiBn/gJUNkFR8oTbDSJn1rXjjqa0?=
- =?iso-8859-1?Q?t4AIlT2Q5nJb5h9aRsgi+Wru0R2SI1X50PhGFeToJAjCwyu7tab7mb5Zgh?=
- =?iso-8859-1?Q?8GoLGYGo/0vI/lgMVkAVIU/VMBJIp2ndwU7dP6AIRrLkgwi4fFgSe7ObPR?=
- =?iso-8859-1?Q?UsWMdmIsBfOsHgNZaXdyTbp/A2mWQGHXqDyX8K7pkItGqxEQK5FDGUtS95?=
- =?iso-8859-1?Q?crGP14K0oP5SzWuAq3RBYXZ62/CNmqn3b2U3CQGPIpq5IOpBpycarOx/1i?=
- =?iso-8859-1?Q?HdS4wPigpwu6Fcdzqh4XGRBGotRIc02/M6vziTLa1KbhvnbYK8pobXtCvI?=
- =?iso-8859-1?Q?VI2AKk9zUqoWPat0AAZvoDrqRWQDAAXxHj88K3EgVBqVqqtSMbPN/w8r6c?=
- =?iso-8859-1?Q?JpvhTMD4URcaMerQcXIkworcWKj3RvB5aOO6mw8D2pfpeUgX34yuF0QS5q?=
- =?iso-8859-1?Q?C3oOLRp60tKKjK8PCg1Md1+HfVgerL/M1zr+r+cyHJuiX6En2uqyY2n2/m?=
- =?iso-8859-1?Q?i0q6zYXRYYJFhgtf1jwCC5kluRSHix9PGSd7kbRCYSd0WWdR2gL/+2u47Z?=
- =?iso-8859-1?Q?HcVAfOpd+OBpGAznepdWmE+HGll1F9Jj1B/Z0m7kot5JXltvvlfxW59CgI?=
- =?iso-8859-1?Q?5yoxMQ6YaFwpLGt7uBZcWtxgd3sACm8YvVJeWnPaR4umIkBzpanhlJesbJ?=
- =?iso-8859-1?Q?a4WCzyiDXhVH+HXdXXSd5DS4SUJKaUl2omFAwqnGLRwREY9GpRbYc+1N2v?=
- =?iso-8859-1?Q?8ZHlL/NhV0C6ibYbvTOhN+Vpq5u3zjU7axQ1m/8apnPzSu9W3KUF/5boLw?=
- =?iso-8859-1?Q?ieCkM4fTvWmOEv2GsthEauBPwoaqxa+NW3AfCZv6vZr45hUWP71VxU496w?=
- =?iso-8859-1?Q?Grs7Ufm00+K7Pvo0Hv7CcHRw+ZY1pKKyZIXl54fl3jC7Ip5K5fZ0dvHSvE?=
- =?iso-8859-1?Q?gP2MsBrMvX4vzQT5J8O4n4Ck3c45xIu+95MDZBUMbxt5ejbNQqlvo14Q65?=
- =?iso-8859-1?Q?8SP56gR3db4RX/kQkG/M6J5lpzRCRcZQwt1YOXfhA8j1Rutq4/wE660HLE?=
- =?iso-8859-1?Q?VSuiXSHq4BCQDmEaUtjU+xBgrVE+PpYaXZUpJa9FuV0VK2aYCOIAPBW3Aa?=
- =?iso-8859-1?Q?laD1MSSqxfFzvFr1pjLwcHa5r2+/v54rSg6EiYEKlM7kWAVM7Xf7gutPvn?=
- =?iso-8859-1?Q?BCBjZsJmfeg6Lh5eeSbpstR78yfU5eOdf7ZeyTMcZN+/mp6p2+jCQz5nxM?=
- =?iso-8859-1?Q?Wmvz2uJRGzch9wfP8ER36sYWwfqdfCIZtfx417yaM72R8dOD4gMUBDcvZW?=
- =?iso-8859-1?Q?aXFymOY46YE1CeZBI5rm4pa8uWyQk16G1U+YGsfJGg0S2AezbfFx5g/0TI?=
- =?iso-8859-1?Q?XJ5Kd0tMimMKsTzu5cCHPBkKD9n9yrTfmpgJZVC4pjt4+mgB98H0hSfrGW?=
- =?iso-8859-1?Q?bjbzTnGqNaZ8XHJQW12dXtB4+O7ysBqdDGt+h4Lt8pTIdB?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 284EE10E24A
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 17:36:45 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-848743155bcso447930b3a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 10:36:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784828205; x=1785433005; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=hxuraTQgEZqYbQmSAqLAHqtM6r0YcdQGYrnF3lC7WW4=;
+ b=FhO2f5+Jo0ZBDg94tRTOriADwK1r3sx0dKkotIMYgvUKa1IWsOE0UsWIcwn5kblIKu
+ 5g/Wig+bsRJ8A2knE79MgJozaH8VOXaNAOX2IwJNlTWBUan93qRxGzebP9jUu1AO+OCn
+ p4D0V3Q8bYyW3Q5V5XBb1DzSIzUwf+Ph/9dEroM16tj9qy8Zbsss0pYCx2IpIYIIAhUx
+ knzGqQP52c/dDX2HnKC29U6SYlsA3v+N5DuzQu8LNnGbDq4+rz9A+b6Kjq3K68vhaiN1
+ lmFesXm+azD0jqUmeTuud6n3rodP04Tv2XQWFRvdAZW6wyD8tfs3yYU6+6hu8pO5/1Gl
+ s1NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784828205; x=1785433005;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=hxuraTQgEZqYbQmSAqLAHqtM6r0YcdQGYrnF3lC7WW4=;
+ b=lKD5hEphZTDHVbWH5IO1XkfHzxDweA896mQASvZQNDCJx6dA5xuUDWkH5Kl1TNBBRp
+ +PHZPJ0oJmOh7Y7mWXzpOTusCB51I1pa4xUXw/KfCbMMPXrxga1XE+WK1YqIK0GgZhZJ
+ leKotUfFyYLIj2ke7G/W79zO88vwerby9407OX4ZS9PBiQtDllaW62gBBXMrH0ZbfLDm
+ WDOzaUALtiNezWW/YOnBZJ0e+zQb31xX4R5TbcR+OiwAtJl8bSIPvUevxttInfnlHWdX
+ C8Pm7iyQhS9CPbIZh6NBXrUtC3oXupxUIJ1DuOmr5z9uVOuSdXRs/WoRLcAzbbnLnS+Y
+ 3BUQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rrq3p+myG/NKdCagJ/BsZt/ynGQNC+FI/kmJCbeNX43Axw0VKiIbdTNZUKZDJHmR0SGwDMam4eKUIc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy2GP8uNFurb7Pm6unPlWUiSr0+r6oYdb40DmMw26rLjJOYmyC8
+ 5fBDjW/bqeFlL3UUgEF+280Cu56k6QizuaARX/UHtK0tZNXUGiklMo8Y
+X-Gm-Gg: AR+sD11MipwWJAjEPi+PSRmhEbQgudj9tUtEzPEBIQO4qz7TezOEklnrNf5aVOWEBGI
+ Bv0u2OtRsd2nbdRgehlD1RdPBl7Tyc+ljgS6SMDFiKb9NVhATKAKD4cqa0iuW4xZGOu9VDBxdp5
+ 1lOdEfdf+2xMU+qNMp6zXdYBcFvp6v1Q6pBkK6cjUSV7vQhOXoJvQBq46/gBGUZs+rSiwSvHiiB
+ 5lFXYlyu0hFJGxPLpJzpdhN49FzsgfyuDrKCAUOKSfDRFFuPoI/B9vnlfEEaUl9AQLV8O772Uyw
+ QLQbYyRBOX4m2jLDaK0QLKFA4zoiLF6J+xkszCdKazN+D+wf0UN9i1odCqNN1aENxTLH/a9Bo46
+ tHTsaXn21eSMfb1T/QukWsA7ehznoavE6gnbBPvRl14Yn1zr/Ku2RJDFZjlShcDzWon4PsHQxkA
+ yEPpIwVTVvpyl7aRRcAOpZ3Cct1PfJARq7e77Tkhj0VRhpLRbL
+X-Received: by 2002:a05:6a00:c81:b0:847:7a61:e68e with SMTP id
+ d2e1a72fcca58-84e2b8da6e7mr4786213b3a.31.1784828204458; 
+ Thu, 23 Jul 2026 10:36:44 -0700 (PDT)
+Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net.
+ [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84e20622dedsm2691612b3a.11.2026.07.23.10.36.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jul 2026 10:36:43 -0700 (PDT)
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+Subject: [PATCH v11 0/8] mm/hmm: Add mmap lock-drop support for
+ userfaultfd-backed mappings
+Date: Thu, 23 Jul 2026 10:36:32 -0700
+Message-Id: <20260723-hmm-v10-v11-0-c55b003a4b61@gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7279.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35c2399c-3b67-4e31-2722-08dee8dd5653
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2026 17:10:46.6606 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZVNBRrcJGiquqKS2QjZORadRBE/6C5uvlvUZQ7gZFEZbFfMQTBNA0VBv2TCnBPV6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5927
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIACFRYmoC/2WMQQ7CIBAAv9Ls2TUsEoie/IfpAQqWTaQ1YIim4
+ e9irx5nMpkNSsgcClyGDXKoXHhdOhAdBpiiXeaA7LsAKaQWRkqMKWElgUYa76RzZ39S0OtnDnd
+ +76vb2Dlyea35s58r/ez/oxIK1EIrrbzXgux1TpYfx2lNMLbWvmvz8dafAAAA
+To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
+ "K. Y. Srinivasan" <kys@microsoft.com>, 
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>, 
+ Oded Gabbay <ogabbay@kernel.org>, skinsburskii@gmail.com
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784828202; l=9167;
+ i=skinsburskii@gmail.com; s=20260722; h=from:subject:message-id;
+ bh=5RWy4Wkr5bgViXPrkI5IwkEQLLeakvDDFGFaJWM2Tgc=;
+ b=DsSTuR1DRqaS/DIFjBB8yCQcyfhxOja730tI0RS6QEUOq4R2IPDJiPT3gyE6F9ZISrvwMWuad
+ bA2XAbxJW9GACTx9F8w3yQ1BguR31nmSesivxAsNeNCUTR7S8vF+PaT
+X-Developer-Key: i=skinsburskii@gmail.com; a=ed25519;
+ pk=bDpriHBYgeTdkIDweZDCemxsU93neJBOCn3YLIuJpnE=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,237 +117,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-looks good, thank you=0A=
-=0A=
-Reviewed-by:=A0Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>=0A=
-=0A=
-=0A=
-Bhawan=0A=
-=0A=
-________________________________________=0A=
-From: Jiri Slaby (SUSE) <jirislaby@kernel.org>=0A=
-Sent: July 23, 2026 12:25 AM=0A=
-To: Deucher, Alexander <Alexander.Deucher@amd.com>=0A=
-Cc: linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; Jiri Slaby=
- (SUSE) <jirislaby@kernel.org>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.c=
-om>; Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.=
-Li@amd.com>; Rodrigo Siqueira <siqueira@igalia.com>; Koenig, Christian <Chr=
-istian.Koenig@amd.com>; David Airlie <airlied@gmail.com>; Simona Vetter <si=
-mona@ffwll.ch>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.or=
-g>; dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>=0A=
-Subject: [PATCH v2] drm/amd/display: use proper context for logging=0A=
-=A0=0A=
-The same as the rest of the code, get_ss_info_from_atombios() uses=0A=
-calc_pll_cs->ctx->logger for logging. But calc_pll_cs->ctx is=0A=
-initialized only later in calc_pll_max_vco_construct(). Therefore, any=0A=
-output using DC_LOG_SYNC() leads to a NULL pointer deference in=0A=
-get_ss_info_from_atombios().=0A=
-=0A=
-According to Sashiko, the very same problem exists in=0A=
-dce112_get_pix_clk_dividers() and dcn3_get_pix_clk_dividers() too.=0A=
-=0A=
-To avoid accessing the NULL context, use clk_src->base.ctx->logger=0A=
-everywhere. That context in base is initialized earlier in=0A=
-dce110_clk_src_construct() and dce112_clk_src_construct(). Before=0A=
-get_ss_info_from_atombios() or Sashiko's get_pix_clk_dividers functions=0A=
-above are actually called. This is done by redefining DC_LOGGER to=0A=
-CTX->logger.=0A=
-=0A=
-Before:=0A=
-dce110_clk_src_construct() did:=0A=
-=A0-> sets clk_src->base.ctx =3D ctx;=0A=
-=A0-> ss_info_from_atombios_create()=0A=
-=A0=A0 -> get_ss_info_from_atombios()=A0=A0 <- uses calc_pll_cs->ctx=A0 # B=
-OOM=0A=
-=A0-> calc_pll_max_vco_construct()=A0=A0=A0 <- sets calc_pll_cs->ctx=0A=
-=0A=
-After:=0A=
-dce110_clk_src_construct() does:=0A=
-=A0-> sets clk_src->base.ctx =3D ctx;=0A=
-=A0-> ss_info_from_atombios_create()=0A=
-=A0=A0 -> get_ss_info_from_atombios()=A0=A0 <- uses clk_src->base.ctx=0A=
-=0A=
-Closes: https://bugzilla.suse.com/show_bug.cgi?id=3D1271175=0A=
-Closes: https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@ke=
-rnel.org/=0A=
-Fixes: 1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")=0A=
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>=0A=
-Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>=0A=
-Cc: Harry Wentland <harry.wentland@amd.com>=0A=
-Cc: Leo Li <sunpeng.li@amd.com>=0A=
-Cc: Rodrigo Siqueira <siqueira@igalia.com>=0A=
-Cc: Alex Deucher <alexander.deucher@amd.com>=0A=
-Cc: "Christian K=F6nig" <christian.koenig@amd.com>=0A=
-Cc: David Airlie <airlied@gmail.com>=0A=
-Cc: Simona Vetter <simona@ffwll.ch>=0A=
-Cc: amd-gfx@lists.freedesktop.org=0A=
----=0A=
-Cc: dri-devel@lists.freedesktop.org=0A=
-=0A=
-[v2] Set DC_LOGGER to CTX->logger unconditionally (Bhawanpreet).=0A=
-[v1] https://lore.kernel.org/all/20260722063210.1144266-1-jirislaby@kernel.=
-org/=0A=
----=0A=
-=A0.../drm/amd/display/dc/dce/dce_clock_source.c | 20 +++++++++----------=
-=0A=
-=A01 file changed, 9 insertions(+), 11 deletions(-)=0A=
-=0A=
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/driver=
-s/gpu/drm/amd/display/dc/dce/dce_clock_source.c=0A=
-index ecb8493ec523..8e3862f6dac2 100644=0A=
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c=0A=
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c=0A=
-@@ -45,9 +45,7 @@=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 clk_src->base.ctx=0A=
-=A0=0A=
-=A0#define DC_LOGGER \=0A=
--=A0=A0=A0=A0=A0=A0 calc_pll_cs->ctx->logger=0A=
--#define DC_LOGGER_INIT() \=0A=
--=A0=A0=A0=A0=A0=A0 struct calc_pll_clock_source *calc_pll_cs =3D &clk_src-=
->calc_pll=0A=
-+=A0=A0=A0=A0=A0=A0 CTX->logger=0A=
-=A0=0A=
-=A0#undef FN=0A=
-=A0#define FN(reg_name, field_name) \=0A=
-@@ -287,6 +285,7 @@ static bool calc_pll_dividers_in_range(=0A=
-=A0}=0A=
-=A0=0A=
-=A0static uint32_t calculate_pixel_clock_pll_dividers(=0A=
-+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct dce110_clk_src *clk_src,=
-=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct calc_pll_clock_sour=
-ce *calc_pll_cs,=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct pll_settings *pll_s=
-ettings)=0A=
-=A0{=0A=
-@@ -474,7 +473,7 @@ static uint32_t dce110_get_pix_clk_dividers_helper (=0A=
-=A0{=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 uint32_t field =3D 0;=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 uint32_t pll_calc_error =3D MAX_PLL_CALC_ERROR;=0A=
--=A0=A0=A0=A0=A0=A0 DC_LOGGER_INIT();=0A=
-+=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 /* Check if reference clock is external (not pcie/=
-xtalin)=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 * HW Dce80 spec:=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 * 00 - PCIE_REFCLK, 01 - XTALIN,=A0=A0=A0 02 - GEN=
-ERICA,=A0=A0=A0 03 - GENERICB=0A=
-@@ -517,12 +516,14 @@ static uint32_t dce110_get_pix_clk_dividers_helper (=
-=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 /*Calculate Dividers by HD=
-MI object, no SS case or SS case */=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pll_calc_error =3D=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ca=
-lculate_pixel_clock_pll_dividers(=0A=
-+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 clk_src,=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &clk_src->calc_pll_hdmi,=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pll_settings);=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 else=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 /*Calculate Dividers by de=
-fault object, no SS case or SS case */=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pll_calc_error =3D=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ca=
-lculate_pixel_clock_pll_dividers(=0A=
-+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 clk_src,=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &clk_src->calc_pll,=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pll_settings);=0A=
-=A0=0A=
-@@ -568,7 +569,6 @@ static uint32_t dce110_get_pix_clk_dividers(=0A=
-=A0{=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 struct dce110_clk_src *clk_src =3D TO_DCE110_CLK_S=
-RC(cs);=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 uint32_t pll_calc_error =3D MAX_PLL_CALC_ERROR;=0A=
--=A0=A0=A0=A0=A0=A0 DC_LOGGER_INIT();=0A=
-=A0=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 if (pix_clk_params =3D=3D NULL || pll_settings =3D=
-=3D NULL=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ||=
- pix_clk_params->requested_pix_clk_100hz =3D=3D 0) {=0A=
-@@ -600,7 +600,6 @@ static uint32_t dce112_get_pix_clk_dividers(=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct pll_settings *pll_s=
-ettings)=0A=
-=A0{=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 struct dce110_clk_src *clk_src =3D TO_DCE110_CLK_S=
-RC(cs);=0A=
--=A0=A0=A0=A0=A0=A0 DC_LOGGER_INIT();=0A=
-=A0=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 if (pix_clk_params =3D=3D NULL || pll_settings =3D=
-=3D NULL=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ||=
- pix_clk_params->requested_pix_clk_100hz =3D=3D 0) {=0A=
-@@ -1442,8 +1441,6 @@ static uint32_t dcn3_get_pix_clk_dividers(=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 unsigned long long actual_pix_clk_100Hz =3D pix_cl=
-k_params ? pix_clk_params->requested_pix_clk_100hz : 0;=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 struct dce110_clk_src *clk_src =3D TO_DCE110_CLK_S=
-RC(cs);=0A=
-=A0=0A=
--=A0=A0=A0=A0=A0=A0 DC_LOGGER_INIT();=0A=
--=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 if (pix_clk_params =3D=3D NULL || pll_settings =3D=
-=3D NULL=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ||=
- pix_clk_params->requested_pix_clk_100hz =3D=3D 0) {=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 DC_LOG_ERROR(=0A=
-@@ -1513,7 +1510,6 @@ static const struct clock_source_funcs dce110_clk_src=
-_funcs =3D {=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 .get_dp_dto_frequency_100hz =3D get_dp_dto_frequen=
-cy_100hz=0A=
-=A0};=0A=
-=A0=0A=
--=0A=
-=A0static void get_ss_info_from_atombios(=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct dce110_clk_src *clk=
-_src,=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 enum as_signal_type as_sig=
-nal,=0A=
-@@ -1526,7 +1522,7 @@ static void get_ss_info_from_atombios(=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 struct spread_spectrum_info *ss_info_cur;=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 struct spread_spectrum_data *ss_data_cur;=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 uint32_t i;=0A=
--=A0=A0=A0=A0=A0=A0 DC_LOGGER_INIT();=0A=
-+=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 if (ss_entries_num =3D=3D NULL) {=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 DC_LOG_SYNC(=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 "I=
-nvalid entry !!!\n");=0A=
-@@ -1657,6 +1653,7 @@ static void ss_info_from_atombios_create(=0A=
-=A0}=0A=
-=A0=0A=
-=A0static bool calc_pll_max_vco_construct(=0A=
-+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct =
-dce110_clk_src *clk_src,=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 st=
-ruct calc_pll_clock_source *calc_pll_cs,=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 st=
-ruct calc_pll_clock_source_init_data *init_data)=0A=
-=A0{=0A=
-@@ -1808,6 +1805,7 @@ bool dce110_clk_src_construct(=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 ss_info_from_atombios_create(clk_src);=0A=
-=A0=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 if (!calc_pll_max_vco_construct(=0A=
-+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 clk_src=
-,=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &c=
-lk_src->calc_pll,=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &c=
-alc_pll_cs_init_data)) {=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ASSERT_CRITICAL(false);=0A=
-@@ -1822,7 +1820,7 @@ bool dce110_clk_src_construct(=0A=
-=A0=0A=
-=A0=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 if (!calc_pll_max_vco_construct(=0A=
--=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &clk_sr=
-c->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {=0A=
-+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 clk_src=
-, &clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ASSERT_CRITICAL(false);=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 goto unexpected_failure;=
-=0A=
-=A0=A0=A0=A0=A0=A0=A0=A0 }=0A=
---=0A=
-2.55.0=0A=
+This series extends the HMM framework to support userfaultfd-backed memory
+by allowing the mmap read lock to be dropped during hmm_range_fault().
+
+Some page fault handlers — most notably userfaultfd — require the mmap lock
+to be released so that userspace can resolve the fault. The current HMM
+interface never sets FAULT_FLAG_ALLOW_RETRY, making it impossible to fault
+in pages from userfaultfd-registered regions.
+
+This series follows the established int *locked pattern from
+get_user_pages_remote() in mm/gup.c. A new helper function,
+hmm_range_fault_locked(), accepts an int *locked parameter. When the
+mmap lock is dropped during fault resolution (VM_FAULT_RETRY or
+VM_FAULT_COMPLETED), the function returns 0 with *locked = 0, signalling
+the caller to restart its walk. The existing hmm_range_fault() is
+refactored into a thin wrapper that passes NULL, preserving current
+behavior for all existing callers.
+
+Possible approaches to lift this limitation are documented in
+Documentation/mm/hmm.rst.
+
+Changes in v11:
+  - Reject unstable address spaces in hmm_range_fault_unlocked_timeout()
+    after taking mmap_lock and before walking page tables.
+  - Compute the remaining HMM timeout budget before the time_after_eq()
+    check in drm_gpusvm_get_pages() to make sure it can't result in zero
+    and lead to infinite HMM range faulting loop.
+
+Changes in v10:
+  - Included contended mmap_lock acquisition in the
+    hmm_range_fault_unlocked_timeout() retry budget.
+  - Dropped the redundant top-level fatal_signal_pending() check in the HMM
+    unlocked retry loop; mmap_read_lock_killable() now covers that path.
+  - Restored the absolute outer timeout in drm_gpusvm_get_pages(), since it can
+    run from GPU page-fault workers and must not rely on the worker task’s fatal
+    signal state to stop invalidation retries.
+ 
+Changes in v9:
+
+  - Folded the fixups into the full 8-patch series instead of sending a
+    separate fixup series.
+  - Clarified that the HMM timeout bounds repeated HMM/mmu-notifier retry
+    attempts, with the helper refreshing range->notifier_seq internally.
+  - Kept nouveau’s explicit outer deadline because its retry loop runs in a GPU
+    fault worker and cannot rely on fatal signals from the faulting process.
+  - Converted amdxdna, and GPU SVM callers to pass the shole timeout budget to
+    hmm_range_fault_unlocked_timeout().
+
+Changes in v8:
+
+  - Make hmm_range_fault_unlocked_timeout() the primary documented HMM
+    range-fault API, and move hmm_range_fault() into the “use only if the
+    caller really must hold mmap_lock” category.
+  - Clarify that the timeout is a retry budget for repeated mmu-notifier
+    invalidation retries. HMM does not interrupt an in-progress page fault
+    when the timeout expires.
+  - Restart the retry timeout only when handle_mm_fault() dropped
+    mmap_lock, because that indicates a lock-dropping fault handler such as
+    userfaultfd made progress. Ordinary -EBUSY retries keep the existing
+    deadline.
+  - Remove the attempted timeout selftest. The remaining selftest covers the
+    intended userfaultfd path by resolving missing-page faults through
+    HMM_DMIRROR_READ_UNLOCKED and hmm_range_fault_unlocked_timeout(..., 0).
+
+Changes in v7:
+  - Replaced the unlocked HMM API with
+    hmm_range_fault_unlocked_timeout(). The helper now takes a timeout in
+    jiffies, with 0 meaning retry indefinitely.
+  - Moved -EBUSY retry handling into the HMM helper for the unlocked path.
+    The helper refreshes range->notifier_seq internally before each retry.
+  - Switched the unlocked path to mmap_read_lock_killable() and return
+    -EINTR if mmap lock acquisition is interrupted or a fatal signal is
+    pending during retry handling.
+  - Removed the redundant non-timeout hmm_range_fault_unlocked() interface.
+  - Updated Documentation/mm/hmm.rst and kernel-doc to describe the timeout API
+    and the intended caller pattern.
+  - Updated the HMM selftests to use hmm_range_fault_unlocked_timeout()
+    only, including coverage for the finite-timeout path.
+  - Added in-tree users of the new helper:
+      - mshv
+      - nouveau
+      - RDMA/umem
+      - amdxdna
+      - drm/gpusvm
+  - Preserved each converted driver’s existing timeout convention:
+      - unbounded retry where the old code retried indefinitely,
+      - HMM_RANGE_DEFAULT_TIMEOUT where the old code used that budget,
+      - existing driver-specific timeout return values such as -ETIME.
+  - Used max_t(long, timeout - jiffies, 1) when passing remaining time from
+    absolute jiffies deadlines to avoid unsigned underflow while keeping a
+    minimum one-jiffy retry window.
+  - Left callers on hmm_range_fault() when they already need to hold
+    mmap_lock across surrounding work, such as drm_gpusvm_check_pages().
+
+Changes in v6:
+  - Reworked the new API from the external int *locked pattern to
+    hmm_range_fault_unlocked(), which owns mmap_read_lock() internally.
+  - Changed the dropped-lock contract: hmm_range_fault_unlocked() now returns
+    -EBUSY when the mmap lock is dropped, and callers restart with a fresh
+    mmu_interval_read_begin() sequence.
+  - Kept hmm_range_fault() as the locked variant for existing users, preserving
+    its caller-held mmap lock contract.
+  - Added an in-tree user by converting the MSHV region fault path to
+    hmm_range_fault_unlocked().
+  - Updated Documentation/mm/hmm.rst and kernel-doc to describe the unlocked
+    helper and retry pattern.
+  - Updated commit messages to match the new API and return semantics.
+  - Kept the userfaultfd HMM selftest using the test_hmm unlocked read ioctl
+    path.
+
+Changes in v5:
+ - Rework hmm_range_fault_unlockable() retry handling to retry
+   VM_FAULT_RETRY internally with FAULT_FLAG_TRIED set, matching the
+   fixup_user_fault() pattern and avoiding repeated first-retry lock drops.
+ - Distinguish VM_FAULT_RETRY from VM_FAULT_COMPLETED: retry faults now
+   reacquire the mmap lock internally, while completed faults return to the
+   caller with *locked = 0 so the caller can restart with a fresh notifier
+   sequence.
+ - Document the two *locked return states, including the -EINTR case when a
+   fatal signal is pending after the mmap lock has already been dropped.
+ - Update comments around HMM_FAULT_UNLOCKED and the HMM fault loop to match
+   the current hmm_range_fault_unlockable() implementation.
+
+Changes in v4:
+ - Rebased on 7.2-rc1
+Changes in v3:
+ - Return -EFAULT from dmirror_fault_unlockable() when the mirrored mm can
+   no longer be pinned.
+ - Add an eventfd stop signal for the userfaultfd handler thread to avoid
+   waiting for the poll timeout on successful test completion.
+
+Changes in v2:
+
+- Split into a preparatory refactor (new patch 1) that moves
+   handle_mm_fault() out of the walk callbacks, plus a smaller feature
+   patch on top.  Suggested by David Hildenbrand.
+ - Hugetlb regions are now supported on the unlockable path; the v1
+   -EFAULT short-circuit and the hugetlb_vma_lock_read drop/retake
+   dance are gone.
+ - Distinct internal sentinels for "needs fault" (HMM_FAULT_PENDING)
+   and "lock dropped" (HMM_FAULT_UNLOCKED).
+ - Outer loop now re-walks after a successful internal fault so the
+   faulted pfns end up in range->hmm_pfns.
+ - Kernel-doc on hmm_range_fault_unlockable() and the
+   Documentation/mm/hmm.rst example match the implementation.
+ - Dropped the mshv driver conversion (v1 patch 2); will post
+   separately.
+ - Selftest converted to drive the path through test_hmm with a
+   userfaultfd handler (new HMM_DMIRROR_READ_UNLOCKABLE ioctl).
+
+---
+Stanislav Kinsburskii (8):
+      mm/hmm: move page fault handling out of walk callbacks
+      mm/hmm: add hmm_range_fault_unlocked_timeout() for mmap lock-drop support
+      selftests/mm: add HMM test for mmap lock-dropping faults
+      mshv: Use hmm_range_fault_unlocked_timeout() for region faults
+      drm/nouveau: Use hmm_range_fault_unlocked_timeout() for SVM faults
+      RDMA/umem: Use hmm_range_fault_unlocked_timeout() for ODP faults
+      accel/amdxdna: Use hmm_range_fault_unlocked_timeout() for range population
+      drm/gpusvm: Use hmm_range_fault_unlocked_timeout() for range faults
+
+ Documentation/mm/hmm.rst               |  79 +++++++---
+ drivers/accel/amdxdna/aie2_ctx.c       |  23 +--
+ drivers/gpu/drm/drm_gpusvm.c           |  60 ++------
+ drivers/gpu/drm/nouveau/nouveau_svm.c  |  20 +--
+ drivers/hv/mshv_regions.c              |  54 ++-----
+ drivers/infiniband/core/umem_odp.c     |  18 +--
+ include/linux/hmm.h                    |   2 +
+ lib/test_hmm.c                         | 107 +++++++++++++-
+ lib/test_hmm_uapi.h                    |   1 +
+ mm/hmm.c                               | 262 +++++++++++++++++++++++++--------
+ tools/testing/selftests/mm/hmm-tests.c | 150 +++++++++++++++++++
+ 11 files changed, 557 insertions(+), 219 deletions(-)
+---
+base-commit: a4271215228d2bd2a50eea03ab0a948b36036948
+change-id: 20260722-hmm-v10-727db2bb9d34
+
+Best regards,
+-- 
+Stanislav Kinsburskii <skinsburskii@gmail.com>
+
