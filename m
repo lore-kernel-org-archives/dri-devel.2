@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29A6FC531CF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0262EC531D9
 	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:35:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51E6210EF2C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0C9710EF32;
 	Thu, 23 Jul 2026 01:35:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="TECsmuPk";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="PrzgjZQq";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDC0610EF09
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEA4F10EF09
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784770519;
- bh=1sjiGSuYxbot29GrIMO6xa1feMqyO5qy5SzRDP9PBfQ=;
+ s=mail; t=1784770526;
+ bh=T57B2HIpxjOg2246T5ktjF/JgTCd4d9jWzrI7OnBqP0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=TECsmuPkSey9DBewmBfoAWWygvFg822x88owNxfQeBsPaDlmar+m5DfNnRvXXiOMX
- AIhAJEC/vtZZrEZlnFIjgLObV3okPQvjN4AoIchEV4Sf1DarGkjhJ/feooCXogvKuw
- HzSz4uiNw22tdjwAo2P0Xe/3LcsUGO49xqB3gZnlO0KJYFaiRU9d52USQi9BB2tlW2
- PvqBU0NHosSeW/vYEynTuvRVIHQZFGxWevQdR4KqYVy/Vac7UdAPtY/RvanbeUsfFK
- FXbsYPuNEPcAWRvDFY4Tvv19ZWiTPbybTWF/e0oJRgs1Ba4ZCC+1tHZCfPZXD/qFY0
- o+Ls22unvFSJg==
+ b=PrzgjZQqXMiMtQu4Hc0RrI4NRuioSNzlKEfW4g4R8gxfZTGt4Ltsqa2g5K0JFGr8g
+ 4MxJkVUCsUD0o4kTdP6O1u92IKM/BjkxcaHgPUZapUlU2RQZDGV6rz7MFCxbGWts27
+ 5h1WUdblDm4ZCwUt2GSDlue83KazspEi+tHe6Q8QaNngbvwH41dpwpzmc9SrqK5sLP
+ DBk0XVUq2pT278emoFTGRWTP8el/olXK8+0ZoMn+Dy9KZWNGvKw6U2vbQth2Rd7Ce/
+ 4gFzTqtKvOi4OUgh06XUp8kZyT0xY7P0f4zVSXD8isctfGGInB/GUW4afzKY6imfPF
+ VfLajON5INIyg==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7E8C617E1064;
- Thu, 23 Jul 2026 03:35:19 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 8265D17E36BC;
+ Thu, 23 Jul 2026 03:35:26 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 23 Jul 2026 04:35:14 +0300
-Subject: [PATCH v9 25/61] drm/rockchip: dw_hdmi_qp: Add missing newlines in
- dev_err_probe() messages
+Date: Thu, 23 Jul 2026 04:35:24 +0300
+Subject: [PATCH v9 35/61] drm/vc4: hdmi: Switch to
+ drm_hdmi_mode_needs_scrambling()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-dw-hdmi-qp-scramb-v9-25-4fb12ea22ac9@collabora.com>
+Message-Id: <20260723-dw-hdmi-qp-scramb-v9-35-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,8 +62,7 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- Maud Spierings <maud_spierings@hotmail.com>
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,41 +79,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the missing trailing newlines to a couple of dev_err_probe() calls
-in dw_hdmi_qp_rockchip_bind().
+The VC4 HDMI driver has a local helper to check whether a mode requires
+scrambling.  It is equivalent to drm_hdmi_mode_needs_scrambling(), so
+use the common helper instead.
 
-Fixes: b6736a4ea3fa ("drm/rockchip: dw_hdmi_qp: Improve error handling with dev_err_probe()")
-Fixes: e1f7b7cbd74c ("drm/rockchip: dw_hdmi_qp: Switch to drmm_encoder_init()")
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+No functional change intended.
+
+Acked-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 7c9d26d79664..369f1066dabe 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -681,7 +681,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	drm_encoder_helper_add(encoder, &dw_hdmi_qp_rockchip_encoder_helper_funcs);
- 	ret = drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_TMDS, NULL);
- 	if (ret)
--		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder");
-+		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder\n");
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index 9ce56eca775c..4f7fc6689869 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -130,15 +130,6 @@ static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
+ 	return true;
+ }
  
- 	platform_set_drvdata(pdev, hdmi);
- 
-@@ -689,8 +689,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	if (IS_ERR(hdmi->hdmi)) {
- 		ret = PTR_ERR(hdmi->hdmi);
- 		hdmi->hdmi = NULL;
--		return dev_err_probe(hdmi->dev, ret,
--				     "Failed to bind dw-hdmi-qp");
-+		return dev_err_probe(hdmi->dev, ret, "Failed to bind dw-hdmi-qp\n");
+-static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
+-					   unsigned int bpc,
+-					   enum drm_output_color_format fmt)
+-{
+-	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
+-
+-	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+-}
+-
+ static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
+ {
+ 	struct drm_debugfs_entry *entry = m->private;
+@@ -313,7 +304,7 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
+ 		return 0;
  	}
  
- 	connector = drm_bridge_connector_init(drm, encoder);
+-	scrambling_needed = vc4_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
++	scrambling_needed = drm_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
+ 							   vc4_hdmi->output_bpc,
+ 							   vc4_hdmi->output_format);
+ 	if (!scrambling_needed) {
+@@ -443,7 +434,8 @@ static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
+ 		const struct drm_display_mode *mode;
+ 
+ 		list_for_each_entry(mode, &connector->probed_modes, head) {
+-			if (vc4_hdmi_mode_needs_scrambling(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
++			if (drm_hdmi_mode_needs_scrambling(mode, 8,
++							   DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
+ 				drm_warn_once(drm, "The core clock cannot reach frequencies high enough to support 4k @ 60Hz.");
+ 				drm_warn_once(drm, "Please change your config.txt file to add hdmi_enable_4kp60.");
+ 			}
+@@ -802,7 +794,7 @@ static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
+ 	if (!vc4_hdmi_supports_scrambling(vc4_hdmi))
+ 		return;
+ 
+-	if (!vc4_hdmi_mode_needs_scrambling(mode,
++	if (!drm_hdmi_mode_needs_scrambling(mode,
+ 					    vc4_hdmi->output_bpc,
+ 					    vc4_hdmi->output_format))
+ 		return;
 
 -- 
 2.55.0
