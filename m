@@ -4,83 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BF3EC531C7
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 10:31:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81A2AC531CB
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 10:31:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93A0E10F08B;
-	Thu, 23 Jul 2026 10:31:05 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="pT1dmZqm";
-	dkim-atps=neutral
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD2B510F08B
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 10:31:04 +0000 (UTC)
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-4955d314945so3777505e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 03:31:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1784802663; x=1785407463;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Mqgqzxkhdx1tnyQjzJPVNW/eINwechdkO4hcnTDq4+o=;
- b=pT1dmZqmM/A+kAOgbqXKON9t8iDGfyeTAwMrd7cH6+y55zZQVACFQg6QZioy+kHJh7
- KZ3/fmIvjgt9e1v4RIJheo1tmaEjK7BGUND67Gf5XYgAXZJ6F/duljz7QfM7RctPmCrB
- EpDmXMa9yFTUJtIEIsh5NcFLaHH3MukOn9O01HRC3ZNkE8yhpdQjJReLybrLi9R2SfsI
- LcEpXTUdkSsXPeEjYc8BMY6wYMqIrNrsKj0rsjcOHMPWTstJBpFiRqrANjKVih/uNnzg
- PwGHD8uzC+/IByrziO5ovvSe9mAQyU+szqt/8YgfKjCv56WWgb2D0uaQcLVER6oEQVhL
- cWow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784802663; x=1785407463;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Mqgqzxkhdx1tnyQjzJPVNW/eINwechdkO4hcnTDq4+o=;
- b=e0kvPkbdp5H5ew9YLEfWY5doSbApJR3TPXXjzIiLXxEgPIbTufK+JkdtH7lth4zJ5p
- nZvriVkpvx6Snnuz6zt+fIF/7Y0gq+aL8xpTdmn/w6Bg2SgdURygMeu9CS2V+cuiv0fm
- OGTdhuREWPg5NMP5KhNfOIHI8Vo+68QlWVdZFVJRaldV82KrXdh/5KgOWo2/jyejShkk
- 098Bo8wdAYhHb5xwVXXbP6VzMqp4UFzjPNN6e+icsgs2ok41om9Gii3cB6XcqKGVN0b9
- Mzp7ueoNRnraLSLyGpx9q/eNhpAReGBh8Y8a/+ncz7iFk0YOYAGGb0TuR1UMhUnUGU+P
- KkOg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpmK61vpe+infpRMI7rftMODd+3+GR23tDOE2J4Py1XmvkahXRlqCRDqeMN6M6JCArBdWLx/7ZDkq0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwiNPHNRuNg/ipnT5UeyM093pEuaX+BdIx7Xwqv27PMG4/cqORr
- fMu3evoU7fCoVroeOoSV9B4lDp8horxuB+59lZX80Qnd41rKJJddIO6z0tS3VvUuedOA+foTWuw
- oU+EZ6kYdIzfYy3xDXw==
-X-Received: from wmbjj16.prod.google.com
- ([2002:a05:600c:6a10:b0:495:5422:15f2])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4e89:b0:495:63e4:7f78 with SMTP id
- 5b1f17b1804b1-49573ccd115mr30916405e9.10.1784802662821; 
- Thu, 23 Jul 2026 03:31:02 -0700 (PDT)
-Date: Thu, 23 Jul 2026 10:31:01 +0000
-In-Reply-To: <20260723-chid-v2-2-c35e5e9fb3d9@nvidia.com>
-Mime-Version: 1.0
-References: <20260723-chid-v2-0-c35e5e9fb3d9@nvidia.com>
- <20260723-chid-v2-2-c35e5e9fb3d9@nvidia.com>
-Message-ID: <amHtZeAl3VFsibE1@google.com>
-Subject: Re: [PATCH v2 2/4] rust: bitmap: add contiguous area operations
-From: Alice Ryhl <aliceryhl@google.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Burak Emir <burak.emir@gmail.com>, Yury Norov <yury.norov@gmail.com>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1C4F10F097;
+	Thu, 23 Jul 2026 10:31:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96DBD10F08C
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 10:31:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4E18440BF5;
+ Thu, 23 Jul 2026 10:31:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCE181F000E9;
+ Thu, 23 Jul 2026 10:31:40 +0000 (UTC)
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 4/6] drm/ttm: Hook up a cgroup-aware reclaim callback
+ for the dmem controller
+To: =?utf-8?b?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, tj@kernel.org, mkoutny@suse.com,
+ hannes@cmpxchg.org
+In-Reply-To: <20260723100350.16895-5-thomas.hellstrom@linux.intel.com>
+References: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
+ <20260723100350.16895-5-thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 10:31:30 +0000
+Message-Id: <20260723103140.DCE181F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,76 +42,115 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 23, 2026 at 05:59:11PM +0900, Eliot Courtney wrote:
-> Add bindings for area operations on bitmaps. Each one is
-> made safe by adding some extra checks compared to the underlying C code
-> (for example, checking bounds) and with additional checks to catch
-> likely erroneous usage if `CONFIG_RUST_BITMAP_HARDENED` is on.
-> 
-> The C code uses signed integers for some parameters, for example the
-> length for `__bitmap_set`, so bounds check against i32::MAX. We can't
-> rely on `BitmapVec::MAX_LEN` because `Bitmap` may not necessarily be
-> backed by `BitmapVec`. There's also a few cases where an `align_mask`
-> can cause an infinite loop in the C code: masks that are not a power
-> of two minus one, and masks where `self.len() + align_mask` overflows
-> the alignment step, so check for those.
-> 
-> Add tests demonstrating the edge cases.
-> 
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  rust/kernel/bitmap.rs | 217 ++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 217 insertions(+)
-> 
-> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
-> index a43bfe0ec3dc..1395bbe99cbb 100644
-> --- a/rust/kernel/bitmap.rs
-> +++ b/rust/kernel/bitmap.rs
-> @@ -497,6 +497,127 @@ pub fn next_zero_bit(&self, start: usize) -> Option<usize> {
->              Some(index)
->          }
->      }
-> +
-> +    /// Finds a contiguous area of `nbits` zero bits at or after `start`, aligned per `align_mask`.
-> +    ///
-> +    /// Returns the bit index of the start of the area, or [`None`] if no such area fitting in
-> +    /// the bitmap exists or the `align_mask` is invalid.
-> +    ///
-> +    /// `align_mask` should be `0` (no alignment) or one less than a power of two, in which case the
-> +    /// returned index is a multiple of that power of two. Masks such that `self.len() + align_mask`
-> +    /// overflows are checked and considered invalid, as they can hang the underlying C code.
-> +    ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `start` is out of bounds or
-> +    /// `align_mask` is invalid.
-> +    ///
-> +    /// # Examples
-> +    ///
-> +    /// ```
-> +    /// use kernel::alloc::{AllocError, flags::GFP_KERNEL};
-> +    /// use kernel::bitmap::BitmapVec;
-> +    ///
-> +    /// let mut b = BitmapVec::new(64, GFP_KERNEL)?;
-> +    ///
-> +    /// assert_eq!(Some(0), b.next_zero_area(0, 8, 0));
-> +    /// b.set(0, 5);
-> +    /// assert_eq!(Some(5), b.next_zero_area(0, 8, 0));
-> +    /// assert_eq!(Some(8), b.next_zero_area(0, 8, 7));
-> +    /// assert_eq!(None, b.next_zero_area(0, 65, 0));
-> +    /// # Ok::<(), AllocError>(())
-> +    /// ```
-> +    #[inline]
-> +    pub fn next_zero_area(&self, start: usize, nbits: usize, align_mask: usize) -> Option<usize> {
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] ttm_resource_manager_set_dmem_region(man, NULL) fails to prevent a=
+ Use-After-Free in the reclaim callback when the dmem region outlives the r=
+esource manager.
+- [High] AMDGPU's eviction_valuable callback dereferences the `place` point=
+er without checking for NULL, which crashes during cgroup reclaim.
+- [High] Incorrect check in `ttm_resource_free()` causes cgroup charge leak=
+s when a region is detached, or potential crashes when a region is attached=
+ post-allocation.
+--
 
-Instead of using a `usize` argument, it'd be ideal to use the Alignment
-type defined in rust/kernel/ptr.rs, since it is guaranteed that the
-contained value is a power of two, so you can omit all those checks.
+--- Patch [4]: [PATCH v8 4/6] drm/ttm: Hook up a cgroup-aware reclaim callb=
+ack for the dmem controller ---
+commit 2a3c858c74bfd2816b989356ca73920f98d725df
+Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+Subject: drm/ttm: Hook up a cgroup-aware reclaim callback for the dmem cont=
+roller
 
-(Since you need a mask, you'll need to subtract one from the provided
-Alignment, but that should be fine.)
+This commit introduces a cgroup-aware reclaim callback for the TTM dmem
+controller to evict buffer objects based on cgroup pools. It adds a new
+sleeping lock mode for the LRU walker and provides functions to associate
+dmem regions with resource managers.
 
-Alice
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+[ ... ]
+> @@ -515,12 +515,20 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *wal=
+k, struct ttm_buffer_object *
+[ ... ]
+> +	/*
+> +	 * evict_walk->place is NULL in cgroup drain mode.  Drivers'
+> +	 * eviction_valuable() callbacks must handle a NULL place, treating it
+> +	 * as "any placement": the TTM base implementation already does so via
+> +	 * ttm_resource_intersects().
+> +	 */
+>  	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk=
+->place))
+>  		return 0;
+
+[Severity: High]
+Will this crash in AMDGPU when it evaluates KFD fences?
+
+While the TTM base implementation handles a NULL place, the AMDGPU
+implementation does not seem to do so. In amdgpu_ttm_bo_eviction_valuable(),
+the place pointer is unconditionally dereferenced:
+
+amdgpu_ttm_bo_eviction_valuable()
+	if (amdkfd_fence_check_mm(f, current->mm) &&
+	    !(place->flags & TTM_PL_FLAG_CONTIGUOUS))
+		return false;
+
+Does the driver callback need to be updated to handle the NULL place during
+cgroup drain, or should TTM provide a dummy place?
+
+[ ... ]
+> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm=
+_resource.c
+> --- a/drivers/gpu/drm/ttm/ttm_resource.c
+> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
+[ ... ]
+> @@ -953,3 +953,55 @@ void ttm_resource_manager_create_debugfs(struct ttm_=
+resource_manager *man,
+[ ... ]
+> +void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *m=
+an,
+> +					  struct dmem_cgroup_region *region)
+> +{
+> +	if (!IS_ERR(region))
+> +		man->cg =3D region;
+
+[Severity: High]
+Does setting the region to NULL properly detach the reclaim callback?
+
+When ttm_resource_manager_set_dmem_region() is called with a NULL region to
+detach it before teardown, it clears man->cg, but it doesn't appear to
+unregister the callback from the cgroup region. If the manager is destroyed
+before the region, could background reclaim or sysfs writes to dmem.max
+invoke the callback with a dangling priv pointer?
+
+Additionally, can modifying man->cg here cause cgroup charge leaks when
+resources are freed?
+
+Looking at ttm_resource_free(), the uncharge path checks man->cg instead of
+the resource's pool:
+
+ttm_resource_free()
+	pool =3D (*res)->css;
+	man =3D ttm_manager_type(bo->bdev, (*res)->mem_type);
+	man->func->free(man, *res);
+	*res =3D NULL;
+	if (man->cg)
+		dmem_cgroup_uncharge(pool, bo->base.size);
+
+If a region is detached (man->cg becomes NULL) after a resource was
+allocated, it skips uncharging a valid pool pointer, permanently leaking the
+charge. Conversely, if man->cg is attached after allocation (so pool is
+NULL), it might call dmem_cgroup_uncharge() with a NULL pool.
+
+Should ttm_resource_free() check if the resource itself has a valid css pool
+rather than checking man->cg?
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723100350.1689=
+5-1-thomas.hellstrom@linux.intel.com?part=3D4
