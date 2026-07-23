@@ -4,94 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D179C531CC
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 19:23:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB1ABC531D0
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 19:30:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 969AB10E5E6;
-	Thu, 23 Jul 2026 19:23:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CAD010E5E7;
+	Thu, 23 Jul 2026 19:30:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CS5MkcmX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HpztF2W+";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E0AA10E5E6
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 19:23:54 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4954df200ddso6394215e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 12:23:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784834633; x=1785439433; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=mqxcfVrR6DJH7Q8LkKVdFh0w04HNqAky5ozgYuy/EFs=;
- b=CS5MkcmXuq7qV6i2i6KCCz3i8vPUuyowuhN/EOLrAMvKKNE8ybnDALE9/R/VSNEgMu
- 5t8DIVM+6jNYmGoa7TCKKGMFLTV/tbLTE2h/LrxX1OCCwdHTf1aUY4hg79OX5lNl0XM2
- vttxMlv4knH5USERj6Wg7Zi4wCcUoARYygCgTUv3NJeIRAncFA8PXSqddq3zctrV/qIN
- lgAf25JlDSZYmAovnGl4AR0Eo4mD5xxdMK0w7bCOsYXOfiJB0VjkjMsLckca8BiiHneN
- 1p9xLf+R7RJ4QCG8wg4BxX0UMYjCR+CEolMhaS9p8mhsLm5OsTsNG68kZ/Jf4mvsvTer
- 5Mag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784834633; x=1785439433;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=mqxcfVrR6DJH7Q8LkKVdFh0w04HNqAky5ozgYuy/EFs=;
- b=kemQ+pNzk84+RxJ0i+LuKfEriCBGaNPymx2uP7bePLeetP5+tMNWpPMkA74bZJTrWL
- ONG2XJ0RHVetlSg2z+x0kbopX7mLK1N7g5HdQwkQejjW+ZvnfPP5+/q4Vd+wG6+vmllA
- x9dLvJ/g4B/rc66NBj/Za0p9qf7QhdzL9N7lg3Ex0nglg4QzYIFere6enIswikBYtnNv
- yceGZgcMJZlwp6xu1ZKfX307f6ABRROApfxPeOp3loKgBP4GuKRL48QUXx7stb66G1xv
- c1ZxIXElrPDtlrEtJwi4K++aaCAQdZThH+HPZG2oKNk16opmrNXHqrAxnlllKsEZC1TL
- Mg9w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrT2pT405veqW/c0s+ueIwOJsqH5l9krzzB9cMrcr/npL8ar30q4zBcjQRTriK82pRqOPe0y7iwWXE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzG5pNwXbODMEaUo4gczdvgXwYZyHw90FyZ48Um2SI802fAHBVy
- 7Q0U8Bomil1FKCRkiJxqL5snDUiVxxdY9vd4e85Smcl7yV0tpQOyASY=
-X-Gm-Gg: AR+sD13r78in1egMbarffRoWsslKpbRS9CrDflarJnjEmdKEeSAtGK2vu7Jje1GRAJT
- W0sAFAVwMrqs4rfew8qbDn4FbefybNYf3TEIMyC/0B/a9mCLia045UypdzSeWUzqF4GlsWRjOtU
- 5ghUAbTtnYYhUtkZ87Jj53ot4gskCIiJcTut0/mkvB3d2SdhiziXkak4UpLWVr6Ve7/YkPk9IVJ
- Q29EfxuQRtsqlDh8rAnyTB7T4UlN7yWA4Tgla4be8Jsue1KTsNGe69v277I2srgcROvnfrzzHMP
- 0SbD+nR7/5gBt3WOPD07KeCLCB676oKxr61NS07N4zqALcskeouX3n/cMOhN7kadWybTNO2VHkT
- a29DLqJlNNsMnVTi7u6+Tjn8OSUHSyLQ3/EB5hAfogtj5UGglft/ghVaQNiygoXj/zXY63mrBSx
- G9DsWK1hf5hhRAVMrgqMQ=
-X-Received: by 2002:a05:600c:1d29:b0:495:699:84ca with SMTP id
- 5b1f17b1804b1-49573d142bamr50812275e9.28.1784834632689; 
- Thu, 23 Jul 2026 12:23:52 -0700 (PDT)
-Received: from [192.168.1.67] ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4957af5d4d7sm15416245e9.2.2026.07.23.12.23.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jul 2026 12:23:52 -0700 (PDT)
-From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Date: Thu, 23 Jul 2026 21:23:22 +0200
-Subject: [PATCH v2] drm/msm: remove objects from evit list after pinning them
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 732BA10E5E7
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 19:29:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E838A4341E;
+ Thu, 23 Jul 2026 19:29:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B281F000E9;
+ Thu, 23 Jul 2026 19:29:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784834998;
+ bh=y5iomjCyRfRp3uujqn1eS42YOTWw+ABmMrptepvIZ7Q=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=HpztF2W+jj+oPJBXBd5DBcqoA2Sm/XtLNAo7A3jLOwKkr8x9d2LlNJc5kOK87NXwV
+ dPfvFf436Ag4QAWvE4hqB+0CIaIog+ggZsQ3mr/KoGuZeT7PauU3CUF+DKT/KQGiyw
+ FLRRMPX6Juqw8TE9zKGvvEkK/N74UmZpHbG6YXAMajMDzSW4qR095hChwpIimswuz5
+ FmKTpz2ndXcBDeMV9c1wUZAFhLPoXzpKXNHeFyf3bAsS8jduYzwuQq95Gtem2ReCoX
+ 4ZUVJbFHzbprLyxqinE64Imvapcq2pUpbKd09SDGjMeT0bBsnsCnQuBqAreyPWS7mS
+ DJoSCkrUJGJnA==
+Date: Thu, 23 Jul 2026 14:29:57 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Gary Guo <gary@garyguo.net>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+ Zhenzhong Duan <zhenzhong.duan@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Damien Le Moal <dlemoal@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>, GOTO Masanori <gotom@debian.or.jp>,
+ YOKOTA Hiroshi <yokota@netlab.is.tsukuba.ac.jp>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Vaibhav Gupta <vaibhavgupta40@gmail.com>,
+ Jens Taprogge <jens.taprogge@taprogge.org>,
+ Ido Schimmel <idosch@nvidia.com>, Petr Machata <petrm@nvidia.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ David Airlie <airlied@redhat.com>, linux-pci@vger.kernel.org,
+ driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-ide@vger.kernel.org, linux-scsi@vger.kernel.org,
+ industrypack-devel@lists.sourceforge.net, netdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v3 9/9] pci: fix UAF when probe runs concurrent to dyn ID
+ removal
+Message-ID: <20260723192957.GA839273@bhelgaas>
+References: <20260706-pci_id_fix-v3-9-2d48fc025acc@garyguo.net>
+ <20260721223500.GA690676@bhelgaas>
+ <DK66ISTEVM5H.3K5O68CW1F8ZB@garyguo.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-evict_list_fix-v2-1-bd0725e56253@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbQ0dk6KuvIchpLQFxgA1LTYaw
- t2d4trM6v+8/2aF6AK5CNdiheASRfIzBzwUYAY9906Q5QxYoiorPAlmzNKMFJemo7eQVl+wRYW
- V1sCjZ3Bc78J7/cvx1T6cWbIlEwNPffjsH5PM3F95koJPS3su205J0936SdN4NH6Cetu2L7Q/2
- /m+AAAA
-X-Change-ID: 20260723-evict_list_fix-1da92b2627aa
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Anna Maniscalco <anna.maniscalco2000@gmail.com>, 
- Antonino Maniscalco <antomani103@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784834631; l=1651;
- i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
- bh=k/JTkZF0a0smNy/xXdhUk8nFQroFgmrlPE0Qs9N4U1U=;
- b=TGbF0HVMiylKJpQxVKlBl47m+NOEpqrAnzusIERxCbECnNRC8S4Q/4v14QhTClm/aFf7aK7cf
- DdwDEysRadnDG0LErRTVatQILEmbeO27QwE4jTL27uRG/gVmt1oWTVf
-X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
- pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DK66ISTEVM5H.3K5O68CW1F8ZB@garyguo.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,55 +79,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Once objects are pinned they should not be kept in the evict list as
-that will cause drm_gpuvm_validate to keep ieterating a growing list of
-objects needlessly.
+On Thu, Jul 23, 2026 at 07:57:58PM +0100, Gary Guo wrote:
+> On Tue Jul 21, 2026 at 11:35 PM BST, Bjorn Helgaas wrote:
+> > On Mon, Jul 06, 2026 at 03:11:21PM +0100, Gary Guo wrote:
+> >> Dynamic IDs are only guaranteed to be valid when dynids.lock is held,
+> >> as remove_id_store can free the node. Thus, make a copy in
+> >> pci_match_device. Also, clarify that the id parameter is only valid during
+> >> probe.
+> >> 
+> >> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> >> Link: https://lore.kernel.org/all/20260619170503.518F61F00A3A@smtp.kernel.org/
+> >> Fixes: 0994375e9614 ("PCI: add remove_id sysfs entry")
+> >> Signed-off-by: Gary Guo <gary@garyguo.net>
+> >> ---
+> >>  drivers/pci/pci-driver.c | 28 +++++++++++++++-------------
+> >>  include/linux/pci.h      |  1 +
+> >>  2 files changed, 16 insertions(+), 13 deletions(-)
+> >> 
+> >> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> >> index 64b308b6e61c..92c17c116de6 100644
+> >> --- a/include/linux/pci.h
+> >> +++ b/include/linux/pci.h
+> >> @@ -979,6 +979,7 @@ struct module;
+> >>   *		function returns zero when the driver chooses to
+> >>   *		take "ownership" of the device or an error code
+> >>   *		(negative number) otherwise.
+> >> + *		The pci_device_id parameter is only valid during probe.
+> >
+> > The probe function takes a pointer to a struct pci_device_id, so I
+> > think the requirement is that the struct pci_device_id only *needs* to
+> > be valid during .probe(), right, i.e., the PCI core probe path makes
+> > its own copy of the ID and doesn't retain the pointer after .probe()
+> > returns, right?
+> >
+> > I assume the caller determines the struct pci_device_id lifetime, and
+> > it could be forever.
+> >
+> > Could say something like:
+> >
+> >   The pci_device_id parameter only needs to be valid during probe.
+> 
+> As a contract on function parameter, the caller needs to guarantee that it lives
+> at least as long as documented (i.e. during the whole probe) and the callee
+> cannot assume that it will be valid beyond what's guaranteed.
+> 
+> How about:
+> 
+>     The pci_device_id parameter is only guaranteed to be valid during probe.
 
-Once an object is pinned remove it from the list.
+That's ok with me.  My only niggle is that this documentation is that the
+*consumer* end, and of course the consumer, i.e., the PCI core probe path,
+can't guarantee anything about the parameters it receives.  But I guess
+your point is that the *caller* must guarantee that the parameter remains
+valid during probe.
 
-Fixes: 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl")
-Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
----
-Changes in v2:
-- Added Fixes tag
-- Link to v1: https://patch.msgid.link/20260723-evict_list_fix-v1-1-1a1d80bf61cf@gmail.com
-
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-To: Dmitry Baryshkov <lumag@kernel.org>
-To: Abhinav Kumar <abhinav.kumar@linux.dev>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: Sean Paul <sean@poorly.run>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Antonino Maniscalco <antomani103@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/gpu/drm/msm/msm_gem_vma.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index 1a952b171ed7..4422677f095c 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -458,6 +458,8 @@ msm_gem_vm_bo_validate(struct drm_gpuvm_bo *vm_bo, struct drm_exec *exec)
- 			return ret;
- 	}
- 
-+	drm_gpuvm_bo_evict(vm_bo, false);
-+
- 	return 0;
- }
- 
-
----
-base-commit: 9a967125427e03c7ebc24d7ad26e9307e8403d4e
-change-id: 20260723-evict_list_fix-1da92b2627aa
-
-Best regards,
---  
-Anna Maniscalco <anna.maniscalco2000@gmail.com>
-
+The only thing the consumer can guarantee is that it doesn't depend on the
+pci_device_id parameter after the probe returns.
