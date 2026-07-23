@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99C68C44536
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:35:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9971C531C7
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:35:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C36A610EF04;
-	Thu, 23 Jul 2026 01:35:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A9D410EF0A;
+	Thu, 23 Jul 2026 01:35:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="B8YcFDBj";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="SN+REnXq";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89AEA10E503
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C665610E4DC
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784770506;
- bh=CJh8qr0reSiITiFxt1GFO/mGRX/C03+mDj0l5CF8lgc=;
+ s=mail; t=1784770503;
+ bh=j3UBn+8aHnvj7OWQqEmYPBqUKwjIgdMcEo6BLe+ttNY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=B8YcFDBjKGf4ylEYcEjN7aOmxFQghEJGdgo3kIvKoXc5FMklKlOzPk9+o/cRsQ12B
- 295/oAR5d1xOusXLCVnZQzuYAQvr4jx7q63xVcjCW4GjZzC336nLo2F3DsAXISsKq5
- jhf3pNFgf0AdiqiLXUnkXfFFhUaT921x2L4+1GyPAowaDFw4tDvIziwWmF1s84e92H
- bcWRLjaNS4aWaA+0X92sOlLgqQKDg21Xgt9enpsr6haWpdaBM47ketfz3vNN2AkJeJ
- rOUyT+vFLRt5g3p4P7xyJVMY67/bTDK5oq0YsCDSJpc2e3q72ueHt+4eoKBDtUDOwZ
- wpXcChQHkTXuA==
+ b=SN+REnXqPibGh2niXrvYyvVH4AOLXb95NGALe9PmBidpAQtdwj1ce/5BfbOkMbC3O
+ 7ViOToQjzQLVGicoflMIa9W1sxhweFY3EXIPcS5aeRwddzTzlcqSTVYhxpfpqZ6dKM
+ p19xra8Jf3g3V/xxs9ebYn2E47VGS3LXWAhKUdapU8VRAzFMukcX54WMNXLr/4kqIu
+ 7Cda9RS9CRoQUxmgcCwukjzuZyoSAJgEc6pJ8hwSIsPfVkaH30hEotymfDdvHe4oz8
+ ziTfRM/tGXpXW5doS6q/esvXvYBZHS3IuqEe1nfo2BX9odkOaIEICa/6KEI6u8P7rr
+ z/gOE7EpDe0EQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 37AC817E0F76;
- Thu, 23 Jul 2026 03:35:06 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7054817E0857;
+ Thu, 23 Jul 2026 03:35:03 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 23 Jul 2026 04:34:55 +0300
-Subject: [PATCH v9 06/61] drm/display: scdc-helper: Add macro for
- connector-prefixed debug messages
+Date: Thu, 23 Jul 2026 04:34:51 +0300
+Subject: [PATCH v9 02/61] drm/display: hdmi: Rename
+ drmm_connector_hdmi_init() to *_ini2()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-dw-hdmi-qp-scramb-v9-6-4fb12ea22ac9@collabora.com>
+Message-Id: <20260723-dw-hdmi-qp-scramb-v9-2-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,8 +62,7 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- Maud Spierings <maud_spierings@hotmail.com>
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,87 +79,327 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Introduce the drm_scdc_dbg() wrapper over drm_dbg_kms() to help getting
-rid of the boilerplate around prefixing the debug messages with the
-connector information.
+In preparation for changing the signature of drmm_connector_hdmi_init(),
+i.e. dropping the vendor, product, supported_formats and max_bpc
+arguments, which are being moved into struct drm_connector_hdmi_funcs,
+temporarily rename the helper to drmm_connector_hdmi_ini2().
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
-Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+This lets the new signature be introduced under the original name while
+callers are converted incrementally.  The final patch removes *_ini2()
+once no callers remain.
+
+This is a mechanical, same-length rename performed with sed:
+
+  $ git grep -l 'drmm_connector_hdmi_init' -- '*.[ch]' \
+    | xargs sed -i 's/drmm_connector_hdmi_init/drmm_connector_hdmi_ini2/g'
+
+The transitional name matches the original's length so continuation-line
+arguments stay aligned to the opening parenthesis, keeping the diff to
+the identifier itself and avoiding re-alignment churn here and in the
+later conversions.
+
+No functional change intended.
+
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_scdc_helper.c | 24 +++++++++---------------
- 1 file changed, 9 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/display/drm_bridge_connector.c     |  2 +-
+ drivers/gpu/drm/drm_connector.c                    |  6 ++--
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             |  2 +-
+ drivers/gpu/drm/tests/drm_connector_test.c         | 42 +++++++++++-----------
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c |  2 +-
+ drivers/gpu/drm/vc4/vc4_hdmi.c                     |  2 +-
+ include/drm/drm_connector.h                        |  2 +-
+ 7 files changed, 29 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
-index df878aad4a36..cb6632346aad 100644
---- a/drivers/gpu/drm/display/drm_scdc_helper.c
-+++ b/drivers/gpu/drm/display/drm_scdc_helper.c
-@@ -55,6 +55,10 @@
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 8b54069fa53a..f75ce47a6350 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -1010,7 +1010,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 			bridge_connector->hdmi_funcs.spd =
+ 				drm_bridge_connector_hdmi_spd_infoframe;
  
- #define SCDC_I2C_SLAVE_ADDRESS 0x54
+-		ret = drmm_connector_hdmi_init(drm, connector,
++		ret = drmm_connector_hdmi_ini2(drm, connector,
+ 					       bridge_connector->bridge_hdmi->vendor,
+ 					       bridge_connector->bridge_hdmi->product,
+ 					       &drm_bridge_connector_funcs,
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 8b4baed060f3..a112a522807e 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -543,7 +543,7 @@ int drmm_connector_init(struct drm_device *dev,
+ EXPORT_SYMBOL(drmm_connector_init);
  
-+#define drm_scdc_dbg(connector, fmt, ...)					\
-+	drm_dbg_kms((connector)->dev, "[CONNECTOR:%d:%s] " fmt,			\
-+		    (connector)->base.id, (connector)->name, ##__VA_ARGS__)
-+
  /**
-  * drm_scdc_read - read a block of data from SCDC
-  * @adapter: I2C controller
-@@ -158,9 +162,7 @@ bool drm_scdc_get_scrambling_status(struct drm_connector *connector)
+- * drmm_connector_hdmi_init - Init a preallocated HDMI connector
++ * drmm_connector_hdmi_ini2 - Init a preallocated HDMI connector
+  * @dev: DRM device
+  * @connector: A pointer to the HDMI connector to init
+  * @vendor: HDMI Controller Vendor name
+@@ -568,7 +568,7 @@ EXPORT_SYMBOL(drmm_connector_init);
+  * Returns:
+  * Zero on success, error code on failure.
+  */
+-int drmm_connector_hdmi_init(struct drm_device *dev,
++int drmm_connector_hdmi_ini2(struct drm_device *dev,
+ 			     struct drm_connector *connector,
+ 			     const char *vendor, const char *product,
+ 			     const struct drm_connector_funcs *funcs,
+@@ -644,7 +644,7 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
  
- 	ret = drm_scdc_readb(connector->ddc, SCDC_SCRAMBLER_STATUS, &status);
- 	if (ret < 0) {
--		drm_dbg_kms(connector->dev,
--			    "[CONNECTOR:%d:%s] Failed to read scrambling status: %d\n",
--			    connector->base.id, connector->name, ret);
-+		drm_scdc_dbg(connector, "Failed to read scrambling status: %d\n", ret);
- 		return false;
- 	}
+ 	return 0;
+ }
+-EXPORT_SYMBOL(drmm_connector_hdmi_init);
++EXPORT_SYMBOL(drmm_connector_hdmi_ini2);
  
-@@ -188,9 +190,7 @@ bool drm_scdc_set_scrambling(struct drm_connector *connector,
+ /**
+  * drm_connector_attach_edid_property - attach edid property.
+diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+index e99f52ebb26f..96b2b597caa6 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
++++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+@@ -653,7 +653,7 @@ static int sun4i_hdmi_bind(struct device *dev, struct device *master,
  
- 	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
- 	if (ret < 0) {
--		drm_dbg_kms(connector->dev,
--			    "[CONNECTOR:%d:%s] Failed to read TMDS config: %d\n",
--			    connector->base.id, connector->name, ret);
-+		drm_scdc_dbg(connector, "Failed to read TMDS config: %d\n", ret);
- 		return false;
- 	}
+ 	drm_connector_helper_add(&hdmi->connector,
+ 				 &sun4i_hdmi_connector_helper_funcs);
+-	ret = drmm_connector_hdmi_init(drm, &hdmi->connector,
++	ret = drmm_connector_hdmi_ini2(drm, &hdmi->connector,
+ 				       /*
+ 					* NOTE: Those are likely to be
+ 					* wrong, but I couldn't find the
+diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
+index beb1d50a6646..3368aedd4e66 100644
+--- a/drivers/gpu/drm/tests/drm_connector_test.c
++++ b/drivers/gpu/drm/tests/drm_connector_test.c
+@@ -669,7 +669,7 @@ static void drm_test_connector_hdmi_init_valid(struct kunit *test)
+ 	struct drm_connector_init_priv *priv = test->priv;
+ 	int ret;
  
-@@ -201,9 +201,7 @@ bool drm_scdc_set_scrambling(struct drm_connector *connector,
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       "Vendor", "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -689,7 +689,7 @@ static void drm_test_connector_hdmi_init_null_ddc(struct kunit *test)
+ 	struct drm_connector_init_priv *priv = test->priv;
+ 	int ret;
  
- 	ret = drm_scdc_writeb(connector->ddc, SCDC_TMDS_CONFIG, config);
- 	if (ret < 0) {
--		drm_dbg_kms(connector->dev,
--			    "[CONNECTOR:%d:%s] Failed to enable scrambling: %d\n",
--			    connector->base.id, connector->name, ret);
-+		drm_scdc_dbg(connector, "Failed to enable scrambling: %d\n", ret);
- 		return false;
- 	}
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       "Vendor", "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -709,7 +709,7 @@ static void drm_test_connector_hdmi_init_null_vendor(struct kunit *test)
+ 	struct drm_connector_init_priv *priv = test->priv;
+ 	int ret;
  
-@@ -248,9 +246,7 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector,
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       NULL, "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -729,7 +729,7 @@ static void drm_test_connector_hdmi_init_null_product(struct kunit *test)
+ 	struct drm_connector_init_priv *priv = test->priv;
+ 	int ret;
  
- 	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
- 	if (ret < 0) {
--		drm_dbg_kms(connector->dev,
--			    "[CONNECTOR:%d:%s] Failed to read TMDS config: %d\n",
--			    connector->base.id, connector->name, ret);
-+		drm_scdc_dbg(connector, "Failed to read TMDS config: %d\n", ret);
- 		return false;
- 	}
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       "Vendor", NULL,
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -755,7 +755,7 @@ static void drm_test_connector_hdmi_init_product_valid(struct kunit *test)
  
-@@ -261,9 +257,7 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector,
+ 	KUNIT_ASSERT_LT(test, strlen(product_name), DRM_CONNECTOR_HDMI_PRODUCT_LEN);
  
- 	ret = drm_scdc_writeb(connector->ddc, SCDC_TMDS_CONFIG, config);
- 	if (ret < 0) {
--		drm_dbg_kms(connector->dev,
--			    "[CONNECTOR:%d:%s] Failed to set TMDS clock ratio: %d\n",
--			    connector->base.id, connector->name, ret);
-+		drm_scdc_dbg(connector, "Failed to set TMDS clock ratio: %d\n", ret);
- 		return false;
- 	}
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       "Vendor", product_name,
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -788,7 +788,7 @@ static void drm_test_connector_hdmi_init_product_length_exact(struct kunit *test
  
+ 	KUNIT_ASSERT_EQ(test, strlen(product_name), DRM_CONNECTOR_HDMI_PRODUCT_LEN);
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       "Vendor", product_name,
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -815,7 +815,7 @@ static void drm_test_connector_hdmi_init_product_length_too_long(struct kunit *t
+ 
+ 	KUNIT_ASSERT_GT(test, strlen(product_name), DRM_CONNECTOR_HDMI_PRODUCT_LEN);
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       "Vendor", product_name,
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -841,7 +841,7 @@ static void drm_test_connector_hdmi_init_vendor_valid(struct kunit *test)
+ 
+ 	KUNIT_ASSERT_LT(test, strlen(vendor_name), DRM_CONNECTOR_HDMI_VENDOR_LEN);
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       vendor_name, "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -873,7 +873,7 @@ static void drm_test_connector_hdmi_init_vendor_length_exact(struct kunit *test)
+ 
+ 	KUNIT_ASSERT_EQ(test, strlen(vendor_name), DRM_CONNECTOR_HDMI_VENDOR_LEN);
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       vendor_name, "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -900,7 +900,7 @@ static void drm_test_connector_hdmi_init_vendor_length_too_long(struct kunit *te
+ 
+ 	KUNIT_ASSERT_GT(test, strlen(vendor_name), DRM_CONNECTOR_HDMI_VENDOR_LEN);
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       vendor_name, "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -920,7 +920,7 @@ static void drm_test_connector_hdmi_init_bpc_invalid(struct kunit *test)
+ 	struct drm_connector_init_priv *priv = test->priv;
+ 	int ret;
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       "Vendor", "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -940,7 +940,7 @@ static void drm_test_connector_hdmi_init_bpc_null(struct kunit *test)
+ 	struct drm_connector_init_priv *priv = test->priv;
+ 	int ret;
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       "Vendor", "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -965,7 +965,7 @@ static void drm_test_connector_hdmi_init_bpc_8(struct kunit *test)
+ 	uint64_t val;
+ 	int ret;
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, connector,
+ 				       "Vendor", "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -1006,7 +1006,7 @@ static void drm_test_connector_hdmi_init_bpc_10(struct kunit *test)
+ 	uint64_t val;
+ 	int ret;
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, connector,
+ 				       "Vendor", "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -1047,7 +1047,7 @@ static void drm_test_connector_hdmi_init_bpc_12(struct kunit *test)
+ 	uint64_t val;
+ 	int ret;
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, connector,
+ 				       "Vendor", "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -1083,7 +1083,7 @@ static void drm_test_connector_hdmi_init_formats_empty(struct kunit *test)
+ 	struct drm_connector_init_priv *priv = test->priv;
+ 	int ret;
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       "Vendor", "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -1103,7 +1103,7 @@ static void drm_test_connector_hdmi_init_formats_no_rgb(struct kunit *test)
+ 	struct drm_connector_init_priv *priv = test->priv;
+ 	int ret;
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       "Vendor", "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -1161,7 +1161,7 @@ static void drm_test_connector_hdmi_init_formats_yuv420_allowed(struct kunit *te
+ 	params = test->param_value;
+ 	priv->connector.ycbcr_420_allowed = params->yuv420_allowed;
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       "Vendor", "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -1182,7 +1182,7 @@ static void drm_test_connector_hdmi_init_type_valid(struct kunit *test)
+ 	unsigned int connector_type = *(unsigned int *)test->param_value;
+ 	int ret;
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       "Vendor", "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -1217,7 +1217,7 @@ static void drm_test_connector_hdmi_init_type_invalid(struct kunit *test)
+ 	unsigned int connector_type = *(unsigned int *)test->param_value;
+ 	int ret;
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, &priv->connector,
+ 				       "Vendor", "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+@@ -1494,7 +1494,7 @@ static void drm_test_drm_connector_attach_broadcast_rgb_property_hdmi_connector(
+ 	struct drm_property *prop;
+ 	int ret;
+ 
+-	ret = drmm_connector_hdmi_init(&priv->drm, connector,
++	ret = drmm_connector_hdmi_ini2(&priv->drm, connector,
+ 				       "Vendor", "Product",
+ 				       &dummy_funcs,
+ 				       &dummy_hdmi_funcs,
+diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+index 353a261d42da..4c2a400bc15a 100644
+--- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
++++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+@@ -275,7 +275,7 @@ __connector_hdmi_init(struct kunit *test,
+ 	conn = &priv->connector;
+ 	conn->ycbcr_420_allowed = !!(formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420));
+ 
+-	ret = drmm_connector_hdmi_init(drm, conn,
++	ret = drmm_connector_hdmi_ini2(drm, conn,
+ 				       "Vendor", "Product",
+ 				       &dummy_connector_funcs,
+ 				       hdmi_funcs,
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index 17c8635c5afa..72ff95ca97de 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -541,7 +541,7 @@ static int vc4_hdmi_connector_init(struct drm_device *dev,
+ 	if (vc4_hdmi->variant->supports_hdr)
+ 		max_bpc = 12;
+ 
+-	ret = drmm_connector_hdmi_init(dev, connector,
++	ret = drmm_connector_hdmi_ini2(dev, connector,
+ 				       "Broadcom", "Videocore",
+ 				       &vc4_hdmi_connector_funcs,
+ 				       &vc4_hdmi_hdmi_connector_funcs,
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index a0cf0268de48..2e7d75cb0adf 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -2549,7 +2549,7 @@ int drmm_connector_init(struct drm_device *dev,
+ 			const struct drm_connector_funcs *funcs,
+ 			int connector_type,
+ 			struct i2c_adapter *ddc);
+-int drmm_connector_hdmi_init(struct drm_device *dev,
++int drmm_connector_hdmi_ini2(struct drm_device *dev,
+ 			     struct drm_connector *connector,
+ 			     const char *vendor, const char *product,
+ 			     const struct drm_connector_funcs *funcs,
 
 -- 
 2.55.0
