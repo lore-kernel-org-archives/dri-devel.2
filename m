@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 788B3C44532
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 00:54:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DEBAC44532
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:02:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C60F310EF06;
-	Thu, 23 Jul 2026 00:54:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15FA510EF00;
+	Thu, 23 Jul 2026 01:02:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JDCJZCnQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DiRe+T/1";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F30C10EF1B
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 00:54:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E54B10EF00
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:02:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A0C97600E1;
- Thu, 23 Jul 2026 00:54:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E0F01F000E9;
- Thu, 23 Jul 2026 00:54:52 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2D34F600AB;
+ Thu, 23 Jul 2026 01:02:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC4001F000E9;
+ Thu, 23 Jul 2026 01:02:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784768092;
- bh=7a+5ud8CPt2otmTC1QtMOUqRvGL5uYkledr9yBCS3V4=;
+ s=k20260515; t=1784768541;
+ bh=u/WLOPFig/fPJyWNW6TOxJ4qaGMt+FARVJO34trrPn0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JDCJZCnQaEEm3j4Tmdr9jYQ4v+9cdOPIEDjjM3YqFujEjiVXAXDHpz0B7up7EnVUu
- 9NYMlg/AICW+y9CKJeLflIuxMoeR12idqtfV+MvLGrUQ8KaR9y8dlpgZjLstE41x6H
- 0erYWvXOhU5OpgH+W7w+0g49K9Zq0hv8kXthxTnRmjQCTLc+qSqUGHmjeUKst475Pp
- 4C+JoQRRx7vypqCixxj1SvfbVJ9fS1Zxe9qG9DP3ub7NkG0lT4IAyAZymmNusGfS5h
- q9P5l7FOGfudi9VckFYHM1c2DypS6HZ2j5+3FVMVc7BMJjum3oKHyIsp+1d/cz+hdQ
- Jx8QMx+M4Uw0g==
+ b=DiRe+T/1z+kUxB9Mz/6d+W5hSl8WvEw+TmM9nmq6yLI6FALURv7ATPumFxwiuv61b
+ i+tt8ZWglXpUXSU6sfBnkwIgHLNVLWYKp8mdyZaHdpFdjA2yY5v42xaMPf3zbtSulO
+ Ojms0sZQW9zvcpbVVNC2xwWbpUdiDW/guFdwHrBnJIOEeBARXBmo+aYbvtM3igIEhX
+ 5XVJHAcYQPqXq1vW3X/qupQO2h8Kw8P3E0vv7NiNPFOQtRtX1Tsq85c+uqBLnzL4et
+ bhbft2sKznUREeXNY/SfbGiN1TjsFT18oFIdD0fTvsRWeQ9T3ObqYG3JBMp4BcJerh
+ NU/NyZCtjwcGg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/8] drm/amd/display: use drmm allocation for
- writeback connector
+Subject: Re: [PATCH v8 4/8] drm/komeda: use drmm_writeback_connector_init()
 To: "John Harrison" <John.Harrison@Igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723003205.330362-3-John.Harrison@Igalia.com>
+In-Reply-To: <20260723003205.330362-5-John.Harrison@Igalia.com>
 References: <20260723003205.330362-1-John.Harrison@Igalia.com>
- <20260723003205.330362-3-John.Harrison@Igalia.com>
+ <20260723003205.330362-5-John.Harrison@Igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 00:54:51 +0000
-Message-Id: <20260723005452.2E0F01F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 01:02:21 +0000
+Message-Id: <20260723010221.AC4001F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,96 +59,99 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Double-free and Use-After-Free of `aencoder` and `aconnector` obje=
-cts in the error path of `amdgpu_dm_initialize_drm_device`.
+- [High] Manual call to `drm_mode_config_cleanup()` during driver teardown =
+causes NULL pointer dereferences on drmm-managed encoder and connector.
 --
 
---- Patch [2]: [PATCH v8 2/8] drm/amd/display: use drmm allocation for writ=
-eback connector ---
-commit eb7f6e488f88ce78a34b3146c10bca2e0792ad3e
+--- Patch [4]: [PATCH v8 4/8] drm/komeda: use drmm_writeback_connector_init=
+() ---
+commit 252267d60505e182c9ac4aa8fed48741764eeb23
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/amd/display: use drmm allocation for writeback connector
+    drm/komeda: use drmm_writeback_connector_init()
+   =20
+    The driver uses drm_writeback_connector_init() instead of its drmm
+    counterpart, but it doesn't perform the job queue cleanup (neither
+    manually nor by calling drm_writeback_connector_cleanup()). On the
+    contrary, the drmm_writeback_connector_init() function ensures the
+    proper cleanup of the job queue.
+   =20
+    Use drmm_plain_encoder_alloc() to allocate simple encoder and
+    drmm_writeback_connector_init() in order to initialize writeback
+    connector instance.
 
-Currently memory used for writeback connectors isn't freed on driver
-unbinding, leaking the memory. Use drm_device-memory allocation
-function for the writeback connector, making sure that the memory is
-freed on the driver unbinding.
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index f8d8132ea50ed..289da9d00b056 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-
-[ ... ]
-
-> @@ -2621,7 +2622,7 @@ static int amdgpu_dm_initialize_drm_device(struct a=
-mdgpu_device *adev)
->  		link =3D dc_get_link_at_index(dm->dc, i);
-> =20
->  		if (link->connector_signal =3D=3D SIGNAL_TYPE_VIRTUAL) {
-> -			struct amdgpu_dm_wb_connector *wbcon =3D kzalloc_obj(*wbcon);
-> +			struct amdgpu_dm_wb_connector *wbcon =3D drmm_kzalloc_obj(adev_to_drm=
-(adev), *wbcon);
-> =20
->  			if (!wbcon) {
->  				drm_err(adev_to_drm(adev), "KMS: Failed to allocate writeback connec=
-tor\n");
-> @@ -2630,7 +2631,6 @@ static int amdgpu_dm_initialize_drm_device(struct a=
-mdgpu_device *adev)
-> =20
->  			if (amdgpu_dm_wb_connector_init(dm, wbcon, i)) {
->  				drm_err(adev_to_drm(adev), "KMS: Failed to initialize writeback conn=
-ector\n");
-> -				kfree(wbcon);
->  				continue;
->  			}
+> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c b/d=
+rivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> index 41cc3e080dc9c..65f072cfe42f9 100644
+> --- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
 
 [ ... ]
 
+> @@ -121,17 +122,10 @@ komeda_wb_connector_fill_modes(struct drm_connector=
+ *connector,
 >  	return 0;
->  fail:
->  	kfree(aencoder);
->  	kfree(aconnector);
+>  }
+> =20
+> -static void komeda_wb_connector_destroy(struct drm_connector *connector)
+> -{
+> -	drm_connector_cleanup(connector);
+> -	kfree(to_kconn(to_wb_conn(connector)));
+> -}
+> -
+>  static const struct drm_connector_funcs komeda_wb_connector_funcs =3D {
+>  	.reset			=3D drm_atomic_helper_connector_reset,
+>  	.detect			=3D komeda_wb_connector_detect,
+>  	.fill_modes		=3D komeda_wb_connector_fill_modes,
+> -	.destroy		=3D komeda_wb_connector_destroy,
+>  	.atomic_duplicate_state	=3D drm_atomic_helper_connector_duplicate_state,
+>  	.atomic_destroy_state	=3D drm_atomic_helper_connector_destroy_state,
+>  };
+
+[ ... ]
+
+> @@ -161,20 +157,29 @@ static int komeda_wb_connector_add(struct komeda_km=
+s_dev *kms,
+>  					       kwb_conn->wb_layer->layer_type,
+>  					       &n_formats);
+>  	if (!formats) {
+> -		kfree(kwb_conn);
+> +		drmm_kfree(&kms->base, kwb_conn);
+>  		return -ENOMEM;
+>  	}
+> =20
+> -	err =3D drm_writeback_connector_init(&kms->base, wb_conn,
+> -					   &komeda_wb_connector_funcs,
+> -					   &komeda_wb_encoder_helper_funcs,
+> -					   formats, n_formats,
+> -					   BIT(drm_crtc_index(&kcrtc->base)));
+> +	encoder =3D drmm_plain_encoder_alloc(&kms->base, NULL,
+> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but could this error path lead t=
-o a
-use-after-free and double-free?
+Will this crash during driver teardown or initialization failure?
 
-If amdgpu_dm_encoder_init() succeeds, it registers aencoder into the
-device's encoder list. If a failure occurs later (for example, in
-amdgpu_dm_connector_init() or when registering IRQ handlers), the code jumps
-to the fail label and unconditionally calls kfree(aencoder) without
-unregistering it.
+The komeda driver still explicitly calls drm_mode_config_cleanup() during i=
+ts
+teardown in komeda_kms_detach() and in the error path of komeda_kms_attach(=
+):
 
-Additionally, if an allocation fails in a subsequent loop iteration:
+komeda_kms_attach() {
+    ...
+cleanup_mode_config:
+	drm_mode_config_cleanup(drm);
+    ...
+}
 
-		aconnector =3D kzalloc_obj(*aconnector);
-		if (!aconnector)
-			goto fail;
+Because drm_mode_config_cleanup() unconditionally invokes the .destroy hook
+for all encoders and connectors, and drmm_plain_encoder_alloc() is called
+here with a NULL funcs pointer, will the cleanup attempt to dereference a
+NULL funcs pointer (encoder->funcs->destroy)?=20
 
-The aencoder pointer still holds the successfully registered object from
-the previous iteration, which is then erroneously freed again.
-
-When the device initialization fails, the DRM subsystem tears down the devi=
-ce
-via drm_mode_config_cleanup(), which iterates over the encoder and connector
-lists and calls their destroy callbacks. These callbacks will dereference t=
-he
-previously freed memory (use-after-free) and call kfree() on it again
-(double-free).
-
-Would it be safer to update this error path to clean up properly, or perhaps
-use drmm_ managed allocations for these objects as well?
-
->
->  	return -EINVAL;
->  }
+Similarly, the .destroy hook has been removed from komeda_wb_connector_funcs
+above, so will drm_mode_config_cleanup() also crash when attempting to call
+connector->funcs->destroy()?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723003205.3303=
-62-1-John.Harrison@Igalia.com?part=3D2
+62-1-John.Harrison@Igalia.com?part=3D4
